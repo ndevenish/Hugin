@@ -36,15 +36,19 @@
  #include <unistd.h>
 #endif
 
-
 #include <hugin_basic.h>
 #include <hugin_utils/stl_utils.h>
 #include <appbase/ProgressDisplayOld.h>
 #include <algorithms/optimizer/PTOptimizer.h>
 #include <algorithms/nona/CenterHorizontally.h>
 #include <algorithms/basic/StraightenPanorama.h>
+#include <algorithms/basic/CalculateMeanExposure.h>
 #include <algorithms/nona/FitPanorama.h>
 #include <algorithms/basic/CalculateOptimalScale.h>
+#include <algorithms/optimizer/PhotometricOptimizer.h>
+#include <panodata/ImageVariableGroup.h>
+#include <panodata/StandardImageVariableGroups.h>
+#include "ExtractPoints.h"
 
 using namespace std;
 using namespace hugin_utils;
@@ -67,6 +71,7 @@ static void usage(const char * name)
          << "               on the amount and distribution of the control points" << endl
          << "     -p       pairwise optimisation of yaw, pitch and roll, starting from" << endl
          << "              first image" << endl
+         << "     -m       Optimise photometric parameters" << endl
          << "     -n       Optimize parameters specified in script file (like PTOptimizer)" << endl
          << endl
          << "    Postprocessing options:" << endl
@@ -86,7 +91,7 @@ static void usage(const char * name)
 int main(int argc, char *argv[])
 {
     // parse arguments
-    const char * optstring = "alho:npqsv:";
+    const char * optstring = "alho:npqsv:m";
     int c;
     string output;
     bool doPairwise = false;
@@ -95,6 +100,7 @@ int main(int argc, char *argv[])
     bool doLevel = false;
     bool chooseProj = false;
     bool quiet = false;
+    bool doPhotometric = false;
     double hfov = 0.0;
     while ((c = getopt (argc, argv, optstring)) != -1)
     {
@@ -125,6 +131,9 @@ int main(int argc, char *argv[])
             break;
         case 'v':
             hfov = atof(optarg);
+            break;
+        case 'm':
+            doPhotometric = true;
             break;
         default:
             abort ();
@@ -189,6 +198,11 @@ int main(int argc, char *argv[])
         }
     }
 
+    if(pano.getNrOfCtrlPoints()==0 && (doPairwise || doAutoOpt || doNormalOpt))
+    {
+        cerr << "Panorama have to have control points to optimise positions" << endl;
+        return 1;
+    };
     if (doPairwise && ! doAutoOpt) {
         // do pairwise optimisation
         set<string> optvars;
@@ -245,6 +259,88 @@ int main(int argc, char *argv[])
         pano.setOptions(opts);
     }
 
+    if(doPhotometric)
+    {
+        // photometric estimation
+        PanoramaOptions opts = pano.getOptions();
+        int nPoints = 200;
+        int pyrLevel=3;
+        bool randomPoints = true;
+        nPoints = nPoints * pano.getNrOfImages();
+ 
+        std::vector<vigra_ext::PointPairRGB> points;
+        ProgressDisplay *progressDisplay;
+        if(!quiet)
+            progressDisplay=new StreamProgressDisplay(std::cout);
+        else
+            progressDisplay=new DummyProgressDisplay();
+        try 
+        {
+            loadImgsAndExtractPoints(pano, nPoints, pyrLevel, randomPoints, *progressDisplay, points, !quiet);
+        } 
+        catch (std::exception & e)
+        {
+            cerr << "caught exception: " << e.what() << endl;
+            return 1;
+        };
+        if(!quiet)
+            cout << "\rSelected " << points.size() << " points" << endl;
+
+        if (points.size() == 0)
+        {
+            cerr << "Error: no overlapping points found, exiting" << endl;
+            return 1;
+        }
+
+        progressDisplay->startSubtask("Photometric Optimization", 0.0);
+        // first, ensure that vignetting and response coefficients are linked
+        const HuginBase::ImageVariableGroup::ImageVariableEnum vars[] = {
+                HuginBase::ImageVariableGroup::IVE_EMoRParams,
+                HuginBase::ImageVariableGroup::IVE_ResponseType,
+                HuginBase::ImageVariableGroup::IVE_VigCorrMode,
+                HuginBase::ImageVariableGroup::IVE_RadialVigCorrCoeff,
+                HuginBase::ImageVariableGroup::IVE_RadialVigCorrCenterShift
+        };
+        HuginBase::StandardImageVariableGroups variable_groups(pano);
+        HuginBase::ImageVariableGroup & lenses = variable_groups.getLenses();
+        for (size_t i = 0; i < lenses.getNumberOfParts(); i++)
+        {
+            std::set<HuginBase::ImageVariableGroup::ImageVariableEnum> links_needed;
+            links_needed.clear();
+            for (int v = 0; v < 5; v++)
+            {
+                if (!lenses.getVarLinkedInPart(vars[v], i))
+                {
+                    links_needed.insert(vars[v]);
+                }
+            };
+            if (!links_needed.empty())
+            {
+                std::set<HuginBase::ImageVariableGroup::ImageVariableEnum>::iterator it;
+                for (it = links_needed.begin(); it != links_needed.end(); it++)
+                {
+                    lenses.linkVariablePart(*it, i);
+                }
+            }
+        }
+
+        HuginBase::SmartPhotometricOptimizer::PhotometricOptimizeMode optmode = 
+            HuginBase::SmartPhotometricOptimizer::OPT_PHOTOMETRIC_LDR;
+        if (opts.outputMode == PanoramaOptions::OUTPUT_HDR)
+        {
+            optmode = HuginBase::SmartPhotometricOptimizer::OPT_PHOTOMETRIC_HDR;
+        }
+        SmartPhotometricOptimizer photoOpt(pano, progressDisplay, pano.getOptimizeVector(), points, optmode);
+        photoOpt.run();
+
+        // calculate the mean exposure.
+        opts.outputExposureValue = CalculateMeanExposure::calcMeanExposure(pano);
+        pano.setOptions(opts);
+        progressDisplay->finishSubtask();
+        delete progressDisplay;
+    };
+
+    // write result
     OptimizeVector optvec = pano.getOptimizeVector();
     UIntSet imgs;
     fill_set(imgs,0, pano.getNrOfImages()-1);

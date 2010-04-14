@@ -145,8 +145,9 @@ namespace HuginBase
             ///
             SmartPhotometricOptimizer(PanoramaData& panorama, AppBase::ProgressDisplay* progressDisplay,
                                        const OptimizeVector& vars,
-                                       const PointPairs& correspondences)
-                : PhotometricOptimizer(panorama, progressDisplay, vars, correspondences)
+                                       const PointPairs& correspondences,
+                                       PhotometricOptimizeMode optMode)
+                : PhotometricOptimizer(panorama, progressDisplay, vars, correspondences), o_optMode(optMode)
             {};
             
             ///

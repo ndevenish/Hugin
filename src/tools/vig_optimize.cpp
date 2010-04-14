@@ -29,16 +29,8 @@
 #include <fstream>
 #include <sstream>
 
-#include <vigra/error.hxx>
-#include <vigra/impex.hxx>
-
-#include <vigra_ext/ransac.h>
-#include <vigra_ext/VigQuotientEstimator.h>
-#include <vigra_ext/Pyramid.h>
-#include <vigra_ext/Interpolators.h>
-#include <algorithms/point_sampler/PointSampler.h>
 #include <algorithms/optimizer/PhotometricOptimizer.h>
-
+#include "ExtractPoints.h"
 
 #ifdef WIN32
  #include <getopt.h>
@@ -69,7 +61,8 @@ static void usage(const char * name)
          << "  -o file   write results to output project" << std::endl
          << "  -v        Verbose, print progress messages" << std::endl
          << "  -p n      Number of points to extract" << std::endl
-         << "  -r        Extract random point (faster, but less accurate)" << std::endl
+       // random points is default, all points was only implemented for testing purposes
+       // << "  -r        Extract random point (faster, but less accurate)" << std::endl
          << "  -s level  Work on downscaled images, every step halfs width and height" << std::endl
          << "  -h        Display help (this text)" << std::endl
          << std::endl
@@ -142,19 +135,6 @@ void loadPoints(istream & i, std::vector<PointPairRGB> & vec )
     }
 }
 
-
-template<class ImageType>
-std::vector<ImageType *> loadImagesPyr(std::vector<std::string> files, int pyrLevel, int verbose=0);
-
-void loadImgsAndExtractPoints(Panorama pano,
-                              int nPoints, 
-                              int pyrLevel, 
-                              bool randomPoints, 
-                              AppBase::ProgressDisplay& progress, 
-                              std::vector<vigra_ext::PointPairRGB>& points);
-
-
-
 bool hasphotometricParams(Panorama &pano) 
 {
     OptimizeVector vars=pano.getOptimizeVector();
@@ -179,15 +159,15 @@ int main(int argc, char *argv[])
     StreamProgressDisplay progressDisplay(std::cout);
     
     // parse arguments
-    const char * optstring = "hi:o:p:rs:vw:";
+    const char * optstring = "hi:o:p:s:vw:";
     int c;
 
     opterr = 0;
 
     int pyrLevel=3;
     int verbose = 0;
-    int nPoints = 5000;
-    bool randomPoints = false;
+    int nPoints = 200;
+    bool randomPoints = true;
     std::string outputFile;
     std::string outputPointsFile;
     std::string inputPointsFile;
@@ -203,9 +183,9 @@ int main(int argc, char *argv[])
         case 'p':
             nPoints = atoi(optarg);
             break;
-        case 'r':
+        /*case 'r':
             randomPoints = true;
-            break;
+            break; */
         case 's':
             pyrLevel=atoi(optarg);
             break;
@@ -256,10 +236,6 @@ int main(int argc, char *argv[])
     // suppress tiff warnings
     TIFFSetWarningHandler(0);
 
-    
-    progressDisplay.startSubtask("Vignetting Optimization", 0.0);
-    
-    
     // todo: handle images with alpha masks
     try {
         std::vector<vigra_ext::PointPairRGB> points;
@@ -275,10 +251,10 @@ int main(int argc, char *argv[])
             loadPointsC(f, points);
             fclose(f);
         } else {
-            loadImgsAndExtractPoints(pano, nPoints, pyrLevel, randomPoints, progressDisplay, points);
+            loadImgsAndExtractPoints(pano, nPoints, pyrLevel, randomPoints, progressDisplay, points, verbose);
         }
         if (verbose)
-            cout << "Selected " << points.size() << " points" << std::endl;
+            cout << "\rSelected " << points.size() << " points" << std::endl;
         if (points.size() == 0) {
             std::cerr << "Error: no overlapping points found, exiting" << std::endl;
             return 1;
@@ -301,6 +277,7 @@ int main(int argc, char *argv[])
         }
 
         
+        progressDisplay.startSubtask("Vignetting Optimization", 0.0);
 		PhotometricOptimizer photoopt(pano, &progressDisplay, pano.getOptimizeVector(), points);
 		photoopt.run();
 		//		double error = photoopt.getResultError();
@@ -322,84 +299,4 @@ int main(int argc, char *argv[])
         return 1;
     }
     return 0;
-}
-
-
-
-
-
-template<class ImageType>
-std::vector<ImageType *> loadImagesPyr(std::vector<std::string> files, int pyrLevel, int verbose)
-{
-    typedef typename ImageType::value_type PixelType;
-    std::vector<ImageType *> srcImgs;
-    for (size_t i=0; i < files.size(); i++) {
-        ImageType * tImg = new ImageType();
-        ImageType * tImg2 = new ImageType();
-        vigra::ImageImportInfo info(files[i].c_str());
-        tImg->resize(info.size());
-        if (verbose)
-            std::cout << "loading: " << files[i] << std::endl;
-        
-        if (info.numExtraBands() == 1) {
-            // dummy mask
-            vigra::BImage mask(info.size());
-            vigra::importImageAlpha(info, vigra::destImage(*tImg), vigra::destImage(mask));
-        } else {
-            vigra::importImage(info, vigra::destImage(*tImg));
-        }
-        float div = 1;
-        if (strcmp(info.getPixelType(), "UINT8") == 0) {
-            div = 255;
-        } else if (strcmp(info.getPixelType(), "UINT16") == 0) {
-            div = (1<<16)-1;
-        }
-        
-        if (pyrLevel) {
-            ImageType * swap;
-            // create downscaled image
-            if (verbose > 0) {
-                std::cout << "downscaling: ";
-            }
-            for (int l=pyrLevel; l > 0; l--) {
-                if (verbose > 0) {
-                    std::cout << tImg->size().x << "x" << tImg->size().y << "  " << std::flush;
-                }
-                reduceToNextLevel(*tImg, *tImg2);
-                swap = tImg;
-                tImg = tImg2;
-                tImg2 = swap;
-            }
-            if (verbose > 0)
-                std::cout << std::endl;
-        }
-        if (div > 1) {
-            div = 1/div;
-            transformImage(vigra::srcImageRange(*tImg), vigra::destImage(*tImg),
-                           vigra::functor::Arg1()*vigra::functor::Param(div));
-        }
-        srcImgs.push_back(tImg);
-        delete tImg2;
-    }
-    return srcImgs;
-}
-
-
-// needs 2.0 progress steps
-void loadImgsAndExtractPoints(Panorama pano, int nPoints, int pyrLevel, bool randomPoints, AppBase::ProgressDisplay& progress, std::vector<vigra_ext::PointPairRGB> & points  )
-{
-    // extract file names
-    std::vector<std::string> files;
-    for (size_t i=0; i < pano.getNrOfImages(); i++)
-        files.push_back(pano.getImage(i).getFilename());
-    
-    std::vector<vigra::FRGBImage*> images;
-    
-    // try to load the images.
-    images = loadImagesPyr<vigra::FRGBImage>(files, pyrLevel, 1);
-    
-    if(randomPoints)
-        points = RandomPointSampler(pano, &progress, images, nPoints).execute().getResultPoints();
-    else
-        points = AllPointSampler(pano, &progress, images, nPoints).execute().getResultPoints();
 }

@@ -8,10 +8,10 @@ target_link_libraries(nona ${common_libs} ${image_libs} ${OPENGL_LIBRARIES} ${GL
 #add_executable(autocreate autocreate.cpp)
 #target_link_libraries(autocreate ${common_libs} ${image_libs})
 
-add_executable(autooptimiser autooptimiser.cpp)
+add_executable(autooptimiser autooptimiser.cpp ExtractPoints.h)
 target_link_libraries(autooptimiser ${common_libs} ${image_libs})
 
-add_executable(vig_optimize vig_optimize.cpp)
+add_executable(vig_optimize vig_optimize.cpp ExtractPoints.h)
 target_link_libraries(vig_optimize ${common_libs} ${image_libs})
 
 add_executable(align_image_stack align_image_stack.cpp)
