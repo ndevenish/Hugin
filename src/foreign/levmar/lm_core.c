@@ -242,7 +242,7 @@ const int nm=n*m;
     }
     //p_L2=sqrt(p_L2);
 
-#if 1
+#if 0
 if(!(k%10)){
   printf("Iter: %d, estimate: ", k);
   for(i=0; i<m; ++i)
@@ -606,7 +606,7 @@ const int nm=n*m;
             break;
         }
     }
-#if 1
+#if 0
 if(!(k%10)){
     printf("Iter: %d, estimate: ", k);
   for(i=0; i<m; ++i)

@@ -309,10 +309,12 @@ void PhotometricOptimizer::optimizePhotometric(PanoramaData & pano, const Optimi
     vigra::ArrayVector<double> x(n, 0.0);
 
     data.ToX(p.begin());
+#ifdef DEBUG
     printf("Parameters before optimisation: ");
     for(int i=0; i<m; ++i)
         printf("%.7g ", p[i]);
     printf("\n");
+#endif
 
     // covariance matrix at solution
     vigra::DImage cov(m,m);
@@ -339,6 +341,7 @@ void PhotometricOptimizer::optimizePhotometric(PanoramaData & pano, const Optimi
     }
     error = sqrt(error/n);
 
+#ifdef DEBUG
     printf("Levenberg-Marquardt returned %d in %g iter, reason %g\nSolution: ", ret, info[5], info[6]);
     for(int i=0; i<m; ++i)
         printf("%.7g ", p[i]);
@@ -346,6 +349,7 @@ void PhotometricOptimizer::optimizePhotometric(PanoramaData & pano, const Optimi
     for(int i=0; i<LM_INFO_SZ; ++i)
         printf("%g ", info[i]);
     printf("\n");
+#endif
 
     // copy settings to panorama
     for (unsigned i=0; i<pano.getNrOfImages(); i++) {

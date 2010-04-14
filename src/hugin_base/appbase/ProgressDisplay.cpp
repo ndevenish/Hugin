@@ -210,7 +210,11 @@ void StreamProgressDisplay::updateProgressDisplay()
 
     int strlen=0;
     ostringstream stream;
+#if defined _WINDOWS
+    stream << setfill('\b') << setw(81);
+#else
     stream << "\r";
+#endif
     for (std::vector<ProgressSubtask>::iterator it = o_subtasks.begin();
          it != o_subtasks.end(); ++it)
     {
@@ -225,7 +229,10 @@ void StreamProgressDisplay::updateProgressDisplay()
         std::vector<ProgressSubtask>::iterator next = it;
         ++next;
     }
-    if (o_subtasks[0].measuresProgress()) {
+    bool showProgress=false;
+    if(o_subtasks.size()>0)
+        showProgress=o_subtasks[0].measuresProgress();
+    if(showProgress){
         stream << ": " << setw(3) << hugin_utils::roundi( 100.0 * o_subtasks[0].progress / o_subtasks[0].maxProgress) << "%";
     } else {
         m_whizzCount = (++m_whizzCount) % (int)m_whizz.size();
