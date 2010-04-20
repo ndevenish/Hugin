@@ -129,6 +129,7 @@ protected:
     void OnIncreaseExposure( wxSpinEvent & e );
 
     void OnBlendChoice(wxCommandEvent & e);
+    void OnDragChoice(wxCommandEvent & e);
     void OnProjectionChoice(wxCommandEvent & e);
     /** event handler for changed roi */
     void OnROIChanged(wxCommandEvent & e);
@@ -168,6 +169,7 @@ private:
     wxTextCtrl * m_ROITopTxt;
     wxTextCtrl * m_ROIBottomTxt;
     wxChoice * m_BlendModeChoice;
+    wxChoice * m_DragModeChoice;
     wxChoice * m_ProjectionChoice;
     // No HDR display yet.
     // wxChoice * m_outputModeChoice;

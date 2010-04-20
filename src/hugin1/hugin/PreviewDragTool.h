@@ -54,16 +54,27 @@ public:
     void MouseMoveEvent(double x, double y, wxMouseEvent & e);
     void MouseButtonEvent(wxMouseEvent &e);
     void ReallyAfterDrawImagesEvent();
-    class AngleStore
+    class ParamStore
     {
     public:
-        double yaw, pitch, roll;
+        double yaw, pitch, roll, TrX, TrY;
         void Set(HuginBase::SrcPanoImage *img);
         void Move(Matrix3 *matrix,
-                  double &yaw_out,  double &pitch_out,  double &roll_out);
+                  double &yaw_out,  double &pitch_out,  double &roll_out, double &TrX_out, double &TrY_out);
     };
+
+	//dragging mode
+	enum DragMode {
+		drag_mode_normal,
+		drag_mode_mosaic
+	};
+    void setDragMode(DragMode drag_mode);
+    DragMode getDragMode();
+    
+    void getTranslationShift(double &delta_x, double &delta_y);
+    
 private:
-    std::map<unsigned int, AngleStore> image_angles;
+    std::map<unsigned int, ParamStore> image_params;
     std::set<unsigned int> draging_images;
     bool drag_yaw, drag_pitch, drag_roll;
     double start_angle, shift_angle;
@@ -74,6 +85,7 @@ private:
                            double roll_shift,
                            double yaw_start, double pitch_start,
                            double roll_start);
+    DragMode drag_mode;
 };
 
 #endif

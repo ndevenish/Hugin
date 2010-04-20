@@ -41,6 +41,28 @@ PreviewDragTool::PreviewDragTool(PreviewToolHelper *helper)
 {
 }
 
+void PreviewDragTool::setDragMode(PreviewDragTool::DragMode dmode)
+{
+	drag_mode = dmode;
+}
+
+PreviewDragTool::DragMode PreviewDragTool::getDragMode()
+{
+	return drag_mode;
+}
+
+//find Tr parameters shift based on polar coordinates
+void PreviewDragTool::getTranslationShift(double &delta_x, double &delta_y)
+{
+	double startx = atan(DEG_TO_RAD(start_coordinates.x));
+	double starty = atan(DEG_TO_RAD(start_coordinates.y));
+	double shiftx = atan(DEG_TO_RAD(shift_coordinates.x));
+	double shifty = atan(DEG_TO_RAD(shift_coordinates.y));
+	delta_x = shiftx - startx;
+	delta_y = shifty - starty;
+}
+
+
 void PreviewDragTool::Activate()
 {
     drag_yaw = false; drag_pitch = false; drag_roll = false;
@@ -88,19 +110,37 @@ void PreviewDragTool::MouseMoveEvent(double x, double y, wxMouseEvent & e)
         }
         // move the selected images on the tempory copies for display.
         // first calculate a matrix representing the transformation
-        SetRotationMatrix(shift_coordinates.x, shift_coordinates.y, shift_angle,
-                          start_coordinates.x,  start_coordinates.y,  0.0);
-        // now transform the images in the ViewState (not the panorama yet)
-        std::map<unsigned int, AngleStore>::iterator i;
-        for (i = image_angles.begin(); i != image_angles.end(); i++ )
-        {
-            HuginBase::SrcPanoImage img = *helper->GetViewStatePtr()->
-                                                          GetSrcImage(i->first);
-            double new_yaw, new_pitch, new_roll;
-            i->second.Move(&rotation_matrix, new_yaw, new_pitch, new_roll);
-            img.setYaw(new_yaw); img.setPitch(new_pitch); img.setRoll(new_roll);
-            helper->GetViewStatePtr()->SetSrcImage(i->first, &img);
-        }
+        if (drag_mode == drag_mode_mosaic) {
+        	//if in mosaic drag mode do not adjust yaw and pitch, just roll
+			SetRotationMatrix(0,0,shift_angle, 0,0,0);
+		} else {
+		    SetRotationMatrix(shift_coordinates.x, shift_coordinates.y, shift_angle,
+		                      start_coordinates.x,  start_coordinates.y,  0.0);
+		}     
+
+	    std::map<unsigned int, ParamStore>::iterator i;
+	    for (i = image_params.begin(); i != image_params.end(); i++ )
+	    {
+	        HuginBase::SrcPanoImage img = *helper->GetViewStatePtr()->
+	                                                      GetSrcImage(i->first);
+	        double new_yaw, new_pitch, new_roll, new_TrX, new_TrY;
+	
+        	if (drag_mode == drag_mode_mosaic) {
+        		//if in mosaic mode shift TrX and TrY parameters based on modified yaw and pitch
+	        	double shift_x, shift_y;
+				getTranslationShift(shift_x, shift_y);
+				i->second.TrX = img.getX() + shift_x;
+				i->second.TrY = img.getY() + shift_y;
+			}
+	        i->second.Move(&rotation_matrix, new_yaw, new_pitch, new_roll, new_TrX, new_TrY);
+        	img.setX(new_TrX);
+        	img.setY(new_TrY);
+	    	img.setYaw(new_yaw); 
+	    	img.setPitch(new_pitch); 
+        	img.setRoll(new_roll);
+	        helper->GetViewStatePtr()->SetSrcImage(i->first, &img);
+	    }
+                          
         // redraw
         helper->GetViewStatePtr()->Redraw();
     }
@@ -193,7 +233,7 @@ void PreviewDragTool::MouseButtonEvent(wxMouseEvent &e)
                 ViewState *view_state_ptr = helper->GetViewStatePtr();
                 for (unsigned int i = 0; i < imgs; i++)
                 {
-                    image_angles[i].Set(view_state_ptr->GetSrcImage(i));
+                    image_params[i].Set(view_state_ptr->GetSrcImage(i));
                 };
             } else
             {
@@ -217,7 +257,7 @@ void PreviewDragTool::MouseButtonEvent(wxMouseEvent &e)
                         end = draging_images.end();
                         for (i = draging_images.begin(); i != end; i++)
                         {
-                            image_angles[*i].Set(
+                            image_params[*i].Set(
                                     helper->GetViewStatePtr()->GetSrcImage(*i));
                         }
                         break;
@@ -237,17 +277,19 @@ void PreviewDragTool::MouseButtonEvent(wxMouseEvent &e)
         // Apply the rotations permanently.
         // find where the images end up.
         std::vector<HuginBase::SrcPanoImage> src_images(draging_images.size() + 1);
-        std::map<unsigned int, AngleStore>::iterator i;
+        std::map<unsigned int, ParamStore>::iterator i;
         unsigned int count = 0;
-        for (i = image_angles.begin(); i != image_angles.end(); i++)
+        for (i = image_params.begin(); i != image_params.end(); i++)
         {
-            double nyaw, npitch, nroll;
-            i->second.Move(&rotation_matrix, nyaw, npitch, nroll);
+            double nyaw, npitch, nroll, nx, ny;
+            i->second.Move(&rotation_matrix, nyaw, npitch, nroll, nx, ny);
             src_images[count] = helper->GetPanoramaPtr()->getSrcImage(i->first);
-            src_images[count].setYaw(nyaw);
-            src_images[count].setPitch(npitch);
-            src_images[count].setRoll(nroll);
-            count++;
+			src_images[count].setX(nx);
+			src_images[count].setY(ny);
+	        src_images[count].setYaw(nyaw);
+	        src_images[count].setPitch(npitch);
+	        src_images[count].setRoll(nroll);
+	        count++;
         }
         GlobalCmdHist::getInstance().addCommand(
             new PT::UpdateSrcImagesCmd(*helper->GetPanoramaPtr(),
@@ -255,7 +297,7 @@ void PreviewDragTool::MouseButtonEvent(wxMouseEvent &e)
                                             src_images)
             );
         // stop dragging
-        image_angles.clear();
+        image_params.clear();
         
         helper->SetStatusMessage(_("Drag to move images (optionally use shift to constrain), or roll with right-drag or ctrl-drag."));
     }
@@ -323,16 +365,18 @@ void PreviewDragTool::ReallyAfterDrawImagesEvent()
 }
 
 
-void PreviewDragTool::AngleStore::Set(HuginBase::SrcPanoImage *img)
+void PreviewDragTool::ParamStore::Set(HuginBase::SrcPanoImage *img)
 {
     yaw = img->getYaw();
     pitch = img->getPitch();
     roll = img->getRoll();
+    TrX = img->getX();
+    TrY = img->getY();
 }
 
-void PreviewDragTool::AngleStore::Move(Matrix3 *matrix,
+void PreviewDragTool::ParamStore::Move(Matrix3 *matrix,
                                        double &yaw_out, double &pitch_out,
-                                       double &roll_out)
+                                       double &roll_out, double &TrX_out, double &TrY_out)
 {
     Matrix3 start, output_matrix;
     // convert the location of this image to a matrix.
@@ -344,6 +388,13 @@ void PreviewDragTool::AngleStore::Move(Matrix3 *matrix,
     yaw_out = RAD_TO_DEG(yaw_out);
     pitch_out = RAD_TO_DEG(pitch_out);
     roll_out = RAD_TO_DEG(roll_out);
+    
+	//for non zero Tr parameters correspondence can be kept only for rolling, so adjust TrX and TrY parameters accordingly
+    Vector3 vec(0, TrY, TrX);
+    Vector3 res = matrix->TransformVector(vec);
+    TrX_out = res.z;
+    TrY_out = res.y;
+    
 }
 
 void PreviewDragTool::SetRotationMatrix(double yaw_shift, double pitch_shift,

@@ -115,6 +115,7 @@ BEGIN_EVENT_TABLE(GLPreviewFrame, wxFrame)
     EVT_SPIN_DOWN(XRCID("exposure_spin"), GLPreviewFrame::OnDecreaseExposure)
     EVT_SPIN_UP(XRCID("exposure_spin"), GLPreviewFrame::OnIncreaseExposure)
     EVT_CHOICE(XRCID("blend_mode_choice"), GLPreviewFrame::OnBlendChoice)
+    EVT_CHOICE(XRCID("drag_mode_choice"), GLPreviewFrame::OnDragChoice)
     EVT_CHOICE(XRCID("projection_choice"), GLPreviewFrame::OnProjectionChoice)
 #ifndef __WXMAC__
     // wxMac does not process these
@@ -356,6 +357,11 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     m_BlendModeChoice = XRCCTRL(*this,"blend_mode_choice",wxChoice);
     m_BlendModeChoice->Append(_("normal"));
     m_BlendModeChoice->SetSelection(0);
+
+	m_DragModeChoice = XRCCTRL(*this, "drag_mode_choice", wxChoice);
+	m_DragModeChoice->Append(_("normal"));
+	m_DragModeChoice->Append(_("mosaic"));
+	m_DragModeChoice->SetSelection(0);
 
     // TODO implement hdr display in OpenGL, if possible?
     // Disabled until someone can figure out HDR display in OpenGL.
@@ -1002,6 +1008,28 @@ void GLPreviewFrame::OnBlendChoice(wxCommandEvent & e)
     }
 }
 
+void GLPreviewFrame::OnDragChoice(wxCommandEvent & e)
+{
+    if (e.GetEventObject() == m_DragModeChoice)
+    {
+        if (drag_tool) {
+        
+		    int index = m_DragModeChoice->GetSelection();
+		    switch (index) {
+		    	case 0: //normal
+		    		drag_tool->setDragMode(PreviewDragTool::drag_mode_normal);
+		    	break; 
+		    	case 1: //mosaic
+		    		drag_tool->setDragMode(PreviewDragTool::drag_mode_mosaic);
+		    	break;
+		    }        
+        }
+    }
+    else
+    {
+        // FIXME DEBUG_WARN("wxChoice event from unknown object received");
+    }
+}
 
 void GLPreviewFrame::OnDefaultExposure( wxCommandEvent & e )
 {
