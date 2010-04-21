@@ -20,6 +20,7 @@
 # -------------------------------
 # 20091206.0 sg Script tested and used to build 2009.4.0-RC3
 # 20100111.0 sg Script enhanced to build dynamic library
+# 20100419.0 hvdw Changes to fix 64bit build
 # -------------------------------
 
 # init
@@ -85,16 +86,18 @@ do
 
  # take the extra time and do it right (x86_64 build reuses ppc64 settings.)
  [ -f config.cache ] && rm config.cache
+ [ -f config.h ] && rm config.h 
  env \
   CC=$CC CXX=$CXX \
-  CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O3 -dead_strip" \
-  CXXFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O3 -dead_strip" \
+  CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
+  CXXFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
   CPPFLAGS="-I$REPOSITORYDIR/include" \
   LDFLAGS="-L$REPOSITORYDIR/lib -arch $ARCH -mmacosx-version-min=$OSVERSION -dead_strip -prebind" \
   NEXT_ROOT="$MACSDKDIR" \
   ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
-  --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
+  --host="$TARGET" --target="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
   --enable-static --enable-shared;
+
 
  [ -f libtool.bak ] && rm libtool.bak
  mv libtool libtool.bak
