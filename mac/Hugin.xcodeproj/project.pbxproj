@@ -165,7 +165,7 @@
 			buildPhases = (
 			);
 			dependencies = (
-				73138A0D1183348700DCF373 /* PBXTargetDependency */,
+				73346818118366B300401093 /* PBXTargetDependency */,
 				73138A0F1183348700DCF373 /* PBXTargetDependency */,
 				73138A111183348700DCF373 /* PBXTargetDependency */,
 				73138A131183348700DCF373 /* PBXTargetDependency */,
@@ -888,15 +888,7 @@
 		57FD5826101B3E7C0065B9E9 /* CPDetectorConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57FD5825101B3E7B0065B9E9 /* CPDetectorConfig.cpp */; };
 		730B1AEA1139B2B30014462B /* MaskLoadDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 730B1AE91139B2B20014462B /* MaskLoadDialog.cpp */; };
 		730B1AEB1139B2B30014462B /* MaskLoadDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 730B1AE91139B2B20014462B /* MaskLoadDialog.cpp */; };
-		731388CB1182E91200DCF373 /* CircularKeyPointDescriptor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 731387D91182E89F00DCF373 /* CircularKeyPointDescriptor.cpp */; };
-		731388CC1182E91200DCF373 /* Homography.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 731387DC1182E89F00DCF373 /* Homography.cpp */; };
-		731388CD1182E91200DCF373 /* Image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 731387DE1182E89F00DCF373 /* Image.cpp */; };
-		731388CE1182E91200DCF373 /* KeyPointDetector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 731387E21182E89F00DCF373 /* KeyPointDetector.cpp */; };
-		731388CF1182E91200DCF373 /* KeyPointIO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 731387E41182E89F00DCF373 /* KeyPointIO.cpp */; };
-		731388D01182E91200DCF373 /* MathStuff.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 731387E61182E89F00DCF373 /* MathStuff.cpp */; };
-		731388D11182E91200DCF373 /* RansacFiltering.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 731387EA1182E89F00DCF373 /* RansacFiltering.cpp */; };
 		731388F11182EACB00DCF373 /* keypoints.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 731387D41182E89F00DCF373 /* keypoints.cpp */; };
-		731389031182EEF400DCF373 /* liblocalfeatures.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7313879C1182E77200DCF373 /* liblocalfeatures.dylib */; };
 		731389071182EF1600DCF373 /* HuginVigraImpex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5769FE380D24CFEC00A6AD01 /* HuginVigraImpex.framework */; };
 		731389171182F10F00DCF373 /* AtomicCount.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 731388711182E8A000DCF373 /* AtomicCount.cxx */; };
 		731389181182F10F00DCF373 /* ConcurrentExecutor.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 731388731182E8A000DCF373 /* ConcurrentExecutor.cxx */; };
@@ -927,7 +919,6 @@
 		7313895D1183019200DCF373 /* PanoDetectorLogic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 731387F91182E89F00DCF373 /* PanoDetectorLogic.cpp */; };
 		7313895E1183019200DCF373 /* TestCode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 731387FA1182E89F00DCF373 /* TestCode.cpp */; };
 		7313895F1183019200DCF373 /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 731387FD1182E89F00DCF373 /* Utils.cpp */; };
-		7313896D118301DA00DCF373 /* liblocalfeatures.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7313879C1182E77200DCF373 /* liblocalfeatures.dylib */; };
 		7313897A1183040900DCF373 /* libZThread.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 731389121182EFC500DCF373 /* libZThread.a */; };
 		73138A0311830C3A00DCF373 /* HuginVigraImpex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5769FE380D24CFEC00A6AD01 /* HuginVigraImpex.framework */; };
 		73138A1A118334E000DCF373 /* keypoints in Resources */ = {isa = PBXBuildFile; fileRef = 731388DB1182E9D400DCF373 /* keypoints */; };
@@ -967,6 +958,18 @@
 		7332AEC00D8D4C45002BF5FF /* APImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7332AE560D8D491B002BF5FF /* APImage.cpp */; };
 		7332AEC30D8D4C45002BF5FF /* Descriptor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7332AE790D8D491B002BF5FF /* Descriptor.cpp */; };
 		7332AEC40D8D4C45002BF5FF /* HessianDetector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7332AE840D8D491C002BF5FF /* HessianDetector.cpp */; };
+		733467BD11835FBA00401093 /* keypoints in Resources */ = {isa = PBXBuildFile; fileRef = 731388DB1182E9D400DCF373 /* keypoints */; };
+		733467BE11835FBA00401093 /* patfree-panomatic in Resources */ = {isa = PBXBuildFile; fileRef = 7313894B1182F43F00DCF373 /* patfree-panomatic */; };
+		733467FF1183661400401093 /* CircularKeyPointDescriptor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 731387D91182E89F00DCF373 /* CircularKeyPointDescriptor.cpp */; };
+		733468001183661400401093 /* Homography.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 731387DC1182E89F00DCF373 /* Homography.cpp */; };
+		733468011183661400401093 /* Image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 731387DE1182E89F00DCF373 /* Image.cpp */; };
+		733468021183661400401093 /* KeyPointDetector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 731387E21182E89F00DCF373 /* KeyPointDetector.cpp */; };
+		733468031183661400401093 /* KeyPointIO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 731387E41182E89F00DCF373 /* KeyPointIO.cpp */; };
+		733468041183661400401093 /* MathStuff.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 731387E61182E89F00DCF373 /* MathStuff.cpp */; };
+		733468051183661400401093 /* RansacFiltering.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 731387EA1182E89F00DCF373 /* RansacFiltering.cpp */; };
+		733468081183665100401093 /* localfeatures.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 733467E91183644D00401093 /* localfeatures.framework */; };
+		733468121183669300401093 /* localfeatures.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 733467E91183644D00401093 /* localfeatures.framework */; };
+		733468241183681100401093 /* localfeatures.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 733467E91183644D00401093 /* localfeatures.framework */; };
 		733DF62C117F2268002EC787 /* HuginBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 576900AA0D24D29300A6AD01 /* HuginBase.framework */; };
 		733DF62D117F2268002EC787 /* HuginVigraImpex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5769FE380D24CFEC00A6AD01 /* HuginVigraImpex.framework */; };
 		733DF62E117F2268002EC787 /* libpano13.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 573B8F85067BAAB900B7B355 /* libpano13.dylib */; };
@@ -1068,8 +1071,6 @@
 		7377C7441064212B002EF919 /* CleanCP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73D24BB11061592C00B8A25D /* CleanCP.cpp */; };
 		7377C755106422F8002EF919 /* cpclean in Copy Executable Files */ = {isa = PBXBuildFile; fileRef = 73D24B4E106152CD00B8A25D /* cpclean */; };
 		737E1C190EC9EC0300BA4D9B /* hugin_config.h in Headers */ = {isa = PBXBuildFile; fileRef = 737E1C180EC9EC0300BA4D9B /* hugin_config.h */; };
-		737E92341125ED3000773356 /* keypoints in Resources */ = {isa = PBXBuildFile; fileRef = 737E922F1125ED1900773356 /* keypoints */; };
-		737E92351125ED3000773356 /* patfree-panomatic in Resources */ = {isa = PBXBuildFile; fileRef = 737E92301125ED1900773356 /* patfree-panomatic */; };
 		7388EAFD0F6BFB1B001E08FA /* ResetDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7388EAFB0F6BFB1B001E08FA /* ResetDialog.cpp */; };
 		738A773E112B4508004E3612 /* MaskEditorPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 738A773A112B4507004E3612 /* MaskEditorPanel.cpp */; };
 		738A773F112B4508004E3612 /* MaskImageCtrl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 738A773C112B4507004E3612 /* MaskImageCtrl.cpp */; };
@@ -2162,33 +2163,12 @@
 			remoteGlobalIDString = 57FF7DA00E6917BF00553709;
 			remoteInfo = "set svn revision";
 		};
-		731388D21182E92F00DCF373 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 5769FE370D24CFEC00A6AD01;
-			remoteInfo = "vigra_impex Framework";
-		};
-		731388E11182EA6E00DCF373 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 7313879B1182E77200DCF373;
-			remoteInfo = liblocalfeatures;
-		};
 		731389081182EF3000DCF373 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 5769FE370D24CFEC00A6AD01;
 			remoteInfo = "vigra_impex Framework";
-		};
-		731389551182F47400DCF373 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 7313879B1182E77200DCF373;
-			remoteInfo = liblocalfeatures;
 		};
 		731389571182F47400DCF373 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -2197,46 +2177,39 @@
 			remoteGlobalIDString = 731389111182EFC500DCF373;
 			remoteInfo = libZThread;
 		};
-		73138A0C1183348700DCF373 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 7313879B1182E77200DCF373 /* liblocalfeatures */;
-			remoteInfo = liblocalfeatures;
-		};
 		73138A0E1183348700DCF373 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 731388DA1182E9D400DCF373 /* keypoints */;
+			remoteGlobalIDString = 731388DA1182E9D400DCF373;
 			remoteInfo = keypoints;
 		};
 		73138A101183348700DCF373 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 731389111182EFC500DCF373 /* libZThread */;
+			remoteGlobalIDString = 731389111182EFC500DCF373;
 			remoteInfo = libZThread;
 		};
 		73138A121183348700DCF373 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 7313894A1182F43F00DCF373 /* patfree-panomatic */;
+			remoteGlobalIDString = 7313894A1182F43F00DCF373;
 			remoteInfo = "patfree-panomatic";
 		};
 		73138A15118334B500DCF373 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 73138A081183347300DCF373 /* Patent-free panomatic */;
+			remoteGlobalIDString = 73138A081183347300DCF373;
 			remoteInfo = "Patent-free panomatic";
 		};
 		73138A1F1183353300DCF373 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 73138A081183347300DCF373 /* Patent-free panomatic */;
+			remoteGlobalIDString = 73138A081183347300DCF373;
 			remoteInfo = "Patent-free panomatic";
 		};
 		7332AE930D8D4986002BF5FF /* PBXContainerItemProxy */ = {
@@ -2252,6 +2225,34 @@
 			proxyType = 1;
 			remoteGlobalIDString = 576900A90D24D29300A6AD01;
 			remoteInfo = "hugin_base Framework";
+		};
+		733467EF1183647400401093 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5769FE370D24CFEC00A6AD01 /* vigra_impex Framework */;
+			remoteInfo = "vigra_impex Framework";
+		};
+		7334680A1183665C00401093 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 733467E81183644D00401093 /* localfeatures */;
+			remoteInfo = localfeatures;
+		};
+		7334680E1183668900401093 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 733467E81183644D00401093 /* localfeatures */;
+			remoteInfo = localfeatures;
+		};
+		73346817118366B300401093 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 733467E81183644D00401093 /* localfeatures */;
+			remoteInfo = localfeatures;
 		};
 		733DF625117F2268002EC787 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -2773,6 +2774,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				733468241183681100401093 /* localfeatures.framework in Copy Frameworks */,
 				739193D11119FC73007D96F4 /* HuginVigraImpex.framework in Copy Frameworks */,
 				739193D21119FC73007D96F4 /* HuginBase.framework in Copy Frameworks */,
 				739193D31119FC73007D96F4 /* HuginBaseWx.framework in Copy Frameworks */,
@@ -3316,7 +3318,6 @@
 		57FD5828101B3E840065B9E9 /* CPDetectorConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPDetectorConfig.h; sourceTree = "<group>"; };
 		730B1AE81139B2B20014462B /* MaskLoadDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaskLoadDialog.h; sourceTree = "<group>"; };
 		730B1AE91139B2B20014462B /* MaskLoadDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MaskLoadDialog.cpp; sourceTree = "<group>"; };
-		7313879C1182E77200DCF373 /* liblocalfeatures.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = liblocalfeatures.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		731387B11182E89F00DCF373 /* branch.conf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = branch.conf; sourceTree = "<group>"; };
 		731387B21182E89F00DCF373 /* format */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = format; sourceTree = "<group>"; };
 		731387B31182E89F00DCF373 /* last-revision */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "last-revision"; sourceTree = "<group>"; };
@@ -3576,6 +3577,8 @@
 		7332AE8E0D8D491C002BF5FF /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		7332AE8F0D8D491C002BF5FF /* README */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		7332AEAE0D8D4986002BF5FF /* matchpoint */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = matchpoint; sourceTree = BUILT_PRODUCTS_DIR; };
+		733467E91183644D00401093 /* localfeatures.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = localfeatures.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		733467EA1183644D00401093 /* localfeautures-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "localfeautures-Info.plist"; sourceTree = "<group>"; };
 		733DF63F117F2268002EC787 /* pano_modify */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = pano_modify; sourceTree = BUILT_PRODUCTS_DIR; };
 		733DF66E117F2384002EC787 /* pto_merge */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = pto_merge; sourceTree = BUILT_PRODUCTS_DIR; };
 		73411F131077B205001831AF /* HDRMergeOptionDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HDRMergeOptionDialog.cpp; sourceTree = "<group>"; };
@@ -4227,19 +4230,12 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7313879A1182E77200DCF373 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		731388D91182E9D400DCF373 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				731389071182EF1600DCF373 /* HuginVigraImpex.framework in Frameworks */,
-				731389031182EEF400DCF373 /* liblocalfeatures.dylib in Frameworks */,
+				733468081183665100401093 /* localfeatures.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4255,8 +4251,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				7313897A1183040900DCF373 /* libZThread.a in Frameworks */,
-				7313896D118301DA00DCF373 /* liblocalfeatures.dylib in Frameworks */,
 				73138A0311830C3A00DCF373 /* HuginVigraImpex.framework in Frameworks */,
+				733468121183669300401093 /* localfeatures.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4275,6 +4271,13 @@
 				7332AEA30D8D4986002BF5FF /* libHalf.dylib in Frameworks */,
 				7332AEA50D8D4986002BF5FF /* HuginBase.framework in Frameworks */,
 				7332AEA60D8D4986002BF5FF /* HuginVigraImpex.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		733467E71183644D00401093 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5853,10 +5856,11 @@
 				739193E21119FC73007D96F4 /* Hugin.app */,
 				733DF63F117F2268002EC787 /* pano_modify */,
 				733DF66E117F2384002EC787 /* pto_merge */,
-				7313879C1182E77200DCF373 /* liblocalfeatures.dylib */,
 				731388DB1182E9D400DCF373 /* keypoints */,
 				731389121182EFC500DCF373 /* libZThread.a */,
 				7313894B1182F43F00DCF373 /* patfree-panomatic */,
+				733467E91183644D00401093 /* localfeatures.framework */,
+				733467EA1183644D00401093 /* localfeautures-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -6988,13 +6992,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		731387981182E77200DCF373 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		7313890E1182EFC500DCF373 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -7011,6 +7008,13 @@
 				7332AEBC0D8D4B86002BF5FF /* Descriptor.h in Headers */,
 				7332AEBD0D8D4B86002BF5FF /* edgedetection.hxx in Headers */,
 				7332AEBE0D8D4B86002BF5FF /* HessianDetector.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		733467E41183644D00401093 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7671,24 +7675,6 @@
 			productReference = 57EA83860C3A798A00E4965E /* libhugin_algorithms.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		7313879B1182E77200DCF373 /* liblocalfeatures */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 731387A01182E7B200DCF373 /* Build configuration list for PBXNativeTarget "liblocalfeatures" */;
-			buildPhases = (
-				731387981182E77200DCF373 /* Headers */,
-				731387991182E77200DCF373 /* Sources */,
-				7313879A1182E77200DCF373 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				731388D31182E92F00DCF373 /* PBXTargetDependency */,
-			);
-			name = liblocalfeatures;
-			productName = liblocalfeatures;
-			productReference = 7313879C1182E77200DCF373 /* liblocalfeatures.dylib */;
-			productType = "com.apple.product-type.library.dynamic";
-		};
 		731388DA1182E9D400DCF373 /* keypoints */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 731388E01182EA0000DCF373 /* Build configuration list for PBXNativeTarget "keypoints" */;
@@ -7699,8 +7685,8 @@
 			buildRules = (
 			);
 			dependencies = (
-				731388E21182EA6E00DCF373 /* PBXTargetDependency */,
 				731389091182EF3000DCF373 /* PBXTargetDependency */,
+				7334680B1183665C00401093 /* PBXTargetDependency */,
 			);
 			name = keypoints;
 			productName = keypoints;
@@ -7734,8 +7720,8 @@
 			buildRules = (
 			);
 			dependencies = (
-				731389561182F47400DCF373 /* PBXTargetDependency */,
 				731389581182F47400DCF373 /* PBXTargetDependency */,
+				7334680F1183668900401093 /* PBXTargetDependency */,
 			);
 			name = "patfree-panomatic";
 			productName = "patfree-panomatic";
@@ -7760,6 +7746,25 @@
 			productName = align_image_stack;
 			productReference = 7332AEAE0D8D4986002BF5FF /* matchpoint */;
 			productType = "com.apple.product-type.tool";
+		};
+		733467E81183644D00401093 /* localfeatures */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 733467EE1183644E00401093 /* Build configuration list for PBXNativeTarget "localfeatures" */;
+			buildPhases = (
+				733467E41183644D00401093 /* Headers */,
+				733467E51183644D00401093 /* Resources */,
+				733467E61183644D00401093 /* Sources */,
+				733467E71183644D00401093 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				733467F01183647400401093 /* PBXTargetDependency */,
+			);
+			name = localfeatures;
+			productName = localfeautures;
+			productReference = 733467E91183644D00401093 /* localfeatures.framework */;
+			productType = "com.apple.product-type.framework";
 		};
 		733DF623117F2268002EC787 /* pano_modify */ = {
 			isa = PBXNativeTarget;
@@ -8092,7 +8097,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = NO;
 			};
-			buildConfigurationList = 571DA83D088E59C20058F246 /* Build configuration list for PBXProject "Hugin-panomatic" */;
+			buildConfigurationList = 571DA83D088E59C20058F246 /* Build configuration list for PBXProject "Hugin" */;
 			compatibilityVersion = "Xcode 2.4";
 			hasScannedForEncodings = 1;
 			knownRegions = (
@@ -8183,10 +8188,10 @@
 				734BDF5A0EB8EC19007EBA09 /* PTBatcher dynamic */,
 				739A0C0010FA510300D8E4C7 /* Separate tools package */,
 				73138A081183347300DCF373 /* Patent-free panomatic */,
-				7313879B1182E77200DCF373 /* liblocalfeatures */,
 				731388DA1182E9D400DCF373 /* keypoints */,
 				731389111182EFC500DCF373 /* libZThread */,
 				7313894A1182F43F00DCF373 /* patfree-panomatic */,
+				733467E81183644D00401093 /* localfeatures */,
 			);
 		};
 /* End PBXProject section */
@@ -8299,13 +8304,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		733467E51183644D00401093 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		739193D41119FC73007D96F4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				737E92341125ED3000773356 /* keypoints in Resources */,
-				737E92351125ED3000773356 /* patfree-panomatic in Resources */,
 				739193D51119FC73007D96F4 /* align_image_stack in Resources */,
+				733467BD11835FBA00401093 /* keypoints in Resources */,
+				733467BE11835FBA00401093 /* patfree-panomatic in Resources */,
 				739193D61119FC73007D96F4 /* Hugin.icns in Resources */,
 				739193D71119FC73007D96F4 /* HuginFiles.icns in Resources */,
 				739193D81119FC73007D96F4 /* HuginStitchProject.app in Resources */,
@@ -9151,20 +9163,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		731387991182E77200DCF373 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				731388CB1182E91200DCF373 /* CircularKeyPointDescriptor.cpp in Sources */,
-				731388CC1182E91200DCF373 /* Homography.cpp in Sources */,
-				731388CD1182E91200DCF373 /* Image.cpp in Sources */,
-				731388CE1182E91200DCF373 /* KeyPointDetector.cpp in Sources */,
-				731388CF1182E91200DCF373 /* KeyPointIO.cpp in Sources */,
-				731388D01182E91200DCF373 /* MathStuff.cpp in Sources */,
-				731388D11182E91200DCF373 /* RansacFiltering.cpp in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		731388D81182E9D400DCF373 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -9224,6 +9222,20 @@
 				7332AEC30D8D4C45002BF5FF /* Descriptor.cpp in Sources */,
 				7332AEC40D8D4C45002BF5FF /* HessianDetector.cpp in Sources */,
 				7332AEB00D8D49E0002BF5FF /* MatchPoint.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		733467E61183644D00401093 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				733467FF1183661400401093 /* CircularKeyPointDescriptor.cpp in Sources */,
+				733468001183661400401093 /* Homography.cpp in Sources */,
+				733468011183661400401093 /* Image.cpp in Sources */,
+				733468021183661400401093 /* KeyPointDetector.cpp in Sources */,
+				733468031183661400401093 /* KeyPointIO.cpp in Sources */,
+				733468041183661400401093 /* MathStuff.cpp in Sources */,
+				733468051183661400401093 /* RansacFiltering.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -9784,35 +9796,15 @@
 			target = 57FF7DA00E6917BF00553709 /* set svn revision */;
 			targetProxy = 57FF7DEA0E691C4600553709 /* PBXContainerItemProxy */;
 		};
-		731388D31182E92F00DCF373 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 5769FE370D24CFEC00A6AD01 /* vigra_impex Framework */;
-			targetProxy = 731388D21182E92F00DCF373 /* PBXContainerItemProxy */;
-		};
-		731388E21182EA6E00DCF373 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 7313879B1182E77200DCF373 /* liblocalfeatures */;
-			targetProxy = 731388E11182EA6E00DCF373 /* PBXContainerItemProxy */;
-		};
 		731389091182EF3000DCF373 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 5769FE370D24CFEC00A6AD01 /* vigra_impex Framework */;
 			targetProxy = 731389081182EF3000DCF373 /* PBXContainerItemProxy */;
 		};
-		731389561182F47400DCF373 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 7313879B1182E77200DCF373 /* liblocalfeatures */;
-			targetProxy = 731389551182F47400DCF373 /* PBXContainerItemProxy */;
-		};
 		731389581182F47400DCF373 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 731389111182EFC500DCF373 /* libZThread */;
 			targetProxy = 731389571182F47400DCF373 /* PBXContainerItemProxy */;
-		};
-		73138A0D1183348700DCF373 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 7313879B1182E77200DCF373 /* liblocalfeatures */;
-			targetProxy = 73138A0C1183348700DCF373 /* PBXContainerItemProxy */;
 		};
 		73138A0F1183348700DCF373 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -9848,6 +9840,26 @@
 			isa = PBXTargetDependency;
 			target = 576900A90D24D29300A6AD01 /* hugin_base Framework */;
 			targetProxy = 7332AE950D8D4986002BF5FF /* PBXContainerItemProxy */;
+		};
+		733467F01183647400401093 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5769FE370D24CFEC00A6AD01 /* vigra_impex Framework */;
+			targetProxy = 733467EF1183647400401093 /* PBXContainerItemProxy */;
+		};
+		7334680B1183665C00401093 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 733467E81183644D00401093 /* localfeatures */;
+			targetProxy = 7334680A1183665C00401093 /* PBXContainerItemProxy */;
+		};
+		7334680F1183668900401093 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 733467E81183644D00401093 /* localfeatures */;
+			targetProxy = 7334680E1183668900401093 /* PBXContainerItemProxy */;
+		};
+		73346818118366B300401093 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 733467E81183644D00401093 /* localfeatures */;
+			targetProxy = 73346817118366B300401093 /* PBXContainerItemProxy */;
 		};
 		733DF624117F2268002EC787 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -12307,79 +12319,6 @@
 			};
 			name = Release;
 		};
-		7313879D1182E77300DCF373 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Headers/Carbon.h";
-				INSTALL_PATH = /usr/local/lib;
-				OTHER_LDFLAGS = (
-					"-framework",
-					Carbon,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = liblocalfeatures;
-			};
-			name = Debug;
-		};
-		7313879E1182E77300DCF373 /* Development */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Headers/Carbon.h";
-				INSTALL_PATH = /usr/local/lib;
-				OTHER_LDFLAGS = (
-					"-framework",
-					Carbon,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = liblocalfeatures;
-			};
-			name = Development;
-		};
-		7313879F1182E77300DCF373 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Headers/Carbon.h";
-				HEADER_SEARCH_PATHS = (
-					"../src/panomatic-lib",
-					/usr/include,
-					"$(REPOSITORY_DIR)/include",
-					"$(REPOSITORY_DIR)/include/OpenEXR",
-					../src,
-				);
-				INSTALL_PATH = "";
-				OTHER_LDFLAGS = "";
-				PREBINDING = NO;
-				PRODUCT_NAME = liblocalfeatures;
-				ZERO_LINK = NO;
-			};
-			name = Release;
-		};
 		731388DD1182E9D500DCF373 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -12651,6 +12590,85 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 				);
 				PRODUCT_NAME = matchpoint;
+			};
+			name = Release;
+		};
+		733467EB1183644E00401093 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Headers/Carbon.h";
+				INFOPLIST_FILE = "localfeautures-Info.plist";
+				INSTALL_PATH = "$(HOME)/Library/Frameworks";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Carbon,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = localfeautures;
+			};
+			name = Debug;
+		};
+		733467EC1183644E00401093 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Headers/Carbon.h";
+				INFOPLIST_FILE = "localfeautures-Info.plist";
+				INSTALL_PATH = "$(HOME)/Library/Frameworks";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Carbon,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = localfeautures;
+			};
+			name = Development;
+		};
+		733467ED1183644E00401093 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Headers/Carbon.h";
+				HEADER_SEARCH_PATHS = (
+					"../src/panomatic-lib",
+					/Developer/Headers/FlatCarbon,
+					"$(REPOSITORY_DIR)/include",
+					"$(REPOSITORY_DIR)/include/OpenEXR",
+					../src,
+				);
+				INFOPLIST_FILE = "";
+				INSTALL_PATH = "@executable_path/../Frameworks";
+				OTHER_LDFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = localfeatures;
+				ZERO_LINK = NO;
 			};
 			name = Release;
 		};
@@ -14184,7 +14202,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		571DA83D088E59C20058F246 /* Build configuration list for PBXProject "Hugin-panomatic" */ = {
+		571DA83D088E59C20058F246 /* Build configuration list for PBXProject "Hugin" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5745FC2A094E1E6400E6B672 /* Debug */,
@@ -14552,16 +14570,6 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		731387A01182E7B200DCF373 /* Build configuration list for PBXNativeTarget "liblocalfeatures" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				7313879D1182E77300DCF373 /* Debug */,
-				7313879E1182E77300DCF373 /* Development */,
-				7313879F1182E77300DCF373 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		731388E01182EA0000DCF373 /* Build configuration list for PBXNativeTarget "keypoints" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -14608,6 +14616,16 @@
 				7332AEAA0D8D4986002BF5FF /* Debug */,
 				7332AEAB0D8D4986002BF5FF /* Development */,
 				7332AEAD0D8D4986002BF5FF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		733467EE1183644E00401093 /* Build configuration list for PBXNativeTarget "localfeatures" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				733467EB1183644E00401093 /* Debug */,
+				733467EC1183644E00401093 /* Development */,
+				733467ED1183644E00401093 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
