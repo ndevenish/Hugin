@@ -187,6 +187,8 @@ void wxAddImagesCmd::execute()
 
         // try to read settings automatically.
         srcImg.setFilename(filename);
+        srcImg.setWhiteBalanceRed(1);
+        srcImg.setWhiteBalanceBlue(1);
         bool ok = srcImg.readEXIF(focalLength, cropFactor, true, true);
         if (srcImg.getSize().x == 0 || srcImg.getSize().y == 0) {
             wxMessageBox(wxString::Format(_("Could not decode image:\n%s\nAbort"), fname.c_str()), _("Unsupported image file format"));
@@ -230,6 +232,10 @@ void wxAddImagesCmd::execute()
                         lenses.switchParts(imgNr, lenses.getPartNumber(i));
                         lenses.unlinkVariableImage(HuginBase::ImageVariableGroup::IVE_ExposureValue, i);
                         srcImg.setExposureValue(ev);
+                        lenses.unlinkVariableImage(HuginBase::ImageVariableGroup::IVE_WhiteBalanceRed, i);
+                        lenses.unlinkVariableImage(HuginBase::ImageVariableGroup::IVE_WhiteBalanceBlue, i);
+                        srcImg.setWhiteBalanceRed(1);
+                        srcImg.setWhiteBalanceBlue(1);
                         pano.setSrcImage(imgNr, srcImg);
                         added=true;
                         break;
@@ -306,6 +312,8 @@ void wxAddImagesCmd::execute()
             if (set_exposure)
             {
                 lenses.unlinkVariableImage(HuginBase::ImageVariableGroup::IVE_ExposureValue, imgNr);
+                lenses.unlinkVariableImage(HuginBase::ImageVariableGroup::IVE_WhiteBalanceRed, imgNr);
+                lenses.unlinkVariableImage(HuginBase::ImageVariableGroup::IVE_WhiteBalanceBlue, imgNr);
                 /// @todo avoid copying the SrcPanoImage.
                 SrcPanoImage t = pano.getSrcImage(imgNr);
                 t.setExposureValue(ev);
