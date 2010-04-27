@@ -83,7 +83,7 @@ static void usage(const char * name)
          << "               Used if the .pto file contains invalid HFOV values" << endl
          << "               (autopano-SIFT writes .pto files with invalid HFOV)" << endl
          << endl
-         << "   When using -a -l and -s options together, a similar operation to the \"Align\"" << endl
+         << "   When using -a -l -m and -s options together, a similar operation to the \"Align\"" << endl
          << "    button in hugin is performed." << endl
          << endl;
 }
