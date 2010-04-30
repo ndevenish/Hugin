@@ -1646,24 +1646,40 @@ void CPEditorPanel::OnTextPointChange(wxCommandEvent &e)
     ControlPoint cp = currentPoints[nr].second;
 
     // update point state
-    if (!str2double(m_x1Text->GetValue(), cp.x1)) {
+    double oldValue=cp.x1;
+    bool valid_input=str2double(m_x1Text->GetValue(), cp.x1);
+    if(valid_input)
+        valid_input=(cp.x1>=0) && (cp.x1<=m_pano->getSrcImage(cp.image1Nr).getWidth());
+    if (!valid_input) {
         m_x1Text->Clear();
-        *m_x1Text << cp.x1;
+        *m_x1Text << oldValue;
         return;
     }
-    if (!str2double(m_y1Text->GetValue(), cp.y1)) {
+    oldValue=cp.y1;
+    valid_input=str2double(m_y1Text->GetValue(), cp.y1);
+    if(valid_input)
+        valid_input=(cp.y1>=0) && (cp.y1<=m_pano->getSrcImage(cp.image1Nr).getHeight());
+    if (!valid_input) {
         m_y1Text->Clear();
-        *m_y1Text << cp.y1;
+        *m_y1Text << oldValue;
         return;
     }
-    if (!str2double(m_x2Text->GetValue(),cp.x2)) {
+    oldValue=cp.x2;
+    valid_input=str2double(m_x2Text->GetValue(), cp.x2);
+    if(valid_input)
+        valid_input=(cp.x2>=0) && (cp.x2<=m_pano->getSrcImage(cp.image2Nr).getWidth());
+    if (!valid_input) {
         m_x2Text->Clear();
-        *m_x2Text << cp.x2;
+        *m_x2Text << oldValue;
         return;
     }
-    if (!str2double(m_y2Text->GetValue(),cp.y2)) {
+    oldValue=cp.y2;
+    valid_input=str2double(m_y2Text->GetValue(), cp.y2);
+    if(valid_input)
+        valid_input=(cp.y2>=0) && (cp.y2<=m_pano->getSrcImage(cp.image1Nr).getHeight());
+    if (!valid_input) {
         m_y2Text->Clear();
-        *m_y2Text << cp.x2;
+        *m_y2Text << oldValue;
         return;
     }
 
