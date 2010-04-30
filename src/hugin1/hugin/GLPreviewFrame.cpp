@@ -1022,7 +1022,14 @@ void GLPreviewFrame::OnDragChoice(wxCommandEvent & e)
 		    	case 1: //mosaic
 		    		drag_tool->setDragMode(PreviewDragTool::drag_mode_mosaic);
 		    	break;
-		    }        
+		    }
+            XRCCTRL(*this,"label_yaw",wxStaticText)->Enable(index==0);
+            XRCCTRL(*this,"input_yaw",wxTextCtrl)->Enable(index==0);
+            XRCCTRL(*this,"label_pitch",wxStaticText)->Enable(index==0);
+            XRCCTRL(*this,"input_pitch",wxTextCtrl)->Enable(index==0);
+            XRCCTRL(*this,"label_roll",wxStaticText)->Enable(index==0);
+            XRCCTRL(*this,"input_roll",wxTextCtrl)->Enable(index==0);
+            XRCCTRL(*this,"apply_num_transform",wxButton)->Enable(index==0);
         }
     }
     else
