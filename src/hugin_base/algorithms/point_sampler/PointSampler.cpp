@@ -24,6 +24,9 @@
 #include "PointSampler.h"
 
 #include <algorithms/basic/CalculateOptimalScale.h>
+#include <algorithms/nona/FitPanorama.h>
+#include <algorithms/nona/CenterHorizontally.h>
+
 //#include <fstream>
 //#include <algorithm>
 //#include <ctime>
@@ -105,6 +108,9 @@ void PointSampler::sampleAndExtractPoints(AppBase::ProgressReporter & progress)
 //    double scale = CalculateOptimalScale::calcOptimalPanoScale(pano.getSrcImage(0),opts);
 //    opts.setWidth(utils::roundi(opts.getWidth()*scale), true);    
 //    pano.setOptions(opts);
+    // center panorama and do fit to get minimum of black/unused space around panorama
+    CenterHorizontally(pano).run();
+    CalculateFitPanorama(pano).run();
     SetWidthOptimal(pano).run();
     
     // if random points.
