@@ -283,7 +283,7 @@ void PreviewIdentifyTool::AfterDrawImagesEvent()
         if (helper->GetViewStatePtr()->GetSupportMultiTexture())
         {
             helper->GetViewStatePtr()->GetTextureManager()->BindTexture(*it);
-            glActiveTexture(0);
+            glActiveTexture(GL_TEXTURE0);
         }
         // we want to shift the texture so it lines up with the cropped region.
         glPushMatrix();

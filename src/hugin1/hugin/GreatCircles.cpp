@@ -139,7 +139,6 @@ GreatCircleArc::GreatCircleArc(double startLat, double startLong,
     double b1 = 0.0;
     double b2 = 1.0;
     const double bDifference = 1.0 / double(segments);
-    glBegin(GL_LINE_STRIP);
     // for discontinuity detection.
     int lastSegment = 1;
     // The last processed vertex's position.
