@@ -110,7 +110,12 @@ void PointSampler::sampleAndExtractPoints(AppBase::ProgressReporter & progress)
 //    pano.setOptions(opts);
     // center panorama and do fit to get minimum of black/unused space around panorama
     CenterHorizontally(pano).run();
-    CalculateFitPanorama(pano).run();
+    PanoramaOptions opts = pano.getOptions();
+    CalculateFitPanorama fitPano(pano);
+    fitPano.run();
+    opts.setHFOV(fitPano.getResultHorizontalFOV());
+    opts.setHeight(roundi(fitPano.getResultHeight()));
+    pano.setOptions(opts);
     SetWidthOptimal(pano).run();
     
     // if random points.
