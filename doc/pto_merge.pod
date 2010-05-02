@@ -1,0 +1,30 @@
+=head1 NAME
+
+pto_merge - Merges two or more Hugin project files
+
+=head1 SYNOPSIS
+
+B<pto_merge> [options] I<input1.pto> I<input2.pto> [...]
+
+=head1 DESCRIPTION
+
+B<pto_merge> takes a list of .pto projects and joins them together into a single .pto project.
+
+=head1 OPTIONS
+
+=over
+
+=item B<-o>, B<--output=file.pto>
+
+Output Hugin PTO file. Default: <filename>_merge.pto
+
+=item B<-h>
+
+Shows help
+
+=back
+
+=head1 AUTHORS
+
+Thomas Modes
+
