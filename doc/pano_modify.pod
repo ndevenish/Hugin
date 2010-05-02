@@ -1,0 +1,66 @@
+=head1 NAME
+
+pano_modify - Change output parameters of project file
+
+=head1 SYNOPSIS
+
+B<pano_modify> [options] I<input.pto>
+
+=head1 DESCRIPTION
+
+B<pano_modify> modifies a single Hugin .pto project.
+
+=head1 OPTIONS
+
+=over
+
+=item B<-o>, B<--output=file.pto>
+
+Output Hugin PTO file. Default: <filename>_mod.pto
+
+=item B<-p>, B<--projection=NUMBER>
+
+Sets the output projection to number x
+
+=item B<--fov=AUTO|HFOV|HFOVxVFOV>
+
+Sets field of view.
+
+AUTO: calculates optimal fov
+
+HFOV|HFOVxVFOV: set to given fov
+
+=item B<-s>, B<--straighten>
+
+Straightens the panorama
+
+=item B<-c>, B<--center>
+
+Centers the panorama
+
+=item B<--canvas=AUTO|WIDTHxHEIGHT>
+
+Sets the output canvas size
+
+AUTO: calculate optimal canvas size
+
+WIDTHxHEIGHT: set to given size
+
+=item B<--crop=AUTO|left,right,top,bottom>
+
+Sets the crop rectangle
+
+AUTO: autocrop panorama
+
+left,right,top,bottom: to given size
+
+=item B<-h>, B<--help>
+
+Shows help
+
+=back
+
+=head1 AUTHORS
+
+Thomas Modes
+
