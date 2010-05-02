@@ -280,8 +280,8 @@ namespace hugin_utils
         return ret;
     }
     
-	IMPEX void ControlPointErrorColour(const double cperr, 
-		const bool worst, double* r,double* g, double* b);
+    IMPEX void ControlPointErrorColour(const double cperr, 
+        double &r,double &g, double &b);
 
 } // namespace
 

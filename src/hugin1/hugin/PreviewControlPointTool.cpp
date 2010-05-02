@@ -70,17 +70,15 @@ void PreviewControlPointTool::AfterDrawImagesEvent()
             // draw line control points blue instead of orange.
             bool line = cp.mode != HuginBase::ControlPoint::X_Y;
             if (line) 
-			{
-				glColor3f(0.0, 0.5, 1.0);
-			}
+            {
+                glColor3f(0.0, 0.5, 1.0);
+            }
             else
-			{
-
-				double red, green, blue;
-				hugin_utils::ControlPointErrorColour(cp.error,false,&red,&green,&blue);
-				glColor3d(red, green, blue);
-
-			}
+            {
+                double red, green, blue;
+                hugin_utils::ControlPointErrorColour(cp.error,red,green,blue);
+                glColor3d(red, green, blue);
+            }
             // draw a the smallest great circle arc between these two points.
             double x1, y1, x2, y2;
             transforms[cp.image1Nr].transformImgCoord(x1, y1, cp.x1, cp.y1);

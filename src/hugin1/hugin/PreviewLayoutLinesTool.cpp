@@ -551,9 +551,9 @@ void PreviewLayoutLinesTool::LineDetails::draw(bool highlight)
         // no control points, use a grey line
         glColor3ub(170, 170, 170);
     }else {
-		double red, green, blue;
-		hugin_utils::ControlPointErrorColour(worstError,true,&red,&green,&blue);
-		glColor3d(red, green, blue);
+        double red, green, blue;
+        hugin_utils::ControlPointErrorColour(worstError,red,green,blue);
+        glColor3d(red, green, blue);
     }
     
     double lineWidth = numberOfControlPoints / 5.0 + 1.0;

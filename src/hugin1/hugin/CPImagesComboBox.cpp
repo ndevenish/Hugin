@@ -201,12 +201,12 @@ void CPImagesComboBox::OnDrawItem(wxDC& dc,
         wxPen MyPen(wxColour(255,0,0),1,wxSOLID);
         wxBrush MyBrush(wxColour(255,0,0),wxSOLID);
         double red, green, blue;
-			
-		hugin_utils::ControlPointErrorColour(CPConnection[item],false,&red,&green,&blue);
-		
-		//Scale colour to 0-255
-		red *= 255;
-		green *= 255;
+
+        hugin_utils::ControlPointErrorColour(CPConnection[item],red,green,blue);
+
+        //Scale colour to 0-255
+        red *= 255;
+        green *= 255;
 
         MyPen.SetColour(wxColour(red,green,0));
         MyBrush.SetColour(wxColour(red,green,0));
