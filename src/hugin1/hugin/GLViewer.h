@@ -71,7 +71,7 @@ protected:
     wxGLContext *m_glContext;
     PT::Panorama  * m_pano;
     
-    bool started_creation, redrawing;
+    bool started_creation, initialised_glew, redrawing;
     vigra::Diff2D offset;
     GLPreviewFrame *frame;
 };

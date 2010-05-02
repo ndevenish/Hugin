@@ -80,6 +80,7 @@ GLViewer::GLViewer(wxFrame* parent, PT::Panorama &pano, int args[], GLPreviewFra
     frame = frame_in;
     
     started_creation = false;
+    initialised_glew = false;
     redrawing = false;
 }
 
@@ -112,25 +113,29 @@ void GLViewer::SetUpContext()
         // It appears we are setting up for the first time.
         started_creation = true;
         
-        // initialise the glew library.
-        GLenum error_state = glewInit();
-        if (error_state != GLEW_OK)
+        if (!initialised_glew)
         {
-            // glewInit failed
-            started_creation=false;
-            DEBUG_ERROR("Error initialising GLEW: "
-                    << glewGetErrorString(error_state) << ".");
-            frame->Close();
-            wxMessageBox(_("Error initialising GLEW\nFast preview window can not be opened."),_("Error"), wxOK | wxICON_ERROR,MainFrame::Get());
-            return;
+            // initialise the glew library, if not done it before.
+            GLenum error_state = glewInit();
+            initialised_glew = true;
+            if (error_state != GLEW_OK)
+            {
+                // glewInit failed
+                started_creation=false;
+                DEBUG_ERROR("Error initialising GLEW: "
+                        << glewGetErrorString(error_state) << ".");
+                frame->Close();
+                wxMessageBox(_("Error initialising GLEW\nFast preview window can not be opened."),_("Error"), wxOK | wxICON_ERROR,MainFrame::Get());
+                return;
+            }
         }
-        // check the openGL version
-        if (!GLEW_VERSION_1_3)
+        // check the openGL capabilities.
+        if (!(GLEW_VERSION_1_1 && GLEW_ARB_multitexture))
         {
             started_creation=false;
-            DEBUG_ERROR("Sorry, OpenGL 1.3 is required.");
+            DEBUG_ERROR("Sorry, OpenGL 1.1 + GL_ARB_multitexture extension required.");
             frame->Close();
-            wxMessageBox(_("Sorry, for using the fast preview window your graphic card must support at least OpenGL 1.3\nFast preview window can not be opened."),_("Error"), wxOK | wxICON_ERROR,MainFrame::Get());
+            wxMessageBox(_("Sorry, the fast preview window requires a system which supports OpenGL version 1.1 with the GL_ARB_multitexture extension.\nThe fast preview cannot be opened."),_("Error"), wxOK | wxICON_ERROR,MainFrame::Get());
             return;
         }
         
