@@ -40,7 +40,7 @@
 #include "MeshManager.h"
 #include "PreviewToolHelper.h"
 #include "GLPreviewFrame.h"
-
+#include "hugin/huginApp.h"
 
 BEGIN_EVENT_TABLE(GLViewer, wxGLCanvas)
     EVT_PAINT (GLViewer::RedrawE)
@@ -116,15 +116,23 @@ void GLViewer::SetUpContext()
         GLenum error_state = glewInit();
         if (error_state != GLEW_OK)
         {
-          // glewInit failed
-          DEBUG_ERROR("Error initlialising GLEW: "
+            // glewInit failed
+            started_creation=false;
+            DEBUG_ERROR("Error initialising GLEW: "
                     << glewGetErrorString(error_state) << ".");
+            frame->Close();
+            wxMessageBox(_("Error initialising GLEW\nFast preview window can not be opened."),_("Error"), wxOK | wxICON_ERROR,MainFrame::Get());
+            return;
         }
         // check the openGL version
         if (!GLEW_VERSION_1_3)
         {
+            started_creation=false;
             DEBUG_ERROR("Sorry, OpenGL 1.3 is required.");
-        }        
+            frame->Close();
+            wxMessageBox(_("Sorry, for using the fast preview window your graphic card must support at least OpenGL 1.3\nFast preview window can not be opened."),_("Error"), wxOK | wxICON_ERROR,MainFrame::Get());
+            return;
+        }
         
         // check, if gpu supports multitextures
         GLint countMultiTexture;
