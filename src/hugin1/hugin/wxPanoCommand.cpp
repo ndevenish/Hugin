@@ -314,6 +314,8 @@ void wxAddImagesCmd::execute()
                 lenses.unlinkVariableImage(HuginBase::ImageVariableGroup::IVE_ExposureValue, imgNr);
                 lenses.unlinkVariableImage(HuginBase::ImageVariableGroup::IVE_WhiteBalanceRed, imgNr);
                 lenses.unlinkVariableImage(HuginBase::ImageVariableGroup::IVE_WhiteBalanceBlue, imgNr);
+                //don't link image size, this will foul the photometric optimizer
+                lenses.unlinkVariableImage(HuginBase::ImageVariableGroup::IVE_Size, imgNr);
                 /// @todo avoid copying the SrcPanoImage.
                 SrcPanoImage t = pano.getSrcImage(imgNr);
                 t.setExposureValue(ev);
