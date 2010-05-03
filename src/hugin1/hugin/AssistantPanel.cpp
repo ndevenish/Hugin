@@ -53,6 +53,7 @@
 #include "hugin/TextKillFocusHandler.h"
 #include "base_wx/PTWXDlg.h"
 #include "base_wx/MyProgressDialog.h"
+#include "hugin/HFOVDialog.h"
 #include "hugin/config_defaults.h"
 #include <algorithms/control_points/CleanCP.h>
 
@@ -146,6 +147,7 @@ bool AssistantPanel::Create(wxWindow *parent, wxWindowID id, const wxPoint& pos,
 
     m_lensTypeChoice = XRCCTRL(*this, "ass_lens_proj_choice", wxChoice);
     DEBUG_ASSERT(m_lensTypeChoice);
+    FillLensProjectionList(m_lensTypeChoice);
     m_lensTypeChoice->SetSelection(0);
 
     m_focalLengthText = XRCCTRL(*this, "ass_focallength_text", wxTextCtrl);
@@ -287,7 +289,7 @@ void AssistantPanel::panoramaChanged(PT::Panorama &pano)
         m_noImage = false;
 
         // update data in lens display
-        m_lensTypeChoice->SetSelection(lens.getProjection());
+        SelectProjection(m_lensTypeChoice, lens.getProjection());
         double focal_length = lens.getFocalLength();
         m_focalLengthText->SetValue(doubleTowxString(focal_length,m_degDigits));
         double focal_length_factor = lens.getCropFactor();
@@ -875,7 +877,7 @@ void AssistantPanel::OnExifToggle (wxCommandEvent & e)
 void AssistantPanel::OnLensTypeChanged (wxCommandEvent & e)
 {
     // uses enum Lens::LensProjectionFormat from PanoramaMemento.h
-    int var = m_lensTypeChoice->GetSelection();
+    size_t var = GetSelectedProjection(m_lensTypeChoice);
     Lens lens = m_variable_groups->getLens(0);
     if (lens.getProjection() != (Lens::LensProjectionFormat) var) {
         //double crop = lens.getCropFactor();
