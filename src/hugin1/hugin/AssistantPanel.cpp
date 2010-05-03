@@ -581,7 +581,7 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
 
     // set TIFF_m with enblend
     PanoramaOptions opts = m_pano->getOptions();
-    opts.outputFormat = PanoramaOptions::TIFF;
+    opts.outputFormat = PanoramaOptions::TIFF_m;
     opts.blendMode = PanoramaOptions::ENBLEND_BLEND;
     opts.remapper = PanoramaOptions::NONA;
     opts.tiff_saveROI = true;

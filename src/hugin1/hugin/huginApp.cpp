@@ -319,7 +319,7 @@ bool huginApp::OnInit()
 
     // set some suitable defaults
     PanoramaOptions opts = pano.getOptions();
-    opts.outputFormat = PanoramaOptions::TIFF;
+    opts.outputFormat = PanoramaOptions::TIFF_m;
     opts.blendMode = PanoramaOptions::ENBLEND_BLEND;
     opts.enblendOptions = config->Read(wxT("Enblend/Args"),wxT(HUGIN_ENBLEND_ARGS)).mb_str(wxConvLocal);
     opts.enfuseOptions = config->Read(wxT("Enfuse/Args"),wxT(HUGIN_ENFUSE_ARGS)).mb_str(wxConvLocal);
