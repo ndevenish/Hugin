@@ -249,19 +249,19 @@ int MyExecPanel::ExecWithRedirect(wxString cmd)
 	
 	int os = wxGetOsVersion(&osVersionMajor, &osVersionMinor);
 	
-	 cerr << "osVersionCheck: os is " << os << "\n"  << endl;
-	 cerr << "osVersionCheck: osVersionMajor = " << osVersionMajor << endl;
-	 cerr << "osVersionCheck: osVersionMinor = " << osVersionMinor << endl;
+	 cout << "osVersionCheck: os is " << os << "\n"  << endl;
+	 cout << "osVersionCheck: osVersionMajor = " << osVersionMajor << endl;
+	 cout << "osVersionCheck: osVersionMinor = " << osVersionMinor << endl;
 	if ((osVersionMajor == 0x10) && (osVersionMinor >= 0x50))
 	{
 		//let the child process exit without becoming zombie
     		//may do some harm to internal handling by wxWidgets, but hey it's not working anyway
     		signal(SIGCHLD,SIG_IGN);
-		cerr <<  "osVersionCheck: Leopard loop 1" << endl;
+		cout <<  "osVersionCheck: Leopard loop 1" << endl;
 	}
 	else
 	{
-		cerr <<  "osVersionCheck: Tiger loop 1" << endl;
+		cout <<  "osVersionCheck: Tiger loop 1" << endl;
 	}	
 #endif
     
