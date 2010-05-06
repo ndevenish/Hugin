@@ -28,6 +28,7 @@
 #include "PTScriptParsing.h"
 #include "ImageVariableTranslate.h"
 #include <panotools/PanoToolsInterface.h>
+#include <algorithms/basic/CalculateOverlap.h>
 
 #include <fstream>
 #include <typeinfo>
@@ -1000,6 +1001,8 @@ void Panorama::updateMasks()
     {
         state.images[i]->clearActiveMasks();
     };
+    CalculateImageOverlap overlap(this);
+    overlap.calculate(10);
     for(unsigned int i=0;i<state.images.size();i++)
     {
         if(state.images[i]->hasMasks())
@@ -1031,12 +1034,7 @@ void Panorama::updateMasks()
                                     if(i==k)
                                         continue;
                                     //check if images are overlapping
-                                    double maxShift = std::max(state.images[i]->getHFOV(),state.images[k]->getHFOV())*1.2;
-                                    double minShiftYaw = 360.0 - maxShift;
-                                    double minShiftPitch = 180.0 - maxShift;
-                                    double diffYaw=fabs(state.images[i]->getYaw()-state.images[k]->getYaw());
-                                    double diffPitch=fabs(state.images[i]->getPitch()-state.images[k]->getPitch());
-                                    if((diffYaw<maxShift || diffYaw>minShiftYaw) && (diffPitch<maxShift || diffPitch>minShiftPitch))
+                                    if(overlap.getOverlap(i,k)>0)
                                     {
                                         //transform polygon in image space of other image only if images are overlapping
                                         MaskPolygon targetMask=transformedMask;

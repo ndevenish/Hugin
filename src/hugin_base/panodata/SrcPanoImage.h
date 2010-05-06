@@ -223,7 +223,7 @@ public:
 
     /** check if a coordinate is inside the source image
      */
-    bool isInside(vigra::Point2D p) const;
+    bool isInside(vigra::Point2D p, bool ignoreMasks=false) const;
 
     ///
     bool horizontalWarpNeeded();

@@ -29,6 +29,7 @@
 #include <panodata/PanoramaData.h>
 #include <hugin_utils/utils.h>
 #include <algorithms/nona/ComputeImageROI.h>
+#include <algorithms/basic/CalculateOverlap.h>
 
 #if defined MAC_SELF_CONTAINED_BUNDLE
  #define COULD_EXECUTE_EXIFTOOL_WITH_PERL
@@ -54,23 +55,18 @@ vector<UIntSet> getHDRStacks(const PanoramaData & pano, UIntSet allImgs)
 
     UIntSet stack;
 
+    HuginBase::CalculateImageOverlap overlap(&pano);
+    overlap.calculate(50);  // we are testing 50*50=2500 points
     do {
         unsigned srcImg = *(allImgs.begin());
         stack.insert(srcImg);
         allImgs.erase(srcImg);
 
         // find all images that have a suitable overlap.
-        SrcPanoImage simg = pano.getSrcImage(srcImg);
-        // FIXME this should be a user preference
-        double maxShift = simg.getHFOV() / 10.0;
-        double minShift = 360.0 - maxShift;
         for (UIntSet::iterator it = allImgs.begin(); it !=  allImgs.end(); ) {
             unsigned srcImg2 = *it;
             it++;
-            SrcPanoImage simg2 = pano.getSrcImage(srcImg2);
-            if ( (fabs(simg.getYaw() - simg2.getYaw()) < maxShift
-                || fabs(simg.getYaw() - simg2.getYaw()) > minShift)
-                && fabs(simg.getPitch() - simg2.getPitch()) < maxShift  )
+            if(overlap.getOverlap(srcImg,srcImg2)>0.7)
             {
                 stack.insert(srcImg2);
                 allImgs.erase(srcImg2);

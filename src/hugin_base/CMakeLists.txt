@@ -14,6 +14,7 @@ algorithms/basic/CalculateOptimalScale.cpp
 algorithms/basic/CalculateOptimalROI.cpp
 algorithms/basic/RotatePanorama.cpp
 algorithms/basic/StraightenPanorama.cpp
+algorithms/basic/CalculateOverlap.cpp
 algorithms/nona/CalculateFOV.cpp
 algorithms/nona/CenterHorizontally.cpp
 algorithms/nona/FitPanorama.cpp
@@ -74,6 +75,7 @@ algorithms/basic/CalculateOptimalScale.h
 algorithms/basic/CalculateOptimalROI.h
 algorithms/basic/RotatePanorama.h
 algorithms/basic/StraightenPanorama.h
+algorithms/basic/CalculateOverlap.h
 algorithms/nona/CalculateFOV.h
 algorithms/nona/CenterHorizontally.h
 algorithms/nona/FitPanorama.h

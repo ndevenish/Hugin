@@ -129,7 +129,7 @@ void BaseSrcPanoImage::setDefaults()
 #undef image_variable
 }
 
-bool SrcPanoImage::isInside(vigra::Point2D p) const
+bool SrcPanoImage::isInside(vigra::Point2D p, bool ignoreMasks) const
 {
     bool insideCrop=false;
     switch(m_CropMode.getData()) {
@@ -152,10 +152,10 @@ bool SrcPanoImage::isInside(vigra::Point2D p) const
             insideCrop = (radius2 > pf.x*pf.x+pf.y*pf.y );
         }
     }
-    if(insideCrop)
+    if(insideCrop && !ignoreMasks)
         return !(isInsideMasks(p));
     else
-        return false;
+        return insideCrop;
 }
 
     

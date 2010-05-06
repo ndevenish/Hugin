@@ -42,6 +42,7 @@
 #include "hugin/AutoCtrlPointCreator.h"
 #include "hugin/CommandHistory.h"
 #include <algorithms/optimizer/PTOptimizer.h>
+#include <algorithms/basic/CalculateOverlap.h>
 
 #include "base_wx/MyExternalCmdExecDialog.h"
 #include "base_wx/platform.h"
@@ -1073,15 +1074,13 @@ CPVector AutoPanoSiftPreAlign::automatch(CPDetectorSetting &setting, Panorama & 
             };
         };
     };
+    HuginBase::CalculateImageOverlap overlap(&pano);
+    overlap.calculate(10);
     for(UIntSet::const_iterator it=imgs.begin();it!=imgs.end();it++)
     {
         UIntSet images;
         images.clear();
         images.insert(*it);
-        SrcPanoImage simg = pano.getSrcImage(*it);
-        double maxShift = simg.getHFOV();
-        double minShiftYaw = 360.0 - maxShift;
-        double minShiftPitch = 180.0 - maxShift;
         UIntSet::const_iterator it2=it;
         for(++it2;it2!=imgs.end();it2++)
         {
@@ -1089,10 +1088,7 @@ CPVector AutoPanoSiftPreAlign::automatch(CPDetectorSetting &setting, Panorama & 
             if(set_contains(usedImages[*it2],*it))
                 continue;
             //now check position
-            SrcPanoImage simg2 = pano.getSrcImage(*it2);
-            double diffYaw=fabs(simg.getYaw()-simg2.getYaw());
-            double diffPitch=fabs(simg.getPitch()-simg2.getPitch());
-            if((diffYaw<maxShift || diffYaw>minShiftYaw) && (diffPitch<maxShift || diffPitch>minShiftPitch))
+            if(overlap.getOverlap(*it,*it2)>0)
             {
                 images.insert(*it2);
             };
