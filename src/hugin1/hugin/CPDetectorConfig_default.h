@@ -83,11 +83,11 @@ const struct cpdetector_default default_cpdetectors[]=
         wxT("generatekeys"),wxT("%i %k 800"), wxT("autopano"),wxT("--maxmatches %p %o %k"),
         wxT("align_image_stack"),wxT("-f %v -p %o %i"), true},
     {CPDetector_AutoPanoSift,wxT("Align image stack"),wxT("align_image_stack"),wxT("-f %v -p %o %i"),wxT(""),wxT(""), wxT(""), wxT(""), true},
-    {CPDetector_AutoPanoSift,wxT("Align_image_stack FullFrameFisheye"),wxT("align_image_stack"),wxT("-f %v -p -e %o %i"),wxT(""),wxT(""), wxT(""), wxT(""), true}
+    {CPDetector_AutoPanoSift,wxT("Align_image_stack FullFrameFisheye"),wxT("align_image_stack"),wxT("-f %v -e -p %o %i"),wxT(""),wxT(""), wxT(""), wxT(""), true}
   #else
     {CPDetector_AutoPanoSift,wxT("Pablo's patent free Panomatic"),wxT("patfree-panomatic"),wxT("--sieve1size 20 --sieve2size 2 -o %o %i"),wxT(""),wxT(""), wxT(""), wxT(""), true},
     {CPDetector_AutoPanoSift,wxT("Align_image_stack linear"),wxT("align_image_stack"),wxT("-f %v -p %o %i"),wxT(""),wxT(""), wxT(""), wxT(""), true},
-    {CPDetector_AutoPanoSift,wxT("Align_image_stack FullFrameFisheye"),wxT("align_image_stack"),wxT("-f %v -p -e %o %i"),wxT(""),wxT(""), wxT(""), wxT(""), true},
+    {CPDetector_AutoPanoSift,wxT("Align_image_stack FullFrameFisheye"),wxT("align_image_stack"),wxT("-f %v -e -p %o %i"),wxT(""),wxT(""), wxT(""), wxT(""), true},
     {CPDetector_AutoPanoSift,wxT("Autopano-SIFT-C"),wxT("== Use the Choose button to search for it =="),wxT("--maxmatches %p %o %i"),wxT(""),wxT(""), wxT(""), wxT(""), true},
     {CPDetector_AutoPanoSift,wxT("Panomatic"),wxT("== Use the Choose button to search for it =="),wxT("-o %o %i"),wxT(""),wxT(""), wxT(""), wxT(""), true}
   #endif
