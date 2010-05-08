@@ -28,7 +28,6 @@ Copyright (c) 2002-3 Adriaan Tijsseling
 #include <math.h>
 #include <stdlib.h>
 #include "Utilities.h"
-#include <Config.h>
 
 using namespace std; 
 

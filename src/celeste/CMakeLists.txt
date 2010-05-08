@@ -16,26 +16,9 @@
 #    You should have received a copy of the GNU General Public License
 #    along with Hugin  If not, see <http://www.gnu.org/licenses/>.
  
-
-# Windows needs an #include "direct.h
-# Linux and Apple are both OK without
-# Set this up here
-
-IF(WIN32)
-	ADD_CUSTOM_COMMAND(
-	OUTPUT ${CMAKE_BINARY_DIR}/src/celeste/Config.h
-	COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/Config.h.win32 ${CMAKE_BINARY_DIR}/src/celeste/Config.h
-	DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/Config.h.win32
-	)
-	SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -nologo -O2 -EHsc -I. -D __WIN32__ -D _CRT_SECURE_NO_DEPRECATE")
-ELSE (WIN32)
-	ADD_CUSTOM_COMMAND(
-	OUTPUT ${CMAKE_BINARY_DIR}/src/celeste/Config.h
-	COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/Config.h.linux ${CMAKE_BINARY_DIR}/src/celeste/Config.h
-	DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/Config.h.linux
-	)
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
-ENDIF(WIN32)
+IF(NOT WIN32)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
+ENDIF(NOT WIN32)
 
 # a list of all files belonging to celeste library
 
@@ -44,7 +27,6 @@ CelesteGlobals.cpp
 CelesteGlobals.h
 Celeste.cpp
 Celeste.h
-Config.h
 ContrastFilter.cpp
 ContrastFilter.h
 Gabor.cpp

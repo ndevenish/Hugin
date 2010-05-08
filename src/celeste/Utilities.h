@@ -32,7 +32,9 @@ Copyright (c) 2002-3 Adriaan Tijsseling
 #include <fstream>
 #include <iostream>
 #include <stdio.h>
-#include <Config.h>
+#ifdef _WINDOWS
+#include "direct.h"
+#endif
 
 using namespace std; 
 
