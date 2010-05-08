@@ -121,7 +121,11 @@ IF (WIN32)
   SET( SOURCE_BASE_DIR ${work} CACHE FILEPATH "parent dir of hugin source root" )
 
   # wxWidgets
-  SET(wxWidgets_ROOT_DIR ${SOURCE_BASE_DIR}/wxWidgets-2.8.10)
+  IF(NOT wxWidgets_ROOT_SUFFIX)
+    SET( wxWidgets_ROOT_SUFFIX 2.8.10 CACHE STRING "version of wxWidgets." FORCE )
+  ENDIF(NOT wxWidgets_ROOT_SUFFIX)
+
+  SET(wxWidgets_ROOT_DIR ${SOURCE_BASE_DIR}/wxWidgets-${wxWidgets_ROOT_SUFFIX})
   # GLEW moved to FildGLEW.cmake module
   # SET(GLEW_INCLUDE_DIR ${SOURCE_BASE_DIR}/glew/include)
   # for dynamic build, it's glew32.lib and the dll must be copied into hugin's bin folder

@@ -152,12 +152,12 @@ IF(WIN32)
     FILE(GLOB BOOST_THREAD_DLL ${Boost_LIBRARY_DIRS}/boost_thread*.dll)
     FIND_FILE(EXIV2_DLL 
       NAMES exiv2.dll 
-      PATHS ${SOURCE_BASE_DIR}/exiv2-0.18.2/msvc/bin/ReleaseDLL
+      PATHS ${SOURCE_BASE_DIR}/exiv2-0.19/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.18.2/msvc/bin/ReleaseDLL
       NO_SYSTEM_ENVIRONMENT_PATH
     )
     FIND_FILE(LIBEXPAT_DLL 
       NAMES libexpat.dll 
-      PATHS ${SOURCE_BASE_DIR}/exiv2-0.18.2/msvc/bin/ReleaseDLL
+      PATHS ${SOURCE_BASE_DIR}/exiv2-0.19/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.18.2/msvc/bin/ReleaseDLL
       NO_SYSTEM_ENVIRONMENT_PATH
     )
     FIND_FILE(GLEW_DLL
