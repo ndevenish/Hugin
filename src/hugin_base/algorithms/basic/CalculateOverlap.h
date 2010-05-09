@@ -38,11 +38,11 @@
 namespace HuginBase 
 {
 
-//using namespace hugin_utils;
-
+/** class for calculating overlap of images */
 class IMPEX CalculateImageOverlap
 {
 public:
+    /** constructor */
     CalculateImageOverlap(const PanoramaData * pano):m_pano(pano)
     {
         m_nrImg=pano->getNrOfImages();
@@ -62,8 +62,12 @@ public:
             };
         };
     };
+    /** destructor */
     virtual ~CalculateImageOverlap();
+    /** does the calculation, 
+        for each image steps*steps points are extracted and tested with all other images overlap */
     void calculate(unsigned int steps);
+    /** returns the overlap for 2 images with number i and j */
     double getOverlap(unsigned int i, unsigned int j);
 
 private:
@@ -75,4 +79,4 @@ private:
 };
 
 } //namespace
-#endif // PANOIMAGE_H
+#endif // _ALGO_CALCULATE_OVERLAP_H
