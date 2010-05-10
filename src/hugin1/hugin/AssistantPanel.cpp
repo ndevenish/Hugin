@@ -913,8 +913,8 @@ void AssistantPanel::OnFocalLengthChanged(wxCommandEvent & e)
     UIntSet images0;
     images0.insert(0);
     GlobalCmdHist::getInstance().addCommand(
-            new PT::ChangeImageExifFocalLengthCmd(*m_pano, images0, val)
-                                           );
+        new PT::UpdateFocalLengthCmd(*m_pano, images0, val)
+    );
 }
 
 void AssistantPanel::OnCropFactorChanged(wxCommandEvent & e)
@@ -926,28 +926,11 @@ void AssistantPanel::OnCropFactorChanged(wxCommandEvent & e)
         return;
     }
 
-    // always change first lens...
-    
-    double fl = m_pano->getImage(0).getExifFocalLength();
-    
     UIntSet images;
-    for (unsigned i=0; i < m_pano->getNrOfImages(); i++) {
-        images.insert(i);
-    }
+    images.insert(0);
     GlobalCmdHist::getInstance().addCommand(
-            new PT::ChangeImageExifCropFactorCmd(*m_pano, images, val)
-                                           );
-    /// @todo why are we copying the focal length from the first image?
-    GlobalCmdHist::getInstance().addCommand(
-            new PT::ChangeImageExifFocalLengthCmd(*m_pano, images, fl)
-                                           );
-    
-    // TODO: update crop factor as well without destroying other information.
-    UIntSet imgs;
-    imgs.insert(0);
-    GlobalCmdHist::getInstance().addCommand(
-            new PT::ChangeImageExifCropFactorCmd(*m_pano, imgs, val)
-                                           );
+        new PT::UpdateCropFactorCmd(*m_pano,images,val)
+    );
 }
 
 IMPLEMENT_DYNAMIC_CLASS(AssistantPanel, wxPanel)

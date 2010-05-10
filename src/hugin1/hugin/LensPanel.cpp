@@ -256,8 +256,7 @@ void LensPanel::UpdateLensDisplay ()
 
     if ((m_selectedImages.size() == 0) || (m_selectedLenses.size() == 0)){
         // no image selected
-        wxListEvent ev;
-        ListSelectionChanged(ev);
+        EnableInputs();
         return;
     }
     if (m_selectedImages.size() != 1) {
@@ -311,7 +310,9 @@ void LensPanel::UpdateLensDisplay ()
     }
 
     // update focal length
-    double focal_length = lens.getFocalLength();
+    const SrcPanoImage &img=pano->getImage(*(m_selectedImages.begin()));
+    double focal_length = SrcPanoImage::calcFocalLength(img.getProjection(),img.getHFOV(),
+        img.getExifCropFactor(),img.getSize());
     m_XRCCTRL(*this, wxT("lens_val_focalLength"), wxTextCtrl)->SetValue(
         doubleTowxString(focal_length,m_distDigitsEdit));
 
@@ -418,22 +419,10 @@ void LensPanel::focalLengthChanged ( wxCommandEvent & e )
             return;
         }
 
-
-        VariableMapVector vars;
-        UIntSet lensNrs;
-        for (UIntSet::const_iterator it=m_selectedImages.begin();
-             it != m_selectedImages.end();
-             ++it)
-        {
-            vars.push_back(pano->getImageVariables(*it));
-            Lens l = variable_groups->getLensForImage(*it);
-            l.setFocalLength(val);
-            map_get(vars.back(),"v").setValue( map_get(l.variables,"v").getValue() );
-        }
-
         GlobalCmdHist::getInstance().addCommand(
-            new PT::UpdateImagesVariablesCmd(*pano, m_selectedImages, vars)
-            );
+            new PT::UpdateFocalLengthCmd(*pano,m_selectedImages, val)
+        );
+
     }
 }
 
@@ -448,33 +437,8 @@ void LensPanel::focalLengthFactorChanged(wxCommandEvent & e)
             return;
         }
 
-        // find all lens ids that belong to the selected images
-        UIntSet imageNrs;
-        VariableMapVector vars;
-        
-        for (UIntSet::const_iterator it=m_selectedImages.begin();
-             it != m_selectedImages.end();
-             ++it)
-        {
-            imageNrs.insert(*it);
-            //mark also linked images for update
-            const SrcPanoImage & img=pano->getImage(*it);
-            if(img.HFOVisLinked())
-                for(unsigned int j=0;j<pano->getNrOfImages();j++)
-                    if(j!=(*it))
-                        if(img.HFOVisLinkedWith(pano->getImage(j)))
-                            imageNrs.insert(j);
-            //update also hfov, otherwise the focal length is changed
-            vars.push_back(pano->getImageVariables(*it));
-            double new_hfov=calcHFOV(img.getProjection(),img.getExifFocalLength(),val,img.getSize());
-            map_get(vars.back(),"v").setValue( new_hfov ); 
-        }
-        
         GlobalCmdHist::getInstance().addCommand(
-                new PT::ChangeImageExifCropFactorCmd( *pano, imageNrs, val)
-        );
-        GlobalCmdHist::getInstance().addCommand(
-                new PT::UpdateImagesVariablesCmd(*pano, m_selectedImages, vars)
+            new PT::UpdateCropFactorCmd(*pano,m_selectedImages,val)
         );
     }
 }
@@ -613,6 +577,11 @@ void LensPanel::ListSelectionChanged(wxListEvent& e)
         m_selectedLenses.insert(variable_groups->getLenses().getPartNumber(*it));
     }
     DEBUG_DEBUG("selected Images: " << m_selectedImages.size());
+    EnableInputs();
+};
+
+void LensPanel::EnableInputs()
+{
     if (m_selectedImages.size() == 0) {
 //        m_editImageNr = UINT_MAX;
 //        m_editLensNr = UINT_MAX;

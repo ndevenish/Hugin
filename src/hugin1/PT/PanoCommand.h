@@ -1076,6 +1076,85 @@ namespace PT {
         double y,p,r;
     };
 
+    //=========================================================================
+    //=========================================================================
+
+    /** Update the focal length 
+     */
+    class UpdateFocalLengthCmd : public PanoCommand
+    {
+    public:
+        UpdateFocalLengthCmd(Panorama & p, UIntSet imgs, double newFocalLength)
+            : PanoCommand(p), imgNrs(imgs), m_focalLength(newFocalLength)
+            { };
+
+        virtual bool processPanorama(Panorama& pano)
+            {
+                pano.UpdateFocalLength(imgNrs,m_focalLength);
+                pano.changeFinished();
+                return true;
+            }
+        
+        virtual std::string getName() const
+            {
+                return "update focal length";
+            }
+
+    private:
+        UIntSet imgNrs;
+        double m_focalLength;
+    };
+
+    //=========================================================================
+    //=========================================================================
+
+
+    /** Update the crop factor 
+     */
+    class UpdateCropFactorCmd : public PanoCommand
+    {
+    public:
+        UpdateCropFactorCmd(Panorama & p, UIntSet imgs, double newCropFactor)
+            : PanoCommand(p), imgNrs(imgs), m_cropFactor(newCropFactor)
+            { };
+
+        virtual bool processPanorama(Panorama& pano)
+            {
+                //search all image with the same lens, otherwise the crop factor is updated via links, 
+                //but not the hfov if the image is not the given UIntSet
+                UIntSet allImgWithSameLens;
+                UIntSet testedLens;
+                HuginBase::StandardImageVariableGroups variable_groups(pano);
+                HuginBase::ImageVariableGroup & lenses = variable_groups.getLenses();
+                for(UIntSet::const_iterator it=imgNrs.begin();it!=imgNrs.end();it++)
+                {
+                    allImgWithSameLens.insert(*it);
+                    unsigned int lensNr=lenses.getPartNumber(*it);
+                    if(set_contains(testedLens,lensNr))
+                        continue;
+                    testedLens.insert(lensNr);
+                    for(unsigned int i=0;i<pano.getNrOfImages();i++)
+                    {
+                        if(lenses.getPartNumber(i)==lensNr)
+                        {
+                            allImgWithSameLens.insert(i);
+                        };
+                    };
+                };
+                pano.UpdateCropFactor(allImgWithSameLens, m_cropFactor);
+                pano.changeFinished();
+                return true;
+            }
+        
+        virtual std::string getName() const
+            {
+                return "update crop factor";
+            }
+
+    private:
+        UIntSet imgNrs;
+        double m_cropFactor;
+    };
 
     //=========================================================================
     //=========================================================================

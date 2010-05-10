@@ -80,6 +80,9 @@ class LensPanel: public wxPanel, public PT::PanoramaObserver
      */
     void UpdateLensDisplay ();
 
+    /** enabled or disable the controls depending on selected images */
+    void EnableInputs();
+
     void EditVigCorr (wxCommandEvent & e);
 
  private:

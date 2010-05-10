@@ -662,28 +662,28 @@ void setFullImage(Image & image, vigra::Diff2D size,
 
     image.dataformat = _RGB;
     switch (format) {
-    case Lens::RECTILINEAR:
+    case BaseSrcPanoImage::RECTILINEAR:
         image.format = _rectilinear;
         break;
-    case Lens::PANORAMIC:
+    case BaseSrcPanoImage::PANORAMIC:
         image.format = _panorama;
         break;
-    case Lens::CIRCULAR_FISHEYE:
+    case BaseSrcPanoImage::CIRCULAR_FISHEYE:
         image.format = _fisheye_circ;
         break;
-    case Lens::FULL_FRAME_FISHEYE:
+    case BaseSrcPanoImage::FULL_FRAME_FISHEYE:
         image.format = _fisheye_ff;
         break;
-    case Lens::EQUIRECTANGULAR:
+    case BaseSrcPanoImage::EQUIRECTANGULAR:
         image.format = _equirectangular;
         break;
-    case Lens::FISHEYE_ORTHOGRAPHIC:
+    case BaseSrcPanoImage::FISHEYE_ORTHOGRAPHIC:
         image.format = _orthographic;
         break;
-    case Lens::FISHEYE_STEREOGRAPHIC:
+    case BaseSrcPanoImage::FISHEYE_STEREOGRAPHIC:
         image.format = _stereographic;
         break;
-    case Lens::FISHEYE_EQUISOLID:
+    case BaseSrcPanoImage::FISHEYE_EQUISOLID:
         image.format = _equisolid;
         break;
     }

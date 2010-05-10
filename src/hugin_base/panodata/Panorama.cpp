@@ -287,6 +287,49 @@ void Panorama::updateVariable(unsigned int imgNr, const Variable &var)
     state.needsOptimization = true;
 }
 
+void Panorama::UpdateFocalLength(UIntSet imgs, double newFocalLength)
+{
+    for(UIntSet::const_iterator it=imgs.begin();it!=imgs.end();it++)
+    {
+        state.images[*it]->updateFocalLength(newFocalLength);
+        imageChanged(*it);
+    };
+    //search for images with linked HFOV and mark these also as changed
+    for(UIntSet::const_iterator it=imgs.begin();it!=imgs.end();it++)
+    {
+        SrcPanoImage *img=state.images[*it];
+        if(state.images[*it]->HFOVisLinked())
+        {
+            for(unsigned int j=0;j<getNrOfImages();j++)
+            {
+                if(*it!=j)
+                {
+                    if(state.images[*it]->HFOVisLinkedWith(*img))
+                    {
+                        imageChanged(j);
+                    };
+                };
+            };
+        };
+    };
+};
+
+void Panorama::UpdateCropFactor(UIntSet imgs, double newCropFactor)
+{
+    //store list of focal length, so we can keep the focal length unchanged and change hfov instead
+    std::vector<double> focalLengthVector(getNrOfImages(),0.0);
+    for(unsigned i=0;i<getNrOfImages();i++)
+    {
+        focalLengthVector[i]=state.images[i]->calcFocalLength(state.images[i]->getProjection(),
+            state.images[i]->getHFOV(),state.images[i]->getExifCropFactor(),state.images[i]->getSize());
+    };
+    for(UIntSet::const_iterator it=imgs.begin();it!=imgs.end();it++)
+    {
+        state.images[*it]->updateCropFactor(focalLengthVector[*it],newCropFactor);
+        imageChanged(*it);
+    };
+};
+
 // What counts as changed in terms of the image variable links?
 // Should I call imageChanged on every image linked to sourceImg and destImg?
 // destImg's variable will change value to sourceImg's, so the images linked to

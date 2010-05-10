@@ -722,6 +722,24 @@ double SrcPanoImage::calcCropFactor(SrcPanoImage::Projection proj, double hfov, 
     return sqrt(36.0*36.0 + 24.0*24.0) / diag;
 }
 
+void SrcPanoImage::updateFocalLength(double newFocalLength)
+{
+    double newHFOV=calcHFOV(getProjection(),newFocalLength,getExifCropFactor(),getSize());
+    if(newHFOV!=0)
+    {
+        setHFOV(newHFOV);
+    };
+};
+
+void SrcPanoImage::updateCropFactor(double focalLength, double newCropFactor)
+{
+    double newHFOV=calcHFOV(getProjection(),focalLength,newCropFactor,getSize());
+    if(newHFOV!=0)
+    {
+        setHFOV(newHFOV);
+    };
+    setExifCropFactor(newCropFactor);
+};
 
 // Convenience functions to work with Exiv2
 bool SrcPanoImage::getExiv2Value(Exiv2::ExifData& exifData, std::string keyName, long & value)

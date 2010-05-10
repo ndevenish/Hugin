@@ -36,7 +36,7 @@
 
 #include <hugin_math/hugin_math.h>
 #include <panodata/PanoramaVariable.h>
-
+#include <panodata/SrcPanoImage.h>
 
 namespace HuginBase {
 
@@ -44,21 +44,8 @@ namespace HuginBase {
 class IMPEX Lens {
 
     public:
-        /** Lens type
-         */
-        enum LensProjectionFormat {
-            RECTILINEAR = 0,
-            PANORAMIC = 1,
-            CIRCULAR_FISHEYE = 2,
-            FULL_FRAME_FISHEYE = 3,
-            EQUIRECTANGULAR = 4,
-            FISHEYE_ORTHOGRAPHIC = 8,
-            FISHEYE_STEREOGRAPHIC = 10,
-            FISHEYE_EQUISOLID = 21
-        };
+        typedef BaseSrcPanoImage::Projection LensProjectionFormat;
 
-        
-    public:
         /** construct a new lens.
          *
          */
@@ -98,28 +85,13 @@ class IMPEX Lens {
         /** get focal length of lens, it is calculated from the HFOV */
         double getFocalLength() const;
 
-        /** set focal length, updates HFOV */
-        void setFocalLength(double);
-
         /** get crop factor, d35mm/dreal */
-        double getCropFactor() const;
+        double getCropFactor() const 
+        { return m_cropFactor; };
 
-        /** Set the crop factor.
-         *
-         *  This will recalculate the sensor size.
-         *
-         *  @param c is the ratio of the sensor diagonals:
-         *                factor = diag35mm / real_diag
-         */
-        void setCropFactor(double c);
-
-        /** get sensor dimension */
-        hugin_utils::FDiff2D getSensorSize() const
-        { return m_sensorSize; }
-
-        /** set sensor dimensions. Only square pixels are supported so far.*/
-        void setSensorSize(const hugin_utils::FDiff2D & size)
-        { m_sensorSize = size; }
+        /** sets the crop factor */
+        void setCropFactor(double newCropFactor)
+        { m_cropFactor=newCropFactor; };
 
         /** return the sensor ratio (width/height)
          */
@@ -159,7 +131,7 @@ class IMPEX Lens {
     private:
         LensProjectionFormat m_projectionFormat;
         vigra::Size2D m_imageSize;
-        hugin_utils::FDiff2D m_sensorSize;
+        double m_cropFactor;
     
 };
 

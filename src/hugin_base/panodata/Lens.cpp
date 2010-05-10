@@ -37,8 +37,8 @@ using namespace hugin_utils;
 
 
 Lens::Lens()
-    : m_hasExif(false), m_projectionFormat(RECTILINEAR),
-      m_imageSize(0,0), m_sensorSize(36.0,24.0)
+    : m_hasExif(false), m_projectionFormat(BaseSrcPanoImage::RECTILINEAR),
+      m_imageSize(0,0), m_cropFactor(1.0)
 {
     fillLensVarMap(variables);
 }
@@ -63,89 +63,13 @@ double Lens::getFocalLength() const
 {
 
     double HFOV = const_map_get(variables,"v").getValue();
-#if 0
-    if (isLandscape()) {
-        ssize = m_sensorSize;
-    } else {
-        ssize.y = m_sensorSize.x;
-        ssize.x = m_sensorSize.y;
-    }
-#endif
-
-    switch (m_projectionFormat)
-    {
-        case RECTILINEAR:
-            return (m_sensorSize.x/2.0) / tan(HFOV/180.0*M_PI/2);
-            break;
-        case CIRCULAR_FISHEYE:
-        case FULL_FRAME_FISHEYE:
-        case FISHEYE_ORTHOGRAPHIC:
-        case FISHEYE_STEREOGRAPHIC:
-        case FISHEYE_EQUISOLID:
-        case PANORAMIC:
-        case EQUIRECTANGULAR:
-            // same projection equation for both fisheye types,
-            // assume equal area projection.
-            return m_sensorSize.x / (HFOV/180*M_PI);
-            break;
-        default:
-            // TODO: add formulas for other projections
-            DEBUG_WARN("Focal length calculations only supported with rectilinear and fisheye images");
-            return 0;
-    }
+    return SrcPanoImage::calcFocalLength(m_projectionFormat,HFOV,getCropFactor(),m_imageSize);
 }
 
 void Lens::setEV(double ev)
 {
     map_get(variables, "Eev").setValue(ev);
 }
-
-void Lens::setFocalLength(double fl)
-{
-#if 0
-    if (isLandscape()) {
-        ssize = m_sensorSize;
-    } else {
-        ssize.y = m_sensorSize.x;
-        ssize.x = m_sensorSize.y;
-    }
-#endif
-
-    double hfov=map_get(variables, "v").getValue();
-    switch (m_projectionFormat) {
-        case RECTILINEAR:
-            hfov = 2*atan((m_sensorSize.x/2.0)/fl)  * 180.0/M_PI;
-            break;
-        case CIRCULAR_FISHEYE:
-        case FULL_FRAME_FISHEYE:
-            hfov = m_sensorSize.x / fl * 180/M_PI;
-        default:
-            // TODO: add formulas for other projections
-            DEBUG_WARN("Focal length calculations only supported with rectilinear and fisheye images");
-    }
-    map_get(variables, "v").setValue(hfov);
-}
-
-
-void Lens::setCropFactor(double factor)
-{
-    // calculate diagonal on our sensor
-    double d = sqrt(36.0*36.0 + 24.0*24.0) / factor;
-
-    double r = (double)m_imageSize.x / m_imageSize.y;
-
-    // calculate the sensor width and height that fit the ratio
-    // the ratio is determined by the size of our image.
-    m_sensorSize.x = d / sqrt(1.0 + 1.0/(r*r));
-    m_sensorSize.y = m_sensorSize.x / r;
-}
-
-double Lens::getCropFactor() const
-{
-    double d2 = m_sensorSize.x*m_sensorSize.x + m_sensorSize.y*m_sensorSize.y;
-    return sqrt(36.0*36+24*24) / sqrt(d2);
-}
-
 
 double Lens::getAspectRatio() const
 {
@@ -162,8 +86,7 @@ bool Lens::isLandscape() const
 void Lens::update(const Lens & l)
 {
     m_projectionFormat = l.m_projectionFormat;
-    m_sensorSize = l.m_sensorSize;
-    m_imageSize = l.m_imageSize;
+    m_cropFactor = l.getCropFactor();    m_imageSize = l.m_imageSize;
     variables = l.variables;
 }
 

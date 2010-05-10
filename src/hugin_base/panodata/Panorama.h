@@ -384,6 +384,10 @@ class IMPEX Panorama : public ManagedPanoramaData, public AppBase::DocumentData
             */
         virtual void updateVariable(unsigned int imgNr, const Variable &var);
         
+        /** updates the focal length by changing hfov */
+        virtual void UpdateFocalLength(UIntSet imgs, double newFocalLength);
+        /** updates the crop factor, try to keep focal length constant */
+        virtual void UpdateCropFactor(UIntSet imgs, double newCropFactor);
         /* Link image variable functions. Used to group image variables which
          * should share the same value. The initial value is the one kept by
          * the image with number sourceImgNr.
