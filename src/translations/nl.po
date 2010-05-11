@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: nl\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2010-03-25 21:05+0100\n"
-"PO-Revision-Date: 2010-03-27 16:55+0100\n"
+"PO-Revision-Date: 2010-05-11 19:12+0100\n"
 "Last-Translator: Harry van der Wolf <harryvanderwolf@home.nl>\n"
 "Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -1445,7 +1445,7 @@ msgstr "Voeg afbeelding toe: annuleer"
 
 #: hugin1/hugin/MainFrame.cpp:1164
 msgid "Can't start system's web browser"
-msgstr "Kan de systeem gedefinieerde browser niet starten"
+msgstr "Kan de standaard systeem web browser niet starten"
 
 #: hugin1/hugin/MainFrame.cpp:1314
 msgid "Choose template project"
@@ -1786,7 +1786,7 @@ msgstr "Kan tijdelijk project bestand niet aanmaken"
 
 #: hugin1/hugin/PanoPanel.cpp:1068
 msgid "Could not execute command: "
-msgstr "Kan volgend commando niet uitvoeren:"
+msgstr "Kan commando niet uitvoeren:"
 
 #: hugin1/hugin/PanoPanel.cpp:1068
 msgid "ShellExecuteEx failed"
@@ -2022,7 +2022,7 @@ msgstr "Projectieparameters"
 #: hugin1/hugin/PreviewFrame.cpp:336
 #: hugin1/hugin/PreviewPanel.cpp:775
 msgid "Left click to define new center point, right click to move point to horizon."
-msgstr "Links-klikken om een nieuw centreerpunt te maken, rechts-klikken om punt naar de horizon te verplaatsen."
+msgstr "Links-klikken om een nieuw middelpunt te maken, rechts-klikken om punt naar de horizon te verplaatsen."
 
 #: hugin1/hugin/PreviewFrame.cpp:371
 #: hugin1/hugin/PreviewFrame.cpp:498
@@ -2032,7 +2032,7 @@ msgstr "Centreer panorama met de linkermuisknop. Gebruik de rechtermuisknop om d
 #: hugin1/hugin/PreviewIdentifyTool.cpp:190
 #: hugin1/hugin/PreviewIdentifyTool.cpp:253
 msgid "Move the mouse over the images or image buttons to identify them."
-msgstr "Beweeg de muis over de afbeeldingen of afbeeldingbuttons om ze te identificeren."
+msgstr "Beweeg de muis over de afbeeldingen of afbeeldings knoppen om ze te identificeren."
 
 #: hugin1/hugin/PreviewIdentifyTool.cpp:251
 msgid "Click to create or edit control points here."
@@ -3859,12 +3859,12 @@ msgstr "Schrijf huidig project naar een scriptbestand compatibel met PTStitchter
 #: translations/xrc.cpp:307
 #: xrc.cpp:307
 msgid "Most recently used projects"
-msgstr "Recentst gebruikte projecten"
+msgstr "Open recente projecten"
 
 #: translations/xrc.cpp:308
 #: xrc.cpp:308
 msgid "List of most recently used project files"
-msgstr "Lijst van recentst gebruikte projecten"
+msgstr "Lijst van recent gebruikte projecten"
 
 #: translations/xrc.cpp:309
 #: xrc.cpp:309
@@ -4113,7 +4113,7 @@ msgstr "Sla project op als"
 #: translations/xrc.cpp:365
 #: xrc.cpp:365
 msgid "Save As"
-msgstr "Sla op als"
+msgstr "Opslaan als"
 
 #: translations/xrc.cpp:367
 #: translations/xrc.cpp:368
