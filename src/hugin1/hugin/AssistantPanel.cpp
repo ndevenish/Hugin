@@ -892,7 +892,7 @@ void AssistantPanel::OnLensTypeChanged (wxCommandEvent & e)
                                 )
             );
         GlobalCmdHist::getInstance().addCommand(
-                new PT::ChangeImageExifFocalLengthCmd(*m_pano, imgs, fl)
+                new PT::UpdateFocalLengthCmd(*m_pano, imgs, fl)
             );
     }
 }
