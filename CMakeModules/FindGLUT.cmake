@@ -9,16 +9,22 @@
 
 IF (WIN32)
   FIND_PATH( GLUT_INCLUDE_DIR NAMES GL/glut.h 
-    PATHS  ${GLUT_ROOT_PATH}
-           ${GLUT_ROOT_PATH}/include )
-  FIND_LIBRARY( GLUT_glut_LIBRARY NAMES glut glut32 freeglut
+    PATHS ${SOURCE_BASE_DIR}/freeglut-2.6.0/include
+      ${SOURCE_BASE_DIR}/glut/include
+    )
+  FIND_LIBRARY( GLUT_glut_LIBRARY NAMES glut glut32 freeglut freeglut_static
     PATHS
     ${OPENGL_LIBRARY_DIR}
-    ${GLUT_ROOT_PATH}
-    ${GLUT_ROOT_PATH}/Release
-    ${GLUT_ROOT_PATH}/lib
-    ${GLUT_ROOT_PATH}/VisualStudio2008/Release
+    ${SOURCE_BASE_DIR}/glut/Release
+    ${SOURCE_BASE_DIR}/glut/lib
+    ${SOURCE_BASE_DIR}/glut/lib/Release
+    ${SOURCE_BASE_DIR}/freeglut-2.6.0/VisualStudio2008/Release
+    ${SOURCE_BASE_DIR}/freeglut-2.6.0/VisualStudio2008Static/Release
     )
+
+  IF(NOT ${HUGIN_SHARED})
+    ADD_DEFINITIONS(-DFREEGLUT_STATIC)
+  ENDIF()
 ELSE (WIN32)
   
   IF (APPLE)
