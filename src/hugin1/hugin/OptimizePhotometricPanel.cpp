@@ -566,16 +566,16 @@ void OptimizePhotometricPanel::runOptimizer(const UIntSet & imgs)
 
     if (ret == wxYES) {
         DEBUG_DEBUG("Applying vignetting corr");
-        PanoramaOptions opts = m_pano->getOptions();
-        opts.outputExposureValue = calcMeanExposure(*m_pano);
         // TODO: merge into a single update command
-        GlobalCmdHist::getInstance().addCommand(
-                new PT::SetPanoOptionsCmd(*m_pano, opts)
-                                               );
-
         const VariableMapVector & vars = optPano.getVariables();
         GlobalCmdHist::getInstance().addCommand(
                 new PT::UpdateImagesVariablesCmd(*m_pano, imgs, vars)
+                                               );
+        //now update panorama exposure value
+        PanoramaOptions opts = m_pano->getOptions();
+        opts.outputExposureValue = calcMeanExposure(*m_pano);
+        GlobalCmdHist::getInstance().addCommand(
+                new PT::SetPanoOptionsCmd(*m_pano, opts)
                                                );
     }
 }

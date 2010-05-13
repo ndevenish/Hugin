@@ -147,6 +147,11 @@ void PreviewPanel::panoramaChanged(Panorama &pano)
         DEBUG_DEBUG("projection parameters changed");
         dirty = true;
     }
+    if (newOpts.outputExposureValue != opts.outputExposureValue )
+    {
+        DEBUG_DEBUG("output exposure value changed");
+        dirty = true;
+    };
 
     opts = newOpts;
     if (dirty) {

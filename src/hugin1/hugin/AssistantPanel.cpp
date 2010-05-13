@@ -748,16 +748,14 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
         points, *(MainFrame::Get()), error);
     cout << "Auto align, photometric error: " << error *255 << " grey values" << std::endl;
 
-    // calculate the mean exposure.
-    opts.outputExposureValue = calcMeanExposure(*m_pano);
-
     // TODO: merge the following commands.
-
 
     // copy information into the main panorama
     GlobalCmdHist::getInstance().addCommand(
         new PT::UpdateVariablesCPSetCmd(*m_pano, imgs, optPano.getVariables(), optPano.getCtrlPoints())
         );
+    // calculate the mean exposure.
+    opts.outputExposureValue = calcMeanExposure(*m_pano);
 
     // copy information into our panorama
     GlobalCmdHist::getInstance().addCommand(
