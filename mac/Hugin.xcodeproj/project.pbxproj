@@ -781,15 +781,6 @@
 		57D50A4A0F595A6300CCDCB5 /* HuginVigraImpex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5769FE380D24CFEC00A6AD01 /* HuginVigraImpex.framework */; };
 		57D50A4B0F595A6300CCDCB5 /* HuginBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 576900AA0D24D29300A6AD01 /* HuginBase.framework */; };
 		57D50A4C0F595A6300CCDCB5 /* HuginBaseWx.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 576900E10D24D32C00A6AD01 /* HuginBaseWx.framework */; };
-		57D50A4E0F595A6300CCDCB5 /* nona in Copy Executable Files */ = {isa = PBXBuildFile; fileRef = 5796FA950C4395CC006B7C6E /* nona */; };
-		57D50A4F0F595A6300CCDCB5 /* hugin_hdrmerge in Copy Executable Files */ = {isa = PBXBuildFile; fileRef = 5769F8720D23AA5D00A6AD01 /* hugin_hdrmerge */; };
-		57D50A500F595A6300CCDCB5 /* enblend in Copy Executable Files */ = {isa = PBXBuildFile; fileRef = 570D581A082A9ED50030E768 /* enblend */; };
-		57D50A510F595A6300CCDCB5 /* enfuse in Copy Executable Files */ = {isa = PBXBuildFile; fileRef = 5769F79E0D239D6A00A6AD01 /* enfuse */; };
-		57D50A520F595A6300CCDCB5 /* PTblender in Copy Executable Files */ = {isa = PBXBuildFile; fileRef = 5769F79F0D239D6A00A6AD01 /* PTblender */; };
-		57D50A530F595A6300CCDCB5 /* PTmasker in Copy Executable Files */ = {isa = PBXBuildFile; fileRef = 5769F7A00D239D6A00A6AD01 /* PTmasker */; };
-		57D50A540F595A6300CCDCB5 /* PTmender in Copy Executable Files */ = {isa = PBXBuildFile; fileRef = 5769F7A10D239D6A00A6AD01 /* PTmender */; };
-		57D50A550F595A6300CCDCB5 /* PTroller in Copy Executable Files */ = {isa = PBXBuildFile; fileRef = 5769F7A20D239D6A00A6AD01 /* PTroller */; };
-		57D50A560F595A6300CCDCB5 /* gnumake in Copy Executable Files */ = {isa = PBXBuildFile; fileRef = 570898E30D4CB635008949E7 /* gnumake */; };
 		57D50A580F595A6300CCDCB5 /* HuginVigraImpex.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 5769FE380D24CFEC00A6AD01 /* HuginVigraImpex.framework */; };
 		57D50A590F595A6300CCDCB5 /* HuginBase.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 576900AA0D24D29300A6AD01 /* HuginBase.framework */; };
 		57D50A5A0F595A6300CCDCB5 /* HuginBaseWx.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 576900E10D24D32C00A6AD01 /* HuginBaseWx.framework */; };
@@ -2741,25 +2732,6 @@
 			name = "Copy Executable Files";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		57D50A4D0F595A6300CCDCB5 /* Copy Executable Files */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 6;
-			files = (
-				57D50A4E0F595A6300CCDCB5 /* nona in Copy Executable Files */,
-				57D50A4F0F595A6300CCDCB5 /* hugin_hdrmerge in Copy Executable Files */,
-				57D50A500F595A6300CCDCB5 /* enblend in Copy Executable Files */,
-				57D50A510F595A6300CCDCB5 /* enfuse in Copy Executable Files */,
-				57D50A520F595A6300CCDCB5 /* PTblender in Copy Executable Files */,
-				57D50A530F595A6300CCDCB5 /* PTmasker in Copy Executable Files */,
-				57D50A540F595A6300CCDCB5 /* PTmender in Copy Executable Files */,
-				57D50A550F595A6300CCDCB5 /* PTroller in Copy Executable Files */,
-				57D50A560F595A6300CCDCB5 /* gnumake in Copy Executable Files */,
-			);
-			name = "Copy Executable Files";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		57D50A570F595A6300CCDCB5 /* Copy Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -3743,6 +3715,7 @@
 		73D24B9A1061566B00B8A25D /* cpclean.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cpclean.cpp; sourceTree = "<group>"; };
 		73D24BB11061592C00B8A25D /* CleanCP.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CleanCP.cpp; sourceTree = "<group>"; };
 		73D24BB21061592C00B8A25D /* CleanCP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CleanCP.h; sourceTree = "<group>"; };
+		73DAADC9119DB8DC002149AC /* copyPTBatcherGuiBins.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = copyPTBatcherGuiBins.sh; sourceTree = "<group>"; };
 		73E488F710D5997300A083C8 /* CalculateOptimalROI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CalculateOptimalROI.h; path = algorithms/basic/CalculateOptimalROI.h; sourceTree = "<group>"; };
 		73E488F810D5997300A083C8 /* CalculateOptimalROI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CalculateOptimalROI.cpp; path = algorithms/basic/CalculateOptimalROI.cpp; sourceTree = "<group>"; };
 		73E6770010F8BF18001807AB /* libhugin_base.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libhugin_base.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -4716,6 +4689,7 @@
 				73138A2B1183358100DCF373 /* copyTools.sh */,
 				571D8C910E213879006D0305 /* localise-help.sh */,
 				571D8C700E213216006D0305 /* patch-xrc.sh */,
+				73DAADC9119DB8DC002149AC /* copyPTBatcherGuiBins.sh */,
 				57A2BC2E0D45422800E9FFEC /* copyExifTool.sh */,
 				576902090D24DBA100A6AD01 /* complete-bundle.sh */,
 				739A0D4810FA599A00D8E4C7 /* complete-tools-package.sh */,
@@ -7558,7 +7532,7 @@
 			buildPhases = (
 				57D50A360F595A6300CCDCB5 /* Sources */,
 				57D50A380F595A6300CCDCB5 /* Frameworks */,
-				57D50A4D0F595A6300CCDCB5 /* Copy Executable Files */,
+				73DAADCE119DB90B002149AC /* Copy Excecutable files */,
 				57D50A570F595A6300CCDCB5 /* Copy Frameworks */,
 				57D50A5B0F595A6300CCDCB5 /* Locale Script */,
 				57D50A5C0F595A6300CCDCB5 /* Copy ExifTool */,
@@ -8713,6 +8687,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if [ $ACTION = \"build\" ]\nthen\n sh ../mac/complete-tools-package.sh\nfi\n\nif [ $DEPLOYMENT_POSTPROCESSING = \"YES\" -a $STRIP_INSTALLED_PRODUCT = \"YES\" ]\nthen\n echo \"Stripping libraries: $TARGET_BUILD_DIR/$PRODUCT_NAME/Libraries/*.dylib\"\n strip -x $TARGET_BUILD_DIR/$PRODUCT_NAME/Libraries/*.dylib\nfi";
+		};
+		73DAADCE119DB90B002149AC /* Copy Excecutable files */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Excecutable files";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ $ACTION = \"build\" ]\nthen\n sh ../mac/copyPTBatcherGuiBins.sh\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
