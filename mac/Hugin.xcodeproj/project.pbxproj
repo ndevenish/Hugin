@@ -271,7 +271,6 @@
 		5731C4E20D55380B00605D22 /* libexpat.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5731C4920D5532D400605D22 /* libexpat.dylib */; };
 		5731CA820D55FAED00605D22 /* libexpat.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5731C4920D5532D400605D22 /* libexpat.dylib */; };
 		5731CA8F0D56055B00605D22 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989581068E2FD7009F90BF /* libiconv.dylib */; };
-		5731CA900D56057A00605D22 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989581068E2FD7009F90BF /* libiconv.dylib */; };
 		5739AEC40D251B51000DBBF3 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989581068E2FD7009F90BF /* libiconv.dylib */; };
 		573F330509F79BAA0088B333 /* iccjpeg.c in Sources */ = {isa = PBXBuildFile; fileRef = 573F330409F79BAA0088B333 /* iccjpeg.c */; };
 		574092360C393E9000D16607 /* ImageRemapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 574092350C393E9000D16607 /* ImageRemapper.h */; };
@@ -923,6 +922,10 @@
 		73138A0311830C3A00DCF373 /* HuginVigraImpex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5769FE380D24CFEC00A6AD01 /* HuginVigraImpex.framework */; };
 		73138A1A118334E000DCF373 /* keypoints in Resources */ = {isa = PBXBuildFile; fileRef = 731388DB1182E9D400DCF373 /* keypoints */; };
 		73138A1B118334E000DCF373 /* patfree-panomatic in Resources */ = {isa = PBXBuildFile; fileRef = 7313894B1182F43F00DCF373 /* patfree-panomatic */; };
+		7318CA66119D371100DBD6FD /* CalculateOverlap.h in Headers */ = {isa = PBXBuildFile; fileRef = 7318CA64119D371100DBD6FD /* CalculateOverlap.h */; };
+		7318CA67119D371100DBD6FD /* CalculateOverlap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7318CA65119D371100DBD6FD /* CalculateOverlap.cpp */; };
+		7318CA68119D371100DBD6FD /* CalculateOverlap.h in Headers */ = {isa = PBXBuildFile; fileRef = 7318CA64119D371100DBD6FD /* CalculateOverlap.h */; };
+		7318CA69119D371100DBD6FD /* CalculateOverlap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7318CA65119D371100DBD6FD /* CalculateOverlap.cpp */; };
 		7329278810E4A7AE00D3C8CB /* image_variables.h in Headers */ = {isa = PBXBuildFile; fileRef = 7329278310E4A7AE00D3C8CB /* image_variables.h */; };
 		7329278910E4A7AE00D3C8CB /* ImageVariable.h in Headers */ = {isa = PBXBuildFile; fileRef = 7329278410E4A7AE00D3C8CB /* ImageVariable.h */; };
 		7329278A10E4A7AE00D3C8CB /* ImageVariableGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7329278510E4A7AE00D3C8CB /* ImageVariableGroup.cpp */; };
@@ -1511,14 +1514,12 @@
 		73EAB5460E86CF130020D514 /* libHalf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB52B0E86CF120020D514 /* libHalf.a */; };
 		73EAB5470E86CF130020D514 /* libIex.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB52C0E86CF120020D514 /* libIex.a */; };
 		73EAB5480E86CF130020D514 /* libIlmImf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB52D0E86CF120020D514 /* libIlmImf.a */; };
-		73EAB5490E86CF130020D514 /* libIlmThread.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB52E0E86CF120020D514 /* libIlmThread.a */; };
 		73EAB54A0E86CF130020D514 /* libImath.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB52F0E86CF120020D514 /* libImath.a */; };
 		73EAB54B0E86CF130020D514 /* libjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5300E86CF120020D514 /* libjpeg.a */; };
 		73EAB54C0E86CF130020D514 /* liblcms.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5310E86CF120020D514 /* liblcms.a */; };
 		73EAB54D0E86CF130020D514 /* libpano13.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5320E86CF120020D514 /* libpano13.a */; };
 		73EAB54E0E86CF130020D514 /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5330E86CF120020D514 /* libpng.a */; };
 		73EAB5500E86CF130020D514 /* libtiff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5350E86CF120020D514 /* libtiff.a */; };
-		73EAB5510E86CF130020D514 /* libtiffxx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5360E86CF120020D514 /* libtiffxx.a */; };
 		73EAB5520E86CF130020D514 /* libxmi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB5370E86CF120020D514 /* libxmi.a */; };
 		73EBC0980EC9E2230068B821 /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 734FB8F60EB38B9500CD7122 /* Main.cpp */; };
 		73EBC0990EC9E2BD0068B821 /* libHalf.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786180BF348E90041F8FF /* libHalf.dylib */; };
@@ -1532,6 +1533,10 @@
 		73EBC0A20EC9E2ED0068B821 /* HuginVigraImpex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5769FE380D24CFEC00A6AD01 /* HuginVigraImpex.framework */; };
 		73EBC0AC0EC9E3540068B821 /* libboost_thread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57565A640D088DAD00344F55 /* libboost_thread.dylib */; };
 		73EBC0AD0EC9E3630068B821 /* libpano13.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 573B8F85067BAAB900B7B355 /* libpano13.dylib */; };
+		73F161C8118EB72A002FC7DD /* libintl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73F161C6118EB729002FC7DD /* libintl.a */; };
+		73F161C9118EB72A002FC7DD /* libiconv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73F161C7118EB72A002FC7DD /* libiconv.a */; };
+		73F161CA118EB743002FC7DD /* libIlmThread.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB52E0E86CF120020D514 /* libIlmThread.a */; };
+		73F161D8118EB8CC002FC7DD /* Transforms.h in Headers */ = {isa = PBXBuildFile; fileRef = 73F161D7118EB8CC002FC7DD /* Transforms.h */; };
 		73FC2AFF110057FC00EAB009 /* align_image_stack in Resources */ = {isa = PBXBuildFile; fileRef = 73E79F300D674EAC00C07126 /* align_image_stack */; };
 		E864E2C610CE8437007AC6E4 /* liblcms.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E864E2C510CE8437007AC6E4 /* liblcms.dylib */; };
 		E864E2C710CE8437007AC6E4 /* liblcms.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E864E2C510CE8437007AC6E4 /* liblcms.dylib */; };
@@ -2230,28 +2235,28 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 5769FE370D24CFEC00A6AD01 /* vigra_impex Framework */;
+			remoteGlobalIDString = 5769FE370D24CFEC00A6AD01;
 			remoteInfo = "vigra_impex Framework";
 		};
 		7334680A1183665C00401093 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 733467E81183644D00401093 /* localfeatures */;
+			remoteGlobalIDString = 733467E81183644D00401093;
 			remoteInfo = localfeatures;
 		};
 		7334680E1183668900401093 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 733467E81183644D00401093 /* localfeatures */;
+			remoteGlobalIDString = 733467E81183644D00401093;
 			remoteInfo = localfeatures;
 		};
 		73346817118366B300401093 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 733467E81183644D00401093 /* localfeatures */;
+			remoteGlobalIDString = 733467E81183644D00401093;
 			remoteInfo = localfeatures;
 		};
 		733DF625117F2268002EC787 /* PBXContainerItemProxy */ = {
@@ -3543,6 +3548,8 @@
 		731389121182EFC500DCF373 /* libZThread.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libZThread.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7313894B1182F43F00DCF373 /* patfree-panomatic */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "patfree-panomatic"; sourceTree = BUILT_PRODUCTS_DIR; };
 		73138A2B1183358100DCF373 /* copyTools.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = copyTools.sh; sourceTree = "<group>"; };
+		7318CA64119D371100DBD6FD /* CalculateOverlap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CalculateOverlap.h; path = algorithms/basic/CalculateOverlap.h; sourceTree = "<group>"; };
+		7318CA65119D371100DBD6FD /* CalculateOverlap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CalculateOverlap.cpp; path = algorithms/basic/CalculateOverlap.cpp; sourceTree = "<group>"; };
 		7329278310E4A7AE00D3C8CB /* image_variables.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = image_variables.h; sourceTree = "<group>"; };
 		7329278410E4A7AE00D3C8CB /* ImageVariable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageVariable.h; sourceTree = "<group>"; };
 		7329278510E4A7AE00D3C8CB /* ImageVariableGroup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImageVariableGroup.cpp; sourceTree = "<group>"; };
@@ -3761,6 +3768,9 @@
 		73EAB53B0E86CF130020D514 /* OpenEXR.pc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = OpenEXR.pc; sourceTree = "<group>"; };
 		73EAB5400E86CF130020D514 /* setup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = setup.h; sourceTree = "<group>"; };
 		73EBC0900EC9E0B20068B821 /* celeste_standalone */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = celeste_standalone; sourceTree = BUILT_PRODUCTS_DIR; };
+		73F161C6118EB729002FC7DD /* libintl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libintl.a; path = "../../ExternalPrograms/repository/lib-static/libintl.a"; sourceTree = SOURCE_ROOT; };
+		73F161C7118EB72A002FC7DD /* libiconv.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libiconv.a; path = "../../ExternalPrograms/repository/lib-static/libiconv.a"; sourceTree = SOURCE_ROOT; };
+		73F161D7118EB8CC002FC7DD /* Transforms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Transforms.h; path = ../src/hugin_base/hugin_math/Transforms.h; sourceTree = SOURCE_ROOT; };
 		E864E2C510CE8437007AC6E4 /* liblcms.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = liblcms.dylib; path = lib/liblcms.dylib; sourceTree = "<group>"; };
 		E8A7C02710F7993100839DF3 /* libGLEW.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGLEW.a; sourceTree = "<group>"; };
 		E8A7C02810F7993100839DF3 /* libintl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libintl.a; sourceTree = "<group>"; };
@@ -4166,18 +4176,15 @@
 				73EAB5460E86CF130020D514 /* libHalf.a in Frameworks */,
 				73EAB5470E86CF130020D514 /* libIex.a in Frameworks */,
 				73EAB5480E86CF130020D514 /* libIlmImf.a in Frameworks */,
-				73EAB5490E86CF130020D514 /* libIlmThread.a in Frameworks */,
 				73EAB54A0E86CF130020D514 /* libImath.a in Frameworks */,
 				73EAB54B0E86CF130020D514 /* libjpeg.a in Frameworks */,
 				73EAB54C0E86CF130020D514 /* liblcms.a in Frameworks */,
 				73EAB54D0E86CF130020D514 /* libpano13.a in Frameworks */,
 				73EAB54E0E86CF130020D514 /* libpng.a in Frameworks */,
 				73EAB5500E86CF130020D514 /* libtiff.a in Frameworks */,
-				73EAB5510E86CF130020D514 /* libtiffxx.a in Frameworks */,
 				73EAB5520E86CF130020D514 /* libxmi.a in Frameworks */,
 				57AC372B0D2BE6340086D348 /* libz.dylib in Frameworks */,
 				73EAB5440E86CF130020D514 /* libexiv2.a in Frameworks */,
-				5731CA900D56057A00605D22 /* libiconv.dylib in Frameworks */,
 				57AC37360D2BE6340086D348 /* libhugin_vigra_impex.a in Frameworks */,
 				57AC37370D2BE6340086D348 /* libhugin_utils.a in Frameworks */,
 				57AC37380D2BE6340086D348 /* libhugin_vigra_ext.a in Frameworks */,
@@ -4193,6 +4200,9 @@
 				E8A7C51B10F7E9E800839DF3 /* GLUT.framework in Frameworks */,
 				E8A7C51C10F7E9E800839DF3 /* OpenGL.framework in Frameworks */,
 				E8A7C64010F7F91B00839DF3 /* Carbon.framework in Frameworks */,
+				73F161C8118EB72A002FC7DD /* libintl.a in Frameworks */,
+				73F161C9118EB72A002FC7DD /* libiconv.a in Frameworks */,
+				73F161CA118EB743002FC7DD /* libIlmThread.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5816,6 +5826,8 @@
 		57EA83990C3A7A9500E4965E /* basic */ = {
 			isa = PBXGroup;
 			children = (
+				7318CA64119D371100DBD6FD /* CalculateOverlap.h */,
+				7318CA65119D371100DBD6FD /* CalculateOverlap.cpp */,
 				73E488F710D5997300A083C8 /* CalculateOptimalROI.h */,
 				73E488F810D5997300A083C8 /* CalculateOptimalROI.cpp */,
 				57EA83C80C3A800100E4965E /* CalculateCPStatistics.cpp */,
@@ -5849,6 +5861,7 @@
 		57FC3ABD0675E43600C3E0AC = {
 			isa = PBXGroup;
 			children = (
+				73F161D7118EB8CC002FC7DD /* Transforms.h */,
 				57E34AC90C4ACE1C006AA781 /* math.h */,
 				574B81880E4198FE00644179 /* hugin */,
 				5745FC05094E1D5400E6B672 /* External */,
@@ -6546,6 +6559,8 @@
 		73EAB5250E86CEA90020D514 /* lib-static */ = {
 			isa = PBXGroup;
 			children = (
+				73F161C6118EB729002FC7DD /* libintl.a */,
+				73F161C7118EB72A002FC7DD /* libiconv.a */,
 				E8A7C02710F7993100839DF3 /* libGLEW.a */,
 				E8A7C02810F7993100839DF3 /* libintl.a */,
 				73482F5D0FD97B7200B6088C /* libboost_filesystem-1_40.a */,
@@ -6806,6 +6821,7 @@
 				7329279110E4A7AE00D3C8CB /* ImageVariableTranslate.h in Headers */,
 				7329279F10E4BB5D00D3C8CB /* StandardImageVariableGroups.h in Headers */,
 				738A774C112B4869004E3612 /* Mask.h in Headers */,
+				7318CA68119D371100DBD6FD /* CalculateOverlap.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6909,6 +6925,7 @@
 				5771F7CC0C3021B000736343 /* eig_jacobi.h in Headers */,
 				5771F7D00C3021B000736343 /* lu.h in Headers */,
 				57C4868E0C31299E002D79F1 /* hugin_math.h in Headers */,
+				73F161D8118EB8CC002FC7DD /* Transforms.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6989,6 +7006,7 @@
 				576EDDAE0C3FFF820076A417 /* PhotometricOptimizer.h in Headers */,
 				57565A7D0D088F2E00344F55 /* ComputeImageROI.h in Headers */,
 				73E488F910D5997300A083C8 /* CalculateOptimalROI.h in Headers */,
+				7318CA66119D371100DBD6FD /* CalculateOverlap.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8882,6 +8900,7 @@
 				7329278F10E4A7AE00D3C8CB /* ImageVariableGroup.cpp in Sources */,
 				7329279E10E4BB5D00D3C8CB /* StandardImageVariableGroups.cpp in Sources */,
 				738A774B112B4869004E3612 /* Mask.cpp in Sources */,
+				7318CA69119D371100DBD6FD /* CalculateOverlap.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -9160,6 +9179,7 @@
 				576EDDAD0C3FFF820076A417 /* PhotometricOptimizer.cpp in Sources */,
 				57565A7C0D088F2E00344F55 /* ComputeImageROI.cpp in Sources */,
 				73E488FA10D5997300A083C8 /* CalculateOptimalROI.cpp in Sources */,
+				7318CA67119D371100DBD6FD /* CalculateOverlap.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -11878,10 +11898,16 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_2)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_3)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_4)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_5)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_6)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_3 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_4 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_5 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_6 = "\"$(SRCROOT)/../../../hugin/mac/ExternalPrograms/repository/lib-static\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				PRODUCT_NAME = align_image_stack;
 			};
@@ -11903,10 +11929,16 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_2)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_3)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_4)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_5)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_6)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_3 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_4 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_5 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_6 = "\"$(SRCROOT)/../../../hugin/mac/ExternalPrograms/repository/lib-static\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				PRODUCT_NAME = align_image_stack;
 			};
@@ -11928,11 +11960,17 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_5)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_7)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_5 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_7 = "\"$(SRCROOT)/../../../hugin/mac/ExternalPrograms/repository/lib-static\"";
 				PRODUCT_NAME = "align_image_stack-static";
 			};
 			name = Release;
