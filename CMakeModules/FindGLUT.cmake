@@ -20,6 +20,8 @@ IF (WIN32)
     ${SOURCE_BASE_DIR}/glut/lib/Release
     ${SOURCE_BASE_DIR}/freeglut-2.6.0/VisualStudio2008/Release
     ${SOURCE_BASE_DIR}/freeglut-2.6.0/VisualStudio2008Static/Release
+    ${SOURCE_BASE_DIR}/freeglut-2.6.0/VisualStudio2008/x64/Release
+    ${SOURCE_BASE_DIR}/freeglut-2.6.0/VisualStudio2008Static/x64/Release    
     )
 
   IF(NOT ${HUGIN_SHARED})
