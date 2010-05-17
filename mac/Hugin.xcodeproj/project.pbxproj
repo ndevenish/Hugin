@@ -125,15 +125,15 @@
 			name = tools;
 			productName = tools;
 		};
-		57FF7DA00E6917BF00553709 /* set svn revision */ = {
+		57FF7DA00E6917BF00553709 /* set HG revision */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = 57FF7DA50E6917FE00553709 /* Build configuration list for PBXAggregateTarget "set svn revision" */;
+			buildConfigurationList = 57FF7DA50E6917FE00553709 /* Build configuration list for PBXAggregateTarget "set HG revision" */;
 			buildPhases = (
 				57FF7D9F0E6917BF00553709 /* Run Script */,
 			);
 			dependencies = (
 			);
-			name = "set svn revision";
+			name = "set HG revision";
 			productName = "svn revision";
 		};
 		57FF7DBB0E6919F400553709 /* copy hugin_config.h */ = {
@@ -3301,7 +3301,7 @@
 		731387B51182E89F00DCF373 /* tags */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tags; sourceTree = "<group>"; };
 		731387B61182E89F00DCF373 /* branch-format */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "branch-format"; sourceTree = "<group>"; };
 		731387B91182E89F00DCF373 /* conflicts */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = conflicts; sourceTree = "<group>"; };
-		731387BA1182E89F00DCF373 /* dirstate */ = {isa = PBXFileReference; lastKnownFileType = file; path = dirstate; sourceTree = "<group>"; };
+		731387BA1182E89F00DCF373 /* dirstate */ = {isa = PBXFileReference; lastKnownFileType = text; path = dirstate; sourceTree = "<group>"; };
 		731387BB1182E89F00DCF373 /* format */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = format; sourceTree = "<group>"; };
 		731387BD1182E89F00DCF373 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		731387BF1182E89F00DCF373 /* format */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = format; sourceTree = "<group>"; };
@@ -3309,7 +3309,7 @@
 		731387C21182E89F00DCF373 /* fe42cf66a56988f239f4ea8792ed7399.rix */ = {isa = PBXFileReference; lastKnownFileType = file; path = fe42cf66a56988f239f4ea8792ed7399.rix; sourceTree = "<group>"; };
 		731387C31182E89F00DCF373 /* fe42cf66a56988f239f4ea8792ed7399.six */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = fe42cf66a56988f239f4ea8792ed7399.six; sourceTree = "<group>"; };
 		731387C41182E89F00DCF373 /* fe42cf66a56988f239f4ea8792ed7399.tix */ = {isa = PBXFileReference; lastKnownFileType = file; path = fe42cf66a56988f239f4ea8792ed7399.tix; sourceTree = "<group>"; };
-		731387C71182E89F00DCF373 /* pack-names */ = {isa = PBXFileReference; lastKnownFileType = file; path = "pack-names"; sourceTree = "<group>"; };
+		731387C71182E89F00DCF373 /* pack-names */ = {isa = PBXFileReference; lastKnownFileType = text; path = "pack-names"; sourceTree = "<group>"; };
 		731387C91182E89F00DCF373 /* fe42cf66a56988f239f4ea8792ed7399.pack */ = {isa = PBXFileReference; lastKnownFileType = file; path = fe42cf66a56988f239f4ea8792ed7399.pack; sourceTree = "<group>"; };
 		731387CB1182E89F00DCF373 /* AUTHORS */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AUTHORS; sourceTree = "<group>"; };
 		731387CC1182E89F00DCF373 /* ChangeLog */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ChangeLog; sourceTree = "<group>"; };
@@ -8120,7 +8120,7 @@
 			projectRoot = ..;
 			targets = (
 				57C486290C3121E8002D79F1 /* configure */,
-				57FF7DA00E6917BF00553709 /* set svn revision */,
+				57FF7DA00E6917BF00553709 /* set HG revision */,
 				57FF7DC10E691A1800553709 /* configure hugin_version.h */,
 				57FF7DBB0E6919F400553709 /* copy hugin_config.h */,
 				57E3470D0C4A8E95006AA781 /* lib static */,
@@ -8551,7 +8551,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# First export a path. On some systems the environment is not correctly set/used\nexport PATH=/opt/local/bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/sw/bin\n\nif [ -f \"../mac/SVN-rev.xcconfig\" ]\nthen\n if [ \"$(svnversion -n \"../\")\" != \"exported\" ]\n then\n  if [ \"${HUGIN_PRERELEASE_VERSION_TAG}\" = '-svn'$(svnversion -n \"../\") ]\n   then\n   exit 0\n  fi\n else\n  if [ ${HUGIN_WC_REVISION} != \"\" ]\n   then\n   exit 0\n  fi\n fi\nelse\n touch ../mac/SVN-rev.xcconfig\nfi\n\nif [ \"$(svnversion -n \"../\")\" != \"exported\" ]\nthen\n echo 'HUGIN_WC_REVISION = '$(svnversion -n \"../\" | grep -o '^[0-9]*') > \"../mac/SVN-rev.xcconfig\"\n# echo 'HUGIN_WC_REVISION = '$(svnversion -n \"../\") > \"../mac/SVN-rev.xcconfig\"\n echo 'HUGIN_PRERELEASE_VERSION_TAG = -svn'$(svnversion -n \"../\" | grep -o '^[0-9]*') >> \"../mac/SVN-rev.xcconfig\"\n echo 'HUGIN_DEVELOPMENT_VERSION = 1' >> \"../mac/SVN-rev.xcconfig\"\nelse\n echo \"\" > \"../mac/SVN-rev.xcconfig\"\n echo 'Need to set SVN revision ${HUGIN_WC_REVISION} manually in Version.xcconfig.' >&2\n exit 1\nfi\n\n\n\n#if [ $ACTION = \"build\" ]\n#then\n# sh ../mac/set-svnrevision.sh\n#fi\n";
+			shellScript = "# First export a path. On some systems the environment is not correctly set/used\nexport PATH=/opt/local/bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/sw/bin\n\nif [ -d \"../.hg\" ]\nthen\n rm -rf ../mac/hgsummary.txt ../mac/hgsummary2.txt\n hg summary | grep tip > ../mac/hgsummary.txt\n sed -e 's/parent: //g' \\\n -e 's/....://g' \\\n -e 's/ tip//g' ../mac/hgsummary.txt > ../mac/hgsummary2.txt\n\n echo 'HUGIN_WC_REVISION = '$(cat ../mac/hgsummary2.txt) > \"../mac/HG-rev.xcconfig\"\n echo 'HUGIN_PRERELEASE_VERSION_TAG = .'$(cat ../mac/hgsummary2.txt) >> \"../mac/HG-rev.xcconfig\"\n echo 'HUGIN_DEVELOPMENT_VERSION = 1' >> \"../mac/HG-rev.xcconfig\"\nelse\n touch ../mac/HG-rev.xcconfig\n echo 'Need to set HG revision ${HUGIN_WC_REVISION} manually in Version.xcconfig.' >&2\n exit 1\nfi\n";
 		};
 		57FF7DBA0E6919F400553709 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -8574,7 +8574,7 @@
 			files = (
 			);
 			inputPaths = (
-				"../mac/SVN-rev.xcconfig",
+				"../mac/HG-rev.xcconfig",
 				../mac/Version.xcconfig,
 				../src/hugin_version.h.in.cmake,
 			);
@@ -9786,7 +9786,7 @@
 		};
 		57FF7DA70E69184600553709 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 57FF7DA00E6917BF00553709 /* set svn revision */;
+			target = 57FF7DA00E6917BF00553709 /* set HG revision */;
 			targetProxy = 57FF7DA60E69184600553709 /* PBXContainerItemProxy */;
 		};
 		57FF7DC60E691AAB00553709 /* PBXTargetDependency */ = {
@@ -9801,7 +9801,7 @@
 		};
 		57FF7DEB0E691C4600553709 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 57FF7DA00E6917BF00553709 /* set svn revision */;
+			target = 57FF7DA00E6917BF00553709 /* set HG revision */;
 			targetProxy = 57FF7DEA0E691C4600553709 /* PBXContainerItemProxy */;
 		};
 		731389091182EF3000DCF373 /* PBXTargetDependency */ = {
@@ -14566,7 +14566,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		57FF7DA50E6917FE00553709 /* Build configuration list for PBXAggregateTarget "set svn revision" */ = {
+		57FF7DA50E6917FE00553709 /* Build configuration list for PBXAggregateTarget "set HG revision" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				57FF7DA10E6917BF00553709 /* Debug */,

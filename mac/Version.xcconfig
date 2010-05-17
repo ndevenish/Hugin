@@ -8,7 +8,7 @@ HUGIN_DEVELOPMENT_VERSION = 1
 //HUGIN_PRERELEASE_VERSION_TAG = -RC3
 
 //overrides above values if checked out from SVN
-#include "../mac/SVN-rev.xcconfig"
+#include "../mac/HG-rev.xcconfig"
 
 HUGIN_VERSION_MAJOR = 2010
 HUGIN_VERSION_MINOR = 1
