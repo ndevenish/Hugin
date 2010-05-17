@@ -39,13 +39,12 @@ case $libpanoVsn in
 				;;
   "16")
         GENERATED_DYLIB_NAME="libpano13.2.dylib";
-<<<<<<< .mine
-                                GENERATED_DYLIB_INSTALL_NAME="libpano13.ylib";
+                                GENERATED_DYLIB_INSTALL_NAME="libpano13.dylib";
                                 ;;
-=======
-        GENERATED_DYLIB_INSTALL_NAME="libpano13.2.dylib";
-        ;;
->>>>>>> .r4917
+  "17")
+        GENERATED_DYLIB_NAME="libpano13.2.dylib";
+                                GENERATED_DYLIB_INSTALL_NAME="libpano13.dylib";
+                                ;;
      *)
         echo "Unknown libpano version $libpanoVsn. Program aborting."
         exit 1 
@@ -108,8 +107,8 @@ do
  [ -d ./.libs ] && rm -R ./.libs
  env \
   CC=$CC CXX=$CXX \
-  CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O3 -dead_strip" \
-  CXXFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O3 -dead_strip" \
+  CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
+  CXXFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
   CPPFLAGS="-I$REPOSITORYDIR/include" \
   LDFLAGS="-L$REPOSITORYDIR/lib -mmacosx-version-min=$OSVERSION -dead_strip -prebind" \
   NEXT_ROOT="$MACSDKDIR" \

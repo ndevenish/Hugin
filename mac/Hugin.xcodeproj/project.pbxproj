@@ -13309,7 +13309,7 @@
 					"$(WX_INCLUDE_DIR_LIB)",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "/Users/Shared/development/hugin_related/hugin/mac/../mac/Hugin-Info copy.plist";
+				INFOPLIST_FILE = "/Users/Shared/development/hugin_related/hugin/mac/../mac/Hugin-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
