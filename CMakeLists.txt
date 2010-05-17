@@ -39,6 +39,7 @@ IF(EXISTS ${PROJECT_SOURCE_DIR}/.hg)
   SET(HUGIN_PACKAGE_VERSION ${V_MAJOR}.${V_MINOR}.${V_PATCH})
   SET(HUGIN_DEVELOPMENT_VERSION 1)
   FILE(WRITE ${PROJECT_SOURCE_DIR}/rev.txt "${HUGIN_WC_REVISION}")
+  MESSAGE("-- Current HG revision is ${HUGIN_WC_REVISION}")
 ELSE()
   IF (EXISTS ${PROJECT_SOURCE_DIR}/.svn)
     # comment out the following line to compile an old version from the subversion repository
