@@ -85,9 +85,6 @@ bool PTBatcherGUI::OnInit()
     PTPrograms progs = getPTProgramsConfig(wxT(""), wxConfigBase::Get());
 #endif
 
-    // update incompatible configuration entries.
-    updateHuginConfig(wxConfigBase::Get());
-
     // set the name of locale recource to look for
     m_locale.AddCatalog(wxT("hugin"));
 

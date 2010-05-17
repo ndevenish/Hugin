@@ -61,8 +61,6 @@ Batch::Batch(wxFrame* parent, wxString path, bool bgui) : wxFrame(parent,wxID_AN
     progs = getPTProgramsConfig(wxT(""), wxConfigBase::Get());
 #endif
 
-	// update incompatible configuration entries.
-    updateHuginConfig(wxConfigBase::Get());
 }
 
 void Batch::AddAppToBatch(wxString app)

@@ -48,6 +48,4 @@ WXIMPEX PT::PTPrograms getPTProgramsConfig(wxString huginRoot, wxConfigBase * co
  */
 WXIMPEX wxString getExePath(wxString argv0);
 
-WXIMPEX void updateHuginConfig(wxConfigBase * config);
-
 #endif
