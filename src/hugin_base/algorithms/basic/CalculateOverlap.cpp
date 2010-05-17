@@ -32,10 +32,9 @@ namespace HuginBase {
 
 using namespace hugin_utils;
 
-/* CalculateImageOverlap::CalculateImageOverlap(const HuginBase::PanoramaData *pano)
+CalculateImageOverlap::CalculateImageOverlap(const HuginBase::PanoramaData *pano):m_pano(pano)
 {
     m_nrImg=pano->getNrOfImages();
-    m_pano=pano;
     if(m_nrImg>0)
     {
         m_overlap.resize(m_nrImg);
@@ -51,7 +50,7 @@ using namespace hugin_utils;
             m_invTransform[i]->createInvTransform(*pano,i,opts);
         };
     };
-};*/
+};
 
 CalculateImageOverlap::~CalculateImageOverlap()
 {

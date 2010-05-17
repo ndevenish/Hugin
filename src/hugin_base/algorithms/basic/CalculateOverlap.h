@@ -43,25 +43,7 @@ class IMPEX CalculateImageOverlap
 {
 public:
     /** constructor */
-    CalculateImageOverlap(const PanoramaData * pano):m_pano(pano)
-    {
-        m_nrImg=pano->getNrOfImages();
-        if(m_nrImg>0)
-        {
-            m_overlap.resize(m_nrImg);
-            PanoramaOptions opts=pano->getOptions();
-            m_transform.resize(m_nrImg);
-            m_invTransform.resize(m_nrImg);
-            for(unsigned int i=0;i<m_nrImg;i++)
-            {
-                m_overlap[i].resize(m_nrImg,0);
-                m_transform[i]=new PTools::Transform;
-                m_transform[i]->createTransform(*pano,i,opts);
-                m_invTransform[i]=new PTools::Transform;
-                m_invTransform[i]->createInvTransform(*pano,i,opts);
-            };
-        };
-    };
+    CalculateImageOverlap(const PanoramaData * pano);
     /** destructor */
     virtual ~CalculateImageOverlap();
     /** does the calculation, 
