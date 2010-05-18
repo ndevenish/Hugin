@@ -20,11 +20,11 @@
               <flag>wxALL|wxALIGN_TOP|wxALIGN_CENTER_HORIZONTAL</flag>
             </object>
             <object class="sizeritem">
-              <object class="wxStaticText" name="about_version">
-                <label>version</label>
-                <style>wxALIGN_RIGHT</style>
+              <object class="wxTextCtrl" name="about_version">
+                <value>version</value>
+                <style>wxNO_BORDER|wxTE_READONLY|wxTE_RIGHT</style>
               </object>
-              <flag>wxLEFT|wxRIGHT|wxALIGN_RIGHT|wxALIGN_TOP</flag>
+              <flag>wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_RIGHT|wxALIGN_TOP</flag>
               <border>3</border>
             </object>
           </object>

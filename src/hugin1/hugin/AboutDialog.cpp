@@ -70,7 +70,7 @@ AboutDialog::AboutDialog(wxWindow *parent)
 
 
     // Version
-    XRCCTRL(*this,"about_version", wxStaticText)->SetLabel(wxString(DISPLAY_VERSION, wxConvLocal));
+    XRCCTRL(*this,"about_version", wxTextCtrl)->ChangeValue(wxString(DISPLAY_VERSION, wxConvLocal));
 
 	#ifdef __WXMAC__
 		wxFont font(10, wxFONTFAMILY_TELETYPE, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL);
