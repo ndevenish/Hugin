@@ -3558,6 +3558,7 @@
 		7332AEAE0D8D4986002BF5FF /* matchpoint */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = matchpoint; sourceTree = BUILT_PRODUCTS_DIR; };
 		733467E91183644D00401093 /* localfeatures.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = localfeatures.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		733467EA1183644D00401093 /* localfeautures-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "localfeautures-Info.plist"; sourceTree = "<group>"; };
+		73373CED11A2852D00E7A929 /* panomatic-lib.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "panomatic-lib.sh"; sourceTree = "<group>"; };
 		733DF63F117F2268002EC787 /* pano_modify */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = pano_modify; sourceTree = BUILT_PRODUCTS_DIR; };
 		733DF66E117F2384002EC787 /* pto_merge */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = pto_merge; sourceTree = BUILT_PRODUCTS_DIR; };
 		73411F131077B205001831AF /* HDRMergeOptionDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HDRMergeOptionDialog.cpp; sourceTree = "<group>"; };
@@ -4694,6 +4695,7 @@
 				576902090D24DBA100A6AD01 /* complete-bundle.sh */,
 				739A0D4810FA599A00D8E4C7 /* complete-tools-package.sh */,
 				57810AAB0D32D79400F48296 /* complete-embed.sh */,
+				73373CED11A2852D00E7A929 /* panomatic-lib.sh */,
 				573E2E440B76AC5100E86281 /* ExternalPrograms */,
 				573E2E5E0B76AD0100E86281 /* Documents */,
 				57701A750E5B036A00E5026B /* autopano-complete-mac.sh */,
@@ -7743,6 +7745,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 733467EE1183644E00401093 /* Build configuration list for PBXNativeTarget "localfeatures" */;
 			buildPhases = (
+				73803CE811A2834B00CB853A /* Get latest panomatic-lib */,
 				733467E41183644D00401093 /* Headers */,
 				733467E51183644D00401093 /* Resources */,
 				733467E61183644D00401093 /* Sources */,
@@ -8551,7 +8554,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# First export a path. On some systems the environment is not correctly set/used\nexport PATH=/opt/local/bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/sw/bin\n\nif [ -d \"../.hg\" ]\nthen\n rm -rf ../mac/hgsummary.txt ../mac/hgsummary2.txt\n hg summary | grep tip > ../mac/hgsummary.txt\n sed -e 's/parent: //g' \\\n -e 's/....://g' \\\n -e 's/ tip//g' ../mac/hgsummary.txt > ../mac/hgsummary2.txt\n\n echo 'HUGIN_WC_REVISION = '$(cat ../mac/hgsummary2.txt) > \"../mac/HG-rev.xcconfig\"\n echo 'HUGIN_PRERELEASE_VERSION_TAG = .'$(cat ../mac/hgsummary2.txt) >> \"../mac/HG-rev.xcconfig\"\n echo 'HUGIN_DEVELOPMENT_VERSION = 1' >> \"../mac/HG-rev.xcconfig\"\nelse\n touch ../mac/HG-rev.xcconfig\n echo 'Need to set HG revision ${HUGIN_WC_REVISION} manually in Version.xcconfig.' >&2\n exit 1\nfi\n";
+			shellScript = "# First export a path. On some systems the environment is not correctly set/used\nexport PATH=/opt/local/bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/sw/bin\n\nif [ -d \"../.hg\" ]\nthen\n rm -rf ../mac/hgsummary.txt ../mac/hgsummary2.txt\n hg summary | grep tip > ../mac/hgsummary.txt\n sed -e 's/parent: //g' \\\n -e 's/....://g' \\\n -e 's/ tip//g' ../mac/hgsummary.txt > ../mac/hgsummary2.txt\n\n echo 'HUGIN_WC_REVISION = '$(cat ../mac/hgsummary2.txt) > \"../mac/HG-rev.xcconfig\"\n echo 'HUGIN_PRERELEASE_VERSION_TAG = .'$(cat ../mac/hgsummary2.txt) >> \"../mac/HG-rev.xcconfig\"\n echo 'HUGIN_DEVELOPMENT_VERSION = 1' >> \"../mac/HG-rev.xcconfig\"\nelse\n touch ../mac/HG-rev.xcconfig\n echo 'Need to set HG revision ${HUGIN_WC_REVISION} manually in Version.xcconfig.' >&2\n exit 1\nfi\n\nrm -rf ../mac/hgsummary.txt ../mac/hgsummary2.txt\n";
 		};
 		57FF7DBA0E6919F400553709 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -8599,6 +8602,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if [ $ACTION = \"build\" ]\nthen\n sh ../mac/copyTools.sh\nfi";
+		};
+		73803CE811A2834B00CB853A /* Get latest panomatic-lib */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Get latest panomatic-lib";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ $ACTION = \"build\" ]\nthen\n sh ../mac/panomatic-lib.sh\nfi\n";
 		};
 		739193D91119FC73007D96F4 /* Patch and Copy XRC */ = {
 			isa = PBXShellScriptBuildPhase;
