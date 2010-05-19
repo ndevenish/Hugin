@@ -494,7 +494,7 @@ SET(CPACK_SOURCE_IGNORE_FILES
 "\\\\.so\\\\.0\\\\.0$" 
 "\\\\.la$"
 "Makefile\\\\.in$"
-"/.hg/"
+"/\\\\.hg/"
  )
 set(CPACK_DEBIAN_PACKAGE_DEPENDS "libpano13 (>=2.9.15)")
 INCLUDE(CPack)
