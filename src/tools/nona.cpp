@@ -317,8 +317,26 @@ int main(int argc, char *argv[])
         opts.outputExposureValue = exposure;
     }
 
+    if(useGPU)
+    {
+        switch(opts.getProjection())
+        {
+            // the following projections are not supported by nona-gpu
+            case HuginBase::PanoramaOptions::ARCHITECTURAL:
+            case HuginBase::PanoramaOptions::BIPLANE:
+            case HuginBase::PanoramaOptions::TRIPLANE:
+            case HuginBase::PanoramaOptions::EQUISOLID:
+            case HuginBase::PanoramaOptions::ORTHOGRAPHIC:
+            case HuginBase::PanoramaOptions::PANINI:
+            case HuginBase::PanoramaOptions::EQUI_PANINI:
+            case HuginBase::PanoramaOptions::GENERAL_PANINI:
+                useGPU=false;
+                std::cout << "The nona-GPU does not support this projection. Switch to CPU calculation."<<std::endl;
+                break;
+        };
+    };
     opts.remapUsingGPU = useGPU;
-    
+
     DEBUG_DEBUG("output basename: " << basename);
     
     pano.setOptions(opts);
