@@ -76,7 +76,7 @@ public:
     
 #ifdef __WXMAC__
     /** the wx calls this method when the app gets "Open file" AppleEvent */
-    void nonaApp::MacOpenFile(const wxString &fileName);
+    void MacOpenFile(const wxString &fileName);
 #endif
 
 private:
