@@ -348,7 +348,7 @@ void LensPanel::panoramaImagesChanged (PT::Panorama &pano, const PT::UIntSet & i
     // we need to do something if the image we are editing has changed.
     UIntSet intersection;
 
-    std::set_intersection(m_selectedLenses.begin(), m_selectedLenses.end(),
+    std::set_intersection(m_selectedImages.begin(), m_selectedImages.end(),
                           imgNr.begin(), imgNr.end(),
                           inserter(intersection, intersection.begin()));
     if (intersection.size() > 0) {
