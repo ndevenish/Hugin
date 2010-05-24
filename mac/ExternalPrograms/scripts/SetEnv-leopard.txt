@@ -3,8 +3,7 @@
 
 
 # has to be the absolute path from /
-#myREPOSITORYDIR="/PATH2HUGIN/mac/ExternalPrograms/repository";
-myREPOSITORYDIR="/Users/Shared/development/hugin_related/ExternalPrograms/4way-repository/";
+myREPOSITORYDIR="/PATH2HUGIN/mac/ExternalPrograms/repository";
 
 # number of jobs that make can use, probably same as the number of CPUs.
 #PROCESSNUM=2
