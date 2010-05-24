@@ -30,9 +30,9 @@
 #include <localfeatures/PointMatch.h>
 #include <localfeatures/RansacFiltering.h>
 #include <localfeatures/KeyPointIO.h>
-#if SURF_ENABLED
-#include <localfeatures/SurfKeyPointDescriptor.h>
-#endif
+//REMOVING SURF #if SURF_ENABLED
+//REMOVING SURF #include <localfeatures/SurfKeyPointDescriptor.h>
+//REMOVING SURF #endif
 #include <localfeatures/CircularKeyPointDescriptor.h>
 
 #include "KDTree.h"
@@ -226,7 +226,7 @@ bool PanoDetector::FindKeyPointsInImage(ImgData& ioImgInfo, const PanoDetector& 
 		
 	// setup the detector
 	KeyPointDetector aKP;
-	aKP.setScoreThreshold(iPanoDetector.getSurfScoreThreshold());	
+//REMOVING SURF 	aKP.setScoreThreshold(iPanoDetector.getSurfScoreThreshold());	
 
 	// detect the keypoints
 	KeyPointVectInsertor aInsertor(ioImgInfo._kp);
@@ -270,9 +270,9 @@ bool PanoDetector::MakeKeyPointDescriptorsInImage(ImgData& ioImgInfo, const Pano
 		
 	// build a keypoint descriptor
 
-#if SURF_ENABLED
+/*REMOVING SURF #if SURF_ENABLED
 	if (iPanoDetector.getGradientDescriptor()) {
-#endif
+#endif */
 		CircularKeyPointDescriptor aKPD(ioImgInfo._ii);
 		BOOST_FOREACH(KeyPointPtr& aK, ioImgInfo._kp)
 		{
@@ -281,7 +281,7 @@ bool PanoDetector::MakeKeyPointDescriptorsInImage(ImgData& ioImgInfo, const Pano
 		}
 		// store the descriptor length
 		ioImgInfo._descLength = aKPD.getDescriptorLength();
-#if SURF_ENABLED
+/*REMOVING SURF #if SURF_ENABLED
 	} else {
 		SurfKeyPointDescriptor aKPD(ioImgInfo._ii, iPanoDetector.getSurfExtended());
 		BOOST_FOREACH(KeyPointPtr& aK, ioImgInfo._kp)
@@ -292,7 +292,7 @@ bool PanoDetector::MakeKeyPointDescriptorsInImage(ImgData& ioImgInfo, const Pano
 		// store the descriptor length
 		ioImgInfo._descLength = aKPD.getDescriptorLength();
 	}
-#endif
+#endif */
 
 
 	return true;

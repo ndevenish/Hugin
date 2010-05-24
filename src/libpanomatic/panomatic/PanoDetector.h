@@ -32,7 +32,7 @@
 
 #include <localfeatures/KeyPoint.h>
 #include <localfeatures/KeyPointDetector.h>
-#include <localfeatures/SurfKeyPointDescriptor.h>
+//REMOVING SURF #include <localfeatures/SurfKeyPointDescriptor.h>
 
 class PanoDetector
 {
@@ -43,7 +43,7 @@ public:
 	typedef boost::shared_ptr<KPKDTree >					KPKDTreePtr;
 	
 	typedef lfeat::KeyPointDetector KeyPointDetector;
-	typedef lfeat::SurfKeyPointDescriptor KeyPointDescriptor;
+//REMOVING SURF 	typedef lfeat::SurfKeyPointDescriptor KeyPointDescriptor;
 	
 	PanoDetector();
 	
@@ -59,11 +59,11 @@ public:
 	inline void setLoadKeypoints(bool loadKeypoints) { _loadKeypoints = loadKeypoints; }
 	inline bool getLoadKeypoints() const { return _loadKeypoints; }
 
-	inline void setSurfExtended(bool iExtended) { _extendedSurf = iExtended; }	
-	inline void setSurfScoreThreshold(double iScore) { _surfScoreThreshold = iScore; }
+//REMOVING SURF 	inline void setSurfExtended(bool iExtended) { _extendedSurf = iExtended; }	
+//REMOVING SURF 	inline void setSurfScoreThreshold(double iScore) { _surfScoreThreshold = iScore; }
 
-	inline bool getSurfExtended() const { return _extendedSurf; }
-	inline double getSurfScoreThreshold() const { return _surfScoreThreshold; }
+//REMOVING SURF 	inline bool getSurfExtended() const { return _extendedSurf; }
+//REMOVING SURF 	inline double getSurfScoreThreshold() const { return _surfScoreThreshold; }
 	
 	inline void setSieve1Width(int iWidth) { _sieve1Width = iWidth; }
 	inline void setSieve1Height(int iHeight) { _sieve1Height = iHeight; }
@@ -117,8 +117,8 @@ private:
 	
 	bool					_loadKeypoints;
 	// setup values			
-	double					_surfScoreThreshold;
-	bool					_extendedSurf;
+//REMOVING SURF 	double					_surfScoreThreshold;
+//REMOVING SURF 	bool					_extendedSurf;
 	bool					_gradDescriptor;
 
 	int						_sieve1Width;
