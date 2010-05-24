@@ -29,11 +29,20 @@ mv $resdir/xrc/main_frame.xrc $resdir/xrc/main_frame.xrc-bk
 sed -e s/wxALL// $resdir/xrc/main_frame.xrc-bk > $resdir/xrc/main_frame.xrc
 rm $resdir/xrc/main_frame.xrc-bk
 
+echo "reworking authors.txt to html like file"
+rm -rf ../authors.1 ../authors.htm
+# OSX sed doesn't recognise the \t as tab. Just use a TAB from the keyboard instead
+sed -e 's+	+</td><td>+g' \
+    -e 's+$+</td></tr><tr><td>+g' \
+    ../authors.txt > ../authors.htm
+authors=`cat ../authors.htm`
+
 echo "generating about.htm from about.htm.in"
-sed -e "s/\${HUGIN_PACKAGE_VERSION}/$huginVer/g" \
-    -e "s/\${HUGIN_BUILDER}/$huginBuilder/g" \
-    $resdir/xrc/data/about.htm.in > $resdir/xrc/data/about.htm
+sed -e "s+\${AUTHORS_LIST}+`echo $(cat ../authors.htm)`</td></tr>+g" \
+	$resdir/xrc/data/about.htm.in > $resdir/xrc/data/about.htm
+	
 rm $resdir/xrc/data/about.htm.in
+
 
 echo "copying celeste data"
 cp -f $celeste_data/* $resdir/xrc/
