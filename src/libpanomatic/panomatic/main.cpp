@@ -92,13 +92,8 @@ void parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
 		MyOutput my;
 		cmd.setOutput(&my);
 
-/*REMOVING SURF #ifdef SURF_ENABLED		
-		SwitchArg aArgGrad ( "","grad", "Use non-patented descriptor   (default:false)", false );
-		SwitchArg aArgSurfExtended("","surf128", "Uses extended SURF (128 descriptors)    (default:false)", false);
-#endif */
 		SwitchArg aArgLoadKeypoints("","loadkeys", "Load keypoints from file instead of detecting them. (default:false)\n", false);
 		SwitchArg aArgFullScale("","fullscale", "Uses full scale image to detect keypoints    (default:false)\n", false);
-//REMOVING SURF 		ValueArg<int> aArgSurfScoreThreshold("","surfscore", "Detection score threshold    (default : 1000)\n", false, 1000, "int");
 		ValueArg<int> aArgSieve1Width("","sieve1width", "Sieve 1 : Number of buckets on width    (default : 10)", false, 10, "int");
 		ValueArg<int> aArgSieve1Height("","sieve1height",  "Sieve 1 : Number of buckets on height    (default : 10)", false, 10, "int");
 		ValueArg<int> aArgSieve1Size("","sieve1size",	"Sieve 1 : Max points per bucket    (default : 10)\n", false, 10, "int");
@@ -116,10 +111,7 @@ void parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
 		ValueArg<int> aArgSieve2Size("","sieve2size", "Sieve 2 : Max points per bucket    (default : 1)\n", false, 1 ,"int");
 		
 		SwitchArg aArgPTGuiCompat("","ptgui", "Activate Autopano compatibility for PTGui\n", false);
-/*REMOVING SURF #ifdef SURF_ENABLED
-		cmd.add ( aArgGrad ) ;
-		cmd.add(aArgSurfExtended);
-#endif */
+
 		cmd.add(aArgPTGuiCompat);
 		cmd.add(aArgSieve2Size);
 		cmd.add(aArgSieve2Height);
@@ -133,8 +125,7 @@ void parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
 		cmd.add(aArgKDTreeSearchSteps);
 		cmd.add(aArgSieve1Size);
 		cmd.add(aArgSieve1Height);
-		cmd.add(aArgSieve1Width);
-//REMOVING SURF 		cmd.add(aArgSurfScoreThreshold);		
+		cmd.add(aArgSieve1Width);		
 		cmd.add(aArgFullScale);
 		cmd.add(aArgLoadKeypoints);
 		
@@ -166,16 +157,6 @@ void parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
 
 		ioPanoDetector.setGradientDescriptor(true);
 
-/*REMOVING SURF #ifdef SURF_ENABLED
-		if ( aArgGrad.isSet() ) {
-			ioPanoDetector.setGradientDescriptor(true);
-		} else {
-			ioPanoDetector.setGradientDescriptor(false);
-		}
-		
-		ioPanoDetector.setSurfExtended(aArgSurfExtended.isSet());
-#endif */
-//REMOVING SURF 		if (aArgSurfScoreThreshold.isSet())	ioPanoDetector.setSurfScoreThreshold(aArgSurfScoreThreshold.getValue());
 		if (aArgSieve1Width.isSet())		ioPanoDetector.setSieve1Width(aArgSieve1Width.getValue());
 		if (aArgSieve1Height.isSet())		ioPanoDetector.setSieve1Height(aArgSieve1Height.getValue());
 		if (aArgSieve1Size.isSet())			ioPanoDetector.setSieve1Size(aArgSieve1Size.getValue());

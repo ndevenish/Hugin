@@ -17,9 +17,8 @@
 using namespace std;
 using namespace ZThread;
 
-PanoDetector::PanoDetector() :	_loadKeypoints(false), /*REMOVING SURF _extendedSurf(true),*/ _outputFile("default0.oto"),
+PanoDetector::PanoDetector() :	_loadKeypoints(false), _outputFile("default0.oto"),
 	_gradDescriptor(false),
-//REMOVING SURF 	_surfScoreThreshold(1000), 
 	_sieve1Width(10), _sieve1Height(10), _sieve1Size(10),
 	_kdTreeSearchSteps(40), _kdTreeSecondDistance(0.15), _sieve2Width(5), _sieve2Height(5),
 	_sieve2Size(1), _test(false), _cores(utils::getCPUCount()), _ransacIters(1000), _ransacDistanceThres(25),
@@ -69,11 +68,7 @@ void PanoDetector::printDetails()
 		cout << "  Downscale to half-size : " << (_downscale?"yes":"no") << endl;
 		if (_gradDescriptor) {
 			cout << "Gradient based description" << endl;
-		} else {
-//REMOVING SURF 			cout << "SURF Options" << endl;
-//REMOVING SURF 			cout << "  Extended : " << (_extendedSurf?"yes":"no") << endl;
-		}
-//REMOVING SURF 		cout << "  Score threshold : " << _surfScoreThreshold << endl;
+		} 
 		cout << "Sieve 1 Options" << endl;
 		cout << "  Width : " << _sieve1Width << endl;
 		cout << "  Height : " << _sieve1Height << endl;

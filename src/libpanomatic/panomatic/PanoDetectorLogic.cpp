@@ -30,9 +30,6 @@
 #include <localfeatures/PointMatch.h>
 #include <localfeatures/RansacFiltering.h>
 #include <localfeatures/KeyPointIO.h>
-//REMOVING SURF #if SURF_ENABLED
-//REMOVING SURF #include <localfeatures/SurfKeyPointDescriptor.h>
-//REMOVING SURF #endif
 #include <localfeatures/CircularKeyPointDescriptor.h>
 
 #include "KDTree.h"
@@ -155,8 +152,9 @@ bool PanoDetector::AnalyzeImage(ImgData& ioImgInfo, const PanoDetector& iPanoDet
 	    else
 	    {
 		    TRACE_IMG("Load RGB...");
+
 		    //open the image in RGB
-		    vigra::DRGBImage aImageRGB(aImageInfo.width(), aImageInfo.height());
+		    vigra::DRGBImage aImageRGB(aImageInfo.width(), aImageInfo.height()); // TODO: C'EST LA Qu'EST LA SEG FAULT
        		
             if(aImageInfo.numExtraBands() == 1) 
             {
@@ -197,13 +195,11 @@ bool PanoDetector::AnalyzeImage(ImgData& ioImgInfo, const PanoDetector& iPanoDet
 				    vigra::DImage::Accessor());
 		    }
 	    }
-
         // store info
         ioImgInfo._origWidth =	aImageInfo.width();
         ioImgInfo._origHeight = aImageInfo.height();
         ioImgInfo._detectWidth = aNewImgWidth;
         ioImgInfo._detectHeight = aNewImgHeight;
-
 
         TRACE_IMG("Build integral image...");
         // create integral image
@@ -226,7 +222,6 @@ bool PanoDetector::FindKeyPointsInImage(ImgData& ioImgInfo, const PanoDetector& 
 		
 	// setup the detector
 	KeyPointDetector aKP;
-//REMOVING SURF 	aKP.setScoreThreshold(iPanoDetector.getSurfScoreThreshold());	
 
 	// detect the keypoints
 	KeyPointVectInsertor aInsertor(ioImgInfo._kp);
@@ -269,10 +264,6 @@ bool PanoDetector::MakeKeyPointDescriptorsInImage(ImgData& ioImgInfo, const Pano
 	TRACE_IMG("Make keypoint descriptors...");
 		
 	// build a keypoint descriptor
-
-/*REMOVING SURF #if SURF_ENABLED
-	if (iPanoDetector.getGradientDescriptor()) {
-#endif */
 		CircularKeyPointDescriptor aKPD(ioImgInfo._ii);
 		BOOST_FOREACH(KeyPointPtr& aK, ioImgInfo._kp)
 		{
@@ -281,20 +272,6 @@ bool PanoDetector::MakeKeyPointDescriptorsInImage(ImgData& ioImgInfo, const Pano
 		}
 		// store the descriptor length
 		ioImgInfo._descLength = aKPD.getDescriptorLength();
-/*REMOVING SURF #if SURF_ENABLED
-	} else {
-		SurfKeyPointDescriptor aKPD(ioImgInfo._ii, iPanoDetector.getSurfExtended());
-		BOOST_FOREACH(KeyPointPtr& aK, ioImgInfo._kp)
-		{
-			aKPD.assignOrientation(*aK);
-			aKPD.makeDescriptor(*aK);
-		}
-		// store the descriptor length
-		ioImgInfo._descLength = aKPD.getDescriptorLength();
-	}
-#endif */
-
-
 	return true;
 }
 

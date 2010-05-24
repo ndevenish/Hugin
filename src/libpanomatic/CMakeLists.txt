@@ -13,13 +13,7 @@ PROJECT(panomatic)
 # set include path for internal libraries before using finding and initializing
 # external dependencies. This makes sure that "our" include paths are specified
 # before any system includes
-
-#include_directories( ${CMAKE_BINARY_DIR}/liblocalfeature )
-#include_directories( ${CMAKE_SOURCE_DIR}/keypoints )
-#include_directories( ${CMAKE_SOURCE_DIR}/panomatic )
 include_directories( ${CMAKE_SOURCE_DIR}/ )
-#include_directories( ${CMAKE_SOURCE_DIR}/src/foreign/vigra )
-#include_directories( ${CMAKE_SOURCE_DIR}/src/celeste )
 
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/src/libpanomatic/CMakeModules)
 
@@ -49,12 +43,6 @@ IF (BOOST_PYTHON_FOUND)
 INCLUDE_DIRECTORIES(${BOOST_PYTHON_INCLUDES})
 ENDIF(BOOST_PYTHON_FOUND)
 INCLUDE_DIRECTORIES(.)
-
-#option(ENABLE_SURF "Enable patented SURF descriptor")
-#if (ENABLE_SURF)
-#  MESSAGE("SURF enabled")
-#  ADD_DEFINITIONS(-DSURF_ENABLED)
-#endif (ENABLE_SURF)
 
 SET(BINDIR bin CACHE STRING "Destination for binaries")
 SET(LIBDIR lib CACHE STRING "Destination for libraries")

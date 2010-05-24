@@ -1,9 +1,4 @@
-#if (ENABLE_SURF)
-#  set(SURF_SRC SurfKeyPointDescriptor.cpp)
-#  set(SURF_HEADER SurfKeyPointDescriptor.h)
-#endif (ENABLE_SURF)
-  
-  # the liblocalfeature library
+# the liblocalfeature library
 set (LF_SRC  RansacFiltering.cpp Homography.cpp Image.cpp
              ${SURF_SRC} CircularKeyPointDescriptor.cpp
 	     KeyPointDetector.cpp KeyPointIO.cpp MathStuff.cpp)
