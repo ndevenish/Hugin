@@ -1,0 +1,62 @@
+
+                               ZTHREADS 2.3.1
+                               by Eric Crahen
+                           <zthread@code-foo.com>
+                        http://zthread.sourceforge.net
+
+
+OVERVIEW:
+
+    Concurrency has become an increasingly important aspect of software today.
+  The ZThread package is an advanced object-oriented, cross-platform, C++
+  threading and synchronization library that has been designed and implemented
+  by the author and released under the MIT license. It provides a high level
+  abstraction of the native threading mechanisms to offer a great deal of
+  flexibility and control.
+
+    This software features interruptible Thread and Runnable objects for C++,
+  control objects and implementations of concurrency design patterns. This
+  includes semaphores, mutexes, condition variabes as well as other more
+  complex components.
+
+    Existing threading APIs do not provide a consistent and portable means for
+  exercising control over concurrently executing software. Thread cancellation and termination is
+  one example of this complexity. ZThreads includes an elegant method of
+  safely terminating threads without the complications of using cancellation
+  handlers or other similar constructs.
+
+    This is a platform independent architecture that was designed by the
+  author. Implementations have been provided for POSIX and Win32 platforms.
+  Building this library was quite different for POSIX than it was for Win32
+  due to the nature of the functionality each platform naturally provides;
+  each platform had strong and weak points. They were used to create the most
+  flexible and efficent abstraction possible.
+
+    The result is an excellent software layer on which to build mutlithreaded
+  code.
+
+LICENSE:
+
+	This source has been released under the MIT license. See MIT.TXT for
+  details regarding the license. You can you use this in closed source
+  projects, contact me if you need to discuss a different licencing.
+
+COMPILING:
+
+    ZT_POSIX, ZT_WIN32 should be defined to specific what platofrm your building
+  on this. This is mainly so the right modifiers can be placed on class and
+  function definitions to export things from a DLL properly if your using the
+  WIN32 implementation. If you leave these flags out ZThreads will try to guess.
+
+    See BUILDING for more details.
+
+NOTES:
+
+  Please report bugs to me via email, I don't monitor the bug tracker 
+  or the forums on sf.
+
+HISTORY:
+
+  So far, this library has been tested on MacOS X, Linux, Tru64 Unix, 
+  Win95, Win98, WinNT, Win2k, WinXP, SunOS, and FreeBSD.
+
