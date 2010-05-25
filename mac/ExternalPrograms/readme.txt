@@ -4,7 +4,8 @@ External Programs
 
 HOWTO:
 1. Download the source package of the external programs. You typically want to place it in the "ExternalPrograms" folder.
-2. Edit ExternalPrograms/scripts/SetEnv-*.txt file appropriately, especially the myREPOSITORYDIR variable.
+2. Edit ExternalPrograms/scripts/SetEnv-*.txt.org file appropriately, especially the myREPOSITORYDIR variable and
+   save it as SetEnv-*.txt.
 3. Open a Terminal window (bash is preferred).
 5. 'cd' into the directory of source you want to compile. (eg. 'cd ExternalPrograms/jpeg-6b')
 4. Set the variables for the compilation. (eg. 'source ../scripts/SetEnv-universal.txt')
