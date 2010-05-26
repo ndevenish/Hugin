@@ -146,3 +146,5 @@ TARGET_LINK_LIBRARIES(huginbase huginlevmar huginvigraimpex
         ${Boost_LIBRARIES} ${EXIV2_LIBRARIES} ${PANO_LIBRARIES}
         ${TIFF_LIBRARIES} ${LAPACK_LIBRARIES} ${GLEW_LIBRARIES}
         ${OPENGL_LIBRARIES} ${GLUT_LIBRARIES})
+        
+add_subdirectory(makefilelib)
