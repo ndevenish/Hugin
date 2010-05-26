@@ -3,7 +3,7 @@
 #---------------------------------------------------------------------------
 # Project related configuration options
 #---------------------------------------------------------------------------
-PROJECT_NAME           = hugin_base
+PROJECT_NAME           = makefilelib
 PROJECT_NUMBER         = 0.1
 OUTPUT_DIRECTORY       = api-doc
 CREATE_SUBDIRS         = NO
