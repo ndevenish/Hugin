@@ -17,7 +17,7 @@ ELSE (${HUGIN_SHARED_LIBS})
 ENDIF (${HUGIN_SHARED_LIBS})
 
 # additional libs  
-target_link_libraries(makefilelib boost_regex-mt)
+target_link_libraries(makefilelib ${Boost_LIBRARIES})
 
 
 
