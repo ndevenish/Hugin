@@ -152,10 +152,9 @@ bool PanoDetector::AnalyzeImage(ImgData& ioImgInfo, const PanoDetector& iPanoDet
 	    else
 	    {
 		    TRACE_IMG("Load RGB...");
-
 		    //open the image in RGB
-		    vigra::DRGBImage aImageRGB(aImageInfo.width(), aImageInfo.height()); // TODO: C'EST LA Qu'EST LA SEG FAULT
-       		
+		    vigra::DRGBImage aImageRGB(aImageInfo.width(), aImageInfo.height());
+
             if(aImageInfo.numExtraBands() == 1) 
             {
                 vigra::BImage aAlpha(aImageInfo.size());
@@ -163,7 +162,8 @@ bool PanoDetector::AnalyzeImage(ImgData& ioImgInfo, const PanoDetector& iPanoDet
             } 
             else if (aImageInfo.numExtraBands() == 0) 
             {
-                vigra::importImage(aImageInfo, destImage(aImageRGB));
+                vigra::importImage(aImageInfo, destImage(aImageRGB)); // TODO SEGFAULT
+		//vigra::importScalarImage(aImageInfo, aImageRGB.upperLeft(), aImageRGB.accessor());
             }
             else
             {
@@ -195,6 +195,7 @@ bool PanoDetector::AnalyzeImage(ImgData& ioImgInfo, const PanoDetector& iPanoDet
 				    vigra::DImage::Accessor());
 		    }
 	    }
+
         // store info
         ioImgInfo._origWidth =	aImageInfo.width();
         ioImgInfo._origHeight = aImageInfo.height();

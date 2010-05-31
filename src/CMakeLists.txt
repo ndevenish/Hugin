@@ -33,7 +33,7 @@ add_subdirectory(tools)
 add_subdirectory(matchpoint)
 add_subdirectory(deghosting)
 add_subdirectory(lens_calibrate)
-add_subdirectory(libpanomatic)
+
 
 # build vips stuff, only if vips was found
 # not ready for the general public yet
@@ -55,4 +55,5 @@ IF(wxWidgets_FOUND)
   ENDIF(WIN32)
 ENDIF(wxWidgets_FOUND)
 
+add_subdirectory(libpanomatic)
 add_subdirectory(translations)

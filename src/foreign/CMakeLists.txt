@@ -3,6 +3,8 @@ add_subdirectory(ANN)
 add_subdirectory(vigra)
 add_subdirectory(levmar)
 add_subdirectory(lensdb)
+add_subdirectory(tclap)
+add_subdirectory(zthread/src)
 
 IF (WIN32 AND NOT MINGW)
   add_subdirectory(getopt)

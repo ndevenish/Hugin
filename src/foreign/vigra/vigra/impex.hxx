@@ -105,6 +105,7 @@ namespace vigra
     template< class ImageIterator, class Accessor, class SrcValueType >
     void read_bands( Decoder * dec, ImageIterator ys, Accessor a, SrcValueType )
     {
+
         typedef unsigned int size_type;
         typedef typename ImageIterator::row_iterator DstRowIterator;
         typedef typename Accessor::value_type  AccessorValueType;
@@ -118,11 +119,13 @@ namespace vigra
            "importImage(): number of bands (color channels) in file and destination image differ.");
 
         SrcValueType const * scanline;
+
         // MIHAL no default constructor available for cachedfileimages.
         DstRowIterator xs = ys.rowIterator();
 
         // iterate
 		if (num_bands == 4) {
+
             // Speedup for this particular case
             unsigned int offset = dec->getOffset();
             SrcValueType const * scanline0;
@@ -242,6 +245,7 @@ namespace vigra
     {
         std::auto_ptr<Decoder> dec = decoder(info);
         std::string pixeltype = dec->getPixelType();
+
 
         if ( pixeltype == "UINT8" )
             read_bands( dec.get(), iter, a, (UInt8)0 );
