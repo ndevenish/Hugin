@@ -1,0 +1,16 @@
+CMakeLists.txt
+ImageImport.h
+KDTree.h
+KDTreeImpl.h
+main.cpp
+PanoDetector.cpp
+PanoDetector.cpp~
+PanoDetectorDefs.h
+PanoDetector.h
+PanoDetectorLogic.cpp
+PanoDetectorLogic.cpp~
+TestCode.cpp
+TestCode.h
+Tracer.h
+Utils.cpp
+Utils.h
