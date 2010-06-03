@@ -1,14 +1,18 @@
 # the liblocalfeature library
 set (LF_SRC  RansacFiltering.cpp Homography.cpp Image.cpp
-             ${SURF_SRC} CircularKeyPointDescriptor.cpp
-	     KeyPointDetector.cpp KeyPointIO.cpp MathStuff.cpp)
+             CircularKeyPointDescriptor.cpp
+	      KeyPointDetector.cpp KeyPointIO.cpp MathStuff.cpp)
 
 set (LF_HEADER BoundedSet.h BoxFilter.h CircularKeyPointDescriptor.h
-               ${SURF_HEADER} Homography.h Image.h KeyPoint.h KeyPointDescriptor.h
+               Homography.h Image.h KeyPoint.h KeyPointDescriptor.h
                KeyPointDetector.h KeyPointIO.h MathStuff.h
                PointMatch.h RansacFiltering.h Sieve.h WaveFilter.h )
 
-add_library(localfeatures SHARED ${LF_SRC} ${LF_HEADER})
+IF (${HUGIN_SHARED_LIBS})
+  add_library(localfeatures SHARED ${LF_SRC} ${LF_HEADER})
+ELSE (${HUGIN_SHARED_LIBS})
+  add_library(localfeatures STATIC ${LF_SRC} ${LF_HEADER})
+ENDIF (${HUGIN_SHARED_LIBS})
  
 IF(WIN32)
   INSTALL(TARGETS localfeatures DESTINATION ${BINDIR})
@@ -16,8 +20,6 @@ ELSE(WIN32)
   INSTALL(TARGETS localfeatures DESTINATION ${LIBDIR})
 ENDIF(WIN32)
 
-# install headers (for development)
-INSTALL(FILES  ${LF_HEADER} DESTINATION ${INCDIR}/localfeatures)
 
 # the python interface for it
 # temporarily disabled, it is not working anyway.
