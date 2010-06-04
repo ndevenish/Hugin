@@ -9,6 +9,7 @@
 #define MAKEFILEITEM_H_
 
 #include <ostream>
+#include <string>
 
 namespace makefile
 {
@@ -28,6 +29,8 @@ public:
 
 	/// Write the items representation to an ostream in a makefile compatible way.
 	virtual void print(std::ostream& os)=0;
+	/// @return A string representation of the MakefileItem.
+	virtual std::string toString()=0;
 
 };
 

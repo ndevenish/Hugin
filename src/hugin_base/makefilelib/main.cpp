@@ -7,7 +7,11 @@
 
 #include <iostream>
 #include "Comment.h"
-
+#include "Variable.h"
+#include "VariableDef.h"
+#include "VariableRef.h"
+#include "MakefileItem.h"
+#include "Makefile.h"
 using namespace std;
 using namespace makefile;
 
@@ -18,5 +22,15 @@ int main(int argc, char *argv[])
 	comment.appendLine("second line");
 	comment.appendLine("third line\nfourth\r line");
 	cout << comment;
+
+	Variable myname("MYNAME", "Flo");
+	VariableDef mynamedef(myname);
+	VariableRef mynameref(myname);
+	cout << myname.getName() << endl;
+	cout << myname.getValue() << endl;
+	cout << mynamedef << endl;
+	cout << mynameref << endl;
+	cout << myname.getDef();
+	cout << myname.getRef() << endl;
 	return 0;
 }

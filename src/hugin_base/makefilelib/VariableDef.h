@@ -21,7 +21,7 @@ class Variable;
  */
 class VariableDef : public MakefileItem
 {
-	const Variable& variable;
+	Variable& variable;
 public:
 	VariableDef(Variable& var)
 	: variable(var)
@@ -35,6 +35,7 @@ public:
 	}
 
 	virtual void print(std::ostream& os);
+
 };
 
 }

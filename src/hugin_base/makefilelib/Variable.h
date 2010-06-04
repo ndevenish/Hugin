@@ -9,7 +9,8 @@
 #define VARIABLE_H_
 
 #include <string>
-
+#include "VariableDef.h"
+#include "VariableRef.h"
 namespace makefile
 {
 
@@ -21,19 +22,41 @@ namespace makefile
 class Variable
 {
 	std::string name, value;
-public:
-	Variable() {}
-	Variable(std::string name_, std::string value_)
-	: name(name_), value(value_) {}
+	/// A VariableDef connected to the Variable.
+	VariableDef def;
+	/// A VariableDef connected to the Variable.
+	VariableRef ref;
 
-	const std::string& getName()
+	/**
+	 * Checks the name and value Strings and replaces forbidden characters.
+	 * @return Number of replaced chars.
+	 */
+	int checkStrings();
+public:
+	Variable(std::string name_, std::string value_)
+	: name(name_), value(value_), def(*this), ref(*this)
+	{
+		checkStrings();
+	}
+
+	std::string& getName()
 	{
 		return name;
 	}
 
-	const std::string& getValue()
+	std::string& getValue()
 	{
 		return value;
+	}
+
+	VariableDef& getDef()
+	{
+		return def;
+	}
+
+	VariableRef& getRef()
+	{
+		return ref;
 	}
 
 	virtual ~Variable() {}

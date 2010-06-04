@@ -26,6 +26,7 @@ public:
 	virtual ~Filename();
 
 	virtual void print(std::ostream& os);
+
 };
 
 }

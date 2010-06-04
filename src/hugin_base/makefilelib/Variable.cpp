@@ -7,3 +7,14 @@
 
 #include "Variable.h"
 
+
+
+namespace makefile
+{
+
+/// @todo Checks nothing yet.
+int Variable::checkStrings()
+{
+	return 0;
+}
+}

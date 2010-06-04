@@ -31,6 +31,7 @@ public:
 	}
 
 	virtual void print(std::ostream& os);
+
 };
 
 }
