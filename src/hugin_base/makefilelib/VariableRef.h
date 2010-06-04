@@ -22,6 +22,7 @@ class Variable;
 class VariableRef : public MakefileItem
 {
 	Variable& variable;
+	VariableRef(const VariableRef&);	// no implicite copies!
 public:
 	VariableRef(Variable& var)
 	: variable(var)
@@ -34,8 +35,7 @@ public:
 		// TODO Auto-generated destructor stub
 	}
 
-	virtual void print(std::ostream& os);
-
+	virtual std::string toString();
 
 };
 

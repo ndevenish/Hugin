@@ -30,8 +30,7 @@ public:
 		// TODO Auto-generated destructor stub
 	}
 
-	virtual void print(std::ostream& os);
-
+	virtual std::string toString();
 };
 
 }

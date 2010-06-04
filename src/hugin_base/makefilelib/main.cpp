@@ -32,5 +32,10 @@ int main(int argc, char *argv[])
 	cout << mynameref << endl;
 	cout << myname.getDef();
 	cout << myname.getRef() << endl;
+
+	MakefileItemString test(myname.getRef());
+	Variable myfullname("MYFULLNAME", myname.getRef().toString() + " Achleitner");
+	cout << myfullname.getDef();
+	cout << myfullname.getRef() << endl;
 	return 0;
 }

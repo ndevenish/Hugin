@@ -24,17 +24,30 @@ namespace makefile
 class MakefileItem
 {
 public:
-	MakefileItem() {}
-	virtual ~MakefileItem() {}
+	MakefileItem()
+	{}
 
-	/// Write the items representation to an ostream in a makefile compatible way.
-	virtual void print(std::ostream& os)=0;
 	/// @return A string representation of the MakefileItem.
 	virtual std::string toString()=0;
+	/// Write the items representation to an ostream in a makefile compatible way.
+	void print(std::ostream& os)
+	{
+		os << toString();
+	}
 
 };
 
 std::ostream& operator<<(std::ostream& stream, MakefileItem& item);
+
+class MakefileItemString : public std::string
+{
+public:
+	MakefileItemString(MakefileItem& m)
+	: std::string(m.toString())
+	{}
+	virtual ~MakefileItemString()
+	{}
+};
 
 }
 

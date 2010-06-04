@@ -11,10 +11,9 @@
 
 namespace makefile
 {
-void VariableRef::print(std::ostream & os)
-{
-	os << " $(" << variable.getName() << ") ";
-}
 
-std::string VariableRef::to
+std::string VariableRef::toString()
+{
+	return std::string("$(" + variable.getName() + ")");
+}
 }

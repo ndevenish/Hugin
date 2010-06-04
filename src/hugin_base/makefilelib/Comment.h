@@ -45,7 +45,7 @@ public:
 		text.append(line);
 	}
 
-	virtual void print(std::ostream& os);
+	virtual std::string toString();
 };
 
 }

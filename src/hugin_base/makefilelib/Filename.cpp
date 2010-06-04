@@ -21,7 +21,7 @@ Filename::~Filename()
 	// TODO Auto-generated destructor stub
 }
 
-void Filename::print(std::ostream& os)
+std::string Filename::toString()
 {
 
 }

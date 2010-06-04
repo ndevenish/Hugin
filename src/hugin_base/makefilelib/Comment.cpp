@@ -16,11 +16,10 @@ namespace makefile
 static const string prefix("\n# ");
 
 /// \todo strip disallowed characters.
-void Comment::print(ostream& os)
+
+std::string Comment::toString()
 {
 	static const boost::regex newline("[\n\r]");
-	boost::regex_replace(text, newline, prefix);
-	os << prefix << boost::regex_replace(text, newline, prefix) << endl;
+	return string(prefix + boost::regex_replace(text, newline, prefix) + '\n');
 }
-
 }

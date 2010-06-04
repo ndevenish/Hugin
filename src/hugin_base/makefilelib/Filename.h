@@ -25,8 +25,7 @@ public:
 	Filename();
 	virtual ~Filename();
 
-	virtual void print(std::ostream& os);
-
+	virtual std::string toString();
 };
 
 }

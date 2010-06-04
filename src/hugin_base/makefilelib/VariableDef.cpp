@@ -9,9 +9,12 @@
 #include "VariableDef.h"
 
 
-
-void makefile::VariableDef::print(std::ostream & os)
+namespace makefile
 {
-	os << variable.getName() << "=" << variable.getValue() << std::endl;
+
+std::string VariableDef::toString()
+{
+	return std::string(variable.getName() + "=" + variable.getValue() + '\n');
 }
 
+}
