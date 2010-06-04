@@ -18,22 +18,16 @@ using namespace makefile;
 int main(int argc, char *argv[])
 {
 	Comment comment("First line");
-
 	comment.appendLine("second line");
 	comment.appendLine("third line\nfourth\r line");
 	cout << comment;
 
 	Variable myname("MYNAME", "Flo");
-	VariableDef mynamedef(myname);
-	VariableRef mynameref(myname);
 	cout << myname.getName() << endl;
 	cout << myname.getValue() << endl;
-	cout << mynamedef << endl;
-	cout << mynameref << endl;
 	cout << myname.getDef();
 	cout << myname.getRef() << endl;
 
-	MakefileItemString test(myname.getRef());
 	Variable myfullname("MYFULLNAME", myname.getRef().toString() + " Achleitner");
 	cout << myfullname.getDef();
 	cout << myfullname.getRef() << endl;
