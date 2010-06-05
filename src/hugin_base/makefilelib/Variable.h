@@ -21,6 +21,7 @@ namespace makefile
  */
 class Variable
 {
+protected:
 	std::string name, value;
 	/// A VariableDef connected to the Variable.
 	VariableDef def;
@@ -31,8 +32,15 @@ class Variable
 	 * Checks the name and value Strings and replaces forbidden characters.
 	 * @return Number of replaced chars.
 	 */
-	int checkStrings();
+	virtual int checkStrings();
 
+	/// To be used only by subclasses, like AutoVariable.
+	Variable(std::string name_)
+	: name(name_), value(""), def(*this), ref(*this)
+	{
+
+	}
+private:
 	Variable(const Variable&);	// no implicite copies!
 public:
 	Variable(std::string name_, std::string value_)
@@ -41,22 +49,22 @@ public:
 		checkStrings();
 	}
 
-	std::string& getName()
+	virtual std::string& getName()
 	{
 		return name;
 	}
 
-	std::string& getValue()
+	virtual std::string& getValue()
 	{
 		return value;
 	}
 
-	VariableDef& getDef()
+	virtual VariableDef& getDef()
 	{
 		return def;
 	}
 
-	VariableRef& getRef()
+	virtual VariableRef& getRef()
 	{
 		return ref;
 	}
