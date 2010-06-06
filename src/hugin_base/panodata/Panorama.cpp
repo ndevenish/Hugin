@@ -1944,6 +1944,8 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
                     double cropFactor=1;
                     const char * s = line.c_str() + pos;
                     sscanf(s,"cropFactor=%lf", & cropFactor);
+                    if(cropFactor<0.01 || cropFactor > 100)
+                        cropFactor=1;
                     info.cropFactor = cropFactor;
                 }
                 pos = line.find("disabled");
