@@ -41,7 +41,7 @@ class GLPreviewFrame;
 class GLViewer: public wxGLCanvas
 {
 public:
-    GLViewer(wxFrame* parent, PT::Panorama &pano, int args[], GLPreviewFrame *frame);
+    GLViewer(wxWindow* parent, PT::Panorama &pano, int args[], GLPreviewFrame *frame);
     virtual ~GLViewer();
     void RedrawE(wxPaintEvent& e);
     void Resized(wxSizeEvent& e);
@@ -74,7 +74,9 @@ protected:
     bool started_creation, initialised_glew, redrawing;
     vigra::Diff2D offset;
     GLPreviewFrame *frame;
+    
 };
 
 #endif
+
 

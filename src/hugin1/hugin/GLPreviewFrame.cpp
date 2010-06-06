@@ -71,6 +71,8 @@ extern "C" {
 
 #include <wx/progdlg.h>
 
+
+
 using namespace utils;
 
 // a random id, hope this doesn't break something..
@@ -94,6 +96,12 @@ enum{
     mode_drag,
     mode_crop
 };
+
+
+BEGIN_EVENT_TABLE(GLwxAuiFloatingFrame, wxAuiFloatingFrame)
+    EVT_ACTIVATE(GLwxAuiFloatingFrame::OnActivate)
+//    EVT_CLOSE(GLwxAuiFloatingFrame::OnClose)
+END_EVENT_TABLE()
 
 BEGIN_EVENT_TABLE(GLPreviewFrame, wxFrame)
     EVT_CLOSE(GLPreviewFrame::OnClose)
@@ -197,6 +205,46 @@ void AddLabelToBitmapButton(wxBitmapButton* button, wxString new_label,bool Text
     button->Refresh();
 };
 
+
+GLwxAuiFloatingFrame* GLwxAuiManager::CreateFloatingFrame(wxWindow* parent, const wxAuiPaneInfo& p)
+{
+    frame->PauseResize();
+    GLwxAuiFloatingFrame* fl_frame = new GLwxAuiFloatingFrame(parent, this, p);
+    return fl_frame;
+}
+
+void GLwxAuiFloatingFrame::OnActivate(wxActivateEvent& evt)
+{
+    DEBUG_DEBUG("FRAME ACTIVATE");
+    GLPreviewFrame * frame = ((GLwxAuiManager*) GetOwnerManager())->getPreviewFrame();
+//    if (!(frame->GLdrawing)) {
+    frame->ContinueResize();
+//    }
+    evt.Skip();
+}
+
+void GLwxAuiFloatingFrame::OnMoveFinished()
+{
+    DEBUG_DEBUG("FRAME ON MOVE FINISHED");
+    GLPreviewFrame * frame = ((GLwxAuiManager*) GetOwnerManager())->getPreviewFrame();
+    frame->PauseResize();
+    wxAuiFloatingFrame::OnMoveFinished();
+    DEBUG_DEBUG("FRAME AFTER ON MOVE FINISHED");
+}
+
+void GLPreviewFrame::PauseResize()
+{
+    GLresize = false;
+}
+
+void GLPreviewFrame::ContinueResize()
+{
+    GLresize = true;
+    wxSizeEvent event = wxSizeEvent(wxSize());
+    m_GLViewer->Resized(event);
+}
+
+
 #define PF_STYLE (wxMAXIMIZE_BOX | wxRESIZE_BORDER | wxSYSTEM_MENU | wxCAPTION | wxCLOSE_BOX | wxCLIP_CHILDREN)
 #include <iostream>
 GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
@@ -204,6 +252,8 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
               PF_STYLE),
       m_pano(pano)
 {
+
+
 	DEBUG_TRACE("");
 
     // initialize pointer
@@ -264,22 +314,35 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     m_topsizer->Add(tool_panel, 0, wxEXPAND | wxALL, 2);
     m_topsizer->Add(m_ToggleButtonSizer, 0, wxEXPAND | wxADJUST_MINSIZE | wxBOTTOM, 5);
 
+
+	//create panel that will hold gl canvases
+	wxPanel * vis_panel = new wxPanel(this);
+
+	// set the AUI manager to our panel
+	m_mgr = new GLwxAuiManager(this);
+	m_mgr->SetManagedWindow(vis_panel);
+
+    wxPanel * preview_panel = new wxPanel(vis_panel);
+
+    
     wxFlexGridSizer * flexSizer = new wxFlexGridSizer(2,0,5,5);
     flexSizer->AddGrowableCol(0);
     flexSizer->AddGrowableRow(0);
 
     // create our Viewer
     int args[] = {WX_GL_RGBA, WX_GL_DOUBLEBUFFER, 0};
-    m_GLViewer = new GLViewer(this, pano, args, this);
+    m_GLViewer = new GLViewer(preview_panel, pano, args, this);
 
     flexSizer->Add(m_GLViewer,
                   1,        // not vertically stretchable
                   wxEXPAND | // horizontally stretchable
                   wxALL,    // draw border all around
                   5);       // border width
+//    flexSizer->Add(m_GLViewer,
+//                  0,        // not vertically stretchable
+//                  wxEXPAND);
 
-
-    m_VFOVSlider = new wxSlider(this, -1, 1,
+    m_VFOVSlider = new wxSlider(preview_panel, -1, 1,
                                 1, 180,
                                 wxDefaultPosition, wxDefaultSize,
                                 wxSL_VERTICAL | wxSL_AUTOTICKS,
@@ -292,7 +355,7 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
 
     flexSizer->Add(m_VFOVSlider, 0, wxEXPAND);
 
-    m_HFOVSlider = new wxSlider(this, -1, 1,
+    m_HFOVSlider = new wxSlider(preview_panel, -1, 1,
                                 1, 360,
                                 wxDefaultPosition, wxDefaultSize,
                                 wxSL_HORIZONTAL | wxSL_AUTOTICKS,
@@ -327,13 +390,30 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     DEBUG_ASSERT(m_ROIBottomTxt);
     m_ROIBottomTxt->PushEventHandler(new TextKillFocusHandler(this));
 
+
     flexSizer->Add(m_HFOVSlider, 0, wxEXPAND);
 
-    m_topsizer->Add(flexSizer,
-                  1,        // vertically stretchable
-                  wxEXPAND | // horizontally stretchable
-                  wxALL,    // draw border all around
-                  5);       // border width
+    preview_panel->SetSizer(flexSizer);
+
+    m_mgr->AddPane(preview_panel, 
+        wxAuiPaneInfo(
+            ).Name(wxT("preview")
+            ).MinSize(300,200
+            ).CloseButton(false
+            ).CaptionVisible(
+            ).Caption(wxT("Preview")
+            ).FloatingSize(100,100
+            ).FloatingPosition(400,400
+            ).Dockable(false
+            ).BottomDockable(true
+            ).PinButton(
+            ).Bottom(
+//            ).Layer(1
+            )
+        );
+
+    m_topsizer->Add(vis_panel, 1, wxEXPAND);
+
 
     m_ProjectionChoice = XRCCTRL(*this,"projection_choice",wxChoice);
 
@@ -465,6 +545,10 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     // set explicit focus to button panel, otherwise the hotkey F11 is not right processed
     m_ButtonPanel->SetFocus();
 #endif
+
+     // tell the manager to "commit" all the changes just made
+     m_mgr->Update();
+
 }
 
 GLPreviewFrame::~GLPreviewFrame()
@@ -500,6 +584,13 @@ GLPreviewFrame::~GLPreviewFrame()
     m_ROITopTxt->PopEventHandler(true);
     m_ROIBottomTxt->PopEventHandler(true);
     m_pano.removeObserver(this);
+
+     // deinitialize the frame manager
+     m_mgr->UnInit();
+     if (m_mgr) {
+        delete m_mgr;
+     }
+
     DEBUG_TRACE("dtor end");
 }
 

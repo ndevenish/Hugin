@@ -48,9 +48,17 @@ class PreviewPanoMaskTool;
 class PreviewControlPointTool;
 class PreviewLayoutLinesTool;
 
+class GLPreviewFrame;
+
+class GLwxAuiManager;
+class GLwxAuiFloatingFrame;
+
 #include "common/utils.h"
 #include <wx/string.h>
 #include <wx/frame.h>
+#include <wx/aui/aui.h>
+
+#include <iostream>
 
 // the image toggle buttons need a special event handler to trap mouse enter and
 // leave events.
@@ -72,6 +80,44 @@ private:
     wxToolBarToolBase *identify_toolbutton;
     PT::Panorama * m_pano;
 };
+
+
+
+class GLwxAuiFloatingFrame : public wxAuiFloatingFrame {
+public:
+    GLwxAuiFloatingFrame(wxWindow* parent,
+                   GLwxAuiManager* owner_mgr,
+                   const wxAuiPaneInfo& pane,
+                   wxWindowID id = wxID_ANY,
+                   long style = wxRESIZE_BORDER | wxSYSTEM_MENU | wxCAPTION |
+//                                wxFRAME_NO_TASKBAR | 
+                                wxFRAME_FLOAT_ON_PARENT | 
+                                wxCLIP_CHILDREN
+                   ) : wxAuiFloatingFrame(parent, (wxAuiManager*) owner_mgr, pane, id, style) {}
+
+    void OnActivate(wxActivateEvent& evt);
+    void OnMoveFinished();
+//    void OnClose(wxCloseEvent& event);
+
+    DECLARE_EVENT_TABLE()
+
+};
+
+
+class GLwxAuiManager : public wxAuiManager {
+public:
+    GLwxAuiManager(GLPreviewFrame* frame) : frame(frame) {}
+    GLwxAuiFloatingFrame* CreateFloatingFrame(wxWindow* parent, const wxAuiPaneInfo& p);
+    GLPreviewFrame * getPreviewFrame() {return frame;}
+
+private:
+    GLPreviewFrame * frame;
+};
+
+
+
+
+
 
 /** The OpenGL preview frame
  *
@@ -104,7 +150,18 @@ public:
     /** fills the blend wxChoice with all valid blend modes and restore the last used one
      */
     void FillBlendChoice();
+
+    GLwxAuiManager* getAuiManager() {return m_mgr;}
+    GLViewer* getViewer() {return m_GLViewer;}
+
+    void PauseResize();
+    void ContinueResize();
+    bool CanResize() {return GLresize;}
+    
 protected:
+
+    bool GLresize;
+
     void OnClose(wxCloseEvent& e);
     
     void OnCenterHorizontally(wxCommandEvent & e);
@@ -150,6 +207,8 @@ protected:
     /** event handler for change scale of layout mode */
     void OnLayoutScaleChange(wxScrollEvent &e);
 private:
+
+	GLwxAuiManager * m_mgr;
 
     void SetMode(int newMode);
     PT::Panorama & m_pano;

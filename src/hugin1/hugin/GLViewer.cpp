@@ -42,6 +42,7 @@
 #include "GLPreviewFrame.h"
 #include "hugin/huginApp.h"
 
+
 BEGIN_EVENT_TABLE(GLViewer, wxGLCanvas)
     EVT_PAINT (GLViewer::RedrawE)
     EVT_SIZE  (GLViewer::Resized)
@@ -60,7 +61,7 @@ BEGIN_EVENT_TABLE(GLViewer, wxGLCanvas)
     EVT_KEY_UP(GLViewer::KeyUp)
 END_EVENT_TABLE()
 
-GLViewer::GLViewer(wxFrame* parent, PT::Panorama &pano, int args[], GLPreviewFrame *frame_in) :
+GLViewer::GLViewer(wxWindow* parent, PT::Panorama &pano, int args[], GLPreviewFrame *frame_in) :
           wxGLCanvas(parent, wxID_ANY, wxDefaultPosition, wxDefaultSize,
                      0, wxT("GLPreviewCanvas"), args, wxNullPalette)
 {
@@ -142,15 +143,18 @@ void GLViewer::SetUpContext()
         // check, if gpu supports multitextures
         GLint countMultiTexture;
         glGetIntegerv(GL_MAX_TEXTURE_UNITS_ARB,&countMultiTexture);
+
+//        GLint countMultiTexture = 0;
         // we need something to store the state of the view and control updates
         m_view_state = new ViewState(m_pano, RefreshWrapper, countMultiTexture>1, this);
-        // Start the tools going:
+        //Start the tools going:
         m_tool_helper = new PreviewToolHelper(m_pano, m_view_state, frame);
         frame->MakeTools(m_tool_helper);
         // now make a renderer
         m_renderer =  new GLRenderer(m_pano, m_view_state->GetTextureManager(),
                                      m_view_state->GetMeshManager(),
                                      m_view_state, m_tool_helper);
+//        m_renderer =  new GLRenderer(m_pano, NULL, NULL, NULL, NULL);
         // fill blend mode choice box in fast preview window
         // we can fill it just now, because we need a OpenGL context, which was created now,
         // to check if all necessary extentions are available
@@ -178,10 +182,18 @@ void GLViewer::SetLayoutScale(double scale)
 
 void GLViewer::RedrawE(wxPaintEvent& e)
 {
+    DEBUG_DEBUG("REDRAW_E");
     if(!IsShown()) return;
     // don't redraw during a redraw.
+    if (!(frame->CanResize())) {
+        DEBUG_DEBUG("RESIZE IN REDRAW");
+        frame->ContinueResize();
+        return;
+    }
+        
     if (!redrawing)
     {
+        DEBUG_DEBUG("REDRAW_E IN");
         redrawing = true;
         SetUpContext();
         wxPaintDC dc(this); // we need this object on the stack to draw.
@@ -198,17 +210,22 @@ void GLViewer::RefreshWrapper(void * obj)
 
 void GLViewer::Resized(wxSizeEvent& e)
 {
-    wxGLCanvas::OnSize(e);
-    if(!IsShown()) return;
-    // if we have a render at this point, tell it the new size.
-    if (m_renderer)
-    {
-      int w, h;
-      GetClientSize(&w, &h);    
-      SetUpContext();
-      offset = m_renderer->Resize(w, h);
-      Redraw();
-    };
+    DEBUG_DEBUG("RESIZED_OUT");
+   
+    if (frame->CanResize()) {
+        DEBUG_DEBUG("RESIZED_IN");
+        wxGLCanvas::OnSize(e);
+        if(!IsShown()) return;
+        // if we have a render at this point, tell it the new size.
+        if (m_renderer)
+        {
+          int w, h;
+          GetClientSize(&w, &h);    
+          SetUpContext();
+          offset = m_renderer->Resize(w, h);
+          Redraw();
+        };
+    }
 }
 
 void GLViewer::Redraw()
@@ -221,7 +238,6 @@ void GLViewer::Redraw()
     // FIXME shouldn't this work on textured backrounds?
     wxColour col = wxSystemSettings::GetColour(wxSYS_COLOUR_APPWORKSPACE);
     m_renderer->SetBackground(col.Red(), col.Green(), col.Blue());
-
     if (m_view_state->RequireRecalculateViewport())
     {
         // resize the viewport in case the panorama dimensions have changed.
