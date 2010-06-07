@@ -1,3 +1,6 @@
+#include <hugin_config.h>
+#include <hugin_version.h>
+
 #include "PanoDetector.h"
 #include <iostream>
 #include <fstream>
@@ -10,14 +13,22 @@
 #include "Utils.h"
 #include "Tracer.h"
 
+
+#include <hugin_basic.h>
+#include <hugin_utils/platform.h>
+
 #ifndef srandom
 #define srandom srand
 #endif	
 
 using namespace std;
 using namespace ZThread;
+using namespace HuginBase;
+using namespace hugin_utils;
+
 
 PanoDetector::PanoDetector() :	_loadKeypoints(false), _outputFile("default0.oto"),
+	_loadProject(false),
 	_gradDescriptor(false),
 	_sieve1Width(10), _sieve1Height(10), _sieve1Size(10),
 	_kdTreeSearchSteps(40), _kdTreeSecondDistance(0.15), _sieve2Width(5), _sieve2Height(5),
@@ -48,9 +59,6 @@ bool PanoDetector::checkData()
 			return false;
 		}
 	}
-
-
-
 
 	return true;
 }
@@ -94,11 +102,14 @@ void PanoDetector::printDetails()
 	cout << "  Size : " << _sieve2Size << endl;
 	cout << "  ==> Maximum matches per image pair : " << _sieve2Size * _sieve2Height * _sieve2Width << endl;
 
-	cout << "Input Files :" << endl;
-	BOOST_FOREACH(string& aF, _files)
-		cout << "  - " << aF << endl;
-	
-
+	if(!_loadProject && !_loadKeypoints)
+	{
+		cout << "Input Images :" << endl;
+		BOOST_FOREACH(string& aF, _files)
+			cout << "  - " << aF << endl;
+	}
+	if (_loadProject)
+		cout << "Input Project File : " << _inputProjectFile << endl;
 
 }
 
@@ -123,7 +134,28 @@ private:
 	PanoDetector::ImgData&		_imgData;
 };
 
-// definition of a runnable class for ImgData
+// definition of a runnable class for loadproject
+class LoadProjectDataRunnable : public Runnable
+{
+public:
+	LoadProjectDataRunnable(PanoDetector::ImgData& iImageData, const PanoDetector& iPanoDetector) :
+	  _imgData(iImageData), _panoDetector(iPanoDetector) {};
+
+	  void run() 
+	  {
+		  if (!PanoDetector::AnalyzeImage(_imgData, _panoDetector)) return;
+		  PanoDetector::FindKeyPointsInImage(_imgData, _panoDetector);
+		  PanoDetector::FilterKeyPointsInImage(_imgData, _panoDetector);
+		  PanoDetector::MakeKeyPointDescriptorsInImage(_imgData, _panoDetector);
+		  PanoDetector::BuildKDTreesInImage(_imgData, _panoDetector);
+		  PanoDetector::FreeMemoryInImage(_imgData, _panoDetector);
+	  }
+private:
+	const PanoDetector&			_panoDetector;
+	PanoDetector::ImgData&		_imgData;
+};
+
+// definition of a runnable class for loadkeys
 class LoadKeypointsDataRunnable : public Runnable
 {
 	public:
@@ -132,6 +164,7 @@ class LoadKeypointsDataRunnable : public Runnable
 
 	void run() 
 	{	
+		// if (!PanoDetector::AnalyzeImage(_imgData, _panoDetector)) return;  ??
 		PanoDetector::LoadKeypoints(_imgData, _panoDetector);
 		PanoDetector::BuildKDTreesInImage(_imgData, _panoDetector);
 	}
@@ -167,15 +200,20 @@ void PanoDetector::run()
 	PoolExecutor aExecutor(_cores);
 
 	// 1. prepare images
-	TRACE_INFO(endl<< "--- Analyze Images ---" << endl);
+	// if a pto file was given as input, we add its images to _files.
+	if(_loadProject)
+		if(!loadProject()) return;
 	prepareImages();
-	
+
 	// 2. run analysis of images
+	TRACE_INFO(endl<< "--- Analyze Images ---" << endl);
 	try 
 	{
 		for (ImgDataIt_t aB = _filesData.begin(); aB != _filesData.end(); ++aB)
 			if (_loadKeypoints) {
 				aExecutor.execute(new LoadKeypointsDataRunnable(aB->second, *this));
+			} else if (_loadProject) {
+				aExecutor.execute(new LoadProjectDataRunnable(aB->second, *this));
 			} else {
 				aExecutor.execute(new ImgDataRunnable(aB->second, *this));
 			}
@@ -220,24 +258,51 @@ void PanoDetector::run()
 
 void PanoDetector::prepareImages()
 {	
-	// search keypoints for each image
 	for (unsigned int aFileN = 0; aFileN < _files.size(); ++aFileN)
 	{
-		// insert an element in the map
-		_filesData.insert(make_pair(_files[aFileN], ImgData()));
+			// insert the image in the map
+			_filesData.insert(make_pair(_files[aFileN], ImgData()));
 		
-		// get the data
-		ImgData& aImgData = _filesData[_files[aFileN]];
+			// get the data
+			ImgData& aImgData = _filesData[_files[aFileN]];
 
-		// set the name
-		aImgData._name = _files[aFileN];
+			// set the name
+			aImgData._name = _files[aFileN];
 
-		// give a number
-		aImgData._number = aFileN;
+			// give a number
+			aImgData._number = aFileN;
 
-		// analyze this image
-		//TIMETRACE("--> Analyze", AnalyzeImage(aImgData, *this));
+			//add the image to _panoramaInfo
+			if (!_loadProject)
+			{
+				SrcPanoImage img(aImgData._name); 
+				_panoramaInfo.addImage(img);
+			}
 	}	
+}
+
+bool PanoDetector::loadProject()
+{
+   	ifstream ptoFile(_inputProjectFile.c_str());
+    if (ptoFile.bad()) { 
+        cerr << "ERROR: could not open file: '" << _inputProjectFile << "'!" << endl; 
+        return false; 
+    } 
+		_panoramaInfo.setFilePrefix(hugin_utils::getPathPrefix(_inputProjectFile));
+		AppBase::DocumentData::ReadWriteError err = _panoramaInfo.readData(ptoFile);
+		if (err != AppBase::DocumentData::SUCCESSFUL) {
+			  cerr << "ERROR: couldn't parse panos tool script: '" << _inputProjectFile << "'!" << endl;
+			  return false;
+		}
+
+		// Add images found in the project file to _files
+		int nImg = _panoramaInfo.getNrOfImages();
+		for (unsigned int imgNr = 0; imgNr < nImg; ++imgNr)
+		{
+			_files.push_back(_panoramaInfo.getImage(imgNr).getFilename());
+		}
+
+		return true;
 }
 
 bool PanoDetector::checkLoadSuccess()
@@ -280,7 +345,5 @@ void PanoDetector::prepareMatches()
 		}
 	}
 }
-
-
 
 

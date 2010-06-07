@@ -49,7 +49,9 @@ public:
 		int iML = 30;
 		cout << "Basic usage : " << endl;
 		cout << "  "<< c.getProgramName() << " -o output IMG1 ... IMGn" << endl;
-		
+		cout << "  "<< c.getProgramName() << " -o output --loadproject project.pto" << endl;
+		cout << "  "<< c.getProgramName() << " -o output --loadkeys keys1 ... keysn" << endl;		
+
 		cout << endl <<"All options : " << endl;
 		list<Arg*> args = c.getArgList();
 		for (ArgListIterator it = args.begin(); it != args.end(); it++)
@@ -93,6 +95,7 @@ void parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
 		cmd.setOutput(&my);
 
 		SwitchArg aArgLoadKeypoints("","loadkeys", "Load keypoints from file instead of detecting them. (default:false)\n", false);
+		SwitchArg aArgLoadProject("","loadproject", "Load a project file. (default:false)\n", false);
 		SwitchArg aArgFullScale("","fullscale", "Uses full scale image to detect keypoints    (default:false)\n", false);
 		ValueArg<int> aArgSieve1Width("","sieve1width", "Sieve 1 : Number of buckets on width    (default : 10)", false, 10, "int");
 		ValueArg<int> aArgSieve1Height("","sieve1height",  "Sieve 1 : Number of buckets on height    (default : 10)", false, 10, "int");
@@ -128,7 +131,7 @@ void parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
 		cmd.add(aArgSieve1Width);		
 		cmd.add(aArgFullScale);
 		cmd.add(aArgLoadKeypoints);
-		
+		cmd.add(aArgLoadProject);
 
 		//ValueArg<int> aArgNumKeys("k", "keys", "Number of keys per image pair", false, 10, "int");
 		//cmd.add( aArgNumKeys );
@@ -170,29 +173,39 @@ void parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
 		if (aArgSieve2Size.isSet())			ioPanoDetector.setSieve2Size(aArgSieve2Size.getValue());
 		if (aArgLinearMatch.isSet())		ioPanoDetector.setLinearMatch(aArgLinearMatch.getValue());
 		if (aArgLinearMatchLen.isSet())		ioPanoDetector.setLinearMatchLen(aArgLinearMatchLen.getValue());
-        if (aArgFullScale.isSet())          ioPanoDetector.setDownscale(false);
+    if (aArgFullScale.isSet())          ioPanoDetector.setDownscale(false);
 
 		if (aArgLoadKeypoints.isSet()) {
 			ioPanoDetector.setLoadKeypoints(aArgLoadKeypoints.getValue());
 			ioPanoDetector.setDownscale(false);
 		}
-		
+
+		if (aArgLoadProject.isSet()) {
+			ioPanoDetector.setLoadProject(aArgLoadProject.getValue());
+		}
+
 		if (aArgTest.isSet())				ioPanoDetector.setTest(aArgTest.getValue());
 		if (aArgCores.isSet())				ioPanoDetector.setCores(aArgCores.getValue());
 
 		vector<string> aFiles = aArgFiles.getValue();
-		BOOST_FOREACH(string& aF, aFiles)
+		if ( !ioPanoDetector.getLoadProject() )
 		{
-			if (aArgPTGuiCompat.getValue())
+			BOOST_FOREACH(string& aF, aFiles)
 			{
-				if (aF.find("/path:") == 0)
-					ioPanoDetector.setOutputFile(aF.substr(6, aF.size() - 6) + "\\panorama0.oto");
+				if (aArgPTGuiCompat.getValue())
+				{
+					if (aF.find("/path:") == 0)
+						ioPanoDetector.setOutputFile(aF.substr(6, aF.size() - 6) + "\\panorama0.oto");
 
-				if (aF.find("/") == 0)
-					continue;
+					if (aF.find("/") == 0)
+						continue;
+				}
+					ioPanoDetector.addFile(aF);
 			}
-
-			ioPanoDetector.addFile(aF);
+		} else {
+				if (aFiles.size()>1)
+					cout << "WARNING: Only the first project file was loaded, others are ignored!" << endl << endl; 
+				ioPanoDetector.setInputProjectFile(aFiles[0]);
 		}
 
 	} catch ( ArgException& e )

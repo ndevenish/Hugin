@@ -21,6 +21,9 @@
 #ifndef __detectpano_panodetector_h
 #define __detectpano_panodetector_h
 
+#include <hugin_config.h>
+#include <hugin_version.h>
+
 #include "PanoDetectorDefs.h"
 #include <string>
 #include <map>
@@ -32,6 +35,12 @@
 
 #include <localfeatures/KeyPoint.h>
 #include <localfeatures/KeyPointDetector.h>
+
+#include <hugin_basic.h>
+#include <hugin_utils/platform.h>
+#include <algorithms/panorama_makefile/PanoramaMakefileExport.h>
+
+using namespace HuginBase;
 
 class PanoDetector
 {
@@ -56,6 +65,8 @@ public:
 	inline bool getGradientDescriptor() const { return _gradDescriptor; }
 	inline void setLoadKeypoints(bool loadKeypoints) { _loadKeypoints = loadKeypoints; }
 	inline bool getLoadKeypoints() const { return _loadKeypoints; }
+	inline void setLoadProject(bool loadProject) { _loadProject = loadProject; }
+	inline bool getLoadProject() const { return _loadProject; }
 	
 	inline void setSieve1Width(int iWidth) { _sieve1Width = iWidth; }
 	inline void setSieve1Height(int iHeight) { _sieve1Height = iHeight; }
@@ -96,6 +107,7 @@ public:
 
 	//	inline void setNumberOfKeys(int iNumKeys) { _numKeys = iNumKeys; }
 	inline void setOutputFile(const std::string& iOutputFile) { _outputFile = iOutputFile; }
+	inline void setInputProjectFile(const std::string& iInputProjectFile) { _inputProjectFile = iInputProjectFile; }
 	inline void setTest(bool iTest) { _test = iTest; }
 	inline bool getTest() const { return _test; }
 	inline void setCores(int iCores) { _cores = iCores; }
@@ -108,7 +120,7 @@ private:
 	// options
 	
 	bool					_loadKeypoints;
-	// setup values			
+	bool					_loadProject;
 	bool					_gradDescriptor;
 
 	int						_sieve1Width;
@@ -136,11 +148,16 @@ private:
 	// list of files
 	FileNameList_t			_files;
 	std::string				_outputFile;
+	std::string				_inputProjectFile;
+
+	// Store panorama information
+  Panorama					_panoramaInfo;
 
 	// size of images
 	
 	void					prepareImages();
-    bool                    checkLoadSuccess();
+	bool					loadProject();
+  bool	        checkLoadSuccess();
 	void					prepareMatches();
 
 	void					writeOutput();
@@ -160,7 +177,7 @@ public:
 		lfeat::Image	_ii;
 		lfeat::KeyPointVect_t	_kp;
 		int				_descLength;
-        bool            _loadFail;
+    bool            _loadFail;
 
 		// kdtree
 		KDElemKeyPointVect_t	_kdv;
@@ -184,7 +201,7 @@ public:
 
 	// actions
 	static bool				LoadKeypoints(ImgData & ioImgInfo, const PanoDetector& iPanoDetector);
-	
+
 	static bool				AnalyzeImage(ImgData& ioImgInfo, const PanoDetector& iPanoDetector);
 	static bool				FindKeyPointsInImage(ImgData& ioImgInfo, const PanoDetector& iPanoDetector);
 	static bool				FilterKeyPointsInImage(ImgData& ioImgInfo, const PanoDetector& iPanoDetector);
@@ -199,7 +216,6 @@ public:
 private:
 	ImgData_t				_filesData;
 	MatchData_t				_matchesData;
-
 };
 
 

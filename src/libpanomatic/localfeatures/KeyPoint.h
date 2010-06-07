@@ -21,15 +21,7 @@
 #ifndef __lfeat_keypoint_h
 #define __lfeat_keypoint_h
 
-#ifdef _WINDOWS
-#ifdef localfeatures_EXPORTS
-#define IMPEX _declspec (dllexport)
-#else
-#define IMPEX _declspec (dllimport)
-#endif
-#else
-#define IMPEX
-#endif
+#include <hugin_shared.h>
 
 #include <boost/shared_ptr.hpp>
 #include <vector>

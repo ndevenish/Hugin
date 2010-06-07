@@ -221,17 +221,7 @@ bool DetectKeypoints ( const std::string & imgfile, bool downscale,
 
 
 		lfeat::KeyPointDescriptor * aKPD;
-#ifdef SURF_ENABLED
-		if (useGradientDescr) {
-			// build a keypoint descriptor
-			aKPD = new lfeat::CircularKeyPointDescriptor( img );
-		} else {
-			// build a keypoint descriptor
-			aKPD = new lfeat::SurfKeyPointDescriptor( img, surfExtended );
-		}
-#else
 		aKPD = new lfeat::CircularKeyPointDescriptor( img );
-#endif
 		TRACE_IMG ( "Generating descriptors and writing output..." );
 
 		writer.writeHeader ( imginfo, kp.size(), aKPD->getDescriptorLength() );
@@ -334,11 +324,6 @@ void parseOptions ( int argc, char** argv )
 		cmd.setOutput ( &my );
 
 		SwitchArg aArgFullScale ( "","fullscale", "Uses full scale image to detect keypoints    (default:false)\n", false );
-		// SURF has a better performance than the other descriptors, use it by default, if it is enabled
-#ifdef SURF_ENABLED
-		SwitchArg aArgSurfExtended ( "","surf128", "Uses extended SURF (128 descriptors)    (default:false)", false);
-		SwitchArg aArgGrad ( "","grad", "use non-patented descriptor (default:false)", false );
-#endif
 		ValueArg<int> aArgSurfScoreThreshold ( "","surfscore", "Detection score threshold    (default : 1000)\n", false, 1000, "int" );
 		ValueArg<int> aArgSieve1Width ( "","sievewidth", "Interest point sieve: Number of buckets on width    (default : 10)", false, 10, "int" );
 		ValueArg<int> aArgSieve1Height ( "","sieveheight",  "Interest point sieve : Number of buckets on height    (default : 10)", false, 10, "int" );
@@ -348,10 +333,6 @@ void parseOptions ( int argc, char** argv )
 		SwitchArg aArgInterestPoints ( "","interestpoints", "output only the interest points and the scale (default:false)\n", false );
 
 		cmd.add ( aArgSurfScoreThreshold );
-#ifdef SURF_ENABLED
-		cmd.add ( aArgGrad ) ;
-		cmd.add ( aArgSurfExtended );
-#endif
 		cmd.add ( aArgFullScale );
 		cmd.add ( aArgSieve1Width );
 		cmd.add ( aArgSieve1Height );
@@ -381,14 +362,6 @@ void parseOptions ( int argc, char** argv )
 
 		bool useGradDescriptor = true;
 		bool extendedSurf = false;
-#ifdef SURF_ENABLED
-		useGradDescriptor = false;
-		if ( aArgGrad.isSet() )
-			useGradDescriptor = true;
-   
-		if ( aArgSurfExtended.isSet() )
-		    extendedSurf = true;
-#endif
 		double surfScoreThreshold=1000;
 		if ( aArgSurfScoreThreshold.isSet() )
 			surfScoreThreshold = ( aArgSurfScoreThreshold.getValue() );
