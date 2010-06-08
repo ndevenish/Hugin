@@ -59,12 +59,13 @@ public:
         Mask_positive=1
     };
     /** constructor */
-    MaskPolygon()
-    {
-        m_maskType=Mask_negative;
-    };
+    MaskPolygon() : m_maskType(Mask_negative), m_invert(false), m_imgNr(0) {};
     /** checks if given point is inside of the stored polygon */
     bool isInside(const FDiff2D p) const;
+    /** returns the winding number of the polygon around point p */
+    int getWindingNumber(const FDiff2D p) const;
+    /** returns the total winding number of the polygon*/
+    int getTotalWindingNumber() const;
 
     // access functions
     /** returns mask type */
@@ -79,6 +80,10 @@ public:
     unsigned int getImgNr() const { return m_imgNr; };
     /** sets the associated image number, only used when loading a project, otherwise discarded */
     void setImgNr(const unsigned int newImgNr) { m_imgNr=newImgNr; };
+    /** set mask to normal or inverted */
+    void setInverted(const bool inverted) { m_invert = inverted; };
+    /** returns if mask is inverted */
+    bool isInverted() const { return m_invert; };
 
     // polygon modifier
     /** adds point at the end to the polygon */
@@ -101,6 +106,9 @@ public:
     bool clipPolygon(const vigra::Rect2D rect);
     /** rotate the polygon by 90 degrees */
     void rotate90(bool clockwise,unsigned int maskWidth,unsigned int maskHeight);
+    /** subsamples the polygon, so that the longest distance between 2 points is max_distance */
+    void subSample(const double max_distance);
+
     /** search a point which lies near the polygon line and return the index for inserting the new point */
     unsigned int FindPointNearPos(const FDiff2D p, const double tol);
 
@@ -135,6 +143,7 @@ private:
     MaskType m_maskType;
     VectorPolygon m_polygon;
     unsigned int m_imgNr;
+    bool m_invert;
 };
 
 typedef std::vector<MaskPolygon> MaskPolygonVector;

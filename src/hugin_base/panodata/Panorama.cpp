@@ -1065,6 +1065,10 @@ void Panorama::updateMasks()
                         if(state.images[i]->getActive())
                         {
                             MaskPolygon transformedMask=masks[j];
+                            int origWindingNumber=transformedMask.getTotalWindingNumber();
+                            //increase resolution of positive mask to get better transformation
+                            //of vertices
+                            transformedMask.subSample(20);
                             // clip positive mask to image boundaries
                             if(transformedMask.clipPolygon(vigra::Rect2D(0,0,state.images[i]->getWidth(),state.images[i]->getHeight())))
                             {
@@ -1084,6 +1088,10 @@ void Panorama::updateMasks()
                                         PTools::Transform targetTrans;
                                         targetTrans.createTransform(getImage(k),getOptions());
                                         targetMask.transformPolygon(targetTrans);
+                                        //check is mask was inverted - outside became inside and vice versa
+                                        //if so, invert mask
+                                        int newWindingNumber=targetMask.getTotalWindingNumber();
+                                        targetMask.setInverted(origWindingNumber * newWindingNumber < 0);
                                         //now clip polygon to image rectangle, add mask only when polygon is inside image
                                         if(targetMask.clipPolygon(vigra::Rect2D(-maskOffset,-maskOffset,
                                             state.images[k]->getWidth()+maskOffset,state.images[k]->getHeight()+maskOffset)))
