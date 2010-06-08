@@ -594,6 +594,26 @@ GLPreviewFrame::~GLPreviewFrame()
     DEBUG_TRACE("dtor end");
 }
 
+void GLwxAuiManager::UpdateDocksSize()
+{
+    wxWindow * panel_window = GetManagedWindow();
+    int width, height;
+    panel_window->GetSize(&width, &height);
+    if (m_docks.Count() == 1) {
+        wxAuiDockInfo dock = m_docks.Item(0);
+        dock.size = height;
+        m_docks.Clear();
+        m_docks.Add(dock);
+        Update();
+    }
+}
+
+void GLPreviewFrame::UpdateDocksSize()
+{
+    m_mgr->UpdateDocksSize();
+}
+
+
 /**
 * Update tools and GUI elements according to blend mode choice
 */

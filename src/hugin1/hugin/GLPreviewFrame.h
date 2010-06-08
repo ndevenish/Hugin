@@ -110,6 +110,8 @@ public:
     GLwxAuiFloatingFrame* CreateFloatingFrame(wxWindow* parent, const wxAuiPaneInfo& p);
     GLPreviewFrame * getPreviewFrame() {return frame;}
 
+    void UpdateDocksSize();
+
 private:
     GLPreviewFrame * frame;
 };
@@ -157,6 +159,8 @@ public:
     void PauseResize();
     void ContinueResize();
     bool CanResize() {return GLresize;}
+
+    void UpdateDocksSize();
     
 protected:
 

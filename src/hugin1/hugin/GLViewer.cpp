@@ -210,6 +210,9 @@ void GLViewer::RefreshWrapper(void * obj)
 
 void GLViewer::Resized(wxSizeEvent& e)
 {
+
+    frame->UpdateDocksSize();
+
     DEBUG_DEBUG("RESIZED_OUT");
    
     if (frame->CanResize()) {
