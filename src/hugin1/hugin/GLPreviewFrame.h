@@ -35,6 +35,7 @@ class wxStaticBoxSizer;
 class wxStaticText;
 class wxSlider;
 class GLViewer;
+class GLOverview;
 class wxSpinEvent;
 class wxChoice;
 
@@ -95,6 +96,7 @@ public:
                                 wxCLIP_CHILDREN
                    ) : wxAuiFloatingFrame(parent, (wxAuiManager*) owner_mgr, pane, id, style) {}
 
+
     void OnActivate(wxActivateEvent& evt);
     void OnMoveFinished();
 //    void OnClose(wxCloseEvent& event);
@@ -110,14 +112,13 @@ public:
     GLwxAuiFloatingFrame* CreateFloatingFrame(wxWindow* parent, const wxAuiPaneInfo& p);
     GLPreviewFrame * getPreviewFrame() {return frame;}
 
+    bool ProcessDockResult(wxAuiPaneInfo& target,
+                                   const wxAuiPaneInfo& new_pos);
     void UpdateDocksSize();
 
 private:
     GLPreviewFrame * frame;
 };
-
-
-
 
 
 
@@ -167,6 +168,8 @@ protected:
     bool GLresize;
 
     void OnClose(wxCloseEvent& e);
+
+    void OnSize(wxSizeEvent& e);
     
     void OnCenterHorizontally(wxCommandEvent & e);
     void OnFitPano(wxCommandEvent& e);
@@ -218,6 +221,8 @@ private:
     PT::Panorama & m_pano;
 
     GLViewer * m_GLViewer;
+    GLOverview * m_GLOverview;
+
     int m_mode;
     int non_layout_blend_mode;
     wxToolBar* m_ToolBar_Identify;

@@ -25,7 +25,7 @@ set(hugin_SOURCES
 huginApp.cpp ImagesList.cpp AutoCtrlPointCreator.cpp CPDetectorConfig.cpp 
 MainFrame.cpp CPImageCtrl.cpp CPImagesComboBox.cpp CPEditorPanel.cpp LensPanel.cpp 
 ImagesPanel.cpp CommandHistory.cpp PanoPanel.cpp NonaOptionsDialog.cpp HDRMergeOptionDialog.cpp
-PreviewFrame.cpp PreviewPanel.cpp GLPreviewFrame.cpp GLViewer.cpp GLRenderer.cpp NumTransDialog.cpp
+PreviewFrame.cpp PreviewPanel.cpp GLPreviewFrame.cpp GLViewer.cpp GLOverview.cpp GLRenderer.cpp NumTransDialog.cpp
 CropPanel.cpp OptimizePhotometricPanel.cpp OptimizePanel.cpp CPListFrame.cpp
 TextKillFocusHandler.cpp PreferencesDialog.cpp ResetDialog.cpp
 LocalizedFileTipProvider.cpp  wxPanoCommand.cpp AssistantPanel.cpp
@@ -41,7 +41,7 @@ set(hugin_HEADERS
 huginApp.h ImagesList.h AutoCtrlPointCreator.h CPDetectorConfig.h CPDetectorConfig_default.h
 MainFrame.h CPImageCtrl.h CPImagesComboBox.h CPEditorPanel.h LensPanel.h 
 ImagesPanel.h CommandHistory.h PanoPanel.h NonaOptionsDialog.h HDRMergeOptionDialog.h
-PreviewFrame.h PreviewPanel.h GLPreviewFrame.h GLViewer.h GLRenderer.h NumTransDialog.h
+PreviewFrame.h PreviewPanel.h GLPreviewFrame.h GLViewer.h GLOverview.h GLRenderer.h NumTransDialog.h
 CropPanel.h OptimizePhotometricPanel.h OptimizePanel.h CPListFrame.h
 TextKillFocusHandler.h PreferencesDialog.h ResetDialog.h
 LocalizedFileTipProvider.h  wxPanoCommand.h AssistantPanel.h

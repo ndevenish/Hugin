@@ -23,6 +23,8 @@
 #include "panoinc_WX.h"
 #endif
 
+#include "hugin_utils/utils.h"
+
 #include "panoinc.h"
 #include <config.h>
 #if !defined Hugin_shared || !defined _WINDOWS
@@ -211,11 +213,12 @@ void GLViewer::RefreshWrapper(void * obj)
 void GLViewer::Resized(wxSizeEvent& e)
 {
 
-    frame->UpdateDocksSize();
+    std::cout << "RB" << std::endl;
 
     DEBUG_DEBUG("RESIZED_OUT");
    
     if (frame->CanResize()) {
+        frame->UpdateDocksSize();
         DEBUG_DEBUG("RESIZED_IN");
         wxGLCanvas::OnSize(e);
         if(!IsShown()) return;
@@ -229,6 +232,7 @@ void GLViewer::Resized(wxSizeEvent& e)
           Redraw();
         };
     }
+    std::cout << "RE" << std::endl;
 }
 
 void GLViewer::Redraw()
