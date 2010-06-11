@@ -355,6 +355,7 @@ void PreviewLayoutLinesTool::updateLineInformation()
     m_lines.clear();
     const PT::Panorama & pano = *(helper->GetPanoramaPtr());
     unsigned int numberOfImages = pano.getNrOfImages();
+    HuginBase::UIntSet active_images = pano.getActiveImages();
     // make a line for every image pair, but set the unneeded ones as dud.
     // This is for constant look up times when we scan control points.
     m_lines.resize(numberOfImages * numberOfImages);
@@ -431,8 +432,14 @@ void PreviewLayoutLinesTool::updateLineInformation()
             LineDetails & line = m_lines[i * numberOfImages + j];
             line.image1 = i;
             line.image2 = j;
-            /// test if images overlap.
-            if (line.numberOfControlPoints > 0)
+            /// test if the line should be visible.
+            if (!(set_contains(active_images, i) &&
+                  set_contains(active_images, j)))
+            {
+                // At least one of the images is hidden, so don't show the line.
+                line.dud = true;
+            }
+            else if (line.numberOfControlPoints > 0)
             {
                 line.dud = false;
             } else if (i >= j) {
