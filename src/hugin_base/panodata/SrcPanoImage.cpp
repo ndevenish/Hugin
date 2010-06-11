@@ -531,7 +531,7 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, double & 
             sqrt(sensorSize.x*sensorSize.x + sensorSize.y*sensorSize.y);
         // FIXME: HACK guard against invalid image focal plane definition in EXIF metadata with arbitrarly chosen limits for the crop factor ( 1/100 < crop < 100)
         if (cropFactor < 0.01 || cropFactor > 100) {
-            cropFactor = 0;
+            cropFactor = 1;
         }
     } else {
         // alternative way to calculate the crop factor for Olympus cameras
@@ -576,7 +576,7 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, double & 
     } else if (eFocalLength > 0 && cropFactor <= 0) {
         // need to redo, this time with crop
         focalLength = eFocalLength;
-        cropFactor = 0;
+        cropFactor = 1;
     }
     getExiv2Value(exifData,"Exif.Photo.SubjectDistance", subjectDistance);
 
