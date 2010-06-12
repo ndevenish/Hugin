@@ -317,9 +317,27 @@ int main(int argc, char *argv[])
         opts.outputExposureValue = exposure;
     }
 
-    if (outputImages.size() == 0 ) 
+    if(outputImages.size()==0) 
     {
         outputImages = pano.getActiveImages();
+    }
+    else
+    {
+        UIntSet activeImages=pano.getActiveImages();
+        for(UIntSet::const_iterator it=outputImages.begin(); it!=outputImages.end();it++)
+        {
+            if(!set_contains(activeImages,*it))
+            {
+                std::cerr << "The project file does not contains an image with number " << *it << std::endl;
+                return 1;
+            };
+        };
+    };
+    if(outputImages.size()==0)
+    {
+        std::cout << "Project does not contain active images." << std::endl
+            << "Nothing to do for nona." << std::endl;
+        return 0;
     };
     if(useGPU)
     {
