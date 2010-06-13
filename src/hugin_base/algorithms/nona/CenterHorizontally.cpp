@@ -74,6 +74,12 @@ void CenterHorizontally::centerHorizontically(PanoramaData& panorama)
                 };
             };
         };
+        if(img.getX()!=0 || img.getY()!=0 || img.getZ()!=0)
+        {
+            //if translation parameters are non-zero break, 
+            //because centering by modifying yaw does not work in this case
+            return;
+        };
         if(consider)
             activeImgs.insert(*it);
     };
