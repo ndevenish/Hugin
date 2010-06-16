@@ -54,6 +54,14 @@ class IMPEX StraightenPanorama : public RotatePanorama
         ///
         virtual bool runAlgorithm()
         {
+            for(unsigned int i=0;i<o_panorama.getNrOfImages();i++)
+            {
+                const SrcPanoImage & img=o_panorama.getImage(i);
+                //if translation parameters are non-zero, straighten does not work in current form
+                //TODO: fix straighten with non-zero translation parameters
+                if(img.getX()!=0 || img.getY()!=0 || img.getZ()!=0)
+                    return true;
+            };
             o_transformMat = calcStraighteningRotation(o_panorama);
             RotatePanorama::runAlgorithm();
             
