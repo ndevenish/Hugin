@@ -61,6 +61,9 @@ public:
 	
 	
 	// accessors
+
+	inline Panorama * getPanoramaInfo() const {return _panoramaInfo; }
+
 	inline void setGradientDescriptor(bool grad=true) { _gradDescriptor = grad; }
 	inline bool getGradientDescriptor() const { return _gradDescriptor; }
 	inline void setLoadKeypoints(bool loadKeypoints) { _loadKeypoints = loadKeypoints; }
@@ -151,7 +154,7 @@ private:
 	std::string				_inputProjectFile;
 
 	// Store panorama information
-  Panorama					_panoramaInfo;
+  Panorama*					_panoramaInfo;
 
 	// size of images
 	
@@ -169,11 +172,13 @@ public:
 	{	
 		std::string		_name;
 		std::string		_realImageName; ///< The real image name, differs from _name when loading keypoint files.
+																	//TODO  remove and place in _panoramaInfo->getImage(_number)
 		int				_number;
 		int				_detectWidth;
 		int				_detectHeight;
-		int				_origWidth;
-		int				_origHeight;
+		int				_origWidth; //TODO: remove and place in _panoramaInfo->getImage(_number)
+		int				_origHeight; // TODO: remove and place in _panoramaInfo->getImage(_number)
+
 		lfeat::Image	_ii;
 		lfeat::KeyPointVect_t	_kp;
 		int				_descLength;

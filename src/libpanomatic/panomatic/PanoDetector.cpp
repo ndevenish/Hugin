@@ -30,12 +30,12 @@ using namespace hugin_utils;
 PanoDetector::PanoDetector() :	_loadKeypoints(false), _outputFile("default0.oto"),
 	_loadProject(false),
 	_gradDescriptor(false),
-	_sieve1Width(10), _sieve1Height(10), _sieve1Size(10),
+	_sieve1Width(10), _sieve1Height(10), _sieve1Size(10), 
 	_kdTreeSearchSteps(40), _kdTreeSecondDistance(0.15), _sieve2Width(5), _sieve2Height(5),
 	_sieve2Size(1), _test(false), _cores(utils::getCPUCount()), _ransacIters(1000), _ransacDistanceThres(25),
 	_minimumMatches(4), _linearMatch(false), _linearMatchLen(1), _downscale(true)
 {
-	
+	_panoramaInfo = new Panorama();
 }
 
 
@@ -144,6 +144,7 @@ public:
 	  void run() 
 	  {
 		  if (!PanoDetector::AnalyzeImage(_imgData, _panoDetector)) return;
+				// TODO: implement another function making use of SrcPanoImage methods
 		  PanoDetector::FindKeyPointsInImage(_imgData, _panoDetector);
 		  PanoDetector::FilterKeyPointsInImage(_imgData, _panoDetector);
 		  PanoDetector::MakeKeyPointDescriptorsInImage(_imgData, _panoDetector);
@@ -164,7 +165,6 @@ class LoadKeypointsDataRunnable : public Runnable
 
 	void run() 
 	{	
-		// if (!PanoDetector::AnalyzeImage(_imgData, _panoDetector)) return;  ??
 		PanoDetector::LoadKeypoints(_imgData, _panoDetector);
 		PanoDetector::BuildKDTreesInImage(_imgData, _panoDetector);
 	}
@@ -202,8 +202,11 @@ void PanoDetector::run()
 	// 1. prepare images
 	// if a pto file was given as input, we add its images to _files.
 	if(_loadProject)
+	{
 		if(!loadProject()) return;
-	prepareImages();
+	} else {
+		prepareImages();
+	}
 
 	// 2. run analysis of images
 	TRACE_INFO(endl<< "--- Analyze Images ---" << endl);
@@ -260,24 +263,14 @@ void PanoDetector::prepareImages()
 {	
 	for (unsigned int aFileN = 0; aFileN < _files.size(); ++aFileN)
 	{
-			// insert the image in the map
-			_filesData.insert(make_pair(_files[aFileN], ImgData()));
+		// insert the image in the map
+		_filesData.insert(make_pair(_files[aFileN], ImgData()));
 		
-			// get the data
-			ImgData& aImgData = _filesData[_files[aFileN]];
+		// get the data
+		ImgData& aImgData = _filesData[_files[aFileN]];
 
-			// set the name
-			aImgData._name = _files[aFileN];
-
-			// give a number
-			aImgData._number = aFileN;
-
-			//add the image to _panoramaInfo
-			if (!_loadProject)
-			{
-				SrcPanoImage img(aImgData._name); 
-				_panoramaInfo.addImage(img);
-			}
+		// set the name
+		aImgData._name = _files[aFileN];
 	}	
 }
 
@@ -288,18 +281,31 @@ bool PanoDetector::loadProject()
         cerr << "ERROR: could not open file: '" << _inputProjectFile << "'!" << endl; 
         return false; 
     } 
-		_panoramaInfo.setFilePrefix(hugin_utils::getPathPrefix(_inputProjectFile));
-		AppBase::DocumentData::ReadWriteError err = _panoramaInfo.readData(ptoFile);
+		_panoramaInfo->setFilePrefix(hugin_utils::getPathPrefix(_inputProjectFile));
+		AppBase::DocumentData::ReadWriteError err = _panoramaInfo->readData(ptoFile);
 		if (err != AppBase::DocumentData::SUCCESSFUL) {
 			  cerr << "ERROR: couldn't parse panos tool script: '" << _inputProjectFile << "'!" << endl;
 			  return false;
 		}
 
 		// Add images found in the project file to _files
-		int nImg = _panoramaInfo.getNrOfImages();
+		int nImg = _panoramaInfo->getNrOfImages();
 		for (unsigned int imgNr = 0; imgNr < nImg; ++imgNr)
 		{
-			_files.push_back(_panoramaInfo.getImage(imgNr).getFilename());
+			// get image info
+			SrcPanoImage img_info = _panoramaInfo->getImage(imgNr);
+
+			// insert the image in the map
+			_filesData.insert(make_pair(img_info.getFilename(), ImgData()));
+
+			// get the data
+			ImgData& aImgData = _filesData[img_info.getFilename()];
+
+			// set the name
+			aImgData._name = img_info.getFilename();
+
+			// Number pointing to image info in _panoramaInfo
+			aImgData._number = imgNr;
 		}
 
 		return true;
@@ -345,5 +351,4 @@ void PanoDetector::prepareMatches()
 		}
 	}
 }
-
 
