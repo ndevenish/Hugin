@@ -117,9 +117,9 @@ void estimateImageAlpha(const SrcPanoImage & src,
             transf.transformImgCoord(sx,sy, x/scale, y/scale);
             bool valid=true;
             if (src.getCropMode() == SrcPanoImage::CROP_CIRCLE) {
-                sx = sx - cropCenter.x;
-                sy = sy - cropCenter.y;
-                if (sx*sx + sy*sy > radius2) {
+                double dx = sx - cropCenter.x;
+                double dy = sy - cropCenter.y;
+                if (dx*dx + dy*dy > radius2) {
                         valid = false;
                 }
             } else if (!src.getCropRect().contains(vigra::Point2D(hugin_utils::roundi(sx), hugin_utils::roundi(sy))) ) {
