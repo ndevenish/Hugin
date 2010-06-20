@@ -133,7 +133,7 @@
 
 #endif
 
-#elif defined unix
+#else // for unix like systems
 
 #define HUGIN_PT_SCRIPTFILE                   "PT_script.txt"
 
