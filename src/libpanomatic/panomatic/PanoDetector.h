@@ -112,7 +112,7 @@ public:
 	inline bool getTest() const { return _test; }
 	inline void setCores(int iCores) { _cores = iCores; }
 
-	void addFileData(const std::string& iFile);
+	void addFileData(int nr, const std::string& iFile);
 
 	// predeclaration
 	struct ImgData;

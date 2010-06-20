@@ -99,15 +99,8 @@ bool PanoDetector::LoadKeypoints(ImgData& ioImgInfo, const PanoDetector& iPanoDe
 	ioImgInfo._detectHeight = info.height;
 	ioImgInfo._descLength = info.dimensions;
 
-	// TODO _realImageName, _origWidth and _origHeight should eventually be removed from ImgData
-	ioImgInfo._realImageName = info.filename;
-	ioImgInfo._origWidth = info.width;
-	ioImgInfo._origHeight = info.height;
-
 	// Create image info
 	SrcPanoImage img_info = SrcPanoImage(info.filename);
-	img_info.setSize(vigra::Size2D(info.width, info.height));
-
 	//add image info to panorama Info
 	ioImgInfo._number = iPanoDetector.getPanoramaInfo()->addImage(img_info);
 
@@ -123,8 +116,6 @@ bool PanoDetector::AnalyzeImage(ImgData& ioImgInfo, const PanoDetector& iPanoDet
 			
 			//get image basic info
       vigra::ImageImportInfo aImageInfo(ioImgInfo._name.c_str());
-			ioImgInfo._realImageName = ioImgInfo._name;
-						//TODO: _realImageName should eventually be removed from ImgData
 
 			if(!iPanoDetector.getLoadProject())
 			{ 
@@ -215,10 +206,6 @@ bool PanoDetector::AnalyzeImage(ImgData& ioImgInfo, const PanoDetector& iPanoDet
         // store info
         ioImgInfo._detectWidth = aNewImgWidth;
         ioImgInfo._detectHeight = aNewImgHeight;
-
-				// TODO: _origWidth and _origHeight should eventually be removed from ImgData
-				ioImgInfo._origWidth = aImageInfo.width();
-				ioImgInfo._origHeight = aImageInfo.height();
 
         TRACE_IMG("Build integral image...");
         // create integral image

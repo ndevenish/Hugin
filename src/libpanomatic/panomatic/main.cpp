@@ -190,21 +190,21 @@ void parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
 		vector<string> aFiles = aArgFiles.getValue();
 		if ( !ioPanoDetector.getLoadProject() )
 		{
-			BOOST_FOREACH(string& aF, aFiles)
+			for (unsigned int i = 0; i < aFiles.size(); ++i)
 			{
 				if (aArgPTGuiCompat.getValue())
 				{
-					if (aF.find("/path:") == 0)
-						ioPanoDetector.setOutputFile(aF.substr(6, aF.size() - 6) + "\\panorama0.oto");
+					if (aFiles[i].find("/path:") == 0)
+						ioPanoDetector.setOutputFile(aFiles[i].substr(6, aFiles[i].size() - 6) + "\\panorama0.oto");
 
-					if (aF.find("/") == 0)
+					if (aFiles[i].find("/") == 0)
 						continue;
 				}
-				ioPanoDetector.addFileData(aF);
+				ioPanoDetector.addFileData(i,aFiles[i]);
 			}
 		} else {
 				if (aFiles.size()>1)
-					cout << "WARNING: Only the first project file was loaded, others are ignored!" << endl << endl; 
+					cout << "WARNING: Only one project file was loaded, others were ignored." << endl << endl; 
 				ioPanoDetector.setInputProjectFile(aFiles[0]);
 		}
 

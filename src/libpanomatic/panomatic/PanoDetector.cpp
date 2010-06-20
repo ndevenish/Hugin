@@ -39,7 +39,6 @@ PanoDetector::PanoDetector() :	_loadKeypoints(false), _outputFile("default0.oto"
 }
 
 
-
 bool PanoDetector::checkData()
 {
 	// test linear match data
@@ -62,7 +61,6 @@ bool PanoDetector::checkData()
 
 	return true;
 }
-
 
 void PanoDetector::printDetails()
 {
@@ -136,28 +134,6 @@ private:
 	PanoDetector::ImgData&		_imgData;
 };
 
-// definition of a runnable class for loadproject
-class LoadProjectDataRunnable : public Runnable
-{
-public:
-	LoadProjectDataRunnable(PanoDetector::ImgData& iImageData, const PanoDetector& iPanoDetector) :
-	  _imgData(iImageData), _panoDetector(iPanoDetector) {};
-
-	  void run() 
-	  {
-		  if (!PanoDetector::AnalyzeImage(_imgData, _panoDetector)) return;
-				// TODO: implement another function making use of SrcPanoImage methods
-		  PanoDetector::FindKeyPointsInImage(_imgData, _panoDetector);
-		  PanoDetector::FilterKeyPointsInImage(_imgData, _panoDetector);
-		  PanoDetector::MakeKeyPointDescriptorsInImage(_imgData, _panoDetector);
-		  PanoDetector::BuildKDTreesInImage(_imgData, _panoDetector);
-		  PanoDetector::FreeMemoryInImage(_imgData, _panoDetector);
-	  }
-private:
-	const PanoDetector&			_panoDetector;
-	PanoDetector::ImgData&		_imgData;
-};
-
 // definition of a runnable class for loadkeys
 class LoadKeypointsDataRunnable : public Runnable
 {
@@ -215,8 +191,6 @@ void PanoDetector::run()
 		for (unsigned int i = 0; i < _filesData.size(); ++i)
 			if (_loadKeypoints) {
 				aExecutor.execute(new LoadKeypointsDataRunnable(_filesData[i], *this));
-			} else if (_loadProject) {
-				aExecutor.execute(new LoadProjectDataRunnable(_filesData[i], *this));
 			} else {
 				aExecutor.execute(new ImgDataRunnable(_filesData[i], *this));
 			}
@@ -258,7 +232,7 @@ void PanoDetector::run()
 
 }
 
-void PanoDetector::addFileData(const std::string& iFile)
+void PanoDetector::addFileData(int nr, const std::string& iFile)
 {
 	// insert the image in the vector
  	_filesData.push_back(ImgData());
@@ -267,6 +241,9 @@ void PanoDetector::addFileData(const std::string& iFile)
 
 	// set the name
 	aImgData._name = iFile;
+
+	// set the number
+	aImgData._number = nr;
 }
 
 bool PanoDetector::loadProject()
