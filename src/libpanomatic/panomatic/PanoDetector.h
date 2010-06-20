@@ -36,9 +36,7 @@
 #include <localfeatures/KeyPoint.h>
 #include <localfeatures/KeyPointDetector.h>
 
-#include <hugin_basic.h>
-#include <hugin_utils/platform.h>
-#include <algorithms/panorama_makefile/PanoramaMakefileExport.h>
+#include <panodata/Panorama.h>
 
 using namespace HuginBase;
 

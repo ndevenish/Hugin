@@ -1,6 +1,3 @@
-#include <hugin_config.h>
-#include <hugin_version.h>
-
 #include "PanoDetector.h"
 #include <iostream>
 #include <fstream>
@@ -12,10 +9,6 @@
 #include "zthread/PoolExecutor.h"
 #include "Utils.h"
 #include "Tracer.h"
-
-
-#include <hugin_basic.h>
-#include <hugin_utils/platform.h>
 
 #ifndef srandom
 #define srandom srand

@@ -22,7 +22,7 @@
 #define __utils_h
 
 #ifdef WIN32
-#include <windows.h>
+#include <vigra/windows.h>
 #include <process.h>
 #else
 //#include <pthread.h>
