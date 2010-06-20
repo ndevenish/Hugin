@@ -53,7 +53,7 @@ bool PanoDetector::checkData()
 	// check the test mode
 	if (_test)
 	{
-		if (_files.size() != 2)
+		if (_filesData.size() != 2)
 		{
 			std::cout << "In test mode you must provide exactly 2 images." << std::endl;
 			return false;
@@ -105,8 +105,10 @@ void PanoDetector::printDetails()
 	if(!_loadProject && !_loadKeypoints)
 	{
 		cout << "Input Images :" << endl;
-		BOOST_FOREACH(string& aF, _files)
-			cout << "  - " << aF << endl;
+		for (unsigned int i = 0; i < _filesData.size(); ++i)
+		{
+			cout << "  - " << _filesData[i]._name << endl;
+		}
 	}
 	if (_loadProject)
 		cout << "Input Project File : " << _inputProjectFile << endl;
@@ -204,21 +206,19 @@ void PanoDetector::run()
 	if(_loadProject)
 	{
 		if(!loadProject()) return;
-	} else {
-		prepareImages();
 	}
 
 	// 2. run analysis of images
 	TRACE_INFO(endl<< "--- Analyze Images ---" << endl);
 	try 
 	{
-		for (ImgDataIt_t aB = _filesData.begin(); aB != _filesData.end(); ++aB)
+		for (unsigned int i = 0; i < _filesData.size(); ++i)
 			if (_loadKeypoints) {
-				aExecutor.execute(new LoadKeypointsDataRunnable(aB->second, *this));
+				aExecutor.execute(new LoadKeypointsDataRunnable(_filesData[i], *this));
 			} else if (_loadProject) {
-				aExecutor.execute(new LoadProjectDataRunnable(aB->second, *this));
+				aExecutor.execute(new LoadProjectDataRunnable(_filesData[i], *this));
 			} else {
-				aExecutor.execute(new ImgDataRunnable(aB->second, *this));
+				aExecutor.execute(new ImgDataRunnable(_filesData[i], *this));
 			}
 		aExecutor.wait();
 	} 
@@ -244,7 +244,6 @@ void PanoDetector::run()
 	{
 		BOOST_FOREACH(MatchData& aMD, _matchesData)
 			aExecutor.execute(new MatchDataRunnable(aMD, *this));
-
 		aExecutor.wait();
 	} 
 	catch(Synchronization_Exception& e)
@@ -259,19 +258,15 @@ void PanoDetector::run()
 
 }
 
-void PanoDetector::prepareImages()
-{	
-	for (unsigned int aFileN = 0; aFileN < _files.size(); ++aFileN)
-	{
-		// insert the image in the map
-		_filesData.insert(make_pair(_files[aFileN], ImgData()));
-		
-		// get the data
-		ImgData& aImgData = _filesData[_files[aFileN]];
+void PanoDetector::addFileData(const std::string& iFile)
+{
+	// insert the image in the vector
+ 	_filesData.push_back(ImgData());
+	// get the data
+	ImgData& aImgData = _filesData.back();
 
-		// set the name
-		aImgData._name = _files[aFileN];
-	}	
+	// set the name
+	aImgData._name = iFile;
 }
 
 bool PanoDetector::loadProject()
@@ -295,11 +290,11 @@ bool PanoDetector::loadProject()
 			// get image info
 			SrcPanoImage img_info = _panoramaInfo->getImage(imgNr);
 
-			// insert the image in the map
-			_filesData.insert(make_pair(img_info.getFilename(), ImgData()));
+			// insert the image in the vector
+ 			_filesData.push_back(ImgData());
 
 			// get the data
-			ImgData& aImgData = _filesData[img_info.getFilename()];
+			ImgData& aImgData = _filesData.back();
 
 			// set the name
 			aImgData._name = img_info.getFilename();
@@ -313,9 +308,9 @@ bool PanoDetector::loadProject()
 
 bool PanoDetector::checkLoadSuccess()
 {
-    for (unsigned int aFileN = 0; aFileN < _files.size(); ++aFileN)
+    for (unsigned int aFileN = 0; aFileN < _filesData.size(); ++aFileN)
     {
-        ImgData& aID = _filesData[_files[aFileN]];
+        ImgData& aID = _filesData[aFileN];
         if (aID._loadFail) 
             return false;
     }
@@ -325,18 +320,18 @@ bool PanoDetector::checkLoadSuccess()
 
 void PanoDetector::prepareMatches()
 {
-	int aLen = _files.size();
+	int aLen = _filesData.size();
 	if (_linearMatch)
 		aLen = _linearMatchLen;
 
-	if (aLen >= _files.size())
-		aLen = _files.size() - 1;
-	
-	for (unsigned int i1 = 0; i1 < _files.size(); ++i1)
+	if (aLen >= _filesData.size())
+		aLen = _filesData.size() - 1;
+
+	for (unsigned int i1 = 0; i1 < _filesData.size(); ++i1)
 	{
 		int aEnd = i1 + 1 + aLen;
-		if (_files.size() < aEnd)
-			aEnd = _files.size();
+		if (_filesData.size() < aEnd)
+			aEnd = _filesData.size();
 
 		for (unsigned int i2 = (i1+1); i2 < aEnd; ++i2) 
 		{
@@ -344,10 +339,8 @@ void PanoDetector::prepareMatches()
 			_matchesData.push_back(MatchData());
 
 			MatchData& aM = _matchesData.back();
-			aM._i1_name = _files[i1];
-			aM._i2_name = _files[i2];
-			aM._i1 = &(_filesData[aM._i1_name]);
-			aM._i2 = &(_filesData[aM._i2_name]);
+			aM._i1 = &(_filesData[i1]);
+			aM._i2 = &(_filesData[i2]);
 		}
 	}
 }

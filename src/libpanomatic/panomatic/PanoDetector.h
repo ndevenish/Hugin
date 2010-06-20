@@ -105,15 +105,14 @@ public:
 	inline bool	getDownscale() const { return _downscale; }
     inline void setDownscale(bool iDown) { _downscale = iDown; }
 
-	
-	inline void addFile(const std::string& iFile) { _files.push_back(iFile); }
-
 	//	inline void setNumberOfKeys(int iNumKeys) { _numKeys = iNumKeys; }
 	inline void setOutputFile(const std::string& iOutputFile) { _outputFile = iOutputFile; }
 	inline void setInputProjectFile(const std::string& iInputProjectFile) { _inputProjectFile = iInputProjectFile; }
 	inline void setTest(bool iTest) { _test = iTest; }
 	inline bool getTest() const { return _test; }
 	inline void setCores(int iCores) { _cores = iCores; }
+
+	void addFileData(const std::string& iFile);
 
 	// predeclaration
 	struct ImgData;
@@ -149,7 +148,6 @@ private:
     bool                    _downscale;
 	
 	// list of files
-	FileNameList_t			_files;
 	std::string				_outputFile;
 	std::string				_inputProjectFile;
 
@@ -189,13 +187,11 @@ public:
 		KPKDTreePtr				_kd;
 	};
 
-	typedef std::map<std::string, ImgData>					ImgData_t;
-	typedef std::map<std::string, ImgData>::iterator		ImgDataIt_t;
+	typedef std::vector<ImgData>								ImgData_t;
+	typedef std::vector<ImgData>::iterator					ImgDataIt_t;
 
 	struct MatchData
 	{
-		std::string				_i1_name;
-		std::string				_i2_name;
 		ImgData*				_i1;
 		ImgData*				_i2;
 		lfeat::PointMatchVector_t		_matches;

@@ -200,7 +200,7 @@ void parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
 					if (aF.find("/") == 0)
 						continue;
 				}
-					ioPanoDetector.addFile(aF);
+				ioPanoDetector.addFileData(aF);
 			}
 		} else {
 				if (aFiles.size()>1)

@@ -422,7 +422,7 @@ bool PanoDetector::RansacMatchesInPair(MatchData& ioMatchData, const PanoDetecto
 	TRACE_PAIR("Removed " << aRemovedMatches.size() << " matches. " << ioMatchData._matches.size() << " remaining.");
 
 	if (iPanoDetector.getTest())
-		TestCode::drawRansacMatches(ioMatchData._i1_name, ioMatchData._i2_name, ioMatchData._matches, 
+		TestCode::drawRansacMatches(ioMatchData._i1->_name, ioMatchData._i2->_name, ioMatchData._matches, 
 									aRemovedMatches, aRansacFilter, iPanoDetector.getDownscale());
 
 	return true;
