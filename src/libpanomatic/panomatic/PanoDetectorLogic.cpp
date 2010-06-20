@@ -109,9 +109,8 @@ bool PanoDetector::LoadKeypoints(ImgData& ioImgInfo, const PanoDetector& iPanoDe
 	img_info.setSize(vigra::Size2D(info.width, info.height));
 
 	//add image info to panorama Info
-	TRACE_IMG("kikoo...");
 	ioImgInfo._number = iPanoDetector.getPanoramaInfo()->addImage(img_info);
-	TRACE_IMG("Lol...");
+
 	return true;
 }
 
@@ -121,12 +120,18 @@ bool PanoDetector::AnalyzeImage(ImgData& ioImgInfo, const PanoDetector& iPanoDet
 	try
 	{
       ioImgInfo._loadFail = false;
+			
+			//get image basic info
       vigra::ImageImportInfo aImageInfo(ioImgInfo._name.c_str());
 			ioImgInfo._realImageName = ioImgInfo._name;
 						//TODO: _realImageName should eventually be removed from ImgData
 
-			// Create image info
-			SrcPanoImage img_info = SrcPanoImage(ioImgInfo._name);
+			if(!iPanoDetector.getLoadProject())
+			{ 
+				//if no project was loaded, get image additional info
+				SrcPanoImage img_info = SrcPanoImage(ioImgInfo._name);
+				ioImgInfo._number = iPanoDetector.getPanoramaInfo()->addImage(img_info);
+			}
 
 	    int aNewImgWidth = aImageInfo.width();
 	    int aNewImgHeight = aImageInfo.height();
@@ -208,12 +213,8 @@ bool PanoDetector::AnalyzeImage(ImgData& ioImgInfo, const PanoDetector& iPanoDet
 	    }
 
         // store info
-				img_info.setSize(vigra::Size2D(aImageInfo.width(),aImageInfo.height()));
         ioImgInfo._detectWidth = aNewImgWidth;
         ioImgInfo._detectHeight = aNewImgHeight;
-
-				//add image info to panorama info
-				ioImgInfo._number = iPanoDetector.getPanoramaInfo()->addImage(img_info);
 
 				// TODO: _origWidth and _origHeight should eventually be removed from ImgData
 				ioImgInfo._origWidth = aImageInfo.width();
