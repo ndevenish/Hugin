@@ -71,6 +71,7 @@ else (EXIV2_INCLUDE_DIR AND EXIV2_LIBRARIES)
                /usr/local/include
                /usr/include
                ${SOURCE_BASE_DIR}/exiv2/msvc/include
+               ${SOURCE_BASE_DIR}/exiv2-0.20/msvc/include
                ${SOURCE_BASE_DIR}/exiv2-0.19/msvc/include
                ${SOURCE_BASE_DIR}/exiv2-0.16/msvc/include
                ${SOURCE_BASE_DIR}/exiv2-0.18/msvc/include
@@ -84,7 +85,7 @@ else (EXIV2_INCLUDE_DIR AND EXIV2_LIBRARIES)
        find_library_with_debug(EXIV2_LIBRARIES
           WIN32_DEBUG_POSTFIX d
           NAMES exiv2 libexiv2
-          PATHS ${SOURCE_BASE_DIR}/exiv2-0.19/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.18.2/msvc/bin/ReleaseDLL
+          PATHS ${SOURCE_BASE_DIR}/exiv2-0.20/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.19/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.18.2/msvc/bin/ReleaseDLL
        )
 
        find_library_with_debug(EXIV2EXPAT_LIBRARIES
@@ -96,20 +97,21 @@ else (EXIV2_INCLUDE_DIR AND EXIV2_LIBRARIES)
        find_library_with_debug(EXIV2_LIBRARIES
           WIN32_DEBUG_POSTFIX d
           NAMES exiv2 libexiv2
-          PATHS /usr/lib /usr/local/lib ${SOURCE_BASE_DIR}/exiv2/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.16/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.18/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.18.1/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.18.2/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.19/msvc/lib
+          PATHS /usr/lib /usr/local/lib ${SOURCE_BASE_DIR}/exiv2/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.16/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.18/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.18.1/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.18.2/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.19/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.20/msvc/lib
        )
 
        find_library_with_debug(EXIV2EXPAT_LIBRARIES
           WIN32_DEBUG_POSTFIX d
           NAMES libexpat
-          PATHS /usr/lib /usr/local/lib ${SOURCE_BASE_DIR}/exiv2/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.16/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.18/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.18.1/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.18.2/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.19/msvc/lib
+          PATHS /usr/lib /usr/local/lib ${SOURCE_BASE_DIR}/exiv2/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.16/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.18/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.18.1/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.18.2/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.19/msvc/lib ${SOURCE_BASE_DIR}/exiv2-0.20/msvc/lib
        )
 
        # since exiv 0.19, xmpsdk needs explicit linked in static build
        find_library_with_debug(XMP_LIBRARIES
           WIN32_DEBUG_POSTFIX d
           NAMES xmpsdk
-          PATHS ${SOURCE_BASE_DIR}/exiv2-0.19/msvc/lib
+          PATHS ${SOURCE_BASE_DIR}/exiv2-0.20/msvc/lib
+                ${SOURCE_BASE_DIR}/exiv2-0.19/msvc/lib
        )
        IF(XMP_LIBRARIES)
          SET(EXIV2_LIBRARIES ${EXIV2_LIBRARIES} ${XMP_LIBRARIES})
