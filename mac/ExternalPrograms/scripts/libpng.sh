@@ -21,6 +21,8 @@
 # -------------------------------
 # 20091206.0 sg Script tested and used to build 2009.4.0-RC3
 # 20100121.0 sg Script updated for 1.2.40
+# 201005xx.0 hvdw Adapted for 1.2.43
+# 20100624.0 hvdw More robust error checking on compilation
 # -------------------------------
 
 #libraries created:
@@ -28,10 +30,17 @@
 # libpng12.12.1.2.42 <- (libpng12.12, libpng12)
 # libpng12.a <- libpng.a
 PNGVER_M="12"
-PNGVER="1.2.42"
-PNGVER_FULL="$PNGVER_M.1.2.42"
+PNGVER="1.2.43"
+PNGVER_FULL="$PNGVER_M.1.2.43"
 
 # init
+
+fail()
+{
+        echo "** Failed at $1 **"
+        exit 1
+}
+
 
 let NUMARCH="0"
 for i in $ARCHS ; do
@@ -132,7 +141,8 @@ sed -e 's/-dynamiclib/-dynamiclib \$\(GCCLDFLAGS\)/g' \
   NEXT_ROOT="$MACSDKDIR" \
   LIBPATH="$REPOSITORYDIR/arch/$ARCH/lib" \
   BINPATH="$REPOSITORYDIR/arch/$ARCH/bin" \
-  GCCLDFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs";
+  GCCLDFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs" \
+   || fail "failed at make step of $ARCH";
 
 done
 

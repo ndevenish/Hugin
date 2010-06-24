@@ -22,9 +22,17 @@
 # -------------------------------
 # 20091206.0 sg Script tested and used to build 2009.4.0-RC3
 # 20100121.0 sg Script updated for 1.19
+# 20100624.0 hvdw More robust error checking on compilation
 # -------------------------------
 
 # init
+
+fail()
+{
+        echo "** Failed at $1 **"
+        exit 1
+}
+
 
 LCMSVER_M="1"
 LCMSVER_FULL="$LCMSVER_M.0.19"
@@ -95,11 +103,12 @@ do
   NEXT_ROOT="$MACSDKDIR" \
   ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
   --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
-  --enable-static --enable-shared --with-zlib=$MACSDKDIR/usr/lib ;
+  --enable-static --enable-shared --with-zlib=$MACSDKDIR/usr/lib \
+  || fail "configure step for $ARCH";
 
  make clean
- make
- make $OTHERMAKEARGs install
+ make || fail "failed at make step of $ARCH";
+ make $OTHERMAKEARGs install || fail "make install step of $ARCH";
 
 done
 

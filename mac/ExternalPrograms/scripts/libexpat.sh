@@ -20,7 +20,15 @@
 
 # -------------------------------
 # 20091206.0 sg Script tested and used to build 2009.4.0-RC3
+# 20100624.0 hvdw More robust error checking on compilation
 # -------------------------------
+
+fail()
+{
+        echo "** Failed at $1 **"
+        exit 1
+}
+
 
 uname_release=$(uname -r)
 uname_arch=$(uname -p)
@@ -126,12 +134,12 @@ do
   NEXT_ROOT="$MACSDKDIR" \
   ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
   --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
-  --enable-shared;
+  --enable-shared || fail "configure step for $ARCH";
 
  [ -f $REPOSITORYDIR/$crt1obj ] && rm  $REPOSITORYDIR/$crt1obj;
  make clean;
- make $OTHERMAKEARGs buildlib;
- make installlib;
+ make $OTHERMAKEARGs buildlib || fail "failed at make step of $ARCH";
+ make installlib || fail "failed at make install step of $ARCH";
 
 done
 

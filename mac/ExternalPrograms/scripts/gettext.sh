@@ -21,9 +21,17 @@
 # -------------------------------
 # 20091206.0 sg Script tested and used to build 2009.4.0-RC3
 # 20100116.0 HvdW Correct script for libintl install_name in libgettext*.dylib
+# 20100624.0 hvdw More robust error checking on compilation
 # -------------------------------
 
 # init
+
+fail()
+{
+        echo "** Failed at $1 **"
+        exit 1
+}
+
 
 let NUMARCH="0"
 
@@ -106,13 +114,11 @@ do
     --enable-shared --enable-static --disable-csharp --disable-java \
     --with-included-gettext --with-included-glib \
     --with-included-libxml --without-examples --with-libexpat-prefix=$REPOSITORYDIR \
-    --with-included-libcroco  --without-emacs --with-libiconf-prefix=$REPOSITORYDIR ;
+    --with-included-libcroco  --without-emacs --with-libiconf-prefix=$REPOSITORYDIR || fail "configure step for $ARCH" ;
 
-# read input;
  make clean;
- make;
-# read input;
- make install;
+ make || fail "failed at make step of $ARCH";
+ make install || fail "make install step of $ARCH";
 
 done
 

@@ -21,9 +21,17 @@
 # 20091206.0 sg Script NOT tested but uses std boilerplate
 # 20100111.0 sg Script tested for building dylib
 # 20100121.0 sg Script updated for 0.19
+# 20100624.0 hvdw More robust error checking on compilation
 # -------------------------------
 
 # init
+
+fail()
+{
+        echo "** Failed at $1 **"
+        exit 1
+}
+
 
 EXIV2VER_M="6"
 EXIV2VER_FULL="$EXIV2VER_M.3.1"
@@ -91,7 +99,7 @@ do
   ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
   --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
   --enable-shared --with-libiconv-prefix=$REPOSITORYDIR --with-libintl-prefix=$REPOSITORYDIR \
-  --enable-static ;
+  --enable-static  || fail "configure step for $ARCH";
 
  [ -f "libtool-bk" ] && rm libtool-bk; 
  mv "libtool" "libtool-bk"; 
@@ -106,10 +114,8 @@ do
  cd ../../;
 
  cd src;
-# make $OTHERMAKEARGs lib;
-# make install-lib;
- make $OTHERMAKEARGs;
- make install
+ make $OTHERMAKEARGs || fail "failed at make step of $ARCH";
+ make install || fail "make install step of $ARCH";
  cd ../;
 done
 

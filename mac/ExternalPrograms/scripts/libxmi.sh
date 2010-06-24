@@ -21,9 +21,18 @@
 # 20091206.0 sg Script tested and used to build 2009.4.0-RC3
 # 20100111.0 sg Script enhanced to build dynamic library
 # 20100419.0 hvdw Changes to fix 64bit build
+# 20100624.0 hvdw More robust error checking on compilation
 # -------------------------------
 
 # init
+
+fail()
+{
+        echo "** Failed at $1 **"
+        exit 1
+}
+
+
 XMI_FULL_VSN=0.1.2
 XMI_VSN=0.1
 
@@ -96,7 +105,7 @@ do
   NEXT_ROOT="$MACSDKDIR" \
   ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
   --host="$TARGET" --target="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
-  --enable-static --enable-shared;
+  --enable-static --enable-shared || fail "configure step for $ARCH" ;
 
 
  [ -f libtool.bak ] && rm libtool.bak
@@ -105,8 +114,8 @@ do
  chmod +x libtool
 
  make clean;
- make $OTHERMAKEARGs all;
- make install;
+ make $OTHERMAKEARGs all || fail "failed at make step of $ARCH";
+ make install || fail "make install step of $ARCH";
 
 done
 

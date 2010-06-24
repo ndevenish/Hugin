@@ -24,7 +24,15 @@
 # -------------------------------
 # 20091206.0 sg Script tested and used to build 2009.4.0-RC3
 #               Works Intel: 10.5, 10.6 & Powerpc 10.4, 10.5
+# 20100624.0 hvdw More robust error checking on compilation
 # -------------------------------
+
+fail()
+{
+        echo "** Failed at $1 **"
+        exit 1
+}
+
 
 uname_release=$(uname -r)
 uname_arch=$(uname -p)
@@ -52,6 +60,7 @@ WXVERSION="2.8"
 WXVER_COMP="$WXVERSION.0"
 #WXVER_FULL="$WXVER_COMP.5.0"  # for 2.8.8
 WXVER_FULL="$WXVER_COMP.6.0"  # for 2.8.10
+WXVER_FULL="$WXVER_COMP.7.0"  # for 2.8.11
 
 mkdir -p "$REPOSITORYDIR/bin";
 mkdir -p "$REPOSITORYDIR/lib";
@@ -120,7 +129,7 @@ do
   ../configure --prefix="$REPOSITORYDIR" --exec-prefix=$REPOSITORYDIR/arch/$ARCH --disable-dependency-tracking \
     --host="$TARGET" --with-macosx-sdk=$MACSDKDIR --with-macosx-version-min=$OSVERSION \
     --enable-monolithic --enable-unicode --with-opengl --enable-compat26 --disable-graphics_ctx \
-    --enable-shared --disable-debug;
+    --enable-shared --disable-debug || fail "configure step for $ARCH";
 
 ### Setup.h is created by configure!
 # For all SDK; CP panel problem still exists.
@@ -163,8 +172,8 @@ do
 
 # Need to build single-threaded. libwx_macu-2.8.dylib needs to be built before libwx_macu_gl-2.8 to avoid a link error.
 # This is only problematic for Intel builds, where jobs can be >1
- make --jobs=1;
- make install;
+ make --jobs=1 || fail "failed at make step of $ARCH";
+ make install || fail "make install step of $ARCH";
 
  rm $REPOSITORYDIR/lib/$dylib_name;
 

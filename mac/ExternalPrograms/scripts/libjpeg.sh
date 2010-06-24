@@ -20,9 +20,17 @@
 # -------------------------------
 # 20091206.0 sg Script tested and used to build 2009.4.0-RC3
 # 20100121.0 sg Script updated for version 8
+# 20100624.0 hvdw More robust error checking on compilation
 # -------------------------------
 
-JPEGLIBVER="7"
+JPEGLIBVER="8"
+
+fail()
+{
+        echo "** Failed at $1 **"
+        exit 1
+}
+
 
 # init
 
@@ -121,11 +129,11 @@ do
   NEXT_ROOT="$MACSDKDIR" \
   ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
     --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
-    --enable-shared --enable-static;
+    --enable-shared --enable-static || fail "configure step for $ARCH";
 
  make clean;
- make;
- make install;
+ make || fail "failed at make step of $ARCH";
+ make install || fail "make install step of $ARCH";
 
 done
 

@@ -23,9 +23,17 @@
 # 20091210.0 hvdw Removed code that downgraded optimization from -O3 to -O2
 # 20091223.0 sg Added argument to configure to locate missing TTF
 #               Building enblend documentation requires tex. Check if possible.
+# 20100624.0 hvdw More robust error checking on compilation
 # -------------------------------
 
 # init
+
+fail()
+{
+        echo "** Failed at $1 **"
+        exit 1
+}
+
 
 # Fancy doc builds on Enblend 3.2 are doomed to failure, so don't even try...
 AC_INIT=$(grep AC_INIT Configure.in)
@@ -126,7 +134,7 @@ do
    PKG_CONFIG_PATH="$REPOSITORYDIR/lib/pkgconfig" \
    ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking --enable-image-cache=yes \
      --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH --with-apple-opengl-framework \
-     --with-glew $extraConfig ;
+     --with-glew $extraConfig  || fail "configure step for $ARCH";
 
  # hack; AC_FUNC_MALLOC sucks!!
 
@@ -144,8 +152,8 @@ do
  sed -e "s/-O[0-9]/-O3/g" "src/Makefile.bak" > src/Makefile
 
  make clean;
- make all $extraBuild ;
- make install $extraInstall ;
+ make all $extraBuild || fail "failed at make step of $ARCH";
+ make install $extraInstall || fail "make install step of $ARCH";
  
 done
 

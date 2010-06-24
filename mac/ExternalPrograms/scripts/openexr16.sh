@@ -20,7 +20,15 @@
 
 # -------------------------------
 # 20091206.0 sg Script tested and used to build 2009.4.0-RC3
+# 20100624.0 hvdw More robust error checking on compilation
 # -------------------------------
+
+fail()
+{
+        echo "** Failed at $1 **"
+        exit 1
+}
+
 
 EXRVER_M="6"
 EXRVER_FULL="$EXRVER_M.0.0"
@@ -160,7 +168,7 @@ do
     PKG_CONFIG_PATH="$REPOSITORYDIR/lib/pkgconfig" \
     ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
       --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
-      --enable-shared --enable-static;
+      --enable-shared --enable-static || fail "configure step for $ARCH";
 
   [ -f "libtool-bk" ] || mv "libtool" "libtool-bk"; # just move it once, fix it many times
   sed -e "s#-dynamiclib#-dynamiclib -arch $ARCH -isysroot $MACSDKDIR#g" "libtool-bk" > "libtool";
@@ -168,8 +176,8 @@ do
 
   [ -f $REPOSITORYDIR/$crt1obj ] && rm  $REPOSITORYDIR/$crt1obj;
   make clean;
-  make $OTHERMAKEARGs all;
-  make install;
+  make $OTHERMAKEARGs all || fail "failed at make step of $ARCH";
+  make install || fail "make install step of $ARCH";
 
 done
 

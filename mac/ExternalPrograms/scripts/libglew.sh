@@ -20,11 +20,19 @@
 # -------------------------------
 # 20091206.0 sg Script tested and used to build 2009.4.0-RC3
 # 20100110.0 sg Script enhanced to copy dynamic lib also
+# 20100624.0 hvdw More robust error checking on compilation
 # -------------------------------
 
 GLEW_MAJOR=1
 GLEW_MINOR=5
 GLEW_REV=2
+
+fail()
+{
+        echo "** Failed at $1 **"
+        exit 1
+}
+
 
 # init
 uname_release=$(uname -r)
@@ -113,7 +121,8 @@ do
  make install \
   GLEW_DEST="$REPOSITORYDIR/arch/$ARCH" \
   CC="$CC -isysroot $MACSDKDIR -arch $ARCH $ARCHARGs -O3 -dead_strip" \
-  LD="$CC -isysroot $MACSDKDIR -arch $ARCH $ARCHARGs -O3";
+  LD="$CC -isysroot $MACSDKDIR -arch $ARCH $ARCHARGs -O3" \
+  || fail "failed at make step of $ARCH";
 
 done
 

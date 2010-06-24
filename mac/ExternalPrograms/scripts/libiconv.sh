@@ -21,9 +21,17 @@
 
 # -------------------------------
 # 20100117.0 HvdW Script tested
+# 20100624.0 hvdw More robust error checking on compilation
 # -------------------------------
 
 # init
+
+fail()
+{
+        echo "** Failed at $1 **"
+        exit 1
+}
+
 
 let NUMARCH="0"
 
@@ -95,14 +103,13 @@ do
   NEXT_ROOT="$MACSDKDIR" \
   ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
   --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
-  --without-libiconv-prefix --without-libintl-prefix \
   --disable-nls --enable-extra-encodings \
-  --enable-static --enable-shared  ;
+  --without-libiconv-prefix --without-libintl-prefix \
+  --enable-static --enable-shared  || fail "configure step of $ARCH";
 
  make clean
- make
- make $OTHERMAKEARGs install
-
+ make || fail "failed at make step of $ARCH"
+ make $OTHERMAKEARGs install || fail "make install step of $ARCH"
 done
 
 

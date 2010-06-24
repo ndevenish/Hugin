@@ -11,7 +11,7 @@ HSPAppPath="$App/Contents/Resources/HuginStitchProject.app/Contents/MacOS"
 
 
 Hbins="celeste_standalone pano_trafo vig_optimize autooptimiser cpclean fulla pto2mk calibrate_lens deghosting_mask matchpoint tca_correct pano_modify pto_merge"
-HSPbins="PTmender enblend PTblender PTroller enfuse PTmasker gnumake exiv2"
+HSPbins="exiv2"
 HSPBins2="hugin_hdrmerge nona cplean"
 
 # Copy to MacOS folder in Hugin.app

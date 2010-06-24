@@ -21,7 +21,14 @@
 # -------------------------------
 # 20091206.0 sg Script tested and used to build 2009.4.0-RC3
 # 20100121.0 sg Script updated for 3.9.2
+# 20100624.0 hvdw More robust error checking on compilation
 # -------------------------------
+
+fail()
+{
+        echo "** Failed at $1 **"
+        exit 1
+}
 
 uname_release=$(uname -r)
 uname_arch=$(uname -p)
@@ -123,12 +130,12 @@ do
    ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
      --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
      --enable-static --enable-shared --with-apple-opengl-framework --without-x \
-     ;
+     || fail "configure step for $ARCH" ;
 
  [ -f $REPOSITORYDIR/$crt1obj ] && rm  $REPOSITORYDIR/$crt1obj;
  make clean;
- cd ./port; make $OTHERMAKEARGs;
- cd ../libtiff; make $OTHERMAKEARGs install;
+ cd ./port; make $OTHERMAKEARGs || fail "failed at make step of $ARCH";
+ cd ../libtiff; make $OTHERMAKEARGs install || fail "make install step of $ARCH";
  cd ../;
 
  rm $REPOSITORYDIR/include/tiffconf.h;

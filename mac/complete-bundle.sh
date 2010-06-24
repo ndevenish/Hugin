@@ -14,6 +14,7 @@ libs="libwx_macu-$WX_MAJOR_VERSION libwx_macu_gl-$WX_MAJOR_VERSION libpano13 $BO
 
 binaries="$App/Contents/$dylib_install_loc/*.dylib $App/Contents/MacOS/* $App/Contents/Frameworks/Hugin*.framework/Hugin* $App/Contents/Resources/align_image_stack $App/Contents/Resources/keypoints $App/Contents/Resources/patfree-panomatic"
 
+
 #------------------------------------------------
 
 rm -Rf "$App/Contents/$dylib_install_loc"

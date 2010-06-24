@@ -22,9 +22,18 @@
 # 20100113.0 sg Script adjusted for libpano13-2.9.15
 # 20100117.0 sg Move code for detecting which version of pano13 to top for visibility
 # 20100119.0 sg Support the SVN version of panotools - 2.9.16
+# 201004xx.0 hvdw support 2.9.17
+# 20100624.0 hvdw More robust error checking on compilation
 # -------------------------------
 
 # init
+
+fail()
+{
+        echo "** Failed at $1 **"
+        exit 1
+}
+
 
 # AC_INIT([pano13], [2.9.14], BUG-REPORT-ADDRESS)
 libpanoVsn=$(grep "AC_INIT" configure.ac|cut -f 2 -d ,|cut -c 7-8)
@@ -119,7 +128,7 @@ do
   --with-png=$REPOSITORYDIR \
   --with-jpeg=$REPOSITORYDIR \
   --with-tiff=$REPOSITORYDIR \
-  --enable-shared --enable-static;
+  --enable-shared --enable-static || fail "configure step for $ARCH";
 
  #Stupid libtool... (perhaps could be done by passing LDFLAGS to make and install)
  [ -f libtool-bk ] && rm libtool-bak
@@ -128,8 +137,8 @@ do
  chmod +x libtool
  
  make clean;
- make;
- make install;
+ make || fail "failed at make step of $ARCH";
+ make install || fail "make install step of $ARCH";
 
 done
 
@@ -210,6 +219,21 @@ do
     -change "$REPOSITORYDIR/arch/$ARCH/lib/$GENERATED_DYLIB_INSTALL_NAME" "$REPOSITORYDIR/lib/libpano13.dylib" \
     "$REPOSITORYDIR/$program";
  done
+done
 
+#And do the same for the binaries
+
+pre="$REPOSITORYDIR/bin"
+
+for ARCH in $ARCHS
+do
+ for exec_file in $pre/PTblender $pre/PTmasker $pre/PTmender $pre/PTroller $pre/PTcrop $pre/PTinfo $pre/PToptimizer $pre/PTtiff2psd $pre/PTtiffdump $pre/PTuncrop
+ do
+  for lib in $(otool -L $exec_file | grep $REPOSITORYDIR/arch/$ARCH/lib | sed -e 's/ (.*$//' -e 's/^.*\///')
+  do
+   echo " Changing install name for: $lib inside $exec_file"
+   install_name_tool -change "$REPOSITORYDIR/arch/$ARCH/lib/$lib" "$REPOSITORYDIR/lib/$lib" $exec_file
+  done
+ done
 done
 

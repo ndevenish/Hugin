@@ -19,9 +19,17 @@
 
 # -------------------------------
 # 20091206.0 sg Script tested and used to build 2009.4.0-RC3
+# 20100624.0 hvdw More robust error checking on compilation
 # -------------------------------
 
 # init
+
+fail()
+{
+        echo "** Failed at $1 **"
+        exit 1
+}
+
 
 let NUMARCH="0"
 
@@ -88,11 +96,11 @@ do
   ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
     --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
    --with-libiconv-prefix=$REPOSITORYDIR --with-libintl-prefix=$REPOSITORYDIR \
-   --program-transform-name='s/^make$/gnumake/';
+   --program-transform-name='s/^make$/gnumake/' || fail "configure step for $ARCH";
 
  make clean;
- make;
- make install;
+ make || fail "failed at make step of $ARCH";
+ make install || fail "make install step of $ARCH";
 
 done
 

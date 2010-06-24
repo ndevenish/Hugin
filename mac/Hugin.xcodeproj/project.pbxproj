@@ -3135,7 +3135,6 @@
 		57CF926B06BD7AD100780AC5 /* nona_gui-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "nona_gui-Info.plist"; sourceTree = "<group>"; };
 		57D14A4506B8A3D100D8A03D /* libjpeg.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libjpeg.dylib; path = lib/libjpeg.dylib; sourceTree = "<group>"; };
 		57D18D8E0E13BD340054A523 /* Version.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Version.xcconfig; sourceTree = "<group>"; };
-		57D18D8F0E13BD340054A523 /* SVN-rev.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "SVN-rev.xcconfig"; sourceTree = "<group>"; };
 		57D382EB0E2369FC00445A37 /* nona-static */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "nona-static"; sourceTree = BUILT_PRODUCTS_DIR; };
 		57D3830D0E236A0800445A37 /* matchpoint-static */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "matchpoint-static"; sourceTree = BUILT_PRODUCTS_DIR; };
 		57D475B60D3CE0AB003CF158 /* translations */ = {isa = PBXFileReference; lastKnownFileType = folder; path = translations; sourceTree = "<group>"; };
@@ -3717,6 +3716,7 @@
 		73D24BB11061592C00B8A25D /* CleanCP.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CleanCP.cpp; sourceTree = "<group>"; };
 		73D24BB21061592C00B8A25D /* CleanCP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CleanCP.h; sourceTree = "<group>"; };
 		73DAADC9119DB8DC002149AC /* copyPTBatcherGuiBins.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = copyPTBatcherGuiBins.sh; sourceTree = "<group>"; };
+		73E1B9CB11D00CFA00765DAD /* HG-rev.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "HG-rev.xcconfig"; sourceTree = "<group>"; };
 		73E488F710D5997300A083C8 /* CalculateOptimalROI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CalculateOptimalROI.h; path = algorithms/basic/CalculateOptimalROI.h; sourceTree = "<group>"; };
 		73E488F810D5997300A083C8 /* CalculateOptimalROI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CalculateOptimalROI.cpp; path = algorithms/basic/CalculateOptimalROI.cpp; sourceTree = "<group>"; };
 		73E6770010F8BF18001807AB /* libhugin_base.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libhugin_base.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -4677,9 +4677,9 @@
 				739A0EA310FA7A3100D8E4C7 /* Hugin_tools */,
 				5751D8600939F1C0001477EA /* Hugin.xcodeproj */,
 				57D18D8E0E13BD340054A523 /* Version.xcconfig */,
+				73E1B9CB11D00CFA00765DAD /* HG-rev.xcconfig */,
 				57AB3D760E1E976300EFD03F /* BuildConfig.xcconfig.orig */,
 				57E122010D2BDBF300743A93 /* BuildConfig.xcconfig */,
-				57D18D8F0E13BD340054A523 /* SVN-rev.xcconfig */,
 				57114E9F06BC2301004F4FA7 /* Hugin-Info.plist */,
 				57CF926B06BD7AD100780AC5 /* nona_gui-Info.plist */,
 				5769F6320D23825700A6AD01 /* hugin_stitch_project-Info.plist */,
@@ -8554,7 +8554,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# First export a path. On some systems the environment is not correctly set/used\nexport PATH=/opt/local/bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/sw/bin\n\nif [ -d \"../.hg\" ]\nthen\n rm -rf ../mac/hgsummary.txt ../mac/hgsummary2.txt\n hg summary | grep tip > ../mac/hgsummary.txt\n# sed -e 's/parent: //g' \\\n# -e 's/....://g' \\\n# -e 's/ tip//g' ../mac/hgsummary.txt > ../mac/hgsummary2.txt\n sed -e 's/parent: //g' \\\n -e 's/:.*tip//g' ../mac/hgsummary.txt > ../mac/hgsummary2.txt\n\n\n\n# We found a correct hg version, now we remove hugin_version.h\n rm -rf ../src/hugin_version.h\n\n echo 'HUGIN_WC_REVISION = '$(cat ../mac/hgsummary2.txt) > \"../mac/HG-rev.xcconfig\"\n echo 'HUGIN_PRERELEASE_VERSION_TAG = .'$(cat ../mac/hgsummary2.txt) >> \"../mac/HG-rev.xcconfig\"\n echo 'HUGIN_DEVELOPMENT_VERSION = 1' >> \"../mac/HG-rev.xcconfig\"\nelse\n touch ../mac/HG-rev.xcconfig\n echo 'Need to set HG revision ${HUGIN_WC_REVISION} manually in Version.xcconfig.' >&2\n exit 1\nfi\n\n#rm -rf ../mac/hgsummary.txt ../mac/hgsummary2.txt\n";
+			shellScript = "# First export a path. On some systems the environment is not correctly set/used\nexport PATH=/opt/local/bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/sw/bin\n\nif [ -d \"../.hg\" ]\nthen\n rm -rf ../mac/hgsummary.txt ../mac/hgsummary2.txt\n hg summary | grep tip > ../mac/hgsummary.txt\n# sed -e 's/parent: //g' \\\n# -e 's/....://g' \\\n# -e 's/ tip//g' ../mac/hgsummary.txt > ../mac/hgsummary2.txt\n# sed -e 's/parent: //g' \\\n# -e 's/:.*tip//g' ../mac/hgsummary.txt > ../mac/hgsummary2.txt\n sed -e 's/parent: //g' \\\n -e 's/ tip//g' ../mac/hgsummary.txt > ../mac/hgsummary2.txt\n\n\n\n# We found a correct hg version, now we remove hugin_version.h\n rm -rf ../src/hugin_version.h\n\n echo 'HUGIN_WC_REVISION = '$(cat ../mac/hgsummary2.txt) > \"../mac/HG-rev.xcconfig\"\n echo 'HUGIN_PRERELEASE_VERSION_TAG = .'$(cat ../mac/hgsummary2.txt) >> \"../mac/HG-rev.xcconfig\"\n echo 'HUGIN_DEVELOPMENT_VERSION = 1' >> \"../mac/HG-rev.xcconfig\"\nelse\n touch ../mac/HG-rev.xcconfig\n echo 'Need to set HG revision ${HUGIN_WC_REVISION} manually in Version.xcconfig.' >&2\n exit 1\nfi\n\n#rm -rf ../mac/hgsummary.txt ../mac/hgsummary2.txt\n";
 		};
 		57FF7DBA0E6919F400553709 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
