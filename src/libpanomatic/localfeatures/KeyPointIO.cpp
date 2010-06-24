@@ -134,8 +134,6 @@ void DescPerfFormatWriter::writeKeypoint ( double x, double y, double scale, dou
 
 void DescPerfFormatWriter::writeFooter()
 {
-	o << _image.filename << endl;
-	o << _image.width << " " << _image.height << endl;
 }
 
 

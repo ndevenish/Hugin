@@ -488,7 +488,7 @@ void PanoDetector::writeKeyfile(ImgData& imgInfo)
 
 	ofstream aOut(keyfilename.c_str(), ios_base::trunc);
 
-	DescPerfFormatWriter writer(aOut);
+	SIFTFormatWriter writer(aOut);
 
 	int origImgWidth =  _panoramaInfo->getImage(imgInfo._number).getSize().width();
 	int origImgHeight =  _panoramaInfo->getImage(imgInfo._number).getSize().height();
