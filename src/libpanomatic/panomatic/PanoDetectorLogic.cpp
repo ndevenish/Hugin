@@ -91,18 +91,16 @@ bool PanoDetector::LoadKeypoints(ImgData& ioImgInfo, const PanoDetector& iPanoDe
 {
 	TRACE_IMG("Loading keypoints...");
 	
-	ImageInfo info = lfeat::loadKeypoints(ioImgInfo._name, ioImgInfo._kp);
+	std::string keyfilename = ioImgInfo._name;
+	keyfilename.append(".key");
+
+	ImageInfo info = lfeat::loadKeypoints(keyfilename, ioImgInfo._kp);
 	ioImgInfo._loadFail = (info.filename.size() == 0);
 
 	// update ImgData
 	ioImgInfo._detectWidth = info.width;
 	ioImgInfo._detectHeight = info.height;
 	ioImgInfo._descLength = info.dimensions;
-
-	// Create image info
-	SrcPanoImage img_info = SrcPanoImage(info.filename);
-	//add image info to panorama Info
-	ioImgInfo._number = iPanoDetector.getPanoramaInfo()->addImage(img_info);
 
 	return true;
 }
@@ -114,15 +112,8 @@ bool PanoDetector::AnalyzeImage(ImgData& ioImgInfo, const PanoDetector& iPanoDet
 	{
       ioImgInfo._loadFail = false;
 			
-			//get image basic info
+			//get image info
       vigra::ImageImportInfo aImageInfo(ioImgInfo._name.c_str());
-
-			if(!iPanoDetector.getLoadProject())
-			{ 
-				//if no project was loaded, get image additional info
-				SrcPanoImage img_info = SrcPanoImage(ioImgInfo._name);
-				ioImgInfo._number = iPanoDetector.getPanoramaInfo()->addImage(img_info);
-			}
 
 	    int aNewImgWidth = aImageInfo.width();
 	    int aNewImgHeight = aImageInfo.height();
@@ -470,33 +461,7 @@ bool PanoDetector::FilterMatchesInPair(MatchData& ioMatchData, const PanoDetecto
 }
 void PanoDetector::writeOutput()
 {
-	// Add detected matches to _panoramaInfo
-	// TODO : remove CP duplicate
-
-	BOOST_FOREACH(MatchData& aM, _matchesData)
-	{
-		BOOST_FOREACH(PointMatchPtr& aPM, aM._matches)
-		{	
-			double sX, sY, dX, dY;
-			
-			if (getDownscale())
-			{
-				sX = 2.0 * aPM->_img1_x;
-				sY = 2.0 * aPM->_img1_y;
-				dX = 2.0 * aPM->_img2_x;
-				dY = 2.0 * aPM->_img2_y;
-			}
-			else
-			{
-				sX = aPM->_img1_x;
-				sY = aPM->_img1_y;
-				dX = aPM->_img2_x;
-				dY = aPM->_img2_y;
-			}
-    	ControlPoint CtrlPoint(aM._i1->_number, sX, sY, aM._i2->_number, dX, dY);
-			_panoramaInfo->addCtrlPoint(CtrlPoint);
-		}
-	}
+	// Write output pto file
 
 	ofstream aOut(_outputFile.c_str(), ios_base::trunc);
 	if( !aOut ) {
@@ -513,3 +478,38 @@ bool PanoDetector::FilterMatchesInPair(MatchData& ioMatchData, const PanoDetecto
 		  return;
 	}
 }
+
+void PanoDetector::writeKeyfile(ImgData& imgInfo)
+{
+	// Write output keyfile
+
+	std::string keyfilename = imgInfo._name;
+	keyfilename.append(".key");
+
+	ofstream aOut(keyfilename.c_str(), ios_base::trunc);
+
+	DescPerfFormatWriter writer(aOut);
+
+	int origImgWidth =  _panoramaInfo->getImage(imgInfo._number).getSize().width();
+	int origImgHeight =  _panoramaInfo->getImage(imgInfo._number).getSize().height();
+
+	ImageInfo img_info(imgInfo._name, origImgWidth, origImgHeight);
+
+	writer.writeHeader ( img_info, imgInfo._kp.size(), imgInfo._descLength );
+
+	BOOST_FOREACH ( KeyPointPtr& aK, imgInfo._kp )
+	{
+		if (getDownscale())
+		{
+		writer.writeKeypoint ( aK->_x * 2.0, aK->_y * 2.0, aK->_scale * 2.0, aK->_ori,
+		                       imgInfo._descLength, aK->_vec );
+		}
+		else
+		{
+		writer.writeKeypoint ( aK->_x, aK->_y, aK->_scale, aK->_ori,
+		                       imgInfo._descLength, aK->_vec );
+		}
+	}
+	writer.writeFooter();
+}
+

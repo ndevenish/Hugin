@@ -48,9 +48,9 @@ public:
 	{
 		int iML = 30;
 		cout << "Basic usage : " << endl;
-		cout << "  "<< c.getProgramName() << " -o output IMG1 ... IMGn" << endl;
-		cout << "  "<< c.getProgramName() << " -o output --loadproject project.pto" << endl;
-		cout << "  "<< c.getProgramName() << " -o output --loadkeys keys1 ... keysn" << endl;		
+		cout << "  "<< c.getProgramName() << " -o output_project project.pto" << endl;	
+		cout << "  "<< c.getProgramName() << " -k i0 -k i1 ... -k in project.pto" << endl;	
+		cout << "  "<< c.getProgramName() << " --kall project.pto" << endl;	
 
 		cout << endl <<"All options : " << endl;
 		list<Arg*> args = c.getArgList();
@@ -94,12 +94,10 @@ void parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
 		MyOutput my;
 		cmd.setOutput(&my);
 
-		SwitchArg aArgLoadKeypoints("","loadkeys", "Load keypoints from file instead of detecting them. (default:false)\n", false);
-		SwitchArg aArgLoadProject("","loadproject", "Load a project file. (default:false)\n", false);
 		SwitchArg aArgFullScale("","fullscale", "Uses full scale image to detect keypoints    (default:false)\n", false);
 		ValueArg<int> aArgSieve1Width("","sieve1width", "Sieve 1 : Number of buckets on width    (default : 10)", false, 10, "int");
 		ValueArg<int> aArgSieve1Height("","sieve1height",  "Sieve 1 : Number of buckets on height    (default : 10)", false, 10, "int");
-		ValueArg<int> aArgSieve1Size("","sieve1size",	"Sieve 1 : Max points per bucket    (default : 10)\n", false, 10, "int");
+		ValueArg<int> aArgSieve1Size("","sieve1size",	"Sieve 1 : Max points per bucket    (default : 30)\n", false, 30, "int");
 		SwitchArg aArgLinearMatch("","linearmatch", "Enable linear images matching (default : all pairs)", false);
 		ValueArg<int> aArgLinearMatchLen("","linearmatchlen", "Number of images to match in linear matching (default:1)\n", false, 1 ,"int");
 		
@@ -111,7 +109,7 @@ void parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
 														"\t    (default : 25)", false, 25, "int");
 		ValueArg<int> aArgSieve2Width("","sieve2width", "Sieve 2 : Number of buckets on width    (default : 5)", false, 5, "int");
 		ValueArg<int> aArgSieve2Height("","sieve2height", "Sieve 2 : Number of buckets on height    (default : 5)", false, 5, "int");
-		ValueArg<int> aArgSieve2Size("","sieve2size", "Sieve 2 : Max points per bucket    (default : 1)\n", false, 1 ,"int");
+		ValueArg<int> aArgSieve2Size("","sieve2size", "Sieve 2 : Max points per bucket    (default : 2)\n", false, 2 ,"int");
 		
 		SwitchArg aArgPTGuiCompat("","ptgui", "Activate Autopano compatibility for PTGui\n", false);
 
@@ -130,11 +128,6 @@ void parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
 		cmd.add(aArgSieve1Height);
 		cmd.add(aArgSieve1Width);		
 		cmd.add(aArgFullScale);
-		cmd.add(aArgLoadKeypoints);
-		cmd.add(aArgLoadProject);
-
-		//ValueArg<int> aArgNumKeys("k", "keys", "Number of keys per image pair", false, 10, "int");
-		//cmd.add( aArgNumKeys );
 
 		SwitchArg aArgTest("t","test", "Enables test mode\n", false);
 		cmd.add( aArgTest );
@@ -142,13 +135,17 @@ void parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
 		ValueArg<int> aArgCores("n","ncores", "Number of CPU/Cores    (default:autodetect)", false, utils::getCPUCount(), "int");
 		cmd.add( aArgCores );
 
-		ValueArg<string> aArgOutputFile("o","output","Output file",true, "default", "string");
+		UnlabeledValueArg<string> aArgInputFile("fileName", "Input Project File", true, "default","string");
+		cmd.add( aArgInputFile );
+
+		ValueArg<string> aArgOutputFile("o","output","Output file",false, "default", "string");
 		cmd.add( aArgOutputFile );
 
+		MultiArg<int> aArgWriteKeyFiles("k","writekeyfile", "Write a keyfile for this image number", false, "int");
+		cmd.add( aArgWriteKeyFiles );
 
-		UnlabeledMultiArg<string> aArgFiles("fileName", "Image files", true, "string");
-		cmd.add( aArgFiles );
-
+		SwitchArg aArgWriteAllKeyFiles("","kall", "Write keyfiles for all images", false);
+		cmd.add( aArgWriteAllKeyFiles );
 
 		cmd.parse(argc,argv);
 
@@ -156,7 +153,12 @@ void parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
 		// Set variables
 		//
 		
-		ioPanoDetector.setOutputFile(aArgOutputFile.getValue());
+		if (aArgInputFile.isSet()) {
+			ioPanoDetector.setInputFile(aArgInputFile.getValue());
+		} else {
+			cout << "ERROR: Input project file is missing." << endl;
+		}
+		if (aArgOutputFile.isSet()) ioPanoDetector.setOutputFile(aArgOutputFile.getValue());
 
 		ioPanoDetector.setGradientDescriptor(true);
 
@@ -174,39 +176,11 @@ void parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
 		if (aArgLinearMatch.isSet())		ioPanoDetector.setLinearMatch(aArgLinearMatch.getValue());
 		if (aArgLinearMatchLen.isSet())		ioPanoDetector.setLinearMatchLen(aArgLinearMatchLen.getValue());
     if (aArgFullScale.isSet())          ioPanoDetector.setDownscale(false);
-
-		if (aArgLoadKeypoints.isSet()) {
-			ioPanoDetector.setLoadKeypoints(aArgLoadKeypoints.getValue());
-			ioPanoDetector.setDownscale(false);
-		}
-
-		if (aArgLoadProject.isSet()) {
-			ioPanoDetector.setLoadProject(aArgLoadProject.getValue());
-		}
-
-		if (aArgTest.isSet())				ioPanoDetector.setTest(aArgTest.getValue());
+		if (aArgTest.isSet())					ioPanoDetector.setTest(aArgTest.getValue());
 		if (aArgCores.isSet())				ioPanoDetector.setCores(aArgCores.getValue());
 
-		vector<string> aFiles = aArgFiles.getValue();
-		if ( !ioPanoDetector.getLoadProject() )
-		{
-			for (unsigned int i = 0; i < aFiles.size(); ++i)
-			{
-				if (aArgPTGuiCompat.getValue())
-				{
-					if (aFiles[i].find("/path:") == 0)
-						ioPanoDetector.setOutputFile(aFiles[i].substr(6, aFiles[i].size() - 6) + "\\panorama0.oto");
-
-					if (aFiles[i].find("/") == 0)
-						continue;
-				}
-				ioPanoDetector.addFileData(i,aFiles[i]);
-			}
-		} else {
-				if (aFiles.size()>1)
-					cout << "WARNING: Only one project file was loaded, others were ignored." << endl << endl; 
-				ioPanoDetector.setInputProjectFile(aFiles[0]);
-		}
+		if (aArgWriteAllKeyFiles.isSet())		ioPanoDetector.setWriteAllKeyPoints();
+		ioPanoDetector.setKeyPointsIdx(aArgWriteKeyFiles.getValue());
 
 	} catch ( ArgException& e )
 	{ 

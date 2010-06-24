@@ -62,12 +62,13 @@ public:
 
 	inline Panorama * getPanoramaInfo() const {return _panoramaInfo; }
 
+	inline void setKeyPointsIdx(std::vector<int> keyPointsIdx) { _keyPointsIdx = keyPointsIdx; }
+	inline std::vector<int> getKeyPointsIdx() const { return _keyPointsIdx; }
+	inline void setWriteAllKeyPoints(bool writeAllKeyPoints=true) { _writeAllKeyPoints = writeAllKeyPoints; }
+	inline bool getWriteAllKeyPoints() const { return _writeAllKeyPoints; }
+
 	inline void setGradientDescriptor(bool grad=true) { _gradDescriptor = grad; }
 	inline bool getGradientDescriptor() const { return _gradDescriptor; }
-	inline void setLoadKeypoints(bool loadKeypoints) { _loadKeypoints = loadKeypoints; }
-	inline bool getLoadKeypoints() const { return _loadKeypoints; }
-	inline void setLoadProject(bool loadProject) { _loadProject = loadProject; }
-	inline bool getLoadProject() const { return _loadProject; }
 	
 	inline void setSieve1Width(int iWidth) { _sieve1Width = iWidth; }
 	inline void setSieve1Height(int iHeight) { _sieve1Height = iHeight; }
@@ -104,13 +105,11 @@ public:
     inline void setDownscale(bool iDown) { _downscale = iDown; }
 
 	//	inline void setNumberOfKeys(int iNumKeys) { _numKeys = iNumKeys; }
-	inline void setOutputFile(const std::string& iOutputFile) { _outputFile = iOutputFile; }
-	inline void setInputProjectFile(const std::string& iInputProjectFile) { _inputProjectFile = iInputProjectFile; }
+	inline void setOutputFile(const std::string& outputFile) { _outputFile = outputFile; }
+	inline void setInputFile(const std::string& inputFile) { _inputFile = inputFile; }
 	inline void setTest(bool iTest) { _test = iTest; }
 	inline bool getTest() const { return _test; }
 	inline void setCores(int iCores) { _cores = iCores; }
-
-	void addFileData(int nr, const std::string& iFile);
 
 	// predeclaration
 	struct ImgData;
@@ -119,8 +118,9 @@ public:
 private:
 	// options
 	
-	bool					_loadKeypoints;
-	bool					_loadProject;
+	bool					_writeAllKeyPoints;
+	std::vector<int>		_keyPointsIdx;
+
 	bool					_gradDescriptor;
 
 	int						_sieve1Width;
@@ -147,12 +147,10 @@ private:
 	
 	// list of files
 	std::string				_outputFile;
-	std::string				_inputProjectFile;
+	std::string				_inputFile;
 
 	// Store panorama information
   Panorama*					_panoramaInfo;
-
-	// size of images
 	
 	void					prepareImages();
 	bool					loadProject();
@@ -160,22 +158,21 @@ private:
 	void					prepareMatches();
 
 	void					writeOutput();
-
+	void					writeKeyfile(ImgData& imgInfo);
 
 	// internals
 public:
 	struct ImgData
 	{	
 		std::string		_name;
-		std::string		_realImageName; ///< The real image name, differs from _name when loading keypoint files.
-																	//TODO  remove and place in _panoramaInfo->getImage(_number)
+
 		int				_number;
 		int				_detectWidth;
 		int				_detectHeight;
-		int				_origWidth; //TODO: remove and place in _panoramaInfo->getImage(_number)
-		int				_origHeight; // TODO: remove and place in _panoramaInfo->getImage(_number)
 
 		lfeat::Image	_ii;
+
+		bool _hasakeyfile;
 		lfeat::KeyPointVect_t	_kp;
 		int				_descLength;
     bool            _loadFail;
@@ -185,8 +182,8 @@ public:
 		KPKDTreePtr				_kd;
 	};
 
-	typedef std::vector<ImgData>								ImgData_t;
-	typedef std::vector<ImgData>::iterator					ImgDataIt_t;
+	typedef std::map<int, ImgData>					ImgData_t;
+	typedef std::map<int, ImgData>::iterator		ImgDataIt_t;
 
 	struct MatchData
 	{
