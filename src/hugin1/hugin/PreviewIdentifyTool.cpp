@@ -242,8 +242,8 @@ void PreviewIdentifyTool::ImagesUnderMouseChangedEvent()
     // Redraw with new indicators. Since the indicators aren't part of the
     // panorama and none of it is likely to change, we have to persuade the
     // viewstate that a redraw is required.
-    helper->GetViewStatePtr()->ForceRequireRedraw();
-    helper->GetViewStatePtr()->Redraw();
+    helper->GetVisualizationStatePtr()->ForceRequireRedraw();
+    helper->GetVisualizationStatePtr()->Redraw();
     
     // if there is exactly two images, tell the user they can click to edit CPs.
     if (image_set.size() == 2)
@@ -269,7 +269,7 @@ void PreviewIdentifyTool::AfterDrawImagesEvent()
         DEBUG_ASSERT(*it < helper->GetPanoramaPtr()->getNrOfImages());
         helper->GetViewStatePtr()->GetTextureManager()->
                 DrawImage(*it,
-                         helper->GetViewStatePtr()->GetMeshDisplayList(*it));
+                         helper->GetVisualizationStatePtr()->GetMeshDisplayList(*it));
     }
     // now draw the identification boxes
     glEnable(GL_BLEND);
@@ -340,7 +340,7 @@ void PreviewIdentifyTool::AfterDrawImagesEvent()
         HighlightColour(image_counter, num_images, r, g, b);
         image_counter++;
         glColor3ub(r,g,b);
-        glCallList(helper->GetViewStatePtr()->GetMeshDisplayList(*it));
+        glCallList(helper->GetVisualizationStatePtr()->GetMeshDisplayList(*it));
         glPopMatrix();
         // tell the preview frame to update the button to show the same colour.
         preview_frame->SetImageButtonColour(*it, r, g, b);
@@ -370,8 +370,8 @@ void PreviewIdentifyTool::ShowImageNumber(unsigned int image)
         // we want notification of when it is drawn so we can delay drawing.
         helper->NotifyMeBeforeDrawing(image, this);
         //  now we want a redraw.
-        helper->GetViewStatePtr()->ForceRequireRedraw();
-        helper->GetViewStatePtr()->Redraw();
+        helper->GetVisualizationStatePtr()->ForceRequireRedraw();
+        helper->GetVisualizationStatePtr()->Redraw();
     }
     mouse_over_image = image;
     mouse_is_over_button = true;
@@ -386,8 +386,8 @@ void PreviewIdentifyTool::StopShowingImages()
         helper->DoNotNotifyMeBeforeDrawing(mouse_over_image, this);
         image_set.erase(mouse_over_image);
         // now redraw without the indicator.
-        helper->GetViewStatePtr()->ForceRequireRedraw();
-        helper->GetViewStatePtr()->Redraw();
+        helper->GetVisualizationStatePtr()->ForceRequireRedraw();
+        helper->GetVisualizationStatePtr()->Redraw();
         mouse_is_over_button = false;
     }    
 }

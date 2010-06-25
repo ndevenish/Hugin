@@ -22,7 +22,7 @@
 #ifndef _PREVIEWDIFFERENCETOOL_H
 #define _PREVIEWDIFFERENCETOOL_H
 
-#include "PreviewTool.h"
+#include "Tool.h"
 
 /** Finds the topmost image underneath the mouse pontier, cancel it's normal
  * drawing, and then subtract it from the rest of the images.

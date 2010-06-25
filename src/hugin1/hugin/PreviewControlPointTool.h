@@ -24,7 +24,7 @@
 #ifndef _PREVIEWCONTROLPOINTTOOL_H
 #define _PREVIEWCONTROLPOINTTOOL_H
 
-#include "PreviewTool.h"
+#include "Tool.h"
 #include "GreatCircles.h"
 #include "hugin_utils/utils.h"
 

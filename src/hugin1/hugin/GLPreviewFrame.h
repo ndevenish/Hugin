@@ -35,13 +35,21 @@ class wxStaticBoxSizer;
 class wxStaticText;
 class wxSlider;
 class GLViewer;
+class GLPreview;
 class GLOverview;
+class ViewState;
 class wxSpinEvent;
 class wxChoice;
 
+class MeshManager;
+
+class ToolHelper;
 class PreviewToolHelper;
+class OverviewToolHelper;
+class Tool;
 class PreviewTool;
 class PreviewCropTool;
+class OverviewDragTool;
 class PreviewDragTool;
 class PreviewIdentifyTool;
 class PreviewDifferenceTool;
@@ -146,7 +154,9 @@ public:
     
     void updateProgressDisplay();
     
-    void MakeTools(PreviewToolHelper * helper);
+    void MakePreviewTools(PreviewToolHelper * helper);
+    void MakeOverviewTools(OverviewToolHelper * helper);
+    
     void SetImageButtonColour(unsigned int image_nr, unsigned char red,
                               unsigned char green, unsigned char blue);
     void SetStatusMessage(wxString message);
@@ -155,7 +165,8 @@ public:
     void FillBlendChoice();
 
     GLwxAuiManager* getAuiManager() {return m_mgr;}
-    GLViewer* getViewer() {return m_GLViewer;}
+    GLPreview* getPreview() {return m_GLPreview;}
+    GLOverview* getOverview() {return m_GLOverview;}
 
     void PauseResize();
     void ContinueResize();
@@ -220,8 +231,10 @@ private:
     void SetMode(int newMode);
     PT::Panorama & m_pano;
 
-    GLViewer * m_GLViewer;
+    GLPreview * m_GLPreview;
     GLOverview * m_GLOverview;
+
+    ViewState* m_view_state;
 
     int m_mode;
     int non_layout_blend_mode;
@@ -270,7 +283,8 @@ private:
     DECLARE_EVENT_TABLE()
     
     // tools
-    PreviewToolHelper *helper;
+    PreviewToolHelper *preview_helper;
+    
     PreviewCropTool *crop_tool;
     PreviewDragTool *drag_tool;
     PreviewIdentifyTool *identify_tool;
@@ -278,7 +292,13 @@ private:
     PreviewControlPointTool *control_point_tool;
     PreviewPanoMaskTool *pano_mask_tool;    
     PreviewLayoutLinesTool *m_layoutLinesTool;
-    void TurnOffTools(std::set<PreviewTool*> tools);
+
+    OverviewToolHelper *overview_helper;
+
+    OverviewDragTool *overview_drag_tool;
+
+    void TurnOffTools(std::set<Tool*> tools);
+    
     void CleanButtonColours();
 };
 

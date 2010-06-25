@@ -26,11 +26,11 @@
 
 MeshRemapper::MeshRemapper(HuginBase::Panorama *m_pano_in,
                            unsigned int image_number_in,
-                           ViewState *view_state_in)
+                           VisualizationState *visualization_state_in)
 {
     m_pano = m_pano_in;
     image_number = image_number_in;
-    view_state = view_state_in;
+    visualization_state = visualization_state_in;
 }
 
 MeshRemapper::~MeshRemapper()
@@ -40,14 +40,14 @@ MeshRemapper::~MeshRemapper()
 void MeshRemapper::UpdateAndResetIndex()
 {
     // we want to make a remapped mesh, get some generic information:
-    const HuginBase::SrcPanoImage *src = view_state->GetSrcImage(image_number);
+    const HuginBase::SrcPanoImage *src = visualization_state->GetSrcImage(image_number);
     // get the size of the image.
     width = (double) src->getSize().width();
     height = (double) src->getSize().height();
   
     // use the scale to determine edge lengths in pixels for any
     // resolution selection.
-    scale = view_state->GetScale();
+    scale = visualization_state->GetScale();
     // It is up to the child classes to determine what to do here. They should
     // probably use set up transform and use it to fill some data structure that
     // stores coordinates.
@@ -55,7 +55,7 @@ void MeshRemapper::UpdateAndResetIndex()
 
 void MeshRemapper::SetCrop()
 {
-    const HuginBase::SrcPanoImage *src = view_state->GetSrcImage(image_number);
+    const HuginBase::SrcPanoImage *src = visualization_state->GetSrcImage(image_number);
     crop_mode = src->getCropMode();
     crop_x1 = (double) src->getCropRect().left() / width;
     crop_x2 = (double) src->getCropRect().right() / width;

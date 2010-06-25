@@ -31,8 +31,13 @@
 class GLRenderer;
 class TextureManager;
 class MeshManager;
+class ToolHelper;
 class PreviewToolHelper;
+class OverviewToolHelper;
 class GLPreviewFrame;
+
+
+
 
 /** A wxWidget to display the fast preview.
  * It is the OpenGL equivalent of PreviewPanel.
@@ -41,7 +46,12 @@ class GLPreviewFrame;
 class GLViewer: public wxGLCanvas
 {
 public:
-    GLViewer(wxWindow* parent, PT::Panorama &pano, int args[], GLPreviewFrame *frame);
+    GLViewer(
+            wxWindow* parent, 
+            PT::Panorama &pano, 
+            int args[], 
+            GLPreviewFrame *frame
+            );
     virtual ~GLViewer();
     void RedrawE(wxPaintEvent& e);
     void Resized(wxSizeEvent& e);
@@ -52,8 +62,10 @@ public:
     void SetLayoutMode(bool state);
     void SetLayoutScale(double scale);
     
-    ViewState * m_view_state;
+    VisualizationState * m_visualization_state;
+    static ViewState * m_view_state;
 protected:
+
     void OnEraseBackground(wxEraseEvent& e);
     void MouseMotion(wxMouseEvent& e);
     void MouseLeave(wxMouseEvent & e);
@@ -66,15 +78,43 @@ protected:
     
     DECLARE_EVENT_TABLE()
     
-    PreviewToolHelper *m_tool_helper;
+    ToolHelper *m_tool_helper;
     GLRenderer *m_renderer;
     wxGLContext *m_glContext;
     PT::Panorama  * m_pano;
+
+    virtual void setUp() = 0;
     
     bool started_creation, initialised_glew, redrawing;
     vigra::Diff2D offset;
     GLPreviewFrame *frame;
     
+};
+
+class GLPreview : public GLViewer
+{
+public:
+    GLPreview(
+            wxWindow* parent, 
+            PT::Panorama &pano, 
+            int args[], 
+            GLPreviewFrame *frame
+            ) : GLViewer(parent, pano, args, frame) {}
+    void setUp();
+
+};
+
+class GLOverview : public GLViewer
+{
+public:
+    GLOverview(
+            wxWindow* parent, 
+            PT::Panorama &pano, 
+            int args[], 
+            GLPreviewFrame *frame
+            ) : GLViewer(parent, pano, args, frame) {}
+    void setUp();
+
 };
 
 #endif

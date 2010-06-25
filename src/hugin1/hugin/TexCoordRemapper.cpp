@@ -31,8 +31,8 @@ const double mesh_frequency = 0.07;
 
 TexCoordRemapper::TexCoordRemapper(HuginBase::Panorama *m_pano,
                                    unsigned int image_number,
-                                   ViewState *view_state)
-                  : MeshRemapper(m_pano, image_number, view_state)
+                                   VisualizationState *visualization_state)
+                  : MeshRemapper(m_pano, image_number, visualization_state)
 {
     
 }
@@ -42,8 +42,8 @@ void TexCoordRemapper::UpdateAndResetIndex()
     // work what area we should cover in what detail.
     SetSize();
     // we want to make a remapped mesh, get the transformation we need:
-    HuginBase::SrcPanoImage *src_img = view_state->GetSrcImage(image_number);
-    transform.createTransform(*src_img, *(view_state->GetOptions()));
+    HuginBase::SrcPanoImage *src_img = visualization_state->GetSrcImage(image_number);
+    transform.createTransform(*src_img, *(visualization_state->GetOptions()));
     DEBUG_INFO("updating mesh for image " << image_number
               << ", using faces spaced about " << scale << " units apart.\n");
     // fill the map with transformed points.
@@ -116,7 +116,7 @@ bool TexCoordRemapper::GetNextFaceCoordinates(Coords *result)
      * faster to test for this and skip full clipping in that case, as the vast
      * majority of faces will not need any clipping or fail the test above.
      */
-    HuginBase::SrcPanoImage *src_img = view_state->GetSrcImage(image_number);
+    HuginBase::SrcPanoImage *src_img = visualization_state->GetSrcImage(image_number);
     if (   src_img->isInside(vigra::Point2D(int(result->tex_c[0][0][0] * width),
                                             int(result->tex_c[0][0][1] * height)))
         && src_img->isInside(vigra::Point2D(int(result->tex_c[0][1][0] * width),
@@ -147,7 +147,7 @@ bool TexCoordRemapper::GetNextFaceCoordinates(Coords *result)
 
 void TexCoordRemapper::SetSize()
 {
-    const HuginBase::SrcPanoImage *src = view_state->GetSrcImage(image_number);
+    const HuginBase::SrcPanoImage *src = visualization_state->GetSrcImage(image_number);
     width = (double) src->getSize().width();
     height = (double) src->getSize().height();
     // set the bounding rectangle.
@@ -156,7 +156,7 @@ void TexCoordRemapper::SetSize()
     //            (I had a look at ComputeImageROI but seemed a bit brute force)
     // 2. With zooming, we could clip the stuff off the edge of the screen.
     // For now we stick with everything that is visible.
-    vigra::Rect2D visible_area = view_state->GetVisibleArea();
+    vigra::Rect2D visible_area = visualization_state->GetVisibleArea();
     start_x = (double) visible_area.left() - 0.5;
     start_y = (double) visible_area.top() - 0.5;
     end_x = (double) visible_area.right() - 0.5;
@@ -164,7 +164,7 @@ void TexCoordRemapper::SetSize()
     o_width = end_x - start_x;
     o_height = end_y - start_y;
     // use the scale to determine edge lengths in pixels for subdivision
-    scale = view_state->GetScale() * mesh_frequency;
+    scale = visualization_state->GetScale() * mesh_frequency;
     // round the number of divisions we need to get a whole number of faces
     divisions_x = (int) ((end_x - start_x) * scale + 0.5);
     if (divisions_x < 2) divisions_x = 2;

@@ -85,8 +85,8 @@ void PreviewDifferenceTool::ImagesUnderMouseChangedEvent()
         image_number = *(image_set.begin());
         helper->NotifyMeBeforeDrawing(image_number, this);
         // Redraw the panorama with this image negated from the others.
-        helper->GetViewStatePtr()->ForceRequireRedraw();
-        helper->GetViewStatePtr()->Redraw();
+        helper->GetVisualizationStatePtr()->ForceRequireRedraw();
+        helper->GetVisualizationStatePtr()->Redraw();
         over_image = true;
     } else {
         if (over_image)
@@ -98,8 +98,8 @@ void PreviewDifferenceTool::ImagesUnderMouseChangedEvent()
             helper->DoNotNotifyMe(PreviewToolHelper::DRAW_OVER_IMAGES, this);
             helper->DoNotNotifyMeBeforeDrawing(image_number, this);
             // redraw the panorama without the negated image.
-            helper->GetViewStatePtr()->ForceRequireRedraw();
-            helper->GetViewStatePtr()->Redraw();
+            helper->GetVisualizationStatePtr()->ForceRequireRedraw();
+            helper->GetVisualizationStatePtr()->Redraw();
         }
     }
 }
@@ -108,7 +108,7 @@ void PreviewDifferenceTool::AfterDrawImagesEvent()
 {
     // Get the display list used to generate the image
     unsigned int display_list;
-        display_list = helper->GetViewStatePtr()->GetMeshDisplayList(image_number);    
+        display_list = helper->GetVisualizationStatePtr()->GetMeshDisplayList(image_number);    
     TextureManager *tex_m = helper->GetViewStatePtr()->GetTextureManager();
     tex_m->BindTexture(image_number);
     // we will use a subtractive blend

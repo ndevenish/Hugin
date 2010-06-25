@@ -40,10 +40,12 @@
 #include "GLRenderer.h"
 #include "TextureManager.h"
 #include "MeshManager.h"
-#include "PreviewToolHelper.h"
+#include "ToolHelper.h"
 #include "GLPreviewFrame.h"
 #include "hugin/huginApp.h"
 
+
+ViewState * GLViewer::m_view_state = NULL;
 
 BEGIN_EVENT_TABLE(GLViewer, wxGLCanvas)
     EVT_PAINT (GLViewer::RedrawE)
@@ -63,7 +65,13 @@ BEGIN_EVENT_TABLE(GLViewer, wxGLCanvas)
     EVT_KEY_UP(GLViewer::KeyUp)
 END_EVENT_TABLE()
 
-GLViewer::GLViewer(wxWindow* parent, PT::Panorama &pano, int args[], GLPreviewFrame *frame_in) :
+
+GLViewer::GLViewer(
+            wxWindow* parent, 
+            PT::Panorama &pano, 
+            int args[], 
+            GLPreviewFrame *frame_in
+            ) :
           wxGLCanvas(parent, wxID_ANY, wxDefaultPosition, wxDefaultSize,
                      0, wxT("GLPreviewCanvas"), args, wxNullPalette)
 {
@@ -79,7 +87,7 @@ GLViewer::GLViewer(wxWindow* parent, PT::Panorama &pano, int args[], GLPreviewFr
     m_renderer = 0;
     
     m_pano = &pano;
-    
+
     frame = frame_in;
     
     started_creation = false;
@@ -141,27 +149,54 @@ void GLViewer::SetUpContext()
             wxMessageBox(_("Sorry, the fast preview window requires a system which supports OpenGL version 1.1 with the GL_ARB_multitexture extension.\nThe fast preview cannot be opened."),_("Error"), wxOK | wxICON_ERROR,MainFrame::Get());
             return;
         }
-        
-        // check, if gpu supports multitextures
-        GLint countMultiTexture;
-        glGetIntegerv(GL_MAX_TEXTURE_UNITS_ARB,&countMultiTexture);
 
-//        GLint countMultiTexture = 0;
-        // we need something to store the state of the view and control updates
-        m_view_state = new ViewState(m_pano, RefreshWrapper, countMultiTexture>1, this);
-        //Start the tools going:
-        m_tool_helper = new PreviewToolHelper(m_pano, m_view_state, frame);
-        frame->MakeTools(m_tool_helper);
-        // now make a renderer
-        m_renderer =  new GLRenderer(m_pano, m_view_state->GetTextureManager(),
-                                     m_view_state->GetMeshManager(),
-                                     m_view_state, m_tool_helper);
-//        m_renderer =  new GLRenderer(m_pano, NULL, NULL, NULL, NULL);
+
+        setUp();
+        // check, if gpu supports multitextures
         // fill blend mode choice box in fast preview window
         // we can fill it just now, because we need a OpenGL context, which was created now,
         // to check if all necessary extentions are available
         frame->FillBlendChoice();
     }
+}
+
+void GLPreview::setUp()
+{
+
+    // we need something to store the state of the view and control updates
+    if (!m_view_state) {
+        GLint countMultiTexture;
+        glGetIntegerv(GL_MAX_TEXTURE_UNITS_ARB,&countMultiTexture);
+        m_view_state = new ViewState(m_pano, countMultiTexture>1);
+    }
+    m_visualization_state = new VisualizationState(m_pano, m_view_state, RefreshWrapper, this, (MeshManager*) NULL);
+    //Start the tools going:
+    PreviewToolHelper *helper = new PreviewToolHelper(m_pano, m_visualization_state, frame);
+    m_tool_helper = (ToolHelper*) helper;
+    frame->MakePreviewTools(helper);
+    // now make a renderer
+    m_renderer =  new GLPreviewRenderer(m_pano, m_view_state->GetTextureManager(),
+                                 m_visualization_state->GetMeshManager(),
+                                 m_visualization_state, helper);
+}
+
+void GLOverview::setUp()
+{
+    // we need something to store the state of the view and control updates
+    if (!m_view_state) {
+        GLint countMultiTexture;
+        glGetIntegerv(GL_MAX_TEXTURE_UNITS_ARB,&countMultiTexture);
+        m_view_state = new ViewState(m_pano, countMultiTexture>1);
+    }
+    m_visualization_state = new PanosphereOverviewVisualizationState(m_pano, m_view_state, RefreshWrapper, this);
+    //Start the tools going:
+    OverviewToolHelper *helper = new OverviewToolHelper(m_pano, m_visualization_state, frame);
+    m_tool_helper = (ToolHelper*) helper;
+    frame->MakeOverviewTools(helper);
+    // now make a renderer
+    m_renderer =  new GLOverviewRenderer(m_pano, m_view_state->GetTextureManager(),
+                                 m_visualization_state->GetMeshManager(),
+                                 (PanosphereOverviewVisualizationState*) m_visualization_state, helper);
 }
 
 void GLViewer::SetPhotometricCorrect(bool state)
@@ -172,18 +207,19 @@ void GLViewer::SetPhotometricCorrect(bool state)
 
 void GLViewer::SetLayoutMode(bool state)
 {
-    m_view_state->GetMeshManager()->SetLayoutMode(state);
+    m_visualization_state->GetMeshManager()->SetLayoutMode(state);
     Refresh();
 }
 
 void GLViewer::SetLayoutScale(double scale)
 {
-    m_view_state->GetMeshManager()->SetLayoutScale(scale);
+    m_visualization_state->GetMeshManager()->SetLayoutScale(scale);
     Refresh();
 }
 
 void GLViewer::RedrawE(wxPaintEvent& e)
 {
+    //TODO: CanResize specific to a viewer?
     DEBUG_DEBUG("REDRAW_E");
     if(!IsShown()) return;
     // don't redraw during a redraw.
@@ -206,14 +242,13 @@ void GLViewer::RedrawE(wxPaintEvent& e)
 
 void GLViewer::RefreshWrapper(void * obj)
 {
+    DEBUG_DEBUG("REFRESH WRAPPER");
     GLViewer* self = (GLViewer*) obj;
     self->Refresh();
 }
 
 void GLViewer::Resized(wxSizeEvent& e)
 {
-
-    std::cout << "RB" << std::endl;
 
     DEBUG_DEBUG("RESIZED_OUT");
    
@@ -232,7 +267,6 @@ void GLViewer::Resized(wxSizeEvent& e)
           Redraw();
         };
     }
-    std::cout << "RE" << std::endl;
 }
 
 void GLViewer::Redraw()
@@ -245,19 +279,19 @@ void GLViewer::Redraw()
     // FIXME shouldn't this work on textured backrounds?
     wxColour col = wxSystemSettings::GetColour(wxSYS_COLOUR_APPWORKSPACE);
     m_renderer->SetBackground(col.Red(), col.Green(), col.Blue());
-    if (m_view_state->RequireRecalculateViewport())
+    if (m_visualization_state->RequireRecalculateViewport())
     {
         // resize the viewport in case the panorama dimensions have changed.
         int w, h;
         GetClientSize(&w, &h);
         offset = m_renderer->Resize(w, h);
     }
-    m_view_state->DoUpdates();
+    m_visualization_state->DoUpdates();
     m_renderer->Redraw();
     glFlush();
     SwapBuffers();
     // tell the view state we did all the updates and redrew.
-    m_view_state->FinishedDraw();
+    m_visualization_state->FinishedDraw();
     DEBUG_INFO("Finished Rendering.");
 }
 

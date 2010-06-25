@@ -3,6 +3,7 @@
 /** @file ViewState.cpp
  *
  *  @author James Legg
+ *  @author Darko Makreshanski
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public
@@ -23,33 +24,32 @@
 #include "ViewState.h"
 #include "MeshManager.h"
 
-ViewState::ViewState(PT::Panorama *pano,
-                     void (*RefreshFunction)(void *), bool supportMultiTexture, void * arg)
+
+
+ViewState::ViewState(PT::Panorama *pano, bool supportMultiTexture)
 {
+
+
+//    //FIXME: REMOVE THIS:
+//    glutInit(0,NULL);
+    
+    
     m_pano = pano;
-    RefreshFunc = RefreshFunction;
-    refreshArg = arg;
     m_multiTexture=supportMultiTexture;
     m_pano->addObserver(this);
     // we will need to update everything for this panorama.
     dirty_image_sizes = true;
-    dirty_viewport = true;
-    dirty_draw = true;
     images_removed = true;
     number_of_images = m_pano->getNrOfImages();
     for (unsigned int img = 0; img < number_of_images; img++)
     {
         img_states[img] = m_pano->getSrcImage(img);
-        dirty_mesh[img].val = true;
         dirty_mask[img].val = false;
     }
     opts = m_pano->getOptions();
     projection_info = new OutputProjectionInfo(&opts);
-    genscale = 0.0;
     // now set the texture manager up.
     m_tex_manager = new TextureManager(m_pano, this);
-    // same for the mesh manager
-    m_mesh_manager = new MeshManager(m_pano, this);
 }
 
 ViewState::~ViewState()
@@ -57,41 +57,14 @@ ViewState::~ViewState()
     m_pano->removeObserver(this);
     delete projection_info;
     delete m_tex_manager;
-    delete m_mesh_manager;
 }
 
-float ViewState::GetScale()
-{
-    return scale;
-}
-
-void ViewState::SetScale(float scale_in)
-{
-    scale = scale_in;
-    // When resizing the window this can make the level detail of existing
-    // meshes be too high or low, but we don't want to do to much calculation
-    // so limit the forced recalculation of meshes to significant changes.
-    if (genscale == 0.0)
-    {
-        // should only happen the first time it is used. In which case we will
-        // regenerate the meshes anyways.
-        genscale = scale;
-    } else {
-        double difference = scale > genscale ?
-               scale / genscale : genscale / scale;
-        if (difference > 1.25)
-        {
-            genscale = scale;
-            for (unsigned int img = 0; img < number_of_images; img++)
-            {
-                dirty_mesh[img].val = true;
-            }        
-        }
-    }
-}
 
 void ViewState::panoramaChanged(HuginBase::PanoramaData &pano)
 {
+
+    bool require_draw;
+
     // anything could have happened, check everything.
     HuginBase::PanoramaOptions new_opts  = m_pano->getOptions();
     SetOptions(&new_opts);
@@ -104,7 +77,7 @@ void ViewState::panoramaChanged(HuginBase::PanoramaData &pano)
         bool new_active = m_pano->getImage(img).getOptions().active;
         if (new_active != active[img])
         {
-            dirty_draw = true;
+            require_draw = true;
             active[img] = new_active;
         }
     }
@@ -113,23 +86,29 @@ void ViewState::panoramaChanged(HuginBase::PanoramaData &pano)
     {
         // we've lost some
         dirty_image_sizes = true;
-        dirty_draw = true;
+        require_draw = true;
         images_removed = true;
     } else if (imgs > number_of_images)
     {
         // added images. Assume it doesn't affect the rest.
         dirty_image_sizes = true;
-        dirty_draw = true;
+        require_draw = true;
         // FIXME more might need to be done, if the new images are not the last
         // ones in order of image number.
     }
     number_of_images = imgs;
-    // check if it is worth redrawing. This will update everything else as
-    // necessary.
-    if (RequireDraw())
-    {
-        RefreshFunc(refreshArg);
+
+    if (require_draw) {
+        //refresh function is called in the respective VisualizationState callback
+        for (std::map<VisualizationState*,bool>::iterator it = vis_states.begin() ; it != vis_states.end() ; it++) {
+            DEBUG_DEBUG("PanoChanged - iterator before");
+            if (it->second) {
+                DEBUG_DEBUG("PanoChanged - iterator after");
+                it->first->Redraw();
+            }
+        }
     }
+
 }
 
 void ViewState::panoramaImagesChanged(HuginBase::PanoramaData&,
@@ -140,39 +119,51 @@ void ViewState::panoramaImagesChanged(HuginBase::PanoramaData&,
 
 void ViewState::SetOptions(const HuginBase::PanoramaOptions *new_opts)
 {
-    // compare the options
-    if (   new_opts->getSize() != opts.getSize()
-        || new_opts->getProjection() != opts.getProjection()
-        || new_opts->getProjectionParameters() != opts.getProjectionParameters()
-        || new_opts->getHFOV() != opts.getHFOV()
-        || new_opts->getVFOV() != opts.getVFOV()
-       )
-    {
-        // output projection changed. All images' meshes need recalculating.
-        unsigned int imgs = m_pano->getNrOfImages();
-        for (unsigned int img = 0; img < imgs; img++)
+
+    bool dirty_projection = false;
+
+    for (std::map<VisualizationState*,bool>::iterator it = vis_states.begin() ; it != vis_states.end() ; it++) {
+
+        if (!(it->second)) continue;
+        
+        // compare the options
+        if (   new_opts->getSize() != opts.getSize()
+            || new_opts->getProjection() != opts.getProjection()
+            || new_opts->getProjectionParameters() != opts.getProjectionParameters()
+            || new_opts->getHFOV() != opts.getHFOV()
+            || new_opts->getVFOV() != opts.getVFOV()
+           )
         {
-            dirty_mesh[img].val = true;
+            // output projection changed. All images' meshes need recalculating.
+            unsigned int imgs = m_pano->getNrOfImages();
+            for (unsigned int img = 0; img < imgs; img++)
+            {
+                it->first->SetDirtyMesh(img);
+            }
+            // we should also change the viewport to fit new the dimensions.
+            dirty_projection = true;
+            it->first->SetDirtyViewport();
+            it->first->ForceRequireRedraw();
         }
-        // we should also change the viewport to fit new the dimensions.
-        dirty_viewport = true;
-        dirty_draw = true;
-    }
-    if (  new_opts->outputExposureValue != opts.outputExposureValue)
-    {
-        // output exposure changed. All image photometrics are now different.
-        dirty_draw = true;
-        dirty_photometrics = true;
-    }
-    if (   new_opts->getROI() != opts.getROI()
-       )
-    {
-        // this is all done every frame anyway.
-        dirty_draw = true;
+        if (  new_opts->outputExposureValue != opts.outputExposureValue)
+        {
+            // output exposure changed. All image photometrics are now different.
+            it->first->SetDirtyViewport();
+            dirty_photometrics = true;
+        }
+        if (   new_opts->getROI() != opts.getROI()
+           )
+        {
+            // this is all done every frame anyway.
+            it->first->ForceRequireRedraw();
+        }
+
+        it->first->SetOptions(new_opts);
+
     }
     // store the new options
     opts = *new_opts;
-    if (dirty_viewport)
+    if (dirty_projection)
     {
         // we need to update the projection info as well.
         delete projection_info;
@@ -183,10 +174,13 @@ void ViewState::SetOptions(const HuginBase::PanoramaOptions *new_opts)
 
 void ViewState::SetSrcImage(unsigned int image_nr, HuginBase::SrcPanoImage *new_img)
 {
+    bool dirty_mesh = false;
+    bool dirty_draw = false;
+
     if (number_of_images <= image_nr)
     {
         // this must be an addition, since we didn't have this many images.
-        dirty_mesh[image_nr].val = true;
+        dirty_mesh = true;
         dirty_image_sizes = true;
         dirty_draw = true;
     } else {
@@ -215,8 +209,9 @@ void ViewState::SetSrcImage(unsigned int image_nr, HuginBase::SrcPanoImage *new_
             || new_img->getCropRect() != img->getCropRect()
            )
         {
-            dirty_mesh[image_nr].val = true;
+            dirty_mesh = true;
             dirty_draw = true;
+//            dirty_mesh[image_nr].val = true;
             // the field of view affects the image size calculations.
             if (new_img->getHFOV() != img->getHFOV())
             {
@@ -245,12 +240,21 @@ void ViewState::SetSrcImage(unsigned int image_nr, HuginBase::SrcPanoImage *new_
         // mask stuff
         if(new_img->getActiveMasks() != img->getActiveMasks())
         {
-            dirty_mask[image_nr].val=true;
+            dirty_mask[image_nr].val = true;
             dirty_draw=true;
         };
     }
     // store the new options
     img_states[image_nr] = *new_img;
+
+
+    for (std::map<VisualizationState*,bool>::iterator it = vis_states.begin() ; it != vis_states.end() ; it++) {
+        if (!(it->second)) continue;
+        if (dirty_draw) it->first->ForceRequireRedraw();
+        if (dirty_mesh) it->first->SetDirtyMesh(image_nr);
+        it->first->SetSrcImage(image_nr, new_img);
+    }
+    
 }
 
 void ViewState::ForceRequireRedraw()
@@ -258,16 +262,12 @@ void ViewState::ForceRequireRedraw()
     // this is generally called by preview tools. We let them manage themselves.
     // often they give some user interface thing that doesn't reflect a change
     // in the panorama at all, so we let them force a redraw.
-    dirty_draw = true;
-}
-
-void ViewState::Redraw()
-{
-    if (RequireDraw())
-    {
-        RefreshFunc(refreshArg);
+    for (std::map<VisualizationState*,bool>::iterator it = vis_states.begin() ; it != vis_states.end() ; it++) {
+        if (!(it->second)) continue;
+        it->first->ForceRequireRedraw();
     }
 }
+
 
 HuginBase::PanoramaOptions *ViewState::GetOptions()
 {
@@ -284,16 +284,6 @@ HuginBase::SrcPanoImage *ViewState::GetSrcImage(unsigned int image_nr)
     return &img_states[image_nr];
 }
 
-bool ViewState::RequireRecalculateMesh (unsigned int image_nr)
-{
-    if (number_of_images > image_nr)
-    {
-        return dirty_mesh[image_nr].val;
-    }
-    // if we didn't think there were enough images, create the mesh for the
-    //   first time
-    return true;
-}
 
 bool ViewState::RequireRecalculateImageSizes()
 {
@@ -305,6 +295,11 @@ bool ViewState::RequireRecalculatePhotometric()
     return dirty_photometrics;
 }
 
+bool ViewState::ImagesRemoved()
+{
+    return images_removed;
+}
+
 bool ViewState::RequireRecalculateMasks(unsigned int image_nr)
 {
     if (number_of_images > image_nr)
@@ -314,20 +309,6 @@ bool ViewState::RequireRecalculateMasks(unsigned int image_nr)
     return false;
 }
 
-bool ViewState::RequireDraw()
-{
-    return dirty_draw;
-}
-
-bool ViewState::RequireRecalculateViewport()
-{
-    return dirty_viewport;
-}
-
-bool ViewState::ImagesRemoved()
-{
-    return images_removed;
-}
 
 void ViewState::FinishedDraw()
 {
@@ -347,23 +328,231 @@ void ViewState::FinishedDraw()
 
 void ViewState::Clean()
 {
-    dirty_mesh.clear();
     dirty_image_sizes = false;
-    dirty_draw = false;
     images_removed = false;
-    dirty_viewport = false;
     dirty_photometrics = false;
     dirty_mask.clear();
 }
 
 void ViewState::DoUpdates()
 {
+    DEBUG_DEBUG("VIEW STATE DO UPDATES");
     m_tex_manager->CheckUpdate();
-    m_mesh_manager->CheckUpdate();
+    DEBUG_DEBUG("VIEW STATE END DO UPDATES");
 }
 
-unsigned int ViewState::GetMeshDisplayList(unsigned int image_number)
+void ViewState::Redraw()
+{
+
+    for (std::map<VisualizationState*,bool>::iterator it = vis_states.begin() ; it != vis_states.end() ; it++) {
+        
+        if (!(it->second)) continue;
+        
+        it->first->Redraw();
+        
+    }
+
+
+}
+
+
+
+
+
+
+
+
+VisualizationState::~VisualizationState()
+{
+    m_view_state->vis_states[this] = false;
+    delete m_mesh_manager;
+}
+
+
+float VisualizationState::GetScale()
+{
+    return scale;
+}
+
+void VisualizationState::SetScale(float scale_in)
+{
+    scale = scale_in;
+    // When resizing the window this can make the level detail of existing
+    // meshes be too high or low, but we don't want to do to much calculation
+    // so limit the forced recalculation of meshes to significant changes.
+    if (genscale == 0.0)
+    {
+        // should only happen the first time it is used. In which case we will
+        // regenerate the meshes anyways.
+        genscale = scale;
+    } else {
+        double difference = scale > genscale ?
+               scale / genscale : genscale / scale;
+        if (difference > 1.25)
+        {
+            genscale = scale;
+            int number_of_images = m_pano->getNrOfImages();
+            for (unsigned int img = 0; img < number_of_images; img++)
+            {
+                dirty_mesh[img].val = true;
+            }        
+        }
+    }
+}
+
+
+void VisualizationState::Redraw()
+{
+    DEBUG_DEBUG("REDRAW OUT");
+    if (RequireDraw())
+    {
+        DEBUG_DEBUG("REDRAW IN");
+        RefreshFunc(refreshArg);
+    }
+}
+
+bool VisualizationState::RequireRecalculateViewport()
+{
+    return dirty_viewport;
+}
+
+bool VisualizationState::RequireRecalculateMesh (unsigned int image_nr)
+{
+
+    int number_of_images = m_pano->getNrOfImages();
+    if (number_of_images > image_nr)
+    {
+        return dirty_mesh[image_nr].val;
+    }
+    // if we didn't think there were enough images, create the mesh for the
+    //   first time
+    return true;
+}
+
+
+bool VisualizationState::RequireDraw()
+{
+    return (dirty_draw);
+}
+
+void VisualizationState::ForceRequireRedraw()
+{
+    dirty_draw = true;
+}
+
+void VisualizationState::FinishedDraw()
+{
+    DEBUG_DEBUG("VIS State Finished draw");
+    dirty_mesh.clear();
+    dirty_viewport = false;
+    dirty_draw = false;
+    m_view_state->FinishedDraw();
+}
+
+void VisualizationState::DoUpdates()
+{
+    DEBUG_DEBUG("BEGIN UPDATES");
+    m_view_state->DoUpdates();
+    DEBUG_DEBUG("END UPDATES");
+    m_mesh_manager->CheckUpdate();
+    DEBUG_DEBUG("END UPDATES");
+}
+
+unsigned int VisualizationState::GetMeshDisplayList(unsigned int image_number)
 {
     return m_mesh_manager->GetDisplayList(image_number);
+}
+
+
+HuginBase::PanoramaOptions * VisualizationState::GetOptions()
+{
+    return m_view_state->GetOptions();
+}
+
+ OutputProjectionInfo * VisualizationState::GetProjectionInfo()
+{
+    return m_view_state->GetProjectionInfo();
+}
+
+HuginBase::SrcPanoImage * VisualizationState::GetSrcImage(unsigned int image_nr)
+{
+    return m_view_state->GetSrcImage(image_nr);
+}
+
+
+
+PanosphereOverviewVisualizationState::PanosphereOverviewVisualizationState(PT::Panorama* pano, ViewState* view_state, void (*RefreshFunction)(void*), void *arg)
+        : VisualizationState(pano, view_state, RefreshFunction, arg, (MeshManager*) NULL) 
+{
+
+    scale = 100;
+
+    angx = M_PI / 2.0;
+    angy = 0;
+    fovy = 20;
+    R = 1000;
+
+    sphere_radius = 100;
+
+    int number_of_images = m_pano->getNrOfImages();
+    for (unsigned int img = 0; img < number_of_images; img++)
+    {
+        img_states[img] = m_pano->getSrcImage(img);
+        img_states[img].setYaw(0);
+        img_states[img].setPitch(0);
+    }
+
+    opts = (*(m_view_state->GetOptions()));
+    opts.setProjection(HuginBase::PanoramaOptions::EQUIRECTANGULAR);
+    projection_info = new OutputProjectionInfo(&opts);
+}
+
+HuginBase::PanoramaOptions * PanosphereOverviewVisualizationState::GetOptions()
+{
+    return &opts;
+}
+
+OutputProjectionInfo *PanosphereOverviewVisualizationState::GetProjectionInfo()
+{
+    if (projection_info) {
+        delete projection_info;
+    }
+    projection_info = new OutputProjectionInfo(&opts);
+    return projection_info;
+}
+
+HuginBase::SrcPanoImage * PanosphereOverviewVisualizationState::GetSrcImage(unsigned int image_nr)
+{
+    return &(img_states[image_nr]);
+}
+
+void PanosphereOverviewVisualizationState::SetOptions(const HuginBase::PanoramaOptions * new_opts)
+{
+    opts = *new_opts;
+    opts.setProjection(HuginBase::PanoramaOptions::EQUIRECTANGULAR);
+    if (projection_info) {
+        delete projection_info;
+        projection_info = NULL;
+    }
+    projection_info = new OutputProjectionInfo(&opts);
+}
+
+void PanosphereOverviewVisualizationState::SetSrcImage(unsigned int image_nr, HuginBase::SrcPanoImage * new_img)
+{
+    img_states[image_nr] = *new_img;
+    img_states[image_nr].setYaw(0);
+    img_states[image_nr].setPitch(0);
+}
+
+void PanosphereOverviewVisualizationState::setAngX(double angx_in)
+{
+    angx = angx_in;
+    dirty_draw = true;
+}
+
+void PanosphereOverviewVisualizationState::setAngY(double angy_in)
+{
+    angy = angy_in;
+    dirty_draw = true;
 }
 

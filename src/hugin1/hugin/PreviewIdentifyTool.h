@@ -22,7 +22,7 @@
 #ifndef _PREVIEWIDENTIFYTOOL_H
 #define _PREVIEWIDENTIFYTOOL_H
 
-#include "PreviewTool.h"
+#include "Tool.h"
 #include <set>
 
 class GLPreviewFrame;

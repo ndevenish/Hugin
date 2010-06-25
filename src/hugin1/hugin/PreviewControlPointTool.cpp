@@ -38,7 +38,7 @@
 PreviewControlPointTool::PreviewControlPointTool(PreviewToolHelper *helper)
     : PreviewTool(helper)
 {
-    m_greatCircles.setViewState(helper->GetViewStatePtr());
+    m_greatCircles.setVisualizationState(helper->GetVisualizationStatePtr());
 }
 
 // we want to draw over the panorama when in use, so make sure we get notice.
@@ -106,7 +106,7 @@ void PreviewControlPointTool::MakeTransforms()
     {
         // we are transforming image coordinates to spherical coordinates.
         transforms[image_number].createInvTransform(
-                *(helper->GetViewStatePtr()->GetSrcImage(image_number)),
+                *(helper->GetVisualizationStatePtr()->GetSrcImage(image_number)),
                 options
             );
     }

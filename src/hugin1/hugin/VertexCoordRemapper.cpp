@@ -99,8 +99,8 @@ inline T sqr(T val)
 
 VertexCoordRemapper::VertexCoordRemapper(HuginBase::Panorama *m_pano_in,
                                          unsigned int image_number_in,
-                                         ViewState *view_state_in)
-    : MeshRemapper(m_pano_in, image_number_in, view_state_in)
+                                         VisualizationState *visualization_state_in)
+    : MeshRemapper(m_pano_in, image_number_in, visualization_state_in)
 {
     
 }
@@ -110,12 +110,12 @@ void VertexCoordRemapper::UpdateAndResetIndex()
     // this sets scale, height, and width.
     MeshRemapper::UpdateAndResetIndex();
     // we need to record the output projection for flipping around 180 degrees.
-    output_projection = view_state->GetOptions()->getProjection();
-    o_width = view_state->GetOptions()->getWidth();
-    o_height = view_state->GetOptions()->getHeight();
+    output_projection = visualization_state->GetOptions()->getProjection();
+    o_width = visualization_state->GetOptions()->getWidth();
+    o_height = visualization_state->GetOptions()->getHeight();
     // we want to make a remapped mesh, get the transformation we need:
-    HuginBase::SrcPanoImage *src = view_state->GetSrcImage(image_number);
-    transform.createInvTransform(*src, *(view_state->GetOptions()));
+    HuginBase::SrcPanoImage *src = visualization_state->GetSrcImage(image_number);
+    transform.createInvTransform(*src, *(visualization_state->GetOptions()));
     // use the scale to determine edge lengths in pixels for subdivision
     DEBUG_INFO("updating mesh for image " << image_number << ", using scale "
               << scale << ".\n");
@@ -123,7 +123,7 @@ void VertexCoordRemapper::UpdateAndResetIndex()
     // {x|y}_add_360's are added to a value near the left/top boundary to get
     // the corresponding point over the right/bottom boundary.
     // other values are used to check where the boundary is.
-    OutputProjectionInfo *info = view_state->GetProjectionInfo();
+    OutputProjectionInfo *info = visualization_state->GetProjectionInfo();
     x_add_360 = info->GetXAdd360();
     radius = info->GetRadius();
     y_add_360 = info->GetYAdd360();
@@ -223,7 +223,7 @@ bool VertexCoordRemapper::GetNextFaceCoordinates(Coords *result)
     if (circle_crop)
     {
         // If all points are within the radius, then don't clip
-        HuginBase::SrcPanoImage *src_img = view_state->GetSrcImage(image_number);
+        HuginBase::SrcPanoImage *src_img = visualization_state->GetSrcImage(image_number);
         if (   src_img->isInside(vigra::Point2D(int(result->tex_c[0][0][0] * width),
                                                 int(result->tex_c[0][0][1] * height)))
             && src_img->isInside(vigra::Point2D(int(result->tex_c[0][1][0] * width),
@@ -282,10 +282,10 @@ void VertexCoordRemapper::DiscontinuityFlip(double vertex_c[2])
             if (vertex_c[0] < x_midpoint)
             {
                 vertex_c[0] +=
-                      view_state->GetProjectionInfo()->GetXAdd360(vertex_c[1]);
+                      visualization_state->GetProjectionInfo()->GetXAdd360(vertex_c[1]);
             } else {
                 vertex_c[0] -=
-                      view_state->GetProjectionInfo()->GetXAdd360(vertex_c[1]);
+                      visualization_state->GetProjectionInfo()->GetXAdd360(vertex_c[1]);
             }
             break;
         case HuginBase::PanoramaOptions::TRANSVERSE_MERCATOR:
@@ -548,7 +548,7 @@ void VertexCoordRemapper::TestSubdivide(unsigned int node_id)
         }
         // if the face is entirely off the screen, we should not subdivide it.
         // get the screen area
-        vigra::Rect2D viewport = view_state->GetVisibleArea();
+        vigra::Rect2D viewport = visualization_state->GetVisibleArea();
         // add a margin for safety, we don't want to clip too much stuff that
         // curls back on to the screen. We add 2 as we need some space around 
         // very small panoramas that have enlarged to fit the preview window, 
@@ -594,7 +594,7 @@ void VertexCoordRemapper::TestSubdivide(unsigned int node_id)
         // across the '0 degree' point, and true for faces that span the +/-180
         // degree split. It doesn't really matter what it is set to otherwise.
         bool noncontinuous = false;
-        OutputProjectionInfo *i = view_state->GetProjectionInfo();
+        OutputProjectionInfo *i = visualization_state->GetProjectionInfo();
         switch (output_projection)
         {
             case HuginBase::PanoramaOptions::RECTILINEAR:

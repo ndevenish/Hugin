@@ -33,6 +33,8 @@
 #include <vigra/diff2d.hxx>
 #include <utility>
 
+class ToolHelper;
+class OverviewToolHelper;
 class PreviewToolHelper;
 
 /** The renderer handles drawing the preview. It is used by a GLViewer, which is
@@ -45,9 +47,9 @@ class GLRenderer
 public:
     /** ctor.
      */
-    GLRenderer(PT::Panorama * pano, TextureManager *tex_man,
-               MeshManager *mesh_man, ViewState *veiw_state,
-               PreviewToolHelper *tool_helper);
+//    GLRenderer(PT::Panorama * pano, TextureManager *tex_man,
+//               MeshManager *mesh_man, VisualizationState *visualization_state,
+//               PreviewToolHelper *tool_helper);
 
     /** dtor.
      */
@@ -58,17 +60,53 @@ public:
      * @param width the width of the widget in screen pixels.
      * @param height the height of the widget in screen pixels.
      */
-    vigra::Diff2D Resize(int width, int height);
-    void Redraw();
+    virtual vigra::Diff2D Resize(int width, int height) = 0;
+    virtual void Redraw() = 0;
+    
     void SetBackground(unsigned char red, unsigned char green, unsigned char blue);
     float width_o, height_o;
-private:
+protected:
     PT::Panorama  * m_pano;
     TextureManager * m_tex_man;
     MeshManager * m_mesh_man;
-    ViewState * m_view_state;
-    PreviewToolHelper *m_tool_helper;
+    ToolHelper *m_tool_helper;
     int width, height;
+};
+
+class GLPreviewRenderer : public GLRenderer
+{
+public:
+    GLPreviewRenderer(PT::Panorama * pano, TextureManager *tex_man,
+               MeshManager *mesh_man, VisualizationState *visualization_state,
+               PreviewToolHelper *tool_helper);
+
+    vigra::Diff2D Resize(int width, int height);
+    void Redraw();
+
+protected:
+
+
+    VisualizationState * m_visualization_state;
+
+
+};
+
+class GLOverviewRenderer : public GLRenderer
+{
+public:
+    GLOverviewRenderer(PT::Panorama * pano, TextureManager *tex_man,
+               MeshManager *mesh_man, PanosphereOverviewVisualizationState *visualization_state,
+               OverviewToolHelper *tool_helper);
+
+
+    vigra::Diff2D Resize(int width, int height);
+    void Redraw();
+
+protected:
+    
+    PanosphereOverviewVisualizationState * m_visualization_state;
+
+
 };
 
 #endif

@@ -43,16 +43,16 @@
 // Must be at least two. More is much better.
 const unsigned int segments = 48;
 
-void GreatCircles::setViewState(ViewState * viewStateIn)
+void GreatCircles::setVisualizationState(VisualizationState * visualizationStateIn)
 {
-    m_viewState = viewStateIn;
+    m_visualizationState = visualizationStateIn;
 }
 
 void GreatCircles::drawLineFromSpherical(double startLat, double startLong,
                                          double endLat, double endLong)
 {
-    DEBUG_ASSERT(m_viewState); 
-    GreatCircleArc(startLat, startLong, endLat, endLong, *m_viewState).draw();
+    DEBUG_ASSERT(m_visualizationState); 
+    GreatCircleArc(startLat, startLong, endLat, endLong, *m_visualizationState).draw();
 }
 
 GreatCircleArc::GreatCircleArc()
@@ -61,11 +61,11 @@ GreatCircleArc::GreatCircleArc()
 
 GreatCircleArc::GreatCircleArc(double startLat, double startLong,
                        double endLat, double endLong,
-                       ViewState & viewState)
+                       VisualizationState & visualizationState)
 
 {
     // get the output projection
-    const HuginBase::PanoramaOptions & options = *(viewState.GetOptions());
+    const HuginBase::PanoramaOptions & options = *(visualizationState.GetOptions());
     // make an image to transform spherical coordinates into the output projection
     HuginBase::SrcPanoImage equirectangularImage;
     equirectangularImage.setProjection(HuginBase::SrcPanoImage::EQUIRECTANGULAR);
@@ -76,7 +76,7 @@ GreatCircleArc::GreatCircleArc(double startLat, double startLong,
     HuginBase::PTools::Transform transform;
     transform.createInvTransform(equirectangularImage, options);
     
-	m_xscale = viewState.GetScale();
+	m_xscale = visualizationState.GetScale();
 
     /**Handle case where the points are opposite sides of the sphere
      * (i.e. The angle startLat is -endLat and startLong is -endLong.)
@@ -89,13 +89,13 @@ GreatCircleArc::GreatCircleArc(double startLat, double startLong,
         if (startLat == 180.0 && startLong == 90.0)
         {
             // foiled again: pick one going through (180, 0) instead.
-            *this = GreatCircleArc(startLat, startLong, 180.0, 0.0, viewState);
-            GreatCircleArc other(180.0, 0.0, endLat, endLong, viewState);
+            *this = GreatCircleArc(startLat, startLong, 180.0, 0.0, visualizationState);
+            GreatCircleArc other(180.0, 0.0, endLat, endLong, visualizationState);
             m_lines.insert(m_lines.end(), other.m_lines.begin(), other.m_lines.end());
             return;
         }
-        *this = GreatCircleArc(startLat, startLong, 180.0, 90.0, viewState);
-        GreatCircleArc other(180.0, 90.0, endLat, endLong, viewState);
+        *this = GreatCircleArc(startLat, startLong, 180.0, 90.0, visualizationState);
+        GreatCircleArc other(180.0, 90.0, endLat, endLong, visualizationState);
         m_lines.insert(m_lines.end(), other.m_lines.begin(), other.m_lines.end());
         return;
     }

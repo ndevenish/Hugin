@@ -22,7 +22,7 @@
 #ifndef _PREVIEWDRAGTOOL_H
 #define _PREVIEWDRAGTOOL_H
 
-#include "PreviewTool.h"
+#include "Tool.h"
 
 #include <map>
 #include <hugin_math/Matrix3.h>

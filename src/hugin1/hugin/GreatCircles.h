@@ -39,7 +39,7 @@ public:
      * preview display.
      * @param viewState a pointer to the ViewState the preview is using.
      */
-    void setViewState(ViewState * viewState);
+    void setVisualizationState(VisualizationState * visualizationState);
     /** Draw the shortest segment of the great circle crossing two spherical
      * coordinates.
      *
@@ -58,7 +58,7 @@ public:
     void drawLineFromSpherical(double startLat, double startLong,
                                double endLat, double endLong);
 private:
-    ViewState * m_viewState;
+    VisualizationState * m_visualizationState;
 };
 
 class GreatCircleArc
@@ -77,7 +77,7 @@ class GreatCircleArc
          */
         GreatCircleArc(double startLat, double startLong,
                        double endLat, double endLong,
-                       ViewState & m_viewState);
+                       VisualizationState & m_visualizationState);
         /// Draw the great circle arc on the fast preview
         void draw(bool withCross=true) const;
         /** Return the square of the minimal distance between the great circle arc and a coorinate on the panorama.

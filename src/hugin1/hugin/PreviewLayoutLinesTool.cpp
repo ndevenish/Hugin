@@ -203,7 +203,7 @@ void PreviewLayoutLinesTool::MouseMoveEvent(double x, double y, wxMouseEvent & e
     bool oldUseNearestLine = m_useNearestLine;
     // The limit is 70 pixels from the line.
     // Coordinates are panorama pixels squared, so we'll need to scale it.
-    double scale = helper->GetViewStatePtr()->GetScale();
+    double scale = helper->GetVisualizationStatePtr()->GetScale();
     scale *= scale;
     m_useNearestLine = minDistance < 4900.0 / scale;
     
@@ -217,8 +217,8 @@ void PreviewLayoutLinesTool::MouseMoveEvent(double x, double y, wxMouseEvent & e
         
         // Redraw with new indicators. Since the indicators aren't part of the
         // panorama, we have to persuade the viewstate that a redraw is required.
-        helper->GetViewStatePtr()->ForceRequireRedraw();
-        helper->GetViewStatePtr()->Redraw();
+        helper->GetVisualizationStatePtr()->ForceRequireRedraw();
+        helper->GetVisualizationStatePtr()->Redraw();
     }
 }
 
@@ -267,9 +267,9 @@ void PreviewLayoutLinesTool::AfterDrawImagesEvent()
     unsigned int image1 = m_lines[m_nearestLine].image1;
     unsigned int image2 = m_lines[m_nearestLine].image2;
     helper->GetViewStatePtr()->GetTextureManager()->DrawImage(image1,
-                        helper->GetViewStatePtr()->GetMeshDisplayList(image1));
+                        helper->GetVisualizationStatePtr()->GetMeshDisplayList(image1));
     helper->GetViewStatePtr()->GetTextureManager()->DrawImage(image2,
-                        helper->GetViewStatePtr()->GetMeshDisplayList(image2));
+                        helper->GetVisualizationStatePtr()->GetMeshDisplayList(image2));
                         
     // Setup OpenGL blending state for identification borders.
     glEnable(GL_BLEND);
@@ -316,7 +316,7 @@ void PreviewLayoutLinesTool::drawIdentificationBorder(unsigned int image)
             break;
     }
     // draw the image with the border texture.
-    glCallList(helper->GetViewStatePtr()->GetMeshDisplayList(image));
+    glCallList(helper->GetVisualizationStatePtr()->GetMeshDisplayList(image));
     // reset the texture matrix.
     glPopMatrix();
 }
@@ -476,7 +476,7 @@ void PreviewLayoutLinesTool::updateLineInformation()
                                           m_imageCentresSpherical[i].y,
                                           m_imageCentresSpherical[j].x,
                                           m_imageCentresSpherical[j].y,
-                                          *(helper->GetViewStatePtr()));
+                                          *(helper->GetVisualizationStatePtr()));
             }
         }
     }

@@ -64,8 +64,8 @@ extern "C" {
 #include <pano13/queryfeature.h>
 }
 
-#include "PreviewToolHelper.h"
-#include "PreviewTool.h"
+#include "ToolHelper.h"
+#include "Tool.h"
 #include "PreviewCropTool.h"
 #include "PreviewDragTool.h"
 #include "PreviewIdentifyTool.h"
@@ -73,6 +73,8 @@ extern "C" {
 #include "PreviewPanoMaskTool.h"
 #include "PreviewControlPointTool.h"
 #include "PreviewLayoutLinesTool.h"
+
+#include "OverviewDragTool.h"
 
 #include <wx/progdlg.h>
 
@@ -225,9 +227,7 @@ void GLwxAuiFloatingFrame::OnActivate(wxActivateEvent& evt)
 {
     DEBUG_DEBUG("FRAME ACTIVATE");
     GLPreviewFrame * frame = ((GLwxAuiManager*) GetOwnerManager())->getPreviewFrame();
-//    if (!(frame->GLdrawing)) {
     frame->ContinueResize();
-//    }
     evt.Skip();
 }
 
@@ -249,7 +249,7 @@ void GLPreviewFrame::ContinueResize()
 {
     GLresize = true;
     wxSizeEvent event = wxSizeEvent(wxSize());
-    m_GLViewer->Resized(event);
+    m_GLPreview->Resized(event);
 }
 
 
@@ -265,7 +265,7 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
 	DEBUG_TRACE("");
 
     // initialize pointer
-    helper = NULL;
+    preview_helper = NULL;
     crop_tool = NULL;
     drag_tool = NULL;
     identify_tool = NULL ;
@@ -339,19 +339,19 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
 
     wxBoxSizer * overview_sizer = new wxBoxSizer(wxVERTICAL);
 
-    // create our Viewer
+    // create our Viewers
     int args[] = {WX_GL_RGBA, WX_GL_DOUBLEBUFFER, 0};
 
-    m_GLViewer = new GLViewer(preview_panel, pano, args, this);
-//    GLOverview * m_GLViewer2 = new GLOverview(preview_panel, pano, args, this);
+    m_GLPreview = new GLPreview(preview_panel, pano, args, this);
+//    GLOverview * m_GLPreview2 = new GLOverview(preview_panel, pano, args, this);
     m_GLOverview = new GLOverview(overview_panel, pano, args, this);
 
-    flexSizer->Add(m_GLViewer,
+    flexSizer->Add(m_GLPreview,
                   1,        // not vertically stretchable
                   wxEXPAND | // horizontally stretchable
                   wxALL,    // draw border all around
                   5);       // border width
-//    flexSizer->Add(m_GLViewer,
+//    flexSizer->Add(m_GLPreview,
 //                  0,        // not vertically stretchable
 //                  wxEXPAND);
 
@@ -570,7 +570,7 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     
 #ifdef __WXMSW__
     // wxFrame does have a strange background color on Windows..
-    this->SetBackgroundColour(m_GLViewer->GetBackgroundColour());
+    this->SetBackgroundColour(m_GLPreview->GetBackgroundColour());
 #endif
 
     if (config->Read(wxT("/GLPreviewFrame/isShown"), 0l) != 0) {
@@ -610,11 +610,11 @@ GLPreviewFrame::~GLPreviewFrame()
     // OpenGL context and therefore don't create the tools.
     if (crop_tool)
     {
-        helper->DeactivateTool(crop_tool); delete crop_tool;
-        helper->DeactivateTool(drag_tool); delete drag_tool;
-        helper->DeactivateTool(identify_tool); delete identify_tool;
-        helper->DeactivateTool(difference_tool); delete difference_tool;
-        helper->DeactivateTool(pano_mask_tool); delete pano_mask_tool;
+        preview_helper->DeactivateTool(crop_tool); delete crop_tool;
+        preview_helper->DeactivateTool(drag_tool); delete drag_tool;
+        preview_helper->DeactivateTool(identify_tool); delete identify_tool;
+        preview_helper->DeactivateTool(difference_tool); delete difference_tool;
+        preview_helper->DeactivateTool(pano_mask_tool); delete pano_mask_tool;
     }
     m_HFOVText->PopEventHandler(true);
     m_VFOVText->PopEventHandler(true);
@@ -745,10 +745,10 @@ void GLPreviewFrame::updateBlendMode()
         if(index==0)
         {
             // normal mode
-            if (helper != NULL 
+            if (preview_helper != NULL 
                 && difference_tool != NULL)
             {
-                helper->DeactivateTool(difference_tool);
+                preview_helper->DeactivateTool(difference_tool);
             };
         }
         else
@@ -756,14 +756,14 @@ void GLPreviewFrame::updateBlendMode()
             if(index==m_differenceIndex)
             {
                 // difference mode
-                if (helper != NULL 
+                if (preview_helper != NULL 
                     && identify_tool != NULL 
                     && difference_tool != NULL
                     && m_ToolBar_Identify != NULL )
                 {
-                    helper->DeactivateTool(identify_tool);
+                    preview_helper->DeactivateTool(identify_tool);
                     m_ToolBar_Identify->ToggleTool(XRCID("preview_identify_tool"), false);
-                    helper->ActivateTool(difference_tool);
+                    preview_helper->ActivateTool(difference_tool);
                     CleanButtonColours();
                 };
             }
@@ -1223,8 +1223,8 @@ void GLPreviewFrame::OnTrackChangeFOV(wxScrollEvent & e)
     // As we are dragging it we don't want to create undo events, but we would
     // like to update the display, so we change the GLViewer's ViewState and
     // request a redraw.
-    m_GLViewer->m_view_state->SetOptions(&opt);
-    m_GLViewer->Refresh();
+    m_GLPreview->m_view_state->SetOptions(&opt);
+    m_GLPreview->Refresh();
 }
 
 void GLPreviewFrame::OnBlendChoice(wxCommandEvent & e)
@@ -1381,29 +1381,36 @@ void GLPreviewFrame::SetStatusMessage(wxString message)
 
 void GLPreviewFrame::OnPhotometric(wxCommandEvent & e)
 {
-    m_GLViewer->SetPhotometricCorrect(e.IsChecked());
+    m_GLPreview->SetPhotometricCorrect(e.IsChecked());
 }
 
-void GLPreviewFrame::MakeTools(PreviewToolHelper *helper_in)
+void GLPreviewFrame::MakePreviewTools(PreviewToolHelper *preview_helper_in)
 {
     // create the tool objects.
     // we delay this until we have an OpenGL context so that they are free to
     // create texture objects and display lists before they are used.
-    helper = helper_in;
-    crop_tool = new PreviewCropTool(helper);
-    drag_tool = new PreviewDragTool(helper);
-    identify_tool = new PreviewIdentifyTool(helper, this);
-    difference_tool = new PreviewDifferenceTool(helper);
-    pano_mask_tool = new PreviewPanoMaskTool(helper);
-    control_point_tool = new PreviewControlPointTool(helper);
-    m_layoutLinesTool = new PreviewLayoutLinesTool(helper);
+    preview_helper = preview_helper_in;
+    crop_tool = new PreviewCropTool(preview_helper);
+    drag_tool = new PreviewDragTool(preview_helper);
+    identify_tool = new PreviewIdentifyTool(preview_helper, this);
+    difference_tool = new PreviewDifferenceTool(preview_helper);
+    pano_mask_tool = new PreviewPanoMaskTool(preview_helper);
+    control_point_tool = new PreviewControlPointTool(preview_helper);
+    m_layoutLinesTool = new PreviewLayoutLinesTool(preview_helper);
     
     // activate tools that are always active.
-    helper->ActivateTool(pano_mask_tool);
+    preview_helper->ActivateTool(pano_mask_tool);
     // update the blend mode which activates some tools
     updateBlendMode();
     // update toolbar
     SetMode(mode_preview);
+}
+
+void GLPreviewFrame::MakeOverviewTools(OverviewToolHelper *overview_helper_in)
+{
+    overview_helper = overview_helper_in;
+    overview_drag_tool = new OverviewDragTool(overview_helper);
+    overview_helper->ActivateTool(overview_drag_tool);
 }
 
 void GLPreviewFrame::OnIdentify(wxCommandEvent & e)
@@ -1412,13 +1419,13 @@ void GLPreviewFrame::OnIdentify(wxCommandEvent & e)
     if (e.IsChecked())
     {
         m_BlendModeChoice->SetSelection(0);
-        helper->DeactivateTool(difference_tool);
-        TurnOffTools(helper->ActivateTool(identify_tool));
+        preview_helper->DeactivateTool(difference_tool);
+        TurnOffTools(preview_helper->ActivateTool(identify_tool));
     } else {
-        helper->DeactivateTool(identify_tool);
+        preview_helper->DeactivateTool(identify_tool);
         CleanButtonColours();
     }
-    m_GLViewer->Refresh();
+    m_GLPreview->Refresh();
 }
 
 void GLPreviewFrame::OnControlPoint(wxCommandEvent & e)
@@ -1426,39 +1433,39 @@ void GLPreviewFrame::OnControlPoint(wxCommandEvent & e)
     SetStatusText(wxT(""), 0); // blank status text as it refers to an old tool.
     if (e.IsChecked())
     {
-        TurnOffTools(helper->ActivateTool(control_point_tool));
+        TurnOffTools(preview_helper->ActivateTool(control_point_tool));
     } else {
-        helper->DeactivateTool(control_point_tool);
+        preview_helper->DeactivateTool(control_point_tool);
     }
-    m_GLViewer->Refresh();
+    m_GLPreview->Refresh();
 }
 
-void GLPreviewFrame::TurnOffTools(std::set<PreviewTool*> tools)
+void GLPreviewFrame::TurnOffTools(std::set<Tool*> tools)
 {
-    std::set<PreviewTool*>::iterator i;
+    std::set<Tool*>::iterator i;
     for (i = tools.begin(); i != tools.end(); i++)
     {
         if (*i == crop_tool)
         {
             // cover up the guidelines
-            m_GLViewer->Refresh();
+            m_GLPreview->Refresh();
         } else if (*i == drag_tool)
         {
             // cover up its boxes
-            m_GLViewer->Refresh();
+            m_GLPreview->Refresh();
         } else if (*i == identify_tool)
         {
             // disabled the identify tool, toggle its button off.
             m_ToolBar_Identify->ToggleTool(XRCID("preview_identify_tool"), false);
             // cover up its indicators and restore normal button colours.
-            m_GLViewer->Refresh();
+            m_GLPreview->Refresh();
             CleanButtonColours();
         } else if (*i == control_point_tool)
         {
             // disabled the control point tool.
             XRCCTRL(*this,"preview_control_point_tool",wxCheckBox)->SetValue(false);
             // cover up the control point lines.
-            m_GLViewer->Refresh();
+            m_GLPreview->Refresh();
         }
     }
 }
@@ -1655,18 +1662,18 @@ void GLPreviewFrame::SetMode(int newMode)
     {
         case mode_preview:
             // switch off identify and show cp tool
-            helper->DeactivateTool(identify_tool);
+            preview_helper->DeactivateTool(identify_tool);
             CleanButtonColours();
             m_ToolBar_Identify->ToggleTool(XRCID("preview_identify_tool"),false);
-            helper->DeactivateTool(control_point_tool);
+            preview_helper->DeactivateTool(control_point_tool);
             XRCCTRL(*this,"preview_control_point_tool",wxCheckBox)->SetValue(false);
             break;
         case mode_layout:
             // disable layout mode.
-            helper->DeactivateTool(m_layoutLinesTool);
-            m_GLViewer->SetLayoutMode(false);
+            preview_helper->DeactivateTool(m_layoutLinesTool);
+            m_GLPreview->SetLayoutMode(false);
             // Switch the panorama mask back on.
-            helper->ActivateTool(pano_mask_tool);
+            preview_helper->ActivateTool(pano_mask_tool);
             //restore blend mode
             m_BlendModeChoice->SetSelection(non_layout_blend_mode);
             updateBlendMode();
@@ -1674,10 +1681,10 @@ void GLPreviewFrame::SetMode(int newMode)
         case mode_projection:
             break;
         case mode_drag:
-            helper->DeactivateTool(drag_tool);
+            preview_helper->DeactivateTool(drag_tool);
             break;
         case mode_crop:
-            helper->DeactivateTool(crop_tool);
+            preview_helper->DeactivateTool(crop_tool);
             break;
     };
     m_mode=newMode;
@@ -1692,24 +1699,24 @@ void GLPreviewFrame::SetMode(int newMode)
             m_BlendModeChoice->SetSelection(0);
             updateBlendMode();
             // turn off things not used in layout mode.
-            helper->DeactivateTool(pano_mask_tool);
-            m_GLViewer->SetLayoutMode(true);
-            helper->ActivateTool(m_layoutLinesTool);
+            preview_helper->DeactivateTool(pano_mask_tool);
+            m_GLPreview->SetLayoutMode(true);
+            preview_helper->ActivateTool(m_layoutLinesTool);
             // we need to update the meshes after switch to layout mode
             // otherwise the following update of scale has no meshes to scale
-            m_GLViewer->Update();
+            m_GLPreview->Update();
             OnLayoutScaleChange(dummy);
             break;
         case mode_projection:
             break;
         case mode_drag:
-            TurnOffTools(helper->ActivateTool(drag_tool));
+            TurnOffTools(preview_helper->ActivateTool(drag_tool));
             break;
         case mode_crop:
-            TurnOffTools(helper->ActivateTool(crop_tool));
+            TurnOffTools(preview_helper->ActivateTool(crop_tool));
             break;
     };
-    m_GLViewer->Refresh();
+    m_GLPreview->Refresh();
 };
 
 void GLPreviewFrame::OnSelectMode(wxNotebookEvent &e)
@@ -1835,8 +1842,8 @@ void GLPreviewFrame::OnLayoutScaleChange(wxScrollEvent &e)
     if(m_mode==mode_layout)
     {
         double scale_factor=XRCCTRL(*this,"layout_scale_slider",wxSlider)->GetValue();
-        m_GLViewer->SetLayoutScale(10.0-sqrt(scale_factor));
-        m_GLViewer->Refresh();
+        m_GLPreview->SetLayoutScale(10.0-sqrt(scale_factor));
+        m_GLPreview->Refresh();
     };
 };
 

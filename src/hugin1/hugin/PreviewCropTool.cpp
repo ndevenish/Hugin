@@ -65,7 +65,7 @@ void PreviewCropTool::ReallyAfterDrawImagesEvent()
     // dragging a point in the middle moves the whole frame.
     
     // find the cropped region
-    HuginBase::PanoramaOptions *opts = helper->GetViewStatePtr()->GetOptions();
+    HuginBase::PanoramaOptions *opts = helper->GetVisualizationStatePtr()->getViewState()->GetOptions();
     vigra::Rect2D roi = opts->getROI();
     double width = (double) roi.width(),
           height = (double) roi.height(),
@@ -76,7 +76,7 @@ void PreviewCropTool::ReallyAfterDrawImagesEvent()
     right = (double) roi.right() - margin;
     
     glEnable(GL_BLEND);
-    helper->GetViewStatePtr()->GetTextureManager()->DisableTexture();
+    helper->GetVisualizationStatePtr()->getViewState()->GetTextureManager()->DisableTexture();
    
     // now draw boxes to indicate what dragging would do.
     if (!mouse_down)
@@ -157,8 +157,8 @@ void PreviewCropTool::MouseMoveEvent(double x, double y, wxMouseEvent & e)
 		if((roi.top()<roi.bottom())&&(roi.left()<roi.right()))
         {
             opts.setROI(roi);
-            helper->GetViewStatePtr()->SetOptions(&opts);
-            helper->GetViewStatePtr()->Redraw();
+            helper->GetVisualizationStatePtr()->getViewState()->SetOptions(&opts);
+            helper->GetVisualizationStatePtr()->Redraw();
         }
     } else {
         start_drag_x = x;
@@ -203,8 +203,8 @@ void PreviewCropTool::MouseMoveEvent(double x, double y, wxMouseEvent & e)
         {
             // since we didn't change the panorama, view_state doesn't think we
             // should redraw. Persuade it otherwise:
-            helper->GetViewStatePtr()->ForceRequireRedraw();
-            helper->GetViewStatePtr()->Redraw(); // now redraw.
+            helper->GetVisualizationStatePtr()->ForceRequireRedraw();
+            helper->GetVisualizationStatePtr()->Redraw(); // now redraw.
         }
     }
 }     
@@ -216,7 +216,7 @@ void PreviewCropTool::MouseButtonEvent(wxMouseEvent &e)
     {
         if (e.ButtonDown())
         {
-            start_drag_options = *helper->GetViewStatePtr()->GetOptions();
+            start_drag_options = *helper->GetVisualizationStatePtr()->getViewState()->GetOptions();
             opts = start_drag_options;
             mouse_down = true;
             moving_left = false;

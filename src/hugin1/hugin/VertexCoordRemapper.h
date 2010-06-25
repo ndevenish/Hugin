@@ -65,7 +65,7 @@ class VertexCoordRemapper : public MeshRemapper
 {
 public:
     VertexCoordRemapper(HuginBase::Panorama *m_pano, unsigned int image_number,
-                       ViewState *view_state);
+                       VisualizationState *visualization_state);
     virtual void UpdateAndResetIndex();
     // get the texture and vertex coordinates for the next face. The coordinates
     //    are ordered [left / right][top / bottom][x coord / y coord].

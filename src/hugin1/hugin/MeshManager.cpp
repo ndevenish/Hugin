@@ -47,15 +47,18 @@
 // uncomment this. Wireframe mode is for testing mesh quality.
 // #define WIREFRAME
 
-MeshManager::MeshManager(PT::Panorama *pano, ViewState *view_state)
+MeshManager::MeshManager(PT::Panorama *pano, VisualizationState *visualization_state)
     :   m_pano(pano),
-        view_state(view_state),
+        visualization_state(visualization_state),
         layout_mode_on(false)
 {
 }
 
 MeshManager::~MeshManager()
 {
+    for (std::vector<MeshInfo*>::iterator it = meshes.begin() ; it != meshes.end() ; it++) {
+        delete (*it);
+    }
     meshes.clear();
 }
 
@@ -65,32 +68,57 @@ void MeshManager::CheckUpdate()
     // Resize to fit if images were removed
     while (meshes.size() > m_pano->getNrOfImages())
     {
+        delete (meshes[meshes.size()-1]);
         meshes.pop_back();
     }
     // check each existing image individualy.
     for (unsigned int i = 0; i < meshes.size(); i++)
     {
-        if (view_state->RequireRecalculateMesh(i))
+        if (visualization_state->RequireRecalculateMesh(i))
         {
-            meshes[i].Update();
+            PanosphereOverviewMeshInfo * test;
+            test = dynamic_cast<PanosphereOverviewMeshInfo*>(meshes[i]);
+            if (test) {
+                DEBUG_DEBUG("UPDATING Cast to panosphere mesh info");
+            } else {
+                DEBUG_DEBUG("UPDATING Cast to normal mesh info");
+            }
+            meshes[i]->Update();
         }
     }
     // add any new images.
     for (unsigned int i = old_size; i < m_pano->getNrOfImages(); i++)
     {
         DEBUG_INFO("Making new mesh remapper for image " << i << ".");
-        meshes.push_back(MeshInfo(m_pano, i, view_state, layout_mode_on));
+        PanosphereOverviewVisualizationState * test;
+        test = dynamic_cast<PanosphereOverviewVisualizationState*>(visualization_state);
+        if (test) {
+            DEBUG_INFO("Adding panosphere overview mesh info");
+            meshes.push_back(new PanosphereOverviewMeshInfo(m_pano, i, visualization_state, layout_mode_on));
+        } else {
+            meshes.push_back(new MeshInfo(m_pano, i, visualization_state, layout_mode_on));
+        }
     }
+    for (std::vector<MeshInfo*>::iterator it = meshes.begin() ; it != meshes.end() ; it++) {
+        PanosphereOverviewMeshInfo * test;
+        test = dynamic_cast<PanosphereOverviewMeshInfo*>(*it);
+        if (test) {
+            DEBUG_DEBUG("TEST Cast to panosphere mesh info");
+        } else {
+            DEBUG_DEBUG("TEST Cast to normal mesh info");
+        }
+    }
+
 }
 
 void MeshManager::RenderMesh(unsigned int image_number) const
 {
-    meshes[image_number].CallList();
+    meshes[image_number]->CallList();
 }
 
 unsigned int MeshManager::GetDisplayList(unsigned int image_number) const
 {
-    return meshes[image_number].display_list_number;
+    return meshes[image_number]->display_list_number;
 }
 
 void MeshManager::SetLayoutMode(bool state)
@@ -100,25 +128,29 @@ void MeshManager::SetLayoutMode(bool state)
     /* All meshes must be recalculated, since the layout mode uses meshes that
      * do not resemble properly remapped images.
      */
+    for (std::vector<MeshInfo*>::iterator it = meshes.begin() ; it != meshes.end() ; it++) {
+        delete (*it);
+    }
     meshes.clear();
 }
 
 void MeshManager::SetLayoutScale(double scale)
 {
     for(unsigned int i=0;i<meshes.size();i++)
-        meshes[i].SetScaleFactor(scale);
+        meshes[i]->SetScaleFactor(scale);
 };
+
 
 MeshManager::MeshInfo::MeshInfo(PT::Panorama * m_pano_in,
                                 unsigned int image_number_in,
-                                ViewState * view_state_in,
+                                VisualizationState * visualization_state_in,
                                 bool layout_mode_on_in)
     :   display_list_number(glGenLists(1)), // Find a free display list.
         image_number(image_number_in),
         m_pano(m_pano_in),
-        m_view_state(view_state_in),
-        remap(layout_mode_on_in ? (MeshRemapper *) new LayoutRemapper(m_pano, image_number, m_view_state)
-                                : (MeshRemapper *) new ChoosyRemapper(m_pano, image_number, m_view_state)),
+        m_visualization_state(visualization_state_in),
+        remap(layout_mode_on_in ? (MeshRemapper *) new LayoutRemapper(m_pano, image_number, m_visualization_state)
+                                : (MeshRemapper *) new ChoosyRemapper(m_pano, image_number, m_visualization_state)),
         layout_mode_on(layout_mode_on_in),
         scale_factor(3.0)
 {
@@ -130,14 +162,16 @@ MeshManager::MeshInfo::MeshInfo(const MeshInfo & source)
     :   display_list_number(glGenLists(1)),
     image_number(source.image_number),
     m_pano(source.m_pano),
-    m_view_state(source.m_view_state),
-    remap(source.layout_mode_on ? (MeshRemapper *) new LayoutRemapper(source.m_pano, source.image_number, source.m_view_state)
-                                : (MeshRemapper *) new ChoosyRemapper(source.m_pano, source.image_number, source.m_view_state)),
+    m_visualization_state(source.m_visualization_state),
+    remap(source.layout_mode_on ? (MeshRemapper *) new LayoutRemapper(source.m_pano, source.image_number, source.m_visualization_state)
+                                : (MeshRemapper *) new ChoosyRemapper(source.m_pano, source.image_number, source.m_visualization_state)),
     layout_mode_on(source.layout_mode_on),
     scale_factor(3.0)
 {
     Update();
 }
+
+
 
 MeshManager::MeshInfo::~MeshInfo()
 {
@@ -152,13 +186,21 @@ void MeshManager::MeshInfo::Update()
         /** @todo Maybe we should find the scale once, instead of for each
          * image, and find a more asthetic way to calculate it.
          */
-        double scale = m_view_state->GetVisibleArea().width() /
+        double scale = m_visualization_state->GetVisibleArea().width() /
                        sqrt((double) m_pano->getNrOfImages()) / scale_factor;
         MeshRemapper & remapper_ref = *remap;
         LayoutRemapper &r = dynamic_cast<LayoutRemapper &>(remapper_ref);
         r.setScale(scale);
     }
-    CompileList();
+    DEBUG_DEBUG("CHECKING UPDATE");
+    PanosphereOverviewMeshInfo * test;
+    test = dynamic_cast<PanosphereOverviewMeshInfo*>(this);
+    if (test) {
+        DEBUG_DEBUG("Cast to panosphere mesh info");
+    } else {
+        DEBUG_DEBUG("Cast to normal mesh info");
+    }
+    this->CompileList();
 }
 
 void MeshManager::MeshInfo::SetScaleFactor(double scale)
@@ -179,7 +221,7 @@ void MeshManager::MeshInfo::CompileList()
     DEBUG_INFO("Preparing to compile a display list for " << image_number
               << ".");
     DEBUG_ASSERT(remap);
-    bool multiTexture=m_view_state->GetSupportMultiTexture();
+    bool multiTexture=m_visualization_state->getViewState()->GetSupportMultiTexture();
     unsigned int number_of_faces = 0;
     glNewList(display_list_number, GL_COMPILE);
         remap->UpdateAndResetIndex();
@@ -235,6 +277,120 @@ void MeshManager::MeshInfo::CompileList()
         #ifndef WIREFRAME
         glEnd();
         #endif
+    glEndList();
+    DEBUG_INFO("Prepared a display list for " << image_number << ", using "
+              << number_of_faces << " face(s).");
+}
+
+MeshManager::PanosphereOverviewMeshInfo::Coords3D::Coords3D(const MeshRemapper::Coords & coords,  VisualizationState * state)
+{
+    double width, height, hfov, vfov;
+    HuginBase::PanoramaOptions * opts = state->GetOptions();
+    width = opts->getWidth();
+    height = opts->getHeight();
+    hfov = opts->getHFOV();
+    vfov = opts->getVFOV();
+
+    double r = ((PanosphereOverviewVisualizationState*)state)->getSphereRadius();
+    
+    for (int x = 0 ; x < 2 ; x++) {
+        for (int y = 0 ; y < 2 ; y++) {
+            tex_coords[x][y][0] = coords.tex_c[x][y][0];
+            tex_coords[x][y][1] = coords.tex_c[x][y][1];
+
+            double th, ph;
+            th = ((coords.vertex_c[x][y][0] / width) * hfov - hfov / 2.0);
+            ph = -((coords.vertex_c[x][y][1] / height) * vfov - vfov / 2.0);
+
+            th /= 180.0;
+            th *= M_PI;
+            ph /= 180.0;
+            ph *= M_PI;
+
+            vertex_coords[x][y][0] = r * sin(th) * cos(ph);
+            vertex_coords[x][y][1] = r * sin(ph);
+            vertex_coords[x][y][2] = r * cos(th) * cos(ph);
+
+        }
+    }
+}
+
+void MeshManager::PanosphereOverviewMeshInfo::CompileList()
+{
+    // build the display list from the coordinates generated by the remapper
+    DEBUG_INFO("Preparing to compile a display list for overview for " << image_number
+              << ".");
+    DEBUG_ASSERT(remap);
+    bool multiTexture=m_visualization_state->getViewState()->GetSupportMultiTexture();
+    unsigned int number_of_faces = 0;
+
+    HuginBase::SrcPanoImage * image = m_visualization_state->getViewState()->GetSrcImage(image_number);
+
+    glNewList(display_list_number, GL_COMPILE);
+        remap->UpdateAndResetIndex();
+        DEBUG_INFO("Specifying faces in display list.");
+
+        glPushMatrix();
+
+        glRotated(image->getYaw(), 0,1,0);
+        glRotated(image->getPitch(), -1,0,0);
+        
+        #ifndef WIREFRAME
+        glBegin(GL_QUADS);
+        #endif
+            // get each face's coordinates from the remapper
+            MeshRemapper::Coords coords;
+            bool write = true;
+            while (remap->GetNextFaceCoordinates(&coords))
+            {
+                Coords3D coords3d(coords, m_visualization_state);
+                number_of_faces++;
+                // go in an anticlockwise direction
+                #ifdef WIREFRAME
+                glBegin(GL_LINE_LOOP);
+                #endif
+                if(multiTexture)
+                {
+                    glMultiTexCoord2dv(GL_TEXTURE0,coords3d.tex_coords[0][0]);
+                    glMultiTexCoord2dv(GL_TEXTURE1,coords3d.tex_coords[0][0]);
+                }
+                else
+                    glTexCoord2dv(coords3d.tex_coords[0][0]);
+                glVertex3dv(coords3d.vertex_coords[0][0]);
+                if(multiTexture)
+                {
+                    glMultiTexCoord2dv(GL_TEXTURE0,coords3d.tex_coords[0][1]);
+                    glMultiTexCoord2dv(GL_TEXTURE1,coords3d.tex_coords[0][1]);
+                }
+                else
+                    glTexCoord2dv(coords3d.tex_coords[0][1]);
+                glVertex3dv(coords3d.vertex_coords[0][1]);
+                if(multiTexture)
+                {
+                    glMultiTexCoord2dv(GL_TEXTURE0,coords3d.tex_coords[1][1]);
+                    glMultiTexCoord2dv(GL_TEXTURE1,coords3d.tex_coords[1][1]);
+                }
+                else
+                    glTexCoord2dv(coords3d.tex_coords[1][1]);
+                glVertex3dv(coords3d.vertex_coords[1][1]);
+                 if(multiTexture)
+                {
+                    glMultiTexCoord2dv(GL_TEXTURE0,coords3d.tex_coords[1][0]);
+                    glMultiTexCoord2dv(GL_TEXTURE1,coords3d.tex_coords[1][0]);
+                }
+                else
+                   glTexCoord2dv(coords3d.tex_coords[1][0]);
+                glVertex3dv(coords3d.vertex_coords[1][0]);
+                #ifdef WIREFRAME
+                glEnd();
+                #endif
+            }
+        #ifndef WIREFRAME
+        glEnd();
+        #endif
+
+        glPopMatrix();
+        
     glEndList();
     DEBUG_INFO("Prepared a display list for " << image_number << ", using "
               << number_of_faces << " face(s).");

@@ -24,8 +24,10 @@
 
 #include "PT/Panorama.h"
 
+#include "MeshRemapper.h"
+
 class MeshRemapper;
-class ViewState;
+class VisualizationState;
 
 /** A MeshManager handles the graphics system representation of a remapping,
  * by creating OpenGL display lists that draw a remapped image.
@@ -34,7 +36,7 @@ class ViewState;
 class MeshManager
 {
 public:
-    MeshManager(PT::Panorama *pano, ViewState *view_state);
+    MeshManager(PT::Panorama *pano, VisualizationState *visualization_state);
     ~MeshManager();
     void CheckUpdate();
     /// Remove meshes for images that have been deleted.
@@ -53,7 +55,7 @@ public:
     void SetLayoutScale(double scale);
 private:
     PT::Panorama  * m_pano;
-    ViewState * view_state;
+    VisualizationState * visualization_state;
     /** Handles the remapper and a display list for a specific image.
      */
     class MeshInfo
@@ -68,7 +70,7 @@ private:
          * mode, false for a normally remapped mesh.
          */
         MeshInfo(PT::Panorama * m_pano, unsigned int image_number,
-                 ViewState * view_state, bool layout_mode_on);
+                 VisualizationState * visualization_state, bool layout_mode_on);
         /** copy constructor: makes a MeshInfo representing the same object but
          * using a differrent display list, allowing the first one to be freed.
          */
@@ -80,18 +82,49 @@ private:
         void Update();
         unsigned int display_list_number;
         void SetScaleFactor(double scale);
-    private:
+    protected:
         unsigned int image_number;
         PT::Panorama *m_pano;
         double scale_factor;
-        ViewState *m_view_state;
+        VisualizationState *m_visualization_state;
         /// The ramapper we should use
         MeshRemapper * remap;
         /// Use the remapper to create the display list.
-        void CompileList();
+        virtual void CompileList();
         bool layout_mode_on;
     };
-    std::vector<MeshInfo> meshes;
+
+    class PanosphereOverviewMeshInfo : public MeshInfo
+    {
+    public:
+        PanosphereOverviewMeshInfo(PT::Panorama * m_pano, unsigned int image_number,
+                 VisualizationState * visualization_state, bool layout_mode_on)
+            : MeshInfo(m_pano, image_number, visualization_state, layout_mode_on) {
+                //Update must be called again from here because the MeshInfo constructor will only call MeshInfo::CompileList
+                //FIXME: solve this
+                Update();
+            }
+
+        PanosphereOverviewMeshInfo(const PanosphereOverviewMeshInfo & source)
+            : MeshInfo((MeshInfo) source) {
+                //Update must be called again from here because the MeshInfo constructor will only call MeshInfo::CompileList
+                //FIXME: solve this
+                Update();
+            }
+
+        class Coords3D {
+        public:
+            Coords3D(const MeshRemapper::Coords & coords, VisualizationState * state);
+            double tex_coords[2][2][2];
+            double vertex_coords[2][2][3];
+        };
+
+        void CompileList();
+    
+    };
+
+    
+    std::vector<MeshInfo*> meshes;
     bool layout_mode_on;
 };
 

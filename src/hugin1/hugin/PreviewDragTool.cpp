@@ -142,7 +142,7 @@ void PreviewDragTool::MouseMoveEvent(double x, double y, wxMouseEvent & e)
 	    }
                           
         // redraw
-        helper->GetViewStatePtr()->Redraw();
+        helper->GetVisualizationStatePtr()->Redraw();
     }
 }
 

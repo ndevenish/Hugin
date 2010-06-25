@@ -22,7 +22,7 @@
 #ifndef PREVIEW_LAYOUT_LINES_TOOL_H
 #define PREVIEW_LAYOUT_LINES_TOOL_H
 
-#include "PreviewTool.h"
+#include "Tool.h"
 #include <vector>
 #include <hugin_math/hugin_math.h>
 #include "GreatCircles.h"
