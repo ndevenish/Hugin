@@ -40,8 +40,6 @@ IF(VIPS_FOUND)
 #  add_subdirectory(vips)
 ENDIF(VIPS_FOUND)
 
-message(${wxWidgets_INCLUDE_DIRS})
-
 # build gui only if wxWidgets was found
 IF(wxWidgets_FOUND)
   INCLUDE(${wxWidgets_USE_FILE})
