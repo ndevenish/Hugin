@@ -54,6 +54,17 @@ ELSE()
   SET(HUGIN_DEVELOPMENT_VERSION 0)
 ENDIF()
 
+#
+# Check for mercurial and update changelog
+#
+IF (EXISTS ${PROJECT_SOURCE_DIR}/.hg)
+  IF (UPDATE_CHANGELOG)
+   FIND_PROGRAM(_hg hg)
+   EXECUTE_PROCESS(COMMAND ${_hg} log --follow --style=changelog OUTPUT_FILE ${PROJECT_SOURCE_DIR}/ChangeLog)
+   MESSAGE("-- New ChangeLog generated")
+  ENDIF (UPDATE_CHANGELOG)
+ENDIF (EXISTS ${PROJECT_SOURCE_DIR}/.hg)
+
 # version to display
 IF (HUGIN_DEVELOPMENT_VERSION EQUAL 1)
   set(DISPLAY_VERSION "Pre-Release ${V_MAJOR}.${V_MINOR}.${V_PATCH}.${HUGIN_WC_REVISION}")
