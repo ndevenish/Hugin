@@ -1,45 +1,59 @@
 Pablo d'Angelo	Original Author, GSoC 2007 and 2008 mentor, German translation, original CMake build, original Windows SDK
+Bart van Andel  Bugfix
 György Balló	original Hungarian translation
 Herbert Bay	GSoC 2007 mentor
 Kai-Uwe Behrmann	gui, panoviewer adds, original German translation
-Albert Capellades Badia	original Catalan translation
 Kornel Benko	maintenance CMake build
+Stephen Bennett	show points patch
 Jakub Bogusz	Polish translation
+Albert Capellades Badia	original Catalan translation
 Milo Casagrande	Italian translation
-Marco Cucinato	Italian translation
 Vaclav Cerny	Czech translation
 Jean-Luc Coulon	original French translation
+Marco Cucinato	Italian translation
+Ademar de Souza Reis Jr.	original Brazilian translation and translation related fixes
 Serhij Dubyk	initial Ukrainian translation
 Terry Duell	updated tutorials, Fedora tester and packager
-Lu Fang	initial Chinese Simplified translation
+Alexandre Duret-Lutz code
+Lu Fang		initial Chinese Simplified translation
+Skip Gaede	OS X build fixes
+Daniel German	bug patch
+Niels Giesen	Dutch translation
 Jorge González González	original Spanish translation
+Felix Hagemann	bug reports and patches
 Ed Halley	gui, documentation
+Robert Hart	bug reports and patches
 Juha Helminen	Code
 Ad Huikeshoven	automated Windows snapshot builds
 Iouri Ivliev	bug fixes
 Marek Januszewski	Code, initial Polish translation
+Alexandre Jenny	SpaceTransform class, GSoC 2008 mentoring
 Jing Jin	GSoC 2007 deghosting
 Lukáš Jirkovský	GSoC 2009 deghosting in enfuse
 Allard Katan	Windows installer
-Marco Kuder	GSoC 2008 batch processor
 Guido Kohlmeyer	German translation, Windows SDK, bug fixes
 Erik Krause	Enfuse and enblend droplets for Windows
-Alexandre Jenny	SpaceTransform class, GSoC 2008 mentoring
+Marco Kuder	GSoC 2008 batch processor
 Höss Lajos	Hungarian translation
 Rick Langford	Traditional Chinese original translation and updates
 Homin Lee	initial Korean translation
 James Legg	GSoC 2008 OpenGL fast preview GSoC 2009 new layout
 Yuval Levy	Community Builder, GSoC admin 2007 and 2009, GSoC mentor 2007 and 2008, Windows build, original Windows installer, bugfixes, fixes Italian translation
+Wim Lewis	Code fix
+Roger Luethi    Code
+Caolán McNamara	code fix
 Cristian Marchi	Italian translation and 2010 artwork
 Zoran Mesec	GSoC 2007 feature detector, GSoC 2008 mentor, initial Slovenian translation
 Andreas Metzler	Debian packaging
 Andrew Mihal	original author of enblend, enfuse, nona-gpu. GSoC 2009 mentor
 Thomas Modes	code and bugfixes
+Tiziano Müller	code
 John Navas	MSI installer
+José Alejandro Carrillo Neira Spanish translation
 Tim Nugent	GSoC 2008 Celeste, GSoC 2009 Lens Calibration
 Simon Oosthoek	Dutch translation
-Eduardo Pérez Esteban	Spanish translation
 Gerry Patterson	Code
+Eduardo Pérez Esteban	Spanish translation
 Bruno Postle	initial packaging, website, documentation, initial British English translation, GSoC 2009 mentor
 Alexandre Prokoudine	Initial Russian translation, GSoC 2008 admin
 Jozef Riha	original Slovak translation
@@ -47,16 +61,15 @@ Marijn Ros	bug reports and patches
 Joachim Schneider	German translation
 Tom Sharpless	Windows build, GSoC 2009 mentor, code
 Jiri Slaby	original Czech translation
-Robert Hart	bug reports and patches
-Gary Stein	Autocrop functionality
-Skip Gaede	OS X build fixes
-Felix Hagemann	bug reports and patches
 Ryan Sleevi	Windows 64-bit patches, patches and SDK
-Ademar de Souza Reis Jr.	original Brazilian translation and translation related fixes
 Michał Smoczyk	Polish translation
 Svetoslav Stefanov	Bulgarian initial translation
+Gary Stein	Autocrop functionality
+Riz Thon	French translation
+Dave Tow        cmake patch
 Brent Townshend	code and bug fixes
 Lorenz Trischberger	German translation
+Ken Turkowski	code
 Ippei Ukai	MacOSX port, initial Japanese translation, GSoC 2007 code refactoring
 Harry van der Wolf	original Dutch translation, OSX build
 Luca Vascon	splash screen, icons, original Italian translation
@@ -64,4 +77,3 @@ Fabian Wetzel	Panoglview
 Ulf Wilhelmson	original Swedish translation
 Douglas Wilkins	packaging, translation, bugfixes
 Ziv Yaniv	RanSaC code
-Stephen Bennett	show points patch
