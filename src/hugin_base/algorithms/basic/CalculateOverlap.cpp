@@ -65,7 +65,7 @@ void CalculateImageOverlap::calculate(unsigned int steps)
 {
     for(unsigned int i=0; i<m_nrImg;i++)
     {
-        const SrcPanoImage& img=m_pano->getSrcImage(i);
+        const SrcPanoImage& img=m_pano->getImage(i);
         vigra::Rect2D c=img.getCropRect();
         unsigned int frequency=std::min<unsigned int>(steps,std::min<unsigned int>(c.width(),c.height()));
         if(frequency<2)
@@ -99,7 +99,7 @@ void CalculateImageOverlap::calculate(unsigned int steps)
                         m_transform[j]->transformImgCoord(xj,yj,xi,yi);
                         p.x=xj;
                         p.y=yj;
-                        if(m_pano->getSrcImage(j).isInside(p,true))
+                        if(m_pano->getImage(j).isInside(p,true))
                         {
                             overlapCounter[j]++;
                         };

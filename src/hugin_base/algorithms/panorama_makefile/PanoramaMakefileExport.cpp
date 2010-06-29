@@ -98,13 +98,13 @@ vector<UIntSet> getExposureLayers(const PanoramaData & pano, UIntSet allImgs)
         allImgs.erase(srcImg);
 
         // find all images that have a suitable overlap.
-        SrcPanoImage simg = pano.getSrcImage(srcImg);
+        const SrcPanoImage & simg = pano.getImage(srcImg);
         // FIXME this should be a user preference
         double maxEVDiff = 0.5;
         for (UIntSet::iterator it = allImgs.begin(); it !=  allImgs.end(); ) {
             unsigned srcImg2 = *it;
             it++;
-            SrcPanoImage simg2 = pano.getSrcImage(srcImg2);
+            const SrcPanoImage & simg2 = pano.getImage(srcImg2);
             if ( fabs(simg.getExposureValue() - simg2.getExposureValue()) < maxEVDiff )
             {
                 stack.insert(srcImg2);
@@ -556,7 +556,7 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
         o << expImgVar.str() << "_INPUT = ";
         double exposure=0;
         for (UIntSet::iterator it = similarExposures[i].begin(); it != similarExposures[i].end();) {
-            exposure += pano.getSrcImage(*it).getExposureValue();
+            exposure += pano.getImage(*it).getExposureValue();
             std::ostringstream fns;
             fns << output << "_exposure_layers_" << std::setfill('0') << std::setw(4) << *it << ldrRemappedExt;
             similarExposureRemappedImages.push_back(fns.str());
@@ -857,7 +857,7 @@ void PanoramaMakefileExport::createMakefile(const PanoramaData& pano,
                               << " $(PROJECT_FILE)" << endl << endl;
                             */
                             o << destImg << ": " << srcImg << " $(PROJECT_FILE)" << endl
-                              << "\t$(NONA) $(NONA_OPTS) $(NONA_LDR_REMAPPED_COMP) -r ldr -e " << pano.getSrcImage(*it).getExposureValue()
+                              << "\t$(NONA) $(NONA_OPTS) $(NONA_LDR_REMAPPED_COMP) -r ldr -e " << pano.getImage(*it).getExposureValue()
                               << " -m " << ldrRemappedMode << " -o $(LDR_EXPOSURE_REMAPPED_PREFIX_SHELL) -i " << *it
                               << " $(PROJECT_FILE_SHELL)" << endl << endl;
                             j++;
