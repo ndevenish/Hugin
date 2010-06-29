@@ -477,8 +477,8 @@ void wxLoadPTProjectCmd::execute()
             it != oldCPs.end(); ++it)
     {
         PT::ControlPoint point = *it;
-        SrcPanoImage img1 = pano.getSrcImage(point.image1Nr);
-        SrcPanoImage img2 = pano.getSrcImage(point.image2Nr);
+        const SrcPanoImage & img1 = pano.getImage(point.image1Nr);
+        const SrcPanoImage & img2 = pano.getImage(point.image2Nr);
         if (0 > point.x1 || point.x1 > img1.getSize().x || 
             0 > point.y1 || point.y1 > img1.getSize().y ||
             0 > point.x2 || point.x2 > img2.getSize().x || 
@@ -601,7 +601,7 @@ void wxApplyTemplateCmd::execute()
         for (unsigned int i = 0; i < nNewImg; i++) {
 
             // check if image size is correct
-            SrcPanoImage oldSrcImg = pano.getSrcImage(i);
+            const SrcPanoImage & oldSrcImg = pano.getImage(i);
             SrcPanoImage newSrcImg = newPano.getSrcImage(i);
 
             // just keep the file name
