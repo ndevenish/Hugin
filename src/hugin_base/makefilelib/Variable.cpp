@@ -22,7 +22,7 @@ namespace makefile
  */
 int Variable::checkStrings()
 {
-	static const boost::regex validname("[[:alnum:]_]*");
+	static const boost::regex validname("\\w+");
 	if( !boost::regex_match(name, validname))
 		throw std::invalid_argument("Bad Variable name: " + name);
 

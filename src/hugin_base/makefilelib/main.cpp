@@ -15,10 +15,12 @@
 #include "Makefile.h"
 #include "AutoVariable.h"
 
+#include <boost/regex.hpp>
+
 using namespace std;
 using namespace makefile;
 
-int main(int argc, char *argv[])
+int tryall()
 {
 	Comment comment("First line");
 	comment.appendLine("second line");
@@ -49,5 +51,23 @@ int main(int argc, char *argv[])
 	AutoVariable autovar("@");
 //	cout << autovar.getDef(); causes an exception as it should.
 	cout << autovar.getRef() << endl;
+}
+
+int tryreplace()
+{
+	boost::regex toescape("(\\$)|([\\\\ \\~\\$\"\\|\\'\\`\\{\\}\\[\\]\\(\\)\\*\\#\\:\\=])");
+//	boost::regex toescape("(p)|([Da])");
+	std::string output("(?1\\$$&)(?2\\\\$&)");
+//	std::string output("(?1--$&--)(?2__$&__)");
+	std::string text("Ein_Dollar$ $ und_paar_andere Sachen werden richtig escaped. backslash\\__ ein sternchen * doppelpunkt :=*~");
+	cout << boost::regex_replace(text, toescape, output, boost::match_default | boost::format_all) << endl;
+
+	cout << "SHELL mode" << endl << Makefile::quote(text, Makefile::SHELL) << endl;
+	cout << "MAKE mode" << endl << Makefile::quote(text, Makefile::MAKE) << endl;
+}
+int main(int argc, char *argv[])
+{
+	return tryreplace();
+	return tryall();
 	return 0;
 }

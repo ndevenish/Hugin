@@ -19,7 +19,7 @@ static const string prefix("\n# ");
 
 std::string Comment::toString()
 {
-	static const boost::regex newline("[\n\r]");
+	static const boost::regex newline("\\R");
 	return string(prefix + boost::regex_replace(text, newline, prefix) + '\n');
 }
 }
