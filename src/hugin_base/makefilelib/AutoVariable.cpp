@@ -15,7 +15,7 @@ int AutoVariable::checkStrings()
 	return 0;
 }
 
-std::string& AutoVariable::getValue()
+std::string AutoVariable::getValue()
 {
 	throw(std::runtime_error("AutoVariables have no predefined value."));
 }

@@ -20,7 +20,7 @@ namespace makefile
  *
  * @return
  */
-int Variable::checkStrings()
+int Variable::checkName()
 {
 	static const boost::regex validname("\\w+");
 	if( !boost::regex_match(name, validname))

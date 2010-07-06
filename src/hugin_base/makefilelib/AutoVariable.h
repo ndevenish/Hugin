@@ -33,7 +33,7 @@ public:
 	{};
 
 	/// Has no value, exception.
-	virtual std::string& getValue();
+	virtual std::string getValue();
 
 	/// Has no definition, exception.
 	virtual VariableDef& getDef();

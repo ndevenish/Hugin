@@ -45,12 +45,17 @@ int tryall()
 	{
 		cerr << e.what() << endl;
 	}
-	Variable namesucksless("This_name_sucks_less", "badvalue");
+	Variable namesucksless("This_name_sucks_less", "~~(bad:){\\value}");
+	namesucksless.setQuoteMode(Makefile::SHELL);
+	cout << namesucksless.getDef();
+	namesucksless.setQuoteMode(Makefile::MAKE);
 	cout << namesucksless.getDef();
 
 	AutoVariable autovar("@");
 //	cout << autovar.getDef(); causes an exception as it should.
 	cout << autovar.getRef() << endl;
+
+	return 0;
 }
 
 int tryreplace()
@@ -64,10 +69,11 @@ int tryreplace()
 
 	cout << "SHELL mode" << endl << Makefile::quote(text, Makefile::SHELL) << endl;
 	cout << "MAKE mode" << endl << Makefile::quote(text, Makefile::MAKE) << endl;
+
+	return 0;
 }
 int main(int argc, char *argv[])
 {
-	return tryreplace();
-	return tryall();
+	return tryreplace() || tryall();
 	return 0;
 }
