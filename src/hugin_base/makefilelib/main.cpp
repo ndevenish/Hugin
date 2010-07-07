@@ -35,6 +35,8 @@ int tryall()
 
 	Variable myfullname("MYFULLNAME", myname.getRef().toString() + " Achleitner");
 	cout << myfullname.getDef() << myfullname.getRef() << endl;
+	myfullname.setQuoteMode(Makefile::MAKE);
+	cout << myfullname.getDef() << myfullname.getRef() << endl;
 
 	try
 	{
@@ -60,12 +62,15 @@ int tryall()
 
 int tryreplace()
 {
-	boost::regex toescape("(\\$)|([\\\\ \\~\\$\"\\|\\'\\`\\{\\}\\[\\]\\(\\)\\*\\#\\:\\=])");
+	boost::regex toescape;
 //	boost::regex toescape("(p)|([Da])");
-	std::string output("(?1\\$$&)(?2\\\\$&)");
+	std::string output;
 //	std::string output("(?1--$&--)(?2__$&__)");
-	std::string text("Ein_Dollar$ $ und_paar_andere Sachen werden richtig escaped. backslash\\__ ein sternchen * doppelpunkt :=*~");
+	toescape.assign("(\\$\\([^\\)]+\\))|(\\$[^\\(])|([\\\\ \\~\"\\|\\'\\`\\{\\}\\[\\]\\(\\)\\*\\#\\:\\=])");
+	output.assign("(?1$&)(?2\\\\\\$$&)(?3\\\\$&)");
+	std::string text("Ein_Dollar$ $ und_paar_andere (Sachen) werden $(richtig) escaped. backslash\\__ ein sternchen * doppelpunkt :=*~");
 	cout << boost::regex_replace(text, toescape, output, boost::match_default | boost::format_all) << endl;
+	return 0;
 
 	cout << "SHELL mode" << endl << Makefile::quote(text, Makefile::SHELL) << endl;
 	cout << "MAKE mode" << endl << Makefile::quote(text, Makefile::MAKE) << endl;

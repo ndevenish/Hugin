@@ -21,7 +21,7 @@ Makefile::~Makefile()
 {
 	// TODO Auto-generated destructor stub
 }
-//#define WIN32
+#define WIN32
 /**
  * Quotes and escapes characters using regular expressions. Two modes are currently distinguished,
  * depending on the usage of the string.
@@ -35,6 +35,8 @@ Makefile::~Makefile()
  * - Make mode
  *   - WIN32: $ --> $$, [ #=] --> escape with backslash
  *   - others: $ --> $$, [ #:=] --> escape with backslash
+ *
+ * All replacements take care of variable references and do not replace $(varname) patterns.
  *
  * @note src/hugin_base/hugin_utils/platform.h is where the information is from.
  * Unfortunately there are lots of comments in that code, which say that the correctness
@@ -52,28 +54,32 @@ std::string Makefile::quote(const std::string& in, Makefile::QuoteMode mode)
 	{
 	case Makefile::SHELL:
 #ifdef WIN32
-		toescape.assign("(\\$)|(\\\\)|(\\#)");
+		toescape.assign("(\\$[^\\(])|(\\\\)|(\\#)");
 		// uses a nice regex feature "recursive expressions" for doing it all in one (subexpression) cascade.
-		output.assign("\\\"(?1\\$$&)(?2/)(?3\\\\$&)\\\"");
+		output.assign("(?1\\$$&)(?2/)(?3\\\\$&)");
+		return std::string("\"") + boost::regex_replace(in, toescape, output, boost::match_default | boost::format_all) + "\"";
 #else
-		toescape.assign("(\\$)|([\\\\ \\~\"\\|\\'\\`\\{\\}\\[\\]\\(\\)\\*\\#\\:\\=])");
-		output.assign("(?1\\\\\\$$&)(?2\\\\$&)");
+		// because parenthesis are replaced too, the first pattern detects variable references and passes them unchanged.
+		toescape.assign("(\\$\\([^\\)]+\\))|(\\$)|([\\\\ \\~\"\\|\\'\\`\\{\\}\\[\\]\\(\\)\\*\\#\\:\\=])");
+		output.assign("(?1$&)(?2\\\\\\$$&)(?3\\\\$&)");
+		return boost::regex_replace(in, toescape, output, boost::match_default | boost::format_all);
 #endif
 		break;
 	case Makefile::MAKE:
 #ifdef WIN32
-		toescape.assign("(\\$)|([ \\#\\=])");
+		toescape.assign("(\\$[^\\(])|([ \\#\\=])");
 		output.assign("(?1\\$$&)(?2\\\\$&)");
+		return boost::regex_replace(in, toescape, output, boost::match_default | boost::format_all);
 #else
-		toescape.assign("(\\$)|([ \\#\\:\\=])");
+		// do not replace $ if followed by a (. To allow variable references.
+		toescape.assign("(\\$[^\\(])|([ \\#\\:\\=])");
 		output.assign("(?1\\$$&)(?2\\\\$&)");
+		return boost::regex_replace(in, toescape, output, boost::match_default | boost::format_all);
 #endif
 		break;
 	default:
-		toescape.assign(".*");
-		output.assign("$&");
+		return std::string(in);
 	}
-	return boost::regex_replace(in, toescape, output, boost::match_default | boost::format_all);
 }
 
 }
