@@ -1,0 +1,111 @@
+Hugin-2009.4.0 release notes
+
+Hugin is a panorama stitcher and more.
+
+Changes since 2009.2.0
+
+The last release was barely a month ago, but we have a backlog of 
+new features ready to go.  So keeping with the intention of tracking 
+development better with more frequent releases, Hugin now brings you 
+two major new features as well as the usual bugfixes and incremental 
+improvements:
+
+Automatic lens calibration
+
+Hugin is already a great tool for calibrating lenses; by stitching a 
+panorama Hugin will automatically calculate barrel distortion, 
+vignetting and angle of view for any lens.  Plus there is everything 
+a power user might want: different lenses can be calibrated in a 
+single project, fisheyes and shift lenses pose no problems to the 
+Hugin optimiser.
+
+However, stitching a panorama is not the only way to calculate lens 
+parameters; barrel distortion turns straight lines into curves, so 
+figuring out how to straighten them again is enough to accurately 
+calibrate a lens - All you need is an object with lots of 
+straight-lines, such as a modern building, and one or more 
+photographs of it.
+
+This year Tim Nugent was employed by Google Summer of Code to add a 
+new Hugin tool called calibrate_lens, this takes such photos as 
+input and produces calibrated parameters as output.  There isn't yet 
+a graphical interface, and the command-line tool still requires work 
+to produce output compatible with Hugin, but this release provides a 
+base to build future tools.
+
+Control point cleaning
+
+Hugin aligns photos using a system of control points; these are 
+features from the scene that appear in each pair of overlapping 
+photos.  Normally just a handful of features are needed to get a good 
+result, but they do need to be identified - This can be done either 
+by picking them in the Hugin Control Points tab or by using one of 
+the automatic control point creator plugins such as autopano-sift-C 
+or pan-o-matic.
+
+These Control point creators are incredibly convenient, but still 
+make mistakes that are obvious to the human eye.  Hugin now filters 
+automatically generated points to remove those that are 
+statistically improbable.  The same filter can be used to 'clean' an 
+existing project on the Images tab, and is available as a new 
+scriptable command-line tool called cpclean.
+
+Languages
+
+The Hugin application is translated into twenty languages, most of 
+these translations have been updated for this release.
+
+Other improvements
+
+This release also has the usual incremental improvements: building 
+on Windows, Linux and OS X is now easier, some crashes in obscure 
+situations have been fixed, more useful photo EXIF metadata is shown 
+in the Images tab, the manual has been updated to document current 
+features and now displays in your default system web-browser, a bug 
+where upside down crop rectangles confused the stitcher is fixed, 
+and an annoyance where control point settings were not persistent 
+between sessions is gone.
+
+Control point generators
+
+Hugin doesn't yet ship with a 'Patent Free' control point generator. 
+So you either need to pick control points manually - Not as 
+difficult as it sounds - or install and configure one of the 
+following control-point generators as 'plug-ins':
+
+ * autopano-sift-C
+ * panomatic
+ * match-n-shift
+ * Autopano-SIFT
+ * Autopano freeware version
+
+Upgrading
+
+Upgrading from previous versions of Hugin should be seamless.  If you 
+do have problems with old settings, these can be reset in the 
+Preferences by clicking 'Load defaults'.
+
+For users compiling from source: note that the minimum version of 
+wxWidgets supported is now 2.7.0, libpano13 needs to be at least 
+2.9.14, and that Hugin now requires GLEW the OpenGL Extension 
+Wrangler Library, freeglut the OpenGL utility toolkit, and libGLU 
+the OpenGL utility library.
+
+Support for the legacy libpano12 library has been discontinued.
+
+See the the README and INSTALL_cmake files for more information.
+
+Thanks to all the contributors to this release and members of the 
+hugin-ptx mailing list, too many to mention here.
+
+Hugin can be found at http://hugin.sourceforge.net/
+
+Hugin sourcecode can be downloaded from sourceforge:
+
+http://sourceforge.net/projects/hugin/files/hugin/.
+
+SHA1SUM: a801a2521d66a9b0c8680bdfe84afe67bc79d1c8  hugin-2009.4.0.tar.gz
+
+This release is identical to 2009.4.0_rc3 and equivalent to 2009.4 
+branch svn 4742.
+

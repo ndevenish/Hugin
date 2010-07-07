@@ -1,0 +1,116 @@
+Thanks to everyone responsible for this release!
+
+Hugin 2010.0.0 release notes
+
+Translated versions of these notes can be found here:
+http://hugin.sourceforge.net/releases/
+
+Hugin is a panorama stitcher and more.
+
+Changes since 2009.4.0
+
+The Hugin plan is to bring you new developments as soon as they are 
+ready with regular incremental releases. This first release in 2010 
+brings some new features, more results from the 2009 Google Summer 
+of Code and many general improvements.
+
+Usability
+
+The Hugin Fast Preview window is where you see a rough preview of 
+the final panorama and can edit it with a selection of tools — For 
+example, one of several 'modes' is Drag for moving photos around the 
+canvas, there are also single click 'actions' to do things like 
+reset the exposure or center the view.
+
+Now these tools have been overhauled to make them easier to find, to 
+get a bigger panorama canvas, and to create space for new features 
+in the pipeline such as the upcoming Layout mode. Switching 'modes' 
+is more intuitive, with a tab for each that shows just the 'actions' 
+relevant to that mode, the <F11> key enables full-screen viewing of 
+the preview.
+
+There are other usability-related changes — the Hugin main window 
+can also be viewed full-screen with <F11>; more photo EXIF metadata 
+is displayed in the Images tab; a list of recent projects is 
+available in the File menu; plus there has been a general clean-up 
+of text in the GUI and many updates to the manual.
+
+Autocrop
+
+Hugin is great for stitching hand-held panoramas, but nobody can 
+shoot in perfect straight lines, so these panoramas need careful 
+cropping to produce a picture with 100% coverage. The Fast Preview 
+window now has an Autocrop button that does all this for you 
+automatically — Just click, and the crop rectangle will be resized 
+to use the largest possible area covered by your photos.
+
+Deghosting
+
+One of the advanced Hugin features is to merge bracketed photos 
+using exposure fusion or HDR merging - This is done automatically 
+when stitching when bracketed sets are detected.
+
+However, when people or objects move during a bracketed sequence, 
+'ghosts' appear in the result. So another Summer of Code project has 
+now been integrated that both enables HDR deghosting in the GUI and 
+provides an experimental deghosting_mask tool for exposure fusion 
+deghosting with enfuse.
+
+Languages
+
+With the addition of a Finnish translation, the Hugin application is 
+now internationalized for twenty-one languages, most of the 
+translations have been updated for this release.
+
+Other improvements
+
+This release also has the usual incremental improvements: The 
+default size of the image cache has increased in line with modern 
+computers, so existing Hugin users may want to check or reset their 
+Preferences to suit; the About dialog has been extended to show a 
+full list of Hugin contributors, and there have been many other 
+fixes for minor bugs and annoyances.
+
+Control point generators
+
+Hugin doesn't yet ship with a 'Patent Free' control point generator. 
+So you either need to pick control points manually - Not as 
+difficult as it sounds - or install and configure one of the 
+following control-point generators as 'plug-ins':
+
+* autopano-sift-C
+* panomatic
+* match-n-shift
+* Autopano-SIFT
+* Autopano freeware version
+
+Upgrading
+
+Upgrading from previous versions of Hugin should be seamless. If you 
+do have problems with old settings, these can be reset in the 
+Preferences by clicking 'Load defaults'.
+
+For users compiling from source: note that the minimum version of 
+wxWidgets supported is now 2.7.0, libpano13 needs to be at least 
+2.9.14, and that Hugin now requires GLEW the OpenGL Extension 
+Wrangler Library, freeglut the OpenGL utility toolkit, and libGLU 
+the OpenGL utility library.
+
+Support for the legacy libpano12 library has been discontinued.
+
+See the README and INSTALL_cmake files for more information.
+
+Thanks to all the contributors to this release and members of the 
+hugin-ptx mailing list, too many to mention here.
+
+Hugin can be found at http://hugin.sourceforge.net/
+
+Hugin sourcecode can be downloaded from sourceforge:
+
+http://sourceforge.net/projects/hugin/files/hugin/
+
+SHA1SUM: 41eb7253aab12b913a5c9b6d9975d8652390dcb5  hugin-2010.0.0.tar.gz
+
+This release is identical to 2010.0.0_rc1 and equivalent to SVN 
+/releases/2010.0 -r 5045.
+
