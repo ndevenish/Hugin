@@ -54,6 +54,34 @@
 	Update authors.txt
 	[38ed0587798b]
 
+2010-06-28  Bruno Postle  <bruno@postle.net>
+
+	* CMakeLists.txt:
+	Set minor version to 2 for stable branch
+	[58c0c6a4f777]
+
+2010-06-28  harryvanderwolf  <hvdwolf@gmail.com>
+
+	* mac/Hugin.xcodeproj/project.pbxproj:
+	[OSX] Change version stamp to only hexadecimal part
+	[9fa03ec044ad]
+
+2010-06-28  Bruno Postle  <bruno@postle.net>
+
+	* src/translations/zh_TW.po:
+	Updated Traditional Chinese translation (Rick Langford)
+	[d017edd0161f]
+
+	* src/translations/hu.po:
+	Updated Hungarian translation #3021348 (Höss Lajos)
+	[8ce1c813f7a1]
+
+2010-06-28  Terry Duell  <tduell@users.sourceforge.net>
+
+	* ChangeLog, authors.txt:
+	Update authors.txt
+	[38ed0587798b]
+
 2010-06-27  Terry Duell  <tduell@users.sourceforge.net>
 
 	* CMakeLists.txt:
