@@ -6,8 +6,10 @@
  */
 
 #include "Makefile.h"
+#include "MakefileItem.h"
 #include <boost/regex.hpp>
 
+using namespace std;
 namespace makefile
 {
 
@@ -21,7 +23,7 @@ Makefile::~Makefile()
 {
 	// TODO Auto-generated destructor stub
 }
-#define WIN32
+//#define WIN32
 /**
  * Quotes and escapes characters using regular expressions. Two modes are currently distinguished,
  * depending on the usage of the string.
@@ -80,6 +82,15 @@ std::string Makefile::quote(const std::string& in, Makefile::QuoteMode mode)
 	default:
 		return std::string(in);
 	}
+}
+
+int Makefile::writeMakefile(ostream& out)
+{
+	for(vector<MakefileItem*>::iterator i = items.begin(); i != items.end(); i++)
+	{
+		out << (*i)->toString();
+	}
+	return items.size();
 }
 
 }

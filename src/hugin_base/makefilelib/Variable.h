@@ -46,8 +46,8 @@ protected:
 private:
 	Variable(const Variable&);	// no implicite copies!
 public:
-	Variable(std::string name_, std::string value_)
-	: name(name_), value(value_), def(*this), ref(*this), quotemode(Makefile::SHELL)
+	Variable(std::string name_, std::string value_, Makefile::QuoteMode quotemode_ = Makefile::SHELL)
+	: name(name_), value(value_), def(*this), ref(*this), quotemode(quotemode_)
 	{
 		checkName();
 	}
