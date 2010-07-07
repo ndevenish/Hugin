@@ -105,6 +105,7 @@ int trymakefile()
 	mf->add(makevar.getDef());
 
 	mf->writeMakefile(cout);
+	cout << (string(c1));
 }
 int main(int argc, char *argv[])
 {

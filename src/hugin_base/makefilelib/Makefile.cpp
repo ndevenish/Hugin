@@ -88,7 +88,7 @@ int Makefile::writeMakefile(ostream& out)
 {
 	for(vector<MakefileItem*>::iterator i = items.begin(); i != items.end(); i++)
 	{
-		out << (*i)->toString();
+		out << **i;
 	}
 	return items.size();
 }

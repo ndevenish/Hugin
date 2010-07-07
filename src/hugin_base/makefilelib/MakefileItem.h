@@ -34,20 +34,15 @@ public:
 	{
 		os << toString();
 	}
+	/// Allow casts to string, very nice!
+	operator std::string()
+	{
+		return toString();
+	}
 
 };
 
 std::ostream& operator<<(std::ostream& stream, MakefileItem& item);
-
-class MakefileItemString : public std::string
-{
-public:
-	MakefileItemString(MakefileItem& m)
-	: std::string(m.toString())
-	{}
-	virtual ~MakefileItemString()
-	{}
-};
 
 }
 
