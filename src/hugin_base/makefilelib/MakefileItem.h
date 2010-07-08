@@ -8,6 +8,8 @@
 #ifndef MAKEFILEITEM_H_
 #define MAKEFILEITEM_H_
 
+#include "Makefile.h"
+
 #include <ostream>
 #include <string>
 
@@ -25,7 +27,14 @@ class MakefileItem
 {
 public:
 	MakefileItem()
-	{}
+	{
+		Makefile::getSingleton().add(this);
+	}
+
+	virtual ~MakefileItem()
+	{
+		Makefile::getSingleton().remove(this);
+	}
 
 	/// @return A string representation of the MakefileItem.
 	virtual std::string toString()=0;

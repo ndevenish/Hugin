@@ -81,31 +81,21 @@ int tryreplace()
 
 int trymakefile()
 {
-	boost::scoped_ptr<Makefile> mf(new Makefile());
-
 	Comment comment("First line");
-	mf->add(comment);
-	mf->add(&comment);
 	comment.appendLine("second line");
 	comment.appendLine("third line\nfourth line\rfifth line");
 
 
 	Variable myname("MYNAME", "Flo");
-	mf->add(myname.getDef());
-	mf->add(myname.getRef());
 
 	Variable myfullname("MYFULLNAME", myname.getRef().toString() + " Achleitner");
-	mf->add(myfullname.getDef());
-	mf->add(myfullname.getRef());
 
-	Comment c1("Escaping modes:"); mf->add(c1);
+	Comment c1("Escaping modes:");
 	Variable shellvar("SHELLVAR", "'has some special (char)s # [or] {not}", Makefile::SHELL);
 	Variable makevar("MAKEVAR", "'has some special (char)s # [or] {not}", Makefile::MAKE);
-	mf->add(shellvar.getDef());
-	mf->add(makevar.getDef());
 
-	mf->writeMakefile(cout);
-	cout << (string(c1));
+	Makefile::getSingleton().writeMakefile(cout);
+	Makefile::clean();
 }
 int main(int argc, char *argv[])
 {

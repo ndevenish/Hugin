@@ -13,16 +13,23 @@ using namespace std;
 namespace makefile
 {
 
-Makefile::Makefile()
-{
-	// TODO Auto-generated constructor stub
+// intialize singelton instance pointer
+Makefile* Makefile::instance = NULL;
 
+Makefile& Makefile::getSingleton()
+{
+	if(!instance)
+		instance = new Makefile();
+	return *instance;
 }
 
-Makefile::~Makefile()
+void Makefile::clean()
 {
-	// TODO Auto-generated destructor stub
+	if(instance)
+		delete instance;
+	instance = NULL;
 }
+
 //#define WIN32
 /**
  * Quotes and escapes characters using regular expressions. Two modes are currently distinguished,
