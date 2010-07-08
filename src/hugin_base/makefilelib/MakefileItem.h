@@ -28,9 +28,11 @@ class MakefileItem
 public:
 	MakefileItem()
 	{
-		Makefile::getSingleton().add(this);
+		// Automatic adding may be a bad thing, especially for variable references.
+//		Makefile::getSingleton().add(this);
 	}
 
+	/// Removes the item from the Makefile
 	virtual ~MakefileItem()
 	{
 		Makefile::getSingleton().remove(this);
@@ -49,8 +51,15 @@ public:
 		return toString();
 	}
 
+	/// Adds this to the Makefile item list.
+	virtual void add()
+	{
+		Makefile::getSingleton().add(this);
+	}
+
 };
 
+/// Allows writing to ostreams.
 std::ostream& operator<<(std::ostream& stream, MakefileItem& item);
 
 }

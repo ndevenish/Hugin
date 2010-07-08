@@ -14,6 +14,7 @@
 #include "MakefileItem.h"
 #include "Makefile.h"
 #include "AutoVariable.h"
+#include "Newline.h"
 
 #include <boost/regex.hpp>
 #include <boost/scoped_ptr.hpp>
@@ -84,15 +85,23 @@ int trymakefile()
 	Comment comment("First line");
 	comment.appendLine("second line");
 	comment.appendLine("third line\nfourth line\rfifth line");
-
+	comment.add();
 
 	Variable myname("MYNAME", "Flo");
+	myname.getDef().add();
 
 	Variable myfullname("MYFULLNAME", myname.getRef().toString() + " Achleitner");
+	myfullname.getDef().add();
+	myfullname.getRef().add();
 
+
+	Newline nl1(2); nl1.add();
 	Comment c1("Escaping modes:");
 	Variable shellvar("SHELLVAR", "'has some special (char)s # [or] {not}", Makefile::SHELL);
 	Variable makevar("MAKEVAR", "'has some special (char)s # [or] {not}", Makefile::MAKE);
+	shellvar.getDef().add();
+	makevar.getDef().add();
+	Newline nl2; nl2.add();
 
 	Makefile::getSingleton().writeMakefile(cout);
 	Makefile::clean();

@@ -1,7 +1,7 @@
 SET(MAKEFILELIB_SRC Comment.cpp MakefileItem.cpp  Variable.cpp VariableRef.cpp 
  Filename.cpp  Makefile.cpp  Rule.cpp VariableDef.cpp AutoVariable.cpp) 
 SET(MAKEFILELIB_HEADER Comment.h Makefile.h Rule.h Variable.h Filename.h 
- MakefileItem.h VariableDef.h VariableRef.h AutoVariable.h)
+ MakefileItem.h VariableDef.h VariableRef.h AutoVariable.h Newline.h)
 
 
 IF (${HUGIN_SHARED_LIBS})
