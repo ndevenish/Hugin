@@ -150,11 +150,12 @@ private:
 	std::string				_inputFile;
 
 	// Store panorama information
-  Panorama*					_panoramaInfo;
+ 	Panorama*			_panoramaInfo;
 	
 	void					prepareImages();
 	bool					loadProject();
-  bool	        checkLoadSuccess();
+	void					stereographicProj();
+	bool	      		checkLoadSuccess();
 	void					prepareMatches();
 
 	void					writeOutput();

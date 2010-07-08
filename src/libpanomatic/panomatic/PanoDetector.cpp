@@ -1,6 +1,7 @@
 #include "PanoDetector.h"
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <boost/foreach.hpp>
 
 #include <time.h>
@@ -10,6 +11,10 @@
 #include "Utils.h"
 #include "Tracer.h"
 
+#include <algorithms/nona/ComputeImageROI.h>
+#include <nona/RemappedPanoImage.h>
+#include <nona/ImageRemapper.h>
+
 #ifndef srandom
 #define srandom srand
 #endif	
@@ -17,6 +22,8 @@
 using namespace std;
 using namespace ZThread;
 using namespace HuginBase;
+using namespace AppBase;
+using namespace HuginBase::Nona;
 using namespace hugin_utils;
 
 
@@ -108,7 +115,7 @@ public:
 
 	  void run() 
 	  {	
-		  if (!PanoDetector::AnalyzeImage(_imgData, _panoDetector)) return;
+		  //if (!PanoDetector::AnalyzeImage(_imgData, _panoDetector)) return;
 		  PanoDetector::FindKeyPointsInImage(_imgData, _panoDetector);
 		  PanoDetector::FilterKeyPointsInImage(_imgData, _panoDetector);
 		  PanoDetector::MakeKeyPointDescriptorsInImage(_imgData, _panoDetector);
@@ -129,7 +136,7 @@ public:
 
 	  void run() 
 	  {	
-		  if (!PanoDetector::AnalyzeImage(_imgData, _panoDetector)) return;
+		  //if (!PanoDetector::AnalyzeImage(_imgData, _panoDetector)) return;
 		  PanoDetector::FindKeyPointsInImage(_imgData, _panoDetector);
 		  PanoDetector::FilterKeyPointsInImage(_imgData, _panoDetector);
 		  PanoDetector::MakeKeyPointDescriptorsInImage(_imgData, _panoDetector);
@@ -183,9 +190,12 @@ void PanoDetector::run()
 	srandom((unsigned int)time(NULL));
 	PoolExecutor aExecutor(_cores);
 
-	// 1. Load the input project file
-	TRACE_INFO(endl<< "--- Prepare Images ---" << endl);
+	// Load the input project file
 	if(!loadProject()) return;
+
+	// 1. Convert images to stereographic projection
+	TRACE_INFO(endl<< "--- Stereographic Projection ---" << endl);
+	stereographicProj();
 
 	// 2. run analysis of images
 	TRACE_INFO(endl<< "--- Analyze Images ---" << endl);
@@ -313,6 +323,76 @@ bool PanoDetector::loadProject()
 		}
 
 		return true;
+}
+
+void PanoDetector::stereographicProj()
+{	
+	// Define the stereographic projection options
+   PanoramaOptions opts = _panoramaInfo->getOptions();
+	opts.setProjection(PanoramaOptions::STEREOGRAPHIC);
+
+	// Compute Images ROIS
+	UIntSet imgs = _panoramaInfo->getActiveImages();
+	vector<vigra::Rect2D> rois = ComputeImageROI::computeROIS(*_panoramaInfo, opts, imgs);
+
+	// Define Progress
+	AppBase::StreamMultiProgressDisplay progress(cout);
+
+	// Remap all images to Stereographic format
+	FileRemapper<vigra::DRGBImage, vigra::BImage> remapper;
+
+	int nImg = _panoramaInfo->getNrOfImages();
+	progress.pushTask(ProgressTask("Remapping", "", 1.0/(nImg)));
+	for (unsigned int imgNr = 0; imgNr < nImg; ++imgNr)
+	{
+		RemappedPanoImage<vigra::DRGBImage, vigra::BImage> * remapped = 
+			remapper.getRemapped(*_panoramaInfo, opts, imgNr, rois[imgNr], progress);
+
+		vigra::DRGBImage RGBimg = remapped->m_image;
+	   vigra::DImage final_img(RGBimg.size().x, RGBimg.size().y);
+		
+		//TODO : Grayscale images case
+
+		if (_downscale)
+		{
+		// Resize to grayscale double
+		vigra::resizeImageNoInterpolation(
+			RGBimg.upperLeft(),
+			RGBimg.upperLeft() + vigra::Diff2D(RGBimg.size().x, RGBimg.size().y),
+			vigra::RGBToGrayAccessor<vigra::RGBValue<double> >(),
+			final_img.upperLeft(),
+			final_img.lowerRight(),
+			vigra::DImage::Accessor());
+
+		_filesData[imgNr]._detectWidth = final_img.size().x/2;
+		_filesData[imgNr]._detectHeight = final_img.size().y/2;
+
+		} else {		
+		// convert to grayscale
+		vigra::copyImage(
+			RGBimg.upperLeft(),
+			RGBimg.lowerRight(),
+			vigra::RGBToGrayAccessor<vigra::RGBValue<double> >(),
+			final_img.upperLeft(),
+			vigra::DImage::Accessor());
+
+		_filesData[imgNr]._detectWidth = final_img.size().x;
+		_filesData[imgNr]._detectHeight = final_img.size().y;
+		}
+
+		// Build integral image
+      _filesData[imgNr]._ii.init(final_img.begin(), _filesData[imgNr]._detectWidth,
+																	 _filesData[imgNr]._detectHeight);
+
+		// DEBUG: export remapped image
+      std::ostringstream filename;
+		filename << _filesData[imgNr]._name << "STEREO.JPEG"; // opts.getOutputExtension()
+		vigra::ImageExportInfo exinfo(filename.str().c_str());
+      vigra::exportImage(srcImageRange(final_img), exinfo);
+
+      remapper.release(remapped);
+	}
+	progress.popTask();
 }
 
 bool PanoDetector::checkLoadSuccess()
