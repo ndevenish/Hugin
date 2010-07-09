@@ -36,7 +36,7 @@ public:
 	/**
 	 * Selects quoting modes.
 	 */
-	enum QuoteMode {MAKE, SHELL};
+	enum QuoteMode {MAKE, SHELL, NONE};
 	static std::string quote(const std::string& in, Makefile::QuoteMode mode);
 
 

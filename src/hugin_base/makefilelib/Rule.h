@@ -10,6 +10,8 @@
 
 #include "MakefileItem.h"
 
+#include <vector>
+
 namespace makefile
 {
 
@@ -19,18 +21,30 @@ namespace makefile
  */
 class Rule : public MakefileItem
 {
+	std::vector<std::string> targets;
+	std::vector<std::string> prerequisites;
+	std::vector<std::string> commands;
+
 public:
 	Rule()
-	{
-		// TODO Auto-generated constructor stub
-
-	}
+	{}
 	virtual ~Rule()
-	{
-		// TODO Auto-generated destructor stub
-	}
+	{}
 
 	virtual std::string toString();
+
+	void addTarget(std::string t)
+	{
+		targets.push_back(t);
+	}
+	void addPrereq(std::string p)
+	{
+		prerequisites.push_back(p);
+	}
+	void addCommand(std::string c)
+	{
+		commands.push_back(c);
+	}
 };
 
 }

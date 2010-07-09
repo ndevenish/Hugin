@@ -15,6 +15,7 @@
 #include "Makefile.h"
 #include "AutoVariable.h"
 #include "Newline.h"
+#include "Rule.h"
 
 #include <boost/regex.hpp>
 #include <boost/scoped_ptr.hpp>
@@ -106,9 +107,36 @@ int trymakefile()
 	Makefile::getSingleton().writeMakefile(cout);
 	Makefile::clean();
 }
+
+int tryrule()
+{
+	Comment c("Try how a rule looks like"); c.add();
+
+	Variable t1("TARGET1", "t1.o"); t1.getDef().add();
+	Variable t2("TARGET2", "t2.o"); t2.getDef().add();
+	Variable p1("PRERE1", "t1.c"); p1.getDef().add();
+	Variable p2("PRERE2", "t2.c"); p2.getDef().add();
+	AutoVariable all("@");
+
+	Rule r;
+	r.addTarget(t1.getRef().toString());
+	r.addTarget(t2.getRef().toString());
+	r.addPrereq(p1.getRef().toString());
+	r.addPrereq(p2.getRef().toString());
+	r.addCommand("echo " + all.getRef().toString());
+	r.add();
+
+	r.toString();
+
+	Makefile::getSingleton().writeMakefile(cout);
+	Makefile::clean();
+
+	return 0;
+}
 int main(int argc, char *argv[])
 {
-	return trymakefile();
+//	return trymakefile();
 //	return tryreplace() || tryall();
+	return tryrule();
 	return 0;
 }

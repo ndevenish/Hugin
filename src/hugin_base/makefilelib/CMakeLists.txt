@@ -3,6 +3,7 @@ SET(MAKEFILELIB_SRC Comment.cpp MakefileItem.cpp  Variable.cpp VariableRef.cpp
 SET(MAKEFILELIB_HEADER Comment.h Makefile.h Rule.h Variable.h Filename.h 
  MakefileItem.h VariableDef.h VariableRef.h AutoVariable.h Newline.h)
 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
 
 IF (${HUGIN_SHARED_LIBS})
   add_library(makefilelib SHARED ${MAKEFILELIB_SRC} ${MAKEFILELIB_HEADER})
