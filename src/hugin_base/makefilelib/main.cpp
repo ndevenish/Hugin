@@ -50,6 +50,15 @@ int tryall()
 	{
 		cerr << e.what() << endl;
 	}
+	try
+	{
+	Variable valuesucks("This_value_sucks", "any\nnewline");
+	cout << valuesucks.getDef();
+	}
+	catch(std::exception& e)
+	{
+		cerr << e.what() << endl;
+	}
 	Variable namesucksless("This_name_sucks_less", "~~(bad:){\\value}");
 	namesucksless.setQuoteMode(Makefile::SHELL);
 	cout << namesucksless.getDef();
@@ -106,6 +115,7 @@ int trymakefile()
 
 	Makefile::getSingleton().writeMakefile(cout);
 	Makefile::clean();
+	return 0;
 }
 
 int tryrule()
@@ -136,7 +146,8 @@ int tryrule()
 int main(int argc, char *argv[])
 {
 //	return trymakefile();
-//	return tryreplace() || tryall();
+//	return tryreplace();
+	return tryall();
 	return tryrule();
 	return 0;
 }

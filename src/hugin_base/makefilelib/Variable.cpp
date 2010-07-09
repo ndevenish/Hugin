@@ -13,20 +13,26 @@
 namespace makefile
 {
 
-/// @todo Checks nothing yet.
 /**
  * According to Gnu Make Manual http://www.gnu.org/software/make/manual/html_node/Using-Variables.html#Using-Variables
  * it's recommended to use only alphanumerics and _ in Variable name.
  *
- * @return
  */
-int Variable::checkName()
+void Variable::checkName()
 {
 	static const boost::regex validname("\\w+");
 	if( !boost::regex_match(name, validname))
 		throw std::invalid_argument("Bad Variable name: " + name);
+}
 
-
-	return 0;
+/**
+ * It's not allowed to have newline characters in Variable values, if they are defined like this. (There would be
+ * an alternative).
+ */
+void Variable::checkValue()
+{
+	static const boost::regex invalid("\\R");
+	if(boost::regex_search(value, invalid))
+		throw std::invalid_argument("Bad Variable value: " + value);
 }
 }

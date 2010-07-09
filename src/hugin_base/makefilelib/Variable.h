@@ -32,10 +32,13 @@ protected:
 	Makefile::QuoteMode quotemode;
 
 	/**
-	 * Checks the name Strings and replaces forbidden characters.
-	 * @return Number of replaced chars.
+	 * Checks the name Strings and throws on forbidden characters.
 	 */
-	virtual int checkName();
+	virtual void checkName();
+	/**
+	 * Checks value and throws on forbidden characters (newlines).
+	 */
+	virtual void checkValue();
 
 	/// To be used only by subclasses, like AutoVariable.
 	Variable(std::string name_)
@@ -50,6 +53,7 @@ public:
 	: name(name_), value(value_), def(*this), ref(*this), quotemode(quotemode_)
 	{
 		checkName();
+		checkValue();
 	}
 	virtual ~Variable() {}
 
