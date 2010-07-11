@@ -16,6 +16,7 @@
 #include "AutoVariable.h"
 #include "Newline.h"
 #include "Rule.h"
+#include "Conditional.h"
 
 #include <boost/regex.hpp>
 #include <boost/scoped_ptr.hpp>
@@ -143,11 +144,59 @@ int tryrule()
 
 	return 0;
 }
+int trycond()
+{
+	Variable t1("TARGET1", "t1.o"); t1.getDef().add();
+	Variable t2("TARGET2", "t2.o"); t2.getDef().add();
+	Variable p1("PRERE1", "t1.c"); p1.getDef().add();
+	Variable p2("PRERE2", "t2.c"); p2.getDef().add();
+	AutoVariable all("@");
+	Rule r;
+	r.addTarget(t1.getRef().toString());
+	r.addTarget(t2.getRef().toString());
+	r.addPrereq(p1.getRef().toString());
+	r.addPrereq(p2.getRef().toString());
+	r.addCommand("echo " + all.getRef().toString());
+
+	Variable iftrue("TRUE", "if_is_true");
+	Variable iffales("FALSE", "if_is_false");
+
+	ConditionalEQ cond1(iftrue.getRef().toString(), "if_is_true");
+	cond1.addToIf(r);
+	cond1.addToIf(iftrue.getDef());
+	cond1.addToElse(iffales.getDef());
+	cond1.addToElse(r);
+	cond1.add();
+
+	ConditionalNEQ cond2(iftrue.getRef().toString(), "if_is_true");
+	cond2.addToIf(r);
+	cond2.addToIf(iftrue.getDef());
+	cond2.addToElse(iffales.getDef());
+	cond2.addToElse(r);
+	cond2.add();
+
+	ConditionalDEF cond3(iftrue.getName());
+	cond3.addToIf(r);
+	cond3.addToIf(iftrue.getDef());
+	cond3.addToElse(iffales.getDef());
+	cond3.addToElse(r);
+	cond3.add();
+
+	ConditionalNDEF cond4(iftrue.getName());
+	cond4.addToIf(r);
+	cond4.addToIf(iftrue.getDef());
+	cond4.add();
+
+	Makefile::getSingleton().writeMakefile(cout);
+	Makefile::clean();
+	return 0;
+}
 int main(int argc, char *argv[])
 {
 //	return trymakefile();
 //	return tryreplace();
-	return tryall();
-	return tryrule();
+//	return tryall();
+//	return tryrule();
+	return trycond();
 	return 0;
 }

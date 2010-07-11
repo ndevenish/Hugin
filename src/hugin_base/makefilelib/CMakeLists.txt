@@ -1,7 +1,7 @@
 SET(MAKEFILELIB_SRC Comment.cpp MakefileItem.cpp  Variable.cpp VariableRef.cpp 
- Filename.cpp  Makefile.cpp  Rule.cpp VariableDef.cpp AutoVariable.cpp) 
+ Filename.cpp  Makefile.cpp  Rule.cpp VariableDef.cpp AutoVariable.cpp Conditional.cpp) 
 SET(MAKEFILELIB_HEADER Comment.h Makefile.h Rule.h Variable.h Filename.h 
- MakefileItem.h VariableDef.h VariableRef.h AutoVariable.h Newline.h)
+ MakefileItem.h VariableDef.h VariableRef.h AutoVariable.h Newline.h Conditional.h)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
 
