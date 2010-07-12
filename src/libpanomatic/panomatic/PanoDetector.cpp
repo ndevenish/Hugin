@@ -15,6 +15,8 @@
 #include <nona/RemappedPanoImage.h>
 #include <nona/ImageRemapper.h>
 
+#include "ImageImport.h"
+
 #ifndef srandom
 #define srandom srand
 #endif	
@@ -339,6 +341,7 @@ void PanoDetector::stereographicProj()
 	AppBase::StreamMultiProgressDisplay progress(cout);
 
 	// Remap all images to Stereographic format
+	//TODO : Grayscale images case
 	FileRemapper<vigra::DRGBImage, vigra::BImage> remapper;
 
 	int nImg = _panoramaInfo->getNrOfImages();
@@ -349,36 +352,38 @@ void PanoDetector::stereographicProj()
 			remapper.getRemapped(*_panoramaInfo, opts, imgNr, rois[imgNr], progress);
 
 		vigra::DRGBImage RGBimg = remapped->m_image;
-	   vigra::DImage final_img(RGBimg.size().x, RGBimg.size().y);
-		
-		//TODO : Grayscale images case
 
+		int aNewImgWidth = RGBimg.size().x;
+		int aNewImgHeight = RGBimg.size().y;
 		if (_downscale)
 		{
-		// Resize to grayscale double
-		vigra::resizeImageNoInterpolation(
-			RGBimg.upperLeft(),
-			RGBimg.upperLeft() + vigra::Diff2D(RGBimg.size().x, RGBimg.size().y),
-			vigra::RGBToGrayAccessor<vigra::RGBValue<double> >(),
-			final_img.upperLeft(),
-			final_img.lowerRight(),
-			vigra::DImage::Accessor());
-
-		_filesData[imgNr]._detectWidth = final_img.size().x/2;
-		_filesData[imgNr]._detectHeight = final_img.size().y/2;
-
-		} else {		
-		// convert to grayscale
-		vigra::copyImage(
-			RGBimg.upperLeft(),
-			RGBimg.lowerRight(),
-			vigra::RGBToGrayAccessor<vigra::RGBValue<double> >(),
-			final_img.upperLeft(),
-			vigra::DImage::Accessor());
-
-		_filesData[imgNr]._detectWidth = final_img.size().x;
-		_filesData[imgNr]._detectHeight = final_img.size().y;
+		 aNewImgWidth >>= 1;
+		 aNewImgHeight >>= 1;
 		}
+	   vigra::DImage final_img(aNewImgWidth, aNewImgHeight);
+		
+		if (_downscale)
+		{
+			// Resize to grayscale double
+			vigra::resizeImageNoInterpolation(
+				RGBimg.upperLeft(),
+				RGBimg.upperLeft() + vigra::Diff2D(aNewImgWidth*2, aNewImgHeight*2),
+				vigra::RGBToGrayAccessor<vigra::RGBValue<double> >(),
+				final_img.upperLeft(),
+				final_img.lowerRight(),
+				vigra::DImage::Accessor());
+		} else {		
+			// convert to grayscale
+			vigra::copyImage(
+				RGBimg.upperLeft(),
+				RGBimg.lowerRight(),
+				vigra::RGBToGrayAccessor<vigra::RGBValue<double> >(),
+				final_img.upperLeft(),
+				vigra::DImage::Accessor());
+		}
+
+		_filesData[imgNr]._detectWidth = aNewImgWidth;
+		_filesData[imgNr]._detectHeight = aNewImgHeight;
 
 		// Build integral image
       _filesData[imgNr]._ii.init(final_img.begin(), _filesData[imgNr]._detectWidth,
@@ -386,7 +391,7 @@ void PanoDetector::stereographicProj()
 
 		// DEBUG: export remapped image
       std::ostringstream filename;
-		filename << _filesData[imgNr]._name << "STEREO.JPEG"; // opts.getOutputExtension()
+		filename << _filesData[imgNr]._name << "STEREO.JPG"; // opts.getOutputExtension()
 		vigra::ImageExportInfo exinfo(filename.str().c_str());
       vigra::exportImage(srcImageRange(final_img), exinfo);
 

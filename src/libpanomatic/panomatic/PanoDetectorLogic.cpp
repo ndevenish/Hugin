@@ -112,7 +112,7 @@ bool PanoDetector::AnalyzeImage(ImgData& ioImgInfo, const PanoDetector& iPanoDet
 	{
       ioImgInfo._loadFail = false;
 			
-			//get image info
+		//get image info
       vigra::ImageImportInfo aImageInfo(ioImgInfo._name.c_str());
 
 	    int aNewImgWidth = aImageInfo.width();
@@ -459,7 +459,8 @@ bool PanoDetector::FilterMatchesInPair(MatchData& ioMatchData, const PanoDetecto
 	TRACE_PAIR("Kept " << ioMatchData._matches.size() << " matches.");
 	return true;
 }
-void PanoDetector::writeOutput()
+
+void PanoDetector::writeOutput()
 {
 	// Write output pto file
 
