@@ -1066,13 +1066,13 @@ void Panorama::updateMasks()
                         {
                             MaskPolygon transformedMask=masks[j];
                             int origWindingNumber=transformedMask.getTotalWindingNumber();
-                            //increase resolution of positive mask to get better transformation
-                            //of vertices
-                            transformedMask.subSample(20);
                             // clip positive mask to image boundaries
                             if(transformedMask.clipPolygon(vigra::Rect2D(0,0,state.images[i]->getWidth(),state.images[i]->getHeight())))
                             {
-                                //transform polygon in panorama space
+                                //increase resolution of positive mask to get better transformation
+                                //of vertices, especially for fisheye images
+                                transformedMask.subSample(20);
+                                //transform polygon to panorama space
                                 HuginBase::PTools::Transform trans;
                                 trans.createInvTransform(getImage(i),getOptions());
                                 transformedMask.transformPolygon(trans);
@@ -1083,12 +1083,12 @@ void Panorama::updateMasks()
                                     //check if images are overlapping
                                     if(overlap.getOverlap(i,k)>0)
                                     {
-                                        //transform polygon in image space of other image only if images are overlapping
+                                        //transform polygon to image space of other image only if images are overlapping
                                         MaskPolygon targetMask=transformedMask;
                                         PTools::Transform targetTrans;
                                         targetTrans.createTransform(getImage(k),getOptions());
                                         targetMask.transformPolygon(targetTrans);
-                                        //check is mask was inverted - outside became inside and vice versa
+                                        //check if mask was inverted - outside became inside and vice versa
                                         //if so, invert mask
                                         int newWindingNumber=targetMask.getTotalWindingNumber();
                                         targetMask.setInverted(origWindingNumber * newWindingNumber < 0);
