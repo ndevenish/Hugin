@@ -43,7 +43,7 @@ class VisualizationState;
 class MeshRemapper
 {
 public:
-    MeshRemapper(HuginBase::Panorama *m_pano, unsigned int image_number,
+    MeshRemapper(HuginBase::Panorama *m_pano, HuginBase::SrcPanoImage * image,
                          VisualizationState *visualization_state);
     virtual ~MeshRemapper();
     virtual void UpdateAndResetIndex();
@@ -82,7 +82,7 @@ public:
 protected:
     VisualizationState *visualization_state;
     HuginBase::Panorama *m_pano;
-    unsigned int image_number;
+    HuginBase::SrcPanoImage * image;
     /** The number number of units between vertex coorinates that
      * gives a pixel in the display.
      */

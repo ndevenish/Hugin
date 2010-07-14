@@ -65,6 +65,8 @@ public:
     
     void SetBackground(unsigned char red, unsigned char green, unsigned char blue);
     float width_o, height_o;
+
+    
 protected:
     PT::Panorama  * m_pano;
     TextureManager * m_tex_man;
@@ -105,7 +107,6 @@ public:
 protected:
     
     PanosphereOverviewVisualizationState * m_visualization_state;
-
 
 };
 

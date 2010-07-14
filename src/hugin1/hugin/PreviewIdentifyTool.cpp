@@ -59,9 +59,9 @@
 #define circle_border_inner (circle_middle - 2.5 * (float) circle_ts_multiple)
 #define circle_border_peak (circle_middle - 1.5 * (float) circle_ts_multiple)
 
-PreviewIdentifyTool::PreviewIdentifyTool(PreviewToolHelper *helper,
+PreviewIdentifyTool::PreviewIdentifyTool(ToolHelper *helper,
                                          GLPreviewFrame *owner)
-    : PreviewTool(helper)
+    : Tool(helper)
 {
     preview_frame = owner;
     // make the textures. We have a circle border and a square one.
@@ -274,10 +274,10 @@ void PreviewIdentifyTool::AfterDrawImagesEvent()
     // now draw the identification boxes
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    glMatrixMode(GL_TEXTURE);
     unsigned int image_counter = 0;
     for (it = image_set.rbegin(); it != image_set.rend(); it++)
     {
+        glMatrixMode(GL_TEXTURE);
         // Use the mask to alter the shape of the identification boxes, but
         // replace the normal image texture with the identification box itself.
         if (helper->GetViewStatePtr()->GetSupportMultiTexture())
@@ -336,11 +336,13 @@ void PreviewIdentifyTool::AfterDrawImagesEvent()
                 break;
         }
         // draw the image in this texture
+        glMatrixMode(GL_MODELVIEW);
         unsigned char r,g,b;
         HighlightColour(image_counter, num_images, r, g, b);
         image_counter++;
         glColor3ub(r,g,b);
         glCallList(helper->GetVisualizationStatePtr()->GetMeshDisplayList(*it));
+        glMatrixMode(GL_TEXTURE);
         glPopMatrix();
         // tell the preview frame to update the button to show the same colour.
         preview_frame->SetImageButtonColour(*it, r, g, b);

@@ -30,6 +30,7 @@
 #endif
 #include <GL/gl.h>
 #include <GL/glut.h>
+
 #endif
 
 #include <config.h>
@@ -255,6 +256,8 @@ void GLOverviewRenderer::Redraw()
 
     glEnable(GL_CULL_FACE);
     glCullFace(GL_FRONT);
+    
+    ((OverviewToolHelper*)m_tool_helper)->BeforeDrawImagesBack();
     m_tex_man->Begin();
     // The old preview shows the lowest numbered image on top, so do the same:
     for (int img = imgs - 1; img != -1; img--)
@@ -275,28 +278,35 @@ void GLOverviewRenderer::Redraw()
         }
     }
 
-    #ifdef __WXGTK__
-    glCullFace(GL_BACK);
-    glPushMatrix();
-    glRotated(90,1,0,0);
-    if (imgs > 0) {
-//        glEnable( GL_TEXTURE_2D );
-        glEnable(GL_BLEND);
-        glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-        glColor4f(0.5,0.5,0.5,0.5);
-        GLUquadric* grid = gluNewQuadric();
-        gluQuadricTexture(grid, GL_TRUE);
-        m_tex_man->BindTexture(0);
-        gluSphere(grid, 101,40,20);
-        glDisable(GL_BLEND);
-    } else {
-        glutWireSphere(101,40,20);
-    }
-    glPopMatrix();
-    #endif
+    ((OverviewToolHelper*)m_tool_helper)->AfterDrawImagesBack();
+    m_tool_helper->AfterDrawImages();
 
+//    #ifdef __WXGTK__
+////    glCullFace(GL_BACK);
+////    glPushMatrix();
+////    glRotated(90,1,0,0);
+//////    if (imgs > 0) {
+//////        glEnable( GL_TEXTURE_2D );
+//////        glEnable(GL_BLEND);
+//////        glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+//////        glColor4f(0.5,0.5,0.5,0.5);
+//////        GLUquadric* grid = gluNewQuadric();
+//////        gluQuadricTexture(grid, GL_TRUE);
+//////        m_tex_man->BindTexture(0);
+//////        gluSphere(grid, 101,40,20);
+//////        glDisable(GL_BLEND);
+//////    } else {
+////        glColor4f(0.5,0.5,0.5,0.5);
+////        glutWireSphere(101,40,20);
+//////    }
+////    glPopMatrix();
+//    #endif
 
+    glMatrixMode(GL_MODELVIEW);
     glCullFace(GL_BACK);
+    
+    m_tool_helper->BeforeDrawImages();
+    ((OverviewToolHelper*)m_tool_helper)->BeforeDrawImagesFront();
     // The old preview shows the lowest numbered image on top, so do the same:
     for (int img = imgs - 1; img != -1; img--)
     {
@@ -317,10 +327,14 @@ void GLOverviewRenderer::Redraw()
     }
 
     m_tex_man->End();
-    glDisable(GL_CULL_FACE);
+
     // drawn things after the active image.
+    ((OverviewToolHelper*)m_tool_helper)->AfterDrawImagesFront();
     m_tool_helper->AfterDrawImages();
+    
     m_tex_man->DisableTexture();
+
+    glDisable(GL_CULL_FACE);
 
     glPopMatrix();
 }
@@ -349,12 +363,25 @@ vigra::Diff2D GLOverviewRenderer::Resize(int w, int h)
       scale = height_o / height;
     }
 
+    double fov = m_visualization_state->getFOV();
+    double fovy;
+    if (h > w) {
+        fovy = 2 * atan( tan(fov * M_PI / 360.0) * h / w);
+    } else {
+        fovy = fov;
+    }
+
+    m_visualization_state->setCanvasWidth(w);
+    m_visualization_state->setCanvasHeight(h);
 
 	float ratio = 1.0* w / h;
 //	aspect = ratio;
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glViewport(0, 0, w, h);
-	gluPerspective(m_visualization_state->getFOVY(),ratio,1,10000);
+	gluPerspective(fovy,ratio,1,1000000);
+
+//    return vigra::Diff2D(w / 2, h / 2);
+    return vigra::Diff2D(0,0);
 
 }

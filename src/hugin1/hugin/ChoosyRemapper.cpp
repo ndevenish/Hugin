@@ -26,8 +26,8 @@
 #include "VertexCoordRemapper.h"
 
 ChoosyRemapper::ChoosyRemapper(HuginBase::Panorama *m_pano,
-                               unsigned int image_number, VisualizationState *visualization_state)
-  : MeshRemapper(m_pano, image_number, visualization_state)
+                               HuginBase::SrcPanoImage * image, VisualizationState *visualization_state)
+  : MeshRemapper(m_pano, image, visualization_state)
 {
     selected_remapper = 0;
     selection = REMAP_NONE;
@@ -76,7 +76,7 @@ void ChoosyRemapper::UpdateAndResetIndex()
         {
             OutputProjectionInfo *info = visualization_state->GetProjectionInfo();
             // get the pole in image coordinates
-            transform.createTransform(*(visualization_state->GetSrcImage(image_number)),
+            transform.createTransform(*image,
                                       *(visualization_state->GetOptions()));
             double img_x, img_y;
             transform.transformImgCoord(img_x, img_y,
@@ -124,7 +124,7 @@ void ChoosyRemapper::UpdateAndResetIndex()
                         selected_remapper = 0;
                     }
                     selected_remapper = new TexCoordRemapper(m_pano, 
-                                                             image_number,
+                                                             image,
                                                              visualization_state);
                 }
                 break;            
@@ -143,7 +143,7 @@ void ChoosyRemapper::UpdateAndResetIndex()
                     selected_remapper = 0;
                 }
                 selected_remapper = new VertexCoordRemapper(m_pano, 
-                                                            image_number,
+                                                            image,
                                                             visualization_state);
             }
             break;

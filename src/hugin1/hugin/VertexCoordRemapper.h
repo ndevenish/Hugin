@@ -64,7 +64,7 @@
 class VertexCoordRemapper : public MeshRemapper
 {
 public:
-    VertexCoordRemapper(HuginBase::Panorama *m_pano, unsigned int image_number,
+    VertexCoordRemapper(HuginBase::Panorama *m_pano, HuginBase::SrcPanoImage * image,
                        VisualizationState *visualization_state);
     virtual void UpdateAndResetIndex();
     // get the texture and vertex coordinates for the next face. The coordinates

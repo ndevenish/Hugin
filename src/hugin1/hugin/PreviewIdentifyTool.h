@@ -39,10 +39,10 @@ class GLPreviewFrame;
  * If the mouse is over exactly two images, a click opens the control point
  * editor with those two images shown.
  */
-class PreviewIdentifyTool : public PreviewTool
+class PreviewIdentifyTool : public Tool
 {
 public:
-    PreviewIdentifyTool(PreviewToolHelper *helper, GLPreviewFrame *owner);
+    PreviewIdentifyTool(ToolHelper *helper, GLPreviewFrame *owner);
     ~PreviewIdentifyTool();
     void Activate();
     void ImagesUnderMouseChangedEvent();

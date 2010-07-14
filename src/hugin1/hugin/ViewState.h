@@ -255,33 +255,42 @@ public:
 
     HuginBase::PanoramaOptions *GetOptions();
     OutputProjectionInfo *GetProjectionInfo();
-    HuginBase::SrcPanoImage *GetSrcImage(unsigned int image_nr);
 
-    void SetSrcImage(unsigned int image_nr, HuginBase::SrcPanoImage * new_img );
+//    HuginBase::SrcPanoImage *GetSrcImage(unsigned int image_nr);
+//    void SetSrcImage(unsigned int image_nr, HuginBase::SrcPanoImage * new_img );
+
     void SetOptions(const HuginBase::PanoramaOptions * new_opts);
 
     double getAngY() {return angy;}
     double getAngX() {return angx;}
     double getR() {return R;}
-    double getFOVY() {return fovy;}
+    double getFOV() {return fov;}
 
     double getSphereRadius() {return sphere_radius;}
 
     void setAngX(double angx_in);
     void setAngY(double angy_in);
 
+    void setCanvasWidth(double w_in) {canv_w = w_in;}
+    void setCanvasHeight(double h_in) {canv_h = h_in;}
+
+    double getCanvasWidth() {return canv_w;}
+    double getCanvasHeight() {return canv_h;}
+
 protected:
 
     double angy;
     double angx;
     double R;
-    double fovy;
+    double fov;
 
     double sphere_radius;
 
-    std::map<unsigned int, HuginBase::SrcPanoImage> img_states;
+//    std::map<unsigned int, HuginBase::SrcPanoImage> img_states;
     HuginBase::PanoramaOptions opts;
     OutputProjectionInfo *projection_info;
+
+    double canv_w, canv_h;
 
 };
 

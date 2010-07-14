@@ -103,7 +103,8 @@ public:
     // Get information
     std::set<unsigned int> GetImageNumbersUnderMouse();
 
-    hugin_utils::FDiff2D GetMousePosition();
+    hugin_utils::FDiff2D GetMouseScreenPosition();
+    hugin_utils::FDiff2D GetMousePanoPosition();
 
     VisualizationState *GetVisualizationStatePtr();
     ViewState* GetViewStatePtr();
@@ -119,18 +120,22 @@ public:
     
     // status message to be something relevant for a tool.
     void SetStatusMessage(wxString message);
+
+    bool IsMouseOverPano() {return mouse_over_pano;}
+    
 protected:
     std::set<Tool *> tools_deactivated;
     PT::Panorama *pano;
     VisualizationState *visualization_state;
     GLPreviewFrame *frame;
     
-    double mouse_x, mouse_y;
+    double mouse_screen_x, mouse_screen_y;
+    double mouse_pano_x, mouse_pano_y;
     
     // What tools are notified of what events.
     std::set<Tool *> mouse_move_notified_tools;
-    Tool * mouse_button_notified_tool;
-    Tool * keypress_notified_tool;
+    std::set<Tool *> mouse_button_notified_tools;
+    std::set<Tool *> keypress_notified_tools;
     std::set<Tool *> draw_under_notified_tools;
     std::set<Tool *> draw_over_notified_tools;
     std::set<Tool *> really_draw_over_notified_tools;
@@ -179,7 +184,28 @@ public:
                       GLPreviewFrame * frame);
     ~OverviewToolHelper();
 
-    void UpdateImagesUnderMouse() {}
+    enum OverviewEvent {
+        DRAW_UNDER_IMAGES_BACK, DRAW_UNDER_IMAGES_FRONT,
+        DRAW_OVER_IMAGES_BACK, DRAW_OVER_IMAGES_FRONT
+    };
+
+    void NotifyMe(OverviewEvent event, OverviewTool * tool);
+    void DoNotNotifyMe(OverviewEvent event, OverviewTool *tool);
+
+    void MouseMoved(int x, int y, wxMouseEvent & e);
+    void UpdateImagesUnderMouse();
+
+    void BeforeDrawImagesBack();
+    void BeforeDrawImagesFront();
+    void AfterDrawImagesBack();
+    void AfterDrawImagesFront();
+    
+protected:
+    std::set<Tool *> draw_under_notified_tools_back;
+    std::set<Tool *> draw_under_notified_tools_front;
+    std::set<Tool *> draw_over_notified_tools_back;
+    std::set<Tool *> draw_over_notified_tools_front;
+    
 
 };
 

@@ -46,14 +46,16 @@
  * alt moves windows on some window managers, leaving shift as the only common
  * modifier suitable for constrained drag.
  */
-class PreviewDragTool : public PreviewTool
+class DragTool : public Tool
 {
 public:
-    PreviewDragTool(PreviewToolHelper *helper);
+    DragTool(ToolHelper *helper);
     void Activate();
     void MouseMoveEvent(double x, double y, wxMouseEvent & e);
     void MouseButtonEvent(wxMouseEvent &e);
-    void ReallyAfterDrawImagesEvent();
+
+    virtual void ReallyAfterDrawImagesEvent() = 0;
+
     class ParamStore
     {
     public:
@@ -73,7 +75,7 @@ public:
     
     void getTranslationShift(double &delta_x, double &delta_y);
     
-private:
+protected:
     std::map<unsigned int, ParamStore> image_params;
     std::set<unsigned int> draging_images;
     bool drag_yaw, drag_pitch, drag_roll;
@@ -86,6 +88,24 @@ private:
                            double yaw_start, double pitch_start,
                            double roll_start);
     DragMode drag_mode;
+};
+
+class PreviewDragTool : public DragTool
+{
+public:
+    PreviewDragTool(PreviewToolHelper *helper) : DragTool(helper) {}
+
+    void ReallyAfterDrawImagesEvent(); 
+
+};
+
+class OverviewDragTool : public DragTool
+{
+public:
+    OverviewDragTool(OverviewToolHelper *helper) : DragTool(helper) {}
+
+    void ReallyAfterDrawImagesEvent();
+
 };
 
 #endif

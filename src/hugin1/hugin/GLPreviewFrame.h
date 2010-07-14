@@ -50,12 +50,16 @@ class Tool;
 class PreviewTool;
 class PreviewCropTool;
 class OverviewDragTool;
+class OverviewCameraTool;
 class PreviewDragTool;
 class PreviewIdentifyTool;
 class PreviewDifferenceTool;
 class PreviewPanoMaskTool;
 class PreviewControlPointTool;
 class PreviewLayoutLinesTool;
+
+class OverviewProjectionGridTool;
+class PreviewProjectionGridTool;
 
 class GLPreviewFrame;
 
@@ -287,15 +291,22 @@ private:
     
     PreviewCropTool *crop_tool;
     PreviewDragTool *drag_tool;
+
     PreviewIdentifyTool *identify_tool;
+    PreviewIdentifyTool *overview_identify_tool;
+
     PreviewDifferenceTool *difference_tool;
     PreviewControlPointTool *control_point_tool;
     PreviewPanoMaskTool *pano_mask_tool;    
     PreviewLayoutLinesTool *m_layoutLinesTool;
 
+    OverviewProjectionGridTool * overview_projection_grid;
+    PreviewProjectionGridTool * preview_projection_grid;
+
     OverviewToolHelper *overview_helper;
 
     OverviewDragTool *overview_drag_tool;
+    OverviewCameraTool *overview_camera_tool;
 
     void TurnOffTools(std::set<Tool*> tools);
     

@@ -74,7 +74,9 @@ extern "C" {
 #include "PreviewControlPointTool.h"
 #include "PreviewLayoutLinesTool.h"
 
-#include "OverviewDragTool.h"
+#include "ProjectionGridTool.h"
+
+#include "OverviewCameraTool.h"
 
 #include <wx/progdlg.h>
 
@@ -268,7 +270,9 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     preview_helper = NULL;
     crop_tool = NULL;
     drag_tool = NULL;
+    overview_drag_tool = NULL;
     identify_tool = NULL ;
+    overview_identify_tool = NULL;
     difference_tool = NULL;
     pano_mask_tool = NULL;
 
@@ -612,7 +616,9 @@ GLPreviewFrame::~GLPreviewFrame()
     {
         preview_helper->DeactivateTool(crop_tool); delete crop_tool;
         preview_helper->DeactivateTool(drag_tool); delete drag_tool;
+        overview_helper->DeactivateTool(overview_drag_tool); delete overview_drag_tool;
         preview_helper->DeactivateTool(identify_tool); delete identify_tool;
+        overview_helper->DeactivateTool(overview_identify_tool); delete overview_identify_tool;
         preview_helper->DeactivateTool(difference_tool); delete difference_tool;
         preview_helper->DeactivateTool(pano_mask_tool); delete pano_mask_tool;
     }
@@ -762,6 +768,7 @@ void GLPreviewFrame::updateBlendMode()
                     && m_ToolBar_Identify != NULL )
                 {
                     preview_helper->DeactivateTool(identify_tool);
+                    overview_helper->DeactivateTool(overview_identify_tool);
                     m_ToolBar_Identify->ToggleTool(XRCID("preview_identify_tool"), false);
                     preview_helper->ActivateTool(difference_tool);
                     CleanButtonColours();
@@ -923,6 +930,14 @@ void GLPreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &change
                         &m_pano);
                 toogle_button_event_handlers.push_back(event_handler);
                 but->PushEventHandler(event_handler);
+
+                ImageToogleButtonEventHandler * ov_event_handler = new
+                    ImageToogleButtonEventHandler(*it, &overview_identify_tool,
+                        m_ToolBar_Identify->FindById(XRCID("preview_identify_tool")),
+                        &m_pano);
+                toogle_button_event_handlers.push_back(ov_event_handler);
+                but->PushEventHandler(ov_event_handler);
+
                 wxSize sz = but->GetSize();
 //                but->SetSize(res.GetWidth(),sz.GetHeight());
                 // HACK.. set fixed width. that should work
@@ -1249,9 +1264,11 @@ void GLPreviewFrame::OnDragChoice(wxCommandEvent & e)
 		    switch (index) {
 		    	case 0: //normal
 		    		drag_tool->setDragMode(PreviewDragTool::drag_mode_normal);
+//		    		overview_drag_tool->setDragMode(PreviewDragTool::drag_mode_normal);
 		    	break; 
 		    	case 1: //mosaic
 		    		drag_tool->setDragMode(PreviewDragTool::drag_mode_mosaic);
+//		    		overview_drag_tool->setDragMode(PreviewDragTool::drag_mode_mosaic);
 		    	break;
 		    }
             XRCCTRL(*this,"label_yaw",wxStaticText)->Enable(index==0);
@@ -1397,6 +1414,9 @@ void GLPreviewFrame::MakePreviewTools(PreviewToolHelper *preview_helper_in)
     pano_mask_tool = new PreviewPanoMaskTool(preview_helper);
     control_point_tool = new PreviewControlPointTool(preview_helper);
     m_layoutLinesTool = new PreviewLayoutLinesTool(preview_helper);
+
+    preview_projection_grid = new PreviewProjectionGridTool(preview_helper);
+    preview_helper->ActivateTool(preview_projection_grid);
     
     // activate tools that are always active.
     preview_helper->ActivateTool(pano_mask_tool);
@@ -1410,7 +1430,11 @@ void GLPreviewFrame::MakeOverviewTools(OverviewToolHelper *overview_helper_in)
 {
     overview_helper = overview_helper_in;
     overview_drag_tool = new OverviewDragTool(overview_helper);
-    overview_helper->ActivateTool(overview_drag_tool);
+    overview_camera_tool = new OverviewCameraTool(overview_helper);
+    overview_helper->ActivateTool(overview_camera_tool);
+    overview_identify_tool = new PreviewIdentifyTool(overview_helper, this);
+    overview_projection_grid = new OverviewProjectionGridTool(overview_helper);
+    overview_helper->ActivateTool(overview_projection_grid);
 }
 
 void GLPreviewFrame::OnIdentify(wxCommandEvent & e)
@@ -1421,11 +1445,14 @@ void GLPreviewFrame::OnIdentify(wxCommandEvent & e)
         m_BlendModeChoice->SetSelection(0);
         preview_helper->DeactivateTool(difference_tool);
         TurnOffTools(preview_helper->ActivateTool(identify_tool));
+        TurnOffTools(overview_helper->ActivateTool(overview_identify_tool));
     } else {
         preview_helper->DeactivateTool(identify_tool);
+        overview_helper->DeactivateTool(overview_identify_tool);
         CleanButtonColours();
     }
     m_GLPreview->Refresh();
+    m_GLOverview->Refresh();
 }
 
 void GLPreviewFrame::OnControlPoint(wxCommandEvent & e)
@@ -1663,6 +1690,7 @@ void GLPreviewFrame::SetMode(int newMode)
         case mode_preview:
             // switch off identify and show cp tool
             preview_helper->DeactivateTool(identify_tool);
+            overview_helper->DeactivateTool(overview_identify_tool);
             CleanButtonColours();
             m_ToolBar_Identify->ToggleTool(XRCID("preview_identify_tool"),false);
             preview_helper->DeactivateTool(control_point_tool);
@@ -1682,6 +1710,7 @@ void GLPreviewFrame::SetMode(int newMode)
             break;
         case mode_drag:
             preview_helper->DeactivateTool(drag_tool);
+            overview_helper->DeactivateTool(overview_drag_tool);
             break;
         case mode_crop:
             preview_helper->DeactivateTool(crop_tool);
@@ -1711,6 +1740,7 @@ void GLPreviewFrame::SetMode(int newMode)
             break;
         case mode_drag:
             TurnOffTools(preview_helper->ActivateTool(drag_tool));
+            TurnOffTools(overview_helper->ActivateTool(overview_drag_tool));
             break;
         case mode_crop:
             TurnOffTools(preview_helper->ActivateTool(crop_tool));

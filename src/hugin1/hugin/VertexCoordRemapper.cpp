@@ -98,15 +98,16 @@ inline T sqr(T val)
 };
 
 VertexCoordRemapper::VertexCoordRemapper(HuginBase::Panorama *m_pano_in,
-                                         unsigned int image_number_in,
+                                         HuginBase::SrcPanoImage *image,
                                          VisualizationState *visualization_state_in)
-    : MeshRemapper(m_pano_in, image_number_in, visualization_state_in)
+    : MeshRemapper(m_pano_in, image, visualization_state_in)
 {
     
 }
 
 void VertexCoordRemapper::UpdateAndResetIndex()
 {
+    DEBUG_DEBUG("mesh update update reset index");
     // this sets scale, height, and width.
     MeshRemapper::UpdateAndResetIndex();
     // we need to record the output projection for flipping around 180 degrees.
@@ -114,11 +115,11 @@ void VertexCoordRemapper::UpdateAndResetIndex()
     o_width = visualization_state->GetOptions()->getWidth();
     o_height = visualization_state->GetOptions()->getHeight();
     // we want to make a remapped mesh, get the transformation we need:
-    HuginBase::SrcPanoImage *src = visualization_state->GetSrcImage(image_number);
-    transform.createInvTransform(*src, *(visualization_state->GetOptions()));
+//    HuginBase::SrcPanoImage *src = visualization_state->GetSrcImage(image_number);
+    transform.createInvTransform(*image, *(visualization_state->GetOptions()));
     // use the scale to determine edge lengths in pixels for subdivision
-    DEBUG_INFO("updating mesh for image " << image_number << ", using scale "
-              << scale << ".\n");
+//    DEBUG_INFO("updating mesh for image " << image_number << ", using scale "
+//              << scale << ".\n");
     // find key points used for +/- 180 degree boundary correction
     // {x|y}_add_360's are added to a value near the left/top boundary to get
     // the corresponding point over the right/bottom boundary.
@@ -150,6 +151,7 @@ void VertexCoordRemapper::UpdateAndResetIndex()
 
 bool VertexCoordRemapper::GetNextFaceCoordinates(Coords *result)
 {
+//    DEBUG_DEBUG("mesh update get face coords");
     result->tex_c = tex_coords;
     result->vertex_c = s_vertex_coords;
     // if we have some faces left over from a previous clipping operation, give
@@ -223,14 +225,14 @@ bool VertexCoordRemapper::GetNextFaceCoordinates(Coords *result)
     if (circle_crop)
     {
         // If all points are within the radius, then don't clip
-        HuginBase::SrcPanoImage *src_img = visualization_state->GetSrcImage(image_number);
-        if (   src_img->isInside(vigra::Point2D(int(result->tex_c[0][0][0] * width),
+//        HuginBase::SrcPanoImage *src_img = visualization_state->GetSrcImage(image_number);
+        if (   image->isInside(vigra::Point2D(int(result->tex_c[0][0][0] * width),
                                                 int(result->tex_c[0][0][1] * height)))
-            && src_img->isInside(vigra::Point2D(int(result->tex_c[0][1][0] * width),
+            && image->isInside(vigra::Point2D(int(result->tex_c[0][1][0] * width),
                                                 int(result->tex_c[0][1][1] * height)))
-            && src_img->isInside(vigra::Point2D(int(result->tex_c[1][0][0] * width),
+            && image->isInside(vigra::Point2D(int(result->tex_c[1][0][0] * width),
                                                 int(result->tex_c[1][0][1] * height)))
-            && src_img->isInside(vigra::Point2D(int(result->tex_c[1][1][0] * width),
+            && image->isInside(vigra::Point2D(int(result->tex_c[1][1][0] * width),
                                                 int(result->tex_c[1][1][1] * height))))
         {
             // all inside, doesn't need clipping.

@@ -53,9 +53,7 @@ public:
      */
     void SetLayoutMode(bool state);
     void SetLayoutScale(double scale);
-private:
-    PT::Panorama  * m_pano;
-    VisualizationState * visualization_state;
+
     /** Handles the remapper and a display list for a specific image.
      */
     class MeshInfo
@@ -69,7 +67,7 @@ private:
          * @param layout_mode_on True if we should generate a mesh for layout
          * mode, false for a normally remapped mesh.
          */
-        MeshInfo(PT::Panorama * m_pano, unsigned int image_number,
+        MeshInfo(PT::Panorama * m_pano, HuginBase::SrcPanoImage * image,
                  VisualizationState * visualization_state, bool layout_mode_on);
         /** copy constructor: makes a MeshInfo representing the same object but
          * using a differrent display list, allowing the first one to be freed.
@@ -82,8 +80,9 @@ private:
         void Update();
         unsigned int display_list_number;
         void SetScaleFactor(double scale);
+        void SetSrcImage(HuginBase::SrcPanoImage * image) {this->image = *image;}
     protected:
-        unsigned int image_number;
+        HuginBase::SrcPanoImage image;
         PT::Panorama *m_pano;
         double scale_factor;
         VisualizationState *m_visualization_state;
@@ -97,9 +96,9 @@ private:
     class PanosphereOverviewMeshInfo : public MeshInfo
     {
     public:
-        PanosphereOverviewMeshInfo(PT::Panorama * m_pano, unsigned int image_number,
+        PanosphereOverviewMeshInfo(PT::Panorama * m_pano, HuginBase::SrcPanoImage * image,
                  VisualizationState * visualization_state, bool layout_mode_on)
-            : MeshInfo(m_pano, image_number, visualization_state, layout_mode_on) {
+            : MeshInfo(m_pano, image, visualization_state, layout_mode_on) {
                 //Update must be called again from here because the MeshInfo constructor will only call MeshInfo::CompileList
                 //FIXME: solve this
                 Update();
@@ -122,6 +121,11 @@ private:
         void CompileList();
     
     };
+
+    
+private:
+    PT::Panorama  * m_pano;
+    VisualizationState * visualization_state;
 
     
     std::vector<MeshInfo*> meshes;

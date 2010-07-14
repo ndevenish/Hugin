@@ -112,8 +112,16 @@ public:
 class OverviewTool : public Tool
 {
 public:
+
     OverviewTool(OverviewToolHelper* helper);
     virtual ~OverviewTool();
+
+    virtual void BeforeDrawImagesBackEvent() {}
+    virtual void AfterDrawImagesBackEvent() {}
+
+    virtual void BeforeDrawImagesFrontEvent() {}
+    virtual void AfterDrawImagesFrontEvent() {}
+    
 };
 
 #endif

@@ -32,8 +32,6 @@ ToolHelper::ToolHelper(PT::Panorama *pano_in,
     pano = pano_in;
     visualization_state = visualization_state_in;
     frame = frame_in;
-    mouse_button_notified_tool = 0;
-    keypress_notified_tool = 0;
     images_under_mouse_current = false;
     mouse_over_pano = true;
 }
@@ -53,8 +51,8 @@ void ToolHelper::DeactivateTool(Tool *tool)
 {
     tools_deactivated.insert(tool);
     // To deactivate it we need to give up all of its notifications.
-    RemoveTool(tool, &mouse_button_notified_tool);
-    RemoveTool(tool, &keypress_notified_tool);
+    RemoveTool(tool, &mouse_button_notified_tools);
+    RemoveTool(tool, &keypress_notified_tools);
     RemoveTool(tool, &mouse_move_notified_tools);
     RemoveTool(tool, &draw_under_notified_tools);
     RemoveTool(tool, &draw_over_notified_tools);
@@ -66,15 +64,14 @@ void ToolHelper::DeactivateTool(Tool *tool)
 
 void ToolHelper::MouseMoved(int x, int y, wxMouseEvent & e)
 {
-    mouse_over_pano = true;
-    mouse_x = x;
-    mouse_y = y;
+    mouse_screen_x = x;
+    mouse_screen_y = y;
     // now tell tools that want notification.
     std::set<Tool *>::iterator iterator;
     for (iterator = mouse_move_notified_tools.begin();
          iterator != mouse_move_notified_tools.end(); iterator++)
     {
-        (*iterator)->MouseMoveEvent(mouse_x, mouse_y, e);
+        (*iterator)->MouseMoveEvent(mouse_screen_x, mouse_screen_y, e);
     }
     // If the mouse has moved, then we don't know what is underneath it anoymore
     InvalidateImagesUnderMouse();
@@ -106,19 +103,33 @@ void ToolHelper::InvalidateImagesUnderMouse()
 
 void ToolHelper::MouseButtonEvent(wxMouseEvent &e)
 {
-    // if there is a tool monitoring mouse button presses, notify it
-    if (mouse_button_notified_tool)
+//    // if there is a tool monitoring mouse button presses, notify it
+//    if (mouse_button_notified_tool)
+//    {
+//        mouse_button_notified_tool->MouseButtonEvent(e);
+//    }
+    std::set<Tool *>::iterator iterator;
+    for (iterator = mouse_button_notified_tools.begin();
+         iterator != mouse_button_notified_tools.end(); iterator++)
     {
-        mouse_button_notified_tool->MouseButtonEvent(e);
+        (*iterator)->MouseButtonEvent(e);
     }
+
 }
 
 void ToolHelper::KeypressEvent(int keycode, int modifiers, bool pressed)
 {
-    if (keypress_notified_tool)
+//    if (keypress_notified_tool)
+//    {
+//        keypress_notified_tool->KeypressEvent(keycode, modifiers, pressed);
+//    }
+    std::set<Tool *>::iterator iterator;
+    for (iterator = keypress_notified_tools.begin();
+         iterator != keypress_notified_tools.end(); iterator++)
     {
-        keypress_notified_tool->KeypressEvent(keycode, modifiers, pressed);
+        (*iterator)->KeypressEvent(keycode, modifiers, pressed);
     }
+
 }
 
 void ToolHelper::BeforeDrawImages()
@@ -209,9 +220,14 @@ std::set<unsigned int> ToolHelper::GetImageNumbersUnderMouse()
     return images_under_mouse;
 }
 
-hugin_utils::FDiff2D ToolHelper::GetMousePosition()
+hugin_utils::FDiff2D ToolHelper::GetMouseScreenPosition()
 {
-    return hugin_utils::FDiff2D(mouse_x, mouse_y);
+    return hugin_utils::FDiff2D(mouse_screen_x, mouse_screen_y);
+}
+
+hugin_utils::FDiff2D ToolHelper::GetMousePanoPosition()
+{
+    return hugin_utils::FDiff2D(mouse_pano_x, mouse_pano_y);
 }
 
 VisualizationState *ToolHelper::GetVisualizationStatePtr()
@@ -237,10 +253,10 @@ void ToolHelper::NotifyMe(Event event, Tool *tool)
             AddTool(tool, &mouse_move_notified_tools);
             break;
         case MOUSE_PRESS:
-            AddTool(tool, &mouse_button_notified_tool);
+            AddTool(tool, &mouse_button_notified_tools);
             break;
         case KEY_PRESS:
-            AddTool(tool, &keypress_notified_tool);
+            AddTool(tool, &keypress_notified_tools);
             break;
         case DRAW_UNDER_IMAGES:
             AddTool(tool, &draw_under_notified_tools);
@@ -279,10 +295,10 @@ void ToolHelper::DoNotNotifyMe(Event event, Tool *tool)
             RemoveTool(tool, &mouse_move_notified_tools);
             break;
         case MOUSE_PRESS:
-            RemoveTool(tool, &mouse_button_notified_tool);
+            RemoveTool(tool, &mouse_button_notified_tools);
             break;
         case KEY_PRESS:
-            RemoveTool(tool, &keypress_notified_tool);
+            RemoveTool(tool, &keypress_notified_tools);
             break;
         case DRAW_UNDER_IMAGES:
             RemoveTool(tool, &draw_under_notified_tools);
@@ -399,16 +415,18 @@ void ToolHelper::AddTool(Tool *tool,
 void PreviewToolHelper::MouseMoved(int x, int y, wxMouseEvent &e)
 {
     mouse_over_pano = true;
+    mouse_screen_x = x;
+    mouse_screen_y = y;
     // work out where the pointer is in the panorama.
     vigra::Rect2D visible = visualization_state->GetVisibleArea();
-    mouse_x = (double) x / visualization_state->GetScale() + (double) visible.left();
-    mouse_y = (double) y / visualization_state->GetScale() + (double) visible.top();
+    mouse_pano_x = (double) x / visualization_state->GetScale() + (double) visible.left();
+    mouse_pano_y = (double) y / visualization_state->GetScale() + (double) visible.top();
     // now tell tools that want notification.
     std::set<Tool *>::iterator iterator;
     for (iterator = mouse_move_notified_tools.begin();
          iterator != mouse_move_notified_tools.end(); iterator++)
     {
-        (*iterator)->MouseMoveEvent(mouse_x, mouse_y, e);
+        (*iterator)->MouseMoveEvent(mouse_pano_x, mouse_pano_y, e);
     }
     // If the mouse has moved, then we don't know what is underneath it anoymore
     InvalidateImagesUnderMouse();
@@ -431,7 +449,7 @@ void PreviewToolHelper::UpdateImagesUnderMouse()
             transform.createTransform(*visualization_state->getViewState()->GetSrcImage(image_index),
                                       *visualization_state->getViewState()->GetOptions());
             double image_x, image_y;
-            transform.transformImgCoord(image_x, image_y, mouse_x, mouse_y);
+            transform.transformImgCoord(image_x, image_y, mouse_pano_x, mouse_pano_y);
             if (visualization_state->getViewState()->GetSrcImage(image_index)->isInside(vigra::Point2D(
                                                   int(image_x), int (image_y))))
             {
@@ -443,10 +461,224 @@ void PreviewToolHelper::UpdateImagesUnderMouse()
     images_under_mouse_current = true;
 }
 
+void OverviewToolHelper::UpdateImagesUnderMouse()
+{
+    images_under_mouse.clear();
+    unsigned int num_images = pano->getNrOfImages();
+    std::set<unsigned int> displayedImages = pano->getActiveImages();
+    for (unsigned int image_index = 0; image_index < num_images; image_index++)
+    {
+        // don't try any images that are turned off
+        if (displayedImages.count(image_index))
+        {
+            // work out if the image covers the point under the mouse.
+            HuginBase::PTools::Transform transform;
+            transform.createTransform(*visualization_state->getViewState()->GetSrcImage(image_index),
+                                      *visualization_state->GetOptions());
+            double image_x, image_y;
+            transform.transformImgCoord(image_x, image_y, mouse_pano_x, mouse_pano_y);
+            if (visualization_state->getViewState()->GetSrcImage(image_index)->isInside(vigra::Point2D(
+                                                  int(image_x), int (image_y))))
+            {
+                // this image is under the mouse, add it to the set.
+                images_under_mouse.insert(image_index);
+            }
+        }
+    }
+    images_under_mouse_current = true;
+}
+
+void OverviewToolHelper::MouseMoved(int x, int y, wxMouseEvent & e)
+{
+    PanosphereOverviewVisualizationState * panostate = (PanosphereOverviewVisualizationState*) visualization_state;
+
+    double d = panostate->getR();
+    double r = panostate->getSphereRadius();
+
+    double canv_w = panostate->getCanvasWidth();
+    double canv_h = panostate->getCanvasHeight();
+    double fov = panostate->getFOV();
+
+    double fovy, fovx;
+    if (canv_w > canv_h) {
+        fovy = DEG_TO_RAD(fov);
+        fovx = 2 * atan( tan(fovy / 2.0) * canv_w / canv_h);
+    } else {
+        fovx = DEG_TO_RAD(fov);
+        fovy = 2 * atan( tan(fovx / 2.0) * canv_h / canv_w);
+    }
+
+    double ax = tan(fovx / 2.0) * d * (x / (canv_w / 2.0) - 1);
+    double ay = tan(fovy / 2.0) * d * (y / (canv_h / 2.0) - 1);
+
+    double a_limit = r * d / sqrt(d*d - r*r);
+
+    if (ax*ax + ay*ay < a_limit*a_limit) {
+
+        mouse_over_pano = true;
+
+        double ta,tb,tc;
+        ta = (ax*ax + ay*ay) / (d*d) + 1;
+        tb = - 2 * (ax*ax + ay*ay) / d;
+        tc = ax*ax + ay*ay - r*r;
+
+        double pz = ( -tb + sqrt(tb*tb - 4*ta*tc) ) / ( 2 * ta );
+        double px = ax * (d - pz) / d;
+        double py = ay * (d - pz) / d;
+
+        double pl = sqrt(px*px + py*py + pz*pz);
+
+        double pang_yaw = -atan(px / pz);
+        double pang_pitch = asin(py / pl);
+
+        double ang_yaw = panostate->getAngX();
+        double ang_pitch = panostate->getAngY();
+
+        double x,y,z;
+        x = sin(ang_yaw)*cos(ang_pitch);
+        z = cos(ang_yaw)*cos(ang_pitch);
+        y = sin(ang_pitch);
+
+        Vector3 vec(x,y,z);
+
+        Vector3 top(0,1,0);
+
+        Vector3 ptop = vec.Cross(top).Cross(vec).GetNormalized();
+
+        Vector3 tres;
+        tres.x = ptop.x*(ptop.x * vec.x + ptop.y*vec.y + ptop.z*vec.z) + cos(pang_yaw) * (ptop.x * (-ptop.y * vec.y - ptop.z * vec.z) + vec.x*(ptop.y*ptop.y + ptop.z*ptop.z)) + sin(pang_yaw) * (-ptop.z*vec.y + ptop.y*vec.z);
+        tres.y = ptop.y*(ptop.x * vec.x + ptop.y*vec.y + ptop.z*vec.z) + cos(pang_yaw) * (ptop.y * (-ptop.x * vec.x - ptop.z * vec.z) + vec.y*(ptop.x*ptop.x + ptop.z*ptop.z)) + sin(pang_yaw) * (-ptop.z*vec.x + ptop.x*vec.z);
+        tres.z = ptop.z*(ptop.x * vec.x + ptop.y*vec.y + ptop.z*vec.z) + cos(pang_yaw) * (ptop.z * (-ptop.x * vec.x - ptop.y * vec.y) + vec.z*(ptop.x*ptop.x + ptop.y*ptop.y)) + sin(pang_yaw) * (-ptop.y*vec.x + ptop.x*vec.y);
+
+        Vector3 pside = ptop.Cross(tres).GetNormalized();
+        Vector3 res;
+
+        res.x = pside.x*(pside.x * tres.x + pside.y*tres.y + pside.z*tres.z) + cos(pang_pitch) * (pside.x * (-pside.y * tres.y - pside.z * tres.z) + tres.x*(pside.y*pside.y + pside.z*pside.z)) + sin(pang_pitch) * (-pside.z*tres.y + pside.y*tres.z);
+        res.y = pside.y*(pside.x * tres.x + pside.y*tres.y + pside.z*tres.z) + cos(pang_pitch) * (pside.y * (-pside.x * tres.x - pside.z * tres.z) + tres.y*(pside.x*pside.x + pside.z*pside.z)) + sin(-pang_pitch) * (-pside.z*tres.x + pside.x*tres.z);
+        res.z = pside.z*(pside.x * tres.x + pside.y*tres.y + pside.z*tres.z) + cos(pang_pitch) * (pside.z * (-pside.x * tres.x - pside.y * tres.y) + tres.z*(pside.x*pside.x + pside.y*pside.y)) + sin(pang_pitch) * (-pside.y*tres.x + pside.x*tres.y);
+
+        double yaw, pitch;
+        pitch = asin(res.y);
+        yaw = atan2(res.x , res.z);
+
+        yaw += M_PI / 2.0;
+        if (yaw < 0) yaw += 2 * M_PI;
+        if (yaw > 2 * M_PI) yaw -= 2 * M_PI;
+        yaw = 2 * M_PI - yaw;
+
+        pitch += M_PI / 2.0;
+        pitch = M_PI - pitch;
+
+        mouse_pano_x = yaw / (2 * M_PI) * panostate->GetOptions()->getWidth();
+        mouse_pano_y = pitch / (M_PI) * panostate->GetOptions()->getHeight();
+
+////        DEBUG_DEBUG("mouse " << RAD_TO_DEG(yaw) << " " << RAD_TO_DEG(pitch) << " " << " ; " << RAD_TO_DEG(pang_yaw) << " " << RAD_TO_DEG(pang_pitch) << " ; " << RAD_TO_DEG(ang_yaw) << " " << RAD_TO_DEG(ang_pitch) << " ; " << px << " " << py << " " << pz << " ; " << ax << " " << ay);
+
+//        DEBUG_DEBUG("mouse " << mouse_pano_x << " " << mouse_pano_y << " ; " << canv_w << " " << canv_h);
+
+//        double t_mouse_pano_x = yaw M
+
+        InvalidateImagesUnderMouse();
+
+    } else {
+
+        mouse_over_pano = false;
+        images_under_mouse.clear();
+        images_under_mouse_current = true;
+        if (!images_under_mouse_notified_tools.empty())
+        {
+            // notify tools that the set has changed.
+            std::set<Tool *>::iterator iterator;
+            for (iterator = images_under_mouse_notified_tools.begin();
+                 iterator != images_under_mouse_notified_tools.end();
+                 iterator++)
+            {
+                (*iterator)->ImagesUnderMouseChangedEvent();
+            }        
+        }
+
+    }
+
+    ToolHelper::MouseMoved(x,y,e);
+}
+
 OverviewToolHelper::OverviewToolHelper(PT::Panorama *pano,
                   VisualizationState *visualization_state,
                   GLPreviewFrame * frame) : ToolHelper(pano, visualization_state, frame) {}
 
 OverviewToolHelper::~OverviewToolHelper() {}
 
+void OverviewToolHelper::NotifyMe(OverviewEvent event, OverviewTool * tool) {
+    switch (event) {
+        case DRAW_OVER_IMAGES_BACK:
+            AddTool(tool, &draw_over_notified_tools_back);
+        break;
+        case DRAW_OVER_IMAGES_FRONT:
+            AddTool(tool, &draw_over_notified_tools_front);
+        break;
+        case DRAW_UNDER_IMAGES_BACK:
+            AddTool(tool, &draw_under_notified_tools_back);
+        break;
+        case DRAW_UNDER_IMAGES_FRONT:
+            AddTool(tool, &draw_under_notified_tools_front);
+        break;
+    }
+}
+
+void OverviewToolHelper::DoNotNotifyMe(OverviewEvent event, OverviewTool * tool) {
+    switch (event) {
+        case DRAW_OVER_IMAGES_BACK:
+            RemoveTool(tool, &draw_over_notified_tools_back);
+        break;
+        case DRAW_OVER_IMAGES_FRONT:
+            RemoveTool(tool, &draw_over_notified_tools_front);
+        break;
+        case DRAW_UNDER_IMAGES_BACK:
+            RemoveTool(tool, &draw_under_notified_tools_back);
+        break;
+        case DRAW_UNDER_IMAGES_FRONT:
+            RemoveTool(tool, &draw_under_notified_tools_front);
+        break;
+    }
+}
+
+void OverviewToolHelper::BeforeDrawImagesBack()
+{
+    std::set<Tool *>::iterator iterator;
+    for (iterator = draw_under_notified_tools_back.begin();
+         iterator != draw_under_notified_tools_back.end(); iterator++)
+    {
+        ((OverviewTool*)(*iterator))->BeforeDrawImagesBackEvent();
+    }
+}
+
+void OverviewToolHelper::BeforeDrawImagesFront()
+{
+    std::set<Tool *>::iterator iterator;
+    for (iterator = draw_under_notified_tools_front.begin();
+         iterator != draw_under_notified_tools_front.end(); iterator++)
+    {
+        ((OverviewTool*)(*iterator))->BeforeDrawImagesFrontEvent();
+    }
+}
+
+void OverviewToolHelper::AfterDrawImagesBack()
+{
+    std::set<Tool *>::iterator iterator;
+    for (iterator = draw_over_notified_tools_back.begin();
+         iterator != draw_over_notified_tools_back.end(); iterator++)
+    {
+        ((OverviewTool*)(*iterator))->AfterDrawImagesBackEvent();
+    }
+}
+
+void OverviewToolHelper::AfterDrawImagesFront()
+{
+    std::set<Tool *>::iterator iterator;
+    for (iterator = draw_over_notified_tools_front.begin();
+         iterator != draw_over_notified_tools_front.end(); iterator++)
+    {
+        ((OverviewTool*)(*iterator))->AfterDrawImagesFrontEvent();
+    }
+}
 

@@ -487,20 +487,21 @@ PanosphereOverviewVisualizationState::PanosphereOverviewVisualizationState(PT::P
 
     scale = 100;
 
-    angx = M_PI / 2.0;
+//    angx = M_PI / 2.0;
+    angx = 0;
     angy = 0;
-    fovy = 20;
-    R = 1000;
+    fov = 40;
+    R = 500;
 
     sphere_radius = 100;
 
-    int number_of_images = m_pano->getNrOfImages();
-    for (unsigned int img = 0; img < number_of_images; img++)
-    {
-        img_states[img] = m_pano->getSrcImage(img);
-        img_states[img].setYaw(0);
-        img_states[img].setPitch(0);
-    }
+//    int number_of_images = m_pano->getNrOfImages();
+//    for (unsigned int img = 0; img < number_of_images; img++)
+//    {
+//        img_states[img] = m_pano->getSrcImage(img);
+//        img_states[img].setYaw(0);
+//        img_states[img].setPitch(0);
+//    }
 
     opts = (*(m_view_state->GetOptions()));
     opts.setProjection(HuginBase::PanoramaOptions::EQUIRECTANGULAR);
@@ -521,10 +522,10 @@ OutputProjectionInfo *PanosphereOverviewVisualizationState::GetProjectionInfo()
     return projection_info;
 }
 
-HuginBase::SrcPanoImage * PanosphereOverviewVisualizationState::GetSrcImage(unsigned int image_nr)
-{
-    return &(img_states[image_nr]);
-}
+//HuginBase::SrcPanoImage * PanosphereOverviewVisualizationState::GetSrcImage(unsigned int image_nr)
+//{
+//    return &(img_states[image_nr]);
+//}
 
 void PanosphereOverviewVisualizationState::SetOptions(const HuginBase::PanoramaOptions * new_opts)
 {
@@ -537,12 +538,13 @@ void PanosphereOverviewVisualizationState::SetOptions(const HuginBase::PanoramaO
     projection_info = new OutputProjectionInfo(&opts);
 }
 
-void PanosphereOverviewVisualizationState::SetSrcImage(unsigned int image_nr, HuginBase::SrcPanoImage * new_img)
-{
-    img_states[image_nr] = *new_img;
-    img_states[image_nr].setYaw(0);
-    img_states[image_nr].setPitch(0);
-}
+//void PanosphereOverviewVisualizationState::SetSrcImage(unsigned int image_nr, HuginBase::SrcPanoImage * new_img)
+//{
+//    //FIXME: YAW and PITCH shouldn't be set in here, but just in the mesh manager.
+//    img_states[image_nr] = *new_img;
+//    img_states[image_nr].setYaw(0);
+//    img_states[image_nr].setPitch(0);
+//}
 
 void PanosphereOverviewVisualizationState::setAngX(double angx_in)
 {
