@@ -337,7 +337,7 @@ void ViewState::FinishedDraw()
     active.clear();
     for (unsigned int img = 0; img < number_of_images; img++)
     {
-        img_states[img] = m_pano->getImage(img);
+        img_states[img] = m_pano->getSrcImage(img);
         active[img] = m_pano->getImage(img).getOptions().active;
     }
     opts = m_pano->getOptions();
