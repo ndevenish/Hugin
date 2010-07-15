@@ -1,3 +1,49 @@
+2010-07-15  James Legg  <jlegg@users.sourceforge.net>
+
+	* src/hugin1/hugin/ViewState.cpp:
+	Fix bug where fast preview interactions could disconnect image's
+	lenses introduced in 66f626bf15aa.
+	[32dc50543204] [tip]
+
+2010-07-15  tmodes  <tmodes>
+
+	* CMakeModules/win_bundle.cmake:
+	Added missing files to install target for windows
+	[a94c74257dc7]
+
+2010-07-13  tmodes  <tmodes>
+
+	* src/hugin_base/panodata/Panorama.cpp:
+	Fixes an issue with positive masks and fisheye images
+	[497b2b9fb40f]
+
+2010-07-07  Bruno Postle  <bruno@postle.net>
+
+	* ChangeLog, doc/releases/hugin-2010.2.0_beta1.txt:
+	Unfinished announcement for a 2010.2.0_beta1 release
+	[7e19d5bea985]
+
+2010-06-29  Kornel Benko  <Kornel.Benko@berlin.de>
+
+	* CMakeLists.txt, ChangeLog, admin/update_tarball.sh, doc/batch-
+	processing/README.batch, doc/releases/hugin-0.8.0.txt,
+	doc/releases/hugin-0.8.0_rc1.txt, doc/releases/hugin-0.8.0_rc2.txt,
+	doc/releases/hugin-0.8.0_rc3.txt, doc/releases/hugin-0.8.0_rc4.txt,
+	doc/releases/hugin-0.8.0_rc5.txt, doc/releases/hugin-2009.4.0.txt,
+	doc/releases/hugin-2009.4.0_rc3.txt, doc/releases/hugin-
+	2010.0.0.txt, doc/releases/hugin-2010.0.0_rc1.txt,
+	src/hugin1/hugin/ViewState.cpp, src/hugin1/hugin/wxPanoCommand.cpp,
+	src/hugin_base/algorithms/basic/CalculateOverlap.cpp, src/hugin_base
+	/algorithms/panorama_makefile/PanoramaMakefileExport.cpp:
+	Enable creation of ChangeLog from build-dir
+	[f9fc675ab021]
+
+2010-07-07  Bruno Postle  <bruno@postle.net>
+
+	* ChangeLog:
+	Update ChangeLog file
+	[2b6dba1d7651]
+
 2010-06-28  Bruno Postle  <bruno@postle.net>
 
 	* CMakeLists.txt:
