@@ -61,6 +61,8 @@ class PreviewLayoutLinesTool;
 class OverviewProjectionGridTool;
 class PreviewProjectionGridTool;
 
+class OverviewOutlinesTool;
+
 class GLPreviewFrame;
 
 class GLwxAuiManager;
@@ -307,6 +309,8 @@ private:
 
     OverviewDragTool *overview_drag_tool;
     OverviewCameraTool *overview_camera_tool;
+
+    OverviewOutlinesTool *overview_outlines_tool;
 
     void TurnOffTools(std::set<Tool*> tools);
     

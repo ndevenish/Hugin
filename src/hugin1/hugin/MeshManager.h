@@ -116,6 +116,7 @@ public:
             Coords3D(const MeshRemapper::Coords & coords, VisualizationState * state);
             double tex_coords[2][2][2];
             double vertex_coords[2][2][3];
+            static void Convert(double &x, double &y, double &z, double th, double ph, double r);
         };
 
         void CompileList();

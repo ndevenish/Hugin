@@ -112,6 +112,21 @@ void PreviewCropTool::ReallyAfterDrawImagesEvent()
 
 void PreviewCropTool::MouseMoveEvent(double x, double y, wxMouseEvent & e)
 {
+
+//    std::cout << "outlines tool " << x << " " << y << std::endl;
+//    double xp, yp;
+//    HuginBase::PTools::Transform transform;
+//    HuginBase::SrcPanoImage image;
+//    image.setSize(vigra::Size2D(360,180));
+//    image.setHFOV(360);
+//    image.setProjection(HuginBase::BaseSrcPanoImage::EQUIRECTANGULAR);
+//    if (helper->GetPanoramaPtr()->getNrOfImages() > 0) {
+////        transform.createTransform(*helper->GetViewStatePtr()->GetSrcImage(0), *(helper->GetVisualizationStatePtr()->GetOptions()));
+//        transform.createTransform(image, *(helper->GetVisualizationStatePtr()->GetOptions()));
+//        transform.transformImgCoord(xp,yp,x,y);
+//    std::cout << "outlines tool " << xp << " " << yp << std::endl;
+//    }
+
     if (mouse_down)
     {
         vigra::Rect2D roi = start_drag_options.getROI();

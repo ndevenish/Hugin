@@ -102,13 +102,15 @@ void OverviewProjectionGridTool::AfterDrawImagesBackEvent()
     }
 
     glDisable(GL_TEXTURE_2D);
-    glColor4f(0.7,0.7,0.7,0.3);
+    glColor4f(0.3,0.3,0.3,0.6);
     glEnable(GL_BLEND);
     glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    mesh_info->CallList();
+    GLUquadric* gridb = gluNewQuadric();
+    gluSphere(gridb, 101,40,20);
+
     glEnable(GL_TEXTURE_2D);
 
-    glColor4f(0.1,0.1,0.1,0.3);
+    glColor4f(1,1,1,0.3);
     glEnable( GL_TEXTURE_2D );
     glEnable(GL_BLEND);
     glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -121,12 +123,32 @@ void OverviewProjectionGridTool::AfterDrawImagesBackEvent()
     else
         glBindTexture(GL_TEXTURE_2D, texture_num);
     glMatrixMode(GL_TEXTURE);
+
+    //using just a sphere instead of the remapped mesh for better quality
+//    glPushMatrix();
+//    glScalef(0.5,1,1);
+//    glMatrixMode(GL_MODELVIEW);
+//    mesh_info->CallList();
+//    glMatrixMode(GL_TEXTURE);
+//    glPopMatrix();
+
     glPushMatrix();
+    glRotated(180,1,0,0);
     glScalef(0.5,1,1);
     glMatrixMode(GL_MODELVIEW);
-    mesh_info->CallList();
+//    mesh_info->CallList();
+    GLUquadric* grid = gluNewQuadric();
+    gluQuadricTexture(grid, GL_TRUE);
+
+    glPushMatrix();
+    glRotated(-90,1,0,0);
+    gluSphere(grid, 101,40,20);
+    glPopMatrix();
+
     glMatrixMode(GL_TEXTURE);
     glPopMatrix();
+
+
     glDisable(GL_BLEND);
     
 }
@@ -145,26 +167,6 @@ void OverviewProjectionGridTool::AfterDrawImagesFrontEvent()
         createMesh();
     }
 
-//    #ifdef __WXGTK__
-//    glCullFace(GL_BACK);
-//    glPushMatrix();
-//    glRotated(90,1,0,0);
-////    if (imgs > 0) {
-//        glEnable( GL_TEXTURE_2D );
-//        glEnable(GL_BLEND);
-//        glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-//        glColor4f(0.5,0.5,0.5,0.5);
-//        GLUquadric* grid = gluNewQuadric();
-//        gluQuadricTexture(grid, GL_TRUE);
-//        glBindTexture(GL_TEXTURE_2D, texture_num);
-//        gluSphere(grid, 101,40,20);
-//        glDisable(GL_BLEND);
-////    } else {
-////        glColor4f(0.5,0.5,0.5,0.5);
-////        glutWireSphere(101,40,20);
-////    }
-//    glPopMatrix();
-//    #endif
 
     DEBUG_DEBUG("proj grid tool after front");
 
@@ -181,13 +183,34 @@ void OverviewProjectionGridTool::AfterDrawImagesFrontEvent()
     else
         glBindTexture(GL_TEXTURE_2D, texture_num);
     glMatrixMode(GL_TEXTURE);
+
+    //using just a sphere instead of the remapped mesh for better quality
+//    glPushMatrix();
+//    glScalef(0.5,1,1);
+//    glMatrixMode(GL_MODELVIEW);
+//    mesh_info->CallList();
+//    glMatrixMode(GL_TEXTURE);
+//    glPopMatrix();
+
     glPushMatrix();
+    glRotated(180,1,0,0);
     glScalef(0.5,1,1);
     glMatrixMode(GL_MODELVIEW);
-    mesh_info->CallList();
+//    mesh_info->CallList();
+    GLUquadric* grid = gluNewQuadric();
+    gluQuadricTexture(grid, GL_TRUE);
+
+    glPushMatrix();
+    glRotated(-90,1,0,0);
+    gluSphere(grid, 101,40,20);
+    glPopMatrix();
+
     glMatrixMode(GL_TEXTURE);
     glPopMatrix();
+
+
     glDisable(GL_BLEND);
+
 
 }
 

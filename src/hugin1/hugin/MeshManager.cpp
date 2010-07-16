@@ -302,21 +302,28 @@ MeshManager::PanosphereOverviewMeshInfo::Coords3D::Coords3D(const MeshRemapper::
 
             double th, ph;
             th = ((coords.vertex_c[x][y][0] / width) * hfov - hfov / 2.0);
-            ph = -((coords.vertex_c[x][y][1] / height) * vfov - vfov / 2.0);
+            ph = ((coords.vertex_c[x][y][1] / height) * vfov - vfov / 2.0);
 
-            th /= 180.0;
-            th *= M_PI;
-            ph /= 180.0;
-            ph *= M_PI;
-
-            vertex_coords[x][y][0] = r * sin(th) * cos(ph);
-            vertex_coords[x][y][1] = r * sin(ph);
-            vertex_coords[x][y][2] = r * cos(th) * cos(ph);
-
+            Convert(
+                vertex_coords[x][y][0],
+                vertex_coords[x][y][1],
+                vertex_coords[x][y][2],
+                th,-ph,r);
         }
     }
 }
 
+void MeshManager::PanosphereOverviewMeshInfo::Coords3D::Convert(double &x, double &y, double &z, double th, double ph, double r)
+{
+    th /= 180.0;
+    th *= M_PI;
+    ph /= 180.0;
+    ph *= M_PI;
+
+    x = r * sin(th) * cos(ph);
+    y = r * sin(ph);
+    z = r * cos(th) * cos(ph);
+}
 
 void MeshManager::PanosphereOverviewMeshInfo::CompileList()
 {

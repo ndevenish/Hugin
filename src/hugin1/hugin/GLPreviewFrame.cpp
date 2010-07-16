@@ -77,6 +77,7 @@ extern "C" {
 #include "ProjectionGridTool.h"
 
 #include "OverviewCameraTool.h"
+#include "OverviewOutlinesTool.h"
 
 #include <wx/progdlg.h>
 
@@ -1417,6 +1418,7 @@ void GLPreviewFrame::MakePreviewTools(PreviewToolHelper *preview_helper_in)
 
     preview_projection_grid = new PreviewProjectionGridTool(preview_helper);
     preview_helper->ActivateTool(preview_projection_grid);
+
     
     // activate tools that are always active.
     preview_helper->ActivateTool(pano_mask_tool);
@@ -1435,6 +1437,8 @@ void GLPreviewFrame::MakeOverviewTools(OverviewToolHelper *overview_helper_in)
     overview_identify_tool = new PreviewIdentifyTool(overview_helper, this);
     overview_projection_grid = new OverviewProjectionGridTool(overview_helper);
     overview_helper->ActivateTool(overview_projection_grid);
+    overview_outlines_tool = new OverviewOutlinesTool(overview_helper, m_GLPreview);
+    overview_helper->ActivateTool(overview_outlines_tool);
 }
 
 void GLPreviewFrame::OnIdentify(wxCommandEvent & e)

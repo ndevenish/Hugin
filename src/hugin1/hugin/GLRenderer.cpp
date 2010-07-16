@@ -201,7 +201,8 @@ void GLPreviewRenderer::Redraw()
 void GLOverviewRenderer::Redraw()
 {
 
-    
+
+    glClearColor(0,0,0,0);
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	glMatrixMode(GL_MODELVIEW);
@@ -214,6 +215,9 @@ void GLOverviewRenderer::Redraw()
 	
 	gluLookAt(R * cos(angy) * cos(angx), R * sin(angy), R * cos(angy) * sin(angx), 0, 0, 0, 0, 1, 0);
 
+    //for look from inside
+//	gluLookAt(0,0,0,R * cos(angy) * cos(angx), R * sin(angy), R * cos(angy) * sin(angx), 0, 1, 0);
+
     // draw things under the preview images
     m_tool_helper->BeforeDrawImages();
     // draw each active image.
@@ -224,7 +228,7 @@ void GLOverviewRenderer::Redraw()
 
     glColor3f(0.5,0.5,0.5);
 
-    double side = 5;
+    double side = 150;
     glBegin(GL_LINE_LOOP);
 
         glVertex3f(-side,side,0);
@@ -238,7 +242,7 @@ void GLOverviewRenderer::Redraw()
     glBegin(GL_LINES);
 
         glColor3f(1,0,0);
-        glVertex3f(0,0,0);
+        glVertex3f(-axis,0,0);
         glVertex3f(axis,0,0);
 
         glColor3f(0,1,0);
@@ -256,6 +260,7 @@ void GLOverviewRenderer::Redraw()
 
     glEnable(GL_CULL_FACE);
     glCullFace(GL_FRONT);
+
     
     ((OverviewToolHelper*)m_tool_helper)->BeforeDrawImagesBack();
     m_tex_man->Begin();
