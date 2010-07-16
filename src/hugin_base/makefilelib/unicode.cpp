@@ -1,6 +1,7 @@
 /**
  * @file unicode.cpp
- * @brief
+ * @brief Test program for locales and wide and narrow strings.
+ *
  *  Created on: Jul 14, 2010
  * @author Florian Achleitner <florian.achleitner.2.6.31@gmail.com>
  */
@@ -8,13 +9,38 @@
 #include <cstring>
 #include <iostream>
 #include <string>
+#include <fstream>
+#include <locale>
+#include <stdio.h>
 
+/**
+ * Tester that cleared up several things about wide and narrow character streams
+ * and locales.
+ *
+ */
 int main(int argc, char* argv[])
 {
+	std::locale de("de_DE.utf8");
+
+	// the global locale is the default value for new streams and sets the C locale.
+	std::cout << "C locale " << std::locale::global(std::locale("")).name() << std::endl;
+	std::cout << "C locale " << std::locale::global(de).name() << std::endl;
+	// This changes the C locale, but has no effect on the C++ streams.
+	setlocale(LC_ALL, "en_US.utf8");
+
+	std::cout << "C++ locale " << std::cout.getloc().name() << std::endl;
+	std::cout.imbue(de);
+	std::cout << "C++ locale " << std::cout.getloc().name() << std::endl;
+
+	float comma = 15.45;
+
    const char text[] = "olé" ;
    const std::string strtext(text);
+   std::ofstream file("/tmp/file");
+
    const wchar_t wtext[] = L"olé" ;
    const std::wstring wstrtext(wtext);
+   std::wofstream wfile("/tmp/wfile", std::ios::binary);
 
    std::cout << "sizeof(char)    : " << sizeof(char) << std::endl ;
    std::cout << "text            : " << text << std::endl ;
@@ -29,7 +55,12 @@ int main(int argc, char* argv[])
       std::cout << " " << static_cast<unsigned int>(static_cast<unsigned char>(text[i])) ;
    }
 
-   std::cout << std::endl << std::endl ;
+   file << text;
+   file << strtext;
+   file << comma;
+
+   std::cout << std::endl << comma << std::endl ; // shows the difference between C++ locale
+   printf("%f\n", comma);	// and C locale
 
    std::cout << "sizeof(wchar_t) : " << sizeof(wchar_t) << std::endl ;
    std::cout << "wtext           : " << wtext << std::endl ;
@@ -45,8 +76,11 @@ int main(int argc, char* argv[])
       std::cout << " " << static_cast<unsigned int>(static_cast<unsigned short>(wtext[i])) ;
    }
 
-   std::cout << std::endl << std::endl ;
+   wfile << wtext;
+   wfile << wstrtext;
+   wfile << comma;
 
+   std::cout << std::endl << std::endl ;
 
    return 0;
 }
