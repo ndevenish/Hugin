@@ -10,9 +10,6 @@
 
 #include "Makefile.h"
 
-#include <ostream>
-#include <string>
-
 namespace makefile
 {
 
