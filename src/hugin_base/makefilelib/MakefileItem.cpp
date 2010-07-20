@@ -10,7 +10,7 @@
 namespace makefile
 {
 
-std::ostream& operator<<(std::ostream& stream, MakefileItem& item)
+ostream& operator<<(ostream& stream, MakefileItem& item)
 {
 	item.print(stream);
 	return stream;

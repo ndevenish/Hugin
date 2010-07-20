@@ -8,7 +8,7 @@
 #ifndef MAKEFILE_H_
 #define MAKEFILE_H_
 
-#include <string>
+#include "char_type.h"
 #include <vector>
 #include <iostream>
 
@@ -37,7 +37,7 @@ public:
 	 * Selects quoting modes.
 	 */
 	enum QuoteMode {MAKE, SHELL, NONE};
-	static std::string quote(const std::string& in, Makefile::QuoteMode mode);
+	static string quote(const string& in, Makefile::QuoteMode mode);
 
 
 	/**
@@ -72,7 +72,7 @@ public:
 	 * @param out ostream to write the Makefile to.
 	 * @return
 	 */
-	int writeMakefile(std::ostream& out);
+	int writeMakefile(ostream& out);
 };
 
 }

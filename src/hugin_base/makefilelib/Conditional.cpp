@@ -10,23 +10,23 @@
 namespace makefile
 {
 
-std::string Conditional::toString()
+string Conditional::toString()
 {
-	std::string str = printif();
+	string str = printif();
 	std::vector<MakefileItem*>::iterator i;
 	for(i = ifblock.begin(); i != ifblock.end(); i++)
 		str.append((*i)->toString());
-	str.append("\n");
+	str.append(cstr("\n"));
 
 	// only if else block has contents.
 	if(!elseblock.empty())
 	{
-		str.append("else\n");
+		str.append(cstr("else\n"));
 		for(i = elseblock.begin(); i != elseblock.end(); i++)
 			str.append((*i)->toString());
-		str.append("\n");
+		str.append(cstr("\n"));
 	}
-	str.append("endif\n");
+	str.append(cstr("endif\n"));
 	return str;
 }
 

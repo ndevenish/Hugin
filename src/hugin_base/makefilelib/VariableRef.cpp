@@ -12,8 +12,8 @@
 namespace makefile
 {
 
-std::string VariableRef::toString()
+string VariableRef::toString()
 {
-	return std::string("$(" + variable.getName() + ")");
+	return string(cstr("$(") + variable.getName() + cstr(")"));
 }
 }

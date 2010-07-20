@@ -7,9 +7,7 @@
 
 #include "Makefile.h"
 #include "MakefileItem.h"
-#include <boost/regex.hpp>
 
-using namespace std;
 namespace makefile
 {
 
@@ -55,45 +53,45 @@ void Makefile::clean()
  * @param mode switch.
  * @return A new string containing the processed content.
  */
-std::string Makefile::quote(const std::string& in, Makefile::QuoteMode mode)
+string Makefile::quote(const string& in, Makefile::QuoteMode mode)
 {
-	boost::regex toescape;
-	std::string output;
+	regex toescape;
+	string output;
 	switch(mode)
 	{
 	case Makefile::SHELL:
 #ifdef WIN32
-		toescape.assign("(\\$[^\\(])|(\\\\)|(\\#)");
+		toescape.assign(cstr("(\\$[^\\(])|(\\\\)|(\\#)"));
 		// uses a nice regex feature "recursive expressions" for doing it all in one (subexpression) cascade.
-		output.assign("(?1\\$$&)(?2/)(?3\\\\$&)");
-		return std::string("\"") + boost::regex_replace(in, toescape, output, boost::match_default | boost::format_all) + "\"";
+		output.assign(cstr("(?1\\$$&)(?2/)(?3\\\\$&)"));
+		return string(cstr("\"") + boost::regex_replace(in, toescape, output, boost::match_default | boost::format_all) + cstr("\"");
 #else
 		// because parenthesis are replaced too, the first pattern detects variable references and passes them unchanged.
-		toescape.assign("(\\$\\([^\\)]+\\))|(\\$)|([\\\\ \\~\"\\|\\'\\`\\{\\}\\[\\]\\(\\)\\*\\#\\:\\=])");
-		output.assign("(?1$&)(?2\\\\\\$$&)(?3\\\\$&)");
+		toescape.assign(cstr("(\\$\\([^\\)]+\\))|(\\$)|([\\\\ \\~\"\\|\\'\\`\\{\\}\\[\\]\\(\\)\\*\\#\\:\\=])"));
+		output.assign(cstr("(?1$&)(?2\\\\\\$$&)(?3\\\\$&)"));
 		return boost::regex_replace(in, toescape, output, boost::match_default | boost::format_all);
 #endif
 		break;
 	case Makefile::MAKE:
 #ifdef WIN32
-		toescape.assign("(\\$[^\\(])|([ \\#\\=])");
-		output.assign("(?1\\$$&)(?2\\\\$&)");
+		toescape.assign(cstr("(\\$[^\\(])|([ \\#\\=])"));
+		output.assign(cstr("(?1\\$$&)(?2\\\\$&)"));
 		return boost::regex_replace(in, toescape, output, boost::match_default | boost::format_all);
 #else
 		// do not replace $ if followed by a (. To allow variable references.
-		toescape.assign("(\\$[^\\(])|([ \\#\\:\\=])");
-		output.assign("(?1\\$$&)(?2\\\\$&)");
+		toescape.assign(cstr("(\\$[^\\(])|([ \\#\\:\\=])"));
+		output.assign(cstr("(?1\\$$&)(?2\\\\$&)"));
 		return boost::regex_replace(in, toescape, output, boost::match_default | boost::format_all);
 #endif
 		break;
 	default:
-		return std::string(in);
+		return string(in);
 	}
 }
 
 int Makefile::writeMakefile(ostream& out)
 {
-	for(vector<MakefileItem*>::iterator i = items.begin(); i != items.end(); i++)
+	for(std::vector<MakefileItem*>::iterator i = items.begin(); i != items.end(); i++)
 	{
 		out << **i;
 	}

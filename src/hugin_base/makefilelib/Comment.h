@@ -9,7 +9,6 @@
 #define COMMENT_H_
 
 #include "MakefileItem.h"
-#include <string>
 
 namespace makefile
 {
@@ -20,32 +19,32 @@ namespace makefile
  */
 class Comment : public MakefileItem
 {
-	std::string text;
+	string text;
 
 public:
 	Comment() {}
 
-	Comment(std::string s) : text(s) {}
+	Comment(string s) : text(s) {}
 
 	virtual ~Comment() { }
 
-	std::string& getText()
+	string& getText()
 	{
 		return text;
 	}
 
-	void setText(const std::string& s)
+	void setText(const string& s)
 	{
 		text = s;
 	}
 
-	void appendLine(const std::string& line)
+	void appendLine(const string& line)
 	{
-		text.append("\n");
+		text.append(cstr("\n"));
 		text.append(line);
 	}
 
-	virtual std::string toString();
+	virtual string toString();
 };
 
 }

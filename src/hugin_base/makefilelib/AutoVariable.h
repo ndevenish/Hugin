@@ -24,7 +24,7 @@ class AutoVariable: public makefile::Variable
 	/// Automatic Variables have special names, so we omit checking.
 	virtual int checkStrings();
 public:
-	AutoVariable(std::string name)
+	AutoVariable(string name)
 	: Variable(name)
 	{
 		checkStrings();
@@ -33,7 +33,7 @@ public:
 	{};
 
 	/// Has no value, exception.
-	virtual std::string getValue();
+	virtual string getValue();
 
 	/// Has no definition, exception.
 	virtual VariableDef& getDef();

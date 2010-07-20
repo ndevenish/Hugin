@@ -21,7 +21,7 @@ Filename::~Filename()
 	// TODO Auto-generated destructor stub
 }
 
-std::string Filename::toString()
+string Filename::toString()
 {
 
 }

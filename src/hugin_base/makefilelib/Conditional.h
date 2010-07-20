@@ -31,7 +31,7 @@ namespace makefile
 class Conditional: public makefile::MakefileItem
 {
 	/// Output the header line, like ifeq (arg1, arg2).
-	virtual std::string printif()=0;
+	virtual string printif()=0;
 	/// MakefileItem active if the condition is true.
 	std::vector<MakefileItem*> ifblock;
 	/// MakefileItem in the else block. The else-block is ommited if this is empty.
@@ -51,18 +51,18 @@ public:
 		elseblock.push_back(&item);
 	}
 
-	virtual std::string toString();
+	virtual string toString();
 };
 
 class ConditionalEQ: public makefile::Conditional
 {
-	std::string arg1, arg2;
-	virtual std::string printif()
+	string arg1, arg2;
+	virtual string printif()
 	{
-		return "ifeq (" + arg1 + "," + arg2 + ")\n";
+		return cstr("ifeq (") + arg1 + cstr(",") + arg2 + cstr(")\n");
 	}
 public:
-	ConditionalEQ(std::string arg1_, std::string arg2_)
+	ConditionalEQ(string arg1_, string arg2_)
 	:arg1(arg1_), arg2(arg2_)
 	{}
 	virtual ~ConditionalEQ()
@@ -72,13 +72,13 @@ public:
 
 class ConditionalNEQ: public makefile::Conditional
 {
-	std::string arg1, arg2;
-	virtual std::string printif()
+	string arg1, arg2;
+	virtual string printif()
 	{
-		return "ifneq (" + arg1 + "," + arg2 + ")\n";
+		return cstr("ifneq (") + arg1 + cstr(",") + arg2 + cstr(")\n");
 	}
 public:
-	ConditionalNEQ(std::string arg1_, std::string arg2_)
+	ConditionalNEQ(string arg1_, string arg2_)
 	:arg1(arg1_), arg2(arg2_)
 	{}
 	virtual ~ConditionalNEQ()
@@ -88,13 +88,13 @@ public:
 
 class ConditionalDEF: public makefile::Conditional
 {
-	std::string varname;
-	virtual std::string printif()
+	string varname;
+	virtual string printif()
 	{
-		return "ifdef " + varname + "\n";
+		return cstr("ifdef ") + varname + cstr("\n");
 	}
 public:
-	ConditionalDEF(std::string varname_)
+	ConditionalDEF(string varname_)
 	:varname(varname_)
 	{}
 	virtual ~ConditionalDEF()
@@ -104,13 +104,13 @@ public:
 
 class ConditionalNDEF: public makefile::Conditional
 {
-	std::string varname;
-	virtual std::string printif()
+	string varname;
+	virtual string printif()
 	{
-		return "ifndef " + varname + "\n";
+		return cstr("ifndef ") + varname + cstr("\n");
 	}
 public:
-	ConditionalNDEF(std::string varname_)
+	ConditionalNDEF(string varname_)
 	:varname(varname_)
 	{}
 	virtual ~ConditionalNDEF()

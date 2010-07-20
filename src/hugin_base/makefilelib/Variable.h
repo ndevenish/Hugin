@@ -8,7 +8,6 @@
 #ifndef VARIABLE_H_
 #define VARIABLE_H_
 
-#include <string>
 #include "VariableDef.h"
 #include "VariableRef.h"
 #include "Makefile.h"
@@ -24,7 +23,7 @@ namespace makefile
 class Variable
 {
 protected:
-	std::string name, value;
+	string name, value;
 	/// A VariableDef connected to the Variable.
 	VariableDef def;
 	/// A VariableDef connected to the Variable.
@@ -41,15 +40,15 @@ protected:
 	virtual void checkValue();
 
 	/// To be used only by subclasses, like AutoVariable.
-	Variable(std::string name_)
-	: name(name_), value(""), def(*this), ref(*this), quotemode(Makefile::SHELL)
+	Variable(string name_)
+	: name(name_), value(cstr("")), def(*this), ref(*this), quotemode(Makefile::SHELL)
 	{
 
 	}
 private:
 	Variable(const Variable&);	// no implicite copies!
 public:
-	Variable(std::string name_, std::string value_, Makefile::QuoteMode quotemode_ = Makefile::SHELL)
+	Variable(string name_, string value_, Makefile::QuoteMode quotemode_ = Makefile::SHELL)
 	: name(name_), value(value_), def(*this), ref(*this), quotemode(quotemode_)
 	{
 		checkName();
@@ -57,12 +56,12 @@ public:
 	}
 	virtual ~Variable() {}
 
-	virtual std::string getName()
+	virtual string getName()
 	{
 		return name;
 	}
 
-	virtual std::string getValue()
+	virtual string getValue()
 	{
 		return Makefile::quote(value, quotemode);
 	}

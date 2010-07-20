@@ -6,7 +6,6 @@
  */
 
 #include "Variable.h"
-#include <boost/regex.hpp>
 #include <stdexcept>
 
 
@@ -20,9 +19,9 @@ namespace makefile
  */
 void Variable::checkName()
 {
-	static const boost::regex validname("\\w+");
+	static const regex validname(cstr("\\w+"));
 	if( !boost::regex_match(name, validname))
-		throw std::invalid_argument("Bad Variable name: " + name);
+		throw std::invalid_argument("Bad Variable name: " /*+ name*/); ///< @todo Need converter!
 }
 
 /**
@@ -31,8 +30,8 @@ void Variable::checkName()
  */
 void Variable::checkValue()
 {
-	static const boost::regex invalid("\\R");
+	static const regex invalid(cstr("\\R"));
 	if(boost::regex_search(value, invalid))
-		throw std::invalid_argument("Bad Variable value: " + value);
+		throw std::invalid_argument("Bad Variable value: " /*+ value*/); ///< @todo Need converter!
 }
 }

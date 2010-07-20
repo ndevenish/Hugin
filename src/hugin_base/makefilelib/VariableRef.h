@@ -35,7 +35,7 @@ public:
 		// TODO Auto-generated destructor stub
 	}
 
-	virtual std::string toString();
+	virtual string toString();
 
 };
 

@@ -28,11 +28,11 @@ public:
 	virtual ~Newline()
 	{}
 
-	virtual std::string toString()
+	virtual string toString()
 	{
-		std::string n;
+		string n;
 		for(int i=0; i<newlines; i++)
-			n.append("\n");
+			n.append(cstr("\n"));
 		return n;
 	}
 };

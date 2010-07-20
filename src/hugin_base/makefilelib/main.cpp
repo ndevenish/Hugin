@@ -21,154 +21,153 @@
 #include <boost/regex.hpp>
 #include <boost/scoped_ptr.hpp>
 
-using namespace std;
 using namespace makefile;
 
 int tryall()
 {
-	Comment comment("First line");
-	comment.appendLine("second line");
-	comment.appendLine("third line\nfourth\r line");
-	cout << comment;
+	Comment comment(cstr("First line"));
+	comment.appendLine(cstr("second line"));
+	comment.appendLine(cstr("third line\nfourth\r line"));
+	std::cout << comment;
 
-	Variable myname("MYNAME", "Flo");
-	cout << myname.getName() << endl;
-	cout << myname.getValue() << endl;
-	cout << myname.getDef();
-	cout << myname.getRef() << endl;
+	Variable myname(cstr("MYNAME"), cstr("Flo"));
+	std::cout << myname.getName() << std::endl;
+	std::cout << myname.getValue() << std::endl;
+	std::cout << myname.getDef();
+	std::cout << myname.getRef() << std::endl;
 
-	Variable myfullname("MYFULLNAME", myname.getRef().toString() + " Achleitner");
-	cout << myfullname.getDef() << myfullname.getRef() << endl;
+	Variable myfullname(cstr("MYFULLNAME"), myname.getRef().toString() + cstr(" Achleitner"));
+	std::cout << myfullname.getDef() << myfullname.getRef() << std::endl;
 	myfullname.setQuoteMode(Makefile::MAKE);
-	cout << myfullname.getDef() << myfullname.getRef() << endl;
+	std::cout << myfullname.getDef() << myfullname.getRef() << std::endl;
 
 	try
 	{
-	Variable namesucks("This name sucks", "anyvalue");
-	cout << namesucks.getDef();
+	Variable namesucks(cstr("This name sucks"), cstr("anyvalue"));
+	std::cout << namesucks.getDef();
 	}
 	catch(std::exception& e)
 	{
-		cerr << e.what() << endl;
+		std::cerr << e.what() << std::endl;
 	}
 	try
 	{
-	Variable valuesucks("This_value_sucks", "any\nnewline");
-	cout << valuesucks.getDef();
+	Variable valuesucks(cstr("This_value_sucks"), cstr("any\nnewline"));
+	std::cout << valuesucks.getDef();
 	}
 	catch(std::exception& e)
 	{
-		cerr << e.what() << endl;
+		std::cerr << e.what() << std::endl;
 	}
-	Variable namesucksless("This_name_sucks_less", "~~(bad:){\\value}");
+	Variable namesucksless(cstr("This_name_sucks_less"), cstr("~~(bad:){\\value}"));
 	namesucksless.setQuoteMode(Makefile::SHELL);
-	cout << namesucksless.getDef();
+	std::cout << namesucksless.getDef();
 	namesucksless.setQuoteMode(Makefile::MAKE);
-	cout << namesucksless.getDef();
+	std::cout << namesucksless.getDef();
 
-	AutoVariable autovar("@");
-//	cout << autovar.getDef(); causes an exception as it should.
-	cout << autovar.getRef() << endl;
+	AutoVariable autovar(cstr("@"));
+//	std::cout << autovar.getDef(); causes an exception as it should.
+	std::cout << autovar.getRef() << std::endl;
 
 	return 0;
 }
 
 int tryreplace()
 {
-	boost::regex toescape;
-//	boost::regex toescape("(p)|([Da])");
-	std::string output;
-//	std::string output("(?1--$&--)(?2__$&__)");
-	toescape.assign("(\\$\\([^\\)]+\\))|(\\$[^\\(])|([\\\\ \\~\"\\|\\'\\`\\{\\}\\[\\]\\(\\)\\*\\#\\:\\=])");
-	output.assign("(?1$&)(?2\\\\\\$$&)(?3\\\\$&)");
-	std::string text("Ein_Dollar$ $ und_paar_andere (Sachen) werden $(richtig) escaped. backslash\\__ ein sternchen * doppelpunkt :=*~");
-	cout << boost::regex_replace(text, toescape, output, boost::match_default | boost::format_all) << endl;
+	regex toescape;
+//	regex toescape(cstr("(p)|([Da])"));
+	string output;
+//	string output(cstr("(?1--$&--)(?2__$&__)"));
+	toescape.assign(cstr("(\\$\\([^\\)]+\\))|(\\$[^\\(])|([\\\\ \\~\"\\|\\'\\`\\{\\}\\[\\]\\(\\)\\*\\#\\:\\=])"));
+	output.assign(cstr("(?1$&)(?2\\\\\\$$&)(?3\\\\$&)"));
+	string text(cstr("Ein_Dollar$ $ und_paar_andere (Sachen) werden $(richtig) escaped. backslash\\__ ein sternchen * doppelpunkt :=*~"));
+	std::cout << boost::regex_replace(text, toescape, output, boost::match_default | boost::format_all) << std::endl;
 	return 0;
 
-	cout << "SHELL mode" << endl << Makefile::quote(text, Makefile::SHELL) << endl;
-	cout << "MAKE mode" << endl << Makefile::quote(text, Makefile::MAKE) << endl;
+	std::cout << "SHELL mode" << std::endl << Makefile::quote(text, Makefile::SHELL) << std::endl;
+	std::cout << "MAKE mode" << std::endl << Makefile::quote(text, Makefile::MAKE) << std::endl;
 
 	return 0;
 }
 
 int trymakefile()
 {
-	Comment comment("First line");
-	comment.appendLine("second line");
-	comment.appendLine("third line\nfourth line\rfifth line");
+	Comment comment(cstr("First line"));
+	comment.appendLine(cstr("second line"));
+	comment.appendLine(cstr("third line\nfourth line\rfifth line"));
 	comment.add();
 
-	Variable myname("MYNAME", "Flo");
+	Variable myname(cstr("MYNAME"), cstr("Flo"));
 	myname.getDef().add();
 
-	Variable myfullname("MYFULLNAME", myname.getRef().toString() + " Achleitner");
+	Variable myfullname(cstr("MYFULLNAME"), myname.getRef().toString() + cstr(" Achleitner"));
 	myfullname.getDef().add();
 	myfullname.getRef().add();
 
 
 	Newline nl1(2); nl1.add();
-	Comment c1("Escaping modes:");
-	Variable shellvar("SHELLVAR", "'has some special (char)s # [or] {not}", Makefile::SHELL);
-	Variable makevar("MAKEVAR", "'has some special (char)s # [or] {not}", Makefile::MAKE);
+	Comment c1(cstr("Escaping modes:"));
+	Variable shellvar(cstr("SHELLVAR"), cstr("'has some special (char)s # [or] {not}"), Makefile::SHELL);
+	Variable makevar(cstr("MAKEVAR"), cstr("'has some special (char)s # [or] {not}"), Makefile::MAKE);
 	shellvar.getDef().add();
 	makevar.getDef().add();
 	Newline nl2; nl2.add();
 
-	Makefile::getSingleton().writeMakefile(cout);
+	Makefile::getSingleton().writeMakefile(std::cout);
 	Makefile::clean();
 	return 0;
 }
 
 int tryrule()
 {
-	Comment c("Try how a rule looks like"); c.add();
+	Comment c(cstr("Try how a rule looks like")); c.add();
 
-	Variable t1("TARGET1", "t1.o"); t1.getDef().add();
-	Variable t2("TARGET2", "t2.o"); t2.getDef().add();
-	Variable p1("PRERE1", "t1.c"); p1.getDef().add();
-	Variable p2("PRERE2", "t2.c"); p2.getDef().add();
-	AutoVariable all("@");
+	Variable t1(cstr("TARGET1"), cstr("t1.o")); t1.getDef().add();
+	Variable t2(cstr("TARGET2"), cstr("t2.o")); t2.getDef().add();
+	Variable p1(cstr("PRERE1"), cstr("t1.c")); p1.getDef().add();
+	Variable p2(cstr("PRERE2"), cstr("t2.c")); p2.getDef().add();
+	AutoVariable all(cstr("@"));
 
 	Rule r;
 	r.addTarget(t1.getRef().toString());
 	r.addTarget(t2.getRef().toString());
 	r.addPrereq(p1.getRef().toString());
 	r.addPrereq(p2.getRef().toString());
-	r.addCommand("echo " + all.getRef().toString());
+	r.addCommand(cstr("echo ") + all.getRef().toString());
 	r.add();
 
 	r.toString();
 
-	Makefile::getSingleton().writeMakefile(cout);
+	Makefile::getSingleton().writeMakefile(std::cout);
 	Makefile::clean();
 
 	return 0;
 }
 int trycond()
 {
-	Variable t1("TARGET1", "t1.o"); t1.getDef().add();
-	Variable t2("TARGET2", "t2.o"); t2.getDef().add();
-	Variable p1("PRERE1", "t1.c"); p1.getDef().add();
-	Variable p2("PRERE2", "t2.c"); p2.getDef().add();
-	AutoVariable all("@");
+	Variable t1(cstr("TARGET1"), cstr("t1.o")); t1.getDef().add();
+	Variable t2(cstr("TARGET2"), cstr("t2.o")); t2.getDef().add();
+	Variable p1(cstr("PRERE1"), cstr("t1.c")); p1.getDef().add();
+	Variable p2(cstr("PRERE2"), cstr("t2.c")); p2.getDef().add();
+	AutoVariable all(cstr("@"));
 	Rule r;
 	r.addTarget(t1.getRef().toString());
 	r.addTarget(t2.getRef().toString());
 	r.addPrereq(p1.getRef().toString());
 	r.addPrereq(p2.getRef().toString());
-	r.addCommand("echo " + all.getRef().toString());
+	r.addCommand(cstr("echo ") + all.getRef().toString());
 
-	Variable iftrue("TRUE", "if_is_true");
-	Variable iffales("FALSE", "if_is_false");
+	Variable iftrue(cstr("TRUE"), cstr("if_is_true"));
+	Variable iffales(cstr("FALSE"), cstr("if_is_false"));
 
-	ConditionalEQ cond1(iftrue.getRef().toString(), "if_is_true");
+	ConditionalEQ cond1(iftrue.getRef().toString(), cstr("if_is_true"));
 	cond1.addToIf(r);
 	cond1.addToIf(iftrue.getDef());
 	cond1.addToElse(iffales.getDef());
 	cond1.addToElse(r);
 	cond1.add();
 
-	ConditionalNEQ cond2(iftrue.getRef().toString(), "if_is_true");
+	ConditionalNEQ cond2(iftrue.getRef().toString(), cstr("if_is_true"));
 	cond2.addToIf(r);
 	cond2.addToIf(iftrue.getDef());
 	cond2.addToElse(iffales.getDef());
@@ -187,16 +186,16 @@ int trycond()
 	cond4.addToIf(iftrue.getDef());
 	cond4.add();
 
-	Makefile::getSingleton().writeMakefile(cout);
+	Makefile::getSingleton().writeMakefile(std::cout);
 	Makefile::clean();
 	return 0;
 }
 int main(int argc, char *argv[])
 {
-//	return trymakefile();
-//	return tryreplace();
-//	return tryall();
-//	return tryrule();
-	return trycond();
-	return 0;
+	return
+	trymakefile() ||
+	tryreplace() ||
+	tryall() ||
+	tryrule() ||
+	trycond();
 }

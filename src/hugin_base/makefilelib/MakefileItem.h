@@ -36,14 +36,14 @@ public:
 	}
 
 	/// @return A string representation of the MakefileItem.
-	virtual std::string toString()=0;
+	virtual string toString()=0;
 	/// Write the items representation to an ostream in a makefile compatible way.
-	void print(std::ostream& os)
+	void print(ostream& os)
 	{
 		os << toString();
 	}
 	/// Allow casts to string, very nice!
-	operator std::string()
+	operator string()
 	{
 		return toString();
 	}
@@ -57,7 +57,7 @@ public:
 };
 
 /// Allows writing to ostreams.
-std::ostream& operator<<(std::ostream& stream, MakefileItem& item);
+ostream& operator<<(ostream& stream, MakefileItem& item);
 
 }
 

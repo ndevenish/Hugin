@@ -25,7 +25,7 @@ public:
 	Filename();
 	virtual ~Filename();
 
-	virtual std::string toString();
+	virtual string toString();
 };
 
 }

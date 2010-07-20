@@ -6,20 +6,17 @@
  */
 
 #include "Comment.h"
-#include <boost/regex.hpp>
-
-using namespace std;
 
 namespace makefile
 {
 
-static const string prefix("\n# ");
+static const string prefix(cstr("\n# "));
 
 /// \todo strip disallowed characters.
 
-std::string Comment::toString()
+string Comment::toString()
 {
-	static const boost::regex newline("\\R");
-	return string(prefix + boost::regex_replace(text, newline, prefix) + '\n');
+	static const regex newline(cstr("\\R"));
+	return string(prefix + boost::regex_replace(text, newline, prefix) + cstr('\n'));
 }
 }

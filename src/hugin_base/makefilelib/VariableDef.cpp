@@ -12,9 +12,9 @@
 namespace makefile
 {
 
-std::string VariableDef::toString()
+string VariableDef::toString()
 {
-	return std::string(variable.getName() + "=" + variable.getValue() + '\n');
+	return string(variable.getName() + cstr("=") + variable.getValue() + cstr('\n'));
 }
 
 }

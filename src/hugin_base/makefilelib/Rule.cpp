@@ -9,25 +9,25 @@
 
 namespace makefile
 {
-std::string Rule::toString()
+string Rule::toString()
 {
-	std::string str("\n");
-	std::vector<std::string>::iterator i;
+	string str(cstr("\n"));
+	std::vector<string>::iterator i;
 	for(i = targets.begin(); i != targets.end(); i++)
 	{
-		str.append(*i + " ");
+		str.append(*i + cstr(" "));
 	}
-	str.append(": ");
+	str.append(cstr(": "));
 
 	for(i = prerequisites.begin(); i != prerequisites.end(); i++)
 	{
-		str.append(*i + " ");
+		str.append(*i + cstr(" "));
 	}
-	str.append("\n");
+	str.append(cstr("\n"));
 
 	for(i = commands.begin(); i != commands.end(); i++)
 	{
-		str.append("\t" +*i + "\n");
+		str.append(cstr("\t") +*i + cstr("\n"));
 	}
 
 	return str;

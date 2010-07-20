@@ -21,9 +21,9 @@ namespace makefile
  */
 class Rule : public MakefileItem
 {
-	std::vector<std::string> targets;
-	std::vector<std::string> prerequisites;
-	std::vector<std::string> commands;
+	std::vector<string> targets;
+	std::vector<string> prerequisites;
+	std::vector<string> commands;
 
 public:
 	Rule()
@@ -31,17 +31,17 @@ public:
 	virtual ~Rule()
 	{}
 
-	virtual std::string toString();
+	virtual string toString();
 
-	void addTarget(std::string t)
+	void addTarget(string t)
 	{
 		targets.push_back(t);
 	}
-	void addPrereq(std::string p)
+	void addPrereq(string p)
 	{
 		prerequisites.push_back(p);
 	}
-	void addCommand(std::string c)
+	void addCommand(string c)
 	{
 		commands.push_back(c);
 	}
