@@ -18,33 +18,34 @@
 #include "Rule.h"
 #include "Conditional.h"
 
-#include <boost/regex.hpp>
 #include <boost/scoped_ptr.hpp>
 
 using namespace makefile;
+
+ofstream out("output");
 
 int tryall()
 {
 	Comment comment(cstr("First line"));
 	comment.appendLine(cstr("second line"));
 	comment.appendLine(cstr("third line\nfourth\r line"));
-	std::cout << comment;
+	out << comment;
 
 	Variable myname(cstr("MYNAME"), cstr("Flo"));
-	std::cout << myname.getName() << std::endl;
-	std::cout << myname.getValue() << std::endl;
-	std::cout << myname.getDef();
-	std::cout << myname.getRef() << std::endl;
+	out << myname.getName() << std::endl;
+	out << myname.getValue() << std::endl;
+	out << myname.getDef();
+	out << myname.getRef() << std::endl;
 
 	Variable myfullname(cstr("MYFULLNAME"), myname.getRef().toString() + cstr(" Achleitner"));
-	std::cout << myfullname.getDef() << myfullname.getRef() << std::endl;
+	out << myfullname.getDef() << myfullname.getRef() << std::endl;
 	myfullname.setQuoteMode(Makefile::MAKE);
-	std::cout << myfullname.getDef() << myfullname.getRef() << std::endl;
+	out << myfullname.getDef() << myfullname.getRef() << std::endl;
 
 	try
 	{
 	Variable namesucks(cstr("This name sucks"), cstr("anyvalue"));
-	std::cout << namesucks.getDef();
+	out << namesucks.getDef();
 	}
 	catch(std::exception& e)
 	{
@@ -53,7 +54,7 @@ int tryall()
 	try
 	{
 	Variable valuesucks(cstr("This_value_sucks"), cstr("any\nnewline"));
-	std::cout << valuesucks.getDef();
+	out << valuesucks.getDef();
 	}
 	catch(std::exception& e)
 	{
@@ -61,13 +62,13 @@ int tryall()
 	}
 	Variable namesucksless(cstr("This_name_sucks_less"), cstr("~~(bad:){\\value}"));
 	namesucksless.setQuoteMode(Makefile::SHELL);
-	std::cout << namesucksless.getDef();
+	out << namesucksless.getDef();
 	namesucksless.setQuoteMode(Makefile::MAKE);
-	std::cout << namesucksless.getDef();
+	out << namesucksless.getDef();
 
 	AutoVariable autovar(cstr("@"));
-//	std::cout << autovar.getDef(); causes an exception as it should.
-	std::cout << autovar.getRef() << std::endl;
+//	out << autovar.getDef(); causes an exception as it should.
+	out << autovar.getRef() << std::endl;
 
 	return 0;
 }
@@ -81,11 +82,11 @@ int tryreplace()
 	toescape.assign(cstr("(\\$\\([^\\)]+\\))|(\\$[^\\(])|([\\\\ \\~\"\\|\\'\\`\\{\\}\\[\\]\\(\\)\\*\\#\\:\\=])"));
 	output.assign(cstr("(?1$&)(?2\\\\\\$$&)(?3\\\\$&)"));
 	string text(cstr("Ein_Dollar$ $ und_paar_andere (Sachen) werden $(richtig) escaped. backslash\\__ ein sternchen * doppelpunkt :=*~"));
-	std::cout << boost::regex_replace(text, toescape, output, boost::match_default | boost::format_all) << std::endl;
+	out << boost::regex_replace(text, toescape, output, boost::match_default | boost::format_all) << std::endl;
 	return 0;
 
-	std::cout << "SHELL mode" << std::endl << Makefile::quote(text, Makefile::SHELL) << std::endl;
-	std::cout << "MAKE mode" << std::endl << Makefile::quote(text, Makefile::MAKE) << std::endl;
+	out << "SHELL mode" << std::endl << Makefile::quote(text, Makefile::SHELL) << std::endl;
+	out << "MAKE mode" << std::endl << Makefile::quote(text, Makefile::MAKE) << std::endl;
 
 	return 0;
 }
@@ -113,7 +114,7 @@ int trymakefile()
 	makevar.getDef().add();
 	Newline nl2; nl2.add();
 
-	Makefile::getSingleton().writeMakefile(std::cout);
+	Makefile::getSingleton().writeMakefile(out);
 	Makefile::clean();
 	return 0;
 }
@@ -138,7 +139,7 @@ int tryrule()
 
 	r.toString();
 
-	Makefile::getSingleton().writeMakefile(std::cout);
+	Makefile::getSingleton().writeMakefile(out);
 	Makefile::clean();
 
 	return 0;
@@ -186,7 +187,7 @@ int trycond()
 	cond4.addToIf(iftrue.getDef());
 	cond4.add();
 
-	Makefile::getSingleton().writeMakefile(std::cout);
+	Makefile::getSingleton().writeMakefile(out);
 	Makefile::clean();
 	return 0;
 }
