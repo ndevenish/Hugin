@@ -4,7 +4,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta http-equiv="Content-Style-Type" content="text/css" />
 		<meta name="generator" content="MediaWiki 1.14.0" />
-		<meta name="keywords" content="Hugin Parameters for Control Point Detectors dialog,Align image stack,Autopano-sift,Autopano-sift-C,Hugin,Hugin Images tab,Hugin Preferences,Rectilinear Projection,Panomaticlib" />
+		<meta name="keywords" content="Hugin Parameters for Control Point Detectors dialog,Align image stack,Autopano,Autopano-sift,Autopano-sift-C,Control points,Hugin,Hugin Images tab,Hugin Preferences,Rectilinear Projection,Panomaticlib" />
 		
 		
 		
@@ -47,19 +47,19 @@
 </p>
 
 <a name="Description" id="Description"></a><h1> <span class="mw-headline"> Description </span></h1>
-<p>You should give your parameter set a meaningful name, because this name is shown in the GUI on the <a href="Hugin_Images_tab.html" title="Hugin Images tab">Hugin Images tab</a>.
+<p>You should give your parameter-set a meaningful name, because this name is shown in the GUI on the <a href="Hugin_Images_tab.html" title="Hugin Images tab">Hugin Images tab</a>.
 </p>
 <a name="Type" id="Type"></a><h1> <span class="mw-headline"> Type </span></h1>
 <a name="All_images_at_once" id="All_images_at_once"></a><h2> <span class="mw-headline"> All images at once </span></h2>
 <p>With this setting all images are transferred at once to the control point detector. This was the default setting of <a href="Hugin.html" title="Hugin">Hugin</a> versions before 2010.2. 
 </p>
 <a name="Autopano_.28by_A._Jenny.29" id="Autopano_.28by_A._Jenny.29"></a><h2> <span class="mw-headline"> Autopano (by A. Jenny) </span></h2>
-<p>This is the same procedure like All images at once with some modifications for using autopano by Alexandre Jenny (only Windows and Linux, there is no MacOS version).
+<p>This is the same procedure as <b>All images at once</b> with some modifications for using <a href="Autopano.html" title="Autopano">autopano</a> by Alexandre Jenny (only Windows and Linux, there is no MacOS version).
 </p>
 <a name="Panorama_with_stacks" id="Panorama_with_stacks"></a><h2> <span class="mw-headline"> Panorama with stacks </span></h2>
-<p>This setting is indented for panoramas with stacks. In a first step it selects the image with the median exposure of every stack. Then it tries to match these median exposured images. After this step all image stacks should be connected.
-</p><p>Then it tries to connect the images of every stack by using the program given under Detector for stacks.
-</p><p>When your panorama does not contains stacks, it's does the same as <b>All images at once</b>.
+<p>This setting is intended for panoramas with stacks. In the first step it selects the image with the median exposure of every stack. Then it tries to match these median exposed images. After this step all image stacks should be connected.
+</p><p>Then it tries to connect the images of every stack by using the program given under <b>Detector for stacks</b>.
+</p><p>When your panorama does not contain stacks, it's does the same as <b>All images at once</b>.
 </p>
 <a name="Multi-row_panorama" id="Multi-row_panorama"></a><h2> <span class="mw-headline"> Multi-row panorama </span></h2>
 <p>As the name implies this setting is for multi-row panoramas. But it works also for single row panoramas.
@@ -67,24 +67,24 @@ It uses a heuristic approach to speed up and optimize the detector step.
 </p><p>The following steps are executed:
 </p><p>1.) Try to connect all consecutive images. The result will be a project with one or more groups of connected images. With luck each of these groups will correspond with a row of the panorama.
 </p><p>2.) Then take the first and last images from each group and match them all together in one go.  With luck there will be a single group of connected images in the project.
-</p><p>If you selected <b>Try to connect all overlapping images</b> on the Advanced tab, it tries to connect all overlapping images. This happens only, if the steps above were sucessful. Then following step are executed:
+</p><p>If you selected <b>Try to connect all overlapping images</b> on the Advanced tab, it tries to connect all overlapping images. This happens only if the steps above were successful. Only then the following steps are executed:
 </p><p>3.) Optimize panorama (it optimizes only yaw and pitch) to get a rough position of all images.
 </p><p>4.) Now try to link all overlapping images which are not yet connected.
 </p>
 <a name="Multi-row_panorama_with_stacks" id="Multi-row_panorama_with_stacks"></a><h2> <span class="mw-headline"> Multi-row panorama with stacks </span></h2>
-<p>This setting combines <b>Panorama with stacks</b> and <b>Multi-row panorama</b>. It works like <b>Panorama with stacks</b>, but for connecting the median exposured images it uses the algorithm descriped under <b>Multi-row panorama</b>.
+<p>This setting combines <b>Panorama with stacks</b> and <b>Multi-row panorama</b>. It works like <b>Panorama with stacks</b>, but for connecting the median exposed images it uses the algorithm described under <b>Multi-row panorama</b>.
 </p>
 <a name="Prealigned_panorama" id="Prealigned_panorama"></a><h2> <span class="mw-headline"> Prealigned panorama </span></h2>
 <p>This setting works only if the rough positions of the images are defined in the project. It tries to link all overlapping images.
-</p><p>If the advanced option <b>Work only on image pairs without control points</b> is selected (default), it skips all image pairs which are already connected by control points. Otherwise it creates also control points for already connected images.
+</p><p>If the advanced option <b>Work only on image pairs without control points</b> is selected (default), it skips all image pairs which are already connected by <a href="Control_points.html" title="Control points">Control points</a>. Otherwise it creates also control points for already connected images.
 </p>
 <a name="Programs" id="Programs"></a><h1> <span class="mw-headline"> Programs </span></h1>
 <p>On the notebook you can give the paths and parameters for the individual programs.
 </p>
 <a name="Detector" id="Detector"></a><h2> <span class="mw-headline"> Detector </span></h2>
 <p>Here you can give the program name (inclusive path) and the parameters for the control point detector. 
-You can use a one step setup. In this you invoke the control point detector with a list of image files and it returns a project file with the founded control points.
-A further speed up of the detection phase (especially for the multi-row panorama settings) can be achieved by using the two-step detectors approach. Currently only <a href="Autopano-sift-C.html" title="Autopano-sift-C">autopano-sift-C</a> and panomaticlib support this approach. In this case you have two separate program: a feature descriptor and a feature matcher. The feature descriptor extract the features from the images and stores a keyfile in the temp directory. Then the feature matcher reads these keyfiles and try to match overlapping images. At the end of the detection phase the temporary keyfiles are deleted.
+You can use a one-step setup. In this you invoke the control point detector with a list of image files and it returns a project file with the found control points.
+A further speed up of the detection phase (especially for the multi-row panorama settings) can be achieved by using the two-step detectors approach. Currently only <a href="Autopano-sift-C.html" title="Autopano-sift-C">autopano-sift-C</a> and panomaticlib support this approach. In this case you have two separate programs: a feature descriptor and a feature matcher. The feature descriptor extracts the features from the images and stores a keyfile in the temp directory. Then the feature matcher reads these keyfiles and tries to match overlapping images. At the end of the detection phase the temporary keyfiles are deleted.
 You have to give the program name and arguments for both programs. A big speed up can be achieved for the multi-row and prealigned settings. 
 </p>
 <a name="Detector_for_stacks" id="Detector_for_stacks"></a><h2> <span class="mw-headline"> Detector for stacks </span></h2>

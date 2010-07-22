@@ -46,9 +46,16 @@
 			
 <a name="Common_error_messages" id="Common_error_messages"></a><h2> <span class="mw-headline"> Common error messages </span></h2>
 <a name="enblend:_no_input_files_specified" id="enblend:_no_input_files_specified"></a><h3> <span class="mw-headline"> enblend: no input files specified </span></h3>
-<p>There are no input images relevant to the output 'panorama' so hugin had nothing to do, probably because all the input images are outside the panorama 'frame'.  Open the <a href="Hugin_Preview_window.html" title="Hugin Preview window">Hugin Preview window</a> or <a href="Hugin_Fast_Preview_window.html" title="Hugin Fast Preview window">Hugin Fast Preview window</a> to adjust the view and/or crop.
+<p>There are no input images relevant to the output 'panorama' so hugin had nothing to do, probably because all the input images are outside the panorama 'frame' or disabled.  Open the <a href="Hugin_Preview_window.html" title="Hugin Preview window">Hugin Preview window</a> or <a href="Hugin_Fast_Preview_window.html" title="Hugin Fast Preview window">Hugin Fast Preview window</a> to adjust the view, enable some images inside the panorama frame and/or adjust the crop.
 </p><p>Note also that hugin versions up to and including 2009.2.0 allow you to draw an inverted crop frame where the top is below the bottom, this is easy to see in the Preview window as the entire panorama is 'greyed'. A crop frame drawn like this will result in an empty panorama and the above error message.
 </p>
+<a name="enblend:_excessive_overlap_detected" id="enblend:_excessive_overlap_detected"></a><h3> <span class="mw-headline"> enblend: excessive overlap detected </span></h3>
+<p>This is an error new to enblend-4.0.  Photos that nearly entirely overlap won't blend very well, enblend now fails instead of attempting to blend them.  There are various workarounds:
+</p>
+<ul><li> Follow the error message and remove the suggested image from the set, you probably don't need it to complete the panorama.
+</li><li> Switch back to enblend-3.2.
+</li><li> Hugin will merge stacked images before blending if you select 'Exposure fusion' in the <a href="Hugin_Stitcher_tab.html" title="Hugin Stitcher tab">Hugin Stitcher tab</a>. This error will go away, but Hugin will take a very different approach to variable exposure between photos.
+</li></ul>
 <a name="enblend:_error_writing_to_image_swap_file" id="enblend:_error_writing_to_image_swap_file"></a><h3> <span class="mw-headline"> enblend: error writing to image swap file </span></h3>
 <p><a href="Enblend.html" title="Enblend">enblend</a> needs a lot of memory and uses its own swap routine to store picture data on the disk, this message indicates that you have run out of disk space.  The data is stored in the system temp folder which is specified by TMP, TEMP or TMPDIR environment variables, note that this temp folder may be on a different physical disk to your photos and panorama output.
 </p>

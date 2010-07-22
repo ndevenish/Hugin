@@ -51,7 +51,7 @@
 <ul><li>1. Get your *.po file
 </li></ul>
 <dl><dd>Each language has a *.po file containing all the translated strings. Those *.po files use the ISO 639-1 naming convention (like "fr.po" for French, "ja.po" for Japanese, ...). If no translation for your language exist, you'll have to create one using that naming convention or ask the developers list for assistance.
-</dd><dd>In general, you need the latest *.po files (or at least the one for the language you want to modify). You can download the current translation file for you language in the SVN repository. If there is no *.po file for your language, you can download the hugin.pot file.
+</dd><dd>In general, you need the latest *.po files (or at least the one for the language you want to modify). You can download the current translation file for you language in the Mercurial repository. If there is no *.po file for your language, you can download the hugin.pot file.
 </dd></dl>
 <ul><li>2. Edit your *.po file
 </li></ul>
@@ -59,7 +59,7 @@
 </dd><dd>Note: When using a version of Poedit before 1.4.3, editing comments directly in the right pane doesn't work, the text isn't saved into the .po file. To edit comments, use the "edit comment" dialogue from the menu. With Poedit 1.4.3 and later, please note that to see the comment window you have to check "View / Show comment window", and to be able to modify the comment you must go to "File / Preferences..." and check "Comment window is editable" in the "Editor" tab.
 </dd><dd>Messages marked as <b>fuzzy</b> are actually not used in the GUI, their English counterparts are used instead. This seems to be an automagic suggestion which naturally often fails, so compare a fuzzy translation with the original phrase.
 </dd></dl>
-<ul><li>3. Submit your *.po file, or even better, commit your changes through SVN
+<ul><li>3. Submit your *.po file, or even better, commit your changes through Mercurial
 <ul><li>You can submit your edited translation via hugin's patches tracker on sourceforge (make sure you're logged in, otherwise you will see a non-descriptive error message from sourceforge). Select the category "translation" and the group "hugin" and attach your file.
 </li><li><b>An even better solution</b>, but which the first time takes you a few more minutes to set everything up, is to use Hugin's revision control system. For more information see <a href="Hugin_translation_guide.html#Become_a_Power_Translator" class="external text" title="http://wiki.panotools.org/Hugin_translation_guide#Become_a_Power_Translator" rel="nofollow">Become a Power Translator</a> below.
 </li></ul>
@@ -74,54 +74,38 @@
 <p>If you want to you can also rebuild hugin (doesn't have to be a heavy job when you only changed the .po file, the process only updates that part).
 </p>
 <a name="Become_a_Power_Translator" id="Become_a_Power_Translator"></a><h2> <span class="mw-headline"> Become a Power Translator </span></h2>
-<p>After adding your po file to Hugin's <a href="https://sourceforge.net/tracker/?group_id=77506&amp;atid=550443" class="external text" title="https://sourceforge.net/tracker/?group_id=77506&amp;atid=550443" rel="nofollow">patch tracker</a>, the developers still need to integrate it, which is not easy as it means dealing with conflicting version (but how should a developer know which one of two conflicting sentences in a foreign language is the right one?). Thus using the same Subversion approach to translation reduces considerably the burden on the rest of the team and is very much appreciated. Translation is a development too!
-</p><p>So <b>instead of adding your po file to the tracker</b>, you can integrate it yourself. You'll first need a <b>Sourceforge user account</b> (register here if you don't have one yet - This is useful anyway also for submitting patches as it makes sure that you are credited for your work and ensures that we can trust the translation because we know the source). Then tell the developers on the mailing list what your user account is, so that they can <b>grant you access to SVN</b>, the revision control system (you'll need this before following the next steps).
+<p>After adding your po file to Hugin's <a href="https://sourceforge.net/tracker/?group_id=77506&amp;atid=550443" class="external text" title="https://sourceforge.net/tracker/?group_id=77506&amp;atid=550443" rel="nofollow">patch tracker</a>, the developers still need to integrate it, which is not easy as it means dealing with conflicting version (but how should a developer know which one of two conflicting sentences in a foreign language is the right one?). Thus using the same Mercurial approach to translation reduces considerably the burden on the rest of the team and is very much appreciated. Translation is a development too!
+</p><p>So <b>instead of adding your po file to the tracker</b>, you can integrate it yourself. You'll first need a <b>Sourceforge user account</b> (register here if you don't have one yet - This is useful anyway also for submitting patches as it makes sure that you are credited for your work and ensures that we can trust the translation because we know the source). Then tell the developers on the mailing list what your user account is, so that they can <b>grant you access to Mercurial</b>, the revision control system (you'll need this before following the next steps).
 </p>
 <a name="The_first_time" id="The_first_time"></a><h3> <span class="mw-headline"> The first time </span></h3>
-<p><b>For Windows users</b>
-</p>
-<ul><li>1. Get and install TortoiseSVN.
-</li><li>2. Retrieve either the full Hugin source code (useful only if you want to work on things other than the translation, or if you want to compile Hugin yourself) or just the translation directory. To do so, make a new folder called hugin-trunk (or just translation). Right click on the folder in Windows Explorer, select "SVN Checkout..." in the context menu, enter either source URL
-<ul><li><tt><a href="https://hugin.svn.sourceforge.net/svnroot/hugin/hugin/trunk" class="external free" title="https://hugin.svn.sourceforge.net/svnroot/hugin/hugin/trunk" rel="nofollow">https://hugin.svn.sourceforge.net/svnroot/hugin/hugin/trunk</a></tt> to get the full Hugin source code
-</li><li><tt><a href="https://hugin.svn.sourceforge.net/svnroot/hugin/hugin/trunk/src/translations" class="external free" title="https://hugin.svn.sourceforge.net/svnroot/hugin/hugin/trunk/src/translations" rel="nofollow">https://hugin.svn.sourceforge.net/svnroot/hugin/hugin/trunk/src/translations</a></tt> to only get the translation directory
-</li></ul>
-</li><li>3. Do your translation work inside the folder hugin-trunk (or translation)
-</li><li>4. You can commit your (partial) results anytime: right-click on the folder and select in the context menu "SVN Commit..." - enter a short text describing what you did (e.g.: "updated French translation") and click OK. Note that you can select only the "translation" folder instead of "hugin-trunk" if you modified only files within "translation".
-</li></ul>
 <p><b>For Linux/Unix/OSX</b>
 </p>
-<ul><li>1. Get and install Subversion.
-</li><li>2. Then run one of the following command depending on your needs:
-<ul><li>To get the full Hugin source code (useful only if you want to work on things other than the translation, or if you want to compile Hugin yourself)
-</li></ul>
+<ul><li>1. Get and install Mercurial. (<pre>apt-get install mercurial</pre> on Ubuntu/Debian,<pre>yum install mercurial</pre> on Fedora, <pre>emerge mercurial</pre> on Gentoo)
+</li><li>2. Get the full Hugin source code.
 </li></ul>
 <pre>
-svn co https://hugin.svn.sourceforge.net/svnroot/hugin/hugin/trunk/ hugin-trunk
+hg clone http://hugin.hg.sourceforge.net:8000/hgroot/hugin/hugin  hugin
 </pre>
-<ul><li><ul><li>To only get the content of the translation directory
-</li></ul>
-</li></ul>
-<pre>
-svn co https://hugin.svn.sourceforge.net/svnroot/hugin/hugin/trunk/src/translations/ translations
-</pre>
-<ul><li>3. Do your translation work inside the folder hugin-trunk
-</li><li>4. You can commit your (partial) results anytime by running the command
+<ul><li>3. Do your translation work inside the folder src/translations
+</li><li>4. You can commit your (partial) results anytime by running the commands
 </li></ul>
 <pre>
-svn ci -m &quot;updated French translation&quot;
+hg pull
+hg commit TRANSLATEDFILE.po -m &quot;updated LANGUAGE translation&quot;
+hg push ssh://YOUR-SOURCEFORGE-USERNAME@hugin.hg.sourceforge.net/hgroot/hugin/hugin 
 </pre>
 <a name="The_following_times" id="The_following_times"></a><h3> <span class="mw-headline"> The following times </span></h3>
 <p>The next time you want to work on the translations, you'll have first to <b>retrieve the latest version of the files</b> (as someone else might have modified something in the meantime) before working on it and then commiting it again.
 </p>
-<dl><dt>For Windows users
-</dt><dd>Simply right-click your "hugin-trunk" or "translation" folder and select "Update". Note that if you have hugin's full source code and your only want for now to retrieve the translations, you can browse to the "translation" folder and only update this one.
-</dd></dl>
 <dl><dt>For Linux/Unix/OSX
 </dt><dd>change into the folder with the files and execute
 </dd></dl>
 <pre>
-svn up
-</pre>
+hg pull 
+hg up -c
+</pre> 
+<p>and then you can continue from step 3 above.
+</p>
 <a name="Extra_perk_-_Build_the_latest_Hugin" id="Extra_perk_-_Build_the_latest_Hugin"></a><h3> <span class="mw-headline"> Extra perk - Build the latest Hugin </span></h3>
 <dl><dd>If you're already here, you may want to also build and enjoy the latest Hugin. Some of the current contributors to the build, distribution and code of Hugin have learned this way. You are just a few clicks away from building your own bleeding edge Hugin. Find your platform in Build your Own Test Builds section of the wiki and follow the instructions.
 </dd><dd>Welcome to the club!
@@ -290,19 +274,20 @@ svn up
 </p><p>Then, add the new strings:
 </p>
 <pre>
-svn up
+hg pull
+hg up
 cd src/translations
 ./extract-messages.sh
-svn diff
-svn ci
+hg ci
+hg push ssh://YOUR-SOURCEFORGE-USERNAME@hugin.hg.sourceforge.net/hgroot/hugin/hugin 
 </pre>
 <a name="Applying_a_contributed_.po_file" id="Applying_a_contributed_.po_file"></a><h3> <span class="mw-headline"> Applying a contributed .po file </span></h3>
 <p>You could just overwrite the original and commit, but this assumes the file is correctly formatted and hasn't lost any strings. Better to use <b>msgmerge</b> to merge the contributed .po file with the existing:
 </p>
 <pre> msgmerge -o zh_CN.merged.po /tmp/zh_CN.contributed.po src/translations/zh_CN.po
  mv zh_CN.merged.po src/translations/zh_CN.po
- svn diff
- svn ci
+ hg ci zh_CN.po -m 'Edited chinese translation'
+ hg push ssh://YOUR-SOURCEFORGE-USERNAME@hugin.hg.sourceforge.net/hgroot/hugin/hugin 
 </pre>
 <a name="Statistics" id="Statistics"></a><h3> <span class="mw-headline"> Statistics </span></h3>
 <p>msgfmt --statistics eo_XX.po

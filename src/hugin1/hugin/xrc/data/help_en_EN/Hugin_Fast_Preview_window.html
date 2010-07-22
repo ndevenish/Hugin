@@ -66,8 +66,7 @@
 <p>Enables full photometric correction. When turned on, this will cause significant delay when changing photometric parameters. It also takes a while to turn on and off. However, with it enabled you get much better representation of the colours in the output. With it turned off, you get correction only for exposure and white balance. With it turned on, you also get vignetting and colour response correction. The <a href="Hugin_Preview_window.html" title="Hugin Preview window">Hugin Preview window</a> does all these things by default, so you may wish to use that instead.
 </p>
 <a name="Show_control_points" id="Show_control_points"></a><h3> <span class="mw-headline"><img alt="Image:Show_Control_Points_Button.svg‎" src="22px-Show_Control_Points_Button.svg.png" width="22" height="22" border="0" /> Show control points</span></h3>
-<p>When this tool is turned on, all <a href="Control_points.html" title="Control points">Control points</a> are drawn as lines; red indicates 'normal' control points and blue indicates <a href="Horizontal_control_points.html" title="Horizontal control points">horizontal control points</a>, <a href="Vertical_control_points.html" title="Vertical control points">vertical control points</a> or <a href="Straight_line_control_points.html" title="Straight line control points">straight line control points</a>.
-</p><p>Long red lines indicate a bad alignment or unoptimized images, short red lines or 'dots' indicate a good alignment between control points. Horizontal and vertical control points should be perpendicular in the panorama.
+<p>When this tool is turned on, all <a href="Control_points.html" title="Control points">Control points</a> are drawn as lines with crosses at each end. Green, yellow, orange, and red lines and their crosses indicate 'normal' control points. A red control point is misaligned (the ends of the line are father apart), and a green control point is well aligned (the ends of the line are almost in the same position). Blue indicates <a href="Horizontal_control_points.html" title="Horizontal control points">horizontal control points</a>, <a href="Vertical_control_points.html" title="Vertical control points">vertical control points</a> or <a href="Straight_line_control_points.html" title="Straight line control points">straight line control points</a>.
 </p>
 <a name="Blend_mode" id="Blend_mode"></a><h3> <span class="mw-headline"> Blend mode </span></h3>
 <p>The <i>normal</i> blend mode will draw the images as a stack. The <i>difference</i> blend mode will do the same, except the image under the mouse pointer will be subtracted from the rest of the stack. Use this to determine if the alignment went well: where you can see edges in the subtracted image, these edges are misaligned. Be warned that this isn't fully accurate, the other preview has a better difference mode.
@@ -107,6 +106,12 @@ the field of view and switch back.
 </li></ul>
 <p>If the panorama contains unconnected components, they will move individually.
 </p>
+<a name="Drag_mode" id="Drag_mode"></a><h3> <span class="mw-headline"> Drag mode </span></h3>
+<p>This determines what parameters that are changed when the images are dragged.
+</p>
+<ul><li> Normal - When dragged left-right, the yaw parameter is changed and when dragged up-down the pitch parameter is changed. I.e. the camera is tilted in the yaw and pitch angles.
+</li><li> Mosaic - When dragged left-right, X parameter is changed and when dragged up-down the Y parameter is changed. I.e. the camera is moved in the X and Y dimensions.
+</li></ul>
 <a name="Center" id="Center"></a><h3> <span class="mw-headline"> <img alt="Image:Hugin_center_pano.png" src="Hugin_center_pano.png" width="22" height="22" border="0" /> Center </span></h3>
 <p>This button horizontally <i>pans</i> the output, changing the <a href="Yaw.html" title="Yaw">yaw</a> of the remapped images so they fit to the centre of the output frame.  This is useful if there is a lot of black space on the left or right of the output.  This also performs a <b>Fit</b>, equivalent to the next button.
 </p><p>Note that centering a <a href="Rectilinear_Projection.html" title="Rectilinear Projection">Rectilinear Projection</a> or <a href="Fisheye_Projection.html" title="Fisheye Projection">Fisheye Projection</a> panorama will change the perspective, this may be unwanted.

@@ -59,9 +59,7 @@ If you press the <b>right mouse button</b> when only one point is selected, the 
 <b>auto add</b> adds the control point as soon as both points have been specified.
 </p><p>If the images are zoomed out (fit to window), the first click zooms to a temporary 100% view to give you the chance to refine your selection.
 Note that only the second click will trigger the auto estimate.
-</p><p>Often it is hard to select the corresponding point exactly.
-However, the <a href="Control_points.html" title="Control points">control points</a> should be as accurate as possible, for good results.
-Once a point pair has been roughly selected, the <b>fine tune</b> function of <a href="Hugin.html" title="Hugin">hugin</a> can be used to estimate the corresponding point up to one tenth of a pixel.
+</p><p>For good results, the <a href="Control_points.html" title="Control points">control points</a> should be as accurate as possible. However, it is often tedious to select a particular point exactly, and it may be helpful to use the <b>arrow keys</b> (<i>left</i>, <i>right</i>, <i>up</i>, and <i>down</i>) to nudge the selection point in various directions pixel-by-pixel (users of X11 may need to ensure that a particular image pane has the focus by placing the mouse cursor within its bounds). Once a point pair has been roughly selected, the <b>fine tune</b> function of <a href="Hugin.html" title="Hugin">hugin</a> can be used to estimate the corresponding point up to one tenth of a pixel.
 The keyboard short cut for the <b>fine tune</b> function is the <b>f</b> key.
 Fine tune only search in a small neighbourhood of the currently selected points.
 The size of this neighbourhood can be controlled by opening the <a href="Hugin_Preferences.html" title="Hugin Preferences">Hugin Preferences</a> panel and setting the <b>Local area search width</b>.
@@ -115,13 +113,13 @@ need more than just one pair to make up a straight line.
 </p><p>Key 	Function
 </p>
 <ul><li> <b>a</b> 	add a new point that has been selected in both images, and the <b>auto add</b> is switched off.
-</li><li> <b>cursor keys</b> 	scroll image under the mouse cursor
-</li><li> <b>shift + cursor keys</b> 	scroll both images at the same time
 </li><li> <b>f</b> 	fine tune currently selected control point pair. Same as the <b>Fine Tune</b> button
 </li><li> <b>g</b> 	experimental control point generation algorithm.
 </li><li> <b>Del</b> 	Remove currently selected control point.
 </li><li> <b>0</b> 	Zoom out to full view.
 </li><li> <b>1</b> 	100% view.
+</li><li> <b>arrow keys</b> nudge a selection point or selected control point around pixel-by-pixel.
+</li><li> <b>shift + arrow keys</b> scroll both images at the same time.
 </li></ul>
 <p>Mouse function 	Function
 </p>

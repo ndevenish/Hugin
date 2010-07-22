@@ -92,11 +92,19 @@
 <pre> autooptimiser -a -l -s -o project.pto project.pto
 </pre>
 <p>Now you could just skip ahead and render the output if photometric <a href="Optimization.html" title="Optimization">optimisation</a> isn't required.
-</p><p>(PToptimizer is an alternative geometrical optimiser)
+</p><p>By adding the -m switch also photometric optimisation is done. So the output project is optimised for positions, geometry and photometric parameters in one run:
+</p>
+<pre> autooptimiser -a -l -s -m -o project.pto project.pto
+</pre>
+<p>(PToptimizer is an alternative geometrical optimiser)
 </p>
 <a name="Optimising_photometric_parameters" id="Optimising_photometric_parameters"></a><h2> <span class="mw-headline"> Optimising photometric parameters </span></h2>
 <p>Photos have photometric exposure variables which can be <a href="Optimization.html" title="Optimization">optimised</a> in much the same way as aligning positions. Doing this can remove brightness, white balance and <a href="Vignetting.html" title="Vignetting">vignetting</a> differences between photos, giving better blending or allowing creation of <a href="HDR.html" title="HDR">HDR</a> images.
-</p><p><a href="Vig_optimize.html" title="Vig optimize">vig_optimize</a> does the equivalent job for photometric parameters as <a href="Autooptimiser.html" title="Autooptimiser">autooptimiser</a> does for geometric parameters. It doesn't have an equivalent of the autooptimiser -a 'auto' mode, so you need to indicate in the .pto project which parameters are 'variables', use a tool such as ptovariable:
+</p><p>For doing an automatic photometric optimisation like Hugin's assistant, run <a href="Autooptimiser.html" title="Autooptimiser">autooptimiser</a> with -m switch:
+</p>
+<pre> autooptimiser -m -o project.pto project.pto
+</pre>
+<p>For full manual control for photometric parameters use <a href="Vig_optimize.html" title="Vig optimize">vig_optimize</a>. This program does the equivalent job for photometric parameters as <a href="Autooptimiser.html" title="Autooptimiser">autooptimiser</a> does for geometric parameters. You need to indicate in the .pto project which parameters are 'variables'. For this task you can edit the .pto file or use a tool such as ptovariable:
 </p>
 <pre> ptovariable --vignetting --response --exposure project.pto
  vig_optimize -o project.pto project.pto
@@ -309,15 +317,18 @@
 </li><li> autopano - Keypoint matcher, part of autopano-sift-c and not to be confused with autopano
 </li></ul>
 <a name="Project_file_modification" id="Project_file_modification"></a><h2> <span class="mw-headline"> Project file modification </span></h2>
-<ul><li> ptoset - Change global parameters and project options
+<ul><li> match-n-shift - (see above) Default usage is to initialise a new .pto project from EXIF data
+</li><li> ptoset - Change global parameters and project options
 </li><li> ptovariable - Set typical <a href="Optimization.html" title="Optimization">optimisation</a> variables
 </li><li> ptsed - Set any project parameter, convert .pto into PanoTools format
 </li><li> ptosort - Sort <a href="Control_points.html" title="Control points">control points</a> or images, remove duplicate control points
 </li><li> ptopath - Remove file paths in project files
 </li><li> transform-pano - <a href="Roll.html" title="Roll">Roll</a>, <a href="Pitch.html" title="Pitch">pitch</a> and <a href="Yaw.html" title="Yaw">yaw</a> rotation of .pto projects
 </li><li> ptocentre - Rotate projects to put images in panorama centre
+</li><li> <a href="Pano_modify.html" title="Pano modify">pano_modify</a> Change output parameters of project file
 </li></ul>
 <ul><li> ptomerge - Join two or more projects
+</li><li> <a href="Pto_merge.html" title="Pto merge">pto_merge</a> Merges two or more Hugin project files (this is a different tool to ptomerge above)
 </li><li> ptosplit - Extract subsets of images from a project into a new project
 </li></ul>
 <a name="Control_point_pruning" id="Control_point_pruning"></a><h2> <span class="mw-headline"> Control point pruning </span></h2>
@@ -357,9 +368,10 @@
 <ul><li> panostart - All-in-one panorama workflow via <i>Makefile</i>s
 </li><li> gigastart - All-in-one assembly of multi-row panoramas
 </li><li> <a href="Pto2mk.html" title="Pto2mk">pto2mk</a> - Create platform specific <i>Makefile</i> for stitching a project
+</li><li> gigatile - Create a Makefile for stitching a project as multi-resolution tiles
 </li><li> ptodummy - Generate missing input photos to debug .pto projects
 </li><li> calibrate_lens - Automatic lens calibration using straight-line detection
-</li><li> pano_trafo - transform between image and panorama coordinates (and vice versa)
+</li><li> pafextract - Tool to use <a href="Panoglview.html" title="Panoglview">panoglview</a> as a zenith and nadir editor
 </li></ul>
 <a name="Chromatic_aberration" id="Chromatic_aberration"></a><h2> <span class="mw-headline"> Chromatic aberration </span></h2>
 <ul><li> <a href="Fulla.html" title="Fulla">fulla</a> - Correct lens distortion and <a href="Chromatic_aberration.html" title="Chromatic aberration">chromatic aberration</a>
@@ -371,6 +383,7 @@
 </li><li> ptoinfo - Generate a report on a project file
 </li><li> PTinfo - Display info about a panotools generated <a href="TIFF.html" title="TIFF">TIFF</a> file
 </li><li> <a href="Panoinfo.html" title="Panoinfo">panoinfo</a> - Display information about installed libpano13 library
+</li><li> pano_trafo - transform between image and panorama coordinates (and vice versa)
 </li></ul>
 <a name="TIFF_files" id="TIFF_files"></a><h2> <span class="mw-headline"> TIFF files </span></h2>
 <ul><li> PTtiff2psd - Join multiple <a href="TIFF.html" title="TIFF">TIFF</a> images into a multilayer <a href="PSD.html" title="PSD">PSD</a> file
