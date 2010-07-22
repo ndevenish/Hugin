@@ -69,6 +69,7 @@ Hugin_Optimizer_tab
 Hugin_Parameters_for_Control_Point_Detectors_dialog
 Hugin_Preferences
 Hugin_Preview_window
+Hugin_Reset_Values_window
 Hugin_Stitcher_tab
 Hugin_Trackers
 Hugin_translation_guide
@@ -87,6 +88,7 @@ No-parallax_point
 NPP
 OpenEXR
 Optimization
+Pano_modify
 Pano12
 Panoglview
 Panoinfo
@@ -102,6 +104,7 @@ Perspective_distortion
 Pfstmo
 Pincushion_distortion
 Pitch
+Pto_merge
 PNG
 Portrait
 PPI
