@@ -64,13 +64,13 @@ involves a greater range of tools.
 </p>
 
 <a name="Quick_and_easy_technique" id="Quick_and_easy_technique"></a><h1> <span class="mw-headline"> Quick and easy technique </span></h1>
-<p>The rest of this tutorial describes generating high quality output using command-line
-tools.  However it is now possible to complete the workflow entirely with GUI tools,
-something like this:
+<p>The rest of this tutorial describes generating high quality output using command-line tools.  However it is now possible to complete the workflow entirely with GUI tools, something like this:
 </p>
 <ol><li> Take <a href="Bracketing.html" title="Bracketing">bracketed</a> shots of your scene.
-</li><li> Merge bracketed shots to <a href="HDR.html" title="HDR">HDR</a> with qtpfsgui, pick either RBGE radiance .hdr output or 32bit floating-point <a href="TIFF.html" title="TIFF">TIFF</a>.
-</li><li> Stitch the panorama with <a href="Hugin.html" title="Hugin">hugin</a> and <a href="Enblend.html" title="Enblend">enblend</a>.
+</li><li> Open bracketed images in Hugin. Align - let's say - the middle exposures together and set the stacks in the <i>Images</i> tab.
+<ol><li> If your stacks don't align (shot hand-held, sloppy panohead, etc.), set some control points inside stacks and align them too.
+</li></ol>
+</li><li> Stitch the panorama with <a href="Hugin.html" title="Hugin">hugin</a> and <a href="Enblend.html" title="Enblend">enblend</a> to HDR file. 
 </li><li> Optionally tonemap the result with qtpfsgui.
 </li></ol>
 <a name="Laborious_and_difficult_technique" id="Laborious_and_difficult_technique"></a><h1> <span class="mw-headline"> Laborious and difficult technique </span></h1>
