@@ -56,7 +56,7 @@ vector<UIntSet> getHDRStacks(const PanoramaData & pano, UIntSet allImgs)
     UIntSet stack;
 
     HuginBase::CalculateImageOverlap overlap(&pano);
-    overlap.calculate(50);  // we are testing 50*50=2500 points
+    overlap.calculate(10);  // we are testing 10*10=100 points
     do {
         unsigned srcImg = *(allImgs.begin());
         stack.insert(srcImg);
