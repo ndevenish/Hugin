@@ -17,12 +17,17 @@
 #include "Newline.h"
 #include "Rule.h"
 #include "Conditional.h"
+#include "StringAdapter.h"
 
 #include <boost/scoped_ptr.hpp>
 
 using namespace makefile;
 
-ofstream out("output");
+#ifdef USE_WCHAR
+ostream& out =  std::wcout;
+#else
+ostream& out =  std::cout;
+#endif
 
 int tryall()
 {

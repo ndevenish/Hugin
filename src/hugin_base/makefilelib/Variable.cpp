@@ -6,6 +6,7 @@
  */
 
 #include "Variable.h"
+#include "StringAdapter.h"
 #include <stdexcept>
 
 
@@ -21,7 +22,7 @@ void Variable::checkName()
 {
 	static const regex validname(cstr("\\w+"));
 	if( !boost::regex_match(name, validname))
-		throw std::invalid_argument("Bad Variable name: " /*+ name*/); ///< @todo Need converter!
+		throw std::invalid_argument("Bad Variable name: " + StringAdapter(name));
 }
 
 /**
@@ -32,6 +33,6 @@ void Variable::checkValue()
 {
 	static const regex invalid(cstr("\\R"));
 	if(boost::regex_search(value, invalid))
-		throw std::invalid_argument("Bad Variable value: " /*+ value*/); ///< @todo Need converter!
+		throw std::invalid_argument("Bad Variable value: " + StringAdapter(value));
 }
 }
