@@ -16,7 +16,7 @@ namespace makefile
 {
 /**
  * Adapts a string of wide or narrow characters to a narrow character std::string.
- * It uses the narrow method of standard iostreams.
+ * It uses the narrow method of standard iostreams, it doesn't do any code conversion.
  * It's purpose is to allow exception texts to contain wide strings, regardless of
  * USE_WCHAR.
  */
@@ -28,7 +28,7 @@ public:
 		std::ostringstream ostr;
 		for(std::wstring::const_iterator i = ws.begin(); i != ws.end(); i++)
 		{
-			ostr.put(ostr.narrow(*i, '_'));
+			ostr.put(ostr.narrow(*i, '?'));
 		}
 		assign(ostr.str());
 
@@ -36,7 +36,7 @@ public:
 	StringAdapter(const std::string& s)
 	: std::string(s)
 	{}
-	StringAdapter(const wchar_t*& ws)
+	StringAdapter(const wchar_t* ws)
 	{
 		std::ostringstream ostr;
 		for(wchar_t const* i = ws; *i; i++)
@@ -45,7 +45,7 @@ public:
 		}
 		assign(ostr.str());
 	}
-	StringAdapter(const char*& s)
+	StringAdapter(const char* s)
 	: std::string(s)
 	{}
 	virtual ~StringAdapter()
