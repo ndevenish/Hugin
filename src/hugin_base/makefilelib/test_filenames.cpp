@@ -23,9 +23,18 @@
 
 #include <iostream>
 #include <locale>
+#include <vector>
 
 using namespace makefile;
 namespace fs = boost::filesystem;
+
+#ifdef USE_WCHAR
+ostream& cout =  std::wcout;
+ostream& cerr =  std::wcerr;
+#else
+ostream& cout =  std::cout;
+ostream& cerr =  std::cerr;
+#endif
 
 void printchars(ostream& out, wchar_t limit)
 {
@@ -37,9 +46,9 @@ void printchars(ostream& out, wchar_t limit)
 
 }
 
-int createfiles_direct(const path dir, char_type limit)
+std::vector<path> createfiles_direct(const path dir, char_type limit)
 {
-	int err = 0;
+	std::vector<path> miss;
 	char_type c[] = cstr("X.1");
 	for(*c = 0x20; *c < limit; (*c)++)
 	{
@@ -48,16 +57,16 @@ int createfiles_direct(const path dir, char_type limit)
 		file.close();
 		if(!fs::exists(dir / filename))
 		{
-			err++;
+			miss.push_back(filename);
 		}
 	}
-	return err;
+	return miss;
 }
 
-int createfiles_make(const path dir, char_type limit)
+std::vector<path> createfiles_make(const path dir, char_type limit)
 {
 	const path makefile(cstr("makefile"));
-	int err = 0;
+	std::vector<path> miss;
 	char_type c[] = cstr("X.1");
 	for(*c = 0x20; *c < limit; (*c)++)
 	{
@@ -84,10 +93,10 @@ int createfiles_make(const path dir, char_type limit)
 
 		if(!fs::exists(dir / filename))
 		{
-			err++;
+			miss.push_back(filename);
 		}
 	}
-	return err;
+	return miss;
 }
 
 int main(int argc, char *argv[])
@@ -95,7 +104,16 @@ int main(int argc, char *argv[])
 	// set the environments locale.
 	std::locale::global(std::locale(""));
 
-	const char_type limit = 50;
+	char_type limit;
+	if(argc != 2)
+	{
+		std::cerr << "Specify a limit as first argument" << std::endl;
+		return 1;
+	}else{
+		limit = std::atoi(argv[1]);
+	}
+	std::cout << "Creating " << static_cast<int>(limit) << " files, twice." << std::endl;
+
 	path basepath(cstr("/tmp/chartest_direct"));
 	path basepathmake(cstr("/tmp/chartest_make"));
 
@@ -103,27 +121,29 @@ int main(int argc, char *argv[])
 		fs::remove_all(basepath);
 	if(!fs::create_directories(basepath))
 	{
-		string pathstr = basepath.string();
-		std::cerr << "Error creating directory " << StringAdapter(pathstr) << std::endl;
+		cerr << cstr("Error creating directory ") << basepath.string() << std::endl;
 		return 1;
 	}
 	if(fs::is_directory(basepathmake))
 			fs::remove_all(basepathmake);
 	if(!fs::create_directories(basepathmake))
 	{
-		string pathstr = basepathmake.string();
-		std::cerr << "Error creating directory " << StringAdapter(pathstr) << std::endl;
+		cerr << cstr("Error creating directory ") << basepathmake.string() << std::endl;
 		return 1;
 	}
 
-	ofstream outfile(basepath / cstr("tf.out"));
-	printchars(outfile, limit);
+//	ofstream outfile(basepath / cstr("tf.out"));
+//	printchars(outfile, limit);
 
-	int err = createfiles_direct(basepath, limit);
-	std::cout << "Direct: Missing files " << err << std::endl;
+	std::vector<path> miss_direct = createfiles_direct(basepath, limit);
+	cout << cstr("Direct: Missing files ") << miss_direct.size() << std::endl;
+	for(std::vector<path>::iterator i = miss_direct.begin(); i != miss_direct.end(); i++)
+		cout << i->string() << cstr('\n');
 
 
-	err = createfiles_make(basepathmake, limit);
-	std::cout << "Make: Missing files " << err << std::endl;
+	std::vector<path> miss_make = createfiles_make(basepathmake, limit);
+	cout << cstr("Make: Missing files ") << miss_make.size() << std::endl;
+	for(std::vector<path>::iterator i = miss_make.begin(); i != miss_make.end(); i++)
+			cout << i->string() << cstr('\n');
 	return 0;
 }

@@ -22,28 +22,26 @@ namespace makefile
  */
 class StringAdapter : public std::string
 {
-public:
-	StringAdapter(std::wstring& ws)
+	void use_narrow(const wchar_t* ws)
 	{
 		std::ostringstream ostr;
-		for(std::wstring::const_iterator i = ws.begin(); i != ws.end(); i++)
+		for(const wchar_t* i = ws; *i; i++)
 		{
 			ostr.put(ostr.narrow(*i, '?'));
 		}
 		assign(ostr.str());
-
+	}
+public:
+	StringAdapter(std::wstring& ws)
+	{
+		use_narrow(ws.c_str());
 	}
 	StringAdapter(const std::string& s)
 	: std::string(s)
 	{}
 	StringAdapter(const wchar_t* ws)
 	{
-		std::ostringstream ostr;
-		for(wchar_t const* i = ws; *i; i++)
-		{
-			ostr.put(ostr.narrow(*i, '_'));
-		}
-		assign(ostr.str());
+		use_narrow(ws);
 	}
 	StringAdapter(const char* s)
 	: std::string(s)
