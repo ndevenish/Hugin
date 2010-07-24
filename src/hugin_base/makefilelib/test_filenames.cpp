@@ -25,6 +25,10 @@
 #include <locale>
 #include <vector>
 
+#ifndef USE_WCHAR
+#warning "The filename tester doesn't make much sense without wide characters."
+#endif
+
 using namespace makefile;
 namespace fs = boost::filesystem;
 
@@ -36,6 +40,11 @@ ostream& cout =  std::cout;
 ostream& cerr =  std::cerr;
 #endif
 
+/**
+ * Prints the tested characters.
+ * @param out
+ * @param limit
+ */
 void printchars(ostream& out, wchar_t limit)
 {
 	char_type c;
@@ -45,7 +54,12 @@ void printchars(ostream& out, wchar_t limit)
 	}
 
 }
-
+/**
+ * Tries to create files with names from 0x20 to limit using boost::filesystem.
+ * @param dir
+ * @param limit Upper limit for filenames
+ * @return Filenames that couldn't be found after creation.
+ */
 std::vector<path> createfiles_direct(const path dir, char_type limit)
 {
 	std::vector<path> miss;
@@ -62,7 +76,21 @@ std::vector<path> createfiles_direct(const path dir, char_type limit)
 	}
 	return miss;
 }
+/**
+ * Tries to create files with names from 0x20 to limit by calling make.
+ * It first writes a makefile of this structure:
+@verbatim
+FILENAME=X.1
 
+all :
+@touch $(FILENAME)
+@endverbatim
+ * Afterwards make is called with system() and creates the file by executing touch.
+ *
+ * @param dir
+ * @param limit Upper limit for filenames
+ * @return Filenames that couldn't be found after creation.
+ */
 std::vector<path> createfiles_make(const path dir, char_type limit)
 {
 	const path makefile(cstr("makefile"));
@@ -73,23 +101,30 @@ std::vector<path> createfiles_make(const path dir, char_type limit)
 		path filename(c);
 		ofstream makefilefile(dir / makefile);
 
-		makefile::Variable mffilename(cstr("FILENAME"), (dir / filename).string(), makefile::Makefile::SHELL);
-		makefile::Rule touch;
-		touch.addTarget(cstr("all"));
-		touch.addCommand(cstr("@touch ") + mffilename.getRef().toString());
+		// If the filename cannot be stored in a Variable, theres no chance to bring it through.
+		try {
+			makefile::Variable mffilename(cstr("FILENAME"), (dir / filename).string(), makefile::Makefile::SHELL);
 
-		mffilename.getDef().add();
-		touch.add();
-		makefile::Makefile::getSingleton().writeMakefile(makefilefile);
-		makefile::Makefile::clean();
-		makefilefile.close();
+			makefile::Rule touch;
+			touch.addTarget(cstr("all"));
+			touch.addCommand(cstr("@touch ") + mffilename.getRef().toString());
 
-		string dirstring = dir.string();
-		std::string command("cd " + StringAdapter(dirstring) + " && make");
-		int makeerr = std::system(command.c_str());
+			mffilename.getDef().add();
+			touch.add();
+			makefile::Makefile::getSingleton().writeMakefile(makefilefile);
+			makefile::Makefile::clean();
+			makefilefile.close();
 
-		if(makeerr)
-			std::cerr << "make returned " << makeerr << std::endl;
+			string dirstring = dir.string();
+			std::string command("cd " + StringAdapter(dirstring) + " && make");
+			int makeerr = std::system(command.c_str());
+
+			if(makeerr)
+				std::cerr << "make returned " << makeerr << std::endl;
+			}
+		catch(std::exception& e) {
+			std::cerr << "Variable exception: " << e.what() << "*c = " << static_cast<long>(*c) << std::endl;
+		}
 
 		if(!fs::exists(dir / filename))
 		{
@@ -97,6 +132,22 @@ std::vector<path> createfiles_make(const path dir, char_type limit)
 		}
 	}
 	return miss;
+}
+/**
+ * Removes and recreates the output directories.
+ * @param dir
+ * @return 0 on success, 1 on error.
+ */
+int cleandir(path dir)
+{
+	if(fs::is_directory(dir))
+		fs::remove_all(dir);
+	if(!fs::create_directories(dir))
+	{
+		cerr << cstr("Error creating directory ") << dir.string() << std::endl;
+		return 1;
+	}
+	return 0;
 }
 
 int main(int argc, char *argv[])
@@ -112,25 +163,16 @@ int main(int argc, char *argv[])
 	}else{
 		limit = std::atoi(argv[1]);
 	}
-	std::cout << "Creating " << static_cast<int>(limit) << " files, twice." << std::endl;
+	std::cout << "Creating " << static_cast<long>(limit) << " files in" << std::endl;
 
-	path basepath(cstr("/tmp/chartest_direct"));
-	path basepathmake(cstr("/tmp/chartest_make"));
+	path basepath(fs::initial_path<path>() / cstr("chartest_direct"));
+	path basepathmake(fs::initial_path<path>() / cstr("chartest_make"));
 
-	if(fs::is_directory(basepath))
-		fs::remove_all(basepath);
-	if(!fs::create_directories(basepath))
-	{
-		cerr << cstr("Error creating directory ") << basepath.string() << std::endl;
+	cout << basepath.string() << std::endl;
+	cout << basepathmake.string() << std::endl;
+
+	if(cleandir(basepath) || cleandir(basepathmake))
 		return 1;
-	}
-	if(fs::is_directory(basepathmake))
-			fs::remove_all(basepathmake);
-	if(!fs::create_directories(basepathmake))
-	{
-		cerr << cstr("Error creating directory ") << basepathmake.string() << std::endl;
-		return 1;
-	}
 
 //	ofstream outfile(basepath / cstr("tf.out"));
 //	printchars(outfile, limit);
