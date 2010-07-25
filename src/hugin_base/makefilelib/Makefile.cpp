@@ -64,7 +64,7 @@ string Makefile::quote(const string& in, Makefile::QuoteMode mode)
 		toescape.assign(cstr("(\\$[^\\(])|(\\\\)|(\\#)"));
 		// uses a nice regex feature "recursive expressions" for doing it all in one (subexpression) cascade.
 		output.assign(cstr("(?1\\$$&)(?2/)(?3\\\\$&)"));
-		return string(cstr("\"") + boost::regex_replace(in, toescape, output, boost::match_default | boost::format_all) + cstr("\"");
+		return string(cstr("\"") + boost::regex_replace(in, toescape, output, boost::match_default | boost::format_all) + cstr("\""));
 #else
 		// because parenthesis are replaced too, the first pattern detects variable references and passes them unchanged.
 		toescape.assign(cstr("(\\$\\([^\\)]+\\))|(\\$)|([\\\\ \\~\"\\|\\'\\`\\{\\}\\[\\]\\(\\)\\*\\#\\:\\=])"));
