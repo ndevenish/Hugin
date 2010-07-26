@@ -23,8 +23,11 @@ target_link_libraries(makefilelib ${Boost_LIBRARIES})
 
 
 # tester executable
-add_executable(test_makefilelib main.cpp)
-target_link_libraries(test_makefilelib makefilelib) 
+add_executable(test_simple main.cpp)
+target_link_libraries(test_simple makefilelib) 
 
 add_executable(test_filenames test_filenames.cpp)
 target_link_libraries(test_filenames makefilelib ${Boost_LIBRARIES})
+
+add_executable(test_makefilelib test_makefilelib.cpp)
+target_link_libraries(test_makefilelib makefilelib ${Boost_LIBRARIES})
