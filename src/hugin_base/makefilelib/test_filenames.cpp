@@ -25,10 +25,6 @@
 #include <locale>
 #include <vector>
 
-#ifndef USE_WCHAR
-#warning "The filename tester doesn't make much sense without wide characters."
-#endif
-
 using namespace makefile;
 namespace fs = boost::filesystem;
 
@@ -60,11 +56,11 @@ void printchars(ostream& out, wchar_t limit)
  * @param limit Upper limit for filenames
  * @return Filenames that couldn't be found after creation.
  */
-std::vector<path> createfiles_direct(const path dir, char_type limit)
+std::vector<path> createfiles_direct(const path dir, uchar_type limit)
 {
 	std::vector<path> miss;
 	char_type c[] = cstr("X.1");
-	for(*c = 0x20; *c < limit; (*c)++)
+	for(*c = 0x20; static_cast<uchar_type>(*c) < limit; (*c)++)
 	{
 		path filename(c);
 		ofstream file(dir / filename);
@@ -91,12 +87,12 @@ all :
  * @param limit Upper limit for filenames
  * @return Filenames that couldn't be found after creation.
  */
-std::vector<path> createfiles_make(const path dir, char_type limit)
+std::vector<path> createfiles_make(const path dir, uchar_type limit)
 {
 	const path makefile(cstr("makefile"));
 	std::vector<path> miss;
 	char_type c[] = cstr("X.1");
-	for(*c = 0x20; *c < limit; (*c)++)
+	for(*c = 0x20; static_cast<uchar_type>(*c) < limit; (*c)++)
 	{
 		path filename(c);
 		ofstream makefilefile(dir / makefile);
@@ -155,7 +151,7 @@ int main(int argc, char *argv[])
 	// set the environments locale.
 	std::locale::global(std::locale(""));
 
-	char_type limit;
+	uchar_type limit;
 	if(argc != 2)
 	{
 		std::cerr << "Specify a limit as first argument" << std::endl;
@@ -163,7 +159,7 @@ int main(int argc, char *argv[])
 	}else{
 		limit = std::atoi(argv[1]);
 	}
-	std::cout << "Creating " << static_cast<long>(limit) << " files in" << std::endl;
+	std::cout << "Creating " << static_cast<unsigned long>(limit) << " files in" << std::endl;
 
 	path basepath(fs::initial_path<path>() / cstr("chartest_direct"));
 	path basepathmake(fs::initial_path<path>() / cstr("chartest_make"));

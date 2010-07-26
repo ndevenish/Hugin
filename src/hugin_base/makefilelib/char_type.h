@@ -22,14 +22,16 @@
 #include <boost/filesystem/fstream.hpp>
 #include <boost/filesystem.hpp>
 
-#define USE_WCHAR
+//#define USE_WCHAR
 
 namespace makefile
 {
 #ifdef USE_WCHAR
 	typedef wchar_t char_type;
+	typedef unsigned wchar_t uchar_type;
 #else
 	typedef char char_type;
+	typedef unsigned char uchar_type;
 #endif
 
 /// streams, use the extended fstream versions from boost::filesystem.
