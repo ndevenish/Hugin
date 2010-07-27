@@ -201,6 +201,7 @@ private:
 
     void DisplayHelp(wxString section);
     void OnShowDonate(wxCommandEvent &e);
+    void OnShowPanel(wxCommandEvent &e);
 
     // update progress display
     bool displayProgress();

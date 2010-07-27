@@ -171,6 +171,19 @@ BEGIN_EVENT_TABLE(MainFrame, wxFrame)
 
     EVT_MENU(XRCID("ID_CP_TABLE"), MainFrame::OnShowCPFrame)
     EVT_BUTTON(XRCID("ID_CP_TABLE"),MainFrame::OnShowCPFrame)
+    
+    EVT_MENU(XRCID("ID_SHOW_PANEL_ASSISTANT"), MainFrame::OnShowPanel)
+    EVT_MENU(XRCID("ID_SHOW_PANEL_IMAGES"), MainFrame::OnShowPanel)
+    EVT_MENU(XRCID("ID_SHOW_PANEL_LENS"), MainFrame::OnShowPanel)
+    EVT_MENU(XRCID("ID_SHOW_PANEL_CROP"), MainFrame::OnShowPanel)
+    EVT_MENU(XRCID("ID_SHOW_PANEL_MASK"), MainFrame::OnShowPanel)
+    EVT_MENU(XRCID("ID_SHOW_PANEL_CP_EDITOR"), MainFrame::OnShowPanel)
+    EVT_MENU(XRCID("ID_SHOW_PANEL_OPTIMIZER"), MainFrame::OnShowPanel)
+    EVT_MENU(XRCID("ID_SHOW_PANEL_OPTIMIZER_PHOTOMETRIC"), MainFrame::OnShowPanel)
+    EVT_MENU(XRCID("ID_SHOW_PANEL_PANORAMA"), MainFrame::OnShowPanel)
+    
+
+
 
     EVT_MENU(XRCID("action_add_images"),  MainFrame::OnAddImages)
     EVT_BUTTON(XRCID("action_add_images"),  MainFrame::OnAddImages)
@@ -1070,6 +1083,13 @@ void MainFrame::OnShowDonate(wxCommandEvent & e)
 {
     wxLaunchDefaultBrowser(wxT("http://sourceforge.net/project/project_donations.php?group_id=77506"));
 }
+
+
+void MainFrame::OnShowPanel(wxCommandEvent & e)
+{
+    m_notebook->SetSelection(e.GetId()-XRCID("ID_SHOW_PANEL_ASSISTANT"));
+}
+
 
 void MainFrame::OnAbout(wxCommandEvent & e)
 {
