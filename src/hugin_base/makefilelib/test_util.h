@@ -1,6 +1,6 @@
 /**
  * @file test_util.h
- * @brief
+ * @brief Prototype only.
  *  Created on: Jul 27, 2010
  * @author Florian Achleitner <florian.achleitner.2.6.31@gmail.com>
  */
