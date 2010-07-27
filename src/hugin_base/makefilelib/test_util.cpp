@@ -14,6 +14,7 @@
 
 #include <boost/iostreams/stream.hpp>
 #include <boost/iostreams/device/file_descriptor.hpp>
+#include <boost/iostreams/code_converter.hpp>
 
 using namespace makefile;
 namespace fs = boost::filesystem;
@@ -46,7 +47,12 @@ int exec_make(const char* const argv[], std::stringbuf& makeoutbuf, std::stringb
 		close(fdmakeerr[1]);
 
 		// boost gives us a way to use those pipes in C++ style.
+		// the code_converter allows wchar mode Makefile to be written to a char-pipe
+#ifdef USE_WCHAR
+		io::stream< io::code_converter<io::file_descriptor_sink> > makein(fdmakein[1]);
+#else
 		io::stream<io::file_descriptor_sink> makein(fdmakein[1]);
+#endif
 		io::stream<io::file_descriptor_source> makeout(fdmakeout[0]);
 		io::stream<io::file_descriptor_source> makeerr(fdmakeerr[0]);
 

@@ -11,6 +11,7 @@
 #include <stdexcept>
 #include <cstdio>
 #include <sys/wait.h>
+#include <fstream>
 #include "Comment.h"
 #include "Variable.h"
 #include "VariableDef.h"
@@ -56,6 +57,7 @@ bool run(const char* testname, const char* goodout)
 	std::cout << "FAIL" << std::endl;
 	std::cout << "ret: " << status << std::endl;
 	std::cout << "out: " << makeoutbuf.str() << std::endl;
+	std::cout << "cmp: " << goodout << std::endl;
 	std::cout << "err: " << makeerrbuf.str() << std::endl;
 	return false;
 }
@@ -70,12 +72,27 @@ bool test_Comment()
 
 bool test_Rule()
 {
-	Rule rule;
+	Rule rule, rule2;
 	rule.addTarget(cstr("all"));
+	rule.addPrereq(cstr("1.out"));
+	rule.addPrereq(cstr("2.out"));
 	rule.addCommand(cstr("@echo Hello Make"));
 	rule.add();
-	return run("Rule", "Hello Make\n");
+
+	rule2.addTarget(cstr("%.out"));
+	rule2.addPrereq(cstr("%.in"));
+	rule2.addCommand(cstr("cp $*.in $@"));
+	rule2.add();
+
+	std::ofstream in1("1.in"); in1.close();
+	std::ofstream in2("2.in"); in2.close();
+
+	bool res = run("Rule", "cp 1.in 1.out\ncp 2.in 2.out\nHello Make\n") &&
+			fs::exists("1.out") && fs::exists("2.out");
+	fs::remove("1.in"); fs::remove("2.in"); fs::remove("1.out"); fs::remove("2.out");
+	return res;
 }
+
 int main(int argc, char *argv[])
 {
 	bool result = true;
