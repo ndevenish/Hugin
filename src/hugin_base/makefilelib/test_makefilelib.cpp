@@ -7,6 +7,7 @@
 
 #include "char_type.h"
 #include <iostream>
+#include <iomanip>
 #include <stdexcept>
 #include <cstdio>
 #include <sys/wait.h>
@@ -21,6 +22,8 @@
 #include "Rule.h"
 #include "Conditional.h"
 #include "StringAdapter.h"
+
+#include "test_util.h"
 
 #include <boost/iostreams/stream.hpp>
 #include <boost/iostreams/device/file_descriptor.hpp>
@@ -39,55 +42,21 @@ ostream& cerr =  std::cerr;
 
 bool run(const char* testname, const char* goodout)
 {
-	// store 2 fd {read, write}
-	int fdmakein[2];
-	int fdmakeout[2];
-	if(pipe(fdmakein) || pipe(fdmakeout))
-	{
-		std::cerr << "pipe() failed." << std::endl;
-		return false;
-	}
-	std::stringbuf makeoutbuf;
-
-	if(fork())
-	{ // parent
-		close(fdmakein[0]);
-		close(fdmakeout[1]);
-
-		io::stream<io::file_descriptor_sink> makein(fdmakein[1]);
-		io::stream<io::file_descriptor_source> makeout(fdmakeout[0]);
-		// Write the makefile to make's stdin
-		Makefile::getSingleton().writeMakefile(makein);
-		Makefile::getSingleton().clean();
-		makein.close();
-		makeout.get(makeoutbuf, '\0');	// delimiter \0 should read until eof.
-		wait(NULL);
-
-
-	} else { // child
-		close(fdmakein[1]);
-		close(fdmakeout[0]);
-		// replace stdin and stdout
-		if(dup2(fdmakein[0], 0) == -1 || dup2(fdmakeout[1], 1) == -1)
-		{
-			std::cerr << "Failed to switch std stream" << std::endl;
-			exit(-1);
-		}
-
-		// execvp takes a NULL-terminated array of null-terminated strings. cool ;)
-		const char* const argv[] = {"make", "-f-", (char*) NULL};
-		execvp(argv[0], (char* const*)argv);
-	}
+	std::stringbuf makeoutbuf, makeerrbuf;
+	const char* argv[] = {"make", "-f-", NULL};
+	int status = exec_make(argv, makeoutbuf, makeerrbuf);
 
 	// Compare output
-	std::cout << "make says: " << makeoutbuf.str() << std::endl;
-	std::cout << testname << "   ";
+	std::cout << std::setw(30) << std::left <<  testname;
 	if(std::string(goodout) == makeoutbuf.str())
 	{
 		std::cout << "PASS" << std::endl;
 		return true;
 	}
 	std::cout << "FAIL" << std::endl;
+	std::cout << "ret: " << status << std::endl;
+	std::cout << "out: " << makeoutbuf.str() << std::endl;
+	std::cout << "err: " << makeerrbuf.str() << std::endl;
 	return false;
 }
 bool test_Comment()

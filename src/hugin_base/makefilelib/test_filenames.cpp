@@ -21,6 +21,8 @@
 #include "Conditional.h"
 #include "StringAdapter.h"
 
+#include "test_util.h"
+
 #include <iostream>
 #include <locale>
 #include <vector>
@@ -35,6 +37,8 @@ ostream& cerr =  std::wcerr;
 ostream& cout =  std::cout;
 ostream& cerr =  std::cerr;
 #endif
+
+#define START 0x20
 
 /**
  * Prints the tested characters.
@@ -60,7 +64,7 @@ std::vector<path> createfiles_direct(const path dir, uchar_type limit)
 {
 	std::vector<path> miss;
 	char_type c[] = cstr("X.1");
-	for(*c = 0x20; static_cast<uchar_type>(*c) < limit; (*c)++)
+	for(*c = START; static_cast<uchar_type>(*c) < limit; (*c)++)
 	{
 		path filename(c);
 		ofstream file(dir / filename);
@@ -92,10 +96,9 @@ std::vector<path> createfiles_make(const path dir, uchar_type limit)
 	const path makefile(cstr("makefile"));
 	std::vector<path> miss;
 	char_type c[] = cstr("X.1");
-	for(*c = 0x20; static_cast<uchar_type>(*c) < limit; (*c)++)
+	for(*c = START; static_cast<uchar_type>(*c) < limit; (*c)++)
 	{
 		path filename(c);
-		ofstream makefilefile(dir / makefile);
 
 		// If the filename cannot be stored in a Variable, theres no chance to bring it through.
 		try {
@@ -107,19 +110,22 @@ std::vector<path> createfiles_make(const path dir, uchar_type limit)
 
 			mffilename.getDef().add();
 			touch.add();
-			makefile::Makefile::getSingleton().writeMakefile(makefilefile);
-			makefile::Makefile::clean();
-			makefilefile.close();
 
 			string dirstring = dir.string();
-			std::string command("cd " + StringAdapter(dirstring) + " && make");
-			int makeerr = std::system(command.c_str());
+			const char* argv[] = {"make", ("-C" + StringAdapter(dirstring)).c_str(), "-f-", NULL};
+			std::stringbuf makeout, makeerr;
+			int ret = exec_make(argv, makeout, makeerr);
 
-			if(makeerr)
-				std::cerr << "make returned " << makeerr << std::endl;
+
+			if(ret)
+			{
+				std::cerr << "make returned " << ret << std::endl;
+				std::cout << makeout.str();
+				std::cerr << makeerr.str();
+			}
 			}
 		catch(std::exception& e) {
-			std::cerr << "Variable exception: " << e.what() << "*c = " << static_cast<long>(*c) << std::endl;
+			std::cerr << "Variable exception: " << e.what() << std::endl;
 		}
 
 		if(!fs::exists(dir / filename))
@@ -159,7 +165,7 @@ int main(int argc, char *argv[])
 	}else{
 		limit = std::atoi(argv[1]);
 	}
-	std::cout << "Creating " << static_cast<unsigned long>(limit) << " files in" << std::endl;
+	std::cout << "Creating " << static_cast<unsigned long>(limit) - START << " files in" << std::endl;
 
 	path basepath(fs::initial_path<path>() / cstr("chartest_direct"));
 	path basepathmake(fs::initial_path<path>() / cstr("chartest_make"));
@@ -177,11 +183,12 @@ int main(int argc, char *argv[])
 	cout << cstr("Direct: Missing files ") << miss_direct.size() << std::endl;
 	for(std::vector<path>::iterator i = miss_direct.begin(); i != miss_direct.end(); i++)
 		cout << i->string() << cstr('\n');
-
+	cout << std::endl;
 
 	std::vector<path> miss_make = createfiles_make(basepathmake, limit);
 	cout << cstr("Make: Missing files ") << miss_make.size() << std::endl;
 	for(std::vector<path>::iterator i = miss_make.begin(); i != miss_make.end(); i++)
 			cout << i->string() << cstr('\n');
+	cout << std::endl;
 	return 0;
 }
