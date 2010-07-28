@@ -1087,7 +1087,31 @@ void MainFrame::OnShowDonate(wxCommandEvent & e)
 
 void MainFrame::OnShowPanel(wxCommandEvent & e)
 {
-    m_notebook->SetSelection(e.GetId()-XRCID("ID_SHOW_PANEL_ASSISTANT"));
+    if(e.GetId()==XRCID("ID_SHOW_PANEL_IMAGES"))
+        m_notebook->SetSelection(1);
+    else
+        if(e.GetId()==XRCID("ID_SHOW_PANEL_LENS"))
+            m_notebook->SetSelection(2);
+        else
+            if(e.GetId()==XRCID("ID_SHOW_PANEL_CROP"))
+                m_notebook->SetSelection(3);
+            else
+                if(e.GetId()==XRCID("ID_SHOW_PANEL_MASK"))
+                    m_notebook->SetSelection(4);
+                else
+                    if(e.GetId()==XRCID("ID_SHOW_PANEL_CP_EDITOR"))
+                        m_notebook->SetSelection(5);
+                    else
+                        if(e.GetId()==XRCID("ID_SHOW_PANEL_OPTIMIZER"))
+                            m_notebook->SetSelection(6);
+                        else
+                            if(e.GetId()==XRCID("ID_SHOW_PANEL_OPTIMIZER_PHOTOMETRIC"))
+                                m_notebook->SetSelection(7);
+                            else
+                                if(e.GetId()==XRCID("ID_SHOW_PANEL_PANORAMA"))
+                                    m_notebook->SetSelection(8);
+                                else
+                                    m_notebook->SetSelection(0);
 }
 
 
