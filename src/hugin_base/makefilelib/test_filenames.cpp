@@ -28,6 +28,7 @@
 #include <vector>
 
 using namespace makefile;
+using namespace makefile::tester;
 namespace fs = boost::filesystem;
 
 #ifdef USE_WCHAR

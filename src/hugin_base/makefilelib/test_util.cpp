@@ -10,7 +10,9 @@
 #include <sstream>
 #include <cstdio>
 #include <sys/wait.h>
+#include <iomanip>
 #include "Makefile.h"
+#include "test_util.h"
 
 #include <boost/iostreams/stream.hpp>
 #include <boost/iostreams/device/file_descriptor.hpp>
@@ -20,6 +22,7 @@ using namespace makefile;
 namespace fs = boost::filesystem;
 namespace io = boost::iostreams;
 
+namespace makefile { namespace tester {
 /**
  * Executes make with capturing stderr and stdout and feeding the makefile via stdin.
  * @param argv as required by execvp (execvp takes a NULL-terminated array of null-terminated strings.) See manpage.
@@ -92,3 +95,23 @@ int exec_make(const char* const argv[], std::stringbuf& makeoutbuf, std::stringb
 		return -1;		// exec should never return
 	}
 }
+
+bool Test::run()
+{
+	const char* argv[] = {"make", "-f-", NULL};
+	int status = exec_make(argv, makeoutbuf, makeerrbuf);
+
+	std::cout << std::setw(30) << std::left <<  name;
+	if(eval())
+	{
+		std::cout << "PASS" << std::endl;
+		return true;
+	}
+	std::cout << "FAIL" << std::endl;
+	std::cout << "ret: " << status << std::endl;
+	std::cout << "out: " << makeoutbuf.str() << std::endl;
+	std::cout << "cmp: " << goodout << std::endl;
+	std::cout << "err: " << makeerrbuf.str() << std::endl;
+	return false;
+}
+}}

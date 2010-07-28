@@ -7,10 +7,8 @@
 
 #include "char_type.h"
 #include <iostream>
-#include <iomanip>
 #include <stdexcept>
 #include <cstdio>
-#include <sys/wait.h>
 #include <fstream>
 #include "Comment.h"
 #include "Variable.h"
@@ -33,6 +31,8 @@ using namespace makefile;
 namespace fs = boost::filesystem;
 namespace io = boost::iostreams;
 
+namespace makefile { namespace tester {
+
 #ifdef USE_WCHAR
 ostream& cout =  std::wcout;
 ostream& cerr =  std::wcerr;
@@ -41,62 +41,65 @@ ostream& cout =  std::cout;
 ostream& cerr =  std::cerr;
 #endif
 
-bool run(const char* testname, const char* goodout)
+struct TestComment : public Test
 {
-	std::stringbuf makeoutbuf, makeerrbuf;
-	const char* argv[] = {"make", "-f-", NULL};
-	int status = exec_make(argv, makeoutbuf, makeerrbuf);
-
-	// Compare output
-	std::cout << std::setw(30) << std::left <<  testname;
-	if(std::string(goodout) == makeoutbuf.str())
+	Comment comment;
+	TestComment()
+	:Test("Comment", ""),
+	 comment(cstr("First line"))
 	{
-		std::cout << "PASS" << std::endl;
-		return true;
+		comment.appendLine(cstr("second line"));
+		comment.appendLine(cstr("third line\nfourth\r line"));
+		comment.add();
 	}
-	std::cout << "FAIL" << std::endl;
-	std::cout << "ret: " << status << std::endl;
-	std::cout << "out: " << makeoutbuf.str() << std::endl;
-	std::cout << "cmp: " << goodout << std::endl;
-	std::cout << "err: " << makeerrbuf.str() << std::endl;
-	return false;
-}
-bool test_Comment()
-{
-	Comment comment(cstr("First line"));
-	comment.appendLine(cstr("second line"));
-	comment.appendLine(cstr("third line\nfourth\r line"));
-	comment.add();
-	return run("Comment", "");
-}
+};
 
-bool test_Rule()
+struct TestRule : public Test
 {
 	Rule rule, rule2;
-	rule.addTarget(cstr("all"));
-	rule.addPrereq(cstr("1.out"));
-	rule.addPrereq(cstr("2.out"));
-	rule.addCommand(cstr("@echo Hello Make"));
-	rule.add();
 
-	rule2.addTarget(cstr("%.out"));
-	rule2.addPrereq(cstr("%.in"));
-	rule2.addCommand(cstr("cp $*.in $@"));
-	rule2.add();
+	TestRule()
+	:Test("Rule", "cp 1.in 1.out\ncp 2.in 2.out\nHello Make\n")
+	{
+		rule.addTarget(cstr("all"));
+		rule.addPrereq(cstr("1.out"));
+		rule.addPrereq(cstr("2.out"));
+		rule.addCommand(cstr("@echo Hello Make"));
+		rule.add();
 
-	std::ofstream in1("1.in"); in1.close();
-	std::ofstream in2("2.in"); in2.close();
+		rule2.addTarget(cstr("%.out"));
+		rule2.addPrereq(cstr("%.in"));
+		rule2.addCommand(cstr("cp $*.in $@"));
+		rule2.add();
 
-	bool res = run("Rule", "cp 1.in 1.out\ncp 2.in 2.out\nHello Make\n") &&
-			fs::exists("1.out") && fs::exists("2.out");
-	fs::remove("1.in"); fs::remove("2.in"); fs::remove("1.out"); fs::remove("2.out");
-	return res;
+		std::ofstream in1("1.in"); in1.close();
+		std::ofstream in2("2.in"); in2.close();
+	}
+
+	bool precond()
+	{
+		return fs::exists("1.out") && fs::exists("2.out");
+	}
+	~TestRule()
+	{
+		fs::remove("1.in"); fs::remove("2.in"); fs::remove("1.out"); fs::remove("2.out");
+	}
+};
+
+void do_test(bool& result, Test* test)
+{
+	result &= test->run();
+	delete test;
 }
+}} // namespace
+using namespace makefile::tester;
 
 int main(int argc, char *argv[])
 {
 	bool result = true;
-	result &= test_Comment();
-	result &= test_Rule();
+	do_test(result, new TestComment);
+	do_test(result, new TestRule);
 	return !result;		// return 0 on success (= !true)
 }
+
+
