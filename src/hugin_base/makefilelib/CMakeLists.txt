@@ -1,9 +1,12 @@
 SET(MAKEFILELIB_SRC Comment.cpp MakefileItem.cpp  Variable.cpp VariableRef.cpp 
- Filename.cpp  Makefile.cpp  Rule.cpp VariableDef.cpp AutoVariable.cpp Conditional.cpp) 
-SET(MAKEFILELIB_HEADER Comment.h Makefile.h Rule.h Variable.h Filename.h 
+ Makefile.cpp  Rule.cpp VariableDef.cpp AutoVariable.cpp Conditional.cpp) 
+SET(MAKEFILELIB_HEADER Comment.h Makefile.h Rule.h Variable.h 
  MakefileItem.h VariableDef.h VariableRef.h AutoVariable.h Newline.h Conditional.h char_type.h StringAdapter.h)
 
+# use -Wall not on Windows, there are thousands of pointless padding warnings.
+IF(NOT WIN32)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
+ENDIF(NOT WIN32)
 
 IF (${HUGIN_SHARED_LIBS})
   add_library(makefilelib SHARED ${MAKEFILELIB_SRC} ${MAKEFILELIB_HEADER})
@@ -21,7 +24,11 @@ ENDIF (${HUGIN_SHARED_LIBS})
 target_link_libraries(makefilelib ${Boost_LIBRARIES})
 
 # test_util
+IF(WIN32)
+add_library(test_util STATIC test_util_win32.cpp test_util.h)
+ELSE(WIN32)
 add_library(test_util STATIC test_util.cpp test_util.h)
+ENDIF(WIN32)
 
 # tester executable
 add_executable(test_simple main.cpp)
