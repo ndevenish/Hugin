@@ -36,6 +36,8 @@
 class ToolHelper;
 class OverviewToolHelper;
 class PreviewToolHelper;
+class PanosphereOverviewToolHelper;
+class PlaneOverviewToolHelper;
 
 /** The renderer handles drawing the preview. It is used by a GLViewer, which is
  * a wxWidget. The work of generating textures to represent the image is done by
@@ -96,19 +98,43 @@ protected:
 class GLOverviewRenderer : public GLRenderer
 {
 public:
-    GLOverviewRenderer(PT::Panorama * pano, TextureManager *tex_man,
-               MeshManager *mesh_man, PanosphereOverviewVisualizationState *visualization_state,
-               OverviewToolHelper *tool_helper);
-
-
-    vigra::Diff2D Resize(int width, int height);
-    void Redraw();
+//    GLOverviewRenderer(PT::Panorama * pano, TextureManager *tex_man,
+//               MeshManager *mesh_man, PanosphereOverviewVisualizationState *visualization_state,
+//               OverviewToolHelper *tool_helper) 
 
 protected:
     
+
+};
+
+class GLPanosphereOverviewRenderer : public GLOverviewRenderer
+{
+public:
+    GLPanosphereOverviewRenderer(PT::Panorama * pano, TextureManager *tex_man,
+               MeshManager *mesh_man, PanosphereOverviewVisualizationState *visualization_state,
+               PanosphereOverviewToolHelper *tool_helper);
+
+    vigra::Diff2D Resize(int width, int height);
+    void Redraw();
+protected:
     PanosphereOverviewVisualizationState * m_visualization_state;
 
 };
+
+class GLPlaneOverviewRenderer : public GLOverviewRenderer
+{
+public:
+    GLPlaneOverviewRenderer(PT::Panorama * pano, TextureManager *tex_man,
+               MeshManager *mesh_man, PlaneOverviewVisualizationState *visualization_state,
+               PlaneOverviewToolHelper *tool_helper);
+
+    vigra::Diff2D Resize(int width, int height);
+    void Redraw();
+protected:
+    PlaneOverviewVisualizationState * m_visualization_state;
+
+};
+
 
 #endif
 

@@ -135,6 +135,7 @@ BEGIN_EVENT_TABLE(GLPreviewFrame, wxFrame)
     EVT_CHOICE(XRCID("blend_mode_choice"), GLPreviewFrame::OnBlendChoice)
     EVT_CHOICE(XRCID("drag_mode_choice"), GLPreviewFrame::OnDragChoice)
     EVT_CHOICE(XRCID("projection_choice"), GLPreviewFrame::OnProjectionChoice)
+    EVT_CHOICE(XRCID("overview_mode_choice"), GLPreviewFrame::OnOverviewModeChoice)
 #ifndef __WXMAC__
     // wxMac does not process these
     EVT_SCROLL_CHANGED(GLPreviewFrame::OnChangeFOV)
@@ -350,6 +351,7 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     m_GLPreview = new GLPreview(preview_panel, pano, args, this);
 //    GLOverview * m_GLPreview2 = new GLOverview(preview_panel, pano, args, this);
     m_GLOverview = new GLOverview(overview_panel, pano, args, this);
+    m_GLOverview->SetMode(GLOverview::PANOSPHERE);
 
     flexSizer->Add(m_GLPreview,
                   1,        // not vertically stretchable
@@ -411,11 +413,18 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
 
     flexSizer->Add(m_HFOVSlider, 0, wxEXPAND);
 
+    wxPanel *overview_command_panel = wxXmlResource::Get()->LoadPanel(overview_panel,wxT("overview_command_panel"));
+    m_OverviewModeChoice = XRCCTRL(*this, "overview_mode_choice", wxChoice);
+    m_OverviewModeChoice->Append(_("Panosphere"));
+    m_OverviewModeChoice->Append(_("Mosaic plane"));
+    m_OverviewModeChoice->SetSelection(0);
+    overview_command_panel->SetSize(0,0,200,20,wxSIZE_AUTO_WIDTH);
+
+    overview_sizer->Add(overview_command_panel, 0, wxSHAPED);
     overview_sizer->Add(m_GLOverview, 1, wxEXPAND);
 
     preview_panel->SetSizer(flexSizer);
     overview_panel->SetSizer(overview_sizer);
-
 
     m_mgr->AddPane(preview_panel, 
         wxAuiPaneInfo(
@@ -423,7 +432,7 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
             ).MinSize(300,200
             ).CloseButton(false
             ).CaptionVisible(
-            ).Caption(wxT("Preview")
+            ).Caption(_("Preview")
             ).FloatingSize(100,100
             ).FloatingPosition(400,400
             ).Dockable(false
@@ -442,7 +451,7 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
             ).MinSize(300,200
             ).CloseButton(false
             ).CaptionVisible(
-            ).Caption(wxT("Overview")
+            ).Caption(_("Overview")
             ).FloatingSize(100,100
             ).FloatingPosition(500,500
             ).Dockable(false
@@ -1287,6 +1296,18 @@ void GLPreviewFrame::OnDragChoice(wxCommandEvent & e)
     }
 }
 
+
+void GLPreviewFrame::OnOverviewModeChoice( wxCommandEvent & e)
+{
+    int choice = m_OverviewModeChoice->GetSelection();
+    if (choice == 1) {
+        m_GLOverview->SetMode(GLOverview::PLANE);
+    } else
+    if (choice == 0) {
+        m_GLOverview->SetMode(GLOverview::PANOSPHERE);
+    }
+}
+
 void GLPreviewFrame::OnDefaultExposure( wxCommandEvent & e )
 {
     if (m_pano.getNrOfImages() > 0) {
@@ -1428,17 +1449,23 @@ void GLPreviewFrame::MakePreviewTools(PreviewToolHelper *preview_helper_in)
     SetMode(mode_preview);
 }
 
-void GLPreviewFrame::MakeOverviewTools(OverviewToolHelper *overview_helper_in)
+void GLPreviewFrame::MakePanosphereOverviewTools(PanosphereOverviewToolHelper *overview_helper_in)
 {
     overview_helper = overview_helper_in;
     overview_drag_tool = new OverviewDragTool(overview_helper);
     overview_camera_tool = new OverviewCameraTool(overview_helper);
     overview_helper->ActivateTool(overview_camera_tool);
     overview_identify_tool = new PreviewIdentifyTool(overview_helper, this);
-    overview_projection_grid = new OverviewProjectionGridTool(overview_helper);
+    overview_projection_grid = new PanosphereOverviewProjectionGridTool(overview_helper);
     overview_helper->ActivateTool(overview_projection_grid);
     overview_outlines_tool = new OverviewOutlinesTool(overview_helper, m_GLPreview);
     overview_helper->ActivateTool(overview_outlines_tool);
+}
+
+void GLPreviewFrame::MakePlaneOverviewTools(PlaneOverviewToolHelper *overview_helper_in)
+{
+
+
 }
 
 void GLPreviewFrame::OnIdentify(wxCommandEvent & e)

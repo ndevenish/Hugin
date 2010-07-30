@@ -116,6 +116,15 @@ public:
     OverviewTool(OverviewToolHelper* helper);
     virtual ~OverviewTool();
 
+};
+
+class PanosphereOverviewTool : public OverviewTool
+{
+public:
+
+    PanosphereOverviewTool(PanosphereOverviewToolHelper* helper);
+    virtual ~PanosphereOverviewTool();
+
     virtual void BeforeDrawImagesBackEvent() {}
     virtual void AfterDrawImagesBackEvent() {}
 
@@ -123,6 +132,16 @@ public:
     virtual void AfterDrawImagesFrontEvent() {}
     
 };
+
+class PlaneOverviewTool : public OverviewTool
+{
+public:
+
+    PlaneOverviewTool(PlaneOverviewToolHelper* helper);
+    virtual ~PlaneOverviewTool();
+
+};
+
 
 #endif
 

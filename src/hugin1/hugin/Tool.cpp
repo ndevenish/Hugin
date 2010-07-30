@@ -38,3 +38,11 @@ OverviewTool::OverviewTool(OverviewToolHelper *helper_in) : Tool(helper_in) {}
 
 OverviewTool::~OverviewTool() {}
 
+PanosphereOverviewTool::PanosphereOverviewTool(PanosphereOverviewToolHelper *helper_in) : OverviewTool(helper_in) {}
+
+PanosphereOverviewTool::~PanosphereOverviewTool() {}
+
+PlaneOverviewTool::PlaneOverviewTool(PlaneOverviewToolHelper *helper_in) : OverviewTool(helper_in) {}
+
+PlaneOverviewTool::~PlaneOverviewTool() {}
+

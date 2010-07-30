@@ -63,6 +63,8 @@
 class Tool;
 class PreviewTool;
 class OverviewTool;
+class PanosphereOverviewTool;
+class PlaneOverviewTool;
 class GLPreviewFrame;
 
 class ToolHelper
@@ -181,16 +183,26 @@ class OverviewToolHelper : public ToolHelper
 public:
     OverviewToolHelper(PT::Panorama *pano,
                       VisualizationState *visualization_state,
-                      GLPreviewFrame * frame);
-    ~OverviewToolHelper();
+                      GLPreviewFrame * frame) : ToolHelper(pano, visualization_state, frame) {}
+    ~OverviewToolHelper() {}
 
-    enum OverviewEvent {
+};
+
+class PanosphereOverviewToolHelper : public OverviewToolHelper
+{
+public:
+    PanosphereOverviewToolHelper(PT::Panorama *pano,
+                      VisualizationState *visualization_state,
+                      GLPreviewFrame * frame);
+    ~PanosphereOverviewToolHelper();
+
+    enum PanosphereOverviewEvent {
         DRAW_UNDER_IMAGES_BACK, DRAW_UNDER_IMAGES_FRONT,
         DRAW_OVER_IMAGES_BACK, DRAW_OVER_IMAGES_FRONT
     };
 
-    void NotifyMe(OverviewEvent event, OverviewTool * tool);
-    void DoNotNotifyMe(OverviewEvent event, OverviewTool *tool);
+    void NotifyMe(PanosphereOverviewEvent event, PanosphereOverviewTool * tool);
+    void DoNotNotifyMe(PanosphereOverviewEvent event, PanosphereOverviewTool *tool);
 
     void MouseMoved(int x, int y, wxMouseEvent & e);
     void UpdateImagesUnderMouse();
@@ -206,8 +218,20 @@ protected:
     std::set<Tool *> draw_over_notified_tools_back;
     std::set<Tool *> draw_over_notified_tools_front;
     
-
 };
 
+
+class PlaneOverviewToolHelper : public OverviewToolHelper
+{
+public:
+    PlaneOverviewToolHelper(PT::Panorama *pano,
+                      VisualizationState *visualization_state,
+                      GLPreviewFrame * frame);
+    ~PlaneOverviewToolHelper();
+
+    void MouseMoved(int x, int y, wxMouseEvent & e);
+    void UpdateImagesUnderMouse();
+
+};
 
 #endif

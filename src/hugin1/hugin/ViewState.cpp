@@ -481,8 +481,8 @@ HuginBase::SrcPanoImage * VisualizationState::GetSrcImage(unsigned int image_nr)
 
 
 
-PanosphereOverviewVisualizationState::PanosphereOverviewVisualizationState(PT::Panorama* pano, ViewState* view_state, void (*RefreshFunction)(void*), void *arg)
-        : VisualizationState(pano, view_state, RefreshFunction, arg, (MeshManager*) NULL) 
+PanosphereOverviewVisualizationState::PanosphereOverviewVisualizationState(PT::Panorama* pano, ViewState* view_state, GLViewer * viewer, void (*RefreshFunction)(void*), void *arg)
+        : OverviewVisualizationState(pano, view_state, viewer, RefreshFunction, arg, (MeshManager*) NULL) 
 {
 
     scale = 100;
@@ -557,4 +557,49 @@ void PanosphereOverviewVisualizationState::setAngY(double angy_in)
     angy = angy_in;
     dirty_draw = true;
 }
+
+
+PlaneOverviewVisualizationState::PlaneOverviewVisualizationState(PT::Panorama* pano, ViewState* view_state, GLViewer * viewer, void (*RefreshFunction)(void*), void *arg)
+        : OverviewVisualizationState(pano, view_state, viewer, RefreshFunction, arg, (MeshManager*) NULL) 
+{
+
+    scale = 100;
+
+    fov = 60;
+    R = 500;
+
+    opts = (*(m_view_state->GetOptions()));
+    opts.setProjection(HuginBase::PanoramaOptions::RECTILINEAR);
+    opts.setHFOV(180.0);
+    opts.setVFOV(180.0);
+    projection_info = new OutputProjectionInfo(&opts);
+}
+
+HuginBase::PanoramaOptions * PlaneOverviewVisualizationState::GetOptions()
+{
+    return &opts;
+}
+
+OutputProjectionInfo *PlaneOverviewVisualizationState::GetProjectionInfo()
+{
+    if (projection_info) {
+        delete projection_info;
+    }
+    projection_info = new OutputProjectionInfo(&opts);
+    return projection_info;
+}
+
+void PlaneOverviewVisualizationState::SetOptions(const HuginBase::PanoramaOptions * new_opts)
+{
+    opts = *new_opts;
+    opts.setProjection(HuginBase::PanoramaOptions::RECTILINEAR);
+    opts.setHFOV(180.0);
+    opts.setVFOV(180.0);
+    if (projection_info) {
+        delete projection_info;
+        projection_info = NULL;
+    }
+    projection_info = new OutputProjectionInfo(&opts);
+}
+
 

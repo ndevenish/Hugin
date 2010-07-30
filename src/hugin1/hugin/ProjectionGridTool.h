@@ -58,11 +58,11 @@ protected:
 
 };
 
-class OverviewProjectionGridTool : public OverviewTool, public ProjectionGridTool
+class PanosphereOverviewProjectionGridTool : public PanosphereOverviewTool, public ProjectionGridTool
 {
 public:
     void Activate();
-    OverviewProjectionGridTool(OverviewToolHelper *helper) : OverviewTool(helper), ProjectionGridTool(helper) {}
+    PanosphereOverviewProjectionGridTool(PanosphereOverviewToolHelper *helper) : PanosphereOverviewTool(helper), ProjectionGridTool(helper) {}
 
     void createMesh();
 

@@ -77,25 +77,25 @@ void PreviewProjectionGridTool::AfterDrawImagesEvent()
     
 }
 
-void OverviewProjectionGridTool::Activate()
+void PanosphereOverviewProjectionGridTool::Activate()
 {
-    ((OverviewToolHelper*)helper)->NotifyMe(OverviewToolHelper::DRAW_OVER_IMAGES_BACK, this);
-    ((OverviewToolHelper*)helper)->NotifyMe(OverviewToolHelper::DRAW_UNDER_IMAGES_BACK, this);
-    ((OverviewToolHelper*)helper)->NotifyMe(OverviewToolHelper::DRAW_OVER_IMAGES_FRONT, this);
-    ((OverviewToolHelper*)helper)->NotifyMe(OverviewToolHelper::DRAW_UNDER_IMAGES_FRONT, this);
+    ((PanosphereOverviewToolHelper*)helper)->NotifyMe(PanosphereOverviewToolHelper::DRAW_OVER_IMAGES_BACK, this);
+    ((PanosphereOverviewToolHelper*)helper)->NotifyMe(PanosphereOverviewToolHelper::DRAW_UNDER_IMAGES_BACK, this);
+    ((PanosphereOverviewToolHelper*)helper)->NotifyMe(PanosphereOverviewToolHelper::DRAW_OVER_IMAGES_FRONT, this);
+    ((PanosphereOverviewToolHelper*)helper)->NotifyMe(PanosphereOverviewToolHelper::DRAW_UNDER_IMAGES_FRONT, this);
 }
 
 
-void OverviewProjectionGridTool::BeforeDrawImagesBackEvent()
+void PanosphereOverviewProjectionGridTool::BeforeDrawImagesBackEvent()
 {
 
 }
 
-void OverviewProjectionGridTool::BeforeDrawImagesFrontEvent()
+void PanosphereOverviewProjectionGridTool::BeforeDrawImagesFrontEvent()
 {
 }
 
-void OverviewProjectionGridTool::AfterDrawImagesBackEvent()
+void PanosphereOverviewProjectionGridTool::AfterDrawImagesBackEvent()
 {
     if (!mesh_info) {
         createMesh();
@@ -153,7 +153,7 @@ void OverviewProjectionGridTool::AfterDrawImagesBackEvent()
     
 }
 
-void OverviewProjectionGridTool::AfterDrawImagesFrontEvent()
+void PanosphereOverviewProjectionGridTool::AfterDrawImagesFrontEvent()
 {
 
 
@@ -223,7 +223,7 @@ void PreviewProjectionGridTool::createMesh()
     mesh_info = new MeshManager::MeshInfo(helper->GetPanoramaPtr(), &image, helper->GetVisualizationStatePtr(), false);
 }
 
-void OverviewProjectionGridTool::createMesh()
+void PanosphereOverviewProjectionGridTool::createMesh()
 {
     HuginBase::SrcPanoImage image;
     image.setSize(vigra::Size2D(3600,1780));

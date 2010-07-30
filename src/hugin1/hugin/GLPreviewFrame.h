@@ -45,7 +45,8 @@ class MeshManager;
 
 class ToolHelper;
 class PreviewToolHelper;
-class OverviewToolHelper;
+class PanosphereOverviewToolHelper;
+class PlaneOverviewToolHelper;
 class Tool;
 class PreviewTool;
 class PreviewCropTool;
@@ -58,7 +59,7 @@ class PreviewPanoMaskTool;
 class PreviewControlPointTool;
 class PreviewLayoutLinesTool;
 
-class OverviewProjectionGridTool;
+class PanosphereOverviewProjectionGridTool;
 class PreviewProjectionGridTool;
 
 class OverviewOutlinesTool;
@@ -161,7 +162,8 @@ public:
     void updateProgressDisplay();
     
     void MakePreviewTools(PreviewToolHelper * helper);
-    void MakeOverviewTools(OverviewToolHelper * helper);
+    void MakePanosphereOverviewTools(PanosphereOverviewToolHelper * helper);
+    void MakePlaneOverviewTools(PlaneOverviewToolHelper* helper);
     
     void SetImageButtonColour(unsigned int image_nr, unsigned char red,
                               unsigned char green, unsigned char blue);
@@ -212,6 +214,7 @@ protected:
     void OnBlendChoice(wxCommandEvent & e);
     void OnDragChoice(wxCommandEvent & e);
     void OnProjectionChoice(wxCommandEvent & e);
+    void OnOverviewModeChoice(wxCommandEvent & e);
     /** event handler for changed roi */
     void OnROIChanged(wxCommandEvent & e);
     void OnHFOVChanged(wxCommandEvent & e);
@@ -258,6 +261,7 @@ private:
     wxChoice * m_BlendModeChoice;
     wxChoice * m_DragModeChoice;
     wxChoice * m_ProjectionChoice;
+    wxChoice * m_OverviewModeChoice;
     // No HDR display yet.
     // wxChoice * m_outputModeChoice;
     wxTextCtrl * m_exposureTextCtrl;
@@ -302,10 +306,10 @@ private:
     PreviewPanoMaskTool *pano_mask_tool;    
     PreviewLayoutLinesTool *m_layoutLinesTool;
 
-    OverviewProjectionGridTool * overview_projection_grid;
+    PanosphereOverviewProjectionGridTool * overview_projection_grid;
     PreviewProjectionGridTool * preview_projection_grid;
 
-    OverviewToolHelper *overview_helper;
+    PanosphereOverviewToolHelper *overview_helper;
 
     OverviewDragTool *overview_drag_tool;
     OverviewCameraTool *overview_camera_tool;

@@ -93,6 +93,8 @@ GLViewer::GLViewer(
     started_creation = false;
     initialised_glew = false;
     redrawing = false;
+
+    active = true;
 }
 
 GLViewer::~GLViewer()
@@ -150,7 +152,6 @@ void GLViewer::SetUpContext()
             return;
         }
 
-
         setUp();
         // check, if gpu supports multitextures
         // fill blend mode choice box in fast preview window
@@ -162,14 +163,14 @@ void GLViewer::SetUpContext()
 
 void GLPreview::setUp()
 {
-
+    DEBUG_DEBUG("Preview Setup");
     // we need something to store the state of the view and control updates
     if (!m_view_state) {
         GLint countMultiTexture;
         glGetIntegerv(GL_MAX_TEXTURE_UNITS_ARB,&countMultiTexture);
         m_view_state = new ViewState(m_pano, countMultiTexture>1);
     }
-    m_visualization_state = new VisualizationState(m_pano, m_view_state, RefreshWrapper, this, (MeshManager*) NULL);
+    m_visualization_state = new VisualizationState(m_pano, m_view_state, this, RefreshWrapper, this, (MeshManager*) NULL);
     //Start the tools going:
     PreviewToolHelper *helper = new PreviewToolHelper(m_pano, m_visualization_state, frame);
     m_tool_helper = (ToolHelper*) helper;
@@ -182,21 +183,47 @@ void GLPreview::setUp()
 
 void GLOverview::setUp()
 {
+    DEBUG_DEBUG("Overview Setup");
     // we need something to store the state of the view and control updates
     if (!m_view_state) {
         GLint countMultiTexture;
         glGetIntegerv(GL_MAX_TEXTURE_UNITS_ARB,&countMultiTexture);
         m_view_state = new ViewState(m_pano, countMultiTexture>1);
     }
-    m_visualization_state = new PanosphereOverviewVisualizationState(m_pano, m_view_state, RefreshWrapper, this);
+
+    panosphere_m_visualization_state = new PanosphereOverviewVisualizationState(m_pano, m_view_state, this, RefreshWrapper, this);
+    plane_m_visualization_state = new PlaneOverviewVisualizationState(m_pano, m_view_state, this, RefreshWrapper, this);
+
+    m_visualization_state = panosphere_m_visualization_state;
+
     //Start the tools going:
-    OverviewToolHelper *helper = new OverviewToolHelper(m_pano, m_visualization_state, frame);
-    m_tool_helper = (ToolHelper*) helper;
-    frame->MakeOverviewTools(helper);
+    panosphere_m_tool_helper = new PanosphereOverviewToolHelper(m_pano, panosphere_m_visualization_state, frame);
+    frame->MakePanosphereOverviewTools(panosphere_m_tool_helper);
+
+    plane_m_tool_helper = new PlaneOverviewToolHelper(m_pano, plane_m_visualization_state, frame);
+    frame->MakePlaneOverviewTools(plane_m_tool_helper);
+
     // now make a renderer
-    m_renderer =  new GLOverviewRenderer(m_pano, m_view_state->GetTextureManager(),
-                                 m_visualization_state->GetMeshManager(),
-                                 (PanosphereOverviewVisualizationState*) m_visualization_state, helper);
+    panosphere_m_renderer =  new GLPanosphereOverviewRenderer(m_pano, m_view_state->GetTextureManager(),
+                                 panosphere_m_visualization_state->GetMeshManager(),
+                                 panosphere_m_visualization_state, panosphere_m_tool_helper);
+    plane_m_renderer =  new GLPlaneOverviewRenderer(m_pano, m_view_state->GetTextureManager(),
+                                 plane_m_visualization_state->GetMeshManager(),
+                                 plane_m_visualization_state, plane_m_tool_helper);
+                                 
+    switch(mode) {
+        case PANOSPHERE:
+            m_visualization_state = panosphere_m_visualization_state;
+            m_tool_helper = panosphere_m_tool_helper;
+            m_renderer = panosphere_m_renderer;
+            break;
+        case PLANE:
+            m_visualization_state = plane_m_visualization_state;
+            m_tool_helper = plane_m_tool_helper;
+            m_renderer = plane_m_renderer;
+            break;
+    }
+
 }
 
 void GLViewer::SetPhotometricCorrect(bool state)
@@ -219,6 +246,10 @@ void GLViewer::SetLayoutScale(double scale)
 
 void GLViewer::RedrawE(wxPaintEvent& e)
 {
+    if (!IsActive()) {
+        return;
+    }
+    
     //TODO: CanResize specific to a viewer?
     DEBUG_DEBUG("REDRAW_E");
     if(!IsShown()) return;
@@ -238,6 +269,7 @@ void GLViewer::RedrawE(wxPaintEvent& e)
         Redraw();
         redrawing = false;
     }
+    DEBUG_DEBUG("END OF REDRAW_E");
 }
 
 void GLViewer::RefreshWrapper(void * obj)
@@ -347,5 +379,24 @@ void GLViewer::KeyUp(wxKeyEvent& e)
 {
     if(m_renderer)
         m_tool_helper->KeypressEvent(e.GetKeyCode(), e.GetModifiers(), false);
+}
+
+
+
+void GLOverview::SetMode(OverviewMode mode)
+{
+    switch(mode) {
+        case PANOSPHERE:
+            m_visualization_state = panosphere_m_visualization_state;
+            m_tool_helper = panosphere_m_tool_helper;
+            m_renderer = panosphere_m_renderer;
+            break;
+        case PLANE:
+            m_visualization_state = plane_m_visualization_state;
+            m_tool_helper = plane_m_tool_helper;
+            m_renderer = plane_m_renderer;
+            break;
+    }
+    this->Refresh();
 }
 

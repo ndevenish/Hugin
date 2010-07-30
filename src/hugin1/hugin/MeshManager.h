@@ -81,7 +81,22 @@ public:
         unsigned int display_list_number;
         void SetScaleFactor(double scale);
         void SetSrcImage(HuginBase::SrcPanoImage * image) {this->image = *image;}
+
+        class Coords3D {
+        public:
+            Coords3D() {}
+            Coords3D(const MeshRemapper::Coords & coords);
+            double tex_coords[2][2][2];
+            double vertex_coords[2][2][3];
+        };
+
     protected:
+
+        virtual void BeforeCompile() {}
+        virtual void Transform() {}
+        virtual void AfterCompile() {}
+        virtual Coords3D GetCoords3D(MeshRemapper::Coords &coords) {return Coords3D(coords);}
+    
         HuginBase::SrcPanoImage image;
         PT::Panorama *m_pano;
         double scale_factor;
@@ -93,36 +108,71 @@ public:
         bool layout_mode_on;
     };
 
+//    class PreviewMeshInfo : public MeshInfo
+//    {
+//    public:
+//        PreviewMeshInfo(PT::Panorama * m_pano, HuginBase::SrcPanoImage * image,
+//                 VisualizationState * visualization_state, bool layout_mode_on) : MeshInfo(m_pano, image, visualization_state, layout_mode_on) {
+//            Update();
+//        }
+//        PreviewMeshInfo(const PreviewMeshInfo & source) : MeshInfo((MeshInfo)source) {
+//            Update();
+//        }
+//    protected:
+//        void BeforeCompile() {}
+//        void Transform() {}
+//        void AfterCompile() {}
+//        Coords3D GetCoords3D(MeshRemapper &coords) {return Coords3D(coords);}
+//         
+//    };
+
     class PanosphereOverviewMeshInfo : public MeshInfo
     {
     public:
         PanosphereOverviewMeshInfo(PT::Panorama * m_pano, HuginBase::SrcPanoImage * image,
                  VisualizationState * visualization_state, bool layout_mode_on)
             : MeshInfo(m_pano, image, visualization_state, layout_mode_on) {
-                //Update must be called again from here because the MeshInfo constructor will only call MeshInfo::CompileList
-                //FIXME: solve this
                 Update();
             }
 
         PanosphereOverviewMeshInfo(const PanosphereOverviewMeshInfo & source)
             : MeshInfo((MeshInfo) source) {
-                //Update must be called again from here because the MeshInfo constructor will only call MeshInfo::CompileList
-                //FIXME: solve this
                 Update();
             }
 
-        class Coords3D {
-        public:
-            Coords3D(const MeshRemapper::Coords & coords, VisualizationState * state);
-            double tex_coords[2][2][2];
-            double vertex_coords[2][2][3];
-            static void Convert(double &x, double &y, double &z, double th, double ph, double r);
-        };
+        static void Convert(double &x, double &y, double &z, double th, double ph, double r);
 
-        void CompileList();
-    
+    protected:
+        void BeforeCompile();
+        void Transform();
+        void AfterCompile();
+        Coords3D GetCoords3D(MeshRemapper::Coords &coords);
+
+        double yaw,pitch;
+
     };
 
+    class PlaneOverviewMeshInfo : public MeshInfo
+    {
+    public:
+        PlaneOverviewMeshInfo(PT::Panorama * m_pano, HuginBase::SrcPanoImage * image,
+                 VisualizationState * visualization_state, bool layout_mode_on)
+            : MeshInfo(m_pano, image, visualization_state, layout_mode_on) {
+                Update();
+            }
+
+        PlaneOverviewMeshInfo(const PlaneOverviewMeshInfo & source)
+            : MeshInfo((MeshInfo) source) {
+                Update();
+            }
+
+    protected:
+        void BeforeCompile();
+        void Transform();
+//        void AfterCompile();
+//        Coords3D GetCoords3D(MeshRemapper::Coords &coords);
+
+    };
     
 private:
     PT::Panorama  * m_pano;

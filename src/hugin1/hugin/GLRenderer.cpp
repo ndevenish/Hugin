@@ -55,14 +55,21 @@ GLPreviewRenderer::GLPreviewRenderer(PT::Panorama *pano, TextureManager *tex_man
     m_tool_helper = tool_helper;
 }
 
-GLOverviewRenderer::GLOverviewRenderer(PT::Panorama *pano, TextureManager *tex_man,
+GLPanosphereOverviewRenderer::GLPanosphereOverviewRenderer(PT::Panorama *pano, TextureManager *tex_man,
                        MeshManager *mesh_man, PanosphereOverviewVisualizationState *visualization_state,
-                       OverviewToolHelper *tool_helper)
+                       PanosphereOverviewToolHelper *tool_helper)
 {
-    #ifdef __WXGTK__
-    int dum = 0;
-    glutInit(&dum, NULL);
-    #endif
+    m_pano = pano;
+    m_tex_man = tex_man;
+    m_mesh_man = mesh_man;
+    m_visualization_state = visualization_state;
+    m_tool_helper = tool_helper;
+}
+
+GLPlaneOverviewRenderer::GLPlaneOverviewRenderer(PT::Panorama *pano, TextureManager *tex_man,
+                       MeshManager *mesh_man, PlaneOverviewVisualizationState *visualization_state,
+                       PlaneOverviewToolHelper *tool_helper)
+{
 
     m_pano = pano;
     m_tex_man = tex_man;
@@ -198,7 +205,7 @@ void GLPreviewRenderer::Redraw()
     glDisable(GL_SCISSOR_TEST);
 }
 
-void GLOverviewRenderer::Redraw()
+void GLPanosphereOverviewRenderer::Redraw()
 {
 
 
@@ -262,7 +269,7 @@ void GLOverviewRenderer::Redraw()
     glCullFace(GL_FRONT);
 
     
-    ((OverviewToolHelper*)m_tool_helper)->BeforeDrawImagesBack();
+    ((PanosphereOverviewToolHelper*)m_tool_helper)->BeforeDrawImagesBack();
     m_tex_man->Begin();
     // The old preview shows the lowest numbered image on top, so do the same:
     for (int img = imgs - 1; img != -1; img--)
@@ -283,7 +290,7 @@ void GLOverviewRenderer::Redraw()
         }
     }
 
-    ((OverviewToolHelper*)m_tool_helper)->AfterDrawImagesBack();
+    ((PanosphereOverviewToolHelper*)m_tool_helper)->AfterDrawImagesBack();
     m_tool_helper->AfterDrawImages();
 
 //    #ifdef __WXGTK__
@@ -311,7 +318,7 @@ void GLOverviewRenderer::Redraw()
     glCullFace(GL_BACK);
     
     m_tool_helper->BeforeDrawImages();
-    ((OverviewToolHelper*)m_tool_helper)->BeforeDrawImagesFront();
+    ((PanosphereOverviewToolHelper*)m_tool_helper)->BeforeDrawImagesFront();
     // The old preview shows the lowest numbered image on top, so do the same:
     for (int img = imgs - 1; img != -1; img--)
     {
@@ -334,7 +341,7 @@ void GLOverviewRenderer::Redraw()
     m_tex_man->End();
 
     // drawn things after the active image.
-    ((OverviewToolHelper*)m_tool_helper)->AfterDrawImagesFront();
+    ((PanosphereOverviewToolHelper*)m_tool_helper)->AfterDrawImagesFront();
     m_tool_helper->AfterDrawImages();
     
     m_tex_man->DisableTexture();
@@ -344,7 +351,7 @@ void GLOverviewRenderer::Redraw()
     glPopMatrix();
 }
 
-vigra::Diff2D GLOverviewRenderer::Resize(int w, int h)
+vigra::Diff2D GLPanosphereOverviewRenderer::Resize(int w, int h)
 {
 
     width = w;
@@ -371,13 +378,10 @@ vigra::Diff2D GLOverviewRenderer::Resize(int w, int h)
     double fov = m_visualization_state->getFOV();
     double fovy;
     if (h > w) {
-        fovy = 2 * atan( tan(fov * M_PI / 360.0) * h / w);
+        fovy = 2.0 * atan( tan(fov * M_PI / 360.0) * (float) h / (float) w) / M_PI * 180.0;
     } else {
         fovy = fov;
     }
-
-    m_visualization_state->setCanvasWidth(w);
-    m_visualization_state->setCanvasHeight(h);
 
 	float ratio = 1.0* w / h;
 //	aspect = ratio;
@@ -389,4 +393,233 @@ vigra::Diff2D GLOverviewRenderer::Resize(int w, int h)
 //    return vigra::Diff2D(w / 2, h / 2);
     return vigra::Diff2D(0,0);
 
+}
+
+void GLPlaneOverviewRenderer::Redraw()
+{
+
+    glClearColor(0,0,0,0);
+	glClear(GL_COLOR_BUFFER_BIT);
+
+	glMatrixMode(GL_MODELVIEW);
+
+	glLoadIdentity();
+
+    double R = m_visualization_state->getR();
+	
+	gluLookAt(0,0,R, 0, 0, 0, 0, 1, 0);
+
+    //for look from inside
+//	gluLookAt(0,0,0,R * cos(angy) * cos(angx), R * sin(angy), R * cos(angy) * sin(angx), 0, 1, 0);
+
+    // draw things under the preview images
+    m_tool_helper->BeforeDrawImages();
+    // draw each active image.
+    int imgs = m_pano->getNrOfImages();
+    // offset by a half a pixel
+    glPushMatrix();
+    glTranslatef(0.5, 0.5, 0.0);
+
+    glColor3f(0.5,0.5,0.5);
+
+    double side = 150;
+    glBegin(GL_LINE_LOOP);
+
+        glVertex3f(-side,side,0);
+        glVertex3f(side,side,0);
+        glVertex3f(side,-side,0);
+        glVertex3f(-side,-side,0);
+
+    glEnd();
+
+    double axis = 200;
+    glBegin(GL_LINES);
+
+        glColor3f(1,0,0);
+        glVertex3f(-axis,0,0);
+        glVertex3f(axis,0,0);
+
+        glColor3f(0,1,0);
+        glVertex3f(0,0,0);
+        glVertex3f(0,axis,0);
+
+        glColor3f(0,0,1);
+        glVertex3f(0,0,0);
+        glVertex3f(0,0,axis);
+
+    glEnd();
+
+
+    glEnable(GL_TEXTURE_2D);
+
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_FRONT);
+
+    
+    m_tex_man->Begin();
+    // The old preview shows the lowest numbered image on top, so do the same:
+    for (int img = imgs - 1; img != -1; img--)
+    {
+        // only draw active images
+        if (m_pano->getImage(img).getOptions().active)
+        {
+            // the tools can cancel drawing of images.
+            if (m_tool_helper->BeforeDrawImageNumber(img))
+            {
+                // the texture manager may need to call the display list
+                // multiple times with blending, so we pass it the display list
+                // rather than switching to the texture and then calling the
+                // list ourselves.
+                m_tex_man->DrawImage(img, m_mesh_man->GetDisplayList(img));
+                m_tool_helper->AfterDrawImageNumber(img);
+            }
+        }
+    }
+
+    m_tool_helper->AfterDrawImages();
+
+//    #ifdef __WXGTK__
+////    glCullFace(GL_BACK);
+////    glPushMatrix();
+////    glRotated(90,1,0,0);
+//////    if (imgs > 0) {
+//////        glEnable( GL_TEXTURE_2D );
+//////        glEnable(GL_BLEND);
+//////        glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+//////        glColor4f(0.5,0.5,0.5,0.5);
+//////        GLUquadric* grid = gluNewQuadric();
+//////        gluQuadricTexture(grid, GL_TRUE);
+//////        m_tex_man->BindTexture(0);
+//////        gluSphere(grid, 101,40,20);
+//////        glDisable(GL_BLEND);
+//////    } else {
+////        glColor4f(0.5,0.5,0.5,0.5);
+////        glutWireSphere(101,40,20);
+//////    }
+////    glPopMatrix();
+//    #endif
+
+    glMatrixMode(GL_MODELVIEW);
+    glCullFace(GL_BACK);
+    
+    m_tool_helper->BeforeDrawImages();
+    // The old preview shows the lowest numbered image on top, so do the same:
+    for (int img = imgs - 1; img != -1; img--)
+    {
+        // only draw active images
+        if (m_pano->getImage(img).getOptions().active)
+        {
+            // the tools can cancel drawing of images.
+            if (m_tool_helper->BeforeDrawImageNumber(img))
+            {
+                // the texture manager may need to call the display list
+                // multiple times with blending, so we pass it the display list
+                // rather than switching to the texture and then calling the
+                // list ourselves.
+                m_tex_man->DrawImage(img, m_mesh_man->GetDisplayList(img));
+                m_tool_helper->AfterDrawImageNumber(img);
+            }
+        }
+    }
+
+    m_tex_man->End();
+
+    // drawn things after the active image.
+    m_tool_helper->AfterDrawImages();
+    
+    m_tex_man->DisableTexture();
+
+    glDisable(GL_CULL_FACE);
+
+    glPopMatrix();
+
+
+//    glClearColor(0,0,0,0);
+//	glClear(GL_COLOR_BUFFER_BIT);
+
+//	glMatrixMode(GL_MODELVIEW);
+
+//	glLoadIdentity();
+
+//    double R = m_visualization_state->getR();
+//	
+//	gluLookAt(R,R,R, 0, 0, 0, 0, 1, 0);
+
+//    //for look from inside
+////	gluLookAt(0,0,0,R * cos(angy) * cos(angx), R * sin(angy), R * cos(angy) * sin(angx), 0, 1, 0);
+
+//    // draw things under the preview images
+//    m_tool_helper->BeforeDrawImages();
+//    // draw each active image.
+//    int imgs = m_pano->getNrOfImages();
+//    // offset by a half a pixel
+//    glPushMatrix();
+//    glTranslatef(0.5, 0.5, 0.0);
+
+//    glColor3f(0.5,0.5,0.5);
+
+//    double side = 150;
+//    glBegin(GL_LINE_LOOP);
+
+//        glVertex3f(-side,side,0);
+//        glVertex3f(side,side,0);
+//        glVertex3f(side,-side,0);
+//        glVertex3f(-side,-side,0);
+
+//    glEnd();
+
+//    double axis = 200;
+//    glBegin(GL_LINES);
+
+//        glColor3f(1,0,0);
+//        glVertex3f(-axis,0,0);
+//        glVertex3f(axis,0,0);
+
+//        glColor3f(0,1,0);
+//        glVertex3f(0,0,0);
+//        glVertex3f(0,axis,0);
+
+//        glColor3f(0,0,1);
+//        glVertex3f(0,0,0);
+//        glVertex3f(0,0,axis);
+
+//    glEnd();
+
+//    glPopMatrix();
+
+//    glPushMatrix();
+//    glTranslatef(0.5, 0.5, 0.0);
+//    glEnable(GL_TEXTURE_2D);
+//    m_tex_man->Begin();
+//    // The old preview shows the lowest numbered image on top, so do the same:
+//    for (int img = imgs - 1; img != -1; img--)
+//    {
+//        // only draw active images
+//        if (m_pano->getImage(img).getOptions().active)
+//        {
+//            // the tools can cancel drawing of images.
+//            if (m_tool_helper->BeforeDrawImageNumber(img))
+//            {
+//                // the texture manager may need to call the display list
+//                // multiple times with blending, so we pass it the display list
+//                // rather than switching to the texture and then calling the
+//                // list ourselves.
+//                m_tex_man->DrawImage(img, m_mesh_man->GetDisplayList(img));
+//                m_tool_helper->AfterDrawImageNumber(img);
+//            }
+//        }
+//    }
+//    m_tex_man->End();
+//    // drawn things after the active image.
+//    m_tool_helper->AfterDrawImages();
+//    m_tex_man->DisableTexture();
+//    glPopMatrix();
+    
+    
+}
+
+
+vigra::Diff2D GLPlaneOverviewRenderer::Resize(int w, int h)
+{
+    return vigra::Diff2D(0,0);
 }

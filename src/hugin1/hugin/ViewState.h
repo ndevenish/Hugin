@@ -61,6 +61,7 @@
 
 #include <panodata/PanoramaOptions.h>
 
+class GLViewer;
 class VisualizationState;
 
 class ViewState : public HuginBase::PanoramaObserver
@@ -147,7 +148,7 @@ class VisualizationState
 public:
 
     template <class M>
-    VisualizationState(PT::Panorama* pano, ViewState* view_state, void (*RefreshFunction)(void*), void *arg, M* classArg)
+    VisualizationState(PT::Panorama* pano, ViewState* view_state, GLViewer * viewer, void (*RefreshFunction)(void*), void *arg, M* classArg)
     {
         m_pano = pano;
         m_view_state = view_state;
@@ -163,6 +164,7 @@ public:
         genscale = 0.0;
         m_mesh_manager = new M(m_pano, this);
         m_view_state->vis_states[this] = true;
+        m_viewer = viewer;
     }
 
     virtual ~VisualizationState();
@@ -219,6 +221,8 @@ public:
     void ForceRequireRedraw();
     void SetDirtyViewport() {dirty_viewport = true;}
 
+    GLViewer * GetViewer() {return m_viewer;}
+
 protected:
 
     PT::Panorama *m_pano;
@@ -245,13 +249,24 @@ protected:
     MeshManager *m_mesh_manager;
     ViewState *m_view_state;
 
+    GLViewer * m_viewer;
+
 };
 
-class PanosphereOverviewVisualizationState : public VisualizationState
+class OverviewVisualizationState : public VisualizationState
+{
+public:
+    template <class M>
+    OverviewVisualizationState(PT::Panorama* pano, ViewState* view_state, GLViewer * viewer, void (*RefreshFunction)(void*), void *arg, M* classArg)
+        : VisualizationState(pano, view_state, viewer, RefreshFunction, arg, (M*) classArg) {}
+
+};
+
+class PanosphereOverviewVisualizationState : public OverviewVisualizationState
 {
 public:
 
-    PanosphereOverviewVisualizationState(PT::Panorama* pano, ViewState* view_state, void (*RefreshFunction)(void*), void *arg);
+    PanosphereOverviewVisualizationState(PT::Panorama* pano, ViewState* view_state, GLViewer * viewer, void (*RefreshFunction)(void*), void *arg);
 
     HuginBase::PanoramaOptions *GetOptions();
     OutputProjectionInfo *GetProjectionInfo();
@@ -271,11 +286,6 @@ public:
     void setAngX(double angx_in);
     void setAngY(double angy_in);
 
-    void setCanvasWidth(double w_in) {canv_w = w_in;}
-    void setCanvasHeight(double h_in) {canv_h = h_in;}
-
-    double getCanvasWidth() {return canv_w;}
-    double getCanvasHeight() {return canv_h;}
 
 protected:
 
@@ -290,7 +300,30 @@ protected:
     HuginBase::PanoramaOptions opts;
     OutputProjectionInfo *projection_info;
 
-    double canv_w, canv_h;
+
+};
+
+class PlaneOverviewVisualizationState : public OverviewVisualizationState
+{
+public:
+
+    PlaneOverviewVisualizationState(PT::Panorama* pano, ViewState* view_state, GLViewer * viewer, void (*RefreshFunction)(void*), void *arg);
+
+    HuginBase::PanoramaOptions *GetOptions();
+    OutputProjectionInfo *GetProjectionInfo();
+
+    void SetOptions(const HuginBase::PanoramaOptions * new_opts);
+
+    double getR() {return R;}
+    double getFOV() {return fov;}
+    
+protected:
+
+    double R;
+    double fov;
+
+    HuginBase::PanoramaOptions opts;
+    OutputProjectionInfo *projection_info;
 
 };
 

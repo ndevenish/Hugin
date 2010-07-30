@@ -98,8 +98,8 @@ void OverviewOutlinesTool::AfterDrawImagesEvent()
 
         dirty_meshes = false;
         
-    std::cout << "outlines adi " << rect.left() << " " << rect.top() << " " << rect.right() << " " << rect.bottom() << std::endl;
-    std::cout << "outlines adi " << roi.left() << " " << roi.top() << " " << roi.right() << " " << roi.bottom() << std::endl;
+//    std::cout << "outlines adi " << rect.left() << " " << rect.top() << " " << rect.right() << " " << rect.bottom() << std::endl;
+//    std::cout << "outlines adi " << roi.left() << " " << roi.top() << " " << roi.right() << " " << roi.bottom() << std::endl;
     }
 
 
@@ -229,7 +229,7 @@ void OverviewOutlinesTool::DrawRect(double left, double top, double right, doubl
                                 ty = ty - 90;
                                 tx = tx - 180;
                                 ty *= -1;
-                                MeshManager::PanosphereOverviewMeshInfo::Coords3D::Convert(x,y,z,tx,ty,radius);
+                                MeshManager::PanosphereOverviewMeshInfo::Convert(x,y,z,tx,ty,radius);
                                 glVertex3f(x,y,z);
                             }
                         }
@@ -251,7 +251,7 @@ void OverviewOutlinesTool::DrawRect(double left, double top, double right, doubl
                         ty = ty - 90;
                         tx = tx - 180;
                         ty *= -1;
-                        MeshManager::PanosphereOverviewMeshInfo::Coords3D::Convert(x,y,z,tx,ty,radius);
+                        MeshManager::PanosphereOverviewMeshInfo::Convert(x,y,z,tx,ty,radius);
                         glVertex3f(x,y,z);
                     }
                     glEnd();
@@ -385,8 +385,8 @@ void OverviewOutlinesTool::DrawRect(double left, double top, double right, doubl
                         edges[3] = edge.top;
                         for (int i = 0 ; i < 4 ; i++) {
                             if (edges[i]) {
-                            std::cout << "outlines line!!" << i << "\n";
-                            std::cout << "outlines  " << top_rec.left << " " << top_rec.top << " " << top_rec.right << " " << top_rec.bottom << std::endl;
+//                            std::cout << "outlines line!!" << i << "\n";
+//                            std::cout << "outlines  " << top_rec.left << " " << top_rec.top << " " << top_rec.right << " " << top_rec.bottom << std::endl;
                             for (int j = 0 ; j < 2 ; j++) {
                                 int plus = i+j;
                                 if (plus == 4) plus = 0;
@@ -397,7 +397,7 @@ void OverviewOutlinesTool::DrawRect(double left, double top, double right, doubl
                                 ty = ty - 90;
                                 tx = tx - 180;
                                 ty *= -1;
-                                MeshManager::PanosphereOverviewMeshInfo::Coords3D::Convert(x,y,z,tx,ty,radius);
+                                MeshManager::PanosphereOverviewMeshInfo::Convert(x,y,z,tx,ty,radius);
                                 glVertex3f(x,y,z);
                             }
                             }
@@ -417,7 +417,7 @@ void OverviewOutlinesTool::DrawRect(double left, double top, double right, doubl
                             ty = ty - 90;
                             tx = tx - 180;
                             ty *= -1;
-                            MeshManager::PanosphereOverviewMeshInfo::Coords3D::Convert(x,y,z,tx,ty,radius);
+                            MeshManager::PanosphereOverviewMeshInfo::Convert(x,y,z,tx,ty,radius);
                             glVertex3f(x,y,z);
                         }
                         glEnd();

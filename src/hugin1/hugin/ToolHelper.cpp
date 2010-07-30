@@ -24,6 +24,7 @@
 #include "ToolHelper.h"
 #include "Tool.h"
 #include "GLPreviewFrame.h"
+#include "GLViewer.h"
 
 ToolHelper::ToolHelper(PT::Panorama *pano_in,
                                      VisualizationState *visualization_state_in,
@@ -446,34 +447,7 @@ void PreviewToolHelper::UpdateImagesUnderMouse()
         {
             // work out if the image covers the point under the mouse.
             HuginBase::PTools::Transform transform;
-            transform.createTransform(*visualization_state->getViewState()->GetSrcImage(image_index),
-                                      *visualization_state->getViewState()->GetOptions());
-            double image_x, image_y;
-            transform.transformImgCoord(image_x, image_y, mouse_pano_x, mouse_pano_y);
-            if (visualization_state->getViewState()->GetSrcImage(image_index)->isInside(vigra::Point2D(
-                                                  int(image_x), int (image_y))))
-            {
-                // this image is under the mouse, add it to the set.
-                images_under_mouse.insert(image_index);
-            }
-        }
-    }
-    images_under_mouse_current = true;
-}
-
-void OverviewToolHelper::UpdateImagesUnderMouse()
-{
-    images_under_mouse.clear();
-    unsigned int num_images = pano->getNrOfImages();
-    std::set<unsigned int> displayedImages = pano->getActiveImages();
-    for (unsigned int image_index = 0; image_index < num_images; image_index++)
-    {
-        // don't try any images that are turned off
-        if (displayedImages.count(image_index))
-        {
-            // work out if the image covers the point under the mouse.
-            HuginBase::PTools::Transform transform;
-            transform.createTransform(*visualization_state->getViewState()->GetSrcImage(image_index),
+            transform.createTransform(*visualization_state->GetSrcImage(image_index),
                                       *visualization_state->GetOptions());
             double image_x, image_y;
             transform.transformImgCoord(image_x, image_y, mouse_pano_x, mouse_pano_y);
@@ -488,15 +462,47 @@ void OverviewToolHelper::UpdateImagesUnderMouse()
     images_under_mouse_current = true;
 }
 
-void OverviewToolHelper::MouseMoved(int x, int y, wxMouseEvent & e)
+void PanosphereOverviewToolHelper::UpdateImagesUnderMouse()
+{
+    images_under_mouse.clear();
+    unsigned int num_images = pano->getNrOfImages();
+    std::set<unsigned int> displayedImages = pano->getActiveImages();
+    for (unsigned int image_index = 0; image_index < num_images; image_index++)
+    {
+        // don't try any images that are turned off
+        if (displayedImages.count(image_index))
+        {
+            // work out if the image covers the point under the mouse.
+            HuginBase::PTools::Transform transform;
+            transform.createTransform(*visualization_state->GetSrcImage(image_index),
+                                      *visualization_state->GetOptions());
+            double image_x, image_y;
+            transform.transformImgCoord(image_x, image_y, mouse_pano_x, mouse_pano_y);
+            if (visualization_state->getViewState()->GetSrcImage(image_index)->isInside(vigra::Point2D(
+                                                  int(image_x), int (image_y))))
+            {
+                // this image is under the mouse, add it to the set.
+                images_under_mouse.insert(image_index);
+            }
+        }
+    }
+    images_under_mouse_current = true;
+}
+
+void PanosphereOverviewToolHelper::MouseMoved(int x, int y, wxMouseEvent & e)
 {
     PanosphereOverviewVisualizationState * panostate = (PanosphereOverviewVisualizationState*) visualization_state;
 
     double d = panostate->getR();
     double r = panostate->getSphereRadius();
 
-    double canv_w = panostate->getCanvasWidth();
-    double canv_h = panostate->getCanvasHeight();
+    int tcanv_w, tcanv_h;
+    panostate->GetViewer()->GetClientSize(&tcanv_w,&tcanv_h);
+
+    double canv_w, canv_h;
+    canv_w = tcanv_w;
+    canv_h = tcanv_h;
+    
     double fov = panostate->getFOV();
 
     double fovy, fovx;
@@ -602,13 +608,13 @@ void OverviewToolHelper::MouseMoved(int x, int y, wxMouseEvent & e)
     ToolHelper::MouseMoved(x,y,e);
 }
 
-OverviewToolHelper::OverviewToolHelper(PT::Panorama *pano,
+PanosphereOverviewToolHelper::PanosphereOverviewToolHelper(PT::Panorama *pano,
                   VisualizationState *visualization_state,
-                  GLPreviewFrame * frame) : ToolHelper(pano, visualization_state, frame) {}
+                  GLPreviewFrame * frame) : OverviewToolHelper(pano, visualization_state, frame) {}
 
-OverviewToolHelper::~OverviewToolHelper() {}
+PanosphereOverviewToolHelper::~PanosphereOverviewToolHelper() {}
 
-void OverviewToolHelper::NotifyMe(OverviewEvent event, OverviewTool * tool) {
+void PanosphereOverviewToolHelper::NotifyMe(PanosphereOverviewEvent event, PanosphereOverviewTool * tool) {
     switch (event) {
         case DRAW_OVER_IMAGES_BACK:
             AddTool(tool, &draw_over_notified_tools_back);
@@ -625,7 +631,7 @@ void OverviewToolHelper::NotifyMe(OverviewEvent event, OverviewTool * tool) {
     }
 }
 
-void OverviewToolHelper::DoNotNotifyMe(OverviewEvent event, OverviewTool * tool) {
+void PanosphereOverviewToolHelper::DoNotNotifyMe(PanosphereOverviewEvent event, PanosphereOverviewTool * tool) {
     switch (event) {
         case DRAW_OVER_IMAGES_BACK:
             RemoveTool(tool, &draw_over_notified_tools_back);
@@ -642,43 +648,61 @@ void OverviewToolHelper::DoNotNotifyMe(OverviewEvent event, OverviewTool * tool)
     }
 }
 
-void OverviewToolHelper::BeforeDrawImagesBack()
+void PanosphereOverviewToolHelper::BeforeDrawImagesBack()
 {
     std::set<Tool *>::iterator iterator;
     for (iterator = draw_under_notified_tools_back.begin();
          iterator != draw_under_notified_tools_back.end(); iterator++)
     {
-        ((OverviewTool*)(*iterator))->BeforeDrawImagesBackEvent();
+        ((PanosphereOverviewTool*)(*iterator))->BeforeDrawImagesBackEvent();
     }
 }
 
-void OverviewToolHelper::BeforeDrawImagesFront()
+void PanosphereOverviewToolHelper::BeforeDrawImagesFront()
 {
     std::set<Tool *>::iterator iterator;
     for (iterator = draw_under_notified_tools_front.begin();
          iterator != draw_under_notified_tools_front.end(); iterator++)
     {
-        ((OverviewTool*)(*iterator))->BeforeDrawImagesFrontEvent();
+        ((PanosphereOverviewTool*)(*iterator))->BeforeDrawImagesFrontEvent();
     }
 }
 
-void OverviewToolHelper::AfterDrawImagesBack()
+void PanosphereOverviewToolHelper::AfterDrawImagesBack()
 {
     std::set<Tool *>::iterator iterator;
     for (iterator = draw_over_notified_tools_back.begin();
          iterator != draw_over_notified_tools_back.end(); iterator++)
     {
-        ((OverviewTool*)(*iterator))->AfterDrawImagesBackEvent();
+        ((PanosphereOverviewTool*)(*iterator))->AfterDrawImagesBackEvent();
     }
 }
 
-void OverviewToolHelper::AfterDrawImagesFront()
+void PanosphereOverviewToolHelper::AfterDrawImagesFront()
 {
     std::set<Tool *>::iterator iterator;
     for (iterator = draw_over_notified_tools_front.begin();
          iterator != draw_over_notified_tools_front.end(); iterator++)
     {
-        ((OverviewTool*)(*iterator))->AfterDrawImagesFrontEvent();
+        ((PanosphereOverviewTool*)(*iterator))->AfterDrawImagesFrontEvent();
     }
 }
+
+
+PlaneOverviewToolHelper::PlaneOverviewToolHelper(PT::Panorama *pano,
+                  VisualizationState *visualization_state,
+                  GLPreviewFrame * frame) : OverviewToolHelper(pano, visualization_state, frame) {}
+
+PlaneOverviewToolHelper::~PlaneOverviewToolHelper() {}
+
+void PlaneOverviewToolHelper::MouseMoved(int x, int y, wxMouseEvent & e)
+{
+
+}
+
+void PlaneOverviewToolHelper::UpdateImagesUnderMouse()
+{
+
+}
+
 

@@ -29,11 +29,15 @@
 #include <vigra/diff2d.hxx>
 
 class GLRenderer;
+class GLPanosphereOverviewRenderer;
+class GLPlaneOverviewRenderer;
 class TextureManager;
 class MeshManager;
 class ToolHelper;
 class PreviewToolHelper;
 class OverviewToolHelper;
+class PanosphereOverviewToolHelper;
+class PlaneOverviewToolHelper;
 class GLPreviewFrame;
 
 
@@ -64,6 +68,10 @@ public:
     
     VisualizationState * m_visualization_state;
     static ViewState * m_view_state;
+
+    void SetActive(bool active) {this->active = active;}
+    bool IsActive() {return active;}
+
 protected:
 
     void OnEraseBackground(wxEraseEvent& e);
@@ -88,6 +96,9 @@ protected:
     bool started_creation, initialised_glew, redrawing;
     vigra::Diff2D offset;
     GLPreviewFrame *frame;
+
+    bool active;
+
     
 };
 
@@ -113,7 +124,31 @@ public:
             int args[], 
             GLPreviewFrame *frame
             ) : GLViewer(parent, pano, args, frame) {}
+
+    void SetPanosphereMode();
+    void SetPlaneMode();
+    
     void setUp();
+
+    enum OverviewMode {
+        PANOSPHERE,
+        PLANE
+    };
+
+    void SetMode(OverviewMode mode);
+    OverviewMode GetMode();
+
+protected:
+
+    OverviewMode mode;
+
+    PanosphereOverviewVisualizationState * panosphere_m_visualization_state;
+    PanosphereOverviewToolHelper * panosphere_m_tool_helper;
+    GLPanosphereOverviewRenderer * panosphere_m_renderer;
+    
+    PlaneOverviewVisualizationState * plane_m_visualization_state;
+    PlaneOverviewToolHelper * plane_m_tool_helper;
+    GLPlaneOverviewRenderer * plane_m_renderer;
 
 };
 

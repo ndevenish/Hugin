@@ -659,4 +659,24 @@
       </object>
     </object>
   </object>
+  <object class="wxPanel" name="overview_command_panel">
+    <object class="wxBoxSizer">
+      <orient>wxHORIZONTAL</orient>
+      <object class="sizeritem">
+        <object class="wxStaticText">
+          <label>Mode:</label>
+        </object>
+        <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+        <border>5</border>
+      </object>
+      <object class="sizeritem">
+        <object class="wxChoice" name="overview_mode_choice">
+            <label>Mode:</label>
+          <content/>
+        </object>
+        <option>1</option>
+        <flag>wxEXPAND</flag>
+      </object>
+    </object>
+  </object>
 </resource>
