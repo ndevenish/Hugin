@@ -137,13 +137,8 @@ ENDIF(WIN32)
 ##
 #  This must come before FINDs for tiff, jpeg, png, zlib to enable
 #  finding the wxWidgets distributions of those packages (Win32 only).
-SET(wxWidgets_ROOT_DIR "/home/darko/data/hugin/panorama-overview/wxGTK-2.8.11")
 SET(wxWidgets_USE_LIBS base core aui xrc html xml adv gl net)
 FIND_PACKAGE(wxWidgets REQUIRED)
-
-SET(wxWidgets_LIBRARIES "-L/usr/local/lib -pthread   -lwx_base-2.8 -lwx_gtk2_core-2.8 -lwx_gtk2_aui-2.8 -lwx_gtk2_xrc-2.8 -lwx_gtk2_html-2.8 -lwx_base_xml-2.8 -lwx_gtk2_adv-2.8 -lwx_gtk2_gl-2.8 -lwx_base_net-2.8")
-SET(wxWidgets_INCLUDE_DIRS "-I/usr/local/lib/wx/include/gtk2-ansi-release-2.8 -I/usr/local/include/wx-2.8 -D_FILE_OFFSET_BITS=64 -D_LARGE_FILES -D__WXGTK__ -pthread")
-SET(wxWidgets_CXX_FLAGS "-I/usr/local/lib/wx/include/gtk2-ansi-release-2.8 -I/usr/local/include/wx-2.8 -D_FILE_OFFSET_BITS=64 -D_LARGE_FILES -D__WXGTK__ -pthread")
 
 # hugin requires wxwidgets 2.7.0 or above
 IF (UNIX)
