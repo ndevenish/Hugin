@@ -113,9 +113,8 @@ std::vector<path> createfiles_make(const path dir, uchar_type limit)
 			touch.add();
 
 			string dirstring = dir.string();
-			const char* argv[] = {"make", ("-C" + StringAdapter(dirstring)).c_str(), "-f-", NULL};
 			std::stringbuf makeout, makeerr;
-			int ret = exec_make(argv, makeout, makeerr);
+			int ret = exec_make(makeout, makeerr);
 
 
 			if(ret)
@@ -153,6 +152,17 @@ int cleandir(path dir)
 	return 0;
 }
 
+void printmiss(std::vector<path>::iterator start, std::vector<path>::iterator end)
+{
+	for(std::vector<path>::iterator i = start; i != end; i++)
+	{
+		string s = i->string();
+		unsigned long first = 0;
+		first = static_cast<uchar_type>(s[0]);
+		cout << s << cstr("\t (0x") << std::hex << first << cstr(")\n");
+	}
+}
+
 int main(int argc, char *argv[])
 {
 	// set the environments locale.
@@ -182,14 +192,12 @@ int main(int argc, char *argv[])
 
 	std::vector<path> miss_direct = createfiles_direct(basepath, limit);
 	cout << cstr("Direct: Missing files ") << miss_direct.size() << std::endl;
-	for(std::vector<path>::iterator i = miss_direct.begin(); i != miss_direct.end(); i++)
-		cout << i->string() << cstr('\n');
+	printmiss(miss_direct.begin(), miss_direct.end());
 	cout << std::endl;
 
 	std::vector<path> miss_make = createfiles_make(basepathmake, limit);
 	cout << cstr("Make: Missing files ") << miss_make.size() << std::endl;
-	for(std::vector<path>::iterator i = miss_make.begin(); i != miss_make.end(); i++)
-			cout << i->string() << cstr('\n');
+	printmiss(miss_make.begin(), miss_make.end());
 	cout << std::endl;
 	return 0;
 }

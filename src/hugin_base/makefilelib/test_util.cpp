@@ -30,7 +30,7 @@ namespace makefile { namespace tester {
  * @param makeerrbuf stderr of make goes here.
  * @return return value of make. Uses macros to extract the value from wait(). See man wait.
  */
-int exec_make(const char* const argv[], std::stringbuf& makeoutbuf, std::stringbuf& makeerrbuf)
+int exec_make(std::stringbuf& makeoutbuf, std::stringbuf& makeerrbuf)
 {
 	// store 2 fd per pipe {read, write}
 	int fdmakein[2];
@@ -90,7 +90,7 @@ int exec_make(const char* const argv[], std::stringbuf& makeoutbuf, std::stringb
 		}
 
 		// execvp takes a NULL-terminated array of null-terminated strings. cool ;)
-		// like this const char* const argv[] = {"make", "-f-", (char*) NULL};
+		const char* const argv[] = {"make", "-f-", (char*) NULL};
 		execvp(argv[0], (char* const*)argv);
 		return -1;		// exec should never return
 	}
@@ -98,8 +98,7 @@ int exec_make(const char* const argv[], std::stringbuf& makeoutbuf, std::stringb
 
 bool Test::run()
 {
-	const char* argv[] = {"make", "-f-", NULL};
-	int status = exec_make(argv, makeoutbuf, makeerrbuf);
+	int status = exec_make(makeoutbuf, makeerrbuf);
 
 	std::cout << std::setw(30) << std::left <<  name;
 	if(eval())

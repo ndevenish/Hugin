@@ -9,7 +9,7 @@
 #define TEST_UTIL_H_
 
 namespace makefile { namespace tester {
-int exec_make(const char* const argv[], std::stringbuf& makeoutbuf, std::stringbuf& makeerrbuf);
+int exec_make(std::stringbuf& makeoutbuf, std::stringbuf& makeerrbuf);
 
 /**
  * Base class for tests;
