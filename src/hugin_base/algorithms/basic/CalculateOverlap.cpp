@@ -88,20 +88,24 @@ void CalculateImageOverlap::calculate(unsigned int steps)
                     pointCounter++;
                     //transform to panorama coordinates
                     double xi,yi;
-                    m_invTransform[i]->transformImgCoord(xi,yi,xc,yc);
-                    //now, check if point is inside an other image
-                    for(unsigned int j=0;j<m_nrImg;j++)
+                    if(m_invTransform[i]->transformImgCoord(xi,yi,xc,yc))
                     {
-                        if(i==j)
-                            continue;
-                        double xj,yj;
-                        //transform to image coordinates
-                        m_transform[j]->transformImgCoord(xj,yj,xi,yi);
-                        p.x=xj;
-                        p.y=yj;
-                        if(m_pano->getImage(j).isInside(p,true))
+                        //now, check if point is inside an other image
+                        for(unsigned int j=0;j<m_nrImg;j++)
                         {
-                            overlapCounter[j]++;
+                            if(i==j)
+                                continue;
+                            double xj,yj;
+                            //transform to image coordinates
+                            if(m_transform[j]->transformImgCoord(xj,yj,xi,yi))
+                            {
+                                p.x=xj;
+                                p.y=yj;
+                                if(m_pano->getImage(j).isInside(p,true))
+                                {
+                                    overlapCounter[j]++;
+                                };
+                            };
                         };
                     };
                 };
