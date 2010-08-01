@@ -344,7 +344,8 @@ void AllPointSampler::sampleAllPanoPoints(const std::vector<Img> &imgs,
             for (unsigned i=0; i< nImg; i++) {
             // transform pixel
                 hugin_utils::FDiff2D p1;
-                transf[i]->transformImgCoord(p1, panoPnt);
+                if(!transf[i]->transformImgCoord(p1, panoPnt))
+                    continue;
                 vigra::Point2D p1Int(p1.toDiff2D());
                 // is inside:
                 if (!src[i].isInside(p1Int)) {
@@ -364,7 +365,8 @@ void AllPointSampler::sampleAllPanoPoints(const std::vector<Img> &imgs,
                     // check inner image
                     for (unsigned j=i+1; j < nImg; j++) {
                         hugin_utils::FDiff2D p2;
-                        transf[j]->transformImgCoord(p2, panoPnt);
+                        if(!transf[j]->transformImgCoord(p2, panoPnt))
+                            continue;
                         vigra::Point2D p2Int(p2.toDiff2D());
                         if (!src[j].isInside(p2Int)) {
                             // point is outside image
@@ -503,7 +505,8 @@ void RandomPointSampler::sampleRandomPanoPoints(const std::vector<Img> imgs,
             // transform pixel
             PixelType i1;
             hugin_utils::FDiff2D p1;
-            transf[i]->transformImgCoord(p1, panoPnt);
+            if(!transf[i]->transformImgCoord(p1, panoPnt))
+                continue;
             vigra::Point2D p1Int(p1.toDiff2D());
             // check if pixel is valid
             if (!src[i].isInside(p1Int)) {
@@ -521,7 +524,8 @@ void RandomPointSampler::sampleRandomPanoPoints(const std::vector<Img> imgs,
                 for (unsigned j=i+1; j < nImg; j++) {
                     PixelType i2;
                     hugin_utils::FDiff2D p2;
-                    transf[j]->transformImgCoord(p2, panoPnt);
+                    if(!transf[j]->transformImgCoord(p2, panoPnt))
+                        continue;
                     // check if a pixel is inside the source image
                     vigra::Point2D p2Int(p2.toDiff2D());
                     if (!src[j].isInside(p2Int)) {

@@ -401,12 +401,21 @@ void RemappedPanoImage<RemapImage,AlphaImage>::calcAlpha()
         for(int x=xstart; x < xend; ++x, ++xalpha.x)
         {
             double sx,sy;
-            m_transf.transformImgCoord(sx,sy,x,y);
-            if (m_srcImg.isInside(vigra::Point2D(hugin_utils::roundi(sx),hugin_utils::roundi(sy)))) {
-                *xalpha = 255;
-            } else {
-                *xalpha = 0;
+            if(m_transf.transformImgCoord(sx,sy,x,y))
+            {
+                if (m_srcImg.isInside(vigra::Point2D(hugin_utils::roundi(sx),hugin_utils::roundi(sy))))
+                {
+                    *xalpha = 255;
+                }
+                else
+                {
+                    *xalpha = 0;
+                };
             }
+            else
+            {
+                *xalpha = 0;
+            };
         }
     }
 }

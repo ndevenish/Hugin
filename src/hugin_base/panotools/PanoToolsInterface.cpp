@@ -266,8 +266,20 @@ bool Transform::transformImgCoord(double & x_dest, double & y_dest,
     
     void * params= (void *) (&m_stack);
     bool ok = execute_stack_new(x_src, y_src, &x_dest, &y_dest, params) != 0;
-    x_dest += m_destTX - 0.5;
-    y_dest += m_destTY - 0.5;
+    if(ok)
+    {
+        x_dest += m_destTX - 0.5;
+        y_dest += m_destTY - 0.5;
+    }
+    else
+    {
+        // if the image coordinates could not transformed, e.g. this can happen 
+        // with non-zero translation parameters, set the result to a point
+        // outside the image (-1,-1)
+        // better solution would be to evaluate the return value of transformImgCoord
+        x_dest = -1;
+        y_dest = -1;
+    };
     return ok;
 }
 
@@ -699,9 +711,6 @@ void setFullImage(Image & image, vigra::Diff2D size,
 
     // no name
     image.name[0]=0;
-    image.yaw = const_map_get(vars,"y").getValue();
-    image.yaw = const_map_get(vars,"y").getValue();
-
 
     image.selection.top = 0;
     image.selection.left = 0;
