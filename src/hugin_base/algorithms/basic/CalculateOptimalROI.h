@@ -29,6 +29,8 @@
 #include <algorithm/PanoramaAlgorithm.h>
 #include <panodata/PanoramaData.h>
 
+#include <boost/dynamic_bitset.hpp>
+
 namespace HuginBase {
 
 class IMPEX CalculateOptimalROI : public PanoramaAlgorithm
@@ -82,16 +84,17 @@ class IMPEX CalculateOptimalROI : public PanoramaAlgorithm
         }
 
 
-    protected:
+    private:
         vigra::Rect2D o_optimalROI;
         vigra::Size2D o_optimalSize;
         
         UIntSet activeImages;
         std::map<unsigned int,PTools::Transform*> transfMap;
-        //in case input images are different sizes
-        std::map<unsigned int,vigra::Size2D> imgSizeMap;
+        //map for storing already tested pixels
+        boost::dynamic_bitset<> testedPixels;
+        boost::dynamic_bitset<> pixels;
         
-        int imgPixel(unsigned char *img,int i, int j);
+        bool imgPixel(int i, int j);
         
         //local stuff, convert over later
         struct nonrec
@@ -101,8 +104,8 @@ class IMPEX CalculateOptimalROI : public PanoramaAlgorithm
         };
 
         void makecheck(int left,int top,int right,int bottom);
-        int autocrop(unsigned char *img);
-        void nonreccheck(unsigned char *img,int left,int top,int right,int bottom,int acc,int dodouble);
+        int autocrop();
+        void nonreccheck(int left,int top,int right,int bottom,int acc,int dodouble);
         
         int count;
         struct nonrec *begin;
@@ -112,7 +115,7 @@ class IMPEX CalculateOptimalROI : public PanoramaAlgorithm
         struct nonrec min;
         struct nonrec max;
 
-        int maxvalue;
+        long maxvalue;
 };
 
 } //namespace

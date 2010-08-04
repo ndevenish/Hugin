@@ -32,17 +32,6 @@ using namespace hugin_utils;
 //else uses width+heigh like the perimeter
 #define USEAREA
 
-//new feature, allow some backtracking, slower but less greedy
-//allow to shrink the image this much before re-expanding
-//#define BACKTRACKPERCENT 0.0025
-//increased time too much in several cases (for now zero
-#define BACKTRACKPERCENT 0.0
-
-//Used for initial inner search, should be base 2
-//the larger, the longer the initial search will take
-//TODO: if done with shifts, it would be faster? or at least force base 2
-#define MINACC 8
-
 ///
 bool CalculateOptimalROI::calcOptimalROI(PanoramaData& panorama)
 {
@@ -54,24 +43,30 @@ bool CalculateOptimalROI::calcOptimalROI(PanoramaData& panorama)
     PanoramaOptions opt = panorama.getOptions();
     
     o_optimalSize=opt.getSize();
+    if(o_optimalSize.x==0 || o_optimalSize.y==0)
+        return false;
     o_optimalROI=vigra::Rect2D(0,0,o_optimalSize.x,o_optimalSize.y);
+    try
+    {
+        testedPixels.resize(o_optimalSize.x*o_optimalSize.y,false);
+        pixels.resize(o_optimalSize.x*o_optimalSize.y,false);
+    }
+    catch(std::bad_alloc&)
+    {
+        //could not allocate enough memory
+        return false;
+    };
 
-    //make memory
-    unsigned char *tmp=new unsigned char[o_optimalSize.x*o_optimalSize.y];
-    //zero out, unseen 127
-    memset(tmp,127,o_optimalSize.x*o_optimalSize.y);
-    
     for (UIntSet::const_iterator it=activeImages.begin(); it!=activeImages.end(); it++)
     {
         const SrcPanoImage &img=panorama.getImage(*it);
         PTools::Transform *transf=new PTools::Transform();
         transf->createTransform(img,opt);
         transfMap.insert(std::pair<unsigned int,PTools::Transform*>(*it,transf));
-        imgSizeMap.insert(std::pair<unsigned int,vigra::Size2D>(*it,img.getSize()));
     }
     
     printf("Calculate the cropping region\n");
-    autocrop(tmp);
+    autocrop();
     
     o_optimalROI=vigra::Rect2D(best.left,best.top,best.right,best.bottom);
     printf("Crop %dx%d - %dx%d\n",o_optimalROI.left(),o_optimalROI.top(),o_optimalROI.right(),o_optimalROI.bottom());
@@ -92,39 +87,40 @@ bool CalculateOptimalROI::calcOptimalROI(PanoramaData& panorama)
     {
         delete (*it).second;
     };
-    delete [] tmp;
 
     return true;
 }
 
 //now you can do dynamic programming, look thinks up on fly
-int CalculateOptimalROI::imgPixel(unsigned char *img,int i, int j)
+bool CalculateOptimalROI::imgPixel(int i, int j)
 {
-    //if unknown (127) then do a look up
-    if(img[(j)*o_optimalSize.x+(i)]==127)
+    if(testedPixels[j*o_optimalSize.x+i]==0)
     {
         //check that pixel at each place
         for(UIntSet::const_iterator it=activeImages.begin();it!=activeImages.end();it++)
         {
             double xd,yd;
-            transfMap[*it]->transformImgCoord(xd,yd,(double)i,(double)j);
-            if(xd>=0 && yd>=0 && xd<imgSizeMap[*it].x && yd<imgSizeMap[*it].y)
+            if(transfMap[*it]->transformImgCoord(xd,yd,(double)i,(double)j))
             {
-                //printf("%lf %lf - %d %d\n",xd,yd,(x-o_optimalROI.left()),(y-o_optimalROI.top()));
-                //if found in a single image, short cut out
-                img[j*o_optimalSize.x+i]=191;
-                return img[j*o_optimalSize.x+i];
+                if(o_panorama.getImage(*it).isInside(vigra::Point2D(xd,yd)))
+                {
+                    //if found in a single image, short cut out
+                    testedPixels[j*o_optimalSize.x+i]=1;
+                    pixels[j*o_optimalSize.x+i]=1;
+                    return true; 
+                }
             }
         }
         
         //if made it through the for loop without a success, mark as bad
-        img[j*o_optimalSize.x+i]=0;
-        return img[j*o_optimalSize.x+i];
+        testedPixels[j*o_optimalSize.x+i]=1;
+        pixels[j*o_optimalSize.x+i]=0;
+        return false;
     }
-    //else it is know to be bad (0) or good enough (191)
+    //else it is know if this pixel is covered by at least one image
     else
     {
-        return img[(j)*o_optimalSize.x+(i)];
+        return pixels[j*o_optimalSize.x+i];
     }
 }
 
@@ -139,9 +135,9 @@ void CalculateOptimalROI::makecheck(int left,int top,int right,int bottom)
     {
         //big enough
 #ifdef USEAREA
-        if(maxvalue>0 && (right-left)*(bottom-top)<maxvalue*(1.0-BACKTRACKPERCENT))
+        if(maxvalue>0 && (right-left)*(bottom-top)<maxvalue)
 #else
-        if(maxvalue>0 && (right-left)+(bottom-top)<maxvalue*(1.0-BACKTRACKPERCENT))
+        if(maxvalue>0 && (right-left)+(bottom-top)<maxvalue)
 #endif
         {
             return;
@@ -176,7 +172,7 @@ void CalculateOptimalROI::makecheck(int left,int top,int right,int bottom)
     return;
 }
 
-void CalculateOptimalROI::nonreccheck(unsigned char *img,int left,int top,int right,int bottom,int acc,int dodouble)
+void CalculateOptimalROI::nonreccheck(int left,int top,int right,int bottom,int acc,int dodouble)
 {
     nonrec *tmp;
     tmp=new nonrec;
@@ -205,7 +201,7 @@ void CalculateOptimalROI::nonreccheck(unsigned char *img,int left,int top,int ri
         flag=0;
         for(i=left;i<right && flag==0;i++)
         {
-            if(imgPixel(img,i,top)==0 || imgPixel(img,i,bottom-1)==0)
+            if(imgPixel(i,top)==0 || imgPixel(i,bottom-1)==0)
             {
                 flag=1;
             }
@@ -213,7 +209,7 @@ void CalculateOptimalROI::nonreccheck(unsigned char *img,int left,int top,int ri
         
         for(j=top;j<bottom && flag==0;j++)
         {
-            if(imgPixel(img,left,j)==0 || imgPixel(img,right-1,j)==0)
+            if(imgPixel(left,j)==0 || imgPixel(right-1,j)==0)
             {
                 flag=1;
             }
@@ -304,7 +300,7 @@ void CalculateOptimalROI::nonreccheck(unsigned char *img,int left,int top,int ri
     }
 }
 
-int CalculateOptimalROI::autocrop(unsigned char *img)
+int CalculateOptimalROI::autocrop()
 {
     printf("Original Image: %dx%d\n",o_optimalSize.x,o_optimalSize.y);
     
@@ -325,14 +321,14 @@ int CalculateOptimalROI::autocrop(unsigned char *img)
     max.right=o_optimalSize.x;
     max.bottom=o_optimalSize.y;
     
-    int startacc;
-    for(startacc=1;startacc<o_optimalSize.x/2 && startacc<o_optimalSize.y/2;startacc*=2);
-    startacc/=2;
+    int startacc=pow(2.0,std::min((int)log2(o_optimalSize.x/2-1),(int)log2(o_optimalSize.y/2-1))-1);
+    if(startacc<1)
+        startacc=1;
     
     //start smaller to get biggest initial position
-    for(int acc=std::max(startacc,MINACC);acc>=1;acc/=2)
+    for(int acc=startacc;acc>=1;acc/=2)
     {
-        nonreccheck(img,0,0,o_optimalSize.x,o_optimalSize.y,acc,1);
+        nonreccheck(0,0,o_optimalSize.x,o_optimalSize.y,acc,1);
         if(maxvalue>0)
         {
             printf("Inner %d %d: %d %d - %d %d\n",acc,maxvalue,best.left,best.right,best.top,best.bottom);
@@ -344,7 +340,7 @@ int CalculateOptimalROI::autocrop(unsigned char *img)
     for(int acc=startacc;acc>=1;acc/=2)
     {
         printf("Starting %d: %d %d - %d %d\n",acc,best.left,best.right,best.top,best.bottom);
-        nonreccheck(img,best.left,best.top,best.right,best.bottom,acc,0);
+        nonreccheck(best.left,best.top,best.right,best.bottom,acc,0);
         min=best;
     }
 
