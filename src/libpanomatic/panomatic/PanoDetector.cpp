@@ -195,9 +195,8 @@ void PanoDetector::run()
 	// Load the input project file
 	if(!loadProject()) return;
 
-	// 1. Convert images to stereographic projection
-	TRACE_INFO(endl<< "--- Stereographic Projection ---" << endl);
-	stereographicProj();
+	// 1. Load images
+	loadImages();
 
 	// 2. run analysis of images
 	TRACE_INFO(endl<< "--- Analyze Images ---" << endl);
@@ -232,11 +231,11 @@ void PanoDetector::run()
 	}
 
 	// check if the load of images succeed.
-    if (!checkLoadSuccess())
-    {
-        TRACE_INFO("One or more images failed to load. Exiting.");
-        return;
-    }
+   if (!checkLoadSuccess())
+   {
+       TRACE_INFO("One or more images failed to load. Exiting.");
+       return;
+   }
   
 	// Detect matches if writeKeyPoints wasn't set  
 	if(!_writeAllKeyPoints && _keyPointsIdx.size() == 0)
@@ -258,27 +257,33 @@ void PanoDetector::run()
 			return;
 		}
 
+		// Remap control points back to Rectilinear projection if necessary
+		if(_stereoRemap)
+		{
+			TRACE_INFO(endl<< "--- Remap Back matches---" << endl << endl);
+			remapBackMatches();
+		}
 		// Add detected matches to _panoramaInfo
 		double scale = _downscale ? 2.0:1.0;
 		BOOST_FOREACH(MatchData& aM, _matchesData)
 			BOOST_FOREACH(lfeat::PointMatchPtr& aPM, aM._matches)
 				_panoramaInfo->addCtrlPoint(ControlPoint(aM._i1->_number, scale*aPM->_img1_x, scale*aPM->_img1_y,
-										 														 aM._i2->_number, scale*aPM->_img2_x, scale*aPM->_img2_y));
+										 							  aM._i2->_number, scale*aPM->_img2_x, scale*aPM->_img2_y));
 	}
 	
 	// 5. write output
 	if(_writeAllKeyPoints)
-	{
+	{ //Write specified keyfiles
 		TRACE_INFO(endl<< "--- Write Keyfiles output ---" << endl << endl);
 			for (ImgDataIt_t aB = _filesData.begin(); aB != _filesData.end(); ++aB)
 				writeKeyfile(aB->second);
 
-	} else if (_keyPointsIdx.size() != 0) {
+	} else if (_keyPointsIdx.size() != 0) { //Write all keyfiles
 		TRACE_INFO(endl<< "--- Write Keyfiles output ---" << endl << endl);
 			for (unsigned int i = 0; i < _keyPointsIdx.size(); ++i)
 				writeKeyfile(_filesData[_keyPointsIdx[i]]);
 
-	} else {
+	} else { /// Write output project
 		TRACE_INFO(endl<< "--- Write Project output ---" << endl << endl);
 		writeOutput();
 	}
@@ -286,118 +291,196 @@ void PanoDetector::run()
 
 bool PanoDetector::loadProject()
 {
-   	ifstream ptoFile(_inputFile.c_str());
-    if (ptoFile.bad()) { 
-        cerr << "ERROR: could not open file: '" << _inputFile << "'!" << endl; 
-        return false; 
-    } 
-		_panoramaInfo->setFilePrefix(hugin_utils::getPathPrefix(_inputFile));
-		AppBase::DocumentData::ReadWriteError err = _panoramaInfo->readData(ptoFile);
-		if (err != AppBase::DocumentData::SUCCESSFUL) {
-			  cerr << "ERROR: couldn't parse panos tool script: '" << _inputFile << "'!" << endl;
-			  return false;
-		}
+   ifstream ptoFile(_inputFile.c_str());
+   if (ptoFile.bad()) { 
+       cerr << "ERROR: could not open file: '" << _inputFile << "'!" << endl; 
+       return false; 
+   } 
+	_panoramaInfo->setFilePrefix(hugin_utils::getPathPrefix(_inputFile));
+	AppBase::DocumentData::ReadWriteError err = _panoramaInfo->readData(ptoFile);
+	if (err != AppBase::DocumentData::SUCCESSFUL) {
+		  cerr << "ERROR: couldn't parse panos tool script: '" << _inputFile << "'!" << endl;
+		  return false;
+	}
 
-		// Add images found in the project file to _filesData
-		int nImg = _panoramaInfo->getNrOfImages();
-		for (unsigned int imgNr = 0; imgNr < nImg; ++imgNr)
-		{
-			// get image info
-			SrcPanoImage img_info = _panoramaInfo->getImage(imgNr);
+	// Create a copy of panoramaInfo that will be used to define
+	// image options
+	_panoramaInfoCopy=_panoramaInfo->duplicate();
 
-			// insert the image in the map
-			_filesData.insert(make_pair(imgNr, ImgData()));
+	// Add images found in the project file to _filesData
+	int nImg = _panoramaInfo->getNrOfImages();
+	for (unsigned int imgNr = 0; imgNr < nImg; ++imgNr)
+	{
+		// Change image position in the copy
+		SrcPanoImage img=_panoramaInfoCopy.getSrcImage(imgNr);
+   	img.setYaw(0);
+   	img.setRoll(0);
+   	img.setPitch(0);
+   	img.setX(0);
+   	img.setY(0);
+   	img.setZ(0);
+   	img.setActive(true);
+		_panoramaInfoCopy.setImage(imgNr,img);
+
+		// insert the image in the map
+		_filesData.insert(make_pair(imgNr, ImgData()));
 		
-			// get the data
-			ImgData& aImgData = _filesData[imgNr];
+		// get the data
+		ImgData& aImgData = _filesData[imgNr];
 
-			// set the name
-			aImgData._name = img_info.getFilename();
+		// set the name
+		aImgData._name = img.getFilename();
 
-			// Number pointing to image info in _panoramaInfo
-			aImgData._number = imgNr;
+		// Number pointing to image info in _panoramaInfo
+		aImgData._number = imgNr;
 
-			// Specify if the image has an associated keypoint file TODO
-			std::string keyfilename = aImgData._name;
-			keyfilename.append(".key");
-			ifstream keyfile(keyfilename.c_str());
-			aImgData._hasakeyfile = keyfile.good();
-		}
+		// Specify if the image has an associated keypoint file
+		std::string keyfilename = aImgData._name;
+		keyfilename.append(".key");
+		ifstream keyfile(keyfilename.c_str());
+		aImgData._hasakeyfile = keyfile.good();
+	}
 
-		return true;
+	return true;
 }
 
-void PanoDetector::stereographicProj()
+void PanoDetector::loadImages()
 {	
-	// Define the stereographic projection options
-   PanoramaOptions opts = _panoramaInfo->getOptions();
-	opts.setProjection(PanoramaOptions::STEREOGRAPHIC);
-
-	// Compute Images ROIS
-	UIntSet imgs = _panoramaInfo->getActiveImages();
-	vector<vigra::Rect2D> rois = ComputeImageROI::computeROIS(*_panoramaInfo, opts, imgs);
-
 	// Define Progress
 	AppBase::StreamMultiProgressDisplay progress(cout);
 
-	// Remap all images to Stereographic format
-	//TODO : Grayscale images case
-	FileRemapper<vigra::DRGBImage, vigra::BImage> remapper;
-
+	// All images are remapped to stereographic projection only if
+	// one image or more has an hfov >=65
 	int nImg = _panoramaInfo->getNrOfImages();
-	progress.pushTask(ProgressTask("Remapping", "", 1.0/(nImg)));
 	for (unsigned int imgNr = 0; imgNr < nImg; ++imgNr)
 	{
-		RemappedPanoImage<vigra::DRGBImage, vigra::BImage> * remapped = 
-			remapper.getRemapped(*_panoramaInfo, opts, imgNr, rois[imgNr], progress);
-
-		vigra::DRGBImage RGBimg = remapped->m_image;
-
-		int aNewImgWidth = RGBimg.size().x;
-		int aNewImgHeight = RGBimg.size().y;
-		if (_downscale)
+		SrcPanoImage img=_panoramaInfoCopy.getSrcImage(imgNr);
+		if(img.getHFOV()>=0)// TODO: >=65
 		{
-		 aNewImgWidth >>= 1;
-		 aNewImgHeight >>= 1;
+			_stereoRemap = true;
+			break;
 		}
-	   vigra::DImage final_img(aNewImgWidth, aNewImgHeight);
-		
+		_stereoRemap = false;
+	}
+
+	// Load and format images
+	FileRemapper<vigra::BRGBImage, vigra::BImage> remapper;	//TODO : Grayscale images case
+	progress.pushTask(ProgressTask("Loading Images", "", 1.0/(nImg)));
+	for (unsigned int imgNr = 0; imgNr < nImg; ++imgNr)
+	{
+		SrcPanoImage img=_panoramaInfoCopy.getSrcImage(imgNr);
+
+		_filesData[imgNr]._detectWidth = img.getSize().width();
+		_filesData[imgNr]._detectHeight = img.getSize().height();
+
 		if (_downscale)
+	   {
+		   _filesData[imgNr]._detectWidth >>= 1;
+		   _filesData[imgNr]._detectHeight >>= 1;
+	   }
+	   vigra::DImage final_img(_filesData[imgNr]._detectWidth, _filesData[imgNr]._detectHeight);
+
+		// Remap image to stereographic if needed
+		if(_stereoRemap)
 		{
-			// Resize to grayscale double
-			vigra::resizeImageNoInterpolation(
-				RGBimg.upperLeft(),
-				RGBimg.upperLeft() + vigra::Diff2D(aNewImgWidth*2, aNewImgHeight*2),
-				vigra::RGBToGrayAccessor<vigra::RGBValue<double> >(),
-				final_img.upperLeft(),
-				final_img.lowerRight(),
-				vigra::DImage::Accessor());
-		} else {		
-			// convert to grayscale
+			// Defines remapped image options
+			PanoramaOptions opts = _panoramaInfoCopy.getOptions();
+		   opts.setHFOV(img.getHFOV());
+		   opts.setWidth(_filesData[imgNr]._detectWidth);
+		   opts.setHeight(_filesData[imgNr]._detectHeight);
+			opts.setProjection(PanoramaOptions::STEREOGRAPHIC);
+
+			// Get the image remapped
+			RemappedPanoImage<vigra::BRGBImage, vigra::BImage> * remapped = 
+				remapper.getRemapped(_panoramaInfoCopy, opts, imgNr, 
+											vigra::Rect2D(0,0,opts.getWidth(),opts.getHeight()), progress);
+			vigra::BRGBImage RGBimg = remapped->m_image;
+
+      	remapper.release(remapped);
+
+			// Convert to grayscale double format
 			vigra::copyImage(
 				RGBimg.upperLeft(),
 				RGBimg.lowerRight(),
 				vigra::RGBToGrayAccessor<vigra::RGBValue<double> >(),
 				final_img.upperLeft(),
 				vigra::DImage::Accessor());
-		}
 
-		_filesData[imgNr]._detectWidth = aNewImgWidth;
-		_filesData[imgNr]._detectHeight = aNewImgHeight;
+		} else {// Simply load images
+
+		   vigra::ImageImportInfo aImageInfo(_filesData[imgNr]._name.c_str());
+			vigra::BRGBImage RGBimg(aImageInfo.width(), aImageInfo.height());
+		   vigra::importImage(aImageInfo, destImage(RGBimg));
+
+			if (_downscale)
+		   {	// Downscale and convert to grayscale double format
+				vigra::resizeImageNoInterpolation(
+					RGBimg.upperLeft(),
+					RGBimg.upperLeft() + vigra::Diff2D(aImageInfo.width(), aImageInfo.height()),
+					vigra::RGBToGrayAccessor<vigra::RGBValue<double> >(),
+					final_img.upperLeft(),
+					final_img.lowerRight(),
+					vigra::DImage::Accessor());
+			} else { // convert to grayscale
+			   vigra::copyImage(
+					RGBimg.upperLeft(),
+				   RGBimg.lowerRight(),
+				   vigra::RGBToGrayAccessor<vigra::RGBValue<double> >(),
+				   final_img.upperLeft(),
+				   vigra::DImage::Accessor());
+			}
+		}
 
 		// Build integral image
       _filesData[imgNr]._ii.init(final_img.begin(), _filesData[imgNr]._detectWidth,
 																	 _filesData[imgNr]._detectHeight);
+		_filesData[imgNr]._loadFail = false;
 
 		// DEBUG: export remapped image
       std::ostringstream filename;
 		filename << _filesData[imgNr]._name << "STEREO.JPG"; // opts.getOutputExtension()
 		vigra::ImageExportInfo exinfo(filename.str().c_str());
       vigra::exportImage(srcImageRange(final_img), exinfo);
-
-      remapper.release(remapped);
 	}
 	progress.popTask();
+}
+
+void PanoDetector::remapBackMatches()
+{
+		// Remap control points back to rectilinear coordinates
+    	HuginBase::PTools::Transform trafo;
+		int nImg = _panoramaInfo->getNrOfImages();
+		for (unsigned int imgNr = 0; imgNr < nImg; ++imgNr)
+		{
+			SrcPanoImage img=_panoramaInfoCopy.getSrcImage(imgNr);
+			img.setProjection(BaseSrcPanoImage::FISHEYE_STEREOGRAPHIC);
+			PanoramaOptions opts = _panoramaInfoCopy.getOptions();
+		   opts.setHFOV(img.getHFOV());
+		   opts.setWidth(img.getSize().width());
+		   opts.setHeight(img.getSize().height());
+			opts.setProjection(PanoramaOptions::RECTILINEAR);
+			trafo.createInvTransform(img,opts);
+
+    		double xout,yout;
+			BOOST_FOREACH(MatchData& aM, _matchesData)
+			{
+				BOOST_FOREACH(lfeat::PointMatchPtr& aPM, aM._matches)
+				{
+					if(aM._i1->_number == imgNr)
+					{
+						//cout << imgNr << ": B-" << aPM->_img1_x << " " << aPM->_img1_y << endl;
+						trafo.transformImgCoord(aPM->_img1_x, aPM->_img1_y, aPM->_img1_x, aPM->_img1_y);
+						//cout << imgNr << ": A-" << aPM->_img1_x << " " << aPM->_img1_y << endl;
+					}
+					if(aM._i2->_number == imgNr)
+					{
+						//cout << imgNr << ": B-" << aPM->_img2_x << " " << aPM->_img2_y << endl;
+						trafo.transformImgCoord(aPM->_img2_x, aPM->_img2_y, aPM->_img2_x, aPM->_img2_y);
+						//cout << imgNr << ": A-" << aPM->_img2_x << " " << aPM->_img2_y << endl;
+					}
+				}
+			}
+		}
 }
 
 bool PanoDetector::checkLoadSuccess()

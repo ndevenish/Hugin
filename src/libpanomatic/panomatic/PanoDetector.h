@@ -118,10 +118,10 @@ public:
 private:
 	// options
 	
-	bool					_writeAllKeyPoints;
+	bool						_writeAllKeyPoints;
 	std::vector<int>		_keyPointsIdx;
 
-	bool					_gradDescriptor;
+	bool						_gradDescriptor;
 
 	int						_sieve1Width;
 	int						_sieve1Height;
@@ -138,23 +138,27 @@ private:
 	int						_sieve2Height;
 	int						_sieve2Size;
 
-	bool					_linearMatch;
+	bool						_linearMatch;
 	int						_linearMatchLen;
 
-	bool					_test;
+	bool						_test;
 	int						_cores;
-    bool                    _downscale;
-	
+   bool                 _downscale;
+		
+	bool						_stereoRemap;
+
 	// list of files
 	std::string				_outputFile;
 	std::string				_inputFile;
 
 	// Store panorama information
  	Panorama*			_panoramaInfo;
+ 	Panorama				_panoramaInfoCopy;
 	
 	void					prepareImages();
 	bool					loadProject();
-	void					stereographicProj();
+	void					loadImages();
+	void					remapBackMatches();
 	bool	      		checkLoadSuccess();
 	void					prepareMatches();
 
@@ -176,7 +180,7 @@ public:
 		bool _hasakeyfile;
 		lfeat::KeyPointVect_t	_kp;
 		int				_descLength;
-    bool            _loadFail;
+   	bool            _loadFail;
 
 		// kdtree
 		KDElemKeyPointVect_t	_kdv;
