@@ -225,6 +225,10 @@ public:
     */
     virtual void removeCtrlPoint(unsigned int pNr) =0;
     
+    /** removes duplicates control points
+        */
+    virtual void removeDuplicateCtrlPoints() =0;
+
     /** change a control Point.
     */
     virtual void changeControlPoint(unsigned int pNr, const ControlPoint & point) =0;

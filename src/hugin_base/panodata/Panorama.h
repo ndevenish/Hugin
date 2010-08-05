@@ -316,6 +316,10 @@ class IMPEX Panorama : public ManagedPanoramaData, public AppBase::DocumentData
         /** remove a control point.
             */
         void removeCtrlPoint(unsigned int pNr);
+
+        /** removes duplicates control points
+            */
+        void removeDuplicateCtrlPoints();
         
         /** change a control Point.
             */

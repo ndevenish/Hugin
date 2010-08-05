@@ -461,6 +461,33 @@ void Panorama::removeCtrlPoint(unsigned int pNr)
     state.needsOptimization = true;
 }
 
+void Panorama::removeDuplicateCtrlPoints()
+{
+    std::set<std::string> listOfCPs;
+    std::set<unsigned int> duplicateCPs;
+    for(unsigned int i=0; i<state.ctrlPoints.size();i++)
+    {
+        std::string s=state.ctrlPoints[i].getCPString();
+        std::pair<std::set<std::string>::iterator,bool> it=listOfCPs.insert(s);
+        if(it.second==false)
+        {
+            duplicateCPs.insert(i);
+        };
+    }
+    //now remove duplicate control points, mark affected images as changed
+    if(duplicateCPs.size()>0)
+    {
+        for(std::set<unsigned int>::reverse_iterator it=duplicateCPs.rbegin();it!=duplicateCPs.rend();it++)
+        {
+            ControlPoint cp=state.ctrlPoints[*it];
+            imageChanged(cp.image1Nr);
+            imageChanged(cp.image2Nr);
+            removeCtrlPoint(*it);
+        };
+    };
+    updateLineCtrlPoints();
+}
+
 
 void Panorama::changeControlPoint(unsigned int pNr, const ControlPoint & point)
 {
@@ -1444,6 +1471,7 @@ void Panorama::mergePanorama(const Panorama &newPano)
                 new_image_nr[cps[i].image2Nr],cps[i].x2, cps[i].y2, cps[i].mode);
             addCtrlPoint(cp);
         };
+        removeDuplicateCtrlPoints();
     };
 };
 

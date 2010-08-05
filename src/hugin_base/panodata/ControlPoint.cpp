@@ -56,6 +56,20 @@ const std::string& ControlPoint::getModeName(OptimizeMode mode) const
     return modeNames[mode];
 }
 
+const std::string ControlPoint::getCPString() const
+{
+    std::ostringstream s;
+    s << modeNames[mode];
+    if(image1Nr<=image2Nr)
+    {
+        s << " " << image1Nr << ": " << x1 << "," << y1 << "|" << image2Nr << ": " << x2 << "," <<y2;
+    }
+    else
+    {
+        s << " " << image2Nr << ": " << x2 << "," << y2 << "|" << image1Nr << ": " << x1 << "," <<y1;
+    }
+    return s.str();
+};
 
 #if 0
 ControlPoint::ControlPoint(Panorama & pano, const QDomNode & node)
