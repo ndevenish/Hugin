@@ -195,22 +195,25 @@ void PanoDetector::run()
 	// Load the input project file
 	if(!loadProject()) return;
 
-	// 1. Load images
-	loadImages();
+	// 1. Load images from the project if no keypoint file is given
+	if (_keyPointsIdx.size() == 0 && !_writeAllKeyPoints)
+		loadImages();
 
-	// 2. run analysis of images
-	TRACE_INFO(endl<< "--- Analyze Images ---" << endl);
+	// 2. run analysis of images or keypoints
 	try 
 	{
 		if (_keyPointsIdx.size() != 0) {
+			TRACE_INFO(endl<< "--- Analyze Keypoints ---" << endl);
 			for (unsigned int i = 0; i < _keyPointsIdx.size(); ++i)
 				aExecutor.execute(new WriteKeyPointsRunnable(_filesData[_keyPointsIdx[i]], *this));
 
 		} else if (_writeAllKeyPoints) {
+			TRACE_INFO(endl<< "--- Analyze Keypoints---" << endl);
 			for (ImgDataIt_t aB = _filesData.begin(); aB != _filesData.end(); ++aB)
 				aExecutor.execute(new WriteKeyPointsRunnable(aB->second, *this));
 
 		} else {
+			TRACE_INFO(endl<< "--- Analyze Images ---" << endl);
 			for (ImgDataIt_t aB = _filesData.begin(); aB != _filesData.end(); ++aB)
 			{
 				if (aB->second._hasakeyfile) {
@@ -258,13 +261,16 @@ void PanoDetector::run()
 		}
 
 		// Remap control points back to Rectilinear projection if necessary
+		double scale;
 		if(_stereoRemap)
 		{
 			TRACE_INFO(endl<< "--- Remap Back matches---" << endl << endl);
 			remapBackMatches();
-		}
+         scale=1.0;
+		} else {
+         scale = _downscale ? 2.0:1.0;
+		};
 		// Add detected matches to _panoramaInfo
-		double scale = _downscale ? 2.0:1.0;
 		BOOST_FOREACH(MatchData& aM, _matchesData)
 			BOOST_FOREACH(lfeat::PointMatchPtr& aPM, aM._matches)
 				_panoramaInfo->addCtrlPoint(ControlPoint(aM._i1->_number, scale*aPM->_img1_x, scale*aPM->_img1_y,
@@ -437,10 +443,10 @@ void PanoDetector::loadImages()
 		_filesData[imgNr]._loadFail = false;
 
 		// DEBUG: export remapped image
-      std::ostringstream filename;
-		filename << _filesData[imgNr]._name << "STEREO.JPG"; // opts.getOutputExtension()
-		vigra::ImageExportInfo exinfo(filename.str().c_str());
-      vigra::exportImage(srcImageRange(final_img), exinfo);
+      // std::ostringstream filename;
+		// filename << _filesData[imgNr]._name << "STEREO.JPG"; // opts.getOutputExtension()
+		// vigra::ImageExportInfo exinfo(filename.str().c_str());
+      // vigra::exportImage(srcImageRange(final_img), exinfo);
 	}
 	progress.popTask();
 }
@@ -453,14 +459,13 @@ void PanoDetector::remapBackMatches()
 		for (unsigned int imgNr = 0; imgNr < nImg; ++imgNr)
 		{
 			SrcPanoImage img=_panoramaInfoCopy.getSrcImage(imgNr);
-			img.setProjection(BaseSrcPanoImage::FISHEYE_STEREOGRAPHIC);
 			PanoramaOptions opts = _panoramaInfoCopy.getOptions();
 		   opts.setHFOV(img.getHFOV());
-		   opts.setWidth(img.getSize().width());
-		   opts.setHeight(img.getSize().height());
-			opts.setProjection(PanoramaOptions::RECTILINEAR);
-			trafo.createInvTransform(img,opts);
-
+		   opts.setWidth(_filesData[imgNr]._detectWidth);
+         opts.setHeight(_filesData[imgNr]._detectHeight);
+			opts.setProjection(PanoramaOptions::STEREOGRAPHIC);
+			trafo.createTransform(img,opts);
+ 
     		double xout,yout;
 			BOOST_FOREACH(MatchData& aM, _matchesData)
 			{
@@ -469,13 +474,21 @@ void PanoDetector::remapBackMatches()
 					if(aM._i1->_number == imgNr)
 					{
 						//cout << imgNr << ": B-" << aPM->_img1_x << " " << aPM->_img1_y << endl;
-						trafo.transformImgCoord(aPM->_img1_x, aPM->_img1_y, aPM->_img1_x, aPM->_img1_y);
+						if(trafo.transformImgCoord(xout, yout, aPM->_img1_x, aPM->_img1_y))
+               	{
+                     aPM->_img1_x=xout;
+	                  aPM->_img1_y=yout;
+                  };
 						//cout << imgNr << ": A-" << aPM->_img1_x << " " << aPM->_img1_y << endl;
 					}
 					if(aM._i2->_number == imgNr)
 					{
 						//cout << imgNr << ": B-" << aPM->_img2_x << " " << aPM->_img2_y << endl;
-						trafo.transformImgCoord(aPM->_img2_x, aPM->_img2_y, aPM->_img2_x, aPM->_img2_y);
+						if(trafo.transformImgCoord(xout, yout, aPM->_img2_x, aPM->_img2_y))
+                  {
+	                  aPM->_img2_x=xout;
+                     aPM->_img2_y=yout;
+                  };
 						//cout << imgNr << ": A-" << aPM->_img2_x << " " << aPM->_img2_y << endl;
 					}
 				}
