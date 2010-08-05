@@ -143,4 +143,53 @@ UIntSet getCPoutsideLimit(Panorama pano, double n)
     return CPtoRemove;
 };
 
+UIntSet getCPinMasks(HuginBase::Panorama pano)
+{
+    HuginBase::UIntSet cps;
+    HuginBase::CPVector cpList=pano.getCtrlPoints();
+    if(cpList.size()>0)
+    {
+        for(unsigned int i=0;i<cpList.size();i++)
+        {
+            HuginBase::ControlPoint cp=cpList[i];
+            // ignore line control points
+            if(cp.mode!=HuginBase::ControlPoint::X_Y)
+                continue;
+            bool insideMask=false;
+            // check first image
+            // remark: we could also use pano.getImage(cp.image1Nr).isInside(vigra::Point2D(cp.x1,cp.y1))
+            //   this would also check the crop rectangles/circles
+            //   but it would require that the pano is correctly align, otherwise the positive masks
+            //   would not correctly checked
+            HuginBase::MaskPolygonVector masks=pano.getImage(cp.image1Nr).getMasks();
+            if(masks.size()>0)
+            {
+                unsigned int j=0;
+                while((!insideMask) && (j<masks.size()))
+                {
+                    insideMask=masks[j].isInside(hugin_utils::FDiff2D(cp.x1,cp.y1));
+                    j++;
+                };
+            };
+            // and now the second
+            if(!insideMask)
+            {
+                masks=pano.getImage(cp.image2Nr).getMasks();
+                if(masks.size()>0)
+                {
+                    unsigned int j=0;
+                    while((!insideMask) && (j<masks.size()))
+                    {
+                        insideMask=masks[j].isInside(hugin_utils::FDiff2D(cp.x2,cp.y2));
+                        j++;
+                    };
+                };
+            };
+            if(insideMask)
+                cps.insert(i);
+        };
+    }
+    return cps;
+};
+
 }  // namespace

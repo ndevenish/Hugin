@@ -49,5 +49,8 @@ IMPEX UIntSet getCPoutsideLimit_pair(Panorama pano, double n=2.0);
   @return set which contains control points with error > mean+n*sigma */
 IMPEX UIntSet getCPoutsideLimit(Panorama pano, double n=2.0);
 
+/** returns these control points, which are in masks */
+IMPEX UIntSet getCPinMasks(Panorama pano);
+
 }  // namespace
 #endif // _H
