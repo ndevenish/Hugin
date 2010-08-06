@@ -42,7 +42,8 @@ public:
 
 	/**
 	 * Adds a MakefileItem to a list of existing Items.
-	 * MakefileItem::MakefileItem adds itself using this.
+	 * This adds a MakefileItem to the output order. Only items added are
+	 * output.
 	 * @param item pointer
 	 */
 	void add(MakefileItem* item)

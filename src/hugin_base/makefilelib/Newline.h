@@ -18,7 +18,7 @@ namespace makefile
 /**
  * Simply prints newlines. Can be used to give some structure.
  */
-class Newline: public makefile::MakefileItem
+class Newline: public PrimaryMakefileItem
 {
 	int newlines;
 public:

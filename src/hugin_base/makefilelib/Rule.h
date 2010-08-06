@@ -19,7 +19,7 @@ namespace makefile
  * Represents a makefile rule, including Prerequisite and Command.
  *
  */
-class Rule : public MakefileItem
+class Rule : public PrimaryMakefileItem
 {
 	std::vector<string> targets;
 	std::vector<string> prerequisites;

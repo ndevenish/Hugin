@@ -9,6 +9,7 @@
 #define MAKEFILEITEM_H_
 
 #include "Makefile.h"
+#include "Manageable.h"
 
 namespace makefile
 {
@@ -25,8 +26,6 @@ class MakefileItem
 public:
 	MakefileItem()
 	{
-		// Automatic adding may be a bad thing, especially for variable references.
-//		Makefile::getSingleton().add(this);
 	}
 
 	/// Removes the item from the Makefile
@@ -59,6 +58,17 @@ public:
 /// Allows writing to ostreams.
 ostream& operator<<(ostream& stream, MakefileItem& item);
 
-}
+/**
+ * This class is used to mark MakefileItems that can be used directly, like most can.
+ * The only exception is currently VariableDef and VariableRef, they can only be used
+ * together with their parent Variable.
+ */
+class PrimaryMakefileItem : public MakefileItem, public Manageable
+{
+public:
+	PrimaryMakefileItem() {}
+	virtual ~PrimaryMakefileItem() {}
+};
 
+}
 #endif /* MAKEFILEITEM_H_ */

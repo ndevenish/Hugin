@@ -11,6 +11,7 @@
 #include "VariableDef.h"
 #include "VariableRef.h"
 #include "Makefile.h"
+#include "Manageable.h"
 
 namespace makefile
 {
@@ -20,7 +21,7 @@ namespace makefile
  * The \ref MakefileItem "MakefileItems" VariableRef and VariableDef refer are linked to one of
  * these to know what they represent.
  */
-class Variable
+class Variable : public Manageable
 {
 protected:
 	string name, value;
