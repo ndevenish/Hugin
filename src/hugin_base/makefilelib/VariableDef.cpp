@@ -14,7 +14,8 @@ namespace makefile
 
 string VariableDef::toString()
 {
-	return string(variable.getName() + cstr("=") + variable.getValue() + cstr('\n'));
+	return string((variable.getExport() ? "export " : "") + variable.getName() +
+			cstr("=") + variable.getValue() + cstr('\n'));
 }
 
 }

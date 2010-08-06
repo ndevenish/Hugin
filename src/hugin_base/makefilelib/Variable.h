@@ -29,6 +29,8 @@ protected:
 	/// A VariableDef connected to the Variable.
 	VariableRef ref;
 	Makefile::QuoteMode quotemode;
+	/// Decides wether this Variable is defined with export.
+	bool exported;
 
 	/**
 	 * Checks the name Strings and throws on forbidden characters.
@@ -49,7 +51,7 @@ private:
 	Variable(const Variable&);	// no implicite copies!
 public:
 	Variable(string name_, string value_, Makefile::QuoteMode quotemode_ = Makefile::SHELL)
-	: name(name_), value(value_), def(*this), ref(*this), quotemode(quotemode_)
+	: name(name_), value(value_), def(*this), ref(*this), quotemode(quotemode_), exported(false)
 	{
 		checkName();
 		checkValue();
@@ -81,6 +83,14 @@ public:
 		quotemode = mode;
 	}
 
+	void setExport(bool ex)
+	{
+		exported = ex;
+	}
+	bool getExport()
+	{
+		return exported;
+	}
 
 };
 
