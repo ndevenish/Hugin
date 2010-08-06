@@ -12,6 +12,9 @@
 #include <algorithm/PanoramaAlgorithm.h>
 #include <panodata/PanoramaData.h>
 #include <iosfwd>
+#include <makefilelib/Manager.h>
+#include <makefilelib/Makefile.h>
+
 
 /**
  *
@@ -67,8 +70,10 @@ private:
 	std::ostream & makefile;
 	const std::string& tmpDir;
 
-	bool create();
+	makefile::Manager mgr;
+	std::ostringstream valuestream;
 
+	bool create();
 public:
 	PanoramaMakefilelibExport(PanoramaData & pano_,
             const UIntSet & images_,
@@ -84,7 +89,7 @@ public:
 	  progs(progs_), includePath(includePath_), outputFiles(outputFiles_),
 	  makefile(makefile_), tmpDir(tmpDir_)
 	{
-		// TODO Auto-generated constructor stub
+		valuestream.imbue(makefile::Makefile::locale);
 
 	}
 
