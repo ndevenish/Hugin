@@ -8,6 +8,7 @@
 #include "Variable.h"
 #include "StringAdapter.h"
 #include <stdexcept>
+#include <sstream>
 
 
 namespace makefile
@@ -34,5 +35,14 @@ void Variable::checkValue()
 	static const regex invalid(cstr("\\R"));
 	if(boost::regex_search(value, invalid))
 		throw std::invalid_argument("Bad Variable value: " + StringAdapter(value));
+}
+
+Variable::Variable(string name_, double value_, Makefile::QuoteMode quotemode_)
+: name(name_), def(*this), ref(*this), quotemode(quotemode_), exported(false)
+{
+	std::ostringstream val;
+	val.imbue(Makefile::locale);
+	val << value_;
+	value = val.str();
 }
 }

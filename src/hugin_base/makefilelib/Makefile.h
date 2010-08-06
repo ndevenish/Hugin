@@ -12,6 +12,7 @@
 #include <vector>
 #include <iostream>
 #include <stdexcept>
+#include <locale>
 
 /**
  *
@@ -35,6 +36,13 @@ public:
 	virtual ~Makefile() {}
 	static Makefile& getSingleton();
 	static void clean();
+
+	/**
+	 * Prepare output streams to get number output right with this locale.
+	 * We use the "C" locale for NUMERIC and the system's for everything else.
+	 * @note: C++ locales are different from C. Calling setlocale doesn't influence C++ streams!
+	 */
+	static const std::locale locale;
 
 	/**
 	 * Selects quoting modes.

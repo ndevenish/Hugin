@@ -9,10 +9,11 @@
 #define MANAGER_H_
 #include <boost/ptr_container/ptr_vector.hpp>
 
+#include "MakefileItem.h"
+#include "Manageable.h"
+
 namespace makefile
 {
-class Variable;
-class PrimaryMakefileItem;
 
 
 /**

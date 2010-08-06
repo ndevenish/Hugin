@@ -57,6 +57,7 @@ public:
 		checkName();
 		checkValue();
 	}
+	Variable(string name_, double value_, Makefile::QuoteMode quotemode_ = Makefile::SHELL);
 	virtual ~Variable() {}
 
 	virtual string getName()

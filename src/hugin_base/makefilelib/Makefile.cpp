@@ -11,8 +11,11 @@
 namespace makefile
 {
 
-// intialize singelton instance pointer
+// intialize static singelton instance pointer
 Makefile* Makefile::instance = NULL;
+
+// static
+const std::locale Makefile::locale(std::locale(""), "C", std::locale::numeric);
 
 Makefile& Makefile::getSingleton()
 {
