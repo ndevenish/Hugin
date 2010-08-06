@@ -11,6 +11,7 @@
 #include "char_type.h"
 #include <vector>
 #include <iostream>
+#include <stdexcept>
 
 /**
  *
@@ -26,7 +27,9 @@ class Makefile
 {
 	/// Holds pointers to every existing MakefileItem.
 	std::vector<MakefileItem*> items;
-	Makefile() {}
+	/// has the makefile been written?
+	bool written;
+	Makefile() : written(false) {}
 	static Makefile* instance;
 public:
 	virtual ~Makefile() {}
@@ -63,10 +66,7 @@ public:
 	 * @todo Should it be necessary, implement this remove method to not throw everyting away.
 	 * @param item pointer
 	 */
-	void remove(MakefileItem* item)
-	{
-		clean();
-	}
+	static void remove(MakefileItem* item);
 
 	/**
 	 * Outputs all known MakefileItem to an ostream.

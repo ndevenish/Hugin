@@ -31,7 +31,7 @@ public:
 	/// Removes the item from the Makefile
 	virtual ~MakefileItem()
 	{
-		Makefile::getSingleton().remove(this);
+		Makefile::remove(this);
 	}
 
 	/// @return A string representation of the MakefileItem.

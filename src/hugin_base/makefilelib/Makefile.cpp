@@ -28,6 +28,18 @@ void Makefile::clean()
 	instance = NULL;
 }
 
+void Makefile::remove(MakefileItem* item)
+{
+	if(instance && !instance->written)
+	{
+		clean();
+		throw(std::runtime_error(
+		"A MakefileItem was removed before the Makefile::writeMakefile() was called.\n"
+		"This is likely to be a programming error (out of scope?)"));
+	}
+	clean();
+}
+
 //#define WIN32
 /**
  * Quotes and escapes characters using regular expressions. Two modes are currently distinguished,
@@ -95,6 +107,7 @@ int Makefile::writeMakefile(ostream& out)
 	{
 		out << **i;
 	}
+	written = true;
 	return items.size();
 }
 
