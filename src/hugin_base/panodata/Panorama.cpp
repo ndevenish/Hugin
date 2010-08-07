@@ -1067,11 +1067,17 @@ void Panorama::updateMasksForImage(unsigned int imgNr, MaskPolygonVector newMask
 void Panorama::updateMasks()
 {
     // update masks
+    UIntSet imgWithPosMasks;
     for(unsigned int i=0;i<state.images.size();i++)
     {
         state.images[i]->clearActiveMasks();
+        if(state.images[i]->hasPositiveMasks())
+        {
+            imgWithPosMasks.insert(i);
+        };
     };
     CalculateImageOverlap overlap(this);
+    overlap.limitToImages(imgWithPosMasks);
     overlap.calculate(10);
     for(unsigned int i=0;i<state.images.size();i++)
     {

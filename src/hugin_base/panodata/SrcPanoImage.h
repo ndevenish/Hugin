@@ -388,6 +388,8 @@ public:
 
     /** returns true, if image has masks associated */
     bool hasMasks() const;
+    /** returns true, if image has positive masks */
+    bool hasPositiveMasks() const;
     /** returns true, if image has active masks */
     bool hasActiveMasks() const;
     /** add newMask to list of masks */
