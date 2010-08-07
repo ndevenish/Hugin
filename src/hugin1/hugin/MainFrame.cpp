@@ -58,6 +58,7 @@
 #include "hugin/CPListFrame.h"
 #include "hugin/LocalizedFileTipProvider.h"
 #include "hugin/HFOVDialog.h"
+#include "algorithms/control_points/CleanCP.h"
 
 #include "base_wx/MyProgressDialog.h"
 #include "base_wx/ImageCache.h"
@@ -1548,7 +1549,7 @@ void MainFrame::OnRemoveCPinMasks(wxCommandEvent & e)
 {
     if(pano.getCtrlPoints().size()<2)
         return;
-    UIntSet cps=getCpsInMasks(pano);
+    UIntSet cps=getCPinMasks(pano);
     if(cps.size()>0)
     {
         GlobalCmdHist::getInstance().addCommand(
