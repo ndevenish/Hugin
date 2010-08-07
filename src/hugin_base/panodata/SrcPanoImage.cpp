@@ -809,6 +809,22 @@ bool SrcPanoImage::hasMasks() const
     return m_Masks.getData().size()>0;
 };
 
+bool SrcPanoImage::hasPositiveMasks() const
+{
+    MaskPolygonVector masks=m_Masks.getData();
+    if(masks.size()>0)
+    {
+        for(unsigned int i=0;i<masks.size();i++)
+        {
+            if(masks[i].getMaskType()==MaskPolygon::Mask_positive)
+            {
+                return true;
+            };
+        };
+    };
+    return false;
+};
+
 bool SrcPanoImage::hasActiveMasks() const
 {
     return m_ActiveMasks.getData().size()>0;
