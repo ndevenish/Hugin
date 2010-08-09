@@ -60,12 +60,16 @@ public:
 	Variable(string name_, double value_, Makefile::QuoteMode quotemode_ = Makefile::SHELL);
 	virtual ~Variable() {}
 
-	virtual string getName()
+	virtual const string getName()
 	{
 		return name;
 	}
 
-	virtual string getValue()
+	virtual const string getValue()
+	{
+		return value;
+	}
+	virtual const string getquotedValue()
 	{
 		return Makefile::quote(value, quotemode);
 	}

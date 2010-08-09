@@ -33,7 +33,8 @@ public:
 	{};
 
 	/// Has no value, exception.
-	virtual string getValue();
+	virtual const string getValue();
+	virtual const string getquotedValue();
 
 	/// Has no definition, exception.
 	virtual VariableDef& getDef();
