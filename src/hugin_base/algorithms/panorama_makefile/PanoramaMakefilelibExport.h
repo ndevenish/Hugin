@@ -14,6 +14,7 @@
 #include <iosfwd>
 #include <makefilelib/Manager.h>
 #include <makefilelib/Makefile.h>
+#include <makefilelib/Variable.h>
 
 
 /**
@@ -74,6 +75,11 @@ private:
 	std::ostringstream valuestream;
 
 	bool create();
+
+	void createhdrstacks(std::vector<makefile::Variable*>& hdr_stacks,
+			std::vector<makefile::Variable*>& hdr_stacks_shell,
+			std::vector<makefile::Variable*>& hdr_stacks_input,
+			std::vector<makefile::Variable*>& hdr_stacks_input_shell);
 public:
 	PanoramaMakefilelibExport(PanoramaData & pano_,
             const UIntSet & images_,
