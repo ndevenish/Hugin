@@ -31,6 +31,11 @@
 #include <boost/smart_ptr/scoped_ptr.hpp>
 #include <boost/smart_ptr/shared_ptr.hpp>
 
+/// Automates an very often occuring sequence
+#define  newVarDef(var, name, ...) \
+mf::Variable* var = mgr.own(new mf::Variable(name, __VA_ARGS__)); \
+var->getDef().add();
+
 namespace HuginBase
 {
 using namespace makefile;
@@ -40,82 +45,81 @@ namespace mf = makefile;
 bool PanoramaMakefilelibExport::create()
 {
 	mgr.own_add((new Comment(
-		cstr("makefile for panorama stitching, created by hugin using the new makefilelib"))));
+		"makefile for panorama stitching, created by hugin using the new makefilelib")));
 
 	//----------
 	// set temporary dir if defined
 	if(!tmpDir.empty())
 	{
 #ifdef UNIX_LIKE
-		mgr.own_add(new Comment(cstr("set temporary directory for UNIX_LIKE")));
-		mf::Variable* vtmpdir = mgr.own(new mf::Variable(cstr("TMPDIR"), tmpDir));
+		mgr.own_add(new Comment("set temporary directory for UNIX_LIKE"));
+		mf::Variable* vtmpdir = mgr.own(new mf::Variable("TMPDIR", tmpDir));
 		vtmpdir->setExport(true); vtmpdir->getDef().add();
 #else
-		mgr.own_add(new Comment(cstr("set temporary directory for not UNIX_LIKE")));
-		mf::Variable* vtmpdir = mgr.own(new mf::Variable(cstr("TEMP"), tmpDir));
+		mgr.own_add(new Comment("set temporary directory for not UNIX_LIKE"));
+		mf::Variable* vtmpdir = mgr.own(new mf::Variable("TEMP", tmpDir));
 		vtmpdir->setExport(true); vtmpdir->getDef().add();
-		mf::Variable* vtmpdir2 = mgr.own(new mf::Variable(cstr("TMP"), tmpDir));
+		mf::Variable* vtmpdir2 = mgr.own(new mf::Variable("TMP", tmpDir));
 		vtmpdir2->setExport(true); vtmpdir2->getDef().add();
 #endif
 	}
 
 #ifdef _WINDOWS
-	mgr.own_add(new Comment(cstr("Force using cmd.exe")); cwinshell.add());
-	mf::Variable* winshell = mgr_own(new Variable(cstr("SHELL"), getenv("ComSpec")));
+	mgr.own_add(new Comment("Force using cmd.exe"); cwinshell.add());
+	mf::Variable* winshell = mgr_own(new Variable("SHELL", getenv("ComSpec")));
 	winshell->getDef().add();
 #endif
 
 	//----------
 	// set the tool commands
-	mgr.own_add(new Comment(cstr("Tool configuration")));
-	mf::Variable* vnona = mgr.own(new mf::Variable(cstr("NONA"), progs.nona)); vnona->getDef().add();
-	mf::Variable* vPTStitcher = mgr.own(new mf::Variable(cstr("PTSTITCHER"), progs.PTStitcher)); vPTStitcher->getDef().add();
-	mf::Variable* vPTmender = mgr.own(new mf::Variable(cstr("PTMENDER"), progs.PTmender)); vPTmender->getDef().add();
-	mf::Variable* vPTblender = mgr.own(new mf::Variable(cstr("PTBLENDER"), progs.PTblender)); vPTblender->getDef().add();
-	mf::Variable* vPTmasker = mgr.own(new mf::Variable(cstr("PTMASKER"), progs.PTmasker)); vPTmasker->getDef().add();
-	mf::Variable* vPTroller = mgr.own(new mf::Variable(cstr("PTROLLER"), progs.PTroller)); vPTroller->getDef().add();
-	mf::Variable* venblend = mgr.own(new mf::Variable(cstr("ENBLEND"), progs.enblend)); venblend->getDef().add();
-	mf::Variable* venfuse = mgr.own(new mf::Variable(cstr("ENFUSE"), progs.enfuse)); venfuse->getDef().add();
-	mf::Variable* vsmartblend = mgr.own(new mf::Variable(cstr("SMARTBLEND"), progs.smartblend)); vsmartblend->getDef().add();
-	mf::Variable* vhdrmerge = mgr.own(new mf::Variable(cstr("HDRMERGE"), progs.hdrmerge)); vhdrmerge->getDef().add();
+	mgr.own_add(new Comment("Tool configuration"));
+	newVarDef(vnona, "NONA", progs.nona);
+	newVarDef(vPTStitcher, "PTSTITCHER", progs.PTStitcher);
+	newVarDef(vPTmender, "PTMENDER", progs.PTmender);
+	newVarDef(vPTblender, "PTBLENDER", progs.PTblender);
+	newVarDef(vPTmasker, "PTMASKER", progs.PTmasker);
+	newVarDef(vPTroller, "PTROLLER", progs.PTroller);
+	newVarDef(venblend, "ENBLEND", progs.enblend);
+	newVarDef(venfuse, "ENFUSE", progs.enfuse);
+	newVarDef(vsmartblend, "SMARTBLEND", progs.smartblend);
+	newVarDef(vhdrmerge, "HDRMERGE", progs.hdrmerge);
 #ifdef _WINDOWS
-	mf::Variable* vrm = mgr.own(new mf::Variable(cstr("RM"), cstr("del")));
+	newVarDef(vrm, "RM", "del");
 #else
-	mf::Variable* vrm = mgr.own(new mf::Variable(cstr("RM"), cstr("rm")));
+	newVarDef(vrm, "RM", "rm");
 #endif
-	vrm->getDef().add();
 
 	//----------
 	// if this is defined and we have .app in the exiftool command, we execute it with perl by prepending perl -w
 	// to the command name.
 #ifdef MAC_SELF_CONTAINED_BUNDLE
-	mf::Variable* vexiftool = mgr.own(new mf::Variable(cstr("EXIFTOOL"),
+	mf::Variable* vexiftool = mgr.own(new mf::Variable("EXIFTOOL",
 			progs.exiftool.find(".app") != std::string::npos ?
-			cstr("perl -w ") + progs.exiftool :
+			"perl -w " + progs.exiftool :
 			progs.exiftool));
 #else
-	mf::Variable* vexiftool = mgr.own(new mf::Variable(cstr("EXIFTOOL"), progs.exiftool));
+	mf::Variable* vexiftool = mgr.own(new mf::Variable("EXIFTOOL", progs.exiftool));
 #endif
 	vexiftool->getDef().add();
 
 	//----------
 	// Project parameters
-	mgr.own_add(new Comment(cstr("Project parameters")));
+	mgr.own_add(new Comment("Project parameters"));
 	PanoramaOptions opts = pano.getOptions();
-	mf::Variable* vhugin_projection = mgr.own(new mf::Variable(cstr("HUGIN_PROJECTION"),
+	mf::Variable* vhugin_projection = mgr.own(new mf::Variable("HUGIN_PROJECTION",
 			opts.getProjection()));
 	vhugin_projection->getDef().add();
 
-	mf::Variable* vhugin_hfov = mgr.own(new mf::Variable(cstr("HUGIN_HFOV"), opts.getHFOV()));
+	mf::Variable* vhugin_hfov = mgr.own(new mf::Variable("HUGIN_HFOV", opts.getHFOV()));
 	vhugin_hfov->getDef().add();
-	mf::Variable* vhugin_width = mgr.own(new mf::Variable(cstr("HUGIN_WIDTH"), opts.getWidth()));
+	mf::Variable* vhugin_width = mgr.own(new mf::Variable("HUGIN_WIDTH", opts.getWidth()));
 	vhugin_width->getDef().add();
-	mf::Variable* vhugin_height = mgr.own(new mf::Variable(cstr("HUGIN_HEIGHT"), opts.getHeight()));
-	vhugin_width->getDef().add();
+	mf::Variable* vhugin_height = mgr.own(new mf::Variable("HUGIN_HEIGHT", opts.getHeight()));
+	vhugin_height->getDef().add();
 
 	//----------
     // options for the programs
-    mgr.own_add(new Comment(cstr("options for the programs")));
+    mgr.own_add(new Comment("options for the programs"));
     // set remapper specific settings
     mf::Variable* vnonaldr = NULL;
     mf::Variable* vnonaopts = NULL;
@@ -127,10 +131,10 @@ bool PanoramaMakefilelibExport::create()
 		else if (opts.outputImageType == "jpg")
 			val = "-z PACKBITS ";
 
-		vnonaldr = mgr.own(new mf::Variable(cstr("NONA_LDR_REMAPPED_COMP"), val, Makefile::NONE));
+		vnonaldr = mgr.own(new mf::Variable("NONA_LDR_REMAPPED_COMP", val, Makefile::NONE));
 		vnonaldr->getDef().add();
 
-		vnonaopts = mgr.own(new mf::Variable(cstr("NONA_OPTS"),
+		vnonaopts = mgr.own(new mf::Variable("NONA_OPTS",
 				opts.remapUsingGPU ? "-g " : "", Makefile::NONE));
 		vnonaopts->getDef().add();
 	}
@@ -153,7 +157,7 @@ bool PanoramaMakefilelibExport::create()
 				valuestream << " -f" << roi.width() << "x" << roi.height() << "+" << roi.left() << "+" << roi.top();
 			else
 				valuestream << " -f" << roi.width() << "x" << roi.height();
-			venblendopts = mgr.own(new mf::Variable(cstr("ENBLEND_OPTS"), valuestream.str(), Makefile::NONE));
+			venblendopts = mgr.own(new mf::Variable("ENBLEND_OPTS", valuestream.str(), Makefile::NONE));
 			venblendopts->getDef().add();
 		}
 
@@ -164,7 +168,7 @@ bool PanoramaMakefilelibExport::create()
 			else if (opts.outputImageType == "jpg")
 				valuestream << "--compression " << opts.quality;
 
-			venblendldrcomp = mgr.own(new mf::Variable(cstr("ENBLEND_LDR_COMP"), valuestream.str(), Makefile::NONE));
+			venblendldrcomp = mgr.own(new mf::Variable("ENBLEND_LDR_COMP", valuestream.str(), Makefile::NONE));
 			venblendldrcomp->getDef().add();
 		}
 
@@ -173,7 +177,7 @@ bool PanoramaMakefilelibExport::create()
 			if (opts.outputImageTypeHDR == "tif" && opts.outputImageTypeHDRCompression.size() != 0) {
 				val += "--compression " + opts.outputImageTypeHDRCompression;
 			}
-			venblendhdrcomp = mgr.own(new mf::Variable(cstr("ENBLEND_HDR_COMP"), val, Makefile::NONE));
+			venblendhdrcomp = mgr.own(new mf::Variable("ENBLEND_HDR_COMP", val, Makefile::NONE));
 			venblendhdrcomp->getDef().add();
 		}
 	}
@@ -196,21 +200,75 @@ bool PanoramaMakefilelibExport::create()
 				valuestream << " -k " << opts.colorReferenceImage;
 				break;
 		}
-		vptblenderopts = mgr.own(new mf::Variable(cstr("PTBLENDER_OPTS"), valuestream.str(), Makefile::NONE));
+		vptblenderopts = mgr.own(new mf::Variable("PTBLENDER_OPTS", valuestream.str(), Makefile::NONE));
 		vptblenderopts->getDef().add();
 	}
 
+	//----------
 	mf::Variable* vsmartblendopts = NULL;
 	if(opts.blendMode == PanoramaOptions::SMARTBLEND_BLEND)
 	{
-		vsmartblendopts = mgr.own(new mf::Variable(cstr("SMARTBLEND_OPTS"),
-			opts.getHFOV() == 360.0 ? cstr(" -w") : cstr("")));
+		vsmartblendopts = mgr.own(new mf::Variable(
+			"SMARTBLEND_OPTS",
+			opts.getHFOV() == 360.0 ? " -w" : ""));
+		vsmartblendopts->getDef().add();
 		// TODO: build smartblend command line from given images. (requires additional program)
 	}
-	//----------
-	//----------
-	//----------
 
+	//----------
+	mf::Variable* vhdrmergeopts = NULL;
+	if(opts.hdrMergeMode == PanoramaOptions::HDRMERGE_AVERAGE)
+	{
+		vhdrmergeopts = mgr.own(new mf::Variable(
+				"HDRMERGE_OPTS", opts.hdrmergeOptions, Makefile::NONE));
+		vhdrmergeopts->getDef().add();
+	}
+
+	//----------
+	newVarDef(venfuseopts,
+			"ENFUSE_OPTS",
+			opts.getHFOV() == 360.0 ? " -w" : "", Makefile::NONE);
+
+	//----------
+	newVarDef(vexiftoolcopyargs,
+			"EXIFTOOL_COPY_ARGS", progs.exiftool_opts, Makefile::NONE);
+
+
+	//----------
+	// Panorama output
+	mgr.own_add(new Comment("the output panorama"));
+
+	newVarDef(vldrremappedprefix,
+		"LDR_REMAPPED_PREFIX", outputPrefix, Makefile::MAKE);
+	newVarDef(vldrremappedprefixshell,
+		"LDR_REMAPPED_PREFIX_SHELL", vldrremappedprefix->getValue(), Makefile::SHELL);
+
+	newVarDef(vhdrstackremappedprefix,
+		"HDR_STACK_REMAPPED_PREFIX", outputPrefix + "_hdr_", Makefile::MAKE);
+	newVarDef(vhdrstackremappedprefixshell,
+		"HDR_STACK_REMAPPED_PREFIX_SHELL", vhdrstackremappedprefix->getValue(), Makefile::SHELL);
+
+	newVarDef(vldrexposureremappedprefix,
+		"LDR_EXPOSURE_REMAPPED_PREFIX", outputPrefix + "_exposure_layers_", Makefile::MAKE);
+	newVarDef(vldrexposureremappedprefixshell,
+		"LDR_EXPOSURE_REMAPPED_PREFIX_SHELL", vldrexposureremappedprefix->getValue(), Makefile::SHELL);
+
+	newVarDef(vprojectfile, "PROJECT_FILE", ptofile, Makefile::MAKE);
+	newVarDef(vprojectfileshell, "PROJECT_FILE_SHELL", ptofile, Makefile::SHELL);
+
+	newVarDef(vldrblended, "LDR_BLENDED", outputPrefix + "." + opts.outputImageType, Makefile::MAKE);
+	newVarDef(vldrblendedshell, "LDR_BLENDED_SHELL", vldrblended->getValue(), Makefile::SHELL);
+
+	newVarDef(vldrstackedblended, "LDR_STACKED_BLENDED", outputPrefix + "_fused." + opts.outputImageType, Makefile::MAKE);
+	newVarDef(vldrstackedblendedshell, "LDR_STACKED_BLENDED_SHELL", vldrstackedblended->getValue(), Makefile::SHELL);
+
+	newVarDef(vldrexposurelayersfused,
+		"LDR_EXPOSURE_LAYERS_FUSED", outputPrefix + "_blended_fused." + opts.outputImageType, Makefile::MAKE);
+	newVarDef(vldrexposurelayersfusedshell,
+		"LDR_EXPOSURE_LAYERS_FUSED_SHELL", vldrexposurelayersfused->getValue(), Makefile::SHELL);
+
+	newVarDef(vhdrblended, "HDR_BLENDED", outputPrefix + "_hdr." + opts.outputImageTypeHDR, Makefile::MAKE);
+	newVarDef(vhdrblendedshell, "HDR_BLENDED_SHELL", vhdrblended->getValue(), Makefile::SHELL);
 
 	//----------
 
