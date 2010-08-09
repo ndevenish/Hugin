@@ -283,6 +283,7 @@ bool PanoramaMakefilelibExport::create()
 	mgr.own_add(new Comment("all input images"));
 	// Assemble them all into one string
 	std::vector<std::string> inimages;
+
 	for (unsigned int i=0; i < pano.getNrOfImages(); i++)
 	{
 		inimages.push_back(pano.getImage(i).getFilename());
@@ -291,40 +292,29 @@ bool PanoramaMakefilelibExport::create()
 	newVarDef(vinimagesshell, "INPUT_IMAGES_SHELL", inimages.begin(), inimages.end(), Makefile::SHELL, "\\\n");
 
 	//----------
-
-	mgr.own_add(new Comment("remapped images"));
 	std::vector<std::string> remappedImages;
+	std::vector<std::string> remappedHDRImages;
+	std::vector<std::string> remappedHDRgrayImages;
+
 	for (UIntSet::iterator it = images.begin(); it != images.end(); it++)
 	{
-		std::ostringstream fns;
-		fns << outputPrefix << std::setfill('0') << std::setw(4) << *it << ldrRemappedExt;
-        remappedImages.push_back(fns.str());
+		std::ostringstream fn1, fn2, fn3;
+		fn1 << outputPrefix << std::setfill('0') << std::setw(4) << *it << ldrRemappedExt;
+		fn2 << outputPrefix << "_hdr_" << std::setfill('0') << std::setw(4) << *it << hdrRemappedExt;
+		fn3 << outputPrefix << "_hdr_" << std::setfill('0') << std::setw(4) << *it << hdrgrayRemappedExt;
+        remappedImages.push_back(fn1.str());
+        remappedHDRImages.push_back(fn2.str());
+        remappedHDRgrayImages.push_back(fn3.str());
 	}
+	mgr.own_add(new Comment("remapped images"));
 	newVarDef(vldrlayers, "LDR_LAYERS", remappedImages.begin(), remappedImages.end(), Makefile::MAKE, "\\\n");
 	newVarDef(vldrlayersshell, "LDR_LAYERS_SHELL", remappedImages.begin(), remappedImages.end(), Makefile::SHELL, "\\\n");
-	//----------
 
 	mgr.own_add(new Comment("remapped images (hdr)"));
-	std::vector<std::string> remappedHDRImages;
-	for (UIntSet::iterator it = images.begin(); it != images.end(); it++)
-	{
-		std::ostringstream fns;
-		fns << outputPrefix << "_hdr_" << std::setfill('0') << std::setw(4) << *it << hdrRemappedExt;
-		remappedHDRImages.push_back(fns.str());
-	}
 	newVarDef(vhdrlayers, "HDR_LAYERS", remappedHDRImages.begin(), remappedHDRImages.end(), Makefile::MAKE, "\\\n");
 	newVarDef(vhdrlayersshell, "HDR_LAYERS_SHELL", remappedHDRImages.begin(), remappedHDRImages.end(), Makefile::SHELL, "\\\n");
 
-	//----------
-
 	mgr.own_add(new Comment("remapped maxval images"));
-	std::vector<std::string> remappedHDRgrayImages;
-	for (UIntSet::iterator it = images.begin(); it != images.end(); it++)
-	{
-		std::ostringstream fns;
-		fns << outputPrefix << "_hdr_" << std::setfill('0') << std::setw(4) << *it << hdrgrayRemappedExt;
-		remappedHDRgrayImages.push_back(fns.str());
-	}
 	newVarDef(vhdrgraylayers, "HDR_LAYERS_WEIGHTS", remappedHDRgrayImages.begin(), remappedHDRgrayImages.end(), Makefile::MAKE, "\\\n");
 	newVarDef(vhdrgraylayersshell, "HDR_LAYERS_WEIGHTS_SHELL", remappedHDRgrayImages.begin(), remappedHDRgrayImages.end(), Makefile::SHELL, "\\\n");
 
