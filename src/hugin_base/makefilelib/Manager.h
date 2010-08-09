@@ -59,10 +59,12 @@ public:
 	 * with any further.
 	 * @param item
 	 */
-	void own_add(PrimaryMakefileItem* item)
+	template<class MI>
+	MI* own_add(MI* item)
 	{
 		own(item);
 		item->add();
+		return item;
 	}
 
 };

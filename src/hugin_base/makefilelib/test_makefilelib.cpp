@@ -148,6 +148,35 @@ struct TestConditional : public Test
 	}
 };
 
+struct TestVariable : public Test
+{
+	Manager mgr;
+	const std::vector<string> values;
+	TestVariable()
+	: Test("Variable",
+		"a single value\n"
+		"3.14592\n"
+		"a single word__another word__value3\n")
+	{
+		Variable* v1 = mgr.own(new Variable(cstr("VAR1"), cstr("a single value")));
+		Variable* v2 = mgr.own(new Variable(cstr("VAR2"), 3.14592));
+		std::vector<string> values;
+		values.push_back("a single word");
+		values.push_back("another word");
+		values.push_back("value3");
+		Variable* v3 = mgr.own(new Variable(cstr("VAR3"), values.begin(), values.end(),
+				Makefile::SHELL, cstr("__")));
+
+		v1->getDef().add(); v2->getDef().add(); v3->getDef().add();
+
+		Rule* rule = mgr.own_add(new Rule());
+		rule->addTarget(cstr("all"));
+		rule->addCommand(cstr("@echo ") + v1->getRef().toString());
+		rule->addCommand(cstr("@echo ") + v2->getRef().toString());
+		rule->addCommand(cstr("@echo ") + v3->getRef().toString());
+	}
+};
+
 void do_test(bool& result, Test* test)
 {
 	result &= test->run();
@@ -162,6 +191,7 @@ int main(int argc, char *argv[])
 	do_test(result, new TestComment);
 	do_test(result, new TestRule);
 	do_test(result, new TestConditional);
+	do_test(result, new TestVariable);
 	return !result;		// return 0 on success (= !true)
 }
 

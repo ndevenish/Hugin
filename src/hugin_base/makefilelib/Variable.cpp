@@ -9,7 +9,7 @@
 #include "StringAdapter.h"
 #include <stdexcept>
 #include <sstream>
-
+#include <algorithm>
 
 namespace makefile
 {
@@ -32,17 +32,56 @@ void Variable::checkName()
  */
 void Variable::checkValue()
 {
-	static const regex invalid(cstr("\\R"));
-	if(boost::regex_search(value, invalid))
-		throw std::invalid_argument("Bad Variable value: " + StringAdapter(value));
+	static const regex invalid(cstr("[^\\\\]\\R"));
+	if(boost::regex_search(getValue(), invalid))
+		throw std::invalid_argument("Bad Variable value: " + StringAdapter(getValue()));
 }
 
+Variable::Variable(string name_, string value_, Makefile::QuoteMode quotemode_)
+: name(name_), def(*this), ref(*this), quotemode(quotemode_), exported(false)
+{
+	values.push_back(value_);
+	checkName();
+	checkValue();
+}
 Variable::Variable(string name_, double value_, Makefile::QuoteMode quotemode_)
 : name(name_), def(*this), ref(*this), quotemode(quotemode_), exported(false)
 {
+	checkName();
 	std::ostringstream val;
 	val.imbue(Makefile::locale);
 	val << value_;
-	value = val.str();
+	values.push_back(val.str());
 }
+
+Variable::Variable(string name_, std::vector<string>::iterator start, std::vector<string>::iterator end,
+		Makefile::QuoteMode quotemode_, string separator_)
+: name(name_), separator(separator_), def(*this), ref(*this), quotemode(quotemode_), exported(false)
+{
+	checkName();
+	copy(start, end, std::back_inserter(values));
+	checkValue();
+}
+
+const string Variable::getValue()
+{
+	string v;
+	for(std::vector<string>::iterator it = values.begin(); it != values.end(); it++)
+	{
+		if(it != values.begin()) v += separator;
+		v += *it;
+	}
+	return v;
+}
+const string Variable::getquotedValue()
+{
+	string v;
+	for(std::vector<string>::iterator it = values.begin(); it != values.end(); it++)
+	{
+		if(it != values.begin()) v += separator;
+		v += Makefile::quote(*it, quotemode);
+	}
+	return v;
+}
+
 }
