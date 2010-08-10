@@ -117,7 +117,7 @@ public:
 
 	  void run() 
 	  {	
-		  //if (!PanoDetector::AnalyzeImage(_imgData, _panoDetector)) return;
+		  if (!PanoDetector::AnalyzeImage(_imgData, _panoDetector)) return;
 		  PanoDetector::FindKeyPointsInImage(_imgData, _panoDetector);
 		  PanoDetector::FilterKeyPointsInImage(_imgData, _panoDetector);
 		  PanoDetector::MakeKeyPointDescriptorsInImage(_imgData, _panoDetector);
@@ -138,7 +138,7 @@ public:
 
 	  void run() 
 	  {	
-		  //if (!PanoDetector::AnalyzeImage(_imgData, _panoDetector)) return;
+		  if (!PanoDetector::AnalyzeImage(_imgData, _panoDetector)) return;
 		  PanoDetector::FindKeyPointsInImage(_imgData, _panoDetector);
 		  PanoDetector::FilterKeyPointsInImage(_imgData, _panoDetector);
 		  PanoDetector::MakeKeyPointDescriptorsInImage(_imgData, _panoDetector);
@@ -179,6 +179,7 @@ public:
 		  PanoDetector::FindMatchesInPair(_matchData, _panoDetector);
 		  PanoDetector::RansacMatchesInPair(_matchData, _panoDetector);
 		  PanoDetector::FilterMatchesInPair(_matchData, _panoDetector);
+		  PanoDetector::RemapBackMatches(_matchData, _panoDetector);
 	  }
 private:
 	const PanoDetector&			_panoDetector;
@@ -194,10 +195,6 @@ void PanoDetector::run()
 
 	// Load the input project file
 	if(!loadProject()) return;
-
-	// 1. Load images from the project if no keypoint file is given
-	if (_keyPointsIdx.size() == 0 && !_writeAllKeyPoints)
-		loadImages();
 
 	// 2. run analysis of images or keypoints
 	try 
@@ -260,21 +257,11 @@ void PanoDetector::run()
 			return;
 		}
 
-		// Remap control points back to Rectilinear projection if necessary
-		double scale;
-		if(_stereoRemap)
-		{
-			TRACE_INFO(endl<< "--- Remap Back matches---" << endl << endl);
-			remapBackMatches();
-         scale=1.0;
-		} else {
-         scale = _downscale ? 2.0:1.0;
-		};
 		// Add detected matches to _panoramaInfo
 		BOOST_FOREACH(MatchData& aM, _matchesData)
 			BOOST_FOREACH(lfeat::PointMatchPtr& aPM, aM._matches)
-				_panoramaInfo->addCtrlPoint(ControlPoint(aM._i1->_number, scale*aPM->_img1_x, scale*aPM->_img1_y,
-										 							  aM._i2->_number, scale*aPM->_img2_x, scale*aPM->_img2_y));
+				_panoramaInfo->addCtrlPoint(ControlPoint(aM._i1->_number, aPM->_img1_x, aPM->_img1_y,
+										 							  aM._i2->_number, aPM->_img2_x, aPM->_img2_y));
 	}
 	
 	// 5. write output
@@ -317,28 +304,55 @@ bool PanoDetector::loadProject()
 	int nImg = _panoramaInfo->getNrOfImages();
 	for (unsigned int imgNr = 0; imgNr < nImg; ++imgNr)
 	{
-		// Change image position in the copy
-		SrcPanoImage img=_panoramaInfoCopy.getSrcImage(imgNr);
-   	img.setYaw(0);
-   	img.setRoll(0);
-   	img.setPitch(0);
-   	img.setX(0);
-   	img.setY(0);
-   	img.setZ(0);
-   	img.setActive(true);
-		_panoramaInfoCopy.setImage(imgNr,img);
-
 		// insert the image in the map
 		_filesData.insert(make_pair(imgNr, ImgData()));
 		
 		// get the data
 		ImgData& aImgData = _filesData[imgNr];
 
+		// get a copy of image info
+		SrcPanoImage img = _panoramaInfoCopy.getSrcImage(imgNr);
+
 		// set the name
 		aImgData._name = img.getFilename();
 
+		// modify image position in the copy
+		img.setYaw(0);
+		img.setRoll(0);
+		img.setPitch(0);
+		img.setX(0);
+		img.setY(0);
+		img.setZ(0);
+		img.setActive(true);
+		_panoramaInfoCopy.setImage(imgNr,img);
+
 		// Number pointing to image info in _panoramaInfo
 		aImgData._number = imgNr;
+
+		// set image detection size
+		_filesData[imgNr]._detectWidth = img.getSize().width();
+		_filesData[imgNr]._detectHeight = img.getSize().height();
+		if (_downscale)
+	   {
+		   _filesData[imgNr]._detectWidth >>= 1;
+		   _filesData[imgNr]._detectHeight >>= 1;
+	   }
+
+		// set image remapping options
+		aImgData._projOpts = _panoramaInfoCopy.getOptions();
+		aImgData._projOpts.setHFOV(img.getHFOV());
+		aImgData._projOpts.setWidth(_filesData[imgNr]._detectWidth);
+		aImgData._projOpts.setHeight(_filesData[imgNr]._detectHeight);
+		aImgData._projOpts.setProjection(PanoramaOptions::STEREOGRAPHIC);
+		if(img.getHFOV() >= 65) //TODO: >=65
+		{
+			aImgData._projOpts.setProjection(PanoramaOptions::STEREOGRAPHIC);
+			aImgData._needsremap = true;
+		}		
+		else
+		{
+			aImgData._needsremap = false;	
+		}
 
 		// Specify if the image has an associated keypoint file
 		std::string keyfilename = aImgData._name;
@@ -350,24 +364,10 @@ bool PanoDetector::loadProject()
 	return true;
 }
 
-void PanoDetector::loadImages()
+/*void PanoDetector::loadImages()
 {	
 	// Define Progress
 	AppBase::StreamMultiProgressDisplay progress(cout);
-
-	// All images are remapped to stereographic projection only if
-	// one image or more has an hfov >=65
-	int nImg = _panoramaInfo->getNrOfImages();
-	for (unsigned int imgNr = 0; imgNr < nImg; ++imgNr)
-	{
-		SrcPanoImage img=_panoramaInfoCopy.getSrcImage(imgNr);
-		if(img.getHFOV()>=0)// TODO: >=65
-		{
-			_stereoRemap = true;
-			break;
-		}
-		_stereoRemap = false;
-	}
 
 	// Load and format images
 	FileRemapper<vigra::BRGBImage, vigra::BImage> remapper;	//TODO : Grayscale images case
@@ -449,9 +449,9 @@ void PanoDetector::loadImages()
       // vigra::exportImage(srcImageRange(final_img), exinfo);
 	}
 	progress.popTask();
-}
+}*/
 
-void PanoDetector::remapBackMatches()
+/*void PanoDetector::remapBackMatches()
 {
 		// Remap control points back to rectilinear coordinates
     	HuginBase::PTools::Transform trafo;
@@ -478,7 +478,7 @@ void PanoDetector::remapBackMatches()
                	{
                      aPM->_img1_x=xout;
 	                  aPM->_img1_y=yout;
-                  };
+                  }
 						//cout << imgNr << ": A-" << aPM->_img1_x << " " << aPM->_img1_y << endl;
 					}
 					if(aM._i2->_number == imgNr)
@@ -494,7 +494,7 @@ void PanoDetector::remapBackMatches()
 				}
 			}
 		}
-}
+}*/
 
 bool PanoDetector::checkLoadSuccess()
 {

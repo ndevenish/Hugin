@@ -145,7 +145,7 @@ private:
 	int						_cores;
    bool                 _downscale;
 		
-	bool						_stereoRemap;
+//	bool						_stereoRemap;
 
 	// list of files
 	std::string				_outputFile;
@@ -155,10 +155,10 @@ private:
  	Panorama*			_panoramaInfo;
  	Panorama				_panoramaInfoCopy;
 	
-	void					prepareImages();
+//	void					prepareImages();
 	bool					loadProject();
-	void					loadImages();
-	void					remapBackMatches();
+//	void					loadImages();
+//	void					remapBackMatches();
 	bool	      		checkLoadSuccess();
 	void					prepareMatches();
 
@@ -169,18 +169,22 @@ private:
 public:
 	struct ImgData
 	{	
-		std::string		_name;
+		std::string			_name;
 
-		int				_number;
-		int				_detectWidth;
-		int				_detectHeight;
+		int					_number;
+		int					_detectWidth;
+		int					_detectHeight;
 
-		lfeat::Image	_ii;
+		lfeat::Image		_ii;
 
-		bool _hasakeyfile;
+		bool					_needsremap;
+		PanoramaOptions 	_projOpts;		
+
+		bool 					_hasakeyfile;
+
 		lfeat::KeyPointVect_t	_kp;
-		int				_descLength;
-   	bool            _loadFail;
+		int					_descLength;
+   	bool          	   _loadFail;
 
 		// kdtree
 		KDElemKeyPointVect_t	_kdv;
@@ -213,6 +217,7 @@ public:
 	static bool				FindMatchesInPair(MatchData& ioMatchData, const PanoDetector& iPanoDetector);
 	static bool				RansacMatchesInPair(MatchData& ioMatchData, const PanoDetector& iPanoDetector);
 	static bool				FilterMatchesInPair(MatchData& ioMatchData, const PanoDetector& iPanoDetector);
+	static bool				RemapBackMatches(MatchData& ioMatchData, const PanoDetector& iPanoDetector);
 
 private:
 	ImgData_t				_filesData;
