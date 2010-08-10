@@ -46,6 +46,9 @@ static const string hdrgrayRemappedExt = "_gray.pgm";
 static const string hdrRemappedExt = ".exr";
 const string ldrRemappedExt(".tif");
 
+std::vector<UIntSet> getHDRStacks(const PanoramaData & pano, UIntSet allImgs);
+std::vector<UIntSet> getExposureLayers(const PanoramaData & pano, UIntSet allImgs);
+
 bool PanoramaMakefilelibExport::create()
 {
 	mgr.own_add((new Comment(
@@ -319,13 +322,22 @@ bool PanoramaMakefilelibExport::create()
 	newVarDef(vhdrgraylayersshell, "HDR_LAYERS_WEIGHTS_SHELL", remappedHDRgrayImages.begin(), remappedHDRgrayImages.end(), Makefile::SHELL, "\\\n");
 
 	//----------
-	// hdr stacks
-	std::vector<mf::Variable*> hdr_stacks;
-	std::vector<mf::Variable*> hdr_stacks_shell;
-	std::vector<mf::Variable*> hdr_stacks_input;
-	std::vector<makefile::Variable*> hdr_stacks_input_shell;
-	createhdrstacks(hdr_stacks, hdr_stacks_shell, hdr_stacks_input, hdr_stacks_input_shell);
+	// hdr, exposure, ldr stacks
+	std::vector<mf::Variable*> hdr_stacks, hdr_stacks_shell, hdr_stacks_input, hdr_stacks_input_shell;
+	mgr.own_add(new Comment("stacked hdr images"));
+	std::vector<UIntSet> stacks = getHDRStacks(pano, images);
+	createstacks(stacks, "HDR_STACK", "_stack_hdr_", "_hdr_", hdrRemappedExt,
+			hdr_stacks, hdr_stacks_shell, hdr_stacks_input, hdr_stacks_input_shell);
 
+	std::vector<mf::Variable*> ldrexp_stacks, ldrexp_stacks_shell, ldrexp_stacks_input, ldrexp_stacks_input_shell;
+	mgr.own_add(new Comment("number of image sets with similar exposure"));
+	createexposure(getExposureLayers(pano, images), "LDR_EXPOSURE_LAYER", "_exposure_", "_exposure_layers_", ldrRemappedExt,
+				ldrexp_stacks, ldrexp_stacks_shell, ldrexp_stacks_input, ldrexp_stacks_input_shell);
+
+	std::vector<mf::Variable*> ldr_stacks, ldr_stacks_shell, ldr_stacks_input, ldr_stacks_input_shell;
+	mgr.own_add(new Comment("stacked ldr images"));
+	createstacks(stacks, "LDR_STACK", "_stack_ldr_", "_exposure_layers_", ldrRemappedExt,
+			ldr_stacks, ldr_stacks_shell, ldr_stacks_input, ldr_stacks_input_shell);
 
 
 
@@ -334,61 +346,136 @@ bool PanoramaMakefilelibExport::create()
 	return true;
 }
 
-std::vector<UIntSet> getHDRStacks(const PanoramaData & pano, UIntSet allImgs);
-void PanoramaMakefilelibExport::createhdrstacks(std::vector<mf::Variable*>& hdr_stacks,
-		std::vector<mf::Variable*>& hdr_stacks_shell,
-		std::vector<mf::Variable*>& hdr_stacks_input,
-		std::vector<makefile::Variable*>& hdr_stacks_input_shell)
+
+void PanoramaMakefilelibExport::createstacks(const std::vector<UIntSet> stackdata,
+		const std::string stkname,
+		const std::string filenamecenter, const std::string inputfilenamecenter, const std::string filenameext,
+		std::vector<mf::Variable*>& stacks,
+		std::vector<mf::Variable*>& stacks_shell,
+		std::vector<mf::Variable*>& stacks_input,
+		std::vector<makefile::Variable*>& stacks_input_shell)
 {
-	std::vector<UIntSet> stacks = getHDRStacks(pano, images);
-	mgr.own_add(new Comment("stacked images"));
 	std::ostringstream stknrs;
-	for (unsigned i=0; i < stacks.size(); i++)
+	for (unsigned i=0; i < stackdata.size(); i++)
 	{
 		stknrs << i << " ";
 		std::ostringstream filename, stackname;
-		filename << outputPrefix << "_stack_hdr_" << std::setfill('0') << std::setw(4) << i << hdrRemappedExt;
-		stackname << "HDR_STACK_" << i;
+		filename << outputPrefix << filenamecenter << std::setfill('0') << std::setw(4) << i << filenameext;
+		stackname << stkname << "_" << i;
 
 		std::vector<std::string> inputs;
-		for (UIntSet::iterator it = stacks[i].begin(); it != stacks[i].end(); it++)
+		for (UIntSet::iterator it = stackdata[i].begin(); it != stackdata[i].end(); it++)
 		{
 			std::ostringstream fns;
-			fns << outputPrefix << "_hdr_" << std::setfill('0') << std::setw(4) << *it << hdrRemappedExt;
+			fns << outputPrefix << inputfilenamecenter << std::setfill('0') << std::setw(4) << *it << filenameext;
 			inputs.push_back(fns.str());
 		}
 		mf::Variable* v;
 		v = mgr.own(new mf::Variable(stackname.str(), filename.str(), Makefile::MAKE));
-		hdr_stacks.push_back(v);
+		stacks.push_back(v);
 		v->getDef().add();
 
 		v = mgr.own(new mf::Variable(stackname.str() + "_SHELL", filename.str(), Makefile::SHELL));
-		hdr_stacks_shell.push_back(v);
+		stacks_shell.push_back(v);
 		v->getDef().add();
 
 		v= mgr.own(new mf::Variable(stackname.str() + "_INPUT", inputs.begin(), inputs.end(), Makefile::MAKE, "\\\n"));
-		hdr_stacks_input.push_back(v);
+		stacks_input.push_back(v);
 		v->getDef().add();
 
 		v = mgr.own(new mf::Variable(stackname.str() + "_INPUT_SHELL", inputs.begin(), inputs.end(), Makefile::SHELL, "\\\n"));
-		hdr_stacks_input_shell.push_back(v);
+		stacks_input_shell.push_back(v);
 		v->getDef().add();
 	}
-	newVarDef(vhdrstacksnr, "HDR_STACKS_NUMBERS", stknrs.str(), Makefile::NONE);
+	newVarDef(vhdrstacksnr, stkname + "S_NUMBERS", stknrs.str(), Makefile::NONE);
 
 	std::string stackrefs;
 	std::string stackrefsshell;
 	std::vector<mf::Variable*>::iterator it, it2;
-	it = hdr_stacks.begin();
-	it2 = hdr_stacks_shell.begin();
-	for(; it != hdr_stacks.end() && it2 != hdr_stacks_shell.end(); it++, it2++)
+	it = stacks.begin();
+	it2 = stacks_shell.begin();
+	for(; it != stacks.end() && it2 != stacks_shell.end(); it++, it2++)
 	{
 		stackrefs += (*it)->getRef().toString() + " ";
 		stackrefsshell += (*it2)->getRef().toString() + " ";
 	}
-	newVarDef(vstacks, "HDR_STACKS", stackrefs, Makefile::NONE);
-	newVarDef(vstacksshell, "HDR_STACKS_SHELL", stackrefsshell, Makefile::NONE);
+	newVarDef(vstacks, stkname + "S", stackrefs, Makefile::NONE);
+	newVarDef(vstacksshell, stkname + "S_SHELL", stackrefsshell, Makefile::NONE);
 
 }
+void PanoramaMakefilelibExport::createexposure(const std::vector<UIntSet> stackdata,
+		const std::string stkname,
+		const std::string filenamecenter, const std::string inputfilenamecenter, const std::string filenameext,
+		std::vector<mf::Variable*>& stacks,
+		std::vector<mf::Variable*>& stacks_shell,
+		std::vector<mf::Variable*>& stacks_input,
+		std::vector<makefile::Variable*>& stacks_input_shell)
+{
+	std::vector<std::string> allimgs;
+	std::ostringstream stknrs;
+	for (unsigned i=0; i < stackdata.size(); i++)
+	{
+		stknrs << i << " ";
+		std::ostringstream filename, stackname;
+		filename << outputPrefix << filenamecenter << std::setfill('0') << std::setw(4) << i << filenameext;
+		stackname << stkname << "_" << i;
 
+		std::vector<std::string> inputs, inputspt;
+		double exposure = 0;
+		for (UIntSet::iterator it = stackdata[i].begin(); it != stackdata[i].end(); it++)
+		{
+			std::ostringstream fns, fnpt;
+			fns << outputPrefix << inputfilenamecenter << std::setfill('0') << std::setw(4) << *it << filenameext;
+			fnpt << outputPrefix << std::setfill('0') << std::setw(4) << *it << filenameext;
+			inputs.push_back(fns.str());
+			inputspt.push_back(fnpt.str());
+
+			exposure += pano.getSrcImage(*it).getExposureValue();
+			allimgs.push_back(fns.str());
+		}
+		mf::Variable* v;
+		v = mgr.own(new mf::Variable(stackname.str(), filename.str(), Makefile::MAKE));
+		stacks.push_back(v);
+		v->getDef().add();
+
+		v = mgr.own(new mf::Variable(stackname.str() + "_SHELL", filename.str(), Makefile::SHELL));
+		stacks_shell.push_back(v);
+		v->getDef().add();
+
+		v= mgr.own(new mf::Variable(stackname.str() + "_INPUT", inputs.begin(), inputs.end(), Makefile::MAKE, "\\\n"));
+		stacks_input.push_back(v);
+		v->getDef().add();
+
+		v = mgr.own(new mf::Variable(stackname.str() + "_INPUT_SHELL", inputs.begin(), inputs.end(), Makefile::SHELL, "\\\n"));
+		stacks_input_shell.push_back(v);
+		v->getDef().add();
+
+		v= mgr.own(new mf::Variable(stackname.str() + "_INPUT_PTMENDER", inputspt.begin(), inputspt.end(), Makefile::MAKE, "\\\n"));
+		stacks_input.push_back(v);
+		v->getDef().add();
+
+		v = mgr.own(new mf::Variable(stackname.str() + "_INPUT_PTMENDER_SHELL", inputspt.begin(), inputspt.end(), Makefile::SHELL, "\\\n"));
+		stacks_input_shell.push_back(v);
+		v->getDef().add();
+
+		v = mgr.own(new mf::Variable(stackname.str() + "_EXPOSURE", exposure / stackdata[i].size()));
+		v->getDef().add();
+	}
+	newVarDef(vhdrstacksnr, stkname + "S_NUMBERS", stknrs.str(), Makefile::NONE);
+
+	std::string stackrefs;
+	std::string stackrefsshell;
+	std::vector<mf::Variable*>::iterator it, it2;
+	it = stacks.begin();
+	it2 = stacks_shell.begin();
+	for(; it != stacks.end() && it2 != stacks_shell.end(); it++, it2++)
+	{
+		stackrefs += (*it)->getRef().toString() + " ";
+		stackrefsshell += (*it2)->getRef().toString() + " ";
+	}
+	newVarDef(vstacks, stkname + "S", stackrefs, Makefile::NONE);
+	newVarDef(vstacksshell, stkname + "S_SHELL", stackrefsshell, Makefile::NONE);
+	newVarDef(vstackrem, stkname + "S_REMAPPED", allimgs.begin(), allimgs.end(), Makefile::MAKE, "\\\n");
+	newVarDef(vstackremshell, stkname + "S_REMAPPED_SHELL", allimgs.begin(), allimgs.end(), Makefile::SHELL, "\\\n");
+}
 }

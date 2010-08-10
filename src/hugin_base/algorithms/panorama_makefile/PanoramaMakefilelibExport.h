@@ -76,10 +76,20 @@ private:
 
 	bool create();
 
-	void createhdrstacks(std::vector<makefile::Variable*>& hdr_stacks,
-			std::vector<makefile::Variable*>& hdr_stacks_shell,
-			std::vector<makefile::Variable*>& hdr_stacks_input,
-			std::vector<makefile::Variable*>& hdr_stacks_input_shell);
+	void createstacks(const std::vector<UIntSet> stackdata,
+			const std::string stkname,
+			const std::string filenamecenter, const std::string inputfilenamecenter, const std::string filenameext,
+			std::vector<makefile::Variable*>& stacks,
+			std::vector<makefile::Variable*>& stacks_shell,
+			std::vector<makefile::Variable*>& stacks_input,
+			std::vector<makefile::Variable*>& stacks_input_shell);
+	void createexposure(const std::vector<UIntSet> stackdata,
+			const std::string stkname,
+			const std::string filenamecenter, const std::string inputfilenamecenter, const std::string filenameext,
+			std::vector<makefile::Variable*>& stacks,
+			std::vector<makefile::Variable*>& stacks_shell,
+			std::vector<makefile::Variable*>& stacks_input,
+			std::vector<makefile::Variable*>& stacks_input_shell);
 public:
 	PanoramaMakefilelibExport(PanoramaData & pano_,
             const UIntSet & images_,
