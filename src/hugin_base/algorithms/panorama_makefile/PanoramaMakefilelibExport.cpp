@@ -69,8 +69,8 @@ bool PanoramaMakefilelibExport::create()
 	}
 
 #ifdef _WINDOWS
-	mgr.own_add(new Comment("Force using cmd.exe"); cwinshell.add());
-	mf::Variable* winshell = mgr_own(new Variable("SHELL", getenv("ComSpec")));
+	mgr.own_add(new Comment("Force using cmd.exe");
+	mf::Variable* winshell = mgr_own(new mf::Variable("SHELL", getenv("ComSpec")));
 	winshell->getDef().add();
 #endif
 
