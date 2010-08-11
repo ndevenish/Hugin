@@ -24,6 +24,7 @@
 #include <makefilelib/Rule.h>
 #include <makefilelib/Conditional.h>
 #include <makefilelib/Manager.h>
+#include <makefilelib/Anything.h>
 
 #include <panodata/PanoramaData.h>
 #include <hugin_utils/utils.h>
@@ -49,7 +50,7 @@ const string ldrRemappedExt(".tif");
 std::vector<UIntSet> getHDRStacks(const PanoramaData & pano, UIntSet allImgs);
 std::vector<UIntSet> getExposureLayers(const PanoramaData & pano, UIntSet allImgs);
 
-bool PanoramaMakefilelibExport::create()
+bool PanoramaMakefilelibExport::createItems()
 {
 	mgr.own_add((new Comment(
 		"makefile for panorama stitching, created by hugin using the new makefilelib")));
@@ -326,23 +327,164 @@ bool PanoramaMakefilelibExport::create()
 	std::vector<mf::Variable*> hdr_stacks, hdr_stacks_shell, hdr_stacks_input, hdr_stacks_input_shell;
 	mgr.own_add(new Comment("stacked hdr images"));
 	std::vector<UIntSet> stacks = getHDRStacks(pano, images);
+	mf::Variable* vhdrstacks,* vhdrstacksshell;
 	createstacks(stacks, "HDR_STACK", "_stack_hdr_", "_hdr_", hdrRemappedExt,
-			hdr_stacks, hdr_stacks_shell, hdr_stacks_input, hdr_stacks_input_shell);
+			hdr_stacks, hdr_stacks_shell, hdr_stacks_input, hdr_stacks_input_shell, vhdrstacks, vhdrstacksshell);
 
 	std::vector<mf::Variable*> ldrexp_stacks, ldrexp_stacks_shell, ldrexp_stacks_input, ldrexp_stacks_input_shell;
 	mgr.own_add(new Comment("number of image sets with similar exposure"));
+	mf::Variable* vldrexposurelayers,* vldrexposurelayersshell,* vldrexposurelayersremapped,* vldrexposurelayersremappedshell;
 	createexposure(getExposureLayers(pano, images), "LDR_EXPOSURE_LAYER", "_exposure_", "_exposure_layers_", ldrRemappedExt,
-				ldrexp_stacks, ldrexp_stacks_shell, ldrexp_stacks_input, ldrexp_stacks_input_shell);
+				ldrexp_stacks, ldrexp_stacks_shell, ldrexp_stacks_input, ldrexp_stacks_input_shell,
+				vldrexposurelayers, vldrexposurelayersshell, vldrexposurelayersremapped, vldrexposurelayersremappedshell);
 
 	std::vector<mf::Variable*> ldr_stacks, ldr_stacks_shell, ldr_stacks_input, ldr_stacks_input_shell;
 	mgr.own_add(new Comment("stacked ldr images"));
+	mf::Variable* vldrstacks,* vldrstacksshell;
 	createstacks(stacks, "LDR_STACK", "_stack_ldr_", "_exposure_layers_", ldrRemappedExt,
-			ldr_stacks, ldr_stacks_shell, ldr_stacks_input, ldr_stacks_input_shell);
+			ldr_stacks, ldr_stacks_shell, ldr_stacks_input, ldr_stacks_input_shell, vldrstacks, vldrstacksshell);
 
 
+	//----------
+	if(!includePath.empty())
+	{
+		mgr.own_add(new Anything("include " + Makefile::quote(includePath, Makefile::MAKE)));
+		return true;
+	}
 
-	Makefile::getSingleton().writeMakefile(makefile);
-	Makefile::getSingleton().clean();
+	//----------
+	// Collect prerequisites
+
+	std::vector<mf::Variable*> allprereqs, cleanprereqs;
+
+	if(opts.outputLDRBlended)
+	{
+		allprereqs.push_back(vldrblended);
+		newVarDef(vdoldrblend, "DO_LDR_BLENDED", 1);
+		if(!opts.outputLDRLayers)
+			cleanprereqs.push_back(vldrlayersshell);
+	}
+
+	if(opts.outputLDRLayers)
+		allprereqs.push_back(vldrlayers);
+
+	if(opts.outputLDRExposureRemapped)
+		allprereqs.push_back(vldrexposurelayersremapped);
+
+	if(opts.outputLDRExposureLayers)
+	{
+		allprereqs.push_back(vldrexposurelayers);
+		if(!opts.outputLDRExposureRemapped)
+			cleanprereqs.push_back(vldrexposurelayersremappedshell);
+	}
+
+	if(opts.outputLDRExposureBlended)
+	{
+		allprereqs.push_back(vldrstackedblended);
+		newVarDef(vdoldrstackedblended, "DO_LDR_STACKED_BLENDED", 1);
+		cleanprereqs.push_back(vldrstacksshell);
+		if(!opts.outputLDRExposureRemapped && !opts.outputLDRExposureLayers)
+			cleanprereqs.push_back(vldrexposurelayersremappedshell);
+	}
+
+	if(opts.outputLDRExposureLayersFused)
+	{
+		allprereqs.push_back(vldrexposurelayersfused);
+		newVarDef(vdoldrexposurelayersfused, "DO_LDR_EXPOSURE_LAYERS_FUSED", 1);
+		if(!opts.outputLDRExposureRemapped && !opts.outputLDRExposureLayers)
+		{
+			cleanprereqs.push_back(vldrexposurelayersremappedshell);
+			cleanprereqs.push_back(vldrexposurelayersshell);
+		}
+	}
+
+	if(opts.outputHDRLayers)
+		allprereqs.push_back(vhdrlayers);
+
+	if(opts.outputHDRStacks)
+	{
+		allprereqs.push_back(vhdrstacks);
+		if(!opts.outputHDRLayers)
+		{
+			cleanprereqs.push_back(vhdrlayersshell);
+			cleanprereqs.push_back(vhdrgraylayersshell);
+		}
+	}
+
+	if(opts.outputHDRBlended)
+	{
+		allprereqs.push_back(vhdrblended);
+		newVarDef(vdohdrblended, "DO_HDR_BLENDED", 1);
+		if(!opts.outputHDRStacks)
+		{
+			cleanprereqs.push_back(vhdrstacksshell);
+			if(!opts.outputHDRLayers)
+			{
+				cleanprereqs.push_back(vhdrlayersshell);
+				cleanprereqs.push_back(vhdrgraylayersshell);
+			}
+		}
+	}
+
+	//----------
+	// Assemble all and clean rules
+
+	Rule* all = mgr.own(new Rule());
+	all->addTarget("all");
+	for(std::vector<mf::Variable*>::iterator it = allprereqs.begin(); it != allprereqs.end(); it++)
+	{
+		all->addPrereq((*it)->getRef().toString());
+	}
+	all->add();
+
+	Rule* clean = mgr.own(new Rule());
+	clean->addTarget("clean");
+	{
+	std::string vdefs;
+		for(std::vector<mf::Variable*>::iterator it = cleanprereqs.begin(); it != cleanprereqs.end(); it++)
+		{
+			vdefs += (*it)->getRef().toString() + " ";
+		}
+	clean->addCommand('-' + vrm->getRef().toString() + ' ' + vdefs);
+	}
+	clean->add();
+
+	//----------
+	// Test rules check if programs exist.
+	Rule* test = mgr.own(new Rule());
+	test->addTarget("test");
+    // test remapper
+    switch(opts.remapper) {
+        case PanoramaOptions::NONA:
+            createcheckProgCmd(*test,"nona","@-$(NONA) --help");
+            break;
+        case PanoramaOptions::PTMENDER:
+            break;
+    }
+    // test blender
+    switch(opts.blendMode) {
+        case PanoramaOptions::ENBLEND_BLEND:
+            createcheckProgCmd(*test,"enblend","@-$(ENBLEND) -h");
+            break;
+        case PanoramaOptions::PTBLENDER_BLEND:
+            createcheckProgCmd(*test,"PTblender","@-$(PTBLENDER) -h");
+            break;
+        case PanoramaOptions::SMARTBLEND_BLEND:
+            createcheckProgCmd(*test,"smartblend","@-$(SMARTBLEND)");
+            break;
+    }
+    // test enfuse
+    createcheckProgCmd(*test,"enfuse","@-$(ENFUSE) -h");
+    // test hugin_hdrmerge
+    createcheckProgCmd(*test,"hugin_hdrmerge","@-$(HDRMERGE) -h");
+    // test exiftool
+    createcheckProgCmd(*test,"exiftool","@-$(EXIFTOOL) -ver");
+    test->add();
+
+	//----------
+	//----------
+	//----------
+
 	return true;
 }
 
@@ -353,7 +495,9 @@ void PanoramaMakefilelibExport::createstacks(const std::vector<UIntSet> stackdat
 		std::vector<mf::Variable*>& stacks,
 		std::vector<mf::Variable*>& stacks_shell,
 		std::vector<mf::Variable*>& stacks_input,
-		std::vector<makefile::Variable*>& stacks_input_shell)
+		std::vector<makefile::Variable*>& stacks_input_shell,
+		mf::Variable*& vstacks,
+		mf::Variable*& vstacksshell)
 {
 	std::ostringstream stknrs;
 	for (unsigned i=0; i < stackdata.size(); i++)
@@ -399,8 +543,10 @@ void PanoramaMakefilelibExport::createstacks(const std::vector<UIntSet> stackdat
 		stackrefs += (*it)->getRef().toString() + " ";
 		stackrefsshell += (*it2)->getRef().toString() + " ";
 	}
-	newVarDef(vstacks, stkname + "S", stackrefs, Makefile::NONE);
-	newVarDef(vstacksshell, stkname + "S_SHELL", stackrefsshell, Makefile::NONE);
+	vstacks = mgr.own(new mf::Variable(stkname + "S", stackrefs, Makefile::NONE));
+	vstacks->getDef().add();
+	vstacksshell = mgr.own(new mf::Variable(stkname + "S_SHELL", stackrefsshell, Makefile::NONE));
+	vstacksshell->getDef().add();
 
 }
 void PanoramaMakefilelibExport::createexposure(const std::vector<UIntSet> stackdata,
@@ -409,7 +555,11 @@ void PanoramaMakefilelibExport::createexposure(const std::vector<UIntSet> stackd
 		std::vector<mf::Variable*>& stacks,
 		std::vector<mf::Variable*>& stacks_shell,
 		std::vector<mf::Variable*>& stacks_input,
-		std::vector<makefile::Variable*>& stacks_input_shell)
+		std::vector<makefile::Variable*>& stacks_input_shell,
+		mf::Variable*& vstacks,
+		mf::Variable*& vstacksshell,
+		mf::Variable*& vstacksrem,
+		mf::Variable*& vstacksremshell)
 {
 	std::vector<std::string> allimgs;
 	std::ostringstream stknrs;
@@ -473,9 +623,26 @@ void PanoramaMakefilelibExport::createexposure(const std::vector<UIntSet> stackd
 		stackrefs += (*it)->getRef().toString() + " ";
 		stackrefsshell += (*it2)->getRef().toString() + " ";
 	}
-	newVarDef(vstacks, stkname + "S", stackrefs, Makefile::NONE);
-	newVarDef(vstacksshell, stkname + "S_SHELL", stackrefsshell, Makefile::NONE);
-	newVarDef(vstackrem, stkname + "S_REMAPPED", allimgs.begin(), allimgs.end(), Makefile::MAKE, "\\\n");
-	newVarDef(vstackremshell, stkname + "S_REMAPPED_SHELL", allimgs.begin(), allimgs.end(), Makefile::SHELL, "\\\n");
+	vstacks = mgr.own(new mf::Variable(stkname + "S", stackrefs, Makefile::NONE));
+	vstacks->getDef().add();
+	vstacksshell = mgr.own(new mf::Variable(stkname + "S_SHELL", stackrefsshell, Makefile::NONE));
+	vstacksshell->getDef().add();
+	vstacksrem = mgr.own( new mf::Variable(stkname + "S_REMAPPED", allimgs.begin(), allimgs.end(), Makefile::MAKE, "\\\n"));
+	vstacksrem->getDef().add();
+	vstacksremshell = mgr.own( new mf::Variable(stkname + "S_REMAPPED_SHELL", allimgs.begin(), allimgs.end(), Makefile::SHELL, "\\\n"));
+	vstacksremshell->getDef().add();
+}
+
+void PanoramaMakefilelibExport::createcheckProgCmd(Rule& testrule, const std::string& progName, const std::string& progCommand)
+{
+	std::string command;
+#ifdef _WINDOWS
+    testrule.addCommand("@echo Checking " + progName + "...");
+    testrule.addCommand(progCommand + " > NUL 2>&1 && echo " + progName + " is ok || echo " +
+    		progName + " failed");
+#else
+    testrule.addCommand("@echo -n 'Checking " + progName + "...");
+    testrule.addCommand(progCommand + " > /dev/null 2>&1 && echo '[OK]' || echo '[FAILED]'");
+#endif
 }
 }

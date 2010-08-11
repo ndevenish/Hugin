@@ -15,6 +15,7 @@
 #include <makefilelib/Manager.h>
 #include <makefilelib/Makefile.h>
 #include <makefilelib/Variable.h>
+#include <makefilelib/Rule.h>
 
 
 /**
@@ -74,7 +75,7 @@ private:
 	makefile::Manager mgr;
 	std::ostringstream valuestream;
 
-	bool create();
+	bool createItems();
 
 	void createstacks(const std::vector<UIntSet> stackdata,
 			const std::string stkname,
@@ -82,14 +83,27 @@ private:
 			std::vector<makefile::Variable*>& stacks,
 			std::vector<makefile::Variable*>& stacks_shell,
 			std::vector<makefile::Variable*>& stacks_input,
-			std::vector<makefile::Variable*>& stacks_input_shell);
+			std::vector<makefile::Variable*>& stacks_input_shell,
+			makefile::Variable*& vstacks,
+			makefile::Variable*& vstacksshell);
 	void createexposure(const std::vector<UIntSet> stackdata,
 			const std::string stkname,
 			const std::string filenamecenter, const std::string inputfilenamecenter, const std::string filenameext,
 			std::vector<makefile::Variable*>& stacks,
 			std::vector<makefile::Variable*>& stacks_shell,
 			std::vector<makefile::Variable*>& stacks_input,
-			std::vector<makefile::Variable*>& stacks_input_shell);
+			std::vector<makefile::Variable*>& stacks_input_shell,
+			makefile::Variable*& vstacks,
+			makefile::Variable*& vstacksshell,
+			makefile::Variable*& vstacksrem,
+			makefile::Variable*& vstacksremshell);
+
+	void createcheckProgCmd(makefile::Rule& testrule, const std::string& progName, const std::string& progCommand);
+
+	bool writeMakefile()
+	{
+		return makefile::Makefile::getSingleton().writeMakefile(makefile) != 0;
+	}
 public:
 	PanoramaMakefilelibExport(PanoramaData & pano_,
             const UIntSet & images_,
@@ -122,7 +136,8 @@ public:
 		PanoramaMakefilelibExport* instance = new PanoramaMakefilelibExport(
 				pano_, images_, ptofile_, outputPrefix_, progs_, includePath_,
 				outputFiles_, makefile_, tmpDir_);
-		instance->create();
+		instance->createItems();
+		instance->writeMakefile();
 		delete instance;
 	}
 
@@ -132,7 +147,7 @@ public:
 	}
 	bool runAlgorithm()
 	{
-		return create();
+		return createItems() && writeMakefile();
 	}
 
 	virtual ~PanoramaMakefilelibExport()
