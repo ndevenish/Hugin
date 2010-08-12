@@ -51,7 +51,8 @@ class Tool;
 class PreviewTool;
 class PreviewCropTool;
 class OverviewDragTool;
-class OverviewCameraTool;
+class PanosphereOverviewCameraTool;
+class PlaneOverviewCameraTool;
 class PreviewDragTool;
 class PreviewIdentifyTool;
 class PreviewDifferenceTool;
@@ -62,7 +63,8 @@ class PreviewLayoutLinesTool;
 class PanosphereOverviewProjectionGridTool;
 class PreviewProjectionGridTool;
 
-class OverviewOutlinesTool;
+class PanosphereOverviewOutlinesTool;
+class PlaneOverviewOutlinesTool;
 
 class GLPreviewFrame;
 
@@ -123,9 +125,11 @@ public:
 
 class GLwxAuiManager : public wxAuiManager {
 public:
-    GLwxAuiManager(GLPreviewFrame* frame) : frame(frame) {}
+    GLwxAuiManager(GLPreviewFrame* frame, GLPreview * preview, GLOverview * overview) : frame(frame), preview(preview), overview(overview) {}
     GLwxAuiFloatingFrame* CreateFloatingFrame(wxWindow* parent, const wxAuiPaneInfo& p);
     GLPreviewFrame * getPreviewFrame() {return frame;}
+    GLPreview * getGLPreview() {return preview;}
+    GLOverview * getGLOverview() {return overview;}
 
     bool ProcessDockResult(wxAuiPaneInfo& target,
                                    const wxAuiPaneInfo& new_pos);
@@ -133,6 +137,8 @@ public:
 
 private:
     GLPreviewFrame * frame;
+    GLPreview * preview;
+    GLOverview * overview;
 };
 
 
@@ -299,22 +305,37 @@ private:
     PreviewDragTool *drag_tool;
 
     PreviewIdentifyTool *identify_tool;
-    PreviewIdentifyTool *overview_identify_tool;
+    PreviewIdentifyTool *panosphere_overview_identify_tool;
+    PreviewIdentifyTool *plane_overview_identify_tool;
 
     PreviewDifferenceTool *difference_tool;
-    PreviewControlPointTool *control_point_tool;
+    PreviewDifferenceTool *plane_difference_tool;
+    PreviewDifferenceTool *panosphere_difference_tool;
+    
+    PreviewControlPointTool *preview_control_point_tool;
+    PreviewControlPointTool *panosphere_control_point_tool;
+    PreviewControlPointTool *plane_control_point_tool;
+
     PreviewPanoMaskTool *pano_mask_tool;    
-    PreviewLayoutLinesTool *m_layoutLinesTool;
+
+    PreviewLayoutLinesTool *m_preview_layoutLinesTool;
+    PreviewLayoutLinesTool *m_panosphere_layoutLinesTool;
+    PreviewLayoutLinesTool *m_plane_layoutLinesTool;
 
     PanosphereOverviewProjectionGridTool * overview_projection_grid;
     PreviewProjectionGridTool * preview_projection_grid;
 
-    PanosphereOverviewToolHelper *overview_helper;
+    PanosphereOverviewToolHelper *panosphere_overview_helper;
+
+    PlaneOverviewToolHelper *plane_overview_helper;
 
     OverviewDragTool *overview_drag_tool;
-    OverviewCameraTool *overview_camera_tool;
 
-    OverviewOutlinesTool *overview_outlines_tool;
+    PanosphereOverviewCameraTool *panosphere_overview_camera_tool;
+    PlaneOverviewCameraTool *plane_overview_camera_tool;
+    
+    PanosphereOverviewOutlinesTool *overview_outlines_tool;
+    PlaneOverviewOutlinesTool *plane_overview_outlines_tool;
 
     void TurnOffTools(std::set<Tool*> tools);
     

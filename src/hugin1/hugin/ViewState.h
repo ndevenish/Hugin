@@ -240,7 +240,7 @@ protected:
     std::map<unsigned int, fbool> dirty_mesh;
     bool dirty_draw, dirty_viewport;
 
-    float scale, genscale;
+    float scale, genscale, gl_scale;
     vigra::Rect2D visible_area;
     void (*RefreshFunc)(void *);
     void *refreshArg;
@@ -285,6 +285,7 @@ public:
 
     void setAngX(double angx_in);
     void setAngY(double angy_in);
+    void setR(double r) {R = r;}
 
 
 protected:
@@ -316,9 +317,17 @@ public:
 
     double getR() {return R;}
     double getFOV() {return fov;}
+    double getX() {return X;}
+    double getY() {return Y;}
+
+    void setR(double r) {R = r;}
+    void setX(double x) {X = x;}
+    void setY(double y) {Y = y;}
     
 protected:
 
+    double X;
+    double Y;
     double R;
     double fov;
 

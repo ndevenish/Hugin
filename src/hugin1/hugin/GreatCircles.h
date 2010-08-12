@@ -54,9 +54,10 @@ public:
      * @param startLong longitude of the first point in degrees.
      * @param endLat lattide of the second point in degrees.
      * @param endLong longitude of the second point in degrees.
+     * @param width width of the line in pixels.
      */
     void drawLineFromSpherical(double startLat, double startLong,
-                               double endLat, double endLong);
+                               double endLat, double endLong, double width = 1.0);
 private:
     VisualizationState * m_visualizationState;
 };
@@ -79,24 +80,27 @@ class GreatCircleArc
                        double endLat, double endLong,
                        VisualizationState & m_visualizationState);
         /// Draw the great circle arc on the fast preview
-        void draw(bool withCross=true) const;
+        void draw(bool withCross=true, double width = 1.0) const;
         /** Return the square of the minimal distance between the great circle arc and a coorinate on the panorama.
          * This is an approximation, but should be reasonable.
          */
         float squareDistance(hugin_utils::FDiff2D point) const;
 		double m_xscale ;
 		double getxscale() const;
-    protected:
+
         struct LineSegment
         {
             hugin_utils::FDiff2D vertices[2];
             /// Get the square of the minimal distance to a point.
             float squareDistance(hugin_utils::FDiff2D point) const;
             /// Specify the line to OpenGL. Must be within a glBegin/glEnd pair.
-            void doGL() const;
-			void doGLcross(int point, double cscale) const;
+			void doGLcross(int point, double cscale, VisualizationState *state) const;
+            void doGL(double width, VisualizationState *state, LineSegment * preceeding = NULL, LineSegment * proceeding = NULL) const;
         };
+
+    protected:
         std::vector<LineSegment> m_lines;
+        VisualizationState * m_visualizationState;
 		
 };
 

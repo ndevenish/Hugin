@@ -61,10 +61,11 @@ private:
     void HighlightColour(unsigned int index, unsigned int count,
                         unsigned char &red, unsigned char &green,
                         unsigned char &blue);
+    static bool texture_created;
     /// OpenGL texture name for the circular border texture.
-    unsigned int circle_border_tex;
+    static unsigned int circle_border_tex;
     /// OpenGL texture name for the rectangular border texture.
-    unsigned int rectangle_border_tex;
+    static unsigned int rectangle_border_tex;
     /// Set of image numbers of the images we are displaying highlighted.
     std::set<unsigned int> image_set;
     GLPreviewFrame *preview_frame;

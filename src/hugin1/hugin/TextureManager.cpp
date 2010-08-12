@@ -442,6 +442,10 @@ void TextureManager::CheckUpdate()
     {
         CleanTextures();
     }
+//    std::map<TextureKey, TextureInfo>::iterator it;
+//    for (it = textures.begin() ; it != textures.end() ; it++) {
+//        DEBUG_DEBUG("textures num " << it->second.GetNumber());
+//    }
 }
 
 void TextureManager::SetPhotometricCorrect(bool state)
@@ -557,6 +561,7 @@ void TextureManager::TextureInfo::CreateTexture()
 {
     // Get an number for an OpenGL texture
     glGenTextures(1, (GLuint*) &num);
+    DEBUG_DEBUG("textures num created " << num);
     glGenTextures(1, (GLuint*) &numMask);
     // we want to generate all levels of detail, they are all undefined.
     min_lod = 1000;
@@ -620,6 +625,7 @@ void TextureManager::TextureInfo::SetParameters()
 TextureManager::TextureInfo::~TextureInfo()
 {
     // free up the graphics system's memory for this texture
+    DEBUG_DEBUG("textures num deleting " <<  num);
     glDeleteTextures(1, (GLuint*) &num);
     glDeleteTextures(1, (GLuint*) &numMask);
 }
@@ -667,7 +673,8 @@ void TextureManager::TextureInfo::DefineLevels(int min,
                                          const HuginBase::SrcPanoImage &src_img)
 {
     // This might take a while, so show a busy cursor.
-    wxBusyCursor busy_cursor;
+    //FIXME: busy cursor creates weird problem with calling checkupdate function again and messing up the textures
+//    wxBusyCursor busy_cursor;
     // activate the texture so we can change it.
     BindImageTexture();
     // find the highest allowable mip level
@@ -822,6 +829,8 @@ void TextureManager::TextureInfo::DefineLevels(int min,
     }
     SetParameters();
     DEBUG_INFO("Finsihed loading texture.");
+
+
 }
 
 void TextureManager::TextureInfo::DefineMaskTexture(const HuginBase::SrcPanoImage &srcImg)

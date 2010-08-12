@@ -41,10 +41,10 @@
  *  Perhaps not - not responding to user input allows us to
  *  show the control points while using the interactive tools.
  */
-class PreviewControlPointTool : public PreviewTool
+class PreviewControlPointTool : public Tool
 {
 public:
-    PreviewControlPointTool(PreviewToolHelper *helper);
+    PreviewControlPointTool(ToolHelper *helper);
     void Activate();
     void AfterDrawImagesEvent();
 private:

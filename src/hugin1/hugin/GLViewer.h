@@ -54,7 +54,8 @@ public:
             wxWindow* parent, 
             PT::Panorama &pano, 
             int args[], 
-            GLPreviewFrame *frame
+            GLPreviewFrame *frame,
+            wxGLContext * shared_context = NULL
             );
     virtual ~GLViewer();
     void RedrawE(wxPaintEvent& e);
@@ -63,8 +64,8 @@ public:
     static void RefreshWrapper(void *obj);
     void SetUpContext();
     void SetPhotometricCorrect(bool state);
-    void SetLayoutMode(bool state);
-    void SetLayoutScale(double scale);
+    virtual void SetLayoutMode(bool state);
+    virtual void SetLayoutScale(double scale);
     
     VisualizationState * m_visualization_state;
     static ViewState * m_view_state;
@@ -72,15 +73,15 @@ public:
     void SetActive(bool active) {this->active = active;}
     bool IsActive() {return active;}
 
+    wxGLContext * GetContext() {return m_glContext;}
+
 protected:
 
     void OnEraseBackground(wxEraseEvent& e);
     void MouseMotion(wxMouseEvent& e);
     void MouseLeave(wxMouseEvent & e);
-    void LeftDown(wxMouseEvent& e);
-    void LeftUp(wxMouseEvent& e);
-    void RightDown(wxMouseEvent& e);
-    void RightUp(wxMouseEvent& e);
+    void MouseButtons(wxMouseEvent& e);
+    void MouseWheel(wxMouseEvent& e);
     void KeyDown(wxKeyEvent & e);
     void KeyUp(wxKeyEvent & e);
     
@@ -109,8 +110,9 @@ public:
             wxWindow* parent, 
             PT::Panorama &pano, 
             int args[], 
-            GLPreviewFrame *frame
-            ) : GLViewer(parent, pano, args, frame) {}
+            GLPreviewFrame *frame,
+            wxGLContext * shared_context = NULL
+            ) : GLViewer(parent, pano, args, frame, shared_context) {}
     void setUp();
 
 };
@@ -122,13 +124,20 @@ public:
             wxWindow* parent, 
             PT::Panorama &pano, 
             int args[], 
-            GLPreviewFrame *frame
-            ) : GLViewer(parent, pano, args, frame) {}
+            GLPreviewFrame *frame,
+            wxGLContext * shared_context = NULL
+            ) : GLViewer(parent, pano, args, frame, shared_context) {
+        panosphere_m_renderer = 0;
+        plane_m_renderer = 0;
+    }
 
     void SetPanosphereMode();
     void SetPlaneMode();
     
     void setUp();
+
+    virtual void SetLayoutMode(bool state);
+    virtual void SetLayoutScale(double scale);
 
     enum OverviewMode {
         PANOSPHERE,
@@ -136,7 +145,7 @@ public:
     };
 
     void SetMode(OverviewMode mode);
-    OverviewMode GetMode();
+    OverviewMode GetMode() {return mode;}
 
 protected:
 

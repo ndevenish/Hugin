@@ -1,3 +1,25 @@
+// -*- c-basic-offset: 4 -*-
+/** @file OverviewOutlinesTool.h
+ *
+ *  @author Darko Makreshanski
+ *
+ *  This program is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU General Public
+ *  License as published by the Free Software Foundation; either
+ *  version 2 of the License, or (at your option) any later version.
+ *
+ *  This software is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public
+ *  License along with this software; if not, write to the Free Software
+ *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ *
+ */
+
+
 #ifndef __OVERVIEW_OUTLINES_TOOL_H__
 #define __OVERVIEW_OUTLINES_TOOL_H__
 
@@ -5,20 +27,17 @@
 
 class GLViewer;
 
-class OverviewOutlinesTool : public OverviewTool, public HuginBase::PanoramaObserver
+class OverviewOutlinesTool : public HuginBase::PanoramaObserver
 {
     public:
-        OverviewOutlinesTool(OverviewToolHelper* helper, GLViewer * preview);
+        OverviewOutlinesTool(ToolHelper *, GLViewer * preview);
         virtual ~OverviewOutlinesTool();
 
-        void Activate();
 
-    void panoramaChanged(HuginBase::PanoramaData &pano);
-    void panoramaImagesChanged(HuginBase::PanoramaData&, const HuginBase::UIntSet&) {}
+        void panoramaChanged(HuginBase::PanoramaData &pano);
+        void panoramaImagesChanged(HuginBase::PanoramaData&, const HuginBase::UIntSet&) {}
 
         void MouseMoveEvent(double x, double y, wxMouseEvent & e);
-
-        void AfterDrawImagesEvent();
 
         class Rect {
         public:
@@ -45,9 +64,15 @@ class OverviewOutlinesTool : public OverviewTool, public HuginBase::PanoramaObse
             double val[4][2];
         };
 
-        void DrawRect(double left, double top, double right, double bottom, bool outline);
+        virtual void drawBackground() {}
 
-    private:
+    protected:
+
+        void draw();
+
+        void DrawRect(double left, double top, double right, double bottom, bool outline, double linewidth = 1.0);
+
+        ToolHelper * thelper;
 
         bool dirty_meshes;
 
@@ -62,8 +87,39 @@ class OverviewOutlinesTool : public OverviewTool, public HuginBase::PanoramaObse
         unsigned int display_list_number_crop;
         unsigned int display_list_number_canvas_outline;
         unsigned int display_list_number_crop_outline;
+
         /* data */
 };
+
+class PanosphereOverviewOutlinesTool : public OverviewOutlinesTool, public PanosphereOverviewTool
+{
+    public:
+
+        PanosphereOverviewOutlinesTool(PanosphereOverviewToolHelper* helper, GLViewer * preview) : PanosphereOverviewTool(helper), OverviewOutlinesTool(helper, preview) {}
+
+        void Activate();
+        void AfterDrawImagesBackEvent();
+        void AfterDrawImagesFrontEvent();
+
+
+        void drawBackground();
+
+
+};
+
+class PlaneOverviewOutlinesTool : public OverviewOutlinesTool, public PlaneOverviewTool
+{
+    public:
+
+        PlaneOverviewOutlinesTool(PlaneOverviewToolHelper* helper, GLViewer * preview) : PlaneOverviewTool(helper), OverviewOutlinesTool(helper, preview) {}
+
+        void Activate();
+        void AfterDrawImagesEvent();
+
+        void drawBackground();
+    
+};
+
 
 #endif /* __OVERVIEW_OUTLINES_TOOL_H__ */
 

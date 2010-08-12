@@ -79,8 +79,8 @@ public:
     }
 };
 
-PreviewLayoutLinesTool::PreviewLayoutLinesTool(PreviewToolHelper *helper)
-    : PreviewTool(helper),
+PreviewLayoutLinesTool::PreviewLayoutLinesTool(ToolHelper *helper)
+    : Tool(helper),
       m_updateStatistics(true),
       m_nearestLine(-1),
       m_useNearestLine(false)
@@ -178,6 +178,7 @@ void PreviewLayoutLinesTool::Activate()
 
 void PreviewLayoutLinesTool::MouseMoveEvent(double x, double y, wxMouseEvent & e)
 {
+
     // Try to find the nearest line to the mouse pointer.
     // ...Unless there are no lines.
     if (m_lines.empty())
@@ -190,7 +191,7 @@ void PreviewLayoutLinesTool::MouseMoveEvent(double x, double y, wxMouseEvent & e
     for (unsigned int i = 0; i < m_lines.size(); i++)
     {
         if (m_lines[i].dud) continue;
-        double lineDistance = m_lines[i].getDistance(hugin_utils::FDiff2D(x, y));
+        double lineDistance = m_lines[i].getDistance(helper->GetMousePanoPosition());
         if (lineDistance < minDistance)
         {
             // found a new minimum.
@@ -243,7 +244,7 @@ void PreviewLayoutLinesTool::BeforeDrawImagesEvent()
     
     // now draw each line.
     glEnable(GL_LINE_SMOOTH);
-    helper->GetViewStatePtr()->GetTextureManager()->DisableTexture();    for (unsigned int i = 0; i < m_lines.size(); i++)
+    helper->GetViewStatePtr()->GetTextureManager()->DisableTexture();//    for (unsigned int i = 0; i < m_lines.size(); i++)
     for (unsigned int i = 0; i < m_lines.size(); i++)
     {
         m_lines[i].draw(m_useNearestLine && i == m_nearestLine);
@@ -316,7 +317,9 @@ void PreviewLayoutLinesTool::drawIdentificationBorder(unsigned int image)
             break;
     }
     // draw the image with the border texture.
+    glMatrixMode(GL_MODELVIEW);
     glCallList(helper->GetVisualizationStatePtr()->GetMeshDisplayList(image));
+    glMatrixMode(GL_TEXTURE);
     // reset the texture matrix.
     glPopMatrix();
 }
@@ -558,9 +561,9 @@ void PreviewLayoutLinesTool::LineDetails::draw(bool highlight)
     
     double lineWidth = numberOfControlPoints / 5.0 + 1.0;
     if (lineWidth > 5.0) lineWidth = 5.0;
-    glLineWidth(lineWidth);
+//    glLineWidth(lineWidth);
     
-    arc.draw(false);
+    arc.draw(false, lineWidth);
 }
 
 PreviewLayoutLinesTool::LineDetails::LineDetails()

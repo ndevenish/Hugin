@@ -44,10 +44,10 @@ class GLPreviewFrame;
  * points change. This should save on the draw time, since we don't always
  * need to examine the control points to draw the preview.
  */
-class PreviewLayoutLinesTool : public PreviewTool, public HuginBase::PanoramaObserver
+class PreviewLayoutLinesTool : public Tool, public HuginBase::PanoramaObserver
 {
 public:
-    PreviewLayoutLinesTool(PreviewToolHelper *helper);
+    PreviewLayoutLinesTool(ToolHelper *helper);
     ~PreviewLayoutLinesTool();
     
     /** This just sets a flag when the panorama is changed.

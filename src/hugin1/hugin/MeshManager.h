@@ -38,7 +38,9 @@ class MeshManager
 public:
     MeshManager(PT::Panorama *pano, VisualizationState *visualization_state);
     ~MeshManager();
+
     void CheckUpdate();
+    
     /// Remove meshes for images that have been deleted.
     void CleanMeshes();
     void RenderMesh(unsigned int image_number) const;
@@ -82,20 +84,28 @@ public:
         void SetScaleFactor(double scale);
         void SetSrcImage(HuginBase::SrcPanoImage * image) {this->image = *image;}
 
-        class Coords3D {
+        class Coord3D
+        {
+            public:
+                Coord3D() {}
+                Coord3D(hugin_utils::FDiff2D & coord) {x = coord.x; y = coord.y; z = 0;}
+                double x,y,z;
+        };
+
+        class MeshCoords3D {
         public:
-            Coords3D() {}
-            Coords3D(const MeshRemapper::Coords & coords);
+            MeshCoords3D() {}
+            MeshCoords3D(const MeshRemapper::Coords & coords);
             double tex_coords[2][2][2];
             double vertex_coords[2][2][3];
         };
 
+        
     protected:
 
         virtual void BeforeCompile() {}
         virtual void Transform() {}
         virtual void AfterCompile() {}
-        virtual Coords3D GetCoords3D(MeshRemapper::Coords &coords) {return Coords3D(coords);}
     
         HuginBase::SrcPanoImage image;
         PT::Panorama *m_pano;
@@ -104,27 +114,25 @@ public:
         /// The ramapper we should use
         MeshRemapper * remap;
         /// Use the remapper to create the display list.
-        virtual void CompileList();
+        void CompileList();
         bool layout_mode_on;
     };
 
-//    class PreviewMeshInfo : public MeshInfo
-//    {
-//    public:
-//        PreviewMeshInfo(PT::Panorama * m_pano, HuginBase::SrcPanoImage * image,
-//                 VisualizationState * visualization_state, bool layout_mode_on) : MeshInfo(m_pano, image, visualization_state, layout_mode_on) {
-//            Update();
-//        }
-//        PreviewMeshInfo(const PreviewMeshInfo & source) : MeshInfo((MeshInfo)source) {
-//            Update();
-//        }
-//    protected:
-//        void BeforeCompile() {}
-//        void Transform() {}
-//        void AfterCompile() {}
-//        Coords3D GetCoords3D(MeshRemapper &coords) {return Coords3D(coords);}
-//         
-//    };
+    class PreviewMeshInfo : public MeshInfo
+    {
+    public:
+        PreviewMeshInfo(PT::Panorama * m_pano, HuginBase::SrcPanoImage * image,
+                 VisualizationState * visualization_state, bool layout_mode_on) : MeshInfo(m_pano, image, visualization_state, layout_mode_on) {
+            Update();
+        }
+        PreviewMeshInfo(const PreviewMeshInfo & source) : MeshInfo((MeshInfo)source) {
+            Update();
+        }
+
+        static MeshCoords3D GetMeshCoords3D(MeshRemapper::Coords &coords, VisualizationState * state) {return MeshCoords3D(coords);}
+        static Coord3D GetCoord3D(hugin_utils::FDiff2D & coord, VisualizationState * state) {return Coord3D(coord);}
+
+    };
 
     class PanosphereOverviewMeshInfo : public MeshInfo
     {
@@ -132,6 +140,7 @@ public:
         PanosphereOverviewMeshInfo(PT::Panorama * m_pano, HuginBase::SrcPanoImage * image,
                  VisualizationState * visualization_state, bool layout_mode_on)
             : MeshInfo(m_pano, image, visualization_state, layout_mode_on) {
+                scale_factor *= scale_diff;
                 Update();
             }
 
@@ -142,11 +151,16 @@ public:
 
         static void Convert(double &x, double &y, double &z, double th, double ph, double r);
 
+        static MeshCoords3D GetMeshCoords3D(MeshRemapper::Coords &coords, VisualizationState * state);
+        static Coord3D GetCoord3D(hugin_utils::FDiff2D &coord, VisualizationState * state);
+
+        static const double scale_diff = 1.5;
+
     protected:
+
         void BeforeCompile();
         void Transform();
         void AfterCompile();
-        Coords3D GetCoords3D(MeshRemapper::Coords &coords);
 
         double yaw,pitch;
 
@@ -166,15 +180,21 @@ public:
                 Update();
             }
 
-    protected:
-        void BeforeCompile();
-        void Transform();
-//        void AfterCompile();
-//        Coords3D GetCoords3D(MeshRemapper::Coords &coords);
+        const static double scale;
+        static MeshCoords3D GetMeshCoords3D(MeshRemapper::Coords &coords, VisualizationState * state);
+        static Coord3D GetCoord3D(hugin_utils::FDiff2D &coord, VisualizationState * state);
 
     };
     
-private:
+    virtual MeshInfo::MeshCoords3D GetMeshCoords3D(MeshRemapper::Coords &coords) = 0;
+    virtual MeshInfo::Coord3D GetCoord3D(hugin_utils::FDiff2D &) = 0;
+    
+
+    virtual MeshInfo * ObtainMeshInfo(HuginBase::SrcPanoImage *, bool layout_mode_on) = 0;
+
+protected:
+
+
     PT::Panorama  * m_pano;
     VisualizationState * visualization_state;
 
@@ -182,6 +202,40 @@ private:
     std::vector<MeshInfo*> meshes;
     bool layout_mode_on;
 };
+
+
+class PanosphereOverviewMeshManager : public MeshManager
+{
+public:
+    PanosphereOverviewMeshManager(PT::Panorama *pano, VisualizationState *visualization_state) : MeshManager(pano, visualization_state) {}
+    MeshInfo::MeshCoords3D GetMeshCoords3D(MeshRemapper::Coords &coords) {return MeshManager::PanosphereOverviewMeshInfo::GetMeshCoords3D(coords, visualization_state);}
+    MeshInfo::Coord3D GetCoord3D(hugin_utils::FDiff2D &coord) {return MeshManager::PanosphereOverviewMeshInfo::GetCoord3D(coord,visualization_state);}
+
+    MeshInfo * ObtainMeshInfo(HuginBase::SrcPanoImage *, bool layout_mode_on);
+};
+
+class PlaneOverviewMeshManager : public MeshManager
+{
+public:
+    PlaneOverviewMeshManager(PT::Panorama *pano, VisualizationState *visualization_state) : MeshManager(pano, visualization_state) {}
+    MeshInfo::MeshCoords3D GetMeshCoords3D(MeshRemapper::Coords &coords) {return MeshManager::PlaneOverviewMeshInfo::GetMeshCoords3D(coords, visualization_state);}
+    MeshInfo::Coord3D GetCoord3D(hugin_utils::FDiff2D &coord) {return MeshManager::PlaneOverviewMeshInfo::GetCoord3D(coord,visualization_state);}
+
+    MeshInfo * ObtainMeshInfo(HuginBase::SrcPanoImage *, bool layout_mode_on);
+
+};
+
+class PreviewMeshManager : public MeshManager
+{
+public:
+    PreviewMeshManager(PT::Panorama *pano, VisualizationState *visualization_state) : MeshManager(pano, visualization_state) {}
+    MeshInfo::MeshCoords3D GetMeshCoords3D(MeshRemapper::Coords &coords) {return MeshManager::PreviewMeshInfo::GetMeshCoords3D(coords, visualization_state);}
+    MeshInfo::Coord3D GetCoord3D(hugin_utils::FDiff2D &coord) {return MeshManager::PreviewMeshInfo::GetCoord3D(coord,visualization_state);}
+
+    MeshInfo * ObtainMeshInfo(HuginBase::SrcPanoImage *, bool layout_mode_on);
+
+};
+
 
 #endif
 

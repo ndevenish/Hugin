@@ -21,10 +21,12 @@
  */ 
 
 
+
 #include "ToolHelper.h"
 #include "Tool.h"
 #include "GLPreviewFrame.h"
 #include "GLViewer.h"
+#include "MeshManager.h"
 
 ToolHelper::ToolHelper(PT::Panorama *pano_in,
                                      VisualizationState *visualization_state_in,
@@ -118,6 +120,18 @@ void ToolHelper::MouseButtonEvent(wxMouseEvent &e)
 
 }
 
+void ToolHelper::MouseWheelEvent(wxMouseEvent &e)
+{
+    std::set<Tool *>::iterator iterator;
+    for (iterator = mouse_wheel_notified_tools.begin();
+         iterator != mouse_wheel_notified_tools.end(); iterator++)
+    {
+        (*iterator)->MouseWheelEvent(e);
+    }
+
+}
+
+
 void ToolHelper::KeypressEvent(int keycode, int modifiers, bool pressed)
 {
 //    if (keypress_notified_tool)
@@ -153,19 +167,23 @@ void ToolHelper::BeforeDrawImages()
 
 void ToolHelper::AfterDrawImages()
 {
+//    std::cerr << "begin" << std::endl;
     // let all tools that want to draw on top of the images do so.
     std::set<Tool *>::iterator iterator;
     for (iterator = draw_over_notified_tools.begin();
          iterator != draw_over_notified_tools.end(); iterator++)
     {
+//        std::cerr << "tool after draw" << std::endl;
         (*iterator)->AfterDrawImagesEvent();
     }
+//    std::cerr << "after draw images" << std::endl;
     // The overlays are done separetly to avoid errors with blending order.
     for (iterator = really_draw_over_notified_tools.begin();
          iterator != really_draw_over_notified_tools.end(); iterator++)
     {
         (*iterator)->ReallyAfterDrawImagesEvent();
     }
+//    std::cerr << "really after draw images" << std::endl;
 }
 
 bool ToolHelper::BeforeDrawImageNumber(unsigned int image)
@@ -256,6 +274,9 @@ void ToolHelper::NotifyMe(Event event, Tool *tool)
         case MOUSE_PRESS:
             AddTool(tool, &mouse_button_notified_tools);
             break;
+        case MOUSE_WHEEL:
+            AddTool(tool, &mouse_wheel_notified_tools);
+            break;
         case KEY_PRESS:
             AddTool(tool, &keypress_notified_tools);
             break;
@@ -297,6 +318,9 @@ void ToolHelper::DoNotNotifyMe(Event event, Tool *tool)
             break;
         case MOUSE_PRESS:
             RemoveTool(tool, &mouse_button_notified_tools);
+            break;
+        case MOUSE_WHEEL:
+            RemoveTool(tool, &mouse_wheel_notified_tools);
             break;
         case KEY_PRESS:
             RemoveTool(tool, &keypress_notified_tools);
@@ -578,9 +602,9 @@ void PanosphereOverviewToolHelper::MouseMoved(int x, int y, wxMouseEvent & e)
         mouse_pano_x = yaw / (2 * M_PI) * panostate->GetOptions()->getWidth();
         mouse_pano_y = pitch / (M_PI) * panostate->GetOptions()->getHeight();
 
-////        DEBUG_DEBUG("mouse " << RAD_TO_DEG(yaw) << " " << RAD_TO_DEG(pitch) << " " << " ; " << RAD_TO_DEG(pang_yaw) << " " << RAD_TO_DEG(pang_pitch) << " ; " << RAD_TO_DEG(ang_yaw) << " " << RAD_TO_DEG(ang_pitch) << " ; " << px << " " << py << " " << pz << " ; " << ax << " " << ay);
+////        cerr << "mouse " << RAD_TO_DEG(yaw) << " " << RAD_TO_DEG(pitch) << " " << " ; " << RAD_TO_DEG(pang_yaw) << " " << RAD_TO_DEG(pang_pitch) << " ; " << RAD_TO_DEG(ang_yaw) << " " << RAD_TO_DEG(ang_pitch) << " ; " << px << " " << py << " " << pz << " ; " << ax << " " << ay);
 
-//        DEBUG_DEBUG("mouse " << mouse_pano_x << " " << mouse_pano_y << " ; " << canv_w << " " << canv_h);
+//        cerr << "mouse " << mouse_pano_x << " " << mouse_pano_y << " ; " << canv_w << " " << canv_h);
 
 //        double t_mouse_pano_x = yaw M
 
@@ -698,10 +722,82 @@ PlaneOverviewToolHelper::~PlaneOverviewToolHelper() {}
 void PlaneOverviewToolHelper::MouseMoved(int x, int y, wxMouseEvent & e)
 {
 
+    PlaneOverviewVisualizationState * panostate = (PlaneOverviewVisualizationState*) visualization_state;
+
+    double d = panostate->getR();
+
+    int tcanv_w, tcanv_h;
+    panostate->GetViewer()->GetClientSize(&tcanv_w,&tcanv_h);
+
+    double canv_w, canv_h;
+    canv_w = tcanv_w;
+    canv_h = tcanv_h;
+    
+    double fov = panostate->getFOV();
+
+    double fovy, fovx;
+    if (canv_w > canv_h) {
+        fovy = DEG_TO_RAD(fov);
+        fovx = 2 * atan( tan(fovy / 2.0) * canv_w / canv_h);
+    } else {
+        fovx = DEG_TO_RAD(fov);
+        fovy = 2 * atan( tan(fovx / 2.0) * canv_h / canv_w);
+    }
+
+    double vis_w, vis_h;
+    vis_w = 2.0 * tan ( fovx / 2.0 ) * d;
+    vis_h = 2.0 * tan ( fovy / 2.0 ) * d;
+
+    //position of the mouse on the z=0 plane
+    double prim_x, prim_y;
+    prim_x = (double) x / canv_w * vis_w - vis_w / 2.0 + panostate->getX();
+    prim_y = ((double) y / canv_h * vis_h - vis_h / 2.0 - panostate->getY());
+
+//    std::cout << "mouse ov" << plane_x << " " << plane_y << std::endl;
+    plane_x = prim_x;
+    plane_y = prim_y;
+
+    double width, height;
+    HuginBase::PanoramaOptions * opts = panostate->GetOptions();
+    width = opts->getWidth();
+    height = opts->getHeight();
+
+    mouse_pano_x = prim_x / MeshManager::PlaneOverviewMeshInfo::scale * width + width / 2.0;
+    mouse_pano_y = prim_y / MeshManager::PlaneOverviewMeshInfo::scale * width + height / 2.0;
+
+//    std::cout << "plane mouse " << mouse_pano_x << " " << mouse_pano_y << " ; " << prim_x << " " << prim_y << " ; " << width << " " << height << std::endl;
+//    cerr << "plane mouse " << mouse_pano_x << " " << mouse_pano_y);
+
+    mouse_over_pano = true;
+    
+    ToolHelper::MouseMoved(x,y,e);
 }
 
 void PlaneOverviewToolHelper::UpdateImagesUnderMouse()
 {
+    images_under_mouse.clear();
+    unsigned int num_images = pano->getNrOfImages();
+    std::set<unsigned int> displayedImages = pano->getActiveImages();
+    for (unsigned int image_index = 0; image_index < num_images; image_index++)
+    {
+        // don't try any images that are turned off
+        if (displayedImages.count(image_index))
+        {
+            // work out if the image covers the point under the mouse.
+            HuginBase::PTools::Transform transform;
+            transform.createTransform(*visualization_state->GetSrcImage(image_index),
+                                      *visualization_state->GetOptions());
+            double image_x, image_y;
+            transform.transformImgCoord(image_x, image_y, mouse_pano_x, mouse_pano_y);
+            if (visualization_state->getViewState()->GetSrcImage(image_index)->isInside(vigra::Point2D(
+                                                  int(image_x), int (image_y))))
+            {
+                // this image is under the mouse, add it to the set.
+                images_under_mouse.insert(image_index);
+            }
+        }
+    }
+    images_under_mouse_current = true;
 
 }
 

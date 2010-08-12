@@ -59,107 +59,114 @@
 #define circle_border_inner (circle_middle - 2.5 * (float) circle_ts_multiple)
 #define circle_border_peak (circle_middle - 1.5 * (float) circle_ts_multiple)
 
+bool PreviewIdentifyTool::texture_created = false;
+unsigned int PreviewIdentifyTool::circle_border_tex;
+unsigned int PreviewIdentifyTool::rectangle_border_tex;
+
 PreviewIdentifyTool::PreviewIdentifyTool(ToolHelper *helper,
                                          GLPreviewFrame *owner)
     : Tool(helper)
 {
     preview_frame = owner;
-    // make the textures. We have a circle border and a square one.
-    // the textures are white with a the alpha chanel forming a border.
-    glGenTextures(1, (GLuint*) &rectangle_border_tex);
-    glGenTextures(1, (GLuint*) &circle_border_tex);
-    // we only want to specify alpha, but using just alpha in opengl attaches 0
-    // for the luminosity. I tried biasing the red green and blue values to get
-    // them to 1.0, but it didn't work under OS X for some reason. Instead we
-    // use a luminance alpha pair, and use 1.0 for luminance all the time.
-    {
-        // In the rectangle texture, the middle is 1/4 opaque, the outer pixels
-        // are completely transparent, and one pixel in from the edges is
-        // a completly opaque line.
-        unsigned char rect_tex_data[rect_ts][rect_ts][2];
-        // make everything white
-        for (unsigned int x = 0; x < rect_ts; x++)
+    if (!texture_created) {
+        // make the textures. We have a circle border and a square one.
+        // the textures are white with a the alpha chanel forming a border.
+        glGenTextures(1, (GLuint*) &rectangle_border_tex);
+        glGenTextures(1, (GLuint*) &circle_border_tex);
+        // we only want to specify alpha, but using just alpha in opengl attaches 0
+        // for the luminosity. I tried biasing the red green and blue values to get
+        // them to 1.0, but it didn't work under OS X for some reason. Instead we
+        // use a luminance alpha pair, and use 1.0 for luminance all the time.
         {
-            for (unsigned int y = 0; y < rect_ts; y++)
+            // In the rectangle texture, the middle is 1/4 opaque, the outer pixels
+            // are completely transparent, and one pixel in from the edges is
+            // a completly opaque line.
+            unsigned char rect_tex_data[rect_ts][rect_ts][2];
+            // make everything white
+            for (unsigned int x = 0; x < rect_ts; x++)
             {
-                rect_tex_data[x][y][0] = 255;
-            }
-        }
-        // now set the middle of the mask semi transparent
-        for (unsigned int x = 2; x < rect_ts - 2; x++)
-        {
-            for (unsigned int y = 2; y < rect_ts - 2; y++)
-            {
-                rect_tex_data[x][y][1] = 63;
-            }
-        }
-        // make an opaque border
-        for (unsigned int d = 1; d < rect_ts - 1; d++)
-        {
-            rect_tex_data[d][1][1] = 255;
-            rect_tex_data[d][rect_ts - 2][1] = 255;
-            rect_tex_data[1][d][1] = 255;
-            rect_tex_data[rect_ts - 2][d][1] = 255;
-        }
-        // make a transparent border around that
-        for (unsigned int d = 0; d < rect_ts; d++)
-        {
-            rect_tex_data[d][0][1] = 0;
-            rect_tex_data[d][rect_ts - 1][1] = 0;
-            rect_tex_data[0][d][1] = 0;
-            rect_tex_data[rect_ts - 1][d][1] = 0;
-        }
-        glBindTexture(GL_TEXTURE_2D, rectangle_border_tex);
-        gluBuild2DMipmaps(GL_TEXTURE_2D, GL_LUMINANCE_ALPHA, rect_ts, rect_ts,
-                          GL_LUMINANCE_ALPHA, GL_UNSIGNED_BYTE, rect_tex_data);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,
-                        GL_LINEAR_MIPMAP_LINEAR);
-        // clamp texture so it won't wrap over the border.
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-    }
-    {
-        // the circular one should look similar to the rectangle one, but we
-        // enlarge it so that the circle apears less blocky. We don't want to
-        // make it equally sharper however, so we make it a bit fuzzier by
-        // blending.
-        unsigned char circle_tex_data[circle_ts][circle_ts][2];
-        for (unsigned int x = 0; x < circle_ts; x++)
-        {
-            for (unsigned int y = 0; y < circle_ts; y++)
-            {
-                float x_offs = (float) x - circle_middle,
-                      y_offs = (float) y - circle_middle,
-                      radius = sqrt(x_offs * x_offs + y_offs * y_offs),
-                      intensity;
-                if (radius < circle_border_inner)
+                for (unsigned int y = 0; y < rect_ts; y++)
                 {
-                    intensity = 63.0;
-                } else if (radius < circle_border_peak)
-                {
-                    intensity = (radius - circle_border_inner) /
-                          (float) circle_ts_multiple * 255.0 * 3.0 / 4.0 + 64.0;
-                } else if (radius < circle_border_outer)
-                {
-                    intensity = (radius - circle_border_peak) /
-                                    (float) circle_ts_multiple * -255.0 + 256.0;
-                } else
-                {
-                    intensity = 0.0;
+                    rect_tex_data[x][y][0] = 255;
                 }
-                circle_tex_data[x][y][0] = 255;
-                circle_tex_data[x][y][1] = (unsigned char) intensity;
             }
+            // now set the middle of the mask semi transparent
+            for (unsigned int x = 2; x < rect_ts - 2; x++)
+            {
+                for (unsigned int y = 2; y < rect_ts - 2; y++)
+                {
+                    rect_tex_data[x][y][1] = 63;
+                }
+            }
+            // make an opaque border
+            for (unsigned int d = 1; d < rect_ts - 1; d++)
+            {
+                rect_tex_data[d][1][1] = 255;
+                rect_tex_data[d][rect_ts - 2][1] = 255;
+                rect_tex_data[1][d][1] = 255;
+                rect_tex_data[rect_ts - 2][d][1] = 255;
+            }
+            // make a transparent border around that
+            for (unsigned int d = 0; d < rect_ts; d++)
+            {
+                rect_tex_data[d][0][1] = 0;
+                rect_tex_data[d][rect_ts - 1][1] = 0;
+                rect_tex_data[0][d][1] = 0;
+                rect_tex_data[rect_ts - 1][d][1] = 0;
+            }
+            glBindTexture(GL_TEXTURE_2D, rectangle_border_tex);
+            gluBuild2DMipmaps(GL_TEXTURE_2D, GL_LUMINANCE_ALPHA, rect_ts, rect_ts,
+                              GL_LUMINANCE_ALPHA, GL_UNSIGNED_BYTE, rect_tex_data);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,
+                            GL_LINEAR_MIPMAP_LINEAR);
+            // clamp texture so it won't wrap over the border.
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
         }
-        glBindTexture(GL_TEXTURE_2D, circle_border_tex);
-        gluBuild2DMipmaps(GL_TEXTURE_2D,
-                          GL_LUMINANCE_ALPHA, circle_ts, circle_ts,
-                          GL_LUMINANCE_ALPHA, GL_UNSIGNED_BYTE, circle_tex_data);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,
-                        GL_LINEAR_MIPMAP_LINEAR);
-        // clamp texture so it won't wrap over the border.
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+        {
+            // the circular one should look similar to the rectangle one, but we
+            // enlarge it so that the circle apears less blocky. We don't want to
+            // make it equally sharper however, so we make it a bit fuzzier by
+            // blending.
+            unsigned char circle_tex_data[circle_ts][circle_ts][2];
+            for (unsigned int x = 0; x < circle_ts; x++)
+            {
+                for (unsigned int y = 0; y < circle_ts; y++)
+                {
+                    float x_offs = (float) x - circle_middle,
+                          y_offs = (float) y - circle_middle,
+                          radius = sqrt(x_offs * x_offs + y_offs * y_offs),
+                          intensity;
+                    if (radius < circle_border_inner)
+                    {
+                        intensity = 63.0;
+                    } else if (radius < circle_border_peak)
+                    {
+                        intensity = (radius - circle_border_inner) /
+                              (float) circle_ts_multiple * 255.0 * 3.0 / 4.0 + 64.0;
+                    } else if (radius < circle_border_outer)
+                    {
+                        intensity = (radius - circle_border_peak) /
+                                        (float) circle_ts_multiple * -255.0 + 256.0;
+                    } else
+                    {
+                        intensity = 0.0;
+                    }
+                    circle_tex_data[x][y][0] = 255;
+                    circle_tex_data[x][y][1] = (unsigned char) intensity;
+                }
+            }
+            glBindTexture(GL_TEXTURE_2D, circle_border_tex);
+            gluBuild2DMipmaps(GL_TEXTURE_2D,
+                              GL_LUMINANCE_ALPHA, circle_ts, circle_ts,
+                              GL_LUMINANCE_ALPHA, GL_UNSIGNED_BYTE, circle_tex_data);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,
+                            GL_LINEAR_MIPMAP_LINEAR);
+            // clamp texture so it won't wrap over the border.
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+        }
+        texture_created = true;
     }
 }
 PreviewIdentifyTool::~PreviewIdentifyTool()
@@ -263,6 +270,7 @@ void PreviewIdentifyTool::AfterDrawImagesEvent()
     // draw the actual images
     // the preview draws them in reverse order, so the lowest numbered appears
     // on top. We will folow this convention to avoid confusion.
+    glMatrixMode(GL_MODELVIEW);
     std::set<unsigned int>::reverse_iterator it;
     for (it = image_set.rbegin(); it != image_set.rend(); it++)
     {
@@ -271,6 +279,8 @@ void PreviewIdentifyTool::AfterDrawImagesEvent()
                 DrawImage(*it,
                          helper->GetVisualizationStatePtr()->GetMeshDisplayList(*it));
     }
+    glMatrixMode(GL_TEXTURE);
+    
     // now draw the identification boxes
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

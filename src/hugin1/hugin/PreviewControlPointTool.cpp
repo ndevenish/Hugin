@@ -35,8 +35,8 @@
 #include <GL/gl.h>
 #endif
 
-PreviewControlPointTool::PreviewControlPointTool(PreviewToolHelper *helper)
-    : PreviewTool(helper)
+PreviewControlPointTool::PreviewControlPointTool(ToolHelper *helper)
+    : Tool(helper)
 {
     m_greatCircles.setVisualizationState(helper->GetVisualizationStatePtr());
 }

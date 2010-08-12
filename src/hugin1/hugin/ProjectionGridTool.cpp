@@ -38,6 +38,8 @@ void PreviewProjectionGridTool::BeforeDrawImagesEvent()
 
 void PreviewProjectionGridTool::AfterDrawImagesEvent()
 {
+
+    DEBUG_DEBUG("begin");
     if (!texture_created) {
         if (!createTexture()) {
             return;
@@ -55,7 +57,6 @@ void PreviewProjectionGridTool::AfterDrawImagesEvent()
     glEnable( GL_TEXTURE_2D );
     glEnable(GL_BLEND);
     glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    glDisable(GL_COLOR_MATERIAL);
     if(helper->GetViewStatePtr()->GetSupportMultiTexture())
     {
         glActiveTexture(GL_TEXTURE0);
@@ -97,9 +98,19 @@ void PanosphereOverviewProjectionGridTool::BeforeDrawImagesFrontEvent()
 
 void PanosphereOverviewProjectionGridTool::AfterDrawImagesBackEvent()
 {
+    DEBUG_DEBUG("begin");
+
+    if (!texture_created) {
+        if (!createTexture()) {
+            return;
+        }
+    }
+
     if (!mesh_info) {
         createMesh();
     }
+
+    DEBUG_DEBUG("resources created");
 
     glDisable(GL_TEXTURE_2D);
     glColor4f(0.3,0.3,0.3,0.6);
@@ -114,7 +125,6 @@ void PanosphereOverviewProjectionGridTool::AfterDrawImagesBackEvent()
     glEnable( GL_TEXTURE_2D );
     glEnable(GL_BLEND);
     glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    glDisable(GL_COLOR_MATERIAL);
     if(helper->GetViewStatePtr()->GetSupportMultiTexture())
     {
         glActiveTexture(GL_TEXTURE0);
@@ -122,8 +132,8 @@ void PanosphereOverviewProjectionGridTool::AfterDrawImagesBackEvent()
     }
     else
         glBindTexture(GL_TEXTURE_2D, texture_num);
-    glMatrixMode(GL_TEXTURE);
 
+    glMatrixMode(GL_TEXTURE);
     //using just a sphere instead of the remapped mesh for better quality
 //    glPushMatrix();
 //    glScalef(0.5,1,1);
@@ -150,6 +160,11 @@ void PanosphereOverviewProjectionGridTool::AfterDrawImagesBackEvent()
 
 
     glDisable(GL_BLEND);
+
+    glMatrixMode(GL_MODELVIEW);
+
+    DEBUG_DEBUG("end");
+
     
 }
 
@@ -168,13 +183,11 @@ void PanosphereOverviewProjectionGridTool::AfterDrawImagesFrontEvent()
     }
 
 
-    DEBUG_DEBUG("proj grid tool after front");
-
     glColor4f(1,1,1,1);
     glEnable( GL_TEXTURE_2D );
     glEnable(GL_BLEND);
     glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    glDisable(GL_COLOR_MATERIAL);
+    DEBUG_DEBUG("proj grid tex " << texture_num);
     if(helper->GetViewStatePtr()->GetSupportMultiTexture())
     {
         glActiveTexture(GL_TEXTURE0);
@@ -196,10 +209,11 @@ void PanosphereOverviewProjectionGridTool::AfterDrawImagesFrontEvent()
     glRotated(180,1,0,0);
     glScalef(0.5,1,1);
     glMatrixMode(GL_MODELVIEW);
+
 //    mesh_info->CallList();
+
     GLUquadric* grid = gluNewQuadric();
     gluQuadricTexture(grid, GL_TRUE);
-
     glPushMatrix();
     glRotated(-90,1,0,0);
     gluSphere(grid, 101,40,20);
@@ -210,7 +224,7 @@ void PanosphereOverviewProjectionGridTool::AfterDrawImagesFrontEvent()
 
 
     glDisable(GL_BLEND);
-
+    glMatrixMode(GL_MODELVIEW);
 
 }
 
@@ -225,11 +239,13 @@ void PreviewProjectionGridTool::createMesh()
 
 void PanosphereOverviewProjectionGridTool::createMesh()
 {
+    DEBUG_DEBUG("Create mesh projection grid");
     HuginBase::SrcPanoImage image;
     image.setSize(vigra::Size2D(3600,1780));
     image.setHFOV(360);
     image.setProjection(HuginBase::BaseSrcPanoImage::EQUIRECTANGULAR);
     mesh_info = new MeshManager::PanosphereOverviewMeshInfo(helper->GetPanoramaPtr(), &image, helper->GetVisualizationStatePtr(), false);
+    DEBUG_DEBUG("End create mesh projection grid");
 }
 
 bool ProjectionGridTool::createTexture()

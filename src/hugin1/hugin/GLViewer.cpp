@@ -56,10 +56,8 @@ BEGIN_EVENT_TABLE(GLViewer, wxGLCanvas)
     // mouse entered or left the preview
     EVT_LEAVE_WINDOW(GLViewer::MouseLeave)
     // mouse buttons
-    EVT_LEFT_DOWN (GLViewer::LeftDown)
-    EVT_LEFT_UP (GLViewer::LeftUp)
-    EVT_RIGHT_DOWN (GLViewer::RightDown)
-    EVT_RIGHT_UP (GLViewer::RightUp)
+    EVT_MOUSEWHEEL(GLViewer::MouseWheel)
+    EVT_MOUSE_EVENTS(GLViewer::MouseButtons)
     // keyboard events
     EVT_KEY_DOWN(GLViewer::KeyDown)
     EVT_KEY_UP(GLViewer::KeyUp)
@@ -70,7 +68,8 @@ GLViewer::GLViewer(
             wxWindow* parent, 
             PT::Panorama &pano, 
             int args[], 
-            GLPreviewFrame *frame_in
+            GLPreviewFrame *frame_in,
+            wxGLContext * shared_context
             ) :
           wxGLCanvas(parent, wxID_ANY, wxDefaultPosition, wxDefaultSize,
                      0, wxT("GLPreviewCanvas"), args, wxNullPalette)
@@ -79,12 +78,14 @@ GLViewer::GLViewer(
      * wxGTK, and on wxMac the constructor doesn't fit the documentation. I
      * create a new context on anything but wxMac and hope it works... */
     #ifdef __WXMAC__
+      //TODO: check how to share contexts in mac
       m_glContext = GetContext();
     #else
-      m_glContext = new wxGLContext(this, 0);
+      m_glContext = new wxGLContext(this, shared_context);
 	#endif
     
     m_renderer = 0;
+    m_visualization_state = 0;
     
     m_pano = &pano;
 
@@ -170,7 +171,7 @@ void GLPreview::setUp()
         glGetIntegerv(GL_MAX_TEXTURE_UNITS_ARB,&countMultiTexture);
         m_view_state = new ViewState(m_pano, countMultiTexture>1);
     }
-    m_visualization_state = new VisualizationState(m_pano, m_view_state, this, RefreshWrapper, this, (MeshManager*) NULL);
+    m_visualization_state = new VisualizationState(m_pano, m_view_state, this, RefreshWrapper, this, (PreviewMeshManager*) NULL);
     //Start the tools going:
     PreviewToolHelper *helper = new PreviewToolHelper(m_pano, m_visualization_state, frame);
     m_tool_helper = (ToolHelper*) helper;
@@ -244,6 +245,21 @@ void GLViewer::SetLayoutScale(double scale)
     Refresh();
 }
 
+void GLOverview::SetLayoutMode(bool state)
+{
+    panosphere_m_visualization_state->GetMeshManager()->SetLayoutMode(state);
+    plane_m_visualization_state->GetMeshManager()->SetLayoutMode(state);
+    Refresh();
+}
+
+void GLOverview::SetLayoutScale(double scale)
+{
+    panosphere_m_visualization_state->GetMeshManager()->SetLayoutScale(scale*MeshManager::PanosphereOverviewMeshInfo::scale_diff);
+    plane_m_visualization_state->GetMeshManager()->SetLayoutScale(scale);
+    Refresh();
+}
+
+
 void GLViewer::RedrawE(wxPaintEvent& e)
 {
     if (!IsActive()) {
@@ -283,6 +299,13 @@ void GLViewer::Resized(wxSizeEvent& e)
 {
 
     DEBUG_DEBUG("RESIZED_OUT");
+    GLPreview * test;
+    test = dynamic_cast<GLPreview*>(this);
+    if (test) {
+        DEBUG_DEBUG("GLPreview");
+    } else {
+        DEBUG_DEBUG("GLOverview");
+    }
    
     if (frame->CanResize()) {
         frame->UpdateDocksSize();
@@ -290,9 +313,11 @@ void GLViewer::Resized(wxSizeEvent& e)
         wxGLCanvas::OnSize(e);
         if(!IsShown()) return;
         // if we have a render at this point, tell it the new size.
+        DEBUG_DEBUG("RESIZED_IN_SHOWN");
         if (m_renderer)
         {
           int w, h;
+          DEBUG_DEBUG("RESIZED_IN_RENDERER");
           GetClientSize(&w, &h);    
           SetUpContext();
           offset = m_renderer->Resize(w, h);
@@ -345,29 +370,23 @@ void GLViewer::MouseLeave(wxMouseEvent & e)
         m_tool_helper->MouseLeave();
 }
 
-void GLViewer::LeftDown(wxMouseEvent& e)
+void GLViewer::MouseButtons(wxMouseEvent& e)
 {
-    if(m_renderer)
-        m_tool_helper->MouseButtonEvent(e);
+    if(m_renderer) {
+        //disregard non button events
+        if (e.IsButton()) {
+            m_tool_helper->MouseButtonEvent(e);
+        }
+    }
 }
 
-void GLViewer::LeftUp(wxMouseEvent& e)
+void GLViewer::MouseWheel(wxMouseEvent& e)
 {
-    if(m_renderer)
-        m_tool_helper->MouseButtonEvent(e);
+    if(m_renderer) {
+        m_tool_helper->MouseWheelEvent(e);
+    }
 }
 
-void GLViewer::RightDown(wxMouseEvent& e)
-{
-    if(m_renderer)
-        m_tool_helper->MouseButtonEvent(e);
-}
-
-void GLViewer::RightUp(wxMouseEvent& e)
-{
-    if(m_renderer)
-        m_tool_helper->MouseButtonEvent(e);
-}
 
 void GLViewer::KeyDown(wxKeyEvent& e)
 {
@@ -385,18 +404,21 @@ void GLViewer::KeyUp(wxKeyEvent& e)
 
 void GLOverview::SetMode(OverviewMode mode)
 {
-    switch(mode) {
-        case PANOSPHERE:
-            m_visualization_state = panosphere_m_visualization_state;
-            m_tool_helper = panosphere_m_tool_helper;
-            m_renderer = panosphere_m_renderer;
-            break;
-        case PLANE:
-            m_visualization_state = plane_m_visualization_state;
-            m_tool_helper = plane_m_tool_helper;
-            m_renderer = plane_m_renderer;
-            break;
+    this->mode = mode;
+    if (panosphere_m_renderer != 0 && plane_m_renderer != 0) {
+        switch(mode) {
+            case PANOSPHERE:
+                m_visualization_state = panosphere_m_visualization_state;
+                m_tool_helper = panosphere_m_tool_helper;
+                m_renderer = panosphere_m_renderer;
+                break;
+            case PLANE:
+                m_visualization_state = plane_m_visualization_state;
+                m_tool_helper = plane_m_tool_helper;
+                m_renderer = plane_m_renderer;
+                break;
+        }
+        this->Refresh();
     }
-    this->Refresh();
 }
 

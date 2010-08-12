@@ -1,5 +1,5 @@
 // -*- c-basic-offset: 4 -*-
-/** @file PreviewDragTool.h
+/** @file ProjectionGridTool.h
  *
  *  @author Darko Makreshanski
  *

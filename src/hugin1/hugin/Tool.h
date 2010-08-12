@@ -69,6 +69,10 @@ public:
      * @param e The event created by wxWidgets.
      */
     virtual void MouseButtonEvent(wxMouseEvent &e) {}
+    /** Notify of a mouse wheel event on the panorama preview.
+     * @param e The event created by wxWidgets.
+     */
+    virtual void MouseWheelEvent(wxMouseEvent & e) {}
     /** Notify when the images directly underneath the mouse pointer have
      * changed. It is monitored by the PreviewToolHelper.
      */

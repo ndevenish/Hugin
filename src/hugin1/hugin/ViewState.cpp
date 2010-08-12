@@ -482,13 +482,13 @@ HuginBase::SrcPanoImage * VisualizationState::GetSrcImage(unsigned int image_nr)
 
 
 PanosphereOverviewVisualizationState::PanosphereOverviewVisualizationState(PT::Panorama* pano, ViewState* view_state, GLViewer * viewer, void (*RefreshFunction)(void*), void *arg)
-        : OverviewVisualizationState(pano, view_state, viewer, RefreshFunction, arg, (MeshManager*) NULL) 
+        : OverviewVisualizationState(pano, view_state, viewer, RefreshFunction, arg, (PanosphereOverviewMeshManager*) NULL) 
 {
 
-    scale = 100;
+    scale = 1;
 
-//    angx = M_PI / 2.0;
-    angx = 0;
+    angx = M_PI / 2.0;
+//    angx = 0;
     angy = 0;
     fov = 40;
     R = 500;
@@ -505,6 +505,8 @@ PanosphereOverviewVisualizationState::PanosphereOverviewVisualizationState(PT::P
 
     opts = (*(m_view_state->GetOptions()));
     opts.setProjection(HuginBase::PanoramaOptions::EQUIRECTANGULAR);
+    opts.setHFOV(360.0);
+    opts.setVFOV(180.0);
     projection_info = new OutputProjectionInfo(&opts);
 }
 
@@ -531,6 +533,8 @@ void PanosphereOverviewVisualizationState::SetOptions(const HuginBase::PanoramaO
 {
     opts = *new_opts;
     opts.setProjection(HuginBase::PanoramaOptions::EQUIRECTANGULAR);
+    opts.setHFOV(360.0);
+    opts.setVFOV(180.0);
     if (projection_info) {
         delete projection_info;
         projection_info = NULL;
@@ -560,16 +564,17 @@ void PanosphereOverviewVisualizationState::setAngY(double angy_in)
 
 
 PlaneOverviewVisualizationState::PlaneOverviewVisualizationState(PT::Panorama* pano, ViewState* view_state, GLViewer * viewer, void (*RefreshFunction)(void*), void *arg)
-        : OverviewVisualizationState(pano, view_state, viewer, RefreshFunction, arg, (MeshManager*) NULL) 
+        : OverviewVisualizationState(pano, view_state, viewer, RefreshFunction, arg, (PlaneOverviewMeshManager*) NULL) 
 {
 
-    scale = 100;
+    scale = 1;
 
     fov = 60;
     R = 500;
 
     opts = (*(m_view_state->GetOptions()));
     opts.setProjection(HuginBase::PanoramaOptions::RECTILINEAR);
+    //TODO: hfov and vfov need to be divided into values for the output and values for the visualization
     opts.setHFOV(180.0);
     opts.setVFOV(180.0);
     projection_info = new OutputProjectionInfo(&opts);
@@ -593,8 +598,8 @@ void PlaneOverviewVisualizationState::SetOptions(const HuginBase::PanoramaOption
 {
     opts = *new_opts;
     opts.setProjection(HuginBase::PanoramaOptions::RECTILINEAR);
-    opts.setHFOV(180.0);
-    opts.setVFOV(180.0);
+    opts.setHFOV(90.0);
+    opts.setVFOV(90.0);
     if (projection_info) {
         delete projection_info;
         projection_info = NULL;

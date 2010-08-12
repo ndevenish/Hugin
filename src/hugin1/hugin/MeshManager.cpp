@@ -44,10 +44,9 @@
 #include <iostream>
 
 
-
 // If we want to draw the outline of each face instead of shading it normally,
 // uncomment this. Wireframe mode is for testing mesh quality.
- #define WIREFRAME
+// #define WIREFRAME
 
 MeshManager::MeshManager(PT::Panorama *pano, VisualizationState *visualization_state)
     :   m_pano(pano),
@@ -78,13 +77,7 @@ void MeshManager::CheckUpdate()
     {
         if (visualization_state->RequireRecalculateMesh(i))
         {
-//            PanosphereOverviewMeshInfo * test;
-//            test = dynamic_cast<PanosphereOverviewMeshInfo*>(meshes[i]);
-//            if (test) {
-//                DEBUG_DEBUG("UPDATING Cast to panosphere mesh info");
-//            } else {
-//                DEBUG_DEBUG("UPDATING Cast to normal mesh info");
-//            }
+            DEBUG_DEBUG("Update mesh for " << i);
             meshes[i]->SetSrcImage(visualization_state->GetSrcImage(i));
             meshes[i]->Update();
         }
@@ -93,30 +86,8 @@ void MeshManager::CheckUpdate()
     for (unsigned int i = old_size; i < m_pano->getNrOfImages(); i++)
     {
         DEBUG_INFO("Making new mesh remapper for image " << i << ".");
-        PanosphereOverviewVisualizationState * testpan;
-        testpan = dynamic_cast<PanosphereOverviewVisualizationState*>(visualization_state);
-        PlaneOverviewVisualizationState * testpl;
-        testpl = dynamic_cast<PlaneOverviewVisualizationState*>(visualization_state);
-        if (testpl) DEBUG_DEBUG("plane overview test");
-        if (testpan) {
-//            DEBUG_INFO("Adding panosphere overview mesh info");
-            meshes.push_back(new PanosphereOverviewMeshInfo(m_pano, visualization_state->GetSrcImage(i), visualization_state, layout_mode_on));
-        } else if (testpl) {
-            meshes.push_back(new PlaneOverviewMeshInfo(m_pano, visualization_state->GetSrcImage(i), visualization_state, layout_mode_on));
-        } else {
-            meshes.push_back(new MeshInfo(m_pano, visualization_state->GetSrcImage(i), visualization_state, layout_mode_on));
-        }
+        meshes.push_back(this->ObtainMeshInfo(visualization_state->GetSrcImage(i), layout_mode_on));
     }
-//    for (std::vector<MeshInfo*>::iterator it = meshes.begin() ; it != meshes.end() ; it++) {
-//        PanosphereOverviewMeshInfo * test;
-//        test = dynamic_cast<PanosphereOverviewMeshInfo*>(*it);
-//        if (test) {
-//            DEBUG_DEBUG("TEST Cast to panosphere mesh info");
-//        } else {
-//            DEBUG_DEBUG("TEST Cast to normal mesh info");
-//        }
-//    }
-
 }
 
 void MeshManager::RenderMesh(unsigned int image_number) const
@@ -201,7 +172,7 @@ void MeshManager::MeshInfo::Update()
     this->CompileList();
 }
 
-MeshManager::MeshInfo::Coords3D::Coords3D(const MeshRemapper::Coords & coords)
+MeshManager::MeshInfo::MeshCoords3D::MeshCoords3D(const MeshRemapper::Coords & coords)
 {
     for (int x = 0 ; x < 2 ; x++) {
         for (int y = 0 ; y < 2 ; y++) {
@@ -256,7 +227,7 @@ void MeshManager::MeshInfo::CompileList()
             bool write = true;
             while (remap->GetNextFaceCoordinates(&coords))
             {
-                Coords3D coords3d = this->GetCoords3D(coords);
+                MeshCoords3D coords3d = m_visualization_state->GetMeshManager()->GetMeshCoords3D(coords);
 //                DEBUG_DEBUG("mesh update " << coords3d.vertex_coords[0][0][0] << " " << coords3d.vertex_coords[0][0][1] << " " << coords3d.vertex_coords[0][0][2]);
                 number_of_faces++;
                 // go in an anticlockwise direction
@@ -307,9 +278,11 @@ void MeshManager::MeshInfo::CompileList()
 
     glEndList();
 
+
     this->AfterCompile();
 //    DEBUG_INFO("Prepared a display list for " << image_number << ", using "
 //              << number_of_faces << " face(s).");
+    DEBUG_DEBUG("after compile mesh");
 }
 
 void MeshManager::PanosphereOverviewMeshInfo::Convert(double &x, double &y, double &z, double th, double ph, double r)
@@ -331,7 +304,6 @@ void MeshManager::PanosphereOverviewMeshInfo::BeforeCompile()
 
     image.setYaw(0);
     image.setPitch(0);
-
 }
 
 void MeshManager::PanosphereOverviewMeshInfo::Transform()
@@ -348,20 +320,49 @@ void MeshManager::PanosphereOverviewMeshInfo::AfterCompile()
     image.setPitch(pitch);
 }
 
-MeshManager::MeshInfo::Coords3D MeshManager::PanosphereOverviewMeshInfo::GetCoords3D(MeshRemapper::Coords &coords)
+MeshManager::MeshInfo::Coord3D MeshManager::PanosphereOverviewMeshInfo::GetCoord3D(hugin_utils::FDiff2D & coord, VisualizationState * state)
 {
     double width, height, hfov, vfov;
-    HuginBase::PanoramaOptions * opts = m_visualization_state->GetOptions();
+    HuginBase::PanoramaOptions * opts = state->GetOptions();
     width = opts->getWidth();
     height = opts->getHeight();
-    hfov = opts->getHFOV();
-    vfov = opts->getVFOV();
 
-    double r = ((PanosphereOverviewVisualizationState*)m_visualization_state)->getSphereRadius();
+    hfov = 360;
+    vfov = 180;
 
-    Coords3D res;
+    MeshManager::MeshInfo::Coord3D res;
+
+    double r = ((PanosphereOverviewVisualizationState*)state)->getSphereRadius();
+    double th, ph;
+    th = ((coord.x / width) * hfov - hfov / 2.0);
+    ph = ((coord.y / height) * vfov - vfov / 2.0);
+
+    Convert(
+        res.x,
+        res.y,
+        res.z,
+        th,-ph,r);
+
+    return res;
+}
+
+MeshManager::MeshInfo::MeshCoords3D MeshManager::PanosphereOverviewMeshInfo::GetMeshCoords3D(MeshRemapper::Coords &coords, VisualizationState * state)
+{
+    double width, height, hfov, vfov;
+    HuginBase::PanoramaOptions * opts = state->GetOptions();
+    width = opts->getWidth();
+    height = opts->getHeight();
+
+    hfov = 360;
+    vfov = 180;
+
+    double r = ((PanosphereOverviewVisualizationState*)state)->getSphereRadius();
+
+    MeshCoords3D res;
     for (int x = 0 ; x < 2 ; x++) {
         for (int y = 0 ; y < 2 ; y++) {
+
+        
             res.tex_coords[x][y][0] = coords.tex_c[x][y][0];
             res.tex_coords[x][y][1] = coords.tex_c[x][y][1];
 
@@ -374,38 +375,68 @@ MeshManager::MeshInfo::Coords3D MeshManager::PanosphereOverviewMeshInfo::GetCoor
                 res.vertex_coords[x][y][1],
                 res.vertex_coords[x][y][2],
                 th,-ph,r);
+                
+//            DEBUG_DEBUG("pano get " << res.vertex_coords[x][y][0] << " " << res.vertex_coords[x][y][1] << " " << res.vertex_coords[x][y][2]);
+//            DEBUG_DEBUG("pano get " << coords.vertex_c[x][y][0] << " " << coords.vertex_c[x][y][1]);
+
         }
     }
     return res;
 }
 
 
+const double MeshManager::PlaneOverviewMeshInfo::scale = 100;
 
-
-void MeshManager::PlaneOverviewMeshInfo::BeforeCompile()
+MeshManager::MeshInfo::Coord3D MeshManager::PlaneOverviewMeshInfo::GetCoord3D(hugin_utils::FDiff2D &coord, VisualizationState * state)
 {
-}
-
-void MeshManager::PlaneOverviewMeshInfo::Transform()
-{
-
     double width, height;
-    HuginBase::PanoramaOptions * opts = m_visualization_state->GetOptions();
+    HuginBase::PanoramaOptions * opts = state->GetOptions();
     width = opts->getWidth();
     height = opts->getHeight();
-    glScalef(10000.0 / width, -10000.0 / width, 1);
-    glTranslatef(-width / 2.0, -height / 2.0, 0);
-    DEBUG_DEBUG("plane overview wh " << width << " " << height);
+
+    Coord3D res;
+    res.x = (coord.x - width / 2.0) * scale / width;
+    res.y = (coord.y - height / 2.0) * (-scale) / width;
+    res.z = 0;
+    return res;
+}
+
+MeshManager::MeshInfo::MeshCoords3D MeshManager::PlaneOverviewMeshInfo::GetMeshCoords3D(MeshRemapper::Coords &coords, VisualizationState * state)
+{
+    double width, height;
+    HuginBase::PanoramaOptions * opts = state->GetOptions();
+    width = opts->getWidth();
+    height = opts->getHeight();
+
+    MeshCoords3D res;
+    for (int x = 0 ; x < 2 ; x++) {
+        for (int y = 0 ; y < 2 ; y++) {
+            res.tex_coords[x][y][0] = coords.tex_c[x][y][0];
+            res.tex_coords[x][y][1] = coords.tex_c[x][y][1];
+
+            res.vertex_coords[x][y][0] = (coords.vertex_c[x][y][0] - width / 2.0) * scale / width;
+            res.vertex_coords[x][y][1] = (coords.vertex_c[x][y][1] - height / 2.0) * (-scale) / width;
+            res.vertex_coords[x][y][2] = 0;
+        }
+    }
+    return res;
 
 }
 
-//void MeshManager::PlaneOverviewMeshInfo::AfterCompile()
-//{
-//}
+MeshManager::MeshInfo * PanosphereOverviewMeshManager::ObtainMeshInfo(HuginBase::SrcPanoImage * src, bool layout_mode_on)
+{
+    return new MeshManager::PanosphereOverviewMeshInfo(m_pano, src, visualization_state, layout_mode_on);
+}
 
-//MeshManager::MeshInfo::Coords3D MeshManager::PlaneOverviewMeshInfo::GetCoords3D(MeshRemapper::Coords &coords)
-//{
-//}
+MeshManager::MeshInfo * PlaneOverviewMeshManager::ObtainMeshInfo(HuginBase::SrcPanoImage * src, bool layout_mode_on)
+{
+    return new MeshManager::PlaneOverviewMeshInfo(m_pano, src, visualization_state, layout_mode_on);
+}
+
+MeshManager::MeshInfo * PreviewMeshManager::ObtainMeshInfo(HuginBase::SrcPanoImage * src, bool layout_mode_on)
+{
+    return new MeshManager::PreviewMeshInfo(m_pano, src, visualization_state, layout_mode_on);
+}
 
 
 

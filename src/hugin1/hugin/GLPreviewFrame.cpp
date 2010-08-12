@@ -246,6 +246,7 @@ void GLwxAuiFloatingFrame::OnMoveFinished()
 
 void GLPreviewFrame::PauseResize()
 {
+    DEBUG_DEBUG("PAUSE RESIZE");
     GLresize = false;
 }
 
@@ -274,8 +275,11 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     drag_tool = NULL;
     overview_drag_tool = NULL;
     identify_tool = NULL ;
-    overview_identify_tool = NULL;
+    panosphere_overview_identify_tool = NULL;
+    plane_overview_identify_tool = NULL;
     difference_tool = NULL;
+    plane_difference_tool = NULL;
+    panosphere_difference_tool = NULL;
     pano_mask_tool = NULL;
 
     m_mode = -1;
@@ -332,12 +336,19 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
 	//create panel that will hold gl canvases
 	wxPanel * vis_panel = new wxPanel(this);
 
-	// set the AUI manager to our panel
-	m_mgr = new GLwxAuiManager(this);
-	m_mgr->SetManagedWindow(vis_panel);
-
     wxPanel * preview_panel = new wxPanel(vis_panel);
     wxPanel * overview_panel = new wxPanel(vis_panel);
+
+    // create our Viewers
+    int args[] = {WX_GL_RGBA, WX_GL_DOUBLEBUFFER, 0};
+    m_GLPreview = new GLPreview(preview_panel, pano, args, this);
+//    GLOverview * m_GLPreview2 = new GLOverview(preview_panel, pano, args, this);
+    m_GLOverview = new GLOverview(overview_panel, pano, args, this, m_GLPreview->GetContext());
+    m_GLOverview->SetMode(GLOverview::PANOSPHERE);
+
+	// set the AUI manager to our panel
+	m_mgr = new GLwxAuiManager(this, m_GLPreview, m_GLOverview);
+	m_mgr->SetManagedWindow(vis_panel);
     
     wxFlexGridSizer * flexSizer = new wxFlexGridSizer(2,0,5,5);
     flexSizer->AddGrowableCol(0);
@@ -345,13 +356,6 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
 
     wxBoxSizer * overview_sizer = new wxBoxSizer(wxVERTICAL);
 
-    // create our Viewers
-    int args[] = {WX_GL_RGBA, WX_GL_DOUBLEBUFFER, 0};
-
-    m_GLPreview = new GLPreview(preview_panel, pano, args, this);
-//    GLOverview * m_GLPreview2 = new GLOverview(preview_panel, pano, args, this);
-    m_GLOverview = new GLOverview(overview_panel, pano, args, this);
-    m_GLOverview->SetMode(GLOverview::PANOSPHERE);
 
     flexSizer->Add(m_GLPreview,
                   1,        // not vertically stretchable
@@ -626,10 +630,13 @@ GLPreviewFrame::~GLPreviewFrame()
     {
         preview_helper->DeactivateTool(crop_tool); delete crop_tool;
         preview_helper->DeactivateTool(drag_tool); delete drag_tool;
-        overview_helper->DeactivateTool(overview_drag_tool); delete overview_drag_tool;
+        panosphere_overview_helper->DeactivateTool(overview_drag_tool); delete overview_drag_tool;
         preview_helper->DeactivateTool(identify_tool); delete identify_tool;
-        overview_helper->DeactivateTool(overview_identify_tool); delete overview_identify_tool;
+        panosphere_overview_helper->DeactivateTool(panosphere_overview_identify_tool); delete panosphere_overview_identify_tool;
+        plane_overview_helper->DeactivateTool(plane_overview_identify_tool); delete plane_overview_identify_tool;
         preview_helper->DeactivateTool(difference_tool); delete difference_tool;
+        panosphere_overview_helper->DeactivateTool(panosphere_difference_tool); delete panosphere_difference_tool;
+        plane_overview_helper->DeactivateTool(plane_difference_tool); delete plane_difference_tool;
         preview_helper->DeactivateTool(pano_mask_tool); delete pano_mask_tool;
     }
     m_HFOVText->PopEventHandler(true);
@@ -765,6 +772,8 @@ void GLPreviewFrame::updateBlendMode()
                 && difference_tool != NULL)
             {
                 preview_helper->DeactivateTool(difference_tool);
+                panosphere_overview_helper->DeactivateTool(panosphere_difference_tool);
+                plane_overview_helper->DeactivateTool(plane_difference_tool);
             };
         }
         else
@@ -778,9 +787,12 @@ void GLPreviewFrame::updateBlendMode()
                     && m_ToolBar_Identify != NULL )
                 {
                     preview_helper->DeactivateTool(identify_tool);
-                    overview_helper->DeactivateTool(overview_identify_tool);
+                    panosphere_overview_helper->DeactivateTool(panosphere_overview_identify_tool);
+                    plane_overview_helper->DeactivateTool(plane_overview_identify_tool);
                     m_ToolBar_Identify->ToggleTool(XRCID("preview_identify_tool"), false);
                     preview_helper->ActivateTool(difference_tool);
+                    panosphere_overview_helper->ActivateTool(panosphere_difference_tool);
+                    plane_overview_helper->ActivateTool(plane_difference_tool);
                     CleanButtonColours();
                 };
             }
@@ -881,6 +893,9 @@ void GLPreviewFrame::panoramaChanged(Panorama &pano)
     m_ROIRightTxt->SetValue(wxString::Format(wxT("%d"), opts.getROI().right() ));
     m_ROITopTxt->SetValue(wxString::Format(wxT("%d"), opts.getROI().top() ));
     m_ROIBottomTxt->SetValue(wxString::Format(wxT("%d"), opts.getROI().bottom() ));
+
+
+
 }
 
 void GLPreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
@@ -905,6 +920,22 @@ void GLPreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &change
         delete toogle_button_event_handlers[i];
         toogle_button_event_handlers.pop_back();
         dirty = true;
+    }
+
+    //change overview mode to mosaic plane if any tr parameter is non zero
+    if (m_GLOverview->GetMode() == GLOverview::PANOSPHERE) {
+        bool hasTrNonZero = false;
+//        for (unsigned int i = 0 ; i < m_pano.getNrOfImages() ; i++) {
+        for(UIntSet::const_iterator it = changed.begin(); it != changed.end(); ++it) {
+        unsigned int i = *it;
+            if (pano.getSrcImage(i).getX() != 0) hasTrNonZero = true;
+            if (pano.getSrcImage(i).getY() != 0) hasTrNonZero = true;
+            if (pano.getSrcImage(i).getZ() != 0) hasTrNonZero = true;
+        }
+        if (hasTrNonZero) {
+            m_GLOverview->SetMode(GLOverview::PLANE);
+            m_OverviewModeChoice->SetSelection(1);
+        }
     }
 
     // add buttons
@@ -942,11 +973,18 @@ void GLPreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &change
                 but->PushEventHandler(event_handler);
 
                 ImageToogleButtonEventHandler * ov_event_handler = new
-                    ImageToogleButtonEventHandler(*it, &overview_identify_tool,
+                    ImageToogleButtonEventHandler(*it, &panosphere_overview_identify_tool,
                         m_ToolBar_Identify->FindById(XRCID("preview_identify_tool")),
                         &m_pano);
                 toogle_button_event_handlers.push_back(ov_event_handler);
                 but->PushEventHandler(ov_event_handler);
+
+                ImageToogleButtonEventHandler * pl_ov_event_handler = new
+                    ImageToogleButtonEventHandler(*it, &plane_overview_identify_tool,
+                        m_ToolBar_Identify->FindById(XRCID("preview_identify_tool")),
+                        &m_pano);
+                toogle_button_event_handlers.push_back(pl_ov_event_handler);
+                but->PushEventHandler(pl_ov_event_handler);
 
                 wxSize sz = but->GetSize();
 //                but->SetSize(res.GetWidth(),sz.GetHeight());
@@ -1300,12 +1338,49 @@ void GLPreviewFrame::OnDragChoice(wxCommandEvent & e)
 void GLPreviewFrame::OnOverviewModeChoice( wxCommandEvent & e)
 {
     int choice = m_OverviewModeChoice->GetSelection();
-    if (choice == 1) {
-        m_GLOverview->SetMode(GLOverview::PLANE);
-    } else
-    if (choice == 0) {
-        m_GLOverview->SetMode(GLOverview::PANOSPHERE);
+    if (m_GLOverview->GetMode() == GLOverview::PLANE) {
+        if (choice == 0) {
+            unsigned int nr = m_pano.getNrOfImages();
+            bool allowed = true;
+            for (unsigned int i = 0 ; i < nr ; i++) {
+                if (m_pano.getSrcImage(i).getX() != 0) allowed = false;
+                if (m_pano.getSrcImage(i).getY() != 0) allowed = false;
+                if (m_pano.getSrcImage(i).getZ() != 0) allowed = false;
+            }
+            if (allowed) {
+                m_GLOverview->SetMode(GLOverview::PANOSPHERE);
+            } else {
+                wxMessageDialog dialog(this, 
+                _("Switching to panosphere overview mode requires that all images have zero XYZ parameters. Do you want to set all XYZ parameters to zero for all images?"),   
+                _("Reset XYZ parameters?"), wxYES_NO);
+                if (dialog.ShowModal() == wxID_YES) {
+
+                    UIntSet imgs;
+                    Panorama newPan = m_pano.duplicate();
+                    unsigned int nr = newPan.getNrOfImages();
+                    for (unsigned int i = 0 ; i < nr ; i++) {
+                        SrcPanoImage img = newPan.getSrcImage(i);
+                        img.setX(0);
+                        img.setY(0);
+                        img.setZ(0);
+                        newPan.setSrcImage(i,img);
+                        imgs.insert(i);
+                    }
+                    GlobalCmdHist::getInstance().addCommand(
+                        new PT::UpdateImagesVariablesCmd(m_pano, imgs, newPan.getVariables())
+                    );
+                    m_GLOverview->SetMode(GLOverview::PANOSPHERE);
+
+                }
+            }
+        }
+    } else {
+        if (choice == 1) {
+            m_GLOverview->SetMode(GLOverview::PLANE);
+        }
     }
+    m_GLOverview->m_visualization_state->ForceRequireRedraw();
+    m_GLOverview->m_visualization_state->SetDirtyViewport();
 }
 
 void GLPreviewFrame::OnDefaultExposure( wxCommandEvent & e )
@@ -1434,13 +1509,13 @@ void GLPreviewFrame::MakePreviewTools(PreviewToolHelper *preview_helper_in)
     identify_tool = new PreviewIdentifyTool(preview_helper, this);
     difference_tool = new PreviewDifferenceTool(preview_helper);
     pano_mask_tool = new PreviewPanoMaskTool(preview_helper);
-    control_point_tool = new PreviewControlPointTool(preview_helper);
-    m_layoutLinesTool = new PreviewLayoutLinesTool(preview_helper);
+    preview_control_point_tool = new PreviewControlPointTool(preview_helper);
+    m_preview_layoutLinesTool = new PreviewLayoutLinesTool(preview_helper);
 
     preview_projection_grid = new PreviewProjectionGridTool(preview_helper);
     preview_helper->ActivateTool(preview_projection_grid);
 
-    
+//    
     // activate tools that are always active.
     preview_helper->ActivateTool(pano_mask_tool);
     // update the blend mode which activates some tools
@@ -1449,22 +1524,39 @@ void GLPreviewFrame::MakePreviewTools(PreviewToolHelper *preview_helper_in)
     SetMode(mode_preview);
 }
 
-void GLPreviewFrame::MakePanosphereOverviewTools(PanosphereOverviewToolHelper *overview_helper_in)
+void GLPreviewFrame::MakePanosphereOverviewTools(PanosphereOverviewToolHelper *panosphere_overview_helper_in)
 {
-    overview_helper = overview_helper_in;
-    overview_drag_tool = new OverviewDragTool(overview_helper);
-    overview_camera_tool = new OverviewCameraTool(overview_helper);
-    overview_helper->ActivateTool(overview_camera_tool);
-    overview_identify_tool = new PreviewIdentifyTool(overview_helper, this);
-    overview_projection_grid = new PanosphereOverviewProjectionGridTool(overview_helper);
-    overview_helper->ActivateTool(overview_projection_grid);
-    overview_outlines_tool = new OverviewOutlinesTool(overview_helper, m_GLPreview);
-    overview_helper->ActivateTool(overview_outlines_tool);
+    panosphere_overview_helper = panosphere_overview_helper_in;
+    overview_drag_tool = new OverviewDragTool(panosphere_overview_helper);
+    panosphere_overview_camera_tool = new PanosphereOverviewCameraTool(panosphere_overview_helper);
+    panosphere_overview_helper->ActivateTool(panosphere_overview_camera_tool);
+    panosphere_overview_identify_tool = new PreviewIdentifyTool(panosphere_overview_helper, this);
+    overview_projection_grid = new PanosphereOverviewProjectionGridTool(panosphere_overview_helper);
+    panosphere_overview_helper->ActivateTool(overview_projection_grid);
+    overview_outlines_tool = new PanosphereOverviewOutlinesTool(panosphere_overview_helper, m_GLPreview);
+    panosphere_overview_helper->ActivateTool(overview_outlines_tool);
+    panosphere_difference_tool = new PreviewDifferenceTool(panosphere_overview_helper);
+
+    m_panosphere_layoutLinesTool = new PreviewLayoutLinesTool(panosphere_overview_helper);
+    panosphere_control_point_tool = new PreviewControlPointTool(panosphere_overview_helper);
+
+
+
 }
 
-void GLPreviewFrame::MakePlaneOverviewTools(PlaneOverviewToolHelper *overview_helper_in)
+void GLPreviewFrame::MakePlaneOverviewTools(PlaneOverviewToolHelper *plane_overview_helper_in)
 {
+    plane_overview_helper = plane_overview_helper_in;
+    plane_overview_identify_tool = new PreviewIdentifyTool(plane_overview_helper, this);
+    plane_overview_camera_tool = new PlaneOverviewCameraTool(plane_overview_helper);
+    plane_overview_helper->ActivateTool(plane_overview_camera_tool);
+    plane_difference_tool = new PreviewDifferenceTool(plane_overview_helper);
 
+    plane_overview_outlines_tool = new PlaneOverviewOutlinesTool(plane_overview_helper, m_GLPreview);
+    plane_overview_helper->ActivateTool(plane_overview_outlines_tool);
+
+    m_plane_layoutLinesTool = new PreviewLayoutLinesTool(plane_overview_helper);
+    plane_control_point_tool = new PreviewControlPointTool(plane_overview_helper);
 
 }
 
@@ -1475,11 +1567,15 @@ void GLPreviewFrame::OnIdentify(wxCommandEvent & e)
     {
         m_BlendModeChoice->SetSelection(0);
         preview_helper->DeactivateTool(difference_tool);
+        panosphere_overview_helper->DeactivateTool(panosphere_difference_tool);
+        plane_overview_helper->DeactivateTool(plane_difference_tool);
         TurnOffTools(preview_helper->ActivateTool(identify_tool));
-        TurnOffTools(overview_helper->ActivateTool(overview_identify_tool));
+        TurnOffTools(panosphere_overview_helper->ActivateTool(panosphere_overview_identify_tool));
+        TurnOffTools(plane_overview_helper->ActivateTool(plane_overview_identify_tool));
     } else {
         preview_helper->DeactivateTool(identify_tool);
-        overview_helper->DeactivateTool(overview_identify_tool);
+        panosphere_overview_helper->DeactivateTool(panosphere_overview_identify_tool);
+        plane_overview_helper->DeactivateTool(plane_overview_identify_tool);
         CleanButtonColours();
     }
     m_GLPreview->Refresh();
@@ -1491,11 +1587,16 @@ void GLPreviewFrame::OnControlPoint(wxCommandEvent & e)
     SetStatusText(wxT(""), 0); // blank status text as it refers to an old tool.
     if (e.IsChecked())
     {
-        TurnOffTools(preview_helper->ActivateTool(control_point_tool));
+        TurnOffTools(preview_helper->ActivateTool(preview_control_point_tool));
+        TurnOffTools(panosphere_overview_helper->ActivateTool(panosphere_control_point_tool));
+        TurnOffTools(plane_overview_helper->ActivateTool(plane_control_point_tool));
     } else {
-        preview_helper->DeactivateTool(control_point_tool);
+        preview_helper->DeactivateTool(preview_control_point_tool);
+        panosphere_overview_helper->DeactivateTool(panosphere_control_point_tool);
+        plane_overview_helper->DeactivateTool(plane_control_point_tool);
     }
     m_GLPreview->Refresh();
+    m_GLOverview->Refresh();
 }
 
 void GLPreviewFrame::TurnOffTools(std::set<Tool*> tools)
@@ -1517,13 +1618,15 @@ void GLPreviewFrame::TurnOffTools(std::set<Tool*> tools)
             m_ToolBar_Identify->ToggleTool(XRCID("preview_identify_tool"), false);
             // cover up its indicators and restore normal button colours.
             m_GLPreview->Refresh();
+            m_GLOverview->Refresh();
             CleanButtonColours();
-        } else if (*i == control_point_tool)
+        } else if (*i == preview_control_point_tool)
         {
             // disabled the control point tool.
             XRCCTRL(*this,"preview_control_point_tool",wxCheckBox)->SetValue(false);
             // cover up the control point lines.
             m_GLPreview->Refresh();
+            m_GLOverview->Refresh();
         }
     }
 }
@@ -1721,16 +1824,22 @@ void GLPreviewFrame::SetMode(int newMode)
         case mode_preview:
             // switch off identify and show cp tool
             preview_helper->DeactivateTool(identify_tool);
-            overview_helper->DeactivateTool(overview_identify_tool);
+            panosphere_overview_helper->DeactivateTool(panosphere_overview_identify_tool);
+            plane_overview_helper->DeactivateTool(plane_overview_identify_tool);
             CleanButtonColours();
             m_ToolBar_Identify->ToggleTool(XRCID("preview_identify_tool"),false);
-            preview_helper->DeactivateTool(control_point_tool);
+            preview_helper->DeactivateTool(preview_control_point_tool);
+            panosphere_overview_helper->DeactivateTool(panosphere_control_point_tool);
+            plane_overview_helper->DeactivateTool(plane_control_point_tool);
             XRCCTRL(*this,"preview_control_point_tool",wxCheckBox)->SetValue(false);
             break;
         case mode_layout:
             // disable layout mode.
-            preview_helper->DeactivateTool(m_layoutLinesTool);
+            preview_helper->DeactivateTool(m_preview_layoutLinesTool);
+            panosphere_overview_helper->DeactivateTool(m_panosphere_layoutLinesTool);
+            plane_overview_helper->DeactivateTool(m_plane_layoutLinesTool);
             m_GLPreview->SetLayoutMode(false);
+            m_GLOverview->SetLayoutMode(false);
             // Switch the panorama mask back on.
             preview_helper->ActivateTool(pano_mask_tool);
             //restore blend mode
@@ -1741,7 +1850,7 @@ void GLPreviewFrame::SetMode(int newMode)
             break;
         case mode_drag:
             preview_helper->DeactivateTool(drag_tool);
-            overview_helper->DeactivateTool(overview_drag_tool);
+            panosphere_overview_helper->DeactivateTool(overview_drag_tool);
             break;
         case mode_crop:
             preview_helper->DeactivateTool(crop_tool);
@@ -1761,7 +1870,10 @@ void GLPreviewFrame::SetMode(int newMode)
             // turn off things not used in layout mode.
             preview_helper->DeactivateTool(pano_mask_tool);
             m_GLPreview->SetLayoutMode(true);
-            preview_helper->ActivateTool(m_layoutLinesTool);
+            m_GLOverview->SetLayoutMode(true);
+            preview_helper->ActivateTool(m_preview_layoutLinesTool);
+            panosphere_overview_helper->ActivateTool(m_panosphere_layoutLinesTool);
+            plane_overview_helper->ActivateTool(m_plane_layoutLinesTool);
             // we need to update the meshes after switch to layout mode
             // otherwise the following update of scale has no meshes to scale
             m_GLPreview->Update();
@@ -1771,7 +1883,7 @@ void GLPreviewFrame::SetMode(int newMode)
             break;
         case mode_drag:
             TurnOffTools(preview_helper->ActivateTool(drag_tool));
-            TurnOffTools(overview_helper->ActivateTool(overview_drag_tool));
+            TurnOffTools(panosphere_overview_helper->ActivateTool(overview_drag_tool));
             break;
         case mode_crop:
             TurnOffTools(preview_helper->ActivateTool(crop_tool));
@@ -1903,8 +2015,10 @@ void GLPreviewFrame::OnLayoutScaleChange(wxScrollEvent &e)
     if(m_mode==mode_layout)
     {
         double scale_factor=XRCCTRL(*this,"layout_scale_slider",wxSlider)->GetValue();
-        m_GLPreview->SetLayoutScale(10.0-sqrt(scale_factor));
+        m_GLPreview->SetLayoutScale(10.0 - sqrt(scale_factor));
+        m_GLOverview->SetLayoutScale(10.0 - sqrt(scale_factor));
         m_GLPreview->Refresh();
+        m_GLOverview->Refresh();
     };
 };
 

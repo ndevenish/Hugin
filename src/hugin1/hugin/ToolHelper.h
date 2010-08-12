@@ -74,7 +74,8 @@ public:
     {
         MOUSE_MOVE, MOUSE_PRESS, KEY_PRESS,
         DRAW_UNDER_IMAGES, DRAW_OVER_IMAGES,
-        IMAGES_UNDER_MOUSE_CHANGE, REALLY_DRAW_OVER_IMAGES
+        IMAGES_UNDER_MOUSE_CHANGE, REALLY_DRAW_OVER_IMAGES,
+        MOUSE_WHEEL
     };
     ToolHelper(PT::Panorama *pano,
                       VisualizationState *visualization_state,
@@ -92,6 +93,7 @@ public:
     virtual void MouseMoved(int x, int y, wxMouseEvent & e);
     // pressed is true if the button is pushed down, false if let go
     void MouseButtonEvent(wxMouseEvent &e);
+    void MouseWheelEvent(wxMouseEvent &e);
     // keycode is the wxWidgets keycode.
     void KeypressEvent(int keycode, int modifiers, bool pressed);
     void BeforeDrawImages();
@@ -142,6 +144,7 @@ protected:
     std::set<Tool *> draw_over_notified_tools;
     std::set<Tool *> really_draw_over_notified_tools;
     std::set<Tool *> images_under_mouse_notified_tools;
+    std::set<Tool *> mouse_wheel_notified_tools;
     // these are vectors: the index is the image that a single tool uses.
     std::vector<Tool *> image_draw_begin_tools;
     std::vector<Tool *> image_draw_end_tools;
@@ -231,6 +234,14 @@ public:
 
     void MouseMoved(int x, int y, wxMouseEvent & e);
     void UpdateImagesUnderMouse();
+
+    double getPlaneX() {return plane_x;}
+    double getPlaneY() {return plane_y;}
+
+private:
+
+    double plane_x;
+    double plane_y;
 
 };
 

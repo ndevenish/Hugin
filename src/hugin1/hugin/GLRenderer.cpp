@@ -120,6 +120,7 @@ vigra::Diff2D GLPreviewRenderer::Resize(int in_width, int in_height)
   m_visualization_state->SetVisibleArea(vigra::Rect2D(0, 0, options->getWidth(),
                                              options->getHeight()));
   m_visualization_state->SetScale(1.0 / scale);
+
   // return the offset from the top left corner of the viewpoer to the top left
   // corner of the panorama.
   return vigra::Diff2D(int (x_offs / scale), int (y_offs / scale));
@@ -145,7 +146,6 @@ void GLPreviewRenderer::Redraw()
     glEnd();
     glColor3f(1.0, 1.0, 1.0);
     // draw things under the preview images
-    m_tool_helper->BeforeDrawImages();
     // draw each active image.
     int imgs = m_pano->getNrOfImages();
     // offset by a half a pixel
@@ -153,6 +153,7 @@ void GLPreviewRenderer::Redraw()
     glTranslatef(0.5, 0.5, 0.0);
     glEnable(GL_TEXTURE_2D);
     m_tex_man->Begin();
+    m_tool_helper->BeforeDrawImages();
     // The old preview shows the lowest numbered image on top, so do the same:
     for (int img = imgs - 1; img != -1; img--)
     {
@@ -222,11 +223,12 @@ void GLPanosphereOverviewRenderer::Redraw()
 	
 	gluLookAt(R * cos(angy) * cos(angx), R * sin(angy), R * cos(angy) * sin(angx), 0, 0, 0, 0, 1, 0);
 
+
+
     //for look from inside
 //	gluLookAt(0,0,0,R * cos(angy) * cos(angx), R * sin(angy), R * cos(angy) * sin(angx), 0, 1, 0);
 
     // draw things under the preview images
-    m_tool_helper->BeforeDrawImages();
     // draw each active image.
     int imgs = m_pano->getNrOfImages();
     // offset by a half a pixel
@@ -270,6 +272,7 @@ void GLPanosphereOverviewRenderer::Redraw()
 
     
     ((PanosphereOverviewToolHelper*)m_tool_helper)->BeforeDrawImagesBack();
+    m_tool_helper->BeforeDrawImages();
     m_tex_man->Begin();
     // The old preview shows the lowest numbered image on top, so do the same:
     for (int img = imgs - 1; img != -1; img--)
@@ -290,8 +293,8 @@ void GLPanosphereOverviewRenderer::Redraw()
         }
     }
 
-    ((PanosphereOverviewToolHelper*)m_tool_helper)->AfterDrawImagesBack();
     m_tool_helper->AfterDrawImages();
+    ((PanosphereOverviewToolHelper*)m_tool_helper)->AfterDrawImagesBack();
 
 //    #ifdef __WXGTK__
 ////    glCullFace(GL_BACK);
@@ -316,9 +319,12 @@ void GLPanosphereOverviewRenderer::Redraw()
 
     glMatrixMode(GL_MODELVIEW);
     glCullFace(GL_BACK);
+
+
     
-    m_tool_helper->BeforeDrawImages();
     ((PanosphereOverviewToolHelper*)m_tool_helper)->BeforeDrawImagesFront();
+    m_tool_helper->BeforeDrawImages();
+
     // The old preview shows the lowest numbered image on top, so do the same:
     for (int img = imgs - 1; img != -1; img--)
     {
@@ -341,8 +347,8 @@ void GLPanosphereOverviewRenderer::Redraw()
     m_tex_man->End();
 
     // drawn things after the active image.
-    ((PanosphereOverviewToolHelper*)m_tool_helper)->AfterDrawImagesFront();
     m_tool_helper->AfterDrawImages();
+    ((PanosphereOverviewToolHelper*)m_tool_helper)->AfterDrawImagesFront();
     
     m_tex_man->DisableTexture();
 
@@ -358,7 +364,7 @@ vigra::Diff2D GLPanosphereOverviewRenderer::Resize(int w, int h)
     height = h;
     glViewport(0, 0, width, height);
     // we use the view_state rather than the panorama to allow interactivity.
-    HuginBase::PanoramaOptions *options = m_visualization_state->getViewState()->GetOptions();
+    HuginBase::PanoramaOptions *options = m_visualization_state->GetOptions();
     width_o = options->getWidth();
     height_o = options->getHeight();
     double aspect_screen = double(width) / double (height),
@@ -390,6 +396,18 @@ vigra::Diff2D GLPanosphereOverviewRenderer::Resize(int w, int h)
 	glViewport(0, 0, w, h);
 	gluPerspective(fovy,ratio,1,1000000);
 
+    m_visualization_state->SetVisibleArea(vigra::Rect2D(0, 0, options->getWidth(),
+                                             options->getHeight()));
+
+
+    double R = m_visualization_state->getR();
+    double radius = m_visualization_state->getSphereRadius();
+    //height of the screen in screen pixels over the length of the panosphere in panorama pixels when spread out
+    double scrscale = (float) h  / (2 * tan(fovy / 360.0 * M_PI) * (R - radius) / (2 * radius * M_PI) * (options->getWidth()));
+    m_visualization_state->SetScale(scrscale);
+//    DEBUG_DEBUG("renderer " << scrscale << " " << h << " " << R << " " << fovy);
+//    DEBUG_DEBUG("renderer scale " << scrscale);
+
 //    return vigra::Diff2D(w / 2, h / 2);
     return vigra::Diff2D(0,0);
 
@@ -406,11 +424,11 @@ void GLPlaneOverviewRenderer::Redraw()
 	glLoadIdentity();
 
     double R = m_visualization_state->getR();
-	
-	gluLookAt(0,0,R, 0, 0, 0, 0, 1, 0);
 
-    //for look from inside
-//	gluLookAt(0,0,0,R * cos(angy) * cos(angx), R * sin(angy), R * cos(angy) * sin(angx), 0, 1, 0);
+	double X = m_visualization_state->getX();
+	double Y = m_visualization_state->getY();
+
+	gluLookAt(X,Y,R, X, Y, 0, 0, 1, 0);
 
     // draw things under the preview images
     m_tool_helper->BeforeDrawImages();
@@ -452,10 +470,6 @@ void GLPlaneOverviewRenderer::Redraw()
 
     glEnable(GL_TEXTURE_2D);
 
-    glEnable(GL_CULL_FACE);
-    glCullFace(GL_FRONT);
-
-    
     m_tex_man->Begin();
     // The old preview shows the lowest numbered image on top, so do the same:
     for (int img = imgs - 1; img != -1; img--)
@@ -478,29 +492,7 @@ void GLPlaneOverviewRenderer::Redraw()
 
     m_tool_helper->AfterDrawImages();
 
-//    #ifdef __WXGTK__
-////    glCullFace(GL_BACK);
-////    glPushMatrix();
-////    glRotated(90,1,0,0);
-//////    if (imgs > 0) {
-//////        glEnable( GL_TEXTURE_2D );
-//////        glEnable(GL_BLEND);
-//////        glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-//////        glColor4f(0.5,0.5,0.5,0.5);
-//////        GLUquadric* grid = gluNewQuadric();
-//////        gluQuadricTexture(grid, GL_TRUE);
-//////        m_tex_man->BindTexture(0);
-//////        gluSphere(grid, 101,40,20);
-//////        glDisable(GL_BLEND);
-//////    } else {
-////        glColor4f(0.5,0.5,0.5,0.5);
-////        glutWireSphere(101,40,20);
-//////    }
-////    glPopMatrix();
-//    #endif
-
     glMatrixMode(GL_MODELVIEW);
-    glCullFace(GL_BACK);
     
     m_tool_helper->BeforeDrawImages();
     // The old preview shows the lowest numbered image on top, so do the same:
@@ -529,91 +521,9 @@ void GLPlaneOverviewRenderer::Redraw()
     
     m_tex_man->DisableTexture();
 
-    glDisable(GL_CULL_FACE);
-
     glPopMatrix();
 
 
-//    glClearColor(0,0,0,0);
-//	glClear(GL_COLOR_BUFFER_BIT);
-
-//	glMatrixMode(GL_MODELVIEW);
-
-//	glLoadIdentity();
-
-//    double R = m_visualization_state->getR();
-//	
-//	gluLookAt(R,R,R, 0, 0, 0, 0, 1, 0);
-
-//    //for look from inside
-////	gluLookAt(0,0,0,R * cos(angy) * cos(angx), R * sin(angy), R * cos(angy) * sin(angx), 0, 1, 0);
-
-//    // draw things under the preview images
-//    m_tool_helper->BeforeDrawImages();
-//    // draw each active image.
-//    int imgs = m_pano->getNrOfImages();
-//    // offset by a half a pixel
-//    glPushMatrix();
-//    glTranslatef(0.5, 0.5, 0.0);
-
-//    glColor3f(0.5,0.5,0.5);
-
-//    double side = 150;
-//    glBegin(GL_LINE_LOOP);
-
-//        glVertex3f(-side,side,0);
-//        glVertex3f(side,side,0);
-//        glVertex3f(side,-side,0);
-//        glVertex3f(-side,-side,0);
-
-//    glEnd();
-
-//    double axis = 200;
-//    glBegin(GL_LINES);
-
-//        glColor3f(1,0,0);
-//        glVertex3f(-axis,0,0);
-//        glVertex3f(axis,0,0);
-
-//        glColor3f(0,1,0);
-//        glVertex3f(0,0,0);
-//        glVertex3f(0,axis,0);
-
-//        glColor3f(0,0,1);
-//        glVertex3f(0,0,0);
-//        glVertex3f(0,0,axis);
-
-//    glEnd();
-
-//    glPopMatrix();
-
-//    glPushMatrix();
-//    glTranslatef(0.5, 0.5, 0.0);
-//    glEnable(GL_TEXTURE_2D);
-//    m_tex_man->Begin();
-//    // The old preview shows the lowest numbered image on top, so do the same:
-//    for (int img = imgs - 1; img != -1; img--)
-//    {
-//        // only draw active images
-//        if (m_pano->getImage(img).getOptions().active)
-//        {
-//            // the tools can cancel drawing of images.
-//            if (m_tool_helper->BeforeDrawImageNumber(img))
-//            {
-//                // the texture manager may need to call the display list
-//                // multiple times with blending, so we pass it the display list
-//                // rather than switching to the texture and then calling the
-//                // list ourselves.
-//                m_tex_man->DrawImage(img, m_mesh_man->GetDisplayList(img));
-//                m_tool_helper->AfterDrawImageNumber(img);
-//            }
-//        }
-//    }
-//    m_tex_man->End();
-//    // drawn things after the active image.
-//    m_tool_helper->AfterDrawImages();
-//    m_tex_man->DisableTexture();
-//    glPopMatrix();
     
     
 }
@@ -621,5 +531,48 @@ void GLPlaneOverviewRenderer::Redraw()
 
 vigra::Diff2D GLPlaneOverviewRenderer::Resize(int w, int h)
 {
+    width = w;
+    height = h;
+    glViewport(0, 0, width, height);
+    // we use the view_state rather than the panorama to allow interactivity.
+    HuginBase::PanoramaOptions *options = m_visualization_state->getViewState()->GetOptions();
+    width_o = options->getWidth();
+    height_o = options->getHeight();
+    double aspect_screen = double(width) / double (height),
+        aspect_pano = width_o / height_o;
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();  
+    double scale;
+    if (aspect_screen < aspect_pano)
+    {
+      // the panorama is wider than the screen
+      scale = width_o / width;
+    } else {
+      // the screen is wider than the panorama
+      scale = height_o / height;
+    }
+
+    double fov = m_visualization_state->getFOV();
+    double fovy;
+    if (h > w) {
+        fovy = 2.0 * atan( tan(fov * M_PI / 360.0) * (float) h / (float) w) / M_PI * 180.0;
+    } else {
+        fovy = fov;
+    }
+
+	float ratio = 1.0* w / h;
+//	aspect = ratio;
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluPerspective(fovy,ratio,1,1000000);
+
+    m_visualization_state->SetVisibleArea(vigra::Rect2D(0, 0, options->getWidth(),
+                                             options->getHeight()));
+
+    double R = m_visualization_state->getR();
+    double scrscale = (float) h / (2 * tan(fovy / 360.0 * M_PI) * R   * options->getWidth() / MeshManager::PlaneOverviewMeshInfo::scale);
+    m_visualization_state->SetScale(scrscale);
+//    m_visualization_state->SetGLScale(gl_scale);
+	
     return vigra::Diff2D(0,0);
 }

@@ -11,52 +11,48 @@
 
 #include "GLViewer.h"
 
+#include "GreatCircles.h"
 #include "OverviewOutlinesTool.h"
+#include <cfloat>
 
-OverviewOutlinesTool::OverviewOutlinesTool(OverviewToolHelper * helper, GLViewer * viewer) : OverviewTool(helper), preview(viewer),
+OverviewOutlinesTool::OverviewOutlinesTool(ToolHelper * helper, GLViewer * viewer) : preview(viewer), thelper(helper),
     display_list_number_canvas(glGenLists(1)),
     display_list_number_crop(glGenLists(1)),
     display_list_number_canvas_outline(glGenLists(1)),
     display_list_number_crop_outline(glGenLists(1)),
     dirty_meshes(true)
 {
-    helper->GetPanoramaPtr()->addObserver(this);
+    thelper->GetPanoramaPtr()->addObserver(this);
 }
 
 OverviewOutlinesTool::~OverviewOutlinesTool()
 {
-
 }
 
 void OverviewOutlinesTool::panoramaChanged(HuginBase::PanoramaData &pano)
 {
 
     dirty_meshes = true;
-    helper->GetVisualizationStatePtr()->ForceRequireRedraw();
+    thelper->GetVisualizationStatePtr()->ForceRequireRedraw();
     
 }
 
-void OverviewOutlinesTool::Activate()
-{
-    helper->NotifyMe(ToolHelper::MOUSE_MOVE, this);
-    ((ToolHelper*)helper)->NotifyMe(ToolHelper::DRAW_OVER_IMAGES, (Tool*)this);
-}
 
 void OverviewOutlinesTool::MouseMoveEvent(double x, double y, wxMouseEvent & e)
 {
-//    std::cout << "outlines tool " << x << " " << y << std::endl;
-    double xp, yp;
-    HuginBase::PTools::Transform transform;
-    HuginBase::SrcPanoImage image;
-    image.setSize(vigra::Size2D(360,180));
-    image.setHFOV(360);
-    image.setProjection(HuginBase::BaseSrcPanoImage::EQUIRECTANGULAR);
-    if (helper->GetPanoramaPtr()->getNrOfImages() > 0) {
-//        transform.createTransform(*helper->GetViewStatePtr()->GetSrcImage(0), *(helper->GetVisualizationStatePtr()->GetOptions()));
-        transform.createTransform(image, *(helper->GetVisualizationStatePtr()->GetOptions()));
-        transform.transformImgCoord(xp,yp,x,y);
-//    std::cout << "outlines tool " << xp << " " << yp << std::endl;
-    }
+////    std::cout << "outlines tool " << x << " " << y << std::endl;
+//    double xp, yp;
+//    HuginBase::PTools::Transform transform;
+//    HuginBase::SrcPanoImage image;
+//    image.setSize(vigra::Size2D(360,180));
+//    image.setHFOV(360);
+//    image.setProjection(HuginBase::BaseSrcPanoImage::EQUIRECTANGULAR);
+//    if (helper->GetPanoramaPtr()->getNrOfImages() > 0) {
+////        transform.createTransform(*helper->GetViewStatePtr()->GetSrcImage(0), *(helper->GetVisualizationStatePtr()->GetOptions()));
+//        transform.createTransform(image, *(helper->GetVisualizationStatePtr()->GetOptions()));
+//        transform.transformImgCoord(xp,yp,x,y);
+////    std::cout << "outlines tool " << xp << " " << yp << std::endl;
+//    }
 }
 
 struct Rec {
@@ -70,30 +66,95 @@ struct Rec {
 
 //#define WIREFRAME
 
-void OverviewOutlinesTool::AfterDrawImagesEvent()
+void PanosphereOverviewOutlinesTool::Activate()
+{
+    ((PanosphereOverviewToolHelper*)helper)->NotifyMe(PanosphereOverviewToolHelper::DRAW_OVER_IMAGES_FRONT, this);
+    ((PanosphereOverviewToolHelper*)helper)->NotifyMe(PanosphereOverviewToolHelper::DRAW_OVER_IMAGES_BACK, this);
+//    helper->NotifyMe(ToolHelper::DRAW_OVER_IMAGES, this);
+}
+
+
+
+void PlaneOverviewOutlinesTool::Activate()
+{
+    (helper)->NotifyMe(ToolHelper::DRAW_OVER_IMAGES, this);
+}
+
+void PlaneOverviewOutlinesTool::AfterDrawImagesEvent()
+{
+    draw();
+}
+
+void PanosphereOverviewOutlinesTool::AfterDrawImagesBackEvent()
+{
+    draw();
+}
+
+void PanosphereOverviewOutlinesTool::AfterDrawImagesFrontEvent()
+{
+    draw();
+}
+
+void PanosphereOverviewOutlinesTool::drawBackground()
 {
 
-    if (!preview->m_visualization_state) {
+    double radius = ((PanosphereOverviewVisualizationState*) helper->GetVisualizationStatePtr())->getSphereRadius();
+    GLUquadric* grid = gluNewQuadric();
+    gluSphere(grid, radius+1,40,20);
+
+}
+
+void PlaneOverviewOutlinesTool::drawBackground()
+{
+
+    glBegin(GL_QUADS);
+
+    double end = 1000000;
+
+    glVertex3f(-end, end, 0);
+    glVertex3f( end, end, 0);
+    glVertex3f( end,-end, 0);
+    glVertex3f(-end,-end, 0);
+
+    glEnd();
+
+}
+
+void OverviewOutlinesTool::draw()
+{
+
+    if (!(preview->m_visualization_state)) {
         return;
     }
+
 
     if (dirty_meshes) {
 
 //    std::cout << "outlines after draw images\n";
+//        vigra::Rect2D trect = preview->m_visualization_state->GetVisibleArea();
+//        double hscale, wscale;
+//        hscale = (float) thelper->GetVisualizationStatePtr()->GetOptions()->getHeight() / (float) preview->m_visualization_state->GetOptions()->getHeight();
+//        wscale =  (float) thelper->GetVisualizationStatePtr()->GetOptions()->getWidth() / (float) preview->m_visualization_state->GetOptions()->getWidth();
+//        std::cerr << "outlines " << hscale << " " << wscale << std::endl;
+//        std::cerr << "outlines " << trect.left() << " " << trect.top() << " " << trect.right() << " " << trect.bottom() << std::endl;
+//        vigra::Rect2D rect(trect.left() * wscale, trect.top() * hscale, trect.right() * wscale, trect.bottom() * hscale);
+//        std::cerr << "outlines " << rect.left() << " " << rect.top() << " " << rect.right() << " " << rect.bottom() << std::endl;
+
         vigra::Rect2D rect = preview->m_visualization_state->GetVisibleArea();
+
         glNewList(display_list_number_canvas,GL_COMPILE);
         DrawRect(rect.left(), rect.top(), rect.right(), rect.bottom(),false);
         glEndList();
         glNewList(display_list_number_canvas_outline,GL_COMPILE);
-        DrawRect(rect.left(), rect.top(), rect.right(), rect.bottom(),true);
+        DrawRect(rect.left(), rect.top(), rect.right(), rect.bottom(),true, 4.0);
         glEndList();
 
-        vigra::Rect2D roi = helper->GetViewStatePtr()->GetOptions()->getROI();
+        vigra::Rect2D roi = thelper->GetViewStatePtr()->GetOptions()->getROI();
         glNewList(display_list_number_crop,GL_COMPILE);
         DrawRect(roi.left(), roi.top(), roi.right(), roi.bottom(),false);
         glEndList();
         glNewList(display_list_number_crop_outline,GL_COMPILE);
-        DrawRect(roi.left(), roi.top(), roi.right(), roi.bottom(),true);
+        DrawRect(roi.left(), roi.top(), roi.right(), roi.bottom(),true, 2.0);
         glEndList();
 
         dirty_meshes = false;
@@ -102,41 +163,65 @@ void OverviewOutlinesTool::AfterDrawImagesEvent()
 //    std::cout << "outlines adi " << roi.left() << " " << roi.top() << " " << roi.right() << " " << roi.bottom() << std::endl;
     }
 
+    if (thelper->GetVisualizationStatePtr()->RequireRecalculateViewport()) {
 
-    double radius = ((PanosphereOverviewVisualizationState*)helper->GetVisualizationStatePtr())->getSphereRadius();
+        vigra::Rect2D rect = preview->m_visualization_state->GetVisibleArea();
+        glNewList(display_list_number_canvas_outline,GL_COMPILE);
+        DrawRect(rect.left(), rect.top(), rect.right(), rect.bottom(),true, 4.0);
+        glEndList();
+
+        vigra::Rect2D roi = thelper->GetViewStatePtr()->GetOptions()->getROI();
+        glNewList(display_list_number_crop_outline,GL_COMPILE);
+        DrawRect(roi.left(), roi.top(), roi.right(), roi.bottom(),true, 2.0);
+        glEndList();
+
+    }
+
 
     glDisable(GL_TEXTURE_2D);
 
     glEnable(GL_BLEND);
     glBlendEquation(GL_FUNC_ADD);
-    
-
-    glColor4f(0,0,0,0.25);        
+    glColor4f(0,0,0,0.50);        
     glBlendFunc(GL_ZERO, GL_SRC_ALPHA);
-    GLUquadric* grid = gluNewQuadric();
-    gluSphere(grid, radius+1,40,20);
+    drawBackground();
 
-    glColor4f(1.0,1.0,1.0,1.0);
+
+    glColor4f(1.0,1.0,1.0,0.20);
     glBlendFunc(GL_DST_COLOR, GL_SRC_ALPHA);
     glCallList(display_list_number_canvas);
 
 //    std::cout << "outlines " << roi.left() << " " << roi.top() << " " << roi.right() << " " << roi.bottom() << std::endl;
 
+    glColor4f(1.0,1.0,1.0,0.66);
     glBlendFunc(GL_DST_COLOR, GL_SRC_ALPHA);
     glCallList(display_list_number_crop);
 
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    glColor4f(0.6,0.6,0.6,0.5);
+    glColor4f(0.8,0.8,0.8,0.5);
     glCallList(display_list_number_canvas_outline);
-    glColor4f(0.6,0.6,0.6,0.8);
+    glColor4f(0.8,0.8,0.8,0.6);
     glCallList(display_list_number_crop_outline);
 
     glEnable(GL_TEXTURE_2D);
     glDisable(GL_BLEND);
+
 }
 
-void OverviewOutlinesTool::DrawRect(double left, double top, double right, double bottom, bool outline)
+void OverviewOutlinesTool::DrawRect(double left, double top, double right, double bottom, bool outline, double line_width)
 {
+
+    vigra::Size2D size = thelper->GetVisualizationStatePtr()->GetOptions()->getSize();
+    double mlength = (size->y > size->x) ? size->y : size->x;
+    //since res was initially estimated for size of 360x100;
+
+    double fov = thelper->GetVisualizationStatePtr()->GetOptions()->getHFOV();
+    
+    double tres = res * mlength / fov;
+    double tmindist = mindist * mlength / fov;
+
+//    std::cerr << "outlines " << mlength << std::endl;
+//    std::cerr << "outlines " << right << std::endl;
 
     double safety = 1;
     left += safety;
@@ -146,14 +231,21 @@ void OverviewOutlinesTool::DrawRect(double left, double top, double right, doubl
 
     HuginBase::PTools::Transform transform;
     HuginBase::SrcPanoImage image;
-    image.setSize(vigra::Size2D(360,180));
-    image.setHFOV(360);
-    image.setProjection(HuginBase::BaseSrcPanoImage::EQUIRECTANGULAR);
+//    image.setSize(vigra::Size2D(360,180));
+    image.setSize(size);
+    image.setHFOV(fov);
+    switch(thelper->GetVisualizationStatePtr()->GetOptions()->getProjection()) {
+        case HuginBase::PanoramaOptions::EQUIRECTANGULAR:
+            image.setProjection(HuginBase::BaseSrcPanoImage::EQUIRECTANGULAR);
+            break;
+        case HuginBase::PanoramaOptions::RECTILINEAR:
+            image.setProjection(HuginBase::BaseSrcPanoImage::RECTILINEAR);
+            break;
+    }
+    
     transform.createTransform(image, *(preview->m_visualization_state->GetOptions()));
 
-    HuginBase::PanoramaOptions::ProjectionFormat proj = helper->GetViewStatePtr()->GetOptions()->getProjection();
-
-    double radius = ((PanosphereOverviewVisualizationState*)helper->GetVisualizationStatePtr())->getSphereRadius();
+    HuginBase::PanoramaOptions::ProjectionFormat proj = thelper->GetViewStatePtr()->GetOptions()->getProjection();
 
     switch(proj) {
 
@@ -192,18 +284,18 @@ void OverviewOutlinesTool::DrawRect(double left, double top, double right, doubl
                 double edge3 = (tr.val[2][0]-tr.val[3][0])*(tr.val[2][0]-tr.val[3][0]) + (tr.val[2][1]-tr.val[3][1])*(tr.val[2][1]-tr.val[3][1]);
                 double edge4 = (tr.val[3][0]-tr.val[0][0])*(tr.val[3][0]-tr.val[0][0]) + (tr.val[3][1]-tr.val[0][1])*(tr.val[3][1]-tr.val[0][1]);
 
-                double maxlimit = (radius/2.0)*(radius/2.0);
-                if (
-                        proj == HuginBase::PanoramaOptions::SINUSOIDAL ||
-                        proj == HuginBase::PanoramaOptions::ALBERS_EQUAL_AREA_CONIC
-                    )
-                if (edge1 > maxlimit || edge2 > maxlimit || edge3 > maxlimit || edge4 > maxlimit) {
-                    continue;
-                }
+//                double maxlimit = (radius/2.0)*(radius/2.0);
+//                if (
+//                        proj == HuginBase::PanoramaOptions::SINUSOIDAL ||
+//                        proj == HuginBase::PanoramaOptions::ALBERS_EQUAL_AREA_CONIC
+//                    )
+//                if (edge1 > maxlimit || edge2 > maxlimit || edge3 > maxlimit || edge4 > maxlimit) {
+//                    continue;
+//                }
 
                 if (outline) {
 
-                    glBegin(GL_LINES);
+//                    glBegin(GL_LINES);
                     bool edges[4] = {false,false,false,false};
                     if (w == 0) {
                         edges[0] = true;
@@ -219,22 +311,36 @@ void OverviewOutlinesTool::DrawRect(double left, double top, double right, doubl
                     }
                     for (int i = 0 ; i < 4 ; i++) {
                         if (edges[i]) {
-                            for (int j = 0 ; j < 2 ; j++) {
-                                int plus = i+j;
-                                if (plus == 4) plus = 0;
-                                double x,y,z;
-                                double tx,ty;
-                                tx = tr.val[plus][0];
-                                ty = tr.val[plus][1];
-                                ty = ty - 90;
-                                tx = tx - 180;
-                                ty *= -1;
-                                MeshManager::PanosphereOverviewMeshInfo::Convert(x,y,z,tx,ty,radius);
-                                glVertex3f(x,y,z);
-                            }
+
+                            int plus = i+1;
+                            if (plus == 4) plus = 0;
+                            hugin_utils::FDiff2D cd1(tr.val[i][0], tr.val[i][1]);
+                            hugin_utils::FDiff2D cd2(tr.val[plus][0], tr.val[plus][1]);
+                            GreatCircleArc::LineSegment line;
+                            line.vertices[0] = cd1;
+                            line.vertices[1] = cd2;
+                            line.doGL(line_width, thelper->GetVisualizationStatePtr());
+
+
+//                            for (int j = 0 ; j < 2 ; j++) {
+//                                int plus = i+j;
+//                                if (plus == 4) plus = 0;
+//                                double x,y,z;
+//                                double tx,ty;
+//                                tx = tr.val[plus][0];
+//                                ty = tr.val[plus][1];
+////                                ty = ty - 90;
+////                                tx = tx - 180;
+////                                ty *= -1;
+////                                double x,y,z;
+////                                MeshManager::MeshInfo::Coord3D coord = MeshManager::PanospheOverviewMeshInfo::Convert(x,y,z,tx,ty,radius);
+//                                hugin_utils::FDiff2D cd(tx,ty);
+//                                MeshManager::MeshInfo::Coord3D coord = thelper->GetVisualizationStatePtr()->GetMeshManager()->GetCoord3D(cd);
+//                                glVertex3f(coord.x,coord.y,coord.z);
+//                            }
                         }
                     }
-                    glEnd();
+//                    glEnd();
                        
                 } else {
 
@@ -248,11 +354,12 @@ void OverviewOutlinesTool::DrawRect(double left, double top, double right, doubl
                         double tx,ty;
                         tx = tr.val[s][0];
                         ty = tr.val[s][1];
-                        ty = ty - 90;
-                        tx = tx - 180;
-                        ty *= -1;
-                        MeshManager::PanosphereOverviewMeshInfo::Convert(x,y,z,tx,ty,radius);
-                        glVertex3f(x,y,z);
+//                        ty = ty - 90;
+//                        tx = tx - 180;
+//                        ty *= -1;
+                        hugin_utils::FDiff2D cd(tx,ty);
+                        MeshManager::MeshInfo::Coord3D coord = thelper->GetVisualizationStatePtr()->GetMeshManager()->GetCoord3D(cd);
+                        glVertex3f(coord.x,coord.y,coord.z);
                     }
                     glEnd();
 
@@ -322,7 +429,7 @@ void OverviewOutlinesTool::DrawRect(double left, double top, double right, doubl
 //                std::cout << "outlines  " << tr.val[2][0] << " " << tr.val[2][1] << std::endl;
 //                std::cout << "outlines  " << tr.val[3][0] << " " << tr.val[3][1] << std::endl;
 
-                double ressq = res * res;
+                double ressq = tres * tres;
 
                 bool divide_ver = false;
                 bool divide_hor = false;
@@ -334,7 +441,7 @@ void OverviewOutlinesTool::DrawRect(double left, double top, double right, doubl
                 if (
                         (edge1 > ressq || edge3 > ressq) 
                             && 
-                        abs(top_rec.top - top_rec.bottom) > mindist
+                        abs(top_rec.top - top_rec.bottom) > tmindist
                     ) {
 
                         divide_ver = true;
@@ -342,7 +449,7 @@ void OverviewOutlinesTool::DrawRect(double left, double top, double right, doubl
                 } else if (
                             (edge2 > ressq || edge4 > ressq) 
                                 && 
-                            abs(top_rec.left - top_rec.right) > mindist
+                            abs(top_rec.left - top_rec.right) > tmindist
                         ) {
 
                         divide_hor = true;
@@ -377,7 +484,7 @@ void OverviewOutlinesTool::DrawRect(double left, double top, double right, doubl
                 if (!(divide_ver || divide_hor)) {
                     
                     if (outline) {
-                        glBegin(GL_LINES);
+//                        glBegin(GL_LINES);
                         bool edges[4];
                         edges[0] = edge.left;
                         edges[1] = edge.bottom;
@@ -387,22 +494,41 @@ void OverviewOutlinesTool::DrawRect(double left, double top, double right, doubl
                             if (edges[i]) {
 //                            std::cout << "outlines line!!" << i << "\n";
 //                            std::cout << "outlines  " << top_rec.left << " " << top_rec.top << " " << top_rec.right << " " << top_rec.bottom << std::endl;
-                            for (int j = 0 ; j < 2 ; j++) {
-                                int plus = i+j;
-                                if (plus == 4) plus = 0;
-                                double x,y,z;
-                                double tx,ty;
-                                tx = tr.val[plus][0];
-                                ty = tr.val[plus][1];
-                                ty = ty - 90;
-                                tx = tx - 180;
-                                ty *= -1;
-                                MeshManager::PanosphereOverviewMeshInfo::Convert(x,y,z,tx,ty,radius);
-                                glVertex3f(x,y,z);
-                            }
+
+                            int plus = i+1;
+                            if (plus == 4) plus = 0;
+                            hugin_utils::FDiff2D cd1(tr.val[i][0], tr.val[i][1]);
+                            hugin_utils::FDiff2D cd2(tr.val[plus][0], tr.val[plus][1]);
+                            GreatCircleArc::LineSegment line;
+                            line.vertices[0] = cd1;
+                            line.vertices[1] = cd2;
+                            line.doGL(line_width, thelper->GetVisualizationStatePtr());
+                            
+//                            MeshManager::MeshInfo::Coord3D coord1 = thelper->GetVisualizationStatePtr()->GetMeshManager()->GetCoord3D(cd1);
+//                            MeshManager::MeshInfo::Coord3D coord2 = thelper->GetVisualizationStatePtr()->GetMeshManager()->GetCoord3D(cd2);
+//                            glVertex3f(coord1.x,coord1.y,coord1.z);
+//                            glVertex3f(coord2.x,coord2.y,coord2.z);
+
+            
+//                            for (int j = 0 ; j < 2 ; j++) {
+//                                int plus = i+j;
+//                                if (plus == 4) plus = 0;
+//                                double x,y,z;
+//                                double tx,ty;
+//                                tx = tr.val[plus][0];
+//                                ty = tr.val[plus][1];
+////                                ty = ty - 90;
+////                                tx = tx - 180;
+////                                ty *= -1;
+
+//                                
+//                                hugin_utils::FDiff2D cd(tx,ty);
+//                                MeshManager::MeshInfo::Coord3D coord = thelper->GetVisualizationStatePtr()->GetMeshManager()->GetCoord3D(cd);
+//                                glVertex3f(coord.x,coord.y,coord.z);
+//                            }
                             }
                         }
-                        glEnd();
+//                        glEnd();
                     } else {
                         #ifdef WIREFRAME
                         glBegin(GL_LINE_LOOP);
@@ -414,11 +540,12 @@ void OverviewOutlinesTool::DrawRect(double left, double top, double right, doubl
                             double tx,ty;
                             tx = tr.val[s][0];
                             ty = tr.val[s][1];
-                            ty = ty - 90;
-                            tx = tx - 180;
-                            ty *= -1;
-                            MeshManager::PanosphereOverviewMeshInfo::Convert(x,y,z,tx,ty,radius);
-                            glVertex3f(x,y,z);
+//                            ty = ty - 90;
+//                            tx = tx - 180;
+//                            ty *= -1;
+                            hugin_utils::FDiff2D cd(tx,ty);
+                            MeshManager::MeshInfo::Coord3D coord = thelper->GetVisualizationStatePtr()->GetMeshManager()->GetCoord3D(cd);
+                            glVertex3f(coord.x,coord.y,coord.z);
                         }
                         glEnd();
                     }
@@ -431,5 +558,6 @@ void OverviewOutlinesTool::DrawRect(double left, double top, double right, doubl
     }
 
 }
+
 
 
