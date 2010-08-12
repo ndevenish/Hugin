@@ -96,7 +96,8 @@ private:
 			makefile::Variable*& vstacks,
 			makefile::Variable*& vstacksshell,
 			makefile::Variable*& vstacksrem,
-			makefile::Variable*& vstacksremshell);
+			makefile::Variable*& vstacksremshell,
+			std::vector<std::string>& inputs);
 
 	void createcheckProgCmd(makefile::Rule& testrule, const std::string& progName, const std::string& progCommand);
 

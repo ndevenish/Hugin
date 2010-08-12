@@ -45,7 +45,9 @@ namespace mf = makefile;
 /// constants
 static const string hdrgrayRemappedExt = "_gray.pgm";
 static const string hdrRemappedExt = ".exr";
-const string ldrRemappedExt(".tif");
+static const string ldrRemappedExt(".tif");
+static const std::string ldrRemappedMode("TIFF_m");
+static const std::string hdrRemappedMode("EXR_m");
 
 std::vector<UIntSet> getHDRStacks(const PanoramaData & pano, UIntSet allImgs);
 std::vector<UIntSet> getExposureLayers(const PanoramaData & pano, UIntSet allImgs);
@@ -334,9 +336,12 @@ bool PanoramaMakefilelibExport::createItems()
 	std::vector<mf::Variable*> ldrexp_stacks, ldrexp_stacks_shell, ldrexp_stacks_input, ldrexp_stacks_input_shell;
 	mgr.own_add(new Comment("number of image sets with similar exposure"));
 	mf::Variable* vldrexposurelayers,* vldrexposurelayersshell,* vldrexposurelayersremapped,* vldrexposurelayersremappedshell;
-	createexposure(getExposureLayers(pano, images), "LDR_EXPOSURE_LAYER", "_exposure_", "_exposure_layers_", ldrRemappedExt,
+	std::vector<UIntSet> exposures = getExposureLayers(pano, images);
+	std::vector<std::string> exposureremappedimgs;
+	createexposure(exposures, "LDR_EXPOSURE_LAYER", "_exposure_", "_exposure_layers_", ldrRemappedExt,
 				ldrexp_stacks, ldrexp_stacks_shell, ldrexp_stacks_input, ldrexp_stacks_input_shell,
-				vldrexposurelayers, vldrexposurelayersshell, vldrexposurelayersremapped, vldrexposurelayersremappedshell);
+				vldrexposurelayers, vldrexposurelayersshell, vldrexposurelayersremapped, vldrexposurelayersremappedshell,
+				exposureremappedimgs);
 
 	std::vector<mf::Variable*> ldr_stacks, ldr_stacks_shell, ldr_stacks_input, ldr_stacks_input_shell;
 	mgr.own_add(new Comment("stacked ldr images"));
@@ -482,9 +487,106 @@ bool PanoramaMakefilelibExport::createItems()
     test->add();
 
 	//----------
-	//----------
-	//----------
+    // Rules for every single file
+    if(opts.remapper == PanoramaOptions::NONA)
+    {
+    	mgr.own_add(new Comment("Rules for ordinary TIFF_m and hdr output"));
+    	UIntSet::iterator it = images.begin();
+    	size_t i=0;
+    	for(; it != images.end(); it++, i++)
+    	{
+    		std::string source = Makefile::quote(pano.getImage(*it).getFilename(), Makefile::MAKE);
+    		std::ostringstream imgnr;
+    		imgnr << *it;
 
+    		// ldr part
+    		Rule* ruleldr = mgr.own(new Rule()); ruleldr->add();
+    		ruleldr->addTarget(Makefile::quote(remappedImages[i], Makefile::MAKE));
+    		ruleldr->addPrereq(source);
+    		ruleldr->addPrereq(vprojectfile->getRef().toString());
+    		ruleldr->addCommand(
+    				vnona->getRef().toString() +' '+ vnonaopts->getRef().toString() +' '+ vnonaldr->getRef().toString()
+    				+ " -r ldr -m " + ldrRemappedMode + " -o " + vldrremappedprefixshell->getRef().toString() +
+    				" -i " + imgnr.str() +' '+ vprojectfileshell->getRef().toString());
+
+    		// hdr part
+    		Rule* rulehdr = mgr.own(new Rule()); rulehdr->add();
+			rulehdr->addTarget(Makefile::quote(remappedHDRImages[i], Makefile::MAKE));
+			rulehdr->addPrereq(source);
+			rulehdr->addPrereq(vprojectfile->getRef().toString());
+			rulehdr->addCommand(
+					vnona->getRef().toString() +' '+ vnonaopts->getRef().toString() +" -r hdr -m " + hdrRemappedMode + " -o " +
+					vhdrstackremappedprefixshell->getRef().toString() + " -i " + imgnr.str() +' '+ vprojectfileshell->getRef().toString());
+    	}
+
+    	mgr.own_add(new Comment("Rules for exposure layer output"));
+
+		for(i=0; i < exposures.size(); i++)
+		{
+			size_t j=0;
+			for(UIntSet::iterator it = exposures[i].begin(); it != exposures[i].end(); it++, j++)
+			{
+				std::ostringstream expvalue, imgnr;
+				imgnr << *it;
+				expvalue.imbue(Makefile::locale);
+				expvalue <<  pano.getSrcImage(*it).getExposureValue();
+				Rule* rule = mgr.own(new Rule()); rule->add();
+				rule->addTarget(Makefile::quote(exposureremappedimgs[j], Makefile::MAKE));
+				rule->addPrereq(pano.getImage(*it).getFilename());
+				rule->addPrereq(vprojectfile->getRef().toString());
+				rule->addCommand(
+						vnona->getRef().toString() +' '+ vnonaopts->getRef().toString() +' '+ vnonaldr->getRef().toString()
+	    				+ " -r ldr -e " + expvalue.str() + " -m " + ldrRemappedMode + " -o " + vldrexposureremappedprefixshell->getRef().toString() +
+	    				" -i " + imgnr.str() +' '+ vprojectfileshell->getRef().toString());
+
+			}
+		}
+    }
+
+    if(opts.remapper == PanoramaOptions::PTMENDER)
+    {
+    	Rule* rule = mgr.own(new Rule()); rule->add();
+    	rule->addTarget(vldrlayers->getRef().toString());
+    	rule->addPrereq(vinimages->getRef().toString());
+    	rule->addPrereq(vprojectfile->getRef().toString());
+    	rule->addCommand(vPTmender->getRef().toString() + " -o " + vldrremappedprefixshell->getRef().toString() +' '+
+    			vprojectfileshell->getRef().toString());
+    }
+
+    //----------
+    // Rules for LDR and HDR stack merging, a rule for each stack
+    mgr.own_add(new Comment("Rules for LDR and HDR stack merging, a rule for each stack"));
+    for(size_t i=0; i< stacks.size(); i++)
+    {
+    	std::ostringstream imgnr;
+		imgnr << i;
+
+		Rule* ruleldr = mgr.own(new Rule()); ruleldr->add();
+		ruleldr->addTarget(ldr_stacks[i]->getRef().toString());
+		ruleldr->addPrereq(ldr_stacks_input[i]->getRef().toString());
+		ruleldr->addCommand(venfuse->getRef().toString() +' '+ venfuseopts->getRef().toString() + " -o " +
+				ldr_stacks_shell[i]->getRef().toString() +' '+ ldr_stacks_input_shell[i]->getRef().toString());
+		ruleldr->addCommand('-' + vexiftool->getRef().toString() + "-overwrite_original_in_place -TagsFromFile " +
+				vinimage1shell->getRef().toString() +' '+ vexiftoolcopyargs->getRef().toString() +' '+ ldr_stacks_shell[i]->getRef().toString());
+
+		Rule* rulehdr = mgr.own(new Rule()); rulehdr->add();
+		rulehdr->addTarget(hdr_stacks[i]->getRef().toString());
+		rulehdr->addPrereq(hdr_stacks_input[i]->getRef().toString());
+		rulehdr->addCommand(vhdrmerge->getRef().toString() +' '+ vhdrmergeopts->getRef().toString() + " -o " +
+				hdr_stacks_shell[i]->getRef().toString() +' '+ hdr_stacks_input_shell[i]->getRef().toString());
+    }
+	//----------
+    // Blend modes
+    if(opts.blendMode == PanoramaOptions::ENBLEND_BLEND)
+    {
+
+    }
+
+
+    if(opts.blendMode == PanoramaOptions::NO_BLEND)
+    {
+
+    }
 	return true;
 }
 
@@ -559,7 +661,8 @@ void PanoramaMakefilelibExport::createexposure(const std::vector<UIntSet> stackd
 		mf::Variable*& vstacks,
 		mf::Variable*& vstacksshell,
 		mf::Variable*& vstacksrem,
-		mf::Variable*& vstacksremshell)
+		mf::Variable*& vstacksremshell,
+		std::vector<std::string>& inputs)
 {
 	std::vector<std::string> allimgs;
 	std::ostringstream stknrs;
@@ -570,7 +673,7 @@ void PanoramaMakefilelibExport::createexposure(const std::vector<UIntSet> stackd
 		filename << outputPrefix << filenamecenter << std::setfill('0') << std::setw(4) << i << filenameext;
 		stackname << stkname << "_" << i;
 
-		std::vector<std::string> inputs, inputspt;
+		std::vector<std::string> inputspt;
 		double exposure = 0;
 		for (UIntSet::iterator it = stackdata[i].begin(); it != stackdata[i].end(); it++)
 		{
