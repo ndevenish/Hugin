@@ -122,10 +122,10 @@ struct TestConditional : public Test
 		var3.getDef().add();
 		rule.addTarget(cstr("all"));
 		rule.addCommand(cstr("@echo Results:"));
-		rule.addCommand(cstr("@echo ") + ifvar1.getRef().toString());
-		rule.addCommand(cstr("@echo ") + ifvar2.getRef().toString());
-		rule.addCommand(cstr("@echo ") + ifvar3.getRef().toString());
-		rule.addCommand(cstr("@echo ") + ifvar4.getRef().toString());
+		rule.addCommand(cstr("@echo ") + ifvar1.getRef());
+		rule.addCommand(cstr("@echo ") + ifvar2.getRef());
+		rule.addCommand(cstr("@echo ") + ifvar3.getRef());
+		rule.addCommand(cstr("@echo ") + ifvar4.getRef());
 
 		cdef1.addToIf(ifvar1.getDef());
 		cdef1.addToElse(elsevar1.getDef());
@@ -171,9 +171,9 @@ struct TestVariable : public Test
 
 		Rule* rule = mgr.own_add(new Rule());
 		rule->addTarget(cstr("all"));
-		rule->addCommand(cstr("@echo ") + v1->getRef().toString());
-		rule->addCommand(cstr("@echo ") + v2->getRef().toString());
-		rule->addCommand(cstr("@echo ") + v3->getRef().toString());
+		rule->addCommand(cstr("@echo ") + v1->getRef());
+		rule->addCommand(cstr("@echo ") + v2->getRef());
+		rule->addCommand(cstr("@echo ") + v3->getRef());
 	}
 };
 

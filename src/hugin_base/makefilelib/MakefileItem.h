@@ -58,6 +58,11 @@ public:
 /// Allows writing to ostreams.
 ostream& operator<<(ostream& stream, MakefileItem& item);
 
+/// Allows adding strings an MakefileItems
+string operator+(const string& str, MakefileItem& item);
+/// Allows adding strings an MakefileItems
+string operator+(MakefileItem& item, const string& str);
+
 /**
  * This class is used to mark MakefileItems that can be used directly, like most can.
  * The only exception is currently VariableDef and VariableRef, they can only be used

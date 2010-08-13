@@ -9,6 +9,8 @@
 #define RULE_H_
 
 #include "MakefileItem.h"
+#include "Variable.h"
+#include "VariableRef.h"
 
 #include <vector>
 
@@ -33,14 +35,50 @@ public:
 
 	virtual string toString();
 
-	void addTarget(string t)
+	/**
+	 * Adds a target string.
+	 * @param t
+	 */
+	void addTarget(const string& t)
 	{
 		targets.push_back(t);
 	}
+	/**
+	 * Adds a Variable as a Target. A VariableRef is taken from the Variable and added.
+	 * @param t
+	 */
+	void addTarget(Variable& t)
+	{
+		addTarget(t.getRef().toString());
+	}
+	void addTarget(Variable* t)
+	{
+		addTarget(t->getRef().toString());
+	}
+	/**
+	 * Adds a string as a prerequisite.
+	 * @param p
+	 */
 	void addPrereq(string p)
 	{
 		prerequisites.push_back(p);
 	}
+	/**
+	 * Adds a Variable as a prerequisite. A VariableRef is taken from the Variable and added.
+	 * @param p
+	 */
+	void addPrereq(Variable& p)
+	{
+		addPrereq(p.getRef().toString());
+	}
+	void addPrereq(Variable* p)
+	{
+		addPrereq(p->getRef().toString());
+	}
+	/**
+	 * Adds a string as a command to the Rule.
+	 * @param c
+	 */
 	void addCommand(string c)
 	{
 		commands.push_back(c);

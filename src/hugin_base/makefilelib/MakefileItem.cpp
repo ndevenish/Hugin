@@ -16,5 +16,17 @@ ostream& operator<<(ostream& stream, MakefileItem& item)
 	return stream;
 }
 
+string operator+(const string& str, MakefileItem& item)
+{
+	string out(str);
+	out.append(item.toString());
+	return out;
+}
+string operator+(MakefileItem& item, const string& str)
+{
+	string out(item.toString());
+	out.append(str);
+	return out;
+}
 
 }
