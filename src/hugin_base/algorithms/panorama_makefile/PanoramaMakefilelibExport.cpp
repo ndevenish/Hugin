@@ -160,7 +160,8 @@ bool PanoramaMakefilelibExport::createItems()
 	if(opts.blendMode == PanoramaOptions::ENBLEND_BLEND)
 	{
 		{
-			valuestream.str(opts.enblendOptions);
+			valuestream.str("");	// clear the streams buffer
+			valuestream << opts.enblendOptions;
 			if (opts.getHFOV() == 360.0)
 				// blend over the border
 				valuestream << " -w";
