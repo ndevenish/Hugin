@@ -59,7 +59,7 @@ public:
 	/// Takes a string value
 	Variable(string name_, string value_, Makefile::QuoteMode quotemode_ = Makefile::SHELL);
 	/// Takes a numeric value
-	Variable(string name_, double value_, Makefile::QuoteMode quotemode_ = Makefile::SHELL);
+	Variable(string name_, double value_, Makefile::QuoteMode quotemode_ = Makefile::NONE);
 	/** Takes values and appends them using seperator. The seperators will not be quoted
 	 * so using this, it's possible to have a list of filenames with spaces in them, quote
 	 * those correctly, but have a space seperated list of filenames.
