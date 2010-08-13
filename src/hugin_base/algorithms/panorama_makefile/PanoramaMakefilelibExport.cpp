@@ -438,7 +438,7 @@ bool PanoramaMakefilelibExport::createItems()
 	all->addTarget("all");
 	for(std::vector<mf::Variable*>::iterator it = allprereqs.begin(); it != allprereqs.end(); it++)
 	{
-		all->addPrereq((*it)->getRef().toString());
+		all->addPrereq((*it));
 	}
 	all->add();
 
@@ -448,9 +448,9 @@ bool PanoramaMakefilelibExport::createItems()
 	std::string vdefs;
 		for(std::vector<mf::Variable*>::iterator it = cleanprereqs.begin(); it != cleanprereqs.end(); it++)
 		{
-			vdefs += (*it)->getRef().toString() + " ";
+			vdefs += (*it)->getRef() + " ";
 		}
-	clean->addCommand('-' + vrm->getRef().toString() + ' ' + vdefs);
+	clean->addCommand("-" + vrm->getRef() + ' ' + vdefs);
 	}
 	clean->add();
 
@@ -503,20 +503,20 @@ bool PanoramaMakefilelibExport::createItems()
     		Rule* ruleldr = mgr.own(new Rule()); ruleldr->add();
     		ruleldr->addTarget(Makefile::quote(remappedImages[i], Makefile::MAKE));
     		ruleldr->addPrereq(source);
-    		ruleldr->addPrereq(vprojectfile->getRef().toString());
+    		ruleldr->addPrereq(vprojectfile);
     		ruleldr->addCommand(
-    				vnona->getRef().toString() +' '+ vnonaopts->getRef().toString() +' '+ vnonaldr->getRef().toString()
-    				+ " -r ldr -m " + ldrRemappedMode + " -o " + vldrremappedprefixshell->getRef().toString() +
-    				" -i " + imgnr.str() +' '+ vprojectfileshell->getRef().toString());
+    				vnona->getRef() +" "+ vnonaopts->getRef() +" "+ vnonaldr->getRef()
+    				+ " -r ldr -m " + ldrRemappedMode + " -o " + vldrremappedprefixshell->getRef() +
+    				" -i " + imgnr.str() +" "+ vprojectfileshell->getRef());
 
     		// hdr part
     		Rule* rulehdr = mgr.own(new Rule()); rulehdr->add();
 			rulehdr->addTarget(Makefile::quote(remappedHDRImages[i], Makefile::MAKE));
 			rulehdr->addPrereq(source);
-			rulehdr->addPrereq(vprojectfile->getRef().toString());
+			rulehdr->addPrereq(vprojectfile);
 			rulehdr->addCommand(
-					vnona->getRef().toString() +' '+ vnonaopts->getRef().toString() +" -r hdr -m " + hdrRemappedMode + " -o " +
-					vhdrstackremappedprefixshell->getRef().toString() + " -i " + imgnr.str() +' '+ vprojectfileshell->getRef().toString());
+					vnona->getRef() +" "+ vnonaopts->getRef() +" -r hdr -m " + hdrRemappedMode + " -o " +
+					vhdrstackremappedprefixshell->getRef() + " -i " + imgnr.str() +" "+ vprojectfileshell->getRef());
     	}
 
     	mgr.own_add(new Comment("Rules for exposure layer output"));
@@ -533,11 +533,11 @@ bool PanoramaMakefilelibExport::createItems()
 				Rule* rule = mgr.own(new Rule()); rule->add();
 				rule->addTarget(Makefile::quote(exposureremappedimgs[j], Makefile::MAKE));
 				rule->addPrereq(pano.getImage(*it).getFilename());
-				rule->addPrereq(vprojectfile->getRef().toString());
+				rule->addPrereq(vprojectfile);
 				rule->addCommand(
-						vnona->getRef().toString() +' '+ vnonaopts->getRef().toString() +' '+ vnonaldr->getRef().toString()
-	    				+ " -r ldr -e " + expvalue.str() + " -m " + ldrRemappedMode + " -o " + vldrexposureremappedprefixshell->getRef().toString() +
-	    				" -i " + imgnr.str() +' '+ vprojectfileshell->getRef().toString());
+						vnona->getRef() +" "+ vnonaopts->getRef() +" "+ vnonaldr->getRef()
+	    				+ " -r ldr -e " + expvalue.str() + " -m " + ldrRemappedMode + " -o " + vldrexposureremappedprefixshell->getRef() +
+	    				" -i " + imgnr.str() +" "+ vprojectfileshell->getRef());
 
 			}
 		}
@@ -546,11 +546,11 @@ bool PanoramaMakefilelibExport::createItems()
     if(opts.remapper == PanoramaOptions::PTMENDER)
     {
     	Rule* rule = mgr.own(new Rule()); rule->add();
-    	rule->addTarget(vldrlayers->getRef().toString());
-    	rule->addPrereq(vinimages->getRef().toString());
-    	rule->addPrereq(vprojectfile->getRef().toString());
-    	rule->addCommand(vPTmender->getRef().toString() + " -o " + vldrremappedprefixshell->getRef().toString() +' '+
-    			vprojectfileshell->getRef().toString());
+    	rule->addTarget(vldrlayers);
+    	rule->addPrereq(vinimages);
+    	rule->addPrereq(vprojectfile);
+    	rule->addCommand(vPTmender->getRef() + " -o " + vldrremappedprefixshell->getRef() +" "+
+    			vprojectfileshell->getRef());
     }
 
     //----------
@@ -562,30 +562,131 @@ bool PanoramaMakefilelibExport::createItems()
 		imgnr << i;
 
 		Rule* ruleldr = mgr.own(new Rule()); ruleldr->add();
-		ruleldr->addTarget(ldr_stacks[i]->getRef().toString());
-		ruleldr->addPrereq(ldr_stacks_input[i]->getRef().toString());
-		ruleldr->addCommand(venfuse->getRef().toString() +' '+ venfuseopts->getRef().toString() + " -o " +
-				ldr_stacks_shell[i]->getRef().toString() +' '+ ldr_stacks_input_shell[i]->getRef().toString());
-		ruleldr->addCommand('-' + vexiftool->getRef().toString() + "-overwrite_original_in_place -TagsFromFile " +
-				vinimage1shell->getRef().toString() +' '+ vexiftoolcopyargs->getRef().toString() +' '+ ldr_stacks_shell[i]->getRef().toString());
+		ruleldr->addTarget(ldr_stacks[i]);
+		ruleldr->addPrereq(ldr_stacks_input[i]);
+		ruleldr->addCommand(venfuse->getRef() +" "+ venfuseopts->getRef() + " -o " +
+				ldr_stacks_shell[i]->getRef() +" "+ ldr_stacks_input_shell[i]->getRef());
+		ruleldr->addCommand("-" + vexiftool->getRef() + "-overwrite_original_in_place -TagsFromFile " +
+				vinimage1shell->getRef() +" "+ vexiftoolcopyargs->getRef() +" "+ ldr_stacks_shell[i]->getRef());
 
 		Rule* rulehdr = mgr.own(new Rule()); rulehdr->add();
-		rulehdr->addTarget(hdr_stacks[i]->getRef().toString());
-		rulehdr->addPrereq(hdr_stacks_input[i]->getRef().toString());
-		rulehdr->addCommand(vhdrmerge->getRef().toString() +' '+ vhdrmergeopts->getRef().toString() + " -o " +
-				hdr_stacks_shell[i]->getRef().toString() +' '+ hdr_stacks_input_shell[i]->getRef().toString());
+		rulehdr->addTarget(hdr_stacks[i]);
+		rulehdr->addPrereq(hdr_stacks_input[i]);
+		rulehdr->addCommand(vhdrmerge->getRef() +" "+ vhdrmergeopts->getRef() + " -o " +
+				hdr_stacks_shell[i]->getRef() +" "+ hdr_stacks_input_shell[i]->getRef());
     }
 	//----------
     // Blend modes
+	// these commands are often occuring
+	const std::string enblendcmd = venblend->getRef() +" "+ venblendldrcomp->getRef() +" "+
+			venblendopts->getRef() + " -o ";
+	const std::string exifcmd = "-" + vexiftool->getRef() + " -overwrite_original_in_place -TagsFromFile " +
+			vinimage1shell->getRef() +" "+ vexiftoolcopyargs->getRef() +' ';
+	const std::string ptrollercmd = vPTroller->getRef() + " -o ";
+
     if(opts.blendMode == PanoramaOptions::ENBLEND_BLEND)
     {
+    	Rule* rule = mgr.own(new Rule()); rule->add();
 
+    	// write rules for blending with enblend
+    	rule->addTarget(vldrblended);
+    	rule->addPrereq(vldrlayers);
+    	rule->addCommand(enblendcmd + vldrblendedshell->getRef() +" "+ vldrlayersshell->getRef());
+    	rule->addCommand(exifcmd + vldrblendedshell->getRef());
+
+    	// for LDR exposure blend planes
+		for(unsigned i=0; i < exposures.size(); i++)
+		{
+			rule = mgr.own(new Rule()); rule->add();
+			rule->addTarget(ldrexp_stacks[i]);
+			rule->addPrereq(ldrexp_stacks_input[i]);
+			rule->addCommand(enblendcmd + ldrexp_stacks_shell[i]->getRef() +" "+ ldrexp_stacks_input_shell[i]->getRef());
+			rule->addCommand(exifcmd + ldrexp_stacks_shell[i]->getRef());
+		}
+
+		// rules for enfuse blending
+		rule = mgr.own(new Rule()); rule->add();
+		rule->addTarget(vldrstackedblended);
+		rule->addPrereq(vldrstacks);
+		rule->addCommand(enblendcmd + vldrstackedblendedshell->getRef() +" "+ vldrstacksshell->getRef());
+		rule->addCommand(exifcmd + vldrstackedblendedshell->getRef());
+
+		// rules for fusing blended layers
+		rule = mgr.own(new Rule()); rule->add();
+		rule->addTarget(vldrexposurelayersfused);
+		rule->addPrereq(vldrexposurelayers);
+		rule->addCommand(venfuse->getRef() +" "+ venblendldrcomp->getRef() +" "+ venfuseopts->getRef() + " -o " +
+				vldrexposurelayersfusedshell->getRef() +" "+ vldrexposurelayersshell->getRef());
+		rule->addCommand(exifcmd + vldrexposurelayersfusedshell->getRef());
+
+		// rules for hdr blending
+		rule = mgr.own(new Rule()); rule->add();
+		rule->addTarget(vhdrblended);
+		rule->addPrereq(vhdrstacks);
+		rule->addCommand(venblend->getRef() +" "+ venblendhdrcomp->getRef() +" "+ venblendopts->getRef() + " -o " +
+				vhdrblendedshell->getRef() +" "+ vhdrstacksshell->getRef());
+
+		// rules for multilayer output
+		rule = mgr.own(new Rule()); rule->add();
+		rule->addTarget(vldrremappedprefix->getRef() + "_multilayer.tif");
+		rule->addPrereq(vldrlayers);
+		rule->addCommand("tiffcp " + vldrlayersshell->getRef() +" "+ vldrremappedprefixshell->getRef() + "_multilayer.tif");
+
+		rule = mgr.own(new Rule()); rule->add();
+		rule->addTarget(vldrremappedprefix->getRef() + "_fused_multilayer.tif");
+		rule->addPrereq(vldrstacks);
+		rule->addPrereq(vldrexposurelayers);
+		rule->addCommand("tiffcp " + vldrstacksshell->getRef() +" "+ vldrexposurelayersshell->getRef() +" "+ vldrremappedprefixshell->getRef() + "_fused_multilayer.tif");
+
+		rule = mgr.own(new Rule()); rule->add();
+		rule->addTarget(vldrremappedprefix->getRef() + "_multilayer.psd");
+		rule->addPrereq(vldrlayers);
+		rule->addCommand("PTtiff2psd -o " + vldrremappedprefixshell->getRef() + "_multilayer.psd " + vldrlayersshell->getRef());
+
+		rule = mgr.own(new Rule()); rule->add();
+		rule->addTarget(vldrremappedprefix->getRef() + "_fused_multilayer.psd");
+		rule->addPrereq(vldrstacks);
+		rule->addPrereq(vldrexposurelayers);
+		rule->addCommand("PTtiff2psd -o " + vldrremappedprefixshell->getRef() + "_fused_multilayer.psd " + vldrstacksshell->getRef() +
+				vldrexposurelayersshell->getRef());
     }
 
 
     if(opts.blendMode == PanoramaOptions::NO_BLEND)
     {
+    	Rule* rule = mgr.own(new Rule()); rule->add();
 
+    	// write rules for blending with enblend
+    	rule->addTarget(vldrblended);
+    	rule->addPrereq(vldrlayers);
+    	rule->addCommand("-" + vrm->getRef() +" "+ vldrblendedshell->getRef());
+    	rule->addCommand(ptrollercmd + vldrblendedshell->getRef() +" "+ vldrlayersshell->getRef());
+    	rule->addCommand(exifcmd + vldrblendedshell->getRef());
+
+    	// for LDR exposure blend planes
+		for(unsigned i=0; i < exposures.size(); i++)
+		{
+			rule = mgr.own(new Rule()); rule->add();
+			rule->addTarget(ldrexp_stacks[i]);
+			rule->addPrereq(ldrexp_stacks_input[i]);
+			rule->addCommand("-" + vrm->getRef() +" "+ ldrexp_stacks_shell[i]->getRef());
+			rule->addCommand(ptrollercmd + ldrexp_stacks_shell[i]->getRef());
+			rule->addCommand(exifcmd + ldrexp_stacks_shell[i]->getRef());
+		}
+
+		rule = mgr.own(new Rule()); rule->add();
+		rule->addTarget(vldrstackedblended);
+		rule->addPrereq(vldrstacks);
+		rule->addCommand("-" + vrm->getRef() +" "+ vldrstackedblendedshell->getRef());
+		rule->addCommand(ptrollercmd + vldrstackedblendedshell->getRef() +" "+ vldrstacksshell->getRef());
+		rule->addCommand(exifcmd + vldrstackedblendedshell->getRef());
+
+		// rules for non-blended HDR panoramas
+		rule = mgr.own(new Rule()); rule->add();
+		rule->addTarget(vhdrblended);
+		rule->addPrereq(vhdrlayers);
+		rule->addCommand(vhdrmerge->getRef() +" "+ vhdrmergeopts->getRef() + " -o " +
+				vhdrblendedshell->getRef() +" "+ vhdrlayersshell->getRef());
     }
 	return true;
 }
@@ -642,8 +743,8 @@ void PanoramaMakefilelibExport::createstacks(const std::vector<UIntSet> stackdat
 	it2 = stacks_shell.begin();
 	for(; it != stacks.end() && it2 != stacks_shell.end(); it++, it2++)
 	{
-		stackrefs += (*it)->getRef().toString() + " ";
-		stackrefsshell += (*it2)->getRef().toString() + " ";
+		stackrefs += (*it)->getRef() + " ";
+		stackrefsshell += (*it2)->getRef() + " ";
 	}
 	vstacks = mgr.own(new mf::Variable(stkname + "S", stackrefs, Makefile::NONE));
 	vstacks->getDef().add();
@@ -723,8 +824,8 @@ void PanoramaMakefilelibExport::createexposure(const std::vector<UIntSet> stackd
 	it2 = stacks_shell.begin();
 	for(; it != stacks.end() && it2 != stacks_shell.end(); it++, it2++)
 	{
-		stackrefs += (*it)->getRef().toString() + " ";
-		stackrefsshell += (*it2)->getRef().toString() + " ";
+		stackrefs += (*it)->getRef() + " ";
+		stackrefsshell += (*it2)->getRef() + " ";
 	}
 	vstacks = mgr.own(new mf::Variable(stkname + "S", stackrefs, Makefile::NONE));
 	vstacks->getDef().add();
