@@ -54,6 +54,9 @@ std::vector<UIntSet> getExposureLayers(const PanoramaData & pano, UIntSet allImg
 
 bool PanoramaMakefilelibExport::createItems()
 {
+	// we use this Variable for initializing pointers that get an object only under certain conditions
+	mf::Variable* nullvar = mgr.own(new mf::Variable("NOT_DEFINED", "This_variable_has_not_been_defined"));
+
 	mgr.own_add((new Comment(
 		"makefile for panorama stitching, created by hugin using the new makefilelib")));
 
@@ -131,8 +134,8 @@ bool PanoramaMakefilelibExport::createItems()
     // options for the programs
     mgr.own_add(new Comment("options for the programs"));
     // set remapper specific settings
-    mf::Variable* vnonaldr = NULL;
-    mf::Variable* vnonaopts = NULL;
+    mf::Variable* vnonaldr = nullvar;
+    mf::Variable* vnonaopts = nullvar;
 	if(opts.remapper == PanoramaOptions::NONA)
 	{
 		string val;
@@ -150,9 +153,9 @@ bool PanoramaMakefilelibExport::createItems()
 	}
 
     // set blender specific settings
-	mf::Variable* venblendopts = NULL;
-	mf::Variable* venblendldrcomp = NULL;
-	mf::Variable* venblendhdrcomp = NULL;
+	mf::Variable* venblendopts = nullvar;
+	mf::Variable* venblendldrcomp = nullvar;
+	mf::Variable* venblendhdrcomp = nullvar;
 
 	if(opts.blendMode == PanoramaOptions::ENBLEND_BLEND)
 	{
@@ -192,7 +195,7 @@ bool PanoramaMakefilelibExport::createItems()
 		}
 	}
 
-	mf::Variable* vptblenderopts = NULL;
+	mf::Variable* vptblenderopts = nullvar;
 	if(opts.blendMode == PanoramaOptions::PTBLENDER_BLEND)
 	{
 		valuestream.str("");
@@ -215,7 +218,7 @@ bool PanoramaMakefilelibExport::createItems()
 	}
 
 	//----------
-	mf::Variable* vsmartblendopts = NULL;
+	mf::Variable* vsmartblendopts = nullvar;
 	if(opts.blendMode == PanoramaOptions::SMARTBLEND_BLEND)
 	{
 		vsmartblendopts = mgr.own(new mf::Variable(
@@ -226,7 +229,7 @@ bool PanoramaMakefilelibExport::createItems()
 	}
 
 	//----------
-	mf::Variable* vhdrmergeopts = NULL;
+	mf::Variable* vhdrmergeopts = nullvar;
 	if(opts.hdrMergeMode == PanoramaOptions::HDRMERGE_AVERAGE)
 	{
 		vhdrmergeopts = mgr.own(new mf::Variable(
