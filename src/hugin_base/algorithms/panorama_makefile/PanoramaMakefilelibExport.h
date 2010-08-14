@@ -85,7 +85,8 @@ private:
 			std::vector<makefile::Variable*>& stacks_input,
 			std::vector<makefile::Variable*>& stacks_input_shell,
 			makefile::Variable*& vstacks,
-			makefile::Variable*& vstacksshell);
+			makefile::Variable*& vstacksshell,
+			std::vector<std::string>& allfiles);
 	void createexposure(const std::vector<UIntSet> stackdata,
 			const std::string stkname,
 			const std::string filenamecenter, const std::string inputfilenamecenter, const std::string filenameext,
@@ -160,7 +161,26 @@ public:
 
 
 };
+/**
+ * Simple helper to output stacks for debugging.
+ * @param stackdata
+ */
 void printstacks(const std::vector<UIntSet>& stackdata);
+/**
+ * Simply calls push_back, convinience function.
+ * @param vec
+ * @param element
+ */
+template<typename T>
+void append(std::vector<T>& vec, const T& element);
+/**
+ * Copys all of src to the end of test. Just calls insert.
+ * Convinience function.
+ * @param dst
+ * @param src
+ */
+template<typename T>
+void append(std::vector<T>& dst, const std::vector<T>& src);
 }
 
 #endif /* PANORAMAMAKEFILELIBEXPORT_H_ */
