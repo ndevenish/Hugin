@@ -15,16 +15,16 @@ int AutoVariable::checkStrings()
 	return 0;
 }
 
-inline const string AutoVariable::getValue()
+const string AutoVariable::getValue()
 {
 	throw(std::runtime_error("AutoVariables have no predefined value."));
 }
-inline const string AutoVariable::getquotedValue()
+const string AutoVariable::getquotedValue()
 {
 	return getValue();
 }
 
-inline VariableDef& AutoVariable::getDef()
+VariableDef& AutoVariable::getDef()
 {
 	throw(std::runtime_error("AutoVariables can not be defined."));
 }
