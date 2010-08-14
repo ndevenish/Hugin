@@ -564,6 +564,7 @@ bool PanoDetector::RemapBackMatches(MatchData& ioMatchData, const PanoDetector& 
 		aM->_img2_x*=scale;
 		aM->_img2_y*=scale;*/
 	}
+	return true;
 }
 
 void PanoDetector::writeOutput()
