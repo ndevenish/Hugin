@@ -94,7 +94,7 @@ bool PanoramaMakefilelibExport::createItems()
 	newVarDef(vsmartblend, "SMARTBLEND", progs.smartblend);
 	newVarDef(vhdrmerge, "HDRMERGE", progs.hdrmerge);
 #ifdef _WINDOWS
-	newVarDef(vrm, "RM", "del");
+	newVarDef(vrm, "RM", "del", Makefile::NONE);
 #else
 	newVarDef(vrm, "RM", "rm");
 #endif
@@ -419,6 +419,7 @@ bool PanoramaMakefilelibExport::createItems()
 		allprereqs.push_back(vldrexposurelayersfused);
 		append(outputFiles, vldrexposurelayersfused->getValues());
 		newVarDef(vdoldrexposurelayersfused, "DO_LDR_EXPOSURE_LAYERS_FUSED", 1);
+		append(outputFiles, exposureimgs);
 		if(!opts.outputLDRExposureRemapped && !opts.outputLDRExposureLayers)
 		{
 			cleanprereqs.push_back(vldrexposurelayersremappedshell);
