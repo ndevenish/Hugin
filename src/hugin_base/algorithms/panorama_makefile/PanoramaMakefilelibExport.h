@@ -93,6 +93,8 @@ private:
 			std::vector<makefile::Variable*>& stacks_shell,
 			std::vector<makefile::Variable*>& stacks_input,
 			std::vector<makefile::Variable*>& stacks_input_shell,
+			std::vector<makefile::Variable*>& stacks_input_pt,
+			std::vector<makefile::Variable*>& stacks_input_pt_shell,
 			makefile::Variable*& vstacks,
 			makefile::Variable*& vstacksshell,
 			makefile::Variable*& vstacksrem,
@@ -158,7 +160,7 @@ public:
 
 
 };
-
+void printstacks(const std::vector<UIntSet>& stackdata);
 }
 
 #endif /* PANORAMAMAKEFILELIBEXPORT_H_ */

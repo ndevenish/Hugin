@@ -334,13 +334,13 @@ bool PanoramaMakefilelibExport::createItems()
 	createstacks(stacks, "HDR_STACK", "_stack_hdr_", "_hdr_", hdrRemappedExt,
 			hdr_stacks, hdr_stacks_shell, hdr_stacks_input, hdr_stacks_input_shell, vhdrstacks, vhdrstacksshell);
 
-	std::vector<mf::Variable*> ldrexp_stacks, ldrexp_stacks_shell, ldrexp_stacks_input, ldrexp_stacks_input_shell;
+	std::vector<mf::Variable*> ldrexp_stacks, ldrexp_stacks_shell, ldrexp_stacks_input, ldrexp_stacks_input_shell, ldrexp_stacks_pt_input, ldrexp_stacks_input_pt_shell;
 	mgr.own_add(new Comment("number of image sets with similar exposure"));
 	mf::Variable* vldrexposurelayers,* vldrexposurelayersshell,* vldrexposurelayersremapped,* vldrexposurelayersremappedshell;
 	std::vector<UIntSet> exposures = getExposureLayers(pano, images);
 	std::vector<std::string> exposureremappedimgs;
 	createexposure(exposures, "LDR_EXPOSURE_LAYER", "_exposure_", "_exposure_layers_", ldrRemappedExt,
-				ldrexp_stacks, ldrexp_stacks_shell, ldrexp_stacks_input, ldrexp_stacks_input_shell,
+				ldrexp_stacks, ldrexp_stacks_shell, ldrexp_stacks_input, ldrexp_stacks_input_shell, ldrexp_stacks_pt_input, ldrexp_stacks_input_pt_shell,
 				vldrexposurelayers, vldrexposurelayersshell, vldrexposurelayersremapped, vldrexposurelayersremappedshell,
 				exposureremappedimgs);
 
@@ -522,9 +522,9 @@ bool PanoramaMakefilelibExport::createItems()
 
     	mgr.own_add(new Comment("Rules for exposure layer output"));
 
+    	size_t j=0;
 		for(i=0; i < exposures.size(); i++)
 		{
-			size_t j=0;
 			for(UIntSet::const_iterator it = exposures[i].begin(); it != exposures[i].end(); it++, j++)
 			{
 				std::ostringstream expvalue, imgnr;
@@ -759,12 +759,14 @@ void PanoramaMakefilelibExport::createexposure(const std::vector<UIntSet> stackd
 		std::vector<mf::Variable*>& stacks,
 		std::vector<mf::Variable*>& stacks_shell,
 		std::vector<mf::Variable*>& stacks_input,
-		std::vector<makefile::Variable*>& stacks_input_shell,
+		std::vector<mf::Variable*>& stacks_input_shell,
+		std::vector<mf::Variable*>& stacks_input_pt,
+		std::vector<mf::Variable*>& stacks_input_pt_shell,
 		mf::Variable*& vstacks,
 		mf::Variable*& vstacksshell,
 		mf::Variable*& vstacksrem,
 		mf::Variable*& vstacksremshell,
-		std::vector<std::string>& inputs)
+		std::vector<std::string>& allinputs)
 {
 	std::vector<std::string> allimgs;
 	std::ostringstream stknrs;
@@ -775,7 +777,7 @@ void PanoramaMakefilelibExport::createexposure(const std::vector<UIntSet> stackd
 		filename << outputPrefix << filenamecenter << std::setfill('0') << std::setw(4) << i << filenameext;
 		stackname << stkname << "_" << i;
 
-		std::vector<std::string> inputspt;
+		std::vector<std::string> inputs, inputspt;
 		double exposure = 0;
 		for (UIntSet::const_iterator it = stackdata[i].begin(); it != stackdata[i].end(); it++)
 		{
@@ -783,6 +785,7 @@ void PanoramaMakefilelibExport::createexposure(const std::vector<UIntSet> stackd
 			fns << outputPrefix << inputfilenamecenter << std::setfill('0') << std::setw(4) << *it << filenameext;
 			fnpt << outputPrefix << std::setfill('0') << std::setw(4) << *it << filenameext;
 			inputs.push_back(fns.str());
+			allinputs.push_back(fns.str());
 			inputspt.push_back(fnpt.str());
 
 			exposure += pano.getSrcImage(*it).getExposureValue();
@@ -806,11 +809,11 @@ void PanoramaMakefilelibExport::createexposure(const std::vector<UIntSet> stackd
 		v->getDef().add();
 
 		v= mgr.own(new mf::Variable(stackname.str() + "_INPUT_PTMENDER", inputspt.begin(), inputspt.end(), Makefile::MAKE, "\\\n"));
-		stacks_input.push_back(v);
+		stacks_input_pt.push_back(v);
 		v->getDef().add();
 
 		v = mgr.own(new mf::Variable(stackname.str() + "_INPUT_PTMENDER_SHELL", inputspt.begin(), inputspt.end(), Makefile::SHELL, "\\\n"));
-		stacks_input_shell.push_back(v);
+		stacks_input_pt_shell.push_back(v);
 		v->getDef().add();
 
 		v = mgr.own(new mf::Variable(stackname.str() + "_EXPOSURE", exposure / stackdata[i].size()));
@@ -846,8 +849,21 @@ void PanoramaMakefilelibExport::createcheckProgCmd(Rule& testrule, const std::st
     testrule.addCommand(progCommand + " > NUL 2>&1 && echo " + progName + " is ok || echo " +
     		progName + " failed");
 #else
-    testrule.addCommand("@echo -n 'Checking " + progName + "...");
+    testrule.addCommand("@echo -n 'Checking " + progName + "...'");
     testrule.addCommand(progCommand + " > /dev/null 2>&1 && echo '[OK]' || echo '[FAILED]'");
 #endif
+}
+
+void printstacks(const std::vector<UIntSet>& stackdata)
+{
+	std::cout << "printstacks: \n";
+	for(std::vector<UIntSet>::const_iterator itv = stackdata.begin(); itv != stackdata.end(); itv++)
+	{
+		for(UIntSet::const_iterator itu = itv->begin(); itu != itv->end(); itu++)
+		{
+			std::cout << *itu << " ";
+		}
+		std::cout << "\n";
+	}
 }
 }
