@@ -35,6 +35,7 @@ public:
 	/// Has no value, exception.
 	virtual const string getValue();
 	virtual const string getquotedValue();
+	virtual const std::vector<string>& getValues();
 
 	/// Has no definition, exception.
 	virtual VariableDef& getDef();

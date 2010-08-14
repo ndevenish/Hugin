@@ -82,6 +82,14 @@ public:
 	 */
 	virtual const string getquotedValue();
 
+	/**
+	 * @return The value vector.
+	 */
+	virtual const std::vector<string>& getValues()
+	{
+		return values;
+	}
+
 	virtual VariableDef& getDef()
 	{
 		return def;

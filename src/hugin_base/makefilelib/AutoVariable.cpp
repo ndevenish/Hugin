@@ -23,6 +23,10 @@ const string AutoVariable::getquotedValue()
 {
 	return getValue();
 }
+const std::vector<string>& AutoVariable::getValues()
+{
+	throw(std::runtime_error("AutoVariables have no predefined value."));
+}
 
 VariableDef& AutoVariable::getDef()
 {
