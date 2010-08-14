@@ -29,9 +29,6 @@
 #include <panodata/PanoramaData.h>
 #include <hugin_utils/utils.h>
 
-#include <boost/smart_ptr/scoped_ptr.hpp>
-#include <boost/smart_ptr/shared_ptr.hpp>
-
 /// Automates an very often occuring sequence
 #define  newVarDef(var, name, ...) \
 mf::Variable* var = mgr.own(new mf::Variable(name, __VA_ARGS__)); \
@@ -240,8 +237,8 @@ bool PanoramaMakefilelibExport::createItems()
 
 	//----------
 	newVarDef(venfuseopts,
-			"ENFUSE_OPTS",
-			opts.getHFOV() == 360.0 ? " -w" : "", Makefile::NONE);
+			"ENFUSE_OPTS", opts.enfuseOptions +
+			(opts.getHFOV() == 360.0 ? " -w" : ""), Makefile::NONE);
 
 	//----------
 	newVarDef(vexiftoolcopyargs,
