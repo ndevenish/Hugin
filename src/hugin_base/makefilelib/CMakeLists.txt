@@ -40,3 +40,6 @@ target_link_libraries(test_filenames test_util makefilelib ${Boost_LIBRARIES})
 
 add_executable(test_makefilelib test_makefilelib.cpp)
 target_link_libraries(test_makefilelib test_util makefilelib ${Boost_LIBRARIES})
+
+add_executable(example example.cpp)
+target_link_libraries(example makefilelib)
