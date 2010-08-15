@@ -332,6 +332,7 @@ bool PanoDetector::loadProject()
 		// set image detection size
 		_filesData[imgNr]._detectWidth = max(img.getSize().width(),img.getSize().height());
 		_filesData[imgNr]._detectHeight = max(img.getSize().width(),img.getSize().height());
+
 		if (_downscale)
 	   {
 		   _filesData[imgNr]._detectWidth >>= 1;
@@ -343,8 +344,8 @@ bool PanoDetector::loadProject()
 		aImgData._projOpts.setHFOV(img.getHFOV());
 		aImgData._projOpts.setWidth(_filesData[imgNr]._detectWidth);
 		aImgData._projOpts.setHeight(_filesData[imgNr]._detectHeight);
-		aImgData._projOpts.setProjection(PanoramaOptions::STEREOGRAPHIC);
-		if(img.getHFOV() >= 0) //TODO: >=65
+		//if(img.getHFOV() >= 65) //TODO
+		if(true)
 		{
 			aImgData._projOpts.setProjection(PanoramaOptions::STEREOGRAPHIC);
 			aImgData._needsremap = true;

@@ -222,23 +222,27 @@ bool PanoDetector::LoadKeypoints(ImgData& ioImgInfo, const PanoDetector& iPanoDe
 
 bool PanoDetector::AnalyzeImage(ImgData& ioImgInfo, const PanoDetector& iPanoDetector)
 {
-	// Define Progress
-	AppBase::StreamMultiProgressDisplay progress(cout);
-
-	// Load and format images
-	FileRemapper<vigra::BRGBImage, vigra::BImage> remapper;	//TODO : Grayscale images case
-	progress.pushTask(ProgressTask("Loading Images", "", 1.0));
-
 	vigra::DImage final_img(ioImgInfo._detectWidth, ioImgInfo._detectHeight);
 
 	// Remap image to stereographic if needed
 	if(ioImgInfo._needsremap)
 	{
+		// Define Progress
+		AppBase::StreamMultiProgressDisplay progress(cout);
+
+		// Load and format images
+		FileRemapper<vigra::BRGBImage, vigra::BImage> remapper;	//TODO : Grayscale images case
+
+		progress.pushTask(ProgressTask("", "", 1.0));
+
 		// Get the image remapped
 		RemappedPanoImage<vigra::BRGBImage, vigra::BImage> * remapped = 
 			remapper.getRemapped(iPanoDetector._panoramaInfoCopy, ioImgInfo._projOpts, ioImgInfo._number, 
 										vigra::Rect2D(0,0,ioImgInfo._detectWidth, ioImgInfo._detectHeight), progress);
 		vigra::BRGBImage RGBimg = remapped->m_image;
+		ioImgInfo._mask = remapped->m_mask;
+
+		progress.popTask();
 
    	remapper.release(remapped);
 
@@ -251,9 +255,9 @@ bool PanoDetector::AnalyzeImage(ImgData& ioImgInfo, const PanoDetector& iPanoDet
 			vigra::DImage::Accessor());
 
 	} else {// Simply load images
-	   vigra::ImageImportInfo aImageInfo(ioImgInfo._name.c_str());
+	  vigra::ImageImportInfo aImageInfo(ioImgInfo._name.c_str());
 		vigra::BRGBImage RGBimg(aImageInfo.width(), aImageInfo.height());
-	   vigra::importImage(aImageInfo, destImage(RGBimg));
+	  vigra::importImage(aImageInfo, destImage(RGBimg));
 
 		if (iPanoDetector._downscale)
 	   {	// Downscale and convert to grayscale double format
@@ -266,7 +270,7 @@ bool PanoDetector::AnalyzeImage(ImgData& ioImgInfo, const PanoDetector& iPanoDet
 				vigra::DImage::Accessor());
 		} else { // convert to grayscale
 		   vigra::copyImage(
-				RGBimg.upperLeft(),
+				 RGBimg.upperLeft(),
 			   RGBimg.lowerRight(),
 			   vigra::RGBToGrayAccessor<vigra::RGBValue<double> >(),
 			   final_img.upperLeft(),
@@ -275,16 +279,15 @@ bool PanoDetector::AnalyzeImage(ImgData& ioImgInfo, const PanoDetector& iPanoDet
 	}
 
 	// Build integral image
-   ioImgInfo._ii.init(final_img.begin(), ioImgInfo._detectWidth,
-																 ioImgInfo._detectHeight);
+  ioImgInfo._ii.init(final_img.begin(), ioImgInfo._detectWidth,
+																 				ioImgInfo._detectHeight);
 	ioImgInfo._loadFail = false;
 
 	// DEBUG: export remapped image
-    std::ostringstream filename;
+   std::ostringstream filename;
 	 filename << ioImgInfo._name << "STEREO.JPG"; // opts.getOutputExtension()
 	 vigra::ImageExportInfo exinfo(filename.str().c_str());
-    vigra::exportImage(srcImageRange(final_img), exinfo);
-	progress.popTask();
+   vigra::exportImage(srcImageRange(final_img), exinfo);
 }
 
 
@@ -312,11 +315,21 @@ bool PanoDetector::FilterKeyPointsInImage(ImgData& ioImgInfo, const PanoDetector
 		iPanoDetector.getSieve1Height(), 
 		iPanoDetector.getSieve1Size());
 
-	// insert the points in the Sieve
+	// insert the points in the Sieve if they are not masked
 	double aXF = (double)iPanoDetector.getSieve1Width() / (double)ioImgInfo._detectWidth;
 	double aYF = (double)iPanoDetector.getSieve1Height() / (double)ioImgInfo._detectHeight;
+	
 	BOOST_FOREACH(KeyPointPtr& aK, ioImgInfo._kp)
-		aSieve.insert(aK, (int)(aK->_x * aXF), (int)(aK->_y * aYF)); 
+	{
+		if (!ioImgInfo._needsremap || (aK->_x > 0 && aK->_x < ioImgInfo._mask.width() && aK->_y > 0 && aK->_y < ioImgInfo._mask.height() && (int)ioImgInfo._mask[(int)aK->_y][(int)aK->_x] == 255)) {
+			aSieve.insert(aK, (int)(aK->_x * aXF), (int)(aK->_y * aYF));
+		} else {
+			TRACE_IMG("Removed CP: " << aK->_x << " , " << aK->_y);
+		}
+	}
+
+	// Free memory from the mask
+	ioImgInfo._mask.resize(0,0);
 
 	// pull remaining values from the sieve
 	ioImgInfo._kp.clear();
@@ -538,31 +551,39 @@ bool PanoDetector::FilterMatchesInPair(MatchData& ioMatchData, const PanoDetecto
 bool PanoDetector::RemapBackMatches(MatchData& ioMatchData, const PanoDetector& iPanoDetector)
 {
 	TRACE_PAIR("Remapping back matches...");
-
-   HuginBase::PTools::Transform trafo1, trafo2;
+	
+  HuginBase::PTools::Transform trafo1, trafo2;
 	trafo1.createTransform(iPanoDetector._panoramaInfoCopy.getSrcImage(ioMatchData._i1->_number),
 								  ioMatchData._i1->_projOpts);
 	trafo2.createTransform(iPanoDetector._panoramaInfoCopy.getSrcImage(ioMatchData._i2->_number),
-								  ioMatchData._i1->_projOpts);
+								  ioMatchData._i2->_projOpts);
 
    double xout,yout;
-	//double scale=iPanoDetector._downscale ? 2.0:1.0;
+	double scale=iPanoDetector._downscale ? 2.0:1.0;
 	BOOST_FOREACH(PointMatchPtr& aM, ioMatchData._matches)
 	{
-		if(trafo1.transformImgCoord(xout, yout, aM->_img1_x, aM->_img1_y))
+		if(ioMatchData._i1->_needsremap)
 		{
-		   aM->_img1_x=xout;
-		   aM->_img1_y=yout;
+			if(trafo1.transformImgCoord(xout, yout, aM->_img1_x, aM->_img1_y))
+			{
+				 aM->_img1_x=xout;
+				 aM->_img1_y=yout;
+			}
+		} else {
+			aM->_img1_x*=scale;
+			aM->_img1_y*=scale;
 		}
-		if(trafo2.transformImgCoord(xout, yout, aM->_img2_x, aM->_img2_y))
+		if(ioMatchData._i2->_needsremap)
 		{
-		   aM->_img2_x=xout;
-		   aM->_img2_y=yout;
+			if(trafo2.transformImgCoord(xout, yout, aM->_img2_x, aM->_img2_y))
+			{
+				 aM->_img2_x=xout;
+				 aM->_img2_y=yout;
+			}
+		} else {
+			aM->_img2_x*=scale;
+			aM->_img2_y*=scale;
 		}
-/*		aM->_img1_x*=scale;
-		aM->_img1_y*=scale;
-		aM->_img2_x*=scale;
-		aM->_img2_y*=scale;*/
 	}
 	return true;
 }

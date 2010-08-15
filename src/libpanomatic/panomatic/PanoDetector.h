@@ -36,6 +36,8 @@
 #include <localfeatures/KeyPoint.h>
 #include <localfeatures/KeyPointDetector.h>
 
+#include <vigra_ext/ROIImage.h>
+
 #include <panodata/Panorama.h>
 
 using namespace HuginBase;
@@ -176,6 +178,7 @@ public:
 		int					_detectHeight;
 
 		lfeat::Image		_ii;
+		vigra::BImage		_mask;
 
 		bool					_needsremap;
 		PanoramaOptions 	_projOpts;		
