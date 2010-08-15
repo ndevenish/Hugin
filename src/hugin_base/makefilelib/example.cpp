@@ -17,6 +17,15 @@
 
 using namespace makefile;
 
+/**
+ * @example example.cpp
+ * A short example of how to use the Makefilelib.
+ * It tries to create a Makefile to compile itself.
+ *
+ * This may not work, but thats not the goal of this program.
+ *
+ */
+
 int main(int argc, char *argv[])
 {
 	// The Manager owns our MakefileItems and destructs them when
@@ -32,6 +41,7 @@ int main(int argc, char *argv[])
 	Variable* cc = mgr.own(new Variable("CXX", "g++"));
 
 	// We create a Conditional that checks if CC is defined, and otherwise defines it.
+	// Never forget to call mgr.own, or delete yourself, otherwise valgrind will tell you bad news ;)
 	ConditionalNDEF* have_cc = mgr.own(new ConditionalNDEF("CXX"));
 	// and add it.
 	have_cc->add();
@@ -43,7 +53,7 @@ int main(int argc, char *argv[])
 
 	// We want another Variable containing compiler flags
 	// Variables quotemode defines how there value is quoted in the definition.
-	Variable* cflags = mgr.own(new Variable("CFLAGS", "-Wall"));
+	Variable* cflags = mgr.own(new Variable("CFLAGS", "-Wall -c", Makefile::NONE));
 	// ..and add the definition to the Makefile right here.
 	cflags->getDef().add();
 
@@ -59,13 +69,14 @@ int main(int argc, char *argv[])
 	all->addPrereq(executable->getRef());
 
 	// Now we need a rule to build all that. We create a rule, that says
-	// how to get a .out file from a .cpp file.
+	// how to get a .o file from a .cpp file. (Yes I know there are implicitrules..)
 	Rule* build = mgr.own(new Rule());
 	build->add();
 	build->addTarget("%.o");
 	build->addPrereq("%.cpp");
 
 	// We use Automatic Variables in the command.
+	// This is a special Varialbe having only a name.
 	Variable* target = mgr.own(new AutoVariable("@"));
 	Variable* prereq = mgr.own(new AutoVariable("<"));
 
@@ -77,6 +88,10 @@ int main(int argc, char *argv[])
 	std::ofstream outfile("example.mk");
 	Makefile::getSingleton().writeMakefile(outfile);
 	outfile.close();
+
+	// Now run make and look what it does. Maybe it won't work, because the cpp file is somewhere else
+	// Run make -n -f example.mk to do a dryrun.
+	// To get a running executable, this has to be linked against libmakefilelib.so.
 
 	return 0;
 }

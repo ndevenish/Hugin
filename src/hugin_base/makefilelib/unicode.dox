@@ -1,4 +1,5 @@
-/** \page unicode About unicode and filename
+/** 
+\page unicode About unicode and filename
 
 It's important to support a defined range of possible characters in filenames, as it is up to the user to assign names to his image files.
 
@@ -14,7 +15,7 @@ Filenames are also UTF8, so sticking with char is ok and consumes only a quarter
 
 - On newer Windows they use their 16bit wchar_t internally (because they have to deal with lots of legacy software), so it doesn't save memory to use char, and if you use char, it depends on the windows localized version you have, how char strings are converted by the win api.
 
-- NTFS stores filenames (according to @ref http://en.wikipedia.org/wiki/NTFS [wikipedia]) in 16bit words, and doesn't care about the encoding. The windows api has two calls one for with char and with wchar_t, that is hidden by some macro, normally.
+- NTFS stores filenames (according to http://en.wikipedia.org/wiki/NTFS) in 16bit words, and doesn't care about the encoding. The windows api has two calls one for with char and with wchar_t, that is hidden by some macro, normally.
 If you use the char api calls, the current codepage is used. 
 
 - Unicodes most important characters are in the first 16bit, called the BMP, basic multilingual plane. It holds virtually all useful characters. If we can handle all these characters, that should be more than enough.
