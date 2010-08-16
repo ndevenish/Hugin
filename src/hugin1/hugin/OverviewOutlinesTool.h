@@ -27,6 +27,19 @@
 
 class GLViewer;
 
+/**
+ * class for drawing the outlines of the preview canvas and the crop rectangle in the overview openl scenes
+ * it also creates meshes that are used to darken the outside regions
+ * it works similarly to the mesh remapper used for the images, with the exception that instead of remapping from image to projection, this needs
+ * to remap from projection to another projection
+ *
+ * it has two modes of operation:
+ *   - Subdivide the mesh recursively until a mesh with desired resolution is obtained. 
+ *          * This is very good in most of the cases except where the canvas also covers some regions not in the panorama
+ *          * This corresponds to the vertex coord remapper
+ *   - Subdivide the mesh certain amount of times in all directions
+ *          * This corresponds to the tex coord remapper
+ */
 class OverviewOutlinesTool : public HuginBase::PanoramaObserver
 {
     public:
@@ -37,8 +50,9 @@ class OverviewOutlinesTool : public HuginBase::PanoramaObserver
         void panoramaChanged(HuginBase::PanoramaData &pano);
         void panoramaImagesChanged(HuginBase::PanoramaData&, const HuginBase::UIntSet&) {}
 
-        void MouseMoveEvent(double x, double y, wxMouseEvent & e);
-
+        /**
+         * class to represent a single rectangle
+         */
         class Rect {
         public:
             Rect(double left, double top, double right, double bottom) {
@@ -47,6 +61,10 @@ class OverviewOutlinesTool : public HuginBase::PanoramaObserver
                 val[2][0] = right;  val[2][1] = bottom;
                 val[3][0] = right;  val[3][1] = top;
             }
+            /**
+             * transform the rectangle's coordinates with a certain transform
+             * @return the transformed rectangle
+             */
             Rect transformImgCoord(HuginBase::PTools::Transform *trans) {
                 Rect res(0,0,0,0);
                 for (int s = 0 ; s < 4 ; s++) {
@@ -57,6 +75,9 @@ class OverviewOutlinesTool : public HuginBase::PanoramaObserver
                 }
                 return res;
             }
+            /**
+             * get the center of the rectangle
+             */
             void center(double &x, double &y) {
                 x = (val[0][0] + val[1][0] + val[2][0] + val[3][0]) / 4.0;
                 y = (val[0][1] + val[1][1] + val[2][1] + val[3][1]) / 4.0;
@@ -64,6 +85,9 @@ class OverviewOutlinesTool : public HuginBase::PanoramaObserver
             double val[4][2];
         };
 
+        /**
+         * drawing the background means drawing a mesh that covers the whole panorama for the purpose of darkening the regions outside of the preview canvas
+         */
         virtual void drawBackground() {}
 
     protected:

@@ -1,8 +1,9 @@
 // -*- c-basic-offset: 4 -*-
 
-/** @file PreviewToolHelper.h
+/** @file ToolHelper.h
  *
  *  @author James Legg
+ *  @author Darko Makreshanski
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public

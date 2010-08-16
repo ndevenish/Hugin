@@ -1,3 +1,25 @@
+// -*- c-basic-offset: 4 -*-
+/** @file ProjectionGridTool.h
+ *
+ *  @author Darko Makreshanski
+ *
+ *  @brief implementation of ProjectionGridTool Class
+ *
+ *  This program is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU General Public
+ *  License as published by the Free Software Foundation; either
+ *  version 2 of the License, or (at your option) any later version.
+ *
+ *  This software is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public
+ *  License along with this software; if not, write to the Free Software
+ *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ *
+ */
 
 #include <GL/glew.h>
 #ifdef __WXMAC__
@@ -248,6 +270,9 @@ void PanosphereOverviewProjectionGridTool::createMesh()
     DEBUG_DEBUG("End create mesh projection grid");
 }
 
+/**
+ * create the texture by iterating through each pixela and checking how much each pixel should be filled
+ */
 bool ProjectionGridTool::createTexture()
 {
     glGenTextures(1,(GLuint*) &texture_num);
@@ -283,11 +308,13 @@ bool ProjectionGridTool::createTexture()
 
     double line_width =  (dw < dh) ? line_width_per * dw : line_width_per * dh;
 
+    //determine the exact position of the begining and the end of horizontal line
     for (int i = 0 ; i < hor_lines ; i++) {
         hor_s[2*i    ] = (i + 0.5) * dw - line_width / 2.0;
         hor_s[2*i + 1] = (i + 0.5) * dw + line_width / 2.0;
     }
 
+    //determine the exact position of the begining and the end of horizontal line
     ver_s[0] = 0;
     for (int i = 0 ; i < ver_lines ; i++) {
         ver_s[2*i    ] = (i + 0.5) * dh - line_width / 2.0;
@@ -298,6 +325,7 @@ bool ProjectionGridTool::createTexture()
     for (int x = 0 ; x < width ; x++) {
         double x_res = 0;
         int stw_i = w_i;
+        //check how many lines this pixel crosses
         while (
                     hor_s[w_i + 1] > x && 
                     hor_s[w_i + 1] <= x+1
@@ -305,6 +333,7 @@ bool ProjectionGridTool::createTexture()
             w_i++;
             if (w_i == hor_lines * 2 - 1) break;
         }
+        //calculate the fill
         if (w_i != stw_i) {
             if (w_i - stw_i > 1) {
                 int minus = 0;
@@ -369,6 +398,7 @@ bool ProjectionGridTool::createTexture()
                 }
             }
 
+            //combine fills from horizontal and vertical lines
             double res = x_res + y_res - x_res * y_res;
 
             double x_rat = (double) x / (double) width;

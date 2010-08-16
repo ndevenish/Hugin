@@ -24,7 +24,9 @@
 
 #include "Tool.h"
 
-
+/**
+ * tool to draw a grid to create correspondence between the overview and the preview
+ */
 class ProjectionGridTool
 {
 public:

@@ -83,7 +83,8 @@ PreviewLayoutLinesTool::PreviewLayoutLinesTool(ToolHelper *helper)
     : Tool(helper),
       m_updateStatistics(true),
       m_nearestLine(-1),
-      m_useNearestLine(false)
+      m_useNearestLine(false),
+      m_holdOnNear(false)
 {
     helper->GetPanoramaPtr()->addObserver(this);
     // make the textures. We have a circle border and a square one.
@@ -185,6 +186,20 @@ void PreviewLayoutLinesTool::MouseMoveEvent(double x, double y, wxMouseEvent & e
     {
         return;
     }
+
+    if (!(helper->IsMouseOverPano())) {
+        if (m_useNearestLine) {
+            m_useNearestLine = false;
+            helper->GetVisualizationStatePtr()->ForceRequireRedraw();
+            helper->GetVisualizationStatePtr()->Redraw();
+        }
+        return;
+    }
+
+    if (e.Dragging() && !m_holdOnNear) {
+        return;
+    }
+    
     // Check each line in turn.
     double minDistance = DBL_MAX;
     unsigned int nearestLineOld = m_nearestLine;
@@ -345,11 +360,20 @@ void PreviewLayoutLinesTool::MouseButtonEvent(wxMouseEvent & e)
 {
     // If it was a left click and we have at least one line, bring up the images
     // in that line in the control point editor.
-    if ( e.GetButton() == wxMOUSE_BTN_LEFT && !m_lines.empty())
+    if ( e.LeftDown() && !m_lines.empty() && m_useNearestLine)
     {
+        m_holdOnNear = true;
+    } 
+
+    if (m_holdOnNear && e.LeftUp() && m_useNearestLine) {
+        m_holdOnNear = false;
         LineDetails & line = m_lines[m_nearestLine];
         MainFrame::Get()->ShowCtrlPointEditor(line.image1, line.image2);
         MainFrame::Get()->Raise();
+    }
+
+    if (m_useNearestLine && e.LeftUp()) {
+        m_useNearestLine = false;
     }
 }
 

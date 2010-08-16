@@ -56,6 +56,8 @@ public:
     void StopShowingImages();
     /// Show control point editor if mouse is over two images.
     void MouseButtonEvent(wxMouseEvent & e);
+
+    void MouseMoveEvent(double x, double y, wxMouseEvent & e);
 private:
     /// Generate a colour given how many colours we need and an index.
     void HighlightColour(unsigned int index, unsigned int count,
@@ -72,6 +74,11 @@ private:
     /// The image the user last placed their mouse over the button for
     unsigned int mouse_over_image;
     bool mouse_is_over_button;
+
+    bool stopUpdating;
+    //user has clicked and is holding left button while over panorama
+    bool holdLeft;
+    
 };
 
 #endif

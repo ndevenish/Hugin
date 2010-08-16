@@ -30,10 +30,6 @@ ViewState::ViewState(PT::Panorama *pano, bool supportMultiTexture)
 {
 
 
-//    //FIXME: REMOVE THIS:
-//    glutInit(0,NULL);
-    
-    
     m_pano = pano;
     m_multiTexture=supportMultiTexture;
     m_pano->addObserver(this);

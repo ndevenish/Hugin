@@ -5,6 +5,7 @@
  *  @brief implementation of GLPreviewFrame Class
  *
  *  @author James Legg and Pablo d'Angelo <pablo.dangelo@web.de>
+ *  @author Darko Makreshanski
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public
@@ -333,8 +334,8 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     m_topsizer->Add(m_ToggleButtonSizer, 0, wxEXPAND | wxADJUST_MINSIZE | wxBOTTOM, 5);
 
 
-	//create panel that will hold gl canvases
-	wxPanel * vis_panel = new wxPanel(this);
+    //create panel that will hold gl canvases
+    wxPanel * vis_panel = new wxPanel(this);
 
     wxPanel * preview_panel = new wxPanel(vis_panel);
     wxPanel * overview_panel = new wxPanel(vis_panel);
@@ -342,18 +343,19 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     // create our Viewers
     int args[] = {WX_GL_RGBA, WX_GL_DOUBLEBUFFER, 0};
     m_GLPreview = new GLPreview(preview_panel, pano, args, this);
-//    GLOverview * m_GLPreview2 = new GLOverview(preview_panel, pano, args, this);
     m_GLOverview = new GLOverview(overview_panel, pano, args, this, m_GLPreview->GetContext());
     m_GLOverview->SetMode(GLOverview::PANOSPHERE);
 
-	// set the AUI manager to our panel
-	m_mgr = new GLwxAuiManager(this, m_GLPreview, m_GLOverview);
-	m_mgr->SetManagedWindow(vis_panel);
+    // set the AUI manager to our panel
+    m_mgr = new GLwxAuiManager(this, m_GLPreview, m_GLOverview);
+    m_mgr->SetManagedWindow(vis_panel);
     
+    //create the sizer for the preview
     wxFlexGridSizer * flexSizer = new wxFlexGridSizer(2,0,5,5);
     flexSizer->AddGrowableCol(0);
     flexSizer->AddGrowableRow(0);
 
+    //overview sizer
     wxBoxSizer * overview_sizer = new wxBoxSizer(wxVERTICAL);
 
 
@@ -630,14 +632,18 @@ GLPreviewFrame::~GLPreviewFrame()
     {
         preview_helper->DeactivateTool(crop_tool); delete crop_tool;
         preview_helper->DeactivateTool(drag_tool); delete drag_tool;
-        panosphere_overview_helper->DeactivateTool(overview_drag_tool); delete overview_drag_tool;
         preview_helper->DeactivateTool(identify_tool); delete identify_tool;
-        panosphere_overview_helper->DeactivateTool(panosphere_overview_identify_tool); delete panosphere_overview_identify_tool;
-        plane_overview_helper->DeactivateTool(plane_overview_identify_tool); delete plane_overview_identify_tool;
         preview_helper->DeactivateTool(difference_tool); delete difference_tool;
-        panosphere_overview_helper->DeactivateTool(panosphere_difference_tool); delete panosphere_difference_tool;
-        plane_overview_helper->DeactivateTool(plane_difference_tool); delete plane_difference_tool;
         preview_helper->DeactivateTool(pano_mask_tool); delete pano_mask_tool;
+    }
+    if (panosphere_overview_identify_tool) {
+        panosphere_overview_helper->DeactivateTool(overview_drag_tool); delete overview_drag_tool;
+        panosphere_overview_helper->DeactivateTool(panosphere_overview_identify_tool); delete panosphere_overview_identify_tool;
+        panosphere_overview_helper->DeactivateTool(panosphere_difference_tool); delete panosphere_difference_tool;
+    }
+    if (plane_overview_identify_tool) {
+        plane_overview_helper->DeactivateTool(plane_overview_identify_tool); delete plane_overview_identify_tool;
+        plane_overview_helper->DeactivateTool(plane_difference_tool); delete plane_difference_tool;
     }
     m_HFOVText->PopEventHandler(true);
     m_VFOVText->PopEventHandler(true);
@@ -667,8 +673,10 @@ bool GLwxAuiManager::ProcessDockResult(wxAuiPaneInfo& target,
     return wxAuiManager::ProcessDockResult(target, new_pos);
 }
 
-
-
+/**
+ * 
+ * To constrict the available options of the docking framework we allow only several cases and inspect and automatically adjust on each change
+ */
 void GLwxAuiManager::UpdateDocksSize()
 {
 
@@ -775,6 +783,20 @@ void GLPreviewFrame::updateBlendMode()
                 panosphere_overview_helper->DeactivateTool(panosphere_difference_tool);
                 plane_overview_helper->DeactivateTool(plane_difference_tool);
             };
+
+            if (panosphere_overview_helper != NULL 
+                && panosphere_difference_tool != NULL)
+            {
+                panosphere_overview_helper->DeactivateTool(panosphere_difference_tool);
+            };
+
+            if (plane_overview_helper != NULL 
+                && plane_difference_tool != NULL)
+            {
+                plane_overview_helper->DeactivateTool(plane_difference_tool);
+            };
+
+
         }
         else
         {
@@ -787,14 +809,29 @@ void GLPreviewFrame::updateBlendMode()
                     && m_ToolBar_Identify != NULL )
                 {
                     preview_helper->DeactivateTool(identify_tool);
-                    panosphere_overview_helper->DeactivateTool(panosphere_overview_identify_tool);
-                    plane_overview_helper->DeactivateTool(plane_overview_identify_tool);
                     m_ToolBar_Identify->ToggleTool(XRCID("preview_identify_tool"), false);
                     preview_helper->ActivateTool(difference_tool);
-                    panosphere_overview_helper->ActivateTool(panosphere_difference_tool);
-                    plane_overview_helper->ActivateTool(plane_difference_tool);
                     CleanButtonColours();
                 };
+
+                // difference mode
+                if (panosphere_overview_helper != NULL 
+                    && panosphere_overview_identify_tool != NULL 
+                    && panosphere_difference_tool != NULL)
+                {
+                    panosphere_overview_helper->DeactivateTool(panosphere_overview_identify_tool);
+                    panosphere_overview_helper->ActivateTool(panosphere_difference_tool);
+                };
+
+                // difference mode
+                if (plane_overview_helper != NULL 
+                    && plane_overview_identify_tool != NULL 
+                    && plane_difference_tool != NULL)
+                {
+                    plane_overview_helper->DeactivateTool(plane_overview_identify_tool);
+                    plane_overview_helper->ActivateTool(plane_difference_tool);
+                };
+
             }
             else
             {
@@ -1264,7 +1301,7 @@ void GLPreviewFrame::OnChangeFOV(wxScrollEvent & e)
 void GLPreviewFrame::OnTrackChangeFOV(wxScrollEvent & e)
 {
     DEBUG_TRACE("");
-
+    DEBUG_TRACE("fov change " << e.GetInt());
     PanoramaOptions opt = m_pano.getOptions();
 
     if (e.GetEventObject() == m_HFOVSlider) {

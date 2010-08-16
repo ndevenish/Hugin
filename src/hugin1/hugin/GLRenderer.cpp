@@ -2,6 +2,7 @@
 /** @file GLRenderer.cpp
  *
  *  @author James Legg
+ *  @author Darko Makreshanski
  *
  *  This is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public
@@ -206,6 +207,7 @@ void GLPreviewRenderer::Redraw()
     glDisable(GL_SCISSOR_TEST);
 }
 
+
 void GLPanosphereOverviewRenderer::Redraw()
 {
 
@@ -222,9 +224,6 @@ void GLPanosphereOverviewRenderer::Redraw()
     double angy = m_visualization_state->getAngY();
 	
 	gluLookAt(R * cos(angy) * cos(angx), R * sin(angy), R * cos(angy) * sin(angx), 0, 0, 0, 0, 1, 0);
-
-
-
     //for look from inside
 //	gluLookAt(0,0,0,R * cos(angy) * cos(angx), R * sin(angy), R * cos(angy) * sin(angx), 0, 1, 0);
 
@@ -233,10 +232,10 @@ void GLPanosphereOverviewRenderer::Redraw()
     int imgs = m_pano->getNrOfImages();
     // offset by a half a pixel
     glPushMatrix();
-    glTranslatef(0.5, 0.5, 0.0);
 
     glColor3f(0.5,0.5,0.5);
 
+    //draw the rectangle
     double side = 150;
     glBegin(GL_LINE_LOOP);
 
@@ -247,6 +246,7 @@ void GLPanosphereOverviewRenderer::Redraw()
 
     glEnd();
 
+    //draw the axes, to give a sense of orientation
     double axis = 200;
     glBegin(GL_LINES);
 
@@ -267,12 +267,18 @@ void GLPanosphereOverviewRenderer::Redraw()
 
     glEnable(GL_TEXTURE_2D);
 
+    //To avoid z-order fight of the images if depth buffer is used, depth buffer is disabled and meshes are drawn twice,
+    //first with front faces culled so that the inner face of the sphere is visible and below the outter face, 
+    //and afterwards the meshes are drawn again with the back faces culled
+    
     glEnable(GL_CULL_FACE);
     glCullFace(GL_FRONT);
 
-    
+    //event called only before drawing of the images with front faces culled (the inner face of the panosphere)
     ((PanosphereOverviewToolHelper*)m_tool_helper)->BeforeDrawImagesBack();
+    //generic draw before images are drawn (called twice with front and back faces culled)
     m_tool_helper->BeforeDrawImages();
+
     m_tex_man->Begin();
     // The old preview shows the lowest numbered image on top, so do the same:
     for (int img = imgs - 1; img != -1; img--)
@@ -320,8 +326,6 @@ void GLPanosphereOverviewRenderer::Redraw()
     glMatrixMode(GL_MODELVIEW);
     glCullFace(GL_BACK);
 
-
-    
     ((PanosphereOverviewToolHelper*)m_tool_helper)->BeforeDrawImagesFront();
     m_tool_helper->BeforeDrawImages();
 
@@ -367,20 +371,8 @@ vigra::Diff2D GLPanosphereOverviewRenderer::Resize(int w, int h)
     HuginBase::PanoramaOptions *options = m_visualization_state->GetOptions();
     width_o = options->getWidth();
     height_o = options->getHeight();
-    double aspect_screen = double(width) / double (height),
-        aspect_pano = width_o / height_o;
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();  
-    double scale;
-    if (aspect_screen < aspect_pano)
-    {
-      // the panorama is wider than the screen
-      scale = width_o / width;
-    } else {
-      // the screen is wider than the panorama
-      scale = height_o / height;
-    }
 
+    //since gluPerspective needs vertical field of view, depending on the aspect ratio we convert from vertical to horizontal FOV if needed
     double fov = m_visualization_state->getFOV();
     double fovy;
     if (h > w) {
@@ -399,7 +391,7 @@ vigra::Diff2D GLPanosphereOverviewRenderer::Resize(int w, int h)
     m_visualization_state->SetVisibleArea(vigra::Rect2D(0, 0, options->getWidth(),
                                              options->getHeight()));
 
-
+    //calculate the scale depending on the section of the panosphere in the center of the screen
     double R = m_visualization_state->getR();
     double radius = m_visualization_state->getSphereRadius();
     //height of the screen in screen pixels over the length of the panosphere in panorama pixels when spread out
@@ -432,11 +424,8 @@ void GLPlaneOverviewRenderer::Redraw()
 
     // draw things under the preview images
     m_tool_helper->BeforeDrawImages();
-    // draw each active image.
     int imgs = m_pano->getNrOfImages();
-    // offset by a half a pixel
     glPushMatrix();
-    glTranslatef(0.5, 0.5, 0.0);
 
     glColor3f(0.5,0.5,0.5);
 
@@ -538,19 +527,9 @@ vigra::Diff2D GLPlaneOverviewRenderer::Resize(int w, int h)
     HuginBase::PanoramaOptions *options = m_visualization_state->getViewState()->GetOptions();
     width_o = options->getWidth();
     height_o = options->getHeight();
-    double aspect_screen = double(width) / double (height),
-        aspect_pano = width_o / height_o;
+
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();  
-    double scale;
-    if (aspect_screen < aspect_pano)
-    {
-      // the panorama is wider than the screen
-      scale = width_o / width;
-    } else {
-      // the screen is wider than the panorama
-      scale = height_o / height;
-    }
 
     double fov = m_visualization_state->getFOV();
     double fovy;

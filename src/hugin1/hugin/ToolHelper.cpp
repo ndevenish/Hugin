@@ -3,6 +3,7 @@
 /** @file ToolHelper.cpp
  *
  *  @author James Legg
+ *  @author Darko Makreshanski
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public
@@ -462,24 +463,26 @@ void PreviewToolHelper::UpdateImagesUnderMouse()
     // We want to find out which images cover the point underneath the mouse
     // pointer.
     images_under_mouse.clear();
-    unsigned int num_images = pano->getNrOfImages();
-    std::set<unsigned int> displayedImages = pano->getActiveImages();
-    for (unsigned int image_index = 0; image_index < num_images; image_index++)
-    {
-        // don't try any images that are turned off
-        if (displayedImages.count(image_index))
+    if (IsMouseOverPano()) {
+        unsigned int num_images = pano->getNrOfImages();
+        std::set<unsigned int> displayedImages = pano->getActiveImages();
+        for (unsigned int image_index = 0; image_index < num_images; image_index++)
         {
-            // work out if the image covers the point under the mouse.
-            HuginBase::PTools::Transform transform;
-            transform.createTransform(*visualization_state->GetSrcImage(image_index),
-                                      *visualization_state->GetOptions());
-            double image_x, image_y;
-            transform.transformImgCoord(image_x, image_y, mouse_pano_x, mouse_pano_y);
-            if (visualization_state->getViewState()->GetSrcImage(image_index)->isInside(vigra::Point2D(
-                                                  int(image_x), int (image_y))))
+            // don't try any images that are turned off
+            if (displayedImages.count(image_index))
             {
-                // this image is under the mouse, add it to the set.
-                images_under_mouse.insert(image_index);
+                // work out if the image covers the point under the mouse.
+                HuginBase::PTools::Transform transform;
+                transform.createTransform(*visualization_state->GetSrcImage(image_index),
+                                          *visualization_state->GetOptions());
+                double image_x, image_y;
+                transform.transformImgCoord(image_x, image_y, mouse_pano_x, mouse_pano_y);
+                if (visualization_state->getViewState()->GetSrcImage(image_index)->isInside(vigra::Point2D(
+                                                      int(image_x), int (image_y))))
+                {
+                    // this image is under the mouse, add it to the set.
+                    images_under_mouse.insert(image_index);
+                }
             }
         }
     }
@@ -489,24 +492,26 @@ void PreviewToolHelper::UpdateImagesUnderMouse()
 void PanosphereOverviewToolHelper::UpdateImagesUnderMouse()
 {
     images_under_mouse.clear();
-    unsigned int num_images = pano->getNrOfImages();
-    std::set<unsigned int> displayedImages = pano->getActiveImages();
-    for (unsigned int image_index = 0; image_index < num_images; image_index++)
-    {
-        // don't try any images that are turned off
-        if (displayedImages.count(image_index))
+    if (IsMouseOverPano()) {
+        unsigned int num_images = pano->getNrOfImages();
+        std::set<unsigned int> displayedImages = pano->getActiveImages();
+        for (unsigned int image_index = 0; image_index < num_images; image_index++)
         {
-            // work out if the image covers the point under the mouse.
-            HuginBase::PTools::Transform transform;
-            transform.createTransform(*visualization_state->GetSrcImage(image_index),
-                                      *visualization_state->GetOptions());
-            double image_x, image_y;
-            transform.transformImgCoord(image_x, image_y, mouse_pano_x, mouse_pano_y);
-            if (visualization_state->getViewState()->GetSrcImage(image_index)->isInside(vigra::Point2D(
-                                                  int(image_x), int (image_y))))
+            // don't try any images that are turned off
+            if (displayedImages.count(image_index))
             {
-                // this image is under the mouse, add it to the set.
-                images_under_mouse.insert(image_index);
+                // work out if the image covers the point under the mouse.
+                HuginBase::PTools::Transform transform;
+                transform.createTransform(*visualization_state->GetSrcImage(image_index),
+                                          *visualization_state->GetOptions());
+                double image_x, image_y;
+                transform.transformImgCoord(image_x, image_y, mouse_pano_x, mouse_pano_y);
+                if (visualization_state->getViewState()->GetSrcImage(image_index)->isInside(vigra::Point2D(
+                                                      int(image_x), int (image_y))))
+                {
+                    // this image is under the mouse, add it to the set.
+                    images_under_mouse.insert(image_index);
+                }
             }
         }
     }
@@ -608,27 +613,11 @@ void PanosphereOverviewToolHelper::MouseMoved(int x, int y, wxMouseEvent & e)
 
 //        double t_mouse_pano_x = yaw M
 
-        InvalidateImagesUnderMouse();
-
     } else {
 
         mouse_over_pano = false;
-        images_under_mouse.clear();
-        images_under_mouse_current = true;
-        if (!images_under_mouse_notified_tools.empty())
-        {
-            // notify tools that the set has changed.
-            std::set<Tool *>::iterator iterator;
-            for (iterator = images_under_mouse_notified_tools.begin();
-                 iterator != images_under_mouse_notified_tools.end();
-                 iterator++)
-            {
-                (*iterator)->ImagesUnderMouseChangedEvent();
-            }        
-        }
-
     }
-
+    
     ToolHelper::MouseMoved(x,y,e);
 }
 
@@ -776,24 +765,26 @@ void PlaneOverviewToolHelper::MouseMoved(int x, int y, wxMouseEvent & e)
 void PlaneOverviewToolHelper::UpdateImagesUnderMouse()
 {
     images_under_mouse.clear();
-    unsigned int num_images = pano->getNrOfImages();
-    std::set<unsigned int> displayedImages = pano->getActiveImages();
-    for (unsigned int image_index = 0; image_index < num_images; image_index++)
-    {
-        // don't try any images that are turned off
-        if (displayedImages.count(image_index))
+    if (IsMouseOverPano()) {
+        unsigned int num_images = pano->getNrOfImages();
+        std::set<unsigned int> displayedImages = pano->getActiveImages();
+        for (unsigned int image_index = 0; image_index < num_images; image_index++)
         {
-            // work out if the image covers the point under the mouse.
-            HuginBase::PTools::Transform transform;
-            transform.createTransform(*visualization_state->GetSrcImage(image_index),
-                                      *visualization_state->GetOptions());
-            double image_x, image_y;
-            transform.transformImgCoord(image_x, image_y, mouse_pano_x, mouse_pano_y);
-            if (visualization_state->getViewState()->GetSrcImage(image_index)->isInside(vigra::Point2D(
-                                                  int(image_x), int (image_y))))
+            // don't try any images that are turned off
+            if (displayedImages.count(image_index))
             {
-                // this image is under the mouse, add it to the set.
-                images_under_mouse.insert(image_index);
+                // work out if the image covers the point under the mouse.
+                HuginBase::PTools::Transform transform;
+                transform.createTransform(*visualization_state->GetSrcImage(image_index),
+                                          *visualization_state->GetOptions());
+                double image_x, image_y;
+                transform.transformImgCoord(image_x, image_y, mouse_pano_x, mouse_pano_y);
+                if (visualization_state->getViewState()->GetSrcImage(image_index)->isInside(vigra::Point2D(
+                                                      int(image_x), int (image_y))))
+                {
+                    // this image is under the mouse, add it to the set.
+                    images_under_mouse.insert(image_index);
+                }
             }
         }
     }

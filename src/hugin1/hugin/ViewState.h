@@ -21,11 +21,11 @@
  *
  */
 
-/* A ViewState holds information about what is visible, the state of the
+/* A ViewState or VisualizationState holds information about what is visible, the state of the
  * various bits of the panorama as it is shown in a preview, and the scaling of
  * the preview. The state of the panorama  options and images are stored so
  * that we can continuously change properties interactively without bothering
- * the real panorama object and therefore the undo / redo history. The ViewState
+ * the real panorama object and therefore the undo / redo history. The classes
  * also manages what needs to be recalculated to update the view.
  *
  * When a change occurs, we examine any differences with our stored state that
@@ -45,6 +45,19 @@
  * redraw after they have all been moved. However, when the panorama changes
  * we want to initiate an update the preview ourself, so all the main GUI
  * interactions work.
+ *
+ * The informations are divided into two classes:
+ *      -   The first class is the ViewState class which holds information that is 
+ *          relevant for all Visualizations like the preview, panosphere or plane.
+ *          This is mainly dominated by the manipulation of the Textures related stuff
+ *          which are the same for all visualizations.
+ *          The ViewState also encapsulates all the VisualizationState in itself so that
+ *          it can properly inform them when any change occurs
+ *
+ *      -   The second class is the VisualizationState class which is subclassed for each
+ *          type of visualization. The VisualizationState class holds information specific
+ *          to each visualization. This includes the state of the meshes, state of the viewport, etc.
+ *
  */
 
 #ifndef __VIEWSTATE_H
@@ -63,6 +76,7 @@
 
 class GLViewer;
 class VisualizationState;
+
 
 class ViewState : public HuginBase::PanoramaObserver
 {
@@ -276,6 +290,7 @@ public:
 
     void SetOptions(const HuginBase::PanoramaOptions * new_opts);
 
+    //camera properties
     double getAngY() {return angy;}
     double getAngX() {return angx;}
     double getR() {return R;}
@@ -315,6 +330,7 @@ public:
 
     void SetOptions(const HuginBase::PanoramaOptions * new_opts);
 
+    //camera properties
     double getR() {return R;}
     double getFOV() {return fov;}
     double getX() {return X;}

@@ -81,6 +81,10 @@ public:
      */
     void AfterDrawImagesEvent();
 private:
+
+    //user has clicked and is holding left button while near a line
+    bool m_holdOnNear;
+
     /// Flag set to true to update statistics next redraw
     bool m_updateStatistics;
     /// OpenGL texture names for the border highlight.

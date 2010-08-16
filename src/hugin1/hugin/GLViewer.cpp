@@ -2,6 +2,7 @@
 /** @file GLViewer.cpp
  *
  *  @author James Legg
+ *  @author Darko Makreshanski
  *
  *  This is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public
@@ -300,12 +301,6 @@ void GLViewer::Resized(wxSizeEvent& e)
 
     DEBUG_DEBUG("RESIZED_OUT");
     GLPreview * test;
-    test = dynamic_cast<GLPreview*>(this);
-    if (test) {
-        DEBUG_DEBUG("GLPreview");
-    } else {
-        DEBUG_DEBUG("GLOverview");
-    }
    
     if (frame->CanResize()) {
         frame->UpdateDocksSize();

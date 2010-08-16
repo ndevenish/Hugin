@@ -67,6 +67,8 @@ PreviewIdentifyTool::PreviewIdentifyTool(ToolHelper *helper,
                                          GLPreviewFrame *owner)
     : Tool(helper)
 {
+    holdLeft = false;
+    stopUpdating = false;
     preview_frame = owner;
     if (!texture_created) {
         // make the textures. We have a circle border and a square one.
@@ -197,8 +199,38 @@ void PreviewIdentifyTool::Activate()
      helper->SetStatusMessage(_("Move the mouse over the images or image buttons to identify them."));
 }
 
+void PreviewIdentifyTool::MouseMoveEvent(double x, double y, wxMouseEvent & e)
+{
+    if (e.Dragging() && !(holdLeft)) {
+        if (image_set.size() > 0) {
+            std::set<unsigned int>::iterator iterator;
+            for (iterator = image_set.begin(); iterator != image_set.end(); iterator++)
+            {
+                DEBUG_ASSERT(*iterator < helper->GetPanoramaPtr()->getNrOfImages());
+                // reset this button to its default system colour.
+                preview_frame->SetImageButtonColour(*iterator, 0, 0, 0);
+                // remove the notification
+                helper->DoNotNotifyMeBeforeDrawing(*iterator, this);
+            }
+        }
+        image_set.clear();
+        stopUpdating = true;
+        helper->GetVisualizationStatePtr()->ForceRequireRedraw();
+        helper->GetVisualizationStatePtr()->Redraw();
+    }
+
+    if (stopUpdating && !e.LeftIsDown() && !e.MiddleIsDown() && !e.RightIsDown()) {
+        stopUpdating = false;
+        ImagesUnderMouseChangedEvent();
+    }
+
+}
+
 void PreviewIdentifyTool::ImagesUnderMouseChangedEvent()
 {
+    if (stopUpdating) {
+        return;
+    }
     // If we are currently showing indicators for some of the images, we want
     // to work out which ones are not in the new set, so we can set their
     // buttons back to the system colour.
@@ -450,14 +482,30 @@ void PreviewIdentifyTool::HighlightColour(unsigned int index,
 
 void PreviewIdentifyTool::MouseButtonEvent(wxMouseEvent & e)
 {
-    if (   e.GetButton() == wxMOUSE_BTN_LEFT
-        && image_set.size() == 2)
-    {
+
+
+    if ( e.LeftDown() && helper->IsMouseOverPano())
+    {   
+        holdLeft = true;
+    } 
+
+    if (holdLeft && e.LeftUp() && image_set.size() == 2) {
+        holdLeft = false;
         // when there are only two images with indicators shown, show the
         // control point editor with those images when left clicked.
         MainFrame::Get()->ShowCtrlPointEditor(*(image_set.begin()),
                                               *(++image_set.begin()));
         MainFrame::Get()->Raise();
     }
+
+    if (holdLeft && !(e.LeftIsDown())) {
+        holdLeft = false;
+    }
+
+    if (e.ButtonUp() && !e.MiddleIsDown() && !e.RightIsDown()) {
+        stopUpdating = false;
+        ImagesUnderMouseChangedEvent();
+    }
+
 }
 

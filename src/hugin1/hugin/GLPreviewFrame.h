@@ -2,6 +2,7 @@
 /** @file GLPreviewFrame.h
  *
  *  @author James Legg and Pablo d'Angelo <pablo.dangelo@web.de>
+ *  @author Darko Makreshanski
  *
  *  This is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public
@@ -100,7 +101,9 @@ private:
 };
 
 
-
+/**
+ * subclass for a floating frame of the dock manager
+ */
 class GLwxAuiFloatingFrame : public wxAuiFloatingFrame {
 public:
     GLwxAuiFloatingFrame(wxWindow* parent,
@@ -122,7 +125,10 @@ public:
 
 };
 
-
+/**
+ * customized subclass of the dock manager, created just for the purpose to create a workaround for the bug that exists while using wxAUI and OpenGL
+ * the bug is similar to the one described here http://www.kirix.com/forums/viewtopic.php?f=15&t=175
+ */
 class GLwxAuiManager : public wxAuiManager {
 public:
     GLwxAuiManager(GLPreviewFrame* frame, GLPreview * preview, GLOverview * overview) : frame(frame), preview(preview), overview(overview) {}
@@ -241,7 +247,8 @@ protected:
     void OnLayoutScaleChange(wxScrollEvent &e);
 private:
 
-	GLwxAuiManager * m_mgr;
+    /** The dock manager */
+    GLwxAuiManager * m_mgr;
 
     void SetMode(int newMode);
     PT::Panorama & m_pano;

@@ -2,6 +2,7 @@
 /** @file MeshManager.h
  *
  *  @author James Legg
+ *  @author Darko Makreshanski
  *
  *  This is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public
@@ -84,6 +85,9 @@ public:
         void SetScaleFactor(double scale);
         void SetSrcImage(HuginBase::SrcPanoImage * image) {this->image = *image;}
 
+        /**
+         * a class to handle a 3D point
+         */
         class Coord3D
         {
             public:
@@ -92,6 +96,9 @@ public:
                 double x,y,z;
         };
 
+        /**
+         * a class to keep data of a single rectangle with texture coordinates
+         */
         class MeshCoords3D {
         public:
             MeshCoords3D() {}
@@ -118,6 +125,10 @@ public:
         bool layout_mode_on;
     };
 
+    /**
+     * subclass of MeshInfo for the preview
+     * It actually does nothing in addition to the base class
+     */
     class PreviewMeshInfo : public MeshInfo
     {
     public:
@@ -134,6 +145,10 @@ public:
 
     };
 
+    /**
+     * a subclass for the panosphere
+     * it converts coordinates obtained from an equirectangular projection to 3D coordinates on the sphere
+     */
     class PanosphereOverviewMeshInfo : public MeshInfo
     {
     public:
@@ -149,11 +164,15 @@ public:
                 Update();
             }
 
+        /**
+         * convert from spherical to cartesian coordinates
+         */
         static void Convert(double &x, double &y, double &z, double th, double ph, double r);
 
         static MeshCoords3D GetMeshCoords3D(MeshRemapper::Coords &coords, VisualizationState * state);
         static Coord3D GetCoord3D(hugin_utils::FDiff2D &coord, VisualizationState * state);
 
+        /** scale factor to be used for the layout mode TODO: test this for more scenarios */
         static const double scale_diff = 1.5;
 
     protected:
@@ -166,6 +185,9 @@ public:
 
     };
 
+    /**
+     * subclass for the plane overview mode.
+     */
     class PlaneOverviewMeshInfo : public MeshInfo
     {
     public:

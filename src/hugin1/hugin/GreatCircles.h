@@ -95,7 +95,14 @@ class GreatCircleArc
             float squareDistance(hugin_utils::FDiff2D point) const;
             /// Specify the line to OpenGL. Must be within a glBegin/glEnd pair.
 			void doGLcross(int point, double cscale, VisualizationState *state) const;
-            void doGL(double width, VisualizationState *state, LineSegment * preceeding = NULL, LineSegment * proceeding = NULL) const;
+            /**
+             * Draw a meshed line
+             * @param width the width of the line
+             * @param state The visualization state needed to obtain final 3D coordinates and the scale for the visualization
+             * @param preceding the line segment before this line segment, needed to calculate the right begining slope
+             * @param proceeding the line segment after this line segment, needed to calculate the right ending slope
+             */
+            void doGL(double width, VisualizationState *state, LineSegment * preceding = NULL, LineSegment * proceeding = NULL) const;
         };
 
     protected:

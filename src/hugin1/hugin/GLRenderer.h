@@ -2,6 +2,7 @@
 /** @file GLRenderer.h
  *
  *  @author James Legg
+ *  @author Darko Makreshanski
  *
  *  This is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public
@@ -39,7 +40,7 @@ class PreviewToolHelper;
 class PanosphereOverviewToolHelper;
 class PlaneOverviewToolHelper;
 
-/** The renderer handles drawing the preview. It is used by a GLViewer, which is
+/** The renderer handles drawing the opengl scene. It is used by a GLViewer, which is
  * a wxWidget. The work of generating textures to represent the image is done by
  * a TextureManager, and the remappings are made in display lists by a
  * MeshManager. The GLViewer gives us instances of those objects to use.
@@ -77,6 +78,9 @@ protected:
     int width, height;
 };
 
+/**
+ * subclass for the preview canvas
+ */
 class GLPreviewRenderer : public GLRenderer
 {
 public:
@@ -107,6 +111,9 @@ protected:
 
 };
 
+/**
+ * subclass for the panosphere overview mode
+ */
 class GLPanosphereOverviewRenderer : public GLOverviewRenderer
 {
 public:
@@ -121,6 +128,9 @@ protected:
 
 };
 
+/**
+ * subclass for the plane overview mode
+ */
 class GLPlaneOverviewRenderer : public GLOverviewRenderer
 {
 public:

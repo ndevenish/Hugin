@@ -2,6 +2,7 @@
 /** @file GreatCircles.cpp
  *
  *  @author James Legg
+ *  @author Darko Makreshanski
  *
  *  @brief Implement GreatCircles class.
  *
@@ -213,7 +214,6 @@ void GreatCircleArc::draw(bool withCross, double width) const
      * There are hardware defined limits on what width a line can be, and the
      * worst case is the hardware only alows lines 1 pixel thick.
      */
-//    glBegin(GL_LINES);
         LineSegment * pre;
         LineSegment * pro;
         for (unsigned int i = 0 ; i < m_lines.size() ; i++) {
@@ -227,10 +227,8 @@ void GreatCircleArc::draw(bool withCross, double width) const
             } else {
                 pro = NULL;
             }
-//            DEBUG_DEBUG("drawing line . " << i);
             m_lines[i].doGL(width, m_visualizationState,pre,pro);
         }
-//    glEnd();
     if(withCross)
     {
         double scale = 4 / getxscale();
@@ -262,6 +260,8 @@ void GreatCircleArc::LineSegment::doGL(double width, VisualizationState * state,
     } else {
         xd *= -1;
     }
+
+    //first find out if it is a special case
 
     bool vertical = false;
     if (abs(vertices[1].x - vertices[0].x) < 0.00001) {
@@ -297,8 +297,9 @@ void GreatCircleArc::LineSegment::doGL(double width, VisualizationState * state,
         rect[3].y = vertices[1].y + yd;
     } else {
 
-        //FIXME: somehow it always goes into default mode (def = true) for outlines tool
-
+        //The mathematics behind this is to get the equation for the line of the segment in the form of y = m * x + b
+        //then shift the line + - in the y direction to get two lines, and finally do this for the preceding and proceeding line segments and find the intersection
+        //or just make the ends perpendicular
         bool def = false;
         if (preceding != NULL) {
 
@@ -328,6 +329,7 @@ void GreatCircleArc::LineSegment::doGL(double width, VisualizationState * state,
 
         if (def) {
 
+            //in this case return just a proper rectangle
             rect[1].x = vertices[0].x     + xd;
             rect[1].y = m * rect[1].x + b + yd;
 

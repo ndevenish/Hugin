@@ -2,6 +2,7 @@
 /** @file MeshManager.cpp
  *
  *  @author James Legg
+ *  @author Darko Makreshanski
  *
  *  This is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public
@@ -86,6 +87,7 @@ void MeshManager::CheckUpdate()
     for (unsigned int i = old_size; i < m_pano->getNrOfImages(); i++)
     {
         DEBUG_INFO("Making new mesh remapper for image " << i << ".");
+        //use the virtual method to get the right subclass for the MeshInfo
         meshes.push_back(this->ObtainMeshInfo(visualization_state->GetSrcImage(i), layout_mode_on));
     }
 }
@@ -205,7 +207,6 @@ void MeshManager::MeshInfo::CompileList()
     bool multiTexture=m_visualization_state->getViewState()->GetSupportMultiTexture();
     unsigned int number_of_faces = 0;
 
-//    HuginBase::SrcPanoImage * image = m_visualization_state->getViewState()->GetSrcImage(image_number);
     DEBUG_DEBUG("mesh update compile pano");
 
     this->BeforeCompile();

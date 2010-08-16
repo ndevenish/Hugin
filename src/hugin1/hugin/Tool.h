@@ -3,6 +3,7 @@
 /** @file PreviewTool.h
  *
  *  @author James Legg
+ *  @author Darko Makreshanski
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public
@@ -129,10 +130,14 @@ public:
     PanosphereOverviewTool(PanosphereOverviewToolHelper* helper);
     virtual ~PanosphereOverviewTool();
 
+    /// Draw using opengl anything before drawing the front face culled images
     virtual void BeforeDrawImagesBackEvent() {}
+    /// Draw using opengl anything after drawing the front face culled images
     virtual void AfterDrawImagesBackEvent() {}
 
+    /// Draw using opengl anything before drawing the back face culled images
     virtual void BeforeDrawImagesFrontEvent() {}
+    /// Draw using opengl anything after drawing the back face culled images
     virtual void AfterDrawImagesFrontEvent() {}
     
 };

@@ -1,3 +1,25 @@
+// -*- c-basic-offset: 4 -*-
+/** @file OverviewOutlinesTool.cpp
+ *
+ *  @author Darko Makreshanski
+ *
+ *  This program is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU General Public
+ *  License as published by the Free Software Foundation; either
+ *  version 2 of the License, or (at your option) any later version.
+ *
+ *  This software is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public
+ *  License along with this software; if not, write to the Free Software
+ *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ *
+ */
+
+
 
 #include <GL/glew.h>
 #ifdef __WXMAC__
@@ -37,23 +59,6 @@ void OverviewOutlinesTool::panoramaChanged(HuginBase::PanoramaData &pano)
     
 }
 
-
-void OverviewOutlinesTool::MouseMoveEvent(double x, double y, wxMouseEvent & e)
-{
-////    std::cout << "outlines tool " << x << " " << y << std::endl;
-//    double xp, yp;
-//    HuginBase::PTools::Transform transform;
-//    HuginBase::SrcPanoImage image;
-//    image.setSize(vigra::Size2D(360,180));
-//    image.setHFOV(360);
-//    image.setProjection(HuginBase::BaseSrcPanoImage::EQUIRECTANGULAR);
-//    if (helper->GetPanoramaPtr()->getNrOfImages() > 0) {
-////        transform.createTransform(*helper->GetViewStatePtr()->GetSrcImage(0), *(helper->GetVisualizationStatePtr()->GetOptions()));
-//        transform.createTransform(image, *(helper->GetVisualizationStatePtr()->GetOptions()));
-//        transform.transformImgCoord(xp,yp,x,y);
-////    std::cout << "outlines tool " << xp << " " << yp << std::endl;
-//    }
-}
 
 struct Rec {
     Rec(double left, double top, double right, double bottom) : left(left), top(top), right(right), bottom(bottom) {}
@@ -213,10 +218,11 @@ void OverviewOutlinesTool::DrawRect(double left, double top, double right, doubl
 
     vigra::Size2D size = thelper->GetVisualizationStatePtr()->GetOptions()->getSize();
     double mlength = (size->y > size->x) ? size->y : size->x;
-    //since res was initially estimated for size of 360x100;
 
     double fov = thelper->GetVisualizationStatePtr()->GetOptions()->getHFOV();
     
+    //since res was initially estimated for size of 360x100;
+    //TODO make res scale dependent
     double tres = res * mlength / fov;
     double tmindist = mindist * mlength / fov;
 
@@ -260,6 +266,8 @@ void OverviewOutlinesTool::DrawRect(double left, double top, double right, doubl
 
             {
 
+            //in this case just the divide the base rectangle by a certain amount of steps
+
             float steps = 40;
 
             double x,y,xs,ys,xd,yd;
@@ -270,6 +278,7 @@ void OverviewOutlinesTool::DrawRect(double left, double top, double right, doubl
             for(int w = 0 ; w < steps ; w++) {
             for(int h = 0 ; h < steps ; h++) {
 
+                //if outline is needed just consider edge cases
                 if (outline) {
                     if (!(w == 0 || h == 0 || w == steps - 1 || steps - 1)) {
                         continue;
@@ -284,6 +293,10 @@ void OverviewOutlinesTool::DrawRect(double left, double top, double right, doubl
                 double edge3 = (tr.val[2][0]-tr.val[3][0])*(tr.val[2][0]-tr.val[3][0]) + (tr.val[2][1]-tr.val[3][1])*(tr.val[2][1]-tr.val[3][1]);
                 double edge4 = (tr.val[3][0]-tr.val[0][0])*(tr.val[3][0]-tr.val[0][0]) + (tr.val[3][1]-tr.val[0][1])*(tr.val[3][1]-tr.val[0][1]);
 
+                
+               //this section should be added to avoid certain problems with these projections 
+               //(just disregard edges with lengths larger than some value with respect to the radius of the sphere)
+               //TODO this was commented when support for mosaic plane was added, make this work again
 //                double maxlimit = (radius/2.0)*(radius/2.0);
 //                if (
 //                        proj == HuginBase::PanoramaOptions::SINUSOIDAL ||
@@ -312,6 +325,8 @@ void OverviewOutlinesTool::DrawRect(double left, double top, double right, doubl
                     for (int i = 0 ; i < 4 ; i++) {
                         if (edges[i]) {
 
+
+                            //draw a line with the help of the GreatCircles class so that a mesh is drawn instead of just a line
                             int plus = i+1;
                             if (plus == 4) plus = 0;
                             hugin_utils::FDiff2D cd1(tr.val[i][0], tr.val[i][1]);
@@ -338,11 +353,14 @@ void OverviewOutlinesTool::DrawRect(double left, double top, double right, doubl
 //                                MeshManager::MeshInfo::Coord3D coord = thelper->GetVisualizationStatePtr()->GetMeshManager()->GetCoord3D(cd);
 //                                glVertex3f(coord.x,coord.y,coord.z);
 //                            }
+
                         }
                     }
 //                    glEnd();
                        
                 } else {
+
+                    //in this case draw the mesh
 
                     #ifdef WIREFRAME
                     glBegin(GL_LINE_LOOP);
@@ -385,10 +403,12 @@ void OverviewOutlinesTool::DrawRect(double left, double top, double right, doubl
         case HuginBase::PanoramaOptions::TRIPLANE:
         case HuginBase::PanoramaOptions::GENERAL_PANINI:
         case HuginBase::PanoramaOptions::ARCHITECTURAL:
-        
+
+            //stack to keep the rectangles to be divided
             std::vector<Rec> stack;
 
             stack.push_back(Rec(left,top,right,bottom));
+            //if outline needs to be obtained, after each rectangle another rectangle is pushed back 
             if (outline) {
                 stack.push_back(Rec(true, true, true, true));
             }
@@ -438,6 +458,7 @@ void OverviewOutlinesTool::DrawRect(double left, double top, double right, doubl
                 int countx = 0, county = 0;
 
 
+                //decide whether to divide the current rectangle
                 if (
                         (edge1 > ressq || edge3 > ressq) 
                             && 
@@ -482,6 +503,8 @@ void OverviewOutlinesTool::DrawRect(double left, double top, double right, doubl
                 } 
 
                 if (!(divide_ver || divide_hor)) {
+
+                    //draw it
                     
                     if (outline) {
 //                        glBegin(GL_LINES);
