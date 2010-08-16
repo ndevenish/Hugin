@@ -272,6 +272,8 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
 
     // initialize pointer
     preview_helper = NULL;
+    panosphere_overview_helper = NULL;
+    plane_overview_helper = NULL;
     crop_tool = NULL;
     drag_tool = NULL;
     overview_drag_tool = NULL;
