@@ -782,8 +782,6 @@ void GLPreviewFrame::updateBlendMode()
                 && difference_tool != NULL)
             {
                 preview_helper->DeactivateTool(difference_tool);
-                panosphere_overview_helper->DeactivateTool(panosphere_difference_tool);
-                plane_overview_helper->DeactivateTool(plane_difference_tool);
             };
 
             if (panosphere_overview_helper != NULL 
