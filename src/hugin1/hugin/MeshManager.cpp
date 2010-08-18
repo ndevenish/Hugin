@@ -310,7 +310,7 @@ void MeshManager::PanosphereOverviewMeshInfo::BeforeCompile()
 void MeshManager::PanosphereOverviewMeshInfo::Transform()
 {
 
-    glRotated(yaw, 0,1,0);
+    glRotated(yaw, 0,-1,0);
     glRotated(pitch, -1,0,0);
 
 }
@@ -342,7 +342,7 @@ MeshManager::MeshInfo::Coord3D MeshManager::PanosphereOverviewMeshInfo::GetCoord
         res.x,
         res.y,
         res.z,
-        th,-ph,r);
+        -th,-ph,r);
 
     return res;
 }
@@ -375,7 +375,7 @@ MeshManager::MeshInfo::MeshCoords3D MeshManager::PanosphereOverviewMeshInfo::Get
                 res.vertex_coords[x][y][0],
                 res.vertex_coords[x][y][1],
                 res.vertex_coords[x][y][2],
-                th,-ph,r);
+                -th,-ph,r);
                 
 //            DEBUG_DEBUG("pano get " << res.vertex_coords[x][y][0] << " " << res.vertex_coords[x][y][1] << " " << res.vertex_coords[x][y][2]);
 //            DEBUG_DEBUG("pano get " << coords.vertex_c[x][y][0] << " " << coords.vertex_c[x][y][1]);

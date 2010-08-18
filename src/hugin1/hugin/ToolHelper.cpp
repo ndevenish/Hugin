@@ -599,7 +599,6 @@ void PanosphereOverviewToolHelper::MouseMoved(int x, int y, wxMouseEvent & e)
         yaw += M_PI / 2.0;
         if (yaw < 0) yaw += 2 * M_PI;
         if (yaw > 2 * M_PI) yaw -= 2 * M_PI;
-        yaw = 2 * M_PI - yaw;
 
         pitch += M_PI / 2.0;
         pitch = M_PI - pitch;

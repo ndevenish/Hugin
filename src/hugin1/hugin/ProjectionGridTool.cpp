@@ -156,7 +156,7 @@ void PanosphereOverviewProjectionGridTool::AfterDrawImagesBackEvent()
         glBindTexture(GL_TEXTURE_2D, texture_num);
 
     glMatrixMode(GL_TEXTURE);
-    //using just a sphere instead of the remapped mesh for better quality
+//    using just a sphere instead of the remapped mesh for better quality
 //    glPushMatrix();
 //    glScalef(0.5,1,1);
 //    glMatrixMode(GL_MODELVIEW);
@@ -168,11 +168,11 @@ void PanosphereOverviewProjectionGridTool::AfterDrawImagesBackEvent()
     glRotated(180,1,0,0);
     glScalef(0.5,1,1);
     glMatrixMode(GL_MODELVIEW);
-//    mesh_info->CallList();
     GLUquadric* grid = gluNewQuadric();
     gluQuadricTexture(grid, GL_TRUE);
 
     glPushMatrix();
+    glScalef(-1,1,1);
     glRotated(-90,1,0,0);
     gluSphere(grid, 101,40,20);
     glPopMatrix();
@@ -232,11 +232,10 @@ void PanosphereOverviewProjectionGridTool::AfterDrawImagesFrontEvent()
     glScalef(0.5,1,1);
     glMatrixMode(GL_MODELVIEW);
 
-//    mesh_info->CallList();
-
     GLUquadric* grid = gluNewQuadric();
     gluQuadricTexture(grid, GL_TRUE);
     glPushMatrix();
+    glScalef(-1,1,1);
     glRotated(-90,1,0,0);
     gluSphere(grid, 101,40,20);
     glPopMatrix();

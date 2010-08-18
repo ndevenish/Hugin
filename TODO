@@ -24,7 +24,6 @@ Panorama Overview Related TODO list:
  - Implement the better handling of image groups
  - Bug, sometimes changing the FOV sliders doesn't cause the overview to be redrawn
  - Add informative status messages
- - The images are mirror flipped on the panosphere
  - Automatic adjustment of the zoom level for the mosaic plane
  - Toggle buttons to show hide the overview and preview canvases
  

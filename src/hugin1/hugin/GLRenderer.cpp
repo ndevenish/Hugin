@@ -268,11 +268,11 @@ void GLPanosphereOverviewRenderer::Redraw()
     glEnable(GL_TEXTURE_2D);
 
     //To avoid z-order fight of the images if depth buffer is used, depth buffer is disabled and meshes are drawn twice,
-    //first with front faces culled so that the inner face of the sphere is visible and below the outter face, 
-    //and afterwards the meshes are drawn again with the back faces culled
+    //first with back faces culled so that the inner face of the sphere is visible and below the outter face, 
+    //and afterwards the meshes are drawn again with the front faces culled
     
     glEnable(GL_CULL_FACE);
-    glCullFace(GL_FRONT);
+    glCullFace(GL_BACK);
 
     //event called only before drawing of the images with front faces culled (the inner face of the panosphere)
     ((PanosphereOverviewToolHelper*)m_tool_helper)->BeforeDrawImagesBack();
@@ -324,7 +324,7 @@ void GLPanosphereOverviewRenderer::Redraw()
 //    #endif
 
     glMatrixMode(GL_MODELVIEW);
-    glCullFace(GL_BACK);
+    glCullFace(GL_FRONT);
 
     ((PanosphereOverviewToolHelper*)m_tool_helper)->BeforeDrawImagesFront();
     m_tool_helper->BeforeDrawImages();
