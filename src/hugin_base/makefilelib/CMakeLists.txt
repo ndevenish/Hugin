@@ -35,7 +35,7 @@ add_library(test_util STATIC test_util.cpp test_util.h)
 ENDIF(WIN32)
 
 # tester executable
-add_executable(test_simple main.cpp)
+add_executable(test_simple test_simple.cpp)
 target_link_libraries(test_simple makefilelib) 
 
 add_executable(test_filenames test_filenames.cpp)
