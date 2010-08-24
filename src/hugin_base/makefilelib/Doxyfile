@@ -6,7 +6,7 @@
 DOXYFILE_ENCODING      = UTF-8
 PROJECT_NAME           = makefilelib
 PROJECT_NUMBER         = 0.1
-OUTPUT_DIRECTORY       = ../../../../doxy/makefilelib
+OUTPUT_DIRECTORY       = $(DOXYPATH)makefilelib
 CREATE_SUBDIRS         = NO
 OUTPUT_LANGUAGE        = English
 BRIEF_MEMBER_DESC      = YES
