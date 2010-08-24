@@ -61,7 +61,7 @@ public:
 	//Adds an application entry in the batch list
 	void  AddAppToBatch(wxString app);
 	//Adds a project entry in the batch list
-	void  AddProjectToBatch(wxString projectFile, wxString outputFile = _T(""));	
+    void  AddProjectToBatch(wxString projectFile, wxString outputFile = _T(""), Project::Target target=Project::STITCHING);	
 	//Returns true if there are no more projects pending execution
 	bool  AllDone();
 	//Appends projects from file to batch list
@@ -109,6 +109,8 @@ public:
 	void  OnProcessTerminate(wxProcessEvent & event);
 	//Called to start stitch of project with input scriptFile
 	bool  OnStitch(wxString scriptFile, wxString outname, int id);
+    /** called to start detecting */
+    bool OnDetect(wxString scriptFile, int id);
 	//Pauses and continues batch execution
 	void  PauseBatch();
 	//Removes project with id from batch list
@@ -151,6 +153,7 @@ private:
 	
 	//external program config
 	PTPrograms progs;
+    AssistantPrograms progsAss;
 
 	DECLARE_EVENT_TABLE()
 };

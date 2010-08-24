@@ -202,6 +202,51 @@ PTPrograms getPTProgramsConfig(wxString bundledBinDir, wxConfigBase * config)
     return progs;
 }
 
+AssistantPrograms getAssistantProgramsConfig(wxString bundledBinDir, wxConfigBase * config)
+{
+    AssistantPrograms progs;
+
+    wxString bindir;
+#ifndef __WXGTK__
+    // add trailing directory separator, if needed
+    wxFileName bindirFN = wxFileName::DirName(bundledBinDir);
+    bindir =  bindirFN.GetPath();
+#endif
+
+    try {
+        progs.icpfind = getProgram(config,bindir, wxT("icpfind"), wxT("icpfind"));
+    } catch (wxString s) {
+        wxMessageBox(s, _("Warning"));
+    }
+    try {
+        progs.celeste= getProgram(config,bindir, wxT("celeste_standalone"), wxT("celeste_standalone"));
+    } catch (wxString s) {
+        wxMessageBox(s, _("Warning"));
+    }
+
+    try {
+        progs.cpclean = getProgram(config,bindir, wxT("cpclean"), wxT("cpclean"));
+    } catch (wxString s) {
+        wxMessageBox(s, _("Warning"));
+    }
+    try {
+        progs.autooptimiser= getProgram(config,bindir, wxT("autooptimiser"), wxT("autooptimiser"));
+    } catch (wxString s) {
+        wxMessageBox(s, _("Warning"));
+    }
+    try {
+        progs.pano_modify= getProgram(config,bindir, wxT("pano_modify"), wxT("pano_modify"));
+    } catch (wxString s) {
+        wxMessageBox(s, _("Warning"));
+    }
+    try {
+        progs.checkpto= getProgram(config,bindir, wxT("checkpto"), wxT("checkpto"));
+    } catch (wxString s) {
+        wxMessageBox(s, _("Warning"));
+    }
+    return progs;
+}
+
 wxString getExePath(wxString argv0)
 {
     wxString huginPath;

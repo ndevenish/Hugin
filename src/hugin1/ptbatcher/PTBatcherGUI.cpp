@@ -57,11 +57,8 @@ bool PTBatcherGUI::OnInit()
 	// locale setup
     m_locale.AddCatalogLookupPathPrefix(huginRoot + wxT("/share/locale"));
 
-    progs = getPTProgramsConfig(huginExeDir, wxConfigBase::Get());
-
 #elif defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
     {
-		progs = getPTProgramsConfig(wxT(""), wxConfigBase::Get());
         wxString exec_path = MacGetPathToBundledResourceFile(CFSTR("xrc"));
         if(exec_path != wxT(""))
         {
@@ -82,7 +79,6 @@ bool PTBatcherGUI::OnInit()
     // add the locale directory specified during configure
 	m_xrcPrefix = wxT(INSTALL_XRC_DIR);
     m_locale.AddCatalogLookupPathPrefix(wxT(INSTALL_LOCALE_DIR));
-    PTPrograms progs = getPTProgramsConfig(wxT(""), wxConfigBase::Get());
 #endif
 
     // set the name of locale recource to look for
@@ -123,7 +119,8 @@ bool PTBatcherGUI::OnInit()
 	  { wxCMD_LINE_SWITCH, wxT("o"), wxT("overwrite"),  wxT("overwrite previous files without asking") },
 	  { wxCMD_LINE_SWITCH, wxT("s"), wxT("shutdown"),  wxT("shutdown computer after batch is complete") },
 	  { wxCMD_LINE_SWITCH, wxT("v"), wxT("verbose"),  wxT("show verbose output when processing projects") },
-      { wxCMD_LINE_PARAM,  NULL, NULL, _("<project1 [output prefix]> <project2 [output prefix]> <project3"),
+      { wxCMD_LINE_SWITCH, wxT("a"), wxT("assistant"), wxT("run the assistant on the given projects") },
+      { wxCMD_LINE_PARAM,  NULL, NULL, _("stitch_project.pto [output prefix]|assistant_project.pto"),
         wxCMD_LINE_VAL_STRING, wxCMD_LINE_PARAM_OPTIONAL + wxCMD_LINE_PARAM_MULTIPLE },
       { wxCMD_LINE_NONE }
     };
@@ -171,85 +168,91 @@ bool PTBatcherGUI::OnInit()
 	//m_frame->SetLocaleAndXRC(&m_locale,m_xrcPrefix);
 	//projectsRunning=0;
 	unsigned int count = 0;
-	bool projectSpecified = false;
-	//we collect all parameters - all project files <and their output prefixes>
-	while(parser.GetParamCount()>count)
-	{
-		wxString param = parser.GetParam(count);
-		count++;
-		if(!projectSpecified)	//next parameter must be new script file
-		{
+    if(parser.Found(wxT("a")))
+    {
+        //added assistant files
+	    while(parser.GetParamCount()>count)
+        {
+	    	wxString param = parser.GetParam(count);
+		    count++;
 			wxFileName name(param);
-			name.MakeAbsolute();
-			if(IsFirstInstance)
-				m_frame->AddToList(name.GetFullPath());
-			else
-				conn->Request(wxT("A ")+name.GetFullPath());
-			projectSpecified = true;
-		}
-		else	//parameter could be previous project's output prefix
-		{
-			wxFileName fn(param);
-			fn.MakeAbsolute();
-			if(!fn.HasExt())	//if there is no extension we have a prefix
-			{
-				if(IsFirstInstance)
-					m_frame->ChangePrefix(-1,fn.GetFullPath());
-				else
-					conn->Request(wxT("P ")+fn.GetFullPath());
-				projectSpecified = false;
-			}
-			else
-			{
-				wxString ext = fn.GetExt();
-				//we may still have a prefix, but with added image extension
-				if (ext.CmpNoCase(wxT("jpg")) == 0 || ext.CmpNoCase(wxT("jpeg")) == 0|| 
-					ext.CmpNoCase(wxT("tif")) == 0|| ext.CmpNoCase(wxT("tiff")) == 0 || 
-					ext.CmpNoCase(wxT("png")) == 0 || ext.CmpNoCase(wxT("exr")) == 0 ||
-					ext.CmpNoCase(wxT("pnm")) == 0 || ext.CmpNoCase(wxT("hdr")) == 0) 
-				{
-					//extension will be removed before stitch, so there is no need to do it now
-					if(IsFirstInstance)
-						m_frame->ChangePrefix(-1,fn.GetFullPath());
-					else
-						conn->Request(wxT("P ")+fn.GetFullPath());
-					projectSpecified = false;
-				}
-				else //if parameter has a different extension we presume it is a new script file
-				{
-				//removed -- Now we generate prefixes automatically, so there is no need to ask user
-					/*
-					//we must set a prefix for the previous project 
-					//we select the last project in GUI list, so the user is shown which
-					
-					m_frame->projListBox->Select(m_frame->projListBox->GetItemCount()-1);
-
-					wxFileDialog dlg(0,_("Specify output prefix for project "+projList.Last().path),
-							 wxConfigBase::Get()->Read(wxT("/actualPath"),wxT("")),
-							 wxT(""), wxT(""),
-							 wxSAVE, wxDefaultPosition);
-					dlg.SetDirectory(wxConfigBase::Get()->Read(wxT("/actualPath"),wxT("")));
-					if (dlg.ShowModal() == wxID_OK) {
-						wxConfig::Get()->Write(wxT("/actualPath"), dlg.GetDirectory());  // remember for later
-						projList.Last().prefix = dlg.GetPath();
-						m_frame->projListBox->ReloadProject(m_frame->projListBox->GetItemCount()-1,((Project*)&projList.Last()));
-					} else { // bail
-						wxLogError( _("Output prefix not specified"));
-					}
-					//deselect the last project in list
-
-					m_frame->projListBox->Deselect(m_frame->projListBox->GetItemCount()-1);*/
-
-					//we add the new project
-					if(IsFirstInstance)
-						m_frame->AddToList(fn.GetFullPath());
-					else
-						conn->Request(wxT("A ")+fn.GetFullPath());
-					projectSpecified = true;
-				}
-			} //else of if(!fn.HasExt())
-		}
-	}
+    	    name.MakeAbsolute();
+            if(name.FileExists())
+            {
+                //only add existing pto files
+                if(name.GetExt().CmpNoCase(wxT("pto"))==0)
+                {
+                    if(IsFirstInstance)
+                    {
+                        m_frame->AddToList(name.GetFullPath(),Project::DETECTING);
+                    }
+	    		    else
+                    {
+			    	    conn->Request(wxT("D ")+name.GetFullPath());
+                    };
+                };
+            };
+        };
+    }
+    else
+    {
+    	bool projectSpecified = false;
+	    //we collect all parameters - all project files <and their output prefixes>
+	    while(parser.GetParamCount()>count)
+    	{
+	    	wxString param = parser.GetParam(count);
+		    count++;
+		    if(!projectSpecified)	//next parameter must be new script file
+		    {
+			    wxFileName name(param);
+    			name.MakeAbsolute();
+	    		if(IsFirstInstance)
+		    		m_frame->AddToList(name.GetFullPath());
+			    else
+				    conn->Request(wxT("A ")+name.GetFullPath());
+    			projectSpecified = true;
+	    	}
+		    else	//parameter could be previous project's output prefix
+    		{
+	    		wxFileName fn(param);
+		    	fn.MakeAbsolute();
+			    if(!fn.HasExt())	//if there is no extension we have a prefix
+    			{
+	    			if(IsFirstInstance)
+		    			m_frame->ChangePrefix(-1,fn.GetFullPath());
+			    	else
+				    	conn->Request(wxT("P ")+fn.GetFullPath());
+    				projectSpecified = false;
+	    		}
+		    	else
+			    {
+				    wxString ext = fn.GetExt();
+    				//we may still have a prefix, but with added image extension
+	    			if (ext.CmpNoCase(wxT("jpg")) == 0 || ext.CmpNoCase(wxT("jpeg")) == 0|| 
+		    			ext.CmpNoCase(wxT("tif")) == 0|| ext.CmpNoCase(wxT("tiff")) == 0 || 
+			    		ext.CmpNoCase(wxT("png")) == 0 || ext.CmpNoCase(wxT("exr")) == 0 ||
+				    	ext.CmpNoCase(wxT("pnm")) == 0 || ext.CmpNoCase(wxT("hdr")) == 0) 
+				    {
+					    //extension will be removed before stitch, so there is no need to do it now
+    					if(IsFirstInstance)
+	    					m_frame->ChangePrefix(-1,fn.GetFullPath());
+		    			else
+			    			conn->Request(wxT("P ")+fn.GetFullPath());
+				    	projectSpecified = false;
+    				}
+	    			else //if parameter has a different extension we presume it is a new script file
+    				{
+    					//we add the new project
+	    				if(IsFirstInstance)
+		    				m_frame->AddToList(fn.GetFullPath());
+			    		else
+				    		conn->Request(wxT("A ")+fn.GetFullPath());
+					    projectSpecified = true;
+    				}
+			    } //else of if(!fn.HasExt())
+		    }
+	    }
+    }
     
 #ifdef __WXMAC__
     m_macFileNameToOpenOnStart = wxT("");
@@ -356,9 +359,20 @@ wxChar* BatchIPCConnection::OnRequest(const wxString& topic, const wxString& ite
 {
 	BatchFrame *MyBatchFrame=wxGetApp().GetFrame();
 	if(item.Left(1)==wxT("A"))
+    {
 		MyBatchFrame->AddToList(item.Mid(2));
+        return wxT("");
+    };
+	if(item.Left(1)==wxT("D"))
+    {
+        MyBatchFrame->AddToList(item.Mid(2),Project::DETECTING);
+        return wxT("");
+    };
 	if(item.Left(1)==wxT("P"))
+    {
 		MyBatchFrame->ChangePrefix(-1,item.Mid(2));
+        return wxT("");
+    };
 	wxCommandEvent event;
 	event.SetInt(1);
 	if(item==wxT("SetDeleteCheck"))

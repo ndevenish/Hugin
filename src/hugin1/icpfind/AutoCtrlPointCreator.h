@@ -3,8 +3,6 @@
  *
  *  @author Pablo d'Angelo <pablo.dangelo@web.de>
  *
- *  $Id$
- *
  *  This is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public
  *  License as published by the Free Software Foundation; either
@@ -27,7 +25,12 @@
 #include <string>
 #include <map>
 
-#include "hugin/CPDetectorConfig.h"
+#include "CPDetectorConfig.h"
+#include "PT/Panorama.h"
+#include "PT/PanoImage.h"
+#include "PT/PanoramaMemento.h"
+#include "panodata/ControlPoint.h"
+#include "panoinc_WX.h"
 
 /** Base class for control point creators.
  *
@@ -44,20 +47,17 @@ public:
      */
     virtual ~AutoCtrlPointCreator() {};
 
-    /** Do sift matching, calles the right routines, based
+    /** Do cp matching, calles the right routines, based
      *  on the matcher selected
      */
-    virtual CPVector automatch(CPDetectorSetting &setting, PT::Panorama & pano, const PT::UIntSet & imgs,
+    virtual HuginBase::CPVector automatch(CPDetectorSetting &setting, PT::Panorama & pano, const PT::UIntSet & imgs,
                            int nFeatures, int & ret_value, wxWindow *parent=NULL);
-    virtual CPVector automatch(CPDetectorSetting &setting, PT::Panorama & pano, const PT::UIntSet & imgs,
+    virtual HuginBase::CPVector automatch(CPDetectorSetting &setting, PT::Panorama & pano, const PT::UIntSet & imgs,
                            int nFeatures, wxWindow *parent=NULL);
 
 protected:
-
-    CPVector readUpdatedControlPoints(const std::string & file,
+    HuginBase::CPVector readUpdatedControlPoints(const std::string & file,
                                   PT::Panorama & pano);
-private:
-
 };
 
 /** A matcher that uses Sebastians Nowozin's excellent sift matcher */
@@ -73,14 +73,10 @@ public:
      */
     virtual ~AutoPanoSift() {} ;
 
-    virtual CPVector automatch(CPDetectorSetting &setting, PT::Panorama & pano, const PT::UIntSet & imgs,
+    virtual HuginBase::CPVector automatch(CPDetectorSetting &setting, PT::Panorama & pano, const PT::UIntSet & imgs,
                            int nFeatures, int & ret_value, wxWindow *parent=NULL);
-    virtual CPVector automatch(CPDetectorSetting &setting, PT::Panorama & pano, const PT::UIntSet & imgs,
+    virtual HuginBase::CPVector automatch(CPDetectorSetting &setting, PT::Panorama & pano, const PT::UIntSet & imgs,
                            int nFeatures, std::vector<wxString> &keyFiles, int & ret_value, wxWindow *parent=NULL);
-
-private:
-
-
 };
 
 /** A matcher that uses Alexandres sift matcher */
@@ -96,12 +92,8 @@ public:
      */
     virtual ~AutoPanoKolor() {} ;
 
-    virtual CPVector automatch(CPDetectorSetting &setting, PT::Panorama & pano, const PT::UIntSet & imgs,
+    virtual HuginBase::CPVector automatch(CPDetectorSetting &setting, PT::Panorama & pano, const PT::UIntSet & imgs,
                            int nFeatures, int & ret_value, wxWindow *parent=NULL);
-
-private:
-
-
 };
 
 /** A matcher that uses Sebastians Nowozin's excellent sift matcher and considers stacks */
@@ -117,12 +109,8 @@ public:
      */
     virtual ~AutoPanoSiftStack() {} ;
 
-    virtual CPVector automatch(CPDetectorSetting &setting, PT::Panorama & pano, const PT::UIntSet & imgs,
+    virtual HuginBase::CPVector automatch(CPDetectorSetting &setting, PT::Panorama & pano, const PT::UIntSet & imgs,
                            int nFeatures, int & ret_value, wxWindow *parent=NULL);
-
-private:
-
-
 };
 
 /** A matcher for multi-row panoramas based on an idea by Bruno Postle */
@@ -138,12 +126,8 @@ public:
      */
     virtual ~AutoPanoSiftMultiRow() {} ;
 
-    virtual CPVector automatch(CPDetectorSetting &setting, PT::Panorama & pano, const PT::UIntSet & imgs,
+    virtual HuginBase::CPVector automatch(CPDetectorSetting &setting, PT::Panorama & pano, const PT::UIntSet & imgs,
                            int nFeatures, int & ret_value, wxWindow *parent=NULL);
-
-private:
-
-
 };
 
 /** A matcher for multi-rows, which considers stacks */
@@ -159,12 +143,8 @@ public:
      */
     virtual ~AutoPanoSiftMultiRowStack() {} ;
 
-    virtual CPVector automatch(CPDetectorSetting &setting, PT::Panorama & pano, const PT::UIntSet & imgs,
+    virtual HuginBase::CPVector automatch(CPDetectorSetting &setting, PT::Panorama & pano, const PT::UIntSet & imgs,
                            int nFeatures, int & ret_value, wxWindow *parent=NULL);
-
-private:
-
-
 };
 
 /** A matcher that uses the align information in the panorama to generate cp between overlapping images */
@@ -180,14 +160,10 @@ public:
      */
     virtual ~AutoPanoSiftPreAlign() {} ;
 
-    virtual CPVector automatch(CPDetectorSetting &setting, PT::Panorama & pano, const PT::UIntSet & imgs,
+    virtual HuginBase::CPVector automatch(CPDetectorSetting &setting, PT::Panorama & pano, const PT::UIntSet & imgs,
                            int nFeatures, int & ret_value, wxWindow *parent=NULL);
-    virtual CPVector automatch(CPDetectorSetting &setting, PT::Panorama & pano, const PT::UIntSet & imgs,
+    virtual HuginBase::CPVector automatch(CPDetectorSetting &setting, PT::Panorama & pano, const PT::UIntSet & imgs,
                            int nFeatures, std::vector<wxString> &keyFiles, int & ret_value, wxWindow *parent=NULL);
-
-private:
-
-
 };
 
 #endif // _AUTOCTRLPOINTCREATOR_H

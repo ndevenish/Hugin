@@ -47,6 +47,8 @@ public:
 	wxString GetSelectedProject();
 	/** gets the prefix of the currently selected project */
 	wxString GetSelectedProjectPrefix();
+    /** return the target of the currently selected project */
+    Project::Target GetSelectedProjectTarget();
 	wxString GetText(int row, int column);
 	void ReloadProject(int index, Project* project);
 	void Select(int index);

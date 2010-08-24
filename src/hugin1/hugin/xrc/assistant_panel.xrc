@@ -61,8 +61,7 @@
                               <object class="sizeritem">
                                 <object class="wxChoice" name="ass_lens_proj_choice">
                                   <content>
-                                    <item></item>
-                                  </content>
+                                    <item/></content>
                                 </object>
                                 <flag>wxALIGN_CENTRE_VERTICAL</flag>
                               </object>
@@ -140,9 +139,23 @@
                   <size>0,20</size>
                 </object>
                 <object class="sizeritem">
-                  <object class="wxButton" name="ass_align_button">
-                    <label>2. Align...</label>
-                    <tooltip>Align all images. Creates control points and optimizes the image positions</tooltip>
+                  <object class="wxBoxSizer">
+                    <orient>wxHORIZONTAL</orient>
+                    <object class="sizeritem">
+                      <object class="wxButton" name="ass_align_button">
+                        <label>2. Align...</label>
+                        <tooltip>Align all images. Creates control points and optimizes the image positions</tooltip>
+                      </object>
+                      <flag>wxALL</flag>
+                      <border>6</border>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxButton" name="ass_align_batch_button">
+                        <label>Save project and send to batch</label>
+                      </object>
+                      <flag>wxALL</flag>
+                      <border>6</border>
+                    </object>
                   </object>
                   <flag>wxBOTTOM</flag>
                   <border>12</border>
@@ -221,8 +234,7 @@ e</label>
               <object class="sizeritem">
                 <object class="wxChoice" name="lensdlg_type_choice">
                   <content>
-                    <item></item>
-                  </content>
+                    <item/></content>
                 </object>
               </object>
               <object class="spacer">

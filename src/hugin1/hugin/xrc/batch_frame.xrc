@@ -113,4 +113,179 @@
       <orient>wxHORIZONTAL</orient>
     </object>
   </object>
+  <object class="wxDialog" name="find_pano_dialog">
+    <title>Searching panoramas</title>
+    <style>wxDEFAULT_DIALOG_STYLE|wxSYSTEM_MENU|wxRESIZE_BORDER|wxRESIZE_BOX|wxCLOSE_BOX</style>
+    <object class="wxBoxSizer">
+      <orient>wxVERTICAL</orient>
+      <object class="sizeritem">
+        <object class="wxPanel">
+          <object class="wxBoxSizer">
+            <orient>wxVERTICAL</orient>
+            <object class="sizeritem">
+              <object class="wxStaticBoxSizer">
+                <orient>wxVERTICAL</orient>
+                <label>Directories</label>
+                <object class="sizeritem">
+                  <object class="wxBoxSizer">
+                    <orient>wxHORIZONTAL</orient>
+                    <object class="sizeritem">
+                      <object class="wxFlexGridSizer">
+                        <cols>3</cols>
+                        <rows>2</rows>
+                        <growablecols>1</growablecols>
+                        <object class="sizeritem">
+                          <object class="wxStaticText" name="find_pano_label_dir">
+                            <label>Directory:</label>
+                          </object>
+                          <flag>wxALL|wxEXPAND|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          <border>3</border>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxTextCtrl" name="find_pano_dir"/>
+                          <option>1</option>
+                          <flag>wxTOP|wxBOTTOM|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                          <border>3</border>
+                          <minsize>100,-1</minsize>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxButton" name="find_pano_select_dir">
+                            <label>Choose...</label>
+                          </object>
+                          <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                        </object>
+                        <object class="spacer">
+                          <size>0,0</size>
+                          <flag>wxALL|wxEXPAND</flag>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxCheckBox" name="find_pano_subdir">
+                            <label>include sub-directories</label>
+                          </object>
+                          <option>1</option>
+                          <flag>wxTOP|wxBOTTOM|wxEXPAND</flag>
+                          <border>3</border>
+                        </object>
+                        <object class="spacer">
+                          <size>0,0</size>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxStaticText">
+                            <label>Naming:</label>
+                          </object>
+                          <flag>wxALL|wxEXPAND|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          <border>3</border>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxComboBox" name="find_pano_naming">
+                            <content>
+                              <item>PanoramaXX.pto</item>
+                              <item>First file - last file.pto</item>
+                            </content>
+                            <selection>0</selection>
+                            <style>wxCB_READONLY</style>
+                          </object>
+                          <option>1</option>
+                          <flag>wxTOP|wxBOTTOM|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                          <border>3</border>
+                        </object>
+                        <object class="spacer">
+                          <size>0,0</size>
+                          <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                        </object>
+                      </object>
+                      <option>1</option>
+                      <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
+                      <border>6</border>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxButton" name="find_pano_start_stop">
+                        <label>Start</label>
+                      </object>
+                      <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                      <border>6</border>
+                    </object>
+                  </object>
+                  <option>1</option>
+                  <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxStaticText" name="find_pano_label">
+                    <label></label>
+                  </object>
+                  <flag>wxALL|wxEXPAND</flag>
+                </object>
+              </object>
+              <option>0</option>
+              <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
+              <border>6</border>
+            </object>
+            <object class="sizeritem">
+              <object class="wxStaticBoxSizer">
+                <label>Founded panoramas</label>
+                <orient>wxVERTICAL</orient>
+                <object class="sizeritem">
+                  <object class="wxBoxSizer">
+                    <orient>wxVERTICAL</orient>
+                    <object class="sizeritem">
+                      <object class="wxCheckListBox" name="find_pano_list">
+                        <content/>
+                        <style>wxLB_SINGLE|wxLB_HSCROLL|wxLB_NEEDED_SB</style>
+                      </object>
+                      <option>1</option>
+                      <flag>wxALL|wxEXPAND</flag>
+                      <border>3</border>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxBoxSizer">
+                        <orient>wxHORIZONTAL</orient>
+                        <object class="spacer">
+                          <option>1</option>
+                          <flag>wxEXPAND</flag>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxButton" name="find_pano_add_queue">
+                            <label>Send selected panoramas to queue</label>
+                          </object>
+                          <flag>wxALL|wxEXPAND|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          <border>3</border>
+                        </object>
+                      </object>
+                      <flag>wxALL|wxEXPAND</flag>
+                    </object>
+                  </object>
+                  <option>1</option>
+                  <flag>wxALL|wxEXPAND</flag>
+                </object>
+              </object>
+              <option>1</option>
+              <flag>wxALL|wxEXPAND</flag>
+              <border>6</border>
+            </object>
+            <object class="sizeritem">
+              <object class="wxBoxSizer">
+                <orient>wxVERTICAL</orient>
+                <object class="spacer">
+                  <size>0,0</size>
+                  <option>1</option>
+                  <flag>wxALL|wxEXPAND</flag>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxButton" name="find_pano_close">
+                    <label>Close</label>
+                  </object>
+                  <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                  <border>6</border>
+                </object>
+              </object>
+              <flag>wxALL|wxEXPAND</flag>
+            </object>
+          </object>
+        </object>
+        <option>1</option>
+        <flag>wxALL|wxEXPAND</flag>
+        <border>6</border>
+      </object>
+    </object>
+  </object>
 </resource>

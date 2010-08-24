@@ -7,9 +7,13 @@ install(TARGETS PTBatcher
 
 #--------------------------------
 
-set( PROGNAME_GUI PTBatcherGUI )
+set(PROGNAME_GUI PTBatcherGUI )
+set(PTBATCHERGUI_SOURCE 
+      PTBatcherGUI.cpp Batch.cpp RunStitchFrame.cpp ProjectArray.cpp ProjectListBox.cpp BatchFrame.cpp FindPanoDialog.cpp)
+set( PTBATCHERGUI_HEADER PTBatcherGUI.h Batch.h RunStitchFrame.h ProjectArray.h ProjectListBox.h
+                         BatchFrame.h DirTraverser.h FindPanoDialog.h PTBatcherGUI_rc.rc)
 IF (WIN32)
-  add_executable(${PROGNAME_GUI} WIN32 PTBatcherGUI.cpp PTBatcherGUI.h PTBatcherGUI_rc.rc Batch.cpp Batch.h RunStitchFrame.cpp RunStitchFrame.h ProjectArray.cpp ProjectArray.h ProjectListBox.cpp ProjectListBox.h BatchFrame.cpp BatchFrame.h DirTraverser.h)
+  add_executable(${PROGNAME_GUI} WIN32 ${PTBATCHERGUI_SOURCE} ${PTBATCHERGUI_HEADER})
 ELSEIF(APPLE)
   set( PROGNAME PTBatcherGUI )
   set( MACOSX_BUNDLE_EXTENSION pto)
@@ -33,11 +37,10 @@ ELSEIF(APPLE)
   ENDIF(MAC_SELF_CONTAINED_BUNDLE)
      
   set( ICON_FILES ${MACOSX_BUNDLE_ICON_FILE} ${MACOSX_BUNDLE_TYPE_ICON_FILE} )
-  ADD_EXECUTABLE( ${PROGNAME_GUI} MACOSX_BUNDLE PTBatcherGUI.cpp PTBatcherGUI.h PTBatcherGUI_rc.rc Batch.cpp Batch.h RunStitchFrame.cpp RunStitchFrame.h ProjectArray.cpp ProjectArray.h ProjectListBox.cpp ProjectListBox.h BatchFrame.cpp BatchFrame.h DirTraverser.h
-                  ${ICON_FILES})
+  ADD_EXECUTABLE( ${PROGNAME_GUI} MACOSX_BUNDLE ${PTBATCHERGUI_SOURCE} ${PTBATCHERGUI_HEADER} ${ICON_FILES})
 
 ELSE (WIN32)
- add_executable(${PROGNAME_GUI} PTBatcherGUI.cpp PTBatcherGUI.h PTBatcherGUI_rc.rc Batch.cpp Batch.h RunStitchFrame.cpp RunStitchFrame.h ProjectArray.cpp ProjectArray.h ProjectListBox.cpp ProjectListBox.h BatchFrame.cpp BatchFrame.h DirTraverser.h)
+ add_executable(${PROGNAME_GUI} PTBatcherGUI.cpp ${PTBATCHERGUI_SOURCE} ${PTBATCHERGUI_HEADER})
 ENDIF (WIN32)
 
 

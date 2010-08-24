@@ -70,7 +70,8 @@ public:
 	//Starts stitching of project file
     bool StitchProject(wxString scriptFile, wxString outname,
                        HuginBase::PanoramaMakefilelibExport::PTPrograms progs);
-	
+    /** starts assistant of project file */
+    bool DetectProject(wxString scriptFile, HuginBase::AssistantMakefilelibExport::AssistantPrograms progs);
 	//Returns process ID of running process
 	int GetProcessId();
 	//Gets project id from batch
@@ -88,6 +89,7 @@ private:
 
 	wxEvtHandler* m_evtParent;
     bool m_isStitching;
+    bool m_isDetecting;
 	int m_projectId;
 	int m_pid;
 	//Called in GUI application when process terminates

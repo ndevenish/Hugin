@@ -642,9 +642,12 @@ MyExecDialog::~MyExecDialog() {
 }
 
 int MyExecuteCommandOnDialog(wxString command, wxString args, wxWindow* parent,
-                             wxString title)
+                             wxString title, bool isQuoted)
 {
-    command = utils::wxQuoteFilename(command);
+    if(!isQuoted)
+    {
+        command = utils::wxQuoteFilename(command);
+    };
     wxString cmdline = command + wxT(" ") + args;
     MyExecDialog dlg(parent, title,
                      wxDefaultPosition, wxSize(640, 400));

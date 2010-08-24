@@ -22,8 +22,7 @@ ENDIF(APPLE)
 
 # sources
 set(hugin_SOURCES
-huginApp.cpp ImagesList.cpp AutoCtrlPointCreator.cpp CPDetectorConfig.cpp 
-MainFrame.cpp CPImageCtrl.cpp CPImagesComboBox.cpp CPEditorPanel.cpp LensPanel.cpp 
+huginApp.cpp ImagesList.cpp MainFrame.cpp CPImageCtrl.cpp CPImagesComboBox.cpp CPEditorPanel.cpp CPDetectorDialog.cpp LensPanel.cpp 
 ImagesPanel.cpp CommandHistory.cpp PanoPanel.cpp NonaOptionsDialog.cpp HDRMergeOptionDialog.cpp
 PreviewFrame.cpp PreviewPanel.cpp GLPreviewFrame.cpp GLViewer.cpp GLRenderer.cpp NumTransDialog.cpp
 CropPanel.cpp OptimizePhotometricPanel.cpp OptimizePanel.cpp CPListFrame.cpp
@@ -38,8 +37,7 @@ GreatCircles.cpp AboutDialog.cpp LayoutRemapper.cpp PreviewLayoutLinesTool.cpp
 MaskEditorPanel.cpp MaskImageCtrl.cpp MaskLoadDialog.cpp)
 
 set(hugin_HEADERS
-huginApp.h ImagesList.h AutoCtrlPointCreator.h CPDetectorConfig.h CPDetectorConfig_default.h
-MainFrame.h CPImageCtrl.h CPImagesComboBox.h CPEditorPanel.h LensPanel.h 
+huginApp.h ImagesList.h MainFrame.h CPImageCtrl.h CPImagesComboBox.h CPEditorPanel.h CPDetectorDialog.h LensPanel.h 
 ImagesPanel.h CommandHistory.h PanoPanel.h NonaOptionsDialog.h HDRMergeOptionDialog.h
 PreviewFrame.h PreviewPanel.h GLPreviewFrame.h GLViewer.h GLRenderer.h NumTransDialog.h
 CropPanel.h OptimizePhotometricPanel.h OptimizePanel.h CPListFrame.h
@@ -118,7 +116,7 @@ ELSE (APPLE)
   ADD_EXECUTABLE( ${PROGNAME} ${hugin_SOURCES} ${hugin_HEADERS})
 ENDIF(APPLE)
 
-target_link_libraries( ${PROGNAME} ${common_libs} ${image_libs} huginbasewx celeste ${wxWidgets_LIBRARIES} ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES} ${GLUT_LIBRARIES})
+target_link_libraries( ${PROGNAME} ${common_libs} ${image_libs} huginbasewx celeste icpfindlib ${wxWidgets_LIBRARIES} ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES} ${GLUT_LIBRARIES})
 
 IF (APPLE)
   IF (NOT MAC_SELF_CONTAINED_BUNDLE)

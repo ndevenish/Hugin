@@ -34,6 +34,7 @@
 #include "hugin/huginApp.h"
 #include "hugin/config_defaults.h"
 #include "hugin/PreferencesDialog.h"
+#include "hugin/CPDetectorDialog.h"
 
 // validators are working different somehow...
 //#define MY_STR_VAL(id, filter) { XRCCTRL(*this, "prefs_" #id, wxTextCtrl)->SetValidator(wxTextValidator(filter, &id)); }

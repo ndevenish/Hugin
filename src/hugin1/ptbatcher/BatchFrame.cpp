@@ -27,6 +27,7 @@
 #include "BatchFrame.h"
 #include <wx/stdpaths.h>
 #include "PTBatcherGUI.h"
+#include "FindPanoDialog.h"
 
 /* file drag and drop handler method */
 bool BatchDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& filenames)
@@ -77,6 +78,7 @@ BEGIN_EVENT_TABLE(BatchFrame, wxFrame)
 	EVT_MENU(XRCID("menu_add"),BatchFrame::OnButtonAddToList)
 	EVT_MENU(XRCID("menu_remove"),BatchFrame::OnButtonRemoveFromList)
 	EVT_MENU(XRCID("menu_adddir"),BatchFrame::OnButtonAddDir)
+    EVT_MENU(XRCID("menu_searchpano"), BatchFrame::OnButtonSearchPano)
 	EVT_MENU(XRCID("menu_open"),BatchFrame::OnButtonOpenBatch)
 	EVT_MENU(XRCID("menu_save"),BatchFrame::OnButtonSaveBatch)
 	EVT_MENU(XRCID("menu_clear"),BatchFrame::OnButtonClear)
@@ -255,28 +257,31 @@ void BatchFrame::OnUpdateListBox(wxCommandEvent &event)
 	bool change = false;
 	for(int i = 0; i< m_batch->GetProjectCount(); i++)
 	{
-		if(m_batch->GetProject(i)->id >= 0)
+        if(m_batch->GetProject(i)->id >= 0)
 		{
 			tempFile.Assign(m_batch->GetProject(i)->path);
 			if(tempFile.FileExists())
 			{
-				wxDateTime modify;
-				modify=tempFile.GetModificationTime();
-				if(m_batch->GetProject(i)->skip)
-				{
-					change = true;
-					m_batch->GetProject(i)->skip = false;
-					m_batch->SetStatus(i,Project::WAITING);
-					projListBox->ReloadProject(projListBox->GetIndex(m_batch->GetProject(i)->id),m_batch->GetProject(i));
-				}
-				else if(!modify.IsEqualTo(m_batch->GetProject(i)->modDate))
-				{
-					change = true;
-					m_batch->GetProject(i)->modDate = modify;
-					m_batch->GetProject(i)->ResetOptions();
-					m_batch->SetStatus(i,Project::WAITING);
-					projListBox->ReloadProject(projListBox->GetIndex(m_batch->GetProject(i)->id),m_batch->GetProject(i));
-				}
+                if(m_batch->GetProject(i)->target==Project::STITCHING)
+                {
+                    wxDateTime modify;
+	    			modify=tempFile.GetModificationTime();
+		    		if(m_batch->GetProject(i)->skip)
+			    	{
+				    	change = true;
+					    m_batch->GetProject(i)->skip = false;
+    					m_batch->SetStatus(i,Project::WAITING);
+	    				projListBox->ReloadProject(projListBox->GetIndex(m_batch->GetProject(i)->id),m_batch->GetProject(i));
+		    		}
+			    	else if(!modify.IsEqualTo(m_batch->GetProject(i)->modDate))
+				    {
+					    change = true;
+    					m_batch->GetProject(i)->modDate = modify;
+	    				m_batch->GetProject(i)->ResetOptions();
+		    			m_batch->SetStatus(i,Project::WAITING);
+			    		projListBox->ReloadProject(projListBox->GetIndex(m_batch->GetProject(i)->id),m_batch->GetProject(i));
+				    }
+                }
 			}
 			else
 			{
@@ -345,6 +350,13 @@ void BatchFrame::OnButtonAddDir(wxCommandEvent &event)
 			//wxLogError( _("No project files specified"));
 	} 
 }
+
+void BatchFrame::OnButtonSearchPano(wxCommandEvent &e)
+{
+    FindPanoDialog findpano_dlg(this,m_xrcPrefix);
+    findpano_dlg.ShowModal();
+};
+
 void BatchFrame::OnButtonAddToList(wxCommandEvent &event)
 {
 	wxString defaultdir = wxConfigBase::Get()->Read(wxT("/BatchFrame/actualPath"),wxT(""));
@@ -386,12 +398,13 @@ void BatchFrame::AddDirToList(wxString aDir)
 	SetStatusText(_("Added projects from dir ")+aDir);
 };
 
-void BatchFrame::AddToList(wxString aFile)
+void BatchFrame::AddToList(wxString aFile,Project::Target target)
 {
 	wxFileName name(aFile);
-	m_batch->AddProjectToBatch(aFile,name.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR) + name.GetName());
+	m_batch->AddProjectToBatch(aFile,name.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR) + name.GetName(),target);
 	SetStatusText(_("Added project ")+aFile);
 	projListBox->AppendProject(m_batch->GetProject(m_batch->GetProjectCount()-1));
+    m_batch->SaveTemp();
 }
 
 
@@ -406,25 +419,33 @@ void BatchFrame::OnButtonChangePrefix(wxCommandEvent &event)
 	int selIndex = projListBox->GetSelectedIndex();
 	if(selIndex != -1)
 	{
-		wxFileName prefix(projListBox->GetSelectedProjectPrefix());
-		wxFileDialog dlg(0,_("Specify output prefix for project ")+projListBox->GetSelectedProject(),
-                     prefix.GetPath(),
-                     prefix.GetFullName(), wxT(""),
-                     wxSAVE, wxDefaultPosition);
-		if (dlg.ShowModal() == wxID_OK)
-		{
-            while(containsInvalidCharacters(dlg.GetPath()))
-            {
-                wxMessageBox(wxString::Format(_("The given filename contains one of the following invalid characters: %s\nHugin can not work with this filename. Please enter a valid filename."),getInvalidCharacters().c_str()),
-                    _("Error"),wxOK | wxICON_EXCLAMATION,this);
-                if(dlg.ShowModal()!=wxID_OK)
-                    return;
-            };
-			wxString outname(dlg.GetPath());
-			ChangePrefix(selIndex,outname);
-			//SetStatusText(_T("Changed prefix for "+projListBox->GetSelectedProject()));
-			m_batch->SaveTemp();
-		}
+        if(projListBox->GetSelectedProjectTarget()==Project::STITCHING)
+        {
+		    wxFileName prefix(projListBox->GetSelectedProjectPrefix());
+    		wxFileDialog dlg(0,_("Specify output prefix for project ")+projListBox->GetSelectedProject(),
+                         prefix.GetPath(),
+                         prefix.GetFullName(), wxT(""),
+                         wxSAVE, wxDefaultPosition);
+    		if (dlg.ShowModal() == wxID_OK)
+	    	{
+                while(containsInvalidCharacters(dlg.GetPath()))
+                {
+                    wxMessageBox(wxString::Format(_("The given filename contains one of the following invalid characters: %s\nHugin can not work with this filename. Please enter a valid filename."),getInvalidCharacters().c_str()),
+                        _("Error"),wxOK | wxICON_EXCLAMATION,this);
+                    if(dlg.ShowModal()!=wxID_OK)
+                        return;
+                };
+			    wxString outname(dlg.GetPath());
+    			ChangePrefix(selIndex,outname);
+	    		//SetStatusText(_T("Changed prefix for "+projListBox->GetSelectedProject()));
+		    	m_batch->SaveTemp();
+		    }
+        }
+        else
+        {
+            SetStatusText(_("The prefix of an assistant target can not be changed."));
+            wxBell();
+        };
 	}
 	else
 	{

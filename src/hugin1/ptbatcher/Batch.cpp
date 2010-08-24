@@ -49,16 +49,19 @@ Batch::Batch(wxFrame* parent, wxString path, bool bgui) : wxFrame(parent,wxID_AN
     //SetAppName(wxT("hugin"));
 
     // setup the environment for the different operating systems
+    wxConfigBase* config=wxConfigBase::Get();
 #if defined __WXMSW__
     wxString huginExeDir = getExePath(path);
 	
 	wxString huginRoot;
     wxFileName::SplitPath(huginExeDir, &huginRoot, NULL, NULL);
 	
-	progs = getPTProgramsConfig(huginExeDir, wxConfigBase::Get());
+	progs = getPTProgramsConfig(huginExeDir, config);
+    progsAss = getAssistantProgramsConfig(huginExeDir, config);
 #else
     // add the locale directory specified during configure
-    progs = getPTProgramsConfig(wxT(""), wxConfigBase::Get());
+    progs = getPTProgramsConfig(wxT(""), config);
+    progsAss = getAssistantProgramsConfig(wxT(""), config);
 #endif
 
 }
@@ -69,16 +72,16 @@ void Batch::AddAppToBatch(wxString app)
 	m_projList.Add(newApp);
 }
 
-void Batch::AddProjectToBatch(wxString projectFile, wxString outputFile)
+void Batch::AddProjectToBatch(wxString projectFile, wxString outputFile,Project::Target target)
 {
 	wxFileName projectName(projectFile);
 	wxFileName outName(outputFile);
 	projectName.Normalize();
 	outName.Normalize();
 	
-	if(outputFile.Cmp(_T(""))!=0)
+    if(outputFile.Cmp(_T(""))!=0 || target==Project::DETECTING)
 	{
-		Project *proj = new Project(projectName.GetFullPath(),outName.GetFullPath());
+		Project *proj = new Project(projectName.GetFullPath(),outName.GetFullPath(),target);
 		m_projList.Add(proj);
 		/*if(gui)
 			((wxFrame*)GetParent())->SetStatusText(_T("Added project ")+projectFile+_T(" with output ")+outputFile);
@@ -129,7 +132,15 @@ void Batch::AppendBatchFile(wxString file)
 		while((projectName = textStream.ReadLine()).Cmp(wxT(""))!=0)
 		{
 			//we add project to internal list
-			AddProjectToBatch(projectName,textStream.ReadLine());
+            wxString line=textStream.ReadLine();
+            if(line.IsEmpty())
+            {
+                AddProjectToBatch(projectName,wxT(""),Project::DETECTING);
+            }
+            else
+            {
+			    AddProjectToBatch(projectName,line);
+            };
 			textStream.ReadLine().ToLong(&m_projList.Last().id);
 			long status;
 			textStream.ReadLine().ToLong(&status);
@@ -640,8 +651,30 @@ bool Batch::OnStitch(wxString scriptFile, wxString outname, int id)		//was previ
 	
 }
 
+bool Batch::OnDetect(wxString scriptFile, int id)
+{    
+	if(!gui)
+		cout << "Running assistant with input file " << (const char *)scriptFile.mb_str(wxConvLocal) << "..." << endl;
 
+	RunStitchFrame *stitchFrame = new RunStitchFrame(this, wxT("Hugin Assistant"), wxDefaultPosition, wxSize(640,600));
+	stitchFrame->SetProjectId(id);
+	if(verbose && gui)
+	{
+		stitchFrame->Show( true );
+		wxTheApp->SetTopWindow( stitchFrame );
+	}
+	
+    wxFileName basename(scriptFile);
+    stitchFrame->SetTitle(wxString::Format(_("%s - Assistant"), basename.GetName().c_str()));
 
+    bool n = stitchFrame->DetectProject(scriptFile, progsAss);
+	if(n)
+		m_stitchFrames.Add(stitchFrame);
+	else
+		stitchFrame->Close();
+    return n;
+	
+}
 
 void Batch::PauseBatch()
 {
@@ -800,7 +833,14 @@ void Batch::RunNextInBatch()
 				m_projList.Item(i).status=Project::RUNNING;
 				//SetStatusText(_T("Stitching project \"")+m_projList.Item(i).path+_T("\""));
 				m_running = true;
-				value = OnStitch(m_projList.Item(i).path, m_projList.Item(i).prefix, m_projList.Item(i).id);
+                if(m_projList.Item(i).target==Project::STITCHING)
+                {
+				    value = OnStitch(m_projList.Item(i).path, m_projList.Item(i).prefix, m_projList.Item(i).id);
+                }
+                else
+                {
+                    value = OnDetect(m_projList.Item(i).path,m_projList.Item(i).id);
+                };
 				if(!value)
 					m_projList.Item(i).status=Project::FAILED;
 				else
@@ -816,7 +856,14 @@ void Batch::RunNextInBatch()
 					m_projList.Item(i).status=Project::RUNNING;
 					//SetStatusText(_T("Stitching..."));
 					m_running = true;
-					value = OnStitch(m_projList.Item(i).path, m_projList.Item(i).prefix, m_projList.Item(i).id);
+                    if(m_projList.Item(i).target==Project::STITCHING)
+                    {
+		    		    value = OnStitch(m_projList.Item(i).path, m_projList.Item(i).prefix, m_projList.Item(i).id);
+                    }
+                    else
+                    {
+                        value = OnDetect(m_projList.Item(i).path,m_projList.Item(i).id);
+                    };
 					if(!value)
 						m_projList.Item(i).status=Project::FAILED;
 					else
@@ -844,7 +891,14 @@ void Batch::SaveBatchFile(wxString file)
 	for(unsigned int i = 0; i< m_projList.GetCount(); i++)
 	{
 		textStream.WriteString(m_projList.Item(i).path+_T("\n"));
-		textStream.WriteString(m_projList.Item(i).prefix+_T("\n"));
+        if(m_projList.Item(i).target==Project::STITCHING)
+        {
+		    textStream.WriteString(m_projList.Item(i).prefix+_T("\n"));
+        }
+        else
+        {
+            textStream.WriteString(_T("\n"));
+        };
 		line = _T("");
 		line << m_projList.Item(i).id;
 		textStream.WriteString(line+_T("\n"));

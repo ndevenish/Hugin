@@ -33,7 +33,7 @@ const int HUGIN_EXIT_CODE_CANCELLED = -255;
 
 class MyExternalCmdExecDialog;
 class HuginPipedProcess;
-WXIMPEX int MyExecuteCommandOnDialog(wxString command, wxString args, wxWindow* parent, wxString title);
+WXIMPEX int MyExecuteCommandOnDialog(wxString command, wxString args, wxWindow* parent, wxString title, bool isQuoted=false);
 
 //#define HUGIN_EXEC_LISTBOX 1
 

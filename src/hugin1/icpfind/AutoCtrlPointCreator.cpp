@@ -6,8 +6,6 @@
  *
  *  @author Pablo d'Angelo <pablo.dangelo@web.de>
  *
- *  $Id$
- *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public
  *  License as published by the Free Software Foundation; either
@@ -39,8 +37,7 @@
 
 #include "hugin/huginApp.h"
 #include "hugin/config_defaults.h"
-#include "hugin/AutoCtrlPointCreator.h"
-#include "hugin/CommandHistory.h"
+#include "icpfind/AutoCtrlPointCreator.h"
 #include <algorithms/optimizer/PTOptimizer.h>
 #include <algorithms/basic/CalculateOverlap.h>
 
@@ -65,6 +62,31 @@
 using namespace std;
 using namespace PT;
 using namespace utils;
+
+void CPMessage(const wxString message,const wxString caption, wxWindow *parent)
+{
+    if(parent!=NULL)
+    {
+        wxMessageBox(message,caption,wxOK | wxICON_ERROR,parent);
+    }
+    else
+    {
+        std::cout << message << std::endl;
+    }
+};
+
+int CPExecute(wxString prog, wxString args, wxString caption, wxWindow *parent)
+{
+    if(parent!=NULL)
+    {
+        return MyExecuteCommandOnDialog(prog, args, parent,  caption);
+    }
+    else
+    {
+        wxString cmdline=prog+wxT(" ")+args;
+        return wxExecute(cmdline,wxEXEC_SYNC);
+    };
+};
 
 CPVector AutoCtrlPointCreator::readUpdatedControlPoints(const std::string & file,
                                                     PT::Panorama & pano)
@@ -159,9 +181,9 @@ bool CanStartProg(wxString progName,wxWindow* parent)
         };
     };
     if(!canStart)
-        wxMessageBox(wxString::Format(
+        CPMessage(wxString::Format(
         _("Could not find \"%s\" in path.\nMaybe you have not installed it properly or given a wrong path in the settings."),progName.c_str()),
-            _("Error"),wxOK | wxICON_INFORMATION,parent);
+            _("Error"),parent);
     return canStart;
 };
 
@@ -281,15 +303,6 @@ CPVector AutoPanoSift::automatch(CPDetectorSetting &setting, Panorama & pano, co
     };
     wxString autopanoArgs = setting.GetArgs();
     
-#ifdef __WXMSW__
-    // remember cwd.
-    wxString cwd = wxGetCwd();
-    wxString apDir = wxPathOnly(autopanoExe);
-    if (apDir.Len() > 0) {
-        wxSetWorkingDirectory(apDir);
-    }
-#endif
-
     // TODO: create a secure temporary filename here
     wxString ptofile = wxFileName::CreateTempFileName(wxT("ap_res"));
     autopanoArgs.Replace(wxT("%o"), ptofile);
@@ -318,8 +331,8 @@ CPVector AutoPanoSift::automatch(CPDetectorSetting &setting, Panorama & pano, co
     bool use_inputscript = idx >=0;
 
     if (! (use_namefile || use_params || use_inputscript)) {
-        wxMessageBox(_("Please use  %namefile, %i or %s to specify the input files for control point detector"),
-                     _("Error in control point detector command"), wxOK | wxICON_ERROR,parent);
+        CPMessage(_("Please use  %namefile, %i or %s to specify the input files for control point detector"),
+                     _("Error in control point detector command"), parent);
         return cps;
     }
 
@@ -367,9 +380,8 @@ CPVector AutoPanoSift::automatch(CPDetectorSetting &setting, Panorama & pano, co
 
 #ifdef __WXMSW__
     if (autopanoArgs.size() > 32000) {
-        wxMessageBox(_("Command line for control point detector too long.\nThis is a windows limitation\nPlease select less images, or place the images in a folder with\na shorter pathname"),
-                     _("Too many images selected"),
-                     wxCANCEL | wxICON_ERROR, parent );
+        CPMessage(_("Command line for control point detector too long.\nThis is a windows limitation\nPlease select less images, or place the images in a folder with\na shorter pathname"),
+                     _("Too many images selected"), parent );
         return cps;
     }
 #endif
@@ -381,39 +393,33 @@ CPVector AutoPanoSift::automatch(CPDetectorSetting &setting, Panorama & pano, co
     if (arguments.GetCount() > 127) {
         DEBUG_ERROR("Too many arguments for call to wxExecute()");
         DEBUG_ERROR("Try using the %s parameter in preferences");
-        wxMessageBox(wxString::Format(_("Too many arguments (images). Try using the %%s parameter in preferences.\n\n Could not execute command: %s"), autopanoExe.c_str()), _("wxExecute Error"), wxOK | wxICON_ERROR, parent);
+        CPMessage(wxString::Format(_("Too many arguments (images). Try using the %%s parameter in preferences.\n\n Could not execute command: %s"), autopanoExe.c_str()), _("wxExecute Error"), parent);
         return cps;
     }
 
     ret_value = 0;
     // use MyExternalCmdExecDialog
-    ret_value = MyExecuteCommandOnDialog(autopanoExe, autopanoArgs, parent,  _("finding control points"));
+    ret_value = CPExecute(autopanoExe, autopanoArgs, _("finding control points"), parent);
 
     if (ret_value == HUGIN_EXIT_CODE_CANCELLED) {
         return cps;
     } else if (ret_value == -1) {
-        wxMessageBox( wxString::Format(_("Could not execute command: %s"),cmd.c_str()), _("wxExecute Error"), 
-            wxOK | wxICON_ERROR, parent);
+        CPMessage( wxString::Format(_("Could not execute command: %s"),cmd.c_str()), _("wxExecute Error"), parent);
         return cps;
     } else if (ret_value > 0) {
-        wxMessageBox(wxString::Format(_("Command: %s\nfailed with error code: %d"),cmd.c_str(),ret_value),
-                     _("wxExecute Error"), wxOK | wxICON_ERROR, parent);
+        CPMessage(wxString::Format(_("Command: %s\nfailed with error code: %d"),cmd.c_str(),ret_value),
+                     _("wxExecute Error"), parent);
         return cps;
     }
 
     if (! wxFileExists(ptofile.c_str())) {
-        wxMessageBox(wxString::Format(_("Could not open %s for reading\nThis is an indicator that the control point detector call failed,\nor wrong command line parameters have been used.\n\nExecuted command: %s"),ptofile.c_str(),cmd.c_str()),
-                     _("Control point detector failure"), wxOK | wxICON_ERROR, parent );
+        CPMessage(wxString::Format(_("Could not open %s for reading\nThis is an indicator that the control point detector call failed,\nor wrong command line parameters have been used.\n\nExecuted command: %s"),ptofile.c_str(),cmd.c_str()),
+                     _("Control point detector failure"), parent );
         return cps;
     }
 
     // read and update control points
     cps = readUpdatedControlPoints((const char *)ptofile.mb_str(HUGIN_CONV_FILENAME), pano);
-
-#ifdef __WXMSW__
-	// set old cwd.
-	wxSetWorkingDirectory(cwd);
-#endif
 
     if (namefile_name != wxString(wxT(""))) {
         namefile.Close();
@@ -463,14 +469,14 @@ CPVector AutoPanoSift::automatch(CPDetectorSetting &setting, PT::Panorama & pano
     //check arguments
     if(generateKeysArgs.Find(wxT("%i"))==wxNOT_FOUND || generateKeysArgs.Find(wxT("%k"))==wxNOT_FOUND)
     {
-        wxMessageBox(_("Please use %i to specify the input files and %k to specify the keypoint file for generate keys step"),
-                     _("Error in control point detector command"), wxOK | wxICON_ERROR,parent);
+        CPMessage(_("Please use %i to specify the input files and %k to specify the keypoint file for generate keys step"),
+                     _("Error in control point detector command"), parent);
         return cps;
     };
     if(matcherArgs.Find(wxT("%k"))==wxNOT_FOUND || matcherArgs.Find(wxT("%o"))==wxNOT_FOUND)
     {
-        wxMessageBox(_("Please use %k to specify the keypoint files and %o to specify the output project file for the matching step"),
-                     _("Error in control point detector command"), wxOK | wxICON_ERROR,parent);
+        CPMessage(_("Please use %k to specify the keypoint files and %o to specify the output project file for the matching step"),
+                     _("Error in control point detector command"), parent);
         return cps;
     };
 
@@ -497,22 +503,21 @@ CPVector AutoPanoSift::automatch(CPDetectorSetting &setting, PT::Panorama & pano
             cmd.Replace(wxT("%i"),wxQuoteFilename(wxString(srcImg.getFilename().c_str(), HUGIN_CONV_FILENAME)));
             cmd.Replace(wxT("%k"),wxQuoteFilename(keyfile));
             // use MyExternalCmdExecDialog
-            ret_value = MyExecuteCommandOnDialog(generateKeysExe, cmd, parent,  _("generating key file"));
+            ret_value = CPExecute(generateKeysExe, cmd, _("generating key file"), parent);
             cmd=generateKeysExe+wxT(" ")+cmd;
             if (ret_value == HUGIN_EXIT_CODE_CANCELLED) 
                 return cps;
             else
                 if (ret_value == -1) 
                 {
-                    wxMessageBox( wxString::Format(_("Could not execute command: %s"),cmd.c_str()), _("wxExecute Error"), 
-                        wxOK | wxICON_ERROR, parent);
+                    CPMessage( wxString::Format(_("Could not execute command: %s"),cmd.c_str()), _("wxExecute Error"), parent);
                     return cps;
                 } 
                 else
                     if (ret_value > 0) 
                     {
-                        wxMessageBox(wxString::Format(_("Command: %s\nfailed with error code: %d"),cmd.c_str(),ret_value),
-                            _("wxExecute Error"), wxOK | wxICON_ERROR, parent);
+                        CPMessage(wxString::Format(_("Command: %s\nfailed with error code: %d"),cmd.c_str(),ret_value),
+                            _("wxExecute Error"), parent);
                         return cps;
                     };
         };
@@ -548,9 +553,8 @@ CPVector AutoPanoSift::automatch(CPDetectorSetting &setting, PT::Panorama & pano
 
 #ifdef __WXMSW__
     if (matcherArgs.size() > 32000) {
-        wxMessageBox(_("Command line for control point detector too long.\nThis is a windows limitation\nPlease select less images, or place the images in a folder with\na shorter pathname"),
-                     _("Too many images selected"),
-                     wxCANCEL | wxICON_ERROR, parent );
+        CPMessage(_("Command line for control point detector too long.\nThis is a windows limitation\nPlease select less images, or place the images in a folder with\na shorter pathname"),
+                     _("Too many images selected"), parent );
         return cps;
     }
     apDir = wxPathOnly(matcherExe);
@@ -565,34 +569,33 @@ CPVector AutoPanoSift::automatch(CPDetectorSetting &setting, PT::Panorama & pano
     wxArrayString arguments = wxCmdLineParser::ConvertStringToArgs(matcherArgs);
     if (arguments.GetCount() > 127) {
         DEBUG_ERROR("Too many arguments for call to wxExecute()");
-        wxMessageBox(wxString::Format(_("Too many arguments (images). Try using a cp generator setting which supports the %%s parameter in preferences.\n\n Could not execute command: %s"), matcherExe.c_str()), _("wxExecute Error"), wxOK | wxICON_ERROR, parent);
+        CPMessage(wxString::Format(_("Too many arguments (images). Try using a cp generator setting which supports the %%s parameter in preferences.\n\n Could not execute command: %s"), matcherExe.c_str()), _("wxExecute Error"), parent);
         return cps;
     }
 
     // use MyExternalCmdExecDialog
-    ret_value = MyExecuteCommandOnDialog(matcherExe, matcherArgs, parent,  _("finding control points"));
+    ret_value = CPExecute(matcherExe, matcherArgs, _("finding control points"), parent);
 
     if (ret_value == HUGIN_EXIT_CODE_CANCELLED) 
         return cps;
     else 
         if (ret_value == -1) 
         {
-            wxMessageBox( wxString::Format(_("Could not execute command: %s"),cmd.c_str()), _("wxExecute Error"), 
-                wxOK | wxICON_ERROR, parent);
+            CPMessage( wxString::Format(_("Could not execute command: %s"),cmd.c_str()), _("wxExecute Error"), parent);
             return cps;
         } 
         else
             if (ret_value > 0) 
             {
-                wxMessageBox(wxString::Format(_("Command: %s\nfailed with error code: %d"),cmd.c_str(),ret_value),
-                     _("wxExecute Error"), wxOK | wxICON_ERROR, parent);
+                CPMessage(wxString::Format(_("Command: %s\nfailed with error code: %d"),cmd.c_str(),ret_value),
+                     _("wxExecute Error"), parent);
                 return cps;
             };
 
     if (! wxFileExists(ptofile.c_str()))
     {
-        wxMessageBox(wxString::Format(_("Could not open %s for reading\nThis is an indicator that the control point detector call failed,\nor wrong command line parameters have been used.\n\nExecuted command: %s"),ptofile.c_str(),cmd.c_str()),
-                     _("Control point detector failure"), wxOK | wxICON_ERROR, parent );
+        CPMessage(wxString::Format(_("Could not open %s for reading\nThis is an indicator that the control point detector call failed,\nor wrong command line parameters have been used.\n\nExecuted command: %s"),ptofile.c_str(),cmd.c_str()),
+                     _("Control point detector failure"), parent );
         return cps;
     }
 
@@ -654,9 +657,8 @@ CPVector AutoPanoKolor::automatch(CPDetectorSetting &setting, Panorama & pano, c
     cmd.Printf(wxT("%s %s"), utils::wxQuoteFilename(autopanoExe).c_str(), autopanoArgs.c_str());
 #ifdef __WXMSW__
     if (cmd.size() > 32766) {
-        wxMessageBox(_("Command line for control point detector too long.\nThis is a windows limitation\nPlease select less images, or place the images in a folder with\na shorter pathname"),
-                     _("Too many images selected"),
-                     wxCANCEL, parent);
+        CPMessage(_("Command line for control point detector too long.\nThis is a windows limitation\nPlease select less images, or place the images in a folder with\na shorter pathname"),
+                     _("Too many images selected"), parent);
         return cps;
     }
 #endif
@@ -666,31 +668,30 @@ CPVector AutoPanoKolor::automatch(CPDetectorSetting &setting, Panorama & pano, c
     if (arguments.GetCount() > 127) {
         DEBUG_ERROR("Too many arguments for call to wxExecute()");
         DEBUG_ERROR("Try using the %s parameter in preferences");
-        wxMessageBox(wxString::Format(_("Too many arguments (images). Try using the %%s parameter in preferences.\n\n Could not execute command: %s"), autopanoExe.c_str()), _("wxExecute Error"), wxOK | wxICON_ERROR, parent);
+        CPMessage(wxString::Format(_("Too many arguments (images). Try using the %%s parameter in preferences.\n\n Could not execute command: %s"), autopanoExe.c_str()), _("wxExecute Error"), parent);
         return cps;
     }
 
     ret_value = 0;
     // use MyExternalCmdExecDialog
-    ret_value = MyExecuteCommandOnDialog(autopanoExe, autopanoArgs, parent, _("finding control points"));
+    ret_value = CPExecute(autopanoExe, autopanoArgs, _("finding control points"), parent);
 
     if (ret_value == HUGIN_EXIT_CODE_CANCELLED) {
         return cps;
     } else if (ret_value == -1) {
-        wxMessageBox( wxString::Format(_("Could not execute command: %s"),cmd.c_str()), _("wxExecute Error"), 
-            wxOK | wxICON_ERROR, parent);
+        CPMessage( wxString::Format(_("Could not execute command: %s"),cmd.c_str()), _("wxExecute Error"),  parent);
         return cps;
     } else if (ret_value > 0) {
-        wxMessageBox(wxString::Format(_("Command: %s\nfailed with error code: %d"),cmd.c_str(),ret_value),
-                     _("wxExecute Error"), wxOK | wxICON_ERROR, parent);
+        CPMessage(wxString::Format(_("Command: %s\nfailed with error code: %d"),cmd.c_str(),ret_value),
+                     _("wxExecute Error"), parent);
         return cps;
     }
 
     ptofile = ptofn.GetFullPath();
     ptofile.append(wxT("0.oto"));
     if (! wxFileExists(ptofile.c_str()) ) {
-        wxMessageBox(wxString::Format(_("Could not open %s for reading\nThis is an indicator that the control point detector call failed,\nor wrong command line parameters have been used.\n\nExecuted command: %s"),ptofile.c_str(),cmd.c_str()),
-                     _("Control point detector failure"), wxOK | wxICON_ERROR, parent );
+        CPMessage(wxString::Format(_("Could not open %s for reading\nThis is an indicator that the control point detector call failed,\nor wrong command line parameters have been used.\n\nExecuted command: %s"),ptofile.c_str(),cmd.c_str()),
+                     _("Control point detector failure"), parent );
         return cps;
     }
     // read and update control points

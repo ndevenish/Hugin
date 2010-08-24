@@ -15,6 +15,10 @@
         <label>Search directory</label>
         <help>Appends all project files from a directory and subdirectories</help>
       </object>
+      <object class="wxMenuItem" name="menu_searchpano">
+        <label>Search directory for images</label>
+        <help>Searches in directories after suitable panorams from image files</help>
+      </object>
       <object class="separator"/>
       <object class="wxMenuItem" name="menu_open">
         <label>Open batch</label>

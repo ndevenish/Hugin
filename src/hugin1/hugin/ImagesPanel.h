@@ -83,7 +83,7 @@ public:
     void panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & imgNr);
     /** Reloads the cp detector settings from config, necessary after edit preferences */
     void ReloadCPDetectorSettings();
-    /** returns the default cp detector setings */
+    /** returns the default cp detector settings */
     CPDetectorSetting& GetDefaultSetting() { return cpdetector_config.settings.Item(cpdetector_config.GetDefaultGenerator());};
 private:
     // a window event

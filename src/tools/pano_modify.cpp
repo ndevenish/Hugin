@@ -60,8 +60,9 @@ static void usage(const char * name)
          << "                                   HFOV|HFOVxVFOV: set to given fov" << endl
          << "     -s, --straighten       Straightens the panorama" << endl
          << "     -c, --center           Centers the panorama" << endl
-         << "     --canvas=AUTO|WIDTHxHEIGHT  Sets the output canvas size" << endl
+         << "     --canvas=AUTO|num%|WIDTHxHEIGHT  Sets the output canvas size" << endl
          << "                                   AUTO: calculate optimal canvas size" << endl
+         << "                                   num%: scales the optimal size by given percent" << endl
          << "                                   WIDTHxHEIGHT: set to given size" << endl
          << "     --crop=AUTO|left,right,top,bottom  Sets the crop rectangle" << endl
          << "                                   AUTO: autocrop panorama" << endl
@@ -104,6 +105,7 @@ int main(int argc, char *argv[])
     int projection=-1;
     double newHFOV=-1;
     double newVFOV=-1;
+    int scale=100;
     int newWidth=-1;
     int newHeight=-1;
     vigra::Rect2D newROI(0,0,0,0);
@@ -203,25 +205,40 @@ int main(int argc, char *argv[])
                 }
                 else
                 {
-                    int width, height;
-                    int n=sscanf(optarg, "%dx%d", &width, &height);
-                    if (n==2)
+                    int pos=param.find("%");
+                    if(pos!=string::npos)
                     {
-                        if(width>0 && height>0)
+                        param=param.substr(0,pos);
+                        scale=atoi(param.c_str());
+                        if(scale==0)
                         {
-                            newWidth=width;
-                            newHeight=height;
-                        }
-                        else
-                        {
-                            cerr << "Invalid canvas size" << endl;
+                            cerr << "No valid scale factor given." << endl;
                             return 1;
                         };
+                        doOptimalSize=true;
                     }
                     else
                     {
-                        cerr << "Could not parse canvas size" << endl;
-                        return 1;
+                        int width, height;
+                        int n=sscanf(optarg, "%dx%d", &width, &height);
+                        if (n==2)
+                        {
+                            if(width>0 && height>0)
+                            {
+                                newWidth=width;
+                                newHeight=height;
+                            }
+                            else
+                            {
+                                cerr << "Invalid canvas size" << endl;
+                                return 1;
+                            };
+                        }
+                        else
+                        {
+                            cerr << "Could not parse canvas size" << endl;
+                            return 1;
+                        };
                     };
                 };
                 break;
@@ -351,9 +368,9 @@ int main(int argc, char *argv[])
     if(doOptimalSize)
     {
         cout << "Caluclate optimal size of panorama" << endl;
-        double w = CalculateOptimalScale::calcOptimalScale(pano);
+        double s = CalculateOptimalScale::calcOptimalScale(pano);
         PanoramaOptions opt=pano.getOptions();
-        opt.setWidth(roundi(opt.getWidth()*w), true);
+        opt.setWidth(roundi(opt.getWidth()*s*scale/100), true);
         cout << "Setting canvas size to " << opt.getWidth() << " x " << opt.getHeight() << endl;
         pano.setOptions(opt);
     };
