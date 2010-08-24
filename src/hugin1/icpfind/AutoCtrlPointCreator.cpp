@@ -84,7 +84,7 @@ int CPExecute(wxString prog, wxString args, wxString caption, wxWindow *parent)
     else
     {
         wxString cmdline=prog+wxT(" ")+args;
-        return wxExecute(cmdline,wxEXEC_SYNC);
+        return wxExecute(cmdline,wxEXEC_SYNC | wxEXEC_MAKE_GROUP_LEADER);
     };
 };
 
