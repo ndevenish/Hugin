@@ -100,7 +100,7 @@ RunStitchPanel::RunStitchPanel(wxWindow * parent)
 
 
 bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname,
-                                   HuginBase::PanoramaMakefileExport::PTPrograms progs)
+                                   HuginBase::PanoramaMakefilelibExport::PTPrograms progs)
 {
     DEBUG_TRACE("");
     wxFileName fname(scriptFile);
@@ -203,7 +203,7 @@ bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname,
         std::string tmpDir((wxConfigBase::Get()->Read(wxT("tempDir"),wxT(""))).mb_str(HUGIN_CONV_FILENAME));
 
         std::vector<std::string> outputFiles;
-        HuginBase::PanoramaMakefileExport::createMakefile(pano,
+        HuginBase::PanoramaMakefilelibExport::createMakefile(pano,
                            activeImgs,
                            tmpPTOfnC,
                            resultFn,

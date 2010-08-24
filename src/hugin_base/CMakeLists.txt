@@ -22,7 +22,6 @@ algorithms/nona/ComputeImageROI.cpp
 algorithms/optimizer/ImageGraph.cpp
 algorithms/optimizer/PhotometricOptimizer.cpp
 algorithms/optimizer/PTOptimizer.cpp
-algorithms/panorama_makefile/PanoramaMakefileExport.cpp
 algorithms/panorama_makefile/PanoramaMakefilelibExport.cpp
 algorithms/point_sampler/PointSampler.cpp
 algorithms/control_points/CleanCP.cpp
@@ -84,7 +83,6 @@ algorithms/nona/ComputeImageROI.h
 algorithms/optimizer/ImageGraph.h
 algorithms/optimizer/PhotometricOptimizer.h
 algorithms/optimizer/PTOptimizer.h
-algorithms/panorama_makefile/PanoramaMakefileExport.h
 algorithms/panorama_makefile/PanoramaMakefilelibExport.h
 algorithms/point_sampler/PointSampler.h
 algorithms/control_points/CleanCP.h

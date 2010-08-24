@@ -569,7 +569,7 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
             std::string tmpDir((wxConfigBase::Get()->Read(wxT("tempDir"),wxT(""))).mb_str(HUGIN_CONV_FILENAME));
 
             std::vector<std::string> outputFiles;
-            HuginBase::PanoramaMakefileExport::createMakefile(pano,
+            HuginBase::PanoramaMakefilelibExport::createMakefile(pano,
                                                               pano.getActiveImages(),
                                                               ptoFn,
                                                               resultFn,

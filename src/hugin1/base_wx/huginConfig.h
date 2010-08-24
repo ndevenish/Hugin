@@ -31,10 +31,10 @@
 #include <panoinc_WX.h>
 
 #include "PT/Panorama.h"
-#include <algorithms/panorama_makefile/PanoramaMakefileExport.h>
+#include <algorithms/panorama_makefile/PanoramaMakefilelibExport.h>
 
 namespace PT {
-struct PTPrograms : public HuginBase::PanoramaMakefileExport::PTPrograms {};
+struct PTPrograms : public HuginBase::PanoramaMakefilelibExport::PTPrograms {};
 }
 
 WXIMPEX PT::PTPrograms getPTProgramsConfig(wxString huginRoot, wxConfigBase * config);

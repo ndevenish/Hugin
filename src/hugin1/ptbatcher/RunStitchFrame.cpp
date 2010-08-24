@@ -144,7 +144,7 @@ void RunStitchFrame::OnProcessTerminate(wxProcessEvent & event)
 }
 
 bool RunStitchFrame::StitchProject(wxString scriptFile, wxString outname,
-                                   HuginBase::PanoramaMakefileExport::PTPrograms progs)
+                                   HuginBase::PanoramaMakefilelibExport::PTPrograms progs)
 {
     if (! m_stitchPanel->StitchProject(scriptFile, outname, progs)) {
         return false;

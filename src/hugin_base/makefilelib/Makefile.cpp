@@ -89,8 +89,8 @@ string Makefile::quote(const string& in, Makefile::QuoteMode mode)
 		break;
 	case Makefile::MAKE:
 #ifdef WIN32
-		toescape.assign(cstr("(\\$[^\\(])|([ \\#\\=])"));
-		output.assign(cstr("(?1\\$$&)(?2\\\\$&)"));
+		toescape.assign(cstr("(\\$[^\\(])|(\\\\)|([ \\#\\=])"));
+		output.assign(cstr("(?1\\$$&)(?2/)(?3\\\\$&)"));
 		return boost::regex_replace(in, toescape, output, boost::match_default | boost::format_all);
 #else
 		// do not replace $ if followed by a (. To allow variable references.

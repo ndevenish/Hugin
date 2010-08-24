@@ -69,7 +69,7 @@ public:
 
 	//Starts stitching of project file
     bool StitchProject(wxString scriptFile, wxString outname,
-                       HuginBase::PanoramaMakefileExport::PTPrograms progs);
+                       HuginBase::PanoramaMakefilelibExport::PTPrograms progs);
 	
 	//Returns process ID of running process
 	int GetProcessId();

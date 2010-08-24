@@ -24,6 +24,9 @@ ENDIF (${HUGIN_SHARED_LIBS})
 # additional libs  
 target_link_libraries(makefilelib ${Boost_LIBRARIES})
 
+SET(test_makefilelib FALSE)
+
+IF(${test_makefilelib})
 # test_util
 IF(WIN32)
 add_library(test_util STATIC test_util_win32.cpp test_util.h)
@@ -43,3 +46,4 @@ target_link_libraries(test_makefilelib test_util makefilelib ${Boost_LIBRARIES})
 
 add_executable(example example.cpp)
 target_link_libraries(example makefilelib)
+ENDIF()
