@@ -392,9 +392,13 @@ void ImagesPanel::OnVarTextChanged ( wxCommandEvent & e )
 	for (const char * var = vars; *var; var++) {
 	    wxString ctrl_name(wxT("images_text_"));
 	    ctrl_name.Append(wxChar(*var));
-	    if (e.GetId() == wxXmlResource::GetXRCID(ctrl_name)) {
+	    if (e.GetId() == wxXmlResource::GetXRCID(ctrl_name)){
 
-		wxString text = m_XRCCTRL(*this, ctrl_name, wxTextCtrl)->GetValue();
+        wxString text = m_XRCCTRL(*this, ctrl_name, wxTextCtrl)->GetValue().Trim();
+        if(text.IsEmpty())
+        {
+            return;
+        };
 
 		// hack to add the T to the x. This should really use SrcPanoImage instead..
 		char name[4];
