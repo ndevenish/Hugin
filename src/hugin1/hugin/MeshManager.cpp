@@ -49,6 +49,8 @@
 // uncomment this. Wireframe mode is for testing mesh quality.
 // #define WIREFRAME
 
+const double MeshManager::PanosphereOverviewMeshInfo::scale_diff=1.5;
+
 MeshManager::MeshManager(PT::Panorama *pano, VisualizationState *visualization_state)
     :   m_pano(pano),
         visualization_state(visualization_state),

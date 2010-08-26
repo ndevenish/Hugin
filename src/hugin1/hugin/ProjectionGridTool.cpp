@@ -301,9 +301,8 @@ bool ProjectionGridTool::createTexture()
     double dw = width / hor_lines;
     double dh = height / ver_lines;
 
-
-    double hor_s[hor_lines * 2];
-    double ver_s[ver_lines * 2];
+    std::vector<double> hor_s(hor_lines*2);
+    std::vector<double> ver_s(ver_lines*2);
 
     double line_width =  (dw < dh) ? line_width_per * dw : line_width_per * dh;
 

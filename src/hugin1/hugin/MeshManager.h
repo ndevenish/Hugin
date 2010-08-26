@@ -173,7 +173,7 @@ public:
         static Coord3D GetCoord3D(hugin_utils::FDiff2D &coord, VisualizationState * state);
 
         /** scale factor to be used for the layout mode TODO: test this for more scenarios */
-        static const double scale_diff = 1.5;
+        static const double scale_diff;
 
     protected:
 

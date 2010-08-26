@@ -31,11 +31,14 @@
 #endif
 #include <GL/glut.h>
 
+#include "OverviewOutlinesTool.h"
 #include "GLViewer.h"
 
 #include "GreatCircles.h"
-#include "OverviewOutlinesTool.h"
 #include <cfloat>
+
+const double OverviewOutlinesTool::res=10;
+const double OverviewOutlinesTool::mindist=2;
 
 OverviewOutlinesTool::OverviewOutlinesTool(ToolHelper * helper, GLViewer * viewer) : preview(viewer), thelper(helper),
     display_list_number_canvas(glGenLists(1)),
@@ -77,7 +80,6 @@ void PanosphereOverviewOutlinesTool::Activate()
     ((PanosphereOverviewToolHelper*)helper)->NotifyMe(PanosphereOverviewToolHelper::DRAW_OVER_IMAGES_BACK, this);
 //    helper->NotifyMe(ToolHelper::DRAW_OVER_IMAGES, this);
 }
-
 
 
 void PlaneOverviewOutlinesTool::Activate()

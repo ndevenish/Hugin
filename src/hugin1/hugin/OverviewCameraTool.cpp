@@ -24,6 +24,9 @@
 #include "OverviewCameraTool.h"
 #include "GLViewer.h"
 
+const double PanosphereOverviewCameraTool::limit_low = 1.2;
+const double PanosphereOverviewCameraTool::limit_high = 5.0;
+
 void PanosphereOverviewCameraTool::Activate()
 {
     helper->NotifyMe(ToolHelper::MOUSE_MOVE, this);

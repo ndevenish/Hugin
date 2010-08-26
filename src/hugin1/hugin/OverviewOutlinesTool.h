@@ -102,8 +102,8 @@ class OverviewOutlinesTool : public HuginBase::PanoramaObserver
 
         //TODO take into consideration scale of gl canvas
         //resolution of the mesh
-        const static double res = 10;
-        const static double mindist = 2;
+        const static double res;
+        const static double mindist;
     
         GLViewer * preview;
 

@@ -49,9 +49,9 @@ class PanosphereOverviewCameraTool : public PanosphereOverviewTool
     private:
 
         //lower limit for the distance of the camera with respect to the sphere radius
-        static const double limit_low = 1.2;
+        static const double limit_low;
         //upper limit for the distance of the camera with respect to the sphere radius
-        static const double limit_high = 5.0;
+        static const double limit_high;
 
         bool down;
         //starting position of the mouse
