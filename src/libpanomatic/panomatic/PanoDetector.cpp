@@ -329,29 +329,33 @@ bool PanoDetector::loadProject()
 		// Number pointing to image info in _panoramaInfo
 		aImgData._number = imgNr;
 
+        aImgData._needsremap=(img.getHFOV()>=65);
 		// set image detection size
-		_filesData[imgNr]._detectWidth = max(img.getSize().width(),img.getSize().height());
-		_filesData[imgNr]._detectHeight = max(img.getSize().width(),img.getSize().height());
+         if(aImgData._needsremap)
+        {
+            _filesData[imgNr]._detectWidth = max(img.getSize().width(),img.getSize().height());
+            _filesData[imgNr]._detectHeight = max(img.getSize().width(),img.getSize().height());
+        }
+        else
+        {
+            _filesData[imgNr]._detectWidth = img.getSize().width();
+            _filesData[imgNr]._detectHeight = img.getSize().height();
+        };
 
-		if (_downscale)
-	   {
-		   _filesData[imgNr]._detectWidth >>= 1;
-		   _filesData[imgNr]._detectHeight >>= 1;
-	   }
+        if (_downscale)
+        {
+           _filesData[imgNr]._detectWidth >>= 1;
+           _filesData[imgNr]._detectHeight >>= 1;
+        }
 
-		// set image remapping options
-		aImgData._projOpts = _panoramaInfoCopy.getOptions();
-		aImgData._projOpts.setHFOV(img.getHFOV());
-		aImgData._projOpts.setWidth(_filesData[imgNr]._detectWidth);
-		aImgData._projOpts.setHeight(_filesData[imgNr]._detectHeight);
-		if(img.getHFOV() >= 65)
-		{
-			aImgData._projOpts.setProjection(PanoramaOptions::STEREOGRAPHIC);
-			aImgData._needsremap = true;
-		}
-		else
-		{
-			aImgData._needsremap = false;	
+        // set image remapping options
+        if(aImgData._needsremap)
+        {
+            aImgData._projOpts = _panoramaInfoCopy.getOptions();
+            aImgData._projOpts.setHFOV(img.getHFOV());
+            aImgData._projOpts.setWidth(_filesData[imgNr]._detectWidth);
+            aImgData._projOpts.setHeight(_filesData[imgNr]._detectHeight);
+            aImgData._projOpts.setProjection(PanoramaOptions::STEREOGRAPHIC);
 		}
 
 		// Specify if the image has an associated keypoint file
