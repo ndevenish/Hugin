@@ -2167,7 +2167,7 @@ msgstr "エラー：プロジェクトファイルを削除できません"
 
 #: hugin1/ptbatcher/Batch.cpp:720
 msgid "Running batch..."
-msgstr "バッチを実行中…-N -A %s -c '%s'\n"
+msgstr "バッチを実行中…-N -A %s -c '%s'"
 
 #: hugin1/ptbatcher/Batch.cpp:753
 msgid "Batch already in progress."
@@ -2175,7 +2175,7 @@ msgstr "バッチは既に処理中です。"
 
 #: hugin1/ptbatcher/Batch.cpp:770
 msgid "Running command \""
-msgstr "コマンドを実行中 \"N -A %s -c '%s'\n"
+msgstr "コマンドを実行中 \"N -A %s -c '%s'"
 
 #: hugin1/ptbatcher/Batch.cpp:893
 #, c-format
@@ -2326,7 +2326,7 @@ msgstr "完了"
 
 #: hugin1/ptbatcher/ProjectArray.cpp:70
 msgid "Failed"
-msgstr "失敗 失敗しました: %s\n"
+msgstr "失敗 失敗しました: %s"
 
 #: hugin1/ptbatcher/ProjectArray.cpp:72
 #: hugin1/ptbatcher/ProjectListBox.cpp:215
@@ -2562,7 +2562,7 @@ msgstr "常に上書き"
 
 #: translations/xrc.cpp:44 xrc.cpp:44
 msgid "Shutdown when done"
-msgstr "終了後にシャットダウンs\n"
+msgstr "終了後にシャットダウンs"
 
 #: translations/xrc.cpp:45 xrc.cpp:45
 msgid "Verbose output"
