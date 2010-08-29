@@ -220,7 +220,9 @@ void GreatCircleArc::draw(bool withCross) const
             it->doGL();
         }
     glEnd();
-    if(withCross)
+    // The arc might contain no line segments in some circumstances,
+    // so check for this before drawing crosses at the ends.
+    if(withCross && !m_lines.empty())
     {
         double scale = 4 / getxscale();
         // The scale to draw them: this is 5 pixels outside in every direction.
