@@ -666,7 +666,7 @@
         <object class="wxStaticText">
           <label>Mode:</label>
         </object>
-        <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+        <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
         <border>5</border>
       </object>
       <object class="sizeritem">
@@ -675,7 +675,8 @@
           <content/>
         </object>
         <option>1</option>
-        <flag>wxEXPAND</flag>
+        <flag>wxEXPAND|wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+        <border>5</border>
       </object>
     </object>
   </object>

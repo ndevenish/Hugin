@@ -139,7 +139,6 @@ public:
 
     bool ProcessDockResult(wxAuiPaneInfo& target,
                                    const wxAuiPaneInfo& new_pos);
-    void UpdateDocksSize();
 
 private:
     GLPreviewFrame * frame;
@@ -192,16 +191,12 @@ public:
     void ContinueResize();
     bool CanResize() {return GLresize;}
 
-    void UpdateDocksSize();
-    
 protected:
 
     bool GLresize;
 
     void OnClose(wxCloseEvent& e);
 
-    void OnSize(wxSizeEvent& e);
-    
     void OnCenterHorizontally(wxCommandEvent & e);
     void OnFitPano(wxCommandEvent& e);
     void OnStraighten(wxCommandEvent & e);

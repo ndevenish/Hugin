@@ -303,7 +303,6 @@ void GLViewer::Resized(wxSizeEvent& e)
     GLPreview * test;
    
     if (frame->CanResize()) {
-        frame->UpdateDocksSize();
         DEBUG_DEBUG("RESIZED_IN");
         wxGLCanvas::OnSize(e);
         if(!IsShown()) return;

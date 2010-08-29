@@ -53,7 +53,6 @@
 #include "hugin/ImagesPanel.h"
 #include "hugin/CommandHistory.h"
 #include "hugin/GLViewer.h"
-#include "hugin/GLOverview.h"
 #include "hugin/TextKillFocusHandler.h"
 // something messed up... temporary fix :-(
 #include "hugin_utils/utils.h"
@@ -129,7 +128,6 @@ BEGIN_EVENT_TABLE(GLPreviewFrame, wxFrame)
     EVT_NOTEBOOK_PAGE_CHANGED(XRCID("mode_toolbar_notebook"), GLPreviewFrame::OnSelectMode)
     EVT_NOTEBOOK_PAGE_CHANGING(XRCID("mode_toolbar_notebook"), GLPreviewFrame::OnToolModeChanging)
    
-    EVT_SIZE(GLPreviewFrame::OnSize)
     EVT_BUTTON(XRCID("exposure_default_button"), GLPreviewFrame::OnDefaultExposure)
     EVT_SPIN_DOWN(XRCID("exposure_spin"), GLPreviewFrame::OnDecreaseExposure)
     EVT_SPIN_UP(XRCID("exposure_spin"), GLPreviewFrame::OnIncreaseExposure)
@@ -256,6 +254,7 @@ void GLPreviewFrame::ContinueResize()
     GLresize = true;
     wxSizeEvent event = wxSizeEvent(wxSize());
     m_GLPreview->Resized(event);
+    m_GLOverview->Resized(event);
 }
 
 
@@ -366,9 +365,6 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
                   wxEXPAND | // horizontally stretchable
                   wxALL,    // draw border all around
                   5);       // border width
-//    flexSizer->Add(m_GLPreview,
-//                  0,        // not vertically stretchable
-//                  wxEXPAND);
 
     m_VFOVSlider = new wxSlider(preview_panel, -1, 1,
                                 1, 180,
@@ -439,17 +435,11 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
             ).Name(wxT("preview")
             ).MinSize(300,200
             ).CloseButton(false
-            ).CaptionVisible(
+            ).CaptionVisible(false
             ).Caption(_("Preview")
-            ).FloatingSize(100,100
-            ).FloatingPosition(400,400
+            ).Floatable(false
             ).Dockable(false
-            ).TopDockable(true
-//            ).BottomDockable(true
-            ).PinButton(
-            ).Top(
-//            ).Float(
-//            ).Layer(1
+            ).Center(
             )
         );
 
@@ -462,13 +452,9 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
             ).Caption(_("Overview")
             ).FloatingSize(100,100
             ).FloatingPosition(500,500
-            ).Dockable(false
-            ).TopDockable(true
-//            ).BottomDockable(true
+            ).Dockable(true
             ).PinButton(
-            ).Top(
-//            ).Float(
-//            ).Layer(1
+            ).Left(
             )
         );
 
@@ -608,7 +594,10 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
 #endif
 
      // tell the manager to "commit" all the changes just made
-     m_mgr->Update();
+    wxString OpenGLLayout=config->Read(wxT("/GLPreviewFrame/OpenGLLayout"));
+    if(!OpenGLLayout.IsEmpty())
+        m_mgr->LoadPerspective(OpenGLLayout,false);
+    m_mgr->Update();
 
 }
 
@@ -627,6 +616,7 @@ GLPreviewFrame::~GLPreviewFrame()
     }
 
     config->Write(wxT("/GLPreviewFrame/blendMode"), m_BlendModeChoice->GetSelection());
+    config->Write(wxT("/GLPreviewFrame/OpenGLLayout"), m_mgr->SavePerspective());
     
     // delete all of the tools. When the preview is never used we never get an
     // OpenGL context and therefore don't create the tools.
@@ -673,97 +663,6 @@ bool GLwxAuiManager::ProcessDockResult(wxAuiPaneInfo& target,
 //    std::cout << "newpos: " << std::bitset<std::numeric_limits<unsigned int>::digits>(new_pos.state) << std::endl;
 //    std::cout << "newpos: " << new_pos.dock_direction << " " << new_pos.dock_layer << " " << new_pos.dock_row << " " << new_pos.dock_pos << " " << new_pos.state << std::endl;
     return wxAuiManager::ProcessDockResult(target, new_pos);
-}
-
-/**
- * 
- * To constrict the available options of the docking framework we allow only several cases and inspect and automatically adjust on each change
- */
-void GLwxAuiManager::UpdateDocksSize()
-{
-
-//    wxAuiPaneInfo pane1 = m_panes.Item(0);
-//    wxAuiPaneInfo pane2 = m_panes.Item(1);
-
-//    std::cout << "pane1: " << pane1.dock_direction << " " << pane1.dock_layer << " " << pane1.dock_row << " " << pane1.dock_pos << " " << pane1.state << std::endl;
-//    std::cout << "pane2: " << pane2.dock_direction << " " << pane2.dock_layer << " " << pane2.dock_row << " " << pane2.dock_pos << " " << pane2.state << std::endl;
-
-//    std::cout << "dock count: " << m_docks.Count() << std::endl;
-//    
-
-//    if user arranged panes in two docks, change orientation of panes and put them in one 
-    if (m_docks.Count() == 2) {
-
-        wxAuiDockInfo dock1 = m_docks.Item(0);
-        wxAuiDockInfo dock2 = m_docks.Item(1);
-
-        wxAuiPaneInfo pane1 = m_panes.Item(0);
-        wxAuiPaneInfo pane2 = m_panes.Item(1);
-
-        if (dock1.IsOk() && dock2.IsOk() && pane1.IsOk() && pane2.IsOk()) {
-
-            //FIXME: there is a bug which occurs when users places a dock on the top left corner such that a large hinted rectangle is shown and then the program enters in endless loop
-            //TODO: placement of docks in a change is not conserved. Always pane one will be first
-            if (dock1.IsVertical() && dock2.IsVertical()) {
-                DEBUG_DEBUG("Converting from vertical to horizontal");
-                m_docks.Clear();
-                m_panes.Clear();
-                pane1.Top().Layer(0).Dockable(false).TopDockable(true);
-                pane2.Top().Layer(0).Dockable(false).TopDockable(true);
-                pane2.dock_pos = 1;
-                pane2.dock_row = 0; pane1.dock_row = 0;
-                m_panes.Add(pane1);
-                m_panes.Add(pane2);
-                Update();
-            } else if (dock1.IsHorizontal() && dock2.IsHorizontal()) {
-                DEBUG_DEBUG("Converting from horizontal to vertical");
-                m_docks.Clear();
-                m_panes.Clear();
-                pane1.Left().Layer(0).Dockable(false).LeftDockable(true);
-                pane2.Left().Layer(0).Dockable(false).LeftDockable(true);
-                pane2.dock_pos = 1;
-                pane2.dock_row = 0; pane1.dock_row = 0;
-                m_panes.Add(pane1);
-                m_panes.Add(pane2);
-                Update();
-            } else {
-                DEBUG_ERROR("Invalid arrangement of docks");
-            }
-
-        } else {
-            DEBUG_ERROR("some dock or pane not ok");
-        }
-
-    }
-
-    wxWindow * panel_window = GetManagedWindow();
-    int width, height;
-    panel_window->GetSize(&width, &height);
-    if (m_docks.Count() == 1) {
-        wxAuiDockInfo dock = m_docks.Item(0);
-        if (dock.IsHorizontal()) {
-            if (dock.size != height) {
-                dock.size = height;
-                m_docks.Clear();
-                m_docks.Add(dock);
-                //if update is called upon detaching a pane segfault occurs
-                Update();
-            }
-        } else {
-            if (dock.size != width) {
-                dock.size = width;
-                m_docks.Clear();
-                m_docks.Add(dock);
-                //if update is called upon detaching a pane segfault occurs
-                Update();
-            }
-        }
-    }
-}
-
-void GLPreviewFrame::UpdateDocksSize()
-{
-    m_mgr->UpdateDocksSize();
 }
 
 
@@ -2058,9 +1957,3 @@ void GLPreviewFrame::OnLayoutScaleChange(wxScrollEvent &e)
         m_GLOverview->Refresh();
     };
 };
-
-void GLPreviewFrame::OnSize(wxSizeEvent& e)
-{
-    m_mgr->UpdateDocksSize();
-    e.Skip();
-}
