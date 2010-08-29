@@ -324,12 +324,15 @@ bool ProjectionGridTool::createTexture()
         double x_res = 0;
         int stw_i = w_i;
         //check how many lines this pixel crosses
-        while (
+        if(w_i<hor_lines*2-1)
+        {
+            while (
                     hor_s[w_i + 1] > x && 
                     hor_s[w_i + 1] <= x+1
-        ) {
-            w_i++;
-            if (w_i == hor_lines * 2 - 1) break;
+            ) {
+                w_i++;
+                if (w_i == hor_lines * 2 - 1) break;
+            }
         }
         //calculate the fill
         if (w_i != stw_i) {
@@ -363,12 +366,15 @@ bool ProjectionGridTool::createTexture()
 
             double y_res = 0;
             int sth_i = h_i;
-            while (
+            if(h_i<ver_lines*2-1)
+            {
+                while (
                         ver_s[h_i + 1] > y && 
                         ver_s[h_i + 1] <= y+1
-            ) {
-                h_i++;
-                if (h_i == ver_lines * 2 - 1) break;
+                ) {
+                    h_i++;
+                    if (h_i == ver_lines * 2 - 1) break;
+                }
             }
             if (h_i != sth_i) {
                 if (h_i - sth_i > 1) {
