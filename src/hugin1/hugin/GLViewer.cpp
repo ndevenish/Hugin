@@ -161,11 +161,6 @@ void GLViewer::SetUpContext()
         }
 
         setUp();
-        // check, if gpu supports multitextures
-        // fill blend mode choice box in fast preview window
-        // we can fill it just now, because we need a OpenGL context, which was created now,
-        // to check if all necessary extentions are available
-        frame->FillBlendChoice();
     }
 }
 
@@ -187,6 +182,11 @@ void GLPreview::setUp()
     m_renderer =  new GLPreviewRenderer(m_pano, m_view_state->GetTextureManager(),
                                  m_visualization_state->GetMeshManager(),
                                  m_visualization_state, helper);
+    // check, if gpu supports multitextures
+    // fill blend mode choice box in fast preview window
+    // we can fill it just now, because we need a OpenGL context, which was created now,
+    // to check if all necessary extentions are available
+    frame->FillBlendChoice();
 }
 
 void GLOverview::setUp()
@@ -231,7 +231,6 @@ void GLOverview::setUp()
             m_renderer = plane_m_renderer;
             break;
     }
-
 }
 
 void GLViewer::SetPhotometricCorrect(bool state)
