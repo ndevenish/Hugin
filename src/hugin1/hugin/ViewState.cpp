@@ -59,7 +59,7 @@ ViewState::~ViewState()
 void ViewState::panoramaChanged(HuginBase::PanoramaData &pano)
 {
 
-    bool require_draw;
+    bool require_draw=false;
 
     // anything could have happened, check everything.
     HuginBase::PanoramaOptions new_opts  = m_pano->getOptions();
