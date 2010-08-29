@@ -108,7 +108,13 @@ GLViewer::~GLViewer()
     {
       delete m_tool_helper;
       delete m_renderer;
-      delete m_view_state;
+      // because m_view_state is a static member variable we need to check
+      // if other class has already deleted it
+      if(m_view_state)
+      {
+        delete m_view_state;
+        m_view_state=NULL;
+      }
     }
 }
 
