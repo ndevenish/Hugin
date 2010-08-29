@@ -182,6 +182,8 @@ public:
     /** fills the blend wxChoice with all valid blend modes and restore the last used one
      */
     void FillBlendChoice();
+    /** loads the layout of the OpenGL windows and restores it */
+    void LoadOpenGLLayout();
 
     GLwxAuiManager* getAuiManager() {return m_mgr;}
     GLPreview* getPreview() {return m_GLPreview;}

@@ -594,12 +594,19 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
 #endif
 
      // tell the manager to "commit" all the changes just made
-    wxString OpenGLLayout=config->Read(wxT("/GLPreviewFrame/OpenGLLayout"));
-    if(!OpenGLLayout.IsEmpty())
-        m_mgr->LoadPerspective(OpenGLLayout,false);
     m_mgr->Update();
-
 }
+
+void GLPreviewFrame::LoadOpenGLLayout()
+{
+    PauseResize();
+    wxString OpenGLLayout=wxConfig::Get()->Read(wxT("/GLPreviewFrame/OpenGLLayout"));
+    if(!OpenGLLayout.IsEmpty())
+    {
+        m_mgr->LoadPerspective(OpenGLLayout,true);
+    };
+    ContinueResize();
+};
 
 GLPreviewFrame::~GLPreviewFrame()
 {
