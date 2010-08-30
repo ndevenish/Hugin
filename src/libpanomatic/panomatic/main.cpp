@@ -31,9 +31,6 @@ using namespace TCLAP;
 
 #include "PanoDetector.h"
 
-const char* kVersion="0.9.4";
-
-
 class MyOutput : public StdOutput
 {
 public:
@@ -89,7 +86,7 @@ void parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
 {
 	try {
 
-		CmdLine cmd("Pan-o-matic", ' ', kVersion );
+		CmdLine cmd("Pan-o-matic", ' ', DISPLAY_VERSION );
 
 		MyOutput my;
 		cmd.setOutput(&my);
@@ -190,7 +187,8 @@ void parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
 
 int main(int argc, char **argv) 
 {
-	std::cout << "Pan-o-matic " << kVersion << " by Anael Orlinski - naouel@naouel.org" << endl << endl;
+    std::cout << "Pan-o-matic " << DISPLAY_VERSION << endl;
+    std::cout << "based on Pan-o-matic by Anael Orlinski" << endl << endl;    
 
 	// create a panodetector object
 	PanoDetector aPanoDetector;
