@@ -1,3 +1,31 @@
+2010-08-30  James Legg  <jlegg@users.sourceforge.net>
+
+	* merge
+	[a264d29891ac]
+
+	* src/hugin1/hugin/GreatCircles.cpp:
+	Fix crash when trying to draw control points on the fast preview
+	that are not in the projectable region.
+	[cc8d0c234ceb]
+
+2010-08-29  Bruno Postle  <bruno@postle.net>
+
+	* src/hugin1/hugin/xrc/data/help_en_EN/Fulla.html,
+	src/hugin1/hugin/xrc/data/help_en_EN/Hugin.html,
+	src/hugin1/hugin/xrc/data/help_en_EN/Hugin_FAQ.html,
+	src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Preferences.html,
+	src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Reset_Values_window.html,
+	src/hugin1/hugin/xrc/data/help_en_EN/Pano_modify.html,
+	src/hugin1/hugin/xrc/data/help_en_EN/Panorama_tools.html,
+	src/hugin1/hugin/xrc/data/help_en_EN/Panotools.html,
+	src/hugin1/hugin/xrc/data/help_en_EN/Pto_merge.html:
+	Update manual from wiki
+	[e9e2baafa23d]
+
+	* ChangeLog:
+	Update ChangeLog for 2010.2 branch
+	[da9ae058ed68]
+
 2010-08-28  Bruno Postle  <bruno@postle.net>
 
 	* src/translations/ja.po:
