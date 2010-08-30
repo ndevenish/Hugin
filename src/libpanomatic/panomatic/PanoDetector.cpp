@@ -370,12 +370,24 @@ bool PanoDetector::loadProject()
 
 bool PanoDetector::checkLoadSuccess()
 {
-    for (unsigned int aFileN = 0; aFileN < _filesData.size(); ++aFileN)
+    if(_keyPointsIdx.size()!=0)
     {
-        ImgData& aID = _filesData[aFileN];
-        if (aID._loadFail) 
-            return false;
+        for (unsigned int i = 0; i < _keyPointsIdx.size(); ++i)
+        {
+            ImgData& aID = _filesData[_keyPointsIdx[i]];
+            if (aID._loadFail) 
+                return false;
+        }
     }
+    else
+    {
+        for (unsigned int aFileN = 0; aFileN < _filesData.size(); ++aFileN)
+        {
+            ImgData& aID = _filesData[aFileN];
+            if (aID._loadFail) 
+                return false;
+        }
+    };
     return true;
 }
 
