@@ -659,6 +659,19 @@
       </object>
     </object>
   </object>
+  <object class="wxPanel" name="overview_toggle_panel">
+    <object class="wxStaticBoxSizer" name="overview_toggle_sizer">
+      <label>toggle overview</label>
+      <orient>wxHORIZONTAL</orient>
+      <object class="sizeritem">
+        <object class="wxToggleButton" name="overview_toggle">
+          <label>Show/Hide</label>
+        </object>
+        <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+        <border>5</border>
+      </object>
+    </object>
+  </object>
   <object class="wxPanel" name="overview_command_panel">
     <object class="wxBoxSizer">
       <orient>wxHORIZONTAL</orient>

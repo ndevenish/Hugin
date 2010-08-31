@@ -136,6 +136,7 @@ BEGIN_EVENT_TABLE(GLPreviewFrame, wxFrame)
     EVT_CHOICE(XRCID("drag_mode_choice"), GLPreviewFrame::OnDragChoice)
     EVT_CHOICE(XRCID("projection_choice"), GLPreviewFrame::OnProjectionChoice)
     EVT_CHOICE(XRCID("overview_mode_choice"), GLPreviewFrame::OnOverviewModeChoice)
+    EVT_TOGGLEBUTTON(XRCID("overview_toggle"), GLPreviewFrame::OnOverviewToggle)
 #ifndef __WXMAC__
     // wxMac does not process these
     EVT_SCROLL_CHANGED(GLPreviewFrame::OnChangeFOV)
@@ -302,13 +303,29 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     AddLabelToBitmapButton(XRCCTRL(*this,"preview_fit_pano_tool2",wxBitmapButton),_("Fit"));
     AddLabelToBitmapButton(XRCCTRL(*this,"preview_autocrop_tool",wxBitmapButton),_("Autocrop"));
 
+
     m_topsizer = new wxBoxSizer( wxVERTICAL );
 
+    wxPanel * toggle_panel = new wxPanel(this);
+    wxBoxSizer * toggle_panel_sizer = new wxBoxSizer(wxHORIZONTAL);
+    toggle_panel->SetSizer(toggle_panel_sizer);
+
+    wxPanel *overview_toggle_panel = wxXmlResource::Get()->LoadPanel(toggle_panel,wxT("overview_toggle_panel"));
+    toggle_panel_sizer->Add(overview_toggle_panel, 0, wxALL | wxEXPAND | wxALIGN_CENTER_VERTICAL, 0);
+
+    bool overview_hidden = wxConfig::Get()->Read(wxT("/GLPreviewFrame/overview_hidden"), 0l);
+    m_OverviewToggle = XRCCTRL(*this, "overview_toggle", wxToggleButton);
+    if (overview_hidden) {
+        m_OverviewToggle->SetValue(false);
+    } else {
+        m_OverviewToggle->SetValue(true);
+    }
+
     m_ToggleButtonSizer = new wxStaticBoxSizer(
-        new wxStaticBox(this, -1, _("displayed images")),
+        new wxStaticBox(toggle_panel, -1, _("displayed images")),
     wxHORIZONTAL );
 
-	m_ButtonPanel = new wxScrolledWindow(this, -1, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL);
+	m_ButtonPanel = new wxScrolledWindow(toggle_panel, -1, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL);
 	// Set min height big enough to display scrollbars as well
     m_ButtonPanel->SetSizeHints(20, 42);
 	//Horizontal scroll bars only
@@ -317,7 +334,7 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     m_ButtonPanel->SetAutoLayout(true);
 	m_ButtonPanel->SetSizer(m_ButtonSizer);
 
-    wxPanel *panel = new wxPanel(this);
+    wxPanel *panel = new wxPanel(toggle_panel);
     wxBitmap bitmap;
     bitmap.LoadFile(huginApp::Get()->GetXRCPath()+wxT("data/preview_show_all.png"),wxBITMAP_TYPE_PNG);
     wxBitmapButton * select_all = new wxBitmapButton(panel,ID_SHOW_ALL,bitmap);
@@ -332,8 +349,11 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     m_ToggleButtonSizer->Add(m_ButtonPanel, 1, wxEXPAND | wxADJUST_MINSIZE | wxALIGN_CENTER_VERTICAL, 0);
     AddLabelToBitmapButton(select_all,_("All"),false);
     AddLabelToBitmapButton(select_none,_("None"), false);
+
+    toggle_panel_sizer->Add(m_ToggleButtonSizer, wxEXPAND);
+
     m_topsizer->Add(tool_panel, 0, wxEXPAND | wxALL, 2);
-    m_topsizer->Add(m_ToggleButtonSizer, 0, wxEXPAND | wxADJUST_MINSIZE | wxBOTTOM, 5);
+    m_topsizer->Add(toggle_panel, 0, wxEXPAND | wxADJUST_MINSIZE | wxBOTTOM, 5);
 
 
     //create panel that will hold gl canvases
@@ -347,6 +367,7 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     m_GLPreview = new GLPreview(preview_panel, pano, args, this);
     m_GLOverview = new GLOverview(overview_panel, pano, args, this, m_GLPreview->GetContext());
     m_GLOverview->SetMode(GLOverview::PANOSPHERE);
+    m_GLOverview->SetActive(!overview_hidden);
 
     // set the AUI manager to our panel
     m_mgr = new GLwxAuiManager(this, m_GLPreview, m_GLOverview);
@@ -456,6 +477,7 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
             ).Dockable(true
             ).PinButton(
             ).Left(
+            ).Show(!overview_hidden
             )
         );
 
@@ -625,6 +647,7 @@ GLPreviewFrame::~GLPreviewFrame()
 
     config->Write(wxT("/GLPreviewFrame/blendMode"), m_BlendModeChoice->GetSelection());
     config->Write(wxT("/GLPreviewFrame/OpenGLLayout"), m_mgr->SavePerspective());
+    config->Write(wxT("/GLPreviewFrame/overview_hidden"), !(m_OverviewToggle->GetValue()));
     
     // delete all of the tools. When the preview is never used we never get an
     // OpenGL context and therefore don't create the tools.
@@ -979,15 +1002,16 @@ void GLPreviewFrame::OnShowEvent(wxShowEvent& e)
 {
 
     DEBUG_TRACE("OnShow");
+    bool toggle_on = m_OverviewToggle->GetValue();
     wxAuiPaneInfo &inf = m_mgr->GetPane(_("overview"));
     if (inf.IsOk()) {
         if (e.IsShown()) {
-            if (!inf.IsShown()) {
+            if (!inf.IsShown() && toggle_on ) {
                 inf.Show();
                 m_mgr->Update();
             }
         } else {
-            if (inf.IsFloating()) {
+            if (inf.IsFloating() && inf.IsShown()) {
                 DEBUG_DEBUG("hiding overview float");
                 inf.Hide();
                 m_mgr->Update();
@@ -995,6 +1019,24 @@ void GLPreviewFrame::OnShowEvent(wxShowEvent& e)
         }
     }
 
+}
+
+void GLPreviewFrame::OnOverviewToggle(wxCommandEvent& e)
+{
+    DEBUG_TRACE("overview toggle");
+    bool toggle_on = m_OverviewToggle->GetValue();
+    wxAuiPaneInfo &inf = m_mgr->GetPane(_("overview"));
+    if (inf.IsOk()) {
+        if (inf.IsShown() && !toggle_on) {
+            inf.Hide();
+            m_GLOverview->SetActive(false);
+            m_mgr->Update();
+        } else if (!(inf.IsShown() && toggle_on)) {
+            inf.Show();
+            m_GLOverview->SetActive(true);
+            m_mgr->Update();
+        }
+    }
 }
 
 void GLPreviewFrame::OnClose(wxCloseEvent& event)

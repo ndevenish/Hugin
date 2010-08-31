@@ -305,6 +305,10 @@ void GLViewer::RefreshWrapper(void * obj)
 void GLViewer::Resized(wxSizeEvent& e)
 {
 
+    if (!IsActive()) {
+        return;
+    }
+
     DEBUG_DEBUG("RESIZED_OUT");
     GLPreview * test;
    

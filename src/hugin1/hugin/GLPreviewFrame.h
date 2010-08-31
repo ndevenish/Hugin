@@ -200,6 +200,8 @@ protected:
     void OnClose(wxCloseEvent& e);
     void OnShowEvent(wxShowEvent& e);
 
+    void OnOverviewToggle(wxCommandEvent& e);
+
     void OnCenterHorizontally(wxCommandEvent & e);
     void OnFitPano(wxCommandEvent& e);
     void OnStraighten(wxCommandEvent & e);
@@ -301,8 +303,11 @@ private:
 #endif
     std::vector<wxPanel *> m_ToggleButtonPanel;
     std::vector<ImageToogleButtonEventHandler *> toogle_button_event_handlers;
-    DECLARE_EVENT_TABLE()
+
+    wxToggleButton * m_OverviewToggle;
     
+    DECLARE_EVENT_TABLE()
+
     // tools
     PreviewToolHelper *preview_helper;
     
