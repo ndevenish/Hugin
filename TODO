@@ -6,7 +6,6 @@
 Panorama Overview Related TODO list:
 
  - Check the system in windows and mac (I can only test in windows)
- - Bug (at least in my computer) with wxAUI which causes the program to crash when both canvases are undocked and then docked.
  - DragTool: add lines from starting to ending point
  - Improve performance of calculating panosphere meshes by using GPU
  - Create realtime adjustments for the other viewer when dragging images
@@ -25,5 +24,12 @@ Panorama Overview Related TODO list:
  - Bug, sometimes changing the FOV sliders doesn't cause the overview to be redrawn
  - Add informative status messages
  - Automatic adjustment of the zoom level for the mosaic plane
- - Toggle buttons to show hide the overview and preview canvases
- 
+ - The overview window does not process the mouse wheel on windows
+
+
+fixed:
+
+  - Bug (at least in my computer) with wxAUI which causes the program to crash when both canvases are undocked and then docked.
+    - with preview fixed to the frame this is not a problem anymore
+  - Toggle buttons to show hide the overview and preview canvases
+
