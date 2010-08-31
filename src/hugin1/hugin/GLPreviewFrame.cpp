@@ -114,6 +114,7 @@ END_EVENT_TABLE()
 
 BEGIN_EVENT_TABLE(GLPreviewFrame, wxFrame)
     EVT_CLOSE(GLPreviewFrame::OnClose)
+    EVT_SHOW(GLPreviewFrame::OnShowEvent)
     EVT_BUTTON(XRCID("preview_center_tool"), GLPreviewFrame::OnCenterHorizontally)
     EVT_BUTTON(XRCID("preview_fit_pano_tool"), GLPreviewFrame::OnFitPano)
     EVT_BUTTON(XRCID("preview_fit_pano_tool2"), GLPreviewFrame::OnFitPano)
@@ -973,6 +974,28 @@ void GLPreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &change
     };
 }
 
+
+void GLPreviewFrame::OnShowEvent(wxShowEvent& e)
+{
+
+    DEBUG_TRACE("OnShow");
+    wxAuiPaneInfo &inf = m_mgr->GetPane(_("overview"));
+    if (inf.IsOk()) {
+        if (e.IsShown()) {
+            if (!inf.IsShown()) {
+                inf.Show();
+                m_mgr->Update();
+            }
+        } else {
+            if (inf.IsFloating()) {
+                DEBUG_DEBUG("hiding overview float");
+                inf.Hide();
+                m_mgr->Update();
+            }
+        }
+    }
+
+}
 
 void GLPreviewFrame::OnClose(wxCloseEvent& event)
 {

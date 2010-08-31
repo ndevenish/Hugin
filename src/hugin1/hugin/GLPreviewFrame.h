@@ -198,6 +198,7 @@ protected:
     bool GLresize;
 
     void OnClose(wxCloseEvent& e);
+    void OnShowEvent(wxShowEvent& e);
 
     void OnCenterHorizontally(wxCommandEvent & e);
     void OnFitPano(wxCommandEvent& e);
