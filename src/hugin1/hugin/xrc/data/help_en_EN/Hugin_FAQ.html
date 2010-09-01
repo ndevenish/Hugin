@@ -287,6 +287,9 @@ When stitching photos from different lenses, or when you don't have a good sprea
 <a name="How_do_I_compile_hugin_on_my_linux_machine.3F" id="How_do_I_compile_hugin_on_my_linux_machine.3F"></a><h3> <span class="mw-headline"> How do I compile hugin on my linux machine? </span></h3>
 <p>See Hugin Compiling Fedora, Hugin Compiling Gentoo, Hugin Compiling OpenSuse and Hugin Compiling Ubuntu
 </p>
+<a name="make.5B2.5D:_.2A.2A.2A_No_rule_to_make_target_.60.2Fusr.2Flib.2FlibGL.so.27.2C_needed_by_.60src.2Fhugin_base.2Flibhuginbase.so.0.0.27.__Stop." id="make.5B2.5D:_.2A.2A.2A_No_rule_to_make_target_.60.2Fusr.2Flib.2FlibGL.so.27.2C_needed_by_.60src.2Fhugin_base.2Flibhuginbase.so.0.0.27.__Stop."></a><h3> <span class="mw-headline"> make[2]: *** No rule to make target `/usr/lib/libGL.so', needed by `src/hugin_base/libhuginbase.so.0.0'.  Stop. </span></h3>
+<p>So you're trying to build from source.  Most likely you have proprietary nVidia or ATI drivers.  They are a moving target and so is X.  On debian based systems including Ubuntu, diagnose with `dpkg -S /usr/lib/libGL.so` and check that the linked library exist (i.e. it is not listed in red when doing `ll /usr/lib/mesa/libGL.so`).  If it is listed in red, check where the library is (`ll /usr/lib/libGL*` is a good start on Ubuntu) and link it properly.
+</p>
 <a name="How_do_I_compile_hugin_on_my_Windows_machine.3F" id="How_do_I_compile_hugin_on_my_Windows_machine.3F"></a><h3> <span class="mw-headline"> How do I compile hugin on my Windows machine? </span></h3>
 <p>See Hugin Compiling Windows
 </p>

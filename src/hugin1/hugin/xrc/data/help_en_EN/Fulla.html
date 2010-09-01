@@ -43,7 +43,11 @@
 			
 			<div id="contentSub"></div>
 												<!-- start content -->
-			<p><b>fulla</b> is a command-line tool distributed with <a href="Hugin.html" title="Hugin">hugin</a> 0.6 and later.  It is suitable for batch correction of:
+			<p><b>fulla</b> is a command-line tool distributed with <a href="Hugin.html" title="Hugin">hugin</a> 0.6 and later. It can correct chromatic aberration, lens distortion, and vignetting.
+</p>
+
+<a name="About_fulla" id="About_fulla"></a><h2> <span class="mw-headline"> About fulla </span></h2>
+<p>fulla is suitable for batch correction of:
 </p>
 <dl><dt><a href="Chromatic_aberration.html" title="Chromatic aberration">Chromatic aberration</a></dt><dd> See tutorial in <a href="Fulla.html#External_links" title="">external links</a>.
 </dd><dt><a href="Lens_correction_model.html" title="Lens correction model">Lens distortion</a></dt><dd> <a href="Barrel_distortion.html" title="Barrel distortion">Barrel</a> or <a href="Pincushion_distortion.html" title="Pincushion distortion">pincushion distortion</a> can be corrected using the same a, b, c and d parameters as other Panorama Tools derived programs.
@@ -51,7 +55,6 @@
 </dd></dl>
 <p>fulla can work with the same range of image types as <a href="Nona.html" title="Nona">nona</a>, including 8bit and 16bit <a href="TIFF.html" title="TIFF">TIFF</a> and 32bit floating-point <a href="HDR.html" title="HDR">HDR</a> TIFF data.
 </p>
-
 <a name="Command-line_usage" id="Command-line_usage"></a><h2> <span class="mw-headline"> Command-line usage </span></h2>
 <pre> Usage: fulla [options] inputfile(s)
   option are:
@@ -84,6 +87,9 @@
                        the name will be uses as suffix (default suffix: _corr)
      -v               Verbose
 </pre>
+<a name="Notes" id="Notes"></a><h2> <span class="mw-headline"> Notes </span></h2>
+<p>Finding the correct lens correction parameters can be done using several approaches (see <a href="Lens_correction_model.html" title="Lens correction model">Lens correction model</a> and external links for details). Note parameter d for radial distortion (default 1.0) is not available in GUI frontends - the d mentioned in frontends is typically a different parameter related to image shift.
+</p>
 <a name="Windows_batch_usage" id="Windows_batch_usage"></a><h2> <span class="mw-headline"> Windows batch usage </span></h2>
 <p>Once you have calculated fulla parameters as described above, you can create a custom <i>droplet</i>
 for batch correcting photos like so:
@@ -117,7 +123,10 @@ for batch correcting photos like so:
 </p>
 <a name="External_links" id="External_links"></a><h2> <span class="mw-headline"> External links </span></h2>
 <ul><li> Correcting TCA with hugin and fulla
-</li><li> PTLens database download
+</li><li> PTLens database download (April 2006)
+<ul><li> Lensfun SVN includes parameters for many more lenses
+</li></ul>
+</li><li> How to determine lens correction parameters - from Lensfun documentation
 </li></ul>
 
 

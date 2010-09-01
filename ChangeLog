@@ -1,3 +1,271 @@
+2010-08-28  Bruno Postle  <bruno@postle.net>
+
+	* src/translations/ja.po:
+	Remove some \n from Japanese translation that caused fatal error
+	[33c9f4471693]
+
+2010-08-28  Masahiro Kitagawa  <arctica0316@gmail.com>
+
+	* src/translations/ja.po:
+	updated Japanese translation
+	[e36f788bf17f]
+
+2010-08-25  tmodes  <tmodes>
+
+	* src/hugin1/hugin/ImagesPanel.cpp:
+	Ignore empty input fields in Images tab
+	[db6a0a66364a]
+
+2010-08-23  Bruno Postle  <bruno@postle.net>
+
+	* src/translations/it.po:
+	Updated Italian translation (Cristian Marchi)
+	[3bed0a85cc33]
+
+2010-08-07  tmodes  <tmodes>
+
+	* src/hugin_base/algorithms/basic/CalculateOverlap.cpp,
+	src/hugin_base/algorithms/basic/CalculateOverlap.h,
+	src/hugin_base/panodata/Panorama.cpp,
+	src/hugin_base/panodata/SrcPanoImage.cpp,
+	src/hugin_base/panodata/SrcPanoImage.h:
+	Faster mask calculation for bigger projects
+	[7865fdc91695]
+
+	* src/hugin1/hugin/MainFrame.cpp,
+	src/hugin_base/algorithms/control_points/CleanCP.cpp:
+	Fixes bug in last commit (652ab1e4d937)
+	[8e0fa9d64380]
+
+2010-08-05  tmodes  <tmodes>
+
+	* src/hugin1/hugin/MainFrame.cpp,
+	src/hugin_base/algorithms/control_points/CleanCP.cpp,
+	src/hugin_base/algorithms/control_points/CleanCP.h:
+	Refactored code for removing control points in masks
+	[652ab1e4d937]
+
+	* src/hugin_base/panodata/ControlPoint.cpp,
+	src/hugin_base/panodata/ControlPoint.h,
+	src/hugin_base/panodata/Panorama.cpp,
+	src/hugin_base/panodata/Panorama.h,
+	src/hugin_base/panodata/PanoramaData.h:
+	Added code to remove duplicate control points after merging
+	[c6244856168f]
+
+2010-08-04  tmodes  <tmodes>
+
+	* src/hugin_base/algorithms/basic/CalculateOptimalROI.cpp,
+	src/hugin_base/algorithms/basic/CalculateOptimalROI.h:
+	Several improvements for autocrop
+	* Better memory management
+	* Make autocrop aware of crops and masks
+	* Works now also with bigger dimensions
+	[090323ed8e65]
+
+2010-08-01  tmodes  <tmodes>
+
+	* src/hugin_base/algorithms/basic/CalculateOptimalROI.cpp,
+	src/hugin_base/algorithms/basic/CalculateOptimalROI.h:
+	Do autocrop to active images only and not all images Clean up code
+	(removed unused lines)
+	[729147f7db0c]
+
+	* src/hugin_base/algorithms/basic/CalculateOverlap.cpp,
+	src/hugin_base/algorithms/point_sampler/PointSampler.h,
+	src/hugin_base/nona/RemappedPanoImage.h,
+	src/hugin_base/panotools/PanoToolsInterface.cpp:
+	Check, if transformImgCoord was successfull This should fix the bug,
+	that the fov was calculated wrong for projects with non-zero
+	translations parameters. Now also the photometric optimisation
+	should work for these projects.
+	[ebece9c9319d]
+
+2010-07-29  harryvanderwolf  <hvdwolf@gmail.com>
+
+	* CMakeLists.txt:
+	[OSX] typo corrected
+	[c5c9bb0923a3]
+
+	* CMakeLists.txt:
+	[OSX] neccessary adjustment for cmake compilation
+	[27b53a38eb7e]
+
+2010-07-28  tmodes  <tmodes>
+
+	* src/hugin1/hugin/MainFrame.cpp:
+	Fixes possible bug in 5e631cee4cc5 (It's not sure, that the
+	constants ID_SHOW_PANEL_IMAGES ... ID_SHOW_PANEL_PANORAMA are
+	consecutive. They can have random values.)
+	[31fdaa8ffc2c]
+
+2010-07-27  Vaclav Cerny  <vatoz@seznam.cz>
+
+	* src/hugin1/hugin/MainFrame.cpp, src/hugin1/hugin/MainFrame.h,
+	src/hugin1/hugin/xrc/main_menu.xrc:
+	Add menuitems Show panel ... with shortcut
+	[5e631cee4cc5]
+
+2010-07-24  Andreas  <Andreas Metzler>
+
+	* CMakeLists.txt, CMakeModules/FindPANO13.cmake:
+	Added version checking for libpano13 (transplanted from
+	6e072258d9510951f49c37962332c682cc78d9ac)
+	[2fc209cbb6ee]
+
+2010-07-23  tmodes  <tmodes>
+
+	* src/hugin_base/algorithms/panorama_makefile/PanoramaMakefileExport.c
+	pp:
+	Reduce resolution for overlap detection in makefile generation (This
+	should speed up of writing of makefile)
+	[8cbe07845ccf]
+
+2010-07-22  Bruno Postle  <bruno@postle.net>
+
+	* src/hugin1/hugin/xrc/data/help_en_EN/Autooptimiser.html,
+	src/hugin1/hugin/xrc/data/help_en_EN/Autopano-sift-C.html,
+	src/hugin1/hugin/xrc/data/help_en_EN/Chromatic_aberration.html,
+	src/hugin1/hugin/xrc/data/help_en_EN/DSLR_spherical_resolution.html,
+	src/hugin1/hugin/xrc/data/help_en_EN/Enfuse.html,
+	src/hugin1/hugin/xrc/data/help_en_EN/Field_of_View.html,
+	src/hugin1/hugin/xrc/data/help_en_EN/HDR_workflow_with_hugin.html,
+	src/hugin1/hugin/xrc/data/help_en_EN/Horizontal_control_points.html,
+	src/hugin1/hugin/xrc/data/help_en_EN/Hugin.html,
+	src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Camera_and_Lens_tab.html,
+	src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Control_Points_tab.html,
+	src/hugin1/hugin/xrc/data/help_en_EN/Hugin_FAQ.html,
+	src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Fast_Preview_window.html,
+	src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Images_tab.html,
+	src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Mask_tab.html,
+	src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Optimizer_tab.html, src/h
+	ugin1/hugin/xrc/data/help_en_EN/Hugin_Parameters_for_Control_Point_D
+	etectors_dialog.html,
+	src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Preferences.html,
+	src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Reset_Values_window.html,
+	src/hugin1/hugin/xrc/data/help_en_EN/Hugin_translation_guide.html,
+	src/hugin1/hugin/xrc/data/help_en_EN/Pano_modify.html, src/hugin1/hu
+	gin/xrc/data/help_en_EN/Panorama_scripting_in_a_nutshell.html,
+	src/hugin1/hugin/xrc/data/help_en_EN/Pitch.html,
+	src/hugin1/hugin/xrc/data/help_en_EN/Projections.html,
+	src/hugin1/hugin/xrc/data/help_en_EN/Pto_merge.html,
+	src/hugin1/hugin/xrc/data/help_en_EN/SmartBlend.html, src/hugin1/hug
+	in/xrc/data/help_en_EN/Straight_line_control_points.html,
+	src/hugin1/hugin/xrc/data/help_en_EN/Swing_rod.html, src/hugin1/hugi
+	n/xrc/data/help_en_EN/The_General_Panini_Projection.html,
+	src/hugin1/hugin/xrc/data/help_en_EN/Vertical_control_points.html,
+	src/hugin1/hugin/xrc/data/help_en_EN/Wavy_distortion.html,
+	src/hugin1/hugin/xrc/data/help_en_EN/Yaw.html:
+	Update manual from wiki
+	[f408e18d7ed7]
+
+	* src/hugin1/hugin/xrc/data/help_en_EN/pages.txt:
+	New pages from wiki
+	[014cdfa994d2]
+
+2010-07-18  Bruno Postle  <bruno@postle.net>
+
+	* doc/pano_trafo.1:
+	Regenerate pano_trafo man page (Andreas Metzler)
+	[87026235e9ca]
+
+2010-07-15  James Legg  <jlegg@users.sourceforge.net>
+
+	* src/hugin1/hugin/ViewState.cpp:
+	Fix bug where fast preview interactions could disconnect image's
+	lenses introduced in 66f626bf15aa.
+	[275fb96ee614]
+
+2010-07-15  tmodes  <tmodes>
+
+	* CMakeModules/win_bundle.cmake:
+	Added missing files to install target for windows
+	[690b85e84096]
+
+2010-07-13  tmodes  <tmodes>
+
+	* src/hugin_base/panodata/Panorama.cpp:
+	Fixes an issue with positive masks and fisheye images
+	[a7e8dc9da841]
+
+2010-07-07  Bruno Postle  <bruno@postle.net>
+
+	* doc/releases/hugin-0.8.0.txt, doc/releases/hugin-0.8.0_rc1.txt,
+	doc/releases/hugin-0.8.0_rc2.txt, doc/releases/hugin-0.8.0_rc3.txt,
+	doc/releases/hugin-0.8.0_rc4.txt, doc/releases/hugin-0.8.0_rc5.txt,
+	doc/releases/hugin-2009.4.0.txt, doc/releases/hugin-
+	2009.4.0_rc3.txt, doc/releases/hugin-2010.0.0.txt, doc/releases/
+	hugin-2010.0.0_rc1.txt:
+	Add some historic release notes
+	[8cf00462e9cf]
+
+	* admin/update_tarball.sh:
+	Remove ancient unused script
+	[c9df36df86dd]
+
+	* doc/batch-processing/README.batch:
+	Outdated info is now on the wiki
+	[f641d81bb04e]
+
+2010-06-29  James Legg  <jlegg@users.sourceforge.net>
+
+	* merge
+	[9fb6e9f16ef8]
+
+	* src/hugin1/hugin/ViewState.cpp, src/hugin1/hugin/wxPanoCommand.cpp,
+	src/hugin_base/algorithms/basic/CalculateOverlap.cpp, src/hugin_base
+	/algorithms/panorama_makefile/PanoramaMakefileExport.cpp:
+	Don't call Panorama::getSrcImage when a const reference would do,
+	use Panorama::getImage instead. Most performance improvements are
+	from CalculateImageOverlap::calculate. In my test saving a project
+	was three times faster.
+	[66f626bf15aa]
+
+2010-06-29  Kornel Benko  <Kornel.Benko@berlin.de>
+
+	* CMakeLists.txt:
+	Enable creation of ChangeLog from build-dir
+	[b60ba225e103]
+
+2010-06-28  Bruno Postle  <bruno@postle.net>
+
+	* merge (I'm not sure why)
+	[a69d9c1929c5]
+
+2010-06-28  harryvanderwolf  <hvdwolf@gmail.com>
+
+	* mac/copyExtraTools.sh:
+	[OSX] correct stupid enblend enfuse copy error
+	[640f8f2af986]
+
+2010-06-28  Bruno Postle  <bruno@postle.net>
+
+	* CMakeLists.txt:
+	Set minor version to 3 for unstable trunk
+	[f2ec72d1d228]
+
+2010-06-28  harryvanderwolf  <hvdwolf@gmail.com>
+
+	* mac/Hugin.xcodeproj/project.pbxproj:
+	[OSX] Change version stamp to only hexadecimal part
+	[9fa03ec044ad]
+
+2010-06-28  Bruno Postle  <bruno@postle.net>
+
+	* src/translations/zh_TW.po:
+	Updated Traditional Chinese translation (Rick Langford)
+	[d017edd0161f]
+
+	* src/translations/hu.po:
+	Updated Hungarian translation #3021348 (Höss Lajos)
+	[8ce1c813f7a1]
+
+2010-06-28  Terry Duell  <tduell@users.sourceforge.net>
+
+	* ChangeLog, authors.txt:
+	Update authors.txt
+	[38ed0587798b]
+
 2010-06-27  Terry Duell  <tduell@users.sourceforge.net>
 
 	* CMakeLists.txt:
