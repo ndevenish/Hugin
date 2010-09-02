@@ -25,6 +25,7 @@
 
 #ifdef __WXMAC__
 #include <OpenGL/gl.h>
+#include <OpenGL/glu.h>
 #else
 #ifdef __WXMSW__
 #include <vigra/windows.h>
@@ -43,6 +44,7 @@
 #include "ViewState.h"
 #include "GLRenderer.h"
 #include "ToolHelper.h"
+#include "PreviewToolHelper.h"
 #include <panodata/PanoramaOptions.h>
 
 GLPreviewRenderer::GLPreviewRenderer(PT::Panorama *pano, TextureManager *tex_man,
