@@ -44,7 +44,6 @@
 #include "ViewState.h"
 #include "GLRenderer.h"
 #include "ToolHelper.h"
-#include "PreviewToolHelper.h"
 #include <panodata/PanoramaOptions.h>
 
 GLPreviewRenderer::GLPreviewRenderer(PT::Panorama *pano, TextureManager *tex_man,

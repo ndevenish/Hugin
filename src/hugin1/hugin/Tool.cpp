@@ -1,6 +1,6 @@
 // -*- c-basic-offset: 4 -*-
 
-/** @file PreviewTool.cpp
+/** @file Tool.cpp
  *
  *  @author James Legg
  *

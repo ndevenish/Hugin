@@ -1,6 +1,6 @@
 // -*- c-basic-offset: 4 -*-
 
-/** @file PreviewTool.h
+/** @file Tool.h
  *
  *  @author James Legg
  *  @author Darko Makreshanski
