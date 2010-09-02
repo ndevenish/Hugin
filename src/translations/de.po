@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2010-06-03 18:09+0200\n"
-"PO-Revision-Date: 2010-06-03 18:18+0100\n"
+"PO-Revision-Date: 2010-09-02 19:40+0100\n"
 "Last-Translator: T. Modes\n"
 "Language-Team: deutsch <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -883,7 +883,7 @@ msgstr "Ziehen um den horizontalen Bildwinkel festzulegen"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:363
 msgid "mosaic"
-msgstr ""
+msgstr "Mosaik"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:401
 #: hugin1/hugin/PreviewFrame.cpp:297
@@ -1005,12 +1005,16 @@ msgid ""
 "Error initialising GLEW\n"
 "Fast preview window can not be opened."
 msgstr ""
+"Fehler bei Initialisierung von GLEW.\n"
+"Schnelles Vorschaufenster kann nicht geöffnet werden."
 
 #: hugin1/hugin/GLViewer.cpp:138
 msgid ""
 "Sorry, the fast preview window requires a system which supports OpenGL version 1.1 with the GL_ARB_multitexture extension.\n"
 "The fast preview cannot be opened."
 msgstr ""
+"Die schnelle Panoramavorschau erfordert ein System mit mindestens OpenGL 1.1 und der GL_ARB_multitexture Erweiterung.\n"
+"Schnelles Vorschaufenster kann nicht geöffnet werden."
 
 #: hugin1/hugin/HDRMergeOptionDialog.cpp:147
 msgid "Invalid input\n"
@@ -1396,6 +1400,11 @@ msgid ""
 "\n"
 "(Error code: %s)"
 msgstr ""
+"Kann Projekt-Makefile \"%s\" nicht speichern.\n"
+"Aber die Projekt-Datei wurde erfolgreich gespeichert.\n"
+"Möglicherweise ist die Datei oder der Ordner schreibgeschützt.\n"
+"\n"
+"(Error-Code %s)"
 
 #: hugin1/hugin/MainFrame.cpp:594
 #, c-format
@@ -1405,6 +1414,10 @@ msgid ""
 "\n"
 "(Error code: %s)"
 msgstr ""
+"Kann Datei \"%s\" nicht speichern.\n"
+"Möglicherweise ist die Datei oder der Ordner schreibgeschützt.\n"
+"\n"
+"(Error-Code %s)"
 
 #: hugin1/hugin/MainFrame.cpp:607
 msgid "Save project file"
@@ -5706,9 +5719,8 @@ msgstr "Automatische Ausrichtung eines gebogenen Horizonts."
 
 #: translations/xrc.cpp:742
 #: xrc.cpp:742
-#, fuzzy
 msgid "Drag mode:"
-msgstr "Ziehen zum Bewegen"
+msgstr "Zieh-Mode:"
 
 #: translations/xrc.cpp:743
 #: xrc.cpp:743
