@@ -32,7 +32,11 @@ namespace makefile
 Makefile* Makefile::instance = NULL;
 
 // static
+#ifdef __APPLE__
+const std::locale Makefile::locale(std::locale("C"));
+#else
 const std::locale Makefile::locale(std::locale(""), "C", std::locale::numeric);
+#endif
 
 Makefile& Makefile::getSingleton()
 {

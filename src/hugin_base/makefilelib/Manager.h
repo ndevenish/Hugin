@@ -24,6 +24,12 @@ along with hugin.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifndef MANAGER_H_
 #define MANAGER_H_
+#ifdef __APPLE__
+//for MacOX the macro "check" gets somewhere defined
+//this will collide with some boost libs, to prevent conflicts
+//we undef the macro
+#undef check
+#endif
 #include <boost/ptr_container/ptr_vector.hpp>
 
 #include "MakefileItem.h"

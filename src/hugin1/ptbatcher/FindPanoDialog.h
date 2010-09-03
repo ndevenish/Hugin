@@ -26,8 +26,8 @@
 #ifndef _FINDPANODIALOG_H
 #define _FINDPANODIALOG_H
 
-#include "panoinc.h"
 #include "panoinc_WX.h"
+#include "panoinc.h"
 #include "BatchFrame.h"
 #include <wx/dynarray.h>
 
