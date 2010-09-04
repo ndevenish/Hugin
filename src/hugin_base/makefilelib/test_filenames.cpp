@@ -182,13 +182,6 @@ void printmiss(std::vector<path>::iterator start, std::vector<path>::iterator en
 
 int main(int argc, char *argv[])
 {
-	// set the environments locale.
-#ifdef __APPLE__
-    std::locale::global(std::locale("C"));
-#else
-	std::locale::global(std::locale(""));
-#endif
-
 	uchar_type limit;
 	if(argc != 2)
 	{
