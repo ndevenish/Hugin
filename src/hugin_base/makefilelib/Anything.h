@@ -37,7 +37,7 @@ namespace makefile
  * It can be used to include make feautures not supported by the lib in a
  * makefile.
  */
-class Anything: public PrimaryMakefileItem
+class IMPEX Anything: public PrimaryMakefileItem
 {
 	string text;
 public:

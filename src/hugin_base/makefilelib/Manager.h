@@ -55,7 +55,7 @@ namespace makefile
  * @note This can only work with heap allocated objects (new!).
  */
 
-class Manager
+class IMPEX Manager
 {
 	// boost::ptr_vector is perfect here, and it handles deletion.
 	boost::ptr_vector<Manageable> mitems;

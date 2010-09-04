@@ -27,6 +27,7 @@
 #ifndef _CPDETECTORCONFIG_H
 #define _CPDETECTORCONFIG_H
 
+#include <hugin_shared.h>
 #include "panoinc.h"
 #include "panoinc_WX.h"
 
@@ -43,7 +44,7 @@ enum CPDetectorType
 };
 
 /** class, which stores all settings of one cp detector */
-class CPDetectorSetting
+class IMPEX CPDetectorSetting
 {
 public:
     /** constructor 
@@ -106,10 +107,14 @@ private:
     bool option;
 };
 
+#if _WINDOWS && defined Hugin_shared 
+WX_DECLARE_USER_EXPORTED_OBJARRAY(CPDetectorSetting,ArraySettings,IMPEX);
+#else
 WX_DECLARE_OBJARRAY(CPDetectorSetting,ArraySettings);
+#endif
 
 /** class for storing settings of different control point generators */
-class CPDetectorConfig
+class IMPEX CPDetectorConfig
 {
 public:
     /** constructor */

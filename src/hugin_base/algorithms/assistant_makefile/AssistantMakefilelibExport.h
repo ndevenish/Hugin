@@ -98,7 +98,7 @@ public:
       runCeleste(runCeleste_), celesteThreshold(celesteThreshold_), celesteSmallRadius(celesteSmallRadius_),
       runCPClean(runCPClean_), scale(scale_), makefile(makefile_), projectFile(projectFile_)
 	{
-        valuestream.imbue(makefile::Makefile::locale);
+        valuestream.imbue(makefile::GetMakefileLocale());
 	}
 
 	static void createMakefile(PanoramaData & pano_,

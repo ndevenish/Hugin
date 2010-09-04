@@ -38,6 +38,11 @@ const std::locale Makefile::locale(std::locale("C"));
 const std::locale Makefile::locale(std::locale(""), "C", std::locale::numeric);
 #endif
 
+const std::locale GetMakefileLocale()
+{
+    return Makefile::locale;
+};
+
 Makefile& Makefile::getSingleton()
 {
 	if(!instance)

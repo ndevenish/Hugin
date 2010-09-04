@@ -145,7 +145,7 @@ public:
 	  makefile(makefile_), tmpDir(tmpDir_)
 	{
         images=getImagesinROI(pano_,images_);
-        valuestream.imbue(makefile::Makefile::locale);
+        valuestream.imbue(makefile::GetMakefileLocale());
 
 	}
 

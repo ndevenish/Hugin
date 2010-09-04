@@ -674,7 +674,7 @@ bool PanoramaMakefilelibExport::createItems()
             {
                 std::ostringstream expvalue, imgnr;
                 imgnr << *it;
-                expvalue.imbue(Makefile::locale);
+                expvalue.imbue(makefile::GetMakefileLocale());
                 expvalue <<  pano.getSrcImage(*it).getExposureValue();
                 Rule* rule = mgr.own(new Rule()); rule->add();
                 rule->addTarget(Makefile::quote(vldrexposurelayersremapped->getValues()[j], Makefile::MAKE));

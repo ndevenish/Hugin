@@ -39,7 +39,7 @@ namespace makefile
  * The \ref MakefileItem "MakefileItems" VariableRef and VariableDef refer are linked to one of
  * these to know what they represent.
  */
-class Variable : public Manageable
+class IMPEX Variable : public Manageable
 {
 protected:
 	string name;

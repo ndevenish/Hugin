@@ -37,7 +37,7 @@ namespace makefile
  * It's purpose is to allow exception texts to contain wide strings, regardless of
  * USE_WCHAR.
  */
-class StringAdapter : public std::string
+class IMPEX StringAdapter : public std::string
 {
 	void use_narrow(const wchar_t* ws)
 	{

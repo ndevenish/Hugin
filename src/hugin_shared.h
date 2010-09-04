@@ -1,7 +1,7 @@
 
 #if _WINDOWS && defined Hugin_shared 
 
-#if defined huginbase_EXPORTS || defined celeste_EXPORTS 
+#if defined huginbase_EXPORTS || defined celeste_EXPORTS || defined makefilelib_EXPORTS || defined icpfindlib_EXPORTS
 #define IMPEX __declspec(dllexport)
 #else
 #define IMPEX __declspec(dllimport)

@@ -31,6 +31,8 @@ along with hugin.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdexcept>
 #include <locale>
 
+#include <hugin_shared.h>
+
 /**
  *
  */
@@ -41,7 +43,7 @@ class MakefileItem;
  * Container and Manager for all our \ref MakefileItem "MakefileItems".
  * It also contains some static utils and enums.
  */
-class Makefile
+class IMPEX Makefile
 {
 	/// Holds pointers to every existing MakefileItem.
 	std::vector<MakefileItem*> items;
@@ -100,6 +102,8 @@ public:
 	 */
 	int writeMakefile(ostream& out);
 };
+
+IMPEX const std::locale GetMakefileLocale();
 
 }
 

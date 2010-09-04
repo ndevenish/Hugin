@@ -30,7 +30,7 @@ namespace makefile
  * Marks classes that the Manager should handle.
  */
 
-class Manageable
+class IMPEX Manageable
 {
 public:
 	Manageable() {}

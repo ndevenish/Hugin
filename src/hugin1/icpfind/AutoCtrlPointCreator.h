@@ -25,6 +25,7 @@
 #include <string>
 #include <map>
 
+#include <hugin_shared.h>
 #include "CPDetectorConfig.h"
 #include "PT/Panorama.h"
 #include "PT/PanoImage.h"
@@ -35,7 +36,7 @@
 /** Base class for control point creators.
  *
  */
-class AutoCtrlPointCreator
+class IMPEX AutoCtrlPointCreator
 {
 public:
 
@@ -61,7 +62,7 @@ protected:
 };
 
 /** A matcher that uses Sebastians Nowozin's excellent sift matcher */
-class AutoPanoSift : public AutoCtrlPointCreator
+class IMPEX AutoPanoSift : public AutoCtrlPointCreator
 {
 public:
 
@@ -80,7 +81,7 @@ public:
 };
 
 /** A matcher that uses Alexandres sift matcher */
-class AutoPanoKolor : public AutoCtrlPointCreator
+class IMPEX AutoPanoKolor : public AutoCtrlPointCreator
 {
 public:
 
@@ -97,7 +98,7 @@ public:
 };
 
 /** A matcher that uses Sebastians Nowozin's excellent sift matcher and considers stacks */
-class AutoPanoSiftStack : public AutoCtrlPointCreator
+class IMPEX AutoPanoSiftStack : public AutoCtrlPointCreator
 {
 public:
 
@@ -114,7 +115,7 @@ public:
 };
 
 /** A matcher for multi-row panoramas based on an idea by Bruno Postle */
-class AutoPanoSiftMultiRow : public AutoCtrlPointCreator
+class IMPEX AutoPanoSiftMultiRow : public AutoCtrlPointCreator
 {
 public:
 
@@ -131,7 +132,7 @@ public:
 };
 
 /** A matcher for multi-rows, which considers stacks */
-class AutoPanoSiftMultiRowStack : public AutoCtrlPointCreator
+class IMPEX AutoPanoSiftMultiRowStack : public AutoCtrlPointCreator
 {
 public:
 
@@ -148,7 +149,7 @@ public:
 };
 
 /** A matcher that uses the align information in the panorama to generate cp between overlapping images */
-class AutoPanoSiftPreAlign : public AutoCtrlPointCreator
+class IMPEX AutoPanoSiftPreAlign : public AutoCtrlPointCreator
 {
 public:
 

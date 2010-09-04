@@ -36,7 +36,7 @@ class Variable;
  * is bounded to a Variable. If an object of this type is \ref print ed
  * it produces a Reference to a Variable like \verbatim $(VAR) \endverbatim
  */
-class VariableRef : public MakefileItem
+class IMPEX VariableRef : public MakefileItem
 {
 	Variable& variable;
 	VariableRef(const VariableRef&);	// no implicite copies!
