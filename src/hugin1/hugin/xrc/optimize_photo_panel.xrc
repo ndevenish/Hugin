@@ -330,5 +330,6 @@ Variables which are cleared [ ] will act as references or anchors.</label>
       </object>
     </object>
     <style>wxTAB_TRAVERSAL</style>
+    <tooltip>Only use pixels from images selected in preview window. Useful to avoid errors due to badly aligned images (for example, the nadir image in a fisheye panorama)</tooltip>
   </object>
 </resource>
