@@ -387,7 +387,7 @@ void VisualizationState::SetScale(float scale_in)
         if (difference > 1.25)
         {
             genscale = scale;
-            int number_of_images = m_pano->getNrOfImages();
+            unsigned int number_of_images = m_pano->getNrOfImages();
             for (unsigned int img = 0; img < number_of_images; img++)
             {
                 dirty_mesh[img].val = true;
@@ -415,7 +415,7 @@ bool VisualizationState::RequireRecalculateViewport()
 bool VisualizationState::RequireRecalculateMesh (unsigned int image_nr)
 {
 
-    int number_of_images = m_pano->getNrOfImages();
+    unsigned int number_of_images = m_pano->getNrOfImages();
     if (number_of_images > image_nr)
     {
         return dirty_mesh[image_nr].val;

@@ -310,7 +310,6 @@ void GLViewer::Resized(wxSizeEvent& e)
     }
 
     DEBUG_DEBUG("RESIZED_OUT");
-    GLPreview * test;
    
     if (frame->CanResize()) {
         DEBUG_DEBUG("RESIZED_IN");

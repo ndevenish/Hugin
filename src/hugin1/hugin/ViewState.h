@@ -170,7 +170,7 @@ public:
         refreshArg = arg;
         dirty_draw = true;
         dirty_viewport = true;
-        int number_of_images = m_pano->getNrOfImages();
+        unsigned int number_of_images = m_pano->getNrOfImages();
         for (unsigned int img = 0; img < number_of_images; img++)
         {
             dirty_mesh[img].val = true;

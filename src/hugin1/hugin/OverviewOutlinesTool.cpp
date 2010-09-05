@@ -276,8 +276,6 @@ void OverviewOutlinesTool::DrawRect(double left, double top, double right, doubl
 
             float steps = 40;
 
-            double x,y,xs,ys,xd,yd;
-
             double wstep = (float)(right - left) / steps;
             double hstep = (float)(bottom - top) / steps;
             
@@ -374,7 +372,6 @@ void OverviewOutlinesTool::DrawRect(double left, double top, double right, doubl
                     glBegin(GL_POLYGON);
                     #endif
                     for (int s = 0 ; s < 4 ; s++) {
-                        double x,y,z;
                         double tx,ty;
                         tx = tr.val[s][0];
                         ty = tr.val[s][1];
@@ -439,8 +436,6 @@ void OverviewOutlinesTool::DrawRect(double left, double top, double right, doubl
                 Rect rect(top_rec.left, top_rec.top, top_rec.right, top_rec.bottom);
 
                 Rect tr = rect.transformImgCoord(&transform);
-
-                double xcs,ycs,xcd,ycd;
 
                 double edge1 = (tr.val[0][0]-tr.val[1][0])*(tr.val[0][0]-tr.val[1][0]) + (tr.val[0][1]-tr.val[1][1])*(tr.val[0][1]-tr.val[1][1]);
                 double edge2 = (tr.val[1][0]-tr.val[2][0])*(tr.val[1][0]-tr.val[2][0]) + (tr.val[1][1]-tr.val[2][1])*(tr.val[1][1]-tr.val[2][1]);
@@ -515,10 +510,10 @@ void OverviewOutlinesTool::DrawRect(double left, double top, double right, doubl
                     if (outline) {
 //                        glBegin(GL_LINES);
                         bool edges[4];
-                        edges[0] = edge.left;
-                        edges[1] = edge.bottom;
-                        edges[2] = edge.right;
-                        edges[3] = edge.top;
+                        edges[0] = edge.left!=0;
+                        edges[1] = edge.bottom!=0;
+                        edges[2] = edge.right!=0;
+                        edges[3] = edge.top!=0;
                         for (int i = 0 ; i < 4 ; i++) {
                             if (edges[i]) {
 //                            std::cout << "outlines line!!" << i << "\n";
@@ -565,7 +560,6 @@ void OverviewOutlinesTool::DrawRect(double left, double top, double right, doubl
                         glBegin(GL_POLYGON);
                         #endif
                         for (int s = 0 ; s < 4 ; s++) {
-                            double x,y,z;
                             double tx,ty;
                             tx = tr.val[s][0];
                             ty = tr.val[s][1];
