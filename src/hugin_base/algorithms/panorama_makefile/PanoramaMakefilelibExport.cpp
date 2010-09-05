@@ -712,7 +712,7 @@ bool PanoramaMakefilelibExport::createItems()
         ruleldr->addPrereq(ldr_stacks_input[i]);
         ruleldr->addCommand(venfuse->getRef() +" "+ venfuseopts->getRef() + " -o " +
                 ldr_stacks_shell[i]->getRef() +" "+ ldr_stacks_input_shell[i]->getRef());
-        ruleldr->addCommand("-" + vexiftool->getRef() + "-overwrite_original_in_place -TagsFromFile " +
+        ruleldr->addCommand("-" + vexiftool->getRef() + " -overwrite_original_in_place -TagsFromFile " +
                 vinimage1shell->getRef() +" "+ vexiftoolcopyargs->getRef() +" "+ ldr_stacks_shell[i]->getRef());
 
         Rule* rulehdr = mgr.own(new Rule()); rulehdr->add();
