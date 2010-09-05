@@ -41,7 +41,6 @@ along with hugin.  If not, see <http://www.gnu.org/licenses/>.
 #include "test_util.h"
 
 #include <iostream>
-#include <locale>
 #include <vector>
 
 using namespace makefile;
