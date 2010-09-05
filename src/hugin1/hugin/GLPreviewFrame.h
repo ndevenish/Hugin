@@ -218,6 +218,8 @@ protected:
     void OnProjParameterChanged(wxCommandEvent & e);
     /** event handler for reset projection parameters */
     void OnProjParameterReset(wxCommandEvent & e);
+    /** event handler for switch on/off grid on preview */
+    void OnSwitchPreviewGrid(wxCommandEvent & e);
 
     void OnDefaultExposure( wxCommandEvent & e );
     void OnDecreaseExposure( wxSpinEvent & e );
@@ -280,6 +282,7 @@ private:
     wxTextCtrl * m_exposureTextCtrl;
     wxBitmapButton * m_defaultExposureBut;
     wxSpinButton * m_exposureSpinBut;
+    wxCheckBox * m_previewGrid;
 
     wxString m_choices[3];
     int m_oldProjFormat;

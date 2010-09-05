@@ -137,6 +137,7 @@ BEGIN_EVENT_TABLE(GLPreviewFrame, wxFrame)
     EVT_CHOICE(XRCID("projection_choice"), GLPreviewFrame::OnProjectionChoice)
     EVT_CHOICE(XRCID("overview_mode_choice"), GLPreviewFrame::OnOverviewModeChoice)
     EVT_TOGGLEBUTTON(XRCID("overview_toggle"), GLPreviewFrame::OnOverviewToggle)
+    EVT_CHECKBOX(XRCID("preview_show_grid"), GLPreviewFrame::OnSwitchPreviewGrid)
 #ifndef __WXMAC__
     // wxMac does not process these
     EVT_SCROLL_CHANGED(GLPreviewFrame::OnChangeFOV)
@@ -294,6 +295,8 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     SetStatusWidths(3, widths);
     SetStatusText(wxT(""),1);
     SetStatusText(wxT(""),2);
+    wxConfigBase * config = wxConfigBase::Get();
+
     wxPanel *tool_panel = wxXmlResource::Get()->LoadPanel(this,wxT("mode_panel"));
     m_tool_notebook = XRCCTRL(*this,"mode_toolbar_notebook",wxNotebook);
     m_ToolBar_Identify = XRCCTRL(*this,"preview_mode_toolbar",wxToolBar);
@@ -313,7 +316,8 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     wxPanel *overview_toggle_panel = wxXmlResource::Get()->LoadPanel(toggle_panel,wxT("overview_toggle_panel"));
     toggle_panel_sizer->Add(overview_toggle_panel, 0, wxALL | wxEXPAND | wxALIGN_CENTER_VERTICAL, 0);
 
-    bool overview_hidden = wxConfig::Get()->Read(wxT("/GLPreviewFrame/overview_hidden"), 0l);
+    bool overview_hidden;
+    config->Read(wxT("/GLPreviewFrame/overview_hidden"), &overview_hidden, false);
     m_OverviewToggle = XRCCTRL(*this, "overview_toggle", wxToggleButton);
     if (overview_hidden) {
         m_OverviewToggle->SetValue(false);
@@ -446,8 +450,13 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     m_OverviewModeChoice->SetSelection(0);
     overview_command_panel->SetSize(0,0,200,20,wxSIZE_AUTO_WIDTH);
 
-    overview_sizer->Add(overview_command_panel, 0, wxSHAPED);
+    overview_sizer->Add(overview_command_panel, 0, wxEXPAND);
     overview_sizer->Add(m_GLOverview, 1, wxEXPAND);
+
+    m_previewGrid = XRCCTRL(*this, "preview_show_grid", wxCheckBox);
+    bool showGrid;
+    config->Read(wxT("/GLPreviewFrame/showPreviewGrid"),&showGrid,true);
+    m_previewGrid->SetValue(showGrid);
 
     preview_panel->SetSizer(flexSizer);
     overview_panel->SetSizer(overview_sizer);
@@ -581,8 +590,6 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     // do not show projection param sizer
     m_projection_panel->GetSizer()->Show(m_projParamSizer, false, true);
 
-    wxConfigBase * config = wxConfigBase::Get();
-
     // the initial size as calculated by the sizers
     this->SetSizer( m_topsizer );
     m_topsizer->SetSizeHints( this );
@@ -648,6 +655,7 @@ GLPreviewFrame::~GLPreviewFrame()
     config->Write(wxT("/GLPreviewFrame/blendMode"), m_BlendModeChoice->GetSelection());
     config->Write(wxT("/GLPreviewFrame/OpenGLLayout"), m_mgr->SavePerspective());
     config->Write(wxT("/GLPreviewFrame/overview_hidden"), !(m_OverviewToggle->GetValue()));
+    config->Write(wxT("/GLPreviewFrame/showPreviewGrid"), m_previewGrid->GetValue());
     
     // delete all of the tools. When the preview is never used we never get an
     // OpenGL context and therefore don't create the tools.
@@ -1037,6 +1045,19 @@ void GLPreviewFrame::OnOverviewToggle(wxCommandEvent& e)
             m_mgr->Update();
         }
     }
+}
+
+void GLPreviewFrame::OnSwitchPreviewGrid(wxCommandEvent & e)
+{
+    if(m_previewGrid->GetValue())
+    {
+        preview_helper->ActivateTool(preview_projection_grid);
+    }
+    else
+    {
+        preview_helper->DeactivateTool(preview_projection_grid);
+    }
+    m_GLPreview->Refresh();
 }
 
 void GLPreviewFrame::OnClose(wxCloseEvent& event)
@@ -1521,7 +1542,10 @@ void GLPreviewFrame::MakePreviewTools(PreviewToolHelper *preview_helper_in)
     m_preview_layoutLinesTool = new PreviewLayoutLinesTool(preview_helper);
 
     preview_projection_grid = new PreviewProjectionGridTool(preview_helper);
-    preview_helper->ActivateTool(preview_projection_grid);
+    if(m_previewGrid->GetValue())
+    {
+        preview_helper->ActivateTool(preview_projection_grid);
+    };
 
 //    
     // activate tools that are always active.
