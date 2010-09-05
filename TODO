@@ -9,7 +9,6 @@ Panorama Overview Related TODO list:
  - DragTool: add lines from starting to ending point
  - Improve performance of calculating panosphere meshes by using GPU
  - Create realtime adjustments for the other viewer when dragging images
- - Add a switch for the projection grid or make it automatic for certain tabs.
  - The projection grid is not included in the mosaic plane currently because just adding it as a rectilinear projection of the current grid will be ugly and not useful. So first I need to come up with some representation of the grid on the mosaic plane which will be useful.
  - The mosaic plane could use some things like:
         - rendering of the hypothetical camera positions for each image
@@ -25,6 +24,7 @@ Panorama Overview Related TODO list:
  - Add informative status messages
  - Automatic adjustment of the zoom level for the mosaic plane
  - The overview window does not process the mouse wheel on windows
+ - Crash when switch mode if overview window is hidden (at startup)
 
 
 fixed:
@@ -32,4 +32,5 @@ fixed:
   - Bug (at least in my computer) with wxAUI which causes the program to crash when both canvases are undocked and then docked.
     - with preview fixed to the frame this is not a problem anymore
   - Toggle buttons to show hide the overview and preview canvases
+  - Add a switch for the projection grid or make it automatic for certain tabs.
 
