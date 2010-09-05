@@ -32,11 +32,8 @@ namespace makefile
 Makefile* Makefile::instance = NULL;
 
 // static
-#ifdef __APPLE__
+/// Used for numeric output to get a decimal dot anyways.
 const std::locale Makefile::locale(std::locale("C"));
-#else
-const std::locale Makefile::locale(std::locale(""), "C", std::locale::numeric);
-#endif
 
 const std::locale GetMakefileLocale()
 {
