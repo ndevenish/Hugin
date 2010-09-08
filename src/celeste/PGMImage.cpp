@@ -221,7 +221,8 @@ void PGMImage::Write( char* filename, float** output, int height, int width )
 	// set dimensions of pixelmap and allocate memory
     mWidth = width;
     mHeight = height;
-    strcpy( mMagicNumber, "P5" );
+    mMagicNumber[0] = 'P'; 
+    mMagicNumber[1] = '5';
     mNumLevels = 255;
 	Allocate( kChars );
 
@@ -341,7 +342,8 @@ void PGMImage::WriteScaled( char* filename, float** output, int height, int widt
 // set dimensions of pixelmap and allocate memory
     mWidth = width;
     mHeight = height;
-    strcpy( mMagicNumber, "P5" );
+    mMagicNumber[0] = 'P';
+    mMagicNumber[1] = '5';
     mNumLevels = 255;
 	Allocate( kChars );
 
