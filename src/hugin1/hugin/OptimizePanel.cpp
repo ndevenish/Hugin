@@ -1000,13 +1000,20 @@ void OptimizePanel::OnChangeMode(wxCommandEvent & e)
           default:
             break;
         }
+        bool optXYZ=m_x_list->IsChecked(0) || m_y_list->IsChecked(0) || m_z_list->IsChecked(0);
         // don't optimize translation of anchor image
+        // if translation should be optimized, then also optimise yaw and pitch of anchor
         for (std::vector<unsigned int>::iterator it = refImgs.begin();
              it != refImgs.end(); it++)
         {
             m_x_list->Check(*it, false);
             m_y_list->Check(*it, false);
             m_z_list->Check(*it, false);
+            if(optXYZ)
+            {
+                m_yaw_list->Check(*it,true);
+                m_pitch_list->Check(*it,true);
+            };
         }
 	    // disable all manual settings
 	    m_yaw_list->Disable();
