@@ -17,13 +17,14 @@ Terry Duell	updated tutorials, Fedora tester and packager
 Alexandre Duret-Lutz code
 Lu Fang		initial Chinese Simplified translation
 Skip Gaede	OS X build fixes
-Daniel German	bug patch
+Daniel German	bug fixes, GSoC mentor 2010
 Niels Giesen	Dutch translation
 Jorge González González	original Spanish translation
 Felix Hagemann	bug reports and patches
 Ed Halley	gui, documentation
 Robert Hart	bug reports and patches
 Juha Helminen	Code
+Brian Hoffmann  German translation of NSIS windows installer
 Ad Huikeshoven	automated Windows snapshot builds
 Iouri Ivliev	bug fixes
 Marek Januszewski	Code, initial Polish translation
@@ -37,8 +38,8 @@ Marco Kuder	GSoC 2008 batch processor
 Höss Lajos	Hungarian translation
 Rick Langford	Traditional Chinese original translation and updates
 Homin Lee	initial Korean translation
-James Legg	GSoC 2008 OpenGL fast preview GSoC 2009 new layout
-Yuval Levy	Community Builder, GSoC admin 2007 and 2009, GSoC mentor 2007 and 2008, Windows build, original Windows installer, bugfixes, fixes Italian translation
+James Legg	GSoC 2008 OpenGL fast preview, GSoC 2009 new layout, GSoC 2010 mentor
+Yuval Levy	Community Builder, GSoC admin 2007 and 2009, GSoC mentor 2007 and 2008, Windows build, original Windows installer (0.7.0 and 0.8.0 InnoSetup), bugfixes, fixes Italian translation
 Wim Lewis	Code fix
 Roger Luethi    Code
 Caolán McNamara	code fix
@@ -46,15 +47,16 @@ Cristian Marchi	Italian translation and 2010 artwork
 Zoran Mesec	GSoC 2007 feature detector, GSoC 2008 mentor, initial Slovenian translation
 Andreas Metzler	Debian packaging
 Andrew Mihal	original author of enblend, enfuse, nona-gpu. GSoC 2009 mentor
-Thomas Modes	code and bugfixes
+Thomas Modes	statistic CP cleaner, multi-row CP detection, masking tool, GSoC 2010 mentor, code and bugfixes
 Tiziano Müller	code
 John Navas	MSI installer
 José Alejandro Carrillo Neira Spanish translation
-Tim Nugent	GSoC 2008 Celeste, GSoC 2009 Lens Calibration
+Tim Nugent	GSoC 2008 Celeste, GSoC 2009 Lens Calibration, GSoC 2010 mentor
 Simon Oosthoek	Dutch translation
+Emanuele Panz	Windows installer (2010.02 transition to Nullsoft NSIS)
 Gerry Patterson	Code
 Eduardo Pérez Esteban	Spanish translation
-Bruno Postle	initial packaging, website, documentation, initial British English translation, GSoC 2009 mentor
+Bruno Postle	initial packaging, website, documentation, initial British English translation, GSoC 2009 mentor, GSoC 2010 admin and mentor, release manager on many occasions including 2010.02
 Alexandre Prokoudine	Initial Russian translation, GSoC 2008 admin
 Jozef Riha	original Slovak translation
 Marijn Ros	bug reports and patches
