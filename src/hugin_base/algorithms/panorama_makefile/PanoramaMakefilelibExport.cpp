@@ -50,6 +50,13 @@ along with hugin.  If not, see <http://www.gnu.org/licenses/>.
 #include <algorithms/nona/ComputeImageROI.h>
 #ifdef _WINDOWS
 #include "windows.h"
+#else
+#ifdef __APPLE__
+#include <CoreFoundation/CoreFoundation.h>
+#else
+#include <sys/utsname.h>
+#include <sys/sysinfo.h>
+#endif
 #endif
 /// Automates an very often occuring sequence
 #define  newVarDef(var, name, ...) \
@@ -654,6 +661,7 @@ bool PanoramaMakefilelibExport::createItems()
     echoInfo(*info,"Output options");
     echoInfo(*info,"===========================================================================");
     echoInfo(*info,"Hugin Version: "+infostream.str());
+    echoInfo(*info,"Project file: "+ptofile);
     echoInfo(*info,"Output prefix: "+outputPrefix);
     pano_projection_features proj;
 	if (panoProjectionFeaturesQuery(opts.getProjection(), &proj)) 
@@ -1114,11 +1122,10 @@ void PanoramaMakefilelibExport::createcheckProgCmd(Rule& testrule, const std::st
 
 void PanoramaMakefilelibExport::echoInfo(Rule& inforule, const std::string& info)
 {
-    std::string command;
 #ifdef _WINDOWS
     inforule.addCommand("@echo " + info);
 #else
-    inforule.addCommand("@echo -n '"+info+"'");
+    inforule.addCommand("@echo '" + info + "'");
 #endif
 }
 
@@ -1134,6 +1141,9 @@ void PanoramaMakefilelibExport::printSystemInfo(Rule& inforule)
         return;
     SYSTEM_INFO siSysInfo;
     GetSystemInfo(&siSysInfo);
+    MEMORYSTATUSEX statex;
+    statex.dwLength = sizeof(statex);
+    GlobalMemoryStatusEx(&statex);
 
     infostream << "Windows ";
 
@@ -1182,12 +1192,32 @@ void PanoramaMakefilelibExport::printSystemInfo(Rule& inforule)
     infostream.str("");
     infostream << siSysInfo.dwNumberOfProcessors;
     echoInfo(inforule,"Number of logical processors: "+infostream.str());
-
+    infostream.str("");
+    infostream << statex.ullTotalPhys/1024 << " kiB (" << setprecision(2) << statex.dwMemoryLoad << "%% occupied)";
+    echoInfo(inforule,"Physical memory: "+infostream.str()); 
+    unsigned __int64 freeBytes;
+    if(GetDiskFreeSpaceEx(NULL,(PULARGE_INTEGER)&freeBytes,NULL,NULL))
+    {
+        infostream.str("");
+        infostream << freeBytes/(1024*1024) << " MiB";
+        echoInfo(inforule,"Free space on disc: " + infostream.str());
+    };
 #else
 #ifdef __APPLE__
-    echoInfo(inforule,"Operating System: MacOS");
+    infostream.str("");
+    SInt32 theSystem;
+    Gestalt(gestaltSystemVersion, &theSystem);
+    infostream << (theSystem >> 8) << "." << (theSystem & 0xFF);
+    echoInfo(inforule,"Operating System: MacOS "+infostream.str());
 #else
-    echoInfo(inforule,"Operating System: Unix/Linux");
+    inforule.addCommand("@echo -n \"Operating system: \" && uname -o");
+    inforule.addCommand("@echo -n \"Release: \" && uname -r");
+    inforule.addCommand("@echo -n \"Kernel version: \" && uname -v");
+    inforule.addCommand("@echo -n \"Machine: \" && uname -m");
+    echoInfo(inforule,"Disc usage");
+    inforule.addCommand("@-df -h");
+    echoInfo(inforule,"Memory usage");
+    inforule.addCommand("@-free -m");
 #endif
 #endif
 };
