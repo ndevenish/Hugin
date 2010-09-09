@@ -1211,10 +1211,14 @@ void PanoramaMakefilelibExport::printSystemInfo(Rule& inforule)
     infostream << majorVersion << "." << minorVersion;
     echoInfo(inforule,"Operating System: MacOS "+infostream.str());
 #else
-    inforule.addCommand("@echo -n \"Operating system: \" && uname -o");
-    inforule.addCommand("@echo -n \"Release: \" && uname -r");
-    inforule.addCommand("@echo -n \"Kernel version: \" && uname -v");
-    inforule.addCommand("@echo -n \"Machine: \" && uname -m");
+    inforule.addCommand("@echo -n 'Operating system: '");
+    inforule.addCommand("@-uname -o");
+    inforule.addCommand("@echo -n 'Release: '");
+    inforule.addCommand("@-uname -r");
+    inforule.addCommand("@echo -n 'Kernel version: '");
+    inforule.addCommand("@-uname -v");
+    inforule.addCommand("@echo -n 'Machine: '");
+    inforule.addCommand("@-uname -m");
     echoInfo(inforule,"Disc usage");
     inforule.addCommand("@-df -h");
     echoInfo(inforule,"Memory usage");
