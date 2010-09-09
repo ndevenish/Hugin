@@ -1205,9 +1205,10 @@ void PanoramaMakefilelibExport::printSystemInfo(Rule& inforule)
 #else
 #ifdef __APPLE__
     infostream.str("");
-    SInt32 theSystem;
-    Gestalt(gestaltSystemVersion, &theSystem);
-    infostream << (theSystem >> 8) << "." << (theSystem & 0xFF);
+    SInt32 majorVersion,minorVersion;
+    Gestalt(gestaltSystemVersionMajor, &majorVersion);
+    Gestalt(gestaltSystemVersionMinor, &minorVersion);
+    infostream << majorVersion << "." << minorVersion;
     echoInfo(inforule,"Operating System: MacOS "+infostream.str());
 #else
     inforule.addCommand("@echo -n \"Operating system: \" && uname -o");
