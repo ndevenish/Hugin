@@ -38,7 +38,7 @@ namespace makefile
  * Represents a makefile rule, including Prerequisite and Command.
  *
  */
-class IMPEX Rule : public PrimaryMakefileItem
+class MAKEIMPEX Rule : public PrimaryMakefileItem
 {
 	std::vector<string> targets;
 	std::vector<string> prerequisites;

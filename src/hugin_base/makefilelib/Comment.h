@@ -34,7 +34,7 @@ namespace makefile
  * Makefile comments are prefixed with # for every line.
  * Currently only full line comments are supported.
  */
-class IMPEX Comment : public PrimaryMakefileItem
+class MAKEIMPEX Comment : public PrimaryMakefileItem
 {
 	string text;
 

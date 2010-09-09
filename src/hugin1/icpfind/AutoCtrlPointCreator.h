@@ -36,7 +36,7 @@
 /** Base class for control point creators.
  *
  */
-class IMPEX AutoCtrlPointCreator
+class ICPIMPEX AutoCtrlPointCreator
 {
 public:
 
@@ -62,7 +62,7 @@ protected:
 };
 
 /** A matcher that uses Sebastians Nowozin's excellent sift matcher */
-class IMPEX AutoPanoSift : public AutoCtrlPointCreator
+class ICPIMPEX AutoPanoSift : public AutoCtrlPointCreator
 {
 public:
 
@@ -81,7 +81,7 @@ public:
 };
 
 /** A matcher that uses Alexandres sift matcher */
-class IMPEX AutoPanoKolor : public AutoCtrlPointCreator
+class ICPIMPEX AutoPanoKolor : public AutoCtrlPointCreator
 {
 public:
 
@@ -98,7 +98,7 @@ public:
 };
 
 /** A matcher that uses Sebastians Nowozin's excellent sift matcher and considers stacks */
-class IMPEX AutoPanoSiftStack : public AutoCtrlPointCreator
+class ICPIMPEX AutoPanoSiftStack : public AutoCtrlPointCreator
 {
 public:
 
@@ -115,7 +115,7 @@ public:
 };
 
 /** A matcher for multi-row panoramas based on an idea by Bruno Postle */
-class IMPEX AutoPanoSiftMultiRow : public AutoCtrlPointCreator
+class ICPIMPEX AutoPanoSiftMultiRow : public AutoCtrlPointCreator
 {
 public:
 
@@ -132,7 +132,7 @@ public:
 };
 
 /** A matcher for multi-rows, which considers stacks */
-class IMPEX AutoPanoSiftMultiRowStack : public AutoCtrlPointCreator
+class ICPIMPEX AutoPanoSiftMultiRowStack : public AutoCtrlPointCreator
 {
 public:
 
@@ -149,7 +149,7 @@ public:
 };
 
 /** A matcher that uses the align information in the panorama to generate cp between overlapping images */
-class IMPEX AutoPanoSiftPreAlign : public AutoCtrlPointCreator
+class ICPIMPEX AutoPanoSiftPreAlign : public AutoCtrlPointCreator
 {
 public:
 

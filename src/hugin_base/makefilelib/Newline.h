@@ -35,7 +35,7 @@ namespace makefile
 /**
  * Simply prints newlines. Can be used to give some structure.
  */
-class IMPEX Newline: public PrimaryMakefileItem
+class MAKEIMPEX Newline: public PrimaryMakefileItem
 {
 	int newlines;
 public:

@@ -45,7 +45,7 @@ namespace makefile
  * @note The output does intentionally not have intentions. Maybe that would be good and unproblematic
  * but I'm not sure, and intention matters in makefiles (see rules).
  */
-class IMPEX Conditional: public PrimaryMakefileItem
+class MAKEIMPEX Conditional: public PrimaryMakefileItem
 {
 	/// Output the header line, like ifeq (arg1, arg2).
 	virtual string printif()=0;

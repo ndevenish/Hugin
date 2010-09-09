@@ -36,7 +36,7 @@ namespace makefile
  * Use this class to refer to such variables.
  * http://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html#Automatic-Variables
  */
-class IMPEX AutoVariable: public makefile::Variable
+class MAKEIMPEX AutoVariable: public makefile::Variable
 {
 	/// Automatic Variables have special names, so we omit checking.
 	virtual int checkStrings();

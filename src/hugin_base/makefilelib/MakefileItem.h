@@ -38,7 +38,7 @@ namespace makefile
  * The various implementations of \ref print have to take care of proper
  * makefile compatible output.
  */
-class IMPEX MakefileItem
+class MAKEIMPEX MakefileItem
 {
 public:
 	MakefileItem()
@@ -73,19 +73,19 @@ public:
 };
 
 /// Allows writing to ostreams.
-IMPEX ostream& operator<<(ostream& stream, MakefileItem& item);
+MAKEIMPEX ostream& operator<<(ostream& stream, MakefileItem& item);
 
 /// Allows adding strings an MakefileItems
-IMPEX string operator+(const string& str, MakefileItem& item);
+MAKEIMPEX string operator+(const string& str, MakefileItem& item);
 /// Allows adding strings an MakefileItems
-IMPEX string operator+(MakefileItem& item, const string& str);
+MAKEIMPEX string operator+(MakefileItem& item, const string& str);
 
 /**
  * This class is used to mark MakefileItems that can be used directly, like most can.
  * The only exception is currently VariableDef and VariableRef, they can only be used
  * together with their parent Variable.
  */
-class IMPEX PrimaryMakefileItem : public MakefileItem, public Manageable
+class MAKEIMPEX PrimaryMakefileItem : public MakefileItem, public Manageable
 {
 public:
 	PrimaryMakefileItem() {}

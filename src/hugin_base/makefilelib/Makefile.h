@@ -43,7 +43,7 @@ class MakefileItem;
  * Container and Manager for all our \ref MakefileItem "MakefileItems".
  * It also contains some static utils and enums.
  */
-class IMPEX Makefile
+class MAKEIMPEX Makefile
 {
 	/// Holds pointers to every existing MakefileItem.
 	std::vector<MakefileItem*> items;
@@ -103,7 +103,7 @@ public:
 	int writeMakefile(ostream& out);
 };
 
-IMPEX const std::locale GetMakefileLocale();
+MAKEIMPEX const std::locale GetMakefileLocale();
 
 }
 

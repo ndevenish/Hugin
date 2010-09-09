@@ -44,7 +44,7 @@ enum CPDetectorType
 };
 
 /** class, which stores all settings of one cp detector */
-class IMPEX CPDetectorSetting
+class ICPIMPEX CPDetectorSetting
 {
 public:
     /** constructor 
@@ -108,13 +108,13 @@ private:
 };
 
 #if _WINDOWS && defined Hugin_shared 
-WX_DECLARE_USER_EXPORTED_OBJARRAY(CPDetectorSetting,ArraySettings,IMPEX);
+WX_DECLARE_USER_EXPORTED_OBJARRAY(CPDetectorSetting,ArraySettings,ICPIMPEX);
 #else
 WX_DECLARE_OBJARRAY(CPDetectorSetting,ArraySettings);
 #endif
 
 /** class for storing settings of different control point generators */
-class IMPEX CPDetectorConfig
+class ICPIMPEX CPDetectorConfig
 {
 public:
     /** constructor */
