@@ -1,5 +1,5 @@
 Pablo d'Angelo	Original Author, GSoC 2007 and 2008 mentor, German translation, original CMake build, original Windows SDK
-Bart van Andel  Bugfix
+Bart van Andel	Bugfix
 György Balló	original Hungarian translation
 Herbert Bay	GSoC 2007 mentor
 Kai-Uwe Behrmann	gui, panoviewer adds, original German translation
@@ -14,7 +14,7 @@ Marco Cucinato	Italian translation
 Ademar de Souza Reis Jr.	original Brazilian translation and translation related fixes
 Serhij Dubyk	initial Ukrainian translation
 Terry Duell	updated tutorials, Fedora tester and packager
-Alexandre Duret-Lutz code
+Alexandre Duret-Lutz	code
 Lu Fang		initial Chinese Simplified translation
 Skip Gaede	OS X build fixes
 Daniel German	bug fixes, GSoC mentor 2010
@@ -24,7 +24,7 @@ Felix Hagemann	bug reports and patches
 Ed Halley	gui, documentation
 Robert Hart	bug reports and patches
 Juha Helminen	Code
-Brian Hoffmann  German translation of NSIS windows installer
+Brian Hoffmann	German translation of NSIS windows installer
 Ad Huikeshoven	automated Windows snapshot builds
 Iouri Ivliev	bug fixes
 Marek Januszewski	Code, initial Polish translation
@@ -41,7 +41,7 @@ Homin Lee	initial Korean translation
 James Legg	GSoC 2008 OpenGL fast preview, GSoC 2009 new layout, GSoC 2010 mentor
 Yuval Levy	Community Builder, GSoC admin 2007 and 2009, GSoC mentor 2007 and 2008, Windows build, original Windows installer (0.7.0 and 0.8.0 InnoSetup), bugfixes, fixes Italian translation
 Wim Lewis	Code fix
-Roger Luethi    Code
+Roger Luethi	Code
 Caolán McNamara	code fix
 Cristian Marchi	Italian translation and 2010 artwork
 Zoran Mesec	GSoC 2007 feature detector, GSoC 2008 mentor, initial Slovenian translation
@@ -50,7 +50,7 @@ Andrew Mihal	original author of enblend, enfuse, nona-gpu. GSoC 2009 mentor
 Thomas Modes	statistic CP cleaner, multi-row CP detection, masking tool, GSoC 2010 mentor, code and bugfixes
 Tiziano Müller	code
 John Navas	MSI installer
-José Alejandro Carrillo Neira Spanish translation
+José Alejandro Carrillo Neira	Spanish translation
 Tim Nugent	GSoC 2008 Celeste, GSoC 2009 Lens Calibration, GSoC 2010 mentor
 Simon Oosthoek	Dutch translation
 Emanuele Panz	Windows installer (2010.02 transition to Nullsoft NSIS)
@@ -68,8 +68,9 @@ Michał Smoczyk	Polish translation
 Svetoslav Stefanov	Bulgarian initial translation
 Gary Stein	Autocrop functionality
 Riz Thon	French translation
-Dave Tow        cmake patch
+Dave Tow	cmake patch
 Brent Townshend	code and bug fixes
+Masahiro Kitagawa	Japanese translation updates
 Lorenz Trischberger	German translation
 Ken Turkowski	code
 Ippei Ukai	MacOSX port, initial Japanese translation, GSoC 2007 code refactoring
