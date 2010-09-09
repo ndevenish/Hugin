@@ -149,9 +149,5 @@ int main(int argc, char *argv[])
             makeFileStream,
             "");
 
-    for(std::vector<std::string>::iterator it = outputFiles.begin(); it != outputFiles.end(); it++)
-    {
-    	std::cout << *it << '\n';
-    }
     return 0;
 }
