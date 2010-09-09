@@ -124,7 +124,8 @@ private:
 			std::vector<std::string>& inputs);
 
 	void createcheckProgCmd(makefile::Rule& testrule, const std::string& progName, const std::string& progCommand);
-
+    void echoInfo(makefile::Rule& inforule, const std::string& info);
+    void printSystemInfo(makefile::Rule& inforule);
 	bool writeMakefile()
 	{
 		return makefile::Makefile::getSingleton().writeMakefile(makefile) != 0;
