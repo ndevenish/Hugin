@@ -54,8 +54,6 @@ along with hugin.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef __APPLE__
 #include <CoreFoundation/CoreFoundation.h>
 #else
-#include <sys/utsname.h>
-#include <sys/sysinfo.h>
 #endif
 #endif
 /// Automates an very often occuring sequence
@@ -1202,6 +1200,40 @@ void PanoramaMakefilelibExport::printSystemInfo(Rule& inforule)
         infostream << freeBytes/(1024*1024) << " MiB";
         echoInfo(inforule,"Free space on disc: " + infostream.str());
     };
+    infostream.str("");
+    UINT cp=GetACP();
+    infostream << cp;
+    switch(cp)
+    {
+    case 1250:
+        infostream << " (Central European Windows)";
+        break;
+    case 1251:
+        infostream << " (Cyrillic Windows)";
+        break;
+    case 1252:
+        infostream << " (Western European Windows)";
+        break;
+    case 1253:
+        infostream << " (Greek Windows)";
+        break;
+    case 1254:
+        infostream << " (Turkish Windows)";
+        break;
+    case 1255:
+        infostream << " (Hebrew Windows)";
+        break;
+    case 1256:
+        infostream << " (Arabic Windows)";
+        break;
+    case 1257:
+        infostream << " (Baltic Windows)";
+        break;
+    case 1258:
+        infostream << " (Vietnamese Windows)";
+        break;
+    };
+    echoInfo(inforule,"Active codepage: " + infostream.str());
 #else
 #ifdef __APPLE__
     infostream.str("");
