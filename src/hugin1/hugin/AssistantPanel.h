@@ -83,6 +83,7 @@ private:
     wxPanel *  m_panel;
     wxStaticText * m_imagesText;
     wxButton * m_alignButton;
+    wxButton * m_alignBatchButton;
     wxStaticText * m_alignText;
     wxButton * m_createButton;
     wxCheckBox * m_exifToggle;

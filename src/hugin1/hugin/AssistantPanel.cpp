@@ -139,6 +139,10 @@ bool AssistantPanel::Create(wxWindow *parent, wxWindowID id, const wxPoint& pos,
     DEBUG_ASSERT(m_alignButton);
     m_alignButton->Disable();
 
+    m_alignBatchButton = XRCCTRL(*this, "ass_align_batch_button", wxButton);
+    DEBUG_ASSERT(m_alignBatchButton);
+    m_alignBatchButton->Disable();
+
     m_alignText = XRCCTRL(*this, "ass_align_text", wxStaticText);
     DEBUG_ASSERT(m_alignText);
 
@@ -209,6 +213,7 @@ void AssistantPanel::panoramaChanged(PT::Panorama &pano)
     m_variable_groups->update();
 
     m_alignButton->Enable(pano.getNrOfImages() > 1);
+    m_alignBatchButton->Enable(pano.getNrOfImages() > 1);
 
     if (pano.getNrOfImages() == 0) {
         m_createButton->Disable();
