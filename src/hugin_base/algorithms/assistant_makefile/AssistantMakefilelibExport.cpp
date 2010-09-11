@@ -44,7 +44,7 @@
 
 #include <panodata/PanoramaData.h>
 #include <hugin_utils/utils.h>
-
+#include "algorithms/optimizer/ImageGraph.h"
 
 namespace HuginBase
 {
@@ -93,18 +93,12 @@ bool AssistantMakefilelibExport::createItems()
     bool runicp=(pano.getNrOfCtrlPoints()==0);
     if(!runicp)
     {
-        CPVector cps=pano.getCtrlPoints();
-        if(cps.size()>0)
-        {
-            //if there are "normal" control points, we skip cp generation
-            //otherwise there are only line control points (horizontal, vertical), in this case
-            //we run cp generation
-            runicp=true;
-            for(unsigned int i=0;i<cps.size() && runicp;i++)
-            {
-                runicp=(cps[i].mode!=ControlPoint::X_Y);
-            }
-        };
+        //we check, if all images are connected
+        //if not, we run also icpfind
+        CPGraph graph;
+        createCPGraph(pano, graph);
+        CPComponents comps;
+        runicp=findCPComponents(graph, comps)>1;
     };
     //build commandline for icpfind
     if(runicp)
