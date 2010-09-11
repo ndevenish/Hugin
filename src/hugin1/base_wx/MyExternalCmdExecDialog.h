@@ -74,6 +74,9 @@ public:
     // for MyPipedProcess
     void OnProcessTerminated(MyPipedProcess *process, int pid, int status);
     //wxListBox *GetLogListBox() const { return m_lbox; }
+    /** save the content of the window into a given log file 
+        @return true if log was saved successful */
+    bool SaveLog(const wxString &filename);
     
     virtual ~MyExecPanel();
 

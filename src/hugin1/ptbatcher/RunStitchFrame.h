@@ -80,6 +80,10 @@ public:
 	void SetProcessId(int pid);
 	//Sets project id from batch
 	void SetProjectId(int id);
+    /** save the content of the window into a given log file 
+        @return true if log was saved successful */
+    bool SaveLog(const wxString &filename);
+
 	
 	//Cancels project execution - kills process
 	void OnCancel(wxCommandEvent & event);

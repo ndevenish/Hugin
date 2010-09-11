@@ -28,6 +28,7 @@
 #include <wx/stdpaths.h>
 #include "PTBatcherGUI.h"
 #include "FindPanoDialog.h"
+#include "FailedProjectsDialog.h"
 
 /* file drag and drop handler method */
 bool BatchDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& filenames)
@@ -101,6 +102,7 @@ BEGIN_EVENT_TABLE(BatchFrame, wxFrame)
 	EVT_CLOSE(BatchFrame::OnClose)
 	EVT_MENU(wxEVT_COMMAND_RELOAD_BATCH, BatchFrame::OnReloadBatch)
 	EVT_MENU(wxEVT_COMMAND_UPDATE_LISTBOX, BatchFrame::OnUpdateListBox)
+    EVT_COMMAND(wxID_ANY, EVT_BATCH_FAILED, BatchFrame::OnBatchFailed)
 END_EVENT_TABLE()
 
 BatchFrame::BatchFrame(wxLocale* locale, wxString xrc)
@@ -262,27 +264,27 @@ void BatchFrame::OnUpdateListBox(wxCommandEvent &event)
 			tempFile.Assign(m_batch->GetProject(i)->path);
 			if(tempFile.FileExists())
 			{
-                if(m_batch->GetProject(i)->target==Project::STITCHING)
-                {
-                    wxDateTime modify;
-	    			modify=tempFile.GetModificationTime();
-		    		if(m_batch->GetProject(i)->skip)
-			    	{
-				    	change = true;
-					    m_batch->GetProject(i)->skip = false;
-    					m_batch->SetStatus(i,Project::WAITING);
-	    				projListBox->ReloadProject(projListBox->GetIndex(m_batch->GetProject(i)->id),m_batch->GetProject(i));
-		    		}
-			    	else if(!modify.IsEqualTo(m_batch->GetProject(i)->modDate))
-				    {
-					    change = true;
-    					m_batch->GetProject(i)->modDate = modify;
-	    				m_batch->GetProject(i)->ResetOptions();
-		    			m_batch->SetStatus(i,Project::WAITING);
-			    		projListBox->ReloadProject(projListBox->GetIndex(m_batch->GetProject(i)->id),m_batch->GetProject(i));
-				    }
-                }
-			}
+                wxDateTime modify;
+	    		modify=tempFile.GetModificationTime();
+				if(m_batch->GetProject(i)->skip)
+		    	{
+			    	change = true;
+				    m_batch->GetProject(i)->skip = false;
+					m_batch->SetStatus(i,Project::WAITING);
+	    			projListBox->ReloadProject(projListBox->GetIndex(m_batch->GetProject(i)->id),m_batch->GetProject(i));
+		    	}
+				else if(!modify.IsEqualTo(m_batch->GetProject(i)->modDate))
+			    {
+				    change = true;
+    				m_batch->GetProject(i)->modDate = modify;
+	    			m_batch->GetProject(i)->ResetOptions();
+		    		if(m_batch->GetProject(i)->target==Project::STITCHING)
+                    {
+                        m_batch->SetStatus(i,Project::WAITING);
+                    };
+		    		projListBox->ReloadProject(projListBox->GetIndex(m_batch->GetProject(i)->id),m_batch->GetProject(i));
+			    }
+            }
 			else
 			{
 				if(m_batch->GetStatus(i) != Project::MISSING)
@@ -1054,3 +1056,10 @@ void BatchFrame::RestoreSize()
 	if(max)
 		this->Maximize();
 }
+
+void BatchFrame::OnBatchFailed(wxCommandEvent &event)
+{
+    FailedProjectsDialog failedProjects_dlg(this,m_batch,m_xrcPrefix);
+    failedProjects_dlg.ShowModal();
+
+};

@@ -111,16 +111,6 @@ void RunStitchFrame::OnProcessTerminate(wxProcessEvent & event)
     } else {
         m_isStitching = false;
         if (event.GetExitCode() != 0) {
-            if(m_isDetecting)
-            {
-                wxMessageBox(_("The assistant did not complete successful. Please check the resulting project file."),
-                    _("Warning"),wxOK | wxICON_INFORMATION, this); 
-            }
-            else
-            {
-                wxMessageBox(_("Error during stitching\nPlease report the complete text to the bug tracker on http://sf.net/projects/hugin."),
-                     _("Error during stitching"), wxICON_ERROR | wxOK );
-            };
 			event.SetEventObject( this );
 			event.SetId(m_projectId);
 			//this->GetParent()->ProcessEvent( event );
@@ -168,3 +158,9 @@ bool RunStitchFrame::DetectProject(wxString scriptFile,
     m_isDetecting = true;
     return true;
 }
+
+bool RunStitchFrame::SaveLog(const wxString &filename)
+{
+    return m_stitchPanel->SaveLog(filename);
+};
+

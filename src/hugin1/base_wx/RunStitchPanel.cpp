@@ -421,3 +421,8 @@ long RunStitchPanel::GetPid()
 {
 	return m_execPanel->GetPid();
 }
+
+bool RunStitchPanel::SaveLog(const wxString &filename)
+{
+    return m_execPanel->SaveLog(filename);
+};

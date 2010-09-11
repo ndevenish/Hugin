@@ -514,6 +514,10 @@ MyExecPanel::~MyExecPanel() {
 #endif
 }
 
+bool MyExecPanel::SaveLog(const wxString &filename)
+{
+    return m_textctrl->SaveFile(filename);
+};
 
 // ----------------------------------------------------------------------------
 // MyProcess

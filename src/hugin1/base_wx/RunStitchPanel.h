@@ -72,6 +72,9 @@ public:
 	void PauseStitch();
 	void ContinueStitch();
 	long GetPid();
+    /** save the content of the window into a given log file 
+        @return true if log was saved successful */
+    bool SaveLog(const wxString &filename);
 
 private:
 	bool m_paused;

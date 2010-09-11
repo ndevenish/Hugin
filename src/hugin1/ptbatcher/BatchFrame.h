@@ -130,6 +130,8 @@ private:
 	void OnReloadBatch(wxCommandEvent &event);
 	/** called by thread to update listbox */
 	void OnUpdateListBox(wxCommandEvent &event);
+    /** called when batch was finished and there are failed projects */
+    void OnBatchFailed(wxCommandEvent &event);
 
 	DECLARE_EVENT_TABLE()
 	//PTPrograms progs;

@@ -45,6 +45,12 @@
 
 using namespace std;
 
+struct FailedProject
+{
+    wxString project;
+    wxString logfile;
+};
+
 class Batch : public wxFrame
 {
 public:
@@ -133,6 +139,12 @@ public:
 	 * @param isVisible If true display the project output, otherwise hide it.
 	 */
 	void ShowOutput(bool isVisible=true);
+    /** returns number of failed projects */
+    size_t GetFailedProjectsCount() { return m_failedProjects.size(); };
+    /** returns project file name of failed project with index i */
+    wxString GetFailedProjectName(unsigned int i);
+    /** returns log file name of failed project with index i */
+    wxString GetFailedProjectLog(unsigned int i);
 
 private:
 	//environment config objects
@@ -150,6 +162,9 @@ private:
 	bool m_paused;
 	bool m_running;
 	bool m_clearedInProgress;
+
+    //vector, which stores the failed projects and filename of saved logfile
+    std::vector<FailedProject> m_failedProjects;
 	
 	//external program config
 	PTPrograms progs;
@@ -157,5 +172,7 @@ private:
 
 	DECLARE_EVENT_TABLE()
 };
+
+DECLARE_EVENT_TYPE(EVT_BATCH_FAILED,-1)
 
 #endif //BATCH_H

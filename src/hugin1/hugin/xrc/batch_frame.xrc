@@ -288,4 +288,69 @@
       </object>
     </object>
   </object>
+  <object class="wxDialog" name="failed_project_dialog">
+    <title>Status report</title>
+    <object class="wxBoxSizer">
+      <orient>wxVERTICAL</orient>
+      <object class="sizeritem">
+        <object class="wxBoxSizer">
+          <orient>wxHORIZONTAL</orient>
+          <object class="sizeritem">
+            <object class="wxSplitterWindow">
+              <object class="wxPanel">
+                <object class="wxStaticBoxSizer">
+                  <label>Failed projects</label>
+                  <orient>wxVERTICAL</orient>
+                  <object class="sizeritem">
+                    <object class="wxListBox" name="failed_list">
+                      <content/>
+                      <style>wxLB_SINGLE</style>
+                    </object>
+                    <option>1</option>
+                    <flag>wxALL|wxEXPAND</flag>
+                    <border>6</border>
+                  </object>
+                </object>
+              </object>
+              <object class="wxPanel">
+                <object class="wxStaticBoxSizer">
+                  <label>Output</label>
+                  <orient>wxVERTICAL</orient>
+                  <object class="sizeritem">
+                    <object class="wxTextCtrl" name="failed_log">
+                      <style>wxTE_MULTILINE|wxTE_READONLY</style>
+                    </object>
+                    <option>1</option>
+                    <flag>wxALL|wxEXPAND</flag>
+                    <border>6</border>
+                  </object>
+                </object>
+              </object>
+              <orientation>vertical</orientation>
+              <style>wxSP_NOBORDER|wxSP_NO_XP_THEME</style>
+            </object>
+            <option>1</option>
+            <flag>wxALL|wxEXPAND</flag>
+          </object>
+        </object>
+        <option>1</option>
+        <flag>wxALL|wxEXPAND</flag>
+        <border>5</border>
+      </object>
+      <object class="sizeritem">
+        <object class="wxStdDialogButtonSizer">
+          <object class="button">
+            <object class="wxButton" name="wxID_OK">
+              <label></label>
+              <label>&amp;Close</label>
+              <default>1</default>
+            </object>
+          </object>
+        </object>
+        <flag>wxALL|wxEXPAND</flag>
+        <border>6</border>
+      </object>
+    </object>
+    <style>wxDEFAULT_DIALOG_STYLE|wxSYSTEM_MENU|wxRESIZE_BORDER|wxRESIZE_BOX|wxCLOSE_BOX</style>
+  </object>
 </resource>

@@ -31,6 +31,8 @@ BEGIN_EVENT_TABLE(Batch, wxFrame)
  EVT_END_PROCESS(-1, Batch::OnProcessTerminate)
 END_EVENT_TABLE()
 
+DEFINE_EVENT_TYPE(EVT_BATCH_FAILED)
+
 Batch::Batch(wxFrame* parent, wxString path, bool bgui) : wxFrame(parent,wxID_ANY,_T("Batch")){
 	//default flag settings
 	parallel = false;
@@ -467,7 +469,31 @@ void Batch::OnProcessTerminate(wxProcessEvent & event)
 			m_paused = false;
 		i = GetIndex(event.GetId());
 		if (event.GetExitCode() != 0 || event.GetTimestamp()==-1) //timestamp is used as a fake exit code because it cannot be set manually
-			m_projList.Item(i).status=Project::FAILED;
+        {
+            m_projList.Item(i).status=Project::FAILED;
+            struct FailedProject failedProject;
+            failedProject.project=m_projList.Item(i).path;
+            failedProject.logfile=wxEmptyString;
+            //get filename for automatic saving of log file
+            wxFileName logFile(m_projList.Item(i).path);
+            logFile.MakeAbsolute();
+            logFile.SetExt(wxT("log"));
+            wxString name=logFile.GetName();
+            unsigned int i=1;
+            while(logFile.FileExists() && i<1000)
+            {
+                logFile.SetName(wxString::Format(wxT("%s_%d"),name.c_str(),i));
+                i++;
+            };
+            if(i<1000)
+            {
+                //now save log file
+                if(((RunStitchFrame*)(event.GetEventObject()))->SaveLog(logFile.GetFullPath()))
+                    failedProject.logfile=logFile.GetFullPath();
+            };
+            //remember failed project
+            m_failedProjects.push_back(failedProject);
+        }
 		else		
 			m_projList.Item(i).status=Project::FINISHED;
 		if(!m_cancelled && !m_paused)
@@ -487,8 +513,15 @@ void Batch::OnProcessTerminate(wxProcessEvent & event)
 				else
 				{
 					if(gui)
-						//SetStatusText(_T("Project \""+m_projList.Item(i).path)+_T("\" finished. Batch completed with errors."));
+                    {
 						SetStatusText(_("Batch completed with errors."));
+                        if(!shutdown)
+                        {
+                            //notify parent, that at least one project failed
+                            wxCommandEvent e(EVT_BATCH_FAILED,wxID_ANY);
+                            GetParent()->AddPendingEvent(e);
+                        };
+                    }
 					else
 						//cout << "Project \"" << m_projList.Item(i).path.char_str() << "\" finished. Batch completed with errors." << endl;
 						cout << "Batch completed with errors." << endl;
@@ -749,6 +782,7 @@ void Batch::RunBatch()
 		cout << "Batch is empty." << endl;
 	else if(!m_running)
 	{
+        m_failedProjects.clear();
 		if(gui)
 			((wxFrame*)GetParent())->SetStatusText(_("Running batch..."));
 		else
@@ -960,4 +994,20 @@ void Batch::ShowOutput(bool isVisible)
 	{
 		m_stitchFrames.Item(i)->Show(isVisible);
 	};
+};
+
+wxString Batch::GetFailedProjectName(unsigned int i)
+{
+    if(i>=0 && i<m_failedProjects.size())
+        return m_failedProjects[i].project;
+    else
+        return wxEmptyString;
+};
+
+wxString Batch::GetFailedProjectLog(unsigned int i)
+{
+    if(i>=0 && i<m_failedProjects.size())
+        return m_failedProjects[i].logfile;
+    else
+        return wxEmptyString;
 };
