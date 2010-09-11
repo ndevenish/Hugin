@@ -510,7 +510,7 @@ SET(CPACK_SOURCE_IGNORE_FILES
 "Makefile\\\\.in$"
 "/\\\\.hg/"
  )
-set(CPACK_DEBIAN_PACKAGE_DEPENDS "libpano13 (>=2.9.15)")
+SET(CPACK_DEBIAN_PACKAGE_DEPENDS "libpano13 (>=2.9.17), libpost2c2, libglew1.5, freeglut3, libboost-filesystem1.40.0, liblcms1, libopenexr6, libtiff4")
 INCLUDE(CPack)
 
 ##
