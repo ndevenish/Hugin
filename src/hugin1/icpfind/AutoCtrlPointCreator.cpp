@@ -151,8 +151,24 @@ wxString GetProgPath(wxString progName)
     wxString bundled=GetBundledProg(progName);
     if(!bundled.IsEmpty())
         return bundled;
-#endif
+#else 
+#ifdef __WXMSW__
+    wxFileName prog(progName);
+    if(prog.IsAbsolute())
+    {
+        return progName;
+    }
+    else
+    {
+        wxPathList pathlist;
+        pathlist.Add(getExePath(wxTheApp->argv[0]));
+        pathlist.AddEnvList(wxT("PATH"));
+        return pathlist.FindAbsoluteValidPath(progName);
+    };
+#else
     return progName;
+#endif
+#endif
 };
 
 bool CanStartProg(wxString progName,wxWindow* parent)
@@ -170,6 +186,9 @@ bool CanStartProg(wxString progName,wxWindow* parent)
     else
     {
         wxPathList pathlist;
+#ifdef __WXMSW__
+        pathlist.Add(getExePath(wxTheApp->argv[0]));
+#endif
         pathlist.AddEnvList(wxT("PATH"));
         wxString path = pathlist.FindAbsoluteValidPath(progName);
         if(path.IsEmpty())
