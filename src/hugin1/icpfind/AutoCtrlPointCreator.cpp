@@ -452,16 +452,6 @@ CPVector AutoPanoSift::automatch(CPDetectorSetting &setting, PT::Panorama & pano
     wxString generateKeysArgs=setting.GetArgs();
     wxString matcherArgs = setting.GetArgsMatcher();
     
-#ifdef __WXMSW__
-    // remember cwd.
-    wxString cwd = wxGetCwd();
-    wxString apDir = wxPathOnly(generateKeysExe);
-    if (apDir.Len() > 0) 
-    {
-        wxSetWorkingDirectory(apDir);
-    }
-#endif
-
     wxString tempDir= wxConfigBase::Get()->Read(wxT("tempDir"),wxT(""));
     if(!tempDir.IsEmpty())
         if(tempDir.Last()!=wxFileName::GetPathSeparator())
@@ -557,10 +547,6 @@ CPVector AutoPanoSift::automatch(CPDetectorSetting &setting, PT::Panorama & pano
                      _("Too many images selected"), parent );
         return cps;
     }
-    apDir = wxPathOnly(matcherExe);
-    if (apDir.Len() > 0) {
-        wxSetWorkingDirectory(apDir);
-    }
 #endif
 
     wxString cmd = matcherExe + wxT(" ") + matcherArgs;
@@ -601,11 +587,6 @@ CPVector AutoPanoSift::automatch(CPDetectorSetting &setting, PT::Panorama & pano
 
     // read and update control points
     cps = readUpdatedControlPoints((const char *)ptofile.mb_str(HUGIN_CONV_FILENAME), pano);
-
-#ifdef __WXMSW__
-	// set old cwd.
-	wxSetWorkingDirectory(cwd);
-#endif
 
     if (!wxRemoveFile(ptofile)) {
         DEBUG_DEBUG("could not remove temporary file: " << ptofile.c_str());
