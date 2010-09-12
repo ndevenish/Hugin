@@ -144,6 +144,12 @@ void parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
 		SwitchArg aArgWriteAllKeyFiles("","kall", "Write keyfiles for all images", false);
 		cmd.add( aArgWriteAllKeyFiles );
 
+        SwitchArg aArgCacheKeyfiles("c", "cache", "Caches keypoints to external file", false);
+        cmd.add(aArgCacheKeyfiles);
+
+        SwitchArg aArgClean("", "clean", "Clean up cached keyfiles", false);
+        cmd.add(aArgClean);
+
 		cmd.parse(argc,argv);
 
 		//
@@ -177,7 +183,12 @@ void parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
 		if (aArgCores.isSet())				ioPanoDetector.setCores(aArgCores.getValue());
 
 		if (aArgWriteAllKeyFiles.isSet())		ioPanoDetector.setWriteAllKeyPoints();
-		ioPanoDetector.setKeyPointsIdx(aArgWriteKeyFiles.getValue());
+        ioPanoDetector.setKeyPointsIdx(aArgWriteKeyFiles.getValue());
+
+        if(aArgCacheKeyfiles.isSet())
+            ioPanoDetector.setCached(true);
+        if(aArgClean.isSet())
+            ioPanoDetector.setCleanup(true);
 
 	} catch ( ArgException& e )
 	{ 

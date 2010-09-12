@@ -109,6 +109,10 @@ public:
 	//	inline void setNumberOfKeys(int iNumKeys) { _numKeys = iNumKeys; }
 	inline void setOutputFile(const std::string& outputFile) { _outputFile = outputFile; }
 	inline void setInputFile(const std::string& inputFile) { _inputFile = inputFile; }
+    inline bool getCached() const { return _cache; }
+    inline void setCached(bool iCached) { _cache = iCached; }
+    inline bool getCleanup() const { return _cleanup; }
+    inline void setCleanup(bool iCleanup) { _cleanup = iCleanup; }
 	inline void setTest(bool iTest) { _test = iTest; }
 	inline bool getTest() const { return _test; }
 	inline void setCores(int iCores) { _cores = iCores; }
@@ -146,6 +150,8 @@ private:
 	bool						_test;
 	int						_cores;
    bool                 _downscale;
+    bool        _cache;
+    bool        _cleanup;
 		
 //	bool						_stereoRemap;
 
@@ -162,6 +168,7 @@ private:
 //	void					loadImages();
 //	void					remapBackMatches();
 	bool	      		checkLoadSuccess();
+    void CleanupKeyfiles();
 	void					prepareMatches();
 
 	void					writeOutput();
@@ -227,6 +234,7 @@ private:
 	MatchData_t				_matchesData;
 };
 
-
+/** returns the filename for the keyfile for a given image */
+std::string getKeyfilenameFor(std::string filename);
 
 #endif // __detectpano_panodetector_h

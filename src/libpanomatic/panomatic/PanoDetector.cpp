@@ -29,12 +29,19 @@ using namespace HuginBase::Nona;
 using namespace hugin_utils;
 
 
+std::string getKeyfilenameFor(std::string filename)
+{
+    std::string newfilename(filename);
+    newfilename.append(".key");
+    return newfilename;
+};
+
 PanoDetector::PanoDetector() :	_outputFile("default.pto"),
 	_writeAllKeyPoints(false),
 	_sieve1Width(10), _sieve1Height(10), _sieve1Size(30), 
 	_kdTreeSearchSteps(40), _kdTreeSecondDistance(0.15), _sieve2Width(5), _sieve2Height(5),
 	_sieve2Size(2), _test(false), _cores(utils::getCPUCount()), _ransacIters(1000), _ransacDistanceThres(25),
-	_minimumMatches(4), _linearMatch(false), _linearMatchLen(1), _downscale(true)
+    _minimumMatches(4), _linearMatch(false), _linearMatchLen(1), _downscale(true), _cache(false), _cleanup(false)
 {
 	_panoramaInfo = new Panorama();
 }
@@ -48,9 +55,8 @@ bool PanoDetector::checkData()
 		std::cout << "Linear match length must be at least 1." << std::endl;
 		return false;
 	}
-	
-	
-	// check the test mode
+
+    // check the test mode
 	if (_test)
 	{
 		if (_filesData.size() != 2)
@@ -65,18 +71,17 @@ bool PanoDetector::checkData()
 
 void PanoDetector::printDetails()
 {
-	cout << "Input file        : " << _inputFile << endl;
-	if (_writeAllKeyPoints)
-	{
-		cout << "Output files      :  one keyfile per image" << endl;
-	} else if (_keyPointsIdx.size() != 0) {
-		cout << "Output file(s)      :  keyfile(s) for images";
-			for (unsigned int i = 0; i < _keyPointsIdx.size(); ++i)
-				cout << " " << _keyPointsIdx[i] ;
-		cout << endl;
-	} else {
-		cout << "Output file       : " << _outputFile << endl;
-	}
+    cout << "Input file        : " << _inputFile << endl;
+    if (_keyPointsIdx.size() != 0)
+    {
+        cout << "Output file(s)      :  keyfile(s) for images";
+        for (unsigned int i = 0; i < _keyPointsIdx.size(); ++i)
+        cout << " " << _keyPointsIdx[i] << endl;
+    }
+    else
+    {
+        cout << "Output file       : " << _outputFile << endl;
+    }
 	cout << "Number of CPU     : " << _cores << endl << endl;
 	cout << "Input image options" << endl;
 	cout << "  Downscale to half-size : " << (_downscale?"yes":"no") << endl;
@@ -193,35 +198,51 @@ void PanoDetector::run()
 	srandom((unsigned int)time(NULL));
 	PoolExecutor aExecutor(_cores);
 
-	// Load the input project file
-	if(!loadProject()) return;
+    // Load the input project file
+    if(!loadProject())
+    {
+        return;
+    };
+    if(_writeAllKeyPoints)
+    {
+        for(unsigned int i=0;i<_panoramaInfo->getNrOfImages();i++)
+        {
+            _keyPointsIdx.push_back(i);
+        };
+    };
 
-	// 2. run analysis of images or keypoints
-	try 
-	{
-		if (_keyPointsIdx.size() != 0) {
-			TRACE_INFO(endl<< "--- Analyze Keypoints ---" << endl);
-			for (unsigned int i = 0; i < _keyPointsIdx.size(); ++i)
-				aExecutor.execute(new WriteKeyPointsRunnable(_filesData[_keyPointsIdx[i]], *this));
+    if(_cleanup)
+    {
+        CleanupKeyfiles();
+        return;
+    };
 
-		} else if (_writeAllKeyPoints) {
-			TRACE_INFO(endl<< "--- Analyze Keypoints---" << endl);
-			for (ImgDataIt_t aB = _filesData.begin(); aB != _filesData.end(); ++aB)
-				aExecutor.execute(new WriteKeyPointsRunnable(aB->second, *this));
-
-		} else {
-			TRACE_INFO(endl<< "--- Analyze Images ---" << endl);
-			for (ImgDataIt_t aB = _filesData.begin(); aB != _filesData.end(); ++aB)
-			{
-				if (aB->second._hasakeyfile) {
-					aExecutor.execute(new LoadKeypointsDataRunnable(aB->second, *this));
-
-				} else {
-					aExecutor.execute(new ImgDataRunnable(aB->second, *this));
-
-				}
-			}
-		}
+    // 2. run analysis of images or keypoints
+    try 
+    {
+        if (_keyPointsIdx.size() != 0)
+        {
+            TRACE_INFO(endl<< "--- Analyze Images ---" << endl);
+            for (unsigned int i = 0; i < _keyPointsIdx.size(); ++i)
+            {
+                aExecutor.execute(new WriteKeyPointsRunnable(_filesData[_keyPointsIdx[i]], *this));
+            };
+        }
+        else
+        {
+            TRACE_INFO(endl<< "--- Analyze Images ---" << endl);
+            for (ImgDataIt_t aB = _filesData.begin(); aB != _filesData.end(); ++aB)
+            {
+                if (aB->second._hasakeyfile)
+                {
+                    aExecutor.execute(new LoadKeypointsDataRunnable(aB->second, *this));
+                }
+                else
+                {
+                    aExecutor.execute(new ImgDataRunnable(aB->second, *this));
+                }
+            }
+        }
 		aExecutor.wait();
 	} 
 	catch(Synchronization_Exception& e)
@@ -230,15 +251,15 @@ void PanoDetector::run()
 		return;
 	}
 
-	// check if the load of images succeed.
+    // check if the load of images succeed.
    if (!checkLoadSuccess())
    {
        TRACE_INFO("One or more images failed to load. Exiting.");
        return;
    }
   
-	// Detect matches if writeKeyPoints wasn't set  
-	if(!_writeAllKeyPoints && _keyPointsIdx.size() == 0)
+    // Detect matches if writeKeyPoints wasn't set  
+    if(_keyPointsIdx.size() == 0)
 	{
 		// 3. prepare matches
 		prepareMatches();
@@ -265,21 +286,31 @@ void PanoDetector::run()
 	}
 	
 	// 5. write output
-	if(_writeAllKeyPoints)
-	{ //Write specified keyfiles
-		TRACE_INFO(endl<< "--- Write Keyfiles output ---" << endl << endl);
-			for (ImgDataIt_t aB = _filesData.begin(); aB != _filesData.end(); ++aB)
-				writeKeyfile(aB->second);
-
-	} else if (_keyPointsIdx.size() != 0) { //Write all keyfiles
-		TRACE_INFO(endl<< "--- Write Keyfiles output ---" << endl << endl);
-			for (unsigned int i = 0; i < _keyPointsIdx.size(); ++i)
-				writeKeyfile(_filesData[_keyPointsIdx[i]]);
-
-	} else { /// Write output project
-		TRACE_INFO(endl<< "--- Write Project output ---" << endl << endl);
-		writeOutput();
-	}
+    if (_keyPointsIdx.size() != 0)
+    {
+        //Write all keyfiles
+        TRACE_INFO(endl<< "--- Write Keyfiles output ---" << endl << endl);
+        for (unsigned int i = 0; i < _keyPointsIdx.size(); ++i)
+        {
+            writeKeyfile(_filesData[_keyPointsIdx[i]]);
+        };
+    }
+    else
+    {
+        TRACE_INFO(endl<< "--- Write Project output ---" << endl << endl);
+        writeOutput();
+        /// Write output project
+        if(_cache)
+        {
+            for (ImgDataIt_t aB = _filesData.begin(); aB != _filesData.end(); ++aB)
+            {
+                if (!aB->second._hasakeyfile)
+                {
+                    writeKeyfile(aB->second);
+                };
+            };
+        };
+    };
 }
 
 bool PanoDetector::loadProject()
@@ -356,16 +387,16 @@ bool PanoDetector::loadProject()
             aImgData._projOpts.setWidth(_filesData[imgNr]._detectWidth);
             aImgData._projOpts.setHeight(_filesData[imgNr]._detectHeight);
             aImgData._projOpts.setProjection(PanoramaOptions::STEREOGRAPHIC);
-		}
+        }
 
-		// Specify if the image has an associated keypoint file
-		std::string keyfilename = aImgData._name;
-		keyfilename.append(".key");
-		ifstream keyfile(keyfilename.c_str());
-		aImgData._hasakeyfile = keyfile.good();
-	}
+        // Specify if the image has an associated keypoint file
 
-	return true;
+        std::string keyfilename = getKeyfilenameFor(aImgData._name);
+        ifstream keyfile(keyfilename.c_str());
+        aImgData._hasakeyfile = keyfile.good();
+    }
+
+    return true;
 }
 
 bool PanoDetector::checkLoadSuccess()
@@ -374,22 +405,36 @@ bool PanoDetector::checkLoadSuccess()
     {
         for (unsigned int i = 0; i < _keyPointsIdx.size(); ++i)
         {
-            ImgData& aID = _filesData[_keyPointsIdx[i]];
-            if (aID._loadFail) 
+            if(_filesData[_keyPointsIdx[i]]._loadFail)
+            {
                 return false;
-        }
+            };
+        };
     }
     else
     {
         for (unsigned int aFileN = 0; aFileN < _filesData.size(); ++aFileN)
         {
-            ImgData& aID = _filesData[aFileN];
-            if (aID._loadFail) 
+            if(_filesData[aFileN]._loadFail)
+            {
                 return false;
-        }
+            };
+        };
     };
     return true;
 }
+
+void PanoDetector::CleanupKeyfiles()
+{
+    for (ImgDataIt_t aB = _filesData.begin(); aB != _filesData.end(); ++aB)
+    {
+        if (aB->second._hasakeyfile)
+        {
+            std::string keyfilename = getKeyfilenameFor(aB->second._name);
+            remove(keyfilename.c_str());
+        };
+    };
+};
 
 void PanoDetector::prepareMatches()
 {
