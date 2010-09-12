@@ -66,6 +66,8 @@ CPDetectorDialog::CPDetectorDialog(wxWindow* parent)
     m_edit_desc = XRCCTRL(*this, "prefs_cpdetector_desc", wxTextCtrl);
     m_edit_prog = XRCCTRL(*this, "prefs_cpdetector_program", wxTextCtrl);
     m_edit_args = XRCCTRL(*this, "prefs_cpdetector_args", wxTextCtrl);
+    m_label_args_cleanup = XRCCTRL(*this, "prefs_cpdetector_args_label_cleanup", wxStaticText);
+    m_edit_args_cleanup = XRCCTRL(*this, "prefs_cpdetector_args_cleanup", wxTextCtrl);
     m_edit_prog_descriptor = XRCCTRL(*this, "prefs_cpdetector_program_descriptor", wxTextCtrl);
     m_edit_args_descriptor = XRCCTRL(*this, "prefs_cpdetector_args_descriptor", wxTextCtrl);
     m_edit_prog_matcher = XRCCTRL(*this, "prefs_cpdetector_program_matcher", wxTextCtrl);
@@ -110,8 +112,7 @@ void CPDetectorDialog::OnOk(wxCommandEvent & e)
         valid=valid && (m_edit_args_descriptor->GetValue().Trim().Len()>0);
         valid=valid && (m_edit_args_matcher->GetValue().Trim().Len()>0);
     };
-    int type=m_cpdetector_type->GetSelection();
-    if(type==CPDetector_AutoPanoSiftStack || type==CPDetector_AutoPanoSiftMultiRowStack)
+    if(CPDetectorSetting::ContainsStacks((CPDetectorType)(m_cpdetector_type->GetSelection())))
         if(m_edit_prog_stack->GetValue().Trim().Len()>0)
             valid=valid && (m_edit_args_stack->GetValue().Trim().Len()>0);
     if(valid)        
@@ -138,14 +139,17 @@ void CPDetectorDialog::UpdateFields(CPDetectorConfig* cpdet_config,int index)
         m_choice_step->SetSelection(0);
         m_edit_prog->SetValue(cpdet_config->settings[index].GetProg());
         m_edit_args->SetValue(cpdet_config->settings[index].GetArgs());
+        if(cpdet_config->settings[index].IsCleanupPossible())
+        {
+            m_edit_args_cleanup->SetValue(cpdet_config->settings[index].GetArgsCleanup());
+        };
     };
-    int type=cpdet_config->settings[index].GetType();
-    if(type==CPDetector_AutoPanoSiftStack || type==CPDetector_AutoPanoSiftMultiRowStack)
+    if(cpdet_config->settings[index].ContainsStacks())
     {
         m_edit_prog_stack->SetValue(cpdet_config->settings[index].GetProgStack());
         m_edit_args_stack->SetValue(cpdet_config->settings[index].GetArgsStack());
     };
-    m_cpdetector_type->SetSelection(type);
+    m_cpdetector_type->SetSelection(cpdet_config->settings[index].GetType());
     m_check_option->SetValue(cpdet_config->settings[index].GetOption());
     ChangeType();
 };
@@ -158,6 +162,14 @@ void CPDetectorDialog::UpdateSettings(CPDetectorConfig* cpdet_config,int index)
     {
         cpdet_config->settings[index].SetProg(m_edit_prog->GetValue().Trim());
         cpdet_config->settings[index].SetArgs(m_edit_args->GetValue().Trim());
+        if(cpdet_config->settings[index].IsCleanupPossible())
+        {
+            cpdet_config->settings[index].SetArgsCleanup(m_edit_args_cleanup->GetValue().Trim());
+        }
+        else
+        {
+            cpdet_config->settings[index].SetArgsCleanup(wxEmptyString);
+        };
     }
     else
     {
@@ -166,12 +178,16 @@ void CPDetectorDialog::UpdateSettings(CPDetectorConfig* cpdet_config,int index)
         cpdet_config->settings[index].SetProgMatcher(m_edit_prog_matcher->GetValue().Trim());
         cpdet_config->settings[index].SetArgsMatcher(m_edit_args_matcher->GetValue().Trim());
     };
-    CPDetectorType type=cpdet_config->settings[index].GetType();
-    if(type==CPDetector_AutoPanoSiftStack || type==CPDetector_AutoPanoSiftMultiRowStack)
+    if(cpdet_config->settings[index].ContainsStacks())
     {
         cpdet_config->settings[index].SetProgStack(m_edit_prog_stack->GetValue().Trim());
         cpdet_config->settings[index].SetArgsStack(m_edit_args_stack->GetValue().Trim());
-    };
+    }
+    else
+    {
+        cpdet_config->settings[index].SetProgStack(wxEmptyString);
+        cpdet_config->settings[index].SetArgsStack(wxEmptyString);
+    }
     cpdet_config->settings[index].SetOption(m_check_option->IsChecked());
 };
 
@@ -182,16 +198,17 @@ void CPDetectorDialog::OnTypeChange(wxCommandEvent &e)
 
 void CPDetectorDialog::ChangeType()
 {
-    int type=m_cpdetector_type->GetSelection();
+    CPDetectorType type=(CPDetectorType)m_cpdetector_type->GetSelection();
     if(type==CPDetector_AutoPano)
     {
         m_choice_step->SetSelection(0);
         twoStepAllowed=false;
     }
     else
+    {
         twoStepAllowed=true;
-    bool isActive=(type==CPDetector_AutoPanoSiftStack || type==CPDetector_AutoPanoSiftMultiRowStack);
-    XRCCTRL(*this,"panel_stack",wxPanel)->Enable(isActive);
+    }
+    XRCCTRL(*this,"panel_stack",wxPanel)->Enable(CPDetectorSetting::ContainsStacks(type));
     switch(type)
     {
         case CPDetector_AutoPanoSiftMultiRow:
@@ -214,6 +231,12 @@ void CPDetectorDialog::ChangeType()
             break;
     };
     m_check_option->GetParent()->Layout();
+    bool cleanup_possible=CPDetectorSetting::IsCleanupPossible(type);
+    m_label_args_cleanup->Enable(cleanup_possible);
+    m_label_args_cleanup->Show(cleanup_possible);
+    m_edit_args_cleanup->Enable(cleanup_possible);
+    m_edit_args_cleanup->Show(cleanup_possible);
+    m_label_args_cleanup->GetParent()->Layout();
     Layout();
 };
 

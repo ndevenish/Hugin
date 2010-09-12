@@ -70,6 +70,8 @@ private:
     wxTextCtrl *m_edit_desc;
     wxTextCtrl *m_edit_prog;
     wxTextCtrl *m_edit_args;
+    wxStaticText *m_label_args_cleanup;
+    wxTextCtrl *m_edit_args_cleanup;
     wxTextCtrl *m_edit_prog_descriptor;
     wxTextCtrl *m_edit_args_descriptor;
     wxTextCtrl *m_edit_prog_matcher;

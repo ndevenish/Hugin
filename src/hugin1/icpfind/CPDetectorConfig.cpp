@@ -132,9 +132,17 @@ CPDetectorSetting::CPDetectorSetting(int new_type)
             desc=default_cpdetectors[new_type].desc;
             prog=default_cpdetectors[new_type].prog;
             args=default_cpdetectors[new_type].args;
+            if(IsCleanupPossible())
+            {
+                args_cleanup=default_cpdetectors[new_type].args_cleanup;
+            }
+            else
+            {
+                args_cleanup=wxEmptyString;
+            };
             prog_matcher=default_cpdetectors[new_type].prog_matcher;
             args_matcher=default_cpdetectors[new_type].args_matcher;
-            if(type==CPDetector_AutoPanoSiftStack || type==CPDetector_AutoPanoSiftMultiRowStack)
+            if(ContainsStacks())
             {
                 prog_stack=default_cpdetectors[new_type].prog_stack;
                 args_stack=default_cpdetectors[new_type].args_stack;
@@ -153,6 +161,7 @@ CPDetectorSetting::CPDetectorSetting(int new_type)
         desc=wxEmptyString;
         prog=wxEmptyString;
         args=wxEmptyString;
+        args_cleanup=wxEmptyString;
         prog_matcher=wxEmptyString;
         args_matcher=wxEmptyString;
         prog_stack=wxEmptyString;
@@ -174,15 +183,34 @@ void CPDetectorSetting::CheckValues()
     };
 };
 
+const bool CPDetectorSetting::IsCleanupPossible(CPDetectorType _type)
+{
+    return (_type==CPDetector_AutoPanoSiftMultiRow || 
+            _type==CPDetector_AutoPanoSiftMultiRowStack);
+};
+
+const bool CPDetectorSetting::ContainsStacks(CPDetectorType _type)
+{
+    return (_type==CPDetector_AutoPanoSiftStack || _type==CPDetector_AutoPanoSiftMultiRowStack);
+};
+
 void CPDetectorSetting::Read(wxConfigBase *config, wxString path)
 {
     type=(CPDetectorType)config->Read(path+wxT("/Type"),default_cpdetectors[0].type);
     desc=config->Read(path+wxT("/Description"),default_cpdetectors[0].desc);
     prog=config->Read(path+wxT("/Program"),default_cpdetectors[0].prog);
     args=config->Read(path+wxT("/Arguments"),default_cpdetectors[0].args);
+    if(IsCleanupPossible())
+    {
+        args_cleanup=config->Read(path+wxT("/ArgumentsCleanup"),default_cpdetectors[0].args_cleanup);
+    }
+    else
+    {
+        args_cleanup=wxEmptyString;
+    };
     prog_matcher=config->Read(path+wxT("/ProgramMatcher"),default_cpdetectors[0].prog_matcher);
     args_matcher=config->Read(path+wxT("/ArgumentsMatcher"),default_cpdetectors[0].args_matcher);
-    if(type==CPDetector_AutoPanoSiftStack || type==CPDetector_AutoPanoSiftMultiRowStack)
+    if(ContainsStacks())
     {
         prog_stack=config->Read(path+wxT("/ProgramStack"),default_cpdetectors[0].prog_stack);
         args_stack=config->Read(path+wxT("/ArgumentsStack"),default_cpdetectors[0].args_stack);
@@ -204,7 +232,11 @@ void CPDetectorSetting::Write(wxConfigBase *config, wxString path)
     config->Write(path+wxT("/Arguments"),args);
     config->Write(path+wxT("/ProgramMatcher"),prog_matcher);
     config->Write(path+wxT("/ArgumentsMatcher"),args_matcher);
-    if(type==CPDetector_AutoPanoSiftStack || type==CPDetector_AutoPanoSiftMultiRowStack)
+    if(IsCleanupPossible())
+    {
+        config->Write(path+wxT("/ArgumentsCleanup"),args_cleanup);
+    };
+    if(ContainsStacks())
     {
         config->Write(path+wxT("/ProgramStack"),prog_stack);
         config->Write(path+wxT("/ArgumentsStack"),args_stack);

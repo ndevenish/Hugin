@@ -55,6 +55,8 @@ public:
                            int nFeatures, int & ret_value, wxWindow *parent=NULL);
     virtual HuginBase::CPVector automatch(CPDetectorSetting &setting, PT::Panorama & pano, const PT::UIntSet & imgs,
                            int nFeatures, wxWindow *parent=NULL);
+    virtual void Cleanup(CPDetectorSetting &setting, PT::Panorama & pano, const PT::UIntSet & imgs,
+                           std::vector<wxString> &keyFiles, wxWindow *parent=NULL);
 
 protected:
     HuginBase::CPVector readUpdatedControlPoints(const std::string & file,

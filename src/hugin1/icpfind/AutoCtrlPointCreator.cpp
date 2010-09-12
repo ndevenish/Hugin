@@ -287,19 +287,53 @@ CPVector AutoCtrlPointCreator::automatch(CPDetectorSetting &setting,
     return cps;
 }
 
-void RemoveKeyfiles(vector<wxString> &keyFiles)
+void AutoCtrlPointCreator::Cleanup(CPDetectorSetting &setting, PT::Panorama & pano, const PT::UIntSet & imgs,
+                           std::vector<wxString> &keyFiles, wxWindow *parent)
 {
-    if(keyFiles.size()>0)
+    if(setting.IsTwoStepDetector())
     {
-        for(unsigned int i=0;i<keyFiles.size();i++)
+        if(keyFiles.size()>0)
         {
-            if(wxFileExists(keyFiles[i]))
+            for(unsigned int i=0;i<keyFiles.size();i++)
             {
-                if(!wxRemoveFile(keyFiles[i]))
+                if(wxFileExists(keyFiles[i]))
                 {
-                    DEBUG_DEBUG("could not remove temporary file: " << keyFiles[i].c_str());
+                    if(!wxRemoveFile(keyFiles[i]))
+                    {
+                        DEBUG_DEBUG("could not remove temporary file: " << keyFiles[i].c_str());
+                    };
                 };
             };
+        };
+    }
+    else
+    {
+        if(!setting.IsCleanupPossible())
+        {
+            return;
+        };
+        // create suitable command line..
+        wxString cleanupExe = GetProgPath(setting.GetProg());
+        wxString cleanupArgs = setting.GetArgsCleanup();
+        if(cleanupArgs.IsEmpty())
+        {
+            return;
+        };
+    
+        wxString ptoinfile_name = wxFileName::CreateTempFileName(wxT("ap_inproj"));
+        cleanupArgs.Replace(wxT("%s"), ptoinfile_name);
+        ofstream ptoinstream(ptoinfile_name.mb_str(wxConvFile));
+        pano.printPanoramaScript(ptoinstream, pano.getOptimizeVector(), pano.getOptions(), imgs, false);
+
+        int ret_value=CPExecute(cleanupExe, cleanupArgs, _("cleaning up temporary keypoint files"), parent);
+
+        if(ret_value!=0)
+        {
+            DEBUG_DEBUG("could not cleanup temporary keypoint files");
+        };
+        if(!wxRemoveFile(ptoinfile_name))
+        {
+            DEBUG_DEBUG("could not remove temporary file: " << ptofile.c_str());
         };
     };
 };
@@ -317,7 +351,7 @@ CPVector AutoPanoSift::automatch(CPDetectorSetting &setting, Panorama & pano, co
     {
         std::vector<wxString> keyFiles(pano.getNrOfImages());
         cps=automatch(setting, pano, imgs, nFeatures, keyFiles, ret_value, parent);
-        RemoveKeyfiles(keyFiles);
+        Cleanup(setting, pano, imgs, keyFiles, parent);
         return cps;
     };
     wxString autopanoArgs = setting.GetArgs();
@@ -851,7 +885,7 @@ CPVector AutoPanoSiftMultiRow::automatch(CPDetectorSetting &setting, Panorama & 
             AddControlPointsWithCheck(cps,new_cps);
         if(ret_value!=0)
         {
-            RemoveKeyfiles(keyFiles);
+            Cleanup(setting, pano, imgs, keyFiles, parent);
             return cps;
         };
     };
@@ -886,7 +920,7 @@ CPVector AutoPanoSiftMultiRow::automatch(CPDetectorSetting &setting, Panorama & 
             AddControlPointsWithCheck(cps,new_cps,&optPano);
         if(ret_value!=0)
         {
-            RemoveKeyfiles(keyFiles);
+            Cleanup(setting, pano, imgs, keyFiles, parent);
             return cps;
         };
         createCPGraph(optPano,graph);
@@ -953,7 +987,7 @@ CPVector AutoPanoSiftMultiRow::automatch(CPDetectorSetting &setting, Panorama & 
         if(new_cps.size()>0)
             AddControlPointsWithCheck(cps,new_cps);
     };
-    RemoveKeyfiles(keyFiles);
+    Cleanup(setting, pano, imgs, keyFiles, parent);
     return cps;
 };
 
@@ -1023,7 +1057,11 @@ CPVector AutoPanoSiftMultiRowStack::automatch(CPDetectorSetting &setting, Panora
                 if(new_cps.size()>0)
                     AddControlPointsWithCheck(cps,new_cps);
                 if(ret_value!=0)
+                {
+                    std::vector<wxString> emptyKeyfiles;
+                    Cleanup(setting, pano, imgs, emptyKeyfiles, parent);
                     return cps;
+                };
             };
         };
     }
@@ -1110,10 +1148,10 @@ CPVector AutoPanoSiftPreAlign::automatch(CPDetectorSetting &setting, Panorama & 
             AddControlPointsWithCheck(cps,new_cps);
         if(ret_value!=0)
         {
-            RemoveKeyfiles(keyFiles);
+            Cleanup(setting, pano, imgs, keyFiles, parent);
             return cps;
         };
     };
-    RemoveKeyfiles(keyFiles);
+    Cleanup(setting, pano, imgs, keyFiles, parent);
     return cps;
 };

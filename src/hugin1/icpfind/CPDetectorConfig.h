@@ -72,6 +72,10 @@ public:
     const wxString GetArgs() {return args; };
     /** sets arguments of one step detector or feature descriptor */
     void SetArgs(wxString new_args) { args=new_args; };
+    /** return arguments for the cleanup step */
+    const wxString GetArgsCleanup() {return args_cleanup; };
+    /** sets arguments for the cleanup step */
+    void SetArgsCleanup(wxString new_args) { args_cleanup=new_args; };
     /** return program for feature matcher */
     const wxString GetProgMatcher() {return prog_matcher; };
     /** sets program for feature matcher */
@@ -94,12 +98,19 @@ public:
     void SetOption(bool new_option) { option=new_option; };
     /** returns true, if setting is suitable for two step detector otherwise false */
     const bool IsTwoStepDetector() { return !prog_matcher.IsEmpty(); };
+    /** return true, if setting allows a final cleanup run */
+    static const bool IsCleanupPossible(CPDetectorType _type);
+    const bool IsCleanupPossible() { return IsCleanupPossible(type); };
+    /** return true, if setting contains a stack detector, even it is empty */
+    static const bool ContainsStacks(CPDetectorType _type);
+    const bool ContainsStacks() { return ContainsStacks(type); };
 private:
     void CheckValues();
     CPDetectorType type;
     wxString desc;
     wxString prog;
     wxString args;
+    wxString args_cleanup;
     wxString prog_matcher;
     wxString args_matcher;
     wxString prog_stack;
