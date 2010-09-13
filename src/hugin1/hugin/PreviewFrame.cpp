@@ -67,7 +67,9 @@ enum {
     PROJ_PARAM_VAL_ID = wxID_HIGHEST+1100,
     PROJ_PARAM_SLIDER_ID = wxID_HIGHEST+1200,
     PROJ_PARAM_RESET_ID = wxID_HIGHEST+1250,
-    ID_FULL_SCREEN = wxID_HIGHEST+1700
+    ID_FULL_SCREEN = wxID_HIGHEST+1700,
+    ID_UNDO = wxID_HIGHEST+1701,
+    ID_REDO = wxID_HIGHEST+1702
 };
 
 BEGIN_EVENT_TABLE(PreviewFrame, wxFrame)
@@ -104,6 +106,8 @@ BEGIN_EVENT_TABLE(PreviewFrame, wxFrame)
     EVT_SCROLL_THUMBTRACK(PreviewFrame::OnChangeFOV)
 #endif
     EVT_TOOL(ID_FULL_SCREEN, PreviewFrame::OnFullScreen)
+    EVT_TOOL(ID_UNDO, PreviewFrame::OnUndo)
+    EVT_TOOL(ID_REDO, PreviewFrame::OnRedo)
     EVT_BUTTON(PROJ_PARAM_RESET_ID, PreviewFrame::OnProjParameterReset)
 END_EVENT_TABLE()
 
@@ -369,9 +373,11 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
         Show();
     }
     SetStatusText(_("Center panorama with left mouse button, set horizon with right button"),0);
-    wxAcceleratorEntry entries[1];
+    wxAcceleratorEntry entries[3];
     entries[0].Set(wxACCEL_NORMAL,WXK_F11,ID_FULL_SCREEN);
-    wxAcceleratorTable accel(1, entries);
+    entries[1].Set(wxACCEL_CTRL,(int)'Z',ID_UNDO);
+    entries[2].Set(wxACCEL_CTRL,(int)'Y',ID_REDO);
+    wxAcceleratorTable accel(3, entries);
     SetAcceleratorTable(accel);
 #ifdef __WXGTK__
     // set explicit focus to button panel, otherwise the hotkey F11 is not right processed
@@ -961,5 +967,17 @@ void PreviewFrame::OnFullScreen(wxCommandEvent & e)
     GetToolBar()->Show(true);
 #endif
     m_PreviewPanel->ForceUpdate();
+};
+
+void PreviewFrame::OnUndo(wxCommandEvent &e)
+{
+    wxCommandEvent dummy(wxEVT_COMMAND_MENU_SELECTED, XRCID("ID_EDITUNDO"));
+    m_parent->AddPendingEvent(dummy);
+};
+
+void PreviewFrame::OnRedo(wxCommandEvent &e)
+{
+    wxCommandEvent dummy(wxEVT_COMMAND_MENU_SELECTED, XRCID("ID_EDITREDO"));
+    m_parent->AddPendingEvent(dummy);
 };
 

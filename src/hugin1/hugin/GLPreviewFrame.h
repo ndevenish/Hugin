@@ -143,6 +143,10 @@ protected:
     void updatePano();
     /** event handler for full screen */
     void OnFullScreen(wxCommandEvent &e);
+    /** event handler for undo */
+    void OnUndo(wxCommandEvent &e);
+    /** event handler for redo */
+    void OnRedo(wxCommandEvent &e);
     /** event handler for selection of new mode */
     void OnSelectMode(wxNotebookEvent &e);
     /** event handler for blocking changing mode when panorama contains no images*/

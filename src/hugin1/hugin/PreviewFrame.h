@@ -78,6 +78,10 @@ protected:
     void OnOutputChoice(wxCommandEvent & e);
     /** event handler for full screen */
     void OnFullScreen(wxCommandEvent &e);
+    /** event handler for undo */
+    void OnUndo(wxCommandEvent &e);
+    /** event handler for redo */
+    void OnRedo(wxCommandEvent &e);
 
     // update the panorama display
     void updatePano();
