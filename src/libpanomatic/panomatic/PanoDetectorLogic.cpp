@@ -97,17 +97,27 @@ private:
 
 bool PanoDetector::LoadKeypoints(ImgData& ioImgInfo, const PanoDetector& iPanoDetector)
 {
-	TRACE_IMG("Loading keypoints...");
-	
+    TRACE_IMG("Loading keypoints...");
+
     ImageInfo info = lfeat::loadKeypoints(ioImgInfo._keyfilename, ioImgInfo._kp);
-	ioImgInfo._loadFail = (info.filename.size() == 0);
+    ioImgInfo._loadFail = (info.filename.size() == 0);
 
-	// update ImgData
-	ioImgInfo._detectWidth = info.width;
-	ioImgInfo._detectHeight = info.height;
-	ioImgInfo._descLength = info.dimensions;
+    // update ImgData
+    if(ioImgInfo._needsremap)
+    {
+        ioImgInfo._detectWidth = max(info.width,info.height);
+        ioImgInfo._detectHeight = max(info.width,info.height);
+        ioImgInfo._projOpts.setWidth(ioImgInfo._detectWidth);
+        ioImgInfo._projOpts.setHeight(ioImgInfo._detectHeight);
+    }
+    else
+    {
+        ioImgInfo._detectWidth = info.width;
+        ioImgInfo._detectHeight = info.height;
+    };
+    ioImgInfo._descLength = info.dimensions;
 
-	return true;
+    return true;
 }
 
 bool PanoDetector::AnalyzeImage(ImgData& ioImgInfo, const PanoDetector& iPanoDetector)
@@ -440,42 +450,54 @@ bool PanoDetector::FilterMatchesInPair(MatchData& ioMatchData, const PanoDetecto
 
 bool PanoDetector::RemapBackMatches(MatchData& ioMatchData, const PanoDetector& iPanoDetector)
 {
-	TRACE_PAIR("Remapping back matches...");
-	
-  HuginBase::PTools::Transform trafo1, trafo2;
-	trafo1.createTransform(iPanoDetector._panoramaInfoCopy.getSrcImage(ioMatchData._i1->_number),
-								  ioMatchData._i1->_projOpts);
-	trafo2.createTransform(iPanoDetector._panoramaInfoCopy.getSrcImage(ioMatchData._i2->_number),
-								  ioMatchData._i2->_projOpts);
+    TRACE_PAIR("Remapping back matches...");
 
-   double xout,yout;
-	double scale=iPanoDetector._downscale ? 2.0:1.0;
-	BOOST_FOREACH(PointMatchPtr& aM, ioMatchData._matches)
-	{
-		if(ioMatchData._i1->_needsremap)
-		{
-			if(trafo1.transformImgCoord(xout, yout, aM->_img1_x, aM->_img1_y))
-			{
-				 aM->_img1_x=xout;
-				 aM->_img1_y=yout;
-			}
-		} else {
-			aM->_img1_x*=scale;
-			aM->_img1_y*=scale;
-		}
-		if(ioMatchData._i2->_needsremap)
-		{
-			if(trafo2.transformImgCoord(xout, yout, aM->_img2_x, aM->_img2_y))
-			{
-				 aM->_img2_x=xout;
-				 aM->_img2_y=yout;
-			}
-		} else {
-			aM->_img2_x*=scale;
-			aM->_img2_y*=scale;
-		}
-	}
-	return true;
+    HuginBase::PTools::Transform trafo1, trafo2;
+    trafo1.createTransform(iPanoDetector._panoramaInfoCopy.getSrcImage(ioMatchData._i1->_number),
+                           ioMatchData._i1->_projOpts);
+    trafo2.createTransform(iPanoDetector._panoramaInfoCopy.getSrcImage(ioMatchData._i2->_number),
+                           ioMatchData._i2->_projOpts);
+
+    double xout,yout;
+    double scale=iPanoDetector._downscale ? 2.0:1.0;
+    BOOST_FOREACH(PointMatchPtr& aM, ioMatchData._matches)
+    {
+        if(ioMatchData._i1->_needsremap)
+        {
+            if(trafo1.transformImgCoord(xout, yout, aM->_img1_x, aM->_img1_y))
+            {
+                aM->_img1_x=xout;
+                aM->_img1_y=yout;
+            }
+        }
+        else
+        {
+            if(!ioMatchData._i1->_hasakeyfile)
+            {
+                // we don't do scale, if we loaded keyfiles from disc, because
+                // in keyfiles the keypoints are always for image with full resolution
+                aM->_img1_x*=scale;
+                aM->_img1_y*=scale;
+            };
+        }
+        if(ioMatchData._i2->_needsremap)
+        {
+            if(trafo2.transformImgCoord(xout, yout, aM->_img2_x, aM->_img2_y))
+            {
+                 aM->_img2_x=xout;
+                 aM->_img2_y=yout;
+            }
+        }
+        else
+        {
+            if(!ioMatchData._i2->_hasakeyfile)
+            {
+                aM->_img2_x*=scale;
+                aM->_img2_y*=scale;
+            };
+        }
+    }
+    return true;
 }
 
 void PanoDetector::writeOutput()
