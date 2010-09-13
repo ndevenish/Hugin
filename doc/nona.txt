@@ -59,8 +59,6 @@
 #               FLOAT  - 32 bit floating point
 #              By default the bit depth of the input images is use.
 #
-# TrX,TrY,TrZ  mosaic mode translation offsets.
-#
 # S100,600,100,800   Selection(left,right,top,bottom), Only pixels inside the rectangle
 #                    will be rendered. Images that do not contain pixels in this area
 #                    are not rendered/created.
@@ -132,6 +130,8 @@
 #               its mean value.
 #
 # Ra,Rb,Rc,Rd,Re EMoR photometric model parameters. (defaults: 0,0,0,0,0) 
+#
+# TrX,TrY,TrZ  mosaic mode translation offsets.
 #
 # S100,600,100,800   Selection(l,r,t,b), Only pixels inside the rectangle will be used for conversion.
 #                       Original image size is used for all image parameters
