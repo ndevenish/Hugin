@@ -17,6 +17,12 @@
 
 #include "ImageImport.h"
 
+#ifdef _WINDOWS
+#include <direct.h>
+#else
+#include <unistd.h>
+#endif
+
 #ifndef srandom
 #define srandom srand
 #endif	
@@ -29,9 +35,26 @@ using namespace HuginBase::Nona;
 using namespace hugin_utils;
 
 
-std::string getKeyfilenameFor(std::string filename)
+std::string getKeyfilenameFor(std::string keyfilesPath, std::string filename)
 {
-    std::string newfilename(filename);
+    std::string newfilename;
+    if(keyfilesPath.empty())
+    {
+        //if no path for keyfiles is given we are saving into the same directory as image file
+        newfilename=stripExtension(filename);
+    }
+    else
+    {
+        newfilename=keyfilesPath;
+#ifdef _WINDOWS
+        if(newfilename[newfilename.length()-1]!='\\' || newfilename[newfilename.length()-1]!='/')
+            newfilename.append("\\");
+#else
+        if(newfilename[newfilename.length()-1]!='/')
+            newfilename.append("/");
+#endif
+        newfilename.append(stripPath(stripExtension(filename)));
+    };
     newfilename.append(".key");
     return newfilename;
 };
@@ -41,7 +64,8 @@ PanoDetector::PanoDetector() :	_outputFile("default.pto"),
 	_sieve1Width(10), _sieve1Height(10), _sieve1Size(30), 
 	_kdTreeSearchSteps(40), _kdTreeSecondDistance(0.15), _sieve2Width(5), _sieve2Height(5),
 	_sieve2Size(2), _test(false), _cores(utils::getCPUCount()), _ransacIters(1000), _ransacDistanceThres(25),
-    _minimumMatches(4), _linearMatch(false), _linearMatchLen(1), _downscale(true), _cache(false), _cleanup(false)
+    _minimumMatches(4), _linearMatch(false), _linearMatchLen(1), _downscale(true), _cache(false), _cleanup(false),
+    _keypath("")
 {
 	_panoramaInfo = new Panorama();
 }
@@ -258,6 +282,19 @@ void PanoDetector::run()
        return;
    }
   
+    if(_cache)
+    {
+        TRACE_INFO(endl << "--- Cache keyfiles to disc ---" << endl);
+        for (ImgDataIt_t aB = _filesData.begin(); aB != _filesData.end(); ++aB)
+        {
+            if (!aB->second._hasakeyfile)
+            {
+                TRACE_INFO("i" << aB->second._number << " : Caching keypoints..." << endl);
+                writeKeyfile(aB->second);
+            };
+        };
+    };
+
     // Detect matches if writeKeyPoints wasn't set  
     if(_keyPointsIdx.size() == 0)
 	{
@@ -297,19 +334,9 @@ void PanoDetector::run()
     }
     else
     {
+        /// Write output project
         TRACE_INFO(endl<< "--- Write Project output ---" << endl << endl);
         writeOutput();
-        /// Write output project
-        if(_cache)
-        {
-            for (ImgDataIt_t aB = _filesData.begin(); aB != _filesData.end(); ++aB)
-            {
-                if (!aB->second._hasakeyfile)
-                {
-                    writeKeyfile(aB->second);
-                };
-            };
-        };
     };
 }
 
@@ -320,7 +347,28 @@ bool PanoDetector::loadProject()
        cerr << "ERROR: could not open file: '" << _inputFile << "'!" << endl; 
        return false; 
    } 
-	_panoramaInfo->setFilePrefix(hugin_utils::getPathPrefix(_inputFile));
+    std::string prefix=hugin_utils::getPathPrefix(_inputFile);
+    if(prefix.empty())
+    {
+        // Get the current working directory: 
+        char* buffer;
+#ifdef _WINDOWS
+#define getcwd _getcwd
+#endif
+        if((buffer=getcwd(NULL,0))!=NULL)
+        {
+            prefix.append(buffer);
+            free(buffer);
+#ifdef _WINDOWS
+            if(prefix[prefix.length()-1]!='\\' || prefix[prefix.length()-1]!='/')
+                prefix.append("\\");
+#else
+            if(prefix[prefix.length()-1]!='/')
+                prefix.append("/");
+#endif
+       }
+    };
+	_panoramaInfo->setFilePrefix(prefix);
 	AppBase::DocumentData::ReadWriteError err = _panoramaInfo->readData(ptoFile);
 	if (err != AppBase::DocumentData::SUCCESSFUL) {
 		  cerr << "ERROR: couldn't parse panos tool script: '" << _inputFile << "'!" << endl;
@@ -391,8 +439,8 @@ bool PanoDetector::loadProject()
 
         // Specify if the image has an associated keypoint file
 
-        std::string keyfilename = getKeyfilenameFor(aImgData._name);
-        ifstream keyfile(keyfilename.c_str());
+        aImgData._keyfilename = getKeyfilenameFor(_keypath,aImgData._name);
+        ifstream keyfile(aImgData._keyfilename.c_str());
         aImgData._hasakeyfile = keyfile.good();
     }
 
@@ -430,8 +478,7 @@ void PanoDetector::CleanupKeyfiles()
     {
         if (aB->second._hasakeyfile)
         {
-            std::string keyfilename = getKeyfilenameFor(aB->second._name);
-            remove(keyfilename.c_str());
+            remove(aB->second._keyfilename.c_str());
         };
     };
 };

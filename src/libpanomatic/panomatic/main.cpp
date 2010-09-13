@@ -150,6 +150,9 @@ void parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
         SwitchArg aArgClean("", "clean", "Clean up cached keyfiles", false);
         cmd.add(aArgClean);
 
+        ValueArg<string> aArgKeypath("p","keypath","Path to cache keyfiles",false,"","string");
+        cmd.add(aArgKeypath);
+
 		cmd.parse(argc,argv);
 
 		//
@@ -189,6 +192,8 @@ void parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
             ioPanoDetector.setCached(true);
         if(aArgClean.isSet())
             ioPanoDetector.setCleanup(true);
+        if(aArgKeypath.isSet())
+            ioPanoDetector.setKeyfilesPath(aArgKeypath.getValue());
 
 	} catch ( ArgException& e )
 	{ 

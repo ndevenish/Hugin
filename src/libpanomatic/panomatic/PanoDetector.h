@@ -109,6 +109,7 @@ public:
 	//	inline void setNumberOfKeys(int iNumKeys) { _numKeys = iNumKeys; }
 	inline void setOutputFile(const std::string& outputFile) { _outputFile = outputFile; }
 	inline void setInputFile(const std::string& inputFile) { _inputFile = inputFile; }
+    inline void setKeyfilesPath(const std::string& keypath) { _keypath = keypath; }
     inline bool getCached() const { return _cache; }
     inline void setCached(bool iCached) { _cache = iCached; }
     inline bool getCleanup() const { return _cleanup; }
@@ -152,6 +153,7 @@ private:
    bool                 _downscale;
     bool        _cache;
     bool        _cleanup;
+    std::string _keypath;
 		
 //	bool						_stereoRemap;
 
@@ -191,6 +193,7 @@ public:
 		PanoramaOptions 	_projOpts;		
 
 		bool 					_hasakeyfile;
+        std::string _keyfilename;
 
 		lfeat::KeyPointVect_t	_kp;
 		int					_descLength;
@@ -235,6 +238,6 @@ private:
 };
 
 /** returns the filename for the keyfile for a given image */
-std::string getKeyfilenameFor(std::string filename);
+std::string getKeyfilenameFor(std::string keyfilesPath, std::string filename);
 
 #endif // __detectpano_panodetector_h

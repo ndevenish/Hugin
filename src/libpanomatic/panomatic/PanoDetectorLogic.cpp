@@ -99,10 +99,7 @@ bool PanoDetector::LoadKeypoints(ImgData& ioImgInfo, const PanoDetector& iPanoDe
 {
 	TRACE_IMG("Loading keypoints...");
 	
-	std::string keyfilename = ioImgInfo._name;
-	keyfilename.append(".key");
-
-	ImageInfo info = lfeat::loadKeypoints(keyfilename, ioImgInfo._kp);
+    ImageInfo info = lfeat::loadKeypoints(ioImgInfo._keyfilename, ioImgInfo._kp);
 	ioImgInfo._loadFail = (info.filename.size() == 0);
 
 	// update ImgData
@@ -505,10 +502,7 @@ void PanoDetector::writeKeyfile(ImgData& imgInfo)
 {
 	// Write output keyfile
 
-	std::string keyfilename = imgInfo._name;
-	keyfilename.append(".key");
-
-	ofstream aOut(keyfilename.c_str(), ios_base::trunc);
+	ofstream aOut(imgInfo._keyfilename.c_str(), ios_base::trunc);
 
 	SIFTFormatWriter writer(aOut);
 
