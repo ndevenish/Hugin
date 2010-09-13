@@ -83,7 +83,9 @@ enum {
     ID_TOGGLE_BUT_LEAVE = wxID_HIGHEST+1600,
     ID_FULL_SCREEN = wxID_HIGHEST+1710,
     ID_SHOW_ALL = wxID_HIGHEST+1711,
-    ID_SHOW_NONE = wxID_HIGHEST+1712
+    ID_SHOW_NONE = wxID_HIGHEST+1712,
+    ID_UNDO = wxID_HIGHEST+1713,
+    ID_REDO = wxID_HIGHEST+1714
 };
 
 /** enum, which contains all different toolbar modes */
@@ -139,6 +141,8 @@ BEGIN_EVENT_TABLE(GLPreviewFrame, wxFrame)
     EVT_COMMAND_RANGE(PROJ_PARAM_VAL_ID,PROJ_PARAM_VAL_ID+PANO_PROJECTION_MAX_PARMS,wxEVT_COMMAND_TEXT_ENTER,GLPreviewFrame::OnProjParameterChanged)
     EVT_BUTTON(PROJ_PARAM_RESET_ID, GLPreviewFrame::OnProjParameterReset)
     EVT_TOOL(ID_FULL_SCREEN, GLPreviewFrame::OnFullScreen)
+    EVT_TOOL(ID_UNDO, GLPreviewFrame::OnUndo)
+    EVT_TOOL(ID_REDO, GLPreviewFrame::OnRedo)
 END_EVENT_TABLE()
 
 BEGIN_EVENT_TABLE(ImageToogleButtonEventHandler, wxEvtHandler)
@@ -457,9 +461,11 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     if (config->Read(wxT("/GLPreviewFrame/isShown"), 0l) != 0) {
         Show();
     }
-    wxAcceleratorEntry entries[1];
+    wxAcceleratorEntry entries[3];
     entries[0].Set(wxACCEL_NORMAL,WXK_F11,ID_FULL_SCREEN);
-    wxAcceleratorTable accel(1, entries);
+    entries[1].Set(wxACCEL_CTRL,(int)'Z',ID_UNDO);
+    entries[2].Set(wxACCEL_CTRL,(int)'Y',ID_REDO);
+    wxAcceleratorTable accel(3, entries);
     SetAcceleratorTable(accel);
 #ifdef __WXGTK__
     // set explicit focus to button panel, otherwise the hotkey F11 is not right processed
@@ -1413,6 +1419,18 @@ void GLPreviewFrame::OnAutocrop(wxCommandEvent &e)
 void GLPreviewFrame::OnFullScreen(wxCommandEvent & e)
 {
     ShowFullScreen(!IsFullScreen(), wxFULLSCREEN_NOBORDER | wxFULLSCREEN_NOCAPTION);
+};
+
+void GLPreviewFrame::OnUndo(wxCommandEvent &e)
+{
+    wxCommandEvent dummy(wxEVT_COMMAND_MENU_SELECTED, XRCID("ID_EDITUNDO"));
+    m_parent->AddPendingEvent(dummy);
+};
+
+void GLPreviewFrame::OnRedo(wxCommandEvent &e)
+{
+    wxCommandEvent dummy(wxEVT_COMMAND_MENU_SELECTED, XRCID("ID_EDITREDO"));
+    m_parent->AddPendingEvent(dummy);
 };
 
 void GLPreviewFrame::SetMode(int newMode)
