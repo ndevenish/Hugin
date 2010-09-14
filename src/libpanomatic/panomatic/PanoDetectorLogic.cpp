@@ -210,6 +210,7 @@ bool PanoDetector::AnalyzeImage(ImgData& ioImgInfo, const PanoDetector& iPanoDet
             {
                 final_mask.resize(ioImgInfo._detectWidth, ioImgInfo._detectHeight);          
                 vigra::resizeImageNoInterpolation(srcImageRange(mask),destImageRange(final_mask));
+                mask.resize(0,0);
             };
         }
         else
@@ -221,6 +222,7 @@ bool PanoDetector::AnalyzeImage(ImgData& ioImgInfo, const PanoDetector& iPanoDet
             {
                 final_mask.resize(ioImgInfo._detectWidth, ioImgInfo._detectHeight);          
                 vigra::copyImage(srcImageRange(mask),destImage(final_mask));
+                mask.resize(0,0);
             };
         }
     }
@@ -235,9 +237,9 @@ bool PanoDetector::AnalyzeImage(ImgData& ioImgInfo, const PanoDetector& iPanoDet
         TRACE_IMG("Building distance map...");
         //apply threshold, in case loaded mask contains other values than 0 and 255
         vigra::transformImage(srcImageRange(final_mask), destImage(final_mask),
-            vigra::Threshold<vigra::BImage::PixelType, vigra::BImage::PixelType>(1, 255, 255, 0));
+            vigra::Threshold<vigra::BImage::PixelType, vigra::BImage::PixelType>(1, 255, 0, 255));
         ioImgInfo._distancemap.resize(final_mask.width(),final_mask.height(),0);
-        vigra::distanceTransform(srcImageRange(final_mask), destImage(ioImgInfo._distancemap), 0, 2);
+        vigra::distanceTransform(srcImageRange(final_mask), destImage(ioImgInfo._distancemap), 255, 2);
     };
 
 #if 0
