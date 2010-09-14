@@ -56,6 +56,7 @@ public:
 	
 	bool		checkData();
 	void		printDetails();
+    void printFilenames();
 	void		printHelp();
 	void		run();
 	
@@ -154,6 +155,7 @@ private:
     bool        _cache;
     bool        _cleanup;
     std::string _keypath;
+    std::string _prefix;
 		
 //	bool						_stereoRemap;
 

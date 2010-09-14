@@ -142,6 +142,26 @@ void PanoDetector::printDetails()
 	cout << "  ==> Maximum matches per image pair : " << _sieve2Size * _sieve2Height * _sieve2Width << endl;
 }
 
+void PanoDetector::printFilenames()
+{
+    cout << endl << "Project contains the follow images:" << endl;
+    for(unsigned int i=0;i<_panoramaInfo->getNrOfImages();i++)
+    {
+        std::string name(_panoramaInfo->getImage(i).getFilename());
+        if(name.compare(0,_prefix.length(),_prefix)==0)
+            name=name.substr(_prefix.length(),name.length()-_prefix.length());
+        cout << "Image " << i << endl << "  Imagefile: " << name << endl;
+        if(_cache)
+        {
+            name=_filesData[i]._keyfilename;
+            if(name.compare(0,_prefix.length(),_prefix)==0)
+                name=name.substr(_prefix.length(),name.length()-_prefix.length());
+            cout << "  Keyfile  : " << name << endl;
+        };
+        cout << "  Remapped : " << (_filesData[i]._needsremap?"yes":"no") << endl;
+    };
+};
+
 // definition of a runnable class for image data
 class ImgDataRunnable : public Runnable
 {
@@ -246,6 +266,9 @@ void PanoDetector::run()
         return;
     };
 
+    //print some more information about the images
+    printFilenames();
+
     // 2. run analysis of images or keypoints
     try 
     {
@@ -340,8 +363,9 @@ void PanoDetector::run()
     else
     {
         /// Write output project
-        TRACE_INFO(endl<< "--- Write Project output ---" << endl << endl);
+        TRACE_INFO(endl<< "--- Write Project output ---" << endl);
         writeOutput();
+        TRACE_INFO("Written output to " << _outputFile << endl << endl);
     };
 }
 
@@ -352,8 +376,8 @@ bool PanoDetector::loadProject()
        cerr << "ERROR: could not open file: '" << _inputFile << "'!" << endl; 
        return false; 
    } 
-    std::string prefix=hugin_utils::getPathPrefix(_inputFile);
-    if(prefix.empty())
+    _prefix=hugin_utils::getPathPrefix(_inputFile);
+    if(_prefix.empty())
     {
         // Get the current working directory: 
         char* buffer;
@@ -362,12 +386,12 @@ bool PanoDetector::loadProject()
 #endif
         if((buffer=getcwd(NULL,0))!=NULL)
         {
-            prefix.append(buffer);
+            _prefix.append(buffer);
             free(buffer);
-            prefix=includeTrailingPathSep(prefix);
+            _prefix=includeTrailingPathSep(_prefix);
        }
     };
-	_panoramaInfo->setFilePrefix(prefix);
+	_panoramaInfo->setFilePrefix(_prefix);
 	AppBase::DocumentData::ReadWriteError err = _panoramaInfo->readData(ptoFile);
 	if (err != AppBase::DocumentData::SUCCESSFUL) {
 		  cerr << "ERROR: couldn't parse panos tool script: '" << _inputFile << "'!" << endl;
