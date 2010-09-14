@@ -187,7 +187,7 @@ public:
 		int					_detectHeight;
 
 		lfeat::Image		_ii;
-		vigra::BImage		_mask;
+		vigra::BImage		_distancemap;
 
 		bool					_needsremap;
 		PanoramaOptions 	_projOpts;		

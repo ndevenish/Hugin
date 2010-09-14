@@ -24,7 +24,7 @@
 #include <iostream>
 #include <fstream>
 #include <boost/foreach.hpp>
-
+#include <vigra/distancetransform.hxx>
 
 #include <localfeatures/Sieve.h>
 #include <localfeatures/PointMatch.h>
@@ -123,28 +123,31 @@ bool PanoDetector::LoadKeypoints(ImgData& ioImgInfo, const PanoDetector& iPanoDe
 bool PanoDetector::AnalyzeImage(ImgData& ioImgInfo, const PanoDetector& iPanoDetector)
 {
 	vigra::DImage final_img(ioImgInfo._detectWidth, ioImgInfo._detectHeight);
+    vigra::BImage final_mask;
 
 	// Remap image to stereographic if needed
 	if(ioImgInfo._needsremap)
 	{
-		// Define Progress
-		AppBase::StreamMultiProgressDisplay progress(cout);
+        TRACE_IMG("Remapping image...");
+        // Define Progress
+        MultiProgressDisplay* progress=new DummyMultiProgressDisplay();
+        //AppBase::StreamMultiProgressDisplay progress(cout);
 
 		// Load and format images
 		FileRemapper<vigra::BRGBImage, vigra::BImage> remapper;	//TODO : Grayscale images case
 
-		progress.pushTask(ProgressTask("", "", 1.0));
+		progress->pushTask(ProgressTask("", "", 1.0));
 
 		// Get the image remapped
 		RemappedPanoImage<vigra::BRGBImage, vigra::BImage> * remapped = 
 			remapper.getRemapped(iPanoDetector._panoramaInfoCopy, ioImgInfo._projOpts, ioImgInfo._number, 
-										vigra::Rect2D(0,0,ioImgInfo._detectWidth, ioImgInfo._detectHeight), progress);
+										vigra::Rect2D(0,0,ioImgInfo._detectWidth, ioImgInfo._detectHeight), *progress);
 		vigra::BRGBImage RGBimg = remapped->m_image;
-		ioImgInfo._mask = remapped->m_mask;
+		final_mask = remapped->m_mask;
 
-		progress.popTask();
+		progress->popTask();
 
-   	remapper.release(remapped);
+   	    remapper.release(remapped);
 
 		// Convert to grayscale double format
 		vigra::copyImage(
@@ -153,41 +156,97 @@ bool PanoDetector::AnalyzeImage(ImgData& ioImgInfo, const PanoDetector& iPanoDet
 			vigra::RGBToGrayAccessor<vigra::RGBValue<double> >(),
 			final_img.upperLeft(),
 			vigra::DImage::Accessor());
+        
+        delete progress;
+	}
+    else
+    {
+        // Simply load images
+	    vigra::ImageImportInfo aImageInfo(ioImgInfo._name.c_str());
+        vigra::BRGBImage RGBimg(aImageInfo.width(), aImageInfo.height());
+        vigra::BImage mask;
 
-	} else {// Simply load images
-	  vigra::ImageImportInfo aImageInfo(ioImgInfo._name.c_str());
-		vigra::BRGBImage RGBimg(aImageInfo.width(), aImageInfo.height());
-	  vigra::importImage(aImageInfo, destImage(RGBimg));
+        if(aImageInfo.numExtraBands() == 1) 
+        {
+            mask.resize(aImageInfo.size());
+            importImageAlpha(aImageInfo, destImage(RGBimg), destImage(mask));
+        } 
+        else
+        {
+            if (aImageInfo.numExtraBands() == 0) 
+            {
+                vigra::importImage(aImageInfo, destImage(RGBimg));
+                if(iPanoDetector._panoramaInfoCopy.getImage(ioImgInfo._number).hasActiveMasks())
+                {
+                    mask.resize(aImageInfo.size().width(),aImageInfo.size().height(),255);
+                };
+            }
+            else
+            {
+                TRACE_INFO("Image with multiple alpha channels are not supported");
+                ioImgInfo._loadFail = true;
+                return false;
+            };
+        };
 
-		if (iPanoDetector._downscale)
-	   {	// Downscale and convert to grayscale double format
-			vigra::resizeImageNoInterpolation(
+        if(iPanoDetector._panoramaInfoCopy.getImage(ioImgInfo._number).hasActiveMasks())
+        {
+            //copy mask from pto file into alpha layer
+            vigra_ext::applyMask(vigra::destImageRange(mask), iPanoDetector._panoramaInfoCopy.getImage(ioImgInfo._number).getActiveMasks());
+        };
+
+        if (iPanoDetector._downscale)
+        {	
+            // Downscale and convert to grayscale double format
+            vigra::resizeImageNoInterpolation(
 				RGBimg.upperLeft(),
 				RGBimg.upperLeft() + vigra::Diff2D(aImageInfo.width(), aImageInfo.height()),
 				vigra::RGBToGrayAccessor<vigra::RGBValue<double> >(),
 				final_img.upperLeft(),
 				final_img.lowerRight(),
 				vigra::DImage::Accessor());
-		} else { // convert to grayscale
-		   vigra::copyImage(
-				 RGBimg.upperLeft(),
-			   RGBimg.lowerRight(),
-			   vigra::RGBToGrayAccessor<vigra::RGBValue<double> >(),
-			   final_img.upperLeft(),
-			   vigra::DImage::Accessor());
-		}
-	}
+            //downscale mask
+            if(mask.width()>0 && mask.height()>0)
+            {
+                final_mask.resize(ioImgInfo._detectWidth, ioImgInfo._detectHeight);          
+                vigra::resizeImageNoInterpolation(srcImageRange(mask),destImageRange(final_mask));
+            };
+        }
+        else
+        {
+            // convert to grayscale
+            vigra::copyImage(RGBimg.upperLeft(), RGBimg.lowerRight(), vigra::RGBToGrayAccessor<vigra::RGBValue<double> >(),
+                final_img.upperLeft(), vigra::DImage::Accessor());
+            if(mask.width()>0 && mask.height()>0)
+            {
+                final_mask.resize(ioImgInfo._detectWidth, ioImgInfo._detectHeight);          
+                vigra::copyImage(srcImageRange(mask),destImage(final_mask));
+            };
+        }
+    }
 
-	// Build integral image
-  ioImgInfo._ii.init(final_img.begin(), ioImgInfo._detectWidth,
-																 				ioImgInfo._detectHeight);
-	ioImgInfo._loadFail = false;
+    // Build integral image
+    ioImgInfo._ii.init(final_img.begin(), ioImgInfo._detectWidth,ioImgInfo._detectHeight);
+    ioImgInfo._loadFail = false;
 
+    // compute distance map
+    if(final_mask.width()>0 && final_mask.height()>0)
+    {
+        TRACE_IMG("Building distance map...");
+        //apply threshold, in case loaded mask contains other values than 0 and 255
+        vigra::transformImage(srcImageRange(final_mask), destImage(final_mask),
+            vigra::Threshold<vigra::BImage::PixelType, vigra::BImage::PixelType>(1, 255, 255, 0));
+        ioImgInfo._distancemap.resize(final_mask.width(),final_mask.height(),0);
+        vigra::distanceTransform(srcImageRange(final_mask), destImage(ioImgInfo._distancemap), 0, 2);
+    };
+
+#if 0
 	// DEBUG: export remapped image
-   std::ostringstream filename;
-	 filename << ioImgInfo._name << "STEREO.JPG"; // opts.getOutputExtension()
-	 vigra::ImageExportInfo exinfo(filename.str().c_str());
-   vigra::exportImage(srcImageRange(final_img), exinfo);
+    std::ostringstream filename;
+    filename << ioImgInfo._name << "STEREO.JPG"; // opts.getOutputExtension()
+    vigra::ImageExportInfo exinfo(filename.str().c_str());
+    vigra::exportImage(srcImageRange(final_img), exinfo);
+#endif
 }
 
 
@@ -221,15 +280,19 @@ bool PanoDetector::FilterKeyPointsInImage(ImgData& ioImgInfo, const PanoDetector
 	
 	BOOST_FOREACH(KeyPointPtr& aK, ioImgInfo._kp)
 	{
-		if (!ioImgInfo._needsremap || (aK->_x > 0 && aK->_x < ioImgInfo._mask.width() && aK->_y > 0 && aK->_y < ioImgInfo._mask.height() && (int)ioImgInfo._mask[(int)aK->_y][(int)aK->_x] == 255)) {
+        bool valid=(ioImgInfo._distancemap.width()==0 || ioImgInfo._distancemap.height()==0);
+        if(!valid)
+        {
+            if(aK->_x > 0 && aK->_x < ioImgInfo._distancemap.width() && aK->_y > 0 && aK->_y < ioImgInfo._distancemap.height())
+            {
+                valid=(ioImgInfo._distancemap((int)(aK->_x),(int)(aK->_y))>aK->_scale*10);
+            };
+        };
+        if(valid)
+        {
 			aSieve.insert(aK, (int)(aK->_x * aXF), (int)(aK->_y * aYF));
-		} else {
-			TRACE_IMG("Removed CP: " << aK->_x << " , " << aK->_y);
-		}
+        };
 	}
-
-	// Free memory from the mask
-	ioImgInfo._mask.resize(0,0);
 
 	// pull remaining values from the sieve
 	ioImgInfo._kp.clear();
@@ -282,6 +345,7 @@ bool PanoDetector::FreeMemoryInImage(ImgData& ioImgInfo, const PanoDetector& iPa
 	TRACE_IMG("Freeing memory...");
 
 	ioImgInfo._ii.clean();
+    ioImgInfo._distancemap.resize(0,0);
 
 	return true;
 }
@@ -382,7 +446,12 @@ bool PanoDetector::RansacMatchesInPair(MatchData& ioMatchData, const PanoDetecto
 
 	Ransac aRansacFilter;
 	aRansacFilter.setIterations(iPanoDetector.getRansacIterations());
-	aRansacFilter.setDistanceThreshold(iPanoDetector.getRansacDistanceThreshold());
+    int thresholdDistance=iPanoDetector.getRansacDistanceThreshold();
+    //increase RANSAC distance if the image were remapped to not exclude
+    //too much points in this case
+    if(ioMatchData._i1->_needsremap || ioMatchData._i2->_needsremap)
+        thresholdDistance*=5;
+	aRansacFilter.setDistanceThreshold(thresholdDistance);
 	aRansacFilter.filter(ioMatchData._matches, aRemovedMatches);
 	
 	TRACE_PAIR("Removed " << aRemovedMatches.size() << " matches. " << ioMatchData._matches.size() << " remaining.");
