@@ -34,6 +34,18 @@ using namespace AppBase;
 using namespace HuginBase::Nona;
 using namespace hugin_utils;
 
+std::string includeTrailingPathSep(std::string path)
+{
+    std::string pathWithSep(path);
+#ifdef _WINDOWS
+    if(pathWithSep[pathWithSep.length()-1]!='\\' || pathWithSep[pathWithSep.length()-1]!='/')
+        pathWithSep.append("\\");
+#else
+    if(pathWithSep[pathWithSep.length()-1]!='/')
+        pathWithSep.append("/");
+#endif
+    return pathWithSep;
+};
 
 std::string getKeyfilenameFor(std::string keyfilesPath, std::string filename)
 {
@@ -45,14 +57,7 @@ std::string getKeyfilenameFor(std::string keyfilesPath, std::string filename)
     }
     else
     {
-        newfilename=keyfilesPath;
-#ifdef _WINDOWS
-        if(newfilename[newfilename.length()-1]!='\\' || newfilename[newfilename.length()-1]!='/')
-            newfilename.append("\\");
-#else
-        if(newfilename[newfilename.length()-1]!='/')
-            newfilename.append("/");
-#endif
+        newfilename=includeTrailingPathSep(keyfilesPath);
         newfilename.append(stripPath(stripExtension(filename)));
     };
     newfilename.append(".key");
@@ -359,13 +364,7 @@ bool PanoDetector::loadProject()
         {
             prefix.append(buffer);
             free(buffer);
-#ifdef _WINDOWS
-            if(prefix[prefix.length()-1]!='\\' || prefix[prefix.length()-1]!='/')
-                prefix.append("\\");
-#else
-            if(prefix[prefix.length()-1]!='/')
-                prefix.append("/");
-#endif
+            prefix=includeTrailingPathSep(prefix);
        }
     };
 	_panoramaInfo->setFilePrefix(prefix);
