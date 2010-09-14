@@ -140,7 +140,7 @@ MultiProgressDisplay* MultiProgressDisplayAdaptor::newMultiProgressDisplay(Progr
     if(myProgressDisplay != NULL)
         return new MultiProgressDisplayAdaptor(*myProgressDisplay);
     else
-        return new DummyMultiProgressDispaly();
+        return new DummyMultiProgressDisplay();
 }
 
 
