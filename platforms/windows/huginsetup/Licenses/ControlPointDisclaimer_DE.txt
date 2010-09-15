@@ -1,0 +1,5 @@
+You have selected to download and install one or many additional software packages for Control Point Generation.
+
+Be aware that these packages are separate from Hugin.  These packages may or may not be encumbered by patents in your residence's jurisdiction and they are subject to their own licenses.  
+
+It is your responsibility to make sure that you are not infringing on any rights when installing and running these packages in your jurisdiction.

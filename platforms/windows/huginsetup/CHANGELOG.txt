@@ -1,0 +1,50 @@
+* 0.2.6 (2010-09-06)
+  + Refactored Control Point Generators scripts (moved into own folder)
+  + Splitted 32/64bit installers
+  + Added CP align_image_stack.exe
+  + Fixed Autopano-sift-c read-only selection
+  + Removed debug messages during CP registry settings writing
+  + Some code clean-up
+
+* 0.2.0 (2010-09-04):
+  + Added more ControlPoints: Match-n-shift and Autopano-sift-C
+  + Added control point settings in Hugin Settings (install and go!)
+  + Source code available on BitBucket: https://bitbucket.org/thePanz/huginsetup
+  
+* 0.1.28 (2010-09-03):
+  + Fixed Italian translation (thanks to Cristian)
+  + Added room for Control Point Disclaimer translation (waiting for translations)
+  
+* 0.1.26 (2010-09-03):
+  + Fixed German translation (thanks again to Brian)
+  + Added support for 32bit/64bit installers (common Documentation used)
+  + Added installer for 64bit version (using Tom Glastonbury and AronH builds)
+  
+* 0.1.24 (2010-09-02):
+  + Added more translatable strings
+  + Added (partial) German translation (thanks to Brian)
+  + Added (partial) Italian translation
+  
+* 0.1.22 (2010-09-02):
+  + Added translatable message strings
+  + Added fake Italian translation
+  
+* 0.1.20 (2010-09-02):
+  + Added finish page (install/uninstall)
+  + Fixed component wrong sizes
+  
+* 0.1.18 (2010-09-02):
+  + Added Documentation install options
+  + Added Control Panel uninstall size
+  
+* 0.1.17 (2010-09-01):
+  + Fixed default install path trailing slash
+  + Fixed Windows permissions bug (thanks to Brian)
+  
+* 0.1.16 (2010-09-01):
+  + Added ControlPoints disclaimer
+  + Changed Licenses/Plugins folder structure
+  
+* 0.1.15 (2010-08-31):
+  + Added Welcome screen logo
+  + First public release

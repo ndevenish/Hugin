@@ -1,0 +1,1 @@
+Pan-o-Matic License:  Pan-o-matic is distributed under the terms of General Public Licence v2 (or later).  Please note that this software contains an implementation of the patented SURFalgorithm(Speeded Up Robust Features). Use at your own risk.

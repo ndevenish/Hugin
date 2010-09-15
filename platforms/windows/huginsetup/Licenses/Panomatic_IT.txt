@@ -1,0 +1,1 @@
+Licenza di Pan-o-Matic:  Pan-o-matic iè distribuito nei termini della General Public Licence v2 (o successiva).  Questo programma contiene una implementazione dell'algoritmo SIFT (Speeded Up Robust Features)sottoposta a brevetto. Usare sotto la propria responsabilità.

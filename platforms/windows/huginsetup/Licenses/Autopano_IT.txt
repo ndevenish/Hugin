@@ -1,0 +1,7 @@
+Licenza di Autopano:
+
+  Questo software è fornito solamente per un utilizzo non-commerciale.
+  
+  L'università della British Columbia ha richiesto un bervetto per l'algoritmo
+SIFT negli Stati Uniti. Le applicazioni commerciali di questo programma potrebbero
+necessitare di una licenza dall'università della British Columbia.

@@ -1,0 +1,5 @@
+Si è scelto di scaricare e installare uno dei pacchetti software aggiuntivi per la ricerca dei punti di controllo.
+
+Si avvisa che questi pacchetti sono separati da Hugin. Potrebbero o non potrebbero essere sottoposti a brevetto nella giurisdizione di residenza e sono soggetti alle rispettive licenze.  
+
+È responsabilità dell'utilizzatore accertare che non stia ingfrangendo la legge al momento dell'installazione e dell'esecuzione di questi pacchetti nella propria giurisdizione.

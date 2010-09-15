@@ -1,0 +1,1 @@
+Autopano License:  This software is provided for non-commercial use only.    The University of British Columbia has applied for a patent on the SIFTalgorithm in the United States. Commercial applications of this software mayrequire a license from the University of British Columbia.
