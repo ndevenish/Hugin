@@ -587,7 +587,6 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, double & 
     // store some important EXIF tags for later usage.
     setExifFocalLength(focalLength);
     setExifFocalLength35(eFocalLength35);
-    setExifCropFactor(cropFactor);
     setExifOrientation(roll);
     setExifAperture(photoFNumber);
     setExifISO(isoSpeed);
@@ -605,6 +604,10 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, double & 
         setRoll(roll);
         if (applyExposureValue)
             setExposureValue(eV);
+        if(cropFactor>0)
+        {
+            setExifCropFactor(cropFactor);
+        };
         if (focalLength > 0 && cropFactor > 0) {
             setHFOV(calcHFOV(getProjection(), focalLength, cropFactor, getSize()));
             DEBUG_DEBUG("HFOV:         " << getHFOV());
