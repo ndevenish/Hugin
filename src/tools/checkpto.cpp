@@ -79,7 +79,12 @@ int main(int argc, char *argv[])
     CPComponents comps;
     int n = findCPComponents(graph, comps);
     if(n==1)
+    {
         return 0;
+    }
     else
+    {
+        std::cout << "Found unconnected images" << std::endl << "Stopping processing." << std::endl;
         return 1;
+    };
 }
