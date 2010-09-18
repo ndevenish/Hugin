@@ -151,12 +151,20 @@ void PanoDetector::printFilenames()
         if(name.compare(0,_prefix.length(),_prefix)==0)
             name=name.substr(_prefix.length(),name.length()-_prefix.length());
         cout << "Image " << i << endl << "  Imagefile: " << name << endl;
-        if(_cache)
+        bool writeKeyfileForImage=false;
+        if(_keyPointsIdx.size()>0)
+        {
+            for(unsigned j=0;j<_keyPointsIdx.size() && !writeKeyfileForImage;j++)
+            {
+                writeKeyfileForImage=_keyPointsIdx[j]==i;
+            };
+        };
+        if(_cache || _filesData[i]._hasakeyfile || writeKeyfileForImage)
         {
             name=_filesData[i]._keyfilename;
             if(name.compare(0,_prefix.length(),_prefix)==0)
                 name=name.substr(_prefix.length(),name.length()-_prefix.length());
-            cout << "  Keyfile  : " << name << endl;
+            cout << "  Keyfile  : " << name << (_filesData[i]._hasakeyfile?" (will be used)":"") << endl;
         };
         cout << "  Remapped : " << (_filesData[i]._needsremap?"yes":"no") << endl;
     };
