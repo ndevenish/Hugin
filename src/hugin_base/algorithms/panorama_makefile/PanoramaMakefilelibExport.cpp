@@ -584,8 +584,16 @@ bool PanoramaMakefilelibExport::createItems()
     //----------
     // Assemble all and clean rules
 
+    Rule* start = mgr.own(new Rule());
+    start->addTarget("startStitching");
+    echoInfo(*start,"===========================================================================");
+    echoInfo(*start,"Stitching panorama");
+    echoInfo(*start,"===========================================================================");
+    start->add();
+
     Rule* all = mgr.own(new Rule());
     all->addTarget("all");
+    all->addPrereq(start);
     for(std::vector<mf::Variable*>::const_iterator it = allprereqs.begin(); it != allprereqs.end(); it++)
     {
         all->addPrereq((*it));
@@ -594,20 +602,27 @@ bool PanoramaMakefilelibExport::createItems()
 
     Rule* clean = mgr.own(new Rule());
     clean->addTarget("clean");
-    {
+    echoInfo(*clean,"===========================================================================");
+    echoInfo(*clean,"Remove temporary files");
+    echoInfo(*clean,"===========================================================================");
     std::string vdefs;
-        for(std::vector<mf::Variable*>::const_iterator it = cleanprereqs.begin(); it != cleanprereqs.end(); it++)
-        {
-            vdefs += (*it)->getRef() + " ";
-        }
-    clean->addCommand("-" + vrm->getRef() + ' ' + vdefs);
+    for(std::vector<mf::Variable*>::const_iterator it = cleanprereqs.begin(); it != cleanprereqs.end(); it++)
+    {
+        vdefs += (*it)->getRef() + " ";
     }
+    if(vdefs.length()>0)
+    {
+        clean->addCommand(vrm->getRef() + " " + vdefs,true,true);
+    };
     clean->add();
 
     //----------
     // Test rules check if programs exist.
     Rule* test = mgr.own(new Rule());
     test->addTarget("test");
+    echoInfo(*test,"===========================================================================");
+    echoInfo(*test,"Testing programs");
+    echoInfo(*test,"===========================================================================");
     // test remapper
     switch(opts.remapper) {
         case PanoramaOptions::NONA:

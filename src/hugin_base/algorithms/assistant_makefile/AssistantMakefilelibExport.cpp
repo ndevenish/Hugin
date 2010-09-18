@@ -58,6 +58,15 @@ namespace mf = makefile;
 mf::Variable* var = mgr.own(new mf::Variable(name, __VA_ARGS__)); \
 var->getDef().add();
 
+void AssistantMakefilelibExport::echoInfo(Rule& inforule, const std::string& info)
+{
+#ifdef _WINDOWS
+    inforule.addCommand("echo " + info, false);
+#else
+    inforule.addCommand("echo '" + info + "'", false);
+#endif
+}
+
 bool AssistantMakefilelibExport::createItems()
 {
     // we use this Variable for initializing pointers that get an object only under certain conditions
@@ -104,6 +113,7 @@ bool AssistantMakefilelibExport::createItems()
     if(runicp)
     {
         //create cp find
+        echoInfo(*all,"Finding control points...");
         all->addCommand(vicpfind->getRef()+outinproject);
         //building celeste command
         if(runCeleste)
@@ -114,19 +124,23 @@ bool AssistantMakefilelibExport::createItems()
             celesteCommand+=valuestream.str()+" ";
             if(celesteSmallRadius)
                 celesteCommand+="-r 1";
+            echoInfo(*all,"Remove control points in clouds...");
             all->addCommand(celesteCommand+outinproject);
         };
         //building cpclean command
         if(runCPClean)
         {
             all->addCommand(vcheckpto->getRef()+" "+vprojectShell->getRef());
+            echoInfo(*all,"Statistical cleaning of control points...");
             all->addCommand(vcpclean->getRef()+outinproject);
         };
     };
     //now optimise all
     all->addCommand(vcheckpto->getRef()+" "+vprojectShell->getRef());
+    echoInfo(*all,"Optimise project...");
     all->addCommand(vautooptimiser->getRef()+" -a -m -l -s"+outinproject);
     // if necessary scale down final pano
+    echoInfo(*all,"Setting output options...");
     valuestream.str("");
     if(scale<1)
     {

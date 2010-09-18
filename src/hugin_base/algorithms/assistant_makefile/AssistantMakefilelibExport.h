@@ -79,6 +79,7 @@ private:
 	std::ostringstream valuestream;
 
 	bool createItems();
+    void echoInfo(makefile::Rule& inforule, const std::string& info);
 	bool writeMakefile()
 	{
 		return makefile::Makefile::getSingleton().writeMakefile(makefile) != 0;
