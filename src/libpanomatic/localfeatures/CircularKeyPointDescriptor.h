@@ -32,7 +32,7 @@ struct SampleSpec
 	double x,y, size;
 };
 
-class IMPEX CircularKeyPointDescriptor : public KeyPointDescriptor
+class LFIMPEX CircularKeyPointDescriptor : public KeyPointDescriptor
 {
 public:
     CircularKeyPointDescriptor(Image& iImage, 

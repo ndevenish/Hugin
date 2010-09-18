@@ -28,7 +28,7 @@ namespace lfeat {
 // forward declaration
 class IntegralImage;
 
-class IMPEX Image
+class LFIMPEX Image
 {
 public:
     Image() : _pixels(0), _width(0), _height(0), _ii(0), _own_ii(true) {};

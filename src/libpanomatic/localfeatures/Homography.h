@@ -30,7 +30,7 @@ using namespace std;
 namespace lfeat
 {
 
-class IMPEX Homography
+class LFIMPEX Homography
 {
 public:
 	Homography();

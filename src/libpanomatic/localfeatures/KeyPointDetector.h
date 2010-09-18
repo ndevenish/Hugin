@@ -32,7 +32,7 @@ public:
 	virtual void operator()(const KeyPoint &k) = 0;
 };
 
-class IMPEX KeyPointDetector
+class LFIMPEX KeyPointDetector
 {
 public:
 	// default constructor

@@ -27,7 +27,7 @@
 namespace lfeat
 {
 
-class IMPEX Ransac
+class LFIMPEX Ransac
 {
 public:
 	Ransac() : _nIter(1000), _distanceThres(25) {};

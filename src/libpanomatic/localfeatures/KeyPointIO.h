@@ -31,7 +31,7 @@
 namespace lfeat
 {
 
-struct IMPEX ImageInfo
+struct LFIMPEX ImageInfo
 {
 	ImageInfo()
 	: width(0), height(0), dimensions(0)
@@ -52,11 +52,11 @@ struct IMPEX ImageInfo
 //bool identifySIFTKeypoints( const std::string & filename);
 //ImageInfo loadSIFTKeypoints( const std::string & filename, KeyPointInsertor & insertor);
 
-ImageInfo IMPEX loadKeypoints( const std::string & filename, KeyPointVect_t & insertor);
+ImageInfo LFIMPEX loadKeypoints( const std::string & filename, KeyPointVect_t & insertor);
 
 
 /// Base class for a keypoint writer
-class IMPEX KeypointWriter
+class LFIMPEX KeypointWriter
 {
 
 protected:
@@ -76,7 +76,7 @@ public:
 	virtual void writeFooter() = 0;
 };
 
-class IMPEX SIFTFormatWriter : public KeypointWriter
+class LFIMPEX SIFTFormatWriter : public KeypointWriter
 {
 
 	ImageInfo _image;
@@ -94,7 +94,7 @@ public:
 	void writeFooter();
 };
 
-class IMPEX DescPerfFormatWriter : public KeypointWriter
+class LFIMPEX DescPerfFormatWriter : public KeypointWriter
 {
 
 	ImageInfo _image;
@@ -113,7 +113,7 @@ public:
 };
 
 
-class IMPEX AutopanoSIFTWriter : public KeypointWriter
+class LFIMPEX AutopanoSIFTWriter : public KeypointWriter
 {
 	
 public:
