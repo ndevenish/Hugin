@@ -1247,7 +1247,7 @@ void PanoramaMakefilelibExport::printSystemInfo(Rule& inforule)
     echoInfo(inforule,"Active codepage: " + infostream.str());
 #else
 #ifdef __APPLE__
-    inforule.addCommand("system_profiler SPSoftwareDataType", false, true);
+    inforule.addCommand("system_profiler SPSoftwareDataType SPHardwareDataType", false, true);
     echoInfo(inforule,"Disc usage");
     inforule.addCommand("df -h", false, true);
     echoInfo(inforule,"Memory usage");
