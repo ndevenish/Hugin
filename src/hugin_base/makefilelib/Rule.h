@@ -96,9 +96,19 @@ public:
 	 * Adds a string as a command to the Rule.
 	 * @param c
 	 */
-	void addCommand(string c)
+	void addCommand(string c,bool doEcho=true,bool ignoreErrors=false)
 	{
-		commands.push_back(c);
+        string command;
+        if(!doEcho)
+        {
+            command="@";
+        };
+        if(ignoreErrors)
+        {
+            command.append("-");
+        };
+        command.append(c);
+        commands.push_back(command);
 	}
 };
 

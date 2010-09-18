@@ -611,7 +611,7 @@ bool PanoramaMakefilelibExport::createItems()
     // test remapper
     switch(opts.remapper) {
         case PanoramaOptions::NONA:
-            createcheckProgCmd(*test,"nona","@-$(NONA) --help");
+            createcheckProgCmd(*test,"nona",vnona->getRef()+" --help");
             break;
         case PanoramaOptions::PTMENDER:
             break;
@@ -619,21 +619,21 @@ bool PanoramaMakefilelibExport::createItems()
     // test blender
     switch(opts.blendMode) {
         case PanoramaOptions::ENBLEND_BLEND:
-            createcheckProgCmd(*test,"enblend","@-$(ENBLEND) -h");
+            createcheckProgCmd(*test,"enblend",venblend->getRef()+" -h");
             break;
         case PanoramaOptions::PTBLENDER_BLEND:
-            createcheckProgCmd(*test,"PTblender","@-$(PTBLENDER) -h");
+            createcheckProgCmd(*test,"PTblender",vPTblender->getRef()+" -h");
             break;
         case PanoramaOptions::SMARTBLEND_BLEND:
-            createcheckProgCmd(*test,"smartblend","@-$(SMARTBLEND)");
+            createcheckProgCmd(*test,"smartblend",vsmartblend->getRef());
             break;
     }
     // test enfuse
-    createcheckProgCmd(*test,"enfuse","@-$(ENFUSE) -h");
+    createcheckProgCmd(*test,"enfuse",venfuse->getRef()+" -h");
     // test hugin_hdrmerge
-    createcheckProgCmd(*test,"hugin_hdrmerge","@-$(HDRMERGE) -h");
+    createcheckProgCmd(*test,"hugin_hdrmerge",vhdrmerge->getRef()+" -h");
     // test exiftool
-    createcheckProgCmd(*test,"exiftool","@-$(EXIFTOOL) -ver");
+    createcheckProgCmd(*test,"exiftool",vexiftool->getRef()+" -ver");
     test->add();
 
     //----------
@@ -1105,21 +1105,21 @@ void PanoramaMakefilelibExport::createcheckProgCmd(Rule& testrule, const std::st
 {
     std::string command;
 #ifdef _WINDOWS
-    testrule.addCommand("@echo Checking " + progName + "...");
+    testrule.addCommand("echo Checking " + progName + "...", false);
     testrule.addCommand(progCommand + " > NUL 2>&1 && echo " + progName + " is ok || echo " +
-            progName + " failed");
+            progName + " failed", false, true);
 #else
-    testrule.addCommand("@echo -n 'Checking " + progName + "...'");
-    testrule.addCommand(progCommand + " > /dev/null 2>&1 && echo '[OK]' || echo '[FAILED]'");
+    testrule.addCommand("echo -n 'Checking " + progName + "...'", false);
+    testrule.addCommand(progCommand + " > /dev/null 2>&1 && echo '[OK]' || echo '[FAILED]'", false, true);
 #endif
 }
 
 void PanoramaMakefilelibExport::echoInfo(Rule& inforule, const std::string& info)
 {
 #ifdef _WINDOWS
-    inforule.addCommand("@echo " + info);
+    inforule.addCommand("echo " + info, false);
 #else
-    inforule.addCommand("@echo '" + info + "'");
+    inforule.addCommand("echo '" + info + "'", false);
 #endif
 }
 
@@ -1232,24 +1232,24 @@ void PanoramaMakefilelibExport::printSystemInfo(Rule& inforule)
     echoInfo(inforule,"Active codepage: " + infostream.str());
 #else
 #ifdef __APPLE__
-    inforule.addCommand("@-system_profiler SPSoftwareDataType");
+    inforule.addCommand("system_profiler SPSoftwareDataType", false, true);
     echoInfo(inforule,"Disc usage");
-    inforule.addCommand("@-df -h");
+    inforule.addCommand("df -h", false, true);
     echoInfo(inforule,"Memory usage");
-    inforule.addCommand("@-free -m");
+    inforule.addCommand("free -m", false, true);
 #else
-    inforule.addCommand("@echo -n 'Operating system: '");
-    inforule.addCommand("@-uname -o");
-    inforule.addCommand("@echo -n 'Release: '");
-    inforule.addCommand("@-uname -r");
-    inforule.addCommand("@echo -n 'Kernel version: '");
-    inforule.addCommand("@-uname -v");
-    inforule.addCommand("@echo -n 'Machine: '");
-    inforule.addCommand("@-uname -m");
+    inforule.addCommand("echo -n 'Operating system: '", false);
+    inforule.addCommand("uname -o", false, true);
+    inforule.addCommand("echo -n 'Release: '", false);
+    inforule.addCommand("uname -r", false, true);
+    inforule.addCommand("echo -n 'Kernel version: '", false);
+    inforule.addCommand("uname -v", false, true);
+    inforule.addCommand("echo -n 'Machine: '", false);
+    inforule.addCommand("uname -m", false, true);
     echoInfo(inforule,"Disc usage");
-    inforule.addCommand("@-df -h");
+    inforule.addCommand("df -h", false, true);
     echoInfo(inforule,"Memory usage");
-    inforule.addCommand("@-free -m");
+    inforule.addCommand("free -m", false, true);
 #endif
 #endif
 };
