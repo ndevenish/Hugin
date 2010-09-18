@@ -108,9 +108,6 @@ void parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
 		ValueArg<int> aArgSieve2Height("","sieve2height", "Sieve 2 : Number of buckets on height    (default : 5)", false, 5, "int");
 		ValueArg<int> aArgSieve2Size("","sieve2size", "Sieve 2 : Max points per bucket    (default : 2)\n", false, 2 ,"int");
 		
-		SwitchArg aArgPTGuiCompat("","ptgui", "Activate Autopano compatibility for PTGui\n", false);
-
-		cmd.add(aArgPTGuiCompat);
 		cmd.add(aArgSieve2Size);
 		cmd.add(aArgSieve2Height);
 		cmd.add(aArgSieve2Width);
