@@ -125,122 +125,128 @@ bool PanoDetector::AnalyzeImage(ImgData& ioImgInfo, const PanoDetector& iPanoDet
 	vigra::DImage final_img(ioImgInfo._detectWidth, ioImgInfo._detectHeight);
     vigra::BImage final_mask;
 
-	// Remap image to stereographic if needed
-	if(ioImgInfo._needsremap)
-	{
-        TRACE_IMG("Remapping image...");
-        // Define Progress
-        MultiProgressDisplay* progress=new DummyMultiProgressDisplay();
-        //AppBase::StreamMultiProgressDisplay progress(cout);
-
-		// Load and format images
-		FileRemapper<vigra::BRGBImage, vigra::BImage> remapper;	//TODO : Grayscale images case
-
-		progress->pushTask(ProgressTask("", "", 1.0));
-
-		// Get the image remapped
-		RemappedPanoImage<vigra::BRGBImage, vigra::BImage> * remapped = 
-			remapper.getRemapped(iPanoDetector._panoramaInfoCopy, ioImgInfo._projOpts, ioImgInfo._number, 
-										vigra::Rect2D(0,0,ioImgInfo._detectWidth, ioImgInfo._detectHeight), *progress);
-		vigra::BRGBImage RGBimg = remapped->m_image;
-		final_mask = remapped->m_mask;
-
-		progress->popTask();
-
-   	    remapper.release(remapped);
-
-		// Convert to grayscale double format
-		vigra::copyImage(
-			RGBimg.upperLeft(),
-			RGBimg.lowerRight(),
-			vigra::RGBToGrayAccessor<vigra::RGBValue<double> >(),
-			final_img.upperLeft(),
-			vigra::DImage::Accessor());
-        
-        delete progress;
-	}
-    else
+    try
     {
-        // Simply load images
-	    vigra::ImageImportInfo aImageInfo(ioImgInfo._name.c_str());
-        vigra::BRGBImage RGBimg(aImageInfo.width(), aImageInfo.height());
-        vigra::BImage mask;
+        ioImgInfo._loadFail=false;
+    	// Remap image to stereographic if needed
+	    if(ioImgInfo._needsremap)
+    	{
+            TRACE_IMG("Remapping image...");
+    		// Load and format images
+            MultiProgressDisplay* progress=new DummyMultiProgressDisplay();
+	    	FileRemapper<vigra::BRGBImage, vigra::BImage> remapper;	//TODO : Grayscale images case
+		    progress->pushTask(ProgressTask("", "", 1.0));
+	    	RemappedPanoImage<vigra::BRGBImage, vigra::BImage> * remapped = 
+		    	remapper.getRemapped(iPanoDetector._panoramaInfoCopy, ioImgInfo._projOpts, ioImgInfo._number, 
+			    							vigra::Rect2D(0,0,ioImgInfo._detectWidth, ioImgInfo._detectHeight), *progress);
+    		vigra::BRGBImage RGBimg = remapped->m_image;
+	    	final_mask = remapped->m_mask;
+		    progress->popTask();
+       	    remapper.release(remapped);
 
-        if(aImageInfo.numExtraBands() == 1) 
-        {
-            mask.resize(aImageInfo.size());
-            importImageAlpha(aImageInfo, destImage(RGBimg), destImage(mask));
-        } 
+    		// Convert to grayscale double format
+            TRACE_IMG("Convert to greyscale double...");
+	    	vigra::copyImage(
+		    	RGBimg.upperLeft(),
+			    RGBimg.lowerRight(),
+    			vigra::RGBToGrayAccessor<vigra::RGBValue<double> >(),
+	    		final_img.upperLeft(),
+		    	vigra::DImage::Accessor());
+        
+            delete progress;
+	    }
         else
         {
-            if (aImageInfo.numExtraBands() == 0) 
+            // Simply load images
+	        vigra::ImageImportInfo aImageInfo(ioImgInfo._name.c_str());
+            vigra::BRGBImage RGBimg(aImageInfo.width(), aImageInfo.height());
+            vigra::BImage mask;
+
+            TRACE_IMG("Loading image...");
+            if(aImageInfo.numExtraBands() == 1) 
             {
-                vigra::importImage(aImageInfo, destImage(RGBimg));
-                if(iPanoDetector._panoramaInfoCopy.getImage(ioImgInfo._number).hasActiveMasks())
+                mask.resize(aImageInfo.size());
+                importImageAlpha(aImageInfo, destImage(RGBimg), destImage(mask));
+            } 
+            else
+            {
+                if (aImageInfo.numExtraBands() == 0) 
                 {
-                    mask.resize(aImageInfo.size().width(),aImageInfo.size().height(),255);
+                    vigra::importImage(aImageInfo, destImage(RGBimg));
+                    if(iPanoDetector._panoramaInfoCopy.getImage(ioImgInfo._number).hasActiveMasks())
+                    {
+                        mask.resize(aImageInfo.size().width(),aImageInfo.size().height(),255);
+                    };
+                }
+                else
+                {
+                    TRACE_INFO("Image with multiple alpha channels are not supported");
+                    ioImgInfo._loadFail = true;
+                    return false;
+                };
+            };
+
+            if(iPanoDetector._panoramaInfoCopy.getImage(ioImgInfo._number).hasActiveMasks())
+            {
+                //copy mask from pto file into alpha layer
+                vigra_ext::applyMask(vigra::destImageRange(mask), iPanoDetector._panoramaInfoCopy.getImage(ioImgInfo._number).getActiveMasks());
+            };
+
+            if (iPanoDetector._downscale)
+            {	
+                // Downscale and convert to grayscale double format
+			    TRACE_IMG("Resize to greyscale double...");
+                vigra::resizeImageNoInterpolation(
+			    	RGBimg.upperLeft(),
+				    RGBimg.upperLeft() + vigra::Diff2D(aImageInfo.width(), aImageInfo.height()),
+    				vigra::RGBToGrayAccessor<vigra::RGBValue<double> >(),
+	    			final_img.upperLeft(),
+		    		final_img.lowerRight(),
+			    	vigra::DImage::Accessor());
+                //downscale mask
+                if(mask.width()>0 && mask.height()>0)
+                {
+                    final_mask.resize(ioImgInfo._detectWidth, ioImgInfo._detectHeight);          
+                    vigra::resizeImageNoInterpolation(srcImageRange(mask),destImageRange(final_mask));
+                    mask.resize(0,0);
                 };
             }
             else
             {
-                TRACE_INFO("Image with multiple alpha channels are not supported");
-                ioImgInfo._loadFail = true;
-                return false;
-            };
-        };
-
-        if(iPanoDetector._panoramaInfoCopy.getImage(ioImgInfo._number).hasActiveMasks())
-        {
-            //copy mask from pto file into alpha layer
-            vigra_ext::applyMask(vigra::destImageRange(mask), iPanoDetector._panoramaInfoCopy.getImage(ioImgInfo._number).getActiveMasks());
-        };
-
-        if (iPanoDetector._downscale)
-        {	
-            // Downscale and convert to grayscale double format
-            vigra::resizeImageNoInterpolation(
-				RGBimg.upperLeft(),
-				RGBimg.upperLeft() + vigra::Diff2D(aImageInfo.width(), aImageInfo.height()),
-				vigra::RGBToGrayAccessor<vigra::RGBValue<double> >(),
-				final_img.upperLeft(),
-				final_img.lowerRight(),
-				vigra::DImage::Accessor());
-            //downscale mask
-            if(mask.width()>0 && mask.height()>0)
-            {
-                final_mask.resize(ioImgInfo._detectWidth, ioImgInfo._detectHeight);          
-                vigra::resizeImageNoInterpolation(srcImageRange(mask),destImageRange(final_mask));
-                mask.resize(0,0);
-            };
+                // convert to grayscale
+                TRACE_IMG("Convert to greyscale double...");
+                vigra::copyImage(RGBimg.upperLeft(), RGBimg.lowerRight(), vigra::RGBToGrayAccessor<vigra::RGBValue<double> >(),
+                    final_img.upperLeft(), vigra::DImage::Accessor());
+                if(mask.width()>0 && mask.height()>0)
+                {
+                    final_mask.resize(ioImgInfo._detectWidth, ioImgInfo._detectHeight);          
+                    vigra::copyImage(srcImageRange(mask),destImage(final_mask));
+                    mask.resize(0,0);
+                };
+            }
         }
-        else
+
+        // Build integral image
+        TRACE_IMG("Build integral image...");
+        ioImgInfo._ii.init(final_img.begin(), ioImgInfo._detectWidth,ioImgInfo._detectHeight);
+
+        // compute distance map
+        if(final_mask.width()>0 && final_mask.height()>0)
         {
-            // convert to grayscale
-            vigra::copyImage(RGBimg.upperLeft(), RGBimg.lowerRight(), vigra::RGBToGrayAccessor<vigra::RGBValue<double> >(),
-                final_img.upperLeft(), vigra::DImage::Accessor());
-            if(mask.width()>0 && mask.height()>0)
-            {
-                final_mask.resize(ioImgInfo._detectWidth, ioImgInfo._detectHeight);          
-                vigra::copyImage(srcImageRange(mask),destImage(final_mask));
-                mask.resize(0,0);
-            };
-        }
+            TRACE_IMG("Building distance map...");
+            //apply threshold, in case loaded mask contains other values than 0 and 255
+            vigra::transformImage(srcImageRange(final_mask), destImage(final_mask),
+                vigra::Threshold<vigra::BImage::PixelType, vigra::BImage::PixelType>(1, 255, 0, 255));
+            ioImgInfo._distancemap.resize(final_mask.width(),final_mask.height(),0);
+            vigra::distanceTransform(srcImageRange(final_mask), destImage(ioImgInfo._distancemap), 255, 2);
+        };
     }
-
-    // Build integral image
-    ioImgInfo._ii.init(final_img.begin(), ioImgInfo._detectWidth,ioImgInfo._detectHeight);
-    ioImgInfo._loadFail = false;
-
-    // compute distance map
-    if(final_mask.width()>0 && final_mask.height()>0)
+    catch (std::exception & e)
     {
-        TRACE_IMG("Building distance map...");
-        //apply threshold, in case loaded mask contains other values than 0 and 255
-        vigra::transformImage(srcImageRange(final_mask), destImage(final_mask),
-            vigra::Threshold<vigra::BImage::PixelType, vigra::BImage::PixelType>(1, 255, 0, 255));
-        ioImgInfo._distancemap.resize(final_mask.width(),final_mask.height(),0);
-        vigra::distanceTransform(srcImageRange(final_mask), destImage(ioImgInfo._distancemap), 255, 2);
-    };
+        TRACE_INFO("An error happened while loading image : caught exception: " << e.what() << endl);
+        ioImgInfo._loadFail=true;
+        return false;
+    }
 
 #if 0
 	// DEBUG: export remapped image
@@ -249,6 +255,8 @@ bool PanoDetector::AnalyzeImage(ImgData& ioImgInfo, const PanoDetector& iPanoDet
     vigra::ImageExportInfo exinfo(filename.str().c_str());
     vigra::exportImage(srcImageRange(final_img), exinfo);
 #endif
+
+    return true;
 }
 
 
