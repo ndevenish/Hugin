@@ -50,12 +50,8 @@ along with hugin.  If not, see <http://www.gnu.org/licenses/>.
 #include <algorithms/nona/ComputeImageROI.h>
 #ifdef _WINDOWS
 #include "windows.h"
-#else
-#ifdef __APPLE__
-#include <CoreFoundation/CoreFoundation.h>
-#else
 #endif
-#endif
+
 /// Automates an very often occuring sequence
 #define  newVarDef(var, name, ...) \
 mf::Variable* var = mgr.own(new mf::Variable(name, __VA_ARGS__)); \
@@ -1236,12 +1232,11 @@ void PanoramaMakefilelibExport::printSystemInfo(Rule& inforule)
     echoInfo(inforule,"Active codepage: " + infostream.str());
 #else
 #ifdef __APPLE__
-    infostream.str("");
-    SInt32 majorVersion,minorVersion;
-    Gestalt(gestaltSystemVersionMajor, &majorVersion);
-    Gestalt(gestaltSystemVersionMinor, &minorVersion);
-    infostream << majorVersion << "." << minorVersion;
-    echoInfo(inforule,"Operating System: MacOS "+infostream.str());
+    inforule.addCommand("@-system_profiler SPSoftwareDataType");
+    echoInfo(inforule,"Disc usage");
+    inforule.addCommand("@-df -h");
+    echoInfo(inforule,"Memory usage");
+    inforule.addCommand("@-free -m");
 #else
     inforule.addCommand("@echo -n 'Operating system: '");
     inforule.addCommand("@-uname -o");
