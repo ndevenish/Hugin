@@ -60,6 +60,7 @@
                               </object>
                               <object class="sizeritem">
                                 <object class="wxChoice" name="ass_lens_proj_choice">
+                                  <size>200,-1</size>
                                   <content>
                                     <item></item>
                                   </content>
