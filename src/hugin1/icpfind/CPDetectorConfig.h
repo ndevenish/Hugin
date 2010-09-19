@@ -1,12 +1,10 @@
 // -*- c-basic-offset: 4 -*-
 /**  @file CPDetectorConfig.h
  *
- *  @brief declaration of CPDetectorSetting, CPDetectorConfig and CPDetectorDialog classes,
+ *  @brief declaration of CPDetectorSetting and CPDetectorConfig classes,
  *         which are for storing and changing settings of different autopano generator 
  *
  *  @author Thomas Modes
- *
- *  $Id$
  *
  */
  
@@ -29,11 +27,11 @@
 #ifndef _CPDETECTORCONFIG_H
 #define _CPDETECTORCONFIG_H
 
+#include <hugin_shared.h>
 #include "panoinc.h"
 #include "panoinc_WX.h"
 
 #include <wx/dynarray.h>
-#include <wx/choicebk.h>
 
 enum CPDetectorType
 {
@@ -46,7 +44,7 @@ enum CPDetectorType
 };
 
 /** class, which stores all settings of one cp detector */
-class CPDetectorSetting
+class ICPIMPEX CPDetectorSetting
 {
 public:
     /** constructor 
@@ -74,6 +72,10 @@ public:
     const wxString GetArgs() {return args; };
     /** sets arguments of one step detector or feature descriptor */
     void SetArgs(wxString new_args) { args=new_args; };
+    /** return arguments for the cleanup step */
+    const wxString GetArgsCleanup() {return args_cleanup; };
+    /** sets arguments for the cleanup step */
+    void SetArgsCleanup(wxString new_args) { args_cleanup=new_args; };
     /** return program for feature matcher */
     const wxString GetProgMatcher() {return prog_matcher; };
     /** sets program for feature matcher */
@@ -96,12 +98,19 @@ public:
     void SetOption(bool new_option) { option=new_option; };
     /** returns true, if setting is suitable for two step detector otherwise false */
     const bool IsTwoStepDetector() { return !prog_matcher.IsEmpty(); };
+    /** return true, if setting allows a final cleanup run */
+    static const bool IsCleanupPossible(CPDetectorType _type);
+    const bool IsCleanupPossible() { return IsCleanupPossible(type); };
+    /** return true, if setting contains a stack detector, even it is empty */
+    static const bool ContainsStacks(CPDetectorType _type);
+    const bool ContainsStacks() { return ContainsStacks(type); };
 private:
     void CheckValues();
     CPDetectorType type;
     wxString desc;
     wxString prog;
     wxString args;
+    wxString args_cleanup;
     wxString prog_matcher;
     wxString args_matcher;
     wxString prog_stack;
@@ -109,10 +118,14 @@ private:
     bool option;
 };
 
+#if _WINDOWS && defined Hugin_shared 
+WX_DECLARE_USER_EXPORTED_OBJARRAY(CPDetectorSetting,ArraySettings,ICPIMPEX);
+#else
 WX_DECLARE_OBJARRAY(CPDetectorSetting,ArraySettings);
+#endif
 
 /** class for storing settings of different control point generators */
-class CPDetectorConfig
+class ICPIMPEX CPDetectorConfig
 {
 public:
     /** constructor */
@@ -144,58 +157,6 @@ private:
     unsigned int default_generator;
     void ReadIndex(wxConfigBase* config, int i);
     void WriteIndex(wxConfigBase* config, int i);
-};
-
-/** dialog for input settings of one autopano generator */
-class CPDetectorDialog : public wxDialog
-{
-public:
-    /** constructor */
-    CPDetectorDialog(wxWindow* parent);
-    /** destructor, saves position and size */
-    virtual ~CPDetectorDialog();
-    /** updates edit fields with values from settings 
-     *  @param cpdet_config CPDetectorConfig class, which stores the settings
-     *  @param index index, from which the settings should be read */
-    void UpdateFields(CPDetectorConfig* cpdet_config,int index);
-    /** return inputed settings 
-     *  @param cpdet_config CPDetectorConfig class, which stores the settings
-     *  @param index index, to which the changed settings should be written */
-    void UpdateSettings(CPDetectorConfig* cpdet_config,int index);
-protected:
-    /** check inputs */
-    void OnOk(wxCommandEvent & e);
-    /** select program with file open dialog */
-    void OnSelectPath(wxCommandEvent &e);
-    /** select program for feature descriptor with file open dialog */
-    void OnSelectPathDescriptor(wxCommandEvent &e);
-    /** select program for feature matcher with file open dialog */
-    void OnSelectPathMatcher(wxCommandEvent &e);
-    /** select program for stack with file open dialog */
-    void OnSelectPathStack(wxCommandEvent &e);
-    /** update dialog, when other cp detector type is changed */
-    void OnTypeChange(wxCommandEvent &e);
-    /** block selection of two step detector for autopano setting */
-    void OnStepChanging(wxChoicebookEvent &e);
-    /** shows file dialog */
-    bool ShowFileDialog(wxString & prog);
-private:
-    wxTextCtrl *m_edit_desc;
-    wxTextCtrl *m_edit_prog;
-    wxTextCtrl *m_edit_args;
-    wxTextCtrl *m_edit_prog_descriptor;
-    wxTextCtrl *m_edit_args_descriptor;
-    wxTextCtrl *m_edit_prog_matcher;
-    wxTextCtrl *m_edit_args_matcher;
-    wxTextCtrl *m_edit_prog_stack;
-    wxTextCtrl *m_edit_args_stack;
-    wxCheckBox *m_check_option;
-    wxChoice *m_cpdetector_type;
-    wxChoicebook * m_choice_step;
-    bool twoStepAllowed;
-
-    void ChangeType();
-    DECLARE_EVENT_TABLE();
 };
 
 #endif

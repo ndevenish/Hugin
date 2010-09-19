@@ -45,6 +45,12 @@
 
 using namespace std;
 
+struct FailedProject
+{
+    wxString project;
+    wxString logfile;
+};
+
 class Batch : public wxFrame
 {
 public:
@@ -61,7 +67,7 @@ public:
 	//Adds an application entry in the batch list
 	void  AddAppToBatch(wxString app);
 	//Adds a project entry in the batch list
-	void  AddProjectToBatch(wxString projectFile, wxString outputFile = _T(""));	
+    void  AddProjectToBatch(wxString projectFile, wxString outputFile = _T(""), Project::Target target=Project::STITCHING);	
 	//Returns true if there are no more projects pending execution
 	bool  AllDone();
 	//Appends projects from file to batch list
@@ -109,6 +115,8 @@ public:
 	void  OnProcessTerminate(wxProcessEvent & event);
 	//Called to start stitch of project with input scriptFile
 	bool  OnStitch(wxString scriptFile, wxString outname, int id);
+    /** called to start detecting */
+    bool OnDetect(wxString scriptFile, int id);
 	//Pauses and continues batch execution
 	void  PauseBatch();
 	//Removes project with id from batch list
@@ -131,6 +139,12 @@ public:
 	 * @param isVisible If true display the project output, otherwise hide it.
 	 */
 	void ShowOutput(bool isVisible=true);
+    /** returns number of failed projects */
+    size_t GetFailedProjectsCount() { return m_failedProjects.size(); };
+    /** returns project file name of failed project with index i */
+    wxString GetFailedProjectName(unsigned int i);
+    /** returns log file name of failed project with index i */
+    wxString GetFailedProjectLog(unsigned int i);
 
 private:
 	//environment config objects
@@ -148,11 +162,17 @@ private:
 	bool m_paused;
 	bool m_running;
 	bool m_clearedInProgress;
+
+    //vector, which stores the failed projects and filename of saved logfile
+    std::vector<FailedProject> m_failedProjects;
 	
 	//external program config
 	PTPrograms progs;
+    AssistantPrograms progsAss;
 
 	DECLARE_EVENT_TABLE()
 };
+
+DECLARE_EVENT_TYPE(EVT_BATCH_FAILED,-1)
 
 #endif //BATCH_H

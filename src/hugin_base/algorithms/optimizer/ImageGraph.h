@@ -28,8 +28,8 @@
 
 #ifdef MAC_OS_X
 // In the case boost got error with macro "check()", uncomment following two lines.
-//#include <AssertMacros.h>
-//#undef check
+#include <AssertMacros.h>
+#undef check
 // Ref. http://lists.boost.org/boost-users/2004/05/6723.php
 #endif
 #include <boost/graph/graph_traits.hpp>

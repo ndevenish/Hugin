@@ -73,10 +73,11 @@ private:
 class wxLoadPTProjectCmd : public PanoCommand
 {
 public:
-    wxLoadPTProjectCmd(Panorama & p, const std::string filename, const std::string prefix = "")
+    wxLoadPTProjectCmd(Panorama & p, const std::string filename, const std::string prefix = "", const bool markAsOptimized=false)
         : PanoCommand(p),
           filename(filename),
-          prefix(prefix)
+          prefix(prefix),
+          markAsOptimized(markAsOptimized)
     { };
 
     virtual void execute();
@@ -88,6 +89,7 @@ public:
 private:
     const std::string filename;
     const std::string prefix;
+    const bool markAsOptimized;
 };
 
 

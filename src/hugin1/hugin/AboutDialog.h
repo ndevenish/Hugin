@@ -53,6 +53,8 @@ private:
 
     /**  button to fill the space */
     void OnAboutMe(wxCommandEvent & e);
+    /** retrieves the system informations */
+    void GetSystemInformation(wxFont *font);
 
 
 };

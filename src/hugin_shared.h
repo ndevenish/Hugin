@@ -7,6 +7,18 @@
 #define IMPEX __declspec(dllimport)
 #endif
 
+#if defined makefilelib_EXPORTS
+#define MAKEIMPEX __declspec(dllexport)
+#else
+#define MAKEIMPEX __declspec(dllimport)
+#endif
+
+#if defined icpfindlib_EXPORTS
+#define ICPIMPEX __declspec(dllexport)
+#else
+#define ICPIMPEX __declspec(dllimport)
+#endif
+
 #if defined huginbasewx_EXPORTS
 #define WXIMPEX __declspec(dllexport)
 #else
@@ -24,5 +36,7 @@
 #else
 #define IMPEX
 #define WXIMPEX
+#define MAKEIMPEX
 #define LFIMPEX
+#define ICPIMPEX
 #endif

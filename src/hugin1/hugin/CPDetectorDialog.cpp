@@ -1,13 +1,11 @@
 // -*- c-basic-offset: 4 -*-
 
-/** @file CPDetectorConfig.cpp
+/** @file CPDetectorDialog.cpp
  *
- *  @brief implementation of CPDetectorSetting, CPDetectorConfig and CPDetectorDialog classes, 
- *         which are for storing and changing settings of different CP detectors
+ *  @brief implementation of CPDetectorDialog class, 
+ *         which allows changing options of CP detectors
  *
  *  @author Thomas Modes
- *
- *  $Id$
  *
  */
 
@@ -27,11 +25,11 @@
  *
  */
 
-#include "hugin/CPDetectorConfig.h"
+#include "hugin/CPDetectorDialog.h"
 #include <config.h>
 #include "base_wx/huginConfig.h"
 #include "hugin/config_defaults.h"
-#include <hugin/CPDetectorConfig_default.h>
+#include "icpfind/CPDetectorConfig_default.h"
 #include "hugin/huginApp.h"
 
 #if defined MAC_SELF_CONTAINED_BUNDLE 
@@ -39,190 +37,6 @@
   #include <wx/dir.h>
   #include <CoreFoundation/CFBundle.h>
 #endif
-
-
-void CPDetectorConfig::Read(wxConfigBase *config)
-{
-    settings.Clear();
-    int count=config->Read(wxT("/AutoPano/AutoPanoCount"),0l);
-    default_generator=config->Read(wxT("/AutoPano/Default"),0l);
-    if(count>0)
-    {
-        for(int i=0;i<count;i++)
-            ReadIndex(config, i);
-    };
-    if(settings.GetCount()==0)
-        ResetToDefault();
-    if(default_generator>=settings.GetCount())
-        default_generator=0;
-};
-
-void CPDetectorConfig::ReadIndex(wxConfigBase *config, int i)
-{
-    wxString path=wxString::Format(wxT("/AutoPano/AutoPano_%d"),i);
-    if(config->HasGroup(path))
-    {
-        CPDetectorSetting* gen=new CPDetectorSetting;
-        gen->Read(config,path);
-        settings.Add(gen);
-        if(i==default_generator)
-            default_generator=settings.Index(*gen,true);
-    };
-};
-
-void CPDetectorConfig::Write(wxConfigBase *config)
-{
-    int count=settings.Count();
-    config->Write(wxT("/AutoPano/AutoPanoCount"),count);
-    config->Write(wxT("/AutoPano/Default"),(int)default_generator);
-    if(count>0)
-    {
-        for(int i=0;i<count;i++)
-            WriteIndex(config, i);
-    };
-};
-
-void CPDetectorConfig::WriteIndex(wxConfigBase *config, int i)
-{
-    wxString path=wxString::Format(wxT("/AutoPano/AutoPano_%d"),i);
-    settings[i].Write(config,path);
-};
-
-void CPDetectorConfig::ResetToDefault()
-{
-    settings.Clear();
-    int maxIndex=sizeof(default_cpdetectors)/sizeof(cpdetector_default)-1;
-    for(int i=0;i<=maxIndex;i++)
-        settings.Add(new CPDetectorSetting(i));
-    default_generator=0;
-};
-
-void CPDetectorConfig::FillControl(wxControlWithItems *control,bool select_default,bool show_default)
-{
-    control->Clear();
-    for(unsigned int i=0;i<settings.GetCount();i++)
-    {
-        wxString s=settings[i].GetCPDetectorDesc();
-        if(show_default && i==default_generator)
-            s=s+wxT(" (")+_("Default")+wxT(")");
-        control->Append(s);
-    };
-    if(select_default)
-        control->SetSelection(default_generator);
-};
-
-void CPDetectorConfig::Swap(int index)
-{
-    CPDetectorSetting* setting=settings.Detach(index);
-    settings.Insert(setting,index+1);
-    if(default_generator==index)
-        default_generator=index+1;
-    else 
-        if(default_generator==index+1)
-            default_generator=index;
-};
-
-void CPDetectorConfig::SetDefaultGenerator(unsigned int new_default_generator)
-{
-    if(new_default_generator<GetCount())
-        default_generator=new_default_generator;
-    else
-        default_generator=0;
-};
-
-#include <wx/arrimpl.cpp> 
-WX_DEFINE_OBJARRAY(ArraySettings);
-
-CPDetectorSetting::CPDetectorSetting(int new_type)
-{
-    if(new_type>=0)
-    {
-        int maxIndex=sizeof(default_cpdetectors)/sizeof(cpdetector_default)-1;
-        if (new_type<=maxIndex)
-        {
-            type=default_cpdetectors[new_type].type;
-            desc=default_cpdetectors[new_type].desc;
-            prog=default_cpdetectors[new_type].prog;
-            args=default_cpdetectors[new_type].args;
-            prog_matcher=default_cpdetectors[new_type].prog_matcher;
-            args_matcher=default_cpdetectors[new_type].args_matcher;
-            if(type==CPDetector_AutoPanoSiftStack || type==CPDetector_AutoPanoSiftMultiRowStack)
-            {
-                prog_stack=default_cpdetectors[new_type].prog_stack;
-                args_stack=default_cpdetectors[new_type].args_stack;
-            }
-            else
-            {
-                prog_stack=wxEmptyString;
-                args_stack=wxEmptyString;
-            };
-            option=default_cpdetectors[new_type].option;
-        };
-    }
-    else
-    {
-        type=CPDetector_AutoPanoSift;
-        desc=wxEmptyString;
-        prog=wxEmptyString;
-        args=wxEmptyString;
-        prog_matcher=wxEmptyString;
-        args_matcher=wxEmptyString;
-        prog_stack=wxEmptyString;
-        args_stack=wxEmptyString;
-        option=true;
-    };
-    CheckValues();
-};
-
-void CPDetectorSetting::CheckValues()
-{
-    if(type==CPDetector_AutoPano)
-    {
-        if(!prog_matcher.IsEmpty())
-        {
-            prog_matcher=wxEmptyString;
-            args_matcher=wxEmptyString;
-        };
-    };
-};
-
-void CPDetectorSetting::Read(wxConfigBase *config, wxString path)
-{
-    type=(CPDetectorType)config->Read(path+wxT("/Type"),default_cpdetectors[0].type);
-    desc=config->Read(path+wxT("/Description"),default_cpdetectors[0].desc);
-    prog=config->Read(path+wxT("/Program"),default_cpdetectors[0].prog);
-    args=config->Read(path+wxT("/Arguments"),default_cpdetectors[0].args);
-    prog_matcher=config->Read(path+wxT("/ProgramMatcher"),default_cpdetectors[0].prog_matcher);
-    args_matcher=config->Read(path+wxT("/ArgumentsMatcher"),default_cpdetectors[0].args_matcher);
-    if(type==CPDetector_AutoPanoSiftStack || type==CPDetector_AutoPanoSiftMultiRowStack)
-    {
-        prog_stack=config->Read(path+wxT("/ProgramStack"),default_cpdetectors[0].prog_stack);
-        args_stack=config->Read(path+wxT("/ArgumentsStack"),default_cpdetectors[0].args_stack);
-    }
-    else
-    {
-        prog_stack=wxEmptyString;
-        args_stack=wxEmptyString;
-    };
-    option=config->Read(path+wxT("/Option"),default_cpdetectors[0].option);
-    CheckValues();
-};
-
-void CPDetectorSetting::Write(wxConfigBase *config, wxString path)
-{
-    config->Write(path+wxT("/Type"),type);
-    config->Write(path+wxT("/Description"),desc);
-    config->Write(path+wxT("/Program"),prog);
-    config->Write(path+wxT("/Arguments"),args);
-    config->Write(path+wxT("/ProgramMatcher"),prog_matcher);
-    config->Write(path+wxT("/ArgumentsMatcher"),args_matcher);
-    if(type==CPDetector_AutoPanoSiftStack || type==CPDetector_AutoPanoSiftMultiRowStack)
-    {
-        config->Write(path+wxT("/ProgramStack"),prog_stack);
-        config->Write(path+wxT("/ArgumentsStack"),args_stack);
-    };
-    config->Write(path+wxT("/Option"),option);
-};
 
 // dialog for showing settings of one autopano setting
 
@@ -252,6 +66,8 @@ CPDetectorDialog::CPDetectorDialog(wxWindow* parent)
     m_edit_desc = XRCCTRL(*this, "prefs_cpdetector_desc", wxTextCtrl);
     m_edit_prog = XRCCTRL(*this, "prefs_cpdetector_program", wxTextCtrl);
     m_edit_args = XRCCTRL(*this, "prefs_cpdetector_args", wxTextCtrl);
+    m_label_args_cleanup = XRCCTRL(*this, "prefs_cpdetector_args_label_cleanup", wxStaticText);
+    m_edit_args_cleanup = XRCCTRL(*this, "prefs_cpdetector_args_cleanup", wxTextCtrl);
     m_edit_prog_descriptor = XRCCTRL(*this, "prefs_cpdetector_program_descriptor", wxTextCtrl);
     m_edit_args_descriptor = XRCCTRL(*this, "prefs_cpdetector_args_descriptor", wxTextCtrl);
     m_edit_prog_matcher = XRCCTRL(*this, "prefs_cpdetector_program_matcher", wxTextCtrl);
@@ -296,8 +112,7 @@ void CPDetectorDialog::OnOk(wxCommandEvent & e)
         valid=valid && (m_edit_args_descriptor->GetValue().Trim().Len()>0);
         valid=valid && (m_edit_args_matcher->GetValue().Trim().Len()>0);
     };
-    int type=m_cpdetector_type->GetSelection();
-    if(type==CPDetector_AutoPanoSiftStack || type==CPDetector_AutoPanoSiftMultiRowStack)
+    if(CPDetectorSetting::ContainsStacks((CPDetectorType)(m_cpdetector_type->GetSelection())))
         if(m_edit_prog_stack->GetValue().Trim().Len()>0)
             valid=valid && (m_edit_args_stack->GetValue().Trim().Len()>0);
     if(valid)        
@@ -324,14 +139,17 @@ void CPDetectorDialog::UpdateFields(CPDetectorConfig* cpdet_config,int index)
         m_choice_step->SetSelection(0);
         m_edit_prog->SetValue(cpdet_config->settings[index].GetProg());
         m_edit_args->SetValue(cpdet_config->settings[index].GetArgs());
+        if(cpdet_config->settings[index].IsCleanupPossible())
+        {
+            m_edit_args_cleanup->SetValue(cpdet_config->settings[index].GetArgsCleanup());
+        };
     };
-    int type=cpdet_config->settings[index].GetType();
-    if(type==CPDetector_AutoPanoSiftStack || type==CPDetector_AutoPanoSiftMultiRowStack)
+    if(cpdet_config->settings[index].ContainsStacks())
     {
         m_edit_prog_stack->SetValue(cpdet_config->settings[index].GetProgStack());
         m_edit_args_stack->SetValue(cpdet_config->settings[index].GetArgsStack());
     };
-    m_cpdetector_type->SetSelection(type);
+    m_cpdetector_type->SetSelection(cpdet_config->settings[index].GetType());
     m_check_option->SetValue(cpdet_config->settings[index].GetOption());
     ChangeType();
 };
@@ -344,6 +162,14 @@ void CPDetectorDialog::UpdateSettings(CPDetectorConfig* cpdet_config,int index)
     {
         cpdet_config->settings[index].SetProg(m_edit_prog->GetValue().Trim());
         cpdet_config->settings[index].SetArgs(m_edit_args->GetValue().Trim());
+        if(cpdet_config->settings[index].IsCleanupPossible())
+        {
+            cpdet_config->settings[index].SetArgsCleanup(m_edit_args_cleanup->GetValue().Trim());
+        }
+        else
+        {
+            cpdet_config->settings[index].SetArgsCleanup(wxEmptyString);
+        };
     }
     else
     {
@@ -352,12 +178,16 @@ void CPDetectorDialog::UpdateSettings(CPDetectorConfig* cpdet_config,int index)
         cpdet_config->settings[index].SetProgMatcher(m_edit_prog_matcher->GetValue().Trim());
         cpdet_config->settings[index].SetArgsMatcher(m_edit_args_matcher->GetValue().Trim());
     };
-    CPDetectorType type=cpdet_config->settings[index].GetType();
-    if(type==CPDetector_AutoPanoSiftStack || type==CPDetector_AutoPanoSiftMultiRowStack)
+    if(cpdet_config->settings[index].ContainsStacks())
     {
         cpdet_config->settings[index].SetProgStack(m_edit_prog_stack->GetValue().Trim());
         cpdet_config->settings[index].SetArgsStack(m_edit_args_stack->GetValue().Trim());
-    };
+    }
+    else
+    {
+        cpdet_config->settings[index].SetProgStack(wxEmptyString);
+        cpdet_config->settings[index].SetArgsStack(wxEmptyString);
+    }
     cpdet_config->settings[index].SetOption(m_check_option->IsChecked());
 };
 
@@ -368,16 +198,17 @@ void CPDetectorDialog::OnTypeChange(wxCommandEvent &e)
 
 void CPDetectorDialog::ChangeType()
 {
-    int type=m_cpdetector_type->GetSelection();
+    CPDetectorType type=(CPDetectorType)m_cpdetector_type->GetSelection();
     if(type==CPDetector_AutoPano)
     {
         m_choice_step->SetSelection(0);
         twoStepAllowed=false;
     }
     else
+    {
         twoStepAllowed=true;
-    bool isActive=(type==CPDetector_AutoPanoSiftStack || type==CPDetector_AutoPanoSiftMultiRowStack);
-    XRCCTRL(*this,"panel_stack",wxPanel)->Enable(isActive);
+    }
+    XRCCTRL(*this,"panel_stack",wxPanel)->Enable(CPDetectorSetting::ContainsStacks(type));
     switch(type)
     {
         case CPDetector_AutoPanoSiftMultiRow:
@@ -400,6 +231,12 @@ void CPDetectorDialog::ChangeType()
             break;
     };
     m_check_option->GetParent()->Layout();
+    bool cleanup_possible=CPDetectorSetting::IsCleanupPossible(type);
+    m_label_args_cleanup->Enable(cleanup_possible);
+    m_label_args_cleanup->Show(cleanup_possible);
+    m_edit_args_cleanup->Enable(cleanup_possible);
+    m_edit_args_cleanup->Show(cleanup_possible);
+    m_label_args_cleanup->GetParent()->Layout();
     Layout();
 };
 

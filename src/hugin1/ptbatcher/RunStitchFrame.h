@@ -69,8 +69,9 @@ public:
 
 	//Starts stitching of project file
     bool StitchProject(wxString scriptFile, wxString outname,
-                       HuginBase::PanoramaMakefileExport::PTPrograms progs);
-	
+                       HuginBase::PanoramaMakefilelibExport::PTPrograms progs);
+    /** starts assistant of project file */
+    bool DetectProject(wxString scriptFile, HuginBase::AssistantMakefilelibExport::AssistantPrograms progs);
 	//Returns process ID of running process
 	int GetProcessId();
 	//Gets project id from batch
@@ -79,6 +80,10 @@ public:
 	void SetProcessId(int pid);
 	//Sets project id from batch
 	void SetProjectId(int id);
+    /** save the content of the window into a given log file 
+        @return true if log was saved successful */
+    bool SaveLog(const wxString &filename);
+
 	
 	//Cancels project execution - kills process
 	void OnCancel(wxCommandEvent & event);
@@ -88,6 +93,7 @@ private:
 
 	wxEvtHandler* m_evtParent;
     bool m_isStitching;
+    bool m_isDetecting;
 	int m_projectId;
 	int m_pid;
 	//Called in GUI application when process terminates

@@ -6,8 +6,6 @@
  *
  *  @author Pablo d'Angelo <pablo.dangelo@web.de>
  *
- *  $Id$
- *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public
  *  License as published by the Free Software Foundation; either
@@ -29,46 +27,24 @@
 #include "panoinc.h"
 
 #include "base_wx/platform.h"
+#include "base_wx/huginConfig.h"
 
-#include "common/stl_utils.h"
-
-#include <map>
-
-//#include <vigra_ext/PointMatching.h>
-//#include <vigra_ext/LoweSIFT.h>
-
-#include <PT/RandomPointSampler.h>
-#include <PT/PhotometricOptimizer.h>
-#include <PT/PTOptimise.h>
-
+#include "PT/ImageGraph.h"
 #include "common/wxPlatform.h"
 #include "hugin/AssistantPanel.h"
 #include "hugin/CommandHistory.h"
-#include "base_wx/ImageCache.h"
+#include "base_wx/RunStitchPanel.h"
 #include "hugin/ImagesList.h"
 #include "hugin/LensPanel.h"
 #include "hugin/MainFrame.h"
 #include "hugin/huginApp.h"
-#include "hugin/AutoCtrlPointCreator.h"
 #include "hugin/TextKillFocusHandler.h"
-#include "base_wx/PTWXDlg.h"
-#include "base_wx/MyProgressDialog.h"
 #include "hugin/HFOVDialog.h"
 #include "hugin/config_defaults.h"
-#include <algorithms/control_points/CleanCP.h>
+#include "hugin/wxPanoCommand.h"
 
-// Celeste header
-#include "Celeste.h"
-#include "CelesteGlobals.h"
-#include "Utilities.h"
-
-using namespace PT;
-using namespace PTools;
 using namespace utils;
-using namespace vigra;
-using namespace vigra_ext;
 using namespace std;
-
 
 //------------------------------------------------------------------------------
 // utility function
@@ -110,6 +86,7 @@ BEGIN_EVENT_TABLE(AssistantPanel, wxPanel)
     EVT_BUTTON     ( XRCID("ass_load_images_button"), AssistantPanel::OnLoadImages)
     EVT_BUTTON     ( XRCID("ass_align_button"),     AssistantPanel::OnAlign)
     EVT_BUTTON     ( XRCID("ass_create_button"),    AssistantPanel::OnCreate)
+    EVT_BUTTON     ( XRCID("ass_align_batch_button"), AssistantPanel::OnAlignSendToBatch)
 END_EVENT_TABLE()
 
 
@@ -161,6 +138,10 @@ bool AssistantPanel::Create(wxWindow *parent, wxWindowID id, const wxPoint& pos,
     m_alignButton = XRCCTRL(*this, "ass_align_button", wxButton);
     DEBUG_ASSERT(m_alignButton);
     m_alignButton->Disable();
+
+    m_alignBatchButton = XRCCTRL(*this, "ass_align_batch_button", wxButton);
+    DEBUG_ASSERT(m_alignBatchButton);
+    m_alignBatchButton->Disable();
 
     m_alignText = XRCCTRL(*this, "ass_align_text", wxStaticText);
     DEBUG_ASSERT(m_alignText);
@@ -232,6 +213,7 @@ void AssistantPanel::panoramaChanged(PT::Panorama &pano)
     m_variable_groups->update();
 
     m_alignButton->Enable(pano.getNrOfImages() > 1);
+    m_alignBatchButton->Enable(pano.getNrOfImages() > 1);
 
     if (pano.getNrOfImages() == 0) {
         m_createButton->Disable();
@@ -369,173 +351,68 @@ void AssistantPanel::OnLoadImages( wxCommandEvent & e )
 
 void AssistantPanel::OnAlign( wxCommandEvent & e )
 {
-    // create control points
-    // all images..
-    UIntSet imgs;
     if (m_pano->getNrOfImages() < 2) {
         wxMessageBox(_("At least two images are required.\nPlease add more images."),_("Error"), wxOK, this);
         return;
     }
 
-    fill_set(imgs, 0, m_pano->getNrOfImages()-1);
+    //generate list of all necessary programs with full path
+    wxString bindir = huginApp::Get()->GetUtilsBinDir();
+    wxConfigBase* config=wxConfigBase::Get();
+    AssistantPrograms progs = getAssistantProgramsConfig(bindir, config);
 
-    long nFeatures = wxConfigBase::Get()->Read(wxT("/Assistant/nControlPoints"), HUGIN_ASS_NCONTROLPOINTS); 
+    //read main settings
+    bool runCeleste=config->Read(wxT("/Celeste/Auto"), HUGIN_CELESTE_AUTO)!=0;
+    double celesteThreshold;
+    config->Read(wxT("/Celeste/Threshold"), &celesteThreshold, HUGIN_CELESTE_THRESHOLD);
+    bool celesteSmall=config->Read(wxT("/Celeste/Filter"), HUGIN_CELESTE_FILTER)!=0;
+    bool runCPClean=config->Read(wxT("/Assistant/AutoCPClean"), HUGIN_ASS_AUTO_CPCLEAN)!=0;
+    double scale;
+    config->Read(wxT("/Assistant/panoDownsizeFactor"), &scale, HUGIN_ASS_PANO_DOWNSIZE_FACTOR);
+    int scalei=roundi(scale*100);
 
-    /*
-    bool createCtrlP = true;
-    // TODO: handle existing control points properly instead of adding them twice.
-    if (m_pano->getNrOfCtrlPoints() > 0) {
-    int a = wxMessageBox(wxString::Format(_("The panorama already has %d control points.\n\nSkip control points creation?"), m_pano->getNrOfCtrlPoints()),
-    _("Skip control point creation?"), wxICON_QUESTION | wxYES_NO);
-    createCtrlP = a != wxYES;
-    }
-    */
+    //save project into temp directory
+    wxString tempDir= config->Read(wxT("tempDir"),wxT(""));
+    if(!tempDir.IsEmpty())
+        if(tempDir.Last()!=wxFileName::GetPathSeparator())
+            tempDir.Append(wxFileName::GetPathSeparator());
+    wxString scriptName=wxFileName::CreateTempFileName(tempDir+wxT("ha"));
+    std::ofstream script(scriptName.mb_str(HUGIN_CONV_FILENAME));
+    script.exceptions ( std::ofstream::eofbit | std::ofstream::failbit | std::ofstream::badbit );
+    PT::UIntSet all;
+    fill_set(all, 0, m_pano->getNrOfImages()-1);
+    m_pano->printPanoramaScript(script, m_pano->getOptimizeVector(), m_pano->getOptions(), all, false);
+    script.close();
+    //generate makefile
+    wxString makefileName=wxFileName::CreateTempFileName(tempDir+wxT("ham"));
+    std::ofstream makefile(makefileName.mb_str(HUGIN_CONV_FILENAME));
+    makefile.exceptions( std::ofstream::eofbit | std::ofstream::failbit | std::ofstream::badbit );
+    std::string scriptString(scriptName.mb_str(HUGIN_CONV_FILENAME));
+    HuginBase::AssistantMakefilelibExport::createMakefile(*m_pano,progs,runCeleste,celesteThreshold,celesteSmall,
+        runCPClean,scale,makefile,scriptString);
+    makefile.close();
 
-    bool createCtrlP = m_pano->getNrOfCtrlPoints() == 0;
+    //execute makefile
+    wxString args = wxT("-f ") + wxQuoteFilename(makefileName) + wxT(" all");
+    int ret=MyExecuteCommandOnDialog(getGNUMakeCmd(args),wxEmptyString,this,_("Running assistant"),true);
 
-    ProgressReporterDialog progress(6, _("Aligning images"), _("Finding corresponding points"),this);
-    wxString alignMsg;
-    if (createCtrlP) {
-        AutoCtrlPointCreator matcher;
-        CPVector cps = matcher.automatch(MainFrame::Get()->GetDefaultSetting(),*m_pano, imgs, nFeatures,this);
-        GlobalCmdHist::getInstance().addCommand(
-            new PT::AddCtrlPointsCmd(*m_pano, cps)
-            );
-    }
+    //read back panofile
+    GlobalCmdHist::getInstance().addCommand(new wxLoadPTProjectCmd(*m_pano,
+        (const char *)scriptName.mb_str(HUGIN_CONV_FILENAME),"",ret==0));
 
-    // Run Celeste
-    bool t = (wxConfigBase::Get()->Read(wxT("/Celeste/Auto"), HUGIN_CELESTE_AUTO) != 0); 
-    if (t && createCtrlP && m_pano->getNrOfCtrlPoints())
+    //delete temporary files
+    wxRemoveFile(scriptName);
+    wxRemoveFile(makefileName);
+    //if return value is non-zero, an error occured in assistant makefile
+    if(ret!=0)
     {
-
-        DEBUG_TRACE("Running Celeste");
-        progress.increaseProgress(1, std::wstring(wxString(_("Running Celeste")).wc_str(wxConvLocal)));
-
-        // determine file name of SVM model file
-        // get XRC path from application
-        wxString wxstrModelFileName = huginApp::Get()->GetDataPath() + wxT(HUGIN_CELESTE_MODEL);
-        // convert wxString to string
-        string strModelFileName(wxstrModelFileName.mb_str(wxConvUTF8));
-		
-        // SVM model file
-        if ( wxFile::Exists(wxstrModelFileName) )
-        {
-
-            for (unsigned int imgNr = 0; imgNr < m_pano->getNrOfImages() - 1; imgNr++){
-
-                double progress_amount =  (double)1/m_pano->getNrOfImages();
-                progress.increaseProgress(progress_amount, std::wstring(wxString(_("Running Celeste")).wc_str(wxConvLocal)));
-
-                const CPVector & controlPoints = m_pano->getCtrlPoints();
-                unsigned int removed = 0;
-
-                gNumLocs = 0;
-                for (PT::CPVector::const_iterator it = controlPoints.begin(); it != controlPoints.end(); ++it) {
-                    PT::ControlPoint point = *it;
-                    if (imgNr == point.image1Nr){
-                        gNumLocs++;				
-                    }
-                    if (imgNr == point.image2Nr){
-                        gNumLocs++;				
-                    }	
-                }		
-
-                // Create the storage matrix
-                gLocations = CreateMatrix( (int)0, gNumLocs, 2);
-                unsigned int glocation_counter = 0;
-                unsigned int cp_counter = 0;	
-                vector<unsigned int> global_cp_nr;
-
-                for (PT::CPVector::const_iterator it = controlPoints.begin(); it != controlPoints.end(); ++it) {
-                    PT::ControlPoint point = *it;
-                    if (imgNr == point.image1Nr){	
-                        gLocations[glocation_counter][0] = (int)point.x1;
-                        gLocations[glocation_counter][1] = (int)point.y1;
-                        global_cp_nr.push_back(cp_counter);	
-                        glocation_counter++;				
-                    }
-                    if (imgNr == point.image2Nr){
-                        gLocations[glocation_counter][0] = (int)point.x2;
-                        gLocations[glocation_counter][1] = (int)point.y2;
-                        global_cp_nr.push_back(cp_counter);	
-                        glocation_counter++;				
-                    }
-                    cp_counter++;	
-                }
-
-                // SVM threshold
-                double threshold = HUGIN_CELESTE_THRESHOLD;
-                wxConfigBase::Get()->Read(wxT("/Celeste/Threshold"), &threshold, HUGIN_CELESTE_THRESHOLD);
-
-                // Mask resolution - 1 sets it to fine
-                bool t = (wxConfigBase::Get()->Read(wxT("/Celeste/Filter"), HUGIN_CELESTE_FILTER) != 0);
-                if (t){
-                    //cerr <<"---Celeste--- Using small filter" << endl;
-                    gRadius = 10;
-                    spacing = (gRadius * 2) + 1;
-                }
-
-                // Image to analyse
-                string imagefile = m_pano->getImage(imgNr).getFilename();
-
-                // Print progress
-                MainFrame::Get()->SetStatusText(_("searching for cloud-like control points..."),0);
-
-                // Vector to store Gabor filter responses
-                vector<double> svm_responses_ap;
-                string mask_format = "PNG";
-                unsigned int mask = 0;
-
-                // Get responses
-                get_gabor_response(imagefile, mask, strModelFileName, threshold, mask_format, svm_responses_ap);
-
-                UIntSet cpToRemove;
-                // Print SVM results
-                for (unsigned int c = 0; c < svm_responses_ap.size(); c++){
-                    if (svm_responses_ap[c] >= threshold){
-                        DEBUG_DEBUG("about to delete point " << global_cp_nr[c]);
-                        cpToRemove.insert(global_cp_nr[c]);
-                        removed++;
-                        cout << "CP: " << c << "\tSVM Score: " << svm_responses_ap[c] << "\tremoved." << endl;
-                    }
-                }
-                if (removed) cout << endl;
-                if(cpToRemove.size()>0)
-                    GlobalCmdHist::getInstance().addCommand(
-                        new PT::RemoveCtrlPointsCmd(*m_pano,cpToRemove)
-                        );
-
-            }
-        }else{	
-            wxMessageBox(_("Celeste model file not found, Hugin needs to be properly installed." ), _("Fatal Error"));
-        }	
-
-        MainFrame::Get()->SetStatusText(wxT(""),0);
-    }
-    DEBUG_TRACE("Finished running Celeste");
-
-    // run CPClean
-    progress.increaseProgress(1.0, std::wstring(wxString(_("Checking for outlying control points")).wc_str(wxConvLocal)));
-    t = (wxConfigBase::Get()->Read(wxT("/Assistant/AutoCPClean"), HUGIN_ASS_AUTO_CPCLEAN) != 0); 
-    if (t && createCtrlP && (m_pano->getNrOfCtrlPoints()>2))
-    {
-        deregisterPTWXDlgFcn();
-        UIntSet CPremove=getCPoutsideLimit_pair(*m_pano,2.0);
-        if(CPremove.size()>0)
-        {
-            GlobalCmdHist::getInstance().addCommand(
-                            new PT::RemoveCtrlPointsCmd(*m_pano,CPremove)
-                            );
-        };
-        CPremove.clear();
         //check for unconnected images
         CPGraph graph;
         createCPGraph(*m_pano, graph);
         CPComponents comps;
         int n = findCPComponents(graph, comps);
-
-        if (n > 1) {
-            registerPTWXDlgFcn(MainFrame::Get());
+        if(n > 1)
+        {
             // switch to images panel.
             unsigned i1 = *(comps[0].rbegin());
             unsigned i2 = *(comps[1].begin());
@@ -544,223 +421,10 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
             wxMessageBox(wxString::Format(_("Warning %d unconnected image groups found:"), n) + Components2Str(comps) + wxT("\n")
                 + _("Please create control points between unconnected images using the Control Points tab.\n\nAfter adding the points, press the \"Align\" button again"),_("Error"), wxOK , this);
             return;
-        }
-        CPremove=getCPoutsideLimit(*m_pano,2.0);
-        registerPTWXDlgFcn(MainFrame::Get());
-        if(CPremove.size()>0)
-        {
-            GlobalCmdHist::getInstance().addCommand(
-                            new PT::RemoveCtrlPointsCmd(*m_pano,CPremove)
-                            );
         };
+        wxMessageBox(_("The assistant did not complete successful. Please check the resulting project file."),
+                     _("Warning"),wxOK | wxICON_INFORMATION, this); 
     };
-
-    progress.increaseProgress(1.0, std::wstring(wxString(_("Determining placement of the images")).wc_str(wxConvLocal)));
-
-    // find components..
-    CPGraph graph;
-    createCPGraph(*m_pano, graph);
-    CPComponents comps;
-    int n = findCPComponents(graph, comps);
-
-    if (n > 1) {
-        // switch to images panel.
-        unsigned i1 = *(comps[0].rbegin());
-        unsigned i2 = *(comps[1].begin());
-        MainFrame::Get()->ShowCtrlPointEditor( i1, i2);
-        // display message box with 
-
-        wxMessageBox(wxString::Format(_("Warning %d unconnected image groups found:"), n) + Components2Str(comps) + wxT("\n")
-            + _("Please create control points between unconnected images using the Control Points tab.\n\nAfter adding the points, press the \"Align\" button again"),_("Error"), wxOK , this);
-        return;
-    }
-
-    // optimize panorama
-
-    Panorama optPano = m_pano->getSubset(imgs);
-
-    // set TIFF_m with enblend
-    PanoramaOptions opts = m_pano->getOptions();
-    opts.outputFormat = PanoramaOptions::TIFF_m;
-    opts.blendMode = PanoramaOptions::ENBLEND_BLEND;
-    opts.remapper = PanoramaOptions::NONA;
-    opts.tiff_saveROI = true;
-    opts.setProjection(PanoramaOptions::EQUIRECTANGULAR);
-
-    // calculate proper scaling, 1:1 resolution.
-    // Otherwise optimizer distances are meaningless.
-    opts.setWidth(30000, false);
-    opts.setHeight(15000);
-
-    optPano.setOptions(opts);
-    int w = optPano.calcOptimalWidth();
-    opts.setWidth(w);
-    opts.setHeight(w/2);
-    optPano.setOptions(opts);
-
-    {
-        wxBusyCursor bc;
-        // temporarily disable PT progress dialog..
-        deregisterPTWXDlgFcn();
-        smartOptimize(optPano);
-        registerPTWXDlgFcn(MainFrame::Get());
-    }
-
-    progress.increaseProgress(1.0, std::wstring(wxString(_("Leveling the panorama")).wc_str(wxConvLocal)));
-
-    // straighten
-    optPano.straighten();
-
-    // center and resize frame
-    optPano.centerHorizontically();
-    opts = optPano.getOptions();
-    double hfov, vfov, height;
-    optPano.fitPano(hfov, height);
-    opts.setHFOV(hfov);
-    opts.setHeight(roundi(height));
-    vfov = opts.getVFOV();
-
-    double mf = HUGIN_ASS_MAX_NORMAL_FOV;
-    wxConfigBase::Get()->Read(wxT("/Assistant/maxNormalFOV"), &mf, HUGIN_ASS_MAX_NORMAL_FOV);
-    // choose proper projection type
-    if (vfov < mf) {
-        // cylindrical or rectilinear
-        if (hfov < mf) {
-            opts.setProjection(PanoramaOptions::RECTILINEAR);
-        } else {
-            opts.setProjection(PanoramaOptions::CYLINDRICAL);
-        }
-    }
-
-    double sizeFactor = HUGIN_ASS_PANO_DOWNSIZE_FACTOR;
-    wxConfigBase::Get()->Read(wxT("/Assistant/panoDownsizeFactor"), &sizeFactor, HUGIN_ASS_PANO_DOWNSIZE_FACTOR);
-    // calc optimal size using output projection
-    // reduce optimal size a little
-    optPano.setOptions(opts);
-    w = optPano.calcOptimalWidth();
-    opts.setWidth(roundi(w*sizeFactor), true);
-    optPano.setOptions(opts);
-
-    progress.increaseProgress(1.0, std::wstring(wxString(_("Loading images")).wc_str(wxConvLocal)));
-
-    // TODO: photometric optimisation.
-    // first, ensure that vignetting and response coefficients are linked
-    const HuginBase::ImageVariableGroup::ImageVariableEnum vars[] = {
-            HuginBase::ImageVariableGroup::IVE_EMoRParams,
-            HuginBase::ImageVariableGroup::IVE_ResponseType,
-            HuginBase::ImageVariableGroup::IVE_VigCorrMode,
-            HuginBase::ImageVariableGroup::IVE_RadialVigCorrCoeff,
-            HuginBase::ImageVariableGroup::IVE_RadialVigCorrCenterShift
-        };
-    // keep a list of commands needed to fix it:
-    HuginBase::ImageVariableGroup & lenses = m_variable_groups->getLenses();
-    for (size_t i = 0; i < lenses.getNumberOfParts(); i++)
-    {
-        std::set<HuginBase::ImageVariableGroup::ImageVariableEnum> links_needed;
-        links_needed.clear();
-        for (int v = 0; v < 5; v++)
-        {
-            if (!lenses.getVarLinkedInPart(vars[v], i))
-            {
-                links_needed.insert(vars[v]);
-            }
-        };
-        if (!links_needed.empty())
-        {
-            GlobalCmdHist::getInstance().addCommand(
-                    new PT::LinkLensVarsCmd(*m_pano, i, links_needed)
-                );
-        }
-    }
-
-    // check if this is an HDR image
-    // (check for large exposure differences)
-    double min_exp, max_exp;
-    min_exp = max_exp = const_map_get(m_pano->getImageVariables(0), "Eev").getValue();
-    for (size_t i = 1; i < m_pano->getNrOfImages(); i++) {
-        double ev = const_map_get(m_pano->getImageVariables(i), "Eev").getValue();
-        min_exp = std::min(min_exp, ev);
-        max_exp = std::max(max_exp, ev);
-    }
-    if (max_exp - min_exp > 3) {
-        // decide between hdr and enfuse mode...
-        // switch to enfuse mode...
-        opts.outputLDRBlended = false;
-        opts.outputLDRLayers = false;
-        opts.outputLDRExposureLayers = false;
-        opts.outputLDRExposureBlended = true;
-        opts.outputHDRBlended = false;
-        opts.outputHDRLayers = false;
-        opts.outputHDRStacks = false;
-
-        opts.outputMode = PanoramaOptions::OUTPUT_HDR;
-    } else {
-        // normal mode, no special multiple exposure blending
-        opts.outputLDRBlended = true;
-        opts.outputLDRLayers = false;
-        opts.outputLDRExposureLayers = false;
-        opts.outputLDRExposureBlended = false;
-        opts.outputHDRBlended = false;
-        opts.outputHDRLayers = false;
-        opts.outputHDRStacks = false;
-    }
-
-    MainFrame::Get()->resetProgress(3);
-
-    // photometric estimation
-    int nPoints = wxConfigBase::Get()->Read(wxT("OptimizePhotometric/nRandomPointsPerImage"),200l);
-    nPoints = nPoints * optPano.getNrOfImages();
-    // get the small images
-    std::vector<vigra::FRGBImage *> srcImgs;
-    for (size_t i=0; i < optPano.getNrOfImages(); i++) {
-        ImageCache::EntryPtr e = ImageCache::getInstance().getSmallImage(optPano.getImage(i).getFilename());
-        vigra::FRGBImage * img = new FRGBImage;
-        if (!e) {
-            wxMessageBox(_("Error: could not load all images"), 
-                _("Error"),wxOK,this);
-            return;
-        }
-        if (e->origType == "UINT8") {
-            reduceToNextLevel(*(e->image8), *img);
-            transformImage(vigra::srcImageRange(*img), vigra::destImage(*img),
-                vigra::functor::Arg1()/vigra::functor::Param(255.0));
-        } else if (e->origType == "UINT16") {
-            reduceToNextLevel(*(e->image16), *img);
-            transformImage(vigra::srcImageRange(*img), vigra::destImage(*img),
-                vigra::functor::Arg1()/vigra::functor::Param(65535.0));
-        } else {
-            reduceToNextLevel(*(e->imageFloat), *img);
-        }
-        srcImgs.push_back(img);
-    }
-    bool randomPoints = true;
-    std::vector<vigra_ext::PointPairRGB> points;
-    extractPoints(optPano, srcImgs, nPoints, randomPoints, *(MainFrame::Get()), points);
-
-    progress.increaseProgress(1.0, std::wstring(wxString(_("Vignetting and exposure correction")).wc_str(wxConvLocal)));
-
-    PhotometricOptimizeMode poptmode = OPT_PHOTOMETRIC_LDR;
-    if (opts.outputMode == PanoramaOptions::OUTPUT_HDR) {
-        poptmode = OPT_PHOTOMETRIC_HDR;
-    }
-    double error;
-    smartOptimizePhotometric(optPano, poptmode,
-        points, *(MainFrame::Get()), error);
-    cout << "Auto align, photometric error: " << error *255 << " grey values" << std::endl;
-
-    // TODO: merge the following commands.
-
-    // copy information into the main panorama
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::UpdateVariablesCPSetCmd(*m_pano, imgs, optPano.getVariables(), optPano.getCtrlPoints())
-        );
-    // calculate the mean exposure.
-    opts.outputExposureValue = calcMeanExposure(*m_pano);
-
-    // copy information into our panorama
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::SetPanoOptionsCmd(*m_pano, opts)
-        );
 
     // show preview frame
     wxCommandEvent dummy;
@@ -777,6 +441,26 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
 
     // enable stitch button
     m_createButton->Enable();
+}
+
+void AssistantPanel::OnAlignSendToBatch(wxCommandEvent &e)
+{
+	wxCommandEvent dummy;
+	MainFrame::Get()->OnSaveProject(dummy);
+	wxString projectFile = MainFrame::Get()->getProjectName();
+	if(wxFileName::FileExists(projectFile))
+	{
+#if defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
+        wxExecute(_T("open -b net.sourceforge.hugin.PTBatcherGUI -a"+wxQuoteFilename(projectFile)));
+#else
+#ifdef __WINDOWS__
+		wxString huginPath = getExePath(wxGetApp().argv[0])+wxFileName::GetPathSeparator(); 
+#else
+		wxString huginPath = _T("");	//we call the batch processor directly without path on linux
+#endif	
+		wxExecute(huginPath+wxT("PTBatcherGUI -a ")+wxQuoteFilename(projectFile));
+#endif
+	}
 }
 
 void AssistantPanel::OnCreate( wxCommandEvent & e )

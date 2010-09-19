@@ -102,7 +102,6 @@ private:
 	BatchFrame *m_frame;
     wxLocale m_locale;
 	wxString m_xrcPrefix;
-	PTPrograms progs;
 	wxSingleInstanceChecker *m_checker;
 	BatchIPCServer *m_server;
 

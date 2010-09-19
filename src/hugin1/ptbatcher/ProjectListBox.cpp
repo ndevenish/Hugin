@@ -181,6 +181,11 @@ wxString ProjectListBox::GetSelectedProject()
 	return GetText(m_selected,1);
 }
 
+Project::Target ProjectListBox::GetSelectedProjectTarget()
+{
+    return m_batch->GetProject(m_selected)->target;
+};
+
 wxString ProjectListBox::GetSelectedProjectPrefix()
 {
 	return GetText(m_selected,2);
@@ -260,7 +265,14 @@ wxString ProjectListBox::GetAttributeString(int i, Project* project)
 		case 1:
 			return project->path;
 		case 2:
-			return project->prefix;
+            if(project->target==Project::STITCHING)
+            {
+                return project->prefix;
+            }
+            else
+            {
+                return _("Assistant");
+            };
 		case 7:
 			return project->GetStatusText();	//all following cases default to an empty string if file is missing
 		case 3:

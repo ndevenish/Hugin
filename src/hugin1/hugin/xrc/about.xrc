@@ -146,6 +146,28 @@
             </object>
             <label>License</label>
           </object>
+          <object class="notebookpage">
+            <label>System</label>
+            <object class="wxPanel" name="system_tab">
+              <object class="wxBoxSizer">
+                <orient>wxVERTICAL</orient>
+                <object class="sizeritem">
+                  <object class="wxTextCtrl" name="system_txt">
+                    <font>
+                      <size>8</size>
+                      <size platform="mac">10</size>
+                      <family>modern</family>
+                    </font>
+                    <style platform="win">wxTE_MULTILINE|wxTE_READONLY</style>
+                    <style platform="unix|mac">wxTE_MULTILINE|wxTE_READONLY|wxNO_BORDER</style>
+                  </object>
+                  <flag>wxALL|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
+                  <option>1</option>
+                  <border platform="unix|mac">0</border>
+                </object>
+              </object>
+            </object>
+          </object>
         </object>
         <flag>wxALL|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
         <border>8</border>

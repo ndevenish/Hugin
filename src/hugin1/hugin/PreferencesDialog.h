@@ -28,7 +28,7 @@
 #include "panoinc_WX.h"
 
 #include "common/utils.h"
-#include "hugin/CPDetectorConfig.h"
+#include "icpfind/CPDetectorConfig.h"
 
 /** hugin preferences dialog
  *
