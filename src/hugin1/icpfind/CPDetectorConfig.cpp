@@ -202,7 +202,7 @@ void CPDetectorSetting::Read(wxConfigBase *config, wxString path)
     args=config->Read(path+wxT("/Arguments"),default_cpdetectors[0].args);
     if(IsCleanupPossible())
     {
-        args_cleanup=config->Read(path+wxT("/ArgumentsCleanup"),default_cpdetectors[0].args_cleanup);
+        args_cleanup=config->Read(path+wxT("/ArgumentsCleanup"),wxEmptyString);
     }
     else
     {
