@@ -186,7 +186,8 @@ void CPDetectorSetting::CheckValues()
 const bool CPDetectorSetting::IsCleanupPossible(CPDetectorType _type)
 {
     return (_type==CPDetector_AutoPanoSiftMultiRow || 
-            _type==CPDetector_AutoPanoSiftMultiRowStack);
+            _type==CPDetector_AutoPanoSiftMultiRowStack ||
+            _type==CPDetector_AutoPanoSiftPreAlign);
 };
 
 const bool CPDetectorSetting::ContainsStacks(CPDetectorType _type)

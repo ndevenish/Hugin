@@ -60,9 +60,12 @@ struct cpdetector_default
 const struct cpdetector_default default_cpdetectors[]=
 {
 /* use following order: {type, description, program for detector or descriptor, arguments for detector or descriptor,
-   program for matcher, arguments for matcher, program name stack, arguments stack, option} 
+   arguments for cleanup, program for matcher, arguments for matcher, program name stack, arguments stack, option} 
    attention: this array have to contain at least one item */
 #if defined WIN32
+    {CPDetector_AutoPanoSiftMultiRowStack, wxT("Hugins CPFind"),
+        wxT("cpfind.exe"),wxT("--cache -o %o %s"),wxT("--clean %s"),
+        wxT(""),wxT(""),wxT("cpfind.exe"),wxT("--cache -o %o %s"), true},
     {CPDetector_AutoPanoSift, wxT("Autopano-SIFT-C"),
         wxT("autopano-sift-c.exe"),wxT("--maxmatches %p --projection %f,%v %o %i"),wxT(""),
         wxT(""), wxT(""), wxT(""), wxT(""), true},
@@ -80,6 +83,7 @@ const struct cpdetector_default default_cpdetectors[]=
     // Since medio 2008 the MacOSX bundle is built without patent/license restricted CP detectors.
     {CPDetector_AutoPanoSift,wxT("Autopano-SIFT-C"),wxT("autopano-noop.sh"),wxT("--maxmatches %p --projection %f,%v %o %i"),wxT(""),wxT(""),wxT(""), wxT(""), wxT(""), true},
     {CPDetector_AutoPanoSift,wxT("Panomatic"),wxT("panomatic"),wxT("-o %o %i"),wxT(""),wxT(""),wxT(""), wxT(""), wxT(""), true},
+    {CPDetector_AutoPanoSiftMultiRowStack, wxT("Hugins CPFind"),wxT("cpfind"),wxT("--cache -o %o %s"),wxT("--clean %s"),wxT(""),wxT(""),wxT("cpfind"),wxT("--cache -o %o %s"), true},
     {CPDetector_AutoPanoSift,wxT("Match-n-shift"),wxT("match-n-shift"),wxT("-b -a -f %f -v %v -c -p %p -o %o %i"),wxT(""),wxT(""),wxT(""),wxT(""), wxT(""), true},
     {CPDetector_AutoPanoSiftMultiRowStack, wxT("Autopano-SIFT-C (multirow/stacked)"),
         wxT("generatekeys"),wxT("%i %k 800"), wxT("autopano"),wxT("--maxmatches %p %o %k"),wxT(""),
