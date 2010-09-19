@@ -38,6 +38,7 @@ Thomas Modes	code and bugfixes
 John Navas	MSI installer
 Tim Nugent	GSoC 2008 Celeste, GSoC 2009 Lens Calibration
 Simon Oosthoek	Dutch translation
+Anael Orlinski	initial control point detector
 Eduardo Pérez Esteban	Spanish translation
 Gerry Patterson	Code
 Bruno Postle	initial packaging, website, documentation, initial British English translation, GSoC 2009 mentor

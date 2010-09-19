@@ -55,5 +55,5 @@ IF(wxWidgets_FOUND)
   ENDIF(WIN32)
 ENDIF(wxWidgets_FOUND)
 
-add_subdirectory(libpanomatic)
+add_subdirectory(hugin_cpfind)
 add_subdirectory(translations)
