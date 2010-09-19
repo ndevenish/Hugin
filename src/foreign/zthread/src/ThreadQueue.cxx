@@ -26,6 +26,7 @@
 #include "ThreadQueue.h"
 
 #include <algorithm>
+#include <iterator>
 #include <deque>
 
 namespace ZThread {
