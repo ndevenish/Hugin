@@ -154,7 +154,7 @@ namespace AppBase
     /**
      *
      */
-    class DummyMultiProgressDispaly : public MultiProgressDisplay
+    class DummyMultiProgressDisplay : public MultiProgressDisplay
     {
         public:
             void pushTask(const ProgressTask & task) {};

@@ -34,6 +34,7 @@ add_subdirectory(matchpoint)
 add_subdirectory(deghosting)
 add_subdirectory(lens_calibrate)
 
+
 # build vips stuff, only if vips was found
 # not ready for the general public yet
 IF(VIPS_FOUND)
@@ -54,4 +55,5 @@ IF(wxWidgets_FOUND)
   ENDIF(WIN32)
 ENDIF(wxWidgets_FOUND)
 
+add_subdirectory(hugin_cpfind)
 add_subdirectory(translations)

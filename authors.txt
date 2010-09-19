@@ -53,6 +53,7 @@ John Navas	MSI installer
 José Alejandro Carrillo Neira	Spanish translation
 Tim Nugent	GSoC 2008 Celeste, GSoC 2009 Lens Calibration, GSoC 2010 mentor
 Simon Oosthoek	Dutch translation
+Anael Orlinski	initial control point detector
 Emanuele Panz	Windows installer (2010.02 transition to Nullsoft NSIS)
 Gerry Patterson	Code
 Eduardo Pérez Esteban	Spanish translation
