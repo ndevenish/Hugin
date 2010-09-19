@@ -16,48 +16,25 @@ along with hugin.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 /**
- * @file Anything.h
+ * @file Anything.cpp
  * @brief
  *  Created on: Aug 11, 2010
  * @author Florian Achleitner <florian.achleitner.2.6.31@gmail.com>
  */
 
-#ifndef ANYTHING_H_
-#define ANYTHING_H_
 
 /**
  *
  */
-#include "MakefileItem.h"
+#include "Anything.h"
 
 namespace makefile
 {
-/**
- * This one only inserts some Text, not doing anything else.
- * It can be used to include make feautures not supported by the lib in a
- * makefile.
- */
-class MAKEIMPEX Anything: public PrimaryMakefileItem
+    
+void Anything::setText(const string& text_)
 {
-	string text;
-public:
-	Anything()
-	{
-		// TODO Auto-generated constructor stub
-
-	}
-	Anything(const string& text_)
-	: text(text_)
-	{}
-
-	virtual ~Anything() {}
-	void setText(const string& text_);
-	virtual string toString()
-	{
-		return text;
-	}
-};
+    text.assign(text_);
+}
 
 }
 
-#endif /* ANYTHING_H_ */

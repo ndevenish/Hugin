@@ -384,7 +384,7 @@ bool PanoDetector::loadProject()
        cerr << "ERROR: could not open file: '" << _inputFile << "'!" << endl; 
        return false; 
    } 
-    _prefix=hugin_utils::getPathPrefix(_inputFile);
+    //_prefix=hugin_utils::getPathPrefix(_inputFile);
     if(_prefix.empty())
     {
         // Get the current working directory: 

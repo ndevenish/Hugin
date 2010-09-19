@@ -31,6 +31,7 @@
 #include <iostream>
 #include <iomanip>
 
+#include <hugin_shared.h>
 #include <vigra/basicimage.hxx>
 #include <vigra_ext/ROIImage.h>
 #include <vigra_ext/Interpolators.h>
@@ -52,7 +53,7 @@ using vigra::NumericTraits;
 namespace vigra_ext
 {
 
-bool transformImageGPUIntern(const std::string& coordXformGLSL,
+bool IMPEX transformImageGPUIntern(const std::string& coordXformGLSL,
                              const std::string& interpolatorGLSL,
                              const int interpolatorSize,
                              const std::string& photometricGLSL,

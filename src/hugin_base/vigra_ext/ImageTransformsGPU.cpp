@@ -36,7 +36,6 @@
   #include <GL/glut.h>
 #endif
 
-
 #include <string.h>
 #ifdef _WIN32
 // weird errors in accessor.hxx if DIFFERENCE is defined
@@ -45,6 +44,7 @@
 #include <vigra/diff2d.hxx>
 #include <vigra/utilities.hxx>
 #include <vigra/error.hxx>
+#include <vigra_ext/ImageTransformsGPU.h>
 
 #ifdef _WIN32
 #include <windows.h>

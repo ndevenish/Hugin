@@ -62,7 +62,7 @@ class MAKEIMPEX Manager
 
 	Manager(const Manager&); 	// cannot copy this object!
 public:
-	Manager() {}
+	Manager();
 	virtual ~Manager() {}
 
 	/**

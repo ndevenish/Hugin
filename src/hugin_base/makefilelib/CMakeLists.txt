@@ -1,5 +1,5 @@
 SET(MAKEFILELIB_SRC Comment.cpp MakefileItem.cpp  Variable.cpp VariableRef.cpp 
- Makefile.cpp  Rule.cpp VariableDef.cpp AutoVariable.cpp Conditional.cpp) 
+ Makefile.cpp  Rule.cpp VariableDef.cpp AutoVariable.cpp Conditional.cpp Manager.cpp Anything.cpp ) 
 SET(MAKEFILELIB_HEADER Comment.h Makefile.h Rule.h Variable.h 
  MakefileItem.h VariableDef.h VariableRef.h AutoVariable.h Newline.h Conditional.h 
  char_type.h StringAdapter.h Manager.h Anything.h Manageable.h)

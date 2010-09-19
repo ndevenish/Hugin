@@ -31,7 +31,11 @@ BEGIN_EVENT_TABLE(Batch, wxFrame)
  EVT_END_PROCESS(-1, Batch::OnProcessTerminate)
 END_EVENT_TABLE()
 
+#if _WINDOWS && defined Hugin_shared
+DEFINE_LOCAL_EVENT_TYPE(EVT_BATCH_FAILED)
+#else
 DEFINE_EVENT_TYPE(EVT_BATCH_FAILED)
+#endif
 
 Batch::Batch(wxFrame* parent, wxString path, bool bgui) : wxFrame(parent,wxID_ANY,_T("Batch")){
 	//default flag settings
