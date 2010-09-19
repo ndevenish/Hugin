@@ -23,6 +23,7 @@
 # 20100121.0 sg Script updated for 1.2.40
 # 201005xx.0 hvdw Adapted for 1.2.43
 # 20100624.0 hvdw More robust error checking on compilation
+# 20100831.0 hvdw upgrade to 1.2.44
 # -------------------------------
 
 #libraries created:
@@ -30,8 +31,8 @@
 # libpng12.12.1.2.42 <- (libpng12.12, libpng12)
 # libpng12.a <- libpng.a
 PNGVER_M="12"
-PNGVER="1.2.43"
-PNGVER_FULL="$PNGVER_M.1.2.43"
+PNGVER="1.2.44"
+PNGVER_FULL="$PNGVER_M.1.2.44"
 
 # init
 

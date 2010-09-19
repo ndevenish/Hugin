@@ -23,6 +23,7 @@
 # 20100121.0 sg Script updated for 1_41
 # 20100121.1 sg Script reverted to 1_40
 # 20100624.0 hvdw More robust error checking on compilation
+# 20100831.0 hvdw Upgraded to 1_44
 # -------------------------------
 
 fail()
@@ -32,7 +33,7 @@ fail()
 }
 
 
-BOOST_VER="1_40"
+BOOST_VER="1_44"
 
 # install headers
 
