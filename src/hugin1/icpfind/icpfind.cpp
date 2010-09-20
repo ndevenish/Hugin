@@ -108,7 +108,7 @@ int iCPApp::OnRun()
         cerr << "could not open script : " << file.char_str() << endl;
         return 1;
     }
-    if(!newPano.loadPTScript(in, ptoVersion)) 
+    if(!newPano.loadPTScript(in, ptoVersion,hugin_utils::getPathPrefix((std::string)file.mb_str(HUGIN_CONV_FILENAME)))) 
     {
         cerr << "could not parse script: " << file.char_str() << endl;
         return 1;
