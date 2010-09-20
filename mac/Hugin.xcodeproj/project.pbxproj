@@ -30,6 +30,7 @@
 				576900950D24D26200A6AD01 /* PBXTargetDependency */,
 				5769019A0D24D50800A6AD01 /* PBXTargetDependency */,
 				576901980D24D50800A6AD01 /* PBXTargetDependency */,
+				734BB0411247AB950062CF12 /* PBXTargetDependency */,
 			);
 			name = frameworks;
 			productName = "lib dynamic";
@@ -1001,6 +1002,9 @@
 		733DF67F117F2462002EC787 /* pto_merge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73BBCD38117E2D3600E37B36 /* pto_merge.cpp */; };
 		73411F151077B205001831AF /* HDRMergeOptionDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73411F131077B205001831AF /* HDRMergeOptionDialog.cpp */; };
 		73437AC410BD9C7D0014F41D /* libintl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7368E40A1083930D00519ED0 /* libintl.dylib */; };
+		734BB02C1247A37A0062CF12 /* libboost_system.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 734BB02B1247A37A0062CF12 /* libboost_system.dylib */; };
+		734BB03B1247A87C0062CF12 /* libboost_iostreams.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 734BB03A1247A87C0062CF12 /* libboost_iostreams.dylib */; };
+		734BB03D1247AB3A0062CF12 /* libboost_regex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 734BB03C1247AB3A0062CF12 /* libboost_regex.dylib */; };
 		734FBA5B0EB3A20500CD7122 /* ChoosyRemapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 734FBA370EB3A20500CD7122 /* ChoosyRemapper.cpp */; };
 		734FBA5C0EB3A20500CD7122 /* GLPreviewFrame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 734FBA390EB3A20500CD7122 /* GLPreviewFrame.cpp */; };
 		734FBA5D0EB3A20500CD7122 /* GLRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 734FBA3B0EB3A20500CD7122 /* GLRenderer.cpp */; };
@@ -1037,6 +1041,19 @@
 		73573E4110F9EEA300CF0ECD /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73D24B641061556700B8A25D /* AGL.framework */; };
 		73573E4210F9EEA300CF0ECD /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 739F846B0EC75402004771D6 /* OpenGL.framework */; };
 		73573E5210F9EEF400CF0ECD /* pano_trafo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73573E5110F9EEF400CF0ECD /* pano_trafo.cpp */; };
+		7357E54F124779D20098B385 /* libboost_thread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57565A640D088DAD00344F55 /* libboost_thread.dylib */; };
+		7357E556124779F90098B385 /* libboost_filesystem.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E8A7DD3310FCA0AF00839DF3 /* libboost_filesystem.dylib */; };
+		7357E55712477A4A0098B385 /* Comment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7357E4F9124777380098B385 /* Comment.cpp */; };
+		7357E55812477B360098B385 /* MakefileItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7357E502124777380098B385 /* MakefileItem.cpp */; };
+		7357E55912477B570098B385 /* Variable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7357E514124777390098B385 /* Variable.cpp */; };
+		7357E55A12477B700098B385 /* VariableRef.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7357E518124777390098B385 /* VariableRef.cpp */; };
+		7357E55B12477B980098B385 /* Makefile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7357E4FF124777380098B385 /* Makefile.cpp */; };
+		7357E55D12477C410098B385 /* VariableDef.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7357E516124777390098B385 /* VariableDef.cpp */; };
+		7357E55E12477C570098B385 /* AutoVariable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7357E4F5124777380098B385 /* AutoVariable.cpp */; };
+		7357E55F12477C6A0098B385 /* Conditional.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7357E4FB124777380098B385 /* Conditional.cpp */; };
+		7357E56012477C7F0098B385 /* Manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7357E505124777380098B385 /* Manager.cpp */; };
+		7357E56112477C990098B385 /* Rule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7357E509124777380098B385 /* Rule.cpp */; };
+		7357E56212477CB00098B385 /* Anything.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7357E4F3124777380098B385 /* Anything.cpp */; };
 		7364217A10763A64000121C5 /* HuginVigraImpex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5769FE380D24CFEC00A6AD01 /* HuginVigraImpex.framework */; };
 		7364217C10763A6F000121C5 /* HuginBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 576900AA0D24D29300A6AD01 /* HuginBase.framework */; };
 		7364218610763B87000121C5 /* libboost_thread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57565A640D088DAD00344F55 /* libboost_thread.dylib */; };
@@ -2319,6 +2336,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 733DF653117F2384002EC787;
 			remoteInfo = pto_merge;
+		};
+		734BB0401247AB950062CF12 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7357E52D124778100098B385 /* makefilelib */;
+			remoteInfo = makefilelib;
 		};
 		73573E2D10F9EEA300CF0ECD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -3654,6 +3678,9 @@
 		73411F141077B205001831AF /* HDRMergeOptionDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDRMergeOptionDialog.h; sourceTree = "<group>"; };
 		73482F5B0FD97B3900B6088C /* libboost_thread-1_40.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libboost_thread-1_40.a"; sourceTree = "<group>"; };
 		73482F5D0FD97B7200B6088C /* libboost_filesystem-1_40.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libboost_filesystem-1_40.a"; sourceTree = "<group>"; };
+		734BB02B1247A37A0062CF12 /* libboost_system.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_system.dylib; path = "../../ExternalPrograms/3way-repository/lib/libboost_system.dylib"; sourceTree = SOURCE_ROOT; };
+		734BB03A1247A87C0062CF12 /* libboost_iostreams.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_iostreams.dylib; path = "../../ExternalPrograms/3way-repository/lib/libboost_iostreams.dylib"; sourceTree = SOURCE_ROOT; };
+		734BB03C1247AB3A0062CF12 /* libboost_regex.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_regex.dylib; path = "../../ExternalPrograms/3way-repository/lib/libboost_regex.dylib"; sourceTree = SOURCE_ROOT; };
 		734BDF5B0EB8EC19007EBA09 /* PTBatcher */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PTBatcher; sourceTree = BUILT_PRODUCTS_DIR; };
 		734FB8DD0EB38B9400CD7122 /* Celeste.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Celeste.cpp; sourceTree = "<group>"; };
 		734FB8DE0EB38B9400CD7122 /* Celeste.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Celeste.h; sourceTree = "<group>"; };
@@ -3722,6 +3749,43 @@
 		734FBA830EB3A40300CD7122 /* NonaOptionsDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NonaOptionsDialog.cpp; sourceTree = "<group>"; };
 		734FBA840EB3A40300CD7122 /* NonaOptionsDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NonaOptionsDialog.h; sourceTree = "<group>"; };
 		73573E5110F9EEF400CF0ECD /* pano_trafo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pano_trafo.cpp; sourceTree = "<group>"; };
+		7357E4F3124777380098B385 /* Anything.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Anything.cpp; path = makefilelib/Anything.cpp; sourceTree = "<group>"; };
+		7357E4F4124777380098B385 /* Anything.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Anything.h; path = makefilelib/Anything.h; sourceTree = "<group>"; };
+		7357E4F5124777380098B385 /* AutoVariable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AutoVariable.cpp; path = makefilelib/AutoVariable.cpp; sourceTree = "<group>"; };
+		7357E4F6124777380098B385 /* AutoVariable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AutoVariable.h; path = makefilelib/AutoVariable.h; sourceTree = "<group>"; };
+		7357E4F7124777380098B385 /* char_type.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = char_type.h; path = makefilelib/char_type.h; sourceTree = "<group>"; };
+		7357E4F9124777380098B385 /* Comment.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Comment.cpp; path = makefilelib/Comment.cpp; sourceTree = "<group>"; };
+		7357E4FA124777380098B385 /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Comment.h; path = makefilelib/Comment.h; sourceTree = "<group>"; };
+		7357E4FB124777380098B385 /* Conditional.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Conditional.cpp; path = makefilelib/Conditional.cpp; sourceTree = "<group>"; };
+		7357E4FC124777380098B385 /* Conditional.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Conditional.h; path = makefilelib/Conditional.h; sourceTree = "<group>"; };
+		7357E4FE124777380098B385 /* example.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = example.cpp; path = makefilelib/example.cpp; sourceTree = "<group>"; };
+		7357E4FF124777380098B385 /* Makefile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Makefile.cpp; path = makefilelib/Makefile.cpp; sourceTree = "<group>"; };
+		7357E500124777380098B385 /* Makefile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Makefile.h; path = makefilelib/Makefile.h; sourceTree = "<group>"; };
+		7357E501124777380098B385 /* Makefile.mk */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Makefile.mk; path = makefilelib/Makefile.mk; sourceTree = "<group>"; };
+		7357E502124777380098B385 /* MakefileItem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MakefileItem.cpp; path = makefilelib/MakefileItem.cpp; sourceTree = "<group>"; };
+		7357E503124777380098B385 /* MakefileItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MakefileItem.h; path = makefilelib/MakefileItem.h; sourceTree = "<group>"; };
+		7357E504124777380098B385 /* Manageable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Manageable.h; path = makefilelib/Manageable.h; sourceTree = "<group>"; };
+		7357E505124777380098B385 /* Manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Manager.cpp; path = makefilelib/Manager.cpp; sourceTree = "<group>"; };
+		7357E506124777380098B385 /* Manager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Manager.h; path = makefilelib/Manager.h; sourceTree = "<group>"; };
+		7357E507124777380098B385 /* Newline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Newline.h; path = makefilelib/Newline.h; sourceTree = "<group>"; };
+		7357E509124777380098B385 /* Rule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Rule.cpp; path = makefilelib/Rule.cpp; sourceTree = "<group>"; };
+		7357E50A124777380098B385 /* Rule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Rule.h; path = makefilelib/Rule.h; sourceTree = "<group>"; };
+		7357E50B124777380098B385 /* StringAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringAdapter.h; path = makefilelib/StringAdapter.h; sourceTree = "<group>"; };
+		7357E50C124777380098B385 /* test_filenames.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = test_filenames.cpp; path = makefilelib/test_filenames.cpp; sourceTree = "<group>"; };
+		7357E50D124777380098B385 /* test_makefilelib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = test_makefilelib.cpp; path = makefilelib/test_makefilelib.cpp; sourceTree = "<group>"; };
+		7357E50E124777380098B385 /* test_simple.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = test_simple.cpp; path = makefilelib/test_simple.cpp; sourceTree = "<group>"; };
+		7357E50F124777380098B385 /* test_util_win32.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = test_util_win32.cpp; path = makefilelib/test_util_win32.cpp; sourceTree = "<group>"; };
+		7357E510124777380098B385 /* test_util.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = test_util.cpp; path = makefilelib/test_util.cpp; sourceTree = "<group>"; };
+		7357E511124777390098B385 /* test_util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = test_util.h; path = makefilelib/test_util.h; sourceTree = "<group>"; };
+		7357E512124777390098B385 /* unicode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = unicode.cpp; path = makefilelib/unicode.cpp; sourceTree = "<group>"; };
+		7357E514124777390098B385 /* Variable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Variable.cpp; path = makefilelib/Variable.cpp; sourceTree = "<group>"; };
+		7357E515124777390098B385 /* Variable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Variable.h; path = makefilelib/Variable.h; sourceTree = "<group>"; };
+		7357E516124777390098B385 /* VariableDef.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = VariableDef.cpp; path = makefilelib/VariableDef.cpp; sourceTree = "<group>"; };
+		7357E517124777390098B385 /* VariableDef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VariableDef.h; path = makefilelib/VariableDef.h; sourceTree = "<group>"; };
+		7357E518124777390098B385 /* VariableRef.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = VariableRef.cpp; path = makefilelib/VariableRef.cpp; sourceTree = "<group>"; };
+		7357E519124777390098B385 /* VariableRef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VariableRef.h; path = makefilelib/VariableRef.h; sourceTree = "<group>"; };
+		7357E524124777EB0098B385 /* makefilelib-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "makefilelib-Info.plist"; sourceTree = "<group>"; };
+		7357E540124778100098B385 /* makefilelib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = makefilelib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7364217010763A22000121C5 /* deghosting_mask */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = deghosting_mask; sourceTree = BUILT_PRODUCTS_DIR; };
 		736421C110763D0B000121C5 /* threshold.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = threshold.h; sourceTree = "<group>"; };
 		736421C210763D0B000121C5 /* support.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = support.h; sourceTree = "<group>"; };
@@ -4459,6 +4523,18 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7357E53B124778100098B385 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7357E556124779F90098B385 /* libboost_filesystem.dylib in Frameworks */,
+				7357E54F124779D20098B385 /* libboost_thread.dylib in Frameworks */,
+				734BB02C1247A37A0062CF12 /* libboost_system.dylib in Frameworks */,
+				734BB03B1247A87C0062CF12 /* libboost_iostreams.dylib in Frameworks */,
+				734BB03D1247AB3A0062CF12 /* libboost_regex.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7364216E10763A22000121C5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -5130,6 +5206,9 @@
 		5745FBE5094E1C4700E6B672 /* repository */ = {
 			isa = PBXGroup;
 			children = (
+				734BB03C1247AB3A0062CF12 /* libboost_regex.dylib */,
+				734BB03A1247A87C0062CF12 /* libboost_iostreams.dylib */,
+				734BB02B1247A37A0062CF12 /* libboost_system.dylib */,
 				737E923B1125FE0100773356 /* exiv2 */,
 				737E922F1125ED1900773356 /* keypoints */,
 				737E92301125ED1900773356 /* patfree-panomatic */,
@@ -5381,6 +5460,7 @@
 		5771F5E60C3007B300736343 /* hugin_base */ = {
 			isa = PBXGroup;
 			children = (
+				7357E4F2124776D30098B385 /* makefilelib */,
 				57098D730C453E5F00BD1C53 /* hugin_basic.h */,
 				5759D9B40C3271640043F754 /* appbase */,
 				57EA83940C3A7A0C00E4965E /* algorithm */,
@@ -5975,6 +6055,8 @@
 				733467EA1183644D00401093 /* localfeautures-Info.plist */,
 				737E48DA11D3F8C6002BA8AE /* HuginStitchProject.app */,
 				737E498F11D3FD74002BA8AE /* Hugin.app */,
+				7357E524124777EB0098B385 /* makefilelib-Info.plist */,
+				7357E540124778100098B385 /* makefilelib.framework */,
 			);
 			sourceTree = "<group>";
 		};
@@ -6614,6 +6696,48 @@
 			path = data;
 			sourceTree = "<group>";
 		};
+		7357E4F2124776D30098B385 /* makefilelib */ = {
+			isa = PBXGroup;
+			children = (
+				7357E4F3124777380098B385 /* Anything.cpp */,
+				7357E4F4124777380098B385 /* Anything.h */,
+				7357E4F5124777380098B385 /* AutoVariable.cpp */,
+				7357E4F6124777380098B385 /* AutoVariable.h */,
+				7357E4F7124777380098B385 /* char_type.h */,
+				7357E4F9124777380098B385 /* Comment.cpp */,
+				7357E4FA124777380098B385 /* Comment.h */,
+				7357E4FB124777380098B385 /* Conditional.cpp */,
+				7357E4FC124777380098B385 /* Conditional.h */,
+				7357E4FE124777380098B385 /* example.cpp */,
+				7357E4FF124777380098B385 /* Makefile.cpp */,
+				7357E500124777380098B385 /* Makefile.h */,
+				7357E501124777380098B385 /* Makefile.mk */,
+				7357E502124777380098B385 /* MakefileItem.cpp */,
+				7357E503124777380098B385 /* MakefileItem.h */,
+				7357E504124777380098B385 /* Manageable.h */,
+				7357E505124777380098B385 /* Manager.cpp */,
+				7357E506124777380098B385 /* Manager.h */,
+				7357E507124777380098B385 /* Newline.h */,
+				7357E509124777380098B385 /* Rule.cpp */,
+				7357E50A124777380098B385 /* Rule.h */,
+				7357E50B124777380098B385 /* StringAdapter.h */,
+				7357E50C124777380098B385 /* test_filenames.cpp */,
+				7357E50D124777380098B385 /* test_makefilelib.cpp */,
+				7357E50E124777380098B385 /* test_simple.cpp */,
+				7357E50F124777380098B385 /* test_util_win32.cpp */,
+				7357E510124777380098B385 /* test_util.cpp */,
+				7357E511124777390098B385 /* test_util.h */,
+				7357E512124777390098B385 /* unicode.cpp */,
+				7357E514124777390098B385 /* Variable.cpp */,
+				7357E515124777390098B385 /* Variable.h */,
+				7357E516124777390098B385 /* VariableDef.cpp */,
+				7357E517124777390098B385 /* VariableDef.h */,
+				7357E518124777390098B385 /* VariableRef.cpp */,
+				7357E519124777390098B385 /* VariableRef.h */,
+			);
+			name = makefilelib;
+			sourceTree = "<group>";
+		};
 		739A0EA310FA7A3100D8E4C7 /* Hugin_tools */ = {
 			isa = PBXGroup;
 			children = (
@@ -7131,6 +7255,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		733467E41183644D00401093 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7357E531124778100098B385 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -7960,6 +8091,23 @@
 			productReference = E8A7D9B710FB6F5A00839DF3 /* pano_trafo */;
 			productType = "com.apple.product-type.tool";
 		};
+		7357E52D124778100098B385 /* makefilelib */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7357E53C124778100098B385 /* Build configuration list for PBXNativeTarget "makefilelib" */;
+			buildPhases = (
+				7357E531124778100098B385 /* Headers */,
+				7357E533124778100098B385 /* Sources */,
+				7357E53B124778100098B385 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = makefilelib;
+			productName = localfeautures;
+			productReference = 7357E540124778100098B385 /* makefilelib.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		7364216F10763A22000121C5 /* deghosting_mask */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7364217510763A42000121C5 /* Build configuration list for PBXNativeTarget "deghosting_mask" */;
@@ -8294,7 +8442,9 @@
 				5769FC280D24A26400A6AD01 /* frameworks */,
 				5769FE370D24CFEC00A6AD01 /* vigra_impex Framework */,
 				576900A90D24D29300A6AD01 /* hugin_base Framework */,
+				7357E52D124778100098B385 /* makefilelib */,
 				576900D70D24D32C00A6AD01 /* base_wx Framework */,
+				733467E81183644D00401093 /* localfeatures */,
 				571046810D25F698006A3C69 /* bundled tools */,
 				739A0C4710FA539B00D8E4C7 /* autooptimiser dynamic */,
 				73D24B4D106152CD00B8A25D /* cpclean */,
@@ -8336,7 +8486,6 @@
 				731388DA1182E9D400DCF373 /* keypoints */,
 				731389111182EFC500DCF373 /* libZThread */,
 				7313894A1182F43F00DCF373 /* patfree-panomatic */,
-				733467E81183644D00401093 /* localfeatures */,
 			);
 		};
 /* End PBXProject section */
@@ -9508,6 +9657,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7357E533124778100098B385 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7357E56212477CB00098B385 /* Anything.cpp in Sources */,
+				7357E55E12477C570098B385 /* AutoVariable.cpp in Sources */,
+				7357E55712477A4A0098B385 /* Comment.cpp in Sources */,
+				7357E55F12477C6A0098B385 /* Conditional.cpp in Sources */,
+				7357E55812477B360098B385 /* MakefileItem.cpp in Sources */,
+				7357E55B12477B980098B385 /* Makefile.cpp in Sources */,
+				7357E56012477C7F0098B385 /* Manager.cpp in Sources */,
+				7357E56112477C990098B385 /* Rule.cpp in Sources */,
+				7357E55912477B570098B385 /* Variable.cpp in Sources */,
+				7357E55D12477C410098B385 /* VariableDef.cpp in Sources */,
+				7357E55A12477B700098B385 /* VariableRef.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7364216D10763A22000121C5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -10127,6 +10294,11 @@
 			isa = PBXTargetDependency;
 			target = 733DF653117F2384002EC787 /* pto_merge */;
 			targetProxy = 733DF685117F2531002EC787 /* PBXContainerItemProxy */;
+		};
+		734BB0411247AB950062CF12 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7357E52D124778100098B385 /* makefilelib */;
+			targetProxy = 734BB0401247AB950062CF12 /* PBXContainerItemProxy */;
 		};
 		73573E2C10F9EEA300CF0ECD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -13365,6 +13537,106 @@
 			};
 			name = Release;
 		};
+		7357E53D124778100098B385 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Headers/Carbon.h";
+				INFOPLIST_FILE = "localfeautures-Info.plist";
+				INSTALL_PATH = "$(HOME)/Library/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Carbon,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = localfeautures;
+			};
+			name = Debug;
+		};
+		7357E53E124778100098B385 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Headers/Carbon.h";
+				INFOPLIST_FILE = "localfeautures-Info.plist";
+				INSTALL_PATH = "$(HOME)/Library/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Carbon,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = localfeautures;
+			};
+			name = Development;
+		};
+		7357E53F124778100098B385 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = "";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Headers/Carbon.h";
+				HEADER_SEARCH_PATHS = (
+					../src/hugin_base/makefilelib,
+					"$(REPOSITORY_DIR)/include",
+					../src,
+				);
+				INFOPLIST_FILE = "";
+				INSTALL_PATH = "@executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				OTHER_LDFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = makefilelib;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 		7364217210763A24000121C5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -15069,6 +15341,16 @@
 				73573E4410F9EEA300CF0ECD /* Debug */,
 				73573E4510F9EEA300CF0ECD /* Development */,
 				73573E4610F9EEA300CF0ECD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7357E53C124778100098B385 /* Build configuration list for PBXNativeTarget "makefilelib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7357E53D124778100098B385 /* Debug */,
+				7357E53E124778100098B385 /* Development */,
+				7357E53F124778100098B385 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
