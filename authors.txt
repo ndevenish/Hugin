@@ -1,4 +1,5 @@
 Pablo d'Angelo	Original Author, GSoC 2007 and 2008 mentor, German translation, original CMake build, original Windows SDK
+Florian Achleitner	GSoC 2010 Makefile lib
 Bart van Andel	Bugfix
 György Balló	original Hungarian translation
 Herbert Bay	GSoC 2007 mentor
@@ -11,6 +12,7 @@ Milo Casagrande	Italian translation
 Vaclav Cerny	Czech translation
 Jean-Luc Coulon	original French translation
 Marco Cucinato	Italian translation
+Antoine Deleforge	GSoC 2010 patent free control point detector
 Ademar de Souza Reis Jr.	original Brazilian translation and translation related fixes
 Serhij Dubyk	initial Ukrainian translation
 Terry Duell	updated tutorials, Fedora tester and packager
