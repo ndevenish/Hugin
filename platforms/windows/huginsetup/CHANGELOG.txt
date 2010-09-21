@@ -1,3 +1,14 @@
+
+  + Fixed Autopano-103 settings (wrong zip extraction)
+  + Fixed Match-n-shift settings (doubled .exe extension)
+
+* 0.2.8 (2010-09-15)
+  + Using Match-n-shift version 2008-02-19 (from my Dropbox folder)
+  + Added Stacked/Multirow settings (tests needed)
+  + Added Italian translation to ControlPointDisclaimer
+  + Added HuginSetup.nsi with CMake settings directives (needs works)
+  + Updated 32/64bit installers for 2010.2.0-beta2 build (thanks to Aron Helser - www.aronhelser.com )
+
 * 0.2.6 (2010-09-06)
   + Refactored Control Point Generators scripts (moved into own folder)
   + Splitted 32/64bit installers

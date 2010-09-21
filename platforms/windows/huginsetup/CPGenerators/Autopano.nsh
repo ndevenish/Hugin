@@ -1,5 +1,5 @@
 ; Autopano CP Generator
-!define AUTOPANO_VERSION "1.03"
+!define AUTOPANO_VERSION "103"
 !define AUTOPANO_SIZE 700
 !define AUTOPANO_DL_URL "http://autopano.kolor.com/autopano_v103.zip"
 !define AUTOPANO_LICENSE_FILE "Licenses/Autopano.txt"

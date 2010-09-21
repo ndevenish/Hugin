@@ -1,5 +1,5 @@
 ; Hugin installer script
-!define VERSION 0.2.6.0 ; (2010-09-08)
+!define VERSION 0.2.8.0 ; (2010-09-15)
 ; Author: thePanz (thepanz@gmail.com)
 
 ;--------------------------------
@@ -306,7 +306,7 @@ Function ControlPointRegistryAddMulti
     StrCpy $R1 $0
   ok:
   
-  MessageBox MB_OK "Adding $R0 as $R2: '$R4' ($R3) into AutoPano_$0"
+  ; MessageBox MB_OK "Adding $R0 as $R2: '$R4' ($R3) into AutoPano_$0"
 
   ; Writing settings
   WriteRegStr   HKCU "Software\Hugin\AutoPano\AutoPano_$0" "Program$R0" "$R2"
@@ -375,7 +375,7 @@ Function WriteUninstallRegistry
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Hugin" "DisplayIcon" "$INSTDIR\bin\hugin.exe"
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Hugin" "DisplayVersion" "${HUGIN_VERSION} ${HUGIN_VERSION_BUILD}"
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Hugin" "UninstallString" "$INSTDIR\Uninstall.exe"
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Hugin" "Publisher" "Hugin Group Inc."
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Hugin" "Publisher" "The Hugin Development Team"
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Hugin" "URLInfoAbout" "http://hugin.sourceforge.net"
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Hugin" "HelpLink" "http://groups.google.com/group/hugin-ptx"
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Hugin" "InstallLocation" "$INSTDIR"
