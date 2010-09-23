@@ -26,6 +26,9 @@ target_link_libraries(pto2mk ${common_libs} ${image_libs} )
 add_executable(cpclean cpclean.cpp)
 target_link_libraries(cpclean ${common_libs} )
 
+add_executable(checkpto checkpto.cpp)
+target_link_libraries(checkpto ${common_libs} )
+
 add_executable(pto_merge pto_merge.cpp)
 target_link_libraries(pto_merge ${common_libs} )
 
@@ -39,6 +42,6 @@ add_executable(hugin_hdrmerge hugin_hdrmerge.cpp ../deghosting/deghosting.cpp ..
 target_link_libraries(hugin_hdrmerge ${common_libs} ${image_libs} )
 
 install(TARGETS nona vig_optimize autooptimiser fulla align_image_stack
-        tca_correct pto2mk cpclean hugin_hdrmerge pano_trafo pano_modify pto_merge
+        tca_correct pto2mk cpclean checkpto hugin_hdrmerge pano_trafo pano_modify pto_merge
         DESTINATION ${BINDIR})
 

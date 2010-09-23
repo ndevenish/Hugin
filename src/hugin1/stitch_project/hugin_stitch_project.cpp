@@ -66,7 +66,7 @@ public:
     RunStitchFrame(wxWindow * parent, const wxString& title, const wxPoint& pos, const wxSize& size);
 
     bool StitchProject(wxString scriptFile, wxString outname,
-                       HuginBase::PanoramaMakefileExport::PTPrograms progs);
+                       HuginBase::PanoramaMakefilelibExport::PTPrograms progs);
 
     void OnQuit(wxCommandEvent& event);
     void OnAbout(wxCommandEvent& event);
@@ -167,9 +167,24 @@ void RunStitchFrame::OnProcessTerminate(wxProcessEvent & event)
         Close();
     } else {
         m_isStitching = false;
-        if (event.GetExitCode() != 0) {
-            wxMessageBox(_("Error during stitching\nPlease report the complete text to the bug tracker on http://sf.net/projects/hugin."),
-                     _("Error during stitching"), wxICON_ERROR | wxOK );
+        if (event.GetExitCode() != 0)
+        {
+            if(wxMessageBox(_("Error during stitching\nPlease report the complete text to the bug tracker on http://sf.net/projects/hugin.\n\nDo you want to save the log file?"),
+                _("Error during stitching"), wxICON_ERROR | wxYES_NO )==wxYES)
+            {
+                wxString defaultdir = wxConfigBase::Get()->Read(wxT("/actualPath"),wxT(""));
+                wxFileDialog dlg(this,
+                         _("Specify log file"),
+                         defaultdir, wxT(""),
+                         _("Log files (*.log)|*.log|All files (*)|*"),
+                         wxFD_SAVE | wxFD_OVERWRITE_PROMPT, wxDefaultPosition);
+                dlg.SetDirectory(wxConfigBase::Get()->Read(wxT("/actualPath"),wxT("")));
+                if (dlg.ShowModal() == wxID_OK)
+                {
+                    wxConfig::Get()->Write(wxT("/actualPath"), dlg.GetDirectory());  // remember for later
+                    m_stitchPanel->SaveLog(dlg.GetPath());
+                };
+            }
         } else {
             Close();
         }
@@ -177,7 +192,7 @@ void RunStitchFrame::OnProcessTerminate(wxProcessEvent & event)
 }
 
 bool RunStitchFrame::StitchProject(wxString scriptFile, wxString outname,
-                                   HuginBase::PanoramaMakefileExport::PTPrograms progs)
+                                   HuginBase::PanoramaMakefilelibExport::PTPrograms progs)
 {
     if (! m_stitchPanel->StitchProject(scriptFile, outname, progs)) {
         return false;

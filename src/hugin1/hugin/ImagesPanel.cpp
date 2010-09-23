@@ -45,7 +45,7 @@
 #include "hugin/ImagesList.h"
 #include "hugin/MainFrame.h"
 #include "hugin/huginApp.h"
-#include "hugin/AutoCtrlPointCreator.h"
+#include "icpfind/AutoCtrlPointCreator.h"
 #include "hugin/config_defaults.h"
 #include "base_wx/MyProgressDialog.h"
 #include "base_wx/PTWXDlg.h"

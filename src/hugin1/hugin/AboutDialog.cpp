@@ -94,6 +94,7 @@ AboutDialog::AboutDialog(wxWindow *parent)
     strFile = huginApp::Get()->GetXRCPath() + wxT("data/upstream.txt");
 	textCtrl->SetFont(font);
 	textCtrl->LoadFile(strFile);
+    GetSystemInformation(&font);
 
     // load the appropriate icon (.ico for Windows, .png for other systems)
 #ifdef __WXMSW__
@@ -118,4 +119,57 @@ AboutDialog::~AboutDialog()
 void AboutDialog::OnAboutMe(wxCommandEvent & e)
 {
     return;
+}
+
+void AboutDialog::GetSystemInformation(wxFont *font)
+{
+    wxTextCtrl* infoText=XRCCTRL(*this,"system_txt",wxTextCtrl);
+    infoText->SetFont(*font);
+    wxString text;
+    text=wxString::Format(_("Operating System: %s"),wxGetOsDescription().c_str());
+    wxString is64;
+    if(wxIsPlatform64Bit())
+        is64=_("64 bit");
+    else
+        is64=_("32 bit");
+    text=text+wxT("\n")+wxString::Format(_("Architecture: %s"),is64.c_str());
+    text=text+wxT("\n")+wxString::Format(_("Free memory: %d kiB"),wxGetFreeMemory().GetValue()/1024);
+#ifdef _WINDOWS
+    UINT cp=GetACP();
+    text=text+wxT("\n")+wxString::Format(_("Active Codepage: %d"),cp); 
+    switch(cp)
+    {
+    case 1250:
+        text=text+wxT(" (Central European Windows)");
+        break;
+    case 1251:
+        text=text+wxT(" (Cyrillic Windows)");
+        break;
+    case 1252:
+        text=text+wxT(" (Western European Windows)");
+        break;
+    case 1253:
+        text=text+wxT(" (Greek Windows)");
+        break;
+    case 1254:
+        text=text+wxT(" (Turkish Windows)");
+        break;
+    case 1255:
+        text=text+wxT(" (Hebrew Windows)");
+        break;
+    case 1256:
+        text=text+wxT(" (Arabic Windows)");
+        break;
+    case 1257:
+        text=text+wxT(" (Baltic Windows)");
+        break;
+    case 1258:
+        text=text+wxT(" (Vietnamese Windows)");
+        break;
+    };
+#endif
+    text=text+wxT("\n\nHugin\n")+wxString::Format(_("Version: %s"),wxString(DISPLAY_VERSION,wxConvLocal).c_str());
+    text=text+wxT("\n")+wxString::Format(_("Path to ressources: %s"),huginApp::Get()->GetXRCPath().c_str());
+    text=text+wxT("\n")+wxString::Format(_("Path to data: %s"),huginApp::Get()->GetDataPath().c_str());
+    infoText->SetValue(text);
 }

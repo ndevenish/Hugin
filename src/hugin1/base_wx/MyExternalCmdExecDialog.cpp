@@ -514,6 +514,10 @@ MyExecPanel::~MyExecPanel() {
 #endif
 }
 
+bool MyExecPanel::SaveLog(const wxString &filename)
+{
+    return m_textctrl->SaveFile(filename);
+};
 
 // ----------------------------------------------------------------------------
 // MyProcess
@@ -642,9 +646,12 @@ MyExecDialog::~MyExecDialog() {
 }
 
 int MyExecuteCommandOnDialog(wxString command, wxString args, wxWindow* parent,
-                             wxString title)
+                             wxString title, bool isQuoted)
 {
-    command = utils::wxQuoteFilename(command);
+    if(!isQuoted)
+    {
+        command = utils::wxQuoteFilename(command);
+    };
     wxString cmdline = command + wxT(" ") + args;
     MyExecDialog dlg(parent, title,
                      wxDefaultPosition, wxSize(640, 400));

@@ -36,7 +36,8 @@
 
 #include <PT/Panorama.h>
 
-#include <algorithms/panorama_makefile/PanoramaMakefileExport.h>
+#include <algorithms/panorama_makefile/PanoramaMakefilelibExport.h>
+#include <algorithms/assistant_makefile/AssistantMakefilelibExport.h>
 
 #include "MyExternalCmdExecDialog.h"
 
@@ -54,19 +55,26 @@ struct WXIMPEX StitchProjectEntry
     bool error;
 };
 
+WXIMPEX wxString getGNUMakeCmd(const wxString& args);
+
 class WXIMPEX RunStitchPanel: public wxPanel
 {
 public:
     RunStitchPanel(wxWindow * parent);
 
     bool StitchProject(wxString scriptFile, wxString outname,
-                       HuginBase::PanoramaMakefileExport::PTPrograms progs);
+                       HuginBase::PanoramaMakefilelibExport::PTPrograms progs);
+    bool DetectProject(wxString scriptFile, 
+                       HuginBase::AssistantMakefilelibExport::AssistantPrograms progs);
     void CancelStitch();
 	bool IsPaused();
 	void SetOverwrite(bool over = true);
 	void PauseStitch();
 	void ContinueStitch();
 	long GetPid();
+    /** save the content of the window into a given log file 
+        @return true if log was saved successful */
+    bool SaveLog(const wxString &filename);
 
 private:
 	bool m_paused;

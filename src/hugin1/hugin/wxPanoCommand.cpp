@@ -500,6 +500,10 @@ void wxLoadPTProjectCmd::execute()
 
     // Update control point error values
     HuginBase::PTools::calcCtrlPointErrors(pano);
+    if(markAsOptimized)
+    {
+        pano.markAsOptimized();
+    };
     pano.changeFinished();
 }
 

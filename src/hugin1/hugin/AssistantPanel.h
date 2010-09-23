@@ -72,6 +72,7 @@ private:
     // event handlers
     void OnLoadImages( wxCommandEvent & e );
     void OnAlign( wxCommandEvent & e );
+    void OnAlignSendToBatch(wxCommandEvent & e);
     void OnCreate( wxCommandEvent & e );
     void OnExifToggle( wxCommandEvent & e);
     void OnLoadLens(wxCommandEvent & e);
@@ -82,6 +83,7 @@ private:
     wxPanel *  m_panel;
     wxStaticText * m_imagesText;
     wxButton * m_alignButton;
+    wxButton * m_alignBatchButton;
     wxStaticText * m_alignText;
     wxButton * m_createButton;
     wxCheckBox * m_exifToggle;

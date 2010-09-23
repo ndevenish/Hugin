@@ -57,6 +57,7 @@ public:
 	void OnUserExit(wxCommandEvent &event);
 	void OnButtonAddCommand(wxCommandEvent &event);
 	void OnButtonAddDir(wxCommandEvent &event);
+    void OnButtonSearchPano(wxCommandEvent &e);
 	void OnButtonAddToList(wxCommandEvent &event);
 	void OnButtonCancel(wxCommandEvent &event);
 	void OnButtonChangePrefix(wxCommandEvent &event);
@@ -105,7 +106,7 @@ public:
 	/** return if verbose checkbox is checked */
 	bool GetCheckVerbose() { return XRCCTRL(*this,"cb_verbose",wxCheckBox)->IsChecked();};
 	void RestoreSize();
-	void AddToList(wxString aFile);
+    void AddToList(wxString aFile, Project::Target target=Project::STITCHING);
 	void AddDirToList(wxString aDir);
 	void ChangePrefix(int index,wxString newPrefix);
 
@@ -129,6 +130,8 @@ private:
 	void OnReloadBatch(wxCommandEvent &event);
 	/** called by thread to update listbox */
 	void OnUpdateListBox(wxCommandEvent &event);
+    /** called when batch was finished and there are failed projects */
+    void OnBatchFailed(wxCommandEvent &event);
 
 	DECLARE_EVENT_TABLE()
 	//PTPrograms progs;

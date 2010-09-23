@@ -31,13 +31,16 @@
 #include <panoinc_WX.h>
 
 #include "PT/Panorama.h"
-#include <algorithms/panorama_makefile/PanoramaMakefileExport.h>
+#include <algorithms/panorama_makefile/PanoramaMakefilelibExport.h>
+#include <algorithms/assistant_makefile/AssistantMakefilelibExport.h>
 
 namespace PT {
-struct PTPrograms : public HuginBase::PanoramaMakefileExport::PTPrograms {};
+struct PTPrograms : public HuginBase::PanoramaMakefilelibExport::PTPrograms {};
+struct AssistantPrograms : public HuginBase::AssistantMakefilelibExport::AssistantPrograms {};
 }
 
 WXIMPEX PT::PTPrograms getPTProgramsConfig(wxString huginRoot, wxConfigBase * config);
+WXIMPEX PT::AssistantPrograms getAssistantProgramsConfig(wxString huginRoot, wxConfigBase * config);
 
 /** get the path to the directory where the currently running executable is
  *  stored.

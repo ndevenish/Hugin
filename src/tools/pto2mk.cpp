@@ -45,7 +45,7 @@
 
 #include <hugin_basic.h>
 #include <hugin_utils/platform.h>
-#include <algorithms/panorama_makefile/PanoramaMakefileExport.h>
+#include <algorithms/panorama_makefile/PanoramaMakefilelibExport.h>
 
 #include <tiffio.h>
 
@@ -124,7 +124,7 @@ int main(int argc, char *argv[])
     }
 
     // todo: populate from user preferences?
-    HuginBase::PanoramaMakefileExport::PTPrograms progs;
+    HuginBase::PanoramaMakefilelibExport::PTPrograms progs;
 
     progs.exiftool_opts = HUGIN_EXIFTOOL_COPY_ARGS;
     // stitch only active images
@@ -139,7 +139,7 @@ int main(int argc, char *argv[])
     }
 
     std::vector<std::string> outputFiles;
-    HuginBase::PanoramaMakefileExport::createMakefile(pano,
+    HuginBase::PanoramaMakefilelibExport::createMakefile(pano,
             activeImgs,
             ptoFile,
             prefix,
@@ -148,5 +148,6 @@ int main(int argc, char *argv[])
             outputFiles,
             makeFileStream,
             "");
+
     return 0;
 }

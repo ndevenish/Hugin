@@ -102,6 +102,18 @@
                                     <border>5</border>
                                   </object>
                                   <growablecols>1</growablecols>
+                                  <object class="sizeritem">
+                                    <object class="wxStaticText" name="prefs_cpdetector_args_label_cleanup">
+                                      <label>Cleanup arguments:</label>
+                                    </object>
+                                    <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                                    <border>5</border>
+                                  </object>
+                                  <object class="sizeritem">
+                                    <object class="wxTextCtrl" name="prefs_cpdetector_args_cleanup"/>
+                                    <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                                    <border>5</border>
+                                  </object>
                                 </object>
                               </object>
                             </object>

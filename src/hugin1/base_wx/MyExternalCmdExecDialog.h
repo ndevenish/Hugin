@@ -33,7 +33,7 @@ const int HUGIN_EXIT_CODE_CANCELLED = -255;
 
 class MyExternalCmdExecDialog;
 class HuginPipedProcess;
-WXIMPEX int MyExecuteCommandOnDialog(wxString command, wxString args, wxWindow* parent, wxString title);
+WXIMPEX int MyExecuteCommandOnDialog(wxString command, wxString args, wxWindow* parent, wxString title, bool isQuoted=false);
 
 //#define HUGIN_EXEC_LISTBOX 1
 
@@ -74,6 +74,9 @@ public:
     // for MyPipedProcess
     void OnProcessTerminated(MyPipedProcess *process, int pid, int status);
     //wxListBox *GetLogListBox() const { return m_lbox; }
+    /** save the content of the window into a given log file 
+        @return true if log was saved successful */
+    bool SaveLog(const wxString &filename);
     
     virtual ~MyExecPanel();
 

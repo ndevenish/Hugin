@@ -196,6 +196,7 @@ public:
     SrcPanoImage()
     {
         setDefaults();
+        successfullEXIFread=false;
     }
     
     virtual ~SrcPanoImage() {};
@@ -210,8 +211,10 @@ public:
         m_Filename = filename;
         double crop = 0;
         double fl = 0;
-        readEXIF(fl, crop, true, true);
+        successfullEXIFread=readEXIF(fl, crop, true, true);
     };
+    /** return true, if EXIF infomation was read sucessful */
+    const bool hasEXIFread() const {return successfullEXIFread;};
     
     
 public:
@@ -416,6 +419,7 @@ private:
 
     /** Check if Exiv orientation tag can be trusted */
     bool trustExivOrientation();
+    bool successfullEXIFread;
 };
 
 typedef std::vector<SrcPanoImage> ImageVector;

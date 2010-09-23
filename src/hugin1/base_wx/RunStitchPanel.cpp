@@ -98,9 +98,36 @@ RunStitchPanel::RunStitchPanel(wxWindow * parent)
 //    topsizer->SetSizeHints( this );   // set size hints to honour minimum size
 }
 
+wxString getGNUMakeCmd(const wxString &args)
+{
+#if defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE   
+    wxString cmd = MacGetPathToBundledExecutableFile(CFSTR("gnumake"));  
+    if(cmd != wxT(""))
+    {
+        cmd = wxQuoteString(cmd); 
+    }
+    else
+    {
+        wxMessageBox(wxString::Format(_("External program %s not found in the bundle, reverting to system path"), wxT("gnumake")), _("Error"));
+        cmd = wxT("make");  
+    }
+    cmd += wxT(" ") + args;
+#elif defined __FreeBSD__
+    wxString cmd = wxT("gmake ") + args;  
+#elif defined __WXMSW__
+    wxString cmdExe;
+    if(!wxGetEnv(wxT("ComSpec"),&cmdExe))
+        cmdExe=wxT("cmd");
+    wxString cmd = cmdExe + wxString::Format(wxT(" /C \"chcp %d >NUL && "),GetACP())+
+        wxT("\"") + getExePath(wxTheApp->argv[0])+wxT("\\make\" ") + args + wxT("\"");
+#else
+    wxString cmd = wxT("make ") + args;  
+#endif
+    return cmd;
+};
 
 bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname,
-                                   HuginBase::PanoramaMakefileExport::PTPrograms progs)
+                                   HuginBase::PanoramaMakefilelibExport::PTPrograms progs)
 {
     DEBUG_TRACE("");
     wxFileName fname(scriptFile);
@@ -203,7 +230,7 @@ bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname,
         std::string tmpDir((wxConfigBase::Get()->Read(wxT("tempDir"),wxT(""))).mb_str(HUGIN_CONV_FILENAME));
 
         std::vector<std::string> outputFiles;
-        HuginBase::PanoramaMakefileExport::createMakefile(pano,
+        HuginBase::PanoramaMakefilelibExport::createMakefile(pano,
                            activeImgs,
                            tmpPTOfnC,
                            resultFn,
@@ -236,33 +263,14 @@ bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname,
         }
 
 #if defined __WXMSW__
-        wxString args = wxT("-f ") + wxQuoteFilename(m_currentMakefn) + wxT(" test all clean");
+        wxString args = wxT("-f ") + wxQuoteFilename(m_currentMakefn) + wxT(" info test all clean");
 #else
-        wxString args = wxT("-f ") + wxQuoteString(m_currentMakefn) + wxT(" test all clean");
+        wxString args = wxT("-f ") + wxQuoteString(m_currentMakefn) + wxT(" info test all clean");
 #endif
 
         wxString caption = wxString::Format(_("Stitching %s"), scriptFile.c_str());
 
-#if defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE   
-        wxString cmd = MacGetPathToBundledExecutableFile(CFSTR("gnumake"));  
-        if(cmd != wxT("")) {
-            cmd = wxQuoteString(cmd); 
-        } else {
-            wxMessageBox(wxString::Format(_("External program %s not found in the bundle, reverting to system path"), wxT("gnumake")), _("Error"));
-            cmd = wxT("make");  
-        }
-        cmd += wxT(" ") + args;
-#elif defined __FreeBSD__
-        wxString cmd = wxT("gmake ") + args;  
-#elif defined __WXMSW__
-        wxString cmdExe;
-        if(!wxGetEnv(wxT("ComSpec"),&cmdExe))
-            cmdExe=wxT("cmd");
-        wxString cmd = cmdExe + wxString::Format(wxT(" /C \"chcp %d >NUL && "),GetACP())+
-            wxT("\"") + getExePath(wxTheApp->argv[0])+wxT("\\make\" ") + args + wxT("\"");
-#else
-        wxString cmd = wxT("make ") + args;  
-#endif
+        wxString cmd=getGNUMakeCmd(args);
         if (m_execPanel->ExecWithRedirect(cmd) == -1) {
             wxMessageBox(wxString::Format(_("Error while stitching project\n%s"), cmd.c_str()),
                          _("Error during stitching"),  wxICON_ERROR | wxOK );
@@ -276,6 +284,86 @@ bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname,
     return true;
 }
 
+bool RunStitchPanel::DetectProject(wxString scriptFile, 
+                                   HuginBase::AssistantMakefilelibExport::AssistantPrograms progs)
+{
+    m_currentPTOfn=wxEmptyString;
+    wxFileName fname(scriptFile);
+    if ( !fname.FileExists() ) {
+        wxLogError( _("Could not open project file:") + scriptFile);
+        return false;
+    }
+
+    //read project file
+    ifstream prjfile((const char *)scriptFile.mb_str(HUGIN_CONV_FILENAME));
+    if (prjfile.bad())
+    {
+        wxLogError( wxString::Format(_("could not open script : %s"), scriptFile.c_str()));
+        return false;
+    }
+    PT::Panorama pano;
+    PT::PanoramaMemento newPano;
+    int ptoVersion = 0;
+    if (!newPano.loadPTScript(prjfile, ptoVersion))
+    {
+        wxLogError(wxString::Format(_("error while parsing panotools script: %s"), scriptFile.c_str()));
+        return false;
+    }
+    pano.setMemento(newPano);
+
+    //read settings
+    wxConfig config(wxT("hugin"));
+    bool runCeleste=config.Read(wxT("/Celeste/Auto"), HUGIN_CELESTE_AUTO)!=0;
+    double celesteThreshold;
+    config.Read(wxT("/Celeste/Threshold"), &celesteThreshold, HUGIN_CELESTE_THRESHOLD);
+    bool celesteSmall=config.Read(wxT("/Celeste/Filter"), HUGIN_CELESTE_FILTER)!=0;
+    bool runCPClean=config.Read(wxT("/Assistant/AutoCPClean"), HUGIN_ASS_AUTO_CPCLEAN)!=0;
+    double scale;
+    config.Read(wxT("/Assistant/panoDownsizeFactor"), &scale, HUGIN_ASS_PANO_DOWNSIZE_FACTOR);
+    int scalei=roundi(scale*100);
+    wxString tempDir= config.Read(wxT("tempDir"),wxT(""));
+    if(!tempDir.IsEmpty())
+        if(tempDir.Last()!=wxFileName::GetPathSeparator())
+            tempDir.Append(wxFileName::GetPathSeparator());
+
+    try {
+        //generate makefile
+        m_currentMakefn=wxFileName::CreateTempFileName(tempDir+wxT("ham"));
+        if(m_currentMakefn.size() == 0)
+        {
+            wxLogError(_("Could not create temporary file"));
+            return false;
+        }
+        std::ofstream makefile(m_currentMakefn.mb_str(HUGIN_CONV_FILENAME));
+        makefile.exceptions( std::ofstream::eofbit | std::ofstream::failbit | std::ofstream::badbit );
+        std::string scriptString(scriptFile.mb_str(HUGIN_CONV_FILENAME));
+        HuginBase::AssistantMakefilelibExport::createMakefile(pano,progs,runCeleste,celesteThreshold,celesteSmall,
+            runCPClean,scale,makefile,scriptString);
+        makefile.close();
+
+        //execute makefile
+        wxString args = wxT("-f ") + wxQuoteFilename(m_currentMakefn) + wxT(" all");
+        wxString cmd=getGNUMakeCmd(args);
+        wxFileName path(scriptFile);
+        path.MakeAbsolute();
+        wxString oldcwd=path.GetCwd();
+        path.SetCwd();
+        if (m_execPanel->ExecWithRedirect(cmd) == -1)
+        {
+            wxMessageBox(wxString::Format(_("Error while running assistant\n%s"), cmd.c_str()),
+                         _("Error during running assistant"),  wxICON_ERROR | wxOK );
+        }
+        wxFileName::SetCwd(oldcwd);
+    } 
+    catch (std::exception & e)
+    {
+        cerr << "caught exception: " << e.what() << std::endl;
+        wxMessageBox(wxString(e.what(), wxConvLocal),
+                     _("Error during running assistant"), wxICON_ERROR | wxOK );
+    }
+    return true;
+}
+
 void RunStitchPanel::OnProcessTerminate(wxProcessEvent & event)
 {
     DEBUG_TRACE("");
@@ -283,8 +371,14 @@ void RunStitchPanel::OnProcessTerminate(wxProcessEvent & event)
 	//{
 		// delete temporary files
 #ifndef DEBUG
+    if(!m_currentMakefn.IsEmpty())
+    {
 		wxRemoveFile(m_currentMakefn);
+    };
+    if(!m_currentPTOfn.IsEmpty())
+    {
 		wxRemoveFile(m_currentPTOfn);
+    };
 #endif
 		// notify parent of exit
 		if (this->GetParent()) {
@@ -327,3 +421,8 @@ long RunStitchPanel::GetPid()
 {
 	return m_execPanel->GetPid();
 }
+
+bool RunStitchPanel::SaveLog(const wxString &filename)
+{
+    return m_execPanel->SaveLog(filename);
+};

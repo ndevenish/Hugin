@@ -14,6 +14,7 @@ IF(wxWidgets_FOUND)
 
   add_subdirectory(base_wx)
   add_subdirectory(stitch_project)
+  add_subdirectory(icpfind)
   # build  Hugin only if OpenGL was found
   IF(OPENGL_FOUND)
     add_subdirectory(hugin)

@@ -51,6 +51,10 @@ public:
 		MISSING,
 		PAUSED
 	};
+    enum Target{
+        STITCHING=0,
+        DETECTING
+    };
 
 	//generator for unique ids of projects
 	static long idGenerator;
@@ -58,6 +62,8 @@ public:
 	long id;
 	//project status
 	Status status;
+    //project target: stitching or detecting/assistant
+    Target target;
 	//project input path
 	wxString path;
 	//project output prefix path and filename
@@ -70,7 +76,7 @@ public:
 	bool skip;
 
 	//Constructor for project files
-	Project(wxString pth,wxString pfx);
+	Project(wxString pth,wxString pfx,Project::Target newTarget=STITCHING);
 	//Constructor for applications
 	Project(wxString command);
 	//Returns status of project in string form

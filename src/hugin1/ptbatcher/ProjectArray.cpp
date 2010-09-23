@@ -33,7 +33,7 @@ using namespace std;
 
 long Project::idGenerator=1;
 
-Project::Project(wxString pth,wxString pfx)
+Project::Project(wxString pth,wxString pfx, Project::Target newTarget)
 {
 	id = Project::idGenerator;
 	Project::idGenerator++;
@@ -45,6 +45,7 @@ Project::Project(wxString pth,wxString pfx)
 	options = ReadOptions(pth);
 	skip = false;
 	status = WAITING;
+    target = newTarget;
 }
 
 Project::Project(wxString command)
@@ -54,6 +55,7 @@ Project::Project(wxString command)
 	Project::idGenerator++;
 	skip = false;
 	status = WAITING;
+    target = STITCHING;
 }
 
 wxString Project::GetStatusText()

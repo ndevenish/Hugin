@@ -63,7 +63,7 @@ static void usage(const char * name)
          << "  -p n      Number of points to extract" << std::endl
        // random points is default, all points was only implemented for testing purposes
        // << "  -r        Extract random point (faster, but less accurate)" << std::endl
-         << "  -s level  Work on downscaled images, every step halfs width and height" << std::endl
+         << "  -s level  Work on downscaled images, every step halves width and height" << std::endl
          << "  -h        Display help (this text)" << std::endl
          << std::endl
          << " Expert and debugging options:" << std::endl
@@ -228,7 +228,7 @@ int main(int argc, char *argv[])
 
     // Ensure photometric parameters are selected for optimizaion
     if (!hasphotometricParams(pano)) {
-        cerr << "ERROR:no photometric paramters were selected for optimization" << endl;
+        cerr << "ERROR:no photometric parameters were selected for optimization" << endl;
         cerr << "please update 'v' line in .pto script and try again." << endl;
         return 1;
     }

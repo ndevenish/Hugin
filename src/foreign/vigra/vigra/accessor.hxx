@@ -535,7 +535,7 @@ class VectorComponentValueAccessor
 
 /** \brief Accessor for one component of a vector.
 
-    This works like VectorComponentAccessor, only the template paramters differ: 
+    This works like VectorComponentAccessor, only the template parameters differ: 
     Here, we need a vector accessor type , wheras VectorComponentAccessor requires a vector type.
 
     <b>Usage:</b>

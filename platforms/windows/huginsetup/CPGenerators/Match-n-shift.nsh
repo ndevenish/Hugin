@@ -28,7 +28,7 @@ Section "Match-n-Shift ${MATCHNSHIFT_VERSION}" SecMatchNShift
   
       StrCpy $R0 1 ; R0 = Type
       StrCpy $R1 1 ; R1 = Option
-      StrCpy $R2 "$INSTDIR\bin\match-n-shift.exe.exe" ; R2 = Program
+      StrCpy $R2 "$INSTDIR\bin\match-n-shift.exe" ; R2 = Program
       StrCpy $R3 "-b -a -f %f -v %v -c -p %p -o %o %i" ; R3 = Arguments
       StrCpy $R4 "Match-n-Shift ${MATCHNSHIFT_VERSION}";  R4 = Description
       Call ControlPointRegistryAdd
