@@ -633,8 +633,7 @@ void GLPreviewFrame::panoramaChanged(Panorama &pano)
     
     // Check if autocrop is usable on this projection.
     bool hasActiveImages = pano.getActiveImages().size() > 0;
-    XRCCTRL(*this,"preview_autocrop_tool",wxBitmapButton)->Enable(
-        hasActiveImages && opts.fovCalcSupported(opts.getProjection()));
+    XRCCTRL(*this,"preview_autocrop_tool",wxBitmapButton)->Enable(hasActiveImages);
     m_ROILeftTxt->SetValue(wxString::Format(wxT("%d"), opts.getROI().left() ));
     m_ROIRightTxt->SetValue(wxString::Format(wxT("%d"), opts.getROI().right() ));
     m_ROITopTxt->SetValue(wxString::Format(wxT("%d"), opts.getROI().top() ));
