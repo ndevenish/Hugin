@@ -878,6 +878,7 @@ void ImagesPanel::OnMoveImageDown(wxCommandEvent & e)
         unsigned int i1 = *selImg.begin();
         unsigned int i2 = i1+1;
         if (i2 < pano->getNrOfImages() ) {
+            images_list->SetItemState(i1,0,wxLIST_STATE_SELECTED);
             GlobalCmdHist::getInstance().addCommand(
                 new SwapImagesCmd(*pano,i1, i2)
             );
@@ -897,6 +898,7 @@ void ImagesPanel::OnMoveImageUp(wxCommandEvent & e)
         unsigned int i1 = *selImg.begin();
         unsigned int i2 = i1 -1;
         if (i1 > 0) {
+            images_list->SetItemState(i1,0,wxLIST_STATE_SELECTED);
             GlobalCmdHist::getInstance().addCommand(
                 new SwapImagesCmd(*pano,i1, i2)
             );
