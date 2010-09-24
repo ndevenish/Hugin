@@ -53,6 +53,8 @@ public:
     double getOverlap(unsigned int i, unsigned int j);
     /** limits the calculation of the overlap to given image numbers */
     void limitToImages(UIntSet img);
+    /** returns a set of images which overlap with given image number */
+    UIntSet getOverlapForImage(unsigned int i);
 
 private:
     std::vector<std::vector<double> > m_overlap;

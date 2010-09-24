@@ -522,15 +522,7 @@ void MaskEditorPanel::UpdateMaskList(bool restoreSelection)
             };
             for(unsigned int i=0;i<m_currentMasks.size();i++)
             {
-                switch(m_currentMasks[i].getMaskType())
-                {
-                    case HuginBase::MaskPolygon::Mask_negative:
-                        m_maskList->SetItem(i,1,_("Exclude region"));
-                        break;
-                    case HuginBase::MaskPolygon::Mask_positive:
-                        m_maskList->SetItem(i,1,_("Include region"));
-                        break;
-                };
+                m_maskList->SetItem(i,1,m_maskType->GetString(m_currentMasks[i].getMaskType()));
                 if(!restoreSelection && i==oldSelection)
                     m_maskList->SetItemState(i,0, wxLIST_STATE_SELECTED);
             };

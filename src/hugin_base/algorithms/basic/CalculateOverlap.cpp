@@ -145,6 +145,22 @@ double CalculateImageOverlap::getOverlap(unsigned int i, unsigned int j)
     };
 };
 
+UIntSet CalculateImageOverlap::getOverlapForImage(unsigned int i)
+{
+    UIntSet overlapImgs;
+    for(unsigned int j=0;j<m_nrImg;j++)
+    {
+        if(i!=j)
+        {
+            if(getOverlap(i,j)>0)
+            {
+                overlapImgs.insert(j);
+            };
+        };
+    };
+    return overlapImgs;
+};
+
 void CalculateImageOverlap::limitToImages(UIntSet img)
 {
     testImages=img;

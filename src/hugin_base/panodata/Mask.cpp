@@ -268,15 +268,7 @@ bool MaskPolygon::parsePolygonString(const std::string polygonStr)
 void MaskPolygon::printPolygonLine(std::ostream &o, const unsigned int newImgNr) const
 {
     o<<"k i"<<newImgNr<<" ";
-    switch(m_maskType)
-    {
-    case Mask_negative:
-        o<<"t0 ";
-        break;
-    case Mask_positive:
-        o<<"t1 ";
-        break;
-    };
+    o<<"t"<<(int)m_maskType<<" ";
     o<<"p\"";
     for(unsigned int i=0; i<m_polygon.size(); i++)
     {

@@ -474,6 +474,9 @@ bool PanoDetector::loadProject()
         ifstream keyfile(aImgData._keyfilename.c_str());
         aImgData._hasakeyfile = keyfile.good();
     }
+    //update masks, convert positive masks into negative masks
+    //because positive masks works only if the images are on the final positions
+    _panoramaInfoCopy.updateMasks(true);
 
     return true;
 }

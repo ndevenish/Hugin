@@ -56,7 +56,9 @@ public:
     enum MaskType 
     {
         Mask_negative=0,
-        Mask_positive=1
+        Mask_positive=1,
+        Mask_Stack_negative=2,
+        Mask_Stack_positive=3
     };
     /** constructor */
     MaskPolygon() : m_maskType(Mask_negative), m_invert(false), m_imgNr(0) {};
@@ -184,4 +186,4 @@ void applyMask(vigra::triple<SrcImageIterator, SrcImageIterator, SrcAccessor> im
 }
 
 } //namespace
-#endif // PANOIMAGE_H
+#endif // _PANODATA_MASK_H

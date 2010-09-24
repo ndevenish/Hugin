@@ -1064,7 +1064,60 @@ void Panorama::updateMasksForImage(unsigned int imgNr, MaskPolygonVector newMask
     m_forceImagesUpdate = true;
 };
 
-void Panorama::updateMasks()
+void Panorama::transferMask(MaskPolygon mask,unsigned int imgNr, const UIntSet targetImgs)
+{
+    if(targetImgs.size()==0)
+    {
+        return;
+    };
+    MaskPolygon transformedMask=mask;
+    int origWindingNumber=transformedMask.getTotalWindingNumber();
+    // clip positive mask to image boundaries
+    if(transformedMask.clipPolygon(vigra::Rect2D(0,0,state.images[imgNr]->getWidth(),state.images[imgNr]->getHeight())))
+    {
+        //increase resolution of positive mask to get better transformation
+        //of vertices, especially for fisheye images
+        transformedMask.subSample(20);
+        //transform polygon to panorama space
+        HuginBase::PTools::Transform trans;
+        trans.createInvTransform(getImage(imgNr),getOptions());
+        transformedMask.transformPolygon(trans);
+        for(UIntSet::const_iterator it=targetImgs.begin();it!=targetImgs.end();it++)
+        {
+            if(imgNr==(*it))
+            {
+                continue;
+            };
+            MaskPolygon targetMask;
+            if(state.images[imgNr]->YawisLinkedWith(*(state.images[*it])))
+            {
+                //if yaw is linked, we simply copy the mask
+                targetMask=mask;
+            }
+            else
+            {
+                targetMask=transformedMask;
+                PTools::Transform targetTrans;
+                targetTrans.createTransform(getImage(*it),getOptions());
+                targetMask.transformPolygon(targetTrans);
+                //check if mask was inverted - outside became inside and vice versa
+                //if so, invert mask
+                int newWindingNumber=targetMask.getTotalWindingNumber();
+                targetMask.setInverted(origWindingNumber * newWindingNumber < 0);
+            };
+            //now clip polygon to image rectangle, add mask only when polygon is inside image
+            if(targetMask.clipPolygon(vigra::Rect2D(-maskOffset,-maskOffset,
+                                      state.images[*it]->getWidth()+maskOffset,state.images[*it]->getHeight()+maskOffset)))
+            {
+                targetMask.setMaskType(MaskPolygon::Mask_negative);
+                targetMask.setImgNr(*it);
+                state.images[*it]->addActiveMask(targetMask);
+            };
+        };
+    };        
+};
+
+void Panorama::updateMasks(bool convertPosMaskToNeg)
 {
     // update masks
     UIntSet imgWithPosMasks;
@@ -1095,46 +1148,73 @@ void Panorama::updateMasks()
                         break;
                     case MaskPolygon::Mask_positive:
                         //propagate positive mask only if image is active
-                        if(state.images[i]->getActive())
+                        if(convertPosMaskToNeg)
                         {
-                            MaskPolygon transformedMask=masks[j];
-                            int origWindingNumber=transformedMask.getTotalWindingNumber();
-                            // clip positive mask to image boundaries
-                            if(transformedMask.clipPolygon(vigra::Rect2D(0,0,state.images[i]->getWidth(),state.images[i]->getHeight())))
+                            masks[j].setImgNr(i);
+                            state.images[i]->addActiveMask(masks[j]);
+                        }
+                        else
+                        {
+                            if(state.images[i]->getActive())
                             {
-                                //increase resolution of positive mask to get better transformation
-                                //of vertices, especially for fisheye images
-                                transformedMask.subSample(20);
-                                //transform polygon to panorama space
-                                HuginBase::PTools::Transform trans;
-                                trans.createInvTransform(getImage(i),getOptions());
-                                transformedMask.transformPolygon(trans);
-                                for(unsigned k=0;k<state.images.size();k++)
+                                UIntSet overlapImgs=overlap.getOverlapForImage(i);
+                                transferMask(masks[j],i,overlapImgs);
+                            };
+                        };
+                        break;
+                    case MaskPolygon::Mask_Stack_negative:
+                        {
+                            UIntSet imgStack;
+                            for(unsigned int k=0;k<getNrOfImages();k++)
+                            {
+                                if(i!=k)
                                 {
-                                    if(i==k)
-                                        continue;
-                                    //check if images are overlapping
-                                    if(overlap.getOverlap(i,k)>0)
+                                    if(state.images[i]->StackisLinkedWith(*(state.images[k])))
                                     {
-                                        //transform polygon to image space of other image only if images are overlapping
-                                        MaskPolygon targetMask=transformedMask;
-                                        PTools::Transform targetTrans;
-                                        targetTrans.createTransform(getImage(k),getOptions());
-                                        targetMask.transformPolygon(targetTrans);
-                                        //check if mask was inverted - outside became inside and vice versa
-                                        //if so, invert mask
-                                        int newWindingNumber=targetMask.getTotalWindingNumber();
-                                        targetMask.setInverted(origWindingNumber * newWindingNumber < 0);
-                                        //now clip polygon to image rectangle, add mask only when polygon is inside image
-                                        if(targetMask.clipPolygon(vigra::Rect2D(-maskOffset,-maskOffset,
-                                            state.images[k]->getWidth()+maskOffset,state.images[k]->getHeight()+maskOffset)))
+                                        imgStack.insert(k);
+                                    };
+                                };
+                            };
+                            masks[j].setImgNr(i);
+                            masks[j].setMaskType(MaskPolygon::Mask_negative);
+                            state.images[i]->addActiveMask(masks[j]);
+                            transferMask(masks[j],i,imgStack);
+                        };
+                        break;
+                    case MaskPolygon::Mask_Stack_positive:
+                        {
+                            UIntSet imgStack;
+                            if(!convertPosMaskToNeg)
+                            {
+                                fill_set(imgStack,0,getNrOfImages()-1);
+                                imgStack.erase(i);
+                            };
+                            for(unsigned int k=0;k<getNrOfImages();k++)
+                            {
+                                if(i!=k)
+                                {
+                                    if(state.images[i]->StackisLinkedWith(*(state.images[k])))
+                                    {
+                                        if(convertPosMaskToNeg)
                                         {
-                                            targetMask.setMaskType(MaskPolygon::Mask_negative);
-                                            targetMask.setImgNr(k);
-                                            state.images[k]->addActiveMask(targetMask);
+                                            imgStack.insert(k);
+                                        }
+                                        else
+                                        {
+                                            imgStack.erase(k);
                                         };
                                     };
                                 };
+                            };
+                            if(convertPosMaskToNeg)
+                            {
+                                masks[j].setImgNr(i);
+                                masks[j].setMaskType(MaskPolygon::Mask_negative);
+                                state.images[i]->addActiveMask(masks[j]);
+                            };
+                            if(state.images[i]->getActive() || convertPosMaskToNeg)
+                            {
+                                transferMask(masks[j],i,imgStack);
                             };
                         };
                         break;

@@ -536,7 +536,10 @@ class IMPEX Panorama : public ManagedPanoramaData, public AppBase::DocumentData
          * this is necessary after variables of *one* image has changed, 
          * because positive masks have to be updated 
          */
-        void updateMasks();
+        void updateMasks(bool convertPosMaskToNeg=false);
+        /** transfers given mask from image imgNr to all targetImgs
+         */
+        void transferMask(MaskPolygon mask,unsigned int imgNr, const UIntSet targetImgs);
         
         
         // -- Memento interface --

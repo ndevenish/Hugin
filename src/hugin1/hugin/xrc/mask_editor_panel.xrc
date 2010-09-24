@@ -76,6 +76,8 @@
                   <content>
                     <item>Exclude region</item>
                     <item>Include region</item>
+                    <item>Exclude region from stack</item>
+                    <item>Include region from stack</item>
                   </content>
                   <selection>0</selection>
                 </object>
