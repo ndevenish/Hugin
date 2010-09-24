@@ -381,7 +381,7 @@ void PanoPanel::UpdateDisplay(const PanoramaOptions & opt, const bool hasStacks)
     m_VFOVText->Enable(m_keepViewOnResize);
     m_CalcOptWidthButton->Enable(m_keepViewOnResize && hasImages);
     m_CalcHFOVButton->Enable(m_keepViewOnResize && hasImages);
-    m_CalcOptROIButton->Enable(m_keepViewOnResize && hasImages);
+    m_CalcOptROIButton->Enable(hasImages);
 
     m_WidthTxt->SetValue(wxString::Format(wxT("%d"), opt.getWidth()));
     m_HeightTxt->SetValue(wxString::Format(wxT("%d"), opt.getHeight()));
