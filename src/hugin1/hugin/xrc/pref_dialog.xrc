@@ -102,8 +102,26 @@
                           <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
                           <border>5</border>
                         </object>
-                        <rows>2</rows>
-                        <growablecols>1</growablecols>
+                        <object class="sizeritem">
+                          <object class="wxStaticText">
+                            <label>Smart Undo</label>
+                          </object>
+                          <flag>wxALL|wxALIGN_LEFT|wxALIGN_TOP</flag>
+                          <border>5</border>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxCheckBox" name="prefs_smart_undo">
+                            <flag>wxALL|wxEXPAND|wxALIGN_CENTRE|wxALIGN_TOP</flag>
+                            <border>5</border>
+                          </object>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxStaticText">
+                            <label>Undo will skip over visibility toggles. \nMay have unforseen consequences. \n(EXPERIMENTAL)</label>
+                          </object>
+                          <flag>wxALL|wxEXPAND|wxALIGN_RIGHT|wxALIGN_TOP</flag>
+                        </object>
+                        <growablecols>2</growablecols>
                       </object>
                       <flag>wxEXPAND</flag>
                     </object>

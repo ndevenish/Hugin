@@ -428,6 +428,9 @@ void PreferencesDialog::UpdateDisplayData(int panel)
             DEBUG_WARN("Unknown language configured");
         }
 
+        // smart undo
+        t = cfg->Read(wxT("smartUndo"), HUGIN_SMART_UNDO) == 1;
+        MY_BOOL_VAL("prefs_smart_undo", t);
 
         // cursor setting
 //    mem = cfg->Read(wxT("/CPImageCtrl/CursorType"), HUGIN_CP_CURSOR);
@@ -604,6 +607,8 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
             cfg->Write(wxT("/Nona/NumberOfThreads"), cpucount);
             // locale
             cfg->Write(wxT("language"), HUGIN_LANGUAGE);
+            // smart undo
+            cfg->Write(wxT("smartUndo"), HUGIN_SMART_UNDO);
             // druid
             cfg->Write(wxT("/PreviewFrame/showDruid"), HUGIN_PREVIEW_SHOW_DRUID);
         }
@@ -733,7 +738,10 @@ void PreferencesDialog::UpdateConfigData()
     long templ =  * static_cast<long *>(tmplp);
     cfg->Write(wxT("language"), templ);
     DEBUG_INFO("Language Selection ID: " << templ);
-    
+
+    // smart undo
+    cfg->Write(wxT("smartUndo"), MY_G_BOOL_VAL("prefs_smart_undo"));
+
     // cursor
     //    cfg->Write(wxT("/CPImageCtrl/CursorType"), MY_G_SPIN_VAL("prefs_cp_CursorType"));
     // tempdir

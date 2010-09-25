@@ -30,6 +30,9 @@
 #include "panoinc.h"
 #include "hugin/CommandHistory.h"
 
+#include "hugin/config_defaults.h"
+
+
 CommandHistory::CommandHistory()
     : nextCmd(0)
 {
@@ -90,11 +93,13 @@ void CommandHistory::undo()
         DEBUG_DEBUG("undo: " << commands[nextCmd-1]->getName());
         commands[nextCmd-1]->undo();
         nextCmd--;
-        // smart undo: keep undoing simple visibility toggles
-        // TODO: add a preference to do this or not
-        while ( (commands[nextCmd]->getName()=="change active images") && (nextCmd > 0) ) {
-            commands[nextCmd-1]->undo();
-            nextCmd--;
+        // smart undo: keep undoing simple visibility toggles according to user preference
+        bool t = (wxConfigBase::Get()->Read(wxT("smartUndo"), HUGIN_SMART_UNDO) != 0); 
+        if(t){
+            while ( (commands[nextCmd]->getName()=="change active images") && (nextCmd > 0) ) {
+                commands[nextCmd-1]->undo();
+                nextCmd--;
+            }
         }
         // TODO: reestablish visibility based on preferences
     } else {
@@ -109,11 +114,13 @@ void CommandHistory::redo()
         DEBUG_DEBUG("redo: " << commands[nextCmd]->getName());
         commands[nextCmd]->execute();
         nextCmd++;
-        // smart redo: keep redoing simple visibility toggles
-        // TODO: add a preference to do this or not
-        while ( (nextCmd < commands.size()) && (commands[nextCmd]->getName()=="change active images") ) {
-            commands[nextCmd]->execute();
-            nextCmd++;
+        // smart redo: keep redoing simple visibility toggles according to user preference
+        bool t = (wxConfigBase::Get()->Read(wxT("smartUndo"), HUGIN_SMART_UNDO) != 0); 
+        if(t){
+            while ( (nextCmd < commands.size()) && (commands[nextCmd]->getName()=="change active images") ) {
+                commands[nextCmd]->execute();
+                nextCmd++;
+            }
         }
         // TODO: reestablish visibility based on preferences
     } else {
