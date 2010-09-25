@@ -90,6 +90,13 @@ void CommandHistory::undo()
         DEBUG_DEBUG("undo: " << commands[nextCmd-1]->getName());
         commands[nextCmd-1]->undo();
         nextCmd--;
+        // smart undo: keep undoing simple visibility toggles
+        // TODO: add a preference to do this or not
+        while ( (commands[nextCmd]->getName()=="change active images") && (nextCmd > 0) ) {
+            commands[nextCmd-1]->undo();
+            nextCmd--;
+        }
+        // TODO: reestablish visibility based on preferences
     } else {
         wxLogError(_("no command in undo history"));
     }
@@ -102,6 +109,13 @@ void CommandHistory::redo()
         DEBUG_DEBUG("redo: " << commands[nextCmd]->getName());
         commands[nextCmd]->execute();
         nextCmd++;
+        // smart redo: keep redoing simple visibility toggles
+        // TODO: add a preference to do this or not
+        while ( (nextCmd < commands.size()) && (commands[nextCmd]->getName()=="change active images") ) {
+            commands[nextCmd]->execute();
+            nextCmd++;
+        }
+        // TODO: reestablish visibility based on preferences
     } else {
         wxLogError(_("no command in redo history"));
     }
