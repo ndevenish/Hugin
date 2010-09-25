@@ -376,7 +376,7 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
     wxAcceleratorEntry entries[3];
     entries[0].Set(wxACCEL_NORMAL,WXK_F11,ID_FULL_SCREEN);
     entries[1].Set(wxACCEL_CTRL,(int)'Z',ID_UNDO);
-    entries[2].Set(wxACCEL_CTRL,(int)'Y',ID_REDO);
+    entries[2].Set(wxACCEL_CTRL,(int)'R',ID_REDO);
     wxAcceleratorTable accel(3, entries);
     SetAcceleratorTable(accel);
 #ifdef __WXGTK__
