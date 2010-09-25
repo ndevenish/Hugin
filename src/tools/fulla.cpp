@@ -394,12 +394,13 @@ void correctImage(SrcImgType & srcImg,
     if( (src.getVigCorrMode() & SrcPanoImage::VIGCORR_FLATFIELD)
         || (src.getVigCorrMode() & SrcPanoImage::VIGCORR_RADIAL) )
     {
+        src.setResponseType(HuginBase::SrcPanoImage::RESPONSE_LINEAR);
         Photometric::InvResponseTransform<SrcPixelType,SrcPixelType> invResp(src);
-	invResp.enforceMonotonicity();
+	    invResp.enforceMonotonicity();
         if (src.getVigCorrMode() & SrcPanoImage::VIGCORR_FLATFIELD) {
             invResp.setFlatfield(&srcFlat);
         }
-        vigra_ext::transformImageSpatial(srcImageRange(srcImg), destImage(srcImg), invResp, shiftXY);
+        vigra_ext::transformImageSpatial(srcImageRange(srcImg), destImage(srcImg), invResp, vigra::Diff2D(0,0));
     }
 
     double scaleFactor=1.0;

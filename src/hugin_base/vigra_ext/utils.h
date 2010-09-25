@@ -622,11 +622,13 @@ transformImageSpatial(SrcImageIterator src_upperleft,
 {
     vigra::Diff2D destSize = src_lowerright - src_upperleft;
 
+    int offsetX=ul.x;
     for(; src_upperleft.y < src_lowerright.y; ++src_upperleft.y, ++dest_upperleft.y, ++ul.y)
     {
         typename SrcImageIterator::row_iterator s(src_upperleft.rowIterator());
         typename SrcImageIterator::row_iterator send(s+ destSize.x);
         typename DestImageIterator::row_iterator d(dest_upperleft.rowIterator());
+        ul.x=offsetX;
         for(; s != send; ++s, ++d, ++ul.x) {
             da.set(f(sa(s), ul), d);
         }

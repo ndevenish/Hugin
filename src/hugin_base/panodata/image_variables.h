@@ -70,7 +70,7 @@ image_variable( HFOV, double, 50.0 )
 // colour response variables
 image_variable( ResponseType, HuginBase::BaseSrcPanoImage::ResponseType, RESPONSE_EMOR )
 image_variable( EMoRParams, std::vector<float>, std::vector<float>(5, 0.0) )
-image_variable( ExposureValue, double, 1.0 )
+image_variable( ExposureValue, double, 0.0 )
 image_variable( Gamma, double, 1.0 )
 image_variable( WhiteBalanceRed, double, 1.0 )
 image_variable( WhiteBalanceBlue, double, 1.0 )
