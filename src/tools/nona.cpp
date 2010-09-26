@@ -113,6 +113,10 @@ static void usage(const char * name)
     << std::endl;
 }
 
+/** Try to initalise GLUT and GLEW, and create an OpenGL context for GPU stitching.
+ * OpenGL extensions required by the GPU stitcher (-g option) are checked here.
+ * @return true if everything went OK, false if we can't use GPGPU mode.
+ */
 static bool initGPU(int *argcp,char **argv) {
     glutInit(argcp,argv);
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGBA | GLUT_ALPHA);
@@ -122,9 +126,9 @@ static bool initGPU(int *argcp,char **argv) {
     if (err != GLEW_OK) {
         cerr << "nona: an error occured while setting up the GPU:" << endl;
         cerr << glewGetErrorString(err) << endl;
-        cerr << "nona: sorry, the --gpu flag is not going to work on this machine." << endl;
+        cerr << "nona: Switching to CPU calculation." << endl;
         glutDestroyWindow(GlutWindowHandle);
-        exit(1);
+        return false;
     }
 
     cout << "nona: using graphics card: " << glGetString(GL_VENDOR) << " " << glGetString(GL_RENDERER) << endl;
@@ -146,10 +150,10 @@ static bool initGPU(int *argcp,char **argv) {
         cerr << "nona: extension GL_ARB_texture_rectangle = " << msg[has_arb_texture_rectangle] << endl;
         cerr << "nona: extension GL_ARB_texture_border_clamp = " << msg[has_arb_texture_border_clamp] << endl;
         cerr << "nona: extension GL_ARB_texture_float = " << msg[has_arb_texture_float] << endl;
-        cerr << "nona: this graphics card lacks the necessary extensions for -g." << endl;
-        cerr << "nona: sorry, the -g flag is not going to work on this machine." << endl;
+        cerr << "nona: This graphics system lacks the necessary extensions for -g." << endl;
+        cerr << "nona: Switching to CPU calculation." << endl;
         glutDestroyWindow(GlutWindowHandle);
-        exit(1);
+        return false;
     }
 
     return true;
@@ -369,16 +373,15 @@ int main(int argc, char *argv[])
             };
         };
     };
-    opts.remapUsingGPU = useGPU;
-
-    DEBUG_DEBUG("output basename: " << basename);
     
-    pano.setOptions(opts);
+    DEBUG_DEBUG("output basename: " << basename);
     
     try {
         if (useGPU) {
-            initGPU(&argc, argv);
+            useGPU = initGPU(&argc, argv);
         }
+        opts.remapUsingGPU = useGPU;
+        pano.setOptions(opts);
 
         // stitch panorama
         NonaFileOutputStitcher(pano, pdisp, opts, outputImages, basename).run();
