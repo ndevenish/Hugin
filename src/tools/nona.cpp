@@ -135,8 +135,9 @@ static bool initGPU(int *argcp,char **argv) {
     GLboolean has_arb_shading_language = glewGetExtension("GL_ARB_shading_language_100");
     GLboolean has_arb_texture_rectangle = glewGetExtension("GL_ARB_texture_rectangle");
     GLboolean has_arb_texture_border_clamp = glewGetExtension("GL_ARB_texture_border_clamp");
+    GLboolean has_arb_texture_float = glewGetExtension("GL_ARB_texture_float");
 
-    if (!(has_arb_fragment_shader && has_arb_vertex_shader && has_arb_shader_objects && has_arb_shading_language && has_arb_texture_rectangle && has_arb_texture_border_clamp)) {
+    if (!(has_arb_fragment_shader && has_arb_vertex_shader && has_arb_shader_objects && has_arb_shading_language && has_arb_texture_rectangle && has_arb_texture_border_clamp && has_arb_texture_float)) {
         const char * msg[] = {"false", "true"};
         cerr << "nona: extension GL_ARB_fragment_shader = " << msg[has_arb_fragment_shader] << endl;
         cerr << "nona: extension GL_ARB_vertex_shader = " << msg[has_arb_vertex_shader] << endl;
@@ -144,6 +145,7 @@ static bool initGPU(int *argcp,char **argv) {
         cerr << "nona: extension GL_ARB_shading_language_100 = " << msg[has_arb_shading_language] << endl;
         cerr << "nona: extension GL_ARB_texture_rectangle = " << msg[has_arb_texture_rectangle] << endl;
         cerr << "nona: extension GL_ARB_texture_border_clamp = " << msg[has_arb_texture_border_clamp] << endl;
+        cerr << "nona: extension GL_ARB_texture_float = " << msg[has_arb_texture_float] << endl;
         cerr << "nona: this graphics card lacks the necessary extensions for -g." << endl;
         cerr << "nona: sorry, the -g flag is not going to work on this machine." << endl;
         glutDestroyWindow(GlutWindowHandle);
