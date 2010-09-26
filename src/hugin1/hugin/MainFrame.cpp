@@ -191,10 +191,8 @@ BEGIN_EVENT_TABLE(MainFrame, wxFrame)
     EVT_MENU(XRCID("action_add_time_images"),  MainFrame::OnAddTimeImages)
     EVT_BUTTON(XRCID("action_add_time_images"),  MainFrame::OnAddTimeImages)
     //EVT_NOTEBOOK_PAGE_CHANGED(XRCID( "controls_notebook"), MainFrame::UpdatePanels)
-    EVT_CLOSE(  MainFrame::OnExit)
+	EVT_CLOSE(  MainFrame::OnExit)
     EVT_SIZE(MainFrame::OnSize)
-    // the event that is executed when idle
-    EVT_IDLE(MainFrame::OnIdle)
 END_EVENT_TABLE()
 
 // change this variable definition
@@ -1751,30 +1749,6 @@ bool MainFrame::displayProgress()
     //wxYield();
 #endif
     return true;
-}
-
-// when idling, do background tasks (such as loading images)
-void MainFrame::OnIdle(wxIdleEvent& event)
-{
-    bool t = (wxConfigBase::Get()->Read(wxT("primitiveCaching"), HUGIN_PRIMITIVE_CACHING) != 0); 
-    if(t){
-        // TODO: 
-        // * do it properly with a wxThread
-        // * interrupt the loop after each image is loaded to enable the user take control
-
-        ImageCache & imgCache = ImageCache::getInstance();
-
-        for (unsigned int imgNr = 0 ; imgNr < pano.getNrOfImages(); imgNr++) {
-            ImageOptions o = pano.getImage(imgNr).getOptions();
-            if(!o.cached){
-                ImageCache::EntryPtr searchImg = imgCache.getImage(pano.getImage(imgNr).getFilename());
-                pano.cacheImage(imgNr, true);
-                event.RequestMore(true);
-                return;
-            }        
-        }
-    }
-   return;
 }
 
 wxString MainFrame::getProjectName()

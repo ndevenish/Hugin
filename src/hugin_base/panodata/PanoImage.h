@@ -60,8 +60,7 @@ struct ImageOptions {
           autoCenterCrop(true),
           m_vigCorrMode(VIGCORR_RADIAL|VIGCORR_DIV),
           responseType(0),
-          active(true),
-          cached(false)
+          active(true)
      { };
 
     
@@ -98,9 +97,6 @@ struct ImageOptions {
 
     // is image active (displayed in preview and used for optimisation)
     bool active;
-
-    // is image already cached
-    bool cached;
 };
 
 

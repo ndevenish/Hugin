@@ -182,14 +182,7 @@ public:
     
     /** get active images */
     virtual  UIntSet getActiveImages() const =0;
-
-    /** mark an image as cached.
-    *
-    * This is only a flag, that can be turned on or off.
-    * If an image is marked active, it is cached.
-    */
-    virtual void cacheImage (unsigned int imgNr, bool cached=true) =0;
-
+    
         /* Link image variable functions. Used to group image variables which
          * should share the same value. The initial value is the one kept by
          * the image with number sourceImgNr.
