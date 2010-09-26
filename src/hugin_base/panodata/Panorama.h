@@ -280,7 +280,13 @@ class IMPEX Panorama : public ManagedPanoramaData, public AppBase::DocumentData
             *  functions that do the stitching or optimisation
             */
         void activateImage(unsigned int imgNr, bool active=true);
-        
+
+        /** mark an image as cached.
+            *
+            *  This is only a flag, that can be turned on or off.
+            */
+        void cacheImage(unsigned int imgNr, bool cached=true);
+
         /** get active images */
         UIntSet getActiveImages() const;
         

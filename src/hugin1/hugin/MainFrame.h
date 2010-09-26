@@ -157,6 +157,9 @@ public:
 
     wxString getProjectName();
 
+    // event to do something when Idle
+    void OnIdle(wxIdleEvent& event);
+
 protected:
     // called when a progress message should be displayed
     /** receive notification about progress. Should not be called directly.

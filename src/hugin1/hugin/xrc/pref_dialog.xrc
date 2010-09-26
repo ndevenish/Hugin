@@ -167,6 +167,21 @@
                       </object>
                       <flag>wxEXPAND</flag>
                     </object>
+                    <object class="sizeritem">
+                      <object class="wxStaticBoxSizer">
+                        <label>Primitive Aggressive Caching (EXPERIMENTAL)</label>
+                        <orient>wxVERTICAL</orient>
+                        <object class="sizeritem">
+                          <object class="wxCheckBox" name="prefs_primitive_caching">
+                            <label>May increase responsiveness on small to medium sized projects \nin conjunction with a large image cache memory.  \nWill increase disk activity.  \nEnable only if it works for you.</label>
+                          </object>
+                          <flag>wxALL|wxALIGN_TOP</flag>
+                          <border>5</border>
+                        </object>
+                      </object>
+                      <flag>wxALL|wxEXPAND</flag>
+                      <border>5</border>
+                    </object>
                   </object>
                   <flag>wxALL|wxEXPAND</flag>
                   <border>5</border>

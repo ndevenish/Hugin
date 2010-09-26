@@ -76,6 +76,9 @@
 // smart undo
 #define HUGIN_SMART_UNDO                      0l
 
+// primitive aggressive caching
+#define HUGIN_PRIMITIVE_CACHING               0l
+
 // Exiftool
 #define HUGIN_EXIFTOOL_COPY_ARGS                   "-ImageDescription -Make -Model -Artist -WhitePoint -Copyright -GPS:all -DateTimeOriginal -CreateDate -UserComment -ColorSpace -OwnerName -SerialNumber"
 

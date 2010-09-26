@@ -442,6 +442,10 @@ void PreferencesDialog::UpdateDisplayData(int panel)
         // show druid
         MY_BOOL_VAL("prefs_misc_showDruid", cfg->Read(wxT("/PreviewFrame/showDruid"),HUGIN_PREVIEW_SHOW_DRUID) != 0l);
 
+         // primitive aggressive caching
+        t = cfg->Read(wxT("primitiveCaching"), HUGIN_PRIMITIVE_CACHING) == 1;
+        MY_BOOL_VAL("prefs_primitive_caching", t);
+
     }
 
     if (panel==0 || panel == 2) {
@@ -611,6 +615,8 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
             cfg->Write(wxT("smartUndo"), HUGIN_SMART_UNDO);
             // druid
             cfg->Write(wxT("/PreviewFrame/showDruid"), HUGIN_PREVIEW_SHOW_DRUID);
+             // Primitive Aggressive Caching
+            cfg->Write(wxT("primitiveCaching"), HUGIN_PRIMITIVE_CACHING);
         }
         if (noteb->GetSelection() == 1) {
             cfg->Write(wxT("/Assistant/autoAlign"), HUGIN_ASS_AUTO_ALIGN);

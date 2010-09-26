@@ -1362,6 +1362,13 @@ void Panorama::activateImage(unsigned int imgNr, bool active)
     }
 }
 
+void Panorama::cacheImage(unsigned int imgNr, bool cached)
+{
+    ImageOptions o = getImage(imgNr).getOptions();
+    o.cached = true;
+    state.images[imgNr]->setOptions(o);
+}
+
 UIntSet Panorama::getActiveImages() const
 {
 	UIntSet activeImgs;
