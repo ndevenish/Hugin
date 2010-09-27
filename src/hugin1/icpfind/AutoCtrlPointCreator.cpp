@@ -333,7 +333,7 @@ void AutoCtrlPointCreator::Cleanup(CPDetectorSetting &setting, PT::Panorama & pa
         };
         if(!wxRemoveFile(ptoinfile_name))
         {
-            DEBUG_DEBUG("could not remove temporary file: " << ptofile.c_str());
+            DEBUG_DEBUG("could not remove temporary file: " << ptoinfile_name.c_str());
         };
     };
 };
