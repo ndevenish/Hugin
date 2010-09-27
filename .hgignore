@@ -1,3 +1,4 @@
 # ignore editors backup file
 glob:*~$
 glob:rev.txt
+glob:src/hugin/*
