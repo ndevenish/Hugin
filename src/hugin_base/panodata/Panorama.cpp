@@ -1100,6 +1100,11 @@ void Panorama::transferMask(MaskPolygon mask,unsigned int imgNr, const UIntSet t
                 PTools::Transform targetTrans;
                 targetTrans.createTransform(getImage(*it),getOptions());
                 targetMask.transformPolygon(targetTrans);
+                //check if transformation has produced invalid polygon
+                if(targetMask.getMaskPolygon().size()<3)
+                {
+                    continue;
+                };
                 //check if mask was inverted - outside became inside and vice versa
                 //if so, invert mask
                 int newWindingNumber=targetMask.getTotalWindingNumber();
@@ -1139,87 +1144,107 @@ void Panorama::updateMasks(bool convertPosMaskToNeg)
             MaskPolygonVector masks=state.images[i]->getMasks();
             for(unsigned int j=0;j<masks.size();j++)
             {
-                switch(masks[j].getMaskType())
+                if(convertPosMaskToNeg)
                 {
-                    case MaskPolygon::Mask_negative:
-                        //negative mask, simply copy mask to active mask
-                        masks[j].setImgNr(i);
-                        state.images[i]->addActiveMask(masks[j]);
-                        break;
-                    case MaskPolygon::Mask_positive:
-                        //propagate positive mask only if image is active
-                        if(convertPosMaskToNeg)
-                        {
+                    //this is used for masking in the cp finder, we are consider
+                    //all masks as negative masks, because at this moment
+                    //the final position of the images is not known
+                    switch(masks[j].getMaskType())
+                    {
+                        case MaskPolygon::Mask_negative:
+                        case MaskPolygon::Mask_positive:
+                            masks[j].setImgNr(i);
+                            masks[j].setMaskType(MaskPolygon::Mask_negative);
+                            state.images[i]->addActiveMask(masks[j]);
+                            break;
+                        case MaskPolygon::Mask_Stack_negative:
+                        case MaskPolygon::Mask_Stack_positive:
+                            {
+                                //copy mask to all images of the same stack
+                                UIntSet imgStack;
+                                for(unsigned int k=0;k<getNrOfImages();k++)
+                                {
+                                    if(i!=k)
+                                    {
+                                        if(state.images[i]->StackisLinkedWith(*(state.images[k])))
+                                        {
+                                            imgStack.insert(k);
+                                        };
+                                    };
+                                };
+                                masks[j].setImgNr(i);
+                                masks[j].setMaskType(MaskPolygon::Mask_negative);
+                                state.images[i]->addActiveMask(masks[j]);
+                                transferMask(masks[j],i,imgStack);
+                            };
+                            break;
+                    };
+                }
+                else
+                {
+                    switch(masks[j].getMaskType())
+                    {
+                        case MaskPolygon::Mask_negative:
+                            //negative mask, simply copy mask to active mask
                             masks[j].setImgNr(i);
                             state.images[i]->addActiveMask(masks[j]);
-                        }
-                        else
-                        {
+                            break;
+                        case MaskPolygon::Mask_positive:
+                            //propagate positive mask only if image is active
                             if(state.images[i]->getActive())
                             {
                                 UIntSet overlapImgs=overlap.getOverlapForImage(i);
                                 transferMask(masks[j],i,overlapImgs);
                             };
-                        };
-                        break;
-                    case MaskPolygon::Mask_Stack_negative:
-                        {
-                            UIntSet imgStack;
-                            for(unsigned int k=0;k<getNrOfImages();k++)
+                            break;
+                        case MaskPolygon::Mask_Stack_negative:
                             {
-                                if(i!=k)
+                                //search all images of the stack
+                                UIntSet imgStack;
+                                for(unsigned int k=0;k<getNrOfImages();k++)
                                 {
-                                    if(state.images[i]->StackisLinkedWith(*(state.images[k])))
+                                    if(i!=k)
                                     {
-                                        imgStack.insert(k);
-                                    };
-                                };
-                            };
-                            masks[j].setImgNr(i);
-                            masks[j].setMaskType(MaskPolygon::Mask_negative);
-                            state.images[i]->addActiveMask(masks[j]);
-                            transferMask(masks[j],i,imgStack);
-                        };
-                        break;
-                    case MaskPolygon::Mask_Stack_positive:
-                        {
-                            UIntSet imgStack;
-                            if(!convertPosMaskToNeg)
-                            {
-                                fill_set(imgStack,0,getNrOfImages()-1);
-                                imgStack.erase(i);
-                            };
-                            for(unsigned int k=0;k<getNrOfImages();k++)
-                            {
-                                if(i!=k)
-                                {
-                                    if(state.images[i]->StackisLinkedWith(*(state.images[k])))
-                                    {
-                                        if(convertPosMaskToNeg)
+                                        if(state.images[i]->StackisLinkedWith(*(state.images[k])))
                                         {
                                             imgStack.insert(k);
-                                        }
-                                        else
+                                        };
+                                    };
+                                };
+                                //copy mask also to the image which contains the mask
+                                masks[j].setImgNr(i);
+                                masks[j].setMaskType(MaskPolygon::Mask_negative);
+                                state.images[i]->addActiveMask(masks[j]);
+                                transferMask(masks[j],i,imgStack);
+                            };
+                            break;
+                        case MaskPolygon::Mask_Stack_positive:
+                            {
+                                //remove all images from the stack from the set
+                                UIntSet imgStack;
+                                fill_set(imgStack,0,getNrOfImages()-1);
+                                imgStack.erase(i);
+                                for(unsigned int k=0;k<getNrOfImages();k++)
+                                {
+                                    if(i!=k)
+                                    {
+                                        if(state.images[i]->StackisLinkedWith(*(state.images[k])))
                                         {
                                             imgStack.erase(k);
                                         };
                                     };
                                 };
+                                //only leave overlapping images in set
+                                UIntSet imgOverlap=overlap.getOverlapForImage(i);
+                                UIntSet imgs;
+                                std::set_intersection(imgStack.begin(),imgStack.end(),imgOverlap.begin(),imgOverlap.end(),inserter(imgs,imgs.begin()));
+                                //now transfer mask
+                                transferMask(masks[j],i,imgs);
                             };
-                            if(convertPosMaskToNeg)
-                            {
-                                masks[j].setImgNr(i);
-                                masks[j].setMaskType(MaskPolygon::Mask_negative);
-                                state.images[i]->addActiveMask(masks[j]);
-                            };
-                            if(state.images[i]->getActive() || convertPosMaskToNeg)
-                            {
-                                transferMask(masks[j],i,imgStack);
-                            };
-                        };
-                        break;
+                            break;
+                    };
                 };
-            }
+            };
         };
     };
 };

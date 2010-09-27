@@ -140,11 +140,15 @@ void MaskPolygon::scale(const double factorx,const double factory)
 void MaskPolygon::transformPolygon(const PTools::Transform &trans)
 {
     double xnew,ynew;
+    VectorPolygon newPoly;
     for(unsigned int i=0;i<m_polygon.size();i++)
     {
-        trans.transformImgCoord(xnew,ynew,m_polygon[i].x,m_polygon[i].y);
-        m_polygon[i]=FDiff2D(xnew,ynew);
+        if(trans.transformImgCoord(xnew,ynew,m_polygon[i].x,m_polygon[i].y))
+        {
+            newPoly.push_back(FDiff2D(xnew,ynew));
+        };
     };
+    m_polygon=newPoly;
 };
 
 void MaskPolygon::subSample(const double max_distance)
