@@ -1094,6 +1094,10 @@ void Panorama::updateMasks()
                                         PTools::Transform targetTrans;
                                         targetTrans.createTransform(getImage(k),getOptions());
                                         targetMask.transformPolygon(targetTrans);
+                                        if(targetMask.getMaskPolygon().size()<3)
+                                        {
+                                            continue;
+                                        };
                                         //check if mask was inverted - outside became inside and vice versa
                                         //if so, invert mask
                                         int newWindingNumber=targetMask.getTotalWindingNumber();
