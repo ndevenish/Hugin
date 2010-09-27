@@ -1,0 +1,55 @@
+/*!
+\page introduction Introduction to Hugins source code
+
+
+This page will give a short overview about some aspects of Hugins source code.
+
+\section model Panorama Model
+   Holds the Panorama state. It contains the following objects:
+   - the source images in a vector<HuginBase::SrcPanoImage>
+   - the control points in a HuginBase::CPVector
+   - the parameters to optimise in a HuginBase::OptimizeVector
+   - the output options in PanoramaOptions (mostly the parameters on the stitcher tab)
+
+   In GUI this class should not modified directly. Use instead a command object 
+   that inherit from PanoCommand (otherwise it will break undo/redo functionality). 
+   Consider it in GUI as read only.
+
+\subsection vecSPI List of SrcPanoImage
+   The HuginBase::SrcPanoImage holds all parameter of a single images.
+   The access the individual image parameters use the get* and set* methods.
+
+   If you want to modify several parameters in one rush, use a HuginBase::VariableMapVector instead.
+
+   Deprecated: Don't use getOptions() or setOptions() to access some parameters via ImageOptions. 
+   This class will be removed in future. It is supercedes by the get* and set* methodes.
+   
+   
+\section GUI GUI
+
+\subsection HuginGUI Hugin GUI
+   The GUI is written using the wxWindows toolkit.  My idea was that
+   the gui should not be a monolithic block, but split into smaller
+   parts (for example the different tabs in the main frame are a idea
+   how the GUI should be split in different panels that will recieve
+   notifications when the model changed and will update themselves
+   accordingly. These panels can also use the Commands inherited from
+   PanoCommand to modify the model. The model should never be changed
+   directly. By using PT::PanoCommand and a CommandHistory to execute
+   them, it is very easy to implement undo/redo
+   functionality. PT::Panorama will notify a PT::PanoramaObserver
+   which can then notify the GUI and interested subwindows. MainFrame
+   is a good candidate for PT::PanoramaObserver.
+
+   XRC is used for the GUI design. Each custom Panel should have its
+   own XRC file, so that people can work with on different parts of
+   the GUI without to much trouble. The MainFrame will then use the
+   unknown class to load the different custom Panel. CPEditorPanel
+   is an example how this can be done. Note that there is only a
+   global namespace for all xrc files. Names in the xrc files should
+   therefore start with a prefix that indicates the parent panel.
+
+ \subsection PTBatcherGUI
+   PTBatcherGUI stores a list of project files in a Batch class.
+
+*/
