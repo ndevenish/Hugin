@@ -1,3 +1,67 @@
+2010-09-27  tmodes  <tmodes>
+
+	* src/hugin_base/panodata/Mask.cpp,
+	src/hugin_base/panodata/Panorama.cpp:
+	Fixes incorrect masks in combination with translations parameters
+	[3076130]
+	[8418676e8a53]
+
+2010-09-26  Bruno Postle  <bruno@postle.net>
+
+	* src/foreign/vigra/vigra_impex/CMakeLists.txt:
+	Fix -lpthread fix
+	[3936a26214ba]
+
+	* src/foreign/vigra/vigra_impex/CMakeLists.txt:
+	explicitly use -lpthread when available, fixes build failure on
+	fedora f14
+	[c8ed7735f41d]
+
+2010-09-25  Bruno Postle  <bruno@postle.net>
+
+	* src/translations/ru.po:
+	Russian translation update (Alexandre Prokoudine)
+	[e4b691911336]
+
+2010-09-24  tmodes  <tmodes>
+
+	* src/hugin1/hugin/PanoPanel.cpp:
+	Enable autocrop for all projections also on pano panel
+	[7d8bddbbd13e]
+
+2010-09-23  tmodes  <tmodes>
+
+	* src/hugin1/hugin/GLPreviewFrame.cpp:
+	Activate autocrop on all projections
+	[efa643db4383]
+
+2010-09-19  harryvanderwolf  <hvdwolf@gmail.com>
+
+	* src/hugin1/hugin/xrc/assistant_panel.xrc:
+	set lens type wxchoice pulldown on assistant tab to correct size
+	[c9b073555204]
+
+2010-09-18  harryvanderwolf  <hvdwolf@gmail.com>
+
+	* mac/copyExtraTools.sh:
+	[OSX] add enblend and enfuse to copyExtraTools.sh script
+	[09d36ef1f80c]
+
+2010-09-17  tmodes  <tmodes>
+
+	* Merged
+	[3343ab49deed]
+
+	* src/hugin_base/panodata/SrcPanoImage.cpp:
+	Don't override loaded crop factor from project file
+	[ca1bbd638e77]
+
+2010-09-15  Bruno Postle  <bruno@postle.net>
+
+	* ChangeLog:
+	update ChangeLog for likely rc1
+	[23e34640f870] [hugin-2010.2.0_rc1]
+
 2010-09-14  tmodes  <tmodes>
 
 	* src/hugin_base/panodata/SrcPanoImage.cpp:
