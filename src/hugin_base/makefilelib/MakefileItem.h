@@ -40,15 +40,18 @@ namespace makefile
  */
 class MAKEIMPEX MakefileItem
 {
+	bool added;
 public:
 	MakefileItem()
+	:added(false)
 	{
 	}
 
 	/// Removes the item from the Makefile
 	virtual ~MakefileItem()
 	{
-		Makefile::remove(this);
+		if(added)
+			Makefile::remove(this);
 	}
 
 	/// @return A string representation of the MakefileItem.
@@ -68,6 +71,7 @@ public:
 	virtual void add()
 	{
 		Makefile::getSingleton().add(this);
+		added = true;
 	}
 
 };
