@@ -82,6 +82,15 @@ int tryall()
 	{
 		std::cerr << e.what() << std::endl;
 	}
+	try
+	{
+	Variable valuesucks(cstr("This_value_sucks_not"), cstr("any escaped\\\nnewline"));
+	out << valuesucks.getDef();
+	}
+	catch(std::exception& e)
+	{
+		std::cerr << e.what() << std::endl;
+	}
 	Variable namesucksless(cstr("This_name_sucks_less"), cstr("~~(bad:){\\value}"));
 	namesucksless.setQuoteMode(Makefile::SHELL);
 	out << namesucksless.getDef();
@@ -216,9 +225,10 @@ int trycond()
 int main(int argc, char *argv[])
 {
 	return
-	trymakefile() ||
-	tryreplace() ||
+//	trymakefile() ||
+//	tryreplace() ||
 	tryall() ||
-	tryrule() ||
-	trycond();
+//	tryrule() ||
+//	trycond() ||
+	0;
 }

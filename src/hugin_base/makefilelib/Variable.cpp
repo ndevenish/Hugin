@@ -49,7 +49,7 @@ void Variable::checkName()
  */
 void Variable::checkValue()
 {
-	static const regex invalid(cstr("[^\\\\]\\R"));
+	static const regex invalid(cstr("[^\\\\][\n\r]"));
 	if(boost::regex_search(getValue(), invalid))
 		throw std::invalid_argument("Bad Variable value: " + StringAdapter(getValue()));
 }

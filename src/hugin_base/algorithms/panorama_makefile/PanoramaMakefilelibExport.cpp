@@ -589,7 +589,6 @@ bool PanoramaMakefilelibExport::createItems()
     echoInfo(*start,"===========================================================================");
     echoInfo(*start,"Stitching panorama");
     echoInfo(*start,"===========================================================================");
-    start->add();
 
     Rule* all = mgr.own(new Rule());
     all->addTarget("all");
@@ -599,6 +598,8 @@ bool PanoramaMakefilelibExport::createItems()
         all->addPrereq((*it));
     }
     all->add();
+
+    start->add();	// add all as the first target, so it is the default.
 
     Rule* clean = mgr.own(new Rule());
     clean->addTarget("clean");
