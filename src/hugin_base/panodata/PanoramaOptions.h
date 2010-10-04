@@ -192,6 +192,7 @@ class IMPEX PanoramaOptions
         {
             m_projectionFormat = EQUIRECTANGULAR;
             panoProjectionFeaturesQuery(m_projectionFormat, &m_projFeatures);
+            resetProjectionParameters();
             m_hfov = 360;
             m_size = vigra::Size2D(3000, 1500);
             m_roi = vigra::Rect2D(m_size);
