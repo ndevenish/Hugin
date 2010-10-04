@@ -54,7 +54,7 @@ IF (${HUGIN_SHARED_LIBS})
 	#message("Using these CMAKE_CXX_FLAGS : ${CMAKE_CXX_FLAGS}")
 	ENDIF (NOT WIN32)
 	ADD_LIBRARY(celeste SHARED ${CELESTE_SRC})
-	TARGET_LINK_LIBRARIES(celeste huginbasewx ${common_libs})
+	TARGET_LINK_LIBRARIES(celeste huginbase ${common_libs})
 	set_target_properties(celeste PROPERTIES VERSION ${HUGIN_LIB_VERSION})
     IF(WIN32)
       install(TARGETS celeste RUNTIME DESTINATION ${BINDIR})
@@ -67,13 +67,13 @@ ELSE (${HUGIN_SHARED_LIBS})
     	#message("Using these CMAKE_CXX_FLAGS : ${CMAKE_CXX_FLAGS}")
 	ENDIF (NOT WIN32)	
 	ADD_LIBRARY(celeste STATIC ${CELESTE_SRC})
-	TARGET_LINK_LIBRARIES(celeste huginbasewx ${common_libs})
+	TARGET_LINK_LIBRARIES(celeste huginbase ${common_libs})
 	set_target_properties(celeste PROPERTIES VERSION ${HUGIN_LIB_VERSION})
 ENDIF (${HUGIN_SHARED_LIBS})
 
 # standalone
 ADD_EXECUTABLE(celeste_standalone ../hugin_config.h  Main.cpp )
-target_link_libraries( celeste_standalone celeste ${image_libs} ${Boost_LIBRARIES} ${wxWidgets_LIBRARIES})
+target_link_libraries( celeste_standalone celeste ${image_libs})
 
 SET (CELESTE_MODEL
 	data/celeste.model

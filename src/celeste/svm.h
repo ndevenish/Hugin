@@ -36,6 +36,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define LIBSVM_VERSION 286
 
+namespace celeste
+{
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -101,5 +103,5 @@ int svm_check_probability_model(const struct svm_model *model);
 #ifdef __cplusplus
 }
 #endif
-
+};  //namespace
 #endif /* _LIBSVM_H */

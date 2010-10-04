@@ -1,10 +1,16 @@
 
 #if _WINDOWS && defined Hugin_shared 
 
-#if defined huginbase_EXPORTS || defined celeste_EXPORTS
+#if defined huginbase_EXPORTS
 #define IMPEX __declspec(dllexport)
 #else
 #define IMPEX __declspec(dllimport)
+#endif
+
+#if defined celeste_EXPORTS
+#define CELESTEIMPEX __declspec(dllexport)
+#else
+#define CELESTEIMPEX __declspec(dllimport)
 #endif
 
 #if defined makefilelib_EXPORTS
@@ -39,4 +45,5 @@
 #define MAKEIMPEX
 #define LFIMPEX
 #define ICPIMPEX
+#define CELESTEIMPEX
 #endif

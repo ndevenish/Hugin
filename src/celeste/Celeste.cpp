@@ -19,9 +19,12 @@
  ***************************************************************************/
 
 #include <iostream>
-#include "vigra/stdimage.hxx"
-#include "vigra/resizeimage.hxx"
-#include "vigra/impex.hxx"
+#include <vigra/stdimage.hxx>
+#include <vigra/resizeimage.hxx>
+#include <vigra/inspectimage.hxx>
+#include <vigra/copyimage.hxx>
+#include <vigra/transformimage.hxx>
+#include <vigra/initimage.hxx>
 #include "vigra/colorconversions.hxx"
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -38,515 +41,377 @@
 using namespace vigra; 
 using namespace std; 
 
+namespace celeste
+{
+
 typedef vigra::BRGBImage::PixelType RGB;
 
-void get_gabor_response(string& imagefile, unsigned int& mask, string& model_file, double& threshold,string&
-mask_format,vector<double>& svm_responses){
+// load SVM model
+bool loadSVMmodel(struct svm_model*& model, string& model_file)
+{
+    if((model = svm_load_model(model_file.c_str())) == 0)
+    {
+        cout << "Couldn't load model file '" << model_file << "'" << endl << endl;
+        return false;
+    }
+    else
+    {
+        cout << "Loaded model file:\t" << model_file << endl;
+        return true;
+    }
+};
 
-	// Open SVM model file
-	struct svm_model* model;
-	
-	if((model = svm_load_model(model_file.c_str())) == 0){
-		cout << "Couldn't load model file '" << model_file << "'" << endl << endl;
-		for (int j = 0; j < gNumLocs; j++){
-			svm_responses.push_back(0);
-		}		
-		return;
-	}else{
-		cout << "Loaded model file:\t" << model_file << endl;
-	}	
-	
-	// Integers and containers for libsvm
-	int nr_class=svm_get_nr_class(model);
-	int max_nr_attr = 56;
-	struct svm_node *gabor_responses = (struct svm_node *) malloc(max_nr_attr*sizeof(struct svm_node));
-	double *prob_estimates = (double *) malloc(nr_class*sizeof(double));
-	
-	// Open image using Vigra
-	try{
+// destroy SVM model
+void destroySVMmodel(struct svm_model*& model)
+{
+    svm_destroy_model(model);
+};
 
-		cout << "Opening image file:\t" << imagefile << endl;
+// prepare image for use with celeste (downscale, converting in Luv)
+void prepareCelesteImage(vigra::UInt16RGBImage& rgb,vigra::UInt16RGBImage& luv, int& resize_dimension, double& sizefactor,bool verbose)
+{
+    // Max dimension
+    sizefactor = 1;
+    int nw=rgb.width();
+    int nh=rgb.height();
 
-        	// Read image given as first argument
-        	// File type is determined automatically
-        	vigra::ImageImportInfo info(imagefile.c_str());
+    if(nw >= nh)
+    {
+        if (resize_dimension >= nw )
+        {
+            resize_dimension = nw;
+        }
+    }
+    else
+    {
+        if (resize_dimension >= nh)
+        {
+            resize_dimension = nh;
+        }
+    }
+    //cout << "Re-size dimenstion:\t" << resize_dimension << endl;
+    if(verbose)
+        cout << "Image dimensions:\t" << rgb.width() << " x " << rgb.height() << endl;
 
-		// Create RGB images of appropriate size    	
-		//vigra::FRGBImage in(info.width(), info.height());
-		vigra::UInt16RGBImage in(info.width(), info.height());
+    // Re-size to max dimension
+    vigra::UInt16RGBImage temp;
 
-        	// Import the image
-        	importImage(info, destImage(in));
+    if (rgb.width() > resize_dimension || rgb.height() > resize_dimension)
+    {
+        if (rgb.width() >= rgb.height())
+        {
+            sizefactor = (double)resize_dimension/rgb.width();
+            // calculate new image size
+            nw = resize_dimension;
+            nh = static_cast<int>(0.5 + (sizefactor*rgb.height()));
+        }
+        else
+        {
+            sizefactor = (double)resize_dimension/rgb.height();
+            // calculate new image size
+            nw = static_cast<int>(0.5 + (sizefactor*rgb.width()));
+            nh = resize_dimension;
+        }
 
-		// Max dimension
-		double sizefactor = 1;
-        	int nw = info.width(), nh = info.height();
+        if(verbose)
+        {
+            cout << "Scaling by:\t\t" << sizefactor << endl;
+            cout << "New dimensions:\t\t" << nw << " x " << nh << endl;
+        };
 
-		// In case we want to save filters
-		// Create this directory and change option in Globals.cpp
-		char basename[] = "gabor_filters/celeste"; 
-				
-		if (info.width() >= info.height()){
-			if (resize_dimension >= info.width() ){
-				resize_dimension = info.width();
-			}
-		}else{
-			if (resize_dimension >= info.height()){
-				resize_dimension = info.height();
-			}		
-		}
-		//cout << "Re-size dimenstion:\t" << resize_dimension << endl;
-		
-		cout << "Image dimensions:\t" << info.width() << " x " << info.height() << endl;
-		
-        	// Re-size to max dimension
-		if (info.width() > resize_dimension || info.height() > resize_dimension){
-				
-			if (info.width() >= info.height()){
+        // create a RGB image of appropriate size
+        temp.resize(nw,nh);
 
+        // resize the image, using a bi-cubic spline algorithm
+        vigra::resizeImageNoInterpolation(srcImageRange(rgb),destImageRange(temp));
+        //exportImage(srcImageRange(out), ImageExportInfo("test.tif").setPixelType("UINT16"));
+    }
+    else
+    {
+        temp.resize(nw,nh);
+        vigra::copyImage(srcImageRange(rgb),destImage(temp));
+    };
 
-				sizefactor = (double)resize_dimension/info.width();
+    // Convert to Luv colour space
+    luv.resize(temp.width(),temp.height());
+    vigra::transformImage(srcImageRange(temp), destImage(luv), RGB2LuvFunctor<double>() );
+    //exportImage(srcImageRange(luv), ImageExportInfo("test_luv.tif").setPixelType("UINT16"));
+    temp.resize(0,0);
+};
 
-        			// calculate new image size
-        			nw = resize_dimension;
-        			nh = static_cast<int>(0.5 + (sizefactor*info.height()));
-							
-			}else{
-				sizefactor = (double)resize_dimension/info.height();
+// converts the given Luv image into arrays for Gabors filtering
+void prepareGaborImage(vigra::UInt16RGBImage& luv, float**& pixels)
+{
+    pixels = CreateMatrix( (float)0, luv.height(), luv.width() );
+    // Prepare framebuf for Gabor API, we need only L channel
+    for (int i = 0; i < luv.height(); i++ )
+    {
+        for (int j = 0; j < luv.width(); j++ )
+        {
+            pixels[i][j] = luv(j,i)[0];
+            //cout << i << " " << j << " = " << k << " - " << frameBuf[k] << endl;
+        }
+    }
+};
 
+//classify the points with SVM
+vector<double> classifySVM(struct svm_model* model, int gNumLocs,int**& gLocations,int width,int height,int vector_length, float*& response,int gRadius,vigra::UInt16RGBImage& luv,bool needsMoreIndex=false)
+{
+    std::vector<double> svm_response;
+    // Integers and containers for libsvm
+    int max_nr_attr = 56;
+    int nr_class=svm_get_nr_class(model);
+    struct svm_node *gabor_responses = (struct svm_node *) malloc(max_nr_attr*sizeof(struct svm_node));
+    double *prob_estimates = (double *) malloc(nr_class*sizeof(double));
 
-       				// calculate new image size
-        			nw = static_cast<int>(0.5 + (sizefactor*info.width()));
-        			nh = resize_dimension;
-				
-			}
-         			
-			cout << "Scaling by:\t\t" << sizefactor << endl;
-			cout << "New dimensions:\t\t" << nw << " x " << nh << endl;
-	
-        		// create a RGB image of appropriate size    		
-        		//vigra::FRGBImage out(nw, nh);
-			vigra::UInt16RGBImage out(nw, nh);
-	
-			// resize the image, using a bi-cubic spline algorithm
-			resizeImageNoInterpolation(srcImageRange(in),destImageRange(out));
+    for (int j = 0; j < gNumLocs; j++)
+    {
+        unsigned int feature = 1;
 
-			in = out;
+        if(needsMoreIndex)
+        {
+            if(j >= max_nr_attr - 1)
+            {
+                max_nr_attr *= 2;
+                gabor_responses = (struct svm_node *) realloc(gabor_responses,max_nr_attr*sizeof(struct svm_node));
+            }
+        };
 
-		}
-		//exportImage(srcImageRange(in), ImageExportInfo("test.tif").setPixelType("UINT16"));
-	
-		// Convert to LUV colour space
-		UInt16RGBImage luv(in.width(),in.height());
-		transformImage(srcImageRange(in), destImage(luv), RGB2LuvFunctor<double>() );
-		//transformImage(srcImageRange(in), destImage(luv), RGBPrime2LuvFunctor<double>() );
+        for ( int v = (j * vector_length); v < ((j + 1) * vector_length); v++)
+        {
+            gabor_responses[feature-1].index = feature;
+            gabor_responses[feature-1].value = response[v];					
+            //cout << feature << ":" << response[v] << " ";
+            feature++;
+        }
 
-		//exportImage(srcImageRange(luv), ImageExportInfo("test_luv.tif").setPixelType("UINT16"));
+        // Work out average colour and variance
+        vigra::FindAverageAndVariance<vigra::UInt16RGBImage::PixelType> average;
+        vigra::inspectImage(srcIterRange(
+            luv.upperLeft()+vigra::Diff2D(gLocations[j][0]-gRadius,gLocations[j][1]-gRadius),
+            luv.upperLeft()+vigra::Diff2D(gLocations[j][0]+gRadius,gLocations[j][1]+gRadius)
+            ),average);
+        // Add these colour features to feature vector							
 
-		// Prepare Gabor API array
-		float *frameBuf = new float[in.width()*in.height()];
-		float *u_values = new float[in.width()*in.height()];
-		float *v_values = new float[in.width()*in.height()];
-		float** pixels = CreateMatrix( (float)0, in.height(), in.width() );
+        gabor_responses[feature-1].index = feature;
+        gabor_responses[feature-1].value = average.average()[1];
+        //cout << feature << ":" << u_ave << " ";
+        feature++;
+        gabor_responses[feature-1].index = feature;
+        gabor_responses[feature-1].value = sqrt(average.variance()[1]);
+        //cout << feature << ":" << std_u << " ";
+        feature++;
+        gabor_responses[feature-1].index = feature;
+        gabor_responses[feature-1].value = average.average()[2];
+        //cout << feature << ":" << v_ave << " ";
+        feature++;
+        gabor_responses[feature-1].index = feature;
+        gabor_responses[feature-1].value = sqrt(average.variance()[2]);
+        //cout << feature << ":" << std_v << " ";
+        feature++;
+        gabor_responses[feature-1].index = feature;
+        gabor_responses[feature-1].value = luv(gLocations[j][0],gLocations[j][1])[1];
+        //cout << feature << ":" << u_values[pixel_number] << " ";
+        feature++;
+        gabor_responses[feature-1].index = feature;
+        gabor_responses[feature-1].value = luv(gLocations[j][0],gLocations[j][1])[2];
+        //cout << feature << ":" << v_values[pixel_number] << " " << endl;
+        gabor_responses[feature].index = -1;
 
-		// Do something with each pixel...
-		unsigned int counter = 0;
-		vigra::UInt16RGBImage::iterator img_iter(luv.begin()),end(luv.end());
-		//vigra::FRGBImage::iterator img_iter(luv.begin()),end(luv.end());
-		
-         	for(; img_iter != end; ++img_iter) {
+        svm_predict_probability(model,gabor_responses,prob_estimates);	
+        svm_response.push_back(prob_estimates[0]);
+    }
+    // Free up libsvm stuff
+    free(gabor_responses);
+    free(prob_estimates);
+    return svm_response;
+};
 
-			// [0] is L, [1] is U, [2] is V
-			// We only want L for Gabor filtering
- 	    		frameBuf[counter] = (*img_iter)[0];
-			
-			u_values[counter] = (*img_iter)[1];
-			v_values[counter] = (*img_iter)[2];
-		
- 	    		//cout << "Pixel " << counter << " - L: " << (*img_iter)[0] << endl;
- 	    		//cout << "Pixel " << counter << " - U: " << (*img_iter)[1] << endl;
-	    		//cout << "Pixel " << counter << " - V: " << (*img_iter)[2] << endl;
-			counter++;
- 		}
+// create a grid of control points for creating masks
+void createGrid(int& gNumLocs,int**& gLocations,int gRadius,int width, int height)
+{
+    int spacing=(gRadius*2)+1;
+    for (int i = gRadius; i < height - gRadius; i += spacing )
+    {
+        for (int j = gRadius; j < width - gRadius; j += spacing )
+        {
+            gNumLocs++;
+        }
+        // Add extra FP at the end of each row in case width % gRadius
+        gNumLocs++;
+    }
 
-		// Prepare framebuf for Gabor API
-		unsigned int k = 0;
-		for (int i = 0; i < in.height(); i++ ){
-			for (int j = 0; j < in.width(); j++ ){
-				pixels[i][j] = frameBuf[k];
-				//cout << i << " " << j << " = " << k << " - " << frameBuf[k] << endl;
-				k++;
-			}
-		}
+    // Add extra FP at the end of each row in case nh % gRadius	
+    for (int j = gRadius; j < width - gRadius; j += spacing )
+    {
+        gNumLocs++;
+    }
 
-		if (gNumLocs){
+    // Create the storage matrix
+    gLocations = CreateMatrix( (int)0, gNumLocs, 2);
+    gNumLocs = 0;
+    for (int i = gRadius; i < height - gRadius; i += spacing )
+    {
+        for (int j = gRadius; j < width - gRadius; j += spacing )
+        {
+            gLocations[gNumLocs][0] = j;
+            gLocations[gNumLocs][1] = i;
+            //cout << "fPoint " << gNumLocs << ":\t" << i << " " << j << endl;
+            gNumLocs++;
+        }
 
-			float *response = NULL;
-			int len = 0;
-	
-			// Scale control points by sizefactor
-			for (int j = 0; j < gNumLocs; j++){
-		
-				//cout << sizefactor << ": " << gLocations[j][0] << "," << gLocations[j][1] << " ---> ";
-				gLocations[j][0] = int(gLocations[j][0] * sizefactor);
-				gLocations[j][1] = int(gLocations[j][1] * sizefactor);
-				//cout << gLocations[j][0] << "," << gLocations[j][1] << endl;
+        // Add extra FP at the end of each row in case width % spacing
+        if (width % spacing)
+        {
+            gLocations[gNumLocs][0] = width - gRadius - 1;
+            gLocations[gNumLocs][1] = i;
+            //cout << "efPoint " << gNumLocs << ":\t" << i << " " << nw - gRadius - 1 << endl;
+            gNumLocs++;
+        }
+    }
 
-				// Move CPs to border if the filter radius is out of bounds
-				if (gLocations[j][0] <= gRadius){
-					//cout << "Moving CP to border" << endl;
-					gLocations[j][0] = gRadius + 1;
-				}	
-				if (gLocations[j][1] <= gRadius){
-					//cout << "Moving CP to border" << endl;
-					gLocations[j][1] = gRadius + 1;
-				}
-				if (gLocations[j][0] >= nw - gRadius){
-					//cout << "Moving CP to border" << endl;
-					gLocations[j][0] = nw - gRadius - 1;
-				}
-				if (gLocations[j][1] >= nh - gRadius){
-					//cout << "Moving CP to border" << endl;
-					gLocations[j][1] = nh - gRadius - 1;
-				}
-			}
+    // Add extra FP at the end of each row in case height % spacing
+    if (height % spacing)
+    {
+        for (int j = gRadius; j < width - gRadius; j += spacing )
+        {
+            gLocations[gNumLocs][0] = j;
+            gLocations[gNumLocs][1] = height - gRadius - 1;
+            //cout << "efPoint " << gNumLocs << ":\t" << nh - gRadius - 1 << " " << j << endl;
+            gNumLocs++;
+        }
+    }
+};
 
-			// Do Gabor filtering			
-			cout << "Generating feature vector by Gabor filtering..." << endl;
-			response = ProcessChannel( pixels, in.height(), in.width(), response, &len, basename );
-			
-			// Turn the response into SVM vector, and add colour features					
-			int vector_length = (int)len/gNumLocs;
-		
-			cout << "Classifying control points using SVM..." << endl;
-			for (int j = 0; j < gNumLocs; j++){
+//generates the celeste mask on base of given responses and locations
+void generateMask(vigra::BImage& mask,int& gNumLocs, int**& gLocations,std::vector<double> svm_responses,int gRadius, double threshold)
+{
+    for ( int j = 0; j < gNumLocs; j++ )
+    {
+        if (svm_responses[j] >= threshold)
+        {
+            unsigned int sub_x0 = gLocations[j][0] - gRadius;
+            unsigned int sub_y0 = gLocations[j][1] - gRadius;
+            unsigned int sub_x1 = gLocations[j][0] + gRadius + 1;
+            unsigned int sub_y1 = gLocations[j][1] + gRadius + 1;
+            //cout << sub_x0 << ","<< sub_y0 << " - " << sub_x1 << "," << sub_y1 << endl;
 
-				int pixel_number = gLocations[j][0] + (in.width() * (gLocations[j][1] - 1)) - 1;
-				unsigned int feature = 1;
-				double score = 0;
-							
-				//cout << "0 ";				
-				for ( int v = (j * vector_length); v < ((j + 1) * vector_length); v++){
-					gabor_responses[feature-1].index = feature;
-					gabor_responses[feature-1].value = response[v];					
-					//cout << feature << ":" << response[v] << " ";
-					feature++;
-				}
+            // Set region to black
+            vigra::initImage(srcIterRange(mask.upperLeft() + vigra::Diff2D(sub_x0, sub_y0),
+                        mask.upperLeft() + vigra::Diff2D(sub_x1, sub_y1)), 0);				
+        }
+        else
+        {
+            //cout << "Non-cloud\t(score " << prob_estimates[0] << " <= " << threshold << ")" << endl;	
+        }
+    }
+};
 
-				// Work out average colour - U + V channels			
-				float u_sum = 0, v_sum = 0;
-				unsigned int pixels_in_region = (gRadius * 2)*(gRadius * 2);
-			
-				for (int t = 1 - gRadius; t <= gRadius; t++){			
-			
-					unsigned int this_y_pixel = pixel_number + (t * in.width());
+vigra::BImage getCelesteMask(struct svm_model* model, vigra::UInt16RGBImage& input, int radius, float threshold, int resize_dimension,bool adaptThreshold,bool verbose)
+{
+    vigra::UInt16RGBImage luv;
+    double sizefactor=1.0;
+    prepareCelesteImage(input,luv,resize_dimension,sizefactor,verbose);
 
-					for (int r = 1 - gRadius; r <= gRadius; r++){			
-			
-						unsigned int this_x_pixel = this_y_pixel + r;
-						u_sum += u_values[this_x_pixel];
-						v_sum += v_values[this_x_pixel];			
-					}
-				}
+    // Prepare Gabor API array
+    float** pixels=NULL;
+    prepareGaborImage(luv,pixels);
 
+    int** gLocations = NULL;
+    int gNumLocs = 0;
 
-				float u_ave = (float)u_sum/pixels_in_region;
-				float v_ave = (float)v_sum/pixels_in_region;
+    // Create grid of fiducial points
+    createGrid(gNumLocs,gLocations,radius,luv.width(),luv.height());
 
-				// Now work out standard deviation for U and V channels
-				u_sum = 0, v_sum = 0;
+    int len = 0;
+    float* mask_response=NULL;
+    mask_response = ProcessChannel(pixels,luv.width(),luv.height(),gNumLocs,gLocations,radius,mask_response,&len);
+    // Turn the response into SVM vector, and add colour features
+    vector<double> svm_responses=classifySVM(model,gNumLocs,gLocations,luv.width(),luv.height(),(int)len/gNumLocs,mask_response,radius,luv);
+    delete [] mask_response;
 
-				for (int t = 1 - gRadius; t <= gRadius; t++){			
-					
-					unsigned int this_y_pixel = pixel_number + (t * in.width());
-				
-					for (int r = 1 - gRadius; r <= gRadius; r++){			
-			
-						unsigned int this_x_pixel = this_y_pixel + r;
-					
-						u_sum +=  pow(u_values[this_x_pixel]-u_ave,2);
-						v_sum +=  pow(v_values[this_x_pixel]-v_ave,2);
+    if(adaptThreshold)
+    {
+        double minVal=1;
+        for(unsigned int i=0;i<svm_responses.size();i++)
+        {
+            if(svm_responses[i]<minVal)
+            {
+                minVal=svm_responses[i];
+            };
+        };
+        if(threshold<minVal)
+        {
+            threshold=min(minVal+0.1,1.0);
+        };
+    };
+    // Create mask of same dimensions
+    vigra::BImage mask_out(luv.width(), luv.height(),255);
+    generateMask(mask_out,gNumLocs,gLocations,svm_responses,radius,threshold);
+    // Re-size mask to match original image
+    vigra::BImage mask_resize(input.width(),input.height());			   
+    resizeImageNoInterpolation(srcImageRange(mask_out),destImageRange(mask_resize));		
+    DisposeMatrix(pixels,luv.height());
+    DisposeMatrix(gLocations,gNumLocs);
+    mask_out.resize(0,0);
+    return mask_resize;
+};
 
-					}
-				}
-			
-			
-		     		float std_u = sqrt(u_sum/(pixels_in_region-1));
-    	 			float std_v = sqrt(v_sum/(pixels_in_region-1));	
-			
-				// Add these colour features to feature vector							
-				gabor_responses[feature-1].index = feature;
-				gabor_responses[feature-1].value = u_ave;
-				//cout << feature << ":" << u_ave << " ";
-				feature++;
-				gabor_responses[feature-1].index = feature;
-				gabor_responses[feature-1].value = std_u;
-				//cout << feature << ":" << std_u << " ";
-				feature++;
-				gabor_responses[feature-1].index = feature;
-				gabor_responses[feature-1].value = v_ave;
-				//cout << feature << ":" << v_ave << " ";
-				feature++;								
-				gabor_responses[feature-1].index = feature;
-				gabor_responses[feature-1].value = std_v;
-				//cout << feature << ":" << std_v << " ";
-				feature++;
-				gabor_responses[feature-1].index = feature;
-				gabor_responses[feature-1].value = u_values[pixel_number];
-				//cout << feature << ":" << u_values[pixel_number] << " ";
-				feature++;								
-				gabor_responses[feature-1].index = feature;
-				gabor_responses[feature-1].value = v_values[pixel_number];
-				//cout << feature << ":" << v_values[pixel_number] << " " << endl;
-				gabor_responses[feature].index = -1;				
-		
-				score = svm_predict_probability(model,gabor_responses,prob_estimates);	
-				svm_responses.push_back(prob_estimates[0]);
+HuginBase::UIntSet getCelesteControlPoints(struct svm_model* model, vigra::UInt16RGBImage& input, HuginBase::CPointVector cps, int radius, float threshold, int resize_dimension,bool verbose)
+{
+    HuginBase::UIntSet cloudCP;
+    vigra::UInt16RGBImage luv;
+    double sizefactor=1.0;
+    prepareCelesteImage(input,luv,resize_dimension,sizefactor,verbose);
 
-			}
+    // Prepare Gabor API array
+    float** pixels=NULL;
+    prepareGaborImage(luv,pixels);
 
-			delete[] response;
-		}
-		
-		// Create mask
-		if (mask){
+    int gNumLocs = cps.size();
+    int** gLocations = CreateMatrix( (int)0, gNumLocs, 2);
+    for(unsigned int j=0;j<cps.size();j++)
+    {
+        HuginBase::ControlPoint cp=cps[j].second;
+        gLocations[j][0] = int(cp.x1 * sizefactor);
+        gLocations[j][1] = int(cp.y1 * sizefactor);
+        // Move CPs to border if the filter radius is out of bounds
+        if (gLocations[j][0] <= radius)
+        {
+            gLocations[j][0] = radius + 1;
+        }
+        if (gLocations[j][1] <= radius)
+        {
+            gLocations[j][1] = radius + 1;
+        }
+        if (gLocations[j][0] >= luv.width() - radius)
+        {
+            gLocations[j][0] = luv.width() - radius - 1;
+        }
+        if (gLocations[j][1] >= luv.height() - radius)
+        {
+            gLocations[j][1] = luv.height() - radius - 1;
+        }
+    };
 
-			// Create mask file name
-			string mask_name = ("");
-			if (imagefile.substr(imagefile.length()-4,1) == (".")){
-			
-				mask_name.append(imagefile.substr(0,imagefile.length()-4));
-								
-			}else{
-			
-				mask_name.append(imagefile.substr(0,imagefile.length()-4));
-			}
-			mask_name.append("_mask.");
-			mask_name.append(mask_format);
+    int len = 0;
+    float* response=NULL;
+    response = ProcessChannel(pixels,luv.width(),luv.height(),gNumLocs,gLocations,radius,response,&len);
+    // Turn the response into SVM vector, and add colour features
+    vector<double> svm_responses=classifySVM(model,gNumLocs,gLocations,luv.width(),luv.height(),(int)len/gNumLocs,response,radius,luv);
+    delete [] response;
 
-			cout << "Generating mask:\t" << mask_name << endl;				
-			// Create mask of same dimensions
-			vigra::BRGBImage mask_out(nw, nh);
-				
-			// Set mask to white
-			vigra::initImage(srcIterRange(mask_out.upperLeft(),
-			mask_out.upperLeft() + vigra::Diff2D(nw,nh)),
-                	RGB(255,255,255) );
+    for(unsigned int i=0;i<svm_responses.size();i++)
+    {
+        if(svm_responses[i]>=threshold)
+        {
+            cloudCP.insert(cps[i].first);
+        };
+    };
+    DisposeMatrix(pixels,luv.height());
+    DisposeMatrix(gLocations,gNumLocs);
 
-			float *mask_response = NULL;
-			gLocations = NULL;
-			gNumLocs = 0;
+    return cloudCP;
+};
 
-			// Create grid of fiducial points
-			for (int i = gRadius; i < in.height() - gRadius; i += spacing ){
-				for (int j = gRadius; j < in.width() - gRadius; j += spacing ){
-					gNumLocs++;
-				}
-				// Add extra FP at the end of each row in case nw % gRadius
-				gNumLocs++;
-			}
-
-			// Add extra FP at the end of each row in case nh % gRadius	
-			for (int j = gRadius; j < in.width() - gRadius; j += spacing ){
-				gNumLocs++;
-			}
-
-			// Create the storage matrix
-			gLocations = CreateMatrix( (int)0, gNumLocs, 2);
-			gNumLocs = 0;
-			for (int i = gRadius; i < in.height() - gRadius; i += spacing ){
-				for (int j = gRadius; j < in.width() - gRadius; j += spacing ){
-			
-					gLocations[gNumLocs][0] = j;
-					gLocations[gNumLocs][1] = i;
-					//cout << "fPoint " << gNumLocs << ":\t" << i << " " << j << endl;
-					gNumLocs++;
-				}
-				
-				// Add extra FP at the end of each row in case nw % spacing
-				if (nw % spacing){
-				
-					gLocations[gNumLocs][0] = nw - gRadius - 1;
-					gLocations[gNumLocs][1] = i;
-					//cout << "efPoint " << gNumLocs << ":\t" << i << " " << nw - gRadius - 1 << endl;
-					gNumLocs++;
-				}
-				
-			}
-
-			// Add extra FP at the end of each row in case nh % spacing
-			if (nh % spacing){
-						
-				for (int j = gRadius; j < in.width() - gRadius; j += spacing ){
-			
-					gLocations[gNumLocs][0] = j;
-					gLocations[gNumLocs][1] = nh - gRadius - 1;
-					//cout << "efPoint " << gNumLocs << ":\t" << nh - gRadius - 1 << " " << j << endl;
-					gNumLocs++;
-				
-				}
-			}
-
-			//cout << "Total FPs:\t" << gNumLocs << endl;
-
-			int len = 0;	
-				
-			//cout << "Pre-response " << in.height() << ","<<  in.width() << " " << gNumLocs << endl;	
-			mask_response = ProcessChannel( pixels, in.height(), in.width(), mask_response, &len, basename );
-			//cout << "Post-response" << endl;
-
-			// Turn the response into SVM vector, and add colour features
-		
-			int vector_length = (int)len/gNumLocs;
-
-			for ( int j = 0; j < gNumLocs; j++ ){
-
-				//cout << j << ":"<<endl;
-
-				unsigned int pixel_number = gLocations[j][0] + (in.width() * (gLocations[j][1] - 1)) - 1;
-				unsigned int feature = 1;
-				double score = 0;
-			
-				// need one more for index = -1
-				if(j >= max_nr_attr - 1){
-					max_nr_attr *= 2;
-					gabor_responses = (struct svm_node *) realloc(gabor_responses,max_nr_attr*sizeof(struct svm_node));
-				}	
-			
-			
-				for ( int v = (j * vector_length); v < ((j + 1) * vector_length); v++){					
-					gabor_responses[feature-1].index = feature;
-					gabor_responses[feature-1].value = mask_response[v];					
-					//cout << feature << ":" << mask_response[v] << " ";
-					feature++;
-				}
-
-				// Work out average colour - U + V channels			
-				float u_sum = 0, v_sum = 0;
-				int pixels_in_region = (gRadius * 2)*(gRadius * 2);
-			
-				for (int t = 1 - gRadius; t <= gRadius; t++){			
-			
-					unsigned int this_y_pixel = pixel_number + (t * in.width());
-
-					for (int r = 1 - gRadius; r <= gRadius; r++){			
-			
-						unsigned int this_x_pixel = this_y_pixel + r;
-					
-						u_sum += u_values[this_x_pixel];
-						v_sum += v_values[this_x_pixel];
-
-					}
-				}
-
-				float u_ave = (float)u_sum/pixels_in_region;
-				float v_ave = (float)v_sum/pixels_in_region;
-
-				// Now work out standard deviation for U and V channels
-				u_sum = 0, v_sum = 0;
-
-				for (int t = 1 - gRadius; t <= gRadius; t++){	
-						
-					unsigned int this_y_pixel = pixel_number + (t * in.width());
-				
-					for (int r = 1 - gRadius; r <= gRadius; r++){			
-			
-						unsigned int this_x_pixel = this_y_pixel + r;
-					
-						u_sum +=  pow(u_values[this_x_pixel]-u_ave,2);
-						v_sum +=  pow(v_values[this_x_pixel]-v_ave,2);
-
-					}
-				}			
-
-		     		float std_u = sqrt(u_sum/(pixels_in_region-1));
-    	 			float std_v = sqrt(v_sum/(pixels_in_region-1));	
-
-				// Add these colour features to feature vector							
-				gabor_responses[feature-1].index = feature;
-				gabor_responses[feature-1].value = u_ave;
-				//cout << feature << ":" << u_ave << " ";
-				feature++;
-				gabor_responses[feature-1].index = feature;
-				gabor_responses[feature-1].value = std_u;
-				//cout << feature << ":" << std_u << " ";
-				feature++;
-				gabor_responses[feature-1].index = feature;
-				gabor_responses[feature-1].value = v_ave;
-				//cout << feature << ":" << v_ave << " ";
-				feature++;								
-				gabor_responses[feature-1].index = feature;
-				gabor_responses[feature-1].value = std_v;
-				//cout << feature << ":" << std_v << " ";
-				feature++;
-				gabor_responses[feature-1].index = feature;
-				gabor_responses[feature-1].value = u_values[pixel_number];
-				//cout << feature << ":" << u_values[pixel_number] << " ";
-				feature++;								
-				gabor_responses[feature-1].index = feature;
-				gabor_responses[feature-1].value = v_values[pixel_number];
-				//cout << feature << ":" << v_values[pixel_number] << " " << endl;
-				gabor_responses[feature].index = -1;	
-
-				score = svm_predict_probability(model,gabor_responses,prob_estimates);
-				//cout << score << " " << prob_estimates[0] << endl;
-
-				if (prob_estimates[0] >= threshold){
-						
-					//cout << "Cloud\t\t(score " << prob_estimates[0] << " > " << threshold << ")" << endl;	
-							
-					unsigned int sub_x0 = gLocations[j][0] - gRadius;
-        				unsigned int sub_y0 = gLocations[j][1] - gRadius;
-        				unsigned int sub_x1 = gLocations[j][0] + gRadius + 1;
-        				unsigned int sub_y1 = gLocations[j][1] + gRadius + 1;
-					
-					//cout << sub_x0 << ","<< sub_y0 << " - " << sub_x1 << "," << sub_y1 << endl;
-					
-					// Set region to black
-					vigra::initImage(srcIterRange(mask_out.upperLeft() + vigra::Diff2D(sub_x0, sub_y0),
-					mask_out.upperLeft() + vigra::Diff2D(sub_x1, sub_y1)),
-                			RGB(0,0,0) );				
-				
-				}else{				
-					//cout << "Non-cloud\t(score " << prob_estimates[0] << " <= " << threshold << ")" << endl;	
-								
-				}						
-				//cout << feature_vector << endl;			
-
-			}
-	
-			delete [] mask_response;
-
-			// Re-size mask to match original image
-        		vigra::BRGBImage mask_resize(info.width(),info.height());			   
-			resizeImageNoInterpolation(srcImageRange(mask_out),destImageRange(mask_resize));		
-			exportImage(srcImageRange(mask_resize), ImageExportInfo(mask_name.c_str()).setPixelType("UINT8"));
-		
-		}
-
-		DisposeMatrix( pixels, in.height() );
-		delete[] frameBuf;
-		delete[] u_values;
-		delete[] v_values;
-		gNumLocs = 0;		
-		cout << endl;
-
-	}catch (vigra::StdException & e){
-        
-		// catch any errors that might have occured and print their reason
-        	cout << "Unable to open file:\t" << imagefile << endl << endl;
-		cout << e.what() << endl << endl;
-		for (int j = 0; j < gNumLocs; j++){
-			svm_responses.push_back(0);
-		}
-        	return;
-		
-    	}
-	
-	// Free up libsvm stuff
-	free(gabor_responses);
-	free(prob_estimates);
-	svm_destroy_model(model);
-	
-}
-
+} // end of namespace

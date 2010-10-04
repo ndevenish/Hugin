@@ -32,6 +32,8 @@ Copyright (c) 2002-3 Adriaan Tijsseling
 #include "GaborGlobal.h"
 #include "PGMImage.h"
 
+namespace celeste
+{
 class LogPolar
 {
 public:
@@ -59,5 +61,5 @@ protected:
     int		mImgHeight;		// height of output image
     int		mImgWidth;		// width of output image
 };
-
+}; //namespace
 #endif

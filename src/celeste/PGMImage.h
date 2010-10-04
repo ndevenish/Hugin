@@ -31,6 +31,8 @@ Copyright (c) 2002-3 Adriaan Tijsseling
 #include "ImageFile.h"
 #include <cstring>
 
+namespace celeste
+{
 class PGMImage : public ImageFile
 {
 public:
@@ -55,5 +57,5 @@ private:
 	int		mNumLevels;
 	int		mNumBits;
 };
-
+}; //namespace
 #endif // __PGM_IMAGE_CLASS__

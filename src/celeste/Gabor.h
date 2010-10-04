@@ -22,7 +22,9 @@
 #ifndef __GABOR__
 #define __GABOR__
 
-float* ProcessChannel( float**, int, int, float*, int*, char*);
-
+namespace celeste
+{
+float* ProcessChannel( float** image, int w, int h, int gNumLocs, int**& gLocations, int gRadius, float* response, int* len);
+}; // namespace
 #endif
 

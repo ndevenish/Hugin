@@ -21,20 +21,16 @@
 
 #ifndef GLOBALS_H
 #define GLOBALS_H
-#include <hugin_shared.h>
 
+namespace celeste
+{
 extern bool kSaveFilter;
 extern bool kVerbosity;
-extern IMPEX int gRadius;
-extern IMPEX float gS;
-extern IMPEX int gA;
-extern IMPEX int gF;
-extern IMPEX float gL;
-extern IMPEX float gU;	
-extern IMPEX int gNumLocs;
-extern IMPEX int **gLocations;
-extern IMPEX int spacing;
-extern IMPEX int resize_dimension;
-
+extern float gS;
+extern int gA;
+extern int gF;
+extern float gL;
+extern float gU;	
+} //namespace
 #endif
 

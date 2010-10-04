@@ -26,6 +26,7 @@ Copyright (c) 2002-3 Adriaan Tijsseling
 */
 
 #include "GaborJet.h"
+#include "CelesteGlobals.h"
 
 #ifndef M_PI
 #define M_PI 3.1415926535897932384626433832795
@@ -33,6 +34,8 @@ Copyright (c) 2002-3 Adriaan Tijsseling
 
 using namespace std; 
 
+namespace celeste
+{
 // default constructor just sets everything to default
 GaborJet::GaborJet()
 {
@@ -154,5 +157,4 @@ void GaborJet::Filter( float** image, int* len )
 	*len = mAngles * mFreqs;
 }
 
-
-
+}; // namespace

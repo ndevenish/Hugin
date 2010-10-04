@@ -43,6 +43,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <locale.h>
 #include "svm.h"
 
+namespace celeste
+{
 typedef float Qfloat;
 typedef signed char schar;
 #ifndef min
@@ -3097,3 +3099,5 @@ int svm_check_probability_model(const svm_model *model)
 		((model->param.svm_type == EPSILON_SVR || model->param.svm_type == NU_SVR) &&
 		 model->probA!=NULL);
 }
+
+}; // namespace

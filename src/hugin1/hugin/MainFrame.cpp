@@ -207,6 +207,7 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     preview_frame = 0;
     m_progressMax = 1;
     m_progress = 0;
+    svmModel=NULL;
 
     wxBitmap bitmap;
     wxSplashScreen* splash = 0;
@@ -458,6 +459,10 @@ MainFrame::~MainFrame()
     //store most recently used files
     m_mruFiles.Save(*config);
     config->Flush();
+    if(svmModel!=NULL)
+    {
+        celeste::destroySVMmodel(svmModel);
+    };
 
     DEBUG_TRACE("dtor end");
 }
@@ -1800,6 +1805,30 @@ void MainFrame::OnFullScreen(wxCommandEvent & e)
     //workaround a wxGTK bug that also the toolbar is hidden, but not requested to hide
     GetToolBar()->Show(true);
 #endif
+};
+
+struct celeste::svm_model* MainFrame::GetSVMModel()
+{
+    if(svmModel==NULL)
+    {
+        // determine file name of SVM model file
+        // get XRC path from application
+        wxString wxstrModelFileName = huginApp::Get()->GetDataPath() + wxT(HUGIN_CELESTE_MODEL);
+        // convert wxString to string
+        string strModelFileName(wxstrModelFileName.mb_str(HUGIN_CONV_FILENAME));
+				
+        // SVM model file
+        if (! wxFile::Exists(wxstrModelFileName) ) {
+            wxMessageBox(wxString::Format(_("Celeste model expected in %s not found, Hugin needs to be properly installed."),wxstrModelFileName.c_str()), _("Fatal Error"));
+            return NULL;
+        }
+        if(!celeste::loadSVMmodel(svmModel,strModelFileName))
+        {
+            wxMessageBox(wxString::Format(_("Could not load Celeste model file %s"),wxstrModelFileName.c_str()),_("Error"));
+            svmModel=NULL;
+        };
+    }
+    return svmModel;
 };
 
 MainFrame * MainFrame::m_this = 0;

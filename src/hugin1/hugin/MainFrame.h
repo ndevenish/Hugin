@@ -36,6 +36,9 @@
 #include "hugin/OptimizePanel.h"
 #include "hugin/PreferencesDialog.h"
 
+// Celeste header
+#include "Celeste.h"
+
 using namespace PT;
 
 // forward declarations, to save the #include statements
@@ -157,6 +160,8 @@ public:
 
     wxString getProjectName();
 
+    struct celeste::svm_model* GetSVMModel();
+
 protected:
     // called when a progress message should be displayed
     /** receive notification about progress. Should not be called directly.
@@ -218,6 +223,7 @@ private:
     OptimizePanel * opt_panel;
     OptimizePhotometricPanel * opt_photo_panel;
     PanoPanel * pano_panel;
+    struct celeste::svm_model* svmModel;
 
     // flying windows
     PreviewFrame * preview_frame;

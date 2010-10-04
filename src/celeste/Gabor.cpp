@@ -25,14 +25,16 @@
 #include "GaborGlobal.h"
 #include "GaborJet.h"
 #include "ContrastFilter.h"
-#include "PGMImage.h"
+//#include "PGMImage.h"
 #include "Utilities.h"
 #include "CelesteGlobals.h"
 #define kUseContrast 1
 
 using namespace std; 
 
-float* ProcessChannel( float** image, int h, int w, float* response, int* len, char* file ){
+namespace celeste
+{
+float* ProcessChannel( float** image, int w, int h, int gNumLocs, int**& gLocations, int gRadius, float* response, int* len){
 
 	ContrastFilter*	contrastFilter = NULL;
 	GaborJet* gaborJet = NULL;
@@ -50,6 +52,7 @@ float* ProcessChannel( float** image, int h, int w, float* response, int* len, c
 
 	// apply contrast filter to image
 	contrastFilter = new ContrastFilter( image, height, width );
+    char file[] = "gabor_filters/celeste"; 
 	// set filename if intermediate files should be saved
 	if ( kSaveFilter == 1 )	{
 		contrastFilter->SetFileName( file );	
@@ -128,3 +131,4 @@ float* ProcessChannel( float** image, int h, int w, float* response, int* len, c
 
 	return response;
 }
+}; // namespace

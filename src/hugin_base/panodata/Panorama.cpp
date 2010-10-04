@@ -178,6 +178,28 @@ std::vector<unsigned int> Panorama::getCtrlPointsForImage(unsigned int imgNr) co
     return result;
 }
 
+CPointVector Panorama::getCtrlPointsVectorForImage(unsigned int imgNr) const
+{
+    CPointVector result;
+    for(unsigned int i=0;i<state.ctrlPoints.size();i++)
+    {
+        ControlPoint point=state.ctrlPoints[i];
+        if(point.image1Nr==imgNr)
+        {
+            result.push_back(std::make_pair(i,point));
+        }
+        else
+        {
+            if(point.image2Nr==imgNr)
+            {
+                point.mirror();
+                result.push_back(std::make_pair(i,point));
+            };
+        };
+    };
+    return result;
+};
+
 VariableMapVector Panorama::getVariables() const
 {
     VariableMapVector map;

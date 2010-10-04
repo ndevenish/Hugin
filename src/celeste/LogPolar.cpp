@@ -26,11 +26,14 @@ Copyright (c) 2002-3 Adriaan Tijsseling
 */
 
 #include "LogPolar.h"
+#include "CelesteGlobals.h"
 
 #ifndef M_PI
 #define M_PI 3.1415926535897932384626433832795
 #endif
 
+namespace celeste
+{
 // construct class and apply filter
 LogPolar::LogPolar( float** img, int height, int width, int minS, int ry, int rx )
 {
@@ -133,4 +136,4 @@ void LogPolar::Save( void )
 	}
 }
 
-
+}; // namespace

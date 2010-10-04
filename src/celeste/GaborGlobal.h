@@ -33,8 +33,5 @@ Copyright (c) 2002-3 Adriaan Tijsseling
 #define		Max(a,b)	(a>b?a:b)
 #define		Min(a,b)	(a<b?a:b)
 
-extern bool	kSaveFilter;
-extern bool	kVerbosity;
-
 #endif
 

@@ -27,6 +27,8 @@ Copyright (c) 2002-3 Adriaan Tijsseling
 
 #include "ContrastFilter.h"
 
+namespace celeste
+{
 float CONTRAST[9][9] = {
   {
     -0.00601522f,
@@ -195,4 +197,4 @@ void ContrastFilter::Save( void )
 	pgmI.WriteScaled( tmpName, mContrast, mHeight, mWidth );
 }
 
-
+}; // namespace

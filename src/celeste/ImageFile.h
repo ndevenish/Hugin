@@ -35,6 +35,8 @@ Copyright (c) 2002-3 Adriaan Tijsseling
 #include 	<stdio.h>
 #include	<stdlib.h>
 
+namespace celeste
+{
 enum
 {
 	kChars = 0x01,
@@ -84,5 +86,5 @@ protected:
 	bool			mVerbosity;	// verbosity level
 
  };
-
+}//namespace
 #endif

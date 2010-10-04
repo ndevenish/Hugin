@@ -32,6 +32,8 @@ Copyright (c) 2002-3 Adriaan Tijsseling
 #include "GaborGlobal.h"
 #include "PGMImage.h"
 
+namespace celeste
+{
 class GaborFilter
 {
 public:
@@ -56,5 +58,5 @@ protected:
 	float**		mReal;			// real part of filter
 	float**		mImaginary;		// imaginary part of filter
 };
-
+} //namespace
 #endif

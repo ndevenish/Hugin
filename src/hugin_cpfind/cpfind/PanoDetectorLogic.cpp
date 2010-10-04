@@ -25,6 +25,7 @@
 #include <fstream>
 #include <boost/foreach.hpp>
 #include <vigra/distancetransform.hxx>
+#include "vigra/impex.hxx"   // debug image save
 
 #include <localfeatures/Sieve.h>
 #include <localfeatures/PointMatch.h>
@@ -144,6 +145,26 @@ bool PanoDetector::AnalyzeImage(ImgData& ioImgInfo, const PanoDetector& iPanoDet
 		    progress->popTask();
        	    remapper.release(remapped);
 
+            if(iPanoDetector.getCeleste())
+            {
+                TRACE_IMG("Masking areas with clouds...");
+                vigra::UInt16RGBImage image16(RGBimg.size());
+                vigra::transformImage(srcImageRange(RGBimg),destImage(image16),vigra::functor::Arg1()*vigra::functor::Param(65535/255));
+                int radius=iPanoDetector.getCelesteRadius();
+                if(iPanoDetector._downscale)
+                {
+                    radius>>= 1;
+                };
+                if(radius<2)
+                {
+                    radius=2;
+                };
+                vigra::BImage celeste_mask=celeste::getCelesteMask(iPanoDetector.svmModel,image16,radius,iPanoDetector.getCelesteThreshold(),800,true,false);
+                vigra::copyImageIf(srcImageRange(final_mask),srcImage(celeste_mask),destImage(final_mask));
+                celeste_mask.resize(0,0);
+                image16.resize(0,0);
+            };
+            
     		// Convert to grayscale double format
             TRACE_IMG("Convert to greyscale double...");
 	    	vigra::copyImage(
@@ -192,38 +213,88 @@ bool PanoDetector::AnalyzeImage(ImgData& ioImgInfo, const PanoDetector& iPanoDet
                 vigra_ext::applyMask(vigra::destImageRange(mask), iPanoDetector._panoramaInfoCopy.getImage(ioImgInfo._number).getActiveMasks());
             };
 
-            if (iPanoDetector._downscale)
-            {	
-                // Downscale and convert to grayscale double format
-			    TRACE_IMG("Resize to greyscale double...");
-                vigra::resizeImageNoInterpolation(
-			    	RGBimg.upperLeft(),
-				    RGBimg.upperLeft() + vigra::Diff2D(aImageInfo.width(), aImageInfo.height()),
-    				vigra::RGBToGrayAccessor<vigra::RGBValue<double> >(),
-	    			final_img.upperLeft(),
-		    		final_img.lowerRight(),
-			    	vigra::DImage::Accessor());
-                //downscale mask
-                if(mask.width()>0 && mask.height()>0)
+            if(iPanoDetector.getCeleste())
+            {
+                TRACE_IMG("Resizing image...");
+                vigra::BRGBImage scaled(final_img.size());
+                if(iPanoDetector._downscale)
                 {
-                    final_mask.resize(ioImgInfo._detectWidth, ioImgInfo._detectHeight);          
-                    vigra::resizeImageNoInterpolation(srcImageRange(mask),destImageRange(final_mask));
-                    mask.resize(0,0);
+                    vigra::resizeImageNoInterpolation(srcImageRange(RGBimg),destImageRange(scaled));
+                    if(mask.width()>0 && mask.height()>0)
+                    {
+                        final_mask.resize(ioImgInfo._detectWidth, ioImgInfo._detectHeight);          
+                        vigra::resizeImageNoInterpolation(srcImageRange(mask),destImageRange(final_mask));
+                        mask.resize(0,0);
+                    };
+                }
+                else
+                {
+                    vigra::copyImage(srcImageRange(RGBimg),destImage(scaled));
                 };
+                TRACE_IMG("Masking areas with clouds...");
+                vigra::UInt16RGBImage image16(scaled.size());
+                vigra::transformImage(srcImageRange(scaled),destImage(image16),vigra::functor::Arg1()*vigra::functor::Param(65535/255));
+                int radius=iPanoDetector.getCelesteRadius();
+                if(iPanoDetector._downscale)
+                {
+                    radius>>= 1;
+                };
+                if(radius<2)
+                {
+                    radius=2;
+                };
+                vigra::BImage celeste_mask=celeste::getCelesteMask(iPanoDetector.svmModel,image16,radius,iPanoDetector.getCelesteThreshold(),800,true,false);
+                image16.resize(0,0);
+                if(final_mask.width()>0)
+                {
+                    vigra::copyImageIf(srcImageRange(final_mask),srcImage(celeste_mask),destImage(final_mask));
+                }
+                else
+                {
+                    final_mask.resize(final_img.size());
+                    vigra::copyImage(srcImageRange(celeste_mask),destImage(final_mask));
+                };
+                celeste_mask.resize(0,0);
+                TRACE_IMG("Convert to greyscale double...");
+                vigra::copyImage(scaled.upperLeft(), scaled.lowerRight(), vigra::RGBToGrayAccessor<vigra::RGBValue<double> >(),
+                    final_img.upperLeft(), vigra::DImage::Accessor());
+                scaled.resize(0,0);
             }
             else
             {
-                // convert to grayscale
-                TRACE_IMG("Convert to greyscale double...");
-                vigra::copyImage(RGBimg.upperLeft(), RGBimg.lowerRight(), vigra::RGBToGrayAccessor<vigra::RGBValue<double> >(),
-                    final_img.upperLeft(), vigra::DImage::Accessor());
-                if(mask.width()>0 && mask.height()>0)
+                if (iPanoDetector._downscale)
                 {
-                    final_mask.resize(ioImgInfo._detectWidth, ioImgInfo._detectHeight);          
-                    vigra::copyImage(srcImageRange(mask),destImage(final_mask));
-                    mask.resize(0,0);
+                    // Downscale and convert to grayscale double format
+                    TRACE_IMG("Resize to greyscale double...");
+                    vigra::resizeImageNoInterpolation(
+                        RGBimg.upperLeft(),
+                        RGBimg.upperLeft() + vigra::Diff2D(aImageInfo.width(), aImageInfo.height()),
+                        vigra::RGBToGrayAccessor<vigra::RGBValue<double> >(),
+                        final_img.upperLeft(),
+                        final_img.lowerRight(),
+                        vigra::DImage::Accessor());
+                    //downscale mask
+                    if(mask.width()>0 && mask.height()>0)
+                    {
+                        final_mask.resize(ioImgInfo._detectWidth, ioImgInfo._detectHeight);          
+                        vigra::resizeImageNoInterpolation(srcImageRange(mask),destImageRange(final_mask));
+                        mask.resize(0,0);
+                    };
+                }
+                else
+                {
+                    // convert to grayscale
+                    TRACE_IMG("Convert to greyscale double...");
+                    vigra::copyImage(RGBimg.upperLeft(), RGBimg.lowerRight(), vigra::RGBToGrayAccessor<vigra::RGBValue<double> >(),
+                        final_img.upperLeft(), vigra::DImage::Accessor());
+                    if(mask.width()>0 && mask.height()>0)
+                    {
+                        final_mask.resize(ioImgInfo._detectWidth, ioImgInfo._detectHeight);          
+                        vigra::copyImage(srcImageRange(mask),destImage(final_mask));
+                        mask.resize(0,0);
+                    };
                 };
-            }
+            };
         }
 
         // Build integral image

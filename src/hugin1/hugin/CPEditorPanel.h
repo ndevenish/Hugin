@@ -302,11 +302,8 @@ private:
     unsigned int m_selectedPoint;
     unsigned int m_cursorType;
 
-    // pair of global control point number and corrosponding control point
-    typedef std::pair<unsigned int, PT::ControlPoint> CPoint;
-
     // contains the control points shown currently.
-    std::vector<CPoint> currentPoints;
+    HuginBase::CPointVector currentPoints;
     // this set contains all points that are mirrored (point 1 in right window,
     // point 2 in left window), in local point numbers
     std::set<unsigned int> mirroredPoints;

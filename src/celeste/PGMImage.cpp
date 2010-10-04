@@ -30,6 +30,8 @@ Copyright (c) 2002-3 Adriaan Tijsseling
 
 using namespace std; 
 
+namespace celeste
+{
 // read PGM image from file
 int PGMImage::Read( char* file )
 {
@@ -364,4 +366,4 @@ void PGMImage::WriteScaled( char* filename, float** output, int height, int widt
     Write( filename );
 }
 
-
+}; // namespace

@@ -31,6 +31,8 @@ Copyright (c) 2002-3 Adriaan Tijsseling
 
 using namespace std; 
 
+namespace celeste
+{
 long	gPrecision;
 long	gWidth;
 
@@ -283,3 +285,4 @@ int SafeAbs( int val )
 	else return val;
 }
 
+}; // namespace

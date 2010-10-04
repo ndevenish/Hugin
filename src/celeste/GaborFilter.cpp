@@ -34,6 +34,8 @@ Change History (most recent first):
 #define M_PI 3.1415926535897932384626433832795
 #endif
 
+namespace celeste
+{
 // default constructor just sets everything to default
 GaborFilter::GaborFilter()
 {
@@ -122,3 +124,4 @@ void GaborFilter::Save( char* file, int angle, int freq )
 	pgmImage.WriteScaled( filename, mReal, mRadius, mRadius );
 }
 
+}; // namespace

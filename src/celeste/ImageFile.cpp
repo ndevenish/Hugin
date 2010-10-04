@@ -28,6 +28,8 @@ Copyright (c) 2002-3 Adriaan Tijsseling
 
 #include "ImageFile.h"
 
+namespace celeste
+{
 ImageFile::ImageFile()
 {
     mPixels = NULL;
@@ -145,3 +147,4 @@ float** ImageFile::GetPixels( void )
 
 	return mFloats;
 }
+}; // namespace

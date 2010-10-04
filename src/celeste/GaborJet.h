@@ -34,7 +34,8 @@ Change History (most recent first):
 #include "GaborGlobal.h"
 #include "GaborFilter.h"
 
-
+namespace celeste
+{
 class GaborJet
 {
 public:
@@ -66,6 +67,6 @@ protected:
 	float*			mFiducials;	// vector with Gabor responses at center
 	char			mFile[256];	// filename
 };
-
+} //namespace
 #endif
 

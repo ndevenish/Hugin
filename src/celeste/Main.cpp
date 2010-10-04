@@ -18,27 +18,23 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#include <stdio.h> 
 #include <fstream>
-#include <iostream>
 #include <sstream>
-#include <vector>
-#include <cctype>
 #include <string>
-#include <algorithm>
-#include "svm.h"
-#include "CelesteGlobals.h"
-#include "Utilities.h"
 #include "Celeste.h"
 #include <sys/stat.h> 
 #include "hugin_config.h" 
 #include <hugin_version.h>
+#include <vigra_ext/impexalpha.hxx>
+#include <panodata/Panorama.h>
 
-#ifdef __WIN32__
+#ifdef _WINDOWS
 #include <windows.h>
 #endif
 
 using namespace std;
+using namespace HuginBase;
+using namespace AppBase;
 
 bool fileexists(string strFilename) {
 
@@ -57,344 +53,6 @@ bool fileexists(string strFilename) {
   	}
   
   	return(blnReturn);
-}
-
-static void tokenize(const string& str, vector<string>& tokens, const string& delimiters = " "){
-    
-	// Skip delimiters at beginning
-	string::size_type lastPos = str.find_first_not_of(delimiters, 0);
-	
-	// Find first non-delimiter
-	string::size_type pos = str.find_first_of(delimiters, lastPos);
-
- 	while (string::npos != pos || string::npos != lastPos){
-	
-        	// Found a token, add it to the vector
-        	tokens.push_back(str.substr(lastPos, pos - lastPos));
-		
-        	// Skip delimiters.  Note the not_of
-        	lastPos = str.find_first_not_of(delimiters, pos);
-		
-        	// Find next non-delimiter
-        	pos = str.find_first_of(delimiters, lastPos);
-    	}
-	
-}
-
-static void parse_pto(string& f,vector<string>& images,vector<string>& pto_file_top,vector<string>&
-pto_file_cps,vector<string>& pto_file_end, unsigned int& mask, string& m, double& threshold,string&
-mask_format,vector<double>& svm_responses){
-  
- 	// Create some vectors to store image and control point data
-	vector<unsigned int> xcps;
-	vector<unsigned int> ycps;
- 
- 	// Open the .pto file and make sure it's good to go
-	ifstream is(f.c_str());
-
-  	if(!is.good()){
-    		cout << "Couldn't open Hugin project file " << f << endl << endl;
-    		exit(1);
-  	}
-
-        // Get line from stream
-	string line;
-	unsigned int current = 0, counter = 0, at_cps = 0, done_cps = 0;
-		
-        while(getline(is,line)){
-		
-		string start = line.substr(0, 1);
-		string autopano_start = line.substr(0, 9);
-
-		if (at_cps == 0){
-			pto_file_top.push_back(line);
-		}
-
-		if (start == ("i") || autopano_start == ("#-imgfile")){
-			
-			// Parse images from lines beginning 'i'
-			
-			//vector<string> tokens;
-			//tokenize(line, tokens);
-			//string imagename = tokens.back().substr(2, tokens.back().length()-3);
-			
-			size_t found;
-			string imagename = ("");
-			
-			// Hugin files
-			if (start == ("i")){
-									
-				found = line.find("n\"");
-				imagename = line.substr(found + 2, line.find("\"",found + 2) - found - 2);
-				//cout << imagename << endl;
-				
-			// (Old?) Autopano Pro files
-			}else{
-			
-				found = line.find("\"");
-				imagename = line.substr(found + 1, line.length() - found - 2);
-			
-			}
-			
-			if (fileexists(imagename)){
-			
-				// Put filenames into a vector
-				images.push_back(imagename);
-		
-			// Seach for the image if we can't find it, using path of PTO file		
-			}else{
-			
-				//cout << imagename << " doesn't exist." << endl;
-			
-				vector<string> tokens;
-				imagename = ("");
-
-				// *nix file paths
-				if (f.find("/") < f.length() || f.substr(0, 1) == ("/")){
-
-					if (f.substr(0, 1) == ("/")){
-						imagename += ("/");
-					}
-					
-					tokenize(f, tokens, "/");
-					for (unsigned int p = 0; p < tokens.size() - 1; p++){
-						imagename += tokens[p];
-						imagename += "/";
-					}
-					imagename += line.substr(found + 1, line.length() - found - 2);
-				
-				// Windows file paths... experimental!	
-				}else{
-
-					tokenize(f, tokens, "\\");
-					for (unsigned int p = 0; p < tokens.size() - 1; p++){
-						imagename += tokens[p];
-						imagename += "\\";
-					}
-					imagename += line.substr(found + 1, line.length() - found - 2);
-
-				}
-				
-				//cout << "New search path " << imagename << endl;
-				
-				if (fileexists(imagename)){
-								
-					// Put filenames into a vector				
-					images.push_back(imagename);
-				
-				}else{
-				
-					cout << "Couldn't open image " << line.substr(found + 2, line.length() - found -
-					3) << endl;
-					
-					cout << "Also tried " << imagename << endl << endl; 
-					exit(1);
-				}
-			}
-
-			//cout << imagename << endl;
-
-			
-		}else if (start == ("c")){
-		
-			pto_file_cps.push_back(line);
-			//cout << line << endl;
-		
-			// Marker - we're at CPs
-			at_cps = 1;
-
-			vector<string> tokens;
-			tokenize(line, tokens);
-
-			// Image number for accessing images vector			
-			unsigned int image_no = atoi( tokens[1].substr(1, tokens[1].length()-1).c_str() );
-
-			if (image_no != current){
-			
-				// Create the storage matrix
-				gNumLocs = xcps.size();
-				gLocations = CreateMatrix( (int)0, gNumLocs, 2);
-							
-				//cout << images[current] << " " << image_no <<  " (" << xcps.size() << "):" << endl;
-								
-				for (int cp = 0; cp < gNumLocs; cp++){
-				
-					//cout << "CP " << cp << ": " << xcps[cp] << "," << ycps[cp] << endl;
-					
-					gLocations[cp][0] = xcps[cp];
-					gLocations[cp][1] = ycps[cp];
-					
-				}
-
-				// Get response
-				get_gabor_response(images[current],mask,m,threshold,mask_format,svm_responses);
-
-				//gLocations = NULL;
-				delete[] gLocations;
-
-				xcps.clear();
-				ycps.clear();
-				current = image_no;
-
-				// First CP of next image
-				
-				// Control point x,y
-				unsigned int xcp, ycp;
-				for ( int i = 0; i < tokens.size(); i++)
-				  {
-				    if (tokens[i][0] == 'x')
-				      xcp = atoi( tokens[i].substr(1, tokens[i].length()-1).c_str() );
-				    else if (tokens[i][0] == 'y')
-				      ycp = atoi( tokens[i].substr(1, tokens[i].length()-1).c_str() );
-				  }
-	
-				xcps.push_back(xcp);
-				ycps.push_back(ycp);
-
-				counter = 1;
-				
-			}else{
-				unsigned int xcp, ycp;
-				for ( int i = 0; i < tokens.size(); i++)
-				  {
-				    if (tokens[i][0] == 'x')
-				      xcp = atoi( tokens[i].substr(1, tokens[i].length()-1).c_str() );
-				    else if (tokens[i][0] == 'y')
-				      ycp = atoi( tokens[i].substr(1, tokens[i].length()-1).c_str() );
-				  }
-				ycps.push_back(ycp);
-				xcps.push_back(xcp);
-			
-				counter++;
-			
-				//cout << images[image_no] << " : " << xcp << "," << ycp << endl;
-			}
-			
-		}else if (at_cps && start != ("c") && start != ("#") && done_cps == 0){
-
-			// Create the storage matrix
-			gNumLocs = xcps.size();
-			gLocations = CreateMatrix( (int)0, gNumLocs, 2);
-							
-			//cout << images[current] << " " << current <<  " (" << xcps.size() << "):" << endl;
-				
-			for (unsigned int cp = 0; cp < counter; cp++){
-				
-				//cout << "CP " << cp << ": " << xcps[cp] << "," << ycps[cp] << endl;
-					
-				gLocations[cp][0] = xcps[cp];
-				gLocations[cp][1] = ycps[cp];
-					
-			}
-
-			// Get response
-			get_gabor_response(images[current],mask,m,threshold,mask_format,svm_responses);
-
-			//gLocations = NULL;
-			delete[] gLocations;
-			
-			xcps.clear();
-			ycps.clear();
-			
-			done_cps = 1;
-				
-		}
-
-		if (at_cps && start != ("c")){
-		
-			pto_file_end.push_back(line);
-		
-		}
-		
-	}
-
-	// Process last image - create mask if necessary
-	//if (images.size() > 1){
-
-	//	gNumLocs = 0;
-	//	get_gabor_response(images.back(),mask,m,threshold,mask_format,svm_responses);
-	
-	//}
-	
-	// Close stream
-	is.close();
-
-}
-
-static void write_pto(double& threshold,vector<string>& images,string& output_pto,vector<string>&
-pto_file_top,vector<string>& pto_file_cps,vector<string>& pto_file_end,vector<double> svm_responses){
-
-	// File to write to
-	ofstream out;
-	out.open (output_pto.c_str());
-
-  	if(!out.good()){
-    		cout << "Couldn't write to Hugin project file " << output_pto << endl << endl;
-    		exit(1);
-  	}
-	
-	// Print the top of the file
-	for (unsigned int l = 0; l < pto_file_top.size() - 1; l++){
-	
-		out << pto_file_top[l] << endl;
-	
-	}
-
-	unsigned int current = 0;
-
-	cout << images[current] << ":" << endl;
-
-	// Print control points
-	for (unsigned int l = 0; l < pto_file_cps.size(); l++){
-
-		//cout << l << ":  " << pto_file_cps[l] << endl;
-
-		vector<string> tokens;
-		tokenize(pto_file_cps[l], tokens);
-		unsigned int image_no = atoi( tokens[1].substr(1, tokens[1].length()-1).c_str() );
-		if (image_no != current){
-			cout << endl << images[image_no] << ":" << endl;
-		}
-		current = image_no;
-	
-		cout << "CP ";
-		unsigned int len = 0;
-		for (unsigned int t = 1; t < tokens.size(); t++){
-			len += tokens[t].length();
-			cout << tokens[t] << " ";
-		}
-
-		//cout << pto_file_cps[l] << "\t";
-
-		unsigned int count_spaces = 1;
-		int t = 80 - len;
-		if (t > 0) count_spaces = t;
-
-		for (unsigned int s = 0; s < count_spaces; s++){
-		
-			cout << " ";
-		}
-
-		if (svm_responses[l] >= threshold){
-			cout << "Removed  (score " << svm_responses[l] << " >= " << threshold << ")" << endl;
-		}else{
-			cout << "OK       (score " << svm_responses[l] << " < " << threshold << ")" << endl;
-				
-			// Write to file
-			out << pto_file_cps[l] << endl;				
-		}
-
-	}
-
-	// Print bottom of file
-	for (unsigned int l = 0; l < pto_file_end.size(); l++){
-	
-		out << pto_file_end[l] << endl;
-	
-	}
-
-	out.close();
-
 }
 
 static void usage(){
@@ -426,29 +84,125 @@ static void usage(){
 
 }
 
+vigra::UInt16RGBImage loadAndConvertImage(string imagefile)
+{
+    vigra::ImageImportInfo info(imagefile.c_str());
+    std::string pixelType=info.getPixelType();
+    vigra::UInt16RGBImage image;
+    if(pixelType=="UINT8" || pixelType=="INT16")
+    {
+        vigra::UInt16RGBImage imageIn(info.width(),info.height());
+        if(info.numExtraBands()==1)
+        {
+            vigra::BImage mask(info.size());
+            vigra::importImageAlpha(info,destImage(imageIn),destImage(mask));
+            mask.resize(0,0);
+        }
+        else
+        {
+            importImage(info,destImage(imageIn));
+        };
+        celeste::convertToUInt16(imageIn,pixelType,image);
+        imageIn.resize(0,0);
+    }
+    else
+        if(pixelType=="UINT16")
+        {
+            image.resize(info.width(),info.height());
+            if(info.numExtraBands()==1)
+            {
+                vigra::BImage mask(info.size());
+                vigra::importImageAlpha(info,destImage(image),destImage(mask));
+                mask.resize(0,0);
+            }
+            else
+            {
+                importImage(info,destImage(image));
+            };
+        }
+        else
+            if(pixelType=="INT32" || pixelType=="UINT32")
+            {
+                vigra::UInt32RGBImage imageIn(info.width(),info.height());
+                if(info.numExtraBands()==1)
+                {
+                    vigra::BImage mask(info.size());
+                    vigra::importImageAlpha(info,destImage(imageIn),destImage(mask));
+                    mask.resize(0,0);
+                }
+                else
+                {
+                    importImage(info,destImage(imageIn));
+                };
+                celeste::convertToUInt16(imageIn,pixelType,image);
+                imageIn.resize(0,0);
+            }
+            else
+                if(pixelType=="FLOAT" || pixelType=="DOUBLE")
+                {
+                    vigra::FRGBImage imagefloat(info.width(),info.height());
+                    if(info.numExtraBands()==1)
+                    {
+                        vigra::BImage mask(info.size());
+                        vigra::importImageAlpha(info,destImage(imagefloat),destImage(mask));
+                        mask.resize(0,0);
+                    }
+                    else
+                    {
+                        importImage(info,destImage(imagefloat));
+                    };
+                    celeste::convertToUInt16(imagefloat,pixelType,image);
+                    imagefloat.resize(0,0);
+                }
+                else
+                {
+                    std::cerr << "Unsupported pixel type" << std::endl;
+                };
+    return image;
+};
+
+std::string generateMaskName(string imagefile,string mask_format)
+{
+    string mask_name = ("");
+    if (imagefile.substr(imagefile.length()-4,1)==("."))
+    {
+        mask_name.append(imagefile.substr(0,imagefile.length()-4));
+    }
+    else
+    {
+        mask_name.append(imagefile.substr(0,imagefile.length()-4));
+    }
+    mask_name.append("_mask.");
+    mask_name.append(mask_format);
+    return mask_name;
+};
+
+
 int main(int argc, const char* argv[]){
 
-        // Exit with usage unless filename given as argument
-        if (argc < 2){
-                usage();
-        }
+    // Exit with usage unless filename given as argument
+    if (argc < 2)
+    {
+            usage();
+    }
 
-        unsigned int i = 1, mask = 0;
+    unsigned int i = 1, mask = 0;
 	double threshold = 0.5;
-	vector<string> images_to_mask;
-        string pto_file = (""),output_pto = ("");
-	string mask_format = ("PNG");
-	string model_file = ("celeste.model");
-	int course_fine = 0;
+    vector<string> images_to_mask;
+    string pto_file = (""),output_pto = ("");
+    string mask_format = ("PNG");
+    string model_file = ("celeste.model");
+    int course_fine = 0;
+    int resize_dimension=800;
 
-	// Deal with arguments
-        while(i < argc){
-
-                if( argv[i][0] == '-'){
+    // Deal with arguments
+    while(i < argc)
+    {
+        if( argv[i][0] == '-'){
     
-    			if (argc == 2){
-				usage();
-			}
+    	    if (argc == 2){
+		    usage();
+	    }
     
                         i++;
                         switch(argv[i-1][1]){
@@ -476,7 +230,7 @@ int main(int argc, const char* argv[]){
 	// Check model file
 	if (!fileexists(model_file)){
 	
-#if __WIN32__
+#if _WINDOWS
         char buffer[MAX_PATH];//always use MAX_PATH for filepaths
         GetModuleFileName(NULL,buffer,sizeof(buffer));
         string working_path=(buffer);
@@ -549,13 +303,16 @@ int main(int argc, const char* argv[]){
 	cout << "Filter radius:\t\t";
 
 	// Mask resolution
-	if (course_fine){	
-		gRadius = 10;
-		spacing = (gRadius * 2) + 1;
-		cout << "Small" << endl << endl;
-		
-	}else{
-		cout << "Large" << endl << endl;
+    int radius;
+	if (course_fine)
+    {
+        radius = 10;
+        cout << "Small" << endl << endl;
+	}
+    else
+    {
+        radius=20;
+        cout << "Large" << endl << endl;
 	} 
 	
 	// Convert mask format to lower case
@@ -565,30 +322,119 @@ int main(int argc, const char* argv[]){
 	vector<string> images,pto_file_top,pto_file_cps,pto_file_end;
 	vector<double> svm_responses;
 
-	// Mask images
-	if (images_to_mask.size()){
+    struct celeste::svm_model* model;
+    if(!celeste::loadSVMmodel(model,model_file))
+    {
+        return 1;
+    };
 
-		cout << "Masking images..." << endl << endl;
-		unsigned int n = 1;
-		for (unsigned int l = 0; l < images_to_mask.size(); l++){
-			gNumLocs = 0;		
-			get_gabor_response(images_to_mask[l],n,model_file,threshold,mask_format,svm_responses);			
-		}
-	}
+    // Mask images
+	if (images_to_mask.size())
+    {
+        cout << "Masking images..." << endl << endl;
+        for (unsigned int l = 0; l < images_to_mask.size(); l++)
+        {
+            std::string imagefile=images_to_mask[l];
+            try
+            {
+                cout << "Opening image file:\t" << imagefile << endl;
+                // Read image given and convert to UInt16
+                vigra::UInt16RGBImage in=loadAndConvertImage(imagefile);
+                if(in.width()==0 || in.height()==0)
+                {
+                    continue;
+                };
 
-	// Process PTO file
-	if (pto_file != ("")){
+                // Create mask file name
+                string mask_name = generateMaskName(imagefile,mask_format);
 
+                cout << "Generating mask:\t" << mask_name << endl;				
+                // Create mask
+                vigra::BImage mask=celeste::getCelesteMask(model,in,radius,threshold,resize_dimension);
+                exportImage(srcImageRange(mask), vigra::ImageExportInfo(mask_name.c_str()).setPixelType("UINT8"));
+            }
+            catch (vigra::StdException & e)
+            {
+                // catch any errors that might have occured and print their reason
+                cout << "Unable to open file:\t" << imagefile << endl << endl;
+                cout << e.what() << endl << endl;
+    		};
+        };
+	};
+
+    // Process PTO file
+    if (pto_file != (""))
+    {
   		cout << "Parsing Hugin project file " << pto_file << endl << endl;
-		
-		parse_pto(pto_file,images,pto_file_top,pto_file_cps,pto_file_end,mask,model_file,threshold,mask_format,svm_responses); 
 
-		// Prune CPs and write new pto file
-		write_pto(threshold,images,output_pto,pto_file_top,pto_file_cps,pto_file_end,svm_responses);
-		cout << endl << "Written file " << output_pto << endl << endl;
+        Panorama pano;
+        ifstream prjfile(pto_file.c_str());
+        if (!prjfile.good())
+        {
+            cerr << "could not open script : " << pto_file << endl;
+            celeste::destroySVMmodel(model);
+            return 1;
+        }
+        pano.setFilePrefix(hugin_utils::getPathPrefix(pto_file));
+        DocumentData::ReadWriteError err = pano.readData(prjfile);
+        if (err != DocumentData::SUCCESSFUL)
+        {
+            cerr << "error while parsing panos tool script: " << pto_file << endl;
+            cerr << "DocumentData::ReadWriteError code: " << err << endl;
+            celeste::destroySVMmodel(model);
+            return 1;
+        }
 
+        for(unsigned int i=0;i<pano.getNrOfImages();i++)
+        {
+            CPointVector cps=pano.getCtrlPointsVectorForImage(i);
+            if(cps.size()>0 || mask)
+            {
+                try
+                {
+                    string imagefile=pano.getImage(i).getFilename();
+                    vigra::UInt16RGBImage in=loadAndConvertImage(imagefile);
+                    if(in.width()==0 || in.height()==0)
+                    {
+                        continue;
+                    };
+                    if(cps.size()>0)
+                    {
+                        UIntSet cloudCP=celeste::getCelesteControlPoints(model,in,cps,radius,threshold,resize_dimension);
+                        if(cloudCP.size()>0)
+                        {
+                            for(UIntSet::reverse_iterator it=cloudCP.rbegin();it!=cloudCP.rend();++it)
+                            {
+                                pano.removeCtrlPoint(*it);
+                            };
+                        };
+                    };
+                    if(mask)
+                    {
+                        string mask_name = generateMaskName(imagefile,mask_format);
+                        // Create mask
+                        vigra::BImage mask=celeste::getCelesteMask(model,in,radius,threshold,resize_dimension);
+                        exportImage(srcImageRange(mask), vigra::ImageExportInfo(mask_name.c_str()).setPixelType("UINT8"));
+                    };
+                }
+                catch (vigra::StdException & e)
+                {
+                    // catch any errors that might have occured and print their reason
+                    cout << "Unable to open file:\t" << pano.getImage(i).getFilename() << endl << endl;
+                    cout << e.what() << endl << endl;
+    		    };
+            };
+        };
+
+		// write new pto file
+        ofstream of(output_pto.c_str());
+        UIntSet imgs;
+        fill_set(imgs,0, pano.getNrOfImages()-1);
+        pano.printPanoramaScript(of, pano.getOptimizeVector(), pano.getOptions(), imgs, false, hugin_utils::getPathPrefix(pto_file));
+    
+        cout << endl << "Written file " << output_pto << endl << endl;
 	}
-
+    celeste::destroySVMmodel(model);
 	return(0);
 	
 }	

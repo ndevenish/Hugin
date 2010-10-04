@@ -31,6 +31,9 @@ Copyright (c) 2002-3 Adriaan Tijsseling
 #include <cstring>
 #include "PGMImage.h"
 
+namespace celeste
+{
+
 class ContrastFilter
 {
 public:
@@ -54,5 +57,5 @@ protected:
     int		mHeight;		// height of filter
     int		mWidth;			// width of filter
 };
-
+}; // namespace
 #endif

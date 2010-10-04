@@ -39,6 +39,7 @@
 #include <vigra_ext/ROIImage.h>
 
 #include <panodata/Panorama.h>
+#include <celeste/Celeste.h>
 
 using namespace HuginBase;
 
@@ -115,6 +116,12 @@ public:
     inline void setCached(bool iCached) { _cache = iCached; }
     inline bool getCleanup() const { return _cleanup; }
     inline void setCleanup(bool iCleanup) { _cleanup = iCleanup; }
+    inline bool getCeleste() const { return _celeste; };
+    inline void setCeleste(bool iCeleste) { _celeste = iCeleste; };
+    inline double getCelesteThreshold() const { return _celesteThreshold; };
+    inline void setCelesteThreshold(double iCelesteThreshold) { _celesteThreshold = iCelesteThreshold; };
+    inline int getCelesteRadius() const { return _celesteRadius; };
+    inline void setCelesteRadius(int iCelesteRadius) { _celesteRadius = iCelesteRadius; };
 	inline void setTest(bool iTest) { _test = iTest; }
 	inline bool getTest() const { return _test; }
 	inline void setCores(int iCores) { _cores = iCores; }
@@ -154,6 +161,9 @@ private:
    bool                 _downscale;
     bool        _cache;
     bool        _cleanup;
+    bool        _celeste;
+    double      _celesteThreshold;
+    int         _celesteRadius;
     std::string _keypath;
     std::string _prefix;
 		
@@ -235,8 +245,10 @@ public:
 	static bool				RemapBackMatches(MatchData& ioMatchData, const PanoDetector& iPanoDetector);
 
 private:
+    bool LoadSVMModel();
 	ImgData_t				_filesData;
 	MatchData_t				_matchesData;
+    struct celeste::svm_model* svmModel;
 };
 
 /** returns the filename for the keyfile for a given image */

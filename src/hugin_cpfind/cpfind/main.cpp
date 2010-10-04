@@ -150,6 +150,13 @@ void parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
         ValueArg<string> aArgKeypath("p","keypath","Path to cache keyfiles",false,"","string");
         cmd.add(aArgKeypath);
 
+        SwitchArg aArgCeleste("","celeste", "Run celeste after loading images",false);
+        cmd.add(aArgCeleste);
+        ValueArg<double> aArgCelesteThreshold("","celesteThreshold","Threshold for celeste (default 0.5)",false,0.5,"double");
+        cmd.add(aArgCelesteThreshold);
+        ValueArg<int> aArgCelesteRadius("","celesteRadius","Radius for celeste (default 20)",false,20,"int");
+        cmd.add(aArgCelesteRadius);
+
 		cmd.parse(argc,argv);
 
 		//
@@ -191,6 +198,12 @@ void parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
             ioPanoDetector.setCleanup(true);
         if(aArgKeypath.isSet())
             ioPanoDetector.setKeyfilesPath(aArgKeypath.getValue());
+        if(aArgCeleste.isSet())
+            ioPanoDetector.setCeleste(true);
+        if(aArgCelesteThreshold.isSet())
+            ioPanoDetector.setCelesteThreshold(aArgCelesteThreshold.getValue());
+        if(aArgCelesteRadius.isSet())
+            ioPanoDetector.setCelesteRadius(aArgCelesteRadius.getValue());
 
 	} catch ( ArgException& e )
 	{ 

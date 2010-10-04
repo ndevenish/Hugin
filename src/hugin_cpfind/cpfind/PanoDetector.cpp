@@ -18,6 +18,7 @@
 #include "ImageImport.h"
 
 #ifdef _WINDOWS
+#include <windows.h>
 #include <direct.h>
 #else
 #include <unistd.h>
@@ -70,7 +71,7 @@ PanoDetector::PanoDetector() :	_outputFile("default.pto"),
 	_kdTreeSearchSteps(40), _kdTreeSecondDistance(0.15), _sieve2Width(5), _sieve2Height(5),
 	_sieve2Size(2), _test(false), _cores(utils::getCPUCount()), _ransacIters(1000), _ransacDistanceThres(25),
     _minimumMatches(4), _linearMatch(false), _linearMatchLen(1), _downscale(true), _cache(false), _cleanup(false),
-    _keypath("")
+    _keypath(""), _celeste(false), _celesteThreshold(0.5), _celesteRadius(20)
 {
 	_panoramaInfo = new Panorama();
 }
@@ -117,7 +118,13 @@ void PanoDetector::printDetails()
 	if (_gradDescriptor) {
 		cout << "Gradient based description" << endl;
 	} 
-	cout << "Sieve 1 Options" << endl;
+    if(_celeste)
+    {
+        cout << "Celeste options" << endl;
+        cout << "  Threshold : " << _celesteThreshold << endl;
+        cout << "  Radius : " << _celesteRadius << endl;
+    }
+    cout << "Sieve 1 Options" << endl;
 	cout << "  Width : " << _sieve1Width << endl;
 	cout << "  Height : " << _sieve1Height << endl;
 	cout << "  Size : " << _sieve1Size << endl;
@@ -248,6 +255,52 @@ private:
 	PanoDetector::MatchData&	_matchData;
 };
 
+bool PanoDetector::LoadSVMModel()
+{
+    string model_file = ("celeste.model");
+    ifstream test(model_file.c_str());
+    if (!test.good())
+    {
+#if _WINDOWS
+        char buffer[MAX_PATH];//always use MAX_PATH for filepaths
+        GetModuleFileNameA(NULL,buffer,sizeof(buffer));
+        string working_path=(buffer);
+        string install_path_model="";
+        //remove filename
+        std::string::size_type pos=working_path.rfind("\\");
+        if(pos!=std::string::npos)
+        {
+            working_path.erase(pos);
+            //remove last dir: should be bin
+            pos=working_path.rfind("\\");
+            if(pos!=std::string::npos)
+            {
+                working_path.erase(pos);
+                //append path delimiter and path
+                working_path.append("\\share\\hugin\\data\\");
+                install_path_model=working_path;
+            }
+        }
+#else
+        string install_path_model = (INSTALL_DATA_DIR);
+#endif
+		install_path_model.append(model_file);
+        ifstream test2(install_path_model.c_str());
+		if (!test2.good())
+        {
+            cout << endl << "Couldn't open SVM model file " << model_file << endl;
+            cout << "Also tried " << install_path_model << endl << endl; 
+            return false;
+        };
+        model_file = install_path_model;
+  	}
+    if(!celeste::loadSVMmodel(svmModel,model_file))
+    {
+        svmModel=NULL;
+        return false;
+    };
+    return true;
+};
 
 void PanoDetector::run()
 {
@@ -272,6 +325,16 @@ void PanoDetector::run()
     {
         CleanupKeyfiles();
         return;
+    };
+
+    svmModel=NULL;
+    if(_celeste)
+    {
+        TRACE_INFO("\nLoading Celeste model file...\n");
+        if(!LoadSVMModel())
+        {
+            setCeleste(false);
+        };
     };
 
     //print some more information about the images
@@ -375,6 +438,10 @@ void PanoDetector::run()
         writeOutput();
         TRACE_INFO("Written output to " << _outputFile << endl << endl);
     };
+    if(svmModel!=NULL)
+    {
+        celeste::destroySVMmodel(svmModel);
+    };
 }
 
 bool PanoDetector::loadProject()
@@ -411,7 +478,8 @@ bool PanoDetector::loadProject()
 	_panoramaInfoCopy=_panoramaInfo->duplicate();
 
 	// Add images found in the project file to _filesData
-	int nImg = _panoramaInfo->getNrOfImages();
+	unsigned int nImg = _panoramaInfo->getNrOfImages();
+    unsigned int imgWithKeyfile=0;
 	for (unsigned int imgNr = 0; imgNr < nImg; ++imgNr)
 	{
 		// insert the image in the map
@@ -473,11 +541,20 @@ bool PanoDetector::loadProject()
         aImgData._keyfilename = getKeyfilenameFor(_keypath,aImgData._name);
         ifstream keyfile(aImgData._keyfilename.c_str());
         aImgData._hasakeyfile = keyfile.good();
+        if(aImgData._hasakeyfile)
+        {
+            imgWithKeyfile++;
+        };
     }
     //update masks, convert positive masks into negative masks
     //because positive masks works only if the images are on the final positions
     _panoramaInfoCopy.updateMasks(true);
 
+    //if all images has keyfile, we don't need to load celeste model file
+    if(nImg==imgWithKeyfile)
+    {
+        _celeste=false;
+    };
     return true;
 }
 
