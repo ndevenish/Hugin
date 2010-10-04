@@ -41,7 +41,6 @@ IF(WIN32)
   INSTALL(FILES ${PANO13_SRC_DIR}/AUTHORS
           ${PANO13_SRC_DIR}/gpl.txt
           ${PANO13_SRC_DIR}/README
-          ${PANO13_SRC_DIR}/TODO
           ${PANO13_SRC_DIR}/doc/Optimize.txt
           ${PANO13_SRC_DIR}/doc/PTblender.readme
           ${PANO13_SRC_DIR}/doc/PTmender.readme
