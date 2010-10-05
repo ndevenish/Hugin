@@ -123,9 +123,9 @@ bool AssistantMakefilelibExport::createItems()
             valuestream << " -f " << celesteThreshold;
             celesteCommand+=valuestream.str()+" ";
             if(celesteSmallRadius)
-                celesteCommand+="-r 1";
+                celesteCommand+="-r 1 ";
             echoInfo(*all,"Remove control points in clouds...");
-            all->addCommand(celesteCommand+outinproject);
+            all->addCommand(celesteCommand+cstr(" -o ")+vprojectShell->getRef()+cstr(" -i")+vprojectShell->getRef(););
         };
         //building cpclean command
         if(runCPClean)
