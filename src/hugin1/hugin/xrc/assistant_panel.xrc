@@ -152,7 +152,7 @@
                     </object>
                     <object class="sizeritem">
                       <object class="wxButton" name="ass_align_batch_button">
-                        <label>Save project and send to batch</label>
+                        <label>Send to assistant queue</label>
                       </object>
                       <flag>wxALL</flag>
                       <border>6</border>
