@@ -125,7 +125,7 @@ bool AssistantMakefilelibExport::createItems()
             if(celesteSmallRadius)
                 celesteCommand+="-r 1 ";
             echoInfo(*all,"Remove control points in clouds...");
-            all->addCommand(celesteCommand+cstr(" -o ")+vprojectShell->getRef()+cstr(" -i")+vprojectShell->getRef(););
+            all->addCommand(celesteCommand+cstr(" -o ")+vprojectShell->getRef()+cstr(" -i")+vprojectShell->getRef());
         };
         //building cpclean command
         if(runCPClean)
