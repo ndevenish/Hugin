@@ -60,6 +60,8 @@ public:
     void printFilenames();
 	void		printHelp();
 	void		run();
+    bool match(ZThread::PoolExecutor& aExecutor);
+    bool matchMultiRow(ZThread::PoolExecutor& aExecutor);
 	
 	
 	// accessors
@@ -104,6 +106,8 @@ public:
 	inline void setLinearMatchLen(int iLen) { _linearMatchLen = iLen; }
 	inline bool getLinearMatch() const { return _linearMatch; }
 	inline int  getLinearMatchLen() const { return _linearMatchLen; }
+    inline void setMultiRow(bool iMultirow) { _multirow = iMultirow; }
+    inline bool getMultiRow() const { return _multirow; }
 
 	inline bool	getDownscale() const { return _downscale; }
     inline void setDownscale(bool iDown) { _downscale = iDown; }
@@ -155,6 +159,7 @@ private:
 
 	bool						_linearMatch;
 	int						_linearMatchLen;
+    bool        _multirow;
 
 	bool						_test;
 	int						_cores;

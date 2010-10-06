@@ -15,6 +15,13 @@
 #include <nona/RemappedPanoImage.h>
 #include <nona/ImageRemapper.h>
 
+//for multi row strategy
+#include <panodata/StandardImageVariableGroups.h>
+#include <PT/Panorama.h>
+#include <PT/ImageGraph.h>
+#include <algorithms/optimizer/PTOptimizer.h>
+#include <algorithms/basic/CalculateOverlap.h>
+
 #include "ImageImport.h"
 
 #ifdef _WINDOWS
@@ -71,7 +78,7 @@ PanoDetector::PanoDetector() :	_outputFile("default.pto"),
 	_kdTreeSearchSteps(40), _kdTreeSecondDistance(0.15), _sieve2Width(5), _sieve2Height(5),
 	_sieve2Size(2), _test(false), _cores(utils::getCPUCount()), _ransacIters(1000), _ransacDistanceThres(25),
     _minimumMatches(4), _linearMatch(false), _linearMatchLen(1), _downscale(true), _cache(false), _cleanup(false),
-    _keypath(""), _celeste(false), _celesteThreshold(0.5), _celesteRadius(20)
+    _keypath(""), _celeste(false), _celesteThreshold(0.5), _celesteRadius(20), _multirow(false)
 {
 	_panoramaInfo = new Panorama();
 }
@@ -85,6 +92,12 @@ bool PanoDetector::checkData()
 		std::cout << "Linear match length must be at least 1." << std::endl;
 		return false;
 	}
+
+    if(_linearMatch && _multirow)
+    {
+        std::cout << "Linear match and multi row matching strategy does not work together." << std::endl;
+        return false;
+    };
 
     // check the test mode
 	if (_test)
@@ -133,11 +146,21 @@ void PanoDetector::printDetails()
 	cout << "  Search steps : " << _kdTreeSearchSteps << endl;
 	cout << "  Second match distance : " << _kdTreeSecondDistance << endl;
 	cout << "Matching Options" << endl;
-	cout << "  Mode : " << (_linearMatch?"Linear match":"All pairs"); 
-	if (_linearMatch)
-		cout << " with length of " << _linearMatchLen << " image" << endl;
-	else
-		cout << endl;
+    if(_linearMatch)
+    {
+        cout << "  Mode : Linear match with length of " << _linearMatch << " image" << endl;
+    }
+    else
+    {
+        if(_multirow)
+        {
+            cout << "  Mode : Multi row" << endl;
+        }
+        else
+        {
+            cout << "  Mode : All pairs" << endl;
+        };
+    };
 	cout << "  Distance threshold : " << _ransacDistanceThres << endl;
 	cout << "RANSAC Options" << endl;
 	cout << "  Iterations : " << _ransacIters << endl;
@@ -371,15 +394,24 @@ void PanoDetector::run()
 	catch(Synchronization_Exception& e)
 	{ 
 		TRACE_ERROR(e.what() << endl);
+        if(svmModel!=NULL)
+        {
+            celeste::destroySVMmodel(svmModel);
+        };
 		return;
 	}
 
+    if(svmModel!=NULL)
+    {
+        celeste::destroySVMmodel(svmModel);
+    };
+
     // check if the load of images succeed.
-   if (!checkLoadSuccess())
-   {
+    if (!checkLoadSuccess())
+    {
        TRACE_INFO("One or more images failed to load. Exiting.");
        return;
-   }
+    }
   
     if(_cache)
     {
@@ -396,29 +428,21 @@ void PanoDetector::run()
 
     // Detect matches if writeKeyPoints wasn't set  
     if(_keyPointsIdx.size() == 0)
-	{
-		// 3. prepare matches
-		prepareMatches();
-
-		// 4. find matches
-		TRACE_INFO(endl<< "--- Find matches ---" << endl);
-		try 
-		{
-			BOOST_FOREACH(MatchData& aMD, _matchesData)
-				aExecutor.execute(new MatchDataRunnable(aMD, *this));
-			aExecutor.wait();
-		} 
-		catch(Synchronization_Exception& e)
-		{ 
-			TRACE_ERROR(e.what() << endl);
-			return;
-		}
-
-		// Add detected matches to _panoramaInfo
-		BOOST_FOREACH(MatchData& aM, _matchesData)
-			BOOST_FOREACH(lfeat::PointMatchPtr& aPM, aM._matches)
-				_panoramaInfo->addCtrlPoint(ControlPoint(aM._i1->_number, aPM->_img1_x, aPM->_img1_y,
-										 							  aM._i2->_number, aPM->_img2_x, aPM->_img2_y));
+    {
+        if(_multirow)
+        {
+            if(!matchMultiRow(aExecutor))
+            {
+                return;
+            };
+        }
+        else
+        {
+            if(!match(aExecutor))
+            {
+                return;
+            };
+        };
 	}
 	
 	// 5. write output
@@ -438,11 +462,33 @@ void PanoDetector::run()
         writeOutput();
         TRACE_INFO("Written output to " << _outputFile << endl << endl);
     };
-    if(svmModel!=NULL)
-    {
-        celeste::destroySVMmodel(svmModel);
-    };
 }
+
+bool PanoDetector::match(PoolExecutor& aExecutor)
+{
+    // 3. prepare matches
+    prepareMatches();
+    // 4. find matches
+    TRACE_INFO(endl<< "--- Find matches ---" << endl);
+    try 
+    {
+        BOOST_FOREACH(MatchData& aMD, _matchesData)
+            aExecutor.execute(new MatchDataRunnable(aMD, *this));
+        aExecutor.wait();
+    } 
+    catch(Synchronization_Exception& e)
+    { 
+        TRACE_ERROR(e.what() << endl);
+        return false;
+    }
+
+    // Add detected matches to _panoramaInfo
+    BOOST_FOREACH(MatchData& aM, _matchesData)
+        BOOST_FOREACH(lfeat::PointMatchPtr& aPM, aM._matches)
+            _panoramaInfo->addCtrlPoint(ControlPoint(aM._i1->_number, aPM->_img1_x, aPM->_img1_y,
+                                                     aM._i2->_number, aPM->_img2_x, aPM->_img2_y));
+    return true;
+};
 
 bool PanoDetector::loadProject()
 {
@@ -620,4 +666,233 @@ void PanoDetector::prepareMatches()
 		}
 	}
 }
+
+struct img_ev
+{
+    unsigned int img_nr;
+    double ev;
+};
+struct stack_img
+{
+    unsigned int layer_nr;
+    std::vector<img_ev> images;
+};
+bool sort_img_ev (img_ev i1, img_ev i2) { return (i1.ev<i2.ev); };
+
+bool PanoDetector::matchMultiRow(PoolExecutor& aExecutor)
+{
+    //step 1
+    std::vector<stack_img> stack_images;
+    HuginBase::StandardImageVariableGroups* variable_groups = new HuginBase::StandardImageVariableGroups(*_panoramaInfo);
+    UIntSet imgs;
+    fill_set(imgs,0,_panoramaInfo->getNrOfImages()-1);
+    for(UIntSet::const_iterator it = imgs.begin(); it != imgs.end(); it++)
+    {
+        unsigned int stack_nr=variable_groups->getStacks().getPartNumber(*it);
+        //check, if this stack is already in list
+        bool found=false;
+        unsigned int index=0;
+        for(index=0;index<stack_images.size();index++)
+        {
+            found=(stack_images[index].layer_nr==stack_nr);
+            if(found)
+            {
+                break;
+            };
+        };
+        if(!found)
+        {
+            //new stack
+            stack_images.resize(stack_images.size()+1);
+            index=stack_images.size()-1;
+            //add new stack
+            stack_images[index].layer_nr=stack_nr;
+        };
+        //add new image
+        unsigned int new_image_index=stack_images[index].images.size();
+        stack_images[index].images.resize(new_image_index+1);
+        stack_images[index].images[new_image_index].img_nr=*it;
+        stack_images[index].images[new_image_index].ev=_panoramaInfo->getImage(*it).getExposure();
+    };
+    delete variable_groups;
+    //get image with median exposure for search with cp generator
+    vector<unsigned int> images_layer;
+    UIntSet images_layer_set;
+    for(unsigned int i=0;i<stack_images.size();i++)
+    {
+        std::sort(stack_images[i].images.begin(),stack_images[i].images.end(),sort_img_ev);
+        unsigned int index=0;
+        if(stack_images[i].images[0].ev!=stack_images[i].images[stack_images[i].images.size()-1].ev)
+        {
+            index=stack_images[i].images.size() / 2;
+        };
+        images_layer.push_back(stack_images[i].images[index].img_nr);
+        images_layer_set.insert(stack_images[i].images[index].img_nr);
+        if(stack_images[i].images.size()>1)
+        {
+            //build match list for stacks
+            for(unsigned int j=0;j<stack_images[i].images.size()-1;j++)
+            {
+                _matchesData.push_back(MatchData());
+                MatchData& aM=_matchesData.back();
+                aM._i1=&(_filesData[stack_images[i].images[j].img_nr]);
+                aM._i2=&(_filesData[stack_images[i].images[j+1].img_nr]);
+            };
+        };
+    };
+    //build match data list for image pairs
+    if(images_layer.size()>1)
+    {
+        for(unsigned int i=0;i<images_layer.size()-1;i++)
+        {
+            _matchesData.push_back(MatchData());
+            MatchData& aM = _matchesData.back();
+            aM._i1 = &(_filesData[images_layer[i]]);
+            aM._i2 = &(_filesData[images_layer[i+1]]);
+        };
+    };
+    TRACE_INFO(endl<< "--- Find matches ---" << endl);
+    try 
+    {
+        BOOST_FOREACH(MatchData& aMD, _matchesData)
+            aExecutor.execute(new MatchDataRunnable(aMD, *this));
+        aExecutor.wait();
+    }
+    catch(Synchronization_Exception& e)
+    {
+        TRACE_ERROR(e.what() << endl);
+        return false;
+    }
+
+    // Add detected matches to _panoramaInfo
+    BOOST_FOREACH(MatchData& aM, _matchesData)
+        BOOST_FOREACH(lfeat::PointMatchPtr& aPM, aM._matches)
+            _panoramaInfo->addCtrlPoint(ControlPoint(aM._i1->_number, aPM->_img1_x, aPM->_img1_y,
+                                                     aM._i2->_number, aPM->_img2_x, aPM->_img2_y));
+    
+    // step 2: connect all image groups
+    _matchesData.clear();
+    CPGraph graph;
+    createCPGraph(*_panoramaInfo, graph);
+    CPComponents comps;
+    int n = findCPComponents(graph, comps);
+    if(n>1)
+    {
+        vector<unsigned int> ImagesGroups;
+        for(unsigned int i=0;i<n;i++)
+        {
+            ImagesGroups.push_back(*(comps[i].begin()));
+            if(comps[i].size()>1)
+                ImagesGroups.push_back(*(comps[i].rbegin()));
+        };
+        for(unsigned int i=0;i<ImagesGroups.size()-1;i++)
+        {
+            for(unsigned int j=i+1;j<ImagesGroups.size();j++)
+            {
+                _matchesData.push_back(MatchData());
+                MatchData& aM = _matchesData.back();
+                aM._i1 = &(_filesData[ImagesGroups[i]]);
+                aM._i2 = &(_filesData[ImagesGroups[j]]);
+            };
+        };
+        TRACE_INFO(endl<< "--- Find matches in images groups ---" << endl);
+        try 
+        {
+            BOOST_FOREACH(MatchData& aMD, _matchesData)
+                aExecutor.execute(new MatchDataRunnable(aMD, *this));
+            aExecutor.wait();
+        } 
+        catch(Synchronization_Exception& e)
+        { 
+            TRACE_ERROR(e.what() << endl);
+            return false;
+        }
+        BOOST_FOREACH(MatchData& aM, _matchesData)
+            BOOST_FOREACH(lfeat::PointMatchPtr& aPM, aM._matches)
+                _panoramaInfo->addCtrlPoint(ControlPoint(aM._i1->_number, aPM->_img1_x, aPM->_img1_y,
+                                                         aM._i2->_number, aPM->_img2_x, aPM->_img2_y));
+    };
+    // step 3: now connect all overlapping images
+    _matchesData.clear();
+    createCPGraph(*_panoramaInfo,graph);
+    if(findCPComponents(graph, comps)==1 && images_layer.size()>2)
+    {
+        PT::Panorama optPano=_panoramaInfo->getSubset(images_layer_set);
+        //next steps happens only when all images are connected;
+        //now optimize panorama
+        PanoramaOptions opts = _panoramaInfo->getOptions();
+        opts.setProjection(PanoramaOptions::EQUIRECTANGULAR);
+        opts.optimizeReferenceImage=0;
+        // calculate proper scaling, 1:1 resolution.
+        // Otherwise optimizer distances are meaningless.
+        opts.setWidth(30000, false);
+        opts.setHeight(15000);
+
+        optPano.setOptions(opts);
+        int w = optPano.calcOptimalWidth();
+        opts.setWidth(w);
+        opts.setHeight(w/2);
+        optPano.setOptions(opts);
+
+        //generate optimize vector, optimize only yaw and pitch
+        OptimizeVector optvars;
+        const SrcPanoImage & anchorImage = optPano.getImage(opts.optimizeReferenceImage);
+        for (unsigned i=0; i < optPano.getNrOfImages(); i++) 
+        {
+            std::set<std::string> imgopt;
+            if(i==opts.optimizeReferenceImage)
+            {
+                //optimize only anchors pitch, not yaw
+                imgopt.insert("p");
+            }
+            else
+            {
+                // do not optimize anchor image's stack for position.
+                if(!optPano.getImage(i).YawisLinkedWith(anchorImage))
+                {
+                    imgopt.insert("p");
+                    imgopt.insert("y");
+                };
+            };
+            optvars.push_back(imgopt);
+        }
+        optPano.setOptimizeVector(optvars);
+        HuginBase::PTools::optimize(optPano);
+
+        HuginBase::CalculateImageOverlap overlap(&optPano);
+        overlap.calculate(10);
+        for(unsigned int i=0;i<images_layer.size()-2;i++)
+        {
+            for(unsigned int j=i+2;j<images_layer.size();j++)
+            {
+                if(overlap.getOverlap(i,j)>0)
+                {
+                    _matchesData.push_back(MatchData());
+                    MatchData& aM = _matchesData.back();
+                    aM._i1 = &(_filesData[images_layer[i]]);
+                    aM._i2 = &(_filesData[images_layer[j]]);
+                };
+            };
+        };
+        TRACE_INFO(endl<< "--- Find matches for overlapping images ---" << endl);
+        try 
+        {
+            BOOST_FOREACH(MatchData& aMD, _matchesData)
+                aExecutor.execute(new MatchDataRunnable(aMD, *this));
+            aExecutor.wait();
+        }
+        catch(Synchronization_Exception& e)
+        {
+            TRACE_ERROR(e.what() << endl);
+            return false;
+        }
+
+        // Add detected matches to _panoramaInfo
+        BOOST_FOREACH(MatchData& aM, _matchesData)
+            BOOST_FOREACH(lfeat::PointMatchPtr& aPM, aM._matches)
+                _panoramaInfo->addCtrlPoint(ControlPoint(aM._i1->_number, aPM->_img1_x, aPM->_img1_y,
+                                                         aM._i2->_number, aPM->_img2_x, aPM->_img2_y));
+    };
+    return true;
+};
 

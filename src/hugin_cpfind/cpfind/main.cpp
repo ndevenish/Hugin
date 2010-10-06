@@ -97,6 +97,7 @@ void parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
 		ValueArg<int> aArgSieve1Size("","sieve1size",	"Sieve 1 : Max points per bucket    (default : 30)\n", false, 30, "int");
 		SwitchArg aArgLinearMatch("","linearmatch", "Enable linear images matching (default : all pairs)", false);
 		ValueArg<int> aArgLinearMatchLen("","linearmatchlen", "Number of images to match in linear matching (default:1)\n", false, 1 ,"int");
+        SwitchArg aArgMultiRow("","multirow", "Enable heuristic multi row matching (default: off)",false);
 		
 		ValueArg<int> aArgKDTreeSearchSteps("","kdtreesteps",   "KDTree : search steps    (default : 40)", false, 40, "int");
 		ValueArg<double> aArgKDTreeSecondDist("","kdtreeseconddist", "KDTree : distance of 2nd match    (default : 0.15)\n", false, 0.15, "double");
@@ -116,6 +117,7 @@ void parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
 		cmd.add(aArgMinMatches);
 		cmd.add(aArgLinearMatchLen);
 		cmd.add(aArgLinearMatch);
+        cmd.add(aArgMultiRow);
 		cmd.add(aArgKDTreeSecondDist);
 		cmd.add(aArgKDTreeSearchSteps);
 		cmd.add(aArgSieve1Size);
@@ -185,6 +187,8 @@ void parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
 		if (aArgSieve2Size.isSet())			ioPanoDetector.setSieve2Size(aArgSieve2Size.getValue());
 		if (aArgLinearMatch.isSet())		ioPanoDetector.setLinearMatch(aArgLinearMatch.getValue());
 		if (aArgLinearMatchLen.isSet())		ioPanoDetector.setLinearMatchLen(aArgLinearMatchLen.getValue());
+        if (aArgMultiRow.isSet())
+            ioPanoDetector.setMultiRow(aArgMultiRow.getValue());
     if (aArgFullScale.isSet())          ioPanoDetector.setDownscale(false);
 		if (aArgTest.isSet())					ioPanoDetector.setTest(aArgTest.getValue());
 		if (aArgCores.isSet())				ioPanoDetector.setCores(aArgCores.getValue());
