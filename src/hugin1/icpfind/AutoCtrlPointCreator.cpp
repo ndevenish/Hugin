@@ -813,8 +813,12 @@ CPVector AutoPanoSiftStack::automatch(CPDetectorSetting &setting, Panorama & pan
     for(unsigned int i=0;i<stack_images.size();i++)
     {
         std::sort(stack_images[i].images.begin(),stack_images[i].images.end(),sort_img_ev);
-        unsigned int median=stack_images[i].images.size() / 2;
-        images_layer.insert(stack_images[i].images[median].img_nr);
+        unsigned int index=0;
+        if(stack_images[i].images[0].ev!=stack_images[i].images[stack_images[i].images.size()-1].ev)
+        {
+            index=stack_images[i].images.size() / 2;
+        };
+        images_layer.insert(stack_images[i].images[index].img_nr);
     };
     //generate cp for median exposure
     ret_value=0;
@@ -1032,8 +1036,12 @@ CPVector AutoPanoSiftMultiRowStack::automatch(CPDetectorSetting &setting, Panora
     for(unsigned int i=0;i<stack_images.size();i++)
     {
         std::sort(stack_images[i].images.begin(),stack_images[i].images.end(),sort_img_ev);
-        unsigned int median=stack_images[i].images.size() / 2;
-        images_layer.insert(stack_images[i].images[median].img_nr);
+        unsigned int index=0;
+        if(stack_images[i].images[0].ev!=stack_images[i].images[stack_images[i].images.size()-1].ev)
+        {
+            index=stack_images[i].images.size() / 2;
+        };
+        images_layer.insert(stack_images[i].images[index].img_nr);
     };
     ret_value=0;
     //work on all stacks
