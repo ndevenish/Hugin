@@ -684,11 +684,9 @@ bool PanoDetector::matchMultiRow(PoolExecutor& aExecutor)
     //step 1
     std::vector<stack_img> stack_images;
     HuginBase::StandardImageVariableGroups* variable_groups = new HuginBase::StandardImageVariableGroups(*_panoramaInfo);
-    UIntSet imgs;
-    fill_set(imgs,0,_panoramaInfo->getNrOfImages()-1);
-    for(UIntSet::const_iterator it = imgs.begin(); it != imgs.end(); it++)
+    for(unsigned int i=0; i<_panoramaInfo->getNrOfImages(); i++)
     {
-        unsigned int stack_nr=variable_groups->getStacks().getPartNumber(*it);
+        unsigned int stack_nr=variable_groups->getStacks().getPartNumber(i);
         //check, if this stack is already in list
         bool found=false;
         unsigned int index=0;
@@ -711,8 +709,8 @@ bool PanoDetector::matchMultiRow(PoolExecutor& aExecutor)
         //add new image
         unsigned int new_image_index=stack_images[index].images.size();
         stack_images[index].images.resize(new_image_index+1);
-        stack_images[index].images[new_image_index].img_nr=*it;
-        stack_images[index].images[new_image_index].ev=_panoramaInfo->getImage(*it).getExposure();
+        stack_images[index].images[new_image_index].img_nr=i;
+        stack_images[index].images[new_image_index].ev=_panoramaInfo->getImage(i).getExposure();
     };
     delete variable_groups;
     //get image with median exposure for search with cp generator
@@ -847,12 +845,8 @@ bool PanoDetector::matchMultiRow(PoolExecutor& aExecutor)
             }
             else
             {
-                // do not optimize anchor image's stack for position.
-                if(!optPano.getImage(i).YawisLinkedWith(anchorImage))
-                {
-                    imgopt.insert("p");
-                    imgopt.insert("y");
-                };
+                imgopt.insert("p");
+                imgopt.insert("y");
             };
             optvars.push_back(imgopt);
         }
