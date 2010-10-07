@@ -1527,6 +1527,21 @@ Panorama Panorama::getSubset(const UIntSet & imgs) const
         }
     }
 
+    //update optimizeReferenceImage and colorReferenceImage number
+    unsigned int newRefImg=0;
+    std::map<unsigned int, unsigned int>::iterator it=imageNrMap.find(state.options.optimizeReferenceImage);
+    if(it!=imageNrMap.end())
+    {
+        newRefImg=it->second;
+    };
+    it=imageNrMap.find(state.options.colorReferenceImage);
+    subset.state.options.optimizeReferenceImage=newRefImg;
+    newRefImg=0;
+    if(it!=imageNrMap.end())
+    {
+        newRefImg=it->second;
+    }
+    subset.state.options.colorReferenceImage=newRefImg;
     return subset;
 }
 
