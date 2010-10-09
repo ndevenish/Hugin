@@ -30,6 +30,9 @@
 #else
 #include <unistd.h>
 #endif
+#ifdef __APPLE__
+#include <hugin_config.h>
+#endif
 
 #ifndef srandom
 #define srandom srand
@@ -304,6 +307,8 @@ bool PanoDetector::LoadSVMModel()
                 install_path_model=working_path;
             }
         }
+#elif defined MAC_SELF_CONTAINED_BUNDLE
+        string install_path_model = ("./xrc/");
 #else
         string install_path_model = (INSTALL_DATA_DIR);
 #endif
