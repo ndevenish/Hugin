@@ -1,0 +1,147 @@
+Thanks to everyone responsible for this release!
+
+Hugin-2010.2.0 release notes
+
+Translated versions of these notes can be found here:
+http://hugin.sourceforge.net/releases/
+
+Hugin is a panorama stitcher and more.
+
+Changes since 2010.0.0
+
+This is our second release in 2010. It delivers some major new
+features, completes integration of projects from the 2009 Google
+Summer of Code, and includes many general improvements.
+
+Layout mode
+
+The Hugin Fast Preview window visualises your panorama and lets you
+change the project by dragging and clicking. This release introduces
+an extra mode for this preview that shows the entire project as a
+diagram with colour-coded lines connecting each of the photographs.
+
+Now with a glance you can see where the project is ok and where
+there are problems if it isn't quite right. Just click on any
+connection and Hugin jumps to the Control Points tab to edit that
+pair of photos.
+
+Masking
+
+Hugin uses multiresolution seam blending to join photos invisibly by
+smoothing colours and brightness. Controlling the location of this
+seam is now much easier with the new Mask tab, which instead of
+requiring you to place the seam itself, lets you just indicate the
+areas of photos that you do and don't want to be part of the
+finished panorama - The seam itself then gets placed intelligently
+using the remaining overlapping areas.
+
+Masks can be saved and reused in new projects, so objects that
+appear again and again like tripod heads can be easily excluded.
+
+Mosaics
+
+For a stitched panorama you shoot photos in different directions but
+from a single location, Hugin will happily assemble these into a
+complete scene.  Now Hugin has an alternative mosaic mode — You can
+take photos of a planar object such as a floor, painting, or mural
+from any position, direction or angle, and Hugin will stitch them
+seamlessly just as it does with a normal panorama.
+
+Linked bracketing
+
+Hugin allows you to shoot exposure bracketed photos and panoramas,
+it will automatically combine them with exposure fusion or HDR
+merging into a single image that has the best areas of each photo in
+the stack. Hugin uses the same alignment process as with panoramas
+so even hand-held bracketing works perfectly.
+
+Photographers who use quality tripods can now skip this alignment
+stage by telling Hugin that photos in a bracketed stack are linked
+and share the same view.
+
+Control point detector modes
+
+Hugin uses plugin tools called control point detectors to
+automatically match features between photos. Previous versions of
+Hugin relied on the detector entirely, but now Hugin can make
+intelligent detector choices based on knowledge of the panorama.
+
+So Hugin can now match the photos in a multi-row panorama more
+efficiently and with less error by breaking the job into separate
+tasks, panoramas consisting of bracketed stacks can be automatically
+identified and Hugin will switch to using appropriate matching
+tools.
+
+Another new feature is that panoramas can be approximately aligned
+by dragging the photos around in the preview or using a template,
+the control point detector can then be asked to only check
+overlapping pairs of photos instead of all possible combinations of
+photos — This speeds things up and reduces the chances of false
+matches.
+
+New lens types
+
+Hugin supports photos taken with a wide range of 'normal' and
+fisheye lenses, and can fine-tune for variation of distortion from
+these standard types. With this release support has been added for
+orthographic, stereographic and equisolid lenses.
+
+Migration to Mercurial
+
+Development of Hugin sourcecode has switched from Subversion to
+Mercurial to better support parallel development and to reduce
+dependency on Sourceforge infrastructure.
+
+Languages
+
+Most of the translations have been updated for this release.
+
+Other improvements
+
+This release has the usual bugfixes, adds minor features, and
+provides some more command-line tools for scripting panorama
+projects.
+
+Control point generators
+
+Hugin doesn't yet ship with a 'Patent Free' control point generator.
+So you either need to pick control points manually - Not as
+difficult as it sounds - or install and configure one of the
+following control-point generators as 'plug-ins':
+
+* autopano-sift-C
+* panomatic
+* libpanomatic
+* match-n-shift
+* Autopano-SIFT
+* Autopano freeware version
+
+Upgrading
+
+Upgrading from previous versions of Hugin should be seamless. If you
+do have problems with old settings, these can be reset in the
+Preferences by clicking 'Load defaults'.
+
+For users compiling from source: note that the minimum version of
+wxWidgets supported is now 2.7.0, libpano13 needs to be at least
+2.9.17, and that Hugin requires GLEW the OpenGL Extension Wrangler
+Library, freeglut the OpenGL utility toolkit, and libGLU the OpenGL
+utility library.
+
+Support for the legacy libpano12 library has been discontinued.
+
+See the README and INSTALL_cmake files for more information.
+
+Thanks to all the contributors to this release and members of the
+hugin-ptx mailing list, too many to mention here.
+
+Hugin can be found at http://hugin.sourceforge.net/
+
+Hugin sourcecode can be downloaded from sourceforge:
+
+http://sourceforge.net/projects/hugin/files/hugin/
+
+SHA1SUM: f0676f28cd3fbebcf4086f55af7cf09566772899  hugin-2010.2.0.tar.gz
+
+This release is identical to 2010.2.0_rc2 
+equivalent to hg branch 2010.2 -r 4431:d8ce0ba947cc
