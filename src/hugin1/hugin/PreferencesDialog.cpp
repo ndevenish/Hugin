@@ -76,6 +76,9 @@ BEGIN_EVENT_TABLE(PreferencesDialog, wxDialog)
     EVT_BUTTON(XRCID("pref_cpdetector_movedown"), PreferencesDialog::OnCPDetectorMoveDown)
     EVT_BUTTON(XRCID("pref_cpdetector_default"), PreferencesDialog::OnCPDetectorDefault)
     EVT_LISTBOX_DCLICK(XRCID("pref_cpdetector_list"), PreferencesDialog::OnCPDetectorListDblClick)
+    EVT_BUTTON(XRCID("pref_cpdetector_load"), PreferencesDialog::OnCPDetectorLoad)
+    EVT_BUTTON(XRCID("pref_cpdetector_save"), PreferencesDialog::OnCPDetectorSave)
+    EVT_BUTTON(XRCID("pref_cpdetector_help"), PreferencesDialog::OnCPDetectorHelp)
 //    EVT_CLOSE(RunOptimizerFrame::OnClose)
 END_EVENT_TABLE()
 
@@ -643,7 +646,15 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
         if (noteb->GetSelection() == 3) {
             /////
             /// AUTOPANO
-            cpdetector_config_edit.ResetToDefault();
+            wxString default_cpg_file=huginApp::Get()->GetDataPath()+wxT("default.setting");
+            if(wxFileName::FileExists(default_cpg_file))
+            {
+                cpdetector_config_edit.ReadFromFile(default_cpg_file);
+            }
+            else
+            {
+                cpdetector_config_edit.ResetToDefault();
+            };
             cpdetector_config_edit.Write(cfg);
         }
         if (noteb->GetSelection() == 4) {
@@ -871,4 +882,37 @@ void PreferencesDialog::OnCPDetectorDefault(wxCommandEvent & e)
 void PreferencesDialog::OnCPDetectorListDblClick(wxCommandEvent &e)
 {
     OnCPDetectorEdit(e);
+};
+
+void PreferencesDialog::OnCPDetectorLoad(wxCommandEvent &e)
+{
+    wxFileDialog dlg(this,_("Load control point detector settings"),
+        wxConfigBase::Get()->Read(wxT("/actualPath"),wxT("")), wxEmptyString,
+        _("Control point detector settings (*.setting)|*.setting"),wxFD_OPEN | wxFD_FILE_MUST_EXIST);
+    if (dlg.ShowModal() == wxID_OK)
+    {
+        wxConfig::Get()->Write(wxT("/actualPath"), dlg.GetDirectory());  // remember for later
+        wxString fn = dlg.GetPath();
+        cpdetector_config_edit.ReadFromFile(fn);
+        cpdetector_config_edit.Write();
+        UpdateDisplayData(4);
+    };
+};
+
+void PreferencesDialog::OnCPDetectorSave(wxCommandEvent &e)
+{
+    wxFileDialog dlg(this,_("Save control point detector settings"),
+        wxConfigBase::Get()->Read(wxT("/actualPath"),wxT("")), wxEmptyString,
+        _("Control point detector settings (*.setting)|*.setting"),wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
+    if (dlg.ShowModal() == wxID_OK)
+    {
+        wxConfig::Get()->Write(wxT("/actualPath"), dlg.GetDirectory());  // remember for later
+        wxString fn = dlg.GetPath();
+        cpdetector_config_edit.WriteToFile(fn);
+    };
+};
+
+void PreferencesDialog::OnCPDetectorHelp(wxCommandEvent &e)
+{
+    MainFrame::Get()->DisplayHelp(wxT("/Control_Point_Detector_Parameters.html"));
 };

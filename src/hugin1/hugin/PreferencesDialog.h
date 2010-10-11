@@ -79,6 +79,12 @@ protected:
     void OnCPDetectorMoveDown(wxCommandEvent & e);
     void OnCPDetectorDefault(wxCommandEvent & e);
     void OnCPDetectorListDblClick(wxCommandEvent & e);
+    /** event handler for loading cp detector settings */
+    void OnCPDetectorLoad(wxCommandEvent & e);
+    /** event handler for saving cp detector settings */
+    void OnCPDetectorSave(wxCommandEvent & e);
+    /** event handler for showing help for cp detector settings */
+    void OnCPDetectorHelp(wxCommandEvent & e);
     void EnableRotationCtrls(bool enable);
     bool GetPanoVersion();
 

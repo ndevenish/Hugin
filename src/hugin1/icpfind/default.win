@@ -1,0 +1,51 @@
+[AutoPano]
+AutoPanoCount=7
+Default=0
+
+[AutoPano/AutoPano_0]
+Type=1
+Description=Hugins CPFind
+Program=cpfind.exe
+Arguments=--multirow -o %o %s
+
+[AutoPano/AutoPano_1]
+Type=1
+Description=Hugins CPFind + Celeste (slower but more accurate, no cps on clouds)
+Program=cpfind.exe
+Arguments=--celeste --multirow -o %o %s
+
+[AutoPano/AutoPano_2]
+Type=1
+Description=Autopano-SIFT-C
+Program=autopano-sift-c.exe
+Arguments=--maxmatches %p --projection %f,%v %o %i
+
+[AutoPano/AutoPano_3]
+Type=0
+Description=Autopano
+Program=autopano.exe
+Arguments=/allinone /path:%d /keys:%p /project:oto /name:%o /size:1024 /f %i
+
+[AutoPano/AutoPano_4]
+Type=1
+Description=Panomatic
+Program=panomatic.exe
+Arguments=-o %o %i
+
+[AutoPano/AutoPano_5]
+Type=1
+Description=Align image stack
+Program=align_image_stack.exe
+Arguments=-f %v -v -p %o %i
+
+[AutoPano/AutoPano_6]
+Type=4
+Description=Autopano-SIFT-C (multirow/stacked)
+Program=generatekeys.exe
+Arguments=%i %k 800
+ProgramMatcher=autopano.exe
+ArgumentsMatcher=--maxmatches %p %o %k
+ArgumentsCleanup=
+ProgramStack=align_image_stack.exe
+ArgumentsStack=-f %v -v -p %o %i
+Option=1

@@ -1,5 +1,5 @@
 SET(ICPFIND_LIB_SRC AutoCtrlPointCreator.cpp CPDetectorConfig.cpp)
-SET(ICPFIND_LIB_HEADER AutoCtrlPointCreator.h CPDetectorConfig.h CPDetectorConfig_default.h)
+SET(ICPFIND_LIB_HEADER AutoCtrlPointCreator.h CPDetectorConfig.h)
 
 IF (${HUGIN_SHARED_LIBS})
   ADD_LIBRARY(icpfindlib SHARED ${ICPFIND_LIB_SRC} ${ICPFIND_LIB_HEADER})
@@ -21,4 +21,12 @@ ADD_EXECUTABLE(icpfind icpfind.h icpfind.cpp)
 TARGET_LINK_LIBRARIES(icpfind icpfindlib ${wxWidgets_LIBRARIES}  ${common_libs})
 INSTALL(TARGETS icpfind DESTINATION ${BINDIR})
 
-        
+IF(WIN32)
+  INSTALL(FILES default.win DESTINATION ${INSTALL_DATA_DIR} RENAME default.setting)
+ELSE()
+  IF(APPLE)
+    INSTALL(FILES default.mac DESTINATION ${INSTALL_DATA_DIR} RENAME default.setting)
+  ELSE()
+    INSTALL(FILES default.unix DESTINATION ${INSTALL_DATA_DIR} RENAME default.setting)
+  ENDIF()
+ENDIF()

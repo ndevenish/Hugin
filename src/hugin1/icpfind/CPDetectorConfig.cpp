@@ -27,7 +27,18 @@
 
 #include "icpfind/CPDetectorConfig.h"
 #include <config.h>
-#include "icpfind/CPDetectorConfig_default.h"
+#include <wx/fileconf.h>
+
+/** description of default cp generator, for fall back procedure */
+wxString default_cpgenerator_desc(wxT("Hugins Cpfind"));
+/** program name of default cp generator, for fall back procedure */
+#ifdef __WINDOWS__
+wxString default_cpgenerator_prog(wxT("cpfind.exe"));
+#else
+wxString default_cpgenerator_prog(wxT("cpfind"));
+#endif
+/** arguments for default cp generator, for fall back procedure */
+wxString default_cpgenerator_args(wxT("-o %o %s"));
 
 void CPDetectorConfig::Read(wxConfigBase *config)
 {
@@ -45,16 +56,26 @@ void CPDetectorConfig::Read(wxConfigBase *config)
         default_generator=0;
 };
 
+void CPDetectorConfig::ReadFromFile(wxString filename)
+{
+    wxFileConfig fconfig(wxT("hugin"),wxEmptyString,filename);
+    Read(&fconfig);
+};
+
 void CPDetectorConfig::ReadIndex(wxConfigBase *config, int i)
 {
     wxString path=wxString::Format(wxT("/AutoPano/AutoPano_%d"),i);
     if(config->HasGroup(path))
     {
         CPDetectorSetting* gen=new CPDetectorSetting;
-        gen->Read(config,path);
-        settings.Add(gen);
-        if(i==default_generator)
-            default_generator=settings.Index(*gen,true);
+        if(gen->Read(config,path))
+        {
+            settings.Add(gen);
+            if(i==default_generator)
+            {
+                default_generator=settings.Index(*gen,true);
+            };
+        };
     };
 };
 
@@ -70,6 +91,12 @@ void CPDetectorConfig::Write(wxConfigBase *config)
     };
 };
 
+void CPDetectorConfig::WriteToFile(wxString filename)
+{
+    wxFileConfig fconfig(wxT("hugin"),wxEmptyString,filename);
+    Write(&fconfig);
+};
+
 void CPDetectorConfig::WriteIndex(wxConfigBase *config, int i)
 {
     wxString path=wxString::Format(wxT("/AutoPano/AutoPano_%d"),i);
@@ -79,9 +106,7 @@ void CPDetectorConfig::WriteIndex(wxConfigBase *config, int i)
 void CPDetectorConfig::ResetToDefault()
 {
     settings.Clear();
-    int maxIndex=sizeof(default_cpdetectors)/sizeof(cpdetector_default)-1;
-    for(int i=0;i<=maxIndex;i++)
-        settings.Add(new CPDetectorSetting(i));
+    settings.Add(new CPDetectorSetting());
     default_generator=0;
 };
 
@@ -121,53 +146,18 @@ void CPDetectorConfig::SetDefaultGenerator(unsigned int new_default_generator)
 #include <wx/arrimpl.cpp> 
 WX_DEFINE_OBJARRAY(ArraySettings);
 
-CPDetectorSetting::CPDetectorSetting(int new_type)
+CPDetectorSetting::CPDetectorSetting()
 {
-    if(new_type>=0)
-    {
-        int maxIndex=sizeof(default_cpdetectors)/sizeof(cpdetector_default)-1;
-        if (new_type<=maxIndex)
-        {
-            type=default_cpdetectors[new_type].type;
-            desc=default_cpdetectors[new_type].desc;
-            prog=default_cpdetectors[new_type].prog;
-            args=default_cpdetectors[new_type].args;
-            if(IsCleanupPossible())
-            {
-                args_cleanup=default_cpdetectors[new_type].args_cleanup;
-            }
-            else
-            {
-                args_cleanup=wxEmptyString;
-            };
-            prog_matcher=default_cpdetectors[new_type].prog_matcher;
-            args_matcher=default_cpdetectors[new_type].args_matcher;
-            if(ContainsStacks())
-            {
-                prog_stack=default_cpdetectors[new_type].prog_stack;
-                args_stack=default_cpdetectors[new_type].args_stack;
-            }
-            else
-            {
-                prog_stack=wxEmptyString;
-                args_stack=wxEmptyString;
-            };
-            option=default_cpdetectors[new_type].option;
-        };
-    }
-    else
-    {
-        type=CPDetector_AutoPanoSift;
-        desc=wxEmptyString;
-        prog=wxEmptyString;
-        args=wxEmptyString;
-        args_cleanup=wxEmptyString;
-        prog_matcher=wxEmptyString;
-        args_matcher=wxEmptyString;
-        prog_stack=wxEmptyString;
-        args_stack=wxEmptyString;
-        option=true;
-    };
+    type=CPDetector_AutoPanoSift;
+    desc=default_cpgenerator_desc;
+    prog=default_cpgenerator_prog;
+    args=default_cpgenerator_args;
+    args_cleanup=wxEmptyString;
+    prog_matcher=wxEmptyString;
+    args_matcher=wxEmptyString;
+    prog_stack=wxEmptyString;
+    args_stack=wxEmptyString;
+    option=true;
     CheckValues();
 };
 
@@ -195,12 +185,16 @@ const bool CPDetectorSetting::ContainsStacks(CPDetectorType _type)
     return (_type==CPDetector_AutoPanoSiftStack || _type==CPDetector_AutoPanoSiftMultiRowStack);
 };
 
-void CPDetectorSetting::Read(wxConfigBase *config, wxString path)
+bool CPDetectorSetting::Read(wxConfigBase *config, wxString path)
 {
-    type=(CPDetectorType)config->Read(path+wxT("/Type"),default_cpdetectors[0].type);
-    desc=config->Read(path+wxT("/Description"),default_cpdetectors[0].desc);
-    prog=config->Read(path+wxT("/Program"),default_cpdetectors[0].prog);
-    args=config->Read(path+wxT("/Arguments"),default_cpdetectors[0].args);
+    if(!config->Exists(path))
+    {
+        return false;
+    }
+    type=(CPDetectorType)config->Read(path+wxT("/Type"),CPDetector_AutoPanoSift);
+    desc=config->Read(path+wxT("/Description"),default_cpgenerator_desc);
+    prog=config->Read(path+wxT("/Program"),default_cpgenerator_prog);
+    args=config->Read(path+wxT("/Arguments"),default_cpgenerator_args);
     if(IsCleanupPossible())
     {
         args_cleanup=config->Read(path+wxT("/ArgumentsCleanup"),wxEmptyString);
@@ -209,20 +203,21 @@ void CPDetectorSetting::Read(wxConfigBase *config, wxString path)
     {
         args_cleanup=wxEmptyString;
     };
-    prog_matcher=config->Read(path+wxT("/ProgramMatcher"),default_cpdetectors[0].prog_matcher);
-    args_matcher=config->Read(path+wxT("/ArgumentsMatcher"),default_cpdetectors[0].args_matcher);
+    prog_matcher=config->Read(path+wxT("/ProgramMatcher"),wxEmptyString);
+    args_matcher=config->Read(path+wxT("/ArgumentsMatcher"),wxEmptyString);
     if(ContainsStacks())
     {
-        prog_stack=config->Read(path+wxT("/ProgramStack"),default_cpdetectors[0].prog_stack);
-        args_stack=config->Read(path+wxT("/ArgumentsStack"),default_cpdetectors[0].args_stack);
+        prog_stack=config->Read(path+wxT("/ProgramStack"),wxEmptyString);
+        args_stack=config->Read(path+wxT("/ArgumentsStack"),wxEmptyString);
     }
     else
     {
         prog_stack=wxEmptyString;
         args_stack=wxEmptyString;
     };
-    config->Read(path+wxT("/Option"),&option,default_cpdetectors[0].option);
+    config->Read(path+wxT("/Option"),&option,true);
     CheckValues();
+    return true;
 };
 
 void CPDetectorSetting::Write(wxConfigBase *config, wxString path)

@@ -29,7 +29,6 @@
 #include <config.h>
 #include "base_wx/huginConfig.h"
 #include "hugin/config_defaults.h"
-#include "icpfind/CPDetectorConfig_default.h"
 #include "hugin/huginApp.h"
 
 #if defined MAC_SELF_CONTAINED_BUNDLE 

@@ -676,42 +676,71 @@ for HDR panoramas use Preview window.</label>
                                 <label>New...</label>
                               </object>
                               <flag>wxALL|wxEXPAND</flag>
-                              <border>5</border>
+                              <border>3</border>
                             </object>
                             <object class="sizeritem">
                               <object class="wxButton" name="pref_cpdetector_edit">
                                 <label>Edit...</label>
                               </object>
                               <flag>wxALL|wxEXPAND</flag>
-                              <border>5</border>
+                              <border>3</border>
                             </object>
                             <object class="sizeritem">
                               <object class="wxButton" name="pref_cpdetector_del">
                                 <label>Delete</label>
                               </object>
                               <flag>wxALL|wxEXPAND</flag>
-                              <border>5</border>
+                              <border>3</border>
                             </object>
                             <object class="sizeritem">
                               <object class="wxButton" name="pref_cpdetector_moveup">
                                 <label>Move up</label>
                               </object>
                               <flag>wxALL|wxEXPAND</flag>
-                              <border>5</border>
+                              <border>3</border>
                             </object>
                             <object class="sizeritem">
                               <object class="wxButton" name="pref_cpdetector_movedown">
                                 <label>Move down</label>
                               </object>
                               <flag>wxALL|wxEXPAND</flag>
-                              <border>5</border>
+                              <border>3</border>
                             </object>
                             <object class="sizeritem">
                               <object class="wxButton" name="pref_cpdetector_default">
                                 <label>Set default</label>
                               </object>
                               <flag>wxALL|wxEXPAND</flag>
-                              <border>5</border>
+                              <border>3</border>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxStaticLine"/>
+                              <flag>wxEXPAND</flag>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxButton" name="pref_cpdetector_load">
+                                <label>Import</label>
+                              </object>
+                              <flag>wxALL|wxEXPAND</flag>
+                              <border>3</border>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxButton" name="pref_cpdetector_save">
+                                <label>Export</label>
+                              </object>
+                              <flag>wxALL|wxEXPAND</flag>
+                              <border>3</border>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxStaticLine"/>
+                              <flag>wxEXPAND</flag>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxButton" name="pref_cpdetector_help">
+                                <label>Help</label>
+                              </object>
+                              <flag>wxALL|wxEXPAND</flag>
+                              <border>3</border>
                             </object>
                           </object>
                           <flag>wxALL</flag>

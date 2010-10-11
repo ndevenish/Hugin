@@ -145,6 +145,8 @@ public:
     void OnToggleGLPreviewFrame(wxCommandEvent & e);
     void OnAddImages(wxCommandEvent & e);
     void OnSaveProject(wxCommandEvent & e);
+    /** call help browser with given file */
+    void DisplayHelp(wxString section);
 
 
     void ShowCtrlPointEditor(unsigned int img1, unsigned int img2);
@@ -204,7 +206,6 @@ private:
     void OnSize(wxSizeEvent &e);
     void enableTools(bool option);
 
-    void DisplayHelp(wxString section);
     void OnShowDonate(wxCommandEvent &e);
     void OnShowPanel(wxCommandEvent &e);
 

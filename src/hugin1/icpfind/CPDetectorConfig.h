@@ -47,13 +47,13 @@ enum CPDetectorType
 class ICPIMPEX CPDetectorSetting
 {
 public:
-    /** constructor 
-     *  @param new_type: -1: no settings, otherwise index of default_cpdetectors array */
-    CPDetectorSetting(int new_type = -1);
+    /** constructor */
+    CPDetectorSetting();
     /** destructor */
     virtual ~CPDetectorSetting() {};
-    /** read setting for this generator from config */
-    void Read(wxConfigBase* config, wxString path);
+    /** read setting for this generator from config 
+     *  @return true on success */
+    bool Read(wxConfigBase* config, wxString path);
     /** writes setting for this generator to config */
     void Write(wxConfigBase* config, wxString path);
     /** return description of this setting */
@@ -136,6 +136,10 @@ public:
     void Read(wxConfigBase* config=wxConfigBase::Get());
     /** writes the settings of different cp generators to config */
     void Write(wxConfigBase* config=wxConfigBase::Get());
+    /** import the cp detector settings from external file */
+    void ReadFromFile(wxString filename);
+    /** exporth the cp detector settings to external file */
+    void WriteToFile(wxString filename);
     /** reset values to default */
     void ResetToDefault();
     /** fills a wxControlWithItems with the available generators 

@@ -1,0 +1,40 @@
+[AutoPano]
+AutoPanoCount=6
+Default=0
+
+[AutoPano/AutoPano_0]
+Type=1
+Description=cpfind
+Program=cpfind
+Arguments=--multirow -o %o %s
+
+[AutoPano/AutoPano_1]
+Type=1
+Description=cpfind + celeste (slower but more accurate, no cps on clouds)
+Program=cpfind
+Arguments=--celeste -o %o %s
+
+[AutoPano/AutoPano_2]
+Type=1
+Description=Align_image_stack linear
+Program=align_image_stack
+Arguments=-v -f %v -p %o %i
+
+[AutoPano/AutoPano_3]
+Type=1
+Description=Align_image_stack FullFrameFisheye
+Program=align_image_stack
+Arguments=-v -f %v -e -p %o %i
+
+[AutoPano/AutoPano_4]
+Type=1
+Description=Autopano-SIFT-C
+Program=Use the Choose button to search for it
+Arguments=--maxmatches %p %o %i
+
+[AutoPano/AutoPano_5]
+Type=1
+Description=Panomatic
+Program=Use the Choose button to search for it
+Arguments=-o %o %i
+
