@@ -367,7 +367,7 @@ int main(int argc, char *argv[])
     // calc optimal size
     if(doOptimalSize)
     {
-        cout << "Caluclate optimal size of panorama" << endl;
+        cout << "Calculate optimal size of panorama" << endl;
         double s = CalculateOptimalScale::calcOptimalScale(pano);
         PanoramaOptions opt=pano.getOptions();
         opt.setWidth(roundi(opt.getWidth()*s*scale/100), true);
