@@ -19,9 +19,11 @@ Chromatic_aberration
 Color_correct_tiff
 Colour_profile
 Contrast
+Control_Point_Detector_Parameters
 Control_point_generators
 Control_points
 Cpclean
+Cpfind
 Crop_factor
 Cropped_TIFF
 Cubic
@@ -74,6 +76,7 @@ Hugin_Stitcher_tab
 Hugin_Trackers
 Hugin_translation_guide
 Interpolation
+Icpfind
 JPEG
 Landscape
 Lens_correction_model

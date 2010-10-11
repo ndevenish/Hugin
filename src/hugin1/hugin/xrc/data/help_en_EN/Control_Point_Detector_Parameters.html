@@ -1,0 +1,265 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="Content-Style-Type" content="text/css" />
+		<meta name="generator" content="MediaWiki 1.14.0" />
+		<meta name="keywords" content="Control Point Detector Parameters,Align image stack,Autopano,Autopano-sift-C,Cpfind,Hugin,Hugin Parameters for Control Point Detectors dialog,Hugin Preferences,Panomatic" />
+		
+		
+		
+		
+		
+		
+		<title>Control Point Detector Parameters - PanoTools.org Wiki</title>
+		
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		
+		
+		
+		
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+
+		
+
+		
+		<!-- Head Scripts -->
+		
+				
+	</head>
+<body class="mediawiki ltr ns-0 ns-subject page-Control_Point_Detector_Parameters skin-monobook">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 id="firstHeading" class="firstHeading">Control Point Detector Parameters</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<p>This site will give you an overview about the different control point detectors and their main options to use with <a href="Hugin.html" title="Hugin">hugin</a>. This settings can be changed in <a href="Hugin_Preferences.html#Control_Point_Detectors" title="Hugin Preferences">preferences dialog</a>.
+A detailed description of the individual settings can be found <a href="Hugin_Parameters_for_Control_Point_Detectors_dialog.html" title="Hugin Parameters for Control Point Detectors dialog">here</a>
+</p>
+
+<a name="Cpfind" id="Cpfind"></a><h1> <span class="mw-headline"> <a href="Cpfind.html" title="Cpfind">Cpfind</a> </span></h1>
+<ul><li> For outdoor projects, single and multi-row panorama
+</li></ul>
+<table class="wikitable" width="70%">
+
+<tr valign="top">
+<th style="padding:5px; text-align:left" width="20%"> Detector Type
+</th><th style="padding:5px; text-align:left"> All images at once
+</th></tr>
+<tr valign="top">
+<td style="padding:5px; text-align:left"> Detector
+</td><td style="padding:5px; text-align:left"> One-step detector
+</td></tr>
+<tr valign="top">
+<td style="padding:5px; text-align:left"> Program
+</td><td style="padding:5px; text-align:left"> <tt>cpfind</tt>
+</td></tr>
+<tr valign="top">
+<td style="padding:5px; text-align:left"> Arguments
+</td><td style="padding:5px; text-align:left"> <tt>--multirow --celeste -o&nbsp;%o&nbsp;%s </tt>
+</td></tr></table>
+<ul><li> For indoor projects, single and multi-row panorama
+</li></ul>
+<table class="wikitable" width="70%">
+
+<tr valign="top">
+<th style="padding:5px; text-align:left" width="20%"> Detector Type
+</th><th style="padding:5px; text-align:left"> All images at once
+</th></tr>
+<tr valign="top">
+<td style="padding:5px; text-align:left"> Detector
+</td><td style="padding:5px; text-align:left"> One-step detector
+</td></tr>
+<tr valign="top">
+<td style="padding:5px; text-align:left"> Program
+</td><td style="padding:5px; text-align:left"> <tt>cpfind</tt>
+</td></tr>
+<tr valign="top">
+<td style="padding:5px; text-align:left"> Arguments
+</td><td style="padding:5px; text-align:left"> <tt>--multirow -o&nbsp;%o&nbsp;%s </tt>
+</td></tr></table>
+<ul><li> For very big outdoor projects, single and multi-row panorama, with caching to disc
+</li></ul>
+<table class="wikitable" width="70%">
+
+<tr valign="top">
+<th style="padding:5px; text-align:left" width="20%"> Detector Type
+</th><th style="padding:5px; text-align:left"> Multi-row panoramas
+</th></tr>
+<tr valign="top">
+<td style="padding:5px; text-align:left"> Detector
+</td><td style="padding:5px; text-align:left"> One-step detector
+</td></tr>
+<tr valign="top">
+<td style="padding:5px; text-align:left"> Program
+</td><td style="padding:5px; text-align:left"> <tt>cpfind</tt>
+</td></tr>
+<tr valign="top">
+<td style="padding:5px; text-align:left"> Arguments
+</td><td style="padding:5px; text-align:left"> <tt>--cache --celeste -o&nbsp;%o&nbsp;%s </tt>
+</td></tr>
+<tr valign="top">
+<td style="padding:5px; text-align:left"> Cleanup arguments
+</td><td style="padding:5px; text-align:left"> <tt>--clean&nbsp;%s </tt>
+</td></tr></table>
+<p>Hints:
+</p>
+<ul><li> MacOSX: Both in the bundle version as in the cmake version you need to add cpfind without browsing for it and without adding a pathname, just cpfind.
+</li></ul>
+<a name="Panomatic" id="Panomatic"></a><h1> <span class="mw-headline"> <a href="Panomatic.html" title="Panomatic">Panomatic</a> </span></h1>
+<ul><li> For general projects
+</li></ul>
+<table class="wikitable" width="70%">
+
+<tr valign="top">
+<th style="padding:5px; text-align:left" width="20%"> Detector Type
+</th><th style="padding:5px; text-align:left"> All images at once <br /> or Multi-row panorama
+</th></tr>
+<tr valign="top">
+<td style="padding:5px; text-align:left"> Detector
+</td><td style="padding:5px; text-align:left"> One-step detector
+</td></tr>
+<tr valign="top">
+<td style="padding:5px; text-align:left"> Program
+</td><td style="padding:5px; text-align:left"> <tt>panomatic</tt>
+</td></tr>
+<tr valign="top">
+<td style="padding:5px; text-align:left"> Arguments
+</td><td style="padding:5px; text-align:left"> <tt>-o&nbsp;%o&nbsp;%i </tt>
+</td></tr></table>
+<ul><li> For single-row projects
+</li></ul>
+<table class="wikitable" width="70%">
+
+<tr valign="top">
+<th style="padding:5px; text-align:left" width="20%"> Detector Type
+</th><th style="padding:5px; text-align:left"> All images at once
+</th></tr>
+<tr valign="top">
+<td style="padding:5px; text-align:left"> Detector
+</td><td style="padding:5px; text-align:left"> One-step detector
+</td></tr>
+<tr valign="top">
+<td style="padding:5px; text-align:left"> Program
+</td><td style="padding:5px; text-align:left"> <tt>panomatic</tt>
+</td></tr>
+<tr valign="top">
+<td style="padding:5px; text-align:left"> Arguments
+</td><td style="padding:5px; text-align:left"> <tt>--linearmatch -o&nbsp;%o&nbsp;%i </tt>
+</td></tr></table>
+<a name="Autopano-sift-C" id="Autopano-sift-C"></a><h1> <span class="mw-headline"> <a href="Autopano-sift-C.html" title="Autopano-sift-C">Autopano-sift-C</a> </span></h1>
+<ul><li> For general projects
+</li></ul>
+<table class="wikitable" width="70%">
+
+<tr valign="top">
+<th style="padding:5px; text-align:left" width="20%"> Detector Type
+</th><th style="padding:5px; text-align:left"> All images at once
+</th></tr>
+<tr valign="top">
+<td style="padding:5px; text-align:left"> Detector
+</td><td style="padding:5px; text-align:left"> One-step detector
+</td></tr>
+<tr valign="top">
+<td style="padding:5px; text-align:left"> Program
+</td><td style="padding:5px; text-align:left"> <tt>autopano-sift-c</tt>
+</td></tr>
+<tr valign="top">
+<td style="padding:5px; text-align:left"> Arguments
+</td><td style="padding:5px; text-align:left"> <tt>--maxmatches&nbsp;%p --projection&nbsp;%f,%v&nbsp;%o&nbsp;%i </tt> <br /> in version in Mercurial the parameter --projection is broken, use instead <tt>--maxmatches&nbsp;%p&nbsp;%o&nbsp;%i</tt> or <tt>--maxmatches&nbsp;%p&nbsp;%o&nbsp;%s</tt> (the latter works also for bigger projects)
+</td></tr></table>
+<ul><li> For multi-row projects
+</li></ul>
+<table class="wikitable" width="70%">
+
+<tr valign="top">
+<th style="padding:5px; text-align:left" width="20%"> Detector Type
+</th><th style="padding:5px; text-align:left"> Multi-row panorama
+</th></tr>
+<tr valign="top">
+<td style="padding:5px; text-align:left"> Detector
+</td><td style="padding:5px; text-align:left"> Two-step detector
+</td></tr>
+<tr valign="top">
+<td style="padding:5px; text-align:left"> Feature descriptor
+</td><td style="padding:5px; text-align:left"> <tt>generatekeys</tt>
+</td></tr>
+<tr valign="top">
+<td style="padding:5px; text-align:left"> Arguments
+</td><td style="padding:5px; text-align:left"> <tt>%i&nbsp;%k 800</tt>
+</td></tr>
+<tr valign="top">
+<td style="padding:5px; text-align:left"> Feature matcher
+</td><td style="padding:5px; text-align:left"> <tt>autopano</tt>
+</td></tr>
+<tr valign="top">
+<td style="padding:5px; text-align:left"> Arguments
+</td><td style="padding:5px; text-align:left"> <tt>--maxmatches&nbsp;%p&nbsp;%o&nbsp;%k</tt>
+</td></tr></table>
+<a name="Autopano_by_Alexandre_Jenny" id="Autopano_by_Alexandre_Jenny"></a><h1> <span class="mw-headline"> <a href="Autopano.html" title="Autopano">Autopano</a> by Alexandre Jenny </span></h1>
+<table class="wikitable" width="70%">
+
+<tr valign="top">
+<th style="padding:5px; text-align:left" width="20%"> Detector Type
+</th><th style="padding:5px; text-align:left"> Autopano (by A. Jenny)
+</th></tr>
+<tr valign="top">
+<td style="padding:5px; text-align:left"> Detector
+</td><td style="padding:5px; text-align:left"> One-step detector
+</td></tr>
+<tr valign="top">
+<td style="padding:5px; text-align:left"> Program
+</td><td style="padding:5px; text-align:left"> <tt>autopano</tt>
+</td></tr>
+<tr valign="top">
+<td style="padding:5px; text-align:left"> Arguments
+</td><td style="padding:5px; text-align:left"> <tt>/allinone /path:%d /keys:%p /project:oto /name:%o /size:1024 /f&nbsp;%i</tt>
+</td></tr></table>
+<p>Hints:
+</p>
+<ul><li> Autopano runs only on Windows and Linux. There is no MacOS version.
+</li><li> Don't mix autopano by A. Jenny with autopano from autopano-sift-C package.
+</li></ul>
+<a name="Align_image_stack" id="Align_image_stack"></a><h1> <span class="mw-headline"> <a href="Align_image_stack.html" title="Align image stack">Align_image_stack</a> </span></h1>
+<ul><li> As standalone detector for HDR images
+</li></ul>
+<table class="wikitable" width="70%">
+
+<tr valign="top">
+<th style="padding:5px; text-align:left" width="20%"> Detector Type
+</th><th style="padding:5px; text-align:left"> All images at once
+</th></tr>
+<tr valign="top">
+<td style="padding:5px; text-align:left"> Detector
+</td><td style="padding:5px; text-align:left"> One-step detector
+</td></tr>
+<tr valign="top">
+<td style="padding:5px; text-align:left"> Program
+</td><td style="padding:5px; text-align:left"> <tt>align_image_stack</tt>
+</td></tr>
+<tr valign="top">
+<td style="padding:5px; text-align:left"> Arguments
+</td><td style="padding:5px; text-align:left"> <tt>-f&nbsp;%v -v -p&nbsp;%o&nbsp;%i</tt> <br /> or <tt>-f&nbsp;%v -v -e -p&nbsp;%o&nbsp;%i</tt> for full-frame fisheye images
+</td></tr></table>
+<p>Align_image_stack can also be used in conjugation with the above mentioned detector as special case for stacks. For this use case set Detector Type to <b>Panorama with stacks</b> or <b>Multi-row panorama with stacks</b> and set the options for align_image_stack on the tab <b>Detector for stacks</b>
+</p><p>Hints:
+</p>
+<ul><li> MacOSX: Both in the bundle version as in the cmake version you need to add align_image_stack without browsing for it and without adding a pathname, just align-image_stack.
+</li></ul>
+
+
+
+
+<div class="printfooter">
+Retrieved from "<a href="Control_Point_Detector_Parameters.html">http://wiki.panotools.org/Control_Point_Detector_Parameters</a>"</div>
+			</div></div></div></div></body></html>

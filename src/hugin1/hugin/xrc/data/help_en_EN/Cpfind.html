@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="Content-Style-Type" content="text/css" />
+		<meta name="generator" content="MediaWiki 1.14.0" />
+		<meta name="keywords" content="Cpfind,Celeste standalone,Hugin,Hugin Parameters for Control Point Detectors dialog,Projection" />
+		
+		
+		
+		
+		
+		
+		<title>Cpfind - PanoTools.org Wiki</title>
+		
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		
+		
+		
+		
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+
+		
+
+		
+		<!-- Head Scripts -->
+		
+				
+	</head>
+<body class="mediawiki ltr ns-0 ns-subject page-Cpfind skin-monobook">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 id="firstHeading" class="firstHeading">Cpfind</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			
+<a name="General_and_description" id="General_and_description"></a><h1> <span class="mw-headline"> General and description </span></h1>
+<p><b>Cpfind</b> is a control point detector for <a href="Hugin.html" title="Hugin">hugin</a>. It expects a project file as input and write a project file with control points on success. The general usage is
+</p>
+<pre>     cpfind -o output.pto input.pto
+</pre>
+<p>Internal the control point detector algorithm is divided into 2 parts: 
+</p>
+<ul><li> The first step is the feature description: In this step the images of the project file are loaded and so called keypoints are searched. They describe destinctive features in the image. Cpfind is using a gradient based descriptor for the feature description of the keypoints. 
+</li><li> In a second step, the feature matching, all keypoints of two images are matched against each other to find features which are on both images. If this matching was successfull two keypoints in the two images become one control point.
+</li></ul>
+<a name="Usage" id="Usage"></a><h1> <span class="mw-headline"> Usage </span></h1>
+<a name="Rectilinear_and_fisheye_images" id="Rectilinear_and_fisheye_images"></a><h2> <span class="mw-headline"> Rectilinear and fisheye images </span></h2>
+<p>Cpfind can find control points in rectilinear and fisheye images. To achieve good control points images with a high horizontal field of view (e.g. ultra wide rectilinear or fisheye) are therefor remapped into a conformal space (cpfind is using the stereographic projection) and the feature matching occurs in this space. Before writing the control points the coordinates are remapped back to the image space. This happens automatic depending on the information about the lens in the input project file. So check that your input project file contains reasonable information about the used lens.
+</p>
+<a name="Using_celeste" id="Using_celeste"></a><h2> <span class="mw-headline"> Using celeste </span></h2>
+<p>Outdoor panorama often contains clouds. Clouds are bad areas for setting control points because they are moving object. Cpfind can use the same algorithm as <a href="Celeste_standalone.html" title="Celeste standalone">celeste_standalone</a> to masked out areas which contains clouds. (This is only done internal for the keypoint finding step and does not change the alpha channel of your image. If you want to generate a mask image use <a href="Celeste_standalone.html" title="Celeste standalone">celeste_standalone</a>). To run cpfind with celeste use
+</p>
+<pre>   cpfind --celeste -o output.pto input.pto
+</pre>
+<p>Using <b>cpfind</b> with integrated celeste should be superior against using <b>cpfind</b> and <a href="Celeste_standalone.html" title="Celeste standalone">celeste_standalone</a> sequential. When running <b>cpfind with celeste</b> areas of clouds, which often contains keypoints with a high quality measure, are disregarded and areas without clouds are used instead. When running <b>cpfind without celeste</b> also keypoints on clouds are found. When afterwards running <a href="Celeste_standalone.html" title="Celeste standalone">celeste_standalone</a> these control points are removed. In the worst case all control points of a certain image pair are removed.
+</p><p>So running <b>cpfind with celeste</b> leads to a better "control point quality" for outdoor panorama (e.g. panorama with clouds). Running <b>cpfind with celeste</b> takes longer than <b>cpfind</b> alone. So for indoor panorama this option does not need to specified (because of longer computation time).
+</p><p>The celeste step can be fine tuned by the parameters --celesteRadius and --celesteThreshold.
+</p>
+<a name="Matching_strategy" id="Matching_strategy"></a><h2> <span class="mw-headline"> Matching strategy </span></h2>
+<a name="All_pairs" id="All_pairs"></a><h3> <span class="mw-headline"> All pairs </span></h3>
+<p>This is the default matching strategy. Here all image pairs are matched against each other. E.g. if your project contains 5 images then <b>cpfind</b> matches the image pairs: 0-1, 0-2, 0-3, 0-4, 1-2, 1-3, 1-4, 2-3, 2-4 and 3-4
+</p><p>This strategy works for all shooting strategy (single-row, multi-row, unordered). It finds (nearly) all connected image pairs. But it is computational expensive for projects with many images, because it test many image pairs which are not connected.
+</p>
+<a name="Linear_match" id="Linear_match"></a><h3> <span class="mw-headline">  Linear match </span></h3>
+<p>This matching strategy works best for single row panoramas:
+</p>
+<pre>   cpfind --linearmatch -o output.pto input.pto
+</pre>
+<p>This will only detect matches between adjacent images, e.g. for the 5 image example it will matches images pairs 0-1, 1-2, 2-3 and 3-4. The matching distance can be increased with the switch --linearmatchlen. E.g. with --linearmatchlen 2 <b>cpfind</b> will match a image with the next image and the image after next, in our example it would be 0-1, 0-2, 1-2, 1-3, 2-3, 2-4 and 3-4.
+</p>
+<a name="Multirow_matching" id="Multirow_matching"></a><h3> <span class="mw-headline"> Multirow matching</span></h3>
+<p>This is an optimized matching strategy for single and multi-row panorama:
+</p>
+<pre>   cpfind --multirow -o output.pto input.pto
+</pre>
+<p>The algorithm is the same as described in <a href="Hugin_Parameters_for_Control_Point_Detectors_dialog.html#Multi-row_panorama" title="Hugin Parameters for Control Point Detectors dialog">multi-row panorama</a>. By integrating this algorithm into <b>cpfind</b> it is faster by using several cores of modern CPUs and don't caching the keypoints to disc (which is time consuming). If you want to use this multi-row matching inside <a href="Hugin.html" title="Hugin">hugin</a> set the control point detector type to <a href="Hugin_Parameters_for_Control_Point_Detectors_dialog.html#All_images_at_once" title="Hugin Parameters for Control Point Detectors dialog">All images at once</a>.
+</p>
+<a name="Keypoints_caching_to_disc" id="Keypoints_caching_to_disc"></a><h3> <span class="mw-headline"> Keypoints caching to disc </span></h3>
+<p>The calculation of keypoints takes some time. So <b>cpfind</b> offers the possibility to save the keypoints to a file and reuse them later again. With --kall the keypoints for all images in the project are saved to disc. If you only want the keypoints of particular image use the parameter -k with the image number:
+</p>
+<pre>   cpfind --kall input.pto
+   cpfind -k 0 -k 1 input.pto
+</pre>
+<p>The keypoint files are saved by default into the same directory as the images with the extension .key. In this case no matching of images occurs and therefore no output project file needs to specified. If <b>cpfind</b> finds keyfiles for an image in the project it will use them automatically and not run the feature descriptor again on this image.
+If you want to save them to annother directory use the --keypath switch. 
+</p><p>This procedure can also be automate with the switch --cache:
+</p>
+<pre>   cpfind --cache -o output.pto input.pto
+</pre>
+<p>In this case it tries to load existing keypoint files. For images, which don't have a keypoint file, the keypoints are detected and save to the file. Then it matches all loaded and newly found keypoints and writes the output project.
+</p><p>If you don't need the keyfile longer, the can be deleted automatic by
+</p>
+<pre>   cpfind --clean input.pto
+</pre>
+<a name="Extended_options" id="Extended_options"></a><h1> <span class="mw-headline"> Extended options </span></h1>
+<a name="Feature_description" id="Feature_description"></a><h2> <span class="mw-headline"> Feature description </span></h2>
+<p>For speed reasons <b>cpfind</b> is using images, which are scaled to their half width and height, to find keypoints. With the switch --fullscale <b>cpfind</b> is working on the full scale images. This takes longer but can provide "better" and/or more control points.
+</p><p>The feature description step can be fine-tuned by the parameters:
+</p><p>--sieve1width &lt;int&gt;           Sieve 1: Number of buckets on width (default: 10)
+</p><p>--sieve1height &lt;int&gt;          Sieve 1: Number of buckets on height (default: 10)
+</p><p>--sieve1size &lt;int&gt;            Sieve 1: Max points per bucket (default: 30)
+</p><p>--kdtreesteps &lt;int&gt;           KDTree: search steps (default: 40)
+</p><p>--kdtreeseconddist &lt;double&gt;   KDTree: distance of 2nd match (default: 0.15)
+</p>
+<a name="Feature_matching" id="Feature_matching"></a><h2> <span class="mw-headline"> Feature matching </span></h2>
+<p>Fine-tuning of the matching step by the following parameters:
+</p><p>--ransaciter &lt;int&gt;            Ransac: iterations (default: 1000)
+</p><p>--ransacdist &lt;int&gt;            Ransac: homography estimation distance threshold (pixels) (default: 25)
+</p><p>--sieve2width &lt;int&gt;           Sieve 2: Number of buckets on width (default: 5)
+</p><p>--sieve2height &lt;int&gt;          Sieve 2: Number of buckets on height (default: 5)
+</p><p>--sieve2size &lt;int&gt;            Sieve 2: Max points per bucket (default: 2)
+</p>
+
+
+
+<div class="printfooter">
+Retrieved from "<a href="Cpfind.html">http://wiki.panotools.org/Cpfind</a>"</div>
+			</div></div></div></div></body></html>

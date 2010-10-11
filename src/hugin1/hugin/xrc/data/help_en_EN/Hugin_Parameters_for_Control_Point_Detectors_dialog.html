@@ -4,7 +4,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta http-equiv="Content-Style-Type" content="text/css" />
 		<meta name="generator" content="MediaWiki 1.14.0" />
-		<meta name="keywords" content="Hugin Parameters for Control Point Detectors dialog,Align image stack,Autopano,Autopano-sift,Autopano-sift-C,Control points,Hugin,Hugin Images tab,Hugin Preferences,Rectilinear Projection,Panomaticlib" />
+		<meta name="keywords" content="Hugin Parameters for Control Point Detectors dialog,Align image stack,Autopano,Autopano-sift,Autopano-sift-C,Control Point Detector Parameters,Control points,Cpfind,Hugin,Hugin Images tab,Hugin Preferences" />
 		
 		
 		
@@ -44,6 +44,7 @@
 			<div id="contentSub"></div>
 												<!-- start content -->
 			<p>This dialog is accessible from the <a href="Hugin_Preferences.html#Control_Point_Detectors" title="Hugin Preferences">Control Point Detectors tab</a> of the <a href="Hugin_Preferences.html" title="Hugin Preferences">Hugin Preferences</a> and is used to change the parameters of the control point detectors.
+</p><p>This page gives a description of all options. <a href="Control_Point_Detector_Parameters.html" title="Control Point Detector Parameters">Control point detector parameters site</a> gives an overview about the settings for the different control point detectors and for different use cases.
 </p>
 
 <a name="Description" id="Description"></a><h1> <span class="mw-headline"> Description </span></h1>
@@ -83,9 +84,9 @@ It uses a heuristic approach to speed up and optimize the detector step.
 </p>
 <a name="Detector" id="Detector"></a><h2> <span class="mw-headline"> Detector </span></h2>
 <p>Here you can give the program name (inclusive path) and the parameters for the control point detector. 
-You can use a one-step setup. In this you invoke the control point detector with a list of image files and it returns a project file with the found control points.
-A further speed up of the detection phase (especially for the multi-row panorama settings) can be achieved by using the two-step detectors approach. Currently only <a href="Autopano-sift-C.html" title="Autopano-sift-C">autopano-sift-C</a> and panomaticlib support this approach. In this case you have two separate programs: a feature descriptor and a feature matcher. The feature descriptor extracts the features from the images and stores a keyfile in the temp directory. Then the feature matcher reads these keyfiles and tries to match overlapping images. At the end of the detection phase the temporary keyfiles are deleted.
-You have to give the program name and arguments for both programs. A big speed up can be achieved for the multi-row and prealigned settings. 
+You can use a one-step setup. In this you invoke the control point detector with a list of image files and it returns a project file with the found control points. If you use <a href="Cpfind.html" title="Cpfind">cpfind</a> with the --cache parameter you can specify a cleanup argument to delete the generated keypoints file at the end of the detection run.
+</p><p>A further speed up of the detection phase (especially for the multi-row panorama settings) can be achieved by using the two-step detectors approach. Currently only <a href="Autopano-sift-C.html" title="Autopano-sift-C">autopano-sift-C</a> and <a href="Cpfind.html" title="Cpfind">cpfind</a> support this approach. In this case you have two separate programs: a feature descriptor and a feature matcher. The feature descriptor extracts the features from the images and stores a keyfile in the temp directory. Then the feature matcher reads these keyfiles and tries to match overlapping images. At the end of the detection phase the temporary keyfiles are deleted.
+You have to give the program name and arguments for both programs. A big speed up can be achieved for the multi-row and prealigned settings.
 </p>
 <a name="Detector_for_stacks" id="Detector_for_stacks"></a><h2> <span class="mw-headline"> Detector for stacks </span></h2>
 <p>Here you can define the control points detector which works on stacks (in setting <b>Panorama with stacks</b> and <b>Multi-row panorama with stacks</b> only). You can use e. g. <a href="Align_image_stack.html" title="Align image stack">Align image stack</a> for aligning the stack. 

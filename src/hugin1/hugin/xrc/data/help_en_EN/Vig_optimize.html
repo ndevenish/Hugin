@@ -49,13 +49,13 @@
 </p>
 <ul><li> The <a href="Camera_response_curve.html" title="Camera response curve">camera response curve</a> is simplified using the EMoR sensor model which reduces the variation to five numbers, these are the <b>Ra</b>, <b>Rb</b>, <b>Rc</b>, <b>Rd</b> &amp; <b>Re</b> image (i) parameters (the default values of 0.0 are equivalent to an 'average' generic sensor).
 </li><li> The <a href="Vignetting.html" title="Vignetting">vignetting</a> model is represented by a polynomial with four parameters: <b>Va</b> (this is always 1.0 and doesn't need to be optimised) and <b>Vb</b>, <b>Vc</b> &amp; <b>Vd</b> (which default to 0.0 - equivalent to no vignetting).  The vignetting centre can also be different from the geometrical centre, this is specified by <b>Vx</b> &amp; <b>Vy</b> (both default to 0.0).
-</li><li> Exposure (EV) is represented by a single value <b>Ev</b> (defaults 0.0, equivalent to no-change).
+</li><li> Exposure (EV) is represented by a single value <b>Eev</b> (defaults 0.0, equivalent to no-change).
 </li><li> The white balance is represented by multipliers for the red and blue channels <b>Er</b> and <b>Eb</b> (the defaults of 1.0 are equivalent to no-change).
 </li></ul>
 <p>A typical 'v' <i>variable</i> line configuration would look like this, i.e. optimise camera response curve and vignetting for image <i>0</i> and exposure for images <i>1</i>, <i>2</i>, <i>3</i> and <i>4</i>:
 </p>
 <pre>v Ra0 Rb0 Rc0 Rd0 Re0 Vb0 Vc0 Vd0
-v Ev1 Ev2 Ev3 Ev4
+v Eev1 Eev2 Eev3 Eev4
 </pre>
 <p>(vignetting centre and white balance are left unchanged)
 </p><p>The .pto project itself can then be optimised with <b>vig_optimize</b> on the command-line like so:
