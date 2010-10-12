@@ -523,7 +523,7 @@ void Batch::OnProcessTerminate(wxProcessEvent & event)
                         {
                             //notify parent, that at least one project failed
                             wxCommandEvent e(EVT_BATCH_FAILED,wxID_ANY);
-                            GetParent()->AddPendingEvent(e);
+                            GetParent()->GetEventHandler()->AddPendingEvent(e);
                         };
                     }
 					else
@@ -620,7 +620,7 @@ bool Batch::OnStitch(wxString scriptFile, wxString outname, int id)		//was previ
                          _("Specify project source project file"),
                          defaultdir, wxT(""),
                          _("Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files (*)|*"),
-                         wxOPEN, wxDefaultPosition);
+                         wxFD_OPEN, wxDefaultPosition);
 
         dlg.SetDirectory(wxConfigBase::Get()->Read(wxT("/actualPath"),wxT("")));
         if (dlg.ShowModal() == wxID_OK) {
@@ -630,7 +630,7 @@ bool Batch::OnStitch(wxString scriptFile, wxString outname, int id)		//was previ
 			wxFileDialog dlg2(0,_("Specify output prefix"),
                      wxConfigBase::Get()->Read(wxT("/actualPath"),wxT("")),
                      wxT(""), wxT(""),
-                     wxSAVE, wxDefaultPosition);
+                     wxFD_SAVE, wxDefaultPosition);
 			dlg2.SetDirectory(wxConfigBase::Get()->Read(wxT("/actualPath"),wxT("")));
 			if (dlg2.ShowModal() == wxID_OK) {
 				//wxConfig::Get()->Write(wxT("/actualPath"), dlg2.GetDirectory());  // remember for later

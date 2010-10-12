@@ -592,7 +592,7 @@ CPVector AutoPanoSift::automatch(CPDetectorSetting &setting, PT::Panorama & pano
         imgFiles.append(wxT(" ")).append(wxQuoteFilename(keyFiles[*it]));
         imgNr++;
      };
-     matcherArgs.Replace(wxT("%k"), wxString (imgFiles.c_str(), HUGIN_CONV_FILENAME));
+     matcherArgs.Replace(wxT("%k"), wxString (imgFiles.wc_str(), HUGIN_CONV_FILENAME));
 
 #ifdef __WXMSW__
     if (matcherArgs.size() > 32000) {

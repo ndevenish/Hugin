@@ -626,7 +626,7 @@ void MainFrame::OnSaveProjectAs(wxCommandEvent & e)
                      _("Save project file"),
                      wxConfigBase::Get()->Read(wxT("/actualPath"),wxT("")), scriptName,
                      _("Project files (*.pto)|*.pto|All files (*)|*"),
-                     wxSAVE, wxDefaultPosition);
+                     wxFD_SAVE, wxDefaultPosition);
     dlg.SetDirectory(wxConfigBase::Get()->Read(wxT("/actualPath"),wxT("")));
     if (dlg.ShowModal() == wxID_OK) {
         wxConfig::Get()->Write(wxT("/actualPath"), dlg.GetDirectory());  // remember for later
@@ -660,7 +660,7 @@ void MainFrame::OnSavePTStitcherAs(wxCommandEvent & e)
                      _("Save PTmender script file"),
                      wxConfigBase::Get()->Read(wxT("/actualPath"),wxT("")), fn,
                      _("PTmender files (*.txt)|*.txt"),
-                     wxSAVE, wxDefaultPosition);
+                     wxFD_SAVE, wxDefaultPosition);
     dlg.SetDirectory(wxConfigBase::Get()->Read(wxT("/actualPath"),wxT("")));
     if (dlg.ShowModal() == wxID_OK) {
         wxString fname = dlg.GetPath();
@@ -761,7 +761,7 @@ void MainFrame::OnLoadProject(wxCommandEvent & e)
                          _("Open project file"),
                          defaultdir, wxT(""),
                          _("Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files (*)|*"),
-                         wxOPEN, wxDefaultPosition);
+                         wxFD_OPEN, wxDefaultPosition);
         dlg.SetDirectory(defaultdir);
         if (dlg.ShowModal() == wxID_OK) {
             // remove old images from cache
@@ -819,7 +819,7 @@ void MainFrame::OnAddImages( wxCommandEvent& event )
     wxFileDialog dlg(this,_("Add images"),
                      path, wxT(""),
                      HUGIN_WX_FILE_IMG_FILTER,
-                     wxOPEN|wxMULTIPLE , wxDefaultPosition);
+                     wxFD_OPEN | wxFD_MULTIPLE, wxDefaultPosition);
     dlg.SetDirectory(path);
 
     // remember the image extension
@@ -1338,7 +1338,7 @@ void MainFrame::OnMergeProject(wxCommandEvent & e)
                      _("Open project file"),
                      defaultdir, wxT(""),
                      _("Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files (*)|*"),
-                     wxOPEN, wxDefaultPosition);
+                     wxFD_OPEN, wxDefaultPosition);
     dlg.SetDirectory(defaultdir);
     if (dlg.ShowModal() == wxID_OK) 
     {
@@ -1385,7 +1385,7 @@ void MainFrame::OnApplyTemplate(wxCommandEvent & e)
                      _("Choose template project"),
                      config->Read(wxT("/templatePath"),wxT("")), wxT(""),
                      _("Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files (*)|*"),
-                     wxOPEN, wxDefaultPosition);
+                     wxFD_OPEN, wxDefaultPosition);
     dlg.SetDirectory(wxConfigBase::Get()->Read(wxT("/templatePath"),wxT("")));
     if (dlg.ShowModal() == wxID_OK) {
         wxString filename = dlg.GetPath();

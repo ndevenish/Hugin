@@ -258,7 +258,7 @@ bool CPDetectorDialog::ShowFileDialog(wxString & prog)
 #else
             wxT(""),
 #endif
-            wxOPEN, wxDefaultPosition);
+            wxFD_OPEN, wxDefaultPosition);
     if (dlg.ShowModal() == wxID_OK)
     {
         prog=dlg.GetPath();

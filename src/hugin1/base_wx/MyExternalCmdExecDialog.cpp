@@ -501,7 +501,7 @@ void MyExecPanel::OnProcessTerminated(MyPipedProcess *process, int pid, int stat
         wxProcessEvent event( wxID_ANY, pid, status);
         event.SetEventObject( this );
         DEBUG_TRACE("Sending wxProcess event");   
-        this->GetParent()->ProcessEvent( event );
+        this->GetParent()->GetEventHandler()->ProcessEvent( event );
     }
 
 }

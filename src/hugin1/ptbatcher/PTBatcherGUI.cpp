@@ -109,10 +109,24 @@ bool PTBatcherGUI::OnInit()
 	// parse arguments
     static const wxCmdLineEntryDesc cmdLineDesc[] =
     {
+        //On wxWidgets 2.9, wide characters don't work here.
+        //On previous versions, the wxT macro is required for unicode builds.
+#if wxCHECK_VERSION(2,9,0)
+      { wxCMD_LINE_SWITCH, "h", "help", "show this help message",
+        wxCMD_LINE_VAL_NONE, wxCMD_LINE_OPTION_HELP },
+      { wxCMD_LINE_SWITCH, "b", "batch",  "run batch immediately" },
+      { wxCMD_LINE_SWITCH, "p", "parallel",  "run batch projects in parallel" },
+      { wxCMD_LINE_SWITCH, "d", "delete",  "delete *.pto files after stitching" },
+      { wxCMD_LINE_SWITCH, "o", "overwrite",  "overwrite previous files without asking" },
+      { wxCMD_LINE_SWITCH, "s", "shutdown",  "shutdown computer after batch is complete" },
+      { wxCMD_LINE_SWITCH, "v", "verbose",  "show verbose output when processing projects" },
+      { wxCMD_LINE_SWITCH, "a", "assistant", "run the assistant on the given projects" },
+      { wxCMD_LINE_PARAM,  NULL, NULL, _("stitch_project.pto [output prefix]|assistant_project.pto"),
+        wxCMD_LINE_VAL_STRING, wxCMD_LINE_PARAM_OPTIONAL + wxCMD_LINE_PARAM_MULTIPLE },
+      { wxCMD_LINE_NONE }
+#else
       { wxCMD_LINE_SWITCH, wxT("h"), wxT("help"), wxT("show this help message"),
         wxCMD_LINE_VAL_NONE, wxCMD_LINE_OPTION_HELP },
-     // { wxCMD_LINE_OPTION, wxT("t"), wxT("threads"),  wxT("number of threads"),
-     //        wxCMD_LINE_VAL_NUMBER, wxCMD_LINE_PARAM_OPTIONAL },
       { wxCMD_LINE_SWITCH, wxT("b"), wxT("batch"),  wxT("run batch immediately") },
 	  { wxCMD_LINE_SWITCH, wxT("p"), wxT("parallel"),  wxT("run batch projects in parallel") },
 	  { wxCMD_LINE_SWITCH, wxT("d"), wxT("delete"),  wxT("delete *.pto files after stitching") },
@@ -123,6 +137,7 @@ bool PTBatcherGUI::OnInit()
       { wxCMD_LINE_PARAM,  NULL, NULL, _("stitch_project.pto [output prefix]|assistant_project.pto"),
         wxCMD_LINE_VAL_STRING, wxCMD_LINE_PARAM_OPTIONAL + wxCMD_LINE_PARAM_MULTIPLE },
       { wxCMD_LINE_NONE }
+#endif
     };
     wxCmdLineParser parser(cmdLineDesc, argc, argv);
 
@@ -410,7 +425,7 @@ wxChar* BatchIPCConnection::OnRequest(const wxString& topic, const wxString& ite
 	if(item==wxT("RunBatch"))
 	{
 		wxCommandEvent myEvent(wxEVT_COMMAND_TOOL_CLICKED ,XRCID("tool_start"));
-		MyBatchFrame->AddPendingEvent(myEvent);
+		MyBatchFrame->GetEventHandler()->AddPendingEvent(myEvent);
 	};
 	return wxT("");
 };

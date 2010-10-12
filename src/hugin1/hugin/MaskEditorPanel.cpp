@@ -319,7 +319,7 @@ void MaskEditorPanel::OnMaskSave(wxCommandEvent &e)
         wxFileDialog dlg(this, _("Save mask"),
                 wxConfigBase::Get()->Read(wxT("/actualPath"), wxT("")),
                 wxT(""), _("Mask files (*.msk)|*.msk|All files (*)|*"), 
-                wxSAVE, wxDefaultPosition);
+                wxFD_SAVE, wxDefaultPosition);
         if (dlg.ShowModal() == wxID_OK) 
         {
             wxString fn = dlg.GetPath();
@@ -353,7 +353,7 @@ void MaskEditorPanel::OnMaskLoad(wxCommandEvent &e)
         wxFileDialog dlg(this,_("Load mask"),
                 wxConfigBase::Get()->Read(wxT("/actualPath"),wxT("")),
                 wxT(""),_("Mask files (*.msk)|*.msk|All files (*)|*"),
-                wxOPEN, wxDefaultPosition);
+                wxFD_OPEN, wxDefaultPosition);
         if (dlg.ShowModal() != wxID_OK) {
             MainFrame::Get()->SetStatusText(_("Load mask: cancel"));
             return;

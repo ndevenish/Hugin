@@ -408,7 +408,7 @@ void wxLoadPTProjectCmd::execute()
                 // open file dialog
                 wxFileDialog dlg(MainFrame::Get(), _("Add images"),
                                  basedir, fname.GetFullName(),
-                                 HUGIN_WX_FILE_IMG_FILTER, wxOPEN, wxDefaultPosition);
+                                 HUGIN_WX_FILE_IMG_FILTER, wxFD_OPEN, wxDefaultPosition);
                 dlg.SetDirectory(basedir);
                 if (dlg.ShowModal() == wxID_OK) {
                     pano.setImageFilename(i, (const char *)dlg.GetPath().mb_str(HUGIN_CONV_FILENAME));
@@ -523,7 +523,7 @@ void wxApplyTemplateCmd::execute()
         wxString path = config->Read(wxT("actualPath"), wxT(""));
         wxFileDialog dlg(MainFrame::Get(), _("Add images"),
                 path, wxT(""),
-                HUGIN_WX_FILE_IMG_FILTER, wxOPEN|wxMULTIPLE , wxDefaultPosition);
+                HUGIN_WX_FILE_IMG_FILTER, wxFD_OPEN|wxFD_MULTIPLE , wxDefaultPosition);
         dlg.SetDirectory(path);
 
         // remember the image extension

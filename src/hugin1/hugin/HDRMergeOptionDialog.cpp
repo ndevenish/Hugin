@@ -80,11 +80,21 @@ void HDRMergeOptionsDialog::SetCommandLineArgument(wxString cmd)
 	// parse arguments
     static const wxCmdLineEntryDesc cmdLineDesc[] =
     {
-        { wxCMD_LINE_OPTION, wxT("m"), NULL, NULL, wxCMD_LINE_VAL_STRING },     
+    // wxT is required previous to wxWidgets 2.9, and not recommended after it.
+    // Here it causes errors converting between const wchar_t * and const char*.
+#if wxCHECK_VERSION(2,9,0)
+        { wxCMD_LINE_OPTION, "m", NULL, NULL, wxCMD_LINE_VAL_STRING },
+        { wxCMD_LINE_SWITCH, "c", NULL, NULL},
+        { wxCMD_LINE_OPTION, "i", NULL, NULL, wxCMD_LINE_VAL_NUMBER },
+        { wxCMD_LINE_OPTION, "s", NULL, NULL, wxCMD_LINE_VAL_STRING },
+        { wxCMD_LINE_OPTION, "a", NULL, NULL, wxCMD_LINE_VAL_STRING },
+#else
+        { wxCMD_LINE_OPTION, wxT("m"), NULL, NULL, wxCMD_LINE_VAL_STRING },
         { wxCMD_LINE_SWITCH, wxT("c"), NULL, NULL},
         { wxCMD_LINE_OPTION, wxT("i"), NULL, NULL, wxCMD_LINE_VAL_NUMBER },
         { wxCMD_LINE_OPTION, wxT("s"), NULL, NULL, wxCMD_LINE_VAL_STRING },
         { wxCMD_LINE_OPTION, wxT("a"), NULL, NULL, wxCMD_LINE_VAL_STRING },
+#endif
         { wxCMD_LINE_NONE }
     };
     wxCmdLineParser parser;

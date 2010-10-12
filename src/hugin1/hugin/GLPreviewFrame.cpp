@@ -611,7 +611,7 @@ void GLPreviewFrame::panoramaChanged(Panorama &pano)
         assert((int) params.size() == nParam);
         for (int i=0; i < nParam; i++) {
             wxString val = wxString(doubleToString(params[i],1).c_str(), wxConvLocal);
-            m_projParamTextCtrl[i]->SetValue(wxString(val.c_str(), wxConvLocal));
+            m_projParamTextCtrl[i]->SetValue(wxString(val.wc_str(), wxConvLocal));
             m_projParamSlider[i]->SetValue(utils::roundi(params[i]));
         }
     }
@@ -1423,13 +1423,13 @@ void GLPreviewFrame::OnFullScreen(wxCommandEvent & e)
 void GLPreviewFrame::OnUndo(wxCommandEvent &e)
 {
     wxCommandEvent dummy(wxEVT_COMMAND_MENU_SELECTED, XRCID("ID_EDITUNDO"));
-    m_parent->AddPendingEvent(dummy);
+    m_parent->GetEventHandler()->AddPendingEvent(dummy);
 };
 
 void GLPreviewFrame::OnRedo(wxCommandEvent &e)
 {
     wxCommandEvent dummy(wxEVT_COMMAND_MENU_SELECTED, XRCID("ID_EDITREDO"));
-    m_parent->AddPendingEvent(dummy);
+    m_parent->GetEventHandler()->AddPendingEvent(dummy);
 };
 
 void GLPreviewFrame::SetMode(int newMode)

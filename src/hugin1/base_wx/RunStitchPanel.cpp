@@ -384,7 +384,7 @@ void RunStitchPanel::OnProcessTerminate(wxProcessEvent & event)
 		if (this->GetParent()) {
 			event.SetEventObject( this );
 			DEBUG_TRACE("Sending wxProcess event");   
-			this->GetParent()->ProcessEvent( event );
+			this->GetParent()->GetEventHandler()->ProcessEvent( event );
 		}
 	//}
 }

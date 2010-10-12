@@ -50,7 +50,7 @@ void TextKillFocusHandler::OnKillFocus(wxFocusEvent & e)
         DEBUG_DEBUG("forwarding focus change");
         wxCommandEvent cmdEvt(wxEVT_COMMAND_TEXT_ENTER, e.GetId());
         cmdEvt.SetEventObject(e.GetEventObject());
-        m_parent->ProcessEvent(cmdEvt);
+        m_parent->GetEventHandler()->ProcessEvent(cmdEvt);
         dirty = false;
     }
     e.Skip();

@@ -301,15 +301,29 @@ bool stitchApp::OnInit()
     // parse arguments
     static const wxCmdLineEntryDesc cmdLineDesc[] =
     {
+        //On wxWidgets 2.9, wide characters don't work here.
+        //On previous versions, the wxT macro is required for unicode builds.
+#if wxCHECK_VERSION(2,9,0)
+      { wxCMD_LINE_SWITCH, "h", "help", "show this help message",
+        wxCMD_LINE_VAL_NONE, wxCMD_LINE_OPTION_HELP },
+      { wxCMD_LINE_OPTION, "o", "output",  "output prefix" },
+      { wxCMD_LINE_OPTION, "t", "threads",  "number of threads",
+             wxCMD_LINE_VAL_NUMBER, wxCMD_LINE_PARAM_OPTIONAL },
+      { wxCMD_LINE_SWITCH, "d", "delete",  "delete pto file after stitching" },
+      { wxCMD_LINE_PARAM,  NULL, NULL, "<project> <images>",
+        wxCMD_LINE_VAL_STRING, wxCMD_LINE_PARAM_OPTIONAL + wxCMD_LINE_PARAM_MULTIPLE },
+      { wxCMD_LINE_NONE }
+#else 
       { wxCMD_LINE_SWITCH, wxT("h"), wxT("help"), wxT("show this help message"),
         wxCMD_LINE_VAL_NONE, wxCMD_LINE_OPTION_HELP },
       { wxCMD_LINE_OPTION, wxT("o"), wxT("output"),  wxT("output prefix") },
       { wxCMD_LINE_OPTION, wxT("t"), wxT("threads"),  wxT("number of threads"),
              wxCMD_LINE_VAL_NUMBER, wxCMD_LINE_PARAM_OPTIONAL },
       { wxCMD_LINE_SWITCH, wxT("d"), wxT("delete"),  wxT("delete pto file after stitching") },
-      { wxCMD_LINE_PARAM,  NULL, NULL, _T("<project> <images>"),
+      { wxCMD_LINE_PARAM,  NULL, NULL, wxT("<project> <images>"),
         wxCMD_LINE_VAL_STRING, wxCMD_LINE_PARAM_OPTIONAL + wxCMD_LINE_PARAM_MULTIPLE },
       { wxCMD_LINE_NONE }
+#endif 
     };
 
     wxCmdLineParser parser(cmdLineDesc, argc, argv);
@@ -353,7 +367,7 @@ bool stitchApp::OnInit()
                          _("Specify project source project file"),
                          defaultdir, wxT(""),
                          _("Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files (*)|*"),
-                         wxOPEN, wxDefaultPosition);
+                         wxFD_OPEN, wxDefaultPosition);
 
         dlg.SetDirectory(wxConfigBase::Get()->Read(wxT("/actualPath"),wxT("")));
         if (dlg.ShowModal() == wxID_OK) {
@@ -383,7 +397,7 @@ bool stitchApp::OnInit()
         wxFileDialog dlg(0,_("Specify output prefix"),
                          wxConfigBase::Get()->Read(wxT("/actualPath"),wxT("")),
                          wxT(""), wxT(""),
-                         wxSAVE, wxDefaultPosition);
+                         wxFD_SAVE, wxDefaultPosition);
         dlg.SetDirectory(wxConfigBase::Get()->Read(wxT("/actualPath"),wxT("")));
         if (dlg.ShowModal() == wxID_OK) {
             while(containsInvalidCharacters(dlg.GetPath()))

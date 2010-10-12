@@ -222,7 +222,7 @@ bool CPDetectorSetting::Read(wxConfigBase *config, wxString path)
 
 void CPDetectorSetting::Write(wxConfigBase *config, wxString path)
 {
-    config->Write(path+wxT("/Type"),type);
+    config->Write(path+wxT("/Type"),int(type));
     config->Write(path+wxT("/Description"),desc);
     config->Write(path+wxT("/Program"),prog);
     config->Write(path+wxT("/Arguments"),args);
@@ -239,4 +239,5 @@ void CPDetectorSetting::Write(wxConfigBase *config, wxString path)
     };
     config->Write(path+wxT("/Option"),option);
 };
+
 

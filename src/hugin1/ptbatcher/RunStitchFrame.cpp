@@ -105,7 +105,7 @@ void RunStitchFrame::OnProcessTerminate(wxProcessEvent & event)
 		event.m_exitcode = 1;
 		event.SetId(m_projectId);
 		DEBUG_TRACE("Sending wxProcess event");   
-		this->GetParent()->ProcessEvent( event );
+		this->GetParent()->GetEventHandler()->ProcessEvent( event );
         // TODO: Cleanup files?
         Close();
     } else {
@@ -114,7 +114,7 @@ void RunStitchFrame::OnProcessTerminate(wxProcessEvent & event)
 			event.SetEventObject( this );
 			event.SetId(m_projectId);
 			//this->GetParent()->ProcessEvent( event );
-			this->GetParent()->ProcessEvent( event );
+			this->GetParent()->GetEventHandler()->ProcessEvent( event );
 			Close();
         } else {
 			//if (GetParent()) {		//send process notification to parent window
@@ -122,7 +122,7 @@ void RunStitchFrame::OnProcessTerminate(wxProcessEvent & event)
 				event.SetId(m_projectId);
 				DEBUG_TRACE("Sending wxProcess event");   
 				//m_evtParent->ProcessEvent( event );
-				this->GetParent()->ProcessEvent( event );
+				this->GetParent()->GetEventHandler()->ProcessEvent( event );
 				//this->GetParent()->ProcessEvent( event );
 			//}
 			/*if(!m_projList.IsEmpty())		//returns true if batch list is not empty yet after removing the first

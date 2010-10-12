@@ -144,7 +144,14 @@ BatchFrame::BatchFrame(wxLocale* locale, wxString xrc)
 	projListBox = XRCCTRL(*this,"project_listbox",ProjectListBox);
 	
 	//projListMutex = new wxMutex();
+	//wxThreadHelper::Create is deprecated in wxWidgets 2.9+, but its
+	// replacement, CreateThread, does not exist in 2.8. Pick one
+	// depending on the version to a avoid compiler warning(2.9) or error(2.8).
+#if wxCHECK_VERSION(2, 9, 0)
+    this->wxThreadHelper::CreateThread();
+#else
 	this->wxThreadHelper::Create();
+#endif
 	//wxMessageBox( _T("B"),_T("B"),wxOK | wxICON_INFORMATION );
 	this->GetThread()->Run();
 	//TO-DO: include a batch or project progress gauge?
@@ -427,7 +434,7 @@ void BatchFrame::OnButtonChangePrefix(wxCommandEvent &event)
     		wxFileDialog dlg(0,_("Specify output prefix for project ")+projListBox->GetSelectedProject(),
                          prefix.GetPath(),
                          prefix.GetFullName(), wxT(""),
-                         wxSAVE, wxDefaultPosition);
+                         wxFD_SAVE, wxDefaultPosition);
     		if (dlg.ShowModal() == wxID_OK)
 	    	{
                 while(containsInvalidCharacters(dlg.GetPath()))
@@ -542,7 +549,7 @@ void BatchFrame::OnButtonOpenBatch(wxCommandEvent &event)
                      _("Specify batch file to open"),
                      defaultdir, wxT(""),
                      _("Batch files (*.ptb)|*.ptb;|All files (*)|*"),
-                     wxOPEN, wxDefaultPosition);
+                     wxFD_OPEN, wxDefaultPosition);
 	if (dlg.ShowModal() == wxID_OK) 
 	{
 		wxConfig::Get()->Write(wxT("/BatchFrame/batchPath"), dlg.GetDirectory());  // remember for later
@@ -730,7 +737,7 @@ void BatchFrame::OnButtonSaveBatch(wxCommandEvent &event)
                      _("Specify batch file to save"),
                      defaultdir, wxT(""),
                      _("Batch file (*.ptb)|*.ptb;|All files (*)|*"),
-                     wxSAVE, wxDefaultPosition);
+                     wxFD_SAVE, wxDefaultPosition);
 	if (dlg.ShowModal() == wxID_OK) 
 	{
 		wxConfig::Get()->Write(wxT("/BatchFrame/batchPath"), dlg.GetDirectory());  // remember for later

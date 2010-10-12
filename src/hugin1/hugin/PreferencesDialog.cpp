@@ -282,7 +282,7 @@ void PreferencesDialog::OnPTStitcherExe(wxCommandEvent & e)
 #else
 		     wxT(""),
 #endif
-                    wxOPEN, wxDefaultPosition);
+                    wxFD_OPEN, wxDefaultPosition);
     if (dlg.ShowModal() == wxID_OK) {
 	XRCCTRL(*this, "prefs_pt_PTStitcherEXE", wxTextCtrl)->SetValue(
 		dlg.GetPath());
@@ -300,7 +300,7 @@ void PreferencesDialog::OnEditorExe(wxCommandEvent & e)
 #else
              wxT("(*)|*"),
 #endif
-                    wxOPEN, wxDefaultPosition);
+                    wxFD_OPEN, wxDefaultPosition);
     if (dlg.ShowModal() == wxID_OK) {
         XRCCTRL(*this, "prefs_ass_editor", wxTextCtrl)->SetValue(
                 dlg.GetPath());
@@ -317,7 +317,7 @@ void PreferencesDialog::OnEnblendExe(wxCommandEvent & e)
 #else
 		     wxT("*"),
 #endif
-                    wxOPEN, wxDefaultPosition);
+                    wxFD_OPEN, wxDefaultPosition);
     if (dlg.ShowModal() == wxID_OK) {
 	XRCCTRL(*this, "prefs_enblend_EnblendExe", wxTextCtrl)->SetValue(
 		dlg.GetPath());
@@ -333,7 +333,7 @@ void PreferencesDialog::OnEnfuseExe(wxCommandEvent & e)
 #else
 		     wxT("*"),
 #endif
-                    wxOPEN, wxDefaultPosition);
+                    wxFD_OPEN, wxDefaultPosition);
     if (dlg.ShowModal() == wxID_OK) {
 	XRCCTRL(*this, "prefs_enblend_EnfuseExe", wxTextCtrl)->SetValue(
 		dlg.GetPath());
@@ -609,7 +609,7 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
             if (cpucount < 1) cpucount = 1;
             cfg->Write(wxT("/Nona/NumberOfThreads"), cpucount);
             // locale
-            cfg->Write(wxT("language"), HUGIN_LANGUAGE);
+            cfg->Write(wxT("language"), int(HUGIN_LANGUAGE));
             // smart undo
             cfg->Write(wxT("smartUndo"), HUGIN_SMART_UNDO);
             // druid
