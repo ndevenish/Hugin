@@ -505,6 +505,10 @@ GLPreviewFrame::~GLPreviewFrame()
     m_ROIRightTxt->PopEventHandler(true);
     m_ROITopTxt->PopEventHandler(true);
     m_ROIBottomTxt->PopEventHandler(true);
+    for (int i=0; i < m_ToggleButtons.size(); i++)
+    {
+        m_ToggleButtons[i]->PopEventHandler();
+    }
     m_pano.removeObserver(this);
     DEBUG_TRACE("dtor end");
 }
@@ -655,6 +659,7 @@ void GLPreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &change
     for (int i=nrButtons-1; i>=(int)nrImages; i--)
     {
         m_ButtonSizer->Detach(m_ToggleButtonPanel[i]);
+        m_ToggleButtons[i]->PopEventHandler();
         delete m_ToggleButtons[i];
         delete m_ToggleButtonPanel[i];
         m_ToggleButtons.pop_back();
