@@ -1759,42 +1759,46 @@ void CPEditorPanel::OnCPListSelect(wxListEvent & ev)
 
 void CPEditorPanel::OnZoom(wxCommandEvent & e)
 {
-    double factor;
-    switch (e.GetSelection()) {
-    case 0:
-        factor = 1;
-        m_detailZoomFactor = factor;
-        break;
-    case 1:
-        // fit to window
-        factor = 0;
-        break;
-    case 2:
-        factor = 2;
-        m_detailZoomFactor = factor;
-        break;
-    case 3:
-        factor = 1.5;
-        m_detailZoomFactor = factor;
-        break;
-    case 4:
-        factor = 0.75;
-        break;
-    case 5:
-        factor = 0.5;
-        break;
-    case 6:
-        factor = 0.25;
-        break;
-    default:
-        DEBUG_ERROR("unknown scale factor");
-        factor = 1;
-    }
-    m_leftImg->setScale(factor);
-    m_rightImg->setScale(factor);
-    // if a point is selected, keep it in view
-    if (m_selectedPoint < UINT_MAX) {
-        SelectLocalPoint(m_selectedPoint);
+    // Check images are actually selected, since the zoom combo box gets set
+    // when Hugin is starting.
+    if(m_leftImageNr != UINT_MAX && m_rightImageNr != UINT_MAX) {
+        double factor;
+        switch (e.GetSelection()) {
+        case 0:
+            factor = 1;
+            m_detailZoomFactor = factor;
+            break;
+        case 1:
+            // fit to window
+            factor = 0;
+            break;
+        case 2:
+            factor = 2;
+            m_detailZoomFactor = factor;
+            break;
+        case 3:
+            factor = 1.5;
+            m_detailZoomFactor = factor;
+            break;
+        case 4:
+            factor = 0.75;
+            break;
+        case 5:
+            factor = 0.5;
+            break;
+        case 6:
+            factor = 0.25;
+            break;
+        default:
+            DEBUG_ERROR("unknown scale factor");
+            factor = 1;
+        }
+        m_leftImg->setScale(factor);
+        m_rightImg->setScale(factor);
+        // if a point is selected, keep it in view
+        if (m_selectedPoint < UINT_MAX) {
+            SelectLocalPoint(m_selectedPoint);
+        }
     }
 }
 

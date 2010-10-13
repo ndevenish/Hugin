@@ -438,36 +438,41 @@ void MaskEditorPanel::OnMaskDelete(wxCommandEvent &e)
 
 void MaskEditorPanel::OnZoom(wxCommandEvent & e)
 {
-    double factor;
-    switch (e.GetSelection()) 
+    // Check if actually displaying an image, since this is called when Hugin is
+    // loading on wxGTK 2.9
+    if (m_ImageNr != UINT_MAX)
     {
-        case 0:
-            factor = 1;
-            break;
-        case 1:
-            // fit to window
-            factor = 0;
-            break;
-        case 2:
-            factor = 2;
-            break;
-        case 3:
-            factor = 1.5;
-            break;
-        case 4:
-            factor = 0.75;
-            break;
-        case 5:
-            factor = 0.5;
-            break;
-        case 6:
-            factor = 0.25;
-            break;
-        default:
-            DEBUG_ERROR("unknown scale factor");
-            factor = 1;
+        double factor;
+        switch (e.GetSelection()) 
+        {
+            case 0:
+                factor = 1;
+                break;
+            case 1:
+                // fit to window
+                factor = 0;
+                break;
+            case 2:
+                factor = 2;
+                break;
+            case 3:
+                factor = 1.5;
+                break;
+            case 4:
+                factor = 0.75;
+                break;
+            case 5:
+                factor = 0.5;
+                break;
+            case 6:
+                factor = 0.25;
+                break;
+            default:
+                DEBUG_ERROR("unknown scale factor");
+                factor = 1;
+        }
+        m_editImg->setScale(factor);
     }
-    m_editImg->setScale(factor);
 }
 
 void MaskEditorPanel::OnColourChanged(wxColourPickerEvent &e)

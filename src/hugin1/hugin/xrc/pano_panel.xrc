@@ -623,7 +623,7 @@
                         <object class="sizeritem">
                           <object class="wxFlexGridSizer">
                             <cols>3</cols>
-                            <rows>2</rows>
+                            <rows>4</rows>
                             <object class="sizeritem">
                               <object class="wxStaticText">
                                 <label>Remapper:</label>
