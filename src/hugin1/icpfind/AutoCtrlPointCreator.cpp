@@ -165,10 +165,9 @@ wxString GetProgPath(wxString progName)
         pathlist.AddEnvList(wxT("PATH"));
         return pathlist.FindAbsoluteValidPath(progName);
     };
-#else
+#endif
+#endif
     return progName;
-#endif
-#endif
 };
 
 bool CanStartProg(wxString progName,wxWindow* parent)
