@@ -962,6 +962,11 @@ void PanoPanel::DoStitch()
     if (pano->getNrOfImages() == 0) {
         return;
     }
+    
+    if (!CheckGoodSize()) {
+        // oversized pano and the user no longer wants to stitch.
+        return;
+    }
 
     // save project
     // copy pto file to temporary file
@@ -1088,6 +1093,9 @@ void PanoPanel::OnDoStitch ( wxCommandEvent & e )
 
 void PanoPanel::OnSendToBatch ( wxCommandEvent & e )
 {
+    if (!CheckGoodSize()) {
+        return;
+    }
 	wxCommandEvent dummy;
 	MainFrame::Get()->OnSaveProject(dummy);
 	wxString projectFile = MainFrame::Get()->getProjectName();
@@ -1277,6 +1285,67 @@ void PanoPanel::OnOutputFilesChanged(wxCommandEvent & e)
     GlobalCmdHist::getInstance().addCommand(
             new PT::SetPanoOptionsCmd( *pano, opts )
         );
+}
+
+bool PanoPanel::CheckGoodSize()
+{
+    vigra::Rect2D cropped_region = pano->getOptions().getROI();
+    unsigned long long int area = ((unsigned long int) cropped_region.width()) * ((unsigned long int) cropped_region.height());
+    // Argh, more than half a gigapixel!
+    if (area > 500000000)
+    {
+        // Tell the user the stitch will be really big, and give them a
+        // chance to reduce the size.
+#if wxCHECK_VERSION(2,9,0)
+        // Untested
+        /** @todo Test this wxWidgets 2.9+ section.
+         *  Eventually remove the the other section.
+         */
+        wxMessageDialog dialog(this,
+                _("Are you sure you want to stitch such a large panorama?"),
+                wxT(""),
+                wxICON_EXCLAMATION | wxYES_NO);
+        dialog.SetExtendedMessage(
+                wxString::Format(_("The panorama you are trying to stitch is %.1f gigapixels.\nIf this is too big, reduce the panorama Canvas Size and the cropped region and stitch from the Stitcher tab. Stitching a panorama this size could take a long time and a large amount of memory."),
+                        area / 1000000000.0));
+        dialog.SetYesNoLabels(_("Stitch anyway"), _("Let me fix that"));
+#else // replacement for old wxWidgets versions.
+        // wxMessageDialog derives from wxDialog, but I don't understand
+        // why because on most platforms wxMessageDialog uses the native
+        // message box, and trying to make descriptive buttons through
+        // wxDialog::CreateStdButtonSizer causes a crash on wxGTK.
+        // Descriptive buttons are recommended by the Windows, Gnome, KDE,
+        // and Apple user interface guidelines.
+        // Due to this wxWidgets WTF, the buttons will are labeled Yes and
+        // No on wxWidgets 2.8 and earlier. This makes it a little
+        // confusing, and it is more likely someone will just click yes
+        // without reading the message and then wonder why their computer
+        // has ground to a halt.
+        /** @todo (Possibly) make a dialog manually with properly labelled
+         * buttons.
+         */
+        wxMessageDialog dialog(this,
+                wxString::Format(_("Are you sure you want to stitch such a large panorama?\n\nThe panorama you are trying to stitch is %.1f gigapixels.\nIf this is too big, reduce the panorama Canvas Size and the cropped region and stitch from the Stitcher tab. Stitching a panorama this size could take a long time and a large amount of memory."),
+                        area / 1000000000.0),
+                wxT(""),
+                wxICON_EXCLAMATION | wxYES_NO);
+#endif
+        bool result;
+        switch (dialog.ShowModal())
+        {
+            case wxID_OK:
+            case wxID_YES:
+                // Continue stitch.
+                return true;
+                break;
+            default:
+                // bring the user towards the approptiate controls.
+                MainFrame::Get()->ShowStitcherTab();
+                return false;
+        }
+    }
+    // I see nothing wrong with this...
+    return true;
 }
 
 

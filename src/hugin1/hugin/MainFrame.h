@@ -150,6 +150,7 @@ public:
 
 
     void ShowCtrlPointEditor(unsigned int img1, unsigned int img2);
+    void ShowStitcherTab();
 
     void resetProgress(double max);
     bool increaseProgress(double delta);

@@ -1592,6 +1592,11 @@ void MainFrame::ShowCtrlPointEditor(unsigned int img1, unsigned int img2)
     cpe->setRightImage(img2);
 }
 
+void MainFrame::ShowStitcherTab()
+{
+    ///@todo Stop using magic numbers for the tabs.
+    m_notebook->SetSelection(8);
+}
 
 /** update the display */
 void MainFrame::updateProgressDisplay()
