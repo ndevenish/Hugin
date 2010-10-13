@@ -279,6 +279,7 @@ PanoPanel::~PanoPanel(void)
     m_HFOVText->PopEventHandler(true);
     m_VFOVText->PopEventHandler(true);
     m_WidthTxt->PopEventHandler(true);
+    m_HeightTxt->PopEventHandler(true);
     m_ROILeftTxt->PopEventHandler(true);
     m_ROIRightTxt->PopEventHandler(true);
     m_ROITopTxt->PopEventHandler(true);
