@@ -247,7 +247,10 @@ void AssistantPanel::panoramaChanged(PT::Panorama &pano)
         images = pano.getNrOfImages();
         m_createButton->Enable(enableCreate);
 
-        wxString imgMsg = wxString::Format(_("%d images loaded."), pano.getNrOfImages());
+        // in wxWidgets 2.9, format must have types that exactly match.
+        // However std::size_t could be any unsiged integer, so we cast it to
+        // unsigned long.int to be on the safe side.
+        wxString imgMsg = wxString::Format(_("%lu images loaded."), (unsigned long int) pano.getNrOfImages());
 
         const Lens & lens = m_variable_groups->getLens(0);
 
@@ -281,7 +284,10 @@ void AssistantPanel::panoramaChanged(PT::Panorama &pano)
     }
 
     if (pano.getNrOfImages() > 1) {
-        wxString alignMsg = wxString::Format(_("Images are connected by %d control points.\n"), pano.getCtrlPoints().size());
+        // in wxWidgets 2.9, format must have types that exactly match.
+        // However std::size_t could be any unsiged integer, so we cast it to
+        // unsigned long.int to be on the safe side.
+        wxString alignMsg = wxString::Format(_("Images are connected by %lu control points.\n"), (unsigned long int) pano.getCtrlPoints().size());
 
         if (m_pano->getNrOfCtrlPoints() > 0) {
             // find components..
