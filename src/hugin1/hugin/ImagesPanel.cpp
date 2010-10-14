@@ -715,6 +715,9 @@ void ImagesPanel::UpdatePreviewImage()
         // portrait
         sz.SetWidth((int) (sz.GetHeight() * iRatio));
     }
+    // Make sure the size is positive:
+    // on a small window, m_smallImgCtrl can have 0 width.
+    sz.IncTo(wxSize(1,1));
     wxImage scaled = img.Scale(sz.GetWidth(),sz.GetHeight());
     m_smallImgCtrl->SetBitmap(wxBitmap(scaled));
     m_smallImgCtrl->GetParent()->Layout();
