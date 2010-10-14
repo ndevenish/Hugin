@@ -1062,11 +1062,21 @@ bool CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
     if (res.maxi < corrThresh ||res.curv.x < curvThresh || res.curv.y < curvThresh  )
     {
         // Bad correlation result.
+#if wxCHECK_VERSION(2, 9, 0)
+        wxMessageDialog dlg(this,
+            _("No similar point found."),
+            "",
+            wxICON_ERROR | wxOK);
+        dlg.SetExtendedMessage(wxString::Format(_("Check the similarity visually.\nCorrelation coefficient (%.3f) is lower than the threshold set in the preferences."),
+                             res.maxi));
+        dlg.ShowModal();
+#else
         wxMessageBox(
             wxString::Format(_("No similar point found. Check the similarity visually.\nCorrelation coefficient (%.3f) is lower than the threshold set in the preferences."),
                              res.maxi),
             _("No similar point found"),
-            wxICON_HAND, this);
+            wxICON_ERROR | wxOK, this);
+#endif
         return false;
     }
 
