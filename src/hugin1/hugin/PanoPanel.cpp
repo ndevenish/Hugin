@@ -1298,10 +1298,6 @@ bool PanoPanel::CheckGoodSize()
         // Tell the user the stitch will be really big, and give them a
         // chance to reduce the size.
 #if wxCHECK_VERSION(2,9,0)
-        // Untested
-        /** @todo Test this wxWidgets 2.9+ section.
-         *  Eventually remove the the other section.
-         */
         wxMessageDialog dialog(this,
                 _("Are you sure you want to stitch such a large panorama?"),
                 wxT(""),
