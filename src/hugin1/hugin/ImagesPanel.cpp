@@ -326,7 +326,7 @@ void ImagesPanel::SIFTMatching(wxCommandEvent & e)
     CPVector cps = matcher.automatch(cpdetector_config.settings[m_CPDetectorChoice->GetSelection()],
         *pano, selImg, nFeatures,this);
     wxString msg;
-    wxMessageBox(wxString::Format(_("Added %d control points"), cps.size()), _("Control point detector result"),wxOK|wxICON_INFORMATION,this);
+    wxMessageBox(wxString::Format(_("Added %lu control points"), (unsigned long) cps.size()), _("Control point detector result"),wxOK|wxICON_INFORMATION,this);
     GlobalCmdHist::getInstance().addCommand(
             new PT::AddCtrlPointsCmd(*pano, cps)
                                            );
@@ -376,7 +376,7 @@ void ImagesPanel::OnCleanCP(wxCommandEvent & e)
                         );
         NrRemoved+=CPremove.size();
     };
-    wxMessageBox(wxString::Format(_("Removed %d control points"), NrRemoved), _("Cleaning"),wxOK|wxICON_INFORMATION,this);
+    wxMessageBox(wxString::Format(_("Removed %u control points"), NrRemoved), _("Cleaning"),wxOK|wxICON_INFORMATION,this);
 };
 
 void ImagesPanel::OnVarTextChanged ( wxCommandEvent & e )
@@ -864,8 +864,8 @@ void ImagesPanel::OnRemoveCtrlPoints(wxCommandEvent & e)
             cpsToDelete.insert(it - cps.begin());
         }
     }
-    int r =wxMessageBox(wxString::Format(_("Really Delete %d control points?"),
-                                         cpsToDelete.size()),
+    int r =wxMessageBox(wxString::Format(_("Really Delete %lu control points?"),
+                                         (unsigned long int) cpsToDelete.size()),
                         _("Delete Control Points"),
                         wxICON_QUESTION | wxYES_NO);
     if (r == wxYES) {
@@ -1072,11 +1072,11 @@ void ImagesPanel::OnCelesteButton(wxCommandEvent & e)
         };
 
         progress.increaseProgress(1.0, std::wstring(wxString(_("Running Celeste")).wc_str(wxConvLocal)));
-        wxMessageBox(wxString::Format(_("Removed %d control points"), cpsToRemove.size()), _("Celeste result"),wxOK|wxICON_INFORMATION,this);
+        wxMessageBox(wxString::Format(_("Removed %lu control points"), (unsigned long int) cpsToRemove.size()), _("Celeste result"),wxOK|wxICON_INFORMATION,this);
         DEBUG_TRACE("Finished running Celeste");
         MainFrame::Get()->SetStatusText(wxT(""),0);
     }
 
-    wxMessageBox(wxString::Format(_("Removed %d control points"), total_removed), _("Celeste result"),wxOK|wxICON_INFORMATION,this);
+    wxMessageBox(wxString::Format(_("Removed %u control points"), total_removed), _("Celeste result"),wxOK|wxICON_INFORMATION,this);
 }
 
