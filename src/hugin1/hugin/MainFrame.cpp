@@ -495,27 +495,34 @@ void MainFrame::OnUserQuit(wxCommandEvent & e)
     Close();
 }
 
-bool MainFrame::CloseProject(bool cnacelable)
+bool MainFrame::CloseProject(bool cancelable)
 {
     if (pano.isDirty()) {
-        int answer = wxMessageBox(_("The panorama has been changed\nSave changes?"), _("Save Panorama?"),
-                                  cnacelable? (wxYES_NO | wxCANCEL | wxICON_EXCLAMATION):(wxYES_NO | wxICON_EXCLAMATION),
-                                  this);
+        wxMessageDialog message(this,
+                                _("Save changes to the panorama before closing?"), wxT(""),
+                                wxICON_EXCLAMATION | wxYES_NO | (cancelable? (wxCANCEL):0));
+#if wxCHECK_VERSION(2, 9, 0)
+    message.SetExtendedMessage("If you close without saving, changes since your last save will be discarded");
+    #if defined __WXMAC__ || defined __WXMSW__
+        // Apple human interface guidelines and Windows user experience interaction guidelines
+        message.SetYesNoLabels(wxID_SAVE, _("Don't Save"));
+    #else
+        // Gnome human interface guidelines:
+        message.SetYesNoLabels(wxID_SAVE, _("Close without saving"));
+    #endif
+#endif
+        int answer = message.ShowModal();
         switch (answer){
-            case wxYES:
+            case wxID_YES:
             {
                 wxCommandEvent dummy;
                 OnSaveProject(dummy);
                 return true;
             }
-            case wxCANCEL:
-            {
+            case wxID_CANCEL:
                 return false;
-            }
             default: //no save
-            {
                 return true;
-            }
         }
     }
     else return true;
