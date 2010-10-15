@@ -70,6 +70,9 @@ extern "C" {
 #include "PreviewLayoutLinesTool.h"
 
 #include <wx/progdlg.h>
+#if wxCHECK_VERSION(2, 9, 0)
+#include <wx/infobar.h>
+#endif
 
 using namespace utils;
 
@@ -207,6 +210,10 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     : wxFrame(frame,-1, _("Fast Panorama preview"), wxDefaultPosition, wxDefaultSize,
               PF_STYLE),
       m_pano(pano)
+#if !wxCHECK_VERSION(2, 9, 0)
+    ,
+      m_projectionStatusPushed(false)
+#endif
 {
 	DEBUG_TRACE("");
 
@@ -267,6 +274,11 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     AddLabelToBitmapButton(select_none,_("None"), false);
     m_topsizer->Add(tool_panel, 0, wxEXPAND | wxALL, 2);
     m_topsizer->Add(m_ToggleButtonSizer, 0, wxEXPAND | wxADJUST_MINSIZE | wxBOTTOM, 5);
+    
+#if wxCHECK_VERSION(2, 9, 0)
+    m_infoBar = new wxInfoBar(this);
+    m_topsizer->Add(m_infoBar, 0, wxEXPAND);
+#endif
 
     wxFlexGridSizer * flexSizer = new wxFlexGridSizer(2,0,5,5);
     flexSizer->AddGrowableCol(0);
@@ -642,6 +654,8 @@ void GLPreviewFrame::panoramaChanged(Panorama &pano)
     m_ROIRightTxt->SetValue(wxString::Format(wxT("%d"), opts.getROI().right() ));
     m_ROITopTxt->SetValue(wxString::Format(wxT("%d"), opts.getROI().top() ));
     m_ROIBottomTxt->SetValue(wxString::Format(wxT("%d"), opts.getROI().bottom() ));
+    
+    ShowProjectionWarnings();
 }
 
 void GLPreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
@@ -1630,3 +1644,85 @@ void GLPreviewFrame::OnLayoutScaleChange(wxScrollEvent &e)
         m_GLViewer->Refresh();
     };
 };
+
+void GLPreviewFrame::ShowProjectionWarnings()
+{
+    PanoramaOptions opts = m_pano.getOptions();
+    double hfov = opts.getHFOV();
+    double vfov = opts.getVFOV();
+    double maxfov = hfov > vfov ? hfov : vfov;
+    wxString message;
+    // If this is set to true, offer rectilinear as an alternative if it fits.
+    bool rectilinear_option = false;
+    switch (opts.getProjection()) {
+        case HuginBase::PanoramaOptions::RECTILINEAR:
+            if (maxfov > 120.0) {
+                            // wide rectilinear image
+                message = _("With a wide field of view, panoramas with rectilinear projection get very stretched towards the edges.\n");
+                if (vfov < 110) {
+                    message += _("Since the field of view is only very wide in the horizontal direction, try a cylindrical projection instead.");
+                } else {
+                    message += _("For a very wide panorama, try equirectangular projection instead.");
+                }
+                message += _(" You could also try Panini projection.");
+            }
+            break;
+        case HuginBase::PanoramaOptions::CYLINDRICAL:
+            if (vfov > 120.0) {
+                message = _("With a wide vertical field of view, panoramas with cylindrical projection get very stretched at the top and bottom.\nAn equirectangular projection would fit the same content in less vertical space.");
+            } else rectilinear_option = true;
+            break;
+        case HuginBase::PanoramaOptions::EQUIRECTANGULAR:
+            if (vfov < 110.0 && hfov > 120.0)
+            {
+                message = _("Since the vertical field of view is not too wide, you could try setting the panorama projection to cylindrical.\nCylindrical projection preserves vertical lines, unlike equirectangular.");
+            } else rectilinear_option = true;
+            break;
+        case HuginBase::PanoramaOptions::FULL_FRAME_FISHEYE:
+            if (maxfov < 280.0) {
+                rectilinear_option = true;
+                message = _("Stereographic projection is conformal, unlike this Fisheye panorama projection.\nA conformal projection preserves angles around a point, which often makes it easier on the eye.");
+            }
+            break;
+        case HuginBase::PanoramaOptions::STEREOGRAPHIC:
+            if (maxfov > 300.0) {
+                message = _("Panoramas with stereographic projection and a very wide field of view stretch the image around the edges a lot.\nThe Fisheye panorama projection compresses it, so you can fit in a wide field of view and still have a reasonable coverage of the middle.");
+            } else rectilinear_option = true;
+            break;
+        default:
+            rectilinear_option = true;
+    }
+    if (rectilinear_option && maxfov < 110.0) {
+        message = _("Setting the panorama to rectilinear projection would keep the straight lines straight.");
+    }
+    if (message.IsEmpty()) {
+        // no message needed.
+#if wxCHECK_VERSION(2, 9, 0)
+        m_infoBar->Dismiss();
+#else
+        if (m_projectionStatusPushed) {
+            m_projectionStatusPushed = false;
+            GetStatusBar()->PopStatusText();
+        }
+#endif
+    } else {
+#if wxCHECK_VERSION(2, 9, 0)
+        /** @todo If the projection information bar was closed manually, don't show any more messages there.
+         * It should probably be stored as a configuration setting so it persits
+         * until "Load defaults" is selected on the preferences window.
+         */
+        m_infoBar->ShowMessage(message, wxICON_INFORMATION);
+#else
+        if (m_projectionStatusPushed) {
+            GetStatusBar()->PopStatusText();
+        }
+        /** @todo The message doesn't really fit in the status bar, so we should have some other GUI arrangement or remove this feature.
+         * On my system, the status bar remains too short to contain the two
+         * lines of text in the message.
+         */
+        GetStatusBar()->PushStatusText(message);
+        m_projectionStatusPushed = true;
+#endif
+    }
+};
+

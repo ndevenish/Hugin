@@ -37,6 +37,7 @@ class wxSlider;
 class GLViewer;
 class wxSpinEvent;
 class wxChoice;
+class wxInfoBar;
 
 class PreviewToolHelper;
 class PreviewTool;
@@ -180,6 +181,13 @@ private:
     wxTextCtrl * m_exposureTextCtrl;
     wxBitmapButton * m_defaultExposureBut;
     wxSpinButton * m_exposureSpinBut;
+#if wxCHECK_VERSION(2, 9, 0)
+    /// Bar for context sensitive projection information.
+    wxInfoBar * m_infoBar;
+#else
+    // True if the status bar text has been replaced with projection information
+    bool m_projectionStatusPushed;
+#endif
 
     wxString m_choices[3];
     int m_oldProjFormat;
@@ -216,6 +224,12 @@ private:
     PreviewLayoutLinesTool *m_layoutLinesTool;
     void TurnOffTools(std::set<PreviewTool*> tools);
     void CleanButtonColours();
+    /** Tell the user anything suspicious about the projection choice.
+     * If nothing is suspicious, any previous message is removed.
+     * In wxWidgets 2.9, this appears as an wxInfoBar. Older versions do not
+     * have this. so the status bar is used instead.
+     */
+    void ShowProjectionWarnings();
 };
 
 
