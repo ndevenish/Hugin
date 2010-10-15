@@ -706,7 +706,7 @@ void ImagesListMask::UpdateItem(unsigned int imgNr)
 {
     wxString maskstr;
     if(pano->getImage(imgNr).hasMasks())
-        maskstr=wxString::Format(wxT("%d"), pano->getImage(imgNr).getMasks().size());
+        maskstr=wxString::Format(wxT("%lu"), (unsigned long int) pano->getImage(imgNr).getMasks().size());
     else
         maskstr=wxT("-");
     SetItem(imgNr, 1, maskstr);
