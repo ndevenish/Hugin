@@ -9,7 +9,6 @@
       <orient>wxVERTICAL</orient>
       <object class="sizeritem">
         <object class="wxPanel">
-          <style>wxNO_3D</style>
           <bg>#FFFFFF</bg>
           <object class="wxBoxSizer">
             <orient>wxVERTICAL</orient>

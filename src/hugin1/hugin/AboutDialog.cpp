@@ -81,18 +81,25 @@ AboutDialog::AboutDialog(wxWindow *parent)
 	// License
 	textCtrl = XRCCTRL(*this, "license_txt", wxTextCtrl);
     strFile = huginApp::Get()->GetXRCPath() + wxT("data/COPYING");
+#ifndef _WINDOWS
 	textCtrl->SetFont(font);
+#endif
 	textCtrl->LoadFile(strFile);
 
 	// About
 	textCtrl = XRCCTRL(*this, "about_txt", wxTextCtrl);
+#ifndef _WINDOWS
+    textCtrl->SetFont(font);
+#endif
     strFile = huginApp::Get()->GetXRCPath() + wxT("data/about.txt");
 	textCtrl->LoadFile(strFile);
 
 	// Upstream
 	textCtrl = XRCCTRL(*this, "upstream_txt", wxTextCtrl);
     strFile = huginApp::Get()->GetXRCPath() + wxT("data/upstream.txt");
+#ifndef _WINDOWS
 	textCtrl->SetFont(font);
+#endif
 	textCtrl->LoadFile(strFile);
     GetSystemInformation(&font);
 
@@ -124,7 +131,9 @@ void AboutDialog::OnAboutMe(wxCommandEvent & e)
 void AboutDialog::GetSystemInformation(wxFont *font)
 {
     wxTextCtrl* infoText=XRCCTRL(*this,"system_txt",wxTextCtrl);
+#ifndef _WINDOWS
     infoText->SetFont(*font);
+#endif
     wxString text;
     text=wxString::Format(_("Operating System: %s"),wxGetOsDescription().c_str());
     wxString is64;
