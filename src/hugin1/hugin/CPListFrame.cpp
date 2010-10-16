@@ -72,7 +72,11 @@ END_EVENT_TABLE()
 
 static Panorama * g_pano;
 
+#if wxCHECK_VERSION(2,9,0)
+static int wxCALLBACK compareError(long item1, long item2, wxIntPtr sortData)
+#else
 static int wxCALLBACK compareError(long item1, long item2, long sortData)
+#endif
 {
     const ControlPoint &p1 = g_pano->getCtrlPoint(item1);
     const ControlPoint &p2 = g_pano->getCtrlPoint(item2);
@@ -84,7 +88,11 @@ static int wxCALLBACK compareError(long item1, long item2, long sortData)
         return 0;
 }
 
+#if wxCHECK_VERSION(2,9,0)
+static int wxCALLBACK compareErrorGreater(long item1, long item2, wxIntPtr sortData)
+#else
 static int wxCALLBACK compareErrorGreater(long item1, long item2, long sortData)
+#endif
 {
     const ControlPoint &p1 = g_pano->getCtrlPoint(item1);
     const ControlPoint &p2 = g_pano->getCtrlPoint(item2);
@@ -96,7 +104,11 @@ static int wxCALLBACK compareErrorGreater(long item1, long item2, long sortData)
         return 0;
 }
 
+#if wxCHECK_VERSION(2,9,0)
+static int wxCALLBACK compareCPNr(long item1, long item2, wxIntPtr sortData)
+#else
 static int wxCALLBACK compareCPNr(long item1, long item2, long sortData)
+#endif
 {
     if (item1 < item2)
         return -1;
@@ -106,7 +118,11 @@ static int wxCALLBACK compareCPNr(long item1, long item2, long sortData)
         return 0;
 }
 
+#if wxCHECK_VERSION(2,9,0)
+static int wxCALLBACK compareCPNrGreater(long p1, long p2, wxIntPtr sortData)
+#else
 static int wxCALLBACK compareCPNrGreater(long p1, long p2, long sortData)
+#endif
 {
     if (p1 > p2)
         return -1;
@@ -116,7 +132,11 @@ static int wxCALLBACK compareCPNrGreater(long p1, long p2, long sortData)
         return 0;
 }
 
+#if wxCHECK_VERSION(2,9,0)
+static int wxCALLBACK compareImg1Nr(long item1, long item2, wxIntPtr sortData)
+#else
 static int wxCALLBACK compareImg1Nr(long item1, long item2, long sortData)
+#endif
 {
     const ControlPoint &p1 = g_pano->getCtrlPoint(item1);
     const ControlPoint &p2 = g_pano->getCtrlPoint(item2);
@@ -128,7 +148,11 @@ static int wxCALLBACK compareImg1Nr(long item1, long item2, long sortData)
         return 0;
 }
 
+#if wxCHECK_VERSION(2,9,0)
+static int wxCALLBACK compareImg1NrGreater(long item1, long item2, wxIntPtr sortData)
+#else
 static int wxCALLBACK compareImg1NrGreater(long item1, long item2, long sortData)
+#endif
 {
     const ControlPoint &p1 = g_pano->getCtrlPoint(item1);
     const ControlPoint &p2 = g_pano->getCtrlPoint(item2);
@@ -140,7 +164,11 @@ static int wxCALLBACK compareImg1NrGreater(long item1, long item2, long sortData
         return 0;
 }
 
+#if wxCHECK_VERSION(2,9,0)
+static int wxCALLBACK compareImg2Nr(long item1, long item2, wxIntPtr sortData)
+#else
 static int wxCALLBACK compareImg2Nr(long item1, long item2, long sortData)
+#endif
 {
     const ControlPoint &p1 = g_pano->getCtrlPoint(item1);
     const ControlPoint &p2 = g_pano->getCtrlPoint(item2);
@@ -152,7 +180,11 @@ static int wxCALLBACK compareImg2Nr(long item1, long item2, long sortData)
         return 0;
 }
 
+#if wxCHECK_VERSION(2,9,0)
+static int wxCALLBACK compareImg2NrGreater(long item1, long item2, wxIntPtr sortData)
+#else
 static int wxCALLBACK compareImg2NrGreater(long item1, long item2, long sortData)
+#endif
 {
     const ControlPoint &p1 = g_pano->getCtrlPoint(item1);
     const ControlPoint &p2 = g_pano->getCtrlPoint(item2);
@@ -164,7 +196,11 @@ static int wxCALLBACK compareImg2NrGreater(long item1, long item2, long sortData
         return 0;
 }
 
+#if wxCHECK_VERSION(2,9,0)
+static int wxCALLBACK compareMode(long item1, long item2, wxIntPtr sortData)
+#else
 static int wxCALLBACK compareMode(long item1, long item2, long sortData)
+#endif
 {
     const ControlPoint &p1 = g_pano->getCtrlPoint(item1);
     const ControlPoint &p2 = g_pano->getCtrlPoint(item2);
@@ -176,7 +212,11 @@ static int wxCALLBACK compareMode(long item1, long item2, long sortData)
         return 0;
 }
 
+#if wxCHECK_VERSION(2,9,0)
+static int wxCALLBACK compareModeGreater(long item1, long item2, wxIntPtr sortData)
+#else
 static int wxCALLBACK compareModeGreater(long item1, long item2, long sortData)
+#endif
 {
     const ControlPoint &p1 = g_pano->getCtrlPoint(item1);
     const ControlPoint &p2 = g_pano->getCtrlPoint(item2);
