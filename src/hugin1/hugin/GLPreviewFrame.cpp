@@ -164,7 +164,7 @@ void AddLabelToBitmapButton(wxBitmapButton* button, wxString new_label,bool Text
     int new_height=0;
     int text_height=0;
     int text_width=0;
-    button->GetTextExtent(new_label, &text_width,&text_height);
+    button->GetTextExtent(new_label.append(wxT(" ")), &text_width,&text_height);
     if(TextBelow)
     {
         new_height=23+text_height;
