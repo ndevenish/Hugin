@@ -34,6 +34,7 @@ class wxSpinCtrl;
 class wxTextCtrl;
 class wxChoice;
 class wxComboBox;
+class wxCollapsiblePaneEvent;
 
 class StitcherPanel;
 
@@ -110,6 +111,7 @@ public:
     void ProjectionChanged(wxCommandEvent & e);
 
     void OnOutputFilesChanged(wxCommandEvent & e);
+    void OnExtraImagesPaneChanged(wxCollapsiblePaneEvent& event);
     void RemapperChanged(wxCommandEvent & e);
     void OnRemapperOptions(wxCommandEvent & e);
 

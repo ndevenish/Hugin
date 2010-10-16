@@ -426,7 +426,7 @@
                     </object>
                         
                       </object>
-                      <flag>wxTOP</flag>
+                      <flag>wxTOP|wxEXPAND</flag>
                       <border>6</border>
                     </object>
                   </object>
@@ -438,7 +438,7 @@
                     <orient>wxVERTICAL</orient>
                     <object class="sizeritem">
                       <object class="wxStaticText">
-                        <label>Output</label>
+                        <label>Panorama Outputs</label>
                         <font>
                           <style platform="mac">normal</style>
                           <family platform="mac">swiss</family>
@@ -448,127 +448,103 @@
                       </object>
                       <cellpos>6,0</cellpos>
                       <cellspan>0,4</cellspan>
-                      <flag>wxTOP|wxALIGN_BOTTOM</flag>
+                      <flag>wxTOP|wxALIGN_BOTTOM|wxEXPAND</flag>
                       <border>6</border>
                     </object>
                     <object class="sizeritem">
                       <object class="wxBoxSizer">
-                        <orient>wxHORIZONTAL</orient>
+                        <orient>wxVERTICAL</orient>
                         <object class="sizeritem">
-                          <object class="wxBoxSizer">
-                            <orient>wxVERTICAL</orient>
-                            <object class="sizeritem">
-                              <object class="wxStaticText" name="">
-                                <label>Normal</label>
-                                <tooltip>For panoramas with no bracketed stacks, minor exposure differences set in the Exposure tab will be corrected</tooltip>
-                              </object>
-                              <cellpos>7,0</cellpos>
-                              <cellspan>0,2</cellspan>
-                              <flag>wxTOP|wxBOTTOM|wxALIGN_BOTTOM</flag>
-                              <border>3</border>
-                            </object>
-                            <object class="sizeritem">
-                              <object class="wxCheckBox" name="pano_cb_ldr_output_blended">
-                                <label>Blended panorama</label>
-                                <tooltip>Blend all images into a seamless panorama</tooltip>
-                              </object>
-                            </object>
-                            <object class="sizeritem">
-                              <object class="wxCheckBox" name="pano_cb_ldr_output_layers">
-                                <label>Remapped images</label>
-                                <tooltip>Keep remapped and exposure-corrected intermediate images</tooltip>
-                              </object>
-                            </object>
+                          <flag>wxEXPAND</flag>
+                          <object class="wxCheckBox" name="pano_cb_ldr_output_blended">
+                            <label>Exposure corrected, low dynamic range panorama</label>
+                            <tooltip>Blend all images into a seamless panorama, using exposure set in the Exposure tab</tooltip>
                           </object>
-                          <flag>wxLEFT</flag>
-                          <border>12</border>
-                          <cellpos>8,0</cellpos>
-                          <cellspan>0,2</cellspan>
                         </object>
                         <object class="sizeritem">
-                          <object class="wxBoxSizer">
-                            <orient>wxVERTICAL</orient>
-                            <object class="sizeritem">
-                              <object class="wxStaticText" name="">
-                                <label>Exposure fusion</label>
-                                <tooltip>For panoramas containing bracketed stacks</tooltip>
-                              </object>
-                              <cellpos>7,2</cellpos>
-                              <cellspan>0,2</cellspan>
-                              <flag>wxTOP|wxBOTTOM</flag>
-                              <border>3</border>
-                            </object>
-                            <object class="sizeritem">
-                              <object class="wxCheckBox" name="pano_cb_ldr_output_exposure_blended">
-                                <label>Fused and blended panorama</label>
-                                <tooltip>Images will be remapped, stacks exposure fused, then blended into a seamless panorama</tooltip>
-                              </object>
-                            </object>
-                            <object class="sizeritem">
-                              <object class="wxCheckBox" name="pano_cb_ldr_output_exposure_layers_fused">
-                                <label>Blended and fused panorama</label>
-                                <tooltip>Images will be remapped, blended into seamless layers, then layers exposure fused into a panorama</tooltip>
-                              </object>
-                            </object>
-                            <object class="sizeritem">
-                              <object class="wxCheckBox" name="pano_cb_ldr_output_exposure_layers">
-                                <label>Blended exposure layers</label>
-                                <tooltip>Output a complete blended panorama of each exposure step. Useful for manual contrast blending in an image editor</tooltip>
-                              </object>
-                            </object>
-                            <object class="sizeritem">
-                              <object class="wxCheckBox" name="pano_cb_ldr_output_exposure_remapped">
-                                <label>Remapped images</label>
-                                <tooltip>Keep remapped intermediate images with unmodified exposure</tooltip>
-                              </object>
-                            </object>
+                          <flag>wxEXPAND</flag>
+                          <object class="wxCheckBox" name="pano_cb_ldr_output_exposure_blended">
+                            <label>Exposure fused panorama from stacks</label>
+                            <tooltip>Images will be remapped, stacks exposure fused, then blended into a seamless panorama</tooltip>
                           </object>
-                          <flag>wxLEFT</flag>
-                          <border>18</border>
-                          <cellpos>8,2</cellpos>
-                          <cellspan>0,2</cellspan>
                         </object>
                         <object class="sizeritem">
-                          <object class="wxBoxSizer">
-                            <orient>wxVERTICAL</orient>
-                            <object class="sizeritem">
-                              <object class="wxStaticText" name="">
-                                <label>HDR merging</label>
-                                <tooltip>For panoramas containing bracketed stacks where High Dynamic Range output is required for tonemapping or as a lightprobe</tooltip>
-                              </object>
-                              <cellpos>7,4</cellpos>
-                              <cellspan>0,2</cellspan>
-                              <flag>wxTOP|wxBOTTOM|wxALIGN_BOTTOM</flag>
-                              <border>3</border>
-                            </object>
-                            <object class="sizeritem">
-                              <object class="wxCheckBox" name="pano_cb_hdr_output_blended">
-                                <label>Merged and blended panorama</label>
-                                <tooltip>Images will be remapped in linear color space, stacks merged, then blended into a seamless High Dynamic Range panorama</tooltip>
-                              </object>
-                            </object>
-                            <object class="sizeritem">
-                              <object class="wxCheckBox" name="pano_cb_hdr_output_stacks">
-                                <label>Remapped merged stacks</label>
-                                <tooltip>Keep the intermediate High Dynamic Range merged stacks</tooltip>
-                              </object>
-                            </object>
-                            <object class="sizeritem">
-                              <object class="wxCheckBox" name="pano_cb_hdr_output_layers">
-                                <label>Remapped images</label>
-                                <tooltip>Keep the intermediate remapped unmerged linear color space images</tooltip>
-                              </object>
-                            </object>
+                          <flag>wxEXPAND</flag>
+                          <object class="wxCheckBox" name="pano_cb_ldr_output_exposure_layers_fused">
+                            <label>Exposure fused panorama from any arrangement</label>
+                            <tooltip>Images will be remapped, blended into seamless layers, then layers exposure fused into a panorama</tooltip>
                           </object>
-                          <flag>wxLEFT</flag>
-                          <border>18</border>
-                          <cellpos>8,4</cellpos>
-                          <cellspan>0,2</cellspan>
+                        </object>
+                        <object class="sizeritem">
+                          <flag>wxEXPAND</flag>
+                          <object class="wxCheckBox" name="pano_cb_hdr_output_blended">
+                            <label>High dynamic range panorama</label>
+                            <tooltip>Images will be remapped in linear color space, stacks merged, then blended into a seamless High Dynamic Range panorama</tooltip>
+                          </object>
                         </object>
                       </object>
+                      <flag>wxLEFT|wxEXPAND</flag>
+                      <border>12</border>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxCollapsiblePane" name="pano_cp_images_for_manual_editing">
+                        <label>Image generation for manual editing</label>
+                        <collapsed>1</collapsed>
+                        <style>wxCP_DEFAULT_STYLE|wxCP_NO_TLW_RESIZE</style>
+                        <object class="panewindow">
+                          <object class="wxBoxSizer">
+                            <object class="sizeritem">
+                              <object class="wxBoxSizer">
+                                <orient>wxVERTICAL</orient>
+                                <object class="sizeritem">
+                                  <flag>wxEXPAND</flag>
+                                  <object class="wxCheckBox" name="pano_cb_ldr_output_layers">
+                                    <label>Remapped, exposure corrected, low dynamic range images</label>
+                                    <tooltip>Output remapped, exposure corrected images. Useful for manual blending of an exposure corrected panorama.</tooltip>
+                                  </object>
+                                </object>
+                                <object class="sizeritem">
+                                  <flag>wxEXPAND</flag>
+                                  <object class="wxCheckBox" name="pano_cb_ldr_output_exposure_layers">
+                                    <label>Blended layers of similar exposure, without exposure correction</label>
+                                    <tooltip>Output a complete blended panorama for each exposure step. Useful for manual contrast blending in an image editor.</tooltip>
+                                  </object>
+                                </object>
+                                <object class="sizeritem">
+                                  <flag>wxEXPAND</flag>
+                                  <object class="wxCheckBox" name="pano_cb_ldr_output_exposure_remapped">
+                                    <label>Remapped images without exposure correction</label>
+                                    <tooltip>Output remapped images with unmodified exposure. Useful for manual exposure fusing.</tooltip>
+                                  </object>
+                                </object>
+                                <object class="sizeritem">
+                                  <flag>wxEXPAND</flag>
+                                  <object class="wxCheckBox" name="pano_cb_hdr_output_stacks">
+                                    <label>Remapped HDR merged stacks</label>
+                                    <tooltip>Output remapped High Dynamic Range merged stacks</tooltip>
+                                  </object>
+                                </object>
+                                <object class="sizeritem">
+                                  <flag>wxEXPAND</flag>
+                                  <object class="wxCheckBox" name="pano_cb_hdr_output_layers">
+                                    <label>Output remapped HDR images</label>
+                                    <tooltip>Keep the intermediate remapped (but not merged) linear color space images</tooltip>
+                                  </object>
+                                </object>
+                              </object>
+                              <!-- TODO The expands work on the button part of the collapsible plane, but not the contents.
+                                   GTK users probably expect the checkboxes inside to be as wide as the window.
+                                   They would also expect the mouseover highlight on the button, but wxWidgets doesn't do that.-->
+                              <flag>wxLEFT|wxEXPAND</flag>
+                              <border>12</border>
+                            </object>
+                          </object>
+                        </object>
+                      </object>
+                      <flag>wxEXPAND</flag>
                     </object>
                   </object>
-                  <flag>wxTOP|wxLEFT</flag>
+                  <flag>wxTOP|wxLEFT|wxEXPAND</flag>
                   <border>6</border>
                 </object>
                 <object class="spacer">
