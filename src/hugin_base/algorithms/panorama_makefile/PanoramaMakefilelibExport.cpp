@@ -1251,8 +1251,6 @@ void PanoramaMakefilelibExport::printSystemInfo(Rule& inforule)
     inforule.addCommand("system_profiler SPSoftwareDataType SPHardwareDataType", false, true);
     echoInfo(inforule,"Disc usage");
     inforule.addCommand("df -h", false, true);
-    echoInfo(inforule,"Memory usage");
-    inforule.addCommand("free -m", false, true);
 #else
     inforule.addCommand("echo -n 'Operating system: '", false);
     inforule.addCommand("uname -o", false, true);
