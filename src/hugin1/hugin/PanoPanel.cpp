@@ -92,7 +92,8 @@ BEGIN_EVENT_TABLE(PanoPanel, wxPanel)
     EVT_CHECKBOX ( XRCID("pano_cb_hdr_output_blended"), PanoPanel::OnOutputFilesChanged)
     EVT_CHECKBOX ( XRCID("pano_cb_hdr_output_stacks"), PanoPanel::OnOutputFilesChanged)
     EVT_CHECKBOX ( XRCID("pano_cb_hdr_output_layers"), PanoPanel::OnOutputFilesChanged)
-    EVT_COLLAPSIBLEPANE_CHANGED( XRCID("pano_cp_images_for_manual_editing"), PanoPanel::OnExtraImagesPaneChanged)
+    EVT_COLLAPSIBLEPANE_CHANGED( XRCID("pano_cp_images_for_manual_editing"), PanoPanel::OnCollapsiblePaneChanged)
+    EVT_COLLAPSIBLEPANE_CHANGED( XRCID("pano_cp_processing"), PanoPanel::OnCollapsiblePaneChanged)
 
     EVT_CHOICE ( XRCID("pano_choice_remapper"),PanoPanel::RemapperChanged )
     EVT_BUTTON ( XRCID("pano_button_remapper_opts"),PanoPanel::OnRemapperOptions )
@@ -536,6 +537,14 @@ void PanoPanel::UpdateDisplay(const PanoramaOptions & opt, const bool hasStacks)
     m_HDRFileFormatChoice->SetSelection(i);
 
     m_pano_ctrls->FitInside();
+    // When widgets are shown or hidden in the processing pane, its size does not update.
+    // Workaround:
+    wxCollapsiblePane * pane =  XRCCTRL(*this, "pano_cp_processing", wxCollapsiblePane);
+    if (pane->IsExpanded()) {
+        
+        pane->Collapse();
+        pane->Expand();
+    }
     Layout();
 
 #ifdef __WXMSW__
@@ -1290,9 +1299,9 @@ void PanoPanel::OnOutputFilesChanged(wxCommandEvent & e)
         );
 }
 
-void PanoPanel::OnExtraImagesPaneChanged(wxCollapsiblePaneEvent& event)
+void PanoPanel::OnCollapsiblePaneChanged(wxCollapsiblePaneEvent& event)
 {
-    // The amount of space of space the collapsible pane takes has just changed,
+    // The amount of space of space a collapsible pane takes has just changed:
     // recalculate the widget positions.
     Layout();
 }
