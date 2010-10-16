@@ -111,7 +111,7 @@ public:
     void ProjectionChanged(wxCommandEvent & e);
 
     void OnOutputFilesChanged(wxCommandEvent & e);
-    void OnExtraImagesPaneChanged(wxCollapsiblePaneEvent& event);
+    void OnCollapsiblePaneChanged(wxCollapsiblePaneEvent& event);
     void RemapperChanged(wxCommandEvent & e);
     void OnRemapperOptions(wxCommandEvent & e);
 
