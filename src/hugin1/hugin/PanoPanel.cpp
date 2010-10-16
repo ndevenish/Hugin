@@ -468,19 +468,19 @@ void PanoPanel::UpdateDisplay(const PanoramaOptions & opt, const bool hasStacks)
                           opt.outputLDRExposureLayers || 
                           opt.outputHDRBlended;
 
-    m_BlenderChoice->Show(blenderEnabled);
-    XRCCTRL(*this, "pano_button_blender_opts", wxButton)->Show(blenderEnabled);
-    XRCCTRL(*this, "pano_text_blender", wxStaticText)->Show(blenderEnabled);
+    m_BlenderChoice->Enable(blenderEnabled);
+    XRCCTRL(*this, "pano_button_blender_opts", wxButton)->Enable(blenderEnabled);
+    XRCCTRL(*this, "pano_text_blender", wxStaticText)->Enable(blenderEnabled);
 
     bool fusionEnabled = (opt.outputLDRExposureBlended || opt.outputLDRExposureLayersFused);
-    m_FusionChoice->Show(fusionEnabled);
-    XRCCTRL(*this, "pano_button_fusion_opts", wxButton)->Show(fusionEnabled);
-    XRCCTRL(*this, "pano_text_fusion", wxStaticText)->Show(fusionEnabled);
+    m_FusionChoice->Enable(fusionEnabled);
+    XRCCTRL(*this, "pano_button_fusion_opts", wxButton)->Enable(fusionEnabled);
+    XRCCTRL(*this, "pano_text_fusion", wxStaticText)->Enable(fusionEnabled);
 
     bool hdrMergeEnabled = opt.outputHDRBlended || opt.outputHDRStacks;
-    m_HDRMergeChoice->Show(hdrMergeEnabled);
-    XRCCTRL(*this, "pano_button_hdrmerge_opts", wxButton)->Show(hdrMergeEnabled);
-    XRCCTRL(*this, "pano_text_hdrmerge", wxStaticText)->Show(hdrMergeEnabled);
+    m_HDRMergeChoice->Enable(hdrMergeEnabled);
+    XRCCTRL(*this, "pano_button_hdrmerge_opts", wxButton)->Enable(hdrMergeEnabled);
+    XRCCTRL(*this, "pano_text_hdrmerge", wxStaticText)->Enable(hdrMergeEnabled);
 
     // output file mode
     long i=0;
@@ -537,14 +537,6 @@ void PanoPanel::UpdateDisplay(const PanoramaOptions & opt, const bool hasStacks)
     m_HDRFileFormatChoice->SetSelection(i);
 
     m_pano_ctrls->FitInside();
-    // When widgets are shown or hidden in the processing pane, its size does not update.
-    // Workaround:
-    wxCollapsiblePane * pane =  XRCCTRL(*this, "pano_cp_processing", wxCollapsiblePane);
-    if (pane->IsExpanded()) {
-        
-        pane->Collapse();
-        pane->Expand();
-    }
     Layout();
 
 #ifdef __WXMSW__
@@ -1304,6 +1296,9 @@ void PanoPanel::OnCollapsiblePaneChanged(wxCollapsiblePaneEvent& event)
     // The amount of space of space a collapsible pane takes has just changed:
     // recalculate the widget positions.
     Layout();
+#ifdef __WXMSW__
+    this->Refresh(false);
+#endif
 }
 
 bool PanoPanel::CheckGoodSize()
