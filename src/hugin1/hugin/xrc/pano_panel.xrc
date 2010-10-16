@@ -413,7 +413,9 @@
                             <label>Exposure corrected, low dynamic range panorama</label>
                             <tooltip>Blend all images into a seamless panorama, using exposure set in the Exposure tab</tooltip>
                           </object>
-                          <flag>wxEXPAND|wxTOP|wxBOTTOM</flag>
+                          <flag platform="unix|mac">wxEXPAND|wxTOP|wxBOTTOM</flag>
+                          <!-- don't use expand on wxCheckbox on Windows, this makes also the big empty space right the checkbox to react to mouse clicks -->
+                          <flag platform="win">wxTOP|wxBOTTOM</flag>
                           <border>2</border>
                         </object>
                         <object class="sizeritem">
@@ -421,7 +423,8 @@
                             <label>Exposure fused panorama from stacks</label>
                             <tooltip>Images will be remapped, stacks exposure fused, then blended into a seamless panorama</tooltip>
                           </object>
-                          <flag>wxEXPAND|wxTOP|wxBOTTOM</flag>
+                          <flag platform="unix|mac">wxEXPAND|wxTOP|wxBOTTOM</flag>
+                          <flag platform="win">wxTOP|wxBOTTOM</flag>
                           <border>2</border>
                         </object>
                         <object class="sizeritem">
@@ -429,7 +432,8 @@
                             <label>Exposure fused panorama from any arrangement</label>
                             <tooltip>Images will be remapped, blended into seamless layers, then layers exposure fused into a panorama</tooltip>
                           </object>
-                          <flag>wxEXPAND|wxTOP|wxBOTTOM</flag>
+                          <flag platform="unix|mac">wxEXPAND|wxTOP|wxBOTTOM</flag>
+                          <flag platform="win">wxTOP|wxBOTTOM</flag>
                           <border>2</border>
                         </object>
                         <object class="sizeritem">
@@ -437,7 +441,8 @@
                             <label>High dynamic range panorama</label>
                             <tooltip>Images will be remapped in linear color space, stacks merged, then blended into a seamless High Dynamic Range panorama</tooltip>
                           </object>
-                          <flag>wxEXPAND|wxTOP|wxBOTTOM</flag>
+                          <flag platform="unix|mac">wxEXPAND|wxTOP|wxBOTTOM</flag>
+                          <flag platform="win">wxTOP|wxBOTTOM</flag>
                           <border>2</border>
                         </object>
                       </object>
@@ -465,7 +470,8 @@
                                 <label>Remapped, exposure corrected, low dynamic range images</label>
                                 <tooltip>Output remapped, exposure corrected images. Useful for manual blending of an exposure corrected panorama.</tooltip>
                               </object>
-                              <flag>wxEXPAND|wxTOP|wxBOTTOM</flag>
+                              <flag platform="unix|mac">wxEXPAND|wxTOP|wxBOTTOM</flag>
+                              <flag platform="win">wxTOP|wxBOTTOM</flag>
                               <border>2</border>
                             </object>
                             <object class="sizeritem">
@@ -473,7 +479,8 @@
                                 <label>Blended layers of similar exposure, without exposure correction</label>
                                 <tooltip>Output a complete blended panorama for each exposure step. Useful for manual contrast blending in an image editor.</tooltip>
                               </object>
-                              <flag>wxEXPAND|wxTOP|wxBOTTOM</flag>
+                              <flag platform="unix|mac">wxEXPAND|wxTOP|wxBOTTOM</flag>
+                              <flag platform="win">wxTOP|wxBOTTOM</flag>
                               <border>2</border>
                             </object>
                             <object class="sizeritem">
@@ -481,7 +488,8 @@
                                 <label>Remapped images without exposure correction</label>
                                 <tooltip>Output remapped images with unmodified exposure. Useful for manual exposure fusing.</tooltip>
                               </object>
-                              <flag>wxEXPAND|wxTOP|wxBOTTOM</flag>
+                              <flag platform="unix|mac">wxEXPAND|wxTOP|wxBOTTOM</flag>
+                              <flag platform="win">wxTOP|wxBOTTOM</flag>
                               <border>2</border>
                             </object>
                             <object class="sizeritem">
@@ -489,7 +497,8 @@
                                 <label>Remapped HDR merged stacks</label>
                                 <tooltip>Output remapped High Dynamic Range merged stacks</tooltip>
                               </object>
-                              <flag>wxEXPAND|wxTOP|wxBOTTOM</flag>
+                              <flag platform="unix|mac">wxEXPAND|wxTOP|wxBOTTOM</flag>
+                              <flag platform="win">wxTOP|wxBOTTOM</flag>
                               <border>2</border>
                             </object>
                             <object class="sizeritem">
@@ -497,7 +506,8 @@
                                 <label>Output remapped HDR images</label>
                                 <tooltip>Keep the intermediate remapped (but not merged) linear color space images</tooltip>
                               </object>
-                              <flag>wxEXPAND|wxTOP|wxBOTTOM</flag>
+                              <flag platform="unix|mac">wxEXPAND|wxTOP|wxBOTTOM</flag>
+                              <flag platform="win">wxTOP|wxBOTTOM</flag>
                               <border>2</border>
                             </object>
                           </object>
