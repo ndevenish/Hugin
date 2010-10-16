@@ -37,7 +37,12 @@ class wxSlider;
 class GLViewer;
 class wxSpinEvent;
 class wxChoice;
-class wxInfoBar;
+#if wxCHECK_VERSION(2,9,0)
+//forward declaration for wxInfoBar works only for wxGTK
+//for other systems wxInfoBar is defined as preprocessor macro and not as class
+//class wxInfoBar;
+#include <wx/infobar.h>
+#endif
 
 class PreviewToolHelper;
 class PreviewTool;
