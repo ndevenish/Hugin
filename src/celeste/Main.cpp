@@ -35,6 +35,13 @@
  #include <unistd.h>
 #endif
 
+#ifdef __APPLE__
+#include <hugin_config.h>
+#include <mach-o/dyld.h>	/* _NSGetExecutablePath */
+#include <limits.h>		/* PATH_MAX */
+#include <libgen.h>		/* dirname */
+#endif
+
 using namespace std;
 using namespace HuginBase;
 using namespace AppBase;
@@ -298,6 +305,18 @@ int main(int argc, char* argv[])
                 install_path_model=working_path;
             }
         }
+#elif defined MAC_SELF_CONTAINED_BUNDLE
+        //string install_path_model = ("./xrc/");
+		char path[PATH_MAX + 1];
+		uint32_t size = sizeof(path);
+		string install_path_model("");
+		if (_NSGetExecutablePath(path, &size) == 0)
+		{
+			//install_path_model=path;
+			install_path_model=dirname(path);
+			install_path_model.append("/xrc/");
+			cout << "Detected path " << install_path_model << endl << endl;
+		}
 #else
         string install_path_model = (INSTALL_DATA_DIR);
 #endif
