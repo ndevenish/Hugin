@@ -30,6 +30,9 @@
 
 #ifdef _WINDOWS
 #include <windows.h>
+#include <getopt.h>
+#else
+ #include <unistd.h>
 #endif
 
 using namespace std;
@@ -178,7 +181,8 @@ std::string generateMaskName(string imagefile,string mask_format)
 };
 
 
-int main(int argc, const char* argv[]){
+int main(int argc, char* argv[])
+{
 
     // Exit with usage unless filename given as argument
     if (argc < 2)
@@ -187,7 +191,7 @@ int main(int argc, const char* argv[]){
     }
 
     unsigned int i = 1, mask = 0;
-	double threshold = 0.5;
+    double threshold = 0.5;
     vector<string> images_to_mask;
     string pto_file = (""),output_pto = ("");
     string mask_format = ("PNG");
@@ -196,37 +200,81 @@ int main(int argc, const char* argv[]){
     int resize_dimension=800;
 
     // Deal with arguments
-    while(i < argc)
+    // parse arguments
+    int c;
+    const char * optstring = "i:o:d:s:t:m:f:r:h";
+
+    while ((c = getopt (argc, argv, optstring)) != -1)
     {
-        if( argv[i][0] == '-'){
+        switch(c)
+        {
+            case 'h': 
+                usage();
+                break;
+            case 'i':
+                pto_file=optarg;
+                break;
+            case 'o':
+                output_pto=optarg;
+                break;
+            case 't':
+                threshold = atof(optarg);
+                if(threshold<=0 || threshold>1)
+                {
+                    cerr << "Invalid parameter: threshold (-t) should be between 0 and 1" << std::endl;
+                    return 1;
+                };
+                break;
+            case 'm': 
+                mask = atoi(optarg);
+                if(mask<0 || mask>1)
+                {
+                    cerr << "Invalid parameter: mask parameter (-m) can only be 0 or 1" << std::endl;
+                    return 1;
+                };
+                break;
+            case 'f': 
+                mask_format = optarg; 
+                break;
+            case 'd':
+                model_file = optarg;
+                break;
+            case 'r': 
+                course_fine = atoi(optarg);
+                break;
+            case 's': 
+                resize_dimension = atoi(optarg);
+                if(resize_dimension<100)
+                {
+                    cerr << "Invalid parameter: maximum dimension (-s) should be bigger than 100" << std::endl;
+                    return 1;
+                };
+                break;
+            case ':':
+                cerr <<"Missing parameter for parameter " << argv[optind] << endl;
+                return 1;
+                break;
+            case '?': /* invalid parameter */
+                return 1;
+                break;
+            default: /* unknown */
+                usage();
+        };
+    };
+
+    while(optind<argc)
+    {
+        images_to_mask.push_back(argv[optind]);
+        optind++;
+    };
     
-    	    if (argc == 2){
-		    usage();
-	    }
+    if(images_to_mask.size()==0 && pto_file.empty())
+    {
+        cout << "No project file or image files given."<< endl;
+        return 1;
+    };
+
     
-                        i++;
-                        switch(argv[i-1][1]){
-
-                                // Put some more argument options in here later
-                                case 'h' : {usage();}
-				case 'i' : {pto_file += argv[i]; break;}
-				case 'o' : {output_pto += argv[i]; break;}
-				case 't' : {threshold = atof(argv[i]); break;}
-				case 'm' : {mask = atoi(argv[i]); break;}
-				case 'f' : {mask_format = argv[i]; break;}
-				case 'd' : {model_file = argv[i]; break;}
-				case 'r' : {course_fine = atoi(argv[i]); break;}
-				case 's' : {resize_dimension = atoi(argv[i]); break;}
-                        }
-
-   
-                }else{
-			images_to_mask.push_back(argv[i]);
-                }
-
-                i++;
-        }
-
 	// Check model file
 	if (!fileexists(model_file)){
 	
