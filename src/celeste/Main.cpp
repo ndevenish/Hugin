@@ -306,16 +306,13 @@ int main(int argc, char* argv[])
             }
         }
 #elif defined MAC_SELF_CONTAINED_BUNDLE
-        //string install_path_model = ("./xrc/");
 		char path[PATH_MAX + 1];
 		uint32_t size = sizeof(path);
 		string install_path_model("");
 		if (_NSGetExecutablePath(path, &size) == 0)
 		{
-			//install_path_model=path;
 			install_path_model=dirname(path);
-			install_path_model.append("/xrc/");
-			cout << "Detected path " << install_path_model << endl << endl;
+			install_path_model.append("/../Resources/xrc/");
 		}
 #else
         string install_path_model = (INSTALL_DATA_DIR);
