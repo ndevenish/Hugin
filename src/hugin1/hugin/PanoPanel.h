@@ -34,7 +34,6 @@ class wxSpinCtrl;
 class wxTextCtrl;
 class wxChoice;
 class wxComboBox;
-class wxCollapsiblePaneEvent;
 
 class StitcherPanel;
 
@@ -111,7 +110,6 @@ public:
     void ProjectionChanged(wxCommandEvent & e);
 
     void OnOutputFilesChanged(wxCommandEvent & e);
-    void OnCollapsiblePaneChanged(wxCollapsiblePaneEvent& event);
     void RemapperChanged(wxCommandEvent & e);
     void OnRemapperOptions(wxCommandEvent & e);
 
@@ -202,13 +200,12 @@ public:
     wxButton    * m_CalcOptROIButton;
 
     wxChoice    * m_FileFormatChoice;
-    wxPanel     * m_FileFormatPanelJPEG;
+    wxStaticText* m_FileFormatOptionsLabel;
     wxTextCtrl  * m_FileFormatJPEGQualityText;
-    wxPanel     * m_FileFormatPanelTIFF;
     wxChoice    * m_FileFormatTIFFCompChoice;
 
     wxChoice    * m_HDRFileFormatChoice;
-    wxPanel     * m_HDRFileFormatPanelTIFF;
+    wxStaticText* m_HDRFileFormatLabelTIFFCompression;
     wxChoice    * m_FileFormatHDRTIFFCompChoice;
 
     wxScrolledWindow *m_pano_ctrls;

@@ -27,7 +27,6 @@
 
 #include <config.h>
 #include <wx/stdpaths.h>
-#include <wx/collpane.h>
 
 #include "panoinc_WX.h"
 #include "panoinc.h"
@@ -92,8 +91,6 @@ BEGIN_EVENT_TABLE(PanoPanel, wxPanel)
     EVT_CHECKBOX ( XRCID("pano_cb_hdr_output_blended"), PanoPanel::OnOutputFilesChanged)
     EVT_CHECKBOX ( XRCID("pano_cb_hdr_output_stacks"), PanoPanel::OnOutputFilesChanged)
     EVT_CHECKBOX ( XRCID("pano_cb_hdr_output_layers"), PanoPanel::OnOutputFilesChanged)
-    EVT_COLLAPSIBLEPANE_CHANGED( XRCID("pano_cp_images_for_manual_editing"), PanoPanel::OnCollapsiblePaneChanged)
-    EVT_COLLAPSIBLEPANE_CHANGED( XRCID("pano_cp_processing"), PanoPanel::OnCollapsiblePaneChanged)
 
     EVT_CHOICE ( XRCID("pano_choice_remapper"),PanoPanel::RemapperChanged )
     EVT_BUTTON ( XRCID("pano_button_remapper_opts"),PanoPanel::OnRemapperOptions )
@@ -229,21 +226,19 @@ bool PanoPanel::Create(wxWindow *parent, wxWindowID id, const wxPoint& pos, cons
 
     m_FileFormatChoice = XRCCTRL(*this, "pano_choice_file_format", wxChoice);
     DEBUG_ASSERT(m_FileFormatChoice);
-    m_FileFormatPanelJPEG = XRCCTRL(*this, "pano_output_normal_opts_jpeg", wxPanel);
-    DEBUG_ASSERT(m_FileFormatPanelJPEG);
+    m_FileFormatOptionsLabel = XRCCTRL(*this, "pano_output_ldr_format_options_label", wxStaticText);
+    
     m_FileFormatJPEGQualityText = XRCCTRL(*this, "pano_output_normal_opts_jpeg_quality", wxTextCtrl);
     DEBUG_ASSERT(m_FileFormatJPEGQualityText);
     m_FileFormatJPEGQualityText->PushEventHandler(new TextKillFocusHandler(this));
 
-    m_FileFormatPanelTIFF = XRCCTRL(*this, "pano_output_normal_opts_tiff", wxPanel);
-    DEBUG_ASSERT(m_FileFormatPanelTIFF);
     m_FileFormatTIFFCompChoice = XRCCTRL(*this, "pano_output_normal_opts_tiff_compression", wxChoice);
     DEBUG_ASSERT(m_FileFormatTIFFCompChoice);
 
     m_HDRFileFormatChoice = XRCCTRL(*this, "pano_choice_hdr_file_format", wxChoice);
     DEBUG_ASSERT(m_HDRFileFormatChoice);
-    m_HDRFileFormatPanelTIFF = XRCCTRL(*this, "pano_output_hdr_opts_tiff", wxPanel);
-    DEBUG_ASSERT(m_HDRFileFormatPanelTIFF);
+    m_HDRFileFormatLabelTIFFCompression = XRCCTRL(*this, "pano_output_hdr_opts_tiff_compression_label", wxStaticText);
+    DEBUG_ASSERT(m_HDRFileFormatLabelTIFFCompression);
     m_FileFormatHDRTIFFCompChoice = XRCCTRL(*this, "pano_output_hdr_opts_tiff_compression", wxChoice);
     DEBUG_ASSERT(m_FileFormatHDRTIFFCompChoice);
 
@@ -296,9 +291,6 @@ PanoPanel::~PanoPanel(void)
 void PanoPanel::panoramaChanged (PT::Panorama &pano)
 {
     DEBUG_TRACE("");
-	bool hasImages = pano.getActiveImages().size() > 0;
-    m_StitchButton->Enable(hasImages);
-	m_BatchButton->Enable(hasImages);
 
 #ifdef STACK_CHECK //Disabled for 0.7.0 release
     const bool hasStacks = StackCheck(pano);
@@ -395,9 +387,6 @@ void PanoPanel::UpdateDisplay(const PanoramaOptions & opt, const bool hasStacks)
     m_ROITopTxt->SetValue(wxString::Format(wxT("%d"), opt.getROI().top() ));
     m_ROIBottomTxt->SetValue(wxString::Format(wxT("%d"), opt.getROI().bottom() ));
 
-    //do not stitch unless there are active images
-    m_StitchButton->Enable(hasImages);
-
     // output types
     XRCCTRL(*this, "pano_cb_ldr_output_blended",
             wxCheckBox)->SetValue(opt.outputLDRBlended);
@@ -428,13 +417,10 @@ void PanoPanel::UpdateDisplay(const PanoramaOptions & opt, const bool hasStacks)
                               opt.outputHDRStacks || 
                               opt.outputHDRLayers);
     
-    if (m_StitchButton->IsEnabled()) {
-        if(!anyOutputSelected)
-            m_StitchButton->Disable();
-    } else {
-        if(anyOutputSelected)
-            m_StitchButton->Enable();
-    }
+    //do not let the user stitch unless there are active images and an output selected.
+    bool any_output_possible = hasImages && anyOutputSelected;
+    m_StitchButton->Enable(any_output_possible);
+    m_BatchButton->Enable(any_output_possible);
 
 #ifdef STACK_CHECK //Disabled for 0.7.0 release
     if (hasStacks) {
@@ -483,50 +469,76 @@ void PanoPanel::UpdateDisplay(const PanoramaOptions & opt, const bool hasStacks)
     XRCCTRL(*this, "pano_text_hdrmerge", wxStaticText)->Enable(hdrMergeEnabled);
 
     // output file mode
+    bool ldr_pano_enabled = opt.outputLDRBlended ||
+                            opt.outputLDRExposureBlended ||
+                            opt.outputLDRExposureLayersFused;
+    
+    XRCCTRL(*this, "pano_output_ldr_format_label", wxStaticText)->Enable(ldr_pano_enabled);
+    m_FileFormatOptionsLabel->Enable(ldr_pano_enabled);
+    m_FileFormatChoice->Enable(ldr_pano_enabled);
+    m_FileFormatJPEGQualityText->Enable(ldr_pano_enabled);
+    m_FileFormatTIFFCompChoice->Enable(ldr_pano_enabled);
+    
     long i=0;
     if (opt.outputImageType == "tif") {
         i = 0;
-        m_FileFormatPanelJPEG->Hide();
-        m_FileFormatPanelTIFF->Show();
+        m_FileFormatOptionsLabel->Show();
+        m_FileFormatOptionsLabel->SetLabel(_("Compression:"));
+        m_FileFormatJPEGQualityText->Hide();
+        m_FileFormatTIFFCompChoice->Show();
         if (opt.outputImageTypeCompression  == "PACKBITS") {
             m_FileFormatTIFFCompChoice->SetSelection(1);
         } else if (opt.outputImageTypeCompression == "LZW") {
             m_FileFormatTIFFCompChoice->SetSelection(2);
-	} else if (opt.outputImageTypeCompression  == "DEFLATE") {
+        } else if (opt.outputImageTypeCompression  == "DEFLATE") {
             m_FileFormatTIFFCompChoice->SetSelection(3);
         } else {
             m_FileFormatTIFFCompChoice->SetSelection(0);
         }
     } else if (opt.outputImageType == "jpg") {
         i = 1;
-        m_FileFormatPanelJPEG->Show();
-        m_FileFormatPanelTIFF->Hide();
+        m_FileFormatOptionsLabel->Show();
+        m_FileFormatOptionsLabel->SetLabel(_("Quality:"));
+        m_FileFormatJPEGQualityText->Show();
+        m_FileFormatTIFFCompChoice->Hide();
         m_FileFormatJPEGQualityText->SetValue(wxString::Format(wxT("%d"), opt.quality));
     } else if (opt.outputImageType == "png") {
-        m_FileFormatPanelJPEG->Hide();
-        m_FileFormatPanelTIFF->Hide();
+        m_FileFormatOptionsLabel->Hide();
+        m_FileFormatJPEGQualityText->Hide();
+        m_FileFormatTIFFCompChoice->Hide();
         i = 2;
     } else if (opt.outputImageType == "exr") {
-        m_FileFormatPanelJPEG->Hide();
-        m_FileFormatPanelTIFF->Hide();
+        /// @todo Is this right? I don't see a 4th item in the combo box, and exr is a confusing LDR format.
+        m_FileFormatOptionsLabel->Hide();
+        m_FileFormatJPEGQualityText->Hide();
+        m_FileFormatTIFFCompChoice->Hide();
         i = 3;
     } else
         wxLogError(wxT("INTERNAL error: unknown output image type"));
 
     m_FileFormatChoice->SetSelection(i);
 
+    bool hdr_pano_enabled = opt.outputHDRBlended;
+    
+    XRCCTRL(*this, "pano_output_hdr_format_label", wxStaticText)->Enable(hdr_pano_enabled);
+    m_HDRFileFormatChoice->Enable(hdr_pano_enabled);
+    m_HDRFileFormatLabelTIFFCompression->Enable(hdr_pano_enabled);
+    m_FileFormatHDRTIFFCompChoice->Enable(hdr_pano_enabled);
+    
     i=0;
     if (opt.outputImageTypeHDR == "exr") {
         i = 0;
-        m_HDRFileFormatPanelTIFF->Hide();
+        m_HDRFileFormatLabelTIFFCompression->Hide();
+        m_FileFormatHDRTIFFCompChoice->Hide();
     } else if (opt.outputImageTypeHDR == "tif") {
         i = 1;
-        m_HDRFileFormatPanelTIFF->Show();
+        m_HDRFileFormatLabelTIFFCompression->Show();
+        m_FileFormatHDRTIFFCompChoice->Show();
         if (opt.outputImageTypeHDRCompression  == "PACKBITS") {
             m_FileFormatHDRTIFFCompChoice->SetSelection(1);
         } else if (opt.outputImageTypeHDRCompression == "LZW") {
             m_FileFormatHDRTIFFCompChoice->SetSelection(2);
-	} else if (opt.outputImageTypeHDRCompression  == "DEFLATE") {
+        } else if (opt.outputImageTypeHDRCompression  == "DEFLATE") {
             m_FileFormatHDRTIFFCompChoice->SetSelection(3);
         } else {
             m_FileFormatHDRTIFFCompChoice->SetSelection(0);
@@ -1140,30 +1152,19 @@ void PanoPanel::FileFormatChanged(wxCommandEvent & e)
     PanoramaOptions opt = pano->getOptions();
     switch (fmt) {
         case 1:
-            m_FileFormatPanelJPEG->Show();
-            m_FileFormatPanelTIFF->Hide();
             opt.outputImageType ="jpg";
             break;
         case 2:
-            m_FileFormatPanelJPEG->Hide();
-            m_FileFormatPanelTIFF->Hide();
             opt.outputImageType ="png";
             break;
         case 3:
-            m_FileFormatPanelJPEG->Hide();
-            m_FileFormatPanelTIFF->Hide();
             opt.outputImageType ="exr";
             break;
         default:
         case 0:
-            m_FileFormatPanelJPEG->Hide();
-            m_FileFormatPanelTIFF->Show();
             opt.outputImageType ="tif";
             break;
     }
-
-    m_pano_ctrls->FitInside();
-    Layout();
 
     GlobalCmdHist::getInstance().addCommand(
             new PT::SetPanoOptionsCmd( *pano, opt )
@@ -1179,18 +1180,13 @@ void PanoPanel::HDRFileFormatChanged(wxCommandEvent & e)
     PanoramaOptions opt = pano->getOptions();
     switch (fmt) {
         case 1:
-            m_HDRFileFormatPanelTIFF->Show();
             opt.outputImageTypeHDR ="tif";
             break;
         default:
         case 0:
-            m_HDRFileFormatPanelTIFF->Hide();
             opt.outputImageTypeHDR ="exr";
             break;
     }
-
-    m_pano_ctrls->FitInside();
-    Layout();
 
     GlobalCmdHist::getInstance().addCommand(
             new PT::SetPanoOptionsCmd( *pano, opt )
@@ -1289,16 +1285,6 @@ void PanoPanel::OnOutputFilesChanged(wxCommandEvent & e)
     GlobalCmdHist::getInstance().addCommand(
             new PT::SetPanoOptionsCmd( *pano, opts )
         );
-}
-
-void PanoPanel::OnCollapsiblePaneChanged(wxCollapsiblePaneEvent& event)
-{
-    // The amount of space of space a collapsible pane takes has just changed:
-    // recalculate the widget positions.
-    Layout();
-#ifdef __WXMSW__
-    this->Refresh(false);
-#endif
 }
 
 bool PanoPanel::CheckGoodSize()
