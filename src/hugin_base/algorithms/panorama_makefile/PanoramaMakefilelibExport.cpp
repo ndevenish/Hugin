@@ -213,17 +213,7 @@ bool PanoramaMakefilelibExport::createItems()
     newVarDef(vrm, "RM", "rm");
 #endif
 
-    //----------
-    // if this is defined and we have .app in the exiftool command, we execute it with perl by prepending perl -w
-    // to the command name.
-#ifdef MAC_SELF_CONTAINED_BUNDLE
-    mf::Variable* vexiftool = mgr.own(new mf::Variable("EXIFTOOL",
-            progs.exiftool.find(".app") != std::string::npos ?
-            "perl -w " + progs.exiftool :
-            progs.exiftool));
-#else
     mf::Variable* vexiftool = mgr.own(new mf::Variable("EXIFTOOL", progs.exiftool));
-#endif
     vexiftool->getDef().add();
 
     //----------

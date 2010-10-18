@@ -11,8 +11,7 @@ bin_dir="$REPOSITORY_DIR/bin"
 App="$TARGET_BUILD_DIR/$PRODUCT_NAME.app"
 
 
-extbins="PTblender PTmasker PTmender PTroller PTroller enfuse enblend gnumake"
-intbins="hugin_hdrmerge nona"
+extbins="PTblender PTmasker PTmender PToptimizer PTroller enfuse enblend gnumake"
 
 # Copy external binaries to MacOS folder in PTBatcherGui.app
 for bins in $extbins
@@ -20,8 +19,3 @@ do
  cp -Rf $bin_dir/$bins "$App/Contents/MacOS/"
 done
 
-# Copy internal binaries to MacOS folder in PTBatcherGui.app
-for bins in $intbins
-do
- cp -Rf $TARGET_BUILD_DIR/$bins "$App/Contents/MacOS/"
-done

@@ -10,10 +10,10 @@ StitcherApp="$HuginApp/Contents/Resources/HuginStitchProject.app"
 #------------------------------------------------
 
 rm -Rf "$StitcherApp/Contents/$dylib_install_loc"
-ln -s "../../../$dylib_install_loc" "$StitcherApp/Contents/$dylib_install_loc"
+#ln -s "../../../$dylib_install_loc" "$StitcherApp/Contents/$dylib_install_loc"
 
 rm -Rf "$StitcherApp/Contents/Frameworks"
-ln -s "../../../Frameworks" "$StitcherApp/Contents/Frameworks"
+#ln -s "../../../Frameworks" "$StitcherApp/Contents/Frameworks"
 
 if (file "$StitcherApp/Contents/Resources" | grep -q -v "symbolic link")
 then
@@ -21,3 +21,7 @@ then
 fi
 rm -Rf "$StitcherApp/Contents/Resources"
 ln -s "../../../Resources" "$StitcherApp/Contents/Resources"
+
+cp -f "$StitcherApp/Contents/MacOS/"* "$HuginApp/Contents/MacOS"
+rm -Rf "$StitcherApp/Contents/MacOS"
+ln -s "../../../MacOS" "$StitcherApp/Contents/MacOS"
