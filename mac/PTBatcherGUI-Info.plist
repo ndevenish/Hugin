@@ -27,10 +27,10 @@
 			<array>
 				<string>ptb</string>
 			</array>
-			<key>CFBundleTypeName</key>
-			<string>PTBatch file</string>
 			<key>CFBundleTypeIconFile</key>
 			<string></string>
+			<key>CFBundleTypeName</key>
+			<string>PTBatch file</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>LSTypeIsPackage</key>

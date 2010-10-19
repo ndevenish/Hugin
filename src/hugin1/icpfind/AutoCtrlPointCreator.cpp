@@ -140,7 +140,8 @@ wxString GetBundledProg(wxString progName)
     wxFileName file(progName);
     // if executable contains no path, look inside bundle, if program can be found there
     if(file.GetPath().IsEmpty())
-        return MacGetPathToBundledResourceFile(MacCreateCFStringWithWxString(progName));
+        //return MacGetPathToBundledResourceFile(MacCreateCFStringWithWxString(progName));
+        return MacGetPathToBundledExecutableFile(MacCreateCFStringWithWxString(progName));
     return wxEmptyString;
 }
 #endif
