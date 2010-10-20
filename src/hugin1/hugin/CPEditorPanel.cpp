@@ -1065,7 +1065,7 @@ bool CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
 #if wxCHECK_VERSION(2, 9, 0)
         wxMessageDialog dlg(this,
             _("No similar point found."),
-            "",
+            _("Hugin"),
             wxICON_ERROR | wxOK);
         dlg.SetExtendedMessage(wxString::Format(_("Check the similarity visually.\nCorrelation coefficient (%.3f) is lower than the threshold set in the preferences."),
                              res.maxi));
@@ -1074,7 +1074,7 @@ bool CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
         wxMessageBox(
             wxString::Format(_("No similar point found. Check the similarity visually.\nCorrelation coefficient (%.3f) is lower than the threshold set in the preferences."),
                              res.maxi),
-            _("No similar point found"),
+            _("Hugin"),
             wxICON_ERROR | wxOK, this);
 #endif
         return false;

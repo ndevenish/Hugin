@@ -154,137 +154,160 @@
           <object class="wxBoxSizer">
             <orient>wxVERTICAL</orient>
             <object class="sizeritem">
-              <object class="wxBoxSizer">
-                <orient>wxVERTICAL</orient>
+              <object class="wxGridBagSizer">
+              <!-- The projection, field of view, and crop rows could be
+                   removed, because they are all duplicated (including the
+                   numeric entries) on the fast preview.
+                   People still use them since when creating things like
+                   gores and cube faces they are located near the stitch
+                   and send to batch buttons. -->
                 <object class="sizeritem">
-                  <object class="wxGridBagSizer">
-                    <!-- The projection, field of view, and crop rows could be
-                         removed, because they are all duplicated (including the
-                         numeric entries) on the fast preview.
-                         People still use them since when creating things like
-                         gores and cube faces they are located near the stitch
-                         and send to batch buttons. -->
-                    <object class="sizeritem">
-                      <object class="wxStaticText">
-                        <label>Projection:</label>
-                        <font>
-                          <style platform="mac">normal</style>
-                          <family platform="mac">swiss</family>
-                          <weight>bold</weight>
-                          <size platform="mac">12</size>
-                        </font>
-                      </object>
-                      <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-                      <cellpos>0,0</cellpos>
-                    </object>
-                    <object class="sizeritem">
-                      <object class="wxChoice" name="pano_choice_pano_type">
-                        <content/>
-                        <selection>2</selection>
-                      </object>
-                      <cellpos>0,1</cellpos>
-                      <cellspan>1,5</cellspan>
+                  <object class="wxStaticText">
+                    <label>Projection:</label>
+                    <font>
+                      <style platform="mac">normal</style>
+                      <family platform="mac">swiss</family>
+                      <weight>bold</weight>
+                      <size platform="mac">12</size>
+                    </font>
+                  </object>
+                  <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                  <cellpos>0,0</cellpos>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxChoice" name="pano_choice_pano_type">
+                    <content/>
+                    <selection>2</selection>
+                  </object>
+                  <cellpos>0,1</cellpos>
+                  <cellspan>1,5</cellspan>
+                  <flag>wxEXPAND</flag>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxStaticText">
+                    <label>Field of View:</label>
+                    <font>
+                      <style platform="mac">normal</style>
+                      <family platform="mac">swiss</family>
+                      <weight>bold</weight>
+                      <size platform="mac">12</size>
+                    </font>
+                  </object>
+                  <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                  <cellpos>1,0</cellpos>
+                </object>
+                <object class="sizeritem">
+                  <cellpos>1,1</cellpos>
+                  <flag>wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>
+                  <object class="wxStaticText">
+                    <label>Horizontal:</label>
+                  </object>
+                </object>
+                <object class="sizeritem">
+                  <cellpos>1,2</cellpos>
+                  <flag>wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>
+                  <object class="wxTextCtrl" name="pano_text_hfov">
+                    <size>40,-1d</size>
+                  </object>
+                </object>
+                <object class="sizeritem">
+                  <cellpos>1,3</cellpos>
+                  <flag>wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>
+                  <object class="wxStaticText">
+                    <label>Vertical:</label>
+                  </object>
+                </object>
+                <object class="sizeritem">
+                  <cellpos>1,4</cellpos>
+                  <flag>wxTOP|wxBOTTOM|wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>
+                  <!-- force a larger spacing between the unrelated numerical entry rows-->
+                  <border>6</border>
+                  <object class="wxTextCtrl" name="pano_text_vfov">
+                    <size>40,-1d</size>
+                  </object>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxBoxSizer">
+                    <orient>wxVERTICAL</orient>
+                    <object class="spacer">
+                      <size>0</size>
+                      <option>1</option>
                       <flag>wxEXPAND</flag>
                     </object>
                     <object class="sizeritem">
-                      <object class="wxStaticText">
-                        <label>Field of View:</label>
-                        <font>
-                          <style platform="mac">normal</style>
-                          <family platform="mac">swiss</family>
-                          <weight>bold</weight>
-                          <size platform="mac">12</size>
-                        </font>
-                      </object>
-                      <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-                      <cellpos>1,0</cellpos>
-                    </object>
-                    <object class="sizeritem">
-                      <cellpos>1,1</cellpos>
-                      <flag>wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>
-                      <object class="wxStaticText">
-                        <label>Horizontal:</label>
-                      </object>
-                    </object>
-                    <object class="sizeritem">
-                      <cellpos>1,2</cellpos>
-                      <flag>wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>
-                      <object class="wxTextCtrl" name="pano_text_hfov">
-                        <size>40,-1d</size>
-                      </object>
-                    </object>
-                    <object class="sizeritem">
-                      <cellpos>1,3</cellpos>
-                      <flag>wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>
-                      <object class="wxStaticText">
-                        <label>Vertical:</label>
-                      </object>
-                    </object>
-                    <object class="sizeritem">
-                      <cellpos>1,4</cellpos>
-                      <flag>wxTOP|wxBOTTOM|wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>
-                      <!-- force a larger spacing between the unrelated numerical entry rows-->
-                      <border>6</border>
-                      <object class="wxTextCtrl" name="pano_text_vfov">
-                        <size>40,-1d</size>
-                      </object>
-                    </object>
-                    <object class="sizeritem">
                       <object class="wxButton" name="pano_button_calc_fov">
-                        <!-- Gnome wants command buttons in header case, Microsoft and Apple want sentence case.
+                      <!-- Gnome wants command buttons in header case, Microsoft and Apple want sentence case.
                              I don't know about OS/2, but any label is better than none.-->
                         <label platform="win|mac|os2">Calculate field of view</label>
                         <label platform="unix">Calculate Field of View</label>
                       </object>
                       <!-- If there was an option, I would would expand the buttons horizontally only. -->
-                      <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                      <flag>wxEXPAND</flag>
                       <cellpos>1,5</cellpos>
                     </object>
-                    <object class="sizeritem">
-                      <object class="wxStaticText">
-                        <label>Canvas Size:</label>
-                        <font>
-                          <style platform="mac">normal</style>
-                          <family platform="mac">swiss</family>
-                          <weight>bold</weight>
-                          <size platform="mac">12</size>
-                        </font>
-                      </object>
-                      <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-                      <cellpos>2,0</cellpos>
+                    <object class="spacer">
+                      <size>0</size>
+                      <option>1</option>
+                      <flag>wxEXPAND</flag>
                     </object>
-                    <object class="sizeritem">
-                      <object class="wxStaticText">
-                        <label>Width:</label>
-                      </object>
-                      <flag>wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>
-                      <cellpos>2,1</cellpos>
-                    </object>
-                    <object class="sizeritem">
-                      <object class="wxTextCtrl" name="pano_val_width">
-                        <size>40,-1d</size>
-                        <style>wxTE_PROCESS_ENTER</style>
-                      </object>
-                      <flag>wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>
-                      <cellpos>2,2</cellpos>
-                    </object>
-                    <object class="sizeritem">
-                      <object class="wxStaticText">
-                        <label>Height:</label>
-                        <style>wxALIGN_RIGHT</style>
-                      </object>
-                      <flag>wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>
-                      <cellpos>2,3</cellpos>
-                    </object>
-                    <object class="sizeritem">
-                      <object class="wxTextCtrl" name="pano_val_height">
-                        <size>40,-1d</size>
-                        <style>wxTE_PROCESS_ENTER</style>
-                      </object>
-                      <flag>wxTOP|wxBOTTOM|wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>
-                      <!-- force a larger spacing between the unrelated numerical entry rows-->
-                      <border>6</border>
-                      <cellpos>2,4</cellpos>
+                  </object>
+                  <!-- If there was an option, I would would expand the buttons horizontally only. -->
+                  <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                  <cellpos>1,5</cellpos>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxStaticText">
+                    <label>Canvas Size:</label>
+                    <font>
+                      <style platform="mac">normal</style>
+                      <family platform="mac">swiss</family>
+                      <weight>bold</weight>
+                      <size platform="mac">12</size>
+                    </font>
+                  </object>
+                  <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                  <cellpos>2,0</cellpos>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxStaticText">
+                    <label>Width:</label>
+                  </object>
+                  <flag>wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>
+                  <cellpos>2,1</cellpos>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxTextCtrl" name="pano_val_width">
+                    <size>40,-1d</size>
+                    <style>wxTE_PROCESS_ENTER</style>
+                  </object>
+                  <flag>wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>
+                  <cellpos>2,2</cellpos>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxStaticText">
+                    <label>Height:</label>
+                    <style>wxALIGN_RIGHT</style>
+                  </object>
+                  <flag>wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>
+                  <cellpos>2,3</cellpos>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxTextCtrl" name="pano_val_height">
+                    <size>40,-1d</size>
+                    <style>wxTE_PROCESS_ENTER</style>
+                  </object>
+                  <flag>wxTOP|wxBOTTOM|wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>
+                  <!-- force a larger spacing between the unrelated numerical entry rows-->
+                  <border>6</border>
+                  <cellpos>2,4</cellpos>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxBoxSizer">
+                    <orient>wxVERTICAL</orient>
+                    <object class="spacer">
+                      <size>0</size>
+                      <option>1</option>
+                      <flag>wxEXPAND</flag>
                     </object>
                     <object class="sizeritem">
                       <object class="wxButton" name="pano_button_opt_width">
@@ -292,91 +315,113 @@
                         <label platform="win|mac|os2">Calculate optimal size</label>
                         <tooltip>Calculate optimal image size, such that the resolution in the image center stays similar</tooltip>
                       </object>
-                      <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                      <flag>wxEXPAND</flag>
                       <cellpos>2,5</cellpos>
                     </object>
-                    <!-- Crop entries are split onto two rows -->
-                    <object class="sizeritem">
-                      <object class="wxStaticText">
-                        <label>Crop:</label>
-                        <font>
-                          <style platform="mac">normal</style>
-                          <family platform="mac">swiss</family>
-                          <weight>bold</weight>
-                          <size platform="mac">12</size>
-                        </font>
-                      </object>
-                      <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-                      <cellpos>3,0</cellpos>
+                    <object class="spacer">
+                      <size>0</size>
+                      <option>1</option>
+                      <flag>wxEXPAND</flag>
                     </object>
-                    <object class="sizeritem">
-                      <object class="wxStaticText">
-                        <label>Left:</label>
-                      </object>
-                      <flag>wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>
-                      <cellpos>3,1</cellpos>
-                    </object>
-                    <object class="sizeritem">
-                      <object class="wxTextCtrl" name="pano_val_roi_left">
-                        <size>40,-1d</size>
-                        <style>wxTE_PROCESS_ENTER</style>
-                      </object>
-                      <flag>wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL|wxTOP</flag>
-                      <!-- force a larger spacing between the unrelated numerical entry rows-->
-                      <border>6</border>
-                      <cellpos>3,2</cellpos>
-                    </object>
-                    <object class="sizeritem">
-                      <object class="wxStaticText">
-                        <label>Top:</label>
-                        <style>wxALIGN_RIGHT</style>
-                      </object>
-                      <flag>wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>
-                      <cellpos>3,3</cellpos>
-                    </object>
-                    <object class="sizeritem">
-                      <object class="wxTextCtrl" name="pano_val_roi_top">
-                        <size>40,-1d</size>
-                        <style>wxTE_PROCESS_ENTER</style>
-                      </object>
-                      <flag>wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL|wxTOP</flag>
-                      <!-- force a larger spacing between the unrelated numerical entry rows-->
-                      <border>6</border>
-                      <cellpos>3,4</cellpos>
-                    </object>
-                    <object class="sizeritem">
-                      <object class="wxStaticText">
-                        <label>Right:</label>
-                        <style>wxALIGN_RIGHT</style>
-                      </object>
-                      <flag>wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>
-                      <cellpos>4,1</cellpos>
-                    </object>
-                    <object class="sizeritem">
-                      <object class="wxTextCtrl" name="pano_val_roi_right">
-                        <size>40,-1d</size>
-                        <style>wxTE_PROCESS_ENTER</style>
-                      </object>
-                      <flag>wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL|wxBOTTOM</flag>
-                      <border>6</border>
-                      <cellpos>4,2</cellpos>
-                    </object>
-                    <object class="sizeritem">
-                      <object class="wxStaticText">
-                        <label>Bottom:</label>
-                        <style>wxALIGN_RIGHT</style>
-                      </object>
-                      <flag>wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>
-                      <cellpos>4,3</cellpos>
-                    </object>
-                    <object class="sizeritem">
-                      <object class="wxTextCtrl" name="pano_val_roi_bottom">
-                        <size>40,-1d</size>
-                        <style>wxTE_PROCESS_ENTER</style>
-                      </object>
-                      <flag>wxBOTTOM|wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>
-                      <border>6</border>
-                      <cellpos>4,4</cellpos>
+                  </object>
+                  <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                  <cellpos>2,5</cellpos>
+                </object>
+                <!-- Crop entries are split onto two rows -->
+                <object class="sizeritem">
+                  <object class="wxStaticText">
+                    <label>Crop:</label>
+                    <font>
+                      <style platform="mac">normal</style>
+                      <family platform="mac">swiss</family>
+                      <weight>bold</weight>
+                      <size platform="mac">12</size>
+                    </font>
+                  </object>
+                  <flag>wxTOP|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                  <border>6</border>
+                  <cellpos>3,0</cellpos>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxStaticText">
+                    <label>Left:</label>
+                  </object>
+                  <flag>wxTOP|wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>
+                  <border>6</border>
+                  <cellpos>3,1</cellpos>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxTextCtrl" name="pano_val_roi_left">
+                    <size>40,-1d</size>
+                    <style>wxTE_PROCESS_ENTER</style>
+                  </object>
+                  <flag>wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL|wxTOP</flag>
+                  <!-- force a larger spacing between the unrelated numerical entry rows-->
+                  <border>6</border>
+                  <cellpos>3,2</cellpos>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxStaticText">
+                    <label>Top:</label>
+                    <style>wxALIGN_RIGHT</style>
+                  </object>
+                  <flag>wxTOP|wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>
+                  <border>6</border>
+                  <cellpos>3,3</cellpos>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxTextCtrl" name="pano_val_roi_top">
+                    <size>40,-1d</size>
+                    <style>wxTE_PROCESS_ENTER</style>
+                  </object>
+                  <flag>wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL|wxTOP</flag>
+                  <!-- force a larger spacing between the unrelated numerical entry rows-->
+                  <border>6</border>
+                  <cellpos>3,4</cellpos>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxStaticText">
+                    <label>Right:</label>
+                    <style>wxALIGN_RIGHT</style>
+                  </object>
+                  <flag>wxBOTTOM|wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>
+                  <border>6</border>
+                  <cellpos>4,1</cellpos>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxTextCtrl" name="pano_val_roi_right">
+                    <size>40,-1d</size>
+                    <style>wxTE_PROCESS_ENTER</style>
+                  </object>
+                  <flag>wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL|wxBOTTOM</flag>
+                  <border>6</border>
+                  <cellpos>4,2</cellpos>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxStaticText">
+                    <label>Bottom:</label>
+                    <style>wxALIGN_RIGHT</style>
+                  </object>
+                  <flag>wxBOTTOM|wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>
+                  <border>6</border>
+                  <cellpos>4,3</cellpos>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxTextCtrl" name="pano_val_roi_bottom">
+                    <size>40,-1d</size>
+                    <style>wxTE_PROCESS_ENTER</style>
+                  </object>
+                  <flag>wxBOTTOM|wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>
+                  <border>6</border>
+                  <cellpos>4,4</cellpos>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxBoxSizer">
+                    <orient>wxVERTICAL</orient>
+                    <object class="spacer">
+                      <size>0</size>
+                      <option>1</option>
+                      <flag>wxEXPAND</flag>
                     </object>
                     <object class="sizeritem">
                       <object class="wxButton" name="pano_button_opt_roi">
@@ -384,158 +429,112 @@
                         <label platform="os2|mac|win">Fit crop to images</label>
                         <tooltip>Calculate crop borders such that the final image has the largest area without excess</tooltip>
                       </object>
-                      <flag>wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL|wxEXPAND</flag>
+                      <flag>wxEXPAND</flag>
                       <cellpos>3,5</cellpos>
                       <cellspan>2,1</cellspan>
                     </object>
-                    
-                    <!--Panorama output section -->
-                    
-                    <object class="sizeritem">
-                      <object class="wxStaticText">
-                        <label>Panorama Outputs:</label>
-                        <font>
-                          <style platform="mac">normal</style>
-                          <family platform="mac">swiss</family>
-                          <weight>bold</weight>
-                          <size platform="mac">12</size>
-                        </font>
-                      </object>
-                      <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL|wxTOP</flag>
-                      <border>12</border>
-                      <cellpos>5,0</cellpos>
-                      <cellspan>1,1</cellspan>
-                    </object>
-                    <object class="sizeritem">
-                      <object class="wxCheckBox" name="pano_cb_ldr_output_blended">
-                        <label>Exposure corrected, low dynamic range</label>
-                        <tooltip>Blend all images into a seamless panorama, using exposure set in the Exposure tab</tooltip>
-                      </object>
-                      <flag platform="unix|mac">wxEXPAND|wxTOP</flag>
-                      <!-- don't use expand on wxCheckbox on Windows, this makes also the big empty space right the checkbox to react to mouse clicks -->
-                      <flag platform="win">wxTOP</flag>
-                      <border>12</border>
-                      <cellpos>5,1</cellpos>
-                      <cellspan>1,5</cellspan>
-                    </object>
-                    <object class="sizeritem">
-                      <object class="wxCheckBox" name="pano_cb_ldr_output_exposure_blended">
-                        <label>Exposure fused from stacks</label>
-                        <tooltip>Images will be remapped, stacks exposure fused, then blended into a seamless panorama</tooltip>
-                      </object>
-                      <flag platform="unix|mac">wxEXPAND</flag>
-                      <cellpos>6,1</cellpos>
-                      <cellspan>1,5</cellspan>
-                    </object>
-                    <object class="sizeritem">
-                      <object class="wxCheckBox" name="pano_cb_ldr_output_exposure_layers_fused">
-                        <label>Exposure fused from any arrangement</label>
-                        <tooltip>Images will be remapped, blended into seamless layers, then layers exposure fused into a panorama</tooltip>
-                      </object>
-                      <flag platform="unix|mac">wxEXPAND</flag>
-                      <cellpos>7,1</cellpos>
-                      <cellspan>1,5</cellspan>
-                    </object>
-                    <!-- LDR image format -->
-                    <object class="sizeritem">
-                      <object class="wxStaticText" name="pano_output_ldr_format_label">
-                        <label>Format:</label>
-                      </object>
-                      <flag>wxALIGN_CENTRE_VERTICAL</flag>
-                      <cellpos>8,1</cellpos>
-                      <cellspan>1,1</cellspan>
-                    </object>
-                    <object class="sizeritem">
-                      <object class="wxChoice" name="pano_choice_file_format">
-                        <content>
-                          <item>TIFF</item>
-                          <item>JPEG</item>
-                          <item>PNG</item>
-                        </content>
-                        <selection>0</selection>
-                      </object>
-                      <flag>wxALIGN_CENTRE_VERTICAL|wxEXPAND</flag>
-                      <cellpos>8,2</cellpos>
-                      <cellspan>1,1</cellspan>
-                    </object>
-                    <object class="sizeritem">
-                      <object class="wxStaticText" name="pano_output_ldr_format_options_label">
-                      </object>
-                      <flag>wxALIGN_CENTRE_VERTICAL</flag>
-                      <cellpos>8,3</cellpos>
-                      <cellspan>1,1</cellspan>
-                    </object>
-                    <object class="sizeritem">
-                      <!--There is either a text box for jpeg quality or a combo box for TIFF compression schemes in this cell.
-                          The wxBoxSizer contains both, we just hide one and show the other. -->
-                      <object class="wxBoxSizer">
-                        <orient>wxHORIZONTAL</orient>
-                        <object class="sizeritem">
-                          <object class="wxTextCtrl" name="pano_output_normal_opts_jpeg_quality">
-                            <value>100</value>
-                          </object>
-                          <flag>wxALIGN_CENTRE_VERTICAL</flag>
-                          <minsize>40,-1d</minsize>
-                        </object>
-                        <object class="sizeritem">
-                          <object class="wxChoice" name="pano_output_normal_opts_tiff_compression">
-                            <content>
-                              <item>None</item>
-                              <item>Packbits</item>
-                              <item>LZW</item>
-                              <item>Deflate</item>
-                            </content>
-                          </object>
-                          <flag>wxALIGN_CENTRE_VERTICAL</flag>
-                        </object>
-                      </object>
+                    <object class="spacer">
+                      <size>0</size>
+                      <option>1</option>
                       <flag>wxEXPAND</flag>
-                      <cellpos>8,4</cellpos>
-                      <cellspan>1,2</cellspan>
                     </object>
-                    <!-- HDR pano -->
+                  </object>
+                  <flag>wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL|wxEXPAND</flag>
+                  <cellpos>3,5</cellpos>
+                  <cellspan>2,1</cellspan>
+                </object>
+                    
+                <!--Panorama output section -->
+                    
+                <object class="sizeritem">
+                  <object class="wxStaticText">
+                    <label>Panorama Outputs:</label>
+                    <font>
+                      <style platform="mac">normal</style>
+                      <family platform="mac">swiss</family>
+                      <weight>bold</weight>
+                      <size platform="mac">12</size>
+                    </font>
+                  </object>
+                  <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL|wxTOP</flag>
+                  <border>12</border>
+                  <cellpos>5,0</cellpos>
+                  <cellspan>1,1</cellspan>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxCheckBox" name="pano_cb_ldr_output_blended">
+                    <label>Exposure corrected, low dynamic range</label>
+                    <tooltip>Blend all images into a seamless panorama, using exposure set in the Exposure tab</tooltip>
+                  </object>
+                  <flag platform="unix|mac">wxEXPAND|wxTOP</flag>
+                  <!-- don't use expand on wxCheckbox on Windows, this makes also the big empty space right the checkbox to react to mouse clicks -->
+                  <flag platform="win">wxTOP</flag>
+                  <border>12</border>
+                  <cellpos>5,1</cellpos>
+                  <cellspan>1,5</cellspan>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxCheckBox" name="pano_cb_ldr_output_exposure_blended">
+                    <label>Exposure fused from stacks</label>
+                    <tooltip>Images will be remapped, stacks exposure fused, then blended into a seamless panorama</tooltip>
+                  </object>
+                  <flag platform="unix|mac">wxEXPAND</flag>
+                  <cellpos>6,1</cellpos>
+                  <cellspan>1,5</cellspan>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxCheckBox" name="pano_cb_ldr_output_exposure_layers_fused">
+                    <label>Exposure fused from any arrangement</label>
+                    <tooltip>Images will be remapped, blended into seamless layers, then layers exposure fused into a panorama</tooltip>
+                  </object>
+                  <flag platform="unix|mac">wxEXPAND</flag>
+                  <cellpos>7,1</cellpos>
+                  <cellspan>1,5</cellspan>
+                </object>
+                <!-- LDR image format -->
+                <object class="sizeritem">
+                  <object class="wxStaticText" name="pano_output_ldr_format_label">
+                    <label>Format:</label>
+                  </object>
+                  <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                  <cellpos>8,1</cellpos>
+                  <cellspan>1,1</cellspan>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxChoice" name="pano_choice_file_format">
+                    <content>
+                      <item>TIFF</item>
+                      <item>JPEG</item>
+                      <item>PNG</item>
+                    </content>
+                    <selection>0</selection>
+                  </object>
+                  <flag>wxALIGN_CENTRE_VERTICAL|wxEXPAND</flag>
+                  <cellpos>8,2</cellpos>
+                  <cellspan>1,1</cellspan>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxStaticText" name="pano_output_ldr_format_options_label">
+                    <label>Compression:</label>
+                  </object>
+                  <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                  <cellpos>8,3</cellpos>
+                  <cellspan>1,1</cellspan>
+                </object>
+                <object class="sizeritem">
+                <!--There is either a text box for jpeg quality or a combo box for TIFF compression schemes in this cell.
+                    The wxBoxSizer contains both, we just hide one and show the other. -->
+                  <object class="wxBoxSizer">
+                    <orient>wxHORIZONTAL</orient>
                     <object class="sizeritem">
-                      <object class="wxCheckBox" name="pano_cb_hdr_output_blended">
-                        <label>High dynamic range</label>
-                        <tooltip>Images will be remapped in linear color space, stacks merged, then blended into a seamless High Dynamic Range panorama</tooltip>
-                      </object>
-                      <flag platform="unix|mac">wxEXPAND|wxTOP|wxBOTTOM</flag>
-                      <flag platform="win">wxTOP|wxBOTTOM</flag>
-                      <border>2</border>
-                      <cellpos>9,1</cellpos>
-                      <cellspan>1,5</cellspan>
-                    </object>
-                    <!-- HDR image format options -->
-                    <object class="sizeritem">
-                      <object class="wxStaticText" name="pano_output_hdr_format_label">
-                        <label>Format:</label>
+                      <object class="wxTextCtrl" name="pano_output_normal_opts_jpeg_quality">
+                        <value>100</value>
                       </object>
                       <flag>wxALIGN_CENTRE_VERTICAL</flag>
-                      <cellpos>10,1</cellpos>
-                      <cellspan>1,1</cellspan>
+                      <minsize>40,-1d</minsize>
                     </object>
                     <object class="sizeritem">
-                      <object class="wxChoice" name="pano_choice_hdr_file_format">
-                        <content>
-                          <item>EXR</item>
-                          <item>TIFF</item>
-                        </content>
-                        <selection>0</selection>
-                      </object>
-                      <flag>wxEXPAND</flag>
-                      <cellpos>10,2</cellpos>
-                      <cellspan>1,1</cellspan>
-                    </object>
-                    <object class="sizeritem">
-                      <object class="wxStaticText" name="pano_output_hdr_opts_tiff_compression_label">
-                        <label>Compression:</label>
-                      </object>
-                      <flag>wxALIGN_CENTRE_VERTICAL</flag>
-                      <cellpos>10,3</cellpos>
-                      <cellspan>1,1</cellspan>
-                    </object>
-                    <object class="sizeritem">
-                      <object class="wxChoice" name="pano_output_hdr_opts_tiff_compression">
+                      <object class="wxChoice" name="pano_output_normal_opts_tiff_compression">
                         <content>
                           <item>None</item>
                           <item>Packbits</item>
@@ -544,244 +543,298 @@
                         </content>
                       </object>
                       <flag>wxALIGN_CENTRE_VERTICAL</flag>
-                      <cellpos>10,4</cellpos>
-                      <cellspan>1,2</cellspan>
                     </object>
-                    <!-- I really think the widgets below this should be hidden by default, since it is a lot of visual clutter.
-                         However, wxCollapsiblePane doesn't behave well in wxWidgets 2.8 on Microsoft Windows or Mac OS X.
-                         Would a couple of pop up windows be appropriate?
-                    -->
-                    <!-- Remapped Images -->
-                    <object class="sizeritem">
-                      <object class="wxStaticText">
-                        <label>Remapped Images:</label>
-                        <font>
-                          <style platform="mac">normal</style>
-                          <family platform="mac">swiss</family>
-                          <weight>bold</weight>
-                          <size platform="mac">12</size>
-                        </font>
-                      </object>
-                      <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL|wxTOP</flag>
-                      <border>6</border>
-                      <cellpos>11,0</cellpos>
-                      <cellspan>1,1</cellspan>
-                    </object>
-                    <object class="sizeritem">
-                      <object class="wxCheckBox" name="pano_cb_ldr_output_layers">
-                        <label>Exposure corrected, low dynamic range</label>
-                        <tooltip>Output remapped, exposure corrected images. Useful for manual blending of an exposure corrected panorama.</tooltip>
-                      </object>
-                      <flag platform="unix|mac">wxEXPAND|wxTOP</flag>
-                      <flag platform="win">wxTOP</flag>
-                      <border>6</border>
-                      <cellpos>11,1</cellpos>
-                      <cellspan>1,5</cellspan>
-                    </object>
-                    <object class="sizeritem">
-                      <object class="wxCheckBox" name="pano_cb_ldr_output_exposure_remapped">
-                        <label>No exposure correction, low dynamic range</label>
-                        <tooltip>Output remapped images with unmodified exposure. Useful for manual exposure fusing.</tooltip>
-                      </object>
-                      <flag platform="unix|mac">wxEXPAND</flag>
-                      <cellpos>12,1</cellpos>
-                      <cellspan>1,5</cellspan>
-                    </object>
-                    <object class="sizeritem">
-                      <object class="wxCheckBox" name="pano_cb_hdr_output_layers">
-                        <label>High dynamic range</label>
-                        <tooltip>Produce remapped, but not merged, linear color space images</tooltip>
-                      </object>
-                      <flag platform="unix|mac">wxEXPAND</flag>
-                      <cellpos>13,1</cellpos>
-                      <cellspan>1,5</cellspan>
-                    </object>
-                    <!-- Others -->
-                    <object class="sizeritem">
-                      <object class="wxStaticText">
-                        <label>Combined stacks:</label>
-                        <font>
-                          <style platform="mac">normal</style>
-                          <family platform="mac">swiss</family>
-                          <weight>bold</weight>
-                          <size platform="mac">12</size>
-                        </font>
-                      </object>
-                      <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL|wxTOP</flag>
-                      <border>6</border>
-                      <cellpos>14,0</cellpos>
-                      <cellspan>1,1</cellspan>
-                    </object>
-                    <object class="sizeritem">
-                      <object class="wxCheckBox" name="pano_cb_hdr_output_stacks">
-                        <label>High dynamic range merged stacks</label>
-                        <tooltip>Output remapped, high dynamic range merged stacks from highly overlapping images</tooltip>
-                      </object>
-                      <flag platform="unix|mac">wxEXPAND|wxTOP</flag>
-                      <flag platform="win">wxTOP</flag>
-                      <border>6</border>
-                      <cellpos>14,1</cellpos>
-                      <cellspan>1,5</cellspan>
-                    </object>
-                    <object class="sizeritem">
-                      <object class="wxStaticText">
-                        <label>Layers:</label>
-                        <font>
-                          <style platform="mac">normal</style>
-                          <family platform="mac">swiss</family>
-                          <weight>bold</weight>
-                          <size platform="mac">12</size>
-                        </font>
-                      </object>
-                      <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL|wxTOP|wxBOTTOM</flag>
-                      <border>6</border>
-                      <cellpos>15,0</cellpos>
-                      <cellspan>1,1</cellspan>
-                    </object>
-                    <object class="sizeritem">
-                      <object class="wxCheckBox" name="pano_cb_ldr_output_exposure_layers">
-                        <label>Blended layers of similar exposure, without exposure correction</label>
-                        <tooltip>Output a complete blended panorama for each exposure step. Useful for manual contrast blending in an image editor.</tooltip>
-                      </object>
-                      <flag platform="unix|mac">wxEXPAND|wxTOP|wxBOTTOM</flag>
-                      <flag platform="win">wxTOP</flag>
-                      <border>6</border>
-                      <cellpos>15,1</cellpos>
-                      <cellspan>1,5</cellspan>
-                    </object>
-                    <!-- Processing section -->
-                    <object class="sizeritem">
-                      <object class="wxStaticText">
-                        <label>Processing:</label>
-                        <font>
-                          <style platform="mac">normal</style>
-                          <family platform="mac">swiss</family>
-                          <weight>bold</weight>
-                          <size platform="mac">12</size>
-                        </font>
-                      </object>
-                      <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-                      <cellpos>16,0</cellpos>
-                      <cellspan>1,1</cellspan>
-                    </object>
-                    <object class="sizeritem">
-                      <object class="wxStaticText">
-                        <label>Remapper:</label>
-                      </object>
-                      <flag>wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>
-                      <cellpos>16,1</cellpos>
-                      <cellspan>1,1</cellspan>
-                    </object>
-                    <object class="sizeritem">
-                      <object class="wxChoice" name="pano_choice_remapper">
-                        <content>
-                          <item>Nona</item>
-                        </content>
-                        <selection>0</selection>
-                      </object>
-                      <flag>wxEXPAND</flag>
-                      <cellpos>16,2</cellpos>
-                      <cellspan>1,1</cellspan>
-                    </object>
-                    <object class="sizeritem">
-                      <object class="wxButton" name="pano_button_remapper_opts">
-                        <label>Options</label>
-                      </object>
-                      <flag>wxEXPAND</flag>
-                      <cellpos>16,3</cellpos>
-                      <cellspan>1,1</cellspan>
-                    </object>
-                    
-                    <object class="sizeritem">
-                      <object class="wxStaticText" name="pano_text_fusion">
-                        <label>Image fusion:</label>
-                      </object>
-                      <flag>wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>
-                      <cellpos>17,1</cellpos>
-                      <cellspan>1,1</cellspan>
-                    </object>
-                    <object class="sizeritem">
-                      <object class="wxChoice" name="pano_choice_fusion">
-                        <content>
-                          <item>enfuse</item>
-                        </content>
-                        <selection>0</selection>
-                      </object>
-                      <flag>wxEXPAND</flag>
-                      <cellpos>17,2</cellpos>
-                      <cellspan>1,1</cellspan>
-                    </object>
-                    <object class="sizeritem">
-                      <object class="wxButton" name="pano_button_fusion_opts">
-                        <label>Options</label>
-                      </object>
-                      <flag>wxALIGN_CENTRE_VERTICAL</flag>
-                      <cellpos>17,3</cellpos>
-                      <cellspan>1,1</cellspan>
-                    </object>
-                    
-                    <object class="sizeritem">
-                      <object class="wxStaticText" name="pano_text_hdrmerge">
-                        <label>HDR merger:</label>
-                      </object>
-                      <flag>wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>
-                      <cellpos>18,1</cellpos>
-                      <cellspan>1,1</cellspan>
-                    </object>
-                    <object class="sizeritem">
-                      <object class="wxChoice" name="pano_choice_hdrmerge">
-                        <content>
-                          <item>builtin</item>
-                        </content>
-                        <selection>0</selection>
-                      </object>
-                      <flag>wxEXPAND</flag>
-                      <cellpos>18,2</cellpos>
-                      <cellspan>1,1</cellspan>
-                    </object>
-                    <object class="sizeritem">
-                      <object class="wxButton" name="pano_button_hdrmerge_opts">
-                        <label>Options</label>
-                      </object>
-                      <flag>wxEXPAND</flag>
-                      <cellpos>18,3</cellpos>
-                      <cellspan>1,1</cellspan>
-                    </object>
-                    
-                    <object class="sizeritem">
-                      <object class="wxStaticText" name="pano_text_blender">
-                        <label>Blender:</label>
-                      </object>
-                      <flag>wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>
-                      <cellpos>19,1</cellpos>
-                      <cellspan>1,1</cellspan>
-                    </object>
-                    <object class="sizeritem">
-                      <object class="wxChoice" name="pano_choice_blender">
-                        <content>
-                          <item>enblend</item>
-                        </content>
-                        <selection>0</selection>
-                      </object>
-                      <flag>wxEXPAND</flag>
-                      <cellpos>19,2</cellpos>
-                      <cellspan>1,1</cellspan>
-                    </object>
-                    <object class="sizeritem">
-                      <object class="wxButton" name="pano_button_blender_opts">
-                        <label>Options</label>
-                      </object>
-                      <flag>wxEXPAND</flag>
-                      <cellpos>19,3</cellpos>
-                      <cellspan>1,1</cellspan>
-                    </object>
-                    <vgap>4</vgap>
-                    <hgap>12</hgap>
                   </object>
                   <flag>wxEXPAND</flag>
+                  <cellpos>8,4</cellpos>
+                  <cellspan>1,2</cellspan>
                 </object>
+                <!-- HDR pano -->
+                <object class="sizeritem">
+                  <object class="wxCheckBox" name="pano_cb_hdr_output_blended">
+                    <label>High dynamic range</label>
+                    <tooltip>Images will be remapped in linear color space, stacks merged, then blended into a seamless High Dynamic Range panorama</tooltip>
+                  </object>
+                  <flag platform="unix|mac">wxEXPAND|wxTOP|wxBOTTOM</flag>
+                  <flag platform="win">wxTOP|wxBOTTOM</flag>
+                  <border>2</border>
+                  <cellpos>9,1</cellpos>
+                  <cellspan>1,5</cellspan>
+                </object>
+                <!-- HDR image format options -->
+                <object class="sizeritem">
+                  <object class="wxStaticText" name="pano_output_hdr_format_label">
+                    <label>Format:</label>
+                  </object>
+                  <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                  <cellpos>10,1</cellpos>
+                  <cellspan>1,1</cellspan>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxChoice" name="pano_choice_hdr_file_format">
+                    <content>
+                      <item>EXR</item>
+                      <item>TIFF</item>
+                    </content>
+                    <selection>0</selection>
+                  </object>
+                  <flag>wxEXPAND</flag>
+                  <cellpos>10,2</cellpos>
+                  <cellspan>1,1</cellspan>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxStaticText" name="pano_output_hdr_opts_tiff_compression_label">
+                    <label>Compression:</label>
+                  </object>
+                  <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                  <cellpos>10,3</cellpos>
+                  <cellspan>1,1</cellspan>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxChoice" name="pano_output_hdr_opts_tiff_compression">
+                    <content>
+                      <item>None</item>
+                      <item>Packbits</item>
+                      <item>LZW</item>
+                      <item>Deflate</item>
+                    </content>
+                  </object>
+                  <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                  <cellpos>10,4</cellpos>
+                  <cellspan>1,2</cellspan>
+                </object>
+                <!-- I really think the widgets below this should be hidden by default, since it is a lot of visual clutter.
+                     However, wxCollapsiblePane doesn't behave well in wxWidgets 2.8 on Microsoft Windows or Mac OS X.
+                     Would a couple of pop up windows be appropriate?
+                -->
+                <!-- Remapped Images -->
+                <object class="sizeritem">
+                  <object class="wxStaticText">
+                    <label>Remapped Images:</label>
+                    <font>
+                      <style platform="mac">normal</style>
+                      <family platform="mac">swiss</family>
+                      <weight>bold</weight>
+                      <size platform="mac">12</size>
+                    </font>
+                  </object>
+                  <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL|wxTOP</flag>
+                  <border>6</border>
+                  <cellpos>11,0</cellpos>
+                  <cellspan>1,1</cellspan>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxCheckBox" name="pano_cb_ldr_output_layers">
+                    <label>Exposure corrected, low dynamic range</label>
+                    <tooltip>Output remapped, exposure corrected images. Useful for manual blending of an exposure corrected panorama.</tooltip>
+                  </object>
+                  <flag platform="unix|mac">wxEXPAND|wxTOP</flag>
+                  <flag platform="win">wxTOP</flag>
+                  <border>6</border>
+                  <cellpos>11,1</cellpos>
+                  <cellspan>1,5</cellspan>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxCheckBox" name="pano_cb_ldr_output_exposure_remapped">
+                    <label>No exposure correction, low dynamic range</label>
+                    <tooltip>Output remapped images with unmodified exposure. Useful for manual exposure fusing.</tooltip>
+                  </object>
+                  <flag platform="unix|mac">wxEXPAND</flag>
+                  <cellpos>12,1</cellpos>
+                  <cellspan>1,5</cellspan>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxCheckBox" name="pano_cb_hdr_output_layers">
+                    <label>High dynamic range</label>
+                    <tooltip>Produce remapped, but not merged, linear color space images</tooltip>
+                  </object>
+                  <flag platform="unix|mac">wxEXPAND</flag>
+                  <cellpos>13,1</cellpos>
+                  <cellspan>1,5</cellspan>
+                </object>
+                <!-- Others -->
+                <object class="sizeritem">
+                  <object class="wxStaticText">
+                    <label>Combined stacks:</label>
+                    <font>
+                      <style platform="mac">normal</style>
+                      <family platform="mac">swiss</family>
+                      <weight>bold</weight>
+                      <size platform="mac">12</size>
+                    </font>
+                  </object>
+                  <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL|wxTOP</flag>
+                  <border>6</border>
+                  <cellpos>14,0</cellpos>
+                  <cellspan>1,1</cellspan>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxCheckBox" name="pano_cb_hdr_output_stacks">
+                    <label>High dynamic range merged stacks</label>
+                    <tooltip>Output remapped, high dynamic range merged stacks from highly overlapping images</tooltip>
+                  </object>
+                  <flag platform="unix|mac">wxEXPAND|wxTOP</flag>
+                  <flag platform="win">wxTOP</flag>
+                  <border>6</border>
+                  <cellpos>14,1</cellpos>
+                  <cellspan>1,5</cellspan>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxStaticText">
+                    <label>Layers:</label>
+                    <font>
+                      <style platform="mac">normal</style>
+                      <family platform="mac">swiss</family>
+                      <weight>bold</weight>
+                      <size platform="mac">12</size>
+                    </font>
+                  </object>
+                  <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL|wxTOP|wxBOTTOM</flag>
+                  <border>6</border>
+                  <cellpos>15,0</cellpos>
+                  <cellspan>1,1</cellspan>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxCheckBox" name="pano_cb_ldr_output_exposure_layers">
+                    <label>Blended layers of similar exposure, without exposure correction</label>
+                    <tooltip>Output a complete blended panorama for each exposure step. Useful for manual contrast blending in an image editor.</tooltip>
+                  </object>
+                  <flag platform="unix|mac">wxEXPAND|wxTOP|wxBOTTOM</flag>
+                  <flag platform="win">wxTOP</flag>
+                  <border>6</border>
+                  <cellpos>15,1</cellpos>
+                  <cellspan>1,5</cellspan>
+                </object>
+                <!-- Processing section -->
+                <object class="sizeritem">
+                  <object class="wxStaticText">
+                    <label>Processing:</label>
+                    <font>
+                      <style platform="mac">normal</style>
+                      <family platform="mac">swiss</family>
+                      <weight>bold</weight>
+                      <size platform="mac">12</size>
+                    </font>
+                  </object>
+                  <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                  <cellpos>16,0</cellpos>
+                  <cellspan>1,1</cellspan>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxStaticText">
+                    <label>Remapper:</label>
+                  </object>
+                  <flag>wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>
+                  <cellpos>16,1</cellpos>
+                  <cellspan>1,1</cellspan>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxChoice" name="pano_choice_remapper">
+                    <content>
+                      <item>Nona</item>
+                    </content>
+                    <selection>0</selection>
+                  </object>
+                  <flag>wxEXPAND</flag>
+                  <cellpos>16,2</cellpos>
+                  <cellspan>1,1</cellspan>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxButton" name="pano_button_remapper_opts">
+                    <label>Options</label>
+                  </object>
+                  <flag>wxEXPAND</flag>
+                  <cellpos>16,3</cellpos>
+                  <cellspan>1,1</cellspan>
+                </object>
+                    
+                <object class="sizeritem">
+                  <object class="wxStaticText" name="pano_text_fusion">
+                    <label>Image fusion:</label>
+                  </object>
+                  <flag>wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>
+                  <cellpos>17,1</cellpos>
+                  <cellspan>1,1</cellspan>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxChoice" name="pano_choice_fusion">
+                    <content>
+                      <item>enfuse</item>
+                    </content>
+                    <selection>0</selection>
+                  </object>
+                  <flag>wxEXPAND</flag>
+                  <cellpos>17,2</cellpos>
+                  <cellspan>1,1</cellspan>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxButton" name="pano_button_fusion_opts">
+                    <label>Options</label>
+                  </object>
+                  <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                  <cellpos>17,3</cellpos>
+                  <cellspan>1,1</cellspan>
+                </object>
+                    
+                <object class="sizeritem">
+                  <object class="wxStaticText" name="pano_text_hdrmerge">
+                    <label>HDR merger:</label>
+                  </object>
+                  <flag>wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>
+                  <cellpos>18,1</cellpos>
+                  <cellspan>1,1</cellspan>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxChoice" name="pano_choice_hdrmerge">
+                    <content>
+                      <item>builtin</item>
+                    </content>
+                    <selection>0</selection>
+                  </object>
+                  <flag>wxEXPAND</flag>
+                  <cellpos>18,2</cellpos>
+                  <cellspan>1,1</cellspan>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxButton" name="pano_button_hdrmerge_opts">
+                    <label>Options</label>
+                  </object>
+                  <flag>wxEXPAND</flag>
+                  <cellpos>18,3</cellpos>
+                  <cellspan>1,1</cellspan>
+                </object>
+                    
+                <object class="sizeritem">
+                  <object class="wxStaticText" name="pano_text_blender">
+                    <label>Blender:</label>
+                  </object>
+                  <flag>wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>
+                  <cellpos>19,1</cellpos>
+                  <cellspan>1,1</cellspan>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxChoice" name="pano_choice_blender">
+                    <content>
+                      <item>enblend</item>
+                    </content>
+                    <selection>0</selection>
+                  </object>
+                  <flag>wxEXPAND</flag>
+                  <cellpos>19,2</cellpos>
+                  <cellspan>1,1</cellspan>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxButton" name="pano_button_blender_opts">
+                    <label>Options</label>
+                  </object>
+                  <flag>wxEXPAND</flag>
+                  <cellpos>19,3</cellpos>
+                  <cellspan>1,1</cellspan>
+                </object>
+                <vgap>4</vgap>
+                <hgap>12</hgap>
               </object>
-              <flag>wxEXPAND|wxALL</flag>
+              <flag>wxALL|wxEXPAND</flag>
               <border>12</border>
             </object>
           </object>

@@ -499,7 +499,7 @@ bool MainFrame::CloseProject(bool cancelable)
 {
     if (pano.isDirty()) {
         wxMessageDialog message(this,
-                                _("Save changes to the panorama before closing?"), wxT(""),
+                                _("Save changes to the panorama before closing?"), _("Hugin"),
                                 wxICON_EXCLAMATION | wxYES_NO | (cancelable? (wxCANCEL):0));
 #if wxCHECK_VERSION(2, 9, 0)
     message.SetExtendedMessage("If you close without saving, changes since your last save will be discarded");
