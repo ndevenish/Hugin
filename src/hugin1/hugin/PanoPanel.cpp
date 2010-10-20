@@ -1299,7 +1299,11 @@ bool PanoPanel::CheckGoodSize()
 #if wxCHECK_VERSION(2,9,0)
         wxMessageDialog dialog(this,
                 _("Are you sure you want to stitch such a large panorama?"),
+#ifdef _WINDOWS
                 _("Hugin"),
+#else
+                wxT(""),
+#endif
                 wxICON_EXCLAMATION | wxYES_NO);
         dialog.SetExtendedMessage(
                 wxString::Format(_("The panorama you are trying to stitch is %.1f gigapixels.\nIf this is too big, reduce the panorama Canvas Size and the cropped region and stitch from the Stitcher tab. Stitching a panorama this size could take a long time and a large amount of memory."),
@@ -1323,7 +1327,11 @@ bool PanoPanel::CheckGoodSize()
         wxMessageDialog dialog(this,
                 wxString::Format(_("Are you sure you want to stitch such a large panorama?\n\nThe panorama you are trying to stitch is %.1f gigapixels.\nIf this is too big, reduce the panorama Canvas Size and the cropped region and stitch from the Stitcher tab. Stitching a panorama this size could take a long time and a large amount of memory."),
                         area / 1000000000.0),
+#ifdef _WINDOWS
                 _("Hugin"),
+#else
+                wxT(""),
+#endif
                 wxICON_EXCLAMATION | wxYES_NO);
 #endif
         bool result;

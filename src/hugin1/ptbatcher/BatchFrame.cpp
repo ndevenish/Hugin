@@ -583,7 +583,12 @@ void BatchFrame::OnButtonOpenWithHugin(wxCommandEvent &event)
 	else
 	{
 		//ask user if he/she wants to load an empty project
-		wxMessageDialog message(this,_("No project selected. Open Hugin without project?"), _("Question"),
+		wxMessageDialog message(this,_("No project selected. Open Hugin without project?"), 
+#ifdef _WINDOWS
+                  _("PTBatcherGUI"),
+#else
+                  wxT(""),
+#endif
                   wxYES | wxNO | wxICON_INFORMATION );
 		if(message.ShowModal() == wxID_YES) {
 #ifdef __WXMAC__
@@ -631,8 +636,13 @@ void BatchFrame::OnButtonRemoveComplete(wxCommandEvent &event)
 	bool removeErrors=false;
 	if(!m_batch->NoErrors())
 	{
-		wxMessageDialog message(this,_("There are failed projects in the list.\nRemove them also?"), _("Question"),
-										wxYES | wxNO | wxICON_INFORMATION );
+		wxMessageDialog message(this,_("There are failed projects in the list.\nRemove them also?"), 
+#ifdef _WINDOWS
+                _("PTBatcherGUI"),
+#else
+                wxT(""),
+#endif
+                wxYES | wxNO | wxICON_INFORMATION );
 		if(message.ShowModal()==wxID_YES)
 			removeErrors=true;
 	}
@@ -659,7 +669,13 @@ void BatchFrame::OnButtonRemoveFromList(wxCommandEvent &event)
 	{
 		if(m_batch->GetStatus(selIndex)==Project::RUNNING || m_batch->GetStatus(selIndex)==Project::PAUSED)
 		{
-			wxMessageDialog message(this, _("Cannot remove project in progress.\nDo you want to cancel it?"), _("In progress"), wxYES | wxCANCEL | wxICON_INFORMATION);
+			wxMessageDialog message(this, _("Cannot remove project in progress.\nDo you want to cancel it?"), 
+#ifdef _WINDOWS
+                _("PTBatcherGUI"),
+#else
+                wxT(""),
+#endif
+                wxYES | wxCANCEL | wxICON_INFORMATION);
 			if(message.ShowModal()==wxID_YES)
 			{
 				OnButtonSkip(event);
@@ -687,7 +703,13 @@ void BatchFrame::OnButtonReset(wxCommandEvent &event)
 	{
 		if(m_batch->GetStatus(selIndex)==Project::RUNNING || m_batch->GetStatus(selIndex)==Project::PAUSED)
 		{
-			wxMessageDialog message(this, _("Cannot reset project in progress.\nDo you want to cancel it?"), _("In progress"), wxYES | wxCANCEL | wxICON_INFORMATION);
+			wxMessageDialog message(this, _("Cannot reset project in progress.\nDo you want to cancel it?"), 
+#ifdef _WINDOWS
+                _("PTBatcherGUI"),
+#else
+                wxT(""),
+#endif
+                wxYES | wxCANCEL | wxICON_INFORMATION);
 			if(message.ShowModal()==wxID_YES)
 			{
 				OnButtonSkip(event);
@@ -708,7 +730,13 @@ void BatchFrame::OnButtonResetAll(wxCommandEvent &event)
 {
 	if(m_batch->GetRunningCount()!=0)
 	{
-		wxMessageDialog message(this, _("Cannot reset projects in progress.\nDo you want to cancel the batch?"), _("In progress"), wxYES | wxCANCEL | wxICON_INFORMATION);
+		wxMessageDialog message(this, _("Cannot reset projects in progress.\nDo you want to cancel the batch?"), 
+#ifdef _WINDOWS
+                _("PTBatcherGUI"),
+#else
+                wxT(""),
+#endif
+                wxYES | wxCANCEL | wxICON_INFORMATION);
 		if(message.ShowModal()==wxID_YES)
 			OnButtonCancel(event);
 	}

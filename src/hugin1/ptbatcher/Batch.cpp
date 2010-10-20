@@ -241,7 +241,13 @@ int Batch::ClearBatch()
 	{
 		if(gui)
 		{
-			wxMessageDialog message(this, _("Cannot clear batch in progress.\nDo you want to cancel it?"), _("In progress"), wxYES | wxCANCEL | wxICON_INFORMATION);
+			wxMessageDialog message(this, _("Cannot clear batch in progress.\nDo you want to cancel it?"), 
+#ifdef _WINDOWS
+                _("PTBatcherGUI"),
+#else
+                wxT(""),
+#endif
+                wxYES | wxCANCEL | wxICON_INFORMATION);
 			if(message.ShowModal()==wxID_YES)
 			{
 				CancelBatch();
