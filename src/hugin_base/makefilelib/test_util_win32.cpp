@@ -34,6 +34,7 @@ along with hugin.  If not, see <http://www.gnu.org/licenses/>.
 #include <windows.h>
 #include <tchar.h>
 
+#define BOOST_IOSTREAMS_USE_DEPRECATED
 #include <boost/iostreams/stream.hpp>
 #include <boost/iostreams/device/file_descriptor.hpp>
 #include <boost/iostreams/code_converter.hpp>
