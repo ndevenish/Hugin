@@ -198,7 +198,7 @@
                 </object>
                 <object class="sizeritem">
                   <cellpos>1,1</cellpos>
-                  <flag>wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>
+                  <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
                   <object class="wxStaticText">
                     <label>Horizontal:</label>
                   </object>
@@ -212,7 +212,7 @@
                 </object>
                 <object class="sizeritem">
                   <cellpos>1,3</cellpos>
-                  <flag>wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>
+                  <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
                   <object class="wxStaticText">
                     <label>Vertical:</label>
                   </object>
@@ -272,7 +272,7 @@
                   <object class="wxStaticText">
                     <label>Width:</label>
                   </object>
-                  <flag>wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>
+                  <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
                   <cellpos>2,1</cellpos>
                 </object>
                 <object class="sizeritem">
@@ -286,9 +286,8 @@
                 <object class="sizeritem">
                   <object class="wxStaticText">
                     <label>Height:</label>
-                    <style>wxALIGN_RIGHT</style>
                   </object>
-                  <flag>wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>
+                  <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
                   <cellpos>2,3</cellpos>
                 </object>
                 <object class="sizeritem">
@@ -346,7 +345,7 @@
                   <object class="wxStaticText">
                     <label>Left:</label>
                   </object>
-                  <flag>wxTOP|wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>
+                  <flag>wxTOP|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
                   <border>6</border>
                   <cellpos>3,1</cellpos>
                 </object>
@@ -363,9 +362,8 @@
                 <object class="sizeritem">
                   <object class="wxStaticText">
                     <label>Top:</label>
-                    <style>wxALIGN_RIGHT</style>
                   </object>
-                  <flag>wxTOP|wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>
+                  <flag>wxTOP|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
                   <border>6</border>
                   <cellpos>3,3</cellpos>
                 </object>
@@ -382,9 +380,8 @@
                 <object class="sizeritem">
                   <object class="wxStaticText">
                     <label>Right:</label>
-                    <style>wxALIGN_RIGHT</style>
                   </object>
-                  <flag>wxBOTTOM|wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>
+                  <flag>wxBOTTOM|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
                   <border>6</border>
                   <cellpos>4,1</cellpos>
                 </object>
@@ -400,9 +397,8 @@
                 <object class="sizeritem">
                   <object class="wxStaticText">
                     <label>Bottom:</label>
-                    <style>wxALIGN_RIGHT</style>
                   </object>
-                  <flag>wxBOTTOM|wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>
+                  <flag>wxBOTTOM|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
                   <border>6</border>
                   <cellpos>4,3</cellpos>
                 </object>
@@ -496,7 +492,7 @@
                   <object class="wxStaticText" name="pano_output_ldr_format_label">
                     <label>Format:</label>
                   </object>
-                  <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                  <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
                   <cellpos>8,1</cellpos>
                   <cellspan>1,1</cellspan>
                 </object>
@@ -517,7 +513,7 @@
                   <object class="wxStaticText" name="pano_output_ldr_format_options_label">
                     <label>Compression:</label>
                   </object>
-                  <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                  <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
                   <cellpos>8,3</cellpos>
                   <cellspan>1,1</cellspan>
                 </object>
@@ -566,7 +562,7 @@
                   <object class="wxStaticText" name="pano_output_hdr_format_label">
                     <label>Format:</label>
                   </object>
-                  <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                  <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
                   <cellpos>10,1</cellpos>
                   <cellspan>1,1</cellspan>
                 </object>
@@ -586,7 +582,7 @@
                   <object class="wxStaticText" name="pano_output_hdr_opts_tiff_compression_label">
                     <label>Compression:</label>
                   </object>
-                  <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                  <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
                   <cellpos>10,3</cellpos>
                   <cellspan>1,1</cellspan>
                 </object>
