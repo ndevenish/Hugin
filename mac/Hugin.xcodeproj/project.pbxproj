@@ -2539,49 +2539,49 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 739A0C4710FA539B00D8E4C7 /* autooptimiser */;
+			remoteGlobalIDString = 739A0C4710FA539B00D8E4C7;
 			remoteInfo = autooptimiser;
 		};
 		7342A467126E01CB003FC5AB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 73D24B4D106152CD00B8A25D /* cpclean */;
+			remoteGlobalIDString = 73D24B4D106152CD00B8A25D;
 			remoteInfo = cpclean;
 		};
 		7342A469126E01CB003FC5AB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 7396E4441269806E0096D1B3 /* checkpto */;
+			remoteGlobalIDString = 7396E4441269806E0096D1B3;
 			remoteInfo = checkpto;
 		};
 		7342A46B126E01CB003FC5AB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 7309D40A125B9893007D4719 /* cpfind */;
+			remoteGlobalIDString = 7309D40A125B9893007D4719;
 			remoteInfo = cpfind;
 		};
 		7342A46D126E01CB003FC5AB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 73A95ECD124888EB0076D3FB /* icpfind dynamic */;
+			remoteGlobalIDString = 73A95ECD124888EB0076D3FB;
 			remoteInfo = "icpfind dynamic";
 		};
 		7342A46F126E01CB003FC5AB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 733DF623117F2268002EC787 /* pano_modify */;
+			remoteGlobalIDString = 733DF623117F2268002EC787;
 			remoteInfo = pano_modify;
 		};
 		7342A471126E01CB003FC5AB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 73EBC08F0EC9E0B20068B821 /* celeste dynamic */;
+			remoteGlobalIDString = 73EBC08F0EC9E0B20068B821;
 			remoteInfo = "celeste dynamic";
 		};
 		73573E2D10F9EEA300CF0ECD /* PBXContainerItemProxy */ = {

@@ -8,6 +8,7 @@ resdir="$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/Resources"
 huginsrcdir="../src/hugin1/hugin"
 xrcsrcdir="$huginsrcdir/xrc"
 celeste_data="../src/celeste/data"
+icpfind_default="../src/hugin1/icpfind/default.mac"
 
 rm -fR $resdir/xrc
 echo "copying xrc folder to $resdir/xrc"
@@ -46,3 +47,6 @@ rm $resdir/xrc/data/about.htm.in
 
 echo "copying celeste data"
 cp -f $celeste_data/* $resdir/xrc/
+
+echo "copying default cpdetector settings"
+cp -f $icpfind_default $resdir/xrc/default.setting
