@@ -103,7 +103,7 @@
                 <border>3</border>
               </object>
               <object class="sizeritem">
-                <object class="wxComboBox" name="mask_editor_zoom_box">
+                <object class="wxChoice" name="mask_editor_choice_zoom">
                   <content>
                     <item>100%</item>
                     <item>fit to window</item>
@@ -114,7 +114,6 @@
                     <item>25%</item>
                   </content>
                   <selection>1</selection>
-                  <style>wxCB_DROPDOWN|wxCB_READONLY</style>
                 </object>
                 <option>1</option>
                 <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>

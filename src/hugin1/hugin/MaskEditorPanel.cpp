@@ -47,7 +47,7 @@ BEGIN_EVENT_TABLE(MaskEditorPanel, wxPanel)
     EVT_LIST_ITEM_SELECTED(XRCID("mask_editor_mask_list"), MaskEditorPanel::OnMaskSelect)
     EVT_LIST_ITEM_DESELECTED(XRCID("mask_editor_mask_list"), MaskEditorPanel::OnMaskSelect)
     EVT_LIST_COL_END_DRAG(XRCID("mask_editor_mask_list"), MaskEditorPanel::OnColumnWidthChange)
-    EVT_COMBOBOX(XRCID("mask_editor_zoom_box"), MaskEditorPanel::OnZoom)
+    EVT_CHOICE(XRCID("mask_editor_choice_zoom"), MaskEditorPanel::OnZoom)
     EVT_CHOICE(XRCID("mask_editor_choice_masktype"), MaskEditorPanel::OnMaskTypeChange)
     EVT_BUTTON(XRCID("mask_editor_add"), MaskEditorPanel::OnMaskAdd)
     EVT_BUTTON(XRCID("mask_editor_load"), MaskEditorPanel::OnMaskLoad)
@@ -132,7 +132,7 @@ bool MaskEditorPanel::Create(wxWindow* parent, wxWindowID id,
     m_maskType = XRCCTRL(*this, "mask_editor_choice_masktype", wxChoice);
     // disable some controls
     m_maskType->Disable();
-    XRCCTRL(*this, "mask_editor_zoom_box", wxComboBox)->Disable();
+    XRCCTRL(*this, "mask_editor_choice_zoom", wxChoice)->Disable();
     XRCCTRL(*this, "mask_editor_add", wxButton)->Disable();
     XRCCTRL(*this, "mask_editor_load", wxButton)->Disable();
     XRCCTRL(*this, "mask_editor_save", wxButton)->Disable();
@@ -140,7 +140,7 @@ bool MaskEditorPanel::Create(wxWindow* parent, wxWindowID id,
 
     // apply zoom specified in xrc file
     wxCommandEvent dummy;
-    dummy.SetInt(XRCCTRL(*this,"mask_editor_zoom_box",wxComboBox)->GetSelection());
+    dummy.SetInt(XRCCTRL(*this,"mask_editor_choice_zoom",wxChoice)->GetSelection());
     OnZoom(dummy);
     return true;
 }
@@ -193,7 +193,7 @@ void MaskEditorPanel::setImage(unsigned int imgNr)
         setMask(UINT_MAX);
     // enables or disables controls
     bool enableCtrl=(imgNr<UINT_MAX);
-    XRCCTRL(*this, "mask_editor_zoom_box", wxComboBox)->Enable(enableCtrl);
+    XRCCTRL(*this, "mask_editor_choice_zoom", wxChoice)->Enable(enableCtrl);
     XRCCTRL(*this, "mask_editor_add", wxButton)->Enable(enableCtrl);
     XRCCTRL(*this, "mask_editor_delete", wxButton)->Enable(enableCtrl && m_MaskNr<UINT_MAX);
     XRCCTRL(*this, "mask_editor_load", wxButton)->Enable(enableCtrl);

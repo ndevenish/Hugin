@@ -105,7 +105,7 @@ BEGIN_EVENT_TABLE(CPEditorPanel, wxPanel)
 #endif
     EVT_LIST_ITEM_SELECTED(XRCID("cp_editor_cp_list"), CPEditorPanel::OnCPListSelect)
     EVT_LIST_COL_END_DRAG(XRCID("cp_editor_cp_list"), CPEditorPanel::OnColumnWidthChange)
-    EVT_COMBOBOX(XRCID("cp_editor_zoom_box"), CPEditorPanel::OnZoom)
+    EVT_CHOICE(XRCID("cp_editor_choice_zoom"), CPEditorPanel::OnZoom)
     EVT_TEXT_ENTER(XRCID("cp_editor_x1"), CPEditorPanel::OnTextPointChange )
     EVT_TEXT_ENTER(XRCID("cp_editor_y1"), CPEditorPanel::OnTextPointChange )
     EVT_TEXT_ENTER(XRCID("cp_editor_x2"), CPEditorPanel::OnTextPointChange )
@@ -296,7 +296,7 @@ bool CPEditorPanel::Create(wxWindow* parent, wxWindowID id,
     m_estimateCB->Disable();
     XRCCTRL(*this, "cp_editor_finetune_button", wxButton)->Disable();
     XRCCTRL(*this, "cp_editor_celeste_button", wxButton)->Disable();
-    XRCCTRL(*this, "cp_editor_zoom_box", wxComboBox)->Disable();
+    XRCCTRL(*this, "cp_editor_choice_zoom", wxChoice)->Disable();
     XRCCTRL(*this, "cp_editor_previous_img", wxButton)->Disable();
     XRCCTRL(*this, "cp_editor_next_img", wxButton)->Disable();
 #ifdef HUGIN_CP_IMG_CHOICE
@@ -306,7 +306,7 @@ bool CPEditorPanel::Create(wxWindow* parent, wxWindowID id,
 
     // apply zoom specified in xrc file
     wxCommandEvent dummy;
-    dummy.SetInt(XRCCTRL(*this,"cp_editor_zoom_box",wxComboBox)->GetSelection());
+    dummy.SetInt(XRCCTRL(*this,"cp_editor_choice_zoom",wxChoice)->GetSelection());
     OnZoom(dummy);
 
     SetSizer( topsizer );
@@ -1293,7 +1293,7 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
       m_estimateCB->Disable();
 	  XRCCTRL(*this, "cp_editor_finetune_button", wxButton)->Disable();
 	  XRCCTRL(*this, "cp_editor_celeste_button", wxButton)->Disable();
-	  XRCCTRL(*this, "cp_editor_zoom_box", wxComboBox)->Disable();
+	  XRCCTRL(*this, "cp_editor_choice_zoom", wxChoice)->Disable();
 	  XRCCTRL(*this, "cp_editor_previous_img", wxButton)->Disable();
 	  XRCCTRL(*this, "cp_editor_next_img", wxButton)->Disable();
 #ifdef HUGIN_CP_IMG_CHOICE
@@ -1308,7 +1308,7 @@ void CPEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed
       m_estimateCB->Enable();
 	  XRCCTRL(*this, "cp_editor_finetune_button", wxButton)->Enable();
 	  XRCCTRL(*this, "cp_editor_celeste_button", wxButton)->Enable();
-	  XRCCTRL(*this, "cp_editor_zoom_box", wxComboBox)->Enable();
+	  XRCCTRL(*this, "cp_editor_choice_zoom", wxChoice)->Enable();
 	  XRCCTRL(*this, "cp_editor_previous_img", wxButton)->Enable();
 	  XRCCTRL(*this, "cp_editor_next_img", wxButton)->Enable();
 #ifdef HUGIN_CP_IMG_CHOICE
@@ -1849,17 +1849,17 @@ void CPEditorPanel::OnKey(wxKeyEvent & e)
         wxCommandEvent dummy;
         dummy.SetInt(1);
         OnZoom(dummy);
-        XRCCTRL(*this,"cp_editor_zoom_box",wxComboBox)->SetSelection(1);
+        XRCCTRL(*this,"cp_editor_choiec_zoom",wxChoice)->SetSelection(1);
     } else if (e.m_keyCode == '1') {
         wxCommandEvent dummy;
         dummy.SetInt(0);
         OnZoom(dummy);
-        XRCCTRL(*this,"cp_editor_zoom_box",wxComboBox)->SetSelection(0);
+        XRCCTRL(*this,"cp_editor_choice_zoom",wxChoice)->SetSelection(0);
     } else if (e.m_keyCode == '2') {
         wxCommandEvent dummy;
         dummy.SetInt(2);
         OnZoom(dummy);
-        XRCCTRL(*this,"cp_editor_zoom_box",wxComboBox)->SetSelection(2);
+        XRCCTRL(*this,"cp_editor_choice_zoom",wxChoice)->SetSelection(2);
 
 #if 0
     } else if (e.m_keyCode == 'p') {
@@ -2059,7 +2059,7 @@ void CPEditorPanel::changeState(CPCreationState newState)
         if (cpCreationState != NO_POINT) {
             // reset zoom to previous setting
             wxCommandEvent tmpEvt;
-            tmpEvt.SetInt(XRCCTRL(*this,"cp_editor_zoom_box",wxComboBox)->GetSelection());
+            tmpEvt.SetInt(XRCCTRL(*this,"cp_editor_choice_zoom",wxChoice)->GetSelection());
             OnZoom(tmpEvt);
             m_leftImg->clearNewPoint();
             m_rightImg->clearNewPoint();
