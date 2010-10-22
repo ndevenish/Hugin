@@ -28,13 +28,13 @@ Arguments=-v -f %v -e -p %o %i
 
 [AutoPano/AutoPano_4]
 Type=1
-Description=Autopano-SIFT-C
+Description=Autopano-SIFT-C (Configured, not installed)
 Program=Use the Choose button to search for it
 Arguments=--maxmatches %p %o %i
 
 [AutoPano/AutoPano_5]
 Type=1
-Description=Panomatic
+Description=Panomatic (Configured, not installed)
 Program=Use the Choose button to search for it
 Arguments=-o %o %i
 
