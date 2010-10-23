@@ -1025,7 +1025,7 @@ void ImagesPanel::OnCelesteButton(wxCommandEvent & e)
         cfg->Read(wxT("/Celeste/Threshold"), &threshold, HUGIN_CELESTE_THRESHOLD);
 
         // Mask resolution - 1 sets it to fine
-        bool t = (cfg->Read(wxT("/Celeste/Filter"), HUGIN_CELESTE_FILTER) != 0);
+        bool t = (cfg->Read(wxT("/Celeste/Filter"), HUGIN_CELESTE_FILTER) == 0);
         int radius=(t)?10:20;
         DEBUG_TRACE("Running Celeste");
 
