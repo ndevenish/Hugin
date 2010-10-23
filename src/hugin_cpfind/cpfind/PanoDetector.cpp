@@ -544,6 +544,12 @@ bool PanoDetector::loadProject()
 	// Add images found in the project file to _filesData
 	unsigned int nImg = _panoramaInfo->getNrOfImages();
     unsigned int imgWithKeyfile=0;
+    PanoramaOptions fovOpts;
+    fovOpts.setProjection(PanoramaOptions::EQUIRECTANGULAR);
+    fovOpts.setHFOV(360);
+    fovOpts.setVFOV(180);
+    fovOpts.setWidth(360);
+    fovOpts.setHeight(180);
 	for (unsigned int imgNr = 0; imgNr < nImg; ++imgNr)
 	{
 		// insert the image in the map
@@ -594,7 +600,17 @@ bool PanoDetector::loadProject()
         if(aImgData._needsremap)
         {
             aImgData._projOpts = _panoramaInfoCopy.getOptions();
-            aImgData._projOpts.setHFOV(img.getHFOV());
+            //determine size of image in angles, needed for portrait images
+            vigra::Rect2D roi=estimateOutputROI(_panoramaInfoCopy,fovOpts,imgNr);
+            if(img.getWidth()>img.getHeight())
+            {
+                
+                aImgData._projOpts.setHFOV(2*(std::max(180-roi.left(),roi.right()-180)));
+            }
+            else
+            {
+                aImgData._projOpts.setHFOV(2*(std::max(90-roi.top(),roi.bottom()-90)));
+            };
             aImgData._projOpts.setWidth(_filesData[imgNr]._detectWidth);
             aImgData._projOpts.setHeight(_filesData[imgNr]._detectHeight);
             aImgData._projOpts.setProjection(PanoramaOptions::STEREOGRAPHIC);
