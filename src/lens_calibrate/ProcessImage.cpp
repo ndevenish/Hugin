@@ -804,7 +804,7 @@ void generate_boundary_tensor(BImage& image, FVector2Image& edgeness, FImage& co
 bool getExiv2Value(Exiv2::ExifData& exifData, std::string keyName, long & value){
 	Exiv2::ExifKey key(keyName);
 	Exiv2::ExifData::iterator itr = exifData.findKey(key);
-	if (itr != exifData.end()) {
+	if (itr != exifData.end() && itr->count()) {
 		value = itr->toLong();
 		//DEBUG_DEBUG("" << keyName << ": " << value);
 		return true;
@@ -816,7 +816,7 @@ bool getExiv2Value(Exiv2::ExifData& exifData, std::string keyName, long & value)
 bool getExiv2Value(Exiv2::ExifData& exifData, std::string keyName, float & value){
 	Exiv2::ExifKey key(keyName);
 	Exiv2::ExifData::iterator itr = exifData.findKey(key);
-	if (itr != exifData.end()) {
+	if (itr != exifData.end() && itr->count()) {
 		value = itr->toFloat();
 		//DEBUG_DEBUG("" << keyName << ": " << value);
 	return true;

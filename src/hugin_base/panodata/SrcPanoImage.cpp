@@ -749,7 +749,7 @@ bool SrcPanoImage::getExiv2Value(Exiv2::ExifData& exifData, std::string keyName,
 {
     Exiv2::ExifKey key(keyName);
     Exiv2::ExifData::iterator itr = exifData.findKey(key);
-    if (itr != exifData.end()) {
+    if (itr != exifData.end() && itr->count()) {
         value = itr->toLong();
         DEBUG_DEBUG("" << keyName << ": " << value);
         return true;
@@ -763,7 +763,7 @@ bool SrcPanoImage::getExiv2Value(Exiv2::ExifData& exifData, std::string keyName,
 {
     Exiv2::ExifKey key(keyName);
     Exiv2::ExifData::iterator itr = exifData.findKey(key);
-    if (itr != exifData.end()) {
+    if (itr != exifData.end() && itr->count()) {
         value = itr->toFloat();
         DEBUG_DEBUG("" << keyName << ": " << value);
         return true;
@@ -777,7 +777,7 @@ bool SrcPanoImage::getExiv2Value(Exiv2::ExifData& exifData, std::string keyName,
 {
     Exiv2::ExifKey key(keyName);
     Exiv2::ExifData::iterator itr = exifData.findKey(key);
-    if (itr != exifData.end()) {
+    if (itr != exifData.end() && itr->count()) {
         value = itr->toString();
         DEBUG_DEBUG("" << keyName << ": " << value);
         return true;
