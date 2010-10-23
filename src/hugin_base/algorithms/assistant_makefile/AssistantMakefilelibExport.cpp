@@ -120,7 +120,7 @@ bool AssistantMakefilelibExport::createItems()
         {
             mf::string celesteCommand=vceleste->getRef()+" ";
             valuestream.str("");    // clear the streams buffer
-            valuestream << " -f " << celesteThreshold;
+            valuestream << " -t " << celesteThreshold;
             celesteCommand+=valuestream.str()+" ";
             if(celesteSmallRadius)
                 celesteCommand+="-r 1 ";
