@@ -180,7 +180,7 @@ void PanoDetector::printDetails()
 
 void PanoDetector::printFilenames()
 {
-    cout << endl << "Project contains the follow images:" << endl;
+    cout << endl << "Project contains the following images:" << endl;
     for(unsigned int i=0;i<_panoramaInfo->getNrOfImages();i++)
     {
         std::string name(_panoramaInfo->getImage(i).getFilename());
