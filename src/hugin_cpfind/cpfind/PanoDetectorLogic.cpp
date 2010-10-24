@@ -121,195 +121,228 @@ bool PanoDetector::LoadKeypoints(ImgData& ioImgInfo, const PanoDetector& iPanoDe
     return true;
 }
 
+// save some intermediate images to disc if defined
+// #define DEBUG_LOADING_REMAPPING
 bool PanoDetector::AnalyzeImage(ImgData& ioImgInfo, const PanoDetector& iPanoDetector)
 {
-	vigra::DImage final_img(ioImgInfo._detectWidth, ioImgInfo._detectHeight);
+    vigra::DImage final_img;
     vigra::BImage final_mask;
 
     try
     {
         ioImgInfo._loadFail=false;
-    	// Remap image to stereographic if needed
-	    if(ioImgInfo._needsremap)
-    	{
-            TRACE_IMG("Remapping image...");
-    		// Load and format images
-            MultiProgressDisplay* progress=new DummyMultiProgressDisplay();
-	    	FileRemapper<vigra::BRGBImage, vigra::BImage> remapper;	//TODO : Grayscale images case
-		    progress->pushTask(ProgressTask("", "", 1.0));
-	    	RemappedPanoImage<vigra::BRGBImage, vigra::BImage> * remapped = 
-		    	remapper.getRemapped(iPanoDetector._panoramaInfoCopy, ioImgInfo._projOpts, ioImgInfo._number, 
-			    							vigra::Rect2D(0,0,ioImgInfo._detectWidth, ioImgInfo._detectHeight), *progress);
-    		vigra::BRGBImage RGBimg = remapped->m_image;
-	    	final_mask = remapped->m_mask;
-		    progress->popTask();
-       	    remapper.release(remapped);
 
-            if(iPanoDetector.getCeleste())
-            {
-                TRACE_IMG("Masking areas with clouds...");
-                vigra::UInt16RGBImage image16(RGBimg.size());
-                vigra::transformImage(srcImageRange(RGBimg),destImage(image16),vigra::functor::Arg1()*vigra::functor::Param(65535/255));
-                int radius=iPanoDetector.getCelesteRadius();
-                if(iPanoDetector._downscale)
-                {
-                    radius>>= 1;
-                };
-                if(radius<2)
-                {
-                    radius=2;
-                };
-                vigra::BImage celeste_mask=celeste::getCelesteMask(iPanoDetector.svmModel,image16,radius,iPanoDetector.getCelesteThreshold(),800,true,false);
-                vigra::copyImageIf(srcImageRange(final_mask),srcImage(celeste_mask),destImage(final_mask));
-                celeste_mask.resize(0,0);
-                image16.resize(0,0);
-            };
-            
-    		// Convert to grayscale double format
-            TRACE_IMG("Convert to greyscale double...");
-	    	vigra::copyImage(
-		    	RGBimg.upperLeft(),
-			    RGBimg.lowerRight(),
-    			vigra::RGBToGrayAccessor<vigra::RGBValue<double> >(),
-	    		final_img.upperLeft(),
-		    	vigra::DImage::Accessor());
-        
-            delete progress;
-	    }
+        TRACE_IMG("Load image...");
+        vigra::ImageImportInfo aImageInfo(ioImgInfo._name.c_str());
+        vigra::FRGBImage RGBimg(aImageInfo.width(), aImageInfo.height());
+        vigra::BImage mask;
+        if(aImageInfo.numExtraBands() == 1) 
+        {
+            mask.resize(aImageInfo.size());
+            importImageAlpha(aImageInfo, destImage(RGBimg), destImage(mask));
+        } 
         else
         {
-            // Simply load images
-	        vigra::ImageImportInfo aImageInfo(ioImgInfo._name.c_str());
-            vigra::BRGBImage RGBimg(aImageInfo.width(), aImageInfo.height());
-            vigra::BImage mask;
-
-            TRACE_IMG("Loading image...");
-            if(aImageInfo.numExtraBands() == 1) 
+            if (aImageInfo.numExtraBands() == 0) 
             {
-                mask.resize(aImageInfo.size());
-                importImageAlpha(aImageInfo, destImage(RGBimg), destImage(mask));
-            } 
-            else
-            {
-                if (aImageInfo.numExtraBands() == 0) 
-                {
-                    vigra::importImage(aImageInfo, destImage(RGBimg));
-                    if(iPanoDetector._panoramaInfoCopy.getImage(ioImgInfo._number).hasActiveMasks())
-                    {
-                        mask.resize(aImageInfo.size().width(),aImageInfo.size().height(),255);
-                    };
-                }
-                else
-                {
-                    TRACE_INFO("Image with multiple alpha channels are not supported");
-                    ioImgInfo._loadFail = true;
-                    return false;
-                };
-            };
-
-            if(iPanoDetector._panoramaInfoCopy.getImage(ioImgInfo._number).hasActiveMasks())
-            {
-                //copy mask from pto file into alpha layer
-                vigra_ext::applyMask(vigra::destImageRange(mask), iPanoDetector._panoramaInfoCopy.getImage(ioImgInfo._number).getActiveMasks());
-            };
-
-            if(iPanoDetector.getCeleste())
-            {
-                TRACE_IMG("Resizing image...");
-                vigra::BRGBImage scaled(final_img.size());
-                if(iPanoDetector._downscale)
-                {
-                    vigra::resizeImageNoInterpolation(srcImageRange(RGBimg),destImageRange(scaled));
-                    if(mask.width()>0 && mask.height()>0)
-                    {
-                        final_mask.resize(ioImgInfo._detectWidth, ioImgInfo._detectHeight);          
-                        vigra::resizeImageNoInterpolation(srcImageRange(mask),destImageRange(final_mask));
-                        mask.resize(0,0);
-                    };
-                }
-                else
-                {
-                    vigra::copyImage(srcImageRange(RGBimg),destImage(scaled));
-                };
-                TRACE_IMG("Masking areas with clouds...");
-                vigra::UInt16RGBImage image16(scaled.size());
-                vigra::transformImage(srcImageRange(scaled),destImage(image16),vigra::functor::Arg1()*vigra::functor::Param(65535/255));
-                int radius=iPanoDetector.getCelesteRadius();
-                if(iPanoDetector._downscale)
-                {
-                    radius>>= 1;
-                };
-                if(radius<2)
-                {
-                    radius=2;
-                };
-                vigra::BImage celeste_mask=celeste::getCelesteMask(iPanoDetector.svmModel,image16,radius,iPanoDetector.getCelesteThreshold(),800,true,false);
-                image16.resize(0,0);
-                if(final_mask.width()>0)
-                {
-                    vigra::copyImageIf(srcImageRange(final_mask),srcImage(celeste_mask),destImage(final_mask));
-                }
-                else
-                {
-                    final_mask.resize(final_img.size());
-                    vigra::copyImage(srcImageRange(celeste_mask),destImage(final_mask));
-                };
-                celeste_mask.resize(0,0);
-                TRACE_IMG("Convert to greyscale double...");
-                vigra::copyImage(scaled.upperLeft(), scaled.lowerRight(), vigra::RGBToGrayAccessor<vigra::RGBValue<double> >(),
-                    final_img.upperLeft(), vigra::DImage::Accessor());
-                scaled.resize(0,0);
+                vigra::importImage(aImageInfo, destImage(RGBimg));
             }
             else
             {
-                if (iPanoDetector._downscale)
+                TRACE_INFO("Image with multiple alpha channels are not supported");
+                ioImgInfo._loadFail = true;
+                return false;
+            };
+        };
+        //convert image, so that all (rgb) values are between 0 and 1
+        if(aImageInfo.getPixelType() == "FLOAT" || aImageInfo.getPixelType() == "DOUBLE")
+        {
+            vigra::RGBToGrayAccessor<vigra::RGBValue<float> > ga;
+            vigra::FindMinMax<float> minmax;   // init functor
+            vigra::inspectImage(srcImageRange(RGBimg, ga),minmax);
+            double minVal = minmax.min;
+            double maxVal = minmax.max;
+            vigra_ext::applyMapping(srcImageRange(RGBimg), destImage(RGBimg), minVal, maxVal, 0);
+        }
+        else
+        {
+            vigra::transformImage(srcImageRange(RGBimg), destImage(RGBimg),
+                vigra::functor::Arg1()/vigra::functor::Param(vigra_ext::getMaxValForPixelType(aImageInfo.getPixelType())));
+        };
+
+        if(ioImgInfo._needsremap)
+        {
+            TRACE_IMG("Remap image...");
+            RemappedPanoImage<vigra::FRGBImage,vigra::BImage>* remapped=new RemappedPanoImage<vigra::FRGBImage,vigra::BImage>;
+            vigra::FImage ffImg;
+            MultiProgressDisplay* progress=new DummyMultiProgressDisplay();
+            remapped->setPanoImage(iPanoDetector._panoramaInfoCopy.getImage(ioImgInfo._number),
+                    ioImgInfo._projOpts,vigra::Rect2D(0,0,ioImgInfo._detectWidth, ioImgInfo._detectHeight));
+            if(mask.width()>0)
+            {
+                remapped->remapImage(vigra::srcImageRange(RGBimg),vigra::srcImage(mask),vigra_ext::INTERP_CUBIC,*progress);
+            }
+            else
+            {
+                remapped->remapImage(vigra::srcImageRange(RGBimg),vigra_ext::INTERP_CUBIC,*progress);
+            };
+            RGBimg.resize(0,0);
+            mask.resize(0,0);
+            RGBimg=remapped->m_image;
+            mask=remapped->m_mask;
+            delete remapped;
+            delete progress;
+        }
+        else
+        {
+            if(iPanoDetector._panoramaInfoCopy.getImage(ioImgInfo._number).hasActiveMasks())
+            {
+                if(mask.width()!=aImageInfo.width() || mask.height()!=aImageInfo.height())
                 {
-                    // Downscale and convert to grayscale double format
-                    TRACE_IMG("Resize to greyscale double...");
-                    vigra::resizeImageNoInterpolation(
-                        RGBimg.upperLeft(),
-                        RGBimg.upperLeft() + vigra::Diff2D(aImageInfo.width(), aImageInfo.height()),
-                        vigra::RGBToGrayAccessor<vigra::RGBValue<double> >(),
-                        final_img.upperLeft(),
-                        final_img.lowerRight(),
-                        vigra::DImage::Accessor());
-                    //downscale mask
-                    if(mask.width()>0 && mask.height()>0)
-                    {
-                        final_mask.resize(ioImgInfo._detectWidth, ioImgInfo._detectHeight);          
-                        vigra::resizeImageNoInterpolation(srcImageRange(mask),destImageRange(final_mask));
-                        mask.resize(0,0);
-                    };
-                }
-                else
+                    mask.resize(aImageInfo.size().width(),aImageInfo.size().height(),255);
+                };
+                //copy mask from pto file into alpha layer
+                vigra_ext::applyMask(vigra::destImageRange(mask), iPanoDetector._panoramaInfoCopy.getImage(ioImgInfo._number).getActiveMasks());
+            };
+        };
+
+        if(iPanoDetector.getCeleste())
+        {
+            vigra::FRGBImage scaled(ioImgInfo._detectWidth,ioImgInfo._detectHeight);
+            if(iPanoDetector._downscale && (!ioImgInfo._needsremap))
+            {
+                TRACE_IMG("Resize image...");
+                vigra::resizeImageNoInterpolation(srcImageRange(RGBimg),destImageRange(scaled));
+                if(mask.width()>0 && mask.height()>0)
                 {
-                    // convert to grayscale
-                    TRACE_IMG("Convert to greyscale double...");
-                    vigra::copyImage(RGBimg.upperLeft(), RGBimg.lowerRight(), vigra::RGBToGrayAccessor<vigra::RGBValue<double> >(),
-                        final_img.upperLeft(), vigra::DImage::Accessor());
-                    if(mask.width()>0 && mask.height()>0)
-                    {
-                        final_mask.resize(ioImgInfo._detectWidth, ioImgInfo._detectHeight);          
-                        vigra::copyImage(srcImageRange(mask),destImage(final_mask));
-                        mask.resize(0,0);
-                    };
+                    final_mask.resize(ioImgInfo._detectWidth, ioImgInfo._detectHeight);          
+                    vigra::resizeImageNoInterpolation(srcImageRange(mask),destImageRange(final_mask));
+                };
+            }
+            else
+            {
+                vigra::copyImage(srcImageRange(RGBimg),destImage(scaled));
+                if(mask.width()>0 && mask.height()>0)
+                {
+                    final_mask.resize(ioImgInfo._detectWidth, ioImgInfo._detectHeight);          
+                    vigra::copyImage(srcImageRange(mask),destImage(final_mask));
                 };
             };
+            RGBimg.resize(0,0);
+            mask.resize(0,0);
+            TRACE_IMG("Mask areas with clouds...");
+            vigra::UInt16RGBImage image16(scaled.size());
+            vigra::transformImage(srcImageRange(scaled),destImage(image16),vigra::functor::Arg1()*vigra::functor::Param(65535));
+            int radius=iPanoDetector.getCelesteRadius();
+            if(iPanoDetector._downscale)
+            {
+                radius>>= 1;
+            };
+            if(radius<2)
+            {
+                radius=2;
+            };
+            vigra::BImage celeste_mask=celeste::getCelesteMask(iPanoDetector.svmModel,image16,radius,iPanoDetector.getCelesteThreshold(),800,true,false);
+#ifdef DEBUG_LOADING_REMAPPING
+            // DEBUG: export celeste mask
+            std::ostringstream maskfilename;
+            maskfilename << ioImgInfo._name << "_celeste_mask.JPG";
+            vigra::ImageExportInfo maskexinfo(maskfilename.str().c_str());
+            vigra::exportImage(srcImageRange(celeste_mask), maskexinfo);
+#endif
+            image16.resize(0,0);
+            if(final_mask.width()>0)
+            {
+                vigra::copyImageIf(srcImageRange(celeste_mask),srcImage(final_mask),destImage(final_mask));
+            }
+            else
+            {
+                final_mask.resize(ioImgInfo._detectWidth,ioImgInfo._detectHeight);
+                vigra::copyImage(srcImageRange(celeste_mask),destImage(final_mask));
+            };
+            celeste_mask.resize(0,0);
+            TRACE_IMG("Convert to greyscale double...");
+            final_img.resize(ioImgInfo._detectWidth,ioImgInfo._detectHeight);
+            vigra::copyImage(scaled.upperLeft(), scaled.lowerRight(), vigra::RGBToGrayAccessor<vigra::RGBValue<double> >(),
+                final_img.upperLeft(), vigra::DImage::Accessor());
+            scaled.resize(0,0);
         }
+        else
+        {
+            //without celeste
+            final_img.resize(ioImgInfo._detectWidth,ioImgInfo._detectHeight);
+            if (iPanoDetector._downscale && !ioImgInfo._needsremap)
+            {
+                // Downscale and convert to grayscale double format
+                TRACE_IMG("Resize to greyscale double...");
+                vigra::resizeImageNoInterpolation(
+                    RGBimg.upperLeft(),
+                    RGBimg.upperLeft() + vigra::Diff2D(aImageInfo.width(), aImageInfo.height()),
+                    vigra::RGBToGrayAccessor<vigra::RGBValue<double> >(),
+                    final_img.upperLeft(),
+                    final_img.lowerRight(),
+                    vigra::DImage::Accessor());
+                RGBimg.resize(0,0);
+                //downscale mask
+                if(mask.width()>0 && mask.height()>0)
+                {
+                    final_mask.resize(ioImgInfo._detectWidth, ioImgInfo._detectHeight);          
+                    vigra::resizeImageNoInterpolation(srcImageRange(mask),destImageRange(final_mask));
+                    mask.resize(0,0);
+                };
+            }
+            else
+            {
+                // convert to grayscale
+                TRACE_IMG("Convert to greyscale double...");
+                vigra::copyImage(RGBimg.upperLeft(), RGBimg.lowerRight(), vigra::RGBToGrayAccessor<vigra::RGBValue<double> >(),
+                    final_img.upperLeft(), vigra::DImage::Accessor());
+                RGBimg.resize(0,0);
+                if(mask.width()>0 && mask.height()>0)
+                {
+                    final_mask.resize(ioImgInfo._detectWidth, ioImgInfo._detectHeight);          
+                    vigra::copyImage(srcImageRange(mask),destImage(final_mask));
+                    mask.resize(0,0);
+                };
+            };
+        };
+
+        //now scale image from 0..1 to 0..255
+        vigra::transformImage(srcImageRange(final_img),destImage(final_img),vigra::functor::Arg1()*vigra::functor::Param(255));
+
+#ifdef DEBUG_LOADING_REMAPPING
+        // DEBUG: export remapped
+        std::ostringstream filename;
+        filename << ioImgInfo._name << "_grey.JPG";
+        vigra::ImageExportInfo exinfo(filename.str().c_str());
+        vigra::exportImage(srcImageRange(final_img), exinfo);
+#endif
 
         // Build integral image
         TRACE_IMG("Build integral image...");
-        ioImgInfo._ii.init(final_img.begin(), ioImgInfo._detectWidth,ioImgInfo._detectHeight);
+        ioImgInfo._ii.init(final_img.begin(), final_img.width(),final_img.height());
+        final_img.resize(0,0);  
 
         // compute distance map
         if(final_mask.width()>0 && final_mask.height()>0)
         {
-            TRACE_IMG("Building distance map...");
+            TRACE_IMG("Build distance map...");
             //apply threshold, in case loaded mask contains other values than 0 and 255
             vigra::transformImage(srcImageRange(final_mask), destImage(final_mask),
                 vigra::Threshold<vigra::BImage::PixelType, vigra::BImage::PixelType>(1, 255, 0, 255));
             ioImgInfo._distancemap.resize(final_mask.width(),final_mask.height(),0);
             vigra::distanceTransform(srcImageRange(final_mask), destImage(ioImgInfo._distancemap), 255, 2);
+#ifdef DEBUG_LOADING_REMAPPING
+            std::ostringstream maskfilename;
+            maskfilename << ioImgInfo._name << "_mask.JPG";
+            vigra::ImageExportInfo maskexinfo(maskfilename.str().c_str());
+            vigra::exportImage(srcImageRange(final_mask), maskexinfo);
+            std::ostringstream distfilename;
+            distfilename << ioImgInfo._name << "_distancemap.JPG";
+            vigra::ImageExportInfo distexinfo(distfilename.str().c_str());
+            vigra::exportImage(srcImageRange(ioImgInfo._distancemap), distexinfo);
+#endif
+            final_mask.resize(0,0);
         };
     }
     catch (std::exception & e)
@@ -318,14 +351,6 @@ bool PanoDetector::AnalyzeImage(ImgData& ioImgInfo, const PanoDetector& iPanoDet
         ioImgInfo._loadFail=true;
         return false;
     }
-
-#if 0
-	// DEBUG: export remapped image
-    std::ostringstream filename;
-    filename << ioImgInfo._name << "STEREO.JPG"; // opts.getOutputExtension()
-    vigra::ImageExportInfo exinfo(filename.str().c_str());
-    vigra::exportImage(srcImageRange(final_img), exinfo);
-#endif
 
     return true;
 }
