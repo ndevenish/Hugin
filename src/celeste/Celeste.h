@@ -69,7 +69,7 @@ CELESTEIMPEX HuginBase::UIntSet getCelesteControlPoints(struct svm_model* model,
  *  @param dest converted image
  */
 template <class SrcIMG>
-CELESTEIMPEX void convertToUInt16(SrcIMG & src, const std::string & origType, vigra::UInt16RGBImage & dest)
+void convertToUInt16(SrcIMG & src, const std::string & origType, vigra::UInt16RGBImage & dest)
 {
     dest.resize(src.size());
     long newMax=vigra_ext::getMaxValForPixelType("UINT16");
