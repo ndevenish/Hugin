@@ -1849,7 +1849,7 @@ void CPEditorPanel::OnKey(wxKeyEvent & e)
         wxCommandEvent dummy;
         dummy.SetInt(1);
         OnZoom(dummy);
-        XRCCTRL(*this,"cp_editor_choiec_zoom",wxChoice)->SetSelection(1);
+        XRCCTRL(*this,"cp_editor_choice_zoom",wxChoice)->SetSelection(1);
     } else if (e.m_keyCode == '1') {
         wxCommandEvent dummy;
         dummy.SetInt(0);
