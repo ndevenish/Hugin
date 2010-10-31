@@ -198,7 +198,7 @@ class IMPEX PanoramaOptions
             m_roi = vigra::Rect2D(m_size);
             outfile = "panorama";
             tiff_saveROI = true;
-            tiffCompression = "NONE";
+            tiffCompression = "LZW";
             quality = 100;
             colorCorrection = NONE;
             colorReferenceImage = 0;
@@ -228,11 +228,11 @@ class IMPEX PanoramaOptions
             outputHDRLayers = false;
             outputHDRStacks = false;
 
-            outputLayersCompression = "PACKBITS";
+            outputLayersCompression = "LZW";
             outputImageType = "tif";
-            outputImageTypeCompression = "NONE";
+            outputImageTypeCompression = "LZW";
             outputImageTypeHDR= "exr";
-            outputImageTypeHDRCompression = "";
+            outputImageTypeHDRCompression = "LZW";
 
             enblendOptions = "";
             enfuseOptions  = "";

@@ -243,7 +243,7 @@ bool PanoramaMakefilelibExport::createItems()
         if (opts.outputImageType == "tif" && opts.outputLayersCompression.size() != 0)
             val = "-z " + opts.outputLayersCompression;
         else if (opts.outputImageType == "jpg")
-            val = "-z PACKBITS ";
+            val = "-z LZW ";
 
         vnonaldr = mgr.own(new mf::Variable("NONA_LDR_REMAPPED_COMP", val, Makefile::NONE));
         vnonaldr->getDef().add();
@@ -279,9 +279,9 @@ bool PanoramaMakefilelibExport::createItems()
         {
             valuestream.str("");
             if (opts.outputImageType == "tif" && opts.outputImageTypeCompression.size() != 0)
-                valuestream << "--compression " << opts.outputImageTypeCompression;
+                valuestream << "--compression=" << opts.outputImageTypeCompression;
             else if (opts.outputImageType == "jpg")
-                valuestream << "--compression " << opts.quality;
+                valuestream << "--compression=" << opts.quality;
 
             venblendldrcomp = mgr.own(new mf::Variable("ENBLEND_LDR_COMP", valuestream.str(), Makefile::NONE));
             venblendldrcomp->getDef().add();
@@ -290,7 +290,7 @@ bool PanoramaMakefilelibExport::createItems()
         {
             makefile::string val;
             if (opts.outputImageTypeHDR == "tif" && opts.outputImageTypeHDRCompression.size() != 0) {
-                val += "--compression " + opts.outputImageTypeHDRCompression;
+                val += "--compression=" + opts.outputImageTypeHDRCompression;
             }
             venblendhdrcomp = mgr.own(new mf::Variable("ENBLEND_HDR_COMP", val, Makefile::NONE));
             venblendhdrcomp->getDef().add();
