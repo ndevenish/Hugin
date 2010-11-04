@@ -25,6 +25,7 @@
 #define _HUGINAPP_H
 
 #include "config.h"
+#include <huginapp/ImageCache.h>
 
 #include "hugin/MainFrame.h"
 
@@ -46,6 +47,40 @@ wxString getDefaultProjectName(const Panorama & pano);
 #ifdef _INCLUDE_UI_RESOURCES
   void InitXmlResource();
 #endif
+
+DECLARE_EVENT_TYPE( EVT_IMAGE_READY, )
+
+/** Event for when a requested image finished loading.
+ *  Glue for HuginBase::ImageCache. We want to load images in a separate thread,
+ *  but to write safe UI code we handle the redraw when processing a wxEvent.
+ */
+class ImageReadyEvent
+    : public wxEvent
+{
+    public:
+        HuginBase::ImageCache::RequestPtr request;
+        HuginBase::ImageCache::EntryPtr entry;
+        
+        
+        ImageReadyEvent(HuginBase::ImageCache::RequestPtr request,
+                        HuginBase::ImageCache::EntryPtr entry)
+            : wxEvent (0, EVT_IMAGE_READY)
+            , request(request)
+            , entry(entry)
+        {
+        };
+        virtual wxEvent * Clone() const
+        {
+            return new ImageReadyEvent(request, entry);
+        }
+};
+
+typedef void (wxEvtHandler::*ImageReadyEventFunction)(ImageReadyEvent&);
+
+#define EVT_IMAGE_READY2(id, fn) \
+    DECLARE_EVENT_TABLE_ENTRY( EVT_IMAGE_READY, id, -1, \
+        (wxObjectEventFunction) (wxEventFunction) \
+        wxStaticCastEvent( ImageReadyEventFunction, & fn ), (wxObject *) NULL ),
 
 /** The application class for hugin.
  *
@@ -72,6 +107,14 @@ public:
 
     /// hack.. kind of a pseudo singleton...
     static huginApp * Get();
+    static MainFrame* getMainFrame();
+    
+    /// Relay image loaded event when the UI thread is ready to process it.
+    void relayImageLoaded(ImageReadyEvent & event);
+    
+    /// Queue up an image loaded event when an image has just loaded.
+    static void imageLoadedAsync(HuginBase::ImageCache::RequestPtr request,
+                          HuginBase::ImageCache::EntryPtr entry);
 
     /** return currently active locale */
     wxLocale & GetLocale()
@@ -136,6 +179,7 @@ private:
     wxString m_macFileNameToOpenOnStart;
 #endif
 
+    DECLARE_EVENT_TABLE()
 };
 
 DECLARE_APP(huginApp)

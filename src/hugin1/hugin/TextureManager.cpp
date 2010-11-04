@@ -32,6 +32,8 @@
 
 #include "ViewState.h"
 #include "TextureManager.h"
+#include "huginApp.h"
+#include "GLPreviewFrame.h"
 
 #include "vigra/stdimage.hxx"
 #include "vigra/resizeimage.hxx"
@@ -685,7 +687,41 @@ void TextureManager::TextureInfo::DefineLevels(int min,
     ImageCache::getInstance().softFlush();
     DEBUG_INFO("Loading image");
     std::string img_name = src_img.getFilename();
-    ImageCache::EntryPtr entry = ImageCache::getInstance().getImage(img_name);
+    ImageCache::EntryPtr entry = ImageCache::getInstance().getImageIfAvailable(img_name);
+    if (!entry.get())
+    {
+        // Image isn't loaded yet. Request it for later.
+        m_imageRequest = ImageCache::getInstance().requestAsyncImage(img_name);
+        // call this function with the same parameters after the image loads
+        m_imageRequest->ready.connect(0, 
+            boost::bind(&TextureManager::TextureInfo::DefineLevels, this,
+                        min, max, photometric_correct, dest_img, src_img));
+        // After that, redraw the preview.
+        m_imageRequest->ready.connect(1,
+            boost::bind(&GLPreviewFrame::redrawPreview,
+                        huginApp::getMainFrame()->getGLPreview()));
+        
+        // make a temporary placeholder image.
+        GLubyte placeholder_image[64][64][4];
+        for (int i = 0; i < 64; i++) {
+            for (int j = 0; j < 64; j++) {
+                // checkboard pattern
+                GLubyte c = (i/8+j/8)%2 ? 63 : 191;
+                placeholder_image[i][j][0] = c;
+                placeholder_image[i][j][1] = c;
+                placeholder_image[i][j][2] = c;
+                // alpha is low, so the placeholder is mostly transparent.
+                placeholder_image[i][j][3] = 63;
+            }
+        }
+        gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGBA8, 64, 64,
+                               GL_RGBA, GL_UNSIGNED_BYTE,
+                               placeholder_image);
+        SetParameters();
+        return;
+    }
+    // forget the request if we made one before.
+    m_imageRequest = ImageCache::RequestPtr();
     DEBUG_INFO("Converting to 8 bits");
     boost::shared_ptr<vigra::BRGBImage> img = entry->get8BitImage();
     boost::shared_ptr<vigra::BImage> mask = entry->mask;

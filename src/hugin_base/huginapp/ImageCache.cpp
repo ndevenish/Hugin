@@ -27,6 +27,7 @@
 #include "ImageCache.h"
 
 #include <iostream>
+#include <boost/thread/thread.hpp>
 #include <vigra/inspectimage.hxx>
 #include <vigra/accessor.hxx>
 #include <vigra/functorexpression.hxx>
@@ -508,168 +509,161 @@ ImageCache::EntryPtr ImageCache::getImage(const std::string & filename)
         if (m_progress) {
             m_progress->pushTask(AppBase::ProgressTask("Loading image: "+hugin_utils::stripPath(filename), "", 0));
         }
-#if 1
-        // load images with VIGRA impex, and store either 8 bit or float images
-        std::string pixelTypeStr;
-        ImageCacheRGB8Ptr img8(new vigra::BRGBImage);
-        ImageCacheRGB16Ptr img16(new vigra::UInt16RGBImage);
-        ImageCacheRGBFloatPtr imgFloat(new vigra::FRGBImage);
-        ImageCache8Ptr mask(new vigra::BImage);
-
-        try {
-            vigra::ImageImportInfo info(filename.c_str());
-
-            int bands = info.numBands();
-            int extraBands = info.numExtraBands();
-            const char * pixelType = info.getPixelType();
-            pixelTypeStr = pixelType;
-
-            DEBUG_DEBUG(filename << ": bands: " << bands << "  extra bands: " << extraBands << "  type: " << pixelType);
-
-            if (pixelTypeStr == "UINT8") {
-                img8->resize(info.size());
-            } else if (pixelTypeStr == "UINT16" ) {
-                img16->resize(info.size());
-            } else {
-                imgFloat->resize(info.size());
-            }
-
-            if ( bands == 1) {
-                // load and convert image to 8 bit, if needed
-                if (strcmp(pixelType, "UINT8") == 0 ) {
-                    vigra::importImage(info, destImage(*img8,
-                                                       vigra::VectorComponentAccessor<vigra::RGBValue<vigra::UInt8> >(0)));
-                    copyImage(srcImageRange(*img8, vigra::VectorComponentAccessor<vigra::RGBValue<vigra::UInt8> >(0)),
-                              destImage(*img8, vigra::VectorComponentAccessor<vigra::RGBValue<vigra::UInt8> >(1)));
-                    copyImage(srcImageRange(*img8, vigra::VectorComponentAccessor<vigra::RGBValue<vigra::UInt8> >(0)),
-                              destImage(*img8, vigra::VectorComponentAccessor<vigra::RGBValue<vigra::UInt8> >(2)));
-                } else if (strcmp(pixelType, "UINT16") == 0 ) {
-                    vigra::importImage(info, destImage(*img16,
-                                                       vigra::VectorComponentAccessor<vigra::RGBValue<vigra::UInt16> >(0)));
-                    copyImage(srcImageRange(*img16, vigra::VectorComponentAccessor<vigra::RGBValue<vigra::UInt16> >(0)),
-                              destImage(*img16, vigra::VectorComponentAccessor<vigra::RGBValue<vigra::UInt16> >(1)));
-                    copyImage(srcImageRange(*img16, vigra::VectorComponentAccessor<vigra::RGBValue<vigra::UInt16> >(0)),
-                              destImage(*img16, vigra::VectorComponentAccessor<vigra::RGBValue<vigra::UInt16> >(2)));
-                } else {
-                    if (strcmp(pixelType, "INT16") == 0 ) {
-                        importAndConvertImage<vigra::Int16> (info, destImage(*imgFloat,
-                                vigra::VectorComponentAccessor<vigra::RGBValue<float> >(0)), pixelType);
-                    } else if (strcmp(pixelType, "UINT32") == 0 ) {
-                        importAndConvertImage<vigra::UInt32>(info, destImage(*imgFloat,
-                                vigra::VectorComponentAccessor<vigra::RGBValue<float> >(0)), pixelType);
-                    } else if (strcmp(pixelType, "INT32") == 0 ) {
-                        importAndConvertImage<vigra::Int32>(info, destImage(*imgFloat,
-                                vigra::VectorComponentAccessor<vigra::RGBValue<float> >(0)), pixelType);
-                    } else if (strcmp(pixelType, "FLOAT") == 0 ) {
-                        importAndConvertImage<float>(info, destImage(*imgFloat,
-                                vigra::VectorComponentAccessor<vigra::RGBValue<float> >(0)), pixelType);
-                    } else if (strcmp(pixelType, "DOUBLE") == 0 ) {
-                        importAndConvertImage<double>(info, destImage(*imgFloat,
-                                vigra::VectorComponentAccessor<vigra::RGBValue<float> >(0)), pixelType);
-                    } else {
-                        DEBUG_FATAL("Unsupported pixel type: " << pixelType);
-                    }
-                    copyImage(srcImageRange(*imgFloat, vigra::VectorComponentAccessor<vigra::RGBValue<float> >(0)),
-                              destImage(*imgFloat, vigra::VectorComponentAccessor<vigra::RGBValue<float> >(1)));
-                    copyImage(srcImageRange(*imgFloat, vigra::VectorComponentAccessor<vigra::RGBValue<float> >(0)),
-                              destImage(*imgFloat, vigra::VectorComponentAccessor<vigra::RGBValue<float> >(2)));
-                }
-            } else if (bands == 3 && extraBands == 0) {
-                DEBUG_DEBUG( pixelType);
-                // load and convert image to 8 bit, if needed
-                if (strcmp(pixelType, "UINT8") == 0 ) {
-                    vigra::importImage(info, destImage(*img8));
-                } else if (strcmp(pixelType, "UINT16") == 0 ) {
-                    vigra::importImage(info, destImage(*img16));
-                } else if (strcmp(pixelType, "INT16") == 0 ) {
-                    importAndConvertImage<vigra::RGBValue<vigra::Int16> > (info, destImage(*imgFloat), pixelType);
-                } else if (strcmp(pixelType, "UINT32") == 0 ) {
-                    importAndConvertImage<vigra::RGBValue<vigra::UInt32> >(info, destImage(*imgFloat), pixelType);
-                } else if (strcmp(pixelType, "INT32") == 0 ) {
-                    importAndConvertImage<vigra::RGBValue<vigra::Int32> >(info, destImage(*imgFloat), pixelType);
-                } else if (strcmp(pixelType, "FLOAT") == 0 ) {
-                    vigra::importImage(info, destImage(*imgFloat));
-//                    importAndConvertImage<vigra::RGBValue<float> >(info, destImage(*imgFloat), pixelType);
-                } else if (strcmp(pixelType, "DOUBLE") == 0 ) {
-                    vigra::importImage(info, destImage(*imgFloat));
-//                    importAndConvertImage<vigra::RGBValue<double> >(info, destImage(*imgFloat), pixelType);
-                } else {
-                    DEBUG_FATAL("Unsupported pixel type: " << pixelType);
-                }
-            } else if ( bands == 4 && extraBands == 1) {
-                mask->resize(info.size());
-                // load and convert image to 8 bit, if needed
-                if (strcmp(pixelType, "UINT8") == 0 ) {
-                    vigra::importImageAlpha(info, destImage(*img8), destImage(*mask));
-                } else if (strcmp(pixelType, "UINT16") == 0 ) {
-                    vigra::importImageAlpha(info, destImage(*img16), destImage(*mask));
-                } else if (strcmp(pixelType, "INT16") == 0 ) {
-                    importAndConvertAlphaImage<short> (info, destImage(*imgFloat), destImage(*mask), pixelType);
-                } else if (strcmp(pixelType, "UINT32") == 0 ) {
-                    importAndConvertAlphaImage<unsigned int>(info, destImage(*imgFloat), destImage(*mask), pixelType);
-                } else if (strcmp(pixelType, "INT32") == 0 ) {
-                    importAndConvertAlphaImage<int>(info, destImage(*imgFloat), destImage(*mask), pixelType);
-                } else if (strcmp(pixelType, "FLOAT") == 0 ) {
-                    importAndConvertAlphaImage<float>(info, destImage(*imgFloat), destImage(*mask), pixelType);
-                } else if (strcmp(pixelType, "DOUBLE") == 0 ) {
-                    importAndConvertAlphaImage<double>(info, destImage(*imgFloat), destImage(*mask), pixelType);
-                } else {
-                    DEBUG_FATAL("Unsupported pixel type: " << pixelType);
-                }
-#if 0
-temporarily disabled
-            } else if ( bands == 2 && extraBands == 1) {
-                // load and convert image to 8 bit, if needed
-                if (strcmp(pixelType, "UINT8") == 0 ) {
-                    vigra::BImage mask(imgview.size());
-                    vigra::importImageAlpha(info, destImage(*img8,  
-                                                    VectorComponentAccessor<RGBValue<vigra::UInt8> >(0)),
-                                            destImage(mask));
-                    copyImage(srcImageRange(*img8, VectorComponentAccessor<RGBValue<vigra::UInt8> >(0)),
-                              destImage(*img8, VectorComponentAccessor<RGBValue<vigra::UInt8> >(1)));
-                    copyImage(srcImageRange(*img8, VectorComponentAccessor<RGBValue<vigra::UInt8> >(0)),
-                              destImage(*img8, VectorComponentAccessor<RGBValue<vigra::UInt8> >(2)));
-                } else if (strcmp(pixelType, "INT16") == 0 ) {
-                    importAndConvertGrayAlphaImage<short> (info, destImage(*imgFloat), pixelType);
-                } else if (strcmp(pixelType, "UINT16") == 0 ) {
-                    importAndConvertGrayAlphaImage<unsigned short>(info, destImage(*imgFloat), pixelType);
-                } else if (strcmp(pixelType, "UINT32") == 0 ) {
-                    importAndConvertGrayAlphaImage<unsigned int>(info, destImage(*imgFloat), pixelType);
-                } else if (strcmp(pixelType, "INT32") == 0 ) {
-                    importAndConvertGrayAlphaImage<int>(info, destImage(*imgFloat), pixelType);
-                } else if (strcmp(pixelType, "FLOAT") == 0 ) {
-                    importAndConvertGrayAlphaImage<float>(info, destImage(*imgFloat), pixelType);
-                } else if (strcmp(pixelType, "DOUBLE") == 0 ) {
-                    importAndConvertGrayAlphaImage<double>(info, destImage(*imgFloat), pixelType);
-                } else {
-                    DEBUG_FATAL("Unsupported pixel type: " << pixelType);
-                }
-#endif
-            } else {
-                DEBUG_ERROR("unsupported depth, only images with 1 or 3 channel images are supported.");
-            }
-        } catch (std::exception & e) {
-            // could not load image..
-           DEBUG_FATAL("Error during image reading: " << e.what());
-            throw;
-        }
-
-#else
-        // use wx for image loading
-        wxImage * image = new wxImage(filename.c_str());
-        if (!image->Ok()){
-            wxMessageBox(_("Cannot load image: ") + wxString(filename.c_str()),
-                         "Image Cache error");
-        }
-#endif
+        
+        EntryPtr e = loadImageSafely(filename);
+        
         if (m_progress) {
             m_progress->popTask();
         }
         
-        EntryPtr e(new Entry(img8, img16, imgFloat, mask, pixelTypeStr));
+        if (!e.get())
+        {
+            // could not access image.
+            throw std::exception();
+        }
+        
         images[filename] = e;
         e->lastAccess = m_accessCounter;
         return e;
+    }
+}
+
+ImageCache::EntryPtr ImageCache::loadImageSafely(const std::string & filename)
+{
+    // load images with VIGRA impex, and store either 8 bit or float images
+    std::string pixelTypeStr;
+    ImageCacheRGB8Ptr img8(new vigra::BRGBImage);
+    ImageCacheRGB16Ptr img16(new vigra::UInt16RGBImage);
+    ImageCacheRGBFloatPtr imgFloat(new vigra::FRGBImage);
+    ImageCache8Ptr mask(new vigra::BImage);
+
+    try {
+        vigra::ImageImportInfo info(filename.c_str());
+
+        int bands = info.numBands();
+        int extraBands = info.numExtraBands();
+        const char * pixelType = info.getPixelType();
+        pixelTypeStr = pixelType;
+
+        DEBUG_DEBUG(filename << ": bands: " << bands << "  extra bands: " << extraBands << "  type: " << pixelType);
+
+        if (pixelTypeStr == "UINT8") {
+            img8->resize(info.size());
+        } else if (pixelTypeStr == "UINT16" ) {
+            img16->resize(info.size());
+        } else {
+            imgFloat->resize(info.size());
+        }
+
+        if ( bands == 1) {
+            // load and convert image to 8 bit, if needed
+            if (strcmp(pixelType, "UINT8") == 0 ) {
+                vigra::importImage(info, destImage(*img8,
+                                                   vigra::VectorComponentAccessor<vigra::RGBValue<vigra::UInt8> >(0)));
+                copyImage(srcImageRange(*img8, vigra::VectorComponentAccessor<vigra::RGBValue<vigra::UInt8> >(0)),
+                          destImage(*img8, vigra::VectorComponentAccessor<vigra::RGBValue<vigra::UInt8> >(1)));
+                copyImage(srcImageRange(*img8, vigra::VectorComponentAccessor<vigra::RGBValue<vigra::UInt8> >(0)),
+                          destImage(*img8, vigra::VectorComponentAccessor<vigra::RGBValue<vigra::UInt8> >(2)));
+            } else if (strcmp(pixelType, "UINT16") == 0 ) {
+                vigra::importImage(info, destImage(*img16,
+                                                   vigra::VectorComponentAccessor<vigra::RGBValue<vigra::UInt16> >(0)));
+                copyImage(srcImageRange(*img16, vigra::VectorComponentAccessor<vigra::RGBValue<vigra::UInt16> >(0)),
+                          destImage(*img16, vigra::VectorComponentAccessor<vigra::RGBValue<vigra::UInt16> >(1)));
+                copyImage(srcImageRange(*img16, vigra::VectorComponentAccessor<vigra::RGBValue<vigra::UInt16> >(0)),
+                          destImage(*img16, vigra::VectorComponentAccessor<vigra::RGBValue<vigra::UInt16> >(2)));
+            } else {
+                if (strcmp(pixelType, "INT16") == 0 ) {
+                    importAndConvertImage<vigra::Int16> (info, destImage(*imgFloat,
+                            vigra::VectorComponentAccessor<vigra::RGBValue<float> >(0)), pixelType);
+                } else if (strcmp(pixelType, "UINT32") == 0 ) {
+                    importAndConvertImage<vigra::UInt32>(info, destImage(*imgFloat,
+                            vigra::VectorComponentAccessor<vigra::RGBValue<float> >(0)), pixelType);
+                } else if (strcmp(pixelType, "INT32") == 0 ) {
+                    importAndConvertImage<vigra::Int32>(info, destImage(*imgFloat,
+                            vigra::VectorComponentAccessor<vigra::RGBValue<float> >(0)), pixelType);
+                } else if (strcmp(pixelType, "FLOAT") == 0 ) {
+                    importAndConvertImage<float>(info, destImage(*imgFloat,
+                            vigra::VectorComponentAccessor<vigra::RGBValue<float> >(0)), pixelType);
+                } else if (strcmp(pixelType, "DOUBLE") == 0 ) {
+                    importAndConvertImage<double>(info, destImage(*imgFloat,
+                            vigra::VectorComponentAccessor<vigra::RGBValue<float> >(0)), pixelType);
+                } else {
+                    DEBUG_ERROR("Unsupported pixel type: " << pixelType);
+                    return EntryPtr();
+                }
+                copyImage(srcImageRange(*imgFloat, vigra::VectorComponentAccessor<vigra::RGBValue<float> >(0)),
+                          destImage(*imgFloat, vigra::VectorComponentAccessor<vigra::RGBValue<float> >(1)));
+                copyImage(srcImageRange(*imgFloat, vigra::VectorComponentAccessor<vigra::RGBValue<float> >(0)),
+                          destImage(*imgFloat, vigra::VectorComponentAccessor<vigra::RGBValue<float> >(2)));
+            }
+        } else if (bands == 3 && extraBands == 0) {
+            DEBUG_DEBUG( pixelType);
+            // load and convert image to 8 bit, if needed
+            if (strcmp(pixelType, "UINT8") == 0 ) {
+                vigra::importImage(info, destImage(*img8));
+            } else if (strcmp(pixelType, "UINT16") == 0 ) {
+                vigra::importImage(info, destImage(*img16));
+            } else if (strcmp(pixelType, "INT16") == 0 ) {
+                importAndConvertImage<vigra::RGBValue<vigra::Int16> > (info, destImage(*imgFloat), pixelType);
+            } else if (strcmp(pixelType, "UINT32") == 0 ) {
+                importAndConvertImage<vigra::RGBValue<vigra::UInt32> >(info, destImage(*imgFloat), pixelType);
+            } else if (strcmp(pixelType, "INT32") == 0 ) {
+                importAndConvertImage<vigra::RGBValue<vigra::Int32> >(info, destImage(*imgFloat), pixelType);
+            } else if (strcmp(pixelType, "FLOAT") == 0 ) {
+                vigra::importImage(info, destImage(*imgFloat));
+//                    importAndConvertImage<vigra::RGBValue<float> >(info, destImage(*imgFloat), pixelType);
+            } else if (strcmp(pixelType, "DOUBLE") == 0 ) {
+                vigra::importImage(info, destImage(*imgFloat));
+//                    importAndConvertImage<vigra::RGBValue<double> >(info, destImage(*imgFloat), pixelType);
+            } else {
+                DEBUG_ERROR("Unsupported pixel type: " << pixelType);
+                return EntryPtr();
+            }
+        } else if ( bands == 4 && extraBands == 1) {
+            mask->resize(info.size());
+            // load and convert image to 8 bit, if needed
+            if (strcmp(pixelType, "UINT8") == 0 ) {
+                vigra::importImageAlpha(info, destImage(*img8), destImage(*mask));
+            } else if (strcmp(pixelType, "UINT16") == 0 ) {
+                vigra::importImageAlpha(info, destImage(*img16), destImage(*mask));
+            } else if (strcmp(pixelType, "INT16") == 0 ) {
+                importAndConvertAlphaImage<short> (info, destImage(*imgFloat), destImage(*mask), pixelType);
+            } else if (strcmp(pixelType, "UINT32") == 0 ) {
+                importAndConvertAlphaImage<unsigned int>(info, destImage(*imgFloat), destImage(*mask), pixelType);
+            } else if (strcmp(pixelType, "INT32") == 0 ) {
+                importAndConvertAlphaImage<int>(info, destImage(*imgFloat), destImage(*mask), pixelType);
+            } else if (strcmp(pixelType, "FLOAT") == 0 ) {
+                importAndConvertAlphaImage<float>(info, destImage(*imgFloat), destImage(*mask), pixelType);
+            } else if (strcmp(pixelType, "DOUBLE") == 0 ) {
+                importAndConvertAlphaImage<double>(info, destImage(*imgFloat), destImage(*mask), pixelType);
+            } else {
+                DEBUG_FATAL("Unsupported pixel type: " << pixelType);
+                return EntryPtr();
+            }
+        } else {
+            DEBUG_ERROR("unsupported depth, only images with 1 or 3 channel images are supported.");
+            return EntryPtr();
+        }
+    } catch (std::exception & e) {
+        // could not load image..
+       DEBUG_ERROR("Error during image reading: " << e.what());
+       return EntryPtr();
+    }
+
+    return EntryPtr(new Entry(img8, img16, imgFloat, mask, pixelTypeStr));
+}
+
+ImageCache::EntryPtr ImageCache::getImageIfAvailable(const std::string & filename)
+{
+    std::map<std::string, EntryPtr>::iterator it;
+    it = images.find(filename);
+    if (it != images.end()) {
+        m_accessCounter++;
+        it->second->lastAccess = m_accessCounter;
+        return it->second;
+    } else {
+        // not found, return 0 pointer.
+        return EntryPtr();
     }
 }
 
@@ -690,69 +684,241 @@ ImageCache::EntryPtr ImageCache::getSmallImage(const std::string & filename)
         }
         DEBUG_DEBUG("creating small image " << name );
         EntryPtr entry = getImage(filename);
-        // && entry->image8
-        size_t w=0;
-        size_t h=0;
-        if (entry->image8->width() > 0) {
-            w = entry->image8->width();
-            h = entry->image8->height();
-        } else if (entry->image16->width() > 0) {
-            w = entry->image16->width();
-            h = entry->image16->height();
-        } else if (entry->imageFloat->width() > 0) {
-            w = entry->imageFloat->width();
-            h = entry->imageFloat->height();
-        } else {
-            vigra_fail("Could not load image");
-        }
-
-        size_t sz = w*h;
-        size_t smallImageSize = 800 * 800l;
-
-        int nLevel=0;
-        while(sz > smallImageSize) {
-            sz /=4;
-            nLevel++;
-        }
-        EntryPtr e(new Entry);
-        e->origType = entry->origType;
-        e->lastAccess = m_accessCounter;
-        // TODO: fix bug with mask reduction
-        vigra::BImage fullsizeMask = *(entry->mask);
-        if (entry->imageFloat->width() != 0 ) {
-            e->imageFloat = ImageCacheRGBFloatPtr(new vigra::FRGBImage);
-            if (entry->mask->width() != 0) {
-                vigra_ext::reduceNTimes(*(entry->imageFloat), fullsizeMask, *(e->imageFloat), *(e->mask), nLevel);
-            } else {
-                vigra_ext::reduceNTimes(*(entry->imageFloat), *(e->imageFloat), nLevel);
-            }
-        }
-        if (entry->image16->width() != 0 ) {
-            e->image16 = ImageCacheRGB16Ptr(new vigra::UInt16RGBImage);
-            if (entry->mask->width() != 0) {
-                vigra_ext::reduceNTimes(*(entry->image16), fullsizeMask, *(e->image16), *(e->mask), nLevel);
-            } else {
-                vigra_ext::reduceNTimes(*(entry->image16), *(e->image16), nLevel);
-            }
-        }
-        if (entry->image8->width() != 0) {
-            e->image8 = ImageCacheRGB8Ptr(new vigra::BRGBImage);
-            if (entry->mask->width() != 0) {
-                vigra_ext::reduceNTimes(*(entry->image8), fullsizeMask, *(e->image8), *(e->mask), nLevel);
-            } else {
-                vigra_ext::reduceNTimes(*(entry->image8), *(e->image8), nLevel);
-            }
-        }
-        images[name] = e;
+        
+        EntryPtr small_entry = loadSmallImageSafely(entry);
+        small_entry->lastAccess = m_accessCounter;
+        images[name] = small_entry;
         DEBUG_INFO ( "created small image: " << name);
         if (m_progress) {
             m_progress->popTask();
         }
-        return e;
+        return small_entry;
     }
 }
 
+ImageCache::EntryPtr ImageCache::loadSmallImageSafely(EntryPtr entry)
+{
+    // && entry->image8
+    size_t w=0;
+    size_t h=0;
+    if (entry->image8->width() > 0) {
+        w = entry->image8->width();
+        h = entry->image8->height();
+    } else if (entry->image16->width() > 0) {
+        w = entry->image16->width();
+        h = entry->image16->height();
+    } else if (entry->imageFloat->width() > 0) {
+        w = entry->imageFloat->width();
+        h = entry->imageFloat->height();
+    } else {
+        vigra_fail("Could not load image");
+    }
 
+    size_t sz = w*h;
+    size_t smallImageSize = 800 * 800l;
 
+    int nLevel=0;
+    while(sz > smallImageSize) {
+        sz /=4;
+        nLevel++;
+    }
+    EntryPtr e(new Entry);
+    e->origType = entry->origType;
+    // TODO: fix bug with mask reduction
+    vigra::BImage fullsizeMask = *(entry->mask);
+    if (entry->imageFloat->width() != 0 ) {
+        e->imageFloat = ImageCacheRGBFloatPtr(new vigra::FRGBImage);
+        if (entry->mask->width() != 0) {
+            vigra_ext::reduceNTimes(*(entry->imageFloat), fullsizeMask, *(e->imageFloat), *(e->mask), nLevel);
+        } else {
+            vigra_ext::reduceNTimes(*(entry->imageFloat), *(e->imageFloat), nLevel);
+        }
+    }
+    if (entry->image16->width() != 0 ) {
+        e->image16 = ImageCacheRGB16Ptr(new vigra::UInt16RGBImage);
+        if (entry->mask->width() != 0) {
+            vigra_ext::reduceNTimes(*(entry->image16), fullsizeMask, *(e->image16), *(e->mask), nLevel);
+        } else {
+            vigra_ext::reduceNTimes(*(entry->image16), *(e->image16), nLevel);
+        }
+    }
+    if (entry->image8->width() != 0) {
+        e->image8 = ImageCacheRGB8Ptr(new vigra::BRGBImage);
+        if (entry->mask->width() != 0) {
+            vigra_ext::reduceNTimes(*(entry->image8), fullsizeMask, *(e->image8), *(e->mask), nLevel);
+        } else {
+            vigra_ext::reduceNTimes(*(entry->image8), *(e->image8), nLevel);
+        }
+    }
+    return e;
+}
+
+ImageCache::EntryPtr ImageCache::getSmallImageIfAvailable(const std::string & filename)
+{
+    m_accessCounter++;
+    softFlush();
+    std::map<std::string, EntryPtr>::iterator it;
+    // "_small" is only used internally
+    string name = filename + string(":small");
+    it = images.find(name);
+    if (it != images.end()) {
+        return it->second;
+    } else {
+        // not found, return 0 pointer.
+        return EntryPtr();
+    }
+}
+
+ImageCache::RequestPtr ImageCache::requestAsyncImage(const std::string & filename)
+{
+    // see if we have a request already
+    std::map<std::string, RequestPtr>::iterator it = m_requests.find(filename);
+    if (it != m_requests.end()) {
+        // return a copy of the existing request.
+        return it->second;
+    } else {
+        bool need_thread = m_requests.empty() && m_smallRequests.empty();
+        // Make a new request.
+        RequestPtr request = RequestPtr(new Request(filename, false));
+        m_requests[filename] = request;
+        if (need_thread) {
+            spawnAsyncThread();
+        }
+        return request;
+    }
+}
+
+ImageCache::RequestPtr ImageCache::requestAsyncSmallImage(const std::string & filename)
+{
+    // see if we have a request already
+    std::map<std::string, RequestPtr>::iterator it = m_smallRequests.find(filename);
+    if (it != m_smallRequests.end()) {
+        // return a copy of the existing request.
+        return it->second;
+    } else {
+        // Make a new request.
+        bool need_thread = m_requests.empty() && m_smallRequests.empty();
+        RequestPtr request = RequestPtr(new Request(filename, true));
+        m_smallRequests[filename] = request;
+        if (need_thread) {
+            spawnAsyncThread();
+        }
+        return request;
+    }
+}
+
+void ImageCache::postEvent(RequestPtr request, EntryPtr entry)
+{
+    // This is called in the main thread, but the request and entry came from
+    // the background loading thread, which will close itself now.
+    bool is_small_request = request->getIsSmall();
+    const std::string & filename = request->getFilename();
+    // Put the loaded image in the cache.
+    if (is_small_request) {
+        std::string name = filename+std::string(":small");
+        images[name] = entry;
+    } else {
+        images[filename] = entry;
+    }
+    entry->lastAccess = m_accessCounter;
+    // Remove all the completed and no longer wanted requests from the queues.
+    // We need to check everything, as images can be loaded synchronously after
+    // an asynchronous request for it was made, and also something could have
+    // given up waiting (e.g. when the user switches images faster than they
+    // load).
+    // Take this opportunity to give out the signals, for the image just loaded
+    // and anything else we spot.
+    for (std::map<std::string, RequestPtr>::iterator it = m_smallRequests.begin();
+         it != m_smallRequests.end();
+         it++)
+    {
+        if (it->second.unique()) {
+            // Last copy of the request is in the list.
+            // Anything requesting it must have given up waiting.
+            m_smallRequests.erase(it);
+        } else if (getSmallImageIfAvailable(it->first).get()) {
+            // already loaded.
+            // signal to anything waiting and remove from the list.
+            it->second->ready(getSmallImage(it->first), it->first, true);
+            m_smallRequests.erase(it);
+        }
+    }
+    for (std::map<std::string, RequestPtr>::iterator it = m_requests.begin();
+         it != m_requests.end();
+         it++)
+    {
+        if (it->second.unique()) {
+            // The last copy of the request is in the list of requests.
+            // Anything that requested it must have given up waiting.
+            // Forget about it without loading.
+            m_requests.erase(it);
+        } else if (getImageIfAvailable(it->first).get()) {
+            // already loaded.
+            // Signal to anything waiting.
+            it->second->ready(getImage(it->first), it->first, false);
+            m_requests.erase(it);
+        }
+    }
+    // If there are more images to load, start the thread again.
+    if (!(m_requests.empty() && m_smallRequests.empty())) {
+        // Start a background thread to load another image.
+        spawnAsyncThread();
+    }
+}
+
+void ImageCache::spawnAsyncThread()
+{
+    // Pick an image to load.
+    // Try the small images first.
+    std::map<std::string, RequestPtr>::iterator it = m_smallRequests.begin();
+    if (it == m_smallRequests.end()) {
+        it = m_requests.begin();
+        if (it == m_requests.end())
+        {
+            DEBUG_DEBUG("Not staring a thread to load an image, since no images are wanted.");
+        } else {
+            boost::thread(loadSafely, it->second, EntryPtr());
+        }
+    } else {
+        // got a small image request, check if its larger version has loaded.
+        const std::string & filename = it->second->getFilename();
+        EntryPtr large = getImageIfAvailable(filename);
+        if (large.get() == 0)
+        {
+            // the larger one is needed to generate it.
+            RequestPtr request(new Request(filename, false));
+            boost::thread(loadSafely, request, EntryPtr());
+        } else {
+            // we have the large image.
+            boost::thread(loadSafely, it->second, large);
+        }
+    }
+    // thread should be processing the image asynchronously now.
+    // Only one image is done at a time, so very little can go wrong between the
+    // threads. The loading thread does not need to alter the ImageCache, and
+    // there is a time when we can safely pick Requests which haven't started
+    // loading, without giving images and lists mutexes.
+}
+
+void ImageCache::loadSafely(ImageCache::RequestPtr request, EntryPtr large)
+{
+    // load the image
+    EntryPtr new_entry;
+    if (large.get())
+    {
+        new_entry = loadSmallImageSafely(large);
+    } else {
+        new_entry = loadImageSafely(request->getFilename());
+    }
+    // pass an event with the load image and request, which can get picked up by
+    // the main thread later. This could be a wxEvent for example.
+    // Check if it exists, to avoid crashing in odd cases.
+    if (getInstance().asyncLoadCompleteSignal)
+    {
+        (*getInstance().asyncLoadCompleteSignal)(request, new_entry);
+    } else {
+        DEBUG_ERROR("Please set HuginBase::ImageCache::getInstance().asyncLoadCompleteSignal to handle asynchronous image loads.");
+    }
+}
 
 } //namespace

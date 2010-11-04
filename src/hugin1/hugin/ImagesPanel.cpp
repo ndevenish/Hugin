@@ -40,7 +40,6 @@
 #include "hugin/ImagesPanel.h"
 #include "hugin/CommandHistory.h"
 #include "hugin/TextKillFocusHandler.h"
-#include "base_wx/ImageCache.h"
 #include "hugin/CPEditorPanel.h"
 #include "hugin/ImagesList.h"
 #include "hugin/MainFrame.h"
@@ -697,31 +696,46 @@ void ImagesPanel::UpdatePreviewImage()
     if (m_showImgNr < 0 || m_showImgNr >= pano->getNrOfImages()) {
         return;
     }
-    ImageCache::EntryPtr cacheEntry = ImageCache::getInstance().getSmallImage(
+    ImageCache::EntryPtr cacheEntry = ImageCache::getInstance().getSmallImageIfAvailable(
             pano->getImage(m_showImgNr).getFilename());
-    wxImage img = imageCacheEntry2wxImage(cacheEntry); 
-
-    double iRatio = img.GetWidth() / (double) img.GetHeight();
-
-    wxSize sz;
-    // estimate image size
-    
-    sz = m_smallImgCtrl->GetContainingSizer()->GetSize();
-    double sRatio = (double)sz.GetWidth() / sz.GetHeight();
-    if (iRatio > sRatio) {
-        // image is wider than screen, display landscape
-        sz.SetHeight((int) (sz.GetWidth() / iRatio));
+    if (!cacheEntry.get())
+    {
+        // image currently isn't loaded.
+        // Instead of loading and displaying the image now, request it for
+        // later. Then the user can switch between images in the list quickly,
+        // even when not all images previews are in the cache.
+        thumbnail_request = ImageCache::getInstance().requestAsyncSmallImage(
+                pano->getImage(m_showImgNr).getFilename());
+        // When the image is ready, try this function again.
+        thumbnail_request->ready.connect(
+            boost::bind(&ImagesPanel::UpdatePreviewImage, this));
     } else {
-        // portrait
-        sz.SetWidth((int) (sz.GetHeight() * iRatio));
+        // forget any request now the image has loaded.
+        thumbnail_request = ImageCache::RequestPtr();
+        wxImage img = imageCacheEntry2wxImage(cacheEntry); 
+
+        double iRatio = img.GetWidth() / (double) img.GetHeight();
+
+        wxSize sz;
+        // estimate image size
+        
+        sz = m_smallImgCtrl->GetContainingSizer()->GetSize();
+        double sRatio = (double)sz.GetWidth() / sz.GetHeight();
+        if (iRatio > sRatio) {
+            // image is wider than screen, display landscape
+            sz.SetHeight((int) (sz.GetWidth() / iRatio));
+        } else {
+            // portrait
+            sz.SetWidth((int) (sz.GetHeight() * iRatio));
+        }
+        // Make sure the size is positive:
+        // on a small window, m_smallImgCtrl can have 0 width.
+        sz.IncTo(wxSize(1,1));
+        wxImage scaled = img.Scale(sz.GetWidth(),sz.GetHeight());
+        m_smallImgCtrl->SetBitmap(wxBitmap(scaled));
+        m_smallImgCtrl->GetParent()->Layout();
+        m_smallImgCtrl->Refresh();
     }
-    // Make sure the size is positive:
-    // on a small window, m_smallImgCtrl can have 0 width.
-    sz.IncTo(wxSize(1,1));
-    wxImage scaled = img.Scale(sz.GetWidth(),sz.GetHeight());
-    m_smallImgCtrl->SetBitmap(wxBitmap(scaled));
-    m_smallImgCtrl->GetParent()->Layout();
-    m_smallImgCtrl->Refresh();
 }
 
 

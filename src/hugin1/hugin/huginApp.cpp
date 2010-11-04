@@ -87,7 +87,11 @@ wxString getDefaultProjectName(const Panorama & pano)
     }
 }
 
+DEFINE_EVENT_TYPE( EVT_IMAGE_READY )
 
+BEGIN_EVENT_TABLE(huginApp, wxApp)
+    EVT_IMAGE_READY2(-1, huginApp::relayImageLoaded)
+END_EVENT_TABLE()
 
 // make wxwindows use this class as the main application
 IMPLEMENT_APP(huginApp)
@@ -116,6 +120,9 @@ bool huginApp::OnInit()
 {
     DEBUG_TRACE("=========================== huginApp::OnInit() begin ===================");
     SetAppName(wxT("hugin"));
+    
+    // Connect to ImageCache: we need to tell it when it is safe to handle UI events.
+    ImageCache::getInstance().asyncLoadCompleteSignal = &huginApp::imageLoadedAsync;
 
 #ifdef __WXMAC__
     // do not use the native list control on OSX (it is very slow with the control point list window)
@@ -442,6 +449,30 @@ huginApp * huginApp::Get()
         DEBUG_ASSERT(m_this);
         return 0;
     }
+}
+
+MainFrame* huginApp::getMainFrame()
+{
+    if (m_this) {
+        return m_this->frame;
+    } else {
+        return 0;
+    }
+}
+
+void huginApp::relayImageLoaded(ImageReadyEvent & event)
+{
+    ImageCache::getInstance().postEvent(event.request, event.entry);
+}
+
+void huginApp::imageLoadedAsync(ImageCache::RequestPtr request, ImageCache::EntryPtr entry)
+{
+    ImageReadyEvent event(request, entry);
+    // AddPendingEvent adds the event to the event queue and returns without
+    // processing it. This is necessary since we are probably not in the
+    // UI thread, but the event handler must be run in the UI thread since it
+    // could update image views.
+    Get()->AddPendingEvent(event);
 }
 
 #ifdef __WXMAC__

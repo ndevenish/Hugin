@@ -27,6 +27,7 @@
 #include <hugin_shared.h>
 #include <map>
 #include <boost/shared_ptr.hpp>
+#include <boost/signal.hpp>
 #include <vigra/stdimage.hxx>
 #include <vigra/imageinfo.hxx>
 #include <hugin_utils/utils.h>
@@ -101,12 +102,51 @@ class IMPEX ImageCache
 
         /** a shared pointer to the entry */
         typedef boost::shared_ptr<Entry> EntryPtr;
-
+        
+        /** Request for an image to load
+         *  Connect to the ready signal so when the image loads you can respond.
+         */
+        class Request
+        {
+            public:
+                Request(std::string filename, bool small)
+                    :m_filename(filename), m_isSmall(small)
+                    {};
+                /** Signal that fires when the image is loaded.
+                 *  Function must return void and have three arguments: EntryPtr
+                 *  for the requested image, std::string for the filename, and a
+                 *  bool that is true iff this is a small image.
+                 *
+                 *  The image could be freed after the signal fires, but keeping
+                 *  the EntryPtr prevents this.
+                 */
+                boost::signal<void(EntryPtr, std::string, bool)> ready;
+                bool getIsSmall() const
+                    {return m_isSmall;};
+                const std::string & getFilename() const
+                    {return m_filename;};
+            protected:
+                std::string m_filename;
+                bool m_isSmall;
+        };
+        
+        /** Reference counted request for an image to load.
+         *  Hold on to this when you want an image to load. If you no longer
+         * want the image, just delete it. Deleting it before the image loads
+         * lets other images load next.
+         *
+         * Connect to the ready signal to respond to the image loading. To keep
+         * the image loaded, keep the EntryPtr given to the signal handler.
+         *
+         * It is reference counted, so you can freely copy and delete it.
+         */
+        typedef boost::shared_ptr<Request> RequestPtr;
 
     private:
         // ctor. private, nobody execpt us can create an instance.
         ImageCache()
-			: m_progress(NULL), m_accessCounter(0), upperBound(100*1024*1024l)
+            : m_progress(NULL), m_accessCounter(0),
+              asyncLoadCompleteSignal(0), upperBound(100*1024*1024l)
         {};
         
     public:
@@ -131,16 +171,60 @@ class IMPEX ImageCache
          *  it will be loaded if its not already in the cache
          *
          *  Hold the EntryPtr as long as the image data is needed!
+         *
+         *  If it isn't vital that the real image is obtained immediately, use
+         *  getImageIfAvailable instead. This means you can keep the UI
+         *  responsive while the real image is fetched from a disk or network
+         *  and decoded.
          */
         EntryPtr getImage(const std::string & filename);
+        
+        /** Get an image if already loaded.
+         *  If not already in the cache, the pointer returned is 0.
+         *
+         *  Hold a non-zero EntryPtr as long as the image data is needed.
+         *
+         *  If you really need the image immediately, use getImage() instead.
+         */
+        EntryPtr getImageIfAvailable(const std::string & filename);
 
         /** get an small image.
          *
          *  This image is 512x512 pixel maximum and can be used for icons
          *  and different previews. It is directly derived from the original.
+         *
+         *  If it isn't vital that the real image is obtained immediately, use
+         *  getSmallImageIfAvailable instead. This means you can keep the UI
+         *  responsive while the real image is fetched, decoded, and scaled.
          */
         EntryPtr getSmallImage(const std::string & filename);
-
+        
+        /** Get a small image if already loaded.
+         *  The EntryPtr returned is 0 if the image isn't loaded yet.
+         *
+         *  This image is 512x512 pixels maximum and can be used for icons
+         *  and different previews. It is directly derived from the original.
+         *
+         *  If you really need the image immediately, use getSmallImage()
+         *  instead.
+         */
+        EntryPtr getSmallImageIfAvailable(const std::string & filename);
+         
+        /** Request an image be loaded.
+         * This function returns quickly even when the image is not cached.
+         *
+         * @return Object to keep while you want the image. Connect to its
+         * ready signal to be notified when the image is ready.
+         */
+        RequestPtr requestAsyncImage(const std::string & filename);
+        
+        /** Request a small image be loaded.
+         * This function returns quickly even when the image is not cached.
+         *
+         * @return Object to keep while you want the image. Connect to its
+         * ready signal to be notified when it is ready.
+         */
+        RequestPtr requestAsyncSmallImage(const std::string & filename);
 
         /** remove a specific image (and dependant images)
          * from the cache 
@@ -162,13 +246,34 @@ class IMPEX ImageCache
 		/** sets the upper limit, which is used by softFlush() 
 		 */
 		void SetUpperLimit(long newUpperLimit) { upperBound=newUpperLimit; };
+        
+        /** Signal for when a asynchronous load completes.
+         *  If you use the requestAsync functions, ensure there is something
+         *  connected to this signal. The signal is raised in another thread,
+         *  so the handler must be thread safe.
+         *
+         *  The signal handler must pass the request and entry to postEvent from
+         *  the main thread when it is safe. For example, it you can wrap the
+         *  request and entry in some wxEvent and the main thread can handle it
+         *  later.
+         */
+        void (*asyncLoadCompleteSignal)(RequestPtr, EntryPtr);
+        
+        /** Pass on a loaded event for any images loaded asynchronously.
+         *  Call from the main GUI thread when an ImageLoadedEvent occurs.
+         *  The ImageLoadedEvent originates from async_load_thread.
+         *
+         *  @param request The RequestPtr from the ImageLoadedEvent.
+         *  @param entry the EntryPtr from the ImageLoadedEvent.
+         */
+        void postEvent(RequestPtr request, EntryPtr entry);
 
     private:
         long upperBound;
 
         template <class SrcPixelType,
                   class DestIterator, class DestAccessor>
-        void importAndConvertImage(const vigra::ImageImportInfo& info,
+        static void importAndConvertImage(const vigra::ImageImportInfo& info,
                                    vigra::pair<DestIterator, DestAccessor> dest,
                                    const std::string& type);
         
@@ -187,7 +292,7 @@ class IMPEX ImageCache
         template <class SrcPixelType,
                   class DestIterator, class DestAccessor,
                   class MaskIterator, class MaskAccessor>
-            void importAndConvertAlphaImage(const vigra::ImageImportInfo & info,
+        static void importAndConvertAlphaImage(const vigra::ImageImportInfo & info,
                                         vigra::pair<DestIterator, DestAccessor> dest,
                                         vigra::pair<MaskIterator, MaskAccessor> mask,
                                         const std::string & type);
@@ -211,6 +316,35 @@ class IMPEX ImageCache
 
         int m_accessCounter;
         
+        // Requests for full size images that need loading
+        std::map<std::string, RequestPtr> m_requests;
+        
+        // Requests for small images that need generating.
+        std::map<std::string, RequestPtr> m_smallRequests;
+        
+        /// Start a background thread to load an image.
+        void spawnAsyncThread();
+        
+        /** Load a requested image in a way that will work in parallel.
+         *  When done, it sends an event with the newly created EntryPtr and
+         *  request.
+         *  @param RequestPtr request for the image to load.
+         *  @param large EntryPtr for the large image when a small image is to
+         *               be generated from it. Use a 0 pointer (the default) to
+         *               generate a full size image.
+         */
+        static void loadSafely(RequestPtr request, EntryPtr large = EntryPtr());
+        
+        /** Load a full size image, in a way that will work in parallel.
+         *  If the image cannot be loaded, the pointer returned is 0.
+         */
+        static EntryPtr loadImageSafely(const std::string & filename);
+        
+        /** Load a small image, in a way that will work in parallel.
+         *  If the image cannot be loaded, the pointer returned is 0.
+         * @param entry Large image to scale down.
+         */
+        static EntryPtr loadSmallImageSafely(EntryPtr entry);
         
     public:
         /** get a pyramid image.

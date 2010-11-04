@@ -164,6 +164,8 @@ public:
     wxString getProjectName();
 
     struct celeste::svm_model* GetSVMModel();
+    
+    GLPreviewFrame * getGLPreview();
 
 protected:
     // called when a progress message should be displayed

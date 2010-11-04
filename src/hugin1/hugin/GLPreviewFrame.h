@@ -110,6 +110,14 @@ public:
     /** fills the blend wxChoice with all valid blend modes and restore the last used one
      */
     void FillBlendChoice();
+    
+    /** Display an updated version of the preview image.
+     *  Redraws happen automatically when the panorama changes, and when the 
+     *  preview's internal real time sliders are used. This is only needed
+     *  occasionally, such as when a image finishes loading and its place holder
+     *  can be replaced with the real image.
+     */
+    void redrawPreview();
 protected:
     void OnClose(wxCloseEvent& e);
     

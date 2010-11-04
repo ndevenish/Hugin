@@ -760,6 +760,11 @@ void GLPreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &change
     };
 }
 
+void GLPreviewFrame::redrawPreview()
+{
+    m_GLViewer->Redraw();
+}
+
 
 void GLPreviewFrame::OnClose(wxCloseEvent& event)
 {

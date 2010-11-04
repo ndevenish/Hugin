@@ -1848,5 +1848,10 @@ struct celeste::svm_model* MainFrame::GetSVMModel()
     return svmModel;
 };
 
+GLPreviewFrame * MainFrame::getGLPreview()
+{
+    return gl_preview_frame;
+}
+
 MainFrame * MainFrame::m_this = 0;
 

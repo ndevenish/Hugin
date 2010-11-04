@@ -40,6 +40,8 @@
 
 #include <string>
 #include <map>
+#include <boost/signals/trackable.hpp>
+#include <huginapp/ImageCache.h>
 #include "PT/Panorama.h"
 
 class GLViewer;
@@ -76,6 +78,10 @@ protected:
     // remove textures for deleted images.
     void CleanTextures();
     class TextureInfo
+        // If the TextureInfo is deleted while the image is loading, we want to
+        // avoid a segfault when the image loaded event happens. So we let the
+        // signal react to destruction of a TextureInfo.
+        : public boost::signals::trackable
     {
     public:
         TextureInfo(ViewState *new_view_state);
@@ -114,6 +120,8 @@ protected:
         bool has_mask; // this is the alpha channel
         bool has_active_masks; // has active masks
         ViewState *m_viewState;
+        /// a request for an image, if it was not loaded before.
+        HuginBase::ImageCache::RequestPtr m_imageRequest;
         // this binds a new texture in openGL and sets the various parameters
         // we need for it.
         void CreateTexture();

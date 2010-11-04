@@ -32,6 +32,8 @@
 #include "CelesteGlobals.h"
 #include "Utilities.h"
 
+#include "base_wx/ImageCache.h"
+
 using namespace PT;
 
 // forward declarations, to save the #include statements
@@ -154,6 +156,9 @@ private:
 
     /** bitmap with default image */
     wxBitmap m_empty;
+    
+    /** Request for thumbnail image */
+    HuginBase::ImageCache::RequestPtr thumbnail_request;
 
     /** pointer to the list control */
     ImagesListImage* images_list;
