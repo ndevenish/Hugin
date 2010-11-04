@@ -74,13 +74,12 @@ void PreviewCropTool::ReallyAfterDrawImagesEvent()
     bottom = (double) roi.bottom() - margin;
     left = (double) roi.left() + margin;
     right = (double) roi.right() - margin;
-    
-    glEnable(GL_BLEND);
-    helper->GetViewStatePtr()->GetTextureManager()->DisableTexture();
    
     // now draw boxes to indicate what dragging would do.
     if (!mouse_down)
     {
+        glEnable(GL_BLEND);
+        helper->GetViewStatePtr()->GetTextureManager()->DisableTexture();
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         glColor4f(1.0, 1.0, 1.0, 0.38197);
         glBegin(GL_QUADS);
@@ -105,9 +104,15 @@ void PreviewCropTool::ReallyAfterDrawImagesEvent()
                 glVertex2d(left, roi.bottom()); glVertex2d(left, bottom);
             }
         glEnd();
+        glEnable(GL_TEXTURE_2D);
+        glDisable(GL_BLEND);
+    } else {
+        // while dragging, reset the displayed ROI to ours incase something else
+        // tries to redraw the preview with the panorama's real ROI.
+        opts->setROI(new_roi);
+        helper->GetViewStatePtr()->SetOptions(opts);
+        helper->GetViewStatePtr()->Redraw();
     }
-    glEnable(GL_TEXTURE_2D);
-    glDisable(GL_BLEND);
 }
 
 void PreviewCropTool::MouseMoveEvent(double x, double y, wxMouseEvent & e)
@@ -157,6 +162,7 @@ void PreviewCropTool::MouseMoveEvent(double x, double y, wxMouseEvent & e)
 		if((roi.top()<roi.bottom())&&(roi.left()<roi.right()))
         {
             opts.setROI(roi);
+            new_roi = roi;
             helper->GetViewStatePtr()->SetOptions(&opts);
             helper->GetViewStatePtr()->Redraw();
         }
@@ -218,6 +224,7 @@ void PreviewCropTool::MouseButtonEvent(wxMouseEvent &e)
         {
             start_drag_options = *helper->GetViewStatePtr()->GetOptions();
             opts = start_drag_options;
+            new_roi = opts.getROI();
             mouse_down = true;
             moving_left = false;
             moving_right = false;
