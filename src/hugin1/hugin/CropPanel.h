@@ -75,7 +75,9 @@ protected:
 
     /** catches changes to the list selection */
     void ListSelectionChanged(wxListEvent& e);
-
+    
+    // Handle when background image loading completes
+    void OnAsyncLoad (ImageCache::EntryPtr entry, std::string filename, bool small);
     // reset crop area. 
     void OnResetButton(wxCommandEvent & e);
     void OnSetLeft(wxCommandEvent & e);
@@ -102,6 +104,13 @@ private:
 
     UIntSet m_selectedImages;
     std::string m_currentImageFile;
+    ImageCache::RequestPtr m_imageRequest;
+    /** Place holder for the image.
+     *  Used when no image is selected, or we are waiting for an image to load.
+     */
+    ImageCache::EntryPtr m_transparentImage;
+    /// File name for m_transparentImage.
+    std::string m_transparentFilename;
 
     ImageOptions   m_imgOpts;
     vigra::Point2D m_center;

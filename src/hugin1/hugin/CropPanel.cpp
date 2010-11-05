@@ -110,6 +110,12 @@ bool CropPanel::Create(wxWindow *parent, wxWindowID id, const wxPoint& pos, cons
 
     m_autocenter_cb = XRCCTRL(*this,"crop_autocenter_cb", wxCheckBox);
     DEBUG_ASSERT(m_autocenter_cb);
+    
+    wxString tmpStr = huginApp::Get()->GetXRCPath() + wxT("data/") + 
+                wxT("transparent.png");
+    m_transparentFilename = std::string(tmpStr.mb_str()); 
+    m_transparentImage =
+        ImageCache::getInstance().getImage(m_transparentFilename);
 
     DEBUG_TRACE("");
     return true;
@@ -169,13 +175,8 @@ void CropPanel::panoramaImagesChanged (PT::Panorama &pano, const PT::UIntSet & i
             Pano2Display(imgNr);
         }
     } else {
-        wxString tmpStr = huginApp::Get()->GetXRCPath() + wxT("data/") + 
-                wxT("transparent.png");
-        std::string transparent = std::string(tmpStr.mb_str()); 
-        ImageCache::EntryPtr imgV =
-            ImageCache::getInstance().getImage(transparent);
-        m_Canvas->SetImage(imgV);
-        m_currentImageFile == transparent ;
+        m_Canvas->SetImage(m_transparentImage);
+        m_currentImageFile == m_transparentFilename;
         UpdateDisplay();
     }
 }
@@ -191,9 +192,24 @@ void CropPanel::Pano2Display(int imgNr)
     // check if we need to display a new image
     if (m_currentImageFile != newImgFile) {
 //        wxImage wximg;
-        ImageCache::EntryPtr imgV = ImageCache::getInstance().getImage(newImgFile);
-        m_Canvas->SetImage(imgV);
-        m_currentImageFile == newImgFile;
+        ImageCache::EntryPtr imgV = ImageCache::getInstance().getImageIfAvailable(newImgFile);
+        if (imgV.get())
+        {
+            m_Canvas->SetImage(imgV);
+            // Clear any previous load request, so the ImageCache knows we no
+            // longer need an image loaded.
+            m_imageRequest = ImageCache::RequestPtr();
+        } else {
+            // ImageCache doesn't have the image yet.
+            // Make a request for it to load in the background.
+            m_imageRequest = ImageCache::getInstance().requestAsyncImage(newImgFile);
+            m_imageRequest->ready.connect(
+                boost::bind(&CropPanel::OnAsyncLoad, this, _1, _2, _3));
+            // Clear the old image so it doesn't confuse things while we wait.
+            m_Canvas->SetImage(m_transparentImage);
+            m_currentImageFile == m_transparentFilename;
+        }
+        m_currentImageFile = newImgFile;
     }
     
     int dx = roundi(img.getRadialDistortionCenterShift().x);
@@ -203,6 +219,16 @@ void CropPanel::Pano2Display(int imgNr)
     m_circular = img.getProjection() == SrcPanoImage::CIRCULAR_FISHEYE;
 
     UpdateDisplay();
+}
+
+void CropPanel::OnAsyncLoad(ImageCache::EntryPtr entry, std::string filename, bool small)
+{
+    // Check if this is still the image we want.
+    if (m_currentImageFile == filename)
+    {
+        m_Canvas->SetImage(entry);
+    }
+    ImageCache::getInstance().softFlush();
 }
 
 // transfer our state to panorama
