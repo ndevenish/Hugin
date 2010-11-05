@@ -58,6 +58,54 @@ namespace PT {
         protected:
             Panorama& o_pano;
     };
+    
+    //=========================================================================
+    //=========================================================================
+    
+    /** PanoCommand to combine other PanoCommands.
+        Use to get one Undo step from what would normally be several
+        PanoCommands.
+     */
+    class CombinedPanoCommand : public PanoCommand
+    {
+        public:
+            /** Constructor.
+             *  @param commands List of pointers to commands. The applied from
+                                beginning to end. CombinedPanoCommand deletes
+                                the commands when it is itself deleted.
+             */
+            CombinedPanoCommand(Panorama & pano, std::vector<PanoCommand*> & commands)
+                : PanoCommand(pano), commands(commands)
+                {};
+            ~CombinedPanoCommand()
+                {
+                    for (std::vector<PanoCommand*>::iterator it = commands.begin();
+                         it != commands.end();
+                         it++)
+                    {
+                        delete *it;
+                    }
+                }
+            virtual bool processPanorama(Panorama & pano)
+                {
+                    bool result = true;
+                    for (std::vector<PanoCommand*>::iterator it = commands.begin();
+                         it != commands.end();
+                         it++)
+                    {
+                        result &= (**it).processPanorama(pano);
+                    }
+                    /// @todo Should I revert if processing fails?
+                    return result;
+                };
+            
+            virtual std::string getName() const
+                {
+                    return "multiple commmands";
+                };
+        private:
+            std::vector<PanoCommand*> commands;
+    };
 
     
     //=========================================================================

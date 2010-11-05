@@ -518,9 +518,8 @@ void AssistantPanel::OnLoadLens(wxCommandEvent & e)
         /** @todo I think the sensor size should be copied over,
          * but SrcPanoImage doesn't have such a variable yet.
          */
-        GlobalCmdHist::getInstance().addCommand(
-                new PT::UpdateImageVariablesCmd(*m_pano, imgNr, vars)
-                                               );
+        std::vector<PanoCommand*> commands;
+        commands.push_back(new PT::UpdateImageVariablesCmd(*m_pano, imgNr, vars));
         // get all images with the current lens.
         UIntSet imgs;
         for (unsigned int i = 0; i < m_pano->getNrOfImages(); i++) {
@@ -530,8 +529,9 @@ void AssistantPanel::OnLoadLens(wxCommandEvent & e)
         }
 
         // set image options.
+        commands.push_back(new PT::SetImageOptionsCmd(*m_pano, imgopts, imgs) );
         GlobalCmdHist::getInstance().addCommand(
-                new PT::SetImageOptionsCmd(*m_pano, imgopts, imgs) );
+                new PT::CombinedPanoCommand(*m_pano, commands));
     }
 
 }
@@ -572,16 +572,18 @@ void AssistantPanel::OnLensTypeChanged (wxCommandEvent & e)
         double fl = lens.getFocalLength();
         UIntSet imgs;
         imgs.insert(0);
-        GlobalCmdHist::getInstance().addCommand(
+        std::vector<PanoCommand*> commands;
+        commands.push_back(
                 new PT::ChangeImageProjectionCmd(
                                     *m_pano,
                                     imgs,
                                     (HuginBase::SrcPanoImage::Projection) var
                                 )
             );
+        
+        commands.push_back(new PT::UpdateFocalLengthCmd(*m_pano, imgs, fl));
         GlobalCmdHist::getInstance().addCommand(
-                new PT::UpdateFocalLengthCmd(*m_pano, imgs, fl)
-            );
+                new PT::CombinedPanoCommand(*m_pano, commands));
     }
 }
 
