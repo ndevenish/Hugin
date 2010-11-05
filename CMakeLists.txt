@@ -347,6 +347,16 @@ IF (APPLE)
   ENDIF (NOT MAC_SELF_CONTAINED_BUNDLE)
 ENDIF (APPLE)
 
+IF (${HUGIN_SHARED} AND UNIX AND NOT APPLE)
+  SET(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/${LIBDIR}/hugin")
+  SET(HUGIN_LIBS_PRIVATE_DIR "1" CACHE INTERNAL "Store internal
+    libraries in private subdirectory" )
+ELSE (${HUGIN_SHARED} AND UNIX AND NOT APPLE)
+  # On OS X files are moved around after make install, do not try to use
+  # rpath or CMAKE_INSTALL_NAME_DIR
+  SET(HUGIN_LIBS_PRIVATE_DIR "0" CACHE INTERNAL "Store internal
+    libraries in private subdirectory" )
+ENDIF (${HUGIN_SHARED} AND UNIX AND NOT APPLE)
 
 IF (UNIX)
   IF (${HUGIN_SHARED})
