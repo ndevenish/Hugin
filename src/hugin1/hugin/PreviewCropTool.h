@@ -41,6 +41,8 @@ private:
     double top, bottom, left, right;
     double start_drag_x, start_drag_y;
     HuginBase::PanoramaOptions start_drag_options, opts;
+    // region of intrest while displayed during change by dragging.
+    vigra::Rect2D new_roi;
 };
 
 #endif
