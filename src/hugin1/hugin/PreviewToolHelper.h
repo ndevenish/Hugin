@@ -47,6 +47,11 @@
 #ifndef _PREVIEWTOOLHELPER_H
 #define _PREVIEWTOOLHELPER_H
 
+
+#if __APPLE__
+#include "panoinc_WX.h"
+#include "panoinc.h"
+#endif
 #include "hugin_utils/utils.h"
 #include "base_wx/platform.h"
 #include <wx/defs.h>
