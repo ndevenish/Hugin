@@ -650,21 +650,38 @@ void CPImageCtrl::setImage(const std::string & file, ImageRotation imgRot)
     imageFilename = file;
     wxString fn(imageFilename.c_str(),HUGIN_CONV_FILENAME);
     if (wxFileName::FileExists(fn)) {
-        m_img = ImageCache::getInstance().getImage(imageFilename);
-        editState = NO_SELECTION;
         m_imgRotation = imgRot;
-        rescaleImage();
-    } else {
-        editState = NO_IMAGE;
-        bitmap = wxBitmap();
-        SetSizeHints(0,0,0,0,1,1);
-        // delete the image (release shared_ptr)
-        // create an empty image.
-        m_img = ImageCache::EntryPtr(new ImageCache::Entry);
+        m_img = ImageCache::getInstance().getImageIfAvailable(imageFilename);
+        if (m_img.get()) {
+            editState = NO_SELECTION;
+            rescaleImage();
+            return;
+        } else {
+            // load the image in the background.
+            m_imgRequest = ImageCache::getInstance().requestAsyncImage(imageFilename);
+            m_imgRequest->ready.connect(
+                boost::bind(&CPImageCtrl::OnImageLoaded, this, _1, _2, _3));
+            // act as if there is no image until it loads.
+        }
     }
+    editState = NO_IMAGE;
+    bitmap = wxBitmap();
+    SetSizeHints(0,0,0,0,1,1);
+    // delete the image (release shared_ptr)
+    // create an empty image.
+    m_img = ImageCache::EntryPtr(new ImageCache::Entry);
 }
 
-
+void CPImageCtrl::OnImageLoaded(ImageCache::EntryPtr entry, std::string filename, bool small)
+{
+    // check we are still displaying this image
+    if (imageFilename == filename)
+    {
+        m_img = entry;
+        editState = NO_SELECTION;
+        rescaleImage();
+    }
+}
 
 void CPImageCtrl::rescaleImage()
 {
