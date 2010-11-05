@@ -467,6 +467,18 @@ MainFrame::~MainFrame()
     DEBUG_TRACE("dtor end");
 }
 
+void MainFrame::panoramaChanged(PT::Panorama &pano)
+{
+    wxToolBar* theToolBar = GetToolBar();
+    wxMenuBar* theMenuBar = GetMenuBar();
+    bool can_undo = GlobalCmdHist::getInstance().canUndo();
+    theMenuBar->Enable    (XRCID("ID_EDITUNDO"), can_undo);
+    theToolBar->EnableTool(XRCID("ID_EDITUNDO"), can_undo);
+    bool can_redo = GlobalCmdHist::getInstance().canRedo();
+    theMenuBar->Enable    (XRCID("ID_EDITREDO"), can_redo);
+    theToolBar->EnableTool(XRCID("ID_EDITREDO"), can_redo);
+}
+
 void MainFrame::RestoreLayout()
 {
     DEBUG_TRACE("");	

@@ -91,8 +91,11 @@ void CommandHistory::undo()
     if (nextCmd > 0) {
         // undo the current command
         DEBUG_DEBUG("undo: " << commands[nextCmd-1]->getName());
-        commands[nextCmd-1]->undo();
+        // change nextCmd before the panorama, so panorama changed listeners get
+        // correct results from canUndo() and canRedo().
         nextCmd--;
+        commands[nextCmd]->undo();
+        
         // smart undo: keep undoing simple visibility toggles according to user preference
         bool t = (wxConfigBase::Get()->Read(wxT("smartUndo"), HUGIN_SMART_UNDO) != 0); 
         if(t){
@@ -103,7 +106,7 @@ void CommandHistory::undo()
         }
         // TODO: reestablish visibility based on preferences
     } else {
-        wxLogError(_("no command in undo history"));
+        DEBUG_ERROR("no command in undo history");
     }
 }
 
@@ -112,8 +115,8 @@ void CommandHistory::redo()
 {
     if (nextCmd < commands.size()) {
         DEBUG_DEBUG("redo: " << commands[nextCmd]->getName());
-        commands[nextCmd]->execute();
         nextCmd++;
+        commands[nextCmd - 1]->execute();
         // smart redo: keep redoing simple visibility toggles according to user preference
         bool t = (wxConfigBase::Get()->Read(wxT("smartUndo"), HUGIN_SMART_UNDO) != 0); 
         if(t){
@@ -124,8 +127,18 @@ void CommandHistory::redo()
         }
         // TODO: reestablish visibility based on preferences
     } else {
-        wxLogError(_("no command in redo history"));
+        DEBUG_ERROR("no command in redo history");
     }
+}
+
+bool CommandHistory::canUndo()
+{
+    return nextCmd > 0;
+}
+
+bool CommandHistory::canRedo()
+{
+    return nextCmd < commands.size();
 }
 
 // ======================================================================

@@ -73,7 +73,12 @@ public:
      * Redoes the last undone action.
      */
     virtual void redo();
-
+    
+    /// Return true iff there is a command to undo.
+    bool canUndo();
+    
+    /// Return true iff there is a command to redo.
+    bool canRedo();
 private:
     // our commands
     std::vector<Command*> commands;
