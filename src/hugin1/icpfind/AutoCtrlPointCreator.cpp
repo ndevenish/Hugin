@@ -445,7 +445,7 @@ CPVector AutoPanoSift::automatch(CPDetectorSetting &setting, Panorama & pano, co
     wxArrayString arguments = wxCmdLineParser::ConvertStringToArgs(autopanoArgs);
     if (arguments.GetCount() > 127) {
         DEBUG_ERROR("Too many arguments for call to wxExecute()");
-        DEBUG_ERROR("Try using the %s parameter in preferences");
+        DEBUG_ERROR("Try using the %%s parameter in preferences");
         CPMessage(wxString::Format(_("Too many arguments (images). Try using the %%s parameter in preferences.\n\n Could not execute command: %s"), autopanoExe.c_str()), _("wxExecute Error"), parent);
         return cps;
     }
