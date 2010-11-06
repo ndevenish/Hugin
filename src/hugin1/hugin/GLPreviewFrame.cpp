@@ -70,7 +70,7 @@ extern "C" {
 #include "PreviewLayoutLinesTool.h"
 
 #include <wx/progdlg.h>
-#if wxCHECK_VERSION(2, 9, 0)
+#if wxCHECK_VERSION(2, 9, 1)
 #include <wx/infobar.h>
 #endif
 
@@ -210,7 +210,7 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     : wxFrame(frame,-1, _("Fast Panorama preview"), wxDefaultPosition, wxDefaultSize,
               PF_STYLE),
       m_pano(pano)
-#if !wxCHECK_VERSION(2, 9, 0)
+#if !wxCHECK_VERSION(2, 9, 1)
     ,
       m_projectionStatusPushed(false)
 #endif
@@ -275,7 +275,7 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     m_topsizer->Add(tool_panel, 0, wxEXPAND | wxALL, 2);
     m_topsizer->Add(m_ToggleButtonSizer, 0, wxEXPAND | wxADJUST_MINSIZE | wxBOTTOM, 5);
     
-#if wxCHECK_VERSION(2, 9, 0)
+#if wxCHECK_VERSION(2, 9, 1)
     m_infoBar = new wxInfoBar(this);
     m_topsizer->Add(m_infoBar, 0, wxEXPAND);
 #endif
@@ -1702,7 +1702,7 @@ void GLPreviewFrame::ShowProjectionWarnings()
     }
     if (message.IsEmpty()) {
         // no message needed.
-#if wxCHECK_VERSION(2, 9, 0)
+#if wxCHECK_VERSION(2, 9, 1)
         m_infoBar->Dismiss();
 #else
         if (m_projectionStatusPushed) {
@@ -1711,7 +1711,7 @@ void GLPreviewFrame::ShowProjectionWarnings()
         }
 #endif
     } else {
-#if wxCHECK_VERSION(2, 9, 0)
+#if wxCHECK_VERSION(2, 9, 1)
         /** @todo If the projection information bar was closed manually, don't show any more messages there.
          * It should probably be stored as a configuration setting so it persits
          * until "Load defaults" is selected on the preferences window.

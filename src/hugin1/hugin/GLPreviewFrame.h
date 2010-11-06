@@ -37,7 +37,7 @@ class wxSlider;
 class GLViewer;
 class wxSpinEvent;
 class wxChoice;
-#if wxCHECK_VERSION(2,9,0)
+#if wxCHECK_VERSION(2,9,1)
 //forward declaration for wxInfoBar works only for wxGTK
 //for other systems wxInfoBar is defined as preprocessor macro and not as class
 //class wxInfoBar;
@@ -194,7 +194,7 @@ private:
     wxTextCtrl * m_exposureTextCtrl;
     wxBitmapButton * m_defaultExposureBut;
     wxSpinButton * m_exposureSpinBut;
-#if wxCHECK_VERSION(2, 9, 0)
+#if wxCHECK_VERSION(2, 9, 1)
     /// Bar for context sensitive projection information.
     wxInfoBar * m_infoBar;
 #else
