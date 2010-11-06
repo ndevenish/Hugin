@@ -115,7 +115,7 @@
   </object>
   <object class="wxDialog" name="find_pano_dialog">
     <title>Searching panoramas</title>
-    <style>wxDEFAULT_DIALOG_STYLE|wxSYSTEM_MENU|wxRESIZE_BORDER|wxRESIZE_BOX|wxCLOSE_BOX</style>
+    <style>wxDEFAULT_DIALOG_STYLE|wxSYSTEM_MENU|wxRESIZE_BORDER|wxCLOSE_BOX</style>
     <object class="wxBoxSizer">
       <orient>wxVERTICAL</orient>
       <object class="sizeritem">
@@ -128,53 +128,40 @@
                 <label>Directories</label>
                 <object class="sizeritem">
                   <object class="wxBoxSizer">
-                    <orient>wxHORIZONTAL</orient>
                     <object class="sizeritem">
-                      <object class="wxFlexGridSizer">
-                        <cols>3</cols>
-                        <rows>2</rows>
-                        <growablecols>1</growablecols>
+                      <object class="wxGridBagSizer">
                         <object class="sizeritem">
                           <object class="wxStaticText" name="find_pano_label_dir">
                             <label>Directory:</label>
                           </object>
-                          <flag>wxALL|wxEXPAND|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-                          <border>3</border>
+                          <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          <cellpos>0,0</cellpos>
                         </object>
                         <object class="sizeritem">
                           <object class="wxTextCtrl" name="find_pano_dir"/>
-                          <option>1</option>
-                          <flag>wxTOP|wxBOTTOM|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
-                          <border>3</border>
-                          <minsize>100,-1</minsize>
+                          <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                          <cellpos>0,1</cellpos>
                         </object>
                         <object class="sizeritem">
                           <object class="wxButton" name="find_pano_select_dir">
                             <label>Choose...</label>
                           </object>
-                          <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
-                        </object>
-                        <object class="spacer">
-                          <size>0,0</size>
-                          <flag>wxALL|wxEXPAND</flag>
+                          <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                          <cellpos>0,2</cellpos>
                         </object>
                         <object class="sizeritem">
                           <object class="wxCheckBox" name="find_pano_subdir">
                             <label>include sub-directories</label>
                           </object>
-                          <option>1</option>
-                          <flag>wxTOP|wxBOTTOM|wxEXPAND</flag>
-                          <border>3</border>
-                        </object>
-                        <object class="spacer">
-                          <size>0,0</size>
+                          <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                          <cellpos>1,1</cellpos>
                         </object>
                         <object class="sizeritem">
                           <object class="wxStaticText">
                             <label>Naming:</label>
                           </object>
-                          <flag>wxALL|wxEXPAND|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-                          <border>3</border>
+                          <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          <cellpos>2,0</cellpos>
                         </object>
                         <object class="sizeritem">
                           <object class="wxComboBox" name="find_pano_naming">
@@ -185,26 +172,28 @@
                             <selection>0</selection>
                             <style>wxCB_READONLY</style>
                           </object>
-                          <option>1</option>
-                          <flag>wxTOP|wxBOTTOM|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
-                          <border>3</border>
+                          <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                          <cellpos>2,1</cellpos>
                         </object>
-                        <object class="spacer">
-                          <size>0,0</size>
-                          <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
-                        </object>
+                        <vgap>6</vgap>
+                        <hgap>12</hgap>
+                        <growablecols>1</growablecols>
                       </object>
                       <option>1</option>
                       <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
                       <border>6</border>
                     </object>
+                    <object class="spacer">
+                      <size>24,-1</size>
+                    </object>
                     <object class="sizeritem">
                       <object class="wxButton" name="find_pano_start_stop">
                         <label>Start</label>
                       </object>
-                      <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                      <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                       <border>6</border>
                     </object>
+                    <orient>wxHORIZONTAL</orient>
                   </object>
                   <option>1</option>
                   <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
@@ -341,7 +330,6 @@
         <object class="wxStdDialogButtonSizer">
           <object class="button">
             <object class="wxButton" name="wxID_OK">
-              <label></label>
               <label>&amp;Close</label>
               <default>1</default>
             </object>
@@ -351,6 +339,6 @@
         <border>6</border>
       </object>
     </object>
-    <style>wxDEFAULT_DIALOG_STYLE|wxSYSTEM_MENU|wxRESIZE_BORDER|wxRESIZE_BOX|wxCLOSE_BOX</style>
+    <style>wxDEFAULT_DIALOG_STYLE|wxSYSTEM_MENU|wxRESIZE_BORDER|wxCLOSE_BOX</style>
   </object>
 </resource>
