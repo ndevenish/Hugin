@@ -907,12 +907,20 @@ void GLPreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &change
     for (int i=nrButtons-1; i>=(int)nrImages; i--)
     {
         m_ButtonSizer->Detach(m_ToggleButtonPanel[i]);
+        // Image toggle buttons have three event handlers on the stack which
+        // must be removed before the buttons get destroyed.
+        m_ToggleButtons[i]->PopEventHandler();
+        m_ToggleButtons[i]->PopEventHandler();
         m_ToggleButtons[i]->PopEventHandler();
         delete m_ToggleButtons[i];
         delete m_ToggleButtonPanel[i];
         m_ToggleButtons.pop_back();
         m_ToggleButtonPanel.pop_back();
-        delete toogle_button_event_handlers[i];
+        delete toogle_button_event_handlers[i*3];
+        delete toogle_button_event_handlers[i*3+1];
+        delete toogle_button_event_handlers[i*3+2];
+        toogle_button_event_handlers.pop_back();
+        toogle_button_event_handlers.pop_back();
         toogle_button_event_handlers.pop_back();
         dirty = true;
     }
