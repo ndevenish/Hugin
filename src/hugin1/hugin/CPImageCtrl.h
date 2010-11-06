@@ -200,7 +200,7 @@ protected:
     // draw the magnified view of a selected control point
     wxBitmap generateMagBitmap(hugin_utils::FDiff2D point, wxPoint canvasPos) const;
     // display the image when loading finishes
-    void OnImageLoaded(ImageCache::EntryPtr entry, std::string filename, bool small);
+    void OnImageLoaded(ImageCache::EntryPtr entry, std::string filename, bool load_small);
     void OnDraw(wxDC& dc);
     void OnSize(wxSizeEvent & e);
     void OnKey(wxKeyEvent & e);

@@ -109,8 +109,8 @@ class IMPEX ImageCache
         class Request
         {
             public:
-                Request(std::string filename, bool small)
-                    :m_filename(filename), m_isSmall(small)
+                Request(std::string filename, bool request_small)
+                    :m_filename(filename), m_isSmall(request_small)
                     {};
                 /** Signal that fires when the image is loaded.
                  *  Function must return void and have three arguments: EntryPtr

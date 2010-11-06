@@ -77,7 +77,7 @@ protected:
     void ListSelectionChanged(wxListEvent& e);
     
     // Handle when background image loading completes
-    void OnAsyncLoad (ImageCache::EntryPtr entry, std::string filename, bool small);
+    void OnAsyncLoad (ImageCache::EntryPtr entry, std::string filename, bool load_small);
     // reset crop area. 
     void OnResetButton(wxCommandEvent & e);
     void OnSetLeft(wxCommandEvent & e);

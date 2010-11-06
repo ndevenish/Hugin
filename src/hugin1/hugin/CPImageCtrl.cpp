@@ -672,7 +672,7 @@ void CPImageCtrl::setImage(const std::string & file, ImageRotation imgRot)
     m_img = ImageCache::EntryPtr(new ImageCache::Entry);
 }
 
-void CPImageCtrl::OnImageLoaded(ImageCache::EntryPtr entry, std::string filename, bool small)
+void CPImageCtrl::OnImageLoaded(ImageCache::EntryPtr entry, std::string filename, bool load_small)
 {
     // check we are still displaying this image
     if (imageFilename == filename)

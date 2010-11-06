@@ -221,7 +221,7 @@ void CropPanel::Pano2Display(int imgNr)
     UpdateDisplay();
 }
 
-void CropPanel::OnAsyncLoad(ImageCache::EntryPtr entry, std::string filename, bool small)
+void CropPanel::OnAsyncLoad(ImageCache::EntryPtr entry, std::string filename, bool load_small)
 {
     // Check if this is still the image we want.
     if (m_currentImageFile == filename)
