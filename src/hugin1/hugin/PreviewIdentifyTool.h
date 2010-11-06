@@ -22,7 +22,7 @@
 #ifndef _PREVIEWIDENTIFYTOOL_H
 #define _PREVIEWIDENTIFYTOOL_H
 
-#include "PreviewTool.h"
+#include "Tool.h"
 #include <set>
 
 class GLPreviewFrame;
@@ -39,10 +39,10 @@ class GLPreviewFrame;
  * If the mouse is over exactly two images, a click opens the control point
  * editor with those two images shown.
  */
-class PreviewIdentifyTool : public PreviewTool
+class PreviewIdentifyTool : public Tool
 {
 public:
-    PreviewIdentifyTool(PreviewToolHelper *helper, GLPreviewFrame *owner);
+    PreviewIdentifyTool(ToolHelper *helper, GLPreviewFrame *owner);
     ~PreviewIdentifyTool();
     void Activate();
     void ImagesUnderMouseChangedEvent();
@@ -56,21 +56,29 @@ public:
     void StopShowingImages();
     /// Show control point editor if mouse is over two images.
     void MouseButtonEvent(wxMouseEvent & e);
+
+    void MouseMoveEvent(double x, double y, wxMouseEvent & e);
 private:
     /// Generate a colour given how many colours we need and an index.
     void HighlightColour(unsigned int index, unsigned int count,
                         unsigned char &red, unsigned char &green,
                         unsigned char &blue);
+    static bool texture_created;
     /// OpenGL texture name for the circular border texture.
-    unsigned int circle_border_tex;
+    static unsigned int circle_border_tex;
     /// OpenGL texture name for the rectangular border texture.
-    unsigned int rectangle_border_tex;
+    static unsigned int rectangle_border_tex;
     /// Set of image numbers of the images we are displaying highlighted.
     std::set<unsigned int> image_set;
     GLPreviewFrame *preview_frame;
     /// The image the user last placed their mouse over the button for
     unsigned int mouse_over_image;
     bool mouse_is_over_button;
+
+    bool stopUpdating;
+    //user has clicked and is holding left button while over panorama
+    bool holdLeft;
+    
 };
 
 #endif

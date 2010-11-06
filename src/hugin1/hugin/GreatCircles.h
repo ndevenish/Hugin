@@ -39,7 +39,7 @@ public:
      * preview display.
      * @param viewState a pointer to the ViewState the preview is using.
      */
-    void setViewState(ViewState * viewState);
+    void setVisualizationState(VisualizationState * visualizationState);
     /** Draw the shortest segment of the great circle crossing two spherical
      * coordinates.
      *
@@ -54,11 +54,12 @@ public:
      * @param startLong longitude of the first point in degrees.
      * @param endLat lattide of the second point in degrees.
      * @param endLong longitude of the second point in degrees.
+     * @param width width of the line in pixels.
      */
     void drawLineFromSpherical(double startLat, double startLong,
-                               double endLat, double endLong);
+                               double endLat, double endLong, double width = 1.0);
 private:
-    ViewState * m_viewState;
+    VisualizationState * m_visualizationState;
 };
 
 class GreatCircleArc
@@ -77,26 +78,36 @@ class GreatCircleArc
          */
         GreatCircleArc(double startLat, double startLong,
                        double endLat, double endLong,
-                       ViewState & m_viewState);
+                       VisualizationState & m_visualizationState);
         /// Draw the great circle arc on the fast preview
-        void draw(bool withCross=true) const;
+        void draw(bool withCross=true, double width = 1.0) const;
         /** Return the square of the minimal distance between the great circle arc and a coorinate on the panorama.
          * This is an approximation, but should be reasonable.
          */
         float squareDistance(hugin_utils::FDiff2D point) const;
 		double m_xscale ;
 		double getxscale() const;
-    protected:
+
         struct LineSegment
         {
             hugin_utils::FDiff2D vertices[2];
             /// Get the square of the minimal distance to a point.
             float squareDistance(hugin_utils::FDiff2D point) const;
             /// Specify the line to OpenGL. Must be within a glBegin/glEnd pair.
-            void doGL() const;
-			void doGLcross(int point, double cscale) const;
+			void doGLcross(int point, double cscale, VisualizationState *state) const;
+            /**
+             * Draw a meshed line
+             * @param width the width of the line
+             * @param state The visualization state needed to obtain final 3D coordinates and the scale for the visualization
+             * @param preceding the line segment before this line segment, needed to calculate the right begining slope
+             * @param proceeding the line segment after this line segment, needed to calculate the right ending slope
+             */
+            void doGL(double width, VisualizationState *state, LineSegment * preceding = NULL, LineSegment * proceeding = NULL) const;
         };
+
+    protected:
         std::vector<LineSegment> m_lines;
+        VisualizationState * m_visualizationState;
 		
 };
 

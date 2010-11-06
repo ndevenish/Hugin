@@ -32,8 +32,8 @@
 class LayoutRemapper: public MeshRemapper
 {
 public:
-    LayoutRemapper(HuginBase::Panorama *m_pano, unsigned int image_number,
-                     ViewState *view_state);
+    LayoutRemapper(HuginBase::Panorama *m_pano, HuginBase::SrcPanoImage * image,
+                     VisualizationState *visualization_state);
     virtual void UpdateAndResetIndex();
     virtual bool GetNextFaceCoordinates(Coords *result);
     /** Set the size to draw the images.

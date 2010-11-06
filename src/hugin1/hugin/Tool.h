@@ -1,8 +1,9 @@
 // -*- c-basic-offset: 4 -*-
 
-/** @file PreviewTool.h
+/** @file Tool.h
  *
  *  @author James Legg
+ *  @author Darko Makreshanski
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public
@@ -26,7 +27,7 @@
 #include "hugin_utils/utils.h"
 #include <wx/event.h>
 
-#include "PreviewToolHelper.h"
+#include "ToolHelper.h"
 
 /* PreviewTool is an abstract base class for the interactive tools that work
  * with the OpenGL accelerated preview. They can respond to the users actions
@@ -38,15 +39,15 @@
  * is passed by pointer on construction. When a tool is decativated, all the
  * notifications it monitors are removed.
  */
-class PreviewTool
+class Tool
 {
 public:
     /** Construct keeping a pointer to a PreviewToolHelper.
      * Child classes should use this to ensure helper is set.
      */
-    PreviewTool(PreviewToolHelper *helper);
+    Tool(ToolHelper *helper);
     
-    virtual ~PreviewTool();
+    virtual ~Tool();
     // Lots of stub functions here. Your tools should override a few of them.
     
     /** Switch on a tool.
@@ -69,6 +70,10 @@ public:
      * @param e The event created by wxWidgets.
      */
     virtual void MouseButtonEvent(wxMouseEvent &e) {}
+    /** Notify of a mouse wheel event on the panorama preview.
+     * @param e The event created by wxWidgets.
+     */
+    virtual void MouseWheelEvent(wxMouseEvent & e) {}
     /** Notify when the images directly underneath the mouse pointer have
      * changed. It is monitored by the PreviewToolHelper.
      */
@@ -97,8 +102,55 @@ protected:
     /** The PreviewToolHelper that uses the same preview window and panorama as
      * the tool should.
      */
-    PreviewToolHelper *helper;
+    ToolHelper *helper;
 };
+
+
+class PreviewTool : public Tool
+{
+public:
+    PreviewTool(PreviewToolHelper* helper);
+    virtual ~PreviewTool();
+
+};
+
+class OverviewTool : public Tool
+{
+public:
+
+    OverviewTool(OverviewToolHelper* helper);
+    virtual ~OverviewTool();
+
+};
+
+class PanosphereOverviewTool : public OverviewTool
+{
+public:
+
+    PanosphereOverviewTool(PanosphereOverviewToolHelper* helper);
+    virtual ~PanosphereOverviewTool();
+
+    /// Draw using opengl anything before drawing the front face culled images
+    virtual void BeforeDrawImagesBackEvent() {}
+    /// Draw using opengl anything after drawing the front face culled images
+    virtual void AfterDrawImagesBackEvent() {}
+
+    /// Draw using opengl anything before drawing the back face culled images
+    virtual void BeforeDrawImagesFrontEvent() {}
+    /// Draw using opengl anything after drawing the back face culled images
+    virtual void AfterDrawImagesFrontEvent() {}
+    
+};
+
+class PlaneOverviewTool : public OverviewTool
+{
+public:
+
+    PlaneOverviewTool(PlaneOverviewToolHelper* helper);
+    virtual ~PlaneOverviewTool();
+
+};
+
 
 #endif
 
