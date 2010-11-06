@@ -31,8 +31,8 @@
 class ChoosyRemapper : public MeshRemapper
 {
 public:
-    ChoosyRemapper(HuginBase::Panorama *m_pano, unsigned int image_number,
-                   ViewState *view_state);
+    ChoosyRemapper(HuginBase::Panorama *m_pano, HuginBase::SrcPanoImage * image,
+                   VisualizationState *visualization_state);
     ~ChoosyRemapper();
     void UpdateAndResetIndex();
     bool GetNextFaceCoordinates(Coords *result);

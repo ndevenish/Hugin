@@ -30,7 +30,7 @@ TextKillFocusHandler.cpp PreferencesDialog.cpp ResetDialog.cpp
 LocalizedFileTipProvider.cpp  wxPanoCommand.cpp AssistantPanel.cpp
 HFOVDialog.cpp TextureManager.cpp MeshRemapper.cpp VertexCoordRemapper.cpp
 TexCoordRemapper.cpp ChoosyRemapper.cpp MeshManager.cpp ViewState.cpp
-OutputProjectionInfo.cpp PreviewToolHelper.cpp PreviewTool.cpp 
+OutputProjectionInfo.cpp ToolHelper.cpp Tool.cpp  OverviewCameraTool.cpp ProjectionGridTool.cpp OverviewOutlinesTool.cpp
 PreviewCropTool.cpp PreviewDragTool.cpp PreviewIdentifyTool.cpp
 PreviewDifferenceTool.cpp PreviewPanoMaskTool.cpp PreviewControlPointTool.cpp
 GreatCircles.cpp AboutDialog.cpp LayoutRemapper.cpp PreviewLayoutLinesTool.cpp
@@ -45,7 +45,7 @@ TextKillFocusHandler.h PreferencesDialog.h ResetDialog.h
 LocalizedFileTipProvider.h  wxPanoCommand.h AssistantPanel.h
 HFOVDialog.h TextureManager.h MeshRemapper.h VertexCoordRemapper.h
 TexCoordRemapper.h ChoosyRemapper.h MeshManager.h ViewState.h
-OutputProjectionInfo.h PreviewToolHelper.h PreviewTool.h 
+OutputProjectionInfo.h ToolHelper.h Tool.h OverviewCameraTool.h ProjectionGridTool.h OverviewOutlinesTool.h
 PreviewCropTool.h PreviewDragTool.h PreviewIdentifyTool.h
 PreviewDifferenceTool.h PreviewPanoMaskTool.h PreviewControlPointTool.h
 GreatCircles.h AboutDialog.h LayoutRemapper.h PreviewLayoutLinesTool.h

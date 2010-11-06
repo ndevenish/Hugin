@@ -3,6 +3,7 @@
 /** @file ViewState.h
  *
  *  @author James Legg
+ *  @author Darko Makreshanski
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public
@@ -20,11 +21,11 @@
  *
  */
 
-/* A ViewState holds information about what is visible, the state of the
+/* A ViewState or VisualizationState holds information about what is visible, the state of the
  * various bits of the panorama as it is shown in a preview, and the scaling of
  * the preview. The state of the panorama  options and images are stored so
  * that we can continuously change properties interactively without bothering
- * the real panorama object and therefore the undo / redo history. The ViewState
+ * the real panorama object and therefore the undo / redo history. The classes
  * also manages what needs to be recalculated to update the view.
  *
  * When a change occurs, we examine any differences with our stored state that
@@ -44,6 +45,19 @@
  * redraw after they have all been moved. However, when the panorama changes
  * we want to initiate an update the preview ourself, so all the main GUI
  * interactions work.
+ *
+ * The informations are divided into two classes:
+ *      -   The first class is the ViewState class which holds information that is 
+ *          relevant for all Visualizations like the preview, panosphere or plane.
+ *          This is mainly dominated by the manipulation of the Textures related stuff
+ *          which are the same for all visualizations.
+ *          The ViewState also encapsulates all the VisualizationState in itself so that
+ *          it can properly inform them when any change occurs
+ *
+ *      -   The second class is the VisualizationState class which is subclassed for each
+ *          type of visualization. The VisualizationState class holds information specific
+ *          to each visualization. This includes the state of the meshes, state of the viewport, etc.
+ *
  */
 
 #ifndef __VIEWSTATE_H
@@ -58,16 +72,18 @@
 #include "TextureManager.h"
 #include "MeshManager.h"
 
+#include <panodata/PanoramaOptions.h>
+
+class GLViewer;
+class VisualizationState;
+
+
 class ViewState : public HuginBase::PanoramaObserver
 {
 public:
     // constructor: we need to know what panorama we deal with.
-    ViewState(PT::Panorama *pano, void (*RefreshFunction)(void *), bool supportMultiTexture, void *arg);
+    ViewState(PT::Panorama *pano,  bool supportMultiTexture);
     ~ViewState();
-    // the scale is the number of screen pixels per panorama pixel.
-    float GetScale();
-    void SetScale(float scale);
-    
     // when the real panorama changes, we want to update ourself to reflect it.
     // we will force a redraw if anything worthwhile changes.
     void panoramaChanged(HuginBase::PanoramaData &pano);
@@ -86,26 +102,17 @@ public:
     OutputProjectionInfo *GetProjectionInfo();
     HuginBase::SrcPanoImage *GetSrcImage(unsigned int image_nr);
     
-    // stuff used directly for drawing the preview, made accessible for tools.
-    unsigned int GetMeshDisplayList(unsigned int image_nr);
-    MeshManager * GetMeshManager() {return m_mesh_manager;}
     TextureManager * GetTextureManager() {return m_tex_manager;}
     
     bool GetSupportMultiTexture() const { return m_multiTexture; };
     // These functions are used to identify what needs to be redone on the next
     // redraw.
-    // return true if we need to recalculate the mesh
-    bool RequireRecalculateMesh (unsigned int image_nr);
-    // return true if we should check the generated mip levels of the textures
-    bool RequireRecalculateImageSizes();
     // return true if we should update a texture's photometric correction
     bool RequireRecalculatePhotometric();
+    // return true if we should check the generated mip levels of the textures
+    bool RequireRecalculateImageSizes();
     // return true if we should update a mask
     bool RequireRecalculateMasks(unsigned int image_nr);
-    // return true if we need to redraw at all
-    bool RequireDraw();
-    // return true if we should check the renderers' viewport
-    bool RequireRecalculateViewport();
     // return true if images have been removed
     bool ImagesRemoved();
     
@@ -113,32 +120,16 @@ public:
     // drawing state (textures, meshes) are now all up to date.
     void FinishedDraw();
     
-    // The visible area is the part of the panarama visible in the view. The
-    // coordinates are in panorama pixels.
-    void SetVisibleArea(vigra::Rect2D area)
-    {
-        /* TODO with zooming, update meshes that were generated with this area
-         * in mind. Zooming changes the scale, which updates the meshes.
-         * Panning on the other hand needs to recalculate meshes as they can
-         * ignore the stuff off-screen
-         */
-        visible_area = area;
-    }
-    vigra::Rect2D GetVisibleArea()
-    {
-        return visible_area;
-    }
-    
-    // redraw the preview, but only if something has changed.
-    void Redraw();
     // update the meshes and textures as necessary before drawing.
     void DoUpdates();
+
+    void Redraw();
+
+    std::map<VisualizationState*, bool> vis_states;
+
 protected:
+
     PT::Panorama *m_pano;
-    float scale, genscale;
-    vigra::Rect2D visible_area;
-    void (*RefreshFunc)(void *);
-    void *refreshArg;
     std::map<unsigned int, HuginBase::SrcPanoImage> img_states;
     HuginBase::PanoramaOptions opts;
     OutputProjectionInfo *projection_info;
@@ -155,19 +146,210 @@ protected:
     };
     // what needs redoing?
     bool dirty_photometrics;
-    std::map<unsigned int, fbool> dirty_mesh;
-    std::map<unsigned int, fbool> dirty_mask;
     std::map<unsigned int, bool> active;
-    bool dirty_image_sizes, dirty_draw, images_removed, dirty_viewport;
-    
+    std::map<unsigned int, fbool> dirty_mask;
+    bool dirty_image_sizes, images_removed;
     // reset all the dirty flags.
     void Clean();
     
     // this stores all the textures we need.
     TextureManager *m_tex_manager;
+    bool m_multiTexture;
+};
+
+class VisualizationState
+{
+public:
+
+    template <class M>
+    VisualizationState(PT::Panorama* pano, ViewState* view_state, GLViewer * viewer, void (*RefreshFunction)(void*), void *arg, M* classArg)
+    {
+        m_pano = pano;
+        m_view_state = view_state;
+        RefreshFunc = RefreshFunction;
+        refreshArg = arg;
+        dirty_draw = true;
+        dirty_viewport = true;
+        unsigned int number_of_images = m_pano->getNrOfImages();
+        for (unsigned int img = 0; img < number_of_images; img++)
+        {
+            dirty_mesh[img].val = true;
+        }
+        genscale = 0.0;
+        m_mesh_manager = new M(m_pano, this);
+        m_view_state->vis_states[this] = true;
+        m_viewer = viewer;
+    }
+
+    virtual ~VisualizationState();
+
+    virtual HuginBase::PanoramaOptions *GetOptions();
+    virtual OutputProjectionInfo *GetProjectionInfo();
+    virtual HuginBase::SrcPanoImage *GetSrcImage(unsigned int image_nr);
+
+    virtual void SetOptions(const HuginBase::PanoramaOptions *new_opts) {}
+    virtual void SetSrcImage(unsigned int image_nr, HuginBase::SrcPanoImage * new_img) {}
+
+    // return true if we need to recalculate the mesh
+    bool RequireRecalculateMesh (unsigned int image_nr);
+    // return true if we need to redraw at all
+    bool RequireDraw();
+    // return true if we should check the renderers' viewport
+    bool RequireRecalculateViewport();
+
+    // the scale is the number of screen pixels per panorama pixel.
+    float GetScale();
+    void SetScale(float scale);
+
+    // stuff used directly for drawing the preview, made accessible for tools.
+    unsigned int GetMeshDisplayList(unsigned int image_nr);
+    MeshManager * GetMeshManager() {return m_mesh_manager;}
+
+    void FinishedDraw();
+
+    // The visible area is the part of the panarama visible in the view. The
+    // coordinates are in panorama pixels.
+    void SetVisibleArea(vigra::Rect2D area)
+    {
+        /* TODO with zooming, update meshes that were generated with this area
+         * in mind. Zooming changes the scale, which updates the meshes.
+         * Panning on the other hand needs to recalculate meshes as they can
+         * ignore the stuff off-screen
+         */
+        visible_area = area;
+    }
+    vigra::Rect2D GetVisibleArea()
+    {
+        return visible_area;
+    }
+
+    ViewState* getViewState() {return m_view_state;}
+
+    // redraw the preview, but only if something has changed.
+    void Redraw();
+
+    // update the meshes and textures as necessary before drawing.
+    void DoUpdates();
+
+    void SetDirtyMesh(int image_nr) {dirty_mesh[image_nr].val = true;}
+    void ForceRequireRedraw();
+    void SetDirtyViewport() {dirty_viewport = true;}
+
+    GLViewer * GetViewer() {return m_viewer;}
+
+protected:
+
+    PT::Panorama *m_pano;
+
+    class fbool // a bool that initialises to false.
+    {
+    public:
+        fbool()
+        {
+            val = false;
+        }
+        bool val;
+    };
+    // redoing specific only for a certain visualization
+    std::map<unsigned int, fbool> dirty_mesh;
+    bool dirty_draw, dirty_viewport;
+
+    float scale, genscale, gl_scale;
+    vigra::Rect2D visible_area;
+    void (*RefreshFunc)(void *);
+    void *refreshArg;
+
     // this stores all the meshes we need.
     MeshManager *m_mesh_manager;
-    bool m_multiTexture;
+    ViewState *m_view_state;
+
+    GLViewer * m_viewer;
+
+};
+
+class OverviewVisualizationState : public VisualizationState
+{
+public:
+    template <class M>
+    OverviewVisualizationState(PT::Panorama* pano, ViewState* view_state, GLViewer * viewer, void (*RefreshFunction)(void*), void *arg, M* classArg)
+        : VisualizationState(pano, view_state, viewer, RefreshFunction, arg, (M*) classArg) {}
+
+};
+
+class PanosphereOverviewVisualizationState : public OverviewVisualizationState
+{
+public:
+
+    PanosphereOverviewVisualizationState(PT::Panorama* pano, ViewState* view_state, GLViewer * viewer, void (*RefreshFunction)(void*), void *arg);
+
+    HuginBase::PanoramaOptions *GetOptions();
+    OutputProjectionInfo *GetProjectionInfo();
+
+//    HuginBase::SrcPanoImage *GetSrcImage(unsigned int image_nr);
+//    void SetSrcImage(unsigned int image_nr, HuginBase::SrcPanoImage * new_img );
+
+    void SetOptions(const HuginBase::PanoramaOptions * new_opts);
+
+    //camera properties
+    double getAngY() {return angy;}
+    double getAngX() {return angx;}
+    double getR() {return R;}
+    double getFOV() {return fov;}
+
+    double getSphereRadius() {return sphere_radius;}
+
+    void setAngX(double angx_in);
+    void setAngY(double angy_in);
+    void setR(double r) {R = r;}
+
+
+protected:
+
+    double angy;
+    double angx;
+    double R;
+    double fov;
+
+    double sphere_radius;
+
+//    std::map<unsigned int, HuginBase::SrcPanoImage> img_states;
+    HuginBase::PanoramaOptions opts;
+    OutputProjectionInfo *projection_info;
+
+
+};
+
+class PlaneOverviewVisualizationState : public OverviewVisualizationState
+{
+public:
+
+    PlaneOverviewVisualizationState(PT::Panorama* pano, ViewState* view_state, GLViewer * viewer, void (*RefreshFunction)(void*), void *arg);
+
+    HuginBase::PanoramaOptions *GetOptions();
+    OutputProjectionInfo *GetProjectionInfo();
+
+    void SetOptions(const HuginBase::PanoramaOptions * new_opts);
+
+    //camera properties
+    double getR() {return R;}
+    double getFOV() {return fov;}
+    double getX() {return X;}
+    double getY() {return Y;}
+
+    void setR(double r) {R = r;}
+    void setX(double x) {X = x;}
+    void setY(double y) {Y = y;}
+    
+protected:
+
+    double X;
+    double Y;
+    double R;
+    double fov;
+
+    HuginBase::PanoramaOptions opts;
+    OutputProjectionInfo *projection_info;
+
 };
 
 #endif

@@ -37,8 +37,8 @@
 // (infact less are due to clipping), but the difference becomes easier to see.
 #define DIFFERENCE_DOUBLE 2
 
-PreviewDifferenceTool::PreviewDifferenceTool(PreviewToolHelper *helper)
-    : PreviewTool(helper)
+PreviewDifferenceTool::PreviewDifferenceTool(ToolHelper *helper)
+    : Tool(helper)
 {
     // rather boring constructor
 }
@@ -79,14 +79,15 @@ void PreviewDifferenceTool::ImagesUnderMouseChangedEvent()
             helper->DoNotNotifyMeBeforeDrawing(image_number, this);
         } else {
             helper->NotifyMe(PreviewToolHelper::DRAW_OVER_IMAGES, this);
+            helper->NotifyMe(PreviewToolHelper::DRAW_UNDER_IMAGES, this);
         }
         // The lowest image number is drawn first, since the set is sorted.
         // Get notifications so we can draw it:
         image_number = *(image_set.begin());
         helper->NotifyMeBeforeDrawing(image_number, this);
         // Redraw the panorama with this image negated from the others.
-        helper->GetViewStatePtr()->ForceRequireRedraw();
-        helper->GetViewStatePtr()->Redraw();
+        helper->GetVisualizationStatePtr()->ForceRequireRedraw();
+        helper->GetVisualizationStatePtr()->Redraw();
         over_image = true;
     } else {
         if (over_image)
@@ -96,19 +97,21 @@ void PreviewDifferenceTool::ImagesUnderMouseChangedEvent()
             // Drop notifications, we don't need to do anything extra.
             over_image = false;
             helper->DoNotNotifyMe(PreviewToolHelper::DRAW_OVER_IMAGES, this);
+            helper->DoNotNotifyMe(PreviewToolHelper::DRAW_UNDER_IMAGES, this);
             helper->DoNotNotifyMeBeforeDrawing(image_number, this);
             // redraw the panorama without the negated image.
-            helper->GetViewStatePtr()->ForceRequireRedraw();
-            helper->GetViewStatePtr()->Redraw();
+            helper->GetVisualizationStatePtr()->ForceRequireRedraw();
+            helper->GetVisualizationStatePtr()->Redraw();
         }
     }
 }
+
 
 void PreviewDifferenceTool::AfterDrawImagesEvent()
 {
     // Get the display list used to generate the image
     unsigned int display_list;
-        display_list = helper->GetViewStatePtr()->GetMeshDisplayList(image_number);    
+        display_list = helper->GetVisualizationStatePtr()->GetMeshDisplayList(image_number);    
     TextureManager *tex_m = helper->GetViewStatePtr()->GetTextureManager();
     tex_m->BindTexture(image_number);
     // we will use a subtractive blend
@@ -152,6 +155,14 @@ void PreviewDifferenceTool::AfterDrawImagesEvent()
     glEnable(GL_TEXTURE_2D);
     glDisable(GL_BLEND);
 }
+
+//draw the images below all other images so that the difference is not computed agains something drawn in the background
+void PreviewDifferenceTool::BeforeDrawImagesEvent()
+{
+    unsigned int display_list = helper->GetVisualizationStatePtr()->GetMeshDisplayList(image_number);    
+    helper->GetViewStatePtr()->GetTextureManager()->DrawImage(image_number, display_list);
+}
+
 
 bool PreviewDifferenceTool::BeforeDrawImageEvent(unsigned int image)
 {

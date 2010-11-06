@@ -79,11 +79,12 @@ public:
     }
 };
 
-PreviewLayoutLinesTool::PreviewLayoutLinesTool(PreviewToolHelper *helper)
-    : PreviewTool(helper),
+PreviewLayoutLinesTool::PreviewLayoutLinesTool(ToolHelper *helper)
+    : Tool(helper),
       m_updateStatistics(true),
       m_nearestLine(-1),
-      m_useNearestLine(false)
+      m_useNearestLine(false),
+      m_holdOnNear(false)
 {
     helper->GetPanoramaPtr()->addObserver(this);
     // make the textures. We have a circle border and a square one.
@@ -178,19 +179,34 @@ void PreviewLayoutLinesTool::Activate()
 
 void PreviewLayoutLinesTool::MouseMoveEvent(double x, double y, wxMouseEvent & e)
 {
+
     // Try to find the nearest line to the mouse pointer.
     // ...Unless there are no lines.
     if (m_lines.empty())
     {
         return;
     }
+
+    if (!(helper->IsMouseOverPano())) {
+        if (m_useNearestLine) {
+            m_useNearestLine = false;
+            helper->GetVisualizationStatePtr()->ForceRequireRedraw();
+            helper->GetVisualizationStatePtr()->Redraw();
+        }
+        return;
+    }
+
+    if (e.Dragging() && !m_holdOnNear) {
+        return;
+    }
+    
     // Check each line in turn.
     double minDistance = DBL_MAX;
     unsigned int nearestLineOld = m_nearestLine;
     for (unsigned int i = 0; i < m_lines.size(); i++)
     {
         if (m_lines[i].dud) continue;
-        double lineDistance = m_lines[i].getDistance(hugin_utils::FDiff2D(x, y));
+        double lineDistance = m_lines[i].getDistance(helper->GetMousePanoPosition());
         if (lineDistance < minDistance)
         {
             // found a new minimum.
@@ -203,7 +219,7 @@ void PreviewLayoutLinesTool::MouseMoveEvent(double x, double y, wxMouseEvent & e
     bool oldUseNearestLine = m_useNearestLine;
     // The limit is 70 pixels from the line.
     // Coordinates are panorama pixels squared, so we'll need to scale it.
-    double scale = helper->GetViewStatePtr()->GetScale();
+    double scale = helper->GetVisualizationStatePtr()->GetScale();
     scale *= scale;
     m_useNearestLine = minDistance < 4900.0 / scale;
     
@@ -217,8 +233,8 @@ void PreviewLayoutLinesTool::MouseMoveEvent(double x, double y, wxMouseEvent & e
         
         // Redraw with new indicators. Since the indicators aren't part of the
         // panorama, we have to persuade the viewstate that a redraw is required.
-        helper->GetViewStatePtr()->ForceRequireRedraw();
-        helper->GetViewStatePtr()->Redraw();
+        helper->GetVisualizationStatePtr()->ForceRequireRedraw();
+        helper->GetVisualizationStatePtr()->Redraw();
     }
 }
 
@@ -243,7 +259,7 @@ void PreviewLayoutLinesTool::BeforeDrawImagesEvent()
     
     // now draw each line.
     glEnable(GL_LINE_SMOOTH);
-    helper->GetViewStatePtr()->GetTextureManager()->DisableTexture();    for (unsigned int i = 0; i < m_lines.size(); i++)
+    helper->GetViewStatePtr()->GetTextureManager()->DisableTexture();//    for (unsigned int i = 0; i < m_lines.size(); i++)
     for (unsigned int i = 0; i < m_lines.size(); i++)
     {
         m_lines[i].draw(m_useNearestLine && i == m_nearestLine);
@@ -267,9 +283,9 @@ void PreviewLayoutLinesTool::AfterDrawImagesEvent()
     unsigned int image1 = m_lines[m_nearestLine].image1;
     unsigned int image2 = m_lines[m_nearestLine].image2;
     helper->GetViewStatePtr()->GetTextureManager()->DrawImage(image1,
-                        helper->GetViewStatePtr()->GetMeshDisplayList(image1));
+                        helper->GetVisualizationStatePtr()->GetMeshDisplayList(image1));
     helper->GetViewStatePtr()->GetTextureManager()->DrawImage(image2,
-                        helper->GetViewStatePtr()->GetMeshDisplayList(image2));
+                        helper->GetVisualizationStatePtr()->GetMeshDisplayList(image2));
                         
     // Setup OpenGL blending state for identification borders.
     glEnable(GL_BLEND);
@@ -316,7 +332,9 @@ void PreviewLayoutLinesTool::drawIdentificationBorder(unsigned int image)
             break;
     }
     // draw the image with the border texture.
-    glCallList(helper->GetViewStatePtr()->GetMeshDisplayList(image));
+    glMatrixMode(GL_MODELVIEW);
+    glCallList(helper->GetVisualizationStatePtr()->GetMeshDisplayList(image));
+    glMatrixMode(GL_TEXTURE);
     // reset the texture matrix.
     glPopMatrix();
 }
@@ -342,11 +360,20 @@ void PreviewLayoutLinesTool::MouseButtonEvent(wxMouseEvent & e)
 {
     // If it was a left click and we have at least one line, bring up the images
     // in that line in the control point editor.
-    if ( e.GetButton() == wxMOUSE_BTN_LEFT && !m_lines.empty())
+    if ( e.LeftDown() && !m_lines.empty() && m_useNearestLine)
     {
+        m_holdOnNear = true;
+    } 
+
+    if (m_holdOnNear && e.LeftUp() && m_useNearestLine) {
+        m_holdOnNear = false;
         LineDetails & line = m_lines[m_nearestLine];
         MainFrame::Get()->ShowCtrlPointEditor(line.image1, line.image2);
         MainFrame::Get()->Raise();
+    }
+
+    if (m_useNearestLine && e.LeftUp()) {
+        m_useNearestLine = false;
     }
 }
 
@@ -483,7 +510,7 @@ void PreviewLayoutLinesTool::updateLineInformation()
                                           m_imageCentresSpherical[i].y,
                                           m_imageCentresSpherical[j].x,
                                           m_imageCentresSpherical[j].y,
-                                          *(helper->GetViewStatePtr()));
+                                          *(helper->GetVisualizationStatePtr()));
             }
         }
     }
@@ -565,9 +592,9 @@ void PreviewLayoutLinesTool::LineDetails::draw(bool highlight)
     
     double lineWidth = numberOfControlPoints / 5.0 + 1.0;
     if (lineWidth > 5.0) lineWidth = 5.0;
-    glLineWidth(lineWidth);
+//    glLineWidth(lineWidth);
     
-    arc.draw(false);
+    arc.draw(false, lineWidth);
 }
 
 PreviewLayoutLinesTool::LineDetails::LineDetails()

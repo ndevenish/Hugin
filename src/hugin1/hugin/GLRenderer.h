@@ -2,6 +2,7 @@
 /** @file GLRenderer.h
  *
  *  @author James Legg
+ *  @author Darko Makreshanski
  *
  *  This is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public
@@ -33,9 +34,13 @@
 #include <vigra/diff2d.hxx>
 #include <utility>
 
+class ToolHelper;
+class OverviewToolHelper;
 class PreviewToolHelper;
+class PanosphereOverviewToolHelper;
+class PlaneOverviewToolHelper;
 
-/** The renderer handles drawing the preview. It is used by a GLViewer, which is
+/** The renderer handles drawing the opengl scene. It is used by a GLViewer, which is
  * a wxWidget. The work of generating textures to represent the image is done by
  * a TextureManager, and the remappings are made in display lists by a
  * MeshManager. The GLViewer gives us instances of those objects to use.
@@ -45,9 +50,9 @@ class GLRenderer
 public:
     /** ctor.
      */
-    GLRenderer(PT::Panorama * pano, TextureManager *tex_man,
-               MeshManager *mesh_man, ViewState *veiw_state,
-               PreviewToolHelper *tool_helper);
+//    GLRenderer(PT::Panorama * pano, TextureManager *tex_man,
+//               MeshManager *mesh_man, VisualizationState *visualization_state,
+//               PreviewToolHelper *tool_helper);
 
     /** dtor.
      */
@@ -58,18 +63,88 @@ public:
      * @param width the width of the widget in screen pixels.
      * @param height the height of the widget in screen pixels.
      */
-    vigra::Diff2D Resize(int width, int height);
-    void Redraw();
+    virtual vigra::Diff2D Resize(int width, int height) = 0;
+    virtual void Redraw() = 0;
+    
     void SetBackground(unsigned char red, unsigned char green, unsigned char blue);
     float width_o, height_o;
-private:
+
+    
+protected:
     PT::Panorama  * m_pano;
     TextureManager * m_tex_man;
     MeshManager * m_mesh_man;
-    ViewState * m_view_state;
-    PreviewToolHelper *m_tool_helper;
+    ToolHelper *m_tool_helper;
     int width, height;
 };
+
+/**
+ * subclass for the preview canvas
+ */
+class GLPreviewRenderer : public GLRenderer
+{
+public:
+    GLPreviewRenderer(PT::Panorama * pano, TextureManager *tex_man,
+               MeshManager *mesh_man, VisualizationState *visualization_state,
+               PreviewToolHelper *tool_helper);
+
+    vigra::Diff2D Resize(int width, int height);
+    void Redraw();
+
+protected:
+
+
+    VisualizationState * m_visualization_state;
+
+
+};
+
+class GLOverviewRenderer : public GLRenderer
+{
+public:
+//    GLOverviewRenderer(PT::Panorama * pano, TextureManager *tex_man,
+//               MeshManager *mesh_man, PanosphereOverviewVisualizationState *visualization_state,
+//               OverviewToolHelper *tool_helper) 
+
+protected:
+    
+
+};
+
+/**
+ * subclass for the panosphere overview mode
+ */
+class GLPanosphereOverviewRenderer : public GLOverviewRenderer
+{
+public:
+    GLPanosphereOverviewRenderer(PT::Panorama * pano, TextureManager *tex_man,
+               MeshManager *mesh_man, PanosphereOverviewVisualizationState *visualization_state,
+               PanosphereOverviewToolHelper *tool_helper);
+
+    vigra::Diff2D Resize(int width, int height);
+    void Redraw();
+protected:
+    PanosphereOverviewVisualizationState * m_visualization_state;
+
+};
+
+/**
+ * subclass for the plane overview mode
+ */
+class GLPlaneOverviewRenderer : public GLOverviewRenderer
+{
+public:
+    GLPlaneOverviewRenderer(PT::Panorama * pano, TextureManager *tex_man,
+               MeshManager *mesh_man, PlaneOverviewVisualizationState *visualization_state,
+               PlaneOverviewToolHelper *tool_helper);
+
+    vigra::Diff2D Resize(int width, int height);
+    void Redraw();
+protected:
+    PlaneOverviewVisualizationState * m_visualization_state;
+
+};
+
 
 #endif
 

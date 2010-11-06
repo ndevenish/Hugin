@@ -27,9 +27,9 @@
 #include "ViewState.h"
 
 LayoutRemapper::LayoutRemapper(HuginBase::Panorama *m_pano,
-                               unsigned int image_number,
-                               ViewState *view_state)
-        :MeshRemapper(m_pano, image_number, view_state),
+                               HuginBase::SrcPanoImage* image,
+                               VisualizationState *visualization_state)
+        :MeshRemapper(m_pano, image, visualization_state),
          scale(0)
         
 {
@@ -46,16 +46,16 @@ LayoutRemapper::LayoutRemapper(HuginBase::Panorama *m_pano,
 
 void LayoutRemapper::UpdateAndResetIndex()
 {
-    HuginBase::SrcPanoImage *src_img = view_state->GetSrcImage(image_number);
+//    HuginBase::SrcPanoImage *src_img = visualization_state->GetSrcImage(image_number);
     
     // find the image size.
-    double image_width = (double) src_img->getSize().width();
-    double image_height = (double) src_img->getSize().height();
+    double image_width = (double) image->getSize().width();
+    double image_height = (double) image->getSize().height();
     
     // remap the middle of the image to find centre coordinates.
     double centre_x, centre_y;
     // create a transformation from source image to destination.
-    transform.createInvTransform(*src_img, *(view_state->GetOptions()));
+    transform.createInvTransform(*image, *(visualization_state->GetOptions()));
     transform.transformImgCoord(centre_x, centre_y,
                                 image_width / 2.0, image_height / 2.0);
     /** @todo Offset the centre position for images in brackets, when showing
@@ -83,7 +83,7 @@ void LayoutRemapper::UpdateAndResetIndex()
     double offset_y = preview_height / 2.0;
     
     // find the roll of the image.
-    double angle = src_img->getRoll() * (M_PI / 180.0) + (M_PI / 2.0);
+    double angle = image->getRoll() * (M_PI / 180.0) + (M_PI / 2.0);
     double rsin = std::sin(angle);
     double rcos = std::cos(angle);
     

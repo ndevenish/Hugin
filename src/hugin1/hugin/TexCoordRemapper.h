@@ -38,8 +38,8 @@
 class TexCoordRemapper: public MeshRemapper
 {
 public:
-    TexCoordRemapper(HuginBase::Panorama *m_pano, unsigned int image_number,
-                     ViewState *view_state);
+    TexCoordRemapper(HuginBase::Panorama *m_pano, HuginBase::SrcPanoImage * image,
+                     VisualizationState *visualization_state);
     virtual void UpdateAndResetIndex();
     virtual bool GetNextFaceCoordinates(Coords *result);
 private:

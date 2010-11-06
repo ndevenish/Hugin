@@ -22,7 +22,7 @@
 #ifndef _PREVIEWPANOMASKTOOL_h
 #define _PREVIEWPANOMASKTOOL_h
 
-#include "PreviewTool.h"
+#include "Tool.h"
 
 /** For projections where the output range is limited, but the approximatly
  * remaped images can extend this, we mask out the off-panorama bits with a

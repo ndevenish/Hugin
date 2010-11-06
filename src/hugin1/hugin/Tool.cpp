@@ -1,6 +1,6 @@
 // -*- c-basic-offset: 4 -*-
 
-/** @file PreviewTool.cpp
+/** @file Tool.cpp
  *
  *  @author James Legg
  *
@@ -20,15 +20,29 @@
  *
  */
 
-#include "PreviewTool.h"
-#include "PreviewToolHelper.h"
+#include "Tool.h"
+#include "ToolHelper.h"
 
-PreviewTool::PreviewTool(PreviewToolHelper *helper_in)
+Tool::Tool(ToolHelper * helper_in)
 {
     helper = helper_in;
 }
 
-PreviewTool::~PreviewTool()
-{
-}
+Tool::~Tool() {}
+
+PreviewTool::PreviewTool(PreviewToolHelper *helper_in) : Tool(helper_in) {}
+
+PreviewTool::~PreviewTool() {}
+
+OverviewTool::OverviewTool(OverviewToolHelper *helper_in) : Tool(helper_in) {}
+
+OverviewTool::~OverviewTool() {}
+
+PanosphereOverviewTool::PanosphereOverviewTool(PanosphereOverviewToolHelper *helper_in) : OverviewTool(helper_in) {}
+
+PanosphereOverviewTool::~PanosphereOverviewTool() {}
+
+PlaneOverviewTool::PlaneOverviewTool(PlaneOverviewToolHelper *helper_in) : OverviewTool(helper_in) {}
+
+PlaneOverviewTool::~PlaneOverviewTool() {}
 

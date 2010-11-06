@@ -120,7 +120,6 @@
     <packing>3</packing>
     <style>wxTB_DOCKABLE</style>
   </object>
-  
   <object class="wxDialog" name="dlg_numtrans">
     <title>Numerical Transform</title>
     <object class="wxBoxSizer">
@@ -307,7 +306,7 @@
                         </object>
                         <object class="sizeritem">
                           <object class="wxBitmapButton" name="exposure_default_button">
-                            <bitmap stock_id="wxART_REDO"/>
+                            <bitmap stock_id="wxART_REDO"></bitmap>
                             <tooltip>Sets the exposure value of the panorama to the mean exposure of all images.</tooltip>
                           </object>
                           <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
@@ -559,7 +558,7 @@
                     </object>
                   </object>
                   <flag>wxALIGN_CENTRE_VERTICAL</flag>
-                </object>                
+                </object>
               </object>
               <tooltip>Move the panorama or drag images into position</tooltip>
             </object>
@@ -656,6 +655,47 @@
         </object>
         <option>1</option>
         <flag>wxEXPAND</flag>
+      </object>
+    </object>
+  </object>
+  <object class="wxPanel" name="overview_toggle_panel">
+    <object class="wxStaticBoxSizer" name="overview_toggle_sizer">
+      <label>Overview</label>
+      <orient>wxHORIZONTAL</orient>
+      <object class="sizeritem">
+        <object class="wxToggleButton" name="overview_toggle">
+          <label>Show/Hide</label>
+        </object>
+        <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+        <border>5</border>
+      </object>
+    </object>
+  </object>
+  <object class="wxPanel" name="overview_command_panel">
+    <object class="wxBoxSizer">
+      <orient>wxHORIZONTAL</orient>
+      <object class="sizeritem">
+        <object class="wxStaticText">
+          <label>Mode:</label>
+        </object>
+        <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+        <border>5</border>
+      </object>
+      <object class="sizeritem">
+        <object class="wxChoice" name="overview_mode_choice">
+          <label>Mode:</label>
+          <content/>
+        </object>
+        <option>1</option>
+        <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+        <border>5</border>
+      </object>
+      <object class="sizeritem">
+        <object class="wxCheckBox" name="preview_show_grid">
+          <label>Grid</label>
+        </object>
+        <flag>wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+        <border>5</border>
       </object>
     </object>
   </object>
