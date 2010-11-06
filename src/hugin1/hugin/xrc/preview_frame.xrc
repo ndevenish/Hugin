@@ -490,6 +490,24 @@
                   <object class="wxBoxSizer">
                     <orient>wxHORIZONTAL</orient>
                     <object class="sizeritem">
+                      <object class="wxStaticText">
+                        <label>Drag mode:</label>
+                      </object>
+                      <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                      <border>5</border>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxChoice" name="drag_mode_choice">
+                        <content/>
+                      </object>
+                    </object>
+                  </object>
+                  <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxBoxSizer">
+                    <orient>wxHORIZONTAL</orient>
+                    <object class="sizeritem">
                       <object class="wxStaticText" name="label_yaw">
                         <label>Yaw:</label>
                       </object>
@@ -531,6 +549,52 @@
                       </object>
                       <flag>wxALIGN_CENTRE_VERTICAL</flag>
                     </object>
+
+                    <object class="sizeritem">
+                      <object class="wxStaticText" name="label_x">
+                        <label>X:</label>
+                      </object>
+                      <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                      <border>5</border>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxTextCtrl" name="input_x">
+                        <value>0</value>
+                        <size>50,-1</size>
+                      </object>
+                      <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                    </object>
+
+                    <object class="sizeritem">
+                      <object class="wxStaticText" name="label_y">
+                        <label>Y:</label>
+                      </object>
+                      <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                      <border>5</border>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxTextCtrl" name="input_y">
+                        <value>0</value>
+                        <size>50,-1</size>
+                      </object>
+                      <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                    </object>
+
+                    <object class="sizeritem">
+                      <object class="wxStaticText" name="label_z">
+                        <label>Z:</label>
+                      </object>
+                      <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                      <border>5</border>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxTextCtrl" name="input_z">
+                        <value>0</value>
+                        <size>50,-1</size>
+                      </object>
+                      <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                    </object>
+
                     <object class="sizeritem">
                       <object class="wxButton" name="apply_num_transform">
                         <label>Apply</label>
@@ -542,24 +606,7 @@
                   <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
                   <border>5</border>
                 </object>
-                <object class="sizeritem">
-                  <object class="wxBoxSizer">
-                    <orient>wxHORIZONTAL</orient>
-                    <object class="sizeritem">
-                      <object class="wxStaticText">
-                        <label>Drag mode:</label>
-                      </object>
-                      <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-                      <border>5</border>
-                    </object>
-                    <object class="sizeritem">
-                      <object class="wxChoice" name="drag_mode_choice">
-                        <content/>
-                      </object>
-                    </object>
-                  </object>
-                  <flag>wxALIGN_CENTRE_VERTICAL</flag>
-                </object>                
+
               </object>
               <tooltip>Move the panorama or drag images into position</tooltip>
             </object>

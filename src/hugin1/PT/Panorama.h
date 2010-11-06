@@ -32,6 +32,7 @@
 #include <algorithms/basic/CalculateCPStatistics.h>
 #include <algorithms/nona/CenterHorizontally.h>
 #include <algorithms/basic/RotatePanorama.h>
+#include <algorithms/basic/TranslatePanorama.h>
 #include <algorithms/basic/StraightenPanorama.h>
 #include <algorithms/basic/CalculateMeanExposure.h>
 #include <algorithms/basic/CalculateOptimalROI.h>
@@ -159,6 +160,25 @@ public:
     {
         HuginBase::RotatePanorama(*this, rot).run();
     }
+
+    /** translate the complete panorama
+        *
+        *  Will modify the position of all images.
+        */
+    void translate(double x, double y, double z)
+    {
+        HuginBase::TranslatePanorama(*this, x, y, z).run();
+    }
+
+    /** translate the complete panorama.
+        *
+        *  Will modify the position of all images.
+        */
+//    void translate(const Matrix3 & rot)
+//    {
+//        HuginBase::TranslatePanorama(*this, rot).run();
+//    }
+
     
     /** try to automatically straighten the panorama */
     void straighten()

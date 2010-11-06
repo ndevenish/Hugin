@@ -1123,6 +1123,37 @@ namespace PT {
     //=========================================================================
     //=========================================================================
 
+    /** Translate the panorama
+     */
+    class TranslatePanoCmd : public PanoCommand
+    {
+    public:
+        TranslatePanoCmd(Panorama & p, double TrX, double TrY, double TrZ)
+            : PanoCommand(p), X(TrX), Y(TrY), Z(TrZ)
+            { };
+
+        virtual bool processPanorama(Panorama& pano)
+            {
+                pano.translate(X, Y, Z);
+                pano.changeFinished();
+
+                return true;
+            }
+
+        virtual std::string getName() const
+            {
+                return "translate panorama";
+            }
+
+     private:
+       double X,Y,Z;
+     };
+
+    //=========================================================================
+    //=========================================================================
+
+
+
     /** Update the focal length 
      */
     class UpdateFocalLengthCmd : public PanoCommand

@@ -374,10 +374,12 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     m_BlendModeChoice->Append(_("normal"));
     m_BlendModeChoice->SetSelection(0);
 
-	m_DragModeChoice = XRCCTRL(*this, "drag_mode_choice", wxChoice);
-	m_DragModeChoice->Append(_("normal"));
-	m_DragModeChoice->Append(_("mosaic"));
-	m_DragModeChoice->SetSelection(0);
+    m_DragModeChoice = XRCCTRL(*this, "drag_mode_choice", wxChoice);
+    m_DragModeChoice->Append(_("normal"));
+    m_DragModeChoice->Append(_("mosaic"));
+    m_DragModeChoice->SetSelection(0);
+    // default drag mode
+    GLPreviewFrame::DragChoiceLayout(0);
 
     // TODO implement hdr display in OpenGL, if possible?
     // Disabled until someone can figure out HDR display in OpenGL.
@@ -880,33 +882,68 @@ void GLPreviewFrame::OnNumTransform(wxCommandEvent & e)
 {
     if (m_pano.getNrOfImages() == 0) return;
 
-    wxString text = XRCCTRL(*this,"input_yaw",wxTextCtrl)->GetValue();
+    wxString text;
     double y;
-    if(!utils::stringToDouble(std::string(text.mb_str(wxConvLocal)), y))
-    {
-        wxBell();
-        wxMessageBox(_("Yaw value must be numeric."),_("Warning"),wxOK | wxICON_ERROR,this);
-        return;
-    }
-    text = XRCCTRL(*this,"input_pitch",wxTextCtrl)->GetValue();
     double p;
-    if(!utils::stringToDouble(std::string(text.mb_str(wxConvLocal)), p)) 
-    {
-        wxBell();
-        wxMessageBox(_("Pitch value must be numeric."),_("Warning"),wxOK | wxICON_ERROR,this);
-        return;
-    }
-    text = XRCCTRL(*this,"input_roll",wxTextCtrl)->GetValue();
     double r;
-    if(!utils::stringToDouble(std::string(text.mb_str(wxConvLocal)), r)) 
-    {
-        wxBell();
-        wxMessageBox(_("Roll value must be numeric."),_("Warning"),wxOK | wxICON_ERROR,this);
-        return;
+    double x;
+    double z;
+
+    int index = m_DragModeChoice->GetSelection();
+    switch (index) {
+        case 0: //normal
+            text = XRCCTRL(*this,"input_yaw",wxTextCtrl)->GetValue();
+            if(!utils::stringToDouble(std::string(text.mb_str(wxConvLocal)), y))
+            {
+                wxBell();
+                wxMessageBox(_("Yaw value must be numeric."),_("Warning"),wxOK | wxICON_ERROR,this);
+                return;
+            }
+            text = XRCCTRL(*this,"input_pitch",wxTextCtrl)->GetValue();
+            if(!utils::stringToDouble(std::string(text.mb_str(wxConvLocal)), p))
+            {
+                wxBell();
+                wxMessageBox(_("Pitch value must be numeric."),_("Warning"),wxOK | wxICON_ERROR,this);
+                return;
+            }
+            text = XRCCTRL(*this,"input_roll",wxTextCtrl)->GetValue();
+            if(!utils::stringToDouble(std::string(text.mb_str(wxConvLocal)), r))
+            {
+                wxBell();
+                wxMessageBox(_("Roll value must be numeric."),_("Warning"),wxOK | wxICON_ERROR,this);
+                return;
+            }
+            GlobalCmdHist::getInstance().addCommand(
+                    new PT::RotatePanoCmd(m_pano, y, p, r)
+                );
+            break;
+        case 1: //mosaic
+            text = XRCCTRL(*this,"input_x",wxTextCtrl)->GetValue();
+            if(!utils::stringToDouble(std::string(text.mb_str(wxConvLocal)), x))
+            {
+                wxBell();
+                wxMessageBox(_("X value must be numeric."),_("Warning"),wxOK | wxICON_ERROR,this);
+                return;
+            }
+            text = XRCCTRL(*this,"input_y",wxTextCtrl)->GetValue();
+            if(!utils::stringToDouble(std::string(text.mb_str(wxConvLocal)), y))
+            {
+                wxBell();
+                wxMessageBox(_("Y value must be numeric."),_("Warning"),wxOK | wxICON_ERROR,this);
+                return;
+            }
+            text = XRCCTRL(*this,"input_z",wxTextCtrl)->GetValue();
+            if(!utils::stringToDouble(std::string(text.mb_str(wxConvLocal)), z))
+            {
+                wxBell();
+                wxMessageBox(_("Z value must be numeric."),_("Warning"),wxOK | wxICON_ERROR,this);
+                return;
+            }
+            GlobalCmdHist::getInstance().addCommand(
+                    new PT::TranslatePanoCmd(m_pano, x, y, z)
+                );
+            break;
     }
-    GlobalCmdHist::getInstance().addCommand(
-            new PT::RotatePanoCmd(m_pano, y, p, r)
-        );
 }
 
 void GLPreviewFrame::OnExposureChanged(wxCommandEvent & e)
@@ -1041,24 +1078,19 @@ void GLPreviewFrame::OnDragChoice(wxCommandEvent & e)
 {
     if (e.GetEventObject() == m_DragModeChoice)
     {
-        if (drag_tool) {
-        
-		    int index = m_DragModeChoice->GetSelection();
-		    switch (index) {
-		    	case 0: //normal
-		    		drag_tool->setDragMode(PreviewDragTool::drag_mode_normal);
-		    	break; 
-		    	case 1: //mosaic
-		    		drag_tool->setDragMode(PreviewDragTool::drag_mode_mosaic);
-		    	break;
-		    }
-            XRCCTRL(*this,"label_yaw",wxStaticText)->Enable(index==0);
-            XRCCTRL(*this,"input_yaw",wxTextCtrl)->Enable(index==0);
-            XRCCTRL(*this,"label_pitch",wxStaticText)->Enable(index==0);
-            XRCCTRL(*this,"input_pitch",wxTextCtrl)->Enable(index==0);
-            XRCCTRL(*this,"label_roll",wxStaticText)->Enable(index==0);
-            XRCCTRL(*this,"input_roll",wxTextCtrl)->Enable(index==0);
-            XRCCTRL(*this,"apply_num_transform",wxButton)->Enable(index==0);
+        if (drag_tool)
+        {
+            int index = m_DragModeChoice->GetSelection();
+            switch (index) {
+                case 0: //normal
+                    drag_tool->setDragMode(PreviewDragTool::drag_mode_normal);
+                    break;
+                case 1: //mosaic
+                    drag_tool->setDragMode(PreviewDragTool::drag_mode_mosaic);
+                    break;
+            }
+            // adjust the layout
+            GLPreviewFrame::DragChoiceLayout(index);
         }
     }
     else
@@ -1066,6 +1098,39 @@ void GLPreviewFrame::OnDragChoice(wxCommandEvent & e)
         // FIXME DEBUG_WARN("wxChoice event from unknown object received");
     }
 }
+
+void GLPreviewFrame::DragChoiceLayout( int index )
+{
+            // visibility of controls based on selected drag mode
+            XRCCTRL(*this,"label_yaw",wxStaticText)->Show(index==0);
+            XRCCTRL(*this,"input_yaw",wxTextCtrl)->Show(index==0);
+            XRCCTRL(*this,"label_pitch",wxStaticText)->Show(index==0);
+            XRCCTRL(*this,"input_pitch",wxTextCtrl)->Show(index==0);
+            XRCCTRL(*this,"label_roll",wxStaticText)->Show(index==0);
+            XRCCTRL(*this,"input_roll",wxTextCtrl)->Show(index==0);
+            XRCCTRL(*this,"label_x",wxStaticText)->Show(index==1);
+            XRCCTRL(*this,"input_x",wxTextCtrl)->Show(index==1);
+            XRCCTRL(*this,"label_y",wxStaticText)->Show(index==1);
+            XRCCTRL(*this,"input_y",wxTextCtrl)->Show(index==1);
+            XRCCTRL(*this,"label_z",wxStaticText)->Show(index==1);
+            XRCCTRL(*this,"input_z",wxTextCtrl)->Show(index==1);
+            XRCCTRL(*this,"apply_num_transform",wxButton)->Show(1);
+            // redraw layout to compress empty space
+            XRCCTRL(*this,"label_yaw",wxStaticText)->GetContainingSizer()->Layout();
+            XRCCTRL(*this,"input_yaw",wxTextCtrl)->GetContainingSizer()->Layout();
+            XRCCTRL(*this,"label_pitch",wxStaticText)->GetContainingSizer()->Layout();
+            XRCCTRL(*this,"input_pitch",wxTextCtrl)->GetContainingSizer()->Layout();
+            XRCCTRL(*this,"label_roll",wxStaticText)->GetContainingSizer()->Layout();
+            XRCCTRL(*this,"input_roll",wxTextCtrl)->GetContainingSizer()->Layout();
+            XRCCTRL(*this,"label_x",wxStaticText)->GetContainingSizer()->Layout();
+            XRCCTRL(*this,"input_x",wxTextCtrl)->GetContainingSizer()->Layout();
+            XRCCTRL(*this,"label_y",wxStaticText)->GetContainingSizer()->Layout();
+            XRCCTRL(*this,"input_y",wxTextCtrl)->GetContainingSizer()->Layout();
+            XRCCTRL(*this,"label_z",wxStaticText)->GetContainingSizer()->Layout();
+            XRCCTRL(*this,"input_z",wxTextCtrl)->GetContainingSizer()->Layout();
+            XRCCTRL(*this,"apply_num_transform",wxButton)->GetContainingSizer()->Layout();
+}
+
 
 void GLPreviewFrame::OnDefaultExposure( wxCommandEvent & e )
 {

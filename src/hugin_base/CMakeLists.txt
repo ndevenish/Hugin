@@ -5,6 +5,8 @@
 # algorithms/external/PTStitcherStitcher.cpp
 #algorithms/external/PTmenderStitcher.cpp
 
+
+
 SET(HUGIN_BASE_SRC
 algorithms/nona/NonaFileStitcher.cpp
 algorithms/nona/NonaImageStitcher.cpp
@@ -13,6 +15,7 @@ algorithms/basic/CalculateMeanExposure.cpp
 algorithms/basic/CalculateOptimalScale.cpp
 algorithms/basic/CalculateOptimalROI.cpp
 algorithms/basic/RotatePanorama.cpp
+algorithms/basic/TranslatePanorama.cpp
 algorithms/basic/StraightenPanorama.cpp
 algorithms/basic/CalculateOverlap.cpp
 algorithms/nona/CalculateFOV.cpp
@@ -75,6 +78,7 @@ algorithms/basic/CalculateMeanExposure.h
 algorithms/basic/CalculateOptimalScale.h
 algorithms/basic/CalculateOptimalROI.h
 algorithms/basic/RotatePanorama.h
+algorithms/basic/TranslatePanorama.h
 algorithms/basic/StraightenPanorama.h
 algorithms/basic/CalculateOverlap.h
 algorithms/nona/CalculateFOV.h

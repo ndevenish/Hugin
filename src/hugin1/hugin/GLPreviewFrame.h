@@ -144,6 +144,7 @@ protected:
 
     void OnBlendChoice(wxCommandEvent & e);
     void OnDragChoice(wxCommandEvent & e);
+    void DragChoiceLayout( int index );
     void OnProjectionChoice(wxCommandEvent & e);
     /** event handler for changed roi */
     void OnROIChanged(wxCommandEvent & e);
