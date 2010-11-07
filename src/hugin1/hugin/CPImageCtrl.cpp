@@ -233,7 +233,7 @@ void CPImageCtrl::OnDraw(wxDC & dc)
 {
     wxSize vSize = GetClientSize();
     // draw image (FIXME, redraw only visible regions.)
-    if (editState != NO_IMAGE) {
+    if (editState != NO_IMAGE && m_img.get()) {
 		//clear the blank rectangle to the left of the image
         if (bitmap.GetWidth() < vSize.GetWidth()) {
             dc.SetPen(wxPen(GetBackgroundColour(), 1, wxSOLID));
@@ -652,24 +652,24 @@ void CPImageCtrl::setImage(const std::string & file, ImageRotation imgRot)
     if (wxFileName::FileExists(fn)) {
         m_imgRotation = imgRot;
         m_img = ImageCache::getInstance().getImageIfAvailable(imageFilename);
+        editState = NO_SELECTION;
         if (m_img.get()) {
-            editState = NO_SELECTION;
             rescaleImage();
-            return;
         } else {
             // load the image in the background.
             m_imgRequest = ImageCache::getInstance().requestAsyncImage(imageFilename);
             m_imgRequest->ready.connect(
                 boost::bind(&CPImageCtrl::OnImageLoaded, this, _1, _2, _3));
-            // act as if there is no image until it loads.
+            // With m_img.get() 0, everything will act as normal except drawing.
         }
+    } else {
+        editState = NO_IMAGE;
+        bitmap = wxBitmap();
+        SetSizeHints(0,0,0,0,1,1);
+        // delete the image (release shared_ptr)
+        // create an empty image.
+        m_img = ImageCache::EntryPtr(new ImageCache::Entry);
     }
-    editState = NO_IMAGE;
-    bitmap = wxBitmap();
-    SetSizeHints(0,0,0,0,1,1);
-    // delete the image (release shared_ptr)
-    // create an empty image.
-    m_img = ImageCache::EntryPtr(new ImageCache::Entry);
 }
 
 void CPImageCtrl::OnImageLoaded(ImageCache::EntryPtr entry, std::string filename, bool load_small)
@@ -678,7 +678,6 @@ void CPImageCtrl::OnImageLoaded(ImageCache::EntryPtr entry, std::string filename
     if (imageFilename == filename)
     {
         m_img = entry;
-        editState = NO_SELECTION;
         rescaleImage();
     }
 }
