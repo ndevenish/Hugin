@@ -31,6 +31,9 @@
 #include "Batch.h"
 #include "ProjectListBox.h"
 #include "DirTraverser.h"
+#ifdef __WXMSW__
+#include "wx/msw/helpchm.h"
+#endif
 //#include <wx/app.h>
 
 /** Simple class that forward the drop to the mainframe */
@@ -110,6 +113,11 @@ public:
 	void AddDirToList(wxString aDir);
 	void ChangePrefix(int index,wxString newPrefix);
 
+#ifdef __WXMSW__
+    /** return help controller for open help */
+    wxCHMHelpController& GetHelpController() { return m_msHtmlHelp; }
+#endif
+
 	//wxMutex* projListMutex;
 	ProjectListBox *projListBox;
 
@@ -122,7 +130,11 @@ private:
 	bool m_closeThread; //included to signal the thread to finish execution
 	//TO-DO: include a batch or project progress gauge? Test initialization commented out in constructor
 	//wxGauge* m_gauge;
-	wxHtmlHelpController * m_help;
+#ifdef __WXMSW__
+    wxCHMHelpController m_msHtmlHelp;
+#else
+    wxHtmlHelpController * m_help;
+#endif
 
 	void OnProcessTerminate(wxProcessEvent & event);
 	/** called by thread when queue was changed outside of PTBatcherGUI

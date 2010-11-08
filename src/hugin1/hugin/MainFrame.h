@@ -32,6 +32,9 @@
 #include "PT/Panorama.h"
 
 #include "wx/docview.h"
+#ifdef __WXMSW__
+#include "wx/msw/helpchm.h"
+#endif
 
 #include "hugin/OptimizePanel.h"
 #include "hugin/PreferencesDialog.h"
@@ -154,6 +157,9 @@ public:
     struct celeste::svm_model* GetSVMModel();
     
     GLPreviewFrame * getGLPreview();
+#ifdef __WXMSW__
+    wxCHMHelpController& GetHelpController() { return m_msHtmlHelp; }
+#endif
 
 protected:
     // called when a progress message should be displayed
@@ -244,6 +250,10 @@ private:
     double m_progressMax;
     double m_progress;
     wxString m_progressMsg;
+#ifdef __WXMSW__
+    wxCHMHelpController     m_msHtmlHelp;
+#endif
+
 
     DECLARE_EVENT_TABLE()
 };

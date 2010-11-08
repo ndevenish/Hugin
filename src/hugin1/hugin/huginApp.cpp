@@ -56,8 +56,8 @@
 #include "base_wx/huginConfig.h"
 #ifdef __WXMSW__
 #include "wx/dir.h"
+#include "wx/cshelp.h"
 #endif
-
 
 #include <tiffio.h>
 
@@ -137,6 +137,10 @@ bool huginApp::OnInit()
 
 
 #if defined __WXMSW__
+    // initialize help provider
+    wxHelpControllerHelpProvider* provider = new wxHelpControllerHelpProvider;
+    wxHelpProvider::Set(provider);
+
     wxString huginExeDir = getExePath(argv[0]);
 
     wxString huginRoot;
@@ -277,6 +281,8 @@ bool huginApp::OnInit()
     // setup main frame size, after it has been created.
     RestoreFramePosition(frame, wxT("MainFrame"));
 #ifdef __WXMSW__
+    provider->SetHelpController(&frame->GetHelpController());
+    frame->GetHelpController().Initialize(m_xrcPrefix+wxT("data/hugin_help_en_EN.chm"));
     frame->SendSizeEvent();
 #endif
 

@@ -111,7 +111,9 @@ BatchFrame::BatchFrame(wxLocale* locale, wxString xrc)
 	m_cancelled = false;
 	m_closeThread = false;
 	//m_paused = false;
+#ifndef __WXMSW__
 	m_help=0;
+#endif
 
 	//load xrc resources
 	wxXmlResource::Get()->LoadFrame(this, (wxWindow* )NULL, wxT("batch_frame"));
@@ -492,6 +494,9 @@ void BatchFrame::OnButtonClear(wxCommandEvent &event)
 void BatchFrame::OnButtonHelp(wxCommandEvent &event)
 {
 	DEBUG_TRACE("");
+#ifdef __WXMSW__
+    GetHelpController().DisplaySection(wxT("Hugin_Batch_Processor.html"));
+#else
     if (m_help == 0)
     {
 #if defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
@@ -531,6 +536,7 @@ void BatchFrame::OnButtonHelp(wxCommandEvent &event)
     }
     m_help->Display(wxT("Hugin_Batch_Processor.html"));
 	//DisplayHelp(wxT("Hugin_Batch_Processor.html"));
+#endif
 }
 void BatchFrame::OnButtonMoveDown(wxCommandEvent &event)
 {
@@ -947,7 +953,9 @@ void BatchFrame::OnClose(wxCloseEvent &event)
 	m_closeThread = true;
 	this->GetThread()->Wait();
 	//wxMessageBox(_T("Closing frame..."));
-	delete m_help;
+#ifndef __WXMSW__
+    delete m_help;
+#endif
 	this->Destroy();
 }
 

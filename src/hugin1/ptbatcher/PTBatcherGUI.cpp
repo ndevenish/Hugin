@@ -25,6 +25,9 @@
  */
 
 #include "PTBatcherGUI.h"
+#ifdef __WXMSW__
+#include "wx/cshelp.h"
+#endif
 
 // make wxwindows use this class as the main application
 IMPLEMENT_APP(PTBatcherGUI)
@@ -42,6 +45,10 @@ bool PTBatcherGUI::OnInit()
 #if defined __WXMSW__
 	int localeID = wxConfigBase::Get()->Read(wxT("language"), (long) wxLANGUAGE_DEFAULT);
 	m_locale.Init(localeID);
+    // initialize help provider
+    wxHelpControllerHelpProvider* provider = new wxHelpControllerHelpProvider;
+    wxHelpProvider::Set(provider);
+
 #else
     m_locale.Init(wxLANGUAGE_DEFAULT);
 #endif
@@ -165,6 +172,10 @@ bool PTBatcherGUI::OnInit()
 	{
 		m_frame = new BatchFrame(&m_locale,m_xrcPrefix);
 		m_frame->RestoreSize();
+#ifdef __WXMSW__
+        provider->SetHelpController(&m_frame->GetHelpController());
+        m_frame->GetHelpController().Initialize(m_xrcPrefix+wxT("data/hugin_help_en_EN.chm"));
+#endif
 		SetTopWindow(m_frame);
 		m_frame->Show(true);
 		m_server = new BatchIPCServer();

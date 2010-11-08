@@ -262,6 +262,14 @@ IF(MSGFMT_FOUND)
   MESSAGE(STATUS "Program msgfmt found (${MSGFMT_EXECUTABLE})")
 ENDIF(MSGFMT_FOUND)
 
+IF(WIN32)
+  # HTML Helpworkshop for creating help file
+  FIND_PACKAGE(HTMLHelp)
+  IF(${HTML_HELP_COMPILER} MATCHES "-NOTFOUND")
+    MESSAGE(FATAL_ERROR "MS HTML Help Workshop not found. It is required to build Hugins help file.")
+  ENDIF()
+ENDIF(WIN32)
+
 ##
 ## LAPACK (optional, enable by -DENABLE_LAPACK=ON)
 ##

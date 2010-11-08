@@ -1,0 +1,333 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML>
+<HEAD>
+<meta name="GENERATOR" content="Microsoft&reg; HTML Help Workshop 4.1">
+<!-- Sitemap 1.0 -->
+</HEAD><BODY>
+<OBJECT type="text/site properties">
+	<param name="Window Styles" value="0x800025">
+	<param name="ImageType" value="Folder">
+</OBJECT>
+<UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Hugin">
+		<param name="Local" value="Hugin.html">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Assistant tab">
+			<param name="Local" value="Hugin_Assistant_tab.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Images tab">
+			<param name="Local" value="Hugin_Images_tab.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Camara and Lens tab">
+			<param name="Local" value="Hugin_Camera_and_Lens_tab.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Crop tab">
+			<param name="Local" value="Hugin_Crop_tab.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Mask tab">
+			<param name="Local" value="Hugin_Mask_tab.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Control points tab">
+			<param name="Local" value="Hugin_Control_Points_tab.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Optimizer tab">
+			<param name="Local" value="Hugin_Optimizer_tab.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Exposure tab">
+			<param name="Local" value="Hugin_Exposure_tab.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Stitcher tab">
+			<param name="Local" value="Hugin_Stitcher_tab.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Batch processor">
+			<param name="Local" value="Hugin_Batch_Processor.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Preferences">
+			<param name="Local" value="Hugin_Preferences.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Preview window">
+			<param name="Local" value="Hugin_Preview_window.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Fast preview window">
+			<param name="Local" value="Hugin_Fast_Preview_window.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Control points table">
+			<param name="Local" value="Hugin_Control_Points_table.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Reset values window">
+			<param name="Local" value="Hugin_Reset_Values_window.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Keyboard shortcuts">
+			<param name="Local" value="Hugin_Keyboard_shortcuts.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Frequently asked questions">
+			<param name="Local" value="Hugin_FAQ.html">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Command line tools">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Nona">
+			<param name="Local" value="Nona.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Fulla">
+			<param name="Local" value="Fulla.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Nona GUI">
+			<param name="Local" value="Nona_gui.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Autooptimiser">
+			<param name="Local" value="Autooptimiser.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Align_image_stack">
+			<param name="Local" value="Align_image_stack.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Tca_correct">
+			<param name="Local" value="Tca_correct.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Matchpoint">
+			<param name="Local" value="MatchPoint.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Pto2mk">
+			<param name="Local" value="Pto2mk.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Cpclean">
+			<param name="Local" value="Cpclean.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Cpfind">
+			<param name="Local" value="Cpfind.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Icpfind">
+			<param name="Local" value="Icpfind.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Vig_optimise">
+			<param name="Local" value="Vig_optimize.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Celeste_standalone">
+			<param name="Local" value="Celeste_standalone.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="PTBatcher">
+			<param name="Local" value="Hugin_Batch_Processor.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="PTBatcherGUI">
+			<param name="Local" value="Hugin_Batch_Processor.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Pano_modify">
+			<param name="Local" value="Pano_modify.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Pto_merge">
+			<param name="Local" value="Pto_merge.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="External programs">
+			</OBJECT>
+		<UL>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="Enblend/Enfuse">
+				</OBJECT>
+			<UL>
+				<LI> <OBJECT type="text/sitemap">
+					<param name="Name" value="Enblend">
+					<param name="Local" value="Enblend.html">
+					</OBJECT>
+				<LI> <OBJECT type="text/sitemap">
+					<param name="Name" value="Enblend manual">
+					<param name="Local" value="Enblend_reference_manual.html">
+					</OBJECT>
+				<LI> <OBJECT type="text/sitemap">
+					<param name="Name" value="Enfuse">
+					<param name="Local" value="Enfuse.html">
+					</OBJECT>
+				<LI> <OBJECT type="text/sitemap">
+					<param name="Name" value="Enfuse manual">
+					<param name="Local" value="Enfuse_reference_manual.html">
+					</OBJECT>
+			</UL>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="Panorama Tools">
+				<param name="Local" value="Panorama_tools.html">
+				</OBJECT>
+			<UL>
+				<LI> <OBJECT type="text/sitemap">
+					<param name="Name" value="PTBlender">
+					<param name="Local" value="PTblender.html">
+					</OBJECT>
+				<LI> <OBJECT type="text/sitemap">
+					<param name="Name" value="PTMender">
+					<param name="Local" value="PTmender.html">
+					</OBJECT>
+				<LI> <OBJECT type="text/sitemap">
+					<param name="Name" value="PTOptimizer">
+					<param name="Local" value="PTOptimizer.html">
+					</OBJECT>
+				<LI> <OBJECT type="text/sitemap">
+					<param name="Name" value="PTStitcher">
+					<param name="Local" value="PTStitcher.html">
+					</OBJECT>
+			</UL>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="Smartblend">
+				<param name="Local" value="SmartBlend.html">
+				</OBJECT>
+		</UL>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Control points detectors">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Overview">
+			<param name="Local" value="Control_point_generators.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Typical parameters">
+			<param name="Local" value="Control_Point_Detector_Parameters.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Setup of control point detectors">
+			<param name="Local" value="Hugin_Parameters_for_Control_Point_Detectors_dialog.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Cpfind">
+			<param name="Local" value="Cpfind.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Autopano">
+			<param name="Local" value="Autopano.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Autopano-SIFT">
+			<param name="Local" value="Autopano-sift.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Autopano-SIFT-C">
+			<param name="Local" value="Autopano-sift-C.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Panomatic">
+			<param name="Local" value="Panomatic.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Align_image_stack">
+			<param name="Local" value="Align_image_stack.html">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Tips and Tricks">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Align a stack of photos">
+			<param name="Local" value="Align_a_stack_of_photos.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="16 bit workflow with Hugin">
+			<param name="Local" value="16bit_workflow_with_hugin.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Using celeste with hugin">
+			<param name="Local" value="Using_Celeste_with_hugin.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="HDR workflow with hugin">
+			<param name="Local" value="HDR_workflow_with_hugin.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Scripting">
+			<param name="Local" value="Panorama_scripting_in_a_nutshell.html">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="General">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Panorama">
+			<param name="Local" value="Panorama.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Panorama formats">
+			<param name="Local" value="Panorama_formats.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Projections">
+			<param name="Local" value="Projections.html">
+			</OBJECT>
+		<UL>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="Rectilinear projection">
+				<param name="Local" value="Rectilinear_Projection.html">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="Equirectangular projection">
+				<param name="Local" value="Equirectangular_Projection.html">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="Cylindrical projection">
+				<param name="Local" value="Cylindrical_Projection.html">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="Cubic projection">
+				<param name="Local" value="Cubic_Projection.html">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="Fisheye projection">
+				<param name="Local" value="Fisheye_Projection.html">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="Stereographic projection">
+				<param name="Local" value="Stereographic_Projection.html">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="General Panini projection">
+				<param name="Local" value="The_General_Panini_Projection.html">
+				</OBJECT>
+		</UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Panorama tools">
+			<param name="Local" value="Panorama_tools.html">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Licence">
+		<param name="Local" value="license.html">
+		</OBJECT>
+</UL>
+</BODY></HTML>

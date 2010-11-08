@@ -1206,6 +1206,9 @@ void MainFrame::DisplayHelp(wxString section)
 
     DEBUG_TRACE("");
 
+#ifdef __WXMSW__
+    GetHelpController().DisplaySection(section);
+#else
 #if defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
     // On Mac, xrc/data/help_LOCALE should be in the bundle as LOCALE.lproj/help
     // which we can rely on the operating sytem to pick the right locale's.
@@ -1240,6 +1243,7 @@ void MainFrame::DisplayHelp(wxString section)
     {
         wxLogError(_("Can't start system's web browser"));
     }
+#endif
 }
 
 void MainFrame::OnTipOfDay(wxCommandEvent& WXUNUSED(e))
