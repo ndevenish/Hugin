@@ -1280,8 +1280,10 @@ void MainFrame::OnShowPrefs(wxCommandEvent & e)
     PreferencesDialog * pref_dlg = new PreferencesDialog(this);
     pref_dlg->ShowModal();
     //update image cache size
-    ImageCache::getInstance().SetUpperLimit(wxConfigBase::Get()->Read(wxT("/ImageCache/UpperBound"), HUGIN_IMGCACHE_UPPERBOUND));
+    wxConfigBase* cfg=wxConfigBase::Get();
+    ImageCache::getInstance().SetUpperLimit(cfg->Read(wxT("/ImageCache/UpperBound"), HUGIN_IMGCACHE_UPPERBOUND));
     images_panel->ReloadCPDetectorSettings();
+    gl_preview_frame->SetShowProjectionHints(cfg->Read(wxT("/GLPreviewWindow/ShowProjectionHints"),HUGIN_SHOW_PROJECTION_HINTS));
 
 }
 

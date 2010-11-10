@@ -194,6 +194,12 @@ PreferencesDialog::PreferencesDialog(wxWindow *parent)
     this->SetBackgroundColour(XRCCTRL(*this, "prefs_ft_RotationStartAngle", wxSpinCtrl)->GetBackgroundColour());
 #endif
 
+#if wxCHECK_VERSION(2,9,1)
+    wxCheckBox* show_hints=XRCCTRL(*this,"pref_show_projection_hints",wxCheckBox);
+    show_hints->Enable(true);
+    show_hints->Show(true);
+#endif
+
     GetSizer()->SetSizeHints(this);
 //    GetSizer()->Layout();
 
@@ -435,6 +441,9 @@ void PreferencesDialog::UpdateDisplayData(int panel)
         t = cfg->Read(wxT("smartUndo"), HUGIN_SMART_UNDO) == 1;
         MY_BOOL_VAL("prefs_smart_undo", t);
 
+        t = cfg->Read(wxT("/GLPreviewWindow/ShowProjectionHints"), HUGIN_SHOW_PROJECTION_HINTS) == 1;
+        MY_BOOL_VAL("pref_show_projection_hints", t)
+
         // cursor setting
 //    mem = cfg->Read(wxT("/CPImageCtrl/CursorType"), HUGIN_CP_CURSOR);
 //    MY_SPIN_VAL("prefs_cp_CursorType", mem);
@@ -612,6 +621,8 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
             cfg->Write(wxT("language"), int(HUGIN_LANGUAGE));
             // smart undo
             cfg->Write(wxT("smartUndo"), HUGIN_SMART_UNDO);
+            // projection hints
+            cfg->Write(wxT("/GLPreviewWindow/ShowProjectionHints"), HUGIN_SHOW_PROJECTION_HINTS);
             // druid
             cfg->Write(wxT("/PreviewFrame/showDruid"), HUGIN_PREVIEW_SHOW_DRUID);
         }
@@ -752,7 +763,8 @@ void PreferencesDialog::UpdateConfigData()
 
     // smart undo
     cfg->Write(wxT("smartUndo"), MY_G_BOOL_VAL("prefs_smart_undo"));
-
+    // show projections hints
+    cfg->Write(wxT("/GLPreviewWindow/ShowProjectionHints"), MY_G_BOOL_VAL("pref_show_projection_hints"));
     // cursor
     //    cfg->Write(wxT("/CPImageCtrl/CursorType"), MY_G_SPIN_VAL("prefs_cp_CursorType"));
     // tempdir

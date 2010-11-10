@@ -118,6 +118,9 @@ public:
      *  can be replaced with the real image.
      */
     void redrawPreview();
+    /** set status if projection hints should be shown or not*/
+    void SetShowProjectionHints(bool new_value);
+
 protected:
     void OnClose(wxCloseEvent& e);
     
@@ -150,6 +153,8 @@ protected:
     void OnROIChanged(wxCommandEvent & e);
     void OnHFOVChanged(wxCommandEvent & e);
     void OnVFOVChanged(wxCommandEvent & e);
+    /** event handler when user hides the infobar */
+    void OnHideProjectionHints(wxCommandEvent &e);
     // No HDR display yet
     // void OnOutputChoice(wxCommandEvent & e);
     // update tools according to blend mode choice
@@ -236,6 +241,7 @@ private:
     PreviewControlPointTool *control_point_tool;
     PreviewPanoMaskTool *pano_mask_tool;    
     PreviewLayoutLinesTool *m_layoutLinesTool;
+    bool m_showProjectionHints;
     void TurnOffTools(std::set<PreviewTool*> tools);
     void CleanButtonColours();
     /** Tell the user anything suspicious about the projection choice.

@@ -76,6 +76,9 @@
 // smart undo
 #define HUGIN_SMART_UNDO                      0l
 
+// show hints in fast preview window
+#define HUGIN_SHOW_PROJECTION_HINTS           1l
+
 // Exiftool
 #define HUGIN_EXIFTOOL_COPY_ARGS                   "-ImageDescription -Make -Model -Artist -WhitePoint -Copyright -GPS:all -DateTimeOriginal -CreateDate -UserComment -ColorSpace -OwnerName -SerialNumber"
 

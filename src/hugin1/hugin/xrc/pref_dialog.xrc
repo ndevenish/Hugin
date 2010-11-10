@@ -122,9 +122,27 @@
                           <object class="wxStaticText">
                             <label>May have unforseen consequences. \n(EXPERIMENTAL)</label>
                           </object>
-                          <flag>wxALL|wxEXPAND|wxALIGN_RIGHT|wxALIGN_TOP</flag>
+                          <flag>wxLEFT|wxEXPAND|wxALIGN_RIGHT|wxALIGN_TOP</flag>
+                          <border>5</border>
                         </object>
                         <growablecols>2</growablecols>
+                        <object class="spacer">
+                          <size>0,0</size>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxCheckBox" name="pref_show_projection_hints">
+                            <label>Show hints about projections</label>
+                            <enabled>0</enabled>
+                            <hidden>1</hidden>
+                            <tooltip>The hints are shown only in the fast preview window</tooltip>
+                          </object>
+                          <flag>wxALL|wxEXPAND|wxALIGN_TOP</flag>
+                          <border>5</border>
+                        </object>
+                        <object class="spacer">
+                          <flag>wxALL|wxEXPAND|wxALIGN_TOP</flag>
+                          <border>5</border>
+                        </object>
                       </object>
                       <flag>wxEXPAND</flag>
                     </object>

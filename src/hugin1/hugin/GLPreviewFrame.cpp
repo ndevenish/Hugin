@@ -88,7 +88,8 @@ enum {
     ID_SHOW_ALL = wxID_HIGHEST+1711,
     ID_SHOW_NONE = wxID_HIGHEST+1712,
     ID_UNDO = wxID_HIGHEST+1713,
-    ID_REDO = wxID_HIGHEST+1714
+    ID_REDO = wxID_HIGHEST+1714,
+    ID_HIDE_HINTS = wxID_HIGHEST+1715
 };
 
 /** enum, which contains all different toolbar modes */
@@ -115,7 +116,7 @@ BEGIN_EVENT_TABLE(GLPreviewFrame, wxFrame)
     EVT_BUTTON(XRCID("preview_autocrop_tool"), GLPreviewFrame::OnAutocrop)
     EVT_NOTEBOOK_PAGE_CHANGED(XRCID("mode_toolbar_notebook"), GLPreviewFrame::OnSelectMode)
     EVT_NOTEBOOK_PAGE_CHANGING(XRCID("mode_toolbar_notebook"), GLPreviewFrame::OnToolModeChanging)
-   
+    EVT_BUTTON(ID_HIDE_HINTS, GLPreviewFrame::OnHideProjectionHints)
     EVT_BUTTON(XRCID("exposure_default_button"), GLPreviewFrame::OnDefaultExposure)
     EVT_SPIN_DOWN(XRCID("exposure_spin"), GLPreviewFrame::OnDecreaseExposure)
     EVT_SPIN_UP(XRCID("exposure_spin"), GLPreviewFrame::OnIncreaseExposure)
@@ -277,6 +278,8 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     
 #if wxCHECK_VERSION(2, 9, 1)
     m_infoBar = new wxInfoBar(this);
+    m_infoBar->AddButton(ID_HIDE_HINTS,_("Hide"));
+    m_infoBar->Connect(ID_HIDE_HINTS,wxEVT_COMMAND_BUTTON_CLICKED,wxCommandEventHandler(GLPreviewFrame::OnHideProjectionHints),NULL,this);
     m_topsizer->Add(m_infoBar, 0, wxEXPAND);
 #endif
 
@@ -475,6 +478,7 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     if (config->Read(wxT("/GLPreviewFrame/isShown"), 0l) != 0) {
         Show();
     }
+    m_showProjectionHints = config->Read(wxT("/GLPreviewWindow/ShowProjectionHints"), HUGIN_SHOW_PROJECTION_HINTS) == 1;
     wxAcceleratorEntry entries[3];
     entries[0].Set(wxACCEL_NORMAL,WXK_F11,ID_FULL_SCREEN);
     entries[1].Set(wxACCEL_CTRL,(int)'Z',ID_UNDO);
@@ -657,7 +661,10 @@ void GLPreviewFrame::panoramaChanged(Panorama &pano)
     m_ROITopTxt->SetValue(wxString::Format(wxT("%d"), opts.getROI().top() ));
     m_ROIBottomTxt->SetValue(wxString::Format(wxT("%d"), opts.getROI().bottom() ));
     
-    ShowProjectionWarnings();
+    if(m_showProjectionHints)
+    {
+        ShowProjectionWarnings();
+    };
 }
 
 void GLPreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
@@ -1777,10 +1784,6 @@ void GLPreviewFrame::ShowProjectionWarnings()
 #endif
     } else {
 #if wxCHECK_VERSION(2, 9, 1)
-        /** @todo If the projection information bar was closed manually, don't show any more messages there.
-         * It should probably be stored as a configuration setting so it persits
-         * until "Load defaults" is selected on the preferences window.
-         */
         m_infoBar->ShowMessage(message, wxICON_INFORMATION);
 #else
         if (m_projectionStatusPushed) {
@@ -1796,3 +1799,30 @@ void GLPreviewFrame::ShowProjectionWarnings()
     }
 };
 
+void GLPreviewFrame::SetShowProjectionHints(bool new_value)
+{
+    m_showProjectionHints=new_value;
+#if wxCHECK_VERSION(2,9,1)
+    if(!m_showProjectionHints)
+    {
+        m_infoBar->Dismiss();
+    };
+#endif
+};
+
+void GLPreviewFrame::OnHideProjectionHints(wxCommandEvent &e)
+{
+    wxMessageBox(_("You have hidden the infobar, which shows hints about selection of projection.\nIf you want to see the bar again, activate the bar in the preferences again."),
+#ifdef __WXMSW__
+        _("Hugin"),
+#else
+        wx(""),
+#endif
+        wxOK | wxICON_INFORMATION, this);
+
+    wxConfigBase* cfg=wxConfigBase::Get();
+    cfg->Write(wxT("/GLPreviewWindow/ShowProjectionHints"), false);
+    m_showProjectionHints=false;
+    cfg->Flush();
+    e.Skip();
+};
