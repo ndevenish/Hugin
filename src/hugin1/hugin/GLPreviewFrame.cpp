@@ -1816,7 +1816,7 @@ void GLPreviewFrame::OnHideProjectionHints(wxCommandEvent &e)
 #ifdef __WXMSW__
         _("Hugin"),
 #else
-        wx(""),
+        wxT(""),
 #endif
         wxOK | wxICON_INFORMATION, this);
 
