@@ -1,0 +1,153 @@
+=head1 NAME
+
+cpfind - Feature matching for panoramic stitching
+
+=head1 SYNOPSIS
+
+B<cpfind> [options] -o I<output_project> I<project.pto>
+
+B<cpfind> [options] -k i0 -k i1 [...] I<project.pto>
+
+B<cpfind> [options] --kall I<project.pto>
+
+=head1 DESCRIPTION
+
+B<cpfind> cpfind is a control-point detector for Hugin. It expects a project
+file as input and writes a project file with control-points on success.
+
+The first step is the feature description: In this step the images of the
+project file are loaded and so called keypoints are searched. They describe
+destinctive features in the image. B<cpfind> uses a gradient based descriptor
+for the feature description of the keypoints.
+
+In a second step, the feature matching, all keypoints of two images are matched
+against each other to find features which are on both images. If this matching
+was successfull two keypoints in the two images become one control point. 
+
+=head1 OPTIONS
+
+=over
+
+=item B<--celesteRadius> <int>
+
+Radius for celeste (default 20)
+
+=item B<--celesteThreshold> <double>
+
+Threshold for celeste (default 0.5)
+
+=item B<--celeste>
+
+Run celeste sky identification after loading images, this ignores all features
+associated with 'clouds'.
+
+=item B<-p <string>, B<--keypath> <string>
+
+Path to cache keyfiles
+
+=item B<--clean>
+
+Clean up cached keyfiles
+
+=item B<-c>, B<--cache>
+
+Caches keypoints to external file
+
+=item B<--kall>
+
+Write keyfiles for all images
+
+=item B<-k> <int>, B<--writekeyfile> <int>
+
+Write a keyfile for this image number (accepted multiple times)
+
+=item B<-o> <string>, B<--output> <string>
+
+Output file, required
+
+=item B<-n> <int>, B<--ncores> <int>
+
+Number of CPU/Cores (default:autodetect)
+
+=item B<-t>, B<--test>
+
+Enables test mode
+
+=item B<--fullscale>
+
+Uses full scale image to detect keypoints (default:false)
+
+=item B<--sieve1width> <int>
+
+Sieve 1 : Number of buckets on width (default : 10)
+
+=item B<--sieve1height> <int>
+
+Sieve 1 : Number of buckets on height (default : 10)
+
+=item B<--sieve1size> <int>
+
+Sieve 1 : Max points per bucket (default : 30)
+
+=item B<--kdtreesteps> <int>
+
+KDTree : search steps (default : 40)
+
+=item B<--kdtreeseconddist> <double>
+
+KDTree : distance of 2nd match (default : 0.15)
+
+=item B<--multirow>
+
+Enable heuristic multi row matching (default: off)
+
+=item B<--linearmatch>
+
+Enable linear images matching (default : all pairs)
+
+=item B<--linearmatchlen> <int>
+
+Number of images to match in linear matching (default:1)
+
+=item B<--minmatches> <int>
+
+Minimum matches (default : 4)
+
+=item B<--ransaciter> <int>
+
+Ransac : iterations (default : 1000)
+
+=item B<--ransacdist> <int>
+
+Ransac : homography estimation distance threshold (pixels) (default : 25)
+
+=item B<--sieve2width> <int>
+
+Sieve 2 : Number of buckets on width (default : 5)
+
+=item B<--sieve2height> <int>
+
+Sieve 2 : Number of buckets on height (default : 5)
+
+=item B<--sieve2size> <int>
+
+Sieve 2 : Max points per bucket (default : 2)
+
+=item B<-->, B<--ignore_rest>
+
+Ignores the rest of the labeled arguments following this flag.
+
+=item B<--version>
+
+Displays version information and exits.
+
+=item B<-h>, B<--help>
+
+Displays usage information and exits.
+
+=back
+
+=head1 AUTHORS
+
+Anael Orlinski, Pablo d'Angelo, Antoine Deleforge, Thomas Modes
+

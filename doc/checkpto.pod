@@ -1,0 +1,25 @@
+=head1 NAME
+
+checkpto - Helper program for Hugin's Makefile assistant
+
+=head1 SYNOPSIS
+
+B<checkpto> I<input.pto>
+
+=head1 DESCRIPTION
+
+B<checkpto> checks a single Hugin .pto project, it returns failure if the .pto
+file can't be parsed, or if control point connections between photos do not
+form a connected graph.
+
+This tool is not intended for stand-alone use, it is used by the Assistant
+Makefile when creating a new project.
+
+=head1 OPTIONS
+
+None
+
+=head1 AUTHORS
+
+Thomas Modes
+

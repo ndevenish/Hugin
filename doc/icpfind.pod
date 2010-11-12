@@ -1,0 +1,45 @@
+=head1 NAME
+
+icpfind - Use heuristic control-point detection strategies
+
+=head1 SYNOPSIS
+
+B<icpfind> [options] -o I<output.pto> I<input.pto>
+
+=head1 DESCRIPTION
+
+B<icpfind> is a command-line tool to use the various different control point
+detectors and heuristic control point detector strategies defined in the Hugin
+Parameters for Control Point Detectors dialog. It does not introduce new
+functionality, it allows running the different control points detectors from
+the command-line and not only in the GUI. 
+
+=head1 OPTIONS
+
+=over
+
+=item B<-o>, B<--output=file.pto>
+
+Output Hugin PTO file. Required
+
+=item B<-s>, B<--setting=NUMBER>
+
+Setting to use as defined by the order in the Hugin GUI Preferences, expects an
+integer. The first setting in the Preferences has the number 0, the next is 1
+and so on.  If left undefined then the setting defined as default in the Hugin
+Preferences is used.
+
+=item B<-m>, B<--matches=NUMBER>
+
+Number of control points per pair of photos
+
+=item B<-h>, B<--help>
+
+Shows help
+
+=back
+
+=head1 AUTHORS
+
+Thomas Modes
+
