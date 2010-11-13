@@ -684,7 +684,7 @@ void CPImageCtrl::OnImageLoaded(ImageCache::EntryPtr entry, std::string filename
 
 void CPImageCtrl::rescaleImage()
 {
-    if (editState == NO_IMAGE) {
+    if (editState == NO_IMAGE || !m_img.get()) {
         return;
     }
     wxImage img = imageCacheEntry2wxImage(m_img);
@@ -875,6 +875,7 @@ CPImageCtrl::EditorState CPImageCtrl::isOccupied(wxPoint mousePos, const FDiff2D
 
 void CPImageCtrl::mouseMoveEvent(wxMouseEvent& mouse)
 {
+    if (!m_img.get()) return; // ignore events if no image loaded.
     wxPoint mpos_;
     CalcUnscrolledPosition(mouse.GetPosition().x, mouse.GetPosition().y,
                            &mpos_.x, & mpos_.y);
@@ -984,6 +985,7 @@ void CPImageCtrl::mouseMoveEvent(wxMouseEvent& mouse)
 void CPImageCtrl::mousePressLMBEvent(wxMouseEvent& mouse)
 {
     DEBUG_DEBUG("LEFT MOUSE DOWN");
+    if (!m_img.get()) return; // ignore events if no image loaded.
     wxPoint mpos_;
     CalcUnscrolledPosition(mouse.GetPosition().x, mouse.GetPosition().y,
                            &mpos_.x, & mpos_.y);
@@ -1029,6 +1031,7 @@ void CPImageCtrl::mousePressLMBEvent(wxMouseEvent& mouse)
 
 void CPImageCtrl::OnTimer(wxTimerEvent & e)
 {
+    if (!m_img.get()) return; // ignore events if no image loaded.
     m_forceMagnifier = false;
     update();
 }
@@ -1036,6 +1039,7 @@ void CPImageCtrl::OnTimer(wxTimerEvent & e)
 void CPImageCtrl::mouseReleaseLMBEvent(wxMouseEvent& mouse)
 {
     DEBUG_DEBUG("LEFT MOUSE UP");
+    if (!m_img.get()) return; // ignore events if no image loaded.
     m_timer.Start(2000, true);
 
     wxPoint mpos_;
@@ -1125,6 +1129,7 @@ void CPImageCtrl::mouseReleaseMMBEvent(wxMouseEvent& mouse)
 void CPImageCtrl::mousePressMMBEvent(wxMouseEvent& mouse)
 {
     DEBUG_DEBUG("middle mouse button pressed, entering scroll mode")
+    if (!m_img.get()) return; // ignore events if no image loaded.
     m_mouseScrollPos = mouse.GetPosition();
 //    SetCursor(wxCursor(wxCURSOR_HAND));
 }
@@ -1132,6 +1137,7 @@ void CPImageCtrl::mousePressMMBEvent(wxMouseEvent& mouse)
 
 void CPImageCtrl::mouseReleaseRMBEvent(wxMouseEvent& mouse)
 {
+    if (!m_img.get()) return; // ignore events if no image loaded.
     wxPoint mpos_;
     CalcUnscrolledPosition(mouse.GetPosition().x, mouse.GetPosition().y,
                            &mpos_.x, & mpos_.y);
@@ -1246,6 +1252,7 @@ void CPImageCtrl::OnSize(wxSizeEvent &e)
 
 void CPImageCtrl::OnKey(wxKeyEvent & e)
 {
+    if (!m_img.get()) return; // ignore events if no image loaded.
     DEBUG_TRACE(" OnKey, key:" << e.m_keyCode);
     wxPoint delta(0,0);
     // check for cursor keys, if control is not pressed
@@ -1351,6 +1358,7 @@ void CPImageCtrl::OnKey(wxKeyEvent & e)
 void CPImageCtrl::OnKeyDown(wxKeyEvent & e)
 {
     DEBUG_TRACE("key:" << e.m_keyCode);
+    if (!m_img.get()) return; // ignore events if no image loaded.
 #if 0
     if (e.m_keyCode == WXK_SHIFT) {
         DEBUG_DEBUG("shift down");
