@@ -365,6 +365,10 @@ wxRect CPImageCtrl::drawPoint(wxDC & dc, const FDiff2D & pointIn, int i, bool se
                    roundi(pointIn.x+l), roundi(pointIn.y+l));
         // only use part inside.
         box &= vigra::Rect2D(m_img->image8->size());
+        if(box.width()<=0 || box.height()<=0)
+        {
+            return wxRect(0,0,0,0);
+        };
         // calculate mean "luminance value"
         vigra::FindAverage<vigra::UInt8> average;   // init functor
         vigra::RGBToGrayAccessor<vigra::RGBValue<vigra::UInt8> > lumac;
