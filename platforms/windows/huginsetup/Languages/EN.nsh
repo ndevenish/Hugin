@@ -1,5 +1,6 @@
   ;English Language strings (thepanz@gmail.com)
   LangString TEXT_WelcomePage ${LANG_ENGLISH} "This setup will guide you through the installation of Hugin ${HUGIN_VERSION}-${HUGIN_VERSION_BUILD}.$\r$\n $\r$\nWith Hugin you can assemble a mosaic of photographs into a complete immersive panorama, stitch any series of overlapping pictures and much more."
+  LangString TEXT_PreReleaseWelcomePage ${LANG_ENGLISH} "IMPORTANT: This package is highly experimental alpha software. Use at your own risk.$\r$\n $\r$\nThis setup will guide you through the installation of Hugin ${HUGIN_VERSION}-${HUGIN_VERSION_BUILD}.$\r$\n $\r$\nWith Hugin you can assemble a mosaic of photographs into a complete immersive panorama, stitch any series of overlapping pictures and much more."
   LangString TEXT_FinishPageLink ${LANG_ENGLISH} "Visit Hugin website"  
   
   LangString TEXT_ControlPointDisclaimerTitle ${LANG_ENGLISH} "Contol Point Generator Disclaimer"
@@ -24,9 +25,11 @@
   LangString TEXT_SecCPGenerators ${LANG_ENGLISH} "Control Point Generators"
   
   LangString DESC_SecPanomatic ${LANG_ENGLISH} "Download and install Panomatic ${PANOMATIC_VERSION} (internet connection required)"
-  LangString DESC_SecAutopano ${LANG_ENGLISH} "Download and install Autopano ${AUTOPANO_VERSION} (internet connection required)"
-  LangString DESC_SecAutopanoSIFTC ${LANG_ENGLISH} "Install Autopano-SIFT-C ${AUTOPANOSIFTC_VERSION}"
-  LangString DESC_SecMatchNShift ${LANG_ENGLISH} "Download and Install Match-n-Shift ${MATCHNSHIFT_VERSION} (internet connection required)"
+  LangString DESC_SecAutopano_Jenny ${LANG_ENGLISH} "Install Autopano-SIFT ${AUTOPANO_JENNY_VERSION} (internet connection required)"
+  LangString DESC_SecAutopano_Nowozin ${LANG_ENGLISH} "Install Autopano-SIFT ${AUTOPANO_NOWOZIN_VERSION} (internet connection required)"
+  LangString DESC_SecAutopano_SIFTC ${LANG_ENGLISH} "Install Autopano-SIFT-C ${AUTOPANO_SIFTC_VERSION} (internet connection required)"
+  LangString DESC_SecAutopano_SIFTC_Lemur ${LANG_ENGLISH} "Install Autopano-SIFT-C ${AUTOPANO_SIFTC_LEMUR_VERSION} (internet connection required)"
+  LangString DESC_SecMatchNShift ${LANG_ENGLISH} "Install Match-n-Shift ${MATCHNSHIFT_VERSION} (internet connection required)"
   
   LangString DESC_SecShortcuts ${LANG_ENGLISH} "Create program shortcuts"
   LangString TEXT_SecShortcuts ${LANG_ENGLISH} "Shortcuts"
@@ -38,5 +41,6 @@
   LangString TEXT_SecShortcutDesktop ${LANG_ENGLISH} "Add Desktop shortcut"
   
   LangString TEXT_ERROR_DownloadFailed ${LANG_ENGLISH} "Download failed: $0"
-  LangString TEXT_UN_SecCleanRegistrySettings ${LANG_ENGLISH} "Clean Registry Settings"
+  LangString TEXT_SecCleanRegistrySettings ${LANG_ENGLISH} "Clean Registry Settings"
+  LangString DESC_SecCleanRegistrySettings ${LANG_ENGLISH} "Clean Registry Settings"
   

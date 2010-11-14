@@ -1,0 +1,6 @@
+ToDo list:
+
+  - Add the "CMakeLists.txt" and the CMake directives for automatic installer creation
+  - Provide a standard and clean Installer Icon
+  - Add more Control Point Generators
+  

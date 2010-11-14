@@ -39,4 +39,5 @@
   LangString TEXT_SecShortcutDesktop ${LANG_GERMAN} "Desktopverknüpfung hinzufügen"
     
   LangString TEXT_ERROR_DownloadFailed ${LANG_GERMAN} "Download ist fehlgeschlagen: $0"
-  LangString TEXT_UN_SecCleanRegistrySettings ${LANG_GERMAN} "Registrierungseinträge säubern"
+  LangString TEXT_SecCleanRegistrySettings ${LANG_GERMAN} "Registrierungseinträge säubern"
+  LangString DESC_SecCleanRegistrySettings ${LANG_GERMAN} "Registrierungseinträge säubern"

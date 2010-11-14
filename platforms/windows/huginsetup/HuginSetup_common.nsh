@@ -1,5 +1,5 @@
 ; Hugin installer script
-!define VERSION 0.2.8.0 ; (2010-09-15)
+!define VERSION 0.2.11.0
 ; Author: thePanz (thepanz@gmail.com)
 
 ;--------------------------------
@@ -41,12 +41,13 @@
   !define MUI_HEADERIMAGE_BITMAP "${NSISDIR}\Contrib\Graphics\Header\orange.bmp" ; optional
   !define MUI_HEADERIMAGE_UNBITMAP "${NSISDIR}\Contrib\Graphics\Header\orange-uninstall.bmp" ; optional
   
-  ; !define MUI_ICON "Graphics\hugin-installer-icon.ico"
+  !define MUI_ICON "Graphics\hugin-installer-icon.ico"
+  !define MUI_UNICON "Graphics\hugin-uninstaller-icon.ico" 
   
   !define MUI_ABORTWARNING
   
   !define MUI_FINISHPAGE_NOAUTOCLOSE
-  !define MUI_WELCOMEPAGE_TEXT $(TEXT_WelcomePage)
+  !define MUI_WELCOMEPAGE_TEXT "${DEV_WARNING_TOGGLE}"
   !define MUI_WELCOMEFINISHPAGE_BITMAP "Graphics\Hugin-sidebar.bmp"
   !define MUI_WELCOMEFINISHPAGE_BITMAP_NOSTRETCH
   !define MUI_UNWELCOMEFINISHPAGE_BITMAP "Graphics\Hugin-sidebar.bmp"
@@ -82,6 +83,13 @@
   !insertmacro MUI_UNPAGE_INSTFILES
   !insertmacro MUI_UNPAGE_FINISH  
   
+
+ 
+;--------------------------------
+; Include Functions
+  !include "Functions\RegistryFunctions.nsh"
+  !include "Functions\DownloadFunctions.nsh"
+
 ;--------------------------------
 ; Installer Sections
 
@@ -90,6 +98,8 @@ Section "!Hugin ${HUGIN_VERSION}-${HUGIN_VERSION_BUILD}" SecHugin
   SectionIn RO
   AddSize ${HUGIN_SIZE}
   SetOutPath "$INSTDIR"
+  
+  Call CleanRegistryOnInstallIfSelected
 
   SetCompress off
   DetailPrint $(TEXT_HuginExtracting)
@@ -108,13 +118,22 @@ Section "!Hugin ${HUGIN_VERSION}-${HUGIN_VERSION_BUILD}" SecHugin
   Delete "$OUTDIR\${HUGIN_BIN_ARCHIVE}" 
   Delete "$OUTDIR\${HUGIN_SHARE_ARCHIVE}"
   
-  Call AddCPAutoPanoSiftCStacked
+  ; Call AddCPAutoPanoSiftCStacked
   Call AddCPAlignImageStack
+  
+  ; register .pto files with hugin
+  WriteRegStr HKCR ".pto" "" "HuginProject"
+  WriteRegStr HKCR "HuginProject" "" "Hugin PTO"
+  WriteRegStr HKCR "HuginProject\DefaultIcon" "" "$INSTDIR\share\hugin\xrc\data\hugin-pto-icon.ico,0"
   
   Call WriteUninstallRegistry
   
   ;Create uninstaller
   WriteUninstaller "$INSTDIR\Uninstall.exe"
+SectionEnd
+
+Section /o $(TEXT_SecCleanRegistrySettings) SecCleanRegistrySettings
+  ; done during install
 SectionEnd
 
 ; Hugin documentation section
@@ -145,7 +164,14 @@ SectionGroup /e $(TEXT_SecShortcuts) SecShortcuts
     ; SetShellVarContext all
     CreateDirectory "$SMPROGRAMS\Hugin"
     CreateShortCut "$SMPROGRAMS\Hugin\Uninstall.lnk" "$INSTDIR\uninstall.exe"
-    CreateShortCut "$SMPROGRAMS\Hugin\Hugin.lnk" "$INSTDIR\bin\hugin.exe"    
+    CreateShortCut "$SMPROGRAMS\Hugin\Hugin.lnk" "$INSTDIR\bin\hugin.exe"
+	CreateShortCut "$SMPROGRAMS\Hugin\Enblend Droplet.lnk" "$INSTDIR\bin\enblend_droplet.bat"
+	CreateShortCut "$SMPROGRAMS\Hugin\Enblend Droplet 360.lnk" "$INSTDIR\bin\enblend_droplet_360.bat"
+	CreateShortCut "$SMPROGRAMS\Hugin\Enfuse Droplet.lnk" "$INSTDIR\bin\enfuse_droplet.bat"
+	CreateShortCut "$SMPROGRAMS\Hugin\Enfuse Droplet 360.lnk" "$INSTDIR\bin\enfuse_droplet_360.bat"
+	CreateShortCut "$SMPROGRAMS\Hugin\Enfuse Align Droplet.lnk" "$INSTDIR\bin\enfuse_align_droplet.bat"
+	CreateShortCut "$SMPROGRAMS\Hugin\Enfuse Auto Align Droplet.lnk" "$INSTDIR\bin\enfuse_auto_align_droplet.bat"
+	CreateShortCut "$SMPROGRAMS\Hugin\Enfuse Auto Droplet.lnk" "$INSTDIR\bin\enfuse_auto_droplet.bat"
   SectionEnd
   
   Section $(TEXT_SecShortcutDesktop) SecShortcutDesktop
@@ -160,8 +186,10 @@ SectionGroup /e $(TEXT_SecCPGenerators) SecCPGenerators
   ; External upgradable CP generators download and setup  
   !include "CPGenerators\Match-n-shift.nsh"
   !include "CPGenerators\Autopano-sift-c.nsh"
-  !include "CPGenerators\Panomatic.nsh"
-  !include "CPGenerators\Autopano.nsh"
+  !include "CPGenerators\Autopano-sift-c-lemur.nsh"
+  !include "CPGenerators\Autopano-sift-jenny.nsh"
+  ; !include "CPGenerators\Autopano-sift-nowozin.nsh"
+  !include "CPGenerators\Panomatic.nsh"  
   
 SectionGroupEnd
 
@@ -173,10 +201,14 @@ SectionGroupEnd
     !insertmacro MUI_DESCRIPTION_TEXT ${SecHuginDoc} $(DESC_SecHuginDoc)
     !insertmacro MUI_DESCRIPTION_TEXT ${SecCPGenerators} $(DESC_SecCPGenerators)
     !insertmacro MUI_DESCRIPTION_TEXT ${SecPanomatic} $(DESC_SecPanomatic)
-    !insertmacro MUI_DESCRIPTION_TEXT ${SecAutopano} $(DESC_SecAutopano)
-    !insertmacro MUI_DESCRIPTION_TEXT ${SecAutopanoSIFTC} $(DESC_SecAutopanoSIFTC)
-    !insertmacro MUI_DESCRIPTION_TEXT ${SecMatchNShift} $(DESC_SecMatchNShift)
     
+    !insertmacro MUI_DESCRIPTION_TEXT ${SecAutopano_Jenny} $(DESC_SecAutopano_Jenny)
+    ; !insertmacro MUI_DESCRIPTION_TEXT ${SecAutopano_Nowozin} $(DESC_SecAutopano_Nowozin)    
+    !insertmacro MUI_DESCRIPTION_TEXT ${SecAutopano_SIFTC} $(DESC_SecAutopano_SIFTC)
+    !insertmacro MUI_DESCRIPTION_TEXT ${SecAutopano_SIFTC_Lemur} $(DESC_SecAutopano_SIFTC_Lemur)
+    
+    !insertmacro MUI_DESCRIPTION_TEXT ${SecMatchNShift} $(DESC_SecMatchNShift)
+    !insertmacro MUI_DESCRIPTION_TEXT ${SecCleanRegistrySettings} $(DESC_SecCleanRegistrySettings)
     !insertmacro MUI_DESCRIPTION_TEXT ${SecShortcuts} $(DESC_SecShortcuts)
     !insertmacro MUI_DESCRIPTION_TEXT ${SecShortcutPrograms} $(DESC_SecShortcutPrograms)
     !insertmacro MUI_DESCRIPTION_TEXT ${SecShortcutDesktop} $(DESC_SecShortcutDesktop)
@@ -209,7 +241,7 @@ Section "un.Uninstall Hugin"
   ; DeleteRegKey /ifempty HKCU "Software\Modern UI Test"
 SectionEnd
 
-Section /o "un.$(TEXT_UN_SecCleanRegistrySettings)"
+Section /o "un.$(TEXT_SecCleanRegistrySettings)"
   DeleteRegKey  HKCU "Software\Hugin"
 SectionEnd
 
@@ -267,73 +299,22 @@ Function skipControlPointsDisclaimer
 FunctionEnd
 
 
-; Write registry settings for CP generators
-; R0 = Type
-; R1 = Option
-; R2 = Program
-; R3 = Arguments
-; R4 = Description
-; R5 = [...]
-Function ControlPointRegistryAdd
-  ReadRegDWORD $0 HKCU "Software\hugin\AutoPano" "AutoPanoCount"
-  ; Make sure it's an Integer (empty string if AutoPanoCount doesn't exists)
-  IntOp $0 $0 + 0
-  
-  ; MessageBox MB_OK "Adding $R2: '$R4' ($R3) into AutoPano_$0"
-
-  ; Writing settings
-  WriteRegDWORD HKCU "Software\Hugin\AutoPano\AutoPano_$0" "Type" "$R0"
-  WriteRegDWORD HKCU "Software\Hugin\AutoPano\AutoPano_$0" "Option" "$R1"
-  WriteRegStr   HKCU "Software\Hugin\AutoPano\AutoPano_$0" "Program" "$R2"
-  WriteRegStr   HKCU "Software\Hugin\AutoPano\AutoPano_$0" "Arguments" "$R3"
-  WriteRegStr   HKCU "Software\Hugin\AutoPano\AutoPano_$0" "Description" "$R4"
-
-  IntOp $0 $0 + 1
-  ; MessageBox MB_OK "How many CP now?? $0"
-  WriteRegDWORD HKCU "Software\hugin\AutoPano" "AutoPanoCount" $0
+;Clean registry on install if selected
+Function CleanRegistryOnInstallIfSelected
+ 
+  SectionGetFlags ${SecCleanRegistrySettings} $R0 
+  IntOp $R0 $R0 & ${SF_SELECTED} 
+  IntCmp $R0 ${SF_SELECTED} CleanRegistry DoNotCleanRegistry
+ 
+  CleanRegistry: 
+    DeleteRegKey  HKCU "Software\Hugin" 
+ 
+  DoNotCleanRegistry:
+    ;do nothing
 FunctionEnd
 
-; Write registry settings for CP Stacked
-; R0 = Type [Matcher|Stack]
-; R1 = Autopano_ID (-1 for last setting present)
-; R2 = Program
-; R3 = Arguments
-Function ControlPointRegistryAddMulti
-  IntCmp $R1 -1 0 ok
-    ReadRegDWORD $0 HKCU "Software\hugin\AutoPano" "AutoPanoCount"
-    ; Make sure it's an Integer (empty string if AutoPanoCount doesn't exists)
-    IntOp $0 $0 - 1
-    StrCpy $R1 $0
-  ok:
-  
-  ; MessageBox MB_OK "Adding $R0 as $R2: '$R4' ($R3) into AutoPano_$0"
-
-  ; Writing settings
-  WriteRegStr   HKCU "Software\Hugin\AutoPano\AutoPano_$0" "Program$R0" "$R2"
-  WriteRegStr   HKCU "Software\Hugin\AutoPano\AutoPano_$0" "Arguments$R0" "$R3"
-FunctionEnd
-
-
-; Return on top of stack the total size of the selected (installed) sections, formated as DWORD
-; Assumes no more than 256 sections are defined
-Var GetInstalledSize.total
-Function GetInstalledSize
-	Push $0
-	Push $1
-	StrCpy $GetInstalledSize.total 0
-	${ForEach} $1 0 256 + 1
-		${if} ${SectionIsSelected} $1
-			SectionGetSize $1 $0
-			IntOp $GetInstalledSize.total $GetInstalledSize.total + $0
-		${Endif}
-	${Next}
-	Pop $1
-	Pop $0
-	IntFmt $GetInstalledSize.total "0x%08X" $GetInstalledSize.total
-	Push $GetInstalledSize.total
-FunctionEnd
-
-; Add Align_Image_stack control point generator settings
+; Add Align_Image_Stack control point generator settings to registry
+; Align_image_stack.exe is provided directly from Hugin 
 Function AddCPAlignImageStack
   StrCpy $R0 1 ; R0 = Type
   StrCpy $R1 1 ; R1 = Option
@@ -343,48 +324,10 @@ Function AddCPAlignImageStack
   Call ControlPointRegistryAdd
 FunctionEnd
 
-; Add Align_Image_stack control point generator settings
-Function AddCPAutoPanoSiftCStacked
-  StrCpy $R0 4 ; R0 = Type
-  StrCpy $R1 1 ; R1 = Option
-  StrCpy $R2 "$INSTDIR\bin\generatekeys.exe" ; R2 = Program
-  StrCpy $R3 "%i %k 800" ; R3 = Arguments
-  StrCpy $R4 "Autopano-SIFT-C (multirow/stacked)";  R4 = Description
-  Call ControlPointRegistryAdd
-  
-  StrCpy $R0 "Matcher" ; R0 = Type [Matcher|Stack]
-  StrCpy $R1 "-1"; R1 = Autopano_ID (-1 for last setting present)
-  StrCpy $R2 "$INSTDIR\bin\autopano.exe" ; R2 = Program
-  StrCpy $R3 "--maxmatches %p %o %k"; R3 = Arguments
-  Call ControlPointRegistryAddMulti
-  
-  StrCpy $R0 "Stack" ; R0 = Type [Matcher|Stack]
-  StrCpy $R1 "-1"; R1 = Autopano_ID (-1 for last setting present)
-  StrCpy $R2 "$INSTDIR\bin\align_image_stack.exe" ; R2 = Program
-  StrCpy $R3 "-f %v -v -p %o %i"; R3 = Arguments
-  Call ControlPointRegistryAddMulti  
-  
-FunctionEnd
 
 
-; Write uninstall informations into Windows Register
-Function WriteUninstallRegistry
-  ; Write uninstall information to the registry
-  ; as in http://nsis.sourceforge.net/Add_uninstall_information_to_Add/Remove_Programs
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Hugin" "DisplayName" "Hugin ${HUGIN_VERSION}"
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Hugin" "DisplayIcon" "$INSTDIR\bin\hugin.exe"
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Hugin" "DisplayVersion" "${HUGIN_VERSION} ${HUGIN_VERSION_BUILD}"
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Hugin" "UninstallString" "$INSTDIR\Uninstall.exe"
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Hugin" "Publisher" "The Hugin Development Team"
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Hugin" "URLInfoAbout" "http://hugin.sourceforge.net"
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Hugin" "HelpLink" "http://groups.google.com/group/hugin-ptx"
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Hugin" "InstallLocation" "$INSTDIR"
-  ; No Repair/Modify options
-  WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Hugin" "NoModify" 1
-  WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Hugin" "NoRepair" 1
-  ; Setting Install Size
-  Call GetInstalledSize
-  Pop $0
-  WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Hugin" "EstimatedSize" $0
 
-FunctionEnd
+
+
+
+

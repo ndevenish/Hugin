@@ -2,14 +2,23 @@
 ; defines will be generated using CMake directives
   
   ; Arch type (todo: with CMAKE)
-  !define ARCH_TYPE "32"
+  !define ARCH_TYPE "@WINDOWS_ARCH_TYPE@" ;32 or 64
   !define HUGIN_VERSION "@HUGIN_PACKAGE_VERSION@"
-  !define HUGIN_VERSION_BUILD "hg@HUGIN_WC_REVISION@"  
+  !define HUGIN_VERSION_BUILD "hg_@HUGIN_WC_REVISION@"  
+
+  ; Default installation folder
+  InstallDir "@WINDOWS_INSTALL_DIRECTORY@"
 
   ;Default installation folder (todo: with CMAKE)
-  InstallDir "$PROGRAMFILES\Hugin"
+  ;InstallDir "$PROGRAMFILES\Hugin"
   ; or
   ; InstallDir "$PROGRAMFILES64\Hugin"
+
+  ; Development version warning toggle
+  !define DEV_WARNING_TOGGLE "@DEV_WARNING_TOGGLE@"
+  ;!define DEV_WARNING_TOGGLE "$(TEXT_WelcomePage)" ;for stable releases
+  ;or
+  ;!define DEV_WARNING_TOGGLE "$(TEXT_PreReleaseWelcomePage)" ;for development snapshots
 
 ; ----------------------------------------
 ; Now the common part

@@ -1,4 +1,19 @@
+* -DEV
+  + Removed Autopano-sift-C options --projection %f,%v (suggested by Aron H)
+  + Added Installer Script to Hugin/WindowsSetup Sourceforge repository
+  + Refactored Control Points generators scripts (names and languages string)
+  + Control Point Generators are now stored into their own directory $INSTALLDIR$/CPG/
+  + Added Autopano-SIFT-C multirow/stacked from Lemur build (autopano.exe and generatekeys.exe)
+  + Added Clean registry settings during install (thanks Matthew Petroff)
 
+* 0.2.11 (2010-09-25)
+  + Refactored install Functions
+  + Added Panomatic SourceForge mirror select (thanks Matthew Petroff)
+  + Fixed CPGs settings for default to latest installed CPG (thanks Matthew Petroff)
+
+* 0.2.10 (2010-09-21)
+  + Fixed "Download Failed" messages for Control Points Generators
+  + Fixed Autopano-SIFT-C 2.5.2 download and setup bug
   + Fixed Autopano-103 settings (wrong zip extraction)
   + Fixed Match-n-shift settings (doubled .exe extension)
 
