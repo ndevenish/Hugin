@@ -2,13 +2,15 @@
 #
 # Copyleft: Ippei UKAI <ippei_ukai (at mac.com>, 2005.
 # KITAGAWA, Masahiro <arctica0316@gmail.com>, 2010.
+# Hajime, Taira <htaira@redhat.com>, 2010.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Hugin 0.8.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2010-06-03 18:09+0200\n"
-"PO-Revision-Date: 2010-09-04 12:18+0900\n"
-"Last-Translator: KITAGAWA, Masahiro <arctica0316@gmail.com>\n"
+"PO-Revision-Date: 2010-11-15 19:04+0900\n"
+"Last-Translator: Hajime Taira <htaira@redhat.com>\n"
 "Language-Team: 日本語 <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -160,7 +162,7 @@ msgstr "コマンドライン進捗"
 
 #: hugin1/base_wx/MyProgressDialog.cpp:36
 msgid "Elapsed time : "
-msgstr "経過時間："
+msgstr "経過時間 : "
 
 #: hugin1/base_wx/MyProgressDialog.h:104
 msgid "Optimizing Panorama"
@@ -241,7 +243,7 @@ msgstr "「画像を登録」ボタンを押して画像を読み込んで下さ
 #: hugin1/hugin/AssistantPanel.cpp:268
 #, c-format
 msgid "%d images loaded."
-msgstr "%d枚の画像が読み込まれました"
+msgstr "%d 枚の画像が読み込まれました"
 
 #: hugin1/hugin/AssistantPanel.cpp:302
 #, c-format
@@ -251,7 +253,7 @@ msgstr "画像は%d個のコントロールポイントで接続されていま�
 #: hugin1/hugin/AssistantPanel.cpp:311
 #, c-format
 msgid "%d unconnected image groups found: "
-msgstr "%d個の接続されていない画像グループがあります："
+msgstr "%d 個の接続されていない画像グループがあります："
 
 #: hugin1/hugin/AssistantPanel.cpp:312
 msgid "Please use the Control Points tab to connect all images with control points.\n"
@@ -284,7 +286,8 @@ msgstr "最適化後の誤差　平均： %.1f ピクセル　最大：%.1f ピ�
 
 #: hugin1/hugin/AssistantPanel.cpp:342
 msgid "Note: automatic alignment uses default settings from the preferences. If you customize settings for this project in the advanced tabs and want to use these customized settings, run the CP detection from the Images Tab, the geometrical optimization from the the Optimizer tab and the photometric optimization from the Exposure tab."
-msgstr "註：自動配置は環境設定でのデフォルト値を使用します。もしカスタマイズしたい場合は、\n"
+msgstr ""
+"註：自動配置は環境設定でのデフォルト値を使用します。もしカスタマイズしたい場合は、\n"
 "画像タブでコントロールポイント検出を、最適化タブで配置の最適化を、露出タブで測光学的パラメータの最適化を\n"
 "実行してください。"
 
@@ -313,17 +316,17 @@ msgstr "コントロールポイントの検出中"
 #: hugin1/hugin/ImagesPanel.cpp:1001
 #: hugin1/hugin/ImagesPanel.cpp:1019
 msgid "Running Celeste"
-msgstr "Celeste実行中"
+msgstr "Celeste を実行中"
 
 #: hugin1/hugin/AssistantPanel.cpp:482
 #: hugin1/hugin/CPEditorPanel.cpp:2164
 #: hugin1/hugin/ImagesPanel.cpp:1078
 msgid "searching for cloud-like control points..."
-msgstr "雲など動きのある対象上のコントロールポイントを探しています…"
+msgstr "雲など動きのある対象上のコントロールポイントを探しています...。"
 
 #: hugin1/hugin/AssistantPanel.cpp:510
 msgid "Celeste model file not found, Hugin needs to be properly installed."
-msgstr "Celesteのモデルファイルが見つかりません。Huginが正しくインストールされていない可能性があります。"
+msgstr "Celeste のモデルファイルが見つかりません。Hugin が正しくインストールされていない可能性があります。"
 
 #: hugin1/hugin/AssistantPanel.cpp:510
 #: hugin1/hugin/CPEditorPanel.cpp:2202
@@ -411,7 +414,7 @@ msgid ""
 "a shorter pathname"
 msgstr ""
 "コントロールポイント検出プログラムのコマンドが長過ぎます。\n"
-"これはWindowsによる制約です。\n"
+"これは Windows による制約です。\n"
 "写真の数を減らすか、画像ファイルをパスの短いフォルダに移動してみてください。"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:371
@@ -444,7 +447,7 @@ msgstr ""
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:680
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:685
 msgid "wxExecute Error"
-msgstr "wxExecuteでエラー"
+msgstr "wxExecute でエラー"
 
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:390
 #: hugin1/hugin/AutoCtrlPointCreator.cpp:573
@@ -543,8 +546,8 @@ msgid ""
 "At least one input field is empty.\n"
 "Please check your inputs."
 msgstr ""
-"少なくともひとつ空欄があります。\n"
-"記入を確認してください。"
+"入力されていない項目があります。\n"
+"入力した情報をご確認ください。"
 
 #: hugin1/hugin/CPDetectorConfig.cpp:385
 msgid "Try to connect all overlapping images."
@@ -1038,7 +1041,7 @@ msgstr "間違った入力"
 #: hugin1/hugin/HFOVDialog.cpp:55
 #: hugin1/hugin/ImagesList.cpp:520
 msgid "Normal (rectilinear)"
-msgstr "通常（Rectilinear）"
+msgstr "通常（リニア）"
 
 #: hugin1/hugin/HFOVDialog.cpp:56
 #: hugin1/hugin/ImagesList.cpp:521
@@ -1145,15 +1148,15 @@ msgstr "回転-Roll(r)"
 
 #: hugin1/hugin/ImagesList.cpp:359
 msgid "X (TrX)"
-msgstr ""
+msgstr "X (TrX)"
 
 #: hugin1/hugin/ImagesList.cpp:360
 msgid "Y (TrY)"
-msgstr ""
+msgstr "Y (TrY)"
 
 #: hugin1/hugin/ImagesList.cpp:361
 msgid "Z (TrZ)"
-msgstr ""
+msgstr "Z (TrZ)"
 
 #: hugin1/hugin/ImagesList.cpp:362
 msgid "Anchor"
@@ -1212,7 +1215,7 @@ msgstr "コントロールポイントをクリーン中"
 
 #: hugin1/hugin/ImagesPanel.cpp:347
 msgid "Checking pairwise"
-msgstr ""
+msgstr "ペアを確認中"
 
 #: hugin1/hugin/ImagesPanel.cpp:365
 msgid "Checking whole project"
@@ -1313,11 +1316,11 @@ msgstr "ヒントが利用できません。"
 
 #: hugin1/hugin/LocalizedFileTipProvider.cpp:106
 msgid "&Next Tip"
-msgstr "次のヒント (&N)"
+msgstr "次のヒント(&N)"
 
 #: hugin1/hugin/LocalizedFileTipProvider.cpp:107
 msgid "&Show tips at startup"
-msgstr "起動時にヒントを表示 (&S)"
+msgstr "起動時にヒントを表示(&S)"
 
 #: hugin1/hugin/LocalizedFileTipProvider.cpp:108
 msgid "Tip of the Day"
@@ -1325,7 +1328,7 @@ msgstr "今日のヒント"
 
 #: hugin1/hugin/LocalizedFileTipProvider.cpp:109
 msgid "&Close"
-msgstr "閉じる (&C)"
+msgstr "閉じる(&C)"
 
 #: hugin1/hugin/LocalizedFileTipProvider.cpp:110
 msgid "Did you know..."
@@ -2829,7 +2832,7 @@ msgstr "バッチリストをクリアします。"
 #: xrc.cpp:59
 #: xrc.cpp:296
 msgid "&Quit"
-msgstr "終了 (&Q)"
+msgstr "終了(&Q)"
 
 #: translations/xrc.cpp:60
 #: translations/xrc.cpp:297
@@ -3049,12 +3052,12 @@ msgstr "2段階の検出プログラム"
 #: translations/xrc.cpp:108
 #: xrc.cpp:108
 msgid "Feature descriptor:"
-msgstr ""
+msgstr "機能の説明:"
 
 #: translations/xrc.cpp:111
 #: xrc.cpp:111
 msgid "Feature matcher:"
-msgstr ""
+msgstr "機能の適合:"
 
 #: translations/xrc.cpp:114
 #: xrc.cpp:114
@@ -3172,7 +3175,7 @@ msgstr "雲など動きのある対象上のコントロールポイントの削
 #: translations/xrc.cpp:137
 #: xrc.cpp:137
 msgid "auto fine-&tune"
-msgstr "自動的に微調整 (&T)"
+msgstr "自動的に微調整(&T)"
 
 #: translations/xrc.cpp:138
 #: xrc.cpp:138
@@ -3197,12 +3200,12 @@ msgstr "二つの画像のずれを計算して二つ目の場所を自動的に
 #: translations/xrc.cpp:142
 #: xrc.cpp:142
 msgid "&Delete"
-msgstr "削除 (&D)"
+msgstr "削除(&D)"
 
 #: translations/xrc.cpp:143
 #: xrc.cpp:143
 msgid "&Add"
-msgstr "追加 (&A)"
+msgstr "追加(&A)"
 
 #: translations/xrc.cpp:144
 #: xrc.cpp:144
@@ -3815,7 +3818,7 @@ msgstr "スティッチング"
 #: translations/xrc.cpp:275
 #: xrc.cpp:275
 msgid "&New"
-msgstr "新規 (&N)"
+msgstr "新規(&N)"
 
 #: translations/xrc.cpp:276
 #: translations/xrc.cpp:333
@@ -3827,7 +3830,7 @@ msgstr "新規プロジェクト"
 #: translations/xrc.cpp:277
 #: xrc.cpp:277
 msgid "&Open"
-msgstr "開く (&O)"
+msgstr "開く(&O)"
 
 #: translations/xrc.cpp:278
 #: translations/xrc.cpp:336
@@ -3839,7 +3842,7 @@ msgstr "プロジェクトを開く"
 #: translations/xrc.cpp:279
 #: xrc.cpp:279
 msgid "&Save"
-msgstr "保存 (&S)"
+msgstr "保存(&S)"
 
 #: translations/xrc.cpp:280
 #: translations/xrc.cpp:341
@@ -3851,7 +3854,7 @@ msgstr "プロジェクトを保存"
 #: translations/xrc.cpp:281
 #: xrc.cpp:281
 msgid "S&ave as"
-msgstr "別名で保存 (&A)"
+msgstr "別名で保存(&A)"
 
 #: translations/xrc.cpp:282
 #: translations/xrc.cpp:344
@@ -3863,7 +3866,7 @@ msgstr "プロジェクトを別名で保存"
 #: translations/xrc.cpp:283
 #: xrc.cpp:283
 msgid "&Write PTStitcher script"
-msgstr "PTStitcher用スクリプトの書き出し (&W)"
+msgstr "PTStitcher用スクリプトの書き出し(&W)"
 
 #: translations/xrc.cpp:284
 #: xrc.cpp:284
@@ -3883,7 +3886,7 @@ msgstr "最近使ったプロジェクトファイルのリスト"
 #: translations/xrc.cpp:287
 #: xrc.cpp:287
 msgid "Send to &batch"
-msgstr "バッチ処理に送る (&B)"
+msgstr "バッチ処理に送る(&B)"
 
 #: translations/xrc.cpp:288
 #: xrc.cpp:288
@@ -3893,7 +3896,7 @@ msgstr "プロジェクトを保存してバッチ処理に送ります。PTBatc
 #: translations/xrc.cpp:289
 #: xrc.cpp:289
 msgid "&Run Batch Processor"
-msgstr "バッチ処理を実行 (&R)"
+msgstr "バッチ処理を実行(&R)"
 
 #: translations/xrc.cpp:290
 #: xrc.cpp:290
@@ -3903,7 +3906,7 @@ msgstr "PTBatcher（Hugin プロジェクトファイル用のバッチ処理プ
 #: translations/xrc.cpp:291
 #: xrc.cpp:291
 msgid "&Merge project..."
-msgstr "プロジェクトをマージ (&M) "
+msgstr "プロジェクトをマージ(&M) "
 
 #: translations/xrc.cpp:292
 #: xrc.cpp:292
@@ -3913,7 +3916,7 @@ msgstr "既存のプロジェクトファイルを現在のプロジェクトに
 #: translations/xrc.cpp:293
 #: xrc.cpp:293
 msgid "Apply &Template"
-msgstr "テンプレートを適用 (&T)"
+msgstr "テンプレートを適用(&T)"
 
 #: translations/xrc.cpp:294
 #: xrc.cpp:294
@@ -3923,17 +3926,17 @@ msgstr "他のプロジェクトの設定を現在のプロジェクトに適用
 #: translations/xrc.cpp:295
 #: xrc.cpp:295
 msgid "&Preferences"
-msgstr "環境設定… (&P)"
+msgstr "環境設定…(&P)"
 
 #: translations/xrc.cpp:298
 #: xrc.cpp:298
 msgid "&Edit"
-msgstr "編集 (&E)"
+msgstr "編集(&E)"
 
 #: translations/xrc.cpp:299
 #: xrc.cpp:299
 msgid "&Undo"
-msgstr "元に戻す (&U)"
+msgstr "元に戻す(&U)"
 
 #: translations/xrc.cpp:300
 #: translations/xrc.cpp:347
@@ -3945,7 +3948,7 @@ msgstr "最後の動作を元に戻す"
 #: translations/xrc.cpp:301
 #: xrc.cpp:301
 msgid "&Redo"
-msgstr "やり直し (&R)"
+msgstr "やり直し(&R)"
 
 #: translations/xrc.cpp:302
 #: translations/xrc.cpp:350
@@ -3957,7 +3960,7 @@ msgstr "最後の動作をやり直す"
 #: translations/xrc.cpp:303
 #: xrc.cpp:303
 msgid "Fine-&tune all Points"
-msgstr "全ポイントを微調整 (&T)"
+msgstr "全ポイントを微調整(&T)"
 
 #: translations/xrc.cpp:304
 #: xrc.cpp:304
@@ -3977,7 +3980,7 @@ msgstr "マスク内の全コントロールポイントを削除"
 #: translations/xrc.cpp:307
 #: xrc.cpp:307
 msgid "&Optimize"
-msgstr "最適化 (&O)"
+msgstr "最適化(&O)"
 
 #: translations/xrc.cpp:308
 #: translations/xrc.cpp:356
@@ -3989,7 +3992,7 @@ msgstr "現在の設定で最適化を再実行します"
 #: translations/xrc.cpp:309
 #: xrc.cpp:309
 msgid "&Add Image"
-msgstr "画像の追加 (&A)"
+msgstr "画像の追加(&A)"
 
 #: translations/xrc.cpp:310
 #: translations/xrc.cpp:353
@@ -4001,7 +4004,7 @@ msgstr "もう一枚プロジェクトに画像を追加します"
 #: translations/xrc.cpp:311
 #: xrc.cpp:311
 msgid "&View"
-msgstr "表示 (&V)"
+msgstr "表示(&V)"
 
 #: translations/xrc.cpp:312
 #: xrc.cpp:312
@@ -4016,7 +4019,7 @@ msgstr "Hugin のメインウィンドウを全画面表示"
 #: translations/xrc.cpp:314
 #: xrc.cpp:314
 msgid "&Control point table"
-msgstr "コントロールポイント一覧 (&C)"
+msgstr "コントロールポイント一覧(&C)"
 
 #: translations/xrc.cpp:315
 #: xrc.cpp:315
@@ -4026,7 +4029,7 @@ msgstr "すべてのコントロールポイントの誤差を表示します"
 #: translations/xrc.cpp:316
 #: xrc.cpp:316
 msgid "&Preview window"
-msgstr "プレビューウィンドウを表示 (&P)"
+msgstr "プレビューウィンドウを表示(&P)"
 
 #: translations/xrc.cpp:317
 #: xrc.cpp:317
@@ -4036,7 +4039,7 @@ msgstr "プレビューウィンドウを表示"
 #: translations/xrc.cpp:318
 #: xrc.cpp:318
 msgid "&Fast Preview window"
-msgstr "ファストプレビューウィンドウを表示 (&F)"
+msgstr "ファストプレビューウィンドウを表示(&F)"
 
 #: translations/xrc.cpp:319
 #: xrc.cpp:319
@@ -4051,7 +4054,7 @@ msgstr "ボタンやボックスについての情報などがあります。"
 #: translations/xrc.cpp:323
 #: xrc.cpp:323
 msgid "&Tip of the day"
-msgstr "今日のヒント (&T)"
+msgstr "今日のヒント(&T)"
 
 #: translations/xrc.cpp:324
 #: xrc.cpp:324
@@ -4061,7 +4064,7 @@ msgstr "「今日のヒント」からひとつを見る"
 #: translations/xrc.cpp:325
 #: xrc.cpp:325
 msgid "&Keyboard Shortcuts"
-msgstr "ショートカット (&K)"
+msgstr "ショートカット(&K)"
 
 #: translations/xrc.cpp:326
 #: xrc.cpp:326
@@ -4081,12 +4084,12 @@ msgstr "よく訊かれる質問と答"
 #: translations/xrc.cpp:329
 #: xrc.cpp:329
 msgid "&About"
-msgstr "Hugin について (&A)"
+msgstr "Hugin について(&A)"
 
 #: translations/xrc.cpp:331
 #: xrc.cpp:331
 msgid "&Donate"
-msgstr "寄付 (&D)"
+msgstr "寄付(&D)"
 
 #: translations/xrc.cpp:332
 #: xrc.cpp:332
@@ -4991,7 +4994,7 @@ msgstr "平均"
 #: translations/xrc.cpp:554
 #: xrc.cpp:554
 msgid "Average slow"
-msgstr ""
+msgstr "平均スロー"
 
 #: translations/xrc.cpp:555
 #: xrc.cpp:555
@@ -5884,40 +5887,54 @@ msgstr "「すべて」の数値を最適化するのは、大きく重なりあ
 
 #~ msgid "Anchor Image"
 #~ msgstr "基準を設置"
+
 #~ msgid ""
 #~ "Set Yaw and Pitch with left mouse button. Use right mouse button to set "
 #~ "roll"
 #~ msgstr ""
 #~ "左クリックで Yaw (横) と Pitch (縦)、右クリックで Roll (回転) を設定しま"
 #~ "す。"
+
 #~ msgid "Set Anchor Image Orientation"
 #~ msgstr "基準となる画像の方角を設定"
+
 #~ msgid "E&xit\tAlt-X"
 #~ msgstr "閉じる\tAlt-X"
+
 #~ msgid "Exit this application"
 #~ msgstr "このアプリケーションを終了します。"
+
 #~ msgid "&About..."
 #~ msgstr "Hugin について…"
+
 #~ msgid "Vignetting correction"
 #~ msgstr "周辺光量低下の修正"
+
 #~ msgid "Type of Correction"
 #~ msgstr "修正方法:"
+
 #~ msgid "No correction"
 #~ msgstr "修正無し"
+
 #~ msgid "Addition ( I=I+c )"
 #~ msgstr "和 (I=I+c)"
+
 #~ msgid "Division ( I=I/c )"
 #~ msgstr "商 ( I=I/c )"
+
 #~ msgid "Correction"
 #~ msgstr "修正"
 
 #, fuzzy
 #~ msgid "Flatfield"
 #~ msgstr "Flatfield"
+
 #~ msgid "Image file:"
 #~ msgstr "画像ファイル："
+
 #~ msgid "Polynomial"
 #~ msgstr "２次曲線"
+
 #~ msgid "center shift x:"
 #~ msgstr "中心のずれ X方向："
 
@@ -5928,10 +5945,13 @@ msgstr "「すべて」の数値を最適化するのは、大きく重なりあ
 #, fuzzy
 #~ msgid "none"
 #~ msgstr "なし"
+
 #~ msgid "The druid has no advice."
 #~ msgstr "Druidからのアドバイスはありません。"
+
 #~ msgid "The druid finds no problems with your panorama."
 #~ msgstr "Druidは、あなたのパノラマに何の問題も無いと思います。"
+
 #~ msgid ""
 #~ "Stitch your final image now, and then use an image editor\n"
 #~ "such as the GNU Image Manipulation Program (the GIMP)\n"
@@ -5940,8 +5960,10 @@ msgstr "「すべて」の数値を最適化するのは、大きく重なりあ
 #~ "Stitcherを使ってパノラマを出力して、GIMP、Photoshopなどの\n"
 #~ "フォトレタッチングソフトで仕上げるとよいでしょう。\n"
 #~ " "
+
 #~ msgid "Warning:  you haven't saved the current project."
 #~ msgstr "警告：プロジェクトが保存されていません。"
+
 #~ msgid ""
 #~ "While everything else seems to be ready to stitch,\n"
 #~ "don't forget to save your project file so you can\n"
@@ -5949,8 +5971,10 @@ msgstr "「すべて」の数値を最適化するのは、大きく重なりあ
 #~ msgstr ""
 #~ "忘れる前にプロジェクトを保存しましょう。\n"
 #~ "それ以外はスティッチングする準備ができているようです。"
+
 #~ msgid "Warning:  current stitch has huge dimensions."
 #~ msgstr "警告：とても大きい画像を出力しようとしています"
+
 #~ msgid ""
 #~ "Very large pixel dimensions are currently entered.\n"
 #~ "Some computers may take an excessively long time\n"
@@ -5964,8 +5988,10 @@ msgstr "「すべて」の数値を最適化するのは、大きく重なりあ
 #~ "表示するだけでもとてつもない時間がかかってしまうかもしれません。\n"
 #~ "「最適な大きさを計算する」ボタンを使うと、最良の画質が得られる\n"
 #~ "最小の大きさに設定することができます。"
+
 #~ msgid "The Horizontal Field of View (HFOV) may be too low."
 #~ msgstr "画角の設定 (v) が小さすぎるかもしれません。"
+
 #~ msgid ""
 #~ "Check that the focal lengths and/or hfov figures\n"
 #~ "for each image are correct for the camera settings.\n"
@@ -5977,8 +6003,10 @@ msgstr "「すべて」の数値を最適化するのは、大きく重なりあ
 #~ "カメラの焦点距離や水平画角の数値が正しいか確かめてください。\n"
 #~ "数値をかえたらパノラマの画角も再設定してください。\n"
 #~ "特殊なレンズを使っていない限り、水平画角は５ºから120ºくらいのはずです。"
+
 #~ msgid "Consider adding a vertical or horizontal guide."
 #~ msgstr "水平または垂直な線のコントロールを追加することをお勧めします。"
+
 #~ msgid ""
 #~ "By adding vertical guides, the optimizer can ensure\n"
 #~ "that buildings or trees or other vertical features\n"
@@ -5988,8 +6016,10 @@ msgstr "「すべて」の数値を最適化するのは、大きく重なりあ
 #~ "垂直な線のコントロールを使うと木や建物などが垂直になるように、\n"
 #~ "水平な線のコントロールを使うと水平線が曲がらないように、\n"
 #~ "それぞれ最適化することができます。"
+
 #~ msgid "Run the Optimizer to estimate the image positions."
 #~ msgstr "最適化を実行すると画像の最適な場所を推定することができます。"
+
 #~ msgid ""
 #~ "The Optimizer uses the control points to estimate the\n"
 #~ "positions of the individual images in the final panorama\n"
@@ -5998,10 +6028,12 @@ msgstr "「すべて」の数値を最適化するのは、大きく重なりあ
 #~ msgstr ""
 #~ "最適化はコントロールポイントを使って画像の最適な位置を推定します。\n"
 #~ "最適化は「最適化」タブで実行します。\n"
+
 #~ msgid "Add more control points to improve the stitch quality."
 #~ msgstr ""
 #~ "もっとコントロールポイントを足すと、もっとうまく張り合わせられるかもしれま"
 #~ "せん。"
+
 #~ msgid ""
 #~ "For best results, there should be at least four pairs\n"
 #~ "of control points for each pair of overlapping images.\n"
@@ -6009,8 +6041,10 @@ msgstr "「すべて」の数値を最適化するのは、大きく重なりあ
 #~ msgstr ""
 #~ "良い結果を得るには最低４ペアのコントロールポイントが必要です。\n"
 #~ "ポイントをより多く、うまく配置すればよりよい結果が得られます。"
+
 #~ msgid "At least one image has no control points at all."
 #~ msgstr "コントロールポイントが設定されていない画像が有ります。"
+
 #~ msgid ""
 #~ "For best results, there should be at least four pairs\n"
 #~ "of control points for each pair of overlapping images.\n"
@@ -6018,26 +6052,35 @@ msgstr "「すべて」の数値を最適化するのは、大きく重なりあ
 #~ msgstr ""
 #~ "良い結果を得るには最低４ペアのコントロールポイントが必要です。\n"
 #~ "コントロールポイントの無い画像は位置を最適化できません"
+
 #~ msgid "Add stitching control points to each pair of images."
 #~ msgstr "コントロールポイントを重複している箇所一つ一つに設置してください。"
+
 #~ msgid ""
 #~ "The Optimizer relies on your control points to arrange\n"
 #~ "and blend the images properly.  On the Control Points\n"
 #~ "tab, add pairs of points that correspond to identical\n"
 #~ "visual features in each pair of overlapping images."
 #~ msgstr "最適化はコントロールポイントを使って画像同士の関係を推定します。"
+
 #~ msgid "Add at least one more image."
 #~ msgstr "画像を追加してください。"
+
 #~ msgid "You should have at least two files listed in the Images tab."
 #~ msgstr "二枚以上画像が登録されているか確かめてください。"
+
 #~ msgid "To get started, add some image files."
 #~ msgstr "まず画像をプロジェクトに追加します。"
+
 #~ msgid "You can add any number of images using the Images tab."
 #~ msgstr "「画像」タブで画像をいくらでも追加することができます。"
+
 #~ msgid "the Panorama druid"
 #~ msgstr "Panorama Druid"
+
 #~ msgid "The druid has no advice at this time."
 #~ msgstr "Druidからのアドバイスはありません。"
+
 #~ msgid ""
 #~ "Very large pixel dimensions are currently entered.\n"
 #~ "Some computers may take an excessively long time\n"
@@ -6051,6 +6094,7 @@ msgstr "「すべて」の数値を最適化するのは、大きく重なりあ
 #~ "表示するだけでもとてつもない時間がかかってしまうかもしれません。\n"
 #~ "「最適な大きさを計算する」ボタンを使うと、最良の画質が得られる\n"
 #~ "最小の大きさに設定することができます。"
+
 #~ msgid "mm"
 #~ msgstr "mm"
 
@@ -6092,50 +6136,71 @@ msgstr "「すべて」の数値を最適化するのは、大きく重なりあ
 #, fuzzy
 #~ msgid "&Import Project..."
 #~ msgstr "プロジェクト %s を保存しました"
+
 #~ msgid "Nona"
 #~ msgstr "Nona"
+
 #~ msgid "TIFF"
 #~ msgstr "TIFF"
+
 #~ msgid "JPEG"
 #~ msgstr "JPEG"
+
 #~ msgid "PNG"
 #~ msgstr "PNG"
+
 #~ msgid "Packbits"
 #~ msgstr "Packbits"
+
 #~ msgid "LZW"
 #~ msgstr "LZW"
+
 #~ msgid "Deflate"
 #~ msgstr "Deflate"
+
 #~ msgid "EXR"
 #~ msgstr "OpenEXR"
+
 #~ msgid "MB"
 #~ msgstr "MB"
+
 #~ msgid "PTStitcher:"
 #~ msgstr "PTStitcher："
+
 #~ msgid "..."
 #~ msgstr "…"
+
 #~ msgid "c = "
 #~ msgstr "c = "
+
 #~ msgid " + "
 #~ msgstr " + "
+
 #~ msgid "*r^2 + "
 #~ msgstr "･r² + "
+
 #~ msgid "*r^4 + "
 #~ msgstr "･r⁴ + "
+
 #~ msgid "*r^6"
 #~ msgstr "･r⁶"
 
 #, fuzzy
 #~ msgid "Select Autopano program"
 #~ msgstr "Autopanoプログラムの選択"
+
 #~ msgid "About program"
 #~ msgstr "このプログラムについて"
+
 #~ msgid "About this application"
 #~ msgstr "このアプリケーションについて"
+
 #~ msgid "Finetune"
 #~ msgstr "微調整"
+
 #~ msgid "Ok"
 #~ msgstr "OK"
+
 #~ msgid ""
 #~ "\n"
 #~ "\n"
@@ -6190,6 +6255,7 @@ msgstr "「すべて」の数値を最適化するのは、大きく重なりあ
 #, fuzzy
 #~ msgid "Model:"
 #~ msgstr "種類："
+
 #~ msgid ""
 #~ "Autopano-SIFT not found. Please specify a valid path in the preferences"
 #~ msgstr ""
@@ -6199,12 +6265,16 @@ msgstr "「すべて」の数値を最適化するのは、大きく重なりあ
 #~ msgid "\"%s\" not found. Please specify a valid path in the preferences"
 #~ msgstr ""
 #~ "autopano.exeが見つかりません。初期設定で有効なパスを指定して下さい。"
+
 #~ msgid "Error in Autopano command"
 #~ msgstr "Autopano コマンドでエラー"
+
 #~ msgid "command: "
 #~ msgstr "コマンド："
+
 #~ msgid "Could not open "
 #~ msgstr "以下のファイルを開けません："
+
 #~ msgid "autopano failure"
 #~ msgstr "Autopanoに失敗"
 
@@ -6212,30 +6282,39 @@ msgstr "「すべて」の数値を最適化するのは、大きく重なりあ
 #~ msgid "%s not found. Please specify a valid path in the preferences"
 #~ msgstr ""
 #~ "autopano.exeが見つかりません。初期設定で有効なパスを指定して下さい。"
+
 #~ msgid ""
 #~ "\n"
 #~ " current directory:"
 #~ msgstr ""
 #~ "\n"
 #~ "カレントディレクトリ："
+
 #~ msgid "Autopano result"
 #~ msgstr "Autopanoの結果"
+
 #~ msgid "Prerelease %s"
 #~ msgstr "正式リリース前 %s"
+
 #~ msgid ""
 #~ "Out of memory.\n"
 #~ "Try again with a smaller panorama image size\n"
 #~ msgstr ""
 #~ "メモリーが足りません\n"
 #~ "パノラマ写真のサイズを小さくしてみてください。\n"
+
 #~ msgid "Select enblend.exe"
 #~ msgstr "enblend.exeを選択"
+
 #~ msgid "No enblend.exe selected"
 #~ msgstr "enblend.exeが選択されませんでした"
+
 #~ msgid "Select enblend commandline tool"
 #~ msgstr "enblendプログラムを選択"
+
 #~ msgid "No enblend commandline tool selected"
 #~ msgstr "enblendプログラムが選択されませんでした"
+
 #~ msgid ""
 #~ "Can not call enblend with a command line > 32766 characters.\n"
 #~ "This is a Windows limitation\n"
@@ -6246,20 +6325,26 @@ msgstr "「すべて」の数値を最適化するのは、大きく重なりあ
 #~ "これはWindowsによる制約です。\n"
 #~ "写真の数を減らすか、画像ファイルをパスの短いフォルダに移動してみてくださ"
 #~ "い。"
+
 #~ msgid "enblend error"
 #~ msgstr "enblendのエラー"
+
 #~ msgid "gamma must be a number"
 #~ msgstr "ガンマの値は数字で指定してください"
+
 #~ msgid "Not yet implemented"
 #~ msgstr "未実装."
 
 #, fuzzy
 #~ msgid "Delete autopano setting"
 #~ msgstr "Autopanoプログラムの選択"
+
 #~ msgid "Bicubic"
 #~ msgstr "バイキュービック法"
+
 #~ msgid "Nearest neighbour"
 #~ msgstr "ニアレストネイバー法"
+
 #~ msgid ""
 #~ "PTStitcher does not support output filenames that include a dot character "
 #~ "(.).\n"
@@ -6271,18 +6356,25 @@ msgstr "「すべて」の数値を最適化するのは、大きく重なりあ
 #~ "プロジェクトを\".\"の入っていないパスのディレクトリに保存してください。\n"
 #~ "\n"
 #~ "とにかく続けますか？"
+
 #~ msgid "PTStitcher problem"
 #~ msgstr "PTStitcherに関する警告"
+
 #~ msgid "PTStitcher.exe does not support QTVR output on Windows and Linux"
 #~ msgstr "PTStitcherはWindows、Linux上でのQTVRの出力に対応していません。"
+
 #~ msgid "PTStitcher note"
 #~ msgstr "PTStitcher メモ"
+
 #~ msgid "Select PTStitcher.exe"
 #~ msgstr "PTStitcher.exeを選択"
+
 #~ msgid "No PTStitcher.exe selected"
 #~ msgstr "PTStitcher.exeが選択されませんでした"
+
 #~ msgid "Select PTStitcher commandline tool"
 #~ msgstr "PTStitcher プログラムを選択"
+
 #~ msgid "No PTStitcher commandline tool selected"
 #~ msgstr "PTStitcherプログラムが選択されませんでした"
 
@@ -6356,77 +6448,108 @@ msgstr "「すべて」の数値を最適化するのは、大きく重なりあ
 #, fuzzy
 #~ msgid "Seam blending"
 #~ msgstr "Enblend"
+
 #~ msgid "Autopano (version 1.03 or greater), from http://autopano.kolor.com"
 #~ msgstr "Autopano 1.03以上 (http://autopano.kolor.com/)"
+
 #~ msgid ""
 #~ "Autopano-Sift, from http://user.cs.tu-berlin.de/~nowozin/autopano-sift/"
 #~ msgstr "Autopano-Sift (http://user.cs.tu-berlin.de/~nowozin/autopano-sift/)"
+
 #~ msgid ""
 #~ "Finished running Celeste.\n"
 #~ "%d cloud-like control points removed."
 #~ msgstr ""
 #~ "Celesteの処理が終わりました。\n"
 #~ "%d個の雲らしき対象のコントロールポイントが取り除かれました。"
+
 #~ msgid "Not a jpeg file:"
 #~ msgstr "JPEGファイルではありません："
+
 #~ msgid "Select Autopano"
 #~ msgstr "Autopanoを選択"
+
 #~ msgid "Select Autopano-SIFT"
 #~ msgstr "Autopanoプログラムの選択"
+
 #~ msgid "File"
 #~ msgstr "ファイル"
+
 #~ msgid "Help"
 #~ msgstr "ヘルプ"
+
 #~ msgid "For panoramas consisting of images with similar exposure"
 #~ msgstr "同じような露出の画像で構成されたパノラマ向けです。"
+
 #~ msgid "Output remapped images with exposure correction"
 #~ msgstr "画像それぞれを露出を補正し、いマッピングして出力します。"
+
 #~ msgid "Exposure Blending"
 #~ msgstr "露出合成（フュージョン）"
+
 #~ msgid "For panoramas consisting of images with varying exposure"
 #~ msgstr "構成する画像の露出が一様でないパノラマ向けです。"
+
 #~ msgid "Blended panorama (enfuse)"
 #~ msgstr "露出合成されたパノラマ (enfuse)"
+
 #~ msgid "Fully automatic exposure blending"
 #~ msgstr "全自動の露出合成（フュージョン）を掛けます。"
+
 #~ msgid "Blended HDR panorama"
 #~ msgstr "ブレンドされたHDR画像のパノラマ"
+
 #~ msgid "Output a blended high dynamic range panorama"
 #~ msgstr "ブレンドされたハイダイナミックレンジ画像のパノラマを出力します。"
+
 #~ msgid "Stacked HDR images"
 #~ msgstr "積み重ねたHDR画像"
+
 #~ msgid "Output the individual, remapped HDR stacks"
 #~ msgstr ""
 #~ "マッピングされ積み重なったハイダイナミックレンジ画像をそれぞれを出力しま"
 #~ "す。"
+
 #~ msgid "Individual non merged images"
 #~ msgstr "統合されていないそれぞれの画像"
+
 #~ msgid "Autopano-SIFT (by S. Nowozin)"
 #~ msgstr "Autopano-SIFT (S. Nowozin作)"
+
 #~ msgid "Autopano-SIFT:"
 #~ msgstr "Autopano-SIFT："
+
 #~ msgid "Autopano:"
 #~ msgstr "Autopano:"
 
 #, fuzzy
 #~ msgid "Batch"
 #~ msgstr "Nederlands（オランダ語）"
+
 #~ msgid "Show the preview image and the Panorama Druid"
 #~ msgstr "プレビューとDruidを表示します"
+
 #~ msgid "Specified Autopano-SIFT not installed in bundle."
 #~ msgstr "Specified Autopano-SIFT not installed in bundle."
+
 #~ msgid "Specified panomatic not installed in bundle."
 #~ msgstr "Specified panomatic not installed in bundle."
+
 #~ msgid "Specified matchpoint-complete-mac.sh not installed in bundle."
 #~ msgstr "Specified matchpoint-complete-mac.sh not installed in bundle."
+
 #~ msgid "Select autopano frontend (script)"
 #~ msgstr "Autopanoプログラム（またはスクリプト）を選択してください"
+
 #~ msgid "Exe or Script (*.*)|*.*"
 #~ msgstr "実行ファイルまたはスクリプト (*.*)|*.*"
+
 #~ msgid "No autopano selected"
 #~ msgstr "Autopanoプログラムが選択されませんでした"
+
 #~ msgid "searching similar point..."
 #~ msgstr "同じような場所を探しています"
+
 #~ msgid ""
 #~ "No similar point found.\n"
 #~ "correlation coefficient: %.3f (should be > %.3f)\n"
@@ -6435,8 +6558,10 @@ msgstr "「すべて」の数値を最適化するのは、大きく重なりあ
 #~ "同じような場所が見つかりませんでした。\n"
 #~ "相関係数：%.3f ( < しきい値 %.3f)\n"
 #~ "曲率の最大：(%.3f, %.3f) ( < しきい値 %.3f)"
+
 #~ msgid "Error: please enter a valid number."
 #~ msgstr "エラー：有効な値を入力してください。"
+
 #~ msgid "Could not read number"
 #~ msgstr "数字が読めませんでした *_*"
 
@@ -6447,108 +6572,154 @@ msgstr "「すべて」の数値を最適化するのは、大きく重なりあ
 #, fuzzy
 #~ msgid "extracting good points"
 #~ msgstr "検出"
+
 #~ msgid "Could not read image size"
 #~ msgstr "画像の大きさを読み取れません"
+
 #~ msgid "approximation of values beetwen source pixels"
 #~ msgstr "ピクセル間を補完するアルゴリズム"
+
 #~ msgid "calculate highest sensible width. (uses every image pixel)"
 #~ msgstr ""
 #~ "一番大きい適当な幅を計算します（元画像のすべての画素が使われるように調整し"
 #~ "ます）"
+
 #~ msgid "Error during image reading: %s"
 #~ msgstr "画像の読み込み中にエラー：%s"
+
 #~ msgid "Remove this image"
 #~ msgstr "画像を取り除く"
+
 #~ msgid "Stitching Options"
 #~ msgstr "スティッチング設定"
+
 #~ msgid "interpolator (i):"
 #~ msgstr "画像補完 (i):"
+
 #~ msgid "gamma (g):"
 #~ msgstr "ガンマ (g):"
+
 #~ msgid "Brightness and Color (k)"
 #~ msgstr "明るさと色合い (k)"
+
 #~ msgid "Brightness (b)"
 #~ msgstr "明るさ (b)"
+
 #~ msgid "select kind of exposure correction relative to the anchor image"
 #~ msgstr "露出を修正する項目を選択します"
+
 #~ msgid "exposure anchor:"
 #~ msgstr "露出の基準画像："
+
 #~ msgid "image used as reference for exposure correction"
 #~ msgstr "露出の修正の基準にする画像"
+
 #~ msgid "fast transform (f):"
 #~ msgstr "Fast Transform (f)："
+
 #~ msgid "Fast (0)"
 #~ msgstr "高速 (0)"
+
 #~ msgid "Medium (1)"
 #~ msgstr "標準 (1)"
+
 #~ msgid ""
 #~ "approximate remapping, faster but slightly less accurate. Fast should "
 #~ "work well with usual panos, Medium even with morphed panos"
 #~ msgstr ""
 #~ "近似を使って投射します。速いですが多少質が下がります。通常のパノラマは「高"
 #~ "速」で、変形したパノラマでも「標準」でそれなりの結果が得られます。"
+
 #~ msgid "feather width:"
 #~ msgstr "フェザーの幅："
+
 #~ msgid "width of the transition between images"
 #~ msgstr "画像間の変化の幅"
+
 #~ msgid "Output File Options"
 #~ msgstr "出力ファイルの設定"
+
 #~ msgid "image format:"
 #~ msgstr "画像フォーマット："
+
 #~ msgid "JPG"
 #~ msgstr "JPG"
+
 #~ msgid "Multiple TIFF"
 #~ msgstr "TIFF 複数ファイル"
+
 #~ msgid "Multiple TIFF with masks"
 #~ msgstr "複数枚のTIFF（マスク有り）"
+
 #~ msgid "PICT"
 #~ msgstr "PICT"
+
 #~ msgid "PSD"
 #~ msgstr "PSD"
+
 #~ msgid "Layered PSD"
 #~ msgstr "レイヤー付きPSD"
+
 #~ msgid "Layered PSD with masks"
 #~ msgstr "レイヤー付きPSD（マスク有り）"
+
 #~ msgid "PAN"
 #~ msgstr "PAN"
+
 #~ msgid "IVR"
 #~ msgstr "IVR"
+
 #~ msgid "Java IVR"
 #~ msgstr "Java IVR"
+
 #~ msgid "VRML"
 #~ msgstr "VRML"
+
 #~ msgid "QTVR"
 #~ msgstr "QTVR"
+
 #~ msgid "compression:"
 #~ msgstr "圧縮："
+
 #~ msgid "JPEG compression (0-100)"
 #~ msgstr "JPEGの圧縮率 (0-100)"
+
 #~ msgid "edit script before stitching"
 #~ msgstr "スティッチングの実行前にスクリプトを編集する"
+
 #~ msgid "Please use either %namefile or %i in the autopano-sift command line."
 #~ msgstr ""
 #~ "%namefile か %i のどちらかを autopano-sift のコマンドに指定してください."
+
 #~ msgid "Multilayer TIFF"
 #~ msgstr "TIFF 複数レイヤー"
+
 #~ msgid "Soft Blending (requires enblend, only TIFF output)"
 #~ msgstr "滑らかに融合する（enblendが必要です。TIFF出力のみ)"
+
 #~ msgid ""
 #~ "Use the external enblend program for seamless blending. Can only produce "
 #~ "TIFF output. Select TIFF to enable this option"
 #~ msgstr ""
 #~ "Enblendという外部プログラムを実行して、画像をつなぎ目の見えないように融合"
 #~ "します。TIFFにしか出力できないのでTIFF出力を選択したときにだけ有効です。"
+
 #~ msgid "Use alternative Autopano program"
 #~ msgstr "Autopanoプログラムを自分で選択"
+
 #~ msgid "Enblend:"
 #~ msgstr "Enblend："
+
 #~ msgid "Additional Arguments:"
 #~ msgstr "追加オプション："
+
 #~ msgid "Do not set -w and -o arguments, they are set by hugin"
 #~ msgstr ""
 #~ "-w と -o オプションはHuginによって設定されるので設定しないでください"
+
 #~ msgid "Select autopano program / frontend script"
 #~ msgstr "Autopanoプログラムまたはスクリプトを選択してください"
+
 #~ msgid "Unknown Version"
 #~ msgstr "不明なバージョン"
 
@@ -6561,10 +6732,13 @@ msgstr "「すべて」の数値を最適化するのは、大きく重なりあ
 #~ "全ての画像ファイル|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*."
 #~ "bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff|JPEG (*.jpg)|*.jpg;*.JPG|す"
 #~ "べて (*)|*"
+
 #~ msgid "Select flatfield image"
 #~ msgstr "Flatfield の画像を選択"
+
 #~ msgid "Error: could not find flatfile image file."
 #~ msgstr "エラー：Flatfileの画像ファイルが見つかりません"
+
 #~ msgid "File not found"
 #~ msgstr "ファイルが見つかりません"
 
@@ -6577,27 +6751,36 @@ msgstr "「すべて」の数値を最適化するのは、大きく重なりあ
 #~ "全ての画像ファイル|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*."
 #~ "bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff|JPEG (*.jpg)|*.jpg;*.JPG|す"
 #~ "べて (*)|*"
+
 #~ msgid "Basic Settings"
 #~ msgstr "基本的な設定"
+
 #~ msgid "Misc"
 #~ msgstr "その他"
+
 #~ msgid "fixed"
 #~ msgstr "固定"
+
 #~ msgid ""
 #~ "use fixed for 16 bit\n"
 #~ "and auto for HDR"
 #~ msgstr ""
 #~ "16 bitには固定を\n"
 #~ "にはHDRを使用"
+
 #~ msgid "Mapping"
 #~ msgstr "マッピング"
+
 #~ msgid "Use cropped TIFF files (enblend 2.4 or higher required)"
 #~ msgstr "切り抜いた画像を使う (enblend 2.4以上が必要です)"
+
 #~ msgid "Save cropped images, requires less disk space and memory."
 #~ msgstr ""
 #~ "切り抜いた画像を保存。ファイルサイズや必要なメモリの量が小さくなります。"
+
 #~ msgid "Crop..."
 #~ msgstr "切り抜き…"
+
 #~ msgid "Open a dialog to select the image area to be used while stitching"
 #~ msgstr "スティッチングに使う範囲を指定するウィンドウを開きます"
 
@@ -6608,8 +6791,10 @@ msgstr "「すべて」の数値を最適化するのは、大きく重なりあ
 #, fuzzy
 #~ msgid "ExecuteProcess"
 #~ msgstr "wxExecuteでエラー"
+
 #~ msgid "This Image"
 #~ msgstr "選択された画像"
+
 #~ msgid ""
 #~ "Fatal installation error\n"
 #~ "The xrc directory was not found.\n"
@@ -6624,36 +6809,50 @@ msgstr "「すべて」の数値を最適化するのは、大きく重なりあ
 #~ msgstr ""
 #~ "Enblendがパノラマの処理が終了するまでしばらく時間がかかります\n"
 #~ "経過はコマンドウィンドウをご覧ください。"
+
 #~ msgid ""
 #~ "Could not execute enblend, system() failed: \n"
 #~ "Command was :"
 #~ msgstr ""
 #~ "system()を使ってenblendを実行できませんでした。\n"
 #~ "コマンド："
+
 #~ msgid "Error returned was :"
 #~ msgstr "エラー："
+
 #~ msgid "Create panorama image"
 #~ msgstr "パノラマ画像の作成"
+
 #~ msgid "Select PTStitcher"
 #~ msgstr "PTStitcherを選択"
+
 #~ msgid "with custom settings below"
 #~ msgstr "カスタマイズ"
+
 #~ msgid "into a high quality TIFF file"
 #~ msgstr "高品質のTIFFファイル"
+
 #~ msgid "into a high-quality JPEG file"
 #~ msgstr "高品質のJPEGファイル"
+
 #~ msgid "into a draft-quality JPEG file"
 #~ msgstr "下書きレベルのJPEGファイル"
+
 #~ msgid "into a layered TIFF file"
 #~ msgstr "複数レイヤーのTIFFファイル"
+
 #~ msgid "into a layered Photoshop file"
 #~ msgstr "複数レイヤーのPhotoshopファイル"
+
 #~ msgid "execute the PTStitcher engine"
 #~ msgstr "スティッチングプログラムを実行する"
+
 #~ msgid "Stitching engine:"
 #~ msgstr "スティッチングプログラム："
+
 #~ msgid "nona"
 #~ msgstr "nona"
+
 #~ msgid ""
 #~ "Cannot optimize this projection.\n"
 #~ "Only rectilinear, cylindrical and equirectangular panoramas can be "
@@ -6666,8 +6865,10 @@ msgstr "「すべて」の数値を最適化するのは、大きく重なりあ
 #~ "\n"
 #~ "心射方位、心射円筒、正距円筒のどれかを使ってパノラマを最適化してから\n"
 #~ "出力したい投影法に変更してください。"
+
 #~ msgid "Estimate vignetting curve"
 #~ msgstr "ビネットカーブの推定"
+
 #~ msgid ""
 #~ "Ransac tolerance parameter.\n"
 #~ "Should be around 0.1.\n"
@@ -6680,6 +6881,7 @@ msgstr "「すべて」の数値を最適化するのは、大きく重なりあ
 #~ "　画像がうまく記録されていて、同じ設定（露出・ホワイトバランス）がつかわれ"
 #~ "たなら、\n"
 #~ "　小さい値の方がいい結果がでるでしょう。"
+
 #~ msgid ""
 #~ "Vignetting correction currently does not work with nonlinear mapped 16 "
 #~ "bit and HDR images.\n"
@@ -6690,16 +6892,20 @@ msgstr "「すべて」の数値を最適化するのは、大きく重なりあ
 #~ "ん。\n"
 #~ "線形マップを有効にしてください。\n"
 #~ "無視して続けますか？"
+
 #~ msgid "Vignetting function estimation"
 #~ msgstr "ビネット関数の推定"
+
 #~ msgid ""
 #~ "Not enought images selected. Please ensure that more than two images are "
 #~ "associated with the current lens."
 #~ msgstr ""
 #~ "選択されている画像の数が足りません。２枚以上の画像をこのレンズに設定してく"
 #~ "ださい。"
+
 #~ msgid "Cannot estimate vignetting"
 #~ msgstr "ビネットを推定できません"
+
 #~ msgid ""
 #~ "Vignetting curve estimation results:\n"
 #~ "\n"
@@ -6718,6 +6924,7 @@ msgstr "「すべて」の数値を最適化するのは、大きく重なりあ
 #~ "ているかを、確認してください。\n"
 #~ "\n"
 #~ "修正されたビネットは不正確かもしれません。"
+
 #~ msgid ""
 #~ "Vignetting curve estimation results:\n"
 #~ "%.1f%% inconsistent point pairs found, used %.1f%% of %d pairs during "
@@ -6727,12 +6934,14 @@ msgstr "「すべて」の数値を最適化するのは、大きく重なりあ
 #~ "ビネットカーブの推定結果：\n"
 #~ "%.1f%%の不一致のペアを発見, %.1f%%を %dペアの中から最終的に推定に使用.\n"
 #~ "明るさの誤差： %.2f（グレー値のRMSE）"
+
 #~ msgid "Vignetting curve estimation"
 #~ msgstr "ビネットカーブの推定"
 
 #, fuzzy
 #~ msgid "0.1"
 #~ msgstr "0.1"
+
 #~ msgid ""
 #~ "Vignetting curve estimation results:\n"
 #~ " %d good Points, %d bad points, used %.1f%% of good points during final "
@@ -6742,46 +6951,67 @@ msgstr "「すべて」の数値を最適化するのは、大きく重なりあ
 #~ "ビネットカーブの推定結果：\n"
 #~ "良い点 %d個、悪い点 %d個、良い点のうち %.1f%%を最終的な推定に使用.\n"
 #~ "推定後の残差：%.5f"
+
 #~ msgid "Image Collection"
 #~ msgstr "プロジェクトの画像"
+
 #~ msgid "Adjust the anchor spot..."
 #~ msgstr "基準にする点を編集…"
+
 #~ msgid "opens a window to select the anchor orientation graphically"
 #~ msgstr "基準にする点を視覚的に設定するウィンドウを開きます"
+
 #~ msgid "Create Ctrl Points"
 #~ msgstr "検出"
+
 #~ msgid "Remove Points"
 #~ msgstr "ポイントを削除"
+
 #~ msgid "Design Parameters"
 #~ msgstr "デザイン"
+
 #~ msgid "Inherit"
 #~ msgstr "受け継ぐ"
+
 #~ msgid "Lens Correction Parameters"
 #~ msgstr "レンズのゆがみ"
+
 #~ msgid "Set crop and image center"
 #~ msgstr "切り抜きと中心の設定"
+
 #~ msgid "Lens management"
 #~ msgstr "レンズの管理"
+
 #~ msgid "Load"
 #~ msgstr "読み込む…"
+
 #~ msgid "Edit Parameters..."
 #~ msgstr "推知の編集…"
+
 #~ msgid "gain"
 #~ msgstr "ゲイン（感度）"
+
 #~ msgid "offset"
 #~ msgstr "ずれ"
+
 #~ msgid "red (K0):"
 #~ msgstr "赤 (K0)："
+
 #~ msgid "green (K1):"
 #~ msgstr "緑 (K1)："
+
 #~ msgid "blue (K2):"
 #~ msgstr "青 (K2)："
+
 #~ msgid "pixel width:"
 #~ msgstr "幅（ピクセル）："
+
 #~ msgid "pixel height:"
 #~ msgstr "高さ（ピクセル）："
+
 #~ msgid "Estimate polynomial"
 #~ msgstr "２次式の推定"
+
 #~ msgid ""
 #~ "All Image files|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*."
 #~ "BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr|JPEG files (*.jpg)|*.jpg;*."
@@ -6790,12 +7020,14 @@ msgstr "「すべて」の数値を最適化するのは、大きく重なりあ
 #~ "全ての画像ファイル|*.jpg;*.JPG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*."
 #~ "bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff|JPEG (*.jpg)|*.jpg;*.JPG|す"
 #~ "べて (*)|*"
+
 #~ msgid ""
 #~ "Please wait while autopano searches control points\n"
 #~ "See the command window for autopanos' progress"
 #~ msgstr ""
 #~ "Autopanoがコントロールポイントを検知している間、しばらくお待ちください。\n"
 #~ "経過はコマンドウィンドウをご覧ください。"
+
 #~ msgid ""
 #~ "Enter Crop Factor for image\n"
 #~ "\n"
@@ -6810,62 +7042,85 @@ msgstr "「すべて」の数値を最適化するのは、大きく重なりあ
 #~ "crop factor = 43.3 / フィルムまたは撮像素子の対角長 (mm) \n"
 #~ "\n"
 #~ "この値は35mmフィルム換算と実際の焦点距離の比に相当します。"
+
 #~ msgid "Adding Image"
 #~ msgstr "画像の追加"
+
 #~ msgid "Could not read image size of file %s"
 #~ msgstr "ファイル %s の画像の大きさを読めませんでした。"
+
 #~ msgid ""
 #~ "Enter focal length for image\n"
 #~ "%s\n"
 #~ msgstr "画像の焦点距離を入力してくださいn%s\n"
+
 #~ msgid "Loading project"
 #~ msgstr "プロジェクトを読み込み中"
 
 #, fuzzy
 #~ msgid "Enter focal length and lens type"
 #~ msgstr "画像の焦点距離を入力してくださいn%s\n"
+
 #~ msgid "Crop Image"
 #~ msgstr "画像を切り取る"
+
 #~ msgid "Yaw: %.1f Pitch:%.1f Roll:%.1f"
 #~ msgstr "Yaw (横)：%.1f / Pitch (縦)：%.1f / Roll (回転)：%.1f"
+
 #~ msgid "apply changed values to actual selected images from panorama"
 #~ msgstr "新しい数値を選択さている画像に適応します"
+
 #~ msgid "close window"
 #~ msgstr "ウィンドウを閉じる"
+
 #~ msgid "Edit Parameters"
 #~ msgstr "推知の編集"
+
 #~ msgid "Channel:"
 #~ msgstr "チャンネル："
+
 #~ msgid "brightness"
 #~ msgstr "明るさ"
+
 #~ msgid "inherit"
 #~ msgstr "受け継ぐ"
+
 #~ msgid "red (K0)"
 #~ msgstr "赤 (K0)"
+
 #~ msgid "green (K1)"
 #~ msgstr "緑 (K1)"
+
 #~ msgid "blue (K2)"
 #~ msgstr "青 (K2)"
+
 #~ msgid "Could not load dll"
 #~ msgstr "dllファイルを読み込めません"
 
 #, fuzzy
 #~ msgid "panoinfo"
 #~ msgstr "panoinfo"
+
 #~ msgid "No PTOptimizer.exe selected"
 #~ msgstr "PTOptimizer.exeが選択されませんでした"
+
 #~ msgid "No PTOptimizer selected"
 #~ msgstr "PTOptimizerが選択されませんでした"
+
 #~ msgid "Failed to launch PTOptimizer."
 #~ msgstr "PTOptimizerを起動できませんでした。"
+
 #~ msgid "Could not obtain PTOptimizer output"
 #~ msgstr "PTOptimizerからの出力が得られませんでした"
+
 #~ msgid "Stop"
 #~ msgstr "停止"
+
 #~ msgid "Could not start PTOptimizer"
 #~ msgstr "PTOptimizerを起動できませんでした"
+
 #~ msgid "Strategy %d, Iteration %d, average distance: %f"
 #~ msgstr "Strategy：%d / Iteration：%d / ずれの平均： %f"
+
 #~ msgid "PTOptimizer"
 #~ msgstr "PTOptimizer"
-
