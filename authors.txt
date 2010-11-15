@@ -70,6 +70,7 @@ Ryan Sleevi	Windows 64-bit patches, patches and SDK
 Michał Smoczyk	Polish translation
 Svetoslav Stefanov	Bulgarian initial translation
 Gary Stein	Autocrop functionality
+Hajime Taira	Japanese translation
 Riz Thon	French translation
 Dave Tow	cmake patch
 Brent Townshend	code and bug fixes
