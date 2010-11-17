@@ -77,13 +77,23 @@ bool str2double(wxString s, double & d)
 
 wxString getDefaultProjectName(const Panorama & pano)
 {
-    if (pano.getNrOfImages() > 0) {
-        
-        wxString first_img(stripExtension(stripPath(pano.getImage(0).getFilename())).c_str(), HUGIN_CONV_FILENAME);
-        wxString last_img(stripExtension(stripPath(pano.getImage(pano.getNrOfImages()-1).getFilename())).c_str(), HUGIN_CONV_FILENAME);
-        return first_img + wxT("-") + last_img;
-    } else {
-        return wxString(wxT("pano"));
+    bool t = (wxConfigBase::Get()->Read(wxT("ProjectNamingConvention"), HUGIN_PROJECT_NAMING_CONVENTION) != 0);
+    if(t){
+        if (pano.getNrOfImages() > 0) {
+            wxString first_img(hugin_utils::getFolder(pano.getImage(0).getFilename()).c_str(), HUGIN_CONV_FILENAME);
+            return first_img;
+        } else {
+            return wxString(wxT("pano"));
+        }
+    }else{
+        if (pano.getNrOfImages() > 0) {
+
+            wxString first_img(stripExtension(stripPath(pano.getImage(0).getFilename())).c_str(), HUGIN_CONV_FILENAME);
+            wxString last_img(stripExtension(stripPath(pano.getImage(pano.getNrOfImages()-1).getFilename())).c_str(), HUGIN_CONV_FILENAME);
+            return first_img + wxT("-") + last_img;
+        } else {
+            return wxString(wxT("pano"));
+        }
     }
 }
 

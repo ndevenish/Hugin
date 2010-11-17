@@ -82,7 +82,7 @@
                         <cols>3</cols>
                         <object class="sizeritem">
                           <object class="wxStaticText">
-                            <label>Language</label>
+                            <label>Language:</label>
                           </object>
                           <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
                           <border>5</border>
@@ -100,6 +100,29 @@
                             <style></style>
                           </object>
                           <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                          <border>5</border>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxStaticText">
+                            <label>Project Name:</label>
+                          </object>
+                          <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          <border>5</border>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxCheckBox" name="prefs_project_naming_convention">
+                            <label>based on containing folder</label>
+                            <flag>wxALL|wxEXPAND|wxALIGN_CENTRE|wxALIGN_TOP</flag>
+                            <border>5</border>
+                          </object>
+                          <flag>wxALL|wxEXPAND|wxALIGN_TOP</flag>
+                          <border>5</border>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxStaticText">
+                            <label> </label>
+                          </object>
+                          <flag>wxLEFT|wxEXPAND|wxALIGN_RIGHT|wxALIGN_TOP</flag>
                           <border>5</border>
                         </object>
                         <object class="sizeritem">
@@ -160,7 +183,7 @@
                 </object>
                 <object class="sizeritem">
                   <object class="wxStaticBoxSizer">
-                    <label>File options</label>
+                    <label>File Options</label>
                     <orient>wxVERTICAL</orient>
                     <object class="sizeritem">
                       <object class="wxBoxSizer">

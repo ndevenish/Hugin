@@ -437,6 +437,10 @@ void PreferencesDialog::UpdateDisplayData(int panel)
             DEBUG_WARN("Unknown language configured");
         }
 
+        // project naming convention
+        t = cfg->Read(wxT("ProjectNamingConvention"), HUGIN_PROJECT_NAMING_CONVENTION) == 1;
+        MY_BOOL_VAL("prefs_project_naming_convention", t);
+
         // smart undo
         t = cfg->Read(wxT("smartUndo"), HUGIN_SMART_UNDO) == 1;
         MY_BOOL_VAL("prefs_smart_undo", t);
@@ -619,6 +623,8 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
             cfg->Write(wxT("/Nona/NumberOfThreads"), cpucount);
             // locale
             cfg->Write(wxT("language"), int(HUGIN_LANGUAGE));
+            // project naming convention
+            cfg->Write(wxT("ProjectNamingConvention"), HUGIN_PROJECT_NAMING_CONVENTION);
             // smart undo
             cfg->Write(wxT("smartUndo"), HUGIN_SMART_UNDO);
             // projection hints
@@ -760,7 +766,8 @@ void PreferencesDialog::UpdateConfigData()
     long templ =  * static_cast<long *>(tmplp);
     cfg->Write(wxT("language"), templ);
     DEBUG_INFO("Language Selection ID: " << templ);
-
+    // project naming convention
+    cfg->Write(wxT("ProjectNamingConvention"), MY_G_BOOL_VAL("prefs_project_naming_convention"));
     // smart undo
     cfg->Write(wxT("smartUndo"), MY_G_BOOL_VAL("prefs_smart_undo"));
     // show projections hints

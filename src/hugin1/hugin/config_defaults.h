@@ -73,6 +73,9 @@
 
 #define HUGIN_LENS_ASSUME_SIMILAR             1l
 
+// project naming convention
+#define HUGIN_PROJECT_NAMING_CONVENTION       0l
+
 // smart undo
 #define HUGIN_SMART_UNDO                      0l
 
