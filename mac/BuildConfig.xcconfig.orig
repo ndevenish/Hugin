@@ -56,7 +56,7 @@ GETTEXT_VERSION = 0.17
 
 /// ExifTool
 // See comments above for REPOSITORY_DIR. This may need to be a fully qualified path.
-EXIFTOOL_DIR = /Users/Shared/development/hugin_related/ExternalPrograms/Image-ExifTool-8.29
+EXIFTOOL_DIR = ../mac/ExternalPrograms/Image-ExifTool-8.29
 
 // Boost Thread
 BOOST_VER = 1_44
