@@ -20,6 +20,11 @@
  *
  */
 
+#ifdef __WXMAC__
+#include "panoinc_WX.h"
+#include "panoinc.h"
+#endif
+
 #include "VertexCoordRemapper.h"
 #include <math.h>
 #include <iostream>

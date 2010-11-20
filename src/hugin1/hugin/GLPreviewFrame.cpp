@@ -37,7 +37,6 @@
 #include <GL/glew.h>
 
 #include "panoinc_WX.h"
-
 #include "panoinc.h"
 
 #include "base_wx/platform.h"

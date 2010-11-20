@@ -21,6 +21,11 @@
  *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
+#ifdef __WXMAC__
+#include "panoinc_WX.h"
+#include "panoinc.h"
+#endif
+
 #include "GreatCircles.h"
 
 // for some reason #include <GL/gl.h> isn't portable enough.

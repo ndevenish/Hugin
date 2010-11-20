@@ -20,6 +20,11 @@
  *
  */
 
+#ifdef __WXMAC__
+#include "panoinc_WX.h"
+#include "panoinc.h"
+#endif
+
 #include "ChoosyRemapper.h"
 #include "ViewState.h"
 #include "TexCoordRemapper.h"

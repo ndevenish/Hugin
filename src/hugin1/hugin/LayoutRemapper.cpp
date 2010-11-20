@@ -21,6 +21,11 @@
  *
  */
 
+#ifdef __WXMAC__
+#include "panoinc_WX.h"
+#include "panoinc.h"
+#endif
+
 #include <cmath>
 
 #include "LayoutRemapper.h"
