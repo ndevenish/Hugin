@@ -110,7 +110,8 @@ class PossiblePano
         enum NamingConvention
         {
             NAMING_PANO=0,
-            NAMING_FIRST_LAST=1
+            NAMING_FIRST_LAST=1,
+            NAMING_FOLDER=2
         };
         /** return true, if the image could belong to the given PossiblePano,
           * it checks camera maker and model, focal length, image size and date/time */

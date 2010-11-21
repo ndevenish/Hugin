@@ -493,6 +493,22 @@ bool PossiblePano::GetNewProjectFilename(NamingConvention nc,const wxString base
             };
             mask=mask+wxT("_%d");
             break;
+        case NAMING_FOLDER:
+            {
+                wxArrayString folders=projectFile.GetDirs();
+                if(folders.GetCount()==0)
+                {
+                    return false;
+                }
+                mask=folders.Last();
+                projectFile.SetName(mask);
+                if(!projectFile.FileExists())
+                {
+                    return true;
+                }
+                mask=mask+wxT("_%d");
+            }
+            break;
         default:
             mask=wxT("panorama%d");
     };
