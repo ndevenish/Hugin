@@ -24,6 +24,27 @@ This page will give a short overview about some aspects of Hugins source code.
    Deprecated: Don't use getOptions() or setOptions() to access some parameters via ImageOptions. 
    This class will be removed in future. It is supercedes by the get* and set* methodes.
    
+\subsection coordTransform Coordination transformation
+   If you need to transform coordinates from image to panorama space or vice versa, 
+   use HuginBase::PTools::Transform.
+   If you want to transform from image to panospace, create the transformation stack
+   with HuginBase::PTools::Transform::createInvTransform. If you want to transform
+   coordinates from panorama space to the coordinates of a single image use
+   HuginBase::PTools::Transform::createTransform. Both require a HuginBase::SrcPanoImage to describe the
+   image and a HuginBase::PanoramaOptions to describe the panospace.
+   Now you can transfrom the coordinates with HuginBase::PTools::Transform::transformImgCoord. 
+   There are some cases, where it is not possible to transform the coordinates, e.g. in rectilinear
+   transformation or when the project has non-zero translation parameters. 
+   So always check the return value of transformImgCoord, if the transformation could be executed.
+
+   Example
+
+      HuginBase::PTools::Transform trans;
+
+      trans.createInvTransform(srcImage,options);
+
+      trans.transformImgCoord(x_out,y_out,x_in,y_in);
+
    
 \section GUI GUI
 
