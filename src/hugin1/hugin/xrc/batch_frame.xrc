@@ -164,14 +164,13 @@
                           <cellpos>2,0</cellpos>
                         </object>
                         <object class="sizeritem">
-                          <object class="wxComboBox" name="find_pano_naming">
+                          <object class="wxChoice" name="find_pano_naming">
                             <content>
                               <item>PanoramaXX.pto</item>
                               <item>First file - last file.pto</item>
                               <item>Foldername.pto</item>
                             </content>
                             <selection>0</selection>
-                            <style>wxCB_READONLY</style>
                           </object>
                           <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
                           <cellpos>2,1</cellpos>

@@ -79,7 +79,7 @@ private:
     wxCheckBox *m_cb_subdir;
     wxStaticText *m_statustext;
     wxCheckListBox *m_list_pano;
-    wxComboBox *m_cb_naming;
+    wxChoice *m_cb_naming;
 
     PossiblePanoArray m_panos;
     wxString m_start_dir;

@@ -61,7 +61,7 @@ FindPanoDialog::FindPanoDialog(BatchFrame *batchframe, wxString xrcPrefix)
     m_cb_subdir=XRCCTRL(*this,"find_pano_subdir",wxCheckBox);
     m_statustext=XRCCTRL(*this,"find_pano_label",wxStaticText);
     m_list_pano=XRCCTRL(*this,"find_pano_list",wxCheckListBox);
-    m_cb_naming=XRCCTRL(*this,"find_pano_naming",wxComboBox);
+    m_cb_naming=XRCCTRL(*this,"find_pano_naming",wxChoice);
 
     //set parameters
     wxConfigBase * config = wxConfigBase::Get();
