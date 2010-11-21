@@ -154,7 +154,7 @@ std::string getFolder(const std::string & filename)
     std::string::size_type idx2 = filename.rfind('/');
     std::string::size_type idx;
     std::string::size_type idy;
-    std::string f
+    std::string f;
     if (idx1 == std::string::npos) {
         idx = idx2;
         f = filename.substr(0, idx);
