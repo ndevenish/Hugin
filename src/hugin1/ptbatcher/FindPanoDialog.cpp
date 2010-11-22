@@ -260,6 +260,7 @@ void FindPanoDialog::OnButtonSend(wxCommandEvent &e)
     };
     this->Close();
 };
+
 void FindPanoDialog::EnableButtons(const bool state)
 {
     m_textctrl_dir->Enable(state);
@@ -322,7 +323,6 @@ void FindPanoDialog::SearchInDir(wxString dirstring, bool includeSubdir)
         wxGetApp().Yield(true);
         cont=dir.GetNext(&filename);
     }
-    while(dir.GetNext(&filename) );
     if(!m_stopped && newPanos.size()>0)
     {
         for(size_t i=0;i<newPanos.size();i++)
