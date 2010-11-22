@@ -167,7 +167,7 @@ void RunStitchFrame::OnProcessTerminate(wxProcessEvent & event)
         m_isStitching = false;
         if (event.GetExitCode() != 0)
         {
-            if(wxMessageBox(_("Error during stitching\nPlease report the complete text to the bug tracker on http://sf.net/projects/hugin.\n\nDo you want to save the log file?"),
+            if(wxMessageBox(_("Error during stitching\nPlease report the complete text to the bug tracker on https://bugs.launchpad.net/hugin.\n\nDo you want to save the log file?"),
                 _("Error during stitching"), wxICON_ERROR | wxYES_NO )==wxYES)
             {
                 wxString defaultdir = wxConfigBase::Get()->Read(wxT("/actualPath"),wxT(""));
