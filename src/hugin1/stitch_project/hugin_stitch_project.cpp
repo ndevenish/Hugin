@@ -34,8 +34,6 @@
 
 #include <fstream>
 #include <sstream>
-#include <vigra/error.hxx>
-#include <vigra_ext/MultiThreadOperations.h>
 #include "PT/Panorama.h"
 #include "PT/utils.h"
 #include "base_wx/RunStitchPanel.h"
@@ -307,21 +305,17 @@ bool stitchApp::OnInit()
       { wxCMD_LINE_SWITCH, "h", "help", "show this help message",
         wxCMD_LINE_VAL_NONE, wxCMD_LINE_OPTION_HELP },
       { wxCMD_LINE_OPTION, "o", "output",  "output prefix" },
-      { wxCMD_LINE_OPTION, "t", "threads",  "number of threads",
-             wxCMD_LINE_VAL_NUMBER, wxCMD_LINE_PARAM_OPTIONAL },
       { wxCMD_LINE_SWITCH, "d", "delete",  "delete pto file after stitching" },
-      { wxCMD_LINE_PARAM,  NULL, NULL, "<project> <images>",
-        wxCMD_LINE_VAL_STRING, wxCMD_LINE_PARAM_OPTIONAL + wxCMD_LINE_PARAM_MULTIPLE },
+      { wxCMD_LINE_PARAM,  NULL, NULL, "<project>",
+        wxCMD_LINE_VAL_STRING, wxCMD_LINE_PARAM_OPTIONAL },
       { wxCMD_LINE_NONE }
 #else 
       { wxCMD_LINE_SWITCH, wxT("h"), wxT("help"), wxT("show this help message"),
         wxCMD_LINE_VAL_NONE, wxCMD_LINE_OPTION_HELP },
       { wxCMD_LINE_OPTION, wxT("o"), wxT("output"),  wxT("output prefix") },
-      { wxCMD_LINE_OPTION, wxT("t"), wxT("threads"),  wxT("number of threads"),
-             wxCMD_LINE_VAL_NUMBER, wxCMD_LINE_PARAM_OPTIONAL },
       { wxCMD_LINE_SWITCH, wxT("d"), wxT("delete"),  wxT("delete pto file after stitching") },
-      { wxCMD_LINE_PARAM,  NULL, NULL, wxT("<project> <images>"),
-        wxCMD_LINE_VAL_STRING, wxCMD_LINE_PARAM_OPTIONAL + wxCMD_LINE_PARAM_MULTIPLE },
+      { wxCMD_LINE_PARAM,  NULL, NULL, wxT("<project>"),
+        wxCMD_LINE_VAL_STRING, wxCMD_LINE_PARAM_OPTIONAL },
       { wxCMD_LINE_NONE }
 #endif 
     };
@@ -339,9 +333,6 @@ bool stitchApp::OnInit()
 	return false;
         break;
     }
-
-    bool imgsFromCmdline = false;
-
 
     wxString scriptFile;
 #ifdef __WXMAC__
@@ -381,10 +372,6 @@ bool stitchApp::OnInit()
         cout << "********************* script file: " << (const char *)scriptFile.mb_str(wxConvLocal) << endl;
         if (! wxIsAbsolutePath(scriptFile)) {
             scriptFile = wxGetCwd() + wxT("/") + scriptFile;
-        }
-        if ( parser.GetParamCount() > 1) {
-          // load images.
-          imgsFromCmdline = true;
         }
     }
 
