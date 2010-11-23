@@ -1,5 +1,5 @@
 Hugin was originally developed by Pablo d'Angelo.
-(C) 2004-2009
+(C) 2004-2011
 
 By setting his original software Free under the GPL, Pablo started
 what has become a thriving community and a project larger than any

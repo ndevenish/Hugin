@@ -132,9 +132,9 @@ BatchFrame::BatchFrame(wxLocale* locale, wxString xrc)
 	
     // set the minimize icon
 #ifdef __WXMSW__
-    wxIcon myIcon(m_xrcPrefix + wxT("data/icon.ico"),wxBITMAP_TYPE_ICO);
+    wxIcon myIcon(m_xrcPrefix + wxT("data/ptbatcher.ico"),wxBITMAP_TYPE_ICO);
 #else
-    wxIcon myIcon(m_xrcPrefix + wxT("data/icon.png"),wxBITMAP_TYPE_PNG);
+    wxIcon myIcon(m_xrcPrefix + wxT("data/ptbatcher.png"),wxBITMAP_TYPE_PNG);
 #endif
     SetIcon(myIcon);
 

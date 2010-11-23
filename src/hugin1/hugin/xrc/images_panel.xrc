@@ -527,7 +527,7 @@
                             <orient>wxVERTICAL</orient>
                             <object class="sizeritem">
                               <object class="wxStaticBitmap" name="images_selected_image">
-                                <bitmap>data/druid.images.128.png</bitmap>
+                                <bitmap></bitmap>
                               </object>
                               <option>1</option>
                               <flag>wxEXPAND</flag>

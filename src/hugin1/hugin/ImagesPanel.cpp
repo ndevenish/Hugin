@@ -170,9 +170,10 @@ bool ImagesPanel::Create(wxWindow *parent, wxWindowID id, const wxPoint& pos, co
     XRCCTRL(*this, "images_text_Y", wxTextCtrl)->PushEventHandler(new TextKillFocusHandler(this));
     XRCCTRL(*this, "images_text_Z", wxTextCtrl)->PushEventHandler(new TextKillFocusHandler(this));
 
-    m_empty.LoadFile(huginApp::Get()->GetXRCPath() +
-                     wxT("data/") + wxT("druid.images.128.png"),
-                     wxBITMAP_TYPE_PNG);
+    m_empty.Create(0,0);
+//    m_empty.LoadFile(huginApp::Get()->GetXRCPath() +
+//                     wxT("data/") + wxT("transparent.png"),
+//                     wxBITMAP_TYPE_PNG);
     m_smallImgCtrl->SetBitmap(m_empty);
 
     wxListEvent ev;

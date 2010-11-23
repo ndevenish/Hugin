@@ -44,9 +44,9 @@ FindPanoDialog::FindPanoDialog(BatchFrame *batchframe, wxString xrcPrefix)
     wxXmlResource::Get()->LoadDialog(this,batchframe,wxT("find_pano_dialog"));
 
 #ifdef __WXMSW__
-    wxIcon myIcon(xrcPrefix+ wxT("data/icon.ico"),wxBITMAP_TYPE_ICO);
+    wxIcon myIcon(xrcPrefix+ wxT("data/ptbatcher.ico"),wxBITMAP_TYPE_ICO);
 #else
-    wxIcon myIcon(xrcPrefix + wxT("data/icon.png"),wxBITMAP_TYPE_PNG);
+    wxIcon myIcon(xrcPrefix + wxT("data/ptbatcher.png"),wxBITMAP_TYPE_PNG);
 #endif
     SetIcon(myIcon);
     m_batchframe=batchframe;

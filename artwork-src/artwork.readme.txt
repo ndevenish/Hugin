@@ -1,0 +1,50 @@
+INTRODUCTION
+
+The original Hugin artwork was the work of Dr. Luca Vascon.  Unfortunately the original source files went lost in time.
+
+
+MOVING TO SVG
+
+Bruno Postle has undertaken to standardize the application buttons using the SVG format.
+
+In 2009 Cristian Marchi proposed an evolution of icons and splash screen based on the original artwork.
+
+The SVG format used ensures that the source is extendible / expandable / usable for the needs of modern operating systems.  For more information, see thread on hugin-ptx [0].
+
+The evolution has been well received.  Cristian's original files are icons2010.svg and splash2010.svg in the 2010 folder.  The consensus was to use the wider screen icons rather than the square ones; and A9 and B9 for Hugin and the Batch Processor respectively.  The new visuals will be implemented in Hugin 2010.4.0 to mark the first Hugin releases that is feature-complete.
+
+Like any visuals, we don't expect them to last forever.  For the 2010.4 release cycle most visuals were centralized in this folder to make the task of graphics designers easier.  If you decide to contribute a visual evolution (or revolution?) to Hugin, please make sure it is in a source / editable format (preferably SVG).  See editing notes below.
+
+
+EDITING NOTES
+
+If you want to develop your own design, start by duplicating the 2010 folder and editing what is in there.  When you are happy with your edits, edit ./update_artwork.sh and point SRC to your folder.  Run ./update_artwork.sh, then build and install Hugin to test your new look and feel.  If you want to submit your artwork for consideration for a future version of Hugin, zip it, publish it somewhere on the web and post a note linking to your zip file on the mailing list [2].
+
+We recommend editing with Inkscape [1] to avoid compatibility issues.
+
+If you want to change the logo/branding, consider that it appears not only on the splash screen but also on all icons, on the info.svg button, and on the website.
+
+Edit icons on a 512x512px canvas (currently largest supported bitmap icons, on Mac OSX).
+
+
+UPDATES
+
+These notes were first drafted Nov.21 2010 by Yuval Levy and last updated for the 2010.4 release soon thereafter.  Things may have changed since then.  If you find that these notes are no longer up to date, please try to update them or ask for help from the develoeprs on the mailing list [2].
+
+
+ARTWORK OUTSIDE ./artwork-src
+
+We strive to keep artwork source in ./artwork-src.  Bitmaps/compiled versions are ok in ./src/hugin1/hugin/xrc/data/ because the artwork generation process has too many dependencies and variations.
+
+The only images whose source is in bitmap form are
+* the cursor at ./src/hugin1/hugin/xrc/data/cursor_cp_pick.cur
+* the transparent image at ./src/hugin1/hugin/xrc/data/transparent.png
+
+Moreover there are currently images inside ./src/hugin1/hugin/xrc/data/ that are part of the Hugin manual.
+
+
+REFERENCES
+
+[0] http://groups.google.com/group/hugin-ptx/browse_thread/thread/9d6a54f871b0ae2/
+[1] http://www.inkscape.org/
+[2] http://groups.google.com/group/hugin-ptx

@@ -105,9 +105,9 @@ AboutDialog::AboutDialog(wxWindow *parent)
 
     // load the appropriate icon (.ico for Windows, .png for other systems)
 #ifdef __WXMSW__
-    wxIcon myIcon(huginApp::Get()->GetXRCPath() + wxT("data/icon.ico"),wxBITMAP_TYPE_ICO);
+    wxIcon myIcon(huginApp::Get()->GetXRCPath() + wxT("data/hugin.ico"),wxBITMAP_TYPE_ICO);
 #else
-    wxIcon myIcon(huginApp::Get()->GetXRCPath() + wxT("data/icon.png"),wxBITMAP_TYPE_PNG);
+    wxIcon myIcon(huginApp::Get()->GetXRCPath() + wxT("data/hugin.png"),wxBITMAP_TYPE_PNG);
 #endif
     // set the icon in the title bar
     SetIcon(myIcon);

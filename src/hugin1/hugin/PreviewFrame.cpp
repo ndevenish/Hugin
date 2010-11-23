@@ -347,9 +347,9 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
 
     // set the minimize icon
 #ifdef __WXMSW__
-    wxIcon myIcon(huginApp::Get()->GetXRCPath() + wxT("data/icon.ico"),wxBITMAP_TYPE_ICO);
+    wxIcon myIcon(huginApp::Get()->GetXRCPath() + wxT("data/hugin.ico"),wxBITMAP_TYPE_ICO);
 #else
-    wxIcon myIcon(huginApp::Get()->GetXRCPath() + wxT("data/icon.png"),wxBITMAP_TYPE_PNG);
+    wxIcon myIcon(huginApp::Get()->GetXRCPath() + wxT("data/hugin.png"),wxBITMAP_TYPE_PNG);
 #endif
     SetIcon(myIcon);
 
