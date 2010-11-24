@@ -858,8 +858,6 @@
 		57E346EC0C4A8AC2006AA781 /* libIlmThread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786110BF347B80041F8FF /* libIlmThread.dylib */; };
 		57E346ED0C4A8AC2006AA781 /* libImath.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5777860A0BF3477A0041F8FF /* libImath.dylib */; };
 		57E346EE0C4A8AC2006AA781 /* libHalf.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 577786180BF348E90041F8FF /* libHalf.dylib */; };
-		57E347780C4A9005006AA781 /* Hugin.icns in Resources */ = {isa = PBXBuildFile; fileRef = 57114EA006BC2301004F4FA7 /* Hugin.icns */; };
-		57E347790C4A9005006AA781 /* HuginFiles.icns in Resources */ = {isa = PBXBuildFile; fileRef = 5702996D07F967CB00F1FF15 /* HuginFiles.icns */; };
 		57E34AAA0C4ACBD6006AA781 /* CommandHistory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57E331120C4A8859006AA781 /* CommandHistory.cpp */; };
 		57EA83A20C3A7AA900E4965E /* PanoramaAlgorithm.h in Headers */ = {isa = PBXBuildFile; fileRef = 57EA83A00C3A7AA900E4965E /* PanoramaAlgorithm.h */; };
 		57EA83A30C3A7AA900E4965E /* StitcherAlgorithm.h in Headers */ = {isa = PBXBuildFile; fileRef = 57EA83A10C3A7AA900E4965E /* StitcherAlgorithm.h */; };
@@ -879,6 +877,11 @@
 		7318CA67119D371100DBD6FD /* CalculateOverlap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7318CA65119D371100DBD6FD /* CalculateOverlap.cpp */; };
 		7318CA68119D371100DBD6FD /* CalculateOverlap.h in Headers */ = {isa = PBXBuildFile; fileRef = 7318CA64119D371100DBD6FD /* CalculateOverlap.h */; };
 		7318CA69119D371100DBD6FD /* CalculateOverlap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7318CA65119D371100DBD6FD /* CalculateOverlap.cpp */; };
+		731DBF0C129D839100793A38 /* Hugin.icns in Resources */ = {isa = PBXBuildFile; fileRef = 731DBF01129D835200793A38 /* Hugin.icns */; };
+		731DBF0D129D839100793A38 /* HuginFiles.icns in Resources */ = {isa = PBXBuildFile; fileRef = 731DBF02129D835200793A38 /* HuginFiles.icns */; };
+		731DBF10129D83C200793A38 /* Hugin.icns in Resources */ = {isa = PBXBuildFile; fileRef = 731DBF01129D835200793A38 /* Hugin.icns */; };
+		731DBF11129D83C200793A38 /* HuginFiles.icns in Resources */ = {isa = PBXBuildFile; fileRef = 731DBF02129D835200793A38 /* HuginFiles.icns */; };
+		731DBF1B129D847100793A38 /* PTBatcherGui.icns in Copy Resources Files */ = {isa = PBXBuildFile; fileRef = 731DBF1A129D846500793A38 /* PTBatcherGui.icns */; };
 		732534E0125E253400AF5B28 /* libboost_date_time.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73360A161247E32E009225D2 /* libboost_date_time.dylib */; };
 		732534E1125E253400AF5B28 /* libboost_filesystem.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E8A7DD3310FCA0AF00839DF3 /* libboost_filesystem.dylib */; };
 		732534E2125E253400AF5B28 /* libboost_iostreams.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 734BB03A1247A87C0062CF12 /* libboost_iostreams.dylib */; };
@@ -1301,8 +1304,6 @@
 		737E497D11D3FD74002BA8AE /* HuginBase.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 576900AA0D24D29300A6AD01 /* HuginBase.framework */; };
 		737E497E11D3FD74002BA8AE /* HuginBaseWx.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 576900E10D24D32C00A6AD01 /* HuginBaseWx.framework */; };
 		737E498011D3FD74002BA8AE /* align_image_stack in Copy Executable Files */ = {isa = PBXBuildFile; fileRef = 73E79F300D674EAC00C07126 /* align_image_stack */; };
-		737E498311D3FD74002BA8AE /* Hugin.icns in Resources */ = {isa = PBXBuildFile; fileRef = 57114EA006BC2301004F4FA7 /* Hugin.icns */; };
-		737E498411D3FD74002BA8AE /* HuginFiles.icns in Resources */ = {isa = PBXBuildFile; fileRef = 5702996D07F967CB00F1FF15 /* HuginFiles.icns */; };
 		737E498511D3FD74002BA8AE /* HuginStitchProject.app in Resources */ = {isa = PBXBuildFile; fileRef = 5769F6300D23825700A6AD01 /* HuginStitchProject.app */; };
 		7388EAFD0F6BFB1B001E08FA /* ResetDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7388EAFB0F6BFB1B001E08FA /* ResetDialog.cpp */; };
 		738A773E112B4508004E3612 /* MaskEditorPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 738A773A112B4507004E3612 /* MaskEditorPanel.cpp */; };
@@ -3298,6 +3299,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 7;
 			files = (
+				731DBF1B129D847100793A38 /* PTBatcherGui.icns in Copy Resources Files */,
 			);
 			name = "Copy Resources Files";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4060,6 +4062,9 @@
 		73138A2B1183358100DCF373 /* copyTools.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = copyTools.sh; sourceTree = "<group>"; };
 		7318CA64119D371100DBD6FD /* CalculateOverlap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CalculateOverlap.h; path = algorithms/basic/CalculateOverlap.h; sourceTree = "<group>"; };
 		7318CA65119D371100DBD6FD /* CalculateOverlap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CalculateOverlap.cpp; path = algorithms/basic/CalculateOverlap.cpp; sourceTree = "<group>"; };
+		731DBF01129D835200793A38 /* Hugin.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Hugin.icns; sourceTree = "<group>"; };
+		731DBF02129D835200793A38 /* HuginFiles.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = HuginFiles.icns; sourceTree = "<group>"; };
+		731DBF1A129D846500793A38 /* PTBatcherGui.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = PTBatcherGui.icns; sourceTree = "<group>"; };
 		7329278310E4A7AE00D3C8CB /* image_variables.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = image_variables.h; sourceTree = "<group>"; };
 		7329278410E4A7AE00D3C8CB /* ImageVariable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageVariable.h; sourceTree = "<group>"; };
 		7329278510E4A7AE00D3C8CB /* ImageVariableGroup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImageVariableGroup.cpp; sourceTree = "<group>"; };
@@ -6583,6 +6588,9 @@
 		57E330FE0C4A8859006AA781 /* hugin */ = {
 			isa = PBXGroup;
 			children = (
+				731DBF1A129D846500793A38 /* PTBatcherGui.icns */,
+				731DBF01129D835200793A38 /* Hugin.icns */,
+				731DBF02129D835200793A38 /* HuginFiles.icns */,
 				7340668D125BB2AF00FC4790 /* CPDetectorDialog.cpp */,
 				730B1AE81139B2B20014462B /* MaskLoadDialog.h */,
 				730B1AE91139B2B20014462B /* MaskLoadDialog.cpp */,
@@ -9585,8 +9593,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				57E347780C4A9005006AA781 /* Hugin.icns in Resources */,
-				57E347790C4A9005006AA781 /* HuginFiles.icns in Resources */,
+				731DBF0C129D839100793A38 /* Hugin.icns in Resources */,
+				731DBF0D129D839100793A38 /* HuginFiles.icns in Resources */,
 				5769F8940D23AB7300A6AD01 /* HuginStitchProject.app in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -9595,8 +9603,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				737E498311D3FD74002BA8AE /* Hugin.icns in Resources */,
-				737E498411D3FD74002BA8AE /* HuginFiles.icns in Resources */,
+				731DBF10129D83C200793A38 /* Hugin.icns in Resources */,
+				731DBF11129D83C200793A38 /* HuginFiles.icns in Resources */,
 				737E498511D3FD74002BA8AE /* HuginStitchProject.app in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

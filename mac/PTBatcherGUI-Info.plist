@@ -42,7 +42,7 @@
 	<key>CFBundleGetInfoString</key>
 	<string>Hugin ${HUGIN_PACKAGE_VERSION} (Mac)</string>
 	<key>CFBundleIconFile</key>
-	<string></string>
+	<string>PTBatcherGui.icns</string>
 	<key>CFBundleIdentifier</key>
 	<string>net.sourceforge.hugin.PTBatcherGUI</string>
 	<key>CFBundleInfoDictionaryVersion</key>
