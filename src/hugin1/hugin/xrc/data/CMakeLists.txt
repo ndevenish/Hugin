@@ -22,7 +22,7 @@ INSTALL(FILES ${CMAKE_BINARY_DIR}/src/hugin1/hugin/xrc/data/about.htm DESTINATIO
 INSTALL(FILES ${CMAKE_SOURCE_DIR}/COPYING DESTINATION ${HUGINDATADIR}/xrc/data/)
 
 IF (UNIX)
-  INSTALL(FILES hugin.png DESTINATION ${DATADIR}/pixmaps)
+  INSTALL(FILES hugin.png ptbatcher.png DESTINATION ${DATADIR}/pixmaps)
 ENDIF (UNIX)
 
 # install cursor on windows
