@@ -240,31 +240,25 @@ WINDOWS=1
 # Icon Hugin
 F="icon_hugin"
 O_WIN="src${S}hugin1${S}hugin${S}xrc${S}data${S}hugin.ico"
-O_MAC="mac${S}Hugin.icns"
+O_MAC="src${S}hugin1${S}hugin${S}Hugin.icns"
 O_LIN="src${S}hugin1${S}hugin${S}xrc${S}data${S}hugin.png"
 Iconify
-# extra Mac copy
-cp "${P}${O_MAC}" "${P}src${S}hugin1${S}hugin${S}Hugin.icns"
 # extra website copy
 cp "${P}src${S}hugin1${S}hugin${S}xrc${S}data${S}hugin.ico" "${P}website/favicon.ico"
 
 # icon PTBatcher
 F="icon_ptbatcher"
 O_WIN="src${S}hugin1${S}hugin${S}xrc${S}data${S}ptbatcher.ico"
-O_MAC="mac${S}PTBatcher.icns"
+O_MAC="src${S}hugin1${S}hugin${S}PTBatcherGui.icns"
 O_LIN="src${S}hugin1${S}hugin${S}xrc${S}data${S}ptbatcher.png"
 Iconify
-# extra Mac copy
-cp "${P}${O_MAC}" "${P}src${S}hugin1${S}hugin${S}PTBatcher.icns"
 
 # icon pto files
 F="icon_pto"
 O_WIN="src${S}hugin1${S}hugin${S}xrc${S}data${S}pto_icon.ico"
-O_MAC="mac${S}HuginFiles.icns"
+O_MAC="${P}src${S}hugin1${S}hugin${S}HuginFiles.icns"
 O_LIN="src${S}hugin1${S}hugin${S}xrc${S}data${S}pto_icon.png"
 Iconify
-# extra Mac copy
-cp "${P}${O_MAC}" "${P}src${S}hugin1${S}hugin${S}HuginFiles.icns"
 # extra Linux option for the gnome MIME type
 cp "./${SRC}/${F}.48.png" "${P}src${S}hugin1${S}hugin${S}gnome-mime-application-x-ptoptimizer-script.png"
 
