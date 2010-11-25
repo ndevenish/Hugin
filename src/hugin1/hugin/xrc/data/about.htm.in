@@ -13,7 +13,7 @@
       This list tries to be complete. If it is not, please accept our apology and help us
       completing it.
       </p>
-    <table><tr><td><b>Name</b></td><td><b>Contribution</b></td></tr><tr><td>${AUTHORS_LIST}</table>
+    <table><tr><td width="180"><b>Name</b></td><td><b>Contribution</b></td></tr><tr><td>${AUTHORS_LIST}</table>
 
 </font>
 
