@@ -29,7 +29,7 @@
 #                     the graphics artwork throughought the Hugin codebase
 # -----------------------------------------------------------------------------
 # dependencies
-# sudo apt-get install inkscape imagemagick icnsutils netpbm
+# sudo apt-get install inkscape imagemagick icnsutils netpbm gimp
 #
 # png2ico, written in 2002 and still going strong http://www.winterdrache.de/freeware/png2ico/
 #   wget http://www.winterdrache.de/freeware/png2ico/data/png2ico-src-2002-12-08.tar.gz
@@ -179,19 +179,11 @@ function Iconify {
 
   ## THE WINDOWS ICON ##
   if [ $WINDOWS -eq 1 ]; then
-    # intermediate icons with png2ico because I could not make ImageMagick work properly with
-    # color reduction and transparency (see ImageMagick commands below if you want to fix it)
-    local ICONV=""
-    for i in 48 32 16;
-    do
-      ICONV="${ICONV} ./${SRC}/${F}.${i}.png"
-      a="${i}"
-    done
-    # png2ico, written in 2002 and still going strong http://www.winterdrache.de/freeware/png2ico/
-    png2ico ./${SRC}/${F}.4.ico --colors 16 ${ICONV}
-    png2ico ./${SRC}/${F}.8.ico --colors 256 ${ICONV}
-    # all together now, with a 128x128 PNG for Vista/7
-    convert ./${SRC}/${F}.4.ico ./${SRC}/${F}.8.ico ./${SRC}/${F}.128.png ${P}${O_WIN}
+    # 4-bit icons and PNG compression are disabled since GIMP does not allow for save options to scripted
+	# sizes are defined in windows-icons-gimp.sh line 85; set number in line 107 to the number of sizes used above 48x48
+	# at prompt check the "Compressed (PNG)" box for the largest icon
+    local ICONV="./${SRC}/${F}.i.png"
+    . ./windows-icons-gimp.sh
   fi
 
   ## THE LINUX ICON ##
@@ -205,6 +197,23 @@ function Iconify {
     # generate the Mac icns file before adding to the list
     png2icns ${P}${O_MAC} ${CONV}
   fi
+
+  ## THE WINDOWS ICON WITH PNG2ICO ##
+#  if [ $WINDOWS -eq 1 ]; then
+    # intermediate icons with png2ico because I could not make ImageMagick work properly with
+    # color reduction and transparency (see ImageMagick commands below if you want to fix it)
+#    local ICONV=""
+#    for i in 48 32 16;
+#    do
+#      ICONV="${ICONV} ./${SRC}/${F}.${i}.png"
+#      a="${i}"
+#    done
+    # png2ico, written in 2002 and still going strong http://www.winterdrache.de/freeware/png2ico/
+#    png2ico ./${SRC}/${F}.4.ico --colors 16 ${ICONV}
+#    png2ico ./${SRC}/${F}.8.ico --colors 256 ${ICONV}
+    # all together now, with a 128x128 PNG for Vista/7
+#    convert ./${SRC}/${F}.4.ico ./${SRC}/${F}.8.ico ./${SRC}/${F}.128.png ${P}${O_WIN}
+#  fi
 
   ## THE WINDOW ICON WITH IMAGEMAGICK ##
   ## TODO: debug to reduce dependencies
