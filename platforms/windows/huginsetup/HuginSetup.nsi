@@ -8,11 +8,9 @@
 
   ; Default installation folder
   InstallDir "@WINDOWS_INSTALL_DIRECTORY@"
-
-  ;Default installation folder (todo: with CMAKE)
-  ;InstallDir "$PROGRAMFILES\Hugin"
+  ;InstallDir "$PROGRAMFILES\Hugin" ;for 32bit
   ; or
-  ; InstallDir "$PROGRAMFILES64\Hugin"
+  ; InstallDir "$PROGRAMFILES64\Hugin" ;for 64bit
 
   ; Development version warning toggle
   !define DEV_WARNING_TOGGLE "@DEV_WARNING_TOGGLE@"

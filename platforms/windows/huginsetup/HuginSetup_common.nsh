@@ -21,9 +21,9 @@
   
   ;Name and file
   Name "Hugin ${HUGIN_VERSION}"
-  BrandingText "Hugin Setup - by thePanz"
+  BrandingText "Hugin Setup"
   
-  OutFile "HuginSetup_${HUGIN_VERSION}-${HUGIN_VERSION_BUILD}_x${ARCH_TYPE}.exe"
+  OutFile "HuginSetup_${HUGIN_VERSION}-${HUGIN_VERSION_BUILD}_${ARCH_TYPE}bit.exe"
   SetCompressor lzma
     
   ;Get installation folder from registry if available
@@ -181,17 +181,17 @@ SectionGroup /e $(TEXT_SecShortcuts) SecShortcuts
 SectionGroupEnd
 
 ; Grouping ControlPoint Generators
-SectionGroup /e $(TEXT_SecCPGenerators) SecCPGenerators
+;SectionGroup /e $(TEXT_SecCPGenerators) SecCPGenerators
 
   ; External upgradable CP generators download and setup  
-  !include "CPGenerators\Match-n-shift.nsh"
-  !include "CPGenerators\Autopano-sift-c.nsh"
-  !include "CPGenerators\Autopano-sift-c-lemur.nsh"
-  !include "CPGenerators\Autopano-sift-jenny.nsh"
+;  !include "CPGenerators\Match-n-shift.nsh"
+;  !include "CPGenerators\Autopano-sift-c.nsh"
+;  !include "CPGenerators\Autopano-sift-c-lemur.nsh"
+;  !include "CPGenerators\Autopano-sift-jenny.nsh"
   ; !include "CPGenerators\Autopano-sift-nowozin.nsh"
-  !include "CPGenerators\Panomatic.nsh"  
+;  !include "CPGenerators\Panomatic.nsh"  
   
-SectionGroupEnd
+;SectionGroupEnd
 
 ;--------------------------------
 ;Descriptions  
@@ -265,7 +265,7 @@ SectionEnd
   VIProductVersion ${VERSION}
   VIAddVersionKey /LANG=${LANG_ENGLISH} "ProductName" "Hugin ${HUGIN_VERSION}-${HUGIN_VERSION_BUILD}"
   VIAddVersionKey /LANG=${LANG_ENGLISH} "FileVersion" ${VERSION}
-  VIAddVersionKey /LANG=${LANG_ENGLISH} "FileDescription" "Hugin Setup - by thePanz"
+  VIAddVersionKey /LANG=${LANG_ENGLISH} "FileDescription" "Hugin Setup"
   VIAddVersionKey /LANG=${LANG_ENGLISH} "LegalCopyright" ""
 
 ;Function that calls a messagebox when installation finished correctly
