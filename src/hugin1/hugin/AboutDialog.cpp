@@ -35,6 +35,7 @@
 
 BEGIN_EVENT_TABLE(AboutDialog, wxDialog)
     EVT_BUTTON(XRCID("about_me"), AboutDialog::OnAboutMe)
+    EVT_NOTEBOOK_PAGE_CHANGED(XRCID("about_notebook"), AboutDialog::OnChangedTab)
 END_EVENT_TABLE()
 
 
@@ -71,7 +72,7 @@ AboutDialog::AboutDialog(wxWindow *parent)
 
     // Version
     XRCCTRL(*this,"about_version", wxTextCtrl)->ChangeValue(wxString(DISPLAY_VERSION, wxConvLocal));
-
+  
 	#ifdef __WXMAC__
 		wxFont font(10, wxFONTFAMILY_TELETYPE, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL);
 	#else
@@ -103,6 +104,11 @@ AboutDialog::AboutDialog(wxWindow *parent)
 	textCtrl->LoadFile(strFile);
     GetSystemInformation(&font);
 
+    // the notebook
+    m_about_notebook = XRCCTRL(*this,"about_dlg",wxNotebook);
+    // the logo
+    m_logoImgCtrl = XRCCTRL(*this, "about_logo", wxStaticBitmap);
+    
     // load the appropriate icon (.ico for Windows, .png for other systems)
 #ifdef __WXMSW__
     wxIcon myIcon(huginApp::Get()->GetXRCPath() + wxT("data/hugin.ico"),wxBITMAP_TYPE_ICO);
@@ -184,3 +190,37 @@ void AboutDialog::GetSystemInformation(wxFont *font)
     text=text+wxT("\n")+wxString::Format(_("Path to data: %s"),huginApp::Get()->GetDataPath().c_str());
     infoText->SetValue(text);
 }
+
+void AboutDialog::OnChangedTab(wxNotebookEvent &e)
+{
+    // determine which tab is currently visible
+    if(m_mode!=-1)
+        SetMode(e.GetSelection());
+};
+
+void AboutDialog::SetMode(int newMode)
+{
+    if(m_mode==newMode){
+        return;
+    }
+    if((newMode!=6)&&(m_mode!=6)){
+        m_mode=newMode;
+        return;
+    }
+    if(newMode==6){
+        m_logo.LoadFile(huginApp::Get()->GetXRCPath() +
+                        wxT("data/") + wxT("milko.png"),
+                        wxBITMAP_TYPE_PNG);
+        m_logoImgCtrl->SetBitmap(m_logo);
+        m_mode=newMode;
+        return;
+    }
+    if(m_mode==6){
+        m_logo.LoadFile(huginApp::Get()->GetXRCPath() +
+                        wxT("data/") + wxT("logo.png"),
+                        wxBITMAP_TYPE_PNG);
+        m_logoImgCtrl->SetBitmap(m_logo);
+        m_mode=newMode;
+        return;
+    }
+};
