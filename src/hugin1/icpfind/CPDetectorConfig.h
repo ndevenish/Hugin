@@ -132,8 +132,11 @@ public:
     CPDetectorConfig() {};
     /** destructor */
     virtual ~CPDetectorConfig() {};
-    /** read the settings of different cp generators from config */
-    void Read(wxConfigBase* config=wxConfigBase::Get());
+    /** read the settings of different cp generators from config 
+     *  @param config wxConfigBase, from which the settings are loaded, if empty the default wxConfigBase is used 
+     *  @param loadFromFile file, from which the settings are loaded, if no settings are stored by hugin itself
+     */
+    void Read(wxConfigBase* config=wxConfigBase::Get(),wxString loadFromFile=wxEmptyString);
     /** writes the settings of different cp generators to config */
     void Write(wxConfigBase* config=wxConfigBase::Get());
     /** import the cp detector settings from external file */

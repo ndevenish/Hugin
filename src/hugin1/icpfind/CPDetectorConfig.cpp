@@ -40,7 +40,7 @@ wxString default_cpgenerator_prog(wxT("cpfind"));
 /** arguments for default cp generator, for fall back procedure */
 wxString default_cpgenerator_args(wxT("-o %o %s"));
 
-void CPDetectorConfig::Read(wxConfigBase *config)
+void CPDetectorConfig::Read(wxConfigBase *config,wxString loadFromFile)
 {
     settings.Clear();
     int count=config->Read(wxT("/AutoPano/AutoPanoCount"),0l);
@@ -51,15 +51,31 @@ void CPDetectorConfig::Read(wxConfigBase *config)
             ReadIndex(config, i);
     };
     if(settings.GetCount()==0)
-        ResetToDefault();
+    {
+        if(loadFromFile.IsEmpty())
+        {
+            ResetToDefault();
+        }
+        else
+        {
+            ReadFromFile(loadFromFile);
+        };
+    };
     if(default_generator>=settings.GetCount())
         default_generator=0;
 };
 
 void CPDetectorConfig::ReadFromFile(wxString filename)
 {
-    wxFileConfig fconfig(wxT("hugin"),wxEmptyString,filename);
-    Read(&fconfig);
+    if(wxFile::Exists(filename))
+    {
+        wxFileConfig fconfig(wxT("hugin"),wxEmptyString,filename);
+        Read(&fconfig);
+    }
+    else
+    {
+        ResetToDefault();
+    };
 };
 
 void CPDetectorConfig::ReadIndex(wxConfigBase *config, int i)
