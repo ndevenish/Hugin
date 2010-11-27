@@ -204,7 +204,7 @@ void AddLabelToBitmapButton(wxBitmapButton* button, wxString new_label,bool Text
     button->Refresh();
 };
 
-#define PF_STYLE (wxMAXIMIZE_BOX | wxRESIZE_BORDER | wxSYSTEM_MENU | wxCAPTION | wxCLOSE_BOX | wxCLIP_CHILDREN)
+#define PF_STYLE (wxMAXIMIZE_BOX | wxMINIMIZE_BOX | wxRESIZE_BORDER | wxSYSTEM_MENU | wxCAPTION | wxCLOSE_BOX | wxCLIP_CHILDREN)
 #include <iostream>
 GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     : wxFrame(frame,-1, _("Fast Panorama preview"), wxDefaultPosition, wxDefaultSize,
