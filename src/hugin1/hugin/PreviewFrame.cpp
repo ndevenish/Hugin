@@ -111,7 +111,7 @@ BEGIN_EVENT_TABLE(PreviewFrame, wxFrame)
     EVT_BUTTON(PROJ_PARAM_RESET_ID, PreviewFrame::OnProjParameterReset)
 END_EVENT_TABLE()
 
-#define PF_STYLE (wxMAXIMIZE_BOX | wxRESIZE_BORDER | wxSYSTEM_MENU | wxCAPTION | wxCLOSE_BOX | wxCLIP_CHILDREN)
+#define PF_STYLE (wxMAXIMIZE_BOX | wxMINIMIZE_BOX | wxRESIZE_BORDER | wxSYSTEM_MENU | wxCAPTION | wxCLOSE_BOX | wxCLIP_CHILDREN)
 
 PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
     : wxFrame(frame,-1, _("Panorama preview"), wxDefaultPosition, wxDefaultSize,
