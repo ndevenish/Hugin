@@ -669,7 +669,6 @@ void CPImageCtrl::setImage(const std::string & file, ImageRotation imgRot)
     } else {
         editState = NO_IMAGE;
         bitmap = wxBitmap();
-        SetSizeHints(0,0,0,0,1,1);
         // delete the image (release shared_ptr)
         // create an empty image.
         m_img = ImageCache::EntryPtr(new ImageCache::Entry);
