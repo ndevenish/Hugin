@@ -500,7 +500,6 @@ void ImagesPanel::ListSelectionChanged(wxListEvent & e)
             // multiselection, clear all values
             // we don't know which images parameters to show.
             ClearImgParameters();
-            ClearImgExifInfo();
             m_optAnchorButton->Disable();
             m_colorAnchorButton->Disable();
             m_moveDownButton->Disable();
