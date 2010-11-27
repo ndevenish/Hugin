@@ -16,7 +16,7 @@ project(hugin)
 
 # version
 set(V_MAJOR 2010)
-set(V_MINOR 5)
+set(V_MINOR 4)
 set(V_PATCH 0)
 
 #
@@ -407,10 +407,10 @@ ELSE (UNIX)
         MESSAGE(STATUS "NSIS not found")
       ENDIF(NSIS_FOUND)
       IF(CMAKE_SIZEOF_VOID_P EQUAL 4) #32bit
-        ADD_CUSTOM_TARGET(HuginSetup COMMAND ${7ZA} a hugin_bin32 FILES/bin COMMAND ${7ZA} a hugin_share32 FILES/share COMMAND ${7ZA} a hugin_doc FILES/doc COMMAND ${MAKENSIS_EXECUTABLE} HuginSetup.nsi WORKING_DIRECTORY ${CMAKE_INSTALL_PREFIX}/../)
+        ADD_CUSTOM_TARGET(HuginSetup COMMAND ${7ZA} a hugin_bin32 bin & move /Y hugin_bin32.7z ${CMAKE_INSTALL_PREFIX}/../ COMMAND ${7ZA} a hugin_share32 share & move /Y hugin_share32.7z ${CMAKE_INSTALL_PREFIX}/../ COMMAND ${7ZA} a hugin_doc doc & move /Y hugin_doc.7z ${CMAKE_INSTALL_PREFIX}/../ COMMAND cd .. & ${MAKENSIS_EXECUTABLE} HuginSetup.nsi WORKING_DIRECTORY ${CMAKE_INSTALL_PREFIX})
       ENDIF(CMAKE_SIZEOF_VOID_P EQUAL 4)
       IF(CMAKE_SIZEOF_VOID_P EQUAL 8) #64bit
-        ADD_CUSTOM_TARGET(HuginSetup COMMAND ${7ZA} a hugin_bin64 FILES/bin COMMAND ${7ZA} a hugin_share64 FILES/share COMMAND ${7ZA} a hugin_doc FILES/doc COMMAND ${MAKENSIS_EXECUTABLE} HuginSetup.nsi WORKING_DIRECTORY ${CMAKE_INSTALL_PREFIX}/../)
+        ADD_CUSTOM_TARGET(HuginSetup COMMAND ${7ZA} a hugin_bin64 bin & move /Y hugin_bin64.7z ${CMAKE_INSTALL_PREFIX}/../ COMMAND ${7ZA} a hugin_share64 share & move /Y hugin_share64.7z ${CMAKE_INSTALL_PREFIX}/../ COMMAND ${7ZA} a hugin_doc doc & move /Y hugin_doc.7z ${CMAKE_INSTALL_PREFIX}/../ COMMAND cd .. & ${MAKENSIS_EXECUTABLE} HuginSetup.nsi WORKING_DIRECTORY ${CMAKE_INSTALL_PREFIX})
       ENDIF(CMAKE_SIZEOF_VOID_P EQUAL 8)
     ENDIF(BUILD_HUGINSETUP)
   ENDIF(WIN32)

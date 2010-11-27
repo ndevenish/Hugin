@@ -17,7 +17,7 @@
   !define HUGIN_DOC_SIZE 400 ; .7z file - difference
 
   ; General CP Disclaimer
-  !define CP_LICENSE_DISCLAIMER $(License_ControlPointDisclaimer)
+  ;!define CP_LICENSE_DISCLAIMER $(License_ControlPointDisclaimer)
   
   ;Name and file
   Name "Hugin ${HUGIN_VERSION}"
@@ -68,11 +68,11 @@
   !insertmacro MUI_PAGE_COMPONENTS
   
   ; Additional license agreement
-  !define MUI_PAGE_HEADER_TEXT $(TEXT_ControlPointDisclaimerTitle)
-  !define MUI_PAGE_HEADER_SUBTEXT $(TEXT_ControlPointDisclaimerText)
-  !define MUI_LICENSEPAGE_TEXT_BOTTOM  $(TEXT_ControlPointDisclaimerBottom)
-  !define MUI_PAGE_CUSTOMFUNCTION_PRE skipControlPointsDisclaimer
-  !insertmacro MUI_PAGE_LICENSE ${CP_LICENSE_DISCLAIMER}
+  ;!define MUI_PAGE_HEADER_TEXT $(TEXT_ControlPointDisclaimerTitle)
+  ;!define MUI_PAGE_HEADER_SUBTEXT $(TEXT_ControlPointDisclaimerText)
+  ;!define MUI_LICENSEPAGE_TEXT_BOTTOM  $(TEXT_ControlPointDisclaimerBottom)
+  ;!define MUI_PAGE_CUSTOMFUNCTION_PRE skipControlPointsDisclaimer
+  ;!insertmacro MUI_PAGE_LICENSE ${CP_LICENSE_DISCLAIMER}
   
   !insertmacro MUI_PAGE_DIRECTORY
   !insertmacro MUI_PAGE_INSTFILES
@@ -124,7 +124,7 @@ Section "!Hugin ${HUGIN_VERSION}-${HUGIN_VERSION_BUILD}" SecHugin
   ; register .pto files with hugin
   WriteRegStr HKCR ".pto" "" "HuginProject"
   WriteRegStr HKCR "HuginProject" "" "Hugin PTO"
-  WriteRegStr HKCR "HuginProject\DefaultIcon" "" "$INSTDIR\share\hugin\xrc\data\hugin-pto-icon.ico,0"
+  WriteRegStr HKCR "HuginProject\DefaultIcon" "" "$INSTDIR\share\hugin\xrc\data\pto_icon.ico,0"
   
   Call WriteUninstallRegistry
   
