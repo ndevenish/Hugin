@@ -184,4 +184,32 @@ private:
 
 DECLARE_APP(huginApp)
 
+class MyHTML: public wxHtmlWindow
+{
+   public:
+     MyHTML(){}
+     /*! The constructor must match the signature from wxPanel. */
+     // ID_CustomPanel must be the name attribte in the XRC file
+     MyHTML(wxWindow * parent, wxWindowID id = XRCID("dedication_html"),
+             const wxPoint & pos = wxDefaultPosition,
+             const wxSize & size = wxDefaultSize,
+             long style = wxHW_DEFAULT_STYLE)
+       {
+          Create(parent, id, pos, size, style);
+       }
+
+     /*! The Create() function must also match the base class' signature. */
+     bool Create(wxWindow * parent, wxWindowID id = XRCID("dedication_html"),
+                 const wxPoint & pos = wxDefaultPosition,
+                 const wxSize & size = wxDefaultSize,
+                 long style = wxHW_DEFAULT_STYLE);
+
+     void OnLinkClicked(const wxHtmlLinkInfo&);
+     
+   private:
+     /*! This part is ESSENTIAL! */
+     DECLARE_DYNAMIC_CLASS(MyHTML)
+     DECLARE_EVENT_TABLE()
+};
+
 #endif // _HUGINAPP_H

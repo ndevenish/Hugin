@@ -596,3 +596,29 @@ void StoreFramePosition(wxTopLevelWindow * frame, const wxString & basename)
     }
 #endif
 }
+
+IMPLEMENT_DYNAMIC_CLASS(MyHTML, wxHtmlWindow)
+
+ BEGIN_EVENT_TABLE(MyHTML, wxHtmlWindow)
+ // Add event tables here
+ END_EVENT_TABLE()
+
+ bool MyHTML::Create(wxWindow * parent, wxWindowID id,
+                 const wxPoint & pos,
+                 const wxSize & size,
+                 long style)
+ {
+   SetParent(parent);
+   wxXmlResource::Get()->LoadPanel(this, GetParent(), _T("dedication_html"));
+   GetSizer()->Fit(this);
+
+   return true;
+ }
+
+void MyHTML::OnLinkClicked(const wxHtmlLinkInfo& link)
+{
+  if (link.GetHref().StartsWith(_T("http://")))
+    wxLaunchDefaultBrowser(link.GetHref());
+  else
+    wxHtmlWindow::OnLinkClicked(link);
+}
