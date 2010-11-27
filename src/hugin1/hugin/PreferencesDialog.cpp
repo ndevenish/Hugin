@@ -663,15 +663,7 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
         if (noteb->GetSelection() == 3) {
             /////
             /// AUTOPANO
-            wxString default_cpg_file=huginApp::Get()->GetDataPath()+wxT("default.setting");
-            if(wxFileName::FileExists(default_cpg_file))
-            {
-                cpdetector_config_edit.ReadFromFile(default_cpg_file);
-            }
-            else
-            {
-                cpdetector_config_edit.ResetToDefault();
-            };
+            cpdetector_config_edit.ReadFromFile(huginApp::Get()->GetDataPath()+wxT("default.setting"));
             cpdetector_config_edit.Write(cfg);
         }
         if (noteb->GetSelection() == 4) {

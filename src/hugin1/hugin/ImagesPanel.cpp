@@ -185,7 +185,7 @@ bool ImagesPanel::Create(wxWindow *parent, wxWindowID id, const wxPoint& pos, co
     wxConfigBase* config=wxConfigBase::Get();
     m_degDigits = config->Read(wxT("/General/DegreeFractionalDigitsEdit"),3);
     //read autopano generator settings
-    cpdetector_config.Read(config);
+    cpdetector_config.Read(config,huginApp::Get()->GetDataPath()+wxT("default.setting"));
     //write current autopano generator settings
     cpdetector_config.Write(config);
     config->Flush();
