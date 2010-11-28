@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="Content-Style-Type" content="text/css" />
+		<meta name="generator" content="MediaWiki 1.14.0" />
+		<meta name="keywords" content="Hugin stitch project,Hugin Preferences,Pto2mk" />
+		
+		
+		
+		
+		
+		
+		<title>Hugin stitch project - PanoTools.org Wiki</title>
+		
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		
+		
+		
+		
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+
+		
+
+		
+		<!-- Head Scripts -->
+		
+				
+	</head>
+<body class="mediawiki ltr ns-0 ns-subject page-Hugin_stitch_project skin-monobook">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 id="firstHeading" class="firstHeading">Hugin stitch project</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<p><b>Hugin_stitch_project</b> stitches a Hugin project file. It provides an GUI interface to select the project file and to select the output folder and output prefix. The project file and the output folder/prefix can also be specified on the command line
+</p>
+<pre>   hugin_stitch_project --output=path/to/output/prefix project.pto
+</pre>
+<p>If you don't need the project file after stitching it can be deleted automatic at the end of the stitching with the switch --delete.
+</p><p>Internal it creates a temporary makefile for stitching and executes the makefile with make. If you need this functionality without a GUI you can use the following commands on the command line
+</p>
+<pre>    pto2mk -o makefile.mk -p prefix project.pto
+    make -f makefile.mk all
+</pre>
+<p><b>Hugin_stitch_project</b> makes use of specified alternative programs for enblend and enfuse and their default command line switches. <a href="Pto2mk.html" title="Pto2mk">pto2mk</a> can not read the <a href="Hugin_Preferences.html" title="Hugin Preferences">Hugin Preferences</a> and does not use the specifed alternative programs.
+</p>
+
+
+
+<div class="printfooter">
+Retrieved from "<a href="Hugin_stitch_project.html">http://wiki.panotools.org/Hugin_stitch_project</a>"</div>
+			</div></div></div></div></body></html>
