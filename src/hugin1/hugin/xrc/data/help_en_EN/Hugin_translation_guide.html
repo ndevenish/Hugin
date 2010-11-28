@@ -270,7 +270,7 @@ hg up -c
 <a name="Adding_new_strings" id="Adding_new_strings"></a><h3> <span class="mw-headline"> Adding new strings </span></h3>
 <p>After adding new strings, translators need to find them in the .pot and .po files otherwise they won't get translated.
 </p><p>Hugin has a script to extract the messages from both the .xrc files and the .cpp source code and insert them into the hugin.pot and .po files.  New strings are added and unused strings are marked as obsolete.
-</p><p>Before running the script, make sure you have wxrc installed. On Ubuntu, run <code>sudo apt-get install wxrc</code>
+</p><p>Before running the script, make sure you have wxrc installed. On older Ubuntu, run <code>sudo apt-get install wxrc</code>.  On Ubuntu 10.4 it is <code>sudo apt-get install wx-common</code>.
 </p><p>Then, add the new strings:
 </p>
 <pre>

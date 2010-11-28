@@ -73,6 +73,7 @@ Hugin_Preferences
 Hugin_Preview_window
 Hugin_Reset_Values_window
 Hugin_Stitcher_tab
+Hugin_stitch_project
 Hugin_Trackers
 Hugin_translation_guide
 Interpolation

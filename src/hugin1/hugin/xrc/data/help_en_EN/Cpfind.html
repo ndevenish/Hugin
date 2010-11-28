@@ -112,14 +112,18 @@ If you want to save them to annother directory use the --keypath switch.
 </p><p>--sieve1size &lt;int&gt;            Sieve 1: Max points per bucket (default: 30)
 </p><p>--kdtreesteps &lt;int&gt;           KDTree: search steps (default: 40)
 </p><p>--kdtreeseconddist &lt;double&gt;   KDTree: distance of 2nd match (default: 0.15)
+</p><p><b>Cpfind</b> stores maximal sieve1width * sieve1height * sieve1size keypoints per image. If you have only a small overlap, e.g. for 360 degree panorama shoot with fisheye images, you can get better results if you increase sizeve1size. You can also try to increase sieve1width and/or sieve1height.
 </p>
 <a name="Feature_matching" id="Feature_matching"></a><h2> <span class="mw-headline"> Feature matching </span></h2>
 <p>Fine-tuning of the matching step by the following parameters:
 </p><p>--ransaciter &lt;int&gt;            Ransac: iterations (default: 1000)
 </p><p>--ransacdist &lt;int&gt;            Ransac: homography estimation distance threshold (pixels) (default: 25)
+</p><p>--minmatches &lt;int&gt;            Minimum matches (default: 4)
 </p><p>--sieve2width &lt;int&gt;           Sieve 2: Number of buckets on width (default: 5)
 </p><p>--sieve2height &lt;int&gt;          Sieve 2: Number of buckets on height (default: 5)
 </p><p>--sieve2size &lt;int&gt;            Sieve 2: Max points per bucket (default: 2)
+</p><p><b>Cpfind</b> generates between minmatches and sieve2width * sieve2height * sieve2size control points between an image pair. (Default setting is between 4 and 50 (=5*5*2) control points per image pair.) 
+If less then minmatches control points are found for a given image pairs these control points are disregarded and this image pair is considers as not connected. For narrow overlaps you can try to decrease minmatches, but this increases the risk of getting wrong control points.
 </p>
 
 
