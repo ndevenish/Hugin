@@ -19,7 +19,7 @@
         </object>
         <object class="wxMenuItem" name="menu_searchpano">
           <label>Images</label>
-          <help>Searches in directories after suitable panorams from image files</help>
+          <help>Searches in directories for image files suitable for panoramas</help>
         </object>
         <help>Searches in directories for existing projects or for images</help>
       </object>

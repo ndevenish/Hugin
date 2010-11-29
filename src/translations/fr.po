@@ -9,14 +9,14 @@ msgstr ""
 "Project-Id-Version: Hugin 2010.4\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2010-11-27 11:26+0100\n"
+"POT-Creation-Date: 2010-11-29 20:24+0100\n"
 "PO-Revision-Date: 2010-11-27 15:38+0100\n"
 "Last-Translator: Jean-Luc Coulon <jean-luc.coulon@wanadoo.fr>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Lokalize 1.0\n"
 
@@ -75,7 +75,7 @@ msgstr ""
 #: hugin1/hugin/GLPreviewFrame.cpp:905 hugin1/hugin/GLPreviewFrame.cpp:912
 #: hugin1/hugin/GLPreviewFrame.cpp:919 hugin1/hugin/GLPreviewFrame.cpp:931
 #: hugin1/hugin/GLPreviewFrame.cpp:938 hugin1/hugin/GLPreviewFrame.cpp:945
-#: hugin1/hugin/MainFrame.cpp:625 hugin1/hugin/PreferencesDialog.cpp:850
+#: hugin1/hugin/MainFrame.cpp:625 hugin1/hugin/PreferencesDialog.cpp:842
 #: hugin1/ptbatcher/FindPanoDialog.cpp:219
 #: hugin1/ptbatcher/FindPanoDialog.cpp:238
 msgid "Warning"
@@ -481,8 +481,8 @@ msgid ""
 "Point finetuned, angle: %.0f deg, correlation coefficient: %0.3f, curvature: "
 "%0.3f %0.3f "
 msgstr ""
-"Point ajusté précisément, angle : %.0f deg, coefficient de corrélation : "
-"%0.3f, courbure %0.3f %0.3f"
+"Point ajusté précisément, angle : %.0f deg, coefficient de corrélation : %"
+"0.3f, courbure %0.3f %0.3f"
 
 #: hugin1/hugin/CPEditorPanel.cpp:797 hugin1/hugin/CPEditorPanel.cpp:927
 msgid "change points, or press right mouse button to add the pair"
@@ -631,7 +631,7 @@ msgstr "Ajuster précisément les points de contrôle"
 msgid "new"
 msgstr "nouveau"
 
-#: hugin1/hugin/CPImageCtrl.cpp:1197
+#: hugin1/hugin/CPImageCtrl.cpp:1196
 msgid "Could not process event!"
 msgstr "Impossible de traiter l'événement !"
 
@@ -1428,8 +1428,8 @@ msgid ""
 "Hugin can not work with these filenames. Please rename your file(s) and try "
 "again."
 msgstr ""
-"Les noms de fichier contiennent l'un des caractères non valable suivants :"
-"%s\n"
+"Les noms de fichier contiennent l'un des caractères non valable suivants :%"
+"s\n"
 "Hugin ne peut pas utiliser ces noms de fichiers. Veuillez renommer vos "
 "fichiers et réessayer."
 
@@ -2006,15 +2006,15 @@ msgstr ""
 msgid "Load Defaults"
 msgstr "Charger les valeurs par défaut"
 
-#: hugin1/hugin/PreferencesDialog.cpp:831
+#: hugin1/hugin/PreferencesDialog.cpp:823
 msgid "Please select an entry first"
 msgstr "Veuillez d'abord sélectionner une entrée"
 
-#: hugin1/hugin/PreferencesDialog.cpp:831
+#: hugin1/hugin/PreferencesDialog.cpp:823
 msgid "Select Entry"
 msgstr "Choisir un entrée"
 
-#: hugin1/hugin/PreferencesDialog.cpp:850
+#: hugin1/hugin/PreferencesDialog.cpp:842
 msgid ""
 "You can't delete the last setting.\n"
 "At least one setting is required."
@@ -2022,27 +2022,27 @@ msgstr ""
 "Vous ne pouvez supprimer le dernier paramètre.\n"
 "Il faut au moins un paramètre."
 
-#: hugin1/hugin/PreferencesDialog.cpp:854
+#: hugin1/hugin/PreferencesDialog.cpp:846
 #, c-format
 msgid "Do you really want to remove control point detector setting \"%s\"?"
 msgstr ""
 "Voulez-vous vraiment supprimer le paramètre « %s » du détecteur de points de "
 "contrôle ?"
 
-#: hugin1/hugin/PreferencesDialog.cpp:855
+#: hugin1/hugin/PreferencesDialog.cpp:847
 msgid "Delete control point detector setting"
 msgstr "Supprimer le paramètre du détecteur de points de contrôle"
 
-#: hugin1/hugin/PreferencesDialog.cpp:908
+#: hugin1/hugin/PreferencesDialog.cpp:900
 msgid "Load control point detector settings"
 msgstr "Charger les paramètres du détecteur de points de contrôle"
 
-#: hugin1/hugin/PreferencesDialog.cpp:910
-#: hugin1/hugin/PreferencesDialog.cpp:925
+#: hugin1/hugin/PreferencesDialog.cpp:902
+#: hugin1/hugin/PreferencesDialog.cpp:917
 msgid "Control point detector settings (*.setting)|*.setting"
 msgstr "Paramètres du détecteur de points de contrôle (*.setting)|*.setting"
 
-#: hugin1/hugin/PreferencesDialog.cpp:923
+#: hugin1/hugin/PreferencesDialog.cpp:915
 msgid "Save control point detector settings"
 msgstr "Enregistrer les paramètres du détecteur de points de contrôle"
 
@@ -2381,7 +2381,7 @@ msgstr ""
 "\n"
 " Impossible d'exécuter la commande : %s"
 
-#: hugin1/icpfind/CPDetectorConfig.cpp:120
+#: hugin1/icpfind/CPDetectorConfig.cpp:136
 msgid "Default"
 msgstr "Valeur par défaut"
 
@@ -3114,7 +3114,8 @@ msgid "Images"
 msgstr "Images"
 
 #: translations/xrc.cpp:74 xrc.cpp:74
-msgid "Searches in directories after suitable panorams from image files"
+#, fuzzy
+msgid "Searches in directories for image files suitable for panoramas"
 msgstr ""
 "Recherche dans les répertoires de panoramas possibles à partir de fichiers "
 "d'images"
@@ -5767,8 +5768,8 @@ msgstr ""
 #: hugin1/hugin/xrc/data/tips.txt:27
 msgid "Press \"0\" in the control points tab to zoom out to full view."
 msgstr ""
-"Presser « 0 » dans l'onglet des points de contrôle effectuera un zoom vers "
-"la vue complète."
+"Presser « 0 » dans l'onglet des points de contrôle effectuera un zoom vers la "
+"vue complète."
 
 #: hugin1/hugin/xrc/data/tips.txt:28
 msgid "Press \"1\" in the control points tab to zoom out to 100% view."
