@@ -1,5 +1,5 @@
 [AutoPano]
-AutoPanoCount=7
+AutoPanoCount=8
 Default=0
 
 [AutoPano/AutoPano_0]
@@ -39,6 +39,17 @@ Program=align_image_stack.exe
 Arguments=-f %v -v -p %o %i
 
 [AutoPano/AutoPano_6]
+Type=2
+Description=Cpfind (multirow/stacked)
+Program=cpfind.exe
+Arguments=-o %o --multirow %s
+ProgramMatcher=
+ArgumentsMatcher=
+ProgramStack=align_image_stack.exe
+ArgumentsStack=-f %v -v -p %o %i
+Option=1
+
+[AutoPano/AutoPano_7]
 Type=4
 Description=Autopano-SIFT-C (multirow/stacked)
 Program=generatekeys.exe
