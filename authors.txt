@@ -36,6 +36,7 @@ Lukáš Jirkovský	GSoC 2009 deghosting in enfuse
 Allard Katan	Windows installer
 Guido Kohlmeyer	German translation, Windows SDK, bug fixes
 Erik Krause	Enfuse and enblend droplets for Windows
+Uwe Koch Kronberg	Spanish translation
 Marco Kuder	GSoC 2008 batch processor
 Höss Lajos	Hungarian translation
 Rick Langford	Traditional Chinese original translation and updates
