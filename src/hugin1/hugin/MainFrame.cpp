@@ -744,9 +744,6 @@ void MainFrame::LoadProjectFile(const wxString & filename)
             break;
     }
 
-    // force TIFF_m output
-    opts.outputFormat = PanoramaOptions::TIFF_m;
-
     pano.clearDirty();
 
     // force update of preview window
