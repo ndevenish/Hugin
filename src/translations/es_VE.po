@@ -1,4 +1,3 @@
-ME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Pablo dAngelo
 # This file is distributed under the same license as the PACKAGE package.
 #
@@ -256,7 +255,7 @@ msgstr "Error durante el empalme"
 msgid ""
 "Error while running assistant\n"
 "%s"
-msgstr "Error al correr el asistente\n"
+msgstr "Error al correr el asistente\n%s"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:354
 #: hugin1/base_wx/RunStitchPanel.cpp:362
@@ -409,7 +408,7 @@ msgstr "Usando Autopano-Sift en su lugar"
 msgid ""
 "At least one input field is empty.\n"
 "Please check your inputs."
-msgstr "Al menos un campo de entrada está vacío.\Por favor, compruebe sus datos."
+msgstr "Al menos un campo de entrada está vacío.\nPor favor, compruebe sus datos."
 
 #: hugin1/hugin/CPDetectorDialog.cpp:215
 msgid "Try to connect all overlapping images."
@@ -1226,7 +1225,7 @@ msgstr ""
 #: hugin1/hugin/ImagesPanel.cpp:1095
 #, c-format
 msgid "Removed %u control points"
-msgstr "Eliminadoss %d puntos de control"
+msgstr "Eliminadoss %u puntos de control"
 
 #: hugin1/hugin/ImagesPanel.cpp:379
 msgid "Cleaning"
@@ -1236,7 +1235,7 @@ msgstr "Eliminando"
 #: hugin1/hugin/ImagesPanel.cpp:882
 #, c-format
 msgid "Really Delete %lu control points?"
-msgstr "¿Seguro que quiere eliminar %d puntos de control?"
+msgstr "¿Seguro que quiere eliminar %lu puntos de control?"
 
 #: hugin1/hugin/ImagesPanel.cpp:884
 msgid "Delete Control Points"
@@ -1264,7 +1263,7 @@ msgstr "Cambiar número de pilas"
 #: hugin1/hugin/ImagesPanel.cpp:1090
 #, c-format
 msgid "Removed %lu control points"
-msgstr "Eliminados %d puntos de control"
+msgstr "Eliminados %lu puntos de control"
 
 # Selecciona una imagen e inténtalo de nuevo
 #: hugin1/hugin/LensPanel.cpp:750
