@@ -731,10 +731,10 @@ void MainFrame::LoadProjectFile(const wxString & filename)
         SetStatusText( _("Error opening project:   ") + filename);
         DEBUG_ERROR("Could not open file " << filename);
     }
+
     // clean up some cruft from older versions
-    // force TIFF_m output
     PanoramaOptions opts = pano.getOptions();
-    switch (opts.outputMode) {
+    switch (opts.outputFormat) {
         case PanoramaOptions::TIFF:
         case PanoramaOptions::JPEG:
         case PanoramaOptions::PNG:
@@ -743,9 +743,12 @@ void MainFrame::LoadProjectFile(const wxString & filename)
         default:
             break;
     }
+
+    // force TIFF_m output
     opts.outputFormat = PanoramaOptions::TIFF_m;
 
     pano.clearDirty();
+
     // force update of preview window
     if ( !(preview_frame->IsIconized() ||(! preview_frame->IsShown()) ) ) {
         wxCommandEvent dummy;
