@@ -36,7 +36,7 @@ msgstr ""
 "Project-Id-Version: hugin 0.8\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2010-11-29 20:24+0100\n"
-"PO-Revision-Date: 2010-12-01 19:29+0100\n"
+"PO-Revision-Date: 2010-12-02 19:49+0100\n"
 "Last-Translator: Cristian Marchi <cri.penta@gmail.com>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "MIME-Version: 1.0\n"
@@ -315,7 +315,7 @@ msgstr "Memoria libera: %ld kiB"
 #: hugin1/hugin/AboutDialog.cpp:150
 #, c-format
 msgid "Active Codepage: %u"
-msgstr ""
+msgstr "Codifica caratteri attiva: %u"
 
 #: hugin1/hugin/AboutDialog.cpp:182
 #, c-format
@@ -1911,6 +1911,8 @@ msgid ""
 "The panorama you are trying to stitch is %.1f gigapixels.\n"
 "If this is too big, reduce the panorama Canvas Size and the cropped region and stitch from the Stitcher tab. Stitching a panorama this size could take a long time and a large amount of memory."
 msgstr ""
+"Il panorama che si sta tentando di unire ha %.1f gigapixel.\n"
+"Se questa dimensione è troppo grande, ridurre le dimensioni dell'immagine o la regione di ritaglio dalla scheda dell'«Assemblatore». Unire un panorama di queste dimensione può richiedere molto tempo e memoria."
 
 #: hugin1/hugin/PanoPanel.cpp:1337
 msgid "Stitch anyway"
@@ -1918,7 +1920,7 @@ msgstr "Assembla comunque"
 
 #: hugin1/hugin/PanoPanel.cpp:1337
 msgid "Let me fix that"
-msgstr ""
+msgstr "Fammelo cambiare"
 
 #: hugin1/hugin/PanoPanel.cpp:1354
 #, c-format
@@ -1928,6 +1930,10 @@ msgid ""
 "The panorama you are trying to stitch is %.1f gigapixels.\n"
 "If this is too big, reduce the panorama Canvas Size and the cropped region and stitch from the Stitcher tab. Stitching a panorama this size could take a long time and a large amount of memory."
 msgstr ""
+"SI è sicuri di voler assemblare un panorama così grande?\n"
+"\n"
+"Il panorama che si sta tentando di unire ha %.1f gigapixel.\n"
+"Se questa dimensione è troppo grande, ridurre le dimensioni dell'immagine o la regione di ritaglio dalla scheda dell'«Assemblatore». Unire un panorama di queste dimensione può richiedere molto tempo e memoria."
 
 # (ndt) intende la lingua del programma
 #: hugin1/hugin/PreferencesDialog.cpp:115
@@ -2696,7 +2702,7 @@ msgstr "Domanda"
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:190
 msgid "Accepted"
-msgstr ""
+msgstr "Accettato"
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:200
 msgid ""
@@ -3537,7 +3543,7 @@ msgstr "Argomenti:"
 #: translations/xrc.cpp:130
 #: xrc.cpp:130
 msgid "Cleanup arguments:"
-msgstr ""
+msgstr "Argomenti di pulitura:"
 
 #: translations/xrc.cpp:131
 #: xrc.cpp:131
@@ -5296,7 +5302,7 @@ msgstr "Calcola campo inquadrato"
 #: translations/xrc.cpp:524
 #: xrc.cpp:524
 msgid "Canvas Size:"
-msgstr "Dimensione immagine panoramica:"
+msgstr "Dimensione immagine:"
 
 #: translations/xrc.cpp:525
 #: xrc.cpp:525
