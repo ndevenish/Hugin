@@ -1013,7 +1013,6 @@ IMPLEMENT_DYNAMIC_CLASS(ImagesPanelXmlHandler, wxXmlResourceHandler)
 void ImagesPanel::OnCelesteButton(wxCommandEvent & e)
 {
     const UIntSet & selImg = images_list->GetSelected();
-    unsigned int total_removed = 0;
 
     if ( selImg.size() == 0)
     {
@@ -1090,7 +1089,5 @@ void ImagesPanel::OnCelesteButton(wxCommandEvent & e)
         DEBUG_TRACE("Finished running Celeste");
         MainFrame::Get()->SetStatusText(wxT(""),0);
     }
-
-    wxMessageBox(wxString::Format(_("Removed %u control points"), total_removed), _("Celeste result"),wxOK|wxICON_INFORMATION,this);
 }
 
