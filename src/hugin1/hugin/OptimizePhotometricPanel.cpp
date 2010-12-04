@@ -475,6 +475,31 @@ void OptimizePhotometricPanel::runOptimizer(const UIntSet & imgs)
     Panorama optPano = m_pano->getSubset(imgs);
     PanoramaOptions opts = optPano.getOptions();
 
+    OptimizeVector optvars;
+    if(mode==OPT_CUSTOM)
+    {
+        optvars = getOptimizeVector();
+        if (optPano.getNrOfImages() != m_pano->getNrOfImages())
+        {
+            OptimizeVector o = optvars;
+            optvars.clear();
+            for (UIntSet::const_iterator it = imgs.begin(); it != imgs.end(); ++it)
+            {
+                optvars.push_back(o[*it]);
+            }
+        }
+        unsigned int countVar=0;
+        for(unsigned int i=0;i<optvars.size();i++)
+        {
+            countVar+=optvars[i].size();
+        };
+        if(countVar==0)
+        {
+            wxMessageBox(_("You selected no parameters to optimize.\nTherefore optimization will be canceled."), _("Exposure optimization"), wxOK | wxICON_INFORMATION);
+            return;
+        };
+    };
+
 
     std::vector<vigra_ext::PointPairRGB> m_points;
     // extract points only if not done previously
@@ -540,16 +565,6 @@ void OptimizePhotometricPanel::runOptimizer(const UIntSet & imgs)
             smartOptimizePhotometric(optPano, PhotometricOptimizeMode(mode),
                                     m_points, progress, error);
         } else {
-            OptimizeVector optvars = getOptimizeVector();
-            if (optPano.getNrOfImages() != m_pano->getNrOfImages()) {
-                OptimizeVector o = optvars;
-                optvars.clear();
-                for (UIntSet::const_iterator it = imgs.begin();
-                     it != imgs.end(); ++it)
-                {
-                    optvars.push_back(o[*it]);
-                }
-            }
             // optimize selected parameters
             optimizePhotometric(optPano, optvars,
                                 m_points, progress, error);
