@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: nl\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2010-11-29 20:24+0100\n"
-"PO-Revision-Date: 2010-11-29 22:26+0100\n"
+"PO-Revision-Date: 2010-12-04 13:26+0100\n"
 "Last-Translator: Harry van der Wolf <harryvanderwolf@home.nl>\n"
 "Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -104,7 +104,7 @@ msgstr "Attentie"
 #: hugin1/base_wx/ImageCache.cpp:539
 #, c-format
 msgid "Loading image %s"
-msgstr "Inlezen van afbeelding %s"
+msgstr "Openen van afbeelding %s"
 
 #: hugin1/base_wx/ImageCache.cpp:683
 #, c-format
@@ -113,7 +113,7 @@ msgstr "Fout bij inlezen van afbeelding %s"
 
 #: hugin1/base_wx/ImageCache.cpp:691
 msgid "Cannot load image: "
-msgstr "Kan afbeelding niet inlezen:"
+msgstr "Kan afbeelding niet openen:"
 
 #: hugin1/base_wx/ImageCache.cpp:719
 #, c-format
@@ -198,7 +198,7 @@ msgstr "Panorama Tools"
 #: hugin1/base_wx/RunStitchPanel.cpp:135
 #: hugin1/base_wx/RunStitchPanel.cpp:293
 msgid "Could not open project file:"
-msgstr "Kan projectbestand niet inlezen:"
+msgstr "Kan projectbestand niet openen:"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:145
 #: hugin1/base_wx/RunStitchPanel.cpp:301
@@ -361,7 +361,7 @@ msgstr "Gemiddelde fout na optimalisatie: %.1f pixel, max: %.1f\n"
 
 #: hugin1/hugin/AssistantPanel.cpp:330
 msgid "Note: automatic alignment uses default settings from the preferences. If you customize settings for this project in the advanced tabs and want to use these customized settings, run the CP detection from the Images Tab, the geometrical optimization from the the Optimizer tab and the photometric optimization from the Exposure tab."
-msgstr "Notabene: automatische uitlijning gebruikt de standaard instellingen uit de voorkeuren. Als je voor dit project deze instellingen aanpast op de geavanceerde tabbladen, voer de CP detectie dan uit vanaf het Afbeeldingen tabblad, de geometrische optimalisatie vanaf het Optimalisatie tabblad en de fotometrische optimalisatie vanaf het Belichting tabblad."
+msgstr "Notabene: automatische uitlijning gebruikt de standaard instellingen uit de voorkeuren. Als je voor dit project deze instellingen aanpast op de geavanceerde tabbladen, voer dan de CP detectie uit vanaf het Afbeeldingen tabblad, de geometrische optimalisatie vanaf het Optimalisatie tabblad en de fotometrische optimalisatie vanaf het Belichting tabblad."
 
 #: hugin1/hugin/AssistantPanel.cpp:361
 msgid ""
@@ -623,7 +623,7 @@ msgstr "zoeken naar wolk-achtige ijkpunten..."
 #: hugin1/hugin/CPEditorPanel.cpp:2181
 #: hugin1/hugin/ImagesPanel.cpp:1027
 msgid "Loading model file"
-msgstr "Inlezen van model bestand"
+msgstr "Openen van model bestand"
 
 # hugin1/hugin/ImagesPanel.cpp:866, c-format
 #: hugin1/hugin/CPEditorPanel.cpp:2228
@@ -1051,7 +1051,7 @@ msgstr ""
 "Geen of onvolledige beeldhoekinformatie gevonden in afbeelding\n"
 "%s\n"
 "\n"
-"Voer de horizontale beeldhoek in of de brandpuntsafstand en uitsnijfactor  (crop-factor)."
+"Voer de horizontale beeldhoek in of de brandpuntsafstand en bijsnijfactor  (crop-factor)."
 
 #: hugin1/hugin/HFOVDialog.cpp:191
 msgid "The horizontal field of view must be positive."
@@ -1063,7 +1063,7 @@ msgstr "De brandpuntsafstand moet groter dan 0 zijn."
 
 #: hugin1/hugin/HFOVDialog.cpp:283
 msgid "The crop factor must be positive."
-msgstr "De uitsnijfactor moet groter dan 0 zijn"
+msgstr "De bijsnijfactor moet groter dan 0 zijn"
 
 #: hugin1/hugin/huginApp.cpp:171
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:75
@@ -1489,7 +1489,7 @@ msgstr "Kan de standaard systeem web browser niet starten"
 #: hugin1/hugin/MainFrame.cpp:1395
 #, c-format
 msgid "Could not read project file %s."
-msgstr "Kan projectbestand %s niet inlezen:"
+msgstr "Kan projectbestand %s niet openen:"
 
 #: hugin1/hugin/MainFrame.cpp:1407
 msgid "Choose template project"
@@ -1560,7 +1560,7 @@ msgstr "Celeste-modelbestand niet gevonden in %s, Hugin moet opnieuw/goed geinst
 #: hugin1/hugin/MainFrame.cpp:1854
 #, c-format
 msgid "Could not load Celeste model file %s"
-msgstr "Kan Celeste model bestand %s niet inlezen"
+msgstr "Kan Celeste model bestand %s niet openen"
 
 #: hugin1/hugin/MaskEditorPanel.cpp:101
 msgid "Mask type"
@@ -1707,7 +1707,7 @@ msgstr "Fotometrische uitlijning"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:494
 msgid "Loading images"
-msgstr "Inlezen van afbeeldingen"
+msgstr "Openen van afbeeldingen"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:505
 msgid "Error: could not load all images"
@@ -2218,7 +2218,7 @@ msgstr "Kan template niet toepassen"
 
 #: hugin1/hugin/wxPanoCommand.cpp:625
 msgid "Error loading project file"
-msgstr "Fout bij inlezen projectbestand"
+msgstr "Fout bij openen projectbestand"
 
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:204
 #, c-format
@@ -2231,7 +2231,7 @@ msgstr ""
 
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:328
 msgid "cleaning up temporary keypoint files"
-msgstr "verwijderen van tijdelijke controle-punten bestanden"
+msgstr "verwijderen van tijdelijke ijkpunten bestanden"
 
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:387
 #, c-format
@@ -2327,9 +2327,9 @@ msgid ""
 "\n"
 "Executed command: %s"
 msgstr ""
-"Kan %s niet inlezen\n"
+"Kan %s niet openen\n"
 "Dit is een indicatie dat de ijkpunt detector aanroep mislukt is,\n"
-"of dat verkeerde commandoregelparameters zijn gebruikt\n"
+"of dat verkeerde commandoregel parameters zijn gebruikt\n"
 "\n"
 "Uitgevoerd commando: %s"
 
@@ -2432,7 +2432,7 @@ msgstr "Fout: Kon status niet opvragen, project met index  %d niet in de lijst."
 
 #: hugin1/ptbatcher/Batch.cpp:397
 msgid "Error: Could not load batch file."
-msgstr "Fout: Kon bulkbestand niet inlezen."
+msgstr "Fout: Kon bulkbestand niet openen."
 
 #: hugin1/ptbatcher/Batch.cpp:518
 msgid "Batch successfully completed."
@@ -2686,7 +2686,7 @@ msgstr ""
 #: hugin1/ptbatcher/FindPanoDialog.cpp:283
 #, c-format
 msgid "Reading file %s"
-msgstr "Inlezen van bestand %s"
+msgstr "Openen van bestand %s"
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:357
 #: translations/xrc.cpp:57
@@ -2985,7 +2985,7 @@ msgstr "Lees lensdata..."
 #: translations/xrc.cpp:27
 #: xrc.cpp:27
 msgid "Enter horizontal field of view (HFOV) or focal length and crop factor:"
-msgstr "Geef horizontale beeldhoek (HFOV) of brandpuntsafstand en uitsnijfactor:"
+msgstr "Geef horizontale beeldhoek (HFOV) of brandpuntsafstand en bijsnijfactor:"
 
 #: translations/xrc.cpp:28
 #: xrc.cpp:28
@@ -3223,9 +3223,8 @@ msgstr "Afbeeldingen"
 
 #: translations/xrc.cpp:74
 #: xrc.cpp:74
-#, fuzzy
 msgid "Searches in directories for image files suitable for panoramas"
-msgstr "Zoekt in folders naar geschikte panoramas van afbeeldings bestanden"
+msgstr "Zoekt in folders naar geschikte afbeeldingen voor een panorama"
 
 #: translations/xrc.cpp:75
 #: xrc.cpp:75
@@ -4111,7 +4110,7 @@ msgstr "echte brandpuntsafstand in mm:"
 #: translations/xrc.cpp:255
 #: xrc.cpp:255
 msgid "crop factor:"
-msgstr "uitsnijfactor"
+msgstr "bijsnijfactor"
 
 #: translations/xrc.cpp:256
 #: xrc.cpp:256
@@ -5162,12 +5161,12 @@ msgstr "Commandoregelparameters"
 #: translations/xrc.cpp:513
 #: xrc.cpp:513
 msgid "Blender Options"
-msgstr "Blenderparameters"
+msgstr "Samenvoeger parameters"
 
 #: translations/xrc.cpp:517
 #: xrc.cpp:517
 msgid "Enfuse options"
-msgstr "Enfuseparameters"
+msgstr "Enfuse parameters"
 
 #: translations/xrc.cpp:518
 #: xrc.cpp:518
@@ -5269,7 +5268,7 @@ msgstr "Voeg alle afbeeldingen samen tot een naadloos panorama. "
 #: translations/xrc.cpp:541
 #: xrc.cpp:541
 msgid "Exposure fused from stacks"
-msgstr "Belichting fusie van lagen"
+msgstr "Samenvoegen van lagen met verschillende belichting"
 
 #: translations/xrc.cpp:542
 #: xrc.cpp:542
@@ -5279,12 +5278,12 @@ msgstr "Afbeeldingen worden gepositioneerd, belichtings sets samengevoegd en daa
 #: translations/xrc.cpp:543
 #: xrc.cpp:543
 msgid "Exposure fused from any arrangement"
-msgstr "Belichting gefuseerd van willekeurig ordening"
+msgstr "Samenvoegen van lagen met verschillende belichting uit willekeurige abeelding verdeling"
 
 #: translations/xrc.cpp:544
 #: xrc.cpp:544
 msgid "Images will be remapped, blended into seamless layers, then layers exposure fused into a panorama"
-msgstr "Afbeeldingen worden gepositioneerd, geblend in een naadloos panorama, dan belichtings sets samengevoegd in een panorama"
+msgstr "Afbeeldingen worden per laag gepositioneerd en samengevoegd in een naadloos panorama, dan worden de panorama lagen met verschillende belichting samengevoegd in een panorama"
 
 #: translations/xrc.cpp:545
 #: translations/xrc.cpp:550
@@ -5590,7 +5589,7 @@ msgstr "Project Naam:"
 #: translations/xrc.cpp:622
 #: xrc.cpp:622
 msgid "based on containing folder"
-msgstr "gebaseerd op bevattende folder"
+msgstr "gebaseerd op abeeldingen bevattende folder "
 
 #: translations/xrc.cpp:623
 #: xrc.cpp:623
@@ -5644,7 +5643,7 @@ msgstr "Laat leeg om standaardwaarde besturingssysteem te gebruiken"
 #: translations/xrc.cpp:633
 #: xrc.cpp:633
 msgid "Image loading"
-msgstr "Afbeelding inlezen"
+msgstr "Afbeelding openen"
 
 #: translations/xrc.cpp:634
 #: xrc.cpp:634
@@ -5723,7 +5722,7 @@ msgid ""
 "for HDR panoramas use Preview window."
 msgstr ""
 "Gebruik het Snel Voorbeeld venster als standaard,\n"
-" gebruik standaard voorbeeld venster voor HDR venster."
+"Gebruik standaard voorbeeld venster voor HDR panoramas."
 
 #: translations/xrc.cpp:648
 #: xrc.cpp:648
@@ -5790,7 +5789,7 @@ msgstr "gebruikt voor weergave in GUI"
 #: translations/xrc.cpp:662
 #: xrc.cpp:662
 msgid "Patch width:"
-msgstr "Patchbreedte:"
+msgstr "Overlap breedte:"
 
 #: translations/xrc.cpp:663
 #: translations/xrc.cpp:667
@@ -5920,7 +5919,7 @@ msgstr "Standaard Interpolator (i):"
 #: translations/xrc.cpp:701
 #: xrc.cpp:701
 msgid "Create cropped images by default"
-msgstr "Standaard uitgesneden afbeeldingen maken"
+msgstr "Altijd bijgesneden afbeeldingen maken"
 
 #: translations/xrc.cpp:702
 #: xrc.cpp:702
@@ -5962,7 +5961,7 @@ msgid ""
 "These are the default arguments. They can be changed for individual projects in the Stitcher tab.\n"
 "Do not set -w, -o and --compression arguments, they are set by hugin"
 msgstr ""
-"Dit zijn de standaard parameters. Ze kunnen veranderd worden per project in het  Samenvoegentabblad.\n"
+"Dit zijn de standaard parameters. Ze kunnen veranderd worden per project in het  Samenvoegen tabblad.\n"
 "Voer geen waarden in voor de -w, -o en --compression parameters, deze worden door hugin ingevuld"
 
 #: translations/xrc.cpp:710
@@ -6026,7 +6025,7 @@ msgid ""
 "small can examine control points close to image border"
 msgstr ""
 "groot is nauwkeuriger\n"
-"klein kan ijkpunten beoordelen die dichter bij de rand van de afbeelding zitten"
+"klein kan ijkpunten beoordelen die zich dichter bij de rand van de afbeelding bevinden"
 
 #: translations/xrc.cpp:726
 #: translations/xrc.cpp:765
