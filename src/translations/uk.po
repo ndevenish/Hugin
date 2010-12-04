@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: Hugin 0.7\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2010-11-29 20:24+0100\n"
+"POT-Creation-Date: 2010-12-04 17:09-0500\n"
 "PO-Revision-Date: 2006-08-20 21:38+0200\n"
 "Last-Translator: Serhij Dubyk <dubyk@library.lviv.ua>\n"
 "Language-Team: \n"
@@ -34,8 +34,8 @@ msgstr ""
 #: hugin1/hugin/GLViewer.cpp:128 hugin1/hugin/GLViewer.cpp:138
 #: hugin1/hugin/MainFrame.cpp:629 hugin1/hugin/MainFrame.cpp:879
 #: hugin1/hugin/MainFrame.cpp:1395 hugin1/hugin/MainFrame.cpp:1854
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:505
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:525
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:530
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:550
 #: hugin1/hugin/PanoPanel.cpp:991 hugin1/hugin/PanoPanel.cpp:1057
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:205
 #: hugin1/ptbatcher/BatchFrame.cpp:445 hugin1/ptbatcher/FindPanoDialog.cpp:259
@@ -576,18 +576,18 @@ msgstr "Видалити контрольні крапки, що сполуча�
 
 #: hugin1/hugin/CPEditorPanel.cpp:2179 hugin1/hugin/CPEditorPanel.cpp:2201
 #: hugin1/hugin/CPEditorPanel.cpp:2218 hugin1/hugin/CPEditorPanel.cpp:2227
-#: hugin1/hugin/ImagesPanel.cpp:1025 hugin1/hugin/ImagesPanel.cpp:1054
-#: hugin1/hugin/ImagesPanel.cpp:1079 hugin1/hugin/ImagesPanel.cpp:1089
+#: hugin1/hugin/ImagesPanel.cpp:1023 hugin1/hugin/ImagesPanel.cpp:1052
+#: hugin1/hugin/ImagesPanel.cpp:1077 hugin1/hugin/ImagesPanel.cpp:1087
 #, fuzzy
 msgid "Running Celeste"
 msgstr "Виконання %s"
 
-#: hugin1/hugin/CPEditorPanel.cpp:2180 hugin1/hugin/ImagesPanel.cpp:1026
+#: hugin1/hugin/CPEditorPanel.cpp:2180 hugin1/hugin/ImagesPanel.cpp:1024
 #, fuzzy
 msgid "searching for cloud-like control points..."
 msgstr "Йде пошук подібної крапки..."
 
-#: hugin1/hugin/CPEditorPanel.cpp:2181 hugin1/hugin/ImagesPanel.cpp:1027
+#: hugin1/hugin/CPEditorPanel.cpp:2181 hugin1/hugin/ImagesPanel.cpp:1025
 #, fuzzy
 msgid "Loading model file"
 msgstr "Завантажується зображення %s"
@@ -597,8 +597,7 @@ msgstr "Завантажується зображення %s"
 msgid "Removed %d control points"
 msgstr "Додано %d контрольні крапки"
 
-#: hugin1/hugin/CPEditorPanel.cpp:2228 hugin1/hugin/ImagesPanel.cpp:1090
-#: hugin1/hugin/ImagesPanel.cpp:1095
+#: hugin1/hugin/CPEditorPanel.cpp:2228 hugin1/hugin/ImagesPanel.cpp:1088
 #, fuzzy
 msgid "Celeste result"
 msgstr "Результат покращеного підстроювання"
@@ -1117,7 +1116,7 @@ msgstr "Зберегти проект"
 msgid "Finished cleaning"
 msgstr ""
 
-#: hugin1/hugin/ImagesPanel.cpp:379 hugin1/hugin/ImagesPanel.cpp:1095
+#: hugin1/hugin/ImagesPanel.cpp:379
 #, fuzzy, c-format
 msgid "Removed %u control points"
 msgstr "Додано %d контрольні крапки"
@@ -1127,37 +1126,37 @@ msgstr "Додано %d контрольні крапки"
 msgid "Cleaning"
 msgstr "Попередження"
 
-#: hugin1/hugin/ImagesPanel.cpp:882
+#: hugin1/hugin/ImagesPanel.cpp:881
 #, fuzzy, c-format
 msgid "Really Delete %lu control points?"
 msgstr "Дійсно видалити %d контрольні крапки?"
 
-#: hugin1/hugin/ImagesPanel.cpp:884
+#: hugin1/hugin/ImagesPanel.cpp:883
 msgid "Delete Control Points"
 msgstr "Видалити контрольні крапки"
 
-#: hugin1/hugin/ImagesPanel.cpp:962
+#: hugin1/hugin/ImagesPanel.cpp:961
 msgid ""
 "Your project must have at least two stacks before you can assign images to a "
 "different stack."
 msgstr ""
 
-#: hugin1/hugin/ImagesPanel.cpp:966
+#: hugin1/hugin/ImagesPanel.cpp:965
 #, fuzzy
 msgid "Enter new stack number"
 msgstr "Введіть номер нового об'єктиву"
 
-#: hugin1/hugin/ImagesPanel.cpp:967
+#: hugin1/hugin/ImagesPanel.cpp:966
 #, fuzzy
 msgid "stack number"
 msgstr "Номер об'єктиву"
 
-#: hugin1/hugin/ImagesPanel.cpp:968
+#: hugin1/hugin/ImagesPanel.cpp:967
 #, fuzzy
 msgid "Change stack number"
 msgstr "Зміна номера об'єктиву"
 
-#: hugin1/hugin/ImagesPanel.cpp:1090
+#: hugin1/hugin/ImagesPanel.cpp:1088
 #, fuzzy, c-format
 msgid "Removed %lu control points"
 msgstr "Додано %d контрольні крапки"
@@ -1608,7 +1607,18 @@ msgstr ""
 msgid "Link parameters"
 msgstr "Параметри об'єктиву"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:485
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:498
+msgid ""
+"You selected no parameters to optimize.\n"
+"Therefore optimization will be canceled."
+msgstr ""
+
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:498
+#, fuzzy
+msgid "Exposure optimization"
+msgstr "Фотометричний"
+
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:510
 #, fuzzy
 msgid ""
 "The vignetting and exposure correction is determined by analysing color "
@@ -1620,46 +1630,46 @@ msgstr ""
 "Для пришвидення обрахунків, використовується лише випадкова підмножина "
 "крапок."
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:486
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:511
 #, fuzzy
 msgid "Number of points per image"
 msgstr "Кількість крапок на кожне перекриття"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:487
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:512
 #, fuzzy
 msgid "Photometric optimization"
 msgstr "Фотометричний"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:494
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:519
 #, fuzzy
 msgid "Photometric alignment"
 msgstr "Фотометричний"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:494
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:519
 #, fuzzy
 msgid "Loading images"
 msgstr "Завантажується зображення %s"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:505
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:530
 #, fuzzy
 msgid "Error: could not load all images"
 msgstr "Помилка: не знайдено файл плоского зображення."
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:525
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:550
 msgid "Error: no overlapping points found, Photometric optimization aborted"
 msgstr ""
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:558
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:573
 #, fuzzy
 msgid "Internal error during photometric optimization:\n"
 msgstr "Фотометричний"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:558
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:573
 #, fuzzy
 msgid "Internal error"
 msgstr "помилка enblend"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:564
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:579
 #, c-format
 msgid ""
 "Photometric optimization results:\n"
@@ -1669,7 +1679,7 @@ msgid ""
 "Apply results?"
 msgstr ""
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:565
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:580
 #, fuzzy
 msgid "Photometric optimization finished"
 msgstr "Фотометричний"
@@ -2315,7 +2325,7 @@ msgid ""
 " Could not execute command: %s"
 msgstr ""
 
-#: hugin1/icpfind/CPDetectorConfig.cpp:136
+#: hugin1/icpfind/CPDetectorConfig.cpp:137
 #, fuzzy
 msgid "Default"
 msgstr "Завантажити значення по умовчанню"

@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: for hugin 0.8.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2010-11-29 20:24+0100\n"
+"POT-Creation-Date: 2010-12-04 17:09-0500\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Rick Langford <ruei_ke@yahoo.com>\n"
 "Language-Team: Chinese Traditional <NA>\n"
@@ -28,8 +28,8 @@ msgstr "預設項目中未發現您所指定的外部應用程式%s, 回到內�
 #: hugin1/hugin/GLViewer.cpp:128 hugin1/hugin/GLViewer.cpp:138
 #: hugin1/hugin/MainFrame.cpp:629 hugin1/hugin/MainFrame.cpp:879
 #: hugin1/hugin/MainFrame.cpp:1395 hugin1/hugin/MainFrame.cpp:1854
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:505
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:525
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:530
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:550
 #: hugin1/hugin/PanoPanel.cpp:991 hugin1/hugin/PanoPanel.cpp:1057
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:205
 #: hugin1/ptbatcher/BatchFrame.cpp:445 hugin1/ptbatcher/FindPanoDialog.cpp:259
@@ -564,16 +564,16 @@ msgstr "由於缺少至少一個連接兩張圖片的控制點無法執行 Celes
 
 #: hugin1/hugin/CPEditorPanel.cpp:2179 hugin1/hugin/CPEditorPanel.cpp:2201
 #: hugin1/hugin/CPEditorPanel.cpp:2218 hugin1/hugin/CPEditorPanel.cpp:2227
-#: hugin1/hugin/ImagesPanel.cpp:1025 hugin1/hugin/ImagesPanel.cpp:1054
-#: hugin1/hugin/ImagesPanel.cpp:1079 hugin1/hugin/ImagesPanel.cpp:1089
+#: hugin1/hugin/ImagesPanel.cpp:1023 hugin1/hugin/ImagesPanel.cpp:1052
+#: hugin1/hugin/ImagesPanel.cpp:1077 hugin1/hugin/ImagesPanel.cpp:1087
 msgid "Running Celeste"
 msgstr "執行 Celeste"
 
-#: hugin1/hugin/CPEditorPanel.cpp:2180 hugin1/hugin/ImagesPanel.cpp:1026
+#: hugin1/hugin/CPEditorPanel.cpp:2180 hugin1/hugin/ImagesPanel.cpp:1024
 msgid "searching for cloud-like control points..."
 msgstr "正在尋找雲似的基準點..."
 
-#: hugin1/hugin/CPEditorPanel.cpp:2181 hugin1/hugin/ImagesPanel.cpp:1027
+#: hugin1/hugin/CPEditorPanel.cpp:2181 hugin1/hugin/ImagesPanel.cpp:1025
 #, fuzzy
 msgid "Loading model file"
 msgstr "載入圖片 %s"
@@ -583,8 +583,7 @@ msgstr "載入圖片 %s"
 msgid "Removed %d control points"
 msgstr "移除了 %d 個控制點"
 
-#: hugin1/hugin/CPEditorPanel.cpp:2228 hugin1/hugin/ImagesPanel.cpp:1090
-#: hugin1/hugin/ImagesPanel.cpp:1095
+#: hugin1/hugin/CPEditorPanel.cpp:2228 hugin1/hugin/ImagesPanel.cpp:1088
 msgid "Celeste result"
 msgstr "Celeste 結果"
 
@@ -1087,7 +1086,7 @@ msgstr "正在檢查整個專案"
 msgid "Finished cleaning"
 msgstr "清除完畢"
 
-#: hugin1/hugin/ImagesPanel.cpp:379 hugin1/hugin/ImagesPanel.cpp:1095
+#: hugin1/hugin/ImagesPanel.cpp:379
 #, fuzzy, c-format
 msgid "Removed %u control points"
 msgstr "移除了 %d 個控制點"
@@ -1096,34 +1095,34 @@ msgstr "移除了 %d 個控制點"
 msgid "Cleaning"
 msgstr "清除"
 
-#: hugin1/hugin/ImagesPanel.cpp:882
+#: hugin1/hugin/ImagesPanel.cpp:881
 #, fuzzy, c-format
 msgid "Really Delete %lu control points?"
 msgstr "真的要刪除 %d 個控制點嗎?"
 
-#: hugin1/hugin/ImagesPanel.cpp:884
+#: hugin1/hugin/ImagesPanel.cpp:883
 msgid "Delete Control Points"
 msgstr "刪除控制點"
 
-#: hugin1/hugin/ImagesPanel.cpp:962
+#: hugin1/hugin/ImagesPanel.cpp:961
 msgid ""
 "Your project must have at least two stacks before you can assign images to a "
 "different stack."
 msgstr "專案中至少要有2份堆棧圖, 才可以將圖片指定至不一樣的堆棧圖中."
 
-#: hugin1/hugin/ImagesPanel.cpp:966
+#: hugin1/hugin/ImagesPanel.cpp:965
 msgid "Enter new stack number"
 msgstr "輸入新的堆棧圖編號"
 
-#: hugin1/hugin/ImagesPanel.cpp:967
+#: hugin1/hugin/ImagesPanel.cpp:966
 msgid "stack number"
 msgstr "堆棧圖編號"
 
-#: hugin1/hugin/ImagesPanel.cpp:968
+#: hugin1/hugin/ImagesPanel.cpp:967
 msgid "Change stack number"
 msgstr "修改堆棧圖編號"
 
-#: hugin1/hugin/ImagesPanel.cpp:1090
+#: hugin1/hugin/ImagesPanel.cpp:1088
 #, fuzzy, c-format
 msgid "Removed %lu control points"
 msgstr "移除了 %d 個控制點"
@@ -1554,7 +1553,18 @@ msgstr ""
 msgid "Link parameters"
 msgstr "連結參數"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:485
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:498
+msgid ""
+"You selected no parameters to optimize.\n"
+"Therefore optimization will be canceled."
+msgstr ""
+
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:498
+#, fuzzy
+msgid "Exposure optimization"
+msgstr "光學性質最佳化"
+
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:510
 msgid ""
 "The vignetting and exposure correction is determined by analysing color "
 "values in the overlapping areas.\n"
@@ -1563,39 +1573,39 @@ msgstr ""
 "通過在暈影效果區域中分析顏色值來確定暈影和光圈校正.\n"
 "為了提高運算速度, 只使用了一個隨機點集."
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:486
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:511
 msgid "Number of points per image"
 msgstr "每張圖片的控制點的數量"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:487
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:512
 msgid "Photometric optimization"
 msgstr "光學性質最佳化"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:494
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:519
 msgid "Photometric alignment"
 msgstr "光學性質對準"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:494
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:519
 msgid "Loading images"
 msgstr "載入圖片"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:505
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:530
 msgid "Error: could not load all images"
 msgstr "錯誤：無法載入所有圖片"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:525
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:550
 msgid "Error: no overlapping points found, Photometric optimization aborted"
 msgstr "錯誤: 沒有發現重疊點, 中斷光學性質最佳化"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:558
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:573
 msgid "Internal error during photometric optimization:\n"
 msgstr "執行光學性質最佳化時發生內部錯誤:\n"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:558
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:573
 msgid "Internal error"
 msgstr "內部錯誤"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:564
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:579
 #, c-format
 msgid ""
 "Photometric optimization results:\n"
@@ -1609,7 +1619,7 @@ msgstr ""
 "\n"
 "執行此結果?"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:565
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:580
 msgid "Photometric optimization finished"
 msgstr "光學性質最佳化已經完成"
 
@@ -2234,7 +2244,7 @@ msgstr ""
 "\n"
 "不能執行指令: %s"
 
-#: hugin1/icpfind/CPDetectorConfig.cpp:136
+#: hugin1/icpfind/CPDetectorConfig.cpp:137
 msgid "Default"
 msgstr "預設"
 

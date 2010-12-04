@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: hugin\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2010-11-29 20:24+0100\n"
+"POT-Creation-Date: 2010-12-04 17:09-0500\n"
 "PO-Revision-Date: 2008-04-29 13:39+0900\n"
 "Last-Translator: homin,Lee <ff4500@gmail.com>\n"
 "Language-Team: Gnome-kr-hackers <gnome-kr-hackers@lists.kldp.net>\n"
@@ -37,8 +37,8 @@ msgstr ""
 #: hugin1/hugin/GLViewer.cpp:128 hugin1/hugin/GLViewer.cpp:138
 #: hugin1/hugin/MainFrame.cpp:629 hugin1/hugin/MainFrame.cpp:879
 #: hugin1/hugin/MainFrame.cpp:1395 hugin1/hugin/MainFrame.cpp:1854
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:505
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:525
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:530
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:550
 #: hugin1/hugin/PanoPanel.cpp:991 hugin1/hugin/PanoPanel.cpp:1057
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:205
 #: hugin1/ptbatcher/BatchFrame.cpp:445 hugin1/ptbatcher/FindPanoDialog.cpp:259
@@ -576,17 +576,17 @@ msgstr "선택된 이미지간에 연결된 조정 위치들을 삭제"
 
 #: hugin1/hugin/CPEditorPanel.cpp:2179 hugin1/hugin/CPEditorPanel.cpp:2201
 #: hugin1/hugin/CPEditorPanel.cpp:2218 hugin1/hugin/CPEditorPanel.cpp:2227
-#: hugin1/hugin/ImagesPanel.cpp:1025 hugin1/hugin/ImagesPanel.cpp:1054
-#: hugin1/hugin/ImagesPanel.cpp:1079 hugin1/hugin/ImagesPanel.cpp:1089
+#: hugin1/hugin/ImagesPanel.cpp:1023 hugin1/hugin/ImagesPanel.cpp:1052
+#: hugin1/hugin/ImagesPanel.cpp:1077 hugin1/hugin/ImagesPanel.cpp:1087
 msgid "Running Celeste"
 msgstr ""
 
-#: hugin1/hugin/CPEditorPanel.cpp:2180 hugin1/hugin/ImagesPanel.cpp:1026
+#: hugin1/hugin/CPEditorPanel.cpp:2180 hugin1/hugin/ImagesPanel.cpp:1024
 #, fuzzy
 msgid "searching for cloud-like control points..."
 msgstr "비슷한 위치 찾는 중..."
 
-#: hugin1/hugin/CPEditorPanel.cpp:2181 hugin1/hugin/ImagesPanel.cpp:1027
+#: hugin1/hugin/CPEditorPanel.cpp:2181 hugin1/hugin/ImagesPanel.cpp:1025
 #, fuzzy
 msgid "Loading model file"
 msgstr "이미지를 불러오는 중 %s"
@@ -596,8 +596,7 @@ msgstr "이미지를 불러오는 중 %s"
 msgid "Removed %d control points"
 msgstr "%d개의 제어 위치가 추가됨"
 
-#: hugin1/hugin/CPEditorPanel.cpp:2228 hugin1/hugin/ImagesPanel.cpp:1090
-#: hugin1/hugin/ImagesPanel.cpp:1095
+#: hugin1/hugin/CPEditorPanel.cpp:2228 hugin1/hugin/ImagesPanel.cpp:1088
 #, fuzzy
 msgid "Celeste result"
 msgstr "미조정 결과"
@@ -1111,7 +1110,7 @@ msgstr "임시 프로젝트를 선택"
 msgid "Finished cleaning"
 msgstr ""
 
-#: hugin1/hugin/ImagesPanel.cpp:379 hugin1/hugin/ImagesPanel.cpp:1095
+#: hugin1/hugin/ImagesPanel.cpp:379
 #, fuzzy, c-format
 msgid "Removed %u control points"
 msgstr "%d개의 제어 위치가 추가됨"
@@ -1120,37 +1119,37 @@ msgstr "%d개의 제어 위치가 추가됨"
 msgid "Cleaning"
 msgstr ""
 
-#: hugin1/hugin/ImagesPanel.cpp:882
+#: hugin1/hugin/ImagesPanel.cpp:881
 #, fuzzy, c-format
 msgid "Really Delete %lu control points?"
 msgstr "정말로 %d개의 제어 위치를 지우시겠습니까?"
 
-#: hugin1/hugin/ImagesPanel.cpp:884
+#: hugin1/hugin/ImagesPanel.cpp:883
 msgid "Delete Control Points"
 msgstr "제어 위치 지우기"
 
-#: hugin1/hugin/ImagesPanel.cpp:962
+#: hugin1/hugin/ImagesPanel.cpp:961
 msgid ""
 "Your project must have at least two stacks before you can assign images to a "
 "different stack."
 msgstr ""
 
-#: hugin1/hugin/ImagesPanel.cpp:966
+#: hugin1/hugin/ImagesPanel.cpp:965
 #, fuzzy
 msgid "Enter new stack number"
 msgstr "새 렌즈 번호를 입력하세요"
 
-#: hugin1/hugin/ImagesPanel.cpp:967
+#: hugin1/hugin/ImagesPanel.cpp:966
 #, fuzzy
 msgid "stack number"
 msgstr "렌즈 번호"
 
-#: hugin1/hugin/ImagesPanel.cpp:968
+#: hugin1/hugin/ImagesPanel.cpp:967
 #, fuzzy
 msgid "Change stack number"
 msgstr "렌즈 번호 바꾸기"
 
-#: hugin1/hugin/ImagesPanel.cpp:1090
+#: hugin1/hugin/ImagesPanel.cpp:1088
 #, fuzzy, c-format
 msgid "Removed %lu control points"
 msgstr "%d개의 제어 위치가 추가됨"
@@ -1595,7 +1594,18 @@ msgstr ""
 msgid "Link parameters"
 msgstr "연결 파라미터"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:485
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:498
+msgid ""
+"You selected no parameters to optimize.\n"
+"Therefore optimization will be canceled."
+msgstr ""
+
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:498
+#, fuzzy
+msgid "Exposure optimization"
+msgstr "광도 최적화"
+
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:510
 msgid ""
 "The vignetting and exposure correction is determined by analysing color "
 "values in the overlapping areas.\n"
@@ -1605,40 +1615,40 @@ msgstr ""
 "사용되는 제어 위치중 무작위로 선택된 일부만 사용하여 계산 속도를 올릴 수 있습"
 "니다."
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:486
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:511
 msgid "Number of points per image"
 msgstr "이미지 당 제어 위치의 개수"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:487
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:512
 msgid "Photometric optimization"
 msgstr "광도 최적화"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:494
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:519
 msgid "Photometric alignment"
 msgstr "광도 정렬"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:494
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:519
 #, fuzzy
 msgid "Loading images"
 msgstr "이미지를 불러오는 중 %s"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:505
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:530
 msgid "Error: could not load all images"
 msgstr "오류: 이미지들을 모두 불러올 수 없음"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:525
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:550
 msgid "Error: no overlapping points found, Photometric optimization aborted"
 msgstr "오류: 겹치는 위치가 없습니다. 광도 최적화 중단됨"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:558
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:573
 msgid "Internal error during photometric optimization:\n"
 msgstr "광도 최적화 중 내부 오류 발생:\n"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:558
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:573
 msgid "Internal error"
 msgstr "내부 오류"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:564
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:579
 #, c-format
 msgid ""
 "Photometric optimization results:\n"
@@ -1652,7 +1662,7 @@ msgstr ""
 "\n"
 "결과를 적용할까요?"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:565
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:580
 msgid "Photometric optimization finished"
 msgstr "광도 최적화가 끝났습니다"
 
@@ -2284,7 +2294,7 @@ msgid ""
 " Could not execute command: %s"
 msgstr ""
 
-#: hugin1/icpfind/CPDetectorConfig.cpp:136
+#: hugin1/icpfind/CPDetectorConfig.cpp:137
 #, fuzzy
 msgid "Default"
 msgstr "누르기"

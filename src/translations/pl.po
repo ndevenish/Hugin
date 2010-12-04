@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2010-11-29 20:24+0100\n"
+"POT-Creation-Date: 2010-12-04 17:09-0500\n"
 "PO-Revision-Date: 2010-03-29 09:28+0200\n"
 "Last-Translator: Michał Smoczyk <msmoczyk@wp.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
@@ -37,8 +37,8 @@ msgstr ""
 #: hugin1/hugin/GLViewer.cpp:128 hugin1/hugin/GLViewer.cpp:138
 #: hugin1/hugin/MainFrame.cpp:629 hugin1/hugin/MainFrame.cpp:879
 #: hugin1/hugin/MainFrame.cpp:1395 hugin1/hugin/MainFrame.cpp:1854
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:505
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:525
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:530
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:550
 #: hugin1/hugin/PanoPanel.cpp:991 hugin1/hugin/PanoPanel.cpp:1057
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:205
 #: hugin1/ptbatcher/BatchFrame.cpp:445 hugin1/ptbatcher/FindPanoDialog.cpp:259
@@ -594,16 +594,16 @@ msgstr ""
 
 #: hugin1/hugin/CPEditorPanel.cpp:2179 hugin1/hugin/CPEditorPanel.cpp:2201
 #: hugin1/hugin/CPEditorPanel.cpp:2218 hugin1/hugin/CPEditorPanel.cpp:2227
-#: hugin1/hugin/ImagesPanel.cpp:1025 hugin1/hugin/ImagesPanel.cpp:1054
-#: hugin1/hugin/ImagesPanel.cpp:1079 hugin1/hugin/ImagesPanel.cpp:1089
+#: hugin1/hugin/ImagesPanel.cpp:1023 hugin1/hugin/ImagesPanel.cpp:1052
+#: hugin1/hugin/ImagesPanel.cpp:1077 hugin1/hugin/ImagesPanel.cpp:1087
 msgid "Running Celeste"
 msgstr "Uruchamianie Celeste"
 
-#: hugin1/hugin/CPEditorPanel.cpp:2180 hugin1/hugin/ImagesPanel.cpp:1026
+#: hugin1/hugin/CPEditorPanel.cpp:2180 hugin1/hugin/ImagesPanel.cpp:1024
 msgid "searching for cloud-like control points..."
 msgstr "Szukanie ruchomych punktów kontrolnych..."
 
-#: hugin1/hugin/CPEditorPanel.cpp:2181 hugin1/hugin/ImagesPanel.cpp:1027
+#: hugin1/hugin/CPEditorPanel.cpp:2181 hugin1/hugin/ImagesPanel.cpp:1025
 #, fuzzy
 msgid "Loading model file"
 msgstr "Wczytuję zdjęcie %s"
@@ -613,8 +613,7 @@ msgstr "Wczytuję zdjęcie %s"
 msgid "Removed %d control points"
 msgstr "Usunięto %d punktów kontrolnych"
 
-#: hugin1/hugin/CPEditorPanel.cpp:2228 hugin1/hugin/ImagesPanel.cpp:1090
-#: hugin1/hugin/ImagesPanel.cpp:1095
+#: hugin1/hugin/CPEditorPanel.cpp:2228 hugin1/hugin/ImagesPanel.cpp:1088
 msgid "Celeste result"
 msgstr "Wynik Celeste"
 
@@ -1121,7 +1120,7 @@ msgstr "Sprawdzanie całego projektu"
 msgid "Finished cleaning"
 msgstr "Zakończono czyszczenie"
 
-#: hugin1/hugin/ImagesPanel.cpp:379 hugin1/hugin/ImagesPanel.cpp:1095
+#: hugin1/hugin/ImagesPanel.cpp:379
 #, fuzzy, c-format
 msgid "Removed %u control points"
 msgstr "Usunięto %d punktów kontrolnych"
@@ -1130,16 +1129,16 @@ msgstr "Usunięto %d punktów kontrolnych"
 msgid "Cleaning"
 msgstr "Czyszczenie"
 
-#: hugin1/hugin/ImagesPanel.cpp:882
+#: hugin1/hugin/ImagesPanel.cpp:881
 #, fuzzy, c-format
 msgid "Really Delete %lu control points?"
 msgstr "Czy na pewno usunąć %d punktów kontrolnych?"
 
-#: hugin1/hugin/ImagesPanel.cpp:884
+#: hugin1/hugin/ImagesPanel.cpp:883
 msgid "Delete Control Points"
 msgstr "Usuń punkty kontrolne"
 
-#: hugin1/hugin/ImagesPanel.cpp:962
+#: hugin1/hugin/ImagesPanel.cpp:961
 msgid ""
 "Your project must have at least two stacks before you can assign images to a "
 "different stack."
@@ -1147,19 +1146,19 @@ msgstr ""
 "Musisz mieć co najmniej dwie serie, zanim będzie można przypisać zdjęcia do "
 "innej serii."
 
-#: hugin1/hugin/ImagesPanel.cpp:966
+#: hugin1/hugin/ImagesPanel.cpp:965
 msgid "Enter new stack number"
 msgstr "Podaj numer nowej serii"
 
-#: hugin1/hugin/ImagesPanel.cpp:967
+#: hugin1/hugin/ImagesPanel.cpp:966
 msgid "stack number"
 msgstr "Numer serii"
 
-#: hugin1/hugin/ImagesPanel.cpp:968
+#: hugin1/hugin/ImagesPanel.cpp:967
 msgid "Change stack number"
 msgstr "Zmień numer serii"
 
-#: hugin1/hugin/ImagesPanel.cpp:1090
+#: hugin1/hugin/ImagesPanel.cpp:1088
 #, fuzzy, c-format
 msgid "Removed %lu control points"
 msgstr "Usunięto %d punktów kontrolnych"
@@ -1608,7 +1607,18 @@ msgstr ""
 msgid "Link parameters"
 msgstr "Odziedzicz parametry"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:485
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:498
+msgid ""
+"You selected no parameters to optimize.\n"
+"Therefore optimization will be canceled."
+msgstr ""
+
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:498
+#, fuzzy
+msgid "Exposure optimization"
+msgstr "Optymalizacja fotometryczna"
+
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:510
 msgid ""
 "The vignetting and exposure correction is determined by analysing color "
 "values in the overlapping areas.\n"
@@ -1618,41 +1628,41 @@ msgstr ""
 "kolorów w nachodzących obszarach.\n"
 "Aby przyspieszyć obliczenia, używany jest tylko losowy podzbiór punktów."
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:486
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:511
 msgid "Number of points per image"
 msgstr "Liczba punktów na zdjęcie"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:487
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:512
 msgid "Photometric optimization"
 msgstr "Optymalizacja fotometryczna"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:494
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:519
 msgid "Photometric alignment"
 msgstr "Wyrównanie fotometryczne"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:494
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:519
 msgid "Loading images"
 msgstr "Wczytywanie zdjęć"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:505
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:530
 msgid "Error: could not load all images"
 msgstr "Błąd: nie można wczytać wszystkich zdjęć"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:525
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:550
 msgid "Error: no overlapping points found, Photometric optimization aborted"
 msgstr ""
 "Błąd: nie znaleziono nakładających się punktów, optymalizacja fotometryczna "
 "przerwana"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:558
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:573
 msgid "Internal error during photometric optimization:\n"
 msgstr "Błąd wewnętrzny podczas optymalizacji fotometrycznej:\n"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:558
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:573
 msgid "Internal error"
 msgstr "Błąd wewnętrzny"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:564
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:579
 #, c-format
 msgid ""
 "Photometric optimization results:\n"
@@ -1667,7 +1677,7 @@ msgstr ""
 "\n"
 "Zastosować wyniki?"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:565
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:580
 msgid "Photometric optimization finished"
 msgstr "Optymalizacja fotometryczna zakończona"
 
@@ -2321,7 +2331,7 @@ msgstr ""
 "\n"
 " Nie można wykonać polecenia: %s"
 
-#: hugin1/icpfind/CPDetectorConfig.cpp:136
+#: hugin1/icpfind/CPDetectorConfig.cpp:137
 msgid "Default"
 msgstr "Domyślnie"
 
