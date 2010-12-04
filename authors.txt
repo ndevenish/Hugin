@@ -18,6 +18,7 @@ Ademar de Souza Reis Jr.	original Brazilian translation and translation related 
 Serhij Dubyk	initial Ukrainian translation
 Terry Duell	updated tutorials, Fedora tester and packager
 Alexandre Duret-Lutz	code
+Davide Fabbri	Bugfixes, Windows build
 Lu Fang	initial Chinese Simplified translation
 Skip Gaede	OS X build fixes
 Daniel German	bug fixes, GSoC mentor 2010
