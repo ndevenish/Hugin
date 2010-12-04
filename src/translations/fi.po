@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: fi\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2010-11-29 20:24+0100\n"
+"POT-Creation-Date: 2010-12-04 17:09-0500\n"
 "PO-Revision-Date: 2010-06-17 12:45+0200\n"
 "Last-Translator: Juha Helminen <juha.helminen@iki.fi>\n"
 "Language-Team:  <@>\n"
@@ -35,8 +35,8 @@ msgstr ""
 #: hugin1/hugin/GLViewer.cpp:128 hugin1/hugin/GLViewer.cpp:138
 #: hugin1/hugin/MainFrame.cpp:629 hugin1/hugin/MainFrame.cpp:879
 #: hugin1/hugin/MainFrame.cpp:1395 hugin1/hugin/MainFrame.cpp:1854
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:505
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:525
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:530
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:550
 #: hugin1/hugin/PanoPanel.cpp:991 hugin1/hugin/PanoPanel.cpp:1057
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:205
 #: hugin1/ptbatcher/BatchFrame.cpp:445 hugin1/ptbatcher/FindPanoDialog.cpp:259
@@ -583,16 +583,16 @@ msgstr ""
 
 #: hugin1/hugin/CPEditorPanel.cpp:2179 hugin1/hugin/CPEditorPanel.cpp:2201
 #: hugin1/hugin/CPEditorPanel.cpp:2218 hugin1/hugin/CPEditorPanel.cpp:2227
-#: hugin1/hugin/ImagesPanel.cpp:1025 hugin1/hugin/ImagesPanel.cpp:1054
-#: hugin1/hugin/ImagesPanel.cpp:1079 hugin1/hugin/ImagesPanel.cpp:1089
+#: hugin1/hugin/ImagesPanel.cpp:1023 hugin1/hugin/ImagesPanel.cpp:1052
+#: hugin1/hugin/ImagesPanel.cpp:1077 hugin1/hugin/ImagesPanel.cpp:1087
 msgid "Running Celeste"
 msgstr "Celeste ajossa"
 
-#: hugin1/hugin/CPEditorPanel.cpp:2180 hugin1/hugin/ImagesPanel.cpp:1026
+#: hugin1/hugin/CPEditorPanel.cpp:2180 hugin1/hugin/ImagesPanel.cpp:1024
 msgid "searching for cloud-like control points..."
 msgstr "etsitään pilven tyyppisiä kohdistuspisteitä"
 
-#: hugin1/hugin/CPEditorPanel.cpp:2181 hugin1/hugin/ImagesPanel.cpp:1027
+#: hugin1/hugin/CPEditorPanel.cpp:2181 hugin1/hugin/ImagesPanel.cpp:1025
 #, fuzzy
 msgid "Loading model file"
 msgstr "Ladataan kuvaa %s"
@@ -602,8 +602,7 @@ msgstr "Ladataan kuvaa %s"
 msgid "Removed %d control points"
 msgstr "Poista %d kohdistuspistettä"
 
-#: hugin1/hugin/CPEditorPanel.cpp:2228 hugin1/hugin/ImagesPanel.cpp:1090
-#: hugin1/hugin/ImagesPanel.cpp:1095
+#: hugin1/hugin/CPEditorPanel.cpp:2228 hugin1/hugin/ImagesPanel.cpp:1088
 msgid "Celeste result"
 msgstr "Celeste tulos"
 
@@ -1111,7 +1110,7 @@ msgstr "Tarkistetaan koko projekti"
 msgid "Finished cleaning"
 msgstr "Puhdistun lopetettu"
 
-#: hugin1/hugin/ImagesPanel.cpp:379 hugin1/hugin/ImagesPanel.cpp:1095
+#: hugin1/hugin/ImagesPanel.cpp:379
 #, fuzzy, c-format
 msgid "Removed %u control points"
 msgstr "Poista %d kohdistuspistettä"
@@ -1120,16 +1119,16 @@ msgstr "Poista %d kohdistuspistettä"
 msgid "Cleaning"
 msgstr "Puhdistaa"
 
-#: hugin1/hugin/ImagesPanel.cpp:882
+#: hugin1/hugin/ImagesPanel.cpp:881
 #, fuzzy, c-format
 msgid "Really Delete %lu control points?"
 msgstr "Poistetaanko todellakin %d kohdistuspistettä?"
 
-#: hugin1/hugin/ImagesPanel.cpp:884
+#: hugin1/hugin/ImagesPanel.cpp:883
 msgid "Delete Control Points"
 msgstr "Poista kohdistuspisteitä"
 
-#: hugin1/hugin/ImagesPanel.cpp:962
+#: hugin1/hugin/ImagesPanel.cpp:961
 msgid ""
 "Your project must have at least two stacks before you can assign images to a "
 "different stack."
@@ -1137,19 +1136,19 @@ msgstr ""
 "Projektilla pitää olla vähintään kaksi pinoa ennenkuin voit liittää kuvia "
 "muuhun pinoon."
 
-#: hugin1/hugin/ImagesPanel.cpp:966
+#: hugin1/hugin/ImagesPanel.cpp:965
 msgid "Enter new stack number"
 msgstr "Syötä pinon numero"
 
-#: hugin1/hugin/ImagesPanel.cpp:967
+#: hugin1/hugin/ImagesPanel.cpp:966
 msgid "stack number"
 msgstr "pinon numero"
 
-#: hugin1/hugin/ImagesPanel.cpp:968
+#: hugin1/hugin/ImagesPanel.cpp:967
 msgid "Change stack number"
 msgstr "Muuta pinon numero"
 
-#: hugin1/hugin/ImagesPanel.cpp:1090
+#: hugin1/hugin/ImagesPanel.cpp:1088
 #, fuzzy, c-format
 msgid "Removed %lu control points"
 msgstr "Poista %d kohdistuspistettä"
@@ -1587,7 +1586,18 @@ msgstr ""
 msgid "Link parameters"
 msgstr "Linkitä parametrit"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:485
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:498
+msgid ""
+"You selected no parameters to optimize.\n"
+"Therefore optimization will be canceled."
+msgstr ""
+
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:498
+#, fuzzy
+msgid "Exposure optimization"
+msgstr "Valoisuuden optimointi"
+
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:510
 msgid ""
 "The vignetting and exposure correction is determined by analysing color "
 "values in the overlapping areas.\n"
@@ -1597,40 +1607,40 @@ msgstr ""
 "väriarvojen analyysillä.\n"
 "Laskennan nopeuttamiseksi vain ratunnaisjoukko pisteistä käytetään."
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:486
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:511
 msgid "Number of points per image"
 msgstr "Pisteiden lukumäärä kuvalle"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:487
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:512
 msgid "Photometric optimization"
 msgstr "Valoisuuden optimointi"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:494
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:519
 msgid "Photometric alignment"
 msgstr "Valoisuuden sovitus"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:494
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:519
 msgid "Loading images"
 msgstr "Ladataan kuvia"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:505
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:530
 msgid "Error: could not load all images"
 msgstr "Virhe: kaikkia kuvia ei pystytty lataamaan"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:525
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:550
 msgid "Error: no overlapping points found, Photometric optimization aborted"
 msgstr ""
 "Virhe: päällekkäisiä pisteitä ei löydetty, Valoisuuden optimointi keskeytetty"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:558
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:573
 msgid "Internal error during photometric optimization:\n"
 msgstr "Sisäinen virhe valoisuuden optimoinnin aikana:\n"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:558
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:573
 msgid "Internal error"
 msgstr "Sisäinen virhe"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:564
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:579
 #, c-format
 msgid ""
 "Photometric optimization results:\n"
@@ -1645,7 +1655,7 @@ msgstr ""
 "\n"
 "Käytä tuloksia?"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:565
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:580
 msgid "Photometric optimization finished"
 msgstr "Valoisuuden optimointi lopetettu"
 
@@ -2288,7 +2298,7 @@ msgstr ""
 "\n"
 " Ei voi ajaa komentoa: %s"
 
-#: hugin1/icpfind/CPDetectorConfig.cpp:136
+#: hugin1/icpfind/CPDetectorConfig.cpp:137
 msgid "Default"
 msgstr "Oletus"
 
