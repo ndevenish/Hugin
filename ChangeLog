@@ -1,4 +1,196 @@
-2010-11-26 14:11 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (d9733a7a703f [tip])
+2010-12-03 18:11 +0100  tmodes  <tmodes>  (b3f8df8382d4 [tip])
+
+	* src/hugin1/hugin/MainFrame.cpp:
+	Fixes some compiler warnings
+
+2010-12-03 18:12 +0100  tmodes  <tmodes>  (272339758497)
+
+	* src/hugin1/hugin/ImagesPanel.cpp:
+	Show message box after celeste only once (Patch by davidefa) Fixes
+	#684634
+
+2010-12-02 18:04 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (cb535d97d8fd)
+
+	* src/foreign/zthread/include/zthread/Config.h:
+	fix build on kFreeBSD (Andreas Metzler)
+
+2010-12-03 01:28 +0100  Vaclav Cerny  <vatoz@seznam.cz>  (1ba62fd3dbb9)
+
+	* src/translations/cs_CZ.po:
+	updated czech translation
+
+2010-12-02 20:20 +0100  mcri  <mcri>  (83ccac1b84bf)
+
+	* src/translations/es_VE.po:
+	Corrected some syntax error in es_VE.po
+
+2010-12-02 19:50 +0100  mcri  <mcri>  (5f07a367f54a)
+
+	* src/translations/it.po:
+	Updated Italian translation
+
+2010-12-01 21:21 -0600  gpatters1  <gpatters1>  (5dea4ca0f94b)
+
+	* src/hugin1/hugin/MainFrame.cpp:
+	removed extra reset to TIFF_m. It happens in wxLoadPTProjectCmd() a
+	few lines above
+
+2010-12-01 21:17 -0600  gpatters1  <gpatters1>  (07b614d6c1af)
+
+	* src/hugin1/hugin/MainFrame.cpp:
+	[683003] Fix for outputMode errror in MainFrame.cpp
+
+2010-12-01 16:53 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (0412dc8879d0)
+
+	* src/translations/es_VE.po: new file.
+	* authors.txt, src/translations/es_VE.po:
+	Venezoelan Spanish translation (Ernesto Enrique Alvarado Viloria)
+
+2010-12-01 20:54 +0100  tmodes  <tmodes>  (22d1f3b80a0e)
+
+	* src/translations/es.po:
+	Fixes some errors in spanish translation
+
+2010-12-01 21:07 +0100  tmodes  <tmodes>  (1ef340c410b9)
+
+	* src/translations/de.po:
+	Some more german translations
+
+2010-12-01 14:18 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (34d562320a30)
+
+	* src/translations/de.po:
+	Updated German translation (Joachim Schneider)
+
+2010-12-01 19:39 +0100  mcri  <mcri>  (56d01196d76c)
+
+	* src/hugin1/hugin/hugin.desktop,
+	src/hugin1/ptbatcher/PTBatcherGUI.desktop:
+	Added Italian translation.
+
+2010-12-01 19:36 +0100  mcri  <mcri>  (0407ebd4c568)
+
+	* src/translations/it.po:
+	Updated Italian translation.
+
+2010-12-01 13:55 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (f53a844c5d34)
+
+	* authors.txt, src/translations/es.po:
+	Edited Spanish translation (Uwe Koch Kronberg)
+
+2010-11-30 23:44 -0600  gpatters1  <gpatters1>  (7f98c1a3db1b)
+
+	* src/hugin_base/panodata/Panorama.cpp:
+	[679447] - Fix for crash when loading bogus pto file.
+
+2010-11-27 15:07 -0600  gpatters1  <gpatters1>  (b161d0660b3d)
+
+	* src/hugin1/hugin/ImagesPanel.cpp:
+	Removed unnecessary extra call for clear EXIF display on Images Tab
+
+2010-11-29 22:29 +0100  harryvanderwolf  <hvdwolf@gmail.com>  (6cf6ca35afc8)
+
+	* src/translations/nl.po:
+	Dutch translation; Typo and missing \n breaking build
+
+2010-11-29 20:26 +0100  tmodes  <tmodes>  (1e3fcb26cf9e)
+
+	* src/hugin1/hugin/xrc/batch_menu.xrc, src/translations/bg.po,
+	src/translations/ca_ES.po, src/translations/cs_CZ.po,
+	src/translations/de.po, src/translations/en_GB.po,
+	src/translations/es.po, src/translations/fi.po,
+	src/translations/fr.po, src/translations/hu.po,
+	src/translations/hugin.pot, src/translations/it.po,
+	src/translations/ja.po, src/translations/ko.po,
+	src/translations/nl.po, src/translations/pl.po,
+	src/translations/pt_BR.po, src/translations/ru.po,
+	src/translations/sk.po, src/translations/sl.po,
+	src/translations/sv.po, src/translations/uk.po,
+	src/translations/zh_CN.po, src/translations/zh_TW.po:
+	Better help string and updated po files
+
+2010-11-29 19:49 +0100  harryvanderwolf  <hvdwolf@gmail.com>  (51fcd19c7287)
+
+	* src/translations/nl.po:
+	Update Dutch translation
+
+2010-11-29 19:31 +0100  tmodes  <tmodes>  (a6be5f7e38e8)
+
+	* src/hugin1/icpfind/default.unix, src/hugin1/icpfind/default.win:
+	Added cpfind+align_image_stack setting
+
+2010-11-27 13:49 -0600  gpatters1  <gpatters1>  (ea196157c82d)
+
+	* src/hugin1/hugin/CPImageCtrl.cpp:
+	[678841] - Fix for images disappear from control points tab.
+
+2010-11-28 19:13 +0100  tmodes  <tmodes>  (b2d4ce755523)
+
+	* src/hugin1/hugin/xrc/data/help_en_EN/help_index_en.hhk,
+	src/hugin1/hugin/xrc/data/help_en_EN/help_toc_en.hhc,
+	src/hugin1/hugin/xrc/data/help_en_EN/hugin_help_en_EN.hhp:
+	Updated toc and index of compiled help file
+
+2010-11-28 18:55 +0100  tmodes  <tmodes>  (0e68b6c9a369)
+
+	* src/hugin1/hugin/xrc/data/help_en_EN/Hugin_stitch_project.html: new
+	file.
+	* src/hugin1/hugin/xrc/data/help_en_EN/Cpfind.html,
+	src/hugin1/hugin/xrc/data/help_en_EN/Enfuse.html,
+	src/hugin1/hugin/xrc/data/help_en_EN/Hugin.html,
+	src/hugin1/hugin/xrc/data/help_en_EN/Hugin_FAQ.html,
+	src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Reset_Values_window.html,
+	src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Trackers.html,
+	src/hugin1/hugin/xrc/data/help_en_EN/Hugin_stitch_project.html,
+	src/hugin1/hugin/xrc/data/help_en_EN/Hugin_translation_guide.html,
+	src/hugin1/hugin/xrc/data/help_en_EN/Icpfind.html,
+	src/hugin1/hugin/xrc/data/help_en_EN/Pano_modify.html,
+	src/hugin1/hugin/xrc/data/help_en_EN/Pto2mk.html,
+	src/hugin1/hugin/xrc/data/help_en_EN/Pto_merge.html,
+	src/hugin1/hugin/xrc/data/help_en_EN/pages.txt:
+	Updated help files
+
+2010-11-27 15:42 +0100  jean-luc  <jean-luc.coulon@wanadoo.fr>  (a26eaba2eda3)
+
+	* src/translations/fr.po:
+	French translation update
+
+2010-11-27 13:23 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (6b339aa79654)
+
+	* merge
+
+2010-11-26 23:27 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (d6622958b367)
+
+	* src/hugin1/hugin/huginApp.cpp, src/hugin1/hugin/huginApp.h,
+	src/hugin1/hugin/xrc/about.xrc,
+	src/hugin1/hugin/xrc/data/dedication.htm:
+	external links inside wxHtmlWindow open in system's web browser
+
+2010-11-27 15:10 +0100  tmodes  <tmodes>  (51c2fba627f9)
+
+	* src/hugin1/hugin/ImagesPanel.cpp,
+	src/hugin1/hugin/PreferencesDialog.cpp,
+	src/hugin1/icpfind/CPDetectorConfig.cpp,
+	src/hugin1/icpfind/CPDetectorConfig.h:
+	Correctly populate cp detectors with default settings if no stored
+	config found Fixes issue 682099
+
+2010-11-27 10:30 +0100  tmodes  <tmodes>  (57d5bcba4c0c)
+
+	* src/hugin1/hugin/GLPreviewFrame.cpp,
+	src/hugin1/hugin/PreviewFrame.cpp:
+	Added minimize button to preview windows Fixes issue #678715
+
+2010-11-26 14:27 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (95c7c055a9d9)
+
+	* .hgtags:
+	Added tag 2009.4beta1 for changeset 924390a17a74
+
+2010-11-26 14:26 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (924390a17a74 [2010.4beta1])
+
+	* ChangeLog:
+	updated Changelog
+
+2010-11-26 14:11 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (d9733a7a703f)
 
 	* src/hugin1/hugin/xrc/data/dedication.htm,
 	src/hugin1/hugin/xrc/data/milko.png: new file.
