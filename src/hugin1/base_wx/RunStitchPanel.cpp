@@ -239,6 +239,7 @@ bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname,
                            outputFiles,
                            makeFileStream,
                            tmpDir);
+        makeFileStream.close();
 
         // cd to output directory, if one is given.
         wxString oldCWD = wxFileName::GetCwd();
