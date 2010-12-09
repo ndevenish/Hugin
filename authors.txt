@@ -1,6 +1,6 @@
 Pablo d'Angelo	Original Author, GSoC 2007 and 2008 mentor, German translation, original CMake build, original Windows SDK
 Florian Achleitner	GSoC 2010 Makefile lib
-Ernesto Enrique Alvarado Viloria	initial Venezoelan Spanish translation
+Ernesto Enrique Alvarado Viloria	initial Latin American Spanish translation
 Bart van Andel	Bugfix
 György Balló	original Hungarian translation
 Herbert Bay	GSoC 2007 mentor
