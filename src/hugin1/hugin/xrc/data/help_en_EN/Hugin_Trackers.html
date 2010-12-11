@@ -104,8 +104,7 @@ gpg --fingerprint $GPGKEY
 <p>Read and sign the <a href="https://launchpad.net/codeofconduct/1.1/+download" class="external text" title="https://launchpad.net/codeofconduct/1.1/+download" rel="nofollow">Ubuntu Code of Conduct</a>.  This will grant you privileges such as creating your own PPA and uploading source packages for build and distribution.
 </p>
 <pre>
-wget https://launchpad.net/codeofconduct/1.1/+download
-mv +download code.txt
+wget -O code.txt https://launchpad.net/codeofconduct/1.1/+download
 gpg -u $GPGKEY --clearsign code.txt
 cat code.txt.asc
 </pre>
@@ -124,7 +123,69 @@ cat code.txt.asc
 </li><li> You will land on a confirmation form.  click Confirm.
 </li><li> If everything completed successfully you will land on your LP account page with a confirmation of the successful merge.
 </li></ul>
+<a name="Email_Notifications" id="Email_Notifications"></a><h1> <span class="mw-headline"> Email Notifications </span></h1>
+<p>Launchpad uses a sophisticated <a href="https://help.launchpad.net/Bugs/EmailInterface" class="external text" title="https://help.launchpad.net/Bugs/EmailInterface" rel="nofollow">email interface</a>.  It is possible to do almost anything via email without having to log into the web app.
+</p><p>Activity on the tracker is notified by email to:
+</p>
+<ul><li> everybody who subscribe to the individual ticket by hitting the subscribe link on the right of the tracker.  If you file a ticket, you are automatically subscribed to it.
+</li><li> everybody who subscribes to the tracker <a href="https://bugs.launchpad.net/hugin/+subscribe" class="external free" title="https://bugs.launchpad.net/hugin/+subscribe" rel="nofollow">https://bugs.launchpad.net/hugin/+subscribe</a>
+</li><li> the <a href="https://launchpad.net/~hugin-bug-hunters" class="external text" title="https://launchpad.net/~hugin-bug-hunters" rel="nofollow">Hugin Bug Hunters</a> team and the <a href="https://launchpad.net/~hugin-devs" class="external text" title="https://launchpad.net/~hugin-devs" rel="nofollow">Hugin Developers</a> team
+</li></ul>
+<p>To manage your notification settings you can (replace $USER with your Launchpad name):
+</p>
+<ul><li> change your email settings (short-term/holiday) for team mailing lists at <code><a href="https://launchpad.net/~$USER/+editemails" class="external free" title="https://launchpad.net/~$USER/+editemails" rel="nofollow">https://launchpad.net/~$USER/+editemails</a></code> and a general subscription policy to new mailing lists.
+</li><li> change your team participation (long-term) at <code><a href="https://launchpad.net/~$USER/+participation" class="external free" title="https://launchpad.net/~$USER/+participation" rel="nofollow">https://launchpad.net/~$USER/+participation</a></code>
+</li><li> list the bugs you're subscribed to and change the individual subscription to each bug (fine tuning) at <code><a href="https://bugs.launchpad.net/~$USER" class="external free" title="https://bugs.launchpad.net/~$USER" rel="nofollow">https://bugs.launchpad.net/~$USER</a></code>
+</li></ul>
 <a name="Placing_a_Ticket" id="Placing_a_Ticket"></a><h1> <span class="mw-headline"> Placing a Ticket </span></h1>
+<p>To use the tracker, you need a <a href="Hugin_Trackers.html#Launchpad_Account" class="external text" title="http://wiki.panotools.org/Hugin_Trackers#Launchpad_Account" rel="nofollow">Launchpad Account</a>.  You can submit our translation via the web or via email.
+</p>
+<a name="Web" id="Web"></a><h2> <span class="mw-headline"> Web </span></h2>
+<ul><li> Log on with your Launchpad account.
+</li><li> Start reporting a <a href="https://bugs.launchpad.net/hugin/+filebug" class="external text" title="https://bugs.launchpad.net/hugin/+filebug" rel="nofollow">new ticket</a>.
+</li><li> Enter a title/summary (e.g. German Translation).
+</li><li> Launchpad will look for duplicates.  Look in the list of reports found if your issue has already been reported.  It is preferable to add to an old report (and even re-open a closed or expired report)  than to start a new one.  In most cases the previous history will give more weight to your report.
+</li><li> On the reporting form, enter a description.
+</li><li> If you need to attach a .pto file, a stitch log, a screenshot, or anything else that may be useful, scroll to the bottom and hit the link "Extra options".
+</li><li> There you will find an Attachment field.  Hit it and browse to the file you want to attach.
+</li><li> Click the "Submit Bug Report" button.
+</li></ul>
+<p>To add an attachment to an already existing ticket:
+</p>
+<ul><li> Log on to your Launchpad account.
+</li><li> Get on the report's page.
+</li><li> Scroll to the bottom.
+</li><li> Hit the "Add attachment or patch" link.
+</li><li> Enter a comment.
+</li><li> Hit the attachment field and browse to the file you want to attach.
+</li><li> Enter a description (optional).
+</li><li> Hit the "Post Comment" button.
+</li></ul>
+<p><br />
+</p>
+<a name="eMail" id="eMail"></a><h2> <span class="mw-headline"> eMail </span></h2>
+<p>Reporting a new ticket by email works too, but there are some critical conditions:
+</p>
+<ul><li> Your email account must be registered with Launchpad.
+</li><li> You must have an OpenPGP key associated with it and known to Launchpad.
+</li><li> You must craft your email carefully.  A misplaced space or a typo can doom your report.
+</li><li> To be safe, use TEXT email, not HTML -- a good habit anyway.  In most email client you recognize the TEXT mode by the lack of a formatting toolbar).
+</li></ul>
+<p>The message:
+</p>
+<ul><li> From: your Launchpad-registered email address
+</li><li> To: new@bugs.launchpad.net
+</li><li> Subject: title of the bug
+</li><li> Body:  description + carefully crafted commands.  Commands are usually at the end of the body.  One per line.  Each command line starts with a single space.
+</li><li> Enter the command " affects hugin" to assign the report to Hugin.
+</li><li> Enter the command " tag translation" to tag the report as being a translation.
+</li><li> Attach the file(s) to the email.
+</li><li> Send.  It takes about five minutes to process and you get an email back with the result.
+</li></ul>
+<p>Replying to a bug report by email is easier.  You don't need to issue the " affects hugin" command since the reply is referenced by the ticket number.
+</p><p><br />
+</p>
+<a name="Types_of_Tickets" id="Types_of_Tickets"></a><h1> <span class="mw-headline"> Types of Tickets </span></h1>
 <a name="Feature_Request" id="Feature_Request"></a><h2> <span class="mw-headline"> Feature Request </span></h2>
 <p>Do you have an idea for a feature that Hugin does not have yet? You don't have the time/skill for coding? You can at least contribute the idea and some analysis. Discussions on the mailing list are OK but tend to get lost in time. If you want to make sure that your idea is remembered, enter it into the tracker.  The more analysis and description of the feature, the better.  Make a case for it, show why it would be an advantage. The feature may be picked up by a skilled developer, or it could also become a Google Summer of Code or otherwise sponsored project.
 </p>
@@ -137,10 +198,9 @@ cat code.txt.asc
 </p><p>Recent version of Hugin have system information in the About menu.  Copy and paste it.
 </p><p><br />
 </p>
-<a name="The_Sofware" id="The_Sofware"></a><h3> <span class="mw-headline"> The Sofware </span></h3>
+<a name="The_Software" id="The_Software"></a><h3> <span class="mw-headline"> The Software </span></h3>
 <p>We also need to know as much as possible about the software used. Which version of Hugin? Where did you install it from? Did you compile Hugin yourself? An easy way to identify your version of Hugin is to look up the About Hugin dialog (Menu Help -&gt; About Hugin) and report the whole version string.
 </p><p>Hugin depends on third party libraries and tools such as libpano and enblend/enfuse. Unless you have downloaded a Windows installer or a Mac bundle (that are self-contained), we'd need to know the same information for the dependencies. Where and when did you install them from?
-</p><p><br />
 </p>
 <a name="The_Application" id="The_Application"></a><h3> <span class="mw-headline"> The Application </span></h3>
 <p>Often times the nature of your project, particularly the images, will help understand the bug. How many images? What format? Do they have EXIF data? What camera make/model? Is it HDR? Providing the .pto file (can be attached) is a valuable input to the analysis process. If you have access to web-space, providing the full test case including images (in JPG format and/or resized to reduce storage/bandwidth need) can also help.
@@ -215,7 +275,14 @@ cat code.txt.asc
 <ul><li> The tracker enables the assignment of a ticket to a person. It is considered rude to assign a ticket to somebody else without their prior consent. Developers sometimes assign a ticket to themselves to signal they are working on it, but we do not use this feature too often.
 </li><li> The tracker allows the subscription of somebody else to a ticket.  You can do so once if you think a person should be aware of a ticket.  Then add a note to that ticket and the person concerned will receive it in her mail.  But if the person decides otherwise and unsubscribes from the ticket, please respect it.
 </li></ul>
-
+<a name="Tips_.26_Tricks" id="Tips_.26_Tricks"></a><h2> <span class="mw-headline"> Tips &amp; Tricks </span></h2>
+<p>If you know the old SourceForge bug number (e.g. form a comment on a migrated ticket), you can find it at the URL
+</p>
+<pre> <a href="https://bugs.launchpad.net/bugs/${name}" class="external free" title="https://bugs.launchpad.net/bugs/${name}" rel="nofollow">https://bugs.launchpad.net/bugs/${name}</a>
+</pre>
+<p>So, for example <a href="https://bugs.launchpad.net/bugs/sf-2789151" class="external free" title="https://bugs.launchpad.net/bugs/sf-2789151" rel="nofollow">https://bugs.launchpad.net/bugs/sf-2789151</a> (referenced at <a href="https://bugs.launchpad.net/hugin/+bug/679170/comments/5" class="external free" title="https://bugs.launchpad.net/hugin/+bug/679170/comments/5" rel="nofollow">https://bugs.launchpad.net/hugin/+bug/679170/comments/5</a>)
+will redirect you to <a href="https://bugs.launchpad.net/hugin/+bug/679179" class="external free" title="https://bugs.launchpad.net/hugin/+bug/679179" rel="nofollow">https://bugs.launchpad.net/hugin/+bug/679179</a>
+</p>
 
 
 
