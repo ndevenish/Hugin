@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: bg\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2010-12-04 17:09-0500\n"
+"POT-Creation-Date: 2010-12-11 12:35+0100\n"
 "PO-Revision-Date: 2008-07-10 10:12+0200\n"
 "Last-Translator: Svetoslav Stefanov <lfu.project@gmail.com>\n"
 "Language-Team: Bulgarian <bg@li.org>\n"
@@ -163,28 +163,28 @@ msgstr ""
 msgid "Panorama Tools"
 msgstr "Panorama Tools"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:135 hugin1/base_wx/RunStitchPanel.cpp:293
+#: hugin1/base_wx/RunStitchPanel.cpp:135 hugin1/base_wx/RunStitchPanel.cpp:294
 msgid "Could not open project file:"
 msgstr "Проектният файл не може да бъде отворен:"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:145 hugin1/base_wx/RunStitchPanel.cpp:301
+#: hugin1/base_wx/RunStitchPanel.cpp:145 hugin1/base_wx/RunStitchPanel.cpp:302
 #: hugin1/nona_gui/nona_gui.cpp:243 hugin1/ptbatcher/ProjectArray.cpp:86
 #, c-format
 msgid "could not open script : %s"
 msgstr "Скриптът не може да се отвори: %s"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:166 hugin1/base_wx/RunStitchPanel.cpp:309
+#: hugin1/base_wx/RunStitchPanel.cpp:166 hugin1/base_wx/RunStitchPanel.cpp:310
 #: hugin1/nona_gui/nona_gui.cpp:250 hugin1/ptbatcher/ProjectArray.cpp:109
 #, c-format
 msgid "error while parsing panotools script: %s"
 msgstr "Грешка при синтактическия разбор на скрипта panotools: %s"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:205 hugin1/base_wx/RunStitchPanel.cpp:222
-#: hugin1/base_wx/RunStitchPanel.cpp:334
+#: hugin1/base_wx/RunStitchPanel.cpp:335
 msgid "Could not create temporary file"
 msgstr "Не може да бъде създаден временен файл"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:256
+#: hugin1/base_wx/RunStitchPanel.cpp:257
 msgid ""
 "Overwrite existing images?\n"
 "\n"
@@ -192,16 +192,16 @@ msgstr ""
 "Презаписване на съществуващите изображения?\n"
 "\n"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:256
+#: hugin1/base_wx/RunStitchPanel.cpp:257
 msgid "Overwrite existing images"
 msgstr "Презаписване на съществуващите изображения"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:271
+#: hugin1/base_wx/RunStitchPanel.cpp:272
 #, c-format
 msgid "Stitching %s"
 msgstr "Събиране на %s"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:275
+#: hugin1/base_wx/RunStitchPanel.cpp:276
 #, c-format
 msgid ""
 "Error while stitching project\n"
@@ -210,19 +210,19 @@ msgstr ""
 "Грешка при събирането на проекта\n"
 "%s"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:276 hugin1/base_wx/RunStitchPanel.cpp:282
+#: hugin1/base_wx/RunStitchPanel.cpp:277 hugin1/base_wx/RunStitchPanel.cpp:283
 #: hugin1/stitch_project/hugin_stitch_project.cpp:171
 msgid "Error during stitching"
 msgstr "Грешка по време на събирането"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:353
+#: hugin1/base_wx/RunStitchPanel.cpp:354
 #, fuzzy, c-format
 msgid ""
 "Error while running assistant\n"
 "%s"
 msgstr "Грешка при синтактическия разбор на скрипта panotools: %s"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:354 hugin1/base_wx/RunStitchPanel.cpp:362
+#: hugin1/base_wx/RunStitchPanel.cpp:355 hugin1/base_wx/RunStitchPanel.cpp:363
 #, fuzzy
 msgid "Error during running assistant"
 msgstr "Грешка по време на събирането"
@@ -1274,6 +1274,11 @@ msgstr "В готовност"
 
 #: hugin1/hugin/MainFrame.cpp:506
 msgid "Save changes to the panorama before closing?"
+msgstr ""
+
+#: hugin1/hugin/MainFrame.cpp:514
+msgid ""
+"If you close without saving, changes since your last save will be discarded"
 msgstr ""
 
 #: hugin1/hugin/MainFrame.cpp:517

@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2010-12-04 17:09-0500\n"
-"PO-Revision-Date: 2010-12-11 09:17+0100\n"
+"POT-Creation-Date: 2010-12-11 12:35+0100\n"
+"PO-Revision-Date: 2010-12-11 12:39+0100\n"
 "Last-Translator: T. Modes\n"
 "Language-Team: deutsch <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -195,12 +195,12 @@ msgid "Panorama Tools"
 msgstr "Panorama Tools"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:135
-#: hugin1/base_wx/RunStitchPanel.cpp:293
+#: hugin1/base_wx/RunStitchPanel.cpp:294
 msgid "Could not open project file:"
 msgstr "Konnte Projektdatei nicht öffnen:"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:145
-#: hugin1/base_wx/RunStitchPanel.cpp:301
+#: hugin1/base_wx/RunStitchPanel.cpp:302
 #: hugin1/nona_gui/nona_gui.cpp:243
 #: hugin1/ptbatcher/ProjectArray.cpp:86
 #, c-format
@@ -208,7 +208,7 @@ msgid "could not open script : %s"
 msgstr "Konnte Skriptdatei %s nicht öffnen."
 
 #: hugin1/base_wx/RunStitchPanel.cpp:166
-#: hugin1/base_wx/RunStitchPanel.cpp:309
+#: hugin1/base_wx/RunStitchPanel.cpp:310
 #: hugin1/nona_gui/nona_gui.cpp:250
 #: hugin1/ptbatcher/ProjectArray.cpp:109
 #, c-format
@@ -217,11 +217,11 @@ msgstr "Fehler beim Einlesen des Skriptes %s"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:205
 #: hugin1/base_wx/RunStitchPanel.cpp:222
-#: hugin1/base_wx/RunStitchPanel.cpp:334
+#: hugin1/base_wx/RunStitchPanel.cpp:335
 msgid "Could not create temporary file"
 msgstr "Konnte temporäre Datei nicht erzeugen."
 
-#: hugin1/base_wx/RunStitchPanel.cpp:256
+#: hugin1/base_wx/RunStitchPanel.cpp:257
 msgid ""
 "Overwrite existing images?\n"
 "\n"
@@ -229,16 +229,16 @@ msgstr ""
 "Bestehende Bilder überschreiben?\n"
 "\n"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:256
+#: hugin1/base_wx/RunStitchPanel.cpp:257
 msgid "Overwrite existing images"
 msgstr "Bilder überschreiben"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:271
+#: hugin1/base_wx/RunStitchPanel.cpp:272
 #, c-format
 msgid "Stitching %s"
 msgstr "Füge %s zusammen"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:275
+#: hugin1/base_wx/RunStitchPanel.cpp:276
 #, c-format
 msgid ""
 "Error while stitching project\n"
@@ -247,13 +247,13 @@ msgstr ""
 "Fehler beim Zusammenfügen von Projekt\n"
 "%s"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:276
-#: hugin1/base_wx/RunStitchPanel.cpp:282
+#: hugin1/base_wx/RunStitchPanel.cpp:277
+#: hugin1/base_wx/RunStitchPanel.cpp:283
 #: hugin1/stitch_project/hugin_stitch_project.cpp:171
 msgid "Error during stitching"
 msgstr "Fehler beim Zusammenfügen"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:353
+#: hugin1/base_wx/RunStitchPanel.cpp:354
 #, c-format
 msgid ""
 "Error while running assistant\n"
@@ -262,8 +262,8 @@ msgstr ""
 "Fehler beim Ablauf des Assistenten\n"
 "%s"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:354
-#: hugin1/base_wx/RunStitchPanel.cpp:362
+#: hugin1/base_wx/RunStitchPanel.cpp:355
+#: hugin1/base_wx/RunStitchPanel.cpp:363
 msgid "Error during running assistant"
 msgstr "Fehler beim Ablauf des Assistenten"
 
@@ -1345,6 +1345,10 @@ msgstr "Gestartet"
 #: hugin1/hugin/MainFrame.cpp:506
 msgid "Save changes to the panorama before closing?"
 msgstr "Änderungen am Panorama vor dem Schliessen sichern?"
+
+#: hugin1/hugin/MainFrame.cpp:514
+msgid "If you close without saving, changes since your last save will be discarded"
+msgstr "Alle Änderungen seit dem letzten Speichern gehen verloren, wenn Sie jetzt ohne zu speichern das Programm beenden."
 
 #: hugin1/hugin/MainFrame.cpp:517
 msgid "Don't Save"

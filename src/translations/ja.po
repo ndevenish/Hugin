@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Hugin 0.8.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2010-12-04 17:09-0500\n"
+"POT-Creation-Date: 2010-12-11 12:35+0100\n"
 "PO-Revision-Date: 2010-11-15 19:04+0900\n"
 "Last-Translator: Hajime Taira <htaira@redhat.com>\n"
 "Language-Team: 日本語 <kde-i18n-doc@kde.org>\n"
@@ -168,28 +168,28 @@ msgstr ""
 msgid "Panorama Tools"
 msgstr "Panorama Tools"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:135 hugin1/base_wx/RunStitchPanel.cpp:293
+#: hugin1/base_wx/RunStitchPanel.cpp:135 hugin1/base_wx/RunStitchPanel.cpp:294
 msgid "Could not open project file:"
 msgstr "プロジェクトファイルを開けませんでした："
 
-#: hugin1/base_wx/RunStitchPanel.cpp:145 hugin1/base_wx/RunStitchPanel.cpp:301
+#: hugin1/base_wx/RunStitchPanel.cpp:145 hugin1/base_wx/RunStitchPanel.cpp:302
 #: hugin1/nona_gui/nona_gui.cpp:243 hugin1/ptbatcher/ProjectArray.cpp:86
 #, c-format
 msgid "could not open script : %s"
 msgstr "スクリプトを開けませんでした：%s"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:166 hugin1/base_wx/RunStitchPanel.cpp:309
+#: hugin1/base_wx/RunStitchPanel.cpp:166 hugin1/base_wx/RunStitchPanel.cpp:310
 #: hugin1/nona_gui/nona_gui.cpp:250 hugin1/ptbatcher/ProjectArray.cpp:109
 #, c-format
 msgid "error while parsing panotools script: %s"
 msgstr "PanoToolsスクリプトの構文読み込み中にエラー：%s"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:205 hugin1/base_wx/RunStitchPanel.cpp:222
-#: hugin1/base_wx/RunStitchPanel.cpp:334
+#: hugin1/base_wx/RunStitchPanel.cpp:335
 msgid "Could not create temporary file"
 msgstr "一時ファイルを作成できませんでした"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:256
+#: hugin1/base_wx/RunStitchPanel.cpp:257
 msgid ""
 "Overwrite existing images?\n"
 "\n"
@@ -197,16 +197,16 @@ msgstr ""
 "既存の画像に上書きしますか？\n"
 "\n"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:256
+#: hugin1/base_wx/RunStitchPanel.cpp:257
 msgid "Overwrite existing images"
 msgstr "既存ファイルの上書き"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:271
+#: hugin1/base_wx/RunStitchPanel.cpp:272
 #, c-format
 msgid "Stitching %s"
 msgstr "スティッチング中：%s"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:275
+#: hugin1/base_wx/RunStitchPanel.cpp:276
 #, c-format
 msgid ""
 "Error while stitching project\n"
@@ -215,19 +215,19 @@ msgstr ""
 "プロジェクトのスティッチング中にエラー\n"
 "%s"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:276 hugin1/base_wx/RunStitchPanel.cpp:282
+#: hugin1/base_wx/RunStitchPanel.cpp:277 hugin1/base_wx/RunStitchPanel.cpp:283
 #: hugin1/stitch_project/hugin_stitch_project.cpp:171
 msgid "Error during stitching"
 msgstr "スティッチング中にエラー"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:353
+#: hugin1/base_wx/RunStitchPanel.cpp:354
 #, fuzzy, c-format
 msgid ""
 "Error while running assistant\n"
 "%s"
 msgstr "PanoToolsスクリプトの構文読み込み中にエラー：%s"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:354 hugin1/base_wx/RunStitchPanel.cpp:362
+#: hugin1/base_wx/RunStitchPanel.cpp:355 hugin1/base_wx/RunStitchPanel.cpp:363
 #, fuzzy
 msgid "Error during running assistant"
 msgstr "スティッチング中にエラー"
@@ -1263,6 +1263,11 @@ msgstr "起動完了"
 
 #: hugin1/hugin/MainFrame.cpp:506
 msgid "Save changes to the panorama before closing?"
+msgstr ""
+
+#: hugin1/hugin/MainFrame.cpp:514
+msgid ""
+"If you close without saving, changes since your last save will be discarded"
 msgstr ""
 
 #: hugin1/hugin/MainFrame.cpp:517
