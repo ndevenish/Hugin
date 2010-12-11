@@ -29,6 +29,7 @@ Ed Halley	gui, documentation
 Robert Hart	bug reports and patches
 Juha Helminen	Code
 Brian Hoffmann	German translation of NSIS windows installer
+Lajos Höss	Hungarian translation
 Ad Huikeshoven	automated Windows snapshot builds
 Iouri Ivliev	bug fixes
 Marek Januszewski	Code, initial Polish translation
@@ -40,7 +41,6 @@ Guido Kohlmeyer	German translation, Windows SDK, bug fixes
 Erik Krause	Enfuse and enblend droplets for Windows
 Uwe Koch Kronberg	Spanish translation
 Marco Kuder	GSoC 2008 batch processor
-Höss Lajos	Hungarian translation
 Rick Langford	Traditional Chinese original translation and updates
 Homin Lee	initial Korean translation
 James Legg	GSoC 2008 OpenGL fast preview, GSoC 2009 new layout, GSoC 2010 mentor
