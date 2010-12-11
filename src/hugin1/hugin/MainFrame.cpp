@@ -511,7 +511,7 @@ bool MainFrame::CloseProject(bool cancelable)
 #endif
                                 wxICON_EXCLAMATION | wxYES_NO | (cancelable? (wxCANCEL):0));
 #if wxCHECK_VERSION(2, 9, 0)
-    message.SetExtendedMessage("If you close without saving, changes since your last save will be discarded");
+    message.SetExtendedMessage(_("If you close without saving, changes since your last save will be discarded"));
     #if defined __WXMAC__ || defined __WXMSW__
         // Apple human interface guidelines and Windows user experience interaction guidelines
         message.SetYesNoLabels(wxID_SAVE, _("Don't Save"));
