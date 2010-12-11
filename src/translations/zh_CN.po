@@ -2923,7 +2923,7 @@ msgstr "文件名"
 
 #: translations/xrc.cpp:58 xrc.cpp:58
 #, fuzzy
-msgid "Founded panoramas"
+msgid "Found panoramas"
 msgstr "融合后的全景图像"
 
 #: translations/xrc.cpp:59 xrc.cpp:59

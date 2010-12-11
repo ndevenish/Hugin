@@ -2973,7 +2973,7 @@ msgstr "ファイル名"
 
 #: translations/xrc.cpp:58 xrc.cpp:58
 #, fuzzy
-msgid "Founded panoramas"
+msgid "Found panoramas"
 msgstr "ブレンドされたパノラマ"
 
 #: translations/xrc.cpp:59 xrc.cpp:59

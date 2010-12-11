@@ -3019,7 +3019,7 @@ msgstr "Име на файл"
 
 #: translations/xrc.cpp:58 xrc.cpp:58
 #, fuzzy
-msgid "Founded panoramas"
+msgid "Found panoramas"
 msgstr "Слята панорама"
 
 #: translations/xrc.cpp:59 xrc.cpp:59
