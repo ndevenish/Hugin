@@ -3024,7 +3024,7 @@ msgid "Foldername.pto"
 msgstr "Složka.pto"
 
 #: translations/xrc.cpp:58 xrc.cpp:58
-msgid "Founded panoramas"
+msgid "Found panoramas"
 msgstr "Nalezená panoramata"
 
 #: translations/xrc.cpp:59 xrc.cpp:59

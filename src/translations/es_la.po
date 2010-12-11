@@ -3127,7 +3127,7 @@ msgid "Foldername.pto"
 msgstr "Nombredelarchivo.pto"
 
 #: translations/xrc.cpp:58 xrc.cpp:58
-msgid "Founded panoramas"
+msgid "Found panoramas"
 msgstr "Panorama encontrado"
 
 #: translations/xrc.cpp:59 xrc.cpp:59
