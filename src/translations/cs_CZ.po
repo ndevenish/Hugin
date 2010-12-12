@@ -5731,6 +5731,9 @@ msgstr ""
 "Optimalizace všech parametrů zkreslení \"všechno\" má smysl jen tehdy, pokud "
 "jste dobře rozmístili velké množství kontrolních bodů."
 
+#~ msgid "Dedication"
+#~ msgstr "Věnování"
+
 #~ msgid ""
 #~ "The Autopano and Autopano-SIFT programs can be used to create control "
 #~ "points automatically. Please install one of them if you haven't already "
@@ -6815,6 +6818,3 @@ msgstr ""
 
 #~ msgid "Color (d)"
 #~ msgstr "Barva (d)"
-
-#~ msgid "Dedication"
-#~ msgstr "Věnování"
