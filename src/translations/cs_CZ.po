@@ -29,17 +29,77 @@ msgstr ""
 "Project-Id-Version: cs_CZ\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2010-11-24 19:36-0500\n"
-"PO-Revision-Date: 2010-05-19 23:14+0100\n"
+"POT-Creation-Date: 2010-12-11 12:35+0100\n"
+"PO-Revision-Date: 2010-12-07 21:44+0100\n"
 "Last-Translator: Václav Černý <vatoz@seznam.cz>\n"
 "Language-Team: Čeština\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "X-Poedit-Language: Czech\n"
 "X-Poedit-Country: CZECH REPUBLIC\n"
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+
+#: hugin1/base_wx/huginConfig.cpp:47 hugin1/base_wx/huginConfig.cpp:82
+#, c-format
+msgid ""
+"External program %s not found as specified in preferences, reverting to "
+"bundled version"
+msgstr ""
+"Externí program %s nenalezen (tak jak byl uložen v nastavení) , vracím se k "
+"přibalené verzi"
+
+#: hugin1/base_wx/huginConfig.cpp:47 hugin1/base_wx/huginConfig.cpp:57
+#: hugin1/base_wx/huginConfig.cpp:69 hugin1/base_wx/huginConfig.cpp:82
+#: hugin1/base_wx/RunStitchPanel.cpp:111 hugin1/hugin/AssistantPanel.cpp:361
+#: hugin1/hugin/AssistantPanel.cpp:428 hugin1/hugin/CPEditorPanel.cpp:2174
+#: hugin1/hugin/GLViewer.cpp:128 hugin1/hugin/GLViewer.cpp:138
+#: hugin1/hugin/MainFrame.cpp:629 hugin1/hugin/MainFrame.cpp:879
+#: hugin1/hugin/MainFrame.cpp:1395 hugin1/hugin/MainFrame.cpp:1854
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:530
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:550
+#: hugin1/hugin/PanoPanel.cpp:991 hugin1/hugin/PanoPanel.cpp:1057
+#: hugin1/icpfind/AutoCtrlPointCreator.cpp:205
+#: hugin1/ptbatcher/BatchFrame.cpp:445 hugin1/ptbatcher/FindPanoDialog.cpp:259
+#: hugin1/ptbatcher/ProjectListBox.cpp:171
+#: hugin1/stitch_project/hugin_stitch_project.cpp:393
+msgid "Error"
+msgstr "Chyba"
+
+#: hugin1/base_wx/huginConfig.cpp:57 hugin1/base_wx/huginConfig.cpp:69
+#: hugin1/base_wx/RunStitchPanel.cpp:111
+#, c-format
+msgid "External program %s not found in the bundle, reverting to system path"
+msgstr "Externí program %s nenalezen v balíku, vracím se k systémové cestě"
+
+#: hugin1/base_wx/huginConfig.cpp:95 hugin1/base_wx/huginConfig.cpp:109
+#, c-format
+msgid "Program %s not found in preferences, reverting to default value"
+msgstr ""
+"Externí program %s nenalezen (tak jak byl uložen v nastavení) , vracím se k "
+"původnímu nastavení"
+
+#: hugin1/base_wx/huginConfig.cpp:129 hugin1/base_wx/huginConfig.cpp:134
+#: hugin1/base_wx/huginConfig.cpp:140 hugin1/base_wx/huginConfig.cpp:145
+#: hugin1/base_wx/huginConfig.cpp:150 hugin1/base_wx/huginConfig.cpp:155
+#: hugin1/base_wx/huginConfig.cpp:161 hugin1/base_wx/huginConfig.cpp:166
+#: hugin1/base_wx/huginConfig.cpp:171 hugin1/base_wx/huginConfig.cpp:176
+#: hugin1/base_wx/huginConfig.cpp:182 hugin1/base_wx/huginConfig.cpp:187
+#: hugin1/base_wx/huginConfig.cpp:194 hugin1/base_wx/huginConfig.cpp:199
+#: hugin1/base_wx/huginConfig.cpp:219 hugin1/base_wx/huginConfig.cpp:224
+#: hugin1/base_wx/huginConfig.cpp:230 hugin1/base_wx/huginConfig.cpp:235
+#: hugin1/base_wx/huginConfig.cpp:240 hugin1/base_wx/huginConfig.cpp:245
+#: hugin1/hugin/AssistantPanel.cpp:432 hugin1/hugin/CPDetectorDialog.cpp:121
+#: hugin1/hugin/GLPreviewFrame.cpp:905 hugin1/hugin/GLPreviewFrame.cpp:912
+#: hugin1/hugin/GLPreviewFrame.cpp:919 hugin1/hugin/GLPreviewFrame.cpp:931
+#: hugin1/hugin/GLPreviewFrame.cpp:938 hugin1/hugin/GLPreviewFrame.cpp:945
+#: hugin1/hugin/MainFrame.cpp:625 hugin1/hugin/PreferencesDialog.cpp:842
+#: hugin1/ptbatcher/FindPanoDialog.cpp:219
+#: hugin1/ptbatcher/FindPanoDialog.cpp:238
+msgid "Warning"
+msgstr "Varování"
 
 #: hugin1/base_wx/ImageCache.cpp:539
 #, c-format
@@ -88,9 +148,9 @@ msgstr "Chyba při pozastavování procesu %ld, návratový kód 2"
 #: hugin1/base_wx/MyExternalCmdExecDialog.cpp:606
 #: hugin1/ptbatcher/RunStitchFrame.cpp:43
 #: hugin1/stitch_project/hugin_stitch_project.cpp:121 translations/xrc.cpp:33
-#: translations/xrc.cpp:170 translations/xrc.cpp:439 translations/xrc.cpp:508
+#: translations/xrc.cpp:147 translations/xrc.cpp:439 translations/xrc.cpp:508
 #: translations/xrc.cpp:512 translations/xrc.cpp:516 translations/xrc.cpp:610
-#: translations/xrc.cpp:728 translations/xrc.cpp:819 xrc.cpp:33 xrc.cpp:170
+#: translations/xrc.cpp:728 translations/xrc.cpp:819 xrc.cpp:33 xrc.cpp:147
 #: xrc.cpp:439 xrc.cpp:508 xrc.cpp:512 xrc.cpp:516 xrc.cpp:610 xrc.cpp:728
 #: xrc.cpp:819
 msgid "Cancel"
@@ -108,134 +168,6 @@ msgstr "Výsledný čas: "
 msgid "Optimizing Panorama"
 msgstr "Optimalizuji panorama"
 
-#: hugin1/base_wx/PTWXDlg.cpp:48 hugin1/base_wx/PTWXDlg.cpp:66
-#: hugin1/base_wx/PTWXDlg.cpp:118 translations/xrc.cpp:729 xrc.cpp:729
-msgid "Panorama Tools"
-msgstr "Panorama Tools"
-
-#: hugin1/base_wx/RunStitchPanel.cpp:111 hugin1/base_wx/huginConfig.cpp:57
-#: hugin1/base_wx/huginConfig.cpp:69
-#, c-format
-msgid "External program %s not found in the bundle, reverting to system path"
-msgstr "Externí program %s nenalezen v balíku, vracím se k systémové cestě"
-
-#: hugin1/base_wx/RunStitchPanel.cpp:111 hugin1/base_wx/huginConfig.cpp:47
-#: hugin1/base_wx/huginConfig.cpp:57 hugin1/base_wx/huginConfig.cpp:69
-#: hugin1/base_wx/huginConfig.cpp:82 hugin1/hugin/AssistantPanel.cpp:361
-#: hugin1/hugin/AssistantPanel.cpp:428 hugin1/hugin/CPEditorPanel.cpp:2174
-#: hugin1/hugin/GLViewer.cpp:128 hugin1/hugin/GLViewer.cpp:138
-#: hugin1/hugin/MainFrame.cpp:629 hugin1/hugin/MainFrame.cpp:879
-#: hugin1/hugin/MainFrame.cpp:1395 hugin1/hugin/MainFrame.cpp:1854
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:505
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:525
-#: hugin1/hugin/PanoPanel.cpp:991 hugin1/hugin/PanoPanel.cpp:1057
-#: hugin1/icpfind/AutoCtrlPointCreator.cpp:205
-#: hugin1/ptbatcher/BatchFrame.cpp:445 hugin1/ptbatcher/FindPanoDialog.cpp:259
-#: hugin1/ptbatcher/ProjectListBox.cpp:171
-#: hugin1/stitch_project/hugin_stitch_project.cpp:393
-msgid "Error"
-msgstr "Chyba"
-
-#: hugin1/base_wx/RunStitchPanel.cpp:135 hugin1/base_wx/RunStitchPanel.cpp:293
-msgid "Could not open project file:"
-msgstr "Nelze otevřít projektový soubor:"
-
-#: hugin1/base_wx/RunStitchPanel.cpp:145 hugin1/base_wx/RunStitchPanel.cpp:301
-#: hugin1/nona_gui/nona_gui.cpp:243 hugin1/ptbatcher/ProjectArray.cpp:86
-#, c-format
-msgid "could not open script : %s"
-msgstr "nelze otevřít skript: %s"
-
-#: hugin1/base_wx/RunStitchPanel.cpp:166 hugin1/base_wx/RunStitchPanel.cpp:309
-#: hugin1/nona_gui/nona_gui.cpp:250 hugin1/ptbatcher/ProjectArray.cpp:109
-#, c-format
-msgid "error while parsing panotools script: %s"
-msgstr "chyba při parsování panotools skriptu: %s"
-
-#: hugin1/base_wx/RunStitchPanel.cpp:205 hugin1/base_wx/RunStitchPanel.cpp:222
-#: hugin1/base_wx/RunStitchPanel.cpp:334
-msgid "Could not create temporary file"
-msgstr "Nelze vytvořit dočasný soubor"
-
-#: hugin1/base_wx/RunStitchPanel.cpp:256
-msgid ""
-"Overwrite existing images?\n"
-"\n"
-msgstr ""
-"Přepsat existující obrázky?\n"
-"\n"
-
-#: hugin1/base_wx/RunStitchPanel.cpp:256
-msgid "Overwrite existing images"
-msgstr "Přepsat existující obrázky"
-
-#: hugin1/base_wx/RunStitchPanel.cpp:271
-#, c-format
-msgid "Stitching %s"
-msgstr "Slepuji %s"
-
-#: hugin1/base_wx/RunStitchPanel.cpp:275
-#, c-format
-msgid ""
-"Error while stitching project\n"
-"%s"
-msgstr ""
-"Chyba při slepování projektu\n"
-"%s"
-
-#: hugin1/base_wx/RunStitchPanel.cpp:276 hugin1/base_wx/RunStitchPanel.cpp:282
-#: hugin1/stitch_project/hugin_stitch_project.cpp:171
-msgid "Error during stitching"
-msgstr "Chyba během slepování"
-
-#: hugin1/base_wx/RunStitchPanel.cpp:353
-#, fuzzy, c-format
-msgid ""
-"Error while running assistant\n"
-"%s"
-msgstr "chyba při parsování panotools skriptu: %s"
-
-#: hugin1/base_wx/RunStitchPanel.cpp:354 hugin1/base_wx/RunStitchPanel.cpp:362
-#, fuzzy
-msgid "Error during running assistant"
-msgstr "Chyba během slepování"
-
-#: hugin1/base_wx/huginConfig.cpp:47 hugin1/base_wx/huginConfig.cpp:82
-#, c-format
-msgid ""
-"External program %s not found as specified in preferences, reverting to "
-"bundled version"
-msgstr ""
-"Externí program %s nenalezen (tak jak byl uložen v nastavení) , vracím se k "
-"přibalené verzi"
-
-#: hugin1/base_wx/huginConfig.cpp:95 hugin1/base_wx/huginConfig.cpp:109
-#, c-format
-msgid "Program %s not found in preferences, reverting to default value"
-msgstr ""
-"Externí program %s nenalezen (tak jak byl uložen v nastavení) , vracím se k "
-"původnímu nastavení"
-
-#: hugin1/base_wx/huginConfig.cpp:129 hugin1/base_wx/huginConfig.cpp:134
-#: hugin1/base_wx/huginConfig.cpp:140 hugin1/base_wx/huginConfig.cpp:145
-#: hugin1/base_wx/huginConfig.cpp:150 hugin1/base_wx/huginConfig.cpp:155
-#: hugin1/base_wx/huginConfig.cpp:161 hugin1/base_wx/huginConfig.cpp:166
-#: hugin1/base_wx/huginConfig.cpp:171 hugin1/base_wx/huginConfig.cpp:176
-#: hugin1/base_wx/huginConfig.cpp:182 hugin1/base_wx/huginConfig.cpp:187
-#: hugin1/base_wx/huginConfig.cpp:194 hugin1/base_wx/huginConfig.cpp:199
-#: hugin1/base_wx/huginConfig.cpp:219 hugin1/base_wx/huginConfig.cpp:224
-#: hugin1/base_wx/huginConfig.cpp:230 hugin1/base_wx/huginConfig.cpp:235
-#: hugin1/base_wx/huginConfig.cpp:240 hugin1/base_wx/huginConfig.cpp:245
-#: hugin1/hugin/AssistantPanel.cpp:432 hugin1/hugin/CPDetectorDialog.cpp:121
-#: hugin1/hugin/GLPreviewFrame.cpp:905 hugin1/hugin/GLPreviewFrame.cpp:912
-#: hugin1/hugin/GLPreviewFrame.cpp:919 hugin1/hugin/GLPreviewFrame.cpp:931
-#: hugin1/hugin/GLPreviewFrame.cpp:938 hugin1/hugin/GLPreviewFrame.cpp:945
-#: hugin1/hugin/MainFrame.cpp:625 hugin1/hugin/PreferencesDialog.cpp:850
-#: hugin1/ptbatcher/FindPanoDialog.cpp:219
-#: hugin1/ptbatcher/FindPanoDialog.cpp:238
-msgid "Warning"
-msgstr "Varování"
-
 #: hugin1/base_wx/platform.h:40
 msgid ""
 "All Image files|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*."
@@ -250,67 +182,137 @@ msgstr ""
 "tiff)|*.tif;*.TIF;*.tiff;*.TIFF|PNG obrázky (*.png)|*.png;*.PNG|HDR obrázky "
 "(*.hdr)|*.hdr;*.HDR|EXR files (*.exr)|*.exr;*.EXR|Všechny soubory (*)|*"
 
+#: hugin1/base_wx/PTWXDlg.cpp:48 hugin1/base_wx/PTWXDlg.cpp:66
+#: hugin1/base_wx/PTWXDlg.cpp:118 translations/xrc.cpp:729 xrc.cpp:729
+msgid "Panorama Tools"
+msgstr "Panorama Tools"
+
+#: hugin1/base_wx/RunStitchPanel.cpp:135 hugin1/base_wx/RunStitchPanel.cpp:294
+msgid "Could not open project file:"
+msgstr "Nelze otevřít projektový soubor:"
+
+#: hugin1/base_wx/RunStitchPanel.cpp:145 hugin1/base_wx/RunStitchPanel.cpp:302
+#: hugin1/nona_gui/nona_gui.cpp:243 hugin1/ptbatcher/ProjectArray.cpp:86
+#, c-format
+msgid "could not open script : %s"
+msgstr "nelze otevřít skript: %s"
+
+#: hugin1/base_wx/RunStitchPanel.cpp:166 hugin1/base_wx/RunStitchPanel.cpp:310
+#: hugin1/nona_gui/nona_gui.cpp:250 hugin1/ptbatcher/ProjectArray.cpp:109
+#, c-format
+msgid "error while parsing panotools script: %s"
+msgstr "chyba při parsování panotools skriptu: %s"
+
+#: hugin1/base_wx/RunStitchPanel.cpp:205 hugin1/base_wx/RunStitchPanel.cpp:222
+#: hugin1/base_wx/RunStitchPanel.cpp:335
+msgid "Could not create temporary file"
+msgstr "Nelze vytvořit dočasný soubor"
+
+#: hugin1/base_wx/RunStitchPanel.cpp:257
+msgid ""
+"Overwrite existing images?\n"
+"\n"
+msgstr ""
+"Přepsat existující obrázky?\n"
+"\n"
+
+#: hugin1/base_wx/RunStitchPanel.cpp:257
+msgid "Overwrite existing images"
+msgstr "Přepsat existující obrázky"
+
+#: hugin1/base_wx/RunStitchPanel.cpp:272
+#, c-format
+msgid "Stitching %s"
+msgstr "Slepuji %s"
+
+#: hugin1/base_wx/RunStitchPanel.cpp:276
+#, c-format
+msgid ""
+"Error while stitching project\n"
+"%s"
+msgstr ""
+"Chyba při slepování projektu\n"
+"%s"
+
+#: hugin1/base_wx/RunStitchPanel.cpp:277 hugin1/base_wx/RunStitchPanel.cpp:283
+#: hugin1/stitch_project/hugin_stitch_project.cpp:171
+msgid "Error during stitching"
+msgstr "Chyba během slepování"
+
+#: hugin1/base_wx/RunStitchPanel.cpp:354
+#, c-format
+msgid ""
+"Error while running assistant\n"
+"%s"
+msgstr ""
+"Chyba při běhu pomocníka\n"
+"%s"
+
+#: hugin1/base_wx/RunStitchPanel.cpp:355 hugin1/base_wx/RunStitchPanel.cpp:363
+msgid "Error during running assistant"
+msgstr "Chyba při běhu pomocníka"
+
 #: hugin1/hugin/AboutDialog.cpp:138
-#, fuzzy, c-format
+#, c-format
 msgid "Operating System: %s"
-msgstr "Vytvářím odstíny šedi %s"
+msgstr "Operační systém: %s"
 
 #: hugin1/hugin/AboutDialog.cpp:141
 msgid "64 bit"
-msgstr ""
+msgstr "64 bit"
 
 #: hugin1/hugin/AboutDialog.cpp:143
 msgid "32 bit"
-msgstr ""
+msgstr "32 bit"
 
 #: hugin1/hugin/AboutDialog.cpp:144
-#, fuzzy, c-format
+#, c-format
 msgid "Architecture: %s"
-msgstr "Architektonické"
+msgstr "Architektura: %s"
 
 #: hugin1/hugin/AboutDialog.cpp:147
 #, c-format
 msgid "Free memory: %ld kiB"
-msgstr ""
+msgstr "Volná paměť: %ld kiB"
 
 #: hugin1/hugin/AboutDialog.cpp:150
 #, c-format
 msgid "Active Codepage: %u"
-msgstr ""
+msgstr "Aktivní znaková sada: %u"
 
 #: hugin1/hugin/AboutDialog.cpp:182
-#, fuzzy, c-format
+#, c-format
 msgid "Version: %s"
-msgstr "Verze %s"
+msgstr "Verze: %s"
 
 #: hugin1/hugin/AboutDialog.cpp:183
 #, c-format
 msgid "Path to ressources: %s"
-msgstr ""
+msgstr "Cesta ke zdrojům: %s"
 
 #: hugin1/hugin/AboutDialog.cpp:184
 #, c-format
 msgid "Path to data: %s"
-msgstr ""
+msgstr "Cesta k datům: %s"
 
 #: hugin1/hugin/AssistantPanel.cpp:220
 msgid "Please load images by pressing on the Load images button."
 msgstr "Nahrajte obrázky kliknutím na tlačítko Nahrát obrázky."
 
 #: hugin1/hugin/AssistantPanel.cpp:253
-#, fuzzy, c-format
+#, c-format
 msgid "%lu images loaded."
-msgstr "Nahráno %d obrázků."
+msgstr "Nahráno %lu obrázků."
 
 #: hugin1/hugin/AssistantPanel.cpp:290
-#, fuzzy, c-format
+#, c-format
 msgid "Images are connected by %lu control points.\n"
-msgstr "Obrázky propojuje %d kontrolních bodů.\n"
+msgstr "Obrázky propojuje %lukontrolních bodů.\n"
 
 #: hugin1/hugin/AssistantPanel.cpp:299
 #, c-format
 msgid "%d unconnected image groups found: "
-msgstr "nalezeno %d nepropojených skupin obrázků: "
+msgstr "Nalezeno %d nepropojených skupin obrázků: "
 
 #: hugin1/hugin/AssistantPanel.cpp:300
 msgid ""
@@ -376,9 +378,8 @@ msgstr ""
 "Přidejte víc obrázků."
 
 #: hugin1/hugin/AssistantPanel.cpp:403
-#, fuzzy
 msgid "Running assistant"
-msgstr "Spouštím Celeste"
+msgstr "Spouštím pomocníka"
 
 #: hugin1/hugin/AssistantPanel.cpp:427
 #, c-format
@@ -401,7 +402,7 @@ msgstr ""
 msgid ""
 "The assistant did not complete successful. Please check the resulting "
 "project file."
-msgstr ""
+msgstr "Pomocník neskončil úspěšně. Zkontrolujte výsledný projekt."
 
 #: hugin1/hugin/CPDetectorDialog.cpp:93
 msgid "Autopano from http://autopano.kolor.com is not available for OSX"
@@ -501,26 +502,24 @@ msgid "Estimated point outside image"
 msgstr "Odhadovaný bod je mimo obrázek"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1067
-#, fuzzy
 msgid "No similar point found."
-msgstr "Žádný odpovídající bod"
+msgstr "Nenalezen podobný bod."
 
 #: hugin1/hugin/CPEditorPanel.cpp:1069 hugin1/hugin/CPEditorPanel.cpp:1082
 #: hugin1/hugin/GLPreviewFrame.cpp:1816 hugin1/hugin/MainFrame.cpp:508
 #: hugin1/hugin/PanoPanel.cpp:1329 hugin1/hugin/PanoPanel.cpp:1357
-#, fuzzy
 msgid "Hugin"
-msgstr "Maďarština"
+msgstr "Hugin"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1074
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Check the similarity visually.\n"
 "Correlation coefficient (%.3f) is lower than the threshold set in the "
 "preferences."
 msgstr ""
-"Nebyly nalezeny žádné podobné body. Zkuste je najít osobně.\n"
-"Korelační koeficient (%.3f) je nižší než nastavený práh."
+"Zkontrolujte podobnost osobně.\n"
+"Korelační koeficient  (%.3f) je nižší, než odchylka vybraná v nastavení."
 
 #: hugin1/hugin/CPEditorPanel.cpp:1079
 #, c-format
@@ -544,7 +543,7 @@ msgstr "Přímka %d"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1586 hugin1/hugin/CPListFrame.cpp:448
 #: hugin1/hugin/GLPreviewFrame.cpp:376 hugin1/hugin/GLPreviewFrame.cpp:380
-#: hugin1/hugin/PreviewFrame.cpp:231 translations/xrc.cpp:120 xrc.cpp:120
+#: hugin1/hugin/PreviewFrame.cpp:231 translations/xrc.cpp:152 xrc.cpp:152
 msgid "normal"
 msgstr "normální "
 
@@ -605,27 +604,25 @@ msgstr ""
 
 #: hugin1/hugin/CPEditorPanel.cpp:2179 hugin1/hugin/CPEditorPanel.cpp:2201
 #: hugin1/hugin/CPEditorPanel.cpp:2218 hugin1/hugin/CPEditorPanel.cpp:2227
-#: hugin1/hugin/ImagesPanel.cpp:1025 hugin1/hugin/ImagesPanel.cpp:1054
-#: hugin1/hugin/ImagesPanel.cpp:1079 hugin1/hugin/ImagesPanel.cpp:1089
+#: hugin1/hugin/ImagesPanel.cpp:1023 hugin1/hugin/ImagesPanel.cpp:1052
+#: hugin1/hugin/ImagesPanel.cpp:1077 hugin1/hugin/ImagesPanel.cpp:1087
 msgid "Running Celeste"
 msgstr "Spouštím Celeste"
 
-#: hugin1/hugin/CPEditorPanel.cpp:2180 hugin1/hugin/ImagesPanel.cpp:1026
+#: hugin1/hugin/CPEditorPanel.cpp:2180 hugin1/hugin/ImagesPanel.cpp:1024
 msgid "searching for cloud-like control points..."
 msgstr "hledám mrakům podobné body..."
 
-#: hugin1/hugin/CPEditorPanel.cpp:2181 hugin1/hugin/ImagesPanel.cpp:1027
-#, fuzzy
+#: hugin1/hugin/CPEditorPanel.cpp:2181 hugin1/hugin/ImagesPanel.cpp:1025
 msgid "Loading model file"
-msgstr "Nahrávám obrázek %s"
+msgstr "Nahrávám soubor modelu"
 
 #: hugin1/hugin/CPEditorPanel.cpp:2228 hugin1/hugin/MainFrame.cpp:1585
 #, c-format
 msgid "Removed %d control points"
 msgstr "Odebráno %d kontrolních bodů"
 
-#: hugin1/hugin/CPEditorPanel.cpp:2228 hugin1/hugin/ImagesPanel.cpp:1090
-#: hugin1/hugin/ImagesPanel.cpp:1095
+#: hugin1/hugin/CPEditorPanel.cpp:2228 hugin1/hugin/ImagesPanel.cpp:1088
 msgid "Celeste result"
 msgstr "Výsledky Celeste"
 
@@ -637,7 +634,7 @@ msgstr "Doladění kontrolního bodu"
 msgid "new"
 msgstr "nový"
 
-#: hugin1/hugin/CPImageCtrl.cpp:1197
+#: hugin1/hugin/CPImageCtrl.cpp:1196
 msgid "Could not process event!"
 msgstr "Nelze provést událost!"
 
@@ -721,7 +718,7 @@ msgstr "žádná"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:280
 msgid "Hide"
-msgstr ""
+msgstr "Skrýt"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:305 hugin1/hugin/PreviewFrame.cpp:169
 msgid "VFOV"
@@ -784,25 +781,22 @@ msgid "Roll value must be numeric."
 msgstr "Hodnota roll musí být číselná."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:931
-#, fuzzy
 msgid "X value must be numeric."
-msgstr "Hodnota yaw musí být číselná."
+msgstr "Hodnota X musí být číselná."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:938
-#, fuzzy
 msgid "Y value must be numeric."
-msgstr "Hodnota yaw musí být číselná."
+msgstr "Hodnota Y musí být číselná."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:945
-#, fuzzy
 msgid "Z value must be numeric."
-msgstr "Hodnota yaw musí být číselná."
+msgstr "Hodnota Z musí být číselná."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:964 hugin1/hugin/GLPreviewFrame.cpp:986
 #: hugin1/hugin/GLPreviewFrame.cpp:1664 hugin1/hugin/GLPreviewFrame.cpp:1695
-#: hugin1/hugin/ImagesPanel.cpp:412 hugin1/hugin/PanoPanel.cpp:591
-#: hugin1/hugin/PanoPanel.cpp:622 hugin1/hugin/PreviewFrame.cpp:764
-#: hugin1/hugin/PreviewFrame.cpp:779 hugin1/hugin/huginApp.cpp:72
+#: hugin1/hugin/huginApp.cpp:72 hugin1/hugin/ImagesPanel.cpp:412
+#: hugin1/hugin/PanoPanel.cpp:591 hugin1/hugin/PanoPanel.cpp:622
+#: hugin1/hugin/PreviewFrame.cpp:764 hugin1/hugin/PreviewFrame.cpp:779
 msgid "Value must be numeric."
 msgstr "Hodnota musí být číselná."
 
@@ -853,20 +847,24 @@ msgid ""
 "With a wide field of view, panoramas with rectilinear projection get very "
 "stretched towards the edges.\n"
 msgstr ""
+"S širokým úhlem záběru je panorama při rektilineární projekci protažené k "
+"okrajům.\n"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1739
 msgid ""
 "Since the field of view is only very wide in the horizontal direction, try a "
 "cylindrical projection instead."
 msgstr ""
+"Zorné pole je široké pouze ve vodorovném směru. Co takhle vyzkoušet válcovou "
+"projekci."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1741
 msgid "For a very wide panorama, try equirectangular projection instead."
-msgstr ""
+msgstr "Pro velmi širokoúhlá panoramata použijte ekvirektangulární projekci."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1743
 msgid " You could also try Panini projection."
-msgstr ""
+msgstr "Také můžete zkusit projekci Panini."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1748
 msgid ""
@@ -875,6 +873,8 @@ msgid ""
 "An equirectangular projection would fit the same content in less vertical "
 "space."
 msgstr ""
+"U velmi vysokých válcových panoramat je silně roztažený vršek a spodek.\n"
+"S ekvirektangulární projekcí dostanete více obsahu na stejnou plochu. "
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1754
 msgid ""
@@ -882,6 +882,9 @@ msgid ""
 "panorama projection to cylindrical.\n"
 "Cylindrical projection preserves vertical lines, unlike equirectangular."
 msgstr ""
+"Protože zorné pole není tak široké. můžete zkusit nastavit projekci na "
+"válcovou.\n"
+"Válcová projekce (narozdíl od ekvirektangulární) zachovává svislice."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1760
 msgid ""
@@ -890,6 +893,8 @@ msgid ""
 "A conformal projection preserves angles around a point, which often makes it "
 "easier on the eye."
 msgstr ""
+"Stereografická projekce je  (narozdíl od rybího oka) konformální.\n"
+"Proto jsou zachovány úhly v blízkém okolí , což může vypadat dobře."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1765
 msgid ""
@@ -898,12 +903,16 @@ msgid ""
 "The Fisheye panorama projection compresses it, so you can fit in a wide "
 "field of view and still have a reasonable coverage of the middle."
 msgstr ""
+"Panoramata se stereografickou projekcí  a velmi širokým zorným úhlem  jsou "
+"velmi protažené u okrajů.\n"
+"Projekce rybím okem tyto oblasti zúží, díky tomu můžete mít jak široký "
+"záběr, tak mnoho detailů ve středu."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1772
 msgid ""
 "Setting the panorama to rectilinear projection would keep the straight lines "
 "straight."
-msgstr ""
+msgstr "V rektilineární projekci zůstanou přímky přímkami."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1814
 msgid ""
@@ -911,6 +920,8 @@ msgid ""
 "projection.\n"
 "If you want to see the bar again, activate the bar in the preferences again."
 msgstr ""
+"Ukryli jste lištu zobrazující doporučení k vybrané projekci.\n"
+"Pokud ji budete chtít opět zobrazit, můžete tak učinit v nastavení."
 
 #: hugin1/hugin/GLViewer.cpp:128
 msgid ""
@@ -1010,6 +1021,31 @@ msgstr "Ohnisková vzdálenost musí být kladná."
 msgid "The crop factor must be positive."
 msgstr "Hodnota ořezu musí být kladná."
 
+#: hugin1/hugin/huginApp.cpp:171 hugin1/ptbatcher/PTBatcherGUI.cpp:75
+msgid "xrc directory not found in bundle"
+msgstr "Adresář xrc nebyl v balíčku nalezen."
+
+#: hugin1/hugin/huginApp.cpp:171 hugin1/hugin/huginApp.cpp:183
+#: hugin1/hugin/huginApp.cpp:196 hugin1/hugin/MainFrame.cpp:1849
+#: hugin1/ptbatcher/PTBatcherGUI.cpp:75 hugin1/ptbatcher/PTBatcherGUI.cpp:81
+#: hugin1/ptbatcher/PTBatcherGUI.cpp:101
+#: hugin1/stitch_project/hugin_stitch_project.cpp:290
+msgid "Fatal Error"
+msgstr "Kritická chyba"
+
+#: hugin1/hugin/huginApp.cpp:183 hugin1/ptbatcher/PTBatcherGUI.cpp:81
+#: hugin1/stitch_project/hugin_stitch_project.cpp:290
+msgid "Translations not found in bundle"
+msgstr "Překlad nebyl nalezen."
+
+#: hugin1/hugin/huginApp.cpp:196 hugin1/ptbatcher/PTBatcherGUI.cpp:101
+msgid ""
+"xrc directory not found, hugin needs to be properly installed\n"
+"Tried Path:"
+msgstr ""
+"Adresář s xrc nebyl nalezen, hugin musí být patřičně nainstalován\n"
+"Vyzkoušený adresář:"
+
 #: hugin1/hugin/ImagesList.cpp:353 hugin1/hugin/ImagesList.cpp:481
 msgid "Filename"
 msgstr "název souboru"
@@ -1085,9 +1121,9 @@ msgid "Number of masks"
 msgstr "Počet masek"
 
 #: hugin1/hugin/ImagesPanel.cpp:329
-#, fuzzy, c-format
+#, c-format
 msgid "Added %lu control points"
-msgstr "Přidáno %d kontrolních bodů"
+msgstr "Přidáno %lu kontrolních bodů"
 
 #: hugin1/hugin/ImagesPanel.cpp:329
 msgid "Control point detector result"
@@ -1109,25 +1145,25 @@ msgstr "Kontroluji celý projekt"
 msgid "Finished cleaning"
 msgstr "Čištění dokončeno"
 
-#: hugin1/hugin/ImagesPanel.cpp:379 hugin1/hugin/ImagesPanel.cpp:1095
-#, fuzzy, c-format
+#: hugin1/hugin/ImagesPanel.cpp:379
+#, c-format
 msgid "Removed %u control points"
-msgstr "Odebráno %d kontrolních bodů"
+msgstr "Odebráno %u kontrolních bodů"
 
 #: hugin1/hugin/ImagesPanel.cpp:379
 msgid "Cleaning"
 msgstr "Čištění"
 
-#: hugin1/hugin/ImagesPanel.cpp:882
-#, fuzzy, c-format
+#: hugin1/hugin/ImagesPanel.cpp:881
+#, c-format
 msgid "Really Delete %lu control points?"
-msgstr "Opravdu smazat %d kontrolních bodů?"
+msgstr "Opravdu odebrat %lu kontrolních bodů?"
 
-#: hugin1/hugin/ImagesPanel.cpp:884
+#: hugin1/hugin/ImagesPanel.cpp:883
 msgid "Delete Control Points"
 msgstr "Smazat kontrolní body"
 
-#: hugin1/hugin/ImagesPanel.cpp:962
+#: hugin1/hugin/ImagesPanel.cpp:961
 msgid ""
 "Your project must have at least two stacks before you can assign images to a "
 "different stack."
@@ -1135,22 +1171,22 @@ msgstr ""
 "Projekt musí mít nejméně dva štosy než budete moci přiřazovat obrázky do "
 "odlišného štosu."
 
-#: hugin1/hugin/ImagesPanel.cpp:966
+#: hugin1/hugin/ImagesPanel.cpp:965
 msgid "Enter new stack number"
 msgstr "Zadejte nové číslo štosu"
 
-#: hugin1/hugin/ImagesPanel.cpp:967
+#: hugin1/hugin/ImagesPanel.cpp:966
 msgid "stack number"
 msgstr "číslo štosu"
 
-#: hugin1/hugin/ImagesPanel.cpp:968
+#: hugin1/hugin/ImagesPanel.cpp:967
 msgid "Change stack number"
 msgstr "Změnit číslo štosu"
 
-#: hugin1/hugin/ImagesPanel.cpp:1090
-#, fuzzy, c-format
+#: hugin1/hugin/ImagesPanel.cpp:1088
+#, c-format
 msgid "Removed %lu control points"
-msgstr "Odebráno %d kontrolních bodů"
+msgstr "Odebráno %lu kontrolních bodů"
 
 #: hugin1/hugin/LensPanel.cpp:750 hugin1/hugin/LensPanel.cpp:842
 #: hugin1/hugin/LensPanel.cpp:886 hugin1/hugin/LensPanel.cpp:1011
@@ -1256,16 +1292,20 @@ msgstr "Spuštěn"
 
 #: hugin1/hugin/MainFrame.cpp:506
 msgid "Save changes to the panorama before closing?"
+msgstr "Chcete před ukončením uložit změny?"
+
+#: hugin1/hugin/MainFrame.cpp:514
+msgid ""
+"If you close without saving, changes since your last save will be discarded"
 msgstr ""
 
 #: hugin1/hugin/MainFrame.cpp:517
-#, fuzzy
 msgid "Don't Save"
-msgstr "Neměnit"
+msgstr "Neukládat"
 
 #: hugin1/hugin/MainFrame.cpp:520
 msgid "Close without saving"
-msgstr ""
+msgstr "Zavřít bez ukládání"
 
 #: hugin1/hugin/MainFrame.cpp:550
 msgid "forced close"
@@ -1456,24 +1496,17 @@ msgid "Error!"
 msgstr "Chyba!"
 
 #: hugin1/hugin/MainFrame.cpp:1849
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Celeste model expected in %s not found, Hugin needs to be properly installed."
 msgstr ""
-"Soubor s modelem pro Celeste nenalezen, Hugin musí být patřičně nainstalován."
-
-#: hugin1/hugin/MainFrame.cpp:1849 hugin1/hugin/huginApp.cpp:171
-#: hugin1/hugin/huginApp.cpp:183 hugin1/hugin/huginApp.cpp:196
-#: hugin1/ptbatcher/PTBatcherGUI.cpp:75 hugin1/ptbatcher/PTBatcherGUI.cpp:81
-#: hugin1/ptbatcher/PTBatcherGUI.cpp:101
-#: hugin1/stitch_project/hugin_stitch_project.cpp:290
-msgid "Fatal Error"
-msgstr "Kritická chyba"
+"Soubor s modelem pro Celeste nenalezen v %s, Hugin musí být patřičně "
+"nainstalován."
 
 #: hugin1/hugin/MainFrame.cpp:1854
-#, fuzzy, c-format
+#, c-format
 msgid "Could not load Celeste model file %s"
-msgstr "Nelze otevřít projektový soubor %s."
+msgstr "Nelze otevřít soubor modelu pro Celeste  %s"
 
 #: hugin1/hugin/MaskEditorPanel.cpp:101
 msgid "Mask type"
@@ -1606,7 +1639,19 @@ msgstr ""
 msgid "Link parameters"
 msgstr "Parametry spojení"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:485
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:498
+msgid ""
+"You selected no parameters to optimize.\n"
+"Therefore optimization will be canceled."
+msgstr ""
+"Nebyl vybrán žádný parametr k optimalizaci.\n"
+"Optimalizace bude zrušena."
+
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:498
+msgid "Exposure optimization"
+msgstr "Optimalizace expozice"
+
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:510
 msgid ""
 "The vignetting and exposure correction is determined by analysing color "
 "values in the overlapping areas.\n"
@@ -1616,41 +1661,41 @@ msgstr ""
 "překrývajících se oblastech. \n"
 "Pro urychlení výpočtu jsou použity jen některé náhodně vybrané body."
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:486
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:511
 msgid "Number of points per image"
 msgstr "Počet bodů na obrázek"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:487
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:512
 msgid "Photometric optimization"
 msgstr "Fotometrická optimalizace"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:494
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:519
 msgid "Photometric alignment"
 msgstr "Fotometrické zarovnání"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:494
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:519
 msgid "Loading images"
 msgstr "Nahrávám obrázky"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:505
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:530
 msgid "Error: could not load all images"
 msgstr "Chyba: nelze nahrát všechny obrázky"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:525
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:550
 msgid "Error: no overlapping points found, Photometric optimization aborted"
 msgstr ""
 "Chyba: Nebyly nalezeny žádné překrývající se body, fotometrická "
 "optimalizace  zrušena"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:558
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:573
 msgid "Internal error during photometric optimization:\n"
 msgstr "Interní chyba během fotometrické optimalizace:\n"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:558
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:573
 msgid "Internal error"
 msgstr "Vnitřní chyba"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:564
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:579
 #, c-format
 msgid ""
 "Photometric optimization results:\n"
@@ -1665,7 +1710,7 @@ msgstr ""
 "\n"
 "Použít výsledky?"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:565
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:580
 msgid "Photometric optimization finished"
 msgstr "Fotometrická optimalizace skončila"
 
@@ -1783,7 +1828,7 @@ msgstr "ShellExecuteEx selhalo"
 
 #: hugin1/hugin/PanoPanel.cpp:1327
 msgid "Are you sure you want to stitch such a large panorama?"
-msgstr ""
+msgstr "Opravdu chcete složit takhle rozsáhlé panorama?"
 
 #: hugin1/hugin/PanoPanel.cpp:1335
 #, c-format
@@ -1793,15 +1838,18 @@ msgid ""
 "and stitch from the Stitcher tab. Stitching a panorama this size could take "
 "a long time and a large amount of memory."
 msgstr ""
+"Panorama, které chcete složit, má %.1f gigapixelů.\n"
+"Pokud je to příliš mnoho, můžete na záložce Slepovač snížit velikost "
+"výsledného plátna, či jej  oříznout.Slepování velkého panoramata zabere "
+"hodně času a operační paměti."
 
 #: hugin1/hugin/PanoPanel.cpp:1337
-#, fuzzy
 msgid "Stitch anyway"
-msgstr "Slepit!"
+msgstr "Přesto slepit"
 
 #: hugin1/hugin/PanoPanel.cpp:1337
 msgid "Let me fix that"
-msgstr ""
+msgstr "Mohu to spravit"
 
 #: hugin1/hugin/PanoPanel.cpp:1354
 #, c-format
@@ -1813,6 +1861,12 @@ msgid ""
 "and stitch from the Stitcher tab. Stitching a panorama this size could take "
 "a long time and a large amount of memory."
 msgstr ""
+"Poravdu chcete složit takhle velké panorama?\n"
+"\n"
+"Panorama, které chcete složit, má %.1f gigapixelů.\n"
+"Pokud je to příliš mnoho, můžete na záložce Slepovač snížit velikost "
+"výsledného plátna, či jej  oříznout.Slepování velkého panoramata zabere "
+"hodně času a operační paměti."
 
 #: hugin1/hugin/PreferencesDialog.cpp:115
 msgid "System default"
@@ -1941,15 +1995,15 @@ msgstr "Opravdu nastavit zobrazené nastavení na výchozí hodnoty?"
 msgid "Load Defaults"
 msgstr "Nahrát výchozí"
 
-#: hugin1/hugin/PreferencesDialog.cpp:831
+#: hugin1/hugin/PreferencesDialog.cpp:823
 msgid "Please select an entry first"
 msgstr "Vyberte, prosím, nejprve jednu z možností"
 
-#: hugin1/hugin/PreferencesDialog.cpp:831
+#: hugin1/hugin/PreferencesDialog.cpp:823
 msgid "Select Entry"
 msgstr "Vyberte záznam"
 
-#: hugin1/hugin/PreferencesDialog.cpp:850
+#: hugin1/hugin/PreferencesDialog.cpp:842
 msgid ""
 "You can't delete the last setting.\n"
 "At least one setting is required."
@@ -1957,30 +2011,27 @@ msgstr ""
 "Nemůžete smazat poslední nastavení.\n"
 "Alespoň jedno je nutné."
 
-#: hugin1/hugin/PreferencesDialog.cpp:854
+#: hugin1/hugin/PreferencesDialog.cpp:846
 #, c-format
 msgid "Do you really want to remove control point detector setting \"%s\"?"
 msgstr "Opravdu chcete smazat  nastavení detektoru kontrolních bodů  \"%s\"?"
 
-#: hugin1/hugin/PreferencesDialog.cpp:855
+#: hugin1/hugin/PreferencesDialog.cpp:847
 msgid "Delete control point detector setting"
 msgstr "Smaže nastavení detektoru kontrolních bodů"
 
-#: hugin1/hugin/PreferencesDialog.cpp:908
-#, fuzzy
+#: hugin1/hugin/PreferencesDialog.cpp:900
 msgid "Load control point detector settings"
-msgstr "Smaže nastavení detektoru kontrolních bodů"
+msgstr "Nahraje nastavení detektoru kontrolních bodů"
 
-#: hugin1/hugin/PreferencesDialog.cpp:910
-#: hugin1/hugin/PreferencesDialog.cpp:925
-#, fuzzy
+#: hugin1/hugin/PreferencesDialog.cpp:902
+#: hugin1/hugin/PreferencesDialog.cpp:917
 msgid "Control point detector settings (*.setting)|*.setting"
-msgstr "Smaže nastavení detektoru kontrolních bodů"
+msgstr "Nastavení detektoru kontrolních bodů (*.setting)|*.setting"
 
-#: hugin1/hugin/PreferencesDialog.cpp:923
-#, fuzzy
+#: hugin1/hugin/PreferencesDialog.cpp:915
 msgid "Save control point detector settings"
-msgstr "Smaže nastavení detektoru kontrolních bodů"
+msgstr "Uloží nastavení detektoru kontrolních bodů"
 
 #: hugin1/hugin/PreviewCropTool.cpp:55
 msgid "Drag the inside of the cropping rectangle to adjust the crop."
@@ -2089,23 +2140,6 @@ msgstr "Klikněte  na propojení pro  úpravu kontrolních bodů."
 msgid "Error during Stitching"
 msgstr "Chyba během slepování"
 
-#: hugin1/hugin/huginApp.cpp:171 hugin1/ptbatcher/PTBatcherGUI.cpp:75
-msgid "xrc directory not found in bundle"
-msgstr "Adresář xrc nebyl v balíčku nalezen."
-
-#: hugin1/hugin/huginApp.cpp:183 hugin1/ptbatcher/PTBatcherGUI.cpp:81
-#: hugin1/stitch_project/hugin_stitch_project.cpp:290
-msgid "Translations not found in bundle"
-msgstr "Překlad nebyl nalezen."
-
-#: hugin1/hugin/huginApp.cpp:196 hugin1/ptbatcher/PTBatcherGUI.cpp:101
-msgid ""
-"xrc directory not found, hugin needs to be properly installed\n"
-"Tried Path:"
-msgstr ""
-"Adresář s xrc nebyl nalezen, hugin musí být patřičně nainstalován\n"
-"Vyzkoušený adresář:"
-
 #: hugin1/hugin/wxPanoCommand.cpp:194
 #, c-format
 msgid ""
@@ -2180,7 +2214,7 @@ msgstr ""
 
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:328
 msgid "cleaning up temporary keypoint files"
-msgstr ""
+msgstr "mažu dočasné soubory s kontrolními body"
 
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:387
 #, c-format
@@ -2325,7 +2359,7 @@ msgstr ""
 "\n"
 "Nemohu spustit příkaz: %s"
 
-#: hugin1/icpfind/CPDetectorConfig.cpp:120
+#: hugin1/icpfind/CPDetectorConfig.cpp:137
 msgid "Default"
 msgstr "Výchozí"
 
@@ -2374,9 +2408,8 @@ msgstr ""
 #: hugin1/ptbatcher/Batch.cpp:246 hugin1/ptbatcher/BatchFrame.cpp:594
 #: hugin1/ptbatcher/BatchFrame.cpp:647 hugin1/ptbatcher/BatchFrame.cpp:680
 #: hugin1/ptbatcher/BatchFrame.cpp:714 hugin1/ptbatcher/BatchFrame.cpp:741
-#, fuzzy
 msgid "PTBatcherGUI"
-msgstr "PTStitcher"
+msgstr "PTBatcherGUI"
 
 #: hugin1/ptbatcher/Batch.cpp:260 hugin1/ptbatcher/Batch.cpp:281
 msgid "Cleared batch."
@@ -2426,9 +2459,9 @@ msgid "%s - Stitching"
 msgstr "%s - Slepuji"
 
 #: hugin1/ptbatcher/Batch.cpp:711
-#, fuzzy, c-format
+#, c-format
 msgid "%s - Assistant"
-msgstr "Pomocník"
+msgstr "%s - Pomocník"
 
 #: hugin1/ptbatcher/Batch.cpp:761
 #, c-format
@@ -2488,9 +2521,10 @@ msgstr "Přidaný projekt"
 msgid "Specify output prefix for project "
 msgstr "Nastavte výstupní prefix pro projekt"
 
+# Pochopit a přeložit znovu.
 #: hugin1/ptbatcher/BatchFrame.cpp:457
 msgid "The prefix of an assistant target can not be changed."
-msgstr ""
+msgstr "Prefix cíle asistenta nemůže být změněn."
 
 #: hugin1/ptbatcher/BatchFrame.cpp:463
 msgid "Please select a project"
@@ -2586,6 +2620,9 @@ msgid ""
 "If you close the dialog, you will lost them.\n"
 "Continue anyway?"
 msgstr ""
+"Seznam obsahuje nezpracovaná možná panoramata.\n"
+"Pokud tento dialog uzavřete, přijdete o ně.\n"
+"Opravdu chcete pokračovat?"
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:166
 #: hugin1/ptbatcher/FindPanoDialog.cpp:201
@@ -2594,7 +2631,7 @@ msgstr "Dotaz"
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:190
 msgid "Accepted"
-msgstr ""
+msgstr "Přijato"
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:200
 msgid ""
@@ -2602,11 +2639,13 @@ msgid ""
 "If you continue, they will be disregarded.\n"
 "Do you still want to continue?"
 msgstr ""
+"Seznam obsahuje nezpracovaná  panoramata.\n"
+"Pokud tento dialog uzavřete, přijdete o ně.\n"
+"Opravdu chcete pokračovat?"
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:210
-#, fuzzy
 msgid "Stop"
-msgstr "horní:"
+msgstr "Stop"
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:218
 #, c-format
@@ -2614,12 +2653,16 @@ msgid ""
 "Directory %s does not exist.\n"
 "Please give an existing directory."
 msgstr ""
+"Adresář %s neexistuje.\n"
+"Vyberte existující adresář."
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:238
 msgid ""
 "You have selected no possible panorama.\n"
 "Please select at least one panorama and try again."
 msgstr ""
+"Nevybrali jste žádné panorama.\n"
+"Vyberte alespoň jedno panorama zkuste to znovu."
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:259
 msgid ""
@@ -2627,35 +2670,31 @@ msgid ""
 "Maybe you have no write permission for these directories or your hard disc "
 "is full."
 msgstr ""
+"Nepodařilo se zapsat všechny soubory projektu.\n"
+"Možná nemáte oprávnění pro zápis do těchto adresářů nebo je disk plný."
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:283
-#, fuzzy, c-format
+#, c-format
 msgid "Reading file %s"
-msgstr "Nahrávám obrázek %s"
+msgstr "Nahrávám soubor %s"
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:357 translations/xrc.cpp:57 xrc.cpp:57
-#, fuzzy
 msgid "Start"
-msgstr "Spuštěn"
+msgstr "Start"
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:363
-#, fuzzy, c-format
+#, c-format
 msgid "Found %d possible panoramas."
-msgstr "Spojené a prolnuté panorama"
+msgstr "Nalezeno  %d možných panoramat."
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:367
-#, fuzzy
 msgid "No possible panoramas found."
-msgstr "Žádný odpovídající bod"
+msgstr "Nebylo nalezeno žádné možné panorama."
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:468
-#, fuzzy, c-format
+#, c-format
 msgid "%d images: %s"
-msgstr "Přidat obrázky"
-
-#: hugin1/ptbatcher/PTBatcherGUI.cpp:131 hugin1/ptbatcher/PTBatcherGUI.cpp:144
-msgid "stitch_project.pto [output prefix]|assistant_project.pto"
-msgstr ""
+msgstr "%d obrázků: %s"
 
 #: hugin1/ptbatcher/ProjectArray.cpp:66
 msgid "Waiting"
@@ -2729,6 +2768,10 @@ msgstr "Chyba, nemohu konvertovat id"
 msgid "Assistant"
 msgstr "Pomocník"
 
+#: hugin1/ptbatcher/PTBatcherGUI.cpp:131 hugin1/ptbatcher/PTBatcherGUI.cpp:144
+msgid "stitch_project.pto [output prefix]|assistant_project.pto"
+msgstr "slepovaný_projekt.pto [výstupní prefix]|projekt_pomocníka.pto"
+
 #: hugin1/stitch_project/hugin_stitch_project.cpp:135
 #, c-format
 msgid ""
@@ -2739,7 +2782,6 @@ msgstr ""
 " Verze: %s"
 
 #: hugin1/stitch_project/hugin_stitch_project.cpp:170
-#, fuzzy
 msgid ""
 "Error during stitching\n"
 "Please report the complete text to the bug tracker on https://bugs.launchpad."
@@ -2749,17 +2791,17 @@ msgid ""
 msgstr ""
 "Chyba během slepování\n"
 "Prosím nahlaste chybu  spolu s kompletním textem  do nástroje na sledování "
-"chyb na  http://sf.net/projects/hugin."
+"chyb na  https://bugs.launchpad.net/hugin\n"
+"\n"
+"Chcete uložit hlášení o běhu?"
 
 #: hugin1/stitch_project/hugin_stitch_project.cpp:175
-#, fuzzy
 msgid "Specify log file"
-msgstr "Zvolte výstupní soubor obrázku"
+msgstr "Vyberte log soubor"
 
 #: hugin1/stitch_project/hugin_stitch_project.cpp:177
-#, fuzzy
 msgid "Log files (*.log)|*.log|All files (*)|*"
-msgstr "Soubory projektu (*.pto)|*.pto|All files (*)|*"
+msgstr "Soubory výpisu (*.log)|*.log|Všechny soubory (*)|*"
 
 #: translations/xrc.cpp:1 translations/xrc.cpp:372 translations/xrc.cpp:408
 #: xrc.cpp:1 xrc.cpp:372 xrc.cpp:408
@@ -2791,14 +2833,13 @@ msgid "License"
 msgstr "Licence"
 
 #: translations/xrc.cpp:8 xrc.cpp:8
-#, fuzzy
 msgid "System"
-msgstr "Systémové nastavení"
+msgstr "Systém"
 
-#: translations/xrc.cpp:9 translations/xrc.cpp:32 translations/xrc.cpp:169
+#: translations/xrc.cpp:9 translations/xrc.cpp:32 translations/xrc.cpp:146
 #: translations/xrc.cpp:438 translations/xrc.cpp:507 translations/xrc.cpp:511
 #: translations/xrc.cpp:515 translations/xrc.cpp:609 translations/xrc.cpp:727
-#: translations/xrc.cpp:818 xrc.cpp:9 xrc.cpp:32 xrc.cpp:169 xrc.cpp:438
+#: translations/xrc.cpp:818 xrc.cpp:9 xrc.cpp:32 xrc.cpp:146 xrc.cpp:438
 #: xrc.cpp:507 xrc.cpp:511 xrc.cpp:515 xrc.cpp:609 xrc.cpp:727 xrc.cpp:818
 msgid "OK"
 msgstr "OK"
@@ -2853,7 +2894,7 @@ msgstr ""
 
 #: translations/xrc.cpp:21 xrc.cpp:21
 msgid "Send to assistant queue"
-msgstr ""
+msgstr "Poslat do fronty asistenta"
 
 #: translations/xrc.cpp:22 xrc.cpp:22
 msgid "3. Create panorama..."
@@ -2943,73 +2984,64 @@ msgid "Verbose output"
 msgstr "Podrobný výstup"
 
 #: translations/xrc.cpp:48 xrc.cpp:48
-#, fuzzy
 msgid "Searching panoramas"
-msgstr "Slepuji panorama"
+msgstr "Hledám panoramata"
 
 #: translations/xrc.cpp:49 xrc.cpp:49
-#, fuzzy
 msgid "Directories"
-msgstr "Detektor"
+msgstr "Adresáře"
 
 #: translations/xrc.cpp:50 xrc.cpp:50
-#, fuzzy
 msgid "Directory:"
-msgstr "Detektor"
+msgstr "Adresář:"
 
-#: translations/xrc.cpp:51 translations/xrc.cpp:151 translations/xrc.cpp:156
-#: translations/xrc.cpp:159 translations/xrc.cpp:164 translations/xrc.cpp:651
+#: translations/xrc.cpp:51 translations/xrc.cpp:128 translations/xrc.cpp:133
+#: translations/xrc.cpp:136 translations/xrc.cpp:141 translations/xrc.cpp:651
 #: translations/xrc.cpp:707 translations/xrc.cpp:713 translations/xrc.cpp:731
-#: xrc.cpp:51 xrc.cpp:151 xrc.cpp:156 xrc.cpp:159 xrc.cpp:164 xrc.cpp:651
+#: xrc.cpp:51 xrc.cpp:128 xrc.cpp:133 xrc.cpp:136 xrc.cpp:141 xrc.cpp:651
 #: xrc.cpp:707 xrc.cpp:713 xrc.cpp:731
 msgid "Choose..."
 msgstr "Vybrat..."
 
 #: translations/xrc.cpp:52 xrc.cpp:52
 msgid "include sub-directories"
-msgstr ""
+msgstr "zahrnout podadresáře"
 
 #: translations/xrc.cpp:53 xrc.cpp:53
 msgid "Naming:"
-msgstr ""
+msgstr "Pojmenování:"
 
 #: translations/xrc.cpp:54 xrc.cpp:54
-#, fuzzy
 msgid "PanoramaXX.pto"
-msgstr "Panorama"
+msgstr "PanoramaXX.pto"
 
 #: translations/xrc.cpp:55 xrc.cpp:55
 msgid "First file - last file.pto"
-msgstr ""
+msgstr "První soubor - poslední soubor.pto"
 
 #: translations/xrc.cpp:56 xrc.cpp:56
-#, fuzzy
 msgid "Foldername.pto"
-msgstr "název souboru"
+msgstr "Složka.pto"
 
 #: translations/xrc.cpp:58 xrc.cpp:58
-#, fuzzy
-msgid "Founded panoramas"
-msgstr "Prolnuté panorama"
+msgid "Found panoramas"
+msgstr "Nalezená panoramata"
 
 #: translations/xrc.cpp:59 xrc.cpp:59
-#, fuzzy
 msgid "Send selected panoramas to queue"
-msgstr "Prolnuté panorama (enfuse)"
+msgstr "Pošle vybrané panorama do fronty"
 
 #: translations/xrc.cpp:60 translations/xrc.cpp:767 xrc.cpp:60 xrc.cpp:767
 msgid "Close"
 msgstr "Zavřít"
 
 #: translations/xrc.cpp:61 xrc.cpp:61
-#, fuzzy
 msgid "Status report"
-msgstr "Stav"
+msgstr "Hlášení o stavu"
 
 #: translations/xrc.cpp:62 xrc.cpp:62
-#, fuzzy
 msgid "Failed projects"
-msgstr "projekt %s uložen"
+msgstr "Nepovedené projekty"
 
 #: translations/xrc.cpp:63 xrc.cpp:63
 msgid "Output"
@@ -3036,14 +3068,12 @@ msgid "Removes selected project from the batch list"
 msgstr "Odebere vybrané projekty z dávky"
 
 #: translations/xrc.cpp:70 xrc.cpp:70
-#, fuzzy
 msgid "Search directory for..."
-msgstr "Hledaný adresář"
+msgstr "Hledat v adresáři..."
 
 #: translations/xrc.cpp:71 xrc.cpp:71
-#, fuzzy
 msgid "Project files"
-msgstr "Uložit projekt"
+msgstr "Soubory projektu"
 
 #: translations/xrc.cpp:72 translations/xrc.cpp:115 xrc.cpp:72 xrc.cpp:115
 msgid "Appends all project files from a directory and subdirectories"
@@ -3055,12 +3085,12 @@ msgid "Images"
 msgstr "Obrázky"
 
 #: translations/xrc.cpp:74 xrc.cpp:74
-msgid "Searches in directories after suitable panorams from image files"
-msgstr ""
+msgid "Searches in directories for image files suitable for panoramas"
+msgstr "Vyhledává v adresáři obrázky vhodné pro panorama"
 
 #: translations/xrc.cpp:75 xrc.cpp:75
 msgid "Searches in directories for existing projects or for images"
-msgstr ""
+msgstr "Vyhledává v adresáři existující projekty či obrázky"
 
 #: translations/xrc.cpp:76 translations/xrc.cpp:90 xrc.cpp:76 xrc.cpp:90
 msgid "Open batch"
@@ -3187,184 +3217,90 @@ msgid "adddir"
 msgstr "addir"
 
 #: translations/xrc.cpp:117 xrc.cpp:117
-msgid "previous image pair"
-msgstr "předchozí obrázkový pár"
-
-#: translations/xrc.cpp:118 xrc.cpp:118
-msgid "next image pair"
-msgstr "další obrázkový pár"
-
-#: translations/xrc.cpp:119 xrc.cpp:119
-msgid "mode:"
-msgstr "mód:"
-
-#: translations/xrc.cpp:121 xrc.cpp:121
-msgid "vertical line"
-msgstr "svislá  čára"
-
-#: translations/xrc.cpp:122 xrc.cpp:122
-msgid "horizontal line"
-msgstr "vodorovná čára"
-
-#: translations/xrc.cpp:123 translations/xrc.cpp:421 xrc.cpp:123 xrc.cpp:421
-msgid "Zoom:"
-msgstr "Zvětšení:"
-
-#: translations/xrc.cpp:124 translations/xrc.cpp:422 xrc.cpp:124 xrc.cpp:422
-msgid "fit to window"
-msgstr "přizpůsobit oknu"
-
-#: translations/xrc.cpp:125 translations/xrc.cpp:661 xrc.cpp:125 xrc.cpp:661
-msgid "Fine-tune"
-msgstr "Doladit"
-
-#: translations/xrc.cpp:126 xrc.cpp:126
-msgid "Tries to optimize the currently active point"
-msgstr "Zkusí optimalizovat právě aktivní bod"
-
-#: translations/xrc.cpp:127 translations/xrc.cpp:717 xrc.cpp:127 xrc.cpp:717
-msgid "Celeste"
-msgstr "Celeste"
-
-#: translations/xrc.cpp:128 translations/xrc.cpp:197 xrc.cpp:128 xrc.cpp:197
-msgid "Tries to remove control points from clouds"
-msgstr "Pokusí se odebrat kontrolní body z mraků"
-
-#: translations/xrc.cpp:129 xrc.cpp:129
-msgid "auto fine-&tune"
-msgstr "au&todoladit"
-
-#: translations/xrc.cpp:130 xrc.cpp:130
-msgid "auto add"
-msgstr "autopřidat"
-
-#: translations/xrc.cpp:131 xrc.cpp:131
-msgid "immediately add control point when selecting a second point"
-msgstr "okamžitě přidat druhý kontrolní bod při výběru druhého bodu"
-
-#: translations/xrc.cpp:132 xrc.cpp:132
-msgid "auto estimate"
-msgstr "automaticky odhadnout"
-
-#: translations/xrc.cpp:133 xrc.cpp:133
-msgid ""
-"tries to estimate shift between the images and use it while placing control "
-"points"
-msgstr ""
-"Zkusí odhadnout posun mezi obrázky a použít jej při umísťování kontrolních "
-"bodů."
-
-#: translations/xrc.cpp:134 xrc.cpp:134
-msgid "&Delete"
-msgstr "Sma&zat"
-
-#: translations/xrc.cpp:135 xrc.cpp:135
-msgid "&Add"
-msgstr "Přid&at"
-
-#: translations/xrc.cpp:136 xrc.cpp:136
-msgid "add a new Point"
-msgstr "přidat nový bod"
-
-#: translations/xrc.cpp:137 translations/xrc.cpp:294 translations/xrc.cpp:354
-#: xrc.cpp:137 xrc.cpp:294 xrc.cpp:354
-msgid "Control Points"
-msgstr "Kontrolní body"
-
-#: translations/xrc.cpp:138 translations/xrc.cpp:683 xrc.cpp:138 xrc.cpp:683
-msgid "Delete"
-msgstr "Smazat"
-
-#: translations/xrc.cpp:139 xrc.cpp:139
-msgid "Select by Distance"
-msgstr "Vybrat dle vzdálenosti"
-
-#: translations/xrc.cpp:140 xrc.cpp:140
 msgid "Description:"
 msgstr "Popis:"
 
-#: translations/xrc.cpp:141 translations/xrc.cpp:249 translations/xrc.cpp:283
-#: xrc.cpp:141 xrc.cpp:249 xrc.cpp:283
+#: translations/xrc.cpp:118 translations/xrc.cpp:249 translations/xrc.cpp:283
+#: xrc.cpp:118 xrc.cpp:249 xrc.cpp:283
 msgid "Type:"
 msgstr "druh:"
 
-#: translations/xrc.cpp:142 xrc.cpp:142
+#: translations/xrc.cpp:119 xrc.cpp:119
 msgid "Autopano (by A. Jenny)"
 msgstr "Autopano (autor A. Jenny)"
 
-#: translations/xrc.cpp:143 xrc.cpp:143
+#: translations/xrc.cpp:120 xrc.cpp:120
 msgid "All images at once"
 msgstr "Všechny obrázky najednou"
 
-#: translations/xrc.cpp:144 xrc.cpp:144
+#: translations/xrc.cpp:121 xrc.cpp:121
 msgid "Panorama with stacks"
 msgstr "Panorama se štosy"
 
-#: translations/xrc.cpp:145 xrc.cpp:145
+#: translations/xrc.cpp:122 xrc.cpp:122
 msgid "Multi-row panorama"
 msgstr "Víceřadé panorama"
 
-#: translations/xrc.cpp:146 xrc.cpp:146
+#: translations/xrc.cpp:123 xrc.cpp:123
 msgid "Multi-row panorama with stacks"
 msgstr "Víceřadé panorama se štosy"
 
-#: translations/xrc.cpp:147 xrc.cpp:147
+#: translations/xrc.cpp:124 xrc.cpp:124
 msgid "Prealigned panorama"
 msgstr "Předzarovnané panorama"
 
-#: translations/xrc.cpp:148 xrc.cpp:148
+#: translations/xrc.cpp:125 xrc.cpp:125
 msgid "Detector"
 msgstr "Detektor"
 
-#: translations/xrc.cpp:149 xrc.cpp:149
+#: translations/xrc.cpp:126 xrc.cpp:126
 msgid "One step detector"
 msgstr "Jednostupňový detektor"
 
-#: translations/xrc.cpp:150 translations/xrc.cpp:163 xrc.cpp:150 xrc.cpp:163
+#: translations/xrc.cpp:127 translations/xrc.cpp:140 xrc.cpp:127 xrc.cpp:140
 msgid "Program:"
 msgstr "Program:"
 
-#: translations/xrc.cpp:152 translations/xrc.cpp:157 translations/xrc.cpp:160
-#: translations/xrc.cpp:165 translations/xrc.cpp:652 xrc.cpp:152 xrc.cpp:157
-#: xrc.cpp:160 xrc.cpp:165 xrc.cpp:652
+#: translations/xrc.cpp:129 translations/xrc.cpp:134 translations/xrc.cpp:137
+#: translations/xrc.cpp:142 translations/xrc.cpp:652 xrc.cpp:129 xrc.cpp:134
+#: xrc.cpp:137 xrc.cpp:142 xrc.cpp:652
 msgid "Arguments:"
 msgstr "Argumenty:"
 
-#: translations/xrc.cpp:153 xrc.cpp:153
-#, fuzzy
+#: translations/xrc.cpp:130 xrc.cpp:130
 msgid "Cleanup arguments:"
-msgstr "Výchozí parametry:"
+msgstr "Čistící parametry:"
 
-#: translations/xrc.cpp:154 xrc.cpp:154
+#: translations/xrc.cpp:131 xrc.cpp:131
 msgid "Two step detector"
 msgstr "Vícestupňový detektor"
 
-#: translations/xrc.cpp:155 xrc.cpp:155
+#: translations/xrc.cpp:132 xrc.cpp:132
 msgid "Feature descriptor:"
 msgstr "Popisovač vlastností:"
 
-#: translations/xrc.cpp:158 xrc.cpp:158
+#: translations/xrc.cpp:135 xrc.cpp:135
 msgid "Feature matcher:"
 msgstr "Vyhledávač charakteristik:"
 
-#: translations/xrc.cpp:161 xrc.cpp:161
+#: translations/xrc.cpp:138 xrc.cpp:138
 msgid "Detector for stacks"
 msgstr "Detektor štosů"
 
-#: translations/xrc.cpp:162 xrc.cpp:162
+#: translations/xrc.cpp:139 xrc.cpp:139
 msgid "Leave empty, when no control point detector should run on stacks."
 msgstr ""
 "Ponechte prázdné, pokud žádný detektor kontrolních bodů nemá běhat se štosy."
 
-#: translations/xrc.cpp:166 xrc.cpp:166
+#: translations/xrc.cpp:143 xrc.cpp:143
 msgid "Advanced option"
 msgstr "Pokročilé nastavení"
 
-#: translations/xrc.cpp:167 xrc.cpp:167
+#: translations/xrc.cpp:144 xrc.cpp:144
 msgid "This setting has no advanced options."
 msgstr "Toto nastavení. nemá žádné pokročilé možnosti."
 
-#: translations/xrc.cpp:168 xrc.cpp:168
+#: translations/xrc.cpp:145 xrc.cpp:145
 msgid ""
 "following patterns will be substituted before running:\n"
 "%o  -- output project (0.oto will be appended when using Autopano)\n"
@@ -3386,9 +3322,102 @@ msgstr ""
 "%s -- vstupní panotools skript\n"
 "%k -- průběžné soubory s klíči"
 
-#: translations/xrc.cpp:171 xrc.cpp:171
+#: translations/xrc.cpp:148 xrc.cpp:148
 msgid "Parameters for Control Point Detectors"
 msgstr "Nastavení pro detektor kontrolních bodů"
+
+#: translations/xrc.cpp:149 xrc.cpp:149
+msgid "previous image pair"
+msgstr "předchozí obrázkový pár"
+
+#: translations/xrc.cpp:150 xrc.cpp:150
+msgid "next image pair"
+msgstr "další obrázkový pár"
+
+#: translations/xrc.cpp:151 xrc.cpp:151
+msgid "mode:"
+msgstr "mód:"
+
+#: translations/xrc.cpp:153 xrc.cpp:153
+msgid "vertical line"
+msgstr "svislá  čára"
+
+#: translations/xrc.cpp:154 xrc.cpp:154
+msgid "horizontal line"
+msgstr "vodorovná čára"
+
+#: translations/xrc.cpp:155 translations/xrc.cpp:421 xrc.cpp:155 xrc.cpp:421
+msgid "Zoom:"
+msgstr "Zvětšení:"
+
+#: translations/xrc.cpp:156 translations/xrc.cpp:422 xrc.cpp:156 xrc.cpp:422
+msgid "fit to window"
+msgstr "přizpůsobit oknu"
+
+#: translations/xrc.cpp:157 translations/xrc.cpp:661 xrc.cpp:157 xrc.cpp:661
+msgid "Fine-tune"
+msgstr "Doladit"
+
+#: translations/xrc.cpp:158 xrc.cpp:158
+msgid "Tries to optimize the currently active point"
+msgstr "Zkusí optimalizovat právě aktivní bod"
+
+#: translations/xrc.cpp:159 translations/xrc.cpp:717 xrc.cpp:159 xrc.cpp:717
+msgid "Celeste"
+msgstr "Celeste"
+
+#: translations/xrc.cpp:160 translations/xrc.cpp:197 xrc.cpp:160 xrc.cpp:197
+msgid "Tries to remove control points from clouds"
+msgstr "Pokusí se odebrat kontrolní body z mraků"
+
+#: translations/xrc.cpp:161 xrc.cpp:161
+msgid "auto fine-&tune"
+msgstr "au&todoladit"
+
+#: translations/xrc.cpp:162 xrc.cpp:162
+msgid "auto add"
+msgstr "autopřidat"
+
+#: translations/xrc.cpp:163 xrc.cpp:163
+msgid "immediately add control point when selecting a second point"
+msgstr "okamžitě přidat druhý kontrolní bod při výběru druhého bodu"
+
+#: translations/xrc.cpp:164 xrc.cpp:164
+msgid "auto estimate"
+msgstr "automaticky odhadnout"
+
+#: translations/xrc.cpp:165 xrc.cpp:165
+msgid ""
+"tries to estimate shift between the images and use it while placing control "
+"points"
+msgstr ""
+"Zkusí odhadnout posun mezi obrázky a použít jej při umísťování kontrolních "
+"bodů."
+
+#: translations/xrc.cpp:166 xrc.cpp:166
+msgid "&Delete"
+msgstr "Sma&zat"
+
+#: translations/xrc.cpp:167 xrc.cpp:167
+msgid "&Add"
+msgstr "Přid&at"
+
+#: translations/xrc.cpp:168 xrc.cpp:168
+msgid "add a new Point"
+msgstr "přidat nový bod"
+
+#: translations/xrc.cpp:169 translations/xrc.cpp:294 translations/xrc.cpp:354
+#: xrc.cpp:169 xrc.cpp:294 xrc.cpp:354
+msgid "Control Points"
+msgstr "Kontrolní body"
+
+#: translations/xrc.cpp:170 translations/xrc.cpp:683 xrc.cpp:170 xrc.cpp:683
+msgid "Delete"
+msgstr "Smazat"
+
+#: translations/xrc.cpp:171 xrc.cpp:171
+msgid "Select by Distance"
+msgstr "Vybrat dle vzdálenosti"
 
 #: translations/xrc.cpp:172 translations/xrc.cpp:532 xrc.cpp:172 xrc.cpp:532
 msgid "Top:"
@@ -4009,47 +4038,39 @@ msgstr "Zobrazí okno OpenGL náhledu"
 
 #: translations/xrc.cpp:345 xrc.cpp:345
 msgid "Show the Assistant panel"
-msgstr ""
+msgstr "Zobrazí panel Pomocník"
 
 #: translations/xrc.cpp:347 xrc.cpp:347
-#, fuzzy
 msgid "Show the Images panel"
-msgstr "Ukázat celé panorama"
+msgstr "Zobrazit panel Obrázky"
 
 #: translations/xrc.cpp:349 xrc.cpp:349
-#, fuzzy
 msgid "Show the Camera and Lens panel"
-msgstr "Data fotoaparátu a objektivu"
+msgstr "Zobrazí  panel Fotoaparát a objektiv"
 
 #: translations/xrc.cpp:351 xrc.cpp:351
-#, fuzzy
 msgid "Show the Crop panel"
-msgstr "Ukázat celé panorama"
+msgstr "Zobrazí  panel Výřez"
 
 #: translations/xrc.cpp:353 xrc.cpp:353
-#, fuzzy
 msgid "Show the Mask panel"
-msgstr "Ukázat celé panorama"
+msgstr "Zobrazí  panel Maska"
 
 #: translations/xrc.cpp:355 xrc.cpp:355
-#, fuzzy
 msgid "Show the Control Points panel"
-msgstr "Zobrazit kontrolní body"
+msgstr "Zobrazí  panel Kontrolní body"
 
 #: translations/xrc.cpp:357 xrc.cpp:357
-#, fuzzy
 msgid "Show the Optimizer panel"
-msgstr "Zobrazí  okno náhledu"
+msgstr "Zobrazí  panel Optimalizátor"
 
 #: translations/xrc.cpp:359 xrc.cpp:359
-#, fuzzy
 msgid "Show the Exposure panel"
-msgstr "Zobrazí  okno náhledu"
+msgstr "Zobrazí  panel Expozice"
 
 #: translations/xrc.cpp:361 xrc.cpp:361
-#, fuzzy
 msgid "Show the Stitcher panel"
-msgstr "Nápověda pro Batch Stitcher"
+msgstr "Zobrazí panel Slepovač"
 
 #: translations/xrc.cpp:364 xrc.cpp:364
 msgid "Some information on the different buttons and so on."
@@ -4217,14 +4238,12 @@ msgid "Include region"
 msgstr "Zahrnut oblast"
 
 #: translations/xrc.cpp:419 xrc.cpp:419
-#, fuzzy
 msgid "Exclude region from stack"
-msgstr "Vytěsnit oblast"
+msgstr "Vytěsnit oblast ze štosu"
 
 #: translations/xrc.cpp:420 xrc.cpp:420
-#, fuzzy
 msgid "Include region from stack"
-msgstr "Zahrnut oblast"
+msgstr "Zahrnut oblast do štosu"
 
 #: translations/xrc.cpp:423 xrc.cpp:423
 msgid "Colours:"
@@ -4543,27 +4562,22 @@ msgid "Enfuse options"
 msgstr "Enfuse možnosti"
 
 #: translations/xrc.cpp:518 xrc.cpp:518
-#, fuzzy
 msgid "Projection:"
-msgstr "Projekce"
+msgstr "Projekce:"
 
 #: translations/xrc.cpp:519 xrc.cpp:519
-#, fuzzy
 msgid "Field of View:"
-msgstr "Zorné pole"
+msgstr "Zorné pole:"
 
 #: translations/xrc.cpp:520 xrc.cpp:520
-#, fuzzy
 msgid "Horizontal:"
-msgstr "vodorovný (d):"
+msgstr "Vodorovné:"
 
 #: translations/xrc.cpp:521 xrc.cpp:521
-#, fuzzy
 msgid "Vertical:"
-msgstr "svislé:"
+msgstr "Svislé:"
 
 #: translations/xrc.cpp:522 xrc.cpp:522
-#, fuzzy
 msgid "Calculate field of view"
 msgstr "Spočítat zorné pole"
 
@@ -4572,28 +4586,24 @@ msgid "Calculate Field of View"
 msgstr "Spočítat zorné pole"
 
 #: translations/xrc.cpp:524 xrc.cpp:524
-#, fuzzy
 msgid "Canvas Size:"
-msgstr "Velikost panoramatu"
+msgstr "Velikost plátna:"
 
 #: translations/xrc.cpp:525 xrc.cpp:525
-#, fuzzy
 msgid "Width:"
-msgstr "šířka:"
+msgstr "Šířka:"
 
 #: translations/xrc.cpp:526 xrc.cpp:526
-#, fuzzy
 msgid "Height:"
-msgstr "výška:"
+msgstr "Výška:"
 
 #: translations/xrc.cpp:527 xrc.cpp:527
 msgid "Calculate Optimal Size"
 msgstr "Vypočítat optimální velikost"
 
 #: translations/xrc.cpp:528 xrc.cpp:528
-#, fuzzy
 msgid "Calculate optimal size"
-msgstr "Vypočítat optimální velikost"
+msgstr "Spočítat optimální velikost"
 
 #: translations/xrc.cpp:529 xrc.cpp:529
 msgid ""
@@ -4604,18 +4614,16 @@ msgstr ""
 "byla podobná"
 
 #: translations/xrc.cpp:530 xrc.cpp:530
-#, fuzzy
 msgid "Crop:"
-msgstr "Výřez"
+msgstr "Ořez:"
 
 #: translations/xrc.cpp:535 xrc.cpp:535
 msgid "Fit Crop to Images"
-msgstr ""
+msgstr "Upravit ořez dle obrázků"
 
 #: translations/xrc.cpp:536 xrc.cpp:536
-#, fuzzy
 msgid "Fit crop to images"
-msgstr "Uložit oříznuté obrázky"
+msgstr "Upravit ořez dle obrázků"
 
 #: translations/xrc.cpp:537 xrc.cpp:537
 msgid ""
@@ -4626,25 +4634,24 @@ msgstr ""
 "chybějících úseků"
 
 #: translations/xrc.cpp:538 xrc.cpp:538
-#, fuzzy
 msgid "Panorama Outputs:"
-msgstr "Běžný výstup:"
+msgstr "Panoramatický výstup:"
 
 #: translations/xrc.cpp:539 translations/xrc.cpp:554 xrc.cpp:539 xrc.cpp:554
 msgid "Exposure corrected, low dynamic range"
-msgstr ""
+msgstr "Expozične vyrovnané, nízký dynamický rozsah"
 
 #: translations/xrc.cpp:540 xrc.cpp:540
-#, fuzzy
 msgid ""
 "Blend all images into a seamless panorama, using exposure set in the "
 "Exposure tab"
-msgstr "Prolne všechny obrázky do bezešvého panorama. "
+msgstr ""
+"Prolne všechny obrázky do bezešvého panorama dle hodnot nastavených v panelu "
+"Expozice."
 
 #: translations/xrc.cpp:541 xrc.cpp:541
-#, fuzzy
 msgid "Exposure fused from stacks"
-msgstr "Expoziční fúze"
+msgstr "Expoziční fúze ze štosů"
 
 #: translations/xrc.cpp:542 xrc.cpp:542
 msgid ""
@@ -4656,7 +4663,7 @@ msgstr ""
 
 #: translations/xrc.cpp:543 xrc.cpp:543
 msgid "Exposure fused from any arrangement"
-msgstr ""
+msgstr "Expozičně zfůzované z jakéhokoli rozložení"
 
 #: translations/xrc.cpp:544 xrc.cpp:544
 msgid ""
@@ -4667,14 +4674,12 @@ msgstr ""
 "expozičně fůzovány do panoramata."
 
 #: translations/xrc.cpp:545 translations/xrc.cpp:550 xrc.cpp:545 xrc.cpp:550
-#, fuzzy
 msgid "Format:"
-msgstr "Formáty souborů"
+msgstr "Formát:"
 
 #: translations/xrc.cpp:548 translations/xrc.cpp:558 xrc.cpp:548 xrc.cpp:558
-#, fuzzy
 msgid "High dynamic range"
-msgstr "Nízký dynamický rozsah (LDR)"
+msgstr "Vysoký dynamický rozsah"
 
 #: translations/xrc.cpp:549 xrc.cpp:549
 msgid ""
@@ -4685,70 +4690,69 @@ msgstr ""
 "následně prolnuty do bezešvého HDR panorama."
 
 #: translations/xrc.cpp:553 xrc.cpp:553
-#, fuzzy
 msgid "Remapped Images:"
-msgstr "Přemapované obrázky"
+msgstr "Přemapované obrázky:"
 
 #: translations/xrc.cpp:555 xrc.cpp:555
 msgid ""
 "Output remapped, exposure corrected images. Useful for manual blending of an "
 "exposure corrected panorama."
 msgstr ""
+"Zapíše přemapované , expozičně vyrovnané obrázky. Užitečné pro ruční "
+"slučování expozičně upravených panoramat."
 
 #: translations/xrc.cpp:556 xrc.cpp:556
-#, fuzzy
 msgid "No exposure correction, low dynamic range"
-msgstr "korekce expozice:"
+msgstr "Bez korekce expozice, nízký dynamický rozsah"
 
 #: translations/xrc.cpp:557 xrc.cpp:557
-#, fuzzy
 msgid ""
 "Output remapped images with unmodified exposure. Useful for manual exposure "
 "fusing."
-msgstr "Zapíše přemapované obrázky s korekcí expozice"
+msgstr ""
+"Zapíše přemapované obrázky bez úprav expozice. Užitečné pro ruční expoziční "
+"fůzi."
 
 #: translations/xrc.cpp:559 xrc.cpp:559
-#, fuzzy
 msgid "Produce remapped, but not merged, linear color space images"
-msgstr "Zachová pracovní přemapované obrázky v lineárním barevném prostoru"
+msgstr "Zapíše přemapované nesloučené obrázky v lineárním barevném prostoru"
 
 #: translations/xrc.cpp:560 xrc.cpp:560
 msgid "Combined stacks:"
-msgstr ""
+msgstr "Kombinované štosy:"
 
 #: translations/xrc.cpp:561 xrc.cpp:561
-#, fuzzy
 msgid "High dynamic range merged stacks"
-msgstr "Zachová dočasné HDR sloučené štosy"
+msgstr "Sloučené štosy s vysokým dynamickým rozsahem"
 
 #: translations/xrc.cpp:562 xrc.cpp:562
 msgid ""
 "Output remapped, high dynamic range merged stacks from highly overlapping "
 "images"
 msgstr ""
+"Zapíše přemapované sloučené štosy s vysokým dynamickým rozsahem vytvořené z "
+"překrývajících se obrázků."
 
 #: translations/xrc.cpp:563 xrc.cpp:563
 msgid "Layers:"
-msgstr ""
+msgstr "Vrstvy:"
 
 #: translations/xrc.cpp:564 xrc.cpp:564
-#, fuzzy
 msgid "Blended layers of similar exposure, without exposure correction"
-msgstr "Zapíše přemapované obrázky s korekcí expozice"
+msgstr ""
+"Prolnuté jednotlivé vrstvy s podobnými expozicemi, bez korekce expozice."
 
 #: translations/xrc.cpp:565 xrc.cpp:565
-#, fuzzy
 msgid ""
 "Output a complete blended panorama for each exposure step. Useful for manual "
 "contrast blending in an image editor."
 msgstr ""
-"Zachová kompletní prolnuté panorama pro každou expozici. Užitečné pro "
+"Zapíše kompletní prolnuté panorama pro každou expozici. Užitečné pro "
 "manuální prolínání v obrazovém editoru."
 
 #: translations/xrc.cpp:566 xrc.cpp:566
-#, fuzzy
 msgid "Processing:"
-msgstr "Zpracovávám"
+msgstr "Zpracovávání:"
 
 #: translations/xrc.cpp:567 translations/xrc.cpp:582 xrc.cpp:567 xrc.cpp:582
 msgid "Remapper:"
@@ -4786,7 +4790,6 @@ msgid "enblend"
 msgstr "enblend"
 
 #: translations/xrc.cpp:578 xrc.cpp:578
-#, fuzzy
 msgid "Save Project and Send to Batch"
 msgstr "Uložit projekt a poslat do dávky"
 
@@ -4795,14 +4798,12 @@ msgid "Save project and send to batch"
 msgstr "Uložit projekt a poslat do dávky"
 
 #: translations/xrc.cpp:580 xrc.cpp:580
-#, fuzzy
 msgid "Stitch now..."
-msgstr "Slepit!"
+msgstr "Slepí panorama..."
 
 #: translations/xrc.cpp:581 xrc.cpp:581
-#, fuzzy
 msgid "Stitch Now..."
-msgstr "Slepit!"
+msgstr "Slepit ..."
 
 #: translations/xrc.cpp:593 xrc.cpp:593
 msgid "HDR Merge Options"
@@ -4900,52 +4901,50 @@ msgid "User Interface"
 msgstr "Uživatelské rozhraní"
 
 #: translations/xrc.cpp:619 xrc.cpp:619
-#, fuzzy
 msgid "Language:"
-msgstr "Jazyk"
+msgstr "Jazyk:"
 
 #: translations/xrc.cpp:620 xrc.cpp:620
 msgid "(requires restarting hugin)"
 msgstr "(hugin musí být restartován)"
 
 #: translations/xrc.cpp:621 xrc.cpp:621
-#, fuzzy
 msgid "Project Name:"
-msgstr "Projekt"
+msgstr "Název projektu:"
 
 #: translations/xrc.cpp:622 xrc.cpp:622
 msgid "based on containing folder"
-msgstr ""
+msgstr "dle nadřazené složky"
 
 #: translations/xrc.cpp:623 xrc.cpp:623
-#, fuzzy
 msgid "Undo:"
-msgstr "Zpět"
+msgstr "Zpět:"
 
 #: translations/xrc.cpp:624 xrc.cpp:624
 msgid "Skip over visibility toggles"
-msgstr ""
+msgstr "Přeskakovat změny viditelnosti"
 
 #: translations/xrc.cpp:625 xrc.cpp:625
 msgid ""
 "May have unforseen consequences. \n"
 "(EXPERIMENTAL)"
 msgstr ""
+"Může mýt mnoho nepředvidatelných důsledků. \n"
+"(EXPERIMENTÁLNÍ VLASTNOST)"
 
 #: translations/xrc.cpp:626 xrc.cpp:626
 msgid "Show hints about projections"
-msgstr ""
+msgstr "Zobrazit nápovědy k projekcím"
 
 #: translations/xrc.cpp:627 xrc.cpp:627
 msgid "The hints are shown only in the fast preview window"
-msgstr ""
+msgstr "Nápověda se zobrazuje pouze v okně s rychlým náhledem."
 
 #: translations/xrc.cpp:628 xrc.cpp:628
 msgid "Show Druid (requires restarting hugin)"
 msgstr "Zobrazit pomocníka (hugin musí být restartován)"
 
 #: translations/xrc.cpp:629 xrc.cpp:629
-#, fuzzy
 msgid "File Options"
 msgstr "Možnosti souborů"
 
@@ -5162,12 +5161,11 @@ msgstr "Výchozí"
 
 #: translations/xrc.cpp:687 xrc.cpp:687
 msgid "Import"
-msgstr ""
+msgstr "Import"
 
 #: translations/xrc.cpp:688 xrc.cpp:688
-#, fuzzy
 msgid "Export"
-msgstr "Expozice"
+msgstr "Export"
 
 #: translations/xrc.cpp:689 xrc.cpp:689
 msgid "Help"
@@ -5515,6 +5513,9 @@ msgid ""
 "However you will still have to install those Control Point Detectors "
 "separately if you haven't already done so."
 msgstr ""
+"Pokud chcete používat jiný detektor kontrolních bodů než CPFind, můžete ho "
+"vybrat v Nastavení->Detektor kontrolních bodů.  Tento detektor ale budete "
+"muset nejprve instalovat (pokud již nebylo učiněno)."
 
 #: hugin1/hugin/xrc/data/tips.txt:7
 msgid ""
@@ -5522,16 +5523,19 @@ msgid ""
 "Autopano, Autopano-SIFT-C, and Panomatic, via a plug-in mechanism controlled "
 "in Preferences -> Control Point Detectors."
 msgstr ""
+"Hugin podporuje mnoho detektorů kontrolních bodů od dalších dodavatelů- "
+"např. Autopano, Autopano-SIFT-C či Panomatic.  V nabídce  Nastavení-"
+">Detektor kontrolních bodů je můžete nastavit."
 
 #: hugin1/hugin/xrc/data/tips.txt:8
-#, fuzzy
 msgid ""
 "Sometimes the control point detector can not find connections between all "
 "images. In this case, control points have to be created manually, using the "
 "control points tab."
 msgstr ""
-"Někdy se Autopanu nepodaří najít propojení mezi všemi obrázky. V tom případě "
-"musí být body vytvořeny ručně  s použitím záložky Kontrolní body."
+"Někdy se detektoru kontrolních bodů nepodaří najít propojení mezi všemi "
+"obrázky. V tom případě musí být body vytvořeny ručně  s použitím záložky "
+"Kontrolní body."
 
 #: hugin1/hugin/xrc/data/tips.txt:9
 msgid ""
@@ -5612,6 +5616,8 @@ msgid ""
 "Place control points on objects as far away from the camera as possible.  "
 "They are less prone to parallax error."
 msgstr ""
+"Umisťujte kontrolní body co nejdál od fotoaparátu. Dosáhnete tak menší "
+"paralaktické odchylky."
 
 #: hugin1/hugin/xrc/data/tips.txt:20
 msgid ""
@@ -5642,12 +5648,11 @@ msgid "The multilayer tiff file output can be read by The Gimp 2.0 or higher."
 msgstr "Vícevrstvý tiff může být načten Gimpem 2.0 nebo novějším."
 
 #: hugin1/hugin/xrc/data/tips.txt:24
-#, fuzzy
 msgid ""
 "You can press the middle mouse button to pan images in the Control Points "
 "tab."
 msgstr ""
-"Můžete zmáčknout prostřední tlačítko myši ke zvětšení obrázků v panelu "
+"Můžete zmáčknout prostřední tlačítko myši k pohybu s obrázky v panelu "
 "kontrolních bodů."
 
 #: hugin1/hugin/xrc/data/tips.txt:25
@@ -5678,13 +5683,12 @@ msgstr ""
 "Gimpu nebo Photoshopu."
 
 #: hugin1/hugin/xrc/data/tips.txt:30
-#, fuzzy
 msgid ""
 "Hugin and other Free panoramic software is discussed on the ptx email list. "
 "http://groups.google.com/group/hugin-ptx"
 msgstr ""
-"hugin a ostatní panoramatický software zdarma je rozebírán na ptx e-mail "
-"listu: http://groups.google.com/group/hugin-ptx"
+"Hugin a ostatní volný panoramatický software jsou rozebírány na ptx e-"
+"mailové konferenci: http://groups.google.com/group/hugin-ptx"
 
 #: hugin1/hugin/xrc/data/tips.txt:31
 msgid ""
@@ -5727,6 +5731,31 @@ msgstr ""
 "Optimalizace všech parametrů zkreslení \"všechno\" má smysl jen tehdy, pokud "
 "jste dobře rozmístili velké množství kontrolních bodů."
 
+#~ msgid "Dedication"
+#~ msgstr "Věnování"
+
+#~ msgid ""
+#~ "The Autopano and Autopano-SIFT programs can be used to create control "
+#~ "points automatically. Please install one of them if you haven't already "
+#~ "done so."
+#~ msgstr ""
+#~ "Externí nástroje autopano a autopano-sift mohou být použity k vytvoření "
+#~ "kontrolních bodů automaticky. Pokud nejsou nainstalované, nainstalujte "
+#~ "alespoň jeden z nich."
+
+#~ msgid ""
+#~ "Enblend can be used to smoothly blend the panorama. Use it from within "
+#~ "hugin by selecting \"high quality tiff file\" as output."
+#~ msgstr ""
+#~ "Enblend může být použit k jemnému smíchání panoramatu. Zkuste nastavit  "
+#~ "\"tiff, kvalitní\" jako výstup."
+
+#~ msgid "no command in undo history"
+#~ msgstr "žádný příkaz v historii příkazů"
+
+#~ msgid "no command in redo history"
+#~ msgstr "žádný příkaz v historii opakování příkazů"
+
 #~ msgid "Aligning images"
 #~ msgstr "Zarovnávám obrázky"
 
@@ -5744,12 +5773,6 @@ msgstr ""
 
 #~ msgid "Vignetting and exposure correction"
 #~ msgstr "Korekce charakteristiky a expozice"
-
-#~ msgid "no command in undo history"
-#~ msgstr "žádný příkaz v historii příkazů"
-
-#~ msgid "no command in redo history"
-#~ msgstr "žádný příkaz v historii opakování příkazů"
 
 #~ msgid "Celeste model expected in "
 #~ msgstr "Model Celeste  očekáván v "
@@ -5828,22 +5851,6 @@ msgstr ""
 
 #~ msgid "HDR Output:"
 #~ msgstr "HDR výstup:"
-
-#~ msgid ""
-#~ "The Autopano and Autopano-SIFT programs can be used to create control "
-#~ "points automatically. Please install one of them if you haven't already "
-#~ "done so."
-#~ msgstr ""
-#~ "Externí nástroje autopano a autopano-sift mohou být použity k vytvoření "
-#~ "kontrolních bodů automaticky. Pokud nejsou nainstalované, nainstalujte "
-#~ "alespoň jeden z nich."
-
-#~ msgid ""
-#~ "Enblend can be used to smoothly blend the panorama. Use it from within "
-#~ "hugin by selecting \"high quality tiff file\" as output."
-#~ msgstr ""
-#~ "Enblend může být použit k jemnému smíchání panoramatu. Zkuste nastavit  "
-#~ "\"tiff, kvalitní\" jako výstup."
 
 #~ msgid "Anchor Image"
 #~ msgstr "Kotvící obrázek"
