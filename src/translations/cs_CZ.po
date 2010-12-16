@@ -5734,9 +5734,6 @@ msgstr ""
 #~ msgid "Dedication"
 #~ msgstr "Věnování"
 
-#~ msgid "Dedication"
-#~ msgstr "Věnování"
-
 #~ msgid ""
 #~ "The Autopano and Autopano-SIFT programs can be used to create control "
 #~ "points automatically. Please install one of them if you haven't already "
