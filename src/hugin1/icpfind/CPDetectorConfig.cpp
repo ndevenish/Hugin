@@ -111,6 +111,7 @@ void CPDetectorConfig::WriteToFile(wxString filename)
 {
     wxFileConfig fconfig(wxT("hugin"),wxEmptyString,filename);
     Write(&fconfig);
+    fconfig.Flush();
 };
 
 void CPDetectorConfig::WriteIndex(wxConfigBase *config, int i)

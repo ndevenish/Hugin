@@ -919,6 +919,14 @@ void PreferencesDialog::OnCPDetectorSave(wxCommandEvent &e)
     {
         wxConfig::Get()->Write(wxT("/actualPath"), dlg.GetDirectory());  // remember for later
         wxString fn = dlg.GetPath();
+#ifndef __WXMSW__
+        //append extension if not given
+        //not necessary on Windows, the wxFileDialog appends it automatic
+        if(fn.Right(8)!=wxT(".setting"))
+        {
+            fn.Append(wxT(".setting"));
+        };
+#endif
         cpdetector_config_edit.WriteToFile(fn);
     };
 };

@@ -120,6 +120,10 @@
 			<param name="Local" value="Pto2mk.html">
 			</OBJECT>
 		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Hugin_stitch_project">
+			<param name="Local" value="Hugin_stitch_project.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
 			<param name="Name" value="Cpclean">
 			<param name="Local" value="Cpclean.html">
 			</OBJECT>

@@ -2154,9 +2154,16 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
                 DEBUG_DEBUG(" height:" << line.substr(b,e-b)<<":")
                 int nextHeight = hugin_utils::lexical_cast<int, string>(line.substr(b,e-b));
                 DEBUG_DEBUG("next height " << nextHeight);
-                b = line.find_first_not_of(" \"",e);
-                e = line.find_first_of("\"",b);
-                string nextFilename = line.substr(b,e-b);
+
+                string nextFilename;
+                try {
+                    b = line.find_first_not_of(" \"",e);
+                    e = line.find_first_of("\"",b);
+                    nextFilename = line.substr(b,e-b);
+                } catch (std::out_of_range& e) {
+                    DEBUG_ERROR("ERROR PARSING INPUT FILE" << e.what( ));
+                    return false;
+                }
                 DEBUG_DEBUG("next filename " << nextFilename);
 
                 ImgInfo info;

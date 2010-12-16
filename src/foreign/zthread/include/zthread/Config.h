@@ -113,7 +113,9 @@
       defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || \
       defined(__hpux) || \
       defined(__sgi) || \
-      defined(__sun)
+      defined(__sun) || \
+      defined(__GLIBC__)
+// The last one matches GNU/kFreeBSD.
 
 #  define ZT_POSIX
 

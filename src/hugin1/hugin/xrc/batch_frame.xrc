@@ -211,7 +211,7 @@
             </object>
             <object class="sizeritem">
               <object class="wxStaticBoxSizer">
-                <label>Founded panoramas</label>
+                <label>Found panoramas</label>
                 <orient>wxVERTICAL</orient>
                 <object class="sizeritem">
                   <object class="wxBoxSizer">

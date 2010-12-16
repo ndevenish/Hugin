@@ -1,5 +1,6 @@
 Pablo d'Angelo	Original Author, GSoC 2007 and 2008 mentor, German translation, original CMake build, original Windows SDK
 Florian Achleitner	GSoC 2010 Makefile lib
+Ernesto Enrique Alvarado Viloria	initial Latin American Spanish translation
 Bart van Andel	Bugfix
 György Balló	original Hungarian translation
 Herbert Bay	GSoC 2007 mentor
@@ -17,6 +18,7 @@ Ademar de Souza Reis Jr.	original Brazilian translation and translation related 
 Serhij Dubyk	initial Ukrainian translation
 Terry Duell	updated tutorials, Fedora tester and packager
 Alexandre Duret-Lutz	code
+Davide Fabbri	Bugfixes, Windows build
 Lu Fang	initial Chinese Simplified translation
 Skip Gaede	OS X build fixes
 Daniel German	bug fixes, GSoC mentor 2010
@@ -27,6 +29,7 @@ Ed Halley	gui, documentation
 Robert Hart	bug reports and patches
 Juha Helminen	Code
 Brian Hoffmann	German translation of NSIS windows installer
+Lajos Höss	Hungarian translation
 Ad Huikeshoven	automated Windows snapshot builds
 Iouri Ivliev	bug fixes
 Marek Januszewski	Code, initial Polish translation
@@ -36,8 +39,8 @@ Lukáš Jirkovský	GSoC 2009 deghosting in enfuse
 Allard Katan	Windows installer
 Guido Kohlmeyer	German translation, Windows SDK, bug fixes
 Erik Krause	Enfuse and enblend droplets for Windows
+Uwe Koch Kronberg	Spanish translation
 Marco Kuder	GSoC 2008 batch processor
-Höss Lajos	Hungarian translation
 Rick Langford	Traditional Chinese original translation and updates
 Homin Lee	initial Korean translation
 James Legg	GSoC 2008 OpenGL fast preview, GSoC 2009 new layout, GSoC 2010 mentor

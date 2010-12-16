@@ -44,8 +44,8 @@
 			<div id="contentSub"></div>
 												<!-- start content -->
 			
-<a name="General" id="General"></a><h2> <span class="mw-headline"> General </span></h2>
-<p>The Bug Tracker (BT), the Features Request Tracker (FT), and the Patch Tracker (PT) are the official tools to communicate bugs, feature requests, and proposed changes to the developers. While bug reports, feature requests, and patches are always welcome over any channel, these are the only tools that make sure they will not be forgotten / hidden in the past archives. All users are encourage to make use of these tools. In the following text I explain the basic usage and set some policies with regard to Hugin.
+<a name="General" id="General"></a><h1> <span class="mw-headline"> General </span></h1>
+<p>Since November 22, 2010 bugs, feature requests and patches for Hugin are <a href="https://bugs.launchpad.net/hugin" class="external text" title="https://bugs.launchpad.net/hugin" rel="nofollow">tracked</a> in Launchpad, the official tools to communicate bugs, feature requests, and proposed changes to the developers. While bug reports, feature requests, and patches are always welcome over any channel, the Launchpad tracker is the only tools that make sure they will not be forgotten / hidden in the past archives. All users are encouraged to make use of Launchpad. In the following text I explain the basic usage and set some policies with regard to Hugin.
 </p><p>Moreover, discussion of tracker tickets is welcome on the Mailing List (ML). This includes (non-exhaustive list):
 </p>
 <ul><li> requests to test bugs and patches
@@ -53,37 +53,157 @@
 </li><li> enlarging the base of interested user / tester to encompass a variety of platforms
 </li><li> insuring follow up on anonymous tickets 
 </li></ul>
+<a name="Launchpad_Account" id="Launchpad_Account"></a><h1> <span class="mw-headline"> Launchpad Account </span></h1>
+<p>Launchpad tickets can be viewed anonymously but to interact with the tracker you will need to register an account.  It is a straight forward process.  Once registered you can:
+</p>
+<ul><li> submit a new ticket
+</li><li> comment on existing tickets
+</li><li> vote on tickets
+</li></ul>
+<p>Moreover, if you are a power user and want to help triage and prioritize tickets; help users solve their problems; help developers with testing and observations; join the <a href="https://launchpad.net/~hugin-bug-hunters" class="external text" title="https://launchpad.net/~hugin-bug-hunters" rel="nofollow">Hugin Bug Hunters</a> team.
+</p>
+<a name="OpenPGP_key" id="OpenPGP_key"></a><h2> <span class="mw-headline"> OpenPGP key </span></h2>
+<p>An OpenPGP key is not mandatory for general use, but it makes life easy.
+</p><p>You will need an OpenPGP key to
+</p>
+<ul><li> use the (faster and more comfortable) email interface to the tracker
+</li><li> sign the Code of Conduct and get access to advanced Launchpad features such as a personal PPA.
+</li><li> sign software uploaded to the repository.
+</li></ul>
+<a name="Generate_Your_Key_.28Linux.2FBSD.2FMac.29" id="Generate_Your_Key_.28Linux.2FBSD.2FMac.29"></a><h2> <span class="mw-headline"> Generate Your Key (Linux/BSD/Mac) </span></h2>
+<p>Start a command line and type:
+</p>
+<pre>
+gpg --cert-digest-algo=SHA256 --default-preference-list=&quot;h10 h8 h9 h11 s9 s8 s7 s3 z2 z3 z1 z0&quot; --gen-key
+</pre>
+<p>At the prompt
+</p>
+<ul><li> Confirm the type of key you want to create (RSA)
+</li><li> Give the key a validity.  Recommended setting two years so that if you loose your key or password it will be purged from the system
+</li><li> Real Name: enter your real name
+</li><li> Email: enter your email address
+</li></ul>
+<p>Read/copy the last 8 digits (e.g. 637572E4) from the key fingerprint and add them to ~/.bashrc
+</p>
+<pre>
+echo &quot;export GPGKEY=637572E4&quot; &gt;&gt; ~/.bashrc
+</pre>
+<p>Then restart the terminal session.
+</p><p>Upload the key to the Ubuntu key server and output the key's fingerprint
+</p>
+<pre>
+gpg --send-keys --keyserver keyserver.ubuntu.com $GPGKEY
+gpg --fingerprint $GPGKEY
+</pre>
+<p>Log on to your launchpad page <a href="https://launchpad.net/~" class="external free" title="https://launchpad.net/~" rel="nofollow">https://launchpad.net/~</a>&lt;USER&gt;/+editpgpkeys and paste the fingerprint.  Hit import key.  A message encrypted with your key (<b>637572E4</b>) will be sent to you. Read your email.
+</p>
+<a name="Generate_Your_Key_.28Windows.29" id="Generate_Your_Key_.28Windows.29"></a><h2> <span class="mw-headline"> Generate Your Key (Windows) </span></h2>
+<p>Can somebody with a Windows box document the equivalent PuTTY commands?
+</p>
+<a name="Sign_the_Ubuntu_Code_of_Conduct" id="Sign_the_Ubuntu_Code_of_Conduct"></a><h2> <span class="mw-headline"> Sign the Ubuntu Code of Conduct </span></h2>
+<p>Read and sign the <a href="https://launchpad.net/codeofconduct/1.1/+download" class="external text" title="https://launchpad.net/codeofconduct/1.1/+download" rel="nofollow">Ubuntu Code of Conduct</a>.  This will grant you privileges such as creating your own PPA and uploading source packages for build and distribution.
+</p>
+<pre>
+wget -O code.txt https://launchpad.net/codeofconduct/1.1/+download
+gpg -u $GPGKEY --clearsign code.txt
+cat code.txt.asc
+</pre>
+<p>Copy the resulting text and paste it into <a href="https://launchpad.net/codeofconduct/1.1/+sign" class="external free" title="https://launchpad.net/codeofconduct/1.1/+sign" rel="nofollow">https://launchpad.net/codeofconduct/1.1/+sign</a>
+</p>
+<a name="Claim_an_Imported_SourceForge_Account" id="Claim_an_Imported_SourceForge_Account"></a><h2> <span class="mw-headline"> Claim an Imported SourceForge Account </span></h2>
+<p>If you used the older trackers on SourceForge, chances are there is already something from you in Launchpad.  Use the following procedure to claim it as being yours:
+</p>
+<ul><li> Make sure your SF account is in good standing and that you are receiving emails at it.
+</li><li> Log on to the <a href="https://bugs.launchpad.net/hugin" class="external text" title="https://bugs.launchpad.net/hugin" rel="nofollow">Hugin bug tracker</a>.
+</li><li> Find a ticket or comment that you filed in the old tracker.  Unfortunately entering your old user handle in the simple search field form does not work.  Maybe using the advanced search reporter field, however note that SF users are not LP users, so don't count on it to work.
+</li><li> On the ticket page you should see your SF user name, clickable. Click on it.
+</li><li> A standard page will display, saying that the user does not use LP and that the page was created when importing bugs for Hugin.  There is a link on the page asking if you are the user.  Hit the link.
+</li><li> You will land on a pre-filled Merge LP accounts form. Hit the Continue button.
+</li><li> An email message will be sent to the email address associated with the old account.  Open that email and click on the link.
+</li><li> You will land on a confirmation form.  click Confirm.
+</li><li> If everything completed successfully you will land on your LP account page with a confirmation of the successful merge.
+</li></ul>
+<a name="Email_Notifications" id="Email_Notifications"></a><h1> <span class="mw-headline"> Email Notifications </span></h1>
+<p>Launchpad uses a sophisticated <a href="https://help.launchpad.net/Bugs/EmailInterface" class="external text" title="https://help.launchpad.net/Bugs/EmailInterface" rel="nofollow">email interface</a>.  It is possible to do almost anything via email without having to log into the web app.
+</p><p>Activity on the tracker is notified by email to:
+</p>
+<ul><li> everybody who subscribe to the individual ticket by hitting the subscribe link on the right of the tracker.  If you file a ticket, you are automatically subscribed to it.
+</li><li> everybody who subscribes to the tracker <a href="https://bugs.launchpad.net/hugin/+subscribe" class="external free" title="https://bugs.launchpad.net/hugin/+subscribe" rel="nofollow">https://bugs.launchpad.net/hugin/+subscribe</a>
+</li><li> the <a href="https://launchpad.net/~hugin-bug-hunters" class="external text" title="https://launchpad.net/~hugin-bug-hunters" rel="nofollow">Hugin Bug Hunters</a> team and the <a href="https://launchpad.net/~hugin-devs" class="external text" title="https://launchpad.net/~hugin-devs" rel="nofollow">Hugin Developers</a> team
+</li></ul>
+<p>To manage your notification settings you can (replace $USER with your Launchpad name):
+</p>
+<ul><li> change your email settings (short-term/holiday) for team mailing lists at <code><a href="https://launchpad.net/~$USER/+editemails" class="external free" title="https://launchpad.net/~$USER/+editemails" rel="nofollow">https://launchpad.net/~$USER/+editemails</a></code> and a general subscription policy to new mailing lists.
+</li><li> change your team participation (long-term) at <code><a href="https://launchpad.net/~$USER/+participation" class="external free" title="https://launchpad.net/~$USER/+participation" rel="nofollow">https://launchpad.net/~$USER/+participation</a></code>
+</li><li> list the bugs you're subscribed to and change the individual subscription to each bug (fine tuning) at <code><a href="https://bugs.launchpad.net/~$USER" class="external free" title="https://bugs.launchpad.net/~$USER" rel="nofollow">https://bugs.launchpad.net/~$USER</a></code>
+</li></ul>
+<a name="Placing_a_Ticket" id="Placing_a_Ticket"></a><h1> <span class="mw-headline"> Placing a Ticket </span></h1>
+<p>To use the tracker, you need a <a href="Hugin_Trackers.html#Launchpad_Account" class="external text" title="http://wiki.panotools.org/Hugin_Trackers#Launchpad_Account" rel="nofollow">Launchpad Account</a>.  You can submit our translation via the web or via email.
+</p>
+<a name="Web" id="Web"></a><h2> <span class="mw-headline"> Web </span></h2>
+<ul><li> Log on with your Launchpad account.
+</li><li> Start reporting a <a href="https://bugs.launchpad.net/hugin/+filebug" class="external text" title="https://bugs.launchpad.net/hugin/+filebug" rel="nofollow">new ticket</a>.
+</li><li> Enter a title/summary (e.g. German Translation).
+</li><li> Launchpad will look for duplicates.  Look in the list of reports found if your issue has already been reported.  It is preferable to add to an old report (and even re-open a closed or expired report)  than to start a new one.  In most cases the previous history will give more weight to your report.
+</li><li> On the reporting form, enter a description.
+</li><li> If you need to attach a .pto file, a stitch log, a screenshot, or anything else that may be useful, scroll to the bottom and hit the link "Extra options".
+</li><li> There you will find an Attachment field.  Hit it and browse to the file you want to attach.
+</li><li> Click the "Submit Bug Report" button.
+</li></ul>
+<p>To add an attachment to an already existing ticket:
+</p>
+<ul><li> Log on to your Launchpad account.
+</li><li> Get on the report's page.
+</li><li> Scroll to the bottom.
+</li><li> Hit the "Add attachment or patch" link.
+</li><li> Enter a comment.
+</li><li> Hit the attachment field and browse to the file you want to attach.
+</li><li> Enter a description (optional).
+</li><li> Hit the "Post Comment" button.
+</li></ul>
 <p><br />
 </p>
-<a name="Structure_of_a_Ticket" id="Structure_of_a_Ticket"></a><h2> <span class="mw-headline"> Structure of a Ticket </span></h2>
-<p>Whether it is to report a bug or to work on it, familiarizing with the structure of a ticket in the tracker is the first step. Look at existing tickets for examples. 
+<a name="eMail" id="eMail"></a><h2> <span class="mw-headline"> eMail </span></h2>
+<p>Reporting a new ticket by email works too, but there are some critical conditions:
 </p>
-<ul><li> On top is the summary, the ID, and the last update information. With "Tech &amp; Admin" permission the summary is editable.
-</li><li> Under the details header is the initial comment, followed by some information about the status of the ticket. The status information is editable with "Tech &amp; Admin" permission.
-</li><li> Most important, at least initially, is who submitted the ticket. A ticket can be submitted anonymously but it is strongly recommended that users register with SourceForge (it's free and SF has a consistent track record of respectful committment to user's privacy) and <a href="https://sourceforge.net/account/login.php" class="external text" title="https://sourceforge.net/account/login.php" rel="nofollow">log in</a> before creating a ticket or commenting on one. If you have OpenID there is no need to remember another password.
-</li><li> Next is the comments thread. It may be condensed - click on the + icon on the right to expand it. When working on a ticket it is important to be aware that the "Details" section may not be everything there is to read. The follow ups often contain relevant / critical information. All users can add to the discussion.
-</li><li> The attached files section lists all files that have been uploaded. This is usually meant for logs and patches. Project files (.pto) and screenshots still fit the weight limits. For full test cases with images this is not practicable - better store them somewhere on the web and publish a link in a comment. If you need such web space, ask on the ML.
-</li><li> Users with "Tech &amp; Admin" permission can associate a ticket to another one, marking it as a duplicate.
-</li><li> Last but not least, all changes are listed.
+<ul><li> Your email account must be registered with Launchpad.
+</li><li> You must have an OpenPGP key associated with it and known to Launchpad.
+</li><li> You must craft your email carefully.  A misplaced space or a typo can doom your report.
+</li><li> To be safe, use TEXT email, not HTML -- a good habit anyway.  In most email client you recognize the TEXT mode by the lack of a formatting toolbar).
 </li></ul>
-<a name="Feature_Request" id="Feature_Request"></a><h2> <span class="mw-headline"> Feature Request </span></h2>
-<p>Do you have an idea for a feature that Hugin does not have yet? You don't have the time/skill for coding? You can at least contribute the idea and some analysis. Discussions on the mailing list are OK but tend to get lost in time. If you want to make sure that your idea is remember, enter it into the <a href="https://sourceforge.net/tracker/?group_id=77506&amp;atid=550444" class="external text" title="https://sourceforge.net/tracker/?group_id=77506&amp;atid=550444" rel="nofollow">feature tracker</a>. The more analysis and description of the feature, the better. Make a case for it, show why it would be an advantage. The feature may be picked up by a skilled developer, or it could also become a Google Summer of Code or otherwise sponsored project.
+<p>The message:
 </p>
-<a name="Initial_Bug_Report" id="Initial_Bug_Report"></a><h2> <span class="mw-headline"> Initial Bug Report </span></h2>
+<ul><li> From: your Launchpad-registered email address
+</li><li> To: new@bugs.launchpad.net
+</li><li> Subject: title of the bug
+</li><li> Body:  description + carefully crafted commands.  Commands are usually at the end of the body.  One per line.  Each command line starts with a single space.
+</li><li> Enter the command " affects hugin" to assign the report to Hugin.
+</li><li> Enter the command " tag translation" to tag the report as being a translation.
+</li><li> Attach the file(s) to the email.
+</li><li> Send.  It takes about five minutes to process and you get an email back with the result.
+</li></ul>
+<p>Replying to a bug report by email is easier.  You don't need to issue the " affects hugin" command since the reply is referenced by the ticket number.
+</p><p><br />
+</p>
+<a name="Types_of_Tickets" id="Types_of_Tickets"></a><h1> <span class="mw-headline"> Types of Tickets </span></h1>
+<a name="Feature_Request" id="Feature_Request"></a><h2> <span class="mw-headline"> Feature Request </span></h2>
+<p>Do you have an idea for a feature that Hugin does not have yet? You don't have the time/skill for coding? You can at least contribute the idea and some analysis. Discussions on the mailing list are OK but tend to get lost in time. If you want to make sure that your idea is remembered, enter it into the tracker.  The more analysis and description of the feature, the better.  Make a case for it, show why it would be an advantage. The feature may be picked up by a skilled developer, or it could also become a Google Summer of Code or otherwise sponsored project.
+</p>
+<a name="Bug_Report" id="Bug_Report"></a><h2> <span class="mw-headline"> Bug Report </span></h2>
 <p>All users are encouraged to report bugs. Please help us improve the quality of the bug reports and the information available to the developers by following these guidelines:
 </p>
 <a name="Your_System" id="Your_System"></a><h3> <span class="mw-headline"> Your System </span></h3>
 <p>We need to know as much as possible about your system. Which version? What processor? How much memory? How much disk space is available, particularly temporary space? Are all updates recommended by the system's distributor applied? Have you customized the system? added/replaced libraries?
 </p><p>If you have access to a second system, please validate the bug before reporting it.
+</p><p>Recent version of Hugin have system information in the About menu.  Copy and paste it.
 </p><p><br />
 </p>
-<a name="The_Sofware" id="The_Sofware"></a><h3> <span class="mw-headline"> The Sofware </span></h3>
+<a name="The_Software" id="The_Software"></a><h3> <span class="mw-headline"> The Software </span></h3>
 <p>We also need to know as much as possible about the software used. Which version of Hugin? Where did you install it from? Did you compile Hugin yourself? An easy way to identify your version of Hugin is to look up the About Hugin dialog (Menu Help -&gt; About Hugin) and report the whole version string.
 </p><p>Hugin depends on third party libraries and tools such as libpano and enblend/enfuse. Unless you have downloaded a Windows installer or a Mac bundle (that are self-contained), we'd need to know the same information for the dependencies. Where and when did you install them from?
-</p><p><br />
 </p>
 <a name="The_Application" id="The_Application"></a><h3> <span class="mw-headline"> The Application </span></h3>
-<p>Often times the nature of your project, particularly the images, will help understand the bug. How many images? What format? Do they have EXIF data? What camera make/model? Is it HDR? Often time, providing the .pto file (can be attached in the BT) is a valuable input to the analysis process. If you have access to web-space, providing the full test case including images (in JPG format and/or resized to reduce storage/bandwidth need) can also help.
+<p>Often times the nature of your project, particularly the images, will help understand the bug. How many images? What format? Do they have EXIF data? What camera make/model? Is it HDR? Providing the .pto file (can be attached) is a valuable input to the analysis process. If you have access to web-space, providing the full test case including images (in JPG format and/or resized to reduce storage/bandwidth need) can also help.
 </p><p><br />
 </p>
 <a name="The_Bug" id="The_Bug"></a><h3> <span class="mw-headline"> The Bug </span></h3>
@@ -91,20 +211,39 @@
 </p><p><br />
 </p>
 <a name="Bug_Triage" id="Bug_Triage"></a><h2> <span class="mw-headline"> Bug Triage </span></h2>
-<p>To triage bugs a user need a SourceForge login and "Tech &amp; Admin" permission to the BT. Permission will be liberally given to users who have shown continued, relevant contributions to the debugging process.
+<p>Power users can triage tickets by reading them, understanding, validating and editing their settings such as priority and status.
 </p>
-<ul><li> Log on to the [<a href="https://sourceforge.net/tracker/?limit=20&amp;sort=open_date&amp;sortdir=desc&amp;offset=0&amp;group_id=77506&amp;atid=550441&amp;status=1" class="external free" title="https://sourceforge.net/tracker/?limit=20&amp;sort=open_date&amp;sortdir=desc&amp;offset=0&amp;group_id=77506&amp;atid=550441&amp;status=1" rel="nofollow">https://sourceforge.net/tracker/?limit=20&amp;sort=open_date&amp;sortdir=desc&amp;offset=0&amp;group_id=77506&amp;atid=550441&amp;status=1</a>
-</li></ul>
-<pre>BT] (the link is already filtered for opened ticket sorted from the most recent one on top).
-</pre>
-<ul><li> Start with the oldest bug that has not been triaged yet. Ideally the new reports are identified by Priority 5, although at the time of writing many old reports still have Priority 5. It is also possible to be alerted to new reports by <a href="https://lists.sourceforge.net/lists/listinfo/hugin-tracker" class="external text" title="https://lists.sourceforge.net/lists/listinfo/hugin-tracker" rel="nofollow">subscribing</a> the tracker mailing list.
+<ul><li> Log on to the tracker
+</li><li> Start with the oldest bug that has not been triaged yet (status is New and it is not the result of a status reset).
 </li><li> Read the ticket and make sure you fully understand it. When in doubt, leave it for more experienced users to triage or ask on the ML.
-</li><li> If you determine that the ticket is a duplicate, mark it as such and close it.
-</li><li> There are frequently appearing error messages such as "precondition violation", "false --compression", "Mask is entirely black but white image was not identified as redundant", etc... that need entries in the <a href="Hugin_FAQ.html" title="Hugin FAQ">hugin FAQ</a> - Duplicates should be closed with a link to the FAQ.
-</li><li> Assign Category, Group, Priority according to the policies in the next sections. 
+</li><li> If you determine that the ticket is a duplicate, mark it as such and close it.  You will need to enter the ticket number of the other ticket.
+</li><li> There are frequently appearing error messages such as "precondition violation", "false --compression", "Mask is entirely black but white image was not identified as redundant", etc... that need entries in the <a href="Hugin_FAQ.html" title="Hugin FAQ">hugin FAQ</a> - Duplicates should be closed with a link to the FAQ.  If applicable, update the FAQ.
+</li><li> Tag the bug liberally and assign status and importance-
 </li><li> Add clarifying questions to the bug ticket if applicable. In doing so, compare the currently available information against the requested information listed above in "Reporting a Bug" and the specifics of the report.
-</li><li> If the ticket was entered anonymously, determine the likelyhood that the developers may need additional feedback. Ask for that feedback on the ML. Eventually set the report to pending status so that if nobody acts on the request it will be closed in two weeks for lack of information.
 </li><li> When in doubt, ask on the ML.
+</li></ul>
+<a name="Understanding_Ticket_Status" id="Understanding_Ticket_Status"></a><h3> <span class="mw-headline"> Understanding Ticket Status </span></h3>
+<p>As the ticket evolves throughout its life cycle, it can have the following stati:
+</p>
+<ul><li> <b>New</b>:  All tickets are born with the New status.  Moreover, if a user has made a change to a ticket and want to draw triager attention, he will reset the status to <b>New</b>.  This is particularly important for tickets with status <b>Incomplete</b> that risk to expire if not reset to <b>New</b>.  Try not to leave a <b>New</b> status after looking at a ticket, unless you are completely clueless about it.  Set it to <b>Triaged</b> if you tagged it, verified that it is not <b>Incomplete</b> or <b>Invalid</b>.
+</li></ul>
+<ul><li> <b>Incomplete</b>:  Triagers will set the status to incomplete if information is missing / expected from the reporter, or if the contributed patch requires some extra work.  Usually they will post a note detailing what information is required.  If there is no further activity within 60 days, the ticket will expire.  It is important that whoever completes / adds to the ticket set the status again to <b>New</b>, to draw attention to the extra information.  An email warning is sent a few days before expiry.
+</li></ul>
+<ul><li> <b>Opinion</b>:  Before setting the status to <b>Opinion</b> a triager will check if it is possible to accomodate the wish, e.g. with a preference.  But sometimes things are just too far fetched and Hugin is not an [1].  Please respect it if one of your ticket has been marked as an <b>Opinion</b> and don't start a flame.  If you mark a ticket as an <b>Opinion</b> make sure to provide alternatives / justification (e.g. list alternative tools that are better suited to solve the problem described).  Use sparingly.
+</li></ul>
+<ul><li> <b>Invalid</b>:  A bug is set to <b>Invalid</b> if it was filed against an older version and is no longer applicable; or if the problem is not in the code; or if the contributed patch will never be accepted.
+</li></ul>
+<ul><li> <b>Won't fix</b>:  The behavior is known, but for some reason it won't be fixed, e.g. the code causing it has become or will become obsolete in a subsequent release, or the bug is just an annoyance that would take too much effort to fix. Or the behavior is "odd" to some people, but useful for others. 
+</li></ul>
+<ul><li> <b>Confirmed</b>:  It's on our radar screen.  we know what needs to be done in the code, but there are no resources to tackle it yet.  This is also the status to give to ticket with contributed patches.
+</li></ul>
+<ul><li> <b>Triaged</b>:  Somebody has been looking at the report but it is still work in progress and we don't know yet what the next step will be other than looking at it again.  At least it has not been declared <b>Invalid</b> yet.
+</li></ul>
+<ul><li> <b>In Progress</b>: A developer has started to tackle the issue.
+</li></ul>
+<ul><li> <b>Fix Committed</b>: A fix has been committed to the repository.  users with access to bleeding edge builds can test it and confirm if the fix worked or not.  If the fix did not work, report it and set the status to new again.
+</li></ul>
+<ul><li> <b>Fix Released</b>:  The fix is part of a release.  If users using stable versions after that release find the error again, they can change the status to New and report that the fix did not work.
 </li></ul>
 <a name="Bug_Validation" id="Bug_Validation"></a><h2> <span class="mw-headline"> Bug Validation </span></h2>
 <p>Every user can validate a bug against their system / software and add a comment to validate the bug. We encourage all users to do so. The more validation information we have, the better. We need to narrow down whether a bug applies to a specific operating system or across the board. And it is also very useful to know if a bug applies to a specific context or if it applies also in different contexts.
@@ -117,7 +256,7 @@
 <p><br />
 </p>
 <a name="Bug_Fixing_and_Testing" id="Bug_Fixing_and_Testing"></a><h2> <span class="mw-headline"> Bug Fixing and Testing </span></h2>
-<p>Everybody is encouraged to provide fixes and patches to correct bugs. Only developers can add them to the repository. Write access to the repository will be liverally given to users who need it.
+<p>Everybody is encouraged to provide fixes and patches to correct bugs. Only developers can add them to the repository. Write access to the repository will be liberally given to users who need it.
 </p>
 <ul><li> when a developer fixed a bug, he can ask the ML for testing.
 </li><li> a fix tested on the developers system only can be set to Pending status.
@@ -127,31 +266,22 @@
 </p>
 <a name="Triaging_Policy" id="Triaging_Policy"></a><h2> <span class="mw-headline"> Triaging Policy </span></h2>
 <ul><li> The more complete a bug report, the more attention it is likely to get.
-</li><li> Anonymous bug reports are set on Pending status by default, unless the report is complete enough not to need further feedback and/or there is interest from contributors to work on the report.
-</li><li> When triaging a bug, set it's priority to something different than 5 so that priority 5 reports are known to be untriaged.
 </li></ul>
-<p><br />
-</p>
-<a name="Categories" id="Categories"></a><h3> <span class="mw-headline"> Categories </span></h3>
-<p>We use categories to indicate if the bug is platform specific, although some tickets still carry "legacy categories" that are unrelated to the platforms. 
-</p><p><br />
-</p>
-<a name="Groups" id="Groups"></a><h3> <span class="mw-headline"> Groups </span></h3>
-<p>We use groups to indicate which tool is affected by the bug.
-</p><p><br />
-</p>
-<a name="Priorities" id="Priorities"></a><h3> <span class="mw-headline"> Priorities </span></h3>
-<p>We use priorities to sort out the the tickets.
-</p>
-<ul><li> 9: show stopper for the current release
-</li><li> more than 5: bug affects a large number of use cases.
-</li><li> 5: new bug that needs to be triaged
-</li><li> less than 5: bug affects a small number of use cases - rare / specific situation
+<a name="Importance" id="Importance"></a><h3> <span class="mw-headline"> Importance </span></h3>
+<ul><li> Members of the Hugin Bug Hunter team can set the importance of a bug.
+</li><li> You can indicate that a bug is important to you by hitting the "affect me too" button.
 </li></ul>
-<p><br />
+<a name="Ticket_Assignement" id="Ticket_Assignement"></a><h3> <span class="mw-headline"> Ticket Assignement </span></h3>
+<ul><li> The tracker enables the assignment of a ticket to a person. It is considered rude to assign a ticket to somebody else without their prior consent. Developers sometimes assign a ticket to themselves to signal they are working on it, but we do not use this feature too often.
+</li><li> The tracker allows the subscription of somebody else to a ticket.  You can do so once if you think a person should be aware of a ticket.  Then add a note to that ticket and the person concerned will receive it in her mail.  But if the person decides otherwise and unsubscribes from the ticket, please respect it.
+</li></ul>
+<a name="Tips_.26_Tricks" id="Tips_.26_Tricks"></a><h2> <span class="mw-headline"> Tips &amp; Tricks </span></h2>
+<p>If you know the old SourceForge bug number (e.g. form a comment on a migrated ticket), you can find it at the URL
 </p>
-<a name="Bug_Assignement" id="Bug_Assignement"></a><h3> <span class="mw-headline"> Bug Assignement </span></h3>
-<p>The tracker enables the assignement of a bug to a person. It is considered rude to assign a bug to somebody else without their prior consent. Developers sometimes assign a bug to themselves to signal they are working on it, but we do not use this feature too often.
+<pre> <a href="https://bugs.launchpad.net/bugs/${name}" class="external free" title="https://bugs.launchpad.net/bugs/${name}" rel="nofollow">https://bugs.launchpad.net/bugs/${name}</a>
+</pre>
+<p>So, for example <a href="https://bugs.launchpad.net/bugs/sf-2789151" class="external free" title="https://bugs.launchpad.net/bugs/sf-2789151" rel="nofollow">https://bugs.launchpad.net/bugs/sf-2789151</a> (referenced at <a href="https://bugs.launchpad.net/hugin/+bug/679170/comments/5" class="external free" title="https://bugs.launchpad.net/hugin/+bug/679170/comments/5" rel="nofollow">https://bugs.launchpad.net/hugin/+bug/679170/comments/5</a>)
+will redirect you to <a href="https://bugs.launchpad.net/hugin/+bug/679179" class="external free" title="https://bugs.launchpad.net/hugin/+bug/679179" rel="nofollow">https://bugs.launchpad.net/hugin/+bug/679179</a>
 </p>
 
 

@@ -280,6 +280,7 @@ void PhotometricOptimizer::optimizePhotometric(PanoramaData & pano, const Optimi
 
     OptimizeVector photometricVars;
     // keep only the photometric variables
+    unsigned int optCount=0;
     for (OptimizeVector::const_iterator it=vars.begin(); it != vars.end(); ++it)
     {
         std::set<std::string> cvars;
@@ -291,7 +292,13 @@ void PhotometricOptimizer::optimizePhotometric(PanoramaData & pano, const Optimi
             }
         }
         photometricVars.push_back(cvars);
+        optCount+=cvars.size();
     }
+    //if no variables to optimize return
+    if(optCount==0)
+    {
+        return;
+    };
 
     int nMaxIter = 250;
     OptimData data(pano, photometricVars, correspondences, 5/255.0, false, nMaxIter, progress);

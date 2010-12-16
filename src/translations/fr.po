@@ -9,14 +9,14 @@ msgstr ""
 "Project-Id-Version: Hugin 2010.4\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2010-11-27 11:26+0100\n"
+"POT-Creation-Date: 2010-12-11 12:35+0100\n"
 "PO-Revision-Date: 2010-11-27 15:38+0100\n"
 "Last-Translator: Jean-Luc Coulon <jean-luc.coulon@wanadoo.fr>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Lokalize 1.0\n"
 
@@ -36,8 +36,8 @@ msgstr ""
 #: hugin1/hugin/GLViewer.cpp:128 hugin1/hugin/GLViewer.cpp:138
 #: hugin1/hugin/MainFrame.cpp:629 hugin1/hugin/MainFrame.cpp:879
 #: hugin1/hugin/MainFrame.cpp:1395 hugin1/hugin/MainFrame.cpp:1854
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:505
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:525
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:530
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:550
 #: hugin1/hugin/PanoPanel.cpp:991 hugin1/hugin/PanoPanel.cpp:1057
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:205
 #: hugin1/ptbatcher/BatchFrame.cpp:445 hugin1/ptbatcher/FindPanoDialog.cpp:259
@@ -75,7 +75,7 @@ msgstr ""
 #: hugin1/hugin/GLPreviewFrame.cpp:905 hugin1/hugin/GLPreviewFrame.cpp:912
 #: hugin1/hugin/GLPreviewFrame.cpp:919 hugin1/hugin/GLPreviewFrame.cpp:931
 #: hugin1/hugin/GLPreviewFrame.cpp:938 hugin1/hugin/GLPreviewFrame.cpp:945
-#: hugin1/hugin/MainFrame.cpp:625 hugin1/hugin/PreferencesDialog.cpp:850
+#: hugin1/hugin/MainFrame.cpp:625 hugin1/hugin/PreferencesDialog.cpp:842
 #: hugin1/ptbatcher/FindPanoDialog.cpp:219
 #: hugin1/ptbatcher/FindPanoDialog.cpp:238
 msgid "Warning"
@@ -168,28 +168,28 @@ msgstr ""
 msgid "Panorama Tools"
 msgstr "Panorama Tools"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:135 hugin1/base_wx/RunStitchPanel.cpp:293
+#: hugin1/base_wx/RunStitchPanel.cpp:135 hugin1/base_wx/RunStitchPanel.cpp:294
 msgid "Could not open project file:"
 msgstr "Impossible d'ouvrir le fichier de projet :"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:145 hugin1/base_wx/RunStitchPanel.cpp:301
+#: hugin1/base_wx/RunStitchPanel.cpp:145 hugin1/base_wx/RunStitchPanel.cpp:302
 #: hugin1/nona_gui/nona_gui.cpp:243 hugin1/ptbatcher/ProjectArray.cpp:86
 #, c-format
 msgid "could not open script : %s"
 msgstr "Impossible d'ouvrir le script : %s"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:166 hugin1/base_wx/RunStitchPanel.cpp:309
+#: hugin1/base_wx/RunStitchPanel.cpp:166 hugin1/base_wx/RunStitchPanel.cpp:310
 #: hugin1/nona_gui/nona_gui.cpp:250 hugin1/ptbatcher/ProjectArray.cpp:109
 #, c-format
 msgid "error while parsing panotools script: %s"
 msgstr "erreur d'analyse du script des outils de panorama : %s"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:205 hugin1/base_wx/RunStitchPanel.cpp:222
-#: hugin1/base_wx/RunStitchPanel.cpp:334
+#: hugin1/base_wx/RunStitchPanel.cpp:335
 msgid "Could not create temporary file"
 msgstr "Impossible de créer le fichier temporaire"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:256
+#: hugin1/base_wx/RunStitchPanel.cpp:257
 msgid ""
 "Overwrite existing images?\n"
 "\n"
@@ -197,16 +197,16 @@ msgstr ""
 "Faut-il écraser les images existantes ?\n"
 "\n"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:256
+#: hugin1/base_wx/RunStitchPanel.cpp:257
 msgid "Overwrite existing images"
 msgstr "Écraser les images existantes"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:271
+#: hugin1/base_wx/RunStitchPanel.cpp:272
 #, c-format
 msgid "Stitching %s"
 msgstr "Assemblage de %s"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:275
+#: hugin1/base_wx/RunStitchPanel.cpp:276
 #, c-format
 msgid ""
 "Error while stitching project\n"
@@ -215,12 +215,12 @@ msgstr ""
 "Erreur lors de l'assemblage du projet\n"
 "%s"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:276 hugin1/base_wx/RunStitchPanel.cpp:282
+#: hugin1/base_wx/RunStitchPanel.cpp:277 hugin1/base_wx/RunStitchPanel.cpp:283
 #: hugin1/stitch_project/hugin_stitch_project.cpp:171
 msgid "Error during stitching"
 msgstr "Erreur durant l'assemblage"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:353
+#: hugin1/base_wx/RunStitchPanel.cpp:354
 #, c-format
 msgid ""
 "Error while running assistant\n"
@@ -229,7 +229,7 @@ msgstr ""
 "Erreur lors de l'exécution de l'assistant\n"
 "%s"
 
-#: hugin1/base_wx/RunStitchPanel.cpp:354 hugin1/base_wx/RunStitchPanel.cpp:362
+#: hugin1/base_wx/RunStitchPanel.cpp:355 hugin1/base_wx/RunStitchPanel.cpp:363
 msgid "Error during running assistant"
 msgstr "Erreur lors de l'exécution de l'assistant"
 
@@ -481,8 +481,8 @@ msgid ""
 "Point finetuned, angle: %.0f deg, correlation coefficient: %0.3f, curvature: "
 "%0.3f %0.3f "
 msgstr ""
-"Point ajusté précisément, angle : %.0f deg, coefficient de corrélation : "
-"%0.3f, courbure %0.3f %0.3f"
+"Point ajusté précisément, angle : %.0f deg, coefficient de corrélation : %"
+"0.3f, courbure %0.3f %0.3f"
 
 #: hugin1/hugin/CPEditorPanel.cpp:797 hugin1/hugin/CPEditorPanel.cpp:927
 msgid "change points, or press right mouse button to add the pair"
@@ -600,16 +600,16 @@ msgstr ""
 
 #: hugin1/hugin/CPEditorPanel.cpp:2179 hugin1/hugin/CPEditorPanel.cpp:2201
 #: hugin1/hugin/CPEditorPanel.cpp:2218 hugin1/hugin/CPEditorPanel.cpp:2227
-#: hugin1/hugin/ImagesPanel.cpp:1025 hugin1/hugin/ImagesPanel.cpp:1054
-#: hugin1/hugin/ImagesPanel.cpp:1079 hugin1/hugin/ImagesPanel.cpp:1089
+#: hugin1/hugin/ImagesPanel.cpp:1023 hugin1/hugin/ImagesPanel.cpp:1052
+#: hugin1/hugin/ImagesPanel.cpp:1077 hugin1/hugin/ImagesPanel.cpp:1087
 msgid "Running Celeste"
 msgstr "Exécution de Celeste"
 
-#: hugin1/hugin/CPEditorPanel.cpp:2180 hugin1/hugin/ImagesPanel.cpp:1026
+#: hugin1/hugin/CPEditorPanel.cpp:2180 hugin1/hugin/ImagesPanel.cpp:1024
 msgid "searching for cloud-like control points..."
 msgstr "Recherche de points de contrôle ressemblant à des nuages..."
 
-#: hugin1/hugin/CPEditorPanel.cpp:2181 hugin1/hugin/ImagesPanel.cpp:1027
+#: hugin1/hugin/CPEditorPanel.cpp:2181 hugin1/hugin/ImagesPanel.cpp:1025
 msgid "Loading model file"
 msgstr "Chargement du fichier de modèle"
 
@@ -618,8 +618,7 @@ msgstr "Chargement du fichier de modèle"
 msgid "Removed %d control points"
 msgstr "%d points de contrôle ont été supprimés"
 
-#: hugin1/hugin/CPEditorPanel.cpp:2228 hugin1/hugin/ImagesPanel.cpp:1090
-#: hugin1/hugin/ImagesPanel.cpp:1095
+#: hugin1/hugin/CPEditorPanel.cpp:2228 hugin1/hugin/ImagesPanel.cpp:1088
 msgid "Celeste result"
 msgstr "Résultats de Celeste"
 
@@ -631,7 +630,7 @@ msgstr "Ajuster précisément les points de contrôle"
 msgid "new"
 msgstr "nouveau"
 
-#: hugin1/hugin/CPImageCtrl.cpp:1197
+#: hugin1/hugin/CPImageCtrl.cpp:1196
 msgid "Could not process event!"
 msgstr "Impossible de traiter l'événement !"
 
@@ -1158,7 +1157,7 @@ msgstr "Vérification de l'ensemble du projet"
 msgid "Finished cleaning"
 msgstr "Nettoyage terminé"
 
-#: hugin1/hugin/ImagesPanel.cpp:379 hugin1/hugin/ImagesPanel.cpp:1095
+#: hugin1/hugin/ImagesPanel.cpp:379
 #, c-format
 msgid "Removed %u control points"
 msgstr "%u points de contrôle ont été supprimés"
@@ -1167,16 +1166,16 @@ msgstr "%u points de contrôle ont été supprimés"
 msgid "Cleaning"
 msgstr "Nettoyage"
 
-#: hugin1/hugin/ImagesPanel.cpp:882
+#: hugin1/hugin/ImagesPanel.cpp:881
 #, c-format
 msgid "Really Delete %lu control points?"
 msgstr "Voulez-vous vraiment supprimer %lu points de contrôle ?"
 
-#: hugin1/hugin/ImagesPanel.cpp:884
+#: hugin1/hugin/ImagesPanel.cpp:883
 msgid "Delete Control Points"
 msgstr "Effacer les points de contrôle"
 
-#: hugin1/hugin/ImagesPanel.cpp:962
+#: hugin1/hugin/ImagesPanel.cpp:961
 msgid ""
 "Your project must have at least two stacks before you can assign images to a "
 "different stack."
@@ -1184,19 +1183,19 @@ msgstr ""
 "Votre projet doit comporter au moins deux ensembles avant que vous ne "
 "puissiez assigner des images à un ensemble différent."
 
-#: hugin1/hugin/ImagesPanel.cpp:966
+#: hugin1/hugin/ImagesPanel.cpp:965
 msgid "Enter new stack number"
 msgstr "Entrer le numéro du nouvel ensemble"
 
-#: hugin1/hugin/ImagesPanel.cpp:967
+#: hugin1/hugin/ImagesPanel.cpp:966
 msgid "stack number"
 msgstr "ensemble numéro"
 
-#: hugin1/hugin/ImagesPanel.cpp:968
+#: hugin1/hugin/ImagesPanel.cpp:967
 msgid "Change stack number"
 msgstr "Changer le numéro de l'ensemble"
 
-#: hugin1/hugin/ImagesPanel.cpp:1090
+#: hugin1/hugin/ImagesPanel.cpp:1088
 #, c-format
 msgid "Removed %lu control points"
 msgstr "%lu points de contrôle ont été supprimés"
@@ -1309,6 +1308,11 @@ msgstr "Lancé"
 msgid "Save changes to the panorama before closing?"
 msgstr ""
 "Faut-il enregistrer les modifications apportées au panorama avant de fermer ?"
+
+#: hugin1/hugin/MainFrame.cpp:514
+msgid ""
+"If you close without saving, changes since your last save will be discarded"
+msgstr ""
 
 #: hugin1/hugin/MainFrame.cpp:517
 msgid "Don't Save"
@@ -1428,8 +1432,8 @@ msgid ""
 "Hugin can not work with these filenames. Please rename your file(s) and try "
 "again."
 msgstr ""
-"Les noms de fichier contiennent l'un des caractères non valable suivants :"
-"%s\n"
+"Les noms de fichier contiennent l'un des caractères non valable suivants :%"
+"s\n"
 "Hugin ne peut pas utiliser ces noms de fichiers. Veuillez renommer vos "
 "fichiers et réessayer."
 
@@ -1653,7 +1657,18 @@ msgstr ""
 msgid "Link parameters"
 msgstr "Lier les paramètres"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:485
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:498
+msgid ""
+"You selected no parameters to optimize.\n"
+"Therefore optimization will be canceled."
+msgstr ""
+
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:498
+#, fuzzy
+msgid "Exposure optimization"
+msgstr "Optimisation photométrique"
+
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:510
 msgid ""
 "The vignetting and exposure correction is determined by analysing color "
 "values in the overlapping areas.\n"
@@ -1664,41 +1679,41 @@ msgstr ""
 "Pour accélérer les calculs, seul un sous-ensemble aléatoire des points est "
 "utilisé."
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:486
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:511
 msgid "Number of points per image"
 msgstr "Nombre de points par image"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:487
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:512
 msgid "Photometric optimization"
 msgstr "Optimisation photométrique"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:494
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:519
 msgid "Photometric alignment"
 msgstr "Alignement photométrique"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:494
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:519
 msgid "Loading images"
 msgstr "Chargement des images"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:505
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:530
 msgid "Error: could not load all images"
 msgstr "Erreur : impossible de charger toutes les images"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:525
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:550
 msgid "Error: no overlapping points found, Photometric optimization aborted"
 msgstr ""
 "Erreur : aucun point de recouvrement n'a été trouvé, abandon de "
 "l'optimisation photométrique"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:558
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:573
 msgid "Internal error during photometric optimization:\n"
 msgstr "Erreur interne lors de l'optimisation photométrique :\n"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:558
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:573
 msgid "Internal error"
 msgstr "Erreur interne"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:564
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:579
 #, c-format
 msgid ""
 "Photometric optimization results:\n"
@@ -1712,7 +1727,7 @@ msgstr ""
 "grises (0..255)\n"
 "Faut-il appliquer les résultats ?"
 
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:565
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:580
 msgid "Photometric optimization finished"
 msgstr "Optimisation photométrique terminée"
 
@@ -2006,15 +2021,15 @@ msgstr ""
 msgid "Load Defaults"
 msgstr "Charger les valeurs par défaut"
 
-#: hugin1/hugin/PreferencesDialog.cpp:831
+#: hugin1/hugin/PreferencesDialog.cpp:823
 msgid "Please select an entry first"
 msgstr "Veuillez d'abord sélectionner une entrée"
 
-#: hugin1/hugin/PreferencesDialog.cpp:831
+#: hugin1/hugin/PreferencesDialog.cpp:823
 msgid "Select Entry"
 msgstr "Choisir un entrée"
 
-#: hugin1/hugin/PreferencesDialog.cpp:850
+#: hugin1/hugin/PreferencesDialog.cpp:842
 msgid ""
 "You can't delete the last setting.\n"
 "At least one setting is required."
@@ -2022,27 +2037,27 @@ msgstr ""
 "Vous ne pouvez supprimer le dernier paramètre.\n"
 "Il faut au moins un paramètre."
 
-#: hugin1/hugin/PreferencesDialog.cpp:854
+#: hugin1/hugin/PreferencesDialog.cpp:846
 #, c-format
 msgid "Do you really want to remove control point detector setting \"%s\"?"
 msgstr ""
 "Voulez-vous vraiment supprimer le paramètre « %s » du détecteur de points de "
 "contrôle ?"
 
-#: hugin1/hugin/PreferencesDialog.cpp:855
+#: hugin1/hugin/PreferencesDialog.cpp:847
 msgid "Delete control point detector setting"
 msgstr "Supprimer le paramètre du détecteur de points de contrôle"
 
-#: hugin1/hugin/PreferencesDialog.cpp:908
+#: hugin1/hugin/PreferencesDialog.cpp:900
 msgid "Load control point detector settings"
 msgstr "Charger les paramètres du détecteur de points de contrôle"
 
-#: hugin1/hugin/PreferencesDialog.cpp:910
-#: hugin1/hugin/PreferencesDialog.cpp:925
+#: hugin1/hugin/PreferencesDialog.cpp:902
+#: hugin1/hugin/PreferencesDialog.cpp:917
 msgid "Control point detector settings (*.setting)|*.setting"
 msgstr "Paramètres du détecteur de points de contrôle (*.setting)|*.setting"
 
-#: hugin1/hugin/PreferencesDialog.cpp:923
+#: hugin1/hugin/PreferencesDialog.cpp:915
 msgid "Save control point detector settings"
 msgstr "Enregistrer les paramètres du détecteur de points de contrôle"
 
@@ -2381,7 +2396,7 @@ msgstr ""
 "\n"
 " Impossible d'exécuter la commande : %s"
 
-#: hugin1/icpfind/CPDetectorConfig.cpp:120
+#: hugin1/icpfind/CPDetectorConfig.cpp:137
 msgid "Default"
 msgstr "Valeur par défaut"
 
@@ -3052,7 +3067,7 @@ msgid "Foldername.pto"
 msgstr "Nom_dossier.pto"
 
 #: translations/xrc.cpp:58 xrc.cpp:58
-msgid "Founded panoramas"
+msgid "Found panoramas"
 msgstr "Panoramas découverts"
 
 #: translations/xrc.cpp:59 xrc.cpp:59
@@ -3114,7 +3129,8 @@ msgid "Images"
 msgstr "Images"
 
 #: translations/xrc.cpp:74 xrc.cpp:74
-msgid "Searches in directories after suitable panorams from image files"
+#, fuzzy
+msgid "Searches in directories for image files suitable for panoramas"
 msgstr ""
 "Recherche dans les répertoires de panoramas possibles à partir de fichiers "
 "d'images"
@@ -5767,8 +5783,8 @@ msgstr ""
 #: hugin1/hugin/xrc/data/tips.txt:27
 msgid "Press \"0\" in the control points tab to zoom out to full view."
 msgstr ""
-"Presser « 0 » dans l'onglet des points de contrôle effectuera un zoom vers "
-"la vue complète."
+"Presser « 0 » dans l'onglet des points de contrôle effectuera un zoom vers la "
+"vue complète."
 
 #: hugin1/hugin/xrc/data/tips.txt:28
 msgid "Press \"1\" in the control points tab to zoom out to 100% view."

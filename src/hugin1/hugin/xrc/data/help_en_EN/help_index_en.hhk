@@ -381,6 +381,11 @@
 		<param name="Local" value="Hugin.html">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Hugin_stitch_project">
+		<param name="Name" value="Hugin stitch project - PanoTools.org Wiki">
+		<param name="Local" value="Hugin_stitch_project.html">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Icpfind">
 		<param name="Name" value="Icpfind">
 		<param name="Local" value="Icpfind.html">

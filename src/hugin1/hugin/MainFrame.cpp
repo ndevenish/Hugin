@@ -511,7 +511,7 @@ bool MainFrame::CloseProject(bool cancelable)
 #endif
                                 wxICON_EXCLAMATION | wxYES_NO | (cancelable? (wxCANCEL):0));
 #if wxCHECK_VERSION(2, 9, 0)
-    message.SetExtendedMessage("If you close without saving, changes since your last save will be discarded");
+    message.SetExtendedMessage(_("If you close without saving, changes since your last save will be discarded"));
     #if defined __WXMAC__ || defined __WXMSW__
         // Apple human interface guidelines and Windows user experience interaction guidelines
         message.SetYesNoLabels(wxID_SAVE, _("Don't Save"));
@@ -731,10 +731,10 @@ void MainFrame::LoadProjectFile(const wxString & filename)
         SetStatusText( _("Error opening project:   ") + filename);
         DEBUG_ERROR("Could not open file " << filename);
     }
+
     // clean up some cruft from older versions
-    // force TIFF_m output
     PanoramaOptions opts = pano.getOptions();
-    switch (opts.outputMode) {
+    switch (opts.outputFormat) {
         case PanoramaOptions::TIFF:
         case PanoramaOptions::JPEG:
         case PanoramaOptions::PNG:
@@ -743,9 +743,9 @@ void MainFrame::LoadProjectFile(const wxString & filename)
         default:
             break;
     }
-    opts.outputFormat = PanoramaOptions::TIFF_m;
 
     pano.clearDirty();
+
     // force update of preview window
     if ( !(preview_frame->IsIconized() ||(! preview_frame->IsShown()) ) ) {
         wxCommandEvent dummy;
@@ -812,8 +812,8 @@ void MainFrame::OnNewProject(wxCommandEvent & e)
     opts.enblendOptions = config->Read(wxT("Enblend/Args"),wxT(HUGIN_ENBLEND_ARGS)).mb_str(wxConvLocal);
     opts.enfuseOptions = config->Read(wxT("Enfuse/Args"),wxT(HUGIN_ENFUSE_ARGS)).mb_str(wxConvLocal);
 	opts.interpolator = (vigra_ext::Interpolator)config->Read(wxT("Nona/Interpolator"),HUGIN_NONA_INTERPOLATOR);
-	opts.remapUsingGPU = (bool)config->Read(wxT("Nona/useGPU"),HUGIN_NONA_USEGPU);
-	opts.tiff_saveROI = (bool)config->Read(wxT("Nona/CroppedImages"),HUGIN_NONA_CROPPEDIMAGES);
+	opts.remapUsingGPU = config->Read(wxT("Nona/useGPU"),HUGIN_NONA_USEGPU)!=0;
+	opts.tiff_saveROI = config->Read(wxT("Nona/CroppedImages"),HUGIN_NONA_CROPPEDIMAGES)!=0;
     opts.hdrMergeMode = PanoramaOptions::HDRMERGE_AVERAGE;
     opts.hdrmergeOptions = HUGIN_HDRMERGE_ARGS;
     pano.setOptions(opts);
@@ -1283,7 +1283,7 @@ void MainFrame::OnShowPrefs(wxCommandEvent & e)
     wxConfigBase* cfg=wxConfigBase::Get();
     ImageCache::getInstance().SetUpperLimit(cfg->Read(wxT("/ImageCache/UpperBound"), HUGIN_IMGCACHE_UPPERBOUND));
     images_panel->ReloadCPDetectorSettings();
-    gl_preview_frame->SetShowProjectionHints(cfg->Read(wxT("/GLPreviewWindow/ShowProjectionHints"),HUGIN_SHOW_PROJECTION_HINTS));
+    gl_preview_frame->SetShowProjectionHints(cfg->Read(wxT("/GLPreviewWindow/ShowProjectionHints"),HUGIN_SHOW_PROJECTION_HINTS)!=0);
 
 }
 

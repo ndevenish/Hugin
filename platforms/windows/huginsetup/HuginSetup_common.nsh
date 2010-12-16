@@ -119,7 +119,7 @@ Section "!Hugin ${HUGIN_VERSION}-${HUGIN_VERSION_BUILD}" SecHugin
   Delete "$OUTDIR\${HUGIN_SHARE_ARCHIVE}"
   
   ; Call AddCPAutoPanoSiftCStacked
-  Call AddCPAlignImageStack
+  ;Call AddCPAlignImageStack
   
   ; register .pto files with hugin
   WriteRegStr HKCR ".pto" "" "HuginProject"
@@ -315,14 +315,14 @@ FunctionEnd
 
 ; Add Align_Image_Stack control point generator settings to registry
 ; Align_image_stack.exe is provided directly from Hugin 
-Function AddCPAlignImageStack
-  StrCpy $R0 1 ; R0 = Type
-  StrCpy $R1 1 ; R1 = Option
-  StrCpy $R2 "$INSTDIR\bin\align_image_stack.exe" ; R2 = Program
-  StrCpy $R3 "-f %v -v -p %o %i" ; R3 = Arguments
-  StrCpy $R4 "Align image stack";  R4 = Description
-  Call ControlPointRegistryAdd
-FunctionEnd
+;Function AddCPAlignImageStack
+;  StrCpy $R0 1 ; R0 = Type
+;  StrCpy $R1 1 ; R1 = Option
+;  StrCpy $R2 "$INSTDIR\bin\align_image_stack.exe" ; R2 = Program
+;  StrCpy $R3 "-f %v -v -p %o %i" ; R3 = Arguments
+;  StrCpy $R4 "Align image stack";  R4 = Description
+;  Call ControlPointRegistryAdd
+;FunctionEnd
 
 
 

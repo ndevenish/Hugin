@@ -1,5 +1,5 @@
 [AutoPano]
-AutoPanoCount=7
+AutoPanoCount=8
 Default=0
 
 [AutoPano/AutoPano_0]
@@ -15,18 +15,29 @@ Program=cpfind
 Arguments=--celeste --multirow -o %o %s
 
 [AutoPano/AutoPano_2]
+Type=2
+Description=Cpfind (multirow/stacked)
+Program=cpfind
+Arguments=-o %o --multirow %s
+ProgramMatcher=
+ArgumentsMatcher=
+ProgramStack=align_image_stack
+ArgumentsStack=-f %v -v -p %o %i
+Option=1
+
+[AutoPano/AutoPano_3]
 Type=1
 Description=Autopano-SIFT-C
 Program=autopano-noop.sh
 Arguments=--maxmatches %p --projection %f,%v %o %i
 
-[AutoPano/AutoPano_3]
+[AutoPano/AutoPano_4]
 Type=1
 Description=Panomatic
 Program=panomatic
 Arguments=-o %o %i
 
-[AutoPano/AutoPano_4]
+[AutoPano/AutoPano_5]
 Type=4
 Description=Autopano-SIFT-C (multirow/stacked)
 Program=generatekeys
@@ -38,13 +49,13 @@ ProgramStack=align_image_stack
 ArgumentsStack=-f %v -v -p %o %i
 Option=1
 
-[AutoPano/AutoPano_5]
+[AutoPano/AutoPano_6]
 Type=1
 Description=Align image stack
 Program=align_image_stack
 Arguments=-f %v -v -p %o %i
 
-[AutoPano/AutoPano_6]
+[AutoPano/AutoPano_7]
 Type=1
 Description=Align image stack FullFrameFisheye
 Program=align_image_stack
