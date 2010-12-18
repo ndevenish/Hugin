@@ -1093,9 +1093,35 @@ void Panorama::transferMask(MaskPolygon mask,unsigned int imgNr, const UIntSet t
         return;
     };
     MaskPolygon transformedMask=mask;
+    // clip positive mask to image boundaries or clip region
+    vigra::Rect2D clipRect=vigra::Rect2D(0,0,state.images[imgNr]->getWidth(),state.images[imgNr]->getHeight());
+    if(mask.isPositive())
+    {
+        //clip to crop region only positive masks
+        switch(state.images[imgNr]->getCropMode())
+        {
+            case BaseSrcPanoImage::CROP_RECTANGLE:
+                clipRect=clipRect & state.images[imgNr]->getCropRect();
+                if(clipRect.isEmpty())
+                {
+                    return;
+                };
+                break;
+            case BaseSrcPanoImage::CROP_CIRCLE:
+                {
+                    vigra::Rect2D cropRect=state.images[imgNr]->getCropRect();
+                    FDiff2D center=FDiff2D((cropRect.left()+cropRect.right())/2.0,(cropRect.top()+cropRect.bottom())/2.0);
+                    double radius=((cropRect.width()<cropRect.height())?cropRect.width():cropRect.height())/2.0;
+                    if(!transformedMask.clipPolygon(center,radius))
+                    {
+                        return;
+                    };
+                };
+                break;
+        };
+    };
     int origWindingNumber=transformedMask.getTotalWindingNumber();
-    // clip positive mask to image boundaries
-    if(transformedMask.clipPolygon(vigra::Rect2D(0,0,state.images[imgNr]->getWidth(),state.images[imgNr]->getHeight())))
+    if(transformedMask.clipPolygon(clipRect))
     {
         //increase resolution of positive mask to get better transformation
         //of vertices, especially for fisheye images

@@ -6,8 +6,6 @@
  *
  *  @author Thomas Modes
  *
- *  $Id$
- *
  */
 
 /*  This program is free software; you can redistribute it and/or
@@ -89,6 +87,12 @@ int MaskPolygon::getTotalWindingNumber() const
         diffPoly.addPoint(m_polygon[(i+1)%count]-m_polygon[i]);
     };
     return diffPoly.getWindingNumber(FDiff2D(0,0));
+};
+
+bool MaskPolygon::isPositive() const
+{
+    return (m_maskType==Mask_positive) || 
+           (m_maskType==Mask_Stack_positive);
 };
 
 void MaskPolygon::addPoint(const FDiff2D p) 
@@ -178,13 +182,315 @@ void MaskPolygon::subSample(const double max_distance)
     };
 };
 
+//helper function for clipping
+enum clipSide
+{
+    clipLeft=0,
+    clipRight,
+    clipTop,
+    clipBottom
+};
+
+bool clip_isSide(const FDiff2D p, const vigra::Rect2D r, const clipSide side)
+{
+    switch(side){
+        case clipLeft:
+            return p.x>=r.left();
+        case clipRight:
+            return p.x<=r.right();
+        case clipTop:
+            return p.y>=r.top();
+        case clipBottom:
+            return p.y<=r.bottom();
+    };
+    //this should never happens
+    return false;
+}
+
+FDiff2D clip_getIntersection(const FDiff2D p, const FDiff2D q, const vigra::Rect2D r, const clipSide side)
+{
+    double a;
+    double b;
+    double xnew;
+    double ynew;
+    if(q.x-p.x==0)
+    {
+        a=0;
+        b=p.y;
+    }
+    else
+    {
+        a=(q.y-p.y)/(q.x-p.x);
+        b=p.y-p.x*a;
+    };
+    switch(side){
+        case clipLeft:
+            xnew=r.left();
+            ynew=xnew*a+b;
+            break;
+        case clipRight:
+            xnew=r.right();
+            ynew=xnew*a+b;
+            break;
+        case clipTop:
+            ynew=r.top();
+            if(a!=0)
+                xnew=(ynew-b)/a;
+            else
+                xnew=p.x;
+            break;
+        case clipBottom:
+            ynew=r.bottom();
+            if(a!=0)
+                xnew=(ynew-b)/a;
+            else
+                xnew=p.x;
+            break;
+    };
+    return FDiff2D(xnew,ynew);
+};
+
+VectorPolygon clip_onPlane(const VectorPolygon polygon, const vigra::Rect2D r, const clipSide side)
+{
+    if(polygon.size()<3)
+    {
+        return polygon;
+    };
+    FDiff2D s=polygon[polygon.size()-1];
+    FDiff2D p;
+    VectorPolygon newPolygon;
+    for(unsigned int i=0;i<polygon.size();i++)
+    {
+        p=polygon[i];
+        if(clip_isSide(p,r,side))
+        {
+            // point p is "inside"
+            if(!clip_isSide(s,r,side))
+                // and point s is "outside"
+                newPolygon.push_back(clip_getIntersection(p,s,r,side));
+            newPolygon.push_back(p);
+        }
+        else
+        {
+            //point p is "outside"
+            if(clip_isSide(s,r,side))
+                //ans point s is "inside"
+                newPolygon.push_back(clip_getIntersection(s,p,r,side));
+        };
+        s=p;
+    };
+    return newPolygon;
+};
+
 bool MaskPolygon::clipPolygon(const vigra::Rect2D rect)
 {
     //clipping using Sutherland-Hodgman algorithm
-    clip_onPlane(rect, clipLeft);
-    clip_onPlane(rect, clipRight);
-    clip_onPlane(rect, clipTop);
-    clip_onPlane(rect, clipBottom);
+    m_polygon=clip_onPlane(m_polygon, rect, clipLeft);
+    m_polygon=clip_onPlane(m_polygon, rect, clipRight);
+    m_polygon=clip_onPlane(m_polygon, rect, clipTop);
+    m_polygon=clip_onPlane(m_polygon, rect, clipBottom);
+    return (m_polygon.size()>2);
+};
+
+//helper function for clipping
+/** check if point is inside circle
+    @returns true, if point p is inside circle given by center and radius
+    @param p point to test
+    @param center center point of circle test
+    @param radius radius of circle to test
+*/
+bool clip_insideCircle(const FDiff2D p, const FDiff2D center, const double radius)
+{
+    return p.squareDistance(center)<=radius*radius;
+};
+
+/** returns intersection of line and circle
+    @param p fist point of line segment
+    @param s seconst point of line segment
+    @param center center of circle
+    @param radius radius of circle
+    @returns vector with all intersection of line between p and s and given circle
+*/
+std::vector<FDiff2D> clip_getIntersectionCircle(const FDiff2D p, const FDiff2D s, const FDiff2D center, const double radius)
+{
+    std::vector<FDiff2D> intersections;
+    FDiff2D slope=s-p;
+    if(slope.squareLength()<1e-5)
+    {
+        return intersections;
+    };
+    FDiff2D p2=p-center;
+    double dotproduct=p2.x*slope.x+p2.y*slope.y;
+    double root=sqrt(dotproduct*dotproduct-slope.squareLength()*(p2.squareLength()-radius*radius));
+    double t1=(-dotproduct+root)/slope.squareLength();
+    double t2=(-dotproduct-root)/slope.squareLength();
+    std::set<double> t;
+    if(t1>0 && t1<1)
+    {
+        t.insert(t1);
+    };
+    if(t2>0 && t2<1)
+    {
+        if(fabs(t2-t1)>1e-5)
+        {
+            t.insert(t2);
+        };
+    };
+    if(t.size()>0)
+    {
+        for(std::set<double>::const_iterator it=t.begin();it!=t.end();it++)
+        {
+            intersections.push_back(p+slope*(*it));
+        };
+    };
+    return intersections;
+};
+
+/** calculates angle between vector a and b in radians */
+double angle_between(const FDiff2D a, const FDiff2D b)
+{
+    return asin((a.x*b.y-a.y*b.x)/(sqrt(a.squareLength())*sqrt(b.squareLength())));
+};
+
+/** adds an arc with given radius at the end of the polygon, the point is not added to the arc
+    @param poly polygon to which the arc should added
+    @param s point to which the arc should go
+    @param center center of arc
+    @param radius radius of arc
+    @param clockwise true, if arc should go clockwise; else it goes anti-clockwise
+*/
+void generateArc(VectorPolygon& poly, const FDiff2D s, const FDiff2D center, const double radius, const bool clockwise)
+{
+    if(poly.size()==0)
+    {
+        return;
+    };
+    FDiff2D p=poly[poly.size()-1];
+    double maxDistance=5.0;
+    if(p.squareDistance(s)<maxDistance*maxDistance)
+    {
+        return;
+    };
+    double angle=atan2(p.y-center.y,p.x-center.x);
+    double final_angle=atan2(s.y-center.y,s.x-center.x);
+    //step 1 degree or less, so that max distance between 2 points is smaller than maxDistance
+    double step=std::min<double>(PI/180,atan2(maxDistance,radius));
+    if(!clockwise)
+    {
+        while(final_angle<angle)
+        {
+            final_angle+=2*PI;
+        };
+        angle+=step;
+        while(angle<final_angle)
+        {
+            poly.push_back(FDiff2D(cos(angle)*radius+center.x,sin(angle)*radius+center.y));
+            angle+=step;
+        };
+    }
+    else
+    {
+        while(final_angle>angle)
+        {
+            final_angle-=2*PI;
+        };
+        angle-=step;
+        while(angle>final_angle)
+        {
+            poly.push_back(FDiff2D(cos(angle)*radius+center.x,sin(angle)*radius+center.y));
+            angle-=step;
+        };
+    };
+};
+
+bool MaskPolygon::clipPolygon(const FDiff2D center,const double radius)
+{
+    if(radius<=0 || m_polygon.size()<3)
+    {
+        return false;
+    };
+    FDiff2D s=m_polygon[m_polygon.size()-1];
+    bool s_inside=clip_insideCircle(s,center,radius);
+    FDiff2D p;
+    VectorPolygon newPolygon;
+    bool needsFinalArc=false;
+    double angleCovered=0;
+    double angleCoveredOffset=0;
+    for(unsigned int i=0;i<m_polygon.size();i++)
+    {
+        p=m_polygon[i];
+        bool p_inside=clip_insideCircle(p,center,radius);
+        if(p_inside)
+        {
+            if(s_inside)
+            {
+                //both points inside
+                newPolygon.push_back(p);
+            }
+            else
+            {
+                //line crosses circles from outside
+                std::vector<FDiff2D> points=clip_getIntersectionCircle(p,s,center,radius);
+                DEBUG_ASSERT(points.size()==1);
+                angleCovered+=angle_between(s-center,points[0]-center);
+                if(newPolygon.size()==0)
+                {
+                    needsFinalArc=true;
+                    angleCoveredOffset=angleCovered;
+                }
+                else
+                {
+                    generateArc(newPolygon,points[0],center,radius,angleCovered<0);
+                };
+                newPolygon.push_back(points[0]);
+                newPolygon.push_back(p);
+            };
+        }
+        else
+        {
+            if(!s_inside)
+            {
+                //both points outside of circle
+                std::vector<FDiff2D> points=clip_getIntersectionCircle(s,p,center,radius);
+                //intersection can only be zero points or 2 points
+                if(points.size()>1)
+                {
+                    angleCovered+=angle_between(s-center,points[0]-center);
+                    if(newPolygon.size()==0)
+                    {
+                        needsFinalArc=true;
+                        angleCoveredOffset=angleCovered;
+                    }
+                    else
+                    {
+                        generateArc(newPolygon,points[0],center,radius,angleCovered<0);
+                    };
+                    newPolygon.push_back(points[0]);
+                    newPolygon.push_back(points[1]);
+                    angleCovered=angle_between(points[1]-center,p-center);
+                }
+                else
+                {
+                    angleCovered+=angle_between(s-center,p-center);
+                };
+            }
+            else
+            {
+                //line segment intersects circle from inside
+                std::vector<FDiff2D> points=clip_getIntersectionCircle(s,p,center,radius);
+                angleCovered=0;
+                DEBUG_ASSERT(points.size()==1);
+                newPolygon.push_back(points[0]);
+            };
+        };
+        s=p;
+        s_inside=p_inside;
+    };
+    if(needsFinalArc && newPolygon.size()>1)
+    {
+        generateArc(newPolygon,newPolygon[0],center,radius,(angleCovered+angleCoveredOffset)<0);
+    };        
+    m_polygon=newPolygon;
     return (m_polygon.size()>2);
 };
 
@@ -281,96 +587,6 @@ void MaskPolygon::printPolygonLine(std::ostream &o, const unsigned int newImgNr)
             o<<" ";
     };
     o<<"\""<<std::endl;
-};
-
-//helper function for clipping
-bool MaskPolygon::clip_isSide(const FDiff2D p, const vigra::Rect2D r, const clipSide side)
-{
-    switch(side){
-        case clipLeft:
-            return p.x>=r.left();
-        case clipRight:
-            return p.x<=r.right();
-        case clipTop:
-            return p.y>=r.top();
-        case clipBottom:
-            return p.y<=r.bottom();
-    };
-    //this should never happens
-    return false;
-}
-
-FDiff2D MaskPolygon::clip_getIntersection(const FDiff2D p, const FDiff2D q, const vigra::Rect2D r, const clipSide side)
-{
-    double a;
-    double b;
-    double xnew;
-    double ynew;
-    if(q.x-p.x==0)
-    {
-        a=0;
-        b=p.y;
-    }
-    else
-    {
-        a=(q.y-p.y)/(q.x-p.x);
-        b=p.y-p.x*a;
-    };
-    switch(side){
-        case clipLeft:
-            xnew=r.left();
-            ynew=xnew*a+b;
-            break;
-        case clipRight:
-            xnew=r.right();
-            ynew=xnew*a+b;
-            break;
-        case clipTop:
-            ynew=r.top();
-            if(a!=0)
-                xnew=(ynew-b)/a;
-            else
-                xnew=p.x;
-            break;
-        case clipBottom:
-            ynew=r.bottom();
-            if(a!=0)
-                xnew=(ynew-b)/a;
-            else
-                xnew=p.x;
-            break;
-    };
-    return FDiff2D(xnew,ynew);
-};
-
-void MaskPolygon::clip_onPlane(const vigra::Rect2D r, const clipSide side)
-{
-    if(m_polygon.size()<3)
-        return;
-    FDiff2D s=m_polygon[m_polygon.size()-1];
-    FDiff2D p;
-    VectorPolygon newPolygon;
-    for(unsigned int i=0;i<m_polygon.size();i++)
-    {
-        p=m_polygon[i];
-        if(clip_isSide(p,r,side))
-        {
-            // point p is "inside"
-            if(!clip_isSide(s,r,side))
-                // and point s is "outside"
-                newPolygon.push_back(clip_getIntersection(p,s,r,side));
-            newPolygon.push_back(p);
-        }
-        else
-        {
-            //point p is "outside"
-            if(clip_isSide(s,r,side))
-                //ans point s is "inside"
-                newPolygon.push_back(clip_getIntersection(s,p,r,side));
-        };
-        s=p;
-    };
-    m_polygon=newPolygon;
 };
 
 } // namespace

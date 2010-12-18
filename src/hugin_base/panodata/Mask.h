@@ -6,9 +6,6 @@
  *
  *  @author Thomas Modes
  *
- *
- *  $Id$
- *
  */
 
 /*  This program is free software; you can redistribute it and/or
@@ -74,6 +71,8 @@ public:
     MaskType getMaskType() const { return m_maskType; };
     /** sets mask type */
     void setMaskType(const MaskType newType) { m_maskType=newType; };
+    /** returns true, if mask type is positive */
+    bool isPositive() const;
     /** returns vector with coordinates of the polygon */
     VectorPolygon getMaskPolygon() const { return m_polygon; };
     /** set complete vector wit all corrdinates of the polygon */
@@ -106,6 +105,8 @@ public:
     void transformPolygon(const PTools::Transform &trans);
     /** clips the polygon to the given rectangle */
     bool clipPolygon(const vigra::Rect2D rect);
+    /** clips the polygon to the circle with center and radius */
+    bool clipPolygon(const FDiff2D center, const double radius);
     /** rotate the polygon by 90 degrees */
     void rotate90(bool clockwise,unsigned int maskWidth,unsigned int maskHeight);
     /** subsamples the polygon, so that the longest distance between 2 points is max_distance */
@@ -129,18 +130,6 @@ public:
     void printPolygonLine(std::ostream & o, const unsigned int newImgNr) const;
 
 private:
-    // helper functions for clipping using Sutherland-Hodgeman Clipping Algorithm
-    enum clipSide
-    {
-        clipLeft=0,
-        clipRight,
-        clipTop,
-        clipBottom
-    };
-    bool clip_isSide(const FDiff2D p, const vigra::Rect2D r, const clipSide side);
-    FDiff2D clip_getIntersection(const FDiff2D p, const FDiff2D q, const vigra::Rect2D r, const clipSide side);
-    void clip_onPlane(const vigra::Rect2D r, clipSide side);
-
     //variables for internal storage of Mask type, polygon and assigned image number
     MaskType m_maskType;
     VectorPolygon m_polygon;

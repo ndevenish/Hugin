@@ -819,7 +819,7 @@ bool SrcPanoImage::hasPositiveMasks() const
     {
         for(unsigned int i=0;i<masks.size();i++)
         {
-            if(masks[i].getMaskType()==MaskPolygon::Mask_positive || masks[i].getMaskType()==MaskPolygon::Mask_Stack_positive)
+            if(masks[i].isPositive())
             {
                 return true;
             };
