@@ -26,11 +26,12 @@ using namespace std;
 
 double straighten(){
 
+	int found_vertical = 0;
 	double invert_size_factor = 1.0/sizefactor;
 	double best_angle = 0, best_score = 10000000;
-	//map<double,double> best_rotation;
+	map<double,double> best_rotation;
 
-	cout << "Finding optimal rotation angle..." << endl;
+	cout << "Finding optimal rotation angle..." << endl << endl;
 	for(double angle = -90; angle < 90; angle += 0.25){
 	
 		double radians = angle*(M_PI/180);
@@ -48,7 +49,9 @@ double straighten(){
 			int y_diff = lines[i][i_y_max]->y - lines[i][i_y_min]->y;
 
 			// Vertical line
-			if(y_diff > x_diff){				
+			if(y_diff > x_diff){		
+			
+				found_vertical++;		
 						
 				// Index for coords of top of line
 				double y_max_y = invert_size_factor * lines[i][i_y_max]->y;
@@ -76,19 +79,26 @@ double straighten(){
 			}
 		}
 		
-		//cout << angle << "\tTotal:\t" << total_x_diff << endl;
+		cout << angle << "\tscore:\t" << total_x_diff << endl;
 
 		if(total_x_diff < best_score){
 			best_score = total_x_diff;
 			best_angle = angle;
 		}		
-		//best_rotation[angle] = total_x_diff;
+		best_rotation[angle] = total_x_diff;
 		total_x_diff = 0;
 	}
-	//for(double angle = -90; angle < 90; angle += 0.25){
-	//	cout << angle << "\tdegrees - Score:\t" << best_rotation[angle] << endl;
+	
+	if(found_vertical){	
+	
+		for(double angle = -90; angle < 90; angle += 0.25){
+			//cout << angle << "\tdegrees - Score:\t" << best_rotation[angle] << endl;
 
-	//}
-	//cout << endl;
-	return(-best_angle);
+		}
+		//cout << endl;	
+	
+		return(best_angle);
+	}else{
+		return(-1000);
+	}
 }

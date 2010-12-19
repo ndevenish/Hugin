@@ -462,7 +462,7 @@ static void usage(){
 	
 	//cout << "  -i <0|1>        Generate intermediate images. Default 1" << endl;
 	cout << "  -z <0|1>        Optimise image centre. Default 0" << endl;
-//	cout << "  -w <0|1>        Straighten image using vertical lines. Skips lens optimisation. Default 0" << endl;
+	cout << "  -w <0|1>        Straighten image using vertical lines. Skips lens optimisation. Default 0" << endl;
 	cout << "  -v <0|1>        Verbose. Default 0" << endl;
 	cout << "  -h              Print usage." << endl;
 	cout << endl; 
@@ -507,7 +507,7 @@ int main(int argc, const char* argv[]){
 				//case 'x' : {poly_type = atoi(argv[i]); break;}
 				case 'z' : {optimise_centre = atoi(argv[i]); break;}
 				case 'v' : {verbose = atoi(argv[i]); break;}
-				//case 'w' : {straighten_verts = atoi(argv[i]); break;}
+				case 'w' : {straighten_verts = atoi(argv[i]); break;}
 				case 'd' : {resize_dimension = atoi(argv[i]); break;}
 				//case 's' : {scale = atof(argv[i]); break;}
 				case 's' : {cropFactor = 24.0/atof(argv[i]); break;}
@@ -585,12 +585,22 @@ int main(int argc, const char* argv[]){
 		write_lines_to_file(images[0],images[images.size()-1]);	
 	}	
 
-	// Map points and optimise parameters		
-	if (lines.size() >= 12 ){		
-		map_points();		
-	}else{		
-		cout << "Not enough lines to fit parameters. "<< endl << endl;		
-		return 3;	
+	if (straighten_verts){
+		double rotation = straighten();
+		if(rotation != -1000){
+			cout << endl << "Optimal rotation angle:\t" << rotation << " degrees" << endl << endl;
+		}else{
+			cout << endl << "No vertical lines detected." << endl << endl;
+		}
+	}else{
+
+		// Map points and optimise parameters		
+		if (lines.size() >= 12 ){		
+			map_points();		
+		}else{		
+			cout << "Not enough lines to fit parameters. "<< endl << endl;		
+			return 3;	
+		}
 	}
 
 	if (pto_file != ("")){
