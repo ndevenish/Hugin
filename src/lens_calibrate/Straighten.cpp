@@ -91,10 +91,9 @@ double straighten(){
 	
 	if(found_vertical){	
 	
-		for(double angle = -90; angle < 90; angle += 0.25){
-			//cout << angle << "\tdegrees - Score:\t" << best_rotation[angle] << endl;
-
-		}
+		//for(double angle = -90; angle < 90; angle += 0.25){
+		//	cout << angle << "\tdegrees - Score:\t" << best_rotation[angle] << endl;
+		//}
 		//cout << endl;	
 	
 		return(best_angle);
