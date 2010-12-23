@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: for hugin 0.8.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2010-12-11 12:35+0100\n"
+"POT-Creation-Date: 2010-12-23 13:52-0500\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Rick Langford <ruei_ke@yahoo.com>\n"
 "Language-Team: Chinese Traditional <NA>\n"
@@ -13,61 +13,6 @@ msgstr ""
 "X-Poedit-Language: Chinese\n"
 "X-Poedit-Country: TAIWAN\n"
 "X-Poedit-Bookmarks: -1,277,-1,-1,-1,-1,-1,-1,-1,-1\n"
-
-#: hugin1/base_wx/huginConfig.cpp:47 hugin1/base_wx/huginConfig.cpp:82
-#, c-format
-msgid ""
-"External program %s not found as specified in preferences, reverting to "
-"bundled version"
-msgstr "預設項目中未發現您所指定的外部應用程式%s, 回到內部軟體集"
-
-#: hugin1/base_wx/huginConfig.cpp:47 hugin1/base_wx/huginConfig.cpp:57
-#: hugin1/base_wx/huginConfig.cpp:69 hugin1/base_wx/huginConfig.cpp:82
-#: hugin1/base_wx/RunStitchPanel.cpp:111 hugin1/hugin/AssistantPanel.cpp:361
-#: hugin1/hugin/AssistantPanel.cpp:428 hugin1/hugin/CPEditorPanel.cpp:2174
-#: hugin1/hugin/GLViewer.cpp:128 hugin1/hugin/GLViewer.cpp:138
-#: hugin1/hugin/MainFrame.cpp:629 hugin1/hugin/MainFrame.cpp:879
-#: hugin1/hugin/MainFrame.cpp:1395 hugin1/hugin/MainFrame.cpp:1854
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:530
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:550
-#: hugin1/hugin/PanoPanel.cpp:991 hugin1/hugin/PanoPanel.cpp:1057
-#: hugin1/icpfind/AutoCtrlPointCreator.cpp:205
-#: hugin1/ptbatcher/BatchFrame.cpp:445 hugin1/ptbatcher/FindPanoDialog.cpp:259
-#: hugin1/ptbatcher/ProjectListBox.cpp:171
-#: hugin1/stitch_project/hugin_stitch_project.cpp:393
-msgid "Error"
-msgstr "錯誤"
-
-#: hugin1/base_wx/huginConfig.cpp:57 hugin1/base_wx/huginConfig.cpp:69
-#: hugin1/base_wx/RunStitchPanel.cpp:111
-#, c-format
-msgid "External program %s not found in the bundle, reverting to system path"
-msgstr "預設軟體集中未發現您所指定的外部應用程式 %s, 回到系統路徑"
-
-#: hugin1/base_wx/huginConfig.cpp:95 hugin1/base_wx/huginConfig.cpp:109
-#, c-format
-msgid "Program %s not found in preferences, reverting to default value"
-msgstr "預設項目中未發現您所指定的外部應用程式 %s, 回到預設值"
-
-#: hugin1/base_wx/huginConfig.cpp:129 hugin1/base_wx/huginConfig.cpp:134
-#: hugin1/base_wx/huginConfig.cpp:140 hugin1/base_wx/huginConfig.cpp:145
-#: hugin1/base_wx/huginConfig.cpp:150 hugin1/base_wx/huginConfig.cpp:155
-#: hugin1/base_wx/huginConfig.cpp:161 hugin1/base_wx/huginConfig.cpp:166
-#: hugin1/base_wx/huginConfig.cpp:171 hugin1/base_wx/huginConfig.cpp:176
-#: hugin1/base_wx/huginConfig.cpp:182 hugin1/base_wx/huginConfig.cpp:187
-#: hugin1/base_wx/huginConfig.cpp:194 hugin1/base_wx/huginConfig.cpp:199
-#: hugin1/base_wx/huginConfig.cpp:219 hugin1/base_wx/huginConfig.cpp:224
-#: hugin1/base_wx/huginConfig.cpp:230 hugin1/base_wx/huginConfig.cpp:235
-#: hugin1/base_wx/huginConfig.cpp:240 hugin1/base_wx/huginConfig.cpp:245
-#: hugin1/hugin/AssistantPanel.cpp:432 hugin1/hugin/CPDetectorDialog.cpp:121
-#: hugin1/hugin/GLPreviewFrame.cpp:905 hugin1/hugin/GLPreviewFrame.cpp:912
-#: hugin1/hugin/GLPreviewFrame.cpp:919 hugin1/hugin/GLPreviewFrame.cpp:931
-#: hugin1/hugin/GLPreviewFrame.cpp:938 hugin1/hugin/GLPreviewFrame.cpp:945
-#: hugin1/hugin/MainFrame.cpp:625 hugin1/hugin/PreferencesDialog.cpp:842
-#: hugin1/ptbatcher/FindPanoDialog.cpp:219
-#: hugin1/ptbatcher/FindPanoDialog.cpp:238
-msgid "Warning"
-msgstr "注意"
 
 #: hugin1/base_wx/ImageCache.cpp:539
 #, c-format
@@ -116,9 +61,9 @@ msgstr "%ld 執行應用程式錯誤, 代碼 2"
 #: hugin1/base_wx/MyExternalCmdExecDialog.cpp:606
 #: hugin1/ptbatcher/RunStitchFrame.cpp:43
 #: hugin1/stitch_project/hugin_stitch_project.cpp:121 translations/xrc.cpp:33
-#: translations/xrc.cpp:147 translations/xrc.cpp:439 translations/xrc.cpp:508
+#: translations/xrc.cpp:170 translations/xrc.cpp:439 translations/xrc.cpp:508
 #: translations/xrc.cpp:512 translations/xrc.cpp:516 translations/xrc.cpp:610
-#: translations/xrc.cpp:728 translations/xrc.cpp:819 xrc.cpp:33 xrc.cpp:147
+#: translations/xrc.cpp:728 translations/xrc.cpp:819 xrc.cpp:33 xrc.cpp:170
 #: xrc.cpp:439 xrc.cpp:508 xrc.cpp:512 xrc.cpp:516 xrc.cpp:610 xrc.cpp:728
 #: xrc.cpp:819
 msgid "Cancel"
@@ -136,24 +81,33 @@ msgstr "已耗時: "
 msgid "Optimizing Panorama"
 msgstr "全景圖片最佳化中"
 
-#: hugin1/base_wx/platform.h:40
-msgid ""
-"All Image files|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*."
-"PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr;*.HDR;*.exr;*.EXR|"
-"JPEG files (*.jpg,*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|TIFF files (*.tif,*."
-"tiff)|*.tif;*.TIF;*.tiff;*.TIFF|PNG files (*.png)|*.png;*.PNG|HDR files (*."
-"hdr)|*.hdr;*.HDR|EXR files (*.exr)|*.exr;*.EXR|All files (*)|*"
-msgstr ""
-"全部圖片檔案|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*."
-"bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr;*.HDR;*.exr;*.EXR|JPEG "
-"檔案 (*.jpg,*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|TIFF 檔案 (*.tif,*.tiff)|*.tif;"
-"*.TIF;*.tiff;*.TIFF|PNG 檔案 (*.png)|*.png;*.PNG|HDR 檔案 (*.hdr)|*.hdr;*."
-"HDR|EXR 檔案 (*.exr)|*.exr;*.EXR|全部檔案 (*)|*"
-
 #: hugin1/base_wx/PTWXDlg.cpp:48 hugin1/base_wx/PTWXDlg.cpp:66
 #: hugin1/base_wx/PTWXDlg.cpp:118 translations/xrc.cpp:729 xrc.cpp:729
 msgid "Panorama Tools"
 msgstr "全景圖片工具"
+
+#: hugin1/base_wx/RunStitchPanel.cpp:111 hugin1/base_wx/huginConfig.cpp:57
+#: hugin1/base_wx/huginConfig.cpp:69
+#, c-format
+msgid "External program %s not found in the bundle, reverting to system path"
+msgstr "預設軟體集中未發現您所指定的外部應用程式 %s, 回到系統路徑"
+
+#: hugin1/base_wx/RunStitchPanel.cpp:111 hugin1/base_wx/huginConfig.cpp:47
+#: hugin1/base_wx/huginConfig.cpp:57 hugin1/base_wx/huginConfig.cpp:69
+#: hugin1/base_wx/huginConfig.cpp:82 hugin1/hugin/AssistantPanel.cpp:361
+#: hugin1/hugin/AssistantPanel.cpp:428 hugin1/hugin/CPEditorPanel.cpp:2174
+#: hugin1/hugin/GLViewer.cpp:128 hugin1/hugin/GLViewer.cpp:138
+#: hugin1/hugin/MainFrame.cpp:629 hugin1/hugin/MainFrame.cpp:879
+#: hugin1/hugin/MainFrame.cpp:1395 hugin1/hugin/MainFrame.cpp:1854
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:530
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:550
+#: hugin1/hugin/PanoPanel.cpp:991 hugin1/hugin/PanoPanel.cpp:1057
+#: hugin1/icpfind/AutoCtrlPointCreator.cpp:205
+#: hugin1/ptbatcher/BatchFrame.cpp:445 hugin1/ptbatcher/FindPanoDialog.cpp:259
+#: hugin1/ptbatcher/ProjectListBox.cpp:171
+#: hugin1/stitch_project/hugin_stitch_project.cpp:393
+msgid "Error"
+msgstr "錯誤"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:135 hugin1/base_wx/RunStitchPanel.cpp:294
 msgid "Could not open project file:"
@@ -218,6 +172,52 @@ msgstr "分析 panotools 程式碼時發生錯誤: %s"
 #, fuzzy
 msgid "Error during running assistant"
 msgstr "接合時發生錯誤"
+
+#: hugin1/base_wx/huginConfig.cpp:47 hugin1/base_wx/huginConfig.cpp:82
+#, c-format
+msgid ""
+"External program %s not found as specified in preferences, reverting to "
+"bundled version"
+msgstr "預設項目中未發現您所指定的外部應用程式%s, 回到內部軟體集"
+
+#: hugin1/base_wx/huginConfig.cpp:95 hugin1/base_wx/huginConfig.cpp:109
+#, c-format
+msgid "Program %s not found in preferences, reverting to default value"
+msgstr "預設項目中未發現您所指定的外部應用程式 %s, 回到預設值"
+
+#: hugin1/base_wx/huginConfig.cpp:129 hugin1/base_wx/huginConfig.cpp:134
+#: hugin1/base_wx/huginConfig.cpp:140 hugin1/base_wx/huginConfig.cpp:145
+#: hugin1/base_wx/huginConfig.cpp:150 hugin1/base_wx/huginConfig.cpp:155
+#: hugin1/base_wx/huginConfig.cpp:161 hugin1/base_wx/huginConfig.cpp:166
+#: hugin1/base_wx/huginConfig.cpp:171 hugin1/base_wx/huginConfig.cpp:176
+#: hugin1/base_wx/huginConfig.cpp:182 hugin1/base_wx/huginConfig.cpp:187
+#: hugin1/base_wx/huginConfig.cpp:194 hugin1/base_wx/huginConfig.cpp:199
+#: hugin1/base_wx/huginConfig.cpp:219 hugin1/base_wx/huginConfig.cpp:224
+#: hugin1/base_wx/huginConfig.cpp:230 hugin1/base_wx/huginConfig.cpp:235
+#: hugin1/base_wx/huginConfig.cpp:240 hugin1/base_wx/huginConfig.cpp:245
+#: hugin1/hugin/AssistantPanel.cpp:432 hugin1/hugin/CPDetectorDialog.cpp:121
+#: hugin1/hugin/GLPreviewFrame.cpp:905 hugin1/hugin/GLPreviewFrame.cpp:912
+#: hugin1/hugin/GLPreviewFrame.cpp:919 hugin1/hugin/GLPreviewFrame.cpp:931
+#: hugin1/hugin/GLPreviewFrame.cpp:938 hugin1/hugin/GLPreviewFrame.cpp:945
+#: hugin1/hugin/MainFrame.cpp:625 hugin1/hugin/PreferencesDialog.cpp:842
+#: hugin1/ptbatcher/FindPanoDialog.cpp:219
+#: hugin1/ptbatcher/FindPanoDialog.cpp:238
+msgid "Warning"
+msgstr "注意"
+
+#: hugin1/base_wx/platform.h:40
+msgid ""
+"All Image files|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*."
+"PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr;*.HDR;*.exr;*.EXR|"
+"JPEG files (*.jpg,*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|TIFF files (*.tif,*."
+"tiff)|*.tif;*.TIF;*.tiff;*.TIFF|PNG files (*.png)|*.png;*.PNG|HDR files (*."
+"hdr)|*.hdr;*.HDR|EXR files (*.exr)|*.exr;*.EXR|All files (*)|*"
+msgstr ""
+"全部圖片檔案|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*."
+"bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr;*.HDR;*.exr;*.EXR|JPEG "
+"檔案 (*.jpg,*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|TIFF 檔案 (*.tif,*.tiff)|*.tif;"
+"*.TIF;*.tiff;*.TIFF|PNG 檔案 (*.png)|*.png;*.PNG|HDR 檔案 (*.hdr)|*.hdr;*."
+"HDR|EXR 檔案 (*.exr)|*.exr;*.EXR|全部檔案 (*)|*"
 
 #: hugin1/hugin/AboutDialog.cpp:138
 #, fuzzy, c-format
@@ -505,7 +505,7 @@ msgstr "線 %d"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1586 hugin1/hugin/CPListFrame.cpp:448
 #: hugin1/hugin/GLPreviewFrame.cpp:376 hugin1/hugin/GLPreviewFrame.cpp:380
-#: hugin1/hugin/PreviewFrame.cpp:231 translations/xrc.cpp:152 xrc.cpp:152
+#: hugin1/hugin/PreviewFrame.cpp:231 translations/xrc.cpp:120 xrc.cpp:120
 msgid "normal"
 msgstr "標準的"
 
@@ -758,9 +758,9 @@ msgstr "橫向角度值必須是數字."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:964 hugin1/hugin/GLPreviewFrame.cpp:986
 #: hugin1/hugin/GLPreviewFrame.cpp:1664 hugin1/hugin/GLPreviewFrame.cpp:1695
-#: hugin1/hugin/huginApp.cpp:72 hugin1/hugin/ImagesPanel.cpp:412
-#: hugin1/hugin/PanoPanel.cpp:591 hugin1/hugin/PanoPanel.cpp:622
-#: hugin1/hugin/PreviewFrame.cpp:764 hugin1/hugin/PreviewFrame.cpp:779
+#: hugin1/hugin/ImagesPanel.cpp:412 hugin1/hugin/PanoPanel.cpp:591
+#: hugin1/hugin/PanoPanel.cpp:622 hugin1/hugin/PreviewFrame.cpp:764
+#: hugin1/hugin/PreviewFrame.cpp:779 hugin1/hugin/huginApp.cpp:72
 msgid "Value must be numeric."
 msgstr "數值必須是數字."
 
@@ -961,31 +961,6 @@ msgstr "焦距必須是正數."
 #: hugin1/hugin/HFOVDialog.cpp:283
 msgid "The crop factor must be positive."
 msgstr "鏡頭焦距轉換率必須是正數."
-
-#: hugin1/hugin/huginApp.cpp:171 hugin1/ptbatcher/PTBatcherGUI.cpp:75
-msgid "xrc directory not found in bundle"
-msgstr "xrc 目錄不存在於軟體集中"
-
-#: hugin1/hugin/huginApp.cpp:171 hugin1/hugin/huginApp.cpp:183
-#: hugin1/hugin/huginApp.cpp:196 hugin1/hugin/MainFrame.cpp:1849
-#: hugin1/ptbatcher/PTBatcherGUI.cpp:75 hugin1/ptbatcher/PTBatcherGUI.cpp:81
-#: hugin1/ptbatcher/PTBatcherGUI.cpp:101
-#: hugin1/stitch_project/hugin_stitch_project.cpp:290
-msgid "Fatal Error"
-msgstr "關鍵錯誤"
-
-#: hugin1/hugin/huginApp.cpp:183 hugin1/ptbatcher/PTBatcherGUI.cpp:81
-#: hugin1/stitch_project/hugin_stitch_project.cpp:290
-msgid "Translations not found in bundle"
-msgstr "翻譯檔案不存在於軟體集中"
-
-#: hugin1/hugin/huginApp.cpp:196 hugin1/ptbatcher/PTBatcherGUI.cpp:101
-msgid ""
-"xrc directory not found, hugin needs to be properly installed\n"
-"Tried Path:"
-msgstr ""
-"xrc 目錄不存在, hugin 需要被正確安裝\n"
-"嘗試此路徑:"
 
 #: hugin1/hugin/ImagesList.cpp:353 hugin1/hugin/ImagesList.cpp:481
 msgid "Filename"
@@ -1425,6 +1400,14 @@ msgstr "錯誤!"
 msgid ""
 "Celeste model expected in %s not found, Hugin needs to be properly installed."
 msgstr "未發現 Celeste 模式, Hugin 需要正確安裝."
+
+#: hugin1/hugin/MainFrame.cpp:1849 hugin1/hugin/huginApp.cpp:171
+#: hugin1/hugin/huginApp.cpp:183 hugin1/hugin/huginApp.cpp:196
+#: hugin1/ptbatcher/PTBatcherGUI.cpp:75 hugin1/ptbatcher/PTBatcherGUI.cpp:81
+#: hugin1/ptbatcher/PTBatcherGUI.cpp:101
+#: hugin1/stitch_project/hugin_stitch_project.cpp:290
+msgid "Fatal Error"
+msgstr "關鍵錯誤"
 
 #: hugin1/hugin/MainFrame.cpp:1854
 #, fuzzy, c-format
@@ -2037,6 +2020,23 @@ msgstr "點擊一個連接以編輯控制點."
 msgid "Error during Stitching"
 msgstr "接合時發生錯誤"
 
+#: hugin1/hugin/huginApp.cpp:171 hugin1/ptbatcher/PTBatcherGUI.cpp:75
+msgid "xrc directory not found in bundle"
+msgstr "xrc 目錄不存在於軟體集中"
+
+#: hugin1/hugin/huginApp.cpp:183 hugin1/ptbatcher/PTBatcherGUI.cpp:81
+#: hugin1/stitch_project/hugin_stitch_project.cpp:290
+msgid "Translations not found in bundle"
+msgstr "翻譯檔案不存在於軟體集中"
+
+#: hugin1/hugin/huginApp.cpp:196 hugin1/ptbatcher/PTBatcherGUI.cpp:101
+msgid ""
+"xrc directory not found, hugin needs to be properly installed\n"
+"Tried Path:"
+msgstr ""
+"xrc 目錄不存在, hugin 需要被正確安裝\n"
+"嘗試此路徑:"
+
 #: hugin1/hugin/wxPanoCommand.cpp:194
 #, c-format
 msgid ""
@@ -2577,6 +2577,10 @@ msgstr "沒有發現相似點"
 msgid "%d images: %s"
 msgstr "增加圖片"
 
+#: hugin1/ptbatcher/PTBatcherGUI.cpp:131 hugin1/ptbatcher/PTBatcherGUI.cpp:144
+msgid "stitch_project.pto [output prefix]|assistant_project.pto"
+msgstr ""
+
 #: hugin1/ptbatcher/ProjectArray.cpp:66
 msgid "Waiting"
 msgstr "等待"
@@ -2649,10 +2653,6 @@ msgstr "錯誤, 無法轉換編號"
 msgid "Assistant"
 msgstr "助手"
 
-#: hugin1/ptbatcher/PTBatcherGUI.cpp:131 hugin1/ptbatcher/PTBatcherGUI.cpp:144
-msgid "stitch_project.pto [output prefix]|assistant_project.pto"
-msgstr ""
-
 #: hugin1/stitch_project/hugin_stitch_project.cpp:135
 #, c-format
 msgid ""
@@ -2718,10 +2718,10 @@ msgstr "授權"
 msgid "System"
 msgstr "系統預設"
 
-#: translations/xrc.cpp:9 translations/xrc.cpp:32 translations/xrc.cpp:146
+#: translations/xrc.cpp:9 translations/xrc.cpp:32 translations/xrc.cpp:169
 #: translations/xrc.cpp:438 translations/xrc.cpp:507 translations/xrc.cpp:511
 #: translations/xrc.cpp:515 translations/xrc.cpp:609 translations/xrc.cpp:727
-#: translations/xrc.cpp:818 xrc.cpp:9 xrc.cpp:32 xrc.cpp:146 xrc.cpp:438
+#: translations/xrc.cpp:818 xrc.cpp:9 xrc.cpp:32 xrc.cpp:169 xrc.cpp:438
 #: xrc.cpp:507 xrc.cpp:511 xrc.cpp:515 xrc.cpp:609 xrc.cpp:727 xrc.cpp:818
 msgid "OK"
 msgstr "確定"
@@ -2876,10 +2876,10 @@ msgstr "偵測器"
 msgid "Directory:"
 msgstr "偵測器"
 
-#: translations/xrc.cpp:51 translations/xrc.cpp:128 translations/xrc.cpp:133
-#: translations/xrc.cpp:136 translations/xrc.cpp:141 translations/xrc.cpp:651
+#: translations/xrc.cpp:51 translations/xrc.cpp:151 translations/xrc.cpp:156
+#: translations/xrc.cpp:159 translations/xrc.cpp:164 translations/xrc.cpp:651
 #: translations/xrc.cpp:707 translations/xrc.cpp:713 translations/xrc.cpp:731
-#: xrc.cpp:51 xrc.cpp:128 xrc.cpp:133 xrc.cpp:136 xrc.cpp:141 xrc.cpp:651
+#: xrc.cpp:51 xrc.cpp:151 xrc.cpp:156 xrc.cpp:159 xrc.cpp:164 xrc.cpp:651
 #: xrc.cpp:707 xrc.cpp:713 xrc.cpp:731
 msgid "Choose..."
 msgstr "選擇..."
@@ -3106,90 +3106,181 @@ msgid "adddir"
 msgstr "增加目錄"
 
 #: translations/xrc.cpp:117 xrc.cpp:117
+msgid "previous image pair"
+msgstr "上一對圖片"
+
+#: translations/xrc.cpp:118 xrc.cpp:118
+msgid "next image pair"
+msgstr "下一對圖片"
+
+#: translations/xrc.cpp:119 xrc.cpp:119
+msgid "mode:"
+msgstr "模式:"
+
+#: translations/xrc.cpp:121 xrc.cpp:121
+msgid "vertical line"
+msgstr "垂直線"
+
+#: translations/xrc.cpp:122 xrc.cpp:122
+msgid "horizontal line"
+msgstr "水平線"
+
+#: translations/xrc.cpp:123 translations/xrc.cpp:421 xrc.cpp:123 xrc.cpp:421
+msgid "Zoom:"
+msgstr "縮放:"
+
+#: translations/xrc.cpp:124 translations/xrc.cpp:422 xrc.cpp:124 xrc.cpp:422
+msgid "fit to window"
+msgstr "自動調整"
+
+#: translations/xrc.cpp:125 translations/xrc.cpp:661 xrc.cpp:125 xrc.cpp:661
+msgid "Fine-tune"
+msgstr "調整"
+
+#: translations/xrc.cpp:126 xrc.cpp:126
+msgid "Tries to optimize the currently active point"
+msgstr "嘗試最佳化目前選取的點."
+
+#: translations/xrc.cpp:127 translations/xrc.cpp:717 xrc.cpp:127 xrc.cpp:717
+msgid "Celeste"
+msgstr "Celeste"
+
+#: translations/xrc.cpp:128 translations/xrc.cpp:197 xrc.cpp:128 xrc.cpp:197
+msgid "Tries to remove control points from clouds"
+msgstr "嘗試從雲朵上移除控制點"
+
+#: translations/xrc.cpp:129 xrc.cpp:129
+msgid "auto fine-&tune"
+msgstr "自動調整 (&t)"
+
+#: translations/xrc.cpp:130 xrc.cpp:130
+msgid "auto add"
+msgstr "自動增加"
+
+#: translations/xrc.cpp:131 xrc.cpp:131
+msgid "immediately add control point when selecting a second point"
+msgstr "選取第二點後立即增加控制點"
+
+#: translations/xrc.cpp:132 xrc.cpp:132
+msgid "auto estimate"
+msgstr "自動測量"
+
+#: translations/xrc.cpp:133 xrc.cpp:133
+msgid ""
+"tries to estimate shift between the images and use it while placing control "
+"points"
+msgstr "嘗試變換圖片進行測量, 並且在放置控制點時使用"
+
+#: translations/xrc.cpp:134 xrc.cpp:134
+msgid "&Delete"
+msgstr "刪除 (&D)"
+
+#: translations/xrc.cpp:135 xrc.cpp:135
+msgid "&Add"
+msgstr "增加 (&A)"
+
+#: translations/xrc.cpp:136 xrc.cpp:136
+msgid "add a new Point"
+msgstr "增加一個新點"
+
+#: translations/xrc.cpp:137 translations/xrc.cpp:294 translations/xrc.cpp:354
+#: xrc.cpp:137 xrc.cpp:294 xrc.cpp:354
+msgid "Control Points"
+msgstr "控制點"
+
+#: translations/xrc.cpp:138 translations/xrc.cpp:683 xrc.cpp:138 xrc.cpp:683
+msgid "Delete"
+msgstr "刪除"
+
+#: translations/xrc.cpp:139 xrc.cpp:139
+msgid "Select by Distance"
+msgstr "通過距離進行選取"
+
+#: translations/xrc.cpp:140 xrc.cpp:140
 msgid "Description:"
 msgstr "說明:"
 
-#: translations/xrc.cpp:118 translations/xrc.cpp:249 translations/xrc.cpp:283
-#: xrc.cpp:118 xrc.cpp:249 xrc.cpp:283
+#: translations/xrc.cpp:141 translations/xrc.cpp:249 translations/xrc.cpp:283
+#: xrc.cpp:141 xrc.cpp:249 xrc.cpp:283
 msgid "Type:"
 msgstr "類型:"
 
-#: translations/xrc.cpp:119 xrc.cpp:119
+#: translations/xrc.cpp:142 xrc.cpp:142
 msgid "Autopano (by A. Jenny)"
 msgstr "Autopano (作者 A. Jenny)"
 
-#: translations/xrc.cpp:120 xrc.cpp:120
+#: translations/xrc.cpp:143 xrc.cpp:143
 msgid "All images at once"
 msgstr "全部圖片同時"
 
-#: translations/xrc.cpp:121 xrc.cpp:121
+#: translations/xrc.cpp:144 xrc.cpp:144
 msgid "Panorama with stacks"
 msgstr "有堆棧圖的全景圖"
 
-#: translations/xrc.cpp:122 xrc.cpp:122
+#: translations/xrc.cpp:145 xrc.cpp:145
 msgid "Multi-row panorama"
 msgstr "多列全景圖片"
 
-#: translations/xrc.cpp:123 xrc.cpp:123
+#: translations/xrc.cpp:146 xrc.cpp:146
 msgid "Multi-row panorama with stacks"
 msgstr "有堆棧圖的多列全景圖"
 
-#: translations/xrc.cpp:124 xrc.cpp:124
+#: translations/xrc.cpp:147 xrc.cpp:147
 msgid "Prealigned panorama"
 msgstr "預先對準全景圖片"
 
-#: translations/xrc.cpp:125 xrc.cpp:125
+#: translations/xrc.cpp:148 xrc.cpp:148
 msgid "Detector"
 msgstr "偵測器"
 
-#: translations/xrc.cpp:126 xrc.cpp:126
+#: translations/xrc.cpp:149 xrc.cpp:149
 msgid "One step detector"
 msgstr "一段式探測器"
 
-#: translations/xrc.cpp:127 translations/xrc.cpp:140 xrc.cpp:127 xrc.cpp:140
+#: translations/xrc.cpp:150 translations/xrc.cpp:163 xrc.cpp:150 xrc.cpp:163
 msgid "Program:"
 msgstr "應用程式:"
 
-#: translations/xrc.cpp:129 translations/xrc.cpp:134 translations/xrc.cpp:137
-#: translations/xrc.cpp:142 translations/xrc.cpp:652 xrc.cpp:129 xrc.cpp:134
-#: xrc.cpp:137 xrc.cpp:142 xrc.cpp:652
+#: translations/xrc.cpp:152 translations/xrc.cpp:157 translations/xrc.cpp:160
+#: translations/xrc.cpp:165 translations/xrc.cpp:652 xrc.cpp:152 xrc.cpp:157
+#: xrc.cpp:160 xrc.cpp:165 xrc.cpp:652
 msgid "Arguments:"
 msgstr "引數:"
 
-#: translations/xrc.cpp:130 xrc.cpp:130
+#: translations/xrc.cpp:153 xrc.cpp:153
 #, fuzzy
 msgid "Cleanup arguments:"
 msgstr "預設引數:"
 
-#: translations/xrc.cpp:131 xrc.cpp:131
+#: translations/xrc.cpp:154 xrc.cpp:154
 msgid "Two step detector"
 msgstr "兩段式探測器"
 
-#: translations/xrc.cpp:132 xrc.cpp:132
+#: translations/xrc.cpp:155 xrc.cpp:155
 msgid "Feature descriptor:"
 msgstr "特徵描述："
 
-#: translations/xrc.cpp:135 xrc.cpp:135
+#: translations/xrc.cpp:158 xrc.cpp:158
 msgid "Feature matcher:"
 msgstr "特徵相容器:"
 
-#: translations/xrc.cpp:138 xrc.cpp:138
+#: translations/xrc.cpp:161 xrc.cpp:161
 msgid "Detector for stacks"
 msgstr "堆棧式圖片偵測器"
 
-#: translations/xrc.cpp:139 xrc.cpp:139
+#: translations/xrc.cpp:162 xrc.cpp:162
 msgid "Leave empty, when no control point detector should run on stacks."
 msgstr "當堆棧圖片沒有需要使用的控制點偵測器時,保持空白."
 
-#: translations/xrc.cpp:143 xrc.cpp:143
+#: translations/xrc.cpp:166 xrc.cpp:166
 msgid "Advanced option"
 msgstr "進階選項"
 
-#: translations/xrc.cpp:144 xrc.cpp:144
+#: translations/xrc.cpp:167 xrc.cpp:167
 msgid "This setting has no advanced options."
 msgstr "這個設定沒有進階選項"
 
-#: translations/xrc.cpp:145 xrc.cpp:145
+#: translations/xrc.cpp:168 xrc.cpp:168
 msgid ""
 "following patterns will be substituted before running:\n"
 "%o  -- output project (0.oto will be appended when using Autopano)\n"
@@ -3211,100 +3302,9 @@ msgstr ""
 "%s -- 輸入 panotools 程式碼\n"
 "%k -- 中途 key 檔案"
 
-#: translations/xrc.cpp:148 xrc.cpp:148
+#: translations/xrc.cpp:171 xrc.cpp:171
 msgid "Parameters for Control Point Detectors"
 msgstr "控制點偵測器參數"
-
-#: translations/xrc.cpp:149 xrc.cpp:149
-msgid "previous image pair"
-msgstr "上一對圖片"
-
-#: translations/xrc.cpp:150 xrc.cpp:150
-msgid "next image pair"
-msgstr "下一對圖片"
-
-#: translations/xrc.cpp:151 xrc.cpp:151
-msgid "mode:"
-msgstr "模式:"
-
-#: translations/xrc.cpp:153 xrc.cpp:153
-msgid "vertical line"
-msgstr "垂直線"
-
-#: translations/xrc.cpp:154 xrc.cpp:154
-msgid "horizontal line"
-msgstr "水平線"
-
-#: translations/xrc.cpp:155 translations/xrc.cpp:421 xrc.cpp:155 xrc.cpp:421
-msgid "Zoom:"
-msgstr "縮放:"
-
-#: translations/xrc.cpp:156 translations/xrc.cpp:422 xrc.cpp:156 xrc.cpp:422
-msgid "fit to window"
-msgstr "自動調整"
-
-#: translations/xrc.cpp:157 translations/xrc.cpp:661 xrc.cpp:157 xrc.cpp:661
-msgid "Fine-tune"
-msgstr "調整"
-
-#: translations/xrc.cpp:158 xrc.cpp:158
-msgid "Tries to optimize the currently active point"
-msgstr "嘗試最佳化目前選取的點."
-
-#: translations/xrc.cpp:159 translations/xrc.cpp:717 xrc.cpp:159 xrc.cpp:717
-msgid "Celeste"
-msgstr "Celeste"
-
-#: translations/xrc.cpp:160 translations/xrc.cpp:197 xrc.cpp:160 xrc.cpp:197
-msgid "Tries to remove control points from clouds"
-msgstr "嘗試從雲朵上移除控制點"
-
-#: translations/xrc.cpp:161 xrc.cpp:161
-msgid "auto fine-&tune"
-msgstr "自動調整 (&t)"
-
-#: translations/xrc.cpp:162 xrc.cpp:162
-msgid "auto add"
-msgstr "自動增加"
-
-#: translations/xrc.cpp:163 xrc.cpp:163
-msgid "immediately add control point when selecting a second point"
-msgstr "選取第二點後立即增加控制點"
-
-#: translations/xrc.cpp:164 xrc.cpp:164
-msgid "auto estimate"
-msgstr "自動測量"
-
-#: translations/xrc.cpp:165 xrc.cpp:165
-msgid ""
-"tries to estimate shift between the images and use it while placing control "
-"points"
-msgstr "嘗試變換圖片進行測量, 並且在放置控制點時使用"
-
-#: translations/xrc.cpp:166 xrc.cpp:166
-msgid "&Delete"
-msgstr "刪除 (&D)"
-
-#: translations/xrc.cpp:167 xrc.cpp:167
-msgid "&Add"
-msgstr "增加 (&A)"
-
-#: translations/xrc.cpp:168 xrc.cpp:168
-msgid "add a new Point"
-msgstr "增加一個新點"
-
-#: translations/xrc.cpp:169 translations/xrc.cpp:294 translations/xrc.cpp:354
-#: xrc.cpp:169 xrc.cpp:294 xrc.cpp:354
-msgid "Control Points"
-msgstr "控制點"
-
-#: translations/xrc.cpp:170 translations/xrc.cpp:683 xrc.cpp:170 xrc.cpp:683
-msgid "Delete"
-msgstr "刪除"
-
-#: translations/xrc.cpp:171 xrc.cpp:171
-msgid "Select by Distance"
-msgstr "通過距離進行選取"
 
 #: translations/xrc.cpp:172 translations/xrc.cpp:532 xrc.cpp:172 xrc.cpp:532
 msgid "Top:"

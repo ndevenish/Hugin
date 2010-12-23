@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: se\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2010-12-11 12:35+0100\n"
+"POT-Creation-Date: 2010-12-23 13:52-0500\n"
 "PO-Revision-Date: 2010-04-04 13:59+0100\n"
 "Last-Translator: Ulf Wilhelmson <ulf.wilhelmson@gmail.com>\n"
 "Language-Team: Svenska <se@li.org>\n"
@@ -18,67 +18,6 @@ msgstr ""
 "X-Poedit-Language: Swedish\n"
 "X-Poedit-Country: SWEDEN\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: hugin1/base_wx/huginConfig.cpp:47 hugin1/base_wx/huginConfig.cpp:82
-#, c-format
-msgid ""
-"External program %s not found as specified in preferences, reverting to "
-"bundled version"
-msgstr ""
-"Externt program %s hittades ej som angivits i programinställningarna, "
-"återställer till versionen i programpaketet"
-
-#: hugin1/base_wx/huginConfig.cpp:47 hugin1/base_wx/huginConfig.cpp:57
-#: hugin1/base_wx/huginConfig.cpp:69 hugin1/base_wx/huginConfig.cpp:82
-#: hugin1/base_wx/RunStitchPanel.cpp:111 hugin1/hugin/AssistantPanel.cpp:361
-#: hugin1/hugin/AssistantPanel.cpp:428 hugin1/hugin/CPEditorPanel.cpp:2174
-#: hugin1/hugin/GLViewer.cpp:128 hugin1/hugin/GLViewer.cpp:138
-#: hugin1/hugin/MainFrame.cpp:629 hugin1/hugin/MainFrame.cpp:879
-#: hugin1/hugin/MainFrame.cpp:1395 hugin1/hugin/MainFrame.cpp:1854
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:530
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:550
-#: hugin1/hugin/PanoPanel.cpp:991 hugin1/hugin/PanoPanel.cpp:1057
-#: hugin1/icpfind/AutoCtrlPointCreator.cpp:205
-#: hugin1/ptbatcher/BatchFrame.cpp:445 hugin1/ptbatcher/FindPanoDialog.cpp:259
-#: hugin1/ptbatcher/ProjectListBox.cpp:171
-#: hugin1/stitch_project/hugin_stitch_project.cpp:393
-msgid "Error"
-msgstr "Fel"
-
-#: hugin1/base_wx/huginConfig.cpp:57 hugin1/base_wx/huginConfig.cpp:69
-#: hugin1/base_wx/RunStitchPanel.cpp:111
-#, c-format
-msgid "External program %s not found in the bundle, reverting to system path"
-msgstr ""
-"Externt program %s hittades ej i programpaketet, återställer till "
-"systemsökvägen"
-
-#: hugin1/base_wx/huginConfig.cpp:95 hugin1/base_wx/huginConfig.cpp:109
-#, c-format
-msgid "Program %s not found in preferences, reverting to default value"
-msgstr ""
-"Programmet %s hittades ej i programinställningarna, återställer till "
-"utgångsvärdet"
-
-#: hugin1/base_wx/huginConfig.cpp:129 hugin1/base_wx/huginConfig.cpp:134
-#: hugin1/base_wx/huginConfig.cpp:140 hugin1/base_wx/huginConfig.cpp:145
-#: hugin1/base_wx/huginConfig.cpp:150 hugin1/base_wx/huginConfig.cpp:155
-#: hugin1/base_wx/huginConfig.cpp:161 hugin1/base_wx/huginConfig.cpp:166
-#: hugin1/base_wx/huginConfig.cpp:171 hugin1/base_wx/huginConfig.cpp:176
-#: hugin1/base_wx/huginConfig.cpp:182 hugin1/base_wx/huginConfig.cpp:187
-#: hugin1/base_wx/huginConfig.cpp:194 hugin1/base_wx/huginConfig.cpp:199
-#: hugin1/base_wx/huginConfig.cpp:219 hugin1/base_wx/huginConfig.cpp:224
-#: hugin1/base_wx/huginConfig.cpp:230 hugin1/base_wx/huginConfig.cpp:235
-#: hugin1/base_wx/huginConfig.cpp:240 hugin1/base_wx/huginConfig.cpp:245
-#: hugin1/hugin/AssistantPanel.cpp:432 hugin1/hugin/CPDetectorDialog.cpp:121
-#: hugin1/hugin/GLPreviewFrame.cpp:905 hugin1/hugin/GLPreviewFrame.cpp:912
-#: hugin1/hugin/GLPreviewFrame.cpp:919 hugin1/hugin/GLPreviewFrame.cpp:931
-#: hugin1/hugin/GLPreviewFrame.cpp:938 hugin1/hugin/GLPreviewFrame.cpp:945
-#: hugin1/hugin/MainFrame.cpp:625 hugin1/hugin/PreferencesDialog.cpp:842
-#: hugin1/ptbatcher/FindPanoDialog.cpp:219
-#: hugin1/ptbatcher/FindPanoDialog.cpp:238
-msgid "Warning"
-msgstr "Varning"
 
 #: hugin1/base_wx/ImageCache.cpp:539
 #, c-format
@@ -127,9 +66,9 @@ msgstr "Ett fel uppstod när process %ld, code 2 pausades"
 #: hugin1/base_wx/MyExternalCmdExecDialog.cpp:606
 #: hugin1/ptbatcher/RunStitchFrame.cpp:43
 #: hugin1/stitch_project/hugin_stitch_project.cpp:121 translations/xrc.cpp:33
-#: translations/xrc.cpp:147 translations/xrc.cpp:439 translations/xrc.cpp:508
+#: translations/xrc.cpp:170 translations/xrc.cpp:439 translations/xrc.cpp:508
 #: translations/xrc.cpp:512 translations/xrc.cpp:516 translations/xrc.cpp:610
-#: translations/xrc.cpp:728 translations/xrc.cpp:819 xrc.cpp:33 xrc.cpp:147
+#: translations/xrc.cpp:728 translations/xrc.cpp:819 xrc.cpp:33 xrc.cpp:170
 #: xrc.cpp:439 xrc.cpp:508 xrc.cpp:512 xrc.cpp:516 xrc.cpp:610 xrc.cpp:728
 #: xrc.cpp:819
 msgid "Cancel"
@@ -147,24 +86,35 @@ msgstr "Förfluten tid :"
 msgid "Optimizing Panorama"
 msgstr "Optimerar Panorama"
 
-#: hugin1/base_wx/platform.h:40
-msgid ""
-"All Image files|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*."
-"PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr;*.HDR;*.exr;*.EXR|"
-"JPEG files (*.jpg,*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|TIFF files (*.tif,*."
-"tiff)|*.tif;*.TIF;*.tiff;*.TIFF|PNG files (*.png)|*.png;*.PNG|HDR files (*."
-"hdr)|*.hdr;*.HDR|EXR files (*.exr)|*.exr;*.EXR|All files (*)|*"
-msgstr ""
-"Alla bildfiler|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;"
-"*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr;*.HDR;*.exr;*.EXR|"
-"JPEG files (*.jpg,*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|TIFF files (*.tif,*."
-"tiff)|*.tif;*.TIF;*.tiff;*.TIFF|PNG files (*.png)|*.png;*.PNG|HDR files (*."
-"hdr)|*.hdr;*.HDR|EXR files (*.exr)|*.exr;*.EXR|All files (*)|*"
-
 #: hugin1/base_wx/PTWXDlg.cpp:48 hugin1/base_wx/PTWXDlg.cpp:66
 #: hugin1/base_wx/PTWXDlg.cpp:118 translations/xrc.cpp:729 xrc.cpp:729
 msgid "Panorama Tools"
 msgstr "Panorama Tools"
+
+#: hugin1/base_wx/RunStitchPanel.cpp:111 hugin1/base_wx/huginConfig.cpp:57
+#: hugin1/base_wx/huginConfig.cpp:69
+#, c-format
+msgid "External program %s not found in the bundle, reverting to system path"
+msgstr ""
+"Externt program %s hittades ej i programpaketet, återställer till "
+"systemsökvägen"
+
+#: hugin1/base_wx/RunStitchPanel.cpp:111 hugin1/base_wx/huginConfig.cpp:47
+#: hugin1/base_wx/huginConfig.cpp:57 hugin1/base_wx/huginConfig.cpp:69
+#: hugin1/base_wx/huginConfig.cpp:82 hugin1/hugin/AssistantPanel.cpp:361
+#: hugin1/hugin/AssistantPanel.cpp:428 hugin1/hugin/CPEditorPanel.cpp:2174
+#: hugin1/hugin/GLViewer.cpp:128 hugin1/hugin/GLViewer.cpp:138
+#: hugin1/hugin/MainFrame.cpp:629 hugin1/hugin/MainFrame.cpp:879
+#: hugin1/hugin/MainFrame.cpp:1395 hugin1/hugin/MainFrame.cpp:1854
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:530
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:550
+#: hugin1/hugin/PanoPanel.cpp:991 hugin1/hugin/PanoPanel.cpp:1057
+#: hugin1/icpfind/AutoCtrlPointCreator.cpp:205
+#: hugin1/ptbatcher/BatchFrame.cpp:445 hugin1/ptbatcher/FindPanoDialog.cpp:259
+#: hugin1/ptbatcher/ProjectListBox.cpp:171
+#: hugin1/stitch_project/hugin_stitch_project.cpp:393
+msgid "Error"
+msgstr "Fel"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:135 hugin1/base_wx/RunStitchPanel.cpp:294
 msgid "Could not open project file:"
@@ -229,6 +179,56 @@ msgstr "ett fel uppstod under tolkning av panotools-script: %s"
 #, fuzzy
 msgid "Error during running assistant"
 msgstr "Fel under sammanfogning"
+
+#: hugin1/base_wx/huginConfig.cpp:47 hugin1/base_wx/huginConfig.cpp:82
+#, c-format
+msgid ""
+"External program %s not found as specified in preferences, reverting to "
+"bundled version"
+msgstr ""
+"Externt program %s hittades ej som angivits i programinställningarna, "
+"återställer till versionen i programpaketet"
+
+#: hugin1/base_wx/huginConfig.cpp:95 hugin1/base_wx/huginConfig.cpp:109
+#, c-format
+msgid "Program %s not found in preferences, reverting to default value"
+msgstr ""
+"Programmet %s hittades ej i programinställningarna, återställer till "
+"utgångsvärdet"
+
+#: hugin1/base_wx/huginConfig.cpp:129 hugin1/base_wx/huginConfig.cpp:134
+#: hugin1/base_wx/huginConfig.cpp:140 hugin1/base_wx/huginConfig.cpp:145
+#: hugin1/base_wx/huginConfig.cpp:150 hugin1/base_wx/huginConfig.cpp:155
+#: hugin1/base_wx/huginConfig.cpp:161 hugin1/base_wx/huginConfig.cpp:166
+#: hugin1/base_wx/huginConfig.cpp:171 hugin1/base_wx/huginConfig.cpp:176
+#: hugin1/base_wx/huginConfig.cpp:182 hugin1/base_wx/huginConfig.cpp:187
+#: hugin1/base_wx/huginConfig.cpp:194 hugin1/base_wx/huginConfig.cpp:199
+#: hugin1/base_wx/huginConfig.cpp:219 hugin1/base_wx/huginConfig.cpp:224
+#: hugin1/base_wx/huginConfig.cpp:230 hugin1/base_wx/huginConfig.cpp:235
+#: hugin1/base_wx/huginConfig.cpp:240 hugin1/base_wx/huginConfig.cpp:245
+#: hugin1/hugin/AssistantPanel.cpp:432 hugin1/hugin/CPDetectorDialog.cpp:121
+#: hugin1/hugin/GLPreviewFrame.cpp:905 hugin1/hugin/GLPreviewFrame.cpp:912
+#: hugin1/hugin/GLPreviewFrame.cpp:919 hugin1/hugin/GLPreviewFrame.cpp:931
+#: hugin1/hugin/GLPreviewFrame.cpp:938 hugin1/hugin/GLPreviewFrame.cpp:945
+#: hugin1/hugin/MainFrame.cpp:625 hugin1/hugin/PreferencesDialog.cpp:842
+#: hugin1/ptbatcher/FindPanoDialog.cpp:219
+#: hugin1/ptbatcher/FindPanoDialog.cpp:238
+msgid "Warning"
+msgstr "Varning"
+
+#: hugin1/base_wx/platform.h:40
+msgid ""
+"All Image files|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*."
+"PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr;*.HDR;*.exr;*.EXR|"
+"JPEG files (*.jpg,*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|TIFF files (*.tif,*."
+"tiff)|*.tif;*.TIF;*.tiff;*.TIFF|PNG files (*.png)|*.png;*.PNG|HDR files (*."
+"hdr)|*.hdr;*.HDR|EXR files (*.exr)|*.exr;*.EXR|All files (*)|*"
+msgstr ""
+"Alla bildfiler|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;"
+"*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr;*.HDR;*.exr;*.EXR|"
+"JPEG files (*.jpg,*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|TIFF files (*.tif,*."
+"tiff)|*.tif;*.TIF;*.tiff;*.TIFF|PNG files (*.png)|*.png;*.PNG|HDR files (*."
+"hdr)|*.hdr;*.HDR|EXR files (*.exr)|*.exr;*.EXR|All files (*)|*"
 
 #: hugin1/hugin/AboutDialog.cpp:138
 #, fuzzy, c-format
@@ -529,7 +529,7 @@ msgstr "Linje %d"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1586 hugin1/hugin/CPListFrame.cpp:448
 #: hugin1/hugin/GLPreviewFrame.cpp:376 hugin1/hugin/GLPreviewFrame.cpp:380
-#: hugin1/hugin/PreviewFrame.cpp:231 translations/xrc.cpp:152 xrc.cpp:152
+#: hugin1/hugin/PreviewFrame.cpp:231 translations/xrc.cpp:120 xrc.cpp:120
 msgid "normal"
 msgstr "normal"
 
@@ -783,9 +783,9 @@ msgstr "Yaw-värdet måste vara numeriskt"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:964 hugin1/hugin/GLPreviewFrame.cpp:986
 #: hugin1/hugin/GLPreviewFrame.cpp:1664 hugin1/hugin/GLPreviewFrame.cpp:1695
-#: hugin1/hugin/huginApp.cpp:72 hugin1/hugin/ImagesPanel.cpp:412
-#: hugin1/hugin/PanoPanel.cpp:591 hugin1/hugin/PanoPanel.cpp:622
-#: hugin1/hugin/PreviewFrame.cpp:764 hugin1/hugin/PreviewFrame.cpp:779
+#: hugin1/hugin/ImagesPanel.cpp:412 hugin1/hugin/PanoPanel.cpp:591
+#: hugin1/hugin/PanoPanel.cpp:622 hugin1/hugin/PreviewFrame.cpp:764
+#: hugin1/hugin/PreviewFrame.cpp:779 hugin1/hugin/huginApp.cpp:72
 msgid "Value must be numeric."
 msgstr "Värdet måste vara numeriskt."
 
@@ -986,31 +986,6 @@ msgstr "Brännviden måste vara positiv."
 #: hugin1/hugin/HFOVDialog.cpp:283
 msgid "The crop factor must be positive."
 msgstr "Beskärningsvärdet måste vara positivt."
-
-#: hugin1/hugin/huginApp.cpp:171 hugin1/ptbatcher/PTBatcherGUI.cpp:75
-msgid "xrc directory not found in bundle"
-msgstr "xrc-katalogen kunde inte hittas i programpaketet"
-
-#: hugin1/hugin/huginApp.cpp:171 hugin1/hugin/huginApp.cpp:183
-#: hugin1/hugin/huginApp.cpp:196 hugin1/hugin/MainFrame.cpp:1849
-#: hugin1/ptbatcher/PTBatcherGUI.cpp:75 hugin1/ptbatcher/PTBatcherGUI.cpp:81
-#: hugin1/ptbatcher/PTBatcherGUI.cpp:101
-#: hugin1/stitch_project/hugin_stitch_project.cpp:290
-msgid "Fatal Error"
-msgstr "Fatalt fel"
-
-#: hugin1/hugin/huginApp.cpp:183 hugin1/ptbatcher/PTBatcherGUI.cpp:81
-#: hugin1/stitch_project/hugin_stitch_project.cpp:290
-msgid "Translations not found in bundle"
-msgstr "Översättningar hittades inte i programpaketet"
-
-#: hugin1/hugin/huginApp.cpp:196 hugin1/ptbatcher/PTBatcherGUI.cpp:101
-msgid ""
-"xrc directory not found, hugin needs to be properly installed\n"
-"Tried Path:"
-msgstr ""
-"xrc-katalogen hittades inte, hugin måste vara korrekt installerad\n"
-"Provade sökväg:"
 
 #: hugin1/hugin/ImagesList.cpp:353 hugin1/hugin/ImagesList.cpp:481
 msgid "Filename"
@@ -1460,6 +1435,14 @@ msgid ""
 "Celeste model expected in %s not found, Hugin needs to be properly installed."
 msgstr ""
 "Modellfil till Celeste hittades inte, hugin måste vara korrekt installerad"
+
+#: hugin1/hugin/MainFrame.cpp:1849 hugin1/hugin/huginApp.cpp:171
+#: hugin1/hugin/huginApp.cpp:183 hugin1/hugin/huginApp.cpp:196
+#: hugin1/ptbatcher/PTBatcherGUI.cpp:75 hugin1/ptbatcher/PTBatcherGUI.cpp:81
+#: hugin1/ptbatcher/PTBatcherGUI.cpp:101
+#: hugin1/stitch_project/hugin_stitch_project.cpp:290
+msgid "Fatal Error"
+msgstr "Fatalt fel"
 
 #: hugin1/hugin/MainFrame.cpp:1854
 #, fuzzy, c-format
@@ -2094,6 +2077,23 @@ msgstr "Klicka på en förbindning för att  redigera kontrollpunkter."
 msgid "Error during Stitching"
 msgstr "Fel under sammanfogning"
 
+#: hugin1/hugin/huginApp.cpp:171 hugin1/ptbatcher/PTBatcherGUI.cpp:75
+msgid "xrc directory not found in bundle"
+msgstr "xrc-katalogen kunde inte hittas i programpaketet"
+
+#: hugin1/hugin/huginApp.cpp:183 hugin1/ptbatcher/PTBatcherGUI.cpp:81
+#: hugin1/stitch_project/hugin_stitch_project.cpp:290
+msgid "Translations not found in bundle"
+msgstr "Översättningar hittades inte i programpaketet"
+
+#: hugin1/hugin/huginApp.cpp:196 hugin1/ptbatcher/PTBatcherGUI.cpp:101
+msgid ""
+"xrc directory not found, hugin needs to be properly installed\n"
+"Tried Path:"
+msgstr ""
+"xrc-katalogen hittades inte, hugin måste vara korrekt installerad\n"
+"Provade sökväg:"
+
 #: hugin1/hugin/wxPanoCommand.cpp:194
 #, c-format
 msgid ""
@@ -2646,6 +2646,10 @@ msgstr "Ingen liknande punkt hittades"
 msgid "%d images: %s"
 msgstr "Lägg till bilder"
 
+#: hugin1/ptbatcher/PTBatcherGUI.cpp:131 hugin1/ptbatcher/PTBatcherGUI.cpp:144
+msgid "stitch_project.pto [output prefix]|assistant_project.pto"
+msgstr ""
+
 #: hugin1/ptbatcher/ProjectArray.cpp:66
 msgid "Waiting"
 msgstr "Väntar"
@@ -2718,10 +2722,6 @@ msgstr "Fel, kan inte omvandla id"
 msgid "Assistant"
 msgstr "Assistent"
 
-#: hugin1/ptbatcher/PTBatcherGUI.cpp:131 hugin1/ptbatcher/PTBatcherGUI.cpp:144
-msgid "stitch_project.pto [output prefix]|assistant_project.pto"
-msgstr ""
-
 #: hugin1/stitch_project/hugin_stitch_project.cpp:135
 #, c-format
 msgid ""
@@ -2788,10 +2788,10 @@ msgstr "Licens"
 msgid "System"
 msgstr "Systemgrundinställning"
 
-#: translations/xrc.cpp:9 translations/xrc.cpp:32 translations/xrc.cpp:146
+#: translations/xrc.cpp:9 translations/xrc.cpp:32 translations/xrc.cpp:169
 #: translations/xrc.cpp:438 translations/xrc.cpp:507 translations/xrc.cpp:511
 #: translations/xrc.cpp:515 translations/xrc.cpp:609 translations/xrc.cpp:727
-#: translations/xrc.cpp:818 xrc.cpp:9 xrc.cpp:32 xrc.cpp:146 xrc.cpp:438
+#: translations/xrc.cpp:818 xrc.cpp:9 xrc.cpp:32 xrc.cpp:169 xrc.cpp:438
 #: xrc.cpp:507 xrc.cpp:511 xrc.cpp:515 xrc.cpp:609 xrc.cpp:727 xrc.cpp:818
 msgid "OK"
 msgstr "OK"
@@ -2949,10 +2949,10 @@ msgstr "Detektor"
 msgid "Directory:"
 msgstr "Detektor"
 
-#: translations/xrc.cpp:51 translations/xrc.cpp:128 translations/xrc.cpp:133
-#: translations/xrc.cpp:136 translations/xrc.cpp:141 translations/xrc.cpp:651
+#: translations/xrc.cpp:51 translations/xrc.cpp:151 translations/xrc.cpp:156
+#: translations/xrc.cpp:159 translations/xrc.cpp:164 translations/xrc.cpp:651
 #: translations/xrc.cpp:707 translations/xrc.cpp:713 translations/xrc.cpp:731
-#: xrc.cpp:51 xrc.cpp:128 xrc.cpp:133 xrc.cpp:136 xrc.cpp:141 xrc.cpp:651
+#: xrc.cpp:51 xrc.cpp:151 xrc.cpp:156 xrc.cpp:159 xrc.cpp:164 xrc.cpp:651
 #: xrc.cpp:707 xrc.cpp:713 xrc.cpp:731
 msgid "Choose..."
 msgstr "Välj..."
@@ -3179,90 +3179,183 @@ msgid "adddir"
 msgstr "adddir"
 
 #: translations/xrc.cpp:117 xrc.cpp:117
+msgid "previous image pair"
+msgstr "föregående bildpar"
+
+#: translations/xrc.cpp:118 xrc.cpp:118
+msgid "next image pair"
+msgstr "nästa bildpar"
+
+#: translations/xrc.cpp:119 xrc.cpp:119
+msgid "mode:"
+msgstr "typ:"
+
+#: translations/xrc.cpp:121 xrc.cpp:121
+msgid "vertical line"
+msgstr "vertikal linje"
+
+#: translations/xrc.cpp:122 xrc.cpp:122
+msgid "horizontal line"
+msgstr "horisontell linje"
+
+#: translations/xrc.cpp:123 translations/xrc.cpp:421 xrc.cpp:123 xrc.cpp:421
+msgid "Zoom:"
+msgstr "Zoom:"
+
+#: translations/xrc.cpp:124 translations/xrc.cpp:422 xrc.cpp:124 xrc.cpp:422
+msgid "fit to window"
+msgstr "passa till fönster"
+
+#: translations/xrc.cpp:125 translations/xrc.cpp:661 xrc.cpp:125 xrc.cpp:661
+msgid "Fine-tune"
+msgstr "Finjustera"
+
+#: translations/xrc.cpp:126 xrc.cpp:126
+msgid "Tries to optimize the currently active point"
+msgstr "Försöker optimera den nu aktiva punkten"
+
+#: translations/xrc.cpp:127 translations/xrc.cpp:717 xrc.cpp:127 xrc.cpp:717
+msgid "Celeste"
+msgstr "Celeste"
+
+#: translations/xrc.cpp:128 translations/xrc.cpp:197 xrc.cpp:128 xrc.cpp:197
+msgid "Tries to remove control points from clouds"
+msgstr "Försöker att ta bort kontrollpunkter från moln"
+
+#: translations/xrc.cpp:129 xrc.cpp:129
+msgid "auto fine-&tune"
+msgstr "&Automatisk finjustering"
+
+#: translations/xrc.cpp:130 xrc.cpp:130
+msgid "auto add"
+msgstr "lägg till automatiskt"
+
+#: translations/xrc.cpp:131 xrc.cpp:131
+msgid "immediately add control point when selecting a second point"
+msgstr "lägg till en kontrollpunkt direkt när en andra punkt markeras"
+
+#: translations/xrc.cpp:132 xrc.cpp:132
+msgid "auto estimate"
+msgstr "beräkna automatiskt"
+
+#: translations/xrc.cpp:133 xrc.cpp:133
+msgid ""
+"tries to estimate shift between the images and use it while placing control "
+"points"
+msgstr ""
+"försöker beräkna förskjutningen mellan bilderna och använda detta under "
+"utplaceringen av kontrollpunkterna"
+
+#: translations/xrc.cpp:134 xrc.cpp:134
+msgid "&Delete"
+msgstr "&Ta bort"
+
+#: translations/xrc.cpp:135 xrc.cpp:135
+msgid "&Add"
+msgstr "&Lägg till"
+
+#: translations/xrc.cpp:136 xrc.cpp:136
+msgid "add a new Point"
+msgstr "lägg till en ny punkt"
+
+#: translations/xrc.cpp:137 translations/xrc.cpp:294 translations/xrc.cpp:354
+#: xrc.cpp:137 xrc.cpp:294 xrc.cpp:354
+msgid "Control Points"
+msgstr "Kontrollpunkter"
+
+#: translations/xrc.cpp:138 translations/xrc.cpp:683 xrc.cpp:138 xrc.cpp:683
+msgid "Delete"
+msgstr "Ta bort"
+
+#: translations/xrc.cpp:139 xrc.cpp:139
+msgid "Select by Distance"
+msgstr "Välj efter avstånd"
+
+#: translations/xrc.cpp:140 xrc.cpp:140
 msgid "Description:"
 msgstr "Beskrivning:"
 
-#: translations/xrc.cpp:118 translations/xrc.cpp:249 translations/xrc.cpp:283
-#: xrc.cpp:118 xrc.cpp:249 xrc.cpp:283
+#: translations/xrc.cpp:141 translations/xrc.cpp:249 translations/xrc.cpp:283
+#: xrc.cpp:141 xrc.cpp:249 xrc.cpp:283
 msgid "Type:"
 msgstr "Typ:"
 
-#: translations/xrc.cpp:119 xrc.cpp:119
+#: translations/xrc.cpp:142 xrc.cpp:142
 msgid "Autopano (by A. Jenny)"
 msgstr "Autopano (av A. Jenny)"
 
-#: translations/xrc.cpp:120 xrc.cpp:120
+#: translations/xrc.cpp:143 xrc.cpp:143
 msgid "All images at once"
 msgstr "Alla bilder genast"
 
-#: translations/xrc.cpp:121 xrc.cpp:121
+#: translations/xrc.cpp:144 xrc.cpp:144
 msgid "Panorama with stacks"
 msgstr "Panorama med stackar"
 
-#: translations/xrc.cpp:122 xrc.cpp:122
+#: translations/xrc.cpp:145 xrc.cpp:145
 msgid "Multi-row panorama"
 msgstr "multippel-radspanorama"
 
-#: translations/xrc.cpp:123 xrc.cpp:123
+#: translations/xrc.cpp:146 xrc.cpp:146
 msgid "Multi-row panorama with stacks"
 msgstr "Multi-radspanorama med stackar"
 
-#: translations/xrc.cpp:124 xrc.cpp:124
+#: translations/xrc.cpp:147 xrc.cpp:147
 msgid "Prealigned panorama"
 msgstr "Förjusterat panorama"
 
-#: translations/xrc.cpp:125 xrc.cpp:125
+#: translations/xrc.cpp:148 xrc.cpp:148
 msgid "Detector"
 msgstr "Detektor"
 
-#: translations/xrc.cpp:126 xrc.cpp:126
+#: translations/xrc.cpp:149 xrc.cpp:149
 msgid "One step detector"
 msgstr "Enstegsdetektor"
 
-#: translations/xrc.cpp:127 translations/xrc.cpp:140 xrc.cpp:127 xrc.cpp:140
+#: translations/xrc.cpp:150 translations/xrc.cpp:163 xrc.cpp:150 xrc.cpp:163
 msgid "Program:"
 msgstr "Program:"
 
-#: translations/xrc.cpp:129 translations/xrc.cpp:134 translations/xrc.cpp:137
-#: translations/xrc.cpp:142 translations/xrc.cpp:652 xrc.cpp:129 xrc.cpp:134
-#: xrc.cpp:137 xrc.cpp:142 xrc.cpp:652
+#: translations/xrc.cpp:152 translations/xrc.cpp:157 translations/xrc.cpp:160
+#: translations/xrc.cpp:165 translations/xrc.cpp:652 xrc.cpp:152 xrc.cpp:157
+#: xrc.cpp:160 xrc.cpp:165 xrc.cpp:652
 msgid "Arguments:"
 msgstr "Argument:"
 
-#: translations/xrc.cpp:130 xrc.cpp:130
+#: translations/xrc.cpp:153 xrc.cpp:153
 #, fuzzy
 msgid "Cleanup arguments:"
 msgstr "Grundvärden:"
 
-#: translations/xrc.cpp:131 xrc.cpp:131
+#: translations/xrc.cpp:154 xrc.cpp:154
 msgid "Two step detector"
 msgstr "Tvåstegsdetektor"
 
-#: translations/xrc.cpp:132 xrc.cpp:132
+#: translations/xrc.cpp:155 xrc.cpp:155
 msgid "Feature descriptor:"
 msgstr "Känneteckens-deskriptor:"
 
-#: translations/xrc.cpp:135 xrc.cpp:135
+#: translations/xrc.cpp:158 xrc.cpp:158
 msgid "Feature matcher:"
 msgstr "Känneteckens-parare:"
 
-#: translations/xrc.cpp:138 xrc.cpp:138
+#: translations/xrc.cpp:161 xrc.cpp:161
 msgid "Detector for stacks"
 msgstr "Detektor för stackar"
 
-#: translations/xrc.cpp:139 xrc.cpp:139
+#: translations/xrc.cpp:162 xrc.cpp:162
 msgid "Leave empty, when no control point detector should run on stacks."
 msgstr "Lämna tom, när ingen kontrollpunktsdetektor skall köras på stackar."
 
-#: translations/xrc.cpp:143 xrc.cpp:143
+#: translations/xrc.cpp:166 xrc.cpp:166
 msgid "Advanced option"
 msgstr "Avancerade alternativ"
 
-#: translations/xrc.cpp:144 xrc.cpp:144
+#: translations/xrc.cpp:167 xrc.cpp:167
 msgid "This setting has no advanced options."
 msgstr "Denna inställning har inga avancerade alternativ."
 
-#: translations/xrc.cpp:145 xrc.cpp:145
+#: translations/xrc.cpp:168 xrc.cpp:168
 msgid ""
 "following patterns will be substituted before running:\n"
 "%o  -- output project (0.oto will be appended when using Autopano)\n"
@@ -3283,102 +3376,9 @@ msgstr ""
 "%namefile -- fil som innehåller bildfilernas namn\n"
 "%s -- ange panotools script%k -- mellanliggande  nyckelfil(er)"
 
-#: translations/xrc.cpp:148 xrc.cpp:148
+#: translations/xrc.cpp:171 xrc.cpp:171
 msgid "Parameters for Control Point Detectors"
 msgstr "Parametrar för Kontrollpunktdetektorer"
-
-#: translations/xrc.cpp:149 xrc.cpp:149
-msgid "previous image pair"
-msgstr "föregående bildpar"
-
-#: translations/xrc.cpp:150 xrc.cpp:150
-msgid "next image pair"
-msgstr "nästa bildpar"
-
-#: translations/xrc.cpp:151 xrc.cpp:151
-msgid "mode:"
-msgstr "typ:"
-
-#: translations/xrc.cpp:153 xrc.cpp:153
-msgid "vertical line"
-msgstr "vertikal linje"
-
-#: translations/xrc.cpp:154 xrc.cpp:154
-msgid "horizontal line"
-msgstr "horisontell linje"
-
-#: translations/xrc.cpp:155 translations/xrc.cpp:421 xrc.cpp:155 xrc.cpp:421
-msgid "Zoom:"
-msgstr "Zoom:"
-
-#: translations/xrc.cpp:156 translations/xrc.cpp:422 xrc.cpp:156 xrc.cpp:422
-msgid "fit to window"
-msgstr "passa till fönster"
-
-#: translations/xrc.cpp:157 translations/xrc.cpp:661 xrc.cpp:157 xrc.cpp:661
-msgid "Fine-tune"
-msgstr "Finjustera"
-
-#: translations/xrc.cpp:158 xrc.cpp:158
-msgid "Tries to optimize the currently active point"
-msgstr "Försöker optimera den nu aktiva punkten"
-
-#: translations/xrc.cpp:159 translations/xrc.cpp:717 xrc.cpp:159 xrc.cpp:717
-msgid "Celeste"
-msgstr "Celeste"
-
-#: translations/xrc.cpp:160 translations/xrc.cpp:197 xrc.cpp:160 xrc.cpp:197
-msgid "Tries to remove control points from clouds"
-msgstr "Försöker att ta bort kontrollpunkter från moln"
-
-#: translations/xrc.cpp:161 xrc.cpp:161
-msgid "auto fine-&tune"
-msgstr "&Automatisk finjustering"
-
-#: translations/xrc.cpp:162 xrc.cpp:162
-msgid "auto add"
-msgstr "lägg till automatiskt"
-
-#: translations/xrc.cpp:163 xrc.cpp:163
-msgid "immediately add control point when selecting a second point"
-msgstr "lägg till en kontrollpunkt direkt när en andra punkt markeras"
-
-#: translations/xrc.cpp:164 xrc.cpp:164
-msgid "auto estimate"
-msgstr "beräkna automatiskt"
-
-#: translations/xrc.cpp:165 xrc.cpp:165
-msgid ""
-"tries to estimate shift between the images and use it while placing control "
-"points"
-msgstr ""
-"försöker beräkna förskjutningen mellan bilderna och använda detta under "
-"utplaceringen av kontrollpunkterna"
-
-#: translations/xrc.cpp:166 xrc.cpp:166
-msgid "&Delete"
-msgstr "&Ta bort"
-
-#: translations/xrc.cpp:167 xrc.cpp:167
-msgid "&Add"
-msgstr "&Lägg till"
-
-#: translations/xrc.cpp:168 xrc.cpp:168
-msgid "add a new Point"
-msgstr "lägg till en ny punkt"
-
-#: translations/xrc.cpp:169 translations/xrc.cpp:294 translations/xrc.cpp:354
-#: xrc.cpp:169 xrc.cpp:294 xrc.cpp:354
-msgid "Control Points"
-msgstr "Kontrollpunkter"
-
-#: translations/xrc.cpp:170 translations/xrc.cpp:683 xrc.cpp:170 xrc.cpp:683
-msgid "Delete"
-msgstr "Ta bort"
-
-#: translations/xrc.cpp:171 xrc.cpp:171
-msgid "Select by Distance"
-msgstr "Välj efter avstånd"
 
 #: translations/xrc.cpp:172 translations/xrc.cpp:532 xrc.cpp:172 xrc.cpp:532
 msgid "Top:"
