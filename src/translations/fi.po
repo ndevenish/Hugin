@@ -2560,8 +2560,8 @@ msgstr ""
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:165
 msgid ""
-"The list contains not processed possible panorama.\n"
-"If you close the dialog, you will lost them.\n"
+"The list contains possibly unprocessed panoramas.\n"
+"If you close the dialog, you will lose them.\n"
 "Continue anyway?"
 msgstr ""
 
