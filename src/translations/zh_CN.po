@@ -4,7 +4,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2010-12-23 13:52-0500\n"
-"PO-Revision-Date: 2010-09-10 15:16+0800\n"
+"PO-Revision-Date: 2010-12-23 18:30+0800\n"
 "Last-Translator: Lu Fang\n"
 "Language-Team: Chinese Simplified <N/A>\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 #: hugin1/base_wx/ImageCache.cpp:539
 #, c-format
 msgid "Loading image %s"
-msgstr "装载图像 %s"
+msgstr "加载图像 %s"
 
 #: hugin1/base_wx/ImageCache.cpp:683
 #, c-format
@@ -25,7 +25,7 @@ msgstr "读取图像错误: %s"
 
 #: hugin1/base_wx/ImageCache.cpp:691
 msgid "Cannot load image: "
-msgstr "不能装载图像: "
+msgstr "不能加载图像: "
 
 #: hugin1/base_wx/ImageCache.cpp:719
 #, c-format
@@ -78,7 +78,7 @@ msgstr "运行时间: "
 
 #: hugin1/base_wx/MyProgressDialog.h:104
 msgid "Optimizing Panorama"
-msgstr "全景图像优化中"
+msgstr "正在优化全景图像"
 
 #: hugin1/base_wx/PTWXDlg.cpp:48 hugin1/base_wx/PTWXDlg.cpp:66
 #: hugin1/base_wx/PTWXDlg.cpp:118 translations/xrc.cpp:729 xrc.cpp:729
@@ -161,16 +161,17 @@ msgid "Error during stitching"
 msgstr "缝合时出错"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:354
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Error while running assistant\n"
 "%s"
-msgstr "分析 panotools 脚本时出错: %s"
+msgstr ""
+"运行辅助时出错\n"
+"%s"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:355 hugin1/base_wx/RunStitchPanel.cpp:363
-#, fuzzy
 msgid "Error during running assistant"
-msgstr "缝合时出错"
+msgstr "运行辅助时出错"
 
 #: hugin1/base_wx/huginConfig.cpp:47 hugin1/base_wx/huginConfig.cpp:82
 #, c-format
@@ -219,61 +220,61 @@ msgstr ""
 "HDR|EXR 文件 (*.exr)|*.exr;*.EXR|所有文件 (*)|*"
 
 #: hugin1/hugin/AboutDialog.cpp:138
-#, fuzzy, c-format
+#, c-format
 msgid "Operating System: %s"
-msgstr "创建灰度 %s"
+msgstr "操作系统: %s"
 
 #: hugin1/hugin/AboutDialog.cpp:141
 msgid "64 bit"
-msgstr ""
+msgstr "64 bit"
 
 #: hugin1/hugin/AboutDialog.cpp:143
 msgid "32 bit"
-msgstr ""
+msgstr "32 bit"
 
 #: hugin1/hugin/AboutDialog.cpp:144
-#, fuzzy, c-format
+#, c-format
 msgid "Architecture: %s"
-msgstr "建筑的"
+msgstr "建筑: %s"
 
 #: hugin1/hugin/AboutDialog.cpp:147
 #, c-format
 msgid "Free memory: %ld kiB"
-msgstr ""
+msgstr "空闲内存: %ld kiB"
 
 #: hugin1/hugin/AboutDialog.cpp:150
 #, c-format
 msgid "Active Codepage: %u"
-msgstr ""
+msgstr "有效代码页: %u"
 
 #: hugin1/hugin/AboutDialog.cpp:182
-#, fuzzy, c-format
+#, c-format
 msgid "Version: %s"
-msgstr "版本 %s"
+msgstr "版本: %s"
 
 #: hugin1/hugin/AboutDialog.cpp:183
 #, c-format
 msgid "Path to ressources: %s"
-msgstr ""
+msgstr "资源路径: %s"
 
 #: hugin1/hugin/AboutDialog.cpp:184
 #, c-format
 msgid "Path to data: %s"
-msgstr ""
+msgstr "数据路径: %s"
 
 #: hugin1/hugin/AssistantPanel.cpp:220
 msgid "Please load images by pressing on the Load images button."
-msgstr "请点击装载图像按钮来装载图像"
+msgstr "请点击加载图像按钮来加载图像"
 
 #: hugin1/hugin/AssistantPanel.cpp:253
-#, fuzzy, c-format
+#, c-format
 msgid "%lu images loaded."
-msgstr "%d 图像被装载."
+msgstr "%lu 图像被加载."
 
 #: hugin1/hugin/AssistantPanel.cpp:290
-#, fuzzy, c-format
+#, c-format
 msgid "Images are connected by %lu control points.\n"
-msgstr "图像通过 %d 个控制点相连接.\n"
+msgstr "图像通过 %lu 个控制点来连接.\n"
 
 #: hugin1/hugin/AssistantPanel.cpp:299
 #, c-format
@@ -311,7 +312,7 @@ msgid ""
 "required."
 msgstr ""
 "极差的融合. 检查坏控制点, 镜头参数, 或者存在视差或移动错误的图像. 优化可能失"
-"败. 需要人为干预."
+"败. 需要人工干预."
 
 #: hugin1/hugin/AssistantPanel.cpp:322
 #, c-format
@@ -326,9 +327,9 @@ msgid ""
 "geometrical optimization from the the Optimizer tab and the photometric "
 "optimization from the Exposure tab."
 msgstr ""
-"注意: 自动对齐使用首选项的默认设置. 假如你在项目的高级标签页中自定义了设置并"
-"且想要使用这些自定义的设置, 运行图像标签页中的控制点检测, 优化标签页中的几何"
-"优化以及曝光标签页中的测光优化."
+"注意: 自动对齐使用首选项的默认设置. 假如您在项目的高级面板中自定义了设置并且"
+"想要使用这些自定义的设置, 运行图像面板中的控制点检测, 优化面板中的几何优化以"
+"及曝光面板中的测光优化."
 
 #: hugin1/hugin/AssistantPanel.cpp:361
 msgid ""
@@ -339,9 +340,8 @@ msgstr ""
 "请增加更多的图像."
 
 #: hugin1/hugin/AssistantPanel.cpp:403
-#, fuzzy
 msgid "Running assistant"
-msgstr "正在运行 Celeste"
+msgstr "正在运行辅助"
 
 #: hugin1/hugin/AssistantPanel.cpp:427
 #, c-format
@@ -363,7 +363,7 @@ msgstr ""
 msgid ""
 "The assistant did not complete successful. Please check the resulting "
 "project file."
-msgstr ""
+msgstr "辅助没有处理成功. 请检查项目文件的结果."
 
 #: hugin1/hugin/CPDetectorDialog.cpp:93
 msgid "Autopano from http://autopano.kolor.com is not available for OSX"
@@ -461,25 +461,23 @@ msgid "Estimated point outside image"
 msgstr "估算画外点"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1067
-#, fuzzy
 msgid "No similar point found."
-msgstr "没有发现相似点"
+msgstr "没有发现相似点."
 
 #: hugin1/hugin/CPEditorPanel.cpp:1069 hugin1/hugin/CPEditorPanel.cpp:1082
 #: hugin1/hugin/GLPreviewFrame.cpp:1816 hugin1/hugin/MainFrame.cpp:508
 #: hugin1/hugin/PanoPanel.cpp:1329 hugin1/hugin/PanoPanel.cpp:1357
-#, fuzzy
 msgid "Hugin"
-msgstr "匈牙利语"
+msgstr "Hugin"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1074
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Check the similarity visually.\n"
 "Correlation coefficient (%.3f) is lower than the threshold set in the "
 "preferences."
 msgstr ""
-"没有发现相似点. 真实地检查相似处.\n"
+"检查相似外观.\n"
 "相关系数 (%.3f) 低于首选项中设置的阀值."
 
 #: hugin1/hugin/CPEditorPanel.cpp:1079
@@ -573,7 +571,6 @@ msgid "searching for cloud-like control points..."
 msgstr "正在搜索似云控制点..."
 
 #: hugin1/hugin/CPEditorPanel.cpp:2181 hugin1/hugin/ImagesPanel.cpp:1025
-#, fuzzy
 msgid "Loading model file"
 msgstr "装载图像 %s"
 
@@ -678,7 +675,7 @@ msgstr "无"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:280
 msgid "Hide"
-msgstr ""
+msgstr "隐藏"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:305 hugin1/hugin/PreviewFrame.cpp:169
 msgid "VFOV"
@@ -741,19 +738,16 @@ msgid "Roll value must be numeric."
 msgstr "滚转值必须是数字."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:931
-#, fuzzy
 msgid "X value must be numeric."
-msgstr "偏航值必须是数字."
+msgstr "X 值必须是数字."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:938
-#, fuzzy
 msgid "Y value must be numeric."
-msgstr "偏航值必须是数字."
+msgstr "Y 值必须是数字."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:945
-#, fuzzy
 msgid "Z value must be numeric."
-msgstr "偏航值必须是数字."
+msgstr "Z 值必须是数字."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:964 hugin1/hugin/GLPreviewFrame.cpp:986
 #: hugin1/hugin/GLPreviewFrame.cpp:1664 hugin1/hugin/GLPreviewFrame.cpp:1695
@@ -809,21 +803,21 @@ msgstr "无效的可见视野值. 这个项目的最大可见视野值是 %lf."
 msgid ""
 "With a wide field of view, panoramas with rectilinear projection get very "
 "stretched towards the edges.\n"
-msgstr ""
+msgstr "带有一个宽视野, 使用直线投影的全景图像在边缘处会被拉伸得非常平整.\n"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1739
 msgid ""
 "Since the field of view is only very wide in the horizontal direction, try a "
 "cylindrical projection instead."
-msgstr ""
+msgstr "由于视野只有水平方向非常宽, 尝试使用一个圆柱投影来代替."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1741
 msgid "For a very wide panorama, try equirectangular projection instead."
-msgstr ""
+msgstr "对于一个非常宽的全景图像, 尝试使用正方形投影来代替."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1743
 msgid " You could also try Panini projection."
-msgstr ""
+msgstr " 您也可以尝试 Panini 投影."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1748
 msgid ""
@@ -832,6 +826,8 @@ msgid ""
 "An equirectangular projection would fit the same content in less vertical "
 "space."
 msgstr ""
+"带有一个宽垂直视野, 使用圆柱投影的全景图像在顶部和底部会被拉伸得非常平整.\n"
+"一个正方形投影可以在较少垂直空间内得到相同内容."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1754
 msgid ""
@@ -839,6 +835,8 @@ msgid ""
 "panorama projection to cylindrical.\n"
 "Cylindrical projection preserves vertical lines, unlike equirectangular."
 msgstr ""
+"由于垂直视野不太宽, 您可以尝试设置全景投影为圆柱投影.\n"
+"圆柱投影保持垂直线, 不像正方形投影."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1760
 msgid ""
@@ -847,6 +845,8 @@ msgid ""
 "A conformal projection preserves angles around a point, which often makes it "
 "easier on the eye."
 msgstr ""
+"球面投影是正形的, 不像鱼眼全景投影.\n"
+"一个正形投影保持了围绕一个点的各个角度, 经常使图像更容易令人欣赏."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1765
 msgid ""
@@ -855,12 +855,14 @@ msgid ""
 "The Fisheye panorama projection compresses it, so you can fit in a wide "
 "field of view and still have a reasonable coverage of the middle."
 msgstr ""
+"使用球面投影并带有一个非常宽视野的全景图像将图像沿大量边缘进行拉伸.\n"
+"鱼眼投影压缩了它, 所以您能用于一个宽视野并且仍然拥有一个合适的中央包裹."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1772
 msgid ""
 "Setting the panorama to rectilinear projection would keep the straight lines "
 "straight."
-msgstr ""
+msgstr "设置全景图像到直线投影能够保持直线的直线度."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1814
 msgid ""
@@ -868,6 +870,8 @@ msgid ""
 "projection.\n"
 "If you want to see the bar again, activate the bar in the preferences again."
 msgstr ""
+"您已经隐藏了信息栏, 它可以显示关于选择投影方面的提示.\n"
+"假如您希望再次看见这一栏, 请再次在首选项中激活这一栏."
 
 #: hugin1/hugin/GLViewer.cpp:128
 msgid ""
@@ -1041,9 +1045,9 @@ msgid "Number of masks"
 msgstr "蒙板编号"
 
 #: hugin1/hugin/ImagesPanel.cpp:329
-#, fuzzy, c-format
+#, c-format
 msgid "Added %lu control points"
-msgstr "增加了 %d 个控制点"
+msgstr "增加了 %lu 个控制点"
 
 #: hugin1/hugin/ImagesPanel.cpp:329
 msgid "Control point detector result"
@@ -1066,18 +1070,18 @@ msgid "Finished cleaning"
 msgstr "已经完成清理"
 
 #: hugin1/hugin/ImagesPanel.cpp:379
-#, fuzzy, c-format
+#, c-format
 msgid "Removed %u control points"
-msgstr "移除了 %d 个控制点"
+msgstr "移除了 %u 个控制点"
 
 #: hugin1/hugin/ImagesPanel.cpp:379
 msgid "Cleaning"
 msgstr "正在清理"
 
 #: hugin1/hugin/ImagesPanel.cpp:881
-#, fuzzy, c-format
+#, c-format
 msgid "Really Delete %lu control points?"
-msgstr "真的要删除 %d 控制点吗?"
+msgstr "真的要删除 %lu 个控制点吗?"
 
 #: hugin1/hugin/ImagesPanel.cpp:883
 msgid "Delete Control Points"
@@ -1102,9 +1106,9 @@ msgid "Change stack number"
 msgstr "修改堆栈编号"
 
 #: hugin1/hugin/ImagesPanel.cpp:1088
-#, fuzzy, c-format
+#, c-format
 msgid "Removed %lu control points"
-msgstr "移除了 %d 个控制点"
+msgstr "移除了 %lu 个控制点"
 
 #: hugin1/hugin/LensPanel.cpp:750 hugin1/hugin/LensPanel.cpp:842
 #: hugin1/hugin/LensPanel.cpp:886 hugin1/hugin/LensPanel.cpp:1011
@@ -1122,7 +1126,7 @@ msgstr "镜头项目文件 (*.ini)|*.ini|所有文件 (*)|*"
 
 #: hugin1/hugin/LensPanel.cpp:895
 msgid "Load lens parameters"
-msgstr "装载镜头参数"
+msgstr "加载镜头参数"
 
 #: hugin1/hugin/LensPanel.cpp:897
 msgid "Lens Project Files (*.ini)|*.ini|All files (*.*)|*.*"
@@ -1138,7 +1142,7 @@ msgstr ""
 
 #: hugin1/hugin/LensPanel.cpp:917
 msgid "Error loading lens parameters"
-msgstr "装载镜头参数出错"
+msgstr "加载镜头参数出错"
 
 #: hugin1/hugin/LensPanel.cpp:1020
 msgid ""
@@ -1208,21 +1212,20 @@ msgstr "开始了"
 
 #: hugin1/hugin/MainFrame.cpp:506
 msgid "Save changes to the panorama before closing?"
-msgstr ""
+msgstr "在关闭前保存对全影图像的修改吗?"
 
 #: hugin1/hugin/MainFrame.cpp:514
 msgid ""
 "If you close without saving, changes since your last save will be discarded"
-msgstr ""
+msgstr "假如您不保存就关闭, 自从您上次保存以来的修改将会被丢弃"
 
 #: hugin1/hugin/MainFrame.cpp:517
-#, fuzzy
 msgid "Don't Save"
-msgstr "不要修改"
+msgstr "不要保存"
 
 #: hugin1/hugin/MainFrame.cpp:520
 msgid "Close without saving"
-msgstr ""
+msgstr "不保存就关闭"
 
 #: hugin1/hugin/MainFrame.cpp:550
 msgid "forced close"
@@ -1410,10 +1413,10 @@ msgid "Error!"
 msgstr "错误!"
 
 #: hugin1/hugin/MainFrame.cpp:1849
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Celeste model expected in %s not found, Hugin needs to be properly installed."
-msgstr "没有发现 Celeste 模式, Hugin 需要正确安装."
+msgstr "在 %s 中没有发现预期的 Celeste 模型, Hugin 需要被正确安装."
 
 #: hugin1/hugin/MainFrame.cpp:1849 hugin1/hugin/huginApp.cpp:171
 #: hugin1/hugin/huginApp.cpp:183 hugin1/hugin/huginApp.cpp:196
@@ -1424,9 +1427,9 @@ msgid "Fatal Error"
 msgstr "致命错误"
 
 #: hugin1/hugin/MainFrame.cpp:1854
-#, fuzzy, c-format
+#, c-format
 msgid "Could not load Celeste model file %s"
-msgstr "不能读取文件  %s 的图像尺寸"
+msgstr "不能加载 Celeste 模型文件 %s"
 
 #: hugin1/hugin/MaskEditorPanel.cpp:101
 msgid "Mask type"
@@ -1452,7 +1455,7 @@ msgstr "保存蒙板"
 
 #: hugin1/hugin/MaskEditorPanel.cpp:353
 msgid "Load mask"
-msgstr "装载蒙板"
+msgstr "加载蒙板"
 
 #: hugin1/hugin/MaskEditorPanel.cpp:358
 msgid "Load mask: cancel"
@@ -1559,11 +1562,12 @@ msgid ""
 "You selected no parameters to optimize.\n"
 "Therefore optimization will be canceled."
 msgstr ""
+"您没有选择优化参数.\n"
+"因此优化将被取消."
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:498
-#, fuzzy
 msgid "Exposure optimization"
-msgstr "测光优化"
+msgstr "曝光优化"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:510
 msgid ""
@@ -1588,11 +1592,11 @@ msgstr "测光对齐"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:519
 msgid "Loading images"
-msgstr "装载图像"
+msgstr "加载图像"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:530
 msgid "Error: could not load all images"
-msgstr "错误: 不能装载所有图像"
+msgstr "错误: 不能加载所有图像"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:550
 msgid "Error: no overlapping points found, Photometric optimization aborted"
@@ -1738,7 +1742,7 @@ msgstr "ShellExecuteEx 失败"
 
 #: hugin1/hugin/PanoPanel.cpp:1327
 msgid "Are you sure you want to stitch such a large panorama?"
-msgstr ""
+msgstr "您确定想要缝合一张这样巨大的全景图像吗?"
 
 #: hugin1/hugin/PanoPanel.cpp:1335
 #, c-format
@@ -1748,15 +1752,17 @@ msgid ""
 "and stitch from the Stitcher tab. Stitching a panorama this size could take "
 "a long time and a large amount of memory."
 msgstr ""
+"您尝试缝合的全景图像有 %.1f giga 像素.\n"
+"假如它太大了, 从缝合器面板中减少全景图像画布尺寸和裁剪区域大小. 缝合一张这种"
+"尺寸的全景图像会使用很长时间和大量内存."
 
 #: hugin1/hugin/PanoPanel.cpp:1337
-#, fuzzy
 msgid "Stitch anyway"
-msgstr "现在缝合!"
+msgstr "总是缝合"
 
 #: hugin1/hugin/PanoPanel.cpp:1337
 msgid "Let me fix that"
-msgstr ""
+msgstr "让我修复它"
 
 #: hugin1/hugin/PanoPanel.cpp:1354
 #, c-format
@@ -1768,6 +1774,11 @@ msgid ""
 "and stitch from the Stitcher tab. Stitching a panorama this size could take "
 "a long time and a large amount of memory."
 msgstr ""
+"您确定想要缝合一张这样巨大的全景图像吗?\n"
+"\n"
+"您尝试缝合的全景图像有 %.1f giga 像素.\n"
+"假如它太大了, 从缝合器面板中减少全景图像画布尺寸和裁剪区域大小. 缝合一张这种"
+"尺寸的全景图像会使用很长时间和大量内存."
 
 #: hugin1/hugin/PreferencesDialog.cpp:115
 msgid "System default"
@@ -1894,7 +1905,7 @@ msgstr "真的要将显示的首选项重置成默认值吗?"
 
 #: hugin1/hugin/PreferencesDialog.cpp:612 translations/xrc.cpp:725 xrc.cpp:725
 msgid "Load Defaults"
-msgstr "装载默认值"
+msgstr "加载默认值"
 
 #: hugin1/hugin/PreferencesDialog.cpp:823
 msgid "Please select an entry first"
@@ -1922,20 +1933,17 @@ msgid "Delete control point detector setting"
 msgstr "删除控制点检测器设置"
 
 #: hugin1/hugin/PreferencesDialog.cpp:900
-#, fuzzy
 msgid "Load control point detector settings"
-msgstr "删除控制点检测器设置"
+msgstr "加载控制点检测器设置"
 
 #: hugin1/hugin/PreferencesDialog.cpp:902
 #: hugin1/hugin/PreferencesDialog.cpp:917
-#, fuzzy
 msgid "Control point detector settings (*.setting)|*.setting"
-msgstr "删除控制点检测器设置"
+msgstr "控制点检测器设置 (*.setting)|*.setting"
 
 #: hugin1/hugin/PreferencesDialog.cpp:915
-#, fuzzy
 msgid "Save control point detector settings"
-msgstr "删除控制点检测器设置"
+msgstr "保存控制点检测器设置"
 
 #: hugin1/hugin/PreviewCropTool.cpp:55
 msgid "Drag the inside of the cropping rectangle to adjust the crop."
@@ -2112,7 +2120,7 @@ msgstr "不能应用模板"
 
 #: hugin1/hugin/wxPanoCommand.cpp:625
 msgid "Error loading project file"
-msgstr "装载项目文件出错"
+msgstr "加载项目文件出错"
 
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:204
 #, c-format
@@ -2126,7 +2134,7 @@ msgstr ""
 
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:328
 msgid "cleaning up temporary keypoint files"
-msgstr ""
+msgstr "清理临时关键点文件"
 
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:387
 #, c-format
@@ -2313,9 +2321,8 @@ msgstr ""
 #: hugin1/ptbatcher/Batch.cpp:246 hugin1/ptbatcher/BatchFrame.cpp:594
 #: hugin1/ptbatcher/BatchFrame.cpp:647 hugin1/ptbatcher/BatchFrame.cpp:680
 #: hugin1/ptbatcher/BatchFrame.cpp:714 hugin1/ptbatcher/BatchFrame.cpp:741
-#, fuzzy
 msgid "PTBatcherGUI"
-msgstr "PTStitcher"
+msgstr "PTBatcherGUI"
 
 #: hugin1/ptbatcher/Batch.cpp:260 hugin1/ptbatcher/Batch.cpp:281
 msgid "Cleared batch."
@@ -2328,7 +2335,7 @@ msgstr "错误: 不能获得状态, 编号 %d 的项目不在列表中."
 
 #: hugin1/ptbatcher/Batch.cpp:397
 msgid "Error: Could not load batch file."
-msgstr "错误: 不能装载批处理文件."
+msgstr "错误: 不能加载批处理文件."
 
 #: hugin1/ptbatcher/Batch.cpp:518
 msgid "Batch successfully completed."
@@ -2365,9 +2372,9 @@ msgid "%s - Stitching"
 msgstr "%s - 缝合中"
 
 #: hugin1/ptbatcher/Batch.cpp:711
-#, fuzzy, c-format
+#, c-format
 msgid "%s - Assistant"
-msgstr "助手"
+msgstr "%s - 辅助"
 
 #: hugin1/ptbatcher/Batch.cpp:761
 #, c-format
@@ -2429,7 +2436,7 @@ msgstr "为项目指定输出前缀"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:457
 msgid "The prefix of an assistant target can not be changed."
-msgstr ""
+msgstr "不能修改一个辅助目标的前缀."
 
 #: hugin1/ptbatcher/BatchFrame.cpp:463
 msgid "Please select a project"
@@ -2520,11 +2527,15 @@ msgid "Batch file (*.ptb)|*.ptb;|All files (*)|*"
 msgstr "批处理文件 (*.ptb)|*.ptb;|所有文件 (*)|*"
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:165
+#, fuzzy
 msgid ""
 "The list contains possibly unprocessed panoramas.\n"
 "If you close the dialog, you will lose them.\n"
 "Continue anyway?"
 msgstr ""
+"这份列表包含了没有处理的有可能是全景图像的图像.\n"
+"假如您关闭这个对话框, 您将丢失它们.\n"
+"无论如何也要继续?"
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:166
 #: hugin1/ptbatcher/FindPanoDialog.cpp:201
@@ -2533,7 +2544,7 @@ msgstr "问题"
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:190
 msgid "Accepted"
-msgstr ""
+msgstr "接受"
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:200
 msgid ""
@@ -2541,11 +2552,13 @@ msgid ""
 "If you continue, they will be disregarded.\n"
 "Do you still want to continue?"
 msgstr ""
+"这份列表包含了还没有处理的全景图像.\n"
+"假如您继续, 它们将被忽视.\n"
+"您仍然想要继续?"
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:210
-#, fuzzy
 msgid "Stop"
-msgstr "上:"
+msgstr "停止"
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:218
 #, c-format
@@ -2553,12 +2566,16 @@ msgid ""
 "Directory %s does not exist.\n"
 "Please give an existing directory."
 msgstr ""
+"目录 %s 不存在.\n"
+"请给出一个存在的目录."
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:238
 msgid ""
 "You have selected no possible panorama.\n"
 "Please select at least one panorama and try again."
 msgstr ""
+"您选择的不可能是全景图像.\n"
+"请至少选择一张全景图像然后重试."
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:259
 msgid ""
@@ -2566,35 +2583,35 @@ msgid ""
 "Maybe you have no write permission for these directories or your hard disc "
 "is full."
 msgstr ""
+"没有成功写入所有项目文件.\n"
+"也许您没有这些目录的写权限或者您的硬盘满了."
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:283
-#, fuzzy, c-format
+#, c-format
 msgid "Reading file %s"
-msgstr "装载图像 %s"
+msgstr "正在读取文件 %s"
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:357 translations/xrc.cpp:57 xrc.cpp:57
-#, fuzzy
 msgid "Start"
-msgstr "开始了"
+msgstr "开始"
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:363
-#, fuzzy, c-format
+#, c-format
 msgid "Found %d possible panoramas."
-msgstr "融合和混合后的全景图像"
+msgstr "发现 %d 张图像有可能是全景图像."
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:367
-#, fuzzy
 msgid "No possible panoramas found."
-msgstr "没有发现相似点"
+msgstr "没有发现有可能是全景图像的图像."
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:468
-#, fuzzy, c-format
+#, c-format
 msgid "%d images: %s"
-msgstr "增加图像"
+msgstr "%d 图像: %s"
 
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:131 hugin1/ptbatcher/PTBatcherGUI.cpp:144
 msgid "stitch_project.pto [output prefix]|assistant_project.pto"
-msgstr ""
+msgstr "stitch_project.pto [output prefix]|assistant_project.pto"
 
 #: hugin1/ptbatcher/ProjectArray.cpp:66
 msgid "Waiting"
@@ -2666,7 +2683,7 @@ msgstr "错误, 不能转换编号"
 #: translations/xrc.cpp:344 translations/xrc.cpp:632 xrc.cpp:289 xrc.cpp:344
 #: xrc.cpp:632
 msgid "Assistant"
-msgstr "助手"
+msgstr "辅助"
 
 #: hugin1/stitch_project/hugin_stitch_project.cpp:135
 #, c-format
@@ -2678,7 +2695,6 @@ msgstr ""
 " 版本: %s"
 
 #: hugin1/stitch_project/hugin_stitch_project.cpp:170
-#, fuzzy
 msgid ""
 "Error during stitching\n"
 "Please report the complete text to the bug tracker on https://bugs.launchpad."
@@ -2687,17 +2703,18 @@ msgid ""
 "Do you want to save the log file?"
 msgstr ""
 "缝合时出错\n"
-"请报告这份完整的文字到 http://sf.net/projects/hugin 的 bug tracker 内."
+"请提交这份完整的文本文件到 https://bugs.launchpad.net/hugin 上的 bug "
+"tracker.\n"
+"\n"
+"您想保存这份记录文件吗?"
 
 #: hugin1/stitch_project/hugin_stitch_project.cpp:175
-#, fuzzy
 msgid "Specify log file"
-msgstr "指定输出图像文件名"
+msgstr "指定记录文件"
 
 #: hugin1/stitch_project/hugin_stitch_project.cpp:177
-#, fuzzy
 msgid "Log files (*.log)|*.log|All files (*)|*"
-msgstr "项目文件 (*.pto)|*.pto|所有文件 (*)|*"
+msgstr "记录文件 (*.log)|*.log|所有文件 (*)|*"
 
 #: translations/xrc.cpp:1 translations/xrc.cpp:372 translations/xrc.cpp:408
 #: xrc.cpp:1 xrc.cpp:372 xrc.cpp:408
@@ -2729,9 +2746,8 @@ msgid "License"
 msgstr "许可"
 
 #: translations/xrc.cpp:8 xrc.cpp:8
-#, fuzzy
 msgid "System"
-msgstr "系统默认"
+msgstr "系统"
 
 #: translations/xrc.cpp:9 translations/xrc.cpp:32 translations/xrc.cpp:169
 #: translations/xrc.cpp:438 translations/xrc.cpp:507 translations/xrc.cpp:511
@@ -2743,15 +2759,15 @@ msgstr "确定"
 
 #: translations/xrc.cpp:10 xrc.cpp:10
 msgid "1. Load images..."
-msgstr "1. 装载图像..."
+msgstr "1. 加载图像..."
 
 #: translations/xrc.cpp:11 xrc.cpp:11
 msgid "Load a series of images"
-msgstr "装载一系列图像"
+msgstr "加载一系列图像"
 
 #: translations/xrc.cpp:12 xrc.cpp:12
 msgid "no images loaded"
-msgstr "没有装载图像"
+msgstr "没有加载图像"
 
 #: translations/xrc.cpp:13 xrc.cpp:13
 msgid "Automatic (use EXIF data)"
@@ -2771,7 +2787,7 @@ msgstr "焦距乘法器:"
 
 #: translations/xrc.cpp:17 translations/xrc.cpp:236 xrc.cpp:17 xrc.cpp:236
 msgid "Load lens..."
-msgstr "装载镜头..."
+msgstr "加载镜头..."
 
 #: translations/xrc.cpp:18 translations/xrc.cpp:291 translations/xrc.cpp:348
 #: xrc.cpp:18 xrc.cpp:291 xrc.cpp:348
@@ -2789,7 +2805,7 @@ msgstr "排列所有图像. 创建控制点并且优化图像位置"
 
 #: translations/xrc.cpp:21 xrc.cpp:21
 msgid "Send to assistant queue"
-msgstr ""
+msgstr "发送到辅助队列"
 
 #: translations/xrc.cpp:22 xrc.cpp:22
 msgid "3. Create panorama..."
@@ -2805,7 +2821,7 @@ msgstr "照相机和镜头数据"
 
 #: translations/xrc.cpp:26 xrc.cpp:26
 msgid "Load lens data..."
-msgstr "装载镜头数据..."
+msgstr "加载镜头数据..."
 
 #: translations/xrc.cpp:27 xrc.cpp:27
 msgid "Enter horizontal field of view (HFOV) or focal length and crop factor:"
@@ -2877,19 +2893,16 @@ msgid "Verbose output"
 msgstr "冗长的输出"
 
 #: translations/xrc.cpp:48 xrc.cpp:48
-#, fuzzy
 msgid "Searching panoramas"
-msgstr "全景图像缝合中"
+msgstr "搜索全景图像"
 
 #: translations/xrc.cpp:49 xrc.cpp:49
-#, fuzzy
 msgid "Directories"
-msgstr "检测器"
+msgstr "目录"
 
 #: translations/xrc.cpp:50 xrc.cpp:50
-#, fuzzy
 msgid "Directory:"
-msgstr "检测器"
+msgstr "目录:"
 
 #: translations/xrc.cpp:51 translations/xrc.cpp:151 translations/xrc.cpp:156
 #: translations/xrc.cpp:159 translations/xrc.cpp:164 translations/xrc.cpp:651
@@ -2901,49 +2914,43 @@ msgstr "选择..."
 
 #: translations/xrc.cpp:52 xrc.cpp:52
 msgid "include sub-directories"
-msgstr ""
+msgstr "包括子目录"
 
 #: translations/xrc.cpp:53 xrc.cpp:53
 msgid "Naming:"
-msgstr ""
+msgstr "命名:"
 
 #: translations/xrc.cpp:54 xrc.cpp:54
-#, fuzzy
 msgid "PanoramaXX.pto"
-msgstr "全景图像"
+msgstr "PanoramaXX.pto"
 
 #: translations/xrc.cpp:55 xrc.cpp:55
 msgid "First file - last file.pto"
-msgstr ""
+msgstr "First file - last file.pto"
 
 #: translations/xrc.cpp:56 xrc.cpp:56
-#, fuzzy
 msgid "Foldername.pto"
-msgstr "文件名"
+msgstr "Foldername.pto"
 
 #: translations/xrc.cpp:58 xrc.cpp:58
-#, fuzzy
 msgid "Found panoramas"
-msgstr "融合后的全景图像"
+msgstr "发现全景图像"
 
 #: translations/xrc.cpp:59 xrc.cpp:59
-#, fuzzy
 msgid "Send selected panoramas to queue"
-msgstr "融合后的全景图像 (enfuse)"
+msgstr "发送已选择的全景图像到队列中"
 
 #: translations/xrc.cpp:60 translations/xrc.cpp:767 xrc.cpp:60 xrc.cpp:767
 msgid "Close"
 msgstr "关闭"
 
 #: translations/xrc.cpp:61 xrc.cpp:61
-#, fuzzy
 msgid "Status report"
-msgstr "状态"
+msgstr "状态报告"
 
 #: translations/xrc.cpp:62 xrc.cpp:62
-#, fuzzy
 msgid "Failed projects"
-msgstr "保存项目 %s"
+msgstr "已经失败的项目"
 
 #: translations/xrc.cpp:63 xrc.cpp:63
 msgid "Output"
@@ -2970,14 +2977,12 @@ msgid "Removes selected project from the batch list"
 msgstr "从批处理列表中移除已选项目"
 
 #: translations/xrc.cpp:70 xrc.cpp:70
-#, fuzzy
 msgid "Search directory for..."
-msgstr "搜索目录"
+msgstr "搜索目录为了..."
 
 #: translations/xrc.cpp:71 xrc.cpp:71
-#, fuzzy
 msgid "Project files"
-msgstr "保存项目文件"
+msgstr "项目文件"
 
 #: translations/xrc.cpp:72 translations/xrc.cpp:115 xrc.cpp:72 xrc.cpp:115
 msgid "Appends all project files from a directory and subdirectories"
@@ -2990,11 +2995,11 @@ msgstr "图像"
 
 #: translations/xrc.cpp:74 xrc.cpp:74
 msgid "Searches in directories for image files suitable for panoramas"
-msgstr ""
+msgstr "在目录中搜索适合于全景图像的图像文件"
 
 #: translations/xrc.cpp:75 xrc.cpp:75
 msgid "Searches in directories for existing projects or for images"
-msgstr ""
+msgstr "为了已经存在的项目或者图像在目录中进行搜索"
 
 #: translations/xrc.cpp:76 translations/xrc.cpp:90 xrc.cpp:76 xrc.cpp:90
 msgid "Open batch"
@@ -3034,7 +3039,7 @@ msgstr "批处理缝合器帮助"
 
 #: translations/xrc.cpp:86 xrc.cpp:86
 msgid "Open Batch Stitcher help."
-msgstr "打开批处理缝合帮助."
+msgstr "打开批处理缝合器帮助."
 
 #: translations/xrc.cpp:89 xrc.cpp:89
 msgid "clear"
@@ -3263,9 +3268,8 @@ msgid "Arguments:"
 msgstr "参数:"
 
 #: translations/xrc.cpp:153 xrc.cpp:153
-#, fuzzy
 msgid "Cleanup arguments:"
-msgstr "默认参数:"
+msgstr "清理参数:"
 
 #: translations/xrc.cpp:154 xrc.cpp:154
 msgid "Two step detector"
@@ -3369,7 +3373,7 @@ msgstr "增加单独图像..."
 
 #: translations/xrc.cpp:183 xrc.cpp:183
 msgid "Load one or more pictures for this project"
-msgstr "为这个项目装载一张或多张图像"
+msgstr "为这个项目加载一张或多张图像"
 
 #: translations/xrc.cpp:184 xrc.cpp:184
 msgid "Add time-series of images..."
@@ -3377,7 +3381,7 @@ msgstr "增加时间序列图像..."
 
 #: translations/xrc.cpp:185 xrc.cpp:185
 msgid "Load a set of pictures taken at the same time"
-msgstr "同时装载一系列图像"
+msgstr "同时加载一系列图像"
 
 #: translations/xrc.cpp:186 translations/xrc.cpp:684 xrc.cpp:186 xrc.cpp:684
 msgid "Move up"
@@ -3580,7 +3584,7 @@ msgstr "快门速度:"
 
 #: translations/xrc.cpp:237 xrc.cpp:237
 msgid "Load lens parameters from a file"
-msgstr "从一个文件中装载镜头参数"
+msgstr "从一个文件中加载镜头参数"
 
 #: translations/xrc.cpp:238 xrc.cpp:238
 msgid "Save lens..."
@@ -3592,7 +3596,7 @@ msgstr "保存镜头参数到一个文件"
 
 #: translations/xrc.cpp:240 xrc.cpp:240
 msgid "Load EXIF"
-msgstr "装载 EXIF"
+msgstr "加载 EXIF"
 
 #: translations/xrc.cpp:241 xrc.cpp:241
 msgid "Try to read HFOV from the EXIF data"
@@ -3791,7 +3795,7 @@ msgstr "编写 PTStitcher 脚本 (&W)"
 msgid ""
 "Write current project to a PTStitcher compatible script file, useful for "
 "batch processing"
-msgstr "编写当前项目成为一个与 PTStitcher 兼容的脚本文件, 用于批处理"
+msgstr "编写当前项目成为一个与 PTStitcher 兼容的脚本文件, 有利于批处理"
 
 #: translations/xrc.cpp:309 xrc.cpp:309
 msgid "Most recently used projects"
@@ -3867,7 +3871,7 @@ msgid ""
 "Runs fine-tune on all control points. useful for projects created with other "
 "tools, like PTGui or PTAssembler"
 msgstr ""
-"在所有控制点上进行调整, 用于利用其他工具创建的项目, 例如 PTGui 或者 "
+"在所有控制点上进行调整, 有利于利用其他工具创建的项目, 例如 PTGui 或者 "
 "PTAssembler"
 
 #: translations/xrc.cpp:329 xrc.cpp:329
@@ -3908,7 +3912,7 @@ msgstr "全屏显示 hugins 主窗口"
 
 #: translations/xrc.cpp:338 xrc.cpp:338
 msgid "&Control point table"
-msgstr "控制点标签页 (&C)"
+msgstr "控制点面板 (&C)"
 
 #: translations/xrc.cpp:339 xrc.cpp:339
 msgid "Shows all control point distances"
@@ -3932,47 +3936,39 @@ msgstr "显示 OpenGL 预览窗口"
 
 #: translations/xrc.cpp:345 xrc.cpp:345
 msgid "Show the Assistant panel"
-msgstr ""
+msgstr "显示辅助面板"
 
 #: translations/xrc.cpp:347 xrc.cpp:347
-#, fuzzy
 msgid "Show the Images panel"
-msgstr "显示整幅全景图"
+msgstr "显示图像面板"
 
 #: translations/xrc.cpp:349 xrc.cpp:349
-#, fuzzy
 msgid "Show the Camera and Lens panel"
-msgstr "照相机和镜头数据"
+msgstr "显示照相机和镜头面板"
 
 #: translations/xrc.cpp:351 xrc.cpp:351
-#, fuzzy
 msgid "Show the Crop panel"
-msgstr "显示整幅全景图"
+msgstr "显示裁剪面板"
 
 #: translations/xrc.cpp:353 xrc.cpp:353
-#, fuzzy
 msgid "Show the Mask panel"
-msgstr "显示整幅全景图"
+msgstr "显示蒙板面板"
 
 #: translations/xrc.cpp:355 xrc.cpp:355
-#, fuzzy
 msgid "Show the Control Points panel"
-msgstr "显示控制点"
+msgstr "显示控制点面板"
 
 #: translations/xrc.cpp:357 xrc.cpp:357
-#, fuzzy
 msgid "Show the Optimizer panel"
-msgstr "显示预览图像"
+msgstr "显示优化器面板"
 
 #: translations/xrc.cpp:359 xrc.cpp:359
-#, fuzzy
 msgid "Show the Exposure panel"
-msgstr "显示预览图像"
+msgstr "显示曝光面板"
 
 #: translations/xrc.cpp:361 xrc.cpp:361
-#, fuzzy
 msgid "Show the Stitcher panel"
-msgstr "批处理缝合器帮助"
+msgstr "显示缝合器面板"
 
 #: translations/xrc.cpp:364 xrc.cpp:364
 msgid "Some information on the different buttons and so on."
@@ -4103,7 +4099,7 @@ msgstr "点"
 
 #: translations/xrc.cpp:407 xrc.cpp:407
 msgid "Show all control points in a single table"
-msgstr "在一个单独标签页中显示所有控制点"
+msgstr "在一个单独面板中显示所有控制点"
 
 #: translations/xrc.cpp:410 xrc.cpp:410
 msgid "Display credits for the creators of Hugin"
@@ -4123,7 +4119,7 @@ msgstr "删除蒙板"
 
 #: translations/xrc.cpp:414 xrc.cpp:414
 msgid "Load Mask"
-msgstr "装载蒙板"
+msgstr "加载蒙板"
 
 #: translations/xrc.cpp:416 xrc.cpp:416
 msgid "Mask type:"
@@ -4138,14 +4134,12 @@ msgid "Include region"
 msgstr "包含区域"
 
 #: translations/xrc.cpp:419 xrc.cpp:419
-#, fuzzy
 msgid "Exclude region from stack"
-msgstr "排除区域"
+msgstr "从堆栈中排除区域"
 
 #: translations/xrc.cpp:420 xrc.cpp:420
-#, fuzzy
 msgid "Include region from stack"
-msgstr "包含区域"
+msgstr "从堆栈中包括区域"
 
 #: translations/xrc.cpp:423 xrc.cpp:423
 msgid "Colours:"
@@ -4209,7 +4203,7 @@ msgstr "90° 逆时针方向"
 
 #: translations/xrc.cpp:440 xrc.cpp:440
 msgid "Loading mask"
-msgstr "正在装载蒙板"
+msgstr "正在加载蒙板"
 
 #: translations/xrc.cpp:441 xrc.cpp:441
 msgid "Quick Optimizer"
@@ -4289,8 +4283,8 @@ msgid ""
 "avoid errors due to badly fitting images, such as the nadir image in most "
 "fisheye panoramas"
 msgstr ""
-"只使用预览窗口中选择的图像的控制点. 对于避免由于坏的融合图像而产生的错误很管"
-"用, 比如多数鱼眼全景图像的底部图像"
+"只使用预览窗口中选择的图像的控制点. 有利于避免由于坏的融合图像而产生的错误, "
+"比如多数鱼眼全景图像的底部图像"
 
 #: translations/xrc.cpp:461 xrc.cpp:461
 msgid "yaw (y):"
@@ -4365,8 +4359,8 @@ msgid ""
 "Only consider images selected in preview window. Useful to avoid errors due "
 "to badly fitting images, such as the nadir image in most fisheye panoramas"
 msgstr ""
-"只考虑预览窗口中选择的图像. 对于避免由于坏的融合图像而产生的错误很管用, 比如"
-"多数鱼眼全景图像的底部图像"
+"只考虑预览窗口中选择的图像. 有利于避免由于坏的融合图像而产生的错误, 比如多数"
+"鱼眼全景图像的底部图像"
 
 #: translations/xrc.cpp:488 xrc.cpp:488
 msgid "Image variables:"
@@ -4442,7 +4436,7 @@ msgstr "保存裁切后的图像"
 
 #: translations/xrc.cpp:506 xrc.cpp:506
 msgid "Save cropped tiff output. Useful for enblend 2.4 and higher"
-msgstr "保存裁切的 tiff 输出. 对于 enblend 2.4 版或者更高版本有效"
+msgstr "保存裁切的 tiff 输出. 用于 enblend 2.4 版或者更高版本"
 
 #: translations/xrc.cpp:509 xrc.cpp:509
 msgid "Nona Options"
@@ -4461,27 +4455,22 @@ msgid "Enfuse options"
 msgstr "Enfuse 选项"
 
 #: translations/xrc.cpp:518 xrc.cpp:518
-#, fuzzy
 msgid "Projection:"
-msgstr "预测"
+msgstr "投影:"
 
 #: translations/xrc.cpp:519 xrc.cpp:519
-#, fuzzy
 msgid "Field of View:"
-msgstr "视野"
+msgstr "视野:"
 
 #: translations/xrc.cpp:520 xrc.cpp:520
-#, fuzzy
 msgid "Horizontal:"
-msgstr "水平 (d):"
+msgstr "水平:"
 
 #: translations/xrc.cpp:521 xrc.cpp:521
-#, fuzzy
 msgid "Vertical:"
-msgstr "垂直的:"
+msgstr "垂直:"
 
 #: translations/xrc.cpp:522 xrc.cpp:522
-#, fuzzy
 msgid "Calculate field of view"
 msgstr "计算视野"
 
@@ -4490,17 +4479,14 @@ msgid "Calculate Field of View"
 msgstr "计算视野"
 
 #: translations/xrc.cpp:524 xrc.cpp:524
-#, fuzzy
 msgid "Canvas Size:"
-msgstr "全景图像尺寸"
+msgstr "画布尺寸:"
 
 #: translations/xrc.cpp:525 xrc.cpp:525
-#, fuzzy
 msgid "Width:"
 msgstr "宽度:"
 
 #: translations/xrc.cpp:526 xrc.cpp:526
-#, fuzzy
 msgid "Height:"
 msgstr "高度:"
 
@@ -4509,7 +4495,6 @@ msgid "Calculate Optimal Size"
 msgstr "计算优化尺寸"
 
 #: translations/xrc.cpp:528 xrc.cpp:528
-#, fuzzy
 msgid "Calculate optimal size"
 msgstr "计算优化尺寸"
 
@@ -4520,19 +4505,16 @@ msgid ""
 msgstr "计算优化图像尺寸, 以便决定图像中心大概位置"
 
 #: translations/xrc.cpp:530 xrc.cpp:530
-#, fuzzy
 msgid "Crop:"
-msgstr "裁切"
+msgstr "裁剪:"
 
 #: translations/xrc.cpp:535 xrc.cpp:535
-#, fuzzy
 msgid "Fit Crop to Images"
-msgstr "修剪图像"
+msgstr "调整裁剪到图像"
 
 #: translations/xrc.cpp:536 xrc.cpp:536
-#, fuzzy
 msgid "Fit crop to images"
-msgstr "保存裁切后的图像"
+msgstr "调整裁剪到图像"
 
 #: translations/xrc.cpp:537 xrc.cpp:537
 msgid ""
@@ -4541,25 +4523,22 @@ msgid ""
 msgstr "计算裁切边界以便最终图像具有不多余的最大区域"
 
 #: translations/xrc.cpp:538 xrc.cpp:538
-#, fuzzy
 msgid "Panorama Outputs:"
-msgstr "标准输出:"
+msgstr "全景图像输出:"
 
 #: translations/xrc.cpp:539 translations/xrc.cpp:554 xrc.cpp:539 xrc.cpp:554
 msgid "Exposure corrected, low dynamic range"
-msgstr ""
+msgstr "曝光校正, 低动态范围"
 
 #: translations/xrc.cpp:540 xrc.cpp:540
-#, fuzzy
 msgid ""
 "Blend all images into a seamless panorama, using exposure set in the "
 "Exposure tab"
-msgstr "融合所有图像到一张无缝全景图像"
+msgstr "融合所有图像到一张无缝全景图像, 使用曝光面板中的曝光设置"
 
 #: translations/xrc.cpp:541 xrc.cpp:541
-#, fuzzy
 msgid "Exposure fused from stacks"
-msgstr "曝光融合"
+msgstr "从堆栈中融合曝光"
 
 #: translations/xrc.cpp:542 xrc.cpp:542
 msgid ""
@@ -4569,7 +4548,7 @@ msgstr "图像将被重定位, 堆栈安全曝光, 然后合并成一张无缝�
 
 #: translations/xrc.cpp:543 xrc.cpp:543
 msgid "Exposure fused from any arrangement"
-msgstr ""
+msgstr "按排列融合曝光"
 
 #: translations/xrc.cpp:544 xrc.cpp:544
 msgid ""
@@ -4578,14 +4557,12 @@ msgid ""
 msgstr "图像将被重定位, 融合到无缝图层, 然后拼接图层成为一张全景图像"
 
 #: translations/xrc.cpp:545 translations/xrc.cpp:550 xrc.cpp:545 xrc.cpp:550
-#, fuzzy
 msgid "Format:"
-msgstr "文件格式"
+msgstr "格式:"
 
 #: translations/xrc.cpp:548 translations/xrc.cpp:558 xrc.cpp:548 xrc.cpp:558
-#, fuzzy
 msgid "High dynamic range"
-msgstr "低动态范围"
+msgstr "高动态范围"
 
 #: translations/xrc.cpp:549 xrc.cpp:549
 msgid ""
@@ -4595,69 +4572,62 @@ msgstr ""
 "图像将在线性色彩空间中重定位, 合并堆栈, 然后融合成一张无缝高动态范围全景图像"
 
 #: translations/xrc.cpp:553 xrc.cpp:553
-#, fuzzy
 msgid "Remapped Images:"
-msgstr "重定位图像"
+msgstr "重定位图像:"
 
 #: translations/xrc.cpp:555 xrc.cpp:555
 msgid ""
 "Output remapped, exposure corrected images. Useful for manual blending of an "
 "exposure corrected panorama."
-msgstr ""
+msgstr "输出重定位的, 曝光校正的图像. 有利于人工混合一张曝光校正的全景图像."
 
 #: translations/xrc.cpp:556 xrc.cpp:556
 msgid "No exposure correction, low dynamic range"
-msgstr ""
+msgstr "没有曝光校正, 低动态范围"
 
 #: translations/xrc.cpp:557 xrc.cpp:557
-#, fuzzy
 msgid ""
 "Output remapped images with unmodified exposure. Useful for manual exposure "
 "fusing."
-msgstr "输出使用曝光校正的重定位图像"
+msgstr "输出使用未修改曝光的重定位图像. 有利于人工曝光融合."
 
 #: translations/xrc.cpp:559 xrc.cpp:559
-#, fuzzy
 msgid "Produce remapped, but not merged, linear color space images"
-msgstr "输出在一个线性颜色空间里的重定位图像"
+msgstr "产生重定位的, 但是没有合并的, 线性颜色空间的图像"
 
 #: translations/xrc.cpp:560 xrc.cpp:560
 msgid "Combined stacks:"
-msgstr ""
+msgstr "组合堆栈:"
 
 #: translations/xrc.cpp:561 xrc.cpp:561
-#, fuzzy
 msgid "High dynamic range merged stacks"
-msgstr "保留中间高动态范围合并后的堆栈"
+msgstr "高动态范围合并后的堆栈"
 
 #: translations/xrc.cpp:562 xrc.cpp:562
 msgid ""
 "Output remapped, high dynamic range merged stacks from highly overlapping "
 "images"
-msgstr ""
+msgstr "从高重叠图像中输出重定位的, 高动态范围的合并堆栈"
 
 #: translations/xrc.cpp:563 xrc.cpp:563
 msgid "Layers:"
-msgstr ""
+msgstr "层:"
 
 #: translations/xrc.cpp:564 xrc.cpp:564
-#, fuzzy
 msgid "Blended layers of similar exposure, without exposure correction"
-msgstr "输出使用曝光校正的重定位图像"
+msgstr "混合相似曝光层, 不使用曝光校正"
 
 #: translations/xrc.cpp:565 xrc.cpp:565
-#, fuzzy
 msgid ""
 "Output a complete blended panorama for each exposure step. Useful for manual "
 "contrast blending in an image editor."
 msgstr ""
-"输出一张彻底合并后的单独曝光的全景图像. 对于人为曝光融合很管用, 比如在 "
-"Photoshop 或者 Gimp 中"
+"为每一步曝光输出一张彻底混合后的全景图像. 有利于在一个图像编辑器中进行人工对"
+"比混合."
 
 #: translations/xrc.cpp:566 xrc.cpp:566
-#, fuzzy
 msgid "Processing:"
-msgstr "处理中"
+msgstr "处理中:"
 
 #: translations/xrc.cpp:567 translations/xrc.cpp:582 xrc.cpp:567 xrc.cpp:582
 msgid "Remapper:"
@@ -4695,7 +4665,6 @@ msgid "enblend"
 msgstr "enblend"
 
 #: translations/xrc.cpp:578 xrc.cpp:578
-#, fuzzy
 msgid "Save Project and Send to Batch"
 msgstr "保存项目并且发送到批处理"
 
@@ -4704,14 +4673,12 @@ msgid "Save project and send to batch"
 msgstr "保存项目并且发送到批处理"
 
 #: translations/xrc.cpp:580 xrc.cpp:580
-#, fuzzy
 msgid "Stitch now..."
-msgstr "现在缝合!"
+msgstr "现在缝合..."
 
 #: translations/xrc.cpp:581 xrc.cpp:581
-#, fuzzy
 msgid "Stitch Now..."
-msgstr "现在缝合!"
+msgstr "现在缝合..."
 
 #: translations/xrc.cpp:593 xrc.cpp:593
 msgid "HDR Merge Options"
@@ -4808,52 +4775,50 @@ msgid "User Interface"
 msgstr "用户界面"
 
 #: translations/xrc.cpp:619 xrc.cpp:619
-#, fuzzy
 msgid "Language:"
-msgstr "语言"
+msgstr "语言:"
 
 #: translations/xrc.cpp:620 xrc.cpp:620
 msgid "(requires restarting hugin)"
 msgstr "(需要重启动 Hugin)"
 
 #: translations/xrc.cpp:621 xrc.cpp:621
-#, fuzzy
 msgid "Project Name:"
-msgstr "项目"
+msgstr "项目名称:"
 
 #: translations/xrc.cpp:622 xrc.cpp:622
 msgid "based on containing folder"
-msgstr ""
+msgstr "基于包含的目录"
 
 #: translations/xrc.cpp:623 xrc.cpp:623
-#, fuzzy
 msgid "Undo:"
-msgstr "撤消"
+msgstr "撤消:"
 
 #: translations/xrc.cpp:624 xrc.cpp:624
 msgid "Skip over visibility toggles"
-msgstr ""
+msgstr "忽略可见开关"
 
 #: translations/xrc.cpp:625 xrc.cpp:625
 msgid ""
 "May have unforseen consequences. \n"
 "(EXPERIMENTAL)"
 msgstr ""
+"可能产生反常结果. \n"
+"(试验性的)"
 
 #: translations/xrc.cpp:626 xrc.cpp:626
 msgid "Show hints about projections"
-msgstr ""
+msgstr "显示关于投影的提示"
 
 #: translations/xrc.cpp:627 xrc.cpp:627
 msgid "The hints are shown only in the fast preview window"
-msgstr ""
+msgstr "这些提示只在快速预览窗口中显示"
 
 #: translations/xrc.cpp:628 xrc.cpp:628
 msgid "Show Druid (requires restarting hugin)"
 msgstr "显示 Druid (需要重启动 Hugin)"
 
 #: translations/xrc.cpp:629 xrc.cpp:629
-#, fuzzy
 msgid "File Options"
 msgstr "文件选项"
 
@@ -4867,11 +4832,11 @@ msgstr "(操作系统默认为空)"
 
 #: translations/xrc.cpp:633 xrc.cpp:633
 msgid "Image loading"
-msgstr "图像装载中"
+msgstr "图像加载中"
 
 #: translations/xrc.cpp:634 xrc.cpp:634
 msgid "Automatically align images after loading"
-msgstr "装载后自动排列图像"
+msgstr "加载后自动排列图像"
 
 #: translations/xrc.cpp:635 xrc.cpp:635
 msgid "Remove cloud-like control points (Celeste)"
@@ -5070,12 +5035,11 @@ msgstr "默认设置"
 
 #: translations/xrc.cpp:687 xrc.cpp:687
 msgid "Import"
-msgstr ""
+msgstr "输入"
 
 #: translations/xrc.cpp:688 xrc.cpp:688
-#, fuzzy
 msgid "Export"
-msgstr "曝光"
+msgstr "输出"
 
 #: translations/xrc.cpp:689 xrc.cpp:689
 msgid "Help"
@@ -5083,7 +5047,7 @@ msgstr "帮助"
 
 #: translations/xrc.cpp:690 xrc.cpp:690
 msgid "The assistant is using the default setting."
-msgstr "使用默认设置的助手."
+msgstr "使用默认设置的辅助."
 
 #: translations/xrc.cpp:691 xrc.cpp:691
 msgid "Default Interpolator (i):"
@@ -5317,7 +5281,7 @@ msgid ""
 msgstr ""
 "* 一条灰色线条指明这对重叠图像没有控制点.\n"
 "* 绿色, 黄色和红色线条指明良好, 中等和较差的对齐状况.\n"
-"* 点击一条线条来编辑控制点标签页内的相关图像."
+"* 点击一条线条来编辑控制点面板内的相关图像."
 
 #: translations/xrc.cpp:782 xrc.cpp:782
 msgid "Layout"
@@ -5396,7 +5360,7 @@ msgid ""
 "Welcome to Hugin. To create a panorama, just follow the sequence shown in "
 "the assistant tab."
 msgstr ""
-"欢迎使用 Hugin. 为了创建一张全景图像, 只要按照助手面板显示的顺序进行操作."
+"欢迎使用 Hugin. 为了创建一张全景图像, 只要按照辅助面板显示的顺序进行操作."
 
 #: hugin1/hugin/xrc/data/tips.txt:4
 msgid ""
@@ -5418,6 +5382,9 @@ msgid ""
 "However you will still have to install those Control Point Detectors "
 "separately if you haven't already done so."
 msgstr ""
+"如果您希望用一个交互控制点检测器来代替 Hugin 的内建 CPFind, 请在首选项 -> 控"
+"制点检测器中进行设置.  然而您将不得不单独安装那些控制点检测器, 假如您以前没有"
+"这样做过."
 
 #: hugin1/hugin/xrc/data/tips.txt:7
 msgid ""
@@ -5425,28 +5392,29 @@ msgid ""
 "Autopano, Autopano-SIFT-C, and Panomatic, via a plug-in mechanism controlled "
 "in Preferences -> Control Point Detectors."
 msgstr ""
+"Hugin 支持大量第三方控制点检测器, 包括 Autopano, Autopano-SIFT-C, 和 "
+"Panomatic, 通过首选项 -> 控制点检测器来设置这些插件."
 
 #: hugin1/hugin/xrc/data/tips.txt:8
-#, fuzzy
 msgid ""
 "Sometimes the control point detector can not find connections between all "
 "images. In this case, control points have to be created manually, using the "
 "control points tab."
 msgstr ""
-"有时 Autopano 不能发现所有图像之间的关系. 既然这样, 不得不使用控制点面板来人"
-"为创建控制点."
+"有时控制点检测器不能发现所有图像之间的关系. 在这种情况下, 需要使用控制点面板"
+"来人为创建控制点."
 
 #: hugin1/hugin/xrc/data/tips.txt:9
 msgid ""
 "To scroll both the images in the control points tab, hold the shift key "
 "while moving the mouse."
-msgstr "如果要在控制点标签页中同时滚动两幅图像, 在移动图像时按住 shift 键."
+msgstr "如果要在控制点面板中同时滚动两幅图像, 在移动图像时按住 shift 键."
 
 #: hugin1/hugin/xrc/data/tips.txt:10
 msgid ""
 "The control key or the middle mouse button can be used to pan one image in "
 "the control points tab."
-msgstr "Ctrl 键或者鼠标中键能够用来在控制点标签页中平移一幅图像."
+msgstr "Ctrl 键或者鼠标中键能够用来在控制点面板中平移一幅图像."
 
 #: hugin1/hugin/xrc/data/tips.txt:11
 msgid ""
@@ -5473,7 +5441,7 @@ msgid ""
 "Horizontal or vertical control point pairs can be set by selecting the same "
 "image on both sides of the control points tab."
 msgstr ""
-"水平或者垂直控制点对能够通过在控制点标签页两边选择相同图像的方式来进行设置."
+"水平或者垂直控制点对能够通过在控制点面板两边选择相同图像的方式来进行设置."
 
 #: hugin1/hugin/xrc/data/tips.txt:15
 msgid ""
@@ -5505,7 +5473,7 @@ msgstr ""
 msgid ""
 "Place control points on objects as far away from the camera as possible.  "
 "They are less prone to parallax error."
-msgstr ""
+msgstr "放置控制点到物体上时尽可能远离照相机.  这样能够减少视差错误."
 
 #: hugin1/hugin/xrc/data/tips.txt:20
 msgid ""
@@ -5532,11 +5500,10 @@ msgid "The multilayer tiff file output can be read by The Gimp 2.0 or higher."
 msgstr "多层 TIFF 文件可以被 Gimp 2.0 版或者更高版本读取."
 
 #: hugin1/hugin/xrc/data/tips.txt:24
-#, fuzzy
 msgid ""
 "You can press the middle mouse button to pan images in the Control Points "
 "tab."
-msgstr "您可以在控制点标签页中按鼠标中键来平移图像."
+msgstr "您可以在控制点面板中按鼠标中键来平移图像."
 
 #: hugin1/hugin/xrc/data/tips.txt:25
 msgid "The \"f\" key is the shortcut for Fine Tune button."
@@ -5548,11 +5515,11 @@ msgstr "按 \"Del\" 键将会移除当前选择的控制点."
 
 #: hugin1/hugin/xrc/data/tips.txt:27
 msgid "Press \"0\" in the control points tab to zoom out to full view."
-msgstr "在控制点标签页中按 \"0\" 键可以放大到全屏."
+msgstr "在控制点面板中按 \"0\" 键可以放大到全屏."
 
 #: hugin1/hugin/xrc/data/tips.txt:28
 msgid "Press \"1\" in the control points tab to zoom out to 100% view."
-msgstr "在控制点标签页中按 \"1\" 键可以放大到 100% 图像."
+msgstr "在控制点面板中按 \"1\" 键可以放大到 100% 图像."
 
 #: hugin1/hugin/xrc/data/tips.txt:29
 msgid ""
@@ -5560,16 +5527,15 @@ msgid ""
 "(available in the same directory as the panorama image) can be used to "
 "retouch the panorama in The Gimp or Photoshop."
 msgstr ""
-"在 Enblend 已经合并了全景图像后, 这些重新映射的输出图像 (与全景图像在相同目录"
+"在 Enblend 已经合并了全景图像后, 这些重定位的输出图像 (与全景图像在相同目录"
 "下) 能够被用于在 Gimp 或者 Photoshop 中对全景图像进行润饰."
 
 #: hugin1/hugin/xrc/data/tips.txt:30
-#, fuzzy
 msgid ""
 "Hugin and other Free panoramic software is discussed on the ptx email list. "
 "http://groups.google.com/group/hugin-ptx"
 msgstr ""
-"Hugin 和其他免费的全景图像软件可以在 ptx 邮件列表中进行讨论. http://groups."
+"可以在 ptx 邮件列表中讨论 Hugin 和其它的免费全景图像软件. http://groups."
 "google.com/group/hugin-ptx"
 
 #: hugin1/hugin/xrc/data/tips.txt:31
@@ -5589,7 +5555,7 @@ msgstr ""
 msgid ""
 "Multiple images can be selected in the image and lens tabs. Commands will "
 "act on all selected images."
-msgstr "可以在图像和镜头标签页中选择多重图像. 命令会对所有选择的图像产生效果."
+msgstr "可以在图像和镜头面板中选择多重图像. 命令会对所有选择的图像产生效果."
 
 #: hugin1/hugin/xrc/data/tips.txt:34
 msgid ""
