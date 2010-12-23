@@ -897,7 +897,7 @@ void MaskImageCtrl::FindPolygon(hugin_utils::FDiff2D p)
 
 bool MaskImageCtrl::SelectPointsInsideMouseRect(HuginBase::UIntSet &points,const bool considerSelectedOnly)
 {
-    bool founded=false;
+    bool found=false;
     hugin_utils::FDiff2D p1=applyRotInv(invtransform(m_dragStartPos));
     hugin_utils::FDiff2D p2=applyRotInv(invtransform(m_currentPos));
     double xmin=std::min(p1.x,p2.x)-maxSelectionDistance;
@@ -913,10 +913,10 @@ bool MaskImageCtrl::SelectPointsInsideMouseRect(HuginBase::UIntSet &points,const
         if(activePoints && xmin<=poly[i].x && poly[i].x<=xmax && ymin<=poly[i].y && poly[i].y<=ymax)
         {
             points.insert(i);
-            founded=true;
+            found=true;
         };
     };
-    return founded;
+    return found;
 };
 
 void MaskImageCtrl::setScale(double factor)
