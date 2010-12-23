@@ -162,7 +162,7 @@ void FindPanoDialog::OnButtonClose(wxCommandEvent &e)
 {
     if(m_panos.size()>0)
     {
-        if(wxMessageBox(_("The list contains not processed possible panorama.\nIf you close the dialog, you will lost them.\nContinue anyway?"),
+        if(wxMessageBox(_("The list contains possibly unprocessed panoramas.\nIf you close the dialog, you will lose them.\nContinue anyway?"),
             _("Question"),wxYES_NO|wxICON_QUESTION,this)==wxNO)
         {
             return;
