@@ -120,7 +120,7 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                                 <orient>wxVERTICAL</orient>
                                 <object class="sizeritem">
                                   <object class="wxStaticText">
-                                    <label>Exposure:</label>
+                                    <label>Exposure (Eev):</label>
                                   </object>
                                   <flag>wxEXPAND</flag>
                                 </object>
@@ -163,7 +163,7 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                                 <orient>wxVERTICAL</orient>
                                 <object class="sizeritem">
                                   <object class="wxStaticText">
-                                    <label>White balance:</label>
+                                    <label>White balance (Er, Eb):</label>
                                   </object>
                                   <flag>wxEXPAND</flag>
                                 </object>
@@ -239,7 +239,7 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                                 <orient>wxVERTICAL</orient>
                                 <object class="sizeritem">
                                   <object class="wxStaticText">
-                                    <label>Vignetting:</label>
+                                    <label>Vignetting (Vb, Vc, Vd):</label>
                                   </object>
                                   <flag>wxEXPAND</flag>
                                 </object>
@@ -261,7 +261,7 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                                 <orient>wxVERTICAL</orient>
                                 <object class="sizeritem">
                                   <object class="wxStaticText">
-                                    <label>Vignetting Centre:</label>
+                                    <label>Vignetting Centre (Vx, Vy):</label>
                                   </object>
                                   <flag>wxEXPAND</flag>
                                 </object>
@@ -283,7 +283,7 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                                 <orient>wxVERTICAL</orient>
                                 <object class="sizeritem">
                                   <object class="wxStaticText">
-                                    <label>Camera Response:</label>
+                                    <label>Camera Response (Ra, Rb, Rc, Rd, Re):</label>
                                   </object>
                                   <flag>wxEXPAND</flag>
                                 </object>

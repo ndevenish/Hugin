@@ -489,7 +489,7 @@
                               <cols>3</cols>
                               <object class="sizeritem">
                                 <object class="wxStaticText">
-                                  <label>Exposure (EV)</label>
+                                  <label>Exposure (Eev)</label>
                                 </object>
                                 <flag>wxTOP|wxALIGN_CENTRE_VERTICAL</flag>
                               </object>
@@ -508,7 +508,7 @@
                               </object>
                               <object class="sizeritem">
                                 <object class="wxStaticText">
-                                  <label>Red multiplier:</label>
+                                  <label>Red multiplier (Er):</label>
                                 </object>
                                 <flag>wxALIGN_CENTRE_VERTICAL</flag>
                               </object>
@@ -527,7 +527,7 @@
                               </object>
                               <object class="sizeritem">
                                 <object class="wxStaticText">
-                                  <label>Blue multiplier:</label>
+                                  <label>Blue multiplier (Eb):</label>
                                 </object>
                                 <flag>wxALIGN_CENTRE_VERTICAL</flag>
                               </object>
@@ -573,7 +573,7 @@
                               <orient>wxVERTICAL</orient>
                               <object class="sizeritem">
                                 <object class="wxStaticText">
-                                  <label>Vignetting</label>
+                                  <label>Vignetting  (Vb, Vc, Vd)</label>
                                   <font>
                                     <style platform="mac">normal</style>
                                     <family platform="mac">swiss</family>
@@ -647,7 +647,7 @@
                               <orient>wxVERTICAL</orient>
                               <object class="sizeritem">
                                 <object class="wxStaticText">
-                                  <label>Vignetting Center Shift</label>
+                                  <label>Vignetting Center Shift (Vx, Vy)</label>
                                   <font>
                                     <style platform="mac">normal</style>
                                     <family platform="mac">swiss</family>
@@ -724,7 +724,7 @@
                               <orient>wxVERTICAL</orient>
                               <object class="sizeritem">
                                 <object class="wxStaticText">
-                                  <label>Camera Response</label>
+                                  <label>Camera Response (Ra, Rb, Rc, Rd, Re)</label>
                                   <font>
                                     <style platform="mac">normal</style>
                                     <family platform="mac">swiss</family>
