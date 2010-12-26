@@ -1,5 +1,4 @@
 
 ADD_SUBDIRECTORY(droplets)
 ADD_SUBDIRECTORY(installer)
-ADD_SUBDIRECTORY(autopano-mockup)
 ADD_SUBDIRECTORY(huginsetup)
