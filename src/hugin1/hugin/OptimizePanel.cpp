@@ -357,7 +357,7 @@ OptimizeVector OptimizePanel::getOptimizeVector()
 
 void OptimizePanel::panoramaChanged(PT::Panorama & pano)
 {
-	DEBUG_TRACE("");
+  DEBUG_TRACE("");
     // make sure all the lens numbers are correct.
     variable_groups->update();
     setOptimizeVector(pano.getOptimizeVector());
@@ -374,16 +374,16 @@ void OptimizePanel::panoramaImagesChanged(PT::Panorama &pano,
     // make sure all the lens numbers are correct.
     variable_groups->update();
     DEBUG_TRACE("nr of changed images: " << imgNr.size());
-	if (pano.getNrOfImages() == 0)
-	{
-	  XRCCTRL(*this, "optimize_frame_optimize", wxButton)->Disable();
-	  m_mode_cb->Disable();
-	  m_edit_cb->Disable();
-	} else {
-	  XRCCTRL(*this, "optimize_frame_optimize", wxButton)->Enable();
-	  m_mode_cb->Enable();
-	  m_edit_cb->Enable();
-	}
+    if (pano.getNrOfImages() == 0)
+    {
+        XRCCTRL(*this, "optimize_frame_optimize", wxButton)->Disable();
+        m_mode_cb->Disable();
+        m_edit_cb->Disable();
+    } else {
+        XRCCTRL(*this, "optimize_frame_optimize", wxButton)->Enable();
+        m_mode_cb->Enable();
+        m_edit_cb->Enable();
+    }
     // update lens values
     int nrLensList = m_v_list->GetCount();
     assert(nrLensList >=0);
@@ -650,7 +650,7 @@ void OptimizePanel::runOptimizer(const UIntSet & imgs)
         optvars2.insert("y");
         optvars2.insert("p");
         optvars2.insert("r");
-	// TODO: check tilt mode here, before inserting the parameters.
+  // TODO: check tilt mode here, before inserting the parameters.
         /* optvars2.insert("TrX");
         optvars2.insert("TrY");
         optvars2.insert("TrZ"); */
@@ -787,299 +787,11 @@ void OptimizePanel::OnChangeMode(wxCommandEvent & e)
     DEBUG_TRACE("");
     int mode = m_mode_cb->GetSelection();
     DEBUG_ASSERT(mode >= 0 && mode < OPT_END_MARKER);
-	if (m_pano->getNrOfImages() == 0)
-	{
-  	  XRCCTRL(*this, "opt_yaw_select", wxButton)->Disable();
-  	  XRCCTRL(*this, "opt_roll_select", wxButton)->Disable();
-  	  XRCCTRL(*this, "opt_pitch_select", wxButton)->Disable();
-      XRCCTRL(*this, "opt_x_select", wxButton)->Disable();
-      XRCCTRL(*this, "opt_y_select", wxButton)->Disable();
-      XRCCTRL(*this, "opt_z_select", wxButton)->Disable();
-      XRCCTRL(*this, "opt_v_select", wxButton)->Disable();
-      XRCCTRL(*this, "opt_a_select", wxButton)->Disable();
-      XRCCTRL(*this, "opt_b_select", wxButton)->Disable();
-      XRCCTRL(*this, "opt_c_select", wxButton)->Disable();
-      XRCCTRL(*this, "opt_d_select", wxButton)->Disable();
-      XRCCTRL(*this, "opt_e_select", wxButton)->Disable();
-  	  XRCCTRL(*this, "opt_yaw_clear", wxButton)->Disable();
-  	  XRCCTRL(*this, "opt_roll_clear", wxButton)->Disable();
-  	  XRCCTRL(*this, "opt_pitch_clear", wxButton)->Disable();
-      XRCCTRL(*this, "opt_x_clear", wxButton)->Disable();
-      XRCCTRL(*this, "opt_y_clear", wxButton)->Disable();
-      XRCCTRL(*this, "opt_z_clear", wxButton)->Disable();
-      XRCCTRL(*this, "opt_v_clear", wxButton)->Disable();
-      XRCCTRL(*this, "opt_a_clear", wxButton)->Disable();
-      XRCCTRL(*this, "opt_b_clear", wxButton)->Disable();
-      XRCCTRL(*this, "opt_c_clear", wxButton)->Disable();
-      XRCCTRL(*this, "opt_d_clear", wxButton)->Disable();
-      XRCCTRL(*this, "opt_e_clear", wxButton)->Disable();
-	} else {
-      switch (mode) {
-	    case OPT_PAIRWISE:
-      	  // smart auto optimize
-      	  SetCheckMark(m_yaw_list,true);
-      	  SetCheckMark(m_roll_list,true);
-      	  SetCheckMark(m_pitch_list,true);
-          SetCheckMark(m_x_list,false);
-          SetCheckMark(m_y_list,false);
-          SetCheckMark(m_z_list,false);
-      	  SetCheckMark(m_v_list,false);
-          SetCheckMark(m_a_list,false);
-          SetCheckMark(m_b_list,false);
-          SetCheckMark(m_c_list,false);
-          SetCheckMark(m_d_list,false);
-          SetCheckMark(m_e_list,false);
-          break;
-        case OPT_YRP:
-          // simple position
-          SetCheckMark(m_yaw_list,true);
-          SetCheckMark(m_roll_list,true);
-          SetCheckMark(m_pitch_list,true);
-          SetCheckMark(m_x_list,false);
-          SetCheckMark(m_y_list,false);
-          SetCheckMark(m_z_list,false);
-          SetCheckMark(m_v_list,false);
-          SetCheckMark(m_a_list,false);
-          SetCheckMark(m_b_list,false);
-          SetCheckMark(m_c_list,false);
-          SetCheckMark(m_d_list,false);
-          SetCheckMark(m_e_list,false);
-          break;
-        case OPT_YRP_XYZ:
-          // position + translation
-          SetCheckMark(m_yaw_list,true);
-          SetCheckMark(m_roll_list,true);
-          SetCheckMark(m_pitch_list,true);
-          SetCheckMark(m_x_list,true);
-          SetCheckMark(m_y_list,true);
-          SetCheckMark(m_z_list,true);
-          SetCheckMark(m_v_list,false);
-          SetCheckMark(m_a_list,false);
-          SetCheckMark(m_b_list,false);
-          SetCheckMark(m_c_list,false);
-          SetCheckMark(m_d_list,false);
-          SetCheckMark(m_e_list,false);
-          break;
-	    case OPT_YRP_V:
-          // v + position
-          SetCheckMark(m_yaw_list,true);
-          SetCheckMark(m_roll_list,true);
-          SetCheckMark(m_pitch_list,true);
-          SetCheckMark(m_x_list,false);
-          SetCheckMark(m_y_list,false);
-          SetCheckMark(m_z_list,false);
-          SetCheckMark(m_v_list,true);
-          SetCheckMark(m_a_list,false);
-          SetCheckMark(m_b_list,false);
-          SetCheckMark(m_c_list,false);
-          SetCheckMark(m_d_list,false);
-          SetCheckMark(m_e_list,false);
-          break;
-        case OPT_YRP_XYZ_V:
-          // v + position + translation
-          SetCheckMark(m_yaw_list,true);
-          SetCheckMark(m_roll_list,true);
-          SetCheckMark(m_pitch_list,true);
-          SetCheckMark(m_x_list,true);
-          SetCheckMark(m_y_list,true);
-          SetCheckMark(m_z_list,true);
-          SetCheckMark(m_v_list,true);
-          SetCheckMark(m_a_list,false);
-          SetCheckMark(m_b_list,false);
-          SetCheckMark(m_c_list,false);
-          SetCheckMark(m_d_list,false);
-          SetCheckMark(m_e_list,false);
-          break;
-	    case OPT_YRP_B:
-          // important lens distortion + position
-          SetCheckMark(m_yaw_list,true);
-          SetCheckMark(m_roll_list,true);
-          SetCheckMark(m_pitch_list,true);
-          SetCheckMark(m_x_list,false);
-          SetCheckMark(m_y_list,false);
-          SetCheckMark(m_z_list,false);
-          SetCheckMark(m_v_list,false);
-          SetCheckMark(m_a_list,false);
-          SetCheckMark(m_b_list,true);
-          SetCheckMark(m_c_list,false);
-          SetCheckMark(m_d_list,false);
-          SetCheckMark(m_e_list,false);
-          break;
-        case OPT_YRP_XYZ_B:
-          // important lens distortion + position + translation
-          SetCheckMark(m_yaw_list,true);
-          SetCheckMark(m_roll_list,true);
-          SetCheckMark(m_pitch_list,true);
-          SetCheckMark(m_x_list,true);
-          SetCheckMark(m_y_list,true);
-          SetCheckMark(m_z_list,true);
-          SetCheckMark(m_v_list,false);
-          SetCheckMark(m_a_list,false);
-          SetCheckMark(m_b_list,true);
-          SetCheckMark(m_c_list,false);
-          SetCheckMark(m_d_list,false);
-          SetCheckMark(m_e_list,false);
-          break;
-	    case OPT_YRP_BV:
-          // important lens distortion + v + position
-          SetCheckMark(m_yaw_list,true);
-          SetCheckMark(m_roll_list,true);
-          SetCheckMark(m_pitch_list,true);
-          SetCheckMark(m_x_list,false);
-          SetCheckMark(m_y_list,false);
-          SetCheckMark(m_z_list,false);
-          SetCheckMark(m_v_list,true);
-          SetCheckMark(m_a_list,false);
-          SetCheckMark(m_b_list,true);
-          SetCheckMark(m_c_list,false);
-          SetCheckMark(m_d_list,false);
-          SetCheckMark(m_e_list,false);
-          break;
-        case OPT_YRP_XYZ_BV:
-          // important lens distortion + v + position + translation
-          SetCheckMark(m_yaw_list,true);
-          SetCheckMark(m_roll_list,true);
-          SetCheckMark(m_pitch_list,true);
-          SetCheckMark(m_x_list,true);
-          SetCheckMark(m_y_list,true);
-          SetCheckMark(m_z_list,true);
-          SetCheckMark(m_v_list,true);
-          SetCheckMark(m_a_list,false);
-          SetCheckMark(m_b_list,true);
-          SetCheckMark(m_c_list,false);
-          SetCheckMark(m_d_list,false);
-          SetCheckMark(m_e_list,false);
-          break;
-  	    case OPT_ALL_NOTXYZ:
-          // everything
-          SetCheckMark(m_yaw_list,true);
-          SetCheckMark(m_roll_list,true);
-          SetCheckMark(m_pitch_list,true);
-          SetCheckMark(m_x_list,false);
-          SetCheckMark(m_y_list,false);
-          SetCheckMark(m_z_list,false);
-          SetCheckMark(m_v_list,true);
-          SetCheckMark(m_a_list,true);
-          SetCheckMark(m_b_list,true);
-          SetCheckMark(m_c_list,true);
-          SetCheckMark(m_d_list,true);
-          SetCheckMark(m_e_list,true);
-	  break;
-    	    case OPT_ALL:
-          // everything
-          SetCheckMark(m_yaw_list,true);
-          SetCheckMark(m_roll_list,true);
-          SetCheckMark(m_pitch_list,true);
-          SetCheckMark(m_x_list,true);
-          SetCheckMark(m_y_list,true);
-          SetCheckMark(m_z_list,true);
-          SetCheckMark(m_v_list,true);
-          SetCheckMark(m_a_list,true);
-          SetCheckMark(m_b_list,true);
-          SetCheckMark(m_c_list,true);
-          SetCheckMark(m_d_list,true);
-          SetCheckMark(m_e_list,true);
-          break;
-  	    case OPT_CUSTOM:
-          break;
-  	  }
-      // do not try to do anything on our own
-      // if the user selected custom
-      if (mode != OPT_CUSTOM && m_pano->getNrOfImages() > 0)
-	  {
-        // get anchor image and images linked to its position.
-        unsigned int refImg = m_pano->getOptions().optimizeReferenceImage;
-        std::vector<unsigned int> refImgs;
-        const HuginBase::SrcPanoImage & refImage = m_pano->getImage(refImg);
-        for (unsigned int imgNr = 0; imgNr < m_pano->getNrOfImages(); imgNr++)
-        {
-            const HuginBase::SrcPanoImage & compImage = m_pano->getImage(imgNr);
-            if (refImage.RollisLinkedWith(compImage) &&
-                refImage.PitchisLinkedWith(compImage) &&
-                refImage.YawisLinkedWith(compImage))
-            {
-                refImgs.push_back(imgNr);
-            }
-        }
-
-        // count number of vertical/horizontal control points
-        int nHCP = 0;
-        int nVCP = 0;
-        const CPVector & cps = m_pano->getCtrlPoints();
-        for (CPVector::const_iterator it = cps.begin(); it != cps.end(); it++)
-	    {
-          // control points
-          if (it->mode == ControlPoint::X)
-	    	{
-              nVCP++;
-            } else if (it->mode == ControlPoint::Y)
-		      {
-                nHCP++;
-              }
-        }
-
-        // try to select sensible position optimisation parameters,
-        // dependent on output projection
-        bool linkRefImgsYaw, linkRefImgsPitch, linkRefImgsRoll;
-        switch (m_pano->getOptions().getProjection()) {
-          case PT::PanoramaOptions::RECTILINEAR:
-            linkRefImgsRoll = nVCP + nHCP >= 1;
-            linkRefImgsYaw = nVCP + nHCP >= 3 && nVCP >= 1 && nHCP >= 1;
-            linkRefImgsPitch = nVCP + nHCP >= 2;
-            for (std::vector<unsigned int>::iterator it = refImgs.begin();
-                 it != refImgs.end(); it++)
-            {
-                m_roll_list->Check(*it, linkRefImgsRoll);
-                m_yaw_list->Check(*it, linkRefImgsYaw);
-                m_pitch_list->Check(*it, linkRefImgsPitch);
-            }
-            break;
-          case PT::PanoramaOptions::CYLINDRICAL:
-          case PT::PanoramaOptions::EQUIRECTANGULAR:
-            linkRefImgsPitch =  nHCP + nVCP > 1;
-            linkRefImgsRoll = nHCP + nVCP >= 1;
-            for (std::vector<unsigned int>::iterator it = refImgs.begin();
-                 it != refImgs.end(); it++)
-            {
-                m_roll_list->Check(*it, linkRefImgsRoll);
-                m_yaw_list->Check(*it, false);
-                m_pitch_list->Check(*it, linkRefImgsPitch);
-            }
-            break;
-          default:
-            break;
-        }
-        bool optXYZ=m_x_list->IsChecked(0) || m_y_list->IsChecked(0) || m_z_list->IsChecked(0);
-        // don't optimize translation of anchor image
-        // if translation should be optimized, then also optimise yaw and pitch of anchor
-        for (std::vector<unsigned int>::iterator it = refImgs.begin();
-             it != refImgs.end(); it++)
-        {
-            m_x_list->Check(*it, false);
-            m_y_list->Check(*it, false);
-            m_z_list->Check(*it, false);
-            if(optXYZ)
-            {
-                m_yaw_list->Check(*it,true);
-                m_pitch_list->Check(*it,true);
-            };
-        }
-	    // disable all manual settings
-	    m_yaw_list->Disable();
-	    m_pitch_list->Disable();
-	    m_roll_list->Disable();
-	    m_x_list->Disable();
-	    m_y_list->Disable();
-	    m_z_list->Disable();
-	    m_v_list->Disable();
-	    m_a_list->Disable();
-	    m_b_list->Disable();
-	    m_c_list->Disable();
-	    m_d_list->Disable();
-	    m_e_list->Disable();
-  	    XRCCTRL(*this, "opt_yaw_select", wxButton)->Disable();
-  	    XRCCTRL(*this, "opt_roll_select", wxButton)->Disable();
-  	    XRCCTRL(*this, "opt_pitch_select", wxButton)->Disable();
+    if (m_pano->getNrOfImages() == 0)
+    {
+        XRCCTRL(*this, "opt_yaw_select", wxButton)->Disable();
+        XRCCTRL(*this, "opt_roll_select", wxButton)->Disable();
+        XRCCTRL(*this, "opt_pitch_select", wxButton)->Disable();
         XRCCTRL(*this, "opt_x_select", wxButton)->Disable();
         XRCCTRL(*this, "opt_y_select", wxButton)->Disable();
         XRCCTRL(*this, "opt_z_select", wxButton)->Disable();
@@ -1089,9 +801,9 @@ void OptimizePanel::OnChangeMode(wxCommandEvent & e)
         XRCCTRL(*this, "opt_c_select", wxButton)->Disable();
         XRCCTRL(*this, "opt_d_select", wxButton)->Disable();
         XRCCTRL(*this, "opt_e_select", wxButton)->Disable();
-  	    XRCCTRL(*this, "opt_yaw_clear", wxButton)->Disable();
-  	    XRCCTRL(*this, "opt_roll_clear", wxButton)->Disable();
-  	    XRCCTRL(*this, "opt_pitch_clear", wxButton)->Disable();
+        XRCCTRL(*this, "opt_yaw_clear", wxButton)->Disable();
+        XRCCTRL(*this, "opt_roll_clear", wxButton)->Disable();
+        XRCCTRL(*this, "opt_pitch_clear", wxButton)->Disable();
         XRCCTRL(*this, "opt_x_clear", wxButton)->Disable();
         XRCCTRL(*this, "opt_y_clear", wxButton)->Disable();
         XRCCTRL(*this, "opt_z_clear", wxButton)->Disable();
@@ -1101,45 +813,333 @@ void OptimizePanel::OnChangeMode(wxCommandEvent & e)
         XRCCTRL(*this, "opt_c_clear", wxButton)->Disable();
         XRCCTRL(*this, "opt_d_clear", wxButton)->Disable();
         XRCCTRL(*this, "opt_e_clear", wxButton)->Disable();
-      } else {
-	    m_yaw_list->Enable();
-	    m_pitch_list->Enable();
-	    m_roll_list->Enable();
-	    m_x_list->Enable();
-	    m_y_list->Enable();
-	    m_z_list->Enable();
-	    m_v_list->Enable();
-	    m_a_list->Enable();
-	    m_b_list->Enable();
-	    m_c_list->Enable();
-	    m_d_list->Enable();
-	    m_e_list->Enable();
-        XRCCTRL(*this, "opt_yaw_select", wxButton)->Enable();
-        XRCCTRL(*this, "opt_roll_select", wxButton)->Enable();
-        XRCCTRL(*this, "opt_pitch_select", wxButton)->Enable();
-        XRCCTRL(*this, "opt_x_select", wxButton)->Enable();
-        XRCCTRL(*this, "opt_y_select", wxButton)->Enable();
-        XRCCTRL(*this, "opt_z_select", wxButton)->Enable();
-        XRCCTRL(*this, "opt_v_select", wxButton)->Enable();
-        XRCCTRL(*this, "opt_a_select", wxButton)->Enable();
-        XRCCTRL(*this, "opt_b_select", wxButton)->Enable();
-        XRCCTRL(*this, "opt_c_select", wxButton)->Enable();
-        XRCCTRL(*this, "opt_d_select", wxButton)->Enable();
-        XRCCTRL(*this, "opt_e_select", wxButton)->Enable();
-        XRCCTRL(*this, "opt_yaw_clear", wxButton)->Enable();
-        XRCCTRL(*this, "opt_roll_clear", wxButton)->Enable();
-        XRCCTRL(*this, "opt_pitch_clear", wxButton)->Enable();
-        XRCCTRL(*this, "opt_x_clear", wxButton)->Enable();
-        XRCCTRL(*this, "opt_y_clear", wxButton)->Enable();
-        XRCCTRL(*this, "opt_z_clear", wxButton)->Enable();
-        XRCCTRL(*this, "opt_v_clear", wxButton)->Enable();
-        XRCCTRL(*this, "opt_a_clear", wxButton)->Enable();
-        XRCCTRL(*this, "opt_b_clear", wxButton)->Enable();
-        XRCCTRL(*this, "opt_c_clear", wxButton)->Enable();
-        XRCCTRL(*this, "opt_d_clear", wxButton)->Enable();
-        XRCCTRL(*this, "opt_e_clear", wxButton)->Enable();
-      }
-	}
+    } else {
+        switch (mode) {
+            case OPT_PAIRWISE:
+                // smart auto optimize
+                SetCheckMark(m_yaw_list,true);
+                SetCheckMark(m_roll_list,true);
+                SetCheckMark(m_pitch_list,true);
+                SetCheckMark(m_x_list,false);
+                SetCheckMark(m_y_list,false);
+                SetCheckMark(m_z_list,false);
+                SetCheckMark(m_v_list,false);
+                SetCheckMark(m_a_list,false);
+                SetCheckMark(m_b_list,false);
+                SetCheckMark(m_c_list,false);
+                SetCheckMark(m_d_list,false);
+                SetCheckMark(m_e_list,false);
+                break;
+            case OPT_YRP:
+                // simple position
+                SetCheckMark(m_yaw_list,true);
+                SetCheckMark(m_roll_list,true);
+                SetCheckMark(m_pitch_list,true);
+                SetCheckMark(m_x_list,false);
+                SetCheckMark(m_y_list,false);
+                SetCheckMark(m_z_list,false);
+                SetCheckMark(m_v_list,false);
+                SetCheckMark(m_a_list,false);
+                SetCheckMark(m_b_list,false);
+                SetCheckMark(m_c_list,false);
+                SetCheckMark(m_d_list,false);
+                SetCheckMark(m_e_list,false);
+                break;
+            case OPT_YRP_XYZ:
+                // position + translation
+                SetCheckMark(m_yaw_list,true);
+                SetCheckMark(m_roll_list,true);
+                SetCheckMark(m_pitch_list,true);
+                SetCheckMark(m_x_list,true);
+                SetCheckMark(m_y_list,true);
+                SetCheckMark(m_z_list,true);
+                SetCheckMark(m_v_list,false);
+                SetCheckMark(m_a_list,false);
+                SetCheckMark(m_b_list,false);
+                SetCheckMark(m_c_list,false);
+                SetCheckMark(m_d_list,false);
+                SetCheckMark(m_e_list,false);
+                break;
+            case OPT_YRP_V:
+                // v + position
+                SetCheckMark(m_yaw_list,true);
+                SetCheckMark(m_roll_list,true);
+                SetCheckMark(m_pitch_list,true);
+                SetCheckMark(m_x_list,false);
+                SetCheckMark(m_y_list,false);
+                SetCheckMark(m_z_list,false);
+                SetCheckMark(m_v_list,true);
+                SetCheckMark(m_a_list,false);
+                SetCheckMark(m_b_list,false);
+                SetCheckMark(m_c_list,false);
+                SetCheckMark(m_d_list,false);
+                SetCheckMark(m_e_list,false);
+                break;
+            case OPT_YRP_XYZ_V:
+                // v + position + translation
+                SetCheckMark(m_yaw_list,true);
+                SetCheckMark(m_roll_list,true);
+                SetCheckMark(m_pitch_list,true);
+                SetCheckMark(m_x_list,true);
+                SetCheckMark(m_y_list,true);
+                SetCheckMark(m_z_list,true);
+                SetCheckMark(m_v_list,true);
+                SetCheckMark(m_a_list,false);
+                SetCheckMark(m_b_list,false);
+                SetCheckMark(m_c_list,false);
+                SetCheckMark(m_d_list,false);
+                SetCheckMark(m_e_list,false);
+                break;
+            case OPT_YRP_B:
+                // important lens distortion + position
+                SetCheckMark(m_yaw_list,true);
+                SetCheckMark(m_roll_list,true);
+                SetCheckMark(m_pitch_list,true);
+                SetCheckMark(m_x_list,false);
+                SetCheckMark(m_y_list,false);
+                SetCheckMark(m_z_list,false);
+                SetCheckMark(m_v_list,false);
+                SetCheckMark(m_a_list,false);
+                SetCheckMark(m_b_list,true);
+                SetCheckMark(m_c_list,false);
+                SetCheckMark(m_d_list,false);
+                SetCheckMark(m_e_list,false);
+                break;
+            case OPT_YRP_XYZ_B:
+                // important lens distortion + position + translation
+                SetCheckMark(m_yaw_list,true);
+                SetCheckMark(m_roll_list,true);
+                SetCheckMark(m_pitch_list,true);
+                SetCheckMark(m_x_list,true);
+                SetCheckMark(m_y_list,true);
+                SetCheckMark(m_z_list,true);
+                SetCheckMark(m_v_list,false);
+                SetCheckMark(m_a_list,false);
+                SetCheckMark(m_b_list,true);
+                SetCheckMark(m_c_list,false);
+                SetCheckMark(m_d_list,false);
+                SetCheckMark(m_e_list,false);
+                break;
+            case OPT_YRP_BV:
+                // important lens distortion + v + position
+                SetCheckMark(m_yaw_list,true);
+                SetCheckMark(m_roll_list,true);
+                SetCheckMark(m_pitch_list,true);
+                SetCheckMark(m_x_list,false);
+                SetCheckMark(m_y_list,false);
+                SetCheckMark(m_z_list,false);
+                SetCheckMark(m_v_list,true);
+                SetCheckMark(m_a_list,false);
+                SetCheckMark(m_b_list,true);
+                SetCheckMark(m_c_list,false);
+                SetCheckMark(m_d_list,false);
+                SetCheckMark(m_e_list,false);
+                break;
+            case OPT_YRP_XYZ_BV:
+                // important lens distortion + v + position + translation
+                SetCheckMark(m_yaw_list,true);
+                SetCheckMark(m_roll_list,true);
+                SetCheckMark(m_pitch_list,true);
+                SetCheckMark(m_x_list,true);
+                SetCheckMark(m_y_list,true);
+                SetCheckMark(m_z_list,true);
+                SetCheckMark(m_v_list,true);
+                SetCheckMark(m_a_list,false);
+                SetCheckMark(m_b_list,true);
+                SetCheckMark(m_c_list,false);
+                SetCheckMark(m_d_list,false);
+                SetCheckMark(m_e_list,false);
+                break;
+            case OPT_ALL_NOTXYZ:
+                // everything
+                SetCheckMark(m_yaw_list,true);
+                SetCheckMark(m_roll_list,true);
+                SetCheckMark(m_pitch_list,true);
+                SetCheckMark(m_x_list,false);
+                SetCheckMark(m_y_list,false);
+                SetCheckMark(m_z_list,false);
+                SetCheckMark(m_v_list,true);
+                SetCheckMark(m_a_list,true);
+                SetCheckMark(m_b_list,true);
+                SetCheckMark(m_c_list,true);
+                SetCheckMark(m_d_list,true);
+                SetCheckMark(m_e_list,true);
+                break;
+            case OPT_ALL:
+                // everything
+                SetCheckMark(m_yaw_list,true);
+                SetCheckMark(m_roll_list,true);
+                SetCheckMark(m_pitch_list,true);
+                SetCheckMark(m_x_list,true);
+                SetCheckMark(m_y_list,true);
+                SetCheckMark(m_z_list,true);
+                SetCheckMark(m_v_list,true);
+                SetCheckMark(m_a_list,true);
+                SetCheckMark(m_b_list,true);
+                SetCheckMark(m_c_list,true);
+                SetCheckMark(m_d_list,true);
+                SetCheckMark(m_e_list,true);
+                break;
+            case OPT_CUSTOM:
+                break;
+        }
+        // do not try to do anything on our own
+        // if the user selected custom
+        if (mode != OPT_CUSTOM && m_pano->getNrOfImages() > 0)
+        {
+            // get anchor image and images linked to its position.
+            unsigned int refImg = m_pano->getOptions().optimizeReferenceImage;
+            std::vector<unsigned int> refImgs;
+            const HuginBase::SrcPanoImage & refImage = m_pano->getImage(refImg);
+            for (unsigned int imgNr = 0; imgNr < m_pano->getNrOfImages(); imgNr++)
+            {
+                const HuginBase::SrcPanoImage & compImage = m_pano->getImage(imgNr);
+                if (refImage.RollisLinkedWith(compImage) &&
+                    refImage.PitchisLinkedWith(compImage) &&
+                    refImage.YawisLinkedWith(compImage))
+                {
+                    refImgs.push_back(imgNr);
+                }
+            }
+
+            // count number of vertical/horizontal control points
+            int nHCP = 0;
+            int nVCP = 0;
+            const CPVector & cps = m_pano->getCtrlPoints();
+            for (CPVector::const_iterator it = cps.begin(); it != cps.end(); it++)
+            {
+              // control points
+              if (it->mode == ControlPoint::X)
+              {
+                  nVCP++;
+              } else if (it->mode == ControlPoint::Y)
+              {
+                    nHCP++;
+              }
+            }
+
+            // try to select sensible position optimisation parameters,
+            // dependent on output projection
+            bool linkRefImgsYaw, linkRefImgsPitch, linkRefImgsRoll;
+            switch (m_pano->getOptions().getProjection()) {
+                case PT::PanoramaOptions::RECTILINEAR:
+                    linkRefImgsRoll = nVCP + nHCP >= 1;
+                    linkRefImgsYaw = nVCP + nHCP >= 3 && nVCP >= 1 && nHCP >= 1;
+                    linkRefImgsPitch = nVCP + nHCP >= 2;
+                    for (std::vector<unsigned int>::iterator it = refImgs.begin();
+                        it != refImgs.end(); it++)
+                    {
+                        m_roll_list->Check(*it, linkRefImgsRoll);
+                        m_yaw_list->Check(*it, linkRefImgsYaw);
+                        m_pitch_list->Check(*it, linkRefImgsPitch);
+                    }
+                    break;
+                case PT::PanoramaOptions::CYLINDRICAL:
+                case PT::PanoramaOptions::EQUIRECTANGULAR:
+                    linkRefImgsPitch =  nHCP + nVCP > 1;
+                    linkRefImgsRoll = nHCP + nVCP >= 1;
+                    for (std::vector<unsigned int>::iterator it = refImgs.begin();
+                        it != refImgs.end(); it++)
+                    {
+                        m_roll_list->Check(*it, linkRefImgsRoll);
+                        m_yaw_list->Check(*it, false);
+                        m_pitch_list->Check(*it, linkRefImgsPitch);
+                    }
+                    break;
+                default:
+                    break;
+            }
+            bool optXYZ=m_x_list->IsChecked(0) || m_y_list->IsChecked(0) || m_z_list->IsChecked(0);
+            // don't optimize translation of anchor image
+            // if translation should be optimized, then also optimise yaw and pitch of anchor
+            for (std::vector<unsigned int>::iterator it = refImgs.begin();
+                it != refImgs.end(); it++)
+            {
+                m_x_list->Check(*it, false);
+                m_y_list->Check(*it, false);
+                m_z_list->Check(*it, false);
+                if(optXYZ)
+                {
+                    m_yaw_list->Check(*it,true);
+                    m_pitch_list->Check(*it,true);
+                };
+            }
+            // disable all manual settings
+            m_yaw_list->Disable();
+            m_pitch_list->Disable();
+            m_roll_list->Disable();
+            m_x_list->Disable();
+            m_y_list->Disable();
+            m_z_list->Disable();
+            m_v_list->Disable();
+            m_a_list->Disable();
+            m_b_list->Disable();
+            m_c_list->Disable();
+            m_d_list->Disable();
+            m_e_list->Disable();
+            XRCCTRL(*this, "opt_yaw_select", wxButton)->Disable();
+            XRCCTRL(*this, "opt_roll_select", wxButton)->Disable();
+            XRCCTRL(*this, "opt_pitch_select", wxButton)->Disable();
+            XRCCTRL(*this, "opt_x_select", wxButton)->Disable();
+            XRCCTRL(*this, "opt_y_select", wxButton)->Disable();
+            XRCCTRL(*this, "opt_z_select", wxButton)->Disable();
+            XRCCTRL(*this, "opt_v_select", wxButton)->Disable();
+            XRCCTRL(*this, "opt_a_select", wxButton)->Disable();
+            XRCCTRL(*this, "opt_b_select", wxButton)->Disable();
+            XRCCTRL(*this, "opt_c_select", wxButton)->Disable();
+            XRCCTRL(*this, "opt_d_select", wxButton)->Disable();
+            XRCCTRL(*this, "opt_e_select", wxButton)->Disable();
+            XRCCTRL(*this, "opt_yaw_clear", wxButton)->Disable();
+            XRCCTRL(*this, "opt_roll_clear", wxButton)->Disable();
+            XRCCTRL(*this, "opt_pitch_clear", wxButton)->Disable();
+            XRCCTRL(*this, "opt_x_clear", wxButton)->Disable();
+            XRCCTRL(*this, "opt_y_clear", wxButton)->Disable();
+            XRCCTRL(*this, "opt_z_clear", wxButton)->Disable();
+            XRCCTRL(*this, "opt_v_clear", wxButton)->Disable();
+            XRCCTRL(*this, "opt_a_clear", wxButton)->Disable();
+            XRCCTRL(*this, "opt_b_clear", wxButton)->Disable();
+            XRCCTRL(*this, "opt_c_clear", wxButton)->Disable();
+            XRCCTRL(*this, "opt_d_clear", wxButton)->Disable();
+            XRCCTRL(*this, "opt_e_clear", wxButton)->Disable();
+        } else {
+            m_yaw_list->Enable();
+            m_pitch_list->Enable();
+            m_roll_list->Enable();
+            m_x_list->Enable();
+            m_y_list->Enable();
+            m_z_list->Enable();
+            m_v_list->Enable();
+            m_a_list->Enable();
+            m_b_list->Enable();
+            m_c_list->Enable();
+            m_d_list->Enable();
+            m_e_list->Enable();
+            XRCCTRL(*this, "opt_yaw_select", wxButton)->Enable();
+            XRCCTRL(*this, "opt_roll_select", wxButton)->Enable();
+            XRCCTRL(*this, "opt_pitch_select", wxButton)->Enable();
+            XRCCTRL(*this, "opt_x_select", wxButton)->Enable();
+            XRCCTRL(*this, "opt_y_select", wxButton)->Enable();
+            XRCCTRL(*this, "opt_z_select", wxButton)->Enable();
+            XRCCTRL(*this, "opt_v_select", wxButton)->Enable();
+            XRCCTRL(*this, "opt_a_select", wxButton)->Enable();
+            XRCCTRL(*this, "opt_b_select", wxButton)->Enable();
+            XRCCTRL(*this, "opt_c_select", wxButton)->Enable();
+            XRCCTRL(*this, "opt_d_select", wxButton)->Enable();
+            XRCCTRL(*this, "opt_e_select", wxButton)->Enable();
+            XRCCTRL(*this, "opt_yaw_clear", wxButton)->Enable();
+            XRCCTRL(*this, "opt_roll_clear", wxButton)->Enable();
+            XRCCTRL(*this, "opt_pitch_clear", wxButton)->Enable();
+            XRCCTRL(*this, "opt_x_clear", wxButton)->Enable();
+            XRCCTRL(*this, "opt_y_clear", wxButton)->Enable();
+            XRCCTRL(*this, "opt_z_clear", wxButton)->Enable();
+            XRCCTRL(*this, "opt_v_clear", wxButton)->Enable();
+            XRCCTRL(*this, "opt_a_clear", wxButton)->Enable();
+            XRCCTRL(*this, "opt_b_clear", wxButton)->Enable();
+            XRCCTRL(*this, "opt_c_clear", wxButton)->Enable();
+            XRCCTRL(*this, "opt_d_clear", wxButton)->Enable();
+            XRCCTRL(*this, "opt_e_clear", wxButton)->Enable();
+        }
+    }
     m_edit_cb->Enable(mode != OPT_PAIRWISE);
 }
 
@@ -1149,7 +1149,6 @@ void OptimizePanel::OnCheckBoxChanged(wxCommandEvent & e)
     DEBUG_TRACE("");
     GlobalCmdHist::getInstance().addCommand(
             new PT::UpdateOptimizeVectorCmd(*m_pano,getOptimizeVector()));
-    
 }
 
 
