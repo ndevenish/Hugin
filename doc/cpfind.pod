@@ -14,6 +14,7 @@ B<cpfind> [options] --kall I<project.pto>
 
 B<cpfind> cpfind is a control-point detector for Hugin. It expects a project
 file as input and writes a project file with control-points on success.
+It depends on reasonable lens information in the input project file.
 
 The first step is the feature description: In this step the images of the
 project file are loaded and so called keypoints are searched. They describe
@@ -23,6 +24,135 @@ for the feature description of the keypoints.
 In a second step, the feature matching, all keypoints of two images are matched
 against each other to find features which are on both images. If this matching
 was successfull two keypoints in the two images become one control point. 
+
+=head1 USAGE
+
+=head2 Rectilinear and fisheye images
+
+Cpfind can find control points in rectilinear and fisheye images. To achieve good control points images with a high horizontal field of view (e.g. ultra wide rectilinear or fisheye) are therefor remapped into a conformal space (cpfind is using the stereographic projection) and the feature matching occurs in this space. Before writing the control points the coordinates are remapped back to the image space. This happens automatic depending on the information about the lens in the input project file. So check that your input project file contains reasonable information about the used lens.
+
+=head2 Using celeste
+
+Outdoor panorama often contains clouds. Clouds are bad areas for setting control points because they are moving object. Cpfind can use the same algorithm as celeste_standalone to masked out areas which contains clouds. (This is only done internal for the keypoint finding step and does not change the alpha channel of your image. If you want to generate a mask image use celeste_standalone). To run cpfind with celeste use
+
+   cpfind --celeste -o output.pto input.pto
+
+Using cpfind with integrated celeste should be superior against using cpfind and celeste_standalone sequential. When running cpfind with celeste areas of clouds, which often contains keypoints with a high quality measure, are disregarded and areas without clouds are used instead. When running cpfind without celeste also keypoints on clouds are found. When afterwards running celeste_standalone these control points are removed. In the worst case all control points of a certain image pair are removed.
+
+So running cpfind with celeste leads to a better "control point quality" for outdoor panorama (e.g. panorama with clouds). Running cpfind with celeste takes longer than cpfind alone. So for indoor panorama this option does not need to specified (because of longer computation time).
+
+The celeste step can be fine tuned by the parameters --celesteRadius and --celesteThreshold.
+
+=head2 Matching strategy
+
+=head3 All pairs
+
+This is the default matching strategy. Here all image pairs are matched against each other. E.g. if your project contains 5 images then cpfind matches the image pairs: 0-1, 0-2, 0-3, 0-4, 1-2, 1-3, 1-4, 2-3, 2-4 and 3-4
+
+This strategy works for all shooting strategy (single-row, multi-row, unordered). It finds (nearly) all connected image pairs. But it is computational expensive for projects with many images, because it test many image pairs which are not connected.
+
+=head3 Linear match
+
+This matching strategy works best for single row panoramas:
+
+   cpfind --linearmatch -o output.pto input.pto
+
+This will only detect matches between adjacent images, e.g. for the 5 image example it will matches images pairs 0-1, 1-2, 2-3 and 3-4. The matching distance can be increased with the switch --linearmatchlen. E.g. with --linearmatchlen 2 cpfind will match a image with the next image and the image after next, in our example it would be 0-1, 0-2, 1-2, 1-3, 2-3, 2-4 and 3-4.
+
+=head3 Multirow matching
+
+This is an optimized matching strategy for single and multi-row panorama:
+
+   cpfind --multirow -o output.pto input.pto
+
+The algorithm is the same as described in multi-row panorama. By integrating this algorithm into cpfind it is faster by using several cores of modern CPUs and don't caching the keypoints to disc (which is time consuming). If you want to use this multi-row matching inside hugin set the control point detector type to All images at once.
+
+=head3 Keypoints caching to disc
+
+The calculation of keypoints takes some time. So cpfind offers the possibility to save the keypoints to a file and reuse them later again. With --kall the keypoints for all images in the project are saved to disc. If you only want the keypoints of particular image use the parameter -k with the image number:
+
+   cpfind --kall input.pto
+   cpfind -k 0 -k 1 input.pto
+
+The keypoint files are saved by default into the same directory as the images with the extension .key. In this case no matching of images occurs and therefore no output project file needs to specified. If cpfind finds keyfiles for an image in the project it will use them automatically and not run the feature descriptor again on this image. If you want to save them to annother directory use the --keypath switch.
+
+This procedure can also be automate with the switch --cache:
+
+   cpfind --cache -o output.pto input.pto
+
+In this case it tries to load existing keypoint files. For images, which don't have a keypoint file, the keypoints are detected and save to the file. Then it matches all loaded and newly found keypoints and writes the output project.
+
+If you don't need the keyfile longer, the can be deleted automatic by
+
+   cpfind --clean input.pto
+
+=head1 EXTENDED OPTIONS
+
+=head2 Feature description
+
+For speed reasons cpfind is using images, which are scaled to their half width and height, to find keypoints. With the switch --fullscale cpfind is working on the full scale images. This takes longer but can provide "better" and/or more control points.
+
+The feature description step can be fine-tuned by the parameters:
+
+=over
+
+=item B<--sieve1width> <int>
+
+Sieve 1: Number of buckets on width (default: 10)
+
+=item B<--sieve1height> <int>
+
+Sieve 1: Number of buckets on height (default: 10)
+
+=item B<--sieve1size> <int>
+
+Sieve 1: Max points per bucket (default: 30)
+
+=item B<--kdtreesteps> <int>
+
+KDTree: search steps (default: 40)
+
+=item B<--kdtreeseconddist> <double>
+
+=back
+
+KDTree: distance of 2nd match (default: 0.15)
+
+Cpfind stores maximal sieve1width * sieve1height * sieve1size keypoints per image. If you have only a small overlap, e.g. for 360 degree panorama shoot with fisheye images, you can get better results if you increase sizeve1size. You can also try to increase sieve1width and/or sieve1height.
+
+=head2 Feature matching
+
+Fine-tuning of the matching step by the following parameters:
+
+=over
+
+=item B<--ransaciter> <int>
+
+Ransac: iterations (default: 1000)
+
+=item B<--ransacdist> <int>
+
+Ransac: homography estimation distance threshold (pixels) (default: 25)
+
+=item B<--minmatches> <int>
+
+Minimum matches (default: 4)
+
+=item B<--sieve2width> <int>
+
+Sieve 2: Number of buckets on width (default: 5)
+
+=item B<--sieve2height> <int>
+
+Sieve 2: Number of buckets on height (default: 5)
+
+=item B<--sieve2size> <int>
+
+Sieve 2: Max points per bucket (default: 2)
+
+Cpfind generates between minmatches and sieve2width * sieve2height * sieve2size control points between an image pair. (Default setting is between 4 and 50 (=5*5*2) control points per image pair.) If less then minmatches control points are found for a given image pairs these control points are disregarded and this image pair is considers as not connected. For narrow overlaps you can try to decrease minmatches, but this increases the risk of getting wrong control points.
+
+=back
 
 =head1 OPTIONS
 
