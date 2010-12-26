@@ -1,3 +1,4 @@
+# INTEGRATED IN CMakeLists.txt -- OBSOLETE
 # don't know how to integrate this with cmake, so manually rerun this Makefile
 # after making any .pod alterations and commit the resulting man(1) files.
 
