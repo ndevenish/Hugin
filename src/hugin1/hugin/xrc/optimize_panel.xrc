@@ -335,7 +335,6 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                               <option>1</option>
                               <flag>wxEXPAND</flag>
                             </object>
-
                             <object class="sizeritem">
                               <object class="wxBoxSizer">
                                 <orient>wxVERTICAL</orient>
@@ -378,7 +377,6 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                               <option>1</option>
                               <flag>wxEXPAND</flag>
                             </object>
-
                           </object>
                           <option>1</option>
                           <flag>wxLEFT|wxEXPAND</flag>
@@ -388,7 +386,6 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                       <option>3</option>
                       <flag>wxEXPAND</flag>
                     </object>
-
                     <object class="sizeritem">
                       <object class="wxBoxSizer">
                         <orient>wxVERTICAL</orient>
@@ -410,7 +407,6 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                         </object>
                         <object class="sizeritem">
                           <object class="wxGridSizer">
-
                             <object class="sizeritem">
                               <object class="wxBoxSizer">
                                 <orient>wxVERTICAL</orient>
@@ -424,8 +420,6 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                                     <content/>
                                   </object>
                                   <option>1</option>
-
-
                                   <flag>wxALL|wxEXPAND</flag>
                                   <border>3</border>
                                 </object>
@@ -450,27 +444,11 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                                     <hgap>12</hgap>
                                   </object>
                                   <flag>wxALIGN_CENTRE_HORIZONTAL</flag>
-
-
-
-<!--
-                                  <flag>wxEXPAND</flag>
-                                  <minsize>60,40</minsize>
--->
                                 </object>
                               </object>
                               <option>1</option>
                               <flag>wxEXPAND</flag>
                             </object>
-
-
-
-
-
-
-
-
-
                             <object class="sizeritem">
                               <object class="wxBoxSizer">
                                 <orient>wxVERTICAL</orient>
@@ -484,7 +462,6 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                                     <content/>
                                   </object>
                                   <option>1</option>
-
                                   <flag>wxALL|wxEXPAND</flag>
                                   <border>3</border>
                                 </object>
@@ -509,18 +486,11 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                                     <hgap>12</hgap>
                                   </object>
                                   <flag>wxALIGN_CENTRE_HORIZONTAL</flag>
-
-
-<!--
-                                  <flag>wxEXPAND</flag>
-                                  <minsize>60,40</minsize>
--->
                                 </object>
                               </object>
                               <option>1</option>
                               <flag>wxEXPAND</flag>
                             </object>
-
                             <object class="sizeritem">
                               <object class="wxBoxSizer">
                                 <orient>wxVERTICAL</orient>
@@ -534,7 +504,6 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                                     <content/>
                                   </object>
                                   <option>1</option>
-
                                   <flag>wxALL|wxEXPAND</flag>
                                   <border>3</border>
                                 </object>
@@ -559,18 +528,11 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                                     <hgap>12</hgap>
                                   </object>
                                   <flag>wxALIGN_CENTRE_HORIZONTAL</flag>
-
-
-<!--
-                                  <flag>wxEXPAND</flag>
-                                  <minsize>60,40</minsize>
--->
                                 </object>
                               </object>
                               <option>1</option>
                               <flag>wxEXPAND</flag>
                             </object>
-
                             <object class="sizeritem">
                               <object class="wxBoxSizer">
                                 <orient>wxVERTICAL</orient>
@@ -584,7 +546,6 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                                     <content/>
                                   </object>
                                   <option>1</option>
-
                                   <flag>wxALL|wxEXPAND</flag>
                                   <border>3</border>
                                 </object>
@@ -609,18 +570,11 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                                     <hgap>12</hgap>
                                   </object>
                                   <flag>wxALIGN_CENTRE_HORIZONTAL</flag>
-
-
-<!--
-                                  <flag>wxEXPAND</flag>
-                                  <minsize>60,40</minsize>
--->
                                 </object>
                               </object>
                               <option>1</option>
                               <flag>wxEXPAND</flag>
                             </object>
-
                             <object class="sizeritem">
                               <object class="wxBoxSizer">
                                 <orient>wxVERTICAL</orient>
@@ -634,7 +588,6 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                                     <content/>
                                   </object>
                                   <option>1</option>
-
                                   <flag>wxALL|wxEXPAND</flag>
                                   <border>3</border>
                                 </object>
@@ -659,17 +612,11 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                                     <hgap>12</hgap>
                                   </object>
                                   <flag>wxALIGN_CENTRE_HORIZONTAL</flag>
-
-<!--
-                                  <flag>wxEXPAND</flag>
-                                  <minsize>60,40</minsize>
--->
                                 </object>
                               </object>
                               <option>1</option>
                               <flag>wxEXPAND</flag>
                             </object>
-
                             <object class="sizeritem">
                               <object class="wxBoxSizer">
                                 <orient>wxVERTICAL</orient>
@@ -683,7 +630,6 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                                     <content/>
                                   </object>
                                   <option>1</option>
-
                                   <flag>wxALL|wxEXPAND</flag>
                                   <border>3</border>
                                 </object>
@@ -708,18 +654,11 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                                     <hgap>12</hgap>
                                   </object>
                                   <flag>wxALIGN_CENTRE_HORIZONTAL</flag>
-
-
-<!--
-                                  <flag>wxEXPAND</flag>
-                                  <minsize>60,40</minsize>
--->
                                 </object>
                               </object>
                               <option>1</option>
                               <flag>wxEXPAND</flag>
                             </object>
-
                             <cols>6</cols>
                             <rows>1</rows>
                             <vgap>6</vgap>
