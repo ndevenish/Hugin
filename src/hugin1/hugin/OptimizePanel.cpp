@@ -63,6 +63,18 @@ BEGIN_EVENT_TABLE(OptimizePanel, wxPanel)
     EVT_BUTTON(XRCID("opt_y_clear"), OptimizePanel::OnListButton)
     EVT_BUTTON(XRCID("opt_z_select"), OptimizePanel::OnListButton)
     EVT_BUTTON(XRCID("opt_z_clear"), OptimizePanel::OnListButton)
+    EVT_BUTTON(XRCID("opt_v_select"), OptimizePanel::OnListButton)
+    EVT_BUTTON(XRCID("opt_v_clear"), OptimizePanel::OnListButton)
+    EVT_BUTTON(XRCID("opt_a_select"), OptimizePanel::OnListButton)
+    EVT_BUTTON(XRCID("opt_a_clear"), OptimizePanel::OnListButton)
+    EVT_BUTTON(XRCID("opt_b_select"), OptimizePanel::OnListButton)
+    EVT_BUTTON(XRCID("opt_b_clear"), OptimizePanel::OnListButton)
+    EVT_BUTTON(XRCID("opt_c_select"), OptimizePanel::OnListButton)
+    EVT_BUTTON(XRCID("opt_c_clear"), OptimizePanel::OnListButton)
+    EVT_BUTTON(XRCID("opt_d_select"), OptimizePanel::OnListButton)
+    EVT_BUTTON(XRCID("opt_d_clear"), OptimizePanel::OnListButton)
+    EVT_BUTTON(XRCID("opt_e_select"), OptimizePanel::OnListButton)
+    EVT_BUTTON(XRCID("opt_e_clear"), OptimizePanel::OnListButton)
 
     EVT_CHOICE(XRCID("optimize_panel_mode"), OptimizePanel::OnChangeMode)
 //    EVT_BUTTON(XRCID("opt_roll_equalize"), OptimizePanel::OnEqRoll)
@@ -209,6 +221,31 @@ void OptimizePanel::OnListButton(wxCommandEvent & e)
         SetCheckMark(m_z_list,true);
     } else if (e.GetId() == XRCID("opt_z_clear")) {
         SetCheckMark(m_z_list,false);
+    } else if (e.GetId() == XRCID("opt_v_select")) {
+        SetCheckMark(m_v_list,true);
+    } else if (e.GetId() == XRCID("opt_v_clear")) {
+        SetCheckMark(m_v_list,false);
+    } else if (e.GetId() == XRCID("opt_a_select")) {
+        SetCheckMark(m_a_list,true);
+    } else if (e.GetId() == XRCID("opt_a_clear")) {
+        SetCheckMark(m_a_list,false);
+    } else if (e.GetId() == XRCID("opt_b_select")) {
+        SetCheckMark(m_b_list,true);
+    } else if (e.GetId() == XRCID("opt_b_clear")) {
+        SetCheckMark(m_b_list,false);
+    } else if (e.GetId() == XRCID("opt_c_select")) {
+        SetCheckMark(m_c_list,true);
+    } else if (e.GetId() == XRCID("opt_c_clear")) {
+        SetCheckMark(m_c_list,false);
+    } else if (e.GetId() == XRCID("opt_d_select")) {
+        SetCheckMark(m_d_list,true);
+    } else if (e.GetId() == XRCID("opt_d_clear")) {
+        SetCheckMark(m_d_list,false);
+    } else if (e.GetId() == XRCID("opt_e_select")) {
+        SetCheckMark(m_e_list,true);
+    } else if (e.GetId() == XRCID("opt_e_clear")) {
+        SetCheckMark(m_e_list,false);
+
     } else {
         DEBUG_FATAL("An error has occured");
     }
@@ -758,12 +795,24 @@ void OptimizePanel::OnChangeMode(wxCommandEvent & e)
       XRCCTRL(*this, "opt_x_select", wxButton)->Disable();
       XRCCTRL(*this, "opt_y_select", wxButton)->Disable();
       XRCCTRL(*this, "opt_z_select", wxButton)->Disable();
+      XRCCTRL(*this, "opt_v_select", wxButton)->Disable();
+      XRCCTRL(*this, "opt_a_select", wxButton)->Disable();
+      XRCCTRL(*this, "opt_b_select", wxButton)->Disable();
+      XRCCTRL(*this, "opt_c_select", wxButton)->Disable();
+      XRCCTRL(*this, "opt_d_select", wxButton)->Disable();
+      XRCCTRL(*this, "opt_e_select", wxButton)->Disable();
   	  XRCCTRL(*this, "opt_yaw_clear", wxButton)->Disable();
   	  XRCCTRL(*this, "opt_roll_clear", wxButton)->Disable();
   	  XRCCTRL(*this, "opt_pitch_clear", wxButton)->Disable();
       XRCCTRL(*this, "opt_x_clear", wxButton)->Disable();
       XRCCTRL(*this, "opt_y_clear", wxButton)->Disable();
       XRCCTRL(*this, "opt_z_clear", wxButton)->Disable();
+      XRCCTRL(*this, "opt_v_clear", wxButton)->Disable();
+      XRCCTRL(*this, "opt_a_clear", wxButton)->Disable();
+      XRCCTRL(*this, "opt_b_clear", wxButton)->Disable();
+      XRCCTRL(*this, "opt_c_clear", wxButton)->Disable();
+      XRCCTRL(*this, "opt_d_clear", wxButton)->Disable();
+      XRCCTRL(*this, "opt_e_clear", wxButton)->Disable();
 	} else {
       switch (mode) {
 	    case OPT_PAIRWISE:
@@ -1034,12 +1083,24 @@ void OptimizePanel::OnChangeMode(wxCommandEvent & e)
         XRCCTRL(*this, "opt_x_select", wxButton)->Disable();
         XRCCTRL(*this, "opt_y_select", wxButton)->Disable();
         XRCCTRL(*this, "opt_z_select", wxButton)->Disable();
+        XRCCTRL(*this, "opt_v_select", wxButton)->Disable();
+        XRCCTRL(*this, "opt_a_select", wxButton)->Disable();
+        XRCCTRL(*this, "opt_b_select", wxButton)->Disable();
+        XRCCTRL(*this, "opt_c_select", wxButton)->Disable();
+        XRCCTRL(*this, "opt_d_select", wxButton)->Disable();
+        XRCCTRL(*this, "opt_e_select", wxButton)->Disable();
   	    XRCCTRL(*this, "opt_yaw_clear", wxButton)->Disable();
   	    XRCCTRL(*this, "opt_roll_clear", wxButton)->Disable();
   	    XRCCTRL(*this, "opt_pitch_clear", wxButton)->Disable();
         XRCCTRL(*this, "opt_x_clear", wxButton)->Disable();
         XRCCTRL(*this, "opt_y_clear", wxButton)->Disable();
         XRCCTRL(*this, "opt_z_clear", wxButton)->Disable();
+        XRCCTRL(*this, "opt_v_clear", wxButton)->Disable();
+        XRCCTRL(*this, "opt_a_clear", wxButton)->Disable();
+        XRCCTRL(*this, "opt_b_clear", wxButton)->Disable();
+        XRCCTRL(*this, "opt_c_clear", wxButton)->Disable();
+        XRCCTRL(*this, "opt_d_clear", wxButton)->Disable();
+        XRCCTRL(*this, "opt_e_clear", wxButton)->Disable();
       } else {
 	    m_yaw_list->Enable();
 	    m_pitch_list->Enable();
@@ -1059,12 +1120,24 @@ void OptimizePanel::OnChangeMode(wxCommandEvent & e)
         XRCCTRL(*this, "opt_x_select", wxButton)->Enable();
         XRCCTRL(*this, "opt_y_select", wxButton)->Enable();
         XRCCTRL(*this, "opt_z_select", wxButton)->Enable();
+        XRCCTRL(*this, "opt_v_select", wxButton)->Enable();
+        XRCCTRL(*this, "opt_a_select", wxButton)->Enable();
+        XRCCTRL(*this, "opt_b_select", wxButton)->Enable();
+        XRCCTRL(*this, "opt_c_select", wxButton)->Enable();
+        XRCCTRL(*this, "opt_d_select", wxButton)->Enable();
+        XRCCTRL(*this, "opt_e_select", wxButton)->Enable();
         XRCCTRL(*this, "opt_yaw_clear", wxButton)->Enable();
         XRCCTRL(*this, "opt_roll_clear", wxButton)->Enable();
         XRCCTRL(*this, "opt_pitch_clear", wxButton)->Enable();
         XRCCTRL(*this, "opt_x_clear", wxButton)->Enable();
         XRCCTRL(*this, "opt_y_clear", wxButton)->Enable();
         XRCCTRL(*this, "opt_z_clear", wxButton)->Enable();
+        XRCCTRL(*this, "opt_v_clear", wxButton)->Enable();
+        XRCCTRL(*this, "opt_a_clear", wxButton)->Enable();
+        XRCCTRL(*this, "opt_b_clear", wxButton)->Enable();
+        XRCCTRL(*this, "opt_c_clear", wxButton)->Enable();
+        XRCCTRL(*this, "opt_d_clear", wxButton)->Enable();
+        XRCCTRL(*this, "opt_e_clear", wxButton)->Enable();
       }
 	}
     m_edit_cb->Enable(mode != OPT_PAIRWISE);
