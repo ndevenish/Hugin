@@ -45,7 +45,6 @@
                           <item>Positions, View and Barrel (y,p,r,v,b)</item>
                           <item>Positions, Translation, View and Barrel (y,p,r,x,y,z,v,b)</item>
                           <item>Everything without translation</item>
-                          <item>Everything</item>
                           <item>the Custom parameters below</item>
                         </content>
                         <selection>0</selection>
