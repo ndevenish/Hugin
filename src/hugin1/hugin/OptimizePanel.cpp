@@ -950,14 +950,14 @@ void OptimizePanel::OnChangeMode(wxCommandEvent & e)
                 SetCheckMark(m_d_list,false);
                 SetCheckMark(m_e_list,false);
                 break;
-            case OPT_ALL:
-                // everything
+            case OPT_ALL_NOTXYZ:
+                // everything but translation
                 SetCheckMark(m_yaw_list,true);
                 SetCheckMark(m_roll_list,true);
                 SetCheckMark(m_pitch_list,true);
-                SetCheckMark(m_x_list,true);
-                SetCheckMark(m_y_list,true);
-                SetCheckMark(m_z_list,true);
+                SetCheckMark(m_x_list,false);
+                SetCheckMark(m_y_list,false);
+                SetCheckMark(m_z_list,false);
                 SetCheckMark(m_v_list,true);
                 SetCheckMark(m_a_list,true);
                 SetCheckMark(m_b_list,true);
