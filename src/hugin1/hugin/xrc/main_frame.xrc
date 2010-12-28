@@ -4,54 +4,56 @@
     <title>Hugin - Panorama Stitcher</title>
     <style>wxDEFAULT_FRAME_STYLE|wxCAPTION|wxSYSTEM_MENU|wxRESIZE_BORDER|wxMINIMIZE_BOX|wxMAXIMIZE_BOX|wxFULL_REPAINT_ON_RESIZE</style>
     <centered>1</centered>
-    <object class="wxFlexGridSizer">
-      <cols>1</cols>
-      <rows>0</rows>
-      <vgap>0</vgap>
-      <hgap>0</hgap>
-      <growablecols>0</growablecols>
-      <growablerows>0</growablerows>
-      <object class="sizeritem">
-        <option>1</option>
-        <flag>wxALL|wxGROW</flag>
-        <border>5</border>
-        <object class="wxNotebook" name="controls_notebook">
-          <usenotebooksizer>1</usenotebooksizer>
-          <object class="notebookpage">
-            <label>Assistant</label>
-            <object class="AssistantPanel" name="assistant_panel_unknown"/>
-          </object>
-          <object class="notebookpage">
-            <label>Images</label>
-            <object class="ImagesPanel" name="images_panel_unknown"/>
-          </object>
-          <object class="notebookpage">
-            <label>Camera and Lens</label>
-            <object class="LensPanel" name="lens_panel_unknown"/>
-          </object>
-          <object class="notebookpage">
-            <label>Crop</label>
-            <object class="CropPanel" name="crop_panel_unknown"/>
-          </object>
-          <object class="notebookpage">
-            <object class="MaskEditorPanel" name="mask_panel_unknown"/>
-            <label>Mask</label>
-          </object>
-          <object class="notebookpage">
-            <label>Control Points</label>
-            <object class="CPEditorPanel" name="cp_editor_panel_unknown"/>
-          </object>
-          <object class="notebookpage">
-            <label>Optimizer</label>
-            <object class="OptimizePanel" name="optimizer_panel_unknown"/>
-          </object>
-          <object class="notebookpage">
-            <label>Exposure</label>
-            <object class="OptimizePhotometricPanel" name="optimizer_photometric_panel_unknown"/>
-          </object>
-          <object class="notebookpage">
-            <label>Stitcher</label>
-            <object class="PanoPanel" name="panorama_panel_unknown"/>
+    <object class="wxPanel">
+      <object class="wxFlexGridSizer">
+        <cols>1</cols>
+        <rows>0</rows>
+        <vgap>0</vgap>
+        <hgap>0</hgap>
+        <growablecols>0</growablecols>
+        <growablerows>0</growablerows>
+        <object class="sizeritem">
+          <option>1</option>
+          <flag>wxALL|wxGROW</flag>
+          <border>5</border>
+          <object class="wxNotebook" name="controls_notebook">
+            <usenotebooksizer>1</usenotebooksizer>
+            <object class="notebookpage">
+              <label>Assistant</label>
+              <object class="AssistantPanel" name="assistant_panel_unknown"/>
+            </object>
+            <object class="notebookpage">
+              <label>Images</label>
+              <object class="ImagesPanel" name="images_panel_unknown"/>
+            </object>
+            <object class="notebookpage">
+              <label>Camera and Lens</label>
+              <object class="LensPanel" name="lens_panel_unknown"/>
+            </object>
+            <object class="notebookpage">
+              <label>Crop</label>
+              <object class="CropPanel" name="crop_panel_unknown"/>
+            </object>
+            <object class="notebookpage">
+              <object class="MaskEditorPanel" name="mask_panel_unknown"/>
+              <label>Mask</label>
+            </object>
+            <object class="notebookpage">
+              <label>Control Points</label>
+              <object class="CPEditorPanel" name="cp_editor_panel_unknown"/>
+            </object>
+            <object class="notebookpage">
+              <label>Optimizer</label>
+              <object class="OptimizePanel" name="optimizer_panel_unknown"/>
+            </object>
+            <object class="notebookpage">
+              <label>Exposure</label>
+              <object class="OptimizePhotometricPanel" name="optimizer_photometric_panel_unknown"/>
+            </object>
+            <object class="notebookpage">
+              <label>Stitcher</label>
+              <object class="PanoPanel" name="panorama_panel_unknown"/>
+            </object>
           </object>
         </object>
       </object>
