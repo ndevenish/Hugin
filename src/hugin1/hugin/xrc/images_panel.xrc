@@ -103,35 +103,6 @@
                           </object>
                           <flag>wxEXPAND</flag>
                         </object>
-						<object class="sizeritem">
-                          <object class="wxGridSizer">
-                            <cols>3</cols>
-                            <object class="sizeritem">
-                              <object class="wxStaticText">
-                                <label>Images per stack:</label>
-                              </object>
-                              <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
-                            </object>
-                            <object class="sizeritem">
-                              <object class="wxSpinCtrl" name="images_per_auto_stack">
-                                <value>3</value>
-                                <size>45,-1</size>
-                                <tooltip>number of images to place in each stack</tooltip>
-                              </object>
-                              <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
-                              <hgap>6</hgap>
-                            </object>
-							<object class="sizeritem">
-                              <object class="wxButton" name="images_auto_stack">
-                                <label>Create Stacks</label>
-                                <tooltip>Automatically create image stacks.</tooltip>
-                              </object>
-                              <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
-                            </object>
-                            <hgap>6</hgap>
-                          </object>
-                          <flag>wxEXPAND</flag>
-                        </object>
                         <object class="sizeritem">
                           <object class="wxStaticLine">
                             <style></style>
