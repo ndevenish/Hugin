@@ -21,45 +21,64 @@ use strict;
 
 my ($status, $foundline, $msgid, $msgstr, $fuzzy);
 
-my %Messages = ();
-my %newMessages = ();
+my %Messages = ();		# Used for original po-file
+my %newMessages = ();		# new po-file
+my %Untranslated = ();          # inside new po-file
+my $result = 0;			# exit value
+
 if (@ARGV != 2) {
-  die("Usage: diff_po.pl <existing.po> <contributed.po> - Expected exactly 2 parameters");
+  die("Expected exactly 2 parameters");
 }
 
-&check("first", $ARGV[0]);
-&check("second", $ARGV[1]);
+&check("original", $ARGV[0]);
+&check("new", $ARGV[1]);
 
 &parse_po_file($ARGV[0], \%Messages);
 &parse_po_file($ARGV[1], \%newMessages);
 
-my @MsgKeys = keys %Messages;
+my @MsgKeys = &getLineSortedKeys(\%newMessages);
 
 for my $k (@MsgKeys) {
-  if (exists($newMessages{$k})) {
+  if ($newMessages{$k}->{msgstr} eq "") {
+    # this is still untranslated string
+    $Untranslated{$newMessages{$k}->{line}} = $k;
+  }
+  if (exists($Messages{$k})) {
     &printIfDiff($k, $Messages{$k}, $newMessages{$k});
     delete($Messages{$k});
     delete($newMessages{$k});
   }
 }
 
-for my $k (keys %Messages) {
+@MsgKeys = &getLineSortedKeys(\%Messages);
+for my $k (@MsgKeys) {
+  $result |= 8;
   print "deleted message\n";
-  print "line = " . $Messages{$k}->{line} . "\n";
-  print "fuzzy = " . $Messages{$k}->{fuzzy} . "\n";
-  print "msgid = \"$k\"\n";
-  print "msgstr = \"" . $Messages{$k}->{msgstr} . "\"\n";
+  print "< line = " . $Messages{$k}->{line} . "\n";
+  print "< fuzzy = " . $Messages{$k}->{fuzzy} . "\n";
+  print "< msgid = \"$k\"\n";
+  print "< msgstr = \"" . $Messages{$k}->{msgstr} . "\"\n";
 }
 
-for my $k (keys %newMessages) {
+@MsgKeys = &getLineSortedKeys(\%newMessages);
+for my $k (@MsgKeys) {
+  $result |= 16;
   print "new message\n";
-  print "line = " . $newMessages{$k}->{line} . "\n";
-  print "fuzzy = " . $newMessages{$k}->{fuzzy} . "\n";
-  print "msgid = \"$k\"\n";
-  print "msgstr = \"" . $newMessages{$k}->{msgstr} . "\"\n";
+  print "> line = " . $newMessages{$k}->{line} . "\n";
+  print "> fuzzy = " . $newMessages{$k}->{fuzzy} . "\n";
+  print "> msgid = \"$k\"\n";
+  print "> msgstr = \"" . $newMessages{$k}->{msgstr} . "\"\n";
 }
 
-exit(0);
+my @UntranslatedKeys = sort { $a <=> $b;} keys %Untranslated;
+
+if (@UntranslatedKeys > 0) {
+  print "Still " . 0 + @UntranslatedKeys . " untranslated messages found in $ARGV[1]\n";
+  for my $l (@UntranslatedKeys) {
+    print "> line $l: \"" . $Untranslated{$l} . "\"\n"; 
+  }
+}
+exit($result);
 
 sub check($$)
 {
@@ -76,20 +95,30 @@ sub check($$)
   }
 }
 
+sub printDiff($$$$)
+{
+  my ($k, $nk, $rM, $rnM) = @_;
+  print "diffline = " . $rM->{line} . "," . $rnM->{line} . "\n";
+  print "< msgid = \"$k\"\n";
+  print "< fuzzy = " . $rM->{fuzzy} . "\n";
+  print "< msgstr = " . $rM->{msgstr} . "\n";
+  if ($k ne $nk) {
+    print "> msgid = \"$nk\"\n";
+  }
+  print "> fuzzy = " . $rnM->{fuzzy} . "\n";
+  print "> msgstr = " . $rnM->{msgstr} . "\n";
+  print "\n";
+}
+
 sub printIfDiff($$$)
 {
   my ($k, $rM, $rnM) = @_;
   my $doprint = 0;
   $doprint = 1 if ($rM->{fuzzy} != $rnM ->{fuzzy});
-  $doprint = 1 if ($rM->{msgstr} != $rnM ->{msgstr});
+  $doprint = 1 if ($rM->{msgstr} ne $rnM ->{msgstr});
   if ($doprint) {
-    print "diffline = " . $rM->{line} . "," . $rnM->{line} . "\n";
-    print "msgid = \"$k\"\n";
-    print "< fuzzy = " . $rM->{fuzzy} . "\n";
-    print "< msgstr = " . $rM->{msgstr} . "\n";
-    print "> fuzzy = " . $rnM->{fuzzy} . "\n";
-    print "> msgstr = " . $rnM->{msgstr} . "\n";
-    print "\n";
+    $result |= 4;
+    &printDiff($k, $k, $rM, $rnM);
   }
 }
 
@@ -154,3 +183,9 @@ sub parse_po_line($$$)
   }
 }
 
+sub getLineSortedKeys($)
+{
+  my ($rMessages) = @_;
+
+  return sort {$rMessages->{$a}->{line} <=> $rMessages->{$b}->{line};} keys %{$rMessages};
+}
