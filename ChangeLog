@@ -1,3 +1,97 @@
+2010-12-27 11:21 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (fe774a1de7f3 [tip])
+
+	* doc/PTBatcherGUI.1, doc/align_image_stack.1, doc/autooptimiser.1,
+	doc/calibrate_lens.1, doc/celeste_standalone.1, doc/checkpto.1,
+	doc/cpclean.1, doc/cpfind.1, doc/deghosting_mask.1, doc/fulla.1,
+	doc/hugin.1, doc/hugin_hdrmerge.1, doc/hugin_stitch_project.1,
+	doc/icpfind.1, doc/nona.1, doc/nona_gui.1, doc/pano_modify.1,
+	doc/pano_trafo.1, doc/pto2mk.1, doc/pto_merge.1, doc/tca_correct.1,
+	doc/vig_optimize.1, src/hugin1/hugin/OptimizePanel.cpp,
+	src/translations/hu.po:
+	* fixed commit to remove optimize everything
+	* updated Hungarian translation (Lajos Höss)
+	* updated man pages
+
+2010-12-27 11:14 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (d18edc881052)
+
+	* src/translations/es_la.po: deleted file.
+	* authors.txt, src/translations/es_la.po:
+	removed invalid translation
+
+2010-12-27 08:20 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (274c9a123dcf)
+
+	* src/translations/diff_po.pl: new file.
+	* src/translations/diff_po.pl:
+	added tool to evaluate changes in contributed translations (Kornel
+	Benko)
+
+2010-12-27 07:33 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (1fba56b7f72c)
+
+	* src/hugin1/hugin/OptimizePanel.cpp,
+	src/hugin1/hugin/xrc/optimize_panel.xrc:
+	removed optimize everything option from optimizer
+
+2010-12-26 20:35 -0500  Matthew Petroff  <Matthew Petroff>  (f5b6876eea5c)
+
+	* src/hugin1/hugin/xrc/images_panel.xrc:
+	Added wxPanel to main window to resolve long-standing redraw issue
+	that stemmed from Windows version selectively ignoring the <border>
+	property.
+
+2010-12-26 14:58 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (0e881026f706)
+
+	* platforms/windows/autopano-mockup/CMakeLists.txt, platforms/windows
+	/autopano-mockup/autopano-noop.bat, utils/build_wxwin_msvc.bat,
+	utils/hugin.nsi, utils/mergepto: deleted file.
+	* platforms/windows/CMakeLists.txt, platforms/windows/autopano-
+	mockup/CMakeLists.txt, platforms/windows/autopano-mockup/autopano-
+	noop.bat, utils/build_wxwin_msvc.bat, utils/hugin.nsi,
+	utils/mergepto:
+	removed obsolete cruft
+
+2010-12-26 13:48 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (bc9e24f7e798)
+
+	* src/hugin1/hugin/OptimizePanel.cpp,
+	src/hugin1/hugin/xrc/optimize_panel.xrc:
+	clean up / unified white space
+
+2010-12-26 13:28 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (6046bb6b0bd5)
+
+	* src/hugin1/hugin/OptimizePanel.cpp,
+	src/hugin1/hugin/xrc/optimize_panel.xrc:
+	Optimizer tab: added toggles to tick/untick all v a b c d e
+	parameters
+
+2010-12-26 12:28 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (aed0fc0525e5)
+
+	* doc/releases/hugin-2010.4.0_beta1.txt,
+	doc/releases/hugin-2010.4.0_beta2.txt,
+	doc/releases/hugin-2010.4.0_rc1.txt: new file.
+	* doc/releases/hugin-2010.4.0_beta1.txt,
+	doc/releases/hugin-2010.4.0_beta2.txt,
+	doc/releases/hugin-2010.4.0_rc1.txt:
+	release notes for 2010.4 series releases
+
+2010-12-26 12:27 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (861c6a25eee4)
+
+	* doc/CMakeLists.txt, doc/Makefile.pod2man:
+	integrated man page generation in CMake build
+
+2010-12-26 12:26 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (74fc35571087)
+
+	* doc/cpfind.pod:
+	expanded cpfind man page
+
+2010-12-23 15:13 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (003a7c16c734)
+
+	* .hgtags:
+	Added tag 2010.4.0_rc1 for changeset c594a6df4455
+
+2010-12-23 15:12 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (c594a6df4455 [2010.4.0_rc1])
+
+	* ChangeLog:
+	Updated ChangeLog
+
 2010-12-23 15:04 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (661657c8e160)
 
 	* src/translations/zh_CN.po:
