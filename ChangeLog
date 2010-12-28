@@ -1,4 +1,24 @@
-2010-12-27 11:21 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (fe774a1de7f3 [tip])
+2010-12-28 07:51 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (8d63ac9fe280 [tip])
+
+	* src/translations/fr.po:
+	Updated French translation (Jean-Luc-Coulon)
+
+2010-12-28 00:46 -0500  Matthew Petroff  <Matthew Petroff>  (899aad0aae59)
+
+	* src/hugin1/hugin/xrc/images_panel.xrc:
+	Backed out changeset: 94bd3d0f2012; I committed the wrong file.
+
+2010-12-27 23:01 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (1f89d019f52c)
+
+	* .hgtags:
+	Added tag 2010.4.0_rc2 for changeset 365a0f59a389
+
+2010-12-27 22:53 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (365a0f59a389 [2010.4.0_rc2])
+
+	* ChangeLog:
+	Updated ChangeLog
+
+2010-12-27 11:21 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (fe774a1de7f3)
 
 	* doc/PTBatcherGUI.1, doc/align_image_stack.1, doc/autooptimiser.1,
 	doc/calibrate_lens.1, doc/celeste_standalone.1, doc/checkpto.1,
