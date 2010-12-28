@@ -1,3 +1,349 @@
+2010-12-27 23:36 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (fddc4fff25f8 [tip])
+
+	* doc/releases/hugin-2010.4.0_rc2.txt: new file.
+	* doc/releases/hugin-2010.4.0_rc2.txt:
+	2010.4.0_rc2 release text
+
+2010-12-27 10:18 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (f01e67f33924)
+
+	* src/translations/es_la.po: deleted file.
+	* authors.txt, src/translations/es_la.po:
+	removed invalid translation
+
+2010-12-27 10:16 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (eb0bf4fe82cb)
+
+	* doc/PTBatcherGUI.1, doc/align_image_stack.1, doc/autooptimiser.1,
+	doc/calibrate_lens.1, doc/celeste_standalone.1, doc/checkpto.1,
+	doc/cpclean.1, doc/cpfind.1, doc/deghosting_mask.1, doc/fulla.1,
+	doc/hugin.1, doc/hugin_hdrmerge.1, doc/hugin_stitch_project.1,
+	doc/icpfind.1, doc/nona.1, doc/nona_gui.1, doc/pano_modify.1,
+	doc/pano_trafo.1, doc/pto2mk.1, doc/pto_merge.1, doc/tca_correct.1,
+	doc/vig_optimize.1, src/hugin1/hugin/OptimizePanel.cpp,
+	src/translations/hu.po:
+	* fixed previous commit
+	* updated Hungarian translation (Lajos Höss)
+	* updated man pages
+
+2010-12-27 08:20 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (51faef233feb)
+
+	* src/translations/diff_po.pl: new file.
+	* src/translations/diff_po.pl:
+	added tool to evaluate changes in contributed translations (Kornel
+	Benko)
+
+2010-12-27 07:33 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (29004b2165f6)
+
+	* src/hugin1/hugin/OptimizePanel.cpp,
+	src/hugin1/hugin/xrc/optimize_panel.xrc:
+	removed optimize everything option from optimizer
+
+2010-12-26 20:35 -0500  Matthew Petroff  <Matthew Petroff>  (94bd3d0f2012)
+
+	* src/hugin1/hugin/xrc/images_panel.xrc:
+	Added wxPanel to main window to resolve long-standing redraw issue
+	that stemmed from Windows version selectively ignoring the <border>
+	property.
+
+2010-12-26 14:58 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (b8615c66d28b)
+
+	* platforms/windows/autopano-mockup/CMakeLists.txt, platforms/windows
+	/autopano-mockup/autopano-noop.bat, utils/build_wxwin_msvc.bat,
+	utils/hugin.nsi, utils/mergepto: deleted file.
+	* platforms/windows/CMakeLists.txt, platforms/windows/autopano-
+	mockup/CMakeLists.txt, platforms/windows/autopano-mockup/autopano-
+	noop.bat, utils/build_wxwin_msvc.bat, utils/hugin.nsi,
+	utils/mergepto:
+	removed obsolete cruft
+
+2010-12-26 13:48 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (ce6d06ca3179)
+
+	* src/hugin1/hugin/OptimizePanel.cpp,
+	src/hugin1/hugin/xrc/optimize_panel.xrc:
+	clean up / unified white space
+
+2010-12-26 13:28 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (07772186a685)
+
+	* src/hugin1/hugin/OptimizePanel.cpp,
+	src/hugin1/hugin/xrc/optimize_panel.xrc:
+	Optimizer tab: added toggles to tick/untick all v a b c d e
+	parameters
+
+2010-12-26 12:51 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (658b7fa9c08f)
+
+	* src/hugin1/hugin/xrc/lens_panel.xrc,
+	src/hugin1/hugin/xrc/optimize_photo_panel.xrc:
+	more consistent labeling of fields with reference to PTO parameters
+
+2010-12-26 12:28 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (6926d939ea9b)
+
+	* doc/releases/hugin-2010.4.0_beta1.txt,
+	doc/releases/hugin-2010.4.0_beta2.txt,
+	doc/releases/hugin-2010.4.0_rc1.txt: new file.
+	* doc/releases/hugin-2010.4.0_beta1.txt,
+	doc/releases/hugin-2010.4.0_beta2.txt,
+	doc/releases/hugin-2010.4.0_rc1.txt:
+	release notes for 2010.4 series releases
+
+2010-12-26 12:27 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (927b7cd63c1b)
+
+	* doc/CMakeLists.txt, doc/Makefile.pod2man:
+	integrated man page generation in CMake build
+
+2010-12-26 12:26 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (efcfe39ffcc3)
+
+	* doc/cpfind.pod:
+	expanded cpfind man page
+
+2010-12-23 15:06 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (c1a62d7f75e0)
+
+	* src/translations/zh_CN.po:
+	Updated Chinese Simplified translation (Lu Fang)
+
+2010-12-23 15:06 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (cad9218f171c)
+
+	* src/translations/ru.po:
+	Updated Russian translation (Alexandre Prokoudine)
+
+2010-12-23 13:53 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (f8d82ce76f78)
+
+	* src/translations/bg.po, src/translations/ca_ES.po,
+	src/translations/cs_CZ.po, src/translations/de.po,
+	src/translations/en_GB.po, src/translations/es.po,
+	src/translations/es_la.po, src/translations/fi.po,
+	src/translations/fr.po, src/translations/hu.po,
+	src/translations/hugin.pot, src/translations/it.po,
+	src/translations/ja.po, src/translations/ko.po,
+	src/translations/nl.po, src/translations/pl.po,
+	src/translations/pt_BR.po, src/translations/ru.po,
+	src/translations/sk.po, src/translations/sl.po,
+	src/translations/sv.po, src/translations/uk.po,
+	src/translations/zh_CN.po, src/translations/zh_TW.po:
+	extracted messages for translations
+
+2010-12-23 13:52 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (1c3c3514733f)
+
+	* src/translations/bg.po, src/translations/ca_ES.po,
+	src/translations/cs_CZ.po, src/translations/de.po,
+	src/translations/en_GB.po, src/translations/es.po,
+	src/translations/es_la.po, src/translations/fi.po,
+	src/translations/fr.po, src/translations/hu.po,
+	src/translations/hugin.pot, src/translations/it.po,
+	src/translations/ja.po, src/translations/ko.po,
+	src/translations/nl.po, src/translations/pl.po,
+	src/translations/pt_BR.po, src/translations/ru.po,
+	src/translations/sk.po, src/translations/sl.po,
+	src/translations/sv.po, src/translations/uk.po,
+	src/translations/zh_CN.po, src/translations/zh_TW.po:
+	English language fix (part 2 - translations)
+	http://groups.google.com/group/hugin-
+	ptx/browse_thread/thread/2ecac5f83ca217b9
+
+2010-12-23 13:51 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (eff4d60b30cd)
+
+	* src/hugin1/ptbatcher/FindPanoDialog.cpp:
+	English language fix (part 1 - code) http://groups.google.com/group
+	/hugin-ptx/browse_thread/thread/2ecac5f83ca217b9
+
+2010-12-23 13:45 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (54dd6f546235)
+
+	* src/hugin1/hugin/MaskImageCtrl.cpp:
+	cosmetic: variable name to "correct" English
+
+2010-12-23 13:44 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (ed69d38dcaa7)
+
+	* src/translations/hugin.pot:
+	finish "Founded" typo fix
+
+2010-12-19 22:21 +0100  blimbo  <blimbo>  (6a5ac6a405c7)
+
+	* src/lens_calibrate/Straighten.cpp:
+	Re-implmented crude straightening function
+
+2010-12-19 22:12 +0100  blimbo  <blimbo>  (d247ee56da15)
+
+	* src/lens_calibrate/Main.cpp, src/lens_calibrate/Straighten.cpp:
+	Re-implmented crude straightening function
+
+2010-12-18 14:55 +0100  tmodes  <tmodes>  (d042bd4094ee)
+
+	* src/hugin_base/panodata/Mask.cpp, src/hugin_base/panodata/Mask.h,
+	src/hugin_base/panodata/Panorama.cpp,
+	src/hugin_base/panodata/SrcPanoImage.cpp:
+	Clip masks at crop borders Fixes issue #685558 Needs testing
+
+2010-12-16 21:19 +0100  tmodes  <tmodes>  (70a4464571f8)
+
+	* src/translations/cs_CZ.po:
+	Merged
+
+2010-12-13 22:18 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (e7939a4f5bc7)
+
+	* src/translations/cs_CZ.po:
+	reverted changes to cs_CZ
+
+2010-12-11 23:51 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (3177f44f1a9c)
+
+	* src/translations/de.po:
+	Updated German Translation (Carl von Einem) #688928
+
+2010-12-11 23:49 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (1280ae43814c)
+
+	* src/translations/cs_CZ.po:
+	sync Czech translation (2010.4 - trunk)
+
+2010-12-11 08:25 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (48497c5c8c9a)
+
+	* src/hugin1/hugin/xrc/batch_frame.xrc, src/translations/bg.po,
+	src/translations/ca_ES.po, src/translations/cs_CZ.po,
+	src/translations/de.po, src/translations/en_GB.po,
+	src/translations/es.po, src/translations/es_la.po,
+	src/translations/fi.po, src/translations/fr.po,
+	src/translations/hu.po, src/translations/it.po,
+	src/translations/ja.po, src/translations/ko.po,
+	src/translations/nl.po, src/translations/pl.po,
+	src/translations/pt_BR.po, src/translations/ru.po,
+	src/translations/sk.po, src/translations/sl.po,
+	src/translations/sv.po, src/translations/uk.po,
+	src/translations/zh_CN.po, src/translations/zh_TW.po:
+	Typo "Founded" (Carl von Einem)
+
+2010-12-11 13:44 +0100  harryvanderwolf  <hvdwolf@gmail.com>  (bb60fe5c2a95)
+
+	* src/translations/nl.po:
+	Update dutch translation after new string + correction
+
+2010-12-11 12:58 +0100  tmodes  <tmodes>  (c3e8f75da5f4)
+
+	* authors.txt, src/translations/hu.po:
+	Updated hungarian translation (Lajos Höss)
+
+2010-12-11 12:45 +0100  tmodes  <tmodes>  (e4190cd3a740)
+
+	* src/hugin1/hugin/xrc/data/help_en_EN/Hugin_FAQ.html,
+	src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Trackers.html,
+	src/hugin1/hugin/xrc/data/help_en_EN/Hugin_translation_guide.html:
+	Updated manual from wiki
+
+2010-12-11 12:41 +0100  tmodes  <tmodes>  (05f4a257f32d)
+
+	* src/hugin1/hugin/MainFrame.cpp, src/translations/bg.po,
+	src/translations/ca_ES.po, src/translations/cs_CZ.po,
+	src/translations/de.po, src/translations/en_GB.po,
+	src/translations/es.po, src/translations/es_la.po,
+	src/translations/fi.po, src/translations/fr.po,
+	src/translations/hu.po, src/translations/hugin.pot,
+	src/translations/it.po, src/translations/ja.po,
+	src/translations/ko.po, src/translations/nl.po,
+	src/translations/pl.po, src/translations/pt_BR.po,
+	src/translations/ru.po, src/translations/sk.po,
+	src/translations/sl.po, src/translations/sv.po,
+	src/translations/uk.po, src/translations/zh_CN.po,
+	src/translations/zh_TW.po:
+	Added missing string to translations
+
+2010-12-11 09:18 +0100  tmodes  <tmodes>  (db6fe95c42dc)
+
+	* src/translations/de.po:
+	Updated German translation
+
+2010-12-10 21:31 +0100  tmodes  <tmodes>  (265abebe7631)
+
+	* Merged
+
+2010-12-10 21:30 +0100  tmodes  <tmodes>  (e3c6318da525)
+
+	* CMakeModules/win_bundle.cmake:
+	Added gnu make 3.82 to search list for make
+
+2010-12-08 22:54 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (d6acda86d8a0)
+
+	* src/translations/es_la.po: new file.
+	* src/translations/es_VE.po: deleted file.
+	* authors.txt, src/translations/es_VE.po, src/translations/es_la.po:
+	Latin American Spanish Translation (Ernesto Enrique Alvarado
+	Viloria)
+
+2010-12-08 22:50 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (cbd78e2c5e98)
+
+	* src/translations/es.po:
+	Updated Spanish Translation (Uwe Koch Kronberg)
+
+2010-12-07 14:13 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (9c3f5ab1d2e2)
+
+	* src/translations/cs_CZ.po:
+	applied Czech translation updates (Vaclav Cerny) from 2010.4 to
+	default
+
+2010-12-07 17:36 +0100  tmodes  <tmodes>  (431788d95f14)
+
+	* src/hugin1/base_wx/RunStitchPanel.cpp:
+	Explicitly close generated makefile. This could fix issue #684749
+
+2010-12-06 19:15 -0500  Matthew Petroff  <Matthew Petroff>  (c1b976fd9ead)
+
+	* platforms/windows/huginsetup/HuginSetup_common.nsh:
+	Fixed Windows installer control point generator defaults.
+
+2010-12-06 11:48 +0100  mcri  <mcri>  (1e809afc5fe4)
+
+	* src/translations/it.po:
+	Updated Italian translation
+
+2010-12-05 08:37 +0100  harryvanderwolf  <hvdwolf@gmail.com>  (d9bc66f0e763)
+
+	* src/translations/nl.po:
+	Update Dutch translation: new strings, 2 typos
+
+2010-12-04 17:10 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (f2522064a8f3)
+
+	* src/translations/bg.po, src/translations/ca_ES.po,
+	src/translations/cs_CZ.po, src/translations/de.po,
+	src/translations/en_GB.po, src/translations/es.po,
+	src/translations/es_VE.po, src/translations/fi.po,
+	src/translations/fr.po, src/translations/hu.po,
+	src/translations/hugin.pot, src/translations/it.po,
+	src/translations/ja.po, src/translations/ko.po,
+	src/translations/nl.po, src/translations/pl.po,
+	src/translations/pt_BR.po, src/translations/ru.po,
+	src/translations/sk.po, src/translations/sl.po,
+	src/translations/sv.po, src/translations/uk.po,
+	src/translations/zh_CN.po, src/translations/zh_TW.po:
+	updated translations
+
+2010-12-04 21:03 +0100  tmodes  <tmodes>  (ed99ae8486d6)
+
+	* src/hugin1/hugin/OptimizePhotometricPanel.cpp:
+	Show warning if no exposure parameters are selected for
+	optimization. Warning: this introduces new strings for translations.
+
+2010-12-04 21:02 +0100  tmodes  <tmodes>  (57fcdd6c2c89)
+
+	* src/hugin_base/algorithms/optimizer/PhotometricOptimizer.cpp:
+	Don't optimize exposure if no parameters are selected.
+
+2010-12-04 20:13 +0100  tmodes  <tmodes>  (305a31555726)
+
+	* src/hugin1/hugin/PreferencesDialog.cpp,
+	src/hugin1/icpfind/CPDetectorConfig.cpp:
+	* Add file extension if not given for saving cp detector setting.
+	* Flush wxFileConfig, this hopefully fixes writing empty config file
+	Fixes some aspects of #685224
+
+2010-12-04 13:47 +0100  harryvanderwolf  <hvdwolf@gmail.com>  (0287b52c4fd3)
+
+	* src/translations/nl.po:
+	Update of Dutch translation, fast preview forgotten
+
+2010-12-04 13:29 +0100  harryvanderwolf  <hvdwolf@gmail.com>  (93816b9fb0e0)
+
+	* src/translations/nl.po:
+	Lots of minor changes to Dutch translations, hopefully improvements
+
+2010-12-03 21:11 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (71f6761fcc7f)
+
+	* ChangeLog, authors.txt:
+	added Davide Fabbri to contributors and updated ChangeLog
+
 2010-12-03 18:12 +0100  tmodes  <tmodes>  (1364c05d259d)
 
 	* src/hugin1/hugin/ImagesPanel.cpp:
