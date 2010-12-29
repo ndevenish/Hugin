@@ -21,10 +21,11 @@ use strict;
 
 my ($status, $foundline, $msgid, $msgstr, $fuzzy);
 
-my %Messages = ();		# Used for original po-file
-my %newMessages = ();		# new po-file
+my %Messages = ();              # Used for original po-file
+my %newMessages = ();           # new po-file
 my %Untranslated = ();          # inside new po-file
-my $result = 0;			# exit value
+my %Fuzzy = ();                 # inside new po-file
+my $result = 0;                 # exit value
 
 if (@ARGV != 2) {
   die("Expected exactly 2 parameters");
@@ -42,6 +43,10 @@ for my $k (@MsgKeys) {
   if ($newMessages{$k}->{msgstr} eq "") {
     # this is still untranslated string
     $Untranslated{$newMessages{$k}->{line}} = $k;
+  }
+  elsif ($newMessages{$k}->{fuzzy}) {
+    #fuzzy string
+    $Fuzzy{$newMessages{$k}->{line}} = $k;
   }
   if (exists($Messages{$k})) {
     &printIfDiff($k, $Messages{$k}, $newMessages{$k});
@@ -70,14 +75,9 @@ for my $k (@MsgKeys) {
   print "> msgstr = \"" . $newMessages{$k}->{msgstr} . "\"\n";
 }
 
-my @UntranslatedKeys = sort { $a <=> $b;} keys %Untranslated;
+&printExtraMessages("fuzzy", \%Fuzzy);
+&printExtraMessages("untranslated", \%Untranslated);
 
-if (@UntranslatedKeys > 0) {
-  print "Still " . 0 + @UntranslatedKeys . " untranslated messages found in $ARGV[1]\n";
-  for my $l (@UntranslatedKeys) {
-    print "> line $l: \"" . $Untranslated{$l} . "\"\n"; 
-  }
-}
 exit($result);
 
 sub check($$)
@@ -188,4 +188,17 @@ sub getLineSortedKeys($)
   my ($rMessages) = @_;
 
   return sort {$rMessages->{$a}->{line} <=> $rMessages->{$b}->{line};} keys %{$rMessages};
+}
+
+sub printExtraMessages($$)
+{
+  my ($type, $rExtra) = @_;
+  my @UntranslatedKeys = sort { $a <=> $b;} keys %{$rExtra};
+
+  if (@UntranslatedKeys > 0) {
+    print "Still " . 0 + @UntranslatedKeys . " $type messages found in $ARGV[1]\n";
+    for my $l (@UntranslatedKeys) {
+      print "> line $l: \"" . $rExtra->{$l} . "\"\n"; 
+    }
+  }
 }
