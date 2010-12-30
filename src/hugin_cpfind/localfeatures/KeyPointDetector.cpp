@@ -63,8 +63,8 @@ void KeyPointDetector::detectKeypoints(Image& iImage, KeyPointInsertor& iInserto
 	{
 		// calculate the pixel step on the image, and the image size
 		unsigned int aPixelStep = 1 << o;	// 2^aOctaveIt
-		unsigned int aOctaveWidth = iImage.getWidth() / aPixelStep;	// integer division
-		unsigned int aOctaveHeight = iImage.getHeight() / aPixelStep;	// integer division
+		int aOctaveWidth = iImage.getWidth() / aPixelStep;	// integer division
+		int aOctaveHeight = iImage.getHeight() / aPixelStep;	// integer division
 
 		// fill each scale matrices
 		for (unsigned int s = 0; s < _maxScales; ++s)
@@ -76,15 +76,15 @@ void KeyPointDetector::detectKeypoints(Image& iImage, KeyPointInsertor& iInserto
 			aBorderSize[s] = getBorderSize(o, s);
 			
 			// fill the hessians
-			unsigned int aEy = aOctaveHeight - aBorderSize[s];
-			unsigned int aEx = aOctaveWidth - aBorderSize[s];
+			int aEy = aOctaveHeight - aBorderSize[s];
+			int aEx = aOctaveWidth - aBorderSize[s];
 			
-			unsigned int aYPS = aBorderSize[s] * aPixelStep;
-			for (unsigned int y = aBorderSize[s]; y < aEy; ++y)
+			int aYPS = aBorderSize[s] * aPixelStep;
+			for (int y = aBorderSize[s]; y < aEy; ++y)
 			{
 				aBoxFilter.setY(aYPS);
-				unsigned int aXPS = aBorderSize[s] * aPixelStep;
-				for (unsigned int x = aBorderSize[s]; x < aEx; ++x)
+				int aXPS = aBorderSize[s] * aPixelStep;
+				for (int x = aBorderSize[s]; x < aEx; ++x)
 				{
 					aSH[s][y][x] = aBoxFilter.getDetWithX(aXPS);
 					aXPS += aPixelStep;
@@ -96,10 +96,10 @@ void KeyPointDetector::detectKeypoints(Image& iImage, KeyPointInsertor& iInserto
 		// detect the feature points with a 3x3x3 neighborhood non-maxima suppression
 		for (unsigned int aSIt = 1; aSIt < (_maxScales - 1); aSIt +=2)
 		{			
-			const unsigned int aBS = aBorderSize[aSIt+1];
-			for (unsigned int aYIt = aBS + 1; aYIt < aOctaveHeight - aBS - 1; aYIt+=2)
+			const int aBS = aBorderSize[aSIt+1];
+			for (int aYIt = aBS + 1; aYIt < aOctaveHeight - aBS - 1; aYIt+=2)
 			{
-				for (unsigned int aXIt = aBS + 1; aXIt < aOctaveWidth - aBS - 1; aXIt+=2)
+				for (int aXIt = aBS + 1; aXIt < aOctaveWidth - aBS - 1; aXIt+=2)
 				{
 					// find the maximum in the 2x2x2 cube
 					double aTab[8];
