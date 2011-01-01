@@ -11,7 +11,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2010-12-23 13:52-0500\n"
-"PO-Revision-Date: 2010-12-11 14:22+0100\n"
+"PO-Revision-Date: 2010-12-28 21:20+0100\n"
 "Last-Translator: Carl von Einem <carl@einem.net>\n"
 "Language-Team: deutsch <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -35,7 +35,7 @@ msgstr "Fehler beim Laden des Bildes %s"
 
 #: hugin1/base_wx/ImageCache.cpp:691
 msgid "Cannot load image: "
-msgstr "Konnte Bild nicht laden:"
+msgstr "Konnte Bild nicht laden: "
 
 #: hugin1/base_wx/ImageCache.cpp:719
 #, c-format
@@ -65,7 +65,7 @@ msgstr "Fehler beim Anhalten des Prozesses %ld, Code 1"
 #: hugin1/base_wx/MyExternalCmdExecDialog.cpp:196
 #, c-format
 msgid "Error pausing process %ld, code 2"
-msgstr "Fehler beim Pausieren des Prozesses %ld, code 2"
+msgstr "Fehler beim Pausieren des Prozesses %ld, Code 2"
 
 #: hugin1/base_wx/MyExternalCmdExecDialog.cpp:606
 #: hugin1/ptbatcher/RunStitchFrame.cpp:43
@@ -84,7 +84,7 @@ msgstr "Kommandozeilen-Fortschritt"
 
 #: hugin1/base_wx/MyProgressDialog.cpp:36
 msgid "Elapsed time : "
-msgstr "Verstrichene Zeit:"
+msgstr "Verstrichene Zeit: "
 
 #: hugin1/base_wx/MyProgressDialog.h:104
 msgid "Optimizing Panorama"
@@ -294,7 +294,7 @@ msgstr "Die Bilder sind mit %lu Kontrollpunkten verbunden.\n"
 #: hugin1/hugin/AssistantPanel.cpp:299
 #, c-format
 msgid "%d unconnected image groups found: "
-msgstr "%d unverbundene Bildgruppen gefunden:"
+msgstr "%d unverbundene Bildgruppen gefunden: "
 
 #: hugin1/hugin/AssistantPanel.cpp:300
 msgid ""
@@ -339,7 +339,7 @@ msgstr ""
 #: hugin1/hugin/AssistantPanel.cpp:322
 #, c-format
 msgid "Mean error after optimization: %.1f pixel, max: %.1f\n"
-msgstr "Mittlerer Fehler nach Optimierung: %.1f Pixel (Max: %1.f)\n"
+msgstr "Mittlerer Fehler nach Optimierung: %.1f Pixel (Max: %.1f)\n"
 
 #: hugin1/hugin/AssistantPanel.cpp:330
 msgid ""
@@ -371,7 +371,7 @@ msgstr "Starte Assistenten"
 #: hugin1/hugin/AssistantPanel.cpp:427
 #, c-format
 msgid "Warning %d unconnected image groups found:"
-msgstr "Warnung: %d unverbundene Bildgruppen gefunden:"
+msgstr "Warnung, %d unverbundene Bildgruppen gefunden:"
 
 #: hugin1/hugin/AssistantPanel.cpp:428
 msgid ""
@@ -3052,7 +3052,6 @@ msgid "Foldername.pto"
 msgstr "Verzeichnisname.pto"
 
 #: translations/xrc.cpp:58 xrc.cpp:58
-#, fuzzy
 msgid "Found panoramas"
 msgstr "Panoramen gefunden"
 
