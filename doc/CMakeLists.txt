@@ -10,6 +10,7 @@ ELSE (WIN32)
 # For all other systems, generate and install the man pages
 
 FIND_PROGRAM(POD2MAN pod2man)
+FIND_PROGRAM(GZIP gzip)
 
 MACRO(install_man manfile section)
   INSTALL(FILES ${manfile} DESTINATION ${MANDIR}/man${section})
@@ -17,19 +18,22 @@ ENDMACRO(install_man)
 
 MACRO(do_pod podfile manfile section)
   IF(EXISTS "${CMAKE_SOURCE_DIR}/doc/${podfile}")
-    IF(POD2MAN)
+    IF(POD2MAN AND GZIP)
+      # Try to install compressed manual
       SET(outfile "${manfile}.${section}")
       # TODO: fix the unaesthetic double quotes in which the HUGIN_PACKAGE_VERSION
       # is displayed on the resulting man page
       ADD_CUSTOM_COMMAND(
-        OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/${outfile}"
+        OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/${outfile}.gz"
         COMMAND ${POD2MAN} --section="${section}" --release="Version: ${HUGIN_PACKAGE_VERSION}" --center=HUGIN  "${CMAKE_CURRENT_BINARY_DIR}/${podfile}"  "${CMAKE_CURRENT_BINARY_DIR}/${outfile}"
+	COMMAND ${GZIP} "${CMAKE_CURRENT_BINARY_DIR}/${outfile}"
         DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/${podfile}"
 	VERBATIM
       )
-      install_man(${outfile} ${section})
-      LIST(APPEND ManDeps "${CMAKE_CURRENT_BINARY_DIR}/${outfile}")
-    ENDIF(POD2MAN)
+      SET_SOURCE_FILES_PROPERTIES("${CMAKE_CURRENT_BINARY_DIR}/${outfile}.gz" GENERATED)
+      install_man("${CMAKE_CURRENT_BINARY_DIR}/${outfile}.gz" ${section})
+      LIST(APPEND ManDeps "${CMAKE_CURRENT_BINARY_DIR}/${outfile}.gz")
+    ENDIF(POD2MAN AND GZIP)
   ENDIF()
 ENDMACRO(do_pod)
 
