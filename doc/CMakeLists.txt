@@ -26,7 +26,7 @@ MACRO(do_pod podfile manfile section)
       ADD_CUSTOM_COMMAND(
         OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/${outfile}.gz"
         COMMAND ${POD2MAN} --section="${section}" --release="Version: ${HUGIN_PACKAGE_VERSION}" --center=HUGIN  "${CMAKE_CURRENT_BINARY_DIR}/${podfile}"  "${CMAKE_CURRENT_BINARY_DIR}/${outfile}"
-	COMMAND ${GZIP} "${CMAKE_CURRENT_BINARY_DIR}/${outfile}"
+	COMMAND ${GZIP} "-f" "${CMAKE_CURRENT_BINARY_DIR}/${outfile}"
         DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/${podfile}"
 	VERBATIM
       )
