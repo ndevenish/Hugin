@@ -107,6 +107,7 @@ bool PanoDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& file
     
     // try to add as images
     std::vector<std::string> filesv;
+    bool foundForbiddenChars=false;
     for (unsigned int i=0; i< filenames.GetCount(); i++) {
         wxFileName file(filenames[i]);
 
@@ -122,6 +123,7 @@ bool PanoDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& file
             file.GetExt().CmpNoCase(wxT("hdr")) == 0 ||
             file.GetExt().CmpNoCase(wxT("viff")) == 0 )
         {
+            foundForbiddenChars=foundForbiddenChars || containsInvalidCharacters(filenames[i]);
             filesv.push_back((const char *)filenames[i].mb_str(HUGIN_CONV_FILENAME));
         }
     }
@@ -131,6 +133,12 @@ bool PanoDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& file
         wxBusyCursor();
         GlobalCmdHist::getInstance().addCommand(new wxAddImagesCmd(pano,filesv));
     }
+    if(foundForbiddenChars)
+    {
+        wxMessageBox(wxString::Format(_("The filename(s) contains one of the following invalid characters: %s\nHugin can not work with these filenames. Please rename your file(s) and try again."),getInvalidCharacters().c_str()),
+            _("Error"),wxOK | wxICON_EXCLAMATION, mf);
+    }
+
     return true;
 }
 

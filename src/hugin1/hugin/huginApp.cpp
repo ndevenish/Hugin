@@ -401,7 +401,10 @@ bool huginApp::OnInit()
                 {
                     if(file.IsRelative())
                         file.MakeAbsolute(cwd);
-                    filesv.push_back((const char *)(file.GetFullPath().mb_str(HUGIN_CONV_FILENAME)));
+                    if(!containsInvalidCharacters(file.GetFullPath()))
+                    {
+                        filesv.push_back((const char *)(file.GetFullPath().mb_str(HUGIN_CONV_FILENAME)));
+                    };
 
                     // Use the first filename to set actualPath.
                     if (! actualPathSet)
