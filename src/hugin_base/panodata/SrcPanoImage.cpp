@@ -106,6 +106,7 @@ bool SrcPanoImage::horizontalWarpNeeded()
         case FISHEYE_ORTHOGRAPHIC:
         case FISHEYE_STEREOGRAPHIC:
         case FISHEYE_EQUISOLID:
+        case FISHEYE_THOBY:
         default:
             break;
     }
@@ -642,6 +643,7 @@ double SrcPanoImage::calcHFOV(SrcPanoImage::Projection proj, double fl, double c
         case SrcPanoImage::FISHEYE_ORTHOGRAPHIC:
         case SrcPanoImage::FISHEYE_STEREOGRAPHIC:
         case SrcPanoImage::FISHEYE_EQUISOLID:
+        case SrcPanoImage::FISHEYE_THOBY:
             hfov = sensorSize.x / fl * 180/M_PI;
             break;
         case SrcPanoImage::EQUIRECTANGULAR:
@@ -678,6 +680,7 @@ double SrcPanoImage::calcFocalLength(SrcPanoImage::Projection proj, double hfov,
         case SrcPanoImage::FISHEYE_ORTHOGRAPHIC:
         case SrcPanoImage::FISHEYE_STEREOGRAPHIC:
         case SrcPanoImage::FISHEYE_EQUISOLID:
+        case SrcPanoImage::FISHEYE_THOBY:
             // same projection equation for both fisheye types,
             // assume equal area projection.
             return sensorSize.x / (hfov/180*M_PI);
@@ -710,6 +713,7 @@ double SrcPanoImage::calcCropFactor(SrcPanoImage::Projection proj, double hfov, 
         case SrcPanoImage::FISHEYE_ORTHOGRAPHIC:
         case SrcPanoImage::FISHEYE_STEREOGRAPHIC:
         case SrcPanoImage::FISHEYE_EQUISOLID:
+        case SrcPanoImage::FISHEYE_THOBY:
         case SrcPanoImage::PANORAMIC:
             // same projection equation for both fisheye types,
             // assume equal area projection.

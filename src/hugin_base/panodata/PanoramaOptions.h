@@ -109,7 +109,8 @@ class IMPEX PanoramaOptions
             EQUI_PANINI = 16,
             BIPLANE = 17,
             TRIPLANE = 18,
-            GENERAL_PANINI = 19
+            GENERAL_PANINI = 19,
+            THOBY_PROJECTION = 20
         };
 
         /** PTStitcher acceleration */

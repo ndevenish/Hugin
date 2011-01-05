@@ -60,6 +60,7 @@ void FillLensProjectionList(wxControlWithItems* list)
     list->Append(_("Orthographic"),(void*)HuginBase::SrcPanoImage::FISHEYE_ORTHOGRAPHIC);
     list->Append(_("Stereographic"),(void*)HuginBase::SrcPanoImage::FISHEYE_STEREOGRAPHIC);
     list->Append(_("Equisolid"),(void*)HuginBase::SrcPanoImage::FISHEYE_EQUISOLID);
+    list->Append(_("Fisheye Thoby"),(void*)HuginBase::SrcPanoImage::FISHEYE_THOBY);
     list->SetSelection(0);
 };
 

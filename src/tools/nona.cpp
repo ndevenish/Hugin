@@ -354,6 +354,7 @@ int main(int argc, char *argv[])
             case HuginBase::PanoramaOptions::BIPLANE:
             case HuginBase::PanoramaOptions::TRIPLANE:
             case HuginBase::PanoramaOptions::EQUISOLID:
+            case HuginBase::PanoramaOptions::THOBY_PROJECTION:
             case HuginBase::PanoramaOptions::ORTHOGRAPHIC:
             case HuginBase::PanoramaOptions::PANINI:
             case HuginBase::PanoramaOptions::EQUI_PANINI:

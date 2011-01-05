@@ -65,6 +65,7 @@ OutputProjectionInfo::OutputProjectionInfo(HuginBase::PanoramaOptions *output)
         case HuginBase::PanoramaOptions::ARCHITECTURAL:
         case HuginBase::PanoramaOptions::ORTHOGRAPHIC:
         case HuginBase::PanoramaOptions::EQUISOLID:
+        case HuginBase::PanoramaOptions::THOBY_PROJECTION:
             // The poles are on the sides.
             // ...or at least they can be detected from the sides (disk-likes)
             // I've offset the noth pole slightly as the detection rate was

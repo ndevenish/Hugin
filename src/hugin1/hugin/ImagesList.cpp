@@ -525,6 +525,7 @@ void ImagesListLens::UpdateItem(unsigned int imgNr)
     case SrcPanoImage::FISHEYE_ORTHOGRAPHIC: ps << _("Orthographic"); break;
     case SrcPanoImage::FISHEYE_STEREOGRAPHIC:ps << _("Stereographic"); break;
     case SrcPanoImage::FISHEYE_EQUISOLID:    ps << _("Equisolid"); break;
+    case SrcPanoImage::FISHEYE_THOBY:        ps << _("Fisheye Thoby"); break;
     }
     SetItem(imgNr, 3, ps);
     SetItem(imgNr, 4, doubleTowxString( map_get(var, "Eev").getValue(),1));

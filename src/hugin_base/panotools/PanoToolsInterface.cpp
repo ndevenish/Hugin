@@ -698,6 +698,8 @@ void setFullImage(Image & image, vigra::Diff2D size,
     case BaseSrcPanoImage::FISHEYE_EQUISOLID:
         image.format = _equisolid;
         break;
+    case BaseSrcPanoImage::FISHEYE_THOBY:
+        image.format = _thoby;
     }
     image.hfov = const_map_get(vars,"v").getValue();
     image.yaw = const_map_get(vars,"y").getValue();

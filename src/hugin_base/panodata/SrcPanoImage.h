@@ -70,7 +70,8 @@ public:
         EQUIRECTANGULAR = 4,
         FISHEYE_ORTHOGRAPHIC = 8,
         FISHEYE_STEREOGRAPHIC = 10,
-        FISHEYE_EQUISOLID = 21
+        FISHEYE_EQUISOLID = 21,
+        FISHEYE_THOBY = 20
     };
     
     ///

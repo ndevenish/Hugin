@@ -268,6 +268,7 @@ void VertexCoordRemapper::DiscontinuityFlip(double vertex_c[2])
         case HuginBase::PanoramaOptions::LAMBERT_AZIMUTHAL:
         case HuginBase::PanoramaOptions::ORTHOGRAPHIC:
         case HuginBase::PanoramaOptions::EQUISOLID:
+        case HuginBase::PanoramaOptions::THOBY_PROJECTION:
             // circular projections. These stretch rather nastily over the
             // centre, and correcting them doesn't help much, so any image
             // covering the outer circle is switched to a TexCoordRemapper.

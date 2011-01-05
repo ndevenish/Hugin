@@ -71,6 +71,7 @@ void ChoosyRemapper::UpdateAndResetIndex()
         case HuginBase::PanoramaOptions::ALBERS_EQUAL_AREA_CONIC:
         case HuginBase::PanoramaOptions::ORTHOGRAPHIC:
         case HuginBase::PanoramaOptions::EQUISOLID:
+        case HuginBase::PanoramaOptions::THOBY_PROJECTION:
         // Add any projections where the poles maps to a big set of points here.
         case HuginBase::PanoramaOptions::PANINI:
         case HuginBase::PanoramaOptions::EQUI_PANINI:
