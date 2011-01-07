@@ -31,7 +31,7 @@
 #include "Panorama.h"
 //#include "PanoToolsInterface.h"
 #include <panodata/StandardImageVariableGroups.h>
-
+#include <panotools/PanoToolsUtils.h>
 
 
 namespace PT {
@@ -308,6 +308,7 @@ namespace PT {
                 for (it = cps.begin(); it != cps.end(); ++it, i++) {
                     pano.changeControlPoint(i, *it);
                 }
+                HuginBase::PTools::calcCtrlPointErrors(pano);
                 pano.changeFinished();
 
                 return true;
@@ -440,6 +441,7 @@ namespace PT {
                     pano.updateVariables(*it, *v_it);
                     ++v_it;
                 }
+                HuginBase::PTools::calcCtrlPointErrors(pano);
                 pano.changeFinished();
 
                 return true;
@@ -502,6 +504,7 @@ namespace PT {
                 for (it = images.begin(); it != images.end(); ++it) {
                     pano.updateVariable(*it, var);
                 }
+                HuginBase::PTools::calcCtrlPointErrors(pano);
                 pano.changeFinished();
 
                 return true;
@@ -591,6 +594,7 @@ namespace PT {
         virtual bool processPanorama(Panorama& pano)
             {
                 pano.addCtrlPoint(point);
+                HuginBase::PTools::calcCtrlPointErrors(pano);
                 pano.changeFinished();
 
                 return true;
@@ -626,6 +630,7 @@ namespace PT {
                 {
                     pano.addCtrlPoint(*it);
                 }
+                HuginBase::PTools::calcCtrlPointErrors(pano);
                 pano.changeFinished();
 
                 return true;
@@ -720,6 +725,7 @@ namespace PT {
         virtual bool processPanorama(Panorama& pano)
             {
                 pano.changeControlPoint(pNr, point);
+                HuginBase::PTools::calcCtrlPointErrors(pano);
                 pano.changeFinished();
 
                 return true;
@@ -814,6 +820,7 @@ namespace PT {
         virtual bool processPanorama(Panorama& pano)
             {
                 pano.mergePanorama(newPano);
+                HuginBase::PTools::calcCtrlPointErrors(pano);
                 pano.changeFinished();
 
                 return true;
@@ -914,6 +921,7 @@ namespace PT {
                     pano.setSrcImage(*it, imgs[i]);
                     i++;
                 }
+                HuginBase::PTools::calcCtrlPointErrors(pano);
                 pano.changeFinished();
 
                 return true;
