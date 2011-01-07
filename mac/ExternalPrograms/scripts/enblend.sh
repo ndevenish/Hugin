@@ -125,8 +125,8 @@ do
 
  env \
    CC=$CC CXX=$CXX \
-   CFLAGS="-isysroot $MACSDKDIR -I$REPOSITORYDIR/include -arch $ARCH $ARCHARGs $OTHERARGs -dead_strip" \
-   CXXFLAGS="-isysroot $MACSDKDIR -I$REPOSITORYDIR/include -arch $ARCH $ARCHARGs $OTHERARGs -dead_strip" \
+   CFLAGS="-isysroot $MACSDKDIR -I$REPOSITORYDIR/include -I$REPOSITORYDIR/include/OpenEXR -I$REPOSITORYDIR/include/boost -arch $ARCH $ARCHARGs $OTHERARGs -dead_strip" \
+   CXXFLAGS="-isysroot $MACSDKDIR -I$REPOSITORYDIR/include -I$REPOSITORYDIR/include/OpenEXR -I$REPOSITORYDIR/include/boost -arch $ARCH $ARCHARGs $OTHERARGs -dead_strip" \
    CPPFLAGS="-I$REPOSITORYDIR/include -I$REPOSITORYDIR/include/OpenEXR -I/usr/include" \
    LIBS="-lGLEW -framework GLUT -lobjc -framework OpenGL -framework AGL" \
    LDFLAGS="-L$REPOSITORYDIR/lib -L/usr/lib -mmacosx-version-min=$OSVERSION -dead_strip" \
@@ -134,7 +134,7 @@ do
    PKG_CONFIG_PATH="$REPOSITORYDIR/lib/pkgconfig" \
    ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking --enable-image-cache=yes \
      --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH --with-apple-opengl-framework \
-     --with-glew $extraConfig  || fail "configure step for $ARCH";
+     --with-glew $extraConfig --with-openexr || fail "configure step for $ARCH";
 
  # hack; AC_FUNC_MALLOC sucks!!
 

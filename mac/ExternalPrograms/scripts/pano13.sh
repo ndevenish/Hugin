@@ -24,6 +24,7 @@
 # 20100119.0 sg Support the SVN version of panotools - 2.9.16
 # 201004xx.0 hvdw support 2.9.17
 # 20100624.0 hvdw More robust error checking on compilation
+# 20110107.0 hvdw support for 2.9.18
 # -------------------------------
 
 # init
@@ -51,6 +52,10 @@ case $libpanoVsn in
                                 GENERATED_DYLIB_INSTALL_NAME="libpano13.dylib";
                                 ;;
   "17")
+        GENERATED_DYLIB_NAME="libpano13.2.dylib";
+                                GENERATED_DYLIB_INSTALL_NAME="libpano13.dylib";
+                                ;;
+  "18")
         GENERATED_DYLIB_NAME="libpano13.2.dylib";
                                 GENERATED_DYLIB_INSTALL_NAME="libpano13.dylib";
                                 ;;
