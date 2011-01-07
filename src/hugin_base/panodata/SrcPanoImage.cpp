@@ -286,7 +286,7 @@ void SrcPanoImage::setOptions(const ImageOptions & opts)
     m_Morph.setData(opts.morph);
     if (opts.docrop)
     {
-        if (m_Projection.getData() == CIRCULAR_FISHEYE)
+        if (m_Projection.getData() == CIRCULAR_FISHEYE || m_Projection.getData() == FISHEYE_THOBY)
         {
             m_CropMode.setData(CROP_CIRCLE);
         }

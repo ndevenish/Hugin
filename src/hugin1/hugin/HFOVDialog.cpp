@@ -360,7 +360,7 @@ void HFOVDialog::OnLoadLensParameters(wxCommandEvent & e)
 
         if (!opts.docrop) {
             m_srcImg.setCropMode(SrcPanoImage::NO_CROP);
-        } else if (m_srcImg.getProjection() == SrcPanoImage::CIRCULAR_FISHEYE) {
+        } else if (m_srcImg.getProjection() == SrcPanoImage::CIRCULAR_FISHEYE || m_srcImg.getProjection() == SrcPanoImage::FISHEYE_THOBY) {
             m_srcImg.setCropMode(SrcPanoImage::CROP_CIRCLE);
             m_srcImg.setCropRect(opts.cropRect);
         } else {

@@ -2521,7 +2521,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
         new_img.setActive(iImgInfo[i].enabled);
         
         if (!iImgInfo[i].crop.isEmpty()) {
-            if (new_img.getProjection() == SrcPanoImage::CIRCULAR_FISHEYE)
+            if (new_img.getProjection() == SrcPanoImage::CIRCULAR_FISHEYE || new_img.getProjection() == SrcPanoImage::FISHEYE_THOBY)
             {
                 new_img.setCropMode(SrcPanoImage::CROP_CIRCLE);
             } else {

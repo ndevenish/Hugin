@@ -216,7 +216,7 @@ void CropPanel::Pano2Display(int imgNr)
     int dy = roundi(img.getRadialDistortionCenterShift().y);
     /// @todo can this be done with img.getSize() / 2 + img.getRadialDistortionCenterShift()?
     m_center = vigra::Point2D(img.getSize().width()/2 + dx, img.getSize().height()/2 + dy);
-    m_circular = img.getProjection() == SrcPanoImage::CIRCULAR_FISHEYE;
+    m_circular = img.getCropMode() == SrcPanoImage::CROP_CIRCLE;
 
     UpdateDisplay();
 }
