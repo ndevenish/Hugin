@@ -58,7 +58,7 @@ public:
         Mask_Stack_positive=3
     };
     /** constructor */
-    MaskPolygon() : m_maskType(Mask_negative), m_invert(false), m_imgNr(0) {};
+    MaskPolygon() : m_maskType(Mask_negative), m_imgNr(0), m_invert(false) {};
     /** checks if given point is inside of the stored polygon */
     bool isInside(const FDiff2D p) const;
     /** returns the winding number of the polygon around point p */

@@ -78,13 +78,13 @@ std::string getKeyfilenameFor(std::string keyfilesPath, std::string filename)
     return newfilename;
 };
 
-PanoDetector::PanoDetector() :	_outputFile("default.pto"),
+PanoDetector::PanoDetector() :	
 	_writeAllKeyPoints(false),
 	_sieve1Width(10), _sieve1Height(10), _sieve1Size(30), 
-	_kdTreeSearchSteps(40), _kdTreeSecondDistance(0.15), _sieve2Width(5), _sieve2Height(5),
-	_sieve2Size(2), _test(false), _cores(utils::getCPUCount()), _ransacIters(1000), _ransacDistanceThres(25),
-    _minimumMatches(4), _linearMatch(false), _linearMatchLen(1), _downscale(true), _cache(false), _cleanup(false),
-    _keypath(""), _celeste(false), _celesteThreshold(0.5), _celesteRadius(20), _multirow(false)
+	_kdTreeSearchSteps(40), _kdTreeSecondDistance(0.15), _ransacIters(1000), _ransacDistanceThres(25),
+	_sieve2Width(5), _sieve2Height(5),_sieve2Size(2), _test(false), _cores(utils::getCPUCount()),
+	_minimumMatches(4), _linearMatch(false), _linearMatchLen(1), _downscale(true), _cache(false), _cleanup(false),
+    _keypath(""), _outputFile("default.pto"), _celeste(false), _celesteThreshold(0.5), _celesteRadius(20), _multirow(false)
 {
 	_panoramaInfo = new Panorama();
 }

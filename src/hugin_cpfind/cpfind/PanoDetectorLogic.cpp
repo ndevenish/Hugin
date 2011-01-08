@@ -33,8 +33,10 @@
 #include <localfeatures/KeyPointIO.h>
 #include <localfeatures/CircularKeyPointDescriptor.h>
 
+/*
 #include "KDTree.h"
 #include "KDTreeImpl.h"
+*/
 #include "Utils.h"
 #include "Tracer.h"
 
@@ -180,7 +182,7 @@ bool PanoDetector::AnalyzeImage(ImgData& ioImgInfo, const PanoDetector& iPanoDet
 	}
 	
         //convert image, so that all (rgb) values are between 0 and 1
-        if(aImageInfo.getPixelType() == "FLOAT" || aImageInfo.getPixelType() == "DOUBLE")
+        if(aImageInfo.getPixelType() == std::string("FLOAT") || aImageInfo.getPixelType() == std::string("DOUBLE"))
         {
             vigra::RGBToGrayAccessor<vigra::RGBValue<float> > ga;
             vigra::FindMinMax<float> minmax;   // init functor
@@ -475,13 +477,18 @@ bool PanoDetector::BuildKDTreesInImage(ImgData& ioImgInfo, const PanoDetector& i
 
 	// build a vector of KDElemKeyPointPtr
 
-	int aCount = 0;
+	// create feature vector matrix for flann
+	ioImgInfo._flann_descriptors = flann::Matrix<double>(new double[ioImgInfo._kp.size()*ioImgInfo._descLength], 
+											   ioImgInfo._kp.size(), ioImgInfo._descLength);
+	int i = 0;
 	BOOST_FOREACH(KeyPointPtr& aK, ioImgInfo._kp)
 	{
-		ioImgInfo._kdv.push_back(KDElemKeyPoint(aK, aCount++));
+		memcpy(ioImgInfo._flann_descriptors[i++], aK->_vec, sizeof(double)*ioImgInfo._descLength);
 	}
 
-	ioImgInfo._kd = KPKDTreePtr(new KDTreeSpace::KDTree<KDElemKeyPoint, double>(ioImgInfo._kdv, ioImgInfo._descLength));
+	// build query structure
+	ioImgInfo._flann_index = new flann::Index<flann::L2<double> > (ioImgInfo._flann_descriptors, flann::KDTreeIndexParams(4));
+    ioImgInfo._flann_index->buildIndex();             
 
 	return true;
 }
@@ -502,11 +509,21 @@ bool PanoDetector::FindMatchesInPair(MatchData& ioMatchData, const PanoDetector&
 	TRACE_PAIR("Find Matches...");
 
 	// retrieve the KDTree of image 2
-	KPKDTree& aKDTree2 = *(ioMatchData._i2->_kd);
+	flann::Index<flann::L2<double> > * index2 = ioMatchData._i2->_flann_index;
+
+	// retrieve query points from image 1
+	flann::Matrix<double> & query = ioMatchData._i1->_flann_descriptors;
 
 	// storage for sorted 2 best matches
-	typedef KDTreeSpace::BestMatch<KDElemKeyPoint>		BM_t;
-	std::set<BM_t, std::greater<BM_t> >	aBestMatches;
+    int nn = 2;
+	flann::Matrix<int> indices(new int[query.rows*nn], query.rows, nn);
+	flann::Matrix<double> dists(new double[query.rows*nn], query.rows, nn);
+
+	// perform matching using flann
+    index2->knnSearch(query, indices, dists, nn, flann::SearchParams(iPanoDetector.getKDTreeSearchSteps()));	
+
+	//typedef KDTreeSpace::BestMatch<KDElemKeyPoint>		BM_t;
+	//std::set<BM_t, std::greater<BM_t> >	aBestMatches;
 
 	// store the matches already found to avoid 2 points in image1
 	// match the same point in image2
@@ -519,39 +536,30 @@ bool PanoDetector::FindMatchesInPair(MatchData& ioMatchData, const PanoDetector&
 	std::vector<TmpPair_t>	aUnfilteredMatches;
 
 	//PointMatchVector_t aMatches;
-
+	
 	// go through all the keypoints of image 1
-	for (unsigned aKIt = 0; aKIt < ioMatchData._i1->_kdv.size(); ++aKIt)
+	for (unsigned aKIt = 0; aKIt < query.rows; ++aKIt)
 	{
-		// find the 2 best nearest neighbors
-		aBestMatches.clear();
-		aBestMatches = aKDTree2.getNearestNeighboursBBF(ioMatchData._i1->_kdv[aKIt], 2, iPanoDetector.getKDTreeSearchSteps());
-		
-		if (aBestMatches.size() < 2)
-			continue;
-		
-		const BM_t& aBest = *(++aBestMatches.begin());
-		const BM_t& aSecond = *(aBestMatches.begin());
-
 		// accept the match if the second match is far enough
 		// put a lower value for stronger matching default 0.15
-		if (aBest._distance > iPanoDetector.getKDTreeSecondDistance()  * aSecond._distance) 
+		if (dists[aKIt][0] > iPanoDetector.getKDTreeSecondDistance()  * dists[aKIt][1]) 
 			continue;
 
 		// check if the kdtree match number is already in the already matched set
-		if (aAlreadyMatched.find(aBest._match->_n) != aAlreadyMatched.end())
+		if (aAlreadyMatched.find(indices[aKIt][0]) != aAlreadyMatched.end())
 		{
 			// add to delete list and continue
-			aBadMatch.insert(aBest._match->_n);
+			aBadMatch.insert(indices[aKIt][0]);
 			continue;
 		}
+		
+		// TODO: add check for duplicate matches (can happen if a keypoint gets multiple orientations)
 
 		// add the match number in already matched set
-		aAlreadyMatched.insert(aBest._match->_n);
+		aAlreadyMatched.insert(indices[aKIt][0]);
 
 		// add the match to the unfiltered list
-		aUnfilteredMatches.push_back(TmpPair_t(ioMatchData._i1->_kp[aKIt], aBest._match->_n));
-
+		aUnfilteredMatches.push_back(TmpPair_t(ioMatchData._i1->_kp[aKIt], indices[aKIt][0]));
 	}
 
 	// now filter and fill the vector of matches
@@ -563,7 +571,6 @@ bool PanoDetector::FindMatchesInPair(MatchData& ioMatchData, const PanoDetector&
 
 		// add the match in the output vector
 		ioMatchData._matches.push_back(lfeat::PointMatchPtr( new lfeat::PointMatch(aP.first, ioMatchData._i2->_kp[aP.second])));
-
 	}
 
 	TRACE_PAIR("Found " << ioMatchData._matches.size() << " matches.");

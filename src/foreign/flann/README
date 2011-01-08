@@ -1,0 +1,13 @@
+FLANN - Fast Library for Approximate Nearest neighbors
+======================================================
+
+This is a library for fast approximate nearest neighbor matching. 
+See the doc/manual.pdf file for information on how to use the library.
+
+This is a subset of flann 1.6.6, (src folder and slightly modified
+CMakeLists.txt), as downloaded from
+http://www.cs.ubc.ca/~mariusm/index.php/FLANN/FLANN
+
+Conditions of use
+=================
+FLANN is distributed under the terms of the BSD License. 

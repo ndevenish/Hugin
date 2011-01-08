@@ -36,6 +36,8 @@
 #include <localfeatures/KeyPoint.h>
 #include <localfeatures/KeyPointDetector.h>
 
+#include <flann/flann.hpp>
+
 #include <vigra_ext/ROIImage.h>
 
 #include <panodata/Panorama.h>
@@ -206,7 +208,7 @@ public:
 		lfeat::Image		_ii;
 		vigra::BImage		_distancemap;
 
-		bool					_needsremap;
+		bool				_needsremap;
 		PanoramaOptions 	_projOpts;		
 
 		bool 					_hasakeyfile;
@@ -214,11 +216,12 @@ public:
 
 		lfeat::KeyPointVect_t	_kp;
 		int					_descLength;
-   	bool          	   _loadFail;
+		bool          	   _loadFail;
 
 		// kdtree
-		KDElemKeyPointVect_t	_kdv;
-		KPKDTreePtr				_kd;
+		flann::Matrix<double> _flann_descriptors;
+		flann::Index<flann::L2<double> > * _flann_index;
+
 	};
 
 	typedef std::map<int, ImgData>					ImgData_t;
