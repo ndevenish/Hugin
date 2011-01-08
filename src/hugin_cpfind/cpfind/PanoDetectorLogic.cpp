@@ -121,6 +121,11 @@ bool PanoDetector::LoadKeypoints(ImgData& ioImgInfo, const PanoDetector& iPanoDe
     return true;
 }
 
+vigra::RGBValue<float> gray2RGB(float const& v)
+{
+    return vigra::RGBValue<float>(v,v,v);
+}  
+
 // save some intermediate images to disc if defined
 // #define DEBUG_LOADING_REMAPPING
 bool PanoDetector::AnalyzeImage(ImgData& ioImgInfo, const PanoDetector& iPanoDetector)
@@ -136,24 +141,44 @@ bool PanoDetector::AnalyzeImage(ImgData& ioImgInfo, const PanoDetector& iPanoDet
         vigra::ImageImportInfo aImageInfo(ioImgInfo._name.c_str());
         vigra::FRGBImage RGBimg(aImageInfo.width(), aImageInfo.height());
         vigra::BImage mask;
-        if(aImageInfo.numExtraBands() == 1) 
-        {
-            mask.resize(aImageInfo.size());
-            importImageAlpha(aImageInfo, destImage(RGBimg), destImage(mask));
-        } 
-        else
-        {
-            if (aImageInfo.numExtraBands() == 0) 
-            {
-                vigra::importImage(aImageInfo, destImage(RGBimg));
-            }
-            else
-            {
+
+	if (aImageInfo.numBands() == 1) {
+	    // grayscale image, convert to RGB. This is kind of stupid, but celeste wants RGB images...
+	    vigra::FImage tmpImg(aImageInfo.width(), aImageInfo.height());
+            if (aImageInfo.numExtraBands() == 0) {
+		vigra::importImage(aImageInfo, destImage(tmpImg));
+	    } else if (aImageInfo.numExtraBands() == 1) {
+		mask.resize(aImageInfo.size());
+                importImageAlpha(aImageInfo, destImage(tmpImg), destImage(mask));
+	    } else {
                 TRACE_INFO("Image with multiple alpha channels are not supported");
                 ioImgInfo._loadFail = true;
                 return false;
+	    }
+            //vigra::GrayToRGBAccessor<vigra::RGBValue<float> > ga;
+	    RGBimg.resize(aImageInfo.size());
+	    vigra::transformImage(srcImageRange(tmpImg), destImage(RGBimg), &gray2RGB);
+	} else {
+            if(aImageInfo.numExtraBands() == 1) 
+            {
+                mask.resize(aImageInfo.size());
+                importImageAlpha(aImageInfo, destImage(RGBimg), destImage(mask));
+            } 
+            else
+            {
+                if (aImageInfo.numExtraBands() == 0) 
+                {
+                    vigra::importImage(aImageInfo, destImage(RGBimg));
+                }
+                else
+                {
+                    TRACE_INFO("Image with multiple alpha channels are not supported");
+                    ioImgInfo._loadFail = true;
+                    return false;
+                };
             };
-        };
+	}
+	
         //convert image, so that all (rgb) values are between 0 and 1
         if(aImageInfo.getPixelType() == "FLOAT" || aImageInfo.getPixelType() == "DOUBLE")
         {
@@ -419,9 +444,24 @@ bool PanoDetector::MakeKeyPointDescriptorsInImage(ImgData& ioImgInfo, const Pano
 		
 	// build a keypoint descriptor
 		CircularKeyPointDescriptor aKPD(ioImgInfo._ii);
+
+		// vector for keypoints with more than one orientation
+		KeyPointVect_t kp_new_ori;
 		BOOST_FOREACH(KeyPointPtr& aK, ioImgInfo._kp)
 		{
-			aKPD.assignOrientation(*aK);
+			double angles[4];
+			int nAngles = aKPD.assignOrientation(*aK, angles);
+			for (int i=0; i < nAngles; i++) {
+				// duplicate Keypoint with additional angles
+				KeyPointPtr aKn = KeyPointPtr ( new lfeat::KeyPoint ( *aK ) );
+				aKn->_ori = angles[i];
+				//kp_new_ori.push_back(aKn);
+			}
+			ioImgInfo._kp.insert(ioImgInfo._kp.end(), kp_new_ori.begin(), kp_new_ori.end());
+		}
+
+		BOOST_FOREACH(KeyPointPtr& aK, ioImgInfo._kp)
+		{
 			aKPD.makeDescriptor(*aK);
 		}
 		// store the descriptor length

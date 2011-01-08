@@ -38,12 +38,13 @@ public:
     CircularKeyPointDescriptor(Image& iImage, 
 							   std::vector<int> rings = std::vector<int>(),
 							   std::vector<double> ring_radius = std::vector<double>(),
-							   std::vector<double> ring_gradient_width = std::vector<double>());
+							   std::vector<double> ring_gradient_width = std::vector<double>(),
+							   int ori_bins=18, double ori_sample_scale=4, int ori_gridsize=11);
 	~CircularKeyPointDescriptor();
 
 	void makeDescriptor(KeyPoint& ioKeyPoint) const;
 	int getDescriptorLength() const	{ return _descrLen; };
-	void assignOrientation(KeyPoint& ioKeyPoint) const;
+	int assignOrientation(KeyPoint& ioKeyPoint, double angles[4]) const;
 
 protected:
 	void createDescriptor(KeyPoint& ioKeyPoint) const;
@@ -55,6 +56,9 @@ private:
 	int _subRegions;
 	int _descrLen;
 	SampleSpec * _samples;
+	const int _ori_nbins;
+	const double _ori_sample_scale;
+	const int _ori_gridsize;
 };
 
 }

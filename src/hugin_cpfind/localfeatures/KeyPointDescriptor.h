@@ -32,7 +32,7 @@ class KeyPointDescriptor
 public:
 	virtual void makeDescriptor(KeyPoint& ioKeyPoint) const = 0;
 	virtual int getDescriptorLength() const = 0;
-	virtual void assignOrientation(KeyPoint& ioKeyPoint) const = 0;
+	virtual int assignOrientation(KeyPoint& ioKeyPoint, double angles[4]) const = 0;
 
 };
 
