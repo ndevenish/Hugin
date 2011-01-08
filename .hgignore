@@ -2,3 +2,4 @@
 glob:*~$
 glob:rev.txt
 glob:src/hugin/*
+^build_*
