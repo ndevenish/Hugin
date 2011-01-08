@@ -21,6 +21,17 @@ IF (${HUGIN_SHARED_LIBS})
 ELSE (${HUGIN_SHARED_LIBS})
     add_library(localfeatures STATIC ${LF_SRC} ${LF_HEADER})
 ENDIF (${HUGIN_SHARED_LIBS})
+
+add_executable(keypoints keypoints.cpp)
+
+IF(WIN32)
+	target_link_libraries(keypoints localfeatures ZThread ${image_libs} ${common_libs})
+ELSE(WIN32)
+	target_link_libraries(keypoints localfeatures ZThread pthread ${image_libs} ${common_libs})
+ENDIF(WIN32)
+
+install(TARGETS keypoints DESTINATION ${BINDIR})
+
  
 # the python interface for it
 # temporarily disabled, it is not working anyway.
