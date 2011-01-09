@@ -2,6 +2,7 @@
 /** @file PreviewDragTool.cpp
  *
  *  @author James Legg
+ *  @author Darko Makreshanski
  *
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public
@@ -36,23 +37,23 @@
 #include <GL/gl.h>
 #endif
 
-PreviewDragTool::PreviewDragTool(PreviewToolHelper *helper)
-    : PreviewTool(helper)
+DragTool::DragTool(ToolHelper *helper)
+    : Tool(helper)
 {
 }
 
-void PreviewDragTool::setDragMode(PreviewDragTool::DragMode dmode)
+void DragTool::setDragMode(PreviewDragTool::DragMode dmode)
 {
 	drag_mode = dmode;
 }
 
-PreviewDragTool::DragMode PreviewDragTool::getDragMode()
+DragTool::DragMode DragTool::getDragMode()
 {
 	return drag_mode;
 }
 
 //find Tr parameters shift based on polar coordinates
-void PreviewDragTool::getTranslationShift(double &delta_x, double &delta_y)
+void DragTool::getTranslationShift(double &delta_x, double &delta_y)
 {
 	double startx = atan(DEG_TO_RAD(start_coordinates.x));
 	double starty = atan(DEG_TO_RAD(start_coordinates.y));
@@ -63,7 +64,7 @@ void PreviewDragTool::getTranslationShift(double &delta_x, double &delta_y)
 }
 
 
-void PreviewDragTool::Activate()
+void DragTool::Activate()
 {
     drag_yaw = false; drag_pitch = false; drag_roll = false;
     shift = false; control = false;
@@ -75,16 +76,20 @@ void PreviewDragTool::Activate()
     helper->SetStatusMessage(_("Drag to move images (optionally use shift to constrain), or roll with right-drag or ctrl-drag."));
 }
 
-void PreviewDragTool::MouseMoveEvent(double x, double y, wxMouseEvent & e)
+void DragTool::MouseMoveEvent(double x, double y, wxMouseEvent & e)
 {
+    hugin_utils::FDiff2D pos = helper->GetMousePanoPosition();
+    x = pos.x;
+    y = pos.y;
     if (drag_yaw || drag_pitch || drag_roll)
     {
+        
         // how far are we moving?
         if (drag_yaw || drag_pitch)
         {
 
             double yaw, pitch;
-            helper->GetViewStatePtr()->GetProjectionInfo()->ImageToAngular(yaw,
+            helper->GetVisualizationStatePtr()->GetProjectionInfo()->ImageToAngular(yaw,
                                                pitch, x, y);
             shift_coordinates.x = yaw;
             shift_coordinates.y = pitch;
@@ -142,131 +147,135 @@ void PreviewDragTool::MouseMoveEvent(double x, double y, wxMouseEvent & e)
 	    }
                           
         // redraw
-        helper->GetViewStatePtr()->Redraw();
+        helper->GetVisualizationStatePtr()->Redraw();
     }
 }
 
-void PreviewDragTool::MouseButtonEvent(wxMouseEvent &e)
+void DragTool::MouseButtonEvent(wxMouseEvent &e)
 {
     if (e.ButtonDown())
     {
-        control = e.m_controlDown;
-        shift = e.m_shiftDown;
-        switch (e.GetButton())
-        {
-            // primary button
-            case wxMOUSE_BTN_LEFT:
-                // different things depending on modifier keys.
-                if (!control)
-                {
-                    // Either no key modifiers we care about, or shift.
-                    // With shift we determine an adaptive constraint based on
-                    // movement in both directions.
-                    drag_yaw = true; drag_pitch = true;
-                }
-                else if (control && !(shift))
-                {
-                    drag_roll = true;
-                }
-                break;
-            case wxMOUSE_BTN_RIGHT:
-                drag_roll = true;
-                break;
-        }
-        if (drag_roll)
-        {
-            // set centre and angle
-            helper->GetViewStatePtr()->GetProjectionInfo()->AngularToImage(
-                                                  centre.x, centre.y, 0.0, 0.0);
-            centre.x += 0.5;
-            centre.y += 0.5;
-            hugin_utils::FDiff2D angular = helper->GetMousePosition() - centre;
-            start_angle = atan2(angular.y, angular.x);
-            shift_angle = 0.0;
-            // we'll always rotate around the centre of the panorama.
-            start_coordinates.x = 0.0;    start_coordinates.y = 0.0;
-            shift_coordinates.x = 0.0;    shift_coordinates.y = 0.0;
-            helper->SetStatusMessage(_("Rotate around the centre to roll."));
-        }
-        if (drag_yaw || drag_pitch)
-        {
-            // We want to keep the point under the mouse pointer now under there
-            // wherever it goes. We'll calculate the roll, pitch, and yaw
-            // required to bring the centre to the point under the mouse. Then
-            // we rotate the panorama's images using the yaw and pitch of the
-            // movement. (Rotate start point to the centre, rotate by difference
-            // in yaw and pitch gained so far while dragging, then do the
-            // inverse of the rotation from start point to the centre on the
-            // result.
-            // set angles
-            double yaw, pitch;
-            hugin_utils::FDiff2D mouse_pos = helper->GetMousePosition();
-            helper->GetViewStatePtr()->GetProjectionInfo()->ImageToAngular(yaw,
-                                               pitch, mouse_pos.x, mouse_pos.y);
-            start_coordinates.x = yaw;    start_coordinates.y = pitch;
-            shift_coordinates.x = yaw;    shift_coordinates.y = pitch;
-            // provide a helpfull message to the user via the staus bar.
-            if (shift) {
-                helper->SetStatusMessage(_("Constrained drag: make a movement and it will be snapped to the yaw or pitch."));
-            } else {
-                helper->SetStatusMessage(_("Drag to move."));
-            }
-        }
-        if (drag_roll || drag_yaw || drag_pitch)
-        {
-            shift_angle = 0.0;
-            // record where the images are so we know what the difference is.
-            // Use the component the mouse points to instead of every image.
-            // Find the components
-            PT::CPGraph graph;
-            PT::createCPGraph(*helper->GetPanoramaPtr(), graph);
-            PT::CPComponents components;
-            unsigned int n = PT::findCPComponents(graph, components);
-            // If there is only component, we can drag everything. Otherwise the
-            // component we want is the lowest numbered image under the mouse.
-            if (n == 1)
-            {
-                unsigned int imgs = helper->GetPanoramaPtr()->getNrOfImages();
-                draging_images.clear();
-                fill_set(draging_images, 0, imgs - 1);
 
-                ViewState *view_state_ptr = helper->GetViewStatePtr();
-                for (unsigned int i = 0; i < imgs; i++)
-                {
-                    image_params[i].Set(view_state_ptr->GetSrcImage(i));
-                };
-            } else
+        if (helper->IsMouseOverPano()) {
+        
+            control = e.m_controlDown;
+            shift = e.m_shiftDown;
+            switch (e.GetButton())
             {
-                // multiple components or none at all.
-                if (n == 0 || helper->GetImageNumbersUnderMouse().empty())
-                {
-                    // we can't drag nothing.
-                    drag_roll = false; drag_yaw = false; drag_pitch = false;
-                    return;
-                }
-                // Find the component containing the topmost image under mouse
-                unsigned int img = *helper->GetImageNumbersUnderMouse().begin();
-                for (unsigned int component_index = 0;
-                     component_index < components.size(); component_index ++)
-                {
-                    if (components[component_index].count(img))
+                // primary button
+                case wxMOUSE_BTN_LEFT:
+                    // different things depending on modifier keys.
+                    if (!control)
                     {
-                        // Found it, record which images and where they are.
-                        draging_images = components[component_index];
-                        std::set<unsigned int>::iterator i, end;
-                        end = draging_images.end();
-                        for (i = draging_images.begin(); i != end; i++)
+                        // Either no key modifiers we care about, or shift.
+                        // With shift we determine an adaptive constraint based on
+                        // movement in both directions.
+                        drag_yaw = true; drag_pitch = true;
+                    }
+                    else if (control && !(shift))
+                    {
+                        drag_roll = true;
+                    }
+                    break;
+                case wxMOUSE_BTN_RIGHT:
+                    drag_roll = true;
+                    break;
+            }
+            if (drag_roll)
+            {
+                // set centre and angle
+                helper->GetViewStatePtr()->GetProjectionInfo()->AngularToImage(
+                                                      centre.x, centre.y, 0.0, 0.0);
+                centre.x += 0.5;
+                centre.y += 0.5;
+                hugin_utils::FDiff2D angular = helper->GetMousePanoPosition() - centre;
+                start_angle = atan2(angular.y, angular.x);
+                shift_angle = 0.0;
+                // we'll always rotate around the centre of the panorama.
+                start_coordinates.x = 0.0;    start_coordinates.y = 0.0;
+                shift_coordinates.x = 0.0;    shift_coordinates.y = 0.0;
+                helper->SetStatusMessage(_("Rotate around the centre to roll."));
+            }
+            if (drag_yaw || drag_pitch)
+            {
+                // We want to keep the point under the mouse pointer now under there
+                // wherever it goes. We'll calculate the roll, pitch, and yaw
+                // required to bring the centre to the point under the mouse. Then
+                // we rotate the panorama's images using the yaw and pitch of the
+                // movement. (Rotate start point to the centre, rotate by difference
+                // in yaw and pitch gained so far while dragging, then do the
+                // inverse of the rotation from start point to the centre on the
+                // result.
+                // set angles
+                double yaw, pitch;
+                hugin_utils::FDiff2D mouse_pos = helper->GetMousePanoPosition();
+                helper->GetViewStatePtr()->GetProjectionInfo()->ImageToAngular(yaw,
+                                                   pitch, mouse_pos.x, mouse_pos.y);
+                start_coordinates.x = yaw;    start_coordinates.y = pitch;
+                shift_coordinates.x = yaw;    shift_coordinates.y = pitch;
+                // provide a helpfull message to the user via the staus bar.
+                if (shift) {
+                    helper->SetStatusMessage(_("Constrained drag: make a movement and it will be snapped to the yaw or pitch."));
+                } else {
+                    helper->SetStatusMessage(_("Drag to move."));
+                }
+            }
+            if (drag_roll || drag_yaw || drag_pitch)
+            {
+                shift_angle = 0.0;
+                // record where the images are so we know what the difference is.
+                // Use the component the mouse points to instead of every image.
+                // Find the components
+                PT::CPGraph graph;
+                PT::createCPGraph(*helper->GetPanoramaPtr(), graph);
+                PT::CPComponents components;
+                unsigned int n = PT::findCPComponents(graph, components);
+                // If there is only component, we can drag everything. Otherwise the
+                // component we want is the lowest numbered image under the mouse.
+                if (n == 1)
+                {
+                    unsigned int imgs = helper->GetPanoramaPtr()->getNrOfImages();
+                    draging_images.clear();
+                    fill_set(draging_images, 0, imgs - 1);
+
+                    ViewState *view_state_ptr = helper->GetViewStatePtr();
+                    for (unsigned int i = 0; i < imgs; i++)
+                    {
+                        image_params[i].Set(view_state_ptr->GetSrcImage(i));
+                    };
+                } else
+                {
+                    // multiple components or none at all.
+                    if (n == 0 || helper->GetImageNumbersUnderMouse().empty())
+                    {
+                        // we can't drag nothing.
+                        drag_roll = false; drag_yaw = false; drag_pitch = false;
+                        return;
+                    }
+                    // Find the component containing the topmost image under mouse
+                    unsigned int img = *helper->GetImageNumbersUnderMouse().begin();
+                    for (unsigned int component_index = 0;
+                         component_index < components.size(); component_index ++)
+                    {
+                        if (components[component_index].count(img))
                         {
-                            image_params[*i].Set(
-                                    helper->GetViewStatePtr()->GetSrcImage(*i));
+                            // Found it, record which images and where they are.
+                            draging_images = components[component_index];
+                            std::set<unsigned int>::iterator i, end;
+                            end = draging_images.end();
+                            for (i = draging_images.begin(); i != end; i++)
+                            {
+                                image_params[*i].Set(
+                                        helper->GetViewStatePtr()->GetSrcImage(*i));
+                            }
+                            break;
                         }
-                        break;
                     }
                 }
+                SetRotationMatrix(shift_coordinates.x, shift_coordinates.y,
+                                  shift_angle,
+                                  start_coordinates.x,  start_coordinates.y,  0.0);
             }
-            SetRotationMatrix(shift_coordinates.x, shift_coordinates.y,
-                              shift_angle,
-                              start_coordinates.x,  start_coordinates.y,  0.0);
         }
     } else {
         // check this wasn't an attempt to drag empty space.
@@ -301,6 +310,58 @@ void PreviewDragTool::MouseButtonEvent(wxMouseEvent &e)
         
         helper->SetStatusMessage(_("Drag to move images (optionally use shift to constrain), or roll with right-drag or ctrl-drag."));
     }
+}
+
+
+
+void DragTool::ParamStore::Set(HuginBase::SrcPanoImage *img)
+{
+    yaw = img->getYaw();
+    pitch = img->getPitch();
+    roll = img->getRoll();
+    TrX = img->getX();
+    TrY = img->getY();
+}
+
+void DragTool::ParamStore::Move(Matrix3 *matrix,
+                                       double &yaw_out, double &pitch_out,
+                                       double &roll_out, double &TrX_out, double &TrY_out)
+{
+    Matrix3 start, output_matrix;
+    // convert the location of this image to a matrix.
+    start.SetRotationPT(DEG_TO_RAD(yaw), DEG_TO_RAD(pitch), DEG_TO_RAD(roll));
+    // move it by the matrix specified.
+    output_matrix = *matrix * start;
+    // get the angles from the matrix
+    output_matrix.GetRotationPT(yaw_out, pitch_out, roll_out);
+    yaw_out = RAD_TO_DEG(yaw_out);
+    pitch_out = RAD_TO_DEG(pitch_out);
+    roll_out = RAD_TO_DEG(roll_out);
+    
+	//for non zero Tr parameters correspondence can be kept only for rolling, so adjust TrX and TrY parameters accordingly
+    Vector3 vec(0, TrY, TrX);
+    Vector3 res = matrix->TransformVector(vec);
+    TrX_out = res.z;
+    TrY_out = res.y;
+    
+}
+
+void DragTool::SetRotationMatrix(double yaw_shift, double pitch_shift,
+                                        double roll_shift,
+                                        double yaw_start, double pitch_start,
+                                        double roll_start)
+{
+    Matrix3 y1_mat, r_mat, y2_mat, p1_mat, p2_mat;
+    // rotates the start point to the centre
+    y1_mat.SetRotationPT(-DEG_TO_RAD(yaw_start), 0.0, 0.0);
+    p1_mat.SetRotationPT(0.0, DEG_TO_RAD(pitch_start), 0.0);
+    // rolls the image
+    r_mat.SetRotationPT(0.0, 0.0, roll_shift);
+    // rotates the centre to the destination point
+    p2_mat.SetRotationPT(0.0, -DEG_TO_RAD(pitch_shift), 0.0);
+    y2_mat.SetRotationPT(DEG_TO_RAD(yaw_shift), 0.0, 0.0);
+    
+    rotation_matrix = y2_mat * p2_mat * r_mat *p1_mat * y1_mat;
 }
 
 void PreviewDragTool::ReallyAfterDrawImagesEvent()
@@ -364,54 +425,8 @@ void PreviewDragTool::ReallyAfterDrawImagesEvent()
     glEnable(GL_TEXTURE_2D);
 }
 
-
-void PreviewDragTool::ParamStore::Set(HuginBase::SrcPanoImage *img)
+void OverviewDragTool::ReallyAfterDrawImagesEvent()
 {
-    yaw = img->getYaw();
-    pitch = img->getPitch();
-    roll = img->getRoll();
-    TrX = img->getX();
-    TrY = img->getY();
-}
 
-void PreviewDragTool::ParamStore::Move(Matrix3 *matrix,
-                                       double &yaw_out, double &pitch_out,
-                                       double &roll_out, double &TrX_out, double &TrY_out)
-{
-    Matrix3 start, output_matrix;
-    // convert the location of this image to a matrix.
-    start.SetRotationPT(DEG_TO_RAD(yaw), DEG_TO_RAD(pitch), DEG_TO_RAD(roll));
-    // move it by the matrix specified.
-    output_matrix = *matrix * start;
-    // get the angles from the matrix
-    output_matrix.GetRotationPT(yaw_out, pitch_out, roll_out);
-    yaw_out = RAD_TO_DEG(yaw_out);
-    pitch_out = RAD_TO_DEG(pitch_out);
-    roll_out = RAD_TO_DEG(roll_out);
-    
-	//for non zero Tr parameters correspondence can be kept only for rolling, so adjust TrX and TrY parameters accordingly
-    Vector3 vec(0, TrY, TrX);
-    Vector3 res = matrix->TransformVector(vec);
-    TrX_out = res.z;
-    TrY_out = res.y;
-    
-}
-
-void PreviewDragTool::SetRotationMatrix(double yaw_shift, double pitch_shift,
-                                        double roll_shift,
-                                        double yaw_start, double pitch_start,
-                                        double roll_start)
-{
-    Matrix3 y1_mat, r_mat, y2_mat, p1_mat, p2_mat;
-    // rotates the start point to the centre
-    y1_mat.SetRotationPT(-DEG_TO_RAD(yaw_start), 0.0, 0.0);
-    p1_mat.SetRotationPT(0.0, DEG_TO_RAD(pitch_start), 0.0);
-    // rolls the image
-    r_mat.SetRotationPT(0.0, 0.0, roll_shift);
-    // rotates the centre to the destination point
-    p2_mat.SetRotationPT(0.0, -DEG_TO_RAD(pitch_shift), 0.0);
-    y2_mat.SetRotationPT(DEG_TO_RAD(yaw_shift), 0.0, 0.0);
-    
-    rotation_matrix = y2_mat * p2_mat * r_mat *p1_mat * y1_mat;
 }
 

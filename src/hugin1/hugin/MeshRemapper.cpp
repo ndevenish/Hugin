@@ -30,12 +30,12 @@
 #include "ViewState.h"
 
 MeshRemapper::MeshRemapper(HuginBase::Panorama *m_pano_in,
-                           unsigned int image_number_in,
-                           ViewState *view_state_in)
+                           HuginBase::SrcPanoImage * image_in,
+                           VisualizationState *visualization_state_in)
 {
     m_pano = m_pano_in;
-    image_number = image_number_in;
-    view_state = view_state_in;
+    image = image_in;
+    visualization_state = visualization_state_in;
 }
 
 MeshRemapper::~MeshRemapper()
@@ -45,14 +45,14 @@ MeshRemapper::~MeshRemapper()
 void MeshRemapper::UpdateAndResetIndex()
 {
     // we want to make a remapped mesh, get some generic information:
-    const HuginBase::SrcPanoImage *src = view_state->GetSrcImage(image_number);
+//    const HuginBase::SrcPanoImage *src = visualization_state->GetSrcImage(image_number);
     // get the size of the image.
-    width = (double) src->getSize().width();
-    height = (double) src->getSize().height();
+    width = (double) image->getSize().width();
+    height = (double) image->getSize().height();
   
     // use the scale to determine edge lengths in pixels for any
     // resolution selection.
-    scale = view_state->GetScale();
+    scale = visualization_state->GetScale();
     // It is up to the child classes to determine what to do here. They should
     // probably use set up transform and use it to fill some data structure that
     // stores coordinates.
@@ -60,20 +60,20 @@ void MeshRemapper::UpdateAndResetIndex()
 
 void MeshRemapper::SetCrop()
 {
-    const HuginBase::SrcPanoImage *src = view_state->GetSrcImage(image_number);
-    crop_mode = src->getCropMode();
-    crop_x1 = (double) src->getCropRect().left() / width;
-    crop_x2 = (double) src->getCropRect().right() / width;
-    crop_y1 = (double) src->getCropRect().top() / height;
-    crop_y2 = (double) src->getCropRect().bottom() / height;
+//    const HuginBase::SrcPanoImage *src = visualization_state->GetSrcImage(image_number);
+    crop_mode = image->getCropMode();
+    crop_x1 = (double) image->getCropRect().left() / width;
+    crop_x2 = (double) image->getCropRect().right() / width;
+    crop_y1 = (double) image->getCropRect().top() / height;
+    crop_y2 = (double) image->getCropRect().bottom() / height;
     // set variables for circular crop.
-    circle_crop = src->getCropMode() == HuginBase::SrcPanoImage::CROP_CIRCLE;
+    circle_crop = image->getCropMode() == HuginBase::SrcPanoImage::CROP_CIRCLE;
     if (circle_crop)
     {
         circle_crop_centre_x = (crop_x1 + crop_x2) / 2.0;
         circle_crop_centre_y = (crop_y1 + crop_y2) / 2.0;
-        double crop_width_px = (double) src->getCropRect().width(),
-               crop_hieght_px = (double) src->getCropRect().height(),
+        double crop_width_px = (double) image->getCropRect().width(),
+               crop_hieght_px = (double) image->getCropRect().height(),
                crop_radius = (crop_width_px < crop_hieght_px ?
                                 crop_width_px : crop_hieght_px) / 2.0;
         circle_crop_radius_x = crop_radius / width;

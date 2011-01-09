@@ -374,7 +374,7 @@ void PanoramaOptions::setVFOV(double VFOV)
         m_roi &= vigra::Rect2D(m_size);
     }
 
-    DEBUG_DEBUG(" HFOV: " << m_hfov << " size: " << m_size << " roi: " << m_roi << "  => vfov: " << VFOV);
+//    DEBUG_DEBUG(" HFOV: " << m_hfov << " size: " << m_size << " roi: " << m_roi << "  => vfov: " << VFOV);
 
 }
 
@@ -427,7 +427,7 @@ double PanoramaOptions::getVFOV() const
             break;
     }
     */
-    DEBUG_DEBUG(" HFOV: " << m_hfov << " size: " << m_size << " roi: " << m_roi << "  => vfov: " << VFOV);
+//    DEBUG_DEBUG(" HFOV: " << m_hfov << " size: " << m_size << " roi: " << m_roi << "  => vfov: " << VFOV);
 
     return VFOV;
 }

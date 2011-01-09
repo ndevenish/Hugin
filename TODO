@@ -1,3 +1,36 @@
 [TODO]
 
 - compile a todo list
+
+
+Panorama Overview Related TODO list:
+
+ - Check the system in windows and mac (I can only test in windows)
+ - DragTool: add lines from starting to ending point
+ - Improve performance of calculating panosphere meshes by using GPU
+ - Create realtime adjustments for the other viewer when dragging images
+ - The projection grid is not included in the mosaic plane currently because just adding it as a rectilinear projection of the current grid will be ugly and not useful. So first I need to come up with some representation of the grid on the mosaic plane which will be useful.
+ - The mosaic plane could use some things like:
+        - rendering of the hypothetical camera positions for each image
+        - rendering of the panosphere together with the plane to create a sense of what is going on. This also needs some thought
+ - Dragging in the mosaic plane should support changing of the Z parameter as well
+ - Test the system with masks for the issues that James pointed out
+ - Highlighting an image in identify mode also highlights the image in the other viewer. This currently only works when the mouse is over the image buttons
+ - Improve performance for great circles by using display lists and meshes also for the crosses. Also keep the old method by just using lines, which is useful for the preview
+ - Check the issue with double difference choices
+ - Add the interactive circles
+ - Implement the better handling of image groups
+ - Bug, sometimes changing the FOV sliders doesn't cause the overview to be redrawn
+ - Add informative status messages
+ - Automatic adjustment of the zoom level for the mosaic plane
+ - The overview window does not process the mouse wheel on windows
+ - Crash when switch mode if overview window is hidden (at startup)
+
+
+fixed:
+
+  - Bug (at least in my computer) with wxAUI which causes the program to crash when both canvases are undocked and then docked.
+    - with preview fixed to the frame this is not a problem anymore
+  - Toggle buttons to show hide the overview and preview canvases
+  - Add a switch for the projection grid or make it automatic for certain tabs.
+

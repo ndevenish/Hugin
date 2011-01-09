@@ -27,7 +27,7 @@
 #include <panodata/Panorama.h>
 #include <panotools/PanoToolsInterface.h>
 
-class ViewState;
+class VisualizationState;
 
 /** An abstract base class for objects that calculate an
  * approximate remap specified by quadrilatrials. Each quadrilatrial has vertex
@@ -43,8 +43,8 @@ class ViewState;
 class MeshRemapper
 {
 public:
-    MeshRemapper(HuginBase::Panorama *m_pano, unsigned int image_number,
-                         ViewState *view_state);
+    MeshRemapper(HuginBase::Panorama *m_pano, HuginBase::SrcPanoImage * image,
+                         VisualizationState *visualization_state);
     virtual ~MeshRemapper();
     virtual void UpdateAndResetIndex();
     /**  A class for exchanging pointers to coordinates.
@@ -80,9 +80,9 @@ public:
      */
     virtual bool GetNextFaceCoordinates(Coords *result) = 0;
 protected:
-    ViewState *view_state;
+    VisualizationState *visualization_state;
     HuginBase::Panorama *m_pano;
-    unsigned int image_number;
+    HuginBase::SrcPanoImage * image;
     /** The number number of units between vertex coorinates that
      * gives a pixel in the display.
      */
