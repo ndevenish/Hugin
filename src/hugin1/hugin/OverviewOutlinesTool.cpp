@@ -269,7 +269,7 @@ void OverviewOutlinesTool::DrawRect(double left, double top, double right, doubl
         case HuginBase::PanoramaOptions::ALBERS_EQUAL_AREA_CONIC:
         case HuginBase::PanoramaOptions::ORTHOGRAPHIC:
         case HuginBase::PanoramaOptions::EQUISOLID:
-
+        case HuginBase::PanoramaOptions::THOBY_PROJECTION:
 
             {
 
