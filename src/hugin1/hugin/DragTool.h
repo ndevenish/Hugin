@@ -1,5 +1,5 @@
 // -*- c-basic-offset: 4 -*-
-/** @file PreviewDragTool.h
+/** @file DragTool.h
  *
  *  @author James Legg
  *  @author Darko Makreshanski

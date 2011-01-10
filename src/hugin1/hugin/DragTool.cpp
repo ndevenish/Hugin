@@ -1,5 +1,5 @@
 // -*- c-basic-offset: 4 -*-
-/** @file PreviewDragTool.cpp
+/** @file DragTool.cpp
  *
  *  @author James Legg
  *  @author Darko Makreshanski
@@ -24,7 +24,7 @@
 #include "panoinc_WX.h"
 #include "panoinc.h"
 
-#include "PreviewDragTool.h"
+#include "DragTool.h"
 #include "CommandHistory.h"
 #include "PT/PanoCommand.h"
 #include "PT/ImageGraph.h"

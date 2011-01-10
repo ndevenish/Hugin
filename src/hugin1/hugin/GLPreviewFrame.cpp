@@ -65,8 +65,8 @@ extern "C" {
 
 #include "ToolHelper.h"
 #include "Tool.h"
+#include "DragTool.h"
 #include "PreviewCropTool.h"
-#include "PreviewDragTool.h"
 #include "PreviewIdentifyTool.h"
 #include "PreviewDifferenceTool.h"
 #include "PreviewPanoMaskTool.h"
@@ -1053,7 +1053,11 @@ void GLPreviewFrame::OnShowEvent(wxShowEvent& e)
     bool toggle_on = m_OverviewToggle->GetValue();
     wxAuiPaneInfo &inf = m_mgr->GetPane(_("overview"));
     if (inf.IsOk()) {
+#if wxCHECK_VERSION(2,8,11)
         if (e.IsShown()) {
+#else
+        if (e.GetShow()) {
+#endif
             if (!inf.IsShown() && toggle_on ) {
                 inf.Show();
                 m_mgr->Update();
