@@ -129,7 +129,7 @@ vigra::RGBValue<float> gray2RGB(float const& v)
 }  
 
 // save some intermediate images to disc if defined
-// #define DEBUG_LOADING_REMAPPING
+#define DEBUG_LOADING_REMAPPING
 bool PanoDetector::AnalyzeImage(ImgData& ioImgInfo, const PanoDetector& iPanoDetector)
 {
     vigra::DImage final_img;
@@ -457,10 +457,10 @@ bool PanoDetector::MakeKeyPointDescriptorsInImage(ImgData& ioImgInfo, const Pano
 				// duplicate Keypoint with additional angles
 				KeyPointPtr aKn = KeyPointPtr ( new lfeat::KeyPoint ( *aK ) );
 				aKn->_ori = angles[i];
-				//kp_new_ori.push_back(aKn);
+				kp_new_ori.push_back(aKn);
 			}
-			ioImgInfo._kp.insert(ioImgInfo._kp.end(), kp_new_ori.begin(), kp_new_ori.end());
 		}
+		ioImgInfo._kp.insert(ioImgInfo._kp.end(), kp_new_ori.begin(), kp_new_ori.end());
 
 		BOOST_FOREACH(KeyPointPtr& aK, ioImgInfo._kp)
 		{
