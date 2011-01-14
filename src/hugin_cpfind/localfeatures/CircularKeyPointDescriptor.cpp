@@ -59,9 +59,11 @@ CircularKeyPointDescriptor::CircularKeyPointDescriptor(Image& iImage,
 		rings.push_back(6);
 		ring_radius.push_back(2.3);
 		ring_gradient_width.push_back(1.3);
+		/*
 		rings.push_back(6);
 		ring_radius.push_back(5);
 		ring_gradient_width.push_back(3);
+		*/
 		rings.push_back(6);
 		ring_radius.push_back(9);
 		ring_gradient_width.push_back(9);
@@ -115,7 +117,7 @@ CircularKeyPointDescriptor::CircularKeyPointDescriptor(Image& iImage,
 	// compute 4 gradient entries (pos(dx), pos(-dx), pos(dy), pos(-dy))
 	// maybe use something else here, for example, just the gradient entries...
 	// also use LBP as a 5th feature
-	_vecLen = 1;
+	_vecLen = 3;
 	_descrLen = _vecLen * _subRegions - 1;
 }
 
@@ -265,121 +267,7 @@ int CircularKeyPointDescriptor::assignOrientation(KeyPoint& ioKeyPoint, double a
 	return nNewOri;
 }
 
-#if 0
-void CircularKeyPointDescriptor::createDescriptorGrad(KeyPoint& ioKeyPoint) const
-{
-#ifdef DEBUG_DESC
-	std::ofstream dlog("descriptor_details.txt", std::ios_base::app);
-#endif
-
-	// create the vector of features by analyzing a square patch around the point.
-	// for this the current patch (x,y) will be translated in rotated coordinates (u,v)
-
-	double aX = ioKeyPoint._x;
-	double aY = ioKeyPoint._y;
-	int aS = ioKeyPoint._scale;
-
-	// get the sin/cos of the orientation
-	double ori_sin = sin(ioKeyPoint._ori);
-	double ori_cos = cos(ioKeyPoint._ori);
-
-	if (aS < 1) aS = 1;
-
-	// compute the gradients in x and y for all regions of interest
-
-	// we override the wave filter size later
-	WaveFilter aWaveFilter(10, _image);
-
-	// compute features at each position and store in feature vector
-	int j=0;
-	double middleMean = 0;
-
-	for (int i=0; i < _subRegions; i++) {
-		// scale radius with aS.
-		double xS = _samples[i].x * aS;
-		double yS = _samples[i].y * aS;
-		// rotate sample point with the orientation
-		double aXSample = aX + xS * ori_cos - yS * ori_sin; 
-		double aYSample = aY + xS * ori_sin + yS * ori_cos; 
-		// make integer values from double ones
-		int aIntXSample = Math::Round(aXSample);
-		int aIntYSample = Math::Round(aYSample);
-		int aIntSampleSize = Math::Round(_samples[i].size* aS);
-		int sampleArea = aIntSampleSize * aIntSampleSize;
-		
-		if (!aWaveFilter.checkBounds(aIntXSample, aIntYSample, aIntSampleSize)) {
-			ioKeyPoint._vec[j++] = 0;
-			ioKeyPoint._vec[j++] = 0;
-			//ioKeyPoint._vec[j++] = 0;
-			//ioKeyPoint._vec[j++] = 0;
-			if (i > 0) {
-				ioKeyPoint._vec[j++] = 0;
-			}
-#ifdef DEBUG_DESC
-		dlog << xS << " " << yS << " " 
-			 << aIntXSample << " " << aIntYSample << " " << aIntSampleSize << " " 
-			 << 0 << " " << 0 << " " << 0 << " " << 0 << " " << 0 << std::endl;
-#endif
-			continue;
-		}
-
-		double aWavX = aWaveFilter.getWx(aIntXSample, aIntYSample, aIntSampleSize) / sampleArea;
-		double aWavY = - aWaveFilter.getWy(aIntXSample, aIntYSample, aIntSampleSize) / sampleArea; 
-
-		double meanGray = aWaveFilter.getSum(aIntXSample, aIntYSample, aIntSampleSize) / sampleArea;
-
-		if (i == 0) {
-			middleMean = meanGray;
-		}
-
-		// rotate extracted gradients
-
-		//  need to rotate in the other direction?
-		
-		/*
-		double aWavXR = aWavX * ori_cos + aWavY * ori_sin;
-		double aWavYR = -aWavX * ori_sin + aWavY * ori_cos;
-		*/
-		double aWavXR = aWavX * ori_cos - aWavY * ori_sin;
-		double aWavYR = aWavX * ori_sin + aWavY * ori_cos;
-
-#ifdef DEBUG_DESC
-		dlog << xS << " " << yS << " " 
-			 << aIntXSample << " " << aIntYSample << " " << aIntSampleSize << " " 
-			 << aWavX << " " << aWavY << " " << meanGray << " " << aWavXR << " " << aWavYR << std::endl;
-#endif
-		
-		// store descriptor
-		ioKeyPoint._vec[j++] = aWavXR;
-		ioKeyPoint._vec[j++] = aWavYR;
-		/*
-		if (aWavXR > 0) {
-			ioKeyPoint._vec[j++] = aWavXR;
-			ioKeyPoint._vec[j++] = 0;
-		} else {
-			ioKeyPoint._vec[j++] = 0;
-			ioKeyPoint._vec[j++] = -aWavXR;
-		}
-		if (aWavYR > 0) {
-			ioKeyPoint._vec[j++] = aWavYR;
-			ioKeyPoint._vec[j++] = 0;
-		} else {
-			ioKeyPoint._vec[j++] = 0;
-			ioKeyPoint._vec[j++] = -aWavYR;
-		}
-		*/
-		if (i != 0) {
-			ioKeyPoint._vec[j++] = meanGray < middleMean ? 0 : 1;
-		}
-	}
-#ifdef DEBUG_DESC
-	dlog.close();
-#endif
-
-}
-
-#endif
-
+// gradient and intensity difference
 void CircularKeyPointDescriptor::createDescriptor(KeyPoint& ioKeyPoint) const
 {
 #ifdef DEBUG_DESC
@@ -422,8 +310,8 @@ void CircularKeyPointDescriptor::createDescriptor(KeyPoint& ioKeyPoint) const
 		int sampleArea = aIntSampleSize * aIntSampleSize;
 		
 		if (!aWaveFilter.checkBounds(aIntXSample, aIntYSample, aIntSampleSize)) {
-			//ioKeyPoint._vec[j++] = 0;
-			//ioKeyPoint._vec[j++] = 0;
+			ioKeyPoint._vec[j++] = 0;
+			ioKeyPoint._vec[j++] = 0;
 			//ioKeyPoint._vec[j++] = 0;
 			//ioKeyPoint._vec[j++] = 0;
 			if (i > 0) {
@@ -450,12 +338,12 @@ void CircularKeyPointDescriptor::createDescriptor(KeyPoint& ioKeyPoint) const
 
 		//  need to rotate in the other direction?
 		
-		/*
 		double aWavXR = aWavX * ori_cos + aWavY * ori_sin;
 		double aWavYR = -aWavX * ori_sin + aWavY * ori_cos;
-		*/
+		/*
 		double aWavXR = aWavX * ori_cos - aWavY * ori_sin;
 		double aWavYR = aWavX * ori_sin + aWavY * ori_cos;
+		*/
 
 #ifdef DEBUG_DESC
 		dlog << xS << " " << yS << " " 
@@ -464,9 +352,9 @@ void CircularKeyPointDescriptor::createDescriptor(KeyPoint& ioKeyPoint) const
 #endif
 		
 		// store descriptor
-		/*
 		ioKeyPoint._vec[j++] = aWavXR;
 		ioKeyPoint._vec[j++] = aWavYR;
+		/*
 		if (aWavXR > 0) {
 			ioKeyPoint._vec[j++] = aWavXR;
 			ioKeyPoint._vec[j++] = 0;
@@ -483,7 +371,7 @@ void CircularKeyPointDescriptor::createDescriptor(KeyPoint& ioKeyPoint) const
 		}
 		*/
 		if (i != 0) {
-			ioKeyPoint._vec[j++] = meanGray < middleMean ? 0 : 1;
+			ioKeyPoint._vec[j++] = meanGray - middleMean;
 		}
 	}
 #ifdef DEBUG_DESC
