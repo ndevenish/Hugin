@@ -119,10 +119,14 @@ CircularKeyPointDescriptor::CircularKeyPointDescriptor(Image& iImage,
 	// also use LBP as a 5th feature
 	_vecLen = 3;
 	_descrLen = _vecLen * _subRegions - 1;
+
+    _ori_hist = new double [_ori_nbins + 2];
+
 }
 
 CircularKeyPointDescriptor::~CircularKeyPointDescriptor()
 {
+	delete[] _ori_hist;
 	delete[] _samples;
 }
 
@@ -145,8 +149,7 @@ void CircularKeyPointDescriptor::makeDescriptor(KeyPoint& ioKeyPoint) const
 
 int CircularKeyPointDescriptor::assignOrientation(KeyPoint& ioKeyPoint, double angles[4]) const
 {
-	double hist_real[_ori_nbins + 2];
-    double *hist = hist_real+1;
+    double *hist = _ori_hist+1;
 	unsigned int aRX = Math::Round(ioKeyPoint._x);
 	unsigned int aRY = Math::Round(ioKeyPoint._y);
 	int aStep = (int)(ioKeyPoint._scale + 0.8);
@@ -158,11 +161,15 @@ int CircularKeyPointDescriptor::assignOrientation(KeyPoint& ioKeyPoint, double a
 	std::cerr << "ori= [ ";
 #endif
 
+#ifdef _MSC_VER
+#pragma NOTE(use LUT after parameter tuning)
+#else
 #warning use LUT after parameter tuning
+#endif
 	double coeffadd = 0.5;
 	double coeffmul = (0.5 + 6 ) / - (_ori_nbins*_ori_nbins);
 
-	memset(hist_real, 0, sizeof(hist_real));
+	memset(_ori_hist, 0, sizeof(double)*(_ori_nbins + 2));
 	// compute haar wavelet responses in a circular neighborhood of _ori_gridsize s
 	for (int aYIt = -_ori_gridsize; aYIt <= _ori_gridsize; aYIt++)
 	{ 

@@ -59,6 +59,7 @@ private:
 	const int _ori_nbins;
 	const double _ori_sample_scale;
 	const int _ori_gridsize;
+	double *_ori_hist;
 };
 
 }
