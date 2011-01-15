@@ -428,7 +428,7 @@ void AssistantPanel::OnAlign( wxCommandEvent & e )
                 + _("Please create control points between unconnected images using the Control Points tab.\n\nAfter adding the points, press the \"Align\" button again"),_("Error"), wxOK , this);
             return;
         };
-        wxMessageBox(_("The assistant did not complete successful. Please check the resulting project file."),
+        wxMessageBox(_("The assistant did not complete successfully. Please check the resulting project file."),
                      _("Warning"),wxOK | wxICON_INFORMATION, this); 
     };
 
