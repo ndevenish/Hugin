@@ -45,7 +45,7 @@
 #include "GLPreviewFrame.h"
 #include "hugin/huginApp.h"
 
-
+bool GLViewer::initialised_glew=false;
 ViewState * GLViewer::m_view_state = NULL;
 
 BEGIN_EVENT_TABLE(GLViewer, wxGLCanvas)
@@ -96,7 +96,6 @@ GLViewer::GLViewer(
     frame = frame_in;
     
     started_creation = false;
-    initialised_glew = false;
     redrawing = false;
 
     active = true;
