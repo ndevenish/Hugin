@@ -37,9 +37,10 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2011-01-15 10:30+0100\n"
-"PO-Revision-Date: 2010-12-05 13:41+0100\n"
+"PO-Revision-Date: 2011-01-15 20:52+0100\n"
 "Last-Translator: Cristian Marchi <cri.penta@gmail.com>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
+"Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -292,7 +293,7 @@ msgid "Version: %s"
 msgstr "Versione: %s"
 
 #: hugin1/hugin/AboutDialog.cpp:183
-#, fuzzy, c-format
+#, c-format
 msgid "Path to resources: %s"
 msgstr "Percorso delle risorse: %s"
 
@@ -366,7 +367,6 @@ msgid "Mean error after optimization: %.1f pixel, max: %.1f\n"
 msgstr "Errore medio dopo l'ottimizzazione: %.1f pixel, massimo: %.1f\n"
 
 #: hugin1/hugin/AssistantPanel.cpp:330
-#, fuzzy
 msgid ""
 "Note: automatic alignment uses default settings from the preferences. If you "
 "customize settings for this project in the advanced tabs and want to use "
@@ -377,8 +377,8 @@ msgstr ""
 "Nota: l'allineamento automatico utilizza le impostazioni predefinite dalle "
 "preferenze. Se si personalizzano le impostazioni per questo progetto nelle "
 "schede avanzate e si desidera utilizzarle, si deve eseguire la ricerca dei "
-"punti di controllo dalla scheda «Immagini», l'ottimizzazione geometrica dalla "
-"scheda «Ottimizzatore» e l'ottimizzazione fotometrica dalla scheda "
+"punti di controllo dalla scheda «Immagini», l'ottimizzazione geometrica "
+"dalla scheda «Ottimizzatore» e l'ottimizzazione fotometrica dalla scheda "
 "«Esposizione»."
 
 #: hugin1/hugin/AssistantPanel.cpp:361
@@ -807,13 +807,11 @@ msgstr "Trascinare per modificare il campo inquadrato orizzontalmente"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:458
 msgid "Panosphere"
-msgstr ""
+msgstr "Panosfera"
 
-# Proiezione
 #: hugin1/hugin/GLPreviewFrame.cpp:459
-#, fuzzy
 msgid "Mosaic plane"
-msgstr "Biplanare"
+msgstr "Piano del mosaico"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:480 translations/xrc.cpp:403
 #: translations/xrc.cpp:736 translations/xrc.cpp:778 xrc.cpp:403 xrc.cpp:736
@@ -822,9 +820,8 @@ msgid "Preview"
 msgstr "Anteprima"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:493 translations/xrc.cpp:806 xrc.cpp:806
-#, fuzzy
 msgid "Overview"
-msgstr "Anteprima"
+msgstr "Panoramica"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:532
 msgid "mosaic"
@@ -895,11 +892,13 @@ msgid ""
 "Switching to panosphere overview mode requires that all images have zero XYZ "
 "parameters. Do you want to set all XYZ parameters to zero for all images?"
 msgstr ""
+"Il passaggio alla modalità di visualizzazione panosfera richiede che tutte "
+"le immagini abbiano valori nulli dei parametri XYZ. Impostare questi valori "
+"a zero per tutte le immagini?"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1453
-#, fuzzy
 msgid "Reset XYZ parameters?"
-msgstr "Parametri obiettivo"
+msgstr "Ripristinare i parametri XYZ?"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1892 hugin1/hugin/PreviewFrame.cpp:232
 msgid "difference"
@@ -1034,7 +1033,6 @@ msgstr ""
 "preferenze."
 
 #: hugin1/hugin/GLViewer.cpp:151
-#, fuzzy
 msgid ""
 "Error initializing GLEW\n"
 "Fast preview window can not be opened."
@@ -1112,11 +1110,10 @@ msgstr "Stereografica"
 msgid "Equisolid"
 msgstr "Equisolida"
 
-# (ndt) sono proiezioni
+# Proiezione
 #: hugin1/hugin/HFOVDialog.cpp:63 hugin1/hugin/ImagesList.cpp:528
-#, fuzzy
 msgid "Fisheye Thoby"
-msgstr "Fisheye"
+msgstr "Fisheye di Thoby"
 
 #: hugin1/hugin/HFOVDialog.cpp:110
 #, c-format
@@ -1436,6 +1433,8 @@ msgstr "Salvare le modifiche al panorama prima di chiudere?"
 msgid ""
 "If you close without saving, changes since your last save will be discarded"
 msgstr ""
+"Se si chiude senza salvare, i cambiamenti dall'ultimo salvataggio saranno "
+"perduti"
 
 #: hugin1/hugin/MainFrame.cpp:525
 msgid "Don't Save"
@@ -1913,10 +1912,10 @@ msgstr "Triplanare"
 msgid "Panini General"
 msgstr "Panini generale"
 
+# Un tipo di proiezione
 #: hugin1/hugin/PanoPanel.cpp:163
-#, fuzzy
 msgid "Thoby Projection"
-msgstr "Proiezione"
+msgstr "Proiezione di Thoby"
 
 #: hugin1/hugin/PanoPanel.cpp:487 translations/xrc.cpp:545
 #: translations/xrc.cpp:550 xrc.cpp:545 xrc.cpp:550
@@ -1990,8 +1989,8 @@ msgid ""
 msgstr ""
 "Il panorama che si sta tentando di unire ha %.1f gigapixel.\n"
 "Se questa dimensione è troppo grande, ridurre le dimensioni dell'immagine o "
-"la regione di ritaglio dalla scheda dell'«Assemblatore». Unire un panorama di "
-"queste dimensione può richiedere molto tempo e memoria."
+"la regione di ritaglio dalla scheda dell'«Assemblatore». Unire un panorama "
+"di queste dimensione può richiedere molto tempo e memoria."
 
 #: hugin1/hugin/PanoPanel.cpp:1338
 msgid "Stitch anyway"
@@ -2015,8 +2014,8 @@ msgstr ""
 "\n"
 "Il panorama che si sta tentando di unire ha %.1f gigapixel.\n"
 "Se questa dimensione è troppo grande, ridurre le dimensioni dell'immagine o "
-"la regione di ritaglio dalla scheda dell'«Assemblatore». Unire un panorama di "
-"queste dimensione può richiedere molto tempo e memoria."
+"la regione di ritaglio dalla scheda dell'«Assemblatore». Unire un panorama "
+"di queste dimensione può richiedere molto tempo e memoria."
 
 # (ndt) intende la lingua del programma
 #: hugin1/hugin/PreferencesDialog.cpp:115
@@ -3983,32 +3982,28 @@ msgid "Exposure and Color"
 msgstr "Esposizione e colore"
 
 #: translations/xrc.cpp:272 xrc.cpp:272
-#, fuzzy
 msgid "Exposure (Eev)"
-msgstr "Esposizione (EV)"
+msgstr "Esposizione (EeV)"
 
 #: translations/xrc.cpp:274 xrc.cpp:274
-#, fuzzy
 msgid "Red multiplier (Er):"
-msgstr "Moltiplicatore rosso:"
+msgstr "Moltiplicatore del rosso (Er):"
 
 #: translations/xrc.cpp:276 xrc.cpp:276
-#, fuzzy
 msgid "Blue multiplier (Eb):"
-msgstr "Moltiplicatore blu:"
+msgstr "Moltiplicatore del blu (Eb):"
 
 #: translations/xrc.cpp:278 xrc.cpp:278
 msgid "Vignetting  (Vb, Vc, Vd)"
-msgstr ""
+msgstr "Vignettatura (Vb, Vc, Vd)"
 
 #: translations/xrc.cpp:280 xrc.cpp:280
-#, fuzzy
 msgid "Vignetting Center Shift (Vx, Vy)"
-msgstr "Spostamento del centro di vignettatura"
+msgstr "Spostamento del centro di vignettatura (Vx, Vy)"
 
 #: translations/xrc.cpp:282 xrc.cpp:282
 msgid "Camera Response (Ra, Rb, Rc, Rd, Re)"
-msgstr ""
+msgstr "Risposta fotocamera (Ra, Rb, Rc, Rd, Re)"
 
 #: translations/xrc.cpp:284 xrc.cpp:284
 msgid "custom (EMoR)"
@@ -4429,7 +4424,6 @@ msgid "Include region from stack"
 msgstr "Includi regione nella pila"
 
 #: translations/xrc.cpp:423 xrc.cpp:423
-#, fuzzy
 msgid "Colors:"
 msgstr "Colori:"
 
@@ -4658,33 +4652,28 @@ msgid "Image variables:"
 msgstr "Variabili immagine"
 
 #: translations/xrc.cpp:488 xrc.cpp:488
-#, fuzzy
 msgid "Exposure (Eev):"
-msgstr "Esposizione (EV)"
+msgstr "Esposizione (EeV):"
 
 #: translations/xrc.cpp:489 xrc.cpp:489
-#, fuzzy
 msgid "White balance (Er, Eb):"
-msgstr "Bilanciamento del bianco:"
+msgstr "Bilanciamento del bianco (Er, Eb):"
 
 #: translations/xrc.cpp:490 xrc.cpp:490
 msgid "Camera and Lens variables:"
 msgstr "Variabili fotocamera e obiettivo"
 
 #: translations/xrc.cpp:491 xrc.cpp:491
-#, fuzzy
 msgid "Vignetting (Vb, Vc, Vd):"
-msgstr "Vignettatura:"
+msgstr "Vignettatura (Vb, Vc, Vd):"
 
 #: translations/xrc.cpp:492 xrc.cpp:492
-#, fuzzy
 msgid "Vignetting Centre (Vx, Vy):"
-msgstr "Centro di vignettatura:"
+msgstr "Centro di vignettatura (Vx, Vy):"
 
 #: translations/xrc.cpp:493 xrc.cpp:493
-#, fuzzy
 msgid "Camera Response (Ra, Rb, Rc, Rd, Re):"
-msgstr "Risposta fotocamera:"
+msgstr "Risposta fotocamera (Ra, Rb, Rc, Rd, Re):"
 
 #: translations/xrc.cpp:494 xrc.cpp:494
 msgid "Interpolator (i):"
@@ -5705,18 +5694,16 @@ msgid "Change the panorama's cropping region"
 msgstr "Modifica la regione di ritaglio del panorama"
 
 #: translations/xrc.cpp:807 xrc.cpp:807
-#, fuzzy
 msgid "Show/Hide"
-msgstr "Nascondi"
+msgstr "Mostra/Nascondi"
 
 #: translations/xrc.cpp:808 translations/xrc.cpp:809 xrc.cpp:808 xrc.cpp:809
-#, fuzzy
 msgid "Mode:"
 msgstr "Modalità:"
 
 #: translations/xrc.cpp:810 xrc.cpp:810
 msgid "Grid"
-msgstr ""
+msgstr "Griglia"
 
 #: translations/xrc.cpp:811 xrc.cpp:811
 msgid "Reset values"
@@ -5759,8 +5746,8 @@ msgid ""
 "If the horizon of a panorama is wavy, use the straighten function in the "
 "preview window to straighten it"
 msgstr ""
-"Se l'orizzonte di un panorama risulta ondulato, usare la funziona «Raddrizza» "
-"nella finestra dell'anteprima per raddrizzarlo."
+"Se l'orizzonte di un panorama risulta ondulato, usare la funziona "
+"«Raddrizza» nella finestra dell'anteprima per raddrizzarlo."
 
 #: hugin1/hugin/xrc/data/tips.txt:5
 msgid ""
@@ -5791,7 +5778,8 @@ msgid ""
 msgstr ""
 "Hugin supporta diversi ricercatori di punti di controllo forniti da terzi "
 "(come Autopano, Autopano-SIFT-C e Panomatic), attraverso un meccanismo in "
-"stile plugin raggiungibile in «Preferenze->Ricercatori di punti di controllo»."
+"stile plugin raggiungibile in «Preferenze->Ricercatori di punti di "
+"controllo»."
 
 #: hugin1/hugin/xrc/data/tips.txt:8
 msgid ""
@@ -5949,8 +5937,8 @@ msgstr ""
 #: hugin1/hugin/xrc/data/tips.txt:28
 msgid "Press \"1\" in the control points tab to zoom out to 100% view."
 msgstr ""
-"Premere «1» all'intero della scheda «Punti di controllo» per avere l'immagine "
-"al 100% della sua grandezza."
+"Premere «1» all'intero della scheda «Punti di controllo» per avere "
+"l'immagine al 100% della sua grandezza."
 
 #: hugin1/hugin/xrc/data/tips.txt:29
 msgid ""
