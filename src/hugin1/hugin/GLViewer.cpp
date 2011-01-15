@@ -72,18 +72,21 @@ GLViewer::GLViewer(
             GLPreviewFrame *frame_in,
             wxGLContext * shared_context
             ) :
+#if defined __WXGTK__ || wxCHECK_VERSION(2,9,0)
           wxGLCanvas(parent, wxID_ANY, wxDefaultPosition, wxDefaultSize,
                      0, wxT("GLPreviewCanvas"), args, wxNullPalette)
+#else
+          wxGLCanvas(parent,shared_context,wxID_ANY,wxDefaultPosition,
+                     wxDefaultSize,0,wxT("GLPreviewCanvas"),args,wxNullPalette)
+#endif
 {
     /* The openGL display context doesn't seem to be created automatically on
-     * wxGTK, and on wxMac the constructor doesn't fit the documentation. I
-     * create a new context on anything but wxMac and hope it works... */
-    #ifdef __WXMAC__
-      //TODO: check how to share contexts in mac
-      m_glContext = GetContext();
-    #else
-      m_glContext = new wxGLContext(this, shared_context);
-	#endif
+     * wxGTK, (wxMSW and wxMac 2.8 does implicit create wxGLContext,
+     * wxWidgets 2.9 requires to explicit create wxGLContext, 
+     * so I create a new context... */
+#if defined __WXGTK__ || wxCHECK_VERSION(2,9,0)
+    m_glContext = new wxGLContext(this, shared_context);
+#endif
     
     m_renderer = 0;
     m_visualization_state = 0;
@@ -101,7 +104,7 @@ GLViewer::GLViewer(
 
 GLViewer::~GLViewer()
 {
-#if !defined __WXMAC__
+#if defined __WXGTK__ || wxCHECK_VERSION(2,9,0)
     delete m_glContext;
 #endif
     if (m_renderer)
@@ -123,11 +126,11 @@ void GLViewer::SetUpContext()
     // set the context
     DEBUG_INFO("Setting rendering context...");
     Show();
-    #ifdef __WXMAC__
-    m_glContext->SetCurrent();
-    #else
+#if defined __WXGTK__ || wxCHECK_VERSION(2,9,0)
     m_glContext->SetCurrent(*this);
-    #endif
+#else
+    SetCurrent();
+#endif
     DEBUG_INFO("...got a rendering context.");
     if (!started_creation)
     {

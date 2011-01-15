@@ -74,7 +74,9 @@ public:
     void SetActive(bool active) {this->active = active;}
     bool IsActive() {return active;}
 
+#if defined __WXGTK__ || wxCHECK_VERSION(2,9,0)
     wxGLContext * GetContext() {return m_glContext;}
+#endif
 
 protected:
 
@@ -90,7 +92,9 @@ protected:
     
     ToolHelper *m_tool_helper;
     GLRenderer *m_renderer;
+#if defined __WXGTK__ || wxCHECK_VERSION(2,9,0)
     wxGLContext *m_glContext;
+#endif
     PT::Panorama  * m_pano;
 
     virtual void setUp() = 0;
