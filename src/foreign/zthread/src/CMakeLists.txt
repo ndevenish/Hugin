@@ -1,6 +1,8 @@
 
 include_directories(../include)
 
+add_definitions(-DNDEBUG)
+
 add_library(ZThread STATIC
 AtomicCount.cxx 
 Condition.cxx 
