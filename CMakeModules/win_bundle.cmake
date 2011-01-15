@@ -108,18 +108,6 @@ IF(WIN32)
 	    NO_DEFAULT_PATH)
   INSTALL(FILES ${EXIFTOOL_EXE_DIR}/exiftool.exe DESTINATION ${BINDIR})
 
-  # grab and install autopano-sift-C
-  FIND_PATH(AP_SIFT_DIR bin/autopano.exe
-	    ${SOURCE_BASE_DIR}/autopano-sift-C
-        ${SOURCE_BASE_DIR}/autopano-sift-C/INSTALL/FILES
-	    DOC "Base directory of autopano-sift-C installation"
-	    NO_DEFAULT_PATH)
-  FILE(GLOB AP_SIFT_EXE ${AP_SIFT_DIR}/bin/*)
-  INSTALL(FILES ${AP_SIFT_EXE} DESTINATION ${BINDIR})
-
-  FILE(GLOB AP_SIFT_MAN ${AP_SIFT_DIR}/share/man/man*/*)
-  INSTALL(FILES ${AP_SIFT_MAN} DESTINATION doc/autopano-sift-C)
-
   # now install all necessary DLL
   IF(${HUGIN_SHARED})
     FIND_FILE(TIFF_DLL
