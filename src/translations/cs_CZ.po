@@ -29,7 +29,7 @@ msgstr ""
 "Project-Id-Version: cs_CZ\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2011-01-09 12:18-0500\n"
+"POT-Creation-Date: 2011-01-15 10:30+0100\n"
 "PO-Revision-Date: 2010-12-07 21:44+0100\n"
 "Last-Translator: Václav Černý <vatoz@seznam.cz>\n"
 "Language-Team: Čeština\n"
@@ -55,7 +55,7 @@ msgstr ""
 #: hugin1/base_wx/huginConfig.cpp:69 hugin1/base_wx/huginConfig.cpp:82
 #: hugin1/base_wx/RunStitchPanel.cpp:111 hugin1/hugin/AssistantPanel.cpp:361
 #: hugin1/hugin/AssistantPanel.cpp:428 hugin1/hugin/CPEditorPanel.cpp:2174
-#: hugin1/hugin/GLViewer.cpp:149 hugin1/hugin/GLViewer.cpp:159
+#: hugin1/hugin/GLViewer.cpp:151 hugin1/hugin/GLViewer.cpp:161
 #: hugin1/hugin/MainFrame.cpp:139 hugin1/hugin/MainFrame.cpp:637
 #: hugin1/hugin/MainFrame.cpp:887 hugin1/hugin/MainFrame.cpp:1403
 #: hugin1/hugin/MainFrame.cpp:1862
@@ -287,8 +287,8 @@ msgid "Version: %s"
 msgstr "Verze: %s"
 
 #: hugin1/hugin/AboutDialog.cpp:183
-#, c-format
-msgid "Path to ressources: %s"
+#, fuzzy, c-format
+msgid "Path to resources: %s"
 msgstr "Cesta ke zdrojům: %s"
 
 #: hugin1/hugin/AboutDialog.cpp:184
@@ -357,11 +357,12 @@ msgid "Mean error after optimization: %.1f pixel, max: %.1f\n"
 msgstr "Střední chyba po optimalizaci: %.1f pixelů, maximální: %.1f\n"
 
 #: hugin1/hugin/AssistantPanel.cpp:330
+#, fuzzy
 msgid ""
 "Note: automatic alignment uses default settings from the preferences. If you "
 "customize settings for this project in the advanced tabs and want to use "
 "these customized settings, run the CP detection from the Images Tab, the "
-"geometrical optimization from the the Optimizer tab and the photometric "
+"geometrical optimization from the Optimizer tab and the photometric "
 "optimization from the Exposure tab."
 msgstr ""
 "Poznámka: Automatické zarovnávání používá výchozí nastavení.  Pokud změníte "
@@ -543,7 +544,7 @@ msgid "Line %d"
 msgstr "Přímka %d"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1586 hugin1/hugin/CPListFrame.cpp:448
-#: hugin1/hugin/GLPreviewFrame.cpp:531 hugin1/hugin/GLPreviewFrame.cpp:535
+#: hugin1/hugin/GLPreviewFrame.cpp:527 hugin1/hugin/GLPreviewFrame.cpp:531
 #: hugin1/hugin/PreviewFrame.cpp:231 translations/xrc.cpp:152 xrc.cpp:152
 msgid "normal"
 msgstr "normální "
@@ -680,6 +681,44 @@ msgstr "Vyberte kontrolní body"
 msgid "Please enter a valid number"
 msgstr "Vložte, prosím, číslo."
 
+#: hugin1/hugin/DragTool.cpp:76 hugin1/hugin/DragTool.cpp:311
+msgid ""
+"Drag to move images (optionally use shift to constrain), or roll with right-"
+"drag or ctrl-drag."
+msgstr ""
+"Přetáhněte pro přesun obrázků( případně pomocí shiftu pro přesun jen po "
+"jedné ose) , nebo otáčejte pomocí tažení pravým tlačítkem (či tažení s Ctrl)"
+
+#: hugin1/hugin/DragTool.cpp:103
+msgid ""
+"Currently constrained to moving only pitch. Make a larger movement in the "
+"opposite direction to constrain to yaw."
+msgstr ""
+"Nyní omezeno pouze na hodnotu pitch. Silně pohněte myší v opačném směru pro "
+"omezení na yaw."
+
+#: hugin1/hugin/DragTool.cpp:107
+msgid ""
+"Currently constrained to moving only yaw. Make a larger movement in the "
+"opposite direction to constrain to pitch."
+msgstr ""
+"Nyní omezeno pouze na hodnotu yaw. Silně pohněte myší v opačném směru pro "
+"omezení na pitch."
+
+#: hugin1/hugin/DragTool.cpp:197
+msgid "Rotate around the centre to roll."
+msgstr "Otáčejte kolem středu."
+
+#: hugin1/hugin/DragTool.cpp:218
+msgid ""
+"Constrained drag: make a movement and it will be snapped to the yaw or pitch."
+msgstr ""
+"Omezené přetažení: pohněte myší a pohyb bude zaokrouhlen jen na jednu osu."
+
+#: hugin1/hugin/DragTool.cpp:220
+msgid "Drag to move."
+msgstr "Přetáhněte pro posun."
+
 #: hugin1/hugin/GLPreviewFrame.cpp:271
 msgid "Fast Panorama preview"
 msgstr "Rychlý náhled panoramatu"
@@ -703,80 +742,75 @@ msgstr "Narovnat"
 msgid "Autocrop"
 msgstr "Autoořez"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:337 hugin1/hugin/PreviewFrame.cpp:132
+#: hugin1/hugin/GLPreviewFrame.cpp:333 hugin1/hugin/PreviewFrame.cpp:132
 msgid "displayed images"
 msgstr "zobrazené obrázky"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:362 translations/xrc.cpp:757 xrc.cpp:757
+#: hugin1/hugin/GLPreviewFrame.cpp:358 translations/xrc.cpp:757 xrc.cpp:757
 msgid "All"
 msgstr "Všechny"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:363 translations/xrc.cpp:546
+#: hugin1/hugin/GLPreviewFrame.cpp:359 translations/xrc.cpp:546
 #: translations/xrc.cpp:551 translations/xrc.cpp:759 xrc.cpp:546 xrc.cpp:551
 #: xrc.cpp:759
 msgid "None"
 msgstr "žádná"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:372
+#: hugin1/hugin/GLPreviewFrame.cpp:368
 msgid "Hide"
 msgstr "Skrýt"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:414 hugin1/hugin/PreviewFrame.cpp:169
+#: hugin1/hugin/GLPreviewFrame.cpp:410 hugin1/hugin/PreviewFrame.cpp:169
 msgid "VFOV"
 msgstr "VFOV"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:418 hugin1/hugin/PreviewFrame.cpp:173
+#: hugin1/hugin/GLPreviewFrame.cpp:414 hugin1/hugin/PreviewFrame.cpp:173
 msgid "drag to change the vertical field of view"
 msgstr "táhněte myší pro změnu svislého zorného pole"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:427 hugin1/hugin/PreviewFrame.cpp:182
+#: hugin1/hugin/GLPreviewFrame.cpp:423 hugin1/hugin/PreviewFrame.cpp:182
 msgid "HFOV"
 msgstr "HFOV"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:432 hugin1/hugin/PreviewFrame.cpp:187
+#: hugin1/hugin/GLPreviewFrame.cpp:428 hugin1/hugin/PreviewFrame.cpp:187
 msgid "drag to change the horizontal field of view"
 msgstr "táhněte myší pro změnu horizontálního zorného pole"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:462
+#: hugin1/hugin/GLPreviewFrame.cpp:458
 msgid "Panosphere"
 msgstr ""
 
-#: hugin1/hugin/GLPreviewFrame.cpp:463
+#: hugin1/hugin/GLPreviewFrame.cpp:459
 #, fuzzy
 msgid "Mosaic plane"
 msgstr "Dvojploché"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:484 translations/xrc.cpp:403
+#: hugin1/hugin/GLPreviewFrame.cpp:480 translations/xrc.cpp:403
 #: translations/xrc.cpp:736 translations/xrc.cpp:778 xrc.cpp:403 xrc.cpp:736
 #: xrc.cpp:778
 msgid "Preview"
 msgstr "Náhled"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:497 translations/xrc.cpp:806 xrc.cpp:806
+#: hugin1/hugin/GLPreviewFrame.cpp:493 translations/xrc.cpp:806 xrc.cpp:806
 #, fuzzy
 msgid "Overview"
 msgstr "Náhled"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:536
+#: hugin1/hugin/GLPreviewFrame.cpp:532
 msgid "mosaic"
 msgstr "mozaika"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:576 hugin1/hugin/PreviewFrame.cpp:301
+#: hugin1/hugin/GLPreviewFrame.cpp:572 hugin1/hugin/PreviewFrame.cpp:301
 msgid "Resets the projections parameters to their default values."
 msgstr "Obnoví parametry projekcí na výchozí hodnoty."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:585 hugin1/hugin/PreviewFrame.cpp:310
+#: hugin1/hugin/GLPreviewFrame.cpp:581 hugin1/hugin/PreviewFrame.cpp:310
 msgid "param:"
 msgstr "parametr:"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:590 hugin1/hugin/PreviewFrame.cpp:279
+#: hugin1/hugin/GLPreviewFrame.cpp:586 hugin1/hugin/PreviewFrame.cpp:279
 msgid "0"
 msgstr "0"
-
-#: hugin1/hugin/GLPreviewFrame.cpp:1054 hugin1/hugin/GLPreviewFrame.cpp:1076
-#, fuzzy
-msgid "overview"
-msgstr "Náhled"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1125 hugin1/hugin/PreviewFrame.cpp:615
 msgid "Rectilinear"
@@ -960,15 +994,16 @@ msgstr ""
 "Ukryli jste lištu zobrazující doporučení k vybrané projekci.\n"
 "Pokud ji budete chtít opět zobrazit, můžete tak učinit v nastavení."
 
-#: hugin1/hugin/GLViewer.cpp:149
+#: hugin1/hugin/GLViewer.cpp:151
+#, fuzzy
 msgid ""
-"Error initialising GLEW\n"
+"Error initializing GLEW\n"
 "Fast preview window can not be opened."
 msgstr ""
 "Chyba při inicializaci GLEW\n"
 "Okno rychlého náhledu nemůže být otevřeno."
 
-#: hugin1/hugin/GLViewer.cpp:159
+#: hugin1/hugin/GLViewer.cpp:161
 msgid ""
 "Sorry, the fast preview window requires a system which supports OpenGL "
 "version 1.1 with the GL_ARB_multitexture extension.\n"
@@ -2083,44 +2118,6 @@ msgstr "Uloží nastavení detektoru kontrolních bodů"
 #: hugin1/hugin/PreviewCropTool.cpp:55
 msgid "Drag the inside of the cropping rectangle to adjust the crop."
 msgstr "Přetahujte v oblasti ořezového obdélníku pro úpravu ořezu."
-
-#: hugin1/hugin/PreviewDragTool.cpp:76 hugin1/hugin/PreviewDragTool.cpp:311
-msgid ""
-"Drag to move images (optionally use shift to constrain), or roll with right-"
-"drag or ctrl-drag."
-msgstr ""
-"Přetáhněte pro přesun obrázků( případně pomocí shiftu pro přesun jen po "
-"jedné ose) , nebo otáčejte pomocí tažení pravým tlačítkem (či tažení s Ctrl)"
-
-#: hugin1/hugin/PreviewDragTool.cpp:103
-msgid ""
-"Currently constrained to moving only pitch. Make a larger movement in the "
-"opposite direction to constrain to yaw."
-msgstr ""
-"Nyní omezeno pouze na hodnotu pitch. Silně pohněte myší v opačném směru pro "
-"omezení na yaw."
-
-#: hugin1/hugin/PreviewDragTool.cpp:107
-msgid ""
-"Currently constrained to moving only yaw. Make a larger movement in the "
-"opposite direction to constrain to pitch."
-msgstr ""
-"Nyní omezeno pouze na hodnotu yaw. Silně pohněte myší v opačném směru pro "
-"omezení na pitch."
-
-#: hugin1/hugin/PreviewDragTool.cpp:197
-msgid "Rotate around the centre to roll."
-msgstr "Otáčejte kolem středu."
-
-#: hugin1/hugin/PreviewDragTool.cpp:218
-msgid ""
-"Constrained drag: make a movement and it will be snapped to the yaw or pitch."
-msgstr ""
-"Omezené přetažení: pohněte myší a pohyb bude zaokrouhlen jen na jednu osu."
-
-#: hugin1/hugin/PreviewDragTool.cpp:220
-msgid "Drag to move."
-msgstr "Přetáhněte pro posun."
 
 #: hugin1/hugin/PreviewFrame.cpp:117
 msgid "Panorama preview"
@@ -4292,7 +4289,8 @@ msgid "Include region from stack"
 msgstr "Zahrnut oblast do štosu"
 
 #: translations/xrc.cpp:423 xrc.cpp:423
-msgid "Colours:"
+#, fuzzy
+msgid "Colors:"
 msgstr "Barvy:"
 
 #: translations/xrc.cpp:424 xrc.cpp:424
@@ -5799,6 +5797,10 @@ msgid ""
 msgstr ""
 "Optimalizace všech parametrů zkreslení \"všechno\" má smysl jen tehdy, pokud "
 "jste dobře rozmístili velké množství kontrolních bodů."
+
+#, fuzzy
+#~ msgid "overview"
+#~ msgstr "Náhled"
 
 #~ msgid "Everything"
 #~ msgstr "Všechno"

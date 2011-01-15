@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Hugin 2010-4.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2011-01-09 12:18-0500\n"
+"POT-Creation-Date: 2011-01-15 10:30+0100\n"
 "PO-Revision-Date: 2010-12-28 11:24+0100\n"
 "Last-Translator: Jean-Luc Coulon <jean-luc.coulon@wanadoo.fr>\n"
 "Language-Team: French <<debian-l10n-french@lists.debian.org>\n"
@@ -33,7 +33,7 @@ msgstr ""
 #: hugin1/base_wx/huginConfig.cpp:69 hugin1/base_wx/huginConfig.cpp:82
 #: hugin1/base_wx/RunStitchPanel.cpp:111 hugin1/hugin/AssistantPanel.cpp:361
 #: hugin1/hugin/AssistantPanel.cpp:428 hugin1/hugin/CPEditorPanel.cpp:2174
-#: hugin1/hugin/GLViewer.cpp:149 hugin1/hugin/GLViewer.cpp:159
+#: hugin1/hugin/GLViewer.cpp:151 hugin1/hugin/GLViewer.cpp:161
 #: hugin1/hugin/MainFrame.cpp:139 hugin1/hugin/MainFrame.cpp:637
 #: hugin1/hugin/MainFrame.cpp:887 hugin1/hugin/MainFrame.cpp:1403
 #: hugin1/hugin/MainFrame.cpp:1862
@@ -268,8 +268,8 @@ msgid "Version: %s"
 msgstr "Version : %s"
 
 #: hugin1/hugin/AboutDialog.cpp:183
-#, c-format
-msgid "Path to ressources: %s"
+#, fuzzy, c-format
+msgid "Path to resources: %s"
 msgstr "Chemin vers les ressources : %s"
 
 #: hugin1/hugin/AboutDialog.cpp:184
@@ -344,11 +344,12 @@ msgid "Mean error after optimization: %.1f pixel, max: %.1f\n"
 msgstr "Erreur moyenne après optimisation : %.1f pixels, max : %.1f\n"
 
 #: hugin1/hugin/AssistantPanel.cpp:330
+#, fuzzy
 msgid ""
 "Note: automatic alignment uses default settings from the preferences. If you "
 "customize settings for this project in the advanced tabs and want to use "
 "these customized settings, run the CP detection from the Images Tab, the "
-"geometrical optimization from the the Optimizer tab and the photometric "
+"geometrical optimization from the Optimizer tab and the photometric "
 "optimization from the Exposure tab."
 msgstr ""
 "Note : l'alignement automatique utilise les paramètres définis dans les "
@@ -539,7 +540,7 @@ msgid "Line %d"
 msgstr "Ligne %d"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1586 hugin1/hugin/CPListFrame.cpp:448
-#: hugin1/hugin/GLPreviewFrame.cpp:531 hugin1/hugin/GLPreviewFrame.cpp:535
+#: hugin1/hugin/GLPreviewFrame.cpp:527 hugin1/hugin/GLPreviewFrame.cpp:531
 #: hugin1/hugin/PreviewFrame.cpp:231 translations/xrc.cpp:152 xrc.cpp:152
 msgid "normal"
 msgstr "normal"
@@ -676,6 +677,47 @@ msgstr "Sélectionner des points de contrôle"
 msgid "Please enter a valid number"
 msgstr "Veuillez entrer un nombre valable"
 
+#: hugin1/hugin/DragTool.cpp:76 hugin1/hugin/DragTool.cpp:311
+msgid ""
+"Drag to move images (optionally use shift to constrain), or roll with right-"
+"drag or ctrl-drag."
+msgstr ""
+"Glisser pour déplacer les images (optionnellement utiliser la touche "
+"majuscule pour contraindre), ou faire une rotation avec clicdroit-glisser ou "
+"Ctrl-glisser."
+
+#: hugin1/hugin/DragTool.cpp:103
+msgid ""
+"Currently constrained to moving only pitch. Make a larger movement in the "
+"opposite direction to constrain to yaw."
+msgstr ""
+"Actuellement, la contrainte et de ne se déplacer qu'en tangage. Effectuez un "
+"mouvement plus important dans la direction opposée pour contraindre en lacet."
+
+#: hugin1/hugin/DragTool.cpp:107
+msgid ""
+"Currently constrained to moving only yaw. Make a larger movement in the "
+"opposite direction to constrain to pitch."
+msgstr ""
+"Actuellement, la contrainte et de ne se déplacer qu'en lacet. Effectuez un "
+"mouvement plus important dans la direction opposée pour contraindre en "
+"tangage."
+
+#: hugin1/hugin/DragTool.cpp:197
+msgid "Rotate around the centre to roll."
+msgstr "Tourner autour du centre pour pivoter."
+
+#: hugin1/hugin/DragTool.cpp:218
+msgid ""
+"Constrained drag: make a movement and it will be snapped to the yaw or pitch."
+msgstr ""
+"Glisser contraint : effectuez un mouvement et il sera attaché au lacet ou au "
+"tangage."
+
+#: hugin1/hugin/DragTool.cpp:220
+msgid "Drag to move."
+msgstr "Glisser pour déplacer."
+
 #: hugin1/hugin/GLPreviewFrame.cpp:271
 msgid "Fast Panorama preview"
 msgstr "Aperçu rapide du panorama"
@@ -699,80 +741,75 @@ msgstr "Redresser"
 msgid "Autocrop"
 msgstr "Recadrage automatique"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:337 hugin1/hugin/PreviewFrame.cpp:132
+#: hugin1/hugin/GLPreviewFrame.cpp:333 hugin1/hugin/PreviewFrame.cpp:132
 msgid "displayed images"
 msgstr "Images affichées"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:362 translations/xrc.cpp:757 xrc.cpp:757
+#: hugin1/hugin/GLPreviewFrame.cpp:358 translations/xrc.cpp:757 xrc.cpp:757
 msgid "All"
 msgstr "Toutes"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:363 translations/xrc.cpp:546
+#: hugin1/hugin/GLPreviewFrame.cpp:359 translations/xrc.cpp:546
 #: translations/xrc.cpp:551 translations/xrc.cpp:759 xrc.cpp:546 xrc.cpp:551
 #: xrc.cpp:759
 msgid "None"
 msgstr "Aucune"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:372
+#: hugin1/hugin/GLPreviewFrame.cpp:368
 msgid "Hide"
 msgstr "Masquer"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:414 hugin1/hugin/PreviewFrame.cpp:169
+#: hugin1/hugin/GLPreviewFrame.cpp:410 hugin1/hugin/PreviewFrame.cpp:169
 msgid "VFOV"
 msgstr "VFOV"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:418 hugin1/hugin/PreviewFrame.cpp:173
+#: hugin1/hugin/GLPreviewFrame.cpp:414 hugin1/hugin/PreviewFrame.cpp:173
 msgid "drag to change the vertical field of view"
 msgstr "glisser pour changer le champ de vision vertical"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:427 hugin1/hugin/PreviewFrame.cpp:182
+#: hugin1/hugin/GLPreviewFrame.cpp:423 hugin1/hugin/PreviewFrame.cpp:182
 msgid "HFOV"
 msgstr "HFOV"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:432 hugin1/hugin/PreviewFrame.cpp:187
+#: hugin1/hugin/GLPreviewFrame.cpp:428 hugin1/hugin/PreviewFrame.cpp:187
 msgid "drag to change the horizontal field of view"
 msgstr "glisser pour changer le champ de vision horizontal"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:462
+#: hugin1/hugin/GLPreviewFrame.cpp:458
 msgid "Panosphere"
 msgstr ""
 
-#: hugin1/hugin/GLPreviewFrame.cpp:463
+#: hugin1/hugin/GLPreviewFrame.cpp:459
 #, fuzzy
 msgid "Mosaic plane"
 msgstr "Double plan"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:484 translations/xrc.cpp:403
+#: hugin1/hugin/GLPreviewFrame.cpp:480 translations/xrc.cpp:403
 #: translations/xrc.cpp:736 translations/xrc.cpp:778 xrc.cpp:403 xrc.cpp:736
 #: xrc.cpp:778
 msgid "Preview"
 msgstr "Aperçu"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:497 translations/xrc.cpp:806 xrc.cpp:806
+#: hugin1/hugin/GLPreviewFrame.cpp:493 translations/xrc.cpp:806 xrc.cpp:806
 #, fuzzy
 msgid "Overview"
 msgstr "Aperçu"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:536
+#: hugin1/hugin/GLPreviewFrame.cpp:532
 msgid "mosaic"
 msgstr "mosaïque"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:576 hugin1/hugin/PreviewFrame.cpp:301
+#: hugin1/hugin/GLPreviewFrame.cpp:572 hugin1/hugin/PreviewFrame.cpp:301
 msgid "Resets the projections parameters to their default values."
 msgstr "Réinitialiser les paramètres de projection à leur valeur par défaut."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:585 hugin1/hugin/PreviewFrame.cpp:310
+#: hugin1/hugin/GLPreviewFrame.cpp:581 hugin1/hugin/PreviewFrame.cpp:310
 msgid "param:"
 msgstr "param :"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:590 hugin1/hugin/PreviewFrame.cpp:279
+#: hugin1/hugin/GLPreviewFrame.cpp:586 hugin1/hugin/PreviewFrame.cpp:279
 msgid "0"
 msgstr "0"
-
-#: hugin1/hugin/GLPreviewFrame.cpp:1054 hugin1/hugin/GLPreviewFrame.cpp:1076
-#, fuzzy
-msgid "overview"
-msgstr "Aperçu"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1125 hugin1/hugin/PreviewFrame.cpp:615
 msgid "Rectilinear"
@@ -971,15 +1008,16 @@ msgstr ""
 "Si vous désirez afficher de nouvelle cette barre, activez-la de nouveau "
 "depuis le menu des préférences."
 
-#: hugin1/hugin/GLViewer.cpp:149
+#: hugin1/hugin/GLViewer.cpp:151
+#, fuzzy
 msgid ""
-"Error initialising GLEW\n"
+"Error initializing GLEW\n"
 "Fast preview window can not be opened."
 msgstr ""
 "Erreur lors de l'initialisation de GLEW\n"
 "La fenêtre d'aperçu rapide n'a pas pu être ouverte."
 
-#: hugin1/hugin/GLViewer.cpp:159
+#: hugin1/hugin/GLViewer.cpp:161
 msgid ""
 "Sorry, the fast preview window requires a system which supports OpenGL "
 "version 1.1 with the GL_ARB_multitexture extension.\n"
@@ -2115,47 +2153,6 @@ msgstr "Enregistrer les paramètres du détecteur de points de contrôle"
 msgid "Drag the inside of the cropping rectangle to adjust the crop."
 msgstr ""
 "Glisser l'intérieur du rectangle de recadrage pour ajuster le recadrage."
-
-#: hugin1/hugin/PreviewDragTool.cpp:76 hugin1/hugin/PreviewDragTool.cpp:311
-msgid ""
-"Drag to move images (optionally use shift to constrain), or roll with right-"
-"drag or ctrl-drag."
-msgstr ""
-"Glisser pour déplacer les images (optionnellement utiliser la touche "
-"majuscule pour contraindre), ou faire une rotation avec clicdroit-glisser ou "
-"Ctrl-glisser."
-
-#: hugin1/hugin/PreviewDragTool.cpp:103
-msgid ""
-"Currently constrained to moving only pitch. Make a larger movement in the "
-"opposite direction to constrain to yaw."
-msgstr ""
-"Actuellement, la contrainte et de ne se déplacer qu'en tangage. Effectuez un "
-"mouvement plus important dans la direction opposée pour contraindre en lacet."
-
-#: hugin1/hugin/PreviewDragTool.cpp:107
-msgid ""
-"Currently constrained to moving only yaw. Make a larger movement in the "
-"opposite direction to constrain to pitch."
-msgstr ""
-"Actuellement, la contrainte et de ne se déplacer qu'en lacet. Effectuez un "
-"mouvement plus important dans la direction opposée pour contraindre en "
-"tangage."
-
-#: hugin1/hugin/PreviewDragTool.cpp:197
-msgid "Rotate around the centre to roll."
-msgstr "Tourner autour du centre pour pivoter."
-
-#: hugin1/hugin/PreviewDragTool.cpp:218
-msgid ""
-"Constrained drag: make a movement and it will be snapped to the yaw or pitch."
-msgstr ""
-"Glisser contraint : effectuez un mouvement et il sera attaché au lacet ou au "
-"tangage."
-
-#: hugin1/hugin/PreviewDragTool.cpp:220
-msgid "Drag to move."
-msgstr "Glisser pour déplacer."
 
 #: hugin1/hugin/PreviewFrame.cpp:117
 msgid "Panorama preview"
@@ -4366,7 +4363,8 @@ msgid "Include region from stack"
 msgstr "Inclure la région dans la pile"
 
 #: translations/xrc.cpp:423 xrc.cpp:423
-msgid "Colours:"
+#, fuzzy
+msgid "Colors:"
 msgstr "Couleurs :"
 
 #: translations/xrc.cpp:424 xrc.cpp:424
@@ -5922,6 +5920,10 @@ msgid ""
 msgstr ""
 "L'optimisation de tous les paramètres de distorsion (« tout ») ne s'applique "
 "qu'à des images ayant un important recouvrement et des points de contrôle "
+
+#, fuzzy
+#~ msgid "overview"
+#~ msgstr "Aperçu"
 
 #~ msgid "Everything"
 #~ msgstr "tout"

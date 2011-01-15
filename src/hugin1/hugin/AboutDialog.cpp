@@ -180,7 +180,7 @@ void AboutDialog::GetSystemInformation(wxFont *font)
     };
 #endif
     text=text+wxT("\n\nHugin\n")+wxString::Format(_("Version: %s"),wxString(DISPLAY_VERSION,wxConvLocal).c_str());
-    text=text+wxT("\n")+wxString::Format(_("Path to ressources: %s"),huginApp::Get()->GetXRCPath().c_str());
+    text=text+wxT("\n")+wxString::Format(_("Path to resources: %s"),huginApp::Get()->GetXRCPath().c_str());
     text=text+wxT("\n")+wxString::Format(_("Path to data: %s"),huginApp::Get()->GetDataPath().c_str());
     infoText->SetValue(text);
 }

@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2011-01-09 12:18-0500\n"
+"POT-Creation-Date: 2011-01-15 10:30+0100\n"
 "PO-Revision-Date: 2010-12-28 21:20+0100\n"
 "Last-Translator: Carl von Einem <carl@einem.net>\n"
 "Language-Team: deutsch <de@li.org>\n"
@@ -36,7 +36,7 @@ msgstr ""
 #: hugin1/base_wx/huginConfig.cpp:69 hugin1/base_wx/huginConfig.cpp:82
 #: hugin1/base_wx/RunStitchPanel.cpp:111 hugin1/hugin/AssistantPanel.cpp:361
 #: hugin1/hugin/AssistantPanel.cpp:428 hugin1/hugin/CPEditorPanel.cpp:2174
-#: hugin1/hugin/GLViewer.cpp:149 hugin1/hugin/GLViewer.cpp:159
+#: hugin1/hugin/GLViewer.cpp:151 hugin1/hugin/GLViewer.cpp:161
 #: hugin1/hugin/MainFrame.cpp:139 hugin1/hugin/MainFrame.cpp:637
 #: hugin1/hugin/MainFrame.cpp:887 hugin1/hugin/MainFrame.cpp:1403
 #: hugin1/hugin/MainFrame.cpp:1862
@@ -269,8 +269,8 @@ msgid "Version: %s"
 msgstr "Version: %s"
 
 #: hugin1/hugin/AboutDialog.cpp:183
-#, c-format
-msgid "Path to ressources: %s"
+#, fuzzy, c-format
+msgid "Path to resources: %s"
 msgstr "Ressourcen-Pfad: %s"
 
 #: hugin1/hugin/AboutDialog.cpp:184
@@ -343,11 +343,12 @@ msgid "Mean error after optimization: %.1f pixel, max: %.1f\n"
 msgstr "Mittlerer Fehler nach Optimierung: %.1f Pixel (Max: %.1f)\n"
 
 #: hugin1/hugin/AssistantPanel.cpp:330
+#, fuzzy
 msgid ""
 "Note: automatic alignment uses default settings from the preferences. If you "
 "customize settings for this project in the advanced tabs and want to use "
 "these customized settings, run the CP detection from the Images Tab, the "
-"geometrical optimization from the the Optimizer tab and the photometric "
+"geometrical optimization from the Optimizer tab and the photometric "
 "optimization from the Exposure tab."
 msgstr ""
 "Achtung, die hier angebotene automatische Ausrichtung verwendet die in den "
@@ -534,7 +535,7 @@ msgid "Line %d"
 msgstr "Gerade %d"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1586 hugin1/hugin/CPListFrame.cpp:448
-#: hugin1/hugin/GLPreviewFrame.cpp:531 hugin1/hugin/GLPreviewFrame.cpp:535
+#: hugin1/hugin/GLPreviewFrame.cpp:527 hugin1/hugin/GLPreviewFrame.cpp:531
 #: hugin1/hugin/PreviewFrame.cpp:231 translations/xrc.cpp:152 xrc.cpp:152
 msgid "normal"
 msgstr "Standard"
@@ -671,6 +672,47 @@ msgstr "Kontrollpunkte auswählen"
 msgid "Please enter a valid number"
 msgstr "Bitte eine gültige Zahl eingeben"
 
+#: hugin1/hugin/DragTool.cpp:76 hugin1/hugin/DragTool.cpp:311
+msgid ""
+"Drag to move images (optionally use shift to constrain), or roll with right-"
+"drag or ctrl-drag."
+msgstr ""
+"Ziehen um Bilder zu bewegen (Hochstelltaste zur Richtungseinschränkung "
+"verwenden), oder rollen mit rechts-ziehen oder Ctrl-ziehen."
+
+#: hugin1/hugin/DragTool.cpp:103
+msgid ""
+"Currently constrained to moving only pitch. Make a larger movement in the "
+"opposite direction to constrain to yaw."
+msgstr ""
+"Momentan beschränkt auf Änderung der Nickwinkel (pitch). Machen Sie eine "
+"größere Bewegung in die entgegengesetzte Richtung, um auf den Gierwinkel "
+"(yaw) zu beschränken."
+
+#: hugin1/hugin/DragTool.cpp:107
+msgid ""
+"Currently constrained to moving only yaw. Make a larger movement in the "
+"opposite direction to constrain to pitch."
+msgstr ""
+"Momentan beschränkt auf Änderung des Gierwinkels (yaw). Machen Sie eine "
+"größere Bewegung in die entgegengesetzte Richtung, um auf den Nickwinkel "
+"(pitch) zu beschränken."
+
+#: hugin1/hugin/DragTool.cpp:197
+msgid "Rotate around the centre to roll."
+msgstr "Zum Rollen um den Mittelpunkt drehen."
+
+#: hugin1/hugin/DragTool.cpp:218
+msgid ""
+"Constrained drag: make a movement and it will be snapped to the yaw or pitch."
+msgstr ""
+"Eingeschänktes Ziehen: Machen Sie eine Bewegung und sie wird sich auf "
+"Gierwinkel (yaw) oder Neigung (pitch) beschränken."
+
+#: hugin1/hugin/DragTool.cpp:220
+msgid "Drag to move."
+msgstr "Ziehen zum Bewegen"
+
 #: hugin1/hugin/GLPreviewFrame.cpp:271
 msgid "Fast Panorama preview"
 msgstr "Schnelle Panoramavorschau"
@@ -694,80 +736,75 @@ msgstr "Ausrichten"
 msgid "Autocrop"
 msgstr "Automatischer Beschnitt"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:337 hugin1/hugin/PreviewFrame.cpp:132
+#: hugin1/hugin/GLPreviewFrame.cpp:333 hugin1/hugin/PreviewFrame.cpp:132
 msgid "displayed images"
 msgstr "Dargestellte Bilder"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:362 translations/xrc.cpp:757 xrc.cpp:757
+#: hugin1/hugin/GLPreviewFrame.cpp:358 translations/xrc.cpp:757 xrc.cpp:757
 msgid "All"
 msgstr "Alle"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:363 translations/xrc.cpp:546
+#: hugin1/hugin/GLPreviewFrame.cpp:359 translations/xrc.cpp:546
 #: translations/xrc.cpp:551 translations/xrc.cpp:759 xrc.cpp:546 xrc.cpp:551
 #: xrc.cpp:759
 msgid "None"
 msgstr "Keine"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:372
+#: hugin1/hugin/GLPreviewFrame.cpp:368
 msgid "Hide"
 msgstr "Ausblenden"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:414 hugin1/hugin/PreviewFrame.cpp:169
+#: hugin1/hugin/GLPreviewFrame.cpp:410 hugin1/hugin/PreviewFrame.cpp:169
 msgid "VFOV"
 msgstr "VFOV"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:418 hugin1/hugin/PreviewFrame.cpp:173
+#: hugin1/hugin/GLPreviewFrame.cpp:414 hugin1/hugin/PreviewFrame.cpp:173
 msgid "drag to change the vertical field of view"
 msgstr "Ziehen um den vertikalen Bildwinkel festzulegen"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:427 hugin1/hugin/PreviewFrame.cpp:182
+#: hugin1/hugin/GLPreviewFrame.cpp:423 hugin1/hugin/PreviewFrame.cpp:182
 msgid "HFOV"
 msgstr "HFOV"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:432 hugin1/hugin/PreviewFrame.cpp:187
+#: hugin1/hugin/GLPreviewFrame.cpp:428 hugin1/hugin/PreviewFrame.cpp:187
 msgid "drag to change the horizontal field of view"
 msgstr "Ziehen um den horizontalen Bildwinkel festzulegen"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:462
+#: hugin1/hugin/GLPreviewFrame.cpp:458
 msgid "Panosphere"
 msgstr ""
 
-#: hugin1/hugin/GLPreviewFrame.cpp:463
+#: hugin1/hugin/GLPreviewFrame.cpp:459
 #, fuzzy
 msgid "Mosaic plane"
 msgstr "Biplane"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:484 translations/xrc.cpp:403
+#: hugin1/hugin/GLPreviewFrame.cpp:480 translations/xrc.cpp:403
 #: translations/xrc.cpp:736 translations/xrc.cpp:778 xrc.cpp:403 xrc.cpp:736
 #: xrc.cpp:778
 msgid "Preview"
 msgstr "Vorschau"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:497 translations/xrc.cpp:806 xrc.cpp:806
+#: hugin1/hugin/GLPreviewFrame.cpp:493 translations/xrc.cpp:806 xrc.cpp:806
 #, fuzzy
 msgid "Overview"
 msgstr "Vorschau"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:536
+#: hugin1/hugin/GLPreviewFrame.cpp:532
 msgid "mosaic"
 msgstr "Mosaik"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:576 hugin1/hugin/PreviewFrame.cpp:301
+#: hugin1/hugin/GLPreviewFrame.cpp:572 hugin1/hugin/PreviewFrame.cpp:301
 msgid "Resets the projections parameters to their default values."
 msgstr "Setzt die Projektions-Parameter zurück auf deren Grundeinstellung."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:585 hugin1/hugin/PreviewFrame.cpp:310
+#: hugin1/hugin/GLPreviewFrame.cpp:581 hugin1/hugin/PreviewFrame.cpp:310
 msgid "param:"
 msgstr "Param:"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:590 hugin1/hugin/PreviewFrame.cpp:279
+#: hugin1/hugin/GLPreviewFrame.cpp:586 hugin1/hugin/PreviewFrame.cpp:279
 msgid "0"
 msgstr "0"
-
-#: hugin1/hugin/GLPreviewFrame.cpp:1054 hugin1/hugin/GLPreviewFrame.cpp:1076
-#, fuzzy
-msgid "overview"
-msgstr "Vorschau"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1125 hugin1/hugin/PreviewFrame.cpp:615
 msgid "Rectilinear"
@@ -963,15 +1000,16 @@ msgstr ""
 "projection.\n"
 "If you want to see the bar again, activate the bar in the preferences again."
 
-#: hugin1/hugin/GLViewer.cpp:149
+#: hugin1/hugin/GLViewer.cpp:151
+#, fuzzy
 msgid ""
-"Error initialising GLEW\n"
+"Error initializing GLEW\n"
 "Fast preview window can not be opened."
 msgstr ""
 "Fehler bei Initialisierung von GLEW.\n"
 "Schnelles Vorschaufenster kann nicht geöffnet werden."
 
-#: hugin1/hugin/GLViewer.cpp:159
+#: hugin1/hugin/GLViewer.cpp:161
 msgid ""
 "Sorry, the fast preview window requires a system which supports OpenGL "
 "version 1.1 with the GL_ARB_multitexture extension.\n"
@@ -2098,47 +2136,6 @@ msgstr "Speichere Einstellungen für Kontrollpunkt-Detektor"
 #: hugin1/hugin/PreviewCropTool.cpp:55
 msgid "Drag the inside of the cropping rectangle to adjust the crop."
 msgstr "Innerhalb des Beschnitt-Rechtecks ziehen um den Beschnitt anzupassen."
-
-#: hugin1/hugin/PreviewDragTool.cpp:76 hugin1/hugin/PreviewDragTool.cpp:311
-msgid ""
-"Drag to move images (optionally use shift to constrain), or roll with right-"
-"drag or ctrl-drag."
-msgstr ""
-"Ziehen um Bilder zu bewegen (Hochstelltaste zur Richtungseinschränkung "
-"verwenden), oder rollen mit rechts-ziehen oder Ctrl-ziehen."
-
-#: hugin1/hugin/PreviewDragTool.cpp:103
-msgid ""
-"Currently constrained to moving only pitch. Make a larger movement in the "
-"opposite direction to constrain to yaw."
-msgstr ""
-"Momentan beschränkt auf Änderung der Nickwinkel (pitch). Machen Sie eine "
-"größere Bewegung in die entgegengesetzte Richtung, um auf den Gierwinkel "
-"(yaw) zu beschränken."
-
-#: hugin1/hugin/PreviewDragTool.cpp:107
-msgid ""
-"Currently constrained to moving only yaw. Make a larger movement in the "
-"opposite direction to constrain to pitch."
-msgstr ""
-"Momentan beschränkt auf Änderung des Gierwinkels (yaw). Machen Sie eine "
-"größere Bewegung in die entgegengesetzte Richtung, um auf den Nickwinkel "
-"(pitch) zu beschränken."
-
-#: hugin1/hugin/PreviewDragTool.cpp:197
-msgid "Rotate around the centre to roll."
-msgstr "Zum Rollen um den Mittelpunkt drehen."
-
-#: hugin1/hugin/PreviewDragTool.cpp:218
-msgid ""
-"Constrained drag: make a movement and it will be snapped to the yaw or pitch."
-msgstr ""
-"Eingeschänktes Ziehen: Machen Sie eine Bewegung und sie wird sich auf "
-"Gierwinkel (yaw) oder Neigung (pitch) beschränken."
-
-#: hugin1/hugin/PreviewDragTool.cpp:220
-msgid "Drag to move."
-msgstr "Ziehen zum Bewegen"
 
 #: hugin1/hugin/PreviewFrame.cpp:117
 msgid "Panorama preview"
@@ -4332,7 +4329,8 @@ msgid "Include region from stack"
 msgstr "Bereich im Stapel verwenden"
 
 #: translations/xrc.cpp:423 xrc.cpp:423
-msgid "Colours:"
+#, fuzzy
+msgid "Colors:"
 msgstr "Farben:"
 
 #: translations/xrc.cpp:424 xrc.cpp:424
@@ -5865,6 +5863,10 @@ msgstr ""
 "Die Optimierung von allen Verzeichungsparametern ist nur sinnvoll, wenn "
 "Bilder mit großer Überlappung sowie mit vielen, gleichmäßig verteilten "
 "Kontrollpunkten verwendet werden."
+
+#, fuzzy
+#~ msgid "overview"
+#~ msgstr "Vorschau"
 
 #~ msgid "Everything"
 #~ msgstr "Alles"

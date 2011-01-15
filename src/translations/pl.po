@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
-"POT-Creation-Date: 2011-01-09 12:18-0500\n"
+"POT-Creation-Date: 2011-01-15 10:30+0100\n"
 "PO-Revision-Date: 2010-03-29 09:28+0200\n"
 "Last-Translator: Michał Smoczyk <msmoczyk@wp.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
@@ -34,7 +34,7 @@ msgstr ""
 #: hugin1/base_wx/huginConfig.cpp:69 hugin1/base_wx/huginConfig.cpp:82
 #: hugin1/base_wx/RunStitchPanel.cpp:111 hugin1/hugin/AssistantPanel.cpp:361
 #: hugin1/hugin/AssistantPanel.cpp:428 hugin1/hugin/CPEditorPanel.cpp:2174
-#: hugin1/hugin/GLViewer.cpp:149 hugin1/hugin/GLViewer.cpp:159
+#: hugin1/hugin/GLViewer.cpp:151 hugin1/hugin/GLViewer.cpp:161
 #: hugin1/hugin/MainFrame.cpp:139 hugin1/hugin/MainFrame.cpp:637
 #: hugin1/hugin/MainFrame.cpp:887 hugin1/hugin/MainFrame.cpp:1403
 #: hugin1/hugin/MainFrame.cpp:1862
@@ -267,7 +267,7 @@ msgstr "Wersja %s"
 
 #: hugin1/hugin/AboutDialog.cpp:183
 #, c-format
-msgid "Path to ressources: %s"
+msgid "Path to resources: %s"
 msgstr ""
 
 #: hugin1/hugin/AboutDialog.cpp:184
@@ -341,11 +341,12 @@ msgid "Mean error after optimization: %.1f pixel, max: %.1f\n"
 msgstr "Błąd uśredniania po optymalizacji: %.1f piksel, maksymalnie: %.1f\n"
 
 #: hugin1/hugin/AssistantPanel.cpp:330
+#, fuzzy
 msgid ""
 "Note: automatic alignment uses default settings from the preferences. If you "
 "customize settings for this project in the advanced tabs and want to use "
 "these customized settings, run the CP detection from the Images Tab, the "
-"geometrical optimization from the the Optimizer tab and the photometric "
+"geometrical optimization from the Optimizer tab and the photometric "
 "optimization from the Exposure tab."
 msgstr ""
 "Uwaga: automatyczne wyrównanie używa domyślnych parametrów podanych w "
@@ -533,7 +534,7 @@ msgid "Line %d"
 msgstr "Linia %d"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1586 hugin1/hugin/CPListFrame.cpp:448
-#: hugin1/hugin/GLPreviewFrame.cpp:531 hugin1/hugin/GLPreviewFrame.cpp:535
+#: hugin1/hugin/GLPreviewFrame.cpp:527 hugin1/hugin/GLPreviewFrame.cpp:531
 #: hugin1/hugin/PreviewFrame.cpp:231 translations/xrc.cpp:152 xrc.cpp:152
 msgid "normal"
 msgstr "normalny"
@@ -671,6 +672,49 @@ msgstr "Zaznacz punkty kontrolne"
 msgid "Please enter a valid number"
 msgstr "Proszę wpisać poprawny numer"
 
+#: hugin1/hugin/DragTool.cpp:76 hugin1/hugin/DragTool.cpp:311
+msgid ""
+"Drag to move images (optionally use shift to constrain), or roll with right-"
+"drag or ctrl-drag."
+msgstr ""
+"Przeciągnij aby przesunąć zdjęcia (opcjonalnie użyj Shift do zachowania), "
+"lub obróć za pomocą przeciągania z wciśniętym prawym klawiszem myszy lub "
+"klawiszem Ctrl."
+
+#: hugin1/hugin/DragTool.cpp:103
+#, fuzzy
+msgid ""
+"Currently constrained to moving only pitch. Make a larger movement in the "
+"opposite direction to constrain to yaw."
+msgstr ""
+"Aktualnie zachowano przesunięcie tylko obrotu pionowego (pitch). Wykonaj "
+"większe przesunięcie w przeciwnym kierunku aby zachować obrót poziomy (yaw)."
+
+#: hugin1/hugin/DragTool.cpp:107
+#, fuzzy
+msgid ""
+"Currently constrained to moving only yaw. Make a larger movement in the "
+"opposite direction to constrain to pitch."
+msgstr ""
+"Aktualnie zachowano przesunięcie tylko obrotu poziomego (yaw). Wykonaj "
+"większe przesunięcie w przeciwnym kierunku aby zachować obrót pionowy "
+"(pitch)."
+
+#: hugin1/hugin/DragTool.cpp:197
+msgid "Rotate around the centre to roll."
+msgstr "Obróć dookoła środka aby obrócić dookoła osi optycznej."
+
+#: hugin1/hugin/DragTool.cpp:218
+msgid ""
+"Constrained drag: make a movement and it will be snapped to the yaw or pitch."
+msgstr ""
+"Przeciąganie zachowawcze: wykonaj przesunięcie, a zostanie ono przyciągnięte "
+"do obrotu pionowego lub poziomego."
+
+#: hugin1/hugin/DragTool.cpp:220
+msgid "Drag to move."
+msgstr "Przeciągnij aby przesunąć."
+
 #: hugin1/hugin/GLPreviewFrame.cpp:271
 msgid "Fast Panorama preview"
 msgstr "Szybki podgląd panoramy"
@@ -694,80 +738,75 @@ msgstr "Wyprostuj"
 msgid "Autocrop"
 msgstr "Automatyczne przycięcie"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:337 hugin1/hugin/PreviewFrame.cpp:132
+#: hugin1/hugin/GLPreviewFrame.cpp:333 hugin1/hugin/PreviewFrame.cpp:132
 msgid "displayed images"
 msgstr "wyświetlone zdjęcia"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:362 translations/xrc.cpp:757 xrc.cpp:757
+#: hugin1/hugin/GLPreviewFrame.cpp:358 translations/xrc.cpp:757 xrc.cpp:757
 msgid "All"
 msgstr "Wszystkie"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:363 translations/xrc.cpp:546
+#: hugin1/hugin/GLPreviewFrame.cpp:359 translations/xrc.cpp:546
 #: translations/xrc.cpp:551 translations/xrc.cpp:759 xrc.cpp:546 xrc.cpp:551
 #: xrc.cpp:759
 msgid "None"
 msgstr "Brak"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:372
+#: hugin1/hugin/GLPreviewFrame.cpp:368
 msgid "Hide"
 msgstr ""
 
-#: hugin1/hugin/GLPreviewFrame.cpp:414 hugin1/hugin/PreviewFrame.cpp:169
+#: hugin1/hugin/GLPreviewFrame.cpp:410 hugin1/hugin/PreviewFrame.cpp:169
 msgid "VFOV"
 msgstr "VFOV"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:418 hugin1/hugin/PreviewFrame.cpp:173
+#: hugin1/hugin/GLPreviewFrame.cpp:414 hugin1/hugin/PreviewFrame.cpp:173
 msgid "drag to change the vertical field of view"
 msgstr "przeciągnij by zmienić pionowe pole widzenia"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:427 hugin1/hugin/PreviewFrame.cpp:182
+#: hugin1/hugin/GLPreviewFrame.cpp:423 hugin1/hugin/PreviewFrame.cpp:182
 msgid "HFOV"
 msgstr "HFOV"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:432 hugin1/hugin/PreviewFrame.cpp:187
+#: hugin1/hugin/GLPreviewFrame.cpp:428 hugin1/hugin/PreviewFrame.cpp:187
 msgid "drag to change the horizontal field of view"
 msgstr "przeciągnij by zmienić poziome pole widzenia"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:462
+#: hugin1/hugin/GLPreviewFrame.cpp:458
 msgid "Panosphere"
 msgstr ""
 
-#: hugin1/hugin/GLPreviewFrame.cpp:463
+#: hugin1/hugin/GLPreviewFrame.cpp:459
 #, fuzzy
 msgid "Mosaic plane"
 msgstr "Dwupłaszczyznowy"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:484 translations/xrc.cpp:403
+#: hugin1/hugin/GLPreviewFrame.cpp:480 translations/xrc.cpp:403
 #: translations/xrc.cpp:736 translations/xrc.cpp:778 xrc.cpp:403 xrc.cpp:736
 #: xrc.cpp:778
 msgid "Preview"
 msgstr "Podgląd"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:497 translations/xrc.cpp:806 xrc.cpp:806
+#: hugin1/hugin/GLPreviewFrame.cpp:493 translations/xrc.cpp:806 xrc.cpp:806
 #, fuzzy
 msgid "Overview"
 msgstr "Podgląd"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:536
+#: hugin1/hugin/GLPreviewFrame.cpp:532
 msgid "mosaic"
 msgstr ""
 
-#: hugin1/hugin/GLPreviewFrame.cpp:576 hugin1/hugin/PreviewFrame.cpp:301
+#: hugin1/hugin/GLPreviewFrame.cpp:572 hugin1/hugin/PreviewFrame.cpp:301
 msgid "Resets the projections parameters to their default values."
 msgstr "Przywraca parametry rzutu do ich wartości domyślnych."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:585 hugin1/hugin/PreviewFrame.cpp:310
+#: hugin1/hugin/GLPreviewFrame.cpp:581 hugin1/hugin/PreviewFrame.cpp:310
 msgid "param:"
 msgstr "parametr:"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:590 hugin1/hugin/PreviewFrame.cpp:279
+#: hugin1/hugin/GLPreviewFrame.cpp:586 hugin1/hugin/PreviewFrame.cpp:279
 msgid "0"
 msgstr "0"
-
-#: hugin1/hugin/GLPreviewFrame.cpp:1054 hugin1/hugin/GLPreviewFrame.cpp:1076
-#, fuzzy
-msgid "overview"
-msgstr "Podgląd"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1125 hugin1/hugin/PreviewFrame.cpp:615
 msgid "Rectilinear"
@@ -939,13 +978,13 @@ msgid ""
 "If you want to see the bar again, activate the bar in the preferences again."
 msgstr ""
 
-#: hugin1/hugin/GLViewer.cpp:149
+#: hugin1/hugin/GLViewer.cpp:151
 msgid ""
-"Error initialising GLEW\n"
+"Error initializing GLEW\n"
 "Fast preview window can not be opened."
 msgstr ""
 
-#: hugin1/hugin/GLViewer.cpp:159
+#: hugin1/hugin/GLViewer.cpp:161
 msgid ""
 "Sorry, the fast preview window requires a system which supports OpenGL "
 "version 1.1 with the GL_ARB_multitexture extension.\n"
@@ -2050,49 +2089,6 @@ msgstr "Usuń ustawienie wykrywania punktów kontrolnych"
 #: hugin1/hugin/PreviewCropTool.cpp:55
 msgid "Drag the inside of the cropping rectangle to adjust the crop."
 msgstr "Przeciągnij wnętrze prostokąta aby dopasować przycięcie."
-
-#: hugin1/hugin/PreviewDragTool.cpp:76 hugin1/hugin/PreviewDragTool.cpp:311
-msgid ""
-"Drag to move images (optionally use shift to constrain), or roll with right-"
-"drag or ctrl-drag."
-msgstr ""
-"Przeciągnij aby przesunąć zdjęcia (opcjonalnie użyj Shift do zachowania), "
-"lub obróć za pomocą przeciągania z wciśniętym prawym klawiszem myszy lub "
-"klawiszem Ctrl."
-
-#: hugin1/hugin/PreviewDragTool.cpp:103
-#, fuzzy
-msgid ""
-"Currently constrained to moving only pitch. Make a larger movement in the "
-"opposite direction to constrain to yaw."
-msgstr ""
-"Aktualnie zachowano przesunięcie tylko obrotu pionowego (pitch). Wykonaj "
-"większe przesunięcie w przeciwnym kierunku aby zachować obrót poziomy (yaw)."
-
-#: hugin1/hugin/PreviewDragTool.cpp:107
-#, fuzzy
-msgid ""
-"Currently constrained to moving only yaw. Make a larger movement in the "
-"opposite direction to constrain to pitch."
-msgstr ""
-"Aktualnie zachowano przesunięcie tylko obrotu poziomego (yaw). Wykonaj "
-"większe przesunięcie w przeciwnym kierunku aby zachować obrót pionowy "
-"(pitch)."
-
-#: hugin1/hugin/PreviewDragTool.cpp:197
-msgid "Rotate around the centre to roll."
-msgstr "Obróć dookoła środka aby obrócić dookoła osi optycznej."
-
-#: hugin1/hugin/PreviewDragTool.cpp:218
-msgid ""
-"Constrained drag: make a movement and it will be snapped to the yaw or pitch."
-msgstr ""
-"Przeciąganie zachowawcze: wykonaj przesunięcie, a zostanie ono przyciągnięte "
-"do obrotu pionowego lub poziomego."
-
-#: hugin1/hugin/PreviewDragTool.cpp:220
-msgid "Drag to move."
-msgstr "Przeciągnij aby przesunąć."
 
 #: hugin1/hugin/PreviewFrame.cpp:117
 msgid "Panorama preview"
@@ -4303,7 +4299,8 @@ msgid "Include region from stack"
 msgstr "Włącz obszar"
 
 #: translations/xrc.cpp:423 xrc.cpp:423
-msgid "Colours:"
+#, fuzzy
+msgid "Colors:"
 msgstr "Kolory:"
 
 #: translations/xrc.cpp:424 xrc.cpp:424
@@ -5855,6 +5852,10 @@ msgstr ""
 "Optymalizacja wszystkich parametrów zniekształceń \"wszystko\" ma sens tylko "
 "w przypadku znacznie zachodzących na siebie zdjęć i wielu dobrze "
 "rozproszonych punktów kontrolnych."
+
+#, fuzzy
+#~ msgid "overview"
+#~ msgstr "Podgląd"
 
 #~ msgid "Everything"
 #~ msgstr "Wszystko"

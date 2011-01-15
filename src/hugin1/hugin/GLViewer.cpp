@@ -148,7 +148,7 @@ void GLViewer::SetUpContext()
                 DEBUG_ERROR("Error initialising GLEW: "
                         << glewGetErrorString(error_state) << ".");
                 frame->Close();
-                wxMessageBox(_("Error initialising GLEW\nFast preview window can not be opened."),_("Error"), wxOK | wxICON_ERROR,MainFrame::Get());
+                wxMessageBox(_("Error initializing GLEW\nFast preview window can not be opened."),_("Error"), wxOK | wxICON_ERROR,MainFrame::Get());
                 return;
             }
         }
