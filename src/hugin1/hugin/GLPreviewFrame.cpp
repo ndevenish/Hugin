@@ -327,11 +327,7 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     bool overview_hidden;
     config->Read(wxT("/GLPreviewFrame/overview_hidden"), &overview_hidden, false);
     m_OverviewToggle = XRCCTRL(*this, "overview_toggle", wxToggleButton);
-    if (overview_hidden) {
-        m_OverviewToggle->SetValue(false);
-    } else {
-        m_OverviewToggle->SetValue(true);
-    }
+    m_OverviewToggle->SetValue(!overview_hidden);
 
     m_ToggleButtonSizer = new wxStaticBoxSizer(
         new wxStaticBox(toggle_panel, -1, _("displayed images")),
@@ -630,7 +626,7 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     if (config->Read(wxT("/GLPreviewFrame/isShown"), 0l) != 0) {
         Show();
     }
-    m_showProjectionHints = config->Read(wxT("/GLPreviewWindow/ShowProjectionHints"), HUGIN_SHOW_PROJECTION_HINTS) == 1;
+    m_showProjectionHints = config->Read(wxT("/GLPreviewFrame/ShowProjectionHints"), HUGIN_SHOW_PROJECTION_HINTS) == 1;
     wxAcceleratorEntry entries[3];
     entries[0].Set(wxACCEL_NORMAL,WXK_F11,ID_FULL_SCREEN);
     entries[1].Set(wxACCEL_CTRL,(int)'Z',ID_UNDO);
@@ -1051,7 +1047,7 @@ void GLPreviewFrame::OnShowEvent(wxShowEvent& e)
 
     DEBUG_TRACE("OnShow");
     bool toggle_on = m_OverviewToggle->GetValue();
-    wxAuiPaneInfo &inf = m_mgr->GetPane(_("overview"));
+    wxAuiPaneInfo &inf = m_mgr->GetPane(wxT("overview"));
     if (inf.IsOk()) {
 #if wxCHECK_VERSION(2,8,11)
         if (e.IsShown()) {
@@ -1077,7 +1073,7 @@ void GLPreviewFrame::OnOverviewToggle(wxCommandEvent& e)
 {
     DEBUG_TRACE("overview toggle");
     bool toggle_on = m_OverviewToggle->GetValue();
-    wxAuiPaneInfo &inf = m_mgr->GetPane(_("overview"));
+    wxAuiPaneInfo &inf = m_mgr->GetPane(wxT("overview"));
     if (inf.IsOk()) {
         if (inf.IsShown() && !toggle_on) {
             inf.Hide();
@@ -2270,7 +2266,7 @@ void GLPreviewFrame::OnHideProjectionHints(wxCommandEvent &e)
         wxOK | wxICON_INFORMATION, this);
 
     wxConfigBase* cfg=wxConfigBase::Get();
-    cfg->Write(wxT("/GLPreviewWindow/ShowProjectionHints"), false);
+    cfg->Write(wxT("/GLPreviewFrame/ShowProjectionHints"), false);
     m_showProjectionHints=false;
     cfg->Flush();
     e.Skip();

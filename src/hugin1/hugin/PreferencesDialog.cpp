@@ -445,7 +445,7 @@ void PreferencesDialog::UpdateDisplayData(int panel)
         t = cfg->Read(wxT("smartUndo"), HUGIN_SMART_UNDO) == 1;
         MY_BOOL_VAL("prefs_smart_undo", t);
 
-        t = cfg->Read(wxT("/GLPreviewWindow/ShowProjectionHints"), HUGIN_SHOW_PROJECTION_HINTS) == 1;
+        t = cfg->Read(wxT("/GLPreviewFrame/ShowProjectionHints"), HUGIN_SHOW_PROJECTION_HINTS) == 1;
         MY_BOOL_VAL("pref_show_projection_hints", t)
 
         // cursor setting
@@ -628,7 +628,7 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
             // smart undo
             cfg->Write(wxT("smartUndo"), HUGIN_SMART_UNDO);
             // projection hints
-            cfg->Write(wxT("/GLPreviewWindow/ShowProjectionHints"), HUGIN_SHOW_PROJECTION_HINTS);
+            cfg->Write(wxT("/GLPreviewFrame/ShowProjectionHints"), HUGIN_SHOW_PROJECTION_HINTS);
             // druid
             cfg->Write(wxT("/PreviewFrame/showDruid"), HUGIN_PREVIEW_SHOW_DRUID);
         }
@@ -763,7 +763,7 @@ void PreferencesDialog::UpdateConfigData()
     // smart undo
     cfg->Write(wxT("smartUndo"), MY_G_BOOL_VAL("prefs_smart_undo"));
     // show projections hints
-    cfg->Write(wxT("/GLPreviewWindow/ShowProjectionHints"), MY_G_BOOL_VAL("pref_show_projection_hints"));
+    cfg->Write(wxT("/GLPreviewFrame/ShowProjectionHints"), MY_G_BOOL_VAL("pref_show_projection_hints"));
     // cursor
     //    cfg->Write(wxT("/CPImageCtrl/CursorType"), MY_G_SPIN_VAL("prefs_cp_CursorType"));
     // tempdir
