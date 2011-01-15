@@ -65,7 +65,7 @@ void PreviewCropTool::ReallyAfterDrawImagesEvent()
     // dragging a point in the middle moves the whole frame.
     
     // find the cropped region
-    HuginBase::PanoramaOptions *opts = helper->GetViewStatePtr()->GetOptions();
+    HuginBase::PanoramaOptions *opts = helper->GetVisualizationStatePtr()->getViewState()->GetOptions();
     vigra::Rect2D roi = opts->getROI();
     double width = (double) roi.width(),
           height = (double) roi.height(),
@@ -79,7 +79,7 @@ void PreviewCropTool::ReallyAfterDrawImagesEvent()
     if (!mouse_down)
     {
         glEnable(GL_BLEND);
-        helper->GetViewStatePtr()->GetTextureManager()->DisableTexture();
+        helper->GetVisualizationStatePtr()->getViewState()->GetTextureManager()->DisableTexture();
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         glColor4f(1.0, 1.0, 1.0, 0.38197);
         glBegin(GL_QUADS);
@@ -117,6 +117,21 @@ void PreviewCropTool::ReallyAfterDrawImagesEvent()
 
 void PreviewCropTool::MouseMoveEvent(double x, double y, wxMouseEvent & e)
 {
+
+//    std::cout << "outlines tool " << x << " " << y << std::endl;
+//    double xp, yp;
+//    HuginBase::PTools::Transform transform;
+//    HuginBase::SrcPanoImage image;
+//    image.setSize(vigra::Size2D(360,180));
+//    image.setHFOV(360);
+//    image.setProjection(HuginBase::BaseSrcPanoImage::EQUIRECTANGULAR);
+//    if (helper->GetPanoramaPtr()->getNrOfImages() > 0) {
+////        transform.createTransform(*helper->GetViewStatePtr()->GetSrcImage(0), *(helper->GetVisualizationStatePtr()->GetOptions()));
+//        transform.createTransform(image, *(helper->GetVisualizationStatePtr()->GetOptions()));
+//        transform.transformImgCoord(xp,yp,x,y);
+//    std::cout << "outlines tool " << xp << " " << yp << std::endl;
+//    }
+
     if (mouse_down)
     {
         vigra::Rect2D roi = start_drag_options.getROI();
@@ -163,8 +178,8 @@ void PreviewCropTool::MouseMoveEvent(double x, double y, wxMouseEvent & e)
         {
             opts.setROI(roi);
             new_roi = roi;
-            helper->GetViewStatePtr()->SetOptions(&opts);
-            helper->GetViewStatePtr()->Redraw();
+            helper->GetVisualizationStatePtr()->getViewState()->SetOptions(&opts);
+            helper->GetVisualizationStatePtr()->Redraw();
         }
     } else {
         start_drag_x = x;
@@ -209,8 +224,8 @@ void PreviewCropTool::MouseMoveEvent(double x, double y, wxMouseEvent & e)
         {
             // since we didn't change the panorama, view_state doesn't think we
             // should redraw. Persuade it otherwise:
-            helper->GetViewStatePtr()->ForceRequireRedraw();
-            helper->GetViewStatePtr()->Redraw(); // now redraw.
+            helper->GetVisualizationStatePtr()->ForceRequireRedraw();
+            helper->GetVisualizationStatePtr()->Redraw(); // now redraw.
         }
     }
 }     
@@ -222,7 +237,7 @@ void PreviewCropTool::MouseButtonEvent(wxMouseEvent &e)
     {
         if (e.ButtonDown())
         {
-            start_drag_options = *helper->GetViewStatePtr()->GetOptions();
+            start_drag_options = *helper->GetVisualizationStatePtr()->getViewState()->GetOptions();
             opts = start_drag_options;
             new_roi = opts.getROI();
             mouse_down = true;

@@ -31,8 +31,8 @@
 #include "VertexCoordRemapper.h"
 
 ChoosyRemapper::ChoosyRemapper(HuginBase::Panorama *m_pano,
-                               unsigned int image_number, ViewState *view_state)
-  : MeshRemapper(m_pano, image_number, view_state)
+                               HuginBase::SrcPanoImage * image, VisualizationState *visualization_state)
+  : MeshRemapper(m_pano, image, visualization_state)
 {
     selected_remapper = 0;
     selection = REMAP_NONE;
@@ -48,7 +48,7 @@ void ChoosyRemapper::UpdateAndResetIndex()
     MeshRemapper::UpdateAndResetIndex();
     // have a look at the output mode, find those where the poles cause problems
     // with the vetex remapper.
-    HuginBase::PanoramaOptions *opts = view_state->GetOptions();
+    HuginBase::PanoramaOptions *opts = visualization_state->GetOptions();
     bool pole = false;
     switch (opts->getProjection())
     {
@@ -80,10 +80,10 @@ void ChoosyRemapper::UpdateAndResetIndex()
         case HuginBase::PanoramaOptions::GENERAL_PANINI:
             // check for pole crossing
         {
-            OutputProjectionInfo *info = view_state->GetProjectionInfo();
+            OutputProjectionInfo *info = visualization_state->GetProjectionInfo();
             // get the pole in image coordinates
-            transform.createTransform(*(view_state->GetSrcImage(image_number)),
-                                      *(view_state->GetOptions()));
+            transform.createTransform(*image,
+                                      *(visualization_state->GetOptions()));
             double img_x, img_y;
             transform.transformImgCoord(img_x, img_y,
                                         info->GetNorthPoleX(),
@@ -130,8 +130,8 @@ void ChoosyRemapper::UpdateAndResetIndex()
                         selected_remapper = 0;
                     }
                     selected_remapper = new TexCoordRemapper(m_pano, 
-                                                             image_number,
-                                                             view_state);
+                                                             image,
+                                                             visualization_state);
                 }
                 break;            
             }
@@ -149,8 +149,8 @@ void ChoosyRemapper::UpdateAndResetIndex()
                     selected_remapper = 0;
                 }
                 selected_remapper = new VertexCoordRemapper(m_pano, 
-                                                            image_number,
-                                                            view_state);
+                                                            image,
+                                                            visualization_state);
             }
             break;
     }

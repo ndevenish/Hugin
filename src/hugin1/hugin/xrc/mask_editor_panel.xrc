@@ -126,7 +126,7 @@
           <orient>wxVERTICAL</orient>
           <object class="sizeritem">
             <object class="wxStaticText">
-              <label>Colours:</label>
+              <label>Colors:</label>
             </object>
             <flag>wxTOP|wxEXPAND</flag>
             <border>5</border>

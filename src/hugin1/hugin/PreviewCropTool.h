@@ -23,7 +23,7 @@
 #ifndef _PREVIEWCROPTOOL_H
 #define _PREVIEWCROPTOOL_H
 
-#include "PreviewTool.h"
+#include "Tool.h"
 
 /** Allow the user to change the cropping region by dragging it in the fast
  *  preview.

@@ -35,10 +35,10 @@
 #include <GL/gl.h>
 #endif
 
-PreviewControlPointTool::PreviewControlPointTool(PreviewToolHelper *helper)
-    : PreviewTool(helper)
+PreviewControlPointTool::PreviewControlPointTool(ToolHelper *helper)
+    : Tool(helper)
 {
-    m_greatCircles.setViewState(helper->GetViewStatePtr());
+    m_greatCircles.setVisualizationState(helper->GetVisualizationStatePtr());
 }
 
 // we want to draw over the panorama when in use, so make sure we get notice.
@@ -59,7 +59,7 @@ void PreviewControlPointTool::AfterDrawImagesEvent()
     // now draw each control point in turn:
     helper->GetViewStatePtr()->GetTextureManager()->DisableTexture();
     glColor3f(1.0, 0.5, 0.0);
-    int cp_count = control_points.size();
+    size_t cp_count = control_points.size();
     for (size_t cp_index = 0; cp_index < cp_count; cp_index++)
     {
         const HuginBase::ControlPoint &cp = control_points[cp_index];
@@ -106,7 +106,7 @@ void PreviewControlPointTool::MakeTransforms()
     {
         // we are transforming image coordinates to spherical coordinates.
         transforms[image_number].createInvTransform(
-                *(helper->GetViewStatePtr()->GetSrcImage(image_number)),
+                *(helper->GetVisualizationStatePtr()->GetSrcImage(image_number)),
                 options
             );
     }

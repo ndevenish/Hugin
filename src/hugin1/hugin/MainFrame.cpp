@@ -1291,7 +1291,7 @@ void MainFrame::OnShowPrefs(wxCommandEvent & e)
     wxConfigBase* cfg=wxConfigBase::Get();
     ImageCache::getInstance().SetUpperLimit(cfg->Read(wxT("/ImageCache/UpperBound"), HUGIN_IMGCACHE_UPPERBOUND));
     images_panel->ReloadCPDetectorSettings();
-    gl_preview_frame->SetShowProjectionHints(cfg->Read(wxT("/GLPreviewWindow/ShowProjectionHints"),HUGIN_SHOW_PROJECTION_HINTS)!=0);
+    gl_preview_frame->SetShowProjectionHints(cfg->Read(wxT("/GLPreviewFrame/ShowProjectionHints"),HUGIN_SHOW_PROJECTION_HINTS)!=0);
 
 }
 

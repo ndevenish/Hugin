@@ -22,7 +22,7 @@
 #ifndef PREVIEW_LAYOUT_LINES_TOOL_H
 #define PREVIEW_LAYOUT_LINES_TOOL_H
 
-#include "PreviewTool.h"
+#include "Tool.h"
 #include <vector>
 #include <hugin_math/hugin_math.h>
 #include "GreatCircles.h"
@@ -44,10 +44,10 @@ class GLPreviewFrame;
  * points change. This should save on the draw time, since we don't always
  * need to examine the control points to draw the preview.
  */
-class PreviewLayoutLinesTool : public PreviewTool, public HuginBase::PanoramaObserver
+class PreviewLayoutLinesTool : public Tool, public HuginBase::PanoramaObserver
 {
 public:
-    PreviewLayoutLinesTool(PreviewToolHelper *helper);
+    PreviewLayoutLinesTool(ToolHelper *helper);
     ~PreviewLayoutLinesTool();
     
     /** This just sets a flag when the panorama is changed.
@@ -81,6 +81,10 @@ public:
      */
     void AfterDrawImagesEvent();
 private:
+
+    //user has clicked and is holding left button while near a line
+    bool m_holdOnNear;
+
     /// Flag set to true to update statistics next redraw
     bool m_updateStatistics;
     /// OpenGL texture names for the border highlight.

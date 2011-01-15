@@ -2,6 +2,7 @@
 /** @file GLViewer.cpp
  *
  *  @author James Legg
+ *  @author Darko Makreshanski
  *
  *  This is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public
@@ -23,6 +24,8 @@
 #include "panoinc_WX.h"
 #endif
 
+#include "hugin_utils/utils.h"
+
 #include "panoinc.h"
 #include <config.h>
 #if !defined Hugin_shared || !defined _WINDOWS
@@ -38,9 +41,12 @@
 #include "GLRenderer.h"
 #include "TextureManager.h"
 #include "MeshManager.h"
-#include "PreviewToolHelper.h"
+#include "ToolHelper.h"
 #include "GLPreviewFrame.h"
 #include "hugin/huginApp.h"
+
+bool GLViewer::initialised_glew=false;
+ViewState * GLViewer::m_view_state = NULL;
 
 BEGIN_EVENT_TABLE(GLViewer, wxGLCanvas)
     EVT_PAINT (GLViewer::RedrawE)
@@ -51,49 +57,66 @@ BEGIN_EVENT_TABLE(GLViewer, wxGLCanvas)
     // mouse entered or left the preview
     EVT_LEAVE_WINDOW(GLViewer::MouseLeave)
     // mouse buttons
-    EVT_LEFT_DOWN (GLViewer::LeftDown)
-    EVT_LEFT_UP (GLViewer::LeftUp)
-    EVT_RIGHT_DOWN (GLViewer::RightDown)
-    EVT_RIGHT_UP (GLViewer::RightUp)
+    EVT_MOUSEWHEEL(GLViewer::MouseWheel)
+    EVT_MOUSE_EVENTS(GLViewer::MouseButtons)
     // keyboard events
     EVT_KEY_DOWN(GLViewer::KeyDown)
     EVT_KEY_UP(GLViewer::KeyUp)
 END_EVENT_TABLE()
 
-GLViewer::GLViewer(wxFrame* parent, PT::Panorama &pano, int args[], GLPreviewFrame *frame_in) :
+
+GLViewer::GLViewer(
+            wxWindow* parent, 
+            PT::Panorama &pano, 
+            int args[], 
+            GLPreviewFrame *frame_in,
+            wxGLContext * shared_context
+            ) :
+#if defined __WXGTK__ || wxCHECK_VERSION(2,9,0)
           wxGLCanvas(parent, wxID_ANY, wxDefaultPosition, wxDefaultSize,
                      0, wxT("GLPreviewCanvas"), args, wxNullPalette)
+#else
+          wxGLCanvas(parent,shared_context,wxID_ANY,wxDefaultPosition,
+                     wxDefaultSize,0,wxT("GLPreviewCanvas"),args,wxNullPalette)
+#endif
 {
     /* The openGL display context doesn't seem to be created automatically on
-     * wxGTK, and on wxMac the constructor doesn't fit the documentation. I
-     * create a new context on anything but wxMac and hope it works... */
-    #ifdef __WXMAC__
-      m_glContext = GetContext();
-    #else
-      m_glContext = new wxGLContext(this, 0);
-	#endif
+     * wxGTK, (wxMSW and wxMac 2.8 does implicit create wxGLContext,
+     * wxWidgets 2.9 requires to explicit create wxGLContext, 
+     * so I create a new context... */
+#if defined __WXGTK__ || wxCHECK_VERSION(2,9,0)
+    m_glContext = new wxGLContext(this, shared_context);
+#endif
     
     m_renderer = 0;
+    m_visualization_state = 0;
     
     m_pano = &pano;
-    
+
     frame = frame_in;
     
     started_creation = false;
-    initialised_glew = false;
     redrawing = false;
+
+    active = true;
 }
 
 GLViewer::~GLViewer()
 {
-#if !defined __WXMAC__
+#if defined __WXGTK__ || wxCHECK_VERSION(2,9,0)
     delete m_glContext;
 #endif
     if (m_renderer)
     {
       delete m_tool_helper;
       delete m_renderer;
-      delete m_view_state;
+      // because m_view_state is a static member variable we need to check
+      // if other class has already deleted it
+      if(m_view_state)
+      {
+        delete m_view_state;
+        m_view_state=NULL;
+      }
     }
 }
 
@@ -102,11 +125,11 @@ void GLViewer::SetUpContext()
     // set the context
     DEBUG_INFO("Setting rendering context...");
     Show();
-    #ifdef __WXMAC__
-    m_glContext->SetCurrent();
-    #else
+#if defined __WXGTK__ || wxCHECK_VERSION(2,9,0)
     m_glContext->SetCurrent(*this);
-    #endif
+#else
+    SetCurrent();
+#endif
     DEBUG_INFO("...got a rendering context.");
     if (!started_creation)
     {
@@ -125,7 +148,7 @@ void GLViewer::SetUpContext()
                 DEBUG_ERROR("Error initialising GLEW: "
                         << glewGetErrorString(error_state) << ".");
                 frame->Close();
-                wxMessageBox(_("Error initialising GLEW\nFast preview window can not be opened."),_("Error"), wxOK | wxICON_ERROR,MainFrame::Get());
+                wxMessageBox(_("Error initializing GLEW\nFast preview window can not be opened."),_("Error"), wxOK | wxICON_ERROR,MainFrame::Get());
                 return;
             }
         }
@@ -138,23 +161,78 @@ void GLViewer::SetUpContext()
             wxMessageBox(_("Sorry, the fast preview window requires a system which supports OpenGL version 1.1 with the GL_ARB_multitexture extension.\nThe fast preview cannot be opened."),_("Error"), wxOK | wxICON_ERROR,MainFrame::Get());
             return;
         }
-        
-        // check, if gpu supports multitextures
+
+        setUp();
+    }
+}
+
+void GLPreview::setUp()
+{
+    DEBUG_DEBUG("Preview Setup");
+    // we need something to store the state of the view and control updates
+    if (!m_view_state) {
         GLint countMultiTexture;
         glGetIntegerv(GL_MAX_TEXTURE_UNITS_ARB,&countMultiTexture);
-        // we need something to store the state of the view and control updates
-        m_view_state = new ViewState(m_pano, RefreshWrapper, countMultiTexture>1, this);
-        // Start the tools going:
-        m_tool_helper = new PreviewToolHelper(m_pano, m_view_state, frame);
-        frame->MakeTools(m_tool_helper);
-        // now make a renderer
-        m_renderer =  new GLRenderer(m_pano, m_view_state->GetTextureManager(),
-                                     m_view_state->GetMeshManager(),
-                                     m_view_state, m_tool_helper);
-        // fill blend mode choice box in fast preview window
-        // we can fill it just now, because we need a OpenGL context, which was created now,
-        // to check if all necessary extentions are available
-        frame->FillBlendChoice();
+        m_view_state = new ViewState(m_pano, countMultiTexture>1);
+    }
+    m_visualization_state = new VisualizationState(m_pano, m_view_state, this, RefreshWrapper, this, (PreviewMeshManager*) NULL);
+    //Start the tools going:
+    PreviewToolHelper *helper = new PreviewToolHelper(m_pano, m_visualization_state, frame);
+    m_tool_helper = (ToolHelper*) helper;
+    frame->MakePreviewTools(helper);
+    // now make a renderer
+    m_renderer =  new GLPreviewRenderer(m_pano, m_view_state->GetTextureManager(),
+                                 m_visualization_state->GetMeshManager(),
+                                 m_visualization_state, helper);
+    // check, if gpu supports multitextures
+    // fill blend mode choice box in fast preview window
+    // we can fill it just now, because we need a OpenGL context, which was created now,
+    // to check if all necessary extentions are available
+    frame->FillBlendChoice();
+    frame->LoadOpenGLLayout();
+}
+
+void GLOverview::setUp()
+{
+    DEBUG_DEBUG("Overview Setup");
+    // we need something to store the state of the view and control updates
+    if (!m_view_state) {
+        GLint countMultiTexture;
+        glGetIntegerv(GL_MAX_TEXTURE_UNITS_ARB,&countMultiTexture);
+        m_view_state = new ViewState(m_pano, countMultiTexture>1);
+    }
+
+    panosphere_m_visualization_state = new PanosphereOverviewVisualizationState(m_pano, m_view_state, this, RefreshWrapper, this);
+    plane_m_visualization_state = new PlaneOverviewVisualizationState(m_pano, m_view_state, this, RefreshWrapper, this);
+
+    m_visualization_state = panosphere_m_visualization_state;
+
+    //Start the tools going:
+    panosphere_m_tool_helper = new PanosphereOverviewToolHelper(m_pano, panosphere_m_visualization_state, frame);
+    frame->MakePanosphereOverviewTools(panosphere_m_tool_helper);
+
+    plane_m_tool_helper = new PlaneOverviewToolHelper(m_pano, plane_m_visualization_state, frame);
+    frame->MakePlaneOverviewTools(plane_m_tool_helper);
+
+    // now make a renderer
+    panosphere_m_renderer =  new GLPanosphereOverviewRenderer(m_pano, m_view_state->GetTextureManager(),
+                                 panosphere_m_visualization_state->GetMeshManager(),
+                                 panosphere_m_visualization_state, panosphere_m_tool_helper);
+    plane_m_renderer =  new GLPlaneOverviewRenderer(m_pano, m_view_state->GetTextureManager(),
+                                 plane_m_visualization_state->GetMeshManager(),
+                                 plane_m_visualization_state, plane_m_tool_helper);
+                                 
+    switch(mode) {
+        case PANOSPHERE:
+            m_visualization_state = panosphere_m_visualization_state;
+            m_tool_helper = panosphere_m_tool_helper;
+            m_renderer = panosphere_m_renderer;
+            break;
+        case PLANE:
+            m_visualization_state = plane_m_visualization_state;
+            m_tool_helper = plane_m_tool_helper;
+            m_renderer = plane_m_renderer;
+            break;
     }
 }
 
@@ -166,49 +244,91 @@ void GLViewer::SetPhotometricCorrect(bool state)
 
 void GLViewer::SetLayoutMode(bool state)
 {
-    m_view_state->GetMeshManager()->SetLayoutMode(state);
+    m_visualization_state->GetMeshManager()->SetLayoutMode(state);
     Refresh();
 }
 
 void GLViewer::SetLayoutScale(double scale)
 {
-    m_view_state->GetMeshManager()->SetLayoutScale(scale);
+    m_visualization_state->GetMeshManager()->SetLayoutScale(scale);
     Refresh();
 }
 
+void GLOverview::SetLayoutMode(bool state)
+{
+    panosphere_m_visualization_state->GetMeshManager()->SetLayoutMode(state);
+    plane_m_visualization_state->GetMeshManager()->SetLayoutMode(state);
+    Refresh();
+}
+
+void GLOverview::SetLayoutScale(double scale)
+{
+    panosphere_m_visualization_state->GetMeshManager()->SetLayoutScale(scale*MeshManager::PanosphereOverviewMeshInfo::scale_diff);
+    plane_m_visualization_state->GetMeshManager()->SetLayoutScale(scale);
+    Refresh();
+}
+
+
 void GLViewer::RedrawE(wxPaintEvent& e)
 {
+    if (!IsActive()) {
+        return;
+    }
+    
+    //TODO: CanResize specific to a viewer?
+    DEBUG_DEBUG("REDRAW_E");
     if(!IsShown()) return;
     // don't redraw during a redraw.
+    if (!(frame->CanResize())) {
+        DEBUG_DEBUG("RESIZE IN REDRAW");
+        frame->ContinueResize();
+        return;
+    }
+        
     if (!redrawing)
     {
+        DEBUG_DEBUG("REDRAW_E IN");
         redrawing = true;
         SetUpContext();
         wxPaintDC dc(this); // we need this object on the stack to draw.
         Redraw();
         redrawing = false;
     }
+    DEBUG_DEBUG("END OF REDRAW_E");
 }
 
 void GLViewer::RefreshWrapper(void * obj)
 {
+    DEBUG_DEBUG("REFRESH WRAPPER");
     GLViewer* self = (GLViewer*) obj;
     self->Refresh();
 }
 
 void GLViewer::Resized(wxSizeEvent& e)
 {
-    wxGLCanvas::OnSize(e);
-    if(!IsShown()) return;
-    // if we have a render at this point, tell it the new size.
-    if (m_renderer)
-    {
-      int w, h;
-      GetClientSize(&w, &h);    
-      SetUpContext();
-      offset = m_renderer->Resize(w, h);
-      Redraw();
-    };
+
+    if (!IsActive()) {
+        return;
+    }
+
+    DEBUG_DEBUG("RESIZED_OUT");
+   
+    if (frame->CanResize()) {
+        DEBUG_DEBUG("RESIZED_IN");
+        wxGLCanvas::OnSize(e);
+        if(!IsShown()) return;
+        // if we have a render at this point, tell it the new size.
+        DEBUG_DEBUG("RESIZED_IN_SHOWN");
+        if (m_renderer)
+        {
+          int w, h;
+          DEBUG_DEBUG("RESIZED_IN_RENDERER");
+          GetClientSize(&w, &h);    
+          SetUpContext();
+          offset = m_renderer->Resize(w, h);
+          Redraw();
+        };
+    }
 }
 
 void GLViewer::Redraw()
@@ -221,20 +341,19 @@ void GLViewer::Redraw()
     // FIXME shouldn't this work on textured backrounds?
     wxColour col = wxSystemSettings::GetColour(wxSYS_COLOUR_APPWORKSPACE);
     m_renderer->SetBackground(col.Red(), col.Green(), col.Blue());
-
-    if (m_view_state->RequireRecalculateViewport())
+    if (m_visualization_state->RequireRecalculateViewport())
     {
         // resize the viewport in case the panorama dimensions have changed.
         int w, h;
         GetClientSize(&w, &h);
         offset = m_renderer->Resize(w, h);
     }
-    m_view_state->DoUpdates();
+    m_visualization_state->DoUpdates();
     m_renderer->Redraw();
     glFlush();
     SwapBuffers();
     // tell the view state we did all the updates and redrew.
-    m_view_state->FinishedDraw();
+    m_visualization_state->FinishedDraw();
     DEBUG_INFO("Finished Rendering.");
 }
 
@@ -256,29 +375,23 @@ void GLViewer::MouseLeave(wxMouseEvent & e)
         m_tool_helper->MouseLeave();
 }
 
-void GLViewer::LeftDown(wxMouseEvent& e)
+void GLViewer::MouseButtons(wxMouseEvent& e)
 {
-    if(m_renderer)
-        m_tool_helper->MouseButtonEvent(e);
+    if(m_renderer) {
+        //disregard non button events
+        if (e.IsButton()) {
+            m_tool_helper->MouseButtonEvent(e);
+        }
+    }
 }
 
-void GLViewer::LeftUp(wxMouseEvent& e)
+void GLViewer::MouseWheel(wxMouseEvent& e)
 {
-    if(m_renderer)
-        m_tool_helper->MouseButtonEvent(e);
+    if(m_renderer) {
+        m_tool_helper->MouseWheelEvent(e);
+    }
 }
 
-void GLViewer::RightDown(wxMouseEvent& e)
-{
-    if(m_renderer)
-        m_tool_helper->MouseButtonEvent(e);
-}
-
-void GLViewer::RightUp(wxMouseEvent& e)
-{
-    if(m_renderer)
-        m_tool_helper->MouseButtonEvent(e);
-}
 
 void GLViewer::KeyDown(wxKeyEvent& e)
 {
@@ -290,5 +403,27 @@ void GLViewer::KeyUp(wxKeyEvent& e)
 {
     if(m_renderer)
         m_tool_helper->KeypressEvent(e.GetKeyCode(), e.GetModifiers(), false);
+}
+
+
+
+void GLOverview::SetMode(OverviewMode mode)
+{
+    this->mode = mode;
+    if (panosphere_m_renderer != 0 && plane_m_renderer != 0) {
+        switch(mode) {
+            case PANOSPHERE:
+                m_visualization_state = panosphere_m_visualization_state;
+                m_tool_helper = panosphere_m_tool_helper;
+                m_renderer = panosphere_m_renderer;
+                break;
+            case PLANE:
+                m_visualization_state = plane_m_visualization_state;
+                m_tool_helper = plane_m_tool_helper;
+                m_renderer = plane_m_renderer;
+                break;
+        }
+        this->Refresh();
+    }
 }
 

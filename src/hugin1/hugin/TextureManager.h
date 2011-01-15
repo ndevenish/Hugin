@@ -44,7 +44,7 @@
 #include <huginapp/ImageCache.h>
 #include "PT/Panorama.h"
 
-class GLViewer;
+//class GLViewer;
 class ViewState;
 
 class TextureManager

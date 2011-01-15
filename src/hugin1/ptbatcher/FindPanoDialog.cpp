@@ -256,7 +256,7 @@ void FindPanoDialog::OnButtonSend(wxCommandEvent &e)
     };
     if(failed)
     {
-        wxMessageBox(_("Not all project files could be written successful.\nMaybe you have no write permission for these directories or your hard disc is full."),_("Error"),wxOK,this);
+        wxMessageBox(_("Not all project files could be written successfully.\nMaybe you have no write permission for these directories or your hard disc is full."),_("Error"),wxOK,this);
     };
     this->Close();
 };
