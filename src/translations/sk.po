@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2011-01-15 10:30+0100\n"
-"PO-Revision-Date: 2011-01-09 11:15+0100\n"
+"PO-Revision-Date: 2011-01-15 22:53+0100\n"
 "Last-Translator: Jozef Riha <jose1711@gmail.com>\n"
 "Language-Team: Slovak <sk@li.org>\n"
 "Language: sk\n"
@@ -269,7 +269,7 @@ msgid "Version: %s"
 msgstr "Verzia: %s"
 
 #: hugin1/hugin/AboutDialog.cpp:183
-#, fuzzy, c-format
+#, c-format
 msgid "Path to resources: %s"
 msgstr "Cesta ku zdrojom: %s"
 
@@ -341,7 +341,6 @@ msgid "Mean error after optimization: %.1f pixel, max: %.1f\n"
 msgstr "Priemerná chyba po optimalizácii: %.1f pixel, max: %.1f\n"
 
 #: hugin1/hugin/AssistantPanel.cpp:330
-#, fuzzy
 msgid ""
 "Note: automatic alignment uses default settings from the preferences. If you "
 "customize settings for this project in the advanced tabs and want to use "
@@ -350,9 +349,9 @@ msgid ""
 "optimization from the Exposure tab."
 msgstr ""
 "Poznámka: automatické zarovnanie používa východzie nastavenia volieb. Ak "
-"zmeníte nastavenia pre tento projekt v ďalších paneloch a chcete tieto "
+"zmeníte nastavenia pre tento projekt v pokročilých paneloch a chcete tieto "
 "nastavenia použiť, spustite detekciu kontrolných bodov v paneli Obrázky, "
-"geometrickú optimalizáciu v paneli Optimalizátor a potometrickú "
+"geometrickú optimalizáciu v paneli Optimalizátor a fotometrickú "
 "optimalizáciu v paneli Expozícia."
 
 #: hugin1/hugin/AssistantPanel.cpp:361
@@ -766,12 +765,11 @@ msgstr "ťahajte myšou pre zmenu horizontálneho zorného poľa"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:458
 msgid "Panosphere"
-msgstr ""
+msgstr "Panosféra"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:459
-#, fuzzy
 msgid "Mosaic plane"
-msgstr "Biplane"
+msgstr "Mozaiková plocha"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:480 translations/xrc.cpp:403
 #: translations/xrc.cpp:736 translations/xrc.cpp:778 xrc.cpp:403 xrc.cpp:736
@@ -780,9 +778,8 @@ msgid "Preview"
 msgstr "Náhľad"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:493 translations/xrc.cpp:806 xrc.cpp:806
-#, fuzzy
 msgid "Overview"
-msgstr "Náhľad"
+msgstr "Prehľad"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:532
 msgid "mosaic"
@@ -853,11 +850,11 @@ msgid ""
 "Switching to panosphere overview mode requires that all images have zero XYZ "
 "parameters. Do you want to set all XYZ parameters to zero for all images?"
 msgstr ""
+"Prepnutie do režimu panosféry vyžaduje, aby všetky obrázky mali nulové parametre XYZ. Chcete nastaviť pre všetky obrázky parametre XYZ na nulu?"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1453
-#, fuzzy
 msgid "Reset XYZ parameters?"
-msgstr "Parametre šošovky"
+msgstr "Vynulovať parametre XYZ?"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1892 hugin1/hugin/PreviewFrame.cpp:232
 msgid "difference"
@@ -990,7 +987,6 @@ msgstr ""
 "Ak chcete opäť zobraziť tento panel, aktivujte ho v nastaveniach."
 
 #: hugin1/hugin/GLViewer.cpp:151
-#, fuzzy
 msgid ""
 "Error initializing GLEW\n"
 "Fast preview window can not be opened."
@@ -1062,9 +1058,8 @@ msgid "Equisolid"
 msgstr "Equisolid"
 
 #: hugin1/hugin/HFOVDialog.cpp:63 hugin1/hugin/ImagesList.cpp:528
-#, fuzzy
 msgid "Fisheye Thoby"
-msgstr "Rybie oko"
+msgstr "Rybie oko Thoby"
 
 #: hugin1/hugin/HFOVDialog.cpp:110
 #, c-format
@@ -1846,9 +1841,8 @@ msgid "Panini General"
 msgstr "Paniniho všeobecná"
 
 #: hugin1/hugin/PanoPanel.cpp:163
-#, fuzzy
 msgid "Thoby Projection"
-msgstr "Projekcia"
+msgstr "Projekcia Thoby"
 
 #: hugin1/hugin/PanoPanel.cpp:487 translations/xrc.cpp:545
 #: translations/xrc.cpp:550 xrc.cpp:545 xrc.cpp:550
@@ -3849,32 +3843,28 @@ msgid "Exposure and Color"
 msgstr "Expozícia a farba"
 
 #: translations/xrc.cpp:272 xrc.cpp:272
-#, fuzzy
 msgid "Exposure (Eev)"
-msgstr "Expozícia (EV)"
+msgstr "Expozícia (Eev)"
 
 #: translations/xrc.cpp:274 xrc.cpp:274
-#, fuzzy
 msgid "Red multiplier (Er):"
-msgstr "Červený násobič:"
+msgstr "Červený násobič Er):"
 
 #: translations/xrc.cpp:276 xrc.cpp:276
-#, fuzzy
 msgid "Blue multiplier (Eb):"
-msgstr "Modrý násobič:"
+msgstr "Modrý násobič (Eb):"
 
 #: translations/xrc.cpp:278 xrc.cpp:278
 msgid "Vignetting  (Vb, Vc, Vd)"
-msgstr ""
+msgstr "Charakteristika (Vb, Vc, Vd)"
 
 #: translations/xrc.cpp:280 xrc.cpp:280
-#, fuzzy
 msgid "Vignetting Center Shift (Vx, Vy)"
-msgstr "Posun stredu charakteristiky obrázku"
+msgstr "Posun stredu charakteristiky Vx, Vy)"
 
 #: translations/xrc.cpp:282 xrc.cpp:282
 msgid "Camera Response (Ra, Rb, Rc, Rd, Re)"
-msgstr ""
+msgstr "Odozva fotoaparátu (Ra, Rb, Rc, Rd, Re)"
 
 #: translations/xrc.cpp:284 xrc.cpp:284
 msgid "custom (EMoR)"
@@ -4291,7 +4281,6 @@ msgid "Include region from stack"
 msgstr "Zahrnúť oblasť do štósu"
 
 #: translations/xrc.cpp:423 xrc.cpp:423
-#, fuzzy
 msgid "Colors:"
 msgstr "Farby:"
 
@@ -4517,33 +4506,28 @@ msgid "Image variables:"
 msgstr "Premenné obrázku:"
 
 #: translations/xrc.cpp:488 xrc.cpp:488
-#, fuzzy
 msgid "Exposure (Eev):"
-msgstr "Expozícia (EV)"
+msgstr "Expozícia (Eev):"
 
 #: translations/xrc.cpp:489 xrc.cpp:489
-#, fuzzy
 msgid "White balance (Er, Eb):"
-msgstr "Vyváženie bielej:"
+msgstr "Vyváženie bielej (Er, Eb):"
 
 #: translations/xrc.cpp:490 xrc.cpp:490
 msgid "Camera and Lens variables:"
 msgstr "Premenné fotoaparátu a šošoviek:"
 
 #: translations/xrc.cpp:491 xrc.cpp:491
-#, fuzzy
 msgid "Vignetting (Vb, Vc, Vd):"
-msgstr "Charakteristika:"
+msgstr "Charakteristika (Vb, Vc, Vd):"
 
 #: translations/xrc.cpp:492 xrc.cpp:492
-#, fuzzy
 msgid "Vignetting Centre (Vx, Vy):"
-msgstr "Posun stredu charakteristiky obrázku:"
+msgstr "Stredu charakteristiky (Vx, Vy):"
 
 #: translations/xrc.cpp:493 xrc.cpp:493
-#, fuzzy
 msgid "Camera Response (Ra, Rb, Rc, Rd, Re):"
-msgstr "Reakcia fotoaparátu:"
+msgstr "Odozva fotoaparátu (Ra, Rb, Rc, Rd, Re):"
 
 #: translations/xrc.cpp:494 xrc.cpp:494
 msgid "Interpolator (i):"
@@ -5516,18 +5500,16 @@ msgid "Change the panorama's cropping region"
 msgstr "Zmeniť oblasť pre orez panorámy"
 
 #: translations/xrc.cpp:807 xrc.cpp:807
-#, fuzzy
 msgid "Show/Hide"
-msgstr "Skryť"
+msgstr "Skryť/Zobraziť"
 
 #: translations/xrc.cpp:808 translations/xrc.cpp:809 xrc.cpp:808 xrc.cpp:809
-#, fuzzy
 msgid "Mode:"
-msgstr "Model:"
+msgstr "Režim:"
 
 #: translations/xrc.cpp:810 xrc.cpp:810
 msgid "Grid"
-msgstr ""
+msgstr "Mriežka"
 
 #: translations/xrc.cpp:811 xrc.cpp:811
 msgid "Reset values"
