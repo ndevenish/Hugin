@@ -94,13 +94,13 @@ void parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
 		SwitchArg aArgFullScale("","fullscale", "Uses full scale image to detect keypoints    (default:false)\n", false);
 		ValueArg<int> aArgSieve1Width("","sieve1width", "Sieve 1 : Number of buckets on width    (default : 10)", false, 10, "int");
 		ValueArg<int> aArgSieve1Height("","sieve1height",  "Sieve 1 : Number of buckets on height    (default : 10)", false, 10, "int");
-		ValueArg<int> aArgSieve1Size("","sieve1size",	"Sieve 1 : Max points per bucket    (default : 30)\n", false, 30, "int");
+		ValueArg<int> aArgSieve1Size("","sieve1size",	"Sieve 1 : Max points per bucket    (default : 50)\n", false, 50, "int");
 		SwitchArg aArgLinearMatch("","linearmatch", "Enable linear images matching (default : all pairs)", false);
 		ValueArg<int> aArgLinearMatchLen("","linearmatchlen", "Number of images to match in linear matching (default:1)\n", false, 1 ,"int");
         SwitchArg aArgMultiRow("","multirow", "Enable heuristic multi row matching (default: off)",false);
 		
-		ValueArg<int> aArgKDTreeSearchSteps("","kdtreesteps",   "KDTree : search steps    (default : 40)", false, 40, "int");
-		ValueArg<double> aArgKDTreeSecondDist("","kdtreeseconddist", "KDTree : distance of 2nd match    (default : 0.15)\n", false, 0.15, "double");
+		ValueArg<int> aArgKDTreeSearchSteps("","kdtreesteps",   "KDTree : search steps    (default : 200)", false, 200, "int");
+		ValueArg<double> aArgKDTreeSecondDist("","kdtreeseconddist", "KDTree : distance of 2nd match    (default : 0.25)\n", false, 0.25, "double");
 		ValueArg<int> aArgMinMatches("","minmatches", "Minimum matches    (default : 4)", false, 4, "int");
 		ValueArg<int> aArgRansacIter("","ransaciter", "Ransac : iterations    (default : 1000)", false, 1000, "int");
 		ValueArg<int> aArgRansacDist("","ransacdist", "Ransac : homography estimation distance threshold (pixels)"
