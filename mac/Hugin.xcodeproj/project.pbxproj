@@ -1548,6 +1548,8 @@
 		73C5F81012E2F9560033A6E1 /* saving.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73C5F70112E212910033A6E1 /* saving.cpp */; };
 		73C5F82412E2FAE20033A6E1 /* flann_cpp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73C5F7A412E2DC490033A6E1 /* flann_cpp.framework */; };
 		73C5F84F12E2FFBB0033A6E1 /* index_testing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73C5F70612E212910033A6E1 /* index_testing.cpp */; };
+		73C5F87F12E309F20033A6E1 /* flann_cpp.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 73C5F7A412E2DC490033A6E1 /* flann_cpp.framework */; };
+		73C5F88012E30A010033A6E1 /* flann_cpp.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 73C5F7A412E2DC490033A6E1 /* flann_cpp.framework */; };
 		73C958FA0DA2C9DB00E19110 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 579895AB068E3002009F90BF /* libz.dylib */; };
 		73C959160DA2CA1300E19110 /* tca_correct.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 736FD2C80DA158A2009A47C2 /* tca_correct.cpp */; };
 		73C9591F0DA2CAF600E19110 /* libhugin_levmar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5720E47A0BD456CD00E63404 /* libhugin_levmar.a */; };
@@ -3158,6 +3160,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				73C5F88012E30A010033A6E1 /* flann_cpp.framework in Copy Frameworks */,
 				733EAA48125CD9A700658EAF /* icpfind.framework in Copy Frameworks */,
 				737E487F11D3EA5D002BA8AE /* localfeatures.framework in Copy Frameworks */,
 				576901C40D24D7DB00A6AD01 /* HuginVigraImpex.framework in Copy Frameworks */,
@@ -3293,6 +3296,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				73C5F87F12E309F20033A6E1 /* flann_cpp.framework in Copy Frameworks */,
 				733EAA5E125CDA8D00658EAF /* icpfind.framework in Copy Frameworks */,
 				737E497B11D3FD74002BA8AE /* localfeatures.framework in Copy Frameworks */,
 				737E497C11D3FD74002BA8AE /* HuginVigraImpex.framework in Copy Frameworks */,
