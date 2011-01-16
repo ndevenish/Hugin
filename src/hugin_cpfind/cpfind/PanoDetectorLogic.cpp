@@ -129,7 +129,7 @@ vigra::RGBValue<float> gray2RGB(float const& v)
 }  
 
 // save some intermediate images to disc if defined
-#define DEBUG_LOADING_REMAPPING
+//#define DEBUG_LOADING_REMAPPING
 bool PanoDetector::AnalyzeImage(ImgData& ioImgInfo, const PanoDetector& iPanoDetector)
 {
     vigra::DImage final_img;
