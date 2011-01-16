@@ -55,18 +55,18 @@ CircularKeyPointDescriptor::CircularKeyPointDescriptor(Image& iImage,
 	if (rings.size() == 0) {
 		rings.push_back(1);
 		ring_radius.push_back(0);
-		ring_gradient_width.push_back(0.5);
+		ring_gradient_width.push_back(2);
 		rings.push_back(6);
-		ring_radius.push_back(2.3);
-		ring_gradient_width.push_back(1.3);
+		ring_radius.push_back(4.2);
+		ring_gradient_width.push_back(1.9);
 		/*
 		rings.push_back(6);
 		ring_radius.push_back(5);
 		ring_gradient_width.push_back(3);
 		*/
 		rings.push_back(6);
-		ring_radius.push_back(9);
-		ring_gradient_width.push_back(9);
+		ring_radius.push_back(8);
+		ring_gradient_width.push_back(3.2);
 	}
 
 	assert(rings.size() == ring_radius.size());
