@@ -36,6 +36,7 @@
 				576900950D24D26200A6AD01 /* PBXTargetDependency */,
 				5769019A0D24D50800A6AD01 /* PBXTargetDependency */,
 				576901980D24D50800A6AD01 /* PBXTargetDependency */,
+				73C5F82112E2FAC00033A6E1 /* PBXTargetDependency */,
 				73A95EB4124887530076D3FB /* PBXTargetDependency */,
 				73FE2B361249194B0002E246 /* PBXTargetDependency */,
 			);
@@ -1150,6 +1151,7 @@
 		7359F23C126A191A00D3291B /* cpclean in Copy Executable Files */ = {isa = PBXBuildFile; fileRef = 73D24B4E106152CD00B8A25D /* cpclean */; };
 		7359F23D126A191A00D3291B /* icpfind in Copy Executable Files */ = {isa = PBXBuildFile; fileRef = 73A95ECE124888EB0076D3FB /* icpfind */; };
 		7359F23E126A191A00D3291B /* pano_modify in Copy Executable Files */ = {isa = PBXBuildFile; fileRef = 733DF63F117F2268002EC787 /* pano_modify */; };
+		735F091712DF6F300081D893 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 735F091612DF6F300081D893 /* AGL.framework */; };
 		7364217A10763A64000121C5 /* HuginVigraImpex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5769FE380D24CFEC00A6AD01 /* HuginVigraImpex.framework */; };
 		7364217C10763A6F000121C5 /* HuginBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 576900AA0D24D29300A6AD01 /* HuginBase.framework */; };
 		7364218610763B87000121C5 /* libboost_thread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57565A640D088DAD00344F55 /* libboost_thread.dylib */; };
@@ -1539,6 +1541,15 @@
 		73C154121052EDF600AE93C1 /* Globals.h in Headers */ = {isa = PBXBuildFile; fileRef = 73C1538A1052E7BA00AE93C1 /* Globals.h */; };
 		73C154131052EDF600AE93C1 /* lensFunc.h in Headers */ = {isa = PBXBuildFile; fileRef = 73C1538E1052E7BB00AE93C1 /* lensFunc.h */; };
 		73C1543B1052F38100AE93C1 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989581068E2FD7009F90BF /* libiconv.dylib */; };
+		73C5F72B12E215C00033A6E1 /* flann_mpi.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 73C5F70F12E212910033A6E1 /* flann_mpi.hpp */; };
+		73C5F7B112E2DD160033A6E1 /* flann_cpp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73C5F71012E212910033A6E1 /* flann_cpp.cpp */; };
+		73C5F80E12E2F9560033A6E1 /* logger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73C5F6F812E212910033A6E1 /* logger.cpp */; };
+		73C5F80F12E2F9560033A6E1 /* random.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73C5F6FD12E212910033A6E1 /* random.cpp */; };
+		73C5F81012E2F9560033A6E1 /* saving.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73C5F70112E212910033A6E1 /* saving.cpp */; };
+		73C5F82412E2FAE20033A6E1 /* flann_cpp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73C5F7A412E2DC490033A6E1 /* flann_cpp.framework */; };
+		73C5F84F12E2FFBB0033A6E1 /* index_testing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73C5F70612E212910033A6E1 /* index_testing.cpp */; };
+		73C5F87F12E309F20033A6E1 /* flann_cpp.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 73C5F7A412E2DC490033A6E1 /* flann_cpp.framework */; };
+		73C5F88012E30A010033A6E1 /* flann_cpp.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 73C5F7A412E2DC490033A6E1 /* flann_cpp.framework */; };
 		73C958FA0DA2C9DB00E19110 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 579895AB068E3002009F90BF /* libz.dylib */; };
 		73C959160DA2CA1300E19110 /* tca_correct.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 736FD2C80DA158A2009A47C2 /* tca_correct.cpp */; };
 		73C9591F0DA2CAF600E19110 /* libhugin_levmar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5720E47A0BD456CD00E63404 /* libhugin_levmar.a */; };
@@ -2938,6 +2949,20 @@
 			remoteGlobalIDString = 73C153671052E6DE00AE93C1;
 			remoteInfo = "calibrate_lens dynamic";
 		};
+		73C5F82012E2FAC00033A6E1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 73C5F79112E2DC490033A6E1 /* flann_cpp */;
+			remoteInfo = flann_cpp;
+		};
+		73C5F82212E2FAD70033A6E1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 73C5F79112E2DC490033A6E1 /* flann_cpp */;
+			remoteInfo = flann_cpp;
+		};
 		73C958F60DA2C9DB00E19110 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
@@ -3135,6 +3160,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				73C5F88012E30A010033A6E1 /* flann_cpp.framework in Copy Frameworks */,
 				733EAA48125CD9A700658EAF /* icpfind.framework in Copy Frameworks */,
 				737E487F11D3EA5D002BA8AE /* localfeatures.framework in Copy Frameworks */,
 				576901C40D24D7DB00A6AD01 /* HuginVigraImpex.framework in Copy Frameworks */,
@@ -3270,6 +3296,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				73C5F87F12E309F20033A6E1 /* flann_cpp.framework in Copy Frameworks */,
 				733EAA5E125CDA8D00658EAF /* icpfind.framework in Copy Frameworks */,
 				737E497B11D3FD74002BA8AE /* localfeatures.framework in Copy Frameworks */,
 				737E497C11D3FD74002BA8AE /* HuginVigraImpex.framework in Copy Frameworks */,
@@ -4011,6 +4038,7 @@
 		7357E518124777390098B385 /* VariableRef.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = VariableRef.cpp; path = makefilelib/VariableRef.cpp; sourceTree = "<group>"; };
 		7357E519124777390098B385 /* VariableRef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VariableRef.h; path = makefilelib/VariableRef.h; sourceTree = "<group>"; };
 		7357E524124777EB0098B385 /* makefilelib-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "makefilelib-Info.plist"; sourceTree = "<group>"; };
+		735F091612DF6F300081D893 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = System/Library/Frameworks/AGL.framework; sourceTree = SDKROOT; };
 		7364217010763A22000121C5 /* deghosting_mask */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = deghosting_mask; sourceTree = BUILT_PRODUCTS_DIR; };
 		736421C110763D0B000121C5 /* threshold.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = threshold.h; sourceTree = "<group>"; };
 		736421C210763D0B000121C5 /* support.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = support.h; sourceTree = "<group>"; };
@@ -4110,6 +4138,41 @@
 		73C153971052E7BB00AE93C1 /* Straighten.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Straighten.cpp; sourceTree = "<group>"; };
 		73C153981052E7BB00AE93C1 /* Straighten.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Straighten.h; sourceTree = "<group>"; };
 		73C153991052E7BB00AE93C1 /* test_lensFunc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = test_lensFunc.cpp; sourceTree = "<group>"; };
+		73C5F6F612E212910033A6E1 /* allocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = allocator.h; sourceTree = "<group>"; };
+		73C5F6F712E212910033A6E1 /* heap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = heap.h; sourceTree = "<group>"; };
+		73C5F6F812E212910033A6E1 /* logger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = logger.cpp; sourceTree = "<group>"; };
+		73C5F6F912E212910033A6E1 /* logger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = logger.h; sourceTree = "<group>"; };
+		73C5F6FA12E212910033A6E1 /* matrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = matrix.h; sourceTree = "<group>"; };
+		73C5F6FB12E212910033A6E1 /* object_factory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = object_factory.h; sourceTree = "<group>"; };
+		73C5F6FC12E212910033A6E1 /* pair_iterator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = pair_iterator.hpp; sourceTree = "<group>"; };
+		73C5F6FD12E212910033A6E1 /* random.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = random.cpp; sourceTree = "<group>"; };
+		73C5F6FE12E212910033A6E1 /* random.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = random.h; sourceTree = "<group>"; };
+		73C5F6FF12E212910033A6E1 /* result_set.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = result_set.h; sourceTree = "<group>"; };
+		73C5F70012E212910033A6E1 /* sampling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sampling.h; sourceTree = "<group>"; };
+		73C5F70112E212910033A6E1 /* saving.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = saving.cpp; sourceTree = "<group>"; };
+		73C5F70212E212910033A6E1 /* saving.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = saving.h; sourceTree = "<group>"; };
+		73C5F70312E212910033A6E1 /* timer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = timer.h; sourceTree = "<group>"; };
+		73C5F70512E212910033A6E1 /* ground_truth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ground_truth.h; sourceTree = "<group>"; };
+		73C5F70612E212910033A6E1 /* index_testing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = index_testing.cpp; sourceTree = "<group>"; };
+		73C5F70712E212910033A6E1 /* index_testing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = index_testing.h; sourceTree = "<group>"; };
+		73C5F70812E212910033A6E1 /* simplex_downhill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = simplex_downhill.h; sourceTree = "<group>"; };
+		73C5F70A12E212910033A6E1 /* hdf5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hdf5.h; sourceTree = "<group>"; };
+		73C5F70B12E212910033A6E1 /* general.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = general.h; path = flann/general.h; sourceTree = "<group>"; };
+		73C5F70C12E212910033A6E1 /* flann.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = flann.hpp; path = flann/flann.hpp; sourceTree = "<group>"; };
+		73C5F70D12E212910033A6E1 /* flann.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = flann.h; path = flann/flann.h; sourceTree = "<group>"; };
+		73C5F70E12E212910033A6E1 /* flann.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = flann.cpp; path = flann/flann.cpp; sourceTree = "<group>"; };
+		73C5F70F12E212910033A6E1 /* flann_mpi.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = flann_mpi.hpp; path = flann/flann_mpi.hpp; sourceTree = "<group>"; };
+		73C5F71012E212910033A6E1 /* flann_cpp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = flann_cpp.cpp; path = flann/flann_cpp.cpp; sourceTree = "<group>"; };
+		73C5F71212E212910033A6E1 /* all_indices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = all_indices.h; sourceTree = "<group>"; };
+		73C5F71312E212910033A6E1 /* autotuned_index.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = autotuned_index.h; sourceTree = "<group>"; };
+		73C5F71412E212910033A6E1 /* composite_index.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = composite_index.h; sourceTree = "<group>"; };
+		73C5F71512E212910033A6E1 /* dist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dist.h; sourceTree = "<group>"; };
+		73C5F71612E212910033A6E1 /* kdtree_index.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kdtree_index.h; sourceTree = "<group>"; };
+		73C5F71712E212910033A6E1 /* kdtree_single_index.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kdtree_single_index.h; sourceTree = "<group>"; };
+		73C5F71812E212910033A6E1 /* kmeans_index.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kmeans_index.h; sourceTree = "<group>"; };
+		73C5F71912E212910033A6E1 /* linear_index.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = linear_index.h; sourceTree = "<group>"; };
+		73C5F71A12E212910033A6E1 /* nn_index.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nn_index.h; sourceTree = "<group>"; };
+		73C5F7A412E2DC490033A6E1 /* flann_cpp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = flann_cpp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		73C959140DA2C9DB00E19110 /* tca_correct-static */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "tca_correct-static"; sourceTree = BUILT_PRODUCTS_DIR; };
 		73CA0FFB1296FB9500A4BC75 /* libboost_signals.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_signals.dylib; path = "../../ExternalPrograms/3way-repository/lib/libboost_signals.dylib"; sourceTree = SOURCE_ROOT; };
 		73D24B4E106152CD00B8A25D /* cpclean */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = cpclean; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -4779,6 +4842,7 @@
 				734065AA125BA2CA00FC4790 /* HuginBase.framework in Frameworks */,
 				734065AB125BA2CA00FC4790 /* HuginVigraImpex.framework in Frameworks */,
 				734065C0125BA2CA00FC4790 /* localfeatures.framework in Frameworks */,
+				73C5F82412E2FAE20033A6E1 /* flann_cpp.framework in Frameworks */,
 				734065AC125BA2CA00FC4790 /* libboost_date_time.dylib in Frameworks */,
 				734065AD125BA2CA00FC4790 /* libboost_filesystem.dylib in Frameworks */,
 				734065AE125BA2CA00FC4790 /* libboost_iostreams.dylib in Frameworks */,
@@ -5054,6 +5118,7 @@
 				737E497711D3FD74002BA8AE /* liblcms.dylib in Frameworks */,
 				737E497811D3FD74002BA8AE /* libGLEW.dylib in Frameworks */,
 				737E497911D3FD74002BA8AE /* libexiv2.dylib in Frameworks */,
+				735F091712DF6F300081D893 /* AGL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5266,6 +5331,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		73C5F79F12E2DC490033A6E1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		73C958F90DA2C9DB00E19110 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -5431,6 +5503,7 @@
 		57114EC106BC2301004F4FA7 /* foreign */ = {
 			isa = PBXGroup;
 			children = (
+				73C5F6EF12E212550033A6E1 /* flann */,
 				73FE2B1D124918D90002E246 /* tclap */,
 				73FE2A90124914550002E246 /* zthread */,
 				5771F8390C3026D200736343 /* lensdb */,
@@ -5815,6 +5888,7 @@
 			isa = PBXGroup;
 			children = (
 				73A964B2124F41870044E1DC /* Cocoa.framework */,
+				735F091612DF6F300081D893 /* AGL.framework */,
 				73D24B641061556700B8A25D /* AGL.framework */,
 				73C0DBA51046EAC700CB55B7 /* GLUT.framework */,
 				739F846B0EC75402004771D6 /* OpenGL.framework */,
@@ -5961,6 +6035,7 @@
 				576900E10D24D32C00A6AD01 /* HuginBaseWx.framework */,
 				7336099F1247DA6D009225D2 /* icpfind.framework */,
 				733467E91183644D00401093 /* localfeatures.framework */,
+				73C5F7A412E2DC490033A6E1 /* flann_cpp.framework */,
 			);
 			name = frameworks;
 			sourceTree = "<group>";
@@ -6817,6 +6892,83 @@
 			path = output;
 			sourceTree = "<group>";
 		};
+		73C5F6EF12E212550033A6E1 /* flann */ = {
+			isa = PBXGroup;
+			children = (
+				73C5F6F512E212910033A6E1 /* util */,
+				73C5F70412E212910033A6E1 /* nn */,
+				73C5F70912E212910033A6E1 /* io */,
+				73C5F70B12E212910033A6E1 /* general.h */,
+				73C5F70C12E212910033A6E1 /* flann.hpp */,
+				73C5F70D12E212910033A6E1 /* flann.h */,
+				73C5F70E12E212910033A6E1 /* flann.cpp */,
+				73C5F70F12E212910033A6E1 /* flann_mpi.hpp */,
+				73C5F71012E212910033A6E1 /* flann_cpp.cpp */,
+				73C5F71112E212910033A6E1 /* algorithms */,
+			);
+			name = flann;
+			sourceTree = "<group>";
+		};
+		73C5F6F512E212910033A6E1 /* util */ = {
+			isa = PBXGroup;
+			children = (
+				73C5F6F612E212910033A6E1 /* allocator.h */,
+				73C5F6F712E212910033A6E1 /* heap.h */,
+				73C5F6F812E212910033A6E1 /* logger.cpp */,
+				73C5F6F912E212910033A6E1 /* logger.h */,
+				73C5F6FA12E212910033A6E1 /* matrix.h */,
+				73C5F6FB12E212910033A6E1 /* object_factory.h */,
+				73C5F6FC12E212910033A6E1 /* pair_iterator.hpp */,
+				73C5F6FD12E212910033A6E1 /* random.cpp */,
+				73C5F6FE12E212910033A6E1 /* random.h */,
+				73C5F6FF12E212910033A6E1 /* result_set.h */,
+				73C5F70012E212910033A6E1 /* sampling.h */,
+				73C5F70112E212910033A6E1 /* saving.cpp */,
+				73C5F70212E212910033A6E1 /* saving.h */,
+				73C5F70312E212910033A6E1 /* timer.h */,
+			);
+			name = util;
+			path = flann/util;
+			sourceTree = "<group>";
+		};
+		73C5F70412E212910033A6E1 /* nn */ = {
+			isa = PBXGroup;
+			children = (
+				73C5F70512E212910033A6E1 /* ground_truth.h */,
+				73C5F70612E212910033A6E1 /* index_testing.cpp */,
+				73C5F70712E212910033A6E1 /* index_testing.h */,
+				73C5F70812E212910033A6E1 /* simplex_downhill.h */,
+			);
+			name = nn;
+			path = flann/nn;
+			sourceTree = "<group>";
+		};
+		73C5F70912E212910033A6E1 /* io */ = {
+			isa = PBXGroup;
+			children = (
+				73C5F70A12E212910033A6E1 /* hdf5.h */,
+			);
+			name = io;
+			path = flann/io;
+			sourceTree = "<group>";
+		};
+		73C5F71112E212910033A6E1 /* algorithms */ = {
+			isa = PBXGroup;
+			children = (
+				73C5F71212E212910033A6E1 /* all_indices.h */,
+				73C5F71312E212910033A6E1 /* autotuned_index.h */,
+				73C5F71412E212910033A6E1 /* composite_index.h */,
+				73C5F71512E212910033A6E1 /* dist.h */,
+				73C5F71612E212910033A6E1 /* kdtree_index.h */,
+				73C5F71712E212910033A6E1 /* kdtree_single_index.h */,
+				73C5F71812E212910033A6E1 /* kmeans_index.h */,
+				73C5F71912E212910033A6E1 /* linear_index.h */,
+				73C5F71A12E212910033A6E1 /* nn_index.h */,
+			);
+			name = algorithms;
+			path = flann/algorithms;
+			sourceTree = "<group>";
+		};
 		73EAB5250E86CEA90020D514 /* lib-static */ = {
 			isa = PBXGroup;
 			children = (
@@ -7252,6 +7404,7 @@
 				7318CA68119D371100DBD6FD /* CalculateOverlap.h in Headers */,
 				73360A431247E898009225D2 /* AssistantMakefilelibExport.h in Headers */,
 				73F54BA2129809A000141773 /* TranslatePanorama.h in Headers */,
+				73C5F72B12E215C00033A6E1 /* flann_mpi.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7523,6 +7676,13 @@
 				73C154121052EDF600AE93C1 /* Globals.h in Headers */,
 				73C154131052EDF600AE93C1 /* lensFunc.h in Headers */,
 				73C153F41052EAF300AE93C1 /* lm.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		73C5F79412E2DC490033A6E1 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8184,6 +8344,7 @@
 				734065D9125BA33400FC4790 /* PBXTargetDependency */,
 				734065DB125BA33400FC4790 /* PBXTargetDependency */,
 				732534EC125E261000AF5B28 /* PBXTargetDependency */,
+				73C5F82312E2FAD70033A6E1 /* PBXTargetDependency */,
 			);
 			name = cpfind;
 			productName = pipo;
@@ -8562,6 +8723,23 @@
 			productReference = 73C153681052E6DE00AE93C1 /* calibrate_lens */;
 			productType = "com.apple.product-type.tool";
 		};
+		73C5F79112E2DC490033A6E1 /* flann_cpp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 73C5F7A012E2DC490033A6E1 /* Build configuration list for PBXNativeTarget "flann_cpp" */;
+			buildPhases = (
+				73C5F79412E2DC490033A6E1 /* Headers */,
+				73C5F79712E2DC490033A6E1 /* Sources */,
+				73C5F79F12E2DC490033A6E1 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = flann_cpp;
+			productName = localfeautures;
+			productReference = 73C5F7A412E2DC490033A6E1 /* flann_cpp.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		73C958F40DA2C9DB00E19110 /* tca_correct static */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 73C9590F0DA2C9DB00E19110 /* Build configuration list for PBXNativeTarget "tca_correct static" */;
@@ -8714,6 +8892,7 @@
 				576900D70D24D32C00A6AD01 /* base_wx Framework */,
 				733609871247DA6D009225D2 /* icpfind */,
 				733467E81183644D00401093 /* localfeatures */,
+				73C5F79112E2DC490033A6E1 /* flann_cpp */,
 				571046810D25F698006A3C69 /* bundled tools */,
 				73E79F0C0D674EAC00C07126 /* align_image_stack */,
 				739A0C4710FA539B00D8E4C7 /* autooptimiser */,
@@ -10070,6 +10249,18 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		73C5F79712E2DC490033A6E1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				73C5F7B112E2DD160033A6E1 /* flann_cpp.cpp in Sources */,
+				73C5F80E12E2F9560033A6E1 /* logger.cpp in Sources */,
+				73C5F80F12E2F9560033A6E1 /* random.cpp in Sources */,
+				73C5F81012E2F9560033A6E1 /* saving.cpp in Sources */,
+				73C5F84F12E2FFBB0033A6E1 /* index_testing.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		73C958F70DA2C9DB00E19110 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -10824,6 +11015,16 @@
 			isa = PBXTargetDependency;
 			target = 73C153671052E6DE00AE93C1 /* calibrate_lens */;
 			targetProxy = 73C154501052F40A00AE93C1 /* PBXContainerItemProxy */;
+		};
+		73C5F82112E2FAC00033A6E1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 73C5F79112E2DC490033A6E1 /* flann_cpp */;
+			targetProxy = 73C5F82012E2FAC00033A6E1 /* PBXContainerItemProxy */;
+		};
+		73C5F82312E2FAD70033A6E1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 73C5F79112E2DC490033A6E1 /* flann_cpp */;
+			targetProxy = 73C5F82212E2FAD70033A6E1 /* PBXContainerItemProxy */;
 		};
 		73C958F50DA2C9DB00E19110 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -13380,6 +13581,7 @@
 					../src/foreign/zthread/src/../include,
 					../src/foreign/tclap,
 					../src/foreign/vigra,
+					../src/foreign/flann,
 					../src/hugin_cpfind,
 					../src/hugin_base,
 					"$(inherited)",
@@ -15258,6 +15460,90 @@
 			};
 			name = Release;
 		};
+		73C5F7A112E2DC490033A6E1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Headers/Carbon.h";
+				INFOPLIST_FILE = "localfeautures-Info.plist";
+				INSTALL_PATH = "$(HOME)/Library/Frameworks";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Carbon,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = localfeautures;
+			};
+			name = Debug;
+		};
+		73C5F7A212E2DC490033A6E1 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Headers/Carbon.h";
+				INFOPLIST_FILE = "localfeautures-Info.plist";
+				INSTALL_PATH = "$(HOME)/Library/Frameworks";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Carbon,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = localfeautures;
+			};
+			name = Development;
+		};
+		73C5F7A312E2DC490033A6E1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = "";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = ../mac/flann_version.h;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(DEBUG_MACRO)",
+					"$(PRECOMP_MACRO)",
+				);
+				HEADER_SEARCH_PATHS = (
+					../src/foreign,
+					../src/foreign/flann,
+					/Developer/Headers/FlatCarbon,
+					"$(REPOSITORY_DIR)/include",
+					../src,
+				);
+				INFOPLIST_FILE = "";
+				INSTALL_PATH = "@executable_path/../Frameworks";
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PREBINDING = YES;
+				PRODUCT_NAME = flann_cpp;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 		73C959100DA2C9DB00E19110 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -16293,6 +16579,16 @@
 				73C1536A1052E6DE00AE93C1 /* Debug */,
 				73C1536B1052E6DE00AE93C1 /* Development */,
 				73C1536C1052E6DE00AE93C1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		73C5F7A012E2DC490033A6E1 /* Build configuration list for PBXNativeTarget "flann_cpp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				73C5F7A112E2DC490033A6E1 /* Debug */,
+				73C5F7A212E2DC490033A6E1 /* Development */,
+				73C5F7A312E2DC490033A6E1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
