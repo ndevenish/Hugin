@@ -67,7 +67,15 @@ void calcCtrlPointErrors (PanoramaData& pano)
         UIntSet allImg;
         std::ostringstream scriptbuf;
         fill_set(allImg,0, unsigned(pano.getNrOfImages()-1));
-        pano.printPanoramaScript(scriptbuf, pano.getOptimizeVector(), 
+        //create temporary non-empty optimize vector
+        OptimizeVector optVec;
+        std::set<std::string> opt;
+        opt.insert("y");
+        for(unsigned int i=0;i<pano.getNrOfImages();i++)
+        {
+            optVec.push_back(opt);
+        };
+        pano.printPanoramaScript(scriptbuf, optVec, 
                 pano.getOptions(), allImg, true);
 
         char * script = 0;
