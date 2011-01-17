@@ -544,12 +544,6 @@ bool PanoDetector::loadProject()
 	// Add images found in the project file to _filesData
 	unsigned int nImg = _panoramaInfo->getNrOfImages();
     unsigned int imgWithKeyfile=0;
-    PanoramaOptions fovOpts;
-    fovOpts.setProjection(PanoramaOptions::EQUIRECTANGULAR);
-    fovOpts.setHFOV(360);
-    fovOpts.setVFOV(180);
-    fovOpts.setWidth(360);
-    fovOpts.setHeight(180);
 	for (unsigned int imgNr = 0; imgNr < nImg; ++imgNr)
 	{
 		// insert the image in the map
@@ -572,6 +566,8 @@ bool PanoDetector::loadProject()
 		img.setY(0);
 		img.setZ(0);
 		img.setActive(true);
+		img.setResponseType(SrcPanoImage::RESPONSE_LINEAR);
+		img.setExposureValue(0);
 		_panoramaInfoCopy.setImage(imgNr,img);
 
 		// Number pointing to image info in _panoramaInfo
@@ -599,21 +595,31 @@ bool PanoDetector::loadProject()
         // set image remapping options
         if(aImgData._needsremap)
         {
-            aImgData._projOpts = _panoramaInfoCopy.getOptions();
-            //determine size of image in angles, needed for portrait images
-            vigra::Rect2D roi=estimateOutputROI(_panoramaInfoCopy,fovOpts,imgNr);
-            if(img.getWidth()>img.getHeight())
-            {
-                
-                aImgData._projOpts.setHFOV(2*(std::max(180-roi.left(),roi.right()-180)));
-            }
-            else
-            {
-                aImgData._projOpts.setHFOV(2*(std::max(90-roi.top(),roi.bottom()-90)));
-            };
-            aImgData._projOpts.setWidth(_filesData[imgNr]._detectWidth);
-            aImgData._projOpts.setHeight(_filesData[imgNr]._detectHeight);
-            aImgData._projOpts.setProjection(PanoramaOptions::STEREOGRAPHIC);
+            aImgData._projOpts;
+			aImgData._projOpts.setProjection(PanoramaOptions::STEREOGRAPHIC);
+			aImgData._projOpts.setHFOV(250);
+			aImgData._projOpts.setVFOV(250);
+			aImgData._projOpts.setWidth(250);
+			aImgData._projOpts.setHeight(250);
+
+			// determine size of output image.
+			// The old code did not work with images with images with a FOV
+			// approaching 180 degrees
+            vigra::Rect2D roi=estimateOutputROI(_panoramaInfoCopy,aImgData._projOpts,imgNr);
+			double scalefactor = max((double)_filesData[imgNr]._detectWidth / roi.width(),
+									 (double)_filesData[imgNr]._detectHeight / roi.height() );
+			
+			// resize output canvas
+			vigra::Size2D canvasSize((int)aImgData._projOpts.getWidth() * scalefactor,
+									 (int)aImgData._projOpts.getHeight() * scalefactor);
+			aImgData._projOpts.setWidth(canvasSize.width(), false);
+			aImgData._projOpts.setHeight(canvasSize.height());
+
+			// set roi to cover the remapped input image
+			roi = roi * scalefactor;
+            _filesData[imgNr]._detectWidth = roi.width();
+			_filesData[imgNr]._detectHeight = roi.height();
+			aImgData._projOpts.setROI(roi);
         }
 
         // Specify if the image has an associated keypoint file

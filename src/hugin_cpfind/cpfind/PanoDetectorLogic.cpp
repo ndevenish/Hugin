@@ -204,7 +204,7 @@ bool PanoDetector::AnalyzeImage(ImgData& ioImgInfo, const PanoDetector& iPanoDet
             vigra::FImage ffImg;
             MultiProgressDisplay* progress=new DummyMultiProgressDisplay();
             remapped->setPanoImage(iPanoDetector._panoramaInfoCopy.getImage(ioImgInfo._number),
-                    ioImgInfo._projOpts,vigra::Rect2D(0,0,ioImgInfo._detectWidth, ioImgInfo._detectHeight));
+				   ioImgInfo._projOpts, ioImgInfo._projOpts.getROI());
             if(mask.width()>0)
             {
                 remapped->remapImage(vigra::srcImageRange(RGBimg),vigra::srcImage(mask),vigra_ext::INTERP_CUBIC,*progress);
@@ -443,18 +443,18 @@ bool PanoDetector::FilterKeyPointsInImage(ImgData& ioImgInfo, const PanoDetector
 	double aXF = (double)iPanoDetector.getSieve1Width() / (double)ioImgInfo._detectWidth;
 	double aYF = (double)iPanoDetector.getSieve1Height() / (double)ioImgInfo._detectHeight;
 	
+	bool distmap_valid=(ioImgInfo._distancemap.width()>0 && ioImgInfo._distancemap.height()>0);
 	BOOST_FOREACH(KeyPointPtr& aK, ioImgInfo._kp)
 	{
-        bool valid=(ioImgInfo._distancemap.width()==0 || ioImgInfo._distancemap.height()==0);
-        if(!valid)
+        if(distmap_valid)
         {
-            if(aK->_x > 0 && aK->_x < ioImgInfo._distancemap.width() && aK->_y > 0 && aK->_y < ioImgInfo._distancemap.height())
-            {
-                valid=(ioImgInfo._distancemap((int)(aK->_x),(int)(aK->_y))>aK->_scale*10);
-            };
-        };
-        if(valid)
-        {
+            if(aK->_x > 0 && aK->_x < ioImgInfo._distancemap.width() && aK->_y > 0 && aK->_y < ioImgInfo._distancemap.height()
+			   && ioImgInfo._distancemap((int)(aK->_x),(int)(aK->_y)) >aK->_scale*8) 
+			{
+				//cout << " dist from border:" << ioImgInfo._distancemap((int)(aK->_x),(int)(aK->_y)) << " required dist: " << aK->_scale*12 << std::endl;
+				aSieve.insert(aK, (int)(aK->_x * aXF), (int)(aK->_y * aYF));
+			}
+		} else {
 			aSieve.insert(aK, (int)(aK->_x * aXF), (int)(aK->_y * aYF));
         };
 	}
@@ -714,11 +714,15 @@ bool PanoDetector::RemapBackMatches(MatchData& ioMatchData, const PanoDetector& 
 
     double xout,yout;
     double scale=iPanoDetector._downscale ? 2.0:1.0;
+    int dx1 = ioMatchData._i1->_projOpts.getROI().left();
+    int dy1 = ioMatchData._i1->_projOpts.getROI().top();
+    int dx2 = ioMatchData._i1->_projOpts.getROI().left();
+    int dy2 = ioMatchData._i1->_projOpts.getROI().top();
     BOOST_FOREACH(PointMatchPtr& aM, ioMatchData._matches)
     {
         if(ioMatchData._i1->_needsremap)
         {
-            if(trafo1.transformImgCoord(xout, yout, aM->_img1_x, aM->_img1_y))
+            if(trafo1.transformImgCoord(xout, yout, aM->_img1_x + dx1, aM->_img1_y+ dy1))
             {
                 aM->_img1_x=xout;
                 aM->_img1_y=yout;
@@ -736,7 +740,7 @@ bool PanoDetector::RemapBackMatches(MatchData& ioMatchData, const PanoDetector& 
         }
         if(ioMatchData._i2->_needsremap)
         {
-            if(trafo2.transformImgCoord(xout, yout, aM->_img2_x, aM->_img2_y))
+            if(trafo2.transformImgCoord(xout, yout, aM->_img2_x + dx2, aM->_img2_y + dy2))
             {
                  aM->_img2_x=xout;
                  aM->_img2_y=yout;
