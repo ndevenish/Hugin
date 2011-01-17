@@ -234,22 +234,34 @@ bool PanoDetector::AnalyzeImage(ImgData& ioImgInfo, const PanoDetector& iPanoDet
             };
             //apply crop in case of stereographic fisheye images
             if(SrcImg.getProjection()==SrcPanoImage::FISHEYE_STEREOGRAPHIC && 
-                SrcImg.getCropMode()==SrcPanoImage::CROP_CIRCLE && 
                 !SrcImg.getCropRect().isEmpty())
             {
+                // Make sure crop is inside the image..
                 vigra::Rect2D cR = SrcImg.getCropRect();
-                hugin_utils::FDiff2D m( (cR.left() + cR.width()/2.0),
-                        (cR.top() + cR.height()/2.0) );
-
-                double radius = std::min(cR.width(), cR.height())/2.0;
-                //create full mask if necessary
+                if(iPanoDetector._downscale)
+                {
+                    cR=cR*0.5;
+                };
+                cR &= vigra::Rect2D(0,0, aImageInfo.size().width(),aImageInfo.size().height());
                 if(mask.width()!=aImageInfo.width() || mask.height()!=aImageInfo.height())
                 {
-                    mask.resize(aImageInfo.size().width(),aImageInfo.size().height(),255);
+                    //if image contains no mask, simply set crop rectangle to 255, outside to 0
+                    mask.resize(aImageInfo.size().width(),aImageInfo.size().height(),0);
+                    initImage(mask.upperLeft()+cR.upperLeft(), 
+                          mask.upperLeft()+cR.lowerRight(),
+                          mask.accessor(),255);
+                }
+                else
+                {
+                    //image has alpha channel
+                    vigra::BImage tempMask;
+                    tempMask.resize(aImageInfo.size().width(),aImageInfo.size().height(),0);
+                    // Copy in only the area inside the rectangle
+                    vigra::copyImage(mask.upperLeft() + cR.upperLeft(), mask.upperLeft() + cR.lowerRight(),
+                        mask.accessor(), tempMask.upperLeft(), tempMask.accessor());
+                    vigra::copyImage(srcImageRange(tempMask),destImage(mask));
+                    tempMask.resize(0,0);
                 };
-                //..crop everything outside the circle
-                vigra_ext::circularCrop(vigra::destImageRange(mask), m, radius);
-
             };
         };
 
