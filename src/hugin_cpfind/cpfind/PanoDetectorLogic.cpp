@@ -222,14 +222,34 @@ bool PanoDetector::AnalyzeImage(ImgData& ioImgInfo, const PanoDetector& iPanoDet
         }
         else
         {
-            if(iPanoDetector._panoramaInfoCopy.getImage(ioImgInfo._number).hasActiveMasks())
+            const SrcPanoImage &SrcImg=iPanoDetector._panoramaInfoCopy.getImage(ioImgInfo._number); 
+            if(SrcImg.hasActiveMasks())
             {
                 if(mask.width()!=aImageInfo.width() || mask.height()!=aImageInfo.height())
                 {
                     mask.resize(aImageInfo.size().width(),aImageInfo.size().height(),255);
                 };
                 //copy mask from pto file into alpha layer
-                vigra_ext::applyMask(vigra::destImageRange(mask), iPanoDetector._panoramaInfoCopy.getImage(ioImgInfo._number).getActiveMasks());
+                vigra_ext::applyMask(vigra::destImageRange(mask), SrcImg.getActiveMasks());
+            };
+            //apply crop in case of stereographic fisheye images
+            if(SrcImg.getProjection()==SrcPanoImage::FISHEYE_STEREOGRAPHIC && 
+                SrcImg.getCropMode()==SrcPanoImage::CROP_CIRCLE && 
+                !SrcImg.getCropRect().isEmpty())
+            {
+                vigra::Rect2D cR = SrcImg.getCropRect();
+                hugin_utils::FDiff2D m( (cR.left() + cR.width()/2.0),
+                        (cR.top() + cR.height()/2.0) );
+
+                double radius = std::min(cR.width(), cR.height())/2.0;
+                //create full mask if necessary
+                if(mask.width()!=aImageInfo.width() || mask.height()!=aImageInfo.height())
+                {
+                    mask.resize(aImageInfo.size().width(),aImageInfo.size().height(),255);
+                };
+                //..crop everything outside the circle
+                vigra_ext::circularCrop(vigra::destImageRange(mask), m, radius);
+
             };
         };
 
