@@ -91,6 +91,10 @@
         <label>&amp;Add Image</label>
         <help>Add another image to the current project</help>
       </object>
+      <object class="wxMenuItem" name="action_python_script">
+        <label>Run &amp;Python script</label>
+        <help>Run a python script</help>
+      </object>
     </object>
     <object class="wxMenu" name="view_menu">
       <label>&amp;View</label>

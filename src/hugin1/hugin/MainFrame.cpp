@@ -164,6 +164,7 @@ BEGIN_EVENT_TABLE(MainFrame, wxFrame)
     EVT_MENU(XRCID("action_show_faq"),  MainFrame::OnFAQ)
     EVT_MENU(XRCID("action_show_donate"),  MainFrame::OnShowDonate)
     EVT_MENU(XRCID("action_show_prefs"), MainFrame::OnShowPrefs)
+    EVT_MENU(XRCID("action_python_script"), MainFrame::OnPythonScript)
     EVT_MENU(XRCID("ID_EDITUNDO"), MainFrame::OnUndo)
     EVT_MENU(XRCID("ID_EDITREDO"), MainFrame::OnRedo)
     EVT_MENU(XRCID("ID_SHOW_FULL_SCREEN"), MainFrame::OnFullScreen)
@@ -1595,6 +1596,24 @@ void MainFrame::OnRemoveCPinMasks(wxCommandEvent & e)
     };
 }
 
+void MainFrame::OnPythonScript(wxCommandEvent & e)
+{
+    wxString fname;
+    wxFileDialog dlg(parent,
+		     _("Select python script"),
+		     wxConfigBase::Get()->Read(wxT("/lensPath"),wxT("")), wxT(""),
+		     _("Python script (*.py)|*.py|All files (*.*)|*.*"),
+		     wxFD_OPEN, wxDefaultPosition);
+    dlg.SetDirectory(wxConfigBase::Get()->Read(wxT("/pythonScriptPath"),wxT("")));
+
+    if (dlg.ShowModal() == wxID_OK) {
+	const char * scriptfile = (const char *)dlg.GetPath().mb_str(HUGIN_CONV_FILENAME);
+        GlobalCmdHist::getInstance().addCommand(
+            new PythonScriptPanoCmd(pano,scriptfile)
+            );
+    }
+}
+
 void MainFrame::OnUndo(wxCommandEvent & e)
 {
     DEBUG_TRACE("OnUndo");
@@ -1606,7 +1625,6 @@ void MainFrame::OnRedo(wxCommandEvent & e)
     DEBUG_TRACE("OnRedo");
     GlobalCmdHist::getInstance().redo();
 }
-
 
 void MainFrame::ShowCtrlPoint(unsigned int cpNr)
 {

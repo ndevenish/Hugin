@@ -107,7 +107,7 @@ namespace PT {
             std::vector<PanoCommand*> commands;
     };
 
-    
+
     //=========================================================================
     //=========================================================================
     
@@ -1539,6 +1539,39 @@ namespace PT {
         unsigned int m_img;
         HuginBase::MaskPolygonVector m_mask;
     };
+
+    //=========================================================================
+    //=========================================================================
+    
+
+    /** reset the panorama */
+    class PythonScriptPanoCmd : public PanoCommand
+    {
+    public:
+        PythonScriptPanoCmd(Panorama & pano, const std::string & scriptFile)
+            : PanoCommand(pano), m_scriptFile(scriptFile)
+            { };
+
+        virtual bool processPanorama(Panorama& pano)
+            {
+		// TODO: add call to python machinery here.
+		std::cout << "TODO: run python script: " << m_scriptFile;
+
+		// notify other of change in panorama
+                pano.changeFinished();
+
+                return true;
+            }
+        
+        virtual std::string getName() const
+            {
+                return "python script";
+            }
+    private:
+	std::string m_scriptFile
+    };
+
+    
 
 } // namespace PT
 
