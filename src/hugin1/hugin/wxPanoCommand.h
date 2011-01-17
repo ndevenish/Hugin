@@ -139,6 +139,25 @@ private:
         double cornerThreshold;
     };
 
+    /** run a python script */
+    class PythonScriptPanoCmd : public PanoCommand
+    {
+    public:
+        PythonScriptPanoCmd(Panorama & pano, const std::string & scriptFile)
+            : PanoCommand(pano), m_scriptFile(scriptFile)
+            { };
+
+        virtual bool processPanorama(Panorama& pano);
+        
+        virtual std::string getName() const
+            {
+                return "python script";
+            }
+    private:
+	std::string m_scriptFile;
+    };
+
+
 
 } // namespace PT
 

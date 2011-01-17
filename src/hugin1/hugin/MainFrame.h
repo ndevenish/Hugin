@@ -180,6 +180,7 @@ private:
     void OnKeyboardHelp(wxCommandEvent & e);
     void OnFAQ(wxCommandEvent & e);
     void OnShowPrefs(wxCommandEvent &e);
+    void OnPythonScript(wxCommandEvent & e);
     void OnUndo(wxCommandEvent & e);
     void OnRedo(wxCommandEvent & e);
     void OnSaveProjectAs(wxCommandEvent & e);

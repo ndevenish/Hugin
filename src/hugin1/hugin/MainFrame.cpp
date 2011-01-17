@@ -1599,7 +1599,7 @@ void MainFrame::OnRemoveCPinMasks(wxCommandEvent & e)
 void MainFrame::OnPythonScript(wxCommandEvent & e)
 {
     wxString fname;
-    wxFileDialog dlg(parent,
+    wxFileDialog dlg(this,
 		     _("Select python script"),
 		     wxConfigBase::Get()->Read(wxT("/lensPath"),wxT("")), wxT(""),
 		     _("Python script (*.py)|*.py|All files (*.*)|*.*"),
@@ -1607,7 +1607,9 @@ void MainFrame::OnPythonScript(wxCommandEvent & e)
     dlg.SetDirectory(wxConfigBase::Get()->Read(wxT("/pythonScriptPath"),wxT("")));
 
     if (dlg.ShowModal() == wxID_OK) {
-	const char * scriptfile = (const char *)dlg.GetPath().mb_str(HUGIN_CONV_FILENAME);
+        wxString filename = dlg.GetPath();
+	std::string scriptfile((const char *)filename.mb_str(HUGIN_CONV_FILENAME));
+	std::cout << "*************************** " << scriptfile << std::endl;
         GlobalCmdHist::getInstance().addCommand(
             new PythonScriptPanoCmd(pano,scriptfile)
             );

@@ -627,5 +627,16 @@ void wxApplyTemplateCmd::execute()
     pano.changeFinished();
 }
 
+bool PythonScriptPanoCmd::processPanorama(Panorama& pano)
+{
+    // TODO: add call to python machinery here.
+    std::cout << "TODO: run python script: " << m_scriptFile.c_str() << std::endl;
+
+    // notify other of change in panorama
+    pano.changeFinished();
+
+    return true;
+}
+
 } // namespace
 
