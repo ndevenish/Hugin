@@ -18,15 +18,12 @@ IF(CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_COMPILER_IS_GNUCC)
 
     add_library(flann_cpp SHARED "")
     target_link_libraries(flann_cpp -Wl,-whole-archive flann_cpp_s -Wl,-no-whole-archive)
-    set_target_properties(flann_cpp PROPERTIES
-       VERSION ${FLANN_VERSION}
-       SOVERSION ${FLANN_SOVERSION}
-    ) 
+    set_target_properties(flann_cpp PROPERTIES VERSION ${HUGIN_LIB_VERSION}) 
 
     IF(${HUGIN_LIBS_PRIVATE_DIR})
-        install(TARGETS flann_cpp flann_cpp_s LIBRARY DESTINATION ${LIBDIR}/hugin NAMELINK_SKIP ARCHIVE DESTINATION ${LIBDIR}/hugin  )
+        install(TARGETS flann_cpp LIBRARY DESTINATION ${LIBDIR}/hugin NAMELINK_SKIP ARCHIVE DESTINATION ${LIBDIR}/hugin  )
     ELSE()
-        install(TARGETS flann_cpp flann_cpp_s LIBRARY DESTINATION ${LIBDIR} NAMELINK_SKIP ARCHIVE DESTINATION ${LIBDIR} )
+        install(TARGETS flann_cpp LIBRARY DESTINATION ${LIBDIR} NAMELINK_SKIP ARCHIVE DESTINATION ${LIBDIR} )
     ENDIF()
 ELSE()
     add_library(flann_cpp SHARED ${CPP_SOURCES})
