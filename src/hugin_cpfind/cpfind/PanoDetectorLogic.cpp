@@ -716,8 +716,8 @@ bool PanoDetector::RemapBackMatches(MatchData& ioMatchData, const PanoDetector& 
     double scale=iPanoDetector._downscale ? 2.0:1.0;
     int dx1 = ioMatchData._i1->_projOpts.getROI().left();
     int dy1 = ioMatchData._i1->_projOpts.getROI().top();
-    int dx2 = ioMatchData._i1->_projOpts.getROI().left();
-    int dy2 = ioMatchData._i1->_projOpts.getROI().top();
+    int dx2 = ioMatchData._i2->_projOpts.getROI().left();
+    int dy2 = ioMatchData._i2->_projOpts.getROI().top();
     BOOST_FOREACH(PointMatchPtr& aM, ioMatchData._matches)
     {
         if(ioMatchData._i1->_needsremap)
