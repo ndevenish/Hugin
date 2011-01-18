@@ -44,10 +44,22 @@ namespace HuginBase {
  *  linking is only supported by LinkedVariable, which
  *  is only used by Lens.
  */
+
+// KFJ 2011-01-12 added default constructor
+
 class IMPEX Variable
 {
     public:
-        Variable(const std::string & name, double val = 0.0)
+
+        #ifdef _HUGIN_SCRIPTING_INTERFACE
+
+        Variable()
+            : name(""), value(0.0)
+        {};
+
+        #endif
+
+	Variable(const std::string & name, double val = 0.0)
             : name(name), value(val)
         {};
         
@@ -103,9 +115,22 @@ class IMPEX LinkedVariable : public Variable
  *
  *  It is only used in the lens class, not directly in the images.
  */
+
+// KFJ 2011-01-12 added default constructor
+
 class IMPEX LensVariable : public Variable
 {
     public:
+
+        #ifdef _HUGIN_SCRIPTING_INTERFACE
+
+        LensVariable() :
+	    Variable ( "" , 0.0 ) ,
+	    linked ( false )
+        {};
+
+        #endif
+
         LensVariable(const std::string & name, double value, bool link=false)
             : Variable(name, value), linked(link)
         {};
@@ -134,6 +159,7 @@ class IMPEX LensVariable : public Variable
 
 
 /** functor to print a variable. */
+#ifndef _HUGIN_SCRIPTING_INTERFACE
 struct PrintVar : public std::unary_function<Variable, void>
 {
     PrintVar(std::ostream & o)
@@ -145,7 +171,7 @@ struct PrintVar : public std::unary_function<Variable, void>
     
     std::ostream& os;
 };
-
+#endif
 
 ///
 typedef std::map<std::string,Variable> VariableMap;

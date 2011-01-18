@@ -38,11 +38,12 @@
 #include <vigra/localminmax.hxx>
 #include <panodata/StandardImageVariableGroups.h>
 
-
+#include "hsi/hpi.h"     // KFJ
 
 using namespace std;
 using namespace vigra;
 using namespace utils;
+using namespace hsi;
 
 namespace PT {
 
@@ -632,6 +633,10 @@ bool PythonScriptPanoCmd::processPanorama(Panorama& pano)
     // TODO: add call to python machinery here.
     std::cout << "TODO: run python script: " << m_scriptFile.c_str() << std::endl;
 
+    int success = callhpi ( m_scriptFile.c_str() , 1 ,
+		           "HuginBase::Panorama*" , &pano ) ;
+
+    std::cout << "Python interface returned " << success << endl ;
     // notify other of change in panorama
     pano.changeFinished();
 
