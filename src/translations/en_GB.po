@@ -1,17 +1,16 @@
-# SOME DESCRIPTIVE TITLE.
+# British English translations for the Hugin package.
 # Copyright (C) YEAR Pablo dAngelo
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the Hugin package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: en_GB\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2011-01-15 10:30+0100\n"
-"PO-Revision-Date: 2008-04-10 17:27+0100\n"
-"Last-Translator: Bruno Postle <bruno@postle.net>\n"
+"PO-Revision-Date: 2011-01-12 16:57+0000\n"
+"Last-Translator: Gareth Jones <gareth.k.jones@gmail.com>\n"
 "Language-Team: LANGUAGE <en_GB@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -95,7 +94,7 @@ msgstr ""
 #: hugin1/base_wx/ImageCache.cpp:820
 #, c-format
 msgid "Creating grayscale %s"
-msgstr ""
+msgstr "Creating greyscale %s"
 
 #: hugin1/base_wx/ImageCache.cpp:838
 #, c-format
@@ -322,6 +321,11 @@ msgid ""
 "geometrical optimization from the Optimizer tab and the photometric "
 "optimization from the Exposure tab."
 msgstr ""
+"Note: automatic alignment uses default settings from the preferences. If you "
+"customise settings for this project in the advanced tabs and want to use "
+"these customised settings, run the CP detection from the Images Tab, the "
+"geometrical optimisation from the Optimiser tab and the photometric "
+"optimisation from the Exposure tab."
 
 #: hugin1/hugin/AssistantPanel.cpp:361
 msgid ""
@@ -1579,11 +1583,12 @@ msgid ""
 "You selected no parameters to optimize.\n"
 "Therefore optimization will be canceled."
 msgstr ""
+"You selected no parameters to optimise.\n"
+"Therefore optimisation will be cancelled."
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:498
-#, fuzzy
 msgid "Exposure optimization"
-msgstr "Photometric optimisation"
+msgstr "Exposure optimisation"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:510
 msgid ""
@@ -1637,7 +1642,7 @@ msgid ""
 "Apply results?"
 msgstr ""
 "Photometric optimisation results:\n"
-"Average difference (RMSE) between overlapping pixels: %.2f gray values "
+"Average difference (RMSE) between overlapping pixels: %.2f grey values "
 "(0..255)\n"
 "\n"
 "Apply results?"
@@ -3160,9 +3165,8 @@ msgid "Fine-tune"
 msgstr ""
 
 #: translations/xrc.cpp:158 xrc.cpp:158
-#, fuzzy
 msgid "Tries to optimize the currently active point"
-msgstr "tries to optimise the currently active point."
+msgstr "Tries to optimise the currently active point"
 
 #: translations/xrc.cpp:159 translations/xrc.cpp:716 xrc.cpp:159 xrc.cpp:716
 msgid "Celeste"
@@ -3432,22 +3436,20 @@ msgid "Anchor this image for position"
 msgstr ""
 
 #: translations/xrc.cpp:225 xrc.cpp:225
-#, fuzzy
 msgid ""
 "Use currently selected image as anchor image. That is, do not optimize the "
 "(complete) position of this image"
 msgstr ""
-"use currently selected image as anchor image. That is, do not optimise the "
-"(complete) position of this image."
+"Use currently selected image as anchor image. That is, do not optimise the "
+"(complete) position of this image"
 
 #: translations/xrc.cpp:226 xrc.cpp:226
 msgid "Anchor this image for exposure"
 msgstr ""
 
 #: translations/xrc.cpp:227 xrc.cpp:227
-#, fuzzy
 msgid "Use the currently selected images as color correction anchor image"
-msgstr "use the currently selected images as colour correction anchor image"
+msgstr "Use the currently selected images as colour correction anchor image"
 
 #: translations/xrc.cpp:228 xrc.cpp:228
 msgid "Selected Image"
@@ -3522,9 +3524,8 @@ msgid "Reset..."
 msgstr ""
 
 #: translations/xrc.cpp:247 xrc.cpp:247
-#, fuzzy
 msgid "Geometric"
-msgstr "Photometric optimisation"
+msgstr ""
 
 #: translations/xrc.cpp:248 xrc.cpp:248
 msgid "Lens"
@@ -3595,13 +3596,12 @@ msgid "vertical (t):"
 msgstr ""
 
 #: translations/xrc.cpp:270 xrc.cpp:270
-#, fuzzy
 msgid "Photometric"
-msgstr "Photometric optimisation"
+msgstr ""
 
 #: translations/xrc.cpp:271 xrc.cpp:271
 msgid "Exposure and Color"
-msgstr ""
+msgstr "Exposure and Colour"
 
 #: translations/xrc.cpp:272 xrc.cpp:272
 msgid "Exposure (Eev)"
@@ -3859,7 +3859,7 @@ msgstr ""
 
 #: translations/xrc.cpp:357 xrc.cpp:357
 msgid "Show the Optimizer panel"
-msgstr ""
+msgstr "Show the Optimiser panel"
 
 #: translations/xrc.cpp:359 xrc.cpp:359
 msgid "Show the Exposure panel"
@@ -4093,7 +4093,7 @@ msgstr ""
 
 #: translations/xrc.cpp:437 xrc.cpp:437
 msgid "90° counter-clockwise"
-msgstr ""
+msgstr "90° anticlockwise"
 
 #: translations/xrc.cpp:440 xrc.cpp:440
 msgid "Loading mask"
@@ -4212,7 +4212,7 @@ msgstr ""
 
 #: translations/xrc.cpp:475 xrc.cpp:475
 msgid "Photometric Optimization"
-msgstr "Photometric optimisation"
+msgstr "Photometric Optimisation"
 
 #: translations/xrc.cpp:476 xrc.cpp:476
 msgid "Optimize preset"
@@ -4306,7 +4306,7 @@ msgstr ""
 
 #: translations/xrc.cpp:501 translations/xrc.cpp:697 xrc.cpp:501 xrc.cpp:697
 msgid "Nearest neighbor"
-msgstr ""
+msgstr "Nearest neighbour"
 
 #: translations/xrc.cpp:502 translations/xrc.cpp:698 xrc.cpp:502 xrc.cpp:698
 msgid "Sinc 1024"
@@ -4455,6 +4455,8 @@ msgid ""
 "Images will be remapped in linear color space, stacks merged, then blended "
 "into a seamless High Dynamic Range panorama"
 msgstr ""
+"Images will be remapped in linear colour space, stacks merged, then blended "
+"into a seamless High Dynamic Range panorama"
 
 #: translations/xrc.cpp:552 xrc.cpp:552
 msgid "Remapped Images:"
@@ -4477,18 +4479,16 @@ msgid ""
 msgstr ""
 
 #: translations/xrc.cpp:558 xrc.cpp:558
-#, fuzzy
 msgid "Produce remapped, but not merged, linear color space images"
-msgstr "Output remapped images in a linear colour space"
+msgstr "Produce remapped, but not merged, linear colour space images"
 
 #: translations/xrc.cpp:559 xrc.cpp:559
 msgid "Combined stacks:"
 msgstr ""
 
 #: translations/xrc.cpp:560 xrc.cpp:560
-#, fuzzy
 msgid "High dynamic range merged stacks"
-msgstr "Output remapped images in a linear colour space"
+msgstr ""
 
 #: translations/xrc.cpp:561 xrc.cpp:561
 msgid ""
@@ -4612,7 +4612,7 @@ msgstr ""
 
 #: translations/xrc.cpp:604 xrc.cpp:604
 msgid "Use gray images for processing (-a f)"
-msgstr ""
+msgstr "Use grey images for processing (-a f)"
 
 #: translations/xrc.cpp:605 xrc.cpp:605
 msgid "Use gamma 2.2 instead of logarithmic (-a g)"
@@ -5114,9 +5114,8 @@ msgid "Identify"
 msgstr ""
 
 #: translations/xrc.cpp:770 xrc.cpp:770
-#, fuzzy
 msgid "Photometrics"
-msgstr "Photometric optimisation"
+msgstr ""
 
 #: translations/xrc.cpp:771 xrc.cpp:771
 msgid "Use full photometric correction (slow)"
@@ -5227,7 +5226,7 @@ msgstr ""
 
 #: translations/xrc.cpp:819 xrc.cpp:819
 msgid "Color"
-msgstr ""
+msgstr "Colour"
 
 #: translations/xrc.cpp:820 xrc.cpp:820
 msgid "Vignetting"
