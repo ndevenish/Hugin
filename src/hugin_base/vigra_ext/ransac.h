@@ -87,14 +87,14 @@ public:
 	 * @param desiredProbabilityForNoOutliers The probability that at least one of the selected subsets doesn't contains an
 	 *                                        outlier.
 	 * @param maximalOutlierPercentage The maximal expected percentage of outliers.
-	 * @return Returns the percentage of data used in the least squares estimate.
+	 * @return Array with inliers
 	 */
         template<class Estimator, class S, class T>
-        static int compute(S & parameters, 
-                           const Estimator & paramEstimator ,
-                           const std::vector<T> &data, 
-                           double desiredProbabilityForNoOutliers,
-                           double maximalOutlierPercentage);
+	static std::vector<const T*> compute(S & parameters, 
+					     const Estimator & paramEstimator ,
+					     const std::vector<T> &data, 
+					     double desiredProbabilityForNoOutliers,
+					     double maximalOutlierPercentage);
 
 
 	/**
@@ -114,16 +114,16 @@ public:
 	 *                       least squares fit.
 	 * @param data The input from which the parameters will be estimated.
 	 * @param numForEstimate The number of data objects required for an exact fit.
-	 * @return Returns the percentage of data used in the least squares estimate.
-   *
+	 * @return Array with inliers
+	 *
 	 * NOTE: This method should be used only when n choose k is small (i.e. k or (n-k) are approximatly equal to n)
 	 *
 	 */
         template<class Estimator, class S, class T>
-        static int compute(S &parameters, 
-                           const Estimator & paramEstimator ,
-                           const std::vector<T> &data);
-
+        static std::vector<const T*> compute(S &parameters, 
+					     const Estimator & paramEstimator ,
+					     const std::vector<T> &data);
+	
 private:
 
     /**
@@ -169,18 +169,18 @@ private:
 /*******************************RanSac Implementation*************************/
 
 template<class Estimator, class S, class T>
-int Ransac::compute(S &parameters,
-                       const Estimator & paramEstimator,
-                       const std::vector<T> &data,
-                       double desiredProbabilityForNoOutliers,
-                       double maximalOutlierPercentage)
+std::vector<const T *> Ransac::compute(S &parameters,
+			       const Estimator & paramEstimator,
+			       const std::vector<T> &data,
+			       double desiredProbabilityForNoOutliers,
+			       double maximalOutlierPercentage)
 {
     unsigned int numDataObjects = (int) data.size();
     unsigned int numForEstimate = paramEstimator.numForEstimate();
         //there are less data objects than the minimum required for an exact fit, or
         //all the data is outliers?
     if(numDataObjects < numForEstimate || maximalOutlierPercentage>=1.0) 
-        return 0;
+        return std::vector<const T*>();
 
     std::vector<const T *> exactEstimateData;
     std::vector<const T *> leastSquaresEstimateData;
@@ -269,6 +269,7 @@ int Ransac::compute(S &parameters,
             if(numVotesForCur > numVotesForBest) {
                 numVotesForBest = numVotesForCur;
                 memcpy(bestVotes,curVotes, numDataObjects*sizeof(short));
+		parameters = exactEstimateParameters;
             }
             //update the estimate of outliers and the number of iterations we need
             outlierPercentage = 1 - (double)numVotesForCur/(double)numDataObjects;
@@ -290,7 +291,7 @@ int Ransac::compute(S &parameters,
     std::set<int *, SubSetIndexComparator >::iterator it = chosenSubSets.begin();
     std::set<int *, SubSetIndexComparator >::iterator chosenSubSetsEnd = chosenSubSets.end();
     while(it!=chosenSubSetsEnd) {
-    delete [] (*it);
+	delete [] (*it);
         it++;
     }
     chosenSubSets.clear();
@@ -307,11 +308,11 @@ int Ransac::compute(S &parameters,
     delete [] curVotes;
     delete [] notChosen;
 
-    return numVotesForBest;
+    return leastSquaresEstimateData;
 }
 /*****************************************************************************/
 template<class Estimator, class S, class T>
-int Ransac::compute(S &parameters,
+std::vector<const T*> Ransac::compute(S &parameters,
                     const Estimator & paramEstimator,
                     const std::vector<T> &data)
 {
@@ -345,7 +346,7 @@ int Ransac::compute(S &parameters,
     delete [] bestVotes;
     delete [] curVotes;	
 
-    return numVotesForBest;
+    return leastSquaresEstimateData;
 }
 /*****************************************************************************/
 template<class Estimator, class T>

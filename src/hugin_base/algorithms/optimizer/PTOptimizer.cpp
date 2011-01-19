@@ -1,7 +1,7 @@
 // -*- c-basic-offset: 4 -*-
 /** @file 
  *
-* !! from PTOptimise.h 1951
+ * !! from PTOptimise.h 1951
  *
  *  functions to call the optimizer of panotools.
  *
@@ -25,14 +25,17 @@
  *
  */
 
+#include <boost/foreach.hpp>
 #include "PTOptimizer.h"
 
 #include "ImageGraph.h"
 #include "panodata/StandardImageVariableGroups.h"
 #include <panotools/PanoToolsOptimizerWrapper.h>
+#include <panotools/PanoToolsInterface.h>
 #include <algorithms/basic/CalculateCPStatistics.h>
 #include <algorithms/nona/CenterHorizontally.h>
 #include <algorithms/nona/CalculateFOV.h>
+#include <vigra_ext/ransac.h>
 
 #if DEBUG
 #include <fstream>
@@ -46,6 +49,176 @@ using namespace hugin_utils;
 bool PTOptimizer::runAlgorithm()
 {
     PTools::optimize(o_panorama);
+    return true; // let's hope so.
+}
+
+
+/** Estimator for RANSAC based adjustment of pairwise parameters */
+class PTOptEstimator
+{
+
+public:
+    
+    PTOptEstimator(PanoramaData & pano, int i1, int i2, double maxError, 
+		   const std::set<std::string> & optvars)
+    {
+	m_maxError = maxError;
+	m_numForEstimate = (optvars.size()+1) / 2;	
+	m_optvars = optvars;
+
+	UIntSet imgs;
+	imgs.insert(i1);
+	imgs.insert(i2);
+	m_localPano = (pano.getNewSubset(imgs)); // don't forget to delete
+	m_li1 = (i1 < i2) ? 0 : 1;
+	m_li2 = (i1 < i2) ? 1 : 0;
+	// get control points
+	m_cps  = m_localPano->getCtrlPoints();
+	// only use 2D control points
+	BOOST_FOREACH(ControlPoint & kp, m_cps) {
+	    if (kp.mode == ControlPoint::X_Y) {
+		m_xy_cps.push_back(kp);
+	    }
+	}
+
+	OptimizeVector optvars_all(2);
+	optvars_all[m_li2] = m_optvars;
+	m_localPano->setOptimizeVector(optvars_all);
+
+	// extract initial parameters from pano
+	m_initParams.resize(m_optvars.size());
+	int i=0;
+	BOOST_FOREACH(const std::string & v, m_optvars) {
+	    m_initParams[i] = m_localPano->getImage(m_li2).getVar(v);
+	    i++;
+	}
+    }
+
+    /** Perform exact estimate. 
+     *
+     *  This is actually a fake and just calles leastSquaresEstimate, as I don't know a
+     *  closed form solution for fisheye images...
+     */
+    bool estimate(const std::vector<const ControlPoint *> & points, std::vector<double> & p) const
+    {
+	// reset to the initial parameters.
+	p.resize(m_initParams.size());
+	std::copy(m_initParams.begin(), m_initParams.end(), p.begin());
+
+	return leastSquaresEstimate(points, p);
+    }
+
+    bool leastSquaresEstimate(const std::vector<const ControlPoint *> & points, std::vector<double> & p) const 
+    {
+	// copy points into panorama object
+	CPVector cpoints(points.size());	
+	for (int i=0; i < points.size(); i++) {
+	    cpoints[i] = *points[i];
+	}
+
+	m_localPano->setCtrlPoints(cpoints);
+
+	PanoramaData * pano = const_cast<PanoramaData *>(m_localPano);
+	// set parameters in pano object
+	int i=0;
+	BOOST_FOREACH(const std::string & v, m_optvars) {
+	    pano->updateVariable(m_li2, Variable(v, p[i]));
+	    i++;
+	}
+
+
+
+	// optimize parameters using panotools (or use a custom made optimizer here?)
+	PTools::optimize(*pano);
+
+	// get optimized parameters
+	i=0;
+	BOOST_FOREACH(const std::string & v, m_optvars) {
+	    p[i] = pano->getImage(m_li2).getVar(v);
+	    i++;
+	}
+
+	return true;
+    }
+
+
+    bool agree(std::vector<double> &p, const ControlPoint & cp) const
+    {
+	PanoramaData * pano = const_cast<PanoramaData *>(m_localPano);
+	// set parameters in pano object
+	int i=0;
+	BOOST_FOREACH(const std::string & v, m_optvars) {
+	    pano->updateVariable(m_li2, Variable(v, p[i]));
+	    i++;
+	}
+
+	// TODO: argh, this is slow, we should really construct this only once
+	// and reuse it for all calls...
+	PTools::Transform trafo_i1_to_pano;
+	trafo_i1_to_pano.createInvTransform(m_localPano->getImage(m_li1),m_localPano->getOptions());
+	PTools::Transform trafo_pano_to_i2;
+	trafo_pano_to_i2.createTransform(m_localPano->getImage(m_li2),m_localPano->getOptions());
+
+	double x2,y2,xt,yt;
+	if (cp.image1Nr == m_li1) {
+	    trafo_i1_to_pano.transform(xt, yt, cp.x1, cp.y1);
+	} else {
+	    trafo_i1_to_pano.transform(xt, yt, cp.x2, cp.y2);
+	}   
+	trafo_pano_to_i2.transform(x2, y2, xt, yt);
+	// compute error in pixels...
+	if (cp.image1Nr == m_li1) {
+	    x2 -= cp.x2;
+	    y2 -= cp.y2;
+	} else {
+	    x2 -= cp.x1;
+	    y2 -= cp.y1;
+	}
+	return hypot(x2,y2) < m_maxError;
+    }
+
+    ~PTOptEstimator()
+    {
+	delete m_localPano;
+    }
+
+    int numForEstimate() const
+    {
+	return m_numForEstimate;
+    }
+	
+public:
+    CPVector m_xy_cps;
+    std::vector<double> m_initParams;
+
+private:
+    int m_li1, m_li2;
+    double m_maxError;
+    PanoramaData * m_localPano;
+    CPVector m_cps;    
+    std::set<std::string> m_optvars;
+    int m_numForEstimate;
+};
+
+
+std::vector<double> RANSACOptimizer::findInliers(PanoramaData & pano, int i1, int i2, double maxError, 
+					 const std::set<std::string> & optvec)
+{
+    PTOptEstimator estimator(pano, i1, i2, maxError, optvec);
+
+    std::vector<double> parameters(estimator.m_initParams);
+    std::vector<const ControlPoint *> inliers = Ransac::compute(parameters, estimator, estimator.m_xy_cps, 0.99, 0.1);
+
+    printf("Found %d inliers\n", inliers.size());
+
+    // TODO: remove bad control points from pano
+    return parameters;
+}    
+    
+
+bool RANSACOptimizer::runAlgorithm()
+{
+    o_parameters = findInliers(o_panorama, o_i1, o_i2, o_maxError, o_optvec);
     return true; // let's hope so.
 }
     

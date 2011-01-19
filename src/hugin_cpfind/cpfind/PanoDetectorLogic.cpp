@@ -601,6 +601,49 @@ bool PanoDetector::FindMatchesInPair(MatchData& ioMatchData, const PanoDetector&
 }
 
 
+#if 1
+// new code with proper fisheye aware ransac
+bool PanoDetector::RansacMatchesInPair(MatchData& ioMatchData, const PanoDetector& iPanoDetector)
+{
+	TRACE_PAIR("RANSAC Filtering...");
+
+	if (ioMatchData._matches.size() < (unsigned int)iPanoDetector.getMinimumMatches())
+	{
+		TRACE_PAIR("Too few matches ... removing all of them.");
+		ioMatchData._matches.clear();
+		return true;
+	}
+
+	if (ioMatchData._matches.size() < 6)
+	{
+		TRACE_PAIR("Not enough matches for RANSAC filtering.");
+		return true;
+	}
+
+
+	PointMatchVector_t aRemovedMatches;
+
+	Ransac aRansacFilter;
+	aRansacFilter.setIterations(iPanoDetector.getRansacIterations());
+    int thresholdDistance=iPanoDetector.getRansacDistanceThreshold();
+    //increase RANSAC distance if the image were remapped to not exclude
+    //too much points in this case
+    if(ioMatchData._i1->_needsremap || ioMatchData._i2->_needsremap)
+        thresholdDistance*=5;
+	aRansacFilter.setDistanceThreshold(thresholdDistance);
+	aRansacFilter.filter(ioMatchData._matches, aRemovedMatches);
+	
+	TRACE_PAIR("Removed " << aRemovedMatches.size() << " matches. " << ioMatchData._matches.size() << " remaining.");
+
+	if (iPanoDetector.getTest())
+		TestCode::drawRansacMatches(ioMatchData._i1->_name, ioMatchData._i2->_name, ioMatchData._matches, 
+									aRemovedMatches, aRansacFilter, iPanoDetector.getDownscale());
+
+	return true;
+}
+
+#if 0
+// old code
 bool PanoDetector::RansacMatchesInPair(MatchData& ioMatchData, const PanoDetector& iPanoDetector)
 {
 	TRACE_PAIR("RANSAC Filtering...");
@@ -639,6 +682,8 @@ bool PanoDetector::RansacMatchesInPair(MatchData& ioMatchData, const PanoDetecto
 	return true;
 
 }
+#endif
+
 
 bool PanoDetector::FilterMatchesInPair(MatchData& ioMatchData, const PanoDetector& iPanoDetector)
 {

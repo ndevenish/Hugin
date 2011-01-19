@@ -62,6 +62,40 @@ namespace HuginBase {
             virtual bool runAlgorithm();
     };
     
+    /// Pairwise ransac optimisation 
+    class IMPEX RANSACOptimizer : public PanoramaAlgorithm
+    {
+    
+        public:
+            ///
+	    RANSACOptimizer(PanoramaData& panorama, int i1, int i2, 
+			    double maxError, const std::set<std::string> & optvec)
+		: PanoramaAlgorithm(panorama), o_i1(i1), o_i2(i2), 
+		  o_maxError(maxError), o_optvec(optvec)
+            {};
+        
+            ///
+            virtual ~RANSACOptimizer()
+            {}
+            
+            
+        public:
+            ///
+            virtual bool modifiesPanoramaData() const
+                { return true; }
+
+	    std::vector<double> findInliers(PanoramaData & pano, int i1, int i2, double maxError, const std::set<std::string> & optvec);
+            
+            /// calls PTools::optimize()
+            virtual bool runAlgorithm();
+
+        private:
+	    int o_i1, o_i2;
+	    double o_maxError;
+	    std::set<std::string> o_optvec;
+	    std::vector<double> o_parameters;
+    };
+    
     
     ///
     class IMPEX AutoOptimise : public PTOptimizer
