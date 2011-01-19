@@ -84,7 +84,7 @@ namespace HuginBase {
             virtual bool modifiesPanoramaData() const
                 { return true; }
 
-	    std::vector<double> findInliers(PanoramaData & pano, int i1, int i2, double maxError, const std::set<std::string> & optvec);
+	    static std::vector<int> findInliers(PanoramaData & pano, int i1, int i2, double maxError, const std::set<std::string> & optvec);
             
             /// calls PTools::optimize()
             virtual bool runAlgorithm();
@@ -93,7 +93,7 @@ namespace HuginBase {
 	    int o_i1, o_i2;
 	    double o_maxError;
 	    std::set<std::string> o_optvec;
-	    std::vector<double> o_parameters;
+	    std::vector<int> o_inliers;
     };
     
     

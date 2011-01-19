@@ -90,6 +90,7 @@ public:
 	int i=0;
 	BOOST_FOREACH(const std::string & v, m_optvars) {
 	    m_initParams[i] = m_localPano->getImage(m_li2).getVar(v);
+	    DEBUG_DEBUG("get init var: " << v << ": " << m_initParams[i]);
 	    i++;
 	}
     }
@@ -123,10 +124,9 @@ public:
 	int i=0;
 	BOOST_FOREACH(const std::string & v, m_optvars) {
 	    pano->updateVariable(m_li2, Variable(v, p[i]));
+	    DEBUG_DEBUG("set var: " << v << ": " << p[i]);
 	    i++;
 	}
-
-
 
 	// optimize parameters using panotools (or use a custom made optimizer here?)
 	PTools::optimize(*pano);
@@ -135,9 +135,9 @@ public:
 	i=0;
 	BOOST_FOREACH(const std::string & v, m_optvars) {
 	    p[i] = pano->getImage(m_li2).getVar(v);
+	    DEBUG_DEBUG("get var: " << v << ": " << p[i]);
 	    i++;
 	}
-
 	return true;
     }
 
@@ -149,9 +149,9 @@ public:
 	int i=0;
 	BOOST_FOREACH(const std::string & v, m_optvars) {
 	    pano->updateVariable(m_li2, Variable(v, p[i]));
+	    DEBUG_DEBUG("set var (i2): " << v << ": " << p[i]<< " var (i1):" << pano->getImage(m_li1).getVar(v));
 	    i++;
 	}
-
 	// TODO: argh, this is slow, we should really construct this only once
 	// and reuse it for all calls...
 	PTools::Transform trafo_i1_to_pano;
@@ -159,22 +159,26 @@ public:
 	PTools::Transform trafo_pano_to_i2;
 	trafo_pano_to_i2.createTransform(m_localPano->getImage(m_li2),m_localPano->getOptions());
 
-	double x2,y2,xt,yt;
+	double x1,y1,x2,y2,xt,yt,x2t,y2t;
 	if (cp.image1Nr == m_li1) {
-	    trafo_i1_to_pano.transform(xt, yt, cp.x1, cp.y1);
+	    x1 = cp.x1;
+	    y1 = cp.y1;
+	    x2 = cp.x2;
+	    y2 = cp.y2;
 	} else {
-	    trafo_i1_to_pano.transform(xt, yt, cp.x2, cp.y2);
+	    x1 = cp.x2;
+	    y1 = cp.y2;
+	    x2 = cp.x1;
+	    y2 = cp.y1;
 	}   
-	trafo_pano_to_i2.transform(x2, y2, xt, yt);
+	trafo_i1_to_pano.transformImgCoord(xt, yt, x1, y1);
+	trafo_pano_to_i2.transformImgCoord(x2t, y2t, xt, yt);
 	// compute error in pixels...
-	if (cp.image1Nr == m_li1) {
-	    x2 -= cp.x2;
-	    y2 -= cp.y2;
-	} else {
-	    x2 -= cp.x1;
-	    y2 -= cp.y1;
-	}
-	return hypot(x2,y2) < m_maxError;
+	x2t -= x2;
+	y2t -= y2;
+	double  e = hypot(x2,y2);
+	DEBUG_DEBUG("Error i1 (0 " << x1 << " " << y1 << ") -> ("<< xt <<" "<< yt<<") -> i2 (1 "<<x2t<<", "<<y2t<<"), real ("<<x2<<", "<<y2<<") pano error: " << e)
+	return  e < m_maxError;
     }
 
     ~PTOptEstimator()
@@ -201,24 +205,35 @@ private:
 };
 
 
-std::vector<double> RANSACOptimizer::findInliers(PanoramaData & pano, int i1, int i2, double maxError, 
-					 const std::set<std::string> & optvec)
+std::vector<int> RANSACOptimizer::findInliers(PanoramaData & pano, int i1, int i2, double maxError, 
+					      const std::set<std::string> & optvars)
 {
-    PTOptEstimator estimator(pano, i1, i2, maxError, optvec);
+    PTOptEstimator estimator(pano, i1, i2, maxError, optvars);
 
-    std::vector<double> parameters(estimator.m_initParams);
-    std::vector<const ControlPoint *> inliers = Ransac::compute(parameters, estimator, estimator.m_xy_cps, 0.99, 0.1);
+    std::vector<double> parameters(estimator.m_initParams.size());
+    std::copy(estimator.m_initParams.begin(),estimator.m_initParams.end(), parameters.begin());
+    std::vector<int> inlier_idx;
+    DEBUG_DEBUG("Number of control points: " << estimator.m_xy_cps.size() << " Initial parameter[0]" << parameters[0]);
+    std::vector<const ControlPoint *> inliers = Ransac::compute(parameters, inlier_idx, estimator, estimator.m_xy_cps, 0.99, 0.1);
+    DEBUG_DEBUG("Number of inliers:" << inliers.size() << "optimized parameter[0]" << parameters[0]);
 
-    printf("Found %d inliers\n", inliers.size());
-
+    // set parameters in pano object
+    int i=0;
+    BOOST_FOREACH(const std::string & v, optvars) {
+	pano.updateVariable(i2, Variable(v, parameters[i]));
+	i++;
+    }
+    
+    // return updated parameter vector
+    
     // TODO: remove bad control points from pano
-    return parameters;
+    return inlier_idx;
 }    
     
 
 bool RANSACOptimizer::runAlgorithm()
 {
-    o_parameters = findInliers(o_panorama, o_i1, o_i2, o_maxError, o_optvec);
+    o_inliers = findInliers(o_panorama, o_i1, o_i2, o_maxError, o_optvec);
     return true; // let's hope so.
 }
     

@@ -90,7 +90,8 @@ public:
 	 * @return Array with inliers
 	 */
         template<class Estimator, class S, class T>
-	static std::vector<const T*> compute(S & parameters, 
+	static std::vector<const T*> compute(S & parameters,
+					     std::vector<int> & inliers,
 					     const Estimator & paramEstimator ,
 					     const std::vector<T> &data, 
 					     double desiredProbabilityForNoOutliers,
@@ -170,10 +171,11 @@ private:
 
 template<class Estimator, class S, class T>
 std::vector<const T *> Ransac::compute(S &parameters,
-			       const Estimator & paramEstimator,
-			       const std::vector<T> &data,
-			       double desiredProbabilityForNoOutliers,
-			       double maximalOutlierPercentage)
+				       std::vector<int> & inliers,
+				       const Estimator & paramEstimator,
+				       const std::vector<T> &data,
+				       double desiredProbabilityForNoOutliers,
+				       double maximalOutlierPercentage)
 {
     unsigned int numDataObjects = (int) data.size();
     unsigned int numForEstimate = paramEstimator.numForEstimate();
@@ -299,8 +301,10 @@ std::vector<const T *> Ransac::compute(S &parameters,
     //compute the least squares estimate using the largest sub set
     if(numVotesForBest > 0) {
         for(j=0; j<(int)numDataObjects; j++) {
-            if(bestVotes[j])
+            if(bestVotes[j]) {
                 leastSquaresEstimateData.push_back(&(data[j]));
+		inliers.push_back(j);
+	    }
         }
         paramEstimator.leastSquaresEstimate(leastSquaresEstimateData,parameters);
     }

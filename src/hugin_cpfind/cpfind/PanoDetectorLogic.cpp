@@ -42,6 +42,7 @@
 #include "Tracer.h"
 
 #include <algorithms/nona/ComputeImageROI.h>
+#include <algorithms/optimizer/PTOptimizer.h>
 #include <nona/RemappedPanoImage.h>
 #include <nona/ImageRemapper.h>
 
@@ -513,7 +514,6 @@ bool PanoDetector::RemapBackKeypoints(ImgData& ioImgInfo, const PanoDetector& iP
 		trafo1.createTransform(iPanoDetector._panoramaInfoCopy.getSrcImage(ioImgInfo._number),
 							   ioImgInfo._projOpts);
 
-		double xout,yout;
 		int dx1 = ioImgInfo._projOpts.getROI().left();
 		int dy1 = ioImgInfo._projOpts.getROI().top();
 
@@ -640,7 +640,7 @@ bool PanoDetector::FindMatchesInPair(MatchData& ioMatchData, const PanoDetector&
 }
 
 
-#if 0
+#if 1
 // new code with proper fisheye aware ransac
 bool PanoDetector::RansacMatchesInPair(MatchData& ioMatchData, const PanoDetector& iPanoDetector)
 {
@@ -666,16 +666,26 @@ bool PanoDetector::RansacMatchesInPair(MatchData& ioMatchData, const PanoDetecto
 	int pano_i2 = ioMatchData._i2->_number;
 	imgs.insert(pano_i1);
 	imgs.insert(pano_i2);
-	Panorama * panoSubset = iPanoDetector._panoramaInfo->getSubset(imgs);
+	int pano_local_i1 = 0;
+	int pano_local_i2 = 1;
+	if (pano_i1 > pano_i2) {
+		pano_local_i1 = 1;
+		pano_local_i2 = 0;
+	}
+	
+	PanoramaData *panoSubset = iPanoDetector._panoramaInfo->getNewSubset(imgs);
 
 	// create control point vector
 	CPVector controlPoints(ioMatchData._matches.size());
 	int i=0;
 	BOOST_FOREACH(PointMatchPtr& aM, ioMatchData._matches)
-	for (int i=0; i < ioMatchData._matches) {
-		controlPoints[i] = ControlPoint(pano_i1, aM->_img1_x, aM->_img1_y,
-										pano_i2, aM->_img2_x, aM->_img2_y);
+	{
+		controlPoints[i] = ControlPoint(pano_local_i1, aM->_img1_x, aM->_img1_y,
+										pano_local_i2, aM->_img2_x, aM->_img2_y);
+		i++;
 	}
+
+	panoSubset->setCtrlPoints(controlPoints);
 	
 	// perform ransac matching.
 	// optimize positions of second image.
@@ -683,30 +693,32 @@ bool PanoDetector::RansacMatchesInPair(MatchData& ioMatchData, const PanoDetecto
 	optvars.insert("r");
 	optvars.insert("p");
 	optvars.insert("y");
-	std::vector<int> inliers = RANSACOptimizer::findInliers(*panoSubset, pano_i1, pano_i2, 
-															iPanoDetector.getRansacDistanceThreshold(),
-															optvars);
+	cout << "*****************************" << std::endl;
+	std::vector<int> inliers = HuginBase::RANSACOptimizer::findInliers(*panoSubset, pano_local_i1, pano_local_i2, 
+																	   iPanoDetector.getRansacDistanceThreshold(),
+																	   optvars);
 	
-	TRACE_PAIR("Removed " << aRemovedMatches.size() << " matches. " << ioMatchData._matches.size() << " remaining.");
+	cout << "*****************************" << std::endl;
+	cout << "Removed " << controlPoints.size() - inliers.size() << " matches. " << inliers.size() << " remaining." << endl;
+	TRACE_PAIR("Removed " << controlPoints.size() - inliers.size() << " matches. " << inliers.size() << " remaining.");
 	
-	PointMatchVector_t aRemovedMatches;
+	// keep only inlier matches
+	PointMatchVector_t aInlierMatches;
+	aInlierMatches.reserve(inliers.size());
 
-	Ransac aRansacFilter;
-	aRansacFilter.setIterations(iPanoDetector.getRansacIterations());
-    int thresholdDistance=iPanoDetector.getRansacDistanceThreshold();
-    //increase RANSAC distance if the image were remapped to not exclude
-    //too much points in this case
-    if(ioMatchData._i1->_needsremap || ioMatchData._i2->_needsremap)
-        thresholdDistance*=5;
-	aRansacFilter.setDistanceThreshold(thresholdDistance);
-	aRansacFilter.filter(ioMatchData._matches, aRemovedMatches);
-	
-	TRACE_PAIR("Removed " << aRemovedMatches.size() << " matches. " << ioMatchData._matches.size() << " remaining.");
+	BOOST_FOREACH(int idx, inliers)
+	{
+		aInlierMatches.push_back(ioMatchData._matches[idx]);
+	}
+	ioMatchData._matches = aInlierMatches;
 
+	/*
 	if (iPanoDetector.getTest())
 		TestCode::drawRansacMatches(ioMatchData._i1->_name, ioMatchData._i2->_name, ioMatchData._matches, 
 									aRemovedMatches, aRansacFilter, iPanoDetector.getDownscale());
+	*/
 
+	delete panoSubset;
 	return true;
 }
 

@@ -399,7 +399,8 @@ optimizeVignettingQuotient(const std::vector<PointPair> & points,
 
     for (int i=0; i < 3; i++) vigCoeff[i] = vigCoeff2[i];
 #else
-    std::vector<const PointPair *> inliers = Ransac::compute(vigCoeff, vqEst, points, 0.99, 0.3);
+    std::vector<int> inliers_idx;
+    std::vector<const PointPair *> inliers = Ransac::compute(vigCoeff, inliers_idx, vqEst, points, 0.99, 0.3);
     res.nUsedPoints = inliers.size();
 #endif
 
