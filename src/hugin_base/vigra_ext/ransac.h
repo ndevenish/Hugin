@@ -179,8 +179,8 @@ std::vector<const T *> Ransac::compute(S &parameters,
 {
     unsigned int numDataObjects = (int) data.size();
     unsigned int numForEstimate = paramEstimator.numForEstimate();
-        //there are less data objects than the minimum required for an exact fit, or
-        //all the data is outliers?
+    //there are less data objects than the minimum required for an exact fit, or
+    //all the data is outliers?
     if(numDataObjects < numForEstimate || maximalOutlierPercentage>=1.0) 
         return std::vector<const T*>();
 
@@ -217,7 +217,7 @@ std::vector<const T *> Ransac::compute(S &parameters,
 //    srand((unsigned)time(NULL)); //seed random number generator
     numTries = (int)(numerator/denominator + 0.5);
 
-	            //there are cases when the probablistic number of tries is greater than all possible sub-sets
+    //there are cases when the probablistic number of tries is greater than all possible sub-sets
     numTries = numTries<allTries ? numTries : allTries;
 
     for(i=0; i<numTries; i++) {
@@ -273,6 +273,7 @@ std::vector<const T *> Ransac::compute(S &parameters,
                 memcpy(bestVotes,curVotes, numDataObjects*sizeof(short));
 		parameters = exactEstimateParameters;
             }
+	    /*
             //update the estimate of outliers and the number of iterations we need
             outlierPercentage = 1 - (double)numVotesForCur/(double)numDataObjects;
             if(outlierPercentage < maximalOutlierPercentage) {
@@ -282,6 +283,7 @@ std::vector<const T *> Ransac::compute(S &parameters,
                 //there are cases when the probablistic number of tries is greater than all possible sub-sets
                 numTries = numTries<allTries ? numTries : allTries;
             }
+	    */
         }
         else {  //this sub set already appeared, don't count this iteration
             delete [] curSubSetIndexes;

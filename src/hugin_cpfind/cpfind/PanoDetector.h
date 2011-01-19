@@ -253,6 +253,8 @@ public:
 
 	static bool				FindMatchesInPair(MatchData& ioMatchData, const PanoDetector& iPanoDetector);
 	static bool				RansacMatchesInPair(MatchData& ioMatchData, const PanoDetector& iPanoDetector);
+	static bool				RansacMatchesInPairCam(MatchData& ioMatchData, const PanoDetector& iPanoDetector);
+	static bool				RansacMatchesInPairHomography(MatchData& ioMatchData, const PanoDetector& iPanoDetector);
 	static bool				FilterMatchesInPair(MatchData& ioMatchData, const PanoDetector& iPanoDetector);
 
 private:

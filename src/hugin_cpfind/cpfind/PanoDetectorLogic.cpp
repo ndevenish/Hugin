@@ -59,6 +59,9 @@ using namespace AppBase;
 using namespace HuginBase::Nona;
 using namespace hugin_utils;
 
+
+static ZThread::FastMutex aPanoToolsMutex;
+
 // define a Keypoint insertor
 class KeyPointVectInsertor : public lfeat::KeyPointInsertor
 {
@@ -639,12 +642,22 @@ bool PanoDetector::FindMatchesInPair(MatchData& ioMatchData, const PanoDetector&
 	return true;
 }
 
-
-#if 1
-// new code with proper fisheye aware ransac
 bool PanoDetector::RansacMatchesInPair(MatchData& ioMatchData, const PanoDetector& iPanoDetector)
 {
-	TRACE_PAIR("RANSAC Filtering...");
+	// Use panotools model for wide angle lenses
+	if (iPanoDetector._panoramaInfo->getImage(ioMatchData._i1->_number).getHFOV() > 65 ||
+		iPanoDetector._panoramaInfo->getImage(ioMatchData._i2->_number).getHFOV() > 65)
+	{
+		return RansacMatchesInPairCam(ioMatchData, iPanoDetector);
+	} else {
+		return RansacMatchesInPairHomography(ioMatchData, iPanoDetector);
+	}
+}
+
+// new code with fisheye aware ransac
+bool PanoDetector::RansacMatchesInPairCam(MatchData& ioMatchData, const PanoDetector& iPanoDetector)
+{
+	TRACE_PAIR("RANSAC Filtering with Panorama model...");
 
 	if (ioMatchData._matches.size() < (unsigned int)iPanoDetector.getMinimumMatches())
 	{
@@ -688,19 +701,22 @@ bool PanoDetector::RansacMatchesInPair(MatchData& ioMatchData, const PanoDetecto
 	panoSubset->setCtrlPoints(controlPoints);
 	
 	// perform ransac matching.
-	// optimize positions of second image.
-	std::set<std::string> optvars;
-	optvars.insert("r");
-	optvars.insert("p");
-	optvars.insert("y");
-	cout << "*****************************" << std::endl;
-	std::vector<int> inliers = HuginBase::RANSACOptimizer::findInliers(*panoSubset, pano_local_i1, pano_local_i2, 
-																	   iPanoDetector.getRansacDistanceThreshold(),
-																	   optvars);
-	
-	cout << "*****************************" << std::endl;
-	cout << "Removed " << controlPoints.size() - inliers.size() << " matches. " << inliers.size() << " remaining." << endl;
+	// ARGH the panotools optimizer uses global variables is not reentrant
+	std::vector<int> inliers;
+	{
+		ZThread::Guard<ZThread::FastMutex> g(aPanoToolsMutex);
+		inliers = HuginBase::RANSACOptimizer::findInliers(*panoSubset, pano_local_i1, pano_local_i2, 
+																		   iPanoDetector.getRansacDistanceThreshold());
+	}
+
 	TRACE_PAIR("Removed " << controlPoints.size() - inliers.size() << " matches. " << inliers.size() << " remaining.");
+
+	if (inliers.size() < (unsigned int)iPanoDetector.getMinimumMatches())
+	{
+		TRACE_PAIR("Too few matches ... removing all of them.");
+		ioMatchData._matches.clear();
+		return true;
+	}
 	
 	// keep only inlier matches
 	PointMatchVector_t aInlierMatches;
@@ -722,10 +738,8 @@ bool PanoDetector::RansacMatchesInPair(MatchData& ioMatchData, const PanoDetecto
 	return true;
 }
 
-#else
-
-// old code
-bool PanoDetector::RansacMatchesInPair(MatchData& ioMatchData, const PanoDetector& iPanoDetector)
+// homography based ransac matching
+bool PanoDetector::RansacMatchesInPairHomography(MatchData& ioMatchData, const PanoDetector& iPanoDetector)
 {
 	TRACE_PAIR("RANSAC Filtering...");
 
@@ -763,7 +777,6 @@ bool PanoDetector::RansacMatchesInPair(MatchData& ioMatchData, const PanoDetecto
 	return true;
 
 }
-#endif
 
 
 bool PanoDetector::FilterMatchesInPair(MatchData& ioMatchData, const PanoDetector& iPanoDetector)

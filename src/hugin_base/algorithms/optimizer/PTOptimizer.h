@@ -68,10 +68,9 @@ namespace HuginBase {
     
         public:
             ///
-	    RANSACOptimizer(PanoramaData& panorama, int i1, int i2, 
-			    double maxError, const std::set<std::string> & optvec)
-		: PanoramaAlgorithm(panorama), o_i1(i1), o_i2(i2), 
-		  o_maxError(maxError), o_optvec(optvec)
+	    RANSACOptimizer(PanoramaData& panorama, int i1, int i2, double maxError)
+		: PanoramaAlgorithm(panorama), o_i1(i1), o_i2(i2),
+		  o_maxError(maxError)
             {};
         
             ///
@@ -84,7 +83,7 @@ namespace HuginBase {
             virtual bool modifiesPanoramaData() const
                 { return true; }
 
-	    static std::vector<int> findInliers(PanoramaData & pano, int i1, int i2, double maxError, const std::set<std::string> & optvec);
+	    static std::vector<int> findInliers(PanoramaData & pano, int i1, int i2, double maxError);
             
             /// calls PTools::optimize()
             virtual bool runAlgorithm();
@@ -92,7 +91,6 @@ namespace HuginBase {
         private:
 	    int o_i1, o_i2;
 	    double o_maxError;
-	    std::set<std::string> o_optvec;
 	    std::vector<int> o_inliers;
     };
     

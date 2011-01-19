@@ -52,19 +52,36 @@ bool PTOptimizer::runAlgorithm()
     return true; // let's hope so.
 }
 
+// small helper class
+class OptVarSpec
+{
+public:
+    OptVarSpec(int img, std::string name)
+	: m_img(img), m_name(name)
+    {
+    }
+
+    double get(PanoramaData & pano) const
+    {
+	return pano.getImage(m_img).getVar(m_name);
+    }
+    void set(PanoramaData & pano, double x) const
+    {
+	pano.updateVariable(m_img,Variable(m_name,x));
+    }
+    int m_img;
+    std::string m_name;
+};
 
 /** Estimator for RANSAC based adjustment of pairwise parameters */
 class PTOptEstimator
 {
 
 public:
-    
-    PTOptEstimator(PanoramaData & pano, int i1, int i2, double maxError, 
-		   const std::set<std::string> & optvars)
+
+    PTOptEstimator(PanoramaData & pano, int i1, int i2, double maxError)
     {
 	m_maxError = maxError;
-	m_numForEstimate = (optvars.size()+1) / 2;	
-	m_optvars = optvars;
 
 	UIntSet imgs;
 	imgs.insert(i1);
@@ -80,20 +97,40 @@ public:
 		m_xy_cps.push_back(kp);
 	    }
 	}
+	
+	// m_optvars.push_back(OptVarSpec(0,std::string("v")));
+	// m_optvars.push_back(OptVarSpec(0,std::string("b")));
+	m_optvars.push_back(OptVarSpec(m_li2,"r"));
+	m_optvars.push_back(OptVarSpec(m_li2,"p"));
+	m_optvars.push_back(OptVarSpec(m_li2,"y"));
 
-	OptimizeVector optvars_all(2);
-	optvars_all[m_li2] = m_optvars;
-	m_localPano->setOptimizeVector(optvars_all);
+	/** optimisation for first pass */
+	m_opt_first_pass.resize(2);
+	m_opt_first_pass[1].insert("r");
+	m_opt_first_pass[1].insert("p");
+	m_opt_first_pass[1].insert("y");
 
+	/** optimisation for second pass */
+	/*
+	m_opt_second_pass = m_opt_first_pass;
+	m_opt_second_pass[0].insert("v");
+	m_opt_second_pass[0].insert("b");
+	*/
+
+	// number of points required for estimation
+	m_numForEstimate = 2;	
+			    
 	// extract initial parameters from pano
 	m_initParams.resize(m_optvars.size());
 	int i=0;
-	BOOST_FOREACH(const std::string & v, m_optvars) {
-	    m_initParams[i] = m_localPano->getImage(m_li2).getVar(v);
-	    DEBUG_DEBUG("get init var: " << v << ": " << m_initParams[i]);
+	BOOST_FOREACH(OptVarSpec & v, m_optvars) {
+	    m_initParams[i] = v.get(*m_localPano);
+	    DEBUG_DEBUG("get init var: " << v.m_name << ", " << v.m_img << ": " << m_initParams[i]);
 	    i++;
 	}
-    }
+     }
+
+			    
 
     /** Perform exact estimate. 
      *
@@ -109,6 +146,8 @@ public:
 	return leastSquaresEstimate(points, p);
     }
 
+			    
+
     bool leastSquaresEstimate(const std::vector<const ControlPoint *> & points, std::vector<double> & p) const 
     {
 	// copy points into panorama object
@@ -122,20 +161,37 @@ public:
 	PanoramaData * pano = const_cast<PanoramaData *>(m_localPano);
 	// set parameters in pano object
 	int i=0;
-	BOOST_FOREACH(const std::string & v, m_optvars) {
-	    pano->updateVariable(m_li2, Variable(v, p[i]));
-	    DEBUG_DEBUG("set var: " << v << ": " << p[i]);
+	BOOST_FOREACH(const OptVarSpec & v, m_optvars) {
+	    v.set(*pano, p[i]);
+	    DEBUG_DEBUG("Initial " << v.m_name <<  ": i1:" << pano->getImage(m_li1).getVar(v.m_name) << ", i2: " << pano->getImage(m_li2).getVar(v.m_name));
 	    i++;
 	}
 
+	m_localPano->setOptimizeVector(m_opt_first_pass);
 	// optimize parameters using panotools (or use a custom made optimizer here?)
+	UIntSet imgs;
+	imgs.insert(0);
+	imgs.insert(1);
+	//std::cout << "Optimizing without hfov:" << std::endl;
+	//pano->printPanoramaScript(std::cerr, m_localPano->getOptimizeVector(), pano->getOptions(), imgs, true );
 	PTools::optimize(*pano);
+	//std::cout << "result:" << std::endl;
+	//pano->printPanoramaScript(std::cerr, m_localPano->getOptimizeVector(), pano->getOptions(), imgs, true );
+
+	if (m_opt_second_pass.size() > 0) {
+	    m_localPano->setOptimizeVector(m_opt_second_pass);
+	    //std::cout << "Optimizing with hfov" << std::endl;
+	    //pano->printPanoramaScript(std::cerr, m_localPano->getOptimizeVector(), pano->getOptions(), imgs, true );
+	    PTools::optimize(*pano);
+	    //std::cout << "result:" << std::endl;
+	    //pano->printPanoramaScript(std::cerr, m_localPano->getOptimizeVector(), pano->getOptions(), imgs, true );
+	}
 
 	// get optimized parameters
 	i=0;
-	BOOST_FOREACH(const std::string & v, m_optvars) {
-	    p[i] = pano->getImage(m_li2).getVar(v);
-	    DEBUG_DEBUG("get var: " << v << ": " << p[i]);
+	BOOST_FOREACH(const OptVarSpec & v, m_optvars) {
+	    p[i] = v.get(*pano);
+	    DEBUG_DEBUG("Optimized " << v.m_name <<  ": i1:" << pano->getImage(m_li1).getVar(v.m_name) << ", i2: " << pano->getImage(m_li2).getVar(v.m_name));
 	    i++;
 	}
 	return true;
@@ -147,9 +203,8 @@ public:
 	PanoramaData * pano = const_cast<PanoramaData *>(m_localPano);
 	// set parameters in pano object
 	int i=0;
-	BOOST_FOREACH(const std::string & v, m_optvars) {
-	    pano->updateVariable(m_li2, Variable(v, p[i]));
-	    DEBUG_DEBUG("set var (i2): " << v << ": " << p[i]<< " var (i1):" << pano->getImage(m_li1).getVar(v));
+	BOOST_FOREACH(const OptVarSpec & v, m_optvars) {
+	    v.set(*pano, p[i]);
 	    i++;
 	}
 	// TODO: argh, this is slow, we should really construct this only once
@@ -173,11 +228,12 @@ public:
 	}   
 	trafo_i1_to_pano.transformImgCoord(xt, yt, x1, y1);
 	trafo_pano_to_i2.transformImgCoord(x2t, y2t, xt, yt);
+	DEBUG_DEBUG("Trafo i1 (0 " << x1 << " " << y1 << ") -> ("<< xt <<" "<< yt<<") -> i2 (1 "<<x2t<<", "<<y2t<<"), real ("<<x2<<", "<<y2<<")")
 	// compute error in pixels...
 	x2t -= x2;
 	y2t -= y2;
-	double  e = hypot(x2,y2);
-	DEBUG_DEBUG("Error i1 (0 " << x1 << " " << y1 << ") -> ("<< xt <<" "<< yt<<") -> i2 (1 "<<x2t<<", "<<y2t<<"), real ("<<x2<<", "<<y2<<") pano error: " << e)
+	double  e = hypot(x2t,y2t);
+	DEBUG_DEBUG("Error ("<<x2t<<", "<<y2t<<"), " << e)
 	return  e < m_maxError;
     }
 
@@ -194,37 +250,38 @@ public:
 public:
     CPVector m_xy_cps;
     std::vector<double> m_initParams;
+    std::vector<OptVarSpec> m_optvars;
 
 private:
     int m_li1, m_li2;
     double m_maxError;
     PanoramaData * m_localPano;
     CPVector m_cps;    
-    std::set<std::string> m_optvars;
+    std::vector<std::set<std::string> > m_opt_first_pass;
+    std::vector<std::set<std::string> > m_opt_second_pass;
     int m_numForEstimate;
 };
 
 
-std::vector<int> RANSACOptimizer::findInliers(PanoramaData & pano, int i1, int i2, double maxError, 
-					      const std::set<std::string> & optvars)
+std::vector<int> RANSACOptimizer::findInliers(PanoramaData & pano, int i1, int i2, double maxError)
 {
-    PTOptEstimator estimator(pano, i1, i2, maxError, optvars);
+    PTOptEstimator estimator(pano, i1, i2, maxError);
 
     std::vector<double> parameters(estimator.m_initParams.size());
     std::copy(estimator.m_initParams.begin(),estimator.m_initParams.end(), parameters.begin());
     std::vector<int> inlier_idx;
     DEBUG_DEBUG("Number of control points: " << estimator.m_xy_cps.size() << " Initial parameter[0]" << parameters[0]);
-    std::vector<const ControlPoint *> inliers = Ransac::compute(parameters, inlier_idx, estimator, estimator.m_xy_cps, 0.99, 0.1);
+    std::vector<const ControlPoint *> inliers = Ransac::compute(parameters, inlier_idx, estimator, estimator.m_xy_cps, 0.99, 0.3);
     DEBUG_DEBUG("Number of inliers:" << inliers.size() << "optimized parameter[0]" << parameters[0]);
 
     // set parameters in pano object
     int i=0;
-    BOOST_FOREACH(const std::string & v, optvars) {
-	pano.updateVariable(i2, Variable(v, parameters[i]));
+    BOOST_FOREACH(const OptVarSpec & v, estimator.m_optvars) {
+	// TODO: check when to use i1..
+	pano.updateVariable(i2, Variable(v.m_name, parameters[i]));
 	i++;
     }
     
-    // return updated parameter vector
     
     // TODO: remove bad control points from pano
     return inlier_idx;
@@ -233,7 +290,7 @@ std::vector<int> RANSACOptimizer::findInliers(PanoramaData & pano, int i1, int i
 
 bool RANSACOptimizer::runAlgorithm()
 {
-    o_inliers = findInliers(o_panorama, o_i1, o_i2, o_maxError, o_optvec);
+    o_inliers = findInliers(o_panorama, o_i1, o_i2, o_maxError);
     return true; // let's hope so.
 }
     
