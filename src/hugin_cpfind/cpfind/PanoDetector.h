@@ -1,3 +1,4 @@
+// -*- c-basic-offset: 4 ; tab-width: 4 -*-
 /*
 * Copyright (C) 2007-2008 Anael Orlinski
 *
@@ -244,13 +245,13 @@ public:
 	static bool				FindKeyPointsInImage(ImgData& ioImgInfo, const PanoDetector& iPanoDetector);
 	static bool				FilterKeyPointsInImage(ImgData& ioImgInfo, const PanoDetector& iPanoDetector);
 	static bool				MakeKeyPointDescriptorsInImage(ImgData& ioImgInfo, const PanoDetector& iPanoDetector);
+	static bool             RemapBackKeypoints(ImgData& ioImgInfo, const PanoDetector& iPanoDetector);
 	static bool				BuildKDTreesInImage(ImgData& ioImgInfo, const PanoDetector& iPanoDetector);
 	static bool				FreeMemoryInImage(ImgData& ioImgInfo, const PanoDetector& iPanoDetector);
 
 	static bool				FindMatchesInPair(MatchData& ioMatchData, const PanoDetector& iPanoDetector);
 	static bool				RansacMatchesInPair(MatchData& ioMatchData, const PanoDetector& iPanoDetector);
 	static bool				FilterMatchesInPair(MatchData& ioMatchData, const PanoDetector& iPanoDetector);
-	static bool				RemapBackMatches(MatchData& ioMatchData, const PanoDetector& iPanoDetector);
 
 private:
     bool LoadSVMModel();

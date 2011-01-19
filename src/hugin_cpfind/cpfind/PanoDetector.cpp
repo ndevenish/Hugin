@@ -1,3 +1,5 @@
+// -*- c-basic-offset: 4 ; tab-width: 4 -*-
+
 #include "PanoDetector.h"
 #include <iostream>
 #include <fstream>
@@ -219,6 +221,7 @@ public:
 		  PanoDetector::FindKeyPointsInImage(_imgData, _panoDetector);
 		  PanoDetector::FilterKeyPointsInImage(_imgData, _panoDetector);
 		  PanoDetector::MakeKeyPointDescriptorsInImage(_imgData, _panoDetector);
+		  PanoDetector::RemapBackKeypoints(_imgData, _panoDetector);
 		  PanoDetector::BuildKDTreesInImage(_imgData, _panoDetector);
 		  PanoDetector::FreeMemoryInImage(_imgData, _panoDetector);
 	  }
@@ -240,6 +243,7 @@ public:
 		  PanoDetector::FindKeyPointsInImage(_imgData, _panoDetector);
 		  PanoDetector::FilterKeyPointsInImage(_imgData, _panoDetector);
 		  PanoDetector::MakeKeyPointDescriptorsInImage(_imgData, _panoDetector);
+		  PanoDetector::RemapBackKeypoints(_imgData, _panoDetector);
 		  PanoDetector::FreeMemoryInImage(_imgData, _panoDetector);
 	  }
 private:
@@ -277,7 +281,6 @@ public:
 		  PanoDetector::FindMatchesInPair(_matchData, _panoDetector);
 		  PanoDetector::RansacMatchesInPair(_matchData, _panoDetector);
 		  PanoDetector::FilterMatchesInPair(_matchData, _panoDetector);
-		  PanoDetector::RemapBackMatches(_matchData, _panoDetector);
 	  }
 private:
 	const PanoDetector&			_panoDetector;
@@ -595,7 +598,6 @@ bool PanoDetector::loadProject()
         // set image remapping options
         if(aImgData._needsremap)
         {
-            aImgData._projOpts;
 			aImgData._projOpts.setProjection(PanoramaOptions::STEREOGRAPHIC);
 			aImgData._projOpts.setHFOV(250);
 			aImgData._projOpts.setVFOV(250);
