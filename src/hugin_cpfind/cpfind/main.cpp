@@ -104,7 +104,7 @@ void parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
 		ValueArg<int> aArgMinMatches("","minmatches", "Minimum matches    (default : 4)", false, 4, "int");
 		ValueArg<int> aArgRansacIter("","ransaciter", "Ransac : iterations    (default : 1000)", false, 1000, "int");
 		ValueArg<int> aArgRansacDist("","ransacdist", "Ransac : homography estimation distance threshold (pixels)"
-														"\t    (default : 25)", false, 25, "int");
+														"\t    (default : 50)", false, 50, "int");
 		ValueArg<int> aArgSieve2Width("","sieve2width", "Sieve 2 : Number of buckets on width    (default : 5)", false, 5, "int");
 		ValueArg<int> aArgSieve2Height("","sieve2height", "Sieve 2 : Number of buckets on height    (default : 5)", false, 5, "int");
 		ValueArg<int> aArgSieve2Size("","sieve2size", "Sieve 2 : Max points per bucket    (default : 2)\n", false, 2 ,"int");
