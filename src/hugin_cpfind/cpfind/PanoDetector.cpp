@@ -84,7 +84,7 @@ PanoDetector::PanoDetector() :
 	_writeAllKeyPoints(false),
 	_sieve1Width(10), _sieve1Height(10), _sieve1Size(100), 
 	_kdTreeSearchSteps(200), _kdTreeSecondDistance(0.25), _ransacIters(1000), _ransacDistanceThres(50),
-	_sieve2Width(5), _sieve2Height(5),_sieve2Size(2), _test(false), _cores(utils::getCPUCount()),
+	_sieve2Width(5), _sieve2Height(5),_sieve2Size(1), _test(false), _cores(utils::getCPUCount()),
 	_minimumMatches(4), _linearMatch(false), _linearMatchLen(1), _downscale(true), _cache(false), _cleanup(false),
     _keypath(""), _outputFile("default.pto"), _celeste(false), _celesteThreshold(0.5), _celesteRadius(20), _multirow(false)
 {
