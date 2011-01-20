@@ -71,7 +71,7 @@ public:
 
 	virtual void writeHeader ( const ImageInfo & imageinfo, int nKeypoints, int dims ) = 0;
 
-	virtual void writeKeypoint ( double x, double y, double scale, double orientation, int dims, double * vec ) = 0;
+	virtual void writeKeypoint ( double x, double y, double scale, double orientation, double score, int dims, double * vec ) = 0;
 
 	virtual void writeFooter() = 0;
 };
@@ -89,7 +89,7 @@ public:
 
 	void writeHeader (const ImageInfo & imageinfo, int nKeypoints, int dims );
 
-	void writeKeypoint ( double x, double y, double scale, double orientation, int dims, double * vec );
+	void writeKeypoint ( double x, double y, double scale, double orientation, double score, int dims, double * vec );
 
 	void writeFooter();
 };
@@ -107,7 +107,7 @@ public:
 
 	void writeHeader (const ImageInfo & imageinfo, int nKeypoints, int dims );
 
-	void writeKeypoint ( double x, double y, double scale, double orientation, int dims, double * vec );
+	void writeKeypoint ( double x, double y, double scale, double orientation, double score, int dims, double * vec );
 
 	void writeFooter();
 };
@@ -124,7 +124,7 @@ public:
 
 	void writeHeader ( const ImageInfo & imageinfo, int nKeypoints, int dims );
 
-	void writeKeypoint ( double x, double y, double scale, double orientation, int dims, double * vec );
+	void writeKeypoint ( double x, double y, double scale, double orientation, double score, int dims, double * vec );
 
 	void writeFooter();
 };

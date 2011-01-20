@@ -58,7 +58,7 @@ static ImageInfo loadSIFTKeypoints( const std::string & filename, KeyPointVect_t
 
 	for (int i = 0; i < nKeypoints; i++) {
 		KeyPointPtr k(new lfeat::KeyPoint(0,0,0,0,0));
-		in >> k->_y >> k->_x >> k->_scale >> k->_ori;
+		in >> k->_y >> k->_x >> k->_scale >> k->_ori >> k->_score;
 		if (dims > 0) {
 			k->allocVector(dims);
 			for (int j=0; j < dims; j++) {
@@ -96,9 +96,9 @@ void SIFTFormatWriter::writeHeader ( const ImageInfo & imageinfo, int nKeypoints
 }
 
 
-void SIFTFormatWriter::writeKeypoint ( double x, double y, double scale, double orientation, int dims, double * vec )
+void SIFTFormatWriter::writeKeypoint ( double x, double y, double scale, double orientation, double score, int dims, double * vec )
 {
-	o << y << " " << x << " " << scale << " " << orientation;
+    o << y << " " << x << " " << scale << " " << orientation << " " << score;
 	for ( int i=0; i < dims; i++ )
 	{
 		o << " " <<  vec[i];
@@ -121,7 +121,7 @@ void DescPerfFormatWriter::writeHeader ( const ImageInfo & imageinfo, int nKeypo
 }
 
 
-void DescPerfFormatWriter::writeKeypoint ( double x, double y, double scale, double orientation, int dims, double * vec )
+void DescPerfFormatWriter::writeKeypoint ( double x, double y, double scale, double orientation, double score, int dims, double * vec )
 {
 	double sc = 2.5 * scale; sc*=sc;
 	o << x << " " << y << " " << 1.0/sc << " 0 " << 1.0/sc;
@@ -147,7 +147,7 @@ void AutopanoSIFTWriter::writeHeader ( const ImageInfo & imageinfo, int nKeypoin
 	o << "  <Arr>"<< endl;
 }
 
-void AutopanoSIFTWriter::writeKeypoint ( double x, double y, double scale, double orientation, int dims, double * vec )
+void AutopanoSIFTWriter::writeKeypoint ( double x, double y, double scale, double orientation, double score, int dims, double * vec )
 {
 	o << "    <KeypointN>"<< endl;
 	o << "      <X>"<< x <<"</X>"<<endl;

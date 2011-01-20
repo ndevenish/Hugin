@@ -109,9 +109,16 @@ typedef std::vector<KeyPointPtr>::iterator	KeyPointVectIt_t;
 class KeyPointPtrSort
 {
 public: 
-        inline bool operator() (const KeyPointPtr& a, const KeyPointPtr& b) const { 
-                return (a->_score < b->_score); 
-        } 
+	inline bool operator() (const KeyPointPtr& a, const KeyPointPtr& b) const {
+		if (a->_score < b->_score) {
+			return true;
+		} else if (a->_score > b->_score) {
+			return false;
+		} else {
+			// same score, order by _y coordinate
+			return (a->_y < b->_y);
+		}
+	} 
 };
 
 }

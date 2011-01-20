@@ -265,7 +265,7 @@ bool DetectKeypoints ( const std::string & imgfile, bool downscale,
 				aKPD->makeDescriptor ( *aK );
 			}
 			writer.writeKeypoint ( aK->_x * scale, aK->_y * scale, aK->_scale * scale, aK->_ori,
-								   dims, aK->_vec );
+								   aK->_score, dims, aK->_vec );
 		}
 		writer.writeFooter();
 		delete aKPD;

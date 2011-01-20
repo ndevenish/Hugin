@@ -62,6 +62,21 @@ using namespace hugin_utils;
 
 static ZThread::FastMutex aPanoToolsMutex;
 
+
+// dummy panotools progress functions for ransac optimisation
+static int ptProgress( int command, char* argument )
+{
+	return 1;
+}
+static void ptPrintError(char*fmt, va_list va)
+{
+}
+
+static int ptinfoDlg( int command, char* argument )
+{
+	return 1;
+}
+
 // define a Keypoint insertor
 class KeyPointVectInsertor : public lfeat::KeyPointInsertor
 {
@@ -705,8 +720,12 @@ bool PanoDetector::RansacMatchesInPairCam(MatchData& ioMatchData, const PanoDete
 	std::vector<int> inliers;
 	{
 		ZThread::Guard<ZThread::FastMutex> g(aPanoToolsMutex);
+		PT_setProgressFcn(ptProgress);
+		PT_setInfoDlgFcn(ptinfoDlg);
 		inliers = HuginBase::RANSACOptimizer::findInliers(*panoSubset, pano_local_i1, pano_local_i2, 
 																		   iPanoDetector.getRansacDistanceThreshold());
+		PT_setProgressFcn(NULL);
+		PT_setInfoDlgFcn(NULL);
 	}
 
 	TRACE_PAIR("Removed " << controlPoints.size() - inliers.size() << " matches. " << inliers.size() << " remaining.");
@@ -781,7 +800,7 @@ bool PanoDetector::RansacMatchesInPairHomography(MatchData& ioMatchData, const P
 
 bool PanoDetector::FilterMatchesInPair(MatchData& ioMatchData, const PanoDetector& iPanoDetector)
 {
-	TRACE_PAIR("Clustering matches...");
+	TRACE_PAIR("Clustering matches..." << iPanoDetector.getSieve2Size() );
 
 	if (ioMatchData._matches.size() < 2)
 		return true;
@@ -870,7 +889,7 @@ void PanoDetector::writeKeyfile(ImgData& imgInfo)
 
 	BOOST_FOREACH ( KeyPointPtr& aK, imgInfo._kp )
 	{
-		writer.writeKeypoint ( aK->_x, aK->_y, aK->_scale, aK->_ori,
+		writer.writeKeypoint ( aK->_x, aK->_y, aK->_scale, aK->_ori, aK->_score,
 		                       imgInfo._descLength, aK->_vec );
 	}
 	writer.writeFooter();
