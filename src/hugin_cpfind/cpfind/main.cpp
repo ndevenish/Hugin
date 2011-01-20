@@ -107,7 +107,7 @@ void parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
 														"\t    (default : 50)", false, 50, "int");
 		ValueArg<int> aArgSieve2Width("","sieve2width", "Sieve 2 : Number of buckets on width    (default : 5)", false, 5, "int");
 		ValueArg<int> aArgSieve2Height("","sieve2height", "Sieve 2 : Number of buckets on height    (default : 5)", false, 5, "int");
-		ValueArg<int> aArgSieve2Size("","sieve2size", "Sieve 2 : Max points per bucket    (default : 2)\n", false, 1 ,"int");
+		ValueArg<int> aArgSieve2Size("","sieve2size", "Sieve 2 : Max points per bucket    (default : 1)\n", false, 1 ,"int");
 		
 		cmd.add(aArgSieve2Size);
 		cmd.add(aArgSieve2Height);
