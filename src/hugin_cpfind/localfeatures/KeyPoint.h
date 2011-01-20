@@ -115,8 +115,8 @@ public:
 		} else if (a->_score > b->_score) {
 			return false;
 		} else {
-			// same score, order by _y coordinate
-			return (a->_y < b->_y);
+			// same score, order by orientation
+			return (a->_ori < b->_ori);
 		}
 	} 
 };
