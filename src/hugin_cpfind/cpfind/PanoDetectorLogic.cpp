@@ -800,7 +800,7 @@ bool PanoDetector::RansacMatchesInPairHomography(MatchData& ioMatchData, const P
 
 bool PanoDetector::FilterMatchesInPair(MatchData& ioMatchData, const PanoDetector& iPanoDetector)
 {
-	TRACE_PAIR("Clustering matches..." << iPanoDetector.getSieve2Size() );
+	TRACE_PAIR("Clustering matches...");
 
 	if (ioMatchData._matches.size() < 2)
 		return true;

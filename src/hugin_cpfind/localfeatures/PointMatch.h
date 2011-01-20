@@ -56,7 +56,6 @@ class PointMatchPtrSort
 {
 public: 
 	inline bool operator() (const PointMatchPtr& a, const PointMatchPtr& b) const { 
-		return (a->_img1_kp->_score < b->_img1_kp->_score); 
 		if (a->_img1_kp->_score < b->_img1_kp->_score) {
 			return true;
 		} else if (a->_img1_kp->_score > b->_img1_kp->_score) {
