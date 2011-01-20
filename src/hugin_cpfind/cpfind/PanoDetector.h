@@ -79,6 +79,9 @@ public:
 	inline void setGradientDescriptor(bool grad=true) { _gradDescriptor = grad; }
 	inline bool getGradientDescriptor() const { return _gradDescriptor; }
 	
+	inline void setVerbose(int level) { _verbose = level; }
+	inline int  getVerbose() const { return _verbose; }
+
 	inline void setSieve1Width(int iWidth) { _sieve1Width = iWidth; }
 	inline void setSieve1Height(int iHeight) { _sieve1Height = iHeight; }
 	inline void setSieve1Size(int iSize) { _sieve1Size = iSize; }
@@ -144,6 +147,8 @@ private:
 	std::vector<int>		_keyPointsIdx;
 
 	bool						_gradDescriptor;
+
+	int                     _verbose;
 
 	int						_sieve1Width;
 	int						_sieve1Height;

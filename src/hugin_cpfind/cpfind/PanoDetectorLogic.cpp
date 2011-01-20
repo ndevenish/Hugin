@@ -48,9 +48,9 @@
 
 #include <time.h>
 
-#define TRACE_IMG(X) TRACE_INFO("i" << ioImgInfo._number << " : " << X << endl)
-#define TRACE_PAIR(X) TRACE_INFO("i" << ioMatchData._i1->_number << " <> " \
-								 "i" << ioMatchData._i2->_number << " : " << X << endl)
+#define TRACE_IMG(X) {if (iPanoDetector.getVerbose() > 1) { TRACE_INFO("i" << ioImgInfo._number << " : " << X << endl);} }
+#define TRACE_PAIR(X) {if (iPanoDetector.getVerbose() > 1){ TRACE_INFO("i" << ioMatchData._i1->_number << " <> " \
+																		"i" << ioMatchData._i2->_number << " : " << X << endl)}}
 
 using namespace std;
 using namespace lfeat;

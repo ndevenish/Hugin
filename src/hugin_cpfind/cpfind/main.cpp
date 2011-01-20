@@ -1,3 +1,4 @@
+// -*- c-basic-offset: 4 ; tab-width: 4 -*-
 /*
 * Copyright (C) 2007-2008 Anael Orlinski
 *
@@ -91,6 +92,8 @@ void parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
 		MyOutput my;
 		cmd.setOutput(&my);
 
+		SwitchArg aArgQuiet("q","quiet", "Do not output progress\n", false);
+		SwitchArg aArgVerbose("v","verbose", "Increase verbosity of output\n", false);
 		SwitchArg aArgFullScale("","fullscale", "Uses full scale image to detect keypoints    (default:false)\n", false);
 		ValueArg<int> aArgSieve1Width("","sieve1width", "Sieve 1 : Number of buckets on width    (default : 10)", false, 10, "int");
 		ValueArg<int> aArgSieve1Height("","sieve1height",  "Sieve 1 : Number of buckets on height    (default : 10)", false, 10, "int");
@@ -108,7 +111,9 @@ void parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
 		ValueArg<int> aArgSieve2Width("","sieve2width", "Sieve 2 : Number of buckets on width    (default : 5)", false, 5, "int");
 		ValueArg<int> aArgSieve2Height("","sieve2height", "Sieve 2 : Number of buckets on height    (default : 5)", false, 5, "int");
 		ValueArg<int> aArgSieve2Size("","sieve2size", "Sieve 2 : Max points per bucket    (default : 1)\n", false, 1 ,"int");
-		
+
+		cmd.add(aArgQuiet);
+		cmd.add(aArgVerbose);
 		cmd.add(aArgSieve2Size);
 		cmd.add(aArgSieve2Height);
 		cmd.add(aArgSieve2Width);
@@ -174,6 +179,8 @@ void parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
 
 		ioPanoDetector.setGradientDescriptor(true);
 
+		if (aArgVerbose.isSet())		    ioPanoDetector.setVerbose(2);
+		if (aArgQuiet.isSet())		        ioPanoDetector.setVerbose(0);
 		if (aArgSieve1Width.isSet())		ioPanoDetector.setSieve1Width(aArgSieve1Width.getValue());
 		if (aArgSieve1Height.isSet())		ioPanoDetector.setSieve1Height(aArgSieve1Height.getValue());
 		if (aArgSieve1Size.isSet())			ioPanoDetector.setSieve1Size(aArgSieve1Size.getValue());
@@ -217,19 +224,21 @@ void parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
 
 int main(int argc, char **argv) 
 {
-    std::cout << "Hugins cpfind " << DISPLAY_VERSION << endl;
-    std::cout << "based on Pan-o-matic by Anael Orlinski" << endl << endl;    
+	std::cout << "Hugins cpfind " << DISPLAY_VERSION << endl;
+	std::cout << "based on Pan-o-matic by Anael Orlinski" << endl;
 
 	// create a panodetector object
 	PanoDetector aPanoDetector;
 	parseOptions(argc, argv, aPanoDetector);
-	
+
 	if (!aPanoDetector.checkData())
 		return 0;
-	aPanoDetector.printDetails();
+
+	if (aPanoDetector.getVerbose() > 1)
+		aPanoDetector.printDetails();
 	
 	TIMETRACE("Detection",aPanoDetector.run());
-	
+
 	return 0;
 	
 }

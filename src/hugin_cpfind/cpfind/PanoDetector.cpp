@@ -50,6 +50,11 @@ using namespace AppBase;
 using namespace HuginBase::Nona;
 using namespace hugin_utils;
 
+
+#define TRACE_IMG(X) {if (_panoDetector.getVerbose() == 1) {TRACE_INFO("i" << _imgData._number << " : " << X << endl);}}
+#define TRACE_PAIR(X) {if (_panoDetector.getVerbose() == 1){ TRACE_INFO("i" << _matchData._i1->_number << " <> " \
+																		 "i" << _matchData._i2->_number << " : " << X << endl);}}
+
 std::string includeTrailingPathSep(std::string path)
 {
     std::string pathWithSep(path);
@@ -81,7 +86,7 @@ std::string getKeyfilenameFor(std::string keyfilesPath, std::string filename)
 };
 
 PanoDetector::PanoDetector() :	
-	_writeAllKeyPoints(false),
+	_writeAllKeyPoints(false), _verbose(1),
 	_sieve1Width(10), _sieve1Height(10), _sieve1Size(100), 
 	_kdTreeSearchSteps(200), _kdTreeSecondDistance(0.25), _ransacIters(1000), _ransacDistanceThres(50),
 	_sieve2Width(5), _sieve2Height(5),_sieve2Size(1), _test(false), _cores(utils::getCPUCount()),
@@ -217,6 +222,7 @@ public:
 
 	  void run() 
 	  {	
+		  TRACE_IMG("Analyzing image...");
 		  if (!PanoDetector::AnalyzeImage(_imgData, _panoDetector)) return;
 		  PanoDetector::FindKeyPointsInImage(_imgData, _panoDetector);
 		  PanoDetector::FilterKeyPointsInImage(_imgData, _panoDetector);
@@ -239,6 +245,7 @@ public:
 
 	  void run() 
 	  {	
+		  TRACE_IMG("Analyzing image...");
 		  if (!PanoDetector::AnalyzeImage(_imgData, _panoDetector)) return;
 		  PanoDetector::FindKeyPointsInImage(_imgData, _panoDetector);
 		  PanoDetector::FilterKeyPointsInImage(_imgData, _panoDetector);
@@ -260,6 +267,7 @@ class LoadKeypointsDataRunnable : public Runnable
 
 	void run() 
 	{	
+		TRACE_IMG("Loading keypoints...");
 		PanoDetector::LoadKeypoints(_imgData, _panoDetector);
 		PanoDetector::BuildKDTreesInImage(_imgData, _panoDetector);
 	}
@@ -278,9 +286,11 @@ public:
 
 	  void run() 
 	  {	
+		  //TRACE_PAIR("Matching...");
 		  PanoDetector::FindMatchesInPair(_matchData, _panoDetector);
 		  PanoDetector::RansacMatchesInPair(_matchData, _panoDetector);
-		  PanoDetector::FilterMatchesInPair(_matchData, _panoDetector);
+		  PanoDetector::FilterMatchesInPair(_matchData, _panoDetector);		  
+		  TRACE_PAIR("Found " << _matchData._matches.size() << " matches");
 	  }
 private:
 	const PanoDetector&			_panoDetector;
@@ -382,14 +392,17 @@ void PanoDetector::run()
     };
 
     //print some more information about the images
-    printFilenames();
+	if (_verbose > 0) {
+		printFilenames();
+	}
 
     // 2. run analysis of images or keypoints
     try 
     {
         if (_keyPointsIdx.size() != 0)
         {
-            TRACE_INFO(endl<< "--- Analyze Images ---" << endl);
+			if (_verbose > 0)
+				TRACE_INFO(endl<< "--- Analyze Images ---" << endl);
             for (unsigned int i = 0; i < _keyPointsIdx.size(); ++i)
             {
                 aExecutor.execute(new WriteKeyPointsRunnable(_filesData[_keyPointsIdx[i]], *this));
@@ -490,7 +503,7 @@ bool PanoDetector::match(PoolExecutor& aExecutor)
     // 3. prepare matches
     prepareMatches();
     // 4. find matches
-    TRACE_INFO(endl<< "--- Find matches ---" << endl);
+	TRACE_INFO(endl<< "--- Find matches ---" << endl);
     try 
     {
         BOOST_FOREACH(MatchData& aMD, _matchesData)
