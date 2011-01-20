@@ -66,7 +66,6 @@ panotools/PanoToolsTransformGPU.cpp
 vigra_ext/emor.cpp
 vigra_ext/MultiThreadOperations.cpp
 vigra_ext/ImageTransformsGPU.cpp
-../hsi/hpi.cpp
 )
 
 SET(HUGIN_BASE_HEADER

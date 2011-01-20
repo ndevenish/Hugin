@@ -118,6 +118,10 @@ ENDIF(APPLE)
 
 target_link_libraries( ${PROGNAME} ${common_libs} ${image_libs} huginbasewx celeste icpfindlib ${wxWidgets_LIBRARIES} ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES} ${GLUT_LIBRARIES})
 
+IF(BUILD_HSI)
+TARGET_LINK_LIBRARIES(${PROGNAME} hugin_python_interface)
+ENDIF()
+
 IF (APPLE)
   IF (NOT MAC_SELF_CONTAINED_BUNDLE)
     install(TARGETS ${PROGNAME}

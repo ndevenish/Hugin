@@ -1,10 +1,3 @@
-# add Python directories. So far I haven't put  ${PYTHON_LIBRARIES} in
-# into the 'IF (MSVC)' section, because I'm not sure if it's the right
-# thing to do. Of course there should be a switch to only take in the
-# Python libs if hsi is wanted.
-
-FIND_PACKAGE(PythonLibs)
-INCLUDE_DIRECTORIES(${PYTHON_INCLUDE_PATH})
 
 # define common sets of libraries, used by different subdirectories
 IF (MSVC)
@@ -22,11 +15,11 @@ ELSE (MSVC)
   IF(LAPACK_FOUND)
     # need to specify boost thread library
     set(common_libs huginbase
-        ${Boost_LIBRARIES} ${PANO_LIBRARIES} ${LAPACK_LIBRARIES} ${GLEW_LIBRARIES} ${PYTHON_LIBRARIES} huginlevmar)
+        ${Boost_LIBRARIES} ${PANO_LIBRARIES} ${LAPACK_LIBRARIES} ${GLEW_LIBRARIES} huginlevmar)
   ELSE(LAPACK_FOUND)
     # need to specify boost thread library
     set(common_libs huginbase 
-        ${Boost_LIBRARIES} ${PANO_LIBRARIES} ${GLEW_LIBRARIES} ${PYTHON_LIBRARIES} huginlevmar)
+        ${Boost_LIBRARIES} ${PANO_LIBRARIES} ${GLEW_LIBRARIES} huginlevmar)
   ENDIF(LAPACK_FOUND)
 ENDIF (MSVC)
 
@@ -45,9 +38,15 @@ add_subdirectory(lens_calibrate)
 # build vips stuff, only if vips was found
 # not ready for the general public yet
 IF(VIPS_FOUND)
-
 #  add_subdirectory(vips)
 ENDIF(VIPS_FOUND)
+
+# hsi contains the Python interface. This add_ should be conditional,
+# depending on availability of SWIG and Python.
+# this have to come before hugin1 directory
+IF(BUILD_HSI)
+add_subdirectory(hsi)
+ENDIF()
 
 # build gui only if wxWidgets was found
 IF(wxWidgets_FOUND)
@@ -65,6 +64,3 @@ ENDIF(wxWidgets_FOUND)
 
 add_subdirectory(hugin_cpfind)
 add_subdirectory(translations)
-# hsi contains the Python interface. This add_ should be conditional,
-# depending on availability of SWIG and Python.
-add_subdirectory(hsi)

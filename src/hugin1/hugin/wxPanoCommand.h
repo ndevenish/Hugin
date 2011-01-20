@@ -140,6 +140,7 @@ private:
     };
 
     /** run a python script */
+#ifdef HUGIN_HSI
     class PythonScriptPanoCmd : public PanoCommand
     {
     public:
@@ -156,7 +157,7 @@ private:
     private:
 	std::string m_scriptFile;
     };
-
+#endif
 
 
 } // namespace PT

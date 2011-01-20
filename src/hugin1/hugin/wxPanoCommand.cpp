@@ -38,7 +38,9 @@
 #include <vigra/localminmax.hxx>
 #include <panodata/StandardImageVariableGroups.h>
 
+#ifdef HUGIN_HSI
 #include "hsi/hpi.h"     // KFJ
+#endif
 
 using namespace std;
 using namespace vigra;
@@ -628,6 +630,7 @@ void wxApplyTemplateCmd::execute()
     pano.changeFinished();
 }
 
+#ifdef HUGIN_HSI
 bool PythonScriptPanoCmd::processPanorama(Panorama& pano)
 {
     // TODO: add call to python machinery here.
@@ -636,12 +639,14 @@ bool PythonScriptPanoCmd::processPanorama(Panorama& pano)
     int success = callhpi ( m_scriptFile.c_str() , 1 ,
 		           "HuginBase::Panorama*" , &pano ) ;
 
+    wxMessageBox(wxString::Format(wxT("Script return %d"),success),_("Result"), wxICON_INFORMATION);
     std::cout << "Python interface returned " << success << endl ;
     // notify other of change in panorama
     pano.changeFinished();
 
     return true;
 }
+#endif
 
 } // namespace
 

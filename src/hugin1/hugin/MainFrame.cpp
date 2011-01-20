@@ -274,6 +274,10 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
 #endif
     SetMenuBar(wxXmlResource::Get()->LoadMenuBar(this, wxT("main_menubar")));
 
+#ifndef HUGIN_HSI
+    GetMenuBar()->Enable(XRCID("action_python_script"), false);
+#endif
+
     // create tool bar
     SetToolBar(wxXmlResource::Get()->LoadToolBar(this, wxT("main_toolbar")));
 

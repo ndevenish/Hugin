@@ -1,3 +1,0 @@
-#! /bin/sh
-
-tar acvf hsi.src.tgz mktar ../CMakeLists.txt CMakeLists.txt hpi_classes.h hpi.cpp hpi.h hpi.py hsi.cpp hsi.i README.hsi swigpyrun.h demo_plugin.py ../../../hugin_hsi.hg-build/src/hsi/hpi.py ../../../hugin_hsi.hg-build/src/hsi/hsiPYTHON_wrap.cxx ../hugin_base/panodata/PanoramaVariable.h
