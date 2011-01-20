@@ -1,0 +1,4924 @@
+# Romanian translation for Hugin
+# Copyright (C) YEAR Pablo dAngelo
+# This file is distributed under the same license as the hugin package.
+# Mihai <mihaiv@gmail.com>, 2011.
+#
+#: hugin1/hugin/AssistantPanel.cpp:528 hugin1/hugin/CPEditorPanel.cpp:2240
+#: hugin1/hugin/ImagesPanel.cpp:860 PTBatcher/Batch.cpp:127
+msgid ""
+msgstr ""
+"Project-Id-Version: Hugin 0.8.0\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
+"group_id=77506&atid=550441\n"
+"POT-Creation-Date: 2009-03-01 22:38+0000\n"
+"PO-Revision-Date: 2011-01-19 14:51+0200\n"
+"Last-Translator: Mihai <mihaiv@gmail.com>\n"
+"Language-Team:  <>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
+"20)) ? 1 : 2);;\n"
+
+#: hugin1/base_wx/huginConfig.cpp:47 hugin1/base_wx/huginConfig.cpp:82
+#, c-format
+msgid ""
+"External program %s not found as specified in preferences, reverting to "
+"bundled version"
+msgstr ""
+"Programul extern %s nu a fost găsit aşa cum e specificat în preferinţe, "
+"revenind la versiunea inclusă"
+
+#: hugin1/base_wx/huginConfig.cpp:47 hugin1/base_wx/huginConfig.cpp:57
+#: hugin1/base_wx/huginConfig.cpp:69 hugin1/base_wx/huginConfig.cpp:82
+#: hugin1/base_wx/RunStitchPanel.cpp:246 hugin1/hugin/AssistantPanel.cpp:377
+#: hugin1/hugin/AssistantPanel.cpp:552 hugin1/hugin/AssistantPanel.cpp:684
+#: hugin1/hugin/CPEditorPanel.cpp:2138
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:487
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:507
+#: PTBatcherGUI/ProjectListBox.cpp:168
+msgid "Error"
+msgstr "Eroare"
+
+#: hugin1/base_wx/huginConfig.cpp:57 hugin1/base_wx/huginConfig.cpp:69
+#: hugin1/base_wx/RunStitchPanel.cpp:246
+#, c-format
+msgid "External program %s not found in the bundle, reverting to system path"
+msgstr ""
+"Programul extern %s nu a fost găsit in pachet, revenind la calea sistem"
+
+#: hugin1/base_wx/huginConfig.cpp:95 hugin1/base_wx/huginConfig.cpp:109
+#, c-format
+msgid "Program %s not found in preferences, reverting to default value"
+msgstr ""
+"Programul %s nu a fost găsit in preferinţe, revenind la valoarea implicită"
+
+#: hugin1/base_wx/huginConfig.cpp:129 hugin1/base_wx/huginConfig.cpp:134
+#: hugin1/base_wx/huginConfig.cpp:140 hugin1/base_wx/huginConfig.cpp:145
+#: hugin1/base_wx/huginConfig.cpp:150 hugin1/base_wx/huginConfig.cpp:155
+#: hugin1/base_wx/huginConfig.cpp:161 hugin1/base_wx/huginConfig.cpp:166
+#: hugin1/base_wx/huginConfig.cpp:171 hugin1/base_wx/huginConfig.cpp:176
+#: hugin1/base_wx/huginConfig.cpp:182 hugin1/base_wx/huginConfig.cpp:187
+#: hugin1/base_wx/huginConfig.cpp:194 hugin1/base_wx/huginConfig.cpp:199
+msgid "Warning"
+msgstr "Avertisment"
+
+#: hugin1/base_wx/ImageCache.cpp:539
+#, c-format
+msgid "Loading image %s"
+msgstr "Încărcând imaginea %s"
+
+#: hugin1/base_wx/ImageCache.cpp:683
+#, c-format
+msgid "Error reading image: %s"
+msgstr "Eroare la citirea imaginii: %s"
+
+#: hugin1/base_wx/ImageCache.cpp:691 hugin_base/huginapp/ImageCache.cpp:660
+msgid "Cannot load image: "
+msgstr "Nu pot încărca imagine:"
+
+#: hugin1/base_wx/ImageCache.cpp:719
+#, c-format
+msgid "Scaling image %s"
+msgstr "Scalare imagine %s"
+
+#: hugin1/base_wx/ImageCache.cpp:820
+#, c-format
+msgid "Creating grayscale %s"
+msgstr "Creând nuanţe de gri %s"
+
+#: hugin1/base_wx/ImageCache.cpp:838
+#, c-format
+msgid "Creating pyramid image for %s, level %d"
+msgstr "Creând imagine piramidă pentru %s, nivel %d"
+
+#: hugin1/base_wx/MyExternalCmdExecDialog.cpp:160
+#, c-format
+msgid "Failed to kill process %ld, error %d: %s"
+msgstr "Eşuat în a opri procesul %ld, eroare %d: %s"
+
+#: hugin1/base_wx/MyExternalCmdExecDialog.cpp:179
+#, c-format
+msgid "Error pausing process %ld, code 1"
+msgstr "Eroare în a suspenda procesul %ld, cod 1"
+
+#: hugin1/base_wx/MyExternalCmdExecDialog.cpp:196
+#, c-format
+msgid "Error pausing process %ld, code 2"
+msgstr "Eroare în a suspenda procesul %ld, cod 2"
+
+#: hugin1/base_wx/MyExternalCmdExecDialog.cpp:593
+#: hugin1/stitch_project/hugin_stitch_project.cpp:123
+#: PTBatcher/RunStitchFrame.cpp:43 translations/xrc.cpp:87
+#: translations/xrc.cpp:539 translations/xrc.cpp:611 xrc.cpp:87 xrc.cpp:539
+#: xrc.cpp:611
+msgid "Cancel"
+msgstr "Renunţă"
+
+#: hugin1/base_wx/MyExternalCmdExecDialog.h:175
+msgid "Command Line Progress"
+msgstr "Progresul liniei de comandă"
+
+#: hugin1/base_wx/MyProgressDialog.cpp:36
+msgid "Elapsed time : "
+msgstr "Timp trecut : "
+
+#: hugin1/base_wx/MyProgressDialog.h:98
+msgid "Optimizing Panorama"
+msgstr "Optimizare panoramă"
+
+#: hugin1/base_wx/platform.h:39
+msgid ""
+"All Image files|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*."
+"PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr;*.HDR;*.exr;*.EXR|"
+"JPEG files (*.jpg,*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|TIFF files (*.tif,*."
+"tiff)|*.tif;*.TIF;*.tiff;*.TIFF|PNG files (*.png)|*.png;*.PNG|HDR files (*."
+"hdr)|*.hdr;*.HDR|EXR files (*.exr)|*.exr;*.EXR|All files (*)|*"
+msgstr ""
+"Toate fişierele imagine|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;*."
+"png;*.PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr;*.HDR;*.exr;"
+"*.EXR|Fişiere JPEG (*.jpg,*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|Fişiere TIFF (*."
+"tif,*.tiff)|*.tif;*.TIF;*.tiff;*.TIFF|Fişiere PNG (*.png)|*.png;*.PNG|"
+"Fişiere HDR (*.hdr)|*.hdr;*.HDR|Fişiere EXR (*.exr)|*.exr;*.EXR|Toate "
+"fişierele (*)|*"
+
+#: hugin1/base_wx/PTWXDlg.cpp:65 hugin1/base_wx/PTWXDlg.cpp:83
+#: hugin1/base_wx/PTWXDlg.cpp:135 translations/xrc.cpp:541 xrc.cpp:541
+msgid "Panorama Tools"
+msgstr "Unelte panoramă"
+
+#: hugin1/base_wx/PTWXDlg.cpp:84
+msgid ""
+"\n"
+"\n"
+"\n"
+msgstr ""
+"\n"
+"\n"
+"\n"
+
+#: hugin1/base_wx/PTWXDlg.cpp:137
+msgid ""
+"0123456789012345678901234567890123456789012345\n"
+"\n"
+"\n"
+"\n"
+"\n"
+msgstr ""
+"0123456789012345678901234567890123456789012345\n"
+"\n"
+"\n"
+"\n"
+"\n"
+
+#: hugin1/base_wx/PTWXDlg.cpp:139
+msgid ""
+"0123456789012345678901234567890123456789012345\n"
+"\n"
+"\n"
+msgstr ""
+"0123456789012345678901234567890123456789012345\n"
+"\n"
+"\n"
+
+#: hugin1/base_wx/RunStitchPanel.cpp:108
+msgid "Could not open project file:"
+msgstr "Nu pot deschide fişierul proiect:"
+
+#: hugin1/base_wx/RunStitchPanel.cpp:118 hugin1/nona_gui/nona_gui.cpp:232
+#: PTBatcher/ProjectArray.cpp:84
+#, c-format
+msgid "could not open script : %s"
+msgstr "nu pod deschide scriptul : %s"
+
+#: hugin1/base_wx/RunStitchPanel.cpp:138 hugin1/nona_gui/nona_gui.cpp:239
+#: PTBatcher/ProjectArray.cpp:107
+#, c-format
+msgid "error while parsing panotools script: %s"
+msgstr "eroare la parsarea scriptului panotools: %s"
+
+#: hugin1/base_wx/RunStitchPanel.cpp:177 hugin1/base_wx/RunStitchPanel.cpp:194
+#: hugin1/hugin/PanoPanel.cpp:912
+msgid "Could not create temporary file"
+msgstr "Nu pot crea fişier temporar"
+
+#: hugin1/base_wx/RunStitchPanel.cpp:228
+msgid ""
+"Overwrite existing images?\n"
+"\n"
+msgstr ""
+"Suprascrie imaginile existente?\n"
+"\n"
+
+#: hugin1/base_wx/RunStitchPanel.cpp:228
+msgid "Overwrite existing images"
+msgstr "Suprascrie imaginile existente"
+
+#: hugin1/base_wx/RunStitchPanel.cpp:239
+#, c-format
+msgid "Stitching %s"
+msgstr "Îmbinând %s"
+
+#: hugin1/base_wx/RunStitchPanel.cpp:254
+#, c-format
+msgid ""
+"Error while stitching project\n"
+"%s"
+msgstr ""
+"Eroare la îmbinarea proiectului\n"
+"%s"
+
+#: hugin1/base_wx/RunStitchPanel.cpp:255 hugin1/base_wx/RunStitchPanel.cpp:261
+#: hugin1/hugin/NonaStitcherPanel.cpp:326
+#: hugin1/hugin/NonaStitcherPanel.cpp:331
+#: hugin1/stitch_project/hugin_stitch_project.cpp:172
+#: PTBatcher/RunStitchFrame.cpp:120
+msgid "Error during stitching"
+msgstr "Eroare în timpul îmbinării"
+
+#: hugin1/hugin/AssistantPanel.cpp:242
+msgid "Please load images by pressing on the Load images button."
+msgstr "Încărcaţi imaginile apăsând butonul Încarcă imagini."
+
+#: hugin1/hugin/AssistantPanel.cpp:272
+#, c-format
+msgid "%d images loaded."
+msgstr "%d imagini încărcate."
+
+#: hugin1/hugin/AssistantPanel.cpp:306
+#, c-format
+msgid "Images are connected by %d control points.\n"
+msgstr "Imaginile sunt conectate de %d puncte de control.\n"
+
+#: hugin1/hugin/AssistantPanel.cpp:315
+#, c-format
+msgid "%d unconnected image groups found: "
+msgstr "Au fost găsite %d grupuri de imagini neconectate: "
+
+#: hugin1/hugin/AssistantPanel.cpp:316
+msgid ""
+"Please use the Control Points tab to connect all images with control "
+"points.\n"
+msgstr ""
+"Folosiţi fila Puncte de control pentru a conecta toate imaginile cu puncte "
+"de control.\n"
+
+#: hugin1/hugin/AssistantPanel.cpp:319
+msgid "Images or control points have changed, new alignment is needed."
+msgstr ""
+"Imaginile sau punctele de control s-au schimbat, o nouă aliniere este "
+"necesară."
+
+#: hugin1/hugin/AssistantPanel.cpp:330
+msgid "Very good fit."
+msgstr "Foarte bună potrivire."
+
+#: hugin1/hugin/AssistantPanel.cpp:332
+msgid "Good fit."
+msgstr "Buna potrivire."
+
+#: hugin1/hugin/AssistantPanel.cpp:334
+msgid ""
+"Bad fit, some control points might be bad, or there are parallax and "
+"movement errors"
+msgstr ""
+"Proastă potrivire, unele puncte de control s-ar putea sa fie greşite, sau "
+"sunt erori de mişcare şi paralaxă"
+
+#: hugin1/hugin/AssistantPanel.cpp:336
+msgid ""
+"Very bad fit. Check for bad control points, lens parameters, or images with "
+"parallax or movement. The optimizer might have failed. Manual intervention "
+"required."
+msgstr ""
+"Foarte proastă potrivire. Verifică puncte de control greşite, parametri "
+"lentilă, sau imagini cu paralaxă sau mişcare. Optimiza-torul s-ar putea să "
+"fi eşuat. Este necesară intervenţia manuala."
+
+#: hugin1/hugin/AssistantPanel.cpp:338
+#, c-format
+msgid "Mean error after optimization: %.1f pixel, max: %.1f\n"
+msgstr "Eroare medie după optimizare: %.1f pixeli, max: %.1f\n"
+
+#: hugin1/hugin/AssistantPanel.cpp:377
+msgid ""
+"At least two images are required.\n"
+"Please add more images."
+msgstr ""
+"Cel puţin doua imagini sunt necesare.\n"
+"Adaugă mai multe imagini."
+
+#: hugin1/hugin/AssistantPanel.cpp:397
+msgid "Aligning images"
+msgstr "Aliniere imagini"
+
+#: hugin1/hugin/AssistantPanel.cpp:397
+msgid "Finding corresponding points"
+msgstr "Căutând puncte ce corespund"
+
+#: hugin1/hugin/AssistantPanel.cpp:412 hugin1/hugin/AssistantPanel.cpp:441
+#: hugin1/hugin/CPEditorPanel.cpp:2142 hugin1/hugin/CPEditorPanel.cpp:2204
+#: hugin1/hugin/CPEditorPanel.cpp:2214 hugin1/hugin/CPEditorPanel.cpp:2233
+#: hugin1/hugin/ImagesPanel.cpp:739 hugin1/hugin/ImagesPanel.cpp:770
+msgid "Running Celeste"
+msgstr "Rulând Celeste"
+
+#: hugin1/hugin/AssistantPanel.cpp:496 hugin1/hugin/CPEditorPanel.cpp:2148
+#: hugin1/hugin/ImagesPanel.cpp:829
+msgid "searching for cloud-like control points..."
+msgstr "căutând puncte de control de tip nor..."
+
+#: hugin1/hugin/AssistantPanel.cpp:525 hugin1/hugin/CPEditorPanel.cpp:2195
+#: hugin1/hugin/ImagesPanel.cpp:764
+msgid "Celeste model file not found, Hugin needs to be properly installed."
+msgstr ""
+"Fişierul model Celeste nu a fost găsit, Hugin trebuie instalat corespunzător."
+
+#: hugin1/hugin/AssistantPanel.cpp:525 hugin1/hugin/CPEditorPanel.cpp:2195
+#: hugin1/hugin/huginApp.cpp:143 hugin1/hugin/huginApp.cpp:154
+#: hugin1/hugin/huginApp.cpp:166 hugin1/hugin/ImagesPanel.cpp:764
+#: hugin1/stitch_project/hugin_stitch_project.cpp:272
+#: PTBatcherGUI/PTBatcherGUI.cpp:66 PTBatcherGUI/PTBatcherGUI.cpp:72
+msgid "Fatal Error"
+msgstr "Eroare fatală"
+
+#: hugin1/hugin/AssistantPanel.cpp:536
+msgid "Determining placement of the images"
+msgstr "Determinând aşezarea imaginilor"
+
+#: hugin1/hugin/AssistantPanel.cpp:551
+#, c-format
+msgid "Warning %d unconnected image groups found:"
+msgstr "Avertisment %d au fost găsite grupuri de imagini neconectate:"
+
+#: hugin1/hugin/AssistantPanel.cpp:552
+msgid ""
+"Please create control points between unconnected images using the Control "
+"Points tab.\n"
+"\n"
+"After adding the points, press the \"Align\" button again"
+msgstr ""
+"Creează puncte de control între imaginile neconectate folosind fila Puncte "
+"de control.\n"
+"\n"
+"După adăugarea punctelor, apasă butonul \"Aliniază\" încă o dată"
+
+#: hugin1/hugin/AssistantPanel.cpp:587
+msgid "Leveling the panorama"
+msgstr "Nivelând panorama"
+
+#: hugin1/hugin/AssistantPanel.cpp:622
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:476
+msgid "Loading images"
+msgstr "Încărcând imaginile"
+
+#: hugin1/hugin/AssistantPanel.cpp:683
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:487
+msgid "Error: could not load all images"
+msgstr "Eroare: nu am putut încărca toate imaginile"
+
+#: hugin1/hugin/AssistantPanel.cpp:704
+msgid "Vignetting and exposure correction"
+msgstr "Corecţia vignetării si a expunerii"
+
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:118
+msgid "Autopano (version 1.03 or greater), from http://autopano.kolor.com"
+msgstr ""
+"Autopano (versiunea 1.03 sau mai nouă), de la http://autopano.kolor.com"
+
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:119
+msgid "Autopano-Sift, from http://user.cs.tu-berlin.de/~nowozin/autopano-sift/"
+msgstr ""
+"Autopano-Sift, de la http://user.cs.tu-berlin.de/~nowozin/autopano-sift/"
+
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:121
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:278
+msgid "Choose which autopano program should be used\n"
+msgstr "Alege programul autopano ce trebuie utilizat\n"
+
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:121
+msgid "Select autopano type"
+msgstr "Selectează tipul autopano"
+
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:134
+msgid "Autopano from http://autopano.kolor.com is not available for OSX"
+msgstr "Autopano de la http://autopano.kolor.com nu este disponibil pentru OSX"
+
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:135
+msgid "Would you like to use Autopano-Sift instead?"
+msgstr "Vrei să utilizezi Autopano-Sift în loc?"
+
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:279 translations/xrc.cpp:500
+#: translations/xrc.cpp:509 xrc.cpp:500 xrc.cpp:509
+msgid "Autopano"
+msgstr "Autopano"
+
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:294
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:300
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:311
+msgid "Autopano-SIFT not found. Please specify a valid path in the preferences"
+msgstr "Autopano-SIFT nu a fost găsit. Specifică o cale validă in preferinţe"
+
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:362
+#, c-format
+msgid ""
+"Please use  %namefile, %i or %s to specify the input files for autopano-sift"
+msgstr ""
+"Foloseşte %namefile, %i sau %s pentru a specifica fişierele intrare pentru "
+"autopano-sift"
+
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:363
+msgid "Error in Autopano command"
+msgstr "Eroare in comanda Autopano"
+
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:411
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:527
+msgid ""
+"autopano command line too long.\n"
+"This is a windows limitation\n"
+"Please select less images, or place the images in a folder with\n"
+"a shorter pathname"
+msgstr ""
+"Linia de comandă autopano este prea lungă.\n"
+"Aceasta este o limitare a windows\n"
+"Selectează mai puţine imagini, sau plasează imaginile într-un dosar cu\n"
+"o cale mai scurtă"
+
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:412
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:528
+#: hugin1/hugin/NonaStitcherPanel.cpp:415
+msgid "Too many images selected"
+msgstr "Prea multe imagini selectate"
+
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:425
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:434
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:539
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:548
+#: hugin1/hugin/NonaStitcherPanel.cpp:427 hugin1/hugin/PanoPanel.cpp:1008
+msgid "Could not execute command: "
+msgstr "Nu pot executa comanda: "
+
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:425
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:434
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:439
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:539
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:548
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:554
+#: hugin1/hugin/NonaStitcherPanel.cpp:427
+msgid "wxExecute Error"
+msgstr "Eroare wxExecute"
+
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:431
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:545
+msgid "finding control points"
+msgstr "căutând puncte de control"
+
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:437
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:552
+#: hugin1/hugin/NonaStitcherPanel.cpp:430
+msgid "command: "
+msgstr "comandă: "
+
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:438
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:553
+#: hugin1/hugin/NonaStitcherPanel.cpp:431
+msgid ""
+"\n"
+"failed with error code: "
+msgstr ""
+"\n"
+"eşuat cu codul de eroare: "
+
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:444
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:562
+msgid "Could not open "
+msgstr "Nu am putut deschide "
+
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:444
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:562
+msgid ""
+" for reading\n"
+"This is an indicator that the autopano call failed,\n"
+"or wrong command line parameters have been used.\n"
+"\n"
+"Autopano command: "
+msgstr ""
+" pentru citit\n"
+"Aceasta este un indicator ca apelul autopano a eşuat,\n"
+"sau au fost folosiţi parametri de comanda greşiţi.\n"
+"\n"
+"Comanda autopano: "
+
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:445
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:565
+msgid "autopano failure"
+msgstr "eşuare autopano"
+
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:481
+msgid "autopano.exe not found. Please specify a valid path in the preferences"
+msgstr "autopano.exe nu a fost găsit. Specifică o cale validă în preferinţe"
+
+#: hugin1/hugin/AutoCtrlPointCreator.cpp:563
+msgid ""
+"\n"
+" current directory:"
+msgstr ""
+"\n"
+" directorul curent:"
+
+#: hugin1/hugin/CommandHistory.cpp:94
+msgid "no command in undo history"
+msgstr "Nici o comandă în istoricul de anulări"
+
+#: hugin1/hugin/CommandHistory.cpp:106
+msgid "no command in redo history"
+msgstr "Nici o comandă in istoricul repetă"
+
+#: hugin1/hugin/CPEditorPanel.cpp:219 hugin1/hugin/CPListFrame.cpp:283
+#: hugin1/hugin/ImagesList.cpp:71
+msgid "#"
+msgstr "#"
+
+#: hugin1/hugin/CPEditorPanel.cpp:220
+msgid "left x"
+msgstr "x stânga"
+
+#: hugin1/hugin/CPEditorPanel.cpp:221
+msgid "left y"
+msgstr "y stănga"
+
+#: hugin1/hugin/CPEditorPanel.cpp:222
+msgid "right x"
+msgstr "x dreapta"
+
+#: hugin1/hugin/CPEditorPanel.cpp:223
+msgid "right y"
+msgstr "y dreapta"
+
+#: hugin1/hugin/CPEditorPanel.cpp:224 hugin1/hugin/CPListFrame.cpp:290
+#: hugin1/hugin/CPListFrame.cpp:297
+msgid "Alignment"
+msgstr "Aliniere"
+
+#: hugin1/hugin/CPEditorPanel.cpp:225 hugin1/hugin/CPListFrame.cpp:291
+#: hugin1/hugin/CPListFrame.cpp:298
+msgid "Distance"
+msgstr "Distanţă"
+
+#: hugin1/hugin/CPEditorPanel.cpp:544
+msgid "No corresponding point found"
+msgstr "Nu au fost găsite puncte corespunzătoare"
+
+#: hugin1/hugin/CPEditorPanel.cpp:634
+msgid "new control point added"
+msgstr "punct de control nou adăugat"
+
+#: hugin1/hugin/CPEditorPanel.cpp:759 hugin1/hugin/CPEditorPanel.cpp:984
+msgid "searching similar points..."
+msgstr "căutând puncte similare..."
+
+#: hugin1/hugin/CPEditorPanel.cpp:778 hugin1/hugin/CPEditorPanel.cpp:902
+msgid "Error during Fine-tune"
+msgstr "Eroare la reglarea fină"
+
+#: hugin1/hugin/CPEditorPanel.cpp:792 hugin1/hugin/CPEditorPanel.cpp:922
+#: hugin1/hugin/CPEditorPanel.cpp:1058
+#, c-format
+msgid ""
+"Point finetuned, angle: %.0f deg, correlation coefficient: %0.3f, curvature: "
+"%0.3f %0.3f "
+msgstr ""
+"Punct reglat fin, unghi: %.0f gr, coeficient de corelaţie: %0.3f, curbură: %"
+"0.3f %0.3f "
+
+#: hugin1/hugin/CPEditorPanel.cpp:795 hugin1/hugin/CPEditorPanel.cpp:925
+msgid "change points, or press right mouse button to add the pair"
+msgstr ""
+"Schimbă punctele, sau apasă butonul dreapta la mouse pentru a adăuga perechea"
+
+#: hugin1/hugin/CPEditorPanel.cpp:815
+msgid "Estimated point outside image"
+msgstr "Punct estimat în afara imaginii"
+
+#: hugin1/hugin/CPEditorPanel.cpp:1064
+#, c-format
+msgid ""
+"No similar point found. Check the similarity visually.\n"
+"Correlation coefficient (%.3f) is lower than the threshold set in the "
+"preferences."
+msgstr ""
+"Nici un punct similar nu a fost găsit. Verifică similitudinea vizual.\n"
+"Coeficientul de corelaţie (%.3f) este mai mic decât pragul setat in "
+"preferinţe."
+
+#: hugin1/hugin/CPEditorPanel.cpp:1066
+msgid "No similar point found"
+msgstr "Nici un punct similar nu a fost găsit"
+
+#: hugin1/hugin/CPEditorPanel.cpp:1228 hugin1/hugin/CPEditorPanel.cpp:1239
+msgid "Add new Line"
+msgstr "Adaugă o nouă linie"
+
+#: hugin1/hugin/CPEditorPanel.cpp:1234 hugin1/hugin/CPEditorPanel.cpp:1237
+#: hugin1/hugin/CPEditorPanel.cpp:1575 hugin1/hugin/CPListFrame.cpp:417
+#, c-format
+msgid "Line %d"
+msgstr "Linia %d"
+
+#: hugin1/hugin/CPEditorPanel.cpp:1566 hugin1/hugin/CPListFrame.cpp:408
+#: hugin1/hugin/GLPreviewFrame.cpp:266 hugin1/hugin/PreviewFrame.cpp:246
+#: translations/xrc.cpp:49 xrc.cpp:49
+msgid "normal"
+msgstr "normal"
+
+#: hugin1/hugin/CPEditorPanel.cpp:1569 hugin1/hugin/CPListFrame.cpp:411
+msgid "vert. Line"
+msgstr "Linie vert."
+
+#: hugin1/hugin/CPEditorPanel.cpp:1572 hugin1/hugin/CPListFrame.cpp:414
+msgid "horiz. Line"
+msgstr "Linie oriz."
+
+#: hugin1/hugin/CPEditorPanel.cpp:1874
+msgid "Cannot estimate image position without control points"
+msgstr "Nu pot estima poziţia imaginii fără puncte de control"
+
+#: hugin1/hugin/CPEditorPanel.cpp:1895
+msgid ""
+"Create control points.\n"
+"To create less points,\n"
+"enter a higher number."
+msgstr ""
+"Creează puncte de control.\n"
+"Pentru a crea mai puţine puncte,\n"
+"introduce un număr mai mare."
+
+#: hugin1/hugin/CPEditorPanel.cpp:1895
+msgid "Corner Detection threshold"
+msgstr "Prag pentru detecţia colţurilor"
+
+#: hugin1/hugin/CPEditorPanel.cpp:1895 hugin1/hugin/CPEditorPanel.cpp:1899
+#: translations/xrc.cpp:114 xrc.cpp:114
+msgid "Create control points"
+msgstr "Creează puncte de control"
+
+#: hugin1/hugin/CPEditorPanel.cpp:1899
+msgid "Corner Detection scale"
+msgstr "Scară pentru detecţia colţurilor"
+
+#: hugin1/hugin/CPEditorPanel.cpp:1911
+msgid "Error during control point creation:\n"
+msgstr "Eroare în timpul creării punctelor de control:\n"
+
+#: hugin1/hugin/CPEditorPanel.cpp:2046
+msgid "Select Point in right image"
+msgstr "Selectează punct în imaginea din dreapta"
+
+#: hugin1/hugin/CPEditorPanel.cpp:2058
+msgid "Select Point in left image"
+msgstr "Selectează punct în imaginea din stânga"
+
+#: hugin1/hugin/CPEditorPanel.cpp:2138
+msgid ""
+"Cannot run celeste without at least one control point connecting the two "
+"images"
+msgstr ""
+"Nu pot rula celeste fără măcar un punct de control sa conecteze cele două "
+"imagini"
+
+#: hugin1/hugin/CPEditorPanel.cpp:2235
+#, c-format
+msgid ""
+"Finished running Celeste.\n"
+"%d cloud-like control points removed."
+msgstr ""
+"Terminat rulare Celeste.\n"
+"%d puncte de tip nor au fost şterse."
+
+#: hugin1/hugin/CPEditorPanel.cpp:2236 translations/xrc.cpp:62
+#: translations/xrc.cpp:527 xrc.cpp:62 xrc.cpp:527
+msgid "Celeste"
+msgstr "Celeste"
+
+#: hugin1/hugin/CPFineTuneFrame.cpp:38
+msgid "Control point finetune"
+msgstr "Reglaj fin punct de control"
+
+#: hugin1/hugin/CPImageCtrl.cpp:347
+msgid "new"
+msgstr "nou"
+
+#: hugin1/hugin/CPImageCtrl.cpp:1167
+msgid "Could not process event!"
+msgstr "Nu am putut procesa evenimentul!"
+
+#: hugin1/hugin/CPListFrame.cpp:284 hugin1/hugin/CPListFrame.cpp:294
+msgid "Left Img."
+msgstr "Img. stânga"
+
+#: hugin1/hugin/CPListFrame.cpp:285 hugin1/hugin/CPListFrame.cpp:288
+#: translations/xrc.cpp:19 translations/xrc.cpp:41 xrc.cpp:19 xrc.cpp:41
+msgid "x"
+msgstr "x"
+
+#: hugin1/hugin/CPListFrame.cpp:286 hugin1/hugin/CPListFrame.cpp:289
+msgid "y"
+msgstr "y"
+
+#: hugin1/hugin/CPListFrame.cpp:287 hugin1/hugin/CPListFrame.cpp:295
+msgid "Right Img."
+msgstr "Img. dreapta"
+
+#: hugin1/hugin/CPListFrame.cpp:293
+msgid "G CP#"
+msgstr "G CP#"
+
+#: hugin1/hugin/CPListFrame.cpp:296
+msgid "P CP#"
+msgstr "P CP#"
+
+#: hugin1/hugin/CPListFrame.cpp:622
+msgid ""
+"Enter minimum control point error.\n"
+"All points with a higher error will be selected"
+msgstr ""
+"Introduce eroarea minimă a punctelor de control.\n"
+"Toate punctele cu o eroare mai mare vor fi selectate"
+
+#: hugin1/hugin/CPListFrame.cpp:622
+msgid "Select Control Points"
+msgstr "Selectează Punctele de control"
+
+#: hugin1/hugin/CropPanel.cpp:250 hugin1/hugin/CropPanel.cpp:266
+#: hugin1/hugin/CropPanel.cpp:282 hugin1/hugin/CropPanel.cpp:298
+msgid "Please enter a valid number"
+msgstr "Introduce un număr valid"
+
+#: hugin1/hugin/GLPreviewFrame.cpp:128
+msgid "Fast Panorama preview"
+msgstr "Pre-vizualizare rapidă panoramă"
+
+#: hugin1/hugin/GLPreviewFrame.cpp:150 hugin1/hugin/PreviewFrame.cpp:129
+msgid "displayed images"
+msgstr "imagini afişate"
+
+#: hugin1/hugin/GLPreviewFrame.cpp:186 hugin1/hugin/PreviewFrame.cpp:166
+msgid "VFOV"
+msgstr "VFOF"
+
+#: hugin1/hugin/GLPreviewFrame.cpp:190 hugin1/hugin/PreviewFrame.cpp:170
+msgid "drag to change the vertical field of view"
+msgstr "trage pentru a selecta câmpul de vedere vertical"
+
+#: hugin1/hugin/GLPreviewFrame.cpp:199 hugin1/hugin/PreviewFrame.cpp:179
+msgid "HFOV"
+msgstr "HFOF"
+
+#: hugin1/hugin/GLPreviewFrame.cpp:204 hugin1/hugin/PreviewFrame.cpp:184
+msgid "drag to change the horizontal field of view"
+msgstr "trage pentru a selecta câmpul de vedere orizontal"
+
+#: hugin1/hugin/GLPreviewFrame.cpp:215 hugin1/hugin/PreviewFrame.cpp:195
+msgid "Preview Options"
+msgstr "Opţiuni pre-vizualizare"
+
+#: hugin1/hugin/GLPreviewFrame.cpp:218 hugin1/hugin/PreviewFrame.cpp:198
+#: translations/xrc.cpp:363 xrc.cpp:363
+msgid "projection (f):"
+msgstr "proiecţie (f):"
+
+#: hugin1/hugin/GLPreviewFrame.cpp:261 hugin1/hugin/PreviewFrame.cpp:241
+msgid "Blend mode:"
+msgstr "Mod îmbinare:"
+
+#: hugin1/hugin/GLPreviewFrame.cpp:267 hugin1/hugin/PreviewFrame.cpp:247
+msgid "difference"
+msgstr "diferenţă"
+
+#: hugin1/hugin/GLPreviewFrame.cpp:306 hugin1/hugin/PreviewFrame.cpp:281
+msgid "EV:"
+msgstr "EV:"
+
+#: hugin1/hugin/GLPreviewFrame.cpp:319 hugin1/hugin/GLPreviewFrame.cpp:353
+#: hugin1/hugin/PreviewFrame.cpp:294 hugin1/hugin/PreviewFrame.cpp:328
+msgid "0"
+msgstr "0"
+
+#: hugin1/hugin/GLPreviewFrame.cpp:339 hugin1/hugin/PreviewFrame.cpp:314
+msgid "Projection Parameters"
+msgstr "Parametri proiecţie"
+
+#: hugin1/hugin/GLPreviewFrame.cpp:348 hugin1/hugin/PreviewFrame.cpp:323
+msgid "param:"
+msgstr "param:"
+
+#: hugin1/hugin/GLPreviewFrame.cpp:629 hugin1/hugin/PreviewFrame.cpp:623
+msgid "Rectilinear"
+msgstr "Rectiliniu"
+
+#: hugin1/hugin/GLPreviewFrame.cpp:630 hugin1/hugin/PreviewFrame.cpp:624
+msgid "Cylindrical"
+msgstr "Cilindric"
+
+#: hugin1/hugin/GLPreviewFrame.cpp:631 hugin1/hugin/ImagesList.cpp:492
+#: hugin1/hugin/PreviewFrame.cpp:625 translations/xrc.cpp:15
+#: translations/xrc.cpp:33 translations/xrc.cpp:142 xrc.cpp:15 xrc.cpp:33
+#: xrc.cpp:142
+msgid "Equirectangular"
+msgstr "Equirectangular"
+
+#: hugin1/hugin/GLPreviewFrame.cpp:727 hugin1/hugin/PreviewFrame.cpp:737
+msgid "Yaw value must be numeric."
+msgstr "Valoarea derivei trebuie să fie numerică."
+
+#: hugin1/hugin/GLPreviewFrame.cpp:733 hugin1/hugin/PreviewFrame.cpp:743
+msgid "Pitch value must be numeric."
+msgstr "Valoarea înclinaţiei trebuie să fie numerică."
+
+#: hugin1/hugin/GLPreviewFrame.cpp:739 hugin1/hugin/PreviewFrame.cpp:749
+msgid "Roll value must be numeric."
+msgstr "Valoarea rotaţiei trebuie să fie numerică."
+
+#: hugin1/hugin/GLPreviewFrame.cpp:760 hugin1/hugin/GLPreviewFrame.cpp:776
+#: hugin1/hugin/huginApp.cpp:66 hugin1/hugin/ImagesPanel.cpp:299
+#: hugin1/hugin/ImagesPanel.cpp:320 hugin1/hugin/ImagesPanel.cpp:340
+#: hugin1/hugin/PanoPanel.cpp:588 hugin1/hugin/PanoPanel.cpp:619
+#: hugin1/hugin/PreviewFrame.cpp:772 hugin1/hugin/PreviewFrame.cpp:788
+msgid "Value must be numeric."
+msgstr "Valoarea trebuie să fie numerică."
+
+#: hugin1/hugin/HFOVDialog.cpp:76
+#, c-format
+msgid ""
+"No or only partial information about field of view was found in image file\n"
+"%s\n"
+"\n"
+"Please enter the horizontal field of view (HFOV) or the focal length and "
+"crop factor."
+msgstr ""
+"Deloc sau doar informaţie parţială despre câmpul de vedere a fost găsită în "
+"fişierul imagine\n"
+"%s\n"
+"\n"
+"Introduce câmpul de vedere orizontal (HFOV) sau lungimea focală si factorul "
+"de decupare."
+
+#: hugin1/hugin/HFOVDialog.cpp:157
+msgid "The horizontal field of view must be positive."
+msgstr "Câmpul de vedere orizontal trebuie să fie pozitiv."
+
+#: hugin1/hugin/HFOVDialog.cpp:209
+msgid "The focal length must be positive."
+msgstr "Lungimea focală trebuie sa fie pozitivă."
+
+#: hugin1/hugin/HFOVDialog.cpp:249
+msgid "The crop factor must be positive."
+msgstr "Factorul de decupare trebuie sa fie pozitiv."
+
+#: hugin1/hugin/huginApp.cpp:143 PTBatcherGUI/PTBatcherGUI.cpp:66
+msgid "xrc directory not found in bundle"
+msgstr "Dosarul xrc nu a fost găsit în pachet"
+
+#: hugin1/hugin/huginApp.cpp:154
+#: hugin1/stitch_project/hugin_stitch_project.cpp:272
+#: PTBatcherGUI/PTBatcherGUI.cpp:72
+msgid "Translations not found in bundle"
+msgstr "Traducerile nu au fost găsite in pachet"
+
+#: hugin1/hugin/huginApp.cpp:166
+msgid ""
+"xrc directory not found, hugin needs to be properly installed\n"
+"Tried Path:"
+msgstr ""
+"Dosarul xrc nu a fost găsit, hugin trebuie să fie corect instalat\n"
+"Cale încercată:"
+
+#: hugin1/hugin/ImagesList.cpp:332 hugin1/hugin/ImagesList.cpp:448
+msgid "Filename"
+msgstr "Nume-fişier"
+
+#: hugin1/hugin/ImagesList.cpp:333
+msgid "width"
+msgstr "lăţime"
+
+#: hugin1/hugin/ImagesList.cpp:334
+msgid "height"
+msgstr "Înălţime"
+
+#: hugin1/hugin/ImagesList.cpp:335
+msgid "yaw (y)"
+msgstr "derivă (y)"
+
+#: hugin1/hugin/ImagesList.cpp:336
+msgid "pitch (p)"
+msgstr "Înclinaţie (p)"
+
+#: hugin1/hugin/ImagesList.cpp:337
+msgid "roll (r)"
+msgstr "Rotaţie (r)"
+
+#: hugin1/hugin/ImagesList.cpp:338
+msgid "Anchor"
+msgstr "Ancoră"
+
+#: hugin1/hugin/ImagesList.cpp:339
+msgid "# Ctrl Pnts"
+msgstr "# Pnct ctrl"
+
+#: hugin1/hugin/ImagesList.cpp:449
+msgid "Lens no."
+msgstr "Nr. lentilă"
+
+#: hugin1/hugin/ImagesList.cpp:450
+msgid "Lens type (f)"
+msgstr "Tip lentilă (f)"
+
+#: hugin1/hugin/ImagesList.cpp:451
+msgid "EV"
+msgstr "EV"
+
+#: hugin1/hugin/ImagesList.cpp:452
+msgid "hfov (v)"
+msgstr "hfov (v)"
+
+#: hugin1/hugin/ImagesList.cpp:453
+msgid "a"
+msgstr "a"
+
+#: hugin1/hugin/ImagesList.cpp:454
+msgid "b"
+msgstr "b"
+
+#: hugin1/hugin/ImagesList.cpp:455
+msgid "c"
+msgstr "c"
+
+#: hugin1/hugin/ImagesList.cpp:456
+msgid "d"
+msgstr "d"
+
+#: hugin1/hugin/ImagesList.cpp:457
+msgid "e"
+msgstr "e"
+
+#: hugin1/hugin/ImagesList.cpp:458
+msgid "g"
+msgstr "g"
+
+#: hugin1/hugin/ImagesList.cpp:459
+msgid "t"
+msgstr "t"
+
+#: hugin1/hugin/ImagesList.cpp:488 translations/xrc.cpp:11
+#: translations/xrc.cpp:29 translations/xrc.cpp:138 xrc.cpp:11 xrc.cpp:29
+#: xrc.cpp:138
+msgid "Normal (rectilinear)"
+msgstr "Normal (rectiliniu)"
+
+#: hugin1/hugin/ImagesList.cpp:489 translations/xrc.cpp:12
+#: translations/xrc.cpp:30 translations/xrc.cpp:139 xrc.cpp:12 xrc.cpp:30
+#: xrc.cpp:139
+msgid "Panoramic (cylindrical)"
+msgstr "Panoramic (cilindric)"
+
+#: hugin1/hugin/ImagesList.cpp:490 translations/xrc.cpp:13
+#: translations/xrc.cpp:31 translations/xrc.cpp:140 xrc.cpp:13 xrc.cpp:31
+#: xrc.cpp:140
+msgid "Circular fisheye"
+msgstr "Fisheye circular"
+
+#: hugin1/hugin/ImagesList.cpp:491 translations/xrc.cpp:14
+#: translations/xrc.cpp:32 translations/xrc.cpp:141 xrc.cpp:14 xrc.cpp:32
+#: xrc.cpp:141
+msgid "Full frame fisheye"
+msgstr "Fisheye cadru complet"
+
+#: hugin1/hugin/ImagesList.cpp:561 translations/xrc.cpp:194
+#: translations/xrc.cpp:373 translations/xrc.cpp:592 xrc.cpp:194 xrc.cpp:373
+#: xrc.cpp:592
+msgid "Crop"
+msgstr "Decupare"
+
+#: hugin1/hugin/ImagesPanel.cpp:278
+#, c-format
+msgid "Added %d control points"
+msgstr "Adăugat %d puncte de control"
+
+#: hugin1/hugin/ImagesPanel.cpp:278
+msgid "Autopano result"
+msgstr "Rezultat autopano"
+
+#: hugin1/hugin/ImagesPanel.cpp:652
+#, c-format
+msgid "Really Delete %d control points?"
+msgstr "Şterge %d puncte de control?"
+
+#: hugin1/hugin/ImagesPanel.cpp:654
+msgid "Delete Control Points"
+msgstr "Şterge puncte de control"
+
+#: hugin1/hugin/ImagesPanel.cpp:839
+msgid "classifying control points..."
+msgstr "clasificând punctele de control..."
+
+#: hugin1/hugin/ImagesPanel.cpp:866
+#, c-format
+msgid "Removed %d control points"
+msgstr "Şters %d puncte de control"
+
+#: hugin1/hugin/ImagesPanel.cpp:866
+msgid "Celeste result"
+msgstr "Rezultat celeste"
+
+#: hugin1/hugin/LensPanel.cpp:832
+msgid "Not a jpeg file:"
+msgstr "Nu e un fişier jpeg:"
+
+#: hugin1/hugin/LensPanel.cpp:837 hugin1/hugin/LensPanel.cpp:946
+#: hugin1/hugin/LensPanel.cpp:979 hugin1/hugin/LensPanel.cpp:1099
+#: hugin1/hugin/LensPanel.cpp:1117
+msgid "Please select an image and try again"
+msgstr "Selectează o imagine si încearcă din nou"
+
+#: hugin1/hugin/LensPanel.cpp:855
+msgid "Save lens parameters file"
+msgstr "Salvează fişierul cu parametrii lentilei"
+
+#: hugin1/hugin/LensPanel.cpp:857
+msgid "Lens Project Files (*.ini)|*.ini|All files (*)|*"
+msgstr "Fişiere proiect lentile (*.ini)|*.ini|Toare fişierele (*)|*"
+
+#: hugin1/hugin/LensPanel.cpp:988
+msgid "Load lens parameters"
+msgstr "Încarcă parametri lentilă"
+
+#: hugin1/hugin/LensPanel.cpp:990
+msgid "Lens Project Files (*.ini)|*.ini|All files (*.*)|*.*"
+msgstr "Fişiere proiect lentile (*.ini)|*.ini|Toare fişierele (*.*)|*.*"
+
+#: hugin1/hugin/LensPanel.cpp:1009
+msgid ""
+"Incompatible lens parameter file, image sizes do not match\n"
+"Apply settings anyway?"
+msgstr ""
+"Fişier parametri lentile incompatibil, dimensiunile imaginii nu se "
+"potrivesc\n"
+"Aplică setări oricum?"
+
+#: hugin1/hugin/LensPanel.cpp:1009
+msgid "Error loading lens parameters"
+msgstr "Eroare la încărcarea parametrilor lentilei"
+
+#: hugin1/hugin/LensPanel.cpp:1107
+msgid "Enter new lens number"
+msgstr "Introduce noul număr de lentilă"
+
+#: hugin1/hugin/LensPanel.cpp:1107
+msgid "Lens number"
+msgstr "Număr lentilă"
+
+#: hugin1/hugin/LensPanel.cpp:1108
+msgid "Change lens number"
+msgstr "Schimbă numărul de lentilă"
+
+#: hugin1/hugin/LocalizedFileTipProvider.cpp:48
+msgid "Tips not available, sorry!"
+msgstr "Indiciile nu sunt disponibile!"
+
+#: hugin1/hugin/MainFrame.cpp:213
+#, c-format
+msgid "Prerelease %s"
+msgstr "Pre-lansare %s"
+
+#: hugin1/hugin/MainFrame.cpp:215
+#, c-format
+msgid "Version %s"
+msgstr "Versiunea %s"
+
+#: hugin1/hugin/MainFrame.cpp:236
+msgid ""
+"Fatal installation error\n"
+"The file data/splash.png was not found at:"
+msgstr ""
+"Eroare de instalare\n"
+"Fişierul data/splash.png nu a fost găsit la:"
+
+#: hugin1/hugin/MainFrame.cpp:256 translations/xrc.cpp:202
+#: translations/xrc.cpp:243 translations/xrc.cpp:244 xrc.cpp:202 xrc.cpp:243
+#: xrc.cpp:244
+msgid "&Help"
+msgstr "&Ajutor"
+
+#: hugin1/hugin/MainFrame.cpp:337
+msgid "Started"
+msgstr "Început"
+
+#: hugin1/hugin/MainFrame.cpp:467
+msgid ""
+"The panorama has been changed\n"
+"Save changes?"
+msgstr ""
+"Panorama a fost schimbată\n"
+"Salvează modificări?"
+
+#: hugin1/hugin/MainFrame.cpp:467
+msgid "Save Panorama?"
+msgstr "Salvează panorama?"
+
+#: hugin1/hugin/MainFrame.cpp:500
+msgid "forced close"
+msgstr "închidere forţată"
+
+#: hugin1/hugin/MainFrame.cpp:564
+#, c-format
+msgid "saved project %s"
+msgstr "proiect salvat %s"
+
+#: hugin1/hugin/MainFrame.cpp:581
+msgid "Save project file"
+msgstr "Salvează fişierul proiect"
+
+#: hugin1/hugin/MainFrame.cpp:583
+msgid "Project files (*.pto)|*.pto|All files (*)|*"
+msgstr "Fişiere proiect (*.pto)|*.pto|Toate fişierele (*)|*"
+
+#: hugin1/hugin/MainFrame.cpp:593
+#, c-format
+msgid "File %s exists. Overwrite?"
+msgstr "Fişierul %s există. Suprascrie?"
+
+#: hugin1/hugin/MainFrame.cpp:594 translations/xrc.cpp:262 xrc.cpp:262
+msgid "Save project"
+msgstr "Salvează proiect"
+
+#: hugin1/hugin/MainFrame.cpp:614
+msgid "Save PTmender script file"
+msgstr "Salvează fişierul script PTmender"
+
+#: hugin1/hugin/MainFrame.cpp:616
+msgid "PTmender files (*.txt)|*.txt"
+msgstr "Fişiere PTmender (*.txt)|*.txt"
+
+#: hugin1/hugin/MainFrame.cpp:643
+msgid "Open project:   "
+msgstr "Deschide proiect:   "
+
+#: hugin1/hugin/MainFrame.cpp:654
+msgid "Project opened"
+msgstr "Proiect deschis"
+
+#: hugin1/hugin/MainFrame.cpp:666
+msgid "Error opening project:   "
+msgstr "Eroare la deschiderea proiectului:   "
+
+#: hugin1/hugin/MainFrame.cpp:712
+msgid "Open project file"
+msgstr "Deschide fişier proiect"
+
+#: hugin1/hugin/MainFrame.cpp:714 hugin1/hugin/MainFrame.cpp:1204
+#: hugin1/stitch_project/hugin_stitch_project.cpp:338 PTBatcher/Batch.cpp:572
+#: PTBatcherGUI/BatchFrame.cpp:435
+msgid ""
+"Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files "
+"(*)|*"
+msgstr ""
+"Fişiere proiect (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|Toate "
+"fişierele (*)|*"
+
+#: hugin1/hugin/MainFrame.cpp:728
+msgid "Open project: cancel"
+msgstr "Deschide proiect: anulează"
+
+#: hugin1/hugin/MainFrame.cpp:763 hugin1/hugin/wxPanoCommand.cpp:359
+#: hugin1/hugin/wxPanoCommand.cpp:434
+msgid "Add images"
+msgstr "Adaugă imagini"
+
+#: hugin1/hugin/MainFrame.cpp:829
+msgid "Add Image: cancel"
+msgstr "Adaugă imagini: anulează"
+
+#: hugin1/hugin/MainFrame.cpp:1202
+msgid "Choose template project"
+msgstr "Alege proiectul şablon"
+
+#: hugin1/hugin/MainFrame.cpp:1269
+msgid "Fine-tuning all points"
+msgstr "Reglând fin toate punctele"
+
+#: hugin1/hugin/MainFrame.cpp:1271
+msgid "Finetuning"
+msgstr "Reglând-fin"
+
+#: hugin1/hugin/MainFrame.cpp:1363
+#, c-format
+msgid ""
+"%d points fine-tuned, %d points not updated due to low correlation\n"
+"\n"
+"Hint: The errors of the fine-tuned points have been set to the correlation "
+"coefficient\n"
+"Problematic points can be spotted (just after fine-tune, before optimizing)\n"
+"by an error <= %.3f.\n"
+"The error of points without a well defined peak (typically in regions with "
+"uniform color)\n"
+"will be set to 0\n"
+"\n"
+"Use the Control Point list (F3) to see all points of the current project\n"
+msgstr ""
+"%d puncte reglate fin, %d puncte neactualizate datorită corelaţiei scăzute\n"
+"\n"
+"Indiciu: Erorile punctelor reglate fin au fost setate la coeficientul de "
+"corelaţie\n"
+"Puncte cu probleme pot fi observate (imediat după reglaj fin, înainte de "
+"optimizare)\n"
+"cu o eroare <= %3f.\n"
+"Eroarea punctelor fără un vârf bine definit (de obicei în regiuni cu culoare "
+"uniformă)\n"
+"va fi setată la 0\n"
+"\n"
+"Foloseşte lista Punctelor de control (F3) pentru a vedea toate punctele din "
+"proiectul curent\n"
+
+#: hugin1/hugin/MainFrame.cpp:1365
+msgid "Fine-tune result"
+msgstr "Rezultat reglaj fin"
+
+#: hugin1/hugin/NonaOptionsDialog.cpp:55
+msgid "Nona options"
+msgstr "Opţiuni Nona"
+
+#: hugin1/hugin/NonaStitcherPanel.cpp:288 hugin1/nona_gui/nona_gui.cpp:226
+msgid "Stitching Panorama"
+msgstr "Îmbinând panorama"
+
+#: hugin1/hugin/NonaStitcherPanel.cpp:325
+msgid ""
+"Out of memory.\n"
+"Try again with a smaller panorama image size\n"
+msgstr ""
+"Rămas fără memorie.\n"
+"Încearcă din nou cu o imagine a panoramei mai mică\n"
+
+#: hugin1/hugin/NonaStitcherPanel.cpp:346
+msgid "Select enblend.exe"
+msgstr "Selectează enblend.exe"
+
+#: hugin1/hugin/NonaStitcherPanel.cpp:354
+msgid "No enblend.exe selected"
+msgstr "Nici un enblend.exe selectat"
+
+#: hugin1/hugin/NonaStitcherPanel.cpp:365
+msgid "Select enblend commandline tool"
+msgstr "Selectează unealta linie de comandă pentru îmbinare (enblend)"
+
+#: hugin1/hugin/NonaStitcherPanel.cpp:373
+msgid "No enblend commandline tool selected"
+msgstr ""
+"Nici o unealtă linie de comanda pentru îmbinare (enblend) nu a fost selectată"
+
+#: hugin1/hugin/NonaStitcherPanel.cpp:414
+msgid ""
+"Can not call enblend with a command line > 32766 characters.\n"
+"This is a Windows limitation\n"
+"Please use less images, or place the images in a folder with\n"
+"a shorter pathname"
+msgstr ""
+"Nu pot apela enblend cu o linie de comandă > 32766 caractere.\n"
+"Aceasta este o limitare a Windows\n"
+"Foloseşte mai puţine imagini, sau plasează imaginile într-un dosar cu\n"
+"o cale mai scurtă"
+
+#: hugin1/hugin/NonaStitcherPanel.cpp:432
+msgid "enblend error"
+msgstr "eroare enblend"
+
+#: hugin1/hugin/NonaStitcherPanel.cpp:506 hugin1/hugin/PTStitcherPanel.cpp:310
+msgid "gamma must be a number"
+msgstr "gamma trebuie sa fie un număr"
+
+#: hugin1/hugin/OptimizePanel.cpp:631
+msgid ""
+"Optimizer run finished.\n"
+"WARNING: a very small Field of View (v) has been estimated\n"
+"\n"
+"The results are probably invalid.\n"
+"\n"
+"Optimization of the Field of View (v) of partial panoramas can lead to bad "
+"results.\n"
+"Try adding more images and control points.\n"
+"\n"
+"Apply the changes anyway?"
+msgstr ""
+"Rularea optimiza-torului s-a terminat.\n"
+"AVERTISMENT: un Câmp de vedere (v) foarte mic a fost estimat\n"
+"\n"
+"Rezultatele sunt probabil invalide.\n"
+"\n"
+"Optimizarea Câmpului de vedere (v) al panoramelor parţiale poate duce la "
+"rezultate greşite.\n"
+"Încearcă sa adaugi mai multe imagini şi puncte de control.\n"
+"\n"
+"Aplică schimbările oricum?"
+
+#: hugin1/hugin/OptimizePanel.cpp:634
+#, c-format
+msgid ""
+"Optimizer run finished.\n"
+"Results:\n"
+" average control point distance: %f\n"
+" standard deviation: %f\n"
+" maximum: %f\n"
+"\n"
+"*WARNING*: very high distortion coefficients (a,b,c) have been estimated.\n"
+"The results are probably invalid.\n"
+"Only optimize all distortion parameters when many, well spread control "
+"points are used.\n"
+"Please reset the a,b and c parameters to zero and add more control points\n"
+"\n"
+"Apply the changes anyway?"
+msgstr ""
+"Rularea optimiza-torului s-a terminat.\n"
+"Rezultate:\n"
+" distanţa medie a punctelor de control: %f\n"
+" abaterea medie: %f\n"
+" maxim: %f\n"
+"\n"
+"*AVERTISMENT*: coeficienţi de deformare (a,b,c) foarte mari au fost "
+"estimaţi.\n"
+"Rezultatele sunt probabil invalide.\n"
+"Optimizează toţi parametrii de deformare doar când multe, bine distribuite "
+"puncte de control sunt folosite.\n"
+"Restabileşte parametrii a, b şi c la zero şi adaugă mai multe puncte de "
+"control\n"
+"\n"
+"Aplică schimbările oricum?"
+
+#: hugin1/hugin/OptimizePanel.cpp:638
+#, c-format
+msgid ""
+"Optimizer run finished.\n"
+"Results:\n"
+" average control point distance: %f\n"
+" standard deviation: %f\n"
+" maximum: %f\n"
+"\n"
+"Apply the changes?"
+msgstr ""
+"Rularea optimiza-torului s-a terminat.\n"
+"Rezultate:\n"
+" distanţa medie a punctelor de control: %f\n"
+" abaterea medie: %f\n"
+" maxim: %f\n"
+"\n"
+"Aplică schimbările?"
+
+#: hugin1/hugin/OptimizePanel.cpp:643
+msgid "Optimization result"
+msgstr "Rezultatul optimizării"
+
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:449
+msgid ""
+"The same vignetting and response parameters should\n"
+"be applied for all images of a lens.\n"
+"Currently each image can have different parameters.\n"
+"Link parameters?"
+msgstr ""
+"Aceiaşi parametri de vignetare şi răspuns trebuie\n"
+"aplicaţi la toate imaginile unei lentile.\n"
+"Acum fiecare imagine poate avea parametri diferiţi.\n"
+"Leagă parametrii?"
+
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:449
+msgid "Link parameters"
+msgstr "Leagă parametrii"
+
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:467
+msgid ""
+"The vignetting and exposure correction is determined by analysing color "
+"values in the overlapping areas.\n"
+"To speed up the computation, only a random subset of points is used."
+msgstr ""
+"Corectarea vignetării şi expunerii este determinată de valorile culorilor în "
+"zonele suprapuse.\n"
+"Pentru a grăbi calculul, doar un sub-set de puncte selectate aleator este "
+"utilizat."
+
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:468
+msgid "Number of points per image"
+msgstr "Număr de puncte per imagine"
+
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:469
+msgid "Photometric optimization"
+msgstr "Optimizare fotometrică"
+
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:476
+msgid "Photometric alignment"
+msgstr "Aliniere fotometrica"
+
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:507
+msgid "Error: no overlapping points found, Photometric optimization aborted"
+msgstr ""
+"Eroare: nu s-au găsit puncte suprapuse, optimizarea fotometrica este anulată"
+
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:540
+msgid "Internal error during photometric optimization:\n"
+msgstr "Eroare internă in timpul optimizării fotometrice:\n"
+
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:540
+msgid "Internal error"
+msgstr "Eroare internă"
+
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:546
+#, c-format
+msgid ""
+"Photometric optimization results:\n"
+"Average difference (RMSE) between overlapping pixels: %.2f gray values "
+"(0..255)\n"
+"\n"
+"Apply results?"
+msgstr ""
+"Rezultate optimizare fotometrică:\n"
+"Diferenţa medie (RMSE) între punctele suprapuse: %.2f valori gri (0..255)\n"
+"\n"
+"Aplica rezultate?"
+
+#: hugin1/hugin/OptimizePhotometricPanel.cpp:547
+msgid "Photometric optimization finished"
+msgstr "Optimizare fotometrică terminată"
+
+#: hugin1/hugin/PanoDruid.cpp:43
+msgid "The druid has no advice."
+msgstr "Druid-ul nu are nici un sfat."
+
+#: hugin1/hugin/PanoDruid.cpp:53 hugin1/hugin/PanoDruid.cpp:423
+msgid "The druid finds no problems with your panorama."
+msgstr "Druid-ul nu a găsit nici o problema cu panorama."
+
+#: hugin1/hugin/PanoDruid.cpp:54 hugin1/hugin/PanoDruid.cpp:424
+msgid ""
+"Stitch your final image now, and then use an image editor\n"
+"such as the GNU Image Manipulation Program (the GIMP)\n"
+"to add any finishing touches."
+msgstr ""
+"Îmbină imaginea finală acum, şi foloseşte apoi un editor de imagini\n"
+"cum ar fi GNU Image Manipulation Program (GIMP)\n"
+"pentru modificările finale."
+
+#: hugin1/hugin/PanoDruid.cpp:63 hugin1/hugin/PanoDruid.cpp:443
+msgid "Warning:  you haven't saved the current project."
+msgstr "Avertisment: nu ai salvat proiectul curent."
+
+#: hugin1/hugin/PanoDruid.cpp:64 hugin1/hugin/PanoDruid.cpp:444
+msgid ""
+"While everything else seems to be ready to stitch,\n"
+"don't forget to save your project file so you can\n"
+"experiment or adjust the settings later."
+msgstr ""
+"Deşi totul pare în regulă pentru a îmbina,\n"
+"nu uita să salvezi fişierul proiect astfel încât sa poţi\n"
+"experimenta sau ajusta setările mai târziu."
+
+#: hugin1/hugin/PanoDruid.cpp:73 hugin1/hugin/PanoDruid.cpp:439
+msgid "Warning:  current stitch has huge dimensions."
+msgstr "Avertisment: îmbinarea curentă are dimensiuni uriaşe."
+
+#: hugin1/hugin/PanoDruid.cpp:74
+msgid ""
+"Very large pixel dimensions are currently entered.\n"
+"Some computers may take an excessively long time\n"
+"to render such a large final image.\n"
+"For best results, use the Calculate Optimal Size button on\n"
+"the Panorama Options tab to determine the\n"
+"pixel dimensions which will give the best quality."
+msgstr ""
+"Dimensiuni în pixeli foarte mari sunt introduse.\n"
+"Pe unele calculatoare poate sa ia un timp excesiv de lung\n"
+"pentru a randa o imagine finala aşa de mare.\n"
+"Pentru rezultate optime, foloseşte butonul Calculează dimensiunea\n"
+"optima din fila Opţiuni panoramă pentru a determina\n"
+"dimensiunea în pixeli care va da cea mai bună calitate."
+
+#: hugin1/hugin/PanoDruid.cpp:104 hugin1/hugin/PanoDruid.cpp:435
+msgid "The Horizontal Field of View (HFOV) may be too low."
+msgstr "Câmpul de vedere orizontal (HFOV) poate fi prea mic."
+
+#: hugin1/hugin/PanoDruid.cpp:105 hugin1/hugin/PanoDruid.cpp:436
+msgid ""
+"Check that the focal lengths and/or hfov figures\n"
+"for each image are correct for the camera settings.\n"
+"Then calculate the visible field of view again.\n"
+"HFOV is measured in degrees of arc, usually between\n"
+"5 and 120 degrees per image unless using specialized\n"
+"lenses."
+msgstr ""
+"Verifică ca lungimea focală şi/sau valorile hfov pentru\n"
+"fiecare imagine sunt corecte considerând setările camerei.\n"
+"Apoi calculează câmpul de vedere vizibil din nou.\n"
+"HFOV este măsurat în grade, de obicei între 5 şi 120 de\n"
+"grade per imagine dacă nu sunt folosite lentile specializate."
+
+#: hugin1/hugin/PanoDruid.cpp:114
+msgid "Consider adding a vertical or horizontal guide."
+msgstr "Consideră adăugarea unui ghid vertical sau orizontal."
+
+#: hugin1/hugin/PanoDruid.cpp:115
+msgid ""
+"By adding vertical guides, the optimizer can ensure\n"
+"that buildings or trees or other vertical features\n"
+"appear vertical in the final result.  A horizontal\n"
+"guide can help ensure that a horizon does not bend."
+msgstr ""
+"Prin adăugarea ghidurilor verticale, optimiza-torul se\n"
+"poate asigura ca arborii sau clădirile sau alte elemente\n"
+"verticale apar verticale în rezultatul final. Un ghid orizontal\n"
+"poate ajuta la menţinerea orizontului drept."
+
+#: hugin1/hugin/PanoDruid.cpp:137
+msgid "Run the Optimizer to estimate the image positions."
+msgstr "Rulează optimiza-torul pentru a estima poziţiile imaginilor."
+
+#: hugin1/hugin/PanoDruid.cpp:138
+msgid ""
+"The Optimizer uses the control points to estimate the\n"
+"positions of the individual images in the final panorama\n"
+"\n"
+"The optimizer can be invoked in the Optimizer tab.\n"
+msgstr ""
+"Optimiza-torul utilizează puncte de control pentru a estima\n"
+"poziţiile imaginilor individuale in panorama finală\n"
+"\n"
+"Optimiza-torul poate fi invocat în fila Optimizator.\n"
+
+#: hugin1/hugin/PanoDruid.cpp:165
+msgid "Add more control points to improve the stitch quality."
+msgstr ""
+"Adaugă mai multe puncte de control pentru a îmbunătăţi calitatea îmbinării."
+
+#: hugin1/hugin/PanoDruid.cpp:166
+msgid ""
+"For best results, there should be at least four pairs\n"
+"of control points for each pair of overlapping images.\n"
+"More points, accurately placed, will improve the match."
+msgstr ""
+"Pentru rezultate optime, trebuie să fie cel puţin patru perechi\n"
+"de puncte de control pentru fiecare pereche de imagini suprapuse.\n"
+"Mai multe puncte, precis puse, vor îmbunătăţi potrivirea."
+
+#: hugin1/hugin/PanoDruid.cpp:184
+msgid "At least one image has no control points at all."
+msgstr "Cel puţin o imagine nu are puncte de control."
+
+#: hugin1/hugin/PanoDruid.cpp:185
+msgid ""
+"For best results, there should be at least four pairs\n"
+"of control points for each pair of overlapping images.\n"
+"An image with no control points cannot be aligned."
+msgstr ""
+"Pentru rezultate optime, trebuie să fie cel puţin patru perechi\n"
+"de puncte de control pentru fiecare pereche de imagini suprapuse.\n"
+"O imagine fără puncte de control nu poate fi aliniată."
+
+#: hugin1/hugin/PanoDruid.cpp:203
+msgid "Add stitching control points to each pair of images."
+msgstr "Adaugă puncte de control pentru fiecare pereche de imagini."
+
+#: hugin1/hugin/PanoDruid.cpp:204
+msgid ""
+"The Optimizer relies on your control points to arrange\n"
+"and blend the images properly.  On the Control Points\n"
+"tab, add pairs of points that correspond to identical\n"
+"visual features in each pair of overlapping images."
+msgstr ""
+"Optimiza-torul se bazează pe puncte de control pentru\n"
+"a aranja şi îmbina imaginile. În fila Puncte de control\n"
+"adaugă perechi de puncte care corespund la elemente\n"
+"vizuale identice în fiecare pereche de imagini suprapuse."
+
+#: hugin1/hugin/PanoDruid.cpp:213 hugin1/hugin/PanoDruid.cpp:431
+msgid "Add at least one more image."
+msgstr "Adaugă cel puţin încă o imagine."
+
+#: hugin1/hugin/PanoDruid.cpp:214 hugin1/hugin/PanoDruid.cpp:432
+msgid "You should have at least two files listed in the Images tab."
+msgstr "Trebuie să ai cel puţin două fişiere listate în fila Imagini."
+
+#: hugin1/hugin/PanoDruid.cpp:228 hugin1/hugin/PanoDruid.cpp:427
+msgid "To get started, add some image files."
+msgstr "Pentru început, adaugă fişiere imagine."
+
+#: hugin1/hugin/PanoDruid.cpp:229 hugin1/hugin/PanoDruid.cpp:428
+msgid "You can add any number of images using the Images tab."
+msgstr "Poţi adăuga oricâte imagini folosind fila Imagini."
+
+#: hugin1/hugin/PanoDruid.cpp:276
+msgid "the Panorama druid"
+msgstr "druid-ul Panorama"
+
+#: hugin1/hugin/PanoDruid.cpp:420
+msgid "The druid has no advice at this time."
+msgstr "Druid-ul nu are nici un sfat în acest moment."
+
+#: hugin1/hugin/PanoDruid.cpp:440
+msgid ""
+"Very large pixel dimensions are currently entered.\n"
+"Some computers may take an excessively long time\n"
+"to render such a large final image.\n"
+"For best results, use the automatic Calc button on\n"
+"the Panorama Options tab to determine the\n"
+"pixel dimensions which will give the best quality."
+msgstr ""
+"Dimensiuni în pixeli foarte mari sunt introduse.\n"
+"Pe unele calculatoare poate sa ia un timp excesiv de lung\n"
+"pentru a randa o imagine finală aşa de mare.\n"
+"Pentru rezultate optime, foloseşte butonul Calc din \n"
+"fila Opţiuni panoramă pentru a determina dimensiunea \n"
+"în pixeli care va da cea mai bună calitate."
+
+#: hugin1/hugin/PanoPanel.cpp:150
+msgid "Fisheye"
+msgstr "Fisheye"
+
+#: hugin1/hugin/PanoPanel.cpp:151
+msgid "Stereographic"
+msgstr "Stereografic"
+
+#: hugin1/hugin/PanoPanel.cpp:152
+msgid "Mercator"
+msgstr "Mercator"
+
+#: hugin1/hugin/PanoPanel.cpp:153
+msgid "Trans Mercator"
+msgstr "Trans Mercator"
+
+#: hugin1/hugin/PanoPanel.cpp:154
+msgid "Sinusoidal"
+msgstr "Sinusoidal"
+
+#: hugin1/hugin/PanoPanel.cpp:155
+msgid "Lambert Cylindrical Equal Area"
+msgstr "Arie egală cilindrică Lambert"
+
+#: hugin1/hugin/PanoPanel.cpp:156
+msgid "Lambert Equal Area Azimuthal"
+msgstr "Arie egală azimutală Lambert"
+
+#: hugin1/hugin/PanoPanel.cpp:157
+msgid "Albers Equal Area Conic"
+msgstr "Arie egală conică Albers"
+
+#: hugin1/hugin/PanoPanel.cpp:158
+msgid "Miller Cylindrical"
+msgstr "Cilindrică Miller"
+
+#: hugin1/hugin/PanoPanel.cpp:159
+msgid "Panini"
+msgstr "Panini"
+
+#: hugin1/hugin/PanoPanel.cpp:160
+msgid "Architectural"
+msgstr "Arhitectural"
+
+#: hugin1/hugin/PanoPanel.cpp:161
+msgid "Orthographic"
+msgstr "Ortografic"
+
+#: hugin1/hugin/PanoPanel.cpp:162
+msgid "Equisolid"
+msgstr "Equisolid"
+
+#: hugin1/hugin/PanoPanel.cpp:163
+msgid "Equirectangular Panini"
+msgstr "Echirectangular Panini"
+
+#: hugin1/hugin/PanoPanel.cpp:164
+msgid "Biplane"
+msgstr "Biplan"
+
+#: hugin1/hugin/PanoPanel.cpp:165
+msgid "Triplane"
+msgstr "Triplan"
+
+#: hugin1/hugin/PanoPanel.cpp:594
+#, c-format
+msgid "Invalid HFOV value. Maximum HFOV for this projection is %lf."
+msgstr "Valoare HFOV invalidă. HFOV maxim pentru această proiecţie este %lf."
+
+#: hugin1/hugin/PanoPanel.cpp:625
+#, c-format
+msgid "Invalid VFOV value. Maximum VFOV for this projection is %lf."
+msgstr "Valoare VFOV invalidă. VFOV maxim pentru această proiecţie este %lf."
+
+#: hugin1/hugin/PanoPanel.cpp:671
+msgid "width needs to be an integer bigger than 0"
+msgstr "lăţimea trebuie să fie un întreg mai mare ca 0"
+
+#: hugin1/hugin/PanoPanel.cpp:688
+msgid "height needs to be an integer bigger than 0"
+msgstr "înălţimea trebuie să fie un întreg mai mare ca 0"
+
+#: hugin1/hugin/PanoPanel.cpp:698
+msgid "Top needs to be an integer bigger than 0"
+msgstr "Sus trebuie să fie un întreg mai mare ca 0"
+
+#: hugin1/hugin/PanoPanel.cpp:702
+msgid "left needs to be an integer bigger than 0"
+msgstr "Stânga trebuie să fie un întreg mai mare ca 0"
+
+#: hugin1/hugin/PanoPanel.cpp:706
+msgid "right needs to be an integer bigger than 0"
+msgstr "dreapta trebuie să fie un întreg mai mare ca 0"
+
+#: hugin1/hugin/PanoPanel.cpp:710
+msgid "bottom needs to be an integer bigger than 0"
+msgstr "jos trebuie să fie un întreg mai mare ca 0"
+
+#: hugin1/hugin/PanoPanel.cpp:771
+msgid " PTmender options not yet implemented"
+msgstr "Opţiunile PTmender nu sunt încă implementate"
+
+#: hugin1/hugin/PanoPanel.cpp:821
+msgid " PTblender options not yet implemented"
+msgstr "Opţiunile PTblender nu sunt încă implementate"
+
+#: hugin1/hugin/PanoPanel.cpp:859
+msgid "Not yet implemented"
+msgstr "Ne-implementat"
+
+#: hugin1/hugin/PanoPanel.cpp:1008
+msgid "ShellExecuteEx failed"
+msgstr "ShellExecuteEx a eşuat"
+
+#: hugin1/hugin/PreferencesDialog.cpp:125
+msgid "System default"
+msgstr "Implicit system"
+
+#: hugin1/hugin/PreferencesDialog.cpp:128
+msgid "Catalan"
+msgstr "Catalană"
+
+#: hugin1/hugin/PreferencesDialog.cpp:131
+msgid "Chinese (Simplified)"
+msgstr "Chineză (Simplificat)"
+
+#: hugin1/hugin/PreferencesDialog.cpp:134
+msgid "Czech"
+msgstr "Cehă"
+
+#: hugin1/hugin/PreferencesDialog.cpp:137
+msgid "Dutch"
+msgstr "Olandeză"
+
+#: hugin1/hugin/PreferencesDialog.cpp:140
+msgid "English"
+msgstr "Engleză"
+
+#: hugin1/hugin/PreferencesDialog.cpp:143
+msgid "French"
+msgstr "Franceză"
+
+#: hugin1/hugin/PreferencesDialog.cpp:146
+msgid "German"
+msgstr "Germană"
+
+#: hugin1/hugin/PreferencesDialog.cpp:149
+msgid "Hungarian"
+msgstr "Maghiară"
+
+#: hugin1/hugin/PreferencesDialog.cpp:152
+msgid "Italian"
+msgstr "Italiană"
+
+#: hugin1/hugin/PreferencesDialog.cpp:155
+msgid "Japanese"
+msgstr "Japoneză"
+
+#: hugin1/hugin/PreferencesDialog.cpp:158
+msgid "Polish"
+msgstr "Poloneză"
+
+#: hugin1/hugin/PreferencesDialog.cpp:161
+msgid "Portuguese (Brazilian)"
+msgstr "Portugheză (Brazilia)"
+
+#: hugin1/hugin/PreferencesDialog.cpp:164
+msgid "Russian"
+msgstr "Rusă"
+
+#: hugin1/hugin/PreferencesDialog.cpp:167
+msgid "Slovak"
+msgstr "Slovacă"
+
+#: hugin1/hugin/PreferencesDialog.cpp:170
+msgid "Spanish"
+msgstr "Spaniolă"
+
+#: hugin1/hugin/PreferencesDialog.cpp:173
+msgid "Swedish"
+msgstr "Suedeză"
+
+#: hugin1/hugin/PreferencesDialog.cpp:176
+msgid "Ukrainian"
+msgstr "Ucrainiană"
+
+#: hugin1/hugin/PreferencesDialog.cpp:274
+msgid "Select PTmender"
+msgstr "Selectează PTmender"
+
+#: hugin1/hugin/PreferencesDialog.cpp:278
+#: hugin1/hugin/PreferencesDialog.cpp:296
+#: hugin1/hugin/PreferencesDialog.cpp:313
+#: hugin1/hugin/PreferencesDialog.cpp:329
+#: hugin1/hugin/PreferencesDialog.cpp:346 hugin1/hugin/PTStitcherPanel.cpp:483
+msgid "Executables (*.exe)|*.exe"
+msgstr "Executabile (*.exe)|*.exe"
+
+#: hugin1/hugin/PreferencesDialog.cpp:293
+msgid "Select image editor"
+msgstr "Selectează editor de imagini"
+
+#: hugin1/hugin/PreferencesDialog.cpp:310
+msgid "Select Enblend"
+msgstr "Selectează Enblend"
+
+#: hugin1/hugin/PreferencesDialog.cpp:326
+msgid "Select Enfuse"
+msgstr "Selectează Enfuse"
+
+#: hugin1/hugin/PreferencesDialog.cpp:343 translations/xrc.cpp:501 xrc.cpp:501
+msgid "Select Autopano"
+msgstr "Selectează Autopano"
+
+#: hugin1/hugin/PreferencesDialog.cpp:359
+msgid "Select Autopano-SIFT"
+msgstr "Selectează Autopano-SIFT"
+
+#: hugin1/hugin/PreferencesDialog.cpp:362
+msgid "Executables (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"
+msgstr "Executabile (*.exe,*.vbs,*.cmd)|*.exe;*.vbs;*.cmd"
+
+#: hugin1/hugin/PreferencesDialog.cpp:401
+msgid "Panotools details"
+msgstr "Detalii Panotools"
+
+#: hugin1/hugin/PreferencesDialog.cpp:820
+msgid "Really reset displayed preferences to default values?"
+msgstr "Sigur reiniţializează preferinţele afişate cu valorile implicite?"
+
+#: hugin1/hugin/PreferencesDialog.cpp:820 translations/xrc.cpp:537 xrc.cpp:537
+msgid "Load Defaults"
+msgstr "Încarcă implicite"
+
+#: hugin1/hugin/PreviewCropTool.cpp:55
+msgid "Drag the inside of the cropping rectangle to adjust the crop."
+msgstr "Trage interiorul dreptunghiului tăiat pentru a ajusta tăierea."
+
+#: hugin1/hugin/PreviewDragTool.cpp:53 hugin1/hugin/PreviewDragTool.cpp:258
+msgid ""
+"Drag to move images (optionally use shift to constrain), or roll with right-"
+"drag or ctrl-drag."
+msgstr ""
+"Trage pentru a muta imaginile (opţional utilizează shift pentru a "
+"constrânge), sau înfăşoară cu dreapta-trage sau ctrl-trage."
+
+#: hugin1/hugin/PreviewDragTool.cpp:76
+msgid ""
+"Currently constrained to moving only pitch. Make a larger movement in the "
+"opposite direction to constrain to yaw."
+msgstr ""
+"Constrâns pentru a muta doar înclinaţia. Fă o mişcare mai mare în direcţia "
+"opusă pentru a constrânge la derivă."
+
+#: hugin1/hugin/PreviewDragTool.cpp:80
+msgid ""
+"Currently constrained to moving only yaw. Make a larger movement in the "
+"opposite direction to constrain to pitch."
+msgstr ""
+"Constrâns pentru a muta doar deriva. Fă o mişcare mai mare în direcţia opusă "
+"pentru a constrânge la înclinaţie."
+
+#: hugin1/hugin/PreviewDragTool.cpp:149
+msgid "Rotate around the centre to roll."
+msgstr "Roteşte în jurul centrului pentru a roti."
+
+#: hugin1/hugin/PreviewDragTool.cpp:170
+msgid ""
+"Constrained drag: make a movement and it will be snapped to the yaw or pitch."
+msgstr ""
+"Tragere constrânsă: fă o mişcare şi va fi aranjată la derivă sau înclinaţie."
+
+#: hugin1/hugin/PreviewDragTool.cpp:172
+msgid "Drag to move."
+msgstr "Trage pentru a muta."
+
+#: hugin1/hugin/PreviewFrame.cpp:114
+msgid "Panorama preview"
+msgstr "Pre-vizualizare panoramă"
+
+#: hugin1/hugin/PreviewFrame.cpp:263
+msgid "Output:"
+msgstr "Ieşire:"
+
+#: hugin1/hugin/PreviewFrame.cpp:268
+msgid "LDR"
+msgstr "LDR"
+
+#: hugin1/hugin/PreviewFrame.cpp:269
+msgid "HDR"
+msgstr "HDR"
+
+#: hugin1/hugin/PreviewFrame.cpp:355 hugin1/hugin/PreviewPanel.cpp:768
+msgid ""
+"Left click to define new center point, right click to move point to horizon."
+msgstr ""
+"Clic stânga pentru a defini un nou punct central, clic dreapta pentru a muta "
+"punctul la orizont."
+
+#: hugin1/hugin/PreviewFrame.cpp:390 hugin1/hugin/PreviewFrame.cpp:512
+msgid "Center panorama with left mouse button, set horizon with right button"
+msgstr ""
+"Centrează panorama cu butonul stânga maus, setează orizontul cu butonul "
+"dreapta"
+
+#: hugin1/hugin/PreviewIdentifyTool.cpp:177
+#: hugin1/hugin/PreviewIdentifyTool.cpp:240
+msgid "Move the mouse over the images or image buttons to identify them."
+msgstr ""
+"Mută cursorul peste imagini sau butoane imagini pentru a le identifica."
+
+#: hugin1/hugin/PreviewIdentifyTool.cpp:238
+msgid "Click to create or edit control points here."
+msgstr "Clic pentru a crea sau edita puncte de control aici."
+
+#: hugin1/hugin/PreviewPanel.cpp:488
+msgid "Error during Stitching"
+msgstr "Eroare la îmbinare"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:279
+msgid "Bicubic"
+msgstr "Bicubic"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:280 translations/xrc.cpp:347 xrc.cpp:347
+msgid "Spline 16"
+msgstr "Spline 16"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:281 translations/xrc.cpp:348 xrc.cpp:348
+msgid "Spline 36"
+msgstr "Spline 36"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:282 translations/xrc.cpp:349 xrc.cpp:349
+msgid "Sinc 256"
+msgstr "Sinc 256"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:283 translations/xrc.cpp:350 xrc.cpp:350
+msgid "Spline 64"
+msgstr "Spline 64"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:284 translations/xrc.cpp:351 xrc.cpp:351
+msgid "Bilinear"
+msgstr "Bilinear"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:285
+msgid "Nearest neighbour"
+msgstr "Cel mai apropiat vecin"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:286 translations/xrc.cpp:353 xrc.cpp:353
+msgid "Sinc 1024"
+msgstr "Sinc 1024"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:450
+msgid ""
+"PTStitcher does not support output filenames that include a dot character "
+"(.).\n"
+"Please save your projects in a directory without dot in the pathname.\n"
+"\n"
+"Do you want to continue anyway?"
+msgstr ""
+"PTStitcher nu admite fişiere ieşire care includ caracterul punct (.).\n"
+"Salvează proiectele într-un dosar care nu conţine punct în cale.\n"
+"\n"
+"Vrei să continui oricum?"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:451
+msgid "PTStitcher problem"
+msgstr "Problemă PTStitcher"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:460
+msgid "PTStitcher.exe does not support QTVR output on Windows and Linux"
+msgstr "PTStitcher.exe nu admite ieşire QTVR în Windows şi Linux"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:460
+msgid "PTStitcher note"
+msgstr "Notă PTStitcher"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:481
+msgid "Select PTStitcher.exe"
+msgstr "Selectează PTStitcher.exe"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:489
+msgid "No PTStitcher.exe selected"
+msgstr "Nici un PTStitcher.exe selectat"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:498
+msgid "Select PTStitcher commandline tool"
+msgstr "Selectează unealta în linie de comandă PTStitcher"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:506
+msgid "No PTStitcher commandline tool selected"
+msgstr "Nici o unealtă în linie de comandă PTStitcher selectată"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:518
+msgid ""
+"Warning: PTmender (from panotools 2.9 or later) only supports TIFF_m "
+"output.\n"
+"For color and brightness correction, the resulting tiff files must be "
+"processed with PTblender.\n"
+"\n"
+"Continue anyway?"
+msgstr ""
+"Avertisment: PTmender (din panotools 2.9 sau mai nou) admite doar ieşire "
+"TIFF_m.\n"
+"Pentru corecţii de culoare şi luminozitate, fişierele tiff rezultate trebuie "
+"procesate cu PTblender.\n"
+"\n"
+"Continuă oricum?"
+
+#: hugin1/hugin/PTStitcherPanel.cpp:519
+msgid "PTmender creates only plain TIFF_m files"
+msgstr "PTmender crează doar fişiere TIFF_m simple"
+
+#: hugin1/hugin/RunStitcherFrame.cpp:127
+msgid "Failed to launch the PTStitcher."
+msgstr "Eşuat în a lansa PTStitcher."
+
+#: hugin1/hugin/RunStitcherFrame.cpp:141
+msgid "Could not obtain PTStitcher output"
+msgstr "Nu am putut obţine rezultatul PTStitcher"
+
+#: hugin1/hugin/RunStitcherFrame.cpp:270
+msgid ""
+"Stitching failed\n"
+"PTStitcher exited with nonzero error code."
+msgstr ""
+"Îmbinare eşuată\n"
+"PTStitcher a ieşit cu cod de eroare diferit de zero."
+
+#: hugin1/hugin/RunStitcherFrame.cpp:271
+#, c-format
+msgid "Error executing %s"
+msgstr "Eroare în a executa %s"
+
+#: hugin1/hugin/wxPanoCommand.cpp:191
+#, c-format
+msgid ""
+"Could not decode image:\n"
+"%s\n"
+"Abort"
+msgstr ""
+"Nu am putut decoda imaginea:\n"
+"%s\n"
+"Anulez"
+
+#: hugin1/hugin/wxPanoCommand.cpp:191
+msgid "Unsupported image file format"
+msgstr "Format de imagine neacceptat"
+
+#: hugin1/hugin/wxPanoCommand.cpp:352
+#, c-format
+msgid ""
+"Image file not found:\n"
+"%s\n"
+"Please select correct image"
+msgstr ""
+"Fişier imagine ne-găsit:\n"
+"%s\n"
+"Selectează imaginea corectă"
+
+#: hugin1/hugin/wxPanoCommand.cpp:352
+msgid "Image file not found"
+msgstr "Fişierul imagine nu a fost găsit"
+
+#: hugin1/hugin/wxPanoCommand.cpp:505
+#, c-format
+msgid ""
+"Error, template expects %d images,\n"
+"current project contains %d images\n"
+msgstr ""
+"Eroare, şablonul are nevoie de %d imagini,\n"
+"proiectul curent conţine %d imagini\n"
+
+#: hugin1/hugin/wxPanoCommand.cpp:506 hugin1/hugin/wxPanoCommand.cpp:532
+msgid "Could not apply template"
+msgstr "Nu am putut aplica şablonul"
+
+#: hugin1/hugin/wxPanoCommand.cpp:532
+msgid "Error loading project file"
+msgstr "Eroare la încărcarea fişierului proiect"
+
+#: hugin1/nona_gui/nona_gui.cpp:154
+#: hugin1/stitch_project/hugin_stitch_project.cpp:307
+#: PTBatcherGUI/PTBatcherGUI.cpp:114
+msgid "Syntax error in parameters detected, aborting."
+msgstr "Eroare de sintaxă în parametri, anulez."
+
+#: hugin1/nona_gui/nona_gui.cpp:169
+#: hugin1/stitch_project/hugin_stitch_project.cpp:336 PTBatcher/Batch.cpp:570
+msgid "Specify project source project file"
+msgstr "Specifică fişierul sursă al proiectului"
+
+#: hugin1/nona_gui/nona_gui.cpp:192
+msgid "Could not find project file:"
+msgstr "Nu am putut găsi fişierul proiect:"
+
+#: hugin1/nona_gui/nona_gui.cpp:201
+msgid "Specify output image filename"
+msgstr "Specifică fişierul imagine ieşire"
+
+#: hugin1/nona_gui/nona_gui.cpp:210 PTBatcher/Batch.cpp:595
+msgid "No project files specified"
+msgstr "Nici un fişier proiect specificat"
+
+#: hugin1/nona_gui/nona_gui.cpp:245
+msgid "Wrong number of images specified on command line"
+msgstr "Număr greşit de imagini specificat în linia de comandă"
+
+#: hugin1/nona_gui/nona_gui.cpp:260
+msgid "output image size: "
+msgstr "dimensiune imagine ieşire: "
+
+#: hugin1/stitch_project/hugin_stitch_project.cpp:137
+#, c-format
+msgid ""
+"HuginStitchProject. Application to stitch hugin project files.\n"
+" Version: %s"
+msgstr ""
+"HuginStitchProject. Aplicaţie pentru îmbinarea fişierelor proiect.\n"
+" Versiune: %s"
+
+#: hugin1/stitch_project/hugin_stitch_project.cpp:171
+#: PTBatcher/RunStitchFrame.cpp:119
+msgid ""
+"Error during stitching\n"
+"Please report the complete text to the bug tracker on http://sf.net/projects/"
+"hugin."
+msgstr ""
+"Eroare la îmbinare\n"
+"Te rog raportează textul complet la bug tracker-ul http://sf.net/projects/"
+"hugin."
+
+#: hugin1/stitch_project/hugin_stitch_project.cpp:366 PTBatcher/Batch.cpp:580
+msgid "Specify output prefix"
+msgstr "Specifică prefixul ieşirii"
+
+#: hugin1/stitch_project/hugin_stitch_project.cpp:398 PTBatcher/Batch.cpp:625
+#, c-format
+msgid "%s - Stitching"
+msgstr "%s - Îmbinând"
+
+#: PTBatcher/Batch.cpp:225
+msgid ""
+"Cannot clear batch in progress.\n"
+"Do you want to cancel it?"
+msgstr ""
+"Nu pot termina batch-ul curent.\n"
+"Vrei să-l anulezi?"
+
+#: PTBatcher/Batch.cpp:225 PTBatcherGUI/BatchFrame.cpp:662
+#: PTBatcherGUI/BatchFrame.cpp:689 PTBatcherGUI/BatchFrame.cpp:709
+#: PTBatcher/ProjectArray.cpp:66
+msgid "In progress"
+msgstr "În curs"
+
+#: PTBatcher/Batch.cpp:235 PTBatcher/Batch.cpp:256
+msgid "Cleared batch."
+msgstr "Batch terminat."
+
+#: PTBatcher/Batch.cpp:330
+msgid "Error: Could not get status, project with index "
+msgstr "Eroare: Nu am putut obţine statusul, proiect cu index"
+
+#: PTBatcher/Batch.cpp:330 PTBatcher/Batch.cpp:887
+#: PTBatcherGUI/ProjectListBox.cpp:145
+#, c-format
+msgid "%d"
+msgstr "%d"
+
+#: PTBatcher/Batch.cpp:330 PTBatcher/Batch.cpp:682 PTBatcher/Batch.cpp:887
+msgid " is not in list."
+msgstr " nu e în listă."
+
+#: PTBatcher/Batch.cpp:330 PTBatcher/Batch.cpp:682 PTBatcher/Batch.cpp:699
+#: PTBatcher/Batch.cpp:887 PTBatcherGUI/BatchFrame.cpp:314
+msgid "Error!"
+msgstr "Eroare!"
+
+#: PTBatcher/Batch.cpp:372
+msgid "Error: Could not load batch file."
+msgstr "Eroare: Nu am putut încărca fişierul batch."
+
+#: PTBatcher/Batch.cpp:469
+msgid "Batch successfully completed."
+msgstr "Batch-ul s-a terminat cu succes."
+
+#: PTBatcher/Batch.cpp:478
+msgid "Batch completed with errors."
+msgstr "Batch-ul s-a terminat cu erori."
+
+#: PTBatcher/Batch.cpp:487
+msgid "Initializing shutdown..."
+msgstr "Iniţializare oprire..."
+
+#: PTBatcher/Batch.cpp:487 PTBatcher/Batch.cpp:492
+msgid "Shutting down..."
+msgstr "Oprire..."
+
+#: PTBatcher/Batch.cpp:516
+msgid "Error shutting down."
+msgstr "Eroare la oprire."
+
+#: PTBatcher/Batch.cpp:518
+msgid "Error shutting down. Do you have root privileges?"
+msgstr "Eroare la oprire. Ai drepturi de administrator?"
+
+#: PTBatcher/Batch.cpp:589
+msgid "No output prefix specified"
+msgstr "Prefixul ieşirii nu a fost specificat"
+
+#: PTBatcher/Batch.cpp:682
+msgid "Error removing, project with id "
+msgstr "Eroare ştergere, proiect cu id "
+
+#: PTBatcher/Batch.cpp:699
+msgid "Error: Could not delete project file "
+msgstr "Eroare: Nu pot şterge fişierul proiect "
+
+#: PTBatcher/Batch.cpp:717
+msgid "Running batch..."
+msgstr "Rulând batch..."
+
+#: PTBatcher/Batch.cpp:750
+msgid "Batch already in progress."
+msgstr "Batch-ul este deja în curs."
+
+#: PTBatcher/Batch.cpp:767
+msgid "Running command \""
+msgstr "Rulând comanda \""
+
+#: PTBatcher/Batch.cpp:887
+msgid "Error: Could not set status, project with index "
+msgstr "Eroare: Nu pot seta statusul, proiect cu index "
+
+#: PTBatcherGUI/BatchFrame.cpp:92
+msgid "Add project..."
+msgstr "Adaugă proiect..."
+
+#: PTBatcherGUI/BatchFrame.cpp:93
+msgid "Adds a project to the batch list."
+msgstr "Adaugă un proiect la lista de batch-uri."
+
+#: PTBatcherGUI/BatchFrame.cpp:95
+msgid "Batch Stitcher help"
+msgstr "Ajutor îmbinător batch"
+
+#: PTBatcherGUI/BatchFrame.cpp:96
+msgid "Open Batch Stitcher help."
+msgstr "Deschide ajutorul îmbinător batch."
+
+#: PTBatcherGUI/BatchFrame.cpp:98
+msgid "File"
+msgstr "Fişier"
+
+#: PTBatcherGUI/BatchFrame.cpp:100
+msgid "Help"
+msgstr "Ajutor"
+
+#: PTBatcherGUI/BatchFrame.cpp:107
+msgid "Not doing much..."
+msgstr "Nefăcând multe..."
+
+#: PTBatcherGUI/BatchFrame.cpp:141 translations/xrc.cpp:309
+#: translations/xrc.cpp:312 translations/xrc.cpp:315 xrc.cpp:309 xrc.cpp:312
+#: xrc.cpp:315
+msgid "clear"
+msgstr "şterge"
+
+#: PTBatcherGUI/BatchFrame.cpp:141
+msgid "Clear batch"
+msgstr "Şterge batch"
+
+#: PTBatcherGUI/BatchFrame.cpp:141
+msgid "Clears the batch list"
+msgstr "Şterge lista de batch-uri"
+
+#: PTBatcherGUI/BatchFrame.cpp:142
+msgid "open"
+msgstr "deschide"
+
+#: PTBatcherGUI/BatchFrame.cpp:142
+msgid "Open batch"
+msgstr "Deschide batch"
+
+#: PTBatcherGUI/BatchFrame.cpp:142
+msgid "Opens a batch file with a list of projects"
+msgstr "Deschide un batch cu o listă de proiecte"
+
+#: PTBatcherGUI/BatchFrame.cpp:143
+msgid "save"
+msgstr "salvează"
+
+#: PTBatcherGUI/BatchFrame.cpp:143
+msgid "Save batch"
+msgstr "Salvează batch"
+
+#: PTBatcherGUI/BatchFrame.cpp:143
+msgid "Saves a batch file with a list of projects"
+msgstr "Salvează un fişier batch cu o listă de proiecte"
+
+#: PTBatcherGUI/BatchFrame.cpp:146
+msgid "start"
+msgstr "început"
+
+#: PTBatcherGUI/BatchFrame.cpp:146
+msgid "Start batch"
+msgstr "începe batch"
+
+#: PTBatcherGUI/BatchFrame.cpp:146
+msgid "Starts batch execution"
+msgstr "Începe execuţia batch-ului"
+
+#: PTBatcherGUI/BatchFrame.cpp:147
+msgid "skip"
+msgstr "sări"
+
+#: PTBatcherGUI/BatchFrame.cpp:147
+msgid "Skip project(s)"
+msgstr "Omite proiect(e)"
+
+#: PTBatcherGUI/BatchFrame.cpp:147
+msgid "Skips execution of currently running project(s)"
+msgstr "Omite execuţia proiectelor ce rulează"
+
+#: PTBatcherGUI/BatchFrame.cpp:148
+msgid "pause"
+msgstr "suspendă"
+
+#: PTBatcherGUI/BatchFrame.cpp:148
+msgid "Pause batch"
+msgstr "Suspendă batch"
+
+#: PTBatcherGUI/BatchFrame.cpp:148
+msgid "Pauses batch execution"
+msgstr "Suspendă execuţia batch-ului"
+
+#: PTBatcherGUI/BatchFrame.cpp:149 translations/xrc.cpp:614 xrc.cpp:614
+msgid "cancel"
+msgstr "renunţă"
+
+#: PTBatcherGUI/BatchFrame.cpp:149
+msgid "Cancel batch"
+msgstr "Anulează batch"
+
+#: PTBatcherGUI/BatchFrame.cpp:149
+msgid "Cancels batch execution"
+msgstr "Anulează execuţia batch-ului"
+
+#: PTBatcherGUI/BatchFrame.cpp:152
+msgid "add"
+msgstr "adaugă"
+
+#: PTBatcherGUI/BatchFrame.cpp:152
+msgid "Add project(s)"
+msgstr "Adaugă proiect(e)"
+
+#: PTBatcherGUI/BatchFrame.cpp:152
+msgid "Appends project file(s) to the batch list"
+msgstr "Adaugă fişiere proiect la lista batch"
+
+#: PTBatcherGUI/BatchFrame.cpp:154
+msgid "remove"
+msgstr "şterge"
+
+#: PTBatcherGUI/BatchFrame.cpp:154
+msgid "Remove project"
+msgstr "Şterge proiect"
+
+#: PTBatcherGUI/BatchFrame.cpp:154
+msgid "Removes selected project from the batch list"
+msgstr "Şterge proiectul selectat din lista de batch-uri"
+
+#: PTBatcherGUI/BatchFrame.cpp:155
+msgid "adddir"
+msgstr "adddir"
+
+#: PTBatcherGUI/BatchFrame.cpp:155
+msgid "Search directory"
+msgstr "Caută în dosar"
+
+#: PTBatcherGUI/BatchFrame.cpp:155
+msgid "Appends all project files from a directory and subdirectories"
+msgstr "Adaugă toate fişierele proiectului dintr-un dosar şi sub-dosare"
+
+#: PTBatcherGUI/BatchFrame.cpp:191
+msgid "Add application"
+msgstr "Adaugă aplicaţie"
+
+#: PTBatcherGUI/BatchFrame.cpp:196
+msgid "Remove complete"
+msgstr "Ştergere completă"
+
+#: PTBatcherGUI/BatchFrame.cpp:201
+msgid "Change prefix"
+msgstr "Schimbă prefix"
+
+#: PTBatcherGUI/BatchFrame.cpp:205
+msgid "Reset project"
+msgstr "Re-setează proiect"
+
+#: PTBatcherGUI/BatchFrame.cpp:207
+msgid "Reset all"
+msgstr "Re-setează tot"
+
+#: PTBatcherGUI/BatchFrame.cpp:209
+msgid "Edit with Hugin"
+msgstr "Editare cu Hugin"
+
+#: PTBatcherGUI/BatchFrame.cpp:211
+msgid "Move project up"
+msgstr "Mută proiectul în sus"
+
+#: PTBatcherGUI/BatchFrame.cpp:213
+msgid "Move project down"
+msgstr "Mută proiectul în jos"
+
+#: PTBatcherGUI/BatchFrame.cpp:216
+msgid "Parallel execution"
+msgstr "Execuţie paralelă"
+
+#: PTBatcherGUI/BatchFrame.cpp:218
+msgid "Delete *.pto files"
+msgstr "Şterge fişiere *.pto"
+
+#: PTBatcherGUI/BatchFrame.cpp:220
+msgid "Overwrite always"
+msgstr "Suprascrie întotdeauna"
+
+#: PTBatcherGUI/BatchFrame.cpp:222
+msgid "Shutdown when done"
+msgstr "Închide la sfârşit"
+
+#: PTBatcherGUI/BatchFrame.cpp:224
+msgid "Verbose output"
+msgstr "Ieşire detaliată"
+
+#: PTBatcherGUI/BatchFrame.cpp:314
+msgid "Error: Could not remove temporary file"
+msgstr "Eroare: Nu pot şterge fişier temporar"
+
+#: PTBatcherGUI/BatchFrame.cpp:390
+msgid "Please enter the command-line application to execute:"
+msgstr "Introduce aplicaţia în linie de comandă ce trebuie executată:"
+
+#: PTBatcherGUI/BatchFrame.cpp:390
+msgid "Enter application"
+msgstr "Introduce aplicaţie"
+
+#: PTBatcherGUI/BatchFrame.cpp:410
+msgid "Specify a directory to search for projects in"
+msgstr "Specifică un dosar în care să caut proiecte"
+
+#: PTBatcherGUI/BatchFrame.cpp:423
+msgid "Added projects from dir "
+msgstr "Proiecte adăugate din dosarul "
+
+#: PTBatcherGUI/BatchFrame.cpp:433
+msgid "Specify project source file(s)"
+msgstr "Specifică fişierul sursă al proiectului"
+
+#: PTBatcherGUI/BatchFrame.cpp:449 PTBatcherGUI/PTBatcherGUI.cpp:154
+#: PTBatcherGUI/PTBatcherGUI.cpp:211
+msgid "Added project "
+msgstr "Proiect adăugat "
+
+#: PTBatcherGUI/BatchFrame.cpp:469
+msgid "Specify output prefix for project "
+msgstr "Specifică prefixul ieşire pentru proiect "
+
+#: PTBatcherGUI/BatchFrame.cpp:484
+msgid "Please select a project"
+msgstr "Selectează un proiect"
+
+#: PTBatcherGUI/BatchFrame.cpp:539
+msgid "help file: "
+msgstr "fişier ajutor: "
+
+#: PTBatcherGUI/BatchFrame.cpp:560
+msgid "Specify batch file to open"
+msgstr "Specifică un fişier batch pentru a deschide"
+
+#: PTBatcherGUI/BatchFrame.cpp:562
+msgid "Batch files (*.ptb)|*.ptb;|All files (*)|*"
+msgstr "Fişiere batch (*.ptb)|*.ptb;|Toate fişierele (*)|*"
+
+#: PTBatcherGUI/BatchFrame.cpp:588
+msgid "Cannot open app in Hugin."
+msgstr "Nu pot deschide aplicaţia în Hugin."
+
+#: PTBatcherGUI/BatchFrame.cpp:592
+msgid "No project selected. Open Hugin without project?"
+msgstr "Nici un proiect selectat. Deschide Hugin fără proiect?"
+
+#: PTBatcherGUI/BatchFrame.cpp:592 PTBatcherGUI/BatchFrame.cpp:635
+msgid "Question"
+msgstr "Întrebare"
+
+#: PTBatcherGUI/BatchFrame.cpp:610
+msgid "Batch paused"
+msgstr "Batch suspendat"
+
+#: PTBatcherGUI/BatchFrame.cpp:620
+msgid "Continuing batch..."
+msgstr "Continuând batch..."
+
+#: PTBatcherGUI/BatchFrame.cpp:635
+msgid ""
+"There are failed projects in the list.\n"
+"Remove them also?"
+msgstr ""
+"Lista conţine proiecte eşuate.\n"
+"Să le şterg şi pe acestea?"
+
+#: PTBatcherGUI/BatchFrame.cpp:662
+msgid ""
+"Cannot remove project in progress.\n"
+"Do you want to cancel it?"
+msgstr ""
+"Nu pot şterge proiecte în curs.\n"
+"Vrei să anulez?"
+
+#: PTBatcherGUI/BatchFrame.cpp:671
+msgid "Removed project "
+msgstr "Proiect şters "
+
+#: PTBatcherGUI/BatchFrame.cpp:677
+msgid "Please select a project to remove"
+msgstr "Selectează un proiect să şterg"
+
+#: PTBatcherGUI/BatchFrame.cpp:689
+msgid ""
+"Cannot reset project in progress.\n"
+"Do you want to cancel it?"
+msgstr ""
+"Nu pot re-seta proiecte în curs.\n"
+"Vrei să anulez?"
+
+#: PTBatcherGUI/BatchFrame.cpp:698
+msgid "Reset project "
+msgstr "Re-setează proiect "
+
+#: PTBatcherGUI/BatchFrame.cpp:702
+msgid "Please select a project to reset"
+msgstr "Selectează un proiect să re-setezi"
+
+#: PTBatcherGUI/BatchFrame.cpp:709
+msgid ""
+"Cannot reset projects in progress.\n"
+"Do you want to cancel the batch?"
+msgstr ""
+"Nu pot re-seta proiecte în curs.\n"
+"Vrei să anulez batch-ul?"
+
+#: PTBatcherGUI/BatchFrame.cpp:734
+msgid "Specify batch file to save"
+msgstr "Specifică un fişier batch să salvez"
+
+#: PTBatcherGUI/BatchFrame.cpp:736
+msgid "Batch file (*.ptb)|*.ptb;|All files (*)|*"
+msgstr "Fişier batch (*.ptb)|*.ptb;|Toate fişierele (*)|*"
+
+#: PTBatcherGUI/ProjectListBox.cpp:168
+msgid "Error, cannot convert id"
+msgstr "Eroare, nu pot converti id"
+
+#: PTBatcherGUI/ProjectListBox.cpp:207 PTBatcher/ProjectArray.cpp:72
+msgid "File missing"
+msgstr "Fişier lipsă"
+
+#: PTBatcherGUI/ProjectListBox.cpp:317
+msgid "ID"
+msgstr "ID"
+
+#: PTBatcherGUI/ProjectListBox.cpp:318
+msgid "Project"
+msgstr "Proiect"
+
+#: PTBatcherGUI/ProjectListBox.cpp:319
+msgid "Output prefix"
+msgstr "Prefix ieşire"
+
+#: PTBatcherGUI/ProjectListBox.cpp:320
+msgid "Last modified"
+msgstr "Ultima modificare"
+
+#: PTBatcherGUI/ProjectListBox.cpp:321
+msgid "Output format"
+msgstr "Format ieşire"
+
+#: PTBatcherGUI/ProjectListBox.cpp:322
+msgid "Projection"
+msgstr "Proiecţie"
+
+#: PTBatcherGUI/ProjectListBox.cpp:323
+msgid "Size"
+msgstr "Dimensiune"
+
+#: PTBatcherGUI/ProjectListBox.cpp:324
+msgid "Status"
+msgstr "Stare"
+
+#: PTBatcherGUI/PTBatcherGUI.cpp:101
+msgid "<project1 <output prefix>> <project2 <output prefix>> <project3"
+msgstr "<project1 <output prefix>> <project2 <output prefix>> <project3"
+
+#: PTBatcherGUI/PTBatcherGUI.cpp:138
+msgid "Batch Processor"
+msgstr "Procesor batch"
+
+#: PTBatcher/ProjectArray.cpp:64
+msgid "Waiting"
+msgstr "Aşteptând"
+
+#: PTBatcher/ProjectArray.cpp:68
+msgid "Complete"
+msgstr "Terminat"
+
+#: PTBatcher/ProjectArray.cpp:70
+msgid "Failed"
+msgstr "Eşuat"
+
+#: PTBatcher/ProjectArray.cpp:74
+msgid "Paused"
+msgstr "Suspendat"
+
+#: translations/xrc.cpp:1 translations/xrc.cpp:289 xrc.cpp:1 xrc.cpp:289
+msgid "About Hugin"
+msgstr "Despre Hugin"
+
+#: translations/xrc.cpp:2 translations/xrc.cpp:540 translations/xrc.cpp:610
+#: xrc.cpp:2 xrc.cpp:540 xrc.cpp:610
+msgid "OK"
+msgstr "OK"
+
+#: translations/xrc.cpp:3 xrc.cpp:3
+msgid "Anchor Image"
+msgstr "Imagine ancoră"
+
+#: translations/xrc.cpp:4 xrc.cpp:4
+msgid ""
+"Set Yaw and Pitch with left mouse button. Use right mouse button to set roll"
+msgstr ""
+"Setează deriva şi înclinaţia cu butonul stânga maus. Utilizează butonul "
+"dreapta maus pentru a seta rotaţia"
+
+#: translations/xrc.cpp:5 xrc.cpp:5
+msgid "Set Anchor Image Orientation"
+msgstr "Setează orientarea imaginii ancoră"
+
+#: translations/xrc.cpp:6 xrc.cpp:6
+msgid "1. Load images..."
+msgstr "1. Încarcă imagini..."
+
+#: translations/xrc.cpp:7 xrc.cpp:7
+msgid "load a series of photos"
+msgstr "încarcă o serie de fotografii"
+
+#: translations/xrc.cpp:8 xrc.cpp:8
+msgid "no images loaded"
+msgstr "nici o imagine încărcată"
+
+#: translations/xrc.cpp:9 xrc.cpp:9
+msgid "Automatic (use EXIF data)"
+msgstr "Automat (foloseşte informaţii EXIF)"
+
+#: translations/xrc.cpp:10 translations/xrc.cpp:28 xrc.cpp:10 xrc.cpp:28
+msgid "Lens type:"
+msgstr "Tip lentilă:"
+
+#: translations/xrc.cpp:16 translations/xrc.cpp:38 xrc.cpp:16 xrc.cpp:38
+msgid "Focal length:"
+msgstr "Lungime focală:"
+
+#: translations/xrc.cpp:17 translations/xrc.cpp:39 xrc.cpp:17 xrc.cpp:39
+msgid "mm"
+msgstr "mm"
+
+#: translations/xrc.cpp:18 translations/xrc.cpp:40 xrc.cpp:18 xrc.cpp:40
+msgid "Focal length multiplier:"
+msgstr "Multiplicator lungime focală:"
+
+#: translations/xrc.cpp:20 translations/xrc.cpp:124 xrc.cpp:20 xrc.cpp:124
+msgid "Load lens..."
+msgstr "Încarcă lentilă..."
+
+#: translations/xrc.cpp:21 translations/xrc.cpp:193 xrc.cpp:21 xrc.cpp:193
+msgid "Camera and Lens"
+msgstr "Cameră şi lentile"
+
+#: translations/xrc.cpp:22 xrc.cpp:22
+msgid "2. Align..."
+msgstr "2. Aliniază..."
+
+#: translations/xrc.cpp:23 xrc.cpp:23
+msgid ""
+"Align all images. Creates control points and optimizes the image positions"
+msgstr ""
+"Aliniază toate imaginile. Creează puncte de control si optimizează poziţiile "
+"imaginilor"
+
+#: translations/xrc.cpp:24 xrc.cpp:24
+msgid "3. Create panorama..."
+msgstr "3. Creează panorama..."
+
+#: translations/xrc.cpp:25 xrc.cpp:25
+msgid "Create a high resolution panorama."
+msgstr "Creează o panoramă de înaltă rezoluţie."
+
+#: translations/xrc.cpp:26 xrc.cpp:26
+msgid "Camera and Lens data"
+msgstr "Informaţii cameră şi lentile"
+
+#: translations/xrc.cpp:27 xrc.cpp:27
+msgid ""
+"a0123456789012345678901234567890123456789\n"
+"b\n"
+"c\n"
+"d\n"
+"e"
+msgstr ""
+"a0123456789012345678901234567890123456789\n"
+"b\n"
+"c\n"
+"d\n"
+"e"
+
+#: translations/xrc.cpp:34 xrc.cpp:34
+msgid "Load lens data..."
+msgstr "Încarcă parametri lentile..."
+
+#: translations/xrc.cpp:35 xrc.cpp:35
+msgid "Enter horizontal field of view (HFOV) or focal length and crop factor:"
+msgstr ""
+"Introduce câmpul de vedere orizontal (HFOV) sau lungimea focală şi factorul "
+"de decupare:"
+
+#: translations/xrc.cpp:36 xrc.cpp:36
+msgid "HFOV (v):"
+msgstr "HFOV (v):"
+
+#: translations/xrc.cpp:37 translations/xrc.cpp:496 translations/xrc.cpp:498
+#: xrc.cpp:37 xrc.cpp:496 xrc.cpp:498
+msgid "degrees"
+msgstr "grade"
+
+#: translations/xrc.cpp:42 xrc.cpp:42
+msgid "previous image pair"
+msgstr "perechea precedentă de imagini"
+
+#: translations/xrc.cpp:43 xrc.cpp:43
+msgid "next image pair"
+msgstr "următoarea pereche de imagini"
+
+#: translations/xrc.cpp:44 translations/xrc.cpp:46 translations/xrc.cpp:181
+#: xrc.cpp:44 xrc.cpp:46 xrc.cpp:181
+msgid "x:"
+msgstr "x:"
+
+#: translations/xrc.cpp:45 translations/xrc.cpp:47 translations/xrc.cpp:182
+#: translations/xrc.cpp:634 xrc.cpp:45 xrc.cpp:47 xrc.cpp:182 xrc.cpp:634
+msgid "y:"
+msgstr "y:"
+
+#: translations/xrc.cpp:48 xrc.cpp:48
+msgid "mode:"
+msgstr "mod:"
+
+#: translations/xrc.cpp:50 xrc.cpp:50
+msgid "vertical line"
+msgstr "linie verticală"
+
+#: translations/xrc.cpp:51 xrc.cpp:51
+msgid "horizontal line"
+msgstr "linie orizontală"
+
+#: translations/xrc.cpp:52 xrc.cpp:52
+msgid "Zoom:"
+msgstr "Zoom:"
+
+#: translations/xrc.cpp:53 xrc.cpp:53
+msgid "100%"
+msgstr "100%"
+
+#: translations/xrc.cpp:54 xrc.cpp:54
+msgid "fit to window"
+msgstr "potriveşte în fereastră"
+
+#: translations/xrc.cpp:55 xrc.cpp:55
+msgid "200%"
+msgstr "200%"
+
+#: translations/xrc.cpp:56 xrc.cpp:56
+msgid "150%"
+msgstr "150%"
+
+#: translations/xrc.cpp:57 xrc.cpp:57
+msgid "75%"
+msgstr "75%"
+
+#: translations/xrc.cpp:58 xrc.cpp:58
+msgid "50%"
+msgstr "50%"
+
+#: translations/xrc.cpp:59 xrc.cpp:59
+msgid "25%"
+msgstr "25%"
+
+#: translations/xrc.cpp:60 xrc.cpp:60
+msgid "Fine-tune"
+msgstr "Reglează-fin"
+
+#: translations/xrc.cpp:61 xrc.cpp:61
+msgid "tries to optimize the currently active point."
+msgstr "încearcă să optimizeze punctul curent activ."
+
+#: translations/xrc.cpp:63 xrc.cpp:63
+msgid "tries to remove control points from clouds."
+msgstr "încearcă să şteargă puncte de control din nori."
+
+#: translations/xrc.cpp:64 xrc.cpp:64
+msgid "auto fine-&tune"
+msgstr "&reglaj-fin automat"
+
+#: translations/xrc.cpp:65 xrc.cpp:65
+msgid "auto add"
+msgstr "adăugare automată"
+
+#: translations/xrc.cpp:66 xrc.cpp:66
+msgid "immediately add control point when selecting a second point"
+msgstr "adaugă imediat un punct de control la selecţia altui punct"
+
+#: translations/xrc.cpp:67 xrc.cpp:67
+msgid "auto estimate"
+msgstr "estimare automată"
+
+#: translations/xrc.cpp:68 xrc.cpp:68
+msgid ""
+"tries to estimate shift between the images and use it while placing control "
+"points"
+msgstr ""
+"încearcă să estimeze deplasarea dintre imagini şi să o utilizeze la plasarea "
+"punctelor de control"
+
+#: translations/xrc.cpp:69 xrc.cpp:69
+msgid "&Delete"
+msgstr "Şterge"
+
+#: translations/xrc.cpp:70 xrc.cpp:70
+msgid "&Add"
+msgstr "&Adaugă"
+
+#: translations/xrc.cpp:71 xrc.cpp:71
+msgid "add a new Point"
+msgstr "Adaugă un punct nou"
+
+#: translations/xrc.cpp:72 translations/xrc.cpp:195 xrc.cpp:72 xrc.cpp:195
+msgid "Control Points"
+msgstr "Puncte de control"
+
+#: translations/xrc.cpp:73 xrc.cpp:73
+msgid "Delete"
+msgstr "Şterge"
+
+#: translations/xrc.cpp:74 xrc.cpp:74
+msgid "Select by Distance"
+msgstr "Selectează după distanţă"
+
+#: translations/xrc.cpp:75 xrc.cpp:75
+msgid "Top:"
+msgstr "Sus:"
+
+#: translations/xrc.cpp:76 xrc.cpp:76
+msgid "Left:"
+msgstr "Stânga:"
+
+#: translations/xrc.cpp:77 xrc.cpp:77
+msgid "Right:"
+msgstr "Dreapta:"
+
+#: translations/xrc.cpp:78 xrc.cpp:78
+msgid "Bottom:"
+msgstr "Jos:"
+
+#: translations/xrc.cpp:79 xrc.cpp:79
+msgid "Always center Crop on d,e"
+msgstr "Întotdeauna centrează decuparea pe d,e"
+
+#: translations/xrc.cpp:80 translations/xrc.cpp:109 translations/xrc.cpp:600
+#: xrc.cpp:80 xrc.cpp:109 xrc.cpp:600
+msgid "Reset"
+msgstr "Restabileşte"
+
+#: translations/xrc.cpp:81 xrc.cpp:81
+msgid "Edit Panorama Tools Script"
+msgstr "Editează script-ul Panorama Tools"
+
+#: translations/xrc.cpp:82 xrc.cpp:82
+msgid ""
+"This is the script which will be sent to the Panorama Tools engine.  Editing "
+"these lines is an advanced technique."
+msgstr ""
+"Acesta este script-ul ce va fi trimis către motorul Panorama Tools.  "
+"Editarea acestor linii este o tehnică avansată."
+
+#: translations/xrc.cpp:83 xrc.cpp:83
+msgid "Continue with these changes"
+msgstr "Continuă cu aceste schimbări"
+
+#: translations/xrc.cpp:84 xrc.cpp:84
+msgid "Discard changes and cancel"
+msgstr "Renunţă la schimbări şi anulează"
+
+#: translations/xrc.cpp:85 xrc.cpp:85
+msgid "Text mode"
+msgstr "Mod text"
+
+#: translations/xrc.cpp:86 translations/xrc.cpp:278 translations/xrc.cpp:293
+#: xrc.cpp:86 xrc.cpp:278 xrc.cpp:293
+msgid "Optimize"
+msgstr "Optimizează"
+
+#: translations/xrc.cpp:88 xrc.cpp:88
+msgid "Hugin Reference"
+msgstr "Referinţa Hugin"
+
+#: translations/xrc.cpp:89 translations/xrc.cpp:123 xrc.cpp:89 xrc.cpp:123
+msgid "Close"
+msgstr "Închide"
+
+#: translations/xrc.cpp:90 xrc.cpp:90
+msgid "Add individual images..."
+msgstr "Adaugă imaginile..."
+
+#: translations/xrc.cpp:91 xrc.cpp:91
+msgid "load one or more photos for this project"
+msgstr "încarcă una sau mai multe fotografii pentru acest proiect"
+
+#: translations/xrc.cpp:92 xrc.cpp:92
+msgid "Add time-series of images..."
+msgstr "Adaugă imagini în serii de timp..."
+
+#: translations/xrc.cpp:93 xrc.cpp:93
+msgid "load a set of photos taken at the same time"
+msgstr "încarcă un set de fotografii făcute în acelaşi timp"
+
+#: translations/xrc.cpp:94 xrc.cpp:94
+msgid "Move up"
+msgstr "Mută în sus"
+
+#: translations/xrc.cpp:95 xrc.cpp:95
+msgid "Move down"
+msgstr "Mută în jos"
+
+#: translations/xrc.cpp:96 xrc.cpp:96
+msgid "Remove selected image(s)"
+msgstr "Şterge imaginile selectate"
+
+#: translations/xrc.cpp:97 xrc.cpp:97
+msgid "Remove the selected images from this project"
+msgstr "Şterge imaginile selectate din proiect"
+
+#: translations/xrc.cpp:98 xrc.cpp:98
+msgid "Remove points"
+msgstr "Şterge puncte"
+
+#: translations/xrc.cpp:99 xrc.cpp:99
+msgid "Remove control points connecting the selected images"
+msgstr "Şterge punctele de control ce conectează imaginile selectate"
+
+#: translations/xrc.cpp:100 translations/xrc.cpp:528 xrc.cpp:100 xrc.cpp:528
+msgid "Run Celeste"
+msgstr "Rulează Celeste"
+
+#: translations/xrc.cpp:101 xrc.cpp:101
+msgid "Tries to remove control points from clouds"
+msgstr "Încearcă să şteargă puncte de control din nori"
+
+#: translations/xrc.cpp:102 translations/xrc.cpp:306 translations/xrc.cpp:601
+#: xrc.cpp:102 xrc.cpp:306 xrc.cpp:601
+msgid "Image Orientation"
+msgstr "Orientare imagine"
+
+#: translations/xrc.cpp:103 xrc.cpp:103
+msgid "yaw:"
+msgstr "derivă:"
+
+#: translations/xrc.cpp:104 xrc.cpp:104
+msgid "set yaw for selected image(s)"
+msgstr "setează deriva pentru imaginile selectate"
+
+#: translations/xrc.cpp:105 xrc.cpp:105
+msgid "pitch:"
+msgstr "înclinaţie:"
+
+#: translations/xrc.cpp:106 xrc.cpp:106
+msgid "set pitch for selected image(s)"
+msgstr "setează înclinaţia pentru imaginile selectate"
+
+#: translations/xrc.cpp:107 xrc.cpp:107
+msgid "roll:"
+msgstr "rotaţie:"
+
+#: translations/xrc.cpp:108 xrc.cpp:108
+msgid "set roll for selected image(s)"
+msgstr "setează rotaţia pentru imaginile selectate"
+
+#: translations/xrc.cpp:110 xrc.cpp:110
+msgid "Reset position of selected image(s)"
+msgstr "re-setează poziţia imaginilor selectate"
+
+#: translations/xrc.cpp:111 xrc.cpp:111
+msgid "Feature Matching (Autopano)"
+msgstr "Potrivire elemente (Autopano)"
+
+#: translations/xrc.cpp:112 xrc.cpp:112
+msgid "Points per Overlap:"
+msgstr "Puncte per suprapunere:"
+
+#: translations/xrc.cpp:113 xrc.cpp:113
+msgid "number of points created at each overlap"
+msgstr "număr de puncte create la fiecare suprapunere"
+
+#: translations/xrc.cpp:115 xrc.cpp:115
+msgid "Run external autopano program on the selected images"
+msgstr "Rulează un program extern autopano pentru imaginile selectate"
+
+#: translations/xrc.cpp:116 xrc.cpp:116
+msgid "Reference Image"
+msgstr "Imagine referinţă"
+
+#: translations/xrc.cpp:117 xrc.cpp:117
+msgid "Anchor this image for position"
+msgstr "Ancorează această imagine la poziţie"
+
+#: translations/xrc.cpp:118 xrc.cpp:118
+msgid ""
+"use currently selected image as anchor image. That is, do not optimize the "
+"(complete) position of this image."
+msgstr ""
+"foloseşte imaginea selectată ca imagine ancoră. Adică, nu optimiza poziţia "
+"(completă) acestei imagini."
+
+#: translations/xrc.cpp:119 xrc.cpp:119
+msgid "Anchor this image for exposure"
+msgstr "Ancorează această imagine la expunere"
+
+#: translations/xrc.cpp:120 xrc.cpp:120
+msgid "use the currently selected images as color correction anchor image"
+msgstr ""
+"foloseşte imaginile curent selectate ca ancoră pentru corecţia de culori"
+
+#: translations/xrc.cpp:121 xrc.cpp:121
+msgid "Selected Image"
+msgstr "Imagine selectată"
+
+#: translations/xrc.cpp:122 xrc.cpp:122
+msgid "Keyboard Shortcuts"
+msgstr "Scurtături tastatură"
+
+#: translations/xrc.cpp:125 xrc.cpp:125
+msgid "Load lens parameters from a file"
+msgstr "Încarcă parametrii lentilelor din fişier"
+
+#: translations/xrc.cpp:126 xrc.cpp:126
+msgid "Save lens..."
+msgstr "Salvează lentile..."
+
+#: translations/xrc.cpp:127 xrc.cpp:127
+msgid "Save lens parameters to a file"
+msgstr "Salvează parametrii lentilelor în fişier"
+
+#: translations/xrc.cpp:128 xrc.cpp:128
+msgid "Load EXIF"
+msgstr "Încarcă EXIF"
+
+#: translations/xrc.cpp:129 xrc.cpp:129
+msgid "Try to read HFOV from the EXIF data"
+msgstr "Încearcă să citeşti HFOV din datele EXIF"
+
+#: translations/xrc.cpp:130 xrc.cpp:130
+msgid "New Lens"
+msgstr "Lentilă nouă"
+
+#: translations/xrc.cpp:131 xrc.cpp:131
+msgid "Create a new lens and assign it to selected images"
+msgstr "Creează o nouă lentilă asociaz-o la imaginile selectate"
+
+#: translations/xrc.cpp:132 xrc.cpp:132
+msgid "Change lens..."
+msgstr "Schimbă lentilă..."
+
+#: translations/xrc.cpp:133 xrc.cpp:133
+msgid "change lens of selected images"
+msgstr "schimbă lentila imaginilor selectate"
+
+#: translations/xrc.cpp:134 xrc.cpp:134
+msgid "Reset..."
+msgstr "Re-iniţializare..."
+
+#: translations/xrc.cpp:135 xrc.cpp:135
+msgid "Geometric"
+msgstr "Geometric"
+
+#: translations/xrc.cpp:136 xrc.cpp:136
+msgid "Lens"
+msgstr "Lentilă"
+
+#: translations/xrc.cpp:137 translations/xrc.cpp:185 xrc.cpp:137 xrc.cpp:185
+msgid "Type:"
+msgstr "Tip:"
+
+#: translations/xrc.cpp:143 xrc.cpp:143
+msgid "degrees of view (v):"
+msgstr "grade vedere (v):"
+
+#: translations/xrc.cpp:144 xrc.cpp:144
+msgid "Horizontal Field of View"
+msgstr "Câmp de vedere orizontal"
+
+#: translations/xrc.cpp:145 translations/xrc.cpp:152 translations/xrc.cpp:154
+#: translations/xrc.cpp:156 translations/xrc.cpp:159 translations/xrc.cpp:161
+#: translations/xrc.cpp:164 translations/xrc.cpp:166 translations/xrc.cpp:170
+#: translations/xrc.cpp:172 translations/xrc.cpp:174 translations/xrc.cpp:179
+#: translations/xrc.cpp:183 translations/xrc.cpp:188 xrc.cpp:145 xrc.cpp:152
+#: xrc.cpp:154 xrc.cpp:156 xrc.cpp:159 xrc.cpp:161 xrc.cpp:164 xrc.cpp:166
+#: xrc.cpp:170 xrc.cpp:172 xrc.cpp:174 xrc.cpp:179 xrc.cpp:183 xrc.cpp:188
+msgid "Link"
+msgstr "Legatură"
+
+#: translations/xrc.cpp:146 xrc.cpp:146
+msgid "focal length:"
+msgstr "lungime focală:"
+
+#: translations/xrc.cpp:147 xrc.cpp:147
+msgid "true focal length in mm"
+msgstr "lungime focală reală în mm"
+
+#: translations/xrc.cpp:148 xrc.cpp:148
+msgid "crop factor:"
+msgstr "factor de decupare:"
+
+#: translations/xrc.cpp:149 xrc.cpp:149
+msgid "35mm film diameter / ccd diameter"
+msgstr "diametru film 35mm / diametru ccd"
+
+#: translations/xrc.cpp:150 xrc.cpp:150
+msgid "Radial Distortion"
+msgstr "Distorsiune radială"
+
+#: translations/xrc.cpp:151 translations/xrc.cpp:318 xrc.cpp:151 xrc.cpp:318
+msgid "distortion (a):"
+msgstr "distorsiune (a):"
+
+#: translations/xrc.cpp:153 translations/xrc.cpp:319 xrc.cpp:153 xrc.cpp:319
+msgid "barrel (b):"
+msgstr "cilindrică (b):"
+
+#: translations/xrc.cpp:155 translations/xrc.cpp:320 xrc.cpp:155 xrc.cpp:320
+msgid "distortion (c):"
+msgstr "distorsiune (c):"
+
+#: translations/xrc.cpp:157 xrc.cpp:157
+msgid "Image Center Shift"
+msgstr "Deplasarea centrului imaginii"
+
+#: translations/xrc.cpp:158 xrc.cpp:158
+msgid "horizontal (d):"
+msgstr "orizontal (d):"
+
+#: translations/xrc.cpp:160 xrc.cpp:160
+msgid "vertical (e):"
+msgstr "vertical (e):"
+
+#: translations/xrc.cpp:162 xrc.cpp:162
+msgid "Image Shearing"
+msgstr "Forfecare imagine"
+
+#: translations/xrc.cpp:163 xrc.cpp:163
+msgid "horizontal (g):"
+msgstr "orizontal (g):"
+
+#: translations/xrc.cpp:165 xrc.cpp:165
+msgid "vertical (t):"
+msgstr "vertical (t):"
+
+#: translations/xrc.cpp:167 xrc.cpp:167
+msgid "Photometric"
+msgstr "Fotometric"
+
+#: translations/xrc.cpp:168 xrc.cpp:168
+msgid "Exposure and Color"
+msgstr "Expunere şi culoare"
+
+#: translations/xrc.cpp:169 xrc.cpp:169
+msgid "Exposure (EV)"
+msgstr "Expunere (EV)"
+
+#: translations/xrc.cpp:171 xrc.cpp:171
+msgid "Red multiplier:"
+msgstr "Multiplicator roşu:"
+
+#: translations/xrc.cpp:173 xrc.cpp:173
+msgid "Blue multiplier:"
+msgstr "Multiplicator albastru:"
+
+#: translations/xrc.cpp:175 translations/xrc.cpp:608 xrc.cpp:175 xrc.cpp:608
+msgid "Vignetting"
+msgstr "Vignetare"
+
+#: translations/xrc.cpp:176 xrc.cpp:176
+msgid "* r^2"
+msgstr "* r^2"
+
+#: translations/xrc.cpp:177 xrc.cpp:177
+msgid "* r^4"
+msgstr "* r^4"
+
+#: translations/xrc.cpp:178 xrc.cpp:178
+msgid "* r^6"
+msgstr "* r^6"
+
+#: translations/xrc.cpp:180 xrc.cpp:180
+msgid "Vignetting Center Shift"
+msgstr "Deplasare centru vignetare"
+
+#: translations/xrc.cpp:184 translations/xrc.cpp:609 xrc.cpp:184 xrc.cpp:609
+msgid "Camera Response"
+msgstr "Răspuns cameră"
+
+#: translations/xrc.cpp:186 xrc.cpp:186
+msgid "custom (EMoR)"
+msgstr "customizare (EMoR)"
+
+#: translations/xrc.cpp:187 xrc.cpp:187
+msgid "Linear"
+msgstr "Liniar"
+
+#: translations/xrc.cpp:189 xrc.cpp:189
+msgid "Parameters:"
+msgstr "Parametri:"
+
+#: translations/xrc.cpp:190 xrc.cpp:190
+msgid "Hugin - Panorama Tools Frontend"
+msgstr "Hugin - interfaţă Panorama Tools"
+
+#: translations/xrc.cpp:191 translations/xrc.cpp:462 xrc.cpp:191 xrc.cpp:462
+msgid "Assistant"
+msgstr "Asistent"
+
+#: translations/xrc.cpp:192 xrc.cpp:192
+msgid "Images"
+msgstr "Imagini"
+
+#: translations/xrc.cpp:196 xrc.cpp:196
+msgid "Optimizer"
+msgstr "Optimizator"
+
+#: translations/xrc.cpp:197 translations/xrc.cpp:604 xrc.cpp:197 xrc.cpp:604
+msgid "Exposure"
+msgstr "Expunere"
+
+#: translations/xrc.cpp:198 xrc.cpp:198
+msgid "Stitcher"
+msgstr "Îmbinător"
+
+#: translations/xrc.cpp:199 translations/xrc.cpp:205 xrc.cpp:199 xrc.cpp:205
+msgid "&File"
+msgstr "&Fişier"
+
+#: translations/xrc.cpp:200 xrc.cpp:200
+msgid "E&xit\tAlt-X"
+msgstr "&Ieşire\tAlt-X"
+
+#: translations/xrc.cpp:201 xrc.cpp:201
+msgid "Exit this application"
+msgstr "Ieşi din această aplicaţie"
+
+#: translations/xrc.cpp:203 xrc.cpp:203
+msgid "&About..."
+msgstr "&Despre..."
+
+#: translations/xrc.cpp:204 xrc.cpp:204
+msgid "About this application"
+msgstr "Despre această aplicaţie"
+
+#: translations/xrc.cpp:206 xrc.cpp:206
+msgid "&New"
+msgstr "&Nou"
+
+#: translations/xrc.cpp:207 translations/xrc.cpp:256 xrc.cpp:207 xrc.cpp:256
+msgid "New project"
+msgstr "Proiect nou"
+
+#: translations/xrc.cpp:208 xrc.cpp:208
+msgid "&Open"
+msgstr "&Deschide"
+
+#: translations/xrc.cpp:209 translations/xrc.cpp:259 xrc.cpp:209 xrc.cpp:259
+msgid "Open project"
+msgstr "Deschide proiect"
+
+#: translations/xrc.cpp:210 xrc.cpp:210
+msgid "&Save"
+msgstr "&Salvează"
+
+#: translations/xrc.cpp:211 translations/xrc.cpp:264 xrc.cpp:211 xrc.cpp:264
+msgid "Save current project file"
+msgstr "Salvează fişierul proiect"
+
+#: translations/xrc.cpp:212 xrc.cpp:212
+msgid "S&ave as"
+msgstr "S&alvează ca"
+
+#: translations/xrc.cpp:213 translations/xrc.cpp:267 xrc.cpp:213 xrc.cpp:267
+msgid "Save current project to a new file"
+msgstr "Salvează proiectul într-un fişier nou"
+
+#: translations/xrc.cpp:214 xrc.cpp:214
+msgid "&Write PTStitcher script"
+msgstr "Scrie script PTStitcher"
+
+#: translations/xrc.cpp:215 xrc.cpp:215
+msgid ""
+"Write current project to a PTStitcher compatible script file, useful for "
+"batch processing"
+msgstr ""
+"Scrie proiectul curent într-un fişier script compatibil PTStitcher, util la "
+"procesarea batch"
+
+#: translations/xrc.cpp:216 xrc.cpp:216
+msgid "Send to &batch"
+msgstr "Trimite la &batch"
+
+#: translations/xrc.cpp:217 xrc.cpp:217
+msgid "Saves and sends the project to the batch, to be picked up by PTBatcher"
+msgstr "Salvează şi trimite proiectul la batch, pentru a fi rulat de PTBatcher"
+
+#: translations/xrc.cpp:218 xrc.cpp:218
+msgid "&Run Batch Processor"
+msgstr "&Rulează procesor batch"
+
+#: translations/xrc.cpp:219 xrc.cpp:219
+msgid "Opens PTBatcher, the batch processor for Hugin's project files"
+msgstr "Deschide PTBatcher, procesorul batch pentru proiecte Hugin"
+
+#: translations/xrc.cpp:220 xrc.cpp:220
+msgid "Apply &Template"
+msgstr "Aplica Şab&lon"
+
+#: translations/xrc.cpp:221 xrc.cpp:221
+msgid ""
+"Assign the settings of a previously saved project to the current images."
+msgstr "Asociază setările unui proiect salvat anterior imaginilor curente."
+
+#: translations/xrc.cpp:222 xrc.cpp:222
+msgid "&Preferences"
+msgstr "&Preferinţe"
+
+#: translations/xrc.cpp:223 xrc.cpp:223
+msgid "&Quit"
+msgstr "&Ieşire"
+
+#: translations/xrc.cpp:224 xrc.cpp:224
+msgid "Exit program"
+msgstr "Ieşire program"
+
+#: translations/xrc.cpp:225 xrc.cpp:225
+msgid "&Edit"
+msgstr "&Editare"
+
+#: translations/xrc.cpp:226 xrc.cpp:226
+msgid "&Undo"
+msgstr "&Anulează"
+
+#: translations/xrc.cpp:227 translations/xrc.cpp:270 xrc.cpp:227 xrc.cpp:270
+msgid "Undo the last action"
+msgstr "Anulează ultima acţiune"
+
+#: translations/xrc.cpp:228 xrc.cpp:228
+msgid "&Redo"
+msgstr "&Refă"
+
+#: translations/xrc.cpp:229 translations/xrc.cpp:273 xrc.cpp:229 xrc.cpp:273
+msgid "Redo the last action"
+msgstr "Refă ultima acţiune"
+
+#: translations/xrc.cpp:230 xrc.cpp:230
+msgid "Fine-&tune all Points"
+msgstr "Re&glează fin toate punctele"
+
+#: translations/xrc.cpp:231 xrc.cpp:231
+msgid ""
+"Runs fine-tune on all control points. useful for projects created with other "
+"tools, like PTGui or PTAssembler"
+msgstr ""
+"Rulează reglaj-fin pentru toate punctele. Folositor pentru proiecte create "
+"cu alte unelte, ca PTGui sau PTAssembler"
+
+#: translations/xrc.cpp:232 xrc.cpp:232
+msgid "&Optimize"
+msgstr "&Optimizare"
+
+#: translations/xrc.cpp:233 translations/xrc.cpp:279 xrc.cpp:233 xrc.cpp:279
+msgid "Re-run the optimizer with current settings"
+msgstr "Rulează optimiza-torul cu setările curente"
+
+#: translations/xrc.cpp:234 xrc.cpp:234
+msgid "&Add Image"
+msgstr "&Adaugă imagine"
+
+#: translations/xrc.cpp:235 translations/xrc.cpp:276 xrc.cpp:235 xrc.cpp:276
+msgid "Add another image to the current project"
+msgstr "Adaugă altă imagine la proiectul curent"
+
+#: translations/xrc.cpp:236 xrc.cpp:236
+msgid "&View"
+msgstr "&Vizualizare"
+
+#: translations/xrc.cpp:237 xrc.cpp:237
+msgid "&Control point table"
+msgstr "Tabelul punctelor de &control"
+
+#: translations/xrc.cpp:238 xrc.cpp:238
+msgid "Shows all control point distances"
+msgstr "Arată distanţele tuturor punctelor de control"
+
+#: translations/xrc.cpp:239 xrc.cpp:239
+msgid "&Preview window"
+msgstr "Fereastră &pre-vizualizare"
+
+#: translations/xrc.cpp:240 xrc.cpp:240
+msgid "Show the preview window"
+msgstr "Arată fereastra de pre-vizualizare"
+
+#: translations/xrc.cpp:241 xrc.cpp:241
+msgid "&Fast Preview window"
+msgstr "&Fereastră pre-vizualizare rapidă"
+
+#: translations/xrc.cpp:242 xrc.cpp:242
+msgid "Show the OpenGL preview window"
+msgstr "Arată fereastra de pre-vizualizare OpenGL"
+
+#: translations/xrc.cpp:245 xrc.cpp:245
+msgid "Some information on the different buttons and so on."
+msgstr "Informaţie pe diferitele butoane şi aşa mai departe."
+
+#: translations/xrc.cpp:246 xrc.cpp:246
+msgid "&Tip of the day"
+msgstr "&Informaţia zilei"
+
+#: translations/xrc.cpp:247 xrc.cpp:247
+msgid "Show one of the tips of the day."
+msgstr "Arată una din informaţiile zilei"
+
+#: translations/xrc.cpp:248 xrc.cpp:248
+msgid "&Keyboard Shortcuts"
+msgstr "Scurtături &tastatură"
+
+#: translations/xrc.cpp:249 xrc.cpp:249
+msgid "keyboard shortcuts"
+msgstr "scurtături tastatură"
+
+#: translations/xrc.cpp:250 xrc.cpp:250
+msgid "&FAQ"
+msgstr "&FAQ"
+
+#: translations/xrc.cpp:251 xrc.cpp:251
+msgid "Frequently Asked Questions"
+msgstr "Întrebări frecvente"
+
+#: translations/xrc.cpp:252 xrc.cpp:252
+msgid "&About"
+msgstr "&Despre"
+
+#: translations/xrc.cpp:253 xrc.cpp:253
+msgid "About program"
+msgstr "Despre program"
+
+#: translations/xrc.cpp:254 xrc.cpp:254
+msgid "&Donate"
+msgstr "&Donaţie"
+
+#: translations/xrc.cpp:255 xrc.cpp:255
+msgid ""
+"If you like hugin and want to see further improvements, please consider "
+"donating to the hugin project."
+msgstr ""
+"Dacă vă place hugin şi vreţi îmbunătăţiri, vă rog să donaţi proiectului "
+"hugin."
+
+#: translations/xrc.cpp:257 xrc.cpp:257
+msgid "New"
+msgstr "Nou"
+
+#: translations/xrc.cpp:258 xrc.cpp:258
+msgid "Start a new project"
+msgstr "Începe un proiect nou"
+
+#: translations/xrc.cpp:260 xrc.cpp:260
+msgid "Open"
+msgstr "Deschide"
+
+#: translations/xrc.cpp:261 xrc.cpp:261
+msgid "Open a project file"
+msgstr "Deschide un fişier proiect"
+
+#: translations/xrc.cpp:263 xrc.cpp:263
+msgid "Save"
+msgstr "Salvează"
+
+#: translations/xrc.cpp:265 xrc.cpp:265
+msgid "Save project as"
+msgstr "Salvează proiect ca"
+
+#: translations/xrc.cpp:266 xrc.cpp:266
+msgid "Save As"
+msgstr "Salvează ca"
+
+#: translations/xrc.cpp:268 translations/xrc.cpp:269 xrc.cpp:268 xrc.cpp:269
+msgid "Undo"
+msgstr "Anulează"
+
+#: translations/xrc.cpp:271 translations/xrc.cpp:272 xrc.cpp:271 xrc.cpp:272
+msgid "Redo"
+msgstr "Refă"
+
+#: translations/xrc.cpp:274 xrc.cpp:274
+msgid "Add image"
+msgstr "Adaugă imagine"
+
+#: translations/xrc.cpp:275 xrc.cpp:275
+msgid "Add"
+msgstr "Adaugă"
+
+#: translations/xrc.cpp:277 xrc.cpp:277
+msgid "Re-optimize"
+msgstr "Re-optimizare"
+
+#: translations/xrc.cpp:280 xrc.cpp:280
+msgid "Fast Preview panorama"
+msgstr "Panoramă pre-vizualizare rapidă"
+
+#: translations/xrc.cpp:281 xrc.cpp:281
+msgid "Fast Preview"
+msgstr "Pre-vizualizare rapidă"
+
+#: translations/xrc.cpp:282 xrc.cpp:282
+msgid "Show the OpenGL preview image"
+msgstr "Arată imaginea de pre-vizualizare OpenGL"
+
+#: translations/xrc.cpp:283 xrc.cpp:283
+msgid "Preview panorama"
+msgstr "Pre-vizualizare panoramă"
+
+#: translations/xrc.cpp:284 translations/xrc.cpp:550 xrc.cpp:284 xrc.cpp:550
+msgid "Preview"
+msgstr "Pre-vizualizare"
+
+#: translations/xrc.cpp:285 xrc.cpp:285
+msgid "Show the preview image"
+msgstr "Arată imaginea de pre-vizualizare"
+
+#: translations/xrc.cpp:286 xrc.cpp:286
+msgid "Show control points"
+msgstr "Arată punctele de control"
+
+#: translations/xrc.cpp:287 xrc.cpp:287
+msgid "Points"
+msgstr "Puncte"
+
+#: translations/xrc.cpp:288 xrc.cpp:288
+msgid "Show all control points in a single table"
+msgstr "Arată toate punctele de control într-un singur tabel"
+
+#: translations/xrc.cpp:290 xrc.cpp:290
+msgid "About"
+msgstr "Despre"
+
+#: translations/xrc.cpp:291 xrc.cpp:291
+msgid "Display credits for the creators of Hugin"
+msgstr "Afişează autorii Hugin"
+
+#: translations/xrc.cpp:292 xrc.cpp:292
+msgid "Quick Optimizer"
+msgstr "Optimiza-tor rapid"
+
+#: translations/xrc.cpp:294 xrc.cpp:294
+msgid "Positions (incremental, starting from anchor)"
+msgstr "Poziţii (incremental, pornind de la ancoră)"
+
+#: translations/xrc.cpp:295 xrc.cpp:295
+msgid "Positions (y,p,r)"
+msgstr "Poziţii (y,p,r)"
+
+#: translations/xrc.cpp:296 xrc.cpp:296
+msgid "Positions and View (y,p,r,v)"
+msgstr "Poziţii şi vedere (y,p,r,v)"
+
+#: translations/xrc.cpp:297 xrc.cpp:297
+msgid "Positions and Barrel Distortion (y,p,r,b)"
+msgstr "Poziţii şi distorsiune cilindrică (y,p,r,b)"
+
+#: translations/xrc.cpp:298 xrc.cpp:298
+msgid "Positions, View and Barrel (y,p,r,v,b)"
+msgstr "Poziţii, vedere şi cilindrică (y,p,r,v,b)"
+
+#: translations/xrc.cpp:299 xrc.cpp:299
+msgid "Everything"
+msgstr "Totul"
+
+#: translations/xrc.cpp:300 xrc.cpp:300
+msgid "the Custom parameters below"
+msgstr "parametrii personalizaţi de mai jos"
+
+#: translations/xrc.cpp:301 translations/xrc.cpp:332 xrc.cpp:301 xrc.cpp:332
+msgid "Optimize now!"
+msgstr "Optimizează acum!"
+
+#: translations/xrc.cpp:302 translations/xrc.cpp:333 xrc.cpp:302 xrc.cpp:333
+msgid "execute the PTOptimizer engine"
+msgstr "execută motorul PTOptimizer"
+
+#: translations/xrc.cpp:303 translations/xrc.cpp:334 xrc.cpp:303 xrc.cpp:334
+msgid ""
+"Any variables below which are marked [x] will be optimized.\n"
+"Variables which are cleared [ ] will act as references or anchors."
+msgstr ""
+"Oricare variabile de mai jos care sunt marcate [x] vor fi optimizate.\n"
+"Variabilele care sunt golite [.] vor funcţiona ca referinţe sau ancore."
+
+#: translations/xrc.cpp:304 xrc.cpp:304
+msgid "Only use control points between image selected in preview window."
+msgstr ""
+"Foloseşte puncte de control doar între imagini selectate în fereastra de pre-"
+"vizualizare."
+
+#: translations/xrc.cpp:305 xrc.cpp:305
+msgid ""
+"Only use control points between images selected in preview window. Useful to "
+"avoid errors due to badly fitting images, such as the nadir image in most "
+"fisheye panoramas."
+msgstr ""
+"Foloseşte puncte de control doar între imagini selectate în fereastra de pre-"
+"vizualizare. Util pentru a evita erori datorate imaginilor ce se potrivesc "
+"prost, cum ar fi imaginea nadir în majoritatea panoramelor fisheye."
+
+#: translations/xrc.cpp:307 xrc.cpp:307
+msgid "yaw (y):"
+msgstr "derivă (y):"
+
+#: translations/xrc.cpp:308 translations/xrc.cpp:311 translations/xrc.cpp:314
+#: xrc.cpp:308 xrc.cpp:311 xrc.cpp:314
+msgid "select"
+msgstr "selectează"
+
+#: translations/xrc.cpp:310 xrc.cpp:310
+msgid "pitch (p):"
+msgstr "înclinaţie (p):"
+
+#: translations/xrc.cpp:313 xrc.cpp:313
+msgid "roll (r):"
+msgstr "rotaţie (r):"
+
+#: translations/xrc.cpp:316 xrc.cpp:316
+msgid "Lens Parameters"
+msgstr "Parametri lentile"
+
+#: translations/xrc.cpp:317 xrc.cpp:317
+msgid "view (v):"
+msgstr "Vedere (v):"
+
+#: translations/xrc.cpp:321 xrc.cpp:321
+msgid "x shift (d):"
+msgstr "deplasare x (d):"
+
+#: translations/xrc.cpp:322 xrc.cpp:322
+msgid "y shift (e):"
+msgstr "deplasare y (e):"
+
+#: translations/xrc.cpp:323 xrc.cpp:323
+msgid "edit script before optimizing"
+msgstr "editează script înainte de optimizare"
+
+#: translations/xrc.cpp:324 xrc.cpp:324
+msgid "for advanced users"
+msgstr "pentru utilizatori avansaţi"
+
+#: translations/xrc.cpp:325 xrc.cpp:325
+msgid "Photometric Optimization"
+msgstr "Optimizare fotometrică"
+
+#: translations/xrc.cpp:326 xrc.cpp:326
+msgid "Optimize preset"
+msgstr "Pre-setare optimizare"
+
+#: translations/xrc.cpp:327 xrc.cpp:327
+msgid "Low dynamic range"
+msgstr "Interval dinamic redus"
+
+#: translations/xrc.cpp:328 xrc.cpp:328
+msgid "Low dynamic range, variable white balance"
+msgstr "Interval dinamic redus, balanţă de alb variabilă"
+
+#: translations/xrc.cpp:329 xrc.cpp:329
+msgid "High dynamic range, fixed exposure"
+msgstr "Interval dinamic mare, expunere fixată"
+
+#: translations/xrc.cpp:330 xrc.cpp:330
+msgid "High dynamic range, variable white balance, fixed exposure"
+msgstr "Interval dinamic mare, balanţă de alb variabilă, expunere fixată"
+
+#: translations/xrc.cpp:331 xrc.cpp:331
+msgid "Custom parameters below"
+msgstr "Parametri personalizaţi mai jos"
+
+#: translations/xrc.cpp:335 xrc.cpp:335
+msgid "Only use images selected in preview."
+msgstr "Foloseşte doar imaginile selectate în pre-vizualizare"
+
+#: translations/xrc.cpp:336 xrc.cpp:336
+msgid ""
+"Only consider images selected in preview window. Useful to avoid errors due "
+"to badly fitting images, such as the nadir image in most fisheye panoramas"
+msgstr ""
+"Consideră doar imaginile selectate în fereastra de pre-vizualizare. Util "
+"pentru a evita erori datorate imaginilor ce se potrivesc prost, cum ar fi "
+"imaginea nadir în majoritatea panoramelor fisheye"
+
+#: translations/xrc.cpp:337 xrc.cpp:337
+msgid "Image variables:"
+msgstr "Variabile imagine:"
+
+#: translations/xrc.cpp:338 xrc.cpp:338
+msgid "Exposure:"
+msgstr "Expunere:"
+
+#: translations/xrc.cpp:339 xrc.cpp:339
+msgid "White balance:"
+msgstr "Balanţă de alb:"
+
+#: translations/xrc.cpp:340 xrc.cpp:340
+msgid "Camera and Lens variables:"
+msgstr "Variabile cameră şi lentilă:"
+
+#: translations/xrc.cpp:341 xrc.cpp:341
+msgid "Vignetting:"
+msgstr "Vignetare:"
+
+#: translations/xrc.cpp:342 xrc.cpp:342
+msgid "Vignetting Centre:"
+msgstr "Centru vignetare:"
+
+#: translations/xrc.cpp:343 xrc.cpp:343
+msgid "Camera Response:"
+msgstr "Răspuns cameră:"
+
+#: translations/xrc.cpp:344 xrc.cpp:344
+msgid ""
+"Only use pixels from images selected in preview window. Useful to avoid "
+"errors due to badly aligned images (for example, the nadir image in a "
+"fisheye panorama)."
+msgstr ""
+"Foloseşte doar pixeli din imaginile selectate în fereastra de pre-"
+"vizualizare. Util pentru a evita erori datorate imaginilor prost aliniate "
+"(de exemplu, imaginea nadir dintr-o panorama fisheye)."
+
+#: translations/xrc.cpp:345 xrc.cpp:345
+msgid "Interpolator (i):"
+msgstr "Interpolator (i):"
+
+#: translations/xrc.cpp:346 xrc.cpp:346
+msgid "Poly3 (Bicubic)"
+msgstr "Poly3 (Bicubic)"
+
+#: translations/xrc.cpp:352 xrc.cpp:352
+msgid "Nearest neighbor"
+msgstr "Cel mai apropiat vecin"
+
+#: translations/xrc.cpp:354 xrc.cpp:354
+msgid "approximation of values between source pixels"
+msgstr "aproximarea valorilor dintre pixelii sursă"
+
+#: translations/xrc.cpp:355 xrc.cpp:355
+msgid "Save cropped images"
+msgstr "Salvează imaginile decupate"
+
+#: translations/xrc.cpp:356 xrc.cpp:356
+msgid "Save cropped tiff output. Useful for enblend 2.4 and higher."
+msgstr "Salvează ieşirea tiff decupată. Util pentru enblend 2.4 sau mai nou."
+
+#: translations/xrc.cpp:357 xrc.cpp:357
+msgid "Nona Options"
+msgstr "Opţiuni nona"
+
+#: translations/xrc.cpp:358 translations/xrc.cpp:360 xrc.cpp:358 xrc.cpp:360
+msgid "Command line options"
+msgstr "Opţiuni linie de comandă"
+
+#: translations/xrc.cpp:359 xrc.cpp:359
+msgid "Blender Options"
+msgstr "Opţiuni blender"
+
+#: translations/xrc.cpp:361 xrc.cpp:361
+msgid "Enfuse options"
+msgstr "Opţiuni enfuse"
+
+#: translations/xrc.cpp:362 xrc.cpp:362
+msgid "Panorama"
+msgstr "Panoramă"
+
+#: translations/xrc.cpp:364 translations/xrc.cpp:602 xrc.cpp:364 xrc.cpp:602
+msgid "Field of View"
+msgstr "Câmp de vedere"
+
+#: translations/xrc.cpp:365 xrc.cpp:365
+msgid "horizontal (v):"
+msgstr "orizontal (v):"
+
+#: translations/xrc.cpp:366 xrc.cpp:366
+msgid "vertical:"
+msgstr "vertical:"
+
+#: translations/xrc.cpp:367 xrc.cpp:367
+msgid "Calculate Field of View"
+msgstr "Calculează câmp de vedere"
+
+#: translations/xrc.cpp:368 xrc.cpp:368
+msgid "Panorama Canvas Size"
+msgstr "Dimensiune canva panoramă"
+
+#: translations/xrc.cpp:369 xrc.cpp:369
+msgid "width:"
+msgstr "lăţime:"
+
+#: translations/xrc.cpp:370 xrc.cpp:370
+msgid "height:"
+msgstr "înălţime:"
+
+#: translations/xrc.cpp:371 xrc.cpp:371
+msgid "Calculate Optimal Size"
+msgstr "Calculează dimensiunea optimă"
+
+#: translations/xrc.cpp:372 xrc.cpp:372
+msgid ""
+"Calculate optimal image size, such that the resolution in the image center "
+"stays similar."
+msgstr ""
+"Calculează dimensiunea optimă a imaginii, astfel încât rezoluţia în centrul "
+"imaginii rămâne la fel."
+
+#: translations/xrc.cpp:374 xrc.cpp:374
+msgid "left:"
+msgstr "stânga:"
+
+#: translations/xrc.cpp:375 xrc.cpp:375
+msgid "top:"
+msgstr "sus:"
+
+#: translations/xrc.cpp:376 xrc.cpp:376
+msgid "right:"
+msgstr "dreapta:"
+
+#: translations/xrc.cpp:377 xrc.cpp:377
+msgid "bottom:"
+msgstr "jos:"
+
+#: translations/xrc.cpp:378 xrc.cpp:378
+msgid "Output"
+msgstr "Ieşire"
+
+#: translations/xrc.cpp:379 xrc.cpp:379
+msgid "Normal"
+msgstr "Normal"
+
+#: translations/xrc.cpp:380 xrc.cpp:380
+msgid "For panoramas consisting of images with similar exposure"
+msgstr "Pentru panorame ce conţin imagini cu expunere similară"
+
+#: translations/xrc.cpp:381 xrc.cpp:381
+msgid "Blended panorama"
+msgstr "Panorama îmbinată"
+
+#: translations/xrc.cpp:382 xrc.cpp:382
+msgid ""
+"Blend all images into a seamless panorama. Use if all images have similar "
+"exposure"
+msgstr ""
+"Îmbină toate imaginile într-o panoramă fluentă. Utilizează dacă toate "
+"imaginile au expunere similară"
+
+#: translations/xrc.cpp:383 translations/xrc.cpp:391 xrc.cpp:383 xrc.cpp:391
+msgid "Remapped images"
+msgstr "Imagini re-mapate"
+
+#: translations/xrc.cpp:384 xrc.cpp:384
+msgid "Output remapped images with exposure correction"
+msgstr "Imagini ieşire re-mapate cu corecţie de expunere"
+
+#: translations/xrc.cpp:385 xrc.cpp:385
+msgid "Exposure Blending"
+msgstr "Îmbinare expunere"
+
+#: translations/xrc.cpp:386 translations/xrc.cpp:394 xrc.cpp:386 xrc.cpp:394
+msgid "For panoramas consisting of images with varying exposure"
+msgstr "Pentru panorame ce conţin imagini cu expunere variabilă"
+
+#: translations/xrc.cpp:387 xrc.cpp:387
+msgid "Blended panorama (enfuse)"
+msgstr "Panorama îmbinată (enfuse)"
+
+#: translations/xrc.cpp:388 xrc.cpp:388
+msgid "Fully automatic exposure blending"
+msgstr "Îmbinare expunere complet automată"
+
+#: translations/xrc.cpp:389 xrc.cpp:389
+msgid "Blended exposure layers"
+msgstr "Straturi expunere îmbinate"
+
+#: translations/xrc.cpp:390 xrc.cpp:390
+msgid ""
+"Output a complete blended panorama of each exposure. Useful for manual "
+"exposure blending, for example in Photoshop or Gimp"
+msgstr ""
+"Creează o panoramă complet îmbinată pentru fiecare expunere. Util pentru "
+"îmbinare de expunere manuală, de exemplu în Photoshop sau Gimp"
+
+#: translations/xrc.cpp:392 xrc.cpp:392
+msgid "Output remapped images with original exposure"
+msgstr "Creează imaginile re-mapate cu expunere originală"
+
+#: translations/xrc.cpp:393 xrc.cpp:393
+msgid "Merge to HDR"
+msgstr "Îmbină în HDR"
+
+#: translations/xrc.cpp:395 xrc.cpp:395
+msgid "Blended HDR panorama"
+msgstr "Panoramă îmbinată HDR"
+
+#: translations/xrc.cpp:396 xrc.cpp:396
+msgid "Output a blended high dynamic range panorama"
+msgstr "Creează o panoramă cu interval dinamic mare"
+
+#: translations/xrc.cpp:397 xrc.cpp:397
+msgid "Stacked HDR images"
+msgstr "Imagini HDR stivuite"
+
+#: translations/xrc.cpp:398 xrc.cpp:398
+msgid "Output the individual, remapped HDR stacks"
+msgstr "Creează stivele HDR re-mapate"
+
+#: translations/xrc.cpp:399 xrc.cpp:399
+msgid "Individual non merged images"
+msgstr "Imagini individuale ne-îmbinate"
+
+#: translations/xrc.cpp:400 xrc.cpp:400
+msgid "Output remapped images in a linear color space"
+msgstr "Creează imaginile re-mapate într-un spaţiu de culoare liniar"
+
+#: translations/xrc.cpp:401 xrc.cpp:401
+msgid "Save project and send to batch"
+msgstr "Salvează proiect şi trimite la batch"
+
+#: translations/xrc.cpp:402 xrc.cpp:402
+msgid "Stitch now!"
+msgstr "Îmbină acum!"
+
+#: translations/xrc.cpp:403 xrc.cpp:403
+msgid "Processing"
+msgstr "Procesare"
+
+#: translations/xrc.cpp:404 translations/xrc.cpp:435 xrc.cpp:404 xrc.cpp:435
+msgid "Remapper:"
+msgstr "Re-mapator:"
+
+#: translations/xrc.cpp:405 translations/xrc.cpp:436 xrc.cpp:405 xrc.cpp:436
+msgid "Nona"
+msgstr "Nona"
+
+#: translations/xrc.cpp:406 translations/xrc.cpp:409 translations/xrc.cpp:412
+#: translations/xrc.cpp:415 translations/xrc.cpp:437 translations/xrc.cpp:440
+#: translations/xrc.cpp:443 translations/xrc.cpp:446 xrc.cpp:406 xrc.cpp:409
+#: xrc.cpp:412 xrc.cpp:415 xrc.cpp:437 xrc.cpp:440 xrc.cpp:443 xrc.cpp:446
+msgid "Options"
+msgstr "Opţiuni"
+
+#: translations/xrc.cpp:407 translations/xrc.cpp:438 xrc.cpp:407 xrc.cpp:438
+msgid "Image fusion:"
+msgstr "Contopire imagini"
+
+#: translations/xrc.cpp:408 translations/xrc.cpp:439 xrc.cpp:408 xrc.cpp:439
+msgid "enfuse"
+msgstr "enfuse"
+
+#: translations/xrc.cpp:410 translations/xrc.cpp:441 xrc.cpp:410 xrc.cpp:441
+msgid "HDR merger:"
+msgstr "Îmbinator HDR:"
+
+#: translations/xrc.cpp:411 translations/xrc.cpp:442 xrc.cpp:411 xrc.cpp:442
+msgid "builtin"
+msgstr "inclus"
+
+#: translations/xrc.cpp:413 translations/xrc.cpp:444 xrc.cpp:413 xrc.cpp:444
+msgid "Blender:"
+msgstr "Îmbinator:"
+
+#: translations/xrc.cpp:414 translations/xrc.cpp:445 xrc.cpp:414 xrc.cpp:445
+msgid "enblend"
+msgstr "enblend"
+
+#: translations/xrc.cpp:416 xrc.cpp:416
+msgid "File formats"
+msgstr "Formate de fişiere"
+
+#: translations/xrc.cpp:417 xrc.cpp:417
+msgid "Normal Output:"
+msgstr "Ieşire normală:"
+
+#: translations/xrc.cpp:418 translations/xrc.cpp:429 xrc.cpp:418 xrc.cpp:429
+msgid "TIFF"
+msgstr "TIFF"
+
+#: translations/xrc.cpp:419 xrc.cpp:419
+msgid "JPEG"
+msgstr "JPEG"
+
+#: translations/xrc.cpp:420 xrc.cpp:420
+msgid "PNG"
+msgstr "PNG"
+
+#: translations/xrc.cpp:421 xrc.cpp:421
+msgid "Quality:"
+msgstr "Calitate:"
+
+#: translations/xrc.cpp:422 translations/xrc.cpp:430 xrc.cpp:422 xrc.cpp:430
+msgid "Compression:"
+msgstr "Compresie:"
+
+#: translations/xrc.cpp:423 translations/xrc.cpp:431 translations/xrc.cpp:573
+#: translations/xrc.cpp:586 xrc.cpp:423 xrc.cpp:431 xrc.cpp:573 xrc.cpp:586
+msgid "None"
+msgstr "Nimic"
+
+#: translations/xrc.cpp:424 translations/xrc.cpp:432 xrc.cpp:424 xrc.cpp:432
+msgid "Packbits"
+msgstr "Packbits"
+
+#: translations/xrc.cpp:425 translations/xrc.cpp:433 xrc.cpp:425 xrc.cpp:433
+msgid "LZW"
+msgstr "LZW"
+
+#: translations/xrc.cpp:426 translations/xrc.cpp:434 xrc.cpp:426 xrc.cpp:434
+msgid "Deflate"
+msgstr "Deflate"
+
+#: translations/xrc.cpp:427 xrc.cpp:427
+msgid "HDR Output:"
+msgstr "Ieşire HDR:"
+
+#: translations/xrc.cpp:428 xrc.cpp:428
+msgid "EXR"
+msgstr "EXR"
+
+#: translations/xrc.cpp:447 xrc.cpp:447
+msgid "Preferences - hugin"
+msgstr "Preferinţe - hugin"
+
+#: translations/xrc.cpp:448 xrc.cpp:448
+msgid "General"
+msgstr "General"
+
+#: translations/xrc.cpp:449 xrc.cpp:449
+msgid "Resource Usage"
+msgstr "Utilizare resurse"
+
+#: translations/xrc.cpp:450 xrc.cpp:450
+msgid "Image cache memory:"
+msgstr "Memorie tampon a imaginii:"
+
+#: translations/xrc.cpp:451 xrc.cpp:451
+msgid "Keep fullsize images in memory, until this limit is exceeded"
+msgstr "Menţine imaginile în memorie, până când această limită este depăşită"
+
+#: translations/xrc.cpp:452 xrc.cpp:452
+msgid "MB"
+msgstr "MB"
+
+#: translations/xrc.cpp:453 xrc.cpp:453
+msgid "Number of CPUs:"
+msgstr "Număr de procesoare:"
+
+#: translations/xrc.cpp:454 xrc.cpp:454
+msgid ""
+"Nona can use multiple threads for processing.\n"
+"Set this to the number of processors or processor cores available in your "
+"system."
+msgstr ""
+"Nona poate utiliza mai multe fire de execuţie pentru procesare.\n"
+"Setează această valoare cu numărul de procesoare sau nuclee de procesor "
+"disponibile în sistem."
+
+#: translations/xrc.cpp:455 xrc.cpp:455
+msgid "User Interface"
+msgstr "Interfaţă utilizator"
+
+#: translations/xrc.cpp:456 xrc.cpp:456
+msgid "Language"
+msgstr "Limbă"
+
+#: translations/xrc.cpp:457 xrc.cpp:457
+msgid "requires restarting hugin"
+msgstr "necesită repornirea hugin"
+
+#: translations/xrc.cpp:458 xrc.cpp:458
+msgid "Show Druid (requires restarting hugin)"
+msgstr "Arată Druid (necesită repornirea hugin)"
+
+#: translations/xrc.cpp:459 xrc.cpp:459
+msgid "File options"
+msgstr "Opţiuni fişiere"
+
+#: translations/xrc.cpp:460 xrc.cpp:460
+msgid "Tempdir:"
+msgstr "Director temporar:"
+
+#: translations/xrc.cpp:461 xrc.cpp:461
+msgid "leave empty for OS default"
+msgstr "lasă gol pentru valoarea implicită sistem"
+
+#: translations/xrc.cpp:463 xrc.cpp:463
+msgid "Image loading"
+msgstr "Încărcare imagini"
+
+#: translations/xrc.cpp:464 xrc.cpp:464
+msgid "Automatically align images after loading"
+msgstr "Aliniază imaginile automat după încărcare"
+
+#: translations/xrc.cpp:465 xrc.cpp:465
+msgid "Auto align"
+msgstr "Aliniere automată"
+
+#: translations/xrc.cpp:466 xrc.cpp:466
+msgid ""
+"Number of Control Points\n"
+"per overlap"
+msgstr "Număr de puncte de control per suprapunere"
+
+#: translations/xrc.cpp:467 xrc.cpp:467
+msgid "Downscale final pano"
+msgstr "Redu panorama finală"
+
+#: translations/xrc.cpp:468 xrc.cpp:468
+msgid "percent of max. width"
+msgstr "procent din lăţimea maximă"
+
+#: translations/xrc.cpp:469 xrc.cpp:469
+msgid "Create"
+msgstr "Creează"
+
+#: translations/xrc.cpp:470 xrc.cpp:470
+msgid "Open final panorama in external editor"
+msgstr "Deschide panorama finală în editor extern"
+
+#: translations/xrc.cpp:471 xrc.cpp:471
+msgid "Editor:"
+msgstr "Editor:"
+
+#: translations/xrc.cpp:472 translations/xrc.cpp:507 translations/xrc.cpp:511
+#: translations/xrc.cpp:518 translations/xrc.cpp:524 translations/xrc.cpp:544
+#: xrc.cpp:472 xrc.cpp:507 xrc.cpp:511 xrc.cpp:518 xrc.cpp:524 xrc.cpp:544
+msgid "Choose..."
+msgstr "Alege..."
+
+#: translations/xrc.cpp:473 translations/xrc.cpp:508 translations/xrc.cpp:512
+#: xrc.cpp:473 xrc.cpp:508 xrc.cpp:512
+msgid "Arguments:"
+msgstr "Parametri:"
+
+#: translations/xrc.cpp:474 xrc.cpp:474
+#, c-format
+msgid ""
+"The following patterns will be substituted before running:\n"
+"%f  -- final panorama\n"
+"%i  -- first input image"
+msgstr ""
+"Următoarele tipare vor fi înlocuite înainte de a rula:\n"
+"%f  -- panorama finală\n"
+"%i  -- prima imagine"
+
+#: translations/xrc.cpp:475 xrc.cpp:475
+msgid "Control Points Editor"
+msgstr "Editor puncte de control"
+
+#: translations/xrc.cpp:476 xrc.cpp:476
+msgid "HDR and 16 Bit display"
+msgstr "Afişaj HDR şi 16 bit"
+
+#: translations/xrc.cpp:477 xrc.cpp:477
+msgid "Curve"
+msgstr "Curbă"
+
+#: translations/xrc.cpp:478 xrc.cpp:478
+msgid "linear"
+msgstr "liniară"
+
+#: translations/xrc.cpp:479 xrc.cpp:479
+msgid "logarithmic"
+msgstr "logaritmică"
+
+#: translations/xrc.cpp:480 xrc.cpp:480
+msgid "gamma 2.2"
+msgstr "gamma 2.2"
+
+#: translations/xrc.cpp:481 xrc.cpp:481
+msgid "used for display in GUI"
+msgstr "folosită la afişarea în GUI"
+
+#: translations/xrc.cpp:482 xrc.cpp:482
+msgid "Finetune"
+msgstr "Reglaj-fin"
+
+#: translations/xrc.cpp:483 xrc.cpp:483
+msgid "Patch width:"
+msgstr "Lăţimea zonei:"
+
+#: translations/xrc.cpp:484 translations/xrc.cpp:488 xrc.cpp:484 xrc.cpp:488
+msgid "pixels"
+msgstr "pixeli"
+
+#: translations/xrc.cpp:485 xrc.cpp:485
+msgid "Search area width:"
+msgstr "Lăţimea ariei de căutare:"
+
+#: translations/xrc.cpp:486 xrc.cpp:486
+msgid "percent of image width"
+msgstr "procent din lăţimea imaginii"
+
+#: translations/xrc.cpp:487 xrc.cpp:487
+msgid "Local search area width:"
+msgstr "Lăţimea ariei de căutare locale:"
+
+#: translations/xrc.cpp:489 xrc.cpp:489
+msgid "Correlation Threshold:"
+msgstr "Prag corelaţie:"
+
+#: translations/xrc.cpp:490 xrc.cpp:490
+msgid ""
+"0: no similarity\n"
+"1: maximum similarity"
+msgstr ""
+"0: nici o similaritate\n"
+"1: similaritate maximă"
+
+#: translations/xrc.cpp:491 xrc.cpp:491
+msgid "Peak Curvature Threshold:"
+msgstr "Prag curbură maximă:"
+
+#: translations/xrc.cpp:492 xrc.cpp:492
+msgid ""
+"0: no peak\n"
+" 0.2: distinctive peak"
+msgstr ""
+"0: nici un vârf\n"
+" 0.2: vârf distinct"
+
+#: translations/xrc.cpp:493 xrc.cpp:493
+msgid "Rotation search"
+msgstr "Căutare rotaţie"
+
+#: translations/xrc.cpp:494 xrc.cpp:494
+msgid "Enable rotation search (slower, but more accurate)"
+msgstr "Activează căutare rotaţie (încet, dar mai precis)"
+
+#: translations/xrc.cpp:495 xrc.cpp:495
+msgid "Start angle:"
+msgstr "Unghi pornire:"
+
+#: translations/xrc.cpp:497 xrc.cpp:497
+msgid "Stop angle:"
+msgstr "Unghi final:"
+
+#: translations/xrc.cpp:499 xrc.cpp:499
+msgid "Steps:"
+msgstr "Paşi:"
+
+#: translations/xrc.cpp:502 xrc.cpp:502
+msgid "Autopano (by A. Jenny)"
+msgstr "Autopano (by A. Jenny)"
+
+#: translations/xrc.cpp:503 xrc.cpp:503
+msgid "Autopano-SIFT (by S. Nowozin)"
+msgstr "Autopano-SIFT (by S. Nowozin)"
+
+#: translations/xrc.cpp:504 xrc.cpp:504
+msgid "Autopano-SIFT"
+msgstr "Autopano-SIFT"
+
+#: translations/xrc.cpp:505 xrc.cpp:505
+msgid "Use alternative Autopano-SIFT program"
+msgstr "Utilizează un program Autopano-SIFT alternativ"
+
+#: translations/xrc.cpp:506 xrc.cpp:506
+msgid "Autopano-SIFT:"
+msgstr "Autopano-SIFT:"
+
+#: translations/xrc.cpp:510 xrc.cpp:510
+msgid "Autopano:"
+msgstr "Autopano:"
+
+#: translations/xrc.cpp:513 xrc.cpp:513
+msgid ""
+"following patterns will be substituted before running:\n"
+"%o  -- output project (0.oto will be appended when using Autopano)\n"
+"%p  -- number of control points between each pair\n"
+"%v  -- HFOV of first image\n"
+"%f  -- projection of first image (0-4, as in panotools)\n"
+"%i  -- image files\n"
+"%namefile -- file that contains image filenames\n"
+"%s -- input panotools script"
+msgstr ""
+"următoarele şabloane vor fi substituite înainte de a rula:\n"
+"%o  -- proiect ieşire (0.oto va fi adăugat la utilizarea Autopano)\n"
+"%p  -- număr de puncte de control între fiecare pereche\n"
+"%v  -- HFOV al primei imagini\n"
+"%f  -- Proiecţia primei imagini (0-4, ca în panotools)\n"
+"%i  -- fişiere imagine\n"
+"%namefile -- fişier care conţine nume de fişier\n"
+"%s -- script panotools intrare"
+
+#: translations/xrc.cpp:514 translations/xrc.cpp:515 xrc.cpp:514 xrc.cpp:515
+msgid "Enblend"
+msgstr "Enblend"
+
+#: translations/xrc.cpp:516 xrc.cpp:516
+msgid "Use alternative Enblend program"
+msgstr "Utilizează program Enblend alternativ"
+
+#: translations/xrc.cpp:517 xrc.cpp:517
+msgid "Enblend executable:"
+msgstr "Executabil enblend:"
+
+#: translations/xrc.cpp:519 translations/xrc.cpp:525 xrc.cpp:519 xrc.cpp:525
+msgid "Default Arguments:"
+msgstr "Parametri impliciţi:"
+
+#: translations/xrc.cpp:520 translations/xrc.cpp:526 xrc.cpp:520 xrc.cpp:526
+msgid ""
+"These are the default arguments. They can be change for individal projects "
+"in the Stitcher tab.\n"
+"Do not set -w, -o and --compression arguments, they are set by hugin"
+msgstr ""
+"Aceştia sunt parametrii impliciţi. Se pot schimba pentru proiecte "
+"individuale în fila Îmbinare.\n"
+"Nu seta parametrii -w, -o şi --compression, sunt setaţi de hugin"
+
+#: translations/xrc.cpp:521 xrc.cpp:521
+msgid "Enfuse"
+msgstr "Enfuse"
+
+#: translations/xrc.cpp:522 xrc.cpp:522
+msgid "Use alternative Enfuse program"
+msgstr "Utilizează program Enfuse alternativ"
+
+#: translations/xrc.cpp:523 xrc.cpp:523
+msgid "Enfuse executable:"
+msgstr "Executabil enfuse:"
+
+#: translations/xrc.cpp:529 xrc.cpp:529
+msgid "Automatically run Celeste after detecting control points"
+msgstr "Rulează Celeste automat după detectarea punctelor de control"
+
+#: translations/xrc.cpp:530 xrc.cpp:530
+msgid "Celeste parameters"
+msgstr "Parametri celeste"
+
+#: translations/xrc.cpp:531 xrc.cpp:531
+msgid "SVM threshold:"
+msgstr "Prag SVM:"
+
+#: translations/xrc.cpp:532 xrc.cpp:532
+msgid ""
+"greater than 0.5: less sensitive\n"
+"less than 0.5: more sensitive"
+msgstr ""
+"mai mare decât 0.5: mai puţin sensibil\n"
+"mai mic decât 0.5: mai sensibil"
+
+#: translations/xrc.cpp:533 xrc.cpp:533
+msgid "Gabor filter size"
+msgstr "mărime filtru Gabor"
+
+#: translations/xrc.cpp:534 xrc.cpp:534
+msgid "small"
+msgstr "mic"
+
+#: translations/xrc.cpp:535 xrc.cpp:535
+msgid "large"
+msgstr "mare"
+
+#: translations/xrc.cpp:536 xrc.cpp:536
+msgid ""
+"large is more accurate\n"
+"small can examine control points close to image border"
+msgstr ""
+"mare este mai precis\n"
+"mic poate examina puncte de control aproape de marginea imaginii"
+
+#: translations/xrc.cpp:538 translations/xrc.cpp:613 xrc.cpp:538 xrc.cpp:613
+msgid "Apply"
+msgstr "Aplică"
+
+#: translations/xrc.cpp:542 xrc.cpp:542
+msgid "Use alternative PTStitcher program"
+msgstr "Utilizează program PTStitcher alternativ"
+
+#: translations/xrc.cpp:543 xrc.cpp:543
+msgid "PTStitcher:"
+msgstr "PTStitcher"
+
+#: translations/xrc.cpp:545 xrc.cpp:545
+msgid "Scriptfile:"
+msgstr "Fişier script:"
+
+#: translations/xrc.cpp:546 xrc.cpp:546
+msgid "Name of the temporary script file used by Panotools"
+msgstr "Numele fişierului script temporar utilizat de Panotools"
+
+#: translations/xrc.cpp:547 xrc.cpp:547
+msgid "Panotools:"
+msgstr "Panotools:"
+
+#: translations/xrc.cpp:548 xrc.cpp:548
+msgid "Panotools"
+msgstr "Panotools"
+
+#: translations/xrc.cpp:549 xrc.cpp:549
+msgid "Details"
+msgstr "Detalii"
+
+#: translations/xrc.cpp:551 translations/xrc.cpp:558 translations/xrc.cpp:575
+#: xrc.cpp:551 xrc.cpp:558 xrc.cpp:575
+msgid "Center"
+msgstr "Centru"
+
+#: translations/xrc.cpp:552 translations/xrc.cpp:557 translations/xrc.cpp:574
+#: xrc.cpp:552 xrc.cpp:557 xrc.cpp:574
+msgid "Center the preview horizontally"
+msgstr "Centrează pre-vizualizarea orizontal"
+
+#: translations/xrc.cpp:553 xrc.cpp:553
+msgid "Auto Preview"
+msgstr "Pre-vizualizare automată"
+
+#: translations/xrc.cpp:554 xrc.cpp:554
+msgid "Automatically update preview on relevant changes"
+msgstr "Actualizează pre-vizualizarea automat la schimbări relevante"
+
+#: translations/xrc.cpp:555 translations/xrc.cpp:569 xrc.cpp:555 xrc.cpp:569
+msgid "Update"
+msgstr "Actualizează"
+
+#: translations/xrc.cpp:556 translations/xrc.cpp:568 xrc.cpp:556 xrc.cpp:568
+msgid "Update preview"
+msgstr "Actualizează pre-vizualizare"
+
+#: translations/xrc.cpp:559 translations/xrc.cpp:576 xrc.cpp:559 xrc.cpp:576
+msgid "Show the whole panorama"
+msgstr "Arată întreaga panoramă"
+
+#: translations/xrc.cpp:560 translations/xrc.cpp:577 xrc.cpp:560 xrc.cpp:577
+msgid "Estimate field of view"
+msgstr "Estimează câmpul de vedere"
+
+#: translations/xrc.cpp:561 translations/xrc.cpp:578 xrc.cpp:561 xrc.cpp:578
+msgid "Fit"
+msgstr "Potrivire"
+
+#: translations/xrc.cpp:562 translations/xrc.cpp:579 xrc.cpp:562 xrc.cpp:579
+msgid "Automatically straighten a wavy horizon."
+msgstr "Îndreptează automat un orizont vălurit"
+
+#: translations/xrc.cpp:563 translations/xrc.cpp:580 xrc.cpp:563 xrc.cpp:580
+msgid "Straighten"
+msgstr "Îndreptează"
+
+#: translations/xrc.cpp:564 translations/xrc.cpp:581 translations/xrc.cpp:595
+#: xrc.cpp:564 xrc.cpp:581 xrc.cpp:595
+msgid "Numerical Transform"
+msgstr "Transformare numerică"
+
+#: translations/xrc.cpp:565 translations/xrc.cpp:582 xrc.cpp:565 xrc.cpp:582
+msgid "Num. Transf."
+msgstr "Trans. num."
+
+#: translations/xrc.cpp:566 xrc.cpp:566
+msgid "Auto update"
+msgstr "Actualizare automată"
+
+#: translations/xrc.cpp:567 xrc.cpp:567
+msgid "Auto"
+msgstr "Automat"
+
+#: translations/xrc.cpp:570 translations/xrc.cpp:583 xrc.cpp:570 xrc.cpp:583
+msgid "Show all images"
+msgstr "Arată toate imaginile"
+
+#: translations/xrc.cpp:571 translations/xrc.cpp:584 xrc.cpp:571 xrc.cpp:584
+msgid "All"
+msgstr "Toate"
+
+#: translations/xrc.cpp:572 translations/xrc.cpp:585 xrc.cpp:572 xrc.cpp:585
+msgid "Show none of the images"
+msgstr "Nu arăta nici o imagine"
+
+#: translations/xrc.cpp:587 xrc.cpp:587
+msgid "Use full photometric correction (slow)"
+msgstr "Utilizează corecţie fotometrică completă (încet)"
+
+#: translations/xrc.cpp:588 xrc.cpp:588
+msgid "Photometrics"
+msgstr "Fotometrie"
+
+#: translations/xrc.cpp:589 xrc.cpp:589
+msgid "Drag images into position"
+msgstr "Trage imaginile la poziţie"
+
+#: translations/xrc.cpp:590 xrc.cpp:590
+msgid "Drag"
+msgstr "Trage"
+
+#: translations/xrc.cpp:591 xrc.cpp:591
+msgid "Change the panorama's cropping region"
+msgstr "Schimbă regiunea de decupare a panoramei"
+
+#: translations/xrc.cpp:593 xrc.cpp:593
+msgid "Match images to their numbers"
+msgstr "Potriveşte imaginile şi numerele lor"
+
+#: translations/xrc.cpp:594 xrc.cpp:594
+msgid "Identify"
+msgstr "Identifică"
+
+#: translations/xrc.cpp:596 xrc.cpp:596
+msgid "Yaw:"
+msgstr "Derivă:"
+
+#: translations/xrc.cpp:597 xrc.cpp:597
+msgid "Pitch:"
+msgstr "Înclinaţie:"
+
+#: translations/xrc.cpp:598 xrc.cpp:598
+msgid "Roll:"
+msgstr "Rotaţie:"
+
+#: translations/xrc.cpp:599 xrc.cpp:599
+msgid "Reset values"
+msgstr "Re-setează valorile"
+
+#: translations/xrc.cpp:603 xrc.cpp:603
+msgid "Lens parameters"
+msgstr "Parametri lentile"
+
+#: translations/xrc.cpp:605 xrc.cpp:605
+msgid "to EXIF values"
+msgstr "la valorile EXIF"
+
+#: translations/xrc.cpp:606 xrc.cpp:606
+msgid "to zero (no exposure correction)"
+msgstr "la 0 (fără corecţie de expunere)"
+
+#: translations/xrc.cpp:607 xrc.cpp:607
+msgid "Color"
+msgstr "Culoare"
+
+#: translations/xrc.cpp:612 xrc.cpp:612
+msgid "Optimizing"
+msgstr "Optimizare"
+
+#: translations/xrc.cpp:615 xrc.cpp:615
+msgid "PTStitcher"
+msgstr "PTStitcher"
+
+#: translations/xrc.cpp:616 xrc.cpp:616
+msgid "Stitching"
+msgstr "Îmbinare"
+
+#: translations/xrc.cpp:617 xrc.cpp:617
+msgid "Abort"
+msgstr "Anulează"
+
+#: translations/xrc.cpp:618 xrc.cpp:618
+msgid "Vignetting correction"
+msgstr "Corecţia vignetării"
+
+#: translations/xrc.cpp:619 xrc.cpp:619
+msgid "Type of Correction"
+msgstr "Tip de corecţie"
+
+#: translations/xrc.cpp:620 xrc.cpp:620
+msgid "No correction"
+msgstr "Fără corecţie"
+
+#: translations/xrc.cpp:621 xrc.cpp:621
+msgid "Addition ( I=I+c )"
+msgstr "Adunare ( I=I+c )"
+
+#: translations/xrc.cpp:622 xrc.cpp:622
+msgid "Division ( I=I/c )"
+msgstr "Împărţire ( I=I/c )"
+
+#: translations/xrc.cpp:623 xrc.cpp:623
+msgid "Correction"
+msgstr "Corecţie"
+
+#: translations/xrc.cpp:624 xrc.cpp:624
+msgid "Flatfield"
+msgstr "Flatfield"
+
+#: translations/xrc.cpp:625 xrc.cpp:625
+msgid "Image file:"
+msgstr "Fişier imagine:"
+
+#: translations/xrc.cpp:626 xrc.cpp:626
+msgid "..."
+msgstr "..."
+
+#: translations/xrc.cpp:627 xrc.cpp:627
+msgid "Polynomial"
+msgstr "Polinomial"
+
+#: translations/xrc.cpp:628 xrc.cpp:628
+msgid "c = "
+msgstr "c = "
+
+#: translations/xrc.cpp:629 xrc.cpp:629
+msgid " + "
+msgstr " + "
+
+#: translations/xrc.cpp:630 xrc.cpp:630
+msgid "*r^2 + "
+msgstr "*r^2 + "
+
+#: translations/xrc.cpp:631 xrc.cpp:631
+msgid "*r^4 + "
+msgstr "*r^4 + "
+
+#: translations/xrc.cpp:632 xrc.cpp:632
+msgid "*r^6"
+msgstr "*r^6"
+
+#: translations/xrc.cpp:633 xrc.cpp:633
+msgid "center shift x:"
+msgstr "deplasare centru x:"
+
+#: hugin1/hugin/xrc/data/tips.txt:3
+msgid ""
+"Welcome to Hugin. To create a panorama, just follow the sequence shown in "
+"the assistant tab."
+msgstr ""
+"Bine ăţi venit în Hugin. Pentru a crea o panoramă, urmaţi secvenţa arătată "
+"în fila asistent."
+
+#: hugin1/hugin/xrc/data/tips.txt:4
+msgid ""
+"If the horizon of a panorama is wavy, use the straighten function in the "
+"preview window to straighten it"
+msgstr ""
+"Dacă orizontul unei panorame este vălurit, utilizaţi funcţia îndreaptă din "
+"fereastra de pre-vizualizare pentru a-l îndrepta"
+
+#: hugin1/hugin/xrc/data/tips.txt:5
+msgid ""
+"The Preview window can be used to center the panorama by clicking with the "
+"left mouse button. A right click will rotate the panorama"
+msgstr ""
+"Fereastra de pre-vizualizare poate fi utilizată pentru a centra panorama cu "
+"ajutorul butonului stânga maus. Un clic dreapta va roti panorama."
+
+#: hugin1/hugin/xrc/data/tips.txt:6
+msgid ""
+"The Autopano and Autopano-SIFT programs can be used to create control points "
+"automatically. Please install one of them if you haven't already done so."
+msgstr ""
+"Programele Autopano si Autopano-SIFT pot fi utilizate pentru a crea puncte "
+"de control automat. Vă rog să instalaţi unul din ele dacă nu ăţi făcut deja."
+
+#: hugin1/hugin/xrc/data/tips.txt:7
+msgid ""
+"Sometimes Autopano can not find connections between all images. In this "
+"case, control points have to be created manually, using the control points "
+"tab."
+msgstr ""
+"Câteodată Autopano nu poate găsi conexiuni între toate imaginile. În acest "
+"caz, punctele de control trebuie create manual, utilizând fila puncte de "
+"control."
+
+#: hugin1/hugin/xrc/data/tips.txt:8
+msgid ""
+"To scroll both the images in the control points tab, hold the shift key "
+"while moving the mouse."
+msgstr ""
+"Pentru a parcurge ambele imagini în fila puncte de control, ţine apăsată "
+"tasta shift în timp ce mutaţi maus-ul."
+
+#: hugin1/hugin/xrc/data/tips.txt:9
+msgid ""
+"The control key or the middle mouse button can be used to pan one image in "
+"the control points tab."
+msgstr ""
+"Tasta ctrl sau butonul din mijloc al maus-ului pot fi utilizate pentru a "
+"mişca o imagine în file puncte de control."
+
+#: hugin1/hugin/xrc/data/tips.txt:10
+msgid ""
+"Rotating the camera around the entrance pupil (sometimes also called \"nodal "
+"point\") avoids parallax errors and makes panorama creation a lot easier."
+msgstr ""
+"Rotirea camerei în jurul pupilei de intrare (câteodată numită \"punct nodal"
+"\") evită erorile de paralaxă şi face crearea panoramei mult mai uşoară."
+
+#: hugin1/hugin/xrc/data/tips.txt:11
+msgid "Tutorials on hugin are available on http://hugin.sf.net/tutorials"
+msgstr ""
+"Tutorial-e despre hugin sunt disponibile la http://hugin.sf.net/tutorials"
+
+#: hugin1/hugin/xrc/data/tips.txt:12
+msgid ""
+"If the panorama looks nice but the horizon is curved add vertical control "
+"points. See http://hugin.sf.net/tutorials for more information"
+msgstr ""
+"Dacă panoramă arată acceptabil dar orizontul este curbat adaugă puncte de "
+"control verticale Vezi http://hugin.sf.net/tutorials pentru mai multă "
+"informaţie"
+
+#: hugin1/hugin/xrc/data/tips.txt:13
+msgid ""
+"Horizontal or vertical control point pairs can be set by selecting the same "
+"image on both sides of the control points tab."
+msgstr ""
+"Perechi de puncte de control orizontale sau verticale pot fi setate "
+"selectând aceiaşi imagine în ambele parţi ale filei puncte de control."
+
+#: hugin1/hugin/xrc/data/tips.txt:14
+msgid ""
+"Control points should be placed on static objects. Avoid placing them "
+"people, trees and other moving or deforming objects."
+msgstr ""
+"Punctele de control trebuie plasate pe obiecte staţionare. Evită plasarea "
+"lor pe oameni, arbori sau alte obiecte în mişcare sau deformabile."
+
+#: hugin1/hugin/xrc/data/tips.txt:15
+msgid "Images can also be added to hugin via drag and drop."
+msgstr "Imaginile pot fi adăugate în hugin şi cu trage şi mută."
+
+#: hugin1/hugin/xrc/data/tips.txt:16
+msgid ""
+"If you like hugin, consider donating at http://sourceforge.net/project/"
+"project_donations.php?group_id=77506"
+msgstr ""
+"Dacă vă place hugin, consideraţi să donaţi la http://sourceforge.net/project/"
+"project_donations.php?group_id=77506"
+
+#: hugin1/hugin/xrc/data/tips.txt:17
+msgid ""
+"Spread control points as far as possible. Close control points do not define "
+"the relative orientation between images well."
+msgstr ""
+"Împrăştiaţi punctele de control cât mai departe posibil. Puncte de control "
+"apropiate nu definesc orientarea relativă a imaginilor bine."
+
+#: hugin1/hugin/xrc/data/tips.txt:18
+msgid ""
+"The Fine Tune button can be used to find a better position for the point in "
+"the right image for an already selected point."
+msgstr ""
+"Butonul Reglează fin poate fi utilizat pentru a găsi o poziţie mai bună "
+"pentru punctul din imaginea din dreapta pentru un punct deja selectat."
+
+#: hugin1/hugin/xrc/data/tips.txt:19
+msgid ""
+"Editing the panorama in multiple layers with The Gimp or Photoshop offers "
+"many creative possibilities."
+msgstr ""
+"Editarea panoramei în mai multe straturi cu Gimp sau Photoshop oferă multe "
+"posibilităţi creative."
+
+#: hugin1/hugin/xrc/data/tips.txt:20
+msgid ""
+"The PanoTools wiki at http://wiki.panotools.org offers comprehensive "
+"information about creating panoramas and other images with panotools."
+msgstr ""
+"Wiki-ul PanoTools de la http://wiki.panotools.org oferă informaţii detaliate "
+"despre crearea panoramelor şi alte imagini cu panotools."
+
+#: hugin1/hugin/xrc/data/tips.txt:21
+msgid "The multilayer tiff file output can be read by The Gimp 2.0 or higher."
+msgstr "Fişierul multi strat tiff poate fi citit de Gimp 2.0 sau mai nou."
+
+#: hugin1/hugin/xrc/data/tips.txt:22
+msgid ""
+"You can press the middle mouse button to pan images in the control points "
+"tab."
+msgstr ""
+"Puteţi apăsa butonul din mijloc maus pentru a mişca imaginile în fila puncte "
+"de control."
+
+#: hugin1/hugin/xrc/data/tips.txt:23
+msgid "The \"f\" key is the shortcut for Fine Tune button."
+msgstr "Tasta \"f\" este scurtătura pentru butonul Reglează fin."
+
+#: hugin1/hugin/xrc/data/tips.txt:24
+msgid "Pressing \"Del\" will remove the currently selected control point."
+msgstr "Apăsând \"Del\" va şterge punctul de control curent selectat."
+
+#: hugin1/hugin/xrc/data/tips.txt:25
+msgid "Press \"0\" in the control points tab to zoom out to full view."
+msgstr "Apasă \"0\" în file puncte de control pentru a vedea imaginea complet."
+
+#: hugin1/hugin/xrc/data/tips.txt:26
+msgid "Press \"1\" in the control points tab to zoom out to 100% view."
+msgstr ""
+"Apasă \"1\" în fila puncte de control pentru a vedea imaginea la mărime 100%."
+
+#: hugin1/hugin/xrc/data/tips.txt:27
+msgid ""
+"Enblend can be used to smoothly blend the panorama. Use it from within hugin "
+"by selecting \"high quality tiff file\" as output."
+msgstr ""
+"Enblend poate fi utilizat pentru a îmbina fluent panorama. Se poate folosi "
+"din hugin selectând \"fişier tiff de înalta calitate\" ca ieşire."
+
+#: hugin1/hugin/xrc/data/tips.txt:28
+msgid ""
+"After enblend has blended the panorama, the remapped output images "
+"(available in the same directory as the panorama image) can be used to "
+"retouch the panorama in The Gimp or Photoshop."
+msgstr ""
+"După ce enblend a îmbinat panorama, imaginile ieşire re-mapate (disponibile "
+"în acelaşi dosar ca şi imaginea panoramă) pot fi utilizate pentru a retuşa "
+"panorama în Gimp sau Photoshop."
+
+#: hugin1/hugin/xrc/data/tips.txt:29
+msgid ""
+"hugin and other free panoramic software is discussed on the ptx email list. "
+"http://groups.google.com/group/hugin-ptx"
+msgstr ""
+"hugin şi alte programe libere pentru panorame sunt discutate în lista de "
+"email ptx. http://groups.google.com/group/hugin-ptx"
+
+#: hugin1/hugin/xrc/data/tips.txt:30
+msgid ""
+"The Panorama Tools, on which hugin is based were originally written by "
+"Helmut Dersch."
+msgstr ""
+"Panorama Tools, pe care Hugin este bazat a fost iniţial scris de Helmut "
+"Dersch."
+
+#: hugin1/hugin/xrc/data/tips.txt:31
+msgid ""
+"The precision of \"fine tuning\" control points can be improved by enabling "
+"rotation search. This is essential for fisheye and wide angle images."
+msgstr ""
+"Precizia \"reglajului fin\" poate fi îmbunătăţită prin activarea căutării "
+"rotaţionale. Acest lucru este esenţial pentru imagini fisheye şi cu unghi "
+"larg."
+
+#: hugin1/hugin/xrc/data/tips.txt:32
+msgid ""
+"Multiple images can be selected in the image and lens tabs. Commands will "
+"act on all selected images."
+msgstr ""
+"Mai multe imagini pot fi selectate în fila imagini şi lentile. Comenzile vor "
+"acţiona asupra tuturor imaginilor selectate."
+
+#: hugin1/hugin/xrc/data/tips.txt:33
+msgid ""
+"Lens parameters may vary with changing focus. For best results, calibrate "
+"the parameters using know settings and reuse them later."
+msgstr ""
+"Parametrii lentilelor pot varia cu schimbarea focusului. Pentru rezultate "
+"optime, calibrează parametrii folosind setări ştiute şi reutilizează-i mai "
+"târziu."
+
+#: hugin1/hugin/xrc/data/tips.txt:34
+msgid ""
+"Optimization of all distortion parameters \"everything\" makes only sense "
+"with heavily overlapping images and many well distributed control points."
+msgstr ""
+"Optimizarea tuturor parametrilor distorsiunii. \"totul\" are sens doar cu "
+"imagini suprapuse foarte mult şi multe puncte de control bine distribuite."
