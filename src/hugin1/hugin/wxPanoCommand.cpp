@@ -642,6 +642,13 @@ bool PythonScriptPanoCmd::processPanorama(Panorama& pano)
     wxMessageBox(wxString::Format(wxT("Script return %d"),success),_("Result"), wxICON_INFORMATION);
     std::cout << "Python interface returned " << success << endl ;
     // notify other of change in panorama
+    if(pano.getNrOfImages()>0)
+    {
+        for(unsigned int i=0;i<pano.getNrOfImages();i++)
+        {
+            pano.imageChanged(i);
+        };
+    };
     pano.changeFinished();
 
     return true;
