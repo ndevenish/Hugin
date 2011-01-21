@@ -660,12 +660,14 @@ bool PanoDetector::FindMatchesInPair(MatchData& ioMatchData, const PanoDetector&
 bool PanoDetector::RansacMatchesInPair(MatchData& ioMatchData, const PanoDetector& iPanoDetector)
 {
 	// Use panotools model for wide angle lenses
-	if (iPanoDetector._panoramaInfo->getImage(ioMatchData._i1->_number).getHFOV() > 65 ||
-		iPanoDetector._panoramaInfo->getImage(ioMatchData._i2->_number).getHFOV() > 65)
+ 	RANSACOptimizer::Mode rmode = iPanoDetector._ransacMode;
+	if (rmode == RANSACOptimizer::HOMOGRAPHY ||
+		(rmode == RANSACOptimizer::AUTO && iPanoDetector._panoramaInfo->getImage(ioMatchData._i1->_number).getHFOV() < 65 &&
+		 iPanoDetector._panoramaInfo->getImage(ioMatchData._i2->_number).getHFOV() < 65))
 	{
-		return RansacMatchesInPairCam(ioMatchData, iPanoDetector);
-	} else {
 		return RansacMatchesInPairHomography(ioMatchData, iPanoDetector);
+	} else {
+		return RansacMatchesInPairCam(ioMatchData, iPanoDetector);
 	}
 }
 
@@ -701,34 +703,47 @@ bool PanoDetector::RansacMatchesInPairCam(MatchData& ioMatchData, const PanoDete
 		pano_local_i2 = 0;
 	}
 	
-	PanoramaData *panoSubset = iPanoDetector._panoramaInfo->getNewSubset(imgs);
-
-	// create control point vector
-	CPVector controlPoints(ioMatchData._matches.size());
-	int i=0;
-	BOOST_FOREACH(PointMatchPtr& aM, ioMatchData._matches)
-	{
-		controlPoints[i] = ControlPoint(pano_local_i1, aM->_img1_x, aM->_img1_y,
-										pano_local_i2, aM->_img2_x, aM->_img2_y);
-		i++;
-	}
-
-	panoSubset->setCtrlPoints(controlPoints);
-	
 	// perform ransac matching.
 	// ARGH the panotools optimizer uses global variables is not reentrant
 	std::vector<int> inliers;
 	{
 		ZThread::Guard<ZThread::FastMutex> g(aPanoToolsMutex);
+
+		PanoramaData *panoSubset = iPanoDetector._panoramaInfo->getNewSubset(imgs);
+
+		// create control point vector
+		CPVector controlPoints(ioMatchData._matches.size());
+		int i=0;
+		BOOST_FOREACH(PointMatchPtr& aM, ioMatchData._matches)
+		{
+			controlPoints[i] = ControlPoint(pano_local_i1, aM->_img1_x, aM->_img1_y,
+											pano_local_i2, aM->_img2_x, aM->_img2_y);
+			i++;
+		}
+		panoSubset->setCtrlPoints(controlPoints);
+	
+
 		PT_setProgressFcn(ptProgress);
 		PT_setInfoDlgFcn(ptinfoDlg);
+
+		RANSACOptimizer::Mode rmode = iPanoDetector._ransacMode;
+		if (rmode == RANSACOptimizer::AUTO)
+			rmode = RANSACOptimizer::RPY;
 		inliers = HuginBase::RANSACOptimizer::findInliers(*panoSubset, pano_local_i1, pano_local_i2, 
-																		   iPanoDetector.getRansacDistanceThreshold());
+														  iPanoDetector.getRansacDistanceThreshold(), rmode);
 		PT_setProgressFcn(NULL);
 		PT_setInfoDlgFcn(NULL);
+		delete panoSubset;
+
+		TRACE_PAIR("Removed " << controlPoints.size() - inliers.size() << " matches. " << inliers.size() << " remaining.");
+		if (inliers.size() < 0.5 * controlPoints.size()) {
+			// more than 50% of matches were removed, ignore complete pair...
+			TRACE_PAIR("RANSAC found more than 50% outliers, removing all matches");
+			ioMatchData._matches.clear();
+			return true;
+		}
 	}
 
-	TRACE_PAIR("Removed " << controlPoints.size() - inliers.size() << " matches. " << inliers.size() << " remaining.");
 
 	if (inliers.size() < (unsigned int)iPanoDetector.getMinimumMatches())
 	{
@@ -753,7 +768,6 @@ bool PanoDetector::RansacMatchesInPairCam(MatchData& ioMatchData, const PanoDete
 									aRemovedMatches, aRansacFilter, iPanoDetector.getDownscale());
 	*/
 
-	delete panoSubset;
 	return true;
 }
 
@@ -786,8 +800,16 @@ bool PanoDetector::RansacMatchesInPairHomography(MatchData& ioMatchData, const P
         thresholdDistance*=5;
 	aRansacFilter.setDistanceThreshold(thresholdDistance);
 	aRansacFilter.filter(ioMatchData._matches, aRemovedMatches);
-	
+
+		
 	TRACE_PAIR("Removed " << aRemovedMatches.size() << " matches. " << ioMatchData._matches.size() << " remaining.");
+
+	if (aRemovedMatches.size() > ioMatchData._matches.size()) {
+		// more than 50% of matches were removed, ignore complete pair...
+		TRACE_PAIR("More than 50% outliers, removing all matches");
+		ioMatchData._matches.clear();
+		return true;
+	}
 
 	if (iPanoDetector.getTest())
 		TestCode::drawRansacMatches(ioMatchData._i1->_name, ioMatchData._i2->_name, ioMatchData._matches, 

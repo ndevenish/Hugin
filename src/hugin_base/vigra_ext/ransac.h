@@ -268,6 +268,12 @@ std::vector<const T *> Ransac::compute(S &parameters,
                     numVotesForCur++;
                 }
             }
+	    // debug output
+	    std::cerr << "RANSAC iter " << i << ": inliers: " << numVotesForCur << " parameters:";
+	    for (int jj=0; jj < exactEstimateParameters.size(); jj++)
+		std::cerr << " " << exactEstimateParameters[jj];
+	    std::cerr << std::endl;
+
             if(numVotesForCur > numVotesForBest) {
                 numVotesForBest = numVotesForCur;
                 memcpy(bestVotes,curVotes, numDataObjects*sizeof(short));

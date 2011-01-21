@@ -106,19 +106,19 @@ Sieve 1: Number of buckets on height (default: 10)
 
 =item B<--sieve1size> <int>
 
-Sieve 1: Max points per bucket (default: 30)
+Sieve 1: Max points per bucket (default: 100)
 
 =item B<--kdtreesteps> <int>
 
-KDTree: search steps (default: 40)
+KDTree: search steps (default: 200)
 
 =item B<--kdtreeseconddist> <double>
 
 =back
 
-KDTree: distance of 2nd match (default: 0.15)
+KDTree: distance of 2nd match (default: 0.25)
 
-Cpfind stores maximal sieve1width * sieve1height * sieve1size keypoints per image. If you have only a small overlap, e.g. for 360 degree panorama shoot with fisheye images, you can get better results if you increase sizeve1size. You can also try to increase sieve1width and/or sieve1height.
+Cpfind stores maximal sieve1width * sieve1height * sieve1size keypoints per image. If you have only a small overlap, e.g. for 360 degree panorama shoot with fisheye images, you can get better results if you increase sieve1size. You can also try to increase sieve1width and/or sieve1height.
 
 =head2 Feature matching
 
@@ -133,6 +133,20 @@ Ransac: iterations (default: 1000)
 =item B<--ransacdist> <int>
 
 Ransac: homography estimation distance threshold (pixels) (default: 25)
+
+=item B<--ransacmode> (auto, hom, rpy, rpyv, rpyb)
+
+Select the model used in the ransac step.
+
+hom: Assume a homography. Only applicable for non-wide angle views. Uses the original panomatic code
+rpy: Align images using roll, pitch and yaw. This requires a good estimate for the horizontal field
+     of view (and distortion, for heavily distorted images). 
+rpyv: Align pair by optimizing roll, pitch, yaw and field of view. Should work without prior knowledge
+      of the field of view, but might fail more often, due to error function used in panotools, it
+      tends to shrink the fov to 0.
+rpyvb: Align pair by optimizing roll, pitch, yaw, field of view and the "b" distortion parameter. 
+       Probaby very fragile, just implemented for testing.
+auto: Use homography for images with hfov < 65 degrees and rpy otherwise.
 
 =item B<--minmatches> <int>
 
@@ -217,11 +231,11 @@ Sieve 1 : Number of buckets on height (default : 10)
 
 =item B<--sieve1size> <int>
 
-Sieve 1 : Max points per bucket (default : 30)
+Sieve 1 : Max points per bucket (default : 100)
 
 =item B<--kdtreesteps> <int>
 
-KDTree : search steps (default : 40)
+KDTree : search steps (default : 200)
 
 =item B<--kdtreeseconddist> <double>
 

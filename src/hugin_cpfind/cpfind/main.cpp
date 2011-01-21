@@ -104,7 +104,8 @@ void parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
 		
 		ValueArg<int> aArgKDTreeSearchSteps("","kdtreesteps",   "KDTree : search steps    (default : 200)", false, 200, "int");
 		ValueArg<double> aArgKDTreeSecondDist("","kdtreeseconddist", "KDTree : distance of 2nd match    (default : 0.25)\n", false, 0.25, "double");
-		ValueArg<int> aArgMinMatches("","minmatches", "Minimum matches    (default : 4)", false, 4, "int");
+		ValueArg<int> aArgMinMatches("","minmatches", "Minimum matches    (default : 6)", false, 6, "int");
+		ValueArg<std::string> aArgRansacMode("","ransacmode", "Ransac : mode (auto, hom, rpy, rpyv, rpyvb (default : auto)", false, "auto", "string");
 		ValueArg<int> aArgRansacIter("","ransaciter", "Ransac : iterations    (default : 1000)", false, 1000, "int");
 		ValueArg<int> aArgRansacDist("","ransacdist", "Ransac : homography estimation distance threshold (pixels)"
 														"\t    (default : 50)", false, 50, "int");
@@ -117,6 +118,7 @@ void parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
 		cmd.add(aArgSieve2Size);
 		cmd.add(aArgSieve2Height);
 		cmd.add(aArgSieve2Width);
+		cmd.add(aArgRansacMode);
 		cmd.add(aArgRansacDist);
 		cmd.add(aArgRansacIter);
 		cmd.add(aArgMinMatches);
@@ -187,6 +189,21 @@ void parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
 		if (aArgKDTreeSearchSteps.isSet())	ioPanoDetector.setKDTreeSearchSteps(aArgKDTreeSearchSteps.getValue());
 		if (aArgKDTreeSecondDist.isSet())	ioPanoDetector.setKDTreeSecondDistance(aArgKDTreeSecondDist.getValue());
 		if (aArgMinMatches.isSet())			ioPanoDetector.setMinimumMatches(aArgMinMatches.getValue());
+		if (aArgRansacMode.isSet()) {
+			if (aArgRansacMode.getValue() ==  "auto") {
+				ioPanoDetector.setRansacMode(RANSACOptimizer::AUTO);
+			} else if (aArgRansacMode.getValue()==  "hom") {
+				ioPanoDetector.setRansacMode(RANSACOptimizer::HOMOGRAPHY);
+			} else if (aArgRansacMode.getValue()==  "rpy") {
+				ioPanoDetector.setRansacMode(RANSACOptimizer::RPY);
+			} else if (aArgRansacMode.getValue()==  "rpyv") {
+				ioPanoDetector.setRansacMode(RANSACOptimizer::RPYV);
+			} else if (aArgRansacMode.getValue()==  "rpyvb") {
+				ioPanoDetector.setRansacMode(RANSACOptimizer::RPYVB);
+			} else {
+				cout << "ERROR: invalid --ransacmode." << endl;
+			}
+		}
 		if (aArgRansacIter.isSet())			ioPanoDetector.setRansacIterations(aArgRansacIter.getValue());
 		if (aArgRansacDist.isSet())			ioPanoDetector.setRansacDistanceThreshold(aArgRansacDist.getValue());
 		if (aArgSieve2Width.isSet())		ioPanoDetector.setSieve2Width(aArgSieve2Width.getValue());

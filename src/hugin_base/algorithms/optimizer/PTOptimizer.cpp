@@ -79,7 +79,8 @@ class PTOptEstimator
 
 public:
 
-    PTOptEstimator(PanoramaData & pano, int i1, int i2, double maxError)
+    PTOptEstimator(PanoramaData & pano, int i1, int i2, double maxError,
+		   bool optHFOV, bool optB)
     {
 	m_maxError = maxError;
 
@@ -98,11 +99,17 @@ public:
 	    }
 	}
 	
-	// m_optvars.push_back(OptVarSpec(0,std::string("v")));
-	// m_optvars.push_back(OptVarSpec(0,std::string("b")));
+	if (optHFOV)
+	    m_optvars.push_back(OptVarSpec(0,std::string("v")));
+	if (optB)
+	    m_optvars.push_back(OptVarSpec(0,std::string("b")));
 	m_optvars.push_back(OptVarSpec(m_li2,"r"));
 	m_optvars.push_back(OptVarSpec(m_li2,"p"));
 	m_optvars.push_back(OptVarSpec(m_li2,"y"));
+	if (optHFOV)
+	    m_optvars.push_back(OptVarSpec(0,"v"));
+	if (optB)
+	    m_optvars.push_back(OptVarSpec(0,"b"));
 
 	/** optimisation for first pass */
 	m_opt_first_pass.resize(2);
@@ -111,14 +118,16 @@ public:
 	m_opt_first_pass[1].insert("y");
 
 	/** optimisation for second pass */
-	/*
-	m_opt_second_pass = m_opt_first_pass;
-	m_opt_second_pass[0].insert("v");
-	m_opt_second_pass[0].insert("b");
-	*/
+	if (optHFOV || optB) {
+	    m_opt_second_pass = m_opt_first_pass;
+	    if (optHFOV)
+		m_opt_second_pass[0].insert("v");
+	    if (optB)
+		m_opt_second_pass[0].insert("b");
+	}
 
 	// number of points required for estimation
-	m_numForEstimate = 2;	
+	m_numForEstimate = (m_optvars.size()+1)/2;	
 			    
 	// extract initial parameters from pano
 	m_initParams.resize(m_optvars.size());
@@ -263,15 +272,31 @@ private:
 };
 
 
-std::vector<int> RANSACOptimizer::findInliers(PanoramaData & pano, int i1, int i2, double maxError)
+std::vector<int> RANSACOptimizer::findInliers(PanoramaData & pano, int i1, int i2, double maxError, Mode rmode)
 {
-    PTOptEstimator estimator(pano, i1, i2, maxError);
+    bool optHFOV = false;
+    bool optB = false;
+    switch (rmode) {
+    case HOMOGRAPHY:
+    case RPYV:
+	optHFOV =  true;
+	break;
+    case RPYVB:
+	optHFOV = true;
+	optB = true;
+    case AUTO:
+    case RPY:
+	break;
+    }
+
+    DEBUG_DEBUG("Optimizing HFOV:" << optHFOV << " b:" << optB)
+    PTOptEstimator estimator(pano, i1, i2, maxError, optHFOV, optB);
 
     std::vector<double> parameters(estimator.m_initParams.size());
     std::copy(estimator.m_initParams.begin(),estimator.m_initParams.end(), parameters.begin());
     std::vector<int> inlier_idx;
     DEBUG_DEBUG("Number of control points: " << estimator.m_xy_cps.size() << " Initial parameter[0]" << parameters[0]);
-    std::vector<const ControlPoint *> inliers = Ransac::compute(parameters, inlier_idx, estimator, estimator.m_xy_cps, 0.99, 0.3);
+    std::vector<const ControlPoint *> inliers = Ransac::compute(parameters, inlier_idx, estimator, estimator.m_xy_cps, 0.999, 0.3);
     DEBUG_DEBUG("Number of inliers:" << inliers.size() << "optimized parameter[0]" << parameters[0]);
 
     // set parameters in pano object
@@ -290,7 +315,7 @@ std::vector<int> RANSACOptimizer::findInliers(PanoramaData & pano, int i1, int i
 
 bool RANSACOptimizer::runAlgorithm()
 {
-    o_inliers = findInliers(o_panorama, o_i1, o_i2, o_maxError);
+    o_inliers = findInliers(o_panorama, o_i1, o_i2, o_maxError, o_mode);
     return true; // let's hope so.
 }
     

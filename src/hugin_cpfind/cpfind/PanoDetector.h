@@ -42,6 +42,7 @@
 #include <vigra_ext/ROIImage.h>
 
 #include <panodata/Panorama.h>
+#include <algorithms/optimizer/PTOptimizer.h>
 #include <celeste/Celeste.h>
 
 using namespace HuginBase;
@@ -97,9 +98,11 @@ public:
 	inline void setMinimumMatches(int iMatches) { _minimumMatches = iMatches; }
 	inline void setRansacIterations(int iIters) { _ransacIters = iIters; }
 	inline void setRansacDistanceThreshold(int iDT) { _ransacDistanceThres = iDT; }
+	inline void setRansacMode(RANSACOptimizer::Mode mode) { _ransacMode = mode; }
 	inline int  getMinimumMatches() const { return _minimumMatches; }
 	inline int  getRansacIterations() const { return _ransacIters; }
 	inline int  getRansacDistanceThreshold() const { return _ransacDistanceThres; }
+	inline RANSACOptimizer::Mode setRansacMode() { return _ransacMode; }
 
 	inline void setSieve2Width(int iWidth) { _sieve2Width = iWidth; }
 	inline void setSieve2Height(int iHeight) { _sieve2Height = iHeight; }
@@ -158,6 +161,7 @@ private:
 	double					_kdTreeSecondDistance;
 
 	int						_minimumMatches;
+	RANSACOptimizer::Mode	_ransacMode;
 	int						_ransacIters;
 	int						_ransacDistanceThres;
 
