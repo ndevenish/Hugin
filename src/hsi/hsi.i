@@ -200,7 +200,7 @@ struct tm
 // this include has to take a modified header instead of
 // SrcPanoImage.h to make SWIG wrap the accessor functions:
 
-%include <panodata/hsi_SrcPanoImage.h>
+%include <hsi_SrcPanoImage.h>
 
 %template(VariableMap)       std::map< std::string, Variable>;
 %template(VariableMapVector) std::vector< std::map<std::string, Variable> > ;

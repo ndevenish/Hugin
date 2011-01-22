@@ -1,5 +1,4 @@
-// this section is cut out from SrcPanoImage.h and only contains
-// the macros for the property accessors in class SrcPanoImage
+// this section contains the macros for the property accessors in class SrcPanoImage
 // this excerpt is separately precompiled to generate explicit
 // definitions, because SWIG can't handle the 'lazy metaprogramming'.
 // This is only needed for the python interface.
@@ -19,7 +18,7 @@ public:
 
     // get[variable name]IV functions. Return a const reference to the ImageVariable.
 #define image_variable( name, type, default_value ) \
-    const ImageVariable<type> & get##name##IV() const { return m_##name; }
+    const ImageVariable<type > & get##name##IV() const { return m_##name; }
 #include "image_variables.h"
 #undef image_variable
 
@@ -70,11 +69,9 @@ public:
 #undef image_variable
 
 protected:
-    ///
-    void setDefaults();
-    
+ 
     // the image variables m_[variable name]
 #define image_variable( name, type, default_value ) \
-    ImageVariable<type> m_##name;
+    ImageVariable<type > m_##name;
 #include "image_variables.h"
 #undef image_variable    
