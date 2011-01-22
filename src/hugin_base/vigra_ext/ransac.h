@@ -41,6 +41,8 @@
 
 //#include "ParameterEsitmator.h"
 
+//#define DEBUG_RANSAC
+
 /**
  * This class implements the Random Sample Consensus (RanSac) framework,
  * a framework for robust parameter estimation.
@@ -269,10 +271,12 @@ std::vector<const T *> Ransac::compute(S &parameters,
                 }
             }
 	    // debug output
+	    #ifdef DEBUG_RANSAC
 	    std::cerr << "RANSAC iter " << i << ": inliers: " << numVotesForCur << " parameters:";
 	    for (int jj=0; jj < exactEstimateParameters.size(); jj++)
 		std::cerr << " " << exactEstimateParameters[jj];
 	    std::cerr << std::endl;
+	    #endif
 
             if(numVotesForCur > numVotesForBest) {
                 numVotesForBest = numVotesForCur;
