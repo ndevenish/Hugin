@@ -33,6 +33,12 @@
 #include <iostream>
 #include <stdio.h>
 
+#include <panodata/PanoImage.h>
+#include <panodata/SrcPanoImage.h>
+#include <panodata/ImageVariableGroup.h>
+#include <panodata/StandardImageVariableGroups.h>
+#include <panodata/ImageVariableTranslate.h>
+
 #include <panodata/PanoramaData.h>
 #include <panodata/Panorama.h>
 
@@ -75,12 +81,7 @@ extern Panorama * pano_open ( const char * infile ) ;
 extern void pano_close ( Panorama * pano ) ;
 extern istream * make_std_ifstream ( const char * charp ) ;
 extern ostream * make_std_ofstream ( const char * charp ) ;
-extern void hello_python ( HuginBase::Panorama * pano ) ;
 %}
-// we need this to modify a few things in PanoramaVariable.h:
-
-#define _HUGIN_SCRIPTING_INTERFACE
-
 #include <iostream>
 #include <stdio.h>
 
@@ -134,6 +135,20 @@ namespace vigra
     int y ;
    Point2D ( int ix , int iy ) : x(ix) , y(iy) {} ;
   } ;
+
+  class Rect2D
+  {
+   public:
+    Rect2D ( int l , int t , int r , int b ) {} ;
+    Point2D upperLeft() {} ;
+    Point2D lowerRight() {} ;
+    int left() {} ;
+    int top() {} ;
+    int right() {} ;
+    int bottom() {} ;
+    int width() {} ;
+    int height() {} ;
+   } ;
 } ;
 
 // same for this type, which is used for a pair of double coords
@@ -175,19 +190,24 @@ struct tm
 
 %include <panodata/ImageVariable.h>
 
-// the next three currently won't yield. are they needed at all?
-// %include <panodata/ImageVariableGroup.h>
-// %include <panodata/StandardImageVariableGroups.h>
-// %include <panodata/ImageVariableTranslate.h>
+%include <panodata/PanoImage.h>
+%include <panodata/ImageVariableGroup.h>
+%include <panodata/StandardImageVariableGroups.h>
+%include <panodata/ImageVariableTranslate.h>
 
 %include <panodata/Lens.h>
 
-%include <panodata/SrcPanoImage.h>
+// this include has to take a modified header instead of
+// SrcPanoImage.h to make SWIG wrap the accessor functions:
+
+%include <panodata/hsi_SrcPanoImage.h>
 
 %template(VariableMap)       std::map< std::string, Variable>;
 %template(VariableMapVector) std::vector< std::map<std::string, Variable> > ;
 %template(LensVarMap)        std::map<std::string,LensVariable> ;
 %template(OptimizeVector)    std::vector<std::set<std::string> > ;
+
+// I am using a modified version of PanoramaVariable.h
 
 %include <panodata/PanoramaVariable.h>
 
@@ -237,7 +257,6 @@ struct tm
 %include <algorithms/panorama_makefile/PanoramaMakefilelibExport.h>
 %include <algorithms/point_sampler/PointSampler.h>
 
-
 // finally we have a bunch of helper functions that reside in
 // hsi.cpp:
 
@@ -245,4 +264,3 @@ extern HuginBase::Panorama * pano_open ( const char * infile ) ;
 extern void pano_close ( HuginBase::Panorama * pano ) ;
 extern std::istream * make_std_ifstream ( const char * charp ) ;
 extern std::ostream * make_std_ofstream ( const char * charp ) ;
-extern void hello_python ( HuginBase::Panorama * pano ) ;

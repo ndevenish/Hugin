@@ -4,20 +4,24 @@ This README gives an introduction to the alpha release of the Hugin Scripting In
 
 1. What is it?
 
-Hugin provides a GUI and a set of command line tools, but currently there is no scripting/plugin interface. Scripting hugin/panotools currently means to exchanges data by passing command line arguments and files. To change this and to make hugin's capabilities available for script writing, I have written interface code in SWIG, the 'Simplified Wrapper and Interface Generator'. With this code, SWIG can generate an interface for scripting languages in general; out of the available choices I have picked Python as the target language and generated a Python module which makes a large part of hugin's capabilities available to Python. Once the hugin data were accessible to Python, I was able to embed Python in hugin (and other software that uses libhuginbase.so) and use the data compatibility to provide a plugin interface which allows execution of arbitrary Python code with extensive hugin type and method compatibility.
+Hugin provides a GUI and a set of command line tools, but currently there is no scripting/plugin interface. Scripting hugin/panotools currently means to exchanges data by passing command line arguments and files. To change this and to make hugin's capabilities available for script writing, I have written interface code in SWIG, the 'Simplified Wrapper and Interface Generator'. With this code, SWIG can generate an interface for scripting languages in general; out of the available choices I have picked Python as the target language and generated a Python module which makes a large part of hugin's backend capabilities available to Python. Once the hugin data were accessible to Python, I was able to embed Python in hugin (and in other software that uses libhuginbase.so) and use the data compatibility to provide a plugin interface which allows execution of arbitrary Python code with extensive hugin type and method compatibility.
 
 2. What is needed to get it up and running?
 
 Currently the only mode of distribution is source code.
 
-There are two levels of source you can start from. If you want to go all the way from my interface definition file, you'll need SWIG - I used SWIG 2.0.1 which I built from source; hugin's code is quite complex C++ with lots of templates and STL use, so older versions of SWIG may not be able to generate the interface. SWIG will generate the source for the wrapper and a Python file to access it. You can just take the wrapper (it's C++ code), compile and link it and omit the SWIG step. If you want to do this you'll have to edit the cmake code accordingly by throwing out the references to hsi.i and using hsiPYTHON_wrap.cxx as source for _hsi.so; you'll also have to use the prefabricated version of hsi.py. The remainder of this text assumes you have it all and you're going all the way.
+There are two levels of source you can start from. If you want to go all the way from my interface definition file, you'll need SWIG - I used SWIG 2.0.1 which I built from source; hugin's code is quite complex C++ with lots of templates and STL use, so older versions of SWIG may not be able to generate the interface. SWIG will generate the source for the wrapper and a Python file to access it. You can just take the wrapper (it's C++ code), compile and link it and omit the SWIG step. If you want to do this you'll have to edit the cmake code accordingly by throwing out the references to hsi.i and using hsiPYTHON_wrap.cxx as source for _hsi.so; you'll also have to use the prefabricated version of hsi.py. The remainder of this text assumes you have it all and you're going all the way, and, at least for the time being, hsiPYTHON_wrap.cxx isn't in the repo and use of SWIG is mandatory to enforce consistence of the scripting interface with hugin, so that any change in the hugin headers is reflected in a changed interface.
 
-Before I continue, let me point out the minor changes I have made in the existing body of code to integrate my work.
+Before I continue, let me point out the minor changes I have made in the existing body of hugin code to integrate my work.
 The first thing I did was add a new folder to contain the body of code for hsi/hpi. It's here: hugin.hg/src/hsi
-The second thing I obviously had to do was to change the CMakeLists.txt in hugin.hg/src to look for Python and include my new hsi directory. These are addiditions, not modifications, but once hsi becomes integrated with the main branch, there ought to be a conditional behaviour here that allows building hugin without the scripting extensions if Python is missing.
-The next modification is to one Hugin header file which I wanted to have wrapped, but couldn't get to yield unmodified. This is probably a temporary measure. The file in question is hugin_base/panodata/PanoramaVariable.h and the changes can be switched on by defining _HUGIN_SCRIPTING_INTERFACE.
+
+The second thing I obviously had to do was to change the cmake code to look for SWIG and Python and include my new hsi directory. More changes to the cmake code have followed - T. Modes has been helpful to get the code integrated into the hugin build mechanism. Currently this is a moving target, since an effort is made to integrate the hsi/hpi capability as a compile time option which can be centrally switched on and off, so that hsi/hpi can become part of the mainstream without interfering with builders who don't have or want SWIG and Python. What's currently missing in the cmake code is the dependency of hsi.i from the headers it wraps.
+
+I also had to modify a couple of hugin headers. I have done that by creating a copy and calling it the same name, just with a 'hsi_' prefix. The changes are semantically minimal - in the first case (hugin_base/panodata/PanoramaVariable.h) it's a matter of defining default constructors for the classes in it and excepting one class from being seen by SWIG, and in another header file which was using macros in a way that wasn't suitable for SWIG (hugin_base/panodata/SrcPanoImage.h) I had to separately preprocess the macros and replace their occurence in the code with the preprocessed version.
+
 Finally, there are some experimental additions to hugin that Pablo d'Angelo has kindly provided in the python_scripting branch of hugin he provided for testing purposes and as a starting point. These are additions as well and I won't enlarge upon them here. But I had to call the hpi code from the starting point Pablo d'Angelo provided, so there is a modification in hugin_hsi.hg/src/hugin1/hugin/wxPanoCommand.cpp as well.
-If you pick my source distribution, you'll have to get the python_scripting branch from the official site and manually apply the modifications I've mentioned, the modified files are in a folder 'collateral' in the hsi tar file, which has to be unpacked to hugin.hg/src/hsi.
+
+I'll soon take the tarfile source distribution offline as it's no longer up to date anyway; there is now a hugin branch (called python_scripting) at the official hugin repo at SF, which reflects the status quo.
 
 3. Okay, from now on I'll assume you have the following:
 
@@ -27,9 +31,9 @@ If you pick my source distribution, you'll have to get the python_scripting bran
 - Python 2.6    (http://www.python.org/)
 - modified Hugin sources (source setup as described in
                  http://wiki.panotools.org/Hugin_Compiling_Ubuntu)
-- hsi sources installed
+                 updated to python_scripting branch
 
-I got my initial branch code like this (courtesy Pablo d'Angelo):
+You can get the branch code like this (courtesy Pablo d'Angelo):
 hg clone http://hugin.hg.sourceforge.net:8000/hgroot/hugin/hugin
 hugin.hg
 cd hugin.hg
@@ -37,25 +41,26 @@ cd hugin.hg
 # ATTENTION: This will remove any local changes, should there be any.
 hg update -C python_scripting 
 
-Then I put in my modifications and additions.
+Next I recommend you do the following:
 
-Currently there is no official channel to get these additions ecxept from patching the python_scripting branch with data I provide in my bazaar repo, but I hope to be able to offer access to a mercurial repo if I can put one online somewhere.
+Once you have the branch, you have to note that when setting up the build with cmake, you have to specify -DBUILD_HSI=ON as a parameter to the cmake call. If you don't, theoretically plain old hugin without hsi should be built, but this failed on my system. With  -DBUILD_HSI=ON, the build produces hsi-enriched hugin.
 
-I recommend you do the following:
-
-Once you have the patched version, there will be some differences to the original. The patch works on a branch called python_scripting and introduces some minor changes to the make infrastructure, one slight modification of a hugin header file, and a new directory hsi in hugin.hg/src which contains all the new sources.
 Now you're ready to go. Proceed with a normal hugin build cycle, and if all goes well, you should find the hsi Python module in .../hugin.hg-build/src/hsi together with the wrapper code. The two files that constitute the hsi module are hsi.py and _hsi.so They are both generated by SWIG from the interface definition in hsi.i and the hugin header files. The first one is pure Python. It loads and uses the compiled code in _hsi.so.
-There is another Python module you need, and that's hsi.py - it's in the new hsi directory. this one isn't generated, it's handwritten.
-These three files (hsi.py, hpi.py and _hsi.so) need to be in your Python module path, so it's probably best if you move hpi.py to where the other two files are and set PYTHONPATH to that directory - alternatively you can link them to the appropriate location in your Python distribution.
-Your new build of libhuginbase.so has been modified to provide access to the Python interface, so all programs that link to libhuginbase.so will have this capability. In order to make use of the capability, you need to include the header 'hpi.h' into your file and use the function callhpi() it declares. This allows to call arbitrary Python code and exchange data with it; a demo plugin is also in the hsi directory.
+
+There is another Python module you need, and that's hpi.py - it's in the hsi source directory. this one isn't generated, it's handwritten.
+These three files (hsi.py, hpi.py and _hsi.so) need to be in your Python module path, so it's probably best if you copy hpi.py to where the other two files are and set PYTHONPATH to that directory - alternatively you can link them to the appropriate location in your Python distribution.
+Your new build of libhuginbase.so has been modified to provide access to the Python interface, so all programs that link to libhuginbase.so will have this capability. In order to make use of the capability, you need to include the header 'hpi.h' into your file and use the function callhpi() it declares. This allows to call arbitrary Python code and exchange data with it; a demo plugin is also in the hsi directory, which can be called from the GUI under Edit->Run Python Script.
+
+Of course, if you're familiar with coding in C++ for Python, you can go beyond using callhpi() and interface with the python code with any Python objects you choose to throw at it. In that case you may want to have a look at hpi_classes.h and hpi.cpp where I have implemented the Python interface.
 
 4. Play with it
 
-You may have noticed that the wrapper part of the module, where the hardcore stuff happens, _hsi.so, is quite large. this is because the wrap is generated from (mostly) unmodifies hugin headers and I made an attempt to offer proxies for every data type and access to all methods and functions in Python, maintaining the same object-oriented interface to the data that is available in hugin. This fattens the interface; ultimately one might conceive of a slimmer interface definition, also because it maybe isn't really necessary to interface to every bit of hugin code declared in the headers that went into the interface. But for now, it's the maximum of what I could wrap without interfering with the hugin headers too much (some wouldn't easily yield to my wrapping efforts), and this also makes it quite comfortable to use.
+You may have noticed that the wrapper part of the module, where the hardcore stuff happens, _hsi.so, is quite large. this is because the wrap is generated from (mostly) unmodifies hugin headers and I made an attempt to offer proxies for every data type and access to all methods and functions in Python, maintaining the same object-oriented interface to the data that is available in hugin. This fattens the interface; ultimately one might conceive of a slimmer interface definition, also because it maybe isn't really necessary to interface to every bit of hugin code declared in the headers that went into the interface. But for now, it's the maximum of what I could wrap without interfering with the hugin headers too much, and this also makes it quite comfortable to use for someone who knows the C++ objects and their methods - the names are essentially the same.
+
 On the other hand, the interface won't stop you from shooting yourself in the foot - you're probably quite safe loading a pto file and looking at it's data, but once you start changing things you may run into trouble. Let me give you an tiny idea of what you can do from Python:
 
 from hsi import *         # load the module
-p=pano_open('xx.pto')     # open a pto file with a helper function
+p=pano_open('pano.pto')   # open a pto file with a helper function
 img0=p.getImage(0)        # access the first image
 print img0.getWidth()     # print the image's width
 cpv=p.getCtrlPoints()     # get the control points in the panorama
@@ -66,16 +71,41 @@ p.setCtrlPoints(cpv)      # pass that subset back to the panorama
 ofs=make_std_ofstream('yy.pto') # make an ofstream with a helper function
 p.writeData(ofs)          # write the modified panorama to that stream
 
-But this is only the hsi side of things - calling hugin functionality from Python scripts. I have also created code to go the other way: use Python functionality from C++ code. I call this side hpi, 'hugin plugin interface'. In Python terminology, hsi is an extension (of Python), while hpi is embedding Python into another application. As mentioned before, hpi allows you to call arbitrary Python code from all programs that link to it; the patched version of hugin does that and offers an entry point for Python experiments via Edit->Run Python Script. There's a sample Python plugin in the hsi directory to give you an idea; you'll only see it's output if you launch hugin from the command line. hpi uses hsi, so it can deal with all data types wrapped with hsi and call all their methods. So now there's full integration: you can call Python and just carry on in Python with the same objects, then return to C++. As a user, you are enabled to write Python plugins with access to the hugin dataverse. The plugin interface provided by hugin now is merely experimental, though, because there hasn't been any discussion yet how to provide the new features to users and what to do with them.
+But this is only the hsi side of things - calling hugin functionality from Python scripts. I have also created code to go the other way: use Python functionality from C++ code. I call this side hpi, 'hugin plugin interface'. In Python terminology, hsi is an extension (of Python), while hpi is embedding Python into another application. As mentioned before, hpi allows you to call arbitrary Python code from all programs that link to it; the hsi-enabled hugin does that and offers an entry point for Python experiments via Edit->Run Python Script. There's a sample Python plugin in the hsi directory to give you an idea; you'll only see it's output if you launch hugin from the command line. hpi uses hsi, so it can deal with all data types wrapped with hsi and call all their methods. So now there's both-way integration: you can call Python and just carry on in Python with the same objects, then return to C++. As a user, you are enabled to write Python plugins with access to the hugin dataverse. The plugin interface provided by hugin now is merely experimental, though, because there hasn't been any discussion yet how to provide the new features to users and what to do with them.
  
 5. Technicalities
 
-If you're familiar with hugin's sources, you may be curious what headers have been wrapped and what classes are accessible. Here's an overview:
+This is the status quo. I've put in quite a bit of new stuff recently, but it'll probably stay like this for a while until there is some more feedback. Since this is an experimental alpha release, please don't expect everything to run totally smoothly - the scope of this interface is quite large, and it hasn't seen much testing. The automatic nature of most of the main process - the creation of the hsi module with SWIG - helps in avoiding errors, though - SWIG is a mature technology.
 
-Headers which were wrapped:
+Some data don't wrap unaided. They pop up as return values from function calls and constitute 'pointer objects' without the accessor layer that is provided when wrapping these types. This isn't intended, but to avoid it, all functionality would have to be properly tested, which is quite a task - I've put more effort in code-writing than in testing initially, but of course this will have to change once the groundwork is laid. If you get such a data type, you won't be able to access the object that is pointed to - Python simply has no idea what to do with it. If that happens, the i-file (hsi.i) has to be adapted to wrap the type. Likely candidates for this are templates and uncommon types - I've wrapped some but I'm bound to have overseen others. Some data types only look like the corresponding C++ types, notably all types from the vigra namespace. This is because I didn't want to pull the full vigra type system in; the wrap types allow basic member access to the content, and I've only wrapped very simple vigra types - but then, the hugin headers I've wrapped only use simple ones, like Point2D and Rect2D, and only to pass to and fro coordinates, so this minimal wrapping is probably sufficient.
 
-<algorithm/ControlPointCreatorAlgorithm.h>
+If you have any comments or suggestions, I'd be happy to hear from you on the hugin mailing list:
+
+http://groups.google.com/group/hugin-ptx
+
+If you're familiar with hugin's sources, you may be curious what headers have been wrapped and what classes are accessible. Here's a list:
+
+<appbase/DocumentData.h>
+<panodata/PanoramaData.h>
+<panodata/ImageVariable.h>
+<panodata/PanoImage.h>
+<panodata/ImageVariableGroup.h>
+<panodata/StandardImageVariableGroups.h>
+<panodata/ImageVariableTranslate.h>
+<panodata/Lens.h>
+<panodata/hsi_SrcPanoImage.h>
+<panodata/PanoramaVariable.h>
+<panodata/ControlPoint.h>
+<panodata/DestPanoImage.h>
+<panodata/PanoramaOptions.h>
+<panodata/PanoramaData.h>
+<panodata/Panorama.h>
+<panotools/PanoToolsUtils.h>
+<panotools/PanoToolsInterface.h>
+<panotools/PanoToolsOptimizerWrapper.h>
 <algorithm/PanoramaAlgorithm.h>
+<algorithm/ControlPointCreatorAlgorithm.h>
+<algorithm/StitcherAlgorithm.h>
 <algorithms/assistant_makefile/AssistantMakefilelibExport.h>
 <algorithms/basic/CalculateCPStatistics.h>
 <algorithms/basic/CalculateMeanExposure.h>
@@ -91,96 +121,14 @@ Headers which were wrapped:
 <algorithms/nona/ComputeImageROI.h>
 <algorithms/nona/FitPanorama.h>
 <algorithms/nona/NonaFileStitcher.h>
-<algorithms/nona/NonaImageStitcher.h>
-<algorithms/optimizer/ImageGraph.h>
 <algorithms/optimizer/PhotometricOptimizer.h>
 <algorithms/optimizer/PTOptimizer.h>
 <algorithms/panorama_makefile/PanoramaMakefilelibExport.h>
 <algorithms/point_sampler/PointSampler.h>
-<algorithm/StitcherAlgorithm.h>
-<panodata/ControlPoint.h>
-<panodata/DestPanoImage.h>
-<panodata/ImageVariable.h>
-<panodata/Lens.h>
-<panodata/PanoramaData.h>
-<panodata/Panorama.h>
-<panodata/PanoramaOptions.h>
-<panodata/PanoramaVariable.h>
-<panodata/SrcPanoImage.h>
-<panotools/PanoToolsInterface.h>
 
-Classes which are available:
+If you want more detailed information on what's wrapped and what isn't, Python's help system can come in handy. To get a listing of all wrapped classes and their methods an the methods' return types, try
 
-        AlignInfoWrap
-        BaseSrcPanoImage
-            SrcPanoImage
-        CPVector
-        CPoint
-        CPointVector
-        CalculateImageOverlap
-        ControlPoint
-        DestPanoImage
-        DocumentData
-        FDiff2D      (dummy)
-        ImageVector
-        Lens
-        LensVarMap
-        OptimizeVector
-        PanoramaAlgorithm
-            AssistantMakefilelibExport
-            CalculateCPStatistics
-                CalculateCPStatisticsError
-                CalculateCPStatisticsRadial
-            CalculateFOV
-            CalculateFitPanorama
-                FitPanorama
-            CalculateMeanExposure
-            CalculateOptimalROI
-            CalculateOptimalScale
-                SetWidthOptimal
-            CenterHorizontally
-            ComputeImageROI
-            PTOptimizer
-                AutoOptimise
-                SmartOptimise
-            PanoramaMakefilelibExport
-            RotatePanorama
-                StraightenPanorama
-            TimeConsumingPanoramaAlgorithm
-                PhotometricOptimizer
-                    SmartPhotometricOptimizer
-                PointSampler
-                    AllPointSampler
-                    RandomPointSampler
-                StitcherAlgorithm
-                    FileOutputStitcherAlgorithm
-                        NonaFileOutputStitcher
-                    ImageStitcherAlgorithm
-            TranslatePanorama
-        PanoramaData
-            ManagedPanoramaData
-                Panorama(ManagedPanoramaData, DocumentData)
-        PanoramaDataMemento
-            PanoramaMemento
-        PanoramaObserver
-        PanoramaOptions
-        Point2D      (dummy)
-        Size2D      (dummy)
-        SmartOptimizerStub
-        SwigPyIterator
-        Transform
-        UIntSet
-        UIntVector
-        Variable
-            LensVariable
-            LinkedVariable
-        VariableMap
-        VariableMapVector
-        tm      (dummy)
+python -c 'import hsi; help(hsi)' > help.txt
 
-This is the status quo, I've put in quite a bit of new stuff recently, but it'll probably stay like this for a while until there is some more feedback. Since this is an experimental alpha release, please don't expect everything to run totally smoothly - the scope of this interface is quite large, and it hasn't seen much testing. The automatic nature of most of the main process - the creation of the hsi module with SWIG - helps in avoiding errors, though - SWIG is a mature technology.
-
-If you have any comments or suggestions, I'd be happy to hear from you on the hugin mailing list:
-
-http://groups.google.com/group/hugin-ptx
+If you're exploring hsi in an interactive Python session, all the wrapped objects will provide some help if you're stuck, but it's admittedly quite basic.
 
