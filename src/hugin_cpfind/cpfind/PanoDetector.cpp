@@ -176,6 +176,24 @@ void PanoDetector::printDetails()
     };
 	cout << "  Distance threshold : " << _ransacDistanceThres << endl;
 	cout << "RANSAC Options" << endl;
+	cout << "  Mode : ";
+	switch (_ransacMode) {
+	case RANSACOptimizer::AUTO:
+		cout << "auto" << endl;
+		break;
+	case RANSACOptimizer::HOMOGRAPHY:
+		cout << "homography" << endl;
+		break;
+	case RANSACOptimizer::RPY:
+		cout << "roll, pitch, yaw" << endl;
+		break;
+	case RANSACOptimizer::RPYV:
+		cout << "roll, pitch, yaw, fov" << endl;
+		break;
+	case RANSACOptimizer::RPYVB:
+		cout << "roll, pitch, yaw, fov, distortion" << endl;
+		break;
+	}
 	cout << "  Iterations : " << _ransacIters << endl;
 	cout << "  Distance threshold : " << _ransacDistanceThres << endl;
 	cout << "Sieve 2 Options" << endl;
