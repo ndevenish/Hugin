@@ -1612,7 +1612,8 @@ void MainFrame::OnPythonScript(wxCommandEvent & e)
 
     if (dlg.ShowModal() == wxID_OK) {
         wxString filename = dlg.GetPath();
-	std::string scriptfile((const char *)filename.mb_str(HUGIN_CONV_FILENAME));
+        wxConfig::Get()->Write(wxT("/pythonScriptPath"), dlg.GetDirectory());
+        std::string scriptfile((const char *)filename.mb_str(HUGIN_CONV_FILENAME));
         GlobalCmdHist::getInstance().addCommand(
             new PythonScriptPanoCmd(pano,scriptfile)
             );
