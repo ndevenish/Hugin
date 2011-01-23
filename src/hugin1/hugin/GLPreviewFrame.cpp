@@ -894,6 +894,7 @@ void GLPreviewFrame::panoramaChanged(Panorama &pano)
     {
         ShowProjectionWarnings();
     };
+    redrawPreview();
 }
 
 void GLPreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
@@ -1035,11 +1036,13 @@ void GLPreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &change
     {
         m_tool_notebook->GetPage(i)->Enable(nrImages!=0);
     };
+    redrawPreview();
 }
 
 void GLPreviewFrame::redrawPreview()
 {
-    Refresh();
+    m_GLPreview->Refresh();
+    m_GLOverview->Refresh();
 }
 
 void GLPreviewFrame::OnShowEvent(wxShowEvent& e)
