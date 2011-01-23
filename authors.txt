@@ -32,11 +32,12 @@ Brian Hoffmann	German translation of NSIS windows installer
 Lajos Höss	Hungarian translation
 Ad Huikeshoven	automated Windows snapshot builds
 Iouri Ivliev	bug fixes
-Kay F. Jahnke	bug fixes
+Kay F. Jahnke	Python scripting interface, bug fixes
 Marek Januszewski	Code, initial Polish translation
 Alexandre Jenny	SpaceTransform class, GSoC 2008 mentoring
 Jing Jin	GSoC 2007 deghosting
 Lukáš Jirkovský	GSoC 2009 deghosting in enfuse
+Gareth Jones	British English translation
 Allard Katan	Windows installer
 Guido Kohlmeyer	German translation, Windows SDK, bug fixes
 Erik Krause	Enfuse and enblend droplets for Windows
@@ -84,7 +85,7 @@ Lorenz Trischberger	German translation
 Ken Turkowski	code
 Ippei Ukai	MacOSX port, initial Japanese translation, GSoC 2007 code refactoring
 Harry van der Wolf	original Dutch translation, OSX build
-Mihai Varzaru   Romanian translation
+Mihai Varzaru   Original Romanian translation
 Luca Vascon	splash screen, icons, original Italian translation
 Fabian Wetzel	Panoglview
 Ulf Wilhelmson	original Swedish translation
