@@ -26,10 +26,17 @@ If you want to change the logo/branding, consider that it appears not only on th
 
 Edit icons on a 512x512px canvas (currently largest supported bitmap icons, on Mac OSX).
 
+In the splash folder there is a version of the splash screen with a red placeholder for an embedded contributed panorama.  The idea is to have a different contributed panorama for every new edition of Hugin.  To place the panorama:
+* open splash_with_artwork.svg in Inkscape
+* import a JPG of the panoramama into Inkscape and move it so that the area clipped by the red shape is the one you want to hae visible
+* add the red shape to the selection
+* in the menu object -> clip -> set
+* raise/lower the resulting clipped image
+
 
 UPDATES
 
-These notes were first drafted Nov.21 2010 by Yuval Levy and last updated for the 2010.4 release soon thereafter.  Things may have changed since then.  If you find that these notes are no longer up to date, please try to update them or ask for help from the develoeprs on the mailing list [2].
+These notes were last edited January 9 2011 by Yuval Levy and last updated for the 2011.0 release.  Things may have changed since then.  If you find that these notes are no longer up to date, please try to update them or ask for help from the developers on the mailing list [2].
 
 
 ARTWORK OUTSIDE ./artwork-src
