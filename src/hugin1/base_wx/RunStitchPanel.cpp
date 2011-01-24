@@ -191,6 +191,11 @@ bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname,
     basename = outputPrefix.GetFullName();
     // stitch only active images
     UIntSet activeImgs = pano.getActiveImages();
+    //get temp dir from preferences
+    wxString tempDir= wxConfigBase::Get()->Read(wxT("tempDir"),wxT(""));
+    if(!tempDir.IsEmpty())
+        if(tempDir.Last()!=wxFileName::GetPathSeparator())
+            tempDir.Append(wxFileName::GetPathSeparator());
 
     try {
         PanoramaOptions  opts = pano.getOptions();
@@ -200,7 +205,7 @@ bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname,
 		opts.setROI(vigra::Rect2D(vigra::Size2D(300,150)));
 		pano.setOptions(opts);*/
         // copy pto file to temporary file
-        m_currentPTOfn = wxFileName::CreateTempFileName(wxT("huginpto_"));
+        m_currentPTOfn = wxFileName::CreateTempFileName(tempDir+wxT("huginpto_"));
         if(m_currentPTOfn.size() == 0) {
             wxLogError(_("Could not create temporary file"));
         }
@@ -217,7 +222,7 @@ bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname,
 
         wxFile makeFile;
         //TODO: change to implementatin with config->Read(wxT("tempDir"),wxT(""))
-        m_currentMakefn = wxFileName::CreateTempFileName(wxT("huginmk_"), &makeFile);
+        m_currentMakefn = wxFileName::CreateTempFileName(tempDir+wxT("huginmk_"), &makeFile);
         if(m_currentMakefn.size() == 0) {
             wxLogError(_("Could not create temporary file"));
             return false;
