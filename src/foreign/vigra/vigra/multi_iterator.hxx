@@ -41,6 +41,7 @@
 #define VIGRA_MULTI_ITERATOR_HXX
 
 #include <sys/types.h>
+#include <stddef.h>
 #include "tinyvector.hxx"
 #include "iteratortags.hxx"
 
