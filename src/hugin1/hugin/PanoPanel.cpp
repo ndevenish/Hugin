@@ -1069,7 +1069,7 @@ void PanoPanel::DoStitch()
         }
     }
 
-    wxString command = hugin_stitch_project + wxT(" -o ") + wxQuoteFilename(outputPrefix) + wxT(" ") + wxQuoteFilename(currentPTOfn);
+    wxString command = hugin_stitch_project + wxT(" --delete -o ") + wxQuoteFilename(outputPrefix) + wxT(" ") + wxQuoteFilename(currentPTOfn);
     
     wxConfigBase::Get()->Flush();
 #ifdef __WXGTK__

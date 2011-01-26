@@ -64,7 +64,8 @@ public:
     RunStitchFrame(wxWindow * parent, const wxString& title, const wxPoint& pos, const wxSize& size);
 
     bool StitchProject(wxString scriptFile, wxString outname,
-                       HuginBase::PanoramaMakefilelibExport::PTPrograms progs);
+                       HuginBase::PanoramaMakefilelibExport::PTPrograms progs,
+                       bool doDeleteOnExit);
 
     void OnQuit(wxCommandEvent& event);
     void OnAbout(wxCommandEvent& event);
@@ -72,6 +73,8 @@ public:
 private:
 
     bool m_isStitching;
+    wxString m_scriptFile;
+    bool m_deleteOnExit;
 
     void OnProcessTerminate(wxProcessEvent & event);
     void OnCancel(wxCommandEvent & event);
@@ -128,6 +131,7 @@ RunStitchFrame::RunStitchFrame(wxWindow * parent, const wxString& title, const w
 
     SetSizer( topsizer );
 //    topsizer->SetSizeHints( this );   // set size hints to honour minimum size
+    m_deleteOnExit=false;
 }
 
 void RunStitchFrame::OnAbout(wxCommandEvent& WXUNUSED(event))
@@ -184,18 +188,24 @@ void RunStitchFrame::OnProcessTerminate(wxProcessEvent & event)
                 };
             }
         } else {
+            if(m_deleteOnExit)
+            {
+                wxRemoveFile(m_scriptFile);
+            };
             Close();
         }
     }
 }
 
 bool RunStitchFrame::StitchProject(wxString scriptFile, wxString outname,
-                                   HuginBase::PanoramaMakefilelibExport::PTPrograms progs)
+                                   HuginBase::PanoramaMakefilelibExport::PTPrograms progs, bool doDeleteOnExit)
 {
     if (! m_stitchPanel->StitchProject(scriptFile, outname, progs)) {
         return false;
     }
     m_isStitching = true;
+    m_scriptFile=scriptFile;
+    m_deleteOnExit=doDeleteOnExit;
     return true;
 }
 
@@ -371,7 +381,7 @@ bool stitchApp::OnInit()
         scriptFile = parser.GetParam(0);
         cout << "********************* script file: " << (const char *)scriptFile.mb_str(wxConvLocal) << endl;
         if (! wxIsAbsolutePath(scriptFile)) {
-            scriptFile = wxGetCwd() + wxT("/") + scriptFile;
+            scriptFile = wxGetCwd() + wxFileName::GetPathSeparator() + scriptFile;
         }
     }
 
@@ -421,10 +431,7 @@ bool stitchApp::OnInit()
 
     wxFileName basename(scriptFile);
     frame->SetTitle(wxString::Format(_("%s - Stitching"), basename.GetName().c_str()));
-    bool n = frame->StitchProject(scriptFile, outname, progs);
-    if (parser.Found(wxT("d")) ) {
-        wxRemoveFile(scriptFile);
-    }
+    bool n = frame->StitchProject(scriptFile, outname, progs, parser.Found(wxT("d")));
     return n;
 }
 
