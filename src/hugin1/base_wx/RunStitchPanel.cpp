@@ -138,7 +138,7 @@ bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname,
 
     wxString pathToPTO;
     wxFileName::SplitPath(scriptFile, &pathToPTO, NULL, NULL);
-    pathToPTO.Append(wxT("/"));
+    pathToPTO.Append(wxFileName::GetPathSeparator());
 
     ifstream prjfile((const char *)scriptFile.mb_str(HUGIN_CONV_FILENAME));
     if (prjfile.bad()) {
@@ -179,7 +179,7 @@ bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname,
     pano.setOptions(opts);
     // make sure we got an absolute path
     if (! wxIsAbsolutePath(outname)) {
-        outname = wxGetCwd() + wxT("/") + outname;
+        outname = wxGetCwd() + wxFileName::GetPathSeparator() + outname;
     }
 
     DEBUG_DEBUG("output file specified is " << (const char *)outname.mb_str(wxConvLocal));

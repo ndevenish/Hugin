@@ -987,7 +987,11 @@ void PanoPanel::DoStitch()
 
     // save project
     // copy pto file to temporary file
-    wxString currentPTOfn = wxFileName::CreateTempFileName(wxT("huginpto_"));
+    wxString tempDir= wxConfigBase::Get()->Read(wxT("tempDir"),wxT(""));
+    if(!tempDir.IsEmpty())
+        if(tempDir.Last()!=wxFileName::GetPathSeparator())
+            tempDir.Append(wxFileName::GetPathSeparator());
+    wxString currentPTOfn = wxFileName::CreateTempFileName(tempDir+wxT("huginpto_"));
     if(currentPTOfn.size() == 0) {
         wxMessageBox(_("Could not create temporary project file"),_("Error"),
                 wxCANCEL | wxICON_ERROR,this);
@@ -1034,7 +1038,8 @@ void PanoPanel::DoStitch()
     } else {
         wxFileName prefixFN(ptofile);
         if (prefixFN.GetExt() == wxT("pto")) {
-            outputPrefix = prefixFN.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR, wxPATH_NATIVE) + prefixFN.GetName();
+            prefixFN.ClearExt();
+            outputPrefix = prefixFN.GetFullPath();
         } else {
             outputPrefix = ptofile;
         }
