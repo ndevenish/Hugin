@@ -123,8 +123,14 @@ bool PanoDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& file
             file.GetExt().CmpNoCase(wxT("hdr")) == 0 ||
             file.GetExt().CmpNoCase(wxT("viff")) == 0 )
         {
-            foundForbiddenChars=foundForbiddenChars || containsInvalidCharacters(filenames[i]);
-            filesv.push_back((const char *)filenames[i].mb_str(HUGIN_CONV_FILENAME));
+            if(containsInvalidCharacters(filenames[i]))
+            {
+                foundForbiddenChars=true;
+            }
+            else
+            {
+                filesv.push_back((const char *)filenames[i].mb_str(HUGIN_CONV_FILENAME));
+            };
         }
     }
     // we got some images to add.
