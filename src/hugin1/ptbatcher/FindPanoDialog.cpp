@@ -28,6 +28,7 @@
 #include "common/wxPlatform.h"
 #include "panoinc.h"
 #include "PTBatcherGUI.h"
+#include "hugin_utils/alphanum.hpp"
 
 BEGIN_EVENT_TABLE(FindPanoDialog,wxDialog)
 EVT_BUTTON(XRCID("find_pano_close"), FindPanoDialog::OnButtonClose)
@@ -36,6 +37,11 @@ EVT_BUTTON(XRCID("find_pano_start_stop"), FindPanoDialog::OnButtonStart)
 EVT_BUTTON(XRCID("find_pano_add_queue"), FindPanoDialog::OnButtonSend)
 EVT_CLOSE(FindPanoDialog::OnClose)
 END_EVENT_TABLE()
+
+bool SortFilename::operator()(const SrcPanoImage* img1, const SrcPanoImage* img2)
+{
+    return doj::alphanum_comp<std::string>(img1->getFilename(),img2->getFilename())<0;
+};
 
 FindPanoDialog::FindPanoDialog(BatchFrame *batchframe, wxString xrcPrefix)
 {

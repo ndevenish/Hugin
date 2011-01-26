@@ -38,7 +38,7 @@
 #include <vigra/localminmax.hxx>
 #include <panodata/StandardImageVariableGroups.h>
 
-
+#include <hugin_utils/alphanum.hpp>
 
 using namespace std;
 using namespace vigra;
@@ -150,7 +150,7 @@ void wxAddImagesCmd::execute()
     switch (sort) {
         case 1:
                 // sort by filename
-            std::sort(files.begin(), files.end());
+            std::sort(files.begin(), files.end(), doj::alphanum_less<std::string>());
             break;
         case 2:
                 // sort by date

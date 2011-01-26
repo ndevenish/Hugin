@@ -95,10 +95,7 @@ private:
 
 struct SortFilename
 {
-    bool operator() (const SrcPanoImage* img1, const SrcPanoImage* img2)
-    {
-        return img1->getFilename() < img2->getFilename();
-    };
+    bool operator() (const SrcPanoImage* img1, const SrcPanoImage* img2);
 };
 
 typedef set<SrcPanoImage*,SortFilename> ImageSet;
