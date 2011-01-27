@@ -426,10 +426,10 @@ bool ProjectionGridTool::createTexture()
 
     bool has_error = false;
     GLint error;
-       error = gluBuild2DMipmaps/*Levels*/(GL_TEXTURE_2D, GL_RGBA, width, height,
+       error = gluBuild2DMipmaps/*Levels*/(GL_TEXTURE_2D, GL_RGBA8, width, height,
                                GL_RGBA, GL_UNSIGNED_BYTE, /*min, min, max,*/
                                (unsigned char *) image);
-    
+    delete [] image;
     static bool checked_anisotropic = false;
     static bool has_anisotropic;
     static float anisotropy;
@@ -465,7 +465,7 @@ bool ProjectionGridTool::createTexture()
     error = glGetError();
     if (error != GL_NO_ERROR)
     {
-        DEBUG_ERROR("GL Error when bulding mipmap levels: "
+        DEBUG_ERROR("GL Error when building mipmap levels: "
                   << gluErrorString(error) << ".");
         has_error = true;
     }
