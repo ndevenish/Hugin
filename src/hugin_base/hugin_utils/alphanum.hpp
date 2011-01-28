@@ -130,11 +130,11 @@ namespace doj
 #ifdef ALPHANUM_LOCALE
 	      // get the left number
 	      char *end;
-	      unsigned long l_int=strtoul(l, &end, 0);
+	      unsigned long l_int=strtoul(l, &end, 10);
 	      l=end;
 
 	      // get the right number
-	      unsigned long r_int=strtoul(r, &end, 0);
+	      unsigned long r_int=strtoul(r, &end, 10);
 	      r=end;
 #else
 	      // get the left number
