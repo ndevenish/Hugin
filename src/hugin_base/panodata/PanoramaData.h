@@ -26,6 +26,11 @@
 #ifndef _PANORAMA_H
 #define _PANORAMA_H
 
+// if this file is preprocessed for SWIG, we want to ignore
+// all the header inclusions that follow:
+
+#ifndef _HSI_IGNORE_SECTION
+
 #include <hugin_shared.h>
 #include <vector>
 #include <set>
@@ -39,7 +44,7 @@
 #include <panodata/Lens.h>
 #include <panodata/PanoramaOptions.h>
 
-
+#endif // _HSI_IGNORE_SECTION
 
 namespace HuginBase {
 

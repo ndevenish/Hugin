@@ -39,7 +39,7 @@
 #include <panodata/StandardImageVariableGroups.h>
 
 #ifdef HUGIN_HSI
-#include "hsi/hpi.h"     // KFJ
+#include "hugin_script_interface/hpi.h"
 #endif
 
 using namespace std;

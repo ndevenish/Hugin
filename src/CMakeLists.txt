@@ -45,7 +45,7 @@ ENDIF(VIPS_FOUND)
 # depending on availability of SWIG and Python.
 # this have to come before hugin1 directory
 IF(BUILD_HSI)
-add_subdirectory(hsi)
+add_subdirectory(hugin_script_interface)
 ENDIF()
 
 # build gui only if wxWidgets was found

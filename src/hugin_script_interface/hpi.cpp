@@ -38,7 +38,7 @@
 
 // first pull in the Python interface classes
 
-#include "hsi/hpi_classes.h"
+#include "hugin_script_interface/hpi_classes.h"
 
 // this is where we keep the single instance of class python_interface
 
@@ -47,7 +47,7 @@ static python_interface hpi_instance ;
 // pull in the declaration of callhpi() to ensure it's consistent
 // with the definition below
 
-#include "hsi/hpi.h"
+#include "hugin_script_interface/hpi.h"
 
 // callhpi() is a variadic function, so we need stdarg.h
 // This is old-fashioned and may become deprecated, but for
@@ -118,6 +118,10 @@ int callhpi ( const char * plugin_name ,
 
 } // namespace hsi
 
+// When I didn't yet have an entry point from hugin to call hpi,
+// I used the next bit as my main() code. For now this is left
+// inside, it may be handy later on.
+
 #ifdef standalone
 
 #include <fstream>
@@ -164,30 +168,20 @@ HuginBase::Panorama * pano_open ( const char * infile )
     return pano ;
 }
 
-// demo-main that opens a pto and passes the Panorama pointer
-// to a function 'hello_python' in the hsi module
+// demo-main that opens the pto named in argv[1] and passes
+// the Panorama pointer to a function named by argv[2]
+// in the hsi module
 
 int main ( int argc , char * argv[] )
 {
-  HuginBase::Panorama * pano = pano_open ( "xx.pto" ) ;
+  HuginBase::Panorama * pano = pano_open ( argv[1] ) ;
   if ( ! pano )
   {
     fprintf(stderr, "Failed to open pano\n");
     return 1;
   }
-  /*
-  python_interface pi ;
-  if ( ! pi.activate() )
-  {
-    fprintf ( stderr , "failed to initialize the plugin interface\n" ) ;
-    return -1 ;
-  }
-  python_arglist pargs ( 2 ) ;
-  pargs.add ( "pano_print" ) ;
-  pargs.add ( pano ) ;
-  int success = pi.call_hpi ( "hpi_dispatch" , pargs.yield() ) ;
-  */
-  int success = callhpi ( "pano_print" , 1 ,
+
+  int success = callhpi ( argv[2] , 1 ,
 			  "HuginBase::Panorama*" , pano ) ;
   
   return success ;

@@ -24,10 +24,17 @@
 #ifndef _PANODATA_PANORAMA_H
 #define _PANODATA_PANORAMA_H
 
+// if this file is preprocessed for SWIG, we want to ignore
+// all the header inclusions that follow:
+
+#ifndef _HSI_IGNORE_SECTION
+
 #include <hugin_shared.h>
 #include <appbase/DocumentData.h>
 #include <panodata/PanoramaData.h>
 
+
+#endif // _HSI_IGNORE_SECTION
 
 namespace HuginBase {
     

@@ -123,8 +123,12 @@ class IMPEX Lens {
         // these are the lens specific settings.
         // lens correction parameters
         LensVarMap variables;
-        static const char *variableNames[];
 
+#ifndef SWIG
+        // dimensionless array not supported by SWIG
+        static const char *variableNames[];
+#endif
+        
         bool m_hasExif;
         
         

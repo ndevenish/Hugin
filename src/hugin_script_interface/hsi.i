@@ -29,27 +29,8 @@
 %{
 #define _HUGIN_SCRIPTING_INTERFACE
 
-#include <hugin_shared.h>
-#include <iostream>
-#include <stdio.h>
-
-#include <panodata/PanoImage.h>
-#include <panodata/SrcPanoImage.h>
-#include <panodata/ImageVariableGroup.h>
-#include <panodata/StandardImageVariableGroups.h>
-#include <panodata/ImageVariableTranslate.h>
-
-#include <panodata/PanoramaData.h>
-#include <panodata/Panorama.h>
-
-#include <panotools/PanoToolsUtils.h>
-#include <panotools/PanoToolsInterface.h>
-#include <panotools/PanoToolsOptimizerWrapper.h>
-
-#include <algorithm/PanoramaAlgorithm.h>
 #include <algorithm/ControlPointCreatorAlgorithm.h>
-#include <algorithm/StitcherAlgorithm.h>
-
+#include <algorithm/PanoramaAlgorithm.h>
 #include <algorithms/assistant_makefile/AssistantMakefilelibExport.h>
 #include <algorithms/basic/CalculateCPStatistics.h>
 #include <algorithms/basic/CalculateMeanExposure.h>
@@ -65,35 +46,34 @@
 #include <algorithms/nona/ComputeImageROI.h>
 #include <algorithms/nona/FitPanorama.h>
 #include <algorithms/nona/NonaFileStitcher.h>
-// #include <algorithms/nona/NonaImageStitcher.h>
+#include <algorithms/nona/NonaImageStitcher.h>
 // #include <algorithms/optimizer/ImageGraph.h>
 #include <algorithms/optimizer/PhotometricOptimizer.h>
 #include <algorithms/optimizer/PTOptimizer.h>
 #include <algorithms/panorama_makefile/PanoramaMakefilelibExport.h>
 #include <algorithms/point_sampler/PointSampler.h>
-
+#include <algorithm/StitcherAlgorithm.h>
+#include <panodata/ImageVariableGroup.h>
+#include <panodata/ImageVariableTranslate.h>
+#include <panodata/PanoImage.h>
+#include <panodata/PanoramaData.h>
+#include <panodata/Panorama.h>
+#include <panodata/SrcPanoImage.h>
+#include <panodata/StandardImageVariableGroups.h>
+#include <panotools/PanoToolsInterface.h>
+#include <panotools/PanoToolsOptimizerWrapper.h>
+#include <panotools/PanoToolsUtils.h>
 
 using namespace std;
 using namespace HuginBase;
-using namespace AppBase;
-
-extern Panorama * pano_open ( const char * infile ) ;
-extern void pano_close ( Panorama * pano ) ;
-extern istream * make_std_ifstream ( const char * charp ) ;
-extern ostream * make_std_ofstream ( const char * charp ) ;
 %}
+
+#include <ios>
 #include <iostream>
-#include <stdio.h>
+using namespace std;
 
 %feature("autodoc", "1") ;
 %feature("notabstract") Panorama ;
-
-%import <hugin_shared.h>
-%include <appbase/DocumentData.h>
-%include <panodata/PanoramaData.h>
-
-using namespace std;
-using namespace HuginBase;
 
 // the next bunch of includes pull in what's used of the STL
 // note that STL types used in template instantiations, where these
@@ -106,67 +86,98 @@ using namespace HuginBase;
 %include "std_set.i"
 %include "std_string.i"
 
+// many aguments in hugin are C++ streams, so we need some
+// support for them. SWIG has stream support, but not for
+// fstreams. We only need to open them, though. Inheriting
+// the fstreams from i/o stream gives us all the infrastructure
+
+%include "std_ios.i"
+%include "std_iostream.i"
+
+namespace std {
+
+// we wrap opening fstreams with a filename
+
+class ifstream: public std::istream
+{
+  public: ifstream(char* filename) ;
+};
+
+class ofstream: public std::ostream
+{
+  public: ofstream(char* filename) ;
+};
+
+} // namespace std
+
+// types used for groups of uints, like image numbers
+
 %template(UIntVector) vector<unsigned int>;
-%template(UIntSet) set<unsigned int>;
+%template(UIntSet)    set<unsigned int>;
 
-// first we need a few declarations to make swig generate
+// we need a few declarations to make swig generate
 // proxy classes for some types in the headers which we
-// don't want to fully puul in:
+// don't want to fully pull in:
 
-// we can't possibly pull in the full vigra interface,
-// but just defining these two classes is enough in this context
+// we don't want to pull in the full vigra interface,
+// but just defining these classes is enough in this context
 // since the vigra types are used only to pass in and out
-// x,y coordinates:
+// 2D coordinates:
 
 namespace vigra
 {
  class Size2D
   {
    public:
-    int x ;
-    int y ;
-   Size2D ( int ix , int iy ) : x(ix) , y(iy) {} ;
+   int x, y;
+   Size2D() ;
+   Size2D ( int ix , int iy ) : x(ix) , y(iy) ;
+   int width() const ;
+   int height() const ;
+   void setWidth(int w) ;
+   void setHeight(int h) ;
   } ;
 
  class Point2D
   {
    public:
-    int x ;
-    int y ;
-   Point2D ( int ix , int iy ) : x(ix) , y(iy) {} ;
+   int x, y;
+   Point2D() ;
+   Point2D ( int ix , int iy ) : x(ix) , y(iy) ;
   } ;
 
   class Rect2D
   {
    public:
-    Rect2D ( int l , int t , int r , int b ) {} ;
-    Point2D upperLeft() {} ;
-    Point2D lowerRight() {} ;
-    int left() {} ;
-    int top() {} ;
-    int right() {} ;
-    int bottom() {} ;
-    int width() {} ;
-    int height() {} ;
+    Rect2D() ;
+    Rect2D ( int l , int t , int r , int b ) ;
+    Point2D upperLeft() ;
+    Point2D lowerRight() ;
+    int left() ;
+    int top() ;
+    int right() ;
+    int bottom() ;
+    int width() ;
+    int height() ;
    } ;
 } ;
 
-// same for this type, which is used for a pair of double coords
+// same for this type, which is used for a pair of double coordinates
 
 namespace hugin_utils
 {
  class FDiff2D
   {
    public:
-    double x ;
-    double y ;
-   FDiff2D ( double ix , double iy ) : x(ix) , y(iy) {} ;
+   double x, y;
+   FDiff2D() ;
+   FDiff2D ( double ix , double iy ) : x(ix) , y(iy) ;
   } ;
 } ;
 
 // in SrcPanoImage.h, there is a facility
 // to read out EXIV time stamps into struct tm
-// (does this work????)
+// this definition makes the individual fields accessible:
 
 struct tm
 {
@@ -181,60 +192,56 @@ struct tm
   int tm_isdst;			/* DST.		[-1/0/1]*/
 } ;
 
+#define _HUGIN_SCRIPTING_INTERFACE
+
 // the next section pulls in all the header files we want wrapped.
 // The header files often use specified templates, which we need
 // to explicitly define here, so that swig can produce a proxy
-// for them. The section is ordered by header file.
+// for them. The section is ordered roughly by header file, but it's
+// been an iterative process, so the sequence might be changed.
 	 
-%template(ImageVector) std::vector<SrcPanoImage>;
+%import <hugin_shared.h>
 
-%include <panodata/ImageVariable.h>
+%include <appbase/DocumentData.h>
+%include <hsi_PanoramaData.h>
 
-%include <panodata/PanoImage.h>
-%include <panodata/ImageVariableGroup.h>
-%include <panodata/StandardImageVariableGroups.h>
-%include <panodata/ImageVariableTranslate.h>
+using namespace HuginBase;
 
-%include <panodata/Lens.h>
+// some types which are derived from templates need explicit
+// instatiation to be wrapped by SWIG.
 
-// this include has to take a modified header instead of
-// SrcPanoImage.h to make SWIG wrap the accessor functions:
-
-%include <hsi_SrcPanoImage.h>
-
-%template(VariableMap)       std::map< std::string, Variable>;
-%template(VariableMapVector) std::vector< std::map<std::string, Variable> > ;
+%template(CPoint)            std::pair<unsigned int, ControlPoint>;
+%template(CPointVector)      std::vector< std::pair<unsigned int, ControlPoint> >;
+%template(CPVector)          std::vector<ControlPoint>;
+%template(ImageVector)       std::vector<SrcPanoImage>;
 %template(LensVarMap)        std::map<std::string,LensVariable> ;
 %template(OptimizeVector)    std::vector<std::set<std::string> > ;
+%template(VariableMap)       std::map< std::string, Variable>;
+%template(VariableMapVector) std::vector< std::map<std::string, Variable> > ;
 
-// I am using a modified version of PanoramaVariable.h
+%include <panodata/ImageVariable.h>
+%include <panodata/ImageVariableTranslate.h>
+%include <hsi_ImageVariableGroup.h>
+%include <panodata/StandardImageVariableGroups.h>
 
 %include <panodata/PanoramaVariable.h>
-
-%template(CPVector) std::vector<ControlPoint>;
-%template(CPoint) std::pair<unsigned int, ControlPoint>;
-%template(CPointVector) std::vector< std::pair<unsigned int, ControlPoint> >;
-
-%include <panodata/ControlPoint.h>
-
-%include <panodata/DestPanoImage.h>
-
 %include <panodata/PanoramaOptions.h>
 
-// the next one seems redundant with the one after it?!
-%include <panodata/PanoramaData.h>
-%include <panodata/Panorama.h>
+%include <panodata/PanoImage.h>
+%include <hsi_SrcPanoImage.h>
+%include <panodata/DestPanoImage.h>
+%include <panodata/ControlPoint.h>
+%include <panodata/Lens.h>
 
-// include the PT interface
+%include <hsi_Panorama.h>
 
-%include <panotools/PanoToolsUtils.h>
 %include <panotools/PanoToolsInterface.h>
 %include <panotools/PanoToolsOptimizerWrapper.h>
+%include <panotools/PanoToolsUtils.h>
 
-%include <algorithm/PanoramaAlgorithm.h>
 %include <algorithm/ControlPointCreatorAlgorithm.h>
+%include <algorithm/PanoramaAlgorithm.h>
 %include <algorithm/StitcherAlgorithm.h>
-
 %include <algorithms/assistant_makefile/AssistantMakefilelibExport.h>
 %include <algorithms/basic/CalculateCPStatistics.h>
 %include <algorithms/basic/CalculateMeanExposure.h>
@@ -250,17 +257,9 @@ struct tm
 %include <algorithms/nona/ComputeImageROI.h>
 %include <algorithms/nona/FitPanorama.h>
 %include <algorithms/nona/NonaFileStitcher.h>
-// %include <algorithms/nona/NonaImageStitcher.h>
+%include <algorithms/nona/NonaImageStitcher.h>
 // %include <algorithms/optimizer/ImageGraph.h>
-%include <algorithms/optimizer/PhotometricOptimizer.h>
 %include <algorithms/optimizer/PTOptimizer.h>
+%include <algorithms/optimizer/PhotometricOptimizer.h>
 %include <algorithms/panorama_makefile/PanoramaMakefilelibExport.h>
 %include <algorithms/point_sampler/PointSampler.h>
-
-// finally we have a bunch of helper functions that reside in
-// hsi.cpp:
-
-extern HuginBase::Panorama * pano_open ( const char * infile ) ;
-extern void pano_close ( HuginBase::Panorama * pano ) ;
-extern std::istream * make_std_ifstream ( const char * charp ) ;
-extern std::ostream * make_std_ofstream ( const char * charp ) ;

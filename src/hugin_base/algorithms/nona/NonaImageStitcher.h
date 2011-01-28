@@ -45,7 +45,11 @@ namespace HuginBase {
      */
     class NonaImageStitcher : public ImageStitcherAlgorithm
     {
+#ifdef _HUGIN_SCRIPTING_INTERFACE
+        public:
+#else
         protected:
+#endif
             typedef Nona::SingleImageRemapper<DestImage,DestAlpha> ImageMapper;
         
         public:

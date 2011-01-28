@@ -8,9 +8,9 @@
 # their equivalent derived from command line arguments
 # If you modify this script to derive your plugin from it, this is the
 # routine you first start tinkering with.
-# Notice that you won't see any effect if you haven't called hugin
-# from the command line, since all the script does is print out how
-# many images are in the panorama.
+# Notice that you won't see any output from print statements if you
+# haven't called hugin from the command line, since all the script
+# does is print out how many images are in the panorama.
 
 def entry ( pano ) :
 
