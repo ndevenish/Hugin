@@ -639,7 +639,8 @@ bool PythonScriptPanoCmd::processPanorama(Panorama& pano)
     int success = callhpi ( m_scriptFile.c_str() , 1 ,
 		           "HuginBase::Panorama*" , &pano ) ;
 
-    wxMessageBox(wxString::Format(wxT("Script return %d"),success),_("Result"), wxICON_INFORMATION);
+    if(success!=0)
+        wxMessageBox(wxString::Format(wxT("Script return %d"),success),_("Result"), wxICON_INFORMATION);
     std::cout << "Python interface returned " << success << endl ;
     // notify other of change in panorama
     if(pano.getNrOfImages()>0)
