@@ -296,9 +296,9 @@ namespace PT {
     class UpdateCPsCmd : public PanoCommand
     {
     public:
-        UpdateCPsCmd(Panorama & p, const CPVector & cps)
+        UpdateCPsCmd(Panorama & p, const CPVector & cps, bool doUpdateCPError=true)
             : PanoCommand(p),
-              cps(cps)
+              cps(cps), updateCPError(doUpdateCPError)
             { };
 
         virtual bool processPanorama(Panorama& pano)
@@ -308,7 +308,10 @@ namespace PT {
                 for (it = cps.begin(); it != cps.end(); ++it, i++) {
                     pano.changeControlPoint(i, *it);
                 }
-                HuginBase::PTools::calcCtrlPointErrors(pano);
+                if(updateCPError)
+                {
+                    HuginBase::PTools::calcCtrlPointErrors(pano);
+                };
                 pano.changeFinished();
 
                 return true;
@@ -321,6 +324,7 @@ namespace PT {
 
     private:
         CPVector cps;
+        bool updateCPError;
     };
 
     //=========================================================================

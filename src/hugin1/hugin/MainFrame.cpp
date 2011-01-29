@@ -1582,7 +1582,7 @@ void MainFrame::OnFineTuneAll(wxCommandEvent & e)
     wxMessageBox(result, _("Fine-tune result"), wxOK);
     // set newly optimized points
     GlobalCmdHist::getInstance().addCommand(
-        new UpdateCPsCmd(pano,cps)
+        new UpdateCPsCmd(pano,cps,false)
         );
 }
 
