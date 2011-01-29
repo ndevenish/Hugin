@@ -44,6 +44,8 @@ public:
 
     /** Delete the selected points */
     void DeleteSelected();
+    /** Select all points */
+    void SelectAll();
 
 private:
 

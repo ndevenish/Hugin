@@ -40,12 +40,16 @@
 using namespace PT;
 using namespace utils;
 
+wxDEFINE_EVENT(EVT_IMAGE_ADD,wxCommandEvent);
+wxDEFINE_EVENT(EVT_IMAGE_DEL,wxCommandEvent);
+
 //------------------------------------------------------------------------------
 
 BEGIN_EVENT_TABLE(ImagesList, wxListCtrl)
     EVT_LIST_ITEM_SELECTED(-1, ImagesList::OnItemSelected)
     EVT_LIST_ITEM_DESELECTED(-1, ImagesList::OnItemDeselected)
     EVT_LIST_COL_END_DRAG(-1, ImagesList::OnColumnWidthChange)
+    EVT_CHAR(ImagesList::OnChar)
 END_EVENT_TABLE()
 
 // Define a constructor for the Images Panel
@@ -82,6 +86,7 @@ bool ImagesList::Create(wxWindow* parent, wxWindowID id,
     m_degDigits = wxConfigBase::Get()->Read(wxT("/General/DegreeFractionalDigits"),1);
     m_pixelDigits = wxConfigBase::Get()->Read(wxT("/General/PixelFractionalDigits"),1);
     m_distDigits = wxConfigBase::Get()->Read(wxT("/General/DistortionFractionalDigits"),3);
+    m_singleSelect=(style & wxLC_SINGLE_SEL);
     return true;
 }
 
@@ -259,6 +264,15 @@ void ImagesList::SelectSingleImage(unsigned int imgNr)
     SetItemState(imgNr, wxLIST_STATE_SELECTED, wxLIST_STATE_SELECTED);
 }
 
+void ImagesList::SelectAll()
+{
+    unsigned int nrItems = GetItemCount();
+    for (unsigned int i=0; i < nrItems ; i++)
+    {
+        SetItemState(i, wxLIST_STATE_SELECTED, wxLIST_STATE_SELECTED);
+    }
+}
+
 void ImagesList::OnItemSelected ( wxListEvent & e )
 {
     DEBUG_TRACE(e.GetIndex());
@@ -271,6 +285,35 @@ void ImagesList::OnItemSelected ( wxListEvent & e )
         e.Skip();
     }
 }
+
+void ImagesList::OnChar(wxKeyEvent &e)
+{
+    switch(e.GetKeyCode())
+    {
+        case WXK_INSERT:
+            {
+                wxCommandEvent ev(EVT_IMAGE_ADD,wxID_ANY);
+                GetParent()->GetEventHandler()->AddPendingEvent(ev);
+                break;
+            };
+        case WXK_DELETE:
+            {
+                wxCommandEvent ev(EVT_IMAGE_DEL,wxID_ANY);
+                GetParent()->GetEventHandler()->AddPendingEvent(ev);
+                break;
+            };
+        case 1: //Ctrl+A
+            {
+                if(!m_singleSelect && e.ControlDown())
+                {
+                    SelectAll();
+                }
+                break;
+            }
+    };
+    e.Skip();
+};
+
 
 void ImagesList::OnItemDeselected ( wxListEvent & e )
 {

@@ -103,6 +103,8 @@ BEGIN_EVENT_TABLE(ImagesPanel, wxPanel)
     EVT_TEXT_ENTER ( XRCID("images_text_Y"), ImagesPanel::OnVarTextChanged )
     EVT_TEXT_ENTER ( XRCID("images_text_Z"), ImagesPanel::OnVarTextChanged )
     EVT_CHECKBOX   ( XRCID("images_check_link"), ImagesPanel::OnImageLinkChanged )
+    EVT_COMMAND    (wxID_ANY, EVT_IMAGE_ADD, ImagesPanel::OnAddImages )
+    EVT_COMMAND    (wxID_ANY, EVT_IMAGE_DEL, ImagesPanel::OnRemoveImages )
 END_EVENT_TABLE()
 
 ImagesPanel::ImagesPanel()
@@ -831,6 +833,11 @@ void ImagesPanel::OnResetImagePositions(wxCommandEvent & e)
     }
 
 }
+
+void ImagesPanel::OnAddImages(wxCommandEvent &e)
+{
+    MainFrame::Get()->OnAddImages(e);
+};
 
 void ImagesPanel::OnRemoveImages(wxCommandEvent & e)
 {

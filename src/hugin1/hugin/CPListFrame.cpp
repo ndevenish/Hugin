@@ -52,10 +52,16 @@ public:
 
     void OnKey(wxKeyEvent & e)
         {
-            if (e.m_keyCode == WXK_DELETE) {
-                m_list.DeleteSelected();
-            } else {
-                e.Skip();
+            switch(e.m_keyCode)
+            {
+                case WXK_DELETE:
+                    m_list.DeleteSelected();
+                    break;
+                case 1: //Ctrl+A
+                    m_list.SelectAll();
+                    break;
+                default:
+                    e.Skip();
             }
         }
 
@@ -741,6 +747,14 @@ void CPListFrame::DeleteSelected()
     }
 }
 
+void CPListFrame::SelectAll()
+{
+    unsigned int nrItems = m_list->GetItemCount();
+    for (unsigned int i=0; i < nrItems ; i++)
+    {
+        m_list->SetItemState(i, wxLIST_STATE_SELECTED, wxLIST_STATE_SELECTED);
+    }
+};
 
 void CPListFrame::OnFineTuneButton(wxCommandEvent & e)
 {

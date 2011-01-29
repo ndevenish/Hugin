@@ -33,6 +33,10 @@
 
 using namespace PT;
 
+//declare 2 event types to communicate with parent about adding/deleting images
+wxDECLARE_EVENT(EVT_IMAGE_ADD,wxCommandEvent);
+wxDECLARE_EVENT(EVT_IMAGE_DEL,wxCommandEvent);
+
 /** multi use list.
  *
  *  This list shall contain the overall handling of datas in lists,
@@ -103,6 +107,9 @@ public:
      */
     void SelectSingleImage(unsigned int imgNr);
 
+    /** Select all images */
+    void SelectAll();
+
     /** get the currently selected images */
     const UIntSet & GetSelected() const;
 
@@ -119,6 +126,8 @@ protected:
     void OnItemDeselected ( wxListEvent & e );
     // save the column width when changed
     void OnColumnWidthChange( wxListEvent & e );
+    /** event handler to capture special key code */
+    void OnChar( wxKeyEvent & e);
 
     /** create icons for an image */
     //void createIcon(wxBitmap & bitmap, unsigned int imgNr, unsigned int size);
@@ -134,11 +143,12 @@ protected:
 
     // propagate list selections/deselections to client.
     bool m_notifyParents;
+    bool m_singleSelect;
 
     //for saving column width
     wxString m_configClassName;
     DECLARE_EVENT_TABLE()
-    DECLARE_DYNAMIC_CLASS(ImagesListImage)
+    DECLARE_DYNAMIC_CLASS(ImagesList)
 };
 
 /** specialized to display image data (width, position)
