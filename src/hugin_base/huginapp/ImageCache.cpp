@@ -179,23 +179,33 @@ void ImageCache::softFlush()
 
     std::map<std::string, EntryPtr>::iterator imgIt;
     for(imgIt=images.begin(); imgIt != images.end(); imgIt++) {
+#ifdef DEBUG
         cout << "Image: " << imgIt->first << std::endl;
         cout << "CacheEntry: " << imgIt->second.use_count() << "last access: " << imgIt->second->lastAccess;
+#endif
         if (imgIt->second->image8) {
             imgMem += imgIt->second->image8->width() * imgIt->second->image8->height() * 3;
+#ifdef DEBUG
             cout << " 8bit: " << imgIt->second->image8.use_count();
+#endif
         }
         if (imgIt->second->image16) {
             imgMem += imgIt->second->image16->width() * imgIt->second->image16->height() * 3*2;
+#ifdef DEBUG
             cout << " 16bit: " << imgIt->second->image8.use_count();
+#endif
         }
         if (imgIt->second->imageFloat) {
             imgMem += imgIt->second->imageFloat->width() * imgIt->second->imageFloat->height() * 3 * 4;
+#ifdef DEBUG
             cout << " float: " << imgIt->second->imageFloat.use_count() ;
+#endif
         }
         if (imgIt->second->mask) {
             imgMem += imgIt->second->mask->width() * imgIt->second->mask->height();
+#ifdef DEBUG
             cout << " mask: " << imgIt->second->mask.use_count() << std:: endl;
+#endif
         }
     }
 
@@ -275,7 +285,6 @@ void ImageCache::softFlush()
 //                             purgedMem>>20, (usedMem - purgedMem)>>20
 //                ).c_str(),0);
         DEBUG_DEBUG("purged: " << (purgedMem>>20) << " MB, memory used for images: " << ((usedMem - purgedMem)>>20) << " MB");
-        cout << "purged: " << (purgedMem>>20) << " MB, memory used for images: " << ((usedMem - purgedMem)>>20) << " MB" << endl;
 
     }
 }
