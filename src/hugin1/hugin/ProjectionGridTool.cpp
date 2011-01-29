@@ -290,10 +290,12 @@ bool ProjectionGridTool::createTexture()
         glBindTexture(GL_TEXTURE_2D, texture_num);
 
 
+    GLint texSize; 
+    glGetIntegerv(GL_MAX_TEXTURE_SIZE, &texSize);
     int width_p = 12;
     int height_p = 11;
-    int width = 1 << width_p;
-    int height = 1 << height_p;
+    int width = std::min(1 << width_p,texSize);
+    int height = std::min(1 << height_p, texSize >> 1);
 
     int hor_lines = 20;
     int ver_lines = 40;
