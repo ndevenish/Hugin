@@ -181,6 +181,12 @@
 #define HUGIN_NONA_CROPPEDIMAGES                1l
 #define HUGIN_NONA_USEGPU                       0l
 
+// output defaults
+# define HUGIN_LDR_OUTPUT_FORMAT              0l
+# define HUGIN_TIFF_COMPRESSION               2l
+# define HUGIN_JPEG_QUALITY                 100l
+# define HUGIN_HDR_OUTPUT_FORMAT              0l
+
 // hdrmerge defaults
 #define HUGIN_HDRMERGE_ARGS                  "-m avg -c"
 

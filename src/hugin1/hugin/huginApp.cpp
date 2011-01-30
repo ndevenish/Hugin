@@ -340,13 +340,33 @@ bool huginApp::OnInit()
 
     // set some suitable defaults
     PanoramaOptions opts = pano.getOptions();
+    opts.quality = config->Read(wxT("/output/jpeg_quality"),HUGIN_JPEG_QUALITY);
+    opts.outputImageTypeCompression = config->Read(wxT("/output/tiff_compression"), HUGIN_TIFF_COMPRESSION);
+    opts.tiffCompression = config->Read(wxT("/output/tiff_compression"), HUGIN_TIFF_COMPRESSION);
+    switch (config->Read(wxT("/output/ldr_format"), HUGIN_LDR_OUTPUT_FORMAT)) {
+    case 1:
+        opts.outputImageType ="jpg";
+        break;
+    case 2:
+        opts.outputImageType ="png";
+        break;
+    case 3:
+        opts.outputImageType ="exr";
+        break;
+    default:
+    case 0:
+        opts.outputImageType ="tif";
+        break;
+    }
+    // HDR disabled because there is no real choice at the moment:  HDR TIFF is broken and there is only EXR
+    // opts.outputImageTypeHDR = config->Read(wxT("/output/hdr_format"), HUGIN_HDR_OUTPUT_FORMAT);
     opts.outputFormat = PanoramaOptions::TIFF_m;
     opts.blendMode = PanoramaOptions::ENBLEND_BLEND;
     opts.enblendOptions = config->Read(wxT("Enblend/Args"),wxT(HUGIN_ENBLEND_ARGS)).mb_str(wxConvLocal);
     opts.enfuseOptions = config->Read(wxT("Enfuse/Args"),wxT(HUGIN_ENFUSE_ARGS)).mb_str(wxConvLocal);
-	opts.interpolator = (vigra_ext::Interpolator)config->Read(wxT("Nona/Interpolator"),HUGIN_NONA_INTERPOLATOR);
-	opts.remapUsingGPU = (bool)config->Read(wxT("Nona/useGPU"),HUGIN_NONA_USEGPU);
-	opts.tiff_saveROI = (bool)config->Read(wxT("Nona/CroppedImages"),HUGIN_NONA_CROPPEDIMAGES);
+    opts.interpolator = (vigra_ext::Interpolator)config->Read(wxT("Nona/Interpolator"),HUGIN_NONA_INTERPOLATOR);
+    opts.remapUsingGPU = (bool)config->Read(wxT("Nona/useGPU"),HUGIN_NONA_USEGPU);
+    opts.tiff_saveROI = (bool)config->Read(wxT("Nona/CroppedImages"),HUGIN_NONA_CROPPEDIMAGES);
     opts.hdrMergeMode = PanoramaOptions::HDRMERGE_AVERAGE;
     opts.hdrmergeOptions = HUGIN_HDRMERGE_ARGS;
     pano.setOptions(opts);

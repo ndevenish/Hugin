@@ -79,7 +79,7 @@ BEGIN_EVENT_TABLE(PreferencesDialog, wxDialog)
     EVT_BUTTON(XRCID("pref_cpdetector_load"), PreferencesDialog::OnCPDetectorLoad)
     EVT_BUTTON(XRCID("pref_cpdetector_save"), PreferencesDialog::OnCPDetectorSave)
     EVT_BUTTON(XRCID("pref_cpdetector_help"), PreferencesDialog::OnCPDetectorHelp)
-//    EVT_CLOSE(RunOptimizerFrame::OnClose)
+//  EVT_CLOSE(RunOptimizerFrame::OnClose)
 END_EVENT_TABLE()
 
 
@@ -533,6 +533,14 @@ void PreferencesDialog::UpdateDisplayData(int panel)
 
     if (panel==0 || panel == 5){
         /////
+        /// DEFAULT OUTPUT FORMAT
+        MY_CHOICE_VAL("pref_ldr_output_file_format", cfg->Read(wxT("/output/ldr_format"), HUGIN_LDR_OUTPUT_FORMAT));
+        /** HDR currently deactivated since HDR TIFF broken and only choice is EXR */
+        // MY_CHOICE_VAL("pref_hdr_output_file_format", cfg->Read(wxT("/output/hdr_format"), HUGIN_HDR_OUTPUT_FORMAT));
+        MY_CHOICE_VAL("pref_tiff_compression", cfg->Read(wxT("/output/tiff_compression"), HUGIN_TIFF_COMPRESSION));
+        MY_SPIN_VAL("pref_jpeg_quality", cfg->Read(wxT("/output/jpeg_quality"), HUGIN_JPEG_QUALITY));
+
+        /////
         /// NONA
         MY_CHOICE_VAL("prefs_nona_interpolator", cfg->Read(wxT("/Nona/Interpolator"), HUGIN_NONA_INTERPOLATOR));
         t = cfg->Read(wxT("/Nona/CroppedImages"), HUGIN_NONA_CROPPEDIMAGES) == 1;
@@ -667,6 +675,14 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
             cpdetector_config_edit.Write(cfg);
         }
         if (noteb->GetSelection() == 4) {
+
+            /// OUTPUT
+            cfg->Write(wxT("/output/ldr_format"), HUGIN_LDR_OUTPUT_FORMAT);
+            /** HDR currently deactivated since HDR TIFF broken and only choice is EXR */
+            // cfg->Write(wxT("/output/hdr_format"), HUGIN_HDR_OUTPUT_FORMAT);
+            cfg->Write(wxT("/output/tiff_compression"), HUGIN_TIFF_COMPRESSION);
+            cfg->Write(wxT("/output/jpeg_quality"), HUGIN_JPEG_QUALITY);
+
             /// ENBLEND
             cfg->Write(wxT("/Enblend/Exe"), wxT(HUGIN_ENBLEND_EXE));
             cfg->Write(wxT("/Enblend/Custom"), HUGIN_ENBLEND_EXE_CUSTOM);
@@ -774,6 +790,14 @@ void PreferencesDialog::UpdateConfigData()
     /////
     /// AUTOPANO
     cpdetector_config_edit.Write(cfg);
+
+    /////
+    /// OUTPUT
+    cfg->Write(wxT("/output/ldr_format"), MY_G_CHOICE_VAL("pref_ldr_output_file_format"));
+    /** HDR currently deactivated since HDR TIFF broken and only choice is EXR */
+    // cfg->Write(wxT("/output/hdr_format"), MY_G_CHOICE_VAL("pref_hdr_output_file_format"));
+    cfg->Write(wxT("/output/tiff_compression"), MY_G_CHOICE_VAL("pref_tiff_compression"));
+    cfg->Write(wxT("/output/jpeg_quality"), MY_G_SPIN_VAL("pref_jpeg_quality"));
 
     /////
     /// STITCHING

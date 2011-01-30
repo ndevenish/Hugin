@@ -820,6 +820,86 @@ for HDR panoramas use Preview window.</label>
                           <object class="sizeritem">
                             <object class="wxFlexGridSizer">
                               <object class="sizeritem">
+                                <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                                <object class="wxStaticText">
+                                  <label>Default File Format:</label>
+                                </object>
+                                <flag>wxALL</flag>
+                                <border>5</border>
+                              </object>
+                              <object class="sizeritem">
+                                <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                                <object class="wxChoice" name="pref_ldr_output_file_format">
+                                  <content>
+                                    <item>TIFF</item>
+                                    <item>JPEG</item>
+                                    <item>PNG</item>
+                                  </content>
+                                  <selection>0</selection>
+                                  <tooltip>default output format for final panorama</tooltip>
+                                  <border>5</border>
+                                </object>
+                              </object>
+                              <object class="sizeritem">
+                                <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                                <object class="wxStaticText">
+                                  <label>TIFF Compression:</label>
+                                </object>
+                                <flag>wxALL</flag>
+                                <border>5</border>
+                              </object>
+                              <object class="sizeritem">
+                                <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                                <object class="wxChoice" name="pref_tiff_compression">
+                                  <content>
+                                    <item>None</item>
+                                    <item>Packbits</item>
+                                    <item>LZW</item>
+                                    <item>Deflate</item>
+                                  </content>
+                                  <selection>0</selection>
+                                  <tooltip>TIFF compression</tooltip>
+                                  <border>5</border>
+                                </object>
+                              </object>
+                              <object class="sizeritem">
+                                <object class="wxStaticText">
+                                  <label>JPEG Quality:</label>
+                                </object>
+                                <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                                <border>5</border>
+                              </object>
+                              <object class="sizeritem">
+                                <object class="wxSpinCtrl" name="pref_jpeg_quality">
+                                  <min>1</min>
+                                </object>
+                                <border>5</border>
+                              </object>
+                              <cols>6</cols>
+                              <rows>1</rows>
+                            </object>
+                            <flag>wxEXPAND</flag>
+                            <border>0</border>
+                          </object>
+                        </object>
+                      </object>
+                      <flag>wxEXPAND</flag>
+                    </object>
+                    <label>Output Format</label>
+                    <orient>wxVERTICAL</orient>
+                  </object>
+                  <flag>wxALL|wxEXPAND</flag>
+                  <border>5</border>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxStaticBoxSizer">
+                    <object class="sizeritem">
+                      <object class="wxPanel">
+                        <object class="wxBoxSizer">
+                          <orient>wxVERTICAL</orient>
+                          <object class="sizeritem">
+                            <object class="wxFlexGridSizer">
+                              <object class="sizeritem">
                                 <object class="wxStaticText">
                                   <label>Default Interpolator (i):</label>
                                 </object>
@@ -874,6 +954,7 @@ for HDR panoramas use Preview window.</label>
                   <flag>wxALL|wxEXPAND</flag>
                   <border>5</border>
                 </object>
+
                 <object class="sizeritem">
                   <object class="wxStaticBoxSizer">
                     <label>Enblend</label>

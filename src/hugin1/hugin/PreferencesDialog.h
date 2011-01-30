@@ -89,8 +89,8 @@ protected:
     bool GetPanoVersion();
 
 private:
-	wxString m_PTVersion;
-	wxString m_PTDetails;
+    wxString m_PTVersion;
+    wxString m_PTDetails;
     wxListBox* m_CPDetectorList;
     CPDetectorConfig cpdetector_config_edit;
 
