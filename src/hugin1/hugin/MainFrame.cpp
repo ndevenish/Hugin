@@ -726,6 +726,7 @@ void MainFrame::LoadProjectFile(const wxString & filename)
         GlobalCmdHist::getInstance().addCommand(
            new wxLoadPTProjectCmd(pano,(const char *)filename.mb_str(HUGIN_CONV_FILENAME), (const char *)path.mb_str(HUGIN_CONV_FILENAME))
            );
+        GlobalCmdHist::getInstance().clear();
         registerPTWXDlgFcn(MainFrame::Get());
         DEBUG_DEBUG("project contains " << pano.getNrOfImages() << " after load");
         opt_panel->setModeCustom();
@@ -813,6 +814,7 @@ void MainFrame::OnNewProject(wxCommandEvent & e)
 
     m_filename = wxT("");
     GlobalCmdHist::getInstance().addCommand( new wxNewProjectCmd(pano));
+    GlobalCmdHist::getInstance().clear();
     // remove old images from cache
     ImageCache::getInstance().flush();
     this->SetTitle(_("Hugin - Panorama Stitcher"));
