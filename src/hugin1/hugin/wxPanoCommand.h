@@ -92,6 +92,22 @@ private:
     const bool markAsOptimized;
 };
 
+/** start a new project, reset options to values in preferences
+ *
+ */
+class wxNewProjectCmd : public PanoCommand
+{
+public:
+    wxNewProjectCmd(Panorama & p) : PanoCommand(p){};
+
+    virtual void execute();
+
+    virtual std::string getName() const
+    {
+        return "new project";
+    }
+};
+
 
 /** dump the current project and load a new one.
  *

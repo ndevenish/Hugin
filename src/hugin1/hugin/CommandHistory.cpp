@@ -54,6 +54,7 @@ void CommandHistory::clear()
         delete *it;
     }
     commands.clear();
+    nextCmd=0;
 }
 
 
