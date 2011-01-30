@@ -4,6 +4,14 @@
 INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
 INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})
 
+# get version of Python libs
+FILE(STRINGS "${PYTHON_INCLUDE_PATH}/patchlevel.h" PYTHON_VERSION_H REGEX "#define PY_VERSION")
+STRING(REGEX REPLACE ".*#define +PY_VERSION.*\"([0-9]+.[0-9]+.[0-9]+)\".*" "\\1" PYTHON_VERSION "${PYTHON_VERSION_H}")
+STRING(REGEX REPLACE "([^.]+)\\.([^.]+)\\.([^.]+)" "\\1" PYTHON_VERSION_MAJOR "${PYTHON_VERSION}")
+STRING(REGEX REPLACE "([^.]+)\\.([^.]+)\\.([^.]+)" "\\2" PYTHON_VERSION_MINOR "${PYTHON_VERSION}")
+STRING(REGEX REPLACE "([^.]+)\\.([^.]+)\\.([^.]+)" "\\3" PYTHON_VERSION_PATCH "${PYTHON_VERSION}")
+MESSAGE(STATUS "Python libs version: ${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}.${PYTHON_VERSION_PATCH}")
+ 
 # access to the swig runtime code in the hpi module is via
 # inclusion of a generated header file, swigpyrun.h:
 
@@ -197,7 +205,11 @@ SWIG_LINK_LIBRARIES(hsi ${PYTHON_LIBRARIES} ${common_libs})
 
 IF(WIN32)
     INSTALL(TARGETS ${SWIG_MODULE_hsi_REAL_NAME} DESTINATION ${BINDIR})
-    INSTALL(FILES hpi.py DESTINATION ${BINDIR})
+    IF(${PYTHON_VERSION_MAJOR} GREATER 2)
+        INSTALL(FILES hpi3.py DESTINATION ${BINDIR})
+    ELSE()
+        INSTALL(FILES hpi.py DESTINATION ${BINDIR})
+    ENDIF()
     INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/hsi.py DESTINATION ${BINDIR})
 ELSEIF(${HUGIN_LIBS_PRIVATE_DIR})
     # paths for unix needs to be checked

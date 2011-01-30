@@ -123,7 +123,11 @@ public:
     if ( hsi_module )
     {
       // load hpi module
-      hpi_module = load_module ( "hpi" ) ;
+#if PY_MAJOR_VERSION>=3
+        hpi_module = load_module ("hpi3");
+#else
+        hpi_module = load_module ("hpi");
+#endif
 
       if ( hpi_module )
         activated = true ;
@@ -265,8 +269,12 @@ public :
 	      "HPI: making a PyString from '%s'\n" , str ) ;
 	      
 #endif
-	      
+
+#if PY_MAJOR_VERSION>=3
+    return add ( PyUnicode_FromString(str));
+#else
     return add ( PyString_FromString ( str ) ) ;
+#endif
   }
 
   // once we're done filling the tuple with arguments, we call
