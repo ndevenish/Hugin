@@ -93,9 +93,9 @@ BEGIN_EVENT_TABLE(OptimizePanel, wxPanel)
 END_EVENT_TABLE()
 
 // local optimize definition. need to be in sync with the xrc file
-enum OptimizeMode { OPT_PAIRWISE=0, OPT_YRP, OPT_YRP_XYZ, OPT_YRP_V, OPT_YRP_XYZ_V,
-                    OPT_YRP_B, OPT_YRP_XYZ_B, OPT_YRP_BV, OPT_YRP_XYZ_BV, OPT_ALL_NOTXYZ, OPT_CUSTOM,
-                    OPT_END_MARKER};
+enum OptimizeMode { OPT_PAIRWISE=0, OPT_YRP, OPT_YRP_V, OPT_YRP_B, OPT_YRP_BV, OPT_ALL_NOTXYZ, OPT_SEPARATOR1,
+                    OPT_YRP_XYZ, OPT_YRP_XYZ_V, OPT_YRP_XYZ_B, OPT_YRP_XYZ_BV, OPT_SEPARATOR2,
+                    OPT_CUSTOM, OPT_END_MARKER};
 
 OptimizePanel::OptimizePanel()
 {
@@ -256,6 +256,9 @@ void OptimizePanel::OnListButton(wxCommandEvent & e)
 
 void OptimizePanel::OnOptimizeButton(wxCommandEvent & e)
 {
+    int mode = m_mode_cb->GetSelection();
+    if ((mode==OPT_SEPARATOR1)||(mode==OPT_SEPARATOR2)) { return;}
+  
     DEBUG_TRACE("");
     // run optimizer
     // take the OptimizeVector from somewhere...

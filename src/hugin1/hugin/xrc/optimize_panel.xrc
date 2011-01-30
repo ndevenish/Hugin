@@ -37,14 +37,16 @@
                         <content>
                           <item>Positions (incremental, starting from anchor)</item>
                           <item>Positions (y,p,r)</item>
-                          <item>Positions and Translation (y,p,r,x,y,z)</item>
                           <item>Positions and View (y,p,r,v)</item>
-                          <item>Positions, Translation and View (y,p,r,x,y,z,v)</item>
                           <item>Positions and Barrel Distortion (y,p,r,b)</item>
-                          <item>Positions, Translation and Barrel (y,p,r,x,y,z,b)</item>
                           <item>Positions, View and Barrel (y,p,r,v,b)</item>
-                          <item>Positions, Translation, View and Barrel (y,p,r,x,y,z,v,b)</item>
                           <item>Everything without translation</item>
+                          <item>----------------------------------------------------------</item>
+                          <item>Positions and Translation (y,p,r,x,y,z)</item>
+                          <item>Positions, Translation and View (y,p,r,x,y,z,v)</item>
+                          <item>Positions, Translation and Barrel (y,p,r,x,y,z,b)</item>
+                          <item>Positions, Translation, View and Barrel (y,p,r,x,y,z,v,b)</item>
+                          <item>----------------------------------------------------------</item>
                           <item>the Custom parameters below</item>
                         </content>
                         <selection>0</selection>
