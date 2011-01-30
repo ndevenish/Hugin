@@ -85,10 +85,13 @@ protected:
     void OnCPDetectorSave(wxCommandEvent & e);
     /** event handler for showing help for cp detector settings */
     void OnCPDetectorHelp(wxCommandEvent & e);
+    /** event handler if default file format was changed */
+    void OnFileFormatChanged(wxCommandEvent & e);
     void EnableRotationCtrls(bool enable);
     bool GetPanoVersion();
 
 private:
+    void UpdateFileFormatControls();
     wxString m_PTVersion;
     wxString m_PTDetails;
     wxListBox* m_CPDetectorList;

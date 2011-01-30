@@ -79,6 +79,7 @@ BEGIN_EVENT_TABLE(PreferencesDialog, wxDialog)
     EVT_BUTTON(XRCID("pref_cpdetector_load"), PreferencesDialog::OnCPDetectorLoad)
     EVT_BUTTON(XRCID("pref_cpdetector_save"), PreferencesDialog::OnCPDetectorSave)
     EVT_BUTTON(XRCID("pref_cpdetector_help"), PreferencesDialog::OnCPDetectorHelp)
+    EVT_CHOICE(XRCID("pref_ldr_output_file_format"), PreferencesDialog::OnFileFormatChanged)
 //  EVT_CLOSE(RunOptimizerFrame::OnClose)
 END_EVENT_TABLE()
 
@@ -539,6 +540,7 @@ void PreferencesDialog::UpdateDisplayData(int panel)
         // MY_CHOICE_VAL("pref_hdr_output_file_format", cfg->Read(wxT("/output/hdr_format"), HUGIN_HDR_OUTPUT_FORMAT));
         MY_CHOICE_VAL("pref_tiff_compression", cfg->Read(wxT("/output/tiff_compression"), HUGIN_TIFF_COMPRESSION));
         MY_SPIN_VAL("pref_jpeg_quality", cfg->Read(wxT("/output/jpeg_quality"), HUGIN_JPEG_QUALITY));
+        UpdateFileFormatControls();
 
         /////
         /// NONA
@@ -958,4 +960,19 @@ void PreferencesDialog::OnCPDetectorSave(wxCommandEvent &e)
 void PreferencesDialog::OnCPDetectorHelp(wxCommandEvent &e)
 {
     MainFrame::Get()->DisplayHelp(wxT("/Control_Point_Detector_Parameters.html"));
+};
+
+void PreferencesDialog::OnFileFormatChanged(wxCommandEvent &e)
+{
+    UpdateFileFormatControls();
+};
+
+void PreferencesDialog::UpdateFileFormatControls()
+{
+    int i=MY_G_CHOICE_VAL("pref_ldr_output_file_format");
+    XRCCTRL(*this,"pref_tiff_compression_label",wxStaticText)->Show(i==0);
+    XRCCTRL(*this,"pref_tiff_compression",wxChoice)->Show(i==0);
+    XRCCTRL(*this,"pref_jpeg_quality_label",wxStaticText)->Show(i==1);
+    XRCCTRL(*this,"pref_jpeg_quality",wxSpinCtrl)->Show(i==1);
+    XRCCTRL(*this,"pref_tiff_compression",wxChoice)->GetParent()->Layout();
 };
