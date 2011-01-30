@@ -118,7 +118,7 @@ public:
     virtual const SrcPanoImage& getImage(std::size_t nr) const =0;
 
     /// set a panorama image, counting starts with 0
-    virtual void setImage(std::size_t nr, SrcPanoImage img) =0;
+    virtual void setImage(std::size_t nr, const SrcPanoImage & img) =0;
     
     /// the the number for a specific image
 //    virtual unsigned int getImageNr(const PanoImage * image) const =0;

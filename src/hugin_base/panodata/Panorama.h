@@ -209,7 +209,7 @@ class IMPEX Panorama : public ManagedPanoramaData, public AppBase::DocumentData
         };
 
         /// set a panorama image, counting starts with 0
-        void setImage(std::size_t nr, SrcPanoImage img)
+        void setImage(std::size_t nr, const SrcPanoImage & img)
         {
             setSrcImage(nr, img);
         };
