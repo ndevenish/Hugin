@@ -189,7 +189,9 @@ void GLPreview::setUp()
     // we can fill it just now, because we need a OpenGL context, which was created now,
     // to check if all necessary extentions are available
     frame->FillBlendChoice();
+#ifndef __WXMSW__
     frame->LoadOpenGLLayout();
+#endif
 }
 
 void GLOverview::setUp()

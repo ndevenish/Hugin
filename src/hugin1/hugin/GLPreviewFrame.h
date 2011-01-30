@@ -190,6 +190,8 @@ public:
     void FillBlendChoice();
     /** loads the layout of the OpenGL windows and restores it */
     void LoadOpenGLLayout();
+    /** init previews */
+    void InitPreviews();
 
     GLwxAuiManager* getAuiManager() {return m_mgr;}
     GLPreview* getPreview() {return m_GLPreview;}
@@ -208,13 +210,13 @@ public:
     void redrawPreview();
     /** set status if projection hints should be shown or not*/
     void SetShowProjectionHints(bool new_value);
+    void OnShowEvent(wxShowEvent& e);
 
 protected:
 
     bool GLresize;
 
     void OnClose(wxCloseEvent& e);
-    void OnShowEvent(wxShowEvent& e);
 
     void OnOverviewToggle(wxCommandEvent& e);
 

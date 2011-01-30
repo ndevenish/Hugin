@@ -623,9 +623,6 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     this->SetBackgroundColour(m_GLPreview->GetBackgroundColour());
 #endif
 
-    if (config->Read(wxT("/GLPreviewFrame/isShown"), 0l) != 0) {
-        Show();
-    }
     m_showProjectionHints = config->Read(wxT("/GLPreviewFrame/ShowProjectionHints"), HUGIN_SHOW_PROJECTION_HINTS) == 1;
     wxAcceleratorEntry entries[3];
     entries[0].Set(wxACCEL_NORMAL,WXK_F11,ID_FULL_SCREEN);
@@ -640,17 +637,23 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
 
      // tell the manager to "commit" all the changes just made
     m_mgr->Update();
+
+    if (config->Read(wxT("/GLPreviewFrame/isShown"), 0l) != 0)
+    {
+#ifdef __WXMSW__
+        InitPreviews();
+#endif
+        Show();
+    }
 }
 
 void GLPreviewFrame::LoadOpenGLLayout()
 {
-    PauseResize();
     wxString OpenGLLayout=wxConfig::Get()->Read(wxT("/GLPreviewFrame/OpenGLLayout"));
     if(!OpenGLLayout.IsEmpty())
     {
         m_mgr->LoadPerspective(OpenGLLayout,true);
     };
-    ContinueResize();
 };
 
 GLPreviewFrame::~GLPreviewFrame()
@@ -714,6 +717,15 @@ GLPreviewFrame::~GLPreviewFrame()
     DEBUG_TRACE("dtor end");
 }
 
+void GLPreviewFrame::InitPreviews()
+{
+    if(!preview_helper || !panosphere_overview_helper || !plane_overview_helper)  
+    {
+        m_GLPreview->SetUpContext();
+        m_GLOverview->SetUpContext();
+        LoadOpenGLLayout();
+    };
+};
 
 bool GLwxAuiManager::ProcessDockResult(wxAuiPaneInfo& target,
                                    const wxAuiPaneInfo& new_pos)

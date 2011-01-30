@@ -1349,10 +1349,21 @@ void MainFrame::OnTogglePreviewFrame(wxCommandEvent & e)
 
 void MainFrame::OnToggleGLPreviewFrame(wxCommandEvent & e)
 {
+#ifdef __WXMSW__
+    gl_preview_frame->InitPreviews();
+#endif
     if (gl_preview_frame->IsIconized()) {
         gl_preview_frame->Iconize(false);
     }
     gl_preview_frame->Show();
+#ifdef __WXMSW__
+    // on wxMSW Show() does not send OnShowEvent needed to update the 
+    // visibility state of the fast preview windows
+    // so explicit calling this event handler
+    wxShowEvent se;
+    se.SetShow(true);
+    gl_preview_frame->OnShowEvent(se);
+#endif
     gl_preview_frame->Raise();
 }
 
