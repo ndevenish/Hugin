@@ -654,6 +654,12 @@ void ImagesPanel::ShowExifInfo(unsigned int imgNr)
         
     XRCCTRL(*this, "images_shutter_speed",wxStaticText)->SetLabel(s);
 
+    if(img.getExifISO()>0)
+        s=wxString::Format(wxT("%0.0f"),img.getExifISO());
+    else
+        s=wxEmptyString;
+    XRCCTRL(*this, "images_iso",wxStaticText)->SetLabel(s);
+
     XRCCTRL(*this, "images_shutter_speed",wxStaticText)->GetParent()->Layout();
     Refresh();
 }

@@ -518,6 +518,16 @@
                             </object>
                             <vgap>6</vgap>
                             <hgap>6</hgap>
+                            <object class="sizeritem">
+                              <object class="wxStaticText">
+                                <label>ISO:</label>
+                              </object>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxStaticText" name="images_iso">
+                                <label></label>
+                              </object>
+                            </object>
                           </object>
                           <flag>wxALL|wxEXPAND</flag>
                           <border>5</border>
