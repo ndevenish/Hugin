@@ -184,7 +184,7 @@
 // output defaults
 # define HUGIN_LDR_OUTPUT_FORMAT              0l
 # define HUGIN_TIFF_COMPRESSION               2l
-# define HUGIN_JPEG_QUALITY                 100l
+# define HUGIN_JPEG_QUALITY                  90l
 # define HUGIN_HDR_OUTPUT_FORMAT              0l
 
 // hdrmerge defaults
