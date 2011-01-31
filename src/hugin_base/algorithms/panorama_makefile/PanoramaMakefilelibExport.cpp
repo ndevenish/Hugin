@@ -348,6 +348,29 @@ bool PanoramaMakefilelibExport::createItems()
     newVarDef(vexiftoolcopyargs,
             "EXIFTOOL_COPY_ARGS", progs.exiftool_opts, Makefile::NONE);
 
+    pano_projection_features proj;
+    bool readProjectionName=panoProjectionFeaturesQuery(opts.getProjection(), &proj)!=0;
+
+    std::ostringstream infostream;
+    infostream.imbue(makefile::GetMakefileLocale());
+    infostream << fixed;
+    infostream.str("");
+#ifdef _WIN32
+    std::string linebreak("&\\#xd;&\\#xa;");
+    std::string quotechar("\"");
+#else
+    std::string linebreak("&#\\xa;");
+    std::string quotechar("'");
+#endif
+    infostream << quotechar << "-Software=Hugin " << DISPLAY_VERSION << quotechar << " ";
+    infostream << quotechar << "-UserComment<$${UserComment}" << linebreak;
+    if(readProjectionName)
+    {
+        infostream << "Projection: " << proj.name << " (" << opts.getProjection() << ")" << linebreak;
+    };
+    infostream << "FOV: " << setprecision(0) << opts.getHFOV() << " x " << setprecision(0) << opts.getVFOV() << linebreak;
+    infostream << "Ev: " << setprecision(2) << opts.outputExposureValue << quotechar << " -f";
+    newVarDef(vexiftoolinfoargs, "EXIFTOOL_INFO_ARGS", infostream.str(), Makefile::NONE);
 
     //----------
     // Panorama output
@@ -651,9 +674,6 @@ bool PanoramaMakefilelibExport::createItems()
     echoInfo(*info,"===========================================================================");
     echoInfo(*info,"System information");
     echoInfo(*info,"===========================================================================");
-    std::ostringstream infostream;
-    infostream.imbue(makefile::GetMakefileLocale());
-    infostream << fixed;
     printSystemInfo(*info);
     infostream.str("");
     infostream << DISPLAY_VERSION;
@@ -663,8 +683,7 @@ bool PanoramaMakefilelibExport::createItems()
     echoInfo(*info,"Hugin Version: "+infostream.str());
     echoInfo(*info,"Project file: "+ptofile);
     echoInfo(*info,"Output prefix: "+outputPrefix);
-    pano_projection_features proj;
-	if (panoProjectionFeaturesQuery(opts.getProjection(), &proj)) 
+    if (readProjectionName) 
     {
         infostream.str("");
         infostream << proj.name << " (" << opts.getProjection() << ")";
@@ -847,6 +866,8 @@ bool PanoramaMakefilelibExport::createItems()
             venblendopts->getRef() + " -o ";
     const std::string exifcmd = "-" + vexiftool->getRef() + " -overwrite_original_in_place -TagsFromFile " +
             vinimage1shell->getRef() +" "+ vexiftoolcopyargs->getRef() +' ';
+    const std::string exifcmd2 = "-" + vexiftool->getRef() + " -E -overwrite_original_in_place -TagsFromFile " +
+            vinimage1shell->getRef() +" "+ vexiftoolcopyargs->getRef() + " " + vexiftoolinfoargs->getRef() + " ";
     const std::string ptrollercmd = vPTroller->getRef() + " -o ";
 
     if(opts.blendMode == PanoramaOptions::ENBLEND_BLEND)
@@ -857,7 +878,7 @@ bool PanoramaMakefilelibExport::createItems()
         rule->addTarget(vldrblended);
         rule->addPrereq(vldrlayers);
         rule->addCommand(enblendcmd + vldrblendedshell->getRef() +" "+ vldrlayersshell->getRef());
-        rule->addCommand(exifcmd + vldrblendedshell->getRef());
+        rule->addCommand(exifcmd2 + vldrblendedshell->getRef());
 
         // for LDR exposure blend planes
         for(unsigned i=0; i < exposures.size(); i++)
@@ -874,7 +895,7 @@ bool PanoramaMakefilelibExport::createItems()
         rule->addTarget(vldrstackedblended);
         rule->addPrereq(vldrstacks);
         rule->addCommand(enblendcmd + vldrstackedblendedshell->getRef() +" "+ vldrstacksshell->getRef());
-        rule->addCommand(exifcmd + vldrstackedblendedshell->getRef());
+        rule->addCommand(exifcmd2 + vldrstackedblendedshell->getRef());
 
         // rules for fusing blended layers
         rule = mgr.own(new Rule()); rule->add();
@@ -882,7 +903,7 @@ bool PanoramaMakefilelibExport::createItems()
         rule->addPrereq(vldrexposurelayers);
         rule->addCommand(venfuse->getRef() +" "+ venblendldrcomp->getRef() +" "+ venfuseopts->getRef() + " -o " +
                 vldrexposurelayersfusedshell->getRef() +" "+ vldrexposurelayersshell->getRef());
-        rule->addCommand(exifcmd + vldrexposurelayersfusedshell->getRef());
+        rule->addCommand(exifcmd2 + vldrexposurelayersfusedshell->getRef());
 
         // rules for hdr blending
         rule = mgr.own(new Rule()); rule->add();
@@ -926,7 +947,7 @@ bool PanoramaMakefilelibExport::createItems()
         rule->addPrereq(vldrlayers);
         rule->addCommand("-" + vrm->getRef() +" "+ vldrblendedshell->getRef());
         rule->addCommand(ptrollercmd + vldrblendedshell->getRef() +" "+ vldrlayersshell->getRef());
-        rule->addCommand(exifcmd + vldrblendedshell->getRef());
+        rule->addCommand(exifcmd2 + vldrblendedshell->getRef());
 
         // for LDR exposure blend planes
         for(unsigned i=0; i < exposures.size(); i++)
@@ -944,7 +965,7 @@ bool PanoramaMakefilelibExport::createItems()
         rule->addPrereq(vldrstacks);
         rule->addCommand("-" + vrm->getRef() +" "+ vldrstackedblendedshell->getRef());
         rule->addCommand(ptrollercmd + vldrstackedblendedshell->getRef() +" "+ vldrstacksshell->getRef());
-        rule->addCommand(exifcmd + vldrstackedblendedshell->getRef());
+        rule->addCommand(exifcmd2 + vldrstackedblendedshell->getRef());
 
         // rules for non-blended HDR panoramas
         rule = mgr.own(new Rule()); rule->add();
