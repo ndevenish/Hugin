@@ -366,7 +366,15 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, double & 
     // TODO: reconstruct real exposure value from "rounded" ones saved by the cameras?
 
     getExiv2Value(exifData,"Exif.Photo.FNumber",photoFNumber);
-
+    
+    //remember aperture for later
+    setExifAperture(photoFNumber);
+    //if no F-number was found in EXIF data assume a f stop of 3.5 to get
+    //a reasonable ev value if shutter time, e. g. for manual lenses is found
+    if(photoFNumber==0)
+    {
+        photoFNumber=3.5;
+    };
     if (exposureTime > 0 && photoFNumber > 0) {
         double gain = 1;
         if (getExiv2Value(exifData,"Exif.Photo.ISOSpeedRatings",isoSpeed)) {
@@ -589,7 +597,6 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, double & 
     setExifFocalLength(focalLength);
     setExifFocalLength35(eFocalLength35);
     setExifOrientation(roll);
-    setExifAperture(photoFNumber);
     setExifISO(isoSpeed);
     setExifDistance(subjectDistance);
     setExifDate(captureDate);
