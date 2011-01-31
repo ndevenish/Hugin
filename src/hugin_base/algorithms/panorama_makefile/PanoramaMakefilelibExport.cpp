@@ -359,7 +359,7 @@ bool PanoramaMakefilelibExport::createItems()
     std::string linebreak("&\\#xd;&\\#xa;");
     std::string quotechar("\"");
 #else
-    std::string linebreak("&#\\xa;");
+    std::string linebreak("&\\#xa;");
     std::string quotechar("'");
 #endif
     infostream << quotechar << "-Software=Hugin " << DISPLAY_VERSION << quotechar << " ";
