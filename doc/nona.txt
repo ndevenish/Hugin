@@ -63,6 +63,10 @@
 #                    will be rendered. Images that do not contain pixels in this area
 #                    are not rendered/created.
 #
+# k1           Image number of reference image for photometric correction
+#
+# P"100 12"    Parameters for tuning projection, number of parameters depends on projection
+#
 m w1000 h600 f0 v360 E12.3
 
 # The 'i' lines describe input images (nona also accepts 'o' line image descriptions)
