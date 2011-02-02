@@ -6,7 +6,7 @@
 # Based on the PTStitcher documentation
 #
 #
-# Only lines starting with 'p','o', i', or 'm' are read, 
+# Only lines starting with 'p','o', i', 'm' or 'k' are read, 
 # so you can add comments and info as you like by using 
 # other line starting characters.  
 
@@ -51,7 +51,7 @@
 #              n"JPEG q95"
 #                  q - jpeg quality
 #                  
-# E1           exposure value for final panorama
+# E12.3        exposure value for final panorama
 # R1           stitching mode: 0: normal LDR mode, 1: HDR mode
 # T"UINT8"     bitdepth of output images, possible values are
 #               UINT8  -  8 bit unsigned
@@ -63,7 +63,7 @@
 #                    will be rendered. Images that do not contain pixels in this area
 #                    are not rendered/created.
 #
-
+m w1000 h600 f0 v360 E12.3
 
 # The 'i' lines describe input images (nona also accepts 'o' line image descriptions)
 #
@@ -139,10 +139,13 @@
 #                       Selection can be outside image dimension.
 #                       The selection will be circular for circular fisheye images, and
 #                       rectangular for all other projection formats
+#
+# j0           stack number
+#
 # nName        file name of the input image.
 
-o f2 r0   p0    y0     v183    a0 b-0.1 c0  S100,600,100,800 n"photo1.jpg"
-o f2 r0   p0    y180   v183    a0 b-0.1 c0  S100,600,100,800 n"photo1.jpg"
+i f2 r0   p0    y0     v183    a0 b-0.1 c0  S100,600,100,800 n"photo1.jpg"
+i f2 r0   p0    y180   v183    a0 b-0.1 c0  S100,600,100,800 n"photo1.jpg"
 
 
 # 'm'-line options
