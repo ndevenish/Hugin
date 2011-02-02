@@ -1326,6 +1326,8 @@ void MainFrame::OnToggleGLPreviewFrame(wxCommandEvent & e)
     wxShowEvent se;
     se.SetShow(true);
     gl_preview_frame->OnShowEvent(se);
+#else
+    gl_preview_frame->LoadOpenGLLayout();
 #endif
     gl_preview_frame->Raise();
 }

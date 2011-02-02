@@ -384,7 +384,11 @@ private:
     PlaneOverviewOutlinesTool *plane_overview_outlines_tool;
 
     void TurnOffTools(std::set<Tool*> tools);
-    
+
+#ifdef __WXGTK__
+    bool loadedLayout;
+#endif
+
     void CleanButtonColours();
     /** Tell the user anything suspicious about the projection choice.
      * If nothing is suspicious, any previous message is removed.

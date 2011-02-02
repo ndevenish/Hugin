@@ -294,6 +294,9 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     plane_difference_tool = NULL;
     panosphere_difference_tool = NULL;
     pano_mask_tool = NULL;
+#ifdef __WXGTK__
+    loadedLayout=false;
+#endif
 
     m_mode = -1;
     m_oldProjFormat = -1;
@@ -381,6 +384,11 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     m_GLPreview = new GLPreview(preview_panel, pano, args, this);
     m_GLOverview = new GLOverview(overview_panel, pano, args, this, m_GLPreview->GetContext());
     m_GLOverview->SetMode(GLOverview::PANOSPHERE);
+#ifdef __WXGTK__
+    // on wxGTK we can not create the OpenGL context with a hidden window
+    // therefore we need to create the overview window open and later hide it
+    overview_hidden=false;
+#endif
     m_GLOverview->SetActive(!overview_hidden);
 
     // set the AUI manager to our panel
@@ -642,17 +650,36 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     {
 #ifdef __WXMSW__
         InitPreviews();
-#endif
         Show();
+#else
+        Show();
+        LoadOpenGLLayout();
+#endif
     }
 }
 
 void GLPreviewFrame::LoadOpenGLLayout()
 {
+#ifdef __WXGTK__
+    if(loadedLayout)
+    {
+        return;
+    };
+    loadedLayout=true;
+#endif
     wxString OpenGLLayout=wxConfig::Get()->Read(wxT("/GLPreviewFrame/OpenGLLayout"));
     if(!OpenGLLayout.IsEmpty())
     {
         m_mgr->LoadPerspective(OpenGLLayout,true);
+#ifdef __WXGTK__
+        if(!m_OverviewToggle->GetValue())
+        {
+            m_GLOverview->SetActive(false);
+        };
+        wxShowEvent dummy;
+        dummy.SetShow(true);
+        OnShowEvent(dummy);
+#endif
     };
 };
 
@@ -1096,8 +1123,13 @@ void GLPreviewFrame::OnOverviewToggle(wxCommandEvent& e)
             m_mgr->Update();
         } else if (!(inf.IsShown() && toggle_on)) {
             inf.Show();
+#ifdef __WXMSW__
             m_GLOverview->SetActive(true);
             m_mgr->Update();
+#else
+            m_mgr->Update();
+            m_GLOverview->SetActive(true);
+#endif
         }
     }
 }
