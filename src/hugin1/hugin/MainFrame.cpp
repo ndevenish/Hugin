@@ -164,7 +164,9 @@ BEGIN_EVENT_TABLE(MainFrame, wxFrame)
     EVT_MENU(XRCID("action_show_faq"),  MainFrame::OnFAQ)
     EVT_MENU(XRCID("action_show_donate"),  MainFrame::OnShowDonate)
     EVT_MENU(XRCID("action_show_prefs"), MainFrame::OnShowPrefs)
+#ifdef HUGIN_HSI
     EVT_MENU(XRCID("action_python_script"), MainFrame::OnPythonScript)
+#endif
     EVT_MENU(XRCID("ID_EDITUNDO"), MainFrame::OnUndo)
     EVT_MENU(XRCID("ID_EDITREDO"), MainFrame::OnRedo)
     EVT_MENU(XRCID("ID_SHOW_FULL_SCREEN"), MainFrame::OnFullScreen)
@@ -1600,6 +1602,7 @@ void MainFrame::OnRemoveCPinMasks(wxCommandEvent & e)
     };
 }
 
+#ifdef HUGIN_HSI
 void MainFrame::OnPythonScript(wxCommandEvent & e)
 {
     wxString fname;
@@ -1619,6 +1622,7 @@ void MainFrame::OnPythonScript(wxCommandEvent & e)
             );
     }
 }
+#endif
 
 void MainFrame::OnUndo(wxCommandEvent & e)
 {
