@@ -51,7 +51,6 @@ nona/Stitcher.cpp
 panodata/ControlPoint.cpp
 panodata/Lens.cpp
 panodata/Mask.cpp
-panodata/PanoImage.cpp
 panodata/Panorama.cpp
 panodata/PanoramaOptions.cpp
 panodata/PanoramaVariable.cpp
@@ -119,7 +118,6 @@ panodata/PanoramaOptions.h
 panodata/PanoramaVariable.h
 panodata/PTScriptParsing.h
 panodata/SrcPanoImage.h
-panodata/DestPanoImage.h
 panodata/image_variables.h
 panodata/ImageVariable.h
 panodata/ImageVariableGroup.h

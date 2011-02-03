@@ -36,20 +36,9 @@
 
 namespace HuginBase {
 
-/** structure that contains a single keypoint (SIFT, SURF, or similar)*/
-struct Keypoint
-{
-    Keypoint()
-    { scale=0; orientation=0; laplacianSign=0; };
-
-    hugin_utils::FDiff2D pos;
-    std::vector<float> descriptor;
-    double scale;
-    double orientation;
-    int laplacianSign;
-};
-
-/** optimization & stitching options. */
+/** optimization & stitching options. 
+ *  this structure is depreacated and will be removed in future
+ *  do not use in new code */
 struct ImageOptions {
 
     ImageOptions()
@@ -98,99 +87,6 @@ struct ImageOptions {
     // is image active (displayed in preview and used for optimisation)
     bool active;
 };
-
-
-
-/** This class holds an source image.
- *
- *  It contains information about its settings for the panorama.
- *
- *  An image should not depend on the panorama.
- *
- *  This is depreciated, use SrcPanoImage instead.
- */
-class PanoImage
-{
-
-    public:
-        ///
-        PanoImage();
-
-        ///
-        PanoImage(const std::string &filename, int width, int height, int lens);
-
-        ///
-//      PanoImage(const std::string & filename);
-        
-        /// create from xml node
-//      PanoImage(QDomNode & node);
-
-        ///
-        virtual ~PanoImage();
-        
-        
-    public:
-        ///
-        virtual const char* isA() const
-            { return "PanoImage"; };
-        
-        
-    public:
-        ///
-        std::string getFilename() const
-            { return filename; }
-
-        void setFilename(const std::string& fn)
-            { filename = fn; }
-
-        const ImageOptions& getOptions() const
-            { return options; }
-
-        void setOptions(const ImageOptions & opt)
-            { options = opt; }
-
-        unsigned int getHeight() const
-            { return height; }
-        
-        unsigned int getWidth() const
-            { return width; }
-
-        void setLensNr(const unsigned int& l)
-            { lensNr = l; }
-        
-        unsigned int getLensNr() const
-            { return lensNr; }
-
-        void setSize(const vigra::Size2D& sz)
-            { width =sz.x; height = sz.y; }
-
-        void setFeatherWidth(const unsigned int& w)
-            { options.featherWidth = w; }
-
-        const std::vector<Keypoint> & getKeypoints() const
-            { return m_keypoints; };
-
-        void setKeypoints(const std::vector<Keypoint> & keypoints)
-            { m_keypoints = keypoints; };
-
-    private:
-        // read image info (size, exif header)
-    //  bool readImageInformation();
-    //  bool imageRead;
-
-        // image properties needed by Panorama tools.
-        std::string filename;
-        int height;
-        int width;
-        unsigned int lensNr; // the lens of this image
-        ImageOptions options;
-        std::vector<Keypoint> m_keypoints;
-};
-
-
-///
-//typedef std::vector<PanoImage> ImageVector;
-
 
 } // namespace
 #endif // _H

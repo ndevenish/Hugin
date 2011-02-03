@@ -75,7 +75,6 @@ extern "C" {
 
 #include <hugin_shared.h>
 #include <vigra_ext/Interpolators.h>
-#include <panodata/DestPanoImage.h>
 
 namespace HuginBase {
 
@@ -338,9 +337,6 @@ class IMPEX PanoramaOptions
         /** get maximum possible vfov with current projection */
         double getMaxVFOV() const
             { return m_projFeatures.maxVFOV; }
-
-        ///
-        DestPanoImage getDestImage() const;
 
     public:
         //TODO: Write accessor methods; make instance variables private unless absolutely neccesary for backward-compatibility.

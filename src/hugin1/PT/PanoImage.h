@@ -29,14 +29,11 @@
 
 #include <panodata/PanoImage.h>
 #include <panodata/SrcPanoImage.h>
-#include <panodata/DestPanoImage.h>
 
 namespace PT {
 
     using HuginBase::ImageOptions;
-    using HuginBase::PanoImage;
     using HuginBase::SrcPanoImage;
-    using HuginBase::DestPanoImage;
     
     inline bool initImageFromFile(SrcPanoImage & img, double & focalLength, double & cropFactor, bool applyExposureValue)
     {
