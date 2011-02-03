@@ -1059,6 +1059,21 @@ void Panorama::changeFinished(bool keepDirty)
     copy(changedImages.begin(), changedImages.end(),
          std::ostream_iterator<unsigned int>(t, " "));
     DEBUG_TRACE("changed image(s) " << t.str() << " begin");
+    //force update of crops
+    if(changedImages.size()>0)
+    {
+        for(UIntSet::iterator it=changedImages.begin();it!=changedImages.end();it++)
+        {
+            //if the projection was changed, we need to update the crop mode
+            updateCropMode(*it);
+            //now center the crop if user requested it
+            if(state.images[*it]->getAutoCenterCrop())
+            {
+                centerCrop(*it);
+            };
+        };
+    };
+    //update masks
     updateMasks();
     std::set<PanoramaObserver *>::iterator it;
     for(it = observers.begin(); it != observers.end(); ++it) {
@@ -1291,6 +1306,89 @@ void Panorama::updateMasks(bool convertPosMaskToNeg)
                             };
                             break;
                     };
+                };
+            };
+        };
+    };
+};
+
+void Panorama::updateCropMode(unsigned int imgNr)
+{
+    vigra::Rect2D r=state.images[imgNr]->getCropRect();
+    if(r.isEmpty() || 
+        (r.left()==0 && r.top()==0 && 
+         r.right() == (int)state.images[imgNr]->getWidth() &&
+         r.bottom() == (int)state.images[imgNr]->getHeight())
+         )
+    {
+        state.images[imgNr]->setCropMode(SrcPanoImage::NO_CROP);
+        state.images[imgNr]->setCropRect(vigra::Rect2D(0,0,0,0));
+    }
+    else
+    {
+        if (state.images[imgNr]->getProjection() == SrcPanoImage::CIRCULAR_FISHEYE || 
+            state.images[imgNr]->getProjection() == SrcPanoImage::FISHEYE_THOBY)
+        {
+            state.images[imgNr]->setCropMode(SrcPanoImage::CROP_CIRCLE);
+        }
+        else
+        {
+            state.images[imgNr]->setCropMode(SrcPanoImage::CROP_RECTANGLE);
+        };
+    };
+};
+
+vigra::Rect2D Panorama::centerCropImage(unsigned int imgNr)
+{
+    vigra::Rect2D cropRect;
+    if(state.images[imgNr]->getCropMode()==SrcPanoImage::NO_CROP)
+    {
+        return cropRect;
+    };
+    int dx = roundi(state.images[imgNr]->getRadialDistortionCenterShift().x);
+    int dy = roundi(state.images[imgNr]->getRadialDistortionCenterShift().y);
+    vigra::Point2D center = vigra::Point2D(state.images[imgNr]->getSize().width()/2 + dx, state.images[imgNr]->getSize().height()/2 + dy);
+
+    vigra::Diff2D d(state.images[imgNr]->getCropRect().width() / 2, state.images[imgNr]->getCropRect().height() / 2);
+    cropRect.setUpperLeft( center - d);
+    cropRect.setLowerRight( center + d);
+    return cropRect;
+};
+
+                     
+void Panorama::centerCrop(unsigned int imgNr)
+{
+    vigra::Rect2D cropRect;
+    if(  state.images[imgNr]->getCropMode()!=SrcPanoImage::NO_CROP &&
+         state.images[imgNr]->getAutoCenterCrop() && 
+       !(state.images[imgNr]->getCropRect().isEmpty())
+       )
+    {
+        cropRect=centerCropImage(imgNr);
+        if(!cropRect.isEmpty())
+        {
+            state.images[imgNr]->setCropRect(cropRect);
+            imageChanged(imgNr);
+        };
+    };
+    for (std::size_t i = 0; i < getNrOfImages(); i++)
+    {
+        if(i==imgNr)
+        {
+            continue;
+        };
+        if (state.images[imgNr]->RadialDistortionCenterShiftisLinkedWith(*state.images[i]))
+        {
+            if(  state.images[i]->getCropMode()!=SrcPanoImage::NO_CROP &&
+                 state.images[i]->getAutoCenterCrop() && 
+               !(state.images[i]->getCropRect().isEmpty())
+               )
+            {
+                cropRect=centerCropImage(i);
+                if(!cropRect.isEmpty())
+                {
+                    state.images[i]->setCropRect(cropRect);
+                    imageChanged(i);
                 };
             };
         };
