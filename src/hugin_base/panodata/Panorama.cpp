@@ -625,18 +625,15 @@ void Panorama::printPanoramaScript(std::ostream & o,
         imageNrMap[imgNr] = ic;
         const SrcPanoImage & img = *state.images[imgNr];
         VariableMap vars;
-        /// @todo don't use getOptions.
-        ImageOptions iopts = img.getOptions();
-        
 
         // print special comment line with hugin GUI data
         o << "#-hugin ";
-        if (img.getCropMode() != SrcPanoImage::NO_CROP) {
-            if (iopts.autoCenterCrop)
+        if (img.getCropMode() != BaseSrcPanoImage::NO_CROP) {
+            if (img.getAutoCenterCrop())
                 o << " autoCenterCrop=1";
         }
         o << " cropFactor=" << img.getExifCropFactor() ;
-        if (! iopts.active) {
+        if (! img.getActive()) {
             o << " disabled";
         }
         o << std::endl;
@@ -714,7 +711,7 @@ void Panorama::printPanoramaScript(std::ostream & o,
 #include "image_variables.h"
 #undef image_variable
 
-        if (iopts.docrop) {
+        if (img.getCropMode()!=SrcPanoImage::NO_CROP) {
             // print crop parameters
             vigra::Rect2D c = img.getCropRect();
             o << " S" << c.left() << "," << c.right() << "," << c.top() << "," << c.bottom();

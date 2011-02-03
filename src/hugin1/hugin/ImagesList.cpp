@@ -678,8 +678,8 @@ void ImagesListCrop::UpdateItem(unsigned int imgNr)
     wxFileName fn(wxString (img.getFilename().c_str(), HUGIN_CONV_FILENAME));
 
     wxString cropstr(wxT("-"));
-    if ( img.getOptions().docrop ) {
-        vigra::Rect2D c = img.getOptions().cropRect;
+    if ( img.getCropMode() != SrcPanoImage::NO_CROP ) {
+        vigra::Rect2D c = img.getCropRect();
         cropstr.Printf(wxT("%d,%d,%d,%d"), c.left(), c.right(), c.top(), c.bottom());
     }
     SetItem(imgNr, 1, cropstr);

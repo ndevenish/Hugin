@@ -63,7 +63,7 @@ END_EVENT_TABLE()
 
 // Define a constructor for my canvas
 CropPanel::CropPanel()
-  : m_pano(0), m_circular(false)
+  : m_pano(0)
 {
 
 }
@@ -185,8 +185,9 @@ void CropPanel::panoramaImagesChanged (PT::Panorama &pano, const PT::UIntSet & i
 void CropPanel::Pano2Display(int imgNr)
 {
     const SrcPanoImage & img = m_pano->getImage(imgNr);
-    /// @todo use individual get options on the SrcPanoImage, replacing m_imgOpts.
-    m_imgOpts = img.getOptions();
+    m_cropMode=img.getCropMode();
+    m_cropRect=img.getCropRect();
+    m_autoCenterCrop=img.getAutoCenterCrop();
 
     std::string newImgFile = img.getFilename();
     // check if we need to display a new image
@@ -216,7 +217,6 @@ void CropPanel::Pano2Display(int imgNr)
     int dy = roundi(img.getRadialDistortionCenterShift().y);
     /// @todo can this be done with img.getSize() / 2 + img.getRadialDistortionCenterShift()?
     m_center = vigra::Point2D(img.getSize().width()/2 + dx, img.getSize().height()/2 + dy);
-    m_circular = img.getCropMode() == SrcPanoImage::CROP_CIRCLE;
 
     UpdateDisplay();
 }
@@ -235,30 +235,18 @@ void CropPanel::OnAsyncLoad(ImageCache::EntryPtr entry, std::string filename, bo
 void CropPanel::Display2Pano()
 {
     // set crop image options.
-    vector<ImageOptions> opts;
+    vector<SrcPanoImage> imgs;
     for (UIntSet::iterator it = m_selectedImages.begin();
          it != m_selectedImages.end(); ++it)
     {
-        const SrcPanoImage & img = m_pano->getImage(*it);
-        /// @todo use SrcImagePano.get*() instead of opt.
-        ImageOptions opt = img.getOptions();
-        opt.cropRect = m_imgOpts.cropRect;
-        opt.autoCenterCrop = m_imgOpts.autoCenterCrop;
-        if (opt.cropRect.isEmpty()) {
-            opt.docrop = false;
-        } else if ((!m_circular) && opt.docrop &&  (opt.cropRect.left() == 0 && opt.cropRect.top() == 0 
-                && opt.cropRect.right() == (int) img.getWidth() 
-                && opt.cropRect.bottom() == (int) img.getHeight()) )
-        {
-            opt.docrop = false;
-        } else {
-            opt.docrop = true;
-        }
-        opts.push_back(opt);
-    }
+        SrcPanoImage img=m_pano->getSrcImage(*it);
+        img.setCropRect(m_cropRect);
+        img.setAutoCenterCrop(m_autoCenterCrop);
+        imgs.push_back(img);
+    };
 
     GlobalCmdHist::getInstance().addCommand(
-            new PT::UpdateImageOptionsCmd(*m_pano, opts, m_selectedImages)
+            new PT::UpdateSrcImagesCmd(*m_pano, m_selectedImages, imgs)
                                            );
 }
 
@@ -266,13 +254,13 @@ void CropPanel::Display2Pano()
 void CropPanel::UpdateDisplay()
 {
     DEBUG_TRACE("")
-    m_autocenter_cb->SetValue(m_imgOpts.autoCenterCrop);
-    m_left_textctrl->SetValue(wxString::Format(wxT("%d"),m_imgOpts.cropRect.left()));
-    m_right_textctrl->SetValue(wxString::Format(wxT("%d"),m_imgOpts.cropRect.right()));
-    m_top_textctrl->SetValue(wxString::Format(wxT("%d"),m_imgOpts.cropRect.top()));
-    m_bottom_textctrl->SetValue(wxString::Format(wxT("%d"),m_imgOpts.cropRect.bottom()));
+    m_autocenter_cb->SetValue(m_autoCenterCrop);
+    m_left_textctrl->SetValue(wxString::Format(wxT("%d"),m_cropRect.left()));
+    m_right_textctrl->SetValue(wxString::Format(wxT("%d"),m_cropRect.right()));
+    m_top_textctrl->SetValue(wxString::Format(wxT("%d"),m_cropRect.top()));
+    m_bottom_textctrl->SetValue(wxString::Format(wxT("%d"),m_cropRect.bottom()));
 
-    m_Canvas->UpdateDisplay(m_imgOpts.cropRect, m_circular, m_center, m_imgOpts.autoCenterCrop);
+    m_Canvas->UpdateDisplay(m_cropRect, m_cropMode==SrcPanoImage::CROP_CIRCLE, m_center, m_autoCenterCrop);
 }
 
 
@@ -281,8 +269,8 @@ void CropPanel::OnSetTop(wxCommandEvent & e)
     long val;
     if (m_top_textctrl->GetValue().ToLong(&val)) {
         DEBUG_DEBUG(val);
-        m_imgOpts.cropRect.setUpperLeft(Point2D(m_imgOpts.cropRect.left(), val));
-        if (m_imgOpts.autoCenterCrop) {
+        m_cropRect.setUpperLeft(Point2D(m_cropRect.left(), val));
+        if (m_autoCenterCrop) {
             CenterCrop();
             UpdateDisplay();
         }
@@ -297,8 +285,8 @@ void CropPanel::OnSetBottom(wxCommandEvent & e)
     long val;
     if (m_bottom_textctrl->GetValue().ToLong(&val)) {
         DEBUG_DEBUG(val);
-        m_imgOpts.cropRect.setLowerRight(Point2D(m_imgOpts.cropRect.right(), val));
-        if (m_imgOpts.autoCenterCrop) {
+        m_cropRect.setLowerRight(Point2D(m_cropRect.right(), val));
+        if (m_autoCenterCrop) {
             CenterCrop();
             UpdateDisplay();
         }
@@ -313,8 +301,8 @@ void CropPanel::OnSetLeft(wxCommandEvent & e)
     long val = 0;
     if (m_left_textctrl->GetValue().ToLong(&val)) {
         DEBUG_DEBUG(val);
-        m_imgOpts.cropRect.setUpperLeft(Point2D(val, m_imgOpts.cropRect.top()));
-        if (m_imgOpts.autoCenterCrop) {
+        m_cropRect.setUpperLeft(Point2D(val, m_cropRect.top()));
+        if (m_autoCenterCrop) {
             CenterCrop();
             UpdateDisplay();
         }
@@ -329,8 +317,8 @@ void CropPanel::OnSetRight(wxCommandEvent & e)
     long val = 0;
     if (m_right_textctrl->GetValue().ToLong(&val)) {
         DEBUG_DEBUG(val);
-        m_imgOpts.cropRect.setLowerRight(Point2D(val, m_imgOpts.cropRect.bottom()));
-        if (m_imgOpts.autoCenterCrop) {
+        m_cropRect.setLowerRight(Point2D(val, m_cropRect.bottom()));
+        if (m_autoCenterCrop) {
             CenterCrop();
             UpdateDisplay();
         }
@@ -343,18 +331,18 @@ void CropPanel::OnSetRight(wxCommandEvent & e)
 void CropPanel::OnResetButton(wxCommandEvent & e)
 {
     // suitable defaults.
-    m_imgOpts.cropRect.setUpperLeft(Point2D(0,0));
-    m_imgOpts.cropRect.setLowerRight(Point2D(0,0));
-    m_imgOpts.autoCenterCrop = true;
-    m_imgOpts.docrop = false;
+    m_cropRect.setUpperLeft(Point2D(0,0));
+    m_cropRect.setLowerRight(Point2D(0,0));
+    m_autoCenterCrop = true;
+    m_cropMode=SrcPanoImage::NO_CROP;
     UpdateDisplay();
     Display2Pano();
 }
 
 void CropPanel::OnAutoCenter(wxCommandEvent & e)
 {
-    m_imgOpts.autoCenterCrop = e.IsChecked();
-    if (m_imgOpts.autoCenterCrop) {
+    m_autoCenterCrop = e.IsChecked();
+    if (m_autoCenterCrop) {
         CenterCrop();
         UpdateDisplay();
     }
@@ -364,14 +352,14 @@ void CropPanel::OnAutoCenter(wxCommandEvent & e)
 // event handlers for CenterCanvas
 void CropPanel::CropChanged(vigra::Rect2D & crop, bool dragging)
 {
-    m_imgOpts.cropRect = crop;
+    m_cropRect = crop;
     if (dragging) {
-        m_left_textctrl->SetValue(wxString::Format(wxT("%d"),m_imgOpts.cropRect.left()));
-        m_right_textctrl->SetValue(wxString::Format(wxT("%d"),m_imgOpts.cropRect.right()));
-        m_top_textctrl->SetValue(wxString::Format(wxT("%d"),m_imgOpts.cropRect.top()));
-        m_bottom_textctrl->SetValue(wxString::Format(wxT("%d"),m_imgOpts.cropRect.bottom()));
+        m_left_textctrl->SetValue(wxString::Format(wxT("%d"),m_cropRect.left()));
+        m_right_textctrl->SetValue(wxString::Format(wxT("%d"),m_cropRect.right()));
+        m_top_textctrl->SetValue(wxString::Format(wxT("%d"),m_cropRect.top()));
+        m_bottom_textctrl->SetValue(wxString::Format(wxT("%d"),m_cropRect.bottom()));
     } else {
-        if (m_imgOpts.autoCenterCrop) {
+        if (m_autoCenterCrop) {
             CenterCrop();
         }
         UpdateDisplay();
@@ -382,9 +370,9 @@ void CropPanel::CropChanged(vigra::Rect2D & crop, bool dragging)
 
 void CropPanel::CenterCrop()
 {
-    Diff2D d(m_imgOpts.cropRect.width()/2, m_imgOpts.cropRect.height() / 2);
-    m_imgOpts.cropRect.setUpperLeft( m_center - d);
-    m_imgOpts.cropRect.setLowerRight( m_center + d);
+    Diff2D d(m_cropRect.width()/2, m_cropRect.height() / 2);
+    m_cropRect.setUpperLeft( m_center - d);
+    m_cropRect.setLowerRight( m_center + d);
 }
 
 

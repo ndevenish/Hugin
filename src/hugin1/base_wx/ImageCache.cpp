@@ -909,7 +909,6 @@ SmallRemappedImageCache::getRemapped(const PT::Panorama & pano,
 
     // load image
     const PanoImage & img = pano.getImage(imgNr);
-    const PT::ImageOptions & iopts = img.getOptions();
 
     ImageCache::EntryPtr e = ImageCache::getInstance().getSmallImage(img.getFilename().c_str());
     if ( (e->image8->width() == 0) && (e->image16->width() == 0) && (e->imageFloat->width() == 0) ) {
@@ -932,7 +931,7 @@ SmallRemappedImageCache::getRemapped(const PT::Panorama & pano,
     // use complete image, by supplying an empty mask image
     BImage srcMask;
 
-    if (iopts.m_vigCorrMode & ImageOptions::VIGCORR_FLATFIELD) {
+    if (img.getVigCorrMode & BaseSrcPanoImage::VIGCORR_FLATFIELD) {
         ImageCache::EntryPtr e = ImageCache::getInstance().getSmallImage(iopts.m_flatfield.c_str());
         if (!e) {
             delete remapped;

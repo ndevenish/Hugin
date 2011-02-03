@@ -236,21 +236,6 @@ class SmallRemappedImageCache : public PT::SingleImageRemapper<vigra::FRGBImage,
 public:
     virtual ~SmallRemappedImageCache();
 
-#if 0
-    virtual
-    MRemappedImage *
-    getRemapped(const std::string & filename,
-                const vigra::Diff2D & origSrcSize,
-                const vigra::Diff2D & srcSize,
-                PT::VariableMap srcVars,
-                PT::Lens::LensProjectionFormat srcProj,
-                PT::ImageOptions imgOpts,
-                const vigra::Diff2D &destSize,
-                PT::PanoramaOptions::ProjectionFormat destProj,
-                double destHFOV,
-                utils::MultiProgressDisplay & progress);
-#endif
-
 #ifdef _Hgn1_REMAPPEDPANOIMAGE_H
     virtual
     MRemappedImage *

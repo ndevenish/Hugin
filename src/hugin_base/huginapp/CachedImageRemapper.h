@@ -62,18 +62,6 @@ public:
                                         vigra::Rect2D outputROI,
                                         AppBase::MultiProgressDisplay & progress);
 
-    ///
-//    virtual MRemappedImage* getRemapped(const std::string & filename,
-//                                        const vigra::Diff2D & origSrcSize,
-//                                        const vigra::Diff2D & srcSize,
-//                                        VariableMap srcVars,
-//                                        Lens::LensProjectionFormat srcProj,
-//                                        ImageOptions imgOpts,
-//                                        const vigra::Diff2D &destSize,
-//                                        PanoramaOptions::ProjectionFormat destProj,
-//                                        double destHFOV,
-//                                        utils::MultiProgressDisplay & progress);
-    
     
     virtual	void release(MRemappedImage* d)
 	{

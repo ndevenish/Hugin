@@ -112,9 +112,10 @@ private:
     /// File name for m_transparentImage.
     std::string m_transparentFilename;
 
-    ImageOptions   m_imgOpts;
+    HuginBase::SrcPanoImage::CropMode m_cropMode;
+    vigra::Rect2D m_cropRect;
+    bool m_autoCenterCrop;
     vigra::Point2D m_center;
-    bool           m_circular;
 
     DECLARE_EVENT_TABLE()
     DECLARE_DYNAMIC_CLASS(CropPanel)
