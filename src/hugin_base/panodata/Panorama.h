@@ -664,7 +664,7 @@ class IMPEX Panorama : public ManagedPanoramaData, public AppBase::DocumentData
         /** center the crop for given image and all linked images */
         void centerCrop(unsigned int imgNr);
         /** return the centered crop for given image */
-        vigra::Rect2D Panorama::centerCropImage(unsigned int imgNr);
+        vigra::Rect2D centerCropImage(unsigned int imgNr);
         /** update the crop mode in dependence of crop rect and lens projection */
         void updateCropMode(unsigned int imgNr);
 
