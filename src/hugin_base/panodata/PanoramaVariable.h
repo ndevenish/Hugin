@@ -48,12 +48,17 @@ namespace HuginBase {
 class IMPEX Variable
 {
 public :
-    
-	    Variable(const std::string & name = "" ,
+// in the hsi version, class Variable needs a default Ctor    
+#ifdef HUGIN_HSI
+        Variable(const std::string & name = "" ,
                  double val = 0.0)
                  : name(name), value(val)
         {};
-        
+#else
+        Variable(const std::string & name, double val = 0.0)
+            : name(name), value(val)
+        {};
+#endif        
         virtual ~Variable()
         {};
         
@@ -116,12 +121,18 @@ class IMPEX LensVariable : public Variable
 {
     public:
 
+// in the hsi version, class LensVariable needs a default Ctor
+#ifdef HUGIN_HSI
         LensVariable(const std::string & name = "" ,
                      double value = 0.0 ,
                      bool link=false)
             : Variable(name, value), linked(link)
         {};
-        
+#else
+        LensVariable(const std::string & name, double value, bool link=false)
+            : Variable(name, value), linked(link)
+        {};
+#endif
         virtual ~LensVariable()
             {};
         

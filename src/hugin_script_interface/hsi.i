@@ -27,8 +27,10 @@
 %module hsi
 
 %{
-#define _HUGIN_SCRIPTING_INTERFACE
+#define SWIG_FILE_WITH_INIT
 
+#include <hugin_shared.h>
+#include <appbase/DocumentData.h>
 #include <algorithm/ControlPointCreatorAlgorithm.h>
 #include <algorithm/PanoramaAlgorithm.h>
 #include <algorithms/assistant_makefile/AssistantMakefilelibExport.h>
@@ -72,7 +74,16 @@ using namespace HuginBase;
 #include <iostream>
 using namespace std;
 
+// make slightly nicer docstrings with information about argument
+// types
+
 %feature("autodoc", "1") ;
+
+// I suppose somewhere there must be a pure virtual function in the
+// base classes of Panorama which isn't overloaded. But I can't find
+// it. So I tell SWIG to allow making of Panorama objects even though
+// it thinks that Panorama really is abstract:
+    
 %feature("notabstract") Panorama ;
 
 // the next bunch of includes pull in what's used of the STL
@@ -191,8 +202,6 @@ struct tm
   int tm_yday;			/* Days in year.[0-365]	*/
   int tm_isdst;			/* DST.		[-1/0/1]*/
 } ;
-
-#define _HUGIN_SCRIPTING_INTERFACE
 
 // the next section pulls in all the header files we want wrapped.
 // The header files often use specified templates, which we need

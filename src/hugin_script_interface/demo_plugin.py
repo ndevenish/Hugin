@@ -1,50 +1,54 @@
 # this script is an archetypal plugin for hpi, the hugin plugin interface.
-# It demonstrates the good practise of allowing to run the plugin from
-# the command line or as a plugin - this makes it much easier to go
-# through the modify-test-cycle.
-
 # the plugin defines an entry routine, which does the actual work of
-# the plugin. this routine will take parameters passed from hugin or
-# their equivalent derived from command line arguments
+# the plugin. this routine will take parameters passed on to it from
+# the dispatcher in hpi.py.
 # If you modify this script to derive your plugin from it, this is the
 # routine you first start tinkering with.
 # Notice that you won't see any output from print statements if you
-# haven't called hugin from the command line, since all the script
-# does is print out how many images are in the panorama.
+# haven't called hugin from the command line.
 
-def entry ( pano ) :
+# the position() subroutine sets yaw, pitch and roll for an image
 
-    # EAFP (Easier to Ask Forgiveness than Permission)
-    # so we'll just go ahead and try access the pano
-    # if anything's wrong, we'll catch the exception.
+def position ( pano , number , yaw , pitch , roll ) :
+    print "%d: y %d p %d r %d" % ( number , yaw , pitch , roll )
 
+    # we make sure we only access images that exist.
     images = pano.getNrOfImages()
-    print "found %d images in panorama" % images
+    if number < 0 or number >= images :
+        print "no image %d" % number
+    else :
+        # fine, let's do it.
+        img=pano.getImage(number)
+        img.setYaw(yaw)
+        img.setPitch(pitch)
+        img.setRoll(roll)
+        pano.setImage(number,img)
 
-# now the top level of the script. It checks out if it's been called
-# from the command line or not and acts accordingly:
+# the entry routine is what is called from the dispatcher in hpi.py
+# notice that it takes an arbitrary number of arguments after the
+# first one which must be a panorama.
 
-try :
+def entry ( pano , *args ) :
 
-    if __name__ == "__main__" : # called from the command line
+    # this plugin doesn't take any extra arguments
 
-        import sys
-    
-        if len ( sys.argv ) < 2 :
-            print "use: %s <pto file>"
-        else :
-	    # if we're on our own, we need to import hsi
-            import hsi
-            # now we can open the pano and call entry()
-            pano = hsi.pano_open ( sys.argv[1] )
-            entry ( pano )
+    if args :
+        print 'ignoring extra arguments %s' % str(args)
 
-    else : # we've been called as a plugin, so call entry()
+    # for the purpose of this demonstration, it's assumed that
+    # we have 8 images loaded: 6 around, 1 up 60 degrees, 1 down 60.
+    # If there are less images in the panorama, the excessive calls
+    # to 'position' have no effect. In 'real' life the plugin would
+    # pass back an error message to be displayed by the GUI, but
+    # this isn't yet implemented.
 
-        entry ( *plugin_args  )
+    position ( pano , 0 , 0 , 0 , 0 )
+    position ( pano , 1 , 60 , 0 , 0 )
+    position ( pano , 2 , 120 , 0 , 0 )
+    position ( pano , 3 , 180 , 0 , 0 )
+    position ( pano , 4 , 240 , 0 , 0 )
+    position ( pano , 5 , 300 , 0 , 0 )
+    position ( pano , 6 , 0 , 60 , 0 )
+    position ( pano , 7 , 0 , -60 , 0 )
 
-except :
-
-    # for now, our exception handling is quite unsophisticated...
-    print 'ooops...'
-    
+    return 0

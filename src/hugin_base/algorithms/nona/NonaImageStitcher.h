@@ -45,7 +45,7 @@ namespace HuginBase {
      */
     class NonaImageStitcher : public ImageStitcherAlgorithm
     {
-#ifdef _HUGIN_SCRIPTING_INTERFACE
+#ifdef HUGIN_HSI
         public:
 #else
         protected:
