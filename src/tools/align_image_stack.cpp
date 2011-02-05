@@ -44,6 +44,7 @@
 #include <panodata/StandardImageVariableGroups.h>
 #include <algorithms/optimizer/PTOptimizer.h>
 #include <nona/Stitcher.h>
+#include <algorithms/basic/CalculateOptimalROI.h>
 
 #ifdef WIN32
  #include <getopt.h>
@@ -82,6 +83,13 @@ static void usage(const char * name)
          << "  -f HFOV   approximate horizontal field of view of input images, use if EXIF info not complete" << std::endl
          << "  -m        Optimize field of view for all images, except for first." << std::endl
          << "             Useful for aligning focus stacks with slightly different magnification." << std::endl
+         << "  -d        Optimize radial distortion for all images, except for first." << std::endl
+         << "  -i        Optimize image center shift for all images, except for first." << std::endl
+         << "             Useful for aligning more distorted images." << std::endl
+         << "  -S        Assume stereo images - allow horizontal shift of control points." << std::endl
+         << "  -A        Align stereo window - assumes -S." << std::endl
+         << "  -P        Align stereo window with pop-out effect - assumes -S." << std::endl
+         << "  -C        Auto crop the image to the area covered by all images." << std::endl
          << "  -c num    number of control points (per grid) to create between adjacent images (default: 8)" << std::endl
          << "  -l        Assume linear input files" << std::endl
 	 << "  -s scale  Scale down image by 2^scale (default: 1 [2x downsampling])" << std::endl
@@ -146,19 +154,51 @@ public:
 #endif
 
 template <class ImageType>
-void createCtrlPoints(Panorama & pano, int img1, const ImageType & leftImg, int img2, const ImageType & rightImg, int pyrLevel, double scale, unsigned nPoints, unsigned grid)
+void createCtrlPoints(Panorama & pano, int img1, const ImageType & leftImg, const ImageType & leftImgOrig, int img2, const ImageType & rightImg, const ImageType & rightImgOrig, int pyrLevel, double scale, unsigned nPoints, unsigned grid, bool stereo = false)
 {
     typedef typename ImageType::value_type VT;
     //////////////////////////////////////////////////
     // find interesting corners using harris corner detector
     typedef std::vector<std::multimap<double, vigra::Diff2D> > MapVector;
 
+    if (stereo)
+    {
+        // add one vertical control point to keep the images aligned vertically
+        ControlPoint p(img1, 0, 0, img2, 0, 0, ControlPoint::X);
+        pano.addCtrlPoint(p);
+    }
     std::vector<std::multimap<double, vigra::Diff2D> >points;
     if (g_verbose > 0) {
         std::cout << "Trying to find " << nPoints << " corners... ";
     }
 
     vigra_ext::findInterestPointsOnGrid(srcImageRange(leftImg, GreenAccessor<VT>()), scale, 5*nPoints, grid, points);
+
+    if (stereo)
+    {
+        // add some additional control points around image edges
+        // this is useful for better results - images are more distorted around edges
+        // and also for stereoscopic window adjustment - it must be alligned according to
+        // the nearest object which crosses the edge and these control points helps to find it.
+        std::multimap<double, vigra::Diff2D> up;
+        std::multimap<double, vigra::Diff2D> down;
+        std::multimap<double, vigra::Diff2D> left;
+        std::multimap<double, vigra::Diff2D> right;
+        int xstep = leftImg.size().x / (nPoints + 1);
+        int ystep = leftImg.size().y / (nPoints + 1);
+        for (int k = 6; k >= 0; --k) 
+            for (int j = 0; j < 2; ++j) 
+            	for (int i = 0; i < nPoints; ++i) { 
+                    up.insert(   std::make_pair(0, vigra::Diff2D(j * xstep / 2 + i * xstep ,    1 + k * 10)));
+                    down.insert( std::make_pair(0, vigra::Diff2D(j * xstep / 2 + i * xstep ,    leftImg.size().y - 2 - k * 10)));
+                    left.insert( std::make_pair(0, vigra::Diff2D(1 + k * 10,                    j * ystep / 2 + i * ystep)));
+                    right.insert(std::make_pair(0, vigra::Diff2D(leftImg.size().x - 2 - k * 10, j * ystep / 2 + i * ystep)));
+        }
+        points.push_back(up);
+        points.push_back(down);
+        points.push_back(left);
+        points.push_back(right);
+    }  
 
     double scaleFactor = 1<<pyrLevel;
 
@@ -178,6 +218,7 @@ void createCtrlPoints(Panorama & pano, int img1, const ImageType & leftImg, int 
 
             long templWidth = 20;
             long sWidth = 100;
+            long sWidth2 = scaleFactor;
             double corrThresh = 0.9;
             //double curvThresh = 0.0;
 
@@ -191,23 +232,49 @@ void createCtrlPoints(Panorama & pano, int img1, const ImageType & leftImg, int 
                                             sWidth
                                             );
             if (g_verbose > 2) {
-                cout << (*it).second.x << "," << (*it).second.y << " -> "
-                        << res.maxpos.x << "," << res.maxpos.y << ":  corr coeff: " <<  res.maxi
+                cout << "I :" << (*it).second.x * scaleFactor << "," << (*it).second.y * scaleFactor << " -> "
+                        << res.maxpos.x * scaleFactor << "," << res.maxpos.y * scaleFactor << ":  corr coeff: " <<  res.maxi
                         << " curv:" <<  res.curv.x << " " << res.curv.y << std::endl;
             }
             if (res.maxi < corrThresh )
             {
                 nBad++;
                 DEBUG_DEBUG("low correlation: " << res.maxi << " curv: " << res.curv);
-            } else {
-                nGood++;
-                // add control point
-                ControlPoint p(img1, (*it).second.x * scaleFactor,
-                                (*it).second.y * scaleFactor,
-                                img2, res.maxpos.x * scaleFactor,
-                                res.maxpos.y * scaleFactor);
-                pano.addCtrlPoint(p);
+                continue;
             }
+            
+            if (pyrLevel > 0)
+            {
+                res = vigra_ext::PointFineTune(leftImgOrig,
+                                            Diff2D((*it).second.x * scaleFactor, (*it).second.y * scaleFactor),
+                                            templWidth,
+                                            rightImgOrig,
+                                            Diff2D(res.maxpos.x * scaleFactor, res.maxpos.y * scaleFactor),
+                                            sWidth2
+                                            );
+
+                if (g_verbose > 2) {
+                    cout << "II>" << (*it).second.x * scaleFactor << "," << (*it).second.y * scaleFactor << " -> "
+                            << res.maxpos.x << "," << res.maxpos.y << ":  corr coeff: " <<  res.maxi
+                            << " curv:" <<  res.curv.x << " " << res.curv.y << std::endl;
+                }
+                if (res.maxi < corrThresh )
+                {
+                    nBad++;
+                    DEBUG_DEBUG("low correlation in pass 2: " << res.maxi << " curv: " << res.curv);
+                    continue;
+                }
+            }
+            
+            nGood++;
+            // add control point
+            ControlPoint p(img1, (*it).second.x * scaleFactor,
+                            (*it).second.y * scaleFactor,
+                            img2, res.maxpos.x,
+                            res.maxpos.y,
+                            stereo ? ControlPoint::Y : ControlPoint::X_Y);
+            pano.addCtrlPoint(p);
+            
         }
         if (g_verbose > 0) {
             cout << "Number of good matches: " << nGood << ", bad matches: " << nBad << std::endl;
@@ -215,6 +282,105 @@ void createCtrlPoints(Panorama & pano, int img1, const ImageType & leftImg, int 
     }
 };
 
+void alignStereoWindow(Panorama & pano, bool pop_out)
+{
+    CPVector cps = pano.getCtrlPoints();
+    std::vector<PTools::Transform *> transTable(pano.getNrOfImages());
+
+    std::vector<int> max_i(pano.getNrOfImages() - 1, -1); // index of a point with biggest shift
+    std::vector<int> max_i_b(pano.getNrOfImages() - 1, -1); // the same as above, only border points considered
+    std::vector<double> max_dif(pano.getNrOfImages() - 1, -1000000000); // value of the shift
+    std::vector<double> max_dif_b(pano.getNrOfImages() - 1, -1000000000); // the same as above, only border points considered
+
+    for (int i=0; i < pano.getNrOfImages(); i++)
+    {
+        transTable[i] = new PTools::Transform();
+        transTable[i]->createInvTransform(pano.getImage(i), pano.getOptions());
+    }
+
+    double rbs = 0.1; // relative border size
+    
+    for (int i=0; i < (int)cps.size(); i++) {
+        if (cps[i].mode == ControlPoint::X) {
+            if (max_i[cps[i].image1Nr] < 0) // first control point for given pair
+                max_i[cps[i].image1Nr] = i; // use it as a fallback in case on other points exist
+            continue;
+        }
+        
+        vigra::Size2D size1 = pano.getImage(cps[i].image1Nr).getSize();
+        vigra::Size2D size2 = pano.getImage(cps[i].image2Nr).getSize();
+        
+        vigra::Rect2D rect1(size1);
+        vigra::Rect2D rect2(size2);
+        
+        rect1.addBorder(-size1.width() * rbs, -size1.height() * rbs);
+        rect2.addBorder(-size2.width() * rbs, -size2.height() * rbs);
+        
+
+        double xt1, yt1, xt2, yt2; 
+        if(!transTable[cps[i].image1Nr]->transformImgCoord(xt1, yt1, cps[i].x1, cps[i].y1)) continue;        
+        if(!transTable[cps[i].image2Nr]->transformImgCoord(xt2, yt2, cps[i].x2, cps[i].y2)) continue;        
+
+        double dif = xt2 - xt1;
+        if (dif > max_dif[cps[i].image1Nr]) {
+            max_dif[cps[i].image1Nr] = dif;
+            max_i[cps[i].image1Nr] = i;
+        }
+
+        if (!(rect1.contains(Point2D(cps[i].x1, cps[i].y1)) &&
+            rect2.contains(Point2D(cps[i].x2, cps[i].y2)))) {
+            // the same for border points only
+            if (dif > max_dif_b[cps[i].image1Nr]) {
+                max_dif_b[cps[i].image1Nr] = dif;
+                max_i_b[cps[i].image1Nr] = i;
+            }
+        }
+    }
+
+    for (int i=0; i < pano.getNrOfImages(); i++)
+    {
+        delete transTable[i];
+    }
+    
+    for (int i=0; i < (int)max_i.size(); i++) {
+        if (pop_out && (max_i_b[i] >= 0)) // check points at border
+            cps[max_i_b[i]].mode = ControlPoint::X_Y;
+        else if (max_i[i] >= 0) // no points at border - use any point
+            cps[max_i[i]].mode = ControlPoint::X_Y;
+        else {
+            //no points at all - should not happen
+        }
+        
+    }
+
+    CPVector newCPs;
+    for (int i=0; i < (int)cps.size(); i++) {
+        if (cps[i].mode != ControlPoint::X) { // remove the vertical control lines, X_Y points replaces them
+            newCPs.push_back(cps[i]);
+        }
+    }
+
+    pano.setCtrlPoints(newCPs);
+}
+
+void autoCrop(Panorama & pano)
+{
+    CalculateOptimalROI cropPano(pano, true);
+    cropPano.run();
+        
+    vigra::Rect2D roi=cropPano.getResultOptimalROI();
+    //set the ROI - fail if the right/bottom is zero, meaning all zero
+    if(roi.right() != 0 && roi.bottom() != 0)
+    {
+        PanoramaOptions opt = pano.getOptions();
+        opt.setROI(roi);
+        pano.setOptions(opt);
+        cout << "Set crop size to " << roi.left() << "," << roi.top() << "," << roi.right() << "," << roi.bottom() << endl;
+    }
+    else {
+        cout << "Could not find best crop rectangle for image" << endl;
+    };
+}
 
 struct Parameters
 {
@@ -227,6 +393,12 @@ struct Parameters
         pyrLevel = 1;
 	linear = false;	   // Assume linear input files if true
         optHFOV = false;
+        optDistortion = false;
+        optCenter = false;
+        stereo = false;
+        stereo_window = false;
+        pop_out = false;
+        crop = false;
         fisheye = false;
     }
 
@@ -236,7 +408,13 @@ struct Parameters
     double hfov;
     bool linear;
     bool optHFOV;
+    bool optDistortion;
+    bool optCenter;
     bool fisheye;
+    bool stereo;
+    bool stereo_window;
+    bool pop_out;
+    bool crop;
     int pyrLevel;
     std::string alignedPrefix;
     std::string ptoFile;
@@ -252,19 +430,20 @@ int main2(std::vector<std::string> files, Parameters param)
         // load first image
         vigra::ImageImportInfo firstImgInfo(files[0].c_str());
 
+        // original size
+        ImageType * leftImgOrig = new ImageType(firstImgInfo.size());
         // rescale image
         ImageType * leftImg = new ImageType();
         {
-            ImageType leftImgOrig(firstImgInfo.size());
             if(firstImgInfo.numExtraBands() == 1) {
                 vigra::BImage alpha(firstImgInfo.size());
-                vigra::importImageAlpha(firstImgInfo, destImage(leftImgOrig), destImage(alpha));
+                vigra::importImageAlpha(firstImgInfo, destImage(*leftImgOrig), destImage(alpha));
             } else if (firstImgInfo.numExtraBands() == 0) {
-                vigra::importImage(firstImgInfo, destImage(leftImgOrig));
+                vigra::importImage(firstImgInfo, destImage(*leftImgOrig));
             } else {
                 vigra_fail("Images with multiple extra (alpha) channels not supported");
             }
-            reduceNTimes(leftImgOrig, *leftImg, param.pyrLevel);
+            reduceNTimes(*leftImgOrig, *leftImg, param.pyrLevel);
         }
 
 
@@ -336,6 +515,7 @@ int main2(std::vector<std::string> files, Parameters param)
         OptimizeVector optvars(1);
 
         ImageType * rightImg = new ImageType(leftImg->size());
+        ImageType * rightImgOrig = new ImageType(leftImgOrig->size());
         StandardImageVariableGroups variable_groups(pano);
 
         // loop to add images and control points between them.
@@ -365,6 +545,12 @@ int main2(std::vector<std::string> files, Parameters param)
             if (param.optHFOV) {
                 pano.unlinkImageVariableHFOV(0);
             }
+            if (param.optDistortion) {
+                pano.unlinkImageVariableRadialDistortion(0);
+            }
+            if (param.optCenter) {
+                pano.unlinkImageVariableRadialDistortionCenterShift(0);
+            }
             
             // All images are in the same stack: Link the stack variable.
             pano.linkImageVariableStack(imgNr, 0);
@@ -373,27 +559,29 @@ int main2(std::vector<std::string> files, Parameters param)
             vigra::ImageImportInfo nextImgInfo(files[i].c_str());
             assert(nextImgInfo.size() == firstImgInfo.size());
             {
-                ImageType rightImgOrig(nextImgInfo.size());
                 if (nextImgInfo.numExtraBands() == 1) {
                     vigra::BImage alpha(nextImgInfo.size());
-                    vigra::importImageAlpha(nextImgInfo, destImage(rightImgOrig), destImage(alpha));
+                    vigra::importImageAlpha(nextImgInfo, destImage(*rightImgOrig), destImage(alpha));
                 } else if (nextImgInfo.numExtraBands() == 0) {
-                    vigra::importImage(nextImgInfo, destImage(rightImgOrig));
+                    vigra::importImage(nextImgInfo, destImage(*rightImgOrig));
                 } else {
                     vigra_fail("Images with multiple extra (alpha) channels not supported");
                 }
-                reduceNTimes(rightImgOrig, *rightImg, param.pyrLevel);
+                reduceNTimes(*rightImgOrig, *rightImg, param.pyrLevel);
             }
 
             // add control points.
             // work on smaller images
             // TODO: or use a fast interest point operator.
-            createCtrlPoints(pano, i-1, *leftImg, i, *rightImg, param.pyrLevel, 2, param.nPoints, param.grid);
+            createCtrlPoints(pano, i-1, *leftImg, *leftImgOrig, i, *rightImg, *rightImgOrig, param.pyrLevel, 2, param.nPoints, param.grid, param.stereo);
 
             // swap images;
             delete leftImg;
+            delete leftImgOrig;
             leftImg = rightImg;
+            leftImgOrig = rightImgOrig;
             rightImg = new ImageType(leftImg->size());
+            rightImgOrig = new ImageType(leftImgOrig->size());
 
             // optimize yaw, roll, pitch
             std::set<std::string> vars;
@@ -403,10 +591,21 @@ int main2(std::vector<std::string> files, Parameters param)
             if (param.optHFOV) {
                 vars.insert("v");
             }
+            if (param.optDistortion) {
+                vars.insert("a");
+                vars.insert("b");
+                vars.insert("c");
+            }
+            if (param.optCenter) {
+                vars.insert("d");
+                vars.insert("e");
+            }
             optvars.push_back(vars);
         }
         delete leftImg;
         delete rightImg;
+        delete leftImgOrig;
+        delete rightImgOrig;
 
         // optimize everything.
         pano.setOptimizeVector(optvars);
@@ -419,7 +618,8 @@ int main2(std::vector<std::string> files, Parameters param)
             CPVector cps = pano.getCtrlPoints();
             CPVector newCPs;
             for (int i=0; i < (int)cps.size(); i++) {
-                if (cps[i].error < param.cpErrorThreshold) {
+                if (cps[i].error < param.cpErrorThreshold ||
+                    cps[i].mode == ControlPoint::X) { // preserve the vertical control point for stereo alignment
                     newCPs.push_back(cps[i]);
                 }
             }
@@ -427,19 +627,22 @@ int main2(std::vector<std::string> files, Parameters param)
                 cout << "Ctrl points before pruning: " << cps.size() << ", after: " << newCPs.size() << std::endl;
             }
             pano.setCtrlPoints(newCPs);
+            if (param.stereo_window) alignStereoWindow(pano, param.pop_out);
             // reoptimize
             optimizeError = (PTools::optimize(pano) > 0) ;
         }
+        
+        if (param.crop) autoCrop(pano);
 
         UIntSet imgs = pano.getActiveImages();
 
-        if (param.ptoFile.size() > 0) {
-            std::ofstream script(param.ptoFile.c_str());
-            pano.printPanoramaScript(script, optvars, pano.getOptions(), imgs, false, "");
-        }
 
         if (optimizeError)
         {
+            if (param.ptoFile.size() > 0) {
+                std::ofstream script(param.ptoFile.c_str());
+                pano.printPanoramaScript(script, optvars, pano.getOptions(), imgs, false, "");
+            }
             cerr << "An error occured during optimization." << std::endl;
             cerr << "Try adding \"-p debug.pto\" and checking output." << std::endl;
             cerr << "Exiting..." << std::endl;
@@ -485,6 +688,14 @@ int main2(std::vector<std::string> files, Parameters param)
                            progress, opts.outfile, imgs);
 
         }
+
+        // At this point we have panorama options set according to the output
+        if (param.ptoFile.size() > 0) {
+            std::ofstream script(param.ptoFile.c_str());
+            pano.printPanoramaScript(script, optvars, pano.getOptions(), imgs, false, "");
+        }
+
+
     } catch (std::exception & e) {
         cerr << "ERROR: caught exception: " << e.what() << std::endl;
         return 1;
@@ -495,7 +706,7 @@ int main2(std::vector<std::string> files, Parameters param)
 int main(int argc, char *argv[])
 {
     // parse arguments
-    const char * optstring = "a:ef:g:hlmp:vo:s:t:c:";
+    const char * optstring = "a:ef:g:hlmdiSAPCp:vo:s:t:c:";
     int c;
 
     opterr = 0;
@@ -539,6 +750,27 @@ int main(int argc, char *argv[])
 	    break;
         case 'm':
             param.optHFOV = true;
+            break;
+        case 'd':
+            param.optDistortion = true;
+            break;
+        case 'i':
+            param.optCenter = true;
+            break;
+        case 'S':
+            param.stereo = true;
+            break;
+        case 'A':
+            param.stereo = true;
+            param.stereo_window = true;
+            break;
+        case 'P':
+            param.stereo = true;
+            param.stereo_window = true;
+            param.pop_out = true;
+            break;
+        case 'C':
+            param.crop = true;
             break;
         case 't':
             param.cpErrorThreshold = atof(optarg);

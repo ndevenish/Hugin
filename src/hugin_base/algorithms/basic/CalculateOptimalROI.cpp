@@ -96,6 +96,7 @@ bool CalculateOptimalROI::imgPixel(int i, int j)
 {
     if(testedPixels[j*o_optimalSize.x+i]==0)
     {
+        bool inside = intersection; // start with true for intersection mode and with false for union mode
         //check that pixel at each place
         for(UIntSet::const_iterator it=activeImages.begin();it!=activeImages.end();it++)
         {
@@ -104,18 +105,26 @@ bool CalculateOptimalROI::imgPixel(int i, int j)
             {
                 if(o_panorama.getImage(*it).isInside(vigra::Point2D(xd,yd)))
                 {
-                    //if found in a single image, short cut out
-                    testedPixels[j*o_optimalSize.x+i]=1;
-                    pixels[j*o_optimalSize.x+i]=1;
-                    return true; 
+                    if (!intersection) {
+                        //if found in a single image, short cut out
+                        inside=true;
+                        break;
+                    }
+                }
+                else {
+                    if (intersection) {
+                        //outside of at least one image - return false
+                        inside=false;
+                        break;
+                    }
                 }
             }
         }
-        
-        //if made it through the for loop without a success, mark as bad
+
         testedPixels[j*o_optimalSize.x+i]=1;
-        pixels[j*o_optimalSize.x+i]=0;
-        return false;
+        pixels[j*o_optimalSize.x+i]=inside;
+        
+        return inside;
     }
     //else it is know if this pixel is covered by at least one image
     else
