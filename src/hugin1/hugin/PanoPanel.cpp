@@ -1055,18 +1055,22 @@ void PanoPanel::DoStitch()
                          outputPrefix, wxT(""),
                          wxFD_SAVE, wxDefaultPosition);
         dlg.SetDirectory(wxConfigBase::Get()->Read(wxT("/actualPath"),wxT("")));
-        while (true) {
-            if (dlg.ShowModal() != wxID_OK)
-                 return; // bail
-            if (containsInvalidCharacters(dlg.GetPath())) {
+        if (dlg.ShowModal() == wxID_OK)
+        {
+            while(containsInvalidCharacters(dlg.GetPath()))
+            {
                 wxMessageBox(wxString::Format(_("The given filename contains one of the following invalid characters: %s\nHugin can not work with this filename. Please enter a valid filename."),getInvalidCharacters().c_str()),
                     _("Error"),wxOK | wxICON_EXCLAMATION);
-            } else { // successful
-                wxConfig::Get()->Write(wxT("/actualPath"), dlg.GetDirectory());  // remember for later
-                outputPrefix = dlg.GetPath();
-                break;
-            }
+                if(dlg.ShowModal()!=wxID_OK)
+                    return;
+            };
         }
+        else
+        {
+            return;
+        };
+        wxConfig::Get()->Write(wxT("/actualPath"), dlg.GetDirectory());  // remember for later
+        outputPrefix = dlg.GetPath();
     }
 
     wxString command = hugin_stitch_project + wxT(" --delete -o ") + wxQuoteFilename(outputPrefix) + wxT(" ") + wxQuoteFilename(currentPTOfn);
