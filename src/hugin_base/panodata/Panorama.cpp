@@ -1312,14 +1312,9 @@ void Panorama::updateMasks(bool convertPosMaskToNeg)
 void Panorama::updateCropMode(unsigned int imgNr)
 {
     vigra::Rect2D r=state.images[imgNr]->getCropRect();
-    if(r.isEmpty() || 
-        (r.left()==0 && r.top()==0 && 
-         r.right() == (int)state.images[imgNr]->getWidth() &&
-         r.bottom() == (int)state.images[imgNr]->getHeight())
-         )
+    if(r.isEmpty() || r==vigra::Rect2D(state.images[imgNr]->getSize()))
     {
         state.images[imgNr]->setCropMode(SrcPanoImage::NO_CROP);
-        state.images[imgNr]->setCropRect(vigra::Rect2D(0,0,0,0));
     }
     else
     {
