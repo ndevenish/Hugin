@@ -590,3 +590,29 @@ void StoreFramePosition(wxTopLevelWindow * frame, const wxString & basename)
     }
 #endif
 }
+
+IMPLEMENT_DYNAMIC_CLASS(DedicationHTML, wxHtmlWindow)
+
+ BEGIN_EVENT_TABLE(DedicationHTML, wxHtmlWindow)
+ // Add event tables here
+ END_EVENT_TABLE()
+
+ bool DedicationHTML::Create(wxWindow * parent, wxWindowID id,
+                 const wxPoint & pos,
+                 const wxSize & size,
+                 long style)
+ {
+   SetParent(parent);
+   wxXmlResource::Get()->LoadPanel(this, GetParent(), _T("dedication_html"));
+   GetSizer()->Fit(this);
+
+   return true;
+ }
+
+void DedicationHTML::OnLinkClicked(const wxHtmlLinkInfo& link)
+{
+  if (link.GetHref().StartsWith(_T("http://")))
+    wxLaunchDefaultBrowser(link.GetHref());
+  else
+    wxHtmlWindow::OnLinkClicked(link);
+}
