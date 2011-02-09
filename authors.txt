@@ -32,7 +32,7 @@ Brian Hoffmann	German translation of NSIS windows installer
 Lajos Höss	Hungarian translation
 Ad Huikeshoven	automated Windows snapshot builds
 Iouri Ivliev	bug fixes
-Kay F. Jahnke	bug fixes
+Kay F. Jahnke	Python interface
 Marek Januszewski	Code, initial Polish translation
 Alexandre Jenny	SpaceTransform class, GSoC 2008 mentoring
 Jing Jin	GSoC 2007 deghosting

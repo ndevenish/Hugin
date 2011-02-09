@@ -1,3 +1,7 @@
+# since this plugin actually references members of the hsi
+# module (like, hsi.calcCtrlPointErrors below) we need to
+# import hsi to make these names known:
+
 import hsi
 
 # another demo plugin: this one will keep at most five control
@@ -9,7 +13,7 @@ def entry ( pano , *args ) :
     # this plugin doesn't take any extra arguments
 
     if args :
-        print 'ignoring extra arguments %s' % str(args)
+        print('ignoring extra arguments %s' % str(args))
 
     # on loading the CP errors are unknown - we have to have them
     # calculated before we can start:
@@ -45,3 +49,4 @@ def entry ( pano , *args ) :
     pano.setCtrlPoints ( cpv )
     
     return 0
+

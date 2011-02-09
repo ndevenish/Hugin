@@ -123,12 +123,7 @@ public:
     if ( hsi_module )
     {
       // load hpi module
-#if PY_MAJOR_VERSION>=3
-        hpi_module = load_module ("hpi3");
-#else
-        hpi_module = load_module ("hpi");
-#endif
-
+      hpi_module = load_module ("hpi");
       if ( hpi_module )
         activated = true ;
       else

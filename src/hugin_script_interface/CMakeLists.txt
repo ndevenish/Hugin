@@ -205,20 +205,35 @@ SWIG_LINK_LIBRARIES(hsi ${PYTHON_LIBRARIES} ${common_libs})
 
 IF(WIN32)
     INSTALL(TARGETS ${SWIG_MODULE_hsi_REAL_NAME} DESTINATION ${BINDIR})
-    IF(${PYTHON_VERSION_MAJOR} GREATER 2)
-        INSTALL(FILES hpi3.py DESTINATION ${BINDIR})
-        INSTALL(FILES top_five3.py DESTINATION scripts)
-    ELSE()
-        INSTALL(FILES hpi.py DESTINATION ${BINDIR})
-        INSTALL(FILES top_five.py DESTINATION scripts)
-    ENDIF()
+    INSTALL(FILES hpi.py DESTINATION ${BINDIR})
+    INSTALL(FILES top_five.py DESTINATION scripts)
     INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/hsi.py DESTINATION ${BINDIR})
+
+
 ELSEIF(${HUGIN_LIBS_PRIVATE_DIR})
-    # paths for unix needs to be checked
-    # INSTALL(TARGETS ${SWIG_MODULE_hsi_REAL_NAME} LIBRARY DESTINATION ${LIBDIR}/hugin NAMELINK_SKIP)
-    # INSTALL(FILES hpi.py DESTINATION ${LIBDIR}/hugin)
-    # INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/hsi.py DESTINATION ${LIBDIR}/hugin)
+    # Lukas says: I'd go for
+    # ${LIBDIR}/python${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}/site-packages/hugin
+    # but on my system the proper destination seems to be this:
+
+    SET(PYINSTALLDIR
+        ${LIBDIR}/python${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}/dist-packages
+        )
+
+    INSTALL(TARGETS ${SWIG_MODULE_hsi_REAL_NAME}
+            LIBRARY DESTINATION ${PYINSTALLDIR}
+            NAMELINK_SKIP
+            )
+
+    INSTALL(FILES hpi.py
+            DESTINATION ${PYINSTALLDIR}
+            )
+
+    INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/hsi.py
+            DESTINATION ${PYINSTALLDIR}
+            )
+
 ELSE(WIN32)
+    # I suppose this is for Mac OS ?!
     # INSTALL(TARGETS ${SWIG_MODULE_hsi_REAL_NAME} LIBRARY DESTINATION ${LIBDIR} NAMELINK_SKIP)
     # INSTALL(FILES hpi.py DESTINATION ${LIBDIR})
     # INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/hsi.py DESTINATION ${LIBDIR})

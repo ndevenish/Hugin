@@ -10,12 +10,12 @@
 # the position() subroutine sets yaw, pitch and roll for an image
 
 def position ( pano , number , yaw , pitch , roll ) :
-    print "%d: y %d p %d r %d" % ( number , yaw , pitch , roll )
+    print ( "%d: y %d p %d r %d" % ( number , yaw , pitch , roll ) )
 
     # we make sure we only access images that exist.
     images = pano.getNrOfImages()
     if number < 0 or number >= images :
-        print "no image %d" % number
+        print ( "no image %d" % number )
     else :
         # fine, let's do it.
         img=pano.getImage(number)
@@ -33,7 +33,7 @@ def entry ( pano , *args ) :
     # this plugin doesn't take any extra arguments
 
     if args :
-        print 'ignoring extra arguments %s' % str(args)
+        print ( 'ignoring extra arguments %s' % str(args) )
 
     # for the purpose of this demonstration, it's assumed that
     # we have 8 images loaded: 6 around, 1 up 60 degrees, 1 down 60.
@@ -52,3 +52,4 @@ def entry ( pano , *args ) :
     position ( pano , 7 , 0 , -60 , 0 )
 
     return 0
+

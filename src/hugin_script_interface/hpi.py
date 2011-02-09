@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 import hsi
 import os
 
@@ -11,15 +13,15 @@ import os
 # the plugin name
 
 def hpi_dispatch ( plugin_name , *args ) :
-    print "dispatcher: loading plugin %s" % plugin_name
+    print("dispatcher: loading plugin %s" % plugin_name)
     try :
         if os.path.exists ( plugin_name ) :
             # there is a file by that name. let's execute it
-            print "dispatcher: found file %s" % plugin_name
+            print("dispatcher: found file %s" % plugin_name)
             # we make an empty dictionary as globals for the plugin
             plugin = dict()
             # and execute the plugin there
-            execfile ( plugin_name , plugin )
+            exec(compile(open( plugin_name ).read(), plugin_name, 'exec'), plugin)
             # the plugin should have put a function entry()
             # into it's global namespace, we call it
             success = plugin [ 'entry' ] ( *args )
@@ -28,15 +30,15 @@ def hpi_dispatch ( plugin_name , *args ) :
             del plugin
         else :
 	    # no such file. could be a module.
-            print "dispatcher: no file %s, trying import" % plugin_name
+            print("dispatcher: no file %s, trying import" % plugin_name)
             plugin = __import__ ( plugin_name )
             success = plugin.entry ( *args )
             del plugin
     except ImportError :
-        print "%s: import failed" % plugin_name
+        print("%s: import failed" % plugin_name)
         success = -2
     except :
-        print "%s: plugin failed" % plugin_name
+        print("%s: plugin failed" % plugin_name)
         success = -1
     return success
 
@@ -57,7 +59,7 @@ if __name__ == "__main__":
     
     import sys
     if len ( sys.argv ) < 3 :
-        print "use: hpi panorama.pto plugin.py [plugin args]"
+        print("use: hpi panorama.pto plugin.py [plugin args]")
         sys.exit ( -5 )
 
     # okay, there are some arguments, let's go ahead and try
@@ -66,11 +68,11 @@ if __name__ == "__main__":
     p = hsi.Panorama()
     ifs = hsi.ifstream ( sys.argv[1] )
     if not ifs.good() :
-        print "failed to open %s" % sys.argv[1]
+        print("failed to open %s" % sys.argv[1])
         sys.exit ( -6 )
     
     if p.readData ( ifs ) != hsi.DocumentData.SUCCESSFUL :
-        print "failed to read panorama data from %s" % sys.argv[1]
+        print("failed to read panorama data from %s" % sys.argv[1])
         sys.exit ( -7 )
 
     del ifs
@@ -90,11 +92,11 @@ if __name__ == "__main__":
         ofs = hsi.ofstream ( sys.argv[1] )
 
         if not ofs.good() :
-            print "failed to open %s" % sys.argv[1]
+            print("failed to open %s" % sys.argv[1])
             sys.exit ( -8 )
     
         if p.writeData ( ofs ) != hsi.DocumentData.SUCCESSFUL :
-            print "failed to write panorama data to %s" % sys.argv[1]
+            print("failed to write panorama data to %s" % sys.argv[1])
             sys.exit ( -9 )
 
         del ofs
