@@ -51,6 +51,7 @@
 #include "base_wx/PTWXDlg.h"
 #include "hugin/CommandHistory.h"
 #include "hugin/wxPanoCommand.h"
+#include "hugin/HtmlWindow.h"
 
 #include "base_wx/platform.h"
 #include "base_wx/huginConfig.h"
@@ -252,6 +253,7 @@ bool huginApp::OnInit()
     wxXmlResource::Get()->AddHandler(new OptimizePhotometricPanelXmlHandler());
     wxXmlResource::Get()->AddHandler(new PanoPanelXmlHandler());
     wxXmlResource::Get()->AddHandler(new PreviewPanelXmlHandler());
+    wxXmlResource::Get()->AddHandler(new HtmlWindowXmlHandler());
 
     // load XRC files
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("crop_panel.xrc"));
@@ -589,30 +591,4 @@ void StoreFramePosition(wxTopLevelWindow * frame, const wxString & basename)
         config->Write(wxT("/") + basename + wxT("/maximized"), 1l);
     }
 #endif
-}
-
-IMPLEMENT_DYNAMIC_CLASS(DedicationHTML, wxHtmlWindow)
-
- BEGIN_EVENT_TABLE(DedicationHTML, wxHtmlWindow)
- // Add event tables here
- END_EVENT_TABLE()
-
- bool DedicationHTML::Create(wxWindow * parent, wxWindowID id,
-                 const wxPoint & pos,
-                 const wxSize & size,
-                 long style)
- {
-   SetParent(parent);
-   wxXmlResource::Get()->LoadPanel(this, GetParent(), _T("dedication_html"));
-   GetSizer()->Fit(this);
-
-   return true;
- }
-
-void DedicationHTML::OnLinkClicked(const wxHtmlLinkInfo& link)
-{
-  if (link.GetHref().StartsWith(_T("http://")))
-    wxLaunchDefaultBrowser(link.GetHref());
-  else
-    wxHtmlWindow::OnLinkClicked(link);
 }

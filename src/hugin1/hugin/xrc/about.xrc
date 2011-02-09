@@ -173,7 +173,7 @@
               <object class="wxBoxSizer">
                 <orient>wxVERTICAL</orient>
                 <object class="sizeritem">
-                  <object class="wxHtmlWindow" name="dedication_html" subclass="DedicationHTML">
+                  <object class="HtmlWindow" name="dedication_html">
                     <borders>0</borders>
                     <style platform="win">wxSUNKEN_BORDER</style>
                     <url>data/dedication.htm</url>
