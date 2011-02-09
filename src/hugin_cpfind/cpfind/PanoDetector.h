@@ -276,4 +276,14 @@ private:
 /** returns the filename for the keyfile for a given image */
 std::string getKeyfilenameFor(std::string keyfilesPath, std::string filename);
 
+// dummy panotools progress functions
+static int ptProgress( int command, char* argument )
+{
+	return 1;
+}
+static int ptinfoDlg( int command, char* argument )
+{
+	return 1;
+}
+
 #endif // __detectpano_panodetector_h

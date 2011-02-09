@@ -924,7 +924,17 @@ bool PanoDetector::matchMultiRow(PoolExecutor& aExecutor)
             optvars.push_back(imgopt);
         }
         optPano.setOptimizeVector(optvars);
+        if (getVerbose() < 2) 
+        {
+            PT_setProgressFcn(ptProgress);
+            PT_setInfoDlgFcn(ptinfoDlg);
+        };
         HuginBase::PTools::optimize(optPano);
+        if (getVerbose() < 2) 
+        {
+    		PT_setProgressFcn(NULL);
+	    	PT_setInfoDlgFcn(NULL);
+        };
 
         HuginBase::CalculateImageOverlap overlap(&optPano);
         overlap.calculate(10);
