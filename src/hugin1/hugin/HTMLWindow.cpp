@@ -24,7 +24,7 @@
  *
  */
 
-#include "hugin/HTMLWindow.h"
+#include "hugin/HtmlWindow.h"
 
 IMPLEMENT_DYNAMIC_CLASS(HtmlWindow, wxHtmlWindow)
 
