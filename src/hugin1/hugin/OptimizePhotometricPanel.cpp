@@ -59,6 +59,12 @@ BEGIN_EVENT_TABLE(OptimizePhotometricPanel, wxPanel)
     EVT_BUTTON(XRCID("opt_exp_clear"), OptimizePhotometricPanel::OnDelExposure)
     EVT_BUTTON(XRCID("opt_wb_select"), OptimizePhotometricPanel::OnSelWB)
     EVT_BUTTON(XRCID("opt_wb_clear"), OptimizePhotometricPanel::OnDelWB)
+    EVT_BUTTON(XRCID("opt_vig_select"), OptimizePhotometricPanel::OnSelVignetting)
+    EVT_BUTTON(XRCID("opt_vig_clear"), OptimizePhotometricPanel::OnDelVignetting)
+    EVT_BUTTON(XRCID("opt_vigc_select"), OptimizePhotometricPanel::OnSelVignettingCentre)
+    EVT_BUTTON(XRCID("opt_vigc_clear"), OptimizePhotometricPanel::OnDelVignettingCentre)
+    EVT_BUTTON(XRCID("opt_resp_select"), OptimizePhotometricPanel::OnSelResponse)
+    EVT_BUTTON(XRCID("opt_resp_clear"), OptimizePhotometricPanel::OnDelResponse)
     EVT_CHOICE(XRCID("optimize_photo_panel_mode"), OptimizePhotometricPanel::OnChangeMode)
 END_EVENT_TABLE()
 
@@ -185,6 +191,36 @@ void OptimizePhotometricPanel::OnSelWB(wxCommandEvent & e)
 void OptimizePhotometricPanel::OnDelWB(wxCommandEvent & e)
 {
     SetCheckMark(m_wb_list,false, m_pano->getOptions().colorReferenceImage);
+}
+
+void OptimizePhotometricPanel::OnSelVignetting(wxCommandEvent & e)
+{
+    SetCheckMark(m_vig_list,true, m_pano->getOptions().colorReferenceImage);
+}
+
+void OptimizePhotometricPanel::OnDelVignetting(wxCommandEvent & e)
+{
+    SetCheckMark(m_vig_list,false, m_pano->getOptions().colorReferenceImage);
+}
+
+void OptimizePhotometricPanel::OnSelVignettingCentre(wxCommandEvent & e)
+{
+    SetCheckMark(m_vigc_list,true, m_pano->getOptions().colorReferenceImage);
+}
+
+void OptimizePhotometricPanel::OnDelVignettingCentre(wxCommandEvent & e)
+{
+    SetCheckMark(m_vigc_list,false, m_pano->getOptions().colorReferenceImage);
+}
+
+void OptimizePhotometricPanel::OnSelResponse(wxCommandEvent & e)
+{
+    SetCheckMark(m_resp_list,true, m_pano->getOptions().colorReferenceImage);
+}
+
+void OptimizePhotometricPanel::OnDelResponse(wxCommandEvent & e)
+{
+    SetCheckMark(m_resp_list,false, m_pano->getOptions().colorReferenceImage);
 }
 
 void OptimizePhotometricPanel::SetCheckMark(wxCheckListBox * l, int check, int anchor)
@@ -618,8 +654,14 @@ void OptimizePhotometricPanel::OnChangeMode(wxCommandEvent & e)
     {
         XRCCTRL(*this, "opt_exp_select", wxButton)->Disable();
         XRCCTRL(*this, "opt_wb_select", wxButton)->Disable();
+        XRCCTRL(*this, "opt_vig_select", wxButton)->Disable();
+        XRCCTRL(*this, "opt_vigc_select", wxButton)->Disable();
+        XRCCTRL(*this, "opt_resp_select", wxButton)->Disable();
         XRCCTRL(*this, "opt_exp_clear", wxButton)->Disable();
         XRCCTRL(*this, "opt_wb_clear", wxButton)->Disable();
+        XRCCTRL(*this, "opt_vig_clear", wxButton)->Disable();
+        XRCCTRL(*this, "opt_vigc_clear", wxButton)->Disable();
+        XRCCTRL(*this, "opt_resp_clear", wxButton)->Disable();
     } else {
         bool enabled = mode == OPT_CUSTOM;
         unsigned int refImg = m_pano->getOptions().colorReferenceImage;
@@ -641,8 +683,15 @@ void OptimizePhotometricPanel::OnChangeMode(wxCommandEvent & e)
         }
         XRCCTRL(*this, "opt_exp_select", wxButton)->Enable(enabled);
         XRCCTRL(*this, "opt_wb_select", wxButton)->Enable(enabled);
+        XRCCTRL(*this, "opt_vig_select", wxButton)->Enable(enabled);
+        XRCCTRL(*this, "opt_vigc_select", wxButton)->Enable(enabled);
+        XRCCTRL(*this, "opt_resp_select", wxButton)->Enable(enabled);
         XRCCTRL(*this, "opt_exp_clear", wxButton)->Enable(enabled);
         XRCCTRL(*this, "opt_wb_clear", wxButton)->Enable(enabled);
+        XRCCTRL(*this, "opt_vig_clear", wxButton)->Enable(enabled);
+        XRCCTRL(*this, "opt_vigc_clear", wxButton)->Enable(enabled);
+        XRCCTRL(*this, "opt_resp_clear", wxButton)->Enable(enabled);
+
         m_vig_list->Enable(enabled);
         m_vigc_list->Enable(enabled);
         m_exp_list->Enable(enabled);
