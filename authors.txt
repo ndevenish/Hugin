@@ -85,7 +85,7 @@ Lorenz Trischberger	German translation
 Ken Turkowski	code
 Ippei Ukai	MacOSX port, initial Japanese translation, GSoC 2007 code refactoring
 Harry van der Wolf	original Dutch translation, OSX build
-Mihai Varzaru   Original Romanian translation
+Mihai Varzaru	Original Romanian translation
 Luca Vascon	splash screen, icons, original Italian translation
 Fabian Wetzel	Panoglview
 Ulf Wilhelmson	original Swedish translation
