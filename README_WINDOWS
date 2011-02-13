@@ -20,10 +20,6 @@ This package contains the following programs:
 These programs are build on top of the panorama tools library,
 http://panotools.sourceforge.net/
 
-The following external programs are highly recommended:
-
-1. autopano or autopano-sift
-    
 hugin can be used to stitch multiple images together. The resulting image can
 span 360 degrees. Another common use is the creation of very high resolution
 pictures by combining multiple images.
