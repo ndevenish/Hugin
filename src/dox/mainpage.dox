@@ -45,7 +45,6 @@
                   (code in this directory does not depends on wxWidgets and
                   should not link against wxWidgets)
        - hugin_cpfind/  Contains the code of the control point detector
-       - hugin_qtbase/  Contains the old gui written in QT
        - lens_calibrate/ Contains the lens_calibrate lib and program
        - matchpoint/  Contains the matchpoint program
        - tools/    Contains most of the command line tools
@@ -73,8 +72,6 @@
    -  PT/
    -  ptbatcher/  Contains the batch processing code (PTBatcher and PTBatcherGUI).
    -  stitch_project/  Contains the code for hugin_stitch_project.
-   -  tests/
-   -  tools/
    -  tools_vips/
 
    The style code for writing Hugin code can be found at: 
