@@ -10,7 +10,7 @@
 
  \section build Building
 
-   Hugin now builds with cmake:
+   Hugin builds with Cmake (http://cmake.org/):
 
    \verbatim
 
@@ -20,7 +20,18 @@
 
    \endverbatim
 
-   The project's directory structure (this list is completely out-of-date):
+   For a more detailed description see corresponding entries in wiki:
+
+   - for different Unix flavours see
+     - for Ubuntu: http://wiki.panotools.org/Hugin_Compiling_Ubuntu
+     - for Fedora: http://wiki.panotools.org/Hugin_Compiling_Fedora
+     - for OpenSuse: http://wiki.panotools.org/Hugin_Compiling_OpenSuse
+     - for Gentoo: http://wiki.panotools.org/Hugin_Compiling_Gentoo
+     - for FreeBSD: http://wiki.panotools.org/Hugin_Compiling_FreeBSD
+   - for Windows: http://wiki.panotools.org/Build_Hugin_for_Windows_with_SDK
+   - for MacOS: http://wiki.panotools.org/Hugin_Compiling_OSX
+
+   The project's directory structure:
 
    - hugin/
      - src/
@@ -39,60 +50,34 @@
        - matchpoint/  Contains the matchpoint program
        - tools/    Contains most of the command line tools
        - translations/  Contains the translations
+
+   The hugin_base directory contains further sub-directories:
+   -  algorithm/
+   -  algorithms/  Contains algorithm, which modify the panorama object.
+   -  appbase/
+   -  hugin_math/  Contains different math helper functions.
+   -  huginapp/
+   -  makefilelib/  Contains the makefilelib which allows wrapping of makefile generation for GNU make.
+   -  nona/
+   -  panodata/  Contains the main HuginBase::Panorama object and all other base object used by HuginBase::Panorama.
+   -  panotools/  Contains wrapper function for libpano.
+   -  photometric/  Contains the photometric functions.
+   -  vigra_ext/  Contains extension for the vigra image lib.
+
+   The hugin1 directory contains the libs and programs which depends on wxWidgets:
+   -  base_wx/  Contains functions used by different programs/libs.
+   -  common/
+   -  hugin/ Contains the code for Hugin GUI.
+   -  icpfind/  Contains the code for the icpfind lib and command line version.
+   -  nona_gui/  Contains code for nona_gui.
+   -  PT/
+   -  ptbatcher/  Contains the batch processing code (PTBatcher and PTBatcherGUI).
+   -  stitch_project/  Contains the code for hugin_stitch_project.
+   -  tests/
+   -  tools/
+   -  tools_vips/
+
+   The style code for writing Hugin code can be found at: 
+   http://hugin.sourceforge.net/community/coding_style/       
        
- \section code Code writing
-
-   A short list of my coding habits:
-   
-   indentation with 4 spaces, no tabs. Tabs often cause confusion,
-   when different IDE's use different tab lengths.
-
-   source code documentation with doxygen (http://www.doxygen.org)
-   Doxygen is a useful tool and can also be used to create other
-   documentation that just class interface descriptions (for example
-   this document). It works by prefixing the function prototypes with
-   a special comment. I usually put the documentation in the header
-   files.
-
-      The basic usage is very javadoc like:
-      
-      \verbatim
-
-      /** One sentence class description
-       *
-       *  more detailed description
-       *
-       *  @todo pet the cat more often
-       *  @bug  might scratch if annoyed
-       */
-      class Cat
-      {
-      public:
-          /** hunt food
-           *
-           *  @param prey type of animals that we should hunt
-           *  @return true if the cat is sated
-           */
-          bool HuntFood(Prey prey);
-
-      }
-      
-      \endverbatim
-
-      I haven't commented all my classes but I will complete the
-      documentation of the more important ones.
-
-      the todo and bug items will appear in a separate list, so its
-      a useful tool to document some stuff that has to be fixed at
-      some time but is not too important right now.
-
-      I have also often used // FIXME comments, mainly inside *.cpp
-      files, so a grep for FIXME should also reveal places where some
-      more work should be done ;-)
-
-      I usually use java like naming conventions, but wxwindows uses
-      uppercase characters for the first char of a method name. I'll
-      use capital letters for all wx widgets in the future to avoid
-      confusion.
-      
 */

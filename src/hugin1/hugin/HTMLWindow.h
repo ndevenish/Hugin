@@ -34,6 +34,13 @@
 #include "panoinc_WX.h"
 #include "wx/xrc/xh_html.h"
 
+/** \brief Modified wxHtmlWindow for open external links
+ *
+ *  widgets, derived from wxHtmlWindows, which opens external links
+ *  (starting with http://) in default web browser of the system 
+ *  instead in wxHtmlWindows. Internal/local links are opened in the
+ *  widget.
+ */
 class HtmlWindow: public wxHtmlWindow
 {
     public:
@@ -49,6 +56,7 @@ class HtmlWindowXmlHandler : public wxHtmlWindowXmlHandler
     DECLARE_DYNAMIC_CLASS(HtmlWindowXmlHandler)
 
 public:
+    /** creates the object from ressource */
     virtual wxObject *DoCreateResource();
     /** Internal use to identify right xml handler */
     virtual bool CanHandle(wxXmlNode *node);
