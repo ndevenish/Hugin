@@ -2,7 +2,7 @@
 
 /** @file SpaceTransform.cpp
  *
- *  @implementation of Space Transformation
+ *  @brief implementation of Space Transformation
  *
  *  @author Alexandre Jenny <alexandre.jenny@le-geo.com>
  *

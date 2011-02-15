@@ -1,6 +1,6 @@
 // -*- c-basic-offset: 4 -*-
 
-/** @file List.cpp
+/** @file ImagesList.cpp
  *
  *  @brief implementation of List Class
  *

@@ -265,6 +265,7 @@ class IMPEX Panorama : public ManagedPanoramaData, public AppBase::DocumentData
         void setImageFilename(unsigned int img, const std::string & fname);
         
         /** change image properties.
+          *  @deprecated Use the corresponding get/set* methods instead, will be removed in the future
             */
         void setImageOptions(unsigned int i, const ImageOptions & opts);
         

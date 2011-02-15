@@ -1,6 +1,6 @@
 /** @file test_projections.cpp
  *
- *  @common Simple test for the forward and backward translation
+ *  @brief Simple test for the forward and backward translation
  *
  *  @author Pablo d'Angelo <pablo.dangelo@web.de>
  *

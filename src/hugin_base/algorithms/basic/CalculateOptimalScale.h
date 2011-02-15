@@ -1,5 +1,5 @@
 // -*- c-basic-offset: 4 -*-
-/** @file PanoramaDataLegacySupport.h
+/** @file CalculateOptimalScale.h
  *
  *  @author Pablo d'Angelo <pablo.dangelo@web.de>
  *

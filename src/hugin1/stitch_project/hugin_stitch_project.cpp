@@ -1,6 +1,6 @@
 // -*- c-basic-offset: 4 -*-
 
-/** @file hugin_stitch_project
+/** @file hugin_stitch_project.cpp
  *
  *  @brief Stitch a pto project file, with GUI output etc.
  *

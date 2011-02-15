@@ -1,6 +1,6 @@
 // -*- c-basic-offset: 4 -*-
 
-/** @file icpclean.cpp
+/** @file icpfind.cpp
  *
  *  @brief program to heuristic detection of control points in panoramas
  *  

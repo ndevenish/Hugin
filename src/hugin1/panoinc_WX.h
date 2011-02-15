@@ -2,7 +2,7 @@
 
 /** @file panoinc_WX.h
  *
- *  @common include file for the hugin project
+ *  @brief include file for the hugin project
  *
  *  @author Alexandre Jenny <alexandre.jenny@le-geo.com>
  *

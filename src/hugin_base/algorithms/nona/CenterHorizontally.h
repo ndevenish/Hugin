@@ -1,5 +1,5 @@
 // -*- c-basic-offset: 4 -*-
-/** @file PanoramaDataLegacySupport.h
+/** @file CenterHorizontally.h
  *
  *  @author Pablo d'Angelo <pablo.dangelo@web.de>
  *

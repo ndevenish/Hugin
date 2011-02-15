@@ -1,5 +1,5 @@
 // -*- c-basic-offset: 4 -*-
-/** @file PanoramaDataLegacySupport.h
+/** @file CalculateCPStatistics.h
  *
  *  @author Pablo d'Angelo <pablo.dangelo@web.de>
  *
