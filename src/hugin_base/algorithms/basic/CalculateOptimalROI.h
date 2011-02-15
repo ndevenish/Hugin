@@ -26,7 +26,7 @@
 
 #include <hugin_shared.h>
 #include <panotools/PanoToolsInterface.h>
-#include <algorithm/PanoramaAlgorithm.h>
+#include <algorithms/PanoramaAlgorithm.h>
 #include <panodata/PanoramaData.h>
 
 #include <boost/dynamic_bitset.hpp>

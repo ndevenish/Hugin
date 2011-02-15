@@ -41,7 +41,7 @@
 #include "base_wx/MyProgressDialog.h"
 #include "base_wx/MyExternalCmdExecDialog.h"
 #include "base_wx/platform.h"
-#include "common/wxPlatform.h"
+#include "base_wx/wxPlatform.h"
 
 #include <tiffio.h>
 
@@ -55,7 +55,7 @@
 using namespace vigra;
 using namespace PT;
 using namespace std;
-using namespace utils;
+using namespace hugin_utils;
 
 
 class RunStitchFrame: public wxFrame

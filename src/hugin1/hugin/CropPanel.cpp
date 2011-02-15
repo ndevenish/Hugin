@@ -31,13 +31,13 @@
 
 #include "hugin/huginApp.h"
 #include "hugin/CommandHistory.h"
-#include "base_wx/ImageCache.h"
+#include "base_wx/wxImageCache.h"
 #include "hugin/CropPanel.h"
 #include "hugin/ImagesList.h"
 #include "hugin/TextKillFocusHandler.h"
 
 using namespace PT;
-using namespace utils;
+using namespace hugin_utils;
 using namespace std;
 using namespace vigra;
 

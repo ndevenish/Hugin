@@ -61,7 +61,7 @@
 #include "algorithms/control_points/CleanCP.h"
 
 #include "base_wx/MyProgressDialog.h"
-#include "base_wx/ImageCache.h"
+#include "base_wx/wxImageCache.h"
 #include "base_wx/PTWXDlg.h"
 
 #include "base_wx/huginConfig.h"
@@ -69,7 +69,6 @@
 #include "hugin/AboutDialog.h"
 
 using namespace PT;
-using namespace utils;
 using namespace std;
 using namespace hugin_utils;
 
@@ -614,7 +613,7 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
             std::string resultFn;
             wxString resultFnwx = scriptName.GetFullPath();
             resultFn = resultFnwx.mb_str(HUGIN_CONV_FILENAME);
-            resultFn = utils::stripPath(utils::stripExtension(resultFn));
+            resultFn = stripPath(stripExtension(resultFn));
             std::string tmpDir((wxConfigBase::Get()->Read(wxT("tempDir"),wxT(""))).mb_str(HUGIN_CONV_FILENAME));
 
             std::vector<std::string> outputFiles;
@@ -1640,7 +1639,7 @@ void MainFrame::updateProgressDisplay()
 {
     wxString msg;
     // build the message:
-    for (std::vector<ProgressTask>::reverse_iterator it = tasks.rbegin();
+    for (std::vector<AppBase::ProgressTask>::reverse_iterator it = tasks.rbegin();
                  it != tasks.rend(); ++it)
     {
         wxString cMsg;

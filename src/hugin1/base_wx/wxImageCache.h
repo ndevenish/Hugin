@@ -1,7 +1,7 @@
 // -*- c-basic-offset: 4 -*-
-/** @file Matrix3.h
+/** @file wxImageCache.h
  *
- *  @author Alexandre Jenny <alexandre.jenny@le-geo.com>
+ *  @author Pablo d'Angelo <pablo.dangelo@web.de>
  *
  *  $Id$
  *
@@ -21,9 +21,27 @@
  *
  */
 
-#ifndef _Hgn1_MATRIX3_H_
-#define _Hgn1_MATRIX3_H_
+#ifndef _WXIMAGECACHE_H
+#define _WXIMAGECACHE_H
 
-#include <hugin_math/Matrix3.h>
+#include <hugin_shared.h>
+#include <map>
+#include <panoinc_WX.h>
+#include <PT/RemappedPanoImage.h>
 
-#endif
+#include <boost/shared_ptr.hpp>
+
+#include <huginapp/ImageCache.h>
+#include <huginapp/CachedImageRemapper.h>
+
+typedef HuginBase::ImageCache::ImageCacheRGB8Ptr    ImageCacheRGB8Ptr;
+typedef HuginBase::ImageCache::ImageCacheRGB16Ptr   ImageCacheRGB16Ptr;
+typedef HuginBase::ImageCache::ImageCacheRGBFloatPtr ImageCacheRGBFloatPtr;
+typedef HuginBase::ImageCache::ImageCache8Ptr       ImageCache8Ptr;
+
+using HuginBase::ImageCache;
+using HuginBase::SmallRemappedImageCache;
+
+WXIMPEX wxImage imageCacheEntry2wxImage(ImageCache::EntryPtr e);
+
+#endif // _IMAGECACHE_H

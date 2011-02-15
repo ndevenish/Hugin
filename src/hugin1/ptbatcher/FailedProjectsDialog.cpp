@@ -25,7 +25,7 @@
  */
 
 #include "FailedProjectsDialog.h"
-#include "common/wxPlatform.h"
+#include "base_wx/wxPlatform.h"
 #include "panoinc.h"
 #include "Batch.h"
 

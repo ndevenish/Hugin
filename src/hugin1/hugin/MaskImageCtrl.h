@@ -26,7 +26,7 @@
 #ifndef _MaskImageCtrl_H
 #define _MaskImageCtrl_H
 
-#include <base_wx/ImageCache.h>
+#include <base_wx/wxImageCache.h>
 
 class MaskEditorPanel;
 

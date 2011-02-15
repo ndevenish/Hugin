@@ -26,7 +26,7 @@
 
 #include <vector>
 
-#include <base_wx/ImageCache.h>
+#include <base_wx/wxImageCache.h>
 
 #include <vigra_ext/ROIImage.h>
 

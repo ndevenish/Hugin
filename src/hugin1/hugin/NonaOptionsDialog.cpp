@@ -33,14 +33,14 @@
 
 #include "PT/Stitcher.h"
 
-#include "common/wxPlatform.h"
+#include "base_wx/wxPlatform.h"
 #include "hugin/config_defaults.h"
 #include "hugin/CommandHistory.h"
 #include "hugin/NonaOptionsDialog.h"
 
 using namespace PT;
 using namespace std;
-using namespace utils;
+using namespace hugin_utils;
 
 //-----------------------------------------------------------------------------
 

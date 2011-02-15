@@ -27,7 +27,7 @@
 #include <ctime>
 
 #include <hugin_shared.h>
-#include <algorithm/PanoramaAlgorithm.h>
+#include <algorithms/PanoramaAlgorithm.h>
 
 #include <boost/random.hpp>
 #include <vigra/impex.hxx>

@@ -30,7 +30,7 @@
 
 #include <errno.h>
 
-#include "common/wxPlatform.h"
+#include "base_wx/wxPlatform.h"
 
 #include "wx/ffile.h"
 #include "wx/process.h"
@@ -650,7 +650,7 @@ int MyExecuteCommandOnDialog(wxString command, wxString args, wxWindow* parent,
 {
     if(!isQuoted)
     {
-        command = utils::wxQuoteFilename(command);
+        command = hugin_utils::wxQuoteFilename(command);
     };
     wxString cmdline = command + wxT(" ") + args;
     MyExecDialog dlg(parent, title,

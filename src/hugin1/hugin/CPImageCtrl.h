@@ -27,7 +27,7 @@
 #include <string>
 #include <vector>
 
-#include <base_wx/ImageCache.h>
+#include <base_wx/wxImageCache.h>
 
 class CPEditorPanel;
 class CPZoomDisplayPanel;
@@ -289,7 +289,7 @@ private:
 
     wxPoint roundP(const hugin_utils::FDiff2D & p) const
         {
-            return wxPoint(utils::roundi(p.x), utils::roundi(p.y));
+            return wxPoint(hugin_utils::roundi(p.x), hugin_utils::roundi(p.y));
         }
 
     // rotate coordinate to fit possibly rotated image display

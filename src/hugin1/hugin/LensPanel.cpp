@@ -34,10 +34,10 @@
 
 #include <algorithm>
 
-#include "common/wxPlatform.h"
+#include "base_wx/wxPlatform.h"
 #include "hugin/LensPanel.h"
 #include "hugin/CommandHistory.h"
-#include "base_wx/ImageCache.h"
+#include "base_wx/wxImageCache.h"
 #include "hugin/CPEditorPanel.h"
 #include "hugin/ImagesList.h"
 //#include "hugin/ImageCenter.h"
@@ -51,7 +51,7 @@
 #include "hugin/HFOVDialog.h"
 
 using namespace PT;
-using namespace utils;
+using namespace hugin_utils;
 using namespace std;
 
 #define m_XRCID(str_id) \

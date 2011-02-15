@@ -78,7 +78,6 @@ class GLPreviewFrame;
 class GLwxAuiManager;
 class GLwxAuiFloatingFrame;
 
-#include "common/utils.h"
 #include <wx/string.h>
 #include <wx/frame.h>
 #include <wx/aui/aui.h>
@@ -161,7 +160,7 @@ private:
  *  it is not created with XRC, because it is highly dynamic, buttons
  *  have to be added etc.
  */
-class GLPreviewFrame : public wxFrame, public PT::PanoramaObserver, public utils::MultiProgressDisplay
+class GLPreviewFrame : public wxFrame, public PT::PanoramaObserver, public AppBase::MultiProgressDisplay
 {
 public:
 

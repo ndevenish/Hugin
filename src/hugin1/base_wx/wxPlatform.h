@@ -1,5 +1,5 @@
 // -*- c-basic-offset: 4 -*-
-/** @file platform.h
+/** @file wxPlatform.h
  *
  *
  *  platform/compiler specific stuff.
@@ -29,9 +29,9 @@
 
 #include <wx/wxchar.h>
 #include <wx/string.h>
-#include "utils.h"
+#include <hugin_utils/utils.h>
 
-namespace utils {
+namespace hugin_utils {
 
 template <class str>
 str wxQuoteStringInternal(const str & arg, const str & quotechar,
@@ -96,7 +96,7 @@ str wxQuoteFilename(const str & arg)
 
 inline wxString doubleTowxString(double d, int digits=-1)
 {
-    std::string t = doubleToString(d, digits);
+    std::string t = hugin_utils::doubleToString(d, digits);
     return wxString(t.c_str(), wxConvLocal);
 }
 

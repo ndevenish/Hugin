@@ -64,12 +64,12 @@
 
 #include "AboutDialog.h"
 
-using namespace utils;
+using namespace hugin_utils;
 
 // utility functions
 bool str2double(wxString s, double & d)
 {
-    if (!utils::stringToDouble(std::string(s.mb_str(wxConvLocal)), d)) {
+    if (!stringToDouble(std::string(s.mb_str(wxConvLocal)), d)) {
         wxLogError(_("Value must be numeric."));
         return false;
     }

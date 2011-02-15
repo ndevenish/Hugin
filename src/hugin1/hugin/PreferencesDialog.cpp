@@ -29,7 +29,7 @@
 #include "wx/listbook.h"
 #include "panoinc.h"
 
-#include "common/wxPlatform.h"
+#include "base_wx/wxPlatform.h"
 
 #include "hugin/huginApp.h"
 #include "hugin/config_defaults.h"
@@ -499,11 +499,11 @@ void PreferencesDialog::UpdateDisplayData(int panel)
 
         d=HUGIN_FT_CORR_THRESHOLD;
         cfg->Read(wxT("/Finetune/CorrThreshold"), &d, HUGIN_FT_CORR_THRESHOLD);
-        tstr = utils::doubleTowxString(d);
+        tstr = hugin_utils::doubleTowxString(d);
         MY_STR_VAL("prefs_ft_CorrThreshold", tstr);
 
         cfg->Read(wxT("/Finetune/CurvThreshold"), &d, HUGIN_FT_CURV_THRESHOLD);
-        tstr = utils::doubleTowxString(d);
+        tstr = hugin_utils::doubleTowxString(d);
         MY_STR_VAL("prefs_ft_CurvThreshold", tstr);
 
         t = cfg->Read(wxT("/Finetune/RotationSearch"), HUGIN_FT_ROTATION_SEARCH) == 1;
@@ -512,11 +512,11 @@ void PreferencesDialog::UpdateDisplayData(int panel)
 
         d = HUGIN_FT_ROTATION_START_ANGLE;
         cfg->Read(wxT("/Finetune/RotationStartAngle"),&d,HUGIN_FT_ROTATION_START_ANGLE);
-        MY_SPIN_VAL("prefs_ft_RotationStartAngle", utils::roundi(d))
+        MY_SPIN_VAL("prefs_ft_RotationStartAngle", hugin_utils::roundi(d))
 
         d = HUGIN_FT_ROTATION_STOP_ANGLE;
         cfg->Read(wxT("/Finetune/RotationStopAngle"), &d, HUGIN_FT_ROTATION_STOP_ANGLE);
-        MY_SPIN_VAL("prefs_ft_RotationStopAngle", utils::roundi(d));
+        MY_SPIN_VAL("prefs_ft_RotationStopAngle", hugin_utils::roundi(d));
 
         MY_SPIN_VAL("prefs_ft_RotationSteps", cfg->Read(wxT("/Finetune/RotationSteps"),
                                                 HUGIN_FT_ROTATION_STEPS));
@@ -579,7 +579,7 @@ void PreferencesDialog::UpdateDisplayData(int panel)
 
         d=HUGIN_CELESTE_THRESHOLD;
         cfg->Read(wxT("/Celeste/Threshold"), &d, HUGIN_CELESTE_THRESHOLD);
-        tstr = utils::doubleTowxString(d);
+        tstr = hugin_utils::doubleTowxString(d);
         MY_STR_VAL("prefs_celeste_threshold", tstr);
 
 	MY_CHOICE_VAL("prefs_celeste_filter", cfg->Read(wxT("/Celeste/Filter"), HUGIN_CELESTE_FILTER));
@@ -745,12 +745,12 @@ void PreferencesDialog::UpdateConfigData()
     cfg->Write(wxT("/Finetune/LocalSearchWidth"), MY_G_SPIN_VAL("prefs_ft_LocalSearchWidth"));
     wxString t = MY_G_STR_VAL("prefs_ft_CorrThreshold");
     double td= HUGIN_FT_CORR_THRESHOLD;
-    utils::stringToDouble(std::string(t.mb_str(wxConvLocal)), td);
+    hugin_utils::stringToDouble(std::string(t.mb_str(wxConvLocal)), td);
     cfg->Write(wxT("/Finetune/CorrThreshold"), td);
     
     t = MY_G_STR_VAL("prefs_ft_CurvThreshold");
     td = HUGIN_FT_CURV_THRESHOLD;
-    utils::stringToDouble(std::string(t.mb_str(wxConvLocal)), td);
+    hugin_utils::stringToDouble(std::string(t.mb_str(wxConvLocal)), td);
     cfg->Write(wxT("/Finetune/CurvThreshold"), td);
     
     cfg->Write(wxT("/Finetune/RotationSearch"), MY_G_BOOL_VAL("prefs_ft_RotationSearch"));
@@ -820,7 +820,7 @@ void PreferencesDialog::UpdateConfigData()
     // Celeste
     t = MY_G_STR_VAL("prefs_celeste_threshold");
     td = HUGIN_CELESTE_THRESHOLD;
-    utils::stringToDouble(std::string(t.mb_str(wxConvLocal)), td);
+    hugin_utils::stringToDouble(std::string(t.mb_str(wxConvLocal)), td);
     cfg->Write(wxT("/Celeste/Threshold"), td);
     cfg->Write(wxT("/Celeste/Filter"), MY_G_CHOICE_VAL("prefs_celeste_filter"));
 

@@ -29,7 +29,6 @@
 
 #include "panoinc.h"
 
-#include "common/stl_utils.h"
 #include <PT/RandomPointSampler.h>
 #include <PT/PhotometricOptimizer.h>
 #include <PT/PTOptimise.h>
@@ -39,12 +38,12 @@
 #include "hugin/MainFrame.h"
 #include "base_wx/MyProgressDialog.h"
 #include "hugin/config_defaults.h"
-#include "base_wx/ImageCache.h"
+#include "base_wx/wxImageCache.h"
 
 using namespace std;
 using namespace PT;
 using namespace PTools;
-using namespace utils;
+using namespace hugin_utils;
 using namespace vigra;
 using namespace vigra_ext;
 

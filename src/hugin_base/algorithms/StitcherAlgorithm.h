@@ -33,7 +33,7 @@
 #define _ALGORITHM_STITCHERALGORITHM_H
 
 
-#include <algorithm/PanoramaAlgorithm.h>
+#include <algorithms/PanoramaAlgorithm.h>
 
 #include <hugin_shared.h>
 #include <vigra/impex.hxx>

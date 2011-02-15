@@ -27,7 +27,7 @@
 
 #include "hugin/AboutDialog.h"
 
-#include "common/wxPlatform.h"
+#include "base_wx/wxPlatform.h"
 #include "panoinc.h"
 #include "hugin/huginApp.h"
 #include <hugin_version.h>

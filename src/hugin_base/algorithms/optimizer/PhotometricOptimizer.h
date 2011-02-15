@@ -25,7 +25,7 @@
 #define _PHOTOMETRIC_OPTIMIZER_H_
 
 #include <hugin_shared.h>
-#include <algorithm/PanoramaAlgorithm.h>
+#include <algorithms/PanoramaAlgorithm.h>
 #include <algorithms/optimizer/PTOptimizer.h>
 
 #include <vector>

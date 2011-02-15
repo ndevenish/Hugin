@@ -104,4 +104,6 @@ class Command
 
 } //namespace
 
+typedef AppBase::Command<> Command;
+
 #endif // _H

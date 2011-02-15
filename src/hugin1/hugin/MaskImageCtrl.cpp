@@ -33,7 +33,7 @@
 #include "hugin/config_defaults.h"
 #include "hugin/MaskImageCtrl.h"
 #include "hugin/MaskEditorPanel.h"
-#include "base_wx/ImageCache.h"
+#include "base_wx/wxImageCache.h"
 
 using namespace hugin_utils;
 

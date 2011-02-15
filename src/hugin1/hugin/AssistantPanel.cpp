@@ -30,7 +30,7 @@
 #include "base_wx/huginConfig.h"
 
 #include "PT/ImageGraph.h"
-#include "common/wxPlatform.h"
+#include "base_wx/wxPlatform.h"
 #include "hugin/AssistantPanel.h"
 #include "hugin/CommandHistory.h"
 #include "base_wx/RunStitchPanel.h"
@@ -43,7 +43,7 @@
 #include "hugin/config_defaults.h"
 #include "hugin/wxPanoCommand.h"
 
-using namespace utils;
+using namespace hugin_utils;
 using namespace std;
 
 //------------------------------------------------------------------------------

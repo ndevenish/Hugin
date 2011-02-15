@@ -59,7 +59,7 @@
 #include "Utilities.h"
 
 using namespace PT;
-using namespace utils;
+using namespace hugin_utils;
 using namespace vigra;
 using namespace vigra_ext;
 using namespace std;

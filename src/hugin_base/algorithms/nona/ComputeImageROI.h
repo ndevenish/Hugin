@@ -28,7 +28,7 @@
 
 #include <hugin_shared.h>
 #include <vigra/diff2d.hxx>
-#include <algorithm/PanoramaAlgorithm.h>
+#include <algorithms/PanoramaAlgorithm.h>
 #include <panodata/Panorama.h>
 #include <panodata/PanoramaOptions.h>
 

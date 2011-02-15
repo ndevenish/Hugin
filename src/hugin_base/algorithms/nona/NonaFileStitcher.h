@@ -32,7 +32,7 @@
 #define _NONAFILESTITCHER_H
 
 #include <hugin_shared.h>
-#include <algorithm/StitcherAlgorithm.h>
+#include <algorithms/StitcherAlgorithm.h>
 
 namespace HuginBase {
         

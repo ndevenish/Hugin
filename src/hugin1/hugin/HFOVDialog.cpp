@@ -29,7 +29,7 @@
 #include "panoinc_WX.h"
 #include "panoinc.h"
 
-#include "common/wxPlatform.h"
+#include "base_wx/wxPlatform.h"
 #include "base_wx/platform.h"
 #include "hugin/huginApp.h"
 #include "hugin/HFOVDialog.h"
@@ -38,7 +38,6 @@
 
 using namespace PT;
 using namespace std;
-using namespace utils;
 using namespace hugin_utils;
 
 BEGIN_EVENT_TABLE(HFOVDialog, wxDialog)

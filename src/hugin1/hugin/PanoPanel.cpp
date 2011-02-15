@@ -36,7 +36,7 @@
 #include <hugin/config_defaults.h>
 
 #include "PT/Stitcher.h"
-#include "common/wxPlatform.h"
+#include "base_wx/wxPlatform.h"
 
 extern "C" {
 #include <pano13/queryfeature.h>
@@ -64,7 +64,7 @@ extern "C" {
 
 using namespace PT;
 using namespace std;
-using namespace utils;
+using namespace hugin_utils;
 
 BEGIN_EVENT_TABLE(PanoPanel, wxPanel)
     EVT_CHOICE ( XRCID("pano_choice_pano_type"),PanoPanel::ProjectionChanged )

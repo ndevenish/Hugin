@@ -31,7 +31,7 @@
 #ifndef _NONAIMAGESTITCHER_H
 #define _NONAIMAGESTITCHER_H
 
-#include <algorithm/StitcherAlgorithm.h>
+#include <algorithms/StitcherAlgorithm.h>
 
 #include <nona/Stitcher.h>
 #include <nona/ImageRemapper.h>

@@ -51,7 +51,6 @@
        - translations/  Contains the translations
 
    The hugin_base directory contains further sub-directories:
-   -  algorithm/
    -  algorithms/  Contains algorithm, which modify the panorama object.
    -  appbase/
    -  hugin_math/  Contains different math helper functions.
@@ -65,7 +64,6 @@
 
    The hugin1 directory contains the libs and programs which depends on wxWidgets:
    -  base_wx/  Contains functions used by different programs/libs.
-   -  common/
    -  hugin/ Contains the code for Hugin GUI.
    -  icpfind/  Contains the code for the icpfind lib and command line version.
    -  nona_gui/  Contains code for nona_gui.

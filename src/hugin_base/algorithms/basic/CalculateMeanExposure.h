@@ -27,7 +27,7 @@
 #define _BASICALGORITHMS_CALCULATEMEANEXPOSURE_H
 
 #include <hugin_shared.h>
-#include <algorithm/PanoramaAlgorithm.h>
+#include <algorithms/PanoramaAlgorithm.h>
 
 
 

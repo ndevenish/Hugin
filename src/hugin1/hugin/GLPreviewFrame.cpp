@@ -83,7 +83,7 @@ extern "C" {
 #include <wx/infobar.h>
 #endif
 
-using namespace utils;
+using namespace hugin_utils;
 
 // a random id, hope this doesn't break something..
 enum {
@@ -881,7 +881,7 @@ void GLPreviewFrame::panoramaChanged(Panorama &pano)
                 wxString str2(pp->name, wxConvLocal);
                 str2 = wxGetTranslation(str2);
                 m_projParamNamesLabel[i]->SetLabel(str2);
-                m_projParamSlider[i]->SetRange(utils::roundi(pp->minValue), utils::roundi(pp->maxValue));
+                m_projParamSlider[i]->SetRange(roundi(pp->minValue), roundi(pp->maxValue));
             }
             for(;i < PANO_PROJECTION_MAX_PARMS; i++) {
                 m_projParamNamesLabel[i]->Hide();
@@ -901,7 +901,7 @@ void GLPreviewFrame::panoramaChanged(Panorama &pano)
         for (int i=0; i < nParam; i++) {
             wxString val = wxString(doubleToString(params[i],1).c_str(), wxConvLocal);
             m_projParamTextCtrl[i]->SetValue(wxString(val.wc_str(), wxConvLocal));
-            m_projParamSlider[i]->SetValue(utils::roundi(params[i]));
+            m_projParamSlider[i]->SetValue(roundi(params[i]));
         }
     }
     if (relayout) {
@@ -1272,21 +1272,21 @@ void GLPreviewFrame::OnNumTransform(wxCommandEvent & e)
     switch (index) {
         case 0: //normal
             text = XRCCTRL(*this,"input_yaw",wxTextCtrl)->GetValue();
-            if(!utils::stringToDouble(std::string(text.mb_str(wxConvLocal)), y))
+            if(!stringToDouble(std::string(text.mb_str(wxConvLocal)), y))
             {
                 wxBell();
                 wxMessageBox(_("Yaw value must be numeric."),_("Warning"),wxOK | wxICON_ERROR,this);
                 return;
             }
             text = XRCCTRL(*this,"input_pitch",wxTextCtrl)->GetValue();
-            if(!utils::stringToDouble(std::string(text.mb_str(wxConvLocal)), p))
+            if(!stringToDouble(std::string(text.mb_str(wxConvLocal)), p))
             {
                 wxBell();
                 wxMessageBox(_("Pitch value must be numeric."),_("Warning"),wxOK | wxICON_ERROR,this);
                 return;
             }
             text = XRCCTRL(*this,"input_roll",wxTextCtrl)->GetValue();
-            if(!utils::stringToDouble(std::string(text.mb_str(wxConvLocal)), r))
+            if(!stringToDouble(std::string(text.mb_str(wxConvLocal)), r))
             {
                 wxBell();
                 wxMessageBox(_("Roll value must be numeric."),_("Warning"),wxOK | wxICON_ERROR,this);
@@ -1298,21 +1298,21 @@ void GLPreviewFrame::OnNumTransform(wxCommandEvent & e)
             break;
         case 1: //mosaic
             text = XRCCTRL(*this,"input_x",wxTextCtrl)->GetValue();
-            if(!utils::stringToDouble(std::string(text.mb_str(wxConvLocal)), x))
+            if(!stringToDouble(std::string(text.mb_str(wxConvLocal)), x))
             {
                 wxBell();
                 wxMessageBox(_("X value must be numeric."),_("Warning"),wxOK | wxICON_ERROR,this);
                 return;
             }
             text = XRCCTRL(*this,"input_y",wxTextCtrl)->GetValue();
-            if(!utils::stringToDouble(std::string(text.mb_str(wxConvLocal)), y))
+            if(!stringToDouble(std::string(text.mb_str(wxConvLocal)), y))
             {
                 wxBell();
                 wxMessageBox(_("Y value must be numeric."),_("Warning"),wxOK | wxICON_ERROR,this);
                 return;
             }
             text = XRCCTRL(*this,"input_z",wxTextCtrl)->GetValue();
-            if(!utils::stringToDouble(std::string(text.mb_str(wxConvLocal)), z))
+            if(!stringToDouble(std::string(text.mb_str(wxConvLocal)), z))
             {
                 wxBell();
                 wxMessageBox(_("Z value must be numeric."),_("Warning"),wxOK | wxICON_ERROR,this);
@@ -1630,7 +1630,7 @@ void GLPreviewFrame::updateProgressDisplay()
 {
     wxString msg;
     // build the message:
-    for (std::vector<ProgressTask>::iterator it = tasks.begin();
+    for (std::vector<AppBase::ProgressTask>::iterator it = tasks.begin();
          it != tasks.end(); ++it)
     {
         wxString cMsg;
