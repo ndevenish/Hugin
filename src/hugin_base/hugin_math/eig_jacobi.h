@@ -1,6 +1,6 @@
 // -*- c-basic-offset: 4 -*-
 
-/** @file jacobi_eig.h
+/** @file eig_jacobi.h
  *
  *  @brief lu decomposition and linear LMS solver
  *

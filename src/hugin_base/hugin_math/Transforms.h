@@ -1,5 +1,5 @@
 // -*- c-basic-offset: 4 -*-
-/** @file Transforms.h
+/** @file hugin_math/Transforms.h
  *
  *  Contains varius transformation functions
  *

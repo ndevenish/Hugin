@@ -1,6 +1,6 @@
 // -*- c-basic-offset: 4 -*-
 
-/** @file panotrafo.cpp
+/** @file pano_trafo.cpp
  *
  *  @brief Transform between image <-> panorama coordinates
  *

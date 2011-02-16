@@ -1,5 +1,5 @@
 // -*- c-basic-offset: 4 -*-
-/** @file Panorama.h
+/** @file hugin1/PT/Panorama.h
  *
  *  @author Pablo d'Angelo <pablo.dangelo@web.de>
  *

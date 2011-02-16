@@ -1,12 +1,16 @@
 // -*- c-basic-offset: 4 -*-
-/** @file SpaceTransform.h
+/** @file nona/SpaceTransform.h
 *
-*  @implementation of Space Transformation
+*  @brief implementation of Space Transformation
 *
 *  @author Alexandre Jenny <alexandre.jenny@le-geo.com>
 *
-*  $Id$
+*  @todo The file implements a lot of functions of libpano new. 
+*        These should be replace with libpano versions.
 *
+*/
+
+/*
 *  This program is free software; you can redistribute it and/or
 *  modify it under the terms of the GNU General Public
 *  License as published by the Free Software Foundation; either

@@ -1,6 +1,6 @@
 // -*- c-basic-offset: 4 -*-
 
-/** @file PanoImage.h
+/** @file SrcPanoImage.h
  *
  *  @brief 
  *

@@ -1,5 +1,5 @@
 // -*- c-basic-offset: 4 -*-
-/** @file impexImageAlpha.h
+/** @file impexalpha.hxx
  *
  *  Routines to save images with alpha masks.
  *

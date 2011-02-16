@@ -447,7 +447,7 @@ public:
     /** value type of image 2 */
     typedef typename Acc2::value_type image_type2;
 
-    /** @BUG: how to combine two value types into one? */
+    /** @bug how to combine two value types into one? */
     //    typedef image_type1 value_type;
 
         /** Construct from two image iterators and associated accessors.

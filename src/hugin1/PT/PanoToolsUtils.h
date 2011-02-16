@@ -1,5 +1,5 @@
 // -*- c-basic-offset: 4 -*-
-/** @file PanoToolsUtils.h
+/** @file hugin1/PT/PanoToolsUtils.h
  *
  *  @author Gerry Patterson <thedeepvoice@gmail.com>
  *

@@ -1,5 +1,5 @@
 // -*- c-basic-offset: 4 -*-
-/** @file PanoToolsInterface.h
+/** @file panotools/PanoToolsInterface.h
  *
  *  @author Pablo d'Angelo <pablo.dangelo@web.de>
  *

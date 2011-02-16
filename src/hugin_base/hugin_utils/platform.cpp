@@ -1,6 +1,6 @@
 // -*- c-basic-offset: 4 -*-
 
-/** @file platform.cpp
+/** @file hugin_utils/platform.cpp
  *
  *  @author Pablo d'Angelo <pablo.dangelo@web.de>
  *

@@ -1,6 +1,6 @@
 // -*- c-basic-offset: 4 -*-
 
-/** @file PanoToolsInterface.cpp
+/** @file panotools/PanoToolsInterface.cpp
  *
  *  @brief implementation of PanoToolsInterface Class
  *

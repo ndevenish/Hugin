@@ -1,5 +1,5 @@
 // -*- c-basic-offset: 4 -*-
-/** @file Stitcher.h
+/** @file hugin1/PT/Stitcher.h
  *
  *  Contains various routines used for stitching panoramas.
  *

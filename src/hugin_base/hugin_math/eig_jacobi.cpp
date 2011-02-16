@@ -1,5 +1,5 @@
 // -*- c-basic-offset: 4 -*-
-/** @file jacobi_eig.cpp
+/** @file eig_jacobi.cpp
  *
  *  @author mike_ess@yahoo.com
  *

@@ -1,5 +1,5 @@
 // -*- c-basic-offset: 4 -*-
-/** @file RemappedPanoImage.h
+/** @file ransac.h
  *
  *  Generic implementation of the RanSaC algorithm.
  *

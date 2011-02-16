@@ -1,5 +1,5 @@
 // -*- c-basic-offset: 4 -*-
-/** @file PhotometricOptimizer.h
+/** @file OptimizePhotometric.h
 *
 *  @author Pablo d'Angelo <pablo.dangelo@web.de>
 *

@@ -1,6 +1,6 @@
 // -*- c-basic-offset: 4 -*-
 
-/** @file PanoImage.h
+/** @file SrcPanoImage.h
  *
  *  @brief 
  *
@@ -9,8 +9,8 @@
  *
  * !! from PanoImage.h 1970
  *
- *  $Id$
- *
+ */
+/*
  *  This program is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public
  *  License as published by the Free Software Foundation; either

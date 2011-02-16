@@ -102,7 +102,7 @@ public:
      *                   ..           ..            ..
      * 
      * @param data A vector containing three 2D points.
-     * @param parameters This vector is filled with the computed parameters, if fitting
+     * @param p This vector is filled with the computed parameters, if fitting
      *                   was succesfull
      * @return fitting was succesfull
      */
@@ -272,7 +272,7 @@ public:
     /**
      * Return true if the distance between the line defined by the parameters and the
      * given point is smaller than 'delta' (see constructor).
-     * @param parameters The line parameters [n_x,n_y,a_x,a_y].
+     * @param p The line parameters [n_x,n_y,a_x,a_y].
      * @param data Check that the distance between this point and the line is smaller than 'delta'.
      */
     bool agree(Param &p, const PointPair &data) const

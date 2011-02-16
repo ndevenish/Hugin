@@ -1,5 +1,5 @@
 // -*- c-basic-offset: 4 -*-
-/** @file PanoCommand.h
+/** @file hugin1/PT/PanoCommand.h
  *
  *  @author Pablo d'Angelo <pablo.dangelo@web.de>
  *

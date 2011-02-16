@@ -1,5 +1,5 @@
 // -*- c-basic-offset: 4 -*-
-/** @file PhotometricOptimizer.h
+/** @file hugin_base/algorithms/optimizer/PhotometricOptimizer.h
  *
  *  @author Pablo d'Angelo <pablo.dangelo@web.de>
  *
