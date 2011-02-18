@@ -500,6 +500,12 @@
                         <content/>
                       </object>
                     </object>
+                    <object class="sizeritem">
+                      <object class="wxCheckBox" name="group_drag_choice">
+                        <label>Custom drag images</label>
+                        <tooltip>Drag custom groups of images instead of images grouped by control points</tooltip>
+                      </object>
+                    </object>
                   </object>
                   <flag>wxALIGN_CENTRE_VERTICAL</flag>
                 </object>

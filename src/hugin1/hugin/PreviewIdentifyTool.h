@@ -58,6 +58,11 @@ public:
     void MouseButtonEvent(wxMouseEvent & e);
 
     void MouseMoveEvent(double x, double y, wxMouseEvent & e);
+    
+    void KeypressEvent(int keycode, int modifiers, int pressed);
+    
+    void setConstantOn(bool constant_on_in);
+    
 private:
     /// Generate a colour given how many colours we need and an index.
     void HighlightColour(unsigned int index, unsigned int count,
@@ -75,9 +80,16 @@ private:
     unsigned int mouse_over_image;
     bool mouse_is_over_button;
 
+    void StopUpdating();
+    void ContinueUpdating();
+
     bool stopUpdating;
     //user has clicked and is holding left button while over panorama
     bool holdLeft;
+    
+    bool holdControl;
+
+    bool constantOn;
     
 };
 

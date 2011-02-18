@@ -133,6 +133,8 @@ public:
 
     bool IsMouseOverPano() {return mouse_over_pano;}
     
+    GLPreviewFrame * GetPreviewFrame() {return frame;}
+    
 protected:
     std::set<Tool *> tools_deactivated;
     PT::Panorama *pano;
@@ -152,18 +154,18 @@ protected:
     std::set<Tool *> images_under_mouse_notified_tools;
     std::set<Tool *> mouse_wheel_notified_tools;
     // these are vectors: the index is the image that a single tool uses.
-    std::vector<Tool *> image_draw_begin_tools;
-    std::vector<Tool *> image_draw_end_tools;
+    std::vector<std::set<Tool *> > image_draw_begin_tools;
+    std::vector<std::set<Tool *> >  image_draw_end_tools;
     // stop notifying the given tool of an event.
     void RemoveTool(Tool *tool, Tool **single);
     void RemoveTool(Tool *tool, std::set<Tool *> *set);
-    void RemoveTool(Tool *tool, std::vector<Tool *> *vector);
-    void RemoveTool(Tool *tool, std::vector<Tool *> *vector,
+    void RemoveTool(Tool *tool, std::vector<std::set<Tool *> > *vector);
+    void RemoveTool(Tool *tool, std::vector<std::set<Tool *> > *vector,
                     unsigned int index);
     // set the tool up for notification, deactivating any tools in the way.
     void AddTool(Tool *tool, Tool **single);
     void AddTool(Tool *tool, std::set<Tool *> *set);
-    void AddTool(Tool *tool, std::vector<Tool *> *vector,
+    void AddTool(Tool *tool, std::vector<std::set<Tool *> > *vector,
                  unsigned int index);
                  
     // is the set of images under the mouse up to date?

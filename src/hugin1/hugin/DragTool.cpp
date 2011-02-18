@@ -37,6 +37,8 @@
 #include <GL/gl.h>
 #endif
 
+#include "GLPreviewFrame.h"
+
 DragTool::DragTool(ToolHelper *helper)
     : Tool(helper)
 {
@@ -160,22 +162,32 @@ void DragTool::MouseButtonEvent(wxMouseEvent &e)
         
             control = e.m_controlDown;
             shift = e.m_shiftDown;
+            
+            if (control && (helper->GetPreviewFrame()->customDragging())) {
+                
+                std::set<unsigned int> images_under_mouse = helper->GetImageNumbersUnderMouse();
+                std::set<unsigned int>::iterator it;
+                for(it = images_under_mouse.begin() ; it != images_under_mouse.end() ; it++) {
+                    if (shift) {
+                        helper->GetPreviewFrame()->RemoveImageFromDragGroup(*it);
+                    } else {
+                        helper->GetPreviewFrame()->AddImageToDragGroup(*it);
+                    }
+                }
+                return;
+            
+            }
+            
             switch (e.GetButton())
             {
                 // primary button
                 case wxMOUSE_BTN_LEFT:
                     // different things depending on modifier keys.
-                    if (!control)
-                    {
-                        // Either no key modifiers we care about, or shift.
-                        // With shift we determine an adaptive constraint based on
-                        // movement in both directions.
-                        drag_yaw = true; drag_pitch = true;
-                    }
-                    else if (control && !(shift))
-                    {
-                        drag_roll = true;
-                    }
+
+                    // Either no key modifiers we care about, or shift.
+                    // With shift we determine an adaptive constraint based on
+                    // movement in both directions.
+                    drag_yaw = true; drag_pitch = true;
                     break;
                 case wxMOUSE_BTN_RIGHT:
                     drag_roll = true;
@@ -226,49 +238,77 @@ void DragTool::MouseButtonEvent(wxMouseEvent &e)
                 // record where the images are so we know what the difference is.
                 // Use the component the mouse points to instead of every image.
                 // Find the components
-                PT::CPGraph graph;
-                PT::createCPGraph(*helper->GetPanoramaPtr(), graph);
-                PT::CPComponents components;
-                unsigned int n = PT::findCPComponents(graph, components);
-                // If there is only component, we can drag everything. Otherwise the
-                // component we want is the lowest numbered image under the mouse.
-                if (n == 1)
-                {
-                    unsigned int imgs = helper->GetPanoramaPtr()->getNrOfImages();
-                    draging_images.clear();
-                    fill_set(draging_images, 0, imgs - 1);
 
-                    ViewState *view_state_ptr = helper->GetViewStatePtr();
-                    for (unsigned int i = 0; i < imgs; i++)
+                /*
+                    TODO: depending on state from the preview frame is not nice. 
+                    but this cannot be avoided in this case as the drag tool must depend on a central state, 
+                    which in this case is neither provided by the possibility of a central (parent) DragTool 
+                    nor a parent ToolHelper. 
+                    This is also the case for the identify tools, which inorder to interact with eachother
+                    must rely on a central tool.
+                    So the code at some point need to be refactored to provide central tool helper 
+                    and central tools, similarly as the ViewState is now central 
+                    compared to the VisualizationState which is specific to each visualization.
+                */
+                bool customDragging = helper->GetPreviewFrame()->customDragging();
+                if (customDragging) {
+                    draging_images = helper->GetPreviewFrame()->GetDragGroupImages();
+                    std::set<unsigned int>::iterator i, end;
+                    end = draging_images.end();
+                    for (i = draging_images.begin(); i != end; i++)
                     {
-                        image_params[i].Set(view_state_ptr->GetSrcImage(i));
-                    };
-                } else
-                {
-                    // multiple components or none at all.
-                    if (n == 0 || helper->GetImageNumbersUnderMouse().empty())
-                    {
-                        // we can't drag nothing.
-                        drag_roll = false; drag_yaw = false; drag_pitch = false;
-                        return;
+                        image_params[*i].Set(
+                                helper->GetViewStatePtr()->GetSrcImage(*i));
                     }
-                    // Find the component containing the topmost image under mouse
-                    unsigned int img = *helper->GetImageNumbersUnderMouse().begin();
-                    for (unsigned int component_index = 0;
-                         component_index < components.size(); component_index ++)
+                    
+                } else {
+
+
+                    PT::CPGraph graph;
+                    PT::createCPGraph(*helper->GetPanoramaPtr(), graph);
+                    PT::CPComponents components;
+                    unsigned int n = PT::findCPComponents(graph, components);
+                    // If there is only component, we can drag everything. Otherwise the
+                    // component we want is the lowest numbered image under the mouse.
+                    if (n == 1)
                     {
-                        if (components[component_index].count(img))
+                        unsigned int imgs = helper->GetPanoramaPtr()->getNrOfImages();
+                        draging_images.clear();
+                        fill_set(draging_images, 0, imgs - 1);
+
+                        ViewState *view_state_ptr = helper->GetViewStatePtr();
+                        for (unsigned int i = 0; i < imgs; i++)
                         {
-                            // Found it, record which images and where they are.
-                            draging_images = components[component_index];
-                            std::set<unsigned int>::iterator i, end;
-                            end = draging_images.end();
-                            for (i = draging_images.begin(); i != end; i++)
+                            image_params[i].Set(view_state_ptr->GetSrcImage(i));
+                        };
+                    } else
+                    {
+                        // multiple components or none at all.
+                        if (n == 0 || helper->GetImageNumbersUnderMouse().empty())
+                        {
+                            // we can't drag nothing.
+                            drag_roll = false; drag_yaw = false; drag_pitch = false;
+                            return;
+                        }
+                        
+                        // Find the component containing the topmost image under mouse
+                        unsigned int img = *helper->GetImageNumbersUnderMouse().begin();
+                        for (unsigned int component_index = 0;
+                             component_index < components.size(); component_index ++)
+                        {
+                            if (components[component_index].count(img))
                             {
-                                image_params[*i].Set(
-                                        helper->GetViewStatePtr()->GetSrcImage(*i));
+                                // Found it, record which images and where they are.
+                                draging_images = components[component_index];
+                                std::set<unsigned int>::iterator i, end;
+                                end = draging_images.end();
+                                for (i = draging_images.begin(); i != end; i++)
+                                {
+                                    image_params[*i].Set(
+                                            helper->GetViewStatePtr()->GetSrcImage(*i));
+                                }
+                                break;
                             }
-                            break;
                         }
                     }
                 }
