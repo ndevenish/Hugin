@@ -57,6 +57,7 @@ class PlaneOverviewToolHelper;
 class Tool;
 class PreviewTool;
 class PreviewCropTool;
+class DragTool;
 class OverviewDragTool;
 class PanosphereOverviewCameraTool;
 class PlaneOverviewCameraTool;
@@ -90,18 +91,37 @@ class ImageToogleButtonEventHandler : public wxEvtHandler
 {
 public:
     ImageToogleButtonEventHandler(unsigned int image_number,
-                                  PreviewIdentifyTool **identify_tool,
                                   wxToolBarToolBase* identify_toolbutton_in,
                                   PT::Panorama * m_pano);
     void OnChange(wxCommandEvent &e);
+    void AddIdentifyTool(PreviewIdentifyTool** identify_tool_in);
 protected:
     void OnEnter(wxMouseEvent & e);
     void OnLeave(wxMouseEvent & e);
 private:
     DECLARE_EVENT_TABLE()
     unsigned int image_number;
-    PreviewIdentifyTool **identify_tool;
+    std::vector<PreviewIdentifyTool**> identify_tools;
     wxToolBarToolBase *identify_toolbutton;
+    PT::Panorama * m_pano;
+};
+
+class ImageGroupButtonEventHandler : public wxEvtHandler
+{
+public:
+    ImageGroupButtonEventHandler(unsigned int image_number, GLPreviewFrame* frame_in, PT::Panorama* m_pano);
+    void OnChange(wxCommandEvent &e);
+    void AddDragTool(DragTool** drag_tool_in);
+    void AddIdentifyTool(PreviewIdentifyTool** identify_tool_in);
+protected:
+    void OnEnter(wxMouseEvent & e);
+    void OnLeave(wxMouseEvent & e);
+private:
+    DECLARE_EVENT_TABLE()
+    unsigned int image_number;
+    std::vector<DragTool**> drag_tools;
+    std::vector<PreviewIdentifyTool**> identify_tools;
+    GLPreviewFrame* frame;
     PT::Panorama * m_pano;
 };
 
@@ -210,6 +230,14 @@ public:
     /** set status if projection hints should be shown or not*/
     void SetShowProjectionHints(bool new_value);
     void OnShowEvent(wxShowEvent& e);
+    
+    bool customDragging();
+    void ToggleImageInDragGroup(unsigned int image_nr, bool update_check_box = true);
+    void RemoveImageFromDragGroup(unsigned int image_nr, bool update_check_box = true);
+    void AddImageToDragGroup(unsigned int image_nr, bool update_check_box = true);
+    void SetDragGroupImages(PT::UIntSet imageDragGroup_in, bool update_check_box = true);
+    PT::UIntSet GetDragGroupImages();
+    void ClearDragGroupImages(bool update_check_box = true);
 
 protected:
 
@@ -244,6 +272,9 @@ protected:
 
     void OnBlendChoice(wxCommandEvent & e);
     void OnDragChoice(wxCommandEvent & e);
+
+    void OnCustomDragChoice(wxCommandEvent & e);
+
     void DragChoiceLayout( int index );
     void OnProjectionChoice(wxCommandEvent & e);
     void OnOverviewModeChoice(wxCommandEvent & e);
@@ -306,6 +337,7 @@ private:
     wxTextCtrl * m_exposureTextCtrl;
     wxBitmapButton * m_defaultExposureBut;
     wxSpinButton * m_exposureSpinBut;
+    wxCheckBox * m_customDragChoice;
     wxCheckBox * m_previewGrid;
 #if wxCHECK_VERSION(2, 9, 1)
     /// Bar for context sensitive projection information.
@@ -335,8 +367,10 @@ private:
 #else
     std::vector<wxCheckBox *> m_ToggleButtons;
 #endif
+    std::vector<wxCheckBox *> m_GroupToggleButtons;
     std::vector<wxPanel *> m_ToggleButtonPanel;
     std::vector<ImageToogleButtonEventHandler *> toogle_button_event_handlers;
+    std::vector<ImageGroupButtonEventHandler *> toggle_group_button_event_handlers;
 
     wxToggleButton * m_OverviewToggle;
     
@@ -346,6 +380,7 @@ private:
     PreviewToolHelper *preview_helper;
     
     PreviewCropTool *crop_tool;
+    PT::UIntSet imageDragGroup;
     PreviewDragTool *drag_tool;
 
     PreviewIdentifyTool *identify_tool;
