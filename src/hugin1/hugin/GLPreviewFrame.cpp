@@ -360,8 +360,8 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     wxBitmapButton * select_none = new wxBitmapButton(panel,ID_SHOW_NONE,bitmap);
     
     wxBoxSizer *sizer = new wxBoxSizer(wxHORIZONTAL);
-    sizer->Add(select_all,5,wxALIGN_CENTER_VERTICAL | wxLEFT | wxTOP | wxBOTTOM);
-    sizer->Add(select_none,5,wxALIGN_CENTER_VERTICAL | wxRIGHT | wxTOP | wxBOTTOM);
+    sizer->Add(select_all,0,wxALIGN_CENTER_VERTICAL | wxLEFT | wxTOP | wxBOTTOM,5);
+    sizer->Add(select_none,0,wxALIGN_CENTER_VERTICAL | wxRIGHT | wxTOP | wxBOTTOM,5);
     panel->SetSizer(sizer);
     m_ToggleButtonSizer->Add(panel, 0, wxALIGN_CENTER_VERTICAL);
     m_ToggleButtonSizer->Add(m_ButtonPanel, 1, wxEXPAND | wxADJUST_MINSIZE | wxALIGN_CENTER_VERTICAL, 0);
@@ -1016,7 +1016,7 @@ void GLPreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &change
                 wxToggleButton * but = new wxToggleButton(pan,
                                                           ID_TOGGLE_BUT + *it,
                                                           wxString::Format(wxT("%d"),*it),
-                                                          wxDefaultPosition, wxDefaultSize,
+                                                          wxDefaultPosition, wxSize(20,-1),
                                                           wxBU_EXACTFIT);
 #else
                 wxCheckBox * but = new wxCheckBox(pan,
@@ -1026,8 +1026,16 @@ void GLPreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &change
                 
                 wxCheckBox *butcheck = new wxCheckBox(pan, wxID_ANY, wxT(""));
 
+#ifdef __WXMSW__
+                //we need a border around the button to see the colored panel
+                //because changing backgroundcolor of wxToggleButton does not work in wxMSW
+                siz->AddSpacer(5);
+                siz->Add(butcheck, 0, wxALIGN_CENTRE_HORIZONTAL | wxFIXED_MINSIZE, 0);
+                siz->Add(but,0,wxLEFT | wxRIGHT | wxBOTTOM , 5);
+#else
                 siz->Add(but,0,wxALL | wxADJUST_MINSIZE,0);
                 siz->Add(butcheck, 0, wxALL | wxFIXED_MINSIZE, 0);
+#endif
                 // for the identification tool to work, we need to find when the
                 // mouse enters and exits the button. We use a custom event
                 // handler, which will also toggle the images:
@@ -1052,12 +1060,6 @@ void GLPreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &change
                 butcheck->PushEventHandler(group_event_handler);
                 butcheck->Show(m_customDragChoice->GetValue() && m_mode==mode_drag);
 
-                wxSize sz = but->GetSize();
-//                but->SetSize(res.GetWidth(),sz.GetHeight());
-                // HACK.. set fixed width. that should work
-                // better than all that stupid dialogunit stuff, that
-                // breaks on wxWin 2.5
-                but->SetSize(20, sz.GetHeight());
                 but->SetValue(true);
                 m_ButtonSizer->Add(pan,
                                    0,
