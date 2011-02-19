@@ -303,7 +303,10 @@ protected:
     /** event handler for change scale of layout mode */
     void OnLayoutScaleChange(wxScrollEvent &e);
 private:
-
+    /** changes the visibility of the group check boxes
+     * @param isShown true if the group checkboxes should be visible
+     */
+    void EnableGroupCheckboxes(bool isShown);
     /** The dock manager */
     GLwxAuiManager * m_mgr;
 

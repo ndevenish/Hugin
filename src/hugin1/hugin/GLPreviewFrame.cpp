@@ -1050,7 +1050,7 @@ void GLPreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &change
                 group_event_handler->AddIdentifyTool(&plane_overview_identify_tool);
                 toggle_group_button_event_handlers.push_back(group_event_handler);
                 butcheck->PushEventHandler(group_event_handler);
-                butcheck->Show(m_customDragChoice->GetValue());
+                butcheck->Show(m_customDragChoice->GetValue() && m_mode==mode_drag);
 
                 wxSize sz = but->GetSize();
 //                but->SetSize(res.GetWidth(),sz.GetHeight());
@@ -2064,11 +2064,21 @@ void GLPreviewFrame::ClearDragGroupImages(bool update_check_box) {
     }
 }
 
-void GLPreviewFrame::OnCustomDragChoice(wxCommandEvent &e) {
+void GLPreviewFrame::EnableGroupCheckboxes(bool isShown)
+{
     std::vector<wxCheckBox*>::iterator it;
-    for(it = m_GroupToggleButtons.begin() ; it != m_GroupToggleButtons.end() ; it++) {
-        (*it)->Show(e.IsChecked());
+    for(it = m_GroupToggleButtons.begin() ; it != m_GroupToggleButtons.end() ; it++)
+    {
+        (*it)->Show(isShown);
     }
+#ifdef __WXMSW__
+    m_ButtonPanel->Layout();
+    m_ButtonPanel->Refresh();
+#endif
+};
+
+void GLPreviewFrame::OnCustomDragChoice(wxCommandEvent &e) {
+    EnableGroupCheckboxes(e.IsChecked());
     e.Skip();
 }
 
@@ -2237,6 +2247,8 @@ void GLPreviewFrame::SetMode(int newMode)
             TurnOffTools(preview_helper->ActivateTool(crop_tool));
             break;
     };
+    //enable group checkboxes only for drag mode tab
+    EnableGroupCheckboxes(m_mode==mode_drag && m_customDragChoice->GetValue());
     m_GLPreview->Refresh();
 };
 
