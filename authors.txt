@@ -50,6 +50,7 @@ James Legg	GSoC 2008 OpenGL fast preview, GSoC 2009 new layout, GSoC 2010 mentor
 Yuval Levy	Community Builder, GSoC admin 2007 and 2009, GSoC mentor 2007 and 2008, Windows build, original Windows installer (0.7.0 and 0.8.0 InnoSetup), bugfixes, fixes Italian translation, release manager 2009.2 and 2010.4
 Wim Lewis	Code fix
 Roger Luethi	Code
+Darko Makreshanski	GSoC 2010 Overview for Fast Preview
 Caolán McNamara	code fix
 Cristian Marchi	Italian translation and 2010 artwork
 Zoran Mesec	GSoC 2007 feature detector, GSoC 2008 mentor, initial Slovenian translation
