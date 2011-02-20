@@ -743,9 +743,8 @@ GLPreviewFrame::~GLPreviewFrame()
     m_ROIBottomTxt->PopEventHandler(true);
     for (int i=0; i < m_ToggleButtons.size(); i++)
     {
-        m_ToggleButtons[i]->PopEventHandler();
-        m_ToggleButtons[i]->PopEventHandler();
-        m_ToggleButtons[i]->PopEventHandler();
+        m_ToggleButtons[i]->PopEventHandler(true);
+        m_GroupToggleButtons[i]->PopEventHandler(true);
     }
     m_pano.removeObserver(this);
 
@@ -968,7 +967,7 @@ void GLPreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &change
     for (int i=nrButtons-1; i>=(int)nrImages; i--)
     {
         m_ButtonSizer->Detach(m_ToggleButtonPanel[i]);
-        // Image toggle buttons have three event handlers on the stack which
+        // Image toggle buttons have a event handler on the stack which
         // must be removed before the buttons get destroyed.
         m_ToggleButtons[i]->PopEventHandler();
         m_GroupToggleButtons[i]->PopEventHandler();
