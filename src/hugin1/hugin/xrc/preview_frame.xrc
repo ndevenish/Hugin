@@ -249,6 +249,7 @@
                     <object class="sizeritem">
                       <object class="wxCheckBox" name="preview_photometric_tool">
                         <label>Photometrics</label>
+                        <checked>1</checked>
                         <tooltip>Use full photometric correction (slow)</tooltip>
                       </object>
                       <flag>wxALL</flag>
@@ -419,7 +420,7 @@
                     </object>
                     <object class="sizeritem">
                       <object class="wxStaticText">
-                        <label>×</label>
+                        <label>ï¿½</label>
                       </object>
                       <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
                       <border>4</border>
