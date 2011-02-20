@@ -971,6 +971,7 @@ void GLPreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &change
         // Image toggle buttons have three event handlers on the stack which
         // must be removed before the buttons get destroyed.
         m_ToggleButtons[i]->PopEventHandler();
+        m_GroupToggleButtons[i]->PopEventHandler();
         delete m_ToggleButtons[i];
         delete m_GroupToggleButtons[i];
         delete m_ToggleButtonPanel[i];
