@@ -27,6 +27,7 @@ Jorge González González	original Spanish translation
 Felix Hagemann	bug reports and patches
 Ed Halley	gui, documentation
 Robert Hart	bug reports and patches
+Stephan Hegel	Initial Doxygen configuration
 Juha Helminen	Code
 Brian Hoffmann	German translation of NSIS windows installer
 Lajos Höss	Hungarian translation
