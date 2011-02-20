@@ -25,9 +25,9 @@ MACRO(do_pod podfile manfile section)
       # is displayed on the resulting man page
       ADD_CUSTOM_COMMAND(
         OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/${outfile}.gz"
-        COMMAND ${POD2MAN} --section="${section}" --release="Version: ${HUGIN_PACKAGE_VERSION}" --center=HUGIN  "${CMAKE_CURRENT_BINARY_DIR}/${podfile}"  "${CMAKE_CURRENT_BINARY_DIR}/${outfile}"
+        COMMAND ${POD2MAN} --section="${section}" --release="Version: ${HUGIN_PACKAGE_VERSION}" --center=HUGIN  "${CMAKE_SOURCE_DIR}/doc/${podfile}"  "${CMAKE_CURRENT_BINARY_DIR}/${outfile}"
 	COMMAND ${GZIP} "-f" "${CMAKE_CURRENT_BINARY_DIR}/${outfile}"
-        DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/${podfile}"
+        DEPENDS "${CMAKE_SOURCE_DIR}/doc/${podfile}"
 	VERBATIM
       )
       SET_SOURCE_FILES_PROPERTIES("${CMAKE_CURRENT_BINARY_DIR}/${outfile}.gz" GENERATED)
@@ -43,18 +43,7 @@ MACRO(do_doc)
     # all our man pages go into section 1
     SET(MANSECTION 1)
     FOREACH(PODFILE ${POD_FILES})
-        ADD_CUSTOM_COMMAND(
-        OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/${PODFILE}"
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different "${CMAKE_SOURCE_DIR}/doc/${PODFILE}" "${CMAKE_CURRENT_BINARY_DIR}/${PODFILE}"
-         DEPENDS "${CMAKE_SOURCE_DIR}/doc/${PODFILE}"
-	 COMMENT "copying ${CMAKE_SOURCE_DIR}/doc/${PODFILE}  to ${CMAKE_CURRENT_BINARY_DIR}/${PODFILE}"
-	 VERBATIM
-        )
-	SET_SOURCE_FILES_PROPERTIES("${CMAKE_CURRENT_BINARY_DIR}/${PODFILE}" GENERATED)
         STRING(REGEX REPLACE "\\.pod$" "" MANFILE "${PODFILE}")
-        # TODO: this currently messes up source tree as MANFILE is implicitly
-        #       inside the same folder as PODFILE.  change that do to the
-        #       man files in the build tree
         # MESSAGE(STATUS "generating man page ${CMAKE_CURRENT_BINARY_DIR}${MANFILE}")
         do_pod(${PODFILE} ${MANFILE} ${MANSECTION})
     ENDFOREACH(PODFILE ${POD_FILES})
