@@ -420,7 +420,7 @@
                     </object>
                     <object class="sizeritem">
                       <object class="wxStaticText">
-                        <label>ï¿½</label>
+                        <label>×</label>
                       </object>
                       <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
                       <border>4</border>
