@@ -101,6 +101,7 @@ If you're familiar with hugin's sources, you may be curious what headers have be
 <panodata/PanoramaVariable.h>
 <panodata/ControlPoint.h>
 <panodata/DestPanoImage.h>
+<panodata/Mask.h>
 <panodata/PanoramaOptions.h>
 <panodata/PanoramaData.h>
 <panodata/Panorama.h>

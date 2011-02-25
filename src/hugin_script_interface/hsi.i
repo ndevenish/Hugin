@@ -228,6 +228,8 @@ using namespace HuginBase;
 %template(VariableMap)       std::map< std::string, Variable>;
 %template(VariableMapVector) std::vector< std::map<std::string, Variable> > ;
 
+%template(MaskPolygonVector) std::vector< MaskPolygon >;
+
 %include <panodata/ImageVariable.h>
 %include <panodata/ImageVariableTranslate.h>
 %include <hsi_ImageVariableGroup.h>
@@ -241,6 +243,7 @@ using namespace HuginBase;
 %include <panodata/DestPanoImage.h>
 %include <panodata/ControlPoint.h>
 %include <panodata/Lens.h>
+%include <panodata/Mask.h>
 
 %include <hsi_Panorama.h>
 

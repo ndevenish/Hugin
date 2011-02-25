@@ -73,7 +73,7 @@ int callhpi ( const char * plugin_name ,
     // trouble
     fprintf ( stderr , "HPI ERROR: failed to activate Python interface\n" ) ;
     va_end ( arglist ) ;
-    return -2 ;    
+    return -20 ;
   }
 
   // we want to build a python argument list with argc + 1 arguments,
@@ -95,7 +95,7 @@ int callhpi ( const char * plugin_name ,
     {
       // oops... this went wrong
       va_end ( arglist ) ;
-      return -3 ;
+      return -21 ;
     }
   }
   va_end ( arglist ) ; // we're done with that
@@ -105,7 +105,7 @@ int callhpi ( const char * plugin_name ,
   if ( ! arg_tuple )
   {
     // oops... this went wrong
-    return -4 ;
+    return -22 ;
   }
 
   // now let's call the thing. This is done by passing the argument

@@ -1,3 +1,20 @@
+# hpi.py - dispatcher for hugin plugins
+#    
+# Copyright (C) 2011  Kay F. Jahnke
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 from __future__ import print_function
 
 import hsi
@@ -35,11 +52,11 @@ def hpi_dispatch ( plugin_name , *args ) :
             success = plugin.entry ( *args )
             del plugin
     except ImportError :
-        print("%s: import failed" % plugin_name)
-        success = -2
+        print("%s: import of plugin failed" % plugin_name)
+        success = -10
     except :
-        print("%s: plugin failed" % plugin_name)
-        success = -1
+        print("%s: plugin failed with an exception" % plugin_name)
+        success = -11
     return success
 
 # The remainder of the file is not needed for calling from hugin.
@@ -60,7 +77,7 @@ if __name__ == "__main__":
     import sys
     if len ( sys.argv ) < 3 :
         print("use: hpi panorama.pto plugin.py [plugin args]")
-        sys.exit ( -5 )
+        sys.exit ( -12 )
 
     # okay, there are some arguments, let's go ahead and try
     # opening the first as a panorama.
@@ -69,11 +86,11 @@ if __name__ == "__main__":
     ifs = hsi.ifstream ( sys.argv[1] )
     if not ifs.good() :
         print("failed to open %s" % sys.argv[1])
-        sys.exit ( -6 )
+        sys.exit ( -13 )
     
     if p.readData ( ifs ) != hsi.DocumentData.SUCCESSFUL :
         print("failed to read panorama data from %s" % sys.argv[1])
-        sys.exit ( -7 )
+        sys.exit ( -14 )
 
     del ifs
 
@@ -93,11 +110,11 @@ if __name__ == "__main__":
 
         if not ofs.good() :
             print("failed to open %s" % sys.argv[1])
-            sys.exit ( -8 )
+            sys.exit ( -15 )
     
         if p.writeData ( ofs ) != hsi.DocumentData.SUCCESSFUL :
             print("failed to write panorama data to %s" % sys.argv[1])
-            sys.exit ( -9 )
+            sys.exit ( -16 )
 
         del ofs
     
