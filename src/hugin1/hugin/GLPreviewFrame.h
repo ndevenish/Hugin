@@ -67,6 +67,7 @@ class PreviewDifferenceTool;
 class PreviewPanoMaskTool;
 class PreviewControlPointTool;
 class PreviewLayoutLinesTool;
+class PreviewColorPickerTool;
 
 class PanosphereOverviewProjectionGridTool;
 class PreviewProjectionGridTool;
@@ -231,13 +232,18 @@ public:
     void SetShowProjectionHints(bool new_value);
     void OnShowEvent(wxShowEvent& e);
     
-    bool customDragging();
+    bool individualDragging();
     void ToggleImageInDragGroup(unsigned int image_nr, bool update_check_box = true);
     void RemoveImageFromDragGroup(unsigned int image_nr, bool update_check_box = true);
     void AddImageToDragGroup(unsigned int image_nr, bool update_check_box = true);
     void SetDragGroupImages(PT::UIntSet imageDragGroup_in, bool update_check_box = true);
     PT::UIntSet GetDragGroupImages();
     void ClearDragGroupImages(bool update_check_box = true);
+    /** updates the global white balance 
+     * @param redFactor multiplies all WhiteBalanceRed of individuel images with this factor
+     * @param blueFactor multiplies all WhiteBalanceBlue of individuel images with this factor
+     */
+    void UpdateGlobalWhiteBalance(double redFactor, double blueFactor);
 
 protected:
 
@@ -276,8 +282,6 @@ protected:
     void KeyDown(wxKeyEvent & e);
     void KeyUp(wxKeyEvent & e);
 
-    void OnCustomDragChoice(wxCommandEvent & e);
-
     void DragChoiceLayout( int index );
     void OnProjectionChoice(wxCommandEvent & e);
     void OnOverviewModeChoice(wxCommandEvent & e);
@@ -305,8 +309,13 @@ protected:
     void OnToolModeChanging(wxNotebookEvent &e);
     /** event handler for change scale of layout mode */
     void OnLayoutScaleChange(wxScrollEvent &e);
+    /** event handler when starting color picker */
+    void OnColorPicker(wxCommandEvent &e);
 private:
-
+    /** changes the visibility of the group check boxes
+     * @param isShown true if the group checkboxes should be visible
+     */
+    void EnableGroupCheckboxes(bool isShown);
     /** The dock manager */
     GLwxAuiManager * m_mgr;
 
@@ -340,7 +349,6 @@ private:
     wxTextCtrl * m_exposureTextCtrl;
     wxBitmapButton * m_defaultExposureBut;
     wxSpinButton * m_exposureSpinBut;
-    wxCheckBox * m_customDragChoice;
     wxCheckBox * m_previewGrid;
 #if wxCHECK_VERSION(2, 9, 1)
     /// Bar for context sensitive projection information.
@@ -385,6 +393,7 @@ private:
     PreviewCropTool *crop_tool;
     PT::UIntSet imageDragGroup;
     PreviewDragTool *drag_tool;
+    PreviewColorPickerTool *color_picker_tool;
 
     PreviewIdentifyTool *identify_tool;
     PreviewIdentifyTool *panosphere_overview_identify_tool;

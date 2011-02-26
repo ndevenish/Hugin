@@ -1,3 +1,4 @@
+// -*- c-basic-offset: 4 ; tab-width: 4 -*-
 /*
 * Copyright (C) 2007-2008 Anael Orlinski
 *

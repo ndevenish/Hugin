@@ -40,7 +40,7 @@ OPTIMIZE_OUTPUT_JAVA   = NO
 OPTIMIZE_FOR_FORTRAN   = NO
 OPTIMIZE_OUTPUT_VHDL   = NO
 EXTENSION_MAPPING      =
-BUILTIN_STL_SUPPORT    = NO
+BUILTIN_STL_SUPPORT    = YES
 CPP_CLI_SUPPORT        = NO
 SIP_SUPPORT            = NO
 IDL_PROPERTY_SUPPORT   = YES
@@ -109,7 +109,7 @@ RECURSIVE              = YES
 EXCLUDE                = foreign/
 EXCLUDE_SYMLINKS       = YES
 EXCLUDE_PATTERNS       =
-EXCLUDE_SYMBOLS        =
+EXCLUDE_SYMBOLS        = image_variable
 EXAMPLE_PATH           = .
 EXAMPLE_PATTERNS       =
 EXAMPLE_RECURSIVE      = YES
@@ -229,12 +229,12 @@ PERLMOD_MAKEVAR_PREFIX =
 # Configuration options related to the preprocessor
 #---------------------------------------------------------------------------
 ENABLE_PREPROCESSING   = YES
-MACRO_EXPANSION        = NO
-EXPAND_ONLY_PREDEF     = NO
+MACRO_EXPANSION        = YES
+EXPAND_ONLY_PREDEF     = YES
 SEARCH_INCLUDES        = YES
 INCLUDE_PATH           = hugin_base
 INCLUDE_FILE_PATTERNS  =
-PREDEFINED             =
+PREDEFINED             = "image_variable(name, type, default_value)=type name;"
 EXPAND_AS_DEFINED      =
 SKIP_FUNCTION_MACROS   = YES
 #---------------------------------------------------------------------------

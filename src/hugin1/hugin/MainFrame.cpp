@@ -34,6 +34,7 @@
 
 #include "base_wx/platform.h"
 
+#include "vigra/imageinfo.hxx"
 #include "vigra_ext/Correlation.h"
 
 #include "PT/utils.h"
@@ -1021,7 +1022,10 @@ void MainFrame::OnAddTimeImages( wxCommandEvent& event )
         while (!file.IsEmpty())
         {
             // Associated with a NULL dummy timestamp for now.
-			filenames[file] = 0;
+            if(vigra::isImage(file.mb_str(HUGIN_CONV_FILENAME)))
+            {
+			    filenames[file] = 0;
+            };
 			file = ::wxFindNextFile();
         }
     }

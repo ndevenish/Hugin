@@ -163,7 +163,7 @@ void DragTool::MouseButtonEvent(wxMouseEvent &e)
             control = e.m_controlDown;
             shift = e.m_shiftDown;
             
-            if (control && (helper->GetPreviewFrame()->customDragging())) {
+            if (control && (helper->GetPreviewFrame()->individualDragging())) {
                 
                 std::set<unsigned int> images_under_mouse = helper->GetImageNumbersUnderMouse();
                 std::set<unsigned int>::iterator it;
@@ -250,7 +250,7 @@ void DragTool::MouseButtonEvent(wxMouseEvent &e)
                     and central tools, similarly as the ViewState is now central 
                     compared to the VisualizationState which is specific to each visualization.
                 */
-                bool customDragging = helper->GetPreviewFrame()->customDragging();
+                bool customDragging = helper->GetPreviewFrame()->individualDragging();
                 if (customDragging) {
                     draging_images = helper->GetPreviewFrame()->GetDragGroupImages();
                     std::set<unsigned int>::iterator i, end;

@@ -1544,6 +1544,37 @@ namespace PT {
         HuginBase::MaskPolygonVector m_mask;
     };
 
+    //=========================================================================
+    //=========================================================================
+
+    /** update global white balance */
+    class UpdateWhiteBalance : public PanoCommand
+    {
+    public:
+        UpdateWhiteBalance(Panorama & p, double redFactor, double blueFactor)
+            : PanoCommand(p),
+              m_red(redFactor), m_blue(blueFactor)
+        { };
+
+        virtual bool processPanorama(Panorama& pano)
+            {
+                pano.updateWhiteBalance(m_red,m_blue);
+                pano.changeFinished();
+
+                return true;
+            }
+        
+        virtual std::string getName() const
+            {
+                return "update global white balance";
+            }
+
+    private:
+        double m_red;
+        double m_blue;
+    };
+
+
 } // namespace PT
 
 #endif // _PANOCOMMAND_H
