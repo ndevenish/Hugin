@@ -526,13 +526,7 @@
                       <object class="wxChoice" name="drag_mode_choice">
                         <content/>
                       </object>
-                    </object>
-                    <object class="sizeritem">
-                      <object class="wxCheckBox" name="group_drag_choice">
-                        <label>Custom drag images</label>
-                        <tooltip>Drag custom groups of images instead of images grouped by control points</tooltip>
-                      </object>
-                      <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                      <flag>wxRIGHT</flag>
                       <border>5</border>
                     </object>
                   </object>

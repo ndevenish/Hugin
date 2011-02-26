@@ -139,7 +139,6 @@ BEGIN_EVENT_TABLE(GLPreviewFrame, wxFrame)
     EVT_SPIN_UP(XRCID("exposure_spin"), GLPreviewFrame::OnIncreaseExposure)
     EVT_CHOICE(XRCID("blend_mode_choice"), GLPreviewFrame::OnBlendChoice)
     EVT_CHOICE(XRCID("drag_mode_choice"), GLPreviewFrame::OnDragChoice)
-    EVT_CHECKBOX(XRCID("group_drag_choice"), GLPreviewFrame::OnCustomDragChoice)
     EVT_CHOICE(XRCID("projection_choice"), GLPreviewFrame::OnProjectionChoice)
     EVT_CHOICE(XRCID("overview_mode_choice"), GLPreviewFrame::OnOverviewModeChoice)
     EVT_TOGGLEBUTTON(XRCID("overview_toggle"), GLPreviewFrame::OnOverviewToggle)
@@ -481,12 +480,6 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     overview_sizer->Add(overview_command_panel, 0, wxEXPAND);
     overview_sizer->Add(m_GLOverview, 1, wxEXPAND);
 
-    m_customDragChoice = XRCCTRL(*this, "group_drag_choice", wxCheckBox);
-    bool customDrag;
-    config->Read(wxT("/GLPreviewFrame/customDragMode"), &customDrag, false);
-    m_customDragChoice->SetValue(customDrag);
-    
-    
     m_previewGrid = XRCCTRL(*this, "preview_show_grid", wxCheckBox);
     bool showGrid;
     config->Read(wxT("/GLPreviewFrame/showPreviewGrid"),&showGrid,true);
@@ -553,8 +546,20 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
 
     m_DragModeChoice = XRCCTRL(*this, "drag_mode_choice", wxChoice);
     m_DragModeChoice->Append(_("normal"));
+    m_DragModeChoice->Append(_("normal, individual"));
     m_DragModeChoice->Append(_("mosaic"));
-    m_DragModeChoice->SetSelection(0);
+    m_DragModeChoice->Append(_("mosaic, individual"));
+
+    bool individualDrag;
+    config->Read(wxT("/GLPreviewFrame/individualDragMode"), &individualDrag, false);
+    if(individualDrag)
+    {
+        m_DragModeChoice->SetSelection(1);
+    }
+    else
+    {
+        m_DragModeChoice->SetSelection(0);
+    };
     // default drag mode
     GLPreviewFrame::DragChoiceLayout(0);
 
@@ -717,7 +722,7 @@ GLPreviewFrame::~GLPreviewFrame()
     config->Write(wxT("/GLPreviewFrame/OpenGLLayout"), m_mgr->SavePerspective());
     config->Write(wxT("/GLPreviewFrame/overview_hidden"), !(m_OverviewToggle->GetValue()));
     config->Write(wxT("/GLPreviewFrame/showPreviewGrid"), m_previewGrid->GetValue());
-    config->Write(wxT("/GLPreviewFrame/customDragMode"), m_customDragChoice->GetValue());
+    config->Write(wxT("/GLPreviewFrame/individualDragMode"), individualDragging());
     
     // delete all of the tools. When the preview is never used we never get an
     // OpenGL context and therefore don't create the tools.
@@ -1066,7 +1071,7 @@ void GLPreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &change
                 group_event_handler->AddIdentifyTool(&plane_overview_identify_tool);
                 toggle_group_button_event_handlers.push_back(group_event_handler);
                 butcheck->PushEventHandler(group_event_handler);
-                butcheck->Show(m_customDragChoice->GetValue() && m_mode==mode_drag);
+                butcheck->Show(individualDragging() && m_mode==mode_drag);
 
                 but->SetValue(true);
                 m_ButtonSizer->Add(pan,
@@ -1492,16 +1497,19 @@ void GLPreviewFrame::OnDragChoice(wxCommandEvent & e)
 		    int index = m_DragModeChoice->GetSelection();
             switch (index) {
                 case 0: //normal
+                case 1:
                     drag_tool->setDragMode(PreviewDragTool::drag_mode_normal);
 //		    		overview_drag_tool->setDragMode(PreviewDragTool::drag_mode_normal);
                     break;
-                case 1: //mosaic
+                case 2: //mosaic
+                case 3:
                     drag_tool->setDragMode(PreviewDragTool::drag_mode_mosaic);
 //		    		overview_drag_tool->setDragMode(PreviewDragTool::drag_mode_mosaic);
                     break;
             }
+            EnableGroupCheckboxes(individualDragging());
             // adjust the layout
-            GLPreviewFrame::DragChoiceLayout(index);
+            DragChoiceLayout(index);
         }
     }
     else
@@ -1560,34 +1568,22 @@ void GLPreviewFrame::OnOverviewModeChoice( wxCommandEvent & e)
 
 void GLPreviewFrame::DragChoiceLayout( int index )
 {
-            // visibility of controls based on selected drag mode
-            XRCCTRL(*this,"label_yaw",wxStaticText)->Show(index==0);
-            XRCCTRL(*this,"input_yaw",wxTextCtrl)->Show(index==0);
-            XRCCTRL(*this,"label_pitch",wxStaticText)->Show(index==0);
-            XRCCTRL(*this,"input_pitch",wxTextCtrl)->Show(index==0);
-            XRCCTRL(*this,"label_roll",wxStaticText)->Show(index==0);
-            XRCCTRL(*this,"input_roll",wxTextCtrl)->Show(index==0);
-            XRCCTRL(*this,"label_x",wxStaticText)->Show(index==1);
-            XRCCTRL(*this,"input_x",wxTextCtrl)->Show(index==1);
-            XRCCTRL(*this,"label_y",wxStaticText)->Show(index==1);
-            XRCCTRL(*this,"input_y",wxTextCtrl)->Show(index==1);
-            XRCCTRL(*this,"label_z",wxStaticText)->Show(index==1);
-            XRCCTRL(*this,"input_z",wxTextCtrl)->Show(index==1);
-            XRCCTRL(*this,"apply_num_transform",wxButton)->Show(1);
-            // redraw layout to compress empty space
-            XRCCTRL(*this,"label_yaw",wxStaticText)->GetContainingSizer()->Layout();
-            XRCCTRL(*this,"input_yaw",wxTextCtrl)->GetContainingSizer()->Layout();
-            XRCCTRL(*this,"label_pitch",wxStaticText)->GetContainingSizer()->Layout();
-            XRCCTRL(*this,"input_pitch",wxTextCtrl)->GetContainingSizer()->Layout();
-            XRCCTRL(*this,"label_roll",wxStaticText)->GetContainingSizer()->Layout();
-            XRCCTRL(*this,"input_roll",wxTextCtrl)->GetContainingSizer()->Layout();
-            XRCCTRL(*this,"label_x",wxStaticText)->GetContainingSizer()->Layout();
-            XRCCTRL(*this,"input_x",wxTextCtrl)->GetContainingSizer()->Layout();
-            XRCCTRL(*this,"label_y",wxStaticText)->GetContainingSizer()->Layout();
-            XRCCTRL(*this,"input_y",wxTextCtrl)->GetContainingSizer()->Layout();
-            XRCCTRL(*this,"label_z",wxStaticText)->GetContainingSizer()->Layout();
-            XRCCTRL(*this,"input_z",wxTextCtrl)->GetContainingSizer()->Layout();
-            XRCCTRL(*this,"apply_num_transform",wxButton)->GetContainingSizer()->Layout();
+    // visibility of controls based on selected drag mode
+    bool normalMode=index==0 || index==1;
+    XRCCTRL(*this,"label_yaw",wxStaticText)->Show(normalMode);
+    XRCCTRL(*this,"input_yaw",wxTextCtrl)->Show(normalMode);
+    XRCCTRL(*this,"label_pitch",wxStaticText)->Show(normalMode);
+    XRCCTRL(*this,"input_pitch",wxTextCtrl)->Show(normalMode);
+    XRCCTRL(*this,"label_roll",wxStaticText)->Show(normalMode);
+    XRCCTRL(*this,"input_roll",wxTextCtrl)->Show(normalMode);
+    XRCCTRL(*this,"label_x",wxStaticText)->Show(!normalMode);
+    XRCCTRL(*this,"input_x",wxTextCtrl)->Show(!normalMode);
+    XRCCTRL(*this,"label_y",wxStaticText)->Show(!normalMode);
+    XRCCTRL(*this,"input_y",wxTextCtrl)->Show(!normalMode);
+    XRCCTRL(*this,"label_z",wxStaticText)->Show(!normalMode);
+    XRCCTRL(*this,"input_z",wxTextCtrl)->Show(!normalMode);
+    // redraw layout to compress empty space
+    XRCCTRL(*this,"apply_num_transform",wxButton)->GetParent()->Layout();
 }
 
 void GLPreviewFrame::OnDefaultExposure( wxCommandEvent & e )
@@ -2059,9 +2055,12 @@ void ImageGroupButtonEventHandler::AddDragTool(DragTool** drag_tool_in) {
     drag_tools.push_back(drag_tool_in);
 }
 
-bool GLPreviewFrame::customDragging() {
-    return m_customDragChoice->GetValue();
+bool GLPreviewFrame::individualDragging()
+{
+    return m_DragModeChoice->GetSelection()==1 || 
+           m_DragModeChoice->GetSelection()==3;
 }
+
 void GLPreviewFrame::ToggleImageInDragGroup(unsigned int image_nr, bool update_check_box) {
     if (imageDragGroup.count(image_nr) == 0) {
         this->AddImageToDragGroup(image_nr, update_check_box);
@@ -2112,11 +2111,6 @@ void GLPreviewFrame::EnableGroupCheckboxes(bool isShown)
     m_ButtonPanel->Refresh();
 #endif
 };
-
-void GLPreviewFrame::OnCustomDragChoice(wxCommandEvent &e) {
-    EnableGroupCheckboxes(e.IsChecked());
-    e.Skip();
-}
 
 /** call this method only with existing OpenGL context */
 void GLPreviewFrame::FillBlendChoice()
@@ -2235,7 +2229,7 @@ void GLPreviewFrame::SetMode(int newMode)
         case mode_drag:
             preview_helper->DeactivateTool(drag_tool);
             panosphere_overview_helper->DeactivateTool(overview_drag_tool);
-            if (m_customDragChoice->GetValue()) {
+            if (individualDragging()) {
                 std::vector<wxCheckBox*>::iterator it;
                 for(it = m_GroupToggleButtons.begin() ; it != m_GroupToggleButtons.end() ; it++) {
                     (*it)->Show(false);
@@ -2274,7 +2268,7 @@ void GLPreviewFrame::SetMode(int newMode)
         case mode_drag:
             TurnOffTools(preview_helper->ActivateTool(drag_tool));
             TurnOffTools(panosphere_overview_helper->ActivateTool(overview_drag_tool));
-            if (m_customDragChoice->GetValue()) {
+            if (individualDragging()) {
                 std::vector<wxCheckBox*>::iterator it;
                 for(it = m_GroupToggleButtons.begin() ; it != m_GroupToggleButtons.end() ; it++) {
                     (*it)->Show(true);
@@ -2286,7 +2280,7 @@ void GLPreviewFrame::SetMode(int newMode)
             break;
     };
     //enable group checkboxes only for drag mode tab
-    EnableGroupCheckboxes(m_mode==mode_drag && m_customDragChoice->GetValue());
+    EnableGroupCheckboxes(m_mode==mode_drag && individualDragging());
     m_GLPreview->Refresh();
 };
 

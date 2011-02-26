@@ -232,7 +232,7 @@ public:
     void SetShowProjectionHints(bool new_value);
     void OnShowEvent(wxShowEvent& e);
     
-    bool customDragging();
+    bool individualDragging();
     void ToggleImageInDragGroup(unsigned int image_nr, bool update_check_box = true);
     void RemoveImageFromDragGroup(unsigned int image_nr, bool update_check_box = true);
     void AddImageToDragGroup(unsigned int image_nr, bool update_check_box = true);
@@ -278,8 +278,6 @@ protected:
 
     void OnBlendChoice(wxCommandEvent & e);
     void OnDragChoice(wxCommandEvent & e);
-
-    void OnCustomDragChoice(wxCommandEvent & e);
 
     void DragChoiceLayout( int index );
     void OnProjectionChoice(wxCommandEvent & e);
@@ -348,7 +346,6 @@ private:
     wxTextCtrl * m_exposureTextCtrl;
     wxBitmapButton * m_defaultExposureBut;
     wxSpinButton * m_exposureSpinBut;
-    wxCheckBox * m_customDragChoice;
     wxCheckBox * m_previewGrid;
 #if wxCHECK_VERSION(2, 9, 1)
     /// Bar for context sensitive projection information.
