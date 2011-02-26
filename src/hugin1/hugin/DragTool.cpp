@@ -86,6 +86,7 @@ void DragTool::MouseMoveEvent(double x, double y, wxMouseEvent & e)
     if (drag_yaw || drag_pitch || drag_roll)
     {
         
+
         // how far are we moving?
         if (drag_yaw || drag_pitch)
         {
@@ -115,6 +116,7 @@ void DragTool::MouseMoveEvent(double x, double y, wxMouseEvent & e)
         {
             shift_angle = atan2(y - centre.y, x- centre.x) - start_angle;
         }
+
         // move the selected images on the tempory copies for display.
         // first calculate a matrix representing the transformation
         if (drag_mode == drag_mode_mosaic) {
@@ -221,7 +223,7 @@ void DragTool::MouseButtonEvent(wxMouseEvent &e)
                 // set angles
                 double yaw, pitch;
                 hugin_utils::FDiff2D mouse_pos = helper->GetMousePanoPosition();
-                helper->GetViewStatePtr()->GetProjectionInfo()->ImageToAngular(yaw,
+                helper->GetVisualizationStatePtr()->GetProjectionInfo()->ImageToAngular(yaw,
                                                    pitch, mouse_pos.x, mouse_pos.y);
                 start_coordinates.x = yaw;    start_coordinates.y = pitch;
                 shift_coordinates.x = yaw;    shift_coordinates.y = pitch;
