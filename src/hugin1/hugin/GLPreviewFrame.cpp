@@ -1732,6 +1732,7 @@ void GLPreviewFrame::MakePreviewTools(PreviewToolHelper *preview_helper_in)
     preview_helper->ActivateTool(pano_mask_tool);
     // update the blend mode which activates some tools
     updateBlendMode();
+    m_GLPreview->SetPhotometricCorrect(true);
     // update toolbar
     SetMode(mode_preview);
 }
