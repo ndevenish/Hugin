@@ -31,7 +31,6 @@
 #include <vigra_ext/ImageTransforms.h>
 #include <vigra/copyimage.hxx>
 #include <vigra/inspectimage.hxx>
-#include "vigra/impex.hxx" 
 
 /** half size of color picker window size */
 #define ColorPickerSize 10
@@ -101,7 +100,7 @@ void PreviewColorPickerTool::CalcCorrectionForImage(unsigned int i,vigra::Point2
     ImageCache::ImageCacheRGB8Ptr cacheImage8 = ImageCache::getInstance().getImage(img.getFilename())->get8BitImage();
 
     //copy only region to be inspected
-    vigra::BRGBImage tempImage(2*ColorPickerSize+1,2*ColorPickerSize+1);
+    vigra::BRGBImage tempImage(2*ColorPickerSize,2*ColorPickerSize);
     vigra::copyImage(vigra::make_triple((*cacheImage8).upperLeft() + pos + vigra::Point2D(-ColorPickerSize,-ColorPickerSize),
                                         (*cacheImage8).upperLeft() + pos + vigra::Point2D( ColorPickerSize, ColorPickerSize),
                                         vigra::BRGBImage::Accessor()),
@@ -130,9 +129,9 @@ void PreviewColorPickerTool::CalcCorrectionForImage(unsigned int i,vigra::Point2
     vigra::inspectImage(srcImageRange(floatTemp), average);
     //range check
     vigra::RGBValue<double> RGBaverage=average.average();
-    if(RGBaverage[0]>10 && RGBaverage[0]<250 &&
-       RGBaverage[1]>10 && RGBaverage[1]<250 &&
-       RGBaverage[2]>10 && RGBaverage[2]<250)
+    if(RGBaverage[0]>2 && RGBaverage[0]<253 &&
+       RGBaverage[1]>2 && RGBaverage[1]<253 &&
+       RGBaverage[2]>2 && RGBaverage[2]<253)
     {
         m_red+=RGBaverage[0]/RGBaverage[1];
         m_blue+=RGBaverage[2]/RGBaverage[1];
