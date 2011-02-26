@@ -414,6 +414,11 @@ class IMPEX Panorama : public ManagedPanoramaData, public AppBase::DocumentData
 #include "image_variables.h"
 #undef image_variable
         
+        /** update the global white balace of the panorama by multiplying
+         * the red and blue factor of each image with given factors 
+        */
+        virtual void updateWhiteBalance(double redFactor, double blueFactor);
+
     // = Optimise Vector =    
         /** return the optimize settings stored inside panorama */
         const OptimizeVector & getOptimizeVector() const

@@ -303,6 +303,10 @@ public:
     */
     virtual void updateVariable(unsigned int imgNr, const Variable &var) =0;
 
+    /** update the global white balace of the panorama by multiplying
+     * the red and blue factor of each image with given factors 
+     */
+    virtual void updateWhiteBalance(double redFactor, double blueFactor) =0;
     
 // = Optimise Vector =    
 

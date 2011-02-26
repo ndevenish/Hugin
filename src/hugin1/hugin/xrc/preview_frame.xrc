@@ -328,6 +328,32 @@
                           </object>
                           <flag>wxALIGN_CENTRE_VERTICAL</flag>
                         </object>
+                        <object class="sizeritem">
+                          <object class="wxBoxSizer">
+                            <object class="sizeritem">
+                              <object class="wxToolBar" name="preview_color_picker_toolbar">
+                                <object class="tool" name="preview_color_picker_tool">
+                                  <toggle>1</toggle>
+                                  <bitmap platform="unix|win">data/preview_white_balance.png</bitmap>
+                                  <bitmap platform="mac">data/preview_white_balance_small.png</bitmap>
+                                  <label>Grey picker</label>
+                                </object>
+                                <bitmapsize>22,22</bitmapsize>
+                                <style>wxTB_TEXT|wxTB_NODIVIDER</style>
+                              </object>
+                              <flag>wxALIGN_CENTRE_VERTICAL|wxALIGN_CENTRE_HORIZONTAL|wxADJUST_MINSIZE</flag>
+                            </object>
+                            <object class="sizeritem" platform="mac">
+                              <object class="wxStaticText">
+                                <label>Grey picker</label>
+                              </object>
+                              <flag>wxALIGN_CENTRE_HORIZONTAL</flag>
+                            </object>
+                            <orient>wxVERTICAL</orient>
+                          </object>
+                          <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                          <border>5</border>
+                        </object>
                       </object>
                       <flag>wxALIGN_CENTRE_VERTICAL</flag>
                     </object>
@@ -563,7 +589,6 @@
                       </object>
                       <flag>wxALIGN_CENTRE_VERTICAL</flag>
                     </object>
-
                     <object class="sizeritem">
                       <object class="wxStaticText" name="label_x">
                         <label>X:</label>
@@ -578,7 +603,6 @@
                       </object>
                       <flag>wxALIGN_CENTRE_VERTICAL</flag>
                     </object>
-
                     <object class="sizeritem">
                       <object class="wxStaticText" name="label_y">
                         <label>Y:</label>
@@ -593,7 +617,6 @@
                       </object>
                       <flag>wxALIGN_CENTRE_VERTICAL</flag>
                     </object>
-
                     <object class="sizeritem">
                       <object class="wxStaticText" name="label_z">
                         <label>Z:</label>
@@ -608,7 +631,6 @@
                       </object>
                       <flag>wxALIGN_CENTRE_VERTICAL</flag>
                     </object>
-
                     <object class="sizeritem">
                       <object class="wxButton" name="apply_num_transform">
                         <label>Apply</label>
@@ -620,7 +642,6 @@
                   <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
                   <border>5</border>
                 </object>
-
               </object>
               <tooltip>Move the panorama or drag images into position</tooltip>
             </object>

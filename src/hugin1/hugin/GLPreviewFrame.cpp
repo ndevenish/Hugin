@@ -72,6 +72,7 @@ extern "C" {
 #include "PreviewPanoMaskTool.h"
 #include "PreviewControlPointTool.h"
 #include "PreviewLayoutLinesTool.h"
+#include "PreviewColorPickerTool.h"
 
 #include "ProjectionGridTool.h"
 
@@ -127,6 +128,7 @@ BEGIN_EVENT_TABLE(GLPreviewFrame, wxFrame)
     EVT_BUTTON(ID_SHOW_NONE, GLPreviewFrame::OnShowNone)
     EVT_CHECKBOX(XRCID("preview_photometric_tool"), GLPreviewFrame::OnPhotometric)
     EVT_TOOL(XRCID("preview_identify_tool"), GLPreviewFrame::OnIdentify)
+    EVT_TOOL(XRCID("preview_color_picker_tool"), GLPreviewFrame::OnColorPicker)
     EVT_CHECKBOX(XRCID("preview_control_point_tool"), GLPreviewFrame::OnControlPoint)
     EVT_BUTTON(XRCID("preview_autocrop_tool"), GLPreviewFrame::OnAutocrop)
     EVT_NOTEBOOK_PAGE_CHANGED(XRCID("mode_toolbar_notebook"), GLPreviewFrame::OnSelectMode)
@@ -293,6 +295,7 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     plane_overview_helper = NULL;
     crop_tool = NULL;
     drag_tool = NULL;
+    color_picker_tool = NULL;
     overview_drag_tool = NULL;
     identify_tool = NULL ;
     panosphere_overview_identify_tool = NULL;
@@ -718,6 +721,11 @@ GLPreviewFrame::~GLPreviewFrame()
     
     // delete all of the tools. When the preview is never used we never get an
     // OpenGL context and therefore don't create the tools.
+    if (color_picker_tool)
+    {
+        preview_helper->DeactivateTool(color_picker_tool);
+        delete color_picker_tool;
+    };
     if (crop_tool)
     {
         preview_helper->DeactivateTool(crop_tool); delete crop_tool;
@@ -1705,6 +1713,7 @@ void GLPreviewFrame::MakePreviewTools(PreviewToolHelper *preview_helper_in)
     preview_helper = preview_helper_in;
     crop_tool = new PreviewCropTool(preview_helper);
     drag_tool = new PreviewDragTool(preview_helper);
+    color_picker_tool = new PreviewColorPickerTool(preview_helper);
     identify_tool = new PreviewIdentifyTool(preview_helper, this);
     preview_helper->ActivateTool(identify_tool);
     difference_tool = new PreviewDifferenceTool(preview_helper);
@@ -1904,6 +1913,30 @@ void GLPreviewFrame::CleanButtonColours()
 #endif
     }
 }
+
+void GLPreviewFrame::OnColorPicker(wxCommandEvent &e)
+{
+    // blank status text as it refers to an old tool.
+    SetStatusText(wxT(""), 0); 
+    if (e.IsChecked())
+    {
+        preview_helper->ActivateTool(color_picker_tool);
+    }
+    else
+    {
+        preview_helper->DeactivateTool(color_picker_tool);
+    };
+};
+
+void GLPreviewFrame::UpdateGlobalWhiteBalance(double redFactor, double blueFactor)
+{
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::UpdateWhiteBalance(m_pano, redFactor, blueFactor)
+        );
+    //now toggle button and deactivate tool
+    XRCCTRL(*this,"preview_color_picker_toolbar",wxToolBar)->ToggleTool(XRCID("preview_color_picker_tool"),false);
+    preview_helper->DeactivateTool(color_picker_tool);
+};
 
 ImageToogleButtonEventHandler::ImageToogleButtonEventHandler(
                                   unsigned int image_number_in,
@@ -2170,6 +2203,8 @@ void GLPreviewFrame::SetMode(int newMode)
             identify_tool->setConstantOn(false);
             panosphere_overview_identify_tool->setConstantOn(false);
             plane_overview_identify_tool->setConstantOn(false);
+            preview_helper->DeactivateTool(color_picker_tool);
+            XRCCTRL(*this,"preview_color_picker_toolbar",wxToolBar)->ToggleTool(XRCID("preview_color_picker_tool"),false);
 //            preview_helper->DeactivateTool(identify_tool);
 //            panosphere_overview_helper->DeactivateTool(panosphere_overview_identify_tool);
 //            plane_overview_helper->DeactivateTool(plane_overview_identify_tool);

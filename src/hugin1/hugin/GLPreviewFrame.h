@@ -67,6 +67,7 @@ class PreviewDifferenceTool;
 class PreviewPanoMaskTool;
 class PreviewControlPointTool;
 class PreviewLayoutLinesTool;
+class PreviewColorPickerTool;
 
 class PanosphereOverviewProjectionGridTool;
 class PreviewProjectionGridTool;
@@ -238,6 +239,11 @@ public:
     void SetDragGroupImages(PT::UIntSet imageDragGroup_in, bool update_check_box = true);
     PT::UIntSet GetDragGroupImages();
     void ClearDragGroupImages(bool update_check_box = true);
+    /** updates the global white balance 
+     * @param redFactor multiplies all WhiteBalanceRed of individuel images with this factor
+     * @param blueFactor multiplies all WhiteBalanceBlue of individuel images with this factor
+     */
+    void UpdateGlobalWhiteBalance(double redFactor, double blueFactor);
 
 protected:
 
@@ -302,6 +308,8 @@ protected:
     void OnToolModeChanging(wxNotebookEvent &e);
     /** event handler for change scale of layout mode */
     void OnLayoutScaleChange(wxScrollEvent &e);
+    /** event handler when starting color picker */
+    void OnColorPicker(wxCommandEvent &e);
 private:
     /** changes the visibility of the group check boxes
      * @param isShown true if the group checkboxes should be visible
@@ -385,6 +393,7 @@ private:
     PreviewCropTool *crop_tool;
     PT::UIntSet imageDragGroup;
     PreviewDragTool *drag_tool;
+    PreviewColorPickerTool *color_picker_tool;
 
     PreviewIdentifyTool *identify_tool;
     PreviewIdentifyTool *panosphere_overview_identify_tool;

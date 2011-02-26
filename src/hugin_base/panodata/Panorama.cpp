@@ -1789,9 +1789,35 @@ Panorama::ReadWriteError Panorama::writeData(std::ostream& dataOutput, std::stri
     return SUCCESSFUL;
 }
 
-
-
-
+void Panorama::updateWhiteBalance(double redFactor, double blueFactor)
+{
+    UIntSet modified_images;
+    for(unsigned int i=0;i<getNrOfImages();i++)
+    {
+        if(!set_contains(modified_images,i))
+        {
+            state.images[i]->setWhiteBalanceRed(redFactor * state.images[i]->getWhiteBalanceRed());
+            state.images[i]->setWhiteBalanceBlue(blueFactor * state.images[i]->getWhiteBalanceBlue());
+            modified_images.insert(i);
+            imageChanged(i);
+            //check linked images and remember for later
+            if(state.images[i]->WhiteBalanceRedisLinked())
+            {
+                if(i+1<getNrOfImages())
+                {
+                    for(unsigned int j=i+1;j<getNrOfImages();j++)
+                    {
+                        if(state.images[i]->WhiteBalanceRedisLinkedWith(*(state.images[j])))
+                        {
+                            modified_images.insert(j);
+                            imageChanged(j);
+                        };
+                    };
+                };
+            };
+        };
+    };
+};
 
 PanoramaMemento::PanoramaMemento(const PanoramaMemento & data)
 {
