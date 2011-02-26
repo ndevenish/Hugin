@@ -273,6 +273,9 @@ protected:
     void OnBlendChoice(wxCommandEvent & e);
     void OnDragChoice(wxCommandEvent & e);
 
+    void KeyDown(wxKeyEvent & e);
+    void KeyUp(wxKeyEvent & e);
+
     void OnCustomDragChoice(wxCommandEvent & e);
 
     void DragChoiceLayout( int index );

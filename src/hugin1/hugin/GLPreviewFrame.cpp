@@ -118,6 +118,9 @@ END_EVENT_TABLE()
 BEGIN_EVENT_TABLE(GLPreviewFrame, wxFrame)
     EVT_CLOSE(GLPreviewFrame::OnClose)
     EVT_SHOW(GLPreviewFrame::OnShowEvent)
+    //for some reason only key up is sent, key down event is not sent
+//    EVT_KEY_DOWN(GLPreviewFrame::KeyDown)
+//    EVT_KEY_UP(GLPreviewFrame::KeyUp)
     EVT_BUTTON(XRCID("preview_center_tool"), GLPreviewFrame::OnCenterHorizontally)
     EVT_BUTTON(XRCID("preview_fit_pano_tool"), GLPreviewFrame::OnFitPano)
     EVT_BUTTON(XRCID("preview_fit_pano_tool2"), GLPreviewFrame::OnFitPano)
@@ -1130,6 +1133,52 @@ void GLPreviewFrame::OnShowEvent(wxShowEvent& e)
     }
 
 }
+
+//the following methods are to substitude the GLViewer KeyUp and KeyDown methods
+//so that tools use key events that happen globally to the preview frame
+//however only key up event is sent, and not key down
+//so until this is resolved they will remain to be handled by GLViewer
+void GLPreviewFrame::KeyDown(wxKeyEvent& e)
+{
+    if (preview_helper) {
+        preview_helper->KeypressEvent(e.GetKeyCode(), e.GetModifiers(), true);
+    }
+    if (m_OverviewToggle->GetValue()) {
+        if(m_GLOverview->GetMode() == GLOverview::PLANE) {
+            if (plane_overview_helper) {
+                plane_overview_helper->KeypressEvent(e.GetKeyCode(), e.GetModifiers(), true);
+            }
+        } else if (m_GLOverview->GetMode() == GLOverview::PANOSPHERE) {
+            if (panosphere_overview_helper) {
+                panosphere_overview_helper->KeypressEvent(e.GetKeyCode(), e.GetModifiers(), true);
+            }
+        }
+    
+    }
+    e.Skip();
+}
+
+void GLPreviewFrame::KeyUp(wxKeyEvent& e)
+{
+    if (preview_helper) {
+        preview_helper->KeypressEvent(e.GetKeyCode(), e.GetModifiers(), false);
+    }
+    if (m_OverviewToggle->GetValue()) {
+        if(m_GLOverview->GetMode() == GLOverview::PLANE) {
+            if (plane_overview_helper) {
+                plane_overview_helper->KeypressEvent(e.GetKeyCode(), e.GetModifiers(), false);
+            }
+        } else if (m_GLOverview->GetMode() == GLOverview::PANOSPHERE) {
+            if (panosphere_overview_helper) {
+                panosphere_overview_helper->KeypressEvent(e.GetKeyCode(), e.GetModifiers(), false);
+            }
+        }
+    
+    }
+    e.Skip();
+}
+
+
 
 void GLPreviewFrame::OnOverviewToggle(wxCommandEvent& e)
 {

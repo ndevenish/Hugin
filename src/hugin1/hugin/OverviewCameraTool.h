@@ -45,6 +45,8 @@ class PanosphereOverviewCameraTool : public PanosphereOverviewTool
         void MouseButtonEvent(wxMouseEvent &e);
         void MouseWheelEvent(wxMouseEvent &);
         
+        void ChangeZoomLevel(bool zoomIn, double scale = 1.1);
+        void KeypressEvent(int keycode, int modifiers, bool pressed);
 
     private:
 
@@ -77,6 +79,9 @@ class PlaneOverviewCameraTool : public PlaneOverviewTool
         void MouseMoveEvent(double x, double y, wxMouseEvent & e);
         void MouseButtonEvent(wxMouseEvent &e);
         void MouseWheelEvent(wxMouseEvent &);
+        
+        void ChangeZoomLevel(bool zoomIn, double scale = 1.1);
+        void KeypressEvent(int keycode, int modifiers, bool pressed);
 
     private:
 

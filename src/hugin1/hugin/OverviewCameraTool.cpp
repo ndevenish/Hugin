@@ -32,8 +32,11 @@ void PanosphereOverviewCameraTool::Activate()
     helper->NotifyMe(ToolHelper::MOUSE_MOVE, this);
     helper->NotifyMe(ToolHelper::MOUSE_PRESS, this);
     helper->NotifyMe(ToolHelper::MOUSE_WHEEL, this);
+    helper->NotifyMe(ToolHelper::KEY_PRESS, this);
     down = false;
 }
+
+
 
 void PanosphereOverviewCameraTool::MouseMoveEvent(double x, double y, wxMouseEvent & e)
 {
@@ -72,12 +75,18 @@ void PanosphereOverviewCameraTool::MouseButtonEvent(wxMouseEvent &e)
     }
 }
 
-void PanosphereOverviewCameraTool::MouseWheelEvent(wxMouseEvent &e)
-{
-    double scale = 1.1;
+
+void PanosphereOverviewCameraTool::ChangeZoomLevel(bool zoomIn, double scale) {
     PanosphereOverviewVisualizationState*  state = (PanosphereOverviewVisualizationState*) helper->GetVisualizationStatePtr();
     double radius = state->getSphereRadius();
-    if (e.GetWheelRotation() < 0) {
+    if (zoomIn) {
+        if (state->getR() > limit_low * radius) {
+            state->setR((state->getR() - radius) / scale + radius);
+            state->SetDirtyViewport();
+            state->ForceRequireRedraw();
+            state->Redraw();
+        }
+    } else {
         if (state->getR() < limit_high * radius) {
             state->setR((state->getR() - radius) * scale + radius);
             state->SetDirtyViewport();
@@ -85,16 +94,28 @@ void PanosphereOverviewCameraTool::MouseWheelEvent(wxMouseEvent &e)
             state->Redraw();
         }
     }
-    if (e.GetWheelRotation() > 0) {
-        if (state->getR() > limit_low * radius) {
-            state->setR((state->getR() - radius) / scale + radius);
-            state->SetDirtyViewport();
-            state->ForceRequireRedraw();
-            state->Redraw();
-        }
+}
+
+void PanosphereOverviewCameraTool::MouseWheelEvent(wxMouseEvent &e)
+{
+    if (e.GetWheelRotation() != 0) {
+        ChangeZoomLevel(e.GetWheelRotation() > 0);
     }
 }
 
+void PanosphereOverviewCameraTool::KeypressEvent(int keycode, int modifiers, bool pressed) {
+//    std::cout << "kc: " << keycode << " " << modifiers << std::endl;
+//    std::cout << "cmd: " << wxMOD_CMD << " " << wxMOD_CONTROL << " " << WXK_ADD << " " << WXK_SUBTRACT << std::endl;
+//    std::cout << "cmd: " << wxMOD_CMD << " " << wxMOD_CONTROL << " " << WXK_NUMPAD_ADD << " " << WXK_NUMPAD_SUBTRACT << std::endl;
+    if (pressed)
+    if (modifiers == wxMOD_CMD) {
+        if (keycode == WXK_ADD) {
+            ChangeZoomLevel(true);
+        } else if (keycode == WXK_SUBTRACT) {
+            ChangeZoomLevel(false);
+        }
+    }
+}
 
 void PlaneOverviewCameraTool::Activate()
 {
@@ -168,19 +189,34 @@ void PlaneOverviewCameraTool::MouseButtonEvent(wxMouseEvent &e)
     }
 }
 
-
-void PlaneOverviewCameraTool::MouseWheelEvent(wxMouseEvent &e)
-{
-    double scale = 1.1;
+void PlaneOverviewCameraTool::ChangeZoomLevel(bool zoomIn, double scale) {
     PlaneOverviewVisualizationState*  state = (PlaneOverviewVisualizationState*) helper->GetVisualizationStatePtr();
-    if (e.GetWheelRotation() < 0) {
-        state->setR(state->getR() * scale);
-    }
-    if (e.GetWheelRotation() > 0) {
+    if (zoomIn) {
         state->setR(state->getR() / scale);
+    } else {
+        state->setR(state->getR() * scale);
     }
     state->SetDirtyViewport();
     state->ForceRequireRedraw();
     state->Redraw();
 }
+
+void PlaneOverviewCameraTool::MouseWheelEvent(wxMouseEvent &e)
+{
+    if (e.GetWheelRotation() != 0) {
+        ChangeZoomLevel(e.GetWheelRotation() > 0);
+    }
+}
+
+void PlaneOverviewCameraTool::KeypressEvent(int keycode, int modifiers, bool pressed) {
+    if (pressed)
+    if (modifiers == wxMOD_CMD) {
+        if (keycode == WXK_ADD) {
+            ChangeZoomLevel(true);
+        } else if (keycode == WXK_SUBTRACT) {
+            ChangeZoomLevel(false);
+        }
+    }
+}
+
 
