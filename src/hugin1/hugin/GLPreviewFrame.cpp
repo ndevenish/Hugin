@@ -747,6 +747,7 @@ GLPreviewFrame::~GLPreviewFrame()
         panosphere_overview_helper->DeactivateTool(overview_drag_tool); delete overview_drag_tool;
         panosphere_overview_helper->DeactivateTool(panosphere_overview_identify_tool); delete panosphere_overview_identify_tool;
         panosphere_overview_helper->DeactivateTool(panosphere_difference_tool); delete panosphere_difference_tool;
+        panosphere_overview_helper->DeactivateTool(panosphere_sphere_tool); delete panosphere_sphere_tool;
     }
     if (plane_overview_identify_tool) {
         plane_overview_helper->DeactivateTool(plane_overview_identify_tool); delete plane_overview_identify_tool;
