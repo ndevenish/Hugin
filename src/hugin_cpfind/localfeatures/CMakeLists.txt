@@ -22,6 +22,9 @@ ELSE (${HUGIN_SHARED_LIBS})
     add_library(localfeatures STATIC ${LF_SRC} ${LF_HEADER})
 ENDIF (${HUGIN_SHARED_LIBS})
 
+OPTION (BUILD_KEYPOINTS "Build keypoints program" OFF)
+
+IF(BUILD_KEYPOINTS)
 add_executable(keypoints keypoints.cpp)
 
 IF(WIN32)
@@ -31,3 +34,4 @@ ELSE(WIN32)
 ENDIF(WIN32)
 
 install(TARGETS keypoints DESTINATION ${BINDIR})
+ENDIF()
