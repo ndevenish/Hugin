@@ -284,6 +284,7 @@
                       </object>
                       <flag>wxEXPAND</flag>
                     </object>
+
                     <object class="sizeritem">
                       <object class="wxBoxSizer">
                         <orient>wxVERTICAL</orient>
@@ -339,6 +340,16 @@
                                       <flag>wxLEFT|wxALIGN_CENTRE_VERTICAL</flag>
                                       <border>6</border>
                                     </object>
+                                      <object class="spacer">
+                                      </object>
+                                    <object class="sizeritem">
+                                      <object class="wxButton" name="images_feature_matching">
+                                        <label>Create control points</label>
+                                        <tooltip>Run external autopano program on the selected images</tooltip>
+                                      </object>
+                                      <flag>wxTOP|wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>
+                                      <border>3</border>
+                                    </object>
                                     <cols>2</cols>
                                     <growablecols>1</growablecols>
                                   </object>
@@ -346,14 +357,6 @@
                                 </object>
                                 <object class="spacer">
                                   <size>12,6</size>
-                                </object>
-                                <object class="sizeritem">
-                                  <object class="wxButton" name="images_feature_matching">
-                                    <label>Create control points</label>
-                                    <tooltip>Run external autopano program on the selected images</tooltip>
-                                  </object>
-                                  <flag>wxTOP|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-                                  <border>3</border>
                                 </object>
                               </object>
                               <flag>wxEXPAND</flag>
