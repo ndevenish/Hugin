@@ -295,6 +295,11 @@ void FindPanoDialog::SearchInDir(wxString dirstring, bool includeSubdir)
         {
             std::string filenamestr(file.GetFullPath().mb_str(HUGIN_CONV_FILENAME));
             SrcPanoImage *img=new SrcPanoImage(filenamestr);
+            // this must be called before the first call to newPanos
+            // otherwise the first/second image is not processed in the right way
+            // But when running in debug mode it works; seems to be a kind of
+            // race conditions
+            wxGetApp().Yield(true);
             if(img->hasEXIFread())
             {
                 bool found=false;
