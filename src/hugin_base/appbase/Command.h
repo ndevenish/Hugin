@@ -1,5 +1,5 @@
 // -*- c-basic-offset: 4 -*-
-/** @file History.h
+/** @file Command.h
  *
  *  @author Pablo d'Angelo <pablo.dangelo@web.de>
  *
@@ -103,5 +103,7 @@ class Command
 
 
 } //namespace
+
+typedef AppBase::Command<> Command;
 
 #endif // _H

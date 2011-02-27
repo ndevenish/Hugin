@@ -1,5 +1,5 @@
 // -*- c-basic-offset: 4 -*-
-/** @file math.h
+/** @file hugin_math.h
  *
  *  @brief misc math function & classes used by other parts
  *         of the program

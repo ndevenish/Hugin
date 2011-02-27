@@ -1,6 +1,6 @@
 // -*- c-basic-offset: 4 -*-
 
-/** @file wx_nona.cpp
+/** @file nona_gui.cpp
  *
  *  @brief stitcher, with wxwindows progress display
  *

@@ -27,7 +27,7 @@
  */
 
 #include "hugin/MaskLoadDialog.h"
-#include "common/wxPlatform.h"
+#include "base_wx/wxPlatform.h"
 #ifdef __APPLE__
 #include "panoinc_WX.h"
 #include "panoinc.h"

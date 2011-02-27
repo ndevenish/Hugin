@@ -51,6 +51,7 @@
 #include "base_wx/PTWXDlg.h"
 #include "hugin/CommandHistory.h"
 #include "hugin/wxPanoCommand.h"
+#include "hugin/HtmlWindow.h"
 
 #include "base_wx/platform.h"
 #include "base_wx/huginConfig.h"
@@ -63,12 +64,12 @@
 
 #include "AboutDialog.h"
 
-using namespace utils;
+using namespace hugin_utils;
 
 // utility functions
 bool str2double(wxString s, double & d)
 {
-    if (!utils::stringToDouble(std::string(s.mb_str(wxConvLocal)), d)) {
+    if (!stringToDouble(std::string(s.mb_str(wxConvLocal)), d)) {
         wxLogError(_("Value must be numeric."));
         return false;
     }
@@ -252,6 +253,7 @@ bool huginApp::OnInit()
     wxXmlResource::Get()->AddHandler(new OptimizePhotometricPanelXmlHandler());
     wxXmlResource::Get()->AddHandler(new PanoPanelXmlHandler());
     wxXmlResource::Get()->AddHandler(new PreviewPanelXmlHandler());
+    wxXmlResource::Get()->AddHandler(new HtmlWindowXmlHandler());
 
     // load XRC files
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("crop_panel.xrc"));

@@ -5,30 +5,12 @@
  * 
  *  @brief This file specifies what image variables SrcPanoImg should have.
  *
- *  This is free software; you can redistribute it and/or
- *  modify it under the terms of the GNU General Public
- *  License as published by the Free Software Foundation; either
- *  version 2 of the License, or (at your option) any later version.
- *
- *  This software is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- *  Lesser General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public
- *  License along with this software; if not, write to the Free Software
- *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
- */
-
-
-/** @note
  * This file is #included multiple times after defining a macro for
  * image_variable. The idea is to reduce the amount of tedoius code copy &
  * pasted for each image variable. The list will be used to generate things the
  * following:
  * -# Member variables:
- *          ImageVarianle<[type]> m_[name];
+ *          ImageVariable<[type]> m_[name];
  * -# Accessor functions:
  *          [type] get[name]() const;
  * -# Set functions:
@@ -48,6 +30,22 @@
  * changing if this list changes. That file handles the translation to and from
  * PTO file format style variables.
  * @see ImageVariableTranslate.h
+ */
+
+/*  This is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU General Public
+ *  License as published by the Free Software Foundation; either
+ *  version 2 of the License, or (at your option) any later version.
+ *
+ *  This software is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  Lesser General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public
+ *  License along with this software; if not, write to the Free Software
+ *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ *
  */
 
 /* Hmmm... I'ld like commas in template arguments, but < and > aren't real

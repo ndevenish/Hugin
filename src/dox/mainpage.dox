@@ -10,7 +10,7 @@
 
  \section build Building
 
-   Hugin now builds with cmake:
+   Hugin builds with Cmake (http://cmake.org/):
 
    \verbatim
 
@@ -20,79 +20,59 @@
 
    \endverbatim
 
-   The project's directory structure (this list is completely out-of-date):
+   For a more detailed description see corresponding entries in wiki:
+
+   - for different Unix flavours see
+     - for Ubuntu: http://wiki.panotools.org/Hugin_Compiling_Ubuntu
+     - for Fedora: http://wiki.panotools.org/Hugin_Compiling_Fedora
+     - for OpenSuse: http://wiki.panotools.org/Hugin_Compiling_OpenSuse
+     - for Gentoo: http://wiki.panotools.org/Hugin_Compiling_Gentoo
+     - for FreeBSD: http://wiki.panotools.org/Hugin_Compiling_FreeBSD
+   - for Windows: http://wiki.panotools.org/Build_Hugin_for_Windows_with_SDK
+   - for MacOS: http://wiki.panotools.org/Hugin_Compiling_OSX
+
+   The project's directory structure:
 
    - hugin/
      - src/
-       - celeste/ Contains the code for celeste
-       - deghosting/  Contains the deghosting code
-       - dox/     Contains the parts for generating documentation
-       - foreign/ Contains foreign libs (mostly with modification for hugin)
-       - hugin1/  Contains all libs and programs which depends on wxWidgets
+       - \ref celeste Contains the code for celeste
+       - \ref deghosting  Contains the deghosting code
+       - dox     Contains the parts for generating documentation
+       - foreign Contains foreign libs (mostly with modification for hugin)
+       - \ref hugin1  Contains all libs and programs which depends on wxWidgets
                   (mainly the GUI programs)
-       - hugin_base/  Contains the base functionality
+       - \ref hugin_base  Contains the base functionality
                   (code in this directory does not depends on wxWidgets and
                   should not link against wxWidgets)
-       - hugin_cpfind/  Contains the code of the control point detector
-       - hugin_qtbase/  Contains the old gui written in QT
-       - lens_calibrate/ Contains the lens_calibrate lib and program
-       - matchpoint/  Contains the matchpoint program
-       - tools/    Contains most of the command line tools
-       - translations/  Contains the translations
+       - \ref hugin_cpfind  Contains the code of the control point detector
+       - \ref lens_calibrate Contains the lens_calibrate lib and program
+       - \ref matchpoint  Contains the matchpoint program
+       - \ref tools    Contains most of the command line tools
+       - translations  Contains the translations
+
+   The hugin_base directory contains further sub-directories:
+   -  \ref hugin_base/algorithms  Contains algorithm, which modify the panorama object.
+   -  \ref hugin_base/appbase
+   -  \ref hugin_base/hugin_math  Contains different math helper functions.
+   -  \ref hugin_base/huginapp
+   -  \ref hugin_base/makefilelib  Contains the makefilelib which allows wrapping of makefile generation for GNU make.
+   -  \ref hugin_base/nona
+   -  \ref hugin_base/panodata  Contains the main HuginBase::Panorama object and all other base object used by HuginBase::Panorama.
+   -  \ref hugin_base/panotools  Contains wrapper function for libpano.
+   -  \ref hugin_base/photometric  Contains the photometric functions.
+   -  \ref hugin_base/vigra_ext  Contains extension for the vigra image lib.
+
+   The hugin1 directory contains the libs and programs which depends on wxWidgets:
+   -  \ref hugin1/base_wx  Contains functions used by different programs/libs.
+   -  \ref hugin1/hugin Contains the code for Hugin GUI.
+   -  \ref hugin1/icpfind  Contains the code for the icpfind lib and command line version.
+   -  \ref hugin1/nona_gui  Contains code for nona_gui.
+   -  \ref hugin1/PT
+   -  \ref hugin1/ptbatcher  Contains the batch processing code (PTBatcher and PTBatcherGUI).
+   -  \ref hugin1/stitch_project  Contains the code for hugin_stitch_project.
+   -  \ref hugin1/tools_vips
+
+   The coding style for Hugin is described at:
+   http://hugin.sourceforge.net/community/coding_style/       
        
- \section code Code writing
-
-   A short list of my coding habits:
-   
-   indentation with 4 spaces, no tabs. Tabs often cause confusion,
-   when different IDE's use different tab lengths.
-
-   source code documentation with doxygen (http://www.doxygen.org)
-   Doxygen is a useful tool and can also be used to create other
-   documentation that just class interface descriptions (for example
-   this document). It works by prefixing the function prototypes with
-   a special comment. I usually put the documentation in the header
-   files.
-
-      The basic usage is very javadoc like:
-      
-      \verbatim
-
-      /** One sentence class description
-       *
-       *  more detailed description
-       *
-       *  @todo pet the cat more often
-       *  @bug  might scratch if annoyed
-       */
-      class Cat
-      {
-      public:
-          /** hunt food
-           *
-           *  @param prey type of animals that we should hunt
-           *  @return true if the cat is sated
-           */
-          bool HuntFood(Prey prey);
-
-      }
-      
-      \endverbatim
-
-      I haven't commented all my classes but I will complete the
-      documentation of the more important ones.
-
-      the todo and bug items will appear in a separate list, so its
-      a useful tool to document some stuff that has to be fixed at
-      some time but is not too important right now.
-
-      I have also often used // FIXME comments, mainly inside *.cpp
-      files, so a grep for FIXME should also reveal places where some
-      more work should be done ;-)
-
-      I usually use java like naming conventions, but wxwindows uses
-      uppercase characters for the first char of a method name. I'll
-      use capital letters for all wx widgets in the future to avoid
-      confusion.
-      
 */

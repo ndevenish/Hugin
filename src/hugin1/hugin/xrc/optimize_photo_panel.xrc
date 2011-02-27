@@ -113,7 +113,7 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                           <flag>wxBOTTOM</flag>
                           <border>6</border>
                         </object>
-                        <object class="sizeritem">
+                       <object class="sizeritem">
                           <object class="wxGridSizer">
                             <object class="sizeritem">
                               <object class="wxBoxSizer">
@@ -252,6 +252,28 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                                   <border>3</border>
                                   <minsize>-1,60</minsize>
                                 </object>
+                                <object class="sizeritem">
+                                  <object class="wxGridSizer">
+                                    <object class="sizeritem">
+                                      <object class="wxBitmapButton" name="opt_vig_select">
+                                        <bitmap stock_id="wxART_TICK_MARK"></bitmap>
+                                      </object>
+                                      <flag>wxLEFT|wxRIGHT|wxALIGN_RIGHT</flag>
+                                      <border>3</border>
+                                    </object>
+                                    <object class="sizeritem">
+                                      <object class="wxBitmapButton" name="opt_vig_clear">
+                                        <bitmap stock_id="wxART_CROSS_MARK"></bitmap>
+                                      </object>
+                                      <flag>wxRIGHT</flag>
+                                      <border>3</border>
+                                    </object>
+                                    <cols>2</cols>
+                                    <rows>1</rows>
+                                    <hgap>12</hgap>
+                                  </object>
+                                  <flag>wxEXPAND|wxALIGN_CENTRE_HORIZONTAL</flag>
+                                </object>
                               </object>
                               <option>1</option>
                               <flag>wxEXPAND</flag>
@@ -274,6 +296,28 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                                   <border>3</border>
                                   <minsize>-1,60</minsize>
                                 </object>
+                                <object class="sizeritem">
+                                  <object class="wxGridSizer">
+                                    <object class="sizeritem">
+                                      <object class="wxBitmapButton" name="opt_vigc_select">
+                                        <bitmap stock_id="wxART_TICK_MARK"></bitmap>
+                                      </object>
+                                      <flag>wxLEFT|wxRIGHT|wxALIGN_RIGHT</flag>
+                                      <border>3</border>
+                                    </object>
+                                    <object class="sizeritem">
+                                      <object class="wxBitmapButton" name="opt_vigc_clear">
+                                        <bitmap stock_id="wxART_CROSS_MARK"></bitmap>
+                                      </object>
+                                      <flag>wxRIGHT</flag>
+                                      <border>3</border>
+                                    </object>
+                                    <cols>2</cols>
+                                    <rows>1</rows>
+                                    <hgap>12</hgap>
+                                  </object>
+                                  <flag>wxEXPAND|wxALIGN_CENTRE_HORIZONTAL</flag>
+                                </object>
                               </object>
                               <option>1</option>
                               <flag>wxEXPAND</flag>
@@ -295,6 +339,28 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                                   <flag>wxALL|wxEXPAND</flag>
                                   <border>3</border>
                                   <minsize>-1,60</minsize>
+                                </object>
+                                <object class="sizeritem">
+                                  <object class="wxGridSizer">
+                                    <object class="sizeritem">
+                                      <object class="wxBitmapButton" name="opt_resp_select">
+                                        <bitmap stock_id="wxART_TICK_MARK"></bitmap>
+                                      </object>
+                                      <flag>wxLEFT|wxRIGHT|wxALIGN_RIGHT</flag>
+                                      <border>3</border>
+                                    </object>
+                                    <object class="sizeritem">
+                                      <object class="wxBitmapButton" name="opt_resp_clear">
+                                        <bitmap stock_id="wxART_CROSS_MARK"></bitmap>
+                                      </object>
+                                      <flag>wxRIGHT</flag>
+                                      <border>3</border>
+                                    </object>
+                                    <cols>2</cols>
+                                    <rows>1</rows>
+                                    <hgap>12</hgap>
+                                  </object>
+                                  <flag>wxEXPAND|wxALIGN_CENTRE_HORIZONTAL</flag>
                                 </object>
                               </object>
                               <option>1</option>

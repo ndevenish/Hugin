@@ -89,6 +89,7 @@ protected:
                            double yaw_start, double pitch_start,
                            double roll_start);
     DragMode drag_mode;
+    bool custom_drag;
 };
 
 class PreviewDragTool : public DragTool

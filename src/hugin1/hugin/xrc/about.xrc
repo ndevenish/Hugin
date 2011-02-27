@@ -37,7 +37,7 @@
         <border>3</border>
       </object>
       <object class="sizeritem">
-        <object class="wxNotebook">
+        <object class="wxNotebook" name="about_notebook">
           <object class="notebookpage">
             <object class="wxPanel" name="about_tab">
               <object class="wxBoxSizer">
@@ -167,6 +167,27 @@
                 </object>
               </object>
             </object>
+          </object>
+          <object class="notebookpage">
+            <object class="wxPanel" name="dedication_tab">
+              <object class="wxBoxSizer">
+                <orient>wxVERTICAL</orient>
+                <object class="sizeritem">
+                  <object class="HtmlWindow" name="dedication_html">
+                    <borders>0</borders>
+                    <style platform="win">wxSUNKEN_BORDER</style>
+                    <url>data/dedication.htm</url>
+                    <bg>#FFFFFF</bg>
+                  </object>
+                  <option>1</option>
+                  <flag>wxALL|wxEXPAND</flag>
+                  <border platform="unix|mac">0</border>
+                </object>
+                <flag>wxEXPAND</flag>
+                <option>1</option>
+              </object>
+            </object>
+            <label>Dedication</label>
           </object>
         </object>
         <flag>wxALL|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>

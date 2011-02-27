@@ -1,6 +1,6 @@
 // -*- c-basic-offset: 4 -*-
 
-/** @file List.cpp
+/** @file ImagesList.cpp
  *
  *  @brief implementation of List Class
  *
@@ -28,9 +28,9 @@
 #include "panoinc_WX.h"
 #include "panoinc.h"
 
-#include "common/wxPlatform.h"
+#include "base_wx/wxPlatform.h"
 #include "hugin/ImagesList.h"
-#include "base_wx/ImageCache.h"
+#include "base_wx/wxImageCache.h"
 #include "base_wx/platform.h"
 
 #ifdef __WXMAC__
@@ -38,7 +38,7 @@
 #endif
 
 using namespace PT;
-using namespace utils;
+using namespace hugin_utils;
 
 #if wxCHECK_VERSION(2,9,0)
     wxDEFINE_EVENT(EVT_IMAGE_ADD,wxCommandEvent);

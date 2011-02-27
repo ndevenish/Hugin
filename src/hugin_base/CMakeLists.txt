@@ -1,12 +1,6 @@
 
 # a list of all files belonging to hugin base library
 
-# unused sources
-# algorithms/external/PTStitcherStitcher.cpp
-#algorithms/external/PTmenderStitcher.cpp
-
-
-
 SET(HUGIN_BASE_SRC
 algorithms/nona/NonaFileStitcher.cpp
 algorithms/nona/NonaImageStitcher.cpp
@@ -29,8 +23,6 @@ algorithms/panorama_makefile/PanoramaMakefilelibExport.cpp
 algorithms/assistant_makefile/AssistantMakefilelibExport.cpp
 algorithms/point_sampler/PointSampler.cpp
 algorithms/control_points/CleanCP.cpp
-appbase/ExternalProgram.cpp
-appbase/ExternalProgramSetup.cpp
 appbase/ProgressDisplay.cpp
 appbase/ProgressDisplayOld.cpp
 appbase/ProgressReporterOld.cpp
@@ -68,8 +60,8 @@ vigra_ext/ImageTransformsGPU.cpp
 )
 
 SET(HUGIN_BASE_HEADER
-algorithm/PanoramaAlgorithm.h
-algorithm/StitcherAlgorithm.h
+algorithms/PanoramaAlgorithm.h
+algorithms/StitcherAlgorithm.h
 algorithms/nona/NonaFileStitcher.h
 algorithms/nona/NonaImageStitcher.h
 algorithms/basic/CalculateCPStatistics.h
@@ -91,8 +83,8 @@ algorithms/panorama_makefile/PanoramaMakefilelibExport.h
 algorithms/assistant_makefile/AssistantMakefilelibExport.h
 algorithms/point_sampler/PointSampler.h
 algorithms/control_points/CleanCP.h
-appbase/ExternalProgram.h
-appbase/ExternalProgramSetup.h
+appbase/Command.h
+appbase/DocumentData.h
 appbase/ProgressDisplay.h
 appbase/ProgressDisplayOld.h
 appbase/ProgressReporterOld.h

@@ -1,5 +1,5 @@
 // -*- c-basic-offset: 4 -*-
-/** @file PreviewILayoutLineTool.cpp
+/** @file PreviewLayoutLinesTool.cpp
  *
  *  @author James Legg
  *

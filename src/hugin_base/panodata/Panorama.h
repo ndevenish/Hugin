@@ -1,5 +1,5 @@
 // -*- c-basic-offset: 4 -*-
-/** @file Panorama.h
+/** @file panodata/Panorama.h
  *
  *  @author Pablo d'Angelo <pablo.dangelo@web.de>
  *
@@ -265,6 +265,7 @@ class IMPEX Panorama : public ManagedPanoramaData, public AppBase::DocumentData
         void setImageFilename(unsigned int img, const std::string & fname);
         
         /** change image properties.
+          *  @deprecated Use the corresponding get/set* methods instead, will be removed in the future
             */
         void setImageOptions(unsigned int i, const ImageOptions & opts);
         
@@ -413,6 +414,11 @@ class IMPEX Panorama : public ManagedPanoramaData, public AppBase::DocumentData
 #include "image_variables.h"
 #undef image_variable
         
+        /** update the global white balace of the panorama by multiplying
+         * the red and blue factor of each image with given factors 
+        */
+        virtual void updateWhiteBalance(double redFactor, double blueFactor);
+
     // = Optimise Vector =    
         /** return the optimize settings stored inside panorama */
         const OptimizeVector & getOptimizeVector() const

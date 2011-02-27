@@ -32,7 +32,7 @@
 #include <utility>
 #include <functional>
 
-#include "common/wxPlatform.h"
+#include "base_wx/wxPlatform.h"
 #include "hugin/CPListFrame.h"
 #include "hugin/MainFrame.h"
 #include "hugin/CommandHistory.h"
@@ -40,7 +40,7 @@
 
 using namespace PT;
 using namespace std;
-using namespace utils;
+using namespace hugin_utils;
 
 class DelKeyHandler: public wxEvtHandler
 {

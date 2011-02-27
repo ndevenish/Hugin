@@ -29,7 +29,7 @@
 /* something messed up... temporary fix :-( */
 #include "hugin_utils/utils.h"
 #define DEBUG_HEADER ""
-#include <base_wx/ImageCache.h>
+#include <base_wx/wxImageCache.h>
 #include <vigra_ext/ROIImage.h>
 #include <vigra/diff2d.hxx>
 #include <utility>

@@ -38,10 +38,6 @@ The following external programs are REQUIRED:
 2. exiftool from the Image::ExifTool perl module
 3. gnu make is required for stitching
 
-The following external programs are highly recommended:
-
-1. autopano-sift-C, panomatic, autopano or autopano-sift
-
 
 4. USE
     

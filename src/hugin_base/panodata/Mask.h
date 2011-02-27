@@ -45,7 +45,12 @@ typedef std::vector<FDiff2D> VectorPolygon;
  */
 const int maskOffset=100;
 
-/** base class, which stores one polygon */
+/** \brief base class, which stores one mask polygon 
+ *  
+ *  note: the mask handling (e.g. propagating of positive masks) happens in 
+ *  HuginBase::Panorama::updateMasks which is automatic called after a 
+ *  change to the panorama object by HuginBase::Panorama::changedFinished
+ */
 class IMPEX MaskPolygon
 {
 public:

@@ -1,5 +1,5 @@
 // -*- c-basic-offset: 4 -*-
-/** @file ROI.h
+/** @file vigra_ext/utils.h
  *
  *  functions to manage ROI's
  *

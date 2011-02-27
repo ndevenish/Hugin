@@ -1,6 +1,6 @@
 // -*- c-basic-offset: 4 -*-
 
-/** @file PanoToolsUtils.cpp
+/** @file panotools/PanoToolsUtils.cpp
  *
  *  @brief Utility calls into PanoTools using CPP interface 
  * 

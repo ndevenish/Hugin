@@ -27,5 +27,3 @@ IF(VIPS_FOUND)
 #  add_subdirectory(tools_vips)
 ENDIF(VIPS_FOUND)
 
-#add_subdirectory(tools)
-#add_subdirectory(tests)

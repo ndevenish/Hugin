@@ -32,7 +32,7 @@
 #include "CelesteGlobals.h"
 #include "Utilities.h"
 
-#include "base_wx/ImageCache.h"
+#include "base_wx/wxImageCache.h"
 
 using namespace PT;
 

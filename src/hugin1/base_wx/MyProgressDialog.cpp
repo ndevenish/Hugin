@@ -107,7 +107,7 @@ void MyProgressDialog::updateProgressDisplay()
 {
     wxString msg;
     // build the message:
-    for (std::vector<utils::ProgressTask>::iterator it = tasks.begin();
+    for (std::vector<AppBase::ProgressTask>::iterator it = tasks.begin();
          it != tasks.end(); ++it)
     {
         wxString cMsg;

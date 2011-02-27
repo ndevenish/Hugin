@@ -1,5 +1,5 @@
 // -*- c-basic-offset: 4 -*-
-/** @file platform.h
+/** @file hugin_utils/platform.h
  *
  *
  *  platform/compiler specific stuff.

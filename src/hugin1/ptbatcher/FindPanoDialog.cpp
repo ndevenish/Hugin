@@ -25,7 +25,7 @@
  */
 
 #include "FindPanoDialog.h"
-#include "common/wxPlatform.h"
+#include "base_wx/wxPlatform.h"
 #include "panoinc.h"
 #include "PTBatcherGUI.h"
 #include "hugin_utils/alphanum.hpp"

@@ -26,7 +26,7 @@ along with hugin.  If not, see <http://www.gnu.org/licenses/>.
 #define PANORAMAMAKEFILELIBEXPORT_H_
 
 #include <hugin_shared.h>
-#include <algorithm/PanoramaAlgorithm.h>
+#include <algorithms/PanoramaAlgorithm.h>
 #include <panodata/PanoramaData.h>
 #include <iosfwd>
 #include <makefilelib/Manager.h>

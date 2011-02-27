@@ -67,8 +67,10 @@ PreviewIdentifyTool::PreviewIdentifyTool(ToolHelper *helper,
                                          GLPreviewFrame *owner)
     : Tool(helper)
 {
+    holdControl = false;
+    constantOn = false;
     holdLeft = false;
-    stopUpdating = false;
+    stopUpdating = true;
     preview_frame = owner;
     if (!texture_created) {
         // make the textures. We have a circle border and a square one.
@@ -199,38 +201,104 @@ void PreviewIdentifyTool::Activate()
      helper->SetStatusMessage(_("Move the mouse over the images or image buttons to identify them."));
 }
 
+void PreviewIdentifyTool::StopUpdating() {
+    if (image_set.size() > 0) {
+        std::set<unsigned int>::iterator iterator;
+        for (iterator = image_set.begin(); iterator != image_set.end(); iterator++)
+        {
+            DEBUG_ASSERT(*iterator < helper->GetPanoramaPtr()->getNrOfImages());
+            // reset this button to its default system colour.
+            preview_frame->SetImageButtonColour(*iterator, 0, 0, 0);
+            // remove the notification
+            helper->DoNotNotifyMeBeforeDrawing(*iterator, this);
+        }
+    }
+    image_set.clear();
+    stopUpdating = true;
+    helper->GetVisualizationStatePtr()->ForceRequireRedraw();
+    helper->GetVisualizationStatePtr()->Redraw();
+}
+
+void PreviewIdentifyTool::ContinueUpdating() {
+    stopUpdating = false;
+    ImagesUnderMouseChangedEvent();
+}
+
 void PreviewIdentifyTool::MouseMoveEvent(double x, double y, wxMouseEvent & e)
 {
-    if (e.Dragging() && !(holdLeft)) {
-        if (image_set.size() > 0) {
-            std::set<unsigned int>::iterator iterator;
-            for (iterator = image_set.begin(); iterator != image_set.end(); iterator++)
-            {
-                DEBUG_ASSERT(*iterator < helper->GetPanoramaPtr()->getNrOfImages());
-                // reset this button to its default system colour.
-                preview_frame->SetImageButtonColour(*iterator, 0, 0, 0);
-                // remove the notification
-                helper->DoNotNotifyMeBeforeDrawing(*iterator, this);
-            }
+
+    bool stop = false;
+    bool start = false;
+
+    if (constantOn) {
+        if (e.Dragging() && !(holdLeft)) {
+            stop = true;
+            stopUpdating = true;
         }
-        image_set.clear();
-        stopUpdating = true;
-        helper->GetVisualizationStatePtr()->ForceRequireRedraw();
-        helper->GetVisualizationStatePtr()->Redraw();
+
+        if (stopUpdating && !e.LeftIsDown() && !e.MiddleIsDown() && !e.RightIsDown()) {
+            start = true;
+        }
     }
 
-    if (stopUpdating && !e.LeftIsDown() && !e.MiddleIsDown() && !e.RightIsDown()) {
+    if (holdControl && !e.m_controlDown) {
+        holdControl = false;
+        if (!constantOn) {
+            stop = true;
+        }
+    }
+    
+    if (!holdControl && e.m_controlDown) {
+        holdControl = true;
+        stop = false;
+        if (stopUpdating) {
+            start = true;
+        }
+    }
+    
+    if (stop) {
+        this->StopUpdating();
+    } else if(start) {
+        this->ContinueUpdating();
+    }
+
+
+}
+
+void PreviewIdentifyTool::KeypressEvent(int keycode, int modifierss, int pressed) {
+
+    if (keycode == WXK_CONTROL) {
+        if (pressed) {
+            holdControl = true;
+            ContinueUpdating();
+        } else {
+            holdControl = false;
+            if (!constantOn) {
+                StopUpdating();
+            }
+        }
+    }
+}
+
+void PreviewIdentifyTool::setConstantOn(bool constant_on_in) {
+    constantOn = constant_on_in;
+    if (constant_on_in) {
         stopUpdating = false;
-        ImagesUnderMouseChangedEvent();
+        ContinueUpdating();
+    } else {
+        stopUpdating = true;
+        StopUpdating();
     }
 
 }
+
 
 void PreviewIdentifyTool::ImagesUnderMouseChangedEvent()
 {
     if (stopUpdating) {
         return;
     }
+        
     // If we are currently showing indicators for some of the images, we want
     // to work out which ones are not in the new set, so we can set their
     // buttons back to the system colour.
@@ -491,20 +559,24 @@ void PreviewIdentifyTool::MouseButtonEvent(wxMouseEvent & e)
 
     if (holdLeft && e.LeftUp() && image_set.size() == 2) {
         holdLeft = false;
-        // when there are only two images with indicators shown, show the
-        // control point editor with those images when left clicked.
-        MainFrame::Get()->ShowCtrlPointEditor(*(image_set.begin()),
-                                              *(++image_set.begin()));
-        MainFrame::Get()->Raise();
+        if (constantOn) {
+                // when there are only two images with indicators shown, show the
+                // control point editor with those images when left clicked.
+                MainFrame::Get()->ShowCtrlPointEditor(*(image_set.begin()),
+                                                      *(++image_set.begin()));
+                MainFrame::Get()->Raise();
+        }
     }
 
     if (holdLeft && !(e.LeftIsDown())) {
         holdLeft = false;
     }
 
-    if (e.ButtonUp() && !e.MiddleIsDown() && !e.RightIsDown()) {
-        stopUpdating = false;
-        ImagesUnderMouseChangedEvent();
+    if (constantOn) {
+        if (e.ButtonUp() && !e.MiddleIsDown() && !e.RightIsDown()) {
+            stopUpdating = false;
+            ImagesUnderMouseChangedEvent();
+        }
     }
 
 }

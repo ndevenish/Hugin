@@ -1,4 +1,23 @@
 // -*- c-basic-offset: 4 ; tab-width: 4 -*-
+/*
+* Copyright (C) 2007-2008 Anael Orlinski
+*
+* This file is part of Panomatic.
+*
+* Panomatic is free software; you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation; either version 2 of the License, or
+* (at your option) any later version.
+* 
+* Panomatic is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+* 
+* You should have received a copy of the GNU General Public License
+* along with Panomatic; if not, write to the Free Software
+* Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+*/
 
 #include "PanoDetector.h"
 #include <iostream>
@@ -924,7 +943,17 @@ bool PanoDetector::matchMultiRow(PoolExecutor& aExecutor)
             optvars.push_back(imgopt);
         }
         optPano.setOptimizeVector(optvars);
+        if (getVerbose() < 2) 
+        {
+            PT_setProgressFcn(ptProgress);
+            PT_setInfoDlgFcn(ptinfoDlg);
+        };
         HuginBase::PTools::optimize(optPano);
+        if (getVerbose() < 2) 
+        {
+    		PT_setProgressFcn(NULL);
+	    	PT_setInfoDlgFcn(NULL);
+        };
 
         HuginBase::CalculateImageOverlap overlap(&optPano);
         overlap.calculate(10);

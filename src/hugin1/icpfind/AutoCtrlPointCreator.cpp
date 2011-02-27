@@ -35,6 +35,7 @@
 #include "PT/Panorama.h"
 #include "PT/ImageGraph.h"
 
+#include <hugin_utils/platform.h>
 #include "hugin/huginApp.h"
 #include "hugin/config_defaults.h"
 #include "icpfind/AutoCtrlPointCreator.h"
@@ -44,7 +45,7 @@
 #include "base_wx/MyExternalCmdExecDialog.h"
 #include "base_wx/platform.h"
 #include "base_wx/huginConfig.h"
-#include "common/wxPlatform.h"
+#include "base_wx/wxPlatform.h"
 #include <wx/utils.h>
 
 // somewhere SetDesc gets defined.. this breaks wx/cmdline.h on OSX
@@ -61,7 +62,7 @@
 
 using namespace std;
 using namespace PT;
-using namespace utils;
+using namespace hugin_utils;
 
 void CPMessage(const wxString message,const wxString caption, wxWindow *parent)
 {
@@ -688,7 +689,7 @@ CPVector AutoPanoKolor::automatch(CPDetectorSetting &setting, Panorama & pano, c
     wxString tempdir = ptofn.GetPath();
 	autopanoArgs.Replace(wxT("%d"), ptofn.GetPath());
     wxString cmd;
-    cmd.Printf(wxT("%s %s"), utils::wxQuoteFilename(autopanoExe).c_str(), autopanoArgs.c_str());
+    cmd.Printf(wxT("%s %s"), wxQuoteFilename(autopanoExe).c_str(), autopanoArgs.c_str());
 #ifdef __WXMSW__
     if (cmd.size() > 32766) {
         CPMessage(_("Command line for control point detector too long.\nThis is a windows limitation\nPlease select less images, or place the images in a folder with\na shorter pathname"),

@@ -73,6 +73,12 @@ protected:
     void OnDelExposure(wxCommandEvent & e);
     void OnSelWB(wxCommandEvent & e);
     void OnDelWB(wxCommandEvent & e);
+    void OnSelVignetting(wxCommandEvent & e);
+    void OnDelVignetting(wxCommandEvent & e);
+    void OnSelVignettingCentre(wxCommandEvent & e);
+    void OnDelVignettingCentre(wxCommandEvent & e);
+    void OnSelResponse(wxCommandEvent & e);
+    void OnDelResponse(wxCommandEvent & e);
 
     // helper function for wxCheckListBox
     void SetCheckMark(wxCheckListBox * l, int check, int anchor = -1);

@@ -1,5 +1,5 @@
 // -*- c-basic-offset: 4 -*-
-/** @file PanoImage.h
+/** @file panodata/PanoImage.h
  *
  *  @brief implementation of HFOVDialog Class
  *
@@ -37,7 +37,7 @@
 namespace HuginBase {
 
 /** optimization & stitching options. 
- *  this structure is depreacated and will be removed in future
+ *  @deprecated this structure is depreacated and will be removed in future
  *  do not use in new code */
 struct ImageOptions {
 

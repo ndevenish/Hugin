@@ -16,7 +16,7 @@ along with hugin.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 /**
- * @file main.cpp
+ * @file test_simple.cpp
  * @brief This file was only used for testing during development.
  *  Created on: May 21, 2010
  * @author Florian Achleitner <florian.achleitner.2.6.31@gmail.com>

@@ -62,21 +62,6 @@ using namespace hugin_utils;
 
 static ZThread::FastMutex aPanoToolsMutex;
 
-
-// dummy panotools progress functions for ransac optimisation
-static int ptProgress( int command, char* argument )
-{
-	return 1;
-}
-static void ptPrintError(char*fmt, va_list va)
-{
-}
-
-static int ptinfoDlg( int command, char* argument )
-{
-	return 1;
-}
-
 // define a Keypoint insertor
 class KeyPointVectInsertor : public lfeat::KeyPointInsertor
 {

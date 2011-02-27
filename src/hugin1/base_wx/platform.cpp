@@ -1,6 +1,6 @@
 // -*- c-basic-offset: 4 -*-
 
-/** @file platform.cpp
+/** @file hugin1/base_wx/platform.cpp
  *
  *  @brief various platfrom specific wxWidgets functions
  *

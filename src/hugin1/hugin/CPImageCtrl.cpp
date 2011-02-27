@@ -37,7 +37,7 @@
 
 #include "hugin/config_defaults.h"
 #include "hugin/CPImageCtrl.h"
-#include "base_wx/ImageCache.h"
+#include "base_wx/wxImageCache.h"
 #include "hugin/CPEditorPanel.h"
 #include "hugin/MainFrame.h"
 #include "hugin/huginApp.h"
@@ -582,14 +582,14 @@ wxBitmap CPImageCtrl::generateMagBitmap(FDiff2D point, wxPoint canvasPos) const
     invTransform.transformImgCoord(mx, my, point.x, point.y);
 
     // apply the transform
-    utils::MultiProgressDisplay progDisp;
+    AppBase::MultiProgressDisplay progDisp;
     vigra_ext::transformImageIntern(vigra::srcImageRange(*(m_img->image8)),
                          vigra::destImageRange(magImg),
                          vigra::destImage(maskImg),
                          transform,
                          ptf,
-                         vigra::Diff2D(utils::roundi(mx - hw),
-                                       utils::roundi(my - hw)),
+                         vigra::Diff2D(hugin_utils::roundi(mx - hw),
+                                       hugin_utils::roundi(my - hw)),
                          vigra_ext::interp_cubic(),
                          false,
                          progDisp);
@@ -1349,9 +1349,7 @@ void CPImageCtrl::OnKey(wxKeyEvent & e)
                         << e.GetEventObject());
             // forward all keys to our parent
             //GetParent()->GetEventHandler()->ProcessEvent(e);
-#ifndef __WXMAC__
             m_editPanel->GetEventHandler()->ProcessEvent(e);
-#endif
         } else {
             e.Skip();
         }

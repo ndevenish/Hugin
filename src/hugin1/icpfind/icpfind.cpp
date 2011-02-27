@@ -1,6 +1,6 @@
 // -*- c-basic-offset: 4 -*-
 
-/** @file icpclean.cpp
+/** @file icpfind.cpp
  *
  *  @brief program to heuristic detection of control points in panoramas
  *  
@@ -94,6 +94,15 @@ bool iCPApp::OnCmdLineParsed(wxCmdLineParser &parser)
     };
 };
 
+// dummy panotools progress functions
+static int ptProgress( int command, char* argument )
+{
+	return 1;
+}
+static int ptinfoDlg( int command, char* argument )
+{
+	return 1;
+}
 
 int iCPApp::OnRun()
 {
@@ -101,16 +110,17 @@ int iCPApp::OnRun()
     //read input project
     PT::PanoramaMemento newPano;
     int ptoVersion = 0;
-    wxString file(m_input);
-    std::ifstream in((const char *)file.mb_str(HUGIN_CONV_FILENAME));
+    wxFileName file(m_input);
+    file.MakeAbsolute();
+    std::ifstream in((const char *)file.GetFullPath().mb_str(HUGIN_CONV_FILENAME));
     if(!in.good())
     {
-        cerr << "could not open script : " << file.char_str() << endl;
+        cerr << "could not open script : " << file.GetFullPath().char_str() << endl;
         return 1;
     }
-    if(!newPano.loadPTScript(in, ptoVersion,hugin_utils::getPathPrefix((std::string)file.mb_str(HUGIN_CONV_FILENAME)))) 
+    if(!newPano.loadPTScript(in, ptoVersion,(std::string)file.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR).mb_str(HUGIN_CONV_FILENAME)))
     {
-        cerr << "could not parse script: " << file.char_str() << endl;
+        cerr << "could not parse script: " << file.GetFullPath().char_str() << endl;
         return 1;
     };
     pano.setMemento(newPano);
@@ -119,7 +129,12 @@ int iCPApp::OnRun()
     AutoCtrlPointCreator matcher;
     HuginBase::UIntSet imgs;
     fill_set(imgs,0, pano.getNrOfImages()-1);
+    //deactivate libpano messages
+    PT_setProgressFcn(ptProgress);
+    PT_setInfoDlgFcn(ptinfoDlg);
     HuginBase::CPVector cps = matcher.automatch(m_cpsetting,pano,imgs,m_matches,NULL);
+    PT_setProgressFcn(NULL);
+    PT_setInfoDlgFcn(NULL);
     if(cps.size()==0)
     {
         return 1;

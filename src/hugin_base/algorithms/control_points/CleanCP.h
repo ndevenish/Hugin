@@ -31,7 +31,7 @@
 #define _CLEANCP_H
 
 #include <hugin_shared.h>
-#include <algorithm/PanoramaAlgorithm.h>
+#include <algorithms/PanoramaAlgorithm.h>
 #include <panodata/Panorama.h>
 #include <algorithms/optimizer/PTOptimizer.h>
 #include "algorithms/basic/CalculateCPStatistics.h"

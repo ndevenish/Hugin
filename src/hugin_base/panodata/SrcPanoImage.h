@@ -1,6 +1,6 @@
 // -*- c-basic-offset: 4 -*-
 
-/** @file PanoImage.h
+/** @file SrcPanoImage.h
  *
  *  @brief 
  *
@@ -300,14 +300,14 @@ public:
     
     /** get the optimisation and stitching options, like PanoImage.
      * 
-     * Do not use: eventually we want to make everything using these to ask for
+     * @deprecated Do not use: eventually we want to make everything using these to ask for
      * each wanted variable directly using the get* functions instead.
      */
     ImageOptions getOptions() const;
     
     /** set the optimisation and stitching options
      * 
-     * Do not use: switch stuff over to the set* functions instead.
+     * @deprecated: Do not use: switch stuff over to the set* functions instead.
      */
     void setOptions(const ImageOptions & opt);
     

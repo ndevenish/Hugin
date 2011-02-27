@@ -1,5 +1,5 @@
 // -*- c-basic-offset: 4 -*-
-/** @file List.h
+/** @file ImagesList.h
  *
  *  @author Kai-Uwe Behrmann <web@tiscali.de>
  *

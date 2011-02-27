@@ -28,6 +28,7 @@ class PreviewPanel;
 class wxToolBar;
 class wxToggleButton;
 class wxCheckBox;
+#include <appbase/ProgressDisplayOld.h>
 
 /** The image preview frame
  *
@@ -36,7 +37,7 @@ class wxCheckBox;
  *  it is not created with XRC, because it is highly dynamic, buttons
  *  have to be added etc.
  */
-class PreviewFrame : public wxFrame, public PT::PanoramaObserver, public utils::MultiProgressDisplay
+class PreviewFrame : public wxFrame, public PT::PanoramaObserver, public AppBase::MultiProgressDisplay
 {
 public:
 

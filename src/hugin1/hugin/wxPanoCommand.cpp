@@ -28,9 +28,9 @@
 
 #include "panoinc_WX.h"
 #include "panoinc.h"
-#include "common/wxPlatform.h"
+#include "base_wx/wxPlatform.h"
 
-#include <base_wx/ImageCache.h>
+#include <base_wx/wxImageCache.h>
 #include <base_wx/platform.h>
 #include <hugin/wxPanoCommand.h>
 
@@ -42,7 +42,7 @@
 
 using namespace std;
 using namespace vigra;
-using namespace utils;
+using namespace hugin_utils;
 
 namespace PT {
 
@@ -383,7 +383,7 @@ void wxLoadPTProjectCmd::execute()
                         // Is file in the new path
                 if (basedir != wxT("")) {
                     DEBUG_DEBUG("Old filename: " << pano.getImage(i).getFilename());
-                    std::string fn = utils::stripPath(pano.getImage(i).getFilename());
+                    std::string fn = stripPath(pano.getImage(i).getFilename());
                     DEBUG_DEBUG("Old filename, without path): " << fn);
                     wxString newname(fn.c_str(), HUGIN_CONV_FILENAME);
                             // GetFullName does only work with local paths (not compatible across platforms)

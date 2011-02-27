@@ -72,6 +72,7 @@ extern "C" {
 #include "PreviewPanoMaskTool.h"
 #include "PreviewControlPointTool.h"
 #include "PreviewLayoutLinesTool.h"
+#include "PreviewColorPickerTool.h"
 
 #include "ProjectionGridTool.h"
 
@@ -83,7 +84,7 @@ extern "C" {
 #include <wx/infobar.h>
 #endif
 
-using namespace utils;
+using namespace hugin_utils;
 
 // a random id, hope this doesn't break something..
 enum {
@@ -118,6 +119,9 @@ END_EVENT_TABLE()
 BEGIN_EVENT_TABLE(GLPreviewFrame, wxFrame)
     EVT_CLOSE(GLPreviewFrame::OnClose)
     EVT_SHOW(GLPreviewFrame::OnShowEvent)
+    //for some reason only key up is sent, key down event is not sent
+//    EVT_KEY_DOWN(GLPreviewFrame::KeyDown)
+//    EVT_KEY_UP(GLPreviewFrame::KeyUp)
     EVT_BUTTON(XRCID("preview_center_tool"), GLPreviewFrame::OnCenterHorizontally)
     EVT_BUTTON(XRCID("preview_fit_pano_tool"), GLPreviewFrame::OnFitPano)
     EVT_BUTTON(XRCID("preview_fit_pano_tool2"), GLPreviewFrame::OnFitPano)
@@ -127,6 +131,7 @@ BEGIN_EVENT_TABLE(GLPreviewFrame, wxFrame)
     EVT_BUTTON(ID_SHOW_NONE, GLPreviewFrame::OnShowNone)
     EVT_CHECKBOX(XRCID("preview_photometric_tool"), GLPreviewFrame::OnPhotometric)
     EVT_TOOL(XRCID("preview_identify_tool"), GLPreviewFrame::OnIdentify)
+    EVT_TOOL(XRCID("preview_color_picker_tool"), GLPreviewFrame::OnColorPicker)
     EVT_CHECKBOX(XRCID("preview_control_point_tool"), GLPreviewFrame::OnControlPoint)
     EVT_BUTTON(XRCID("preview_autocrop_tool"), GLPreviewFrame::OnAutocrop)
     EVT_NOTEBOOK_PAGE_CHANGED(XRCID("mode_toolbar_notebook"), GLPreviewFrame::OnSelectMode)
@@ -175,6 +180,12 @@ BEGIN_EVENT_TABLE(ImageToogleButtonEventHandler, wxEvtHandler)
 #else
     EVT_CHECKBOX(-1, ImageToogleButtonEventHandler::OnChange)
 #endif    
+END_EVENT_TABLE()
+
+BEGIN_EVENT_TABLE(ImageGroupButtonEventHandler, wxEvtHandler)
+    EVT_ENTER_WINDOW(ImageGroupButtonEventHandler::OnEnter)
+    EVT_LEAVE_WINDOW(ImageGroupButtonEventHandler::OnLeave)
+    EVT_CHECKBOX(-1, ImageGroupButtonEventHandler::OnChange)
 END_EVENT_TABLE()
 
 
@@ -286,6 +297,7 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     plane_overview_helper = NULL;
     crop_tool = NULL;
     drag_tool = NULL;
+    color_picker_tool = NULL;
     overview_drag_tool = NULL;
     identify_tool = NULL ;
     panosphere_overview_identify_tool = NULL;
@@ -353,8 +365,8 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     wxBitmapButton * select_none = new wxBitmapButton(panel,ID_SHOW_NONE,bitmap);
     
     wxBoxSizer *sizer = new wxBoxSizer(wxHORIZONTAL);
-    sizer->Add(select_all,5,wxALIGN_CENTER_VERTICAL | wxLEFT | wxTOP | wxBOTTOM);
-    sizer->Add(select_none,5,wxALIGN_CENTER_VERTICAL | wxRIGHT | wxTOP | wxBOTTOM);
+    sizer->Add(select_all,0,wxALIGN_CENTER_VERTICAL | wxLEFT | wxTOP | wxBOTTOM,5);
+    sizer->Add(select_none,0,wxALIGN_CENTER_VERTICAL | wxRIGHT | wxTOP | wxBOTTOM,5);
     panel->SetSizer(sizer);
     m_ToggleButtonSizer->Add(panel, 0, wxALIGN_CENTER_VERTICAL);
     m_ToggleButtonSizer->Add(m_ButtonPanel, 1, wxEXPAND | wxADJUST_MINSIZE | wxALIGN_CENTER_VERTICAL, 0);
@@ -537,8 +549,20 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
 
     m_DragModeChoice = XRCCTRL(*this, "drag_mode_choice", wxChoice);
     m_DragModeChoice->Append(_("normal"));
+    m_DragModeChoice->Append(_("normal, individual"));
     m_DragModeChoice->Append(_("mosaic"));
-    m_DragModeChoice->SetSelection(0);
+    m_DragModeChoice->Append(_("mosaic, individual"));
+
+    bool individualDrag;
+    config->Read(wxT("/GLPreviewFrame/individualDragMode"), &individualDrag, false);
+    if(individualDrag)
+    {
+        m_DragModeChoice->SetSelection(1);
+    }
+    else
+    {
+        m_DragModeChoice->SetSelection(0);
+    };
     // default drag mode
     GLPreviewFrame::DragChoiceLayout(0);
 
@@ -701,9 +725,15 @@ GLPreviewFrame::~GLPreviewFrame()
     config->Write(wxT("/GLPreviewFrame/OpenGLLayout"), m_mgr->SavePerspective());
     config->Write(wxT("/GLPreviewFrame/overview_hidden"), !(m_OverviewToggle->GetValue()));
     config->Write(wxT("/GLPreviewFrame/showPreviewGrid"), m_previewGrid->GetValue());
+    config->Write(wxT("/GLPreviewFrame/individualDragMode"), individualDragging());
     
     // delete all of the tools. When the preview is never used we never get an
     // OpenGL context and therefore don't create the tools.
+    if (color_picker_tool)
+    {
+        preview_helper->DeactivateTool(color_picker_tool);
+        delete color_picker_tool;
+    };
     if (crop_tool)
     {
         preview_helper->DeactivateTool(crop_tool); delete crop_tool;
@@ -729,9 +759,8 @@ GLPreviewFrame::~GLPreviewFrame()
     m_ROIBottomTxt->PopEventHandler(true);
     for (int i=0; i < m_ToggleButtons.size(); i++)
     {
-        m_ToggleButtons[i]->PopEventHandler();
-        m_ToggleButtons[i]->PopEventHandler();
-        m_ToggleButtons[i]->PopEventHandler();
+        m_ToggleButtons[i]->PopEventHandler(true);
+        m_GroupToggleButtons[i]->PopEventHandler(true);
     }
     m_pano.removeObserver(this);
 
@@ -806,7 +835,8 @@ void GLPreviewFrame::updateBlendMode()
                     && difference_tool != NULL
                     && m_ToolBar_Identify != NULL )
                 {
-                    preview_helper->DeactivateTool(identify_tool);
+                    identify_tool->setConstantOn(false);
+//                    preview_helper->DeactivateTool(identify_tool);
                     m_ToolBar_Identify->ToggleTool(XRCID("preview_identify_tool"), false);
                     preview_helper->ActivateTool(difference_tool);
                     CleanButtonColours();
@@ -817,7 +847,8 @@ void GLPreviewFrame::updateBlendMode()
                     && panosphere_overview_identify_tool != NULL 
                     && panosphere_difference_tool != NULL)
                 {
-                    panosphere_overview_helper->DeactivateTool(panosphere_overview_identify_tool);
+//                    panosphere_overview_helper->DeactivateTool(panosphere_overview_identify_tool);
+                    panosphere_overview_identify_tool->setConstantOn(false);
                     panosphere_overview_helper->ActivateTool(panosphere_difference_tool);
                 };
 
@@ -826,7 +857,8 @@ void GLPreviewFrame::updateBlendMode()
                     && plane_overview_identify_tool != NULL 
                     && plane_difference_tool != NULL)
                 {
-                    plane_overview_helper->DeactivateTool(plane_overview_identify_tool);
+//                    plane_overview_helper->DeactivateTool(plane_overview_identify_tool);
+                    plane_overview_identify_tool->setConstantOn(false);
                     plane_overview_helper->ActivateTool(plane_difference_tool);
                 };
 
@@ -881,7 +913,7 @@ void GLPreviewFrame::panoramaChanged(Panorama &pano)
                 wxString str2(pp->name, wxConvLocal);
                 str2 = wxGetTranslation(str2);
                 m_projParamNamesLabel[i]->SetLabel(str2);
-                m_projParamSlider[i]->SetRange(utils::roundi(pp->minValue), utils::roundi(pp->maxValue));
+                m_projParamSlider[i]->SetRange(roundi(pp->minValue), roundi(pp->maxValue));
             }
             for(;i < PANO_PROJECTION_MAX_PARMS; i++) {
                 m_projParamNamesLabel[i]->Hide();
@@ -901,7 +933,7 @@ void GLPreviewFrame::panoramaChanged(Panorama &pano)
         for (int i=0; i < nParam; i++) {
             wxString val = wxString(doubleToString(params[i],1).c_str(), wxConvLocal);
             m_projParamTextCtrl[i]->SetValue(wxString(val.wc_str(), wxConvLocal));
-            m_projParamSlider[i]->SetValue(utils::roundi(params[i]));
+            m_projParamSlider[i]->SetValue(roundi(params[i]));
         }
     }
     if (relayout) {
@@ -951,21 +983,20 @@ void GLPreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &change
     for (int i=nrButtons-1; i>=(int)nrImages; i--)
     {
         m_ButtonSizer->Detach(m_ToggleButtonPanel[i]);
-        // Image toggle buttons have three event handlers on the stack which
+        // Image toggle buttons have a event handler on the stack which
         // must be removed before the buttons get destroyed.
         m_ToggleButtons[i]->PopEventHandler();
-        m_ToggleButtons[i]->PopEventHandler();
-        m_ToggleButtons[i]->PopEventHandler();
+        m_GroupToggleButtons[i]->PopEventHandler();
         delete m_ToggleButtons[i];
+        delete m_GroupToggleButtons[i];
         delete m_ToggleButtonPanel[i];
         m_ToggleButtons.pop_back();
+        m_GroupToggleButtons.pop_back();
         m_ToggleButtonPanel.pop_back();
-        delete toogle_button_event_handlers[i*3];
-        delete toogle_button_event_handlers[i*3+1];
-        delete toogle_button_event_handlers[i*3+2];
+        delete toogle_button_event_handlers[i];
         toogle_button_event_handlers.pop_back();
-        toogle_button_event_handlers.pop_back();
-        toogle_button_event_handlers.pop_back();
+        delete toggle_group_button_event_handlers[i];
+        toggle_group_button_event_handlers.pop_back();
         dirty = true;
     }
 
@@ -995,56 +1026,63 @@ void GLPreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &change
                 //put wxToggleButton in a wxPanel because 
                 //on Windows the background colour of wxToggleButton can't be changed
                 wxPanel *pan = new wxPanel(m_ButtonPanel);
-                wxBoxSizer * siz = new wxBoxSizer(wxHORIZONTAL);
+                wxBoxSizer * siz = new wxBoxSizer(wxVERTICAL);
                 pan->SetSizer(siz);
 #ifdef USE_TOGGLE_BUTTON
                 wxToggleButton * but = new wxToggleButton(pan,
                                                           ID_TOGGLE_BUT + *it,
                                                           wxString::Format(wxT("%d"),*it),
-                                                          wxDefaultPosition, wxDefaultSize,
+                                                          wxDefaultPosition, wxSize(20,-1),
                                                           wxBU_EXACTFIT);
 #else
                 wxCheckBox * but = new wxCheckBox(pan,
                                                   ID_TOGGLE_BUT + *it,
                                                   wxString::Format(wxT("%d"),*it));
 #endif
-                siz->Add(but,0,wxALL | wxADJUST_MINSIZE,5);
+                
+                wxCheckBox *butcheck = new wxCheckBox(pan, wxID_ANY, wxT(""));
+
+#ifdef __WXMSW__
+                //we need a border around the button to see the colored panel
+                //because changing backgroundcolor of wxToggleButton does not work in wxMSW
+                siz->AddSpacer(5);
+                siz->Add(butcheck, 0, wxALIGN_CENTRE_HORIZONTAL | wxFIXED_MINSIZE, 0);
+                siz->Add(but,0,wxLEFT | wxRIGHT | wxBOTTOM , 5);
+#else
+                siz->Add(but,0,wxALL | wxADJUST_MINSIZE,0);
+                siz->Add(butcheck, 0, wxALL | wxFIXED_MINSIZE, 0);
+#endif
                 // for the identification tool to work, we need to find when the
                 // mouse enters and exits the button. We use a custom event
                 // handler, which will also toggle the images:
                 ImageToogleButtonEventHandler * event_handler = new
-                    ImageToogleButtonEventHandler(*it, &identify_tool,
+                    ImageToogleButtonEventHandler(*it,
                         m_ToolBar_Identify->FindById(XRCID("preview_identify_tool")),
                         &m_pano);
+                event_handler->AddIdentifyTool(&identify_tool);
+                event_handler->AddIdentifyTool(&panosphere_overview_identify_tool);
+                event_handler->AddIdentifyTool(&plane_overview_identify_tool);
                 toogle_button_event_handlers.push_back(event_handler);
                 but->PushEventHandler(event_handler);
 
-                ImageToogleButtonEventHandler * ov_event_handler = new
-                    ImageToogleButtonEventHandler(*it, &panosphere_overview_identify_tool,
-                        m_ToolBar_Identify->FindById(XRCID("preview_identify_tool")),
-                        &m_pano);
-                toogle_button_event_handlers.push_back(ov_event_handler);
-                but->PushEventHandler(ov_event_handler);
+                ImageGroupButtonEventHandler * group_event_handler = new 
+                    ImageGroupButtonEventHandler(*it, this, &m_pano);
+                group_event_handler->AddDragTool((DragTool**) &drag_tool);
+                group_event_handler->AddDragTool((DragTool**) &overview_drag_tool);
+                group_event_handler->AddIdentifyTool(&identify_tool);
+                group_event_handler->AddIdentifyTool(&panosphere_overview_identify_tool);
+                group_event_handler->AddIdentifyTool(&plane_overview_identify_tool);
+                toggle_group_button_event_handlers.push_back(group_event_handler);
+                butcheck->PushEventHandler(group_event_handler);
+                butcheck->Show(individualDragging() && m_mode==mode_drag);
 
-                ImageToogleButtonEventHandler * pl_ov_event_handler = new
-                    ImageToogleButtonEventHandler(*it, &plane_overview_identify_tool,
-                        m_ToolBar_Identify->FindById(XRCID("preview_identify_tool")),
-                        &m_pano);
-                toogle_button_event_handlers.push_back(pl_ov_event_handler);
-                but->PushEventHandler(pl_ov_event_handler);
-
-                wxSize sz = but->GetSize();
-//                but->SetSize(res.GetWidth(),sz.GetHeight());
-                // HACK.. set fixed width. that should work
-                // better than all that stupid dialogunit stuff, that
-                // breaks on wxWin 2.5
-                but->SetSize(20, sz.GetHeight());
                 but->SetValue(true);
                 m_ButtonSizer->Add(pan,
                                    0,
                                    wxLEFT | wxTOP | wxADJUST_MINSIZE,
                                    0);
                 m_ToggleButtons.push_back(but);
+                m_GroupToggleButtons.push_back(butcheck);
                 m_ToggleButtonPanel.push_back(pan);
                 dirty = true;
             }
@@ -1110,6 +1148,52 @@ void GLPreviewFrame::OnShowEvent(wxShowEvent& e)
     }
 
 }
+
+//the following methods are to substitude the GLViewer KeyUp and KeyDown methods
+//so that tools use key events that happen globally to the preview frame
+//however only key up event is sent, and not key down
+//so until this is resolved they will remain to be handled by GLViewer
+void GLPreviewFrame::KeyDown(wxKeyEvent& e)
+{
+    if (preview_helper) {
+        preview_helper->KeypressEvent(e.GetKeyCode(), e.GetModifiers(), true);
+    }
+    if (m_OverviewToggle->GetValue()) {
+        if(m_GLOverview->GetMode() == GLOverview::PLANE) {
+            if (plane_overview_helper) {
+                plane_overview_helper->KeypressEvent(e.GetKeyCode(), e.GetModifiers(), true);
+            }
+        } else if (m_GLOverview->GetMode() == GLOverview::PANOSPHERE) {
+            if (panosphere_overview_helper) {
+                panosphere_overview_helper->KeypressEvent(e.GetKeyCode(), e.GetModifiers(), true);
+            }
+        }
+    
+    }
+    e.Skip();
+}
+
+void GLPreviewFrame::KeyUp(wxKeyEvent& e)
+{
+    if (preview_helper) {
+        preview_helper->KeypressEvent(e.GetKeyCode(), e.GetModifiers(), false);
+    }
+    if (m_OverviewToggle->GetValue()) {
+        if(m_GLOverview->GetMode() == GLOverview::PLANE) {
+            if (plane_overview_helper) {
+                plane_overview_helper->KeypressEvent(e.GetKeyCode(), e.GetModifiers(), false);
+            }
+        } else if (m_GLOverview->GetMode() == GLOverview::PANOSPHERE) {
+            if (panosphere_overview_helper) {
+                panosphere_overview_helper->KeypressEvent(e.GetKeyCode(), e.GetModifiers(), false);
+            }
+        }
+    
+    }
+    e.Skip();
+}
+
+
 
 void GLPreviewFrame::OnOverviewToggle(wxCommandEvent& e)
 {
@@ -1272,21 +1356,21 @@ void GLPreviewFrame::OnNumTransform(wxCommandEvent & e)
     switch (index) {
         case 0: //normal
             text = XRCCTRL(*this,"input_yaw",wxTextCtrl)->GetValue();
-            if(!utils::stringToDouble(std::string(text.mb_str(wxConvLocal)), y))
+            if(!stringToDouble(std::string(text.mb_str(wxConvLocal)), y))
             {
                 wxBell();
                 wxMessageBox(_("Yaw value must be numeric."),_("Warning"),wxOK | wxICON_ERROR,this);
                 return;
             }
             text = XRCCTRL(*this,"input_pitch",wxTextCtrl)->GetValue();
-            if(!utils::stringToDouble(std::string(text.mb_str(wxConvLocal)), p))
+            if(!stringToDouble(std::string(text.mb_str(wxConvLocal)), p))
             {
                 wxBell();
                 wxMessageBox(_("Pitch value must be numeric."),_("Warning"),wxOK | wxICON_ERROR,this);
                 return;
             }
             text = XRCCTRL(*this,"input_roll",wxTextCtrl)->GetValue();
-            if(!utils::stringToDouble(std::string(text.mb_str(wxConvLocal)), r))
+            if(!stringToDouble(std::string(text.mb_str(wxConvLocal)), r))
             {
                 wxBell();
                 wxMessageBox(_("Roll value must be numeric."),_("Warning"),wxOK | wxICON_ERROR,this);
@@ -1298,21 +1382,21 @@ void GLPreviewFrame::OnNumTransform(wxCommandEvent & e)
             break;
         case 1: //mosaic
             text = XRCCTRL(*this,"input_x",wxTextCtrl)->GetValue();
-            if(!utils::stringToDouble(std::string(text.mb_str(wxConvLocal)), x))
+            if(!stringToDouble(std::string(text.mb_str(wxConvLocal)), x))
             {
                 wxBell();
                 wxMessageBox(_("X value must be numeric."),_("Warning"),wxOK | wxICON_ERROR,this);
                 return;
             }
             text = XRCCTRL(*this,"input_y",wxTextCtrl)->GetValue();
-            if(!utils::stringToDouble(std::string(text.mb_str(wxConvLocal)), y))
+            if(!stringToDouble(std::string(text.mb_str(wxConvLocal)), y))
             {
                 wxBell();
                 wxMessageBox(_("Y value must be numeric."),_("Warning"),wxOK | wxICON_ERROR,this);
                 return;
             }
             text = XRCCTRL(*this,"input_z",wxTextCtrl)->GetValue();
-            if(!utils::stringToDouble(std::string(text.mb_str(wxConvLocal)), z))
+            if(!stringToDouble(std::string(text.mb_str(wxConvLocal)), z))
             {
                 wxBell();
                 wxMessageBox(_("Z value must be numeric."),_("Warning"),wxOK | wxICON_ERROR,this);
@@ -1462,16 +1546,19 @@ void GLPreviewFrame::OnDragChoice(wxCommandEvent & e)
 		    int index = m_DragModeChoice->GetSelection();
             switch (index) {
                 case 0: //normal
+                case 1:
                     drag_tool->setDragMode(PreviewDragTool::drag_mode_normal);
 //		    		overview_drag_tool->setDragMode(PreviewDragTool::drag_mode_normal);
                     break;
-                case 1: //mosaic
+                case 2: //mosaic
+                case 3:
                     drag_tool->setDragMode(PreviewDragTool::drag_mode_mosaic);
 //		    		overview_drag_tool->setDragMode(PreviewDragTool::drag_mode_mosaic);
                     break;
             }
+            EnableGroupCheckboxes(individualDragging());
             // adjust the layout
-            GLPreviewFrame::DragChoiceLayout(index);
+            DragChoiceLayout(index);
         }
     }
     else
@@ -1530,34 +1617,22 @@ void GLPreviewFrame::OnOverviewModeChoice( wxCommandEvent & e)
 
 void GLPreviewFrame::DragChoiceLayout( int index )
 {
-            // visibility of controls based on selected drag mode
-            XRCCTRL(*this,"label_yaw",wxStaticText)->Show(index==0);
-            XRCCTRL(*this,"input_yaw",wxTextCtrl)->Show(index==0);
-            XRCCTRL(*this,"label_pitch",wxStaticText)->Show(index==0);
-            XRCCTRL(*this,"input_pitch",wxTextCtrl)->Show(index==0);
-            XRCCTRL(*this,"label_roll",wxStaticText)->Show(index==0);
-            XRCCTRL(*this,"input_roll",wxTextCtrl)->Show(index==0);
-            XRCCTRL(*this,"label_x",wxStaticText)->Show(index==1);
-            XRCCTRL(*this,"input_x",wxTextCtrl)->Show(index==1);
-            XRCCTRL(*this,"label_y",wxStaticText)->Show(index==1);
-            XRCCTRL(*this,"input_y",wxTextCtrl)->Show(index==1);
-            XRCCTRL(*this,"label_z",wxStaticText)->Show(index==1);
-            XRCCTRL(*this,"input_z",wxTextCtrl)->Show(index==1);
-            XRCCTRL(*this,"apply_num_transform",wxButton)->Show(1);
-            // redraw layout to compress empty space
-            XRCCTRL(*this,"label_yaw",wxStaticText)->GetContainingSizer()->Layout();
-            XRCCTRL(*this,"input_yaw",wxTextCtrl)->GetContainingSizer()->Layout();
-            XRCCTRL(*this,"label_pitch",wxStaticText)->GetContainingSizer()->Layout();
-            XRCCTRL(*this,"input_pitch",wxTextCtrl)->GetContainingSizer()->Layout();
-            XRCCTRL(*this,"label_roll",wxStaticText)->GetContainingSizer()->Layout();
-            XRCCTRL(*this,"input_roll",wxTextCtrl)->GetContainingSizer()->Layout();
-            XRCCTRL(*this,"label_x",wxStaticText)->GetContainingSizer()->Layout();
-            XRCCTRL(*this,"input_x",wxTextCtrl)->GetContainingSizer()->Layout();
-            XRCCTRL(*this,"label_y",wxStaticText)->GetContainingSizer()->Layout();
-            XRCCTRL(*this,"input_y",wxTextCtrl)->GetContainingSizer()->Layout();
-            XRCCTRL(*this,"label_z",wxStaticText)->GetContainingSizer()->Layout();
-            XRCCTRL(*this,"input_z",wxTextCtrl)->GetContainingSizer()->Layout();
-            XRCCTRL(*this,"apply_num_transform",wxButton)->GetContainingSizer()->Layout();
+    // visibility of controls based on selected drag mode
+    bool normalMode=index==0 || index==1;
+    XRCCTRL(*this,"label_yaw",wxStaticText)->Show(normalMode);
+    XRCCTRL(*this,"input_yaw",wxTextCtrl)->Show(normalMode);
+    XRCCTRL(*this,"label_pitch",wxStaticText)->Show(normalMode);
+    XRCCTRL(*this,"input_pitch",wxTextCtrl)->Show(normalMode);
+    XRCCTRL(*this,"label_roll",wxStaticText)->Show(normalMode);
+    XRCCTRL(*this,"input_roll",wxTextCtrl)->Show(normalMode);
+    XRCCTRL(*this,"label_x",wxStaticText)->Show(!normalMode);
+    XRCCTRL(*this,"input_x",wxTextCtrl)->Show(!normalMode);
+    XRCCTRL(*this,"label_y",wxStaticText)->Show(!normalMode);
+    XRCCTRL(*this,"input_y",wxTextCtrl)->Show(!normalMode);
+    XRCCTRL(*this,"label_z",wxStaticText)->Show(!normalMode);
+    XRCCTRL(*this,"input_z",wxTextCtrl)->Show(!normalMode);
+    // redraw layout to compress empty space
+    XRCCTRL(*this,"apply_num_transform",wxButton)->GetParent()->Layout();
 }
 
 void GLPreviewFrame::OnDefaultExposure( wxCommandEvent & e )
@@ -1630,7 +1705,7 @@ void GLPreviewFrame::updateProgressDisplay()
 {
     wxString msg;
     // build the message:
-    for (std::vector<ProgressTask>::iterator it = tasks.begin();
+    for (std::vector<AppBase::ProgressTask>::iterator it = tasks.begin();
          it != tasks.end(); ++it)
     {
         wxString cMsg;
@@ -1683,7 +1758,9 @@ void GLPreviewFrame::MakePreviewTools(PreviewToolHelper *preview_helper_in)
     preview_helper = preview_helper_in;
     crop_tool = new PreviewCropTool(preview_helper);
     drag_tool = new PreviewDragTool(preview_helper);
+    color_picker_tool = new PreviewColorPickerTool(preview_helper);
     identify_tool = new PreviewIdentifyTool(preview_helper, this);
+    preview_helper->ActivateTool(identify_tool);
     difference_tool = new PreviewDifferenceTool(preview_helper);
     pano_mask_tool = new PreviewPanoMaskTool(preview_helper);
     preview_control_point_tool = new PreviewControlPointTool(preview_helper);
@@ -1700,6 +1777,7 @@ void GLPreviewFrame::MakePreviewTools(PreviewToolHelper *preview_helper_in)
     preview_helper->ActivateTool(pano_mask_tool);
     // update the blend mode which activates some tools
     updateBlendMode();
+    m_GLPreview->SetPhotometricCorrect(true);
     // update toolbar
     SetMode(mode_preview);
 }
@@ -1711,6 +1789,8 @@ void GLPreviewFrame::MakePanosphereOverviewTools(PanosphereOverviewToolHelper *p
     panosphere_overview_camera_tool = new PanosphereOverviewCameraTool(panosphere_overview_helper);
     panosphere_overview_helper->ActivateTool(panosphere_overview_camera_tool);
     panosphere_overview_identify_tool = new PreviewIdentifyTool(panosphere_overview_helper, this);
+    panosphere_overview_helper->ActivateTool(panosphere_overview_identify_tool);
+    
     overview_projection_grid = new PanosphereOverviewProjectionGridTool(panosphere_overview_helper);
     panosphere_overview_helper->ActivateTool(overview_projection_grid);
     overview_outlines_tool = new PanosphereOverviewOutlinesTool(panosphere_overview_helper, m_GLPreview);
@@ -1728,6 +1808,8 @@ void GLPreviewFrame::MakePlaneOverviewTools(PlaneOverviewToolHelper *plane_overv
 {
     plane_overview_helper = plane_overview_helper_in;
     plane_overview_identify_tool = new PreviewIdentifyTool(plane_overview_helper, this);
+    plane_overview_helper->ActivateTool(plane_overview_identify_tool);
+    
     plane_overview_camera_tool = new PlaneOverviewCameraTool(plane_overview_helper);
     plane_overview_helper->ActivateTool(plane_overview_camera_tool);
     plane_difference_tool = new PreviewDifferenceTool(plane_overview_helper);
@@ -1749,13 +1831,19 @@ void GLPreviewFrame::OnIdentify(wxCommandEvent & e)
         preview_helper->DeactivateTool(difference_tool);
         panosphere_overview_helper->DeactivateTool(panosphere_difference_tool);
         plane_overview_helper->DeactivateTool(plane_difference_tool);
-        TurnOffTools(preview_helper->ActivateTool(identify_tool));
-        TurnOffTools(panosphere_overview_helper->ActivateTool(panosphere_overview_identify_tool));
-        TurnOffTools(plane_overview_helper->ActivateTool(plane_overview_identify_tool));
+        identify_tool->setConstantOn(true);
+        panosphere_overview_identify_tool->setConstantOn(true);
+        plane_overview_identify_tool->setConstantOn(true);
+//        TurnOffTools(preview_helper->ActivateTool(identify_tool));
+//        TurnOffTools(panosphere_overview_helper->ActivateTool(panosphere_overview_identify_tool));
+//        TurnOffTools(plane_overview_helper->ActivateTool(plane_overview_identify_tool));
     } else {
-        preview_helper->DeactivateTool(identify_tool);
-        panosphere_overview_helper->DeactivateTool(panosphere_overview_identify_tool);
-        plane_overview_helper->DeactivateTool(plane_overview_identify_tool);
+        identify_tool->setConstantOn(false);
+        panosphere_overview_identify_tool->setConstantOn(false);
+        plane_overview_identify_tool->setConstantOn(false);
+//        preview_helper->DeactivateTool(identify_tool);
+//        panosphere_overview_helper->DeactivateTool(panosphere_overview_identify_tool);
+//        plane_overview_helper->DeactivateTool(plane_overview_identify_tool);
         CleanButtonColours();
     }
     m_GLPreview->Refresh();
@@ -1872,14 +1960,36 @@ void GLPreviewFrame::CleanButtonColours()
     }
 }
 
+void GLPreviewFrame::OnColorPicker(wxCommandEvent &e)
+{
+    // blank status text as it refers to an old tool.
+    SetStatusText(wxT(""), 0); 
+    if (e.IsChecked())
+    {
+        preview_helper->ActivateTool(color_picker_tool);
+    }
+    else
+    {
+        preview_helper->DeactivateTool(color_picker_tool);
+    };
+};
+
+void GLPreviewFrame::UpdateGlobalWhiteBalance(double redFactor, double blueFactor)
+{
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::UpdateWhiteBalance(m_pano, redFactor, blueFactor)
+        );
+    //now toggle button and deactivate tool
+    XRCCTRL(*this,"preview_color_picker_toolbar",wxToolBar)->ToggleTool(XRCID("preview_color_picker_tool"),false);
+    preview_helper->DeactivateTool(color_picker_tool);
+};
+
 ImageToogleButtonEventHandler::ImageToogleButtonEventHandler(
                                   unsigned int image_number_in,
-                                  PreviewIdentifyTool **identify_tool_in,
                                   wxToolBarToolBase* identify_toolbutton_in,
                                   PT::Panorama * m_pano_in)
 {
     image_number = image_number_in;
-    identify_tool = identify_tool_in;
     identify_toolbutton = identify_toolbutton_in;
     m_pano = m_pano_in;
 }
@@ -1889,10 +1999,14 @@ void ImageToogleButtonEventHandler::OnEnter(wxMouseEvent & e)
     // When using the identify tool, we want to identify image locations when
     // the user moves the mouse over the image buttons, but only if the image
     // is being shown.
-    if ( identify_toolbutton->IsToggled()
-        && m_pano->getActiveImages().count(image_number))
+    if ( 
+//        identify_toolbutton->IsToggled() && 
+        m_pano->getActiveImages().count(image_number))
     {
-        (*identify_tool)->ShowImageNumber(image_number);
+        std::vector<PreviewIdentifyTool**>::iterator it;
+        for(it = identify_tools.begin() ; it != identify_tools.end() ; it++) {
+            (*(*it))->ShowImageNumber(image_number);
+        }
     }
     e.Skip();
 }
@@ -1901,10 +2015,14 @@ void ImageToogleButtonEventHandler::OnLeave(wxMouseEvent & e)
 {
     // if the mouse left one of the image toggle buttons with the identification
     // tool active, we should stop showing the image indicator for that button.
-    if ( identify_toolbutton->IsToggled()
-        && m_pano->getActiveImages().count(image_number))
+    if ( 
+//        identify_toolbutton->IsToggled() && 
+        m_pano->getActiveImages().count(image_number))
     {
-        (*identify_tool)->StopShowingImages();
+        std::vector<PreviewIdentifyTool**>::iterator it;
+        for(it = identify_tools.begin() ; it != identify_tools.end() ; it++) {
+            (*(*it))->StopShowingImages();
+        }
     }
     e.Skip();
 }
@@ -1931,6 +2049,117 @@ void ImageToogleButtonEventHandler::OnChange(wxCommandEvent & e)
         );
     }
 }
+
+void ImageToogleButtonEventHandler::AddIdentifyTool(PreviewIdentifyTool** identify_tool_in) {
+    identify_tools.push_back(identify_tool_in);
+}
+
+ImageGroupButtonEventHandler::ImageGroupButtonEventHandler(unsigned int image_number, GLPreviewFrame* frame_in, PT::Panorama* m_pano) 
+    : image_number(image_number), frame(frame_in), m_pano(m_pano) {}
+
+void ImageGroupButtonEventHandler::AddIdentifyTool(PreviewIdentifyTool** identify_tool_in) {
+    identify_tools.push_back(identify_tool_in);
+}
+
+
+void ImageGroupButtonEventHandler::OnEnter(wxMouseEvent & e)
+{
+    //mark the image
+    if (m_pano->getActiveImages().count(image_number))
+    {
+        std::vector<PreviewIdentifyTool**>::iterator it;
+        for(it = identify_tools.begin() ; it != identify_tools.end() ; it++) {
+            (*(*it))->ShowImageNumber(image_number);
+        }
+    }
+    e.Skip();
+}
+
+void ImageGroupButtonEventHandler::OnLeave(wxMouseEvent & e)
+{
+    //unmark the image
+    if (m_pano->getActiveImages().count(image_number))
+    {
+        std::vector<PreviewIdentifyTool**>::iterator it;
+        for(it = identify_tools.begin() ; it != identify_tools.end() ; it++) {
+            (*(*it))->StopShowingImages();
+        }
+    }
+    e.Skip();
+}
+
+void ImageGroupButtonEventHandler::OnChange(wxCommandEvent & e)
+{
+    wxMouseEvent null_event;
+    if (e.IsChecked()) {
+        frame->AddImageToDragGroup(image_number,false);
+        OnEnter(null_event);
+    } else {
+        OnLeave(null_event);
+        frame->RemoveImageFromDragGroup(image_number,false);
+    }
+}
+
+void ImageGroupButtonEventHandler::AddDragTool(DragTool** drag_tool_in) {
+    drag_tools.push_back(drag_tool_in);
+}
+
+bool GLPreviewFrame::individualDragging()
+{
+    return m_DragModeChoice->GetSelection()==1 || 
+           m_DragModeChoice->GetSelection()==3;
+}
+
+void GLPreviewFrame::ToggleImageInDragGroup(unsigned int image_nr, bool update_check_box) {
+    if (imageDragGroup.count(image_nr) == 0) {
+        this->AddImageToDragGroup(image_nr, update_check_box);
+    } else {
+        this->RemoveImageFromDragGroup(image_nr, update_check_box);
+    }
+}
+void GLPreviewFrame::RemoveImageFromDragGroup(unsigned int image_nr, bool update_check_box) {
+    imageDragGroup.erase(image_nr);
+    if (update_check_box) {
+        m_GroupToggleButtons[image_nr]->SetValue(false);
+    }
+}
+void GLPreviewFrame::AddImageToDragGroup(unsigned int image_nr, bool update_check_box) {
+    imageDragGroup.insert(image_nr);
+    if (update_check_box) {
+        m_GroupToggleButtons[image_nr]->SetValue(true);
+    }
+}
+void GLPreviewFrame::SetDragGroupImages(UIntSet imageDragGroup_in, bool update_check_box) {
+    imageDragGroup.swap(imageDragGroup_in);
+    std::vector<wxCheckBox*>::iterator it;
+    unsigned int nr = 0;
+    for(it = m_GroupToggleButtons.begin() ; it != m_GroupToggleButtons.end() ; it++) {
+        (*it)->SetValue(imageDragGroup.count(nr++));
+    }
+}
+UIntSet GLPreviewFrame::GetDragGroupImages() {
+    return imageDragGroup;
+}
+void GLPreviewFrame::ClearDragGroupImages(bool update_check_box) {
+    imageDragGroup.clear();
+    std::vector<wxCheckBox*>::iterator it;
+    for(it = m_GroupToggleButtons.begin() ; it != m_GroupToggleButtons.end() ; it++) {
+        (*it)->SetValue(false);
+    }
+}
+
+void GLPreviewFrame::EnableGroupCheckboxes(bool isShown)
+{
+    std::vector<wxCheckBox*>::iterator it;
+    for(it = m_GroupToggleButtons.begin() ; it != m_GroupToggleButtons.end() ; it++)
+    {
+        (*it)->Show(isShown);
+    }
+#ifdef __WXMSW__
+    m_ButtonPanel->Layout();
+    m_ButtonPanel->Refresh();
+#endif
+};
 
 /** call this method only with existing OpenGL context */
 void GLPreviewFrame::FillBlendChoice()
@@ -2015,9 +2244,15 @@ void GLPreviewFrame::SetMode(int newMode)
     {
         case mode_preview:
             // switch off identify and show cp tool
-            preview_helper->DeactivateTool(identify_tool);
-            panosphere_overview_helper->DeactivateTool(panosphere_overview_identify_tool);
-            plane_overview_helper->DeactivateTool(plane_overview_identify_tool);
+            identify_tool->setConstantOn(false);
+            panosphere_overview_identify_tool->setConstantOn(false);
+            plane_overview_identify_tool->setConstantOn(false);
+            preview_helper->DeactivateTool(color_picker_tool);
+            XRCCTRL(*this,"preview_color_picker_toolbar",wxToolBar)->ToggleTool(XRCID("preview_color_picker_tool"),false);
+//            preview_helper->DeactivateTool(identify_tool);
+//            panosphere_overview_helper->DeactivateTool(panosphere_overview_identify_tool);
+//            plane_overview_helper->DeactivateTool(plane_overview_identify_tool);
+            
             CleanButtonColours();
             m_ToolBar_Identify->ToggleTool(XRCID("preview_identify_tool"),false);
             preview_helper->DeactivateTool(preview_control_point_tool);
@@ -2043,6 +2278,12 @@ void GLPreviewFrame::SetMode(int newMode)
         case mode_drag:
             preview_helper->DeactivateTool(drag_tool);
             panosphere_overview_helper->DeactivateTool(overview_drag_tool);
+            if (individualDragging()) {
+                std::vector<wxCheckBox*>::iterator it;
+                for(it = m_GroupToggleButtons.begin() ; it != m_GroupToggleButtons.end() ; it++) {
+                    (*it)->Show(false);
+                }
+            }
             break;
         case mode_crop:
             preview_helper->DeactivateTool(crop_tool);
@@ -2076,11 +2317,19 @@ void GLPreviewFrame::SetMode(int newMode)
         case mode_drag:
             TurnOffTools(preview_helper->ActivateTool(drag_tool));
             TurnOffTools(panosphere_overview_helper->ActivateTool(overview_drag_tool));
+            if (individualDragging()) {
+                std::vector<wxCheckBox*>::iterator it;
+                for(it = m_GroupToggleButtons.begin() ; it != m_GroupToggleButtons.end() ; it++) {
+                    (*it)->Show(true);
+                }
+            }
             break;
         case mode_crop:
             TurnOffTools(preview_helper->ActivateTool(crop_tool));
             break;
     };
+    //enable group checkboxes only for drag mode tab
+    EnableGroupCheckboxes(m_mode==mode_drag && individualDragging());
     m_GLPreview->Refresh();
 };
 

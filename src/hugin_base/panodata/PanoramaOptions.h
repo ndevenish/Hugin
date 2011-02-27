@@ -1,5 +1,5 @@
 // -*- c-basic-offset: 4 -*-
-/** @file PanoramaMemento.h
+/** @file PanoramaOptions.h
  *
  *  @author Pablo d'Angelo <pablo.dangelo@web.de>
  *

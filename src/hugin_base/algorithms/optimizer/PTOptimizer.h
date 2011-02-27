@@ -28,7 +28,7 @@
 #ifndef _PTOPTIMIZER_H
 #define _PTOPTIMIZER_H
 
-#include <algorithm/PanoramaAlgorithm.h>
+#include <algorithms/PanoramaAlgorithm.h>
 
 #include <hugin_shared.h>
 #include <set>

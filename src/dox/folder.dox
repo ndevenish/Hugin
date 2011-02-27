@@ -1,0 +1,89 @@
+/*!
+
+\dir celeste
+  Contains the code for celeste
+
+\dir deghosting
+  Contains the deghosting code
+
+\dir hugin1
+  Contains all libs and programs which depends on wxWidgets
+                  (mainly the GUI programs)
+
+\dir hugin_base
+  Contains the base functionality
+  (code in this directory does not depends on wxWidgets and should not link against wxWidgets)
+
+\dir hugin_cpfind
+  Contains the code of the control point detector
+
+\dir lens_calibrate
+ Contains the lens_calibrate lib and program
+
+\dir matchpoint
+  Contains the matchpoint program
+
+\dir src/tools
+    Contains most of the command line tools
+
+\dir hugin_base/algorithms
+  Contains algorithm, which modify the panorama object.
+  (code in this directory does not depends on wxWidgets and should not link against wxWidgets)
+
+\dir hugin_base/appbase
+  (code in this directory does not depends on wxWidgets and should not link against wxWidgets)
+
+\dir hugin_base/hugin_math
+  Contains different math helper functions.
+  (code in this directory does not depends on wxWidgets and should not link against wxWidgets)
+
+\dir hugin_base/huginapp
+  (code in this directory does not depends on wxWidgets and should not link against wxWidgets)
+
+\dir hugin_base/makefilelib
+  Contains the makefilelib which allows wrapping of makefile generation for GNU make.
+  (code in this directory does not depends on wxWidgets and should not link against wxWidgets)
+
+\dir hugin_base/nona
+  (code in this directory does not depends on wxWidgets and should not link against wxWidgets)
+
+\dir hugin_base/panodata
+  Contains the main HuginBase::Panorama object and all other base object used by HuginBase::Panorama.
+  (code in this directory does not depends on wxWidgets and should not link against wxWidgets)
+
+\dir hugin_base/panotools  
+  Contains wrapper function for libpano.
+  (code in this directory does not depends on wxWidgets and should not link against wxWidgets)
+
+\dir hugin_base/photometric
+  Contains the photometric functions.
+  (code in this directory does not depends on wxWidgets and should not link against wxWidgets)
+
+\dir hugin_base/vigra_ext
+  Contains extension for the vigra image lib.
+  (code in this directory does not depends on wxWidgets and should not link against wxWidgets)
+
+\dir hugin1/base_wx
+  Contains functions used by different programs libs.
+
+\dir hugin1/hugin
+ Contains the code for Hugin GUI.
+
+\dir hugin1/icpfind
+  Contains the code for the icpfind lib and command line version.
+
+\dir hugin1/nona_gui
+  Contains code for nona_gui.
+
+\dir hugin1/PT
+
+\dir hugin1/ptbatcher
+  Contains the batch processing code (PTBatcher and PTBatcherGUI).
+
+\dir hugin1/stitch_project
+  Contains the code for hugin_stitch_project.
+
+\dir hugin1/tools_vips
+
+
+*/

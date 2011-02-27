@@ -30,7 +30,6 @@
 #include "panoinc.h"
 
 #include "PT/PTOptimise.h"
-#include "common/stl_utils.h"
 
 #include "hugin/OptimizePanel.h"
 #include "hugin/CommandHistory.h"
@@ -41,7 +40,7 @@
 
 using namespace std;
 using namespace PT;
-using namespace utils;
+using namespace hugin_utils;
 
 //============================================================================
 //============================================================================

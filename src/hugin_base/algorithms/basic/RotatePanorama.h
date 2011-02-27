@@ -1,5 +1,5 @@
 // -*- c-basic-offset: 4 -*-
-/** @file PanoramaDataLegacySupport.h
+/** @file RotatePanorama.h
  *
  *  @author Pablo d'Angelo <pablo.dangelo@web.de>
  *
@@ -27,7 +27,7 @@
 #define _BASICALGORITHMS_ROTATEPANORAMA_H
 
 #include <hugin_shared.h>
-#include <algorithm/PanoramaAlgorithm.h>
+#include <algorithms/PanoramaAlgorithm.h>
 
 #include <panodata/PanoramaData.h>
 

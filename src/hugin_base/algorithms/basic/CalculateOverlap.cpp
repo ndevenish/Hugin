@@ -72,7 +72,11 @@ void CalculateImageOverlap::calculate(unsigned int steps)
     for(UIntSet::const_iterator it=testImages.begin(); it!=testImages.end();it++)
     {
         const SrcPanoImage& img=m_pano->getImage(*it);
-        vigra::Rect2D c=img.getCropRect();
+        vigra::Rect2D c=vigra::Rect2D(img.getSize());
+        if(img.getCropMode()!=SrcPanoImage::NO_CROP)
+        {
+            c&=img.getCropRect();
+        };
         unsigned int frequency=std::min<unsigned int>(steps,std::min<unsigned int>(c.width(),c.height()));
         if(frequency<2)
             frequency=2;

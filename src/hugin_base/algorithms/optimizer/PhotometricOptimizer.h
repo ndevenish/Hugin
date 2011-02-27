@@ -1,5 +1,5 @@
 // -*- c-basic-offset: 4 -*-
-/** @file PhotometricOptimizer.h
+/** @file hugin_base/algorithms/optimizer/PhotometricOptimizer.h
  *
  *  @author Pablo d'Angelo <pablo.dangelo@web.de>
  *
@@ -25,7 +25,7 @@
 #define _PHOTOMETRIC_OPTIMIZER_H_
 
 #include <hugin_shared.h>
-#include <algorithm/PanoramaAlgorithm.h>
+#include <algorithms/PanoramaAlgorithm.h>
 #include <algorithms/optimizer/PTOptimizer.h>
 
 #include <vector>

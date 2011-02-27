@@ -1,5 +1,5 @@
 // -*- c-basic-offset: 4 -*-
-/** @file RemappedPanoImage.h
+/** @file nona/RemappedPanoImage.h
  *
  *  Contains functions to transform whole images.
  *  Can use PTools::Transform or PT::SpaceTransform for the calculations

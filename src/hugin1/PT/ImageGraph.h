@@ -1,5 +1,5 @@
 // -*- c-basic-offset: 4 -*-
-/** @file ImageGraph.h
+/** @file hugin1/PT/ImageGraph.h
  *
  *  @author Pablo d'Angelo <pablo.dangelo@web.de>
  *

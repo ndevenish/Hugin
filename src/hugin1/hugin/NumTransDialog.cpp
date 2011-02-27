@@ -34,7 +34,7 @@
 // both includes above need to come before other wx includes on OSX
 
 #include "hugin/NumTransDialog.h"
-#include "common/wxPlatform.h"
+#include "base_wx/wxPlatform.h"
 #include "hugin/huginApp.h"
 #include "hugin/CommandHistory.h"
 

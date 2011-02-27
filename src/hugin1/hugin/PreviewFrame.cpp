@@ -51,7 +51,7 @@ extern "C" {
 #include <pano13/queryfeature.h>
 }
 
-using namespace utils;
+using namespace hugin_utils;
 
 // a random id, hope this doesn't break something..
 enum {
@@ -475,7 +475,7 @@ void PreviewFrame::panoramaChanged(Panorama &pano)
                 wxString str2(pp->name, wxConvLocal);
                 str2 = wxGetTranslation(str2);
                 m_projParamNamesLabel[i]->SetLabel(str2);
-                m_projParamSlider[i]->SetRange(utils::roundi(pp->minValue), utils::roundi(pp->maxValue));
+                m_projParamSlider[i]->SetRange(roundi(pp->minValue), roundi(pp->maxValue));
             }
             for(;i < PANO_PROJECTION_MAX_PARMS; i++) {
                 m_projParamNamesLabel[i]->Hide();
@@ -495,7 +495,7 @@ void PreviewFrame::panoramaChanged(Panorama &pano)
         for (int i=0; i < nParam; i++) {
             wxString val = wxString(doubleToString(params[i],1).c_str(), wxConvLocal);
             m_projParamTextCtrl[i]->SetValue(wxString(val.wc_str(), wxConvLocal));
-            m_projParamSlider[i]->SetValue(utils::roundi(params[i]));
+            m_projParamSlider[i]->SetValue(roundi(params[i]));
         }
     }
     if (relayout) {
@@ -925,7 +925,7 @@ void PreviewFrame::updateProgressDisplay()
 {
     wxString msg;
     // build the message:
-    for (std::vector<ProgressTask>::iterator it = tasks.begin();
+    for (std::vector<AppBase::ProgressTask>::iterator it = tasks.begin();
          it != tasks.end(); ++it)
     {
         wxString cMsg;

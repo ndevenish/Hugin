@@ -191,9 +191,15 @@ bool ToolHelper::BeforeDrawImageNumber(unsigned int image)
 {
     if (image_draw_begin_tools.size() > image)
     {
-        if (image_draw_begin_tools[image])
+        if (image_draw_begin_tools[image].size() > 0)
         {
-            return image_draw_begin_tools[image]->BeforeDrawImageEvent(image);
+            bool result = true;
+            std::set<Tool *>::iterator it;
+            for(it = image_draw_begin_tools[image].begin() ; it != image_draw_begin_tools[image].end() ; it++) {
+                result &= (*it)->BeforeDrawImageEvent(image);
+            }
+            return result;
+//            return image_draw_begin_tools[image]->BeforeDrawImageEvent(image);
         }
     }
     return true;
@@ -203,9 +209,13 @@ void ToolHelper::AfterDrawImageNumber(unsigned int image)
 {
     if (image_draw_end_tools.size() > image)
     {
-        if (image_draw_end_tools[image])
+        if (image_draw_end_tools[image].size() > 0)
         {
-            image_draw_end_tools[image]->AfterDrawImageEvent(image);
+            std::set<Tool *>::iterator it;
+            for(it = image_draw_end_tools[image].begin() ; it != image_draw_end_tools[image].end() ; it++) {
+                (*it)->BeforeDrawImageEvent(image);
+            }
+//            image_draw_end_tools[image]->AfterDrawImageEvent(image);
         }
     }
 }
@@ -380,28 +390,30 @@ void ToolHelper::RemoveTool(Tool *tool,
 }
 
 void ToolHelper::RemoveTool(Tool *tool,
-                                  std::vector<Tool *> *vector)
+                                  std::vector<std::set<Tool *> > *vector)
 {
     // check every item for presence.
     for (unsigned int image = 0; image < vector->size(); image++)
     {
-        if ((*vector)[image] == tool)
-        {
-            (*vector)[image] = 0;
-        }
+        (*vector)[image].erase(tool);
+//        if ((*vector)[image] == tool)
+//        {
+//            (*vector)[image] = 0;
+//        }
     }
 }
 
 void ToolHelper::RemoveTool(Tool *tool,
-                                  std::vector<Tool *> *vector,
+                                  std::vector<std::set<Tool *> > *vector,
                                   unsigned int index)
 {
     if ((*vector).size() > index)
     {
-        if ((*vector)[index] == tool)
-        {
-            (*vector)[index] = 0;
-        }
+        (*vector)[index].erase(tool);
+//        if ((*vector)[index] == tool)
+//        {
+//            (*vector)[index] = 0;
+//        }
     }
 }
 
@@ -420,21 +432,22 @@ void ToolHelper::AddTool(Tool *tool, std::set<Tool *> *set)
 }
 
 void ToolHelper::AddTool(Tool *tool,
-                               std::vector<Tool *> *vector,
+                               std::vector<std::set<Tool *> > *vector,
                                unsigned int index)
 {
     if (vector->size() < index + 1)
     {
         // increase the size of the vector to handle enough elements for index
         // to exist
-        vector->resize(index + 1, 0);
+        vector->resize(index + 1, std::set<Tool*>());
     }
-    else if ((*vector)[index] && (*vector)[index] != tool)
-    {
-        // if a different tool already was doing this, deactivate it.
-        DeactivateTool((*vector)[index]);
-    };
-    (*vector)[index] = tool;
+//    else if ((*vector)[index] && (*vector)[index] != tool)
+//    {
+//        // if a different tool already was doing this, deactivate it.
+//        DeactivateTool((*vector)[index]);
+//    };
+//    (*vector)[index] = tool;
+    (*vector)[index].insert(tool);
 }
 
 

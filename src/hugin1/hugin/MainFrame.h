@@ -28,13 +28,15 @@
 #include <vector>
 #include <set>
 
-#include "common/utils.h"
 #include "PT/Panorama.h"
 
 #include "wx/docview.h"
 #ifdef __WXMSW__
 #include "wx/msw/helpchm.h"
 #endif
+
+#include <appbase/ProgressDisplayOld.h>
+#include <appbase/ProgressReporterOld.h>
 
 #include "hugin/OptimizePanel.h"
 #include "hugin/PreferencesDialog.h"
@@ -83,7 +85,7 @@ private:
  *  it therefor also hold operations that determine the lifecycle
  *  of the panorama object (new, open, save, quit).
  */
-class MainFrame : public wxFrame, public PT::PanoramaObserver, public utils::MultiProgressDisplay, public utils::ProgressReporter
+class MainFrame : public wxFrame, public PT::PanoramaObserver, public AppBase::MultiProgressDisplay, public AppBase::ProgressReporter
 {
 public:
 

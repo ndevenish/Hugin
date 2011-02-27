@@ -1,6 +1,6 @@
 // -*- c-basic-offset: 4 -*-
 
-/** @file PanoImage.h
+/** @file hugin1/PT/PanoImage.h
  *
  *  @brief implementation of HFOVDialog Class
  *

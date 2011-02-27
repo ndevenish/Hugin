@@ -1,6 +1,6 @@
 // -*- c-basic-offset: 4 -*-
 
-/** @file vig_optimizer.cpp
+/** @file vig_optimize.cpp
  *
  *  @brief a simple test stitcher
  *

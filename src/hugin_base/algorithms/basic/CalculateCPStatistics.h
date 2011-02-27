@@ -1,5 +1,5 @@
 // -*- c-basic-offset: 4 -*-
-/** @file PanoramaDataLegacySupport.h
+/** @file CalculateCPStatistics.h
  *
  *  @author Pablo d'Angelo <pablo.dangelo@web.de>
  *
@@ -27,7 +27,7 @@
 #define _BASICALGORITHMS_CALCULATECPSTSTISTICS_H
 
 #include <hugin_shared.h>
-#include <algorithm/PanoramaAlgorithm.h>
+#include <algorithms/PanoramaAlgorithm.h>
 
 
 

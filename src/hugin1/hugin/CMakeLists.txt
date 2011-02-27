@@ -33,8 +33,8 @@ TexCoordRemapper.cpp ChoosyRemapper.cpp MeshManager.cpp ViewState.cpp
 OutputProjectionInfo.cpp ToolHelper.cpp Tool.cpp  OverviewCameraTool.cpp ProjectionGridTool.cpp OverviewOutlinesTool.cpp
 PreviewCropTool.cpp DragTool.cpp PreviewIdentifyTool.cpp
 PreviewDifferenceTool.cpp PreviewPanoMaskTool.cpp PreviewControlPointTool.cpp
-GreatCircles.cpp AboutDialog.cpp LayoutRemapper.cpp PreviewLayoutLinesTool.cpp
-MaskEditorPanel.cpp MaskImageCtrl.cpp MaskLoadDialog.cpp)
+GreatCircles.cpp AboutDialog.cpp LayoutRemapper.cpp PreviewLayoutLinesTool.cpp PreviewColorPickerTool.cpp
+MaskEditorPanel.cpp MaskImageCtrl.cpp MaskLoadDialog.cpp HtmlWindow.cpp)
 
 set(hugin_HEADERS
 huginApp.h ImagesList.h MainFrame.h CPImageCtrl.h CPImagesComboBox.h CPEditorPanel.h CPDetectorDialog.h LensPanel.h 
@@ -48,8 +48,8 @@ TexCoordRemapper.h ChoosyRemapper.h MeshManager.h ViewState.h
 OutputProjectionInfo.h ToolHelper.h Tool.h OverviewCameraTool.h ProjectionGridTool.h OverviewOutlinesTool.h
 PreviewCropTool.h DragTool.h PreviewIdentifyTool.h
 PreviewDifferenceTool.h PreviewPanoMaskTool.h PreviewControlPointTool.h
-GreatCircles.h AboutDialog.h LayoutRemapper.h PreviewLayoutLinesTool.h
-MaskEditorPanel.h MaskImageCtrl.h MaskLoadDialog.h)
+GreatCircles.h AboutDialog.h LayoutRemapper.h PreviewLayoutLinesTool.h PreviewColorPickerTool.h
+MaskEditorPanel.h MaskImageCtrl.h MaskLoadDialog.h HtmlWindow.h)
 
 IF(APPLE)
   if (MAC_SELF_CONTAINED_BUNDLE)
