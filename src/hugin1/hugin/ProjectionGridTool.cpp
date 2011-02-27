@@ -139,14 +139,14 @@ void PanosphereOverviewProjectionGridTool::AfterDrawImagesBackEvent()
 
     DEBUG_DEBUG("resources created");
 
-    glDisable(GL_TEXTURE_2D);
-    glColor4f(0.3,0.3,0.3,0.6);
-    glEnable(GL_BLEND);
-    glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    GLUquadric* gridb = gluNewQuadric();
-    gluSphere(gridb, 101,40,20);
+//    glDisable(GL_TEXTURE_2D);
+//    glColor4f(0.3,0.3,0.3,0.6);
+//    glEnable(GL_BLEND);
+//    glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+//    GLUquadric* gridb = gluNewQuadric();
+//    gluSphere(gridb, 101,40,20);
 
-    glEnable(GL_TEXTURE_2D);
+//    glEnable(GL_TEXTURE_2D);
 
     glColor4f(1,1,1,0.3);
     glEnable( GL_TEXTURE_2D );
