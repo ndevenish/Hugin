@@ -130,8 +130,7 @@
                                   <object class="sizeritem">
                                     <object class="wxChoice" name="lens_val_projectionFormat">
                                       <content>
-                                        <item></item>
-                                      </content>
+                                        <item/></content>
                                     </object>
                                     <flag>wxALIGN_CENTRE_VERTICAL</flag>
                                   </object>
@@ -572,14 +571,29 @@
                             <object class="wxBoxSizer">
                               <orient>wxVERTICAL</orient>
                               <object class="sizeritem">
-                                <object class="wxStaticText">
-                                  <label>Vignetting  (Vb, Vc, Vd)</label>
-                                  <font>
-                                    <style platform="mac">normal</style>
-                                    <family platform="mac">swiss</family>
-                                    <weight>bold</weight>
-                                    <size platform="mac">12</size>
-                                  </font>
+                                <object class="wxBoxSizer">
+                                  <orient>wxHORIZONTAL</orient>
+                                  <object class="sizeritem">
+                                    <object class="wxStaticText">
+                                      <label>Vignetting  (Vb, Vc, Vd)</label>
+                                      <font>
+                                        <style platform="mac">normal</style>
+                                        <family platform="mac">swiss</family>
+                                        <weight>bold</weight>
+                                        <size platform="mac">12</size>
+                                      </font>
+                                    </object>
+                                    <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                                  </object>
+                                  <object class="sizeritem">
+                                    <object class="wxCheckBox" name="lens_inherit_Vb">
+                                      <label>Link</label>
+                                      <style></style>
+                                    </object>
+                                    <style>wxALIGN_CENTRE_VERTICAL</style>
+                                    <flag>wxLEFT|wxALIGN_CENTRE_VERTICAL</flag>
+                                    <border>12</border>
+                                  </object>
                                 </object>
                                 <flag>wxBOTTOM</flag>
                                 <border>6</border>
@@ -625,15 +639,6 @@
                                   <cols>7</cols>
                                   <vgap>5</vgap>
                                   <hgap>6</hgap>
-                                  <object class="sizeritem">
-                                    <object class="wxCheckBox" name="lens_inherit_Vb">
-                                      <label>Link</label>
-                                      <style></style>
-                                    </object>
-                                    <style>wxALIGN_CENTRE_VERTICAL</style>
-                                    <flag>wxLEFT|wxALIGN_CENTRE_VERTICAL</flag>
-                                    <border>12</border>
-                                  </object>
                                 </object>
                                 <flag>wxLEFT</flag>
                                 <border>18</border>
