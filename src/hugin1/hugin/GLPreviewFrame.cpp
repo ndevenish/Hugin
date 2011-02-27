@@ -1223,12 +1223,15 @@ void GLPreviewFrame::OnSwitchPreviewGrid(wxCommandEvent & e)
     if(m_previewGrid->GetValue())
     {
         preview_helper->ActivateTool(preview_projection_grid);
+        panosphere_overview_helper->ActivateTool(overview_projection_grid);
     }
     else
     {
         preview_helper->DeactivateTool(preview_projection_grid);
+        panosphere_overview_helper->DeactivateTool(overview_projection_grid);
     }
     m_GLPreview->Refresh();
+    m_GLOverview->Refresh();
 }
 
 void GLPreviewFrame::OnClose(wxCloseEvent& event)
@@ -1792,7 +1795,10 @@ void GLPreviewFrame::MakePanosphereOverviewTools(PanosphereOverviewToolHelper *p
     panosphere_overview_helper->ActivateTool(panosphere_overview_identify_tool);
     
     overview_projection_grid = new PanosphereOverviewProjectionGridTool(panosphere_overview_helper);
-    panosphere_overview_helper->ActivateTool(overview_projection_grid);
+    if(m_previewGrid->GetValue())
+    {
+        panosphere_overview_helper->ActivateTool(overview_projection_grid);
+    }
     overview_outlines_tool = new PanosphereOverviewOutlinesTool(panosphere_overview_helper, m_GLPreview);
     panosphere_overview_helper->ActivateTool(overview_outlines_tool);
     panosphere_difference_tool = new PreviewDifferenceTool(panosphere_overview_helper);
