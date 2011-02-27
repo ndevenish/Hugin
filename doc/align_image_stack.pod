@@ -16,12 +16,12 @@ B<align_image_stack> [options] I<input files>
 
 =head1 DESCRIPTION
 
-align_image_stack is used for the alignment of slightly misaligned images. When several
-differently exposed images are taken in the process of creating a High Dynamic Range
-image, the images are not perfectly aligned, and the quality of the HDR image created
-will suffer from this. align_image_stack uses the tools available to hugin to optimize
-the roll, pitch and yaw, as well as some parameters of the lens geometry, to align the
-images
+align_image_stack is used for the alignment of slightly misaligned images or for the
+registration of a stereo images pair.  When several differently exposed images are
+taken in the process of creating a High Dynamic Range image, the images are not
+perfectly aligned, and the quality of the HDR image created will suffer from this.
+align_image_stack uses the tools available to hugin to optimize the roll, pitch and
+yaw, as well as some parameters of the lens geometry, to align the images.
 
 
 =head1 OPTIONS
@@ -72,6 +72,30 @@ not complete
 Optimize field of view for all images, except for first. Useful for
 aligning focus stacks with slightly different magnification.
 
+=item B<-d>
+
+Optimize radial distortion for all images, except for first.
+
+=item B<-i>
+
+Optimize image center shift for all images, except for first.
+
+=item B<-S>
+
+Assume stereo images - allow horizontal shift of control points.
+
+=item B<-A>
+
+Align stereo window - assumes -S
+
+=item B<-P>
+
+Align stereo window with pop-out effect - assumes -S
+
+=item B<-C>
+
+Auto crop the image to the area covered by all images
+
 =item B<-c> I<num>
 
 Number of control points (per grid) to create between adjacent images
@@ -99,7 +123,7 @@ Display help summary.
 
 =head1 AUTHORS
 
-Written by Pablo d'Angelo. Also contains contributions from Douglas Wilkins, Ippei Ukai, Ed Halley, Bruno Postle, Gerry Patterson and Brent Townshend.
+Written by Pablo d'Angelo. Also contains contributions from Douglas Wilkins, Ippei Ukai, Ed Halley, Bruno Postle, Gerry Patterson and Brent Townshend.  Stereo functionality added by Vladimir Nadvornik.
 
 This man page was written by Cyril Brulebois
 <cyril.brulebois@enst-bretagne.fr> and is licensed under the same
