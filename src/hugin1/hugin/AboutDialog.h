@@ -50,6 +50,7 @@ public:
 private:
 
     int m_mode;
+    wxString m_logo_file;
     wxNotebook* m_about_notebook;
     wxStaticBitmap * m_logoImgCtrl;
     wxBitmap m_logo;
@@ -64,8 +65,8 @@ private:
     void OnChangedTab(wxNotebookEvent &e);
     /** function to switch the logo image based on selected tab */
     void SetMode(int newMode);
-
-
+    /** function to set the log image */
+    void SetLogo(wxString newLogoFile);
 };
 
 #endif // _ABOUTDIALOG_H

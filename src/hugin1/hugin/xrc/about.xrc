@@ -14,7 +14,7 @@
             <orient>wxVERTICAL</orient>
             <object class="sizeritem">
               <object class="wxStaticBitmap" name="about_logo">
-                <bitmap>data/logo.png</bitmap>
+                <bitmap>data/splash.png</bitmap>
               </object>
               <flag>wxALL|wxALIGN_TOP|wxALIGN_CENTER_HORIZONTAL</flag>
             </object>

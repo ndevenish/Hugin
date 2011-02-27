@@ -203,27 +203,37 @@ void AboutDialog::SetMode(int newMode)
     if(m_mode==newMode){
         return;
     }
-    if((newMode!=6)&&(m_mode!=6)){
-        m_mode=newMode;
-        return;
+
+    switch ( newMode ) {
+
+        case 0 :
+            // about tab
+            SetLogo(wxT("splash.png"));
+            break;
+
+        case 6 :
+            // dedication tab
+            SetLogo(wxT("dedication.png"));
+            break;
+
+        default :
+            // all other tabs
+            SetLogo(wxT("logo.png"));
     }
-    // image to be displayed on dedication tab
-    if(newMode==6){
-        m_logo.LoadFile(huginApp::Get()->GetXRCPath() +
-                        wxT("data/") + wxT("logo.png"),
-                        wxBITMAP_TYPE_PNG);
-        m_logoImgCtrl->SetBitmap(m_logo);
-        m_mode=newMode;
-        return;
-    }
-    // image to be displayed on any other tab
-    if(m_mode==6){
-        m_logo.LoadFile(huginApp::Get()->GetXRCPath() +
-                        wxT("data/") + wxT("logo.png"),
-                        wxBITMAP_TYPE_PNG);
-        m_logoImgCtrl->SetBitmap(m_logo);
-        m_mode=newMode;
-        return;
-    }
+
+    m_mode=newMode;
+    return;
 };
+
+void AboutDialog::SetLogo(wxString newLogoFile)
+{
+    if(m_logo_file!=newLogoFile){
+        m_logo.LoadFile(huginApp::Get()->GetXRCPath() +
+                        wxT("data/") + newLogoFile,
+                        wxBITMAP_TYPE_PNG);
+        m_logoImgCtrl->SetBitmap(m_logo);
+        m_logo_file=newLogoFile;
+    }
+    return;
+}
 
