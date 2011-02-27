@@ -382,6 +382,11 @@ void GLViewer::MouseButtons(wxMouseEvent& e)
             m_tool_helper->MouseButtonEvent(e);
         }
     }
+#ifdef __WXMSW__
+    //use normal mouse button processing of GLCanvas 
+    //otherwise the mouse wheel is not working
+    e.Skip();
+#endif
 }
 
 void GLViewer::MouseWheel(wxMouseEvent& e)
