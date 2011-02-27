@@ -75,6 +75,7 @@ extern "C" {
 #include "PreviewColorPickerTool.h"
 
 #include "ProjectionGridTool.h"
+#include "PanosphereSphereTool.h"
 
 #include "OverviewCameraTool.h"
 #include "OverviewOutlinesTool.h"
@@ -1793,12 +1794,17 @@ void GLPreviewFrame::MakePanosphereOverviewTools(PanosphereOverviewToolHelper *p
     panosphere_overview_helper->ActivateTool(panosphere_overview_camera_tool);
     panosphere_overview_identify_tool = new PreviewIdentifyTool(panosphere_overview_helper, this);
     panosphere_overview_helper->ActivateTool(panosphere_overview_identify_tool);
+
+    panosphere_sphere_tool = new PanosphereSphereTool(panosphere_overview_helper);
+    panosphere_overview_helper->ActivateTool(panosphere_sphere_tool);
     
     overview_projection_grid = new PanosphereOverviewProjectionGridTool(panosphere_overview_helper);
     if(m_previewGrid->GetValue())
     {
         panosphere_overview_helper->ActivateTool(overview_projection_grid);
     }
+    
+    
     overview_outlines_tool = new PanosphereOverviewOutlinesTool(panosphere_overview_helper, m_GLPreview);
     panosphere_overview_helper->ActivateTool(overview_outlines_tool);
     panosphere_difference_tool = new PreviewDifferenceTool(panosphere_overview_helper);

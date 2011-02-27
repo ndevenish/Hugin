@@ -71,6 +71,7 @@ class PreviewColorPickerTool;
 
 class PanosphereOverviewProjectionGridTool;
 class PreviewProjectionGridTool;
+class PanosphereSphereTool;
 
 class PanosphereOverviewOutlinesTool;
 class PlaneOverviewOutlinesTool;
@@ -416,6 +417,7 @@ private:
 
     PanosphereOverviewProjectionGridTool * overview_projection_grid;
     PreviewProjectionGridTool * preview_projection_grid;
+    PanosphereSphereTool * panosphere_sphere_tool;
 
     PanosphereOverviewToolHelper *panosphere_overview_helper;
 
