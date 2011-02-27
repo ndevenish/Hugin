@@ -713,6 +713,16 @@ void PanosphereOverviewToolHelper::AfterDrawImagesFront()
     }
 }
 
+void PanosphereOverviewToolHelper::DeactivateTool(Tool *tool)
+{
+    ToolHelper::DeactivateTool(tool);
+
+    RemoveTool(tool, &draw_under_notified_tools_back);
+    RemoveTool(tool, &draw_under_notified_tools_front);
+    RemoveTool(tool, &draw_over_notified_tools_back);
+    RemoveTool(tool, &draw_over_notified_tools_front);
+}
+
 
 PlaneOverviewToolHelper::PlaneOverviewToolHelper(PT::Panorama *pano,
                   VisualizationState *visualization_state,

@@ -92,7 +92,7 @@ public:
     // Then return a list of tools that had to be dactivated to comply.
     std::set<Tool*> ActivateTool(Tool *tool);
     // deactivate a tool: remove all it's notifications.
-    void DeactivateTool(Tool *tool);
+    virtual void DeactivateTool(Tool *tool);
     
     // Events
     // the x and y coordinates are in pixels from the top left of the panorama.
@@ -223,6 +223,8 @@ public:
     void AfterDrawImagesBack();
     void AfterDrawImagesFront();
     
+    void DeactivateTool(Tool *tool);
+
 protected:
     std::set<Tool *> draw_under_notified_tools_back;
     std::set<Tool *> draw_under_notified_tools_front;
@@ -242,7 +244,7 @@ public:
 
     void MouseMoved(int x, int y, wxMouseEvent & e);
     void UpdateImagesUnderMouse();
-
+    
     double getPlaneX() {return plane_x;}
     double getPlaneY() {return plane_y;}
 
