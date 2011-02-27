@@ -1,4 +1,34 @@
-2011-02-27 07:47 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (5ac9ff8cbd02 [tip])
+2011-02-27 08:50 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (c27d2767632b [tip])
+
+	* CMakeLists.txt, mac/Version.xcconfig:
+	Bumped up version number
+
+2011-02-27 08:46 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (9ae332342087)
+
+	* ChangeLog, src/translations/bg.po, src/translations/ca_ES.po,
+	src/translations/cs_CZ.po, src/translations/de.po,
+	src/translations/en_GB.po, src/translations/es.po,
+	src/translations/fi.po, src/translations/fr.po,
+	src/translations/hu.po, src/translations/hugin.pot,
+	src/translations/it.po, src/translations/ja.po,
+	src/translations/ko.po, src/translations/nl.po,
+	src/translations/pl.po, src/translations/pt_BR.po,
+	src/translations/ro.po, src/translations/ru.po,
+	src/translations/sk.po, src/translations/sl.po,
+	src/translations/sv.po, src/translations/uk.po,
+	src/translations/zh_CN.po, src/translations/zh_TW.po:
+	Updated Translation Strings
+
+2011-02-27 14:14 +0100  tmodes  <tmodes>  (bfdae1c16551)
+
+	* Merged
+
+2011-02-27 14:13 +0100  tmodes  <tmodes>  (f6d7cbcfbda9)
+
+	* src/hugin1/ptbatcher/FindPanoDialog.cpp:
+	Fixes missing first image in find pano feature
+
+2011-02-27 07:47 -0500  Yuval Levy  <yuv@users.sourceforge.net>  (5ac9ff8cbd02)
 
 	* src/translations/pt_BR.po:
 	updated Brazilian translation (Luís Henrique Camargo Quiroz)
