@@ -43,10 +43,6 @@ public:
     /** Constructor, read from xrc ressource */
     AboutDialog(wxWindow *parent);
 
-    /** Destructor, pro forma */
-    ~AboutDialog();
-
-
 private:
 
     int m_mode;
@@ -57,8 +53,6 @@ private:
 
     DECLARE_EVENT_TABLE()
 
-    /**  button to fill the space */
-    void OnAboutMe(wxCommandEvent & e);
     /** retrieves the system informations */
     void GetSystemInformation(wxFont *font);
     /** event handler for changing tab */

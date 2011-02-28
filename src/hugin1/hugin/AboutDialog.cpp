@@ -2,7 +2,7 @@
 
 /** @file AboutDialog.cpp
  *
- *  @brief Definition of dialog for numeric transforms
+ *  @brief Definition of about dialog
  *
  *  @author Yuval Levy <http://www.photopla.net/>
  *
@@ -34,7 +34,6 @@
 
 
 BEGIN_EVENT_TABLE(AboutDialog, wxDialog)
-    EVT_BUTTON(XRCID("about_me"), AboutDialog::OnAboutMe)
     EVT_NOTEBOOK_PAGE_CHANGED(XRCID("about_notebook"), AboutDialog::OnChangedTab)
 END_EVENT_TABLE()
 
@@ -119,19 +118,9 @@ AboutDialog::AboutDialog(wxWindow *parent)
     SetIcon(myIcon);
 
     // set the position and the size (x,y,width,height). -1 = keep existing
-    this->SetSize(1,1,560,560);
-    this->CenterOnParent();
-}
-
-// class destructor
-AboutDialog::~AboutDialog()
-{
-	// insert your code here
-}
-
-void AboutDialog::OnAboutMe(wxCommandEvent & e)
-{
-    return;
+    SetSize(1,1,560,560);
+    CenterOnParent();
+    m_mode=0;
 }
 
 void AboutDialog::GetSystemInformation(wxFont *font)
@@ -194,17 +183,18 @@ void AboutDialog::GetSystemInformation(wxFont *font)
 void AboutDialog::OnChangedTab(wxNotebookEvent &e)
 {
     // determine which tab is currently visible
-    if(m_mode!=-1)
-        SetMode(e.GetSelection());
+   SetMode(e.GetSelection());
 };
 
 void AboutDialog::SetMode(int newMode)
 {
-    if(m_mode==newMode){
+    if(m_mode==newMode)
+    {
         return;
     }
 
-    switch ( newMode ) {
+    switch ( newMode )
+    {
 
         case 0 :
             // about tab
@@ -227,13 +217,18 @@ void AboutDialog::SetMode(int newMode)
 
 void AboutDialog::SetLogo(wxString newLogoFile)
 {
-    if(m_logo_file!=newLogoFile){
-        m_logo.LoadFile(huginApp::Get()->GetXRCPath() +
+    if(m_logo_file!=newLogoFile)
+    {
+        if(m_logo.LoadFile(huginApp::Get()->GetXRCPath() +
                         wxT("data/") + newLogoFile,
-                        wxBITMAP_TYPE_PNG);
-        m_logoImgCtrl->SetBitmap(m_logo);
-        m_logo_file=newLogoFile;
-    }
-    return;
-}
+                        wxBITMAP_TYPE_PNG))
+        {
+            if(m_logoImgCtrl)
+            {
+                m_logoImgCtrl->SetBitmap(m_logo);
+                m_logo_file=newLogoFile;
+            };
+        };
+    };
+};
 
