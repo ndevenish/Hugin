@@ -66,24 +66,28 @@ void PreviewColorPickerTool::CalcCorrection(hugin_utils::FDiff2D pos)
     m_blue=0;
     m_count=0;
     PT::Panorama* pano=helper->GetPanoramaPtr();
-    for(unsigned int i=0;i<pano->getNrOfImages();i++)
+    UIntSet activeImages=pano->getActiveImages();
+    if(activeImages.size()>0)
     {
-        //check if point is inside the image, check also all 4 corners of rectangle
-        HuginBase::PTools::Transform trans;
-        trans.createTransform(pano->getImage(i),pano->getOptions());
-        double x;
-        double y;
-        if(trans.transformImgCoord(x,y,pos.x,pos.y))
+        for(UIntSet::iterator it=activeImages.begin();it!=activeImages.end();it++)
         {
-            vigra::Point2D imagePos(x,y);
-            if(pano->getImage(i).isInside(imagePos) && 
-                pano->getImage(i).isInside(imagePos + vigra::Point2D(-ColorPickerSize,-ColorPickerSize)) &&
-                pano->getImage(i).isInside(imagePos + vigra::Point2D(-ColorPickerSize, ColorPickerSize)) &&
-                pano->getImage(i).isInside(imagePos + vigra::Point2D( ColorPickerSize,-ColorPickerSize)) &&
-                pano->getImage(i).isInside(imagePos + vigra::Point2D( ColorPickerSize, ColorPickerSize)) 
-               )
+            //check if point is inside the image, check also all 4 corners of rectangle
+            HuginBase::PTools::Transform trans;
+            trans.createTransform(pano->getImage(*it),pano->getOptions());
+            double x;
+            double y;
+            if(trans.transformImgCoord(x,y,pos.x,pos.y))
             {
-                CalcCorrectionForImage(i,imagePos);
+                vigra::Point2D imagePos(x,y);
+                if(pano->getImage(*it).isInside(imagePos) && 
+                    pano->getImage(*it).isInside(imagePos + vigra::Point2D(-ColorPickerSize,-ColorPickerSize)) &&
+                    pano->getImage(*it).isInside(imagePos + vigra::Point2D(-ColorPickerSize, ColorPickerSize)) &&
+                    pano->getImage(*it).isInside(imagePos + vigra::Point2D( ColorPickerSize,-ColorPickerSize)) &&
+                    pano->getImage(*it).isInside(imagePos + vigra::Point2D( ColorPickerSize, ColorPickerSize)) 
+                   )
+                {
+                    CalcCorrectionForImage(*it,imagePos);
+                };
             };
         };
     };
