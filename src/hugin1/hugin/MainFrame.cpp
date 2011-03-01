@@ -444,6 +444,10 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     m_mruFiles.UseMenu(GetMenuBar()->GetMenu(0)->FindItem(XRCID("menu_mru"))->GetSubMenu());
     m_mruFiles.AddFilesToMenu();
     DEBUG_TRACE("");
+#ifdef __WXGTK__
+    // set explicit focus to assistant panel for better processing key presses
+    assistant_panel->SetFocus();
+#endif
 }
 
 MainFrame::~MainFrame()
