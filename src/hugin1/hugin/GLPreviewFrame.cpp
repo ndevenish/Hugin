@@ -165,6 +165,7 @@ BEGIN_EVENT_TABLE(GLPreviewFrame, wxFrame)
     EVT_TEXT_ENTER(XRCID("pano_val_roi_top"), GLPreviewFrame::OnROIChanged)
     EVT_TEXT_ENTER(XRCID("pano_val_roi_right"), GLPreviewFrame::OnROIChanged)
     EVT_TEXT_ENTER(XRCID("pano_val_roi_bottom"), GLPreviewFrame::OnROIChanged)
+    EVT_BUTTON(XRCID("reset_crop_button"), GLPreviewFrame::OnResetCrop)
     EVT_TEXT_ENTER(XRCID("exposure_text"), GLPreviewFrame::OnExposureChanged)
     EVT_COMMAND_RANGE(PROJ_PARAM_VAL_ID,PROJ_PARAM_VAL_ID+PANO_PROJECTION_MAX_PARMS,wxEVT_COMMAND_TEXT_ENTER,GLPreviewFrame::OnProjParameterChanged)
     EVT_BUTTON(PROJ_PARAM_RESET_ID, GLPreviewFrame::OnProjParameterReset)
@@ -2408,6 +2409,13 @@ void GLPreviewFrame::OnROIChanged ( wxCommandEvent & e )
     GlobalCmdHist::getInstance().addCommand(
             new PT::SetPanoOptionsCmd( m_pano, opt )
                                            );
+};
+
+void GLPreviewFrame::OnResetCrop(wxCommandEvent &e)
+{
+    PanoramaOptions opt=m_pano.getOptions();
+    opt.setROI(vigra::Rect2D(0,0,opt.getWidth(),opt.getHeight()));
+    GlobalCmdHist::getInstance().addCommand(new PT::SetPanoOptionsCmd(m_pano,opt));
 };
 
 void GLPreviewFrame::OnHFOVChanged ( wxCommandEvent & e )

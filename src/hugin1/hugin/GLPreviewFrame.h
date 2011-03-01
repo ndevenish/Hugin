@@ -288,6 +288,8 @@ protected:
     void OnOverviewModeChoice(wxCommandEvent & e);
     /** event handler for changed roi */
     void OnROIChanged(wxCommandEvent & e);
+    /** event handler to reset crop area */
+    void OnResetCrop(wxCommandEvent & e);
     void OnHFOVChanged(wxCommandEvent & e);
     void OnVFOVChanged(wxCommandEvent & e);
     /** event handler when user hides the infobar */
