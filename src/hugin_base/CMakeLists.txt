@@ -3,7 +3,6 @@
 
 SET(HUGIN_BASE_SRC
 algorithms/nona/NonaFileStitcher.cpp
-algorithms/nona/NonaImageStitcher.cpp
 algorithms/basic/CalculateCPStatistics.cpp
 algorithms/basic/CalculateMeanExposure.cpp
 algorithms/basic/CalculateOptimalScale.cpp
@@ -63,7 +62,6 @@ SET(HUGIN_BASE_HEADER
 algorithms/PanoramaAlgorithm.h
 algorithms/StitcherAlgorithm.h
 algorithms/nona/NonaFileStitcher.h
-algorithms/nona/NonaImageStitcher.h
 algorithms/basic/CalculateCPStatistics.h
 algorithms/basic/CalculateMeanExposure.h
 algorithms/basic/CalculateOptimalScale.h

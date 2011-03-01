@@ -338,6 +338,7 @@ public:
         vigra::ImageExportInfo exinfo(filename.str().c_str());
         exinfo.setXResolution(150);
         exinfo.setYResolution(150);
+        exinfo.setICCProfile(remapped.m_ICCProfile);
         if (opts.tiff_saveROI) {
             exinfo.setPosition(remapped.boundingBox().upperLeft());
             exinfo.setCanvasSize(vigra::Size2D(opts.getWidth(), opts.getHeight()));
@@ -544,6 +545,10 @@ public:
             RemappedPanoImage<ImageType, AlphaType> *
             remapped = remapper.getRemapped(Base::m_pano, opts, *it,
                                             Base::m_rois[i], Base::m_progress);
+            if(iccProfile.size()==0)
+            {
+                iccProfile=remapped->m_ICCProfile;
+            };
             Base::m_progress.setMessage("blending");
             // add image to pano and panoalpha, adjusts panoROI as well.
             try {
@@ -731,7 +736,7 @@ public:
         }
         exinfo.setXResolution(150);
         exinfo.setYResolution(150);
-//        exinfo.setICCProfile(iccProfile);
+        exinfo.setICCProfile(iccProfile);
         // set compression quality for jpeg images.
         if (opts.outputFormat == PanoramaOptions::JPEG) {
             char jpgCompr[4];
@@ -794,6 +799,10 @@ public:
             // but should be enought for the preview.
             remapped[i] = remapper.getRemapped(Base::m_pano, opts, *it,
                                                Base::m_rois[i], Base::m_progress);
+            if(iccProfile.size()==0)
+            {
+                iccProfile=remapped[i]->m_ICCProfile;
+            };
             i++;
         }
         vigra::Diff2D size =  pano.second - pano.first;
@@ -823,6 +832,9 @@ public:
             remapper.release(*it);
         }
     }
+
+protected:
+    vigra::ImageImportInfo::ICCProfile iccProfile;
 };
 
 /** A stitcher without seaming, just copies the images over each other
@@ -869,7 +881,7 @@ public:
             RemappedPanoImage<ImageType, AlphaType> *
             remapped = remapper.getRemapped(Base::m_pano, opts, *it,
                                             Base::m_rois[i], Base::m_progress);
-            if (iccProfile.size() > 0) {
+            if (iccProfile.size() == 0) {
                 // try to extract icc profile.
                 iccProfile = remapped->m_ICCProfile;
             }
