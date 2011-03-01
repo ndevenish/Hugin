@@ -3075,7 +3075,7 @@ msgstr "Verzeichnisname.pto"
 
 #: translations/xrc.cpp:59 xrc.cpp:59
 msgid "Found panoramas"
-msgstr "Panoramen gefunden"
+msgstr "Gefundene Panoramen"
 
 #: translations/xrc.cpp:60 xrc.cpp:60
 msgid "Send selected panoramas to queue"
