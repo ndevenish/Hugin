@@ -37,13 +37,13 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2011-02-27 08:45-0500\n"
-"PO-Revision-Date: 2011-01-15 20:52+0100\n"
+"PO-Revision-Date: 2011-02-27 16:29+0100\n"
 "Last-Translator: Cristian Marchi <cri.penta@gmail.com>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
+"Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: hugin1/base_wx/huginConfig.cpp:47 hugin1/base_wx/huginConfig.cpp:82
@@ -348,8 +348,8 @@ msgstr ""
 "Nota: l'allineamento automatico utilizza le impostazioni predefinite dalle "
 "preferenze. Se si personalizzano le impostazioni per questo progetto nelle "
 "schede avanzate e si desidera utilizzarle, si deve eseguire la ricerca dei "
-"punti di controllo dalla scheda «Immagini», l'ottimizzazione geometrica dalla "
-"scheda «Ottimizzatore» e l'ottimizzazione fotometrica dalla scheda "
+"punti di controllo dalla scheda «Immagini», l'ottimizzazione geometrica "
+"dalla scheda «Ottimizzatore» e l'ottimizzazione fotometrica dalla scheda "
 "«Esposizione»."
 
 #: hugin1/hugin/AssistantPanel.cpp:361
@@ -382,7 +382,6 @@ msgstr ""
 "Fatto questo, premere nuovamente il pulsante «Allinea»"
 
 #: hugin1/hugin/AssistantPanel.cpp:431
-#, fuzzy
 msgid ""
 "The assistant did not complete successfully. Please check the resulting "
 "project file."
@@ -797,7 +796,7 @@ msgstr "Panoramica"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:552
 msgid "normal, individual"
-msgstr ""
+msgstr "normale, individuale"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:553
 msgid "mosaic"
@@ -805,7 +804,7 @@ msgstr "mosaico"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:554
 msgid "mosaic, individual"
-msgstr ""
+msgstr "mosaico, individuale"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:604 hugin1/hugin/PreviewFrame.cpp:301
 msgid "Resets the projections parameters to their default values."
@@ -1969,8 +1968,8 @@ msgid ""
 msgstr ""
 "Il panorama che si sta tentando di unire ha %.1f gigapixel.\n"
 "Se questa dimensione è troppo grande, ridurre le dimensioni dell'immagine o "
-"la regione di ritaglio dalla scheda dell'«Assemblatore». Unire un panorama di "
-"queste dimensione può richiedere molto tempo e memoria."
+"la regione di ritaglio dalla scheda dell'«Assemblatore». Unire un panorama "
+"di queste dimensione può richiedere molto tempo e memoria."
 
 #: hugin1/hugin/PanoPanel.cpp:1347
 msgid "Stitch anyway"
@@ -1994,8 +1993,8 @@ msgstr ""
 "\n"
 "Il panorama che si sta tentando di unire ha %.1f gigapixel.\n"
 "Se questa dimensione è troppo grande, ridurre le dimensioni dell'immagine o "
-"la regione di ritaglio dalla scheda dell'«Assemblatore». Unire un panorama di "
-"queste dimensione può richiedere molto tempo e memoria."
+"la regione di ritaglio dalla scheda dell'«Assemblatore». Unire un panorama "
+"di queste dimensione può richiedere molto tempo e memoria."
 
 # (ndt) intende la lingua del programma
 #: hugin1/hugin/PreferencesDialog.cpp:116
@@ -2784,13 +2783,12 @@ msgstr ""
 "Selezionarne almeno uno e riprovare."
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:265
-#, fuzzy
 msgid ""
 "Not all project files could be written successfully.\n"
 "Maybe you have no write permission for these directories or your hard disc "
 "is full."
 msgstr ""
-"Non tutti i file di progetto possono essere letti.\n"
+"Non tutti i file di progetto possono essere scritti.\n"
 "Il disco fisso potrebbe essere pieno oppure non si posseggono i permessi di "
 "scrittura per queste cartelle."
 
@@ -2959,9 +2957,8 @@ msgid "System"
 msgstr "Sistema"
 
 #: translations/xrc.cpp:9 xrc.cpp:9
-#, fuzzy
 msgid "Dedication"
-msgstr "Aggiungi applicazione"
+msgstr "Dedica"
 
 #: translations/xrc.cpp:10 translations/xrc.cpp:33 translations/xrc.cpp:147
 #: translations/xrc.cpp:440 translations/xrc.cpp:510 translations/xrc.cpp:514
@@ -3678,9 +3675,8 @@ msgstr ""
 "Utilizza un metodo statistico per rimuovere i punti di controllo anomali"
 
 #: translations/xrc.cpp:201 xrc.cpp:201
-#, fuzzy
 msgid "Image Position"
-msgstr "Fusione immagine:"
+msgstr "Posizione immagine"
 
 #: translations/xrc.cpp:202 xrc.cpp:202
 msgid "yaw:"
@@ -3834,7 +3830,7 @@ msgstr "Velocità dell'otturatore:"
 
 #: translations/xrc.cpp:237 xrc.cpp:237
 msgid "ISO:"
-msgstr ""
+msgstr "ISO:"
 
 # tooltip
 #: translations/xrc.cpp:239 xrc.cpp:239
@@ -4507,7 +4503,7 @@ msgstr "Tutto eccetto traslazione"
 
 #: translations/xrc.cpp:451 translations/xrc.cpp:456 xrc.cpp:451 xrc.cpp:456
 msgid "----------------------------------------------------------"
-msgstr ""
+msgstr "----------------------------------------------------------"
 
 #: translations/xrc.cpp:452 xrc.cpp:452
 msgid "Positions and Translation (y,p,r,x,y,z)"
@@ -5378,34 +5374,30 @@ msgid "The assistant is using the default setting."
 msgstr "L'assistente sta utilizzando l'impostazione predefinita."
 
 #: translations/xrc.cpp:694 xrc.cpp:694
-#, fuzzy
 msgid "Default File Format:"
-msgstr "Argomenti predefiniti:"
+msgstr "Formato file predefinito:"
 
 #: translations/xrc.cpp:695 xrc.cpp:695
 msgid "default output format for final panorama"
-msgstr ""
+msgstr "formato di output predefinito del panorama finale"
 
 #: translations/xrc.cpp:696 xrc.cpp:696
-#, fuzzy
 msgid "TIFF Compression:"
-msgstr "Compressione:"
+msgstr "Compressione TIFF:"
 
 #: translations/xrc.cpp:698 xrc.cpp:698
 msgid "default TIFF compression"
-msgstr ""
+msgstr "compressione TIFF predefinita"
 
 #: translations/xrc.cpp:699 xrc.cpp:699
-#, fuzzy
 msgid "JPEG Quality:"
-msgstr "Qualità:"
+msgstr "Qualità JPEG:"
 
 #: translations/xrc.cpp:700 xrc.cpp:700
 msgid "default JPEG compression setting"
-msgstr ""
+msgstr "impostazioni della compressione JPEG predefinita"
 
 #: translations/xrc.cpp:701 xrc.cpp:701
-#, fuzzy
 msgid "Output Format"
 msgstr "Formato dell'output"
 
@@ -5648,7 +5640,7 @@ msgstr ""
 
 #: translations/xrc.cpp:789 translations/xrc.cpp:790 xrc.cpp:789 xrc.cpp:790
 msgid "Grey picker"
-msgstr ""
+msgstr "Selezionatore del grigio"
 
 #: translations/xrc.cpp:793 xrc.cpp:793
 msgid "Scale:"
@@ -5780,8 +5772,8 @@ msgid ""
 "If the horizon of a panorama is wavy, use the straighten function in the "
 "preview window to straighten it"
 msgstr ""
-"Se l'orizzonte di un panorama risulta ondulato, usare la funziona «Raddrizza» "
-"nella finestra dell'anteprima per raddrizzarlo."
+"Se l'orizzonte di un panorama risulta ondulato, usare la funziona "
+"«Raddrizza» nella finestra dell'anteprima per raddrizzarlo."
 
 #: hugin1/hugin/xrc/data/tips.txt:5
 msgid ""
@@ -5812,7 +5804,8 @@ msgid ""
 msgstr ""
 "Hugin supporta diversi ricercatori di punti di controllo forniti da terzi "
 "(come Autopano, Autopano-SIFT-C e Panomatic), attraverso un meccanismo in "
-"stile plugin raggiungibile in «Preferenze->Ricercatori di punti di controllo»."
+"stile plugin raggiungibile in «Preferenze->Ricercatori di punti di "
+"controllo»."
 
 #: hugin1/hugin/xrc/data/tips.txt:8
 msgid ""
@@ -5970,8 +5963,8 @@ msgstr ""
 #: hugin1/hugin/xrc/data/tips.txt:28
 msgid "Press \"1\" in the control points tab to zoom out to 100% view."
 msgstr ""
-"Premere «1» all'intero della scheda «Punti di controllo» per avere l'immagine "
-"al 100% della sua grandezza."
+"Premere «1» all'intero della scheda «Punti di controllo» per avere "
+"l'immagine al 100% della sua grandezza."
 
 #: hugin1/hugin/xrc/data/tips.txt:29
 msgid ""
