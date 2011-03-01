@@ -11,7 +11,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2011-02-27 08:45-0500\n"
-"PO-Revision-Date: 2010-12-28 21:20+0100\n"
+"PO-Revision-Date: 2011-02-28 19:48+0100\n"
 "Last-Translator: Carl von Einem <carl@einem.net>\n"
 "Language-Team: deutsch <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -240,7 +240,7 @@ msgid "Version: %s"
 msgstr "Version: %s"
 
 #: hugin1/hugin/AboutDialog.cpp:189
-#, fuzzy, c-format
+#, c-format
 msgid "Path to resources: %s"
 msgstr "Ressourcen-Pfad: %s"
 
@@ -314,7 +314,6 @@ msgid "Mean error after optimization: %.1f pixel, max: %.1f\n"
 msgstr "Mittlerer Fehler nach Optimierung: %.1f Pixel (Max: %.1f)\n"
 
 #: hugin1/hugin/AssistantPanel.cpp:330
-#, fuzzy
 msgid ""
 "Note: automatic alignment uses default settings from the preferences. If you "
 "customize settings for this project in the advanced tabs and want to use "
@@ -323,11 +322,11 @@ msgid ""
 "optimization from the Exposure tab."
 msgstr ""
 "Achtung, die hier angebotene automatische Ausrichtung verwendet die in den "
-"Voreinstellungen festgelegten Standards. Wenn davon abweichende, in den "
-"nachfolgenden Reitern festgelegte Einstellungen verwendet werden sollen, "
-"muss die Kontrollpunkt-Erkennung im Reiter \"Bilder\", die geometrische "
-"Optimierung im Reiter \"Optimierung\" und die fotometrische Optimierung im "
-"Reiter \"Belichtung\" vorgenommen werden."
+"Voreinstellungen festgelegten Standard-Einstellungen. Wenn davon "
+"abweichende, in den nachfolgenden Reitern festgelegte Einstellungen "
+"verwendet werden sollen, muss die Kontrollpunkt-Erkennung im Reiter \"Bilder"
+"\", die geometrische Optimierung im Reiter \"Optimierung\" und die "
+"fotometrische Optimierung im Reiter \"Belichtung\" vorgenommen werden."
 
 #: hugin1/hugin/AssistantPanel.cpp:361
 msgid ""
@@ -359,12 +358,11 @@ msgstr ""
 "Drücken Sie danach noch einmal die Ausrichten-Schaltfläche."
 
 #: hugin1/hugin/AssistantPanel.cpp:431
-#, fuzzy
 msgid ""
 "The assistant did not complete successfully. Please check the resulting "
 "project file."
 msgstr ""
-"Der Assistent ist nicht erfolgreich beendet worden. Bitte überprüfen Sie die "
+"Der Assistent hat nicht erfolgreich abgeschlossen. Bitte überprüfen Sie die "
 "erzeugte Projektdatei."
 
 #: hugin1/hugin/CPDetectorDialog.cpp:93
@@ -744,12 +742,11 @@ msgstr "Ziehen um den horizontalen Bildwinkel festzulegen"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:478
 msgid "Panosphere"
-msgstr ""
+msgstr "Panorama-Kugel"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:479
-#, fuzzy
 msgid "Mosaic plane"
-msgstr "Biplane"
+msgstr "Mosaik-Ebene"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:500 translations/xrc.cpp:405
 #: translations/xrc.cpp:748 translations/xrc.cpp:792 xrc.cpp:405 xrc.cpp:748
@@ -758,13 +755,12 @@ msgid "Preview"
 msgstr "Vorschau"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:513 translations/xrc.cpp:820 xrc.cpp:820
-#, fuzzy
 msgid "Overview"
-msgstr "Vorschau"
+msgstr "Übersicht"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:552
 msgid "normal, individual"
-msgstr ""
+msgstr "Standard, individuell"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:553
 msgid "mosaic"
@@ -772,7 +768,7 @@ msgstr "Mosaik"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:554
 msgid "mosaic, individual"
-msgstr ""
+msgstr "Mosaik, individuell"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:604 hugin1/hugin/PreviewFrame.cpp:301
 msgid "Resets the projections parameters to their default values."
@@ -839,11 +835,12 @@ msgid ""
 "Switching to panosphere overview mode requires that all images have zero XYZ "
 "parameters. Do you want to set all XYZ parameters to zero for all images?"
 msgstr ""
+"Switching to panosphere overview mode requires that all images have zero XYZ "
+"parameters. Do you want to set all XYZ parameters to zero for all images?"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1587
-#, fuzzy
 msgid "Reset XYZ parameters?"
-msgstr "Objektivparameter"
+msgstr "Die Parameter XYZ zurücksetzen?"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:2168 hugin1/hugin/PreviewFrame.cpp:232
 msgid "difference"
@@ -981,13 +978,12 @@ msgstr ""
 "If you want to see the bar again, activate the bar in the preferences again."
 
 #: hugin1/hugin/GLViewer.cpp:151
-#, fuzzy
 msgid ""
 "Error initializing GLEW\n"
 "Fast preview window can not be opened."
 msgstr ""
 "Fehler bei Initialisierung von GLEW.\n"
-"Schnelles Vorschaufenster kann nicht geöffnet werden."
+"Das Schnelle Vorschaufenster kann nicht geöffnet werden."
 
 #: hugin1/hugin/GLViewer.cpp:161
 msgid ""
@@ -1053,9 +1049,8 @@ msgid "Equisolid"
 msgstr "Equisolid (flächentreu)"
 
 #: hugin1/hugin/HFOVDialog.cpp:62 hugin1/hugin/ImagesList.cpp:581
-#, fuzzy
 msgid "Fisheye Thoby"
-msgstr "Fisheye"
+msgstr "Fischauge Thoby"
 
 #: hugin1/hugin/HFOVDialog.cpp:109
 #, c-format
@@ -1840,9 +1835,8 @@ msgid "Panini General"
 msgstr "Panini General"
 
 #: hugin1/hugin/PanoPanel.cpp:163
-#, fuzzy
 msgid "Thoby Projection"
-msgstr "Projektion"
+msgstr "Thoby-Projektion"
 
 #: hugin1/hugin/PanoPanel.cpp:487 translations/xrc.cpp:549
 #: translations/xrc.cpp:554 xrc.cpp:549 xrc.cpp:554
@@ -2716,7 +2710,6 @@ msgstr ""
 "Bitte wählen Sie wenigstens ein Panorama und versuchen Sie es noch einmal."
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:265
-#, fuzzy
 msgid ""
 "Not all project files could be written successfully.\n"
 "Maybe you have no write permission for these directories or your hard disc "
@@ -2890,9 +2883,8 @@ msgid "System"
 msgstr "System"
 
 #: translations/xrc.cpp:9 xrc.cpp:9
-#, fuzzy
 msgid "Dedication"
-msgstr "Programmaufruf hinzufügen"
+msgstr "Widmung"
 
 #: translations/xrc.cpp:10 translations/xrc.cpp:33 translations/xrc.cpp:147
 #: translations/xrc.cpp:440 translations/xrc.cpp:510 translations/xrc.cpp:514
@@ -3599,9 +3591,8 @@ msgstr ""
 "Kontrollpunkten"
 
 #: translations/xrc.cpp:201 xrc.cpp:201
-#, fuzzy
 msgid "Image Position"
-msgstr "Fusion:"
+msgstr "Bild-Position"
 
 #: translations/xrc.cpp:202 xrc.cpp:202
 msgid "yaw:"
@@ -3749,7 +3740,7 @@ msgstr "Belichtungszeit:"
 
 #: translations/xrc.cpp:237 xrc.cpp:237
 msgid "ISO:"
-msgstr ""
+msgstr "ISO:"
 
 #: translations/xrc.cpp:239 xrc.cpp:239
 msgid "Load lens parameters from a file"
@@ -3872,32 +3863,28 @@ msgid "Exposure and Color"
 msgstr "Belichtung und Farbe"
 
 #: translations/xrc.cpp:274 xrc.cpp:274
-#, fuzzy
 msgid "Exposure (Eev)"
-msgstr "Belichtung (EV)"
+msgstr "Belichtung (Eev)"
 
 #: translations/xrc.cpp:276 xrc.cpp:276
-#, fuzzy
 msgid "Red multiplier (Er):"
-msgstr "Rot-Faktor:"
+msgstr "Rot-Faktor (Er):"
 
 #: translations/xrc.cpp:278 xrc.cpp:278
-#, fuzzy
 msgid "Blue multiplier (Eb):"
-msgstr "Blau-Faktor:"
+msgstr "Blau-Faktor (Eb):"
 
 #: translations/xrc.cpp:280 xrc.cpp:280
 msgid "Vignetting  (Vb, Vc, Vd)"
-msgstr ""
+msgstr "Vignettierung  (Vb, Vc, Vd)"
 
 #: translations/xrc.cpp:282 xrc.cpp:282
-#, fuzzy
 msgid "Vignetting Center Shift (Vx, Vy)"
-msgstr "Versatz des Vignettierungs-Zentrums"
+msgstr "Versatz des Vignettierungs-Zentrums (Vx, Vy)"
 
 #: translations/xrc.cpp:284 xrc.cpp:284
 msgid "Camera Response (Ra, Rb, Rc, Rd, Re)"
-msgstr ""
+msgstr "Kamerakurve / Camera Response (Ra, Rb, Rc, Rd, Re)"
 
 #: translations/xrc.cpp:286 xrc.cpp:286
 msgid "custom (EMoR)"
@@ -4319,7 +4306,6 @@ msgid "Include region from stack"
 msgstr "Bereich im Stapel verwenden"
 
 #: translations/xrc.cpp:425 xrc.cpp:425
-#, fuzzy
 msgid "Colors:"
 msgstr "Farben:"
 
@@ -4413,7 +4399,7 @@ msgstr "Alles ohne Translation"
 
 #: translations/xrc.cpp:451 translations/xrc.cpp:456 xrc.cpp:451 xrc.cpp:456
 msgid "----------------------------------------------------------"
-msgstr ""
+msgstr "----------------------------------------------------------"
 
 #: translations/xrc.cpp:452 xrc.cpp:452
 msgid "Positions and Translation (y,p,r,x,y,z)"
@@ -4553,33 +4539,28 @@ msgid "Image variables:"
 msgstr "Bildparameter"
 
 #: translations/xrc.cpp:492 xrc.cpp:492
-#, fuzzy
 msgid "Exposure (Eev):"
-msgstr "Belichtung (EV)"
+msgstr "Belichtung (Eev):"
 
 #: translations/xrc.cpp:493 xrc.cpp:493
-#, fuzzy
 msgid "White balance (Er, Eb):"
-msgstr "Weißabgleich:"
+msgstr "Weißabgleich (Er, Eb):"
 
 #: translations/xrc.cpp:494 xrc.cpp:494
 msgid "Camera and Lens variables:"
 msgstr "Kamera- und Objektivparameter"
 
 #: translations/xrc.cpp:495 xrc.cpp:495
-#, fuzzy
 msgid "Vignetting (Vb, Vc, Vd):"
-msgstr "Vignettierung:"
+msgstr "Vignettierung (Vb, Vc, Vd):"
 
 #: translations/xrc.cpp:496 xrc.cpp:496
-#, fuzzy
 msgid "Vignetting Centre (Vx, Vy):"
-msgstr "Vignettierungsversatz:"
+msgstr "Vignettierungs-Zentrum (Vx, Vy):"
 
 #: translations/xrc.cpp:497 xrc.cpp:497
-#, fuzzy
 msgid "Camera Response (Ra, Rb, Rc, Rd, Re):"
-msgstr "Kamerakurve (Camera Response):"
+msgstr "Kamerakurve / Camera Response (Ra, Rb, Rc, Rd, Re):"
 
 #: translations/xrc.cpp:498 xrc.cpp:498
 msgid "Interpolator (i):"
@@ -5265,35 +5246,30 @@ msgid "The assistant is using the default setting."
 msgstr "Der Assistent verwendet die hier als Standard definierte Einstellung."
 
 #: translations/xrc.cpp:694 xrc.cpp:694
-#, fuzzy
 msgid "Default File Format:"
-msgstr "Argumente:"
+msgstr "Standard-Dateiformat:"
 
 #: translations/xrc.cpp:695 xrc.cpp:695
 msgid "default output format for final panorama"
-msgstr ""
+msgstr "Standard-Ausgabeformat für das abschliessende Panorama"
 
 #: translations/xrc.cpp:696 xrc.cpp:696
-#, fuzzy
 msgid "TIFF Compression:"
-msgstr "Kompression:"
+msgstr "TIFF-Komprimierung:"
 
 #: translations/xrc.cpp:698 xrc.cpp:698
 msgid "default TIFF compression"
-msgstr ""
+msgstr "Standard-TIFF-Komprimierung"
 
 #: translations/xrc.cpp:699 xrc.cpp:699
-#, fuzzy
 msgid "JPEG Quality:"
-msgstr "Qualität:"
+msgstr "JPEG-Qualität:"
 
 #: translations/xrc.cpp:700 xrc.cpp:700
-#, fuzzy
 msgid "default JPEG compression setting"
-msgstr "JPEG-Kompression (0-100)"
+msgstr "Einstellung für Standard-JPEG-Komprimierung"
 
 #: translations/xrc.cpp:701 xrc.cpp:701
-#, fuzzy
 msgid "Output Format"
 msgstr "Ausgabeformat"
 
@@ -5524,7 +5500,7 @@ msgstr ""
 
 #: translations/xrc.cpp:789 translations/xrc.cpp:790 xrc.cpp:789 xrc.cpp:790
 msgid "Grey picker"
-msgstr ""
+msgstr "Grau-Pipette"
 
 #: translations/xrc.cpp:793 xrc.cpp:793
 msgid "Scale:"
@@ -5597,18 +5573,16 @@ msgid "Change the panorama's cropping region"
 msgstr "Die Beschnittfläche des Panoramas ändern"
 
 #: translations/xrc.cpp:821 xrc.cpp:821
-#, fuzzy
 msgid "Show/Hide"
-msgstr "Ausblenden"
+msgstr "Anzeigen / Ausblenden"
 
 #: translations/xrc.cpp:822 translations/xrc.cpp:823 xrc.cpp:822 xrc.cpp:823
-#, fuzzy
 msgid "Mode:"
-msgstr "Modell:"
+msgstr "Modus:"
 
 #: translations/xrc.cpp:824 xrc.cpp:824
 msgid "Grid"
-msgstr ""
+msgstr "Gitter"
 
 #: translations/xrc.cpp:825 xrc.cpp:825
 msgid "Reset values"
