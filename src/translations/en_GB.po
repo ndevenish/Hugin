@@ -1,7 +1,7 @@
 # British English translations for the Hugin package.
-# Copyright (C) YEAR Pablo dAngelo
+# Copyright (C) 2004-2011 Pablo dAngelo
 # This file is distributed under the same license as the Hugin package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Gareth Jones <gareth.k.jones@gmail.com>, 2011
 #
 msgid ""
 msgstr ""
@@ -9,9 +9,9 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2011-02-27 08:45-0500\n"
-"PO-Revision-Date: 2011-01-12 16:57+0000\n"
+"PO-Revision-Date: 2011-02-28 15:18+0000\n"
 "Last-Translator: Gareth Jones <gareth.k.jones@gmail.com>\n"
-"Language-Team: LANGUAGE <en_GB@li.org>\n"
+"Language-Team: British English <en_GB@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -625,7 +625,7 @@ msgstr ""
 #: hugin1/hugin/GLPreviewFrame.cpp:326 translations/xrc.cpp:749
 #: translations/xrc.cpp:756 xrc.cpp:749 xrc.cpp:756
 msgid "Center"
-msgstr ""
+msgstr "Centre"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:327 hugin1/hugin/GLPreviewFrame.cpp:329
 #: translations/xrc.cpp:759 xrc.cpp:759
@@ -1983,10 +1983,11 @@ msgstr ""
 msgid ""
 "Left click to define new center point, right click to move point to horizon."
 msgstr ""
+"Left click to define new centre point, right click to move point to horizon."
 
 #: hugin1/hugin/PreviewFrame.cpp:375 hugin1/hugin/PreviewFrame.cpp:504
 msgid "Center panorama with left mouse button, set horizon with right button"
-msgstr ""
+msgstr "Centre panorama with left mouse button, set horizon with right button"
 
 #: hugin1/hugin/PreviewIdentifyTool.cpp:201
 #: hugin1/hugin/PreviewIdentifyTool.cpp:360
@@ -2628,7 +2629,7 @@ msgstr ""
 
 #: translations/xrc.cpp:7 xrc.cpp:7
 msgid "License"
-msgstr ""
+msgstr "Licence"
 
 #: translations/xrc.cpp:8 xrc.cpp:8
 msgid "System"
@@ -3224,7 +3225,7 @@ msgstr ""
 
 #: translations/xrc.cpp:177 xrc.cpp:177
 msgid "Always center Crop on d,e"
-msgstr ""
+msgstr "Always centre Crop on d,e"
 
 #: translations/xrc.cpp:178 translations/xrc.cpp:216 translations/xrc.cpp:826
 #: xrc.cpp:178 xrc.cpp:216 xrc.cpp:826
@@ -3559,7 +3560,7 @@ msgstr ""
 
 #: translations/xrc.cpp:264 xrc.cpp:264
 msgid "Image Center Shift"
-msgstr ""
+msgstr "Image Centre Shift"
 
 #: translations/xrc.cpp:266 xrc.cpp:266
 msgid "horizontal (d):"
@@ -3607,7 +3608,7 @@ msgstr ""
 
 #: translations/xrc.cpp:282 xrc.cpp:282
 msgid "Vignetting Center Shift (Vx, Vy)"
-msgstr ""
+msgstr "Vignetting Centre Shift (Vx, Vy)"
 
 #: translations/xrc.cpp:284 xrc.cpp:284
 msgid "Camera Response (Ra, Rb, Rc, Rd, Re)"
@@ -4023,7 +4024,7 @@ msgstr ""
 
 #: translations/xrc.cpp:425 xrc.cpp:425
 msgid "Colors:"
-msgstr ""
+msgstr "Colours:"
 
 #: translations/xrc.cpp:426 xrc.cpp:426
 msgid "Excluded"
@@ -4264,7 +4265,7 @@ msgstr ""
 
 #: translations/xrc.cpp:496 xrc.cpp:496
 msgid "Vignetting Centre (Vx, Vy):"
-msgstr ""
+msgstr "Vignetting Centre (Vx, Vy):"
 
 #: translations/xrc.cpp:497 xrc.cpp:497
 msgid "Camera Response (Ra, Rb, Rc, Rd, Re):"
@@ -4383,6 +4384,8 @@ msgid ""
 "Calculate optimal image size, such that the resolution in the image center "
 "stays similar"
 msgstr ""
+"Calculate optimal image size, such that the resolution in the image centre "
+"stays similar"
 
 #: translations/xrc.cpp:533 xrc.cpp:533
 msgid "Crop:"
@@ -5060,7 +5063,7 @@ msgstr ""
 #: translations/xrc.cpp:750 translations/xrc.cpp:755 translations/xrc.cpp:777
 #: translations/xrc.cpp:800 xrc.cpp:750 xrc.cpp:755 xrc.cpp:777 xrc.cpp:800
 msgid "Center the preview horizontally"
-msgstr ""
+msgstr "Centre the preview horizontally"
 
 #: translations/xrc.cpp:751 xrc.cpp:751
 msgid "Auto Preview"
@@ -5156,7 +5159,7 @@ msgstr ""
 
 #: translations/xrc.cpp:789 translations/xrc.cpp:790 xrc.cpp:789 xrc.cpp:790
 msgid "Grey picker"
-msgstr ""
+msgstr "Grey picker"
 
 #: translations/xrc.cpp:793 xrc.cpp:793
 msgid "Scale:"
@@ -5169,6 +5172,10 @@ msgid ""
 "* Green, yellow and red lines indicate good, medium and poor alignment.\n"
 "* Click a line to edit the associated images in the Control Points tab."
 msgstr ""
+"* A grey line indicates there are no control points, but the image pair "
+"overlaps.\n"
+"* Green, yellow and red lines indicate good, medium and poor alignment.\n"
+"* Click a line to edit the associated images in the Control Points tab."
 
 #: translations/xrc.cpp:795 xrc.cpp:795
 msgid "Layout"
@@ -5279,6 +5286,8 @@ msgid ""
 "The Preview window can be used to center the panorama by clicking with the "
 "left mouse button. A right click will rotate the panorama"
 msgstr ""
+"The Preview window can be used to centre the panorama by clicking with the "
+"left mouse button. A right click will rotate the panorama"
 
 #: hugin1/hugin/xrc/data/tips.txt:6
 msgid ""
