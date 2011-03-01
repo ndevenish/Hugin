@@ -41,6 +41,7 @@ using namespace HuginBase;
 void PreviewColorPickerTool::Activate()
 {
     helper->NotifyMe(PreviewToolHelper::MOUSE_PRESS, this);
+    helper->SetStatusMessage(_("Click on a area which should be neutral gray / white in the final panorama."));
 };
 
 // The user click, get the current position and update white balance

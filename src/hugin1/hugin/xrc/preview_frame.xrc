@@ -336,7 +336,8 @@
                                   <toggle>1</toggle>
                                   <bitmap platform="unix|win">data/preview_white_balance.png</bitmap>
                                   <bitmap platform="mac">data/preview_white_balance_small.png</bitmap>
-                                  <label>Grey picker</label>
+                                  <tooltip>Correct global white balance by selecting a neutral gray area.</tooltip>
+                                  <label>Gray picker</label>
                                 </object>
                                 <bitmapsize>22,22</bitmapsize>
                                 <style>wxTB_TEXT|wxTB_NODIVIDER</style>
@@ -345,7 +346,7 @@
                             </object>
                             <object class="sizeritem" platform="mac">
                               <object class="wxStaticText">
-                                <label>Grey picker</label>
+                                <label>Gray picker</label>
                               </object>
                               <flag>wxALIGN_CENTRE_HORIZONTAL</flag>
                             </object>
