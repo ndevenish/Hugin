@@ -192,7 +192,7 @@ PreferencesDialog::PreferencesDialog(wxWindow *parent)
 
 #ifdef __WXMSW__
     // wxFrame does have a strange background color on Windows, copy color from a child widget
-    this->SetBackgroundColour(XRCCTRL(*this, "prefs_ft_RotationStartAngle", wxSpinCtrl)->GetBackgroundColour());
+    this->SetBackgroundColour(XRCCTRL(*this, "prefs_tab", wxNotebook)->GetBackgroundColour());
 #endif
 
 #if wxCHECK_VERSION(2,9,1)
