@@ -2002,9 +2002,11 @@ void GLPreviewFrame::UpdateGlobalWhiteBalance(double redFactor, double blueFacto
         );
     //now toggle button and deactivate tool
     XRCCTRL(*this,"preview_color_picker_toolbar",wxToolBar)->ToggleTool(XRCID("preview_color_picker_tool"),false);
-    preview_helper->DeactivateTool(color_picker_tool);
-    // blank status text as it refers to an old tool.
-    SetStatusMessage(wxT(""));
+    //direct deactivation of tool does not work because this function is called by the tool itself
+    //so we are send an event to deactivate the tool
+    wxCommandEvent e(wxEVT_COMMAND_TOOL_CLICKED, XRCID("preview_color_picker_tool"));
+    e.SetInt(0);
+    GetEventHandler()->AddPendingEvent(e);
 };
 
 ImageToogleButtonEventHandler::ImageToogleButtonEventHandler(
