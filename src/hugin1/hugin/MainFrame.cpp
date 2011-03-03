@@ -170,6 +170,9 @@ BEGIN_EVENT_TABLE(MainFrame, wxFrame)
     EVT_MENU(XRCID("action_show_faq"),  MainFrame::OnFAQ)
     EVT_MENU(XRCID("action_show_donate"),  MainFrame::OnShowDonate)
     EVT_MENU(XRCID("action_show_prefs"), MainFrame::OnShowPrefs)
+#ifdef HUGIN_HSI
+    EVT_MENU(XRCID("action_python_script"), MainFrame::OnPythonScript)
+#endif
     EVT_MENU(XRCID("ID_EDITUNDO"), MainFrame::OnUndo)
     EVT_MENU(XRCID("ID_EDITREDO"), MainFrame::OnRedo)
     EVT_MENU(XRCID("ID_SHOW_FULL_SCREEN"), MainFrame::OnFullScreen)
@@ -278,6 +281,10 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     wxApp::s_macHelpMenuTitleName = _("&Help");
 #endif
     SetMenuBar(wxXmlResource::Get()->LoadMenuBar(this, wxT("main_menubar")));
+
+#ifndef HUGIN_HSI
+    GetMenuBar()->Enable(XRCID("action_python_script"), false);
+#endif
 
     // create tool bar
     SetToolBar(wxXmlResource::Get()->LoadToolBar(this, wxT("main_toolbar")));
@@ -1609,6 +1616,28 @@ void MainFrame::OnRemoveCPinMasks(wxCommandEvent & e)
     };
 }
 
+#ifdef HUGIN_HSI
+void MainFrame::OnPythonScript(wxCommandEvent & e)
+{
+    wxString fname;
+    wxFileDialog dlg(this,
+		     _("Select python script"),
+		     wxConfigBase::Get()->Read(wxT("/lensPath"),wxT("")), wxT(""),
+		     _("Python script (*.py)|*.py|All files (*.*)|*.*"),
+		     wxFD_OPEN, wxDefaultPosition);
+    dlg.SetDirectory(wxConfigBase::Get()->Read(wxT("/pythonScriptPath"),wxT("")));
+
+    if (dlg.ShowModal() == wxID_OK) {
+        wxString filename = dlg.GetPath();
+        wxConfig::Get()->Write(wxT("/pythonScriptPath"), dlg.GetDirectory());
+        std::string scriptfile((const char *)filename.mb_str(HUGIN_CONV_FILENAME));
+        GlobalCmdHist::getInstance().addCommand(
+            new PythonScriptPanoCmd(pano,scriptfile)
+            );
+    }
+}
+#endif
+
 void MainFrame::OnUndo(wxCommandEvent & e)
 {
     DEBUG_TRACE("OnUndo");
@@ -1620,7 +1649,6 @@ void MainFrame::OnRedo(wxCommandEvent & e)
     DEBUG_TRACE("OnRedo");
     GlobalCmdHist::getInstance().redo();
 }
-
 
 void MainFrame::ShowCtrlPoint(unsigned int cpNr)
 {

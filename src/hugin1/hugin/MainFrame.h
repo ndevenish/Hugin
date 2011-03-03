@@ -182,6 +182,9 @@ private:
     void OnKeyboardHelp(wxCommandEvent & e);
     void OnFAQ(wxCommandEvent & e);
     void OnShowPrefs(wxCommandEvent &e);
+#ifdef HUGIN_HSI
+    void OnPythonScript(wxCommandEvent & e);
+#endif
     void OnUndo(wxCommandEvent & e);
     void OnRedo(wxCommandEvent & e);
     void OnSaveProjectAs(wxCommandEvent & e);

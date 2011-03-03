@@ -25,8 +25,15 @@
 #ifndef IMAGE_VARIABLE_GROUP_H
 #define IMAGE_VARIABLE_GROUP_H
 
+// if this file is preprocessed for SWIG, we want to ignore
+// all the header inclusions that follow:
+
+#ifndef _HSI_IGNORE_SECTION
+
 #include <set>
 #include "Panorama.h"
+
+#endif // _HSI_IGNORE_SECTION
 
 namespace HuginBase {
 
