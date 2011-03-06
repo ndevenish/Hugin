@@ -2,7 +2,6 @@
 
 celeste_standalone - Cloud identification
 
-
 =head1 SYNOPSIS
 
 B<celeste_standalone> [options] I<image1> I<image2> I<[..]>
@@ -61,7 +60,7 @@ slower, less accurate). Default: 0
 =item B<-h>
 
 Print usage.
- 
+
 =back
 
 =head1 AUTHORS
