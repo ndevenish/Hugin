@@ -80,6 +80,7 @@ void TextureManager::DrawImage(unsigned int image_number,
     it = textures.find(key);
     DEBUG_ASSERT(it != textures.end());
     it->second.Bind();
+    glColor4f(1.0,1.0,1.0,1.0);
     if (it->second.GetUseAlpha() || it->second.GetHasActiveMasks())
     {
         // use an alpha blend if there is a alpha channel or a mask for this image.

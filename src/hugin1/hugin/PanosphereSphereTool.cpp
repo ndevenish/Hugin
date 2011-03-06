@@ -51,7 +51,7 @@ void PanosphereSphereTool::BeforeDrawImagesBackEvent()
 {
 
     glDisable(GL_TEXTURE_2D);
-    glColor4f(0.3,0.3,0.3,0.6);
+    glColor4f(0.6,0.6,0.6,0.8);
     glEnable(GL_BLEND);
     glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     GLUquadric* gridb = gluNewQuadric();

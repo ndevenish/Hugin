@@ -215,6 +215,7 @@ void OverviewOutlinesTool::draw()
 
     glEnable(GL_TEXTURE_2D);
     glDisable(GL_BLEND);
+    glColor4f(1,1,1,1);
 
 }
 
