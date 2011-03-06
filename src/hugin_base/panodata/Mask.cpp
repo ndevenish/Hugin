@@ -43,6 +43,10 @@ using namespace hugin_utils;
 
 bool MaskPolygon::isInside(const FDiff2D p) const
 {
+    if(m_polygon.size()<3)
+        return false;
+    if(!m_boundingBox.contains(vigra::Point2D(p.x,p.y)))
+        return false;
     int wind=getWindingNumber(p);
     if(m_invert)
         return wind==0;
@@ -52,6 +56,11 @@ bool MaskPolygon::isInside(const FDiff2D p) const
 
 int MaskPolygon::getWindingNumber(const FDiff2D p) const
 {
+    // algorithm is modified version of winding number method
+    // described at http://www.softsurfer.com/Archive/algorithm_0103/algorithm_0103.htm
+    // Copyright 2001, softSurfer (www.softsurfer.com)
+    // This code may be freely used and modified for any purpose
+    // providing that this copyright notice is included with it.
     if(m_polygon.size()<3)
         return 0;
     int wind=0;
@@ -95,22 +104,34 @@ bool MaskPolygon::isPositive() const
            (m_maskType==Mask_Stack_positive);
 };
 
+void MaskPolygon::setMaskPolygon(const VectorPolygon newMask)
+{
+    m_polygon=newMask;
+    calcBoundingBox();
+};
+
 void MaskPolygon::addPoint(const FDiff2D p) 
 {
     m_polygon.push_back(p);
+    calcBoundingBox();
 };
 
 void MaskPolygon::insertPoint(const unsigned int index, const FDiff2D p)
 {
     if(index<=m_polygon.size())
+    {
         m_polygon.insert(m_polygon.begin()+index,p);
+        calcBoundingBox();
+    };
 };
+
 
 void MaskPolygon::removePoint(const unsigned int index)
 {
     if(index<m_polygon.size())
     {
         m_polygon.erase(m_polygon.begin()+index);
+        calcBoundingBox();
     };
 };
 
@@ -120,6 +141,7 @@ void MaskPolygon::movePointTo(const unsigned int index, const hugin_utils::FDiff
     {
         m_polygon[index].x=p.x;
         m_polygon[index].y=p.y;
+        calcBoundingBox();
     };
 };
 
@@ -129,6 +151,7 @@ void MaskPolygon::movePointBy(const unsigned int index, const hugin_utils::FDiff
     {
         m_polygon[index].x+=diff.x;
         m_polygon[index].y+=diff.y;
+        calcBoundingBox();
     };
 };
 
@@ -139,6 +162,7 @@ void MaskPolygon::scale(const double factorx,const double factory)
         m_polygon[i].x*=factorx;
         m_polygon[i].y*=factory;
     };
+    calcBoundingBox();
 };
 
 void MaskPolygon::transformPolygon(const PTools::Transform &trans)
@@ -153,6 +177,7 @@ void MaskPolygon::transformPolygon(const PTools::Transform &trans)
         };
     };
     m_polygon=newPoly;
+    calcBoundingBox();
 };
 
 void MaskPolygon::subSample(const double max_distance)
@@ -179,6 +204,25 @@ void MaskPolygon::subSample(const double max_distance)
                 currentDistance+=max_distance;
             };
         };
+    };
+};
+
+void MaskPolygon::calcBoundingBox()
+{
+    if(m_polygon.size()>0)
+    {
+        m_boundingBox.setUpperLeft(vigra::Point2D(m_polygon[0].x,m_polygon[0].y));
+        m_boundingBox.setLowerRight(vigra::Point2D(m_polygon[0].x+1,m_polygon[0].y+1));
+        if(m_polygon.size()>1)
+        {
+            for(unsigned int i=1;i<m_polygon.size();i++)
+            {
+                m_boundingBox|=vigra::Point2D(m_polygon[i].x,m_polygon[i].y);
+            };
+        };
+        //adding a small border to get no rounding error because polygon coordinates are float
+        //numbers, but bounding box has integer coordinates
+        m_boundingBox.addBorder(2);
     };
 };
 
