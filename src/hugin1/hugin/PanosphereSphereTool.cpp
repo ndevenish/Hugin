@@ -42,12 +42,12 @@
 
 void PanosphereSphereTool::Activate()
 {
-    ((PanosphereOverviewToolHelper*)helper)->NotifyMe(PanosphereOverviewToolHelper::DRAW_OVER_IMAGES_BACK, this);
-    ((PanosphereOverviewToolHelper*)helper)->NotifyMe(PanosphereOverviewToolHelper::DRAW_OVER_IMAGES_FRONT, this);
+    ((PanosphereOverviewToolHelper*)helper)->NotifyMe(PanosphereOverviewToolHelper::DRAW_UNDER_IMAGES_BACK, this);
+    ((PanosphereOverviewToolHelper*)helper)->NotifyMe(PanosphereOverviewToolHelper::DRAW_UNDER_IMAGES_FRONT, this);
 }
 
 
-void PanosphereSphereTool::AfterDrawImagesBackEvent()
+void PanosphereSphereTool::BeforeDrawImagesBackEvent()
 {
 
     glDisable(GL_TEXTURE_2D);
@@ -64,7 +64,7 @@ void PanosphereSphereTool::AfterDrawImagesBackEvent()
     
 }
 
-void PanosphereSphereTool::AfterDrawImagesFrontEvent()
+void PanosphereSphereTool::BeforeDrawImagesFrontEvent()
 {
 
 

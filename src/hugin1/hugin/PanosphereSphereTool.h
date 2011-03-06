@@ -33,8 +33,8 @@ public:
     void Activate();
     PanosphereSphereTool(PanosphereOverviewToolHelper *helper) : PanosphereOverviewTool(helper) {}
 
-    void AfterDrawImagesBackEvent();
-    void AfterDrawImagesFrontEvent();
+    void BeforeDrawImagesBackEvent();
+    void BeforeDrawImagesFrontEvent();
 protected:
 
 };
