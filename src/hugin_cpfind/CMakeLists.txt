@@ -1,4 +1,4 @@
-include_directories( ${CMAKE_SOURCE_DIR}/src/foreign/tclap )
+include_directories( ${TCLAP_INCLUDEDIR} )
 include_directories( ${CMAKE_SOURCE_DIR}/src/foreign/zthread/include )
 include_directories(.)
 

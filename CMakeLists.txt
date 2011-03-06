@@ -269,6 +269,11 @@ IF(WIN32)
   ENDIF()
 ENDIF(WIN32)
 
+FIND_PACKAGE(Tclap)
+IF(NOT TCLAP_FOUND)
+  MESSAGE(FATAL_ERROR "Tclap library not found")
+ENDIF(NOT TCLAP_FOUND)
+
 ##
 ## LAPACK (optional, enable by -DENABLE_LAPACK=ON)
 ##
