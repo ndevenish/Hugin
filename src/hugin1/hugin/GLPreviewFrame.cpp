@@ -2335,6 +2335,7 @@ void GLPreviewFrame::SetMode(int newMode)
             // we need to update the meshes after switch to layout mode
             // otherwise the following update of scale has no meshes to scale
             m_GLPreview->Update();
+            m_GLOverview->Update();
             OnLayoutScaleChange(dummy);
             break;
         case mode_projection:
