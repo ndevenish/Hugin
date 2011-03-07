@@ -8,7 +8,6 @@ Licensed under the same terms as the hugin package itself.
 
 hugin_hdrmerge - Merge overlapping images
 
-
 =head1 SYNOPSIS
 
 B<hugin_hdrmerge> [options] B<-o> I<output.exr> I<input-files>

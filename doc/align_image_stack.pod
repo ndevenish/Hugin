@@ -8,7 +8,6 @@ Licensed under the same terms as the hugin package itself.
 
 align_image_stack - Align overlapping images for HDR or focus stack creation
 
-
 =head1 SYNOPSIS
 
 B<align_image_stack> [options] I<input files>

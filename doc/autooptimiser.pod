@@ -8,7 +8,6 @@ Licensed under the same terms as the hugin package itself.
 
 autooptimiser - Optimize image positions
 
-
 =head1 SYNOPSIS
 
 B<autooptimiser> [options] I<project.pto>

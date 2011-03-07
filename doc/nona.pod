@@ -8,7 +8,6 @@ Licensed under the same terms as the hugin package itself.
 
 nona - Stitch a panorama image
 
-
 =head1 SYNOPSIS
 
 B<nona> [options] B<-o> I<output> I<project_file> (image files)
@@ -121,6 +120,8 @@ Set compression type. Possible options for tiff output:
 =item LZW       LZW compression
 
 =item DEFLATE   deflate compression
+
+=back
 
 =back
 

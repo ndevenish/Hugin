@@ -2,7 +2,6 @@
 
 pto2mk - Generate hugin stitching Makefiles
 
-
 =head1 SYNOPSIS
 
 B<pto2mk> B<-o> I<<output_makefile>> B<-p> I<<output_prefix>> I<project_file>

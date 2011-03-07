@@ -8,7 +8,6 @@ Licensed under the same terms as the hugin package itself.
 
 nona_gui - Graphical interface for nona
 
-
 =head1 SYNOPSIS
 
 B<nona_gui> [options] [I<<project>> I<<images ...>>]

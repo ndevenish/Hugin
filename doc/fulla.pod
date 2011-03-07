@@ -8,7 +8,6 @@ Licensed under the same terms as the hugin package itself.
 
 fulla - Correct lens distortion, vignetting and chromatic aberration
 
-
 =head1 SYNOPSIS
 
 B<fulla> [options] I<inputfile(s)>
