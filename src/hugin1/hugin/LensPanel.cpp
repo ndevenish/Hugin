@@ -1165,9 +1165,7 @@ void LensPanel::OnReset(wxCommandEvent & e)
     if(reset_dlg.GetResetExposure())
     {
         //reset panorama output exposure value
-        PanoramaOptions opt = pano->getOptions();
-        opt.outputExposureValue = calcMeanExposure(*pano);
-        reset_commands.push_back(new PT::SetPanoOptionsCmd(*pano,opt));
+        reset_commands.push_back(new PT::ResetToMeanExposure(*pano));
     };
     GlobalCmdHist::getInstance().addCommand(
             new PT::CombinedPanoCommand(*pano, reset_commands));
