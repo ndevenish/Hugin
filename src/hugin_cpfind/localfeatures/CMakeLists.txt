@@ -28,9 +28,9 @@ IF(BUILD_KEYPOINTS)
 add_executable(keypoints keypoints.cpp)
 
 IF(WIN32)
-	target_link_libraries(keypoints localfeatures ZThread ${image_libs} ${common_libs})
+	target_link_libraries(keypoints localfeatures ${ZTHREAD_LIBRARIES} ${image_libs} ${common_libs})
 ELSE(WIN32)
-	target_link_libraries(keypoints localfeatures ZThread pthread ${image_libs} ${common_libs})
+	target_link_libraries(keypoints localfeatures ${ZTHREAD_LIBRARIES} pthread ${image_libs} ${common_libs})
 ENDIF(WIN32)
 
 install(TARGETS keypoints DESTINATION ${BINDIR})

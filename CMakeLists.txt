@@ -261,6 +261,8 @@ IF(MSGFMT_FOUND)
   MESSAGE(STATUS "Program msgfmt found (${MSGFMT_EXECUTABLE})")
 ENDIF(MSGFMT_FOUND)
 
+FIND_PACKAGE(ZThread)
+
 IF(WIN32)
   # HTML Helpworkshop for creating help file
   FIND_PACKAGE(HTMLHelp)
