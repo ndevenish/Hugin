@@ -44,9 +44,7 @@ AboutDialog::AboutDialog(wxWindow *parent)
 	wxString langCode;
 	wxTextCtrl *textCtrl;
     m_logoImgCtrl=NULL;
-    m_logo=NULL;
     m_mode=0;
-
 	
     wxXmlResource::Get()->LoadDialog(this, parent, wxT("about_dlg"));
 
