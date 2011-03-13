@@ -673,7 +673,7 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
 
     if (config->Read(wxT("/GLPreviewFrame/isShown"), 0l) != 0)
     {
-#ifdef __WXMSW__
+#if defined __WXMSW__ || defined __WXMAC__
         InitPreviews();
         Show();
 #else
@@ -1216,7 +1216,7 @@ void GLPreviewFrame::OnOverviewToggle(wxCommandEvent& e)
             m_mgr->Update();
         } else if (!(inf.IsShown() && toggle_on)) {
             inf.Show();
-#ifdef __WXMSW__
+#if defined __WXMSW__ || defined __WXMAC__
             m_GLOverview->SetActive(true);
             m_mgr->Update();
 #else
