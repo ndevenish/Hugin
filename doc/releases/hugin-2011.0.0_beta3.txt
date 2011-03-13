@@ -1,6 +1,5 @@
 Hugin-2011.0.0_beta3 RELEASE NOTES
 
-
 ABOUT
 
 Hugin is more than just a panorama stitcher.  A new version is available.
@@ -33,11 +32,11 @@ http://launchpad.net/hugin/2011.0/2011.0beta3/+download/hugin-2011.0.0_beta3.tar
 
 This is a source code release.  For executables see below.
 
-This tarball is equivalent to rev/changeset __EDIT__ in our Mercurial
+This tarball is equivalent to rev/changeset 5114:dc55ab270363 in our Mercurial
 repository, where it is also tagged 2011.0beta3
 
 Verify its SHA1SUM
-__EDIT__
+60f65a73c98986004ddacf5d4fee64dbab3e8166  hugin-2011.0.0_beta3.tar.bz2
 
 
 EXECUTABLES
@@ -60,7 +59,10 @@ TRANSLATIONS
 
 Updated since the last beta tarball:
 * British English (Garreth Jones)
-* Deutsch (Carl von Einem)
+* Dutch (Harry van der Wolf)
+* German (Carl von Einem)
+* Hungarian (Lajos Höss)
+* Italian (Cristian Marchi)
 
 New strings have been added.  Now is a good time to help update your language.
 Instructions at http://wiki.panotools.org/Hugin_translation_guide
@@ -78,17 +80,10 @@ Details at
 http://groups.google.com/group/hugin-ptx/t/44f1834f0d18c2d8
 http://groups.google.com/group/hugin-ptx/t/2c24c7938309a241
 
-Entries are still accepted and voting goes on until a few days before the
-first release candidate.
+Voting goes on until a few days before the first release candidate.
 
-If you miss this cycle you will get an opportunity to enter your
+If you miss this cycle you may get an opportunity to enter your
 artwork for the next release cycle.
-
-
-DEDICATION
-
-This release of Hugin is dedicated to Claudius Ptolemaeus and Marinus of Tyre.
-Details in the About menu.
 
 
 CHANGES SINCE 2010.4.0
@@ -137,9 +132,9 @@ _Other Improvements_
 
 * Man pages are now compressed and the generation is integrated in the CMake
   process (Linux).
-* New Thoby projection modeling 10.5mm Nikkor fisheye lens
-* Improved support for some keyboard shortcuts
-* New Preferences: output file format (LDR only)
+* New Thoby projection modeling 10.5mm Nikkor fisheye lens.
+* Improved support for some keyboard shortcuts.
+* New Preferences: output file format (LDR only).
 * This release has the usual bugfixes and adds minor features.
 
 
@@ -170,32 +165,16 @@ Hugin's CPFind.
 
 _Compiling_
 
-For users compiling from source:
-* Hugin uses the wxWidgets GUI toolkit version >=2.7.0.
-  2.9 support is experimental. 2.8.11 is recommended.
-* boost >=1.34 is required.  The following boost libraries are used:
-   * filesystem
-   * graph
-   * iostreams
-   * regex
-   * signals
-   * system
-   * thread
-* Hugin requires a libtiff library with LZW support.
-* Hugin depends on libpano13 version >=2.9.18
-* Hugin requires GLEW the OpenGL Extension Wrangler Library,
-  freeglut the OpenGL utility toolkit, and libGLU the OpenGL utility library.
-* On Linux/Unix systems, libraries are now installed in a private location.
-  This simplifies things for users who want to run multiple versions of Hugin
-  simultaneously.
-* On Linux/Unix systems, Hugin can be compiled with gcc-4.4.4, gcc-4.5.1,
-  and gcc-4.6.
-* On Windows, Hugin can be compiled with MSVC 2008 and MSVC 2010.
-  The (free) Express Edition is enough, although it lacks OpenMP support.
-* The build process requires CMake version >=2.8
+Users compiling from source refer to the dependencies listed at
+http://wiki.panotools.org/Development_of_Open_Source_tools#Dependencies
 
-For more information, see the README and INSTALL_cmake files and
+and the build processes listed at
 http://wiki.panotools.org/Development_of_Open_Source_tools#Build_your_Own_Test_Builds
+
+More information in the README and INSTALL_cmake files and at
+
+
+THANKS
 
 Thanks to all the contributors to this release and members of the hugin-ptx
 mailing list, too many to mention here.
