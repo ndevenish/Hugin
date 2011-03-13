@@ -1032,17 +1032,10 @@ void GLPreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &change
                 wxBoxSizer * siz = new wxBoxSizer(wxVERTICAL);
                 pan->SetSizer(siz);
 #ifdef USE_TOGGLE_BUTTON
-                unsigned int buttonsize = 20;
-                if (imgNr >= 10) {
-                    buttonsize = 27;
-                }
-                if (imgNr >= 100) {
-                    buttonsize = 34;
-                }
                 wxToggleButton * but = new wxToggleButton(pan,
                                                           ID_TOGGLE_BUT + *it,
                                                           wxString::Format(wxT("%d"),*it),
-                                                          wxDefaultPosition, wxSize(buttonsize,-1),
+                                                          wxDefaultPosition, wxDefaultSize,
                                                           wxBU_EXACTFIT);
 #else
                 wxCheckBox * but = new wxCheckBox(pan,
