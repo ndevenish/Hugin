@@ -209,9 +209,6 @@ namespace hugin_utils
     /** Get the path to a filename */
     IMPEX std::string getPathPrefix(const std::string & filename);
 
-    /** Get the folder for a filename */
-    IMPEX std::string getFolder(const std::string & filename);
-
     /** Get extension of a filename */
     IMPEX std::string getExtension(const std::string & basename);
 
