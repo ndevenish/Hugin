@@ -652,13 +652,13 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
 void MainFrame::OnSaveProjectAs(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
-    wxString scriptName;
+    wxFileName scriptName;
     if (m_filename == wxT("")) {
-        scriptName = getDefaultProjectName(pano) + wxT(".pto");
+        scriptName.Assign(getDefaultProjectName(pano) + wxT(".pto"));
     }
     wxFileDialog dlg(this,
                      _("Save project file"),
-                     wxConfigBase::Get()->Read(wxT("/actualPath"),wxT("")), scriptName,
+                     scriptName.GetPath(), scriptName.GetFullName(),
                      _("Project files (*.pto)|*.pto|All files (*)|*"),
                      wxFD_SAVE, wxDefaultPosition);
     dlg.SetDirectory(wxConfigBase::Get()->Read(wxT("/actualPath"),wxT("")));

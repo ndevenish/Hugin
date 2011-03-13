@@ -142,47 +142,6 @@ std::string stripPath(const std::string & filename)
     }
 }
 
-std::string getFolder(const std::string & filename)
-{
-#ifdef UNIX_LIKE
-    std::string::size_type idx = filename.rfind('/');
-    std::string f = filename.substr(0, idx);
-    std::string::size_type idy = f.rfind('/');
-#else
-
-    std::string::size_type idx1 = filename.rfind('\\');
-    std::string::size_type idx2 = filename.rfind('/');
-    std::string::size_type idx;
-    std::string::size_type idy;
-    std::string f;
-    if (idx1 == std::string::npos) {
-        idx = idx2;
-        f = filename.substr(0, idx);
-        idy = f.rfind('/', idx);
-    } else if (idx2 == std::string::npos) {
-        idx = idx1;
-        f = filename.substr(0, idx);
-        idy = f.rfind('\\', idx);
-    } else {
-        idx = std::max(idx1, idx2);
-        f = filename.substr(0, idx);
-        if (idx == idx2) {
-            idy = f.rfind('/', idx);
-        } else {
-            idy = f.rfind('\\', idx);
-        }
-    }
-#endif
-    if (idx != std::string::npos) {
-//        DEBUG_DEBUG("returning substring: " << f.substr(idy, idx));
-        return f.substr(idy+1, idx-idy);
-    } else {
-        return filename;
-    }
-}
-
-
-
 std::string getPathPrefix(const std::string & filename)
 {
 #ifdef UNIX_LIKE
