@@ -44,6 +44,9 @@ AboutDialog::AboutDialog(wxWindow *parent)
 	wxString langCode;
 	wxTextCtrl *textCtrl;
     m_logoImgCtrl=NULL;
+    m_logo=NULL;
+    m_mode=0;
+
 	
     wxXmlResource::Get()->LoadDialog(this, parent, wxT("about_dlg"));
 
@@ -121,7 +124,6 @@ AboutDialog::AboutDialog(wxWindow *parent)
     // set the position and the size (x,y,width,height). -1 = keep existing
     SetSize(1,1,560,560);
     CenterOnParent();
-    m_mode=0;
 }
 
 void AboutDialog::GetSystemInformation(wxFont *font)
