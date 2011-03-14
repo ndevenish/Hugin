@@ -504,13 +504,15 @@ bool PanoDetector::RemapBackKeypoints(ImgData& ioImgInfo, const PanoDetector& iP
 	
 	double scale=iPanoDetector._downscale ? 2.0:1.0;
 
-	if (!ioImgInfo._needsremap && scale != 1.0) {
-		BOOST_FOREACH(KeyPointPtr& aK, ioImgInfo._kp)
-		{
-			aK->_x *= scale;
-			aK->_y *= scale;
-			aK->_scale *= scale;
-		}
+	if (!ioImgInfo._needsremap) {
+        if(scale != 1.0) {
+		    BOOST_FOREACH(KeyPointPtr& aK, ioImgInfo._kp)
+		    {
+			    aK->_x *= scale;
+			    aK->_y *= scale;
+			    aK->_scale *= scale;
+		    }
+        };
 	} else {
 		TRACE_IMG("Remapping back keypoints...");
 		HuginBase::PTools::Transform trafo1;
