@@ -83,7 +83,7 @@ public:
 
 
 
-void parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
+bool parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
 {
 	try {
 
@@ -176,6 +176,7 @@ void parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
 			ioPanoDetector.setInputFile(aArgInputFile.getValue());
 		} else {
 			cout << "ERROR: Input project file is missing." << endl;
+            return false;
 		}
 		if (aArgOutputFile.isSet()) ioPanoDetector.setOutputFile(aArgOutputFile.getValue());
 
@@ -236,7 +237,9 @@ void parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
 	} catch ( ArgException& e )
 	{ 
 		cout << "ERROR: " << e.error() << " " << e.argId() << endl; 
+        return false;
 	}
+    return true;
 }
 
 int main(int argc, char **argv) 
@@ -246,7 +249,8 @@ int main(int argc, char **argv)
 
 	// create a panodetector object
 	PanoDetector aPanoDetector;
-	parseOptions(argc, argv, aPanoDetector);
+	if(!parseOptions(argc, argv, aPanoDetector))
+        return 0;
 
 	if (!aPanoDetector.checkData())
 		return 0;
