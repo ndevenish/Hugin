@@ -4,7 +4,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta http-equiv="Content-Style-Type" content="text/css" />
 		<meta name="generator" content="MediaWiki 1.14.0" />
-		<meta name="keywords" content="Hugin Preferences,16bit,Align image stack,Autopano,Autopano-sift,Autopano-sift-C,CCD,Celeste standalone,Colour profile,Control points,Cpclean" />
+		<meta name="keywords" content="Hugin Preferences,16bit,Align image stack,Autopano,Autopano-sift,Autopano-sift-C,Bracketing,CCD,Celeste standalone,Colour profile,Control points" />
 		
 		
 		
@@ -124,19 +124,22 @@ take effect.
 <p><br style="clear:both;" />
 </p>
 <a name="Control_Point_Detectors" id="Control_Point_Detectors"></a><h1> <span class="mw-headline"> Control Point Detectors </span></h1>
-<p><a href="Hugin.html" title="Hugin">Hugin</a> uses an external tool for automatically creating <a href="Control_points.html" title="Control points">control points</a> for a set of images either when
+<p><a href="Hugin.html" title="Hugin">Hugin</a> uses an internal or external tool for automatically creating <a href="Control_points.html" title="Control points">control points</a> for a set of images either when
 </p>
 <ul><li> clicking the <b>2. Align...</b> button in the <a href="Hugin_Assistant_tab.html" title="Hugin Assistant tab">Hugin Assistant tab</a> or
 </li><li> clicking the <b>Create control points</b> button in the <a href="Hugin_Images_tab.html" title="Hugin Images tab">Hugin Images tab</a>.
 </li></ul>
-<p>In the <b>Control Point Detector Programs</b> list box you can choose between several presets such as
+<p><i>Note: If you have upgraded from an older release of Hugin, you will need to <b>Load Defaults</b> to update these preferences.</i>
+</p><p>In the <b>Control Point Detector Programs</b> list box you can choose between several presets such as:
 </p>
-<ul><li> <a href="Autopano-sift-C.html" title="Autopano-sift-C">autopano-sift-C</a> - part of Hugin suite
-</li><li> <a href="Panomatic.html" title="Panomatic">Panomatic</a> (by Anael Orlinski)
-</li><li> <a href="Align_image_stack.html" title="Align image stack">Align image stack</a>  - part of Hugin suite. Note that align_image_stack is not a general purpose control point detector, but is very effective for aligning images within stacks.
-</li><li> Match-n-shift 
-</li><li> <a href="Autopano.html" title="Autopano">Autopano</a> (by A. Jenny), closed source, available for Linux i386 and Windows 32bit.
-</li><li> <a href="Autopano-sift.html" title="Autopano-sift">Autopano-SIFT</a> (by S. Nowozin), open source, available for Linux, Windows and OS X
+<ul><li> <b><a href="Cpfind.html" title="Cpfind">Hugin's CPFind</a></b> - This is the new general purpose control point generator introduced with Hugin 2010.4.0.
+</li><li> <b>Hugin's CPFind + Celeste</b> - This is the same as the <a href="Cpfind.html" title="Cpfind">CPFind</a> setting plus points in areas of sky are removed using the celeste tool. See <a href="Using_Celeste_with_hugin.html" title="Using Celeste with hugin">Using Celeste with hugin</a> for more details.
+</li><li> <b>Cpfind (multirow/stacked)</b> - This is the same as the <a href="Cpfind.html" title="Cpfind">CPFind</a> setting, except that <a href="Align_image_stack.html" title="Align image stack">Align image stack</a> is used to match photos in <a href="Bracketing.html" title="Bracketing">bracketed</a> stacks.
+</li><li> <b><a href="Autopano-sift-C.html" title="Autopano-sift-C">autopano-sift-C</a></b> - a C version of <a href="Autopano-sift.html" title="Autopano-sift">autopano-sift</a>, installed separately.
+</li><li> <b><a href="Panomatic.html" title="Panomatic">Panomatic</a> (by Anael Orlinski)</b>, installed separately.
+</li><li> <b>autopano-sift-c (multirow/stacked)</b> - This is the same as the <a href="Autopano-sift-C.html" title="Autopano-sift-C">autopano-sift-C</a> setting, except that <a href="Align_image_stack.html" title="Align image stack">Align image stack</a> is used to match photos in <a href="Bracketing.html" title="Bracketing">bracketed</a> stacks.
+</li><li> <b><a href="Align_image_stack.html" title="Align image stack">Align image stack</a></b> - part of Hugin suite. Note that align_image_stack is not a general purpose control point detector, but is very effective for aligning images within stacks.
+</li><li> <b>Align image stack FullFrameFisheye</b> - This the same as the <a href="Align_image_stack.html" title="Align image stack">Align image stack</a> setting above except with an addition setting suitable for fisheye images.
 </li></ul>
 <p>Parameters for these tools can be customized in the <a href="Hugin_Parameters_for_Control_Point_Detectors_dialog.html" title="Hugin Parameters for Control Point Detectors dialog">Hugin Parameters for Control Point Detectors dialog</a> which you can access by clicking one of the buttons <b>Edit...</b> or <b>New...</b>.
 </p><p>These <a href="Hugin_Parameters_for_Control_Point_Detectors_dialog.html" title="Hugin Parameters for Control Point Detectors dialog">parameters</a> are also helpful if you want to use a similar command line tool that isn't already listed. Click the <b>New...</b> button to configure a new preset to use in the <a href="Hugin_Assistant_tab.html" title="Hugin Assistant tab">Assistant</a> or the <a href="Hugin_Images_tab.html" title="Hugin Images tab">Images</a> tabs.
@@ -172,7 +175,17 @@ such as smartblend or enblend-mask.
 <p>If one of <b>Exposure fusion</b> output options is selected in the <a href="Hugin_Stitcher_tab.html" title="Hugin Stitcher tab">Hugin Stitcher tab</a> then <a href="Enfuse.html" title="Enfuse">enfuse</a> will be used to merge bracketed exposures during stitching.
 </p>
 <a name="Celeste" id="Celeste"></a><h1> <span class="mw-headline"> Celeste </span></h1>
-<p>Often a project has many control points attached to clouds in the sky, this is usually unwanted as clouds move between photos. <a href="Using_Celeste_with_hugin.html" title="Using Celeste with hugin">celeste</a> will attempt to identify 'sky' control points and delete them. 
+<p>Often a project has many control points attached to clouds in the sky, this is usually unwanted as clouds move between photos. <a href="Using_Celeste_with_hugin.html" title="Using Celeste with hugin">celeste</a> will attempt to identify 'sky' control points and delete them.
+</p>
+<a name="Troubleshooting" id="Troubleshooting"></a><h1> <span class="mw-headline"> Troubleshooting </span></h1>
+<p>Sometimes when updating a hugin installation new features such as the settings for a new control point editor won't appear where expected. The cause might be a conflict with the preferences file of a previous version of hugin. A good idea before pressing the "Reset do defaults" button might be to back up the old preferences file since it is a plain text file that contains your specific settings in a readable format. Saving this file gives you the chance to recreate these individual settings later on. The name and location of the preferences file is this for the following platforms:
+</p>
+<ul><li>Linux: ".hugin" can be found in your home directory <b>(FIXME)</b>
+</li><li>Mac OS X: "hugin Preferences" can be found in <i>Macintosh HD/Users/&lt;YourUserAccount&gt;/Library/Preferences/</i>
+</li><li>Windows: <b>(FIXME)</b>
+</li></ul>
+<p>Quit hugin, rename the preferences file (e.g. add the previous version number) and on the next start of hugin a new preferences file will be generated.
+</p><p>Other fixes for occurring problems can be found in the <a href="Hugin_FAQ.html" title="Hugin FAQ">Hugin FAQ</a>.
 </p><p><br style="clear:both;" />
 </p>
 

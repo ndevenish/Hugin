@@ -45,7 +45,10 @@
 												<!-- start content -->
 			<p><b>PTOptimizer</b> was originally created by Helmut Dersch as part of Panorama Tools, it is a simple wrapper program around <a href="Control_points.html" title="Control points">control point</a> optimization routines present in the <a href="Pano12.html" title="Pano12">pano12</a> library.
 </p><p>Source code for the original <b>PTOptimizer</b> was never released, however reconstruction was quite straightforward and a multi-platform version is now included with the <a href="Pano12.html" title="Pano12">pano12</a> library available at Sourceforge.
-</p><p>The updated original example script with lots of comments is below.  Copied from Jim Watters' page.
+</p>
+
+<a name="Example_Script" id="Example_Script"></a><h2> <span class="mw-headline"> Example Script </span></h2>
+<p>The updated original example script with lots of comments is below.  Copied from Jim Watters' page.
 </p>
 <pre>
 #############           Example Script                  ##########################
@@ -64,8 +67,9 @@
 # one or several 'v'- lines listing the variables to be optimized.
 # the 'm'-line is optional and allows you to specify modes for the optimization.
 # one 'c'-line for each pair of control points
-
-
+</pre>
+<a name="p-line_options" id="p-line_options"></a><h3> <span class="mw-headline"> p-line options </span></h3>
+<pre>
 # 'p'-line options
 # w1000        width in pixels
 # h600         height in pixels (default: width/2)
@@ -129,8 +133,9 @@
 
 
 p w800 nPSD_mask -buf
-
-
+</pre>
+<a name="i-lines" id="i-lines"></a><h3> <span class="mw-headline"> i-lines </span></h3>
+<pre>
 # The 'i' lines describe input images. One line per image is required
 # unneeded paramiters for optimizing but needed for stitching can be 
 # set here and the optimizer will automaticaly add them to the o lines
@@ -195,8 +200,9 @@ p w800 nPSD_mask -buf
 
 i f2 r0      p0    y0     v183    a0 b-0.1 c0  mx400 my400 
 i f2 r-0.5   p1    y182   v=0     a0 b-0.1 c0  mx400 my400 
-
-
+</pre>
+<a name="v-line_options" id="v-line_options"></a><h3> <span class="mw-headline"> v-line options </span></h3>
+<pre>
 # 'v'-line options:
 # -----------------
 # Please note: the 'v'-line must come after the the 'i'-lines.
@@ -217,8 +223,9 @@ i f2 r-0.5   p1    y182   v=0     a0 b-0.1 c0  mx400 my400
 #      need to optimize the master.
 
 v v0 r0 p0 r1 p1 y1
-
-#
+</pre>
+<a name="m-line_options" id="m-line_options"></a><h3> <span class="mw-headline"> m-line options </span></h3>
+<pre>
 # 'm'-line options
 # ----------------
 # Set mode for stitcher, not required
@@ -257,8 +264,9 @@ v v0 r0 p0 r1 p1 y1
 #                  0 no(default), 1 yes
 
 m g1.5 i6
-
-
+</pre>
+<a name="c-lines" id="c-lines"></a><h3> <span class="mw-headline"> c-lines </span></h3>
+<pre>
 #
 # 'c' lines
 # ----------------

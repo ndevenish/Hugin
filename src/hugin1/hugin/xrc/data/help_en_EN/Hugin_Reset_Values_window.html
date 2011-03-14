@@ -50,7 +50,7 @@
 <ul><li> <b>Image orientations:</b> This will reset yaw, pitch and roll and also the translation parameters to zero. In case the EXIF data of your images contains information about the orientation of the image, these information will be used to reset the roll value to a sensible start value.
 </li><li> <b>Field of view:</b> In this case hugin tries to calculate the field of view from the information in the EXIF data. If this fails (e.g. not enough information in the EXIF data) the field of view remains unchanged.
 </li><li> <b>Lens parameters:</b> This options will reset the radial distortion (parameter a, b, c), image center shift (d, e) and image shearing (g, t) to zero.
-</li><li> <b>Exposure:</b> Here you can select to which value the exposure value should be set 
+</li><li> <b>Exposure:</b> Here you can select to which value the exposure value should be set (note that when you use this option Hugin will reset the global exposure of the panorama as a whole to the average of all photos):
 <ul><li> To EXIF values: will reset to the exposure value found in the EXIF data
 </li><li> To zero: will reset the exposure value to zero. This means that hugin is not correcting the exposure.
 </li></ul>

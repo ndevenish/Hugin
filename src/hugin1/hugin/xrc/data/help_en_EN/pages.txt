@@ -32,6 +32,7 @@ Cylindrical
 Cylindrical_panorama
 Cylindrical_Projection
 Depth_of_Field
+Diffraction
 Dust_Removal_with_Flatfield
 Dynamic_range
 DSLR_spherical_resolution
@@ -41,6 +42,7 @@ Enfuse
 Enfuse_reference_manual
 Entrance_pupil
 Equirectangular
+Equirectangular_Panini
 Equirectangular_Projection
 EXIF
 Field_of_View
@@ -92,6 +94,7 @@ No-parallax_point
 NPP
 OpenEXR
 Optimization
+Panini
 Pano_modify
 Pano12
 Panoglview
