@@ -56,9 +56,18 @@ as input for <b>PTtiff2psd</b>.
 </p>
 <pre> PTtiff2psd [options] &lt;tiffFiles&gt;+
  Options:
-         -o &lt;filename&gt;   Output filename (default merged.psd)
-         -m              Add stitching mask
-         -r              Reverse layers
+</pre>
+<p>Options:
+</p>
+<pre>       -o &lt;filename&gt;           Output filename (default merged.psd)
+       -b &lt;blendingmode&gt;       Specify blending mode for layers (use -h to display them)
+       -f                      Force processing (do not stop at warnings)
+       -s                      Stack them
+       -q                      Quiet run
+       -r                      Reverse layers
+       -8                      Reduce image to 8bit per channel
+       -B                      Force Big, PSB file format
+       -h                      Show this message
 </pre>
 
 

@@ -76,15 +76,9 @@ of the images in the current project rather than all of them.  Use the buttons a
 <a name="Positions_.28y.2Cp.2Cr.29" id="Positions_.28y.2Cp.2Cr.29"></a><h3> <span class="mw-headline"> Positions (y,p,r) </span></h3>
 <p>This is exactly the same as the <i>incremental</i> setting above except that the parameters are optimised at once, this may confuse the optimiser if the images are not already roughly in the right place.  Don't use this setting.
 </p>
-<a name="Positions_and_Translations_.28y.2Cp.2Cr.2Cx.2Cy.2Cz.29" id="Positions_and_Translations_.28y.2Cp.2Cr.2Cx.2Cy.2Cz.29"></a><h3> <span class="mw-headline"> Positions and Translations (y,p,r,x,y,z) </span></h3>
-<p>This will optimise image orientation and the translation you get when moving the camera for a linear panorama. This is great for stitching images of the same flat surface taken from different places, for example when you couldn't fit a painting or the front of a building into one picture. Again it isn't ideal if the lens information such as the field of view is wrong.
-</p>
 <a name="Positions_and_View_.28y.2Cp.2Cr.2Cv.29" id="Positions_and_View_.28y.2Cp.2Cr.2Cv.29"></a><h3> <span class="mw-headline"> Positions and View (y,p,r,v) </span></h3>
 <p>This is the same as optimising <b>Positions</b> except that the lens <a href="Field_of_View.html" title="Field of View">Field of View</a> is optimised too - Use this if you don't trust the Field of View calculated from the photo's <a href="EXIF.html" title="EXIF">EXIF</a> data.
 </p><p>Note that for this too work you need at least three well-spaced pairs of <a href="Control_points.html" title="Control points">control points</a> between any pair of photos.  With a  360 degree panorama it is usually beneficial to optimise the <b>Field of View</b>, even if you have already calibrated this beforehand.
-</p>
-<a name="Positions.2C_Translation_and_View_.28y.2Cp.2Cr.2Cx.2Cy.2Cz.2Cv.29" id="Positions.2C_Translation_and_View_.28y.2Cp.2Cr.2Cx.2Cy.2Cz.2Cv.29"></a><h3> <span class="mw-headline"> Positions, Translation and View (y,p,r,x,y,z,v) </span></h3>
-<p>This is similar to <b>Positions and Translations</b>, except you can use it when you don't trust the <a href="Field_of_View.html" title="Field of View">Field of View</a> from the <a href="EXIF.html" title="EXIF">EXIF</a> data.
 </p>
 <a name="Positions_and_Barrel_Distortion_.28y.2Cp.2Cr.2Cb.29" id="Positions_and_Barrel_Distortion_.28y.2Cp.2Cr.2Cb.29"></a><h3> <span class="mw-headline"> Positions and Barrel Distortion (y,p,r,b) </span></h3>
 <p>This is the same as optimising <b>Positions</b> except that an attempt is made to discover the lens <a href="Barrel_distortion.html" title="Barrel distortion">barrel distortion</a> at the same time. Only the <b>b</b> parameter of the full <a href="Lens_correction_model.html" title="Lens correction model">lens correction model</a> is varied by this optimisation scheme, as this is a reasonable approximation of the distortion of a typical lens. You should trust the field of view if you use this.
@@ -93,16 +87,22 @@ of the images in the current project rather than all of them.  Use the buttons a
 <a name="Positions.2C_View_and_Barrel_.28y.2Cp.2Cr.2Cv.2Cb.29" id="Positions.2C_View_and_Barrel_.28y.2Cp.2Cr.2Cv.2Cb.29"></a><h3> <span class="mw-headline"> Positions, View and Barrel (y,p,r,v,b) </span></h3>
 <p>As the name suggests this optimises positions, <a href="Field_of_View.html" title="Field of View">Field of View</a> and <a href="Barrel_distortion.html" title="Barrel distortion">barrel distortion</a> all at once.
 </p>
-<a name="Positions.2C_Translation.2C_View_and_Barrel_.28y.2Cp.2Cr.2Cx.2Cy.2Cz.2Cb.2Cb.29" id="Positions.2C_Translation.2C_View_and_Barrel_.28y.2Cp.2Cr.2Cx.2Cy.2Cz.2Cb.2Cb.29"></a><h3> <span class="mw-headline"> Positions, Translation, View and Barrel (y,p,r,x,y,z,b,b) </span></h3>
-<p>This is useful when you are optimising a linear panorama, don't trust the field of view, and want to correct barrel distortion.
-</p>
 <a name="Everything_without_translation" id="Everything_without_translation"></a><h3> <span class="mw-headline"> Everything without translation </span></h3>
 <p>This optimises image orientation and all geometric parameters in the full <a href="Lens_correction_model.html" title="Lens correction model">lens correction model</a>. It includes more lens distortion parameters. The x shift and y shift (d and e) parameters account for the centre of the projection not being in the centre of the image. This is quite common, and gets very bad if an image is the cropped corner of another image.
 </p><p>You will need many control points, the more the better, and preferably a full spherical panorama (360 by 180 degrees) to get the best correction. You should also use a calibrated panoramic head. If the control points are bad (either there are not enough or some are in the wrong place), or your images were not taken around the <a href="No-parallax_point.html" title="No-parallax point">no-parallax point</a>, this could produce bizarre results.
-</p><p>However, if you do this well, you will accurately perform lens calibration. You can save and reuse this lens information on the Camera and Lens tab.
+</p><p>However, if you do this well, you will accurately perform lens calibration. You can save and reuse this lens information on the <a href="Hugin_Camera_and_Lens_tab.html" title="Hugin Camera and Lens tab">Hugin Camera and Lens tab</a>.
 </p>
-<a name="Everything" id="Everything"></a><h3> <span class="mw-headline"> Everything </span></h3>
-<p>Selecting <b>Everything</b> really optimises everything, including the translation parameters. You will need a huge number of control points to do this successfully.
+<a name="Positions_and_Translations_.28y.2Cp.2Cr.2Cx.2Cy.2Cz.29" id="Positions_and_Translations_.28y.2Cp.2Cr.2Cx.2Cy.2Cz.29"></a><h3> <span class="mw-headline"> Positions and Translations (y,p,r,x,y,z) </span></h3>
+<p>This will optimise image orientation and the translation you get when moving the camera for a linear panorama. This is great for stitching images of the same flat surface taken from different places, for example when you couldn't fit a painting or the front of a building into one picture. Again it isn't ideal if the lens information such as the field of view is wrong.
+</p>
+<a name="Positions.2C_Translation_and_View_.28y.2Cp.2Cr.2Cx.2Cy.2Cz.2Cv.29" id="Positions.2C_Translation_and_View_.28y.2Cp.2Cr.2Cx.2Cy.2Cz.2Cv.29"></a><h3> <span class="mw-headline"> Positions, Translation and View (y,p,r,x,y,z,v) </span></h3>
+<p>This is similar to <b>Positions and Translations</b>, except you can use it when you don't trust the <a href="Field_of_View.html" title="Field of View">Field of View</a> from the <a href="EXIF.html" title="EXIF">EXIF</a> data.
+</p>
+<a name="Positions.2C_Translation_and_Barrel_.28y.2Cp.2Cr.2Cx.2Cy.2Cz.2Cb.29" id="Positions.2C_Translation_and_Barrel_.28y.2Cp.2Cr.2Cx.2Cy.2Cz.2Cb.29"></a><h3> <span class="mw-headline"> Positions, Translation and Barrel (y,p,r,x,y,z,b) </span></h3>
+<p>This is the same as optimising <b>Positions</b> and <b>Translation</b> except that an attempt is made to discover the lens <a href="Barrel_distortion.html" title="Barrel distortion">barrel distortion</a> at the same time. Only the <b>b</b> parameter of the full <a href="Lens_correction_model.html" title="Lens correction model">lens correction model</a> is varied by this optimisation scheme, as this is a reasonable approximation of the distortion of a typical lens. You should trust the field of view if you use this.
+</p>
+<a name="Positions.2C_Translation.2C_View_and_Barrel_.28y.2Cp.2Cr.2Cx.2Cy.2Cz.2Cb.2Cb.29" id="Positions.2C_Translation.2C_View_and_Barrel_.28y.2Cp.2Cr.2Cx.2Cy.2Cz.2Cb.2Cb.29"></a><h3> <span class="mw-headline"> Positions, Translation, View and Barrel (y,p,r,x,y,z,b,b) </span></h3>
+<p>This is useful when you are optimising a linear panorama, don't trust the field of view, and want to correct barrel distortion.
 </p>
 <a name="The_Custom_parameters_below" id="The_Custom_parameters_below"></a><h3> <span class="mw-headline"> The Custom parameters below </span></h3>
 <p>The pre-set optimisation options are useful for most situations, but often it is necessary to switch to <b>Custom parameters</b>.

@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="Content-Style-Type" content="text/css" />
+		<meta name="generator" content="MediaWiki 1.14.0" />
+		<meta name="keywords" content="Diffraction,Diffraction,Chromatic aberration,Depth of Field,Entrance pupil,Field of View,Fisheye,Vignetting" />
+		
+		
+		
+		
+		
+		
+		<title>Diffraction - PanoTools.org Wiki</title>
+		
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		
+		
+		
+		
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+
+		
+
+		
+		<!-- Head Scripts -->
+		
+				
+	</head>
+<body class="mediawiki ltr ns-0 ns-subject page-Diffraction skin-monobook">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 id="firstHeading" class="firstHeading">Diffraction</h1>
+		<div id="bodyContent">
+			
+			<div id="contentSub"></div>
+												<!-- start content -->
+			<p><br />
+</p>
+
+<a name="What_it_is" id="What_it_is"></a><h2> <span class="mw-headline">What it is</span></h2>
+<p>Diffraction in general is the bending of waves around an obstacle. In photography the light waves are bent around the edges of the aperture, causing f.e. the well known star like pattern around the sun if shot stopped down. Since diffraction affects any point of the image (not only very bright sources) it reduces general sharpness and limits effective resolution. Diffraction blurs any point to a pattern called "w:Airy disk".
+</p>
+<a name="Sharpness" id="Sharpness"></a><h2> <span class="mw-headline">Sharpness</span></h2>
+<p>Diffraction is one of four lens based factors limiting the image sharpness. Second is aberration (f.e. <a href="Chromatic_aberration.html" title="Chromatic aberration">chromatic aberration</a>) which is determined by lens build quality. Third is de-focus or <a href="Depth_of_Field.html" title="Depth of Field">Depth of Field</a>. Fourth is motion blur due to lens shake.
+</p><p>Diffraction depends only on the physical aperture size. Hence it's effect is generally larger the smaller the used sensor is due to the larger magnification of the image. That's the reason why compact cameras can't (or shouldn't) be stopped down further than f/5.6. As a rule of thumb the limit for APS-C sized sensors is f/8 to f/11 and for full frame ones f/16 to f/22.
+</p><p>You can balance <a href="Depth_of_Field.html" title="Depth of Field">Depth of Field</a> against diffraction. An approach is the sharpest aperture. <a href="Diffraction.html#External_links" title="Diffraction">See link at the bottom</a>.
+</p>
+<a name="Resolution" id="Resolution"></a><h2> <span class="mw-headline">Resolution</span></h2>
+<p>The maximum obtainable resolution is limited by diffraction according to the Rayleigh criterion. We can safely assume the equivalent of one pixel distance as the minimum resolvable distance required by the Rayleigh criterion. Since this criterion defines the angular resolution it can be directly used for zoomable panoramas neglecting sensor sizes etc. By simply dividing the panorama <a href="Field_of_View.html" title="Field of View">Field of View</a> (FoV) by the angular resolution we get the maximum possible pixel resolution.
+</p><p>For an average value we take the wavelength of light <i>λ</i> = 550nm = 5.5*10<sup>-4</sup>mm which is in the middle of the spectrum and a color where our eyes are most sensitive. The resulting formula is:
+</p>
+<pre><img class="tex" alt=" pixel resolution = \frac{FoV}{asin\left(\frac{1}{1490*D}\right)}" src="5a12c95d04637539015c2d09b5002204.png" />
+</pre>
+<p><i>D</i> is the physical diameter of the lens' <a href="Entrance_pupil.html" title="Entrance pupil" class="mw-redirect">entrance pupil</a>, which is the focal length in mm divided by the f-number. The following table shows the maximum angular resolution in <b>pixels/degree</b> which is obtainable by a given focal length (vertical) and f-number (horizontal) without regard to currently available sensors for an ideal lens without aberrations:
+</p>
+<pre>          <b>2.8      4     5.6       8      11      16      22    32    44</b>
+  <b>50</b>      464    325     232     163     118      81      59    41    30
+ <b>100</b>      929    650     464     325     236     163     118    81    59
+ <b>200</b>    1,858  1,300     929     650     473     325     236   163   118
+ <b>400</b>    3,715  2,601   1,858   1,300     946     650     473   325   236
+ <b>800</b>    7,430  5,201   3,715   2,601   1,891   1,300     946   650   473
+<b>1200</b>   11,145  7,802   5,573   3,901   2,837   1,950   1,418   975   709
+</pre>
+<p>Some usage examples
+</p>
+<ul><li>You want to shoot a gigapixel panorama of 175° width with a 800mm lens at f/11. You get 175*1,891 = 330,925 pixel maximum horizontal resolution.
+</li><li>You will use an APS-C format sensor in portrait orientation for this panorama. A 800mm lens has a FoV of 1.1° in that case, which at f/11 gives 2080 pixels or app. 6 megapixels. Applying the 70% rule to compensate for bayer interpolation blur indicates that 12 megapixels per image are enough.
+</li></ul>
+<a name="Wide_angle" id="Wide_angle"></a><h3> <span class="mw-headline">Wide angle</span></h3>
+<p>Although the above formula is applicable to wide angle and fisheye lenses as well it is harder to give correct values. Most DSLR wide angle and fisheye lenses change the entrance pupil diameter depending from the angle of incidence. This is intended and serves as a mechanism to compensate for natural <a href="Vignetting.html" title="Vignetting">vignetting</a>.
+</p><p>However, diffraction is an issue for those lenses, too. For a comparison of two widely used fisheyes see <a href="Diffraction.html#External_links" title="Diffraction">link at the bottom</a>.
+</p>
+<a name="Caveats" id="Caveats"></a><h2> <span class="mw-headline">Caveats</span></h2>
+<p>Unfortunately most lenses are diffraction limited at small apertures only. Since most lens aberrations get better the further you stop down, it might be that shooting wide open gives you worse results than fully stopped down. Hence the real sharpest aperture of a particular lens must be determined by experiment.
+</p><p>Other factors (lens shake, atmospheric scintillation, sensor noise, haze etc.) reduce resolution and sharpness even further, hence the above values will seldom be reached.
+</p>
+<a name="External_links" id="External_links"></a><h2> <span class="mw-headline">External links</span></h2>
+<ul><li>wikipedia on Diffraction
+</li><li>wikipedia on Angular resolution
+</li><li>Ken Rockwell's page on Selecting the Sharpest Aperture
+</li><li>Ken Rockwell's page with a sharpness comparison of the Zenitar 16mm and Nikkor 10.5mm fisheye lenses at different aperture.
+</li><li>A very extensive article about resolution limits on Luminous Landscape containing many valuable links.
+</li></ul>
+
+
+
+
+<div class="printfooter">
+Retrieved from "<a href="Diffraction.html">http://wiki.panotools.org/Diffraction</a>"</div>
+			</div></div></div></div></body></html>

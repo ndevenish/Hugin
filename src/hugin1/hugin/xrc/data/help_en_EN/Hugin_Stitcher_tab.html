@@ -46,7 +46,7 @@
 			<p>The rest of <a href="Hugin.html" title="Hugin">hugin</a> is all about setting up the project and aligning images, the <b>Stitcher</b> tab is where
 the final output file is created.
 </p>
-<a name="Panorama" id="Panorama"></a><h1> <span class="mw-headline"> Panorama </span></h1>
+<a name="Projection" id="Projection"></a><h1> <span class="mw-headline"> Projection </span></h1>
 <p>Here you can set the output <b><a href="Projections.html" title="Projections">Projection</a></b> of your project, there are lots
 to choose from, each with different advantages and disadvantages:
 </p>
@@ -62,14 +62,15 @@ to choose from, each with different advantages and disadvantages:
 </li><li> Lambert Equal Area Azimuthal
 </li><li> Albers Equal Area Conic
 </li><li> Miller Cylindrical
-</li><li> Panini
+</li><li> <a href="Panini.html" title="Panini">Panini</a>
 </li><li> Architectural
 </li><li> Orthographic
 </li><li> Equisolid
-</li><li> Equirectangular Panini
+</li><li> <a href="Equirectangular_Panini.html" title="Equirectangular Panini">Equirectangular Panini</a>
 </li><li> Biplane
 </li><li> Triplane
 </li><li> <a href="The_General_Panini_Projection.html" title="The General Panini Projection">Panini General</a>
+</li><li> Thoby Projection
 </li></ul>
 <a name="Field_of_View" id="Field_of_View"></a><h2> <span class="mw-headline"> Field of View </span></h2>
 <p>This is the horizontal and vertical <a href="Field_of_View.html" title="Field of View">angle of view</a> of the output image,
@@ -84,7 +85,7 @@ output to fit the arrangement of the input images - The <b>Fit</b> button in the
 </li><li> Mercator has to be less than 180 degrees vertically.
 </li><li> Transverse Mercator has to be less than 180 degrees horizontally.
 </li></ul>
-<a name="Panorama_Canvas_Size" id="Panorama_Canvas_Size"></a><h2> <span class="mw-headline"> Panorama Canvas Size </span></h2>
+<a name="Canvas_Size" id="Canvas_Size"></a><h2> <span class="mw-headline"> Canvas Size </span></h2>
 <p>Set the <b>width</b> and <b>height</b> of your output panorama in pixels.  <b>Calculate Optimal Size</b> will estimate
 a size that has about the same resolution as your input images.
 </p><p>Some examples: a <i>three megapixel</i> image has pixel dimensions of 2048 x 1536, an A4 print at 300 pixels per inch will
@@ -92,7 +93,7 @@ have a pixel size of 3500 x 2480, a <i>full screen</i> spherical <a href="Equire
 dimensions of 6000 x 3000 or greater and a <i>gigapixel</i> image has a pixel size of 32768 x 32768.
 </p><p>Note that the <a href="Interpolation.html" title="Interpolation">interpolation</a> used by <a href="Hugin.html" title="Hugin">hugin</a> doesn't handle downsampling very well, so output images smaller
 than about half the size of the <i>Optimal Size</i> will show <a href="Aliasing.html" title="Aliasing">aliasing</a> artefacts.  If you want to create high quality
-small images, it is better to create an <i>Optimal Size</i> image in hugin and downsize it later in an image editor such as the Gimp.
+small images, it is better to create an <i>Optimal Size</i> image in hugin and downsize it later in an image editor such as Gimp.
 </p>
 <a name="Crop" id="Crop"></a><h2> <span class="mw-headline"> Crop </span></h2>
 <p>The crop settings allow just a portion of the panorama to be stitched, there are various reasons to do this:
@@ -101,36 +102,46 @@ small images, it is better to create an <i>Optimal Size</i> image in hugin and d
 </li><li> Large 'gigapixel' style panoramas can be stitched in sections then blended later.
 </li></ul>
 <p>The cropped-out areas are shown darkened in the <a href="Hugin_Preview_window.html" title="Hugin Preview window">hugin Preview window</a>.
+</p><p>The <b>Fit Crop to Images</b> button will automatically determine a crop that has a maximum number of pixels and no empty space.  This is the same function as the <b>Autocrop</b> button in the <a href="Hugin_Fast_Preview_window.html" title="Hugin Fast Preview window">Hugin Fast Preview window</a>. 
 </p>
 <a name="Output" id="Output"></a><h2> <span class="mw-headline"> Output </span></h2>
 <p>Hugin can output 'normal' stitched images, exposure fused images or high dynamic range (<a href="HDR.html" title="HDR">HDR</a>) images.
 The following options determine which kind of image is created, and allow keeping the intermediate images created during the process.
 </p>
 <a name="Normal" id="Normal"></a><h3> <span class="mw-headline"> Normal </span></h3>
-<p>If <b>Blended panorama</b> is enabled then <a href="Enblend.html" title="Enblend">enblend</a> is used for blending. In the final stitching process <a href="Nona.html" title="Nona">nona</a> reprojects and distorts images to fit, <b>enblend</b> takes these images as individual <a href="TIFF.html" title="TIFF">TIFF</a> files and merges them using sophisticated seam positioning and blending.  Further <b>enblend</b> settings can be found in the <a href="Hugin_Preferences.html" title="Hugin Preferences">hugin Preferences</a>.
-</p><p>Enable <b>remapped images</b> if you want to keep the intermediate images that <b>enblend</b> uses as input - For example modifying the <a href="Alpha_channel.html" title="Alpha channel">alpha channel</a> of these images and then blending manually is one technique for including and excluding people or objects that move between shots.
+<p>If <b>Exposure corrected, low dynamic range</b> is enabled then <a href="Enblend.html" title="Enblend">enblend</a> is used for blending. In the final stitching process <a href="Nona.html" title="Nona">nona</a> reprojects and distorts images to fit, <b>enblend</b> takes these images as individual <a href="TIFF.html" title="TIFF">TIFF</a> files and merges them using sophisticated seam positioning and blending.  Further <b>enblend</b> settings can be found in the <a href="Hugin_Preferences.html" title="Hugin Preferences">hugin Preferences</a>.
+</p><p>Enable <b>Exposure corrected, low dynamic range</b> under <b>Remapped Images</b> if you want to keep the intermediate images that <b>enblend</b> uses as input - For example modifying the <a href="Alpha_channel.html" title="Alpha channel">alpha channel</a> of these images and then blending manually is one technique for including and excluding people or objects that move between shots.
 </p>
 <a name="Exposure_fusion" id="Exposure_fusion"></a><h3> <span class="mw-headline"> Exposure fusion </span></h3>
-<p>If <b>Fused and blended</b> is enabled then hugin will group the input images into exposure stacks by comparing positions, any images with more than 90% overlap are grouped like this.  Each of these <a href="Bracketing.html" title="Bracketing">bracketed</a> exposure stacks will be exposure fused with <a href="Enfuse.html" title="Enfuse">enfuse</a> and the results seam blended together into a panorama with <a href="Enblend.html" title="Enblend">enblend</a>.
+<p>If <b>Exposure fused from stacks</b> is enabled then hugin will group the input images into exposure stacks by comparing positions, any images with more than 70&nbsp;% overlap are grouped like this.  Each of these <a href="Bracketing.html" title="Bracketing">bracketed</a> exposure stacks will be exposure fused with <a href="Enfuse.html" title="Enfuse">enfuse</a> and the results seam blended together into a panorama with <a href="Enblend.html" title="Enblend">enblend</a>.
 </p><p>Note that for this to work, the scene has to be photographed multiple times using exposure <a href="Bracketing.html" title="Bracketing">bracketing</a> and the EV exposure values set either manually in the <a href="Hugin_Camera_and_Lens_tab.html" title="Hugin Camera and Lens tab">hugin Camera and Lens tab</a>, automatically from <a href="EXIF.html" title="EXIF">EXIF</a> data or by optimising exposure in the <a href="Hugin_Assistant_tab.html" title="Hugin Assistant tab">hugin Assistant tab</a> or <a href="Hugin_Exposure_tab.html" title="Hugin Exposure tab">hugin Exposure tab</a>.
 </p><p>Note also that unlike <b>Normal</b> and <b>HDR merging</b> options where images are exposure corrected as part of the remapping process, enfuse requires that each exposure layer is supplied uncorrected - Hugin takes care of this automatically and will not apply exposure correction in this case.
-</p><p>If <b>Blended and fused</b> is enabled then hugin will seam blend images with similar exposure with <a href="Enblend.html" title="Enblend">enblend</a>  and than it will exposure fuse them using <a href="Enfuse.html" title="Enfuse">enfuse</a>. This variant is often much more successful than <b>Fused and blended</b> in two situations:
+</p><p>If <b>Exposure fused from any arrangement</b> is enabled then hugin will seam blend images with similar exposure with <a href="Enblend.html" title="Enblend">enblend</a>  and than it will exposure fuse them using <a href="Enfuse.html" title="Enfuse">enfuse</a>. This variant is often much more successful than <b>Exposure fused from stacks</b> in two situations:
 </p>
-<ul><li> Where entire panoramas have been shot at each EV level consecutively rather than each shot <a href="Bracketing.html" title="Bracketing">bracketed</a>, in this case it isn't guaranteed that shots will line up into the approximate stacks expected by the <b>Fused and blended</b> option.
+<ul><li> Where entire panoramas have been shot at each EV level consecutively rather than each shot <a href="Bracketing.html" title="Bracketing">bracketed</a>, in this case it isn't guaranteed that shots will line up into the approximate stacks expected by the <b>Exposure fused from stacks</b> option.
 </li></ul>
 <ul><li> When the panorama has been shot entirely on automatic exposure, in this situation it is useful to seam blend adjacent photos with small EV differences, but then exposure fuse larger EV differences - As effectively happens with this option.
 </li></ul>
-<p>Note that hugin uses a threshold of 0.5EV exposure difference to determine which photos can be fused into each layer.
-</p><p>Enable <b>Blended exposure layers</b> to keep exposure layers from the <i>Blended and fused</i> step, these are useful for manual Contrast Blending.
-</p><p>Enable <b>Remapped images</b> to keep the intermediate images supplied to <a href="Enblend.html" title="Enblend">enblend</a> and <a href="Enfuse.html" title="Enfuse">enfuse</a>.
+<p>Note that hugin uses a threshold of 0.5 EV exposure difference to determine which photos can be fused into each layer.
+</p><p>Enable <b>Blended layers of similar exposure, without exposure correction</b> from <b>Layers</b> to keep exposure layers from the <b>Exposure fused from any arrangement</b> step, these are useful for manual Contrast Blending.
+</p><p>Enable <b>No exposure correction, low dynamic range</b> from <b>Remapped Images</b> to keep the intermediate images supplied to <a href="Enblend.html" title="Enblend">enblend</a> and <a href="Enfuse.html" title="Enfuse">enfuse</a>.
+</p><p>Normal <b>Format</b> can be in one several output file types:
 </p>
+<ul><li> <b><a href="TIFF.html" title="TIFF">TIFF</a></b>, various compression options. <a href="16bit.html" title="16bit">16bit</a> and <i>8bit</i> depth supported.  <b>None</b> compression is supported by most other applications, <b>LZW</b> compression is common in Windows/Mac applications and <b>Deflate</b> compression is more common with Linux tools.
+</li><li> <b><a href="JPEG.html" title="JPEG">JPG</a></b>, lossy compression suitable for web/email.  <b>Quality</b> can vary from <i>0</i> (extremely low quality, small file size) and <i>100</i> (high quality, large file size).  A typical quality setting for web/email would be between <i>70</i> and <i>80</i>
+</li><li> <b><a href="PNG.html" title="PNG">PNG</a></b>, lossless compression. <a href="16bit.html" title="16bit">16bit</a> and <i>8bit</i> depth supported.
+</li></ul>
 <a name="HDR_merging" id="HDR_merging"></a><h3> <span class="mw-headline"> HDR merging </span></h3>
-<p>If <b>Merged and blended panorama</b> is enabled then hugin will identify likely <a href="Bracketing.html" title="Bracketing">bracketed</a> stacks of images, then create remapped <a href="HDR.html" title="HDR">HDR</a> images which are then blended with <a href="Enblend.html" title="Enblend">enblend</a>.
+<p>If <b>High dynamic range</b> is enabled then hugin will identify likely <a href="Bracketing.html" title="Bracketing">bracketed</a> stacks of images, then create remapped <a href="HDR.html" title="HDR">HDR</a> images which are then blended with <a href="Enblend.html" title="Enblend">enblend</a>.
 </p><p>Note that like the Exposure fusion option above, this generally only makes sense if the scene has been photographed multiple times using exposure bracketing, and the EV exposure values optimised in the <a href="Hugin_Exposure_tab.html" title="Hugin Exposure tab">hugin Exposure tab</a>.
-</p><p>Enable <b>Remapped merged stacks</b> to keep copies of the remapped HDR images as supplied to enblend.
-</p><p>Enable <b>Remapped images</b> to keep copies of each image remapped in linear colour space before merging to HDR.
+</p><p>Enable <b>High dynamic range merged stacks</b> from <b>Combined stacks</b> to keep copies of the remapped HDR images as supplied to enblend.
+</p><p>Enable <b>High dynamic range</b> from <b>Remapped Images</b> to keep copies of each image remapped in linear colour space before merging to HDR.
 </p><p>Click <b>Stitch now!</b> to generate output panoramas immediately.  Selecting <b>Save project and send to batch</b> adds the current project to the <a href="Hugin_Batch_Processor.html" title="Hugin Batch Processor">Hugin Batch Processor</a> stitching queue, note that the queue won't be processed unless this queue manager is running.
+</p><p>High dynamic range <b>Format</b> can be either:
 </p>
+<ul><li> <i>floating-point</i> <a href="TIFF.html" title="TIFF">TIFF</a>, various compression options.
+</li><li> <b><a href="OpenEXR.html" title="OpenEXR">EXR</a></b>, this is a high dynamic range format which is more compact than a high dynamic range TIFF.
+</li></ul>
 <a name="Processing" id="Processing"></a><h1> <span class="mw-headline"> Processing </span></h1>
 <p><a href="Nona.html" title="Nona">nona</a> is the default <b>Remapper</b> (stitching engine) supplied with <a href="Hugin.html" title="Hugin">hugin</a>, normally there is no need to
 change this or any of the options below.
@@ -139,25 +150,10 @@ much difference between the various options except that <b>Nearest Neighbour</b>
 very low quality.  The default of <b>Poly3 (bicubic)</b> is generally good for most purposes.
 </p><p><a href="Cropped_TIFF.html" title="Cropped TIFF">Cropped TIFF</a> files are smaller and more efficient because unused parts of the image are not stored in the file.  You should
 always <b>save cropped images</b> unless you need to open them in an image editor without <a href="Cropped_TIFF.html" title="Cropped TIFF">Cropped TIFF</a> support.
-</p><p><a href="Enblend.html" title="Enblend">enblend</a> is the default <b>Blender</b> for use with <a href="Hugin.html" title="Hugin">hugin</a>, normally there is no need to change this.  Additional command-line <b>Options</b> can be set here or in the <a href="Hugin_Preferences.html" title="Hugin Preferences">hugin Preferences</a> for new projects.
 </p><p><a href="Enfuse.html" title="Enfuse">enfuse</a> is the default for Exposure fusion, <b>Options</b> are similar to <a href="Enblend.html" title="Enblend">enblend</a>.
+</p><p>The default <b>HDR merger</b> is hugin_hdrmerge.
+</p><p><a href="Enblend.html" title="Enblend">enblend</a> is the default <b>Blender</b> for use with <a href="Hugin.html" title="Hugin">hugin</a>, normally there is no need to change this.  Additional command-line <b>Options</b> can be set here or in the <a href="Hugin_Preferences.html" title="Hugin Preferences">hugin Preferences</a> for new projects.
 </p>
-<a name="File_formats" id="File_formats"></a><h2> <span class="mw-headline"> File formats </span></h2>
-<p><b>Normal Output</b> can be in one several formats:
-</p>
-<ul><li> <b><a href="TIFF.html" title="TIFF">TIFF</a></b>, various compression options. <a href="16bit.html" title="16bit">16bit</a> and <i>8bit</i> depth supported.  <b>None</b> compression is supported by most other applications, <b>LZW</b> compression is common in Windows/Mac applications and <b>Deflate</b> compression is more common with Linux tools.
-</li><li> <b><a href="JPEG.html" title="JPEG">JPG</a></b>, lossy compression suitable for web/email.  <b>Quality</b> can vary from <i>0</i> (extremely low quality, small file size) and <i>100</i> (high quality, large file size).  A typical quality setting for web/email would be between <i>70</i> and <i>80</i>
-</li><li> <b><a href="PNG.html" title="PNG">PNG</a></b>, lossless compression. <a href="16bit.html" title="16bit">16bit</a> and <i>8bit</i> depth supported.
-</li></ul>
-<dl><dd><dl><dd><i>Note that some versions of enblend doesn't support all output formats; as an example some Linux enblend versions will probably fail unless you choose <b>TIFF</b>.</i>
-</dd></dl>
-</dd></dl>
-<p><b>HDR Output</b> can be either:
-</p>
-<ul><li> <i>floating-point</i> <a href="TIFF.html" title="TIFF">TIFF</a>, various compression options.
-</li><li> <b><a href="OpenEXR.html" title="OpenEXR">EXR</a></b>, this is a high dynamic range format which is more compact than a high dynamic range TIFF.
-</li></ul>
-
 
 
 

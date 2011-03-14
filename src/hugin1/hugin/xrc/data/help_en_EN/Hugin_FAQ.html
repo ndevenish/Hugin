@@ -4,7 +4,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta http-equiv="Content-Style-Type" content="text/css" />
 		<meta name="generator" content="MediaWiki 1.14.0" />
-		<meta name="keywords" content="Hugin FAQ,Autopano-sift-C Compiling OSX,Colour profile,Control points,Enblend,Enblend Compiling OSX,Equirectangular Projection,Gimp,Heads,Hugin,Hugin Compiling Fedora" />
+		<meta name="keywords" content="Hugin FAQ,Autopano-sift-C Compiling OSX,Bracketing,Camera response curve,Colour profile,Control points,Cpfind,Enblend,Enblend Compiling OSX,Equirectangular Projection,Gimp" />
 		
 		
 		
@@ -96,6 +96,32 @@
 <ul><li> the lack of Microsoft Visual C++ 2008 Redistributable Package (x86) that is necessary to run an OpenMP enabled version of Enblend.  Download here.
 </li><li> the lack of SSE2 support.  Use a non-SSE build of Enblend.  See also <a href="Hugin_FAQ.html#Enblend-Enfuse_OpenMP_SSE_GPU:_which_one_is_the_right_one_for_me.3F" title=""> types of Enblend-Enfuse binaries</a> or <a href="Hugin_FAQ.html#Selecting_right_version_of_enblend-enfuse_binary_for_Windows" title=""> types of Enblend-Enfuse binaries for Windows </a>
 </li></ul>
+<a name="Stitching_fails_on_Windows_.28syntax_error.29" id="Stitching_fails_on_Windows_.28syntax_error.29"></a><h3> <span class="mw-headline"> Stitching fails on Windows (syntax error)</span></h3>
+<p>If the stitching step fails on windows with a error message like
+</p>
+<pre>
+/usr/bin/sh: -c: line 1: syntax error near unexpected token `(6'
+/usr/bin/sh: -c: line 1: `echo Operating System: Windows 7 (6.1 )'
+make: *** [info] Error 258
+</pre>
+<p>or
+</p>
+<pre>
+Syntax error: &quot;(&quot; unexpected
+make: *** [info] Error 2
+</pre>
+<p>then you have probably an other shell (e.g. sh.exe or bash.exe) somewhere in your path. In this case remove the path to this executable from the PATH variable.
+</p>
+<a name="Hugin_Quits_.28Seg_Faults.29_at_Launch_.28Linux.29" id="Hugin_Quits_.28Seg_Faults.29_at_Launch_.28Linux.29"></a><h3> <span class="mw-headline"> Hugin Quits (Seg Faults) at Launch (Linux) </span></h3>
+<p>There may be many reasons why a program dies before it has even started.
+</p><p>One possibility is bad configuration or installation of the video drivers.  See this <a href="https://bugs.launchpad.net/hugin/+bug/679427" class="external text" title="https://bugs.launchpad.net/hugin/+bug/679427" rel="nofollow">ticket</a>.  To diagnose, try running glxgears.  On Ubuntu (the package is probably available on most Linux distributions):
+</p>
+<pre>
+sudo apt-get mesa-utils
+glxgears
+</pre>
+<p>If glxgears does not run on your system, Hugin will not run either.  See your Linux distribution's instruction on how to fix the video drivers.
+</p>
 <a name="Known_Limitations" id="Known_Limitations"></a><h2> <span class="mw-headline"> Known Limitations </span></h2>
 <a name="Linux:_Compiz" id="Linux:_Compiz"></a><h3> <span class="mw-headline"> Linux: Compiz </span></h3>
 <p>Linux: Compiz interferes with the <a href="Hugin_Fast_Preview_window.html" title="Hugin Fast Preview window">hugin Fast Preview window</a>. This is not a hugin specific issue. Research shows all direct rendered stuff will have various problems under Compiz: <a href="https://bugs.launchpad.net/ubuntu/+source/xorg-server/+bug/96991" class="external free" title="https://bugs.launchpad.net/ubuntu/+source/xorg-server/+bug/96991" rel="nofollow">https://bugs.launchpad.net/ubuntu/+source/xorg-server/+bug/96991</a>
@@ -162,8 +188,13 @@ TMPDIR=/media/disk-2/tmp hugin &amp;
 <p>Dragging the photos from iPhoto to Hugin works perfectly as long as there is no forward slash in the Name of the events in iPhoto (which translates to folders inside the iPhoto Database).
 </p>
 <a name="Fast_Preview" id="Fast_Preview"></a><h3> <span class="mw-headline"> Fast Preview </span></h3>
-<p>Why are there two preview windows, and which one should I use?  For most purposes, the newer Fast Preview window is faster.  However it is still under development and sometimes shows artefacts.  The old preview still does a logarithmic tone mapping of stacked
+<p>Why are there two preview windows, and which one should I use?
+</p><p>For most purposes, the newer Fast Preview window is faster.  However it is still under development and sometimes shows artefacts.  The old preview still does a logarithmic tone mapping of stacked
 images and is the only way to preview hdr or fused output.
+</p>
+<a name="Makefile_based_stitching_process" id="Makefile_based_stitching_process"></a><h3> <span class="mw-headline"> Makefile based stitching process </span></h3>
+<p>Can I restart a stitching process that was interrupted manually or by an error without starting everything from scratch?
+</p><p>Unfortunately the Hugin Makefile system only supports restarting if you stitch on the command-line.  The GUI tools always create new temporary .pto project and Makefile files every time they stitch, so this forces make to recreate everything for every stitch.
 </p>
 <a name="Control_Point_creation" id="Control_Point_creation"></a><h2> <span class="mw-headline"> Control Point creation </span></h2>
 <a name="How_do_I_add_control_points" id="How_do_I_add_control_points"></a><h3> <span class="mw-headline"> How do I add control points </span></h3>
@@ -202,6 +233,9 @@ be the same.
 <a name="Windows:_when_user_is_not_admin.2C_not_all_cp-creators_are_available_to_choose_from" id="Windows:_when_user_is_not_admin.2C_not_all_cp-creators_are_available_to_choose_from"></a><h3> <span class="mw-headline"> Windows: when user is not admin, not all cp-creators are available to choose from </span></h3>
 <p>Preferences are stored in the registry on Windows. Every users has their own. To have all the cp-creator pre-sets like the admin users, hit the "Load defaults" button on the Control Points tab in the Preferences dialog.
 </p>
+<a name="cpfind:_not_enough_control_points_generated" id="cpfind:_not_enough_control_points_generated"></a><h3> <span class="mw-headline"> cpfind: not enough control points generated </span></h3>
+<p>Cpfind is a recent addition to the Hugin suite and its parameters still require some fine tuning.  Unlike older CP generators used with Hugin, it depends on information passed in the PTO file.  Make sure that your input project file contains reasonable information about the used lens.  If you are using a fisheye or wide angle lens, try increasing the parameters --sieve1width --sieve1height --sieve1size.  A combinations that may work is "--sieve1width 50 --sieve1height 50 --sieve1size 300".  Sometimes also the option "--fullscale" might help.  Read the <a href="Cpfind.html" title="Cpfind">Cpfind</a> documentation.
+</p>
 <a name="Common_problems_when_creating_a_panorama" id="Common_problems_when_creating_a_panorama"></a><h2> <span class="mw-headline"> Common problems when creating a panorama </span></h2>
 <a name="The_Control_Points_tab_shows_my_photos_rotated" id="The_Control_Points_tab_shows_my_photos_rotated"></a><h3> <span class="mw-headline"> The Control Points tab shows my photos rotated </span></h3>
 <p>The rotation of photos in the <a href="Hugin_Control_Points_tab.html" title="Hugin Control Points tab">Hugin Control Points tab</a> isn't necessarily
@@ -218,9 +252,10 @@ from the <i>File</i> menu, this will import image settings and parameters
 from a previous project.
 </p>
 <a name="How_do_I_straighten_a_curved_horizon.3F" id="How_do_I_straighten_a_curved_horizon.3F"></a><h3> <span class="mw-headline"> How do I straighten a curved horizon? </span></h3>
-<p>If the panorama looks nice but the horizon is curved, there are two ways to improve the image and straighten the horizon. First, try optimizing the view by selecting "Positions and View" as the optimization mode and run the optimizer afterwards. By clicking "Calculate Field of View" in the "Stitcher" tab and displaying the preview window afterwards you can check if the image has been improved.
-</p><p>If it is still curved, you have to add vertical guide control points in the "Control Points" tab. Usually two <a href="Vertical_control_points.html" title="Vertical control points">vertical control points</a> are enough to straighten the horizon nicely. Often edges of buildings, poles or other man made structures provide good vertical lines. To add a vertical control point, switch to the control point editor and select the same image on both sides. Place a control point on the left image on the upper area of the vertical feature. In the right image, select a control point on the lower area of the features, and press the Add button. Once the new point has been added, its type should automatically switch to "vertical line". You might want to switch off the auto-add and auto-estimate options while doing this to avoid naggy dialogs while adding these guide points.
-</p><p>Two points that are roughly 90 degrees apart provide the best effect.
+<p>If the panorama looks nice but the horizon is curved, there are various ways to improve the image and straighten the horizon.
+</p><p>First, try clicking the <b>Straighten</b> button in the Hugin Fast preview window.
+</p><p>If this doesn't work then you can use the Move/Drag tab of the Hugin Fast preview window to visually straighten the panorama, drag the photos with the mouse, use the right mouse button to rotate.  One useful tip is to drag the panorama so a vertical feature is in the middle, rotate it so the feature lines up with the 'cross hair', then drag the panorama up or down until all the vertical features in the scene are vertical on the screen (holding down the shift key while dragging limits the motion to just up/down or left/right).
+</p><p>If it is still curved, you have to add vertical guide control points in the "Control Points" tab. Usually two <a href="Vertical_control_points.html" title="Vertical control points">vertical control points</a> are enough to straighten the horizon nicely. Often edges of buildings, poles or other man made structures provide good vertical lines. To add a vertical control point, switch to the control point editor and select the same image on both sides. Place a control point on the left image on the upper area of the vertical feature. In the right image, select a control point on the lower area of the features, and press the Add button. Once the new point has been added, its type should automatically switch to "vertical line". You might want to switch off the auto-add and auto-estimate options while doing this to avoid naggy dialogs while adding these guide points. Two points that are roughly 90 degrees apart provide the best effect.
 </p><p>See also the related perspective correction tutorials: hugin tutorial on perspective correction, <a href="Perspective_correction.html" title="Perspective correction">Perspective correction</a>, Leveling a Finished Panorama. While these are concerned with correction of the perspective in one image, the same technique can be used for
 leveling a panorama.
 </p>
@@ -232,8 +267,8 @@ leveling a panorama.
 </li><li> In the 'Fast Panorama Preview' window select 'Drag'. Left mouse drags the image, right mouse rotates the image.
 </li></ul>
 <a name="I_get_visible_bands_in_the_sky_and_other_flat_areas.2C_what_can_I_do.3F" id="I_get_visible_bands_in_the_sky_and_other_flat_areas.2C_what_can_I_do.3F"></a><h3> <span class="mw-headline"> I get visible bands in the sky and other flat areas, what can I do? </span></h3>
-<p>Make sure you are using <a href="Enblend.html" title="Enblend">enblend</a> to do the final image assembly, this will blend the overlap as much as is possible - Enable enblend by stitching the images <b>into a high quality TIFF file</b> in the <b>stitcher</b> tab.
-</p><p>If you still have problems, then you probably have to correct <a href="Vignetting.html" title="Vignetting">vignetting</a> in your images.  In the vignetting area of <b>camera and lens</b> tab, select <b>edit parameters...</b>.  Then select <b>division</b>, <b>polynomial</b> and <b>estimate polynomial</b> to calculate a vignetting correction curve for your camera combination - This will be applied to every photo in your project when you click <b>OK</b>.
+<p>If the banding looks like posterization then this is likely due to a error with estimation of the <a href="Camera_response_curve.html" title="Camera response curve">camera response curve</a>.  To get an accurate response curve, Hugin needs significant <a href="Vignetting.html" title="Vignetting">vignetting</a> and/or <a href="Bracketing.html" title="Bracketing">bracketed exposures</a>. The workaround is to <b>Reset...</b> the <b>Camera Response</b> in the <a href="Hugin_Camera_and_Lens_tab.html" title="Hugin Camera and Lens tab">Hugin Camera and Lens tab</a> and stitch again - <a href="Hugin.html" title="Hugin">Hugin</a> usually produces acceptable results for a simple panorama when the camera response parameters are all zero.
+</p><p>If there is a wave of light and dark patches in the sky this could be due to <a href="Vignetting.html" title="Vignetting">vignetting</a> in the source photos, you can deal with this by optimising <b>Vignetting (Vb, Vc, Vd)</b> in the <a href="Hugin_Exposure_tab.html" title="Hugin Exposure tab">Hugin Exposure tab</a>.  Another workaround is to increase the number of <a href="Enblend.html" title="Enblend">enblend</a> blending levels, try setting '-l 29' as the enblend <b>Command line options</b> in the <a href="Hugin_Stitcher_tab.html" title="Hugin Stitcher tab">Hugin Stitcher tab</a>.
 </p>
 <a name="My_photos_never_quite_line_up.2C_what_can_I_do.3F" id="My_photos_never_quite_line_up.2C_what_can_I_do.3F"></a><h3> <span class="mw-headline"> My photos never quite line up, what can I do? </span></h3>
 <p>It is normal to get little stitching <a href="Parallax.html" title="Parallax">parallax</a> errors if
@@ -250,8 +285,8 @@ line-up and which are all about the same distance from the camera.
 The <i>shear</i> tool is ideal for bending the lines and
 getting them to line up.
 </p>
-<a name="I_have_extraded_and_edited_cubefaces_and_want_to_merge_them_together_again._How_do_I_do_that_.3F" id="I_have_extraded_and_edited_cubefaces_and_want_to_merge_them_together_again._How_do_I_do_that_.3F"></a><h3> <span class="mw-headline"> I have extraded and edited cubefaces and want to merge them together again. How do I do that&nbsp;? </span></h3>
-<p>Set the <b>enblend options</b> to -l1 --fine-mask --no-optimize
+<a name="I_have_extracted_and_edited_cubefaces_and_want_to_merge_them_together_again._How_do_I_do_that_.3F" id="I_have_extracted_and_edited_cubefaces_and_want_to_merge_them_together_again._How_do_I_do_that_.3F"></a><h3> <span class="mw-headline"> I have extracted and edited cubefaces and want to merge them together again. How do I do that&nbsp;? </span></h3>
+<p>Manually enter the values for <a href="Yaw.html" title="Yaw">yaw</a> and <a href="Pitch.html" title="Pitch">pitch</a> for each of the photos.  When you stitch set the <b>enblend options</b> in the <a href="Hugin_Stitcher_tab.html" title="Hugin Stitcher tab">Hugin Stitcher tab</a> to -l1 --fine-mask --no-optimize
 </p>
 <a name="Can_I_stitch_my_HDR_images_.3F" id="Can_I_stitch_my_HDR_images_.3F"></a><h3> <span class="mw-headline"> Can I stitch my HDR images&nbsp;? </span></h3>
 <p>Yes. If you already have merged your HDR stacks, follow the <b>Normal</b> Output on the <b>Stitcher</b> tab (<b>HDR merging</b> is for stacks that will be merged by Hugin). In the <b>Processing</b> step the output will be an HDR in TIFF format.
