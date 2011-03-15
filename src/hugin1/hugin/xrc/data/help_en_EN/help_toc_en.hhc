@@ -320,6 +320,14 @@
 				<param name="Local" value="Stereographic_Projection.html">
 				</OBJECT>
 			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="Panini">
+				<param name="Local" value="Panini.html">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="Equirectangular Panini">
+				<param name="Local" value="Equirectangular_Panini.html">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
 				<param name="Name" value="General Panini projection">
 				<param name="Local" value="The_General_Panini_Projection.html">
 				</OBJECT>

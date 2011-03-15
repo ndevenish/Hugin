@@ -252,6 +252,11 @@
 		<param name="Local" value="Depth_of_Field.html">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Diffraction">
+		<param name="Name" value="Diffraction - PanoTools.org Wiki">
+		<param name="Local" value="Diffraction.html">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Distortion">
 		<param name="Name" value="Lens distortion">
 		<param name="Local" value="Lens_distortion.html">
@@ -297,6 +302,11 @@
 		<param name="Local" value="Enfuse.html">
 		<param name="Name" value="Enfuse reference manual">
 		<param name="Local" value="Enfuse_reference_manual.html">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Equirectangular Panini">
+		<param name="Name" value="Equirectangular Panini - PanoTools.org Wiki">
+		<param name="Local" value="Equirectangular_Panini.html">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Equirectangular projection">
@@ -507,9 +517,22 @@
 		<param name="Local" value="Hugin_Optimizer_tab.html">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Panini">
+		<param name="Name" value="Panini - PanoTools.org Wiki">
+		<param name="Local" value="Panini.html">
+		<param name="Name" value="Equirectangular Panini - PanoTools.org Wiki">
+		<param name="Local" value="Equirectangular_Panini.html">
+		<param name="Name" value="The General Panini Projection - PanoTools.org Wiki">
+		<param name="Local" value="The_General_Panini_Projection.html">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Panini projection">
 		<param name="Name" value="The General Panini Projection">
 		<param name="Local" value="The_General_Panini_Projection.html">
+		<param name="Name" value="Panini - PanoTools.org Wiki">
+		<param name="Local" value="Panini.html">
+		<param name="Name" value="Equirectangular Panini - PanoTools.org Wiki">
+		<param name="Local" value="Equirectangular_Panini.html">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Pano_modify">
@@ -624,6 +647,10 @@
 		<param name="Local" value="Stereographic_Projection.html">
 		<param name="Name" value="The General Panini Projection">
 		<param name="Local" value="The_General_Panini_Projection.html">
+		<param name="Name" value="Panini - PanoTools.org Wiki">
+		<param name="Local" value="Panini.html">
+		<param name="Name" value="Equirectangular Panini - PanoTools.org Wiki">
+		<param name="Local" value="Equirectangular_Panini.html">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="PSD">
