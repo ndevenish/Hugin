@@ -584,12 +584,7 @@ namespace vigra {
                     //                      size );
                     TIFFReadScanline(tiff, stripbuffer[i], scanline++, size);
             } else {
-                // mihal 27-10-2004: modified to use scanline interface
-                //const tsize_t size = TIFFStripSize(tiff);
-                const tsize_t size = TIFFScanlineSize(tiff);
-                // mihal 27-10-2004: modified to use scanline interface
-                //TIFFReadEncodedStrip( tiff, strip++, stripbuffer[0], size );
-                TIFFReadScanline( tiff, stripbuffer[0], scanline++, size);
+                TIFFReadScanline( tiff, stripbuffer[0], scanline++, 0);
             }
 
             // XXX handle bilevel images
