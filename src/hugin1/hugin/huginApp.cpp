@@ -82,9 +82,12 @@ wxString getDefaultProjectName(const Panorama & pano)
     if(t){
         if (pano.getNrOfImages() > 0) {
             wxFileName first_img(wxString(pano.getImage(0).getFilename().c_str(),HUGIN_CONV_FILENAME));
-            return first_img.GetPath();
+            if(first_img.GetDirCount()>0)
+                return first_img.GetPathWithSep()+first_img.GetDirs().Last();
+            else
+                return first_img.GetPathWithSep()+wxT("pano");
         } else {
-            return wxString(wxT("pano"));
+            return wxT("pano");
         }
     }else{
         if (pano.getNrOfImages() > 0) {
@@ -93,7 +96,7 @@ wxString getDefaultProjectName(const Panorama & pano)
             wxFileName last_img(wxString(pano.getImage(pano.getNrOfImages()-1).getFilename().c_str(),HUGIN_CONV_FILENAME));
             return first_img.GetFullPath() + wxT("-") + last_img.GetName();
         } else {
-            return wxString(wxT("pano"));
+            return wxT("pano");
         }
     }
 }
