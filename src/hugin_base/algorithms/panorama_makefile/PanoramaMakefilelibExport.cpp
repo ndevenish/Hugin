@@ -256,6 +256,7 @@ bool PanoramaMakefilelibExport::createItems()
     // set blender specific settings
     mf::Variable* venblendopts = nullvar;
     mf::Variable* venblendldrcomp = nullvar;
+    mf::Variable* venblendexposurecomp = nullvar;
     mf::Variable* venblendhdrcomp = nullvar;
 
     if(opts.blendMode == PanoramaOptions::ENBLEND_BLEND)
@@ -288,6 +289,17 @@ bool PanoramaMakefilelibExport::createItems()
         }
 
         {
+            makefile::string val;
+            if (opts.outputImageType == "tif" && opts.outputLayersCompression.size() != 0)
+                val = "--compression=" + opts.outputLayersCompression;
+            else if (opts.outputImageType == "jpg")
+                val = "--compression=LZW ";
+
+            venblendexposurecomp = mgr.own(new mf::Variable("ENBLEND_EXPOSURE_COMP", val, Makefile::NONE));
+            venblendexposurecomp->getDef().add();
+       }
+
+       {
             makefile::string val;
             if (opts.outputImageTypeHDR == "tif" && opts.outputImageTypeHDRCompression.size() != 0) {
                 val += "--compression=" + opts.outputImageTypeHDRCompression;
@@ -886,7 +898,9 @@ bool PanoramaMakefilelibExport::createItems()
             rule = mgr.own(new Rule()); rule->add();
             rule->addTarget(ldrexp_stacks[i]);
             rule->addPrereq(ldrexp_stacks_input[i]);
-            rule->addCommand(enblendcmd + ldrexp_stacks_shell[i]->getRef() +" "+ ldrexp_stacks_input_shell[i]->getRef());
+            rule->addCommand(venblend->getRef() +" "+ venblendexposurecomp->getRef() + " " +
+                venblendopts->getRef() + " -o " + ldrexp_stacks_shell[i]->getRef() + " " + 
+                ldrexp_stacks_input_shell[i]->getRef());
             rule->addCommand(exifcmd + ldrexp_stacks_shell[i]->getRef());
         }
 
