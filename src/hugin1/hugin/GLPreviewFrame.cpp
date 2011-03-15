@@ -1360,6 +1360,8 @@ void GLPreviewFrame::OnNumTransform(wxCommandEvent & e)
     int index = m_DragModeChoice->GetSelection();
     switch (index) {
         case 0: //normal
+        case 1: //normal, individual
+            //@TODO limit numeric transform to selected images
             text = XRCCTRL(*this,"input_yaw",wxTextCtrl)->GetValue();
             if(!stringToDouble(std::string(text.mb_str(wxConvLocal)), y))
             {
@@ -1385,7 +1387,9 @@ void GLPreviewFrame::OnNumTransform(wxCommandEvent & e)
                     new PT::RotatePanoCmd(m_pano, y, p, r)
                 );
             break;
-        case 1: //mosaic
+        case 2: //mosaic
+        case 3: //mosaic, individual
+            //@TODO limit numeric transform to selected images
             text = XRCCTRL(*this,"input_x",wxTextCtrl)->GetValue();
             if(!stringToDouble(std::string(text.mb_str(wxConvLocal)), x))
             {
