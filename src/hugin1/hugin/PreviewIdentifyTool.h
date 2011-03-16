@@ -63,6 +63,8 @@ public:
     
     void setConstantOn(bool constant_on_in);
     
+    void UpdateWithNewImageSet(std::set<unsigned int> new_image_set);
+    void ForceRedraw();
 private:
     /// Generate a colour given how many colours we need and an index.
     void HighlightColour(unsigned int index, unsigned int count,

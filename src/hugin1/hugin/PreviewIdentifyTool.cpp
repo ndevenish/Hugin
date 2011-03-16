@@ -215,8 +215,7 @@ void PreviewIdentifyTool::StopUpdating() {
     }
     image_set.clear();
     stopUpdating = true;
-    helper->GetVisualizationStatePtr()->ForceRequireRedraw();
-    helper->GetVisualizationStatePtr()->Redraw();
+    ForceRedraw();
 }
 
 void PreviewIdentifyTool::ContinueUpdating() {
@@ -298,59 +297,16 @@ void PreviewIdentifyTool::ImagesUnderMouseChangedEvent()
     if (stopUpdating) {
         return;
     }
-        
-    // If we are currently showing indicators for some of the images, we want
-    // to work out which ones are not in the new set, so we can set their
-    // buttons back to the system colour.
-    std::set<unsigned int> new_image_set = helper->GetImageNumbersUnderMouse();
-    std::vector<unsigned int>::iterator end;
-    {
-        std::vector<unsigned int> difference(image_set.size());
-        end = difference.begin();
-        end = std::set_difference (image_set.begin(), image_set.end(),
-                                   new_image_set.begin(), new_image_set.end(),
-                                   difference.begin());
-        DEBUG_ASSERT(end >= difference.begin() && end <= difference.end());
-        if (difference.begin() != end)
-        {
-            std::vector<unsigned int>::iterator iterator;
-            for (iterator = difference.begin(); iterator != end; iterator++)
-            {
-                DEBUG_ASSERT(*iterator < helper->GetPanoramaPtr()->getNrOfImages());
-                // reset this button to its default system colour.
-                preview_frame->SetImageButtonColour(*iterator, 0, 0, 0);
-                // remove the notification
-                helper->DoNotNotifyMeBeforeDrawing(*iterator, this);
-            }
-        }
-    }
-    // now request to be notified when drawing the new ones.
-    {
-        std::vector<unsigned int> difference(new_image_set.size());
-        end = difference.begin();
-        end = std::set_difference (new_image_set.begin(), new_image_set.end(),
-                                   image_set.begin(), image_set.end(),
-                                   difference.begin());
-        DEBUG_ASSERT(end >= difference.begin() && end <= difference.end());
-        if (difference.begin() != end)
-        {
-            std::vector<unsigned int>::iterator iterator;
-            for (iterator = difference.begin(); iterator != end; iterator++)
-            {
-                DEBUG_ASSERT(*iterator < helper->GetPanoramaPtr()->getNrOfImages());
-                // get notification of when this is about to be drawn.
-                helper->NotifyMeBeforeDrawing(*iterator, this);
-            }
-        }
-    }
-    // remember the new set.
-    image_set.swap(new_image_set);
     
-    // Redraw with new indicators. Since the indicators aren't part of the
-    // panorama and none of it is likely to change, we have to persuade the
-    // viewstate that a redraw is required.
-    helper->GetVisualizationStatePtr()->ForceRequireRedraw();
-    helper->GetVisualizationStatePtr()->Redraw();
+    std::set<unsigned int> new_image_set = helper->GetImageNumbersUnderMouse();
+    
+    //UpdateIdentifyTools() will unrequest notification for the old indicators,
+    //reset the button colors, request notification for the new ones, swap in
+    //image_set with new_image_set, and force a redraw for all three
+    //PreviewIdentifyTool objects in GLPreviewFrame. This has the effect of 
+    //displaying the indicators in both the preview and overview when you move
+    //your mouse over either when the Identify button is toggled on. 
+    preview_frame->UpdateIdentifyTools(new_image_set);
     
     // if there is exactly two images, tell the user they can click to edit CPs.
     if (image_set.size() == 2)
@@ -482,8 +438,7 @@ void PreviewIdentifyTool::ShowImageNumber(unsigned int image)
         // we want notification of when it is drawn so we can delay drawing.
         helper->NotifyMeBeforeDrawing(image, this);
         //  now we want a redraw.
-        helper->GetVisualizationStatePtr()->ForceRequireRedraw();
-        helper->GetVisualizationStatePtr()->Redraw();
+        ForceRedraw();
     }
     mouse_over_image = image;
     mouse_is_over_button = true;
@@ -498,8 +453,7 @@ void PreviewIdentifyTool::StopShowingImages()
         helper->DoNotNotifyMeBeforeDrawing(mouse_over_image, this);
         image_set.erase(mouse_over_image);
         // now redraw without the indicator.
-        helper->GetVisualizationStatePtr()->ForceRequireRedraw();
-        helper->GetVisualizationStatePtr()->Redraw();
+        ForceRedraw();
         mouse_is_over_button = false;
     }    
 }
@@ -581,3 +535,61 @@ void PreviewIdentifyTool::MouseButtonEvent(wxMouseEvent & e)
 
 }
 
+void PreviewIdentifyTool::UpdateWithNewImageSet(std::set<unsigned int> new_image_set)
+{
+    // If we are currently showing indicators for some of the images, we want
+    // to work out which ones are not in the new set, so we can set their
+    // buttons back to the system colour.
+    std::vector<unsigned int>::iterator end;
+    {
+        std::vector<unsigned int> difference(image_set.size());
+        end = difference.begin();
+        end = std::set_difference (image_set.begin(), image_set.end(),
+                                   new_image_set.begin(), new_image_set.end(),
+                                   difference.begin());
+        DEBUG_ASSERT(end >= difference.begin() && end <= difference.end());
+        if (difference.begin() != end)
+        {
+            std::vector<unsigned int>::iterator iterator;
+            for (iterator = difference.begin(); iterator != end; iterator++)
+            {
+                DEBUG_ASSERT(*iterator < helper->GetPanoramaPtr()->getNrOfImages());
+                // reset this button to its default system colour.
+                preview_frame->SetImageButtonColour(*iterator, 0, 0, 0);
+                // remove the notification
+                helper->DoNotNotifyMeBeforeDrawing(*iterator, this);
+            }
+        }
+    }
+
+    // now request to be notified when drawing the new ones.
+    std::vector<unsigned int> difference(new_image_set.size());
+    end = difference.begin();
+    end = std::set_difference (new_image_set.begin(), new_image_set.end(),
+                               image_set.begin(), image_set.end(),
+                               difference.begin());
+    DEBUG_ASSERT(end >= difference.begin() && end <= difference.end());
+    if (difference.begin() != end)
+    {
+        std::vector<unsigned int>::iterator iterator;
+        for (iterator = difference.begin(); iterator != end; iterator++)
+        {
+            DEBUG_ASSERT(*iterator < helper->GetPanoramaPtr()->getNrOfImages());
+            // get notification of when this is about to be drawn.
+            helper->NotifyMeBeforeDrawing(*iterator, this);
+        }
+    }
+    // remember the new set.
+    image_set.swap(new_image_set);
+
+    // Redraw with new indicators. Since the indicators aren't part of the
+    // panorama and none of it is likely to change, we have to persuade the
+    // viewstate that a redraw is required.
+    ForceRedraw();
+}
+
+void PreviewIdentifyTool::ForceRedraw()
+{
+    helper->GetVisualizationStatePtr()->ForceRequireRedraw();
+    helper->GetVisualizationStatePtr()->Redraw();
+}
