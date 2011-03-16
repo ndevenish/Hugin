@@ -2597,3 +2597,9 @@ void GLPreviewFrame::OnHideProjectionHints(wxCommandEvent &e)
     cfg->Flush();
     e.Skip();
 };
+
+void GLPreviewFrame::UpdateIdentifyTools(std::set<unsigned int> new_image_set){
+    identify_tool->UpdateWithNewImageSet(new_image_set);
+    panosphere_overview_identify_tool->UpdateWithNewImageSet(new_image_set);
+    plane_overview_identify_tool->UpdateWithNewImageSet(new_image_set);
+}
