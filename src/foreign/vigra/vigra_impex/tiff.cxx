@@ -404,7 +404,6 @@ namespace vigra {
                                     " Only SGILOG compression is supported for"
                                     " LogLuv TIFF."
                     );
-                // NOTE: only float is supported
                 TIFFSetField(tiff, TIFFTAG_SGILOGDATAFMT, SGILOGDATAFMT_FLOAT);
                 break;
             }
@@ -472,6 +471,12 @@ namespace vigra {
             // get fillorder
             if ( !TIFFGetField( tiff, TIFFTAG_FILLORDER, &fillorder ) )
                 fillorder = FILLORDER_MSB2LSB;
+        }
+
+        // make sure the LogLuv has correct pixeltype because only float is supported
+        if (photometric == PHOTOMETRIC_LOGLUV) {
+            pixeltype = "FLOAT";
+            samples_per_pixel = 3;
         }
 
         // other fields
@@ -637,10 +642,6 @@ namespace vigra {
                     *buf++ = res.green();
                     *buf++ = res.blue();
                 }
-
-                // make sure the pixeltype and samples_per_pixel are correct
-                pixeltype = "FLOAT";
-                samples_per_pixel = 3;
             }
         }
     }
