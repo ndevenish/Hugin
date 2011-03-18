@@ -65,6 +65,7 @@
 #endif
 
 #include "vigra/sized_int.hxx"
+#include "vigra/colorconversions.hxx"
 #include "error.hxx"
 #include "tiff.hxx"
 #include <iostream>
@@ -369,25 +370,44 @@ namespace vigra {
                         " A suitable default was not found." );
 
         // check photometric preconditions
-        if ( photometric == PHOTOMETRIC_MINISWHITE ||
-                                photometric == PHOTOMETRIC_MINISBLACK ||
-             photometric == PHOTOMETRIC_PALETTE )
+        switch ( photometric )
         {
-            if ( samples_per_pixel - extra_samples_per_pixel != 1 )
+            case PHOTOMETRIC_MINISWHITE:
+            case PHOTOMETRIC_MINISBLACK:
+            case PHOTOMETRIC_PALETTE:
+            {
+                if ( samples_per_pixel - extra_samples_per_pixel != 1 )
                 vigra_fail("TIFFDecoderImpl::init():"
                                 " Photometric tag does not fit the number of"
                                 " samples per pixel." );
-        }
-        if ( photometric == PHOTOMETRIC_RGB )
-        {
-            if ( samples_per_pixel > 3 && extra_samples_per_pixel == 0 ) {
-                // file probably lacks the extra_samples tag
-                extra_samples_per_pixel = samples_per_pixel - 3;
+                break;
             }
-            if ( samples_per_pixel - extra_samples_per_pixel != 3 )
-                vigra_fail("TIFFDecoderImpl::init():"
-                                " Photometric tag does not fit the number of"
-                                " samples per pixel." );
+            case PHOTOMETRIC_RGB:
+            {
+                if ( samples_per_pixel > 3 && extra_samples_per_pixel == 0 ) {
+                    // file probably lacks the extra_samples tag
+                    extra_samples_per_pixel = samples_per_pixel - 3;
+                }
+                if ( samples_per_pixel - extra_samples_per_pixel != 3 )
+                    vigra_fail("TIFFDecoderImpl::init():"
+                                    " Photometric tag does not fit the number of"
+                                    " samples per pixel." );
+                break;
+            }
+            case PHOTOMETRIC_LOGL:
+            case PHOTOMETRIC_LOGLUV:
+            {
+                uint16 tiffcomp;
+                TIFFGetFieldDefaulted( tiff, TIFFTAG_COMPRESSION, &tiffcomp );
+                if (tiffcomp != COMPRESSION_SGILOG && tiffcomp != COMPRESSION_SGILOG24)
+                    vigra_fail("TIFFDecoderImpl::init():"
+                                    " Only SGILOG compression is supported for"
+                                    " LogLuv TIFF."
+                    );
+                // NOTE: only float is supported
+                TIFFSetField(tiff, TIFFTAG_SGILOGDATAFMT, SGILOGDATAFMT_FLOAT);
+                break;
+            }
         }
 
         // get planarconfig
@@ -605,6 +625,22 @@ namespace vigra {
                     x = 0xff - x;
                     *buf++ = x;
                 }
+            }
+
+            // convert LogLuv images to RGB
+            if (photometric == PHOTOMETRIC_LOGLUV) {
+                float * buf = static_cast< float * > (stripbuffer[0]);
+                Luv2RGBPrimeFunctor<float> func;
+                for ( unsigned int i = 0; i < width; ++i ) {
+                    RGBValue<float> res = func(buf);
+                    *buf++ = res.red();
+                    *buf++ = res.green();
+                    *buf++ = res.blue();
+                }
+
+                // make sure the pixeltype and samples_per_pixel are correct
+                pixeltype = "FLOAT";
+                samples_per_pixel = 3;
             }
         }
     }
