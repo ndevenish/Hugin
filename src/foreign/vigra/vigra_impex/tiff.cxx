@@ -631,18 +631,6 @@ namespace vigra {
                     *buf++ = x;
                 }
             }
-
-            // convert LogLuv images to RGB
-            if (photometric == PHOTOMETRIC_LOGLUV) {
-                float * buf = static_cast< float * > (stripbuffer[0]);
-                Luv2RGBPrimeFunctor<float> func;
-                for ( unsigned int i = 0; i < width; ++i ) {
-                    RGBValue<float> res = func(buf);
-                    *buf++ = res.red();
-                    *buf++ = res.green();
-                    *buf++ = res.blue();
-                }
-            }
         }
     }
 
