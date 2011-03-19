@@ -65,7 +65,6 @@
 #endif
 
 #include "vigra/sized_int.hxx"
-#include "vigra/colorconversions.hxx"
 #include "error.hxx"
 #include "tiff.hxx"
 #include <iostream>
