@@ -1,4 +1,3 @@
 # Install Files
-INSTALL(FILES nsis7z.dll
-  nsisunz.dll
+INSTALL(FILES AdvUninstLog.nsh
   DESTINATION ${CMAKE_INSTALL_PREFIX}/../Plugins)

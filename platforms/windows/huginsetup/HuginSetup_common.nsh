@@ -2,10 +2,17 @@
 !define VERSION 0.2.11.0
 ; Author: thePanz (thepanz@gmail.com)
 
+; uninstaller definitions
+!define APP_NAME "Hugin"
+!define INSTDIR_REG_ROOT "HKLM"
+!define INSTDIR_REG_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APP_NAME}"
+
 ;--------------------------------
 ;Include Modern UI
   !include "MUI2.nsh"
-  
+;Include the Uninstall log header
+  !include "Plugins\AdvUninstLog.nsh"
+
   !addplugindir "./Plugins"
 ;--------------------------------
 ;General  
@@ -24,7 +31,8 @@
   BrandingText "Hugin Setup"
   
   OutFile "HuginSetup_${HUGIN_VERSION}-${HUGIN_VERSION_BUILD}_${ARCH_TYPE}bit.exe"
-  SetCompressor lzma
+  SetCompressor /SOLID lzma
+  SetCompressorDictSize 128
     
   ;Get installation folder from registry if available
   ;InstallDirRegKey HKCU "Software\Modern UI Test" ""
@@ -57,6 +65,9 @@
   !define MUI_FINISHPAGE_RUN_NOTCHECKED
   !define MUI_FINISHPAGE_LINK $(TEXT_FinishPageLink)
   !define MUI_FINISHPAGE_LINK_LOCATION "http://hugin.sourceforge.net"  
+  
+  ;uninstaller mode
+  !insertmacro INTERACTIVE_UNINSTALL
 ;--------------------------------
 ;Pages
   ;Show all languages, despite user's codepage
@@ -97,26 +108,27 @@
 Section "!Hugin ${HUGIN_VERSION}-${HUGIN_VERSION_BUILD}" SecHugin
   SectionIn RO
   AddSize ${HUGIN_SIZE}
-  SetOutPath "$INSTDIR"
   
   Call CleanRegistryOnInstallIfSelected
 
-  SetCompress off
+  ;SetCompress off
   DetailPrint $(TEXT_HuginExtracting)
   SetDetailsPrint listonly
+   
+  SetOutPath "$INSTDIR"
+  !insertmacro UNINSTALL.LOG_OPEN_INSTALL
+  CreateDirectory "$INSTDIR\bin"
+  CreateDirectory "$INSTDIR\share"
+  !insertmacro UNINSTALL.LOG_CLOSE_INSTALL
   
   SetDetailsPrint both
-  File ${HUGIN_BIN_ARCHIVE}
-  File ${HUGIN_SHARE_ARCHIVE}
-  SetCompress auto
-  
-  ; Details mode - unpacking promt generated from second param, use
-  ; %s to insert unpack details like "10% (5 / 10 MB)"
-  Nsis7z::ExtractWithDetails ${HUGIN_BIN_ARCHIVE} $(TEXT_HuginExtractDetails)
-  Nsis7z::ExtractWithDetails ${HUGIN_SHARE_ARCHIVE} $(TEXT_HuginDocExtractDetails)
-  
-  Delete "$OUTDIR\${HUGIN_BIN_ARCHIVE}" 
-  Delete "$OUTDIR\${HUGIN_SHARE_ARCHIVE}"
+  SetOutPath "$INSTDIR\bin"
+  !insertmacro UNINSTALL.LOG_OPEN_INSTALL
+  File /r "FILES\bin\*.*"      ;bin folder
+  !insertmacro UNINSTALL.LOG_CLOSE_INSTALL
+  SetOutPath "$INSTDIR\share"
+  !insertmacro UNINSTALL.LOG_OPEN_INSTALL
+  File /r "FILES\share\*.*"    ;share folder
   
   ; Call AddCPAutoPanoSiftCStacked
   ;Call AddCPAlignImageStack
@@ -126,10 +138,9 @@ Section "!Hugin ${HUGIN_VERSION}-${HUGIN_VERSION_BUILD}" SecHugin
   WriteRegStr HKCR "HuginProject" "" "Hugin PTO"
   WriteRegStr HKCR "HuginProject\DefaultIcon" "" "$INSTDIR\share\hugin\xrc\data\pto_icon.ico,0"
   
-  Call WriteUninstallRegistry
+  !insertmacro UNINSTALL.LOG_CLOSE_INSTALL
   
-  ;Create uninstaller
-  WriteUninstaller "$INSTDIR\Uninstall.exe"
+  Call WriteUninstallRegistry
 SectionEnd
 
 Section /o $(TEXT_SecCleanRegistrySettings) SecCleanRegistrySettings
@@ -138,23 +149,23 @@ SectionEnd
 
 ; Hugin documentation section
 Section $(TEXT_SecHuginDoc) SecHuginDoc
-  AddSize ${HUGIN_DOC_SIZE}
   SetOutPath "$INSTDIR"
+  !insertmacro UNINSTALL.LOG_OPEN_INSTALL
+  CreateDirectory "$INSTDIR\doc"
+  !insertmacro UNINSTALL.LOG_CLOSE_INSTALL
+  
+  AddSize ${HUGIN_DOC_SIZE}
 
-  SetCompress off
   DetailPrint $(TEXT_HuginDocExtracting)
   SetDetailsPrint listonly
   
   SetDetailsPrint both
-  File ${HUGIN_DOC_ARCHIVE}
-  SetCompress auto
   
-  ; Details mode - unpacking promt generated from second param, use
-  ; %s to insert unpack details like "10% (5 / 10 MB)"
-  Nsis7z::ExtractWithDetails ${HUGIN_DOC_ARCHIVE} $(TEXT_HuginDocExtractDetails)
-  
-  Delete "$OUTDIR\${HUGIN_DOC_ARCHIVE}"   
-  
+  SetOutPath "$INSTDIR\doc"
+  !insertmacro UNINSTALL.LOG_OPEN_INSTALL 
+  File /r "FILES\doc\*.*"     ;doc folder
+    
+  !insertmacro UNINSTALL.LOG_CLOSE_INSTALL
   ; TODO: Add Documentation menu links
 SectionEnd
 
@@ -162,16 +173,16 @@ SectionGroup /e $(TEXT_SecShortcuts) SecShortcuts
   Section $(TEXT_SecShortcutPrograms) SecShortcutPrograms
     AddSize 1
     ; SetShellVarContext all
-    CreateDirectory "$SMPROGRAMS\Hugin"
-    CreateShortCut "$SMPROGRAMS\Hugin\Uninstall.lnk" "$INSTDIR\uninstall.exe"
-    CreateShortCut "$SMPROGRAMS\Hugin\Hugin.lnk" "$INSTDIR\bin\hugin.exe"
-	CreateShortCut "$SMPROGRAMS\Hugin\Enblend Droplet.lnk" "$INSTDIR\bin\enblend_droplet.bat"
-	CreateShortCut "$SMPROGRAMS\Hugin\Enblend Droplet 360.lnk" "$INSTDIR\bin\enblend_droplet_360.bat"
-	CreateShortCut "$SMPROGRAMS\Hugin\Enfuse Droplet.lnk" "$INSTDIR\bin\enfuse_droplet.bat"
-	CreateShortCut "$SMPROGRAMS\Hugin\Enfuse Droplet 360.lnk" "$INSTDIR\bin\enfuse_droplet_360.bat"
-	CreateShortCut "$SMPROGRAMS\Hugin\Enfuse Align Droplet.lnk" "$INSTDIR\bin\enfuse_align_droplet.bat"
-	CreateShortCut "$SMPROGRAMS\Hugin\Enfuse Auto Align Droplet.lnk" "$INSTDIR\bin\enfuse_auto_align_droplet.bat"
-	CreateShortCut "$SMPROGRAMS\Hugin\Enfuse Auto Droplet.lnk" "$INSTDIR\bin\enfuse_auto_droplet.bat"
+    CreateDirectory "$SMPROGRAMS\${APP_NAME}"
+    CreateShortCut "$SMPROGRAMS\${APP_NAME}\Uninstall.lnk" "${UNINST_EXE}"
+    CreateShortCut "$SMPROGRAMS\${APP_NAME}\Hugin.lnk" "$INSTDIR\bin\hugin.exe"
+	CreateShortCut "$SMPROGRAMS\${APP_NAME}\Enblend Droplet.lnk" "$INSTDIR\bin\enblend_droplet.bat"
+	CreateShortCut "$SMPROGRAMS\${APP_NAME}\Enblend Droplet 360.lnk" "$INSTDIR\bin\enblend_droplet_360.bat"
+	CreateShortCut "$SMPROGRAMS\${APP_NAME}\Enfuse Droplet.lnk" "$INSTDIR\bin\enfuse_droplet.bat"
+	CreateShortCut "$SMPROGRAMS\${APP_NAME}\Enfuse Droplet 360.lnk" "$INSTDIR\bin\enfuse_droplet_360.bat"
+	CreateShortCut "$SMPROGRAMS\${APP_NAME}\Enfuse Align Droplet.lnk" "$INSTDIR\bin\enfuse_align_droplet.bat"
+	CreateShortCut "$SMPROGRAMS\${APP_NAME}\Enfuse Auto Align Droplet.lnk" "$INSTDIR\bin\enfuse_auto_align_droplet.bat"
+	CreateShortCut "$SMPROGRAMS\${APP_NAME}\Enfuse Auto Droplet.lnk" "$INSTDIR\bin\enfuse_auto_droplet.bat"
   SectionEnd
   
   Section $(TEXT_SecShortcutDesktop) SecShortcutDesktop
@@ -218,20 +229,28 @@ SectionGroupEnd
 ;Uninstaller Section
 
 Section "un.Uninstall Hugin"
+  !insertmacro UNINSTALL.LOG_BEGIN_UNINSTALL
   SectionIn RO
   AddSize ${HUGIN_SIZE}
-  Delete "$INSTDIR\Uninstall.exe"
-
-  RMDir /r "$INSTDIR"
+  !insertmacro UNINSTALL.LOG_UNINSTALL "$INSTDIR"
   ; SetShellVarContext all  
-  Delete "$SMPROGRAMS\Hugin\Hugin.lnk"
-  Delete "$SMPROGRAMS\Hugin\Uninstall.lnk"
-  RMDir /r "$SMPROGRAMS\Hugin"
+  Delete "$SMPROGRAMS\${APP_NAME}\Hugin.lnk"
+  Delete "$SMPROGRAMS\${APP_NAME}\Uninstall.lnk"
+  Delete "$SMPROGRAMS\${APP_NAME}\Enblend Droplet.lnk"
+  Delete "$SMPROGRAMS\${APP_NAME}\Enblend Droplet 360.lnk"
+  Delete "$SMPROGRAMS\${APP_NAME}\Enfuse Droplet.lnk"
+  Delete "$SMPROGRAMS\${APP_NAME}\Enfuse Droplet 360.lnk"
+  Delete "$SMPROGRAMS\${APP_NAME}\Enfuse Align Droplet.lnk"
+  Delete "$SMPROGRAMS\${APP_NAME}\Enfuse Auto Align Droplet.lnk"
+  Delete "$SMPROGRAMS\${APP_NAME}\Enfuse Auto Droplet.lnk"
+  RMDir "$SMPROGRAMS\${APP_NAME}"
+
+  !insertmacro UNINSTALL.LOG_END_UNINSTALL
 
   ;Delete Desktop shortcut (if exists)
   Delete "$DESKTOP\Hugin.lnk"
    
-  ;Delete Uninstaller And Unistall Registry Entries
+  ;Delete Uninstaller And Uninstall Registry Entries
   DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Hugin" 
   
   ;Delete .pto file assiciation
@@ -284,6 +303,16 @@ Function .onInit
 
   !insertmacro MUI_LANGDLL_DISPLAY
   
+  ;prepare uninstall log
+  !insertmacro UNINSTALL.LOG_PREPARE_INSTALL
+  
+FunctionEnd
+
+Function .onInstSuccess
+
+  ;create log file for use with uninstaller
+  !insertmacro UNINSTALL.LOG_UPDATE_INSTALL
+
 FunctionEnd
 
 ; License skipping functions
