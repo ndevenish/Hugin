@@ -17,11 +17,6 @@ h1, h2, h3, h4, h5
     padding-left: 1em;
     right: 128px;
 }
-h1
-{
-    font-size: 3em;
-    padding-left: 0em;
-}
 p.alert a:link, p.alert a:visited { color: #FFF; }
 p.alert a:hover, p.alert a:focus { color: #000; background: #FFF; }
 a:link { color: #058; }
