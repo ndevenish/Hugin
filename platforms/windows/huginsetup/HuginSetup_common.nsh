@@ -16,13 +16,7 @@
   !addplugindir "./Plugins"
 ;--------------------------------
 ;General  
-  !define HUGIN_BIN_ARCHIVE "hugin_bin${ARCH_TYPE}.7z"
-  !define HUGIN_SHARE_ARCHIVE "hugin_share${ARCH_TYPE}.7z"
-  !define HUGIN_SIZE 127000 ; .7z file - difference
   
-  !define HUGIN_DOC_ARCHIVE "hugin_doc.7z"
-  !define HUGIN_DOC_SIZE 400 ; .7z file - difference
-
   ; General CP Disclaimer
   ;!define CP_LICENSE_DISCLAIMER $(License_ControlPointDisclaimer)
   
@@ -33,9 +27,6 @@
   OutFile "HuginSetup_${HUGIN_VERSION}-${HUGIN_VERSION_BUILD}_${ARCH_TYPE}bit.exe"
   SetCompressor /SOLID lzma
   SetCompressorDictSize 128
-    
-  ;Get installation folder from registry if available
-  ;InstallDirRegKey HKCU "Software\Modern UI Test" ""
 
   ;Request application privileges for Windows Vista
   RequestExecutionLevel admin
@@ -94,8 +85,6 @@
   !insertmacro MUI_UNPAGE_INSTFILES
   !insertmacro MUI_UNPAGE_FINISH  
   
-
- 
 ;--------------------------------
 ; Include Functions
   !include "Functions\RegistryFunctions.nsh"
@@ -107,11 +96,9 @@
 ; Core Hugin files
 Section "!Hugin ${HUGIN_VERSION}-${HUGIN_VERSION_BUILD}" SecHugin
   SectionIn RO
-  AddSize ${HUGIN_SIZE}
   
   Call CleanRegistryOnInstallIfSelected
 
-  ;SetCompress off
   DetailPrint $(TEXT_HuginExtracting)
   SetDetailsPrint listonly
    
@@ -153,8 +140,6 @@ Section $(TEXT_SecHuginDoc) SecHuginDoc
   !insertmacro UNINSTALL.LOG_OPEN_INSTALL
   CreateDirectory "$INSTDIR\doc"
   !insertmacro UNINSTALL.LOG_CLOSE_INSTALL
-  
-  AddSize ${HUGIN_DOC_SIZE}
 
   DetailPrint $(TEXT_HuginDocExtracting)
   SetDetailsPrint listonly
@@ -166,7 +151,6 @@ Section $(TEXT_SecHuginDoc) SecHuginDoc
   File /r "FILES\doc\*.*"     ;doc folder
     
   !insertmacro UNINSTALL.LOG_CLOSE_INSTALL
-  ; TODO: Add Documentation menu links
 SectionEnd
 
 SectionGroup /e $(TEXT_SecShortcuts) SecShortcuts
@@ -231,7 +215,6 @@ SectionGroupEnd
 Section "un.Uninstall Hugin"
   !insertmacro UNINSTALL.LOG_BEGIN_UNINSTALL
   SectionIn RO
-  AddSize ${HUGIN_SIZE}
   !insertmacro UNINSTALL.LOG_UNINSTALL "$INSTDIR"
   ; SetShellVarContext all  
   Delete "$SMPROGRAMS\${APP_NAME}\Hugin.lnk"
@@ -256,14 +239,11 @@ Section "un.Uninstall Hugin"
   ;Delete .pto file assiciation
   DeleteRegKey HKLM "SOFTWARE\Classes\.pto"
   DeleteRegKey HKLM "SOFTWARE\Classes\HuginProject"
-  
-  ; DeleteRegKey /ifempty HKCU "Software\Modern UI Test"
 SectionEnd
 
 Section /o "un.$(TEXT_SecCleanRegistrySettings)"
   DeleteRegKey  HKCU "Software\Hugin"
 SectionEnd
-
 
 ;--------------------------------
 ;Languages
@@ -286,15 +266,6 @@ SectionEnd
   VIAddVersionKey /LANG=${LANG_ENGLISH} "FileVersion" ${VERSION}
   VIAddVersionKey /LANG=${LANG_ENGLISH} "FileDescription" "Hugin Setup"
   VIAddVersionKey /LANG=${LANG_ENGLISH} "LegalCopyright" ""
-
-;Function that calls a messagebox when installation finished correctly
-;Function .onInstSuccess
-;  MessageBox MB_OK "You have successfully installed Hugin ${HUGIN_VERSION}${HUGIN_VERSION_BUILD}."
-;FunctionEnd
- 
-;Function un.onUninstSuccess
-;  MessageBox MB_OK "You have successfully uninstalled Hugin ${HUGIN_VERSION}-${HUGIN_VERSION_BUILD}."
-;FunctionEnd
 
 ; --------------------------
 ; Functions
@@ -352,11 +323,3 @@ FunctionEnd
 ;  StrCpy $R4 "Align image stack";  R4 = Description
 ;  Call ControlPointRegistryAdd
 ;FunctionEnd
-
-
-
-
-
-
-
-

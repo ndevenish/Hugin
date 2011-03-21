@@ -1,7 +1,6 @@
 ; Installer for Hugin Release
 ; defines will be generated using CMake directives
   
-  ; Arch type (todo: with CMAKE)
   !define ARCH_TYPE "@WINDOWS_ARCH_TYPE@" ;32 or 64
   !define HUGIN_VERSION "@HUGIN_PACKAGE_VERSION@"
   !define HUGIN_VERSION_BUILD "hg_@HUGIN_WC_REVISION@"  
