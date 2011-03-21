@@ -22,8 +22,6 @@ IF(WIN32)
   
   # Install Files
   INSTALL(FILES HuginSetup_common.nsh
-    HuginSetup_x32.nsi
-    HuginSetup_x64.nsi
     DESTINATION ${CMAKE_INSTALL_PREFIX}/../)
   add_subdirectory(CPGenerators)
   add_subdirectory(Functions)
