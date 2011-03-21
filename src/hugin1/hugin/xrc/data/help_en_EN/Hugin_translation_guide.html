@@ -29,7 +29,7 @@
 		
 
 		
-		<!-- Head Scripts -->
+		<style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 		
 				
 	</head>
@@ -41,7 +41,7 @@
 				<h1 id="firstHeading" class="firstHeading">Hugin translation guide</h1>
 		<div id="bodyContent">
 			
-			<div id="contentSub"></div>
+			
 												<!-- start content -->
 			
 <a name="Introduction" id="Introduction"></a><h2> <span class="mw-headline"> Introduction </span></h2>
@@ -50,13 +50,13 @@
 <a name="Getting_Started_on_translations" id="Getting_Started_on_translations"></a><h2> <span class="mw-headline"> Getting Started on translations </span></h2>
 <ul><li>1. Get your language file
 </li></ul>
-<dl><dd>Each language version of hugin uses a different *.po file (just like "fr.po" for French or "ja.po" for Japanese) containing all the translated strings. The country codes use the ISO 639-1 naming convention. 
-</dd><dd>In general, you need the latest *.po file, usually the one for the language you want to modify. You can download it from the Mercurial repository: in this list of files navigate to your *.po file, click on the file name and then use the link "raw" in the navigation bar to save the file (right click or ctrl-click: Save Link as...) to your local hard disk.
-</dd><dd>If there is yet no translation file for your language you can use the file hugin.pot and rename that using the above naming convention or just ask the developers list for assistance.
+<dl><dd>Each language version of hugin uses a different *.po file (just like "fr.po" for French or "ja.po" for Japanese) containing all the translated strings. The country codes use the ISO 639-1<a class="external" href="http://www.loc.gov/standards/iso639-2/php/code_list.php">[*]</a> naming convention. 
+</dd><dd>In general, you need the latest *.po file, usually the one for the language you want to modify. You can download it from the Mercurial repository<a class="external" href="http://hugin.hg.sourceforge.net/hgweb/hugin/hugin/file/default/src/translations">[*]</a>: in this list of files navigate to your *.po file, click on the file name and then use the link "raw" in the navigation bar to save the file (right click or ctrl-click: Save Link as...) to your local hard disk.
+</dd><dd>If there is yet no translation file for your language you can use the file hugin.pot and rename that using the above naming convention or just ask the developers list<a class="external" href="http://groups.google.com/group/hugin-ptx">[*]</a> for assistance.
 </dd></dl>
 <ul><li>2. Edit your *.po file
 </li></ul>
-<dl><dd>To edit the *.po or *.pot files, use poedit (it is a cross-platform PO files editor which runs on Mac OS X, Unix and Windows) or kbabel (it runs on any KDE platform). Note that you don't have to translate everything if you don't have time or knowledge to do it all. Also <a href="Hugin_translation_guide.html#Do_not_translate:" title="Hugin translation guide">check below</a> for things that shouldn't be translated (like software names) or for some explanations on specific words.
+<dl><dd>To edit the *.po or *.pot files, use poedit<a class="external" href="http://sourceforge.net/projects/poedit/">[*]</a> (it is a cross-platform PO files editor which runs on Mac OS X, Unix and Windows) or kbabel<a class="external" href="http://kbabel.kde.org/">[*]</a> (it runs on any KDE platform). Note that you don't have to translate everything if you don't have time or knowledge to do it all. Also <a href="Hugin_translation_guide.html#Do_not_translate:" title="Hugin translation guide">check below</a> for things that shouldn't be translated (like software names) or for some explanations on specific words.
 </dd><dd>Note: When using a version of Poedit before 1.4.3, editing comments directly in the right pane doesn't work, the text isn't saved into the .po file. To edit comments, use the "edit comment" dialogue from the menu. With Poedit 1.4.3 and later, please note that to see the comment window you have to check "View / Show comment window", and to be able to modify the comment you must go to "File / Preferences..." and check "Comment window is editable" in the "Editor" tab.
 </dd><dd>Messages marked as <b>fuzzy</b> are actually not used in the GUI, their English counterparts are used instead. This seems to be an automagic suggestion which naturally often fails, so compare a fuzzy translation with the original phrase.
 </dd></dl>
@@ -65,7 +65,7 @@
 <dl><dd>In order to test the new translation and to save some time for developers that will apply to trunk your file, it's recommanded to <a href="Hugin_translation_guide.html#How_to_check_the_translated_file_for_syntax_errors" class="external text" title="http://wiki.panotools.org/Hugin_translation_guide#How_to_check_the_translated_file_for_syntax_errors" rel="nofollow">check</a> your newly translated po file.
 </dd></dl>
 <ul><li>4. Submit your *.po file, or even better, commit your changes through Mercurial
-<ul><li>You can submit your edited translation via hugin's <a href="https://bugs.launchpad.net/hugin/" class="external text" title="https://bugs.launchpad.net/hugin/" rel="nofollow">tracker</a> on launchpad (you'll need a launchpad account to log in). Add the tags "translation" and "hugin" and attach your file.
+<ul><li>You can submit your edited translation via hugin's tracker<a class="external" href="https://bugs.launchpad.net/hugin/">[*]</a> on launchpad (you'll need a launchpad account to log in). Add the tags "translation" and "hugin" and attach your file.
 </li><li><b>An even better solution</b>, but which the first time takes you a few more minutes to set everything up, is to use Hugin's revision control system. For more information see <a href="Hugin_translation_guide.html#Become_a_Power_Translator" class="external text" title="http://wiki.panotools.org/Hugin_translation_guide#Become_a_Power_Translator" rel="nofollow">Become a Power Translator</a> below.
 </li></ul>
 </li></ul>
@@ -114,13 +114,13 @@
 <p>If you want to you can also rebuild hugin (doesn't have to be a heavy job when you only changed the .po file, the process only updates that part).
 </p>
 <a name="Contribute_your_Translation" id="Contribute_your_Translation"></a><h2> <span class="mw-headline"> Contribute your Translation </span></h2>
-<p>The preferred way is for translations to be contributed via the <a href="https://bugs.launchpad.net/hugin/" class="external text" title="https://bugs.launchpad.net/hugin/" rel="nofollow">tracker</a>.  If you don't want to use the tracker you can also post it as attachment to the mailing list, but the mailing list has a short memory and your hard work may be forgotten.
+<p>The preferred way is for translations to be contributed via the tracker<a class="external" href="https://bugs.launchpad.net/hugin/">[*]</a>.  If you don't want to use the tracker you can also post it as attachment to the mailing list, but the mailing list has a short memory and your hard work may be forgotten.
 </p><p>To use the tracker, you need a <a href="Hugin_Trackers.html#Launchpad_Account" class="external text" title="http://wiki.panotools.org/Hugin_Trackers#Launchpad_Account" rel="nofollow">Launchpad Account</a>.
 </p><p>You can submit our translation via the web or via email.
 </p>
 <a name="Web" id="Web"></a><h3> <span class="mw-headline"> Web </span></h3>
 <ul><li> Log on with your Launchpad account.
-</li><li> Start reporting a <a href="https://bugs.launchpad.net/hugin/+filebug" class="external text" title="https://bugs.launchpad.net/hugin/+filebug" rel="nofollow">new ticket</a>.
+</li><li> Start reporting a new ticket<a class="external" href="https://bugs.launchpad.net/hugin/+filebug">[*]</a>.
 </li><li> Enter a title/summary (e.g. German Translation).
 </li><li> Launchpad will look for duplicates.  This is good for bug reports, but for updated translations you can ignore it, scroll down to the bottom of the page and hit the "No, I need to report a new bug".
 </li><li> On the reporting form, enter a description in the "Further Information" field, then scroll to the bottom and hit the link "Extra options".
@@ -147,22 +147,22 @@
 </li><li> Send.  It takes about five minutes to process and you get an email back with the result.
 </li></ul>
 <a name="Become_a_Power_Translator" id="Become_a_Power_Translator"></a><h2> <span class="mw-headline"> Become a Power Translator </span></h2>
-<p>After adding your po file to Hugin's <a href="https://bugs.launchpad.net/hugin/" class="external text" title="https://bugs.launchpad.net/hugin/" rel="nofollow">tracker</a>, the developers still need to integrate it, which is not easy as it means dealing with conflicting version (but how should a developer know which one of two conflicting sentences in a foreign language is the right one?). Thus using the same Mercurial approach to translation reduces considerably the burden on the rest of the team and is very much appreciated. Translation is a development too!
-</p><p>So <b>instead of adding your po file to the tracker</b>, you can integrate it yourself. You'll first need a <b>Sourceforge user account</b> (register here if you don't have one yet. Then tell the developers on the mailing list what your user account is, so that they can <b>grant you access to Mercurial</b>, the revision control system (you'll need this before following the next steps).
+<p>After adding your po file to Hugin's tracker<a class="external" href="https://bugs.launchpad.net/hugin/">[*]</a>, the developers still need to integrate it, which is not easy as it means dealing with conflicting version (but how should a developer know which one of two conflicting sentences in a foreign language is the right one?). Thus using the same Mercurial approach to translation reduces considerably the burden on the rest of the team and is very much appreciated. Translation is a development too!
+</p><p>So <b>instead of adding your po file to the tracker</b>, you can integrate it yourself. You'll first need a <b>Sourceforge user account</b> (register here<a class="external" href="http://sourceforge.net/account/registration/">[*]</a> if you don't have one yet. Then tell the developers on the mailing list<a class="external" href="http://groups.google.com/group/hugin-ptx/">[*]</a> what your user account is, so that they can <b>grant you access to Mercurial</b>, the revision control system (you'll need this before following the next steps).
 </p>
 <a name="The_first_time" id="The_first_time"></a><h3> <span class="mw-headline"> The first time </span></h3>
 <p><b>For Windows users</b>
 </p><p><br />
 </p>
-<ul><li>1. Get and install TortoiseHg.
-</li><li>2. In the explorer create a new folder, e.g. hugin-hg. Then do a right click on the created folder and select "Clone" in the "TortoiseHG" submenu. Select the repository http://hugin.hg.sourceforge.net:8000/hgroot/hugin/hugin as source path and select "Clone". 
+<ul><li>1. Get and install TortoiseHg<a class="external" href="http://tortoisehg.bitbucket.org/">[*]</a>.
+</li><li>2. In the explorer create a new folder, e.g. hugin-hg. Then do a right click on the created folder and select "Clone" in the "TortoiseHG" submenu. Select the repository http://hugin.hg.sourceforge.net:8000/hgroot/hugin/hugin<a class="external" href="http://hugin.hg.sourceforge.net:8000/hgroot/hugin/hugin">[*]</a> as source path and select "Clone". 
 </li><li>3. Now select "Repository Settings" in the "TortoiseHG" context menu of the folder.  In the section "Synchronize" add a new setting with an alias/name e.g. "writeRepo" and the URL ssh://YOUR-SOURCEFORGE-USERNAME@hugin.hg.sourceforge.net/hgroot/hugin/hugin , close the settings dialog. (This needs to be done only once.)
 </li><li>4. You can commit your (partial) results anytime: right-click on the folder and select in the context menu "Hg Commit..." - enter a short text describing what you did (e.g.: "updated French translation"), check that only your modified .po file is selected and click OK. Note that you can select only the "translation" folder instead of "hugin-trunk" if you modified only files within "translation".
 </li><li>5. Open the folder context menu, open "TortoiseHG/Synchronize". Select your in step 2 created setting in the combobox and select "Push". (Or you can also push from the "Repository Explorer".)
 </li></ul>
 <p><b>For Linux/Unix/OSX</b>
 </p>
-<ul><li>1. Get and install Mercurial. (<pre>apt-get install mercurial</pre> on Ubuntu/Debian,<pre>yum install mercurial</pre> on Fedora, <pre>emerge mercurial</pre> on Gentoo)
+<ul><li>1. Get and install Mercurial<a class="external" href="http://mercurial.selenic.com/">[*]</a>. (<pre>apt-get install mercurial</pre> on Ubuntu/Debian,<pre>yum install mercurial</pre> on Fedora, <pre>emerge mercurial</pre> on Gentoo)
 </li><li>2. Get the full Hugin source code.
 </li></ul>
 <pre>
@@ -194,7 +194,7 @@ hg up -c
 <p>and then you can continue from step 3 above.
 </p>
 <a name="Extra_perk_-_Build_the_latest_Hugin" id="Extra_perk_-_Build_the_latest_Hugin"></a><h3> <span class="mw-headline"> Extra perk - Build the latest Hugin </span></h3>
-<dl><dd>If you're already here, you may want to also build and enjoy the latest Hugin. Some of the current contributors to the build, distribution and code of Hugin have learned this way. You are just a few clicks away from building your own bleeding edge Hugin. Find your platform in Build your Own Test Builds section of the wiki and follow the instructions.
+<dl><dd>If you're already here, you may want to also build and enjoy the latest Hugin. Some of the current contributors to the build, distribution and code of Hugin have learned this way. You are just a few clicks away from building your own bleeding edge Hugin. Find your platform in Build your Own Test Builds<a class="external" href="http://wiki.panotools.org/Development_of_Open_Source_tools#Build_your_Own_Test_Builds">[*]</a> section of the wiki and follow the instructions.
 </dd><dd>Welcome to the club!
 </dd></dl>
 <a name="Translation_guide_for_specific_terms" id="Translation_guide_for_specific_terms"></a><h2> <span class="mw-headline"> Translation guide for specific terms </span></h2>
@@ -280,7 +280,7 @@ hg up -c
 </dd></dl>
 <dl><dt> keypoint
 </dt><dd> Meaning=
-</dd><dd> DE=Merkmalspunkt (see Article about SIFT in the German Wikipedia)
+</dd><dd> DE=Merkmalspunkt (see Article about SIFT<a class="external" href="http://de.wikipedia.org/wiki/Scale-invariant_feature_transform">[*]</a> in the German Wikipedia)
 </dd></dl>
 <dl><dt> Low Dynamic Range (LDR)
 </dt><dd> Meaning=Luminance values are within a small numeric range (typically 8-bit or 16bit integer with a non-linear response curve).
@@ -335,7 +335,7 @@ hg up -c
 <a name="Technical_translation_issues" id="Technical_translation_issues"></a><h2> <span class="mw-headline"> Technical translation issues </span></h2>
 <p>Some strings don't appear to be translated, they are apparently generated by the GUI toolkit or the operating system. Most likely they will be in the same language as hugin, because very few people, other than translators, start a program with a specific language other than that of the environment.
 </p><p>The file <tt>src/translations/ignored-entries.txt</tt> contains a list of ignored entries from the xrc files (which are used to declare most of the hugin UI). If you need to translate a sentence which is there, remove the line from the file and run the extract-messages.sh script to update the .po files.
-</p><p>If you find a source term that isn't correct, spelling or meaning, probably best to bring it up with Pablo d'Angelo or on the hugin mailinglist: [1]
+</p><p>If you find a source term that isn't correct, spelling or meaning, probably best to bring it up with Pablo d'Angelo or on the hugin mailinglist: [1]<a class="external" href="http://groups.google.com/group/hugin-ptx">[*]</a>
 </p>
 <a name="List_of_source_string_problems" id="List_of_source_string_problems"></a><h3> <span class="mw-headline"> List of source string problems </span></h3>
 <ul><li> calculate highest sensible width. (uses every image pixel)
@@ -386,9 +386,9 @@ hg push ssh://YOUR-SOURCEFORGE-USERNAME@hugin.hg.sourceforge.net/hgroot/hugin/hu
 </li><li> The .po files headers are inconsistent. Ideally they would all feature the same license and copyright notice; and they would list all contributors.
 </li></ul>
 <a name="Website_.2F_Release_Notes" id="Website_.2F_Release_Notes"></a><h2> <span class="mw-headline"> Website / Release Notes </span></h2>
-<p>Some translators contribute also translated release notes.  These are published on the web at http://hugin.sourceforge.net/releases/ . Usually the release manager will draft the release notes in English early on in the release process.  Even if they are not linked, you can find them in the repository at http://hugin.hg.sourceforge.net/hgweb/hugin/hugin-web/file/tip/releases
+<p>Some translators contribute also translated release notes.  These are published on the web at http://hugin.sourceforge.net/releases/<a class="external" href="http://hugin.sourceforge.net/releases/">[*]</a> . Usually the release manager will draft the release notes in English early on in the release process.  Even if they are not linked, you can find them in the repository at http://hugin.hg.sourceforge.net/hgweb/hugin/hugin-web/file/tip/releases<a class="external" href="http://hugin.hg.sourceforge.net/hgweb/hugin/hugin-web/file/tip/releases">[*]</a>
 </p><p><b>Important</b>: make sure you translate the file from the repository and not the resulting file displayed on the web, e.g. translate
-http://hugin.hg.sourceforge.net/hgweb/hugin/hugin-web/file/e9990e702c7c/releases/2010.4.0/en.shtml and not http://hugin.sourceforge.net/releases/2010.4.0/en.shtml - the former is the source for the page while the latter is the resulting page after server side includes and other server side transformations.
+http://hugin.hg.sourceforge.net/hgweb/hugin/hugin-web/file/e9990e702c7c/releases/2010.4.0/en.shtml<a class="external" href="http://hugin.hg.sourceforge.net/hgweb/hugin/hugin-web/file/e9990e702c7c/releases/2010.4.0/en.shtml">[*]</a> and not http://hugin.sourceforge.net/releases/2010.4.0/en.shtml<a class="external" href="http://hugin.sourceforge.net/releases/2010.4.0/en.shtml">[*]</a> - the former is the source for the page while the latter is the resulting page after server side includes and other server side transformations.
 </p>
 
 

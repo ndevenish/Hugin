@@ -29,7 +29,7 @@
 		
 
 		
-		<!-- Head Scripts -->
+		<style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 		
 				
 	</head>
@@ -41,21 +41,21 @@
 				<h1 id="firstHeading" class="firstHeading">Hugin</h1>
 		<div id="bodyContent">
 			
-			<div id="contentSub"></div>
+			
 												<!-- start content -->
 			<p><b>Hugin</b>
 is an Open Source panorama stitcher and graphical user interface (GUI) for <a href="Panorama_tools.html" title="Panorama tools">Panorama tools</a>. It also provides a number of additional components and command line tools.
 </p>
 
 <a name="About_Hugin" id="About_Hugin"></a><h2> <span class="mw-headline"> About Hugin </span></h2>
-<p>Although Hugin is essentially a panorama stitcher, like other GUI front-ends it has a range of advanced features:
-</p><p>Among the Hugin workflow options, it is possible to correct exposure, <a href="Vignetting.html" title="Vignetting">Vignetting</a> and White balance between photos; generate <a href="HDR.html" title="HDR">HDR</a>,  exposure fused or focus stacked output from <a href="Bracketing.html" title="Bracketing">bracketed</a> photos; or use <a href="16bit.html" title="16bit">16bit</a> and <a href="HDR.html" title="HDR">HDR</a> input data natively.
-</p><p>Photos can be digital or scanned, and taken with any kind of camera. A full range of lenses are supported, from simple cameraphones to obscure fisheye lenses.  Hugin supports various output <a href="Projections.html" title="Projections">projections</a> including a range of spherical, cartographic, and camera projections.
+<p>Although Hugin is essentially a panorama stitcher, like other GUI front-ends<a class="external" href="http://wiki.panotools.org/GUI_front-ends">[*]</a> it has a range of advanced features:
+</p><p>Among the Hugin workflow options, it is possible to correct exposure<a class="external" href="http://wiki.panotools.org/Exposure_correction">[*]</a>, <a href="Vignetting.html" title="Vignetting">Vignetting</a> and White balance<a class="external" href="http://wiki.panotools.org/White_balance">[*]</a> between photos; generate <a href="HDR.html" title="HDR">HDR</a>,  exposure fused<a class="external" href="http://www.wikipedia.org/wiki/Exposure_fusion">[*]</a> or focus stacked<a class="external" href="http://www.wikipedia.org/wiki/Focus_stacking">[*]</a> output from <a href="Bracketing.html" title="Bracketing">bracketed</a> photos; or use <a href="16bit.html" title="16bit">16bit</a> and <a href="HDR.html" title="HDR">HDR</a> input data natively.
+</p><p>Photos can be digital or scanned, and taken with any kind of camera. A full range of lenses are supported, from simple cameraphones to obscure fisheye<a class="external" href="http://wiki.panotools.org/Fisheye">[*]</a> lenses.  Hugin supports various output <a href="Projections.html" title="Projections">projections</a> including a range of spherical, cartographic, and camera projections.
 </p><p>Hugin supports panoramas taken with multiple rows of photos, with or without bracketing.  Bracketed photos can be handheld, taken using a DSLR bracketing function, or as consecutive panoramas shot at different EV exposure levels.  Hugin can produce successful panoramas shot with cameras that always shoot using auto-exposure and auto-whitebalance.
 </p>
-<ul><li> Hugin homepage on SourceForge. Screenshots, Tutorials, Documentation and Links.
-</li><li> Hugin project summary page on SourceForge. Downloads.
-</li><li> <a href="https://launchpad.net/hugin" class="external text" title="https://launchpad.net/hugin" rel="nofollow">Hugin on Launchpad</a>. Bug database and Feature requests.
+<ul><li> Hugin homepage<a class="external" href="http://hugin.sourceforge.net">[*]</a> on SourceForge. Screenshots, Tutorials, Documentation and Links.
+</li><li> Hugin project summary page<a class="external" href="http://sourceforge.net/projects/hugin">[*]</a> on SourceForge. Downloads.
+</li><li> Hugin on Launchpad<a class="external" href="https://launchpad.net/hugin">[*]</a>. Bug database and Feature requests.
 </li><li> <a href="Hugin_FAQ.html" title="Hugin FAQ">Hugin FAQ</a> Frequently asked questions about Hugin.
 </li></ul>
 <a name="User_interface" id="User_interface"></a><h2> <span class="mw-headline"> User interface </span></h2>
@@ -92,22 +92,22 @@ is an Open Source panorama stitcher and graphical user interface (GUI) for <a hr
 </li><li> <a href="Cpclean.html" title="Cpclean">cpclean</a> command line tool to remove control points with improbable error distances
 </li><li> <a href="Cpfind.html" title="Cpfind">cpfind</a> command line tool to find control points
 </li><li> <a href="Icpfind.html" title="Icpfind">icpfind</a> command line tool for using heuristic control point matching like inside [[hugin]Hugin GUI]
-</li><li> calibrate_lens automatic lens calibration using straight-line detection
+</li><li> calibrate_lens<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Calibrate_lens&amp;action=edit&amp;redlink=1">[*]</a> automatic lens calibration using straight-line detection
 </li><li> <a href="Vig_optimize.html" title="Vig optimize">vig_optimize</a> command line tool to estimate photometric parameters.
-</li><li> hugin_hdrmerge merges multiple exposures to <a href="HDR.html" title="HDR">HDR</a> using Khan anti-ghosting algorithm
+</li><li> hugin_hdrmerge<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Hugin_hdrmerge&amp;action=edit&amp;redlink=1">[*]</a> merges multiple exposures to <a href="HDR.html" title="HDR">HDR</a> using Khan anti-ghosting algorithm
 </li><li> <a href="Hugin_stitch_project.html" title="Hugin stitch project">hugin_stitch_project</a> a GUI tool to stitch a single Hugin .pto project.
 </li><li> <a href="Celeste_standalone.html" title="Celeste standalone">celeste_standalone</a> removes cloud-like control points from project files.
 </li><li> <a href="Hugin_Batch_Processor.html" title="Hugin Batch Processor">PTBatcherGUI</a> a GUI queue manager for stitching multiple Hugin projects.
-</li><li> PTBatcher command-line access to the <a href="Hugin_Batch_Processor.html" title="Hugin Batch Processor">hugin Batch Processor</a> stitching queue.
-</li><li> deghosting_mask Creates mask for removing ghosting in bracketed images
+</li><li> PTBatcher<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=PTBatcher&amp;action=edit&amp;redlink=1">[*]</a> command-line access to the <a href="Hugin_Batch_Processor.html" title="Hugin Batch Processor">hugin Batch Processor</a> stitching queue.
+</li><li> deghosting_mask<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Deghosting_mask&amp;action=edit&amp;redlink=1">[*]</a> Creates mask for removing ghosting in bracketed images
 </li><li> <a href="Pano_modify.html" title="Pano modify">pano_modify</a> Change output parameters of project file
-</li><li> pano_trafo Transform image coordinates
+</li><li> pano_trafo<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Pano_trafo&amp;action=edit&amp;redlink=1">[*]</a> Transform image coordinates
 </li><li> <a href="Pto_merge.html" title="Pto merge">pto_merge</a> Merges two or more Hugin project files
 </li><li> <a href="Panoglview.html" title="Panoglview">panoglview</a> OpenGL panorama viewer stored in sourceforge SVN alongside <strong class="selflink">hugin</strong> which must be built separately.
 </li><li> <a href="Autopano-sift-C.html" title="Autopano-sift-C">autopano-sift-C</a> version of <a href="Autopano-sift.html" title="Autopano-sift">autopano-sift</a> written in C, also needs to be built separately.
 </li></ul>
-<p>More information, documentation and tutorials are available on the project website.
-</p><p>Like other GUI front-ends, <b>Hugin</b> provides an easy-to-use unified point-and-click interface to a whole range of other command-line tools including:
+<p>More information, documentation and tutorials are available on the project website<a class="external" href="http://hugin.sourceforge.net/">[*]</a>.
+</p><p>Like other GUI front-ends<a class="external" href="http://wiki.panotools.org/GUI_front-ends">[*]</a>, <b>Hugin</b> provides an easy-to-use unified point-and-click interface to a whole range of other command-line tools including:
 </p>
 <ul><li> <a href="Autopano-sift.html" title="Autopano-sift">autopano-sift</a>, <a href="Autopano-sift-C.html" title="Autopano-sift-C">autopano-sift-C</a>, <a href="Panomatic.html" title="Panomatic">panomatic</a> or <a href="Autopano.html" title="Autopano">autopano</a> for automatic creation of <a href="Control_points.html" title="Control points">control points</a> (note that an external control-point generator is no longer required by Hugin).
 </li><li> <a href="Enblend.html" title="Enblend">enblend</a> and <a href="Enfuse.html" title="Enfuse">enfuse</a> for seamless blending of output images.
@@ -116,19 +116,19 @@ is an Open Source panorama stitcher and graphical user interface (GUI) for <a hr
 A PTStitcher replacement called <a href="Nona.html" title="Nona">nona</a> and a PTOptimizer replacement called <a href="Autooptimiser.html" title="Autooptimiser">autooptimiser</a> have been developed, supporting their most important features.
 </p>
 <a name="Development" id="Development"></a><h2> <span class="mw-headline"> Development </span></h2>
-<p>Hugin is Open Source, and like every community-developed software very much dependent on voluntary contributions of resources. If you have coding skills, you are welcome to look at the source code and contribute to it. Even if you don't have coding skills, you most likely have some skills that the project could use and you are more than welcome to contribute your time. The tasks requiring attention change frequently and so do the required skillset and resources. Find more about the development process.
+<p>Hugin is Open Source, and like every community-developed software very much dependent on voluntary contributions of resources. If you have coding skills, you are welcome to look at the source code and contribute to it. Even if you don't have coding skills, you most likely have some skills that the project could use and you are more than welcome to contribute your time. The tasks requiring attention change frequently and so do the required skillset and resources. Find more about the development process<a class="external" href="http://wiki.panotools.org/Development_of_Open_Source_tools">[*]</a>.
 </p>
 <a name="External_links" id="External_links"></a><h2> <span class="mw-headline"> External links </span></h2>
-<ul><li> Hugin homepage for Screenshots, Tutorials, Documentation and Links.
-</li><li> Hugin Sourceforge project for Downloads.
-</li><li> <a href="https://launchpad.net/hugin" class="external text" title="https://launchpad.net/hugin" rel="nofollow">Hugin's bug tracker</a> for bug reports and feature requests.
-</li><li> Sourceforge HG to browse the Hugin source-code in Mercurial.
-</li><li> hugin-ptx GoogleGroup to contribute to development and peer support.
+<ul><li> Hugin homepage<a class="external" href="http://hugin.sourceforge.net">[*]</a> for Screenshots, Tutorials, Documentation and Links.
+</li><li> Hugin Sourceforge project<a class="external" href="http://sourceforge.net/projects/hugin">[*]</a> for Downloads.
+</li><li> Hugin's bug tracker<a class="external" href="https://launchpad.net/hugin">[*]</a> for bug reports and feature requests.
+</li><li> Sourceforge HG<a class="external" href="http://hugin.hg.sourceforge.net/hgweb/hugin/">[*]</a> to browse the Hugin source-code in Mercurial.
+</li><li> hugin-ptx GoogleGroup<a class="external" href="http://groups.google.com/group/hugin-ptx">[*]</a> to contribute to development and peer support.
 </li></ul>
 <a name="Supported_operating_systems" id="Supported_operating_systems"></a><h2> <span class="mw-headline"> Supported operating systems </span></h2>
-<ul><li> Windows
-</li><li> Linux and Unix
-</li><li> Mac OS X
+<ul><li> Windows<a class="external" href="http://wiki.panotools.org/Windows_software">[*]</a>
+</li><li> Linux and Unix<a class="external" href="http://wiki.panotools.org/Unix_software">[*]</a>
+</li><li> Mac OS X<a class="external" href="http://wiki.panotools.org/Mac_software">[*]</a>
 </li></ul>
 
 

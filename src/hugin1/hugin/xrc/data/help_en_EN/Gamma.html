@@ -29,7 +29,7 @@
 		
 
 		
-		<!-- Head Scripts -->
+		<style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 		
 				
 	</head>
@@ -41,7 +41,7 @@
 				<h1 id="firstHeading" class="firstHeading">Gamma</h1>
 		<div id="bodyContent">
 			
-			<div id="contentSub"></div>
+			
 												<!-- start content -->
 			<p><br />
 <b>Gamma</b> is the relation between pixel value respectively electric power and visible brightness on a specific output medium. 
@@ -52,19 +52,19 @@ to the results:
 <ul><li> Pixel values are interpolated when correcting TCA (transverse <a href="Chromatic_aberration.html" title="Chromatic aberration">chromatic aberration</a>).
 </li><li> Pixel intensity is scaled when correcting <a href="Vignetting.html" title="Vignetting">vignetting</a>.
 </li><li> Pixel values are interpolated when photos are re-projected into the output image.
-</li><li> Blending via feathering, <a href="Enblend.html" title="Enblend">enblend</a> or smartblend averages pixel values between images.
+</li><li> Blending via feathering, <a href="Enblend.html" title="Enblend">enblend</a> or smartblend<a class="external" href="http://wiki.panotools.org/Smartblend">[*]</a> averages pixel values between images.
 </li></ul>
 <p>In any of these situations, it may be necessary to work with linear data (gamma = 1.0) or to use tools that
 work internally with gamma corrected data like so:
 </p><p>When using <a href="Fulla.html" title="Fulla">fulla</a> to correct chromatic aberration and vignetting, be sure to set the <b>-i</b> parameter to
 the gamma of your input images.
 </p><p><a href="Nona.html" title="Nona">nona</a>, <a href="PTStitcher.html" title="PTStitcher">PTStitcher</a> and <a href="PTmender.html" title="PTmender">PTmender</a> all accept a <b>g</b> (gamma) parameter on the <b>m</b> line, most
-GUI front-ends allow you to set this.
+GUI front-ends<a class="external" href="http://wiki.panotools.org/GUI_front-ends">[*]</a> allow you to set this.
 </p><p><a href="Enblend.html" title="Enblend">enblend</a> (including version 3.0) appears to assume that input data is already gamma-corrected, so if you are
 working with linear data you probably need to change to gamma = 2.2 before running enblend.
-</p><p>See Helmut Dersch's article on Interpolation and Gamma Correction.
-</p><p>For details see the w:gamma correction article and the
-Gamma FAQ.
+</p><p>See Helmut Dersch's article on Interpolation and Gamma Correction<a class="external" href="http://www.path.unimelb.edu.au/~dersch/gamma/gamma.html">[*]</a>.
+</p><p>For details see the w:gamma correction<a class="external" href="http://www.wikipedia.org/wiki/gamma_correction">[*]</a> article and the
+Gamma FAQ<a class="external" href="http://www.poynton.com/notes/colour_and_gamma/GammaFAQ.html">[*]</a>.
 </p>
 
 

@@ -29,7 +29,7 @@
 		
 
 		
-		<!-- Head Scripts -->
+		<style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 		
 				
 	</head>
@@ -41,18 +41,18 @@
 				<h1 id="firstHeading" class="firstHeading">Vignetting</h1>
 		<div id="bodyContent">
 			
-			<div id="contentSub"></div>
+			
 												<!-- start content -->
 			<a name="Definition" id="Definition"></a><h2> <span class="mw-headline"> Definition </span></h2>
-<p>Light fall-off in the corners of images due to lens characteristics. There are mainly two types of vignetting. One caused by the lens housing sometimes called artificial vignetting and one caused by optical reasons (cosine-in-4th-power law) sometimes called natural vignetting. Only the last one can be easily corrected by the Panorama Tools Plugins radial luminance filter.  In principle Fulvio Senore's program for vignetting correction can correct both types of vignetting.
-</p><p>Although the Panorama Tools Plugins radial luminance filter implements vignetting correction, this functionality was never added to <a href="PTStitcher.html" title="PTStitcher">PTStitcher</a>.  In this case it is necessary to pre-process photographs with the plugin or some other tool.
+<p>Light fall-off in the corners of images due to lens characteristics. There are mainly two types of vignetting. One caused by the lens housing sometimes called artificial vignetting and one caused by optical reasons (cosine-in-4th-power law) sometimes called natural vignetting. Only the last one can be easily corrected by the Panorama Tools Plugins<a class="external" href="http://wiki.panotools.org/Panorama_Tools_Plugins">[*]</a> radial luminance filter.  In principle Fulvio Senore<a class="external" href="http://wiki.panotools.org/Fulvio_Senore">[*]</a>'s program for vignetting correction<a class="external" href="http://www.fsoft.it/Imaging/Vignetting.htm">[*]</a> can correct both types of vignetting.
+</p><p>Although the Panorama Tools Plugins<a class="external" href="http://wiki.panotools.org/Panorama_Tools_Plugins">[*]</a> radial luminance filter implements vignetting correction, this functionality was never added to <a href="PTStitcher.html" title="PTStitcher">PTStitcher</a>.  In this case it is necessary to pre-process photographs with the plugin or some other tool.
 </p><p><a href="Nona.html" title="Nona">nona</a>, the stitcher supplied with <a href="Hugin.html" title="Hugin">hugin</a> now implements vignetting correction at the stitching stage, this uses either a flatfield image or a polynomial function.  <a href="Fulla.html" title="Fulla">fulla</a> is an image pre-processor that uses the same technique to correct vignetting along with <a href="Chromatic_aberration.html" title="Chromatic aberration">chromatic aberration</a> and <a href="Lens_distortion.html" title="Lens distortion">lens distortion</a>.
-</p><p><a href="Hugin.html" title="Hugin">hugin</a> now has a feature for automatically deriving vignetting correction parameters from an assembled panorama.  It compares the brightness gradient difference between overlapping photos at different radii, and calculates a suitable correction polynomial. PTGui has implemented the same technique based on Pablo's paper.
+</p><p><a href="Hugin.html" title="Hugin">hugin</a> now has a feature for automatically deriving vignetting correction parameters from an assembled panorama.  It compares the brightness gradient difference between overlapping photos at different radii, and calculates a suitable correction polynomial<a class="external" href="http://article.gmane.org/gmane.comp.misc.ptx/4690">[*]</a>. PTGui<a class="external" href="http://wiki.panotools.org/PTGui">[*]</a> has implemented the same technique based on Pablo's paper.
 </p>
 <a name="See_also" id="See_also"></a><h2> <span class="mw-headline"> See also </span></h2>
-<p>Wikipedia page on vignetting
-</p><p>John Houghton's page on Vignetting
-</p><p>Pablo d'Angelo's paper on exposure, whitebalance and vignetting correction
+<p>Wikipedia page on vignetting<a class="external" href="http://www.wikipedia.org/wiki/Vignetting">[*]</a>
+</p><p>John Houghton's page on Vignetting<a class="external" href="http://johnhpanos.com/vignette.htm">[*]</a>
+</p><p>Pablo d'Angelo's paper on exposure, whitebalance and vignetting correction<a class="external" href="http://biecoll.ub.uni-bielefeld.de/volltexte/2007/101/">[*]</a>
 </p>
 
 

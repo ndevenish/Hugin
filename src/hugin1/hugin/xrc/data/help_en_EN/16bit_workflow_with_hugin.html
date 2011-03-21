@@ -29,7 +29,7 @@
 		
 
 		
-		<!-- Head Scripts -->
+		<style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 		
 				
 	</head>
@@ -41,15 +41,15 @@
 				<h1 id="firstHeading" class="firstHeading">16bit workflow with hugin</h1>
 		<div id="bodyContent">
 			
-			<div id="contentSub"></div>
+			
 												<!-- start content -->
 			<p>This tutorial doesn't cover reasons why you might want to shoot with <a href="RAW.html" title="RAW">RAW</a> and
 stitch in 16bit format.  It is a simple HOWTO listing the tools available and how
 to use them with hugin.
 </p>
 <a name="Preparing_the_16bit_images" id="Preparing_the_16bit_images"></a><h2> <span class="mw-headline"> Preparing the 16bit images </span></h2>
-<p>Start by using dcraw to read the <a href="RAW.html" title="RAW">RAW</a> files and batch convert them into portable 16bit per
-channel PPM files.  RAW pictures from my Nikon 8700 have a <i>.nef</i> extension, so the
+<p>Start by using dcraw<a class="external" href="http://wiki.panotools.org/Dcraw">[*]</a> to read the <a href="RAW.html" title="RAW">RAW</a> files and batch convert them into portable 16bit per
+channel PPM<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=PPM&amp;action=edit&amp;redlink=1">[*]</a> files.  RAW pictures from my Nikon 8700 have a <i>.nef</i> extension, so the
 command looks something like this:
 </p>
 <pre> dcraw -v -w -4 dscn*.nef
@@ -58,8 +58,8 @@ command looks something like this:
 converting <a href="RAW.html" title="RAW">RAW</a> data to 16bit colour depth as RAW images are typically only 12bit in the
 first place.  If you need a greater <a href="Dynamic_range.html" title="Dynamic range">dynamic range</a> than found in RAW images, it is possible
 to combine <a href="Bracketing.html" title="Bracketing">bracketed</a> exposures in a <a href="HDR_workflow_with_hugin.html" title="HDR workflow with hugin">HDR workflow with hugin</a>.
-</p><p>These PPM files are not readable by <a href="Hugin.html" title="Hugin">hugin</a> or <a href="Nona.html" title="Nona">nona</a>, so the next step is to use
-ImageMagick to create 16bit per channel <a href="TIFF.html" title="TIFF">TIFF</a> files:
+</p><p>These PPM<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=PPM&amp;action=edit&amp;redlink=1">[*]</a> files are not readable by <a href="Hugin.html" title="Hugin">hugin</a> or <a href="Nona.html" title="Nona">nona</a>, so the next step is to use
+ImageMagick<a class="external" href="http://wiki.panotools.org/ImageMagick">[*]</a> to create 16bit per channel <a href="TIFF.html" title="TIFF">TIFF</a> files:
 </p>
 <pre> convert -rotate 270 -gamma 2.2 dscn3088.ppm dscn3088.tif
  convert -rotate 270 -gamma 2.2 dscn3089.ppm dscn3089.tif
@@ -68,13 +68,13 @@ ImageMagick to create 16bit per channel <a href="TIFF.html" title="TIFF">TIFF</a
 <p>Note that I rotated them at the same time since these are <a href="Portrait.html" title="Portrait">portrait</a> shots.
 <a href="Gamma.html" title="Gamma">Gamma</a> correction is also applied at this stage since <a href="RAW.html" title="RAW">RAW</a> data is generally linear
 and difficult to view without <a href="Colour_profile.html" title="Colour profile">colour profile</a> management (not yet supported by <a href="Hugin.html" title="Hugin">hugin</a>).
-</p><p>You can now delete the intermediate PPM files.
-</p><p>Alternatively UFRaw can be used for the entire conversion from <a href="RAW.html" title="RAW">RAW</a>.
+</p><p>You can now delete the intermediate PPM<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=PPM&amp;action=edit&amp;redlink=1">[*]</a> files.
+</p><p>Alternatively UFRaw<a class="external" href="http://wiki.panotools.org/UFRaw">[*]</a> can be used for the entire conversion from <a href="RAW.html" title="RAW">RAW</a>.
 </p><p>If necessary, correct <a href="Chromatic_aberration.html" title="Chromatic aberration">chromatic aberration</a> with <a href="Fulla.html" title="Fulla">fulla</a> at this stage.
 </p>
 <a name="Stitching_with_hugin" id="Stitching_with_hugin"></a><h2> <span class="mw-headline"> Stitching with hugin </span></h2>
 <p>The <a href="TIFF.html" title="TIFF">TIFF</a> images can be loaded into <a href="Hugin.html" title="Hugin">hugin</a> as per usual except:
-</p><p><a href="EXIF.html" title="EXIF">EXIF</a> information about the <a href="Field_of_View.html" title="Field of View">Field of View</a> was lost during the PPM stage, so the field of view will need to be re-entered manually, re-optimised with <a href="PTOptimizer.html" title="PTOptimizer">PTOptimizer</a> or transferred from the RAW file using exiftool:
+</p><p><a href="EXIF.html" title="EXIF">EXIF</a> information about the <a href="Field_of_View.html" title="Field of View">Field of View</a> was lost during the PPM<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=PPM&amp;action=edit&amp;redlink=1">[*]</a> stage, so the field of view will need to be re-entered manually, re-optimised with <a href="PTOptimizer.html" title="PTOptimizer">PTOptimizer</a> or transferred from the RAW file using exiftool<a class="external" href="http://wiki.panotools.org/Exiftool">[*]</a>:
 </p>
 <pre> exiftool -tagsfromfile DSCN3088.nef -overwrite_original_in_place -exif:all DSCN3088.tif
 </pre>
@@ -88,11 +88,11 @@ remapped images after stitching with nona but before running <a href="Enblend.ht
 <a name="Post_processing" id="Post_processing"></a><h2> <span class="mw-headline"> Post processing </span></h2>
 <p>This <a href="TIFF.html" title="TIFF">TIFF</a> file is in 16bit per channel RGBA format, which is not viewable in most image
 viewers or web-browsers, so there is an extra step needed to create portable images:
-</p><p>Open the file in a 16bit aware image editor such as cinepaint or krita, tweak the
-colours, retouch or apply a contrast mask
+</p><p>Open the file in a 16bit aware image editor such as cinepaint<a class="external" href="http://wiki.panotools.org/Cinepaint">[*]</a> or krita<a class="external" href="http://wiki.panotools.org/Krita">[*]</a>, tweak the
+colours, retouch or apply a contrast mask<a class="external" href="http://www.luminous-landscape.com/tutorials/contrast_masking.shtml">[*]</a>
 and finally save in an 8bit per channel format such as <a href="JPEG.html" title="JPEG">JPEG</a>.
 </p><p>Alternatively you can get very good results by simply applying the ICC <a href="Colour_profile.html" title="Colour profile">colour profile</a>
-for your camera and converting to sRGB colour-space, lcms provides the tifficc tool
+for your camera and converting to sRGB colour-space, lcms<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Lcms&amp;action=edit&amp;redlink=1">[*]</a> provides the tifficc tool
 for doing just this:
 </p>
 <pre> tifficc -i mycamera.icm myproject.tif output.tif

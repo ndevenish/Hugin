@@ -29,7 +29,7 @@
 		
 
 		
-		<!-- Head Scripts -->
+		<style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 		
 				
 	</head>
@@ -41,7 +41,7 @@
 				<h1 id="firstHeading" class="firstHeading">Straight line control points</h1>
 		<div id="bodyContent">
 			
-			<div id="contentSub"></div>
+			
 												<!-- start content -->
 			<p><br />
 The panorama tools optimizer understands various different schemes for
@@ -56,8 +56,8 @@ overhead cables; and calibrating <a href="Lens_distortion.html" title="Lens dist
 </p><p>Although two points are sufficient to define a horizontal or vertical line, more are
 required for these lines at arbitrary angles.  Since the script file format only supports 'pairs' of
 points, a straight line is generally defined with four, six or eight etc... control points.
-</p><p>Some of the GUI front-ends support placing these <b>straight line control points</b>, see this
-tutorial on correcting lens distortion with ptgui.
+</p><p>Some of the GUI front-ends<a class="external" href="http://wiki.panotools.org/GUI_front-ends">[*]</a> support placing these <b>straight line control points</b>, see this
+tutorial on correcting lens distortion with ptgui<a class="external" href="http://www.erik-krause.de/verzeichnung/distort_en.htm">[*]</a>.
 </p><p>Otherwise if you edit a <a href="PTOptimizer.html" title="PTOptimizer">PTOptimizer</a> script and make more than one pair of existing points
 <b>t3</b>, then the optimiser will try to line them up as a straight
 line in the output image.  You can keep going, with <b>t4</b>, <b>t5</b> etc... for each group of points

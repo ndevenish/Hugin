@@ -29,7 +29,7 @@
 		
 
 		
-		<!-- Head Scripts -->
+		<style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 		
 				
 	</head>
@@ -41,7 +41,7 @@
 				<h1 id="firstHeading" class="firstHeading">Horizontal control points</h1>
 		<div id="bodyContent">
 			
-			<div id="contentSub"></div>
+			
 												<!-- start content -->
 			<p><br />
 The panorama tools <a href="PTOptimizer.html" title="PTOptimizer">optimizer</a> understands various different schemes for
@@ -49,10 +49,10 @@ aligning photos using <a href="Control_points.html" title="Control points">contr
 Normal points are <b>t0</b> points, horizontal control points are <b>t1</b> points,
 <a href="Vertical_control_points.html" title="Vertical control points">vertical control points</a> are <b>t2</b> points,
 and <a href="Straight_line_control_points.html" title="Straight line control points">straight line control points</a> are <b>t3</b>, <b>t4</b>, etc... points.
-</p><p>The main use of <b>horizontal control points</b> is to change the perspective of the output panorama such that the marked structures are horizontal in the output projection. In a multi image panorama this is only possible if the <a href="Optimization.html" title="Optimization">optimization</a> of <a href="Roll.html" title="Roll">Roll</a> and <a href="Pitch.html" title="Pitch">Pitch</a> is allowed for all images and of <a href="Yaw.html" title="Yaw">Yaw</a> for all but the anchor image.
+</p><p>The main use of <b>horizontal control points</b> is to change the perspective of the output panorama such that the marked structures are horizontal in the output projection<a class="external" href="http://wiki.panotools.org/Projection">[*]</a>. In a multi image panorama this is only possible if the <a href="Optimization.html" title="Optimization">optimization</a> of <a href="Roll.html" title="Roll">Roll</a> and <a href="Pitch.html" title="Pitch">Pitch</a> is allowed for all images and of <a href="Yaw.html" title="Yaw">Yaw</a> for all but the anchor image.
 </p><p>You set <b>horizontal control points</b> on a horizontal structure apart from each other. However, be careful in a <a href="Cylindrical.html" title="Cylindrical" class="mw-redirect">cylindrical</a> or <a href="Equirectangular.html" title="Equirectangular" class="mw-redirect">equirectangular</a> panorama not to set them 180° apart, since this won't level the horizon.
-</p><p>Please note that all real world horizontal lines only stay horizontal in rectilinear projection. In <a href="Cylindrical.html" title="Cylindrical" class="mw-redirect">cylindrical</a>, <a href="Equirectangular.html" title="Equirectangular" class="mw-redirect">equirectangular</a> and fisheye projections only the horizon itself stays horizontal. 
-</p><p>More details in <a href="Perspective_correction.html" title="Perspective correction">Perspective correction</a> and Panotools internals
+</p><p>Please note that all real world horizontal lines only stay horizontal in rectilinear<a class="external" href="http://wiki.panotools.org/Rectilinear">[*]</a> projection. In <a href="Cylindrical.html" title="Cylindrical" class="mw-redirect">cylindrical</a>, <a href="Equirectangular.html" title="Equirectangular" class="mw-redirect">equirectangular</a> and fisheye<a class="external" href="http://wiki.panotools.org/Fisheye">[*]</a> projections only the horizon itself stays horizontal. 
+</p><p>More details in <a href="Perspective_correction.html" title="Perspective correction">Perspective correction</a> and Panotools internals<a class="external" href="http://wiki.panotools.org/Panotools_internals#Line_control_points">[*]</a>
 </p>
 
 

@@ -29,7 +29,7 @@
 		
 
 		
-		<!-- Head Scripts -->
+		<style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 		
 				
 	</head>
@@ -41,14 +41,14 @@
 				<h1 id="firstHeading" class="firstHeading">Hugin Optimizer tab</h1>
 		<div id="bodyContent">
 			
-			<div id="contentSub"></div>
+			
 												<!-- start content -->
 			<p><a href="Hugin.html" title="Hugin">hugin</a> uses a photo alignment scheme where it adjusts image orientation and lens settings of source photos
 until the <a href="Control_points.html" title="Control points">control points</a> line-up, this process is called <i>optimisation</i> and the <b>hugin Optimizer tab</b> is where it is controlled.  You actually <i>create</i> individual <b>control points</b> in the <a href="Hugin_Control_Points_tab.html" title="Hugin Control Points tab">hugin Control Points tab</a>, and <i>manage</i> them in the <a href="Hugin_Images_tab.html" title="Hugin Images tab">hugin Images tab</a> and <a href="Hugin_Control_Points_table.html" title="Hugin Control Points table">hugin Control Points table</a>.
 </p><p>So to align photos you need some control points, a general rule is that optimising more parameters requires more control points.
 </p>
 <a name="Quick_Optimizer" id="Quick_Optimizer"></a><h2> <span class="mw-headline"> Quick Optimizer </span></h2>
-<p>Use the <b>Optimize</b> combo box to pick one of several pre-set optimisation schemes, then click the <b>Optimize now!</b> button to calculate the best available fit.  For a spherical panorama, which is where each image is taken from the same position, you should not optimise translation. For a linear panorama, where you take pictures from different locations of the same flat surface, you must optimise translation.
+<p>Use the <b>Optimize</b> combo box to pick one of several pre-set optimisation schemes, then click the <b>Optimize now!</b> button to calculate the best available fit.  For a spherical panorama, which is where each image is taken from the same position, you should not optimise translation. For a linear panorama<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Linear_panorama&amp;action=edit&amp;redlink=1">[*]</a>, where you take pictures from different locations of the same flat surface, you must optimise translation.
 </p><p>One valid technique is to try each optimisation scheme in turn, starting at the top, and skipping the ones with translation if you are making a spherical panorama, until you are satisfied with the results.
 </p><p>The <b>Optimisation result</b> tells you how good the alignment is, large control point error distances indicate one of several things:
 </p>
@@ -69,7 +69,7 @@ of the images in the current project rather than all of them.  Use the buttons a
 </li></ul>
 <p>or
 </p>
-<ul><li> Lens calibration has already been performed, saved to a file and loaded into the current project via the <a href="Hugin_Camera_and_Lens_tab.html" title="Hugin Camera and Lens tab">hugin Camera and Lens tab</a>.
+<ul><li> Lens calibration<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Lens_calibration&amp;action=edit&amp;redlink=1">[*]</a> has already been performed, saved to a file and loaded into the current project via the <a href="Hugin_Camera_and_Lens_tab.html" title="Hugin Camera and Lens tab">hugin Camera and Lens tab</a>.
 </li></ul>
 <p>Note that to align any pair of photos, there should be at least two pairs of <a href="Control_points.html" title="Control points">control points</a> connecting them.
 </p>
@@ -89,8 +89,8 @@ of the images in the current project rather than all of them.  Use the buttons a
 </p>
 <a name="Everything_without_translation" id="Everything_without_translation"></a><h3> <span class="mw-headline"> Everything without translation </span></h3>
 <p>This optimises image orientation and all geometric parameters in the full <a href="Lens_correction_model.html" title="Lens correction model">lens correction model</a>. It includes more lens distortion parameters. The x shift and y shift (d and e) parameters account for the centre of the projection not being in the centre of the image. This is quite common, and gets very bad if an image is the cropped corner of another image.
-</p><p>You will need many control points, the more the better, and preferably a full spherical panorama (360 by 180 degrees) to get the best correction. You should also use a calibrated panoramic head. If the control points are bad (either there are not enough or some are in the wrong place), or your images were not taken around the <a href="No-parallax_point.html" title="No-parallax point">no-parallax point</a>, this could produce bizarre results.
-</p><p>However, if you do this well, you will accurately perform lens calibration. You can save and reuse this lens information on the <a href="Hugin_Camera_and_Lens_tab.html" title="Hugin Camera and Lens tab">Hugin Camera and Lens tab</a>.
+</p><p>You will need many control points, the more the better, and preferably a full spherical panorama (360 by 180 degrees) to get the best correction. You should also use a calibrated panoramic head<a class="external" href="http://wiki.panotools.org/Heads">[*]</a>. If the control points are bad (either there are not enough or some are in the wrong place), or your images were not taken around the <a href="No-parallax_point.html" title="No-parallax point">no-parallax point</a>, this could produce bizarre results.
+</p><p>However, if you do this well, you will accurately perform lens calibration<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Lens_calibration&amp;action=edit&amp;redlink=1">[*]</a>. You can save and reuse this lens information on the <a href="Hugin_Camera_and_Lens_tab.html" title="Hugin Camera and Lens tab">Hugin Camera and Lens tab</a>.
 </p>
 <a name="Positions_and_Translations_.28y.2Cp.2Cr.2Cx.2Cy.2Cz.29" id="Positions_and_Translations_.28y.2Cp.2Cr.2Cx.2Cy.2Cz.29"></a><h3> <span class="mw-headline"> Positions and Translations (y,p,r,x,y,z) </span></h3>
 <p>This will optimise image orientation and the translation you get when moving the camera for a linear panorama. This is great for stitching images of the same flat surface taken from different places, for example when you couldn't fit a painting or the front of a building into one picture. Again it isn't ideal if the lens information such as the field of view is wrong.

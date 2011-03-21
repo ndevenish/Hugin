@@ -29,7 +29,7 @@
 		
 
 		
-		<!-- Head Scripts -->
+		<style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 		
 				
 	</head>
@@ -41,14 +41,14 @@
 				<h1 id="firstHeading" class="firstHeading">Field of View</h1>
 		<div id="bodyContent">
 			
-			<div id="contentSub"></div>
+			
 												<!-- start content -->
 			<p><br />
 The <b>angle of view</b> of a photograph or camera is a measure of the proportion of a scene included in the image. Simply said: How many degrees of view are included in an image. A typical fixed lens camera might have an angle of view of 50°, a <a href="Fisheye_Projection.html" title="Fisheye Projection">fisheye</a> lens can have an angle of view greater than 180° and a full <a href="Equirectangular.html" title="Equirectangular" class="mw-redirect">equirectangular</a> or <a href="Cylindrical_panorama.html" title="Cylindrical panorama">cylindrical panorama</a> would have an angle of view of 360°.
 </p><p>Most people speak of <b>field of view</b> when in fact they mean <b>angle of view</b>. Field of view is the distance covered by a projection at a certain distance. So if an image exactly shows a 2 meter wide object at 1 meter distance, then the field of view is 2 meter (and the angle of view is 90°).
 Angle of view is also known as <b>angle of coverage</b>.
 </p>
-<div class="center"><div class="floatnone"><img alt="" src="197px-Field-of-view.svg.png" width="197" height="283" border="0" /></div></div>
+<div class="center"><div class="floatnone"><img alt="" src="197px-Field-of-view.svg.png" width="197" height="283" border="0" /><a class="external" href="http://wiki.panotools.org/File:Field-of-view.svg">[*]</a></div></div>
 <p>From here on and on the rest of the wiki we will only speak of field of view (although we should speak of angle of view).
 </p><p>Field of view is often abbreviated as <b>FoV</b>.
 Usually <b>field of view</b> refers to the <b>horizontal field of view</b> (hFoV) of an image. Some applications make use of the <b>vertical field of view</b> (vFoV) which can be calculated from the <a href="Aspect_Ratio.html" title="Aspect Ratio">Aspect Ratio</a> of the image:
@@ -61,8 +61,8 @@ Usually <b>field of view</b> refers to the <b>horizontal field of view</b> (hFoV
 <p>The other standard measure of the <i>width</i> or <i>narrowness</i> of a lens is <a href="Focal_Length.html" title="Focal Length">Focal Length</a>.
 </p><p>Assuming a <a href="Rectilinear_Projection.html" title="Rectilinear Projection">rectilinear</a> lens, the field of view can be calculated like this (<span class="texhtml"><i>s</i><i>i</i><i>z</i><i>e</i></span> being either width or height for the respective FoV):
 </p><p><img class="tex" alt="FoV = 2 * atan \left(\frac{size}{2 * Focal Length} \right) " src="fa5313ae442c1ac7f832c141880e3e74.png" />
-</p><p>Please note that this is an approximation. The exact values depend on the location of the <a href="Entrance_pupil.html" title="Entrance pupil" class="mw-redirect">entrance pupil</a>. More information on that in Rik Littlefield's paper.
-See <a href="Fisheye_Projection.html" title="Fisheye Projection">Fisheye Projection</a> for formulas for Fisheyes.
+</p><p>Please note that this is an approximation. The exact values depend on the location of the <a href="Entrance_pupil.html" title="Entrance pupil" class="mw-redirect">entrance pupil</a>. More information on that in Rik Littlefield's paper<a class="external" href="http://www.janrik.net/PanoPostings/NoParallaxPoint/TheoryOfTheNoParallaxPoint.pdf">[*]</a>.
+See <a href="Fisheye_Projection.html" title="Fisheye Projection">Fisheye Projection</a> for formulas for Fisheyes<a class="external" href="http://wiki.panotools.org/Fisheyes">[*]</a>.
 </p>
 <a name="Conversion_from_horizontal_to_vertical_and_vice_versa" id="Conversion_from_horizontal_to_vertical_and_vice_versa"></a><h2> <span class="mw-headline"> Conversion from horizontal to vertical and vice versa </span></h2>
 <p>For fisheye (approximation) and equirectangular images:

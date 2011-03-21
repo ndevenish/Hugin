@@ -29,7 +29,7 @@
 		
 
 		
-		<!-- Head Scripts -->
+		<style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 		
 				
 	</head>
@@ -41,7 +41,7 @@
 				<h1 id="firstHeading" class="firstHeading">Depth of Field</h1>
 		<div id="bodyContent">
 			
-			<div id="contentSub"></div>
+			
 												<!-- start content -->
 			<p><br />
 </p>
@@ -58,7 +58,7 @@
 </p><p>For a standard angle of confusion of 2 arc minutes this would result in an equirect image with 10800*5400 pixel. If zoomable panoramas are smaller in pixel size, the Depth of Field is far bigger than for classical photography and standard depth of field calculators are of no big use. Read on to see how to circumvent this.
 </p>
 <a name="Diffraction" id="Diffraction"></a><h2> <span class="mw-headline"><a href="Diffraction.html" title="Diffraction">Diffraction</a></span></h2>
-<p>In the increasingly popular gigapixel panoramas, where longer lenses are used, Depth of Field is a serious issue. While stopping down increases DoF, image blur due to diffraction limits the sharpness and the final resolution. Effective resolution can be calculated using the Rayleigh criterion. See the main article on <a href="Diffraction.html" title="Diffraction">Diffraction</a> for more details.
+<p>In the increasingly popular gigapixel panoramas, where longer lenses are used, Depth of Field is a serious issue. While stopping down increases DoF, image blur due to diffraction limits the sharpness and the final resolution. Effective resolution can be calculated using the Rayleigh criterion<a class="external" href="http://www.wikipedia.org/wiki/angular_resolution">[*]</a>. See the main article on <a href="Diffraction.html" title="Diffraction">Diffraction</a> for more details.
 </p>
 <a name="Hyperfocal_distance" id="Hyperfocal_distance"></a><h2> <span class="mw-headline">Hyperfocal distance</span></h2>
 <p>In most cases a panorama should be sharp from the horizon to the nearest objects. Since the <a href="Depth_of_Field.html#What_it_is" title="">Depth of Field</a> region is partly in front of and partly behind the focus plane, you sacrifice a fair amount of Depth of Field if you focus to infinity - only one part of the depth of field range is used.
@@ -83,16 +83,16 @@
 <pre>CoC = sin(AoC) * sensor diagonal
 AoC = 360 / Width
 </pre>
-<p>With this values you can go into any depth of field calculator where you can enter the circle of confusion like for example http://www.tawbaware.com/maxlyons/calc.htm and calculate the hyperfocal distance (and the Depth of Field if required). 
+<p>With this values you can go into any depth of field calculator where you can enter the circle of confusion like for example http://www.tawbaware.com/maxlyons/calc.htm<a class="external" href="http://www.tawbaware.com/maxlyons/calc.htm">[*]</a> and calculate the hyperfocal distance (and the Depth of Field if required). 
 </p><p>In any case the near limit of the Depth of Field is half the hyperfocal distance. 
 </p><p>Please note, that all these values for fisheye lenses are only approximations, since their focal length changes from the center to the edges as well as the effective aperture changes.
 </p>
 <a name="Extending_depth_of_field_in_software" id="Extending_depth_of_field_in_software"></a><h2> <span class="mw-headline"> Extending depth of field in software </span></h2>
-<p>Rik Littlefield added functionality to the <a href="Pano12.html" title="Pano12">pano12</a> library to merge multiple exposures with different focal distances into a single image with extended <b>depth of field</b>.  This has largely been superceded by new software, notably CombineZ5,SAR, Helicon focus and <a href="Enfuse.html" title="Enfuse">enfuse</a>.
+<p>Rik Littlefield<a class="external" href="http://www.janrik.net/ptools/ExtendedFocusPano12/">[*]</a> added functionality to the <a href="Pano12.html" title="Pano12">pano12</a> library to merge multiple exposures with different focal distances into a single image with extended <b>depth of field</b>.  This has largely been superceded by new software, notably CombineZ5<a class="external" href="http://www.hadleyweb.pwp.blueyonder.co.uk/CZ5/combinez5.htm">[*]</a>,SAR<a class="external" href="http://www.general-cathexis.com/">[*]</a>, Helicon focus<a class="external" href="http://heliconfilter.com/pages/focus_overview.html">[*]</a> and <a href="Enfuse.html" title="Enfuse">enfuse</a>.
 </p>
 <a name="Web_links" id="Web_links"></a><h2> <span class="mw-headline"> Web links </span></h2>
-<p>Some Investigations Regarding Depth of Field by Rik Littlefield: [1]
-</p><p><small>Erik Krause 16:50, 6 Jun 2005 (EDT)</small>
+<p>Some Investigations Regarding Depth of Field by Rik Littlefield: [1]<a class="external" href="http://www.janrik.net/DOFpostings/PM1/DOFInvestigations1.htm">[*]</a>
+</p><p><small>Erik Krause<a class="external" href="http://wiki.panotools.org/User:Erik_Krause">[*]</a> 16:50, 6 Jun 2005 (EDT)</small>
 </p>
 
 

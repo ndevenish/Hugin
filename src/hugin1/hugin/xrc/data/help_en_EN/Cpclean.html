@@ -29,7 +29,7 @@
 		
 
 		
-		<!-- Head Scripts -->
+		<style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 		
 				
 	</head>
@@ -41,9 +41,9 @@
 				<h1 id="firstHeading" class="firstHeading">Cpclean</h1>
 		<div id="bodyContent">
 			
-			<div id="contentSub"></div>
+			
 												<!-- start content -->
-			<p><b>cpclean</b> is a command-line tool that implements the 'bad' <a href="Control_points.html" title="Control points">control points</a> pruning available within the <a href="Hugin.html" title="Hugin">Hugin</a> GUI. It is similar conceptually to apclean, but with some extra functionality. Both tools use a statistical filter to remove points with an error above a statistical threshold.
+			<p><b>cpclean</b> is a command-line tool that implements the 'bad' <a href="Control_points.html" title="Control points">control points</a> pruning available within the <a href="Hugin.html" title="Hugin">Hugin</a> GUI. It is similar conceptually to apclean<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Apclean&amp;action=edit&amp;redlink=1">[*]</a>, but with some extra functionality. Both tools use a statistical filter to remove points with an error above a statistical threshold.
 </p><p>The idea is to remove all non-credible control points.  To do this it optimises each pair of photos one at a time and deletes all points that can't be made to fit, it then optimises the whole project together using more conservative assumptions and deletes another round of points. The .pto project file is returned unoptimised, the only change is that there are less control points, this means the project doesn't have to be optimised before you start.
 </p><p>By using this optimisation step <b>cpclean</b> is able to look not just at the current project settings and find 'bad' points, but is able to find points that are 'bad' under a range of circumstances.
 </p><p>A typical usage would be:
@@ -54,7 +54,7 @@
 </p>
 <pre> cpclean -n 1 -o output.pto project.pto
 </pre>
-<p><b>cpclean</b> is based on ptoclean.
+<p><b>cpclean</b> is based on ptoclean<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Ptoclean&amp;action=edit&amp;redlink=1">[*]</a>.
 </p>
 
 

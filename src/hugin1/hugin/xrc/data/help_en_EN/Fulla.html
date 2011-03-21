@@ -29,7 +29,7 @@
 		
 
 		
-		<!-- Head Scripts -->
+		<style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 		
 				
 	</head>
@@ -41,7 +41,7 @@
 				<h1 id="firstHeading" class="firstHeading">Fulla</h1>
 		<div id="bodyContent">
 			
-			<div id="contentSub"></div>
+			
 												<!-- start content -->
 			<p><b>fulla</b> is a command-line tool distributed with <a href="Hugin.html" title="Hugin">hugin</a> 0.6 and later. It can correct chromatic aberration, lens distortion, and vignetting.
 </p>
@@ -50,7 +50,7 @@
 <p>fulla is suitable for batch correction of:
 </p>
 <dl><dt><a href="Chromatic_aberration.html" title="Chromatic aberration">Chromatic aberration</a></dt><dd> See tutorial in <a href="Fulla.html#External_links" title="">external links</a>.
-</dd><dt><a href="Lens_correction_model.html" title="Lens correction model">Lens distortion</a></dt><dd> <a href="Barrel_distortion.html" title="Barrel distortion">Barrel</a> or <a href="Pincushion_distortion.html" title="Pincushion distortion">pincushion distortion</a> can be corrected using the same a, b, c and d parameters as other Panorama Tools derived programs.
+</dd><dt><a href="Lens_correction_model.html" title="Lens correction model">Lens distortion</a></dt><dd> <a href="Barrel_distortion.html" title="Barrel distortion">Barrel</a> or <a href="Pincushion_distortion.html" title="Pincushion distortion">pincushion distortion</a> can be corrected using the same a, b, c and d parameters as other Panorama Tools<a class="external" href="http://wiki.panotools.org/Panorama_Tools">[*]</a> derived programs.
 </dd><dt><a href="Vignetting.html" title="Vignetting">Vignetting</a></dt><dd> Polynomial correction by division, addition or flatfield images. <a href="Hugin.html" title="Hugin">hugin</a> contains a vignetting calculator that can use a series of overlapping photographs to determine the likely polynomial required to correct common vignetting problems.
 </dd></dl>
 <p>fulla can work with the same range of image types as <a href="Nona.html" title="Nona">nona</a>, including 8bit and 16bit <a href="TIFF.html" title="TIFF">TIFF</a> and 32bit floating-point <a href="HDR.html" title="HDR">HDR</a> TIFF data.
@@ -88,7 +88,7 @@
      -v               Verbose
 </pre>
 <a name="Status" id="Status"></a><h2> <span class="mw-headline"> Status </span></h2>
-<p>As of Hugin 2010.0.0, vignetting correction seems to be broken. Resizing during correction is not available - this may cause important image parts to get cropped. Few changes have been committed to fulla since the beginning of 2008. If you want to correct individual images, best use a lensfun-based program (e.g., UFRaw or digiKam) these days. Lensfun also comes with a more up to date lens correction parameters database.
+<p>As of Hugin 2010.0.0, vignetting correction seems to be broken<a class="external" href="http://sourceforge.net/tracker/?func=detail&amp;aid=3057742&amp;group_id=77506&amp;atid=550441">[*]</a>. Resizing during correction is not available<a class="external" href="http://sourceforge.net/tracker/?func=detail&amp;aid=3057758&amp;group_id=77506&amp;atid=550444">[*]</a> - this may cause important image parts to get cropped. Few changes have been committed to fulla since the beginning of 2008. If you want to correct individual images, best use a lensfun<a class="external" href="http://lensfun.berlios.de/">[*]</a>-based program (e.g., UFRaw<a class="external" href="http://ufraw.sourceforge.net/">[*]</a> or digiKam<a class="external" href="http://www.digikam.org/drupal/node/319">[*]</a>) these days. Lensfun also comes with a more up to date lens correction parameters database.
 </p>
 <a name="Notes" id="Notes"></a><h2> <span class="mw-headline"> Notes </span></h2>
 <p>Finding the correct lens correction parameters can be done using several approaches (see <a href="Lens_correction_model.html" title="Lens correction model">Lens correction model</a> and external links for details). Note parameter d for radial distortion (default 1.0) is not available in GUI frontends - the d mentioned in frontends is typically a different parameter related to image shift.
@@ -113,7 +113,7 @@ for batch correcting photos like so:
 <p>Assuming the name of the lens in the PTLens Database (see below) is "Standard" (as most are). Now, upon calling from any directory containing pics you can run "C:\Program Files\hugin\fulla.bat *.jpg" having fulla correcting all pics using the parameters retrieved from the PTLens Database mentioned below (don't forget to SET PTLENS_PROFILE)
 </p>
 <a name="PTLens_database_lookup" id="PTLens_database_lookup"></a><h2> <span class="mw-headline"> PTLens database lookup </span></h2>
-<p>fulla will look-up your camera in a PTLens database and try to automatically determine <a href="Lens_correction_model.html" title="Lens correction model">Lens correction parameters</a> for your pictures. An older free version of the database is required which can be downloaded from sourceforge (see <a href="Fulla.html#External_links" title="">external links</a>).
+<p>fulla will look-up your camera in a PTLens<a class="external" href="http://wiki.panotools.org/PTLens">[*]</a> database and try to automatically determine <a href="Lens_correction_model.html" title="Lens correction model">Lens correction parameters</a> for your pictures. An older free version of the database is required which can be downloaded from sourceforge (see <a href="Fulla.html#External_links" title="">external links</a>).
 </p><p>Use the PTLENS_PROFILE environment variable to specify the location of the PTLens database, for example on Linux or OS X:
 </p>
 <pre> PTLENS_PROFILE=$HOME/.ptlens/profile.txt
@@ -125,11 +125,11 @@ for batch correcting photos like so:
 <p>otherwise enter the full path.
 </p>
 <a name="External_links" id="External_links"></a><h2> <span class="mw-headline"> External links </span></h2>
-<ul><li> Correcting TCA with hugin and fulla
-</li><li> PTLens database download (April 2006)
-<ul><li> Lensfun SVN includes parameters for many more lenses
+<ul><li> Correcting TCA with hugin and fulla<a class="external" href="http://hugin.sourceforge.net/tutorials/tca/en.shtml">[*]</a>
+</li><li> PTLens database download<a class="external" href="http://sourceforge.net/project/showfiles.php?group_id=77506&amp;package_id=187932">[*]</a> (April 2006)
+<ul><li> Lensfun<a class="external" href="http://lensfun.berlios.de/">[*]</a> SVN<a class="external" href="http://svn.berlios.de/wsvn/lensfun/trunk/data/db/">[*]</a> includes parameters for many more lenses
 </li></ul>
-</li><li> How to determine lens correction parameters - from Lensfun documentation
+</li><li> How to determine lens correction parameters<a class="external" href="http://lensfun.berlios.de/lens-calibration/lens-calibration.html">[*]</a> - from Lensfun documentation
 </li></ul>
 
 

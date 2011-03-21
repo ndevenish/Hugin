@@ -29,7 +29,7 @@
 		
 
 		
-		<!-- Head Scripts -->
+		<style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 		
 				
 	</head>
@@ -41,7 +41,7 @@
 				<h1 id="firstHeading" class="firstHeading">Autooptimiser</h1>
 		<div id="bodyContent">
 			
-			<div id="contentSub"></div>
+			
 												<!-- start content -->
 			<p><b>autooptimiser</b> is a smart optimiser replacement for <a href="PTOptimizer.html" title="PTOptimizer">PTOptimizer</a> and <a href="Vig_optimize.html" title="Vig optimize">vig_optimize</a>, it is part of the <a href="Hugin.html" title="Hugin">hugin</a> suite of tools for panoramic imaging.
 </p><p>It is not a 100% drop-in replacement for <b>PTOptimizer</b> as it has a slightly different interface and some extra features:
@@ -55,7 +55,7 @@
 <ul><li> <b>autooptimiser</b> can perform <i>pairwise</i> optimisation instead of trying to optimise all rotation parameters at the same time, this means that there is no need to pre-position images before optimisation.
 </li><li> <i>levelling</i> the horizon in a set of images can be performed, this is the same functionality as the <b>Straighten</b> button in the <a href="Hugin_Preview_window.html" title="Hugin Preview window">hugin Preview window</a>.
 </li><li> <i>auto-align</i> mode will pick an optimisation scheme suited to the distribution of <a href="Control_points.html" title="Control points">control points</a> in the project so there is no need to specify parameters to optimise.
-</li><li> <b>autooptimiser</b> can adjust the panorama field of view, dimensions and <a href="Projections.html" title="Projections">projection</a> to suit the input images.
+</li><li> <b>autooptimiser</b> can adjust the panorama field of view<a class="external" href="http://wiki.panotools.org/Field_of_view">[*]</a>, dimensions and <a href="Projections.html" title="Projections">projection</a> to suit the input images.
 </li><li> the <b>field of view</b> of input images can be specified, this is useful as the project files created by <a href="Autopano.html" title="Autopano">autopano</a> and <a href="Autopano-sift.html" title="Autopano-sift">autopano-sift</a> don't specify the <b>field of view</b> of the input photos.
 </li><li> <b>autooptimiser</b> can also perform photometric optimisation like the <a href="Vig_optimize.html" title="Vig optimize">vig_optimize</a> tool. Depending on the input images it selects automaticly these photometric parameters (exposure, white balance, <a href="Vignetting.html" title="Vignetting">vignetting</a>, <a href="Camera_response_curve.html" title="Camera response curve">camera response curve</a>) which should be optimised.
 </li></ul>

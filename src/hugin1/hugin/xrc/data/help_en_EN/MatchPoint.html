@@ -29,7 +29,7 @@
 		
 
 		
-		<!-- Head Scripts -->
+		<style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 		
 				
 	</head>
@@ -41,11 +41,11 @@
 				<h1 id="firstHeading" class="firstHeading">MatchPoint</h1>
 		<div id="bodyContent">
 			
-			<div id="contentSub"></div>
+			
 												<!-- start content -->
 			
 <a name="Introduction" id="Introduction"></a><h2> <span class="mw-headline"> Introduction </span></h2>
-<p>MatchPoint is a next generation CP generator. The result of a GSoC2007 project SoC2007_project_Feature_Descriptor. Currently it offers only keypoint detection but not matching (matching was part of other GSoC 07 project that was not carried out) and can currently be used only as a replacement for generatekeys from <a href="Autopano-sift.html" title="Autopano-sift">autopano-sift</a> or <a href="Autopano-sift-C.html" title="Autopano-sift-C">autopano-sift-C</a>. 
+<p>MatchPoint is a next generation CP generator. The result of a GSoC2007 project SoC2007_project_Feature_Descriptor<a class="external" href="http://wiki.panotools.org/SoC2007_project_Feature_Descriptor">[*]</a>. Currently it offers only keypoint detection but not matching (matching was part of other GSoC 07 project that was not carried out) and can currently be used only as a replacement for generatekeys from <a href="Autopano-sift.html" title="Autopano-sift">autopano-sift</a> or <a href="Autopano-sift-C.html" title="Autopano-sift-C">autopano-sift-C</a>. 
 </p><p>A current version of matchpoint can be obtained via the <a href="Hugin.html" title="Hugin">hugin</a> project.
 </p><p>Goal of this MatchPoint is to create a complete control point suite that will be used by <a href="Hugin.html" title="Hugin">hugin</a> as a replacement(or at least an alternative) to existing autopano suites.
 </p><p>If you want to use MatchPoint in the process of creating panoramic images now(when not all features are implemented) you will have to use autopano-sift also.
@@ -103,7 +103,7 @@ In order to achieve invariance to scaling, detection needs to find maxima of Hes
 <p><b> Orientation assignment </b><br />
 Scale invariance is achieved by assigning main orientation of the interest point using special algorithm proposed by Herbert Bay. Efficiency of this algorithm has not been yet tested, therefore the executable of MatchPoint does not use any orientation assignment.
 </p><p><b> Shape Context descriptors </b><br />
-To each interest point a 36 element descriptor is assigned. Elements of this descriptors are organized according to Shape Context descriptor proposed by S. Belongie, J. Malik and J. Puzicha and adapted by K. Mikolajczyk for the purpose of finding control points. 
+To each interest point a 36 element descriptor is assigned. Elements of this descriptors are organized according to Shape Context descriptor proposed by S. Belongie, J. Malik and J. Puzicha<a class="external" href="http://www.eecs.berkeley.edu/Research/Projects/CS/vision/shape/sc_digits.html">[*]</a> and adapted by K. Mikolajczyk<a class="external" href="http://www.robots.ox.ac.uk/~vgg/research/affine/index.html">[*]</a> for the purpose of finding control points. 
 </p><p>Steps in creating descriptors:
 </p>
 <ol><li> detect edges in the region around the interest point(region size depends on the scale at which point was detected). MatchPoint uses vigra's API(Canny edge detection) for this.
@@ -112,9 +112,9 @@ To each interest point a 36 element descriptor is assigned. Elements of this des
 <p>See reference papers for details.
 </p>
 <a name="References" id="References"></a><h2> <span class="mw-headline">References</span></h2>
-<ul><li> Speeded Up Robust Features - SURF
-</li><li> Matlab suite for testing, papers for detection, descriptors and evaluation by K. Mikolajczyk
-</li><li> Shape Context descriptors
+<ul><li> Speeded Up Robust Features - SURF<a class="external" href="http://www.vision.ee.ethz.ch/~surf/">[*]</a>
+</li><li> Matlab suite for testing, papers for detection, descriptors and evaluation by K. Mikolajczyk<a class="external" href="http://www.robots.ox.ac.uk/~vgg/research/affine">[*]</a>
+</li><li> Shape Context descriptors<a class="external" href="http://www.eecs.berkeley.edu/Research/Projects/CS/vision/shape/sc_digits.html">[*]</a>
 </li></ul>
 
 

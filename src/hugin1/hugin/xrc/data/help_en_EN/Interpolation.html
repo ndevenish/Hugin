@@ -29,7 +29,7 @@
 		
 
 		
-		<!-- Head Scripts -->
+		<style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 		
 				
 	</head>
@@ -41,7 +41,7 @@
 				<h1 id="firstHeading" class="firstHeading">Interpolation</h1>
 		<div id="bodyContent">
 			
-			<div id="contentSub"></div>
+			
 												<!-- start content -->
 			<p><br />
 </p>
@@ -50,7 +50,7 @@
 <p>For panorama creation images have to be changed in geometry, they have to be remapped. Since image content is rastered in pixels it has to be moved to different pixels. In most cases a destination pixel does not correspond exactly with the location of a source pixel, it lies somewhere in between. The process of getting the best image content from in between some pixels is called interpolation.
 </p>
 <a name="Types" id="Types"></a><h3> <span class="mw-headline"> Types </span></h3>
-<p>There are several types of interpolation used in Panotools, from fast but not so good ones to very slow but precise ones. There is a comparison of the different types by Helmut Dersch: [1] Jim Watters extended this test to some interpolators that where introduced later and added some timing information: [2]
+<p>There are several types of interpolation used in Panotools, from fast but not so good ones to very slow but precise ones. There is a comparison of the different types by Helmut Dersch: [1]<a class="external" href="http://www.path.unimelb.edu.au/~dersch/interpolator/interpolator.html">[*]</a> Jim Watters extended this test to some interpolators that where introduced later and added some timing information: [2]<a class="external" href="http://photocreations.ca/interpolator/index.html">[*]</a>
 </p>
 <a name="Issues" id="Issues"></a><h3> <span class="mw-headline"> Issues </span></h3>
 <a name="Aliasing" id="Aliasing"></a><h4> <span class="mw-headline"> Aliasing </span></h4>
@@ -59,9 +59,9 @@
 <a name="Echos" id="Echos"></a><h4> <span class="mw-headline"> Echos </span></h4>
 <p>Although the large kernel sinc interpolators (sinc256 and sinc1024) are far superior if you have small regular details that most likely will cause moiré with less sophisticated interpolators there is some drawback using the sinc versions if you have hard edges. They cause some echos of the edge in either direction. The example images below (enlarged to 400%) have been only interpolated twice - one rotation 5 degrees to the left and one rotation 5 degrees to the right.
 </p>
-<div class="thumb tleft"><div class="thumbinner" style="width:242px;"><img alt="" src="Interpolate_none.jpg" width="240" height="136" border="0" class="thumbimage" />  <div class="thumbcaption">Original</div></div></div><div class="thumb tleft"><div class="thumbinner" style="width:242px;"><img alt="" src="Interpolate_poly3.jpg" width="240" height="136" border="0" class="thumbimage" />  <div class="thumbcaption">Poly 3 interpolator</div></div></div><div class="thumb tleft"><div class="thumbinner" style="width:242px;"><img alt="" src="Interpolate_sinc256.jpg" width="240" height="136" border="0" class="thumbimage" />  <div class="thumbcaption">Sinc 256 interpolator</div></div></div>
+<div class="thumb tleft"><div class="thumbinner" style="width:242px;"><img alt="" src="Interpolate_none.jpg" width="240" height="136" border="0" class="thumbimage" /><a class="external" href="http://wiki.panotools.org/File:Interpolate_none.jpg">[*]</a>  <div class="thumbcaption">Original</div></div></div><div class="thumb tleft"><div class="thumbinner" style="width:242px;"><img alt="" src="Interpolate_poly3.jpg" width="240" height="136" border="0" class="thumbimage" /><a class="external" href="http://wiki.panotools.org/File:Interpolate_poly3.jpg">[*]</a>  <div class="thumbcaption">Poly 3 interpolator</div></div></div><div class="thumb tleft"><div class="thumbinner" style="width:242px;"><img alt="" src="Interpolate_sinc256.jpg" width="240" height="136" border="0" class="thumbimage" /><a class="external" href="http://wiki.panotools.org/File:Interpolate_sinc256.jpg">[*]</a>  <div class="thumbcaption">Sinc 256 interpolator</div></div></div>
 <p><br style="clear:both;" />
-<small>--Erik Krause 05:59, 6 Jul 2005 (EDT)</small>
+<small>--Erik Krause<a class="external" href="http://wiki.panotools.org/User:Erik_Krause">[*]</a> 05:59, 6 Jul 2005 (EDT)</small>
 </p>
 
 

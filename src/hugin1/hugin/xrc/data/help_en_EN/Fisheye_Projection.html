@@ -29,7 +29,7 @@
 		
 
 		
-		<!-- Head Scripts -->
+		<style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 		
 				
 	</head>
@@ -41,13 +41,13 @@
 				<h1 id="firstHeading" class="firstHeading">Fisheye Projection</h1>
 		<div id="bodyContent">
 			
-			<div id="contentSub"></div>
+			
 												<!-- start content -->
-			<div class="thumb tright"><div class="thumbinner" style="width:302px;"><img alt="" src="Big_ben_circ_fisheye.jpg" width="300" height="300" border="0" class="thumbimage" />  <div class="thumbcaption">Circular Fisheye projection, with permission from Ben Kreunen</div></div></div>
-<div class="thumb tright"><div class="thumbinner" style="width:302px;"><img alt="" src="Big_ben_ff_fisheye.jpg" width="300" height="300" border="0" class="thumbimage" />  <div class="thumbcaption">Fullframe Fisheye projection, with permission from Ben Kreunen</div></div></div>
+			<div class="thumb tright"><div class="thumbinner" style="width:302px;"><img alt="" src="Big_ben_circ_fisheye.jpg" width="300" height="300" border="0" class="thumbimage" /><a class="external" href="http://wiki.panotools.org/File:Big_ben_circ_fisheye.jpg">[*]</a>  <div class="thumbcaption">Circular Fisheye projection, with permission from Ben Kreunen</div></div></div>
+<div class="thumb tright"><div class="thumbinner" style="width:302px;"><img alt="" src="Big_ben_ff_fisheye.jpg" width="300" height="300" border="0" class="thumbimage" /><a class="external" href="http://wiki.panotools.org/File:Big_ben_ff_fisheye.jpg">[*]</a>  <div class="thumbcaption">Fullframe Fisheye projection, with permission from Ben Kreunen</div></div></div>
 <p>This is a class of <a href="Projections.html" title="Projections">projections</a> for mapping a portion of the surface of a sphere to a flat image, typically a camera's film or detector plane.  In a fisheye projection the distance from the centre of the image to a point is close to proportional to the true angle of separation.
-</p><p>Commonly there are two types of fisheye distinguished: circular fisheyes and fullframe fisheyes. However, both follow the same projection geometrics. The only difference is one of <a href="Field_of_View.html" title="Field of View">Field of View</a>: for a circular fisheye the circular image fits (more or less) completely in the frame, leaving blank areas in the corner. For the full frame variety, the image is over-filled by the circular fisheye image, leaving no blank space on the film or detector.  A circular fisheye can be made full frame if you use it with a smaller sensor/film size (and vice versa), or by zooming a fisheye adaptor on a zoom lens.
-</p><p>There is no single fisheye projection, but instead there are a class of projection transformation all referred to as <i>fisheye</i> by various lens manufacturers, with names like <i>equisolid angle projection</i>, or <i>equidistance fisheye</i>.  Less common are traditional spherical projections which map to circular images, such as the orthographic (lenses commonly designated <i>OP</i>) or <a href="Stereographic_Projection.html" title="Stereographic Projection">stereographic</a> projections.  Luckily, most of these related projections can be dealt with in a simple way. The following explanation is taken from a posting by Helmut Dersch (link to original see below):
+</p><p>Commonly there are two types of fisheye distinguished: circular fisheyes<a class="external" href="http://wiki.panotools.org/Fisheyes">[*]</a> and fullframe fisheyes<a class="external" href="http://wiki.panotools.org/Fisheyes">[*]</a>. However, both follow the same projection geometrics. The only difference is one of <a href="Field_of_View.html" title="Field of View">Field of View</a>: for a circular fisheye the circular image fits (more or less) completely in the frame, leaving blank areas in the corner. For the full frame variety, the image is over-filled by the circular fisheye image, leaving no blank space on the film or detector.  A circular fisheye can be made full frame if you use it with a smaller sensor/film size (and vice versa), or by zooming a fisheye adaptor on a zoom lens.
+</p><p>There is no single fisheye projection, but instead there are a class of projection transformation all referred to as <i>fisheye</i> by various lens manufacturers, with names like <i>equisolid angle projection</i>, or <i>equidistance fisheye</i>.  Less common are traditional spherical projections which map to circular images, such as the orthographic<a class="external" href="http://mathworld.wolfram.com/OrthographicProjection.html">[*]</a> (lenses commonly designated <i>OP</i>) or <a href="Stereographic_Projection.html" title="Stereographic Projection">stereographic</a> projections.  Luckily, most of these related projections can be dealt with in a simple way. The following explanation is taken from a posting by Helmut Dersch<a class="external" href="http://wiki.panotools.org/Helmut_Dersch">[*]</a> (link to original see below):
 </p><p><b><img class="tex" alt="\theta\," src="1f09c25c5247c1eaf121df644ca42f8c.png" /></b> is the angle between a point in the real world and the optical axis, which goes from the center of the image through the center of the lens.
 </p><p>The focal length f of common fisheye lenses corresponds
 quite simple to <span class="texhtml">&theta;</span> and the
@@ -75,8 +75,8 @@ difference between the two.
 <pre><img class="tex" alt="R=f*tan(\theta)\," src="ccf48cf728225d3dcecf1f74e74dafa3.png" />
 </pre>
 <p>We can assume that most newer fisheyes follow the first mapping scheme.
-</p><p>Complete text of the mail can be found at W.J. Markerink's page about fisheye analysis
-</p><p>More information on fisheyes and their distortions from Bob Atkins Photography
+</p><p>Complete text of the mail can be found at W.J. Markerink's page about fisheye analysis<a class="external" href="http://www.a1.nl/phomepag/markerink/fishyfaq.htm">[*]</a>
+</p><p>More information on fisheyes<a class="external" href="http://wiki.panotools.org/Fisheyes">[*]</a> and their distortions from Bob Atkins Photography<a class="external" href="http://www.bobatkins.com/photography/technical/field_of_view.html">[*]</a>
 </p>
 
 

@@ -29,7 +29,7 @@
 		
 
 		
-		<!-- Head Scripts -->
+		<style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 		
 				
 	</head>
@@ -41,12 +41,12 @@
 				<h1 id="firstHeading" class="firstHeading">Hugin Trackers</h1>
 		<div id="bodyContent">
 			
-			<div id="contentSub"></div>
+			
 												<!-- start content -->
 			
 <a name="General" id="General"></a><h1> <span class="mw-headline"> General </span></h1>
-<p>Since November 22, 2010 bugs, feature requests and patches for Hugin are <a href="https://bugs.launchpad.net/hugin" class="external text" title="https://bugs.launchpad.net/hugin" rel="nofollow">tracked</a> in Launchpad, the official tools to communicate bugs, feature requests, and proposed changes to the developers. While bug reports, feature requests, and patches are always welcome over any channel, the Launchpad tracker is the only tools that make sure they will not be forgotten / hidden in the past archives. All users are encouraged to make use of Launchpad. In the following text I explain the basic usage and set some policies with regard to Hugin.
-</p><p>Moreover, discussion of tracker tickets is welcome on the Mailing List (ML). This includes (non-exhaustive list):
+<p>Since November 22, 2010 bugs, feature requests and patches for Hugin are tracked<a class="external" href="https://bugs.launchpad.net/hugin">[*]</a> in Launchpad, the official tools to communicate bugs, feature requests, and proposed changes to the developers. While bug reports, feature requests, and patches are always welcome over any channel, the Launchpad tracker is the only tools that make sure they will not be forgotten / hidden in the past archives. All users are encouraged to make use of Launchpad. In the following text I explain the basic usage and set some policies with regard to Hugin.
+</p><p>Moreover, discussion of tracker tickets is welcome on the Mailing List<a class="external" href="http://groups.google.com/group/hugin-ptx/">[*]</a> (ML). This includes (non-exhaustive list):
 </p>
 <ul><li> requests to test bugs and patches
 </li><li> requests for opinions on ways to fix bugs and implement new features
@@ -60,7 +60,7 @@
 </li><li> comment on existing tickets
 </li><li> vote on tickets
 </li></ul>
-<p>Moreover, if you are a power user and want to help triage and prioritize tickets; help users solve their problems; help developers with testing and observations; join the <a href="https://launchpad.net/~hugin-bug-hunters" class="external text" title="https://launchpad.net/~hugin-bug-hunters" rel="nofollow">Hugin Bug Hunters</a> team.
+<p>Moreover, if you are a power user and want to help triage and prioritize tickets; help users solve their problems; help developers with testing and observations; join the Hugin Bug Hunters<a class="external" href="https://launchpad.net/~hugin-bug-hunters">[*]</a> team.
 </p>
 <a name="OpenPGP_key" id="OpenPGP_key"></a><h2> <span class="mw-headline"> OpenPGP key </span></h2>
 <p>An OpenPGP key is not mandatory for general use, but it makes life easy.
@@ -95,26 +95,26 @@ echo &quot;export GPGKEY=637572E4&quot; &gt;&gt; ~/.bashrc
 gpg --send-keys --keyserver keyserver.ubuntu.com $GPGKEY
 gpg --fingerprint $GPGKEY
 </pre>
-<p>Log on to your launchpad page <a href="https://launchpad.net/~" class="external free" title="https://launchpad.net/~" rel="nofollow">https://launchpad.net/~</a>&lt;USER&gt;/+editpgpkeys and paste the fingerprint.  Hit import key.  A message encrypted with your key (<b>637572E4</b>) will be sent to you. Read your email.
+<p>Log on to your launchpad page https://launchpad.net/~<a class="external" href="https://launchpad.net/~">[*]</a>&lt;USER&gt;/+editpgpkeys and paste the fingerprint.  Hit import key.  A message encrypted with your key (<b>637572E4</b>) will be sent to you. Read your email.
 </p>
 <a name="Generate_Your_Key_.28Windows.29" id="Generate_Your_Key_.28Windows.29"></a><h2> <span class="mw-headline"> Generate Your Key (Windows) </span></h2>
 <p>Can somebody with a Windows box document the equivalent PuTTY commands?
 </p>
 <a name="Sign_the_Ubuntu_Code_of_Conduct" id="Sign_the_Ubuntu_Code_of_Conduct"></a><h2> <span class="mw-headline"> Sign the Ubuntu Code of Conduct </span></h2>
-<p>Read and sign the <a href="https://launchpad.net/codeofconduct/1.1/+download" class="external text" title="https://launchpad.net/codeofconduct/1.1/+download" rel="nofollow">Ubuntu Code of Conduct</a>.  This will grant you privileges such as creating your own PPA and uploading source packages for build and distribution.
+<p>Read and sign the Ubuntu Code of Conduct<a class="external" href="https://launchpad.net/codeofconduct/1.1/+download">[*]</a>.  This will grant you privileges such as creating your own PPA and uploading source packages for build and distribution.
 </p>
 <pre>
 wget -O code.txt https://launchpad.net/codeofconduct/1.1/+download
 gpg -u $GPGKEY --clearsign code.txt
 cat code.txt.asc
 </pre>
-<p>Copy the resulting text and paste it into <a href="https://launchpad.net/codeofconduct/1.1/+sign" class="external free" title="https://launchpad.net/codeofconduct/1.1/+sign" rel="nofollow">https://launchpad.net/codeofconduct/1.1/+sign</a>
+<p>Copy the resulting text and paste it into https://launchpad.net/codeofconduct/1.1/+sign<a class="external" href="https://launchpad.net/codeofconduct/1.1/+sign">[*]</a>
 </p>
 <a name="Claim_an_Imported_SourceForge_Account" id="Claim_an_Imported_SourceForge_Account"></a><h2> <span class="mw-headline"> Claim an Imported SourceForge Account </span></h2>
 <p>If you used the older trackers on SourceForge, chances are there is already something from you in Launchpad.  Use the following procedure to claim it as being yours:
 </p>
 <ul><li> Make sure your SF account is in good standing and that you are receiving emails at it.
-</li><li> Log on to the <a href="https://bugs.launchpad.net/hugin" class="external text" title="https://bugs.launchpad.net/hugin" rel="nofollow">Hugin bug tracker</a>.
+</li><li> Log on to the Hugin bug tracker<a class="external" href="https://bugs.launchpad.net/hugin">[*]</a>.
 </li><li> Find a ticket or comment that you filed in the old tracker.  Unfortunately entering your old user handle in the simple search field form does not work.  Maybe using the advanced search reporter field, however note that SF users are not LP users, so don't count on it to work.
 </li><li> On the ticket page you should see your SF user name, clickable. Click on it.
 </li><li> A standard page will display, saying that the user does not use LP and that the page was created when importing bugs for Hugin.  There is a link on the page asking if you are the user.  Hit the link.
@@ -124,25 +124,25 @@ cat code.txt.asc
 </li><li> If everything completed successfully you will land on your LP account page with a confirmation of the successful merge.
 </li></ul>
 <a name="Email_Notifications" id="Email_Notifications"></a><h1> <span class="mw-headline"> Email Notifications </span></h1>
-<p>Launchpad uses a sophisticated <a href="https://help.launchpad.net/Bugs/EmailInterface" class="external text" title="https://help.launchpad.net/Bugs/EmailInterface" rel="nofollow">email interface</a>.  It is possible to do almost anything via email without having to log into the web app.
+<p>Launchpad uses a sophisticated email interface<a class="external" href="https://help.launchpad.net/Bugs/EmailInterface">[*]</a>.  It is possible to do almost anything via email without having to log into the web app.
 </p><p>Activity on the tracker is notified by email to:
 </p>
 <ul><li> everybody who subscribe to the individual ticket by hitting the subscribe link on the right of the tracker.  If you file a ticket, you are automatically subscribed to it.
-</li><li> everybody who subscribes to the tracker <a href="https://bugs.launchpad.net/hugin/+subscribe" class="external free" title="https://bugs.launchpad.net/hugin/+subscribe" rel="nofollow">https://bugs.launchpad.net/hugin/+subscribe</a>
-</li><li> the <a href="https://launchpad.net/~hugin-bug-hunters" class="external text" title="https://launchpad.net/~hugin-bug-hunters" rel="nofollow">Hugin Bug Hunters</a> team and the <a href="https://launchpad.net/~hugin-devs" class="external text" title="https://launchpad.net/~hugin-devs" rel="nofollow">Hugin Developers</a> team
+</li><li> everybody who subscribes to the tracker https://bugs.launchpad.net/hugin/+subscribe<a class="external" href="https://bugs.launchpad.net/hugin/+subscribe">[*]</a>
+</li><li> the Hugin Bug Hunters<a class="external" href="https://launchpad.net/~hugin-bug-hunters">[*]</a> team and the Hugin Developers<a class="external" href="https://launchpad.net/~hugin-devs">[*]</a> team
 </li></ul>
 <p>To manage your notification settings you can (replace $USER with your Launchpad name):
 </p>
-<ul><li> change your email settings (short-term/holiday) for team mailing lists at <code><a href="https://launchpad.net/~$USER/+editemails" class="external free" title="https://launchpad.net/~$USER/+editemails" rel="nofollow">https://launchpad.net/~$USER/+editemails</a></code> and a general subscription policy to new mailing lists.
-</li><li> change your team participation (long-term) at <code><a href="https://launchpad.net/~$USER/+participation" class="external free" title="https://launchpad.net/~$USER/+participation" rel="nofollow">https://launchpad.net/~$USER/+participation</a></code>
-</li><li> list the bugs you're subscribed to and change the individual subscription to each bug (fine tuning) at <code><a href="https://bugs.launchpad.net/~$USER" class="external free" title="https://bugs.launchpad.net/~$USER" rel="nofollow">https://bugs.launchpad.net/~$USER</a></code>
+<ul><li> change your email settings (short-term/holiday) for team mailing lists at <code>https://launchpad.net/~$USER/+editemails<a class="external" href="https://launchpad.net/~$USER/+editemails">[*]</a></code> and a general subscription policy to new mailing lists.
+</li><li> change your team participation (long-term) at <code>https://launchpad.net/~$USER/+participation<a class="external" href="https://launchpad.net/~$USER/+participation">[*]</a></code>
+</li><li> list the bugs you're subscribed to and change the individual subscription to each bug (fine tuning) at <code>https://bugs.launchpad.net/~$USER<a class="external" href="https://bugs.launchpad.net/~$USER">[*]</a></code>
 </li></ul>
 <a name="Placing_a_Ticket" id="Placing_a_Ticket"></a><h1> <span class="mw-headline"> Placing a Ticket </span></h1>
 <p>To use the tracker, you need a <a href="Hugin_Trackers.html#Launchpad_Account" class="external text" title="http://wiki.panotools.org/Hugin_Trackers#Launchpad_Account" rel="nofollow">Launchpad Account</a>.  You can submit our translation via the web or via email.
 </p>
 <a name="Web" id="Web"></a><h2> <span class="mw-headline"> Web </span></h2>
 <ul><li> Log on with your Launchpad account.
-</li><li> Start reporting a <a href="https://bugs.launchpad.net/hugin/+filebug" class="external text" title="https://bugs.launchpad.net/hugin/+filebug" rel="nofollow">new ticket</a>.
+</li><li> Start reporting a new ticket<a class="external" href="https://bugs.launchpad.net/hugin/+filebug">[*]</a>.
 </li><li> Enter a title/summary (e.g. German Translation).
 </li><li> Launchpad will look for duplicates.  Look in the list of reports found if your issue has already been reported.  It is preferable to add to an old report (and even re-open a closed or expired report)  than to start a new one.  In most cases the previous history will give more weight to your report.
 </li><li> On the reporting form, enter a description.
@@ -229,7 +229,7 @@ cat code.txt.asc
 </li></ul>
 <ul><li> <b>Incomplete</b>:  Triagers will set the status to incomplete if information is missing / expected from the reporter, or if the contributed patch requires some extra work.  Usually they will post a note detailing what information is required.  If there is no further activity within 60 days, the ticket will expire.  It is important that whoever completes / adds to the ticket set the status again to <b>New</b>, to draw attention to the extra information.  An email warning is sent a few days before expiry.
 </li></ul>
-<ul><li> <b>Opinion</b>:  Before setting the status to <b>Opinion</b> a triager will check if it is possible to accomodate the wish, e.g. with a preference.  But sometimes things are just too far fetched and Hugin is not an [1].  Please respect it if one of your ticket has been marked as an <b>Opinion</b> and don't start a flame.  If you mark a ticket as an <b>Opinion</b> make sure to provide alternatives / justification (e.g. list alternative tools that are better suited to solve the problem described).  Use sparingly.
+<ul><li> <b>Opinion</b>:  Before setting the status to <b>Opinion</b> a triager will check if it is possible to accomodate the wish, e.g. with a preference.  But sometimes things are just too far fetched and Hugin is not an [1]<a class="external" href="http://en.wiktionary.org/wiki/eierlegende_Wollmilchsau">[*]</a>.  Please respect it if one of your ticket has been marked as an <b>Opinion</b> and don't start a flame.  If you mark a ticket as an <b>Opinion</b> make sure to provide alternatives / justification (e.g. list alternative tools that are better suited to solve the problem described).  Use sparingly.
 </li></ul>
 <ul><li> <b>Invalid</b>:  A bug is set to <b>Invalid</b> if it was filed against an older version and is no longer applicable; or if the problem is not in the code; or if the contributed patch will never be accepted.
 </li></ul>
@@ -278,10 +278,10 @@ cat code.txt.asc
 <a name="Tips_.26_Tricks" id="Tips_.26_Tricks"></a><h2> <span class="mw-headline"> Tips &amp; Tricks </span></h2>
 <p>If you know the old SourceForge bug number (e.g. form a comment on a migrated ticket), you can find it at the URL
 </p>
-<pre> <a href="https://bugs.launchpad.net/bugs/${name}" class="external free" title="https://bugs.launchpad.net/bugs/${name}" rel="nofollow">https://bugs.launchpad.net/bugs/${name}</a>
+<pre> https://bugs.launchpad.net/bugs/${name}<a class="external" href="https://bugs.launchpad.net/bugs/${name}">[*]</a>
 </pre>
-<p>So, for example <a href="https://bugs.launchpad.net/bugs/sf-2789151" class="external free" title="https://bugs.launchpad.net/bugs/sf-2789151" rel="nofollow">https://bugs.launchpad.net/bugs/sf-2789151</a> (referenced at <a href="https://bugs.launchpad.net/hugin/+bug/679170/comments/5" class="external free" title="https://bugs.launchpad.net/hugin/+bug/679170/comments/5" rel="nofollow">https://bugs.launchpad.net/hugin/+bug/679170/comments/5</a>)
-will redirect you to <a href="https://bugs.launchpad.net/hugin/+bug/679179" class="external free" title="https://bugs.launchpad.net/hugin/+bug/679179" rel="nofollow">https://bugs.launchpad.net/hugin/+bug/679179</a>
+<p>So, for example https://bugs.launchpad.net/bugs/sf-2789151<a class="external" href="https://bugs.launchpad.net/bugs/sf-2789151">[*]</a> (referenced at https://bugs.launchpad.net/hugin/+bug/679170/comments/5<a class="external" href="https://bugs.launchpad.net/hugin/+bug/679170/comments/5">[*]</a>)
+will redirect you to https://bugs.launchpad.net/hugin/+bug/679179<a class="external" href="https://bugs.launchpad.net/hugin/+bug/679179">[*]</a>
 </p>
 
 

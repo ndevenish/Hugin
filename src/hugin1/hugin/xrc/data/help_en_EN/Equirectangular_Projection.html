@@ -29,7 +29,7 @@
 		
 
 		
-		<!-- Head Scripts -->
+		<style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 		
 				
 	</head>
@@ -41,21 +41,21 @@
 				<h1 id="firstHeading" class="firstHeading">Equirectangular Projection</h1>
 		<div id="bodyContent">
 			
-			<div id="contentSub"></div>
+			
 												<!-- start content -->
-			<div class="floatright"><img alt="Equirectangular Projection, with permission from Ben Kreunen" src="Big_ben_equirectangular.jpg" width="600" height="300" border="0" /></div>
+			<div class="floatright"><img alt="Equirectangular Projection, with permission from Ben Kreunen" src="Big_ben_equirectangular.jpg" width="600" height="300" border="0" /><a class="external" href="http://wiki.panotools.org/File:Big_ben_equirectangular.jpg">[*]</a></div>
 
 <a name="Description" id="Description"></a><h2> <span class="mw-headline"> Description </span></h2>
-<p>This is a type of <a href="Projections.html" title="Projections">projection</a> for mapping a portion of the surface of a sphere to a flat image.  It is also called the "non-projection", or <i>plate carre</i>, since the horizontal coordinate is simply longitude, and the vertical coordinate is simply latitude, with no transformation or scaling applied.  The equirectangular projection was used in map creation since it was invented around 100 A.D. by Marinus of Tyre.  See Mathworld's page for more detailed information on the mathematics of this projection.
+<p>This is a type of <a href="Projections.html" title="Projections">projection</a> for mapping a portion of the surface of a sphere to a flat image.  It is also called the "non-projection", or <i>plate carre</i>, since the horizontal coordinate is simply longitude, and the vertical coordinate is simply latitude, with no transformation or scaling applied.  The equirectangular projection was used in map creation since it was invented around 100 A.D. by Marinus of Tyre.  See Mathworld's page<a class="external" href="http://mathworld.wolfram.com/EquirectangularProjection.html">[*]</a> for more detailed information on the mathematics of this projection.
 </p><p>In an equirectangular panoramic image all verticals remain vertical, and the horizon becomes a straight line across the middle of the image. Coordinates in the image relate linearly to pan and tilt angles in the real world. The poles (<a href="Zenith.html" title="Zenith">Zenith</a>, <a href="Nadir.html" title="Nadir">Nadir</a>) are located at the top and bottom edge and are stretched to the entire width of the image.  Areas near the poles get stretched horizontally.
 </p><p>The Equirectangular projection is the default output format of a rotating (scanning) panorama camera equipped with a fisheye lens -- 180° fisheye giving a full sphere at 360° rotation. Scanning cameras sometimes cover more than one 360° turn but software often assumes that equirectangular images cover 360° horizontally and 180° vertically, i.e. make sure that your equirectangular image has a proper <a href="Aspect_Ratio.html" title="Aspect Ratio">aspect ratio</a> of 2:1. Look at the pixel values -- a file with 1650 x 824 pixels lacks one pixel at the short side thus confusing some applications.
-</p><p>The Equirectangular projection is commonly used as the projection type of the source images for spherical panorama viewers, including <a href="Panorama_tools.html" title="Panorama tools">PTViewer</a>. The other possibility is the <a href="Cubic_Projection.html" title="Cubic Projection">Cubic Projection</a>.
+</p><p>The Equirectangular projection is commonly used as the projection type of the source images for spherical panorama viewers<a class="external" href="http://wiki.panotools.org/Panorama_Viewers">[*]</a>, including <a href="Panorama_tools.html" title="Panorama tools">PTViewer</a>. The other possibility is the <a href="Cubic_Projection.html" title="Cubic Projection">Cubic Projection</a>.
 </p>
 <a name="Common_problems" id="Common_problems"></a><h2> <span class="mw-headline"> Common problems </span></h2>
 <a name="Retouching" id="Retouching"></a><h3> <span class="mw-headline"> Retouching </span></h3>
 <p>The polar regions of an equirectangular image are extremely distorted, making
 retouching of these areas very difficult.  Some tips are given in the
-Zenith and Nadir editing overview tutorial.
+Zenith and Nadir editing overview<a class="external" href="http://wiki.panotools.org/Zenith_and_Nadir_editing_overview">[*]</a> tutorial.
 </p>
 <a name="Blending" id="Blending"></a><h3> <span class="mw-headline"> Blending </span></h3>
 <p>There are related problems with automatically blending seams near the poles.
@@ -74,12 +74,12 @@ or retouch the zenith and nadir manually.
 <a name="Scaling" id="Scaling"></a><h3> <span class="mw-headline"> Scaling </span></h3>
 <p>Equirectangular images have a very large amount of data redundancy near the
 poles because they are stretched in the 'latitude' direction.  When downsizing
-an image in an editor such as Photoshop or the Gimp, the effective
+an image in an editor such as Photoshop<a class="external" href="http://wiki.panotools.org/Photoshop">[*]</a> or the Gimp<a class="external" href="http://wiki.panotools.org/Gimp">[*]</a>, the effective
 resolution of the image is decreased as expected <i>except near the poles</i>.
 </p><p>This can cause strange radial artefacts when viewed later in
-Panorama Viewers.  The solution is to always switch to a less distorted
+Panorama Viewers<a class="external" href="http://wiki.panotools.org/Panorama_Viewers">[*]</a>.  The solution is to always switch to a less distorted
 projection such as <a href="Cubic_Projection.html" title="Cubic Projection">Cubic Projection</a> before scaling, blurring or
-sharpening a panorama - Switching back later if necessary
+sharpening<a class="external" href="http://wiki.panotools.org/Sharpening">[*]</a> a panorama - Switching back later if necessary
 </p>
 
 

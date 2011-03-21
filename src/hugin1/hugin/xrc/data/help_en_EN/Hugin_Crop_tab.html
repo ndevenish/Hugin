@@ -29,7 +29,7 @@
 		
 
 		
-		<!-- Head Scripts -->
+		<style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 		
 				
 	</head>
@@ -41,7 +41,7 @@
 				<h1 id="firstHeading" class="firstHeading">Hugin Crop tab</h1>
 		<div id="bodyContent">
 			
-			<div id="contentSub"></div>
+			
 												<!-- start content -->
 			<p><i>Image cropping</i> shouldn't be confused with a camera's <a href="Crop_factor.html" title="Crop factor">Crop factor</a>, which is something else entirely. Use the <b>Crop</b> tab to indicate the areas of the input images that <a href="Hugin.html" title="Hugin">hugin</a> should exclude from the stitching output. There are three situations where you might want to use crop parameters:
 </p>
@@ -50,7 +50,7 @@
 </li><li> Some lenses have a lot of flaring around the edges which you don't want to keep.
 </li></ul>
 <p>Select the image to be cropped in the list to the left, you can adjust the position of the crop area by dragging the perimeter in the image preview on the right.  Multiple images can be selected by holding down the <i>Shift</i> or <i>Ctrl</i> keys while clicking in the image list.
-</p><p>Note that unlike PTGui, setting crop parameters in hugin doesn't change the <a href="Field_of_View.html" title="Field of View">Field of View</a> or optical centre of your images, it simply indicates areas of the image to be masked out, so you can change the cropping for photos in your project at any stage of the stitching process.
+</p><p>Note that unlike PTGui<a class="external" href="http://wiki.panotools.org/PTGui">[*]</a>, setting crop parameters<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Crop_parameters&amp;action=edit&amp;redlink=1">[*]</a> in hugin doesn't change the <a href="Field_of_View.html" title="Field of View">Field of View</a> or optical centre of your images, it simply indicates areas of the image to be masked out, so you can change the cropping for photos in your project at any stage of the stitching process.
 In detail, <a href="Hugin.html" title="Hugin">hugin</a> uses the <b>S</b> 'selection' parameter in the <b>i</b> and <b>o</b> script lines instead of the <b>C</b> 'crop' parameter.
 </p><p>Depending on the input image type, cropping has two different behaviours:
 </p>

@@ -29,7 +29,7 @@
 		
 
 		
-		<!-- Head Scripts -->
+		<style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 		
 				
 	</head>
@@ -41,11 +41,11 @@
 				<h1 id="firstHeading" class="firstHeading">Nona</h1>
 		<div id="bodyContent">
 			
-			<div id="contentSub"></div>
+			
 												<!-- start content -->
 			<p><b>nona</b>
 is a drop-in replacement for <a href="PTStitcher.html" title="PTStitcher">PTStitcher</a> and is part of <a href="Hugin.html" title="Hugin">Hugin</a>. There is a <a href="Nona_gui.html" title="Nona gui">nona_gui</a> version that provides the same dialog boxes as the Windows/Mac versions of <a href="PTStitcher.html" title="PTStitcher">PTStitcher</a>.
-</p><p>Like PTStitcher and <a href="PTmender.html" title="PTmender">PTmender</a>, nona performs geometrical and photometric distortions on photos and writes the output to image files.  The parameters are specified in a .pto project file, i.e. nona doesn't decide what the distortions are going to be, it just does the <i>remapping</i> part of the stitching process. The format of the project file is documented here: <a href="PTStitcher.html#Example_Script" title="PTStitcher">PTStitcher Example_Script</a>, with an older version here: http://hugin.sourceforge.net/docs/nona/nona.txt.
+</p><p>Like PTStitcher and <a href="PTmender.html" title="PTmender">PTmender</a>, nona performs geometrical and photometric distortions on photos and writes the output to image files.  The parameters are specified in a .pto project file, i.e. nona doesn't decide what the distortions are going to be, it just does the <i>remapping</i> part of the stitching process. The format of the project file is documented here: <a href="PTStitcher.html#Example_Script" title="PTStitcher">PTStitcher Example_Script</a>, with an older version here: http://hugin.sourceforge.net/docs/nona/nona.txt<a class="external" href="http://hugin.sourceforge.net/docs/nona/nona.txt">[*]</a>.
 </p>
 <a name="Advantages" id="Advantages"></a><h2> <span class="mw-headline"> Advantages </span></h2>
 <ul><li> Unlike <a href="PTStitcher.html" title="PTStitcher">PTStitcher</a>, <b>nona</b> has full source-code availability, this means that it can be used on many more platforms such as OS X, Linux x86_64, linux powerpc, Solaris and IRIX.
@@ -59,10 +59,10 @@ is a drop-in replacement for <a href="PTStitcher.html" title="PTStitcher">PTStit
 <a name="Disadvantages" id="Disadvantages"></a><h2> <span class="mw-headline"> Disadvantages </span></h2>
 <p>(Note: this is the situation as of May 2007, please correct this page if you know this has changed)
 </p>
-<ul><li> Morph to fit control points are not supported.
-</li><li> It doesn't yet support the <i>fast transformation</i> option added to <a href="Pano12.html" title="Pano12">pano12</a> by Fulvio Senore.
+<ul><li> Morph to fit<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Morph_to_fit&amp;action=edit&amp;redlink=1">[*]</a> control points are not supported.
+</li><li> It doesn't yet support the <i>fast transformation</i> option added to <a href="Pano12.html" title="Pano12">pano12</a> by Fulvio Senore<a class="external" href="http://wiki.panotools.org/Fulvio_Senore">[*]</a>.
 </li><li> It doesn't support the adaptive filtersize anti-<a href="Aliasing.html" title="Aliasing">aliasing</a> filters added to pano12-2.7.0.11
-</li><li> It doesn't support C-type cropping and hence is not compatible with other GUI front-ends than <a href="Hugin.html" title="Hugin">hugin</a> if used for images that need cropping (like circular fisheye or scanned ones).
+</li><li> It doesn't support C-type cropping<a class="external" href="http://wiki.panotools.org/Panotools_internals#Cropping">[*]</a> and hence is not compatible with other GUI front-ends<a class="external" href="http://wiki.panotools.org/GUI_front-ends">[*]</a> than <a href="Hugin.html" title="Hugin">hugin</a> if used for images that need cropping (like circular fisheye or scanned ones).
 </li></ul>
 
 

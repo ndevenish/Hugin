@@ -29,7 +29,7 @@
 		
 
 		
-		<!-- Head Scripts -->
+		<style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 		
 				
 	</head>
@@ -41,7 +41,7 @@
 				<h1 id="firstHeading" class="firstHeading">HDR</h1>
 		<div id="bodyContent">
 			
-			<div id="contentSub"></div>
+			
 												<!-- start content -->
 			<p>HDR means
 high <a href="Dynamic_range.html" title="Dynamic range">Dynamic Range</a>. The term is used to refer to techniques and images that are capable of capturing and reproducing scenes with a high <a href="Dynamic_range.html" title="Dynamic range">dynamic range</a>. 
@@ -49,22 +49,22 @@ high <a href="Dynamic_range.html" title="Dynamic range">Dynamic Range</a>. The t
 </p>
 <ul><li> <b>Camera</b> limitation: Standard digital cameras can capture at most a <a href="Dynamic_range.html" title="Dynamic range">dynamic range</a> of 1,000:1, which is much less than the dynamic range of most outdoor scenes. This limitation is usually addressed by taking several exposures of the same scene (this is the purpose of the "Automatic Exposure <a href="Bracketing.html" title="Bracketing">Bracketing</a>" function available in many digicams). 
 </li></ul>
-<ul><li> <b>Display</b> limitation: Standard monitors have a rather low dynamic range, around 100:1, which is not even enough to display correctly the <a href="RAW.html" title="RAW">RAW</a> data captured by a standard camera. This limitation is addressed by <a href="Tone_mapping.html" title="Tone mapping">tone mapping</a> or by techniques that directly blend exposures. Exposure Blending can be done either manually in Photoshop, semi-manually with Photoshop actions (see Contrast Blending and Jook Leung's HDR for Dummy) or automatically in specialized software (see Photomatix, FDRTools or pfstools - comparison on HDR compression).
+<ul><li> <b>Display</b> limitation: Standard monitors have a rather low dynamic range, around 100:1, which is not even enough to display correctly the <a href="RAW.html" title="RAW">RAW</a> data captured by a standard camera. This limitation is addressed by <a href="Tone_mapping.html" title="Tone mapping">tone mapping</a> or by techniques that directly blend exposures. Exposure Blending can be done either manually in Photoshop, semi-manually with Photoshop actions (see Contrast Blending<a class="external" href="http://wiki.panotools.org/Contrast_Blending">[*]</a> and Jook Leung's HDR for Dummy<a class="external" href="http://360vr.com/HDRforDummies">[*]</a>) or automatically in specialized software (see Photomatix<a class="external" href="http://wiki.panotools.org/Photomatix">[*]</a>, FDRTools<a class="external" href="http://wiki.panotools.org/FDRTools">[*]</a> or pfstools<a class="external" href="http://wiki.panotools.org/Pfstools">[*]</a> - comparison on HDR compression<a class="external" href="http://wiki.panotools.org/HDR_compression">[*]</a>).
 </li></ul>
-<p>Both camera and display limitations can be overcome with specialised equipment like the SpheroCam HDR camera and Brightside HDR Display. However, such equipment remains very expensive for the time being. 
+<p>Both camera and display limitations can be overcome with specialised equipment like the SpheroCam HDR<a class="external" href="http://spheron.com/spheron/public/en/hdri_spherocamhdr/hdri_spherocamhdr.php">[*]</a> camera and Brightside HDR Display<a class="external" href="http://www.brightsidetech.com/">[*]</a>. However, such equipment remains very expensive for the time being. 
 </p><p>HDR images are stored in a high bit depth and/or floating point format. There are several HDR formats among them 
 </p>
 <ul><li> .hdr Radiance <a href="RGBE.html" title="RGBE">RGBE</a> format
 </li><li> .tif Floating point <a href="TIFF.html" title="TIFF">TIFF</a>
 </li><li> .pfm Portable floatmap
 </li><li> .float Raw binary floating point
-</li><li> .exr OpenEXR EXR format
+</li><li> .exr OpenEXR EXR<a class="external" href="http://wiki.panotools.org/EXR">[*]</a> format
 </li></ul>
-<p>The <a href="Hugin.html" title="Hugin">hugin</a> panorama tools GUI front end supports stitching both floating point <a href="TIFF.html" title="TIFF">TIFF</a> and
+<p>The <a href="Hugin.html" title="Hugin">hugin</a> panorama tools GUI front end<a class="external" href="http://wiki.panotools.org/GUI_front-ends">[*]</a> supports stitching both floating point <a href="TIFF.html" title="TIFF">TIFF</a> and
 Radiance <a href="RGBE.html" title="RGBE">RGBE</a> HDR images, see the <a href="HDR_workflow_with_hugin.html" title="HDR workflow with hugin">HDR workflow with hugin</a> page for details.  The <a href="Enblend.html" title="Enblend">enblend</a> tool also supports
 blending floating point TIFF HDR data, but not RGBE data yet.
-</p><p>Some more info on HDR is found on wikipedia: w:High dynamic range imaging and the HDR Image FAQ.
-</p><p>Also, see the HDR Software overview
+</p><p>Some more info on HDR is found on wikipedia: w:High dynamic range imaging<a class="external" href="http://www.wikipedia.org/wiki/High_dynamic_range_imaging">[*]</a> and the HDR Image FAQ<a class="external" href="http://www.hdrsoft.com/resources/dri.html">[*]</a>.
+</p><p>Also, see the HDR Software overview<a class="external" href="http://wiki.panotools.org/HDR_Software_overview">[*]</a>
 </p>
 
 

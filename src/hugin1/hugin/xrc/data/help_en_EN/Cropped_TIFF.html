@@ -29,7 +29,7 @@
 		
 
 		
-		<!-- Head Scripts -->
+		<style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 		
 				
 	</head>
@@ -41,10 +41,10 @@
 				<h1 id="firstHeading" class="firstHeading">Cropped TIFF</h1>
 		<div id="bodyContent">
 			
-			<div id="contentSub"></div>
+			
 												<!-- start content -->
 			<p><br />
-A common situation when stitching images together is that most of the output image or layer is empty.  This happens particularly during <a href="Perspective_correction.html" title="Perspective correction">perspective correction</a> or when creating High resolution partial panoramas from large numbers of photos.
+A common situation when stitching images together is that most of the output image or layer is empty.  This happens particularly during <a href="Perspective_correction.html" title="Perspective correction">perspective correction</a> or when creating High resolution partial panoramas<a class="external" href="http://wiki.panotools.org/High_resolution_partial_panoramas">[*]</a> from large numbers of photos.
 </p><p>This is ok except that <a href="Panorama_tools.html" title="Panorama tools">panorama tools</a> will labouriously process the geometry for all these empty pixels, which then consume valuable memory and disc space.
 </p><p>The <a href="TIFF.html" title="TIFF">TIFF</a> specification allows for an image canvas to include a smaller image at an offset within the larger area using the <b>XPOSITION</b>, <b>YPOSITION</b>, <b>TIFFTAG_PIXAR_IMAGEFULLWIDTH</b> and <b>TIFFTAG_PIXAR_IMAGEFULLHEIGHT</b> TIFF tags, which is ideal for a typical panoramic image that is mostly empty space.
 </p><p><a href="Hugin.html" title="Hugin">hugin</a>, <a href="Nona.html" title="Nona">nona</a> and <a href="PTmender.html" title="PTmender">PTmender</a> can be told to create such <b>cropped TIFF</b> files by adding <i>r:CROP</i> as a TIFF option to the <i>panorama format</i> section of the <i>p</i> line in a stitching script.  Two <a href="TIFF.html" title="TIFF">TIFF</a> output formats are supported, <i>TIFF_m</i> and <i>TIFF_multilayer</i> (note that TIFF_multilayer is only supported by <a href="Nona.html" title="Nona">nona</a>).
@@ -52,7 +52,7 @@ A common situation when stitching images together is that most of the output ima
 </p>
 <pre> p f0 w1000 h500 v120 n"TIFF_m c:LZW r:CROP"
 </pre>
-<p><a href="Enblend.html" title="Enblend">enblend</a> can read these <b>cropped TIFF</b> files since version 2.4, so this technique is useful when working with enblend.  Additionally the gimp image editor can open multilayer <b>cropped TIFF</b> files directly, though it cannot save them. It can be convenient to edit the alpha masks in multi-layer TIFFs before passing them to enblend with the help of a script; see Multi-Layer TIFF editing with the Gimp.
+<p><a href="Enblend.html" title="Enblend">enblend</a> can read these <b>cropped TIFF</b> files since version 2.4, so this technique is useful when working with enblend.  Additionally the gimp<a class="external" href="http://wiki.panotools.org/Gimp">[*]</a> image editor can open multilayer <b>cropped TIFF</b> files directly, though it cannot save them. It can be convenient to edit the alpha masks in multi-layer TIFFs before passing them to enblend with the help of a script; see Multi-Layer TIFF editing with the Gimp<a class="external" href="http://wiki.panotools.org/Multi-Layer_TIFF_editing_with_the_Gimp">[*]</a>.
 </p>
 <a name="Preserving_TIFF_offset_when_editing_with_GIMP" id="Preserving_TIFF_offset_when_editing_with_GIMP"></a><h2> <span class="mw-headline"> Preserving TIFF offset when editing with GIMP </span></h2>
 <p>Using cropped intermediate images is very useful - they use less diskspace and less resources are needed to generate them. Unfortunately, GIMP does not preserve the TIFF offset - and this is very unfortunate if you want to mask out some passing object in some of the remapped images, and blend them later with enblend. There's a way to preserve TIFF offset, though. First we have to figure out what the original offset of the image we will be editing is (of course, it is suggested to create a backup copy of the image anyway). To find that out, execute:

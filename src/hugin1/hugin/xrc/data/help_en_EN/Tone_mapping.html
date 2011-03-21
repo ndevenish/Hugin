@@ -29,7 +29,7 @@
 		
 
 		
-		<!-- Head Scripts -->
+		<style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 		
 				
 	</head>
@@ -41,13 +41,13 @@
 				<h1 id="firstHeading" class="firstHeading">Tone mapping</h1>
 		<div id="bodyContent">
 			
-			<div id="contentSub"></div>
+			
 												<!-- start content -->
 			<p>Many scenes we are photographing have a high contrast, or properly speaking a high <a href="Dynamic_range.html" title="Dynamic range">dynamic range</a>: part of the scene is in the shadows, part in the highlights. This is almost always the case for a panoramic scene, which is why capturing and reproducing dynamic range are important topics for panographers.
 </p><p>Tone mapping deals with the issue of <b>reproducing</b> the dynamic range captured. Standard cameras are already able to capture around 10 stops of dynamic range once the effect of noise and other diminishing factors have been taken into account. This amounts to a tonal range of about 1,000:1 -- not enough to capture many high dynamic range scenes but still much more than your monitor or prints can reproduce (standard display devices have a dynamic range around 100:1).
 </p><p>The difference between the dynamic range captured and the dynamic range of the reproducing medium becomes even higher when multiple exposures are taken and merged into a 32-bit <a href="HDR.html" title="HDR">HDR</a> image. In such cases, the whole dynamic range of the scene (e.g. 100,000:1 or higher) has to be reproduced on a medium with less than 100:1 contrast ratio.
 </p><p>This is why it becomes necessary to use techniques that scale the dynamic range down while preserving the appearance of the original image captured. Tone mapping refers to such techniques, though other terminologies are commonly used as well.
-</p><p>The most familiar form of tone mapping is the one performed in-camera or by RAW converters when the 12-bit worth of data captured by the sensors are processed into an image that looks good on your 8-bit monitor. For processing 32-bit HDR images, more sophisticated tone mapping algorithms are used, such as the "HDR Conversion" methods of Photoshop CS2 or the "Tone Mapping" tool of Photomatix Pro, FDRTools, qtpfsgui or <a href="Pfstmo.html" title="Pfstmo">pfstmo</a>.
+</p><p>The most familiar form of tone mapping is the one performed in-camera or by RAW converters when the 12-bit worth of data captured by the sensors are processed into an image that looks good on your 8-bit monitor. For processing 32-bit HDR images, more sophisticated tone mapping algorithms are used, such as the "HDR Conversion" methods of Photoshop CS2 or the "Tone Mapping" tool of Photomatix<a class="external" href="http://wiki.panotools.org/Photomatix">[*]</a> Pro, FDRTools<a class="external" href="http://wiki.panotools.org/FDRTools">[*]</a>, qtpfsgui<a class="external" href="http://wiki.panotools.org/Qtpfsgui">[*]</a> or <a href="Pfstmo.html" title="Pfstmo">pfstmo</a>.
 </p><p>Tone mapping operators are divided into two broad categories, <i>global</i> and <i>local</i>. 
 </p>
 <ul><li> Global operators are simple and fast. They map each pixel based on its intensity and global image characteristics, regardless of the pixel's spatial location. Global operators are OK for mapping 12-bit sensor data but usually don't work well with HDR images. An example of a global type of tone mapping is a tonal curve. 
@@ -55,7 +55,7 @@
 <ul><li> Local operators take into account the pixel's surroundings for mapping it. This means that a pixel of a given intensity will be mapped to a different value depending on whether it is located in a dark or bright area.  This makes local operators slower (memory access is the major speed bottleneck on today's computers) but tends to produce more pleasing results, given that our eyes react locally to contrast.
 </li></ul>
 <a name="Other_possibilities" id="Other_possibilities"></a><h3> <span class="mw-headline"> Other possibilities </span></h3>
-<p>There are other possibilities that pass by the merge to HDR step and the related problems and directly go from the <a href="Bracketing.html" title="Bracketing">bracketed</a> images to the compressed output. These possibilities are commonly referred to as Contrast Blending. The basic idea is to take the "good" parts of any exposure step and merge directly into a low dynamic range image. The most advanced technique to do this is currently implemented by <a href="Enfuse.html" title="Enfuse">enfuse</a>.
+<p>There are other possibilities that pass by the merge to HDR step and the related problems and directly go from the <a href="Bracketing.html" title="Bracketing">bracketed</a> images to the compressed output. These possibilities are commonly referred to as Contrast Blending<a class="external" href="http://wiki.panotools.org/Contrast_Blending">[*]</a>. The basic idea is to take the "good" parts of any exposure step and merge directly into a low dynamic range image. The most advanced technique to do this is currently implemented by <a href="Enfuse.html" title="Enfuse">enfuse</a>.
 </p>
 
 
