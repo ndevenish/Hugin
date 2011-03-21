@@ -24,7 +24,7 @@ for my $file (@ARGV)
     $data =~ s/<div id=["']column-one["'].*?<\/div>//gs;
     $data =~ s/<div id=["']catlinks["'].*/<\/div><\/div><\/div><\/div><\/body><\/html>/gs;
     $data =~ s/<!-- Saved in parser cache.*?-->//gs;
-    $data =~ s/<a href="(https?:.*?)>(.*?)<\/a>/$2<a class="external" href="$1">[*]<\/a>/gs;
+    $data =~ s/<a href="(https?:[^"]*).*?>(.*?)<\/a>/$2<a class="external" href="$1">[*]<\/a>/gs;
     $data =~ s/<!--[^>]*NewPP limit report[^>]*-->//gs;
     $data =~ s/<div[^>]*>[[:space:]]*<\/div>//gs;
     $data =~ s/<!-- Head Scripts -->/<style media="screen" type="text\/css" title="Screen style sheet"> \@import url(manual.css); <\/style>/s;
