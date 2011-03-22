@@ -39,7 +39,7 @@ INSTALL(FILES ${CMAKE_BINARY_DIR}/help/hugin_help_en_EN.chm DESTINATION ${HUGIND
 
 ELSE(WIN32)
 
-FILE(GLOB DATAFILES *.htm *.html *.ico *.gif *.JPG *.jpg *.png *.xpm *.hhc *.hhk *.hhp
+FILE(GLOB DATAFILES *.css *.htm *.html *.ico *.gif *.JPG *.jpg *.png *.xpm *.hhc *.hhk *.hhp
 *.manual)
 
 INSTALL(FILES ${DATAFILES} DESTINATION ${HUGINDATADIR}/xrc/data/help_en_EN)
