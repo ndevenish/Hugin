@@ -295,7 +295,9 @@ const wxString getInvalidCharacters()
     // we need only to check for characters, which does not work with the makefiles
     return wxT("=;%");
 #else
-    return wxT("=;:%");
+    // the characters =;:% does not work with the makefile
+    // we are also rejecting the characters <>*?| which are principally allowed in filenames but will probably make problems when used
+    return wxT("=;:%*?<>|");
 #endif
 };
 
