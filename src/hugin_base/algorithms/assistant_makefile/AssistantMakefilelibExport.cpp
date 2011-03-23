@@ -65,7 +65,9 @@ void AssistantMakefilelibExport::echoInfo(Rule& inforule, const std::string& inf
 #else
     // we need only a special quoting for the single quote, all other special chars are ignored by
     // surrounding with single quotes
-    inforule.addCommand("echo '" + hugin_utils::replaceAll<std::string>(info,"'","'\\''") + "'", false);
+    // also $ needs to be quoted inside the shell script
+    inforule.addCommand("echo '" + hugin_utils::QuoteStringInternal<std::string>(
+        hugin_utils::replaceAll<std::string>(info,"'","'\\''"),"$","$") + "'", false);
 #endif
 }
 
