@@ -7,7 +7,7 @@ IF(WIN32)
 
 FILE(GLOB HELPFILES 
   RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
-  *.htm *.html *.ico *.gif *.JPG *.jpg *.png *.xpm hugin_help_en_EN.hhp help_index_en.hhk help_toc_en.hhc hhc.cmake
+  *.htm *.html *.ico *.gif *.JPG *.jpg *.png *.xpm hugin_help_en_EN.hhp help_index_en.hhk help_toc_en.hhc hhc.cmake *.css
 )
 
 SET(HELP_DIR ${CMAKE_BINARY_DIR}/help)
