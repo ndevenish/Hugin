@@ -297,7 +297,8 @@ const wxString getInvalidCharacters()
 #else
     // the characters =;:% does not work with the makefile
     // we are also rejecting the characters <>*?| which are principally allowed in filenames but will probably make problems when used
-    return wxT("=;:%*?<>|");
+    // the double quote does not work with the panotools file format, so also reject
+    return wxT("=;:%*?<>|\"");
 #endif
 };
 
