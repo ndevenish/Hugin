@@ -164,9 +164,6 @@ public:
     GLPreview * getGLPreview() {return preview;}
     GLOverview * getGLOverview() {return overview;}
 
-    bool ProcessDockResult(wxAuiPaneInfo& target,
-                                   const wxAuiPaneInfo& new_pos);
-
 private:
     GLPreviewFrame * frame;
     GLPreview * preview;

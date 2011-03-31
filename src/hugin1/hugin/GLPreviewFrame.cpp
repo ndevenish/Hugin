@@ -114,7 +114,6 @@ enum{
 
 BEGIN_EVENT_TABLE(GLwxAuiFloatingFrame, wxAuiFloatingFrame)
     EVT_ACTIVATE(GLwxAuiFloatingFrame::OnActivate)
-//    EVT_CLOSE(GLwxAuiFloatingFrame::OnClose)
 END_EVENT_TABLE()
 
 BEGIN_EVENT_TABLE(GLPreviewFrame, wxFrame)
@@ -785,17 +784,6 @@ void GLPreviewFrame::InitPreviews()
         LoadOpenGLLayout();
     };
 };
-
-bool GLwxAuiManager::ProcessDockResult(wxAuiPaneInfo& target,
-                                   const wxAuiPaneInfo& new_pos)
-{
-//    std::cout << "target: " << std::bitset<std::numeric_limits<unsigned int>::digits>(target.state) << std::endl;
-//    std::cout << "target: " << target.dock_direction << " " << target.dock_layer << " " << target.dock_row << " " << target.dock_pos << " " << target.state << std::endl;
-//    std::cout << "newpos: " << std::bitset<std::numeric_limits<unsigned int>::digits>(new_pos.state) << std::endl;
-//    std::cout << "newpos: " << new_pos.dock_direction << " " << new_pos.dock_layer << " " << new_pos.dock_row << " " << new_pos.dock_pos << " " << new_pos.state << std::endl;
-    return wxAuiManager::ProcessDockResult(target, new_pos);
-}
-
 
 /**
 * Update tools and GUI elements according to blend mode choice
