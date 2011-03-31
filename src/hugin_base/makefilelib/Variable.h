@@ -48,9 +48,9 @@ protected:
 	/// separator for output of the value list
 	string separator;
 	/// A VariableDef connected to the Variable.
-	VariableDef def;
+	VariableDef* def;
 	/// A VariableDef connected to the Variable.
-	VariableRef ref;
+	VariableRef* ref;
 	Makefile::QuoteMode quotemode;
 	/// Decides wether this Variable is defined with export.
 	bool exported;
@@ -64,12 +64,11 @@ protected:
 	 */
 	virtual void checkValue();
 
-	/// To be used only by subclasses, like AutoVariable.
-	Variable(string name_)
-	: name(name_), def(*this), ref(*this), quotemode(Makefile::SHELL)
-	{
+    void Create();
 
-	}
+	/// To be used only by subclasses, like AutoVariable.
+	Variable(string name_);
+
 private:
 	Variable(const Variable&);	// no implicite copies!
 public:
@@ -84,7 +83,7 @@ public:
 	Variable(string name_,std::vector<string>::iterator start, std::vector<string>::iterator end,
 			Makefile::QuoteMode quotemode_ = Makefile::SHELL, string separator_ = " ");
 
-	virtual ~Variable() {}
+	virtual ~Variable();
 
 	virtual const string getName()
 	{
@@ -109,12 +108,12 @@ public:
 
 	virtual VariableDef& getDef()
 	{
-		return def;
+		return *def;
 	}
 
 	virtual VariableRef& getRef()
 	{
-		return ref;
+		return *ref;
 	}
 
 	void setQuoteMode(Makefile::QuoteMode mode)

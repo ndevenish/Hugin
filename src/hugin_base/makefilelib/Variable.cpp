@@ -54,16 +54,30 @@ void Variable::checkValue()
 		throw std::invalid_argument("Bad Variable value: " + StringAdapter(getValue()));
 }
 
-Variable::Variable(string name_, string value_, Makefile::QuoteMode quotemode_)
-: name(name_), def(*this), ref(*this), quotemode(quotemode_), exported(false)
+void Variable::Create()
 {
+    def=new VariableDef(*this);
+    ref=new VariableRef(*this);
+};
+
+Variable::Variable(string name_)
+: name(name_), quotemode(Makefile::SHELL)
+{
+    Create();
+}
+
+Variable::Variable(string name_, string value_, Makefile::QuoteMode quotemode_)
+: name(name_), quotemode(quotemode_), exported(false)
+{
+    Create();
 	values.push_back(value_);
 	checkName();
 	checkValue();
 }
 Variable::Variable(string name_, double value_, Makefile::QuoteMode quotemode_)
-: name(name_), def(*this), ref(*this), quotemode(quotemode_), exported(false)
+: name(name_), quotemode(quotemode_), exported(false)
 {
+    Create();
 	checkName();
 	std::ostringstream val;
 	val.imbue(Makefile::locale);
@@ -73,12 +87,21 @@ Variable::Variable(string name_, double value_, Makefile::QuoteMode quotemode_)
 
 Variable::Variable(string name_, std::vector<string>::iterator start, std::vector<string>::iterator end,
 		Makefile::QuoteMode quotemode_, string separator_)
-: name(name_), separator(separator_), def(*this), ref(*this), quotemode(quotemode_), exported(false)
+: name(name_), separator(separator_), quotemode(quotemode_), exported(false)
 {
+    Create();
 	checkName();
 	copy(start, end, std::back_inserter(values));
 	checkValue();
 }
+
+Variable::~Variable()
+{
+    if(def)
+        delete def;
+    if(ref)
+        delete ref;
+};
 
 const string Variable::getValue()
 {
