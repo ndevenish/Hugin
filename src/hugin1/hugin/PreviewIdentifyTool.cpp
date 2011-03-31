@@ -214,6 +214,7 @@ void PreviewIdentifyTool::StopUpdating() {
         }
     }
     image_set.clear();
+    preview_frame->UpdateIdentifyTools(image_set);
     stopUpdating = true;
     ForceRedraw();
 }
@@ -271,10 +272,10 @@ void PreviewIdentifyTool::KeypressEvent(int keycode, int modifierss, int pressed
             holdControl = true;
             ContinueUpdating();
         } else {
-            holdControl = false;
-            if (!constantOn) {
+            if(holdControl) {
                 StopUpdating();
             }
+            holdControl = false;
         }
     }
 }
