@@ -39,7 +39,7 @@ IF(WIN32)
             DOC "Location of pano13 source"
             NO_DEFAULT_PATH)
   INSTALL(FILES ${PANO13_SRC_DIR}/AUTHORS
-          ${PANO13_SRC_DIR}/gpl.txt
+          ${PANO13_SRC_DIR}/COPYING
           ${PANO13_SRC_DIR}/README
           ${PANO13_SRC_DIR}/doc/Optimize.txt
           ${PANO13_SRC_DIR}/doc/PTblender.readme
