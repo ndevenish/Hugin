@@ -544,7 +544,7 @@ bool MainFrame::CloseProject(bool cancelable)
             {
                 wxCommandEvent dummy;
                 OnSaveProject(dummy);
-                return true;
+                return !pano.isDirty();
             }
             case wxID_CANCEL:
                 return false;
