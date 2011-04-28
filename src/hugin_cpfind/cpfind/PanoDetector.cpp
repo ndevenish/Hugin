@@ -48,7 +48,6 @@
 #ifdef _WINDOWS
 #include <windows.h>
 #include <direct.h>
-#include <vigra/vigra_impex/codecmanager.hxx>
 #else
 #include <unistd.h>
 #endif
@@ -439,7 +438,7 @@ void PanoDetector::run()
     //multi threading of image loading results sometime in a race condition
     //try to prevent this by initialisation of codecManager before
     //running multi threading part
-    vigra::codecManager();
+    std::string s=vigra::impexListExtensions();
 #endif
     try 
     {
