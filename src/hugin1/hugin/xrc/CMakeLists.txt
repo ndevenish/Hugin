@@ -20,7 +20,8 @@ SET(XRCFILES
     pano_panel.xrc
     batch_frame.xrc
     batch_menu.xrc
-    batch_toolbar.xrc)
+    batch_toolbar.xrc
+    lenscal_frame.xrc)
 
 
 INSTALL(FILES ${XRCFILES} DESTINATION ${HUGINDATADIR}/xrc)

@@ -1,10 +1,10 @@
 
 SET(HUGIN_WX_BASE_SRC wxImageCache.cpp MyProgressDialog.cpp PTWXDlg.cpp
                       huginConfig.cpp MyExternalCmdExecDialog.cpp platform.cpp
-                      RunStitchPanel.cpp )
+                      RunStitchPanel.cpp LensTools.cpp)
 SET(HUGIN_WX_BASE_HEADER wxImageCache.h MyProgressDialog.h PTWXDlg.h
                       huginConfig.h MyExternalCmdExecDialog.h platform.h
-                      RunStitchPanel.h )
+                      RunStitchPanel.h LensTools.h)
 
 
 IF (${HUGIN_SHARED_LIBS})

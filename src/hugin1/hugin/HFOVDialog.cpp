@@ -31,6 +31,7 @@
 
 #include "base_wx/wxPlatform.h"
 #include "base_wx/platform.h"
+#include "base_wx/LensTools.h"
 #include "hugin/huginApp.h"
 #include "hugin/HFOVDialog.h"
 #include "hugin/MainFrame.h"
@@ -47,39 +48,6 @@ BEGIN_EVENT_TABLE(HFOVDialog, wxDialog)
     EVT_TEXT ( XRCID("lensdlg_focallength_text"), HFOVDialog::OnFocalLengthChanged )
     EVT_BUTTON( XRCID("lensdlg_load_lens_button"), HFOVDialog::OnLoadLensParameters )
 END_EVENT_TABLE()
-
-void FillLensProjectionList(wxControlWithItems* list)
-{
-    list->Clear();
-    list->Append(_("Normal (rectilinear)"),(void*)HuginBase::SrcPanoImage::RECTILINEAR);
-    list->Append(_("Panoramic (cylindrical)"),(void*)HuginBase::SrcPanoImage::PANORAMIC);
-    list->Append(_("Circular fisheye"),(void*)HuginBase::SrcPanoImage::CIRCULAR_FISHEYE);
-    list->Append(_("Full frame fisheye"),(void*)HuginBase::SrcPanoImage::FULL_FRAME_FISHEYE);
-    list->Append(_("Equirectangular"),(void*)HuginBase::SrcPanoImage::EQUIRECTANGULAR);
-    list->Append(_("Orthographic"),(void*)HuginBase::SrcPanoImage::FISHEYE_ORTHOGRAPHIC);
-    list->Append(_("Stereographic"),(void*)HuginBase::SrcPanoImage::FISHEYE_STEREOGRAPHIC);
-    list->Append(_("Equisolid"),(void*)HuginBase::SrcPanoImage::FISHEYE_EQUISOLID);
-    list->Append(_("Fisheye Thoby"),(void*)HuginBase::SrcPanoImage::FISHEYE_THOBY);
-    list->SetSelection(0);
-};
-
-void SelectProjection(wxControlWithItems* list,size_t new_projection)
-{
-    for(unsigned int i=0;i<list->GetCount();i++)
-    {
-        if((size_t)list->GetClientData(i)==new_projection)
-        {
-            list->SetSelection(i);
-            return;
-        };
-    };
-    list->SetSelection(0);
-};
-
-size_t GetSelectedProjection(wxControlWithItems* list)
-{
-    return (size_t)(list->GetClientData(list->GetSelection()));
-};
 
 HFOVDialog::HFOVDialog(wxWindow * parent, SrcPanoImage & srcImg, double focalLength, double cropFactor)
     : m_srcImg(srcImg), m_focalLength(focalLength), m_cropFactor(cropFactor)

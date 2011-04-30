@@ -28,6 +28,7 @@
 
 #include "base_wx/platform.h"
 #include "base_wx/huginConfig.h"
+#include "base_wx/LensTools.h"
 
 #include "PT/ImageGraph.h"
 #include "base_wx/wxPlatform.h"
@@ -39,7 +40,6 @@
 #include "hugin/MainFrame.h"
 #include "hugin/huginApp.h"
 #include "hugin/TextKillFocusHandler.h"
-#include "hugin/HFOVDialog.h"
 #include "hugin/config_defaults.h"
 #include "hugin/wxPanoCommand.h"
 

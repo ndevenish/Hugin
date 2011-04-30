@@ -1,0 +1,18 @@
+SET(HUGIN_LINES_SRC FindLines.cpp FindN8Lines.cpp)
+SET(HUGIN_LINES_HEADER FindLines.h FindN8Lines.h LinesTypes.h)
+
+IF (${HUGIN_SHARED_LIBS})
+  add_library(huginlines SHARED ${HUGIN_LINES_SRC} ${HUGIN_LINES_HEADER})
+  set_target_properties(huginlines PROPERTIES VERSION ${HUGIN_LIB_VERSION})
+  IF(WIN32)
+    install(TARGETS huginlines RUNTIME DESTINATION ${BINDIR})
+  ELSEIF(${HUGIN_LIBS_PRIVATE_DIR})
+    install(TARGETS huginlines LIBRARY DESTINATION ${LIBDIR}/hugin NAMELINK_SKIP)
+  ELSE(WIN32)
+    install(TARGETS huginlines LIBRARY DESTINATION ${LIBDIR} NAMELINK_SKIP)
+  ENDIF(WIN32)
+ELSE (${HUGIN_SHARED_LIBS})
+  add_library(huginlines STATIC ${HUGIN_LINES_SRC} ${HUGIN_LINES_HEADER})
+ENDIF (${HUGIN_SHARED_LIBS})
+
+TARGET_LINK_LIBRARIES(huginlines ${image_libs} huginbase)      
