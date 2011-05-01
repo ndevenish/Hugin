@@ -63,6 +63,7 @@
                     <item>Include region</item>
                     <item>Exclude region from stack</item>
                     <item>Include region from stack</item>
+                    <item>Exclude region from all images of this lens</item>
                   </content>
                   <selection>0</selection>
                 </object>

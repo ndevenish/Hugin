@@ -27,6 +27,7 @@
 
 #include "PTScriptParsing.h"
 #include "ImageVariableTranslate.h"
+#include "StandardImageVariableGroups.h"
 #include <panotools/PanoToolsInterface.h>
 #include <algorithms/basic/CalculateOverlap.h>
 
@@ -1197,6 +1198,8 @@ void Panorama::updateMasks(bool convertPosMaskToNeg)
     CalculateImageOverlap overlap(this);
     overlap.limitToImages(imgWithPosMasks);
     overlap.calculate(10);
+    ConstStandardImageVariableGroups variable_groups(*this);
+    ConstImageVariableGroup & lenses = variable_groups.getLenses();
     for(unsigned int i=0;i<state.images.size();i++)
     {
         if(state.images[i]->hasMasks())
@@ -1236,6 +1239,22 @@ void Panorama::updateMasks(bool convertPosMaskToNeg)
                                 masks[j].setMaskType(MaskPolygon::Mask_negative);
                                 state.images[i]->addActiveMask(masks[j]);
                                 transferMask(masks[j],i,imgStack);
+                            };
+                            break;
+                        case MaskPolygon::Mask_negative_lens:
+                            {
+                                unsigned int lensNr=lenses.getPartNumber(i);
+                                //copy masks to all image of the same lens
+                                UIntSet imgLens;
+                                for(unsigned int k=0;k<getNrOfImages();k++)
+                                {
+                                    if(lenses.getPartNumber(k)==lensNr)
+                                    {
+                                        masks[j].setImgNr(k);
+                                        masks[j].setMaskType(MaskPolygon::Mask_negative_lens);
+                                        state.images[k]->addActiveMask(masks[j]);
+                                    };
+                                };
                             };
                             break;
                     };
@@ -1300,6 +1319,22 @@ void Panorama::updateMasks(bool convertPosMaskToNeg)
                                 std::set_intersection(imgStack.begin(),imgStack.end(),imgOverlap.begin(),imgOverlap.end(),inserter(imgs,imgs.begin()));
                                 //now transfer mask
                                 transferMask(masks[j],i,imgs);
+                            };
+                            break;
+                        case MaskPolygon::Mask_negative_lens:
+                            {
+                                unsigned int lensNr=lenses.getPartNumber(i);
+                                //copy masks to all image of the same lens
+                                UIntSet imgLens;
+                                for(unsigned int k=0;k<getNrOfImages();k++)
+                                {
+                                    if(lenses.getPartNumber(k)==lensNr)
+                                    {
+                                        masks[j].setImgNr(k);
+                                        masks[j].setMaskType(MaskPolygon::Mask_negative_lens);
+                                        state.images[k]->addActiveMask(masks[j]);
+                                    };
+                                };
                             };
                             break;
                     };
