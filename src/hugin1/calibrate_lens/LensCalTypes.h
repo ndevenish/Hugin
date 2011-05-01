@@ -53,7 +53,7 @@ public:
     /** return the SrcPanoImage from the given filename */
     HuginBase::SrcPanoImage* GetPanoImage();
     /** store given lines in member variable */
-    void SetLines(HuginLines::Lines& lines);
+    void SetLines(HuginLines::Lines lines);
     /** returns the list of detected lines */
     const HuginLines::Lines GetLines();
     /** scale all lines by given scaleFactor */

@@ -69,7 +69,7 @@ vigra::BImage* ImageLineList::GetEdgeImage()
 void ImageLineList::SetFilename(wxString newFilename)
 {
     m_filename=newFilename;
-    std::string filenamestring=newFilename.mb_str(HUGIN_CONV_FILENAME);
+    std::string filenamestring(newFilename.mb_str(HUGIN_CONV_FILENAME));
     m_panoImage=new HuginBase::SrcPanoImage(filenamestring);
 };
 
@@ -83,7 +83,7 @@ HuginBase::SrcPanoImage* ImageLineList::GetPanoImage()
     return m_panoImage;
 };
 
-void ImageLineList::SetLines(HuginLines::Lines& lines)
+void ImageLineList::SetLines(HuginLines::Lines lines)
 {
     m_lines=lines;
 };

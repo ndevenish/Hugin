@@ -132,9 +132,9 @@ HuginBase::CPVector GetControlPoints(const SingleLine line,const unsigned int im
     HuginBase::CPVector cpv;
     double interval = (line.line.size()-1)/(1.0*numberOfCtrlPoints);
     for(unsigned int k = 0; k < numberOfCtrlPoints; k++)
-    {		
+    {
         int start = (int)(k * interval);
-	    int stop =  (int)((k+1) * interval);
+        int stop =  (int)((k+1) * interval);
         HuginBase::ControlPoint cp(imgNr,line.line[start].x, line.line[start].y,
                         imgNr,line.line[stop].x, line.line[stop].y,lineNr);
         cpv.push_back(cp);

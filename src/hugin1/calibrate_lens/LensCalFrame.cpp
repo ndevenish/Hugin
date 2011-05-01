@@ -149,13 +149,14 @@ LensCalFrame::LensCalFrame(wxWindow* parent)
     config->Read(wxT("/LensCalFrame/MinLineLength"),&m_minlinelength,DEFAULT_MINLINELENGTH);
     ParametersToDisplay();
 
-    bool selected=config->ReadBool(wxT("/LensCalFrame/Optimize_a"),false);
+    bool selected;
+    config->Read(wxT("/LensCalFrame/Optimize_a"),&selected,false);
     XRCCTRL(*this,"lenscal_opt_a",wxCheckBox)->SetValue(selected);
-    selected=config->ReadBool(wxT("/LensCalFrame/Optimize_b"),true);
+    config->Read(wxT("/LensCalFrame/Optimize_b"),&selected,true);
     XRCCTRL(*this,"lenscal_opt_b",wxCheckBox)->SetValue(selected);
-    selected=config->ReadBool(wxT("/LensCalFrame/Optimize_c"),false);
+    config->Read(wxT("/LensCalFrame/Optimize_c"),&selected,false);
     XRCCTRL(*this,"lenscal_opt_c",wxCheckBox)->SetValue(selected);
-    selected=config->ReadBool(wxT("/LensCalFrame/Optimize_de"),false);
+    config->Read(wxT("/LensCalFrame/Optimize_de"),&selected,false);
     XRCCTRL(*this,"lenscal_opt_de",wxCheckBox)->SetValue(selected);
 
     // set the minimize icon
@@ -199,14 +200,14 @@ LensCalFrame::~LensCalFrame()
     DEBUG_TRACE("dtor");
     m_preview->SetEmptyImage();
     ImageCache::getInstance().setProgressDisplay(0);
-	delete & ImageCache::getInstance();
+    delete & ImageCache::getInstance();
     // get the global config object
     wxConfigBase* config = wxConfigBase::Get();
     if(ReadInputs(false,true,false))
     {
         config->Write(wxT("/LensCalFrame/EdgeScale"),m_edge_scale);
         config->Write(wxT("/LensCalFrame/EdgeThreshold"),m_edge_threshold);
-        config->Write(wxT("/LensCalFrame/ResizeDimension"),m_resize_dimension);
+        config->Write(wxT("/LensCalFrame/ResizeDimension"),(int)m_resize_dimension);
         config->Write(wxT("/LensCalFrame/MinLineLength"),m_minlinelength);
     };
     config->Write(wxT("/LensCalFrame/Optimize_a"),XRCCTRL(*this,"lenscal_opt_a",wxCheckBox)->GetValue());
@@ -573,7 +574,7 @@ void LensCalFrame::OnFindLines(wxCommandEvent &e)
     m_preview->SetLens(m_projection,m_focallength,m_cropfactor);
     for(unsigned int i=0;i<m_images.size();i++)
     {
-        std::string filename=m_images[i]->GetFilename().mb_str(HUGIN_CONV_FILENAME);
+        std::string filename(m_images[i]->GetFilename().mb_str(HUGIN_CONV_FILENAME));
         ImageCache::EntryPtr img=ImageCache::getInstance().getImage(filename);
         double scale;
         SetStatusText(_("Detecting edges..."));

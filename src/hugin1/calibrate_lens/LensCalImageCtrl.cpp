@@ -132,8 +132,8 @@ void LensCalImageCtrl::Resize( wxSizeEvent & e )
 {
     if(m_imageLines==NULL || !m_img.Ok() || (m_previewMode==mode_edge && !m_edge.Ok()))
     {
-        m_scaled_img.SetSize(0,0);
-        m_display_img.SetSize(0,0);
+        m_scaled_img.Create(0,0);
+        m_display_img.Create(0,0);
         Refresh(true);
         return;
     }
@@ -188,7 +188,7 @@ void LensCalImageCtrl::OnPaint(wxPaintEvent & dc)
 void LensCalImageCtrl::SetImage(ImageLineList* newList)
 {
     m_imageLines=newList;
-    std::string filename=newList->GetFilename().mb_str(HUGIN_CONV_FILENAME);
+    std::string filename(newList->GetFilename().mb_str(HUGIN_CONV_FILENAME));
     ImageCache::EntryPtr img = ImageCache::getInstance().getImage(filename);
     m_img = imageCacheEntry2wxImage(img);
     SetEdgeImage();
@@ -288,7 +288,7 @@ void LensCalImageCtrl::GenerateRemappedImage(const unsigned int newWidth,const u
     double hfov=HuginBase::SrcPanoImage::calcHFOV(m_panoimage.getProjection(),m_panoimage.getExifFocalLength(),m_panoimage.getExifCropFactor(),m_panoimage.getSize());
     m_panoimage.setHFOV(hfov);
 
-    std::string filename=m_imageLines->GetFilename().mb_str(HUGIN_CONV_FILENAME);
+    std::string filename(m_imageLines->GetFilename().mb_str(HUGIN_CONV_FILENAME));
     ImageCache::EntryPtr img = ImageCache::getInstance().getImage(filename);
     //fill options with current settings
     switch(m_projection)
