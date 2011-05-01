@@ -58,13 +58,13 @@ static void usage(const char * name)
          << "Usage:  " << name << " input.pto [ image_nr ]" << endl
          << endl
          << "pano_trafo reads pixel coordinates from standard input and" << endl
-	 << "prints the transformed coordinates to standard output." << endl
-	 << "If you pass an image number on the command line," << endl
-	 << "it reads pairs of coordinates and transforms them." << endl
-	 << "If you don't pass an image number, it will read triplets" << endl
-	 << "of the form <image number> <x coordinate> <y coordinate>" << endl
-	 << "and output the transformed coordinates." << endl
-	 << endl
+         << "prints the transformed coordinates to standard output." << endl
+         << "If you pass an image number on the command line," << endl
+         << "it reads pairs of coordinates and transforms them." << endl
+         << "If you don't pass an image number, it will read triplets" << endl
+         << "of the form <image number> <x coordinate> <y coordinate>" << endl
+         << "and output the transformed coordinates." << endl
+         << endl
          << "     -r       Transform from panorama to image coordinates" << endl
          << "     -h       shows help" << endl
          << endl;
@@ -73,7 +73,7 @@ static void usage(const char * name)
 // alternative behaviour if no image number is passed.
 // main() with the original behaviour follows below.
 
-int work_on_triplets ( Panorama pano , bool reverse )
+void work_on_triplets ( Panorama pano , bool reverse )
 {
     // pano tools interface
     int images = pano.getNrOfImages() ;
@@ -91,33 +91,31 @@ int work_on_triplets ( Panorama pano , bool reverse )
       }
     
     for ( image = 0 ; image < images ; image++ )
-      {
+    {
         if (reverse)
-          {
-	    trafo_set[image].createTransform (
-	      pano.getSrcImage(image), pano.getOptions() );
-          } 
+        {
+            trafo_set[image].createTransform(pano.getSrcImage(image), pano.getOptions());
+        }
         else
-          {
-	    trafo_set[image].createInvTransform (
-	      pano.getSrcImage(image), pano.getOptions() );
-	  }
-      }
+        {
+            trafo_set[image].createInvTransform(pano.getSrcImage(image), pano.getOptions());
+        }
+    }
 
     // now we can process data triplets from cin
     
     double xin , yin , xout , yout ;
 
-while ( cin >> image >> xin >> yin )
-      {
+    while ( cin >> image >> xin >> yin )
+    {
         if ( image < 0 || image >= images )
-	  {
-	    cerr << "no image " << image << " in pano" << endl ;
-	    exit ( 1 ) ; // we don't want an index out of range
-	  }
-	trafo_set[image].transformImgCoord(xout, yout, xin, yin);
-	cout << xout << " " << yout << endl ;
-      }
+        {
+            cerr << "no image " << image << " in pano" << endl ;
+            exit ( 1 ) ; // we don't want an index out of range
+        }
+        trafo_set[image].transformImgCoord(xout, yout, xin, yin);
+        cout << xout << " " << yout << endl ;
+    }
 }
 
 int main(int argc, char *argv[])
@@ -129,7 +127,8 @@ int main(int argc, char *argv[])
     bool reverse = false;
     while ((c = getopt (argc, argv, optstring)) != -1)
     {
-        switch (c) {
+        switch (c)
+        {
         case 'h':
             usage(argv[0]);
             return 0;
@@ -144,22 +143,24 @@ int main(int argc, char *argv[])
     }
 
     if (argc - optind < 1 || argc - optind > 2) 
-      {
+    {
          usage(argv[0]);
          return 1;
-      }
+    }
 
     string input=argv[optind];
 
     Panorama pano;
     ifstream prjfile(input.c_str());
-    if (!prjfile.good()) {
+    if (!prjfile.good())
+    {
         cerr << "could not open script : " << input << endl;
         return 1;
     }
     pano.setFilePrefix(hugin_utils::getPathPrefix(input));
     DocumentData::ReadWriteError err = pano.readData(prjfile);
-    if (err != DocumentData::SUCCESSFUL) {
+    if (err != DocumentData::SUCCESSFUL)
+    {
         cerr << "error while parsing panos tool script: " << input << endl;
         cerr << "DocumentData::ReadWriteError code: " << err << endl;
         return 1;
@@ -170,27 +171,32 @@ int main(int argc, char *argv[])
     cout.precision ( 6 ) ; // should be ample
 
     if ( argc - optind == 1 )
-      {
-	// no image number was passed. This triggers the new
-	// behaviour to accept triplets on cin
-	return work_on_triplets ( pano , reverse ) ;
-      }
+    {
+        // no image number was passed. This triggers the new
+        // behaviour to accept triplets on cin
+        work_on_triplets ( pano , reverse ) ;
+        return 0;
+    }
 
     // an image number was passed, so proceed
     // as in the original version
     
     int imageNumber = atoi(argv[optind+1]);
-    if (imageNumber >= pano.getNrOfImages()) {
-	cerr << "Not enough images in panorama" << endl;
-	return 1;
+    if (imageNumber >= pano.getNrOfImages())
+    {
+        cerr << "Not enough images in panorama" << endl;
+        return 1;
     }
-    
+
     // pano tools interface
     HuginBase::PTools::Transform trafo;
-    if (reverse) {
-	trafo.createTransform(pano.getSrcImage(imageNumber), pano.getOptions());
-    } else {
-	trafo.createInvTransform(pano.getSrcImage(imageNumber), pano.getOptions());
+    if (reverse)
+    {
+        trafo.createTransform(pano.getSrcImage(imageNumber), pano.getOptions());
+    } 
+    else
+    {
+        trafo.createInvTransform(pano.getSrcImage(imageNumber), pano.getOptions());
     }
 
     double xin , yin , xout , yout ;
@@ -198,8 +204,8 @@ int main(int argc, char *argv[])
     // here's where the old-style IO was, now it's all streams.
     // It's also format-free input, so newlines don't matter
     while ( cin >> xin >> yin )
-      {
-	trafo.transformImgCoord(xout, yout, xin, yin);
-	cout << xout << " " << yout << endl ;
-      }
+    {
+        trafo.transformImgCoord(xout, yout, xin, yin);
+        cout << xout << " " << yout << endl ;
+    }
 }
