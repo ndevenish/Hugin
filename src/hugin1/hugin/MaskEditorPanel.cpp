@@ -40,6 +40,7 @@
 #include "hugin/CommandHistory.h"
 #include "hugin/MaskEditorPanel.h"
 #include "hugin/MaskLoadDialog.h"
+#include <wx/clipbrd.h>
 
 BEGIN_EVENT_TABLE(MaskEditorPanel, wxPanel)
     EVT_LIST_ITEM_SELECTED(XRCID("mask_editor_images_list"), MaskEditorPanel::OnImageSelect)
@@ -52,6 +53,8 @@ BEGIN_EVENT_TABLE(MaskEditorPanel, wxPanel)
     EVT_BUTTON(XRCID("mask_editor_add"), MaskEditorPanel::OnMaskAdd)
     EVT_BUTTON(XRCID("mask_editor_load"), MaskEditorPanel::OnMaskLoad)
     EVT_BUTTON(XRCID("mask_editor_save"), MaskEditorPanel::OnMaskSave)
+    EVT_BUTTON(XRCID("mask_editor_copy"), MaskEditorPanel::OnMaskCopy)
+    EVT_BUTTON(XRCID("mask_editor_paste"), MaskEditorPanel::OnMaskPaste)
     EVT_BUTTON(XRCID("mask_editor_delete"), MaskEditorPanel::OnMaskDelete)
     EVT_COLOURPICKER_CHANGED(XRCID("mask_editor_colour_polygon_negative"),MaskEditorPanel::OnColourChanged)
     EVT_COLOURPICKER_CHANGED(XRCID("mask_editor_colour_polygon_positive"),MaskEditorPanel::OnColourChanged)
@@ -136,7 +139,16 @@ bool MaskEditorPanel::Create(wxWindow* parent, wxWindowID id,
     XRCCTRL(*this, "mask_editor_add", wxButton)->Disable();
     XRCCTRL(*this, "mask_editor_load", wxButton)->Disable();
     XRCCTRL(*this, "mask_editor_save", wxButton)->Disable();
+    XRCCTRL(*this, "mask_editor_copy", wxButton)->Disable();
+    XRCCTRL(*this, "mask_editor_paste", wxButton)->Disable();
     XRCCTRL(*this, "mask_editor_delete", wxButton)->Disable();
+
+    //set shortcuts
+    wxAcceleratorEntry entries[2];
+    entries[0].Set(wxACCEL_CTRL,(int)'C',XRCID("mask_editor_copy"));
+    entries[1].Set(wxACCEL_CTRL,(int)'V',XRCID("mask_editor_paste"));
+    wxAcceleratorTable accel(2, entries);
+    SetAcceleratorTable(accel);
 
     // apply zoom specified in xrc file
     wxCommandEvent dummy;
@@ -198,6 +210,8 @@ void MaskEditorPanel::setImage(unsigned int imgNr)
     XRCCTRL(*this, "mask_editor_delete", wxButton)->Enable(enableCtrl && m_MaskNr<UINT_MAX);
     XRCCTRL(*this, "mask_editor_load", wxButton)->Enable(enableCtrl);
     XRCCTRL(*this, "mask_editor_save", wxButton)->Enable(enableCtrl && m_MaskNr<UINT_MAX);
+    XRCCTRL(*this, "mask_editor_paste", wxButton)->Enable(enableCtrl);
+    XRCCTRL(*this, "mask_editor_copy", wxButton)->Enable(enableCtrl && m_MaskNr<UINT_MAX);
     UpdateMaskList(restoreMaskSelection);
     // FIXME: lets hope that nobody holds references to these images..
     ImageCache::getInstance().softFlush();
@@ -210,6 +224,7 @@ void MaskEditorPanel::setMask(unsigned int maskNr)
     m_editImg->setActiveMask(m_MaskNr);
     XRCCTRL(*this,"mask_editor_delete", wxButton)->Enable(m_MaskNr<UINT_MAX);
     XRCCTRL(*this, "mask_editor_save", wxButton)->Enable(m_MaskNr<UINT_MAX);
+    XRCCTRL(*this, "mask_editor_copy", wxButton)->Enable(m_MaskNr<UINT_MAX);
     if(m_ImageNr<UINT_MAX && m_MaskNr<UINT_MAX)
         m_maskType->SetSelection(m_currentMasks[m_MaskNr].getMaskType());
     else
@@ -338,73 +353,89 @@ void MaskEditorPanel::OnMaskSave(wxCommandEvent &e)
             }
             wxFileName filename = fn;
             std::ofstream maskFile(filename.GetFullPath().mb_str(HUGIN_CONV_FILENAME));
-            vigra::Size2D imageSize = m_pano->getImage(m_ImageNr).getSize();
-            maskFile << "# w" << imageSize.width() << " h" << imageSize.height() << std::endl;
-            HuginBase::MaskPolygon maskToWrite = m_currentMasks[m_MaskNr];
-            maskToWrite.printPolygonLine(maskFile,m_ImageNr);
+            SaveMaskToStream(maskFile);
             maskFile.close();
         };
     }
 };
 
+void MaskEditorPanel::SaveMaskToStream(std::ostream& stream)
+{
+    vigra::Size2D imageSize = m_pano->getImage(m_ImageNr).getSize();
+    stream << "# w" << imageSize.width() << " h" << imageSize.height() << std::endl;
+    HuginBase::MaskPolygon maskToWrite = m_currentMasks[m_MaskNr];
+    maskToWrite.printPolygonLine(stream,m_ImageNr);
+};
+
+void MaskEditorPanel::LoadMaskFromStream(std::istream& stream,vigra::Size2D& imageSize,HuginBase::MaskPolygonVector &newMasks)
+{
+    while (stream.good()) 
+    {
+        std::string line;
+        std::getline(stream,line);
+        switch (line[0]) 
+        {
+            case '#':
+            {
+                unsigned int w;
+                if (getIntParam(w, line, "w"))
+                    imageSize.setWidth(w);
+                unsigned int h;
+                if (getIntParam(h, line, "h"))
+                    imageSize.setHeight(h);
+                break;
+            }
+            case 'k':
+            {
+                HuginBase::MaskPolygon newPolygon;
+                //Ignore image number set in mask
+                newPolygon.setImgNr(m_ImageNr);
+                unsigned int param;
+                if (getIntParam(param,line,"t"))
+                {
+                    newPolygon.setMaskType((HuginBase::MaskPolygon::MaskType)param);
+                }
+                std::string format;
+                if (getPTParam(format,line,"p"))
+                {
+                    if(newPolygon.parsePolygonString(format)) {
+                        newMasks.push_back(newPolygon);
+                    } 
+                }
+                break;
+            }
+            default:
+            {
+                break;
+            }
+        }
+    }
+};
+
 void MaskEditorPanel::OnMaskLoad(wxCommandEvent &e)
 {
-    if (m_ImageNr<UINT_MAX) {
+    if (m_ImageNr<UINT_MAX)
+    {
         wxFileDialog dlg(this,_("Load mask"),
                 wxConfigBase::Get()->Read(wxT("/actualPath"),wxT("")),
                 wxT(""),_("Mask files (*.msk)|*.msk|All files (*)|*"),
                 wxFD_OPEN, wxDefaultPosition);
-        if (dlg.ShowModal() != wxID_OK) {
+        if (dlg.ShowModal() != wxID_OK)
+        {
             MainFrame::Get()->SetStatusText(_("Load mask: cancel"));
             return;
         }
         wxFileName filename(dlg.GetPath());
         std::ifstream in(filename.GetFullPath().mb_str(HUGIN_CONV_FILENAME));
         vigra::Size2D maskImageSize;
-        HuginBase::MaskPolygonVector imgMasks=m_currentMasks;
         HuginBase::MaskPolygonVector loadedMasks;
-        while (in.good()) 
-        {
-            std::string line;
-            std::getline(in,line);
-            switch (line[0]) 
-            {
-                case '#':
-                {
-                    unsigned int w;
-                    if (getIntParam(w, line, "w"))
-                        maskImageSize.setWidth(w);
-                    unsigned int h;
-                    if (getIntParam(h, line, "h"))
-                        maskImageSize.setHeight(h);
-                    break;
-                }
-                case 'k':
-                {
-                    HuginBase::MaskPolygon newPolygon;
-                    //Ignore image number set in mask
-                    newPolygon.setImgNr(m_ImageNr);
-                    unsigned int param;
-                    if (getIntParam(param,line,"t"))
-                    {
-                        newPolygon.setMaskType((HuginBase::MaskPolygon::MaskType)param);
-                    }
-                    std::string format;
-                    if (getPTParam(format,line,"p"))
-                    {
-                        if(newPolygon.parsePolygonString(format)) {
-                            loadedMasks.push_back(newPolygon);
-                        } 
-                    }
-                    break;
-                }
-                default:
-                {
-                    break;
-                }
-            }
-        } 
+        LoadMaskFromStream(in,maskImageSize,loadedMasks);
         in.close();
+        if(maskImageSize.area()==0 || loadedMasks.size()==0)
+        {
+            wxMessageBox(wxString::Format(_("Could not parse mask from file %s."),dlg.GetPath().c_str()),_("Warning"),wxOK | wxICON_EXCLAMATION,this);
+            return;
+        };
         // compare image size from file with that of current image alert user
         // if different.
         if (maskImageSize != m_pano->getImage(m_ImageNr).getSize()) 
@@ -419,10 +450,68 @@ void MaskEditorPanel::OnMaskLoad(wxCommandEvent &e)
             loadedMasks=dlg.getProcessedMask();
         }
         for(unsigned int i=0;i<loadedMasks.size();i++)
-            imgMasks.push_back(loadedMasks[i]);
+            m_currentMasks.push_back(loadedMasks[i]);
         // Update the pano with the imported masks
-        GlobalCmdHist::getInstance().addCommand(new PT::UpdateMaskForImgCmd(*m_pano,m_ImageNr,imgMasks));
+        GlobalCmdHist::getInstance().addCommand(new PT::UpdateMaskForImgCmd(*m_pano,m_ImageNr,m_currentMasks));
     }
+};
+
+void MaskEditorPanel::OnMaskCopy(wxCommandEvent &e)
+{
+    if(m_ImageNr<UINT_MAX && m_MaskNr<UINT_MAX)
+    {
+        std::ostringstream stream;
+        SaveMaskToStream(stream);
+        if (wxTheClipboard->Open())
+        {
+            // This data objects are held by the clipboard,
+            // so do not delete them in the app.
+            wxTheClipboard->SetData(new wxTextDataObject(wxString(stream.str().c_str(),wxConvLocal)));
+            wxTheClipboard->Close();
+        };
+    };
+};
+
+void MaskEditorPanel::OnMaskPaste(wxCommandEvent &e)
+{
+    if(m_ImageNr<UINT_MAX)
+    {
+        if (wxTheClipboard->Open())
+        {
+            vigra::Size2D maskImageSize;
+            HuginBase::MaskPolygonVector loadedMasks;
+            if (wxTheClipboard->IsSupported( wxDF_TEXT ))
+            {
+                wxTextDataObject data;
+                wxTheClipboard->GetData(data);
+                std::istringstream stream(std::string(data.GetText().mb_str()));
+                LoadMaskFromStream(stream,maskImageSize,loadedMasks);
+            }
+            wxTheClipboard->Close();
+            if(maskImageSize.area()==0 || loadedMasks.size()==0)
+            {
+                wxBell();
+                return;
+            };
+            // compare image size from file with that of current image alert user
+            // if different.
+            if (maskImageSize != m_pano->getImage(m_ImageNr).getSize()) 
+            {
+                MaskLoadDialog dlg(this);
+                dlg.initValues(m_pano->getImage(m_ImageNr),loadedMasks,maskImageSize);
+                if(dlg.ShowModal()!=wxID_OK)
+                {
+                    // abort
+                    return;
+                }
+                loadedMasks=dlg.getProcessedMask();
+            }
+            for(unsigned int i=0;i<loadedMasks.size();i++)
+                m_currentMasks.push_back(loadedMasks[i]);
+            // Update the pano with the imported masks
+            GlobalCmdHist::getInstance().addCommand(new PT::UpdateMaskForImgCmd(*m_pano,m_ImageNr,m_currentMasks));
+        };
+    };
 };
 
 void MaskEditorPanel::OnMaskDelete(wxCommandEvent &e)
