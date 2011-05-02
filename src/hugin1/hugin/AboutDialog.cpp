@@ -88,14 +88,6 @@ AboutDialog::AboutDialog(wxWindow *parent)
 #endif
 	textCtrl->LoadFile(strFile);
 
-	// About
-	textCtrl = XRCCTRL(*this, "about_txt", wxTextCtrl);
-#ifndef _WINDOWS
-    textCtrl->SetFont(font);
-#endif
-    strFile = huginApp::Get()->GetXRCPath() + wxT("data/about.txt");
-	textCtrl->LoadFile(strFile);
-
 	// Upstream
 	textCtrl = XRCCTRL(*this, "upstream_txt", wxTextCtrl);
     strFile = huginApp::Get()->GetXRCPath() + wxT("data/upstream.txt");

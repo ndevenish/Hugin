@@ -43,14 +43,11 @@
               <object class="wxBoxSizer">
                 <orient>wxVERTICAL</orient>
                 <object class="sizeritem">
-                  <object class="wxTextCtrl" name="about_txt">
-                    <font>
-                      <size platform="unix|win">8</size>
-                      <size platform="mac">10</size>
-                      <family>modern</family>
-                    </font>
-                    <style platform="win">wxTE_MULTILINE|wxTE_READONLY</style>
-                    <style platform="unix|mac">wxTE_MULTILINE|wxTE_READONLY|wxNO_BORDER</style>
+                  <object class="HtmlWindow" name="intro_html">
+                    <borders>0</borders>
+                    <style platform="win">wxSUNKEN_BORDER</style>
+                    <url>data/intro.htm</url>
+                    <bg>#FFFFFF</bg>
                   </object>
                   <flag>wxALL|wxEXPAND|wxALIGN_LEFT|wxALIGN_TOP</flag>
                   <option>1</option>
