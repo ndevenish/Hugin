@@ -43,29 +43,24 @@ public:
     /** Constructor, read from xrc ressource */
     AboutDialog(wxWindow *parent);
 
-    /** Destructor, pro forma */
-    ~AboutDialog();
-
-
 private:
 
     int m_mode;
+    wxString m_logo_file;
     wxNotebook* m_about_notebook;
     wxStaticBitmap * m_logoImgCtrl;
     wxBitmap m_logo;
 
     DECLARE_EVENT_TABLE()
 
-    /**  button to fill the space */
-    void OnAboutMe(wxCommandEvent & e);
     /** retrieves the system informations */
     void GetSystemInformation(wxFont *font);
     /** event handler for changing tab */
     void OnChangedTab(wxNotebookEvent &e);
     /** function to switch the logo image based on selected tab */
     void SetMode(int newMode);
-
-
+    /** function to set the log image */
+    void SetLogo(wxString newLogoFile);
 };
 
 #endif // _ABOUTDIALOG_H
