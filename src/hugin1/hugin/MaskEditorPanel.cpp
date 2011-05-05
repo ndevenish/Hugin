@@ -56,6 +56,7 @@ BEGIN_EVENT_TABLE(MaskEditorPanel, wxPanel)
     EVT_BUTTON(XRCID("mask_editor_copy"), MaskEditorPanel::OnMaskCopy)
     EVT_BUTTON(XRCID("mask_editor_paste"), MaskEditorPanel::OnMaskPaste)
     EVT_BUTTON(XRCID("mask_editor_delete"), MaskEditorPanel::OnMaskDelete)
+    EVT_CHECKBOX(XRCID("mask_editor_show_active_masks"), MaskEditorPanel::OnShowActiveMasks)
     EVT_COLOURPICKER_CHANGED(XRCID("mask_editor_colour_polygon_negative"),MaskEditorPanel::OnColourChanged)
     EVT_COLOURPICKER_CHANGED(XRCID("mask_editor_colour_polygon_positive"),MaskEditorPanel::OnColourChanged)
     EVT_COLOURPICKER_CHANGED(XRCID("mask_editor_colour_point_selected"),MaskEditorPanel::OnColourChanged)
@@ -104,13 +105,18 @@ bool MaskEditorPanel::Create(wxWindow* parent, wxWindowID id,
     m_maskList->InsertColumn( 1, _("Mask type"), wxLIST_FORMAT_LEFT, 120);
 
     //get saved width
+    wxConfigBase *config=wxConfigBase::Get();
     for ( int j=0; j < m_maskList->GetColumnCount() ; j++ )
     {
         // -1 is auto
-        int width = wxConfigBase::Get()->Read(wxString::Format( wxT("/MaskEditorPanel/ColumnWidth%d"), j ), -1);
+        int width = config->Read(wxString::Format( wxT("/MaskEditorPanel/ColumnWidth%d"), j ), -1);
         if(width != -1)
             m_maskList->SetColumnWidth(j, width);
     }
+    bool activeMasks;
+    config->Read(wxT("/MaskEditorPanel/ShowActiveMasks"),&activeMasks,false);
+    XRCCTRL(*this,"mask_editor_show_active_masks",wxCheckBox)->SetValue(activeMasks);
+    m_editImg->setDrawingActiveMasks(activeMasks);
 
     //load and set colours
     wxColour defaultColour;
@@ -167,6 +173,7 @@ void MaskEditorPanel::Init(PT::Panorama * pano)
 
 MaskEditorPanel::~MaskEditorPanel()
 {
+    wxConfigBase::Get()->Write(wxT("/MaskEditorPanel/ShowActiveMasks"),XRCCTRL(*this,"mask_editor_show_active_masks",wxCheckBox)->GetValue());
     DEBUG_TRACE("dtor");
     m_pano->removeObserver(this);
 }
@@ -177,30 +184,35 @@ void MaskEditorPanel::setImage(unsigned int imgNr)
     bool restoreMaskSelection=(imgNr==m_ImageNr);
     bool updateImage=true;
     m_ImageNr = imgNr;
+    HuginBase::MaskPolygonVector masksToDraw;
     if (imgNr == UINT_MAX) 
     {
         m_File = "";
         HuginBase::MaskPolygonVector mask;
         m_currentMasks=mask;
+        m_editImg->setCrop(HuginBase::SrcPanoImage::NO_CROP,vigra::Rect2D());
     } 
     else 
     {
-        updateImage=(m_File!=m_pano->getImage(imgNr).getFilename());
+        const SrcPanoImage& image=m_pano->getImage(imgNr);
+        updateImage=(m_File!=image.getFilename());
         if(updateImage)
-            m_File=m_pano->getImage(imgNr).getFilename();
+            m_File=image.getFilename();
         else
             if(GetRot(imgNr)!=m_editImg->getCurrentRotation())
             {
                 updateImage=true;
-                m_File=m_pano->getImage(imgNr).getFilename();
+                m_File=image.getFilename();
             };
-        m_currentMasks=m_pano->getImage(imgNr).getMasks();
+        m_currentMasks=image.getMasks();
+        masksToDraw=image.getActiveMasks();
+        m_editImg->setCrop(image.getCropMode(),image.getCropRect());
     };
     // update mask editor
     if(updateImage)
-        m_editImg->setImage(m_File,m_currentMasks,GetRot(imgNr));
+        m_editImg->setImage(m_File,m_currentMasks,masksToDraw,GetRot(imgNr));
     else
-        m_editImg->setNewMasks(m_currentMasks);
+        m_editImg->setNewMasks(m_currentMasks,masksToDraw);
     if(m_currentMasks.size()==0)
         setMask(UINT_MAX);
     // enables or disables controls
@@ -678,6 +690,11 @@ MaskImageCtrl::ImageRotation MaskEditorPanel::GetRot(const unsigned int imgNr)
             }
     return rot;
 }
+
+void MaskEditorPanel::OnShowActiveMasks(wxCommandEvent &e)
+{
+    m_editImg->setDrawingActiveMasks(e.IsChecked());
+};
 
 IMPLEMENT_DYNAMIC_CLASS(MaskEditorPanel, wxPanel)
 

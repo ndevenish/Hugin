@@ -97,6 +97,8 @@ public:
     void OnZoom(wxCommandEvent & e);
     /** event handler for changing colours */
     void OnColourChanged(wxColourPickerEvent &e);
+    /** event handler for changing option if active masks should be drawn */
+    void OnShowActiveMasks(wxCommandEvent &e);
 
 private:
 

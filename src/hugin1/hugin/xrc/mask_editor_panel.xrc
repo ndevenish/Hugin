@@ -113,12 +113,11 @@
                     <orient>wxVERTICAL</orient>
                     <object class="sizeritem">
                       <object class="wxGridSizer" name="mask_editor_load">
-                        
                         <object class="sizeritem">
                           <object class="wxButton" name="mask_editor_save">
                             <label>Export</label>
                           </object>
-                          <flag>wxALL|wxEXPAND</flag>
+                          <flag>wxALL</flag>
                           <border>5</border>
                         </object>
                         <object class="sizeritem">
@@ -126,27 +125,27 @@
                             <label>Import</label>
                           </object>
                           <option>0</option>
-                          <flag>wxALL|wxEXPAND</flag>
+                          <flag>wxALL</flag>
                           <border>5</border>
                         </object>
                         <object class="sizeritem">
                           <object class="wxButton" name="mask_editor_copy">
                             <label>Copy</label>
                           </object>
-                          <flag>wxALL | wxEXPAND</flag>
+                          <flag>wxALL</flag>
                           <border>5</border>
                         </object>
                         <object class="sizeritem">
                           <object class="wxButton" name="mask_editor_paste">
                             <label>Paste</label>
                           </object>
-                          <flag>wxALL | wxEXPAND</flag>
+                          <flag>wxALL</flag>
                           <border>5</border>
                         </object>
                         <cols>2</cols>
                         <rows>2</rows>
                       </object>
-                      <flag>wxEXPAND</flag>
+                      <flag>wxALIGN_CENTRE</flag>
                     </object>
                   </object>
                   <style>wxTAB_TRAVERSAL</style>
@@ -219,6 +218,21 @@
                 <label>Colour</label>
               </object>
               <style>wxNB_TOP</style>
+              <object class="notebookpage">
+                <object class="wxPanel">
+                  <object class="wxBoxSizer">
+                    <orient>wxVERTICAL</orient>
+                    <object class="sizeritem">
+                      <object class="wxCheckBox" name="mask_editor_show_active_masks">
+                        <label>Show extent of active masks and crop</label>
+                      </object>
+                      <option>1</option>
+                      <flag>wxALIGN_CENTRE</flag>
+                    </object>
+                  </object>
+                </object>
+                <label>Options</label>
+              </object>
             </object>
             <flag>wxEXPAND | wxALL</flag>
             <border>5</border>
