@@ -408,6 +408,12 @@ void PreferencesDialog::UpdateDisplayData(int panel)
     if (panel==0 || panel == 1) {
         // memory setting
         unsigned long mem = cfg->Read(wxT("/ImageCache/UpperBound"), HUGIN_IMGCACHE_UPPERBOUND);
+#ifdef __WXMSW__
+        unsigned long mem_high = cfg->Read(wxT("/ImageCache/UpperBoundHigh"), 0);
+        if (mem_high > 0) {
+          mem = (mem_high << 32) + mem;
+        }
+#endif
         MY_SPIN_VAL("prefs_cache_UpperBound", mem >> 20);
 
         // number of threads
@@ -626,6 +632,14 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
         if (noteb->GetSelection() == 0) {
             // MISC
             // cache
+/*
+ * special treatment for windows not necessary here since we know the value of
+ * HUGIN_IMGCACHE_UPPERBOUND must fit into 32bit to be compatible with 32bit systems.
+ * However, just as a reminder:
+#ifdef __WXMSW__
+    cfg->Write(wxT("/ImageCache/UpperBoundHigh"), HUGIN_IMGCACHE_UPPERBOUND >> 32);
+#endif
+*/
             cfg->Write(wxT("/ImageCache/UpperBound"), HUGIN_IMGCACHE_UPPERBOUND);
             // number of threads
             int cpucount = wxThread::GetCPUCount();
@@ -761,6 +775,10 @@ void PreferencesDialog::UpdateConfigData()
     /////
     /// MISC
     // cache
+#ifdef __WXMSW__
+    // shifting only 12 bits rights: 32-20=12 and the prefs_cache_UpperBound is in GB
+    cfg->Write(wxT("/ImageCache/UpperBoundHigh"), (long) MY_G_SPIN_VAL("prefs_cache_UpperBound") >> 12);
+#endif
     cfg->Write(wxT("/ImageCache/UpperBound"), (long) MY_G_SPIN_VAL("prefs_cache_UpperBound") << 20);
     // number of threads
     cfg->Write(wxT("/Nona/NumberOfThreads"), MY_G_SPIN_VAL("prefs_nona_NumberOfThreads"));
