@@ -407,7 +407,7 @@ void PreferencesDialog::UpdateDisplayData(int panel)
 
     if (panel==0 || panel == 1) {
         // memory setting
-        long mem = cfg->Read(wxT("/ImageCache/UpperBound"), HUGIN_IMGCACHE_UPPERBOUND);
+        unsigned long mem = cfg->Read(wxT("/ImageCache/UpperBound"), HUGIN_IMGCACHE_UPPERBOUND);
         MY_SPIN_VAL("prefs_cache_UpperBound", mem >> 20);
 
         // number of threads
