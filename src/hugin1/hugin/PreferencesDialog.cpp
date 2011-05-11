@@ -407,11 +407,15 @@ void PreferencesDialog::UpdateDisplayData(int panel)
 
     if (panel==0 || panel == 1) {
         // memory setting
-        unsigned long mem = cfg->Read(wxT("/ImageCache/UpperBound"), HUGIN_IMGCACHE_UPPERBOUND);
+        unsigned long long mem = cfg->Read(wxT("/ImageCache/UpperBound"), HUGIN_IMGCACHE_UPPERBOUND);
 #ifdef __WXMSW__
-        unsigned long mem_high = cfg->Read(wxT("/ImageCache/UpperBoundHigh"), 0);
+        unsigned long mem_low = cfg->Read(wxT("/ImageCache/UpperBound"), HUGIN_IMGCACHE_UPPERBOUND);
+        unsigned long mem_high = cfg->Read(wxT("/ImageCache/UpperBoundHigh"), (long) 0);
         if (mem_high > 0) {
-          mem = (mem_high << 32) + mem;
+          mem = ((unsigned long long) mem_high << 32) + mem_low;
+        }
+        else {
+          mem = mem_low;
         }
 #endif
         MY_SPIN_VAL("prefs_cache_UpperBound", mem >> 20);

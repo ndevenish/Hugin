@@ -406,7 +406,20 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
 
     // set progress display for image cache.
     ImageCache::getInstance().setProgressDisplay(this);
+#if defined __WXMSW__
+    unsigned long long mem = HUGIN_IMGCACHE_UPPERBOUND;
+    unsigned long mem_low = wxConfigBase::Get()->Read(wxT("/ImageCache/UpperBound"), HUGIN_IMGCACHE_UPPERBOUND);
+    unsigned long mem_high = wxConfigBase::Get()->Read(wxT("/ImageCache/UpperBoundHigh"), (long) 0);
+    if (mem_high > 0) {
+      mem = ((unsigned long long) mem_high << 32) + mem_low;
+    }
+    else {
+      mem = mem_low;
+    }
+    ImageCache::getInstance().SetUpperLimit(mem);
+#else
     ImageCache::getInstance().SetUpperLimit(wxConfigBase::Get()->Read(wxT("/ImageCache/UpperBound"), HUGIN_IMGCACHE_UPPERBOUND));
+#endif
 
     if(splash) {
         splash->Close();
@@ -1290,7 +1303,20 @@ void MainFrame::OnShowPrefs(wxCommandEvent & e)
     pref_dlg->ShowModal();
     //update image cache size
     wxConfigBase* cfg=wxConfigBase::Get();
+#if defined __WXMSW__
+    unsigned long long mem = HUGIN_IMGCACHE_UPPERBOUND;
+    unsigned long mem_low = cfg->Read(wxT("/ImageCache/UpperBound"), HUGIN_IMGCACHE_UPPERBOUND);
+    unsigned long mem_high = cfg->Read(wxT("/ImageCache/UpperBoundHigh"), (long) 0);
+    if (mem_high > 0) {
+      mem = ((unsigned long long) mem_high << 32) + mem_low;
+    }
+    else {
+      mem = mem_low;
+    }
+    ImageCache::getInstance().SetUpperLimit(mem);
+#else
     ImageCache::getInstance().SetUpperLimit(cfg->Read(wxT("/ImageCache/UpperBound"), HUGIN_IMGCACHE_UPPERBOUND));
+#endif
     images_panel->ReloadCPDetectorSettings();
     gl_preview_frame->SetShowProjectionHints(cfg->Read(wxT("/GLPreviewFrame/ShowProjectionHints"),HUGIN_SHOW_PROJECTION_HINTS)!=0);
 

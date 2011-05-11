@@ -189,7 +189,20 @@ LensCalFrame::LensCalFrame(wxWindow* parent)
 
     // set progress display for image cache.
     ImageCache::getInstance().setProgressDisplay(this);
+#if defined __WXMSW__
+    unsigned long long mem = HUGIN_IMGCACHE_UPPERBOUND;
+    unsigned long mem_low = config->Read(wxT("/ImageCache/UpperBound"), HUGIN_IMGCACHE_UPPERBOUND);
+    unsigned long mem_high = config->Read(wxT("/ImageCache/UpperBoundHigh"), (long) 0);
+    if (mem_high > 0) {
+      mem = ((unsigned long long) mem_high << 32) + mem_low;
+    }
+    else {
+      mem = mem_low;
+    }
+    ImageCache::getInstance().SetUpperLimit(mem);
+#else
     ImageCache::getInstance().SetUpperLimit(config->Read(wxT("/ImageCache/UpperBound"), HUGIN_IMGCACHE_UPPERBOUND));
+#endif
     //disable buttons
     EnableButtons();
     XRCCTRL(*this,"lenscal_remove_image",wxButton)->Enable(false);
