@@ -114,7 +114,6 @@ enum{
 
 BEGIN_EVENT_TABLE(GLwxAuiFloatingFrame, wxAuiFloatingFrame)
     EVT_ACTIVATE(GLwxAuiFloatingFrame::OnActivate)
-//    EVT_CLOSE(GLwxAuiFloatingFrame::OnClose)
 END_EVENT_TABLE()
 
 BEGIN_EVENT_TABLE(GLPreviewFrame, wxFrame)
@@ -674,7 +673,7 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
 
     if (config->Read(wxT("/GLPreviewFrame/isShown"), 0l) != 0)
     {
-#ifdef __WXMSW__
+#if defined __WXMSW__ || defined __WXMAC__
         InitPreviews();
         Show();
 #else
@@ -785,17 +784,6 @@ void GLPreviewFrame::InitPreviews()
         LoadOpenGLLayout();
     };
 };
-
-bool GLwxAuiManager::ProcessDockResult(wxAuiPaneInfo& target,
-                                   const wxAuiPaneInfo& new_pos)
-{
-//    std::cout << "target: " << std::bitset<std::numeric_limits<unsigned int>::digits>(target.state) << std::endl;
-//    std::cout << "target: " << target.dock_direction << " " << target.dock_layer << " " << target.dock_row << " " << target.dock_pos << " " << target.state << std::endl;
-//    std::cout << "newpos: " << std::bitset<std::numeric_limits<unsigned int>::digits>(new_pos.state) << std::endl;
-//    std::cout << "newpos: " << new_pos.dock_direction << " " << new_pos.dock_layer << " " << new_pos.dock_row << " " << new_pos.dock_pos << " " << new_pos.state << std::endl;
-    return wxAuiManager::ProcessDockResult(target, new_pos);
-}
-
 
 /**
 * Update tools and GUI elements according to blend mode choice
@@ -1032,17 +1020,10 @@ void GLPreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &change
                 wxBoxSizer * siz = new wxBoxSizer(wxVERTICAL);
                 pan->SetSizer(siz);
 #ifdef USE_TOGGLE_BUTTON
-                unsigned int buttonsize = 20;
-                if (imgNr >= 10) {
-                    buttonsize = 27;
-                }
-                if (imgNr >= 100) {
-                    buttonsize = 34;
-                }
                 wxToggleButton * but = new wxToggleButton(pan,
                                                           ID_TOGGLE_BUT + *it,
                                                           wxString::Format(wxT("%d"),*it),
-                                                          wxDefaultPosition, wxSize(buttonsize,-1),
+                                                          wxDefaultPosition, wxDefaultSize,
                                                           wxBU_EXACTFIT);
 #else
                 wxCheckBox * but = new wxCheckBox(pan,
@@ -1217,7 +1198,7 @@ void GLPreviewFrame::OnOverviewToggle(wxCommandEvent& e)
             m_mgr->Update();
         } else if (!(inf.IsShown() && toggle_on)) {
             inf.Show();
-#ifdef __WXMSW__
+#if defined __WXMSW__ || defined __WXMAC__
             m_GLOverview->SetActive(true);
             m_mgr->Update();
 #else
@@ -1368,6 +1349,8 @@ void GLPreviewFrame::OnNumTransform(wxCommandEvent & e)
     int index = m_DragModeChoice->GetSelection();
     switch (index) {
         case 0: //normal
+        case 1: //normal, individual
+            //@TODO limit numeric transform to selected images
             text = XRCCTRL(*this,"input_yaw",wxTextCtrl)->GetValue();
             if(!stringToDouble(std::string(text.mb_str(wxConvLocal)), y))
             {
@@ -1393,7 +1376,9 @@ void GLPreviewFrame::OnNumTransform(wxCommandEvent & e)
                     new PT::RotatePanoCmd(m_pano, y, p, r)
                 );
             break;
-        case 1: //mosaic
+        case 2: //mosaic
+        case 3: //mosaic, individual
+            //@TODO limit numeric transform to selected images
             text = XRCCTRL(*this,"input_x",wxTextCtrl)->GetValue();
             if(!stringToDouble(std::string(text.mb_str(wxConvLocal)), x))
             {
@@ -2335,6 +2320,7 @@ void GLPreviewFrame::SetMode(int newMode)
             // we need to update the meshes after switch to layout mode
             // otherwise the following update of scale has no meshes to scale
             m_GLPreview->Update();
+            m_GLOverview->Update();
             OnLayoutScaleChange(dummy);
             break;
         case mode_projection:
@@ -2599,3 +2585,9 @@ void GLPreviewFrame::OnHideProjectionHints(wxCommandEvent &e)
     cfg->Flush();
     e.Skip();
 };
+
+void GLPreviewFrame::UpdateIdentifyTools(std::set<unsigned int> new_image_set){
+    identify_tool->UpdateWithNewImageSet(new_image_set);
+    panosphere_overview_identify_tool->UpdateWithNewImageSet(new_image_set);
+    plane_overview_identify_tool->UpdateWithNewImageSet(new_image_set);
+}

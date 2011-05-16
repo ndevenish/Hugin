@@ -5,13 +5,39 @@ INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
 INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})
 
 # get version of Python libs
-FILE(STRINGS "${PYTHON_INCLUDE_PATH}/patchlevel.h" PYTHON_VERSION_H REGEX "#define PY_VERSION")
-STRING(REGEX REPLACE ".*#define +PY_VERSION.*\"([0-9]+.[0-9]+.[0-9]+)\".*" "\\1" PYTHON_VERSION "${PYTHON_VERSION_H}")
-STRING(REGEX REPLACE "([^.]+)\\.([^.]+)\\.([^.]+)" "\\1" PYTHON_VERSION_MAJOR "${PYTHON_VERSION}")
-STRING(REGEX REPLACE "([^.]+)\\.([^.]+)\\.([^.]+)" "\\2" PYTHON_VERSION_MINOR "${PYTHON_VERSION}")
-STRING(REGEX REPLACE "([^.]+)\\.([^.]+)\\.([^.]+)" "\\3" PYTHON_VERSION_PATCH "${PYTHON_VERSION}")
+# changed to look at the individual numeric defines
+# instead of picking the version string apart
+# KFJ 2011-05-16
+
+FILE(STRINGS "${PYTHON_INCLUDE_DIRS}/patchlevel.h"
+     PY_DEF_MAJOR
+     REGEX "#define[ \t]+PY_MAJOR_VERSION.*$")
+
+FILE(STRINGS "${PYTHON_INCLUDE_DIRS}/patchlevel.h"
+     PY_DEF_MINOR
+     REGEX "#define[ \t]+PY_MINOR_VERSION.*$")
+
+FILE(STRINGS "${PYTHON_INCLUDE_DIRS}/patchlevel.h"
+     PY_DEF_MICRO
+     REGEX "#define[ \t]+PY_MICRO_VERSION.*$")
+
+STRING(REGEX
+       REPLACE "^.*VERSION[ \t]+([0-9]+).*" "\\1"
+       PYTHON_VERSION_MAJOR
+       "${PY_DEF_MAJOR}")
+
+STRING(REGEX
+       REPLACE "^.*VERSION[ \t]+([0-9]+).*" "\\1"
+       PYTHON_VERSION_MINOR
+       "${PY_DEF_MINOR}")
+
+STRING(REGEX
+       REPLACE "^.*VERSION[ \t]+([0-9]+).*" "\\1"
+       PYTHON_VERSION_PATCH
+       "${PY_DEF_MICRO}")
+
 MESSAGE(STATUS "Python libs version: ${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}.${PYTHON_VERSION_PATCH}")
- 
+
 # access to the swig runtime code in the hpi module is via
 # inclusion of a generated header file, swigpyrun.h:
 

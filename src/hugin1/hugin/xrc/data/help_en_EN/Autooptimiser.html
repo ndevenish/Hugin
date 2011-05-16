@@ -59,7 +59,46 @@
 </li><li> the <b>field of view</b> of input images can be specified, this is useful as the project files created by <a href="Autopano.html" title="Autopano">autopano</a> and <a href="Autopano-sift.html" title="Autopano-sift">autopano-sift</a> don't specify the <b>field of view</b> of the input photos.
 </li><li> <b>autooptimiser</b> can also perform photometric optimisation like the <a href="Vig_optimize.html" title="Vig optimize">vig_optimize</a> tool. Depending on the input images it selects automaticly these photometric parameters (exposure, white balance, <a href="Vignetting.html" title="Vignetting">vignetting</a>, <a href="Camera_response_curve.html" title="Camera response curve">camera response curve</a>) which should be optimised.
 </li></ul>
-
+<a name="Usage" id="Usage"></a><h2> <span class="mw-headline"> Usage </span></h2>
+<pre>      autooptimiser [options] project.pto
+</pre>
+<p>(- can be specified to read the project from stdio.)
+</p>
+<a name="Description" id="Description"></a><h3> <span class="mw-headline"> Description </span></h3>
+<p><b>autooptimiser</b> works similarly to <b>PToptimizer</b> but with extra command-
+line options.
+</p><p>It is also different in that PToptimizer appends its output onto the
+input file in the form of ’o’ lines which need further processing.
+autooptimiser simply updates the project and writes it to a new file.
+</p>
+<a name="Options" id="Options"></a><h3> <span class="mw-headline"> Options </span></h3>
+<p><tt>-o file.pto</tt> Output file. If omitted, stdout is used.
+</p><p><br />
+</p>
+<ul><li> Optimisation options (if not specified, no optimisation takes place):
+</li></ul>
+<p><tt>-a</tt>  Auto align mode, includes various optimisation stages, depending on
+the amount and distribution of the control points
+</p><p><tt>-p</tt>  Pairwise optimisation of yaw, pitch and roll, starting from first
+image
+</p><p><tt>-n</tt>  Optimize parameters specified in script file (like PToptimizer).
+</p><p><tt>-m</tt>  Optimize photometric parameters (the optimized parameters are automatically selected depending on project settings)
+</p><p><br />
+</p>
+<ul><li> Post-processing options:
+</li></ul>
+<p><tt>-l</tt>  Level horizon (works best for horizontal panoramas)
+</p><p><tt>-s</tt>  Automatically select a suitable output projection and size
+</p>
+<ul><li> Other options:
+</li></ul>
+<p><tt>-q</tt>  Quiet operation (no progress is reported)
+</p><p><tt>-v HFOV</tt>           Specify horizontal field of view of input images. Used if the .pto
+file contains invalid HFOV values (autopano-SIFT writes .pto files
+with invalid HFOV)
+</p><p>When -a, -l, -s and -m options are used together, an operation similar to
+the one of the "Align" button in hugin is performed.
+</p>
 
 
 

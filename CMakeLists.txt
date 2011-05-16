@@ -60,7 +60,7 @@ ENDIF()
 IF (EXISTS ${PROJECT_SOURCE_DIR}/.hg)
   IF (UPDATE_CHANGELOG)
    FIND_PROGRAM(_hg hg)
-   EXECUTE_PROCESS(COMMAND ${_hg} log --follow -b default --style=changelog
+   EXECUTE_PROCESS(COMMAND ${_hg} log --follow --style=changelog
    WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
    OUTPUT_FILE ${PROJECT_SOURCE_DIR}/ChangeLog)
    MESSAGE("-- New ChangeLog generated")
@@ -261,6 +261,8 @@ IF(MSGFMT_FOUND)
   MESSAGE(STATUS "Program msgfmt found (${MSGFMT_EXECUTABLE})")
 ENDIF(MSGFMT_FOUND)
 
+FIND_PACKAGE(ZThread)
+
 IF(WIN32)
   # HTML Helpworkshop for creating help file
   FIND_PACKAGE(HTMLHelp)
@@ -268,6 +270,11 @@ IF(WIN32)
     MESSAGE(FATAL_ERROR "MS HTML Help Workshop not found. It is required to build Hugins help file.")
   ENDIF()
 ENDIF(WIN32)
+
+FIND_PACKAGE(Tclap)
+IF(NOT TCLAP_FOUND)
+  MESSAGE(FATAL_ERROR "Tclap library not found")
+ENDIF(NOT TCLAP_FOUND)
 
 OPTION(BUILD_HSI "Python Scripting Interface" OFF)
 IF(BUILD_HSI)
@@ -403,24 +410,13 @@ ELSE (UNIX)
 	#Build HuginSetup
 	OPTION (BUILD_HUGINSETUP "Build HuginSetup (NSIS Installer)" OFF)
     IF(BUILD_HUGINSETUP)
-      FIND_PACKAGE(7ZIP REQUIRED)
-      IF(7ZIP_FOUND)
-        MESSAGE(STATUS "7ZIP found (${7ZA})")
-      ELSE(7ZIP_FOUND)
-        MESSAGE(STATUS "7ZIP not found")
-      ENDIF(7ZIP_FOUND)
       FIND_PACKAGE(NSIS REQUIRED)
       IF(NSIS_FOUND)
         MESSAGE(STATUS "NSIS found (${MAKENSIS_EXECUTABLE})")
       ELSE(NSIS_FOUND)
         MESSAGE(STATUS "NSIS not found")
       ENDIF(NSIS_FOUND)
-      IF(CMAKE_SIZEOF_VOID_P EQUAL 4) #32bit
-        ADD_CUSTOM_TARGET(HuginSetup COMMAND ${7ZA} a hugin_bin32 bin & move /Y hugin_bin32.7z ${CMAKE_INSTALL_PREFIX}/../ COMMAND ${7ZA} a hugin_share32 share & move /Y hugin_share32.7z ${CMAKE_INSTALL_PREFIX}/../ COMMAND ${7ZA} a hugin_doc doc & move /Y hugin_doc.7z ${CMAKE_INSTALL_PREFIX}/../ COMMAND cd .. & ${MAKENSIS_EXECUTABLE} HuginSetup.nsi WORKING_DIRECTORY ${CMAKE_INSTALL_PREFIX})
-      ENDIF(CMAKE_SIZEOF_VOID_P EQUAL 4)
-      IF(CMAKE_SIZEOF_VOID_P EQUAL 8) #64bit
-        ADD_CUSTOM_TARGET(HuginSetup COMMAND ${7ZA} a hugin_bin64 bin & move /Y hugin_bin64.7z ${CMAKE_INSTALL_PREFIX}/../ COMMAND ${7ZA} a hugin_share64 share & move /Y hugin_share64.7z ${CMAKE_INSTALL_PREFIX}/../ COMMAND ${7ZA} a hugin_doc doc & move /Y hugin_doc.7z ${CMAKE_INSTALL_PREFIX}/../ COMMAND cd .. & ${MAKENSIS_EXECUTABLE} HuginSetup.nsi WORKING_DIRECTORY ${CMAKE_INSTALL_PREFIX})
-      ENDIF(CMAKE_SIZEOF_VOID_P EQUAL 8)
+      ADD_CUSTOM_TARGET(HuginSetup COMMAND cd .. & ${MAKENSIS_EXECUTABLE} HuginSetup.nsi WORKING_DIRECTORY ${CMAKE_INSTALL_PREFIX})
     ENDIF(BUILD_HUGINSETUP)
   ENDIF(WIN32)
 

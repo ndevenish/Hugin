@@ -369,25 +369,43 @@ namespace vigra {
                         " A suitable default was not found." );
 
         // check photometric preconditions
-        if ( photometric == PHOTOMETRIC_MINISWHITE ||
-                                photometric == PHOTOMETRIC_MINISBLACK ||
-             photometric == PHOTOMETRIC_PALETTE )
+        switch ( photometric )
         {
-            if ( samples_per_pixel - extra_samples_per_pixel != 1 )
+            case PHOTOMETRIC_MINISWHITE:
+            case PHOTOMETRIC_MINISBLACK:
+            case PHOTOMETRIC_PALETTE:
+            {
+                if ( samples_per_pixel - extra_samples_per_pixel != 1 )
                 vigra_fail("TIFFDecoderImpl::init():"
                                 " Photometric tag does not fit the number of"
                                 " samples per pixel." );
-        }
-        if ( photometric == PHOTOMETRIC_RGB )
-        {
-            if ( samples_per_pixel > 3 && extra_samples_per_pixel == 0 ) {
-                // file probably lacks the extra_samples tag
-                extra_samples_per_pixel = samples_per_pixel - 3;
+                break;
             }
-            if ( samples_per_pixel - extra_samples_per_pixel != 3 )
-                vigra_fail("TIFFDecoderImpl::init():"
-                                " Photometric tag does not fit the number of"
-                                " samples per pixel." );
+            case PHOTOMETRIC_RGB:
+            {
+                if ( samples_per_pixel > 3 && extra_samples_per_pixel == 0 ) {
+                    // file probably lacks the extra_samples tag
+                    extra_samples_per_pixel = samples_per_pixel - 3;
+                }
+                if ( samples_per_pixel - extra_samples_per_pixel != 3 )
+                    vigra_fail("TIFFDecoderImpl::init():"
+                                    " Photometric tag does not fit the number of"
+                                    " samples per pixel." );
+                break;
+            }
+            case PHOTOMETRIC_LOGL:
+            case PHOTOMETRIC_LOGLUV:
+            {
+                uint16 tiffcomp;
+                TIFFGetFieldDefaulted( tiff, TIFFTAG_COMPRESSION, &tiffcomp );
+                if (tiffcomp != COMPRESSION_SGILOG && tiffcomp != COMPRESSION_SGILOG24)
+                    vigra_fail("TIFFDecoderImpl::init():"
+                                    " Only SGILOG compression is supported for"
+                                    " LogLuv TIFF."
+                    );
+                TIFFSetField(tiff, TIFFTAG_SGILOGDATAFMT, SGILOGDATAFMT_FLOAT);
+                break;
+            }
         }
 
         // get planarconfig
@@ -452,6 +470,12 @@ namespace vigra {
             // get fillorder
             if ( !TIFFGetField( tiff, TIFFTAG_FILLORDER, &fillorder ) )
                 fillorder = FILLORDER_MSB2LSB;
+        }
+
+        // make sure the LogLuv has correct pixeltype because only float is supported
+        if (photometric == PHOTOMETRIC_LOGLUV) {
+            pixeltype = "FLOAT";
+            samples_per_pixel = 3;
         }
 
         // other fields
@@ -584,12 +608,7 @@ namespace vigra {
                     //                      size );
                     TIFFReadScanline(tiff, stripbuffer[i], scanline++, size);
             } else {
-                // mihal 27-10-2004: modified to use scanline interface
-                //const tsize_t size = TIFFStripSize(tiff);
-                const tsize_t size = TIFFScanlineSize(tiff);
-                // mihal 27-10-2004: modified to use scanline interface
-                //TIFFReadEncodedStrip( tiff, strip++, stripbuffer[0], size );
-                TIFFReadScanline( tiff, stripbuffer[0], scanline++, size);
+                TIFFReadScanline( tiff, stripbuffer[0], scanline++, 0);
             }
 
             // XXX handle bilevel images

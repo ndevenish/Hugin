@@ -560,6 +560,14 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, double & 
             // fprintf(stdout,"%f",olyFPD);
             cropFactor = sqrt(36.0*36.0+24.0*24.0) / olyFPD;
         }
+        else {
+            // for newer Olympus cameras the FocalPlaneDiagonal tag was moved into
+            // equipment (sub?)-directory, so check also there
+            getExiv2Value(exifData,"Exif.OlympusEq.FocalPlaneDiagonal",olyFPD);
+            if (olyFPD > 0.0) {
+                cropFactor = sqrt(36.0*36.0+24.0*24.0) / olyFPD;
+            };
+        };
    
     }
     DEBUG_DEBUG("cropFactor: " << cropFactor);

@@ -8,7 +8,6 @@ Licensed under the same terms as the hugin package itself.
 
 hugin_stitch_project - Stitch a hugin project
 
-
 =head1 SYNOPSIS
 
 B<hugin_stitch_project> [options] [I<<project>> I<<images>> ...]

@@ -87,12 +87,18 @@ public:
     void OnMaskSave(wxCommandEvent &e);
     /** called when user wants to load a mask into the selected image */
     void OnMaskLoad(wxCommandEvent &e);
+    /** called when user wants to copy a mask to clipboard */
+    void OnMaskCopy(wxCommandEvent &e);
+    /** called when user wants to paste a mask from clipboard */
+    void OnMaskPaste(wxCommandEvent &e);
     /** called when user wants to delete active mask */
     void OnMaskDelete(wxCommandEvent &e);
     /** sets the actual zoom factor */
     void OnZoom(wxCommandEvent & e);
     /** event handler for changing colours */
     void OnColourChanged(wxColourPickerEvent &e);
+    /** event handler for changing option if active masks should be drawn */
+    void OnShowActiveMasks(wxCommandEvent &e);
 
 private:
 
@@ -104,6 +110,10 @@ private:
     unsigned int GetSelectedMask();
     /** called, when column with of mask list box was changed */
     void OnColumnWidthChange( wxListEvent & e );
+    /** load the mask from stream */
+    void LoadMaskFromStream(std::istream& stream,vigra::Size2D& imageSize,HuginBase::MaskPolygonVector &newMasks);
+    /** save the mask into stream */
+    void SaveMaskToStream(std::ostream& stream);
     /** determines, if the image should be rotated for display */
     MaskImageCtrl::ImageRotation GetRot(const unsigned int imgNr);
 

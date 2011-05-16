@@ -1574,6 +1574,33 @@ namespace PT {
         double m_blue;
     };
 
+    //=========================================================================
+    //=========================================================================
+
+    /** reset output exposure to mean exposure of all images */
+    class ResetToMeanExposure : public PanoCommand
+    {
+    public:
+        ResetToMeanExposure(Panorama & p)
+            : PanoCommand(p)
+        { };
+
+        virtual bool processPanorama(Panorama& pano)
+            {
+                HuginBase::PanoramaOptions opts=pano.getOptions();
+                opts.outputExposureValue = PT::calcMeanExposure(pano);
+                pano.setOptions(opts);
+                pano.changeFinished();
+
+                return true;
+            }
+        
+        virtual std::string getName() const
+            {
+                return "set exposure to mean exposure";
+            }
+    };
+
 
 } // namespace PT
 

@@ -405,7 +405,7 @@ std::auto_ptr<Encoder> encoder( const ImageExportInfo & info )
 
         // FIXME: dangelo: This code might lead to strange effects (setting an invalid compression mode),
         // if other formats also support a numerical compression parameter.
-        if ( quality != -1 ) {
+        if ( compstream.eof() && !compstream.fail() ) {
             enc->setCompressionType( "JPEG", quality );
         } else {
             // leave any other compression type to the codec

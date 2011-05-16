@@ -162,7 +162,7 @@ int CircularKeyPointDescriptor::assignOrientation(KeyPoint& ioKeyPoint, double a
 #endif
 
 #ifdef _MSC_VER
-#pragma NOTE(use LUT after parameter tuning)
+#pragma message("use LUT after parameter tuning")
 #else
 #warning use LUT after parameter tuning
 #endif
@@ -286,7 +286,7 @@ void CircularKeyPointDescriptor::createDescriptor(KeyPoint& ioKeyPoint) const
 
 	double aX = ioKeyPoint._x;
 	double aY = ioKeyPoint._y;
-	int aS = ioKeyPoint._scale;
+	int aS = (int)ioKeyPoint._scale;
 
 	// get the sin/cos of the orientation
 	double ori_sin = sin(ioKeyPoint._ori);

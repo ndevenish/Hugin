@@ -82,7 +82,8 @@ MaskLoadDialog::~MaskLoadDialog()
 
 void MaskLoadDialog::initValues(const HuginBase::SrcPanoImage image, const HuginBase::MaskPolygonVector newMask, const vigra::Size2D maskSize)
 {
-    m_image->setImage(image.getFilename(),newMask,MaskImageCtrl::ROT0);
+    HuginBase::MaskPolygonVector emptyMask;
+    m_image->setImage(image.getFilename(),newMask,emptyMask,MaskImageCtrl::ROT0);
     m_image->setScale(0);
     m_loadedMask=newMask;
     m_imageSize=image.getSize();
@@ -154,5 +155,6 @@ void MaskLoadDialog::ProcessMask(wxCommandEvent &e)
 
 void MaskLoadDialog::UpdatePreviewImage()
 {
-    m_image->setNewMasks(m_processedMask);
+    HuginBase::MaskPolygonVector emptyMask;
+    m_image->setNewMasks(m_processedMask,emptyMask);
 };

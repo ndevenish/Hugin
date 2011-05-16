@@ -295,7 +295,11 @@ const wxString getInvalidCharacters()
     // we need only to check for characters, which does not work with the makefiles
     return wxT("=;%");
 #else
-    return wxT("=;:%");
+    // the characters =;:% does not work with the makefile
+    // we are also rejecting the characters <>*?| which are principally allowed in filenames but will probably make problems when used
+    // the double quote does not work with the panotools file format, so also reject
+    //@BUG tilde ~ and backslash \ are not working with vigraimpex, if this works again these characters can be removed from the list
+    return wxT("=;:%*?<>|\"\\~");
 #endif
 };
 

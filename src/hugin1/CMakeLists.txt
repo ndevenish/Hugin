@@ -21,6 +21,7 @@ IF(wxWidgets_FOUND)
   ENDIF(OPENGL_FOUND)  
   add_subdirectory(nona_gui)
   add_subdirectory(ptbatcher)
+  add_subdirectory(calibrate_lens)
 ENDIF(wxWidgets_FOUND)
 
 IF(VIPS_FOUND)

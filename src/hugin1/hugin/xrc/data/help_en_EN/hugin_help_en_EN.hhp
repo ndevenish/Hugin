@@ -44,6 +44,7 @@ Cubic_Projection.html
 Cylindrical_panorama.html
 Cylindrical_Projection.html
 Depth_of_Field.html
+Diffraction.html
 DSLR_spherical_resolution.html
 Dust_Removal_with_Flatfield.html
 Dynamic_range.html
@@ -51,6 +52,7 @@ Enblend.html
 Enblend_reference_manual.html
 Enfuse.html
 Enfuse_reference_manual.html
+Equirectangular_Panini.html
 Equirectangular_Projection.html
 EXIF.html
 Field_of_View.html
@@ -82,6 +84,7 @@ Hugin_Parameters_for_Control_Point_Detectors_dialog.html
 Hugin_Preferences.html
 Hugin_Preview_window.html
 Hugin_Reset_Values_window.html
+Hugin_stitch_project.html
 Hugin_Stitcher_tab.html
 Hugin_Trackers.html
 Hugin_translation_guide.html
@@ -101,6 +104,7 @@ Nona_gui.html
 No-parallax_point.html
 OpenEXR.html
 Optimization.html
+Panini.html
 Pano12.html
 Pano_modify.html
 Panoglview.html
@@ -150,7 +154,6 @@ Vignetting.html
 Wavy_distortion.html
 Yaw.html
 Zenith.html
-Hugin_stitch_project.html
 
 [INFOTYPES]
 

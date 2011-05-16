@@ -56,9 +56,11 @@ public:
     /** if called, the mouse handlers are deactivated*/
     void setPreviewOnly() { m_previewOnly=true; };
     /** set the current image and mask list, this loads also the image from cache */
-    void setImage (const std::string & filename, HuginBase::MaskPolygonVector newMask, ImageRotation rot);
+    void setImage (const std::string & filename, HuginBase::MaskPolygonVector newMask, HuginBase::MaskPolygonVector masksToDraw, ImageRotation rot);
     /** updates masks for currently selected image */
-    void setNewMasks(HuginBase::MaskPolygonVector newMasks);
+    void setNewMasks(HuginBase::MaskPolygonVector newMasks, HuginBase::MaskPolygonVector masksToDraw);
+    /** updates the crop mode and crop rect */
+    void setCrop(HuginBase::SrcPanoImage::CropMode newCropMode,vigra::Rect2D newCropRect);
     /** mark mask with image as beeing editing */
     void setActiveMask(unsigned int newMask, bool doUpdate=true);
     /** returns the vector of all mask (including new created mask) */
@@ -103,7 +105,9 @@ public:
 
     /** returns the current rotation of displayed image */
     ImageRotation getCurrentRotation() { return m_imgRotation; };
-    
+
+    /** set if active masks should be drawn */
+    void setDrawingActiveMasks(bool newDrawActiveMasks);
     /** initiate redraw */
     void update();
 
@@ -130,6 +134,7 @@ protected:
 
     //scaled bitmap
     wxBitmap bitmap;
+    wxBitmap disabledBitmap;
     //filename of current editing file
     std::string imageFilename;
     // stores rotation of image
@@ -138,6 +143,11 @@ protected:
     wxSize imageSize;
     // size of real image
     wxSize m_realSize;
+    // variables for crop
+    HuginBase::SrcPanoImage::CropMode m_cropMode;
+    vigra::Rect2D m_cropRect;
+    // draw active masks 
+    bool m_showActiveMasks;
 
     /** scale of width/height */
     int scale(int x) const
@@ -254,6 +264,7 @@ protected:
 
     MaskEditorPanel * m_editPanel;
     HuginBase::MaskPolygonVector m_imageMask;
+    HuginBase::MaskPolygonVector m_masksToDraw;
     unsigned int m_activeMask;
     // the active masks, the one which is currently editing
     HuginBase::MaskPolygon m_editingMask;

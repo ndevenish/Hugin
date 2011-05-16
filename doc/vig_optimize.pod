@@ -8,7 +8,6 @@ Licensed under the same terms as the hugin package itself.
 
 vig_optimize - Optimise photometric parameters
 
-
 =head1 SYNOPSIS
 
 B<vig_optimize> [options] B<-o> I<output.pto> I<input.pto>

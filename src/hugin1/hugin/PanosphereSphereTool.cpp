@@ -42,16 +42,16 @@
 
 void PanosphereSphereTool::Activate()
 {
-    ((PanosphereOverviewToolHelper*)helper)->NotifyMe(PanosphereOverviewToolHelper::DRAW_OVER_IMAGES_BACK, this);
-    ((PanosphereOverviewToolHelper*)helper)->NotifyMe(PanosphereOverviewToolHelper::DRAW_OVER_IMAGES_FRONT, this);
+    ((PanosphereOverviewToolHelper*)helper)->NotifyMe(PanosphereOverviewToolHelper::DRAW_UNDER_IMAGES_BACK, this);
+    ((PanosphereOverviewToolHelper*)helper)->NotifyMe(PanosphereOverviewToolHelper::DRAW_UNDER_IMAGES_FRONT, this);
 }
 
 
-void PanosphereSphereTool::AfterDrawImagesBackEvent()
+void PanosphereSphereTool::BeforeDrawImagesBackEvent()
 {
 
     glDisable(GL_TEXTURE_2D);
-    glColor4f(0.3,0.3,0.3,0.6);
+    glColor4f(0.6,0.6,0.6,0.8);
     glEnable(GL_BLEND);
     glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     GLUquadric* gridb = gluNewQuadric();
@@ -64,7 +64,7 @@ void PanosphereSphereTool::AfterDrawImagesBackEvent()
     
 }
 
-void PanosphereSphereTool::AfterDrawImagesFrontEvent()
+void PanosphereSphereTool::BeforeDrawImagesFrontEvent()
 {
 
 

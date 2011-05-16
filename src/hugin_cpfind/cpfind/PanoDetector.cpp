@@ -434,6 +434,12 @@ void PanoDetector::run()
 	}
 
     // 2. run analysis of images or keypoints
+#if _WINDOWS
+    //multi threading of image loading results sometime in a race condition
+    //try to prevent this by initialisation of codecManager before
+    //running multi threading part
+    std::string s=vigra::impexListExtensions();
+#endif
     try 
     {
         if (_keyPointsIdx.size() != 0)
@@ -734,7 +740,7 @@ void PanoDetector::CleanupKeyfiles()
 
 void PanoDetector::prepareMatches()
 {
-	int aLen = _filesData.size();
+	unsigned int aLen = _filesData.size();
 	if (_linearMatch)
 		aLen = _linearMatchLen;
 
@@ -743,7 +749,7 @@ void PanoDetector::prepareMatches()
 
 	for (unsigned int i1 = 0; i1 < _filesData.size(); ++i1)
 	{
-		int aEnd = i1 + 1 + aLen;
+		unsigned int aEnd = i1 + 1 + aLen;
 		if (_filesData.size() < aEnd)
 			aEnd = _filesData.size();
 
@@ -865,7 +871,7 @@ bool PanoDetector::matchMultiRow(PoolExecutor& aExecutor)
     CPGraph graph;
     createCPGraph(*_panoramaInfo, graph);
     CPComponents comps;
-    int n = findCPComponents(graph, comps);
+    unsigned int n = findCPComponents(graph, comps);
     if(n>1)
     {
         vector<unsigned int> ImagesGroups;

@@ -26,10 +26,10 @@
 #ifndef _FINDPANODIALOG_H
 #define _FINDPANODIALOG_H
 
+#include <vector>
 #include "panoinc_WX.h"
 #include "panoinc.h"
 #include "BatchFrame.h"
-#include <wx/dynarray.h>
 
 extern "C"
 {
@@ -38,8 +38,6 @@ extern "C"
 }
 
 class PossiblePano;
-
-WX_DECLARE_OBJARRAY(PossiblePano, PossiblePanoArray);
 
 /** Dialog for finding panorama in given directory
  *
@@ -81,7 +79,7 @@ private:
     wxCheckListBox *m_list_pano;
     wxChoice *m_cb_naming;
 
-    PossiblePanoArray m_panos;
+    std::vector<PossiblePano*> m_panos;
     wxString m_start_dir;
     bool m_isRunning;
     bool m_stopped;
@@ -110,6 +108,8 @@ class PossiblePano
             NAMING_FIRST_LAST=1,
             NAMING_FOLDER=2
         };
+        /** destructor, cleans up used variables */
+        ~PossiblePano();
         /** return true, if the image could belong to the given PossiblePano,
           * it checks camera maker and model, focal length, image size and date/time */
         bool BelongsTo(SrcPanoImage* img,const wxTimeSpan max_time_diff);
@@ -121,15 +121,13 @@ class PossiblePano
         const wxString GetItemString(const wxString BasePath) const;
         /** returns a string with the filename of the first and last file */
         const wxString GetFilestring(const wxString BasePath, const bool stripExtension=false) const;
-        /** delete SrcPanoImages */
-        void Cleanup();
         /** generates the panorama file from this set of images 
           * @return the generated project file, or wxEmptyString if generation failed */
         wxString GeneratePanorama(NamingConvention nc);
 
     private:
         /** does some reformating date/time format */
-        wxDateTime GetDateTime(const SrcPanoImage* img);
+        const wxDateTime GetDateTime(const SrcPanoImage* img);
         /** returns a given filename, which does not already exists */
         bool GetNewProjectFilename(NamingConvention nc,const wxString basePath, wxFileName &projectFile);
 

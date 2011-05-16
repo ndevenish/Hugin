@@ -1032,48 +1032,36 @@ void PanoPanel::DoStitch()
 
     // Derive a default output prefix from the project filename if set, otherwise default project filename
     wxString ptofile = MainFrame::Get()->getProjectName();
-    wxString outputPrefix;
+    wxFileName outputPrefix;
     if (ptofile  == wxT("")) {
-         outputPrefix = getDefaultProjectName(*pano);
+        outputPrefix.Assign(getDefaultProjectName(*pano));
     } else {
-        wxFileName prefixFN(ptofile);
-        if (prefixFN.GetExt() == wxT("pto")) {
-            prefixFN.ClearExt();
-            outputPrefix = prefixFN.GetFullPath();
-        } else {
-            outputPrefix = ptofile;
-        }
+        outputPrefix.Assign(ptofile);
+        if (outputPrefix.GetExt() == wxT("pto")) {
+            outputPrefix.ClearExt();
+        };
     }
 
     // Show a file save dialog so user can confirm/change the prefix.
     // (We don't have to worry about overwriting existing files, since hugin_switch_project checks this.)
     // TODO: The following code is similar to stitchApp::OnInit in hugin_switch_project.cpp. Should be refactored.
     // TODO: We should save the output prefix somewhere, so we can recall it as the default if the user stitches this project again.
+    wxFileDialog dlg(this,_("Specify output prefix"),
+                     outputPrefix.GetPath(), outputPrefix.GetName(), wxT(""),
+                     wxFD_SAVE, wxDefaultPosition);
+    if (dlg.ShowModal() != wxID_OK)
     {
-        wxFileDialog dlg(this,_("Specify output prefix"),
-                         wxConfigBase::Get()->Read(wxT("/actualPath"),wxT("")),
-                         outputPrefix, wxT(""),
-                         wxFD_SAVE, wxDefaultPosition);
-        dlg.SetDirectory(wxConfigBase::Get()->Read(wxT("/actualPath"),wxT("")));
-        if (dlg.ShowModal() == wxID_OK)
-        {
-            while(containsInvalidCharacters(dlg.GetPath()))
-            {
-                wxMessageBox(wxString::Format(_("The given filename contains one of the following invalid characters: %s\nHugin can not work with this filename. Please enter a valid filename."),getInvalidCharacters().c_str()),
-                    _("Error"),wxOK | wxICON_EXCLAMATION);
-                if(dlg.ShowModal()!=wxID_OK)
-                    return;
-            };
-        }
-        else
-        {
+        return;
+    };
+    while(containsInvalidCharacters(dlg.GetPath()))
+    {
+        wxMessageBox(wxString::Format(_("The given filename contains one of the following invalid characters: %s\nHugin can not work with this filename. Please enter a valid filename."),getInvalidCharacters().c_str()),
+            _("Error"),wxOK | wxICON_EXCLAMATION);
+        if(dlg.ShowModal()!=wxID_OK)
             return;
-        };
-        wxConfig::Get()->Write(wxT("/actualPath"), dlg.GetDirectory());  // remember for later
-        outputPrefix = dlg.GetPath();
-    }
+    };
 
-    wxString command = hugin_stitch_project + wxT(" --delete -o ") + wxQuoteFilename(outputPrefix) + wxT(" ") + wxQuoteFilename(currentPTOfn);
+    wxString command = hugin_stitch_project + wxT(" --delete -o ") + wxQuoteFilename(dlg.GetPath()) + wxT(" ") + wxQuoteFilename(currentPTOfn);
     
     wxConfigBase::Get()->Flush();
 #ifdef __WXGTK__

@@ -70,6 +70,7 @@ bool MaskImageCtrl::Create(wxWindow * parent, wxWindowID id,
     fitToWindow = false;
     m_previewOnly = false;
     m_activeMask = UINT_MAX;
+    m_showActiveMasks = false;
 
     return true;
 }
@@ -79,21 +80,22 @@ void MaskImageCtrl::Init(MaskEditorPanel * parent)
     m_editPanel = parent;
 }
 
-void MaskImageCtrl::setImage(const std::string & file, HuginBase::MaskPolygonVector newMask, ImageRotation rot)
+void MaskImageCtrl::setImage(const std::string & file, HuginBase::MaskPolygonVector newMask, HuginBase::MaskPolygonVector masksToDraw, ImageRotation rot)
 {
     DEBUG_TRACE("setting Image " << file);
     imageFilename = file;
     wxString fn(imageFilename.c_str(),HUGIN_CONV_FILENAME);
-    if (wxFileName::FileExists(fn)) 
+    if (wxFileName::FileExists(fn))
     {
         m_img = ImageCache::getInstance().getImage(imageFilename);
         maskEditState = NO_MASK;
         m_imageMask=newMask;
+        m_masksToDraw=masksToDraw;
         m_imgRotation=rot;
         setActiveMask(UINT_MAX,false);
         rescaleImage();
-    } 
-    else 
+    }
+    else
     {
         maskEditState = NO_IMAGE;
         bitmap = wxBitmap();
@@ -102,18 +104,26 @@ void MaskImageCtrl::setImage(const std::string & file, HuginBase::MaskPolygonVec
         m_img = ImageCache::EntryPtr(new ImageCache::Entry);
         HuginBase::MaskPolygonVector mask;
         m_imageMask=mask;
+        m_masksToDraw=mask;
         m_imgRotation=ROT0;
         setActiveMask(UINT_MAX);
         Refresh(true);
     }
 }
 
-void MaskImageCtrl::setNewMasks(HuginBase::MaskPolygonVector newMasks)
+void MaskImageCtrl::setNewMasks(HuginBase::MaskPolygonVector newMasks, HuginBase::MaskPolygonVector masksToDraw)
 {
     m_imageMask=newMasks;
+    m_masksToDraw=masksToDraw;
     if(m_activeMask>=m_imageMask.size())
         setActiveMask(UINT_MAX);
     Refresh(false);
+};
+
+void MaskImageCtrl::setCrop(HuginBase::SrcPanoImage::CropMode newCropMode,vigra::Rect2D newCropRect)
+{
+    m_cropMode=newCropMode;
+    m_cropRect=newCropRect;
 };
 
 void MaskImageCtrl::setActiveMask(unsigned int newMask, bool doUpdate)
@@ -418,7 +428,7 @@ void MaskImageCtrl::mouseDblClickLeftEvent(wxMouseEvent &mouse)
             {
                 //close newly generated polygon
                 maskEditState=NO_SELECTION;
-                //delete last point otherwise it would be added twice, because we added it 
+                //delete last point otherwise it would be added twice, because we added it
                 //already in release left mouse button
                 m_editingMask.removePoint(m_editingMask.getMaskPolygon().size()-1);
                 if(m_editingMask.getMaskPolygon().size()>2)
@@ -652,7 +662,7 @@ void MaskImageCtrl::OnKillFocus(wxFocusEvent &e)
 
 void MaskImageCtrl::startNewPolygon()
 {
-    maskEditState=NEW_POLYGON_STARTED; 
+    maskEditState=NEW_POLYGON_STARTED;
     HuginBase::MaskPolygon newMask;
     m_editingMask=newMask;
     m_selectedPoints.clear();
@@ -721,7 +731,7 @@ void MaskImageCtrl::DrawPolygon(wxDC &dc, HuginBase::MaskPolygon poly, bool isSe
     };
     delete []polygonPoints;
 };
- 
+
 void MaskImageCtrl::OnDraw(wxDC & dc)
 {
     if(maskEditState!=NO_IMAGE)
@@ -743,6 +753,70 @@ void MaskImageCtrl::OnDraw(wxDC & dc)
                 dc.SetBrush(wxBrush(GetBackgroundColour()));
                 dc.DrawRectangle(0,bitmap.GetHeight(),clientSize.GetWidth(),clientSize.GetHeight()-bitmap.GetHeight());
             };
+        };
+        if(m_showActiveMasks && (m_cropMode!=SrcPanoImage::NO_CROP || m_masksToDraw.size()>0))
+        {
+            //whole image, we need it several times
+            wxRegion wholeImage(transform(applyRot(hugin_utils::FDiff2D(0,0))),
+                                transform(applyRot(hugin_utils::FDiff2D(m_realSize.GetWidth(),m_realSize.GetHeight()))));
+            wxRegion region;
+            if(m_cropMode!=SrcPanoImage::NO_CROP)
+            {
+                region.Union(wholeImage);
+                //now the crop
+                switch(m_cropMode)
+                {
+                    case HuginBase::SrcPanoImage::CROP_RECTANGLE:
+                        region.Subtract(wxRegion(transform(applyRot(m_cropRect.upperLeft())),
+                            transform(applyRot(m_cropRect.lowerRight()))));
+                        break;
+                    case HuginBase::SrcPanoImage::CROP_CIRCLE:
+                        unsigned int nrOfPoints=dc.GetSize().GetWidth()*2;
+                        wxPoint* circlePoints=new wxPoint[nrOfPoints];
+                        vigra::Point2D middle=(m_cropRect.lowerRight()+m_cropRect.upperLeft())/2;
+                        double radius=std::min<int>(m_cropRect.width(),m_cropRect.height())/2;
+                        double interval=2*PI/nrOfPoints;
+                        for(unsigned int i=0;i<nrOfPoints;i++)
+                        {
+                            circlePoints[i]=transform(applyRot(hugin_utils::FDiff2D(middle.x+radius*cos(i*interval),middle.y+radius*sin(i*interval))));
+                        };
+                        region.Subtract(wxRegion(nrOfPoints,circlePoints));
+                        delete []circlePoints;
+                        break;
+                };
+            };
+            if(m_masksToDraw.size()>0)
+            {
+                for(unsigned int i=0;i<m_masksToDraw.size();i++)
+                {
+                    HuginBase::VectorPolygon poly=m_masksToDraw[i].getMaskPolygon();
+                    wxPoint *polygonPoints=new wxPoint[poly.size()];
+                    for(unsigned int j=0;j<poly.size();j++)
+                    {
+                        polygonPoints[j]=transform(applyRot(poly[j]));
+                    };
+                    wxRegion singleRegion(poly.size(),polygonPoints,wxWINDING_RULE);
+                    if(m_masksToDraw[i].isInverted())
+                    {
+                        wxRegion newRegion(wholeImage);
+                        newRegion.Subtract(singleRegion);
+                        region.Union(newRegion);
+                    }
+                    else
+                    {
+                        region.Union(singleRegion);
+                    };
+                    delete []polygonPoints;
+                };
+                region.Intersect(wholeImage);
+            };
+            int x;
+            int y;
+            GetViewStart(&x,&y);
+            region.Offset(-x,-y);
+            dc.SetDeviceClippingRegion(region);
+            dc.DrawBitmap(disabledBitmap,0,0);
+            dc.DestroyClippingRegion();
         };
         if(m_imageMask.size()>0)
         {
@@ -807,13 +881,13 @@ void MaskImageCtrl::rescaleImage()
     dc.DrawBitmap(cachedBitmap,HuginBase::maskOffset,HuginBase::maskOffset);
     dc.SelectObject(wxNullBitmap);
 
-    if (getScaleFactor()!=1.0) 
+    if (getScaleFactor()!=1.0)
     {
         imageSize.SetWidth(scale(imageSize.GetWidth()));
         imageSize.SetHeight(scale(imageSize.GetHeight()));
         wxImage tmp=bitmap.ConvertToImage();
         tmp=tmp.Scale(imageSize.GetWidth(), imageSize.GetHeight());
-        switch(m_imgRotation) 
+        switch(m_imgRotation)
         {
             case ROT90:
                 tmp = tmp.Rotate90(true);
@@ -835,7 +909,7 @@ void MaskImageCtrl::rescaleImage()
     else
     {
         // need to rotate full image. warning. this can be very memory intensive
-        if (m_imgRotation != ROT0) 
+        if (m_imgRotation != ROT0)
         {
             wxImage tmp=bitmap.ConvertToImage();
             switch(m_imgRotation)
@@ -858,11 +932,35 @@ void MaskImageCtrl::rescaleImage()
         };
     };
 
-    if (m_imgRotation == ROT90 || m_imgRotation == ROT270) 
+    //create disabled bitmap for drawing active masks
+    wxImage image=bitmap.ConvertToImage();
+#if wxCHECK_VERSION(2,9,0)
+    image.ConvertToDisabled(192);
+#else
+    {
+        int width = image.GetWidth();
+        int height = image.GetHeight();
+        for (int y = height-1; y >= 0; --y)
+        {
+            for (int x = width-1; x >= 0; --x)
+            {
+                unsigned char* data = image.GetData() + (y*(width*3))+(x*3);
+                unsigned char* r = data;
+                unsigned char* g = data+1;
+                unsigned char* b = data+2;
+                *r=(unsigned char)wxMin(0.6*(*r)+77,255);
+                *b=(unsigned char)wxMin(0.6*(*b)+77,255);
+                *g=(unsigned char)wxMin(0.6*(*g)+77,255);
+            }
+        }
+    }
+#endif
+    disabledBitmap=wxBitmap(image);
+    if (m_imgRotation == ROT90 || m_imgRotation == ROT270)
     {
         SetVirtualSize(imageSize.GetHeight(), imageSize.GetWidth());
-    } 
-    else 
+    }
+    else
     {
         SetVirtualSize(imageSize.GetWidth(), imageSize.GetHeight());
     };
@@ -921,18 +1019,18 @@ bool MaskImageCtrl::SelectPointsInsideMouseRect(HuginBase::UIntSet &points,const
 
 void MaskImageCtrl::setScale(double factor)
 {
-    if (factor == 0) 
+    if (factor == 0)
     {
         fitToWindow = true;
         factor = calcAutoScaleFactor(imageSize);
-    } 
-    else 
+    }
+    else
     {
         fitToWindow = false;
     }
     DEBUG_DEBUG("new scale factor:" << factor);
     // update if factor changed
-    if (factor != scaleFactor) 
+    if (factor != scaleFactor)
     {
         scaleFactor = factor;
         // keep existing scale focussed.
@@ -962,6 +1060,12 @@ double MaskImageCtrl::calcAutoScaleFactor(wxSize size)
 double MaskImageCtrl::getScaleFactor() const
 {
     return scaleFactor;
+};
+
+void MaskImageCtrl::setDrawingActiveMasks(bool newDrawActiveMasks)
+{
+    m_showActiveMasks=newDrawActiveMasks;
+    update();
 };
 
 IMPLEMENT_DYNAMIC_CLASS(MaskImageCtrl, wxScrolledWindow)

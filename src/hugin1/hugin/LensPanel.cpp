@@ -38,6 +38,7 @@
 #include "hugin/LensPanel.h"
 #include "hugin/CommandHistory.h"
 #include "base_wx/wxImageCache.h"
+#include "base_wx/LensTools.h"
 #include "hugin/CPEditorPanel.h"
 #include "hugin/ImagesList.h"
 //#include "hugin/ImageCenter.h"
@@ -48,7 +49,6 @@
 #include "hugin/wxPanoCommand.h"
 //#include "hugin/VigCorrDialog.h"
 #include "hugin/ResetDialog.h"
-#include "hugin/HFOVDialog.h"
 
 using namespace PT;
 using namespace hugin_utils;
@@ -759,10 +759,6 @@ void LensPanel::OnSaveLensParameters(wxCommandEvent & e)
     DEBUG_TRACE("")
     if (m_selectedImages.size() == 1) {
         unsigned int imgNr = *(m_selectedImages.begin());
-        const Lens & lens = variable_groups->getLensForImage(imgNr);
-        const VariableMap & vars = pano->getImageVariables(imgNr);
-        // get the variable map
-        wxString fname;
         wxFileDialog dlg(this,
                          _("Save lens parameters file"),
                          wxConfigBase::Get()->Read(wxT("/lensPath"),wxT("")), wxT(""),
@@ -770,73 +766,11 @@ void LensPanel::OnSaveLensParameters(wxCommandEvent & e)
                          wxFD_SAVE, wxDefaultPosition);
         dlg.SetDirectory(wxConfigBase::Get()->Read(wxT("/lensPath"),wxT("")));
         if (dlg.ShowModal() == wxID_OK) {
-            fname = dlg.GetPath();
-            if (fname.Right(4) != wxT(".ini")) {
-                fname.Append(wxT(".ini"));
-            }
+            wxFileName filename(dlg.GetPath());
+            if(!filename.HasExt())
+                filename.SetExt(wxT("ini"));
             wxConfig::Get()->Write(wxT("/lensPath"), dlg.GetDirectory());  // remember for later
-            // set numeric locale to C, for correct number output
-            char * p = setlocale(LC_NUMERIC,NULL);
-            char * old_locale = strdup(p);
-            setlocale(LC_NUMERIC,"C");
-            {
-                wxFileConfig cfg(wxT("hugin lens file"),wxT(""),fname);
-                cfg.Write(wxT("Lens/image_width"), (long) lens.getImageSize().x);
-                cfg.Write(wxT("Lens/image_height"), (long) lens.getImageSize().y);
-                cfg.Write(wxT("Lens/type"), (long) lens.getProjection());
-                cfg.Write(wxT("Lens/hfov"), const_map_get(vars,"v").getValue());
-                cfg.Write(wxT("Lens/hfov_link"), const_map_get(lens.variables,"v").isLinked() ? 1:0);
-                cfg.Write(wxT("Lens/crop"), lens.getCropFactor());
-
-                // loop to save lens variables
-                const char ** varname = Lens::variableNames;
-                while (*varname) {
-                    if (string(*varname) == "Eev") {
-                        varname++;
-                        continue;
-                    }
-                    wxString key(wxT("Lens/"));
-                    key.append(wxString(*varname, wxConvLocal));
-                    cfg.Write(key, const_map_get(vars,*varname).getValue());
-                    key.append(wxT("_link"));
-                    cfg.Write(key, const_map_get(lens.variables,*varname).isLinked() ? 1:0);
-                    varname++;
-                }
-
-                ImageOptions imgopts = pano->getImage(imgNr).getOptions();
-                cfg.Write(wxT("Lens/vigCorrMode"), imgopts.m_vigCorrMode);
-                cfg.Write(wxT("Lens/flatfield"),
-                          wxString(imgopts.m_flatfield.c_str(), HUGIN_CONV_FILENAME) );
-
-                cfg.Write(wxT("Lens/crop/enabled"), imgopts.docrop ? 1l : 0l);
-                cfg.Write(wxT("Lens/crop/autoCenter"), imgopts.autoCenterCrop ? 1l : 0l);
-                cfg.Write(wxT("Lens/crop/left"), imgopts.cropRect.left());
-                cfg.Write(wxT("Lens/crop/top"), imgopts.cropRect.top());
-                cfg.Write(wxT("Lens/crop/right"), imgopts.cropRect.right());
-                cfg.Write(wxT("Lens/crop/bottom"), imgopts.cropRect.bottom());
-
-                SrcPanoImage image = pano->getSrcImage(imgNr);
-                // No EXIF data is stored in the pano model so they will have
-                // to be loaded now to save into the lens file
-                double focalLength = 0;
-                double cropFactor = 0;
-                if (image.readEXIF(focalLength, cropFactor, false, false)) {
-                
-                    // write exif data to ini file
-                    cfg.Write(wxT("EXIF/CameraMake"),  wxString(image.getExifMake().c_str(), wxConvLocal));
-                    cfg.Write(wxT("EXIF/CameraModel"), wxString(image.getExifModel().c_str(), wxConvLocal));
-                    cfg.Write(wxT("EXIF/FocalLength"), image.getExifFocalLength());
-                    cfg.Write(wxT("EXIF/Aperture"), image.getExifAperture());
-                    cfg.Write(wxT("EXIF/ISO"), image.getExifISO());
-                    cfg.Write(wxT("EXIF/CropFactor"), image.getExifCropFactor()); 
-                    cfg.Write(wxT("EXIF/Distance"), image.getExifDistance()); 
-                }
-
-                cfg.Flush();
-            }
-            // reset locale
-            setlocale(LC_NUMERIC,old_locale);
-            free(old_locale);
+            SaveLensParameters(filename.GetFullPath(),pano,imgNr);
         }
     } else {
         wxLogError(_("Please select an image and try again"));
@@ -1165,9 +1099,7 @@ void LensPanel::OnReset(wxCommandEvent & e)
     if(reset_dlg.GetResetExposure())
     {
         //reset panorama output exposure value
-        PanoramaOptions opt = pano->getOptions();
-        opt.outputExposureValue = calcMeanExposure(*pano);
-        reset_commands.push_back(new PT::SetPanoOptionsCmd(*pano,opt));
+        reset_commands.push_back(new PT::ResetToMeanExposure(*pano));
     };
     GlobalCmdHist::getInstance().addCommand(
             new PT::CombinedPanoCommand(*pano, reset_commands));

@@ -1,0 +1,15 @@
+//{{NO_DEPENDENCIES}}
+// NOTE - The line above ensures that the build will 
+//        not constantly recompile BUT if you make 
+//        any changes to the included wx.rc you must
+//        force a recompilation of the resources!!
+
+AppIcon ICON   "../hugin/xrc/data/hugin.ico"
+IDI_ICON1  ICON "../hugin/xrc/data/hugin.ico"
+
+// set this to 1 if you don't want to use manifest resource (manifest resource
+// is needed to enable visual styles on Windows XP - see docs/msw/winxp.txt
+// for more information)
+#define wxUSE_NO_MANIFEST 1
+
+#include "wx/msw/wx.rc"

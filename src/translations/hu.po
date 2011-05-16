@@ -1,10 +1,10 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Hugin 2010.4.0\n"
+"Project-Id-Version: Hugin 2011.0.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2011-02-27 08:45-0500\n"
-"PO-Revision-Date: 2010-12-24 13:12+0100\n"
+"PO-Revision-Date: 2011-03-07 22:01+0100\n"
 "Last-Translator: Höss Lajos <pgc1682@freemail.hu>\n"
 "Language-Team: Balló György <ballogy@freestart.hu>\n"
 "MIME-Version: 1.0\n"
@@ -230,7 +230,7 @@ msgid "Version: %s"
 msgstr "Verzió: %s"
 
 #: hugin1/hugin/AboutDialog.cpp:189
-#, fuzzy, c-format
+#, c-format
 msgid "Path to resources: %s"
 msgstr "Útvonal az erőforrásokhoz: %s"
 
@@ -302,7 +302,6 @@ msgid "Mean error after optimization: %.1f pixel, max: %.1f\n"
 msgstr "Átlagos hiba az optimalizálás után: %.1f képpont, max: %.1f\n"
 
 #: hugin1/hugin/AssistantPanel.cpp:330
-#, fuzzy
 msgid ""
 "Note: automatic alignment uses default settings from the preferences. If you "
 "customize settings for this project in the advanced tabs and want to use "
@@ -311,10 +310,10 @@ msgid ""
 "optimization from the Exposure tab."
 msgstr ""
 "Megjegyzés: Az automatikus igazítás az alapértelmezett opciókat használja a "
-"beállításokból. Ha testre szabja ezt a projektet a speciális fülön, és "
-"használni szeretné ezeket az egyéni beállításokat, futtassa K.P. keresőt a "
-"Képek fülön, a geometriai optimalizálót az Optimalizáló fülön és a "
-"fotometrikus optimalizációt az Expozíció fülön."
+"beállításokból. Ha testre szabja ezeket a beállításokat ehhez a projekthez a "
+"speciális füleken, és használni szeretné ezeket az egyéni beállításokat, "
+"futtassa K.P. keresőt a Képek Fülön, a geometriai optimalizálót az "
+"Optimalizáló fülön és a fotometrikus optimalizációt az Expozíció fülön."
 
 #: hugin1/hugin/AssistantPanel.cpp:361
 msgid ""
@@ -346,12 +345,11 @@ msgstr ""
 "A pontok hozzáadása után, ismét nyomja meg \"Igazítás\" gombot"
 
 #: hugin1/hugin/AssistantPanel.cpp:431
-#, fuzzy
 msgid ""
 "The assistant did not complete successfully. Please check the resulting "
 "project file."
 msgstr ""
-"A segéd nem járt teljes sikerrel. Kérjük, ellenőrizze a létrejövő projekt "
+"A segéd nem fejeződött be sikeresen. Kérjük, ellenőrizze a létrejövő projekt "
 "fájlt."
 
 #: hugin1/hugin/CPDetectorDialog.cpp:93
@@ -726,12 +724,11 @@ msgstr "húzza a vízszintes látóhatár módosításához"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:478
 msgid "Panosphere"
-msgstr ""
+msgstr "Panoráma gömb"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:479
-#, fuzzy
 msgid "Mosaic plane"
-msgstr "Biplane"
+msgstr "Mozaik sík"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:500 translations/xrc.cpp:405
 #: translations/xrc.cpp:748 translations/xrc.cpp:792 xrc.cpp:405 xrc.cpp:748
@@ -740,13 +737,12 @@ msgid "Preview"
 msgstr "Előnézet"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:513 translations/xrc.cpp:820 xrc.cpp:820
-#, fuzzy
 msgid "Overview"
-msgstr "Előnézet"
+msgstr "Áttekintés"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:552
 msgid "normal, individual"
-msgstr ""
+msgstr "normál, egyéni"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:553
 msgid "mosaic"
@@ -754,7 +750,7 @@ msgstr "mozaik"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:554
 msgid "mosaic, individual"
-msgstr ""
+msgstr "mozaik, egyéni"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:604 hugin1/hugin/PreviewFrame.cpp:301
 msgid "Resets the projections parameters to their default values."
@@ -821,11 +817,13 @@ msgid ""
 "Switching to panosphere overview mode requires that all images have zero XYZ "
 "parameters. Do you want to set all XYZ parameters to zero for all images?"
 msgstr ""
+"Panoráma gömb áttekintő módra való váltás megköveteli, hogy az összes képnek "
+"nulla XYZ paramétere legyen. Be szeretné állítani az összes XYZ paramétert "
+"nullára az összes képhez?"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1587
-#, fuzzy
 msgid "Reset XYZ parameters?"
-msgstr "Objektív paraméterek"
+msgstr "Visszaállítja az XYZ paramétereket?"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:2168 hugin1/hugin/PreviewFrame.cpp:232
 msgid "difference"
@@ -961,7 +959,6 @@ msgstr ""
 "Ha szeretné látni a sávot újra, aktiválja a sávot a beállításoknál újra."
 
 #: hugin1/hugin/GLViewer.cpp:151
-#, fuzzy
 msgid ""
 "Error initializing GLEW\n"
 "Fast preview window can not be opened."
@@ -1033,9 +1030,8 @@ msgid "Equisolid"
 msgstr "Equisolid"
 
 #: hugin1/hugin/HFOVDialog.cpp:62 hugin1/hugin/ImagesList.cpp:581
-#, fuzzy
 msgid "Fisheye Thoby"
-msgstr "Halszem /Fisheye/"
+msgstr "Thoby Halszem /Fisheye Thoby/"
 
 #: hugin1/hugin/HFOVDialog.cpp:109
 #, c-format
@@ -1819,9 +1815,8 @@ msgid "Panini General"
 msgstr "Általános Panini"
 
 #: hugin1/hugin/PanoPanel.cpp:163
-#, fuzzy
 msgid "Thoby Projection"
-msgstr "Vetület"
+msgstr "Thoby Vetület"
 
 #: hugin1/hugin/PanoPanel.cpp:487 translations/xrc.cpp:549
 #: translations/xrc.cpp:554 xrc.cpp:549 xrc.cpp:554
@@ -2689,7 +2684,6 @@ msgstr ""
 "Kérjük, válasszon legalább egy panorámát, és próbálkozzon újra."
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:265
-#, fuzzy
 msgid ""
 "Not all project files could be written successfully.\n"
 "Maybe you have no write permission for these directories or your hard disc "
@@ -3568,9 +3562,8 @@ msgstr ""
 "Statisztikai módszert használ a kilógó kontroll pontokat eltávolításához "
 
 #: translations/xrc.cpp:201 xrc.cpp:201
-#, fuzzy
 msgid "Image Position"
-msgstr "Kép fúzió:"
+msgstr "Kép pozíció"
 
 #: translations/xrc.cpp:202 xrc.cpp:202
 msgid "yaw:"
@@ -3719,7 +3712,7 @@ msgstr "Zársebesség:"
 
 #: translations/xrc.cpp:237 xrc.cpp:237
 msgid "ISO:"
-msgstr ""
+msgstr "ISO:"
 
 #: translations/xrc.cpp:239 xrc.cpp:239
 msgid "Load lens parameters from a file"
@@ -3842,32 +3835,28 @@ msgid "Exposure and Color"
 msgstr "Expozíció és Szín"
 
 #: translations/xrc.cpp:274 xrc.cpp:274
-#, fuzzy
 msgid "Exposure (Eev)"
-msgstr "Expozíció (EV)"
+msgstr "Expozíció (Eev)"
 
 #: translations/xrc.cpp:276 xrc.cpp:276
-#, fuzzy
 msgid "Red multiplier (Er):"
-msgstr "Vörös szorzó:"
+msgstr "Vörös szorzó (Er):"
 
 #: translations/xrc.cpp:278 xrc.cpp:278
-#, fuzzy
 msgid "Blue multiplier (Eb):"
-msgstr "Kék szorzó:"
+msgstr "Kék szorzó (Eb):"
 
 #: translations/xrc.cpp:280 xrc.cpp:280
 msgid "Vignetting  (Vb, Vc, Vd)"
-msgstr ""
+msgstr "Vignettálás (Vb, Vc, Vd)"
 
 #: translations/xrc.cpp:282 xrc.cpp:282
-#, fuzzy
 msgid "Vignetting Center Shift (Vx, Vy)"
-msgstr "Vignettálás Középpont Eltolás"
+msgstr "Vignettálás Középpont Eltolás (Vx, Vy)"
 
 #: translations/xrc.cpp:284 xrc.cpp:284
 msgid "Camera Response (Ra, Rb, Rc, Rd, Re)"
-msgstr ""
+msgstr "Kamera Válasz (Ra, Rb, Rc, Rd, Re)"
 
 #: translations/xrc.cpp:286 xrc.cpp:286
 msgid "custom (EMoR)"
@@ -4235,7 +4224,7 @@ msgstr "Előnézeti kép megjelenítése"
 
 #: translations/xrc.cpp:407 translations/xrc.cpp:784 xrc.cpp:407 xrc.cpp:784
 msgid "Show control points"
-msgstr "K. p. mutat"
+msgstr "Kontroll pontok megjelenítése"
 
 #: translations/xrc.cpp:408 xrc.cpp:408
 msgid "Points"
@@ -4286,7 +4275,6 @@ msgid "Include region from stack"
 msgstr "Terület beszámítása a kötegből"
 
 #: translations/xrc.cpp:425 xrc.cpp:425
-#, fuzzy
 msgid "Colors:"
 msgstr "Színek:"
 
@@ -4380,7 +4368,7 @@ msgstr "Mindent, fordítás nélkül"
 
 #: translations/xrc.cpp:451 translations/xrc.cpp:456 xrc.cpp:451 xrc.cpp:456
 msgid "----------------------------------------------------------"
-msgstr ""
+msgstr "----------------------------------------------------------"
 
 #: translations/xrc.cpp:452 xrc.cpp:452
 msgid "Positions and Translation (y,p,r,x,y,z)"
@@ -4521,33 +4509,28 @@ msgid "Image variables:"
 msgstr "Kép változók:"
 
 #: translations/xrc.cpp:492 xrc.cpp:492
-#, fuzzy
 msgid "Exposure (Eev):"
-msgstr "Expozíció (EV)"
+msgstr "Expozíció (Eev):"
 
 #: translations/xrc.cpp:493 xrc.cpp:493
-#, fuzzy
 msgid "White balance (Er, Eb):"
-msgstr "Fehér egyensúly:"
+msgstr "Fehér egyensúly (Er, Eb):"
 
 #: translations/xrc.cpp:494 xrc.cpp:494
 msgid "Camera and Lens variables:"
 msgstr "Kamera és Objektív változók:"
 
 #: translations/xrc.cpp:495 xrc.cpp:495
-#, fuzzy
 msgid "Vignetting (Vb, Vc, Vd):"
-msgstr "Vignettálás:"
+msgstr "Vignettálás (Vb, Vc, Vd):"
 
 #: translations/xrc.cpp:496 xrc.cpp:496
-#, fuzzy
 msgid "Vignetting Centre (Vx, Vy):"
-msgstr "Vignettálás Közép:"
+msgstr "Vignettálás Közép (Vx, Vy):"
 
 #: translations/xrc.cpp:497 xrc.cpp:497
-#, fuzzy
 msgid "Camera Response (Ra, Rb, Rc, Rd, Re):"
-msgstr "Kamera Válasz:"
+msgstr "Kamera Válasz (Ra, Rb, Rc, Rd, Re):"
 
 #: translations/xrc.cpp:498 xrc.cpp:498
 msgid "Interpolator (i):"
@@ -5231,38 +5214,32 @@ msgid "The assistant is using the default setting."
 msgstr "A segéd az alapértelmezett beállítást használja."
 
 #: translations/xrc.cpp:694 xrc.cpp:694
-#, fuzzy
 msgid "Default File Format:"
-msgstr "Alapértelmezett paraméterek:"
+msgstr "Alapértelmezett Fájl Formátum:"
 
 #: translations/xrc.cpp:695 xrc.cpp:695
 msgid "default output format for final panorama"
-msgstr ""
+msgstr "a végső panoráma alapértelmezett kimeneti formátuma"
 
 #: translations/xrc.cpp:696 xrc.cpp:696
-#, fuzzy
 msgid "TIFF Compression:"
-msgstr "Tömörítés:"
+msgstr "TIFF Tömörítés:"
 
 #: translations/xrc.cpp:698 xrc.cpp:698
-#, fuzzy
 msgid "default TIFF compression"
-msgstr "tömörítés:"
+msgstr "alapértelmezett TIFF tömörítés"
 
 #: translations/xrc.cpp:699 xrc.cpp:699
-#, fuzzy
 msgid "JPEG Quality:"
-msgstr "Minőség:"
+msgstr "JPEG Minőség:"
 
 #: translations/xrc.cpp:700 xrc.cpp:700
-#, fuzzy
 msgid "default JPEG compression setting"
-msgstr "JPEG tömörítés (0-100)"
+msgstr "alapértelmezett JPEG tömörítés beállítás"
 
 #: translations/xrc.cpp:701 xrc.cpp:701
-#, fuzzy
 msgid "Output Format"
-msgstr "Kimeneti formátum"
+msgstr "Kimeneti Formátum"
 
 #: translations/xrc.cpp:702 xrc.cpp:702
 msgid "Default Interpolator (i):"
@@ -5491,7 +5468,7 @@ msgstr ""
 
 #: translations/xrc.cpp:789 translations/xrc.cpp:790 xrc.cpp:789 xrc.cpp:790
 msgid "Grey picker"
-msgstr ""
+msgstr "Szürke pont kijelölő"
 
 #: translations/xrc.cpp:793 xrc.cpp:793
 msgid "Scale:"
@@ -5564,18 +5541,16 @@ msgid "Change the panorama's cropping region"
 msgstr "A panoráma képkivágásának megváltoztatása"
 
 #: translations/xrc.cpp:821 xrc.cpp:821
-#, fuzzy
 msgid "Show/Hide"
-msgstr "Elrejt"
+msgstr "Megjelenítés/Elrejtés"
 
 #: translations/xrc.cpp:822 translations/xrc.cpp:823 xrc.cpp:822 xrc.cpp:823
-#, fuzzy
 msgid "Mode:"
-msgstr "Modell:"
+msgstr "Mód:"
 
 #: translations/xrc.cpp:824 xrc.cpp:824
 msgid "Grid"
-msgstr ""
+msgstr "Rács"
 
 #: translations/xrc.cpp:825 xrc.cpp:825
 msgid "Reset values"

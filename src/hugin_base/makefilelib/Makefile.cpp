@@ -75,7 +75,7 @@ void Makefile::remove(MakefileItem* item)
  * The replacements in detail:
  * - Shell mode
  *   - WIN32: $ --> $$, \ --> /, # --> \#, and surround with quotes
- *   - others: $ --> \$$, [\ ~"|'`{}[]()*#:=] --> escape with backslash
+ *   - others: $ --> \$$, [\ ~"|'`{}[]()*#:=&] --> escape with backslash
  * - Make mode
  *   - WIN32: $ --> $$, [ #=] --> escape with backslash
  *   - others: $ --> $$, [ #:=] --> escape with backslash
@@ -104,7 +104,7 @@ string Makefile::quote(const string& in, Makefile::QuoteMode mode)
 		return string(cstr("\"") + boost::regex_replace(in, toescape, output, boost::match_default | boost::format_all) + cstr("\""));
 #else
 		// because parenthesis are replaced too, the first pattern detects variable references and passes them unchanged.
-		toescape.assign(cstr("(\\$\\([^\\)]+\\))|(\\$)|([\\\\ \\~\"\\|\\'\\`\\{\\}\\[\\]\\(\\)\\*\\#\\:\\=])"));
+		toescape.assign(cstr("(\\$\\([^\\)]+\\))|(\\$)|([\\\\ \\~\"\\|\\'\\`\\{\\}\\[\\]\\(\\)\\*\\#\\:\\=\\&])"));
 		output.assign(cstr("(?1$&)(?2\\\\\\$$&)(?3\\\\$&)"));
 		return boost::regex_replace(in, toescape, output, boost::match_default | boost::format_all);
 #endif

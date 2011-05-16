@@ -65,7 +65,7 @@
 <dl><dd>In order to test the new translation and to save some time for developers that will apply to trunk your file, it's recommanded to <a href="Hugin_translation_guide.html#How_to_check_the_translated_file_for_syntax_errors" class="external text" title="http://wiki.panotools.org/Hugin_translation_guide#How_to_check_the_translated_file_for_syntax_errors" rel="nofollow">check</a> your newly translated po file.
 </dd></dl>
 <ul><li>4. Submit your *.po file, or even better, commit your changes through Mercurial
-<ul><li>You can submit your edited translation via hugin's <a href="https://bugs.launchpad.net/hugin/" class="external text" title="https://bugs.launchpad.net/hugin/" rel="nofollow">tracker</a> on sourceforge (make sure you're logged in, otherwise you will see a non-descriptive error message from sourceforge). Select the category "translation" and the group "hugin" and attach your file.
+<ul><li>You can submit your edited translation via hugin's <a href="https://bugs.launchpad.net/hugin/" class="external text" title="https://bugs.launchpad.net/hugin/" rel="nofollow">tracker</a> on launchpad (you'll need a launchpad account to log in). Add the tags "translation" and "hugin" and attach your file.
 </li><li><b>An even better solution</b>, but which the first time takes you a few more minutes to set everything up, is to use Hugin's revision control system. For more information see <a href="Hugin_translation_guide.html#Become_a_Power_Translator" class="external text" title="http://wiki.panotools.org/Hugin_translation_guide#Become_a_Power_Translator" rel="nofollow">Become a Power Translator</a> below.
 </li></ul>
 </li></ul>
@@ -92,7 +92,7 @@
 </dd></dl>
 <pre>Open "%s" file 
 </pre>
-<dl><dd>the&nbsp;%s must remain the same in the translated string because it is a reference to a variable (e.g. a filename, a number etc...)
+<dl><dd>the&nbsp;%s must remain the same in the translated string because it is a formatting placeholder where the code will display a  variable (e.g. a filename, a number etc...) at run time.  For example&nbsp;%s is a string and&nbsp;%0.3f is a number with three post-comma digits.
 </dd></dl>
 <p><br />
 </p>
@@ -100,8 +100,10 @@
 </li></ul>
 <pre>This is a test for a new line string\n
 </pre>
-<dl><dd>The \n symbol must remains at the end of the translated string
+<dl><dd>The \n symbol must remain at the end of the translated string
 </dd></dl>
+<ul><li> Watch out for quotation marks ". They must be quoted as \"
+</li></ul>
 <a name="Use_your_new_translation_file" id="Use_your_new_translation_file"></a><h2> <span class="mw-headline"> Use your new translation file </span></h2>
 <p>poedit updates your PO file and creates a MO file for your language. You can rename your MO file into hugin.mo and replace the hugin.mo file from your current installation (don't forget to make a backup of the original MO file, just in case).
 </p>
@@ -213,6 +215,9 @@ hg up -c
 <dl><dt> bundled version
 </dt><dd> Meaning=? Any packaged software will contain multiple files, these files are said to be 'bundled' (not just OS X)
 </dd><dd> NL=ingebouwde versie (gebundelde versie?)
+</dd></dl>
+<dl><dt> button
+</dt><dd> DE=Schaltfläche
 </dd></dl>
 <dl><dt> Camera response (C. r. curve)
 </dt><dd> Meaning=it corresponds with photo-electrical transfer function, and I am not sure can I translate it to "opto-electic curve of camera" in my language, because stright tranlation of "camera response" statement sounds trivial and not clear.
@@ -363,12 +368,15 @@ hg ci
 hg push ssh://YOUR-SOURCEFORGE-USERNAME@hugin.hg.sourceforge.net/hgroot/hugin/hugin 
 </pre>
 <a name="Applying_a_contributed_.po_file" id="Applying_a_contributed_.po_file"></a><h3> <span class="mw-headline"> Applying a contributed .po file </span></h3>
-<p>You could just overwrite the original and commit, but this assumes the file is correctly formatted and hasn't lost any strings. Better to use <b>msgmerge</b> to merge the contributed .po file with the existing:
+<p>You could just overwrite the original and commit, but this assumes the file is correctly formatted and hasn't lost any strings. Better to use <b>msgmerge</b> to merge the contributed .po file with the existing.  Hugin has a script to test what will happen.  Use <b>msgfmt</b> for a quick sanity check too:
 </p>
-<pre> msgmerge -o zh_CN.merged.po /tmp/zh_CN.contributed.po src/translations/zh_CN.po
+<pre> src/translations/diff_po.pl src/translations/zh_CN.po /tmp/zh_CN.contributed.po
+ msgmerge -o zh_CN.merged.po /tmp/zh_CN.contributed.po src/translations/zh_CN.po
+ msgfmt -c --statistics zh_CN.merged.po
+ msgfmt -c --statistics src/translations/zh_CN.po
  mv zh_CN.merged.po src/translations/zh_CN.po
  hg ci zh_CN.po -m 'Edited chinese translation'
- hg push ssh://YOUR-SOURCEFORGE-USERNAME@hugin.hg.sourceforge.net/hgroot/hugin/hugin 
+ hg push ssh://YOUR-SOURCEFORGE-USERNAME@hugin.hg.sourceforge.net/hgroot/hugin/hugin
 </pre>
 <a name="Statistics" id="Statistics"></a><h3> <span class="mw-headline"> Statistics </span></h3>
 <p>msgfmt --statistics eo_XX.po

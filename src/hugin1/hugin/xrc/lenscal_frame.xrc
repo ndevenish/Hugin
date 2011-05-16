@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<resource class="wxStaticBoxSizer">
+  <object class="wxFrame" name="lenscal_frame">
+    <object class="wxBoxSizer">
+      <orient>wxVERTICAL</orient>
+      <object class="sizeritem">
+        <object class="wxPanel">
+          <object class="wxBoxSizer">
+            <orient>wxHORIZONTAL</orient>
+            <object class="sizeritem">
+              <object class="wxBoxSizer">
+                <orient>wxVERTICAL</orient>
+                
+                <object class="sizeritem">
+                  <object class="wxStaticBoxSizer">
+                    <object class="sizeritem">
+                      <object class="wxBoxSizer">
+                        <object class="sizeritem">
+                          <object class="wxListBox" name="lenscal_images_list">
+                            <size>-1,120</size>
+                            <style>wxLB_SINGLE</style>
+                          </object>
+                          <option>1</option>
+                          <flag>wxALL|wxEXPAND</flag>
+                          <border>3</border>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxBoxSizer">
+                            <object class="sizeritem">
+                              <object class="wxButton" name="lenscal_add_image">
+                                <label>Add</label>
+                              </object>
+                              <flag>wxALL</flag>
+                              <border>6</border>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxButton" name="lenscal_remove_image">
+                                <label>Remove</label>
+                              </object>
+                              <flag>wxALL</flag>
+                              <border>6</border>
+                            </object>
+                            <orient>wxVERTICAL</orient>
+                          </object>
+                          <option>0</option>
+                          <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                          <border>3</border>
+                        </object>
+                        <orient>wxHORIZONTAL</orient>
+                      </object>
+                      <flag>wxEXPAND|wxALL</flag>
+                      <border>6</border>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxBoxSizer">
+                        <orient>wxVERTICAL</orient>
+                        <object class="sizeritem">
+                          <object class="wxFlexGridSizer">
+                            <object class="sizeritem">
+                              <object class="wxStaticText">
+                                <label>Lens type:</label>
+                                <style>wxALIGN_RIGHT</style>
+                              </object>
+                              <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxChoice" name="lenscal_proj_choice">
+                                <size>200,-1</size>
+                                <content>
+                                  <item/>
+                                </content>
+                              </object>
+                              <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                            </object>
+                            <cols>2</cols>
+                            <hgap>6</hgap>
+                          </object>
+                        </object>
+                        <object class="spacer">
+                          <size>0,6</size>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxFlexGridSizer">
+                            <object class="sizeritem">
+                              <object class="wxStaticText">
+                                <label>Focal length:</label>
+                                <style>wxALIGN_RIGHT</style>
+                              </object>
+                              <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxTextCtrl" name="lenscal_focallength"/>
+                              <minsize>60,-1</minsize>
+                            </object>
+                            <cols>6</cols>
+                            <hgap>6</hgap>
+                            <object class="sizeritem">
+                              <object class="wxStaticText">
+                                <label>mm</label>
+                              </object>
+                              <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxStaticText">
+                                <label>Focal length multiplier:</label>
+                              </object>
+                              <flag>wxLEFT|wxALIGN_CENTRE_VERTICAL</flag>
+                              <border>20</border>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxTextCtrl" name="lenscal_cropfactor"/>
+                              <minsize>60,-1</minsize>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxStaticText">
+                                <label>x</label>
+                              </object>
+                              <flag>wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                            </object>
+                          </object>
+                        </object>
+                      </object>
+                      <option>0</option>
+                      <flag>wxALL | wxEXPAND</flag>
+                      <border>6</border>
+                    </object>
+                    <label>Images (with straight lines)</label>
+                    <orient>wxVERTICAL</orient>
+                  </object>
+                  <option>0</option>
+                  <flag>wxALL | wxEXPAND</flag>
+                  <border>6</border>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxStaticBoxSizer">
+                    <object class="sizeritem">
+                      <object class="wxFlexGridSizer">
+                        <object class="sizeritem">
+                          <object class="wxStaticText">
+                            <label>Edge detection scale:</label>
+                          </object>
+                          <flag>wxALL|wxALIGN_CENTRE_VERTICAL|wxALIGN_RIGHT</flag>
+                          <border>3</border>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxTextCtrl" name="lenscal_scale">
+                            <size>75,-1</size>
+                          </object>
+                          <flag>wxALL</flag>
+                          <border>3</border>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxStaticText">
+                            <label>Edge detection threshold:</label>
+                          </object>
+                          <flag>wxALL|wxALIGN_CENTRE_VERTICAL|wxALIGN_RIGHT</flag>
+                          <border>3</border>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxTextCtrl" name="lenscal_threshold">
+                            <size>75,-1</size>
+                          </object>
+                          <flag>wxALL</flag>
+                          <border>3</border>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxStaticText">
+                            <label>Maximal image size:</label>
+                          </object>
+                          <flag>wxALL|wxALIGN_CENTRE_VERTICAL|wxALIGN_RIGHT</flag>
+                          <border>3</border>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxTextCtrl" name="lenscal_resizedim">
+                            <size>75,-1</size>
+                          </object>
+                          <flag>wxALL</flag>
+                          <border>3</border>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxStaticText">
+                            <label>Minimum line length:</label>
+                          </object>
+                          <flag>wxALL|wxALIGN_CENTRE_VERTICAL|wxALIGN_RIGHT</flag>
+                          <border>3</border>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxTextCtrl" name="lenscal_minlinelength">
+                            <size>75,-1</size>
+                          </object>
+                          <flag>wxALL</flag>
+                          <border>3</border>
+                        </object>
+                        <cols>2</cols>
+                        <rows>4</rows>
+                        <growablecols/>
+                      </object>
+                      <flag>wxEXPAND</flag>
+                    </object>
+                    <label>Options</label>
+                    <orient>wxHORIZONTAL</orient>
+                    <object class="sizeritem">
+                      <object class="wxBoxSizer">
+                        <object class="sizeritem">
+                          <object class="wxButton" name="lenscal_find_lines">
+                            <label>Find lines</label>
+                          </object>
+                          <flag>wxALL|wxEXPAND</flag>
+                          <border>3</border>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxButton" name="lenscal_reset">
+                            <label>Reset</label>
+                          </object>
+                          <flag>wxALL|wxEXPAND</flag>
+                          <border>3</border>
+                        </object>
+                        <orient>wxVERTICAL</orient>
+                      </object>
+                      <flag>wxALIGN_CENTRE_VERTICAL | wxALL</flag>
+                      <border>6</border>
+                    </object>
+                  </object>
+                  <flag>wxALL | wxEXPAND</flag>
+                  <border>6</border>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxStaticBoxSizer">
+                    <object class="sizeritem">
+                      <object class="wxBoxSizer">
+                        <object class="sizeritem">
+                          <object class="wxFlexGridSizer">
+                            <object class="sizeritem">
+                              <object class="wxStaticText">
+                                <label>Radial Distortion</label>
+                              </object>
+                              <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                              <border>3</border>
+                            </object>
+                            <object class="spacer"/>
+                            <object class="spacer"/>
+                            <object class="sizeritem">
+                              <object class="wxStaticText">
+                                <label>distortion (a):</label>
+                              </object>
+                              <flag>wxALL|wxALIGN_CENTRE_VERTICAL|wxALIGN_RIGHT</flag>
+                              <border>3</border>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxCheckBox" name="lenscal_opt_a"/>
+                              <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                              <border>3</border>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxTextCtrl" name="lenscal_a">
+                                <size>75,-1</size>
+                                <value>0</value>
+                              </object>
+                              <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                              <border>3</border>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxStaticText">
+                                <label>barrel (b):</label>
+                              </object>
+                              <flag>wxALL|wxALIGN_CENTRE_VERTICAL|wxALIGN_RIGHT</flag>
+                              <border>3</border>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxCheckBox" name="lenscal_opt_b"/>
+                              <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                              <border>3</border>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxTextCtrl" name="lenscal_b">
+                                <size>75,-1</size>
+                                <value>0</value>
+                              </object>
+                              <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                              <border>3</border>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxStaticText">
+                                <label>distortion (c):</label>
+                              </object>
+                              <flag>wxALL|wxALIGN_CENTRE_VERTICAL|wxALIGN_RIGHT</flag>
+                              <border>3</border>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxCheckBox" name="lenscal_opt_c"/>
+                              <flag>wxALL|wxALIGN_CENTRE_VERTICAL|wxALIGN_RIGHT</flag>
+                              <border>3</border>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxTextCtrl" name="lenscal_c">
+                                <size>75,-1</size>
+                                <value>0</value>
+                              </object>
+                              <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                              <border>3</border>
+                            </object>
+                            <cols>3</cols>
+                            <rows>4</rows>
+                          </object>
+                        </object>
+                        <object class="spacer">
+                          <size>10,-1</size>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxFlexGridSizer">
+                            <object class="sizeritem">
+                              <object class="wxStaticText">
+                                <label>Image Center Shift</label>
+                              </object>
+                              <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                              <border>3</border>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxCheckBox" name="lenscal_opt_de"/>
+                              <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                              <border>3</border>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxStaticText">
+                                <label>horizontal (d):</label>
+                              </object>
+                              <flag>wxALL|wxALIGN_CENTRE_VERTICAL|wxALIGN_RIGHT</flag>
+                              <border>3</border>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxTextCtrl" name="lenscal_d">
+                                <size>75,-1</size>
+                                <value>0</value>
+                              </object>
+                              <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                              <border>3</border>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxStaticText">
+                                <label>vertical (e):</label>
+                              </object>
+                              <flag>wxALL|wxALIGN_CENTRE_VERTICAL|wxALIGN_RIGHT</flag>
+                              <border>3</border>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxTextCtrl" name="lenscal_e">
+                                <size>75,-1</size>
+                                <value>0</value>
+                              </object>
+                              <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                              <border>3</border>
+                            </object>
+                            <cols>2</cols>
+                            <rows>3</rows>
+                          </object>
+                        </object>
+                        <orient>wxHORIZONTAL</orient>
+                      </object>
+                      <flag>wxALL</flag>
+                      <border>3</border>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxBoxSizer">
+                        <object class="sizeritem">
+                          <object class="wxButton" name="lenscal_opt">
+                            <label>Optimize</label>
+                          </object>
+                          <flag>wxALL</flag>
+                          <border>6</border>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxButton" name="lenscal_save_lens">
+                            <label>Save lens</label>
+                          </object>
+                          <flag>wxALL</flag>
+                          <border>6</border>
+                        </object>
+                        <orient>wxHORIZONTAL</orient>
+                      </object>
+                      <flag>wxLEFT|wxALIGN_CENTRE_HORIZONTAL</flag>
+                      <border>24</border>
+                    </object>
+                    <label>Lens parameters</label>
+                    <orient>wxVERTICAL</orient>
+                  </object>
+                  <flag>wxEXPAND|wxALL</flag>
+                  <border>6</border>
+                </object>
+              </object>
+            </object>
+            <object class="sizeritem">
+              <object class="wxStaticBoxSizer">
+                <object class="sizeritem">
+                  <object class="wxBoxSizer">
+                    <object class="sizeritem">
+                      <object class="wxChoice" name="lenscal_preview_content">
+                        <content>
+                          <item>Original</item>
+                          <item>Edge detection</item>
+                          <item>Corrected</item>
+                        </content>
+                        <selection>0</selection>
+                      </object>
+                      <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                      <border>3</border>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxCheckBox" name="lenscal_show_lines">
+                        <label>Show lines</label>
+                        <checked>1</checked>
+                      </object>
+                      <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                      <border>3</border>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxButton" name="lenscal_refresh">
+                        <label>Refresh</label>
+                        <enabled>0</enabled>
+                      </object>
+                      <flag>wxEXPAND|wxALL</flag>
+                      <border>3</border>
+                    </object>
+                    <orient>wxHORIZONTAL</orient>
+                  </object>
+                  <flag>wxALL|wxEXPAND</flag>
+                  <border>3</border>
+                </object>
+                <object class="sizeritem">
+                  <object class="LensCalCanvas" name="lenscal_preview"/>
+                  <option>1</option>
+                  <flag>wxEXPAND</flag>
+                  <border>6</border>
+                </object>
+                <label>Preview</label>
+                <orient>wxVERTICAL</orient>
+              </object>
+              <option>1</option>
+              <flag>wxALL|wxEXPAND</flag>
+              <border>5</border>
+            </object>
+          </object>
+        </object>
+        <option>1</option>
+        <flag>wxEXPAND</flag>
+      </object>
+    </object>
+  </object>
+  <object class="wxMenuBar" name="lenscal_menubar">
+    <object class="wxMenu" name="file_menu">
+      <object class="wxMenuItem" name="menu_save">
+        <label>&amp;Save as project file...</label>
+        <help>Saves the images and lines as pto file for further tuning inside hugin.</help>
+      </object>
+      <object class="separator"/>
+      <object class="wxMenuItem" name="menu_quit">
+        <label>&amp;Quit</label>
+        <accel>Ctrl+Q</accel>
+      </object>
+      <label>&amp;File</label>
+    </object>
+  </object>
+</resource>

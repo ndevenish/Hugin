@@ -2,7 +2,6 @@
 
 tca_correct - Calculate transverse chromatic aberration
 
-
 =head1 SYNOPSIS
 
 B<tca_correct> [options] I<inputfile>

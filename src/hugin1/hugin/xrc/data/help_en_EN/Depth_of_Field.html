@@ -4,7 +4,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta http-equiv="Content-Style-Type" content="text/css" />
 		<meta name="generator" content="MediaWiki 1.14.0" />
-		<meta name="keywords" content="Depth of Field,Crop factor,Enfuse,Equirectangular,Pano12,Erik Krause" />
+		<meta name="keywords" content="Depth of Field,Crop factor,Diffraction,Enfuse,Equirectangular,Pano12,Erik Krause" />
 		
 		
 		
@@ -52,15 +52,18 @@
 </p><p>The human eye commonly accepts an edge as sharp, if the angle of view of the blur is smaller than 1 arc minute. Hence a point blurred to that amount has the diameter of 2 arc minutes, which is the same as 1/1700 of the viewing distance. 
 </p><p>This is the allowed diameter of the so called Circle of Confusion. The normal viewing distance in classical photography is assumed to be equivalent to the printed image diagonal. The circle of confusion is the basis for most Depth of Field calculators or tables. 
 </p>
-<a name="Considerations_for_VR_panoramas" id="Considerations_for_VR_panoramas"></a><h2> <span class="mw-headline">Considerations for VR panoramas</span></h2>
-<p>For VR panorama creation where one can zoom into the image, the limit must be the pixel distance in the viewable panorama - unless you don't allow to zoom in until 100% pixel view.
+<a name="Considerations_for_zoomable_panoramas" id="Considerations_for_zoomable_panoramas"></a><h2> <span class="mw-headline">Considerations for zoomable panoramas</span></h2>
+<p>For computer displayed panorama creation where one can zoom into the image, the limit must be the pixel distance in the viewable panorama - unless you don't allow to zoom in until 100% pixel view.
 </p><p>Since a pixel in an <a href="Equirectangular.html" title="Equirectangular" class="mw-redirect">equirectangular</a> panorama corresponds to a certain angle of view in reality, we can directly calculate the allowed angle of confusion in the shot image. It is 360° divided by the pixel width of the equirectangular image.
-</p><p>For a standard angle of confusion of 2 arc minutes this would result in an equirect image with 10800*5400 pixel. Most viewable VR panoramas are smaller in pixel size, hence the Depth of Field is far bigger than for classical photography and standard depth of field calculators are of no big use. Read on to see how to circumvent this.
+</p><p>For a standard angle of confusion of 2 arc minutes this would result in an equirect image with 10800*5400 pixel. If zoomable panoramas are smaller in pixel size, the Depth of Field is far bigger than for classical photography and standard depth of field calculators are of no big use. Read on to see how to circumvent this.
+</p>
+<a name="Diffraction" id="Diffraction"></a><h2> <span class="mw-headline"><a href="Diffraction.html" title="Diffraction">Diffraction</a></span></h2>
+<p>In the increasingly popular gigapixel panoramas, where longer lenses are used, Depth of Field is a serious issue. While stopping down increases DoF, image blur due to diffraction limits the sharpness and the final resolution. Effective resolution can be calculated using the Rayleigh criterion. See the main article on <a href="Diffraction.html" title="Diffraction">Diffraction</a> for more details.
 </p>
 <a name="Hyperfocal_distance" id="Hyperfocal_distance"></a><h2> <span class="mw-headline">Hyperfocal distance</span></h2>
 <p>In most cases a panorama should be sharp from the horizon to the nearest objects. Since the <a href="Depth_of_Field.html#What_it_is" title="">Depth of Field</a> region is partly in front of and partly behind the focus plane, you sacrifice a fair amount of Depth of Field if you focus to infinity - only one part of the depth of field range is used.
 </p><p>However, there is a distance you can focus on, that extends the Depth of Field exactly from infinity to a nearer limit. This is the hyperfocal distance. It can be calculated, if the allowed circle of confusion (see above) on the sensor is known.
-</p><p>Following the above considerations on <a href="Depth_of_Field.html#Considerations_for_VR_panoramas" title="">Depth of Field for VR panoramas</a> we can calculate a small table with
+</p><p>Following the above considerations on <a href="Depth_of_Field.html#Considerations_for_zoomable_panoramas" title="">Depth of Field for zoomable panoramas</a> we can calculate a small table with
 </p>
 <ul><li>Width - image width in pixels 
 </li><li>AoC - angle of confusion in arc minutes

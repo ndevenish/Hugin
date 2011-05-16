@@ -142,3 +142,4 @@ TARGET_LINK_LIBRARIES(huginbase huginlevmar huginvigraimpex makefilelib
         ${OPENGL_LIBRARIES} ${GLUT_LIBRARIES})
         
 add_subdirectory(makefilelib)
+add_subdirectory(lines)

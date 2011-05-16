@@ -164,9 +164,6 @@ public:
     GLPreview * getGLPreview() {return preview;}
     GLOverview * getGLOverview() {return overview;}
 
-    bool ProcessDockResult(wxAuiPaneInfo& target,
-                                   const wxAuiPaneInfo& new_pos);
-
 private:
     GLPreviewFrame * frame;
     GLPreview * preview;
@@ -245,7 +242,7 @@ public:
      * @param blueFactor multiplies all WhiteBalanceBlue of individuel images with this factor
      */
     void UpdateGlobalWhiteBalance(double redFactor, double blueFactor);
-
+    void UpdateIdentifyTools(std::set<unsigned int> new_image_set);
 protected:
 
     bool GLresize;

@@ -413,7 +413,20 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
 
     // set progress display for image cache.
     ImageCache::getInstance().setProgressDisplay(this);
+#if defined __WXMSW__
+    unsigned long long mem = HUGIN_IMGCACHE_UPPERBOUND;
+    unsigned long mem_low = wxConfigBase::Get()->Read(wxT("/ImageCache/UpperBound"), HUGIN_IMGCACHE_UPPERBOUND);
+    unsigned long mem_high = wxConfigBase::Get()->Read(wxT("/ImageCache/UpperBoundHigh"), (long) 0);
+    if (mem_high > 0) {
+      mem = ((unsigned long long) mem_high << 32) + mem_low;
+    }
+    else {
+      mem = mem_low;
+    }
+    ImageCache::getInstance().SetUpperLimit(mem);
+#else
     ImageCache::getInstance().SetUpperLimit(wxConfigBase::Get()->Read(wxT("/ImageCache/UpperBound"), HUGIN_IMGCACHE_UPPERBOUND));
+#endif
 
     if(splash) {
         splash->Close();
@@ -551,7 +564,7 @@ bool MainFrame::CloseProject(bool cancelable)
             {
                 wxCommandEvent dummy;
                 OnSaveProject(dummy);
-                return true;
+                return !pano.isDirty();
             }
             case wxID_CANCEL:
                 return false;
@@ -659,13 +672,13 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
 void MainFrame::OnSaveProjectAs(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
-    wxString scriptName;
+    wxFileName scriptName;
     if (m_filename == wxT("")) {
-        scriptName = getDefaultProjectName(pano) + wxT(".pto");
+        scriptName.Assign(getDefaultProjectName(pano) + wxT(".pto"));
     }
     wxFileDialog dlg(this,
                      _("Save project file"),
-                     wxConfigBase::Get()->Read(wxT("/actualPath"),wxT("")), scriptName,
+                     scriptName.GetPath(), scriptName.GetFullName(),
                      _("Project files (*.pto)|*.pto|All files (*)|*"),
                      wxFD_SAVE, wxDefaultPosition);
     dlg.SetDirectory(wxConfigBase::Get()->Read(wxT("/actualPath"),wxT("")));
@@ -1297,7 +1310,20 @@ void MainFrame::OnShowPrefs(wxCommandEvent & e)
     pref_dlg->ShowModal();
     //update image cache size
     wxConfigBase* cfg=wxConfigBase::Get();
+#if defined __WXMSW__
+    unsigned long long mem = HUGIN_IMGCACHE_UPPERBOUND;
+    unsigned long mem_low = cfg->Read(wxT("/ImageCache/UpperBound"), HUGIN_IMGCACHE_UPPERBOUND);
+    unsigned long mem_high = cfg->Read(wxT("/ImageCache/UpperBoundHigh"), (long) 0);
+    if (mem_high > 0) {
+      mem = ((unsigned long long) mem_high << 32) + mem_low;
+    }
+    else {
+      mem = mem_low;
+    }
+    ImageCache::getInstance().SetUpperLimit(mem);
+#else
     ImageCache::getInstance().SetUpperLimit(cfg->Read(wxT("/ImageCache/UpperBound"), HUGIN_IMGCACHE_UPPERBOUND));
+#endif
     images_panel->ReloadCPDetectorSettings();
     gl_preview_frame->SetShowProjectionHints(cfg->Read(wxT("/GLPreviewFrame/ShowProjectionHints"),HUGIN_SHOW_PROJECTION_HINTS)!=0);
 
@@ -1326,21 +1352,21 @@ void MainFrame::OnTogglePreviewFrame(wxCommandEvent & e)
 
 void MainFrame::OnToggleGLPreviewFrame(wxCommandEvent & e)
 {
-#ifdef __WXMSW__
+#if defined __WXMSW__ || defined __WXMAC__
     gl_preview_frame->InitPreviews();
 #endif
     if (gl_preview_frame->IsIconized()) {
         gl_preview_frame->Iconize(false);
     }
     gl_preview_frame->Show();
-#ifdef __WXMSW__
+#if defined __WXMSW__
     // on wxMSW Show() does not send OnShowEvent needed to update the 
     // visibility state of the fast preview windows
     // so explicit calling this event handler
     wxShowEvent se;
     se.SetShow(true);
     gl_preview_frame->OnShowEvent(se);
-#else
+#elif defined __WXGTK__
     gl_preview_frame->LoadOpenGLLayout();
 #endif
     gl_preview_frame->Raise();

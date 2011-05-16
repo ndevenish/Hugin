@@ -60,7 +60,8 @@ public:
         Mask_negative=0,
         Mask_positive=1,
         Mask_Stack_negative=2,
-        Mask_Stack_positive=3
+        Mask_Stack_positive=3,
+        Mask_negative_lens=4
     };
     /** constructor */
     MaskPolygon() : m_maskType(Mask_negative), m_imgNr(0), m_invert(false) {};
@@ -80,8 +81,8 @@ public:
     bool isPositive() const;
     /** returns vector with coordinates of the polygon */
     VectorPolygon getMaskPolygon() const { return m_polygon; };
-    /** set complete vector wit all corrdinates of the polygon */
-    void setMaskPolygon(const VectorPolygon newMask) { m_polygon = newMask; };
+    /** set complete vector with all corrdinates of the polygon */
+    void setMaskPolygon(const VectorPolygon newMask);
     /** returns the associated image number, only used when loading a project, otherwise discarded */
     unsigned int getImgNr() const { return m_imgNr; };
     /** sets the associated image number, only used when loading a project, otherwise discarded */
@@ -135,11 +136,14 @@ public:
     void printPolygonLine(std::ostream & o, const unsigned int newImgNr) const;
 
 private:
+    /** calculates the bounding box of the polygon to speed up tests */
+    void calcBoundingBox();
     //variables for internal storage of Mask type, polygon and assigned image number
     MaskType m_maskType;
     VectorPolygon m_polygon;
     unsigned int m_imgNr;
     bool m_invert;
+    vigra::Rect2D m_boundingBox;
 };
 
 typedef std::vector<MaskPolygon> MaskPolygonVector;

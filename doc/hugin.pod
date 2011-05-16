@@ -8,7 +8,6 @@ Licensed under the same terms as the hugin package itself.
 
 hugin - Hugin panorama creator
 
-
 =head1 SYNOPSIS
 
 B<hugin> I<project_file|image files ...>
