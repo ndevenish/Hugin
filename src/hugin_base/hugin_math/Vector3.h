@@ -24,7 +24,7 @@
 #ifndef _HUGIN_MATH_VECTOR3_H_
 #define _HUGIN_MATH_VECTOR3_H_
 
-
+#include <hugin_shared.h>
 #include <iostream>
 
 
@@ -40,7 +40,7 @@
  * always null. So that's waste of time.
  *
  */
-class Vector3
+class IMPEX Vector3
 {
 public:
 	/** x,y,z coordinates, 0 at the initialisation */

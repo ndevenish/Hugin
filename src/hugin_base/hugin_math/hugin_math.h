@@ -112,7 +112,7 @@ namespace hugin_utils
 
     // a simple point class
     template <class T>
-    struct IMPEX TDiff2D
+    struct TDiff2D
     {
         TDiff2D()
             : x(0), y(0)

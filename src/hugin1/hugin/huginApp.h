@@ -48,7 +48,11 @@ wxString getDefaultProjectName(const Panorama & pano);
   void InitXmlResource();
 #endif
 
+#if _WINDOWS && defined Hugin_shared
+DECLARE_LOCAL_EVENT_TYPE( EVT_IMAGE_READY, )
+#else
 DECLARE_EVENT_TYPE( EVT_IMAGE_READY, )
+#endif
 
 /** Event for when a requested image finished loading.
  *  Glue for HuginBase::ImageCache. We want to load images in a separate thread,

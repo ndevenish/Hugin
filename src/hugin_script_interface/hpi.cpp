@@ -181,7 +181,7 @@ int main ( int argc , char * argv[] )
     return 1;
   }
 
-  int success = callhpi ( argv[2] , 1 ,
+  int success = hsi::callhpi ( argv[2] , 1 ,
 			  "HuginBase::Panorama*" , pano ) ;
   
   return success ;

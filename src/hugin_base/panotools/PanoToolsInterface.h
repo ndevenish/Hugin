@@ -252,7 +252,7 @@ class IMPEX Transform
 /** class around the central align info struct of the panotools
 *  library
 */
-class AlignInfoWrap
+class IMPEX AlignInfoWrap
 {
     public:
         ///
@@ -289,7 +289,7 @@ class AlignInfoWrap
 /** set an output image, with properties from @p opts,
  *  that points to the bitmap data of @p imgData
  */
-void setDestImage(Image & image, vigra::Diff2D size, unsigned char * imageData,
+IMPEX void setDestImage(Image & image, vigra::Diff2D size, unsigned char * imageData,
                   const PanoramaOptions::ProjectionFormat & format,
                   const std::vector<double> & projParams,
                   double destHFOV);
@@ -297,7 +297,7 @@ void setDestImage(Image & image, vigra::Diff2D size, unsigned char * imageData,
 /** fills @p image with a complete input image, including distortion
  *  correction parameters if @p correctDistortions is set.
  */
-void setFullImage(Image & image, vigra::Diff2D size, unsigned char * imageData,
+IMPEX void setFullImage(Image & image, vigra::Diff2D size, unsigned char * imageData,
                   const VariableMap & vars,
                   const Lens::LensProjectionFormat format,
                   bool correctDistortions);
@@ -308,11 +308,11 @@ void setFullImage(Image & image, vigra::Diff2D size, unsigned char * imageData,
  *  the input/output pictures must be specified with: setAdjustSrcImg()
  *  and setAdjustDestImg()
  */
-void createAdjustPrefs(aPrefs  & p, TrformStr & transf);
+IMPEX void createAdjustPrefs(aPrefs  & p, TrformStr & transf);
 
 /** set a new input image for inserting into the panorama.
  */
-void setAdjustSrcImg(TrformStr & trf, aPrefs & ap,
+IMPEX void setAdjustSrcImg(TrformStr & trf, aPrefs & ap,
                      int width, int height, unsigned char * imageData,
                      const VariableMap & vars,
                      const Lens::LensProjectionFormat format,
@@ -320,7 +320,7 @@ void setAdjustSrcImg(TrformStr & trf, aPrefs & ap,
 
 
 /** set a new output image for the panorama */
-void setAdjustDestImg(TrformStr & trf, aPrefs & ap,
+IMPEX void setAdjustDestImg(TrformStr & trf, aPrefs & ap,
                       int width, int height, unsigned char * imageData,
                       const PanoramaOptions & opts);
 
@@ -329,28 +329,28 @@ void setAdjustDestImg(TrformStr & trf, aPrefs & ap,
  *  see use createAdjustPrefs(), setAdjustSrcImg() and setAdjustDestImg()
  *  to specify the images and transformation options
  */
-void createAdjustTrform(TrformStr & trf);
+IMPEX void createAdjustTrform(TrformStr & trf);
 
 /** free the resources associated with a TrformStr.
  *   createAdjustTrform() must have been used to create @p trf
  */
-void freeTrform(TrformStr & trf);
+IMPEX void freeTrform(TrformStr & trf);
 
 /** free the pointer storage needed by Image
  *
  *  does NOT free the data referenced by image
  */
-void freeImage(Image &img);
+IMPEX void freeImage(Image &img);
 
 
 /** set variables to optimize */
-void setOptVars(optVars & opt, const std::set<std::string> & optvars);
+IMPEX void setOptVars(optVars & opt, const std::set<std::string> & optvars);
 
 ///
-VariableMapVector GetAlignInfoVariables(const AlignInfo & gl);
+IMPEX VariableMapVector GetAlignInfoVariables(const AlignInfo & gl);
 
 ///
-CPVector GetAlignInfoCtrlPoints(const AlignInfo & gl);
+IMPEX CPVector GetAlignInfoCtrlPoints(const AlignInfo & gl);
 
 
 

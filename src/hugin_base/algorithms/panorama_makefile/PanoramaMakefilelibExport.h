@@ -188,7 +188,7 @@ public:
  * Simple helper to output stacks for debugging.
  * @param stackdata
  */
-void printstacks(const std::vector<UIntSet>& stackdata);
+void IMPEX printstacks(const std::vector<UIntSet>& stackdata);
 /**
  * Simply calls push_back, convinience function.
  * @param vec

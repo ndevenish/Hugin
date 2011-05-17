@@ -35,9 +35,19 @@
 //     to be fully qualified, like 'HuginBase::Panorama*'
 //   - a void* to the actual hugin object
 
+#if _WINDOWS && defined Hugin_shared
+#ifdef hugin_python_interface_EXPORTS
+#define hsi_IMPEX __declspec(dllexport)
+#else
+#define hsi_IMPEX __declspec(dllimport)
+#endif
+#else
+#define hsi_IMPEX
+#endif
+
 namespace hsi {
 
-  extern int callhpi ( const char * plugin_name ,
+  hsi_IMPEX extern int callhpi ( const char * plugin_name ,
 	             int argc ,
 	             ... ) ;
 
