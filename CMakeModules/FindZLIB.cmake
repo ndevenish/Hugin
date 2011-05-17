@@ -24,6 +24,7 @@ FIND_PATH(ZLIB_INCLUDE_DIR zlib.h
   /usr/local/include
   /usr/include
   ${SOURCE_BASE_DIR}/zlib
+  ${SOURCE_BASE_DIR}/zlib/include
   ${wxWidgets_ROOT_DIR}/src/zlib
 )
 
@@ -32,7 +33,7 @@ include(FindLibraryWithDebug)
 find_library_with_debug(ZLIB_LIBRARIES
   WIN32_DEBUG_POSTFIX d
   NAMES z zlib zlib1 wxzlib
-  PATHS /usr/lib /usr/local/lib ${SOURCE_BASE_DIR}/zlib ${wxWidgets_LIB_DIR}
+  PATHS /usr/lib /usr/local/lib ${SOURCE_BASE_DIR}/zlib/lib ${SOURCE_BASE_DIR}/zlib ${wxWidgets_LIB_DIR}
 )
 
 
