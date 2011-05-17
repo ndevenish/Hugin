@@ -38,9 +38,7 @@ namespace flann
 {
 
 struct LinearIndexParams : public IndexParams {
-	LinearIndexParams() : IndexParams(LINEAR) {};
-
-	flann_algorithm_t getIndexType() const { return algorithm; }
+	LinearIndexParams() : IndexParams(FLANN_INDEX_LINEAR) {};
 
 	void fromParameters(const FLANNParameters& p)
 	{
@@ -65,7 +63,7 @@ class LinearIndex : public NNIndex<Distance>
 	typedef typename Distance::ResultType DistanceType;
 
 	const Matrix<ElementType> dataset;
-	const LinearIndexParams& index_params;
+	const LinearIndexParams index_params;
 
 	Distance distance;
 
@@ -79,7 +77,7 @@ public:
 
     flann_algorithm_t getType() const
     {
-        return LINEAR;
+        return FLANN_INDEX_LINEAR;
     }
 
 

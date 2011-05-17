@@ -41,6 +41,7 @@
 #include "flann/util/matrix.h"
 #include "flann/util/result_set.h"
 #include "flann/util/heap.h"
+#include "flann/util/logger.h"
 #include "flann/util/allocator.h"
 #include "flann/util/random.h"
 #include "flann/util/saving.h"
@@ -51,11 +52,9 @@ namespace flann
 
 struct KDTreeIndexParams : public IndexParams {
 	KDTreeIndexParams(int trees_ = 4) :
-		IndexParams(KDTREE), trees(trees_) {};
+		IndexParams(FLANN_INDEX_KDTREE), trees(trees_) {};
 
 	int trees;                 // number of randomized trees to use (for kdtree)
-
-	flann_algorithm_t getIndexType() const { return algorithm; }
 
 	void fromParameters(const FLANNParameters& p)
 	{
@@ -123,7 +122,7 @@ class KDTreeIndex : public NNIndex<Distance>
 	 */
 	const Matrix<ElementType> dataset;
 
-    const IndexParams& index_params;
+    const KDTreeIndexParams index_params;
 
 	size_t size_;
 	size_t veclen_;
@@ -156,7 +155,7 @@ class KDTreeIndex : public NNIndex<Distance>
      * Array of k-d trees used to find neighbours.
      */
     NodePtr* trees;
-    typedef BranchStruct<NodePtr> BranchSt;
+    typedef BranchStruct<NodePtr, DistanceType> BranchSt;
     typedef BranchSt* Branch;
 
 	/**
@@ -174,7 +173,7 @@ public:
 
     flann_algorithm_t getType() const
     {
-        return KDTREE;
+        return FLANN_INDEX_KDTREE;
     }
 
 	/**
@@ -301,7 +300,7 @@ public:
         int maxChecks = searchParams.checks;
         float epsError = 1+searchParams.eps;
 
-        if (maxChecks==CHECKS_UNLIMITED) {
+        if (maxChecks==FLANN_CHECKS_UNLIMITED) {
             getExactNeighbors(result, vec, epsError);
         } else {
             getNeighbors(result, vec, maxChecks, epsError);
@@ -418,8 +417,10 @@ private:
 		else if (lim2<count/2) index = lim2;
 		else index = count/2;
 
-		// in the unlikely case all values are equal
-		if (lim1==cnt || lim2==0) index = count/2;
+		/* If either list is empty, it means that all remaining features
+		 * are identical. Split in the middle to maintain a balanced tree.
+		*/
+		if (lim1==count || lim2==0) index = count/2;
 	}
 
 
@@ -476,9 +477,6 @@ private:
 			if (left>right) break;
 			std::swap(ind[left], ind[right]); ++left; --right;
 		}
-		/* If either list is empty, it means that all remaining features
-		 * are identical. Split in the middle to maintain a balanced tree.
-		*/
 		lim1 = left;
 		right = count-1;
 		for (;;) {
@@ -523,12 +521,12 @@ private:
 
 		/* Search once through each tree down to root. */
 		for (i = 0; i < numTrees; ++i) {
-			searchLevel(result, vec, trees[i], 0.0, checkCount, maxCheck, epsError, heap, checked);
+			searchLevel(result, vec, trees[i], 0, checkCount, maxCheck, epsError, heap, checked);
 		}
 
 		/* Keep searching other branches from heap until finished. */
 		while ( heap->popMin(branch) && (checkCount < maxCheck || !result.full() )) {
-			searchLevel(result, vec, branch.node, branch.mindistsq, checkCount, maxCheck, epsError, heap, checked);
+			searchLevel(result, vec, branch.node, branch.mindist, checkCount, maxCheck, epsError, heap, checked);
 		}
 
 		delete heap;
@@ -542,10 +540,10 @@ private:
 	 *  higher levels, all exemplars below this level must have a distance of
 	 *  at least "mindistsq".
 	*/
-	void searchLevel(ResultSet<DistanceType>& result_set, const ElementType* vec, NodePtr node, float mindistsq, int& checkCount, int maxCheck,
+	void searchLevel(ResultSet<DistanceType>& result_set, const ElementType* vec, NodePtr node, DistanceType mindist, int& checkCount, int maxCheck,
 			float epsError, Heap<BranchSt>* heap, std::vector<bool>& checked)
 	{
-		if (result_set.worstDist()<mindistsq) {
+		if (result_set.worstDist()<mindist) {
 //			printf("Ignoring branch, too far\n");
 			return;
 		}
@@ -556,7 +554,7 @@ private:
 				Once a vector is checked, we set its location in vind to the
 				current checkID.
 			*/
-			float worst_dist = result_set.worstDist();
+			DistanceType worst_dist = result_set.worstDist();
 			int index = node->divfeat;
 			if ( checked[index] || (checkCount>=maxCheck && result_set.full()) ) return;
 			checked[index] = true;
@@ -583,24 +581,24 @@ private:
 			adding exceeds their value.
 		*/
 
-		DistanceType new_distsq = mindistsq + distance.accum_dist(val, node->divval);
+		DistanceType new_distsq = mindist + distance.accum_dist(val, node->divval, node->divfeat);
 //		if (2 * checkCount < maxCheck  ||  !result.full()) {
 		if (new_distsq*epsError < result_set.worstDist() ||  !result_set.full()) {
 			heap->insert( BranchSt(otherChild, new_distsq) );
 		}
 
 		/* Call recursively to search next level down. */
-		searchLevel(result_set, vec, bestChild, mindistsq, checkCount, maxCheck, epsError, heap, checked);
+		searchLevel(result_set, vec, bestChild, mindist, checkCount, maxCheck, epsError, heap, checked);
 	}
 
 	/**
 	 * Performs an exact search in the tree starting from a node.
 	 */
-	void searchLevelExact(ResultSet<DistanceType>& result_set, const ElementType* vec, const NodePtr node, float mindistsq, const float epsError)
+	void searchLevelExact(ResultSet<DistanceType>& result_set, const ElementType* vec, const NodePtr node, DistanceType mindist, const float epsError)
 	{
 		/* If this is a leaf node, then do check and return. */
 		if (node->child1 == NULL  &&  node->child2 == NULL) {
-			float worst_dist = result_set.worstDist();
+			DistanceType worst_dist = result_set.worstDist();
 			int index = node->divfeat;
 			DistanceType dist = distance(dataset[index], vec, veclen_);
 			if (dist<worst_dist) {
@@ -623,10 +621,10 @@ private:
 			adding exceeds their value.
 		*/
 
-		DistanceType new_distsq = mindistsq + distance.accum_dist(val, node->divval);
+		DistanceType new_distsq = mindist + distance.accum_dist(val, node->divval, node->divfeat);
 
 		/* Call recursively to search next level down. */
-		searchLevelExact(result_set, vec, bestChild, mindistsq, epsError);
+		searchLevelExact(result_set, vec, bestChild, mindist, epsError);
 
 		if (new_distsq*epsError<=result_set.worstDist()) {
 			searchLevelExact(result_set, vec, otherChild, new_distsq, epsError);

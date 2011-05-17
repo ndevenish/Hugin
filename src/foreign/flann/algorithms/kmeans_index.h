@@ -54,8 +54,8 @@ namespace flann
 
 struct KMeansIndexParams : public IndexParams {
 	KMeansIndexParams(int branching_ = 32, int iterations_ = 11,
-			flann_centers_init_t centers_init_ = CENTERS_RANDOM, float cb_index_ = 0.2 ) :
-		IndexParams(KMEANS),
+			flann_centers_init_t centers_init_ = FLANN_CENTERS_RANDOM, float cb_index_ = 0.2 ) :
+		IndexParams(FLANN_INDEX_KMEANS),
 		branching(branching_),
 		iterations(iterations_),
 		centers_init(centers_init_),
@@ -66,11 +66,9 @@ struct KMeansIndexParams : public IndexParams {
 	flann_centers_init_t centers_init;          // algorithm used for picking the initial cluster centers for kmeans tree
     float cb_index;            // cluster boundary index. Used when searching the kmeans tree
 
-	flann_algorithm_t getIndexType() const { return KMEANS; }
-
 	void fromParameters(const FLANNParameters& p)
 	{
-		assert(p.algorithm==KMEANS);
+		assert(p.algorithm==FLANN_INDEX_KMEANS);
 		branching = p.branching;
 		iterations = p.iterations;
 		centers_init = p.centers_init;
@@ -79,7 +77,7 @@ struct KMeansIndexParams : public IndexParams {
 
 	void toParameters(FLANNParameters& p) const
 	{
-		p.algorithm = KMEANS;
+		p.algorithm = FLANN_INDEX_KMEANS;
 		p.branching = branching;
 		p.iterations = iterations;
 		p.centers_init = centers_init;
@@ -134,7 +132,7 @@ class KMeansIndex : public NNIndex<Distance>
 	 */
     const Matrix<ElementType> dataset;
 
-    const IndexParams& index_params;
+    const KMeansIndexParams index_params;
 
     /**
     * Number of features in the dataset.
@@ -191,7 +189,7 @@ class KMeansIndex : public NNIndex<Distance>
     /**
      * Alias definition for a nicer syntax.
      */
-    typedef BranchStruct<KMeansNodePtr> BranchSt;
+    typedef BranchStruct<KMeansNodePtr, DistanceType> BranchSt;
 
 
 	/**
@@ -408,7 +406,7 @@ public:
 
     flann_algorithm_t getType() const
     {
-        return KMEANS;
+        return FLANN_INDEX_KMEANS;
     }
 
 	/**
@@ -434,13 +432,13 @@ public:
         }
         flann_centers_init_t centersInit = params.centers_init;
 
-        if (centersInit==CENTERS_RANDOM) {
+        if (centersInit==FLANN_CENTERS_RANDOM) {
         	chooseCenters = &KMeansIndex::chooseCentersRandom;
         }
-        else if (centersInit==CENTERS_GONZALES) {
+        else if (centersInit==FLANN_CENTERS_GONZALES) {
         	chooseCenters = &KMeansIndex::chooseCentersGonzales;
         }
-        else if (centersInit==CENTERS_KMEANSPP) {
+        else if (centersInit==FLANN_CENTERS_KMEANSPP) {
                 	chooseCenters = &KMeansIndex::chooseCentersKMeanspp;
         }
 		else {
@@ -563,7 +561,7 @@ public:
 
         int maxChecks = searchParams.checks;
 
-        if (maxChecks==CHECKS_UNLIMITED) {
+        if (maxChecks==FLANN_CHECKS_UNLIMITED) {
             findExactNN(root, result, vec);
         }
         else {

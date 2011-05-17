@@ -44,6 +44,7 @@
 namespace flann
 {
 
+typedef ObjectFactory<IndexParams, flann_algorithm_t> ParamsFactory;
 
 template<typename Distance>
  NNIndex<Distance>* index_by_type(const Matrix<typename Distance::ElementType>& dataset, const IndexParams& params, const Distance& distance)
@@ -52,19 +53,19 @@ template<typename Distance>
 
  	NNIndex<Distance>* nnIndex;
  	switch (index_type) {
- 	case LINEAR:
+ 	case FLANN_INDEX_LINEAR:
  		nnIndex = new LinearIndex<Distance>(dataset, (const LinearIndexParams&)params, distance);
  		break;
- 	case KDTREE_SINGLE:
+ 	case FLANN_INDEX_KDTREE_SINGLE:
  		nnIndex = new KDTreeSingleIndex<Distance>(dataset, (const KDTreeSingleIndexParams&)params, distance);
  	    break;
-     case KDTREE:
+     case FLANN_INDEX_KDTREE:
  		nnIndex = new KDTreeIndex<Distance>(dataset, (const KDTreeIndexParams&)params, distance);
  		break;
- 	case KMEANS:
+ 	case FLANN_INDEX_KMEANS:
  		nnIndex = new KMeansIndex<Distance>(dataset, (const KMeansIndexParams&)params, distance);
  		break;
- 	case COMPOSITE:
+ 	case FLANN_INDEX_COMPOSITE:
  		nnIndex = new CompositeIndex<Distance>(dataset, (const CompositeIndexParams&) params, distance);
  		break;
  	default:
@@ -79,7 +80,7 @@ template<typename Distance>
 struct AutotunedIndexParams : public IndexParams {
 	AutotunedIndexParams( float target_precision_ = 0.8, float build_weight_ = 0.01,
 			float memory_weight_ = 0, float sample_fraction_ = 0.1) :
-		IndexParams(AUTOTUNED),
+		IndexParams(FLANN_INDEX_AUTOTUNED),
 		target_precision(target_precision_),
 		build_weight(build_weight_),
 		memory_weight(memory_weight_),
@@ -144,7 +145,7 @@ class AutotunedIndex : public NNIndex<Distance>
     /**
      * Index parameters
      */
-    const AutotunedIndexParams& index_params;
+    const AutotunedIndexParams index_params;
 
     Distance distance;
 public:
@@ -161,9 +162,11 @@ public:
     {
     	if (bestIndex!=NULL) {
     		delete bestIndex;
+            bestIndex = NULL;
     	}
     	if (bestParams!=NULL) {
     		delete bestParams;
+            bestParams = NULL;
     	}
     };
 
@@ -179,13 +182,13 @@ public:
 		logger.info("----------------------------------------------------\n");
     	flann_algorithm_t index_type = bestParams->getIndexType();
     	switch (index_type) {
-    	case LINEAR:
+    	case FLANN_INDEX_LINEAR:
     		bestIndex = new LinearIndex<Distance>(dataset, (const LinearIndexParams&)*bestParams, distance);
     		break;
-    	case KDTREE:
+    	case FLANN_INDEX_KDTREE:
     		bestIndex = new KDTreeIndex<Distance>(dataset, (const KDTreeIndexParams&)*bestParams, distance);
     		break;
-    	case KMEANS:
+    	case FLANN_INDEX_KMEANS:
     		bestIndex = new KMeansIndex<Distance>(dataset, (const KMeansIndexParams&)*bestParams, distance);
     		break;
     	default:
@@ -223,7 +226,7 @@ public:
 	*/
 	virtual void findNeighbors(ResultSet<DistanceType>& result, const ElementType* vec, const SearchParams& searchParams)
 	{
-		if (searchParams.checks==CHECKS_AUTOTUNED) {
+		if (searchParams.checks==FLANN_CHECKS_AUTOTUNED) {
 			bestIndex->findNeighbors(result, vec, bestSearchParams);
 		}
 		else {
@@ -277,7 +280,7 @@ public:
     */
     virtual flann_algorithm_t getType() const
     {
-    	return AUTOTUNED;
+    	return FLANN_INDEX_AUTOTUNED;
     }
 
 private:
@@ -412,7 +415,7 @@ private:
             for (size_t j=0; j<ARRAY_LEN(branchingFactors); ++j) {
                 CostData cost;
                 KMeansIndexParams* params = new KMeansIndexParams();
-                params->centers_init = CENTERS_RANDOM;
+                params->centers_init = FLANN_CENTERS_RANDOM;
                 params->iterations = maxIterations[i];
                 params->branching = branchingFactors[j];
                 cost.params = params; 
@@ -602,7 +605,7 @@ private:
 
             float searchTime;
             float cb_index;
-            if (bestIndex->getType() == KMEANS) {
+            if (bestIndex->getType() == FLANN_INDEX_KMEANS) {
                 logger.info("KMeans algorithm, estimating cluster border factor\n");
                 KMeansIndex<Distance>* kmeans = (KMeansIndex<Distance>*)bestIndex;
                 float bestSearchTime = -1;
