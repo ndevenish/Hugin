@@ -381,23 +381,28 @@ void PTBatcherGUI::MacOpenFile(const wxString &fileName)
 }
 #endif
 
+#if wxCHECK_VERSION(2,9,0)
+const void* BatchIPCConnection::OnRequest(const wxString& topic, const wxString& item, size_t *size, wxIPCFormat format)
+#else
 wxChar* BatchIPCConnection::OnRequest(const wxString& topic, const wxString& item, int *size, wxIPCFormat format)
+#endif
 {
+    *size=wxNO_LEN;
 	BatchFrame *MyBatchFrame=wxGetApp().GetFrame();
 	if(item.Left(1)==wxT("A"))
     {
 		MyBatchFrame->AddToList(item.Mid(2));
-        return wxT("");
+        return wxEmptyString;
     };
 	if(item.Left(1)==wxT("D"))
     {
         MyBatchFrame->AddToList(item.Mid(2),Project::DETECTING);
-        return wxT("");
+        return wxEmptyString;
     };
 	if(item.Left(1)==wxT("P"))
     {
 		MyBatchFrame->ChangePrefix(-1,item.Mid(2));
-        return wxT("");
+        return wxEmptyString;
     };
 	wxCommandEvent event;
 	event.SetInt(1);
@@ -438,7 +443,7 @@ wxChar* BatchIPCConnection::OnRequest(const wxString& topic, const wxString& ite
 		wxCommandEvent myEvent(wxEVT_COMMAND_TOOL_CLICKED ,XRCID("tool_start"));
 		MyBatchFrame->GetEventHandler()->AddPendingEvent(myEvent);
 	};
-	return wxT("");
+    return wxEmptyString;
 };
 
 wxConnectionBase* BatchIPCServer::OnAcceptConnection (const wxString& topic)
