@@ -47,7 +47,6 @@
 using namespace std;
 using namespace vigra;
 using namespace hugin_utils;
-using namespace hsi;
 
 namespace PT {
 
@@ -702,7 +701,7 @@ bool PythonScriptPanoCmd::processPanorama(Panorama& pano)
     // TODO: add call to python machinery here.
     std::cout << "TODO: run python script: " << m_scriptFile.c_str() << std::endl;
 
-    int success = callhpi ( m_scriptFile.c_str() , 1 ,
+    int success = hsi::callhpi ( m_scriptFile.c_str() , 1 ,
 		           "HuginBase::Panorama*" , &pano ) ;
 
     if(success!=0)
