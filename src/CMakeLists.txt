@@ -41,6 +41,13 @@ IF(VIPS_FOUND)
 #  add_subdirectory(vips)
 ENDIF(VIPS_FOUND)
 
+# hsi contains the Python interface. This add_ should be conditional,
+# depending on availability of SWIG and Python.
+# this have to come before hugin1 directory
+IF(BUILD_HSI)
+add_subdirectory(hugin_script_interface)
+ENDIF()
+
 # build gui only if wxWidgets was found
 IF(wxWidgets_FOUND)
   INCLUDE(${wxWidgets_USE_FILE})

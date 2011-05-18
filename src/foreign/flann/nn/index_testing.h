@@ -35,6 +35,7 @@
 #include <cassert>
 #include <cmath>
 
+#include "flann/general.h"
 #include "flann/util/matrix.h"
 #include "flann/algorithms/nn_index.h"
 #include "flann/util/result_set.h"
@@ -45,7 +46,7 @@
 namespace flann
 {
 
-int countCorrectMatches(int* neighbors, int* groundTruth, int n);
+FLANN_EXPORT int countCorrectMatches(int* neighbors, int* groundTruth, int n);
 
 
 template <typename Distance>

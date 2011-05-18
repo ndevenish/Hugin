@@ -30,6 +30,11 @@
 #ifndef _PANODATA_SRCPANOIMAGE_H
 #define _PANODATA_SRCPANOIMAGE_H
 
+// if this file is preprocessed for SWIG, we want to ignore
+// all the header inclusions that follow:
+
+#ifndef _HSI_IGNORE_SECTION
+
 #include <hugin_shared.h>
 #include <hugin_config.h>
 #include <iostream>
@@ -46,6 +51,8 @@
 #ifdef HUGIN_USE_EXIV2
 #include <exiv2/exif.hpp>
 #endif
+
+#endif // _HSI_IGNORE_SECTION
 
 namespace HuginBase {
 
@@ -121,7 +128,7 @@ public:
 
     // get[variable name]IV functions. Return a const reference to the ImageVariable.
 #define image_variable( name, type, default_value ) \
-    const ImageVariable<type> & get##name##IV() const { return m_##name; }
+    const ImageVariable<type > & get##name##IV() const { return m_##name; }
 #include "image_variables.h"
 #undef image_variable
 
@@ -174,12 +181,12 @@ public:
 protected:
     ///
     void setDefaults();
-    
+
     // the image variables m_[variable name]
 #define image_variable( name, type, default_value ) \
-    ImageVariable<type> m_##name;
+    ImageVariable<type > m_##name;
 #include "image_variables.h"
-#undef image_variable    
+#undef image_variable
 };
 
 

@@ -86,7 +86,7 @@ class IMPEX CalculateFitPanorama : public PanoramaAlgorithm
 
 
 ///
-class FitPanorama : public CalculateFitPanorama
+class IMPEX FitPanorama : public CalculateFitPanorama
 {
 
     public:

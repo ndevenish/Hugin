@@ -101,7 +101,11 @@ wxString getDefaultProjectName(const Panorama & pano)
     }
 }
 
+#if _WINDOWS && defined Hugin_shared
+DEFINE_LOCAL_EVENT_TYPE( EVT_IMAGE_READY )
+#else
 DEFINE_EVENT_TYPE( EVT_IMAGE_READY )
+#endif
 
 BEGIN_EVENT_TABLE(huginApp, wxApp)
     EVT_IMAGE_READY2(-1, huginApp::relayImageLoaded)

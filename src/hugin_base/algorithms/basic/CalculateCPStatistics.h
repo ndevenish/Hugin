@@ -130,7 +130,7 @@ class IMPEX CalculateCPStatisticsError : public CalculateCPStatistics
 };
 
 
-class CalculateCPStatisticsRadial : public CalculateCPStatistics
+class IMPEX CalculateCPStatisticsRadial : public CalculateCPStatistics
 {
     
     public:

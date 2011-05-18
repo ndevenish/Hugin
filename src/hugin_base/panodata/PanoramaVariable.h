@@ -44,13 +44,21 @@ namespace HuginBase {
  *  linking is only supported by LinkedVariable, which
  *  is only used by Lens.
  */
+
 class IMPEX Variable
 {
-    public:
+public :
+// in the hsi version, class Variable needs a default Ctor    
+#ifdef HUGIN_HSI
+        Variable(const std::string & name = "" ,
+                 double val = 0.0)
+                 : name(name), value(val)
+        {};
+#else
         Variable(const std::string & name, double val = 0.0)
             : name(name), value(val)
         {};
-        
+#endif        
         virtual ~Variable()
         {};
         
@@ -80,7 +88,9 @@ class IMPEX LinkedVariable : public Variable
 {
     
     public:
-        LinkedVariable(const std::string & name, double val = 0.0, int link=-1)
+        LinkedVariable(const std::string & name = "",
+                       double val = 0.0,
+                       int link=-1)
         : Variable(name, val), m_link(link)
         {}
 
@@ -103,13 +113,26 @@ class IMPEX LinkedVariable : public Variable
  *
  *  It is only used in the lens class, not directly in the images.
  */
+
+// KFJ 2011-01-12 added default for name and value parameter
+// in order to have a default contructor
+
 class IMPEX LensVariable : public Variable
 {
     public:
+
+// in the hsi version, class LensVariable needs a default Ctor
+#ifdef HUGIN_HSI
+        LensVariable(const std::string & name = "" ,
+                     double value = 0.0 ,
+                     bool link=false)
+            : Variable(name, value), linked(link)
+        {};
+#else
         LensVariable(const std::string & name, double value, bool link=false)
             : Variable(name, value), linked(link)
         {};
-        
+#endif
         virtual ~LensVariable()
             {};
         
@@ -130,10 +153,10 @@ class IMPEX LensVariable : public Variable
     
 };
 
-
-
-
 /** functor to print a variable. */
+#ifndef SWIG
+/* this gave me trouble in hsi, currently deactivated
+ * TODO: find out how it can be made to work */
 struct PrintVar : public std::unary_function<Variable, void>
 {
     PrintVar(std::ostream & o)
@@ -145,7 +168,7 @@ struct PrintVar : public std::unary_function<Variable, void>
     
     std::ostream& os;
 };
-
+#endif
 
 ///
 typedef std::map<std::string,Variable> VariableMap;

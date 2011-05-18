@@ -56,8 +56,12 @@
 class BatchIPCConnection : public wxConnection
 {
 public:
-	/** request handler for transfer */
-	virtual wxChar *OnRequest(const wxString& topic, const wxString& item, int *size = NULL, wxIPCFormat format = wxIPC_TEXT);
+    /** request handler for transfer */
+#if wxCHECK_VERSION(2,9,0)
+    virtual const void *OnRequest(const wxString& topic, const wxString& item, size_t *size = NULL, wxIPCFormat format = wxIPC_TEXT);
+#else
+    virtual wxChar *OnRequest(const wxString& topic, const wxString& item, int *size = NULL, wxIPCFormat format = wxIPC_TEXT);
+#endif
 };
 
 /** server which implements the communication between different PTBatcherGUI instances (see BatchIPCConnection) */

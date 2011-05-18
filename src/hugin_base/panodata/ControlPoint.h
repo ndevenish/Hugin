@@ -108,7 +108,10 @@ public:
     double error;
     int mode;
 
+#ifndef SWIG
+    // dimensionless array not supported by SWIG
     static std::string modeNames[];
+#endif
 };
 
 

@@ -40,6 +40,10 @@
 
 #include <hugin_utils/alphanum.hpp>
 
+#ifdef HUGIN_HSI
+#include "hugin_script_interface/hpi.h"
+#endif
+
 using namespace std;
 using namespace vigra;
 using namespace hugin_utils;
@@ -690,6 +694,32 @@ void wxApplyTemplateCmd::execute()
     }
     pano.changeFinished();
 }
+
+#ifdef HUGIN_HSI
+bool PythonScriptPanoCmd::processPanorama(Panorama& pano)
+{
+    // TODO: add call to python machinery here.
+    std::cout << "TODO: run python script: " << m_scriptFile.c_str() << std::endl;
+
+    int success = hsi::callhpi ( m_scriptFile.c_str() , 1 ,
+		           "HuginBase::Panorama*" , &pano ) ;
+
+    if(success!=0)
+        wxMessageBox(wxString::Format(wxT("Script return %d"),success),_("Result"), wxICON_INFORMATION);
+    std::cout << "Python interface returned " << success << endl ;
+    // notify other of change in panorama
+    if(pano.getNrOfImages()>0)
+    {
+        for(unsigned int i=0;i<pano.getNrOfImages();i++)
+        {
+            pano.imageChanged(i);
+        };
+    };
+    pano.changeFinished();
+
+    return true;
+}
+#endif
 
 } // namespace
 
