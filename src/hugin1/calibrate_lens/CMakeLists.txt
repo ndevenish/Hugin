@@ -12,3 +12,7 @@ ENDIF (WIN32)
 target_link_libraries(calibrate_lens_gui huginbasewx ${common_libs} ${image_libs} ${wxWidgets_LIBRARIES} huginlines)
 
 INSTALL(TARGETS calibrate_lens_gui DESTINATION ${BINDIR})
+IF(UNIX)
+    # install further stuff (icons etc.)
+    INSTALL(FILES calibrate_lens_gui.desktop DESTINATION ${DATADIR}/applications)
+ENDIF(UNIX)
