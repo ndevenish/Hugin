@@ -31,7 +31,7 @@
 #ifndef GENERAL_H
 #define GENERAL_H
 
-#if WIN32 || defined Hugin_shared
+#if WIN32 && defined Hugin_shared
 /* win32 dll export/import directives */
 #ifdef flann_cpp_EXPORTS
 /* using flann_EXPORTS here since it's automatically defined by cmake
