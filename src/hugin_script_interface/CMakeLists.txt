@@ -5,9 +5,6 @@ INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
 INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})
 
 # get version of Python libs
-# changed to look at the individual numeric defines
-# instead of picking the version string apart
-# KFJ 2011-05-16
 
 FILE(STRINGS "${PYTHON_INCLUDE_DIRS}/patchlevel.h"
      PY_DEF_MAJOR
@@ -233,10 +230,9 @@ IF(WIN32)
     INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/hsi.py DESTINATION ${BINDIR})
 
 
-ELSEIF(${HUGIN_LIBS_PRIVATE_DIR})
-    # Lukas says: I'd go for
-    # ${LIBDIR}/python${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}/site-packages/hugin
-    # but on my system the proper destination seems to be this:
+ELSE()
+    # Linux/MacOS
+    # install Python related files into folder depending on used Python version
 
     SET(PYINSTALLDIR
         ${LIBDIR}/python${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}/dist-packages
@@ -255,9 +251,4 @@ ELSEIF(${HUGIN_LIBS_PRIVATE_DIR})
             DESTINATION ${PYINSTALLDIR}
             )
 
-ELSE(WIN32)
-    # I suppose this is for Mac OS ?!
-    # INSTALL(TARGETS ${SWIG_MODULE_hsi_REAL_NAME} LIBRARY DESTINATION ${LIBDIR} NAMELINK_SKIP)
-    # INSTALL(FILES hpi.py DESTINATION ${LIBDIR})
-    # INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/hsi.py DESTINATION ${LIBDIR})
-ENDIF(WIN32)
+ENDIF()
