@@ -33,6 +33,7 @@ namespace HuginLines
 enum LineStatus
 {
     valid_line=0,
+    valid_line_disabled,
     bad_length,
     bad_orientation,
     bad_curvature

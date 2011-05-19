@@ -65,6 +65,7 @@ public:
 protected:
     /** draw the view into the offscreen buffer */
     void DrawView();
+    void OnMouseButton(wxMouseEvent &e);
 
 private:
     /** resize event, recalculates the offscreen buffer */
