@@ -64,6 +64,8 @@ public:
     bool increaseProgress(double delta, const std::string & msg);
     void setMessage(const std::string & msg);
     void AddImages(wxArrayString files);
+    /** updates the list box with current values */
+    void UpdateList(bool restoreSelection);
 
 protected:
     /** called when a progress message should be displayed */
@@ -83,8 +85,6 @@ private:
     void OnReset(wxCommandEvent &e);
     void OnShowLines(wxCommandEvent &e);
     void OnRefresh(wxCommandEvent &e);
-    /** updates the list box with current values */
-    void UpdateList(bool restoreSelection);
     /** reads all input values into internal values */
     bool ReadInputs(bool readFocalLength,bool readOptions,bool readLensParameter);
     /** do the optimization */

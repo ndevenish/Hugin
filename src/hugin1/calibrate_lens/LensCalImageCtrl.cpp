@@ -31,10 +31,13 @@
 #include "vigra/transformimage.hxx"
 #include "nona/RemappedPanoImage.h"
 #include "nona/ImageRemapper.h"
+#include "LensCalApp.h"
 
 BEGIN_EVENT_TABLE(LensCalImageCtrl, wxPanel)
     EVT_SIZE(LensCalImageCtrl::Resize)
     EVT_PAINT(LensCalImageCtrl::OnPaint)
+    EVT_LEFT_DOWN(LensCalImageCtrl::OnMouseButton)
+    EVT_RIGHT_DOWN(LensCalImageCtrl::OnMouseButton)
 END_EVENT_TABLE()
 
 // init some values
@@ -57,6 +60,73 @@ LensCalImageCtrl::LensCalImageCtrl() : wxPanel()
 const LensCalImageCtrl::LensCalPreviewMode LensCalImageCtrl::GetMode()
 {
     return m_previewMode;
+};
+
+void LensCalImageCtrl::OnMouseButton(wxMouseEvent &e)
+{
+    if(!e.LeftDown() && !e.RightDown())
+        return;
+    vigra::Point2D pos(e.GetPosition().x,e.GetPosition().y);
+    HuginLines::Lines lines=m_imageLines->GetLines();
+    if(lines.empty())
+        return;
+    int found_line=-1;
+    if(m_previewMode==mode_corrected)
+    {
+        HuginBase::PTools::Transform trans;
+        trans.createTransform(m_panoimage,m_opts);
+        double x;
+        double y;
+        if(!trans.transformImgCoord(x,y,pos.x,pos.y))
+            return;
+        pos.x=x;
+        pos.y=y;
+    }
+    else
+    {
+        pos.x=hugin_utils::roundi(pos.x/m_scale);
+        pos.y=hugin_utils::roundi(pos.y/m_scale);
+    };
+
+    //find line which is nearest the clicked position
+    std::vector<double> min_distance(lines.size(),10000);
+    double shortest_distance=10000;
+    for(unsigned int i=0;i<lines.size();i++)
+    {
+        if(lines[i].status==HuginLines::valid_line || lines[i].status==HuginLines::valid_line_disabled)
+        {
+            for(unsigned int j=0;j<lines[i].line.size();j++)
+            {
+                double distance=(lines[i].line[j]-pos).magnitude();
+                if(distance<min_distance[i])
+                    min_distance[i]=distance;
+            };
+        };
+        if(min_distance[i]<shortest_distance)
+        {
+            shortest_distance=min_distance[i];
+            if(shortest_distance<50)
+            {
+                found_line=i;
+            };
+        };
+    };
+    if(found_line==-1)
+    {
+        wxBell();
+        return;
+    };
+    if(e.LeftDown())
+    {
+        lines[found_line].status=HuginLines::valid_line_disabled;
+    }
+    else
+    {
+        lines[found_line].status=HuginLines::valid_line;
+    };
+    m_imageLines->SetLines(lines);
+    wxGetApp().GetLensCalFrame()->UpdateList(true);
+    DrawView();
 };
 
 void LensCalImageCtrl::DrawView()
@@ -94,6 +164,9 @@ void LensCalImageCtrl::DrawView()
             {
                 case HuginLines::valid_line:
                     memDC.SetPen(wxPen(wxColour(0,255,0), 1, wxSOLID));
+                    break;
+                case HuginLines::valid_line_disabled:
+                    memDC.SetPen(wxPen(wxColour(255,0,0), 1, wxSOLID));
                     break;
                 default:
                     memDC.SetPen(wxPen(wxColour(128,128,128), 1, wxSOLID));
