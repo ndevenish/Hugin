@@ -46,7 +46,7 @@ public:
     /** constructor */
     LensCalImageCtrl();
     /** set preview setting to given ImageLineList */
-    void SetImage(ImageLineList* newList);
+    void SetImage(ImageLineList* newList, unsigned int newIndex);
     /** set preview to empty image */
     void SetEmptyImage();
     /**  
@@ -65,7 +65,7 @@ public:
 protected:
     /** draw the view into the offscreen buffer */
     void DrawView();
-    void OnMouseButton(wxMouseEvent &e);
+    void OnMouseEvent(wxMouseEvent &e);
 
 private:
     /** resize event, recalculates the offscreen buffer */
@@ -79,6 +79,7 @@ private:
 
     /** struct with filename, edge image and detected lines */
     ImageLineList* m_imageLines;
+    unsigned int m_imageIndex;
     /** the image to adjust (full scale) */
     wxImage m_img;
     /** the edge image as RGBImage (in m_imageLines the edge image is grayscale (vigra::BImage)) */

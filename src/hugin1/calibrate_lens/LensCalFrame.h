@@ -64,6 +64,7 @@ public:
     bool increaseProgress(double delta, const std::string & msg);
     void setMessage(const std::string & msg);
     void AddImages(wxArrayString files);
+    void UpdateListString(unsigned int index);
     /** updates the list box with current values */
     void UpdateList(bool restoreSelection);
 

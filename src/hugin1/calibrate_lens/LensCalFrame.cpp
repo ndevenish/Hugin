@@ -486,6 +486,12 @@ void LensCalFrame::OnAddImage(wxCommandEvent &e)
     EnableButtons();
 };
 
+void LensCalFrame::UpdateListString(unsigned int index)
+{
+    wxFileName file(m_images[index]->GetFilename());
+    m_images_list->SetString(index,wxString::Format(_("%s (%d lines)"),file.GetFullName().c_str(),m_images[index]->GetNrOfValidLines()));
+};
+
 void LensCalFrame::UpdateList(bool restoreSelection)
 {
     int oldSelection=m_images_list->GetSelection();
@@ -801,7 +807,7 @@ void LensCalFrame::OnImageSelected(wxCommandEvent &e)
     XRCCTRL(*this,"lenscal_remove_image",wxButton)->Enable(selected);
     if(selected)
     {
-        m_preview->SetImage(m_images[m_images_list->GetSelection()]);
+        m_preview->SetImage(m_images[m_images_list->GetSelection()],m_images_list->GetSelection());
     }
     else
     {

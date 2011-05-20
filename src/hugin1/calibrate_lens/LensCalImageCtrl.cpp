@@ -36,8 +36,7 @@
 BEGIN_EVENT_TABLE(LensCalImageCtrl, wxPanel)
     EVT_SIZE(LensCalImageCtrl::Resize)
     EVT_PAINT(LensCalImageCtrl::OnPaint)
-    EVT_LEFT_DOWN(LensCalImageCtrl::OnMouseButton)
-    EVT_RIGHT_DOWN(LensCalImageCtrl::OnMouseButton)
+    EVT_MOUSE_EVENTS(LensCalImageCtrl::OnMouseEvent)
 END_EVENT_TABLE()
 
 // init some values
@@ -62,10 +61,18 @@ const LensCalImageCtrl::LensCalPreviewMode LensCalImageCtrl::GetMode()
     return m_previewMode;
 };
 
-void LensCalImageCtrl::OnMouseButton(wxMouseEvent &e)
+void LensCalImageCtrl::OnMouseEvent(wxMouseEvent &e)
 {
-    if(!e.LeftDown() && !e.RightDown())
+    if(e.Entering() || e.Leaving())
+    {
+        e.Skip();
         return;
+    };
+    if(!e.LeftIsDown() && !e.RightIsDown())
+    {
+        e.Skip();
+        return;
+    };
     vigra::Point2D pos(e.GetPosition().x,e.GetPosition().y);
     HuginLines::Lines lines=m_imageLines->GetLines();
     if(lines.empty())
@@ -113,10 +120,9 @@ void LensCalImageCtrl::OnMouseButton(wxMouseEvent &e)
     };
     if(found_line==-1)
     {
-        wxBell();
         return;
     };
-    if(e.LeftDown())
+    if(e.LeftIsDown())
     {
         lines[found_line].status=HuginLines::valid_line_disabled;
     }
@@ -125,8 +131,9 @@ void LensCalImageCtrl::OnMouseButton(wxMouseEvent &e)
         lines[found_line].status=HuginLines::valid_line;
     };
     m_imageLines->SetLines(lines);
-    wxGetApp().GetLensCalFrame()->UpdateList(true);
+    wxGetApp().GetLensCalFrame()->UpdateListString(m_imageIndex);
     DrawView();
+    Refresh();
 };
 
 void LensCalImageCtrl::DrawView()
@@ -258,9 +265,10 @@ void LensCalImageCtrl::OnPaint(wxPaintEvent & dc)
     }
 }
 
-void LensCalImageCtrl::SetImage(ImageLineList* newList)
+void LensCalImageCtrl::SetImage(ImageLineList* newList, unsigned int newIndex)
 {
     m_imageLines=newList;
+    m_imageIndex=newIndex;
     std::string filename(newList->GetFilename().mb_str(HUGIN_CONV_FILENAME));
     ImageCache::EntryPtr img = ImageCache::getInstance().getImage(filename);
     m_img = imageCacheEntry2wxImage(img);
