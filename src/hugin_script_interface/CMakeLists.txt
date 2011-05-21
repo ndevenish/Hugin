@@ -226,10 +226,7 @@ SWIG_LINK_LIBRARIES(hsi ${PYTHON_LIBRARIES} ${common_libs})
 IF(WIN32)
     INSTALL(TARGETS ${SWIG_MODULE_hsi_REAL_NAME} DESTINATION ${BINDIR})
     INSTALL(FILES hpi.py DESTINATION ${BINDIR})
-    INSTALL(FILES top_five.py DESTINATION scripts)
     INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/hsi.py DESTINATION ${BINDIR})
-
-
 ELSE()
     # Linux/MacOS
     # install Python related files into folder depending on used Python version
@@ -252,3 +249,5 @@ ELSE()
             )
 
 ENDIF()
+
+ADD_SUBDIRECTORY(plugins)
