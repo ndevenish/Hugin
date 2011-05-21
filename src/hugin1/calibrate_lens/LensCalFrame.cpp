@@ -371,10 +371,10 @@ void LensCalFrame::AddImages(wxArrayString files)
         SetStatusText(wxString::Format(_("Added %s"),image->GetFilename().c_str()));
         if(image->GetPanoImage()->hasEXIFread())
         {
-            XRCCTRL(*this,"lenscal_focallength",wxTextCtrl)->SetLabel( 
+            XRCCTRL(*this,"lenscal_focallength",wxTextCtrl)->SetValue( 
                 hugin_utils::doubleTowxString(image->GetPanoImage()->getExifFocalLength(),2)
                 );
-            XRCCTRL(*this,"lenscal_cropfactor",wxTextCtrl)->SetLabel(
+            XRCCTRL(*this,"lenscal_cropfactor",wxTextCtrl)->SetValue(
                 hugin_utils::doubleTowxString(image->GetPanoImage()->getExifCropFactor(),2)
                 );
         };
