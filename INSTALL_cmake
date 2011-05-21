@@ -58,6 +58,7 @@ LIB_SUFFIX            Specifies suffix used for library paths. For AMD64,
                       Setting to 64 results in: $CMAKE_INSTALL_PREFIX/lib64
 HUGIN_SHARED          set to 0 to disable build shared libraries for internal
                       functions. (Unix and OSX, Windows is always statically linked)
+BUILD_HSI             Set to on to build with Python scripting support         
 
 MAC_SELF_CONTAINED_BUNDLE=1 Configures hugin for a fully bundled version, where
                       all required programs (nona, enblend, HuginStitchProject,
