@@ -263,10 +263,20 @@ void CalculateOptimalROI::nonreccheck(int left,int top,int right,int bottom,int 
         {
             if(flag==0)
             {
+                //check growth in all 4 directions
                 makecheck(left-acc,top,right,bottom);
                 makecheck(left,top,right+acc,bottom);
                 makecheck(left,top-acc,right,bottom);
                 makecheck(left,top,right,bottom+acc);
+                //check if shrinking in one direction will allow more growth in other direction
+                makecheck(left-acc*2,top+acc,right,bottom);
+                makecheck(left-acc*2,top,right,bottom-acc);
+                makecheck(left,top+acc,right+acc*2,bottom);
+                makecheck(left,top,right+acc*2,bottom-acc);
+                makecheck(left+acc,top-acc*2,right,bottom);
+                makecheck(left,top-acc*2,right-acc,bottom);
+                makecheck(left+acc,top,right,bottom+acc*2);
+                makecheck(left,top,right-acc,bottom+acc*2);
 #ifdef USEAREA
                 if(maxvalue<(right-left)*(bottom-top))
 #else
