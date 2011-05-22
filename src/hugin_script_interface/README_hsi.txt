@@ -22,7 +22,7 @@ The Python support is a built time option. You need to activate the Python suppo
 
 You need the follow dependencies to compile Hugin with python scripting support:
 * Python headers and library
-* swig, at least version 2.0 (http://www.swig.org/)
+* swig, at least version 2.0, for Python >=3.2 you need at least version 2.0.4 (http://www.swig.org/)
 For running the scripting interface you need a working Python environment. It should work with Python 2.6, 2.7 and 3.x
 For activate the python support supply set the CMake variable BUILD_HSI to ON. This can be easily done in the CMake GUI or by supply the switch -DBUILD_HSI:BOOL=On on the CMake command line.
 Note that on Unix readymade swig 2.0 packets may install the swig executable named 'swig2.0' in which case cmake may not find it and you have to add something like -DSWIG_EXECUTABLE=/usr/bin/swig2.0 to the cmake command line.
