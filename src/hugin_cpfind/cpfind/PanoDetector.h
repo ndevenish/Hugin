@@ -122,7 +122,7 @@ public:
     inline void setDownscale(bool iDown) { _downscale = iDown; }
 
 	//	inline void setNumberOfKeys(int iNumKeys) { _numKeys = iNumKeys; }
-	inline void setOutputFile(const std::string& outputFile) { _outputFile = outputFile; }
+	inline void setOutputFile(const std::string& outputFile) { _outputFile = outputFile; _outputGiven=true; }
 	inline void setInputFile(const std::string& inputFile) { _inputFile = inputFile; }
     inline void setKeyfilesPath(const std::string& keypath) { _keypath = keypath; }
     inline bool getCached() const { return _cache; }
@@ -188,6 +188,7 @@ private:
 
 	// list of files
 	std::string				_outputFile;
+    bool _outputGiven;
 	std::string				_inputFile;
 
 	// Store panorama information
