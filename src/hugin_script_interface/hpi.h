@@ -1,4 +1,4 @@
-/** @file hpi_.h
+/** @file hpi.h
  *
  *  @brief header to include hpi capability in hpi-using code
  *
@@ -21,19 +21,8 @@
  *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  *  KFJ 2011-01-18
- * 
+ *
  */
-// simplified call interface to the Python Plugin facility.
-// this function expects the following arguments:
-// - the name of the plugin. This must name a python file
-//   which is in PYTHONPATH, without path and extension.
-//   so if your file is ~/mine/plugin.py you pass 'plugin'
-// - the number of arguments. This is the number of arguments
-//   to the plugin, not the number of argument to this function.
-// - for every argument, two more values:
-//   - a string containing the name of the type (this may need
-//     to be fully qualified, like 'HuginBase::Panorama*'
-//   - a void* to the actual hugin object
 
 #if _WINDOWS && defined Hugin_shared
 #ifdef hugin_python_interface_EXPORTS
@@ -45,10 +34,20 @@
 #define hsi_IMPEX
 #endif
 
-namespace hsi {
-
-  hsi_IMPEX extern int callhpi ( const char * plugin_name ,
-	             int argc ,
-	             ... ) ;
+namespace hsi
+{
+/**  simplified call interface to the Python Plugin facility.
+ *   @param plugin_name the name of the plugin. This must name a python file which is in PYTHONPATH, 
+ *       without path and extension. 
+ *   @param argc the number of arguments to the plugin, not the number of argument to this function.
+ *
+ *   for each argument, two more values has to be given:
+ *   - a string containing the name of the type (this may need
+ *     to be fully qualified, like 'HuginBase::Panorama*'
+ *   - a void* to the actual hugin object
+ */
+hsi_IMPEX extern int callhpi ( const char* plugin_name ,
+                               int argc ,
+                               ... ) ;
 
 }

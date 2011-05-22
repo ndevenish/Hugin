@@ -58,6 +58,7 @@ SET(HUGIN_HPI_SOURCES
   hpi.h
   hpi_classes.h
   hpi.cpp
+  hpi_classes.cpp
   "${CMAKE_CURRENT_BINARY_DIR}/swigpyrun.h"
 )
 

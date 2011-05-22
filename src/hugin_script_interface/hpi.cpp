@@ -1,9 +1,17 @@
-/** @file hpi_classes.h
+/** @file hpi.h
  *
  *  @brief C++ call interface to hpi
  *
  *  @author Kay F. Jahnke
  *
+ *  hpi.cpp is the code for the part of hpi that has to be
+ *  linked to any application using the hsi types to enable
+ *  it to call python plugins. This separates the implementation
+ *  of the plugin interface, which is mainly in hpi.h and this file,
+ *  from the user interface, which is in hpi.h and only declares
+ *  callhpi(). Inclusion of hpi.h therefore has no side-effects
+ *  and hpi can be modified without triggering recompiles in
+ *  code using it.
  */
 
 /*  This program is free software; you can redistribute it and/or
@@ -21,99 +29,81 @@
  *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  *  KFJ 2011-01-18
- * 
+ *
  */
-// hpi.cpp is the code for the part of hpi that has to be
-// linked to any application using the hsi types to enable
-// it to call python plugins. This separates the implementation
-// of the plugin interface, which is mainly in hpi.h and this file,
-// from the user interface, which is in hpi.h and only declares
-// callhpi(). Inclusion of hpi.h therefore has no side-effects
-// and hpi can be modified without triggering recompiles in
-// code using it.
 
 // uncomment this if you want diagnostics:
-
 // #define HPI_VERBOSE
 
 // first pull in the Python interface classes
-
 #include "hugin_script_interface/hpi_classes.h"
-
-// this is where we keep the single instance of class python_interface
-
-static python_interface hpi_instance ;
 
 // pull in the declaration of callhpi() to ensure it's consistent
 // with the definition below
-
 #include "hugin_script_interface/hpi.h"
 
 // callhpi() is a variadic function, so we need stdarg.h
 // This is old-fashioned and may become deprecated, but for
 // now it's very convenient.
-
 #include <stdarg.h>
 
-// see hpi.h for explanations of the parameters
-
-namespace hsi {
-  
-int callhpi ( const char * plugin_name ,
-	      int argc ,
-	      ... )
+namespace hsi
 {
-  va_list arglist ;
-  va_start ( arglist , argc ) ;
+/** this is where we keep the single instance of class python_interface */
+static python_interface hpi_instance;
 
-  // activate the python interface if it's not on already
-  
-  if ( ! hpi_instance.activate() )
-  {
-    // trouble
-    fprintf ( stderr , "HPI ERROR: failed to activate Python interface\n" ) ;
-    va_end ( arglist ) ;
-    return -20 ;
-  }
+int callhpi ( const char* plugin_name ,
+              int argc ,
+              ... )
+{
+    va_list arglist ;
+    va_start ( arglist , argc ) ;
 
-  // we want to build a python argument list with argc + 1 arguments,
-  // + 1 because the first argument is the plugin name:
-  
-  python_arglist pyarglist ( argc + 1 ) ;
-  pyarglist.add ( plugin_name ) ;
-  
-  for ( int argno = 0 ; argno < argc ; argno++ )
-  {
-    // extract the type name
-    const char * type_name = va_arg ( arglist , const char * ) ;
-    // extract the pointer to argument object
-    void * pvalue = va_arg ( arglist , void * ) ;
-    // make a python object from this information
-    PyObject * pyarg = pyarglist.make_hsi_object ( type_name , pvalue ) ;
-    // try add it to the arglist
-    if ( ! pyarglist.add ( pyarg ) )
+    // activate the python interface if it's not on already
+    if ( ! hpi_instance.activate() )
     {
-      // oops... this went wrong
-      va_end ( arglist ) ;
-      return -21 ;
+        // trouble
+        fprintf ( stderr , "HPI ERROR: failed to activate Python interface\n" ) ;
+        va_end ( arglist ) ;
+        return -20 ;
     }
-  }
-  va_end ( arglist ) ; // we're done with that
 
-  // seems we're okay. get the argument tuple out
-  PyObject * arg_tuple = pyarglist.yield() ;
-  if ( ! arg_tuple )
-  {
-    // oops... this went wrong
-    return -22 ;
-  }
+    // we want to build a python argument list with argc + 1 arguments,
+    // + 1 because the first argument is the plugin name:
+    python_arglist pyarglist ( argc + 1 ) ;
+    pyarglist.add ( plugin_name ) ;
 
-  // now let's call the thing. This is done by passing the argument
-  // tuple to hpi_dispatch, a Python function defined in hpi.py
-  // this function interprets the first argument as a plugin name
-  // and calls that plugin with the remaining parameters.
-  
-  return hpi_instance.call_hpi ( "hpi_dispatch" , arg_tuple ) ;
+    for ( int argno = 0 ; argno < argc ; argno++ )
+    {
+        // extract the type name
+        const char* type_name = va_arg ( arglist , const char* ) ;
+        // extract the pointer to argument object
+        void* pvalue = va_arg ( arglist , void* ) ;
+        // make a python object from this information
+        PyObject* pyarg = pyarglist.make_hsi_object ( type_name , pvalue ) ;
+        // try add it to the arglist
+        if ( ! pyarglist.add ( pyarg ) )
+        {
+            // oops... this went wrong
+            va_end ( arglist ) ;
+            return -21 ;
+        }
+    }
+    va_end ( arglist ) ; // we're done with that
+
+    // seems we're okay. get the argument tuple out
+    PyObject* arg_tuple = pyarglist.yield() ;
+    if ( ! arg_tuple )
+    {
+        // oops... this went wrong
+        return -22 ;
+    }
+
+    // now let's call the thing. This is done by passing the argument
+    // tuple to hpi_dispatch, a Python function defined in hpi.py
+    // this function interprets the first argument as a plugin name
+    // and calls that plugin with the remaining parameters.
+    return hpi_instance.call_hpi ( "hpi_dispatch" , arg_tuple );
 }
 
 } // namespace hsi
@@ -136,33 +126,35 @@ using namespace AppBase;
 // this function will disappear and the calls will generate
 // from hugin
 
-HuginBase::Panorama * pano_open ( const char * infile )
+HuginBase::Panorama* pano_open ( const char* infile )
 {
     string input ( infile ) ;
 
     ifstream prjfile(input.c_str());
-    
-    if (!prjfile.good()) {
+
+    if (!prjfile.good())
+    {
         fprintf ( stderr ,
-		  "could not open script %s\n" ,
-		  input.c_str() ) ;
+                  "could not open script %s\n" ,
+                  input.c_str() ) ;
         return NULL;
     }
 
-    HuginBase::Panorama * pano = new HuginBase::Panorama ;
+    HuginBase::Panorama* pano = new HuginBase::Panorama ;
 
     pano->setFilePrefix ( getPathPrefix ( input ) );
     AppBase::DocumentData::ReadWriteError err = pano->readData(prjfile);
 
-    if (err != DocumentData::SUCCESSFUL) {
+    if (err != DocumentData::SUCCESSFUL)
+    {
         fprintf ( stderr ,
-		  "%s %s\n%s %d\n" ,
+                  "%s %s\n%s %d\n" ,
                   "error while parsing panos tool script:" ,
-		  input.c_str() ,
-		  "DocumentData::ReadWriteError code:" ,
-		  err ) ;
-	delete pano ;
-	return NULL ;
+                  input.c_str() ,
+                  "DocumentData::ReadWriteError code:" ,
+                  err ) ;
+        delete pano ;
+        return NULL ;
     }
     fprintf ( stderr , "opened pano: %p\n" , pano ) ;
     return pano ;
@@ -172,18 +164,17 @@ HuginBase::Panorama * pano_open ( const char * infile )
 // the Panorama pointer to a function named by argv[2]
 // in the hsi module
 
-int main ( int argc , char * argv[] )
+int main ( int argc , char* argv[] )
 {
-  HuginBase::Panorama * pano = pano_open ( argv[1] ) ;
-  if ( ! pano )
-  {
-    fprintf(stderr, "Failed to open pano\n");
-    return 1;
-  }
+    HuginBase::Panorama* pano = pano_open ( argv[1] ) ;
+    if ( ! pano )
+    {
+        fprintf(stderr, "Failed to open pano\n");
+        return 1;
+    }
 
-  int success = hsi::callhpi ( argv[2] , 1 ,
-			  "HuginBase::Panorama*" , pano ) ;
-  
-  return success ;
+    int success = hsi::callhpi ( argv[2] , 1 , "HuginBase::Panorama*" , pano ) ;
+
+    return success ;
 }
 #endif // standalone
