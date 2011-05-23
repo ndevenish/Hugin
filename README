@@ -62,11 +62,14 @@ Users compiling Hugin from source will need:
     Exiv2 Image metadata library
     GLEW the OpenGL Extension Wrangler Library
     freeglut or glut, the OpenGL utility toolkit
-    libGLU the OpenGL utility library
-    libxi
-    libxmu
     gettext
     optionally, lapack
+    on Unix you need also
+        libGLU the OpenGL utility library
+        libxi
+        libxmu
+    on Windows you need
+        HTML Help Workshop for generating compiled HTML help file    
     for the optional Python Scripting Interface (currently functional and tested only on Linux and Windows)
         Python version >=2.6
         SWIG >=2.0 - If Python >=3.2, SWIG must be >=2.0.4
