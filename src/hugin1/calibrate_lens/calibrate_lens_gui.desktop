@@ -2,7 +2,7 @@
 [Desktop Entry]
 Name=Hugin Calibrate Lens
 Comment=Stitch photographs together
-GenericName=Panorama stitcher
+GenericName=Lens Calibrator
 Categories=Graphics;
 Exec=calibrate_lens_gui
 Icon=hugin
