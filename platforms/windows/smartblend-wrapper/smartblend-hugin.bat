@@ -16,6 +16,8 @@ if not "%arg%"=="" (
 		shift
 	) else if "%arg:~0,2%"=="-f" (
 		echo [smartblend-wrapper] Skipping crop argument: %1
+	) else if "%arg:~0,2%"=="--" (
+		echo [smartblend-wrapper] Skipping argument separator: %1
 	) else if "%arg:~0,2%"=="-o" (
 		echo [smartblend-wrapper] Output file: %2
 		set SMARTBLENDARGS=%SMARTBLENDARGS% -o %2
