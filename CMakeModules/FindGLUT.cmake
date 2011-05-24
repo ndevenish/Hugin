@@ -48,7 +48,7 @@ ELSE (WIN32)
       )
   
     FIND_LIBRARY( GLUT_glut_LIBRARY glut
-      /usr/openwin/lib /usr/lib/x86_64-linux-gnu
+      /usr/openwin/lib ${SYSTEM_LIB_DIRS}
       )
     
     FIND_LIBRARY( GLUT_Xi_LIBRARY Xi
