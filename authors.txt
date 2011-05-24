@@ -9,12 +9,14 @@ Stephen Bennett	show points patch
 Jakub Bogusz	Polish translation
 Luís Henrique Camargo Quiroz	Brazilian translation
 Albert Capellades Badia	original Catalan translation
+Carlos Eduardo G. Carvalho	Original FreeBSD port
 Milo Casagrande	Italian translation
 Vaclav Cerny	Czech translation
 Jean-Luc Coulon	original French translation
 Marco Cucinato	Italian translation
 Antoine Deleforge	GSoC 2010 patent free control point detector
 Ademar de Souza Reis Jr.	original Brazilian translation and translation related fixes
+Vasil Dimov	FreeBSD port maintainer
 Serhij Dubyk	initial Ukrainian translation
 Terry Duell	updated tutorials, Fedora tester and packager
 Alexandre Duret-Lutz	code
