@@ -40,6 +40,9 @@
 \dir hugin_base/huginapp
   (code in this directory does not depends on wxWidgets and should not link against wxWidgets)
 
+\dir hugin_base/lines
+  Contains the code for huginlines - a lib for automatic finding straight lines in images
+  
 \dir hugin_base/makefilelib
   Contains the makefilelib which allows wrapping of makefile generation for GNU make.
   (code in this directory does not depends on wxWidgets and should not link against wxWidgets)
@@ -66,6 +69,9 @@
 \dir hugin1/base_wx
   Contains functions used by different programs libs.
 
+\dir hugin1/calibrate_lens
+  Contains the code for calibrate_lens_gui
+   
 \dir hugin1/hugin
  Contains the code for Hugin GUI.
 
@@ -85,5 +91,6 @@
 
 \dir hugin1/tools_vips
 
-
+\dir hugin_script_interface contains the code for the hugin scripting interface (hsi) 
+     and the hugin python interface (hpi)
 */

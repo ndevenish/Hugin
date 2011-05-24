@@ -46,6 +46,7 @@
                   should not link against wxWidgets)
        - \ref hugin_cpfind  Contains the code of the control point detector
        - \ref lens_calibrate Contains the lens_calibrate lib and program
+       - \ref hugin_script_interface Contains the hugin scripting interface
        - \ref matchpoint  Contains the matchpoint program
        - \ref tools    Contains most of the command line tools
        - translations  Contains the translations
@@ -55,6 +56,7 @@
    -  \ref hugin_base/appbase
    -  \ref hugin_base/hugin_math  Contains different math helper functions.
    -  \ref hugin_base/huginapp
+   -  \ref hugin_base/lines Contains the lib for automatic finding straight lines in images
    -  \ref hugin_base/makefilelib  Contains the makefilelib which allows wrapping of makefile generation for GNU make.
    -  \ref hugin_base/nona
    -  \ref hugin_base/panodata  Contains the main HuginBase::Panorama object and all other base object used by HuginBase::Panorama.
@@ -64,6 +66,7 @@
 
    The hugin1 directory contains the libs and programs which depends on wxWidgets:
    -  \ref hugin1/base_wx  Contains functions used by different programs/libs.
+   -  \ref hugin1/calibrate_lens Contains the code for calibrate_lens_gui
    -  \ref hugin1/hugin Contains the code for Hugin GUI.
    -  \ref hugin1/icpfind  Contains the code for the icpfind lib and command line version.
    -  \ref hugin1/nona_gui  Contains code for nona_gui.

@@ -1,0 +1,48 @@
+namespace hsi
+{
+/** @file README.dox
+
+@page hsihpi Hugin script interface and hugin python interface
+ 
+@section hsi Hugin script interface (hsi)
+
+The hugin script interface (hsi) provides a wrapper for the functions
+and classes in huginbase to Python. So you can use the huginbase 
+functionality inside Python.
+The wrapped function and classes in Python have the same name and
+interface like the C++ classes and function, see \ref hugin_base for
+details about the functions.
+To use it inside Python you need to import it with 
+@code 
+import hsi
+@endcode
+
+@section hpi Hugin Python interface (hpi)
+
+The hugin python interface provides the interface to call Python function
+from inside Hugin GUI.
+The main function is hsi::callhpi, which executes a given python script
+with the given parameters.
+
+@section hsibackground Background
+
+The wrapper are automatically created by Swig (http://www.swig.org/).
+Swig works for most parts of huginbase code. But there are some 
+points to consider. 
+
+#define SWIG - this is only defined when code is processed by SWIG. It's used
+to hide code from SWIG which it can't (yet?) handle.
+
+#define _HSI_IGNORE_SECTION - this is only defined during the separate C-
+preprocessing of certain hugin header files which use a technique
+dubbed 'lazy metaprogramming' which SWIG can't handle. Preprocessing
+'flattens' the files - it pulls in all code that is #included by them.
+Most of the code pulled in this way mustn't be wrapped by SWIG, so it
+is switched off via #ifndef _HSI_IGNORE_SECTION. 
+
+#define HUGIN_HSI - this is defined globally if hsi/hpi capability has been
+switched on. It is used to activate the hsi/hpi related code inside the 
+Hugin GUI.
+
+*/
+}
