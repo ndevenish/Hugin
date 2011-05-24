@@ -29,7 +29,7 @@ include(FindLibraryWithDebug)
 find_library_with_debug(JPEG_LIBRARIES
   WIN32_DEBUG_POSTFIX d
   NAMES jpeg libjpeg wxjpeg
-  PATHS /usr/lib /usr/local/lib ${SOURCE_BASE_DIR}/jpeg-8c/lib ${SOURCE_BASE_DIR}/jpeg-8b/lib ${SOURCE_BASE_DIR}/jpeg-8a/Release ${SOURCE_BASE_DIR}/jpeg-8/Release ${SOURCE_BASE_DIR}/jpeg-8/lib ${wxWidgets_LIB_DIR}
+  PATHS ${SYSTEM_LIB_DIRS} ${SOURCE_BASE_DIR}/jpeg-8c/lib ${SOURCE_BASE_DIR}/jpeg-8b/lib ${SOURCE_BASE_DIR}/jpeg-8a/Release ${SOURCE_BASE_DIR}/jpeg-8/Release ${SOURCE_BASE_DIR}/jpeg-8/lib ${wxWidgets_LIB_DIR}
 )
 
 

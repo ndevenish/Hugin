@@ -22,7 +22,7 @@ FIND_PATH(PANO13_INCLUDE_DIR pano13/panorama.h
 
 FIND_LIBRARY(PANO13_LIBRARIES
   NAMES pano13
-  PATHS /usr/lib /usr/local/lib 
+  PATHS ${SYSTEM_LIB_DIRS} 
         "${PANO13_INCLUDE_DIR}/pano13/Release LIB CMD"
         "${PANO13_INCLUDE_DIR}/pano13/Release CMD/Win32"
         ${PANO13_INCLUDE_DIR}/pano13/Release
@@ -63,7 +63,7 @@ IF(PANO13_FOUND)
   ENDIF(NOT PANO13_FIND_QUIETLY)
   FIND_LIBRARY( PANO13_DEBUG_LIBRARIES
     NAMES Panotools pano13d pano13
-    PATHS /usr/lib /usr/local/lib 
+    PATHS ${SYSTEM_LIB_DIRS}
 	  "${PANO13_INCLUDE_DIR}/pano13/Debug LIB CMD"
 	  "${PANO13_INCLUDE_DIR}/pano13/Debug CMD/Win32"
 	  ${PANO13_INCLUDE_DIR}/pano13/Debug

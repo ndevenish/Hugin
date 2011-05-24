@@ -48,15 +48,15 @@ ELSE (WIN32)
       )
   
     FIND_LIBRARY( GLUT_glut_LIBRARY glut
-      /usr/openwin/lib
+      /usr/openwin/lib /usr/lib/x86_64-linux-gnu
       )
     
     FIND_LIBRARY( GLUT_Xi_LIBRARY Xi
-      /usr/openwin/lib
+      /usr/openwin/lib /usr/lib/x86_64-linux-gnu
       )
     
     FIND_LIBRARY( GLUT_Xmu_LIBRARY Xmu
-      /usr/openwin/lib
+      /usr/openwin/lib /usr/lib/x86_64-linux-gnu
       )
     
   ENDIF (APPLE)

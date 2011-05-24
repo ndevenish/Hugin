@@ -9,24 +9,21 @@
 
 FIND_LIBRARY(LAPACK_LAPACK_LIBRARY
   NAMES lapack
-  PATHS /usr/lib
-        /usr/local/lib
+  PATHS ${SYSTEM_LIB_DIRS}
         ${SOURCE_BASE_DIR}/
         ${SOURCE_BASE_DIR}/lapack
   )
 
 FIND_LIBRARY(LAPACK_BLAS_LIBRARY
   NAMES blas
-  PATHS /usr/lib
-        /usr/local/lib
+  PATHS ${SYSTEM_LIB_DIRS}
         ${SOURCE_BASE_DIR}/
         ${SOURCE_BASE_DIR}/lapack
   )
 
 FIND_LIBRARY(LAPACK_G2C_LIBRARY
   NAMES g2c
-  PATHS /usr/lib
-        /usr/local/lib
+  PATHS ${SYSTEM_LIB_DIRS}
         ${SOURCE_BASE_DIR}/
         ${SOURCE_BASE_DIR}/lapack
   )

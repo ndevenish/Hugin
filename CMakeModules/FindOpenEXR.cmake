@@ -34,8 +34,7 @@ ENDIF (NOT WIN32 OR MINGW)
   FIND_LIBRARY(OPENEXR_HALF_LIBRARY NAMES Half
     PATHS
     ${_OPENEXRLinkDir}
-    /usr/lib
-    /usr/local/lib
+    ${SYSTEM_LIB_DIRS}
     ${SOURCE_BASE_DIR}/Deploy/lib/HuginRelease
     ${SOURCE_BASE_DIR}/Deploy/lib/Release
   )
@@ -44,8 +43,7 @@ ENDIF (NOT WIN32 OR MINGW)
     NAMES Iex
     PATHS
     ${_OPENEXRLinkDir}
-    /usr/lib
-    /usr/local/lib
+    ${SYSTEM_LIB_DIRS}
     ${SOURCE_BASE_DIR}/Deploy/lib/HuginRelease
     ${SOURCE_BASE_DIR}/Deploy/lib/Release
   )
@@ -53,8 +51,7 @@ ENDIF (NOT WIN32 OR MINGW)
   FIND_LIBRARY(OPENEXR_ILMTHREAD_LIBRARY NAMES IlmThread
     PATHS
     ${_OPENEXRLinkDir}
-    /usr/lib
-    /usr/local/lib
+    ${SYSTEM_LIB_DIRS}
     ${SOURCE_BASE_DIR}/Deploy/lib/HuginRelease
     ${SOURCE_BASE_DIR}/Deploy/lib/Release
   )
@@ -62,8 +59,7 @@ ENDIF (NOT WIN32 OR MINGW)
   FIND_LIBRARY(OPENEXR_IMATH_LIBRARY NAMES Imath
     PATHS
     ${_OPENEXRLinkDir}
-    /usr/lib
-    /usr/local/lib
+    ${SYSTEM_LIB_DIRS}
     ${SOURCE_BASE_DIR}/Deploy/lib/HuginRelease
     ${SOURCE_BASE_DIR}/Deploy/lib/Release
   )
@@ -72,8 +68,7 @@ ENDIF (NOT WIN32 OR MINGW)
   FIND_LIBRARY(OPENEXR_ILMIMF_LIBRARY NAMES IlmImf 
     PATHS
     ${_OPENEXRLinkDir}
-    /usr/lib
-    /usr/local/lib
+    ${SYSTEM_LIB_DIRS}
     ${SOURCE_BASE_DIR}/Deploy/lib/HuginRelease
     ${SOURCE_BASE_DIR}/Deploy/lib/Release
   )
@@ -81,8 +76,7 @@ ENDIF (NOT WIN32 OR MINGW)
   FIND_LIBRARY(OPENEXR_HALF_LIBRARY_DEBUG NAMES Half
     PATHS
     ${_OPENEXRLinkDir}
-    /usr/lib
-    /usr/local/lib
+    ${SYSTEM_LIB_DIRS}
     ${SOURCE_BASE_DIR}/Deploy/lib/HuginDebug
     ${SOURCE_BASE_DIR}/Deploy/lib/Debug
   )
@@ -91,8 +85,7 @@ ENDIF (NOT WIN32 OR MINGW)
     NAMES Iex
     PATHS
     ${_OPENEXRLinkDir}
-    /usr/lib
-    /usr/local/lib
+    ${SYSTEM_LIB_DIRS}
     ${SOURCE_BASE_DIR}/Deploy/lib/HuginDebug
     ${SOURCE_BASE_DIR}/Deploy/lib/Debug
   )
@@ -100,8 +93,7 @@ ENDIF (NOT WIN32 OR MINGW)
   FIND_LIBRARY(OPENEXR_ILMTHREAD_LIBRARY_DEBUG NAMES IlmThread
     PATHS
     ${_OPENEXRLinkDir}
-    /usr/lib
-    /usr/local/lib
+    ${SYSTEM_LIB_DIRS}
     ${SOURCE_BASE_DIR}/Deploy/lib/HuginDebug
     ${SOURCE_BASE_DIR}/Deploy/lib/Debug
   )
@@ -109,8 +101,7 @@ ENDIF (NOT WIN32 OR MINGW)
   FIND_LIBRARY(OPENEXR_IMATH_LIBRARY_DEBUG NAMES Imath
     PATHS
     ${_OPENEXRLinkDir}
-    /usr/lib
-    /usr/local/lib
+    ${SYSTEM_LIB_DIRS}
     ${SOURCE_BASE_DIR}/Deploy/lib/HuginDebug
     ${SOURCE_BASE_DIR}/Deploy/lib/Debug
   )
@@ -118,8 +109,7 @@ ENDIF (NOT WIN32 OR MINGW)
   FIND_LIBRARY(OPENEXR_ILMIMF_LIBRARY_DEBUG NAMES IlmImf 
     PATHS
     ${_OPENEXRLinkDir}
-    /usr/lib
-    /usr/local/lib
+    ${SYSTEM_LIB_DIRS}
     ${SOURCE_BASE_DIR}/Deploy/lib/HuginDebug
     ${SOURCE_BASE_DIR}/Deploy/lib/Debug
   )

@@ -32,7 +32,7 @@ IF(WIN32 AND ${HUGIN_SHARED})
 # and the import library libtiff_i for dynamic build
   find_library(TIFF_LIBRARIES
     NAMES libtiff_i
-    PATHS /usr/lib /usr/local/lib
+    PATHS ${SYSTEM_LIB_DIRS}
           ${SOURCE_BASE_DIR}/tiff-4.0.0beta7/libtiff
           ${SOURCE_BASE_DIR}/tiff-4.0.0beta6/libtiff
           ${SOURCE_BASE_DIR}/tiff-4.0.0beta5/libtiff
@@ -41,7 +41,7 @@ ELSE(WIN32 AND ${HUGIN_SHARED})
   find_library_with_debug(TIFF_LIBRARIES
     WIN32_DEBUG_POSTFIX d
     NAMES tiff libtiff wxtiff
-    PATHS /usr/lib /usr/local/lib
+    PATHS ${SYSTEM_LIB_DIRS}
           ${SOURCE_BASE_DIR}/tiff-4.0.0beta7/libtiff
           ${SOURCE_BASE_DIR}/tiff-4.0.0beta6/libtiff
           ${SOURCE_BASE_DIR}/tiff-4.0.0beta5/libtiff
