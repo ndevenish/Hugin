@@ -112,10 +112,13 @@ UIntSet getCPoutsideLimit_pair(Panorama pano, double n)
     return CPtoRemove;
 };
 
-UIntSet getCPoutsideLimit(Panorama pano, double n)
+UIntSet getCPoutsideLimit(Panorama pano, double n,bool skipOptimisation)
 {
     UIntSet CPtoRemove;
-    SmartOptimise::smartOptimize(pano);
+    if(!skipOptimisation)
+    {
+        SmartOptimise::smartOptimize(pano);
+    };
     CPVector allCP=pano.getCtrlPoints();
     //remove all horizontal and vertical CP for calculation of mean and sigma
     CPVector CPxy;
