@@ -72,7 +72,7 @@ ENDIF()
 IF (EXISTS ${PROJECT_SOURCE_DIR}/.hg)
   IF (UPDATE_CHANGELOG)
    FIND_PROGRAM(_hg hg)
-   EXECUTE_PROCESS(COMMAND ${_hg} log --follow --style=changelog
+   EXECUTE_PROCESS(COMMAND ${_hg} log --follow --style ${PROJECT_SOURCE_DIR}/Changelog.style
    WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
    OUTPUT_FILE ${PROJECT_SOURCE_DIR}/ChangeLog)
    MESSAGE("-- New ChangeLog generated")

@@ -1,0 +1,5 @@
+changeset = "{date|isodate}  {author}  ({node|short})  {tags}\n\n\t{desc|strip|fill68|tabindent}\n\n{file_adds}{file_mods}{file_dels}\n"
+file_mod = "\t> {file_mod}\n"
+file_add = "\t+ {file_add}\n"
+file_del = "\t- {file_del}\n"
+
