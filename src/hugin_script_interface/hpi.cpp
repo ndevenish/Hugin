@@ -47,7 +47,7 @@
 // now it's very convenient.
 #include <stdarg.h>
 
-namespace hsi
+namespace hpi
 {
 /** this is where we keep the single instance of class python_interface */
 static python_interface hpi_instance;

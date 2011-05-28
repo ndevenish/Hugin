@@ -698,14 +698,13 @@ void wxApplyTemplateCmd::execute()
 #ifdef HUGIN_HSI
 bool PythonScriptPanoCmd::processPanorama(Panorama& pano)
 {
-    // TODO: add call to python machinery here.
-    std::cout << "TODO: run python script: " << m_scriptFile.c_str() << std::endl;
+    std::cout << "run python script: " << m_scriptFile.c_str() << std::endl;
 
-    int success = hsi::callhpi ( m_scriptFile.c_str() , 1 ,
-		           "HuginBase::Panorama*" , &pano ) ;
+    int success = hpi::callhpi ( m_scriptFile.c_str() , 1 ,
+                   "HuginBase::Panorama*" , &pano ) ;
 
     if(success!=0)
-        wxMessageBox(wxString::Format(wxT("Script return %d"),success),_("Result"), wxICON_INFORMATION);
+        wxMessageBox(wxString::Format(wxT("Script returned %d"),success),_("Result"), wxICON_INFORMATION);
     std::cout << "Python interface returned " << success << endl ;
     // notify other of change in panorama
     if(pano.getNrOfImages()>0)

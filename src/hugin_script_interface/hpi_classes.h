@@ -34,7 +34,7 @@
 #include "swigpyrun.h"         // contains SWIG access
 #include <panodata/Panorama.h>
 
-namespace hsi
+namespace hpi
 {
 /** a class which encapsulates the python interface. It will only function if it's activate()
  *  method is called. Note there is only a single instance of this class;

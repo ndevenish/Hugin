@@ -34,7 +34,7 @@
 #define hsi_IMPEX
 #endif
 
-namespace hsi
+namespace hpi
 {
 /**  simplified call interface to the Python Plugin facility.
  *   @param plugin_name the name of the plugin. This must name a python file which is in PYTHONPATH, 

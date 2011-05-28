@@ -32,7 +32,7 @@
 
 #include "hpi_classes.h"
 
-namespace hsi
+namespace hpi
 {
 
 PyObject* python_interface::load_module ( const char* name )
