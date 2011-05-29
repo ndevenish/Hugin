@@ -8,10 +8,14 @@ endif(COMMAND cmake_policy)
 
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMakeModules )
 
+set(ARCH_TRIPLET)
 if(UNIX)
   FIND_PROGRAM(DPKG_ARCHITECTURE_EXECUTABLE dpkg-architecture)
   if(DPKG_ARCHITECTURE_EXECUTABLE)
-    EXECUTE_PROCESS(COMMAND dpkg-architecture -qDEB_HOST_MULTIARCH OUTPUT_VARIABLE ARCH_TRIPLET OUTPUT_STRIP_TRAILING_WHITESPACE)
+    EXECUTE_PROCESS(COMMAND dpkg-architecture -qDEB_HOST_MULTIARCH
+      OUTPUT_VARIABLE ARCH_TRIPLET
+      ERROR_VARIABLE ERROR_ARCH_TRIPLET
+      OUTPUT_STRIP_TRAILING_WHITESPACE)
   endif()
 endif()
 if(ARCH_TRIPLET)
@@ -573,9 +577,10 @@ SET(CPACK_SOURCE_IGNORE_FILES
 "Makefile\\\\.in$"
 "/\\\\.hg/"
  )
-SET(CPACK_DEBIAN_PACKAGE_DEPENDS "libpano13(>=2.9.17)")
-# one day we'll get these to work right
-#SET(CPACK_DEBIAN_PACKAGE_DEPENDS "libpano13(>=2.9.17), libpost2c2, libglew(>=1.5), freeglut3, libboost-filesystem(>=1.38.0), liblcms1, libopenexr6, libtiff4")
+
+# Use dpkg-shlibdeps to get the needed dependences
+SET(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
+
 SET(CPACK_DEBIAN_PACKAGE_CONTROL_EXTRA "${CMAKE_CURRENT_SOURCE_DIR}/Debian/postinst")
 INCLUDE(CPack)
 
