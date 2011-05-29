@@ -1,0 +1,180 @@
+Hugin-2011.0.0 RELEASE NOTES
+
+ABOUT
+
+Hugin is more than just a panorama stitcher.  A new version is available.
+
+Hugin can be found at
+* SourceForge:  http://hugin.sourceforge.net/
+* Launchpad:    https://launchpad.net/hugin
+
+
+DOWNLOAD
+
+The 2011.0.0 source tarball can be downloaded
+
+* from SourceForge at
+http://sourceforge.net/projects/hugin/files/hugin/hugin-2011.0/hugin-2011.0.0.tar.bz2/download
+
+* from Launchpad at
+http://launchpad.net/hugin/2011.0/2011.0.0/+download/hugin-2011.0.0.tar.bz2
+
+This is a source code release.  For executables see below.
+
+This tarball is equivalent to rev/changeset 5243:67a96ebdac74 in our Mercurial
+repository, where it is also tagged 2011.0.0
+
+Verify its SHA1SUM
+22e1ad3846291a9bbe58570683e213921a6f0116  hugin-2011.0.0.tar.bz2
+
+
+EXECUTABLES
+
+Users communities produce executables for their respective platforms.
+
+These executables are then added to the download section on SourceForge at
+http://sourceforge.net/projects/hugin/files/hugin/
+
+A number of users have built recent snapshots and executables are likely to be
+announced within a few days of this tarball release.
+
+Watch http://groups.google.com/group/hugin-ptx for the announcements of binary
+releases.  If you don't see a binary for your platform it has most likely not
+been produced yet.  Consider stepping up to the task.  Instructions at
+
+http://wiki.panotools.org/Development_of_Open_Source_tools#Supported_Platforms
+
+Announce your build on http://groups.google.com/group/hugin-ptx
+
+
+SPLASH SCREEN
+
+To promote artists using Hugin the project has adopted a user-contributed
+artwork to enrich the splash screen of this release.
+
+Read more about the Seattle Sunset panorama and author/contributor Jeff Boyd at
+http://hugin.sourceforge.net/releases/2011.0.0/
+
+
+TRANSLATIONS
+
+Many translations have been updated for this release.
+
+
+CHANGES SINCE 2010.4.0
+
+Despite some known issues (see section KNOWN ISSUES below) this release brings
+many major new features worth releasing now.  Hugin's own control point
+generator CPFind has been significantly improved;  the last project from the
+2010 Google Summer of Code has been integrated;  many general improvements
+have been made.
+
+
+_Improved Built-in Control Points Generator_
+
+CPFind's detection ability has been significantly improved, especially for
+wide angle (> FOV 65°) images, fisheye images, and rotated images.  Anecdotal
+evidence shows it to be more accurate than any other CP detector ever used
+with Hugin.  A thorough, scientific comparison against other CP detectors
+is welcome.  If you have well formed comparison results, please publish a link
+on the Hugin mailing list at http://groups.google.com/group/hugin-ptx/
+
+
+_Improved Fast Preview_
+
+An Overview pane has been added to the Fast Preview window.  Users can now
+interact with the panosphere like in a virtual reality viewer in real time
+and visualize all areas of the panorama with little distortion, including
+the zenith and nadir that are typically excessively distorted in the flat
+preview.
+
+It is now possible to drag individual images or arbitrary groups of images
+on the panosphere in the fast preview.
+
+A new gray point picker has been added for visual white balance correction.
+
+
+_Registration of Stereo Images_
+
+align_image_stack is commonly used for the alignment of slightly misaligned
+images, e.g. for creating a High Dynamic Range image  from multiple exposures
+when the camera was hand held.
+
+It has been extended with additional functionality for the registration of
+stereo images.
+
+
+_Other Improvements_
+
+* Man pages are now compressed and the generation is integrated in the CMake
+  process (Linux).
+* New Thoby projection modeling 10.5mm Nikkor fisheye lens.
+* Improved support for some keyboard shortcuts.
+* New Preferences: output file format (LDR only).
+* This release has the usual bugfixes and adds minor features.
+
+
+_Libraries and Build_
+
+* CMake 2.8 or newer is now required
+* Support has been added for gcc-4.6 compiler
+* Libpano13 needs to be at least 2.9.18
+
+
+CONTROL POINTS GENERATORS
+
+Since 2010.4 Hugin ships with its own 'Patent Free' control point generator.
+Third-party generators are still supported through the plug-in architecture.
+CPFind is the recommended control point generator and the only one endorsed
+by the Hugin project team.
+
+
+UPGRADING
+
+Upgrading from previous versions of Hugin should be seamless. If you do have
+problems with old settings, these can be reset in the Preferences by clicking
+'Load defaults'.
+
+It is strongly recommended to set the default control point detector to
+Hugin's CPFind.
+
+
+COMPILING
+
+Users compiling from source refer to the dependencies listed at
+http://wiki.panotools.org/Development_of_Open_Source_tools#Dependencies
+
+and the build processes listed at
+http://wiki.panotools.org/Development_of_Open_Source_tools#Build_your_Own_Test_Builds
+
+More information in the README and INSTALL_cmake files in the tarball.
+
+
+KNOWN ISSUES AND WORKAROUNDS
+
+On some versions of OSX, Hugin can't stitch the project.  Workaround:
+1. Save the project file in Hugin
+2. Open the project file in PTBatcherGUI (File / Add Project / select .pto file)
+3. Click the run button to stitch.
+details at https://bugs.launchpad.net/hugin/+bug/697039
+
+
+Plane overview is wrong if opening fast preview window the first time
+https://bugs.launchpad.net/hugin/+bug/726183
+
+
+Panosphere Overview window seperated from the content
+https://bugs.launchpad.net/hugin/+bug/726997
+
+
+An updated list of issues deemed to be critical, including discussions
+and workarounds is in the issue tracker.
+https://bugs.launchpad.net/hugin/+bugs?search=Search&field.importance=Critical
+
+
+THANKS
+
+Thanks to all the contributors to this release and members of the hugin-ptx
+mailing list, too many to mention here.
+
+Hugin can be found at http://hugin.sourceforge.net/ and at https://launchpad.net/hugin
