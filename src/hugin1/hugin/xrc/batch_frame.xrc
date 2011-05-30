@@ -114,8 +114,6 @@
     </object>
   </object>
   <object class="wxDialog" name="find_pano_dialog">
-    <title>Searching panoramas</title>
-    <style>wxDEFAULT_DIALOG_STYLE|wxSYSTEM_MENU|wxRESIZE_BORDER|wxCLOSE_BOX</style>
     <object class="wxBoxSizer">
       <orient>wxVERTICAL</orient>
       <object class="sizeritem">
@@ -175,6 +173,21 @@
                           <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
                           <cellpos>2,1</cellpos>
                         </object>
+                        <object class="sizeritem">
+                          <object class="wxStaticText">
+                            <label>Stacks:</label>
+                          </object>
+                          <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          <cellpos>3,0</cellpos>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxCheckBox" name="find_pano_create_links">
+                            <label>Create links</label>
+                            <tooltip>Check if the stacks were shoot on a tripod.</tooltip>
+                          </object>
+                          <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                          <cellpos>3,1</cellpos>
+                        </object>
                         <vgap>6</vgap>
                         <hgap>12</hgap>
                         <growablecols>1</growablecols>
@@ -200,7 +213,7 @@
                 </object>
                 <object class="sizeritem">
                   <object class="wxStaticText" name="find_pano_label">
-                    <label></label>
+                    <label/>
                   </object>
                   <flag>wxALL|wxEXPAND</flag>
                 </object>
@@ -276,9 +289,10 @@
         <border>6</border>
       </object>
     </object>
+    <title>Searching panoramas</title>
+    <style>wxDEFAULT_DIALOG_STYLE|wxSYSTEM_MENU|wxRESIZE_BORDER|wxCLOSE_BOX</style>
   </object>
   <object class="wxDialog" name="failed_project_dialog">
-    <title>Status report</title>
     <object class="wxBoxSizer">
       <orient>wxVERTICAL</orient>
       <object class="sizeritem">
@@ -339,6 +353,7 @@
         <border>6</border>
       </object>
     </object>
+    <title>Status report</title>
     <style>wxDEFAULT_DIALOG_STYLE|wxSYSTEM_MENU|wxRESIZE_BORDER|wxCLOSE_BOX</style>
   </object>
 </resource>

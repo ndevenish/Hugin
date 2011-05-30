@@ -369,6 +369,12 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, double & 
     
     //remember aperture for later
     setExifAperture(photoFNumber);
+    
+    //read exposure mode
+    long exposureMode=0;
+    getExiv2Value(exifData,"Exif.Photo.ExposureMode",exposureMode);
+    setExifExposureMode((int)exposureMode);
+
     //if no F-number was found in EXIF data assume a f stop of 3.5 to get
     //a reasonable ev value if shutter time, e. g. for manual lenses is found
     if(photoFNumber==0)

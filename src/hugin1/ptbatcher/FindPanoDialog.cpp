@@ -67,7 +67,8 @@ FindPanoDialog::FindPanoDialog(BatchFrame *batchframe, wxString xrcPrefix)
     m_cb_subdir=XRCCTRL(*this,"find_pano_subdir",wxCheckBox);
     m_statustext=XRCCTRL(*this,"find_pano_label",wxStaticText);
     m_list_pano=XRCCTRL(*this,"find_pano_list",wxCheckListBox);
-    m_cb_naming=XRCCTRL(*this,"find_pano_naming",wxChoice);
+    m_ch_naming=XRCCTRL(*this,"find_pano_naming",wxChoice);
+    m_cb_createLinks=XRCCTRL(*this,"find_pano_create_links",wxCheckBox);
 
     //set parameters
     wxConfigBase * config = wxConfigBase::Get();
@@ -78,7 +79,7 @@ FindPanoDialog::FindPanoDialog(BatchFrame *batchframe, wxString xrcPrefix)
     if (maximized)
     {
         this->Maximize();
-	}
+    }
     else
     {
         //size
@@ -111,7 +112,9 @@ FindPanoDialog::FindPanoDialog(BatchFrame *batchframe, wxString xrcPrefix)
     config->Read(wxT("/FindPanoDialog/includeSubDirs"),&val,false);
     m_cb_subdir->SetValue(val);
     long i=config->Read(wxT("/FindPanoDialog/Naming"),0l);
-    m_cb_naming->SetSelection(i);
+    m_ch_naming->SetSelection(i);
+    config->Read(wxT("/FindPanoDialog/linkStacks"),&val,true);
+    m_cb_createLinks->SetValue(val);
     m_button_send->Disable();
 };
 
@@ -134,7 +137,8 @@ FindPanoDialog::~FindPanoDialog()
     };
     config->Write(wxT("/FindPanoDialog/actualPath"),m_textctrl_dir->GetValue());
     config->Write(wxT("/FindPanoDialog/includeSubDirs"),m_cb_subdir->GetValue());
-    config->Write(wxT("/FindPanoDialog/Naming"),m_cb_naming->GetSelection());
+    config->Write(wxT("/FindPanoDialog/Naming"),m_ch_naming->GetSelection());
+    config->Write(wxT("/FindPanoDialog/linkStacks"),m_cb_createLinks->GetValue());
     CleanUpPanolist();
 };
 
@@ -245,11 +249,12 @@ void FindPanoDialog::OnButtonSend(wxCommandEvent &e)
         return;
     }
     bool failed=false;
+    bool createLinks=m_cb_createLinks->GetValue();
     for(unsigned int i=0;i<m_list_pano->GetCount();i++)
     {
         if(m_list_pano->IsChecked(i))
         {
-            wxString filename=m_panos[i]->GeneratePanorama((PossiblePano::NamingConvention)(m_cb_naming->GetSelection()));
+            wxString filename=m_panos[i]->GeneratePanorama((PossiblePano::NamingConvention)(m_ch_naming->GetSelection()),createLinks);
             if(!filename.IsEmpty())
             {
                 m_batchframe->AddToList(filename,Project::DETECTING);
@@ -272,7 +277,8 @@ void FindPanoDialog::EnableButtons(const bool state)
     m_textctrl_dir->Enable(state);
     m_button_choose->Enable(state);
     m_cb_subdir->Enable(state);
-    m_cb_naming->Enable(state);
+    m_ch_naming->Enable(state);
+    m_cb_createLinks->Enable(state);
     m_button_close->Enable(state);
     m_button_send->Enable(state);
 };
@@ -409,6 +415,65 @@ bool PossiblePano::BelongsTo(SrcPanoImage *img, const wxTimeSpan max_time_diff)
     return true;
 };
 
+double PossiblePano::GetMaxExposureDifference()
+{
+    if(m_images.empty())
+        return 0;
+    double minEv=1000;
+    double maxEv=-1000;
+    for(ImageSet::const_iterator it=m_images.begin();it!=m_images.end();it++)
+    {
+        double ev=(*it)->getExposureValue();
+        minEv=std::min(minEv,ev);
+        maxEv=std::max(maxEv,ev);
+    };
+    return maxEv-minEv;
+};
+
+bool PossiblePano::IsStacked()
+{
+    if(m_images.empty())
+        return false;
+    // this algorithm is based on panostart by Bruno Postle
+    // bracketed pano has at least a dynamic range of 1.2 ev values (corresponds to bracket with +-2/3)
+    if(GetMaxExposureDifference()<1.2)
+        return false;
+    //if image is shooted in auto exposure mode then it is not a bracket pano
+    if((*m_images.begin())->getExifExposureMode()==0)
+        return false;
+    //now collect all unique exposure values
+    std::set<int> evValues;
+    for(ImageSet::const_iterator it=m_images.begin();it!=m_images.end();it++)
+    {
+        //we multiply with 10 to don't get fooled by rounded double values
+        evValues.insert(int((*it)->getExposureValue()*10));
+    };
+    //if there is only one unique exposure value then there are no stacks
+    if(evValues.size()<2)
+        return false;
+    //if number of unique exposure values is equal the number of images then there are no stacks
+    if(evValues.size()==m_images.size())
+        return false;
+    //if number of images is not a multiple of number of unique exposure values 
+    //then the stacks are incomplete, skipping
+    if(m_images.size() % evValues.size()!=0)
+        return false;
+    //check if exposure value is repeated with step size of bracket size
+    ImageSet::const_iterator it=m_images.begin();
+    for(unsigned int i=0;i<evValues.size();i++)
+    {
+        it++;
+    };
+    if(abs((*m_images.begin())->getExposureValue()-(*it)->getExposureValue())<0.1)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    };
+};
+
 const wxDateTime PossiblePano::GetDateTime(const SrcPanoImage* img)
 {
     struct tm exifdatetime;
@@ -531,7 +596,7 @@ bool PossiblePano::GetNewProjectFilename(NamingConvention nc,const wxString base
     return true;
 };
 
-wxString PossiblePano::GeneratePanorama(NamingConvention nc)
+wxString PossiblePano::GeneratePanorama(NamingConvention nc,bool createLinks)
 {
     if(m_images.size()==0)
     {
@@ -568,6 +633,30 @@ wxString PossiblePano::GeneratePanorama(NamingConvention nc)
             img.setWhiteBalanceRed(1);
             img.setWhiteBalanceBlue(1);
             pano.setSrcImage(i, img);
+        };
+    };
+    if(IsStacked())
+    {
+        //if it is a stacked pano, create the stacks and link position if desired
+        unsigned int imgNr=0;
+        double ev=pano.getImage(imgNr).getExposureValue();
+        for(unsigned int i=1;i<pano.getNrOfImages();i++)
+        {
+            if(abs(pano.getImage(i).getExposureValue()-ev)<0.1)
+            {
+                imgNr=i;
+                ev=pano.getImage(imgNr).getExposureValue();
+            }
+            else
+            {
+                pano.linkImageVariableStack(imgNr,i);
+                if(createLinks)
+                {
+                    pano.linkImageVariableYaw(imgNr,i);
+                    pano.linkImageVariablePitch(imgNr,i);
+                    pano.linkImageVariableRoll(imgNr,i);
+                };
+            };
         };
     };
     //set default exposure value

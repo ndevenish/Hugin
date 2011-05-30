@@ -56,8 +56,8 @@ public:
     ~FindPanoDialog();
 
 protected:
-	/** closes window */
-	void OnButtonClose(wxCommandEvent & e);
+    /** closes window */
+    void OnButtonClose(wxCommandEvent & e);
     /** select directory with dialog */
     void OnButtonChoose(wxCommandEvent & e);
     /** start/stops detections */
@@ -77,7 +77,8 @@ private:
     wxCheckBox *m_cb_subdir;
     wxStaticText *m_statustext;
     wxCheckListBox *m_list_pano;
-    wxChoice *m_cb_naming;
+    wxChoice *m_ch_naming;
+    wxCheckBox *m_cb_createLinks;
 
     std::vector<PossiblePano*> m_panos;
     wxString m_start_dir;
@@ -123,13 +124,17 @@ class PossiblePano
         const wxString GetFilestring(const wxString BasePath, const bool stripExtension=false) const;
         /** generates the panorama file from this set of images 
           * @return the generated project file, or wxEmptyString if generation failed */
-        wxString GeneratePanorama(NamingConvention nc);
+        wxString GeneratePanorama(NamingConvention nc, bool createLinks);
 
     private:
         /** does some reformating date/time format */
         const wxDateTime GetDateTime(const SrcPanoImage* img);
         /** returns a given filename, which does not already exists */
         bool GetNewProjectFilename(NamingConvention nc,const wxString basePath, wxFileName &projectFile);
+        /** checks if the panorama contains stacks */
+        bool IsStacked();
+        /** calculates the ev difference between darkest and brightest image */
+        double GetMaxExposureDifference();
 
         std::string m_make;
         std::string m_camera;
