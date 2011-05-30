@@ -21,7 +21,7 @@ import hsi
 
 The hugin python interface provides the interface to call Python function
 from inside Hugin GUI.
-The main function is hsi::callhpi, which executes a given python script
+The main function is hpi::callhpi, which executes a given python script
 with the given parameters.
 
 @section hsibackground Background
