@@ -1,23 +1,20 @@
-# Translation of hugin 2010.02 into Russian
+# Translation of hugin 2011.0 into Russian
 # This file is distributed under the same license as the Hugin package.
-# Copyright (C) 2010 Pablo dAngelo.
-#
-# Alexandre Prokoudine <alexandre.prokoudine@gmail.com>, 2005-2010
-# Александр Прокудин <alexandre.prokoudine@gmail.com>, 2010.
+# Copyright (C) 2011 Pablo dAngelo.
+# Александр Прокудин <alexandre.prokoudine@gmail.com>, 2005-2011, 2011.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Hugin 2010.4.0\n"
+"Project-Id-Version: Hugin 2011.0.0\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2011-02-27 08:45-0500\n"
-"PO-Revision-Date: 2010-12-22 12:10+0300\n"
+"PO-Revision-Date: 2011-04-16 16:27+0400\n"
 "Last-Translator: Александр Прокудин <alexandre.prokoudine@gmail.com>\n"
 "Language-Team: Russian <gnome-cyr@lists.gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: UTF-8\n"
-"X-Generator: KBabel 1.11.2\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2); 10<=4 && (n%100<10 || n%"
 "100>=20) ? 1 : 2);\n"
@@ -185,13 +182,13 @@ msgid ""
 "Error while stitching project\n"
 "%s"
 msgstr ""
-"Ошибка при сшивке проекта\n"
+"Ошибка при сборке проекта\n"
 "%s"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:282 hugin1/base_wx/RunStitchPanel.cpp:288
 #: hugin1/stitch_project/hugin_stitch_project.cpp:175
 msgid "Error during stitching"
-msgstr "Во время сшивки произошла ошибка"
+msgstr "Во время сборки произошла ошибка"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:359
 #, fuzzy, c-format
@@ -254,14 +251,14 @@ msgstr ""
 "Нажмите кнопку «Загрузить снимки» для добавления исходных снимков панорамы"
 
 #: hugin1/hugin/AssistantPanel.cpp:253
-#, fuzzy, c-format
+#, c-format
 msgid "%lu images loaded."
-msgstr "Загружено %d снимков."
+msgstr "Загружено %lu снимков."
 
 #: hugin1/hugin/AssistantPanel.cpp:290
-#, fuzzy, c-format
+#, c-format
 msgid "Images are connected by %lu control points.\n"
-msgstr "Снимки связаны %d контрольными точками.\n"
+msgstr "Снимки связаны %lu контрольными точками.\n"
 
 #: hugin1/hugin/AssistantPanel.cpp:299
 #, c-format
@@ -735,7 +732,7 @@ msgstr "Перетащите для смены горизонтального п
 
 #: hugin1/hugin/GLPreviewFrame.cpp:478
 msgid "Panosphere"
-msgstr ""
+msgstr "Паносфера"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:479
 #, fuzzy
@@ -903,7 +900,7 @@ msgstr ""
 
 #: hugin1/hugin/GLPreviewFrame.cpp:2485
 msgid " You could also try Panini projection."
-msgstr ""
+msgstr " Вы можете попробовать и проекцию Панини."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:2490
 msgid ""
@@ -950,7 +947,6 @@ msgid ""
 msgstr ""
 
 #: hugin1/hugin/GLViewer.cpp:151
-#, fuzzy
 msgid ""
 "Error initializing GLEW\n"
 "Fast preview window can not be opened."
@@ -1673,9 +1669,8 @@ msgid ""
 msgstr ""
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:533
-#, fuzzy
 msgid "Exposure optimization"
-msgstr "Фотометрическая оптимизация"
+msgstr "Оптимизация экспозиции"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:545
 msgid ""
@@ -1873,7 +1868,7 @@ msgstr "Всё равно собрать"
 
 #: hugin1/hugin/PanoPanel.cpp:1347
 msgid "Let me fix that"
-msgstr ""
+msgstr "Давайте исправим"
 
 #: hugin1/hugin/PanoPanel.cpp:1364
 #, c-format
@@ -2127,7 +2122,7 @@ msgstr "Щелкните соединяющую линию для редакти
 
 #: hugin1/hugin/PreviewPanel.cpp:500
 msgid "Error during Stitching"
-msgstr "Во время сшивки произошла ошибка"
+msgstr "Во время сборки произошла ошибка"
 
 #: hugin1/hugin/wxPanoCommand.cpp:194
 #, c-format
@@ -2280,9 +2275,9 @@ msgstr "Поиск контрольных точек"
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:557
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:624
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:717
-#, fuzzy, c-format
+#, c-format
 msgid "Could not execute command: %s"
-msgstr "Не удалось выполнить команду: "
+msgstr "Не удалось выполнить команду: %s"
 
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:464
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:563
@@ -2299,7 +2294,7 @@ msgstr ""
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:470
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:637
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:728
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Could not open %s for reading\n"
 "This is an indicator that the control point detector call failed,\n"
@@ -2307,11 +2302,12 @@ msgid ""
 "\n"
 "Executed command: %s"
 msgstr ""
-" для чтения. Это говорит о том, что не удался вызов \n"
-"программы автопанорамирования, либо были \n"
+"Не удалось открыть %s для чтения. \n"
+"Это говорит о том, что не удался вызов программы\n"
+"определения контрольных точек, либо были \n"
 "использованы некорректные параметры\n"
 "\n"
-"Команда автопанорамирования: "
+"Выполнявшаяся команда: %s"
 
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:471
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:638
@@ -2397,15 +2393,14 @@ msgid ""
 "Do you want to cancel it?"
 msgstr ""
 "Невозможно очистить список проектов\n"
-"во время пакетной сшивки.\n"
-"Вы хотите отменить сшивку?"
+"во время пакетной сборки.\n"
+"Вы хотите отменить сборку?"
 
 #: hugin1/ptbatcher/Batch.cpp:246 hugin1/ptbatcher/BatchFrame.cpp:594
 #: hugin1/ptbatcher/BatchFrame.cpp:647 hugin1/ptbatcher/BatchFrame.cpp:680
 #: hugin1/ptbatcher/BatchFrame.cpp:714 hugin1/ptbatcher/BatchFrame.cpp:741
-#, fuzzy
 msgid "PTBatcherGUI"
-msgstr "PTStitcher"
+msgstr "PTBatcherGUI"
 
 #: hugin1/ptbatcher/Batch.cpp:260 hugin1/ptbatcher/Batch.cpp:281
 msgid "Cleared batch."
@@ -2457,9 +2452,9 @@ msgid "%s - Stitching"
 msgstr "%s — Сборка"
 
 #: hugin1/ptbatcher/Batch.cpp:711
-#, fuzzy, c-format
+#, c-format
 msgid "%s - Assistant"
-msgstr "Ассистент"
+msgstr "%s — Ассистент"
 
 #: hugin1/ptbatcher/Batch.cpp:761
 #, c-format
@@ -2628,7 +2623,7 @@ msgstr "Вопрос"
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:196
 msgid "Accepted"
-msgstr ""
+msgstr "Принято"
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:206
 msgid ""
@@ -2647,6 +2642,8 @@ msgid ""
 "Directory %s does not exist.\n"
 "Please give an existing directory."
 msgstr ""
+"Каталог %s не существует.\n"
+"Укажите существующий каталог."
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:244
 msgid ""
@@ -2660,6 +2657,9 @@ msgid ""
 "Maybe you have no write permission for these directories or your hard disc "
 "is full."
 msgstr ""
+"Не удалось успешно записать все проектные файлы.\n"
+"Возможно, у вас нет прав на запись в эти каталоги,\n"
+"либо закончилось пространство на жёстком диске."
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:289
 #, c-format
@@ -2671,14 +2671,13 @@ msgid "Start"
 msgstr "Запустить"
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:374
-#, fuzzy, c-format
+#, c-format
 msgid "Found %d possible panoramas."
-msgstr "Сначала Enfuse, потом Enblend"
+msgstr "Найдено возможных панорам: %d"
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:378
-#, fuzzy
 msgid "No possible panoramas found."
-msgstr "Схожей точки не найдено"
+msgstr "Возможных панорам не найдено."
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:479
 #, fuzzy, c-format
@@ -2767,11 +2766,10 @@ msgid ""
 "HuginStitchProject. Application to stitch hugin project files.\n"
 " Version: %s"
 msgstr ""
-"HuginStitchProject. Программа для сшивки проектных файлов Hugin.\n"
+"HuginStitchProject. Программа для сборки проектных файлов Hugin.\n"
 "Версия: %s"
 
 #: hugin1/stitch_project/hugin_stitch_project.cpp:174
-#, fuzzy
 msgid ""
 "Error during stitching\n"
 "Please report the complete text to the bug tracker on https://bugs.launchpad."
@@ -2779,14 +2777,15 @@ msgid ""
 "\n"
 "Do you want to save the log file?"
 msgstr ""
-"Ошибка при сшивке\n"
-"Переправьте полный текст сообщения в трекер ошибок по адресу http://sf.net/"
-"projects/hugin."
+"Ошибка при сборке.\n"
+"Переправьте полный текст сообщения в трекер ошибок\n"
+"по адресу https://bugs.launchpad.net/hugin.\n"
+"\n"
+"Вы хотите сохранить файл журнала?"
 
 #: hugin1/stitch_project/hugin_stitch_project.cpp:179
-#, fuzzy
 msgid "Specify log file"
-msgstr "Укажите имя конечного файла"
+msgstr "Укажите файл журнала"
 
 #: hugin1/stitch_project/hugin_stitch_project.cpp:181
 msgid "Log files (*.log)|*.log|All files (*)|*"
@@ -2822,14 +2821,12 @@ msgid "License"
 msgstr "Лицензия"
 
 #: translations/xrc.cpp:8 xrc.cpp:8
-#, fuzzy
 msgid "System"
-msgstr "Системный"
+msgstr "Система"
 
 #: translations/xrc.cpp:9 xrc.cpp:9
-#, fuzzy
 msgid "Dedication"
-msgstr "Добавить приложение"
+msgstr "Посвящение"
 
 #: translations/xrc.cpp:10 translations/xrc.cpp:33 translations/xrc.cpp:147
 #: translations/xrc.cpp:440 translations/xrc.cpp:510 translations/xrc.cpp:514
@@ -2889,7 +2886,7 @@ msgstr ""
 
 #: translations/xrc.cpp:22 xrc.cpp:22
 msgid "Send to assistant queue"
-msgstr ""
+msgstr "Отправить в очередь ассистента"
 
 #: translations/xrc.cpp:23 xrc.cpp:23
 msgid "3. Create panorama..."
@@ -2922,7 +2919,7 @@ msgstr "градусов"
 
 #: translations/xrc.cpp:35 xrc.cpp:35
 msgid "Batch Processor"
-msgstr "Пакетный сшивальщик панорам"
+msgstr "Пакетная сборка панорам"
 
 #: translations/xrc.cpp:36 xrc.cpp:36
 msgid "Add application"
@@ -2999,7 +2996,7 @@ msgstr "Выберите..."
 
 #: translations/xrc.cpp:53 xrc.cpp:53
 msgid "include sub-directories"
-msgstr ""
+msgstr "включая вложенные каталоги"
 
 #: translations/xrc.cpp:54 xrc.cpp:54
 msgid "Naming:"
@@ -3020,14 +3017,12 @@ msgid "Foldername.pto"
 msgstr "Имя файла"
 
 #: translations/xrc.cpp:59 xrc.cpp:59
-#, fuzzy
 msgid "Found panoramas"
 msgstr "Найдены панорамы"
 
 #: translations/xrc.cpp:60 xrc.cpp:60
-#, fuzzy
 msgid "Send selected panoramas to queue"
-msgstr "Совмещенная панорама (enfuse)"
+msgstr "Отправить выбранные панорамы в очередь"
 
 #: translations/xrc.cpp:61 translations/xrc.cpp:778 xrc.cpp:61 xrc.cpp:778
 msgid "Close"
@@ -3112,7 +3107,7 @@ msgstr "Очистить очередь"
 
 #: translations/xrc.cpp:82 translations/xrc.cpp:89 xrc.cpp:82 xrc.cpp:89
 msgid "Clears the batch list"
-msgstr "Очистить очередь сшиваемых панорам"
+msgstr "Очистить очередь собираемых панорам"
 
 #: translations/xrc.cpp:83 translations/xrc.cpp:322 xrc.cpp:83 xrc.cpp:322
 msgid "&Quit"
@@ -3124,11 +3119,11 @@ msgstr "Завершить работу с программой"
 
 #: translations/xrc.cpp:86 xrc.cpp:86
 msgid "Batch Stitcher help"
-msgstr "Справка по пакетной сшивке"
+msgstr "Справка по пакетной сборке"
 
 #: translations/xrc.cpp:87 xrc.cpp:87
 msgid "Open Batch Stitcher help."
-msgstr "Открыть справку по программе для пакетной сшивки панорам"
+msgstr "Открыть справку по программе для пакетной сборки панорам"
 
 #: translations/xrc.cpp:90 xrc.cpp:90
 msgid "clear"
@@ -3144,7 +3139,7 @@ msgstr "Сохранить"
 
 #: translations/xrc.cpp:97 xrc.cpp:97
 msgid "Start batch"
-msgstr "Начать пакетную сшивку"
+msgstr "Начать пакетную сборку"
 
 #: translations/xrc.cpp:98 xrc.cpp:98
 msgid "Starts batch execution"
@@ -3172,7 +3167,7 @@ msgstr "Приостановить выполнение задачи"
 
 #: translations/xrc.cpp:104 xrc.cpp:104
 msgid "Pauses batch execution"
-msgstr "Приостановить выполнение сшивки панорамы"
+msgstr "Приостановить выполнение сборки панорамы"
 
 #: translations/xrc.cpp:105 xrc.cpp:105
 msgid "pause"
@@ -3180,11 +3175,11 @@ msgstr "Пауза"
 
 #: translations/xrc.cpp:106 xrc.cpp:106
 msgid "Cancel batch"
-msgstr "Отменить пакетную сшивку"
+msgstr "Отменить пакетную сборку"
 
 #: translations/xrc.cpp:107 xrc.cpp:107
 msgid "Cancels batch execution"
-msgstr "Отменить выполнение сшивки панорамы"
+msgstr "Отменить пакетную сборку панорамы"
 
 #: translations/xrc.cpp:108 xrc.cpp:108
 msgid "cancel"
@@ -3539,9 +3534,8 @@ msgstr ""
 "Использовать статистический метод для удаления наружных контрольных точек"
 
 #: translations/xrc.cpp:201 xrc.cpp:201
-#, fuzzy
 msgid "Image Position"
-msgstr "Сведение снимков:"
+msgstr "Положение снимка"
 
 #: translations/xrc.cpp:202 xrc.cpp:202
 msgid "yaw:"
@@ -3690,7 +3684,7 @@ msgstr "Выдержка:"
 
 #: translations/xrc.cpp:237 xrc.cpp:237
 msgid "ISO:"
-msgstr ""
+msgstr "ISO:"
 
 #: translations/xrc.cpp:239 xrc.cpp:239
 msgid "Load lens parameters from a file"
@@ -3813,32 +3807,28 @@ msgid "Exposure and Color"
 msgstr "Экспозиция и цвет"
 
 #: translations/xrc.cpp:274 xrc.cpp:274
-#, fuzzy
 msgid "Exposure (Eev)"
-msgstr "Экспозиция (EV)"
+msgstr "Экспозиция (Eev)"
 
 #: translations/xrc.cpp:276 xrc.cpp:276
-#, fuzzy
 msgid "Red multiplier (Er):"
-msgstr "Множитель красного:"
+msgstr "Множитель красного (Er):"
 
 #: translations/xrc.cpp:278 xrc.cpp:278
-#, fuzzy
 msgid "Blue multiplier (Eb):"
-msgstr "Множитель синего:"
+msgstr "Множитель синего (Eb):"
 
 #: translations/xrc.cpp:280 xrc.cpp:280
 msgid "Vignetting  (Vb, Vc, Vd)"
-msgstr ""
+msgstr "Виньетирование  (Vb, Vc, Vd)"
 
 #: translations/xrc.cpp:282 xrc.cpp:282
-#, fuzzy
 msgid "Vignetting Center Shift (Vx, Vy)"
-msgstr "Смещение центра виньетирования"
+msgstr "Смещение центра виньетирования (Vx, Vy)"
 
 #: translations/xrc.cpp:284 xrc.cpp:284
 msgid "Camera Response (Ra, Rb, Rc, Rd, Re)"
-msgstr ""
+msgstr "Отклик камеры (Ra, Rb, Rc, Rd, Re)"
 
 #: translations/xrc.cpp:286 xrc.cpp:286
 msgid "custom (EMoR)"
@@ -4256,9 +4246,8 @@ msgid "Include region from stack"
 msgstr "Включить область из стопки"
 
 #: translations/xrc.cpp:425 xrc.cpp:425
-#, fuzzy
 msgid "Colors:"
-msgstr "Цвета"
+msgstr "Цвета:"
 
 #: translations/xrc.cpp:426 xrc.cpp:426
 msgid "Excluded"
@@ -4492,33 +4481,28 @@ msgid "Image variables:"
 msgstr "Переменные снимка:"
 
 #: translations/xrc.cpp:492 xrc.cpp:492
-#, fuzzy
 msgid "Exposure (Eev):"
-msgstr "Экспозиция (EV)"
+msgstr "Экспозиция (Eev):"
 
 #: translations/xrc.cpp:493 xrc.cpp:493
-#, fuzzy
 msgid "White balance (Er, Eb):"
-msgstr "Баланс белого:"
+msgstr "Баланс белого (Er, Eb):"
 
 #: translations/xrc.cpp:494 xrc.cpp:494
 msgid "Camera and Lens variables:"
 msgstr "Переменные камеры и объектива:"
 
 #: translations/xrc.cpp:495 xrc.cpp:495
-#, fuzzy
 msgid "Vignetting (Vb, Vc, Vd):"
-msgstr "Виньетирование:"
+msgstr "Виньетирование (Vb, Vc, Vd):"
 
 #: translations/xrc.cpp:496 xrc.cpp:496
-#, fuzzy
 msgid "Vignetting Centre (Vx, Vy):"
-msgstr "Центр виньетирования:"
+msgstr "Центр виньетирования (Vx, Vy):"
 
 #: translations/xrc.cpp:497 xrc.cpp:497
-#, fuzzy
 msgid "Camera Response (Ra, Rb, Rc, Rd, Re):"
-msgstr "Отклик камеры:"
+msgstr "Отклик камеры (Ra, Rb, Rc, Rd, Re):"
 
 #: translations/xrc.cpp:498 xrc.cpp:498
 msgid "Interpolator (i):"
@@ -5204,36 +5188,30 @@ msgstr ""
 "Ассистент использует определитель, указанный как используемый по умолчанию."
 
 #: translations/xrc.cpp:694 xrc.cpp:694
-#, fuzzy
 msgid "Default File Format:"
-msgstr "Аргументы по умолчанию:"
+msgstr "Формат по умолчанию:"
 
 #: translations/xrc.cpp:695 xrc.cpp:695
 msgid "default output format for final panorama"
 msgstr ""
 
 #: translations/xrc.cpp:696 xrc.cpp:696
-#, fuzzy
 msgid "TIFF Compression:"
-msgstr "Сжатие:"
+msgstr "Сжатие TIFF:"
 
 #: translations/xrc.cpp:698 xrc.cpp:698
-#, fuzzy
 msgid "default TIFF compression"
-msgstr "Сжатие:"
+msgstr "Используемое по умолчанию сжатие TIFF"
 
 #: translations/xrc.cpp:699 xrc.cpp:699
-#, fuzzy
 msgid "JPEG Quality:"
-msgstr "Качество:"
+msgstr "Качество JPEG:"
 
 #: translations/xrc.cpp:700 xrc.cpp:700
-#, fuzzy
 msgid "default JPEG compression setting"
-msgstr "Сжатие JPEG (0-100)"
+msgstr "Используемое по умолчанию сжатие JPEG"
 
 #: translations/xrc.cpp:701 xrc.cpp:701
-#, fuzzy
 msgid "Output Format"
 msgstr "Формат вывода"
 
@@ -5278,7 +5256,7 @@ msgid ""
 msgstr ""
 "Это используемые по умолчанию аргументы. Их можно менять для каждого "
 "отдельно взятого\n"
-"проекта на вкладке «Сшиватель». Не указывайте аргументы -w, -o и --"
+"проекта на вкладке «Сборка панорамы». Не указывайте аргументы -w, -o и --"
 "compression — они \n"
 "указываются программой Hugin."
 
@@ -5538,14 +5516,12 @@ msgid "Change the panorama's cropping region"
 msgstr "Изменить область кадрирования панорамы"
 
 #: translations/xrc.cpp:821 xrc.cpp:821
-#, fuzzy
 msgid "Show/Hide"
-msgstr "Скрыть"
+msgstr "Показать/Скрыть"
 
 #: translations/xrc.cpp:822 translations/xrc.cpp:823 xrc.cpp:822 xrc.cpp:823
-#, fuzzy
 msgid "Mode:"
-msgstr "Модель:"
+msgstr "Режим:"
 
 #: translations/xrc.cpp:824 xrc.cpp:824
 msgid "Grid"
@@ -5828,9 +5804,9 @@ msgid ""
 "Optimization of all distortion parameters \"everything\" makes only sense "
 "with heavily overlapping images and many well distributed control points."
 msgstr ""
-"Тип оптимизации «Всё» стоит использовать только в том случае, когда сшиваются "
-"сильно пересекающиеся изображения с заметно удаленными друг от друга "
-"контрольными точками."
+"Тип оптимизации «Всё» стоит использовать только в том случае, когда "
+"объединяются сильно пересекающиеся изображения с заметно удалёнными друг от "
+"друга контрольными точками."
 
 #~ msgid "Loading image %s"
 #~ msgstr "Загружается снимок %s"
@@ -5849,10 +5825,6 @@ msgstr ""
 
 #~ msgid "Creating pyramid image for %s, level %d"
 #~ msgstr "Создаётся пирамидальное изображение для %s, уровень %d"
-
-#, fuzzy
-#~ msgid "overview"
-#~ msgstr "Предпросмотр"
 
 #~ msgid "Everything"
 #~ msgstr "Всё"
