@@ -1,0 +1,26 @@
+body
+{
+    padding: 30px;
+    background: #AA7;
+}
+div.content, div.bodyContent
+{
+    background: #AA7;
+    color: #333;
+}
+h1, h2, h3, h4, h5
+{
+    color: #FFF;
+    font-style: normal;
+    font-weight: normal;
+    border-bottom: dotted #FFF 1px;
+    padding-left: 1em;
+    right: 128px;
+}
+p.alert a:link, p.alert a:visited { color: #FFF; }
+p.alert a:hover, p.alert a:focus { color: #000; background: #FFF; }
+a:link { color: #058; }
+a:visited { color: #939; }
+a:hover, a:focus { color: #FFF; background: #AA7; text-decoration: none;}
+
+
