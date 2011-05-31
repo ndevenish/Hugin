@@ -3,3 +3,6 @@ glob:*~$
 glob:rev.txt
 glob:src/hugin/*
 ^build_*
+^BUILD/
+^build/
+^src/translations/messages.mo$
