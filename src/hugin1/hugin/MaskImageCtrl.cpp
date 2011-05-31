@@ -106,7 +106,8 @@ void MaskImageCtrl::setImage(const std::string & file, HuginBase::MaskPolygonVec
         m_imageMask=mask;
         m_masksToDraw=mask;
         m_imgRotation=ROT0;
-        setActiveMask(UINT_MAX);
+        setActiveMask(UINT_MAX,false);
+        SetVirtualSize(100,100);
         Refresh(true);
     }
 }
@@ -736,22 +737,27 @@ void MaskImageCtrl::OnDraw(wxDC & dc)
 {
     if(maskEditState!=NO_IMAGE)
     {
-        dc.DrawBitmap(bitmap,0,0);
+        int offset=scale(HuginBase::maskOffset);
+        //draw border around image to allow drawing mask over boudaries of image
+        //don't draw as one complete rectangle to prevent flickering
+        dc.SetPen(wxPen(GetBackgroundColour(), 1, wxSOLID));
+        dc.SetBrush(wxBrush(GetBackgroundColour(),wxSOLID));
+        dc.DrawRectangle(0,0,offset,bitmap.GetHeight()+2*offset);
+        dc.DrawRectangle(0,0,bitmap.GetWidth()+2*offset,offset);
+        dc.DrawRectangle(bitmap.GetWidth()+offset,0,bitmap.GetWidth()+2*offset,bitmap.GetHeight()+2*offset);
+        dc.DrawRectangle(0,bitmap.GetHeight()+offset,bitmap.GetWidth()+2*offset,bitmap.GetHeight()+2*offset);
+        dc.DrawBitmap(bitmap,offset,offset);
         if(fitToWindow)
         {
             //draw border when image is fit to window, otherwise the border (without image) is not updated
             wxSize clientSize=GetClientSize();
-            if(bitmap.GetWidth()<clientSize.GetWidth())
+            if(bitmap.GetWidth()+2*offset<clientSize.GetWidth())
             {
-                dc.SetPen(wxPen(GetBackgroundColour(),1));
-                dc.SetBrush(wxBrush(GetBackgroundColour()));
-                dc.DrawRectangle(bitmap.GetWidth(),0,clientSize.GetWidth()-bitmap.GetWidth(),clientSize.GetHeight());
+                dc.DrawRectangle(bitmap.GetWidth()+2*offset,0,clientSize.GetWidth()-bitmap.GetWidth()+2*offset,clientSize.GetHeight());
             };
-            if(bitmap.GetHeight()<clientSize.GetHeight())
+            if(bitmap.GetHeight()+2*offset<clientSize.GetHeight())
             {
-                dc.SetPen(wxPen(GetBackgroundColour(),1));
-                dc.SetBrush(wxBrush(GetBackgroundColour()));
-                dc.DrawRectangle(0,bitmap.GetHeight(),clientSize.GetWidth(),clientSize.GetHeight()-bitmap.GetHeight());
+                dc.DrawRectangle(0,bitmap.GetHeight()+2*offset,clientSize.GetWidth(),clientSize.GetHeight()-bitmap.GetHeight()+2*offset);
             };
         };
         if(m_showActiveMasks && (m_cropMode!=SrcPanoImage::NO_CROP || m_masksToDraw.size()>0))
@@ -815,7 +821,7 @@ void MaskImageCtrl::OnDraw(wxDC & dc)
             GetViewStart(&x,&y);
             region.Offset(-x,-y);
             dc.SetDeviceClippingRegion(region);
-            dc.DrawBitmap(disabledBitmap,0,0);
+            dc.DrawBitmap(disabledBitmap,offset,offset);
             dc.DestroyClippingRegion();
         };
         if(m_imageMask.size()>0)
@@ -863,7 +869,8 @@ void MaskImageCtrl::rescaleImage()
         return;
     }
     wxImage img = imageCacheEntry2wxImage(m_img);
-    if (img.GetWidth() == 0) {
+    if (img.GetWidth() == 0)
+    {
         return;
     }
     imageSize = wxSize(img.GetWidth(), img.GetHeight());
@@ -871,80 +878,45 @@ void MaskImageCtrl::rescaleImage()
     imageSize.IncBy(2*HuginBase::maskOffset);
     if (fitToWindow)
         scaleFactor = calcAutoScaleFactor(imageSize);
-    //draw border around image to allow selection of position outside of image
-    wxBitmap cachedBitmap=wxBitmap(img);
-    bitmap=wxBitmap(imageSize.GetWidth(),imageSize.GetHeight());
-    wxMemoryDC dc(bitmap);
-    dc.SetPen(wxPen(GetBackgroundColour(), 1, wxSOLID));
-    dc.SetBrush(wxBrush(GetBackgroundColour(),wxSOLID));
-    dc.DrawRectangle(wxPoint(0,0),imageSize);
-    dc.DrawBitmap(cachedBitmap,HuginBase::maskOffset,HuginBase::maskOffset);
-    dc.SelectObject(wxNullBitmap);
 
+    //scaling image to screen size
     if (getScaleFactor()!=1.0)
     {
         imageSize.SetWidth(scale(imageSize.GetWidth()));
         imageSize.SetHeight(scale(imageSize.GetHeight()));
-        wxImage tmp=bitmap.ConvertToImage();
-        tmp=tmp.Scale(imageSize.GetWidth(), imageSize.GetHeight());
-        switch(m_imgRotation)
-        {
-            case ROT90:
-                tmp = tmp.Rotate90(true);
-                break;
-            case ROT180:
-                    // this is slower than it needs to be...
-                tmp = tmp.Rotate90(true);
-                tmp = tmp.Rotate90(true);
-                break;
-            case ROT270:
-                tmp = tmp.Rotate90(false);
-                break;
-            default:
-                break;
-        }
-        bitmap=wxBitmap(tmp);
-        DEBUG_DEBUG("rescaling finished");
-    }
-    else
-    {
-        // need to rotate full image. warning. this can be very memory intensive
-        if (m_imgRotation != ROT0)
-        {
-            wxImage tmp=bitmap.ConvertToImage();
-            switch(m_imgRotation)
-            {
-                case ROT90:
-                    tmp = tmp.Rotate90(true);
-                    break;
-                case ROT180:
-                    // this is slower than it needs to be...
-                    tmp = tmp.Rotate90(true);
-                    tmp = tmp.Rotate90(true);
-                    break;
-                case ROT270:
-                    tmp = tmp.Rotate90(false);
-                    break;
-                default:
-                    break;
-            }
-            bitmap = wxBitmap(tmp);
-        };
+        img=img.Scale(scale(m_realSize.GetWidth()), scale(m_realSize.GetHeight()));
     };
+    //and now rotating
+    switch(m_imgRotation)
+    {
+        case ROT90:
+            img = img.Rotate90(true);
+            break;
+        case ROT180:
+                // this is slower than it needs to be...
+            img = img.Rotate90(true);
+            img = img.Rotate90(true);
+            break;
+        case ROT270:
+            img = img.Rotate90(false);
+            break;
+        default:
+            break;
+    }
+    bitmap=wxBitmap(img);
 
     //create disabled bitmap for drawing active masks
-    wxImage image=bitmap.ConvertToImage();
 #if wxCHECK_VERSION(2,9,0)
-    image.ConvertToDisabled(192);
+    img.ConvertToDisabled(192);
 #else
     {
-        int width = image.GetWidth();
-        int height = image.GetHeight();
+        int width = img.GetWidth();
+        int height = img.GetHeight();
         for (int y = height-1; y >= 0; --y)
         {
             for (int x = width-1; x >= 0; --x)
             {
-                unsigned char* data = image.GetData() + (y*(width*3))+(x*3);
+                unsigned char* data = img.GetData() + (y*(width*3))+(x*3);
                 unsigned char* r = data;
                 unsigned char* g = data+1;
                 unsigned char* b = data+2;
@@ -955,7 +927,7 @@ void MaskImageCtrl::rescaleImage()
         }
     }
 #endif
-    disabledBitmap=wxBitmap(image);
+    disabledBitmap=wxBitmap(img);
     if (m_imgRotation == ROT90 || m_imgRotation == ROT270)
     {
         SetVirtualSize(imageSize.GetHeight(), imageSize.GetWidth());
