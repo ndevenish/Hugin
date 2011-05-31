@@ -160,6 +160,8 @@ SectionGroup /e $(TEXT_SecShortcuts) SecShortcuts
     CreateDirectory "$SMPROGRAMS\${APP_NAME}"
     CreateShortCut "$SMPROGRAMS\${APP_NAME}\Uninstall.lnk" "${UNINST_EXE}"
     CreateShortCut "$SMPROGRAMS\${APP_NAME}\Hugin.lnk" "$INSTDIR\bin\hugin.exe"
+    CreateShortCut "$SMPROGRAMS\${APP_NAME}\Calibrate Lens GUI.lnk" "$INSTDIR\bin\calibrate_lens_gui.exe"
+    CreateShortCut "$SMPROGRAMS\${APP_NAME}\Batch Processor.lnk" "$INSTDIR\bin\PTBatcherGUI.exe"
 	CreateShortCut "$SMPROGRAMS\${APP_NAME}\Enblend Droplet.lnk" "$INSTDIR\bin\enblend_droplet.bat"
 	CreateShortCut "$SMPROGRAMS\${APP_NAME}\Enblend Droplet 360.lnk" "$INSTDIR\bin\enblend_droplet_360.bat"
 	CreateShortCut "$SMPROGRAMS\${APP_NAME}\Enfuse Droplet.lnk" "$INSTDIR\bin\enfuse_droplet.bat"
