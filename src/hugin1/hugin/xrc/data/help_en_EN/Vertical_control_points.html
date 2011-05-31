@@ -29,7 +29,7 @@
 		
 
 		
-		<!-- Head Scripts -->
+		<style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 		
 				
 	</head>
@@ -41,17 +41,17 @@
 				<h1 id="firstHeading" class="firstHeading">Vertical control points</h1>
 		<div id="bodyContent">
 			
-			<div id="contentSub"></div>
+			
 												<!-- start content -->
 			<p><br />
 The panorama tools <a href="PTOptimizer.html" title="PTOptimizer">optimizer</a> understands various different schemes for
 aligning photos using <a href="Control_points.html" title="Control points">control points</a>:
 Normal points are <b>t0</b> points, <a href="Horizontal_control_points.html" title="Horizontal control points">horizontal control points</a> are <b>t1</b> points,
 vertical control points are <b>t2</b> points, and <a href="Straight_line_control_points.html" title="Straight line control points">straight line control points</a> are <b>t3</b>, <b>t4</b>, etc... points.
-</p><p>The main use of <b>vertical control points</b> is to change the perspective of the output panorama such that the marked structures are vertical in the output projection. In a multi image panorama this is only possible if the <a href="Optimization.html" title="Optimization">optimization</a> of <a href="Roll.html" title="Roll">Roll</a> and <a href="Pitch.html" title="Pitch">Pitch</a> is allowed for all images and of <a href="Yaw.html" title="Yaw">Yaw</a> for all but the anchor image.
+</p><p>The main use of <b>vertical control points</b> is to change the perspective of the output panorama such that the marked structures are vertical in the output projection<a class="external" href="http://wiki.panotools.org/Projection">[*]</a>. In a multi image panorama this is only possible if the <a href="Optimization.html" title="Optimization">optimization</a> of <a href="Roll.html" title="Roll">Roll</a> and <a href="Pitch.html" title="Pitch">Pitch</a> is allowed for all images and of <a href="Yaw.html" title="Yaw">Yaw</a> for all but the anchor image.
 </p><p>You set <b>vertical control points</b> on a vertical structure as far apart from each other as possible.
-</p><p>Please note that all real world vertical lines only stay vertical in rectilinear, <a href="Cylindrical.html" title="Cylindrical" class="mw-redirect">cylindrical</a> and <a href="Equirectangular.html" title="Equirectangular" class="mw-redirect">equirectangular</a> projections. In fisheye projection only the vertical line through the image center stays vertical.
-</p><p>More details in <a href="Perspective_correction.html" title="Perspective correction">Perspective correction</a> and Panotools internals, a tutorial using vertical line control points: Leveling a Finished Panorama
+</p><p>Please note that all real world vertical lines only stay vertical in rectilinear<a class="external" href="http://wiki.panotools.org/Rectilinear">[*]</a>, <a href="Cylindrical.html" title="Cylindrical" class="mw-redirect">cylindrical</a> and <a href="Equirectangular.html" title="Equirectangular" class="mw-redirect">equirectangular</a> projections. In fisheye<a class="external" href="http://wiki.panotools.org/Fisheye">[*]</a> projection only the vertical line through the image center stays vertical.
+</p><p>More details in <a href="Perspective_correction.html" title="Perspective correction">Perspective correction</a> and Panotools internals<a class="external" href="http://wiki.panotools.org/Panotools_internals#Line_control_points">[*]</a>, a tutorial using vertical line control points: Leveling a Finished Panorama<a class="external" href="http://wiki.panotools.org/Leveling_a_Finished_Panorama">[*]</a>
 </p>
 
 

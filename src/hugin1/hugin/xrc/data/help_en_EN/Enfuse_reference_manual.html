@@ -29,7 +29,7 @@
 		
 
 		
-		<!-- Head Scripts -->
+		<style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 		
 				
 	</head>
@@ -41,10 +41,10 @@
 				<h1 id="firstHeading" class="firstHeading">Enfuse reference manual</h1>
 		<div id="bodyContent">
 			
-			<div id="contentSub"></div>
+			
 												<!-- start content -->
 			<p><span id="Overview"></span> <span id="SEC1"></span>
-</p><p>This manual is for Enfuse (version 3.2-cvs, Thu Sep 25 07:35:21 UTC 2008). It was written by Dr. Christoph L. Spiel, converted partly from the HTML version, formulas mainly from the TeX original and corrected using the PDF version all found on http://panorama.dyndns.org/EandE-documentation/
+</p><p>This manual is for Enfuse (version 3.2-cvs, Thu Sep 25 07:35:21 UTC 2008). It was written by Dr. Christoph L. Spiel, converted partly from the HTML version, formulas mainly from the TeX original and corrected using the PDF version all found on http://panorama.dyndns.org/EandE-documentation/<a class="external" href="http://panorama.dyndns.org/EandE-documentation/">[*]</a>
 </p>
 
 <a name="Overview" id="Overview"></a><h2> <span class="mw-headline">Overview</span></h2>
@@ -71,7 +71,7 @@
 </p><p>Adjust how much importance is given to each criterion by setting the weight parameters on the command line. For example, if you set ‘--wExposure=1.0’ and ‘--wSaturation=0.5’, Enfuse will favor well-exposed pixels over highly-saturated pixels when blending the source images. The effect of these parameters on the final result will not always be clear in advance. The quality of the result is subject to your artistic interpretation. Playing with the weights may or may not give a more pleasing result. The authors encourage you to experiment, perhaps using down-sized<span id="DOCF3"></span> <a href="Enfuse_reference_manual.html#FOOT3" title="">(3)</a> or cropped images for speed.
 </p><p><span id="IDX6"></span> <span id="IDX7"></span>
 </p><p>Enfuse expects but does not require each input image to have an alpha channel. By setting the alpha values of pixels to zero, users can manually remove those pixels from consideration when blending. If an input image lacks an alpha channel, Enfuse will issue a warning and continue assuming all pixels should contribute to the final output. Any alpha value other than zero is interpreted as “this pixel should contribute to the final image”.
-</p><p>Find out more about Enfuse on its webpage.
+</p><p>Find out more about Enfuse on its webpage<a class="external" href="http://enblend.sourceforge.net/">[*]</a>.
 </p>
 <hr />
 <p><span id="Invocation"></span> <span id="SEC2"></span>
@@ -233,7 +233,7 @@
 </dd><dd><var>LCE­-SCALE</var> defaults to 0 pixels and <var>LCE-FACTOR</var> defaults to 0. Append ‘%’ to <var>LCE-SCALE</var> to specify the radius as a percentage of <var>EDGE-SCALE</var>. Append ‘%’ to <var>LCE-FACTOR</var> to specify the weight as a percentage.
 </dd><dt> <code>--EntropyCutoff=<var>LOWER-CUTOFF</var></code>
 </dt><dt> <code>--EntropyCutoff=<var>LOWER-CUTOFF</var>:<var>UPPER-CUTOFF</var></code>
-</dt><dd> <span id="IDX55"></span> The first form defines the lower cutoff value below of which pixels are treated as pure black when calculating the local entropy. The second form also defines the upper cutoff value above of which pixels are treated as pure white.For color images <var>LOWER-CUTOFF</var> and <var>UPPER-CUTOFF</var> are applied separately and independently to each channel.Defaults: 0% for <var>LOWER-CUTOFF</var> and 100% for <var>UPPER-CUTOFF</var>, this is, all pixels' values are taken into account. Append a ‘%’ to specify the cutoff relative to maximum pixel value in the source image (for example 255 or 65535). <a href="Enfuse_reference_manual.html#fig_003aentropy_002dcutoff" title="">fig:entropy-cutoff</a> shows an example.<div class="float"><span id="fig_003aentropy_002dcutoff"></span> <img alt="entropy-cutoff" src="602px-Entropy-cutoff.png" width="602" height="425" border="0" /></div><b>Figure 2.1: Linear lightness <var>Y</var> in comparison with an entropy-cutoff function for <var>LOWER-CUTOFF</var> = 5% and <var>UPPER-CUTOFF</var> = 90% which are rather extreme values. </b>Note that a high <var>LOWER-CUTOFF</var> value lightens the resulting image, as dark (and presumably noisy) pixels are averaged with <i>equal</i> weights. With ‘--EntropyCutoff=0’, the default, on the other hand, “noise” might be interpreted as high entropy and the noisy pixels get a high weight, which in turn renders the resulting image darker. Analogously, a low <var>UPPER-CUTOFF</var> darkens the output image.
+</dt><dd> <span id="IDX55"></span> The first form defines the lower cutoff value below of which pixels are treated as pure black when calculating the local entropy. The second form also defines the upper cutoff value above of which pixels are treated as pure white.For color images <var>LOWER-CUTOFF</var> and <var>UPPER-CUTOFF</var> are applied separately and independently to each channel.Defaults: 0% for <var>LOWER-CUTOFF</var> and 100% for <var>UPPER-CUTOFF</var>, this is, all pixels' values are taken into account. Append a ‘%’ to specify the cutoff relative to maximum pixel value in the source image (for example 255 or 65535). <a href="Enfuse_reference_manual.html#fig_003aentropy_002dcutoff" title="">fig:entropy-cutoff</a> shows an example.<div class="float"><span id="fig_003aentropy_002dcutoff"></span> <img alt="entropy-cutoff" src="602px-Entropy-cutoff.png" width="602" height="425" border="0" /><a class="external" href="http://wiki.panotools.org/File:Entropy-cutoff.png">[*]</a></div><b>Figure 2.1: Linear lightness <var>Y</var> in comparison with an entropy-cutoff function for <var>LOWER-CUTOFF</var> = 5% and <var>UPPER-CUTOFF</var> = 90% which are rather extreme values. </b>Note that a high <var>LOWER-CUTOFF</var> value lightens the resulting image, as dark (and presumably noisy) pixels are averaged with <i>equal</i> weights. With ‘--EntropyCutoff=0’, the default, on the other hand, “noise” might be interpreted as high entropy and the noisy pixels get a high weight, which in turn renders the resulting image darker. Analogously, a low <var>UPPER-CUTOFF</var> darkens the output image.
 </dd><dt> <code>--EntropyWindowSize=<var>SIZE</var></code>
 </dt><dd> <span id="IDX56"></span> Window <var>SIZE</var> for local entropy analysis. The window will be a square of <var>SIZE</var>× <var>SIZE</var> pixels.In the entropy calculation <var>SIZE</var> values of 3 to 7 yield an acceptable compromise of the locality of the information and the significance of the local entropy value itself.Valid range:   SIZE &ge; 3 .Given an even <var>SIZE</var> Enfuse will automatically use the next odd number.
 </dd><dt> <code>--GrayProjector=<var>PROJECTOR</var></code>
@@ -242,7 +242,7 @@
 </dt><dd> <span id="IDX59"></span> Average red, green, and blue channel with equal weights. This is the default and it often is a good projector for gamma = 1 data.
 </dd><dd> <span class="texhtml"><i>Y</i> = (<i>R</i> + <i>G</i> + <i>B</i>) / 3</span>
 </dd><dt> <code>l-star</code>
-</dt><dd> <span id="IDX60"></span> <span id="IDX61"></span> <span id="IDX62"></span> Use the L-channel of the L*a*b*-conversion of the image as its grayscale representation. This is a useful projector for gamma = 1 data. It reveals minute contrast variations even in the shadows and the highlights. This projector is computationally expensive.See wikipedia:Lab_color_space for a detailed description of the Lab color space.
+</dt><dd> <span id="IDX60"></span> <span id="IDX61"></span> <span id="IDX62"></span> Use the L-channel of the L*a*b*-conversion of the image as its grayscale representation. This is a useful projector for gamma = 1 data. It reveals minute contrast variations even in the shadows and the highlights. This projector is computationally expensive.See wikipedia:Lab_color_space<a class="external" href="http://www.wikipedia.org/wiki/Lab_color_space">[*]</a> for a detailed description of the Lab color space.
 </dd><dt> <code>lightness</code>
 </dt><dd> <span id="IDX63"></span> Compute the lightness of each RGB pixel as in an Hue-Saturation-Lightness (HSL) conversion of the image.
 </dd><dd> <span class="texhtml"><i>Y</i> = (<i>m</i><i>a</i><i>x</i>(<i>R</i>,<i>G</i>,<i>B</i>) + <i>m</i><i>i</i><i>n</i>(<i>R</i>,<i>G</i>,<i>B</i>)) / 2</span>
@@ -384,7 +384,7 @@
 </p><p>The weighting function is the Gaussian  <img class="tex" alt="w_{exp}(Y) = exp \left( - \frac{1}{2} \left( \frac{Y - Mu}{Sigma} \right) ^2 \right), \," src="bfe8b8159acf66b3ea23c52611fb819a.png" /> whose center <i>Mu</i> and width <i>Sigma</i> are controlled by the command line options ‘--wMu’ and ‘-- wSigma’ respectively. <i>Mu</i> defaults to 0.5, the middle of the luminance interval. <i>Sigma</i> defaults to 0.2. <a href="Enfuse_reference_manual.html#fig_003agaussian" title="">fig:gaussian</a> shows a Gaussian with these parameters.
 </p>
 <div class="float"><span id="fig_003agaussian"></span>
-<p><img alt="gaussian" src="565px-Gaussian.png" width="565" height="401" border="0" />
+<p><img alt="gaussian" src="565px-Gaussian.png" width="565" height="401" border="0" /><a class="external" href="http://wiki.panotools.org/File:Gaussian.png">[*]</a>
 </p>
 </div>
 <p><b>Figure 3.1: Gaussian function with Enfuse's default parameters <var>Mu</var> = 0.5 and <var>Sigma</var> = 0.2. </b>
@@ -406,7 +406,25 @@
 <a name="Saturation_Weighting" id="Saturation_Weighting"></a><h3> <span class="mw-headline">Saturation Weighting</span></h3>
 <p>Saturation weighting prefers pixels with a high saturation.
 </p><p>Enfuse computes the saturation of a pixel according to the following algorithm.
-
+<style type="text/css">/*<![CDATA[*/
+/* Style definition file generated by highlight 2.4.8, http://www.andre-simon.de/ */
+</p><p>/* Highlighting theme definition: */
+</p><p>body.hl	{ background-color:#ffffff; }
+pre.hl	{ color:#000000; background-color:#ffffff; font-size:10pt; font-family:Courier New;}
+.num	{ color:#2928ff; }
+.esc	{ color:#ff00ff; }
+.str	{ color:#ff0000; }
+.dstr	{ color:#818100; }
+.slc	{ color:#838183; font-style:italic; }
+.com	{ color:#838183; font-style:italic; }
+.dir	{ color:#008200; }
+.sym	{ color:#000000; }
+.line	{ color:#555555; }
+.kwa	{ color:#000000; font-weight:bold; }
+.kwb	{ color:#830000; }
+.kwc	{ color:#000000; font-weight:bold; }
+.kwd	{ color:#010181; }
+</p><p>/*]]>*/</style>
 </p>
 <pre>max <span class="sym">:=</span> <span class="kwd">maximum</span><span class="sym">(</span>R<span class="sym">,</span> G<span class="sym">,</span> B<span class="sym">)</span>
 min <span class="sym">:=</span> <span class="kwd">minimum</span><span class="sym">(</span>R<span class="sym">,</span> G<span class="sym">,</span> B<span class="sym">)</span>
@@ -480,7 +498,7 @@ min <span class="sym">:=</span> <span class="kwd">minimum</span><span class="sym
 <p>The pixel under consideration C sits exactly in the center of a square, the so-called <i>local analysis window</i>. It always has an uneven edge length. The user sets the size with option ‘--ContrastWindowSize’. <a href="Enfuse_reference_manual.html#fig_003alocal_002danalysis_002dwindow" title="">fig:local-analysis-window</a> shows two windows with different sizes.
 </p>
 <div class="float"><span id="fig_003alocal_002danalysis_002dwindow"></span>
-<p><img alt="local-analysis-window" src="428px-Local-analysis-window.png" width="428" height="221" border="0" />
+<p><img alt="local-analysis-window" src="428px-Local-analysis-window.png" width="428" height="221" border="0" /><a class="external" href="http://wiki.panotools.org/File:Local-analysis-window.png">[*]</a>
 </p>
 </div>
 <p><b>Figure 3.2: Examples of local analysis windows for the sizes 3 and 5. “C” marks the center where the pixel gets the weight. “N” are neighboring pixels, which all contribute equally to the weight. </b>
@@ -523,7 +541,7 @@ min <span class="sym">:=</span> <span class="kwd">minimum</span><span class="sym
 <p><span id="Laplacian-of-Gaussian"></span> <span id="SEC18"></span>
 </p>
 <a name="Laplacian_of_Gaussian" id="Laplacian_of_Gaussian"></a><h4> <span class="mw-headline">Laplacian of Gaussian</span></h4>
-<p>The <i>Laplacian of Gaussian</i> (LoG) is an operator to detect edges in an image. Sometimes the LoG-operator is also called Marr-Hildreth operator. A Laplacian-of-Gaussian operator, <code>vigra::laplacianOf Gaussian</code> is part of the package Vigra that Enfuse is built upon and is used for edge detection if option ‘--EdgeScale’ is non-zero and ‘--MinCurvature’ equal to or less than zero.
+<p>The <i>Laplacian of Gaussian</i> (LoG) is an operator to detect edges in an image. Sometimes the LoG-operator is also called Marr-Hildreth operator. A Laplacian-of-Gaussian operator, <code>vigra::laplacianOf Gaussian</code><a class="external" href="http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/doc/vigra/group__CommonConvolutionFilters.html">[*]</a> is part of the package Vigra<a class="external" href="http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/">[*]</a> that Enfuse is built upon and is used for edge detection if option ‘--EdgeScale’ is non-zero and ‘--MinCurvature’ equal to or less than zero.
 </p><p>Let the Gaussian function be
 </p><p><img class="tex" alt="g(x, y) = {1 \over {2 \pi \sigma^2}} \, {\exp\left(-{{x^2 + y^2} \over {2 \sigma^2}}\right)}" src="8c2849b63c6f416da3d028b8f8584027.png" />
 </p><p>The parameter <img class="tex" alt="\sigma \," src="312418a7fcf9d47adc8e5683e89c58cd.png" />, the argument of option ‘--EdgeScale’, is the length scale on which edges are detected by <i>g(x, y)</i>. We apply the Laplacian operator in Cartesian coordinates
@@ -535,11 +553,11 @@ min <span class="sym">:=</span> <span class="kwd">minimum</span><span class="sym
 </p><p>Enfuse uses a discrete approximation of <i>k</i> in the convolution with the image. The operator is radially symmetric with respect to the origin, which is why we can easily plot it in <a href="Enfuse_reference_manual.html#fig_003alaplacian_002dof_002dgaussian" title="">fig:laplacian-of-gaussian</a>, setting <img class="tex" alt="R = \sqrt{x^2 + y^2}" src="4e84c278c8ff9bd39bd309031bd3fab4.png" />.
 </p>
 <div class="float"><span id="fig_003alaplacian_002dof_002dgaussian"></span>
-<p><img alt="laplacian-of-gaussian" src="586px-Laplacian-of-gaussian.png" width="586" height="406" border="0" />
+<p><img alt="laplacian-of-gaussian" src="586px-Laplacian-of-gaussian.png" width="586" height="406" border="0" /><a class="external" href="http://wiki.panotools.org/File:Laplacian-of-gaussian.png">[*]</a>
 </p>
 </div>
 <p><b>Figure 3.3: Laplacian-of-Gaussian function for &nbsp;?  = 0.5. </b>
-</p><p>See also HIPR2: Laplacian of Gaussian.
+</p><p>See also HIPR2: Laplacian of Gaussian<a class="external" href="http://homepages.inf.ed.ac.uk/rbf/HIPR2/log.htm">[*]</a>.
 </p><p>Sometimes the LoG is plagued by noise in the input images. After all it is a numerical approximation of the second derivative and deriving always “roughens” a function. The (normalized) mask files relentlessly disclose such problems. Use option ‘--MinCurvature’ with a <i>negative</i> argument <var>CURVATURE</var> to suppress all edges with a curvature below -<var>CURVATURE</var> (which is a positive value). Check the effects with the mask files and particularly the ‘<tt>mask####_wta.tif</tt>’ files if using option ‘--HardMask’.
 </p><p>To indicate the <var>CURVATURE</var> in relative terms, which is particularly comprehensible for humans, append a percent sign (‘%’). Try minimum curvatures starting from -0.5% to -3%.
 </p><p><b>Summary of influential options</b>
@@ -595,11 +613,11 @@ min <span class="sym">:=</span> <span class="kwd">minimum</span><span class="sym
 </p><p><a href="Enfuse_reference_manual.html#fig_003aentropy" title="">fig:entropy</a> shows an entropy function.
 </p>
 <div class="float"><span id="fig_003aentropy"></span>
-<p><img alt="entropy" src="581px-Entropy.png" width="581" height="406" border="0" />
+<p><img alt="entropy" src="581px-Entropy.png" width="581" height="406" border="0" /><a class="external" href="http://wiki.panotools.org/File:Entropy.png">[*]</a>
 </p>
 </div>
 <p><b>Figure 3.4: Entropy function H for an experiment with exactly two outcomes. </b>
-</p><p>For more on (information) entropy visit wikipedia:Information_entropy.
+</p><p>For more on (information) entropy visit wikipedia:Information_entropy<a class="external" href="http://www.wikipedia.org/wiki/Information_entropy">[*]</a>.
 </p><p>Enfuse computes a pixel's entropy by considering the pixel itself and its surrounding pixels quite similar to <a href="Enfuse_reference_manual.html#SEC14" title="">Contrast Weighting</a>. The size of the window is set by ‘--EntropyWindowSize’. Choosing the right size is difficult, because there is a serious tradeoff between the locality of the data and the size of the sample used to compute <i>H</i>. A large window results in a large sample size and therefore in a reliable entropy, but considering pixels far away from the center degrades <i>H</i> into a non-local measure. For small windows the opposite holds true.
 </p><p>Another difficulty arises from the use of entropy as a weighting function in dark parts of an image, this is, in areas where the signal-to-noise ratio is low. Without any precautions high noise is taken to be high entropy, which might not be desired. Use option ‘--EntropyCutoff’ to control the black level when computing the entropy.
 </p><p>On the other extreme side of lightness, very light parts of an image, the sensor might already have overflown without the signal reaching 1.0 in the normalized luminance interval. For these pixels the entropy is zero and Enfuse can be told of the threshold by properly setting the second argument of ‘--EntropyCutoff’.
@@ -651,11 +669,11 @@ TIFF Directory at offset 0x1a398a (1718666)
 </p><p>The multitude of terms all describing the concept of a mask is confusing.
 </p>
 <dl><dt> Mask
-</dt><dd> A mask defines a selection of pixels. A value of zero represents an unselected pixel. The maximum value (“white”) represents a selected pixel and the values between zero and the maximum are partially selected pixels. See Gimp-Savy.
+</dt><dd> A mask defines a selection of pixels. A value of zero represents an unselected pixel. The maximum value (“white”) represents a selected pixel and the values between zero and the maximum are partially selected pixels. See Gimp-Savy<a class="external" href="http://gimp-savvy.com/BOOK/index.html?node42.html">[*]</a>.
 </dd><dt> Alpha Channel
 </dt><dd> The alpha channel stores the transpacency value for each pixel, typically in the range from zero to one. A value of zero means the pixel is completely transparent, thus does not contribute to the image. A value of one on the other hand means the pixel is completely opaque.
 </dd><dt> Matte
-</dt><dd> The notion “matte” as used by ImageMagick refers to an inverted alpha channel, more precisely: 1 - alpha. See ImageMagick for further explanations.
+</dt><dd> The notion “matte” as used by ImageMagick refers to an inverted alpha channel, more precisely: 1 - alpha. See ImageMagick<a class="external" href="http://www.imagemagick.org/Usage/channels/#trans">[*]</a> for further explanations.
 </dd></dl>
 <p>Enblend and Enfuse only consider pixels that have an associated mask value different from zero. If an input image does not have an alpha channel, Enblend warns and assumes a mask of all non-zero values, this is, it will use every pixel of the input image for fusion.
 </p><p>Stitchers like <code>nona</code> add a mask to their output images.
@@ -847,7 +865,7 @@ TIFF Directory at offset 0x1a398a (1718666)
 <p>Here are some surprisingly common misconceptions about exposure series.
 </p>
 <dl><dt> <i>A single image cannot be the source of an exposure series.</i>
-</dt><dd> <span id="IDX79"></span> <span id="IDX80"></span> Raw-files in particular lend themselves to be converted multiple times and the results being fused together. The technique is simpler, faster, and usually even looks better than digital blending (as opposed to using a graduated neutral density filter) or blending exposures in an image manipulation program. Moreover, perfect alignment comes free of charge!
+</dt><dd> <span id="IDX79"></span> <span id="IDX80"></span> Raw-files in particular lend themselves to be converted multiple times and the results being fused together. The technique is simpler, faster, and usually even looks better than digital blending<a class="external" href="http://luminous-landscape.com/tutorials/digital-blending.shtml">[*]</a> (as opposed to using a graduated neutral density filter) or blending exposures<a class="external" href="http://www.gimpguru.org/Tutorials/BlendingExposures/">[*]</a> in an image manipulation program. Moreover, perfect alignment comes free of charge!
 </dd><dt> <i>An exposure series must feature symmetric exposures.</i>
 </dt><dd> Twice wrong! Neither do the exposures have to be “symmetric” like {0EV, -2/3EV, +2/3EV}, nor does the number of exposures have to be odd. Series like {-1-1/3EV, -1/3EV, +1/3EV} or {-1EV, 1EV} might be just right. By the way, the order in which the images were taken does not matter either.
 </dd><dt> <i>An exposure series must cover the whole dynamic range of the scene.</i>
@@ -1040,18 +1058,18 @@ TIFF Directory at offset 0x1a398a (1718666)
 <p>Imagess <a href="Enfuse_reference_manual.html#fig_003asharp_002dedge" title="">fig:sharp-edge</a> and <a href="Enfuse_reference_manual.html#fig_003asmooth_002dedge" title="">fig:smooth-edge</a> show plots of the matrices <code>sharp_edge</code> and <code>smooth_edge</code>.
 </p>
 <div class="float"><span id="fig_003asharp_002dedge"></span>
-<p><img alt="sharp-edge" src="545px-Sharp-edge.png" width="545" height="346" border="0" />
+<p><img alt="sharp-edge" src="545px-Sharp-edge.png" width="545" height="346" border="0" /><a class="external" href="http://wiki.panotools.org/File:Sharp-edge.png">[*]</a>
 </p>
 </div>
 <p><b>Figure 6.1: 3D plot augmented by contour plot of the matrix <code>sharp_edge</code>. </b>
 </p>
 <div class="float"><span id="fig_003asmooth_002dedge"></span>
-<p><img alt="smooth-edge" src="531px-Smooth-edge.png" width="531" height="343" border="0" />
+<p><img alt="smooth-edge" src="531px-Smooth-edge.png" width="531" height="343" border="0" /><a class="external" href="http://wiki.panotools.org/File:Smooth-edge.png">[*]</a>
 </p>
 </div>
 <p><b>Figure 6.2: 3D plot augmented by contour plot of the matrix <code>smooth_edge</code>. </b>
 </p><p>Our intuition lets us “see” an extremely sharp edge in the first matrix, whereas the second one describes an extraordinarily smooth diagonal intensity ramp. Which one will be selected? Well, <code>sharp_edge</code> has a standard deviation of 88.07 and <code>smooth_edge</code> has 88.41. Thus, <code>smooth_edge</code> wins, contradicting our intuition and even worse our intention!
-</p><p>Sadly, configurations like <code>smooth_edge</code> occur more often with high-quality, good bokeh lenses. In fact they are the very manifestation of “good bokeh”. Therefore, Laplacian edge detection plays an important role when working with high-quality lenses.
+</p><p>Sadly, configurations like <code>smooth_edge</code> occur more often with high-quality, good bokeh<a class="external" href="http://www.luminous-landscape.com/essays/bokeh.shtml">[*]</a> lenses. In fact they are the very manifestation of “good bokeh”. Therefore, Laplacian edge detection plays an important role when working with high-quality lenses.
 </p>
 <hr />
 <p><span id="Laplacian-Edge-Detection"></span> <span id="SEC41"></span>
@@ -1064,7 +1082,7 @@ TIFF Directory at offset 0x1a398a (1718666)
 <p><span id="Local-Contrast-Enhancement"></span> <span id="SEC42"></span>
 </p>
 <a name="Local_Contrast_Enhancement" id="Local_Contrast_Enhancement"></a><h5> <span class="mw-headline">Local Contrast Enhancement</span></h5>
-<p>Sometimes Enfuse misses smoother edges with ‘--EdgeScale’ and a little local contrast enhancement (LCE) helps. Set <code>--EdgeScale</code>=<var>SCALE</var>:<var>LCE-SCALE</var>:<var>LCE-FACTOR</var>. where <var>LCE-SCALE</var> and <var>LCE-FACTOR</var> work like the unsharp mask filters in various image manipulation programs. Start with <var>LCE-SCALE</var> ten times the value of <var>SCALE</var> and a <var>LCE-FACTOR</var> of 2–5.
+<p>Sometimes Enfuse misses smoother edges with ‘--EdgeScale’ and a little local contrast enhancement (LCE) helps. Set <code>--EdgeScale</code>=<var>SCALE</var>:<var>LCE-SCALE</var>:<var>LCE-FACTOR</var>. where <var>LCE-SCALE</var> and <var>LCE-FACTOR</var> work like the unsharp mask<a class="external" href="http://www.cambridgeincolour.com/tutorials/unsharp-mask.htm">[*]</a> filters in various image manipulation programs. Start with <var>LCE-SCALE</var> ten times the value of <var>SCALE</var> and a <var>LCE-FACTOR</var> of 2–5.
 </p><p><var>LCE-SCALE</var> can be specified as a percentage of <var>SCALE</var>. <var>LCE-FACTOR</var> also can be specified as a percentage. Examples:
 </p>
 <table>
@@ -1122,41 +1140,41 @@ TIFF Directory at offset 0x1a398a (1718666)
 </p>
 <dl><dt> <b>Raw Image Conversion</b>
 </dt></dl>
-<dl><dd><ul><li> <span id="IDX96"></span> <span id="IDX97"></span> DCRaw is a universal raw-converter.
-</li><li> <span id="IDX98"></span> <span id="IDX99"></span> <span id="IDX100"></span> UFRaw, a raw converter based on DCRaw, adds a GUI (<code>ufraw</code>), versatile batch processing (<code>ufraw-batch</code>), and some additional features like, for example, cropping, noise reduction with wavelets, and automatic lens error correction.
+<dl><dd><ul><li> <span id="IDX96"></span> <span id="IDX97"></span> DCRaw<a class="external" href="http://www.cybercom.net/~dcoffin/dcraw/">[*]</a> is a universal raw-converter.
+</li><li> <span id="IDX98"></span> <span id="IDX99"></span> <span id="IDX100"></span> UFRaw<a class="external" href="http://ufraw.sourceforge.net/">[*]</a>, a raw converter based on DCRaw, adds a GUI (<code>ufraw</code>), versatile batch processing (<code>ufraw-batch</code>), and some additional features like, for example, cropping, noise reduction with wavelets, and automatic lens error correction.
 </li></ul>
 </dd></dl>
 <dl><dt> <b>Image Alignment and Rendering</b>
 </dt></dl>
-<dl><dd><ul><li> <span id="IDX101"></span> <span id="IDX102"></span> ALE, David Hilvert's anti-lamenessing engine for the real die-hard command-line users aligns, filters, and renders images.
-</li><li> <span id="IDX103"></span> <span id="IDX104"></span> Hugin is a GUI that aligns and stitches images. <span id="IDX105"></span> <span id="IDX106"></span> <span id="IDX107"></span> <br />It comes with several command line tools, like <code>nona</code> to stitch panorama images, <code>align_image_stack</code> to align overlapping images for HDR or create focus stacks, and <code>fulla</code> to correct lens errors.
-</li><li> <span id="IDX108"></span> <span id="IDX109"></span> <span id="IDX110"></span> PanoTools the successor of Helmut Dersch's original PanoTools offers a set of command-line dirven applications to create panoramas. Most notable are <code>PTOptimizer</code> and <code>PTmender</code>.
+<dl><dd><ul><li> <span id="IDX101"></span> <span id="IDX102"></span> ALE<a class="external" href="http://auricle.dyndns.org/ALE/">[*]</a>, David Hilvert's anti-lamenessing engine for the real die-hard command-line users aligns, filters, and renders images.
+</li><li> <span id="IDX103"></span> <span id="IDX104"></span> Hugin<a class="external" href="http://hugin.sourceforge.net/">[*]</a> is a GUI that aligns and stitches images. <span id="IDX105"></span> <span id="IDX106"></span> <span id="IDX107"></span> <br />It comes with several command line tools, like <code>nona</code> to stitch panorama images, <code>align_image_stack</code> to align overlapping images for HDR or create focus stacks, and <code>fulla</code> to correct lens errors.
+</li><li> <span id="IDX108"></span> <span id="IDX109"></span> <span id="IDX110"></span> PanoTools<a class="external" href="http://panotools.sourceforge.net/">[*]</a> the successor of Helmut Dersch's original PanoTools<a class="external" href="http://www.all-in-one.ee/~dersch/">[*]</a> offers a set of command-line dirven applications to create panoramas. Most notable are <code>PTOptimizer</code> and <code>PTmender</code>.
 </li></ul>
 </dd></dl>
 <dl><dt> <b>Image Manipulation</b>
 </dt></dl>
-<dl><dd><ul><li> <span id="IDX111"></span> <span id="IDX112"></span> CinePaint is a branch of an early Gimp forked off at version 1.0.4. It sports much less features than the current Gimp, but offers 8bit, 16bit and 32bit color channels, HDR (for example floating-point TIFF, and OpenEXR), and a tightly integrated color management system.
-</li><li> <span id="IDX113"></span> <span id="IDX114"></span> The Gimp is a general purpose image manipulation program. At the time of this writing it is still limited to images with only 8bits per channel.
-</li><li> <span id="IDX115"></span> <span id="IDX116"></span> ImageMagick and its clone GraphicsMagick are general purpose command-line driven image manipulation programs.
+<dl><dd><ul><li> <span id="IDX111"></span> <span id="IDX112"></span> CinePaint<a class="external" href="http://www.cinepaint.org/">[*]</a> is a branch of an early Gimp forked off at version 1.0.4. It sports much less features than the current Gimp, but offers 8bit, 16bit and 32bit color channels, HDR (for example floating-point TIFF, and OpenEXR), and a tightly integrated color management system.
+</li><li> <span id="IDX113"></span> <span id="IDX114"></span> The Gimp<a class="external" href="http://www.gimp.org/">[*]</a> is a general purpose image manipulation program. At the time of this writing it is still limited to images with only 8bits per channel.
+</li><li> <span id="IDX115"></span> <span id="IDX116"></span> ImageMagick<a class="external" href="http://www.imagemagick.org/">[*]</a> and its clone GraphicsMagick<a class="external" href="http://www.graphicsmagick.org/">[*]</a> are general purpose command-line driven image manipulation programs.
 </li></ul>
 </dd></dl>
 <dl><dt> <b>High Dynamic Range</b>
 </dt></dl>
-<dl><dd><ul><li> <span id="IDX117"></span> OpenEXR offers libraries and some programs to work with the EXR HDR format.
-</li><li> <span id="IDX118"></span> PFSTools create, modify, and tonemap high-dynamic range images.
+<dl><dd><ul><li> <span id="IDX117"></span> OpenEXR<a class="external" href="http://www.openexr.com/">[*]</a> offers libraries and some programs to work with the EXR HDR format.
+</li><li> <span id="IDX118"></span> PFSTools<a class="external" href="http://pfstools.sourceforge.net/">[*]</a> create, modify, and tonemap high-dynamic range images.
 </li></ul>
 </dd></dl>
 <dl><dt> <b>Libraries</b>
 </dt></dl>
-<dl><dd><ul><li> <span id="IDX119"></span> LibJPEG is a library for handling the JPEG (JFIF) image format.
-</li><li> <span id="IDX120"></span> LibPNG is a library that handles the Portable Network Graphics (PNG) image format.
-</li><li> <span id="IDX121"></span> LibTIFF offers a library and utility programs to manipulate the ubiquitous Tagged Image File Format, TIFF. <span id="IDX122"></span> The nifty <code>tiffinfo</code> command quickly inquires the properties of TIFF files.
+<dl><dd><ul><li> <span id="IDX119"></span> LibJPEG<a class="external" href="http://www.ijg.org/">[*]</a> is a library for handling the JPEG (JFIF) image format.
+</li><li> <span id="IDX120"></span> LibPNG<a class="external" href="http://www.libpng.org/pub/png/libpng.html">[*]</a> is a library that handles the Portable Network Graphics (PNG) image format.
+</li><li> <span id="IDX121"></span> LibTIFF<a class="external" href="http://www.remotesensing.org/libtiff/">[*]</a> offers a library and utility programs to manipulate the ubiquitous Tagged Image File Format, TIFF. <span id="IDX122"></span> The nifty <code>tiffinfo</code> command quickly inquires the properties of TIFF files.
 </li></ul>
 </dd></dl>
 <dl><dt> <b>Meta-Data Handling</b>
 </dt></dl>
-<dl><dd><ul><li> <span id="IDX123"></span> <span id="IDX124"></span> EXIFTool reads and writes EXIF meta data. In particular it copies meta data from one image to another.
-</li><li> <span id="IDX125"></span> <span id="IDX126"></span> LittleCMS is the color management library used by Hugin, DCRaw, UFRaw, Enblend, and Enfuse. It supplies some binaries, too. <code>tifficc</code>, an ICC color profile applier, is of particular interest.
+<dl><dd><ul><li> <span id="IDX123"></span> <span id="IDX124"></span> EXIFTool<a class="external" href="http://www.sno.phy.queensu.ca/~phil/exiftool/">[*]</a> reads and writes EXIF meta data. In particular it copies meta data from one image to another.
+</li><li> <span id="IDX125"></span> <span id="IDX126"></span> LittleCMS<a class="external" href="http://www.littlecms.com/">[*]</a> is the color management library used by Hugin, DCRaw, UFRaw, Enblend, and Enfuse. It supplies some binaries, too. <code>tifficc</code>, an ICC color profile applier, is of particular interest.
 </li></ul>
 </dd></dl>
 <hr />
@@ -3297,7 +3315,7 @@ TIFF Directory at offset 0x1a398a (1718666)
 </p><p><span id="FOOT2"></span> <a href="Enfuse_reference_manual.html#DOCF2" title="">(2)</a> Peter J. Burt and Edward H. Adelson, “A Multiresolution Spline With Application to Image Mosaics”, ACM Transactions on Graphics, Vol. 2, No. 4, October 1983, pages 217–236.
 </p><p><span id="FOOT3"></span> <a href="Enfuse_reference_manual.html#DOCF3" title="">(3)</a> Downsampling with a good interpolator reduces noise, which might not desired to judge the image quality of the original-size image. Cropping might be an alternative, though.
 </p><p><span id="FOOT4"></span> <a href="Enfuse_reference_manual.html#DOCF4" title="">(4)</a> In the current implementation a <code>floor(ContrastWindowSize / 2)</code> wide border around the images remains unprocessed and gets a weight of zero.
-</p><p><span id="FOOT5"></span> <a href="Enfuse_reference_manual.html#DOCF5" title="">(5)</a> Paul E. Debevec defines: “A <i>light probe</i> image is an omnidirectional, high dynamic range image that records the incident illumination conditions at a particular point in space.”
+</p><p><span id="FOOT5"></span> <a href="Enfuse_reference_manual.html#DOCF5" title="">(5)</a> Paul E. Debevec<a class="external" href="http://www.debevec.org/">[*]</a> defines: “A <i>light probe</i> image is an omnidirectional, high dynamic range image that records the incident illumination conditions at a particular point in space.”
 </p>
 <hr />
 <p><span id="SEC_Contents"></span>

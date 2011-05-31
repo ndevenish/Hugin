@@ -29,7 +29,7 @@
 		
 
 		
-		<!-- Head Scripts -->
+		<style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 		
 				
 	</head>
@@ -41,7 +41,7 @@
 				<h1 id="firstHeading" class="firstHeading">HDR workflow with hugin</h1>
 		<div id="bodyContent">
 			
-			<div id="contentSub"></div>
+			
 												<!-- start content -->
 			<p>This tutorial doesn't cover reasons why you might want to stitch in <a href="HDR.html" title="HDR">HDR</a>
 format.  It is a simple HOWTO listing the tools available and how to use them
@@ -58,8 +58,8 @@ probably want to look at a <a href="16bit_workflow_with_hugin.html" title="16bit
 </li></ul>
 <p>Each has advantages and disadvantages:  The first technique is simpler and has
 the advantage that the final <a href="HDR.html" title="HDR">HDR</a> step can be skipped and substituted with a
-Contrast Blending approach, but has the potential for misalignments causing
-ghosting problems.  The second technique is presented here since it
+Contrast Blending<a class="external" href="http://wiki.panotools.org/Contrast_Blending">[*]</a> approach, but has the potential for misalignments causing
+ghosting<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Ghosting&amp;action=edit&amp;redlink=1">[*]</a> problems.  The second technique is presented here since it
 involves a greater range of tools.
 </p>
 
@@ -71,7 +71,7 @@ involves a greater range of tools.
 <ol><li> If your stacks don't align (shot hand-held, sloppy panohead, etc.), set some control points inside stacks and align them too.
 </li></ol>
 </li><li> Stitch the panorama with <a href="Hugin.html" title="Hugin">hugin</a> and <a href="Enblend.html" title="Enblend">enblend</a> to HDR file. 
-</li><li> Optionally tonemap the result with qtpfsgui.
+</li><li> Optionally tonemap the result with qtpfsgui<a class="external" href="http://wiki.panotools.org/Qtpfsgui">[*]</a>.
 </li></ol>
 <a name="Laborious_and_difficult_technique" id="Laborious_and_difficult_technique"></a><h1> <span class="mw-headline"> Laborious and difficult technique </span></h1>
 <a name="Preparing_the_HDR_images" id="Preparing_the_HDR_images"></a><h2> <span class="mw-headline"> Preparing the HDR images </span></h2>
@@ -94,10 +94,10 @@ keep the camera steady.
 <a href="Fulla.html" title="Fulla">fulla</a> using pre-calibrated data for your lens, it doesn't really work later on.
 </p>
 <a name="Merging_bracketed_shots_with_PFScalibration" id="Merging_bracketed_shots_with_PFScalibration"></a><h3> <span class="mw-headline"> Merging bracketed shots with PFScalibration </span></h3>
-<p>There are other tools for merging bracketed images, but PFScalibration is Free
+<p>There are other tools for merging bracketed images, but PFScalibration<a class="external" href="http://wiki.panotools.org/PFScalibration">[*]</a> is Free
 Software and does the job.
 </p><p>The steps outlined below for assembling <a href="HDR.html" title="HDR">HDR</a> images can also be
-performed with the qtpfsgui GUI tool.
+performed with the qtpfsgui<a class="external" href="http://wiki.panotools.org/Qtpfsgui">[*]</a> GUI tool.
 </p>
 <a name="Calibrating_the_camera_response_curve" id="Calibrating_the_camera_response_curve"></a><h4> <span class="mw-headline"> Calibrating the camera response curve </span></h4>
 <p>Generally when a digital camera creates a <a href="JPEG.html" title="JPEG">JPEG</a> or <a href="TIFF.html" title="TIFF">TIFF</a> file, it takes a
@@ -121,7 +121,7 @@ seconds exposure.  First extract the exposure times from the <a href="EXIF.html"
 <a name="Aligning_the_shots" id="Aligning_the_shots"></a><h4> <span class="mw-headline"> Aligning the shots </span></h4>
 <p>If the pictures were taken hand-held you will need
 to <a href="Align_a_stack_of_photos.html" title="Align a stack of photos">align the stack of photos</a> using hugin.
-</p><p>Alternatively the hdrprep tool
+</p><p>Alternatively the hdrprep<a class="external" href="http://www.luxal.eu/resources/hdr/hdrprep/">[*]</a> tool
 can be used to do all this automatically and save a lot of time.
 </p>
 <a name="Merging_the_bracketed_images_to_Radiance_RGBE_.hdr_format" id="Merging_the_bracketed_images_to_Radiance_RGBE_.hdr_format"></a><h4> <span class="mw-headline"> Merging the bracketed images to Radiance RGBE <i>.hdr</i> format </span></h4>
@@ -153,9 +153,9 @@ final 8bit per channel human-readable images.
 3d rendering, in which case you are now done.
 </p>
 <a name="Adjusting_in_a_GUI_tool" id="Adjusting_in_a_GUI_tool"></a><h3> <span class="mw-headline"> Adjusting in a GUI tool </span></h3>
-<p>There are various image editors that can open this file such as cinepaint,
-krita, vips and HDRIE.  The capabilities vary so you need to experiment.
-</p><p>Alternatively, use pfstools to manipulate the image: pfstools has the
+<p>There are various image editors that can open this file such as cinepaint<a class="external" href="http://wiki.panotools.org/Cinepaint">[*]</a>,
+krita<a class="external" href="http://wiki.panotools.org/Krita">[*]</a>, vips<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Vips&amp;action=edit&amp;redlink=1">[*]</a> and HDRIE<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=HDRIE&amp;action=edit&amp;redlink=1">[*]</a>.  The capabilities vary so you need to experiment.
+</p><p>Alternatively, use pfstools<a class="external" href="http://wiki.panotools.org/Pfstools">[*]</a> to manipulate the image: pfstools has the
 facility to read <a href="HDR.html" title="HDR">HDR</a> <a href="TIFF.html" title="TIFF">TIFF</a> files.
 </p><p>An HDR image can be viewed using pfstools using:
 </p>
@@ -165,24 +165,24 @@ facility to read <a href="HDR.html" title="HDR">HDR</a> <a href="TIFF.html" titl
 adjust the exposure slider until you see a good range of shadows and highlights, zoom 1:1 and save as <a href="PNG.html" title="PNG">PNG</a>.
 </p>
 <a name="Tone_mapping" id="Tone_mapping"></a><h3> <span class="mw-headline"> Tone mapping </span></h3>
-<p><a href="Tone_mapping.html" title="Tone mapping">tone mapping</a> operations use HDR compression to compress high <a href="Dynamic_range.html" title="Dynamic range">dynamic range</a> images.
+<p><a href="Tone_mapping.html" title="Tone mapping">tone mapping</a> operations use HDR compression<a class="external" href="http://wiki.panotools.org/HDR_compression">[*]</a> to compress high <a href="Dynamic_range.html" title="Dynamic range">dynamic range</a> images.
 </p><p>Note that local tone mapping operators produce strange artefacts in the <a href="Zenith.html" title="Zenith">zenith</a> and
 <a href="Nadir.html" title="Nadir">nadir</a> of <a href="Equirectangular.html" title="Equirectangular" class="mw-redirect">equirectangular</a> images.  So either choose a global tone mapping operator or
 retouch the poles afterwards.
-</p><p>A related package to pfstools called <a href="Pfstmo.html" title="Pfstmo">pfstmo</a> can do automatic <a href="Tone_mapping.html" title="Tone mapping">tone mapping</a>
+</p><p>A related package to pfstools<a class="external" href="http://wiki.panotools.org/Pfstools">[*]</a> called <a href="Pfstmo.html" title="Pfstmo">pfstmo</a> can do automatic <a href="Tone_mapping.html" title="Tone mapping">tone mapping</a>
 of an <a href="HDR.html" title="HDR">HDR</a> image and compress it into a low <a href="Dynamic_range.html" title="Dynamic range">dynamic range</a> output.  There are many
 options and techniques available, commands look like this:
 </p>
 <pre> pfsinrgbe stitch.hdr | pfstmo_drago03 | pfsgamma -g 2.2 | pfsout stitch.png
 </pre>
-<p>qtpfsgui is an open source GUI for pfstools and can perform
+<p>qtpfsgui<a class="external" href="http://wiki.panotools.org/Qtpfsgui">[*]</a> is an open source GUI for pfstools<a class="external" href="http://wiki.panotools.org/Pfstools">[*]</a> and can perform
 <a href="Tone_mapping.html" title="Tone mapping">tone mapping</a> interactively.
-</p><p>Photomatix also can perform tone mapping.
+</p><p>Photomatix<a class="external" href="http://wiki.panotools.org/Photomatix">[*]</a> also can perform tone mapping.
 </p>
 <div class="usermessage" id="stub">
 <table cellpadding="0" cellspacing="0" style="background-color:inherit">
 <tr>
-<td><i>This article is out of date.  You can help Panotools Wiki by expanding it.</i>
+<td><i>This article is out of date.  You can help Panotools Wiki by expanding it<a class="external" href="http://wiki.panotools.org/wiki/index.php?stub&amp;title=HDR_workflow_with_hugin&amp;action=edit">[*]</a>.</i>
 </td></tr></table>
 <p><span style="font-weight:normal;">
 <small>Once the article is ok feel free to remove the {{Outdated}} template</small>

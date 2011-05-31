@@ -29,7 +29,7 @@
 		
 
 		
-		<!-- Head Scripts -->
+		<style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 		
 				
 	</head>
@@ -41,21 +41,21 @@
 				<h1 id="firstHeading" class="firstHeading">Panorama scripting in a nutshell</h1>
 		<div id="bodyContent">
 			
-			<div id="contentSub"></div>
+			
 												<!-- start content -->
 			<p>This is a short document describing the various Open Source tools and techniques available for working with panoramas in a non-GUI environment. The examples are based on Linux experience, but most of them should work on OS X or Windows with minor modifications at most.
 </p><p>This document is also useful for understanding what happens 'under the hood' in <a href="Hugin.html" title="Hugin">hugin</a> itself and recommended reading for anyone looking to work with the hugin sourcecode.
 </p>
 
 <a name="Why_would_you_do_that.3F" id="Why_would_you_do_that.3F"></a><h1> <span class="mw-headline"> Why would you do that? </span></h1>
-<p>Creating and manipulating panoramas is something that should obviously be done in a graphical tool. This is true, but perhaps you find that you are spending more time operating a computer than being a photographer. This is an indication that something is wrong - The computer exists to do the boring work and scripting is one way to make this happen.
+<p>Creating and manipulating panoramas is something that should obviously be done in a graphical tool<a class="external" href="http://wiki.panotools.org/GUI_front-ends">[*]</a>. This is true, but perhaps you find that you are spending more time operating a computer than being a photographer. This is an indication that something is wrong - The computer exists to do the boring work and scripting is one way to make this happen.
 </p>
 <a name="PanoTools_.27Scripting.27" id="PanoTools_.27Scripting.27"></a><h1> <span class="mw-headline"> PanoTools 'Scripting' </span></h1>
 <p>The file format first used in Helmut Dersch's <a href="Panorama_tools.html" title="Panorama tools">Panorama tools</a> is often referred to as a 'script', but a 'PanoTools' script is really a data file describing a 'panorama stitching project'.
-</p><p>Although these original PanoTools are less used today, the file format is alive and well with several variations used as project files by PTGui, PTAssembler, <a href="Hugin.html" title="Hugin">hugin</a> and related tools. These files are simple plain-text, sometimes it is useful to modify them directly with a text editor - Further on we will introduce various methods for manipulating them via the 'programming' kind of scripts.
+</p><p>Although these original PanoTools are less used today, the file format is alive and well with several variations used as project files by PTGui<a class="external" href="http://wiki.panotools.org/PTGui">[*]</a>, PTAssembler<a class="external" href="http://wiki.panotools.org/PTAssembler">[*]</a>, <a href="Hugin.html" title="Hugin">hugin</a> and related tools. These files are simple plain-text, sometimes it is useful to modify them directly with a text editor - Further on we will introduce various methods for manipulating them via the 'programming' kind of scripts.
 </p>
 <a name="Simple_command-line_stitching" id="Simple_command-line_stitching"></a><h1> <span class="mw-headline"> Simple command-line stitching </span></h1>
-<p>Lets start with a basic but common use case: Photographers with quality panoramic tripod heads can reproduce identical sets of photos every time, in this situation there is no need to create a new stitching project for every panorama, it is enough to use a single project as a template.
+<p>Lets start with a basic but common use case: Photographers with quality panoramic tripod heads<a class="external" href="http://wiki.panotools.org/Heads">[*]</a> can reproduce identical sets of photos every time, in this situation there is no need to create a new stitching project for every panorama, it is enough to use a single project as a template.
 </p><p>This example takes a pre-existing project called template.pto, created with three photos. It uses <a href="Nona.html" title="Nona">nona</a> for remapping, and <a href="Enblend.html" title="Enblend">enblend</a> for blending the remapped photos into a finished <a href="TIFF.html" title="TIFF">TIFF</a> image:
 </p>
 <pre> nona -o out -m TIFF_m template.pto DSC_1234.JPG DSC_1235.JPG DSC_1236.JPG
@@ -67,7 +67,7 @@
 <p>The entire panorama creation process can be performed on the command-line, and therefore scripted, doing this involves a series of steps similar to the workflow in a GUI tool.
 </p>
 <a name="Generating_control_points" id="Generating_control_points"></a><h2> <span class="mw-headline"> Generating control points </span></h2>
-<p>There are a number of tools available for generating <a href="Control_points.html" title="Control points">control points</a> from groups of photos, such as <a href="Autopano-sift.html" title="Autopano-sift">autopano-sift</a>, autopano-sift-c, <a href="Panomatic.html" title="Panomatic">panomatic</a> and match-n-shift. Here is an example using autopano-sift-c:
+<p>There are a number of tools available for generating <a href="Control_points.html" title="Control points">control points</a> from groups of photos, such as <a href="Autopano-sift.html" title="Autopano-sift">autopano-sift</a>, autopano-sift-c<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Autopano-sift-c&amp;action=edit&amp;redlink=1">[*]</a>, <a href="Panomatic.html" title="Panomatic">panomatic</a> and match-n-shift<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Match-n-shift&amp;action=edit&amp;redlink=1">[*]</a>. Here is an example using autopano-sift-c:
 </p>
 <pre> autopano-sift-c --projection 0,50 project.pto DSC_1234.JPG DSC_1235.JPG DSC_1236.JPG
 </pre>
@@ -75,16 +75,16 @@
 </p>
 <a name="Pruning_control_points" id="Pruning_control_points"></a><h2> <span class="mw-headline"> Pruning control points </span></h2>
 <p>This still isn't a finished panorama, at the very least this involves <a href="Optimization.html" title="Optimization">optimising</a> the camera positions and then rendering the output.
-</p><p>You could go ahead and <a href="Optimization.html" title="Optimization">optimise</a> this project file straight away, but this can be a bit hit and miss. First it is a good idea to clean up the <a href="Control_points.html" title="Control points">control points</a>. There are currently two useful tools for cleaning control points: <a href="Using_Celeste_with_hugin.html" title="Using Celeste with hugin">celeste</a> removes points from areas of sky and ptoclean removes points with large error distances, first <a href="Celeste_standalone.html" title="Celeste standalone">celeste_standalone</a>:
+</p><p>You could go ahead and <a href="Optimization.html" title="Optimization">optimise</a> this project file straight away, but this can be a bit hit and miss. First it is a good idea to clean up the <a href="Control_points.html" title="Control points">control points</a>. There are currently two useful tools for cleaning control points: <a href="Using_Celeste_with_hugin.html" title="Using Celeste with hugin">celeste</a> removes points from areas of sky and ptoclean<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Ptoclean&amp;action=edit&amp;redlink=1">[*]</a> removes points with large error distances, first <a href="Celeste_standalone.html" title="Celeste standalone">celeste_standalone</a>:
 </p>
 <pre> celeste_standalone -i project.pto -o project.pto
 </pre>
-<p>Then ptoclean:
+<p>Then ptoclean<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Ptoclean&amp;action=edit&amp;redlink=1">[*]</a>:
 </p>
 <pre> ptoclean -v --output project.pto project.pto
 </pre>
 <p>Note that in both cases we are overwriting the input project.pto file with the cleaned output. If you want you can create intermediate temporary files and keep each step in case you need to backtrack.
-</p><p>(Other control point cleaners are ptscluster and the new <a href="Cpclean.html" title="Cpclean">cpclean</a>)
+</p><p>(Other control point cleaners are ptscluster<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Ptscluster&amp;action=edit&amp;redlink=1">[*]</a> and the new <a href="Cpclean.html" title="Cpclean">cpclean</a>)
 </p>
 <a name="Optimising_positions_and_geometry" id="Optimising_positions_and_geometry"></a><h2> <span class="mw-headline"> Optimising positions and geometry </span></h2>
 <p>Up to now, the project file simply contains an image list and <a href="Control_points.html" title="Control points">control points</a>, the images are not yet aligned, you can do this by <a href="Optimization.html" title="Optimization">optimising</a> geometric parameters with the <a href="Autooptimiser.html" title="Autooptimiser">autooptimiser</a> tool:
@@ -96,15 +96,15 @@
 </p>
 <pre> autooptimiser -a -l -s -m -o project.pto project.pto
 </pre>
-<p>(PToptimizer is an alternative geometrical optimiser)
+<p>(PToptimizer<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=PToptimizer&amp;action=edit&amp;redlink=1">[*]</a> is an alternative geometrical optimiser)
 </p>
 <a name="Optimising_photometric_parameters" id="Optimising_photometric_parameters"></a><h2> <span class="mw-headline"> Optimising photometric parameters </span></h2>
-<p>Photos have photometric exposure variables which can be <a href="Optimization.html" title="Optimization">optimised</a> in much the same way as aligning positions. Doing this can remove brightness, white balance and <a href="Vignetting.html" title="Vignetting">vignetting</a> differences between photos, giving better blending or allowing creation of <a href="HDR.html" title="HDR">HDR</a> images.
+<p>Photos have photometric exposure variables which can be <a href="Optimization.html" title="Optimization">optimised</a> in much the same way as aligning positions. Doing this can remove brightness, white balance<a class="external" href="http://wiki.panotools.org/White_balance">[*]</a> and <a href="Vignetting.html" title="Vignetting">vignetting</a> differences between photos, giving better blending or allowing creation of <a href="HDR.html" title="HDR">HDR</a> images.
 </p><p>For doing an automatic photometric optimisation like Hugin's assistant, run <a href="Autooptimiser.html" title="Autooptimiser">autooptimiser</a> with -m switch:
 </p>
 <pre> autooptimiser -m -o project.pto project.pto
 </pre>
-<p>For full manual control for photometric parameters use <a href="Vig_optimize.html" title="Vig optimize">vig_optimize</a>. This program does the equivalent job for photometric parameters as <a href="Autooptimiser.html" title="Autooptimiser">autooptimiser</a> does for geometric parameters. You need to indicate in the .pto project which parameters are 'variables'. For this task you can edit the .pto file or use a tool such as ptovariable:
+<p>For full manual control for photometric parameters use <a href="Vig_optimize.html" title="Vig optimize">vig_optimize</a>. This program does the equivalent job for photometric parameters as <a href="Autooptimiser.html" title="Autooptimiser">autooptimiser</a> does for geometric parameters. You need to indicate in the .pto project which parameters are 'variables'. For this task you can edit the .pto file or use a tool such as ptovariable<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Ptovariable&amp;action=edit&amp;redlink=1">[*]</a>:
 </p>
 <pre> ptovariable --vignetting --response --exposure project.pto
  vig_optimize -o project.pto project.pto
@@ -126,7 +126,7 @@
 <p>Finally this produces the stitched panorama: project.tif
 </p>
 <a name="Makefile_stitching_system" id="Makefile_stitching_system"></a><h1> <span class="mw-headline"> <i>Makefile</i> stitching system </span></h1>
-<p>This simple stitching process works well on the command-line, but it gets increasingly complicated when dealing with <a href="Bracketing.html" title="Bracketing">bracketed</a> stacks of photos, these are necessary for exposure blending with <a href="Enfuse.html" title="Enfuse">enfuse</a> or <a href="HDR.html" title="HDR">HDR</a> creation with hugin_hdrmerge.
+<p>This simple stitching process works well on the command-line, but it gets increasingly complicated when dealing with <a href="Bracketing.html" title="Bracketing">bracketed</a> stacks of photos, these are necessary for exposure blending with <a href="Enfuse.html" title="Enfuse">enfuse</a> or <a href="HDR.html" title="HDR">HDR</a> creation with hugin_hdrmerge<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Hugin_hdrmerge&amp;action=edit&amp;redlink=1">[*]</a>.
 </p><p>Luckily <a href="Hugin.html" title="Hugin">hugin</a> understands about stacks and is capable of breaking-up a project into each of the stitching tasks: rendering, assembling stacks and blending. These targets are written to a standard <i>Makefile</i> formatted file whenever a project is saved or stitched, e.g when you save project.pto using the hugin GUI, project.pto.mk is saved also. Stitching is then performed not by the hugin GUI, but by GNU <i>make</i> which processes the targets in the <i>Makefile</i>, resulting in the final stitched panorama.
 </p>
 <a name="Creating_Makefiles_with_pto2mk" id="Creating_Makefiles_with_pto2mk"></a><h2> <span class="mw-headline"> Creating <i>Makefile</i>s with pto2mk </span></h2>
@@ -142,7 +142,7 @@
 </p>
 <pre> make -f project.pto.mk clean
 </pre>
-<p>Internal variables can be overriden by environment variables using the '-e' flag, so to stitch using the alternative nona-mask tool instead of <a href="Nona.html" title="Nona">nona</a>, use something like this:
+<p>Internal variables can be overriden by environment variables using the '-e' flag, so to stitch using the alternative nona-mask<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Nona-mask&amp;action=edit&amp;redlink=1">[*]</a> tool instead of <a href="Nona.html" title="Nona">nona</a>, use something like this:
 </p>
 <pre> NONA=nona-mask make -e -f project.pto.mk
 </pre>
@@ -168,10 +168,10 @@
 </p>
 <pre> for file in *.pto.mk; do make -f $file; done
 </pre>
-<p>For more advanced command-line stitching, a tool like distmake will manage a queue of <i>Makefile</i> stitching jobs, and even load-balance multiple machines over a network.
+<p>For more advanced command-line stitching, a tool like distmake<a class="external" href="http://distmake.sourceforge.net/">[*]</a> will manage a queue of <i>Makefile</i> stitching jobs, and even load-balance multiple machines over a network.
 </p>
 <a name="Makefile_plugins" id="Makefile_plugins"></a><h2> <span class="mw-headline"> <i>Makefile</i> plugins </span></h2>
-<p>A <i>Makefile</i> can be extended with additional targets by creating a second <i>Makefile</i> that includes the original <a href="Hugin.html" title="Hugin">hugin</a> .pto.mk <i>Makefile</i>.  For instance a plugin <i>Makefile</i> called 'Makefile.psd.mk' might define a new target called 'ldr_psd' that assembles a multilayer <a href="PSD.html" title="PSD">PSD</a> file for manual blending in a tool such as the Gimp:
+<p>A <i>Makefile</i> can be extended with additional targets by creating a second <i>Makefile</i> that includes the original <a href="Hugin.html" title="Hugin">hugin</a> .pto.mk <i>Makefile</i>.  For instance a plugin <i>Makefile</i> called 'Makefile.psd.mk' might define a new target called 'ldr_psd' that assembles a multilayer <a href="PSD.html" title="PSD">PSD</a> file for manual blending in a tool such as the Gimp<a class="external" href="http://wiki.panotools.org/Gimp">[*]</a>:
 </p>
 <pre> include $(PTO).mk
  ldr_psd&nbsp;: $(LDR_LAYERS) $(LDR_BLENDED)
@@ -182,7 +182,7 @@
 </p>
 <pre> make -f Makefile.psd.mk ldr_psd PTO=project.pto
 </pre>
-<p>Hugin installs with an example Makefile.equirect.mk plugin with some common add-on tasks such as creating basic <a href="QTVR.html" title="QTVR">QTVR</a>, PanoSalado and SPi-V files.
+<p>Hugin installs with an example Makefile.equirect.mk plugin with some common add-on tasks such as creating basic <a href="QTVR.html" title="QTVR">QTVR</a>, PanoSalado<a class="external" href="http://wiki.panotools.org/PanoSalado">[*]</a> and SPi-V<a class="external" href="http://wiki.panotools.org/SPi-V">[*]</a> files.
 </p>
 <a name="Useful_Makefile_variables" id="Useful_Makefile_variables"></a><h2> <span class="mw-headline"> Useful <i>Makefile</i> variables </span></h2>
 <p>Each filesystem PATH in this table has a matching PATH_SHELL version with special characters escaped - This is the version that should be used in the 'command' part of each <i>Makefile</i> rule.
@@ -265,8 +265,8 @@
 </td></tr></table>
 <a name="Holding_it_all_together_with_panostart" id="Holding_it_all_together_with_panostart"></a><h1> <span class="mw-headline"> Holding it all together with panostart </span></h1>
 <p>The .pto.mk <i>Makefile</i> helps with the stitching at the end of the process, but doesn't help with the bits at the beginning such as: identifying which photos go in which panorama, generating <a href="Control_points.html" title="Control points">control points</a>, pruning and <a href="Optimization.html" title="Optimization">optimising</a>.
-</p><p>panostart is a prototype tool that does it all. Given a list of photos in a folder, it identifies likely panoramas by comparing <a href="EXIF.html" title="EXIF">EXIF</a> timestamps and writes a meta-<i>Makefile</i> containing: rules for generating .pto projects with match-n-shift, rules for generating corresponding .pto.mk <i>Makefile</i>s with <a href="Pto2mk.html" title="Pto2mk">pto2mk</a>, rules for stitching the projects with <i>make</i>, plus some other rules for creating useful distributable output.
-</p><p>A typical panostart command for dealing with a folder full of photos taken with a pocket point-and-shoot camera on auto-exposure might look like this:
+</p><p>panostart<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Panostart&amp;action=edit&amp;redlink=1">[*]</a> is a prototype tool that does it all. Given a list of photos in a folder, it identifies likely panoramas by comparing <a href="EXIF.html" title="EXIF">EXIF</a> timestamps and writes a meta-<i>Makefile</i> containing: rules for generating .pto projects with match-n-shift<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Match-n-shift&amp;action=edit&amp;redlink=1">[*]</a>, rules for generating corresponding .pto.mk <i>Makefile</i>s with <a href="Pto2mk.html" title="Pto2mk">pto2mk</a>, rules for stitching the projects with <i>make</i>, plus some other rules for creating useful distributable output.
+</p><p>A typical panostart<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Panostart&amp;action=edit&amp;redlink=1">[*]</a> command for dealing with a folder full of photos taken with a pocket point-and-shoot camera on auto-exposure might look like this:
 </p>
 <pre> panostart --output Makefile --projection 0 --fov 50 --nostacks --loquacious *.JPG
 </pre>
@@ -278,7 +278,7 @@
 </p><p>Another advantage of doing things this way is reproducibility: delete all the (enormous) <a href="TIFF.html" title="TIFF">TIFF</a> output panoramas and all you need to keep permanently are the photos, the meta-<i>Makefile</i> and the associated .pto projects. If you ever need to recreate the TIFF panoramas in the future, just type <i>make</i>. If you know the name of the TIFF file you want, just type 'make project.tif' and only a single panorama will be processed.
 </p>
 <a name="Panotools::Script_for_manipulating_project_files" id="Panotools::Script_for_manipulating_project_files"></a><h1> <span class="mw-headline"> Panotools::Script for manipulating project files </span></h1>
-<p>The name is a historical mistake, Panotools::Script is a perl library for working with <a href="Hugin.html" title="Hugin">hugin</a> .pto projects, though it could be extended in the future to cover any of the related file formats. Many of the command-line tools described in this document are written with this library.
+<p>The name is a historical mistake, Panotools::Script<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Panotools_Script&amp;action=edit&amp;redlink=1">[*]</a> is a perl library for working with <a href="Hugin.html" title="Hugin">hugin</a> .pto projects, though it could be extended in the future to cover any of the related file formats. Many of the command-line tools described in this document are written with this library.
 </p><p>Here is a trivial script, all it does is open and save a .pto project, it also resets the output ('p' Panorama line) <a href="Field_of_View.html" title="Field of View">angle of view</a> to 360 degrees (v360), the <a href="Projections.html" title="Projections">projection</a> format to <a href="Equirectangular_Projection.html" title="Equirectangular Projection">equirectangular</a> (f2) and the output pixel size to 4096x2048 pixels (w4096 h2048):
 </p>
 <pre> #!/usr/bin/perl
@@ -288,7 +288,7 @@
  $pto-&gt;Panorama-&gt;Set (v =&gt; 360, f =&gt; 2, w =&gt; 4096, h = 2048);
  $pto-&gt;Write ($ARGV[0]);
 </pre>
-<p>Here's slightly more complex script, this iterates over the input images and increments the white balance making the panorama slightly 'warmer':
+<p>Here's slightly more complex script, this iterates over the input images and increments the white balance<a class="external" href="http://wiki.panotools.org/White_balance">[*]</a> making the panorama slightly 'warmer':
 </p>
 <pre> #!/usr/bin/perl
  use Panotools::Script;
@@ -304,9 +304,9 @@
 </pre>
 <a name="Full_list_of_command-line_tools" id="Full_list_of_command-line_tools"></a><h1> <span class="mw-headline"> Full list of command-line tools </span></h1>
 <a name="Control_point_generation" id="Control_point_generation"></a><h2> <span class="mw-headline"> Control point generation </span></h2>
-<ul><li> autopano-sift-c - All in one keypoint generator and matcher
-</li><li> match-n-shift - All in one wrapper around <a href="Align_image_stack.html" title="Align image stack">align_image_stack</a> and autopano-sift-c
-</li><li> <a href="Panomatic.html" title="Panomatic">panomatic</a> - All in one alternative to autopano-sift-c
+<ul><li> autopano-sift-c<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Autopano-sift-c&amp;action=edit&amp;redlink=1">[*]</a> - All in one keypoint generator and matcher
+</li><li> match-n-shift<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Match-n-shift&amp;action=edit&amp;redlink=1">[*]</a> - All in one wrapper around <a href="Align_image_stack.html" title="Align image stack">align_image_stack</a> and autopano-sift-c<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Autopano-sift-c&amp;action=edit&amp;redlink=1">[*]</a>
+</li><li> <a href="Panomatic.html" title="Panomatic">panomatic</a> - All in one alternative to autopano-sift-c<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Autopano-sift-c&amp;action=edit&amp;redlink=1">[*]</a>
 </li><li> <a href="Align_image_stack.html" title="Align image stack">align_image_stack</a> - Generates <a href="Control_points.html" title="Control points">control points</a> for stacked photos
 </li><li> ptoanchor - add control points to a Hugin project
 </li><li> ptochain - add control points to a Hugin project between consecutive photos
@@ -314,40 +314,40 @@
 </li><li> ptofill - add control points to a Hugin project between likely overlapping photos
 </li><li> generatekeys - Keypoint generator
 </li><li> matchpoint - Keypoint generator
-</li><li> autopano - Keypoint matcher, part of autopano-sift-c and not to be confused with autopano
+</li><li> autopano - Keypoint matcher, part of autopano-sift-c<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Autopano-sift-c&amp;action=edit&amp;redlink=1">[*]</a> and not to be confused with autopano
 </li></ul>
 <a name="Project_file_modification" id="Project_file_modification"></a><h2> <span class="mw-headline"> Project file modification </span></h2>
-<ul><li> match-n-shift - (see above) Default usage is to initialise a new .pto project from EXIF data
+<ul><li> match-n-shift<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Match-n-shift&amp;action=edit&amp;redlink=1">[*]</a> - (see above) Default usage is to initialise a new .pto project from EXIF data
 </li><li> ptoset - Change global parameters and project options
-</li><li> ptovariable - Set typical <a href="Optimization.html" title="Optimization">optimisation</a> variables
+</li><li> ptovariable<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Ptovariable&amp;action=edit&amp;redlink=1">[*]</a> - Set typical <a href="Optimization.html" title="Optimization">optimisation</a> variables
 </li><li> ptsed - Set any project parameter, convert .pto into PanoTools format
-</li><li> ptosort - Sort <a href="Control_points.html" title="Control points">control points</a> or images, remove duplicate control points
+</li><li> ptosort<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Ptosort&amp;action=edit&amp;redlink=1">[*]</a> - Sort <a href="Control_points.html" title="Control points">control points</a> or images, remove duplicate control points
 </li><li> ptopath - Remove file paths in project files
-</li><li> transform-pano - <a href="Roll.html" title="Roll">Roll</a>, <a href="Pitch.html" title="Pitch">pitch</a> and <a href="Yaw.html" title="Yaw">yaw</a> rotation of .pto projects
+</li><li> transform-pano<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Transform-pano&amp;action=edit&amp;redlink=1">[*]</a> - <a href="Roll.html" title="Roll">Roll</a>, <a href="Pitch.html" title="Pitch">pitch</a> and <a href="Yaw.html" title="Yaw">yaw</a> rotation of .pto projects
 </li><li> ptocentre - Rotate projects to put images in panorama centre
 </li><li> <a href="Pano_modify.html" title="Pano modify">pano_modify</a> Change output parameters of project file
 </li></ul>
-<ul><li> ptomerge - Join two or more projects
+<ul><li> ptomerge<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Ptomerge&amp;action=edit&amp;redlink=1">[*]</a> - Join two or more projects
 </li><li> <a href="Pto_merge.html" title="Pto merge">pto_merge</a> Merges two or more Hugin project files (this is a different tool to ptomerge above)
-</li><li> ptosplit - Extract subsets of images from a project into a new project
+</li><li> ptosplit<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Ptosplit&amp;action=edit&amp;redlink=1">[*]</a> - Extract subsets of images from a project into a new project
 </li></ul>
 <a name="Control_point_pruning" id="Control_point_pruning"></a><h2> <span class="mw-headline"> Control point pruning </span></h2>
 <ul><li> ptscluster - Clean 'bad' <a href="Control_points.html" title="Control points">control points</a> based on distances and position
 </li><li> <a href="Celeste_standalone.html" title="Celeste standalone">celeste_standalone</a> - Clean sky <a href="Control_points.html" title="Control points">control points</a>
-</li><li> ptoclean - Clean 'bad' <a href="Control_points.html" title="Control points">control points</a> based on standard deviation error
-</li><li> <a href="Cpclean.html" title="Cpclean">cpclean</a> - An improved version of ptoclean, part of the <a href="Hugin.html" title="Hugin">hugin</a> project
+</li><li> ptoclean<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Ptoclean&amp;action=edit&amp;redlink=1">[*]</a> - Clean 'bad' <a href="Control_points.html" title="Control points">control points</a> based on standard deviation error
+</li><li> <a href="Cpclean.html" title="Cpclean">cpclean</a> - An improved version of ptoclean<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Ptoclean&amp;action=edit&amp;redlink=1">[*]</a>, part of the <a href="Hugin.html" title="Hugin">hugin</a> project
 </li></ul>
 <a name="Optimisation" id="Optimisation"></a><h2> <span class="mw-headline"> Optimisation </span></h2>
 <ul><li> <a href="Autooptimiser.html" title="Autooptimiser">autooptimiser</a> - <a href="Optimization.html" title="Optimization">Optimise</a> geometry of .pto projects
-</li><li> PToptimizer - <a href="Optimization.html" title="Optimization">Optimize</a> geometry of PanoTools format projects
+</li><li> PToptimizer<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=PToptimizer&amp;action=edit&amp;redlink=1">[*]</a> - <a href="Optimization.html" title="Optimization">Optimize</a> geometry of PanoTools format projects
 </li><li> <a href="Vig_optimize.html" title="Vig optimize">vig_optimize</a> - <a href="Optimization.html" title="Optimization">Optimise</a> photometric parameters of .pto projects
 </li></ul>
 <a name="Rendering" id="Rendering"></a><h2> <span class="mw-headline"> Rendering </span></h2>
 <ul><li> <a href="Nona.html" title="Nona">nona</a> - Default <a href="Hugin.html" title="Hugin">hugin</a> rendering engine
-</li><li> nona-mask - Wrapper around <a href="Nona.html" title="Nona">nona</a> for using external bitmap masks
+</li><li> nona-mask<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Nona-mask&amp;action=edit&amp;redlink=1">[*]</a> - Wrapper around <a href="Nona.html" title="Nona">nona</a> for using external bitmap masks
 </li><li> <a href="PTmender.html" title="PTmender">PTmender</a> - Render PanoTools format projects
 </li></ul>
-<ul><li> PTAInterpolate - Create intermediate images from PanoTools projects
+<ul><li> PTAInterpolate<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=PTAInterpolate&amp;action=edit&amp;redlink=1">[*]</a> - Create intermediate images from PanoTools projects
 </li></ul>
 <a name="Blending_2" id="Blending_2"></a><h2> <span class="mw-headline"> Blending </span></h2>
 <ul><li> <a href="Enblend.html" title="Enblend">enblend</a> - Merge partially overlapping images with multiresolution splines
@@ -357,7 +357,7 @@
 </li><li> enblend-mask - Wrapper around <a href="Enblend.html" title="Enblend">enblend</a> for using external bitmap masks
 </li><li> enfuse-mask - Wrapper around <a href="Enfuse.html" title="Enfuse">enfuse</a> for using external bitmap masks
 </li><li> deghosting_mask - Creates mask for removing ghosting in images
-</li><li> hugin_hdrmerge - Merge <a href="Bracketing.html" title="Bracketing">bracketed</a> images for <a href="HDR.html" title="HDR">HDR</a> generation
+</li><li> hugin_hdrmerge<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Hugin_hdrmerge&amp;action=edit&amp;redlink=1">[*]</a> - Merge <a href="Bracketing.html" title="Bracketing">bracketed</a> images for <a href="HDR.html" title="HDR">HDR</a> generation
 </li><li> enblend-svg - Wrapper around <a href="Enblend.html" title="Enblend">enblend</a> for specifying input images via SVG files
 </li></ul>
 <ul><li> process-masks - Allow 'positive' masking in external masks for <a href="Enblend.html" title="Enblend">enblend</a>
@@ -365,13 +365,13 @@
 </li><li> <a href="PTblender.html" title="PTblender">PTblender</a> - Correct colour and brightness of overlapping images
 </li></ul>
 <a name="Misc" id="Misc"></a><h2> <span class="mw-headline"> Misc </span></h2>
-<ul><li> panostart - All-in-one panorama workflow via <i>Makefile</i>s
+<ul><li> panostart<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Panostart&amp;action=edit&amp;redlink=1">[*]</a> - All-in-one panorama workflow via <i>Makefile</i>s
 </li><li> gigastart - All-in-one assembly of multi-row panoramas
 </li><li> <a href="Pto2mk.html" title="Pto2mk">pto2mk</a> - Create platform specific <i>Makefile</i> for stitching a project
-</li><li> gigatile - Create a Makefile for stitching a project as multi-resolution tiles
-</li><li> ptodummy - Generate missing input photos to debug .pto projects
-</li><li> calibrate_lens - Automatic lens calibration using straight-line detection
-</li><li> pafextract - Tool to use <a href="Panoglview.html" title="Panoglview">panoglview</a> as a zenith and nadir editor
+</li><li> gigatile<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Gigatile&amp;action=edit&amp;redlink=1">[*]</a> - Create a Makefile for stitching a project as multi-resolution tiles
+</li><li> ptodummy<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Ptodummy&amp;action=edit&amp;redlink=1">[*]</a> - Generate missing input photos to debug .pto projects
+</li><li> calibrate_lens<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Calibrate_lens&amp;action=edit&amp;redlink=1">[*]</a> - Automatic lens calibration using straight-line detection
+</li><li> pafextract<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Pafextract&amp;action=edit&amp;redlink=1">[*]</a> - Tool to use <a href="Panoglview.html" title="Panoglview">panoglview</a> as a zenith and nadir editor<a class="external" href="http://wiki.panotools.org/Zenith_and_Nadir_editing_overview">[*]</a>
 </li></ul>
 <a name="Chromatic_aberration" id="Chromatic_aberration"></a><h2> <span class="mw-headline"> Chromatic aberration </span></h2>
 <ul><li> <a href="Fulla.html" title="Fulla">fulla</a> - Correct lens distortion and <a href="Chromatic_aberration.html" title="Chromatic aberration">chromatic aberration</a>
@@ -382,7 +382,7 @@
 </li><li> ptoget - Query any project parameter
 </li><li> ptoinfo - Generate a report on a project file
 </li><li> PTinfo - Display info about a panotools generated <a href="TIFF.html" title="TIFF">TIFF</a> file
-</li><li> <a href="Panoinfo.html" title="Panoinfo">panoinfo</a> - Display information about installed libpano13 library
+</li><li> <a href="Panoinfo.html" title="Panoinfo">panoinfo</a> - Display information about installed libpano13<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Libpano13&amp;action=edit&amp;redlink=1">[*]</a> library
 </li><li> pano_trafo - transform between image and panorama coordinates (and vice versa)
 </li></ul>
 <a name="TIFF_files" id="TIFF_files"></a><h2> <span class="mw-headline"> TIFF files </span></h2>
@@ -396,26 +396,26 @@
 </li><li> cubic2erect - Render six cubefaces into a single <a href="Equirectangular_Projection.html" title="Equirectangular Projection">equirectangular</a> image
 </li><li> qtvr2erect - Render a cubic <a href="QTVR.html" title="QTVR">QTVR</a> into a single <a href="Equirectangular_Projection.html" title="Equirectangular Projection">equirectangular</a> image
 </li><li> jpeg2qtvr - Assemble six <a href="JPEG.html" title="JPEG">JPEG</a> cubefaces into a cubic <a href="QTVR.html" title="QTVR">QTVR</a>
-</li><li> erect2qtvr - Render a single <a href="Equirectangular_Projection.html" title="Equirectangular Projection">equirectangular</a> image into a cubic <a href="QTVR.html" title="QTVR">QTVR</a>
+</li><li> erect2qtvr<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Erect2qtvr&amp;action=edit&amp;redlink=1">[*]</a> - Render a single <a href="Equirectangular_Projection.html" title="Equirectangular Projection">equirectangular</a> image into a cubic <a href="QTVR.html" title="QTVR">QTVR</a>
 </li></ul>
 <ul><li> erect2cubic - Create a .pto project for extracting cube faces from an <a href="Equirectangular_Projection.html" title="Equirectangular Projection">equirectangular</a> image
 </li><li> erect2planet - Create a .pto project for extracting a 'little planet' from an <a href="Equirectangular_Projection.html" title="Equirectangular Projection">equirectangular</a> image
 </li><li> erect2mercator - Create a .pto project for extracting a mercator view from an <a href="Equirectangular_Projection.html" title="Equirectangular Projection">equirectangular</a> image
 </li></ul>
 <a name="Older_tools" id="Older_tools"></a><h2> <span class="mw-headline"> Older tools </span></h2>
-<p>Helmut Dersch's <a href="PTOptimizer.html" title="PTOptimizer">PTOptimizer</a> and <a href="PTStitcher.html" title="PTStitcher">PTStitcher</a> were the original command-line tools. These are not really recommendable any more as they require an older, buggier version of the libpano12 library, they are closed source so don't work on modern systems such as OS X or 64bit Linux, and are lacking in features compared to modern replacements such as <a href="Autooptimiser.html" title="Autooptimiser">autooptimiser</a> and <a href="Nona.html" title="Nona">nona</a>.
+<p>Helmut Dersch's <a href="PTOptimizer.html" title="PTOptimizer">PTOptimizer</a> and <a href="PTStitcher.html" title="PTStitcher">PTStitcher</a> were the original command-line tools. These are not really recommendable any more as they require an older, buggier version of the libpano12<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Libpano12&amp;action=edit&amp;redlink=1">[*]</a> library, they are closed source so don't work on modern systems such as OS X or 64bit Linux, and are lacking in features compared to modern replacements such as <a href="Autooptimiser.html" title="Autooptimiser">autooptimiser</a> and <a href="Nona.html" title="Nona">nona</a>.
 </p>
 <a name="Useful_Image_processing_tools" id="Useful_Image_processing_tools"></a><h1> <span class="mw-headline"> Useful Image processing tools </span></h1>
-<ul><li> ImageMagick - Many utilities for converting, manipulating and resizing images
+<ul><li> ImageMagick<a class="external" href="http://wiki.panotools.org/ImageMagick">[*]</a> - Many utilities for converting, manipulating and resizing images
 </li><li> GraphicsMagick - A  fork of ImageMagick with many improvements
 </li><li> libtiff - Supplied with useful tools such as tiffcp for joining and recompression, and tifficc for adding ICC colour profiles
-</li><li> exiftool - All purpose reading, setting and copying of <a href="EXIF.html" title="EXIF">EXIF</a> data
+</li><li> exiftool<a class="external" href="http://wiki.panotools.org/Exiftool">[*]</a> - All purpose reading, setting and copying of <a href="EXIF.html" title="EXIF">EXIF</a> data
 </li><li> exiv2 - <a href="EXIF.html" title="EXIF">EXIF</a> manipulation, useful for setting the file modification date from the EXIF date
 </li><li> jpegtran - Lossless rotation of <a href="JPEG.html" title="JPEG">JPEG</a> images
 </li><li> ufraw-batch - Command-line <a href="RAW.html" title="RAW">RAW</a> processing
-</li><li> dcraw - Command-line <a href="RAW.html" title="RAW">RAW</a> processing
+</li><li> dcraw<a class="external" href="http://wiki.panotools.org/Dcraw">[*]</a> - Command-line <a href="RAW.html" title="RAW">RAW</a> processing
 </li></ul>
-<p>--Bruno 21:23, 2 May 2009 (UTC)
+<p>--Bruno<a class="external" href="http://wiki.panotools.org/User:Bruno">[*]</a> 21:23, 2 May 2009 (UTC)
 </p>
 
 

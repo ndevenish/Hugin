@@ -29,7 +29,7 @@
 		
 
 		
-		<!-- Head Scripts -->
+		<style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 		
 				
 	</head>
@@ -41,10 +41,10 @@
 				<h1 id="firstHeading" class="firstHeading">Enblend reference manual</h1>
 		<div id="bodyContent">
 			
-			<div id="contentSub"></div>
+			
 												<!-- start content -->
 			<p><span id="Top"></span> <span id="SEC_Top"></span>
-</p><p>This manual is for <a href="Enblend.html" title="Enblend">Enblend</a> (version 3.2-cvs, Thu Sep 25 07:35:10 UTC 2008). It was written by Dr. Christoph L. Spiel, converted partly from the HTML version and corrected using the PDF version both found on http://panorama.dyndns.org/EandE-documentation/
+</p><p>This manual is for <a href="Enblend.html" title="Enblend">Enblend</a> (version 3.2-cvs, Thu Sep 25 07:35:10 UTC 2008). It was written by Dr. Christoph L. Spiel, converted partly from the HTML version and corrected using the PDF version both found on http://panorama.dyndns.org/EandE-documentation/<a class="external" href="http://panorama.dyndns.org/EandE-documentation/">[*]</a>
 </p><p><span id="Overview"></span> <span id="SEC1"></span>
 </p>
 
@@ -54,7 +54,7 @@
 </p><p><span id="IDX1"></span> <span id="IDX2"></span>
 </p><p>Enblend does <i>not</i> align images. Use a tool as <code>hugin</code> or PanoTools to do this. The TIFF files produced by these programs are exactly what Enblend is designed to work with. Sometimes these GUIs allow you to select feathering for the edges of your images. This treatment is detrimental to Enblend. Turn off feathering by deselecting it or setting the feather width to zero.
 </p><p>Enblend blends the images in the order they are specified on the command line. You should order your images according to the way that they overlap, for example from left-to-right across the panorama. If you are making a multi-row panorama, we recommend blending each horizontal row individually, and then running Enblend a last time to blend all of the rows together vertically.
-</p><p>Find out more about Enblend on its webpage.
+</p><p>Find out more about Enblend on its webpage<a class="external" href="http://enblend.sourceforge.net/">[*]</a>.
 </p>
 <hr />
 <p><span id="Invocation"></span> <span id="SEC2"></span>
@@ -246,11 +246,11 @@ TIFF Directory at offset 0x1a398a (1718666)
 </p><p>The multitude of terms all describing the concept of a mask is confusing.
 </p>
 <dl><dt> Mask
-</dt><dd> A mask defines a selection of pixels. A value of zero represents an unselected pixel. The maximum value (“white”) represents a selected pixel and the values between zero and the maximum are partially selected pixels. See Gimp-Savy.
+</dt><dd> A mask defines a selection of pixels. A value of zero represents an unselected pixel. The maximum value (“white”) represents a selected pixel and the values between zero and the maximum are partially selected pixels. See Gimp-Savy<a class="external" href="http://gimp-savvy.com/BOOK/index.html$$$$node42.html">[*]</a>.
 </dd><dt> Alpha Channel
 </dt><dd> The alpha channel stores the transpacency value for each pixel, typically in the range from zero to one. A value of zero means the pixel is completely transparent, thus does not contribute to the image. A value of one on the other hand means the pixel is completely opaque.
 </dd><dt> Matte
-</dt><dd> The notion “matte” as used by ImageMagick refers to an inverted alpha channel, more precisely: 1 - alpha. See ImageMagick for further explanations.
+</dt><dd> The notion “matte” as used by ImageMagick refers to an inverted alpha channel, more precisely: 1 - alpha. See ImageMagick<a class="external" href="http://www.imagemagick.org/Usage/channels/#trans">[*]</a> for further explanations.
 </dd></dl>
 <p>Enblend and Enfuse only consider pixels that have an associated mask value different from zero. If an input image does not have an alpha channel, Enblend warns and assumes a mask of all non-zero values, this is, it will use every pixel of the input image for fusion.
 </p><p>Stitchers like <code>nona</code> add a mask to their output images.
@@ -319,41 +319,41 @@ TIFF Directory at offset 0x1a398a (1718666)
 </p>
 <dl><dt> <b>Raw Image Conversion</b>
 </dt></dl>
-<dl><dd><ul><li> <span id="IDX64"></span> <span id="IDX65"></span> DCRaw is a universal raw-converter.
-</li><li> <span id="IDX66"></span> <span id="IDX67"></span> <span id="IDX68"></span> UFRaw, a raw converter based on DCRaw, adds a GUI (<code>ufraw</code>), versatile batch processing (<code>ufraw-batch</code>), and some additional features like, for example, cropping, noise reduction with wavelets, and automatic lens error correction.
+<dl><dd><ul><li> <span id="IDX64"></span> <span id="IDX65"></span> DCRaw<a class="external" href="http://www.cybercom.net/~dcoffin/dcraw/">[*]</a> is a universal raw-converter.
+</li><li> <span id="IDX66"></span> <span id="IDX67"></span> <span id="IDX68"></span> UFRaw<a class="external" href="http://ufraw.sourceforge.net/">[*]</a>, a raw converter based on DCRaw, adds a GUI (<code>ufraw</code>), versatile batch processing (<code>ufraw-batch</code>), and some additional features like, for example, cropping, noise reduction with wavelets, and automatic lens error correction.
 </li></ul>
 </dd></dl>
 <dl><dt> <b>Image Alignment and Rendering</b>
 </dt></dl>
-<dl><dd><ul><li> <span id="IDX69"></span> <span id="IDX70"></span> ALE, David Hilvert's anti-lamenessing engine for the real die-hard command-line users aligns, filters, and renders images.
-</li><li> <span id="IDX71"></span> <span id="IDX72"></span> Hugin is a GUI that aligns and stitches images. <span id="IDX73"></span> <span id="IDX74"></span> <span id="IDX75"></span> It comes with several command line tools, like <code>nona</code> to stitch panorama images, <code>align_image_stack</code> to align overlapping images for HDR or create focus stacks, and <code>fulla</code> to correct lens errors.
-</li><li> <span id="IDX76"></span> <span id="IDX77"></span> <span id="IDX78"></span> PanoTools the successor of Helmut Dersch's original PanoTools offers a set of command-line dirven applications to create panoramas. Most notable are <code>PTOptimizer</code> and <code>PTmender</code>.
+<dl><dd><ul><li> <span id="IDX69"></span> <span id="IDX70"></span> ALE<a class="external" href="http://auricle.dyndns.org/ALE/">[*]</a>, David Hilvert's anti-lamenessing engine for the real die-hard command-line users aligns, filters, and renders images.
+</li><li> <span id="IDX71"></span> <span id="IDX72"></span> Hugin<a class="external" href="http://hugin.sourceforge.net/">[*]</a> is a GUI that aligns and stitches images. <span id="IDX73"></span> <span id="IDX74"></span> <span id="IDX75"></span> It comes with several command line tools, like <code>nona</code> to stitch panorama images, <code>align_image_stack</code> to align overlapping images for HDR or create focus stacks, and <code>fulla</code> to correct lens errors.
+</li><li> <span id="IDX76"></span> <span id="IDX77"></span> <span id="IDX78"></span> PanoTools<a class="external" href="http://panotools.sourceforge.net/">[*]</a> the successor of Helmut Dersch's original PanoTools<a class="external" href="http://www.panotools.org/dersch/">[*]</a> offers a set of command-line dirven applications to create panoramas. Most notable are <code>PTOptimizer</code> and <code>PTmender</code>.
 </li></ul>
 </dd></dl>
 <dl><dt> <b>Image Manipulation</b>
 </dt></dl>
-<dl><dd><ul><li> <span id="IDX79"></span> <span id="IDX80"></span> CinePaint is a branch of an early Gimp forked off at version 1.0.4. It sports much less features than the current Gimp, but offers 8bit, 16bit and 32bit color channels, HDR (for example floating-point TIFF, and OpenEXR), and a tightly integrated color management system.
+<dl><dd><ul><li> <span id="IDX79"></span> <span id="IDX80"></span> CinePaint<a class="external" href="http://www.cinepaint.org/">[*]</a> is a branch of an early Gimp forked off at version 1.0.4. It sports much less features than the current Gimp, but offers 8bit, 16bit and 32bit color channels, HDR (for example floating-point TIFF, and OpenEXR), and a tightly integrated color management system.
 </li><li> <span id="IDX81"></span> <span id="IDX82"></span> The [www.gimp.org/ Gimp] is a general purpose image manipulation program. At the time of this writing it is still limited to images with only 8bits per channel.
-</li><li> <span id="IDX83"></span> <span id="IDX84"></span> ImageMagick and its clone GraphicsMagick are general purpose command-line driven image manipulation programs.
+</li><li> <span id="IDX83"></span> <span id="IDX84"></span> ImageMagick<a class="external" href="http://www.imagemagick.org/">[*]</a> and its clone GraphicsMagick<a class="external" href="http://www.graphicsmagick.org/">[*]</a> are general purpose command-line driven image manipulation programs.
 </li></ul>
 </dd></dl>
 <dl><dt> <b>High Dynamic Range</b>
 </dt></dl>
-<dl><dd><ul><li> <span id="IDX85"></span> OpenEXR offers libraries and some programs to work with the EXR HDR format.
-</li><li> <span id="IDX86"></span> PFSTools create, modify, and tonemap high-dynamic range images.
+<dl><dd><ul><li> <span id="IDX85"></span> OpenEXR<a class="external" href="http://www.openexr.com/">[*]</a> offers libraries and some programs to work with the EXR HDR format.
+</li><li> <span id="IDX86"></span> PFSTools<a class="external" href="http://pfstools.sourceforge.net/">[*]</a> create, modify, and tonemap high-dynamic range images.
 </li></ul>
 </dd></dl>
 <dl><dt> <b>Libraries</b>
 </dt></dl>
-<dl><dd><ul><li> <span id="IDX87"></span> LibJPEG is a library for handling the JPEG (JFIF) image format.
-</li><li> <span id="IDX88"></span> LibPNG is a library that handles the Portable Network Graphics (PNG) image format.
-</li><li> <span id="IDX89"></span> LibTIFF offers a library and utility programs to manipulate the ubiquitous Tagged Image File Format, TIFF. <span id="IDX90"></span> The nifty <code>tiffinfo</code> command quickly inquires the properties of TIFF files.
+<dl><dd><ul><li> <span id="IDX87"></span> LibJPEG<a class="external" href="http://www.ijg.org/">[*]</a> is a library for handling the JPEG (JFIF) image format.
+</li><li> <span id="IDX88"></span> LibPNG<a class="external" href="http://www.libpng.org/pub/png/libpng.html">[*]</a> is a library that handles the Portable Network Graphics (PNG) image format.
+</li><li> <span id="IDX89"></span> LibTIFF<a class="external" href="http://www.remotesensing.org/libtiff/">[*]</a> offers a library and utility programs to manipulate the ubiquitous Tagged Image File Format, TIFF. <span id="IDX90"></span> The nifty <code>tiffinfo</code> command quickly inquires the properties of TIFF files.
 </li></ul>
 </dd></dl>
 <dl><dt> <b>Meta-Data Handling</b>
 </dt></dl>
-<dl><dd><ul><li> <span id="IDX91"></span> <span id="IDX92"></span> EXIFTool reads and writes EXIF meta data. In particular it copies meta data from one image to another.
-</li><li> <span id="IDX93"></span> <span id="IDX94"></span> LittleCMS is the color management library used by Hugin, DCRaw, UFRaw, Enblend, and Enfuse. It supplies some binaries, too. <code>tifficc</code>, an ICC color profile applier, is of particular interest.
+<dl><dd><ul><li> <span id="IDX91"></span> <span id="IDX92"></span> EXIFTool<a class="external" href="http://www.sno.phy.queensu.ca/~phil/exiftool/">[*]</a> reads and writes EXIF meta data. In particular it copies meta data from one image to another.
+</li><li> <span id="IDX93"></span> <span id="IDX94"></span> LittleCMS<a class="external" href="http://www.littlecms.com/">[*]</a> is the color management library used by Hugin, DCRaw, UFRaw, Enblend, and Enfuse. It supplies some binaries, too. <code>tifficc</code>, an ICC color profile applier, is of particular interest.
 </li></ul>
 </dd></dl>
 <hr />

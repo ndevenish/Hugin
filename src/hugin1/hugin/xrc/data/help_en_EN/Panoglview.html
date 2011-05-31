@@ -29,7 +29,7 @@
 		
 
 		
-		<!-- Head Scripts -->
+		<style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 		
 				
 	</head>
@@ -41,14 +41,14 @@
 				<h1 id="firstHeading" class="firstHeading">Panoglview</h1>
 		<div id="bodyContent">
 			
-			<div id="contentSub"></div>
+			
 												<!-- start content -->
-			<div class="thumb tright"><div class="thumbinner" style="width:202px;"><img alt="" src="200px-Panoglview.png" width="200" height="163" border="0" class="thumbimage" />  <div class="thumbcaption"><div class="magnify"><img src="http://wiki.panotools.org/wiki/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /></div>panoglview on Linux</div></div></div><b>panoglview</b> is an OpenGL hardware accelerated immersive viewer for <a href="Equirectangular.html" title="Equirectangular" class="mw-redirect">equirectangular</a> images, originally created by Fabian Wenzel and currently hosted on the hugin sourceforge site.
-<p>The license for <b>panoglview</b> is the GNU General Public License (GPL).
-</p><p>You can download pre-compiled versions of <b>panoglview</b> as part of the <a href="Hugin.html" title="Hugin">hugin</a> installer bundles for OS X and Windows.  <b>panoglview</b> is available for linux distributions through the usual channels (e.g ubuntu getdeb March 2009).
+			<div class="thumb tright"><div class="thumbinner" style="width:202px;"><img alt="" src="200px-Panoglview.png" width="200" height="163" border="0" class="thumbimage" /><a class="external" href="http://wiki.panotools.org/File:Panoglview.png">[*]</a>  <div class="thumbcaption"><div class="magnify"><img src="http://wiki.panotools.org/wiki/skins/common/images/magnify-clip.png" width="15" height="11" alt="" /><a class="external" href="http://wiki.panotools.org/File:Panoglview.png">[*]</a></div>panoglview on Linux</div></div></div><b>panoglview</b> is an OpenGL hardware accelerated immersive viewer for <a href="Equirectangular.html" title="Equirectangular" class="mw-redirect">equirectangular</a> images, originally created by Fabian Wenzel and currently hosted on the hugin sourceforge site<a class="external" href="http://sf.net/projects/hugin">[*]</a>.
+<p>The license for <b>panoglview</b> is the GNU General Public License (GPL)<a class="external" href="http://www.gnu.org/copyleft/gpl.html#SEC1">[*]</a>.
+</p><p>You can download pre-compiled versions of <b>panoglview</b> as part of the <a href="Hugin.html" title="Hugin">hugin</a> installer bundles for OS X and Windows.  <b>panoglview</b> is available for linux distributions through the usual channels (e.g ubuntu getdeb<a class="external" href="http://www.getdeb.net/app/PanoGLview">[*]</a> March 2009).
 </p>
 <a name="compiling_panoglview" id="compiling_panoglview"></a><h2> <span class="mw-headline"> compiling panoglview </span></h2>
-<p>See Hugin Compiling Ubuntu#Panoglview.
+<p>See Hugin Compiling Ubuntu#Panoglview<a class="external" href="http://wiki.panotools.org/Hugin_Compiling_Ubuntu#Panoglview">[*]</a>.
 </p>
 <a name="using_panoglview" id="using_panoglview"></a><h2> <span class="mw-headline"> using panoglview </span></h2>
 <p>Panoglview is intended to view full 180x360 (equirectangular) panoramas projected onto a globe which can be spun around using the mouse.
@@ -56,13 +56,13 @@
 </p><p>These are simple text files and fairly self-explanatory, but the interesting thing is that these .paf files contain stuff like camera field-of-view, pan, tilt, boundaries and now partial panorama settings.
 </p>
 <a name="as_a_replacement_for_PTEditor" id="as_a_replacement_for_PTEditor"></a><h2> <span class="mw-headline"> as a replacement for PTEditor </span></h2>
-<p>PTEditor is an older unsupported tool for viewing a panorama, extracting undistorted views for external editing and reinserting those edited views. The <b>panoglview</b> .paf saving feature can be used to imitate this functionality in conjunction with the pafextract tool.
-</p><p>The pafextract workflow goes something like this:
+<p>PTEditor<a class="external" href="http://wiki.panotools.org/PTEditor">[*]</a> is an older unsupported tool for viewing a panorama, extracting undistorted views for external editing and reinserting those edited views. The <b>panoglview</b> .paf saving feature can be used to imitate this functionality in conjunction with the pafextract<a class="external" href="http://search.cpan.org/dist/Panotools-Script/bin/pafextract">[*]</a> tool.
+</p><p>The pafextract workflow<a class="external" href="http://www.flickr.com/photos/36383814@N00/2845671569/">[*]</a> goes something like this:
 </p>
 <ol><li> open a panorama in <b>panoglview</b>
 </li><li> find a viewpoint to edit, save a .paf viewpoint
 </li><li> extract a bitmap image of this view with pafextract
-</li><li> edit it with the gimp or another image editor, save
+</li><li> edit it with the gimp<a class="external" href="http://wiki.panotools.org/Gimp">[*]</a> or another image editor, save
 </li><li> remap this using the .pto project created by pafextract
 </li><li> merge with the panorama
 </li></ol>

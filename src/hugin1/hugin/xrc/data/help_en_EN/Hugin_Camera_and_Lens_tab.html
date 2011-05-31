@@ -29,7 +29,7 @@
 		
 
 		
-		<!-- Head Scripts -->
+		<style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 		
 				
 	</head>
@@ -41,7 +41,7 @@
 				<h1 id="firstHeading" class="firstHeading">Hugin Camera and Lens tab</h1>
 		<div id="bodyContent">
 			
-			<div id="contentSub"></div>
+			
 												<!-- start content -->
 			<table cellspacing="0" cellpadding="0" style="clear: right; margin-bottom: .5em; float: right; padding: .5em 0 .8em 1.4em; background: none; width:auto">
 <tr>
@@ -49,10 +49,10 @@
 </td></tr></table>
 <p>The <b>Camera and Lens</b> tab looks a lot like the <a href="Hugin_Images_tab.html" title="Hugin Images tab">hugin Images tab</a>, except that the lens settings can be edited here.
 As in the Images Tab, multi-selection can be used to change the parameters for multiple images.
-</p><p>Panorama Tools and <a href="Hugin.html" title="Hugin">hugin</a> allow the usage of images shot with different lenses and settings inside the same project.
+</p><p>Panorama Tools<a class="external" href="http://wiki.panotools.org/Panorama_Tools">[*]</a> and <a href="Hugin.html" title="Hugin">hugin</a> allow the usage of images shot with different lenses and settings inside the same project.
 Each image is associated with a lens number.
 All images that share the same lens number use the same lens type, and may be forced to share the same lens parameters.
-</p><p>The <b>Load lens...</b> and <b>Save lens...</b> buttons allow you to keep calibrated lens profiles.  Once a set of lens parameters has been obtained through lens calibration it shouldn't vary much for future projects.  The advantage of this is that if only positions are being optimised in the <a href="Hugin_Optimizer_tab.html" title="Hugin Optimizer tab">hugin Optimizer tab</a>, then as few as two or three <a href="Control_points.html" title="Control points">control points</a> are needed per image pair.
+</p><p>The <b>Load lens...</b> and <b>Save lens...</b> buttons allow you to keep calibrated lens profiles.  Once a set of lens parameters has been obtained through lens calibration<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Lens_calibration&amp;action=edit&amp;redlink=1">[*]</a> it shouldn't vary much for future projects.  The advantage of this is that if only positions are being optimised in the <a href="Hugin_Optimizer_tab.html" title="Hugin Optimizer tab">hugin Optimizer tab</a>, then as few as two or three <a href="Control_points.html" title="Control points">control points</a> are needed per image pair.
 </p><p><b>Load EXIF</b> examines the selected image file and tries to determine the <a href="Field_of_View.html" title="Field of View">Field of View</a>
 of the photo by reading embedded <a href="EXIF.html" title="EXIF">EXIF</a> data. The same function is performed when initially adding photos so you only need
 this button to reset the <b>Field of View</b> if it has since changed.
@@ -74,7 +74,7 @@ Assign additional photos to this <i>lens number</i> with the <b>Change Lens...</
 </li><li> <b>Full frame fisheye</b> - Exactly the same projection as <b>circular fisheye</b>, but the crop option will crop to a rectangle instead of a circle. This should be used for full frame fisheye images.
 </li><li> <b><a href="Equirectangular_Projection.html" title="Equirectangular Projection">Equirectangular</a></b> - A full spherical projection. These are generally created as the result of the stitching process, but it can be useful to reload a finished panorama to extract further images.
 </li></ul>
-<p>After the lens type has been specified, an estimate for the horizontal field of view (HFOV) is required. The HFOV specifies the horizontal opening angle of the image in degrees. Since most photographers are more familiar with <a href="Focal_Length.html" title="Focal Length">Focal Length</a> as a measure for the HFOV, it can be entered into hugin, and hugin will compute the HFOV from it. For this calculation the actual focal length and the <a href="Crop_factor.html" title="Crop factor">crop factor</a> of the camera are required. If the 35mm film equivalent focal length is known, a crop factor of 1 should be used.
+<p>After the lens type has been specified, an estimate for the horizontal field of view<a class="external" href="http://wiki.panotools.org/Field_of_view">[*]</a> (HFOV) is required. The HFOV specifies the horizontal opening angle of the image in degrees. Since most photographers are more familiar with <a href="Focal_Length.html" title="Focal Length">Focal Length</a> as a measure for the HFOV, it can be entered into hugin, and hugin will compute the HFOV from it. For this calculation the actual focal length and the <a href="Crop_factor.html" title="Crop factor">crop factor</a> of the camera are required. If the 35mm film equivalent focal length is known, a crop factor of 1 should be used.
 </p><p>With <a href="JPEG.html" title="JPEG">JPEG</a> images, hugin can usually automatically calculate the HFOV based on the <a href="EXIF.html" title="EXIF">EXIF</a> information.
 </p>
 <a name="Radial_Distortion.2C_Image_Center_Shift_and_Image_Shearing" id="Radial_Distortion.2C_Image_Center_Shift_and_Image_Shearing"></a><h3> <span class="mw-headline"> Radial Distortion, Image Center Shift and Image Shearing </span></h3>
@@ -83,7 +83,7 @@ In many cases the distortions are acceptable for single image shots, but they ne
 The <b>a</b>, <b>b</b> and <b>c</b> parameters are used to remove that distortion.
 They are applied radially from the image center, which can be moved by changing the <b>d</b> and <b>e</b> parameters.
 These <b>a</b>, <b>b</b>, <b>c</b>, <b>d</b> and <b>e</b> parameters are the basis of the panotools <a href="Lens_correction_model.html" title="Lens correction model">lens correction model</a>.
-</p><p>Scanned images might also suffer from image shearing. This can be corrected using the <b>g</b> and <b>t</b> parameters.
+</p><p>Scanned images might also suffer from image shearing<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Shearing&amp;action=edit&amp;redlink=1">[*]</a>. This can be corrected using the <b>g</b> and <b>t</b> parameters.
 </p><p>The distortion parameters usually vary with the focal length, and to a lesser degree with the focus.
 The <b>link</b> checkbox indicates whether the parameter is linked or not.
 A linked parameter is forced to the same value for all images with the same lens number.
@@ -140,7 +140,7 @@ vignetting centre to all photos with the selected lens number.
 colourspace when creating <a href="HDR.html" title="HDR">HDR</a> output, and for normalising the colourspace
 for internal vignetting, brightness and colour corrections when creating
 'normal' <b>LDR</b> output.
-</p><p><a href="Hugin.html" title="Hugin">hugin</a> uses the EMoR response model
+</p><p><a href="Hugin.html" title="Hugin">hugin</a> uses the EMoR response model<a class="external" href="http://www1.cs.columbia.edu/CAVE/projects/rad_cal/rad_cal.php">[*]</a>
 from the Computer Vision Lab at Columbia University which simplifies the full
 response curve to these five empirical coefficient numbers.  You are
 not expected to guess these values, they are generally loaded with a lens

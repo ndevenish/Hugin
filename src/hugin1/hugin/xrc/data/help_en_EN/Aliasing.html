@@ -29,7 +29,7 @@
 		
 
 		
-		<!-- Head Scripts -->
+		<style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 		
 				
 	</head>
@@ -41,7 +41,7 @@
 				<h1 id="firstHeading" class="firstHeading">Aliasing</h1>
 		<div id="bodyContent">
 			
-			<div id="contentSub"></div>
+			
 												<!-- start content -->
 			<p><br />
 </p>
@@ -51,21 +51,21 @@
 </p><p>To avoid aliasing, a signal must not contain frequencies that are higher than one half the sample rate.  Likewise, an input image must not contain details that are smaller than one pixel in the output image.  
 </p><p>This can be accomplished by appropriately filtering the signal or blurring the image before resampling it.  
 </p><p>Such filtering is one way to <i><b>anti-alias</b></i>.  <small>(There are others, not relevant here.)</small>
-</p><p>When using older versions of Panorama Tools (and derived tools such as <a href="PTStitcher.html" title="PTStitcher">PTStitcher</a>, <a href="Nona.html" title="Nona">nona</a> or the Panorama Tools Plugins) the important thing to know was that Panorama Tools did not anti-alias until pano12 version 2.7.0.11.  This meant that if you had Panorama Tools make a small panorama directly, it was likely to show jaggies or Moire effects. 
-</p><p>In version 2.7.0.11 a couple of anti-aliasing interpolators where added which can be used by either specifying the correct interpolator number in the script] or by choosing one of the interpolators directly if the Software supports it. However, the traditional interpolators "poly3", "spline16", "spline36", "sinc256", "spline64", "bilinear", "nearest neighbor" and "sinc1024" still cause aliasing.
+</p><p>When using older versions of Panorama Tools<a class="external" href="http://wiki.panotools.org/Panorama_Tools">[*]</a> (and derived tools such as <a href="PTStitcher.html" title="PTStitcher">PTStitcher</a>, <a href="Nona.html" title="Nona">nona</a> or the Panorama Tools Plugins<a class="external" href="http://wiki.panotools.org/Panorama_Tools_Plugins">[*]</a>) the important thing to know was that Panorama Tools did not anti-alias until pano12 version 2.7.0.11.  This meant that if you had Panorama Tools make a small panorama directly, it was likely to show jaggies or Moire effects. 
+</p><p>In version 2.7.0.11 a couple of anti-aliasing interpolators<a class="external" href="http://wiki.panotools.org/Anti-aliasing_interpolators">[*]</a> where added which can be used by either specifying the correct interpolator number in the script<a class="external" href="http://photocreations.ca/panotools/stitch.txt">[*]</a>] or by choosing one of the interpolators directly if the Software supports it. However, the traditional interpolators "poly3", "spline16", "spline36", "sinc256", "spline64", "bilinear", "nearest neighbor" and "sinc1024" still cause aliasing.
 </p>
 <a name="Guidance" id="Guidance"></a><h3> <span class="mw-headline"> Guidance </span></h3>
-<p>You will get better results by having Panorama Tools make a large panorama, then resizing it (downsampling) using some tool like Photoshop, ImageMagick or the Gimp that does incorporate anti-aliasing, if you use a version prior to 2.7.0.11 or if it's not possible to use the new anti-aliasing filters.
+<p>You will get better results by having Panorama Tools make a large panorama, then resizing it (downsampling) using some tool like Photoshop<a class="external" href="http://wiki.panotools.org/Photoshop">[*]</a>, ImageMagick<a class="external" href="http://wiki.panotools.org/ImageMagick">[*]</a> or the Gimp<a class="external" href="http://wiki.panotools.org/Gimp">[*]</a> that does incorporate anti-aliasing, if you use a version prior to 2.7.0.11 or if it's not possible to use the new anti-aliasing filters.
 </p>
 <a name="Illustrations" id="Illustrations"></a><h3> <span class="mw-headline"> Illustrations </span></h3>
 <p>The following images illustrate this guidance.  They show crops from a 1000x500 panorama.  
-</p><p>On the left is what Photoshop produced by downsampling from a 6068x3034 pano, using the Image Size command with Bicubic resampling.  (6068x3034 was the PTGui "optimum" size.)  
+</p><p>On the left is what Photoshop produced by downsampling from a 6068x3034 pano, using the Image Size command with Bicubic resampling.  (6068x3034 was the PTGui<a class="external" href="http://wiki.panotools.org/PTGui">[*]</a> "optimum" size.)  
 </p><p>On the right is what Panorama Tools produced directly at 1000x500.
 </p><p><b>Actual pixels</b>
-</p><p><img alt="Image:AliasingPScubic.jpg" src="AliasingPScubic.jpg" width="218" height="244" border="0" /> <img alt="Image:AliasingPTpoly3.jpg" src="AliasingPTpoly3.jpg" width="218" height="244" border="0" /> 
+</p><p><img alt="Image:AliasingPScubic.jpg" src="AliasingPScubic.jpg" width="218" height="244" border="0" /><a class="external" href="http://wiki.panotools.org/File:AliasingPScubic.jpg">[*]</a> <img alt="Image:AliasingPTpoly3.jpg" src="AliasingPTpoly3.jpg" width="218" height="244" border="0" /><a class="external" href="http://wiki.panotools.org/File:AliasingPTpoly3.jpg">[*]</a> 
 </p><p><br />
 <b>2X enlargement to show the aliasing more clearly</b>
-</p><p><img alt="Image:AliasingPScubic_2x.jpg" src="AliasingPScubic_2x.jpg" width="261" height="290" border="0" /> <img alt="Image:AliasingPTpoly3_2x.jpg" src="AliasingPTpoly3_2x.jpg" width="261" height="290" border="0" />
+</p><p><img alt="Image:AliasingPScubic_2x.jpg" src="AliasingPScubic_2x.jpg" width="261" height="290" border="0" /><a class="external" href="http://wiki.panotools.org/File:AliasingPScubic_2x.jpg">[*]</a> <img alt="Image:AliasingPTpoly3_2x.jpg" src="AliasingPTpoly3_2x.jpg" width="261" height="290" border="0" /><a class="external" href="http://wiki.panotools.org/File:AliasingPTpoly3_2x.jpg">[*]</a>
 </p>
 
 

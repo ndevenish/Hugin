@@ -29,7 +29,7 @@
 		
 
 		
-		<!-- Head Scripts -->
+		<style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 		
 				
 	</head>
@@ -41,14 +41,14 @@
 				<h1 id="firstHeading" class="firstHeading">Optimization</h1>
 		<div id="bodyContent">
 			
-			<div id="contentSub"></div>
+			
 												<!-- start content -->
 			
 <a name="Definition" id="Definition"></a><h2> <span class="mw-headline"> Definition </span></h2>
 <p>Optimization is the process of determining the necessary warping for an image pair in order to align given <a href="Control_points.html" title="Control points">control point</a> pairs
 </p>
 <a name="Optimizer_variants" id="Optimizer_variants"></a><h2> <span class="mw-headline"> Optimizer variants </span></h2>
-<p>The below article is about the internal PTGui optimizer. The original panotools <a href="PTOptimizer.html" title="PTOptimizer">PTOptimizer</a> as well as the <a href="Hugin.html" title="Hugin">hugin</a> optimizer work very similar but have a slightly different set of features and internally use different tactics. Hence the results can differ a bit.
+<p>The below article is about the internal PTGui<a class="external" href="http://wiki.panotools.org/PTGui">[*]</a> optimizer. The original panotools <a href="PTOptimizer.html" title="PTOptimizer">PTOptimizer</a> as well as the <a href="Hugin.html" title="Hugin">hugin</a> optimizer work very similar but have a slightly different set of features and internally use different tactics. Hence the results can differ a bit.
 </p>
 <a name="Understanding_optimization" id="Understanding_optimization"></a><h2> <span class="mw-headline"> Understanding optimization </span></h2>
 <p><small>John Houghton posted this clear explanation of optimization on the ptgui mailing list. </small>
@@ -119,7 +119,7 @@ and try another run.
 control point distances are very low (less than 2, say), with control
 points nicely spread, and the stitched result should then be fine.
 Misalignment due to parallax or movement may need correction in
-post processing,  Smartblend can often be helpful in disguising these
+post processing,  Smartblend<a class="external" href="http://wiki.panotools.org/Smartblend">[*]</a> can often be helpful in disguising these
 errors too, by routing the seams around objects during the blending.
 </p><p>The optimizer will never change the positions of the points in the
 images. They should be assigned on identical features, but the
@@ -137,7 +137,7 @@ also result from other causes, e.g. poor lens parameters, parallax,
 movement as explained in the previous post.
 </p>
 <a name="External_links" id="External_links"></a><h2> <span class="mw-headline"> External links </span></h2>
-<ul><li> Good tutorial on optimization: http://www.johnhpanos.com/optitute.htm
+<ul><li> Good tutorial on optimization: http://www.johnhpanos.com/optitute.htm<a class="external" href="http://www.johnhpanos.com/optitute.htm">[*]</a>
 </li></ul>
 
 

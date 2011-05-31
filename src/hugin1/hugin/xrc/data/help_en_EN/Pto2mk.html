@@ -29,7 +29,7 @@
 		
 
 		
-		<!-- Head Scripts -->
+		<style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 		
 				
 	</head>
@@ -41,10 +41,10 @@
 				<h1 id="firstHeading" class="firstHeading">Pto2mk</h1>
 		<div id="bodyContent">
 			
-			<div id="contentSub"></div>
+			
 												<!-- start content -->
-			<p><a href="Hugin.html" title="Hugin">hugin</a> is effectively an editor of .pto <i>project files</i>, the actual stitching of the panorama is performed by a number of other tools such as <a href="Nona.html" title="Nona">nona</a>, <a href="Enblend.html" title="Enblend">enblend</a>, <a href="Enfuse.html" title="Enfuse">enfuse</a>, hugin_hdrmerge and exiftool. The advantage of this is that the hugin GUI can be closed during stitching, saving memory, or reused to work on the next project - Stitching can also be paused, deferred or shifted to another machine, even 'headless' servers can be used.
-</p><p>The stitching process is not necessarily linear, some operations can be performed in any order and even in parallel, with lots of intermediary files that need to be cleaned-up afterwards. So the process of managing this is handled by w:make (software) a robust and lightweight scriptable tool.
+			<p><a href="Hugin.html" title="Hugin">hugin</a> is effectively an editor of .pto <i>project files</i>, the actual stitching of the panorama is performed by a number of other tools such as <a href="Nona.html" title="Nona">nona</a>, <a href="Enblend.html" title="Enblend">enblend</a>, <a href="Enfuse.html" title="Enfuse">enfuse</a>, hugin_hdrmerge<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Hugin_hdrmerge&amp;action=edit&amp;redlink=1">[*]</a> and exiftool<a class="external" href="http://wiki.panotools.org/Exiftool">[*]</a>. The advantage of this is that the hugin GUI can be closed during stitching, saving memory, or reused to work on the next project - Stitching can also be paused, deferred or shifted to another machine, even 'headless' servers can be used.
+</p><p>The stitching process is not necessarily linear, some operations can be performed in any order and even in parallel, with lots of intermediary files that need to be cleaned-up afterwards. So the process of managing this is handled by w:make (software)<a class="external" href="http://www.wikipedia.org/wiki/make_(software)">[*]</a> a robust and lightweight scriptable tool.
 </p><p>All this is concealed from the user when using the <a href="Hugin.html" title="Hugin">hugin</a> GUI, <a href="Hugin_stitch_project.html" title="Hugin stitch project">hugin_stitch_project</a> or the <a href="Hugin_Batch_Processor.html" title="Hugin Batch Processor">hugin Batch Processor</a> to stitch a project. However the process can also be controlled on the command-line with the <b>pto2mk</b> tool.
 </p><p>First create a <i>Makefile</i> containing all the rules necessary to stitch the project:
 </p>
@@ -63,7 +63,7 @@
 </p>
 <pre>  make -j 16 -f myproject.pto.mk NONA='nona -t 1'
 </pre>
-<p>For more advanced command-line stitching, a tool like distmake will manage a queue of <i>Makefile</i> stitching jobs, and even load-balance multiple machines over a network.
+<p>For more advanced command-line stitching, a tool like distmake<a class="external" href="http://sourceforge.net/projects/distmake/">[*]</a> will manage a queue of <i>Makefile</i> stitching jobs, and even load-balance multiple machines over a network.
 </p>
 
 

@@ -29,7 +29,7 @@
 		
 
 		
-		<!-- Head Scripts -->
+		<style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 		
 				
 	</head>
@@ -41,23 +41,23 @@
 				<h1 id="firstHeading" class="firstHeading">Using Celeste with hugin</h1>
 		<div id="bodyContent">
 			
-			<div id="contentSub"></div>
+			
 												<!-- start content -->
 			<p>Celeste is program used to remove cloud-like control points and can be run from within Hugin or from the command line. It was developed by Tim Nugent during Google's Summer of Code 2008.
 </p><p>The problem is this: photo stitching software relies on objects within different images remaining in the same place. Control points are then used to match corresponding positons in each photo. However, panoramas are often captured over a number of minutes. During this time frame, non-static features such as clouds, water, and other objects (usually influenced by wind) may move significantly thus creating problems for automatic alignment tools. Should a control point be added to a cloud in photo A, the same cloud may have moved by the time photo B is taken, so the corresponding control point on the same cloud in photo B will actually be in the wrong position.
-</p><p>To implement a solution to this problem, a classification algorithm called a w:Support vector machine was used. SVMs are binary classifiers, so the objective is to use one to make a simple call: is this control point on a cloud, or not. The SVM uses textural and colour information around the control point to make this judgement, based on what it has been trained to recognise. The training process involves providing labeled example of each category (cloud/non-cloud) so the SVM can learn to discrminate between them.
+</p><p>To implement a solution to this problem, a classification algorithm called a w:Support vector machine<a class="external" href="http://www.wikipedia.org/wiki/Support_vector_machine">[*]</a> was used. SVMs are binary classifiers, so the objective is to use one to make a simple call: is this control point on a cloud, or not. The SVM uses textural and colour information around the control point to make this judgement, based on what it has been trained to recognise. The training process involves providing labeled example of each category (cloud/non-cloud) so the SVM can learn to discrminate between them.
 </p><p>There are a few ways of running Celeste; I’ll show you how to do so via the control point editor panel first.
-</p><p><img alt="Image:Celeste_cpeditor_pre.jpg" src="Celeste_cpeditor_pre.jpg" width="512" height="539" border="0" />
+</p><p><img alt="Image:Celeste_cpeditor_pre.jpg" src="Celeste_cpeditor_pre.jpg" width="512" height="539" border="0" /><a class="external" href="http://wiki.panotools.org/File:Celeste_cpeditor_pre.jpg">[*]</a>
 </p><p><br />
 Select a pair of images. For these two in the example, there are 15 control points connecting the two images, 6 of which are on clouds - we want to get rid of these. Hit the ‘Run Celeste’ button and wait a few seconds. A message box should pop up saying how many control points have been removed:
-</p><p><img alt="Image:Celeste_done.jpg" src="Celeste_done.jpg" width="321" height="162" border="0" />
+</p><p><img alt="Image:Celeste_done.jpg" src="Celeste_done.jpg" width="321" height="162" border="0" /><a class="external" href="http://wiki.panotools.org/File:Celeste_done.jpg">[*]</a>
 </p><p>Click OK then have another look at the control points. Of the 6 on clouds, 5 have been removed. In this example none of the non-cloud control points have been removed:
-</p><p><img alt="Image:Celeste_cpeditor_post.jpg" src="Celeste_cpeditor_post.jpg" width="512" height="538" border="0" />
+</p><p><img alt="Image:Celeste_cpeditor_post.jpg" src="Celeste_cpeditor_post.jpg" width="512" height="538" border="0" /><a class="external" href="http://wiki.panotools.org/File:Celeste_cpeditor_post.jpg">[*]</a>
 </p><p>The only cloud control point remaining is actually on an airline exhaust trail (which, being a fairly straight line, is not very cloud-like). So we do pretty well here - 15/16 control points correctly classified is about 93% accuracy. This is a good example; under stringent 10-fold cross validation, Celeste was 82% accurate.
 </p><p>You can also run Celeste from the images panel. Simply select the images that you want to run Celeste on (or select all of them) and hit the ‘Run Celeste’ button again. Exactly the same thing should happen - a message will pop up saying how many control points have been removed:
-</p><p><img alt="Image:Celeste_images_panel.jpg" src="Celeste_images_panel.jpg" width="512" height="538" border="0" />
+</p><p><img alt="Image:Celeste_images_panel.jpg" src="Celeste_images_panel.jpg" width="512" height="538" border="0" /><a class="external" href="http://wiki.panotools.org/File:Celeste_images_panel.jpg">[*]</a>
 </p><p>There’s one more way of running it - right at the start on the assistant panel. After control points have been generated, Celeste will scan all the images and remove cloud-like control points from the whole set. To run Celeste this way open up the preferences panel and activate the ‘Automatically run Celeste..’ option. Then hit ‘Align’ on the assistant panel, and Celeste will run after control point generation:
-</p><p><img alt="Image:Celeste_preferences.jpg" src="Celeste_preferences.jpg" width="463" height="425" border="0" />
+</p><p><img alt="Image:Celeste_preferences.jpg" src="Celeste_preferences.jpg" width="463" height="425" border="0" /><a class="external" href="http://wiki.panotools.org/File:Celeste_preferences.jpg">[*]</a>
 </p><p>And that’s it! There are a few other options on the preferences tab; to alter the sensitivity you can adjust the threshold value. The SVM will generate a score for each control point, where greater than 0.5 indicates a cloud. If you want to remove more control points reduce the threshold (try 0.4 to begin with), and raise it (e.g. 0.6) if you want to remove fewer. If there are lots of control points close to the image border, you may have more luck using the small filter size. In most cases you won’t need to adjust this though.
 </p><p>There's also commandline version available, <a href="Celeste_standalone.html" title="Celeste standalone">celeste_standalone</a>.
 </p>

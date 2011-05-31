@@ -29,7 +29,7 @@
 		
 
 		
-		<!-- Head Scripts -->
+		<style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 		
 				
 	</head>
@@ -41,7 +41,7 @@
 				<h1 id="firstHeading" class="firstHeading">Cpfind</h1>
 		<div id="bodyContent">
 			
-			<div id="contentSub"></div>
+			
 												<!-- start content -->
 			
 <a name="General_and_description" id="General_and_description"></a><h1> <span class="mw-headline"> General and description </span></h1>
@@ -56,7 +56,7 @@
 </li></ul>
 <a name="Usage" id="Usage"></a><h1> <span class="mw-headline"> Usage </span></h1>
 <a name="Rectilinear_and_fisheye_images" id="Rectilinear_and_fisheye_images"></a><h2> <span class="mw-headline"> Rectilinear and fisheye images </span></h2>
-<p>Cpfind can find control points in rectilinear and fisheye images. To achieve good control points images with a high horizontal field of view (e.g. ultra wide rectilinear or fisheye) are therefor remapped into a conformal space (cpfind is using the stereographic projection) and the feature matching occurs in this space. Before writing the control points the coordinates are remapped back to the image space. This happens automatic depending on the information about the lens in the input project file. So check that your input project file contains reasonable information about the used lens.
+<p>Cpfind can find control points in rectilinear and fisheye images. To achieve good control points images with a high horizontal field of view (e.g. ultra wide rectilinear or fisheye) are therefor remapped into a conformal space (cpfind is using the stereographic projection<a class="external" href="http://wiki.panotools.org/Projection#Stereographic_projection">[*]</a>) and the feature matching occurs in this space. Before writing the control points the coordinates are remapped back to the image space. This happens automatic depending on the information about the lens in the input project file. So check that your input project file contains reasonable information about the used lens.
 </p><p><b>WARNING:</b> cpfind in hugin 2010.4 has some bugs and won't work properly with fisheye images. Use a 2010.5 development snapshot (rev c137328f1418, from 2011-01-20) or wait for the next release.
 </p>
 <a name="Using_celeste" id="Using_celeste"></a><h2> <span class="mw-headline"> Using celeste </span></h2>
@@ -118,9 +118,9 @@ If you want to save them to annother directory use the --keypath switch.
 </p>
 <a name="Feature_matching" id="Feature_matching"></a><h2> <span class="mw-headline"> Feature matching </span></h2>
 <p>Fine-tuning of the matching step by the following parameters:
-</p><p>--ransaciter &lt;int&gt;            Ransac: iterations (default: 1000)
+</p><p>--ransaciter &lt;int&gt;            Ransac<a class="external" href="http://en.wikipedia.org/wiki/RANSAC">[*]</a>: iterations (default: 1000)
 </p><p>--ransacdist &lt;int&gt;            Ransac: homography estimation distance threshold (pixels) (default: 25)
-</p><p>--ransacmodel &lt;string&gt;        Select the model used in the ransac step. Possible values: auto, hom, rpy, rpyv, rpyb  
+</p><p>--ransacmode &lt;string&gt;        Select the mode used in the ransac step. Possible values: auto, hom, rpy, rpyv, rpyb (default: auto)
 </p>
 <ul><li> hom: Assume a homography. Only applicable for non-wide angle views. Uses the original panomatic code. It is also more flexible than required and can generate false matches, particlarly if most of the matches are located on a single line.
 </li></ul>

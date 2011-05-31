@@ -29,7 +29,7 @@
 		
 
 		
-		<!-- Head Scripts -->
+		<style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 		
 				
 	</head>
@@ -41,17 +41,16 @@
 				<h1 id="firstHeading" class="firstHeading">PTOptimizer</h1>
 		<div id="bodyContent">
 			
-			<div id="contentSub"></div>
+			
 												<!-- start content -->
-			<p><b>PTOptimizer</b> was originally created by Helmut Dersch as part of Panorama Tools, it is a simple wrapper program around <a href="Control_points.html" title="Control points">control point</a> optimization routines present in the <a href="Pano12.html" title="Pano12">pano12</a> library.
-</p><p>Source code for the original <b>PTOptimizer</b> was never released, however reconstruction was quite straightforward and a multi-platform version is now included with the <a href="Pano12.html" title="Pano12">pano12</a> library available at Sourceforge.
+			<p><b>PTOptimizer</b> was originally created by Helmut Dersch<a class="external" href="http://wiki.panotools.org/Helmut_Dersch">[*]</a> as part of Panorama Tools<a class="external" href="http://wiki.panotools.org/Panorama_Tools">[*]</a>, it is a simple wrapper program around <a href="Control_points.html" title="Control points">control point</a> optimization routines present in the <a href="Pano12.html" title="Pano12">pano12</a> library.
+</p><p>Source code for the original <b>PTOptimizer</b> was never released, however reconstruction was quite straightforward and a multi-platform version is now included with the <a href="Pano12.html" title="Pano12">pano12</a> library available at Sourceforge<a class="external" href="http://panotools.sf.net/">[*]</a>.
 </p>
 
 <a name="Example_Script" id="Example_Script"></a><h2> <span class="mw-headline"> Example Script </span></h2>
-<p>The updated original example script with lots of comments is below.  Copied from Jim Watters' page.
+<p>The updated original example script with lots of comments is below.  Copied from Jim Watters' page<a class="external" href="http://photocreations.ca/panotools/Optimize.txt">[*]</a>.
 </p>
-<pre>
-#############           Example Script                  ##########################
+<pre>#############           Example Script                  ##########################
 #                       to run PTOptimizer
 #
 #
@@ -60,8 +59,8 @@
 # other line starting characters.  
 # Do not start a line with&nbsp;!, it is used by adjust plugin and scripts.
 # the * character indicated the end of the script file.
-
-# The script must contain:
+</pre>
+<pre># The script must contain:
 # one 'p'- line describing the output image (eg Panorama)
 # one 'i'-line for each input image
 # one or several 'v'- lines listing the variables to be optimized.
@@ -69,8 +68,7 @@
 # one 'c'-line for each pair of control points
 </pre>
 <a name="p-line_options" id="p-line_options"></a><h3> <span class="mw-headline"> p-line options </span></h3>
-<pre>
-# 'p'-line options
+<pre># 'p'-line options
 # w1000        width in pixels
 # h600         height in pixels (default: width/2)
 # f0            projection format,
@@ -103,7 +101,7 @@
 #                                  VRML-object for PTStereo
 #                  QTVR          Apple QTVR-panomovie. Use only with f1
 #                  3DMF          3DMF-object (PTStereo).
-# n&quot;QTVR w400 h300 c1&quot;           additional viewer options in a quoted string together with format
+# n"QTVR w400 h300 c1"           additional viewer options in a quoted string together with format
 #              the following options are recognized:
 #                  w(width) and h(height) of viewer window (only QTVR on Macs)
 #                  c(codec: 0-JPEG, 1-Cinepak, 2-Sorenson) (only QTVR on Macs)
@@ -130,13 +128,13 @@
 # b1           attempt brightness correction with no color change using image number as anchor
 # d1           attempt color correction with no brightness change using image number as anchor
 #                  Do not use more than one of k, d, b.This is new method of correcting
-
-
-p w800 nPSD_mask -buf
+</pre>
+<p><br />
+</p>
+<pre>p w800 nPSD_mask -buf
 </pre>
 <a name="i-lines" id="i-lines"></a><h3> <span class="mw-headline"> i-lines </span></h3>
-<pre>
-# The 'i' lines describe input images. One line per image is required
+<pre># The 'i' lines describe input images. One line per image is required
 # unneeded paramiters for optimizing but needed for stitching can be 
 # set here and the optimizer will automaticaly add them to the o lines
 # ----------------
@@ -155,7 +153,7 @@ p w800 nPSD_mask -buf
 # p43          initial pitch angle (required)
 # r0           initial roll angle (required)
 # a,b,c        initial lens correction coefficients (defaults a0 b0 c0, optional)
-#                  (see http://www.fh-furtwangen.de/~dersch/barrel/barrel.html)
+#                  (see http://www.panotools.org/dersch/barrel/barrel.html<a class="external" href="http://www.panotools.org/dersch/barrel/barrel.html">[*]</a>)
 # d,e          initial lens offset in pixels(defaults d0 e0, optional).
 #                  Used to correct for offset from center of image
 #                  d - horizontal offset,
@@ -196,14 +194,14 @@ p w800 nPSD_mask -buf
 #      Example 'v=0' sets horizontal field of view as in
 #      image number 0. This feature works for the variables
 #      v, a, b, c, (r, p, y with caution) d, e, g, and t
-
-
-i f2 r0      p0    y0     v183    a0 b-0.1 c0  mx400 my400 
+</pre>
+<p><br />
+</p>
+<pre>i f2 r0      p0    y0     v183    a0 b-0.1 c0  mx400 my400 
 i f2 r-0.5   p1    y182   v=0     a0 b-0.1 c0  mx400 my400 
 </pre>
 <a name="v-line_options" id="v-line_options"></a><h3> <span class="mw-headline"> v-line options </span></h3>
-<pre>
-# 'v'-line options:
+<pre># 'v'-line options:
 # -----------------
 # Please note: the 'v'-line must come after the the 'i'-lines.
 # Optimization variables are listed together with the image number
@@ -221,18 +219,17 @@ i f2 r-0.5   p1    y182   v=0     a0 b-0.1 c0  mx400 my400
 #
 #      If a image has a parameter linked to another image only
 #      need to optimize the master.
-
-v v0 r0 p0 r1 p1 y1
+</pre>
+<pre>v v0 r0 p0 r1 p1 y1
 </pre>
 <a name="m-line_options" id="m-line_options"></a><h3> <span class="mw-headline"> m-line options </span></h3>
-<pre>
-# 'm'-line options
+<pre># 'm'-line options
 # ----------------
 # Set mode for stitcher, not required
 #
 # g2.5         Set gamma value for internal computations (default 1.0)
-#                  See &lt;http://www.fh-furtwangen.de/~dersch/gamma/gamma.html&gt;
-# i2           Set interpolator, See &lt;http://www.fh-furtwangen.de/~dersch/interpolator/interpolator.html&gt;
+#                  See &lt;http://www.panotools.org/dersch/gamma/gamma.html<a class="external" href="http://www.panotools.org/dersch/gamma/gamma.html">[*]</a>&gt;
+# i2           Set interpolator, See &lt;http://www.panotools.org/dersch/interpolator/interpolator.html<a class="external" href="http://www.panotools.org/dersch/interpolator/interpolator.html">[*]</a>&gt;
 #                one of:
 #                   0 - poly3 (default)
 #                   1 - spline16,
@@ -242,7 +239,7 @@ v v0 r0 p0 r1 p1 y1
 #                   5 - bilinear,
 #                   6 - nearest neighbor,
 #                   7 - sinc1024
-#              \/ antialiasing filters \/ See &lt;http://www.pano2qtvr.com/dll_patch/&gt;
+#              \/ antialiasing filters \/ See &lt;http://www.pano2qtvr.com/dll_patch/<a class="external" href="http://www.pano2qtvr.com/dll_patch/">[*]</a>&gt;
 #                   8 - Box
 #                   9 - Bartlett/Triangle
 #                   10 - Hermite
@@ -262,12 +259,11 @@ v v0 r0 p0 r1 p1 y1
 #
 # p0           Create panorama after optimizing control points
 #                  0 no(default), 1 yes
-
-m g1.5 i6
+</pre>
+<pre>m g1.5 i6
 </pre>
 <a name="c-lines" id="c-lines"></a><h3> <span class="mw-headline"> c-lines </span></h3>
-<pre>
-#
+<pre>#
 # 'c' lines
 # ----------------
 # Control point lines
@@ -286,14 +282,13 @@ m g1.5 i6
 #                  1 - optimize horizontally only
 #                  2 - optimize vertically only
 #                  3+ (all other numbers) - straight line
-
-
-
-
-*
+</pre>
+<p><br />
+</p><p><br />
+</p>
+<pre>*
 Every thing after * is ignored.
 </pre>
-
 
 
 

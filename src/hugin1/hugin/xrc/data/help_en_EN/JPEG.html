@@ -29,7 +29,7 @@
 		
 
 		
-		<!-- Head Scripts -->
+		<style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 		
 				
 	</head>
@@ -41,13 +41,13 @@
 				<h1 id="firstHeading" class="firstHeading">JPEG</h1>
 		<div id="bodyContent">
 			
-			<div id="contentSub"></div>
+			
 												<!-- start content -->
 			<p><br />
-<b>JPEG</b> is an image file format for storing and distributing images, particularly photographs.
-For a detailed technical overview, please refer to the WikiPedia JPEG page.
+<b>JPEG</b> is an image file format<a class="external" href="http://wiki.panotools.org/Image_format">[*]</a> for storing and distributing images, particularly photographs.
+For a detailed technical overview, please refer to the WikiPedia JPEG page<a class="external" href="http://www.wikipedia.org/wiki/JPEG">[*]</a>.
 </p><p><b>JPEG</b> files typically have a <i>.jpg</i> file extension.
-If you can't see file extensions, you may want to enable windows file extensions
+If you can't see file extensions, you may want to enable windows file extensions<a class="external" href="http://wiki.panotools.org/Enable_windows_file_extensions">[*]</a>
 as you will have great difficulty editing and manipulating image files otherwise.
 </p><p>Digital cameras typically default to saving photographs in <b>JPEG</b> format as it provides a
 good compromise between quality and filesize for most uses.
@@ -56,15 +56,15 @@ good compromise between quality and filesize for most uses.
 
 <a name="Compression_issues" id="Compression_issues"></a><h3> <span class="mw-headline"> Compression issues </span></h3>
 <p><b>JPEG</b> is a <i>lossy</i> compressed file format, this means that a lot of information that is imperceptable to the human eye is discarded - Converting to another file format will <i>not</i> restore this missing data.  
-</p><p>Unfortunately this degradation can become perceptable if an image is later manipulated, so if you intend to produce high-quality work you might want to switch your camera to take photos in lossless <a href="TIFF.html" title="TIFF">TIFF</a>, <a href="RAW.html" title="RAW">RAW</a> or DNG format instead.
-</p><p>There are a small number of <b>JPEG</b> manipulations that can be performed losslessly, such as cropping, rotation (at 90 degree angles), flipping and removal of <a href="CCD.html" title="CCD">CCD</a> artefacts such as <i>bad pixels</i> (see Jpegpixi).
+</p><p>Unfortunately this degradation can become perceptable if an image is later manipulated, so if you intend to produce high-quality work you might want to switch your camera to take photos in lossless <a href="TIFF.html" title="TIFF">TIFF</a>, <a href="RAW.html" title="RAW">RAW</a> or DNG<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=DNG&amp;action=edit&amp;redlink=1">[*]</a> format instead.
+</p><p>There are a small number of <b>JPEG</b> manipulations that can be performed losslessly, such as cropping, rotation (at 90 degree angles), flipping and removal of <a href="CCD.html" title="CCD">CCD</a> artefacts such as <i>bad pixels</i> (see Jpegpixi<a class="external" href="http://www.zero-based.org/software/jpegpixi/">[*]</a>).
 </p>
 <a name="EXIF_issues" id="EXIF_issues"></a><h3> <span class="mw-headline"> EXIF issues </span></h3>
 <p>Modern cameras save a lot of information about a photograph (time, lens and exposure data) within the <b>JPEG</b> file as <a href="EXIF.html" title="EXIF">EXIF</a> data.  If you are having trouble, one of these causes may be to blame:
 </p>
 <ul><li> Rotating a photo may simply flip an <a href="EXIF.html" title="EXIF">EXIF</a> tag from <a href="Landscape.html" title="Landscape">Landscape</a> to <a href="Portrait.html" title="Portrait">Portrait</a> without changing the image itself.  The resulting image may or may not appear rotated depending on the viewing software.
 </li></ul>
-<ul><li> Rotating a photo may rotate the image without changing any <a href="EXIF.html" title="EXIF">EXIF</a> data to suit, this may cause problems when a GUI tool reads the <a href="Field_of_View.html" title="Field of View">Field of View</a> from the file.  To avoid this, use a tool like photomolo to do lossless rotation and let it reset the <a href="EXIF.html" title="EXIF">EXIF</a> tags appropriately.
+<ul><li> Rotating a photo may rotate the image without changing any <a href="EXIF.html" title="EXIF">EXIF</a> data to suit, this may cause problems when a GUI tool reads the <a href="Field_of_View.html" title="Field of View">Field of View</a> from the file.  To avoid this, use a tool like photomolo<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Photomolo&amp;action=edit&amp;redlink=1">[*]</a> to do lossless rotation and let it reset the <a href="EXIF.html" title="EXIF">EXIF</a> tags appropriately.
 </li></ul>
 <ul><li> Opening and saving a photo may discard all the <a href="EXIF.html" title="EXIF">EXIF</a> data, switch to another image editor.
 </li></ul>
@@ -73,7 +73,7 @@ good compromise between quality and filesize for most uses.
 </p><p>This means that applications where color integrity is important like correcting <a href="Chromatic_aberration.html" title="Chromatic aberration">chromatic aberration</a> are not suitable uses for <b>JPEG</b> data.
 </p>
 <a name="Other_JPEG_limitations" id="Other_JPEG_limitations"></a><h3> <span class="mw-headline"> Other JPEG limitations </span></h3>
-<p><b>JPEG</b> doesn't support multiple layers, <a href="Alpha_channel.html" title="Alpha channel">alpha channels</a> or high <a href="Dynamic_range.html" title="Dynamic range">dynamic range</a> which means that it isn't much use for <i>work in progress</i> either.  When working with such data, lossless file formats are preferable such as <a href="PNG.html" title="PNG">PNG</a>, <a href="TIFF.html" title="TIFF">TIFF</a>, <a href="PSD.html" title="PSD">PSD</a> or XCF.
+<p><b>JPEG</b> doesn't support multiple layers, <a href="Alpha_channel.html" title="Alpha channel">alpha channels</a> or high <a href="Dynamic_range.html" title="Dynamic range">dynamic range</a> which means that it isn't much use for <i>work in progress</i> either.  When working with such data, lossless file formats are preferable such as <a href="PNG.html" title="PNG">PNG</a>, <a href="TIFF.html" title="TIFF">TIFF</a>, <a href="PSD.html" title="PSD">PSD</a> or XCF<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=XCF&amp;action=edit&amp;redlink=1">[*]</a>.
 </p>
 
 

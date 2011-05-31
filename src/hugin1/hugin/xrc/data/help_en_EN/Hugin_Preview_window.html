@@ -29,7 +29,7 @@
 		
 
 		
-		<!-- Head Scripts -->
+		<style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 		
 				
 	</head>
@@ -41,7 +41,7 @@
 				<h1 id="firstHeading" class="firstHeading">Hugin Preview window</h1>
 		<div id="bodyContent">
 			
-			<div id="contentSub"></div>
+			
 												<!-- start content -->
 			<p><a href="Hugin.html" title="Hugin">hugin</a> provides two pop-up windows showing previews of the final stitched result, the difference between these previews that the <b>Hugin Preview window</b> shows a more accurate image but takes time to redraw, the <a href="Hugin_Fast_Preview_window.html" title="Hugin Fast Preview window">Hugin Fast Preview window</a> shows updates almost instantaneously and has some useful new features.
 </p><p>The preview window  is a smaller version of the output created by saving to a file in the
@@ -56,32 +56,32 @@
 </p><p>When satisfied with the preview result, the window can be closed. Attention must be paid not to close the preview window with the preview window not showing what the user wants.
 </p>
 <a name="Buttons" id="Buttons"></a><h1> <span class="mw-headline"> Buttons </span></h1>
-<a name="Center" id="Center"></a><h2> <span class="mw-headline"> <img alt="Image:Hugin_center_pano.png" src="Hugin_center_pano.png" width="22" height="22" border="0" /> Center </span></h2>
+<a name="Center" id="Center"></a><h2> <span class="mw-headline"> <img alt="Image:Hugin_center_pano.png" src="Hugin_center_pano.png" width="22" height="22" border="0" /><a class="external" href="http://wiki.panotools.org/File:Hugin_center_pano.png">[*]</a> Center </span></h2>
 <p>This button horizontally <i>pans</i> the output, changing the <a href="Yaw.html" title="Yaw">yaw</a> of the remapped images so they fit to the centre of the output frame.  This is useful if there is a lot of black space on the left or right of the output.  This also performs a <b>Fit</b>, equivalent to the next button.
 </p><p>Note that centering a <a href="Rectilinear_Projection.html" title="Rectilinear Projection">Rectilinear Projection</a> or <a href="Fisheye_Projection.html" title="Fisheye Projection">Fisheye Projection</a> panorama will change the perspective, this may be unwanted.
 </p>
-<a name="Fit" id="Fit"></a><h2> <span class="mw-headline"> <img alt="Image:Hugin_fit_pano.png" src="Hugin_fit_pano.png" width="22" height="22" border="0" /> Fit </span></h2>
+<a name="Fit" id="Fit"></a><h2> <span class="mw-headline"> <img alt="Image:Hugin_fit_pano.png" src="Hugin_fit_pano.png" width="22" height="22" border="0" /><a class="external" href="http://wiki.panotools.org/File:Hugin_fit_pano.png">[*]</a> Fit </span></h2>
 <p>This doesn't change any input image parameters, it just readjusts the output <a href="Field_of_View.html" title="Field of View">Field of View</a> such that all the input images are visible.  If the images are all off-centre, then there will be a lot of black space.
 </p>
-<a name="Straighten" id="Straighten"></a><h2> <span class="mw-headline"> <img alt="Image:Hugin_straighten_pano.png" src="Hugin_straighten_pano.png" width="22" height="22" border="0" /> Straighten </span></h2>
+<a name="Straighten" id="Straighten"></a><h2> <span class="mw-headline"> <img alt="Image:Hugin_straighten_pano.png" src="Hugin_straighten_pano.png" width="22" height="22" border="0" /><a class="external" href="http://wiki.panotools.org/File:Hugin_straighten_pano.png">[*]</a> Straighten </span></h2>
 <p>Straightening the panorama optimises the <a href="Roll.html" title="Roll">roll</a> and <a href="Pitch.html" title="Pitch">pitch</a> of the input images without changing their relative positions, levelling the panorama in the process.  This normally produces good results, if you need more accurate positioning, try adding <a href="Vertical_control_points.html" title="Vertical control points">vertical control points</a>
 in the <a href="Hugin_Control_Points_tab.html" title="Hugin Control Points tab">hugin Control Points tab</a>.
 </p>
-<a name="Num._Transf." id="Num._Transf."></a><h2> <span class="mw-headline"> <img alt="Image:Hugin_preview_num_transform.png" src="Hugin_preview_num_transform.png" width="22" height="22" border="0" /> Num. Transf. </span></h2>
+<a name="Num._Transf." id="Num._Transf."></a><h2> <span class="mw-headline"> <img alt="Image:Hugin_preview_num_transform.png" src="Hugin_preview_num_transform.png" width="22" height="22" border="0" /><a class="external" href="http://wiki.panotools.org/File:Hugin_preview_num_transform.png">[*]</a> Num. Transf. </span></h2>
 <p>This opens up a pop-up window that allows you to enter a <b>numerical transform</b> to rotate the input images without changing their relative positions - Effectively this rotates the entire panorama.
 </p><p>Enter <a href="Roll.html" title="Roll">roll</a>, <a href="Pitch.html" title="Pitch">pitch</a> and <a href="Yaw.html" title="Yaw">yaw</a> values in degrees, note that you can also realign the panorama by <i>left</i> and <i>right-clicking</i> in the preview image itself, though this is not so precise.
 </p>
-<a name="Auto" id="Auto"></a><h2> <span class="mw-headline"> <img alt="Image:Hugin_preview_auto_update.png" src="Hugin_preview_auto_update.png" width="22" height="22" border="0" /> Auto </span></h2>
+<a name="Auto" id="Auto"></a><h2> <span class="mw-headline"> <img alt="Image:Hugin_preview_auto_update.png" src="Hugin_preview_auto_update.png" width="22" height="22" border="0" /><a class="external" href="http://wiki.panotools.org/File:Hugin_preview_auto_update.png">[*]</a> Auto </span></h2>
 <p>Setting <b>Auto</b> will regenerate the preview every time something changes in the project. This can be slow with large preview windows, so you may want to disable <b>Auto</b> or reduce the size of the window.
 </p>
-<a name="Update" id="Update"></a><h2> <span class="mw-headline"> <img alt="Image:Hugin_reload.png" src="Hugin_reload.png" width="22" height="22" border="0" /> Update </span></h2>
+<a name="Update" id="Update"></a><h2> <span class="mw-headline"> <img alt="Image:Hugin_reload.png" src="Hugin_reload.png" width="22" height="22" border="0" /><a class="external" href="http://wiki.panotools.org/File:Hugin_reload.png">[*]</a> Update </span></h2>
 <p>When <b>Auto</b> is unset, the preview doesn't regenerate when something changes in the project.  Click <b>Update</b> to force a regeneration manually.
 </p>
-<a name="All" id="All"></a><h2> <span class="mw-headline"> <img alt="Image:Hugin_preview_show_all.png" src="Hugin_preview_show_all.png" width="22" height="22" border="0" /> All </span></h2>
+<a name="All" id="All"></a><h2> <span class="mw-headline"> <img alt="Image:Hugin_preview_show_all.png" src="Hugin_preview_show_all.png" width="22" height="22" border="0" /><a class="external" href="http://wiki.panotools.org/File:Hugin_preview_show_all.png">[*]</a> All </span></h2>
 <p>By default all input images are shown in the preview, however individual images can be enabled and disabled in the
 <b>Displayed images</b> section.  Use the <b>All</b> button to return to the default and display all the images.
 </p>
-<a name="None" id="None"></a><h2> <span class="mw-headline"> <img alt="Image:Hugin_preview_show_none.png" src="Hugin_preview_show_none.png" width="22" height="22" border="0" /> None </span></h2>
+<a name="None" id="None"></a><h2> <span class="mw-headline"> <img alt="Image:Hugin_preview_show_none.png" src="Hugin_preview_show_none.png" width="22" height="22" border="0" /><a class="external" href="http://wiki.panotools.org/File:Hugin_preview_show_none.png">[*]</a> None </span></h2>
 <p>Similarly, hide all images with the <b>None</b> button, use this if you want to enable preview images one by one.
 </p>
 <a name="displayed_images" id="displayed_images"></a><h1> <span class="mw-headline"> displayed images </span></h1>
@@ -111,7 +111,7 @@ the field of view and switch back.
 </li></ul>
 <a name="Output" id="Output"></a><h2> <span class="mw-headline"> Output </span></h2>
 <p>Changing the <b>Output</b> here tells <a href="Hugin.html" title="Hugin">hugin</a> if you intend to create a <b>low dynamic range</b>
-(LDR) or <b>high dynamic range</b> (<a href="HDR.html" title="HDR">HDR</a>) output panorama - If in doubt select <b>LDR</b> as this is
+(LDR<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=LDR&amp;action=edit&amp;redlink=1">[*]</a>) or <b>high dynamic range</b> (<a href="HDR.html" title="HDR">HDR</a>) output panorama - If in doubt select <b>LDR</b> as this is
 the format of a normal photo, <b>HDR</b> images are only viewable with additional specialist processing.
 </p><p>Selecting <b>HDR</b> will
 change the <b>preview</b> display to a <i>logarithmic</i> photometric view - This allows you to see something from both dark and bright areas of the scene, though the contrast will be very low.

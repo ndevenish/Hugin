@@ -29,7 +29,7 @@
 		
 
 		
-		<!-- Head Scripts -->
+		<style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 		
 				
 	</head>
@@ -41,20 +41,20 @@
 				<h1 id="firstHeading" class="firstHeading">EXIF</h1>
 		<div id="bodyContent">
 			
-			<div id="contentSub"></div>
+			
 												<!-- start content -->
 			<p><br />
-The <b>Exchangeable Image File Format</b> (EXIF) allows camera, lens, exposure information, image description, copyright, etc. to be embedded in standardized fields within JFIF (<a href="JPEG.html" title="JPEG">JPEG</a>) or TIFF image files. EXIF is a de facto standard promoted by the camera industry as a means to store metadata recorded by a digital camera, and is not intended as a general-purpose metadata storage mechanism. XMP is a more generalized format for storing arbitrary metadata in a variety of media file formats.
-</p><p>EXIF metadata is used by stitching products such as PTGUI to make assumptions about the camera (sensor) and lens used to shoot a given image. This information is used to set defaults for the <a href="Field_of_View.html" title="Field of View">Field of View</a> and Cropping Factor for stitching projects. These defaults are typically used only as a starting point, and are refined through the <a href="Optimization.html" title="Optimization">optimization</a> process.
+The <b>Exchangeable Image File Format</b> (EXIF) allows camera, lens, exposure information, image description, copyright, etc. to be embedded in standardized fields within JFIF (<a href="JPEG.html" title="JPEG">JPEG</a>) or TIFF image files. EXIF is a de facto standard promoted by the camera industry as a means to store metadata recorded by a digital camera, and is not intended as a general-purpose metadata storage mechanism. XMP<a class="external" href="http://wiki.panotools.org/XMP">[*]</a> is a more generalized format for storing arbitrary metadata in a variety of media file formats.
+</p><p>EXIF metadata is used by stitching products such as PTGUI<a class="external" href="http://wiki.panotools.org/PTGUI">[*]</a> to make assumptions about the camera (sensor) and lens used to shoot a given image. This information is used to set defaults for the <a href="Field_of_View.html" title="Field of View">Field of View</a> and Cropping Factor<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Cropping_Factor&amp;action=edit&amp;redlink=1">[*]</a> for stitching projects. These defaults are typically used only as a starting point, and are refined through the <a href="Optimization.html" title="Optimization">optimization</a> process.
 </p><p>As you'll note from the ExifTool pages below, there are many redundant fields due to different manufacturers defining unique fields for semantically identical information, as well as fields which are intended to store manufacturer-specific metadata. Many of these fields are undocumented, at least as far as the public is concerned, and so there is much energy in the industry devoted to decoding these unique fields, their semantics and their constraints.
 </p><p>While EXIF is not generally intended to be user editable, there are a large number of tools that are capable of editing EXIF metadata with varying degrees of support for the huge variety of fields found in real-world EXIF files.
 </p><p><i>ExifTool</i> is free software that allows manipulation of EXIF and related data in many different kinds of files. ExifTool is one of the most comprehensive EXIF editors available, and continues to grow the number and depth of support for undocumented EXIF metadata, as well as adding support for other (non-EXIF) file formats and metadata structures.
-</p><p>photomolo is a free tool for lossless rotation of <a href="JPEG.html" title="JPEG">JPEG</a> images and updating the EXIF tags appropriately.
+</p><p>photomolo<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Photomolo&amp;action=edit&amp;redlink=1">[*]</a> is a free tool for lossless rotation of <a href="JPEG.html" title="JPEG">JPEG</a> images and updating the EXIF tags appropriately.
 </p>
 <a name="External_links" id="External_links"></a><h2> <span class="mw-headline"> External links </span></h2>
-<ul><li> ExifTool
-<ul><li> Tables of ExifTool Tag Names
-</li><li> Tables of EXIF Tags
+<ul><li> ExifTool<a class="external" href="http://www.sno.phy.queensu.ca/~phil/exiftool/">[*]</a>
+<ul><li> Tables of ExifTool Tag Names<a class="external" href="http://www.sno.phy.queensu.ca/~phil/exiftool/TagNames/index.html">[*]</a>
+</li><li> Tables of EXIF Tags<a class="external" href="http://www.sno.phy.queensu.ca/~phil/exiftool/TagNames/EXIF.html">[*]</a>
 </li></ul>
 </li></ul>
 

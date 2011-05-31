@@ -29,7 +29,7 @@
 		
 
 		
-		<!-- Head Scripts -->
+		<style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 		
 				
 	</head>
@@ -41,20 +41,45 @@
 				<h1 id="firstHeading" class="firstHeading">Cpclean</h1>
 		<div id="bodyContent">
 			
-			<div id="contentSub"></div>
+			
 												<!-- start content -->
-			<p><b>cpclean</b> is a command-line tool that implements the 'bad' <a href="Control_points.html" title="Control points">control points</a> pruning available within the <a href="Hugin.html" title="Hugin">Hugin</a> GUI. It is similar conceptually to apclean, but with some extra functionality. Both tools use a statistical filter to remove points with an error above a statistical threshold.
-</p><p>The idea is to remove all non-credible control points.  To do this it optimises each pair of photos one at a time and deletes all points that can't be made to fit, it then optimises the whole project together using more conservative assumptions and deletes another round of points. The .pto project file is returned unoptimised, the only change is that there are less control points, this means the project doesn't have to be optimised before you start.
+			<p><b>cpclean</b> is a command-line tool that implements the 'bad' <a href="Control_points.html" title="Control points">control points</a> pruning available within the <a href="Hugin.html" title="Hugin">Hugin</a> GUI. It is similar conceptually to apclean<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Apclean&amp;action=edit&amp;redlink=1">[*]</a>, but with some extra functionality. Both tools use a statistical filter to remove points with an error above a statistical threshold.
+</p><p>The idea is to remove all non-credible control points.  To do this it uses a two step process to remove bad control points. 
+</p>
+
+<a name="Step_1" id="Step_1"></a><h3> <span class="mw-headline">Step 1</span></h3>
+<p>optimises each pair of photos one at a time and deletes all points that can't be made to fit.
+</p>
+<a name="Step_2" id="Step_2"></a><h3> <span class="mw-headline">Step 2</span></h3>
+<p>optimises the whole project together using more conservative assumptions and deletes another round of points. If there is more than one image chain present this step is not done.
+</p>
+<a name="result" id="result"></a><h3> <span class="mw-headline">result</span></h3>
+<p>The .pto project file is returned unoptimised, the only change is that there are less control points, this means the project doesn't have to be optimised before you start.
 </p><p>By using this optimisation step <b>cpclean</b> is able to look not just at the current project settings and find 'bad' points, but is able to find points that are 'bad' under a range of circumstances.
-</p><p>A typical usage would be:
+</p>
+<a name="usage" id="usage"></a><h3> <span class="mw-headline">usage</span></h3>
+<p>A typical usage would be:
 </p>
 <pre> cpclean -o output.pto project.pto
 </pre>
+<a name="Options" id="Options"></a><h3> <span class="mw-headline">Options</span></h3>
 <p>Vary the threshold with the -n parameter (defaults to 2, i.e. points with a distance error greater than twice the standard deviation are deleted):
 </p>
 <pre> cpclean -n 1 -o output.pto project.pto
 </pre>
-<p><b>cpclean</b> is based on ptoclean.
+<p>Do only pairwise optimisation (skip step 2):
+</p>
+<pre> cpclean -p -o output.pto project.pto
+</pre>
+<p>Do only whole panorama optimisation (skip step 1):
+</p>
+<pre> cpclean -w -o output.pto project.pto
+</pre>
+<p>Use current image positions for calculation of distance errors (skip optimisation of whole panorama):
+</p>
+<pre> cpclean -w -s -o output.pto project.pto
+</pre>
+<p><b>cpclean</b> is based on ptoclean<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Ptoclean&amp;action=edit&amp;redlink=1">[*]</a>.
 </p>
 
 

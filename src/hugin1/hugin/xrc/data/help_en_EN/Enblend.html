@@ -29,7 +29,7 @@
 		
 
 		
-		<!-- Head Scripts -->
+		<style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 		
 				
 	</head>
@@ -41,7 +41,7 @@
 				<h1 id="firstHeading" class="firstHeading">Enblend</h1>
 		<div id="bodyContent">
 			
-			<div id="contentSub"></div>
+			
 												<!-- start content -->
 			
 <p><br />
@@ -50,7 +50,7 @@ For detailed information please see <a href="Enblend_reference_manual.html" titl
 <a name="Intro" id="Intro"></a><h2> <span class="mw-headline">Intro</span></h2>
 <p><b>Enblend</b>
 overlays multiple <a href="TIFF.html" title="TIFF">TIFF</a> images so as to make the seam invisible. It works with 8, 16 or 32 bit (HDR floating point) per channel images.
-</p><p>Enblend can work as a plug-in for PTGui, <a href="Hugin.html" title="Hugin">Hugin</a>, PTMac or PTAssembler or standalone from the command line or by Enblend Front End.
+</p><p>Enblend can work as a plug-in for PTGui<a class="external" href="http://wiki.panotools.org/PTGui">[*]</a>, <a href="Hugin.html" title="Hugin">Hugin</a>, PTMac<a class="external" href="http://wiki.panotools.org/PTMac">[*]</a> or PTAssembler<a class="external" href="http://wiki.panotools.org/PTAssembler">[*]</a> or standalone from the command line or by Enblend Front End<a class="external" href="http://wiki.panotools.org/Enblend_Front_End">[*]</a>.
 </p><p>New in version 3.0:
 </p>
 <ul><li> Adjusts the seam line to avoid areas of mismatch between source images such as <a href="Parallax.html" title="Parallax">parallax</a> errors
@@ -72,8 +72,8 @@ overlays multiple <a href="TIFF.html" title="TIFF">TIFF</a> images so as to make
 </p><p>See <a href="Enblend_reference_manual.html" title="Enblend reference manual">Enblend reference manual</a> for detailed information.
 </p>
 <a name="Caveat" id="Caveat"></a><h2> <span class="mw-headline"> Caveat</span></h2>
-<p>If you are trying to run Enblend 3.0 on Windows and are finding that the program returns immediately with no output, you may be attempting to run a version compiled with SSE instructions on a non-SSE-capable CPU (e.g like older AMD CPUs). You can obtain an non-SSE binary for Enblend from Sourceforge.[1]
-</p><p>However, it could be that this version still doesn't run as discussed on [2] (problem) and [3] (solution). If so there is a patched version available at http://alto.anu.edu.au/~wpc/private/enblend/enblend-3.0-cyg.zip 
+<p>If you are trying to run Enblend 3.0 on Windows and are finding that the program returns immediately with no output, you may be attempting to run a version compiled with SSE instructions on a non-SSE-capable CPU (e.g like older AMD CPUs). You can obtain an non-SSE binary for Enblend from Sourceforge.[1]<a class="external" href="http://sourceforge.net/project/showfiles.php?group_id=123407">[*]</a>
+</p><p>However, it could be that this version still doesn't run as discussed on [2]<a class="external" href="http://sourceforge.net/forum/forum.php?thread_id=1668117&amp;forum_id=420370">[*]</a> (problem) and [3]<a class="external" href="http://sourceforge.net/forum/forum.php?thread_id=1685658&amp;forum_id=420370">[*]</a> (solution). If so there is a patched version available at http://alto.anu.edu.au/~wpc/private/enblend/enblend-3.0-cyg.zip<a class="external" href="http://alto.anu.edu.au/~wpc/private/enblend/enblend-3.0-cyg.zip">[*]</a> 
 </p>
 <a name="Getting_Enblend" id="Getting_Enblend"></a><h2> <span class="mw-headline"> Getting Enblend </span></h2>
 <p>Enblend is Open Source. As such you can download it for free from its project page linked below. Enblend is part of the major linux distributions. You can get the latest release by using the distributions' software package management system. For ubuntu linux, open a terminal and type:
@@ -87,20 +87,20 @@ overlays multiple <a href="TIFF.html" title="TIFF">TIFF</a> images so as to make
 <p>enblend is Open Source, and as such very much dependent on voluntary contributions of resources. If you have coding skills, you are welcome to look at the source code and contribute to it. Even if you don't have coding skills, you most likely have some skills that the project could use and you are more than welcome to contribute your time. The tasks requiring attention change frequently and so do the required skillset and resources. Join the hugin-ptx mailing list to find out what is going on at the moment and how you can help. Even just testing and giving feedback help.
 </p><p>To get the bleeding edge, follow the development / build process of Hugin
 </p>
-<ul><li>  Ubuntu Linux
-</li><li>  Fedora Linux
-</li><li>  Mac OSX
-</li><li>  Windows
+<ul><li>  Ubuntu Linux<a class="external" href="http://wiki.panotools.org/Hugin_Compiling_Ubuntu">[*]</a>
+</li><li>  Fedora Linux<a class="external" href="http://wiki.panotools.org/Hugin_Compiling_Fedora">[*]</a>
+</li><li>  Mac OSX<a class="external" href="http://wiki.panotools.org/Hugin_Compiling_OSX">[*]</a>
+</li><li>  Windows<a class="external" href="http://wiki.panotools.org/Hugin_Compiling_Windows">[*]</a>
 </li></ul>
 <a name="See_also" id="See_also"></a><h2> <span class="mw-headline"> See also </span></h2>
 <p>Tutorials featuring enblend:
 </p>
-<ul><li> Using enblend to fill the "Hole in the floor" <img alt="Nice to know" src="RatingStar_002.jpg" width="36" height="12" border="0" />
-</li><li> How to use enblend for patching zenith and nadir images <img alt="Nice to know" src="RatingStar_002.jpg" width="36" height="12" border="0" />
+<ul><li> Using enblend to fill the "Hole in the floor"<a class="external" href="http://wiki.panotools.org/Using_enblend_to_fill_the_%22Hole_in_the_floor%22">[*]</a> <img alt="Nice to know" src="RatingStar_002.jpg" width="36" height="12" border="0" /><a class="external" href="http://wiki.panotools.org/File:RatingStar_002.jpg">[*]</a>
+</li><li> How to use enblend for patching zenith and nadir images<a class="external" href="http://wiki.panotools.org/How_to_use_enblend_for_patching_zenith_and_nadir_images">[*]</a> <img alt="Nice to know" src="RatingStar_002.jpg" width="36" height="12" border="0" /><a class="external" href="http://wiki.panotools.org/File:RatingStar_002.jpg">[*]</a>
 </li></ul>
 <a name="External_links" id="External_links"></a><h2> <span class="mw-headline"> External links </span></h2>
-<ul><li> Enblend Project Page
-</li><li> xblend
+<ul><li> Enblend Project Page<a class="external" href="http://enblend.sourceforge.net/">[*]</a>
+</li><li> xblend<a class="external" href="http://www.kekus.com/xblend">[*]</a>
 </li></ul>
 
 

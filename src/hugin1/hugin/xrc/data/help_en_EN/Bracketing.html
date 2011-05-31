@@ -29,7 +29,7 @@
 		
 
 		
-		<!-- Head Scripts -->
+		<style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 		
 				
 	</head>
@@ -41,7 +41,7 @@
 				<h1 id="firstHeading" class="firstHeading">Bracketing</h1>
 		<div id="bodyContent">
 			
-			<div id="contentSub"></div>
+			
 												<!-- start content -->
 			<p><br />
 Most digital cameras allow taking of <b>bracketed</b> shots, ie. more than one picture
@@ -56,17 +56,17 @@ of the same scene, but at different exposures.
 <ul><li> This may be good enough, though you lose the ability to use the entire dynamic range in the final panorama.
 </li></ul>
 <a name="Contrast_blend_bracketed_shots" id="Contrast_blend_bracketed_shots"></a><h2> <span class="mw-headline"> Contrast blend bracketed shots </span></h2>
-<p>Use Contrast Blending to merge each bracketed view, then stitch
+<p>Use Contrast Blending<a class="external" href="http://wiki.panotools.org/Contrast_Blending">[*]</a> to merge each bracketed view, then stitch
 these 8bit images into an 8bit panorama.
 </p>
-<ul><li> You have to use the same 'exposure' when merging each shot, but you don't know what that needs to be until you have finished and can see the result (less of a problem if you use a full 16 bit workflow).
+<ul><li> You have to use the same 'exposure' when merging each shot, but you don't know what that needs to be until you have finished and can see the result (less of a problem if you use a full 16 bit workflow<a class="external" href="http://wiki.panotools.org/Full_16_bit_workflow">[*]</a>).
 </li></ul>
 <a name="Contrast_blend_bracketed_panoramas" id="Contrast_blend_bracketed_panoramas"></a><h2> <span class="mw-headline"> Contrast blend bracketed panoramas </span></h2>
 <p>Stitch each exposure step into a complete 8bit panorama, then merge
-these with Contrast Blending into an 8bit panorama.
+these with Contrast Blending<a class="external" href="http://wiki.panotools.org/Contrast_Blending">[*]</a> into an 8bit panorama.
 </p>
 <ul><li> Running <a href="Enblend.html" title="Enblend">enblend</a> multiple times is slow.
-</li><li> Ghosting unless your panoramas are aligned perfectly.
+</li><li> Ghosting<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Ghosting&amp;action=edit&amp;redlink=1">[*]</a> unless your panoramas are aligned perfectly.
 </li></ul>
 <a name="Convert_bracketed_shots_to_HDR" id="Convert_bracketed_shots_to_HDR"></a><h2> <span class="mw-headline"> Convert bracketed shots to HDR </span></h2>
 <p>Merge each bracketed view into an <a href="HDR.html" title="HDR">HDR</a> image, stitch these into an
@@ -82,14 +82,14 @@ mapping.
 </p>
 <ul><li> Running <a href="Enblend.html" title="Enblend">enblend</a> multiple times is slow.
 </li><li> Local <a href="Tone_mapping.html" title="Tone mapping">tone mapping</a> operators produce ugly artefacts in <a href="Equirectangular.html" title="Equirectangular" class="mw-redirect">equirectangular</a> panoramas.
-</li><li> Ghosting unless all your panoramas are aligned perfectly.
+</li><li> Ghosting<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Ghosting&amp;action=edit&amp;redlink=1">[*]</a> unless all your panoramas are aligned perfectly.
 </li></ul>
 <a name="Tone_map_bracketed_shots" id="Tone_map_bracketed_shots"></a><h2> <span class="mw-headline"> Tone map bracketed shots </span></h2>
 <p>Merge each bracketed view into an <a href="HDR.html" title="HDR">HDR</a> image, use a <a href="Tone_mapping.html" title="Tone mapping">tone mapping</a>
 operator to generate 8bit images.  Then stitch these into an 8bit panorama.
 </p>
-<ul><li> You have to use the same tone mapping settings for each shot, but you don't know what that needs to be until you have finished and can see the result (less of a problem with a full 16 bit workflow).
-</li><li> Local tone mapping operators will behave differently for overlapping areas, you need to hope that blending with <a href="Enblend.html" title="Enblend">enblend</a>, smartblend or PTGui will fix them.
+<ul><li> You have to use the same tone mapping settings for each shot, but you don't know what that needs to be until you have finished and can see the result (less of a problem with a full 16 bit workflow<a class="external" href="http://wiki.panotools.org/Full_16_bit_workflow">[*]</a>).
+</li><li> Local tone mapping operators will behave differently for overlapping areas, you need to hope that blending with <a href="Enblend.html" title="Enblend">enblend</a>, smartblend<a class="external" href="http://wiki.panotools.org/Smartblend">[*]</a> or PTGui<a class="external" href="http://wiki.panotools.org/PTGui">[*]</a> will fix them.
 </li></ul>
 
 

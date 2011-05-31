@@ -29,7 +29,7 @@
 		
 
 		
-		<!-- Head Scripts -->
+		<style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 		
 				
 	</head>
@@ -41,16 +41,16 @@
 				<h1 id="firstHeading" class="firstHeading">Vig optimize</h1>
 		<div id="bodyContent">
 			
-			<div id="contentSub"></div>
+			
 												<!-- start content -->
-			<p>With the 0.7.0 <a href="Hugin.html" title="Hugin">hugin</a> release, photometric parameters such as exposure (EV), <a href="Vignetting.html" title="Vignetting">vignetting</a>, white balance and <a href="Camera_response_curve.html" title="Camera response curve">camera response curve</a> can be optimised in a similar way to <a href="Lens_distortion.html" title="Lens distortion">lens distortion</a>.  These photometric parameters can be edited in the <a href="Hugin_Camera_and_Lens_tab.html" title="Hugin Camera and Lens tab">hugin Camera and Lens tab</a> or calculated automatically in the <a href="Hugin_Exposure_tab.html" title="Hugin Exposure tab">hugin Exposure tab</a>.
+			<p>With the 0.7.0 <a href="Hugin.html" title="Hugin">hugin</a> release, photometric parameters such as exposure (EV), <a href="Vignetting.html" title="Vignetting">vignetting</a>, white balance<a class="external" href="http://wiki.panotools.org/White_balance">[*]</a> and <a href="Camera_response_curve.html" title="Camera response curve">camera response curve</a> can be optimised in a similar way to <a href="Lens_distortion.html" title="Lens distortion">lens distortion</a>.  These photometric parameters can be edited in the <a href="Hugin_Camera_and_Lens_tab.html" title="Hugin Camera and Lens tab">hugin Camera and Lens tab</a> or calculated automatically in the <a href="Hugin_Exposure_tab.html" title="Hugin Exposure tab">hugin Exposure tab</a>.
 </p><p>For this to work, photos first have to be aligned with correct relative positions and lens parameters. hugin will compare randomly selected groups of pixels from matching areas in each of the overlapping photos.  Exposure and response curve can be calculated with any kind of overlap, however vignetting calculations require partial overlap, ideally around 50%.
 </p><p>As well as the GUI process of optimisation/calculation in the <a href="Hugin_Exposure_tab.html" title="Hugin Exposure tab">hugin Exposure tab</a>, photometric calculation can also be performed on the command-line with the <b>vig_optimize</b> tool. This functionally is configured via 'v' <i>variable</i> lines in the .pto project file in a similar way to the <a href="Autooptimiser.html" title="Autooptimiser">autooptimiser</a> tool:
 </p>
-<ul><li> The <a href="Camera_response_curve.html" title="Camera response curve">camera response curve</a> is simplified using the EMoR sensor model which reduces the variation to five numbers, these are the <b>Ra</b>, <b>Rb</b>, <b>Rc</b>, <b>Rd</b> &amp; <b>Re</b> image (i) parameters (the default values of 0.0 are equivalent to an 'average' generic sensor).
+<ul><li> The <a href="Camera_response_curve.html" title="Camera response curve">camera response curve</a> is simplified using the EMoR<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=EMoR&amp;action=edit&amp;redlink=1">[*]</a> sensor model which reduces the variation to five numbers, these are the <b>Ra</b>, <b>Rb</b>, <b>Rc</b>, <b>Rd</b> &amp; <b>Re</b> image (i) parameters (the default values of 0.0 are equivalent to an 'average' generic sensor).
 </li><li> The <a href="Vignetting.html" title="Vignetting">vignetting</a> model is represented by a polynomial with four parameters: <b>Va</b> (this is always 1.0 and doesn't need to be optimised) and <b>Vb</b>, <b>Vc</b> &amp; <b>Vd</b> (which default to 0.0 - equivalent to no vignetting).  The vignetting centre can also be different from the geometrical centre, this is specified by <b>Vx</b> &amp; <b>Vy</b> (both default to 0.0).
 </li><li> Exposure (EV) is represented by a single value <b>Eev</b> (defaults 0.0, equivalent to no-change).
-</li><li> The white balance is represented by multipliers for the red and blue channels <b>Er</b> and <b>Eb</b> (the defaults of 1.0 are equivalent to no-change).
+</li><li> The white balance<a class="external" href="http://wiki.panotools.org/White_balance">[*]</a> is represented by multipliers for the red and blue channels <b>Er</b> and <b>Eb</b> (the defaults of 1.0 are equivalent to no-change).
 </li></ul>
 <p>A typical 'v' <i>variable</i> line configuration would look like this, i.e. optimise camera response curve and vignetting for image <i>0</i> and exposure for images <i>1</i>, <i>2</i>, <i>3</i> and <i>4</i>:
 </p>

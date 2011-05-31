@@ -29,7 +29,7 @@
 		
 
 		
-		<!-- Head Scripts -->
+		<style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 		
 				
 	</head>
@@ -41,30 +41,30 @@
 				<h1 id="firstHeading" class="firstHeading">Autopano-sift-C</h1>
 		<div id="bodyContent">
 			
-			<div id="contentSub"></div>
+			
 												<!-- start content -->
 			<p><b>autopano-sift-C</b> can be used to find control points in overlapping image pairs and is a C port of the C# software <a href="Autopano-sift.html" title="Autopano-sift">autopano-sift</a>. It is somewhat faster and doesn't require a C# runtime - Installing the <i>mono</i> C# runtime on OS X has proved to be problematic on some systems.
 </p><p>Additionally, autopano-sift-C has experimental modifications to perform feature identification in conformal image space, this helps with wide angle or <a href="Fisheye_Projection.html" title="Fisheye Projection">fisheye Projection</a> photographs.
-</p><p>autopano-sift-C is available from the <a href="Hugin.html" title="Hugin">hugin</a> project and can only be used within hugin as an optional installation due to patent issues: the use of the Scale-invariant feature transform algorithm is restricted by US Patent 6,711,293, awarded March 23, 2004 to the University of British Columbia.
+</p><p>autopano-sift-C is available from the <a href="Hugin.html" title="Hugin">hugin</a> project and can only be used within hugin as an optional installation due to patent issues: the use of the Scale-invariant feature transform<a class="external" href="http://www.wikipedia.org/wiki/SIFT">[*]</a> algorithm is restricted by US Patent 6,711,293, awarded March 23, 2004 to the University of British Columbia.
 </p><p>The current version 2.5.1 (autopano-sift-C-2.5.1) is available since the release of hugin 0.7 in October 2008.
 </p>
 <a name="Installation_on_Mac_OS_X" id="Installation_on_Mac_OS_X"></a><h2> <span class="mw-headline"> Installation on Mac OS X </span></h2>
-<p>On Mac OS X, autopano-sift-c can be installed via MacPorts:
+<p>On Mac OS X, autopano-sift-c can be installed via MacPorts<a class="external" href="http://www.macports.org/">[*]</a>:
 </p>
 <pre>
 $ sudo port install autopano-sift-c
 </pre>
 <p>This may take some minutes to fetch and compile the required software. Once complete, the <tt>autopano-sift-c</tt> binary will be installed in <tt>/opt/local/bin</tt>.
 </p><p>To get <a href="Hugin.html" title="Hugin">Hugin</a> to use it, you may need to add this full path into the preferences:
-</p><p><img alt="Image:Autopano-prefs.png" src="Autopano-prefs.png" width="719" height="258" border="0" />
+</p><p><img alt="Image:Autopano-prefs.png" src="Autopano-prefs.png" width="719" height="258" border="0" /><a class="external" href="http://wiki.panotools.org/File:Autopano-prefs.png">[*]</a>
 </p><p>Now you're ready to use the control point alignment assistant in Hugin. Load up your images, then hit the 'Align' button:
 </p>
-<dl><dd><img alt="Image:Autopano-align.png" src="Autopano-align.png" width="304" height="72" border="0" />
+<dl><dd><img alt="Image:Autopano-align.png" src="Autopano-align.png" width="304" height="72" border="0" /><a class="external" href="http://wiki.panotools.org/File:Autopano-align.png">[*]</a>
 </dd></dl>
 <p>At this point you'll either see a big fat error dialog, or if everything's working you'll see a dialog like this while autopano-sift-c does its thing. This may take a few minutes...
-</p><p><img alt="Image:Autopano-searching.png" src="Autopano-searching.png" width="720" height="480" border="0" />
+</p><p><img alt="Image:Autopano-searching.png" src="Autopano-searching.png" width="720" height="480" border="0" /><a class="external" href="http://wiki.panotools.org/File:Autopano-searching.png">[*]</a>
 </p><p>When it's done, Hugin's panorama preview should show you something decent now!
-</p><p><img alt="" src="700px-Autopano-done.png" width="700" height="368" border="0" />
+</p><p><img alt="" src="700px-Autopano-done.png" width="700" height="368" border="0" /><a class="external" href="http://wiki.panotools.org/File:Autopano-done.png">[*]</a>
 </p><p>You'll probably still want to nudge some things or run the exposure optimizer, but this'll have saved a lot of time manually setting control points.
 </p>
 

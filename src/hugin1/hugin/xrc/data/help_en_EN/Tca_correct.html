@@ -29,7 +29,7 @@
 		
 
 		
-		<!-- Head Scripts -->
+		<style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
 		
 				
 	</head>
@@ -41,12 +41,12 @@
 				<h1 id="firstHeading" class="firstHeading">Tca correct</h1>
 		<div id="bodyContent">
 			
-			<div id="contentSub"></div>
+			
 												<!-- start content -->
-			<p><b>tca_correct</b> is a command-line tool shipped with <a href="Hugin.html" title="Hugin">hugin</a> that can be used to automatically calculate lens chromatic aberration correction parameters.  Ideal sample photos would have a lot of contrast over the entire image area, little saturated colour and no blown highlights.
+			<p><b>tca_correct</b> is a command-line tool shipped with <a href="Hugin.html" title="Hugin">hugin</a> that can be used to automatically calculate lens chromatic aberration<a class="external" href="http://wiki.panotools.org/TCA">[*]</a> correction parameters.  Ideal sample photos would have a lot of contrast over the entire image area, little saturated colour and no blown highlights.
 </p>
 <a name="Using_with_fulla" id="Using_with_fulla"></a><h2> <span class="mw-headline"> Using with fulla </span></h2>
-<p><a href="Fulla.html" title="Fulla">fulla</a> is a command-line tool for correcting <a href="Lens_distortion.html" title="Lens distortion">lens distortion</a>, <a href="Vignetting.html" title="Vignetting">vignetting</a> and TCA (chromatic aberration). It is capable of applying the full panotools polynomial to the red and blue channels, thereby correcting any transverse chromatic aberration.
+<p><a href="Fulla.html" title="Fulla">fulla</a> is a command-line tool for correcting <a href="Lens_distortion.html" title="Lens distortion">lens distortion</a>, <a href="Vignetting.html" title="Vignetting">vignetting</a> and TCA<a class="external" href="http://wiki.panotools.org/TCA">[*]</a> (chromatic aberration). It is capable of applying the full panotools polynomial to the red and blue channels, thereby correcting any transverse chromatic aberration.
 </p><p>First calculate some TCA correction parameters for a sample image, notice that I'm only going to bother optimising <i>b</i> and <i>v</i> parameters in the <a href="Lens_correction_model.html" title="Lens correction model">lens correction model</a>, you might get better results with the full <i>abcv</i> set of parameters:
 </p>
 <pre> tca_correct -o bv DSC_3194.ppm
@@ -60,11 +60,11 @@
 <pre> fulla -r 0.0:0.0001197:0.0:0.9997630 -b 0.0:-0.0001142:0.0:1.0001841 -o corrected.tif DSC_3194.ppm
 </pre>
 <a name="Using_with_dcraw" id="Using_with_dcraw"></a><h2> <span class="mw-headline"> Using with dcraw </span></h2>
-<p>dcraw is a command-line <a href="RAW.html" title="RAW">RAW</a> converter with the ability to apply scaling of red/blue channels at the Bayer interpolation stage. Simple scaling is not as sophisticated as the panotools polynomial used in <a href="Fulla.html" title="Fulla">fulla</a> but is good enough for nearly all purposes. Start by extracting a test image from a RAW file:
+<p>dcraw<a class="external" href="http://wiki.panotools.org/Dcraw">[*]</a> is a command-line <a href="RAW.html" title="RAW">RAW</a> converter with the ability to apply scaling of red/blue channels at the Bayer interpolation stage. Simple scaling is not as sophisticated as the panotools polynomial used in <a href="Fulla.html" title="Fulla">fulla</a> but is good enough for nearly all purposes. Start by extracting a test image from a RAW file:
 </p>
 <pre> dcraw DSC_3194.NEF
 </pre>
-<p>Then run <b>tca_correct</b> on this PPM image, but tell it to only optimise <i>v</i> field of view for the red and blue channels:
+<p>Then run <b>tca_correct</b> on this PPM image, but tell it to only optimise <i>v</i> field of view<a class="external" href="http://wiki.panotools.org/Field_of_view">[*]</a> for the red and blue channels:
 </p>
 <pre> tca_correct -o v DSC_3194.ppm
 </pre>
@@ -77,7 +77,7 @@
 <pre> 1 / 1.0005943 = 0.999406
  1 / 1.0008306 = 0.999170
 </pre>
-<p>Now when converting RAW files from this lens you can use the dcraw -C parameter to correct TCA:
+<p>Now when converting RAW files from this lens you can use the dcraw -C parameter to correct TCA<a class="external" href="http://wiki.panotools.org/TCA">[*]</a>:
 </p>
 <pre> dcraw -C 0.999406 0.999170 [OPTIONS...] DSC_3194.NEF
 </pre>
