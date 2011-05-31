@@ -814,7 +814,6 @@ void MaskImageCtrl::OnDraw(wxDC & dc)
                     };
                     delete []polygonPoints;
                 };
-                region.Intersect(wholeImage);
             };
             int x;
             int y;
