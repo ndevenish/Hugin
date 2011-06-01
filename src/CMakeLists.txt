@@ -32,8 +32,6 @@ add_subdirectory(hugin_base)
 add_subdirectory(tools)
 add_subdirectory(matchpoint)
 add_subdirectory(deghosting)
-add_subdirectory(lens_calibrate)
-
 
 # build vips stuff, only if vips was found
 # not ready for the general public yet
