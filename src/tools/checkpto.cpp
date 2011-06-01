@@ -44,15 +44,15 @@ using namespace AppBase;
 
 static void usage(const char * name)
 {
-    cout << name << ": report the number of image chains in a project" << endl
+    cout << name << ": report the number of image groups in a project" << endl
          << name << " version " << DISPLAY_VERSION << endl
          << endl
          << "Usage:  " << name << " input.pto" << endl
          << endl
          << name << " examins the connections between images in a project and" << endl
-         << "reports back the number of parts or image chains in that project" << endl
+         << "reports back the number of parts or image groups in that project" << endl
          << endl
-         << "used by the assistant makefile" << endl
+         << name << " is used by the assistant makefile" << endl
          << endl;
 }
 
@@ -115,8 +115,8 @@ int main(int argc, char *argv[])
     }
     else
     {
-        std::cout << "Found unconnected images" << endl 
-                  << "There are " << n << " image chains." << endl;
+        std::cout << "Found unconnected images!" << endl 
+                  << "There are " << n << " image groups." << endl;
 
         std::cout << "Image groups: " << endl;
         for (unsigned i=0; i < comps.size(); i++)
@@ -136,7 +136,7 @@ int main(int argc, char *argv[])
             std::cout << "]";
             if (i+1 != comps.size())
             {
-                std::cout << ", ";
+                std::cout << ", " << endl;
             }
         }
         return n;
