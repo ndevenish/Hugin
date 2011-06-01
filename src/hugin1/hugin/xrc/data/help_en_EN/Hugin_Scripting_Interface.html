@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="Content-Style-Type" content="text/css" />
+		<meta name="generator" content="MediaWiki 1.14.0" />
+		<meta name="keywords" content="Hugin Scripting Interface" />
+		
+		
+		
+		
+		
+		
+		<title>Hugin Scripting Interface - PanoTools.org Wiki</title>
+		
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		
+		
+		
+		
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+
+		
+
+		
+		<style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
+		
+				
+	</head>
+<body class="mediawiki ltr ns-0 ns-subject page-Hugin_Scripting_Interface skin-monobook">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 id="firstHeading" class="firstHeading">Hugin Scripting Interface</h1>
+		<div id="bodyContent">
+			
+			
+												<!-- start content -->
+			
+<a name="Introduction" id="Introduction"></a><h2> <span class="mw-headline"> Introduction </span></h2>
+<p>Scripting has been implemented both ways:
+</p>
+<ul><li> <b>HSI</b> (Hugin Scripting Interface): enables calling Hugin functionality from Python scripts
+</li><li> <b>HPI</b> (Hugin Plugin Interface): enables calling Python functionality from within Hugin
+</li></ul>
+<p>If you have access to a Hugin binary that comes with scripting capability, you'll notice a "Run Python script" entry in the Edit menu.  You are all set and ready to go.  If that menu command is not available, you will need to upgrade your Hugin binary, your system, or both.
+</p><p>You can call Python from Hugin and just carry on in Python with the same objects, then return to C++.  As a user, you are enabled to use and write Python plugins with access to the Hugin dataverse.  The plugin interface provided by Hugin now is still experimental.  As it attracts interest, we expect it to grow and mature.
+</p>
+<a name="HPI" id="HPI"></a><h2> <span class="mw-headline"> HPI </span></h2>
+<p>HPI is embedding Python into Hugin.  It allows you to call arbitrary Python code  Use the file-select dialog Edit-&gt;Run Python Script to pick a plugin file and it will be executed without further ado.  You can edit your Python scripts with any text editor and launch them within Hugin.
+</p><p>Hpi uses hsi, so it can deal with all data types wrapped with hsi and call all their methods.
+</p>
+<a name="Limitations" id="Limitations"></a><h3> <span class="mw-headline"> Limitations </span></h3>
+<p>Currently this functionality is available in varied degrees only in Linux and Windows.
+</p><p>Currently there is no feedback from the plugin apart from it's success or failure, which is communicated in a dialog.  If you're on Linux, you can start Hugin from the command line and switch to the window you started it from while the plugin is running.  You'll see any console output it may produce.  The effect of the plugin manifests itself after the plugin's termination.  While the plugin runs, Hugin will not respond.  If the plugin's effect is undesirable you should be able to return to the previous state by using undo.
+</p><p>If you are using plugins that have been designed to also work as standalone Python programs, you can pass parameters to them on the command line.  If called from Hugin, no parametrization is possible, apart from modifying the Python code, using an .ini file, as demonstrated with woa.py, or taking input via GUI elements, as demonstrated in crop_cp.py, which will only succeed on Linux currently.
+</p><p><br />
+</p>
+<a name="HSI" id="HSI"></a><h2> <span class="mw-headline"> HSI </span></h2>
+<p>HSI is an extension of Python.  Import the hsi module and access Hugin functionality from your scripts.
+</p><p>To see what objects and methods are available, run
+</p>
+<pre>
+python -c 'import hsi; help(hsi)' &gt; help.txt
+</pre>
+<p>If you're exploring hsi in an interactive Python session, all the wrapped objects will provide some help if you're stuck, but it's admittedly quite basic.
+</p>
+<pre>
+$ python
+&gt;&gt;&gt; from hsi import *
+&gt;&gt;&gt; help(CPoint)
+</pre>
+<p>There is sparse documentation of the hugin data types and their methods beyond call signatures and member lists, so you have to guess your way when you want to use them. Luckily most of them are aptly and expressively named, so you can figure it out. I hope that eventually something like an API documentation will arise.
+</p>
+<a name="Example" id="Example"></a><h3> <span class="mw-headline"> Example </span></h3>
+<pre>
+#!/usr/bin/env python
+
+from hsi import *         # load the module
+p=Panorama()              # make a new Panorama object
+ifs=ifstream('xx.pto')    # create a C++ std::ifstream
+p.readData(ifs)           # read the pto file into the Panorama object
+del ifs                   # don't need anymore
+img0=p.getImage(0)        # access the first image
+print img0.getWidth()     # print the image's width
+cpv=p.getCtrlPoints()     # get the control points in the panorama
+for cp in cpv[:30:2]&nbsp;:    # print some data from some of the CPs
+  print cp.x1
+cpv=cpv[30:50]            # throw away most of the CPs
+p.setCtrlPoints(cpv)      # pass that subset back to the panorama
+ofs=ofstream('yy.pto')    # make a c++ std::ofstream to write to
+p.writeData(ofs)          # write the modified panorama to that stream
+del ofs                   # done with it
+</pre>
+<a name="Scripts" id="Scripts"></a><h2> <span class="mw-headline"> Scripts </span></h2>
+<p>This functionality is very recent and at the moment there are only a few simple sample Python plugins in the hugin_script_interface/plugins directory as well as some more involved ones to give you ideas.
+</p><p>Hopefully a body of scripts will develop which you can use for templates.
+</p>
+
+
+
+<div class="printfooter">
+Retrieved from "<a href="Hugin_Scripting_Interface.html">http://wiki.panotools.org/Hugin_Scripting_Interface</a>"</div>
+						<!-- end content -->
+						
+		</div>
+	</div>
+		</div>
+		<!-- end of the left (by default at least) column -->
+			
+			<div id="footer">
+				<dpanotoolsng.png);" href="/Main_Page" title="Visit the main page [z]" accesskey="z"></a>
+	</div>
+	
+	
+	
+	
+	
+		</div><!-- end of the left (by default at least) column -->
+			
+			
+</div>
+
+		
+
+
+
+<!-- Served in 0.163 secs. --></body></html>

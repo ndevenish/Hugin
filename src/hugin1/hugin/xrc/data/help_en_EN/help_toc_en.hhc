@@ -100,6 +100,10 @@
 			<param name="Local" value="Nona_gui.html">
 			</OBJECT>
 		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Calibrate_lens_gui">
+			<param name="Local" value="Calibrate_lens_gui.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
 			<param name="Name" value="Autooptimiser">
 			<param name="Local" value="Autooptimiser.html">
 			</OBJECT>
@@ -126,6 +130,10 @@
 		<LI> <OBJECT type="text/sitemap">
 			<param name="Name" value="Cpclean">
 			<param name="Local" value="Cpclean.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Checkpto">
+			<param name="Local" value="Checkpto.html">
 			</OBJECT>
 		<LI> <OBJECT type="text/sitemap">
 			<param name="Name" value="Cpfind">
@@ -276,6 +284,14 @@
 		<LI> <OBJECT type="text/sitemap">
 			<param name="Name" value="Scripting">
 			<param name="Local" value="Panorama_scripting_in_a_nutshell.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Hugin Scripting Interface">
+			<param name="Local" value="Hugin_Scripting_Interface.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Stitching a photo-mosaic">
+			<param name="Local" value="Stitching_a_photo-mosaic.html">
 			</OBJECT>
 	</UL>
 	<LI> <OBJECT type="text/sitemap">

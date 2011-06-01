@@ -13,8 +13,10 @@ Banding
 Barrel_distortion
 Bracketing
 Camera_response_curve
+Calibrate_lens_gui
 CCD
 Celeste_standalone
+Checkpto
 Chromatic_aberration
 Color_correct_tiff
 Colour_profile
@@ -74,6 +76,7 @@ Hugin_Parameters_for_Control_Point_Detectors_dialog
 Hugin_Preferences
 Hugin_Preview_window
 Hugin_Reset_Values_window
+Hugin_Scripting_Interface
 Hugin_Stitcher_tab
 Hugin_stitch_project
 Hugin_Trackers
@@ -132,6 +135,7 @@ Roll
 SmartBlend
 Spherical
 Stereographic_Projection
+Stitching_a_photo-mosaic
 Straight_line_control_points
 Swing_rod
 Tca_correct

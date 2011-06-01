@@ -26,9 +26,11 @@ Autopano-sift-C.html
 Banding.html
 Barrel_distortion.html
 Bracketing.html
+Calibrate_lens_gui.html
 Camera_response_curve.html
 CCD.html
 Celeste_standalone.html
+Checkpto.html
 Chromatic_aberration.html
 Color_correct_tiff.html
 Colour_profile.html
@@ -84,6 +86,7 @@ Hugin_Parameters_for_Control_Point_Detectors_dialog.html
 Hugin_Preferences.html
 Hugin_Preview_window.html
 Hugin_Reset_Values_window.html
+Hugin_Scripting_Interface.html
 Hugin_stitch_project.html
 Hugin_Stitcher_tab.html
 Hugin_Trackers.html
@@ -141,6 +144,7 @@ Roll.html
 SmartBlend.html
 Spherical.html
 Stereographic_Projection.html
+Stitching_a_photo-mosaic.html
 Straight_line_control_points.html
 Swing_rod.html
 Tca_correct.html
