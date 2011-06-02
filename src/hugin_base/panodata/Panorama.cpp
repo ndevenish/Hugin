@@ -1995,6 +1995,9 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
             skipNextLine = false;
             continue;
         }
+        //skip emtpy lines
+        if(line.empty())
+            continue;
         // check for a known line
         switch(line[0]) {
         case 'p':
