@@ -42,7 +42,6 @@
 #include "hugin/CPImageCtrl.h"
 #include "hugin/TextKillFocusHandler.h"
 #include "hugin/CPEditorPanel.h"
-//#include "hugin/CPFineTuneFrame.h"
 #include "hugin/wxPanoCommand.h"
 #include "base_wx/MyProgressDialog.h"
 
@@ -202,20 +201,6 @@ bool CPEditorPanel::Create(wxWindow* parent, wxWindowID id,
     m_rightImg->Init(this);
 #endif
 
-#ifdef USE_FINETUNEFRAME
-    // setup finetune frame
-    m_fineTuneFrame = new CPFineTuneFrame(this, *pano);
-    m_fineTuneFrame->Show();
-    // connect to image displays for editing (urgh.. not really that nice,
-    // from a software design viewpoint)
-    m_leftImg->SetZoomView(m_fineTuneFrame->GetLeftImg());
-    m_rightImg->SetZoomView(m_fineTuneFrame->GetRightImg());
-#else
-//    m_fineTuneFrame=0;
-#endif
-
-
-
     // setup list view
     m_cpList = XRCCTRL(*this, "cp_editor_cp_list", wxListCtrl);
     m_cpList->InsertColumn( 0, _("#"), wxLIST_FORMAT_RIGHT, 35);
@@ -346,9 +331,6 @@ void CPEditorPanel::setLeftImage(unsigned int imgNr)
         m_leftImg->setImage("", CPImageCtrl::ROT0);
         m_leftImageNr = imgNr;
         m_leftFile = "";
-//        if (m_fineTuneFrame) {
-//            m_fineTuneFrame->GetLeftImg()->Clear();
-//        }
         changeState(NO_POINT);
         UpdateDisplay(true);
     } else if (m_leftImageNr != imgNr) {
@@ -372,9 +354,6 @@ void CPEditorPanel::setLeftImage(unsigned int imgNr)
 #endif
         m_leftFile = m_pano->getImage(imgNr).getFilename();
         changeState(NO_POINT);
-//        if (m_fineTuneFrame) {
-//            m_fineTuneFrame->GetLeftImg()->SetImage(imgNr);
-//        }
         UpdateDisplay(true);
     }
     m_selectedPoint = UINT_MAX;
@@ -391,9 +370,6 @@ void CPEditorPanel::setRightImage(unsigned int imgNr)
         m_rightImageNr = imgNr;
         m_rightFile = "";
         m_rightRot = CPImageCtrl::ROT0;
-//        if (m_fineTuneFrame) {
-//            m_fineTuneFrame->GetRightImg()->Clear();
-//        }
         changeState(NO_POINT);
         UpdateDisplay(true);
     } else if (m_rightImageNr != imgNr) {
@@ -420,9 +396,6 @@ void CPEditorPanel::setRightImage(unsigned int imgNr)
         m_rightFile = m_pano->getImage(imgNr).getFilename();
         // update the rest of the display (new control points etc)
         changeState(NO_POINT);
-//        if (m_fineTuneFrame) {
-//            m_fineTuneFrame->GetRightImg()->SetImage(imgNr);
-//        }
         UpdateDisplay(true);
     }
     m_selectedPoint = UINT_MAX;

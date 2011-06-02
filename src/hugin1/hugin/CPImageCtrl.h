@@ -30,11 +30,10 @@
 #include <base_wx/wxImageCache.h>
 
 class CPEditorPanel;
-class CPZoomDisplayPanel;
+
 /** Events to notify about new point / region / point change
  *
  */
-
 class CPEvent : public wxCommandEvent
 {
     DECLARE_DYNAMIC_CLASS(CPEvent)
@@ -126,9 +125,6 @@ public:
      *  rotation is clockwise
      */ 
     enum ImageRotation { ROT0=0, ROT90, ROT180, ROT270 };
-
-    /// associate a zoomed display with this image
-    void SetZoomView(CPZoomDisplayPanel * display);
 
     /// display img. every CPImageCtrl has a wxBitmap with
     /// its current image
@@ -439,8 +435,6 @@ private:
     EditorState isOccupied(wxPoint mousePos, const hugin_utils::FDiff2D & point, unsigned int & pointNr) const;
 
     CPEditorPanel * m_editPanel;
-
-//    CPZoomDisplayPanel * m_zoomDisplay;
 
     ImageRotation m_imgRotation;
 

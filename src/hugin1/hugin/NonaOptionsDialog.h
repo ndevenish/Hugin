@@ -24,9 +24,6 @@
 #ifndef _NONASTITCHERPANEL_H
 #define _NONASTITCHERPANEL_H
 
-#include "hugin/StitcherPanel.h"
-//#include "hugin/MainFrame.h"
-
 //using namespace PT;
 class PanoDialog;
 class wxSpinCtrl;

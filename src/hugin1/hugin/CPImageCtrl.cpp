@@ -44,12 +44,6 @@
 
 #include "vigra_ext/ImageTransforms.h"
 
-#if 0
-#include "hugin/UniversalCursor.h"
-#endif
-
-//#include "hugin/CPZoomDisplayPanel.h"
-
 using namespace std;
 using namespace hugin_utils;
 
@@ -231,12 +225,6 @@ CPImageCtrl::~CPImageCtrl()
 //    delete m_ScrollCursor;
     DEBUG_TRACE("dtor end");
 }
-/*
-void CPImageCtrl::SetZoomView(CPZoomDisplayPanel * d)
-{
-    m_zoomDisplay = d;
-}
-*/
 
 void CPImageCtrl::OnDraw(wxDC & dc)
 {

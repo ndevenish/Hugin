@@ -35,8 +35,6 @@ class wxTextCtrl;
 class wxChoice;
 class wxComboBox;
 
-class StitcherPanel;
-
 /** Define the pano edit panel
  *
  *  - it is for the settings of the final panorama.
