@@ -105,6 +105,14 @@ CPEvent::CPEvent(wxWindow* win, wxRect & reg)
     region = reg;
 }
 
+CPEvent::CPEvent(wxWindow* win, const hugin_utils::FDiff2D & p1, const hugin_utils::FDiff2D & p2)
+{
+    SetEventType(EVT_CPEVENT);
+    SetEventObject(win);
+    mode=DELETE_REGION_SELECTED;
+    region=wxRect(roundi(p1.x),roundi(p1.y),roundi(p2.x-p1.x),roundi(p2.y-p1.y));
+};
+
 CPEvent::CPEvent(wxWindow* win, CPEventMode evt_mode, const FDiff2D & p)
 {
     SetEventType(EVT_CPEVENT);
@@ -131,6 +139,7 @@ BEGIN_EVENT_TABLE(CPImageCtrl, wxScrolledWindow)
     EVT_MOTION(CPImageCtrl::mouseMoveEvent)
     EVT_LEFT_DOWN(CPImageCtrl::mousePressLMBEvent)
     EVT_LEFT_UP(CPImageCtrl::mouseReleaseLMBEvent)
+    EVT_RIGHT_DOWN(CPImageCtrl::mousePressRMBEvent)
     EVT_RIGHT_UP(CPImageCtrl::mouseReleaseRMBEvent)
     EVT_MIDDLE_DOWN(CPImageCtrl::mousePressMMBEvent)
     EVT_MIDDLE_UP(CPImageCtrl::mouseReleaseMMBEvent)
@@ -875,6 +884,17 @@ CPImageCtrl::EditorState CPImageCtrl::isOccupied(wxPoint mousePos, const FDiff2D
 */
 }
 
+void CPImageCtrl::DrawSelectionRectangle(hugin_utils::FDiff2D pos1,hugin_utils::FDiff2D pos2)
+{
+    wxClientDC dc(this);
+    PrepareDC(dc);
+    dc.SetLogicalFunction(wxINVERT);
+    dc.SetPen(wxPen(*wxWHITE,1,wxDOT));
+    dc.SetBrush(*wxTRANSPARENT_BRUSH);
+    wxPoint p1=roundP(scale(applyRot(pos1)));
+    wxPoint p2=roundP(scale(applyRot(pos2)));
+    dc.DrawRectangle(p1.x,p1.y,p2.x-p1.x,p2.y-p1.y);
+};
 
 void CPImageCtrl::mouseMoveEvent(wxMouseEvent& mouse)
 {
@@ -887,7 +907,8 @@ void CPImageCtrl::mouseMoveEvent(wxMouseEvent& mouse)
     mpos = applyRotInv(invScale(mpos));
     mpos_ = applyRotInv(invScale(mpos_));
     // if mouseclick is out of image, ignore
-    if (mpos.x >= m_realSize.GetWidth() || mpos.y >= m_realSize.GetHeight()) {
+    if ((mpos.x >= m_realSize.GetWidth() || mpos.y >= m_realSize.GetHeight()) && editState!=SELECT_DELETE_REGION)
+    {
         return;
     }
 
@@ -939,7 +960,7 @@ void CPImageCtrl::mouseMoveEvent(wxMouseEvent& mouse)
         }
     }
 
-    if (mouse.MiddleIsDown() || mouse.ShiftDown() || mouse.m_controlDown ) {
+    if ((mouse.MiddleIsDown() || mouse.ShiftDown() || mouse.m_controlDown ) && editState!=SELECT_DELETE_REGION) {
         // scrolling with the mouse
         if (m_mouseScrollPos !=mouse.GetPosition()) {
             wxPoint delta_ = mouse.GetPosition() - m_mouseScrollPos;
@@ -962,6 +983,12 @@ void CPImageCtrl::mouseMoveEvent(wxMouseEvent& mouse)
         }
     }
 
+    if(mouse.RightIsDown() && editState==SELECT_DELETE_REGION)
+    {
+        //update selection rectangle
+        DrawSelectionRectangle(rectStartPos,m_mousePos);
+        DrawSelectionRectangle(rectStartPos,mpos);
+    }
 //    DEBUG_DEBUG("ImageDisplay: mouse move, state: " << editState);
 
     // draw a rectangle
@@ -989,6 +1016,9 @@ void CPImageCtrl::mousePressLMBEvent(wxMouseEvent& mouse)
 {
     DEBUG_DEBUG("LEFT MOUSE DOWN");
     if (!m_img.get()) return; // ignore events if no image loaded.
+    //ignore left mouse button if selecting region with right mouse button
+    if(editState==SELECT_DELETE_REGION) 
+        return;
     wxPoint mpos_;
     CalcUnscrolledPosition(mouse.GetPosition().x, mouse.GetPosition().y,
                            &mpos_.x, & mpos_.y);
@@ -1043,6 +1073,10 @@ void CPImageCtrl::mouseReleaseLMBEvent(wxMouseEvent& mouse)
 {
     DEBUG_DEBUG("LEFT MOUSE UP");
     if (!m_img.get()) return; // ignore events if no image loaded.
+    //ignore left mouse button if selecting region with right mouse button
+    if(editState==SELECT_DELETE_REGION) 
+        return;
+
     m_timer.Start(2000, true);
 
     wxPoint mpos_;
@@ -1137,6 +1171,27 @@ void CPImageCtrl::mousePressMMBEvent(wxMouseEvent& mouse)
 //    SetCursor(wxCursor(wxCURSOR_HAND));
 }
 
+void CPImageCtrl::mousePressRMBEvent(wxMouseEvent& mouse)
+{
+    //ignore event if no image loaded
+    if(!m_img.get()) 
+        return;
+    wxPoint mpos_;
+    CalcUnscrolledPosition(mouse.GetPosition().x, mouse.GetPosition().y, &mpos_.x, & mpos_.y);
+    FDiff2D mpos(mpos_.x, mpos_.y);
+    mpos = applyRotInv(invScale(mpos));
+    // if mouseclick is out of image, ignore
+    if (mpos.x >= m_realSize.GetWidth() || mpos.y >= m_realSize.GetHeight())
+    {
+        return;
+    }
+    if(mouse.ControlDown() && (editState==NO_SELECTION || editState==KNOWN_POINT_SELECTED || editState==NEW_POINT_SELECTED))
+    {
+        rectStartPos=mpos;
+        editState=SELECT_DELETE_REGION;
+        DrawSelectionRectangle(mpos,mpos);
+    };
+};
 
 void CPImageCtrl::mouseReleaseRMBEvent(wxMouseEvent& mouse)
 {
@@ -1148,16 +1203,27 @@ void CPImageCtrl::mouseReleaseRMBEvent(wxMouseEvent& mouse)
     mpos = applyRotInv(invScale(mpos));
     DEBUG_DEBUG("mouseReleaseEvent, pos:" << mpos.x
                 << ", " << mpos.y);
-    // if mouseclick is out of image, ignore
-    if (mpos.x >= m_realSize.GetWidth() || mpos.y >= m_realSize.GetHeight()) {
-        return;
-    }
 
-    if (mouse.RightUp()) {
-        // set right up event
-        DEBUG_DEBUG("Emitting right click (rmb release)");
-        CPEvent e(this, CPEvent::RIGHT_CLICK, mpos);
-        emit(e);
+    if (mouse.RightUp())
+    {
+        if(editState==SELECT_DELETE_REGION)
+        {
+            DrawSelectionRectangle(rectStartPos,mpos);
+            editState=NO_SELECTION;
+            CPEvent e(this,rectStartPos,mpos);
+            emit(e);
+        }
+        else
+        {
+            // if mouseclick is out of image, ignore
+            if (mpos.x >= m_realSize.GetWidth() || mpos.y >= m_realSize.GetHeight()) {
+                return;
+            }
+            // set right up event
+            DEBUG_DEBUG("Emitting right click (rmb release)");
+            CPEvent e(this, CPEvent::RIGHT_CLICK, mpos);
+            emit(e);
+        }
     }
 }
 

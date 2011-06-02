@@ -568,7 +568,44 @@ void CPEditorPanel::OnCPEvent( CPEvent&  ev)
         m_rightImg->ScrollDelta(d);
         m_leftImg->ScrollDelta(d);
     }
-	break;
+    break;
+
+    case CPEvent::DELETE_REGION_SELECTED:
+    {
+        UIntSet cpToRemove;
+        if(currentPoints.size()>0)
+        {
+            wxRect rect=ev.getRect();
+            for(unsigned int i=0;i<currentPoints.size();i++)
+            {
+                ControlPoint cp=currentPoints[i].second;
+                if(cp.mode==ControlPoint::X_Y)
+                {
+                    //checking only normal control points
+                    if(left)
+                    {
+                        if(rect.Contains(roundi(cp.x1),roundi(cp.y1)))
+                        {
+                            cpToRemove.insert(localPNr2GlobalPNr(i));
+                        };
+                    }
+                    else
+                    {
+                        if(rect.Contains(roundi(cp.x2),roundi(cp.y2)))
+                        {
+                            cpToRemove.insert(localPNr2GlobalPNr(i));
+                        };
+                    };
+                };
+            };
+        };
+        changeState(NO_POINT);
+        if(cpToRemove.size()>0)
+        {
+            GlobalCmdHist::getInstance().addCommand(new PT::RemoveCtrlPointsCmd(*m_pano,cpToRemove));
+        };
+    }
+    break;
 
 //    default:
 //        text = "FATAL: unknown event mode";

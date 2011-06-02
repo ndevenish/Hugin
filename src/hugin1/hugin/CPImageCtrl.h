@@ -39,7 +39,7 @@ class CPEvent : public wxCommandEvent
 {
     DECLARE_DYNAMIC_CLASS(CPEvent)
 
-    enum CPEventMode { NONE, NEW_POINT_CHANGED, POINT_SELECTED, POINT_CHANGED, REGION_SELECTED, RIGHT_CLICK, SCROLLED };
+    enum CPEventMode { NONE, NEW_POINT_CHANGED, POINT_SELECTED, POINT_CHANGED, REGION_SELECTED, RIGHT_CLICK, SCROLLED, DELETE_REGION_SELECTED };
 
 public:
     CPEvent( );
@@ -53,6 +53,8 @@ public:
     CPEvent(wxWindow* win, unsigned int cpNr, const hugin_utils::FDiff2D & p);
     /// region selected
     CPEvent(wxWindow* win, wxRect & reg);
+    /** delete region selected */
+    CPEvent(wxWindow* win, const hugin_utils::FDiff2D & p1, const hugin_utils::FDiff2D & p2);
     /// right mouse click
     CPEvent(wxWindow* win, CPEventMode mode, const hugin_utils::FDiff2D & p);
 
@@ -149,6 +151,7 @@ public:
 
     void mousePressLMBEvent(wxMouseEvent& mouse);
     void mouseReleaseLMBEvent(wxMouseEvent& mouse);
+    void mousePressRMBEvent(wxMouseEvent& mouse);
     void mouseReleaseRMBEvent(wxMouseEvent& mouse);
     void mouseMoveEvent(wxMouseEvent& mouse);
     void mousePressMMBEvent(wxMouseEvent& mouse);
@@ -346,6 +349,10 @@ private:
 
     // only valid during SELECT_REGION
     wxRect region;
+    // only valid during SELECT_DELETE_REGION
+    hugin_utils::FDiff2D rectStartPos;
+    // draw a selection rectangle from pos1 to pos2
+    void DrawSelectionRectangle(hugin_utils::FDiff2D pos1,hugin_utils::FDiff2D pos2);
     // state of widget (selection modes etc)
     // select region can also be used to just click...
 
@@ -371,6 +378,8 @@ private:
      *          - set from outside
      *        - REGION
      *          - mouse down on unidentifed field
+     *        - SELECT_DELETE_REGION
+     *          - mouse down on image
      *
      *    - KNOWN_POINT_SELECTED,
      *       a known point is selected and can be moved around.
@@ -381,6 +390,8 @@ private:
      *          - selection of another point
      *        - REGION
      *          - mouse down on unidentifed field
+     *        - SELECT_DELETE_REGION
+     *          - mouse down on image
      *
      *    - REGION the user can draw a bounding box.
      *        - NEW_POINT_SELECTED
@@ -395,9 +406,14 @@ private:
      *          - programatic change
      *        - REGION
      *          - mouse down on free space
+     *        - SELECT_DELETE_REGION
+     *          - mouse down on image
      *
+     *    - SELECT_DELETE_REGION user can draw rectangle inside which all cp should be removed
+     *        - NO_SELECTION
+
      */
-    enum EditorState {NO_IMAGE=0, NO_SELECTION, KNOWN_POINT_SELECTED, NEW_POINT_SELECTED, SELECT_REGION};
+    enum EditorState {NO_IMAGE=0, NO_SELECTION, KNOWN_POINT_SELECTED, NEW_POINT_SELECTED, SELECT_REGION, SELECT_DELETE_REGION};
     EditorState editState;
 
     // colors for the different points
