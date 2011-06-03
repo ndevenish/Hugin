@@ -9,9 +9,11 @@ install(TARGETS PTBatcher
 
 set(PROGNAME_GUI PTBatcherGUI )
 set(PTBATCHERGUI_SOURCE 
-      PTBatcherGUI.cpp Batch.cpp RunStitchFrame.cpp ProjectArray.cpp ProjectListBox.cpp BatchFrame.cpp FindPanoDialog.cpp FailedProjectsDialog.cpp)
+      PTBatcherGUI.cpp Batch.cpp RunStitchFrame.cpp ProjectArray.cpp ProjectListBox.cpp 
+      BatchFrame.cpp FindPanoDialog.cpp FailedProjectsDialog.cpp BatchTrayIcon.cpp )
 set( PTBATCHERGUI_HEADER PTBatcherGUI.h Batch.h RunStitchFrame.h ProjectArray.h ProjectListBox.h
-                         BatchFrame.h DirTraverser.h FindPanoDialog.h FailedProjectsDialog.h PTBatcherGUI_rc.rc)
+                         BatchFrame.h DirTraverser.h FindPanoDialog.h FailedProjectsDialog.h 
+                         BatchTrayIcon.h PTBatcherGUI_rc.rc)
 IF (WIN32)
   add_executable(${PROGNAME_GUI} WIN32 ${PTBATCHERGUI_SOURCE} ${PTBATCHERGUI_HEADER})
 ELSEIF(APPLE)

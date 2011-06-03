@@ -103,6 +103,8 @@ BEGIN_EVENT_TABLE(BatchFrame, wxFrame)
 	EVT_MENU(wxEVT_COMMAND_RELOAD_BATCH, BatchFrame::OnReloadBatch)
 	EVT_MENU(wxEVT_COMMAND_UPDATE_LISTBOX, BatchFrame::OnUpdateListBox)
     EVT_COMMAND(wxID_ANY, EVT_BATCH_FAILED, BatchFrame::OnBatchFailed)
+    EVT_COMMAND(wxID_ANY, EVT_INFORMATION, BatchFrame::OnBatchInformation)
+    EVT_ICONIZE(BatchFrame::OnMinimize)
 END_EVENT_TABLE()
 
 BatchFrame::BatchFrame(wxLocale* locale, wxString xrc)
@@ -138,6 +140,27 @@ BatchFrame::BatchFrame(wxLocale* locale, wxString xrc)
 #endif
     SetIcon(myIcon);
 
+#if wxCHECK_VERSION(2,9,0)
+    if(wxTaskBarIcon::IsAvailable())
+    {
+        m_tray=new BatchTaskBarIcon();
+        m_tray->SetIcon(myIcon,_("Hugins Batch processor"));
+    }
+    else
+    {
+        m_tray=NULL;
+    };
+#else
+    m_tray=new BatchTaskBarIcon();
+    if(m_tray->IsOk())
+    {
+        m_tray->SetIcon(myIcon,_("Hugins Batch processor"));
+    }
+    else
+    {
+        m_tray=NULL;
+    };
+#endif
 	m_batch = new Batch(this,wxTheApp->argv[0],true);
 	m_batch->gui = true;
 	m_batch->LoadTemp();
@@ -261,6 +284,16 @@ void *BatchFrame::Entry()
 	//wxMessageBox(_T("Ending thread..."));
 	return 0;
 }
+
+bool BatchFrame::IsRunning()
+{
+    return m_batch->IsRunning();
+};
+
+bool BatchFrame::IsPaused()
+{
+    return m_batch->IsPaused();
+};
 
 void BatchFrame::OnUpdateListBox(wxCommandEvent &event)
 {
@@ -413,8 +446,18 @@ void BatchFrame::AddToList(wxString aFile,Project::Target target)
 {
 	wxFileName name(aFile);
 	m_batch->AddProjectToBatch(aFile,name.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR) + name.GetName(),target);
-	SetStatusText(_("Added project ")+aFile);
-	projListBox->AppendProject(m_batch->GetProject(m_batch->GetProjectCount()-1));
+    wxString s;
+    switch(target)
+    {
+    case Project::STITCHING:
+        s=wxString::Format(_("Add project %s to stitching queue."),aFile.c_str());
+        break;
+    case Project::DETECTING:
+        s=wxString::Format(_("Add project %s to assistant queue."),aFile.c_str());
+        break;
+    };
+    SetStatusInformation(s,true);
+    projListBox->AppendProject(m_batch->GetProject(m_batch->GetProjectCount()-1));
     m_batch->SaveTemp();
 }
 
@@ -424,6 +467,7 @@ void BatchFrame::OnButtonCancel(wxCommandEvent &event)
 	GetToolBar()->ToggleTool(XRCID("tool_pause"),false);
 	m_cancelled = true;
 	m_batch->CancelBatch();
+    SetStatusInformation(_("Batch stopped"),true);
 }
 void BatchFrame::OnButtonChangePrefix(wxCommandEvent &event)
 {
@@ -491,6 +535,7 @@ void BatchFrame::OnButtonClear(wxCommandEvent &event)
 	}
 	m_batch->SaveTemp();
 }
+
 void BatchFrame::OnButtonHelp(wxCommandEvent &event)
 {
 	DEBUG_TRACE("");
@@ -617,7 +662,7 @@ void BatchFrame::OnButtonPause(wxCommandEvent &event)
 			{
 				m_batch->PauseBatch();
 				GetToolBar()->ToggleTool(XRCID("tool_pause"),true);
-				SetStatusText(_("Batch paused"));
+                SetStatusInformation(_("Batch paused"),true);
 			}
 			//m_paused=true;
 		//}
@@ -627,7 +672,7 @@ void BatchFrame::OnButtonPause(wxCommandEvent &event)
 			{
 				m_batch->PauseBatch();
 				GetToolBar()->ToggleTool(XRCID("tool_pause"),false);
-				SetStatusText(_("Continuing batch..."));
+                SetStatusInformation(_("Continuing batch..."),true);
 			}
 			//m_paused=false;
 		//}
@@ -956,6 +1001,8 @@ void BatchFrame::OnClose(wxCloseEvent &event)
 #ifndef __WXMSW__
     delete m_help;
 #endif
+    if(m_tray!=NULL)
+        delete m_tray;
 	this->Destroy();
 }
 
@@ -982,9 +1029,12 @@ void BatchFrame::PropagateDefaults()
 	else
 		m_batch->verbose = false;
 }
+
 void BatchFrame::RunBatch()
 {
-	m_batch->RunBatch();
+    if(!IsRunning())
+        SetStatusInformation(_("Starting batch"),true);
+    m_batch->RunBatch();
 }
 
 void BatchFrame::SetLocaleAndXRC(wxLocale* locale, wxString xrc)
@@ -1104,5 +1154,37 @@ void BatchFrame::OnBatchFailed(wxCommandEvent &event)
 {
     FailedProjectsDialog failedProjects_dlg(this,m_batch,m_xrcPrefix);
     failedProjects_dlg.ShowModal();
-
 };
+
+void BatchFrame::OnBatchInformation(wxCommandEvent& e)
+{
+    SetStatusInformation(e.GetString(),true);
+};
+
+void BatchFrame::SetStatusInformation(wxString status,bool showBalloon)
+{
+    SetStatusText(status);
+    if(m_tray!=NULL && showBalloon)
+    {
+#if defined __WXMSW__ && wxUSE_TASKBARICON_BALLOONS && wxCHECK_VERSION(2,9,0)
+        m_tray->ShowBalloon(_("PTBatcherGUI"),status,5000,wxICON_INFORMATION);
+#else
+        TaskBarBalloon* balloon=new TaskBarBalloon(_("PTBatcherGUI"),status);
+        balloon->showBalloon(5000);
+#endif
+    };
+};
+
+void BatchFrame::OnMinimize(wxIconizeEvent& e)
+{
+    //hide/show window in taskbar when minimizing
+    if(m_tray!=NULL)
+    {
+        Show(!e.IsIconized());
+    }
+    else //don't hide window if no tray icon
+    {
+        e.Skip();
+    };
+};
+

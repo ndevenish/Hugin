@@ -33,8 +33,10 @@ END_EVENT_TABLE()
 
 #if _WINDOWS && defined Hugin_shared
 DEFINE_LOCAL_EVENT_TYPE(EVT_BATCH_FAILED)
+DEFINE_LOCAL_EVENT_TYPE(EVT_INFORMATION)
 #else
 DEFINE_EVENT_TYPE(EVT_BATCH_FAILED)
+DEFINE_EVENT_TYPE(EVT_INFORMATION)
 #endif
 
 Batch::Batch(wxFrame* parent, wxString path, bool bgui) : wxFrame(parent,wxID_ANY,_T("Batch")){
@@ -357,6 +359,12 @@ Project::Status Batch::GetStatus(int index)
 		cout << "Error: Could not get status, project with index " << index << " is not in list." << endl;
 	return Project::MISSING;
 }
+
+bool Batch::IsRunning()
+{
+    return m_running;
+};
+
 bool Batch::IsPaused()
 {
 	return m_paused;
@@ -514,8 +522,11 @@ void Batch::OnProcessTerminate(wxProcessEvent & event)
 				if(NoErrors())
 				{
 					if(gui)
-						//SetStatusText(_T("Project \"")+m_projList.Item(i).path+_T("\" finished. Batch successfully completed."));
-						SetStatusText(_("Batch successfully completed."));
+                    {
+                        wxCommandEvent e(EVT_INFORMATION,wxID_ANY);
+                        e.SetString(_("Batch successfully completed."));
+                        GetParent()->GetEventHandler()->AddPendingEvent(e);
+                    }
 					else
 						//cout << "Project \"" << m_projList.Item(i).path.char_str() << "\" finished. Batch successfully completed." << endl;
 						cout << "Batch successfully completed." << endl;
@@ -879,10 +890,16 @@ void Batch::RunNextInBatch()
 				m_running = true;
                 if(m_projList.Item(i).target==Project::STITCHING)
                 {
+                    wxCommandEvent e(EVT_INFORMATION,wxID_ANY);
+                    e.SetString(wxString::Format(_("Now stitching: %s"),m_projList.Item(i).path.c_str()));
+                    GetParent()->GetEventHandler()->AddPendingEvent(e);
 				    value = OnStitch(m_projList.Item(i).path, m_projList.Item(i).prefix, m_projList.Item(i).id);
                 }
                 else
                 {
+                    wxCommandEvent e(EVT_INFORMATION,wxID_ANY);
+                    e.SetString(wxString::Format(_("Now detecting: %s"),m_projList.Item(i).path.c_str()));
+                    GetParent()->GetEventHandler()->AddPendingEvent(e);
                     value = OnDetect(m_projList.Item(i).path,m_projList.Item(i).id);
                 };
 				if(!value)
@@ -902,10 +919,16 @@ void Batch::RunNextInBatch()
 					m_running = true;
                     if(m_projList.Item(i).target==Project::STITCHING)
                     {
-		    		    value = OnStitch(m_projList.Item(i).path, m_projList.Item(i).prefix, m_projList.Item(i).id);
+                        wxCommandEvent e(EVT_INFORMATION,wxID_ANY);
+                        e.SetString(wxString::Format(_("Now stitching: %s"),m_projList.Item(i).path.c_str()));
+                        GetParent()->GetEventHandler()->AddPendingEvent(e);
+                        value = OnStitch(m_projList.Item(i).path, m_projList.Item(i).prefix, m_projList.Item(i).id);
                     }
                     else
                     {
+                        wxCommandEvent e(EVT_INFORMATION,wxID_ANY);
+                        e.SetString(wxString::Format(_("Now detecting: %s"),m_projList.Item(i).path.c_str()));
+                        GetParent()->GetEventHandler()->AddPendingEvent(e);
                         value = OnDetect(m_projList.Item(i).path,m_projList.Item(i).id);
                     };
 					if(!value)

@@ -98,7 +98,9 @@ public:
 	int   GetRunningCount();
 	//Returns current status of project at index
 	Project::Status GetStatus(int index);
-	//Returns true if batch execution is currently paused
+    /** return true, if batch is running */
+    bool IsRunning();
+    /** Returns true if batch execution is currently paused */
 	bool  IsPaused();
 	//Returns last saved batch file
 	const wxString GetLastFile() { return m_lastFile; };
@@ -175,8 +177,10 @@ private:
 
 #if _WINDOWS && defined Hugin_shared
     DECLARE_LOCAL_EVENT_TYPE(EVT_BATCH_FAILED,-1)
+    DECLARE_LOCAL_EVENT_TYPE(EVT_INFORMATION,-1)
 #else
     DECLARE_EVENT_TYPE(EVT_BATCH_FAILED,-1)
+    DECLARE_EVENT_TYPE(EVT_INFORMATION,-1)
 #endif
 
 #endif //BATCH_H
