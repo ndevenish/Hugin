@@ -1145,12 +1145,15 @@ void PanoPanel::DoSendToBatch()
     {
         switches += wxT("-v ");
     }
-    wxCommandEvent dummy;
-    MainFrame::Get()->OnSaveProject(dummy);
-    //test if save was sucessful
     if(pano->isDirty())
     {
-        return;
+        wxCommandEvent dummy;
+        MainFrame::Get()->OnSaveProject(dummy);
+        //test if save was sucessful
+        if(pano->isDirty())
+        {
+            return;
+        };
     };
     wxString projectFile = MainFrame::Get()->getProjectName();
     if(wxFileName::FileExists(projectFile))
