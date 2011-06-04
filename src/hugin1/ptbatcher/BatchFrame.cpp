@@ -1181,10 +1181,26 @@ void BatchFrame::OnMinimize(wxIconizeEvent& e)
     if(m_tray!=NULL)
     {
         Show(!e.IsIconized());
+        //switch off verbose output if PTBatcherGUI is in tray/taskbar
+        if(e.IsIconized())
+        {
+            m_batch->verbose=false;
+        }
+        else
+        {
+            m_batch->verbose=XRCCTRL(*this,"cb_verbose",wxCheckBox)->IsChecked();
+        };
+        m_batch->ShowOutput(m_batch->verbose);
     }
     else //don't hide window if no tray icon
     {
         e.Skip();
     };
+};
+
+void BatchFrame::UpdateBatchVerboseStatus()
+{
+    m_batch->verbose=XRCCTRL(*this,"cb_verbose",wxCheckBox)->IsChecked();
+    m_batch->ShowOutput(m_batch->verbose);
 };
 

@@ -84,6 +84,7 @@ void BatchTaskBarIcon::OnShowGUI(wxCommandEvent& e)
 {
     wxGetApp().GetFrame()->Show(true);
     wxGetApp().GetFrame()->Iconize(false);
+    wxGetApp().GetFrame()->UpdateBatchVerboseStatus();
 };
 
 void BatchTaskBarIcon::OnStartBatch(wxCommandEvent& e)
@@ -118,8 +119,8 @@ void BatchTaskBarIcon::OnExit(wxCommandEvent& e)
 
 void BatchTaskBarIcon::OnLeftButtonDClick(wxTaskBarIconEvent& e)
 {
-    wxGetApp().GetFrame()->Show(true);
-    wxGetApp().GetFrame()->Iconize(false);
+    wxCommandEvent dummy;
+    OnShowGUI(dummy);
 };
 
 #if defined __WXMSW__ && wxUSE_TASKBARICON_BALLOONS && wxCHECK_VERSION(2,9,0)

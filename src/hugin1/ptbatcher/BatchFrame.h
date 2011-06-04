@@ -123,6 +123,8 @@ public:
      *  @param status text for status bar
      *  @param showBalloon true if the status text should also shown in balloon */
     void SetStatusInformation(wxString status,bool showBalloon);
+    /** update visibility of verbose output window depending on status of verbose checkbox */
+    void UpdateBatchVerboseStatus();
 
 #ifdef __WXMSW__
     /** return help controller for open help */
