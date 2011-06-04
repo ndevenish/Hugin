@@ -894,24 +894,25 @@ for HDR panoramas use Preview window.</label>
                         <object class="wxBoxSizer">
                           <orient>wxVERTICAL</orient>
                           <object class="sizeritem">
-                            <object class="wxFlexGridSizer">
-                              <object class="sizeritem">
-                                <object class="wxChoice" name="pref_processor_gui">
-                                  <content>
-                                    <item>PTBatcherGUI</item>
-                                    <item>Legacy</item>
-                                  </content>
-                                  <selection>0</selection>
-                                  <tooltip>The engine that will run the stitch</tooltip>
-                                  <border>5</border>
-                                </object>
-                              </object>
+                            <object class="wxChoice" name="pref_processor_gui">
+                              <content>
+                                <item>PTBatcherGUI</item>
+                                <item>Legacy</item>
+                              </content>
+                              <selection>0</selection>
+                              <tooltip>The engine that will run the stitch</tooltip>
+                            </object>
+                            <flag>wxALL</flag>
+                            <border>5</border>
+                          </object>
+                          <object class="sizeritem">
+                            <object class="wxStaticBoxSizer">
                               <object class="sizeritem">
                                 <object class="wxCheckBox" name="pref_processor_start">
                                   <label>Start stitching jobs immediately</label>
                                   <tooltip>If selected, the processor will immediately resume processing the jobs queue.  Otherwise the processor is started in suspended state and the user hast to start the processing manually.</tooltip>
                                 </object>
-                                <flag>wxALL|wxSHAPED|wxALIGN_CENTRE_VERTICAL</flag>
+                                <flag>wxALL</flag>
                                 <border>5</border>
                               </object>
                               <object class="sizeritem">
@@ -919,15 +920,7 @@ for HDR panoramas use Preview window.</label>
                                   <label>Run stitching jobs in parallel</label>
                                   <tooltip>If selected, the processor will run multiple jobs contemporaneously.  Otherwise it will run one job at a time.  Note that selecting this option may actually result in slower stitches, depending on the system's ressources and bottlenecks.</tooltip>
                                 </object>
-                                <flag>wxALL|wxSHAPED|wxALIGN_CENTRE_VERTICAL</flag>
-                                <border>5</border>
-                              </object>
-                              <object class="sizeritem">
-                                <object class="wxCheckBox" name="pref_processor_delete">
-                                  <label>Delete project file (PTO) after stitching</label>
-                                  <tooltip>WARNING: you will lose the control points.</tooltip>
-                                </object>
-                                <flag>wxALL|wxSHAPED|wxALIGN_CENTRE_VERTICAL</flag>
+                                <flag>wxALL</flag>
                                 <border>5</border>
                               </object>
                               <object class="sizeritem">
@@ -935,7 +928,7 @@ for HDR panoramas use Preview window.</label>
                                   <label>Overwrite existing files</label>
                                   <tooltip>WARNING: existing files with be silently overwritten.</tooltip>
                                 </object>
-                                <flag>wxALL|wxSHAPED|wxALIGN_CENTRE_VERTICAL</flag>
+                                <flag>wxALL</flag>
                                 <border>5</border>
                               </object>
                               <object class="sizeritem">
@@ -943,14 +936,14 @@ for HDR panoramas use Preview window.</label>
                                   <label>Verbose Output</label>
                                   <tooltip>Enable to get the details, useful when reporting a bug or just to watch the project's progress.</tooltip>
                                 </object>
-                                <flag>wxALL|wxSHAPED|wxALIGN_CENTRE_VERTICAL</flag>
+                                <flag>wxALL</flag>
                                 <border>5</border>
                               </object>
-                              <cols>2</cols>
-                              <rows>6</rows>
+                              <label>Options</label>
+                              <orient>wxVERTICAL</orient>
                             </object>
-                            <flag>wxEXPAND</flag>
-                            <border>0</border>
+                            <flag>wxEXPAND|wxALL</flag>
+                            <border>5</border>
                           </object>
                         </object>
                       </object>
@@ -962,6 +955,14 @@ for HDR panoramas use Preview window.</label>
                   <flag>wxALL|wxEXPAND</flag>
                   <border>5</border>
                 </object>
+              </object>
+            </object>
+            <label>Stitching</label>
+          </object>
+          <object class="notebookpage">
+            <object class="wxPanel">
+              <object class="wxBoxSizer">
+                <orient>wxVERTICAL</orient>
                 <object class="sizeritem">
                   <object class="wxStaticBoxSizer">
                     <object class="sizeritem">
@@ -1025,11 +1026,8 @@ for HDR panoramas use Preview window.</label>
                   <flag>wxALL|wxEXPAND</flag>
                   <border>5</border>
                 </object>
-
                 <object class="sizeritem">
                   <object class="wxStaticBoxSizer">
-                    <label>Enblend</label>
-                    <orient>wxVERTICAL</orient>
                     <object class="sizeritem">
                       <object class="wxPanel">
                         <object class="wxBoxSizer">
@@ -1101,14 +1099,14 @@ Do not set -w, -o and --compression arguments, they are set by hugin</label>
                       </object>
                       <flag>wxEXPAND</flag>
                     </object>
+                    <label>Enblend</label>
+                    <orient>wxVERTICAL</orient>
                   </object>
                   <flag>wxALL|wxEXPAND</flag>
                   <border>5</border>
                 </object>
                 <object class="sizeritem">
                   <object class="wxStaticBoxSizer">
-                    <label>Enfuse</label>
-                    <orient>wxVERTICAL</orient>
                     <object class="sizeritem">
                       <object class="wxPanel">
                         <object class="wxBoxSizer">
@@ -1180,16 +1178,17 @@ Do not set -w, -o and --compression arguments, they are set by hugin</label>
                       </object>
                       <flag>wxEXPAND</flag>
                     </object>
+                    <label>Enfuse</label>
+                    <orient>wxVERTICAL</orient>
                   </object>
                   <flag>wxALL|wxEXPAND</flag>
                   <border>5</border>
                 </object>
               </object>
             </object>
-            <label>Stitching</label>
+            <label>Programs</label>
           </object>
           <object class="notebookpage">
-            <label>Celeste</label>
             <object class="wxPanel">
               <object class="wxBoxSizer">
                 <orient>wxVERTICAL</orient>
@@ -1254,6 +1253,7 @@ Do not set -w, -o and --compression arguments, they are set by hugin</label>
                 </object>
               </object>
             </object>
+            <label>Celeste</label>
           </object>
         </object>
         <option>1</option>

@@ -467,9 +467,6 @@ void PreferencesDialog::UpdateDisplayData(int panel)
         // tempdir
         MY_STR_VAL("prefs_misc_tempdir", cfg->Read(wxT("tempDir"),wxT("")));
 
-        // show druid
-        MY_BOOL_VAL("prefs_misc_showDruid", cfg->Read(wxT("/PreviewFrame/showDruid"),HUGIN_PREVIEW_SHOW_DRUID) != 0l);
-
     }
 
     if (panel==0 || panel == 2) {
@@ -560,13 +557,14 @@ void PreferencesDialog::UpdateDisplayData(int panel)
         MY_BOOL_VAL("pref_processor_start", t);
         t = cfg->Read(wxT("/Processor/parallel"), HUGIN_PROCESSOR_PARALLEL) == 1;
         MY_BOOL_VAL("pref_processor_parallel", t);
-        t = cfg->Read(wxT("/Processor/delete"), HUGIN_PROCESSOR_DELETE) == 1;
-        MY_BOOL_VAL("pref_processor_delete", t);
         t = cfg->Read(wxT("/Processor/overwrite"), HUGIN_PROCESSOR_OVERWRITE) == 1;
         MY_BOOL_VAL("pref_processor_overwrite", t);
         t = cfg->Read(wxT("/Processor/verbose"), HUGIN_PROCESSOR_VERBOSE) == 1;
         MY_BOOL_VAL("pref_processor_verbose", t);
         UpdateProcessorControls();
+    }
+
+    if (panel==0 || panel == 6){
 
         /////
         /// NONA
@@ -600,7 +598,7 @@ void PreferencesDialog::UpdateDisplayData(int panel)
                                                       wxT(HUGIN_ENFUSE_ARGS)));
     }
     
-    if (panel==0 || panel == 6) {
+    if (panel==0 || panel == 7) {
         // Celeste settings
 
         d=HUGIN_CELESTE_THRESHOLD;
@@ -673,8 +671,6 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
             cfg->Write(wxT("smartUndo"), HUGIN_SMART_UNDO);
             // projection hints
             cfg->Write(wxT("/GLPreviewFrame/ShowProjectionHints"), HUGIN_SHOW_PROJECTION_HINTS);
-            // druid
-            cfg->Write(wxT("/PreviewFrame/showDruid"), HUGIN_PREVIEW_SHOW_DRUID);
         }
         if (noteb->GetSelection() == 1) {
             cfg->Write(wxT("/Assistant/autoAlign"), HUGIN_ASS_AUTO_ALIGN);
@@ -718,6 +714,15 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
             // cfg->Write(wxT("/output/hdr_format"), HUGIN_HDR_OUTPUT_FORMAT);
             cfg->Write(wxT("/output/tiff_compression"), HUGIN_TIFF_COMPRESSION);
             cfg->Write(wxT("/output/jpeg_quality"), HUGIN_JPEG_QUALITY);
+            // stitching engine
+            cfg->Write(wxT("/Processor/gui"), HUGIN_PROCESSOR_GUI);
+            cfg->Write(wxT("/Processor/start"), HUGIN_PROCESSOR_START);
+            cfg->Write(wxT("/Processor/parallel"), HUGIN_PROCESSOR_PARALLEL);
+            cfg->Write(wxT("/Processor/overwrite"), HUGIN_PROCESSOR_OVERWRITE);
+            cfg->Write(wxT("/Processor/verbose"), HUGIN_PROCESSOR_VERBOSE);
+
+        }
+        if (noteb->GetSelection() == 5) {
 
             /// ENBLEND
             cfg->Write(wxT("/Enblend/Exe"), wxT(HUGIN_ENBLEND_EXE));
@@ -729,7 +734,7 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
             cfg->Write(wxT("/Enfuse/Args"), wxT(HUGIN_ENFUSE_ARGS));
         }
 	
-        if (noteb->GetSelection() == 5) {
+        if (noteb->GetSelection() == 6) {
             /// Celeste
             cfg->Write(wxT("/Celeste/Threshold"), HUGIN_CELESTE_THRESHOLD);
             cfg->Write(wxT("/Celeste/Filter"), HUGIN_CELESTE_FILTER);
@@ -824,9 +829,6 @@ void PreferencesDialog::UpdateConfigData()
     //    cfg->Write(wxT("/CPImageCtrl/CursorType"), MY_G_SPIN_VAL("prefs_cp_CursorType"));
     // tempdir
     cfg->Write(wxT("tempDir"),MY_G_STR_VAL("prefs_misc_tempdir"));
-    // druid
-    cfg->Write(wxT("/PreviewFrame/showDruid"), MY_G_BOOL_VAL("prefs_misc_showDruid"));
-    
     /////
     /// AUTOPANO
     cpdetector_config_edit.Write(cfg);
@@ -844,7 +846,6 @@ void PreferencesDialog::UpdateConfigData()
     cfg->Write(wxT("/Processor/gui"), MY_G_CHOICE_VAL("pref_processor_gui"));
     cfg->Write(wxT("/Processor/start"), MY_G_BOOL_VAL("pref_processor_start"));
     cfg->Write(wxT("/Processor/parallel"), MY_G_BOOL_VAL("pref_processor_parallel"));
-    cfg->Write(wxT("/Processor/delete"), MY_G_BOOL_VAL("pref_processor_delete"));
     cfg->Write(wxT("/Processor/overwrite"), MY_G_BOOL_VAL("pref_processor_overwrite"));
     cfg->Write(wxT("/Processor/verbose"), MY_G_BOOL_VAL("pref_processor_verbose"));
 
@@ -1034,7 +1035,6 @@ void PreferencesDialog::UpdateProcessorControls()
     int i=MY_G_CHOICE_VAL("pref_processor_gui");
     XRCCTRL(*this,"pref_processor_start",wxCheckBox)->Show(i==0);
     XRCCTRL(*this,"pref_processor_parallel",wxCheckBox)->Show(i==0);
-    XRCCTRL(*this,"pref_processor_delete",wxCheckBox)->Show(i==0);
     XRCCTRL(*this,"pref_processor_overwrite",wxCheckBox)->Show(i==0);
     XRCCTRL(*this,"pref_processor_verbose",wxCheckBox)->Show(i==0);
 };
