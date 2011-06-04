@@ -1401,7 +1401,8 @@ void MainFrame::OnOptimize(wxCommandEvent & e)
 void MainFrame::OnDoStitch(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
-    pano_panel->DoStitch();
+    wxCommandEvent cmdEvt(wxEVT_COMMAND_BUTTON_CLICKED,XRCID("pano_button_stitch"));
+    pano_panel->GetEventHandler()->AddPendingEvent(cmdEvt);
 }
 
 void MainFrame::OnMergeProject(wxCommandEvent & e)
