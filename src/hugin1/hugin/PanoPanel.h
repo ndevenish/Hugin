@@ -76,8 +76,10 @@ public:
 //    void previewSingleChanged(wxCommandEvent & e);
 
 
-    // actions
+    /** stitching using hugin_stitch_project */
     void DoStitch();
+    /** stitching with PTBatcherGUI */
+    void DoSendToBatch();
 
 
  private:

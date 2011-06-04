@@ -1116,77 +1116,100 @@ void PanoPanel::DoStitch()
 #endif
 }
 
+void PanoPanel::DoSendToBatch()
+{
+    if (pano->getNrOfImages() == 0)
+    {
+        return;
+    }
+    
+    if (!CheckGoodSize())
+    {
+        // oversized pano and the user no longer wants to stitch.
+        return;
+    }
+    wxString switches(wxT(" "));
+    if (wxConfigBase::Get()->Read(wxT("/Processor/start"), HUGIN_PROCESSOR_START) != 0)
+    {
+        switches += wxT("-b ");
+    }
+    if (wxConfigBase::Get()->Read(wxT("/Processor/parallel"), HUGIN_PROCESSOR_PARALLEL) != 0)
+    {
+        switches += wxT("-p ");
+    }
+    if (wxConfigBase::Get()->Read(wxT("/Processor/overwrite"), HUGIN_PROCESSOR_OVERWRITE) != 0)
+    {
+        switches += wxT("-o ");
+    }
+    if (wxConfigBase::Get()->Read(wxT("/Processor/verbose"), HUGIN_PROCESSOR_VERBOSE) != 0)
+    {
+        switches += wxT("-v ");
+    }
+    wxCommandEvent dummy;
+    MainFrame::Get()->OnSaveProject(dummy);
+    //test if save was sucessful
+    if(pano->isDirty())
+    {
+        return;
+    };
+    wxString projectFile = MainFrame::Get()->getProjectName();
+    if(wxFileName::FileExists(projectFile))
+    {
+        wxFileName outputPrefix;
+        outputPrefix.Assign(projectFile);
+        if (outputPrefix.GetExt() == wxT("pto"))
+        {
+            outputPrefix.ClearExt();
+        };
+
+        // Show a file save dialog so user can confirm/change the prefix.
+        // (We don't have to worry about overwriting existing files, since PTBatcherGUI checks this, or the overwrite flag was set.)
+        wxFileDialog dlg(this,_("Specify output prefix"),
+                         outputPrefix.GetPath(), outputPrefix.GetName(), wxT(""),
+                         wxFD_SAVE, wxDefaultPosition);
+        if (dlg.ShowModal() != wxID_OK)
+        {
+            return;
+        };
+        while(containsInvalidCharacters(dlg.GetPath()))
+        {
+            wxMessageBox(wxString::Format(_("The given filename contains one of the following invalid characters: %s\nHugin can not work with this filename. Please enter a valid filename."),getInvalidCharacters().c_str()),
+                _("Error"),wxOK | wxICON_EXCLAMATION);
+            if(dlg.ShowModal()!=wxID_OK)
+                return;
+        };
+
+#if defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
+        wxExecute(wxT("open -b net.sourceforge.hugin.PTBatcherGUI")+switches+wxQuoteFilename(projectFile)+wxT(" ")+wxQuoteFilename(dlg.GetPath()));
+#else
+#ifdef __WINDOWS__
+        wxString huginPath = getExePath(wxGetApp().argv[0])+wxFileName::GetPathSeparator();
+#else
+        wxString huginPath = wxT(""); //we call the batch processor directly without path on linux
+#endif
+        wxExecute(huginPath+wxT("PTBatcherGUI")+switches+wxQuoteFilename(projectFile)+wxT(" ")+wxQuoteFilename(dlg.GetPath()));
+#endif
+    }
+};
+
 void PanoPanel::OnDoStitch ( wxCommandEvent & e )
 {
-    // TODO: use a preference to switch between PTBatcherGUI and hugin_project_stitch
-    long t = 57;
-    wxString s = wxConfigBase::Get()->Read(wxT("/Processor/gui"));
-    s.ToLong(&t);
+    long t;
+    wxConfigBase::Get()->Read(wxT("/Processor/gui"),&t,HUGIN_PROCESSOR_GUI);
     switch (t)
     {
         // PTBatcher
         case 0:
-        {
-                if (!CheckGoodSize())
-                {
-                    return;
-                }
-                wxString switches = _T(" ");
-                bool r = (wxConfigBase::Get()->Read(wxT("/Processor/start"), HUGIN_PROCESSOR_START) != 0);
-                if (r)
-                {
-                    switches += _T("-b ");
-                }
-                r = (wxConfigBase::Get()->Read(wxT("/Processor/parallel"), HUGIN_PROCESSOR_PARALLEL) != 0);
-                if (r)
-                {
-                    switches += _T("-p ");
-                }
-                r = (wxConfigBase::Get()->Read(wxT("/Processor/delete"), HUGIN_PROCESSOR_DELETE) != 0);
-                if (r)
-                {
-                    switches += _T("-d ");
-                }
-                r = (wxConfigBase::Get()->Read(wxT("/Processor/overwrite"), HUGIN_PROCESSOR_OVERWRITE) != 0);
-                if (r)
-                {
-                    switches += _T("-o ");
-                }
-                r = (wxConfigBase::Get()->Read(wxT("/Processor/verbose"), HUGIN_PROCESSOR_VERBOSE) != 0);
-                if (r)
-                {
-                    switches += _T("-v ");
-                }
-                wxCommandEvent dummy;
-                MainFrame::Get()->OnSaveProject(dummy);
-                wxString projectFile = MainFrame::Get()->getProjectName();
-                if(wxFileName::FileExists(projectFile))
-                {
-#if defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
-                    wxExecute(_T("open -b net.sourceforge.hugin.PTBatcherGUI"+switches+wxQuoteFilename(projectFile)));
-#else
-#ifdef __WINDOWS__
-                    wxString huginPath = getExePath(wxGetApp().argv[0])+wxFileName::GetPathSeparator();
-#else
-                    wxString huginPath = _T("");	//we call the batch processor directly without path on linux
-#endif
-                    wxExecute(huginPath+wxT("PTBatcherGUI")+switches+wxQuoteFilename(projectFile));
-#endif
-                }
-                break;
-            }
+            DoSendToBatch();
+            break;
         // hugin_stitch_project
         case 1:
-            {
-                DoStitch();
-                break;
-            }
-                // there is an error in the preferences
+            DoStitch();
+            break;
+        // there is an error in the preferences
         default :
-            {
             // TODO: notify user and fix preferences misconfiguration
-                break;
-            }
+            break;
       }
 }
 
