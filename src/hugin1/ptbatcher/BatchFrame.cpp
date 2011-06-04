@@ -984,17 +984,28 @@ void BatchFrame::OnCheckVerbose(wxCommandEvent &event)
 
 void BatchFrame::OnClose(wxCloseEvent &event)
 {
-	//wxMessageBox(_T("Closing..."));
-	//save windows position
-	if(this->IsMaximized())
-		wxConfigBase::Get()->Write(wxT("/BatchFrame/Max"), 1l);
-	else
-	{
-		wxConfigBase::Get()->Write(wxT("/BatchFrame/Max"), 0l);
-		wxConfigBase::Get()->Write(wxT("/BatchFrame/Width"), this->GetSize().GetWidth());
-		wxConfigBase::Get()->Write(wxT("/BatchFrame/Height"), this->GetSize().GetHeight());
-	}
-	wxConfigBase::Get()->Flush();
+    //save windows position
+    wxConfigBase* config=wxConfigBase::Get();
+    if(IsMaximized())
+    {
+        config->Write(wxT("/BatchFrame/Max"), 1l);
+        config->Write(wxT("/BatchFrame/Minimized"), 0l);
+    }
+    else
+    {
+        config->Write(wxT("/BatchFrame/Max"), 0l);
+        if(m_tray!=NULL && !IsShown())
+        {
+            config->Write(wxT("/BatchFrame/Minimized"), 1l);
+        }
+        else
+        {
+            config->Write(wxT("/BatchFrame/Minimized"), 0l);
+            config->Write(wxT("/BatchFrame/Width"), GetSize().GetWidth());
+            config->Write(wxT("/BatchFrame/Height"), GetSize().GetHeight());
+        };
+    }
+    config->Flush();
 	m_closeThread = true;
 	this->GetThread()->Wait();
 	//wxMessageBox(_T("Closing frame..."));
@@ -1137,17 +1148,22 @@ void BatchFrame::OnProcessTerminate(wxProcessEvent & event)
 
 void BatchFrame::RestoreSize()
 {
-	//get saved size
-	int width = wxConfigBase::Get()->Read(wxT("/BatchFrame/Width"), -1l);
-	int height = wxConfigBase::Get()->Read(wxT("/BatchFrame/Height"), -1l);
-	int max = wxConfigBase::Get()->Read(wxT("/BatchFrame/Max"), -1l);;
-	if((width != -1) && (height != -1))
-		this->SetSize(width,height);
-	else
-		this->SetSize(600,400);
+    //get saved size
+    wxConfigBase* config=wxConfigBase::Get();
+    int width = config->Read(wxT("/BatchFrame/Width"), -1l);
+    int height = config->Read(wxT("/BatchFrame/Height"), -1l);
+    int max = config->Read(wxT("/BatchFrame/Max"), -1l);
+    int min = config->Read(wxT("/BatchFrame/Minimized"), -1l);
+    if((width != -1) && (height != -1))
+        SetSize(width,height);
+    else
+        SetSize(600,400);
 
-	if(max)
-		this->Maximize();
+    if(max==1)
+    {
+        Maximize();
+    };
+    m_startedMinimized=(m_tray!=NULL) && (min==1);
 }
 
 void BatchFrame::OnBatchFailed(wxCommandEvent &event)

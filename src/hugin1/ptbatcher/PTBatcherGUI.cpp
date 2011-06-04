@@ -177,7 +177,10 @@ bool PTBatcherGUI::OnInit()
         m_frame->GetHelpController().Initialize(m_xrcPrefix+wxT("data/hugin_help_en_EN.chm"));
 #endif
 		SetTopWindow(m_frame);
-		m_frame->Show(true);
+        if(!(m_frame->IsStartedMinimized()))
+        {
+            m_frame->Show(true);
+        }
 		m_server = new BatchIPCServer();
 		if (!m_server->Create(servername))
 		{

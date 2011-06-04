@@ -125,6 +125,8 @@ public:
     void SetStatusInformation(wxString status,bool showBalloon);
     /** update visibility of verbose output window depending on status of verbose checkbox */
     void UpdateBatchVerboseStatus();
+    /** returns true, if last session was finished minimized */
+    bool IsStartedMinimized() { return m_startedMinimized; };
 
 #ifdef __WXMSW__
     /** return help controller for open help */
@@ -149,6 +151,7 @@ private:
     wxHtmlHelpController * m_help;
 #endif
     BatchTaskBarIcon* m_tray;
+    bool m_startedMinimized;
 
 	void OnProcessTerminate(wxProcessEvent & event);
 	/** called by thread when queue was changed outside of PTBatcherGUI
