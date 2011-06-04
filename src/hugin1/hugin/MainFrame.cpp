@@ -157,8 +157,7 @@ BEGIN_EVENT_TABLE(MainFrame, wxFrame)
     EVT_MENU(XRCID("action_save_project"),  MainFrame::OnSaveProject)
     EVT_MENU(XRCID("action_save_as_project"),  MainFrame::OnSaveProjectAs)
     EVT_MENU(XRCID("action_save_as_ptstitcher"),  MainFrame::OnSavePTStitcherAs)
-	EVT_MENU(XRCID("action_send_to_batch"),  MainFrame::OnSendToBatch)
-	EVT_MENU(XRCID("action_open_batch_processor"),  MainFrame::OnOpenPTBatcher)
+    EVT_MENU(XRCID("action_open_batch_processor"),  MainFrame::OnOpenPTBatcher)
     EVT_MENU(XRCID("action_import_project"), MainFrame::OnMergeProject)
     EVT_MENU(XRCID("action_apply_template"),  MainFrame::OnApplyTemplate)
     EVT_MENU(XRCID("action_exit_hugin"),  MainFrame::OnUserQuit)
@@ -1474,12 +1473,6 @@ void MainFrame::OnApplyTemplate(wxCommandEvent & e)
                 new wxApplyTemplateCmd(pano, file));
 
     }
-}
-
-
-void MainFrame::OnSendToBatch(wxCommandEvent & e)
-{
-	pano_panel->SendToBatch();
 }
 
 void MainFrame::OnOpenPTBatcher(wxCommandEvent & e)

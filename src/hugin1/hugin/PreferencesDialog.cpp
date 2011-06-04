@@ -80,6 +80,7 @@ BEGIN_EVENT_TABLE(PreferencesDialog, wxDialog)
     EVT_BUTTON(XRCID("pref_cpdetector_save"), PreferencesDialog::OnCPDetectorSave)
     EVT_BUTTON(XRCID("pref_cpdetector_help"), PreferencesDialog::OnCPDetectorHelp)
     EVT_CHOICE(XRCID("pref_ldr_output_file_format"), PreferencesDialog::OnFileFormatChanged)
+    EVT_CHOICE(XRCID("pref_processor_gui"), PreferencesDialog::OnProcessorChanged)
 //  EVT_CLOSE(RunOptimizerFrame::OnClose)
 END_EVENT_TABLE()
 
@@ -553,6 +554,21 @@ void PreferencesDialog::UpdateDisplayData(int panel)
         UpdateFileFormatControls();
 
         /////
+        /// PROCESSOR
+        MY_CHOICE_VAL("pref_processor_gui", cfg->Read(wxT("/Processor/gui"), HUGIN_PROCESSOR_GUI));
+        t = cfg->Read(wxT("/Processor/start"), HUGIN_PROCESSOR_START) == 1;
+        MY_BOOL_VAL("pref_processor_start", t);
+        t = cfg->Read(wxT("/Processor/parallel"), HUGIN_PROCESSOR_PARALLEL) == 1;
+        MY_BOOL_VAL("pref_processor_parallel", t);
+        t = cfg->Read(wxT("/Processor/delete"), HUGIN_PROCESSOR_DELETE) == 1;
+        MY_BOOL_VAL("pref_processor_delete", t);
+        t = cfg->Read(wxT("/Processor/overwrite"), HUGIN_PROCESSOR_OVERWRITE) == 1;
+        MY_BOOL_VAL("pref_processor_overwrite", t);
+        t = cfg->Read(wxT("/Processor/verbose"), HUGIN_PROCESSOR_VERBOSE) == 1;
+        MY_BOOL_VAL("pref_processor_verbose", t);
+        UpdateProcessorControls();
+
+        /////
         /// NONA
         MY_CHOICE_VAL("prefs_nona_interpolator", cfg->Read(wxT("/Nona/Interpolator"), HUGIN_NONA_INTERPOLATOR));
         t = cfg->Read(wxT("/Nona/CroppedImages"), HUGIN_NONA_CROPPEDIMAGES) == 1;
@@ -824,6 +840,15 @@ void PreferencesDialog::UpdateConfigData()
     cfg->Write(wxT("/output/jpeg_quality"), MY_G_SPIN_VAL("pref_jpeg_quality"));
 
     /////
+    /// PROCESSOR
+    cfg->Write(wxT("/Processor/gui"), MY_G_CHOICE_VAL("pref_processor_gui"));
+    cfg->Write(wxT("/Processor/start"), MY_G_BOOL_VAL("pref_processor_start"));
+    cfg->Write(wxT("/Processor/parallel"), MY_G_BOOL_VAL("pref_processor_parallel"));
+    cfg->Write(wxT("/Processor/delete"), MY_G_BOOL_VAL("pref_processor_delete"));
+    cfg->Write(wxT("/Processor/overwrite"), MY_G_BOOL_VAL("pref_processor_overwrite"));
+    cfg->Write(wxT("/Processor/verbose"), MY_G_BOOL_VAL("pref_processor_verbose"));
+
+    /////
     /// STITCHING
     cfg->Write(wxT("/Nona/Interpolator"), MY_G_CHOICE_VAL("prefs_nona_interpolator"));
     cfg->Write(wxT("/Nona/CroppedImages"), MY_G_BOOL_VAL("prefs_nona_createCroppedImages"));
@@ -997,4 +1022,19 @@ void PreferencesDialog::UpdateFileFormatControls()
     XRCCTRL(*this,"pref_jpeg_quality_label",wxStaticText)->Show(i==1);
     XRCCTRL(*this,"pref_jpeg_quality",wxSpinCtrl)->Show(i==1);
     XRCCTRL(*this,"pref_tiff_compression",wxChoice)->GetParent()->Layout();
+};
+
+void PreferencesDialog::OnProcessorChanged(wxCommandEvent &e)
+{
+    UpdateProcessorControls();
+};
+
+void PreferencesDialog::UpdateProcessorControls()
+{
+    int i=MY_G_CHOICE_VAL("pref_processor_gui");
+    XRCCTRL(*this,"pref_processor_start",wxCheckBox)->Show(i==0);
+    XRCCTRL(*this,"pref_processor_parallel",wxCheckBox)->Show(i==0);
+    XRCCTRL(*this,"pref_processor_delete",wxCheckBox)->Show(i==0);
+    XRCCTRL(*this,"pref_processor_overwrite",wxCheckBox)->Show(i==0);
+    XRCCTRL(*this,"pref_processor_verbose",wxCheckBox)->Show(i==0);
 };

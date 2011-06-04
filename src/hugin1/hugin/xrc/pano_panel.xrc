@@ -846,28 +846,19 @@
         </object>
         <flag>wxEXPAND</flag>
       </object>
+      
       <object class="sizeritem">
-        <object class="wxGridSizer">
-          <object class="sizeritem">
-            <object class="wxButton" name="pano_button_batch">
-              <label platform="unix">Save Project and Send to Batch</label>
-              <label platform="win|mac|os2">Save project and send to batch</label>
+            
+            <object class="wxButton" name="pano_button_stitch">
+              <label platform="win|mac|os2">Stitch!</label>
+              <label platform="unix">Stitch!</label>
               <enabled>0</enabled>
             </object>
-            <flag>wxALIGN_CENTRE_VERTICAL|wxEXPAND</flag>
-          </object>
-          <object class="sizeritem">
-            <object class="wxButton" name="pano_button_stitch">
-              <label platform="win|mac|os2">Stitch now...</label>
-              <label platform="unix">Stitch Now...</label>
-            </object>
-            <flag>wxALIGN_CENTRE_VERTICAL|wxEXPAND</flag>
-          </object>
-          <hgap>24</hgap>
-        </object>
+            
         <flag>wxALIGN_RIGHT|wxALL</flag>
         <border>16</border>
       </object>
+      
     </object>
     <style>wxTAB_TRAVERSAL</style>
   </object>

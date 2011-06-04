@@ -78,7 +78,6 @@ public:
 
     // actions
     void DoStitch();
-	void SendToBatch();
 
 
  private:
@@ -138,7 +137,6 @@ public:
 //    void DoPreview(wxCommandEvent & e);
     void DoCalcFOV(wxCommandEvent & e);
     void OnDoStitch(wxCommandEvent & e);
-	void OnSendToBatch(wxCommandEvent & e);
 
     /** set the highest sensible width
      */
@@ -192,7 +190,6 @@ public:
     wxChoice    * m_HDRMergeChoice;
     wxChoice    * m_BlenderChoice;
     wxButton    * m_StitchButton;
-	wxButton	* m_BatchButton;
     wxButton    * m_CalcHFOVButton;
     wxButton    * m_CalcOptWidthButton;
     wxButton    * m_CalcOptROIButton;

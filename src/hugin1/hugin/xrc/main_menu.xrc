@@ -32,10 +32,6 @@
         <help>List of most recently used project files</help>
       </object>
       <object class="separator"/>
-      <object class="wxMenuItem" name="action_send_to_batch">
-        <label>Send to &amp;batch</label>
-        <help>Saves and sends the project to the batch, to be picked up by PTBatcher</help>
-      </object>
       <object class="wxMenuItem" name="action_open_batch_processor">
         <label>&amp;Run Batch Processor</label>
         <help>Opens PTBatcher, the batch processor for Hugin's project files</help>

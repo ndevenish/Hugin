@@ -86,11 +86,14 @@ protected:
     void OnCPDetectorHelp(wxCommandEvent & e);
     /** event handler if default file format was changed */
     void OnFileFormatChanged(wxCommandEvent & e);
+    /** event handler if processor was changed */
+    void OnProcessorChanged(wxCommandEvent & e);
     void EnableRotationCtrls(bool enable);
     bool GetPanoVersion();
 
 private:
     void UpdateFileFormatControls();
+    void UpdateProcessorControls();
     wxString m_PTVersion;
     wxString m_PTDetails;
     wxListBox* m_CPDetectorList;
