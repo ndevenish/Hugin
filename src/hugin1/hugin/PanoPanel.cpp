@@ -1183,7 +1183,7 @@ void PanoPanel::DoSendToBatch()
         };
 
 #if defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
-        wxExecute(wxT("open -b net.sourceforge.hugin.PTBatcherGUI")+switches+wxQuoteFilename(projectFile)+wxT(" ")+wxQuoteFilename(dlg.GetPath()));
+        wxExecute(wxT("open -b net.sourceforge.hugin.PTBatcherGUI  --args ")+switches+wxQuoteFilename(projectFile));
 #else
 #ifdef __WINDOWS__
         wxString huginPath = getExePath(wxGetApp().argv[0])+wxFileName::GetPathSeparator();
