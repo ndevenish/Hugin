@@ -26,13 +26,17 @@
 
 #include "panoinc_WX.h"
 #include "panoinc.h"
+#include "base_wx/platform.h"
+
 #include "LensCalApp.h"
 #include "LensCalImageCtrl.h"
 #include "base_wx/huginConfig.h"
 #include "hugin/config_defaults.h"
 #include "base_wx/PTWXDlg.h"
+#include "base_wx/wxPlatform.h"
 
 #include <tiffio.h>
+
 
 // make wxwindows use this class as the main application
 IMPLEMENT_APP(LensCalApp)
@@ -60,7 +64,8 @@ bool LensCalApp::OnInit()
         return false;
     }
     m_xrcPrefix = thePath + wxT("/");
-    wxString thePath = MacGetPathToBundledResourceFile(CFSTR("locale"));
+    //wxString thePath = MacGetPathToBundledResourceFile(CFSTR("locale"));
+    thePath = MacGetPathToBundledResourceFile(CFSTR("locale"));
     if(thePath != wxT(""))
         locale.AddCatalogLookupPathPrefix(thePath);
     else {
