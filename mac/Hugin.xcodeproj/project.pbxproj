@@ -987,6 +987,7 @@
 		734066F6125BB8BD00FC4790 /* FindPanoDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 734066E9125BB83400FC4790 /* FindPanoDialog.cpp */; };
 		73406703125BB8FA00FC4790 /* libexiv2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E8A7D98310FB69FC00839DF3 /* libexiv2.dylib */; };
 		73406733125BBD7100FC4790 /* CPDetectorConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 733609841247DA57009225D2 /* CPDetectorConfig.h */; };
+		734FC460139B8433007B675D /* lens_calibrate_gui.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 73DFBD9D139B69E900558A2D /* lens_calibrate_gui.app */; };
 		73573E3410F9EEA300CF0ECD /* HuginBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 576900AA0D24D29300A6AD01 /* HuginBase.framework */; };
 		73573E3510F9EEA300CF0ECD /* HuginVigraImpex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5769FE380D24CFEC00A6AD01 /* HuginVigraImpex.framework */; };
 		73573E3610F9EEA300CF0ECD /* libpano13.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 573B8F85067BAAB900B7B355 /* libpano13.dylib */; };
@@ -2559,7 +2560,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 73DFBD75139B69E900558A2D /* lens_calibrate_gui */;
+			remoteGlobalIDString = 73DFBD75139B69E900558A2D;
 			remoteInfo = lens_calibrate_gui;
 		};
 		7396E4461269806E0096D1B3 /* PBXContainerItemProxy */ = {
@@ -2939,6 +2940,7 @@
 			dstPath = InstallerFolder;
 			dstSubfolderSpec = 16;
 			files = (
+				734FC460139B8433007B675D /* lens_calibrate_gui.app in CopyFiles */,
 				737C8CC0139A75A200F82635 /* Hugin.app in CopyFiles */,
 				737C8CC1139A75A200F82635 /* PTBatcherGUI.app in CopyFiles */,
 			);
@@ -3635,6 +3637,7 @@
 		734FBA5A0EB3A20500CD7122 /* ViewState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewState.h; sourceTree = "<group>"; };
 		734FBA830EB3A40300CD7122 /* NonaOptionsDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NonaOptionsDialog.cpp; sourceTree = "<group>"; };
 		734FBA840EB3A40300CD7122 /* NonaOptionsDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NonaOptionsDialog.h; sourceTree = "<group>"; };
+		734FC450139B83A4007B675D /* lens_calibrate_gui-Info copy 2.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "lens_calibrate_gui-Info copy 2.plist"; path = "../mac/lens_calibrate_gui-Info copy 2.plist"; sourceTree = "<group>"; };
 		73573E5110F9EEF400CF0ECD /* pano_trafo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pano_trafo.cpp; sourceTree = "<group>"; };
 		7357E4F3124777380098B385 /* Anything.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Anything.cpp; path = makefilelib/Anything.cpp; sourceTree = "<group>"; };
 		7357E4F4124777380098B385 /* Anything.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Anything.h; path = makefilelib/Anything.h; sourceTree = "<group>"; };
@@ -5791,6 +5794,7 @@
 				737C8CBF139A757700F82635 /* PTBatcherGUI.app */,
 				57525A250C54BC4400BF8096 /* Nona.app */,
 				57D50A620F595A6300CCDCB5 /* PTBatcherGUI.app */,
+				73DFBD9D139B69E900558A2D /* lens_calibrate_gui.app */,
 			);
 			name = "Mac OS X";
 			sourceTree = "<group>";
@@ -6159,7 +6163,7 @@
 				573B8F3E067BA2EB00B7B355 /* Product */,
 				7357E524124777EB0098B385 /* makefilelib-Info.plist */,
 				7307F826131A91A400B864F9 /* autooptimiser-static */,
-				73DFBD9D139B69E900558A2D /* lens_calibrate_gui.app */,
+				734FC450139B83A4007B675D /* lens_calibrate_gui-Info copy 2.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -8137,7 +8141,6 @@
 				73DFBD94139B69E900558A2D /* Copy Frameworks */,
 				73DFBDF9139B730D00558A2D /* Copy XRC */,
 				73DFBDD4139B6CC300558A2D /* Locale Script */,
-				73DFBDCC139B6C7100558A2D /* Localise Help */,
 				73DFBD98139B69E900558A2D /* Complete Bundle */,
 			);
 			buildRules = (
@@ -8740,20 +8743,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if [ $ACTION = \"build\" ]\nthen\n ../mac/complete-bundle.sh\nfi\n\n# fix new issue with libboost libraries where the softlink is not copied\ncd $TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/Libraries\nln -s libboost_date_time-1_44.dylib libboost_date_time.dylib\nln -s libboost_filesystem-1_44.dylib libboost_filesystem.dylib\nln -s libboost_iostreams-1_44.dylib libboost_iostreams.dylib\nln -s libboost_regex-1_44.dylib libboost_regex.dylib\nln -s libboost_thread-1_44.dylib libboost_thread.dylib\nln -s libboost_system-1_44.dylib libboost_system.dylib\n";
-		};
-		73DFBDCC139B6C7100558A2D /* Localise Help */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Localise Help";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if [ $ACTION = \"build\" ]\nthen\n sh ../mac/localise-help.sh\nfi";
 		};
 		73DFBDD4139B6CC300558A2D /* Locale Script */ = {
 			isa = PBXShellScriptBuildPhase;

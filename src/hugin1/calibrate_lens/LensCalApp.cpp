@@ -33,7 +33,6 @@
 #include "base_wx/huginConfig.h"
 #include "hugin/config_defaults.h"
 #include "base_wx/PTWXDlg.h"
-#include "base_wx/wxPlatform.h"
 
 #include <tiffio.h>
 
@@ -64,7 +63,6 @@ bool LensCalApp::OnInit()
         return false;
     }
     m_xrcPrefix = thePath + wxT("/");
-    //wxString thePath = MacGetPathToBundledResourceFile(CFSTR("locale"));
     thePath = MacGetPathToBundledResourceFile(CFSTR("locale"));
     if(thePath != wxT(""))
         locale.AddCatalogLookupPathPrefix(thePath);

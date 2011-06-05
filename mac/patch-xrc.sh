@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# $Id: localised.sh 2004 2007-05-11 00:17:50Z ippei $
+# $Id: patch-xrc.sh 2004 2007-05-11 00:17:50Z ippei $
 
 huginVer="$HUGIN_PACKAGE_VERSION"
 huginBuilder="$HUGIN_BUILDER"
@@ -18,7 +18,7 @@ cp ../COPYING $resdir/xrc/data/
 echo "removing extra files from xrc folder"
 for DIR in $resdir/xrc "$resdir/xrc/??*" "$resdir/xrc/??*/??*"
 do 
- rm -fR $DIR/.svn
+ rm -fR $DIR/.hg*
  rm -f $DIR/.??*
  rm -fR $DIR/CVS
  rm -f $DIR/Makefil*
