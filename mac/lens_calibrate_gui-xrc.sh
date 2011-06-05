@@ -10,7 +10,9 @@ xrcsrcdir="$huginsrcdir/xrc"
 celeste_data="../src/celeste/data"
 icpfind_default="../src/hugin1/icpfind/default.mac"
 
-rm -fR $resdir/xrc
+# First create a Resources folder as lens_calibrate_gui-xrc doesn't have that by default
+rm -fR $resdir/xrc $resdir
+mkdir $resdir
 echo "copying xrc folder to $resdir/xrc"
 cp -R $xrcsrcdir $resdir/
 

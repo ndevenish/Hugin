@@ -159,7 +159,9 @@
 			isa = PBXAggregateTarget;
 			buildConfigurationList = 737C8C16139A68B600F82635 /* Build configuration list for PBXAggregateTarget "Hugin-PTBatcherGui for Installer" */;
 			buildPhases = (
+				737D5F20139BACC700829EED /* Remove Installerfolder */,
 				737C8C18139A690500F82635 /* CopyFiles */,
+				737D5EE2139BA55700829EED /* create stripped apps for installer */,
 			);
 			dependencies = (
 				73E263D6139ACB1D00487F3C /* PBXTargetDependency */,
@@ -1053,6 +1055,7 @@
 		737C8CB6139A742500F82635 /* BatchTrayIcon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 737C8CB4139A742500F82635 /* BatchTrayIcon.cpp */; };
 		737C8CC0139A75A200F82635 /* Hugin.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 737E498F11D3FD74002BA8AE /* Hugin.app */; };
 		737C8CC1139A75A200F82635 /* PTBatcherGUI.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 737C8CBF139A757700F82635 /* PTBatcherGUI.app */; };
+		737D5ED5139BA43800829EED /* PTBatcherGui.icns in Resources */ = {isa = PBXBuildFile; fileRef = 731DBF1A129D846500793A38 /* PTBatcherGui.icns */; };
 		737E1C190EC9EC0300BA4D9B /* hugin_config.h in Headers */ = {isa = PBXBuildFile; fileRef = 737E1C180EC9EC0300BA4D9B /* hugin_config.h */; };
 		737E48B411D3F8C6002BA8AE /* hugin_stitch_project.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 575670980D089B1F00344F55 /* hugin_stitch_project.cpp */; };
 		737E48B611D3F8C6002BA8AE /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5749FA9B067B80F000A6EDD4 /* Carbon.framework */; };
@@ -3702,6 +3705,7 @@
 		737C8CB4139A742500F82635 /* BatchTrayIcon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BatchTrayIcon.cpp; sourceTree = "<group>"; };
 		737C8CB5139A742500F82635 /* BatchTrayIcon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BatchTrayIcon.h; sourceTree = "<group>"; };
 		737C8CBF139A757700F82635 /* PTBatcherGUI.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = PTBatcherGUI.app; sourceTree = "<group>"; };
+		737D5EDF139BA53300829EED /* create_stripped_apps_for_installer.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = create_stripped_apps_for_installer.sh; sourceTree = "<group>"; };
 		737E1C180EC9EC0300BA4D9B /* hugin_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hugin_config.h; sourceTree = "<group>"; };
 		737E48DA11D3F8C6002BA8AE /* HuginStitchProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HuginStitchProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		737E48DC11D3F8C6002BA8AE /* hugin_stitch_project-Info copy.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "hugin_stitch_project-Info copy.plist"; path = "../mac/hugin_stitch_project-Info copy.plist"; sourceTree = "<group>"; };
@@ -5020,6 +5024,7 @@
 		57114E9E06BC2301004F4FA7 /* mac */ = {
 			isa = PBXGroup;
 			children = (
+				737D5EDF139BA53300829EED /* create_stripped_apps_for_installer.sh */,
 				73DFBDF4139B72EE00558A2D /* lens_calibrate_gui-xrc.sh */,
 				739A0EA310FA7A3100D8E4C7 /* Hugin_tools */,
 				5751D8600939F1C0001477EA /* Hugin.xcodeproj */,
@@ -8412,6 +8417,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				737D5ED5139BA43800829EED /* PTBatcherGui.icns in Resources */,
 				737C8CA5139A726C00F82635 /* HuginStitchProject.app in Resources */,
 				731DBF10129D83C200793A38 /* Hugin.icns in Resources */,
 				731DBF11129D83C200793A38 /* HuginFiles.icns in Resources */,
@@ -8568,6 +8574,34 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "rm -f ../src/hugin_version.h\nsed -e \"s/\\${V_MAJOR}/$HUGIN_VERSION_MAJOR/\" \\\n    -e \"s/\\${V_MINOR}/$HUGIN_VERSION_MINOR/\" \\\n    -e \"s/\\${V_PATCH}/$HUGIN_VERSION_PATCH/\" \\\n    -e \"s/\\${HUGIN_WC_REVISION}/$HUGIN_WC_REVISION/\" \\\n    -e \"s/\\${HUGIN_PACKAGE_VERSION}/$HUGIN_PACKAGE_VERSION/\" \\\n    -e \"s/\\${DISPLAY_VERSION}/$HUGIN_PACKAGE_VERSION/\" \\\n    -e \"s/\\${HUGIN_BUILDER}/$HUGIN_BUILDER/\" \\\n    -e \"s/^.*HUGIN_DEVELOPMENT_VERSION.*$/\\/\\/&/\" \\\n    ../src/hugin_version.h.in.cmake > ../src/hugin_version.h\n\nif [ \"$HUGIN_DEVELOPMENT_VERSION\" -gt 0 ]\nthen\n echo \"\"                                    >> ../src/hugin_version.h\n echo \"#ifndef HUGIN_DEVELOPMENT_VERSION\"   >> ../src/hugin_version.h\n echo \"#define HUGIN_DEVELOPMENT_VERSION 1\" >> ../src/hugin_version.h\n echo \"#endif\"                              >> ../src/hugin_version.h\nfi";
+		};
+		737D5EE2139BA55700829EED /* create stripped apps for installer */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "create stripped apps for installer";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ $ACTION = \"build\" ]\nthen\n sh ../mac/create_stripped_apps_for_installer.sh\nfi";
+		};
+		737D5F20139BACC700829EED /* Remove Installerfolder */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Remove Installerfolder";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\nrm -rf \"$TARGET_BUILD_DIR/InstallerFolder\"";
 		};
 		737E48D211D3F8C6002BA8AE /* Copy all tools into HuginStitchProject.app */ = {
 			isa = PBXShellScriptBuildPhase;
