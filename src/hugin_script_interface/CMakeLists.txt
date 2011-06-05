@@ -232,21 +232,27 @@ ELSE()
     # Linux/MacOS
     # install Python related files into folder depending on used Python version
 
-    SET(PYINSTALLDIR
-        ${LIBDIR}/python${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}/dist-packages
-        )
+
+    EXECUTE_PROCESS( COMMAND python -c "from distutils.sysconfig import get_python_lib; print(get_python_lib(1))"
+                     OUTPUT_VARIABLE pyinstalldir
+                     OUTPUT_STRIP_TRAILING_WHITESPACE)
+
+    # replaced by the above EXECUTE_PROCESS command.
+    #SET(pynstalldir
+    #    ${LIBDIR}/python${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}/dist-packages
+    #    )
 
     INSTALL(TARGETS ${SWIG_MODULE_hsi_REAL_NAME}
-            LIBRARY DESTINATION ${PYINSTALLDIR}
+            LIBRARY DESTINATION ${pyinstalldir}
             NAMELINK_SKIP
             )
 
     INSTALL(FILES hpi.py
-            DESTINATION ${PYINSTALLDIR}
+            DESTINATION ${pyinstalldir}
             )
 
     INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/hsi.py
-            DESTINATION ${PYINSTALLDIR}
+            DESTINATION ${pyinstalldir}
             )
 
 ENDIF()
