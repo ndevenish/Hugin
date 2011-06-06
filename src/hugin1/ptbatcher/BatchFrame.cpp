@@ -1185,8 +1185,15 @@ void BatchFrame::SetStatusInformation(wxString status,bool showBalloon)
 #if defined __WXMSW__ && wxUSE_TASKBARICON_BALLOONS && wxCHECK_VERSION(2,9,0)
         m_tray->ShowBalloon(_("PTBatcherGUI"),status,5000,wxICON_INFORMATION);
 #else
-        TaskBarBalloon* balloon=new TaskBarBalloon(_("PTBatcherGUI"),status);
-        balloon->showBalloon(5000);
+#ifndef __WXMAC__
+        // the balloon does not work correctly on MacOS; it gets the focus
+        // and can not be closed
+        if(!IsShown())
+        {
+            TaskBarBalloon* balloon=new TaskBarBalloon(_("PTBatcherGUI"),status);
+            balloon->showBalloon(5000);
+        };
+#endif
 #endif
     };
 };
