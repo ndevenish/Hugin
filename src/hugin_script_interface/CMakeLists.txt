@@ -232,8 +232,8 @@ ELSE()
     # Linux/MacOS
     # install Python related files into folder depending on used Python version
 
-
-    EXECUTE_PROCESS( COMMAND python -c "from distutils.sysconfig import get_python_lib; print(get_python_lib(1))"
+    FIND_PACKAGE(PythonInterp REQUIRED)
+    EXECUTE_PROCESS( COMMAND ${PYTHON_EXECUTABLE} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib(1))"
                      OUTPUT_VARIABLE pyinstalldir
                      OUTPUT_STRIP_TRAILING_WHITESPACE)
 
@@ -241,6 +241,8 @@ ELSE()
     #SET(pynstalldir
     #    ${LIBDIR}/python${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}/dist-packages
     #    )
+
+    MESSAGE("-- Install Python libs into ${pyinstalldir}")
 
     INSTALL(TARGETS ${SWIG_MODULE_hsi_REAL_NAME}
             LIBRARY DESTINATION ${pyinstalldir}
