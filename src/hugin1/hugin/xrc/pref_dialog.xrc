@@ -897,7 +897,7 @@ for HDR panoramas use Preview window.</label>
                             <object class="wxChoice" name="pref_processor_gui">
                               <content>
                                 <item>PTBatcherGUI</item>
-                                <item>Legacy</item>
+                                <item>Hugin_stitch_project</item>
                               </content>
                               <selection>0</selection>
                               <tooltip>The engine that will run the stitch</tooltip>

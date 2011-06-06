@@ -1057,7 +1057,10 @@ void PanoPanel::DoStitch()
             return;
     };
 
-    wxString command = hugin_stitch_project + wxT(" --delete -o ") + wxQuoteFilename(dlg.GetPath()) + wxT(" ") + wxQuoteFilename(currentPTOfn);
+    wxString switches(wxT(" --delete -o "));
+    if(wxConfigBase::Get()->Read(wxT("/Processor/overwrite"), HUGIN_PROCESSOR_OVERWRITE) == 1)
+        switches=wxT(" --overwrite")+switches;
+    wxString command = hugin_stitch_project + switches + wxQuoteFilename(dlg.GetPath()) + wxT(" ") + wxQuoteFilename(currentPTOfn);
     
     wxConfigBase::Get()->Flush();
 #ifdef __WXGTK__

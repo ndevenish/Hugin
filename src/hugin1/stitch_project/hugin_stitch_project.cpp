@@ -69,6 +69,8 @@ public:
 
     void OnQuit(wxCommandEvent& event);
     void OnAbout(wxCommandEvent& event);
+    /** sets, if existing output file should be automatic overwritten */
+    void SetOverwrite(bool doOverwrite);
 
 private:
 
@@ -209,6 +211,10 @@ bool RunStitchFrame::StitchProject(wxString scriptFile, wxString outname,
     return true;
 }
 
+void RunStitchFrame::SetOverwrite(bool doOverwrite)
+{
+    m_stitchPanel->SetOverwrite(doOverwrite);
+};
 
 // **********************************************************************
 
@@ -316,6 +322,7 @@ bool stitchApp::OnInit()
         wxCMD_LINE_VAL_NONE, wxCMD_LINE_OPTION_HELP },
       { wxCMD_LINE_OPTION, "o", "output",  "output prefix" },
       { wxCMD_LINE_SWITCH, "d", "delete",  "delete pto file after stitching" },
+      { wxCMD_LINE_SWITCH, "w", "overwrite", "overwrite existing files" },
       { wxCMD_LINE_PARAM,  NULL, NULL, "<project>",
         wxCMD_LINE_VAL_STRING, wxCMD_LINE_PARAM_OPTIONAL },
       { wxCMD_LINE_NONE }
@@ -324,6 +331,7 @@ bool stitchApp::OnInit()
         wxCMD_LINE_VAL_NONE, wxCMD_LINE_OPTION_HELP },
       { wxCMD_LINE_OPTION, wxT("o"), wxT("output"),  wxT("output prefix") },
       { wxCMD_LINE_SWITCH, wxT("d"), wxT("delete"),  wxT("delete pto file after stitching") },
+      { wxCMD_LINE_SWITCH, wxT("w"), wxT("overwrite"), wxT("overwrite existing files") },
       { wxCMD_LINE_PARAM,  NULL, NULL, wxT("<project>"),
         wxCMD_LINE_VAL_STRING, wxCMD_LINE_PARAM_OPTIONAL },
       { wxCMD_LINE_NONE }
@@ -431,6 +439,7 @@ bool stitchApp::OnInit()
 
     wxFileName basename(scriptFile);
     frame->SetTitle(wxString::Format(_("%s - Stitching"), basename.GetName().c_str()));
+    frame->SetOverwrite(parser.Found(wxT("w")));
     bool n = frame->StitchProject(scriptFile, outname, progs, parser.Found(wxT("d")));
     return n;
 }

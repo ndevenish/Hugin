@@ -1033,8 +1033,25 @@ void PreferencesDialog::OnProcessorChanged(wxCommandEvent &e)
 void PreferencesDialog::UpdateProcessorControls()
 {
     int i=MY_G_CHOICE_VAL("pref_processor_gui");
-    XRCCTRL(*this,"pref_processor_start",wxCheckBox)->Show(i==0);
-    XRCCTRL(*this,"pref_processor_parallel",wxCheckBox)->Show(i==0);
-    XRCCTRL(*this,"pref_processor_overwrite",wxCheckBox)->Show(i==0);
-    XRCCTRL(*this,"pref_processor_verbose",wxCheckBox)->Show(i==0);
+    XRCCTRL(*this,"pref_processor_start",wxCheckBox)->Enable(i==0);
+    XRCCTRL(*this,"pref_processor_parallel",wxCheckBox)->Enable(i==0);
+    XRCCTRL(*this,"pref_processor_verbose",wxCheckBox)->Enable(i==0);
+    switch(i)
+    {
+        case 0:
+            //PTBatcherGUI
+            {
+                wxConfigBase* config=wxConfigBase::Get();
+                XRCCTRL(*this,"pref_processor_start",wxCheckBox)->SetValue(config->Read(wxT("/Processor/start"), HUGIN_PROCESSOR_START) == 1);
+                XRCCTRL(*this,"pref_processor_parallel",wxCheckBox)->SetValue(config->Read(wxT("/Processor/parallel"), HUGIN_PROCESSOR_PARALLEL) == 1);
+                XRCCTRL(*this,"pref_processor_verbose",wxCheckBox)->SetValue(config->Read(wxT("/Processor/verbose"), HUGIN_PROCESSOR_VERBOSE) == 1);
+            }
+            break;
+        case 1:
+            //Hugin_stitch_project
+            XRCCTRL(*this,"pref_processor_start",wxCheckBox)->SetValue(true);
+            XRCCTRL(*this,"pref_processor_parallel",wxCheckBox)->SetValue(false);
+            XRCCTRL(*this,"pref_processor_verbose",wxCheckBox)->SetValue(true);
+            break;
+    };
 };
