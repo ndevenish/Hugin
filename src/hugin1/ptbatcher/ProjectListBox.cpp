@@ -131,6 +131,7 @@ void ProjectListBox::ChangePrefix(int index, wxString newPrefix)
 void ProjectListBox::Deselect(int index)
 {
 	SetItemState(index, 0, wxLIST_STATE_SELECTED|wxLIST_STATE_FOCUSED);
+    m_selected=-1;
 }
 
 void ProjectListBox::Fill(Batch* batch)
@@ -209,7 +210,11 @@ void ProjectListBox::ReloadProject(int index, Project* project)
 
 void ProjectListBox::Select(int index)
 {
-	SetItemState(index,wxLIST_STATE_SELECTED,wxLIST_STATE_SELECTED);
+    if(index>=0 && index<this->GetItemCount())
+    {
+        SetItemState(index,wxLIST_STATE_SELECTED,wxLIST_STATE_SELECTED);
+        m_selected=index;
+    };
 }
 
 void ProjectListBox::SetMissing(int index)

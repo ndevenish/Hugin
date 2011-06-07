@@ -734,10 +734,10 @@ void BatchFrame::OnButtonRemoveFromList(wxCommandEvent &event)
 		}
 		else
 		{
-			m_batch->RemoveProjectAtIndex(selIndex);
 			SetStatusText(_("Removed project ")+projListBox->GetSelectedProject());
 			projListBox->Deselect(selIndex);
 			projListBox->DeleteItem(selIndex);
+			m_batch->RemoveProjectAtIndex(selIndex);
 			m_batch->SaveTemp();
 		}
 	}
