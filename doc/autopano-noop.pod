@@ -1,0 +1,32 @@
+=head1 NAME
+
+autopano-noop - Trivial wrapper script for autopano-sift-c
+
+=head1 SYNOPSIS
+
+B<autopano-noop.sh> [options]
+
+=head1 DESCRIPTION
+
+B<autopano-noop> is an obsolete wrapper around autopano-sift-c(1)
+
+If you see a message from B<autopano-noop> or have it configured as a hugin(1)
+control point detector, then you have upgraded from an earlier version of Hugin
+and have no Control Point Detector configured.
+
+Please open the Preferences window and Load Defaults for the
+Control Point Detectors setting.
+
+This will enable the new built-in cpfind(1) Control Point Detector.
+
+=head1 OPTIONS
+
+See the autopano-sift-c(1) man page.
+
+=head1 SEE ALSO
+
+autopano-sift-c(1) cpfind(1) hugin(1)
+
+=head1 AUTHORS
+
+Bruno Postle

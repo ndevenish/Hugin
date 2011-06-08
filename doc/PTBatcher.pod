@@ -1,0 +1,80 @@
+=head1 NAME
+
+PTBatcher - CLI interface to Hugin Batch processor
+
+=head1 SYNOPSIS
+
+B<PTBatcher> [options] -a I<input.pto>
+
+=head1 DESCRIPTION
+
+B<PTBatcher> Queues and processes stitching projects.  Functionality is similar
+to the the GUI Hugin Batch Processor.  The default action with the B<-a>
+parameter is to add the specified project to the stitching queue and exit.
+
+The stitching queue may be processed by the GUI Hugin Batch Processor
+application, or by B<PTBatcher> without a GUI, but not by both at the same
+time.  To process the queue with B<PTBatcher> use the B<-b> parameter.
+
+=head1 OPTIONS
+
+=over
+
+=item B<-a> file
+
+add project to queue. Unless -o option is present, the default prefix is appointed.
+
+=item B<-o>
+
+output prefix (together with -a option)
+
+=item B<-l>
+
+list all projects in batch queue
+
+=item B<-c>
+
+clear all projects from batch queue
+
+=item B<-x> id
+
+remove project with specified id
+
+=item B<-r>
+
+reset all projects to waiting status
+
+=item B<-b>
+
+start batch process
+
+=item B<-p>
+
+use parallel processing (together with -b option)
+
+=item B<-d>
+
+delete .pto files when complete (together with -b option)
+
+=item B<-s>
+
+shutdown computer when complete (together with -b option)
+
+=item B<-v>
+
+verbose mode
+
+=item B<-h>
+
+print this help
+
+=back
+
+=head1 SEE ALSO
+
+hugin(1) PTBatcherGUI(1)
+
+=head1 AUTHORS
+
+Thomas Modes, Marko Kuder
+

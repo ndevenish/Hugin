@@ -1,0 +1,44 @@
+=head1 NAME
+
+matchpoint - Run feature detection and extraction
+
+=head1 SYNOPSIS
+
+B<matchpoint> [options] I<image1.jpg> I<output.key>
+
+=head1 DESCRIPTION
+
+B<matchpoint> is an experimental tool for feature detection, see cpfind(1) for
+a working alternative.
+
+=head1 OPTIONS
+
+=over
+
+=item B<-v>
+
+verbose output
+
+=item B<-t>
+
+generate keypoint file for matlab test suite (file name is generated using formula: image1.jpg.key)
+
+=back
+
+=head1 ARGUMENTS
+
+=over
+
+=item B<image1.jpg>
+
+Path to image to be analyzed.
+
+=item B<output.key>
+
+Output keypoint file..
+
+=back
+
+=head1 AUTHORS
+
+Zoran Mesec

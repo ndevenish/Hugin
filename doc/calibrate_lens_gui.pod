@@ -1,0 +1,26 @@
+=head1 NAME
+
+calibrate_lens_gui - Lens distortion calibration by straight line feature identification
+
+=head1 SYNOPSIS
+
+B<calibrate_lens_gui>
+
+=head1 DESCRIPTION
+
+B<calibrate_lens_gui> is a GUI tool for lens calibration.
+
+This man page is a stub, complete documentation of the GUI can be found in the online
+manual available in the Hugin(1) Help menu.
+
+=head1 OPTIONS
+
+B<calibrate_lens_gui> has no command-line options or parameters.
+
+=head1 SEE ALSO
+
+hugin(1)
+
+=head1 AUTHORS
+
+Tim Nugent, Thomas Modes
