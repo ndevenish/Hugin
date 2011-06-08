@@ -64,6 +64,7 @@ double resize_image(UInt8RGBImage& in, UInt8RGBImage& out, int resize_dimension)
     }
     else
     {
+        out.resize(in.size());
         copyImage(srcImageRange(in),destImage(out));
     };
     return 1.0/sizefactor;
