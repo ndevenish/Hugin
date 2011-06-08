@@ -1,6 +1,6 @@
 =head1 NAME
 
-autopano-noop - Trivial wrapper script for autopano-sift-c
+autopano-noop.sh - Trivial wrapper script for autopano-sift-c
 
 =head1 SYNOPSIS
 
@@ -8,9 +8,9 @@ B<autopano-noop.sh> [options]
 
 =head1 DESCRIPTION
 
-B<autopano-noop> is an obsolete wrapper around autopano-sift-c(1)
+B<autopano-noop.sh> is an obsolete wrapper around autopano-sift-c(1)
 
-If you see a message from B<autopano-noop> or have it configured as a hugin(1)
+If you see a message from B<autopano-noop.sh> or have it configured as a hugin(1)
 control point detector, then you have upgraded from an earlier version of Hugin
 and have no Control Point Detector configured.
 
