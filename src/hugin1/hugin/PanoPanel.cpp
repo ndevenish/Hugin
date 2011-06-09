@@ -60,6 +60,10 @@ extern "C" {
 #include "base_wx/platform.h"
 #include "base_wx/huginConfig.h"
 
+#if defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
+#include "wx/utils.h"
+#endif
+
 #define WX_BROKEN_SIZER_UNKNOWN
 
 using namespace PT;
@@ -249,6 +253,21 @@ bool PanoPanel::Create(wxWindow *parent, wxWindowID id, const wxPoint& pos, cons
     m_pano_ctrls->FitInside();
     m_pano_ctrls->SetScrollRate(10, 10);
 
+#if defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
+    //workaround a bug, that hugin_stitch_project does not work inside the bundle for MacOS 10.5, sending to batch instead
+    //hiding the stitch now button for MacOS10.5
+    int osVersionMajor;
+    int osVersionMinor;
+
+    int os = wxGetOsVersion(&osVersionMajor, &osVersionMinor);
+
+    if ((osVersionMajor == 0x10) && ((osVersionMinor >= 0x50) && (osVersionMinor < 0x60)))
+    {
+        wxButton* stitchButton=XRCCTRL(*this,"pano_button_stitch",wxButton);
+        stitchButton->Enable(false);
+        stitchButton->Hide();
+    }
+#endif
 
 /*
     // trigger creation of apropriate stitcher control, if
@@ -985,6 +1004,20 @@ void PanoPanel::DoStitch()
         return;
     }
 
+#if defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
+    //workaround a bug, that hugin_stitch_project does not work inside the bundle for MacOS 10.5, sending to batch instead
+    int osVersionMajor;
+    int osVersionMinor;
+
+    int os = wxGetOsVersion(&osVersionMajor, &osVersionMinor);
+
+    if ((osVersionMajor == 0x10) && ((osVersionMinor >= 0x50) && (osVersionMinor < 0x60)))
+    {
+        SendToBatch();
+    }
+    else
+#endif
+    {
     // save project
     // copy pto file to temporary file
     wxString tempDir= wxConfigBase::Get()->Read(wxT("tempDir"),wxT(""));
@@ -1118,6 +1151,7 @@ void PanoPanel::DoStitch()
             }
         }
 #endif
+    };
 }
 
 void PanoPanel::SendToBatch()
