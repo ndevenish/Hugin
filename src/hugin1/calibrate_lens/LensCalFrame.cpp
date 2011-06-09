@@ -635,7 +635,6 @@ Panorama LensCalFrame::GetPanorama()
         image.setProjection(m_projection);
         image.setExifFocalLength(m_focallength);
         image.setExifCropFactor(m_cropfactor);
-        image.setExposureValue(0);
         image.setVar("a",m_a);
         image.setVar("b",m_b);
         image.setVar("c",m_c);

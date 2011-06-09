@@ -71,6 +71,10 @@ void ImageLineList::SetFilename(wxString newFilename)
     m_filename=newFilename;
     std::string filenamestring(newFilename.mb_str(HUGIN_CONV_FILENAME));
     m_panoImage=new HuginBase::SrcPanoImage(filenamestring);
+    //reset roll to 0, it could be 90/-90/180 if loaded an image with Exif rotation tag
+    m_panoImage->setRoll(0);
+    //reset exposure value to prevent exposure correction when calculating corrected preview
+    m_panoImage->setExposureValue(0);
 };
 
 const wxString ImageLineList::GetFilename()
