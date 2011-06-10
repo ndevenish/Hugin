@@ -538,9 +538,12 @@ void Batch::OnProcessTerminate(wxProcessEvent & event)
 						SetStatusText(_("Batch completed with errors."));
                         if(!shutdown)
                         {
-                            //notify parent, that at least one project failed
-                            wxCommandEvent e(EVT_BATCH_FAILED,wxID_ANY);
-                            GetParent()->GetEventHandler()->AddPendingEvent(e);
+                            if(gui)
+                            {
+                                //notify parent, that at least one project failed
+                                wxCommandEvent e(EVT_BATCH_FAILED,wxID_ANY);
+                                GetParent()->GetEventHandler()->AddPendingEvent(e);
+                            };
                         };
                     }
 					else
@@ -890,16 +893,22 @@ void Batch::RunNextInBatch()
 				m_running = true;
                 if(m_projList.Item(i).target==Project::STITCHING)
                 {
-                    wxCommandEvent e(EVT_INFORMATION,wxID_ANY);
-                    e.SetString(wxString::Format(_("Now stitching: %s"),m_projList.Item(i).path.c_str()));
-                    GetParent()->GetEventHandler()->AddPendingEvent(e);
+                    if(gui)
+                    {
+                        wxCommandEvent e(EVT_INFORMATION,wxID_ANY);
+                        e.SetString(wxString::Format(_("Now stitching: %s"),m_projList.Item(i).path.c_str()));
+                        GetParent()->GetEventHandler()->AddPendingEvent(e);
+                    };
 				    value = OnStitch(m_projList.Item(i).path, m_projList.Item(i).prefix, m_projList.Item(i).id);
                 }
                 else
                 {
-                    wxCommandEvent e(EVT_INFORMATION,wxID_ANY);
-                    e.SetString(wxString::Format(_("Now detecting: %s"),m_projList.Item(i).path.c_str()));
-                    GetParent()->GetEventHandler()->AddPendingEvent(e);
+                    if(gui)
+                    {
+                        wxCommandEvent e(EVT_INFORMATION,wxID_ANY);
+                        e.SetString(wxString::Format(_("Now detecting: %s"),m_projList.Item(i).path.c_str()));
+                        GetParent()->GetEventHandler()->AddPendingEvent(e);
+                    };
                     value = OnDetect(m_projList.Item(i).path,m_projList.Item(i).id);
                 };
 				if(!value)
@@ -919,16 +928,22 @@ void Batch::RunNextInBatch()
 					m_running = true;
                     if(m_projList.Item(i).target==Project::STITCHING)
                     {
-                        wxCommandEvent e(EVT_INFORMATION,wxID_ANY);
-                        e.SetString(wxString::Format(_("Now stitching: %s"),m_projList.Item(i).path.c_str()));
-                        GetParent()->GetEventHandler()->AddPendingEvent(e);
+                        if(gui)
+                        {
+                            wxCommandEvent e(EVT_INFORMATION,wxID_ANY);
+                            e.SetString(wxString::Format(_("Now stitching: %s"),m_projList.Item(i).path.c_str()));
+                            GetParent()->GetEventHandler()->AddPendingEvent(e);
+                        };
                         value = OnStitch(m_projList.Item(i).path, m_projList.Item(i).prefix, m_projList.Item(i).id);
                     }
                     else
                     {
-                        wxCommandEvent e(EVT_INFORMATION,wxID_ANY);
-                        e.SetString(wxString::Format(_("Now detecting: %s"),m_projList.Item(i).path.c_str()));
-                        GetParent()->GetEventHandler()->AddPendingEvent(e);
+                        if(gui)
+                        {
+                            wxCommandEvent e(EVT_INFORMATION,wxID_ANY);
+                            e.SetString(wxString::Format(_("Now detecting: %s"),m_projList.Item(i).path.c_str()));
+                            GetParent()->GetEventHandler()->AddPendingEvent(e);
+                        };
                         value = OnDetect(m_projList.Item(i).path,m_projList.Item(i).id);
                     };
 					if(!value)
