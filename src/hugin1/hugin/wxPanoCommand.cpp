@@ -38,7 +38,7 @@
 #include <vigra/localminmax.hxx>
 #include <panodata/StandardImageVariableGroups.h>
 
-#include <hugin_utils/alphanum.hpp>
+#include <hugin_utils/alphanum.h>
 
 #ifdef HUGIN_HSI
 #include "hugin_script_interface/hpi.h"
@@ -154,7 +154,7 @@ void wxAddImagesCmd::execute()
     switch (sort) {
         case 1:
                 // sort by filename
-            std::sort(files.begin(), files.end(), doj::alphanum_less<std::string>());
+            std::sort(files.begin(), files.end(), doj::alphanum_less());
             break;
         case 2:
                 // sort by date

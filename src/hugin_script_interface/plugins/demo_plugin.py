@@ -34,10 +34,10 @@
 # If you want to integrate your script into the menu, you will need to
 # edit the following self-explanatory lines:
 
-# @category : Kay's Toolbox
-# @name     : Demo Plugin
-# @api-min  : 2011.1
-# @api-max  : 2011.2
+# @category Kay's Toolbox
+# @name     Demo Plugin
+# @api-min  2011.1
+# @api-max  2011.2
 
 
 

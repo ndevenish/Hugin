@@ -27,14 +27,7 @@
 
 #include <vector>
 #include <set>
-
-// for the sorted list of plugins in the menu
-#include <iostream>
-#include <list>
-#include <string>
-#include <cctype>
-#include <boost/filesystem.hpp>
-using namespace std;
+#include <map>
 
 #include "PT/Panorama.h"
 
@@ -84,6 +77,15 @@ private:
     bool m_imageOnly;
 };
 
+#ifdef HUGIN_HSI
+/** structure for generating plugin menu items */
+struct PluginItem
+{
+    wxString category;
+    wxString name;
+    wxFileName filename;
+};
+#endif
 
 /** The main window frame.
  *
@@ -116,6 +118,8 @@ public:
 
     /// get the path to the xrc directory
     const wxString & GetXRCPath();
+    /** get the path to data directory */
+    const wxString & GetDataPath();
 
     /// hack.. kind of a pseudo singleton...
     static MainFrame * Get();
@@ -192,7 +196,7 @@ private:
     void OnShowPrefs(wxCommandEvent &e);
 #ifdef HUGIN_HSI
     void OnPythonScript(wxCommandEvent & e);
-    void OnAction(wxCommandEvent& e);
+    void OnPlugin(wxCommandEvent& e);
 #endif
     void OnUndo(wxCommandEvent & e);
     void OnRedo(wxCommandEvent & e);
@@ -269,10 +273,10 @@ private:
 #endif
 
 #ifdef HUGIN_HSI
-    // extract menu entry information from plugin
-    wxString PluginMenuMetaData (boost::filesystem::directory_iterator& plugin);
+    /** read the metadata from given Python file */
+    PluginItem ReadPluginMetadata(wxFileName filename);
     // list associating the wxID in the menu with a python script
-    map<int, wxString> PlugInAction;
+    std::map<int, wxFileName> m_plugins;
 #endif
 
         
