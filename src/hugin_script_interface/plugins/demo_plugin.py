@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 #    demo_plugin.py - apply a 6-1-1 shooting pattern to a panorama
 #    Copyright (C) 2011  Kay F. Jahnke
 
@@ -29,6 +30,17 @@
 # assuming the pattern was six around, 1 up 60 degrees and one down 60.
 
 # the position() subroutine sets yaw, pitch and roll for an image
+
+# If you want to integrate your script into the menu, you will need to
+# edit the following self-explanatory lines:
+
+# @category : Kay's Toolbox
+# @name     : Demo Plugin
+# @api-min  : 2011.1
+# @api-max  : 2011.2
+
+
+
 
 def position ( pano , number , yaw , pitch , roll ) :
     print ( "%d: y %d p %d r %d" % ( number , yaw , pitch , roll ) )

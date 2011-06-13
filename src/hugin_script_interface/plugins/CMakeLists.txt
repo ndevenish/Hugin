@@ -1,6 +1,4 @@
-# install plugin files into approbiate folder
+# install plugin files into appropriate folder
 
-IF(WIN32)
-    FILE(GLOB PLUGINFILES *.py *.txt)
-    INSTALL(FILES ${PLUGINFILES} DESTINATION scripts)
-ENDIF()
+FILE(GLOB PLUGINFILES *.py *.txt)
+INSTALL(FILES ${PLUGINFILES} DESTINATION ${INSTALL_DATA_DIR}/plugins)

@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 #    top_five.py - keep the five best CPs for each image pair
 
 #    Copyright (C) 2011  Kay F. Jahnke

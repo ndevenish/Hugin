@@ -29,6 +29,10 @@
 #include <exiv2/exif.hpp>
 #include <exiv2/image.hpp>
 
+#include <wx/wfstream.h>
+#include <wx/tokenzr.h>
+#include <wx/string.h>
+
 #include "panoinc_WX.h"
 #include "panoinc.h"
 
@@ -281,8 +285,81 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
 #endif
     SetMenuBar(wxXmlResource::Get()->LoadMenuBar(this, wxT("main_menubar")));
 
-#ifndef HUGIN_HSI
+#ifdef HUGIN_HSI
+
+    wxMenuBar *menubar;
+    menubar = GetMenuBar();
+
+    // the plugin menu "Actions" will be generated dynamically
+    wxMenu *actions;
+
+    // load python plugins list into menu
+    namespace fs = boost::filesystem;
+
+    // read plugins from their folder
+    fs::path plugDir(INSTALL_DATA_DIR+string("plugins"));
+    fs::directory_iterator end_iter;
+
+    list<wxString> files_list;
+    list<wxString>::iterator it;
+
+    if ( fs::exists(plugDir) && fs::is_directory(plugDir))
+    {
+        for( fs::directory_iterator dir_iter(plugDir) ; dir_iter != end_iter ; ++dir_iter)
+        {
+            if ( (fs::is_regular_file(dir_iter->status())) && (fs::extension(dir_iter->path()) == ".py") )
+            {
+                // get the metadata for each plugin
+                files_list.push_back(PluginMenuMetaData(dir_iter));
+            }
+        }
+    }
+    // sort plugins alphabetically by name (file name if no name is defined in the metadata)
+    files_list.sort();
+
+    map<wxString, int> Category;
+    map<wxString, wxMenu*> CategoryMenu;
+
+    actions = new wxMenu;
+
+    int wx_id_category_assign = 1999; // TODO: might not need to assiign wxID
+    int wx_id_action_assign = 2000; // TODO: check how to make sure formally that there is no wxID conflict
+    for (it = files_list.begin(); it != files_list.end(); it++)
+    {
+        wxStringTokenizer tokenizer(*it, wxT("#"));
+        wxString name = tokenizer.GetNextToken();
+        wxString category = tokenizer.GetNextToken();
+        wxString action = tokenizer.GetNextToken();
+        Category[category]++;
+        if (Category[category]==1)
+        {
+            // first level menu entries: category
+            wxMenu *cm;
+            cm = new wxMenu;
+            CategoryMenu[category]= new wxMenu;
+            actions->Append(wx_id_category_assign, category,CategoryMenu[category]);
+            wx_id_category_assign--;
+        }
+
+        // second level menu entries: actions
+        wxMenu *ca;
+        ca=CategoryMenu[category];
+        ca->Append(wx_id_action_assign, name);
+        PlugInAction[wx_id_action_assign]=action;
+        // TODO: connect entry to event
+        Connect(wx_id_action_assign,
+                wxEVT_COMMAND_MENU_SELECTED ,
+                (wxObjectEventFunction)&MainFrame::OnAction);
+        wx_id_action_assign++;
+        cout << "PlugIn Found: " << category << " " << name << " " << action << ".\n";
+
+    }
+    // show the new mennu
+    menubar->Append(actions, wxT("&Actions"));
+
+#else
     GetMenuBar()->Enable(XRCID("action_python_script"), false);
+    GetMenuBar()->Enable(XRCID("action_python_plugins"), false);
 #endif
 
     // create tool bar
@@ -1656,6 +1733,19 @@ void MainFrame::OnPythonScript(wxCommandEvent & e)
             );
     }
 }
+
+void MainFrame::OnAction(wxCommandEvent & e)
+{
+    char buf[200];
+    strcpy( buf, (const char*)PlugInAction[e.GetId()].mb_str(wxConvUTF8) );
+    cout << "\nExecuting: ";
+    cout << buf;
+    cout << "\n";
+    GlobalCmdHist::getInstance().addCommand(
+                                 new PythonScriptPanoCmd(pano,buf)
+                                 );
+}
+
 #endif
 
 void MainFrame::OnUndo(wxCommandEvent & e)
@@ -1928,6 +2018,19 @@ struct celeste::svm_model* MainFrame::GetSVMModel()
     return svmModel;
 };
 
+bool MainFrame::CompareNoCase (string first, string second)
+{
+    unsigned int i=0;
+    while ( (i<first.length()) && (i<second.length()) )
+    {
+        if (tolower(first[i])<tolower(second[i])) return true;
+        else if (tolower(first[i])>tolower(second[i])) return false;
+        ++i;
+    }
+    if (first.length()<second.length()) return true;
+    else return false;
+}
+
 GLPreviewFrame * MainFrame::getGLPreview()
 {
     return gl_preview_frame;
@@ -1935,3 +2038,63 @@ GLPreviewFrame * MainFrame::getGLPreview()
 
 MainFrame * MainFrame::m_this = 0;
 
+wxString MainFrame::PluginMenuMetaData (boost::filesystem::directory_iterator& plugin)
+{
+
+    int found;
+
+    // convert the filename from a string (boost) to a wxString (wxWidgets)
+    const string a = plugin->string();
+    const char * b = a.c_str();
+    wxString l(b, wxConvUTF8);
+
+    // use wxWidgets to read the plugin files in search for meta data
+    wxFileInputStream in(l);
+    wxTextInputStream text(in);
+    wxString line;
+
+    // default category if nothing else found
+    wxString         category = wxT("Miscellaneous");
+
+    // default plugin name if nothing else found is the file name
+    const string f = plugin->filename();
+    const char * g = f.c_str();
+    wxString name(g, wxConvUTF8);
+
+    // for debugging output
+    char buf[200];
+
+    // read the plugin file and search if it contains meta data
+    while(!in.Eof())
+    {
+        line = text.ReadLine();
+//        strcpy( buf, (const char*)line.mb_str(wxConvUTF8) );
+//        cout << buf << "\n";
+        found = line.Find(wxT("@category : "));
+        if(found!=wxNOT_FOUND)
+        {
+            category = line.Mid(14, 35);
+            cout << "found cat\n";
+            continue;
+        }
+        found = line.Find(wxT("@name : "));
+        if(found!=wxNOT_FOUND)
+        {
+            name = line.Mid(14, 35);
+            cout << "found name\n";
+            continue;
+        }
+        // TODO: parse and check API min and API max
+    }
+
+    line = name;
+    line += wxT("#");
+    line += category;
+    line += wxT("#");
+    line += l;
+
+    strcpy( buf, (const char*)line.mb_str(wxConvUTF8) );
+
+    cout << buf << "\n";
+    return line;
+}

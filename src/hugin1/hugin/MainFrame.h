@@ -28,6 +28,14 @@
 #include <vector>
 #include <set>
 
+// for the sorted list of plugins in the menu
+#include <iostream>
+#include <list>
+#include <string>
+#include <cctype>
+#include <boost/filesystem.hpp>
+using namespace std;
+
 #include "PT/Panorama.h"
 
 #include "wx/docview.h"
@@ -184,6 +192,7 @@ private:
     void OnShowPrefs(wxCommandEvent &e);
 #ifdef HUGIN_HSI
     void OnPythonScript(wxCommandEvent & e);
+    void OnAction(wxCommandEvent& e);
 #endif
     void OnUndo(wxCommandEvent & e);
     void OnRedo(wxCommandEvent & e);
@@ -259,7 +268,15 @@ private:
     wxCHMHelpController     m_msHtmlHelp;
 #endif
 
+    // comparison, not case sensitive, for the sorted list of python plugins in the menu
+    bool CompareNoCase (string first, string second);
+    // extract menu entry information from plugin
+    wxString PluginMenuMetaData (boost::filesystem::directory_iterator& plugin);
 
+    // list associating the wxID in the menu with a python script
+    map<int, wxString> PlugInAction;
+
+        
     DECLARE_EVENT_TABLE()
 };
 
