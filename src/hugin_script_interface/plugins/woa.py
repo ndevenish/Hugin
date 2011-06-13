@@ -105,7 +105,7 @@ def vpr ( *x ) :
     
 # due to differences in coordinate system for raster and vector graphics
 # if the mask coincides with the left image margin, I have to extend it 
-# by one pixel. I have christened
+# by one pixel.
 
 mask_offset = -1.0
 
@@ -647,23 +647,28 @@ def mask_nonoverlaps ( pano , img0 , img1 ) :
     # the double projection from one image to another is quite imprecise.
     # We need the crossover point to be precisely on 'this' image's boundary
     # for the inclusion in take_in to succeed.
+
+    # initially I was using a threshold of .001 in the comparisons
+    # below, but this didn't work sometimes. I've now increased the
+    # threshold to .01, which seems to work, but TODO: I'd like to
+    # figure out a better way KFJ 2011-06-13
     
     def put_on_margin ( p ) :
 
         x = None
         y = None
 
-        if abs ( p.x - left ) <= 0.001 :
+        if abs ( p.x - left ) <= 0.01 :
             x = left
             y = p.y
-        elif abs ( p.x - right ) <= 0.001 :
+        elif abs ( p.x - right ) <= 0.01 :
             x = right
             y = p.y
 
-        if abs ( p.y - top ) <= 0.001 :
+        if abs ( p.y - top ) <= 0.01 :
             y = top
             x = p.x
-        elif abs ( p.y - bottom ) <= 0.001 :
+        elif abs ( p.y - bottom ) <= 0.01 :
             y = bottom
             x = p.x
 
@@ -724,7 +729,7 @@ def mask_nonoverlaps ( pano , img0 , img1 ) :
         
         pin.twin = put_on_margin ( pin.twin )
         
-        vpr ( 'crossover i0:' , pin , 'i1:' , pin.twin )        
+        # vpr ( 'crossover i0:' , pin , 'i1:' , pin.twin )        
         pin.inside = True
         pin.proximity = 0.0
         return pin
@@ -879,8 +884,10 @@ def mask_nonoverlaps ( pano , img0 , img1 ) :
         img0.exclude_masks = [ exclude_mask ]
         img0.include_masks = [ include_mask ]
 
-        img0.overlap_center = project_in ( point ( 0.0 , 0.0 ) )
-        img1.overlap_center = point ( 0.0 , 0.0 )
+        # TODO: using .000001 instead of plain 0.0 is a workaround
+        # as the current reverse transform fails for 0.0
+
+        img1.overlap_center = point ( 0.000001 , 0.000001 )
         if ( maxx - minx ) < ( maxy - miny ) :
             img0.rotate_overlap_pano = True
         else :
@@ -1049,8 +1056,8 @@ def mask_nonoverlaps ( pano , img0 , img1 ) :
         for p in m :
             minx = min ( p[0] , minx )
             miny = min ( p[1] , miny )
-            maxx = min ( p[0] , maxx )
-            maxy = min ( p[1] , maxy )
+            maxx = max ( p[0] , maxx )
+            maxy = max ( p[1] , maxy )
 
     dx = maxx - minx
     dy = maxy - miny
@@ -1350,6 +1357,14 @@ def cps_from_overlap ( pano , a , b ) :
 
     # TODO: extend to use more than just the hardcoded one
 
+    # KFJ 2011-06-02 Finally I'm happy with a set of settings
+    # for cpfind. The sieve2size of 10 is quite generous and I
+    # suppose this way up to 250 CPs per pair can be found; if
+    # even more are needed this is the parameter to tweak.
+    # --fullscale now works fine and is always used, since
+    # the scaling is done as desired when the warped images
+    # are created.
+
     if args.cpg == 'cpfind' :
 
         ofs = hsi.ofstream ( '_%s' % warped_pto )
@@ -1363,6 +1378,7 @@ def cps_from_overlap ( pano , a , b ) :
             
         command = [ 'cpfind' ,
                     '--fullscale' ,
+                    '--sieve2size' , '10' ,
                     '-o' , warped_pto ,
                     '_%s' % warped_pto ]
 
@@ -1448,6 +1464,16 @@ def cps_from_overlap ( pano , a , b ) :
         y1 = cp0.y + ycenter0
         x2 = cp1.x + xcenter1
         y2 = cp1.y + ycenter1
+
+        # KFJ 2011-06-13 the inverse transformation sometimes failed
+        # on me producing nan (for example when reverse-transforming
+        # (0,0)) - so I test here to avoid propagating the nan values
+        # into the panorama.
+        # TODO: remove test if certain that outcome is never nan.
+        
+        if math.isnan(x1) or math.isnan(x2) or math.isnan(y1) or math.isnan(y2) :
+            raise RunTimeError ( 'coordinate turned out nan' )
+        
         # - generate a ControlPoint object if the point is inside
         #   the image - sometimes the CPGs produce CPs outside the
         #   overlap area, I haven't found out why.
@@ -1578,9 +1604,17 @@ def main() :
                         type=float,
                         help='ignore overlaps above this value (0.0-1.0)')
 
+    # this next paramater does nothing per se - if image sets are
+    # specified with -i or -x and no other parameter with a leading
+    # '-' follows naturally, put in -e to finish the sequence
+    # TODO: see if this can't be done more elegantly
+    
+    parser.add_argument('-e' , '--end',
+                        help='dummy: end a group of image numbers')
+
     parser.add_argument('-g', '--cpg',
                         metavar='<cpfind or apsc>',
-                        default = 'apsc',
+                        default = 'cpfind',
                         type=str,
                         help='choose which CP generator to use')
 
@@ -1635,6 +1669,13 @@ def main() :
                         action='store_true',
                         help='produce verbose output')
 
+    parser.add_argument('-x', '--exclude',
+                        metavar='<image number>',
+                        default = [] ,
+                        nargs = '+',
+                        type=int,
+                        help='image numbers to exclude')
+
     parser.add_argument('input' ,
                         metavar = '<pto file>' ,
                         type = str ,
@@ -1663,6 +1704,7 @@ def main() :
 
     vpr ( 'main: parameters used for this run:' )
     vpr ( 'ceiling:' , args.ceiling )
+    vpr ( 'exclude:' , args.exclude )
     vpr ( 'focus:  ' , args.focus )
     vpr ( 'images: ' , args.images )
     vpr ( 'margin: ' , args.margin )
@@ -1738,6 +1780,15 @@ def main() :
                       for image
                       in range ( pano.getNrOfImages() ) ]
 
+    # if exclusions are given, they are taken away from the set
+    # of images to be processed now (KFJ 2011-06-02)
+    
+    if args.exclude :
+        
+        orig = set ( image_set )
+        sub = set ( args.exclude )
+        image_set = orig - sub
+ 
     # all set up. We process the image set
 
     total_cps_added = process_image_set ( pano , image_set )

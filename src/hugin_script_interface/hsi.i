@@ -125,6 +125,7 @@ class ofstream: public std::ostream
 
 %template(UIntVector) vector<unsigned int>;
 %template(UIntSet)    set<unsigned int>;
+%template(DoubleVector) vector<double>;
 
 // we need a few declarations to make swig generate
 // proxy classes for some types in the headers which we
