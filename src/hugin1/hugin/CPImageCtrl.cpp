@@ -104,7 +104,7 @@ CPEvent::CPEvent(wxWindow* win, const hugin_utils::FDiff2D & p1, const hugin_uti
     SetEventType(EVT_CPEVENT);
     SetEventObject(win);
     mode=DELETE_REGION_SELECTED;
-    region=wxRect(roundi(p1.x),roundi(p1.y),roundi(p2.x-p1.x),roundi(p2.y-p1.y));
+    region=wxRect(roundi(min(p1.x,p2.x)),roundi(min(p1.y,p2.y)),abs(roundi(p2.x-p1.x)),abs(roundi(p2.y-p1.y)));
 };
 
 CPEvent::CPEvent(wxWindow* win, CPEventMode evt_mode, const FDiff2D & p)

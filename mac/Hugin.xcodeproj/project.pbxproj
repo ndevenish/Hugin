@@ -155,9 +155,9 @@
 			name = "configure hugin_version.h";
 			productName = "configure hugin_version.h";
 		};
-		737C8C12139A689500F82635 /* Hugin-PTBatcherGui for Installer */ = {
+		737C8C12139A689500F82635 /* Create Hugin-PTBatcherGui-lens_calibrate_gui for Installer */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = 737C8C16139A68B600F82635 /* Build configuration list for PBXAggregateTarget "Hugin-PTBatcherGui for Installer" */;
+			buildConfigurationList = 737C8C16139A68B600F82635 /* Build configuration list for PBXAggregateTarget "Create Hugin-PTBatcherGui-lens_calibrate_gui for Installer" */;
 			buildPhases = (
 				737D5F20139BACC700829EED /* Remove Installerfolder */,
 				737C8C18139A690500F82635 /* CopyFiles */,
@@ -166,7 +166,7 @@
 			dependencies = (
 				73E263D6139ACB1D00487F3C /* PBXTargetDependency */,
 			);
-			name = "Hugin-PTBatcherGui for Installer";
+			name = "Create Hugin-PTBatcherGui-lens_calibrate_gui for Installer";
 			productName = "Hugin-PTBatcherGui for Installer";
 		};
 		737E490C11D3FCFB002BA8AE /* Apps */ = {
@@ -8313,7 +8313,7 @@
 				576482C00C469056003AFC2F /* vig_optimize static */,
 				73C958F40DA2C9DB00E19110 /* tca_correct static */,
 				57D50B380F5971A600CCDCB5 /* celeste static */,
-				737C8C12139A689500F82635 /* Hugin-PTBatcherGui for Installer */,
+				737C8C12139A689500F82635 /* Create Hugin-PTBatcherGui-lens_calibrate_gui for Installer */,
 			);
 		};
 /* End PBXProject section */
@@ -15344,7 +15344,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		737C8C16139A68B600F82635 /* Build configuration list for PBXAggregateTarget "Hugin-PTBatcherGui for Installer" */ = {
+		737C8C16139A68B600F82635 /* Build configuration list for PBXAggregateTarget "Create Hugin-PTBatcherGui-lens_calibrate_gui for Installer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				737C8C13139A689700F82635 /* Debug */,
