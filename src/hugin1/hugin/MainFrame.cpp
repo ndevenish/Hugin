@@ -359,7 +359,6 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
 
 #else
     GetMenuBar()->Enable(XRCID("action_python_script"), false);
-    GetMenuBar()->Enable(XRCID("action_python_plugins"), false);
 #endif
 
     // create tool bar
@@ -2018,19 +2017,6 @@ struct celeste::svm_model* MainFrame::GetSVMModel()
     return svmModel;
 };
 
-bool MainFrame::CompareNoCase (string first, string second)
-{
-    unsigned int i=0;
-    while ( (i<first.length()) && (i<second.length()) )
-    {
-        if (tolower(first[i])<tolower(second[i])) return true;
-        else if (tolower(first[i])>tolower(second[i])) return false;
-        ++i;
-    }
-    if (first.length()<second.length()) return true;
-    else return false;
-}
-
 GLPreviewFrame * MainFrame::getGLPreview()
 {
     return gl_preview_frame;
@@ -2038,6 +2024,7 @@ GLPreviewFrame * MainFrame::getGLPreview()
 
 MainFrame * MainFrame::m_this = 0;
 
+#ifdef HUGIN_HSI
 wxString MainFrame::PluginMenuMetaData (boost::filesystem::directory_iterator& plugin)
 {
 
@@ -2098,3 +2085,4 @@ wxString MainFrame::PluginMenuMetaData (boost::filesystem::directory_iterator& p
     cout << buf << "\n";
     return line;
 }
+#endif

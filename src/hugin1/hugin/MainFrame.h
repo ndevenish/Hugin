@@ -268,13 +268,12 @@ private:
     wxCHMHelpController     m_msHtmlHelp;
 #endif
 
-    // comparison, not case sensitive, for the sorted list of python plugins in the menu
-    bool CompareNoCase (string first, string second);
+#ifdef HUGIN_HSI
     // extract menu entry information from plugin
     wxString PluginMenuMetaData (boost::filesystem::directory_iterator& plugin);
-
     // list associating the wxID in the menu with a python script
     map<int, wxString> PlugInAction;
+#endif
 
         
     DECLARE_EVENT_TABLE()
