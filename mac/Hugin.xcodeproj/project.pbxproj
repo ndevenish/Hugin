@@ -197,6 +197,17 @@
 			name = "Separate tools package";
 			productName = "Separate tools package";
 		};
+		73B1AD2B13A6ABFA006A3C54 /* Create python plugin */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 73B1AD3313A6AC2B006A3C54 /* Build configuration list for PBXAggregateTarget "Create python plugin" */;
+			buildPhases = (
+				73B1AD3013A6AC0B006A3C54 /* create swigpyrun.h */,
+			);
+			dependencies = (
+			);
+			name = "Create python plugin";
+			productName = "Create python plugin";
+		};
 		73E6769410F8BE4E001807AB /* lib static monolithic */ = {
 			isa = PBXAggregateTarget;
 			buildConfigurationList = 73E6769A10F8BE67001807AB /* Build configuration list for PBXAggregateTarget "lib static monolithic" */;
@@ -1345,6 +1356,12 @@
 		73A95EFA12488A8D0076D3FB /* icpfind.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 733609851247DA57009225D2 /* icpfind.cpp */; };
 		73A95F1A12488C540076D3FB /* config.h in Headers */ = {isa = PBXBuildFile; fileRef = 57E347610C4A8F7D006AA781 /* config.h */; };
 		73A95F1B12488C6A0076D3FB /* hugin_config.h in Headers */ = {isa = PBXBuildFile; fileRef = 737E1C180EC9EC0300BA4D9B /* hugin_config.h */; };
+		73B1AD0C13A6A14D006A3C54 /* hpi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73B1ACE313A6A014006A3C54 /* hpi.cpp */; };
+		73B1AD0D13A6A14D006A3C54 /* hpi.h in Headers */ = {isa = PBXBuildFile; fileRef = 73B1ACE413A6A014006A3C54 /* hpi.h */; };
+		73B1AD0E13A6A14D006A3C54 /* hpi_classes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73B1ACE113A6A014006A3C54 /* hpi_classes.cpp */; };
+		73B1AD0F13A6A14D006A3C54 /* hpi_classes.h in Headers */ = {isa = PBXBuildFile; fileRef = 73B1ACE213A6A014006A3C54 /* hpi_classes.h */; };
+		73B1AD3913A6AE00006A3C54 /* swigpyrun.h in Headers */ = {isa = PBXBuildFile; fileRef = 73B1AD3813A6AE00006A3C54 /* swigpyrun.h */; };
+		73B1AD5913A6B041006A3C54 /* Python.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73B1AD5813A6B041006A3C54 /* Python.framework */; };
 		73BB093D0FACC71200B04997 /* PanoToolsUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73BB093B0FACC71200B04997 /* PanoToolsUtils.cpp */; };
 		73BB093E0FACC71200B04997 /* PanoToolsUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 73BB093C0FACC71200B04997 /* PanoToolsUtils.h */; };
 		73BB093F0FACC71200B04997 /* PanoToolsUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73BB093B0FACC71200B04997 /* PanoToolsUtils.cpp */; };
@@ -2720,6 +2737,13 @@
 			remoteGlobalIDString = 576900D70D24D32C00A6AD01;
 			remoteInfo = "base_wx Framework";
 		};
+		73B1AD3613A6ADC9006A3C54 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 73B1AD2B13A6ABFA006A3C54;
+			remoteInfo = "Create python plugin";
+		};
 		73C5F82012E2FAC00033A6E1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
@@ -3747,6 +3771,20 @@
 		73A95ECE124888EB0076D3FB /* icpfind */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = icpfind; sourceTree = BUILT_PRODUCTS_DIR; };
 		73A96499124F40D70044E1DC /* libpthread.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpthread.dylib; path = /usr/lib/libpthread.dylib; sourceTree = "<absolute>"; };
 		73A964B2124F41870044E1DC /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		73B1ACE113A6A014006A3C54 /* hpi_classes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hpi_classes.cpp; path = hugin_script_interface/hpi_classes.cpp; sourceTree = "<group>"; };
+		73B1ACE213A6A014006A3C54 /* hpi_classes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hpi_classes.h; path = hugin_script_interface/hpi_classes.h; sourceTree = "<group>"; };
+		73B1ACE313A6A014006A3C54 /* hpi.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hpi.cpp; path = hugin_script_interface/hpi.cpp; sourceTree = "<group>"; };
+		73B1ACE413A6A014006A3C54 /* hpi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hpi.h; path = hugin_script_interface/hpi.h; sourceTree = "<group>"; };
+		73B1ACE513A6A014006A3C54 /* hpi.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = hpi.py; path = hugin_script_interface/hpi.py; sourceTree = "<group>"; };
+		73B1ACE613A6A014006A3C54 /* hsi.i */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c.preprocessed; name = hsi.i; path = hugin_script_interface/hsi.i; sourceTree = "<group>"; };
+		73B1ACE913A6A014006A3C54 /* crop_cp.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = crop_cp.py; sourceTree = "<group>"; };
+		73B1ACEA13A6A014006A3C54 /* demo_plugin.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = demo_plugin.py; sourceTree = "<group>"; };
+		73B1ACEC13A6A014006A3C54 /* top_five.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = top_five.py; sourceTree = "<group>"; };
+		73B1ACED13A6A014006A3C54 /* woa.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = woa.py; sourceTree = "<group>"; };
+		73B1AD0613A6A0B0006A3C54 /* _hsi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = _hsi.framework; sourceTree = "<group>"; };
+		73B1AD0713A6A0B0006A3C54 /* _hsi-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "_hsi-Info.plist"; sourceTree = "<group>"; };
+		73B1AD3813A6AE00006A3C54 /* swigpyrun.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = swigpyrun.h; sourceTree = "<group>"; };
+		73B1AD5813A6B041006A3C54 /* Python.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Python.framework; path = Library/Frameworks/Python.framework; sourceTree = SDKROOT; };
 		73BB09320FACC59E00B04997 /* PanoToolsUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PanoToolsUtils.h; sourceTree = "<group>"; };
 		73BB093B0FACC71200B04997 /* PanoToolsUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PanoToolsUtils.cpp; sourceTree = "<group>"; };
 		73BB093C0FACC71200B04997 /* PanoToolsUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PanoToolsUtils.h; sourceTree = "<group>"; };
@@ -4864,6 +4902,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		73B1AD0413A6A0AF006A3C54 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				73B1AD5913A6B041006A3C54 /* Python.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		73C5F79F12E2DC490033A6E1 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -5024,6 +5070,7 @@
 		57114E9E06BC2301004F4FA7 /* mac */ = {
 			isa = PBXGroup;
 			children = (
+				73B1AD3813A6AE00006A3C54 /* swigpyrun.h */,
 				737D5EDF139BA53300829EED /* create_stripped_apps_for_installer.sh */,
 				73DFBDF4139B72EE00558A2D /* lens_calibrate_gui-xrc.sh */,
 				739A0EA310FA7A3100D8E4C7 /* Hugin_tools */,
@@ -5449,6 +5496,7 @@
 		5749F84D067B601A00A6EDD4 /* Mac OS SDK */ = {
 			isa = PBXGroup;
 			children = (
+				73B1AD5813A6B041006A3C54 /* Python.framework */,
 				73A964B2124F41870044E1DC /* Cocoa.framework */,
 				735F091612DF6F300081D893 /* AGL.framework */,
 				73D24B641061556700B8A25D /* AGL.framework */,
@@ -5582,6 +5630,7 @@
 		5769FD140D24B3D400A6AD01 /* frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				73B1AD0613A6A0B0006A3C54 /* _hsi.framework */,
 				5769FE380D24CFEC00A6AD01 /* HuginVigraImpex.framework */,
 				576900AA0D24D29300A6AD01 /* HuginBase.framework */,
 				576900E10D24D32C00A6AD01 /* HuginBaseWx.framework */,
@@ -5766,6 +5815,7 @@
 		579D36060C0EFD4D00BFC58C /* src */ = {
 			isa = PBXGroup;
 			children = (
+				73B1ACDF13A69F84006A3C54 /* hugin_script_interface */,
 				73FE2AE81249178F0002E246 /* hugin_cpfind */,
 				7393CEC7115BF296002F3DCA /* hugin_shared.h */,
 				737E1C180EC9EC0300BA4D9B /* hugin_config.h */,
@@ -6169,6 +6219,7 @@
 				7357E524124777EB0098B385 /* makefilelib-Info.plist */,
 				7307F826131A91A400B864F9 /* autooptimiser-static */,
 				734FC450139B83A4007B675D /* lens_calibrate_gui-Info copy 2.plist */,
+				73B1AD0713A6A0B0006A3C54 /* _hsi-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -6341,6 +6392,32 @@
 				739A0EA510FA7A3100D8E4C7 /* set_environment.txt */,
 			);
 			path = Hugin_tools;
+			sourceTree = "<group>";
+		};
+		73B1ACDF13A69F84006A3C54 /* hugin_script_interface */ = {
+			isa = PBXGroup;
+			children = (
+				73B1ACE113A6A014006A3C54 /* hpi_classes.cpp */,
+				73B1ACE213A6A014006A3C54 /* hpi_classes.h */,
+				73B1ACE313A6A014006A3C54 /* hpi.cpp */,
+				73B1ACE413A6A014006A3C54 /* hpi.h */,
+				73B1ACE513A6A014006A3C54 /* hpi.py */,
+				73B1ACE613A6A014006A3C54 /* hsi.i */,
+				73B1ACE713A6A014006A3C54 /* plugins */,
+			);
+			name = hugin_script_interface;
+			sourceTree = "<group>";
+		};
+		73B1ACE713A6A014006A3C54 /* plugins */ = {
+			isa = PBXGroup;
+			children = (
+				73B1ACE913A6A014006A3C54 /* crop_cp.py */,
+				73B1ACEA13A6A014006A3C54 /* demo_plugin.py */,
+				73B1ACEC13A6A014006A3C54 /* top_five.py */,
+				73B1ACED13A6A014006A3C54 /* woa.py */,
+			);
+			name = plugins;
+			path = hugin_script_interface/plugins;
 			sourceTree = "<group>";
 		};
 		73C5F6EF12E212550033A6E1 /* flann */ = {
@@ -7118,6 +7195,16 @@
 			files = (
 				73A95F1B12488C6A0076D3FB /* hugin_config.h in Headers */,
 				73A95F1A12488C540076D3FB /* config.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		73B1AD0113A6A0AF006A3C54 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				73B1AD0D13A6A14D006A3C54 /* hpi.h in Headers */,
+				73B1AD0F13A6A14D006A3C54 /* hpi_classes.h in Headers */,
+				73B1AD3913A6AE00006A3C54 /* swigpyrun.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8085,6 +8172,26 @@
 			productReference = 73A95ECE124888EB0076D3FB /* icpfind */;
 			productType = "com.apple.product-type.tool";
 		};
+		73B1AD0513A6A0AF006A3C54 /* _hsi */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 73B1AD0B13A6A0B1006A3C54 /* Build configuration list for PBXNativeTarget "_hsi" */;
+			buildPhases = (
+				73B1AD1313A6A5D1006A3C54 /* let swig create wrapper */,
+				73B1AD0113A6A0AF006A3C54 /* Headers */,
+				73B1AD0213A6A0AF006A3C54 /* Resources */,
+				73B1AD0313A6A0AF006A3C54 /* Sources */,
+				73B1AD0413A6A0AF006A3C54 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				73B1AD3713A6ADC9006A3C54 /* PBXTargetDependency */,
+			);
+			name = _hsi;
+			productName = _hsi;
+			productReference = 73B1AD0613A6A0B0006A3C54 /* _hsi.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		73C5F79112E2DC490033A6E1 /* flann_cpp */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 73C5F7A012E2DC490033A6E1 /* Build configuration list for PBXNativeTarget "flann_cpp" */;
@@ -8314,6 +8421,8 @@
 				73C958F40DA2C9DB00E19110 /* tca_correct static */,
 				57D50B380F5971A600CCDCB5 /* celeste static */,
 				737C8C12139A689500F82635 /* Create Hugin-PTBatcherGui-lens_calibrate_gui for Installer */,
+				73B1AD0513A6A0AF006A3C54 /* _hsi */,
+				73B1AD2B13A6ABFA006A3C54 /* Create python plugin */,
 			);
 		};
 /* End PBXProject section */
@@ -8421,6 +8530,13 @@
 				737C8CA5139A726C00F82635 /* HuginStitchProject.app in Resources */,
 				731DBF10129D83C200793A38 /* Hugin.icns in Resources */,
 				731DBF11129D83C200793A38 /* HuginFiles.icns in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		73B1AD0213A6A0AF006A3C54 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8749,6 +8865,34 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if [ $ACTION = \"build\" ]\nthen\n sh ../mac/complete-tools-package.sh\nfi\n\nif [ $DEPLOYMENT_POSTPROCESSING = \"YES\" -a $STRIP_INSTALLED_PRODUCT = \"YES\" ]\nthen\n echo \"Stripping libraries: $TARGET_BUILD_DIR/$PRODUCT_NAME/Libraries/*.dylib\"\n strip -x $TARGET_BUILD_DIR/$PRODUCT_NAME/Libraries/*.dylib\nfi";
+		};
+		73B1AD1313A6A5D1006A3C54 /* let swig create wrapper */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "let swig create wrapper";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "swig -c++ -python -external-runtime";
+		};
+		73B1AD3013A6AC0B006A3C54 /* create swigpyrun.h */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "create swigpyrun.h";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "swig -c++ -python -external-runtime";
 		};
 		73DAADCE119DB90B002149AC /* Copy External Excecutable files */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -9463,6 +9607,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				73A95EFA12488A8D0076D3FB /* icpfind.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		73B1AD0313A6A0AF006A3C54 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				73B1AD0C13A6A14D006A3C54 /* hpi.cpp in Sources */,
+				73B1AD0E13A6A14D006A3C54 /* hpi_classes.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -10194,6 +10347,11 @@
 			isa = PBXTargetDependency;
 			target = 576900D70D24D32C00A6AD01 /* base_wx Framework */;
 			targetProxy = 73A95EE1124889E50076D3FB /* PBXContainerItemProxy */;
+		};
+		73B1AD3713A6ADC9006A3C54 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 73B1AD2B13A6ABFA006A3C54 /* Create python plugin */;
+			targetProxy = 73B1AD3613A6ADC9006A3C54 /* PBXContainerItemProxy */;
 		};
 		73C5F82112E2FAC00033A6E1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -14252,6 +14410,124 @@
 			};
 			name = Release;
 		};
+		73B1AD0813A6A0B1006A3C54 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "_hsi-Info.plist";
+				INSTALL_PATH = "$(HOME)/Library/Frameworks";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = _hsi;
+			};
+			name = Debug;
+		};
+		73B1AD0913A6A0B1006A3C54 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "_hsi-Info.plist";
+				INSTALL_PATH = "$(HOME)/Library/Frameworks";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = _hsi;
+			};
+			name = Development;
+		};
+		73B1AD0A13A6A0B1006A3C54 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(WX_ARCH)";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = "";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "";
+				HEADER_SEARCH_PATHS = (
+					/usr/include,
+					"$(REPOSITORY_DIR)/include",
+					"$(REPOSITORY_DIR)/include/OpenEXR",
+					../src,
+					../src/hugin_base,
+					../src/foreign,
+					../src/foreign/vigra,
+					/Library/Frameworks/Python.framework/Headers,
+				);
+				INFOPLIST_FILE = "_hsi-Info.plist";
+				INSTALL_PATH = "@executable_path/../Frameworks";
+				OTHER_LDFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = _hsi;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		73B1AD2C13A6ABFA006A3C54 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = "Create python plugin";
+			};
+			name = Debug;
+		};
+		73B1AD2D13A6ABFA006A3C54 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = "Create python plugin";
+			};
+			name = Development;
+		};
+		73B1AD2E13A6ABFA006A3C54 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				PRODUCT_NAME = "Create python plugin";
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 		73C5F7A112E2DC490033A6E1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -15460,6 +15736,26 @@
 				73A95ED0124888EC0076D3FB /* Debug */,
 				73A95ED1124888EC0076D3FB /* Development */,
 				73A95ED2124888EC0076D3FB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		73B1AD0B13A6A0B1006A3C54 /* Build configuration list for PBXNativeTarget "_hsi" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				73B1AD0813A6A0B1006A3C54 /* Debug */,
+				73B1AD0913A6A0B1006A3C54 /* Development */,
+				73B1AD0A13A6A0B1006A3C54 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		73B1AD3313A6AC2B006A3C54 /* Build configuration list for PBXAggregateTarget "Create python plugin" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				73B1AD2C13A6ABFA006A3C54 /* Debug */,
+				73B1AD2D13A6ABFA006A3C54 /* Development */,
+				73B1AD2E13A6ABFA006A3C54 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
