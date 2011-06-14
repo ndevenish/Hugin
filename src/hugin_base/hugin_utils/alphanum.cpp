@@ -29,9 +29,14 @@ freely, subject to the following restrictions:
     3. This notice may not be removed or altered from any source
        distribution. */
 
-/* $Header: /code/doj/alphanum.hpp,v 1.3 2008/01/28 23:06:47 doj Exp $ */
+/* $Header: /code/doj/alphanum.hpp,v 1.3 2008/01/28 23:06:47 doj Exp $ 
+
+   slightly modified version, the main function is unaltered, but the
+   interface definitions are changed to better suit hugins needs 
+   */
 
 #include <hugin_utils/alphanum.h>
+#include <stdlib.h>
 
 namespace doj
 {

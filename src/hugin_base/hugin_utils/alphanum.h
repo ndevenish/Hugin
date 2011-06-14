@@ -29,17 +29,18 @@ freely, subject to the following restrictions:
     3. This notice may not be removed or altered from any source
        distribution. */
 
-/* $Header: /code/doj/alphanum.hpp,v 1.3 2008/01/28 23:06:47 doj Exp $ */
+/* $Header: /code/doj/alphanum.hpp,v 1.3 2008/01/28 23:06:47 doj Exp $ 
+
+   slightly modified version, the main function is unaltered, but the
+   interface definitions are changed to better suit hugins needs 
+*/
 
 #ifndef ALPHANUM__HPP
 #define ALPHANUM__HPP
 
 #include <hugin_shared.h>
-#include <cassert>
 #include <functional>
 #include <string>
-#include <sstream>
-#include <cctype>
 
 // TODO: make comparison with hexadecimal numbers. Extend the alphanum_comp() function by traits to choose between decimal and hexadecimal.
 
