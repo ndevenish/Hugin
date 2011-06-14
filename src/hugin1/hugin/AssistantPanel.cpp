@@ -457,7 +457,7 @@ void AssistantPanel::OnAlignSendToBatch(wxCommandEvent &e)
 	if(wxFileName::FileExists(projectFile))
 	{
 #if defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
-        wxExecute(_T("open -b net.sourceforge.hugin.PTBatcherGUI -a --args "+wxQuoteFilename(projectFile)));
+        wxExecute(_T("open -b net.sourceforge.hugin.PTBatcherGUI --args -a "+wxQuoteFilename(projectFile)));
 #else
 #ifdef __WINDOWS__
 		wxString huginPath = getExePath(wxGetApp().argv[0])+wxFileName::GetPathSeparator(); 
