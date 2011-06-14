@@ -777,7 +777,7 @@ GLPreviewFrame::~GLPreviewFrame()
 
 void GLPreviewFrame::InitPreviews()
 {
-    if(!preview_helper || !panosphere_overview_helper || !plane_overview_helper)  
+    if(preview_helper==NULL || panosphere_overview_helper==NULL || plane_overview_helper==NULL)
     {
         m_GLPreview->SetUpContext();
         m_GLOverview->SetUpContext();
