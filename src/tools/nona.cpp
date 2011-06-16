@@ -185,7 +185,7 @@ int main(int argc, char *argv[])
     bool overrideExposure = false;
     double exposure=0;
     int verbose = 0;
-    int useGPU = 0;
+    bool useGPU = false;
     string outputPixelType;
     
     while ((c = getopt (argc, argv, optstring)) != -1)
@@ -237,7 +237,7 @@ int main(int argc, char *argv[])
                 std::transform(compression.begin(), compression.end(), compression.begin(), (int(*)(int)) toupper);
                 break;
             case 'g':
-                useGPU = 1;
+                useGPU = true;
                 break;
             default:
 		usage(argv[0]);
