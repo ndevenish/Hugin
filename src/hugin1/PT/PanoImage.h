@@ -27,12 +27,10 @@
 #ifndef _Hgn1_PANOIMAGE_H
 #define _Hgn1_PANOIMAGE_H
 
-#include <panodata/PanoImage.h>
 #include <panodata/SrcPanoImage.h>
 
 namespace PT {
 
-    using HuginBase::ImageOptions;
     using HuginBase::SrcPanoImage;
     
     inline bool initImageFromFile(SrcPanoImage & img, double & focalLength, double & cropFactor, bool applyExposureValue)

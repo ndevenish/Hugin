@@ -159,7 +159,12 @@ bool SrcPanoImage::isInside(vigra::Point2D p, bool ignoreMasks) const
         return insideCrop;
 }
 
-    
+bool SrcPanoImage::isCircularCrop()
+{
+    HuginBase::BaseSrcPanoImage::Projection projection=m_Projection.getData();
+    return (projection==CIRCULAR_FISHEYE || projection==FISHEYE_THOBY);
+};
+
 bool SrcPanoImage::getCorrectTCA() const
 { 
     bool nr = (m_RadialDistortionRed.getData()[0] == 0.0 && m_RadialDistortionRed.getData()[1] == 0.0 &&
@@ -260,52 +265,6 @@ VariableMap SrcPanoImage::getVariableMap() const
 
     return vars;
 }
-
-
-ImageOptions SrcPanoImage::getOptions() const
-{
-    // convert stuff to ImageOptions object for old stuff not using the new interface.
-    ImageOptions opts;
-    opts.featherWidth = m_FeatherWidth.getData();
-    opts.morph = m_Morph.getData();
-    opts.docrop = m_CropMode.getData() != NO_CROP;
-    opts.autoCenterCrop = m_AutoCenterCrop.getData();
-    opts.cropRect = m_CropRect.getData();
-    opts.m_vigCorrMode = m_VigCorrMode.getData();
-    opts.m_flatfield = m_FlatfieldFilename.getData();
-    opts.responseType = m_ResponseType.getData();
-    opts.active = m_Active.getData();
-    
-    return opts;
-}
-
-void SrcPanoImage::setOptions(const ImageOptions & opts)
-{
-    // set variables from an ImageOptions object for the stuff using the old interface.
-    m_FeatherWidth.setData(opts.featherWidth);
-    m_Morph.setData(opts.morph);
-    if (opts.docrop)
-    {
-        if (m_Projection.getData() == CIRCULAR_FISHEYE || m_Projection.getData() == FISHEYE_THOBY)
-        {
-            m_CropMode.setData(CROP_CIRCLE);
-        }
-        else
-        {
-            m_CropMode.setData(CROP_RECTANGLE);
-        }
-        m_CropRect.setData(opts.cropRect);
-    } else {
-        m_CropMode.setData(NO_CROP);
-        m_CropRect.setData((vigra::Rect2D)m_Size.getData());
-    }
-    m_AutoCenterCrop.setData(opts.autoCenterCrop);    
-    m_VigCorrMode.setData(opts.m_vigCorrMode);
-    m_FlatfieldFilename.setData(opts.m_flatfield);
-    m_ResponseType.setData((ResponseType)opts.responseType);
-    m_Active.setData(opts.active);
-}
-
 
 bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, bool applyEXIFValues, bool applyExposureValue)
 {

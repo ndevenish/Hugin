@@ -64,8 +64,8 @@ void PreviewControlPointTool::AfterDrawImagesEvent()
     {
         const HuginBase::ControlPoint &cp = control_points[cp_index];
         // only draw the control point if both images have been enabled.
-        if (   helper->GetPanoramaPtr()->getImage(cp.image1Nr).getOptions().active
-            && helper->GetPanoramaPtr()->getImage(cp.image2Nr).getOptions().active)
+        if (   helper->GetPanoramaPtr()->getImage(cp.image1Nr).getActive()
+            && helper->GetPanoramaPtr()->getImage(cp.image2Nr).getActive())
         {
             // draw line control points blue instead of orange.
             bool line = cp.mode != HuginBase::ControlPoint::X_Y;

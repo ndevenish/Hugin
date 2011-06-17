@@ -269,71 +269,75 @@ void HFOVDialog::OnLoadLensParameters(wxCommandEvent & e)
     Lens lens;
     lens.setImageSize(m_srcImg.getSize());
 
-    VariableMap vars;
-    // init variable map
-    fillVariableMap(vars);
-    ImageOptions opts;
+    bool cropped=false;
+    bool autoCenterCrop=false;
+    vigra::Rect2D cropRect;
 
-    if (LoadLensParametersChoose(this, lens, vars, opts)) {
+    if (LoadLensParametersChoose(this, lens, cropped, autoCenterCrop, cropRect)) {
         m_HFOV = lens.getHFOV();
         m_cropFactor = lens.getCropFactor();
 
         m_srcImg.setExifCropFactor(lens.getCropFactor());
         m_srcImg.setExifFocalLength(lens.getFocalLength());
-        m_srcImg.setHFOV(const_map_get(vars,"v").getValue());
+        m_srcImg.setHFOV(const_map_get(lens.variables,"v").getValue());
         m_srcImg.setProjection((SrcPanoImage::Projection) lens.getProjection());
 
         m_focalLength = calcFocalLength(m_srcImg.getProjection(), m_HFOV, m_cropFactor, m_srcImg.getSize());
 
         // geometrical distortion correction
         std::vector<double> radialDist(4);
-        radialDist[0] = const_map_get(vars,"a").getValue();
-        radialDist[1] = const_map_get(vars,"b").getValue();
-        radialDist[2] = const_map_get(vars,"c").getValue();
+        radialDist[0] = const_map_get(lens.variables,"a").getValue();
+        radialDist[1] = const_map_get(lens.variables,"b").getValue();
+        radialDist[2] = const_map_get(lens.variables,"c").getValue();
         radialDist[3] = 1 - radialDist[0] - radialDist[1] - radialDist[2];
         m_srcImg.setRadialDistortion(radialDist);
         FDiff2D t;
-        t.x = const_map_get(vars,"d").getValue();
-        t.y = const_map_get(vars,"e").getValue();
+        t.x = const_map_get(lens.variables,"d").getValue();
+        t.y = const_map_get(lens.variables,"e").getValue();
         m_srcImg.setRadialDistortionCenterShift(t);
-        t.x = const_map_get(vars,"g").getValue();
-        t.y = const_map_get(vars,"t").getValue();
+        t.x = const_map_get(lens.variables,"g").getValue();
+        t.y = const_map_get(lens.variables,"t").getValue();
         m_srcImg.setShear(t);
 
     // vignetting
-        m_srcImg.setVigCorrMode(opts.m_vigCorrMode);
-        m_srcImg.setFlatfieldFilename(opts.m_flatfield);
         std::vector<double> vigCorrCoeff(4);
-        vigCorrCoeff[0] = const_map_get(vars,"Va").getValue();
-        vigCorrCoeff[1] = const_map_get(vars,"Vb").getValue();
-        vigCorrCoeff[2] = const_map_get(vars,"Vc").getValue();
-        vigCorrCoeff[3] = const_map_get(vars,"Vd").getValue();
+        vigCorrCoeff[0] = const_map_get(lens.variables,"Va").getValue();
+        vigCorrCoeff[1] = const_map_get(lens.variables,"Vb").getValue();
+        vigCorrCoeff[2] = const_map_get(lens.variables,"Vc").getValue();
+        vigCorrCoeff[3] = const_map_get(lens.variables,"Vd").getValue();
         m_srcImg.setRadialVigCorrCoeff(vigCorrCoeff);
-        t.x = const_map_get(vars,"Vx").getValue();
-        t.y = const_map_get(vars,"Vy").getValue();
+        t.x = const_map_get(lens.variables,"Vx").getValue();
+        t.y = const_map_get(lens.variables,"Vy").getValue();
         m_srcImg.setRadialVigCorrCenterShift(t);
 
 //        m_srcImg.setExposureValue(const_map_get(vars,"Eev").getValue());
-        m_srcImg.setWhiteBalanceRed(const_map_get(vars,"Er").getValue());
-        m_srcImg.setWhiteBalanceBlue(const_map_get(vars,"Eb").getValue());
+        m_srcImg.setWhiteBalanceRed(const_map_get(lens.variables,"Er").getValue());
+        m_srcImg.setWhiteBalanceBlue(const_map_get(lens.variables,"Eb").getValue());
 
         std::vector<float> resp(5);
-        resp[0] = const_map_get(vars,"Ra").getValue();
-        resp[1] = const_map_get(vars,"Rb").getValue();
-        resp[2] = const_map_get(vars,"Rc").getValue();
-        resp[3] = const_map_get(vars,"Rd").getValue();
-        resp[4] = const_map_get(vars,"Re").getValue();
+        resp[0] = const_map_get(lens.variables,"Ra").getValue();
+        resp[1] = const_map_get(lens.variables,"Rb").getValue();
+        resp[2] = const_map_get(lens.variables,"Rc").getValue();
+        resp[3] = const_map_get(lens.variables,"Rd").getValue();
+        resp[4] = const_map_get(lens.variables,"Re").getValue();
         m_srcImg.setEMoRParams(resp);
 
-        if (!opts.docrop) {
+        if (!cropped)
+        {
             m_srcImg.setCropMode(SrcPanoImage::NO_CROP);
-        } else if (m_srcImg.getProjection() == SrcPanoImage::CIRCULAR_FISHEYE || m_srcImg.getProjection() == SrcPanoImage::FISHEYE_THOBY) {
-            m_srcImg.setCropMode(SrcPanoImage::CROP_CIRCLE);
-            m_srcImg.setCropRect(opts.cropRect);
-        } else {
-            m_srcImg.setCropMode(SrcPanoImage::CROP_RECTANGLE);
-            m_srcImg.setCropRect(opts.cropRect);
         }
+        else
+        {
+            if (m_srcImg.isCircularCrop())
+            {
+                m_srcImg.setCropMode(SrcPanoImage::CROP_CIRCLE);
+            }
+            else
+            {
+                m_srcImg.setCropMode(SrcPanoImage::CROP_RECTANGLE);
+            };
+            m_srcImg.setCropRect(cropRect);
+        };
 
         // display in GUI
         m_focalLengthStr = doubleTowxString(m_focalLength,2);

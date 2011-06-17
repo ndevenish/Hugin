@@ -160,7 +160,7 @@ void GLPreviewRenderer::Redraw()
     for (int img = imgs - 1; img != -1; img--)
     {
         // only draw active images
-        if (m_pano->getImage(img).getOptions().active)
+        if (m_pano->getImage(img).getActive())
         {
             // the tools can cancel drawing of images.
             if (m_tool_helper->BeforeDrawImageNumber(img))
@@ -285,7 +285,7 @@ void GLPanosphereOverviewRenderer::Redraw()
     for (int img = imgs - 1; img != -1; img--)
     {
         // only draw active images
-        if (m_pano->getImage(img).getOptions().active)
+        if (m_pano->getImage(img).getActive())
         {
             // the tools can cancel drawing of images.
             if (m_tool_helper->BeforeDrawImageNumber(img))
@@ -334,7 +334,7 @@ void GLPanosphereOverviewRenderer::Redraw()
     for (int img = imgs - 1; img != -1; img--)
     {
         // only draw active images
-        if (m_pano->getImage(img).getOptions().active)
+        if (m_pano->getImage(img).getActive())
         {
             // the tools can cancel drawing of images.
             if (m_tool_helper->BeforeDrawImageNumber(img))
@@ -465,7 +465,7 @@ void GLPlaneOverviewRenderer::Redraw()
     for (int img = imgs - 1; img != -1; img--)
     {
         // only draw active images
-        if (m_pano->getImage(img).getOptions().active)
+        if (m_pano->getImage(img).getActive())
         {
             // the tools can cancel drawing of images.
             if (m_tool_helper->BeforeDrawImageNumber(img))
@@ -489,7 +489,7 @@ void GLPlaneOverviewRenderer::Redraw()
     for (int img = imgs - 1; img != -1; img--)
     {
         // only draw active images
-        if (m_pano->getImage(img).getOptions().active)
+        if (m_pano->getImage(img).getActive())
         {
             // the tools can cancel drawing of images.
             if (m_tool_helper->BeforeDrawImageNumber(img))

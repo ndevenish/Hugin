@@ -221,7 +221,7 @@ double ImgInfo::defaultValues[] = {51.0,  0.0, 0.0, 0.0,  0.0, 0.0,  0.0, 0.0,  
     
 void ImgInfo:: init()
 {
-    blend_radius = 0;
+    // blend_radius = 0;
     width = -1;
     height = -1;
     f = -2;
@@ -249,7 +249,7 @@ void ImgInfo::parse(const std::string & line)
         getPTDoubleParam(vars[*v], links[*v], line, name);
     }
     
-    getIntParam(blend_radius, line, "u");
+    // getIntParam(blend_radius, line, "u");
     
     // read lens type and hfov
     getIntParam(f, line, "f");

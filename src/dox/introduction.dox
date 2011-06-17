@@ -21,9 +21,6 @@ This page will give a short overview about some aspects of Hugins source code.
 
    If you want to modify several parameters in one rush, use a HuginBase::VariableMapVector instead.
 
-   Deprecated: Don't use getOptions() or setOptions() to access some parameters via ImageOptions. 
-   This class will be removed in future. It is supercedes by the get* and set* methodes.
-   
 \subsection coordTransform Coordination transformation
    If you need to transform coordinates from image to panorama space or vice versa, 
    use HuginBase::PTools::Transform.

@@ -27,28 +27,8 @@
 #include <algorithms/nona/FitPanorama.h>
 #include <algorithms/nona/CenterHorizontally.h>
 
-//#include <fstream>
-//#include <algorithm>
-//#include <ctime>
-//
-//#include <boost/random.hpp>
-//
-//#include <vigra/convolution.hxx>
-//#include <vigra/impex.hxx>
-//#include <vigra_ext/impexalpha.hxx>
-////#include <common/math.h>
-//
-//#include <vigra_ext/VignettingCorrection.h>
-//#include <vigra_ext/Pyramid.h>
-//#include <vigra_ext/impexalpha.hxx>
-//
-//#include <panodata/PanoImage.h>
-////#include <panotools/PanoToolsInterface.h>
-
-
 namespace HuginBase
 {
-
 
 bool PointSampler::runAlgorithm()
 {

@@ -497,43 +497,20 @@ void AssistantPanel::OnLoadLens(wxCommandEvent & e)
 {
     unsigned int imgNr = 0;
     unsigned int lensNr = m_variable_groups->getLenses().getPartNumber(imgNr);
-    Lens lens = m_variable_groups->getLensForImage(imgNr);
-    VariableMap vars = m_pano->getImageVariables(imgNr);
-    ImageOptions imgopts = m_pano->getImage(imgNr).getOptions();
-
-    if (LoadLensParametersChoose(this, lens, vars, imgopts)) {
-        /** @todo maybe this isn't the best way to load the lens data.
-         * Check with LoadLensParamtersChoose how this is done, and use only
-         * the image variables, rather than merging in the lens ones.
-         */
-        for (LensVarMap::iterator it = lens.variables.begin();
-             it != lens.variables.end(); it++)
+    // get all images with the current lens.
+    UIntSet imgs;
+    for (unsigned int i = 0; i < m_pano->getNrOfImages(); i++)
+    {
+        if (m_variable_groups->getLenses().getPartNumber(i) == lensNr)
         {
-            vars.insert(pair<std::string, HuginBase::Variable>(
-                        it->first,
-                        HuginBase::Variable(it->second.getName(),
-                                            it->second.getValue() )
-                    ));
-        }
-        /** @todo I think the sensor size should be copied over,
-         * but SrcPanoImage doesn't have such a variable yet.
-         */
-        std::vector<PanoCommand*> commands;
-        commands.push_back(new PT::UpdateImageVariablesCmd(*m_pano, imgNr, vars));
-        // get all images with the current lens.
-        UIntSet imgs;
-        for (unsigned int i = 0; i < m_pano->getNrOfImages(); i++) {
-            if (m_variable_groups->getLenses().getPartNumber(i) == lensNr) {
-                imgs.insert(i);
-            }
-        }
-
-        // set image options.
-        commands.push_back(new PT::SetImageOptionsCmd(*m_pano, imgopts, imgs) );
-        GlobalCmdHist::getInstance().addCommand(
-                new PT::CombinedPanoCommand(*m_pano, commands));
+            imgs.insert(i);
+        };
     }
-
+    PT::PanoCommand* cmd=NULL;
+    if(ApplyLensParameters(this,m_pano,imgs,cmd))
+    {
+        GlobalCmdHist::getInstance().addCommand(cmd);
+    };
 }
 
 void AssistantPanel::OnExifToggle (wxCommandEvent & e)
@@ -551,7 +528,6 @@ void AssistantPanel::OnExifToggle (wxCommandEvent & e)
                 srcImg.setHFOV(50);
             }
         }
-                //initLensFromFile(pano.getImage(imgNr).getFilename().c_str(), c, lens, vars, imgopts, true);
         GlobalCmdHist::getInstance().addCommand(
                 new PT::UpdateSrcImageCmd( *m_pano, imgNr, srcImg)
                                                );

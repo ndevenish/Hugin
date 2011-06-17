@@ -449,16 +449,6 @@ void Panorama::setImageFilename(unsigned int i, const std::string & fname)
     m_forceImagesUpdate = true;
 }
 
-void Panorama::setImageOptions(unsigned int i, const ImageOptions & opts)
-{
-    DEBUG_ASSERT(i < state.images.size());
-    // TODO: recenter crop, if required.
-    state.images[i]->setOptions(opts);
-    imageChanged(i);
-    m_forceImagesUpdate = true;
-}
-
-
 unsigned int Panorama::addCtrlPoint(const ControlPoint & point )
 {
     unsigned int nr = state.ctrlPoints.size();
@@ -735,8 +725,11 @@ void Panorama::printPanoramaScript(std::ostream & o,
                 img.printMaskLines(masklines,ic);
         }
 
+#if 0
+//panotools paramters, currently not used
         o << " u" << output.featherWidth
-          << (img.getOptions().morph ? " o" : "");
+          << (img.getMorph() ? " o" : "");
+#endif
         std::string fname = img.getFilename();
         if (stripPrefix.size() > 0) {
             // strip prefix from image names.
@@ -875,12 +868,15 @@ void Panorama::printStitcherScript(std::ostream & o,
             }
             vit->second.print(o) << " ";
         }
-        o << " u" << target.featherWidth << " m" << img.getOptions().ignoreFrameWidth
-          << (img.getOptions().morph ? " o" : "")
-          << " n\"" << img.getFilename() << "\"";
-        if (img.getOptions().docrop) {
+#if 0
+// panotools parameters, currently not used 
+        o << " u" << img.getFeatureWidth() 
+          << (img.getMorph() ? " o" : "");
+#endif
+        o << " n\"" << img.getFilename() << "\"";
+        if (img.getCropMode()!=SrcPanoImage::NO_CROP) {
             // print crop parameters
-            vigra::Rect2D c = img.getOptions().cropRect;
+            vigra::Rect2D c = img.getCropRect();
             o << " S" << c.left() << "," << c.right() << "," << c.top() << "," << c.bottom();
         }
         o << std::endl;
@@ -1353,8 +1349,7 @@ void Panorama::updateCropMode(unsigned int imgNr)
     }
     else
     {
-        if (state.images[imgNr]->getProjection() == SrcPanoImage::CIRCULAR_FISHEYE || 
-            state.images[imgNr]->getProjection() == SrcPanoImage::FISHEYE_THOBY)
+        if (state.images[imgNr]->isCircularCrop())
         {
             state.images[imgNr]->setCropMode(SrcPanoImage::CROP_CIRCLE);
         }
@@ -2664,7 +2659,9 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
 #undef image_variable
         new_img.setProjection((SrcPanoImage::Projection) iImgInfo[i].f);
 
+#if 0
         new_img.setFeatherWidth((unsigned int) iImgInfo[i].blend_radius);
+#endif
         
         // is this right?
         new_img.setExifCropFactor(iImgInfo[i].cropFactor);

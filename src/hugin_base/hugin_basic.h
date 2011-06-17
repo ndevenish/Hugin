@@ -75,7 +75,6 @@
 
 #include <panodata/ControlPoint.h>
 #include <panodata/Lens.h>
-#include <panodata/PanoImage.h>
 #include <panodata/Panorama.h>
 #include <panodata/PanoramaOptions.h>
 #include <panodata/PanoramaVariable.h>

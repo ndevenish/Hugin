@@ -166,7 +166,6 @@ SET(hsi_wrappees
   "${HUGIN_BASE_DIR}/appbase/DocumentData.h"
   "${HUGIN_BASE_DIR}/panodata/PanoramaData.h"
   "${HUGIN_BASE_DIR}/panodata/ImageVariable.h"
-  "${HUGIN_BASE_DIR}/panodata/PanoImage.h"
   "${HUGIN_BASE_DIR}/panodata/ImageVariableGroup.h"
   "${HUGIN_BASE_DIR}/panodata/StandardImageVariableGroups.h"
   "${HUGIN_BASE_DIR}/panodata/ImageVariableTranslate.h"

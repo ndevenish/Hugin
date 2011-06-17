@@ -28,7 +28,6 @@
 #include "panoinc_WX.h"
 
 #include "PT/Panorama.h"
-#include "PT/PanoImage.h"
 
 /** A dialog for HFOV
  *

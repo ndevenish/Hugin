@@ -75,7 +75,7 @@ void ViewState::panoramaChanged(HuginBase::PanoramaData &pano)
         HuginBase::SrcPanoImage new_image = m_pano->getSrcImage(img);
         SetSrcImage(img, &new_image);
         // has the enabled state changed in the preview?
-        bool new_active = m_pano->getImage(img).getOptions().active;
+        bool new_active = m_pano->getImage(img).getActive();
         if (new_active != active[img])
         {
             require_draw = true;
@@ -320,7 +320,7 @@ void ViewState::FinishedDraw()
     for (unsigned int img = 0; img < number_of_images; img++)
     {
         img_states[img] = m_pano->getSrcImage(img);
-        active[img] = m_pano->getImage(img).getOptions().active;
+        active[img] = m_pano->getImage(img).getActive();
     }
     opts = m_pano->getOptions();
     

@@ -44,7 +44,6 @@
 #include <hugin_utils/utils.h>
 #include <hugin_math/hugin_math.h>
 #include "PanoramaVariable.h"
-#include "PanoImage.h"
 #include "ImageVariable.h"
 #include "Mask.h"
 
@@ -252,7 +251,10 @@ public:
      * unlike the lazy metaprogrammed equivalent in BaseSrcPanoImage.
      */
     void setCropMode(CropMode val);
-    
+
+    /** returns true, if projection requires cicular crop */
+    bool isCircularCrop();
+
     /** Set the image size in pixels
      * 
      * If we aren't cropping the image, set the size to the entire image 
@@ -303,21 +305,6 @@ public:
      * needed, every time it is called.
      */
     VariableMap getVariableMap() const;
-    
-    
-    /** get the optimisation and stitching options, like PanoImage.
-     * 
-     * @deprecated Do not use: eventually we want to make everything using these to ask for
-     * each wanted variable directly using the get* functions instead.
-     */
-    ImageOptions getOptions() const;
-    
-    /** set the optimisation and stitching options
-     * 
-     * @deprecated: Do not use: switch stuff over to the set* functions instead.
-     */
-    void setOptions(const ImageOptions & opt);
-    
     
     /** try to convert Exif date time string to struct tm 
      *  @return 0, if conversion was sucessfull */

@@ -168,7 +168,4 @@ public:
     virtual bool CanHandle(wxXmlNode *node);
 };
 
-/** load lens parameters from lens ini file */
-bool LoadLensParametersChoose(wxWindow * parent, Lens & lens, VariableMap & vars, ImageOptions & imgopts);
-
 #endif // _LENSPANEL_H

@@ -68,7 +68,7 @@ namespace PTScriptParsing {
         std::map<std::string, double> vars;
         std::map<std::string, int> links;
         int f;
-        int blend_radius;
+        // int blend_radius;
         int width, height;
         int vigcorrMode;
         int responseType;

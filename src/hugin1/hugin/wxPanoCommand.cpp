@@ -172,7 +172,6 @@ void wxAddImagesCmd::execute()
     double focalLength = 0;
 
     Lens lens;
-    ImageOptions imgopts;
     SrcPanoImage srcImg;
     HuginBase::StandardImageVariableGroups variable_groups(pano);
     HuginBase::ImageVariableGroup & lenses = variable_groups.getLenses();

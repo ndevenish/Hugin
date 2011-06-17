@@ -133,13 +133,15 @@ image_variable( ExifExposureTime, double, 0)
 image_variable( ExifDate, std::string, "")
 image_variable( ExifExposureMode, int, 0)
 
+#if 0
 //
-// panotools options
+// panotools options, currently not used
 //
 // width of feather for stitching.
 image_variable( FeatherWidth, unsigned int, 10 )
 // Morph-to-fit using control points.
 image_variable( Morph, bool, false )
+#endif
 
 // mask handling
 // Masks is list of loaded or created textures

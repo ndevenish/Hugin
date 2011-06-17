@@ -57,7 +57,6 @@
 #include <algorithms/StitcherAlgorithm.h>
 #include <panodata/ImageVariableGroup.h>
 #include <panodata/ImageVariableTranslate.h>
-// #include <panodata/PanoImage.h>
 #include <panodata/PanoramaData.h>
 #include <panodata/Panorama.h>
 #include <panodata/SrcPanoImage.h>
@@ -239,7 +238,6 @@ using namespace HuginBase;
 %include <panodata/PanoramaVariable.h>
 %include <panodata/PanoramaOptions.h>
 
-// %include <panodata/PanoImage.h>
 %include <hsi_SrcPanoImage.h>
 // %include <panodata/DestPanoImage.h>
 %include <panodata/ControlPoint.h>

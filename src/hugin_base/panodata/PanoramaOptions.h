@@ -203,7 +203,7 @@ class IMPEX PanoramaOptions
             optimizeReferenceImage = 0;
             gamma = 1.0;
             interpolator = vigra_ext::INTERP_CUBIC;
-            featherWidth = 10;
+            // featherWidth = 10;
             outputFormat = TIFF_m;
             remapAcceleration = MAX_SPEEDUP;
             blendMode = ENBLEND_BLEND;
@@ -359,7 +359,7 @@ class IMPEX PanoramaOptions
         vigra_ext::Interpolator interpolator;
 
         unsigned int optimizeReferenceImage;
-        unsigned int featherWidth;
+        // unsigned int featherWidth;
 
         PTStitcherAcceleration remapAcceleration;
         BlendingMechanism blendMode;

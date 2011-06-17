@@ -37,7 +37,6 @@
 #include <iostream>
 
 #include <hugin_math/Matrix3.h>
-//#include <panodata/PanoImage.h>
 #include <panodata/PanoramaVariable.h>
 #include <panodata/SrcPanoImage.h>
 #include <panodata/ControlPoint.h>
@@ -165,12 +164,6 @@ public:
     *
     */
     virtual void setImageFilename(unsigned int img, const std::string & fname) =0;
-    
-    /** change image properties.
-    * TODO This changes the image variables, right?
-    *      Propagate changes to linked images.
-    */
-    virtual void setImageOptions(unsigned int i, const ImageOptions & opts) =0;
     
     /** mark an image as active or inactive.
     *

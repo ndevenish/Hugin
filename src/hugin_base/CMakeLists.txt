@@ -104,7 +104,6 @@ panodata/ControlPoint.h
 panodata/Lens.h
 panodata/Mask.h
 panodata/PanoramaData.h
-panodata/PanoImage.h
 panodata/Panorama.h
 panodata/PanoramaOptions.h
 panodata/PanoramaVariable.h

@@ -842,41 +842,6 @@ namespace PT {
     //=========================================================================
     //=========================================================================
 
-    /** set image options for a set of images.
-     *  just sets the @p options given for all images in @p imgs
-     */
-    class SetImageOptionsCmd : public PanoCommand
-    {
-    public:
-        SetImageOptionsCmd(Panorama & p, ImageOptions opts, UIntSet imgs)
-            : PanoCommand(p), options(opts), imgNrs(imgs)
-            { };
-
-        virtual bool processPanorama(Panorama& pano)
-            {
-                for (UIntSet::iterator it = imgNrs.begin();
-                     it != imgNrs.end(); ++it)
-                {
-                    pano.setImageOptions(*it, options);
-                }
-                pano.changeFinished();
-
-                return true;
-            }
-        
-        virtual std::string getName() const
-            {
-                return "set image options";
-            }
-
-    private:
-        ImageOptions options;
-        UIntSet imgNrs;
-    };
-
-    //=========================================================================
-    //=========================================================================
-
     /** update source image
      */
     class UpdateSrcImageCmd : public PanoCommand
@@ -941,45 +906,6 @@ namespace PT {
             UIntSet imgNrs;
     };
 
-
-    //=========================================================================
-    //=========================================================================
-
-    /** set image options for a set of images.
-     *  just sets the @p options given for all images in @p imgs
-     */
-    class UpdateImageOptionsCmd : public PanoCommand
-    {
-        public:
-            UpdateImageOptionsCmd(Panorama & p, std::vector<ImageOptions> opts, UIntSet imgs)
-            : PanoCommand(p), options(opts), imgNrs(imgs)
-            {
-                assert(opts.size() == imgs.size());
-            };
-
-            virtual bool processPanorama(Panorama& pano)
-            {
-                int i=0;
-                for (UIntSet::iterator it = imgNrs.begin();
-                     it != imgNrs.end(); ++it)
-                {
-                    pano.setImageOptions(*it, options[i]);
-                    i++;
-                }
-                pano.changeFinished();
-
-                return true;
-            }
-            
-        virtual std::string getName() const
-            {
-                return "set image options";
-            }
-    
-    private:
-            std::vector<ImageOptions> options;
-            UIntSet imgNrs;
-    };
 
     //=========================================================================
     //=========================================================================
@@ -1062,49 +988,6 @@ namespace PT {
 
     //=========================================================================
     //=========================================================================
-
-    /** Set flatfield correction parameters for all images of a lens
-     */
-    class SetVigCorrCmd : public PanoCommand
-    {
-        public:
-            SetVigCorrCmd(Panorama & p, unsigned int imageNr,
-                          unsigned int vigCorrMode, std::vector<double> & coeff,
-                          const std::string & flatfield)
-            : PanoCommand(p), m_imageNr(imageNr),
-              m_mode(vigCorrMode), m_coeff(coeff), m_flat(flatfield)
-            { };
-
-            virtual bool processPanorama(Panorama& pano)
-            {
-                // set data inside panorama options
-                // modify panorama options.
-                PT::ImageOptions opts = pano.getImage(m_imageNr).getOptions();
-                opts.m_vigCorrMode = m_mode;
-                opts.m_flatfield = m_flat;
-                pano.setImageOptions(m_imageNr, opts);
-                pano.changeFinished();
-
-                return true;
-            }
-            
-        virtual std::string getName() const
-            {
-                return "set flatfield correction parameters for all images of a lens";
-            }
-    
-    private:
-            ImageOptions options;
-            unsigned int m_imageNr;
-            unsigned int m_mode;
-            std::vector<double> m_coeff;
-            std::string m_flat;
-    };
-
-
-    //=========================================================================
-    //=========================================================================
-
 
     /** Rotate the panorama
      */

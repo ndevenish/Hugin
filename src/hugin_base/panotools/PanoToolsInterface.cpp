@@ -34,7 +34,6 @@
 #include <set>
 #include <hugin_utils/utils.h>
 #include <hugin_utils/stl_utils.h>
-#include <panodata/PanoImage.h>
 #include <panodata/PanoramaData.h>
 #include <panodata/StandardImageVariableGroups.h>
 

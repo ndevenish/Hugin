@@ -279,7 +279,7 @@ void LensPanel::UpdateLensDisplay ()
 
     // set response type
     XRCCTRL(*this, "lens_val_responseType", wxChoice)->SetSelection(
-            pano->getImage(*m_selectedImages.begin()).getOptions().responseType);
+            pano->getImage(*m_selectedImages.begin()).getResponseType());
 
     for (const char** varname = m_varNames; *varname != 0; ++varname) {
         // update parameters
@@ -779,156 +779,49 @@ void LensPanel::OnSaveLensParameters(wxCommandEvent & e)
 
 void LensPanel::OnLoadLensParameters(wxCommandEvent & e)
 {
-    if (m_selectedImages.size() == 1) {
-        unsigned int imgNr = *(m_selectedImages.begin());
-        Lens lens = variable_groups->getLensForImage(imgNr);
-        VariableMap vars = pano->getImageVariables(imgNr);
-        ImageOptions imgopts = pano->getImage(imgNr).getOptions();
-        if (LoadLensParametersChoose(this, lens, vars, imgopts)) {
-            // Merge the lens parameters with the image variable map.
-            /** @todo maybe this isn't the best way to get load the lens data.
-             * Check with LoadLensParamtersChoose how this is done, and use only
-             * the image variables, rather than merging in the lens ones.
-             */
-            for (LensVarMap::iterator it = lens.variables.begin();
-                 it != lens.variables.end(); it++)
+    if (m_selectedImages.size() > 0)
+    {
+        UIntSet images=m_selectedImages;
+        if(images.size()==1)
+        {
+            if(wxMessageBox(_("You selected only one image.\nShould the loaded parameters applied to all images with the same lens?"),_("Question"), wxICON_QUESTION | wxYES_NO)==wxYES)
             {
-                vars.insert(pair<std::string, HuginBase::Variable>(
-                            it->first,
-                            HuginBase::Variable(it->second.getName(),
-                                                it->second.getValue() )
-                        ));
-            }
-            /** @todo I think the sensor size should be copied over,
-             * but SrcPanoImage doesn't have such a variable yet.
-             */
-            std::vector<PanoCommand*> cmds;
-            cmds.push_back(new PT::UpdateImageVariablesCmd(*pano, imgNr, vars));
-            // set image options.
-            cmds.push_back(new PT::SetImageOptionsCmd(*pano, imgopts, m_selectedImages));
-            // Set the lens projection type.
-            cmds.push_back(new PT::ChangeImageProjectionCmd(
-                            *pano,
-                            m_selectedImages,
-                            (HuginBase::SrcPanoImage::Projection) lens.getProjection()
-                        ));
-            GlobalCmdHist::getInstance().addCommand(
-                    new PT::CombinedPanoCommand(*pano, cmds)
-                    );
-        }
-    } else {
+                unsigned int lensNr = variable_groups->getLenses().getPartNumber(*images.begin());
+                // get all images with the current lens.
+                for (size_t i = 0; i < pano->getNrOfImages(); i++)
+                {
+                    if (variable_groups->getLenses().getPartNumber(i) == lensNr)
+                    {
+                        images.insert(i);
+                    };
+                };
+            };
+        };
+        vigra::Size2D sizeImg0=pano->getImage(*(images.begin())).getSize();
+        //check if all images have the same size
+        bool differentImageSize=false;
+        for(UIntSet::const_iterator it=images.begin();it!=images.end() && !differentImageSize;it++)
+        {
+            differentImageSize=(pano->getImage(*it).getSize()!=sizeImg0);
+        };
+        if(differentImageSize)
+        {
+            if(wxMessageBox(_("You selected images with different sizes.\nApply lens parameter file can result in unwanted results.\nApply settings anyway?"), _("Error"), wxICON_QUESTION |wxYES_NO)==wxID_NO)
+            {
+                return;
+            };
+        };
+        PT::PanoCommand* cmd=NULL;
+        if(ApplyLensParameters(this,pano,images,cmd))
+        {
+            GlobalCmdHist::getInstance().addCommand(cmd);
+        };
+    }
+    else
+    {
         wxLogError(_("Please select an image and try again"));
     }
 }
-
-
-bool LoadLensParametersChoose(wxWindow * parent, Lens & lens, VariableMap & vars, ImageOptions & imgopts)
-{
-    wxString fname;
-    wxFileDialog dlg(parent,
-                        _("Load lens parameters"),
-                        wxConfigBase::Get()->Read(wxT("/lensPath"),wxT("")), wxT(""),
-                        _("Lens Project Files (*.ini)|*.ini|All files (*.*)|*.*"),
-                        wxFD_OPEN, wxDefaultPosition);
-    dlg.SetDirectory(wxConfigBase::Get()->Read(wxT("/lensPath"),wxT("")));
-    if (dlg.ShowModal() == wxID_OK) {
-        fname = dlg.GetPath();
-        wxConfig::Get()->Write(wxT("/lensPath"), dlg.GetDirectory());  // remember for later
-        // read with with standart C numeric format
-        char * p = setlocale(LC_NUMERIC,NULL);
-        char * old_locale = strdup(p);
-        setlocale(LC_NUMERIC,"C");
-        {
-            wxFileConfig cfg(wxT("hugin lens file"),wxT(""),fname);
-            long w=0;
-            cfg.Read(wxT("Lens/image_width"), &w);
-            long h=0;
-            cfg.Read(wxT("Lens/image_height"), &h);
-            if (w>0 && h>0) {
-                vigra::Size2D sz = lens.getImageSize();
-                if (w != sz.x || h != sz.y) {
-                    cerr << "Image size: " << sz << " size in lens parameter file: " << w << "x" << h << std::endl;
-                    int ret = wxMessageBox(_("Incompatible lens parameter file, image sizes do not match\nApply settings anyway?"), _("Error loading lens parameters"), wxICON_QUESTION |wxYES_NO);
-                    if (ret == wxNO) {
-                        setlocale(LC_NUMERIC,old_locale);
-                        free(old_locale);
-                        return false;
-                    }
-                }
-            } else {
-                // lens ini file didn't store the image size,
-                // assume everything is all right.
-            }
-            long integer=0;
-            cfg.Read(wxT("Lens/type"), &integer);
-            lens.setProjection ((Lens::LensProjectionFormat) integer);
-            double d=1;
-            cfg.Read(wxT("Lens/crop"), &d);
-            lens.setCropFactor(d);
-            d=50;
-            cfg.Read(wxT("Lens/hfov"), &d);
-            map_get(vars,"v").setValue(d);
-            DEBUG_DEBUG("read lens hfov: " << d);
-
-            // loop to load lens variables
-            const char ** varname = Lens::variableNames;
-            while (*varname) {
-                if (string(*varname) == "Eev") {
-                    varname++;
-                    continue;
-                }
-                wxString key(wxT("Lens/"));
-                key.append(wxString(*varname, wxConvLocal));
-                d = 0;
-                if (cfg.Read(key,&d)) {
-                    // only set value if variabe was found in the script
-                    map_get(vars,*varname).setValue(d);
-                    map_get(lens.variables, *varname).setValue(d);
-
-                    integer = 1;
-                    key.append(wxT("_link"));
-                    cfg.Read(key, &integer);
-                    map_get(lens.variables, *varname).setLinked(integer != 0);
-                }
-                varname++;
-            }
-            long vigCorrMode=0;
-            cfg.Read(wxT("Lens/vigCorrMode"), &vigCorrMode);
-            imgopts.m_vigCorrMode = vigCorrMode;
-
-            wxString flatfield;
-            bool readok = cfg.Read(wxT("Lens/flatfield"), &flatfield);
-            if (readok) {
-                imgopts.m_flatfield = std::string((const char *)flatfield.mb_str(HUGIN_CONV_FILENAME));
-            }
-
-            // TODO: crop parameters
-            long v=0;
-            cfg.Read(wxT("Lens/crop/enabled"), &v);
-            imgopts.docrop = v != 0;
-            v=1;
-            cfg.Read(wxT("Lens/crop/autoCenter"), &v);
-            imgopts.autoCenterCrop = v != 0;
-            long left=0;
-            cfg.Read(wxT("Lens/crop/left"), &left);
-            long top=0;
-            cfg.Read(wxT("Lens/crop/top"), &top);
-            long right=0;
-            cfg.Read(wxT("Lens/crop/right"), &right);
-            long bottom=0;
-            cfg.Read(wxT("Lens/crop/bottom"), &bottom);
-            imgopts.cropRect.setUpperLeft(vigra::Point2D(left, top));
-            imgopts.cropRect.setLowerRight(vigra::Point2D(right, bottom));
-        }
-        // reset locale
-        setlocale(LC_NUMERIC,old_locale);
-        free(old_locale);
-        return true;
-    } else {
-        return false;
-    }
-}
-
 
 void LensPanel::OnNewLens(wxCommandEvent & e)
 {
