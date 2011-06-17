@@ -150,7 +150,7 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    unsigned int nrImg=pano.getNrOfImages();
+    size_t nrImg=pano.getNrOfImages();
     if (nrImg < 2) 
     {
         cerr << "Panorama should consist of at least two images" << endl;
@@ -162,7 +162,7 @@ int main(int argc, char *argv[])
         cerr << "Panorama should contain at least 3 control point" << endl;
     };
     
-    unsigned int cpremoved1=0;
+    size_t cpremoved1=0;
     UIntSet CPtoRemove;
     // step 1 with pairwise optimisation
     if(!wholePano)

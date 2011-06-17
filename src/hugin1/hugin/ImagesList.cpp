@@ -96,7 +96,7 @@ bool ImagesList::Create(wxWindow* parent, wxWindowID id,
     m_degDigits = wxConfigBase::Get()->Read(wxT("/General/DegreeFractionalDigits"),1);
     m_pixelDigits = wxConfigBase::Get()->Read(wxT("/General/PixelFractionalDigits"),1);
     m_distDigits = wxConfigBase::Get()->Read(wxT("/General/DistortionFractionalDigits"),3);
-    m_singleSelect=(style & wxLC_SINGLE_SEL);
+    m_singleSelect=(style & wxLC_SINGLE_SEL)!=0;
     return true;
 }
 
