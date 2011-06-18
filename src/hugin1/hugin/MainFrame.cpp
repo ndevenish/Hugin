@@ -29,6 +29,7 @@
 #include <exiv2/exif.hpp>
 #include <exiv2/image.hpp>
 
+#include <wx/platinfo.h>
 #include <wx/wfstream.h>
 #include <wx/dir.h>
 #include "panoinc_WX.h"
@@ -242,6 +243,22 @@ bool comparePluginItem(PluginItem item1,PluginItem item2)
         };
     };
 };
+
+bool compareVersion(wxString v1, wxString v2)
+{
+    int res=doj::alphanum_comp(
+        std::string(v1.mb_str(wxConvLocal)),
+        std::string(v2.mb_str(wxConvLocal)));
+    if(res<0)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    };
+};
+
 #endif
 
 MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
@@ -309,6 +326,15 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     SetMenuBar(wxXmlResource::Get()->LoadMenuBar(this, wxT("main_menubar")));
 
 #ifdef HUGIN_HSI
+
+    // if the folder for the storage of custom plugins does not exist, create it
+    wxString p;
+    if(!wxConfigBase::Get()->Read(wxT("/pythonScriptPath"), &p))
+    {
+        wxConfigBase::Get()->Read(wxT("PluginPythonDir"), &p);
+        wxFileName::Mkdir(p,0700,wxPATH_MKDIR_FULL);
+    }
+    
     wxMenuBar* menubar=GetMenuBar();
     // the plugin menu will be generated dynamically
     wxMenu *pluginMenu=new wxMenu();
@@ -330,6 +356,8 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     for(list<PluginItem>::const_iterator it=items.begin();it!=items.end();it++)
     {
         PluginItem item=*it;
+        // skip incompatible plugins
+        if(item.category==_("")){continue;}
         int categoryID=pluginMenu->FindItem(item.category);
         wxMenu* categoryMenu;
         if(categoryID==wxNOT_FOUND)
@@ -347,7 +375,7 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
         pluginID++;
     };
     // show the new menu
-    menubar->Insert(menubar->GetMenuCount()-2,pluginMenu,_("&Plugins"));
+    menubar->Insert(menubar->GetMenuCount()-2,pluginMenu,_("&Actions"));
 
 #else
     GetMenuBar()->Enable(XRCID("action_python_script"), false);
@@ -1713,7 +1741,13 @@ void MainFrame::OnPythonScript(wxCommandEvent & e)
 		     wxConfigBase::Get()->Read(wxT("/lensPath"),wxT("")), wxT(""),
 		     _("Python script (*.py)|*.py|All files (*.*)|*.*"),
 		     wxFD_OPEN, wxDefaultPosition);
-    dlg.SetDirectory(wxConfigBase::Get()->Read(wxT("/pythonScriptPath"),wxT("")));
+    
+    wxString p;
+    if(!wxConfigBase::Get()->Read(wxT("/pythonScriptPath"), &p))
+    {
+        wxConfigBase::Get()->Read(wxT("PluginPythonDir"), &p);
+    }
+    dlg.SetDirectory(p);
 
     if (dlg.ShowModal() == wxID_OK) {
         wxString filename = dlg.GetPath();
@@ -2043,28 +2077,90 @@ PluginItem MainFrame::ReadPluginMetadata(wxFileName filename)
     // read the plugin file and search if it contains meta data
     bool foundCategory=false;
     bool foundName=false;
-    while(!in.Eof() && !(foundCategory && foundName))
+    bool foundAPImin=false;
+    bool foundAPImax=false;
+    bool foundSYS=false;
+    bool wrongAPI=false;
+    wxPlatformInfo a = wxPlatformInfo();
+///    wxString os = a.GetOperatingSystemFamilyName();
+    int os = a.GetOperatingSystemId();
+    wxString sysWin(wxT("win"));
+    wxString sysMac(wxT("mac"));
+    wxString sysNix(wxT("nix"));
+    wxString tagSYS(wxT("@sys"));
+    wxString tagAPImin(wxT("@api-min"));
+    wxString tagAPImax(wxT("@api-max"));
+    wxString tagCategory(wxT("@category"));
+    wxString tagName(wxT("@name"));
+    int pos;
+
+    while(!in.Eof() && !(foundCategory && foundName && foundAPImin && foundAPImax && foundSYS))
     {
         line = text.ReadLine();
-        wxString tag(wxT("@category"));
-        int pos=line.Find(tag);
+        pos=line.Find(tagSYS);
         if(pos!=wxNOT_FOUND)
         {
-            item.category = line.Mid(pos+1+tag.length()).Trim().Trim(false);
+            foundSYS=true;
+            pos=line.Find(sysWin);
+            if((pos!=wxNOT_FOUND)&&(wxOS_WINDOWS&os))
+            {
+                continue;
+            }
+            pos=line.Find(sysMac);
+            if((pos!=wxNOT_FOUND)&&(wxOS_MAC&os))
+            {
+                continue;
+            }
+            pos=line.Find(sysNix);
+            if((pos!=wxNOT_FOUND)&&(wxOS_UNIX&os))
+            {
+                continue;
+            }
+            wrongAPI=true;
+            continue;
+        };
+        pos=line.Find(tagAPImin);
+        if(pos!=wxNOT_FOUND)
+        {
+            foundAPImin=true;
+            wxString min = line.Mid(pos+1+tagAPImin.length()).Trim().Trim(false);
+            if(compareVersion(wxT(HUGIN_API_VERSION),min))
+            {
+                wrongAPI=true;
+            }
+            continue;
+        };
+        pos=line.Find(tagAPImax);
+        if(pos!=wxNOT_FOUND)
+        {
+            foundAPImax=true;
+            wxString max = line.Mid(pos+1+tagAPImax.length()).Trim().Trim(false);
+            if(compareVersion(max,wxT(HUGIN_API_VERSION)))
+            {
+                wrongAPI=true;
+            }
+            continue;
+        };
+        pos=line.Find(tagCategory);
+        if(pos!=wxNOT_FOUND)
+        {
+            item.category = line.Mid(pos+1+tagCategory.length()).Trim().Trim(false);
             foundCategory=true;
             continue;
         };
-        tag=wxT("@name");
-        pos=line.Find(tag);
+        pos=line.Find(tagName);
         if(pos!=wxNOT_FOUND)
         {
-            item.name = line.Mid(pos+1+tag.length()).Trim().Trim(false);
+            item.name = line.Mid(pos+1+tagName.length()).Trim().Trim(false);
             foundName=true;
             continue;
         };
-        // TODO: parse and check API min and API max
     }
 
+    if(wrongAPI)
+    {
+        item.category = _("");
+    }
     return item;
 }
 #endif

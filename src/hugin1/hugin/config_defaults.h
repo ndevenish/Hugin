@@ -167,7 +167,11 @@
 #define HUGIN_ENBLEND_EXE_CUSTOM              true
 #define HUGIN_ENFUSE_EXE_CUSTOM               true
 
+
 #endif
+
+// personal python plugin folder (relative to user home folder)
+#define HUGIN_PLUGIN_PYTHON_DIR               "hugin_python_plugins"
 
 // enblend args
 #define HUGIN_ENBLEND_ARGS                    ""

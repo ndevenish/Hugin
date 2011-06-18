@@ -211,6 +211,32 @@
                       </object>
                       <flag>wxEXPAND</flag>
                     </object>
+                    <object class="sizeritem">
+                      <object class="wxBoxSizer">
+                        <orient>wxHORIZONTAL</orient>
+                        <object class="sizeritem">
+                          <object class="wxStaticText">
+                            <label>Plugin dir:</label>
+                          </object>
+                          <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          <border>5</border>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxTextCtrl" name="prefs_misc_plugins_python_dir"/>
+                          <option>1</option>
+                          <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                          <border>5</border>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxStaticText">
+                            <label>(where you store your customized plugins)</label>
+                          </object>
+                          <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                          <border>5</border>
+                        </object>
+                      </object>
+                      <flag>wxEXPAND</flag>
+                    </object>
                   </object>
                   <flag>wxALL|wxEXPAND</flag>
                   <border>5</border>

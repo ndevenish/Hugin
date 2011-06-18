@@ -36,9 +36,9 @@
 
 # @category Kay's Toolbox
 # @name     Demo Plugin
-# @api-min  2011.1
-# @api-max  2011.2
-
+# @sys win nix
+# @api-max 2011.1.0
+# @api-min 2011.1.0
 
 
 

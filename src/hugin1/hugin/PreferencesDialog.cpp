@@ -31,6 +31,9 @@
 
 #include "base_wx/wxPlatform.h"
 
+#include <wx/utils.h>
+#include <wx/filename.h>
+
 #include "hugin/huginApp.h"
 #include "hugin/config_defaults.h"
 #include "hugin/PreferencesDialog.h"
@@ -466,6 +469,8 @@ void PreferencesDialog::UpdateDisplayData(int panel)
 
         // tempdir
         MY_STR_VAL("prefs_misc_tempdir", cfg->Read(wxT("tempDir"),wxT("")));
+        // python plugin dir
+        MY_STR_VAL("prefs_misc_plugins_python_dir", cfg->Read(wxT("PluginPythonDir"), wxGetHomeDir()+wxFileName::GetPathSeparator()+wxT(HUGIN_PLUGIN_PYTHON_DIR)));
 
     }
 
@@ -671,6 +676,9 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
             cfg->Write(wxT("smartUndo"), HUGIN_SMART_UNDO);
             // projection hints
             cfg->Write(wxT("/GLPreviewFrame/ShowProjectionHints"), HUGIN_SHOW_PROJECTION_HINTS);
+            // python plugin dir
+            cfg->Write(wxT("PluginPythonDir"), wxGetHomeDir()+wxFileName::GetPathSeparator()+wxT(HUGIN_PLUGIN_PYTHON_DIR));
+
         }
         if (noteb->GetSelection() == 1) {
             cfg->Write(wxT("/Assistant/autoAlign"), HUGIN_ASS_AUTO_ALIGN);
@@ -829,6 +837,8 @@ void PreferencesDialog::UpdateConfigData()
     //    cfg->Write(wxT("/CPImageCtrl/CursorType"), MY_G_SPIN_VAL("prefs_cp_CursorType"));
     // tempdir
     cfg->Write(wxT("tempDir"),MY_G_STR_VAL("prefs_misc_tempdir"));
+    // python plugin dir
+    cfg->Write(wxT("PluginPythonDir"),MY_G_STR_VAL("prefs_misc_plugins_python_dir"));
     /////
     /// AUTOPANO
     cpdetector_config_edit.Write(cfg);
