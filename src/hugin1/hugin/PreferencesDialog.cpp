@@ -33,6 +33,7 @@
 
 #include <wx/utils.h>
 #include <wx/filename.h>
+#include <wx/stdpaths.h>
 
 #include "hugin/huginApp.h"
 #include "hugin/config_defaults.h"
@@ -470,7 +471,14 @@ void PreferencesDialog::UpdateDisplayData(int panel)
         // tempdir
         MY_STR_VAL("prefs_misc_tempdir", cfg->Read(wxT("tempDir"),wxT("")));
         // python plugin dir
-        MY_STR_VAL("prefs_misc_plugins_python_dir", cfg->Read(wxT("PluginPythonDir"), wxGetHomeDir()+wxFileName::GetPathSeparator()+wxT(HUGIN_PLUGIN_PYTHON_DIR)));
+        XRCCTRL(*this, "prefs_misc_plugins_python_dir", wxTextCtrl)->SetValue(
+            cfg->Read(wxT("PluginPythonDir"), 
+#ifdef __WXGTK__
+                wxGetHomeDir()
+#else
+                wxStandardPaths::Get().GetUserDataDir()
+#endif
+                +wxFileName::GetPathSeparator()+wxT(HUGIN_PLUGIN_PYTHON_DIR)));
 
     }
 
@@ -677,7 +685,13 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
             // projection hints
             cfg->Write(wxT("/GLPreviewFrame/ShowProjectionHints"), HUGIN_SHOW_PROJECTION_HINTS);
             // python plugin dir
-            cfg->Write(wxT("PluginPythonDir"), wxGetHomeDir()+wxFileName::GetPathSeparator()+wxT(HUGIN_PLUGIN_PYTHON_DIR));
+            cfg->Write(wxT("PluginPythonDir"), 
+#ifdef __WXGTK__
+                wxGetHomeDir()
+#else
+                wxStandardPaths::Get().GetUserDataDir()
+#endif
+                +wxFileName::GetPathSeparator()+wxT(HUGIN_PLUGIN_PYTHON_DIR));
 
         }
         if (noteb->GetSelection() == 1) {
