@@ -51,6 +51,11 @@ PreviewDifferenceTool.h PreviewPanoMaskTool.h PreviewControlPointTool.h
 GreatCircles.h AboutDialog.h LayoutRemapper.h PreviewLayoutLinesTool.h PreviewColorPickerTool.h
 MaskEditorPanel.h MaskImageCtrl.h MaskLoadDialog.h HtmlWindow.h)
 
+IF(BUILD_HSI)
+LIST(APPEND hugin_SOURCES PluginItems.cpp)
+LIST(APPEND hugin_HEADERS PluginItems.h)
+ENDIF()
+
 IF(APPLE)
   if (MAC_SELF_CONTAINED_BUNDLE)
     MESSAGE("TODO: MAC_SELF_CONTAINED_BUNDLE currently broken")

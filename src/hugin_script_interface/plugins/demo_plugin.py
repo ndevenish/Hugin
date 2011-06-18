@@ -36,6 +36,7 @@
 
 # @category Kay's Toolbox
 # @name     Demo Plugin
+# @description Plugin to demonstrate a Python plugin inside Hugin
 # @sys win nix
 # @api-max 2011.1.0
 # @api-min 2011.1.0

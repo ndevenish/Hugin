@@ -77,16 +77,6 @@ private:
     bool m_imageOnly;
 };
 
-#ifdef HUGIN_HSI
-/** structure for generating plugin menu items */
-struct PluginItem
-{
-    wxString category;
-    wxString name;
-    wxFileName filename;
-};
-#endif
-
 /** The main window frame.
  *
  *  It contains the menu & statusbar and a big notebook with
@@ -273,13 +263,10 @@ private:
 #endif
 
 #ifdef HUGIN_HSI
-    /** read the metadata from given Python file */
-    PluginItem ReadPluginMetadata(wxFileName filename);
     // list associating the wxID in the menu with a python script
     std::map<int, wxFileName> m_plugins;
 #endif
 
-        
     DECLARE_EVENT_TABLE()
 };
 

@@ -29,8 +29,6 @@
 #include <exiv2/exif.hpp>
 #include <exiv2/image.hpp>
 
-#include <wx/platinfo.h>
-#include <wx/wfstream.h>
 #include <wx/dir.h>
 #include "panoinc_WX.h"
 #include "panoinc.h"
@@ -72,8 +70,9 @@
 
 #include "hugin/AboutDialog.h"
 
-//for natural sorting
-#include "hugin_utils/alphanum.h"
+#if HUGIN_HSI
+#include "PluginItems.h"
+#endif
 
 using namespace PT;
 using namespace std;
@@ -219,48 +218,6 @@ END_EVENT_TABLE()
 //wxBitmap *p_img = (wxBitmap *) NULL;
 //WX_DEFINE_ARRAY()
 
-#ifdef HUGIN_HSI
-bool comparePluginItem(PluginItem item1,PluginItem item2)
-{
-    int res=doj::alphanum_comp(
-        std::string(item1.category.mb_str(wxConvLocal)),
-        std::string(item2.category.mb_str(wxConvLocal)));
-    if(res<0)
-    {
-        return true;
-    }
-    else
-    {
-        if(res==0)
-        {
-            return (doj::alphanum_comp(
-                std::string(item1.name.mb_str(wxConvLocal)),
-                std::string(item2.name.mb_str(wxConvLocal)))<0);
-        }
-        else
-        {
-            return false;
-        };
-    };
-};
-
-bool compareVersion(wxString v1, wxString v2)
-{
-    int res=doj::alphanum_comp(
-        std::string(v1.mb_str(wxConvLocal)),
-        std::string(v2.mb_str(wxConvLocal)));
-    if(res<0)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    };
-};
-
-#endif
-
 MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     : cp_frame(0), pano(pano), m_doRestoreLayout(false)
 {
@@ -331,8 +288,14 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     wxString p;
     if(!wxConfigBase::Get()->Read(wxT("/pythonScriptPath"), &p))
     {
-        wxConfigBase::Get()->Read(wxT("PluginPythonDir"), &p);
-        wxFileName::Mkdir(p,0700,wxPATH_MKDIR_FULL);
+        // is it really necessary to try to create the dir at each startup? 
+        if(wxConfigBase::Get()->Read(wxT("PluginPythonDir"), &p))
+        {
+            if(!p.IsEmpty())
+            {
+                wxFileName::Mkdir(p,0700,wxPATH_MKDIR_FULL);
+            };
+        };
     }
     
     wxMenuBar* menubar=GetMenuBar();
@@ -347,7 +310,11 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     {
         wxFileName file(dir.GetName(),filename);
         file.MakeAbsolute();
-        items.push_back(ReadPluginMetadata(file));
+        PluginItem item(file);
+        if(item.IsAPIValid())
+        {
+            items.push_back(item);
+        };
         cont=dir.GetNext(&filename);
     };
     items.sort(comparePluginItem);
@@ -357,20 +324,19 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     {
         PluginItem item=*it;
         // skip incompatible plugins
-        if(item.category==_("")){continue;}
-        int categoryID=pluginMenu->FindItem(item.category);
+        int categoryID=pluginMenu->FindItem(item.GetCategory());
         wxMenu* categoryMenu;
         if(categoryID==wxNOT_FOUND)
         {
             categoryMenu=new wxMenu();
-            pluginMenu->AppendSubMenu(categoryMenu,item.category);
+            pluginMenu->AppendSubMenu(categoryMenu,item.GetCategory());
         }
         else
         {
             categoryMenu=pluginMenu->FindItem(categoryID)->GetSubMenu();
         };
-        categoryMenu->Append(pluginID,item.name);
-        m_plugins[pluginID]=item.filename;
+        categoryMenu->Append(pluginID,item.GetName(),item.GetDescription());
+        m_plugins[pluginID]=item.GetFilename();
         Connect(pluginID, wxEVT_COMMAND_MENU_SELECTED,wxCommandEventHandler(MainFrame::OnPlugin));
         pluginID++;
     };
@@ -2058,109 +2024,3 @@ GLPreviewFrame * MainFrame::getGLPreview()
 }
 
 MainFrame * MainFrame::m_this = 0;
-
-#ifdef HUGIN_HSI
-PluginItem MainFrame::ReadPluginMetadata(wxFileName filename)
-{
-    PluginItem item;
-    // use wxWidgets to read the plugin files in search for meta data
-    wxFileInputStream in(filename.GetFullPath());
-    wxTextInputStream text(in);
-    wxString line;
-
-    // default category if nothing else found
-    item.category = _("Miscellaneous");
-    // default plugin name if nothing else found is the file name
-    item.name=filename.GetFullName();
-    item.filename=filename;
-
-    // read the plugin file and search if it contains meta data
-    bool foundCategory=false;
-    bool foundName=false;
-    bool foundAPImin=false;
-    bool foundAPImax=false;
-    bool foundSYS=false;
-    bool wrongAPI=false;
-    wxPlatformInfo a = wxPlatformInfo();
-///    wxString os = a.GetOperatingSystemFamilyName();
-    int os = a.GetOperatingSystemId();
-    wxString sysWin(wxT("win"));
-    wxString sysMac(wxT("mac"));
-    wxString sysNix(wxT("nix"));
-    wxString tagSYS(wxT("@sys"));
-    wxString tagAPImin(wxT("@api-min"));
-    wxString tagAPImax(wxT("@api-max"));
-    wxString tagCategory(wxT("@category"));
-    wxString tagName(wxT("@name"));
-    int pos;
-
-    while(!in.Eof() && !(foundCategory && foundName && foundAPImin && foundAPImax && foundSYS))
-    {
-        line = text.ReadLine();
-        pos=line.Find(tagSYS);
-        if(pos!=wxNOT_FOUND)
-        {
-            foundSYS=true;
-            pos=line.Find(sysWin);
-            if((pos!=wxNOT_FOUND)&&(wxOS_WINDOWS&os))
-            {
-                continue;
-            }
-            pos=line.Find(sysMac);
-            if((pos!=wxNOT_FOUND)&&(wxOS_MAC&os))
-            {
-                continue;
-            }
-            pos=line.Find(sysNix);
-            if((pos!=wxNOT_FOUND)&&(wxOS_UNIX&os))
-            {
-                continue;
-            }
-            wrongAPI=true;
-            continue;
-        };
-        pos=line.Find(tagAPImin);
-        if(pos!=wxNOT_FOUND)
-        {
-            foundAPImin=true;
-            wxString min = line.Mid(pos+1+tagAPImin.length()).Trim().Trim(false);
-            if(compareVersion(wxT(HUGIN_API_VERSION),min))
-            {
-                wrongAPI=true;
-            }
-            continue;
-        };
-        pos=line.Find(tagAPImax);
-        if(pos!=wxNOT_FOUND)
-        {
-            foundAPImax=true;
-            wxString max = line.Mid(pos+1+tagAPImax.length()).Trim().Trim(false);
-            if(compareVersion(max,wxT(HUGIN_API_VERSION)))
-            {
-                wrongAPI=true;
-            }
-            continue;
-        };
-        pos=line.Find(tagCategory);
-        if(pos!=wxNOT_FOUND)
-        {
-            item.category = line.Mid(pos+1+tagCategory.length()).Trim().Trim(false);
-            foundCategory=true;
-            continue;
-        };
-        pos=line.Find(tagName);
-        if(pos!=wxNOT_FOUND)
-        {
-            item.name = line.Mid(pos+1+tagName.length()).Trim().Trim(false);
-            foundName=true;
-            continue;
-        };
-    }
-
-    if(wrongAPI)
-    {
-        item.category = _("");
-    }
-    return item;
-}
-#endif
