@@ -21,13 +21,17 @@ gpl = r"""
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
+# @category Control Points
+# @name     Warped Overlap Analysis
+# @api-min  2011.1
+# @api-max  2011.2
 
 # note that if you want to read the script, it's written bottom-up, so the
 # higher-level routines are towards the end.
 
+import hsi
 import os
 import sys
-import hsi
 import re
 import copy
 import math
@@ -36,13 +40,19 @@ import subprocess
 
 # our very own exception:
 
-class RunTimeError ( Exception ) :
+class WoaError ( Exception ) :
 
     def __init__ ( self , text ) :
         self.text = text
 
     def __str__ ( self ) :
         return self.text
+    
+# verbose-print: print only if args.verbose is set
+
+def vpr ( *x ) :
+    if args.verbose :
+        print ( *x )
     
 # we keep a global variable for arguments - if called from the command
 # line the argument parser will overwrite it, but since a plugin
@@ -86,7 +96,7 @@ class argobj :
             
             self.basename = 'woa'
             self.ceiling = 1.0
-            self.cpg = 'apsc' # 'cpfind'
+            self.cpg = 'cpfind' # changed from 'autopano-sift-c' KFJ 2011-06-15 
             self.margin = 0
             self.prolific = False
             self.scale = 0.25
@@ -97,12 +107,38 @@ class argobj :
 
 args = None
 
-# verbose-print: print only if args.verbose is set
+# require_program is used to check if a required helper program
+# can be used. The test is simple: try call it; if that fails,
+# raise a run time error which terminates woa.
+# command is the program's name. The output is sent to a pipe
+# but the pipe is never read, so it's effectively muted.
 
-def vpr ( *x ) :
-    if args.verbose :
-        print ( *x )
-    
+def require_program ( command ) :
+
+    try :
+        
+        vpr ( 'checking for availability of %s' % command )
+        subject = subprocess.Popen ( args = command ,
+                                     stdout = subprocess.PIPE ,
+                                     stderr = subprocess.PIPE )
+        ignore = subject.communicate()
+
+    except :
+        
+        err = "can't find required program %s" % command
+        raise WoaError ( err )
+
+# check_helpers makes sure all needed helper programs are available.
+# Note that this has to be called after the global args object is
+# initialized, because it is only known then which cpg is used.
+
+def check_helpers() :
+
+    require_program ( 'tiffdump' )
+    require_program ( 'nona' )
+    require_program ( args.cpg )
+
+
 # due to differences in coordinate system for raster and vector graphics
 # if the mask coincides with the left image margin, I have to extend it 
 # by one pixel.
@@ -156,13 +192,25 @@ def normalize ( cart ) :
 
 def get_tiff_offset ( image_file ) :
 
-    p = subprocess.Popen ( shell = True ,
-                           args = 'tiffdump %s' % image_file ,
-                           stdout=subprocess.PIPE )
+    # KFJ 2011-06-15 switching to the default (shell=False)
+    # and the args passed in a sequence instead of a string
+    # also added some error handling
 
+    try :
+        p = subprocess.Popen ( args = [ 'tiffdump' , image_file ] ,
+                               stdout=subprocess.PIPE )
+    except OSError as problem :
+        print ( 'an OS error occured: "%s"\nwhen trying to execute tiffdump\n'
+                % problem.strerror )
+        raise WoaError ( 'tiffdump is missing' )
+        
+
+    # to find the offset values, we have to pick apart tiffdump's
+    # console output:
+    
     output=p.stdout.readlines()
     gleaned = dict()
-
+    
     for tag in output :
         t = tag.strip()
         fieldname = re.match ( r'[^\(]+' , t ) . group(0) . strip()
@@ -170,6 +218,17 @@ def get_tiff_offset ( image_file ) :
         if fieldcontent:
             gleaned [ fieldname ] = fieldcontent.group(2)
 
+    # nothing found at all?
+    
+    if not gleaned :
+        err = 'could not find any TIFF information in %s' % image_file
+        print ( err )
+        raise WoaError ( err )
+
+    # we try to read out the XPosition and YPosition fields in
+    # the TIFF file, If they aren't set, it's simply not a 'cropped
+    # TIFF' and we take them to be zero.
+    
     xpos = float ( gleaned.get ( 'XPosition' , 0 ) )
     ypos = float ( gleaned.get ( 'YPosition' , 0 ) )
     xres = float ( gleaned.get ( 'XResolution' ) )
@@ -673,7 +732,7 @@ def mask_nonoverlaps ( pano , img0 , img1 ) :
             x = p.x
 
         if x is None or y is None :
-            raise RunTimeError ( 'cannot put %s on margin' % p )
+            raise WoaError ( 'cannot put %s on margin' % p )
 
         return point ( x , y )
     
@@ -771,8 +830,14 @@ def mask_nonoverlaps ( pano , img0 , img1 ) :
             include_mask = [ ( p.x , p.y ) for p in points ]
             img0.exclude_masks = []
             img0.include_masks = [ include_mask ]
-            img0.overlap_center = point ( 0.0 , 0.0 )
+            
+            # TODO: using .000001 instead of plain 0.0 is a workaround
+            # as the current reverse transform fails for 0.0
+
+            img0.overlap_center = point ( 0.000001 , 0.000001 )
+            
             # TODO: maybe check here if rotation wouldn't be better
+            
             img0.rotate_overlap_pano = False
             return True
             
@@ -793,7 +858,7 @@ def mask_nonoverlaps ( pano , img0 , img1 ) :
         elif current.inside : # both points are inside
             # check for a crossing to the other side of a very-wide-angle image
             if current.distance ( previous ) >= hop_threshold :
-                raise RunTimeError ( 'hop threshold exceeded, jump to other image margin' )
+                raise WoaError ( 'hop threshold exceeded, jump to other image margin' )
                 # TODO: this isn't dealt with yet, we'd have to create two
                 # crossover points, one for going out and one for coming
                 # back in again.
@@ -956,7 +1021,7 @@ def mask_nonoverlaps ( pano , img0 , img1 ) :
     for xp in crossings :
         success = p0.take_in ( xp.twin )
         if not success :
-            raise RunTimeError ( 'failed to insert crossover point %s' %
+            raise WoaError ( 'failed to insert crossover point %s' %
                                  xp.twin )
 
     outline = []
@@ -1056,8 +1121,8 @@ def mask_nonoverlaps ( pano , img0 , img1 ) :
         for p in m :
             minx = min ( p[0] , minx )
             miny = min ( p[1] , miny )
-            maxx = max ( p[0] , maxx )
-            maxy = max ( p[1] , maxy )
+            maxx = max ( p[0] , maxx ) # KFJ fixed typo min() -> max()
+            maxy = max ( p[1] , maxy ) # KFJ fixed typo min() -> max()
 
     dx = maxx - minx
     dy = maxy - miny
@@ -1203,14 +1268,14 @@ def cps_from_overlap ( pano , a , b ) :
     attach_exclude_masks ( img0 )
     attach_exclude_masks ( img1 )
 
-    # if we're here, the images have qualified for being submitted to the
-    # warped overlap method.
-    # just for the record we write the panorama with the applied exclude
-    # masks to disk
+    # if we're here, the images have qualified for being submitted
+    # to the warped overlap method.
+    # uncomment the next three lines to write this intermediate pto
+    # to disk for debugging purposes:
     
-##    ofs = hsi.ofstream ( 'subset0.pto' )
-##    subpano.writeData ( ofs )
-##    del ofs
+    # ofs = hsi.ofstream ( 'subset0.pto' )
+    # subpano.writeData ( ofs )
+    # del ofs
 
     # we transform the panorama so that:
     # - the assumed center of the overlap is in the center of the pano
@@ -1226,7 +1291,7 @@ def cps_from_overlap ( pano , a , b ) :
 
     # we transform our center point to pano coordinates, which amount
     # to lon/lat since we adjusted the panorama dimensions to 360X180
-    
+
     center = transform_point ( img0.overlap_center , rtf0 )
 
     # now we can use center's coordinates directly to specify the
@@ -1355,8 +1420,6 @@ def cps_from_overlap ( pano , a , b ) :
     # 360x180 equirect, in cropped tiff format, as 30 degree hfov
     # rectilinear so that it doesn't warp them itself.
 
-    # TODO: extend to use more than just the hardcoded one
-
     # KFJ 2011-06-02 Finally I'm happy with a set of settings
     # for cpfind. The sieve2size of 10 is quite generous and I
     # suppose this way up to 250 CPs per pair can be found; if
@@ -1382,7 +1445,7 @@ def cps_from_overlap ( pano , a , b ) :
                     '-o' , warped_pto ,
                     '_%s' % warped_pto ]
 
-    elif args.cpg == 'apsc' :
+    elif args.cpg == 'autopano-sift-c' :
         
         # apsc works just fine like this:
 
@@ -1396,12 +1459,12 @@ def cps_from_overlap ( pano , a , b ) :
 
     else :
 
-        raise RunTimeError ( 'only cpfind and apsc are allowed as CPG' )
+        raise WoaError ( 'only cpfind and apsc are allowed as CPG' )
 
     vpr ( 'cp detection:' , command )    
     retval = subprocess.call ( command )
 
-    # now the CPG has made a panorama for us, and the only thing we
+    ## now the CPG has made a panorama for us, and the only thing we
     # care for from that is the CPs it's generated. Let's get them:
     
     ifs = hsi.ifstream ( warped_pto )
@@ -1469,10 +1532,24 @@ def cps_from_overlap ( pano , a , b ) :
         # on me producing nan (for example when reverse-transforming
         # (0,0)) - so I test here to avoid propagating the nan values
         # into the panorama.
+        # I've changed the places where (0,0) would be fed into the
+        # transform, so I avoid the problem, but maybe it can still
+        # crop up somehow.
         # TODO: remove test if certain that outcome is never nan.
         
-        if math.isnan(x1) or math.isnan(x2) or math.isnan(y1) or math.isnan(y2) :
-            raise RunTimeError ( 'coordinate turned out nan' )
+        if (    math.isnan(x1)
+             or math.isnan(x2)
+             or math.isnan(y1)
+             or math.isnan(y2) ) :
+
+            # Instead of raising an exception I just ignore
+            # the problem for now, skip the point and emit a message.
+      
+            # raise WoaError ( 'coordinate turned out nan' )
+            
+            print ( 'failed to convert pano coordinates %s\n' % cp )
+            print ( 'back to image coordinates. point is ignored' )
+            continue
         
         # - generate a ControlPoint object if the point is inside
         #   the image - sometimes the CPGs produce CPs outside the
@@ -1482,6 +1559,7 @@ def cps_from_overlap ( pano , a , b ) :
              or x2 < 0.0 or x2 > w1
              or y2 < 0.0 or y2 > h1 ) :
             continue
+        
         tcp = hsi.ControlPoint ( a , x1 , y1 , b , x2 , y2 ,
                                  hsi.ControlPoint.X_Y )
         cps_added += 1
@@ -1547,8 +1625,13 @@ def entry ( pano ) :
     global args
     args = argobj()
 
+    # see if all required helper programs are accessible
+    
+    check_helpers()
+
     vpr ( 'entry: parameters used for this run:' )
     vpr ( 'ceiling:' , args.ceiling )
+    vpr ( 'cpg:'     , args.cpg )
     vpr ( 'focus:  ' , args.focus )
     vpr ( 'margin: ' , args.margin )
     vpr ( 'scale:  ' , args.scale )
@@ -1614,7 +1697,7 @@ def main() :
 
     parser.add_argument('-g', '--cpg',
                         metavar='<cpfind or apsc>',
-                        default = 'cpfind',
+                        default = 'cpfind', # KFJ 2011-06-13, was apsc
                         type=str,
                         help='choose which CP generator to use')
 
@@ -1669,7 +1752,7 @@ def main() :
                         action='store_true',
                         help='produce verbose output')
 
-    parser.add_argument('-x', '--exclude',
+    parser.add_argument('-x', '--exclude',       # KFJ 2011-06-02
                         metavar='<image number>',
                         default = [] ,
                         nargs = '+',
@@ -1699,9 +1782,12 @@ def main() :
     # them from everywhere without having to pass them around
     
     global args
-    
     args = parser.parse_args()
 
+    # see if all required helper programs are accessible
+    
+    check_helpers()
+    
     vpr ( 'main: parameters used for this run:' )
     vpr ( 'ceiling:' , args.ceiling )
     vpr ( 'exclude:' , args.exclude )
@@ -1715,24 +1801,24 @@ def main() :
     vpr ( 'ptofile:' , args.input )
     vpr ( 'verbose:' , args.verbose )
 
-    # first we see if we can open the input file
+    # see if we can open the input file
 
     ifs = hsi.ifstream ( args.input )
     if not ifs.good() :
-        raise RunTimeError ( 'cannot open input file %s' % args.input )
+        raise WoaError ( 'cannot open input file %s' % args.input )
 
     pano = hsi.Panorama()
     success = pano.readData ( ifs )
     del ifs
     if success != hsi.DocumentData.SUCCESSFUL :
-        raise RunTimeError ( 'input file %s contains invalid data' % args.input )
+        raise WoaError ( 'input file %s contains invalid data' % args.input )
 
     # let's see if the image numbers passed are correct if there are any
     
     ni = pano.getNrOfImages()
     vpr ( 'found %d images in panorama' % ni )
     if ni < 2 :
-        raise RunTimeError ( 'input file %s contains less than two images'
+        raise WoaError ( 'input file %s contains less than two images'
                              % args.input )
 
     for nr in range ( ni ) :
@@ -1741,19 +1827,19 @@ def main() :
         # check if we can access this image
         # TODO: doublecheck in folder of pto file
         if not os.path.exists ( name ) :
-            raise RunTimeError ( "cannot access image %s (try cd to pto's directory)" % name )
+            raise WoaError ( "cannot access image %s (try cd to pto's directory)" % name )
         vpr ( 'image %d: %s' % ( nr , name ) )
         
     for nr in args.images :
         if nr < 0 or nr >= ni :
-            raise RunTimeError ( 'no image number %d in input file' % nr )
+            raise WoaError ( 'no image number %d in input file' % nr )
 
     if args.focus :
         if not ( 0 <= args.focus < ni ) :
-            raise RunTimeError ( 'invalid focus image %d' % args.focus )
+            raise WoaError ( 'invalid focus image %d' % args.focus )
             
     if args.threshold > args.ceiling :
-        raise RunTimeError ( 'threshold must be below ceiling' )
+        raise WoaError ( 'threshold must be below ceiling' )
             
     # if a separate output file was chosen, we open it now to avoid
     # later disappointments
@@ -1761,7 +1847,7 @@ def main() :
     if args.output:
         ofs = hsi.ofstream ( args.output )
         if not ofs.good() :
-            raise RunTimeError ( 'cannot open output file %s' % args.output )
+            raise WoaError ( 'cannot open output file %s' % args.output )
 
     if len ( args.images ) :
 
@@ -1798,12 +1884,12 @@ def main() :
     if not args.output :
         ofs = hsi.ofstream ( args.input )
         if not ofs.good() :
-            raise RunTimeError ( 'cannot open file %s for output' % args.input )
+            raise WoaError ( 'cannot open file %s for output' % args.input )
 
     success = pano.writeData ( ofs )
     del ofs
     if success != hsi.DocumentData.SUCCESSFUL :
-        raise RunTimeError ( 'error writing pano to %s' % args.input )
+        raise WoaError ( 'error writing pano to %s' % args.input )
     
     # done.
     
@@ -1819,7 +1905,7 @@ if __name__ == "__main__":
 
         total_cps_added = main()
 
-    except RunTimeError as e :
+    except WoaError as e :
 
         print ( 'Run Time Error: %s' % e )
         sys.exit ( -1 )

@@ -1,4 +1,12 @@
 #!/usr/bin/env python
+
+from __future__ import print_function
+
+# @category Control Points
+# @name     keep 5 CPs per image pair
+# @api-min  2011.1
+# @api-max  2011.2
+
 #    top_five.py - keep the five best CPs for each image pair
 
 #    Copyright (C) 2011  Kay F. Jahnke
@@ -16,22 +24,13 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-# since this plugin actually references members of the hsi
-# module (like, hsi.calcCtrlPointErrors below) we need to
-# import hsi to make these names known:
-
-import hsi
-
 # another demo plugin: this one will keep at most five control
 # points per image pair. Selection is by CP error, the points
 # with the smallest error are kept.
 
-def entry ( pano , *args ) :
+def entry ( pano ) :
 
-    # this plugin doesn't take any extra arguments
-
-    if args :
-        print('ignoring extra arguments %s' % str(args))
+    import hsi
 
     # on loading the CP errors are unknown - we have to have them
     # calculated before we can start:
@@ -43,6 +42,9 @@ def entry ( pano , *args ) :
     # with an empty list as value
     
     cpv = pano.getCtrlPoints()
+
+    print ( 'found %d control points' % len ( cpv ) )
+    
     pairs = set ( ( cp.image1Nr , cp.image2Nr ) for cp in cpv )
     cpdict = dict ( ( pair , [] ) for pair in pairs )
 
@@ -64,7 +66,11 @@ def entry ( pano , *args ) :
 
     # finally we attach the new CP vector to the panorama
     
+    print ( 'keeping %d control points' % len ( cpv ) )
     pano.setCtrlPoints ( cpv )
     
     return 0
 
+if __name__ == "__main__":
+
+    print ( 'this script only runs as a hugin plugin.' )

@@ -21,15 +21,21 @@ gpl = r"""
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
+# @category Control Points
+# @name     Crop Control Points
+# @api-min  2011.1
+# @api-max  2011.2
+
 # crop_cps will function as a hugin plugin and as a standalone
-# Python script.
+# Python script. It can also serve as a template for a slightly
+# more involved plugin than the ones in the Examples section.
 
 # Please note that this script tries to use wxPython. This should
 # work on Linux systems that have wxPython istalled, but as far as
 # I know currently it won't work on Windows, and certainly not on
 # Mac OS, where there is currently no hsi/hpi suport. If you want
 # to switch off the use of wxPython, set the default parameter in
-# the entry function to a different value, i.e. change
+# the entry function to a value different from None, i.e. change
 # def entry ( pano , inside = None ) :
 # to
 # def entry ( pano , inside = False ) :
@@ -39,10 +45,9 @@ import sys
 import hsi
 import math
 
-# the CLI version opens and closes files and such, so we make a
-# RunTimeError exception for it.
+# we make an exception for run time errors in this script:
 
-class RunTimeError ( Exception ) :
+class CropCpError ( Exception ) :
 
     def __init__ ( self , text ) :
         self.text = text
@@ -85,6 +90,10 @@ class to_pano :
         if self.tf.transform ( transform_out , transform_in ) :
             return ( transform_out.x , transform_out.y )
 
+        # KFJ 2011-06-19 I've noticed the transform failing
+        # with images that have X, Y or Z values different from 0.
+        # I'm not sure if this is a bug in the transform.
+        
         print ( 'transform failed for %s' % str ( p ) )
         return None
 
@@ -135,8 +144,11 @@ def crop_cps ( pano , inside ) :
         p = ( cp.x1 , cp.y1 )
         img = cp.image1Nr
         tfp = tflist[img].transform ( p )
-        #print ( p , tfp )
-        if inside : # remove CPs inside ROI (or, keep those outside)
+        # KFJ 2011-06-17 If the transform fails, keep the CP
+        # - best to be defensive.
+        if tfp is None :
+            ncpv.append ( cp )
+        elif inside : # remove CPs inside ROI (or, keep those outside)
             if not ( ( left <= tfp[0] <= right ) and ( top <= tfp[1] <= bottom ) ) :
                 ncpv.append ( cp )
         else :
@@ -210,8 +222,6 @@ def entry ( pano , inside = None ) :
         # make the dialog and show it modally:
         ccd = crop_cp_dialog ( None , 'Crop CPs' )
         retval = ccd.ShowModal()
-        #print ( 'retval from ShowModal' , retval )
-        #print ( 'ccd.choice' , ccd.choice )
         # only if Okay was clicked the state of the radio button is used
         if retval == wx.ID_OK :
             if ccd.choice == 0 :
@@ -232,11 +242,12 @@ def entry ( pano , inside = None ) :
 
 def main() :
 
-    # when called from the command line, we import the argparse module
+    # when called from the command line, we import the argparse module.
+    # This may not be part of the standard library on your system.
     
     import argparse
 
-    # and create an argument parser
+    # and create an argument parser.
     
     parser = argparse.ArgumentParser (
         formatter_class=argparse.RawDescriptionHelpFormatter ,
@@ -272,21 +283,21 @@ def main() :
     
     args = parser.parse_args()
 
-    print ( 'output: ' , args.output )
-    # print ( 'thresh: ' , args.threshold )
+    if args.output :
+        print ( 'output: ' , args.output )
     print ( 'ptofile:' , args.input )
 
     # first we see if we can open the input file
 
     ifs = hsi.ifstream ( args.input )
     if not ifs.good() :
-        raise RunTimeError ( 'cannot open input file %s' % args.input )
+        raise CropCpError ( 'cannot open input file %s' % args.input )
 
     pano = hsi.Panorama()
     success = pano.readData ( ifs )
     del ifs
     if success != hsi.DocumentData.SUCCESSFUL :
-        raise RunTimeError ( 'input file %s contains invalid data' % args.input )
+        raise CropCpError ( 'input file %s contains invalid data' % args.input )
 
     # if a separate output file was chosen, we open it now to avoid
     # later disappointments
@@ -294,10 +305,9 @@ def main() :
     if args.output:
         ofs = hsi.ofstream ( args.output )
         if not ofs.good() :
-            raise RunTimeError ( 'cannot open output file %s' % args.output )
+            raise CropCpError ( 'cannot open output file %s' % args.output )
 
-    # we've checked the args, now we call entry(), just like it would be
-    # called by the plugin dispatcher
+    # we've checked the args, now we call crop_cps()
     
     crop_cps ( pano , args.inside )
 
@@ -306,12 +316,12 @@ def main() :
     if not args.output :
         ofs = hsi.ofstream ( args.input )
         if not ofs.good() :
-            raise RunTimeError ( 'cannot open file %s for output' % args.input )
+            raise CropCpError ( 'cannot open file %s for output' % args.input )
 
     success = pano.writeData ( ofs )
     del ofs
     if success != hsi.DocumentData.SUCCESSFUL :
-        raise RunTimeError ( 'error writing pano to %s' % args.input )
+        raise CropCpError ( 'error writing pano to %s' % args.input )
     
     # done.
     
@@ -323,5 +333,5 @@ def main() :
 if __name__ == "__main__":
     try:
         main()
-    except RunTimeError as e :
+    except CropCpError as e :
         print ( 'Run Time Error: %s' % e )

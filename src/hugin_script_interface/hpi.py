@@ -1,3 +1,7 @@
+#! /usr/bin/env python
+
+from __future__ import print_function
+
 # hpi.py - dispatcher for hugin plugins
 #    
 # Copyright (C) 2011  Kay F. Jahnke
@@ -15,26 +19,22 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import print_function
-
-import hsi
 import os
 
 # the dispatcher is currently not very sophisticated. All it does
 # is take the string passed to it in the 'plugin' parameter and
-# tries either to find a file of that name and execute it or
-# to find a module of that name and import it. The file/module
-# is expected to define a function 'entry'.
+# tries to find a file of that name and execute it. The file is
+# expected to define a function 'entry'.
 # If loading succeeds, an attempt is made to call the function
 # entry() with the parameters passed to the dispatcher after
-# the plugin name
+# the plugin name; currently this is always a pointer to the
+# current panorama and nothing else.
 
 def hpi_dispatch ( plugin_name , *args ) :
-    print("dispatcher: loading plugin %s" % plugin_name)
+    print("hpi: accessing plugin file %s" % plugin_name)
     try :
         if os.path.exists ( plugin_name ) :
             # there is a file by that name. let's execute it
-            print("dispatcher: found file %s" % plugin_name)
             # we make an empty dictionary as globals for the plugin
             plugin = dict()
             # and execute the plugin there
@@ -44,19 +44,45 @@ def hpi_dispatch ( plugin_name , *args ) :
             success = plugin [ 'entry' ] ( *args )
             # then we get rid of the dictionary again to free
             # all resources the plugin may have anchored there
+            print ( 'hpi: plugin terminated with exit code %d' % success )
             del plugin
         else :
-	    # no such file. could be a module.
-            print("dispatcher: no file %s, trying import" % plugin_name)
-            plugin = __import__ ( plugin_name )
-            success = plugin.entry ( *args )
-            del plugin
-    except ImportError :
-        print("%s: import of plugin failed" % plugin_name)
-        success = -10
-    except :
-        print("%s: plugin failed with an exception" % plugin_name)
+            # KFJ 2011-06-16 loading plugins as modules is no
+            # longer supported (wasn't used anyway)
+            # missing plugin file is an error:
+            print("hpi: can't find plugin file")
+            success = -10
+
+    # KFJ 2011-06-19 added better exception handling
+    # we catch any exception which may have occured in the plugin:
+    
+    except Exception:
+
+        # to deal with the exception, we import two more modules:
+
+        import sys
+        import traceback
+        
+        # first we retrieve the details of the exception:
+
+        exc_type, exc_value, exc_traceback = sys.exc_info()
+
+        # emit a message with the type and text of the exception:
+        
+        print('hpi: plugin %s failed with %s: "%s"'
+              % (os.path.basename(plugin_name),
+                 exc_type.__name__,
+                 exc_value) )
+
+        # and, for good measure, a stack traceback to point
+        # to the precise location and call history of the error:
+        
+        print ( 'hpi: stack traceback:' )
+        traceback.print_tb ( exc_traceback )
+
         success = -11
+
+    print ( 'hpi: terminating with exit code %d' % success )
     return success
 
 # The remainder of the file is not needed for calling from hugin.
@@ -70,24 +96,29 @@ def hpi_dispatch ( plugin_name , *args ) :
 
 if __name__ == "__main__":
 
-    # this means hpi.py has been called standalone rather than
-    # having been imported as a module. In this case we want to
-    # look at the argument vector:
-    
     import sys
+    import hsi
+
+    # hpi.py has been called standalone rather than having been
+    # mported as a module. In this case we want to look at the
+    # argument vector:
+
     if len ( sys.argv ) < 3 :
-        print("use: hpi panorama.pto plugin.py [plugin args]")
+        print("use: %s panorama.pto plugin.py [plugin args]"
+              % sys.argv[0])
         sys.exit ( -12 )
 
     # okay, there are some arguments, let's go ahead and try
-    # opening the first as a panorama.
+    # opening the first one as a panorama.
     
     p = hsi.Panorama()
     ifs = hsi.ifstream ( sys.argv[1] )
     if not ifs.good() :
         print("failed to open %s" % sys.argv[1])
         sys.exit ( -13 )
-    
+
+    # next, make the panorama object read the file
+
     if p.readData ( ifs ) != hsi.DocumentData.SUCCESSFUL :
         print("failed to read panorama data from %s" % sys.argv[1])
         sys.exit ( -14 )
@@ -99,10 +130,11 @@ if __name__ == "__main__":
     
     success = hpi_dispatch ( sys.argv[2] , p , *(sys.argv[3:]) )
 
-    # currently the data aren't written back, but you could do
-    # so by setting writeback to True:
+    # KFJ 2011-06-19 changed writeback to True, so that hpi.py
+    # can be used to execute hugin plugins on the command line
+    # and the result is written back to the pto file.
 
-    writeback = False
+    writeback = True
 
     if writeback :
 
