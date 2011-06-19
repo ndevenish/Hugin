@@ -11,7 +11,7 @@ relHuginApp="../../Hugin.app/Contents"
 #------------------------------------------------
 
 # First PTBatcherGui
-PTBGbins="align_image_stack autooptimiser celeste_standalone checkpto cpclean cpfind hugin_hdrmerge icpfind nona pano_modify PTblender PTmasker PTmender PToptimizer PTroller enfuse enblend gnumake"
+PTBGbins="align_image_stack autooptimiser celeste_standalone checkpto cpclean cpfind hugin_hdrmerge icpfind nona pano_modify PTblender PTmasker PTmender PToptimizer PTroller enfuse enblend gnumake open"
 cd "$PTBatcherGuiApp/MacOS"
 for binary in $PTBGbins
 do 

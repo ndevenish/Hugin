@@ -1186,7 +1186,34 @@ void PanoPanel::DoSendToBatch()
         };
 
 #if defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
-        wxExecute(wxT("open -b net.sourceforge.hugin.PTBatcherGUI  --args ")+switches+wxQuoteFilename(projectFile)+wxT(" ")+wxQuoteFilename(dlg.GetPath()));
+		int osVersionMajor;
+		int osVersionMinor;
+		wxString args;
+		
+		int os = wxGetOsVersion(&osVersionMajor, &osVersionMinor);
+		
+		if ((osVersionMajor == 0x10) && (osVersionMinor >= 0x50))
+		{ //This is Leopard and Snow Leopard. Use the bundles Snow Leopard open command
+			//wxExecute(wxT("open -b net.sourceforge.hugin.PTBatcherGUI  --args ")+switches+wxQuoteFilename(projectFile)+wxT(" ")+wxQuoteFilename(dlg.GetPath()));
+
+			wxString cmd = MacGetPathToBundledExecutableFile(CFSTR("open"));  
+			if(cmd != wxT(""))
+			{
+				cmd = wxQuoteString(cmd); 
+				args = wxT("-b net.sourceforge.hugin.PTBatcherGUI --args ")+switches+wxQuoteFilename(projectFile)+wxT(" ")+wxQuoteFilename(dlg.GetPath());
+			}
+			else
+			{
+				wxMessageBox(wxString::Format(_("External program %s not found in the bundle, reverting to system path"), wxT("open")), _("Error"));
+				args = _T("-b net.sourceforge.hugin.PTBatcherGUI ")+wxQuoteFilename(projectFile);
+				cmd = wxT("open");  
+			}
+			cmd += wxT(" ") + args;	
+			wxExecute(cmd);
+		} 
+		else { //This is Tiger
+			wxExecute(_T("open -b net.sourceforge.hugin.PTBatcherGUI "+wxQuoteFilename(projectFile)));
+		}
 #else
 #ifdef __WINDOWS__
         wxString huginPath = getExePath(wxGetApp().argv[0])+wxFileName::GetPathSeparator();

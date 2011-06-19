@@ -768,6 +768,8 @@
 		57EA84720C3A8AB400E4965E /* CalculateMeanExposure.h in Headers */ = {isa = PBXBuildFile; fileRef = 57EA84700C3A8AB400E4965E /* CalculateMeanExposure.h */; };
 		57EA97D90C3A940500E4965E /* RotatePanorama.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57EA97D70C3A940500E4965E /* RotatePanorama.cpp */; };
 		57EA97DA0C3A940500E4965E /* RotatePanorama.h in Headers */ = {isa = PBXBuildFile; fileRef = 57EA97D80C3A940500E4965E /* RotatePanorama.h */; };
+		7302E00813ADEE4700700CD0 /* open in Copy Executable Files */ = {isa = PBXBuildFile; fileRef = 7302E00713ADEE1200700CD0 /* open */; };
+		7302E00913ADEE6500700CD0 /* open in Copy Executable Files */ = {isa = PBXBuildFile; fileRef = 7302E00713ADEE1200700CD0 /* open */; };
 		731006C7126CAA0D00358FDA /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73D24B641061556700B8A25D /* AGL.framework */; };
 		731006C8126CAA0D00358FDA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73A964B2124F41870044E1DC /* Cocoa.framework */; };
 		731006C9126CAA0D00358FDA /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73C0DBA51046EAC700CB55B7 /* GLUT.framework */; };
@@ -2942,6 +2944,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 6;
 			files = (
+				7302E00813ADEE4700700CD0 /* open in Copy Executable Files */,
 				737E498011D3FD74002BA8AE /* align_image_stack in Copy Executable Files */,
 				7359F235126A191100D3291B /* autooptimiser in Copy Executable Files */,
 				7359F236126A191100D3291B /* celeste_standalone in Copy Executable Files */,
@@ -3029,6 +3032,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 6;
 			files = (
+				7302E00913ADEE6500700CD0 /* open in Copy Executable Files */,
 				738A87A0126AEAB000DC20B6 /* align_image_stack in Copy Executable Files */,
 				738A880B126AEF9F00DC20B6 /* autooptimiser in Copy Executable Files */,
 				738A8803126AEF5400DC20B6 /* celeste_standalone in Copy Executable Files */,
@@ -3530,6 +3534,7 @@
 		57EA97D80C3A940500E4965E /* RotatePanorama.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = RotatePanorama.h; path = algorithms/basic/RotatePanorama.h; sourceTree = "<group>"; };
 		57F7B2150C521B7C00E0C537 /* hugin1.pch */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = hugin1.pch; sourceTree = "<group>"; };
 		57FD3E5E06E98ED50070426B /* pano13 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = pano13; sourceTree = "<group>"; };
+		7302E00713ADEE1200700CD0 /* open */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = open; path = /usr/bin/open; sourceTree = "<absolute>"; };
 		7307F826131A91A400B864F9 /* autooptimiser-static */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "autooptimiser-static"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7309D40B125B9893007D4719 /* cpfind */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = cpfind; sourceTree = BUILT_PRODUCTS_DIR; };
 		730B1AE81139B2B20014462B /* MaskLoadDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaskLoadDialog.h; sourceTree = "<group>"; };
@@ -5461,6 +5466,7 @@
 		5745FC05094E1D5400E6B672 /* External */ = {
 			isa = PBXGroup;
 			children = (
+				7302E00613ADE56600700CD0 /* Snow Leopard binaries */,
 				5749F84D067B601A00A6EDD4 /* Mac OS SDK */,
 				73EAB5250E86CEA90020D514 /* lib-static */,
 				5745FBE5094E1C4700E6B672 /* repository */,
@@ -6219,6 +6225,14 @@
 				734FC450139B83A4007B675D /* lens_calibrate_gui-Info copy 2.plist */,
 				73B1AD0713A6A0B0006A3C54 /* _hsi-Info.plist */,
 			);
+			sourceTree = "<group>";
+		};
+		7302E00613ADE56600700CD0 /* Snow Leopard binaries */ = {
+			isa = PBXGroup;
+			children = (
+				7302E00713ADEE1200700CD0 /* open */,
+			);
+			name = "Snow Leopard binaries";
 			sourceTree = "<group>";
 		};
 		7332AE550D8D491B002BF5FF /* matchpoint */ = {
