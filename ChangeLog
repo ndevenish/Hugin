@@ -1,3 +1,973 @@
+2011-06-19 22:16 +0100  Bruno Postle <bruno@postle.net>  (84e37554ce38)  tip
+
+	merge
+
+	> src/translations/bg.po
+	> src/translations/ca_ES.po
+	> src/translations/cs_CZ.po
+	> src/translations/de.po
+	> src/translations/en_GB.po
+	> src/translations/es.po
+	> src/translations/fi.po
+	> src/translations/fr.po
+	> src/translations/hu.po
+	> src/translations/hugin.pot
+	> src/translations/it.po
+	> src/translations/ja.po
+	> src/translations/ko.po
+	> src/translations/nl.po
+	> src/translations/pl.po
+	> src/translations/pt_BR.po
+	> src/translations/ro.po
+	> src/translations/ru.po
+	> src/translations/sk.po
+	> src/translations/sl.po
+	> src/translations/sv.po
+	> src/translations/uk.po
+	> src/translations/zh_CN.po
+	> src/translations/zh_TW.po
+
+2011-06-19 22:14 +0100  Bruno Postle <bruno@postle.net>  (94055f97478d)  
+
+	Disable creation of arithmetic coded JPEG output
+
+	> src/foreign/vigra/vigra_impex/jpeg.cxx
+
+2011-06-19 17:11 -0400  Yuval Levy <yuv@users.sourceforge.net>  (5a03b72ae067)  
+
+	updated translations
+
+	> src/translations/bg.po
+	> src/translations/ca_ES.po
+	> src/translations/cs_CZ.po
+	> src/translations/de.po
+	> src/translations/en_GB.po
+	> src/translations/es.po
+	> src/translations/fi.po
+	> src/translations/fr.po
+	> src/translations/hu.po
+	> src/translations/hugin.pot
+	> src/translations/it.po
+	> src/translations/ja.po
+	> src/translations/ko.po
+	> src/translations/nl.po
+	> src/translations/pl.po
+	> src/translations/pt_BR.po
+	> src/translations/ro.po
+	> src/translations/ru.po
+	> src/translations/sk.po
+	> src/translations/sl.po
+	> src/translations/sv.po
+	> src/translations/uk.po
+	> src/translations/zh_CN.po
+	> src/translations/zh_TW.po
+
+2011-06-19 21:27 +0200  mcri  (c573ed7847b4)  
+
+	Updated Italian translation
+
+	> src/translations/it.po
+
+2011-06-19 21:25 +0200  mcri  (ecd4c773f822)  
+
+	Fix a couple of typos in tooltips.
+
+	> src/hugin1/hugin/xrc/pref_dialog.xrc
+
+2011-06-19 08:55 -0400  Kay F. Jahnke <_kfj@yahoo.com>  (9942db781a18)  
+
+	provide better information about exceptions occuring in the python
+	plugins hpy.pi can now run plugin outside of Hugin
+
+	> src/hugin_script_interface/hpi.py
+	> src/hugin_script_interface/plugins/crop_cp.py
+	> src/hugin_script_interface/plugins/top_five.py
+	> src/hugin_script_interface/plugins/woa.py
+
+2011-06-19 13:31 +0200  harryvanderwolf <hvdwolf@gmail.com>  (5c296e79fe54)  
+
+	[OSX] embed the Snow Leopard open binary inside the bundle and use
+	that one on (Snow)Leopard. Start on Tiger without arguments
+	(switches)
+
+	> mac/Hugin.xcodeproj/project.pbxproj
+	> mac/complete-bundle.sh
+	> mac/create_stripped_apps_for_installer.sh
+	> src/hugin1/hugin/AssistantPanel.cpp
+	> src/hugin1/hugin/PanoPanel.cpp
+
+2011-06-18 12:56 +0200  tmodes  (19e0ca178243)  
+
+	Fixes default path for non-Linux systems
+
+	> src/hugin1/hugin/PreferencesDialog.cpp
+
+2011-06-18 12:55 +0200  tmodes  (bf8f86e8a2e7)  
+
+	Align controls in preferences dialog
+
+	> src/hugin1/hugin/xrc/pref_dialog.xrc
+
+2011-06-18 09:53 +0200  tmodes  (20a814889285)  
+
+	Refactored plugin metadata reading and make it more robust Added
+	description to plugin metadata Don't translate empty string
+
+	+ src/hugin1/hugin/PluginItems.cpp
+	+ src/hugin1/hugin/PluginItems.h
+	> src/hugin1/hugin/CMakeLists.txt
+	> src/hugin1/hugin/MainFrame.cpp
+	> src/hugin1/hugin/MainFrame.h
+	> src/hugin_script_interface/plugins/demo_plugin.py
+
+2011-06-17 22:39 -0400  Yuv Mobile <yuv@users.sourceforge.net>  (905d81af3558)  
+
+	* Implement plugin meta tag @sys (optional) to identify platforms on
+	which a plugin works. If absent, it is assumed to work on all
+	platforms. Currently discerning only win / mac / nix platforms
+	* Implement plugin meta tags @api-min and @api-max to identify against
+	which version of Hugin the plugin has been tested to work. If
+	absent it is assumed to work on all versions of Hugin that are built
+	with HSI.
+	* Implement preference for location of user's custom script
+	* Existing file open dialog to run Python script repurposed to run
+	user's custom script (system-wide scripts are integrated in the
+	Actions menu)
+
+	> src/hugin1/hugin/MainFrame.cpp
+	> src/hugin1/hugin/PreferencesDialog.cpp
+	> src/hugin1/hugin/config_defaults.h
+	> src/hugin1/hugin/xrc/main_menu.xrc
+	> src/hugin1/hugin/xrc/pref_dialog.xrc
+	> src/hugin_script_interface/plugins/demo_plugin.py
+	> src/hugin_version.h.in.cmake
+
+2011-06-17 20:49 +0200  tmodes  (6edb80275ed6)  
+
+	Removed deprecated ImageOption class Changed loading of lens
+	parameters from file This should fix #790039 and #795507
+
+	> src/dox/introduction.dox
+	> src/hugin1/PT/PanoCommand.h
+	> src/hugin1/PT/PanoImage.h
+	> src/hugin1/base_wx/LensTools.cpp
+	> src/hugin1/base_wx/LensTools.h
+	> src/hugin1/hugin/AssistantPanel.cpp
+	> src/hugin1/hugin/GLRenderer.cpp
+	> src/hugin1/hugin/HFOVDialog.cpp
+	> src/hugin1/hugin/HFOVDialog.h
+	> src/hugin1/hugin/LensPanel.cpp
+	> src/hugin1/hugin/LensPanel.h
+	> src/hugin1/hugin/PreviewControlPointTool.cpp
+	> src/hugin1/hugin/ViewState.cpp
+	> src/hugin1/hugin/wxPanoCommand.cpp
+	> src/hugin_base/CMakeLists.txt
+	> src/hugin_base/algorithms/point_sampler/PointSampler.cpp
+	> src/hugin_base/hugin_basic.h
+	> src/hugin_base/panodata/ImageVariableTranslate.h
+	> src/hugin_base/panodata/PTScriptParsing.cpp
+	> src/hugin_base/panodata/PTScriptParsing.h
+	> src/hugin_base/panodata/Panorama.cpp
+	> src/hugin_base/panodata/Panorama.h
+	> src/hugin_base/panodata/PanoramaData.h
+	> src/hugin_base/panodata/PanoramaOptions.h
+	> src/hugin_base/panodata/SrcPanoImage.cpp
+	> src/hugin_base/panodata/SrcPanoImage.h
+	> src/hugin_base/panodata/image_variables.h
+	> src/hugin_base/panotools/PanoToolsInterface.cpp
+	> src/hugin_script_interface/CMakeLists.txt
+	> src/hugin_script_interface/hsi.i
+	- src/hugin_base/panodata/PanoImage.h
+
+2011-06-17 20:45 +0200  tmodes  (76ab42a9d283)  
+
+	Fixes some more warnings
+
+	> src/hugin1/hugin/ImagesList.cpp
+	> src/tools/cpclean.cpp
+
+2011-06-16 20:47 +0200  tmodes  (ce2fd152c96f)  
+
+	Fixes warning in nona.cpp
+
+	> src/tools/nona.cpp
+
+2011-06-14 23:03 +0100  Bruno Postle <bruno@postle.net>  (d9e959d2fef4)  
+
+	make plugins executable
+
+	> src/hugin_script_interface/plugins/crop_cp.py
+	> src/hugin_script_interface/plugins/demo_plugin.py
+	> src/hugin_script_interface/plugins/top_five.py
+	> src/hugin_script_interface/plugins/woa.py
+
+2011-06-14 21:39 +0200  tmodes  (4e1bce934bf6)  
+
+	Slightly modified if statement for init fast preview
+
+	> src/hugin1/hugin/GLPreviewFrame.cpp
+
+2011-06-14 21:37 +0200  tmodes  (ad9123971663)  
+
+	Cleanup includes in alphanum [797025]
+
+	> src/hugin_base/hugin_utils/alphanum.cpp
+	> src/hugin_base/hugin_utils/alphanum.h
+
+2011-06-14 20:28 +0200  harryvanderwolf <hvdwolf@gmail.com>  (f8270bcc6d99)  
+
+	[OSX] Change PTBatcherGui call from Assistant
+
+	> mac/Hugin.xcodeproj/project.pbxproj
+	> src/hugin1/hugin/AssistantPanel.cpp
+
+2011-06-14 20:06 +0200  harryvanderwolf <hvdwolf@gmail.com>  (d362008fe5e8)  
+
+	[OSX] some more hsi python steps
+
+	> mac/Hugin.xcodeproj/project.pbxproj
+
+2011-06-14 07:43 +0200  harryvanderwolf <hvdwolf@gmail.com>  (c084630d6786)  
+
+	[OSX] Add hsi python module as framework to bundle. To be done:
+	inegrating it
+
+	> mac/Hugin.xcodeproj/project.pbxproj
+
+2011-06-13 21:53 +0200  Kay F. Jahnke <_kfj@yahoo.com>  (aa0f4bd10678)  
+
+	Added type vector<double> to hsi and some modifications in woa.py
+
+	> src/hugin_script_interface/hsi.i
+	> src/hugin_script_interface/plugins/woa.py
+
+2011-06-13 21:30 +0200  tmodes  (3ebebf7bbc1b)  
+
+	Fixes bugs in commit e9a0b715de00
+	* Code was using deprecated boost::filesystem version 2 -> switched to
+	wxDir
+	* Don't use fixed INSTALL_DATA_DIR -> this works only on Linux
+	* Fixes conversion of strings to platform independent version (was
+	Linux only)
+	* Fixes memory leaks
+	* Fixes possible buffer overflow
+	* Make new strings translatable
+	* Fixes parsing of script metadata
+	* Sort plugins in natural sorting order (needed to refactored alphanum
+	code)
+	* Don't set plugins menu after help menu -> see GUI guidelines
+	* Use own struct instead of merging and splitting strings
+	* Don't install CMakeLists.txt
+
+	+ src/hugin_base/hugin_utils/alphanum.cpp
+	+ src/hugin_base/hugin_utils/alphanum.h
+	> src/hugin1/hugin/MainFrame.cpp
+	> src/hugin1/hugin/MainFrame.h
+	> src/hugin1/hugin/wxPanoCommand.cpp
+	> src/hugin1/ptbatcher/FindPanoDialog.cpp
+	> src/hugin_base/CMakeLists.txt
+	> src/hugin_script_interface/plugins/CMakeLists.txt
+	> src/hugin_script_interface/plugins/demo_plugin.py
+	- src/hugin_base/hugin_utils/alphanum.hpp
+
+2011-06-13 13:19 +0200  tmodes  (ec4612b14e23)  
+
+	Removed obsolete disabling of action menu because there is no action
+	menu in no hsi build
+
+	> src/hugin1/hugin/MainFrame.cpp
+	> src/hugin1/hugin/MainFrame.h
+
+2011-06-13 03:43 -0400  Yuv Mobile <yuv@users.sourceforge.net>  (7807f2580d78)  
+
+	merge
+
+	> mac/Hugin.xcodeproj/project.pbxproj
+	> mac/HuginCompleteInstaller.pmproj
+	> src/hugin1/hugin/AssistantPanel.cpp
+	> src/hugin1/hugin/CPImageCtrl.cpp
+
+2011-06-13 03:42 -0400  Yuv Mobile <yuv@users.sourceforge.net>  (e9a0b715de00)  
+
+	* added new Action menu for direct access to core plugins
+	* store core plugins in /usr/local/share/hugin/data or equivalent
+	folder
+	* more portable shebang first line to call the python interpreter on
+	systems that have a different location for it (e.g. FreeBSD)
+
+	> src/hugin1/hugin/MainFrame.cpp
+	> src/hugin1/hugin/MainFrame.h
+	> src/hugin_script_interface/plugins/CMakeLists.txt
+	> src/hugin_script_interface/plugins/crop_cp.py
+	> src/hugin_script_interface/plugins/demo_plugin.py
+	> src/hugin_script_interface/plugins/top_five.py
+	> src/hugin_script_interface/plugins/woa.py
+
+2011-06-12 13:10 +0200  tmodes  (d46319ff1f65)  
+
+	Fixes bug in deleting cps in rectangle
+
+	> src/hugin1/hugin/CPImageCtrl.cpp
+
+2011-06-11 21:16 +0200  harryvanderwolf <hvdwolf@gmail.com>  (e9853363e41c)  
+
+	[OSX] PTBatcherGui call from Assistant was not correct
+
+	> mac/Hugin.xcodeproj/project.pbxproj
+	> mac/HuginCompleteInstaller.pmproj
+	> src/hugin1/hugin/AssistantPanel.cpp
+
+2011-06-10 19:42 +0200  tmodes  (c068b38e6fa6)  
+
+	Fixes crash with PTBatcher -b [794719]
+
+	> src/hugin1/ptbatcher/Batch.cpp
+
+2011-06-09 19:55 +0200  tmodes  (7778092959b8)  
+
+	[calibrate_lens_gui] Fixes handling of portrait images [794739]
+
+	> src/hugin1/calibrate_lens/LensCalFrame.cpp
+	> src/hugin1/calibrate_lens/LensCalTypes.cpp
+
+2011-06-08 21:34 +0100  Bruno Postle <bruno@postle.net>  (cec3f83eeb9c)  
+
+	rename man page
+
+	+ doc/autopano-noop.sh.pod
+	- doc/autopano-noop.pod
+
+2011-06-08 20:59 +0100  Bruno Postle <bruno@postle.net>  (04b05e87b2e4)  
+
+	Some minimal missing man pages.
+
+	+ doc/PTBatcher.pod
+	+ doc/autopano-noop.pod
+	+ doc/calibrate_lens_gui.pod
+	+ doc/matchpoint.pod
+	> doc/hugin.pod
+
+2011-06-08 18:55 +0100  Bruno Postle <bruno@postle.net>  (895b8535a13a)  
+
+	Update to correct version of GPLv2 license (with Franklin Street FSF
+	address)
+
+	> COPYING
+	> src/hugin1/hugin/xrc/data/help_en_EN/license.html
+	> src/hugin1/hugin/xrc/data/help_it_IT/license.html
+	> src/matchpoint/COPYING
+
+2011-06-08 18:48 +0200  tmodes  (8b8d6f6757ff)  
+
+	Fixes crash in lens_calibrate_gui if image size < resize_dimension
+	[794527]
+
+	> src/hugin_base/lines/FindLines.cpp
+
+2011-06-07 21:02 +0200  tmodes  (43043d2742e4)  
+
+	Fixes bug which prevented removing projects from PTBatcherGUI on
+	MacOSX
+
+	> src/hugin1/ptbatcher/BatchFrame.cpp
+	> src/hugin1/ptbatcher/ProjectListBox.cpp
+
+2011-06-06 20:18 +0200  harryvanderwolf <hvdwolf@gmail.com>  (6bc92bf521eb)  
+
+	[OSX] repair my mistake in Panopanel.cpp
+
+	> src/hugin1/hugin/PanoPanel.cpp
+
+2011-06-06 19:07 +0200  tmodes  (e5138c522394)  
+
+	Check for installed Python interpreter before calling it
+
+	> src/hugin_script_interface/CMakeLists.txt
+
+2011-06-06 18:14 +0200  tmodes  (5ab6e667983b)  
+
+	Added overwrite option to hugin_stitch_project
+
+	> src/hugin1/hugin/PanoPanel.cpp
+	> src/hugin1/hugin/PreferencesDialog.cpp
+	> src/hugin1/hugin/xrc/pref_dialog.xrc
+	> src/hugin1/stitch_project/hugin_stitch_project.cpp
+
+2011-06-06 17:32 +0200  tmodes  (5baf0a016311)  
+
+	Show balloon only if window is minimized Don't show ballon on MacOS
+	because it gets the focus and can't be closed.
+
+	> src/hugin1/ptbatcher/BatchFrame.cpp
+
+2011-06-05 22:09 +0200  harryvanderwolf <hvdwolf@gmail.com>  (5b0431399989)  
+
+	[OSX] PTBatcherGui is now correctly called w.r.t. how additional
+	args should be added to an open App call
+
+	> src/hugin1/hugin/PanoPanel.cpp
+
+2011-06-05 18:45 +0200  harryvanderwolf <hvdwolf@gmail.com>  (fbb7ba528db8)  
+
+	[OSX] change packagemaker project type for installer
+
+	+ mac/HuginCompleteInstaller.pmproj
+	- mac/HuginCompleteInstaller.pmdoc/01ptbatchergui-contents.xml
+	- mac/HuginCompleteInstaller.pmdoc/01ptbatchergui.xml
+	- mac/HuginCompleteInstaller.pmdoc/02lens-contents.xml
+	- mac/HuginCompleteInstaller.pmdoc/02lens.xml
+	- mac/HuginCompleteInstaller.pmdoc/03hugin-contents.xml
+	- mac/HuginCompleteInstaller.pmdoc/03hugin.xml
+	- mac/HuginCompleteInstaller.pmdoc/index.xml
+
+2011-06-05 14:52 +0200  harryvanderwolf <hvdwolf@gmail.com>  (bed24c852d26)  
+
+	[OSX] First steps to create Mac installer to combine Hugin,
+	PTBatcherGui and lens_calibrate_gui as inter related bundles instead
+	of completely portable standalone bundles to shrink overall size
+	from 420MB to 170MB
+
+	+ mac/HuginCompleteInstaller.pmdoc/01ptbatchergui-contents.xml
+	+ mac/HuginCompleteInstaller.pmdoc/01ptbatchergui.xml
+	+ mac/HuginCompleteInstaller.pmdoc/02lens-contents.xml
+	+ mac/HuginCompleteInstaller.pmdoc/02lens.xml
+	+ mac/HuginCompleteInstaller.pmdoc/03hugin-contents.xml
+	+ mac/HuginCompleteInstaller.pmdoc/03hugin.xml
+	+ mac/HuginCompleteInstaller.pmdoc/index.xml
+	+ mac/create_stripped_apps_for_installer.sh
+	> mac/Hugin.xcodeproj/project.pbxproj
+	> mac/lens_calibrate_gui-xrc.sh
+
+2011-06-05 08:35 -0400  Yuv Mobile <yuv@users.sourceforge.net>  (868a9b2d0977)  
+
+	generalized Python libraries location for more Linux distros.
+
+	> src/hugin_script_interface/CMakeLists.txt
+
+2011-06-05 12:19 +0200  harryvanderwolf <hvdwolf@gmail.com>  (8fea7876525d)  
+
+	[OSX] Some cleanup actions w.r.t. lens_calibrate_gui and project
+
+	> mac/Hugin.xcodeproj/project.pbxproj
+	> mac/lens_calibrate_gui-Info copy.plist
+	> mac/lens_calibrate_gui-xrc.sh
+	> mac/patch-xrc.sh
+	> src/hugin1/calibrate_lens/LensCalApp.cpp
+
+2011-06-05 10:41 +0200  harryvanderwolf <hvdwolf@gmail.com>  (ca509eb969a5)  
+
+	[OSX] Update project and add lens_calibrate_gui as new application
+	bundle
+
+	+ mac/lens_calibrate_gui-Info copy.plist
+	+ mac/lens_calibrate_gui-xrc.sh
+	> mac/Hugin.xcodeproj/project.pbxproj
+	> mac/nona_gui-Info.plist
+	> src/hugin1/calibrate_lens/LensCalApp.cpp
+
+2011-06-04 16:19 +0200  harryvanderwolf <hvdwolf@gmail.com>  (4ac7e44431c7)  
+
+	[OSX] Lots of minor project changes due to new changes
+
+	> mac/Hugin.xcodeproj/project.pbxproj
+	> mac/complete-tools-package.sh
+
+2011-06-04 11:51 +0200  tmodes  (50b4daa005a3)  
+
+	Allow starting of minimized PTBatcherGUI
+
+	> src/hugin1/ptbatcher/BatchFrame.cpp
+	> src/hugin1/ptbatcher/BatchFrame.h
+	> src/hugin1/ptbatcher/PTBatcherGUI.cpp
+
+2011-06-04 11:09 +0200  tmodes  (dcc30f32f883)  
+
+	Hide verbose output if minimizing window to taskbar/tray icon
+
+	> src/hugin1/ptbatcher/BatchFrame.cpp
+	> src/hugin1/ptbatcher/BatchFrame.h
+	> src/hugin1/ptbatcher/BatchTrayIcon.cpp
+
+2011-06-04 10:51 +0200  tmodes  (4bdbb226cdb2)  
+
+	Assistant should also respect setting regarding processing engine
+
+	> src/hugin1/hugin/MainFrame.cpp
+
+2011-06-04 10:37 +0200  tmodes  (453fc49bd0fc)  
+
+	Save project before sending to PTBatcherGUI only if project was
+	changed
+
+	> src/hugin1/hugin/PanoPanel.cpp
+
+2011-06-04 10:24 +0200  tmodes  (8d7852fcb8eb)  
+
+	Ask for output prefix before sending to PTBatcherGUI
+
+	> src/hugin1/hugin/PanoPanel.cpp
+	> src/hugin1/hugin/PanoPanel.h
+	> src/hugin1/hugin/config_defaults.h
+
+2011-06-04 10:18 +0200  tmodes  (a006a81a7577)  
+
+	Modification to preferences dialog
+	* New options were truncated
+	* Some controls were not accessable -> moved some controls to new tab
+
+	> src/hugin1/hugin/PreferencesDialog.cpp
+	> src/hugin1/hugin/xrc/pref_dialog.xrc
+
+2011-06-03 22:11 -0400  Yuv Mobile <yuv@users.sourceforge.net>  (5e95326204c1)  
+
+	* streamline project dispatch to stitch
+	* preference choice between PTBatcherGUI (default) and
+	hugin_stitch_project (legacy)
+
+	> src/hugin1/hugin/MainFrame.cpp
+	> src/hugin1/hugin/PanoPanel.cpp
+	> src/hugin1/hugin/PanoPanel.h
+	> src/hugin1/hugin/PreferencesDialog.cpp
+	> src/hugin1/hugin/PreferencesDialog.h
+	> src/hugin1/hugin/config_defaults.h
+	> src/hugin1/hugin/xrc/main_menu.xrc
+	> src/hugin1/hugin/xrc/pano_panel.xrc
+	> src/hugin1/hugin/xrc/pref_dialog.xrc
+
+2011-06-03 12:56 +0200  tmodes  (1c2fa7b5b83e)  
+
+	Added tray/taskbar icon for PTBatcherGUI
+
+	+ src/hugin1/ptbatcher/BatchTrayIcon.cpp
+	+ src/hugin1/ptbatcher/BatchTrayIcon.h
+	> src/hugin1/ptbatcher/Batch.cpp
+	> src/hugin1/ptbatcher/Batch.h
+	> src/hugin1/ptbatcher/BatchFrame.cpp
+	> src/hugin1/ptbatcher/BatchFrame.h
+	> src/hugin1/ptbatcher/CMakeLists.txt
+
+2011-06-02 10:46 +0200  tmodes  (b17bf4060548)  
+
+	Removed obsolete files
+
+	> src/hugin1/hugin/CPEditorPanel.cpp
+	> src/hugin1/hugin/CPEditorPanel.h
+	> src/hugin1/hugin/CPImageCtrl.cpp
+	> src/hugin1/hugin/CPImageCtrl.h
+	> src/hugin1/hugin/NonaOptionsDialog.h
+	> src/hugin1/hugin/PanoPanel.h
+	- src/hugin1/hugin/AnchorPositionCtrl.h
+	- src/hugin1/hugin/CPEditorPanelHandler.h
+	- src/hugin1/hugin/CPFineTuneFrame.cpp
+	- src/hugin1/hugin/CPFineTuneFrame.h
+	- src/hugin1/hugin/CPZoomDisplayPanel.cpp
+	- src/hugin1/hugin/CPZoomDisplayPanel.h
+	- src/hugin1/hugin/ImageProcessing.h
+	- src/hugin1/hugin/StitcherPanel.h
+	- src/hugin1/hugin/UniversalCursor.cpp
+	- src/hugin1/hugin/UniversalCursor.h
+	- src/hugin1/hugin/config.h.tmpl
+	- src/hugin1/hugin/win_prep.h
+
+2011-06-02 10:35 +0200  tmodes  (fa2fb5b9e2d9)  
+
+	CPEditor: Delete control points in rectangle selected with
+	Ctrl+right mouse button
+
+	> src/hugin1/hugin/CPEditorPanel.cpp
+	> src/hugin1/hugin/CPImageCtrl.cpp
+	> src/hugin1/hugin/CPImageCtrl.h
+
+2011-06-02 10:33 +0200  tmodes  (3f8aa8ea11c9)  
+
+	Skip empty lines when reading pto files
+
+	> src/hugin_base/panodata/Panorama.cpp
+
+2011-06-01 21:56 +0100  Bruno Postle <bruno@postle.net>  (1f5ae8096dcb)  
+
+	Remove pod/man documentation for calibrate_lens
+
+	- doc/calibrate_lens.pod
+
+2011-06-01 18:15 +0200  tmodes  (8f4bf5ea1f50)  
+
+	Renamed image chains to image groups in checkpto
+
+	> src/tools/checkpto.cpp
+
+2011-06-01 18:15 +0200  tmodes  (fa7d7b41a430)  
+
+	Added new pages to manual
+
+	+ src/hugin1/hugin/xrc/data/help_en_EN/Calibrate_lens_gui.html
+	+ src/hugin1/hugin/xrc/data/help_en_EN/Checkpto.html
+	+ src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Scripting_Interface.html
+	+ src/hugin1/hugin/xrc/data/help_en_EN/Illustration4.png
+	+ src/hugin1/hugin/xrc/data/help_en_EN/Stitching_a_photo-mosaic.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Hugin.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Hugin_FAQ.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/help_index_en.hhk
+	> src/hugin1/hugin/xrc/data/help_en_EN/help_toc_en.hhc
+	> src/hugin1/hugin/xrc/data/help_en_EN/hugin_help_en_EN.hhp
+	> src/hugin1/hugin/xrc/data/help_en_EN/pages.txt
+
+2011-06-01 17:09 +0200  tmodes  (35dc152b3eb1)  
+
+	Removed calibrate_lens calibrate_lens is replaced by
+	calibrate_lens_gui Also removed foreign/ANN lib because it is not
+	needed any more
+
+	> src/CMakeLists.txt
+	> src/foreign/CMakeLists.txt
+	- src/foreign/ANN/ANN.cpp
+	- src/foreign/ANN/ANN.h
+	- src/foreign/ANN/ANNperf.h
+	- src/foreign/ANN/ANNx.h
+	- src/foreign/ANN/CMakeLists.txt
+	- src/foreign/ANN/Copyright.txt
+	- src/foreign/ANN/License.txt
+	- src/foreign/ANN/ReadMe.txt
+	- src/foreign/ANN/bd_fix_rad_search.cpp
+	- src/foreign/ANN/bd_pr_search.cpp
+	- src/foreign/ANN/bd_search.cpp
+	- src/foreign/ANN/bd_tree.cpp
+	- src/foreign/ANN/bd_tree.h
+	- src/foreign/ANN/brute.cpp
+	- src/foreign/ANN/kd_dump.cpp
+	- src/foreign/ANN/kd_fix_rad_search.cpp
+	- src/foreign/ANN/kd_fix_rad_search.h
+	- src/foreign/ANN/kd_pr_search.cpp
+	- src/foreign/ANN/kd_pr_search.h
+	- src/foreign/ANN/kd_search.cpp
+	- src/foreign/ANN/kd_search.h
+	- src/foreign/ANN/kd_split.cpp
+	- src/foreign/ANN/kd_split.h
+	- src/foreign/ANN/kd_tree.cpp
+	- src/foreign/ANN/kd_tree.h
+	- src/foreign/ANN/kd_util.cpp
+	- src/foreign/ANN/kd_util.h
+	- src/foreign/ANN/perf.cpp
+	- src/foreign/ANN/pr_queue.h
+	- src/foreign/ANN/pr_queue_k.h
+	- src/lens_calibrate/CMakeLists.txt
+	- src/lens_calibrate/Globals.cpp
+	- src/lens_calibrate/Globals.h
+	- src/lens_calibrate/HermiteSpline.c
+	- src/lens_calibrate/HermiteSpline.h
+	- src/lens_calibrate/Main.cpp
+	- src/lens_calibrate/MapPoints.cpp
+	- src/lens_calibrate/MapPoints.h
+	- src/lens_calibrate/ProcessImage.cpp
+	- src/lens_calibrate/ProcessImage.h
+	- src/lens_calibrate/README
+	- src/lens_calibrate/Straighten.cpp
+	- src/lens_calibrate/Straighten.h
+	- src/lens_calibrate/find_N8_lines.cpp
+	- src/lens_calibrate/find_N8_lines.h
+	- src/lens_calibrate/lensFunc.cpp
+	- src/lens_calibrate/lensFunc.h
+	- src/lens_calibrate/lensFunc_glue.h
+	- src/lens_calibrate/test_lensFunc.cpp
+
+2011-05-31 23:28 +0100  Bruno Postle <bruno@postle.net>  (b1083a690f94)  
+
+	Update manual from wiki
+
+	+ src/hugin1/hugin/xrc/data/help_en_EN/200px-Hugin-2011.0_fpw_overview.png
+	+ src/hugin1/hugin/xrc/data/help_en_EN/5a12c95d04637539015c2d09b5002204.png
+	> src/hugin1/hugin/xrc/data/help_en_EN/16bit.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/16bit_workflow_with_hugin.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Aliasing.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Align_a_stack_of_photos.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Align_image_stack.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Alpha_channel.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Aspect_Ratio.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Autooptimiser.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Autopano-sift-C.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Autopano-sift.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Autopano.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Banding.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Barrel_distortion.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Bracketing.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/CCD.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Camera_response_curve.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Celeste_standalone.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Chromatic_aberration.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Color_correct_tiff.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Colour_profile.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Contrast.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Control_Point_Detector_Parameters.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Control_point_generators.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Control_points.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Cpclean.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Cpfind.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Crop_factor.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Cropped_TIFF.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Cubic.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Cubic_Projection.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Cylindrical.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Cylindrical_Projection.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Cylindrical_panorama.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/DSLR_spherical_resolution.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Depth_of_Field.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Diffraction.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Dust_Removal_with_Flatfield.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Dynamic_range.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/EXIF.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Enblend.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Enblend_reference_manual.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Enfuse.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Enfuse_reference_manual.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Entrance_pupil.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Equirectangular.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Equirectangular_Panini.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Equirectangular_Projection.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Field_of_View.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Fisheye_Projection.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Focal_Length.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Freepv.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Fulla.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/GIF.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Gamma.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/HDR.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/HDR_workflow_with_hugin.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Horizontal_control_points.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Hugin.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Assistant_tab.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Batch_Processor.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Camera_and_Lens_tab.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Control_Points_tab.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Control_Points_table.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Crop_tab.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Exposure_tab.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Hugin_FAQ.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Fast_Preview_window.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Images_tab.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Keyboard_shortcuts.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Main_window.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Mask_tab.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Optimizer_tab.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Parameters_for_Control_Point_Detectors_dialog.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Preferences.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Preview_window.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Reset_Values_window.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Stitcher_tab.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Trackers.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Hugin_stitch_project.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Hugin_translation_guide.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Icpfind.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Interpolation.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/JPEG.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Landscape.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Lens_correction_model.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Lens_distortion.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Lightprobe.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/MatchPoint.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/NPP.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Nadir.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/No-parallax_point.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Nodal_Point.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Nona.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Nona_gui.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/OpenEXR.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Optimization.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/PNG.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/PPI.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/PSD.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/PTOptimizer.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/PTStitcher.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/PTblender.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/PTmender.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/PTtiff2psd.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Panini.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Pano12.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Pano_modify.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Panoglview.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Panoinfo.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Panomatic.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Panorama.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Panorama_formats.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Panorama_scripting_in_a_nutshell.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Panorama_tools.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Panotools.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Parallax.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Perspective_correction.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Perspective_distortion.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Pfstmo.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Pincushion_distortion.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Pitch.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Portrait.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Projections.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Pto2mk.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Pto_merge.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/QTVR.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Qtvr2img.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/RAW.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/RGBE.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Rectilinear_Projection.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Roll.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/SmartBlend.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Spherical.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Stereographic_Projection.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Straight_line_control_points.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Swing_rod.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/TIFF.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Tca_correct.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/The_General_Panini_Projection.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Tone_mapping.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Using_Celeste_with_hugin.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Vertical_control_points.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Vig_optimize.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Vignetting.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Wavy_distortion.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Yaw.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Zenith.html
+
+2011-05-31 23:19 +0100  Bruno Postle <bruno@postle.net>  (540cca70028d)  
+
+	backport wiki CSS from 2011.0.0
+
+	+ src/hugin1/hugin/xrc/data/help_en_EN/manual.css
+	> src/hugin1/hugin/xrc/data/help_en_EN/CMakeLists.txt
+	> src/hugin1/hugin/xrc/data/help_en_EN/dewiki.pl
+
+2011-05-31 13:20 -0400  Matthew Petroff  (edceb4565e74)  
+
+	Merge
+
+	> .hgignore
+
+2011-05-31 13:16 -0400  Matthew Petroff  (60b501fdd641)  
+
+	Added CMake directives to install smartblend wrapper on Windows.
+
+	+ platforms/windows/smartblend-wrapper/CMakeLists.txt
+	> platforms/windows/CMakeLists.txt
+
+2011-05-31 18:19 +0100  Bruno Postle <bruno@postle.net>  (35a4301fc47c)  
+
+	Minor improvements to .hgignore
+
+	> .hgignore
+
+2011-05-31 13:07 -0400  Matthew Petroff  (a8a643ba8a55)  
+
+	Added shortcuts on Windows for Batch Processor and Calibrate Lens
+	GUI.
+
+	> platforms/windows/huginsetup/HuginSetup_common.nsh
+
+2011-05-31 18:58 +0200  tmodes  (20ca0c4591c6)  
+
+	Fixes incorrect drawn mask overlay
+
+	> src/hugin1/hugin/MaskImageCtrl.cpp
+
+2011-05-31 17:39 +0200  tmodes  (e8b813e66b28)  
+
+	Fixes slow display of images in mask panel if working remote
+
+	> src/hugin1/hugin/MaskImageCtrl.cpp
+
+2011-05-30 23:38 +0100  Bruno Postle <bruno@postle.net>  (cb982d48cc25)  
+
+	Russian translation update (Alexandre Prokoudine)
+
+	> src/translations/ru.po
+
+2011-05-30 19:20 +0200  tmodes  (be1c5999a76d)  
+
+	Added stack detection to automatic pano finder in PTBatcherGUI
+
+	> src/hugin1/hugin/xrc/batch_frame.xrc
+	> src/hugin1/ptbatcher/FindPanoDialog.cpp
+	> src/hugin1/ptbatcher/FindPanoDialog.h
+	> src/hugin_base/panodata/ImageVariableTranslate.h
+	> src/hugin_base/panodata/SrcPanoImage.cpp
+	> src/hugin_base/panodata/image_variables.h
+
+2011-05-30 19:11 +0200  tmodes  (4a0af7cb1b1a)  
+
+	Some more typo fixed
+
+	> src/hugin_script_interface/README.dox
+
+2011-05-29 15:58 -0400  Yuval Levy <yuv@users.sourceforge.net>  (13dd690b1ce1)  
+
+	2011.0.0 release notes
+
+	+ doc/releases/hugin-2011.0.0.txt
+
+2011-05-29 14:57 -0400  Yuval Levy <yuv@users.sourceforge.net>  (696461b22093)  
+
+	Added tag 2011.0.0 for changeset 67a96ebdac74
+
+	> .hgtags
+
+2011-05-29 19:39 +0200  Kornel Benko <kornelbenko@users.sourceforge.net>  (bf40d97f00ef)  
+
+	Use debian scripts to get package dependences Unfortunatelly
+	extremly slow for hugin.
+
+	> CMakeLists.txt
+
+2011-05-28 11:59 +0200  mcri  (06addb5595a4)  
+
+	Updated Italian translation
+
+	> src/translations/it.po
+
+2011-05-28 09:44 +0200  tmodes  (5c3f97f80c1b)  
+
+	Fixes typos
+
+	> src/hugin1/hugin/wxPanoCommand.cpp
+	> src/hugin_script_interface/hpi.cpp
+	> src/hugin_script_interface/hpi.h
+	> src/hugin_script_interface/hpi_classes.cpp
+	> src/hugin_script_interface/hpi_classes.h
+
+2011-05-27 20:29 +0200  tmodes  (32055f79a8aa)  
+
+	Allow skipping of optimisation of whole panorama for cpclean This
+	will use the current values of the image positions/image variables
+
+	> src/hugin_base/algorithms/control_points/CleanCP.cpp
+	> src/hugin_base/algorithms/control_points/CleanCP.h
+	> src/tools/cpclean.cpp
+
+2011-05-27 20:01 +0200  tmodes  (2f64259cad1c)  
+
+	Merge
+
+	+ Changelog.style
+	+ doc/releases/hugin-2011.0.0_rc2.txt
+	> CMakeLists.txt
+	> ChangeLog
+
+2011-05-27 19:59 +0200  tmodes  (8f71e93e5592)  
+
+	Extended checkpto based on parts.cpp from Jim Watters
+
+	> src/tools/checkpto.cpp
+
+2011-05-26 20:01 -0400  Yuv Mobile <yuv@users.sourceforge.net>  (277c91976ed3)  
+
+	2011.0.0_rc2 release notes
+
+	+ doc/releases/hugin-2011.0.0_rc2.txt
+
+2011-05-26 20:01 -0400  Yuv Mobile <yuv@users.sourceforge.net>  (cf32c5e0ec6c)  
+
+	* unified Changelog style (the same command was yielding different
+	results under Lucid and Natty)
+	* updated Changelog
+
+	+ Changelog.style
+	> CMakeLists.txt
+	> ChangeLog
+
 2011-05-24 21:57 +0200  tmodes  (f00957574874)  
 
 	Updated doxygen documentation after the latest changes
