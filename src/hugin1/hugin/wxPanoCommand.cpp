@@ -206,7 +206,7 @@ void wxAddImagesCmd::execute()
             else
                 srcImg.setResponseType(HuginBase::SrcPanoImage::RESPONSE_LINEAR);
         }
-        catch(std::exception & e) 
+        catch(std::exception & e)
         {
             std::cerr << "ERROR: caught exception: " << e.what() << std::endl;
             std::cerr << "Could not get pixel type for file " << filename << std::endl;
@@ -217,9 +217,9 @@ void wxAddImagesCmd::execute()
                 for (unsigned int i=0; i < pano.getNrOfImages(); i++) {
                     SrcPanoImage other = pano.getSrcImage(i);
                     double dummyfl=0;
-                    double dummycrop = 0; 
+                    double dummycrop = 0;
                     other.readEXIF(dummyfl, dummycrop, false, false);
-                    if ( other.getSize() == srcImg.getSize() 
+                    if ( other.getSize() == srcImg.getSize()
                          &&
                          other.getExifModel() == srcImg.getExifModel() &&
                          other.getExifMake()  == srcImg.getExifMake() &&
@@ -302,7 +302,7 @@ void wxAddImagesCmd::execute()
                 }
             }
         }
-        
+
         // If matchingLensNr == -1 still, we haven't found a good lens to use.
         // We shouldn't attach the image to a lens in this case, it will have
         // its own new lens.
@@ -370,10 +370,10 @@ void wxLoadPTProjectCmd::execute()
         // stored in the file.
         opts.remapUsingGPU = wxConfigBase::Get()->Read(wxT("/Nona/UseGPU"),HUGIN_NONA_USEGPU) == 1;
         pano.setOptions(opts);
-        
+
         HuginBase::StandardImageVariableGroups variableGroups(pano);
         HuginBase::ImageVariableGroup & lenses = variableGroups.getLenses();
-        
+
         unsigned int nImg = pano.getNrOfImages();
         wxString basedir;
         double focalLength=0;
@@ -476,25 +476,25 @@ void wxLoadPTProjectCmd::execute()
     const PT::CPVector & oldCPs = pano.getCtrlPoints();
     PT::CPVector goodCPs;
     int bad_cp_count = 0;
-    for (PT::CPVector::const_iterator it = oldCPs.begin(); 
+    for (PT::CPVector::const_iterator it = oldCPs.begin();
             it != oldCPs.end(); ++it)
     {
         PT::ControlPoint point = *it;
         const SrcPanoImage & img1 = pano.getImage(point.image1Nr);
         const SrcPanoImage & img2 = pano.getImage(point.image2Nr);
-        if (0 > point.x1 || point.x1 > img1.getSize().x || 
+        if (0 > point.x1 || point.x1 > img1.getSize().x ||
             0 > point.y1 || point.y1 > img1.getSize().y ||
-            0 > point.x2 || point.x2 > img2.getSize().x || 
-            0 > point.y2 || point.y2 > img2.getSize().y) 
+            0 > point.x2 || point.x2 > img2.getSize().x ||
+            0 > point.y2 || point.y2 > img2.getSize().y)
         {
             bad_cp_count++;
-        } else 
+        } else
         {
             goodCPs.push_back(point);
         }
     }
 
-    if (bad_cp_count > 0) 
+    if (bad_cp_count > 0)
     {
         wxString errMsg = wxString::Format(_("%d invalid control point(s) found.\n\nPress OK to remove."), bad_cp_count);
         wxMessageBox(errMsg, _("Error Detected"), wxICON_ERROR);
@@ -581,8 +581,8 @@ void wxApplyTemplateCmd::execute()
 #ifdef _Hgn1_PANOCOMMAND_H
     Panorama& pano = o_pano;
 #endif
-    
-    
+
+
     wxConfigBase* config = wxConfigBase::Get();
 
     if (pano.getNrOfImages() == 0) {
@@ -635,7 +635,7 @@ void wxApplyTemplateCmd::execute()
                 case 5: config->Write(wxT("lastImageType"), wxT("exr")); break;
                 case 6: config->Write(wxT("lastImageType"), wxT("all files")); break;
             }
-            
+
             HuginBase::StandardImageVariableGroups variable_groups(pano);
             HuginBase::ImageVariableGroup & lenses = variable_groups.getLenses();
             // add images.
@@ -701,6 +701,31 @@ bool PythonScriptPanoCmd::processPanorama(Panorama& pano)
 
     int success = hpi::callhpi ( m_scriptFile.c_str() , 1 ,
                    "HuginBase::Panorama*" , &pano ) ;
+
+    if(success!=0)
+        wxMessageBox(wxString::Format(wxT("Script returned %d"),success),_("Result"), wxICON_INFORMATION);
+    std::cout << "Python interface returned " << success << endl ;
+    // notify other of change in panorama
+    if(pano.getNrOfImages()>0)
+    {
+        for(unsigned int i=0;i<pano.getNrOfImages();i++)
+        {
+            pano.imageChanged(i);
+        };
+    };
+    pano.changeFinished();
+
+    return true;
+}
+
+bool PythonScriptWithImagesPanoCmd::processPanorama(Panorama& pano)
+{
+    std::cout << "run python script: " << m_scriptFile.c_str() << std::endl;
+
+    //this does currently not work, there are passed 2 Panorama objects passed to hpi_dispatch,
+    //and finally only 1 object is passed to plugin entry
+    int success = hpi::callhpi ( m_scriptFile.c_str() , 2 ,
+                   "HuginBase::Panorama*", &pano, "HuginBase::UIntSet*", &m_images ) ;
 
     if(success!=0)
         wxMessageBox(wxString::Format(wxT("Script returned %d"),success),_("Result"), wxICON_INFORMATION);

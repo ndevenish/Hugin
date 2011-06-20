@@ -29,11 +29,19 @@
 
 #include <wx/string.h>
 #include <wx/filename.h>
+#include <list>
 
 /** class for generating plugin menu items */
 class PluginItem
 {
 public:
+    enum PluginType
+    {
+        DefaultPlugin,
+        ImagePlugin,
+        StackPlugin,
+        ControlpointPlugin
+    };
     /** constructor
       * @param filename filename to python script to be parsed for metadata 
       */
@@ -48,15 +56,21 @@ public:
     const wxString GetName() const;
     /** return description */
     const wxString GetDescription() const;
+    /** return plugin type */
+    const PluginType GetPluginType() const;
 private:
     void ParseMetadata();
+    /** determines the plugin type from the category */
+    void CheckCategory();
     wxString m_category;
     wxString m_name;
     wxFileName m_filename;
     wxString m_description;
+    PluginType m_type;
     bool m_validAPI;
 };
 
+typedef std::list<PluginItem> PluginItems;
 /** compares 2 plugin with category and name */
 bool comparePluginItem(PluginItem item1,PluginItem item2);
 

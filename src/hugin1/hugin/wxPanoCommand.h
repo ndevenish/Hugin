@@ -170,8 +170,27 @@ private:
                 return "python script";
             }
     private:
-	std::string m_scriptFile;
+        std::string m_scriptFile;
     };
+
+    class PythonScriptWithImagesPanoCmd : public PanoCommand
+    {
+    public:
+        PythonScriptWithImagesPanoCmd(Panorama & pano, const std::string & scriptFile, const UIntSet images)
+            : PanoCommand(pano), m_scriptFile(scriptFile), m_images(images)
+            { };
+
+        virtual bool processPanorama(Panorama& pano);
+        
+        virtual std::string getName() const
+            {
+                return "python script";
+            }
+    private:
+        std::string m_scriptFile;
+        UIntSet m_images;
+    };
+
 #endif
 
 

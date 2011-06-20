@@ -27,17 +27,16 @@
 #include "hugin/MainFrame.h"
 #include "hugin/ImagesList.h"
 
-// Celeste files
-#include "Celeste.h"
-#include "CelesteGlobals.h"
-#include "Utilities.h"
-
 #include "base_wx/wxImageCache.h"
+#ifdef HUGIN_HSI
+#include "hugin/PluginItems.h"
+#endif
 
 using namespace PT;
 
 // forward declarations, to save the #include statements
 class CPEditorPanel;
+class PanoOperationTreeCtrl;
 
 /** hugins first panel
  *
@@ -87,6 +86,10 @@ public:
     void ReloadCPDetectorSettings();
     /** returns the default cp detector settings */
     CPDetectorSetting& GetDefaultSetting() { return cpdetector_config.settings.Item(cpdetector_config.GetDefaultGenerator());};
+#ifdef HUGIN_HSI
+    /** adds the items to the operation tree */
+    void AddPythonOperations(PluginItems items);
+#endif
 private:
     // a window event
     void OnSize(wxSizeEvent & e);
@@ -105,17 +108,11 @@ private:
     void OnVarTextChanged ( wxCommandEvent & e );
     void OnImageLinkChanged ( wxCommandEvent & e );
 
-    void OnOptAnchorChanged(wxCommandEvent & e);
-    void OnColorAnchorChanged(wxCommandEvent &e );
-
-    void OnRemoveCtrlPoints(wxCommandEvent & e);
     void OnResetImagePositions(wxCommandEvent & e);
 
     void OnMoveImageUp(wxCommandEvent & e);
     void OnMoveImageDown(wxCommandEvent & e);
-    
-    void OnNewStack(wxCommandEvent & e);
-    void OnChangeStack(wxCommandEvent & e); 
+    void OnExecuteOperation(wxCommandEvent & e);
 
     /** gui -> pano
      *
@@ -126,17 +123,10 @@ private:
      */
     void ChangePano ( std::string type, double var );
 
-    /** sift feature matching */
-    void SIFTMatching(wxCommandEvent & e);
-    /** clean the control points ala ptoclean */
-    void OnCleanCP(wxCommandEvent & e);
-
     /** change displayed variables if the selection
      *  has changed.
      */
     void ListSelectionChanged(wxListEvent & e);
-
-    void OnCelesteButton(wxCommandEvent & e);
 
     /** pano -> gui
      */
@@ -165,21 +155,11 @@ private:
     wxStaticBitmap * m_smallImgCtrl;
     unsigned m_showImgNr;
 
-    wxButton * m_optAnchorButton;
-    wxButton * m_colorAnchorButton;
+    PanoOperationTreeCtrl* m_operationTree;
     wxButton * m_moveUpButton;
     wxButton * m_moveDownButton;
-    wxButton * m_stackNewButton;
-    wxButton * m_stackChangeButton;
-
-    wxButton * m_matchingButton;
-    wxButton * m_cleaningButton;
-    wxButton * m_removeCPButton;
-    
     wxCheckBox * m_linkCheckBox;
 
-    wxPanel *m_img_ctrls;
-    wxChoice *m_CPDetectorChoice;
     //storing for different cp detector settings
     CPDetectorConfig cpdetector_config;
 
@@ -200,39 +180,6 @@ public:
     ImagesPanelXmlHandler();
     virtual wxObject *DoCreateResource();
     virtual bool CanHandle(wxXmlNode *node);
-};
-
-
-
-//------------------------------------------------------------------------------
-
-/** simple Image Preview
- *
- *  Define a new canvas which can receive some events.
- *  Use pointerTo_ImgPreview->Refresh() to update if needed.
- *
- *  @todo  give the referenced image as an pointer in the argument list.
- */
-class ImgPreview: public wxScrolledWindow
-{
- public:
-    ImgPreview(wxWindow *parent, const wxPoint& pos, const wxSize& size, Panorama *pano);
-    ~ImgPreview(void) ;
-
-    // Here we select the preview image
-    void ChangePreview ( wxImage & s_img );
-
- private:
-    void OnMouse ( wxMouseEvent & event );
-
-    void OnDraw(wxDC& dc);
-    //void OnPaint(wxPaintEvent& event);
-
-    /** the model */
-    Panorama * pano;
-
-
-    DECLARE_EVENT_TABLE()
 };
 
 #endif // _IMAGESPANEL_H
