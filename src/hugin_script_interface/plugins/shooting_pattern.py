@@ -1,5 +1,8 @@
 #!/usr/bin/env python
-#    demo_plugin.py - apply a 6-1-1 shooting pattern to a panorama
+
+from __future__ import print_function
+
+#    shooting_pattern.py - apply a 6-1-1 shooting pattern to a panorama
 #    Copyright (C) 2011  Kay F. Jahnke
 
 #    This program is free software: you can redistribute it and/or modify
@@ -34,14 +37,14 @@
 # If you want to integrate your script into the menu, you will need to
 # edit the following self-explanatory lines:
 
-# @category Kay's Toolbox
-# @name     Demo Plugin
-# @description Plugin to demonstrate a Python plugin inside Hugin
-# @sys win nix
+# @category initial distribution
+# @name     6-1-1 Shooting Pattern
+# @description apply a shooting pattern (6 around, 1 up 1 down)
+# @sys win nix mac
 # @api-max 2011.1.0
 # @api-min 2011.1.0
 
-
+# the position routine will apply yaw, pitch to an image
 
 def position ( pano , number , yaw , pitch , roll ) :
     print ( "%d: y %d p %d r %d" % ( number , yaw , pitch , roll ) )
@@ -58,16 +61,11 @@ def position ( pano , number , yaw , pitch , roll ) :
         img.setRoll(roll)
         pano.setImage(number,img)
 
-# the entry routine is what is called from the dispatcher in hpi.py
+# the entry routine is what is called from hugin.
 # notice that it takes an arbitrary number of arguments after the
 # first one which must be a panorama.
 
-def entry ( pano , *args ) :
-
-    # this plugin doesn't take any extra arguments
-
-    if args :
-        print ( 'ignoring extra arguments %s' % str(args) )
+def entry ( pano ) :
 
     # for the purpose of this demonstration, it's assumed that
     # we have 8 images loaded: 6 around, 1 up 60 degrees, 1 down 60.
@@ -87,3 +85,8 @@ def entry ( pano , *args ) :
 
     return 0
 
+# This script won't work standalone.
+
+if __name__ == "__main__":
+
+    print ( 'this script only runs as a hugin plugin.' )

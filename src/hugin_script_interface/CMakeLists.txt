@@ -259,3 +259,4 @@ ELSE()
 ENDIF()
 
 ADD_SUBDIRECTORY(plugins)
+ADD_SUBDIRECTORY(plugins-dev)
