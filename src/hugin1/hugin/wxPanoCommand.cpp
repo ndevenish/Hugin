@@ -229,6 +229,7 @@ void wxAddImagesCmd::execute()
                         double ev = srcImg.getExposureValue();
                         srcImg = pano.getSrcImage(i);
                         srcImg.setFilename(filename);
+                        srcImg.deleteAllMasks();
                         // add image
                         int imgNr = pano.addImage(srcImg);
                         variable_groups.update();
@@ -287,6 +288,7 @@ void wxAddImagesCmd::execute()
                     set_exposure = true;
                     srcImg = pano.getSrcImage(i);
                     srcImg.setFilename(filename);
+                    srcImg.deleteAllMasks();
                     srcImg.setExposureValue(ev);
                     break;
                 }
@@ -298,6 +300,7 @@ void wxAddImagesCmd::execute()
                     // the file name
                     srcImg = pano.getSrcImage(i);
                     srcImg.setFilename(filename);
+                    srcImg.deleteAllMasks();
                     break;
                 }
             }

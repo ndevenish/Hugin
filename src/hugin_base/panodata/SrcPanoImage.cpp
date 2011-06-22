@@ -844,6 +844,12 @@ void SrcPanoImage::deleteMask(unsigned int index)
     };
 };
 
+void SrcPanoImage::deleteAllMasks()
+{
+    MaskPolygonVector emptyMaskVector;
+    m_Masks.setData(emptyMaskVector);
+};
+
 bool SrcPanoImage::isInsideMasks(vigra::Point2D p) const
 {
     if(!hasActiveMasks())
