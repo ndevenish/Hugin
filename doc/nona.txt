@@ -197,6 +197,7 @@ m i2
 #                   1 - positive (include region)
 #                   2 - negative, stack aware (exclude region from stack)
 #                   3 - positive, stack aware (include region from stack)
+#                   4 - negative, lens (exclude region from all images of same lens)
 #
 #  p"1262 2159 1402 2065 1468 2003"  List of node coordinates
 #               Coordinates are in pairs, at least three pairs are required
