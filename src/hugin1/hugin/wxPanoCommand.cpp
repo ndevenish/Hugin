@@ -40,10 +40,6 @@
 
 #include <hugin_utils/alphanum.h>
 
-#ifdef HUGIN_HSI
-#include "hugin_script_interface/hpi.h"
-#endif
-
 using namespace std;
 using namespace vigra;
 using namespace hugin_utils;
@@ -693,56 +689,6 @@ void wxApplyTemplateCmd::execute()
     }
     pano.changeFinished();
 }
-
-#ifdef HUGIN_HSI
-bool PythonScriptPanoCmd::processPanorama(Panorama& pano)
-{
-    std::cout << "run python script: " << m_scriptFile.c_str() << std::endl;
-
-    int success = hpi::callhpi ( m_scriptFile.c_str() , 1 ,
-                   "HuginBase::Panorama*" , &pano ) ;
-
-    if(success!=0)
-        wxMessageBox(wxString::Format(wxT("Script returned %d"),success),_("Result"), wxICON_INFORMATION);
-    std::cout << "Python interface returned " << success << endl ;
-    // notify other of change in panorama
-    if(pano.getNrOfImages()>0)
-    {
-        for(unsigned int i=0;i<pano.getNrOfImages();i++)
-        {
-            pano.imageChanged(i);
-        };
-    };
-    pano.changeFinished();
-
-    return true;
-}
-
-bool PythonScriptWithImagesPanoCmd::processPanorama(Panorama& pano)
-{
-    std::cout << "run python script: " << m_scriptFile.c_str() << std::endl;
-
-    //this does currently not work, there are passed 2 Panorama objects passed to hpi_dispatch,
-    //and finally only 1 object is passed to plugin entry
-    int success = hpi::callhpi ( m_scriptFile.c_str() , 2 ,
-                   "HuginBase::Panorama*", &pano, "HuginBase::UIntSet*", &m_images ) ;
-
-    if(success!=0)
-        wxMessageBox(wxString::Format(wxT("Script returned %d"),success),_("Result"), wxICON_INFORMATION);
-    std::cout << "Python interface returned " << success << endl ;
-    // notify other of change in panorama
-    if(pano.getNrOfImages()>0)
-    {
-        for(unsigned int i=0;i<pano.getNrOfImages();i++)
-        {
-            pano.imageChanged(i);
-        };
-    };
-    pano.changeFinished();
-
-    return true;
-}
-#endif
 
 } // namespace
 

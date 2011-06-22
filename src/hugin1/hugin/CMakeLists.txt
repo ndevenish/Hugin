@@ -52,8 +52,8 @@ GreatCircles.h AboutDialog.h LayoutRemapper.h PreviewLayoutLinesTool.h PreviewCo
 MaskEditorPanel.h MaskImageCtrl.h MaskLoadDialog.h HtmlWindow.h PanoOperation.h PanoOperationTree.h)
 
 IF(BUILD_HSI)
-LIST(APPEND hugin_SOURCES PluginItems.cpp)
-LIST(APPEND hugin_HEADERS PluginItems.h)
+LIST(APPEND hugin_SOURCES PluginItems.cpp PythonProgress.cpp)
+LIST(APPEND hugin_HEADERS PluginItems.h PythonProgress.h)
 ENDIF()
 
 IF(APPLE)

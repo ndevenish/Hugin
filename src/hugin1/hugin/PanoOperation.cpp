@@ -33,6 +33,9 @@
 #include "celeste/Celeste.h"
 #include <exiv2/exif.hpp>
 #include <exiv2/image.hpp>
+#ifdef HUGIN_HSI
+#include "hugin/PythonProgress.h"
+#endif
 
 using namespace HuginBase;
 
@@ -595,13 +598,16 @@ PT::PanoCommand* PythonOperation::GetInternalCommand(wxWindow* parent, PT::Panor
 {
     if(m_filename.FileExists())
     {
-        std::string scriptfile((const char *)m_filename.GetFullPath().mb_str(HUGIN_CONV_FILENAME));
-        return new PythonScriptWithImagesPanoCmd(pano,scriptfile,images);
+        PythonWithImagesProgress pythonDlg(parent,pano,images,m_filename.GetFullPath());
+        if(pythonDlg.RunScript())
+        {
+            if(pythonDlg.ShowModal()==wxID_OK)
+            {
+                return new PT::UpdateProjectCmd(pano,pythonDlg.GetPanoramaMemento());
+            };
+        };
     }
-    else
-    {
-        return NULL;
-    };
+    return NULL;
 };
 
 #endif

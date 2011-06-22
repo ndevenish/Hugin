@@ -70,6 +70,7 @@
 
 #if HUGIN_HSI
 #include "PluginItems.h"
+#include "hugin/PythonProgress.h"
 #endif
 
 using namespace PT;
@@ -1458,10 +1459,10 @@ void MainFrame::OnPythonScript(wxCommandEvent & e)
 {
     wxString fname;
     wxFileDialog dlg(this,
-		     _("Select python script"),
-		     wxConfigBase::Get()->Read(wxT("/lensPath"),wxT("")), wxT(""),
-		     _("Python script (*.py)|*.py|All files (*.*)|*.*"),
-		     wxFD_OPEN, wxDefaultPosition);
+            _("Select python script"),
+            wxConfigBase::Get()->Read(wxT("/lensPath"),wxT("")), wxT(""),
+            _("Python script (*.py)|*.py|All files (*.*)|*.*"),
+            wxFD_OPEN, wxDefaultPosition);
 
     wxString p;
     if(!wxConfigBase::Get()->Read(wxT("/pythonScriptPath"), &p))
@@ -1470,13 +1471,20 @@ void MainFrame::OnPythonScript(wxCommandEvent & e)
     }
     dlg.SetDirectory(p);
 
-    if (dlg.ShowModal() == wxID_OK) {
+    if (dlg.ShowModal() == wxID_OK)
+    {
         wxString filename = dlg.GetPath();
         wxConfig::Get()->Write(wxT("/pythonScriptPath"), dlg.GetDirectory());
-        std::string scriptfile((const char *)filename.mb_str(HUGIN_CONV_FILENAME));
-        GlobalCmdHist::getInstance().addCommand(
-            new PythonScriptPanoCmd(pano,scriptfile)
-            );
+        PythonProgress pythonDlg(this,pano,filename);
+        if(pythonDlg.RunScript())
+        {
+            if(pythonDlg.ShowModal()==wxID_OK)
+            {
+                GlobalCmdHist::getInstance().addCommand(
+                    new PT::UpdateProjectCmd(pano,pythonDlg.GetPanoramaMemento())
+                    );
+            };
+        };
     }
 }
 
@@ -1485,10 +1493,16 @@ void MainFrame::OnPlugin(wxCommandEvent & e)
     wxFileName file=m_plugins[e.GetId()];
     if(file.FileExists())
     {
-        std::string scriptfile((const char *)file.GetFullPath().mb_str(HUGIN_CONV_FILENAME));
-        GlobalCmdHist::getInstance().addCommand(
-                                 new PythonScriptPanoCmd(pano,scriptfile)
-                                 );
+        PythonProgress pythonDlg(this,pano,file.GetFullPath());
+        if(pythonDlg.RunScript())
+        {
+            if(pythonDlg.ShowModal()==wxID_OK)
+            {
+                GlobalCmdHist::getInstance().addCommand(
+                    new PT::UpdateProjectCmd(pano,pythonDlg.GetPanoramaMemento())
+                    );
+            };
+        };
     }
     else
     {
