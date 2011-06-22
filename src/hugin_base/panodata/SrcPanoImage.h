@@ -400,6 +400,8 @@ public:
     void changeMaskType(unsigned int index, HuginBase::MaskPolygon::MaskType newType);
     /** delete mask at index */
     void deleteMask(unsigned int index);
+    /** delete all masks */
+    void deleteAllMasks();
     /** writes all mask lines to stream, using given image number */
     void printMaskLines(std::ostream &o, unsigned int newImgNr) const;
     /** returns true, if point p is inside of one mask polygon */
