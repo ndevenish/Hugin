@@ -127,7 +127,7 @@ int python_interface::call_hpi ( const char* hpi_func ,
 PyObject* python_arglist::make_hsi_object ( const char* hsi_type ,
                             void* hugin_value )
 {
-    SWIGRUNTIME swig_type_info* swigtype = SWIG_Python_TypeQuery ( hsi_type );
+    swig_type_info* swigtype = SWIG_Python_TypeQuery ( hsi_type );
 #ifdef HPI_VERBOSE
     fprintf ( stdout ,
                 "HPI: making a %s from %p\n" ,

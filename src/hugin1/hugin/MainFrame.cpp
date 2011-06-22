@@ -324,10 +324,7 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
         // skip incompatible plugins
         if(item.GetPluginType()!=PluginItem::DefaultPlugin)
         {
-            // the following can only be activated if bug 799905 if fixed
-            // currently only the HuginBase::Panorama object is passed to Python
-            // all other variables are ignored
-            // continue;
+            continue;
         };
         int categoryID=pluginMenu->FindItem(item.GetCategory());
         wxMenu* categoryMenu;
@@ -374,10 +371,7 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     assert(images_panel);
     images_panel->Init(&pano);
 #ifdef HUGIN_HSI
-    // the following can only be activated if bug 799905 if fixed
-    // currently only the HuginBase::Panorama object is passed to Python
-    // all other variables are ignored
-    //images_panel->AddPythonOperations(items);
+    images_panel->AddPythonOperations(items);
 #endif
 
     DEBUG_TRACE("");
