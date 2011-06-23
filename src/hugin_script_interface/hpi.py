@@ -33,8 +33,7 @@ class OutputToCStream :
 
     # we take the stream to be diverted as our 'victim'
 
-    def __init__ ( self , victim , copy ) :
-        self.victim = victim
+    def __init__ ( self , copy ) :
         self.copy = copy
 
     # if write is called, we write to 'copy' first
@@ -44,16 +43,10 @@ class OutputToCStream :
         self.copy.write ( s , len ( s ) )
         self.copy.flush()
 
-    # all other activities are delegated to 'victim'
-
-    def __getattr__ ( self , name ) :
-
-        return getattr ( self.victim , name )
-
 # finally, we use two OutputToCStream objects, one for cout and one for cerr.
 
-sys.stdout = OutputToCStream ( sys.stdout , hsi.cout )
-sys.stderr = OutputToCStream ( sys.stderr , hsi.cerr ) 
+sys.stdout = OutputToCStream ( hsi.cout )
+sys.stderr = OutputToCStream ( hsi.cerr ) 
 
 # the dispatcher is currently not very sophisticated. All it does
 # is take the string passed to it in the 'plugin' parameter and
