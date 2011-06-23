@@ -168,19 +168,19 @@ void PluginItem::ParseMetadata()
 
 void PluginItem::CheckCategory()
 {
-    if(m_category.CmpNoCase(wxT("images"))==0)
+    if(m_category.CmpNoCase(wxT("images.images"))==0)
     {
         m_type=ImagePlugin;
     }
     else
     {
-        if(m_category.CmpNoCase(wxT("stacks"))==0)
+        if(m_category.CmpNoCase(wxT("images.stacks"))==0)
         {
             m_type=StackPlugin;
         }
         else
         {
-            if(m_category.CmpNoCase(wxT("control points"))==0)
+            if(m_category.CmpNoCase(wxT("images.controlpoints"))==0)
             {
                 m_type=ControlpointPlugin;
             };
