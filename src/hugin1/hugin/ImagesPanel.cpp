@@ -34,23 +34,37 @@
 #include <vector>
 #include <map>
 
+//#include <vigra_ext/PointMatching.h>
+//#include <vigra_ext/LoweSIFT.h>
+
 #include "hugin/ImagesPanel.h"
 #include "hugin/CommandHistory.h"
 #include "hugin/TextKillFocusHandler.h"
+#include "hugin/CPEditorPanel.h"
 #include "hugin/ImagesList.h"
 #include "hugin/MainFrame.h"
 #include "hugin/huginApp.h"
+#include "icpfind/AutoCtrlPointCreator.h"
 #include "hugin/config_defaults.h"
-#include "hugin/PanoOperationTree.h"
-#include "hugin/PanoOperation.h"
+#include "base_wx/MyProgressDialog.h"
+#include "base_wx/PTWXDlg.h"
+#include <algorithms/control_points/CleanCP.h>
+#include <PT/PTOptimise.h>
 
 #include <panodata/StandardImageVariableGroups.h>
+
+// Celeste header
+#include "Celeste.h"
+#include "CelesteGlobals.h"
+#include "Utilities.h"
 
 using namespace PT;
 using namespace hugin_utils;
 using namespace vigra;
 using namespace vigra_ext;
 using namespace std;
+
+ImgPreview * canvas;
 
 #define m_XRCID(str_id) \
     wxXmlResource::GetXRCID(str_id)
@@ -62,17 +76,26 @@ using namespace std;
 #define GET_VAR(val) pano->getVariable(orientationEdit_RefImg).val.getValue()
 
 BEGIN_EVENT_TABLE(ImagesPanel, wxPanel)
+//    EVT_SIZE   ( ImagesPanel::OnSize )
+//    EVT_MOUSE_EVENTS ( ImagesPanel::OnMouse )
+//    EVT_MOTION ( ImagesPanel::ChangePreview )
+//	EVT_SPLITTER_SASH_POS_CHANGED(XRCID("image_panel_splitter"), ImagesPanel::OnPositionChanged)
     EVT_LIST_ITEM_SELECTED( XRCID("images_list_unknown"),
                             ImagesPanel::ListSelectionChanged )
     EVT_LIST_ITEM_DESELECTED( XRCID("images_list_unknown"),
                             ImagesPanel::ListSelectionChanged )
+    EVT_BUTTON     ( XRCID("images_opt_anchor_button"), ImagesPanel::OnOptAnchorChanged)
+    EVT_BUTTON     ( XRCID("images_color_anchor_button"), ImagesPanel::OnColorAnchorChanged)
+    EVT_BUTTON     ( XRCID("images_feature_matching"), ImagesPanel::SIFTMatching)
+    EVT_BUTTON     ( XRCID("images_cp_clean"), ImagesPanel::OnCleanCP)
+    EVT_BUTTON     ( XRCID("images_remove_cp"), ImagesPanel::OnRemoveCtrlPoints)
     EVT_BUTTON     ( XRCID("images_reset_pos"), ImagesPanel::OnResetImagePositions)
-#ifndef __WXGTK__
     EVT_BUTTON     ( XRCID("action_remove_images"),  ImagesPanel::OnRemoveImages)
-#endif
     EVT_BUTTON     ( XRCID("images_move_image_down"),  ImagesPanel::OnMoveImageDown)
     EVT_BUTTON     ( XRCID("images_move_image_up"),  ImagesPanel::OnMoveImageUp)
-    EVT_BUTTON     ( XRCID("images_execute_operation"), ImagesPanel::OnExecuteOperation)
+    EVT_BUTTON	   ( XRCID("images_celeste_button"), ImagesPanel::OnCelesteButton)
+    EVT_BUTTON	   ( XRCID("images_new_stack"), ImagesPanel::OnNewStack)
+    EVT_BUTTON	   ( XRCID("images_change_stack"), ImagesPanel::OnChangeStack)
     EVT_TEXT_ENTER ( XRCID("images_text_y"), ImagesPanel::OnVarTextChanged )
     EVT_TEXT_ENTER ( XRCID("images_text_p"), ImagesPanel::OnVarTextChanged )
     EVT_TEXT_ENTER ( XRCID("images_text_r"), ImagesPanel::OnVarTextChanged )
@@ -86,7 +109,7 @@ END_EVENT_TABLE()
 
 ImagesPanel::ImagesPanel()
 {
-    pano = NULL;
+    pano = 0;
     m_restoreLayoutOnResize = false;
 }
 
@@ -110,15 +133,32 @@ bool ImagesPanel::Create(wxWindow *parent, wxWindowID id, const wxPoint& pos, co
 
     m_showImgNr = INT_MAX;
 
+    m_optAnchorButton = XRCCTRL(*this, "images_opt_anchor_button", wxButton);
+    DEBUG_ASSERT(m_optAnchorButton);
+
+    m_colorAnchorButton = XRCCTRL(*this, "images_color_anchor_button", wxButton);
+    DEBUG_ASSERT(m_colorAnchorButton);
+    m_matchingButton = XRCCTRL(*this, "images_feature_matching", wxButton);
+    DEBUG_ASSERT(m_matchingButton);
+    m_cleaningButton = XRCCTRL(*this, "images_cp_clean", wxButton);
+    DEBUG_ASSERT(m_cleaningButton);
+    m_removeCPButton = XRCCTRL(*this, "images_remove_cp", wxButton);
+    DEBUG_ASSERT(m_removeCPButton);
     m_moveUpButton = XRCCTRL(*this, "images_move_image_up", wxButton);
     DEBUG_ASSERT(m_moveUpButton);
     m_moveDownButton = XRCCTRL(*this, "images_move_image_down", wxButton);
     DEBUG_ASSERT(m_moveDownButton);
+    m_stackNewButton = XRCCTRL(*this, "images_new_stack", wxButton);
+    DEBUG_ASSERT(m_stackNewButton);
+    m_stackChangeButton = XRCCTRL(*this, "images_change_stack", wxButton);
+    DEBUG_ASSERT(m_stackChangeButton);
+    
     m_linkCheckBox = XRCCTRL(*this, "images_check_link", wxCheckBox);
-    DEBUG_ASSERT(m_linkCheckBox);
-    m_operationTree = XRCCTRL(*this, "images_pano_operation_tree", PanoOperationTreeCtrl);
-    DEBUG_ASSERT(m_operationTree);
-    m_operationTree->GenerateTree();
+
+    m_img_ctrls = XRCCTRL(*this, "image_control_panel", wxPanel);
+    DEBUG_ASSERT(m_img_ctrls);
+
+    m_CPDetectorChoice = XRCCTRL(*this, "cpdetector_settings", wxChoice);
 
     // Image Preview
     m_smallImgCtrl = XRCCTRL(*this, "images_selected_image", wxStaticBitmap);
@@ -138,6 +178,10 @@ bool ImagesPanel::Create(wxWindow *parent, wxWindowID id, const wxPoint& pos, co
 //                     wxBITMAP_TYPE_PNG);
     m_smallImgCtrl->SetBitmap(m_empty);
 
+    wxListEvent ev;
+    ListSelectionChanged(ev);
+    DEBUG_TRACE("end");
+
 //    SetAutoLayout(false);
 
     wxConfigBase* config=wxConfigBase::Get();
@@ -147,11 +191,8 @@ bool ImagesPanel::Create(wxWindow *parent, wxWindowID id, const wxPoint& pos, co
     //write current autopano generator settings
     cpdetector_config.Write(config);
     config->Flush();
-    m_operationTree->UpdateCPDetectorItems(cpdetector_config);
+    cpdetector_config.FillControl(m_CPDetectorChoice,true);
     Layout();
-    wxListEvent ev;
-    ListSelectionChanged(ev);
-    DEBUG_TRACE("end");
 
     return true;
 }
@@ -163,15 +204,6 @@ void ImagesPanel::Init(Panorama * panorama)
     // observe the panorama
     pano->addObserver(this);
 }
-
-#ifdef HUGIN_HSI
-void ImagesPanel::AddPythonOperations(PluginItems items)
-{
-    m_operationTree->GeneratePythonTree(items);
-    UIntSet images;
-    m_operationTree->UpdateState(*pano,images);
-};
-#endif
 
 ImagesPanel::~ImagesPanel()
 {
@@ -231,7 +263,21 @@ void ImagesPanel::panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & 
     if (pano.getNrOfImages() == 0)
     {
         DisableImageCtrls();
-    };
+        m_removeCPButton->Disable();
+        m_matchingButton->Disable();
+    } else {
+        m_removeCPButton->Enable();
+        m_matchingButton->Enable();
+    }
+    if (pano.getNrOfImages()>1)
+    {
+        if(pano.getNrOfCtrlPoints()>2)
+            m_cleaningButton->Enable();
+        else
+            m_cleaningButton->Disable();
+    }
+    else
+        m_cleaningButton->Disable();
 
     if (selected.size() == 1 &&
         *(selected.begin()) < pano.getNrOfImages() &&
@@ -244,7 +290,6 @@ void ImagesPanel::panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & 
     {
         ClearImgParameters( );
     }
-    m_operationTree->UpdateState(pano,selected);
 
     DEBUG_TRACE("");
 }
@@ -258,6 +303,84 @@ void ImagesPanel::ChangePano ( std::string type, double var )
 }
 
 // #####  Here start the eventhandlers  #####
+
+/** run sift matching on selected images, and add control points */
+void ImagesPanel::SIFTMatching(wxCommandEvent & e)
+{
+    UIntSet selImg = images_list->GetSelected();
+    if ( selImg.size() < 2) {
+        // add all images.
+        selImg.clear();
+        unsigned int nImg = pano->getNrOfImages();
+        for (unsigned int i=0; i < nImg; i++) {
+            selImg.insert(i);
+        }
+    }
+
+    if (selImg.size() == 0) {
+        return;
+    }
+
+    long nFeatures = XRCCTRL(*this, "images_points_per_overlap"
+                            , wxSpinCtrl)->GetValue();
+
+    AutoCtrlPointCreator matcher;
+    CPVector cps = matcher.automatch(cpdetector_config.settings[m_CPDetectorChoice->GetSelection()],
+        *pano, selImg, nFeatures,this);
+    wxString msg;
+    wxMessageBox(wxString::Format(_("Added %lu control points"), (unsigned long) cps.size()), _("Control point detector result"),wxOK|wxICON_INFORMATION,this);
+    GlobalCmdHist::getInstance().addCommand(
+            new PT::AddCtrlPointsCmd(*pano, cps)
+                                           );
+
+};
+
+void ImagesPanel::OnCleanCP(wxCommandEvent & e)
+{
+    if (pano->getNrOfImages()<2)
+        return;
+
+    if (pano->getNrOfCtrlPoints()<2)
+        return;
+
+    deregisterPTWXDlgFcn();
+    // work around a flaw in wxProgresDialog that results in incorrect layout
+    // by pre-allocting sufficient horizontal space
+    ProgressReporterDialog progress(2, _("Cleaning Control points"), _("Checking pairwise")+wxString((wxChar)' ',10),this, wxPD_AUTO_HIDE | wxPD_APP_MODAL | wxPD_ELAPSED_TIME);
+    UIntSet CPremove=getCPoutsideLimit_pair(*pano,2.0);
+    
+    unsigned int NrRemoved=CPremove.size();
+    if(NrRemoved>0)
+    {
+        GlobalCmdHist::getInstance().addCommand(
+                        new PT::RemoveCtrlPointsCmd(*pano,CPremove)
+                        );
+        
+    };
+    CPremove.clear();
+    
+    //check for unconnected images
+    CPGraph graph;
+    createCPGraph(*pano, graph);
+    CPComponents comps;
+    int n=findCPComponents(graph, comps);
+    progress.increaseProgress(1, std::wstring(wxString(_("Checking whole project")).wc_str(wxConvLocal)));
+    if (n <= 1)
+    {
+        CPremove=getCPoutsideLimit(*pano,2.0);
+    }
+    progress.increaseProgress(1, std::wstring(wxString(_("Finished cleaning")).wc_str(wxConvLocal)));
+    registerPTWXDlgFcn(MainFrame::Get());
+    if(CPremove.size()>0)
+    {
+        GlobalCmdHist::getInstance().addCommand(
+                        new PT::RemoveCtrlPointsCmd(*pano,CPremove)
+                        );
+        NrRemoved+=CPremove.size();
+    };
+    wxMessageBox(wxString::Format(_("Removed %u control points"), NrRemoved), _("Cleaning"),wxOK|wxICON_INFORMATION,this);
+};
+
 void ImagesPanel::OnVarTextChanged ( wxCommandEvent & e )
 {
 
@@ -316,6 +439,41 @@ void ImagesPanel::OnImageLinkChanged(wxCommandEvent &e )
         );
 }
 
+void ImagesPanel::OnOptAnchorChanged(wxCommandEvent &e )
+{
+    const UIntSet & sel = images_list->GetSelected();
+    if ( sel.size() == 1 ) {
+        // set first image to be the anchor
+        PanoramaOptions opt = pano->getOptions();
+        opt.optimizeReferenceImage = *(sel.begin());
+
+        GlobalCmdHist::getInstance().addCommand(
+            new PT::SetPanoOptionsCmd( *pano, opt )
+            );
+    }
+}
+
+void ImagesPanel::OnColorAnchorChanged(wxCommandEvent &e )
+{
+    const UIntSet & sel = images_list->GetSelected();
+    if ( sel.size() == 1 ) {
+        // set first image to be the anchor
+        PanoramaOptions opt = pano->getOptions();
+        opt.colorReferenceImage = *(sel.begin());
+		// Set the color correction mode so that the anchor image is persisted
+		if (opt.colorCorrection == 0) {
+		  opt.colorCorrection = (PanoramaOptions::ColorCorrection) 1;
+		}
+		DEBUG_INFO("Color reference image is now: " << opt.colorReferenceImage);
+		DEBUG_INFO("Color correction mode : " << opt.colorCorrection);
+        GlobalCmdHist::getInstance().addCommand(
+            new PT::SetPanoOptionsCmd( *pano, opt )
+            );
+    }
+	
+}
+
+
 void ImagesPanel::ListSelectionChanged(wxListEvent & e)
 {
     DEBUG_TRACE(e.GetIndex());
@@ -335,6 +493,8 @@ void ImagesPanel::ListSelectionChanged(wxListEvent & e)
             unsigned int imgNr = *(sel.begin());
             // single selection, show its parameters
             ShowImgParameters(imgNr);
+            m_optAnchorButton->Enable();
+            m_colorAnchorButton->Enable();
             m_moveDownButton->Enable();
             m_moveUpButton->Enable();
         } else {
@@ -342,20 +502,12 @@ void ImagesPanel::ListSelectionChanged(wxListEvent & e)
             // multiselection, clear all values
             // we don't know which images parameters to show.
             ClearImgParameters();
+            m_optAnchorButton->Disable();
+            m_colorAnchorButton->Disable();
             m_moveDownButton->Disable();
             m_moveUpButton->Disable();
         }
     }
-    if(pano!=NULL)
-    {
-        m_operationTree->UpdateState(*pano,sel);
-    }
-    else
-    {
-        Panorama pano2;
-        UIntSet images;
-        m_operationTree->UpdateState(pano2,images);
-    };
 }
 
 
@@ -373,12 +525,15 @@ void ImagesPanel::DisableImageCtrls()
     m_smallImgCtrl->SetBitmap(m_empty);
     m_smallImgCtrl->GetParent()->Layout();
     m_smallImgCtrl->Refresh();
+    m_optAnchorButton->Disable();
+    m_colorAnchorButton->Disable();
     m_moveDownButton->Disable();
     m_moveUpButton->Disable();
     XRCCTRL(*this, "images_reset_pos", wxButton)->Disable();
-#ifndef __WXGTK__
     XRCCTRL(*this, "action_remove_images", wxButton)->Disable();
-#endif
+    XRCCTRL(*this, "images_celeste_button", wxButton)->Disable();
+    m_stackNewButton->Disable();
+    m_stackChangeButton->Disable();
     m_linkCheckBox->Disable();
 }
 
@@ -394,9 +549,10 @@ void ImagesPanel::EnableImageCtrls()
         m_moveDownButton->Enable();
         m_moveUpButton->Enable();
         XRCCTRL(*this, "images_reset_pos", wxButton)->Enable();
-#ifndef __WXGTK__
         XRCCTRL(*this, "action_remove_images", wxButton)->Enable();
-#endif
+	XRCCTRL(*this, "images_celeste_button", wxButton)->Enable();
+        m_stackNewButton->Enable();
+        m_stackChangeButton->Enable();
         m_linkCheckBox->Enable();
     }
 }
@@ -533,7 +689,6 @@ void ImagesPanel::ClearImgExifInfo()
     XRCCTRL(*this, "images_focal_length", wxStaticText) ->SetLabel(wxT(""));
     XRCCTRL(*this, "images_aperture", wxStaticText) ->SetLabel(wxT(""));
     XRCCTRL(*this, "images_shutter_speed", wxStaticText) ->SetLabel(wxT(""));
-    XRCCTRL(*this, "images_iso",wxStaticText)->SetLabel(wxT(""));
 }
 
 
@@ -591,6 +746,75 @@ void ImagesPanel::UpdatePreviewImage()
     }
 }
 
+
+#if 0
+void ImagesPanel::ShowImage(unsigned int imgNr)
+{
+    // show preview image
+
+    // static bitmap behaves strangely under windows,
+    // we need to resize it to its maximum size every time before
+    // a new image is set, else it will keep the old size..
+    // however, I'm not sure how this should be done with wxWindows
+
+
+    const wxImage * img = ImageCache::getInstance().getSmallImage(
+    pano->getImage(imgNr).getFilename());
+
+    double iRatio = (double)img->GetWidth() / img->GetHeight();
+
+    wxSize sz;
+#ifdef USE_WX253
+    // get width from splitter window
+    wxSize szs = m_img_splitter->GetSize();
+    wxSize sz1 = m_img_splitter->GetWindow1()->GetSize();
+    wxSize sz2 = m_img_splitter->GetWindow2()->GetSize();
+
+    // estimate image size
+    sz = m_img_splitter->GetWindow2()->GetSize();
+    int maxw = sz.GetWidth() - 40;
+    int maxh = sz.GetHeight() - m_smallImgCtrl->GetPosition().y - 20;
+    sz.SetHeight(std::max(maxh, 20));
+    sz.SetWidth(std::max(maxw, 20));
+    double sRatio = (double)sz.GetWidth() / sz.GetHeight();
+    if (iRatio > sRatio) {
+        // image is wider than screen, display landscape
+        sz.SetHeight((int) (sz.GetWidth() / iRatio));
+    } else {
+        // portrait
+        sz.SetWidth((int) (sz.GetHeight() * iRatio));
+    }
+
+#else
+    // get size from parent panel (its just there, to provide the size..
+    wxPanel * imgctrlpanel = XRCCTRL(*this, "images_selected_image_panel", wxPanel);
+    DEBUG_ASSERT(imgctrlpanel);
+    wxSize sz = imgctrlpanel->GetSize();
+    DEBUG_DEBUG("imgctrl panel size: " << sz.x << "," << sz.y);
+    double sRatio = (double)sz.GetWidth() / sz.GetHeight();
+
+    if (iRatio > sRatio) {
+        // image is wider than screen, display landscape
+        sz.SetHeight((int) (sz.GetWidth() / iRatio));
+    } else {
+        // portrait
+        sz.SetWidth((int) (sz.GetHeight() * iRatio));
+    }
+#if (wxMAJOR_VERSION == 2 && wxMINOR_VERSION == 4)
+    imgctrlpanel->Clear();
+#else
+    imgctrlpanel->ClearBackground();
+#endif
+    imgctrlpanel->SetSize(sz.GetWidth(),sz.GetHeight());
+
+#endif
+
+    wxImage scaled = img->Scale(sz.GetWidth(),sz.GetHeight());
+    m_smallImgCtrl->SetSize(sz.GetWidth(),sz.GetHeight());
+    m_smallImgCtrl->SetBitmap(wxBitmap(scaled));
+}
+#endif
+
 void ImagesPanel::OnResetImagePositions(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
@@ -613,6 +837,7 @@ void ImagesPanel::OnResetImagePositions(wxCommandEvent & e)
         GlobalCmdHist::getInstance().addCommand(
             new PT::UpdateImagesVariablesCmd( *pano, selImg, vars ));
     }
+
 }
 
 void ImagesPanel::OnAddImages(wxCommandEvent &e)
@@ -622,15 +847,59 @@ void ImagesPanel::OnAddImages(wxCommandEvent &e)
 
 void ImagesPanel::OnRemoveImages(wxCommandEvent & e)
 {
+    DEBUG_TRACE("");
+
     UIntSet selImg = images_list->GetSelected();
-    RemoveImageOperation remove;
-    PT::PanoCommand* cmd=remove.GetCommand(this,*pano,selImg);
-    if(cmd!=NULL)
+    vector<string> filenames;
+    for (UIntSet::iterator it = selImg.begin(); it != selImg.end(); ++it) {
+        filenames.push_back(pano->getImage(*it).getFilename());
+    }
+    DEBUG_TRACE("Sending remove images command");
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::RemoveImagesCmd(*pano, selImg)
+        );
+
+    DEBUG_TRACE("Removing " << filenames.size() << " images from cache");
+    for (vector<string>::iterator it = filenames.begin();
+         it != filenames.end(); ++it)
     {
-        DEBUG_TRACE("Sending remove images command");
-        GlobalCmdHist::getInstance().addCommand(cmd);
-    };
-};
+        ImageCache::getInstance().removeImage(*it);
+    }
+}
+
+
+void ImagesPanel::OnRemoveCtrlPoints(wxCommandEvent & e)
+{
+    DEBUG_TRACE("");
+    UIntSet selImg = images_list->GetSelected();
+    if ( selImg.size() == 0) {
+        // add all images.
+        selImg.clear();
+        unsigned int nImg = pano->getNrOfImages();
+        for (unsigned int i=0; i < nImg; i++) {
+            selImg.insert(i);
+        }
+    }
+
+
+    UIntSet cpsToDelete;
+    const CPVector & cps = pano->getCtrlPoints();
+    for (CPVector::const_iterator it = cps.begin(); it != cps.end(); ++it){
+        if (set_contains(selImg, (*it).image1Nr) &&
+            set_contains(selImg, (*it).image2Nr) )
+        {
+            cpsToDelete.insert(it - cps.begin());
+        }
+    }
+    int r =wxMessageBox(wxString::Format(_("Really Delete %lu control points?"),
+                                         (unsigned long int) cpsToDelete.size()),
+                        _("Delete Control Points"),
+                        wxICON_QUESTION | wxYES_NO);
+    if (r == wxYES) {
+        GlobalCmdHist::getInstance().addCommand(
+            new PT::RemoveCtrlPointsCmd( *pano, cpsToDelete ));
+    }
+}
 
 void ImagesPanel::OnMoveImageDown(wxCommandEvent & e)
 {
@@ -672,29 +941,57 @@ void ImagesPanel::OnMoveImageUp(wxCommandEvent & e)
     }
 }
 
-void ImagesPanel::OnExecuteOperation(wxCommandEvent & e)
-{
-    wxTreeItemId id=m_operationTree->GetSelection();
-    if(id.IsOk())
-    {
-        PanoOperation* operation=(PanoOperation*)(m_operationTree->GetItemData(id));
-        if(operation!=NULL)
-        {
-            PT::PanoCommand* cmd=operation->GetCommand(this,*pano,images_list->GetSelected());
-            if(cmd!=NULL)
-            {
-                GlobalCmdHist::getInstance().addCommand(cmd);
-            };
-        };
-    };
-};
-
 void ImagesPanel::ReloadCPDetectorSettings()
 {
     cpdetector_config.Read(); 
-    m_operationTree->UpdateCPDetectorItems(cpdetector_config);
-    m_operationTree->UpdateState(*pano,images_list->GetSelected());
+    cpdetector_config.FillControl(m_CPDetectorChoice,true);
+    m_CPDetectorChoice->InvalidateBestSize();
+    m_CPDetectorChoice->GetParent()->Layout();
+    Refresh();
 };
+
+void ImagesPanel::OnNewStack(wxCommandEvent & e)
+{
+    /** @todo it is possibly better to link just the Stack variable,
+     * since the majority of stacks need self alignment, and this links angles.
+     */
+    GlobalCmdHist::getInstance().addCommand
+    (
+        new PT::NewPartCmd
+        (
+            *pano, images_list->GetSelected(),
+            HuginBase::StandardImageVariableGroups::getStackVariables()
+        )
+    );
+}
+
+void ImagesPanel::OnChangeStack(wxCommandEvent & e)
+{
+    // ask user for stack number, if there are enoguh.
+    HuginBase::StandardImageVariableGroups variableGroups(*pano);
+    if (variableGroups.getStacks().getNumberOfParts() == 1)
+    {
+        wxLogError(_("Your project must have at least two stacks before you can assign images to a different stack."));
+        return;
+    }
+    long nr = wxGetNumberFromUser(
+                            _("Enter new stack number"),
+                            _("stack number"),
+                            _("Change stack number"), 0, 0,
+                            variableGroups.getStacks().getNumberOfParts()-1
+                                 );
+    if (nr >= 0) {
+        // user accepted
+        GlobalCmdHist::getInstance().addCommand
+        (
+            new PT::ChangePartNumberCmd
+            (   
+                *pano, images_list->GetSelected(), nr,
+                HuginBase::StandardImageVariableGroups::getStackVariables()
+            )
+        );
+    }
+}
 
 IMPLEMENT_DYNAMIC_CLASS(ImagesPanel, wxPanel)
 
@@ -725,4 +1022,85 @@ bool ImagesPanelXmlHandler::CanHandle(wxXmlNode *node)
 }
 
 IMPLEMENT_DYNAMIC_CLASS(ImagesPanelXmlHandler, wxXmlResourceHandler)
+
+void ImagesPanel::OnCelesteButton(wxCommandEvent & e)
+{
+    const UIntSet & selImg = images_list->GetSelected();
+
+    if ( selImg.size() == 0)
+    {
+        DEBUG_WARN("Cannot run celeste without at least one point");
+    }
+    else
+    {	
+        ProgressReporterDialog progress(selImg.size()+2, _("Running Celeste"), _("Running Celeste"),this);
+        MainFrame::Get()->SetStatusText(_("searching for cloud-like control points..."),0);
+        progress.increaseProgress(1.0, std::wstring(wxString(_("Loading model file")).wc_str(wxConvLocal)));
+
+        struct celeste::svm_model* model=MainFrame::Get()->GetSVMModel();
+        if(model==NULL)
+        {
+            MainFrame::Get()->SetStatusText(wxT(""),0);
+            return;
+        };
+
+        // Get Celeste parameters
+        wxConfigBase *cfg = wxConfigBase::Get();
+        // SVM threshold
+        double threshold = HUGIN_CELESTE_THRESHOLD;
+        cfg->Read(wxT("/Celeste/Threshold"), &threshold, HUGIN_CELESTE_THRESHOLD);
+
+        // Mask resolution - 1 sets it to fine
+        bool t = (cfg->Read(wxT("/Celeste/Filter"), HUGIN_CELESTE_FILTER) == 0);
+        int radius=(t)?10:20;
+        DEBUG_TRACE("Running Celeste");
+
+        UIntSet cpsToRemove;
+        for (UIntSet::const_iterator it=selImg.begin(); it!=selImg.end(); it++)
+        {
+            // Image to analyse
+            HuginBase::CPointVector cps=pano->getCtrlPointsVectorForImage(*it);
+            if(cps.size()==0)
+            {
+                progress.increaseProgress(1.0, std::wstring(wxString(_("Running Celeste")).wc_str(wxConvLocal)));
+                continue;
+            };
+            ImageCache::EntryPtr img=ImageCache::getInstance().getImage(pano->getImage(*it).getFilename());
+            vigra::UInt16RGBImage in;
+            if(img->image16->width()>0)
+            {
+                in.resize(img->image16->size());
+                vigra::copyImage(srcImageRange(*(img->image16)),destImage(in));
+            }
+            else
+            {
+                ImageCache::ImageCacheRGB8Ptr im8=img->get8BitImage();
+                in.resize(im8->size());
+                vigra::transformImage(srcImageRange(*im8),destImage(in),vigra::functor::Arg1()*vigra::functor::Param(65535/255));
+            };
+            UIntSet cloudCP=celeste::getCelesteControlPoints(model,in,cps,radius,threshold,800);
+            in.resize(0,0);
+            if(cloudCP.size()>0)
+            {
+                for(UIntSet::const_iterator it2=cloudCP.begin();it2!=cloudCP.end();it2++)
+                {
+                    cpsToRemove.insert(*it2);
+                };
+            };
+            progress.increaseProgress(1.0, std::wstring(wxString(_("Running Celeste")).wc_str(wxConvLocal)));
+        };
+
+        if(cpsToRemove.size()>0)
+        {
+            GlobalCmdHist::getInstance().addCommand(
+                new PT::RemoveCtrlPointsCmd(*pano,cpsToRemove)
+                );
+        };
+
+        progress.increaseProgress(1.0, std::wstring(wxString(_("Running Celeste")).wc_str(wxConvLocal)));
+        wxMessageBox(wxString::Format(_("Removed %lu control points"), (unsigned long int) cpsToRemove.size()), _("Celeste result"),wxOK|wxICON_INFORMATION,this);
+        DEBUG_TRACE("Finished running Celeste");
+        MainFrame::Get()->SetStatusText(wxT(""),0);
+    }
+}
 

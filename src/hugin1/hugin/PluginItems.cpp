@@ -71,7 +71,6 @@ PluginItem::PluginItem(wxFileName filename)
     m_filename=filename;
     m_description=wxT("");
     m_validAPI=true;
-    m_type=DefaultPlugin;
     ParseMetadata();
 };
 
@@ -163,29 +162,6 @@ void PluginItem::ParseMetadata()
             continue;
         };
     };
-    CheckCategory();
-};
-
-void PluginItem::CheckCategory()
-{
-    if(m_category.CmpNoCase(wxT("images.images"))==0)
-    {
-        m_type=ImagePlugin;
-    }
-    else
-    {
-        if(m_category.CmpNoCase(wxT("images.stacks"))==0)
-        {
-            m_type=StackPlugin;
-        }
-        else
-        {
-            if(m_category.CmpNoCase(wxT("images.controlpoints"))==0)
-            {
-                m_type=ControlpointPlugin;
-            };
-        };
-    };
 };
 
 const bool PluginItem::IsAPIValid() const
@@ -211,10 +187,5 @@ const wxString PluginItem::GetName() const
 const wxString PluginItem::GetDescription() const
 {
     return m_description;
-};
-
-const PluginItem::PluginType PluginItem::GetPluginType() const
-{
-    return m_type;
 };
 
