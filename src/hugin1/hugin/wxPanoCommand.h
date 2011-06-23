@@ -154,6 +154,27 @@ private:
         double cornerThreshold;
     };
 
+    /** run a python script */
+#ifdef HUGIN_HSI
+    class PythonScriptPanoCmd : public PanoCommand
+    {
+    public:
+        PythonScriptPanoCmd(Panorama & pano, const std::string & scriptFile)
+            : PanoCommand(pano), m_scriptFile(scriptFile)
+            { };
+
+        virtual bool processPanorama(Panorama& pano);
+        
+        virtual std::string getName() const
+            {
+                return "python script";
+            }
+    private:
+        std::string m_scriptFile;
+    };
+#endif
+
+
 } // namespace PT
 
 #endif // _WXPANOCOMMAND__H

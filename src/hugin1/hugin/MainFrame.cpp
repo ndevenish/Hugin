@@ -71,7 +71,6 @@
 
 #if HUGIN_HSI
 #include "PluginItems.h"
-#include "hugin/PythonProgress.h"
 #endif
 
 using namespace PT;
@@ -1718,16 +1717,10 @@ void MainFrame::OnPythonScript(wxCommandEvent & e)
     {
         wxString filename = dlg.GetPath();
         wxConfig::Get()->Write(wxT("/pythonScriptPath"), dlg.GetDirectory());
-        PythonProgress pythonDlg(this,pano,filename);
-        if(pythonDlg.RunScript())
-        {
-            if(pythonDlg.ShowModal()==wxID_OK)
-            {
-                GlobalCmdHist::getInstance().addCommand(
-                    new PT::UpdateProjectCmd(pano,pythonDlg.GetPanoramaMemento())
-                    );
-            };
-        };
+        std::string scriptfile((const char *)filename.mb_str(HUGIN_CONV_FILENAME));
+        GlobalCmdHist::getInstance().addCommand(
+            new PythonScriptPanoCmd(pano,scriptfile)
+            );
     }
 }
 
@@ -1736,16 +1729,10 @@ void MainFrame::OnPlugin(wxCommandEvent & e)
     wxFileName file=m_plugins[e.GetId()];
     if(file.FileExists())
     {
-        PythonProgress pythonDlg(this,pano,file.GetFullPath());
-        if(pythonDlg.RunScript())
-        {
-            if(pythonDlg.ShowModal()==wxID_OK)
-            {
-                GlobalCmdHist::getInstance().addCommand(
-                    new PT::UpdateProjectCmd(pano,pythonDlg.GetPanoramaMemento())
-                    );
-            };
-        };
+        std::string scriptfile((const char *)file.GetFullPath().mb_str(HUGIN_CONV_FILENAME));
+        GlobalCmdHist::getInstance().addCommand(
+                                 new PythonScriptPanoCmd(pano,scriptfile)
+                                 );
     }
     else
     {

@@ -989,43 +989,6 @@ namespace PT {
     //=========================================================================
     //=========================================================================
 
-    /** updates the current project with given PanoramaMemento.
-     *
-     *  Used by Python scripts.
-     *
-     */
-    class UpdateProjectCmd : public PanoCommand
-    {
-    public:
-        UpdateProjectCmd(Panorama & pano, const PanoramaMemento panoMemento)
-            : PanoCommand(pano),
-            m_panoMemento(panoMemento)
-            { }
-
-        virtual bool processPanorama(Panorama& pano)
-            {
-                pano.setMemento(m_panoMemento);
-                //mark all images as changed
-                for(size_t i=0;i<pano.getNrOfImages();i++)
-                {
-                    pano.imageChanged(i);
-                };
-                pano.changeFinished();
-                return true;
-            };
-
-        virtual std::string getName() const
-            {
-                return "update project";
-            }
-
-    private:
-        const PanoramaMemento m_panoMemento;
-    };
-
-    //=========================================================================
-    //=========================================================================
-
     /** Rotate the panorama
      */
     class RotatePanoCmd : public PanoCommand

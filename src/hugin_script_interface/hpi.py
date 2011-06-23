@@ -20,33 +20,6 @@ from __future__ import print_function
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
-import sys
-import hsi
-
-# class OutputToCStream captures write operations to 'copy',
-# which must have a write method taking the length of the
-# string as second argument (so we can use hsi.cout and hsi.cerr)
-# and a flush method (maybe that's not needed)
-# all other functions are delegatated to 'victim', the original output class
-
-class OutputToCStream :
-
-    # we take the stream to be diverted as our 'victim'
-
-    def __init__ ( self , copy ) :
-        self.copy = copy
-
-    # if write is called, we write to 'copy' first
-    # and to 'victim' next
-
-    def write ( self , s ) :
-        self.copy.write ( s , len ( s ) )
-        self.copy.flush()
-
-# finally, we use two OutputToCStream objects, one for cout and one for cerr.
-
-sys.stdout = OutputToCStream ( hsi.cout )
-sys.stderr = OutputToCStream ( hsi.cerr ) 
 
 # the dispatcher is currently not very sophisticated. All it does
 # is take the string passed to it in the 'plugin' parameter and
