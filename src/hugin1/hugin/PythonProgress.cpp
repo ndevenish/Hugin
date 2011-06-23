@@ -55,10 +55,10 @@ BEGIN_EVENT_TABLE(PythonProgress, wxDialog)
 END_EVENT_TABLE()
 
 PythonProgress::PythonProgress(wxWindow* parent, PT::Panorama &pano, wxString scriptfile) : 
-    wxDialog(parent,wxID_ANY,_("Running Python script"),wxDefaultPosition, wxDefaultSize,wxCAPTION | wxSYSTEM_MENU | wxRESIZE_BORDER),
-      m_pano(pano)
+    wxDialog(parent,wxID_ANY,_("Running Python script"),wxDefaultPosition, wxDefaultSize,wxCAPTION | wxSYSTEM_MENU | wxRESIZE_BORDER)
 {
     m_success=false;
+    m_pano=pano.duplicate();
     m_scriptfile=scriptfile;
     wxBoxSizer* topSizer=new wxBoxSizer(wxVERTICAL);
     wxTextCtrl* textCtrl=new wxTextCtrl(this,wxID_ANY,wxEmptyString,wxDefaultPosition,wxSize(350,250),wxTE_MULTILINE | wxTE_READONLY);
@@ -146,7 +146,7 @@ void PythonProgress::OnPythonFinished(wxCommandEvent &e)
 {
     m_success=(e.GetInt()==0);
     m_closeButton->Enable(true);
-    Refresh();
+    Update();
     if(m_success)
     {
         if(m_closeWhenDone->GetValue())

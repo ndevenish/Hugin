@@ -66,7 +66,7 @@ protected:
     virtual wxThread::ExitCode Entry();
 
     // panorama object and critical section to lock if Python is running
-    HuginBase::Panorama & m_pano;
+    HuginBase::Panorama m_pano;
     wxCriticalSection m_panoCS;
     wxString m_scriptfile;
 private:
