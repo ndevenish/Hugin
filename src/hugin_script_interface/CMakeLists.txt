@@ -223,7 +223,7 @@ ELSE()
             DESTINATION ${pyinstalldir}
             )
 
-    INSTALL(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/hsi.py
+    INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/hsi.py
             DESTINATION ${pyinstalldir}
             )
 
