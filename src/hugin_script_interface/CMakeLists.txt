@@ -219,11 +219,11 @@ ELSE()
             NAMELINK_SKIP
             )
 
-    INSTALL(FILES hpi.py
+    INSTALL(PROGRAMS hpi.py
             DESTINATION ${pyinstalldir}
             )
 
-    INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/hsi.py
+    INSTALL(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/hsi.py
             DESTINATION ${pyinstalldir}
             )
 
