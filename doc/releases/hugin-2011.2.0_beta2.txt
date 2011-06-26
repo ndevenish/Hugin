@@ -170,6 +170,9 @@ The Python interface introduces new dependencies:
 * SWIG >2.0
 * Python
 
+There is a known problem building with CMake 2.8.5rc2.
+Workaround: downgrade to 2.8.4.
+
 
 _Control point generators_
 
