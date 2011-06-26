@@ -33,6 +33,10 @@
 #include "hugin_utils/alphanum.h"
 #include "PluginItems.h"
 
+//for console/debugging output
+#include <iostream>
+char buf[200];
+
 bool comparePluginItem(PluginItem item1,PluginItem item2)
 {
     int res=doj::alphanum_comp(
@@ -102,6 +106,11 @@ void PluginItem::ParseMetadata()
     wxString tagDescription(wxT("@description"));
     int pos;
 
+    // tell me who you are processing
+    strncpy( buf, (const char*)m_filename.GetFullPath().mb_str(wxConvUTF8),200 );
+    std::cout << buf << std::endl;
+
+
     while(!in.Eof() && !(foundCategory && foundName && foundAPImin && foundAPImax && foundSYS && foundDescription))
     {
         wxString line=text.ReadLine();
@@ -115,6 +124,7 @@ void PluginItem::ParseMetadata()
             if(pos==wxNOT_FOUND)
             {
                 m_validAPI=false;
+                std::cout << "   fails @sys" << std::endl;
             };
             continue;
         };
@@ -126,9 +136,12 @@ void PluginItem::ParseMetadata()
             if(compareVersion(wxT(HUGIN_API_VERSION),APImin))
             {
                 m_validAPI=false;
+                std::cout << "   fails @api-min" << std::endl;
             };
             continue;
         };
+// test max API only for release versions
+#if ((VERSION_MINOR%2)==0)
         pos=lowerLine.Find(tagAPImax);
         if(pos!=wxNOT_FOUND)
         {
@@ -137,14 +150,18 @@ void PluginItem::ParseMetadata()
             if(compareVersion(APImax,wxT(HUGIN_API_VERSION)))
             {
                 m_validAPI=false;
+                std::cout << "   fails @api-max" << std::endl;
             };
             continue;
         };
+#endif
         pos=lowerLine.Find(tagCategory);
         if(pos!=wxNOT_FOUND)
         {
             m_category = line.Mid(pos+1+tagCategory.length()).Trim().Trim(false);
             foundCategory=true;
+            strncpy( buf, (const char*)m_category.mb_str(wxConvUTF8),200 );
+            std::cout << "   CAT:" << buf << std::endl;
             continue;
         };
         pos=lowerLine.Find(tagName);
@@ -152,6 +169,8 @@ void PluginItem::ParseMetadata()
         {
             m_name = line.Mid(pos+1+tagName.length()).Trim().Trim(false);
             foundName=true;
+            strncpy( buf, (const char*)m_name.mb_str(wxConvUTF8),200 );
+            std::cout << "   NAM:" << buf << std::endl;
             continue;
         };
         pos=lowerLine.Find(tagDescription);
@@ -188,4 +207,3 @@ const wxString PluginItem::GetDescription() const
 {
     return m_description;
 };
-
