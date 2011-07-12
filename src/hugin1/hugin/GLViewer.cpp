@@ -87,13 +87,15 @@ GLViewer::GLViewer(
 #if defined __WXGTK__ || wxCHECK_VERSION(2,9,0)
     m_glContext = new wxGLContext(this, shared_context);
 #endif
-    
+  
     m_renderer = 0;
     m_visualization_state = 0;
     
     m_pano = &pano;
 
     frame = frame_in;
+
+    m_background_color = frame->GetPreviewBackgroundColor();
     
     started_creation = false;
     redrawing = false;
@@ -189,11 +191,13 @@ void GLPreview::setUp()
     // we can fill it just now, because we need a OpenGL context, which was created now,
     // to check if all necessary extentions are available
     frame->FillBlendChoice();
+    // pass the background color to the preview renderer
+    m_renderer->SetPreviewBackgroundColor(m_background_color);
 }
 
 void GLOverview::setUp()
 {
-    DEBUG_DEBUG("Overview Setup");
+DEBUG_DEBUG("Overview Setup");
     // we need something to store the state of the view and control updates
     if (!m_view_state) {
         GLint countMultiTexture;
@@ -409,7 +413,12 @@ void GLViewer::KeyUp(wxKeyEvent& e)
         m_tool_helper->KeypressEvent(e.GetKeyCode(), e.GetModifiers(), false);
 }
 
-
+void GLViewer::SetViewerBackground(wxColour col)
+{
+    this->m_background_color = col;
+    if(m_renderer)
+        m_renderer->SetPreviewBackgroundColor(col);
+}
 
 void GLOverview::SetMode(OverviewMode mode)
 {

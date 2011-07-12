@@ -84,6 +84,7 @@ class GLwxAuiFloatingFrame;
 #include <wx/string.h>
 #include <wx/frame.h>
 #include <wx/aui/aui.h>
+#include <wx/clrpicker.h>
 
 #include <iostream>
 
@@ -243,6 +244,9 @@ public:
      */
     void UpdateGlobalWhiteBalance(double redFactor, double blueFactor);
     void UpdateIdentifyTools(std::set<unsigned int> new_image_set);
+
+    wxColour GetPreviewBackgroundColor();
+    
 protected:
 
     bool GLresize;
@@ -311,6 +315,9 @@ protected:
     void OnLayoutScaleChange(wxScrollEvent &e);
     /** event handler when starting color picker */
     void OnColorPicker(wxCommandEvent &e);
+    /** event handler when user changes background color */
+    void OnPreviewBackgroundColorChanged(wxColourPickerEvent & e);
+    
 private:
     /** changes the visibility of the group check boxes
      * @param isShown true if the group checkboxes should be visible
@@ -358,6 +365,8 @@ private:
     bool m_projectionStatusPushed;
 #endif
 
+    wxColour m_preview_background_color;
+
     wxString m_choices[3];
     int m_oldProjFormat;
     // index of difference mode
@@ -384,7 +393,7 @@ private:
     std::vector<ImageGroupButtonEventHandler *> toggle_group_button_event_handlers;
 
     wxToggleButton * m_OverviewToggle;
-    
+
     DECLARE_EVENT_TABLE()
 
     // tools

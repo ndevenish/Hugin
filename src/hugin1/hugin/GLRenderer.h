@@ -28,6 +28,7 @@
 //#include <vector>
 /* something messed up... temporary fix :-( */
 #include "hugin_utils/utils.h"
+#include "hugin/config_defaults.h"
 #define DEBUG_HEADER ""
 #include <base_wx/wxImageCache.h>
 #include <vigra_ext/ROIImage.h>
@@ -65,17 +66,20 @@ public:
      */
     virtual vigra::Diff2D Resize(int width, int height) = 0;
     virtual void Redraw() = 0;
-    
+
     void SetBackground(unsigned char red, unsigned char green, unsigned char blue);
     float width_o, height_o;
+    /** sets the preview background color */
+    void SetPreviewBackgroundColor (wxColour c);
 
-    
 protected:
     PT::Panorama  * m_pano;
     TextureManager * m_tex_man;
     MeshManager * m_mesh_man;
     ToolHelper *m_tool_helper;
     int width, height;
+    wxColour m_background_color;
+
 };
 
 /**
@@ -145,6 +149,4 @@ protected:
 
 };
 
-
 #endif
-

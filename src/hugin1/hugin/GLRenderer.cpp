@@ -46,6 +46,8 @@
 #include "ToolHelper.h"
 #include <panodata/PanoramaOptions.h>
 
+#include "GLPreviewFrame.h"
+
 GLPreviewRenderer::GLPreviewRenderer(PT::Panorama *pano, TextureManager *tex_man,
                        MeshManager *mesh_man, VisualizationState *visualization_state,
                        PreviewToolHelper *tool_helper)
@@ -55,6 +57,7 @@ GLPreviewRenderer::GLPreviewRenderer(PT::Panorama *pano, TextureManager *tex_man
     m_mesh_man = mesh_man;
     m_visualization_state = visualization_state;
     m_tool_helper = tool_helper;
+    m_background_color = wxColour(0,0,0);
 }
 
 GLPanosphereOverviewRenderer::GLPanosphereOverviewRenderer(PT::Panorama *pano, TextureManager *tex_man,
@@ -137,9 +140,9 @@ void GLPreviewRenderer::Redraw()
 {
     glClear(GL_COLOR_BUFFER_BIT);
     glEnable(GL_SCISSOR_TEST);
-    // draw the box around the panorma in black, with some background colour.
     m_tex_man->DisableTexture();
-    glColor3f(0.0, 0.0, 0.0);
+    // background color of flat pano preview
+    glColor3f((float)m_background_color.Red()/255, (float)m_background_color.Green()/255, (float)m_background_color.Blue()/255);
     glBegin(GL_QUADS);
         glVertex2f(0.0, 0.0);
         glVertex2f(width_o, 0.0);
@@ -211,9 +214,7 @@ void GLPreviewRenderer::Redraw()
 
 void GLPanosphereOverviewRenderer::Redraw()
 {
-
-
-    glClearColor(0,0,0,0);
+  glClearColor(0,0,0,0);
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	glMatrixMode(GL_MODELVIEW);
@@ -234,9 +235,12 @@ void GLPanosphereOverviewRenderer::Redraw()
     // offset by a half a pixel
     glPushMatrix();
 
-    glColor3f(0.5,0.5,0.5);
+    // background color of sphere
+    glColor3f((float)m_background_color.Red()/255, (float)m_background_color.Green()/255, (float)m_background_color.Blue()/255);
 
-    //draw the rectangle
+    //draw the rectangle around the sphere
+    glColor3f(0.5, 0.5, 0.5);
+    
     double side = 150;
     glBegin(GL_LINE_LOOP);
 
@@ -408,8 +412,9 @@ vigra::Diff2D GLPanosphereOverviewRenderer::Resize(int w, int h)
 
 void GLPlaneOverviewRenderer::Redraw()
 {
+    // background color of mosaic plane
+    glColor3f((float)m_background_color.Red()/255, (float)m_background_color.Green()/255, (float)m_background_color.Blue()/255);
 
-    glClearColor(0,0,0,0);
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	glMatrixMode(GL_MODELVIEW);
@@ -555,4 +560,8 @@ vigra::Diff2D GLPlaneOverviewRenderer::Resize(int w, int h)
 //    m_visualization_state->SetGLScale(gl_scale);
 	
     return vigra::Diff2D(0,0);
+}
+
+void GLRenderer::SetPreviewBackgroundColor (wxColour c) {
+    m_background_color = c;
 }

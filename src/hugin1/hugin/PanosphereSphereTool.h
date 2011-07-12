@@ -32,10 +32,14 @@ class PanosphereSphereTool : public PanosphereOverviewTool
 public:
     void Activate();
     PanosphereSphereTool(PanosphereOverviewToolHelper *helper) : PanosphereOverviewTool(helper) {}
-
+    
     void BeforeDrawImagesBackEvent();
     void BeforeDrawImagesFrontEvent();
+    /** sets the sphere background color */
+///    void SetPreviewBackgroundColor (wxColour c);
+
 protected:
+///    wxColour m_background_color;
 
 };
 

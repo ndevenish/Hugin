@@ -78,6 +78,8 @@ public:
     wxGLContext * GetContext() {return m_glContext;}
 #endif
 
+    void SetViewerBackground(wxColour col);
+    
 protected:
 
     void OnEraseBackground(wxEraseEvent& e);
@@ -105,8 +107,9 @@ protected:
     GLPreviewFrame *frame;
 
     bool active;
-
     
+    wxColour m_background_color;
+
 };
 
 class GLPreview : public GLViewer
@@ -168,5 +171,3 @@ protected:
 };
 
 #endif
-
-

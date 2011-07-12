@@ -207,6 +207,7 @@
       <orient>wxHORIZONTAL</orient>
       <object class="sizeritem">
         <object class="wxNotebook" name="mode_toolbar_notebook">
+
           <object class="notebookpage">
             <object class="wxPanel" name="preview_mode_panel">
               <object class="wxBoxSizer">
@@ -354,6 +355,28 @@
                           </object>
                           <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                           <border>5</border>
+                        </object>
+                      </object>
+                      <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxBoxSizer">
+                        <orient>wxHORIZONTAL</orient>
+                        <object class="sizeritem">
+                          <object class="wxStaticText">
+                            <label>Background:</label>
+                          </object>
+                          <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          <border>5</border>
+                        </object>
+                        <object class="sizeritem">
+                          <flag>wxGROW|wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                          <option>1</option>
+                          <border>5</border>
+                          <object class="wxColourPickerCtrl" name="preview_background">
+                            <value>#000000</value>
+                            <style>wxCLRP_SHOW_LABEL</style>
+                          </object>
                         </object>
                       </object>
                       <flag>wxALIGN_CENTRE_VERTICAL</flag>

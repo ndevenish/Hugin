@@ -38,7 +38,12 @@
 
 
 #include "PanosphereSphereTool.h"
+#include "GLPreviewFrame.h"
 
+///PanosphereSphereTool::PanosphereSphereTool(PanosphereOverviewToolHelper *helper) : PanosphereOverviewTool(helper)
+///{
+///      m_background_color = wxColour(255,255,255);
+///}
 
 void PanosphereSphereTool::Activate()
 {
@@ -46,12 +51,13 @@ void PanosphereSphereTool::Activate()
     ((PanosphereOverviewToolHelper*)helper)->NotifyMe(PanosphereOverviewToolHelper::DRAW_UNDER_IMAGES_FRONT, this);
 }
 
-
 void PanosphereSphereTool::BeforeDrawImagesBackEvent()
 {
-
     glDisable(GL_TEXTURE_2D);
-    glColor4f(0.6,0.6,0.6,0.8);
+    // background color
+    wxColour c = helper->GetPreviewFrame()->GetPreviewBackgroundColor();
+    glColor4f((float)c.Red()/255, (float)c.Green()/255, (float)c.Blue()/255, 0.8);
+ 
     glEnable(GL_BLEND);
     glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     GLUquadric* gridb = gluNewQuadric();
@@ -70,3 +76,6 @@ void PanosphereSphereTool::BeforeDrawImagesFrontEvent()
 
 }
 
+///void PanosphereSphereTool::SetPreviewBackgroundColor (wxColour c) {
+///    m_background_color = c;
+///}

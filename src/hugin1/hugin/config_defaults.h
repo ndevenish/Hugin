@@ -200,6 +200,9 @@
 #define HUGIN_MASK_COLOUR_POINT_SELECTED            "#0000FF"
 #define HUGIN_MASK_COLOUR_POINT_UNSELECTED          "#FFFFFF"
 
+// default colors for fast preview
+#define HUGIN_PREVIEW_BACKGROUND               "#000000"
+
 // processor
 #define HUGIN_PROCESSOR_GUI             0l    // first in the list in the xrc file
 #define HUGIN_PROCESSOR_START           1l    // boolean

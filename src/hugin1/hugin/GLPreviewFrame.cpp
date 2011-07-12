@@ -171,6 +171,7 @@ BEGIN_EVENT_TABLE(GLPreviewFrame, wxFrame)
     EVT_TOOL(ID_FULL_SCREEN, GLPreviewFrame::OnFullScreen)
     EVT_TOOL(ID_UNDO, GLPreviewFrame::OnUndo)
     EVT_TOOL(ID_REDO, GLPreviewFrame::OnRedo)
+    EVT_COLOURPICKER_CHANGED(XRCID("preview_background"), GLPreviewFrame::OnPreviewBackgroundColorChanged)
 END_EVENT_TABLE()
 
 BEGIN_EVENT_TABLE(ImageToogleButtonEventHandler, wxEvtHandler)
@@ -277,7 +278,6 @@ void GLPreviewFrame::ContinueResize()
     m_GLOverview->Resized(event);
 }
 
-
 #include <iostream>
 GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     : wxFrame(frame,-1, _("Fast Panorama preview"), wxDefaultPosition, wxDefaultSize,
@@ -288,7 +288,6 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
       m_projectionStatusPushed(false)
 #endif
 {
-
 
 	DEBUG_TRACE("");
 
@@ -319,7 +318,7 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     SetStatusWidths(3, widths);
     SetStatusText(wxT(""),1);
     SetStatusText(wxT(""),2);
-    wxConfigBase * config = wxConfigBase::Get();
+    wxConfigBase * cfg = wxConfigBase::Get();
 
     wxPanel *tool_panel = wxXmlResource::Get()->LoadPanel(this,wxT("mode_panel"));
     m_tool_notebook = XRCCTRL(*this,"mode_toolbar_notebook",wxNotebook);
@@ -330,7 +329,13 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     AddLabelToBitmapButton(XRCCTRL(*this,"preview_fit_pano_tool2",wxBitmapButton),_("Fit"));
     AddLabelToBitmapButton(XRCCTRL(*this,"preview_autocrop_tool",wxBitmapButton),_("Autocrop"));
 
-
+    // initialize preview background color
+    wxString c = cfg->Read(wxT("/GLPreviewFrame/PreviewBackground"),wxT(HUGIN_PREVIEW_BACKGROUND));
+    m_preview_background_color = wxColour(c);
+    XRCCTRL(*this, "preview_background", wxColourPickerCtrl)->SetColour(m_preview_background_color);
+    XRCCTRL(*this, "preview_background", wxColourPickerCtrl)->Refresh();
+    XRCCTRL(*this, "preview_background", wxColourPickerCtrl)->Update();
+  
     m_topsizer = new wxBoxSizer( wxVERTICAL );
 
     wxPanel * toggle_panel = new wxPanel(this);
@@ -341,7 +346,7 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     toggle_panel_sizer->Add(overview_toggle_panel, 0, wxALL | wxEXPAND | wxALIGN_CENTER_VERTICAL, 0);
 
     bool overview_hidden;
-    config->Read(wxT("/GLPreviewFrame/overview_hidden"), &overview_hidden, false);
+    cfg->Read(wxT("/GLPreviewFrame/overview_hidden"), &overview_hidden, false);
     m_OverviewToggle = XRCCTRL(*this, "overview_toggle", wxToggleButton);
     m_OverviewToggle->SetValue(!overview_hidden);
 
@@ -397,6 +402,7 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     m_GLPreview = new GLPreview(preview_panel, pano, args, this);
     m_GLOverview = new GLOverview(overview_panel, pano, args, this, m_GLPreview->GetContext());
     m_GLOverview->SetMode(GLOverview::PANOSPHERE);
+      
 #ifdef __WXGTK__
     // on wxGTK we can not create the OpenGL context with a hidden window
     // therefore we need to create the overview window open and later hide it
@@ -486,7 +492,7 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
 
     m_previewGrid = XRCCTRL(*this, "preview_show_grid", wxCheckBox);
     bool showGrid;
-    config->Read(wxT("/GLPreviewFrame/showPreviewGrid"),&showGrid,true);
+    cfg->Read(wxT("/GLPreviewFrame/showPreviewGrid"),&showGrid,true);
     m_previewGrid->SetValue(showGrid);
 
     preview_panel->SetSizer(flexSizer);
@@ -555,7 +561,7 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     m_DragModeChoice->Append(_("mosaic, individual"));
 
     bool individualDrag;
-    config->Read(wxT("/GLPreviewFrame/individualDragMode"), &individualDrag, false);
+    cfg->Read(wxT("/GLPreviewFrame/individualDragMode"), &individualDrag, false);
     if(individualDrag)
     {
         m_DragModeChoice->SetSelection(1);
@@ -656,7 +662,7 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     this->SetBackgroundColour(m_GLPreview->GetBackgroundColour());
 #endif
 
-    m_showProjectionHints = config->Read(wxT("/GLPreviewFrame/ShowProjectionHints"), HUGIN_SHOW_PROJECTION_HINTS) == 1;
+    m_showProjectionHints = cfg->Read(wxT("/GLPreviewFrame/ShowProjectionHints"), HUGIN_SHOW_PROJECTION_HINTS) == 1;
     wxAcceleratorEntry entries[3];
     entries[0].Set(wxACCEL_NORMAL,WXK_F11,ID_FULL_SCREEN);
     entries[1].Set(wxACCEL_CTRL,(int)'Z',ID_UNDO);
@@ -671,7 +677,7 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
      // tell the manager to "commit" all the changes just made
     m_mgr->Update();
 
-    if (config->Read(wxT("/GLPreviewFrame/isShown"), 0l) != 0)
+    if (cfg->Read(wxT("/GLPreviewFrame/isShown"), 0l) != 0)
     {
 #if defined __WXMSW__ || defined __WXMAC__
         InitPreviews();
@@ -711,22 +717,22 @@ void GLPreviewFrame::LoadOpenGLLayout()
 GLPreviewFrame::~GLPreviewFrame()
 {
     DEBUG_TRACE("dtor writing config");
-    wxConfigBase * config = wxConfigBase::Get();
+    wxConfigBase * cfg = wxConfigBase::Get();
     wxSize sz = GetClientSize();
 
     StoreFramePosition(this, wxT("GLPreviewFrame"));
 
     if ( (!this->IsIconized()) && (! this->IsMaximized()) && this->IsShown()) {
-        config->Write(wxT("/GLPreviewFrame/isShown"), 1l);
+        cfg->Write(wxT("/GLPreviewFrame/isShown"), 1l);
     } else {
-        config->Write(wxT("/GLPreviewFrame/isShown"), 0l);
+        cfg->Write(wxT("/GLPreviewFrame/isShown"), 0l);
     }
 
-    config->Write(wxT("/GLPreviewFrame/blendMode"), m_BlendModeChoice->GetSelection());
-    config->Write(wxT("/GLPreviewFrame/OpenGLLayout"), m_mgr->SavePerspective());
-    config->Write(wxT("/GLPreviewFrame/overview_hidden"), !(m_OverviewToggle->GetValue()));
-    config->Write(wxT("/GLPreviewFrame/showPreviewGrid"), m_previewGrid->GetValue());
-    config->Write(wxT("/GLPreviewFrame/individualDragMode"), individualDragging());
+    cfg->Write(wxT("/GLPreviewFrame/blendMode"), m_BlendModeChoice->GetSelection());
+    cfg->Write(wxT("/GLPreviewFrame/OpenGLLayout"), m_mgr->SavePerspective());
+    cfg->Write(wxT("/GLPreviewFrame/overview_hidden"), !(m_OverviewToggle->GetValue()));
+    cfg->Write(wxT("/GLPreviewFrame/showPreviewGrid"), m_previewGrid->GetValue());
+    cfg->Write(wxT("/GLPreviewFrame/individualDragMode"), individualDragging());
     
     // delete all of the tools. When the preview is never used we never get an
     // OpenGL context and therefore don't create the tools.
@@ -2590,4 +2596,19 @@ void GLPreviewFrame::UpdateIdentifyTools(std::set<unsigned int> new_image_set){
     identify_tool->UpdateWithNewImageSet(new_image_set);
     panosphere_overview_identify_tool->UpdateWithNewImageSet(new_image_set);
     plane_overview_identify_tool->UpdateWithNewImageSet(new_image_set);
+}
+
+void GLPreviewFrame::OnPreviewBackgroundColorChanged(wxColourPickerEvent & e) {
+    m_preview_background_color = XRCCTRL(*this, "preview_background", wxColourPickerCtrl)->GetColour();
+    wxString c = m_preview_background_color.GetAsString(wxC2S_HTML_SYNTAX);
+    wxConfigBase* cfg=wxConfigBase::Get();
+    cfg->Write(wxT("/GLPreviewFrame/PreviewBackground"), c);
+    cfg->Flush();
+    m_GLPreview->SetViewerBackground(m_preview_background_color);
+    m_GLOverview->SetViewerBackground(m_preview_background_color);
+    redrawPreview();
+}
+
+wxColor GLPreviewFrame::GetPreviewBackgroundColor() {
+  return m_preview_background_color;
 }
