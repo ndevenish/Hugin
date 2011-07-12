@@ -359,6 +359,11 @@
                       </object>
                       <flag>wxALIGN_CENTRE_VERTICAL</flag>
                     </object>
+                  </object>
+                  <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxBoxSizer">
                     <object class="sizeritem">
                       <object class="wxBoxSizer">
                         <orient>wxHORIZONTAL</orient>
@@ -381,8 +386,18 @@
                       </object>
                       <flag>wxALIGN_CENTRE_VERTICAL</flag>
                     </object>
+                    <object class="sizeritem">
+                      <object class="wxCheckBox" name="preview_flip">
+                        <label>Flip</label>
+                        <tooltip>Flip the overview inside out.</tooltip>
+                      </object>
+                      <flag>wxALL</flag>
+                      <border>2</border>
+                    </object>
+                    <orient>wxVERTICAL</orient>
                   </object>
-                  <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                  <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                  <border>4</border>
                 </object>
               </object>
               <tooltip>Preview panorama</tooltip>

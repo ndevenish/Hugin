@@ -224,11 +224,15 @@ void GLPanosphereOverviewRenderer::Redraw()
     double R = m_visualization_state->getR();
     double angx = m_visualization_state->getAngX();
     double angy = m_visualization_state->getAngY();
-	
-	gluLookAt(R * cos(angy) * cos(angx), R * sin(angy), R * cos(angy) * sin(angx), 0, 0, 0, 0, 1, 0);
-    //for look from inside
-//	gluLookAt(0,0,0,R * cos(angy) * cos(angx), R * sin(angy), R * cos(angy) * sin(angx), 0, 1, 0);
 
+
+    gluLookAt(R * cos(angy) * cos(angx), R * sin(angy), R * cos(angy) * sin(angx), 0, 0, 0, 0, 1, 0);
+
+    if (m_tool_helper->GetPreviewFrame()->GetFlip()) {
+        // look from inside
+        gluLookAt(0,0,0,R * cos(angy) * cos(angx), R * sin(angy), R * cos(angy) * sin(angx), 0, 1, 0);
+    }
+    
     // draw things under the preview images
     // draw each active image.
     int imgs = m_pano->getNrOfImages();

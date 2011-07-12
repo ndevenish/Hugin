@@ -246,6 +246,7 @@ public:
     void UpdateIdentifyTools(std::set<unsigned int> new_image_set);
 
     wxColour GetPreviewBackgroundColor();
+    bool GetFlip();
     
 protected:
 
@@ -317,6 +318,8 @@ protected:
     void OnColorPicker(wxCommandEvent &e);
     /** event handler when user changes background color */
     void OnPreviewBackgroundColorChanged(wxColourPickerEvent & e);
+    /** event handler when user flips pano overview inside out */
+    void OnFlip(wxCommandEvent & e);
     
 private:
     /** changes the visibility of the group check boxes
@@ -357,6 +360,7 @@ private:
     wxBitmapButton * m_defaultExposureBut;
     wxSpinButton * m_exposureSpinBut;
     wxCheckBox * m_previewGrid;
+    wxCheckBox * m_flipSwitch;
 #if wxCHECK_VERSION(2, 9, 1)
     /// Bar for context sensitive projection information.
     wxInfoBar * m_infoBar;
@@ -366,6 +370,7 @@ private:
 #endif
 
     wxColour m_preview_background_color;
+    bool m_flip;
 
     wxString m_choices[3];
     int m_oldProjFormat;
