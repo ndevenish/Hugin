@@ -1210,6 +1210,8 @@ void internalCannyFindEdgels(Image1 const & gx,
             PixelType gradx = gx(x,y);
             PixelType grady = gy(x,y);
             double mag = magnitude(x, y);
+            if(mag==0.0)
+                continue;
             
             int dx = (int)VIGRA_CSTD::floor(gradx*t/mag + 0.5);
             int dy = (int)VIGRA_CSTD::floor(grady*t/mag + 0.5);
@@ -1449,12 +1451,18 @@ void cannyEdgeImage(
     
     cannyEdgelList(sul, slr, sa, edgels, scale);
     
+    int w = slr.x - sul.x;
+    int h = slr.y - sul.y;
+
     for(unsigned int i=0; i<edgels.size(); ++i)
     {
         if(gradient_threshold < edgels[i].strength)
         {
             Diff2D pix((int)(edgels[i].x + 0.5), (int)(edgels[i].y + 0.5));
             
+            if(pix.x < 0 || pix.x >= w || pix.y < 0 || pix.y >= h)
+                continue;
+
             da.set(edge_marker, dul, pix);
         }
     }
@@ -1970,8 +1978,10 @@ void internalCannyFindEdgels3x3(Image1 const & grad,
                 
             ValueType gradx = grad(x,y)[0];
             ValueType grady = grad(x,y)[1];
-            double mag = hypot(gradx, grady),
-                   c = gradx / mag,
+            double mag = hypot(gradx, grady);
+            if(mag==0.0)
+                continue;
+            double c = gradx / mag,
                    s = grady / mag;
 
             Matrix<double> ml(3,3), mr(3,1), l(3,1), r(3,1);
