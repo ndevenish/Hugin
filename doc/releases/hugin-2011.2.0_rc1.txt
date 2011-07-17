@@ -1,0 +1,302 @@
+Hugin-2011.2.0_rc1 RELEASE NOTES
+
+ABOUT
+
+Hugin is more than just a panorama stitcher.  A new version is available.  This is a
+release candidate and may be declared a final release in a few days.
+
+Hugin can be found at
+* SourceForge:  http://hugin.sourceforge.net/
+* Launchpad:    https://launchpad.net/hugin
+
+
+DOWNLOAD
+
+The 2011.2.0_rc1 source tarball can be downloaded
+
+* from SourceForge at
+http://sourceforge.net/projects/hugin/files/hugin/hugin-2011.2_beta/hugin-2011.2.0_rc1.tar.bz2/download
+
+* from Launchpad at
+http://launchpad.net/hugin/2011.2/2011.2rc1/+download/hugin-2011.2.0_rc1.tar.bz2
+
+This is a source code release.  For executables see below.
+
+This tarball is equivalent to rev/changeset 5420:3c7024cb80ba in our Mercurial
+repository, where it is also tagged 2011.2.0_rc1
+
+Verify its SHA1SUM
+545d469b22de18bbd7fc867e6ac5d8a91e42a22e  hugin-2011.2.0_rc1.tar.bz2
+
+
+EXECUTABLES
+
+Users communities produce executables for their respective platforms.
+
+These executables are then added to the download section on SourceForge at
+http://sourceforge.net/projects/hugin/files/hugin/
+
+A number of users have built recent snapshots and executables are likely to be
+announced within a few days of this tarball release.
+
+Watch http://groups.google.com/group/hugin-ptx for the announcements of binary
+releases.  If you don't see a binary for your platform it has most likely not
+been produced yet.  Consider stepping up to the task.  Instructions at
+
+http://wiki.panotools.org/Development_of_Open_Source_tools#Supported_Platforms
+
+Announce your build on http://groups.google.com/group/hugin-ptx
+
+
+SPLASH SCREEN
+
+To promote artists using Hugin the project has adopted a user-contributed
+artwork to enrich the splash screen of this release.
+
+Read more about the Fafleralp panorama and author/contributor David Haberthür at
+http://hugin.sourceforge.net/releases/2011.2.0/
+
+
+CHANGES SINCE 2011.0.0
+
+Little time has passed since our last release and yet there is new major
+functionality.  Hugin has received a Python scripting interface and new
+lens calibration tool.  A critical bug affecting a significant number of
+Mac users has been fixed and many general improvements have been made.
+
+
+_Lens Calibration Tool_
+
+Lenses are designed to follow a perfect geometric model.  For rectilinear
+lenses, a straight line in the depicted scene should be straight in the
+picture.  This is not always the case:  most lenses have an inherent
+deviation from the perfect model, resulting in imperfections such as
+pincushion or barrel distortion in rectilinear lenses.
+
+Adherence to the perfect geometric model is desirable for aesthetic purposes
+and indespensible to achieve proper alignment when stitching images.
+Hugin can calculate lens distortion parameters on the fly when optimizing
+a project, however this requires more control points and more computational
+effort than a project starting with a calibrated lens, and is prone to more
+errors.
+
+The new lens calibration tool calculates the distortion parameters of a
+lens based on an input image.  The input image must contain straight
+lines, ideally many of them at different distances from the center of the
+lens, covering at least 1/4 of the image.  The calculated parameters are
+valid for a given combination of focal distance, aperture (F-stop), and
+sensor.
+
+The values, saved into a lens profile, can be used in Hugin to achieve
+a better stitch, or on single images taken with this lens / settings
+combination to achieve a more aesthetically pleasing outcome.
+
+
+_Python Scripting Interface_
+
+Hugin now exposes some of its data structure and functionalities through
+a Python module.  To get started with scripting, start your Python
+interpreter and type:
+
+   >>> import hsi
+   >>> help (hsi)
+
+Standalone Python programs can access a panorama object with Hugin's
+functionality.  It is possible to develop complete command line and
+even GUI tools based on this module.
+
+
+_Python Plugin Interface_
+
+Hugin can now run Python scripts inside the application.  In an enabled
+Hugin binary, a new "Actions" menu gives access to system-wide plugins
+distributed with Hugin.  Moreover, plugins can be written, modified,
+customized in the user's own directory.
+
+Currently there are only a few plugins available, but we expect the
+body of available plugins and functionality to grow organically as
+the interface is being made available to the general public.
+
+
+_Other Improvements_
+
+* PTBatcherGUI has matured to become the default processor for
+  stitching projects.
+* ICC profiles saved in output.
+* Support for newer Olympus camera.
+* Improved auto cropping.
+* New mask type: exclude region from all images shot with the same lens
+* Copy&paste of masks in Mask Tab
+* Show extent of active masks and crop in Mask Editor
+* Fix for critical issue affecting stitching on Mac OS X Leopard.
+* Many more improvements and bug fixes.
+
+
+_Libraries and Build_
+
+The Python interface introduces new dependencies:
+* SWIG >2.0
+* Python
+
+
+UPGRADING
+
+Upgrading from previous versions of Hugin should be seamless. If you do have
+problems with old settings, these can be reset in the Preferences by clicking
+'Load defaults'.
+
+It is strongly recommeded to set the default control point detector to
+Hugin's CPFind.  It is the only control point generator endorsed by Hugin.
+Third-party generators may be compatible with the plug-in architecture.
+
+
+COMPILING
+
+Users compiling from source refer to the dependencies listed at
+http://wiki.panotools.org/Development_of_Open_Source_tools#Dependencies
+
+and the build processes listed at
+http://wiki.panotools.org/Development_of_Open_Source_tools#Build_your_Own_Test_Builds
+
+More information in the README and INSTALL_cmake files in the tarball.
+
+
+KNOWN ISSUES AND WORKAROUNDS
+
+Plane overview is wrong if opening fast preview window the first time
+https://bugs.launchpad.net/hugin/+bug/726183
+
+
+Panosphere Overview window seperated from the content
+https://bugs.launchpad.net/hugin/+bug/726997
+
+
+There is a known problem building Hugin with CMake 2.8.5rc2.
+Workaround: Upgrade to a newer CMake version.
+
+
+An updated list of issues deemed to be critical, including discussions
+and workarounds is in the issue tracker.
+https://bugs.launchpad.net/hugin/+bugs?search=Search&field.importance=Critical
+
+
+RELEASE MANAGEMENT
+
+I've been running most of the Hugin releases for the past two years.
+They would not have been possible without the many contributions from our
+coders, translators, testers, sponsors.  My personal and heartfelt thanks
+to all of you.
+
+Due to new personal committments I won't be available for Hugin as I was
+in the past.  Hugin needs a new release manager.
+
+The process is documented in detail at
+
+http://wiki.panotools.org/Development_of_Open_Source_tools#Release
+
+I will keep hanging out on Hugin-PTX and will gladly help the next
+release manager transition into the role.
+
+
+THANKS
+
+Thanks to all the contributors to this release and members of the hugin-ptx
+mailing list, too many to mention here.
+
+Hugin can be found at http://hugin.sourceforge.net/ and at https://launchpad.net/hugin
+
+
+A DETAILED CHANGELOG SINCE THE LAST RELEASE FOLLOWS
+
+2011-07-17 09:04 -0400  Yuval Levy <yuv@users.sourceforge.net>  (792273ca04d7)  tip
+
+  added 2011.2 splash screen contributed by David Haberthür
+
+  > src/hugin1/hugin/xrc/data/intro.htm
+  > src/hugin1/hugin/xrc/data/splash.png
+
+2011-07-16 23:50 -0400  Yuval Levy <yuv@users.sourceforge.net>  (e9a38bf38a86)
+
+  fix API compatibility of plugins
+
+  > src/hugin_script_interface/plugins/crop_cp.py
+  > src/hugin_script_interface/plugins/shooting_pattern.py
+  > src/hugin_script_interface/plugins/top_five.py
+  > src/hugin_script_interface/plugins/woa.py
+
+2011-07-16 21:22 -0400  Yuval Levy <yuv@users.sourceforge.net>  (1206822dfec2)
+
+  Fix to hpi_classes.cpp by Kay F. Jahnke from 5342:eef46760054e
+
+  > src/hugin_script_interface/hpi_classes.cpp
+
+2011-07-08 19:52 -0400  Yuval Levy <yuv@users.sourceforge.net>  (b5f9fbacb1f4)
+
+  libboost 1.40 is enough and is the version in the oldest supported
+  Ubuntu version (Lucid)
+
+  > CMakeLists.txt
+  > README
+
+2011-07-08 09:29 -0400  Yuval Levy <yuv@users.sourceforge.net>  (f791ff5e07ae)
+
+  uptick required boost version (fix bug 805709)
+
+  > CMakeLists.txt
+  > README
+
+2011-06-26 22:18 +0100  Bruno Postle <bruno@postle.net>  (2d556bac77ef)
+
+  Some files shouldn't be executable...
+
+  > src/hugin_script_interface/CMakeLists.txt
+  > src/hugin_script_interface/plugins/CMakeLists.txt
+
+2011-06-26 21:36 +0100  Bruno Postle <bruno@postle.net>  (13773961bc13)
+
+  Scripts with shebang should be installed executable
+
+  > src/hugin_script_interface/CMakeLists.txt
+  > src/hugin_script_interface/plugins-dev/CMakeLists.txt
+  > src/hugin_script_interface/plugins/CMakeLists.txt
+
+2011-06-26 21:32 +0100  Bruno Postle <bruno@postle.net>  (c779e3d3d5a0)
+
+  Script with shebang should be executable
+
+  > src/hugin_script_interface/hpi.py
+
+2011-06-26 12:09 -0400  Yuval Levy <yuv@users.sourceforge.net>  (762b8d80811f)
+
+  Build against the proper SWIG version conditional on the Python
+  version available https://bugs.launchpad.net/hugin/+bug/801869
+  (credits: Andreas Metzler, Kay F. Jahnke)
+
+  > CMakeLists.txt
+  > src/hugin_script_interface/CMakeLists.txt
+
+2011-06-22 21:23 +0200  tmodes  (efb762e478bf)
+
+  Don't add mask to new images [800411]
+
+  > src/hugin1/hugin/wxPanoCommand.cpp
+  > src/hugin_base/panodata/SrcPanoImage.cpp
+  > src/hugin_base/panodata/SrcPanoImage.h
+
+2011-06-22 20:50 +0200  tmodes  (32c537e0a647)
+
+  Added new mask type to documentation
+
+  > doc/nona.txt
+
+2011-06-19 23:58 -0400  Kay F. Jahnke <_kfj@yahoo.com>  (849f9640d7c3)
+
+  * added new template scripts
+  * polished shooting pattern script
+
+  + src/hugin_script_interface/plugins-dev/CMakeLists.txt
+  + src/hugin_script_interface/plugins-dev/dual_use.py
+  + src/hugin_script_interface/plugins-dev/plugin_skeleton.py
+  + src/hugin_script_interface/plugins/shooting_pattern.py
+  > src/hugin_script_interface/CMakeLists.txt
+  - src/hugin_script_interface/plugins/demo_plugin.py
