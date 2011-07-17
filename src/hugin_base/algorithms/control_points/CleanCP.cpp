@@ -28,6 +28,8 @@
  */
 
 #include "CleanCP.h"
+#include <algorithms/optimizer/PTOptimizer.h>
+#include "algorithms/basic/CalculateCPStatistics.h"
 
 namespace HuginBase {
 using namespace std;
