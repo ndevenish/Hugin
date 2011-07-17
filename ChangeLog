@@ -1,4 +1,123 @@
-2011-06-19 22:16 +0100  Bruno Postle <bruno@postle.net>  (84e37554ce38)  tip
+2011-07-17 09:04 -0400  Yuval Levy <yuv@users.sourceforge.net>  (792273ca04d7)  tip
+
+	added 2011.2 splash screen contributed by David Haberthür
+
+	> src/hugin1/hugin/xrc/data/intro.htm
+	> src/hugin1/hugin/xrc/data/splash.png
+
+2011-07-16 23:50 -0400  Yuval Levy <yuv@users.sourceforge.net>  (e9a38bf38a86)  
+
+	fix API compatibility of plugins
+
+	> src/hugin_script_interface/plugins/crop_cp.py
+	> src/hugin_script_interface/plugins/shooting_pattern.py
+	> src/hugin_script_interface/plugins/top_five.py
+	> src/hugin_script_interface/plugins/woa.py
+
+2011-07-16 21:22 -0400  Yuval Levy <yuv@users.sourceforge.net>  (1206822dfec2)  
+
+	Fix to hpi_classes.cpp by Kay F. Jahnke from 5342:eef46760054e
+
+	> src/hugin_script_interface/hpi_classes.cpp
+
+2011-07-08 19:52 -0400  Yuval Levy <yuv@users.sourceforge.net>  (b5f9fbacb1f4)  
+
+	libboost 1.40 is enough and is the version in the oldest supported
+	Ubuntu version (Lucid)
+
+	> CMakeLists.txt
+	> README
+
+2011-07-08 09:29 -0400  Yuval Levy <yuv@users.sourceforge.net>  (f791ff5e07ae)  
+
+	uptick required boost version (fix bug 805709)
+
+	> CMakeLists.txt
+	> README
+
+2011-06-26 22:18 +0100  Bruno Postle <bruno@postle.net>  (2d556bac77ef)  
+
+	Some files shouldn't be executable...
+
+	> src/hugin_script_interface/CMakeLists.txt
+	> src/hugin_script_interface/plugins/CMakeLists.txt
+
+2011-06-26 21:36 +0100  Bruno Postle <bruno@postle.net>  (13773961bc13)  
+
+	Scripts with shebang should be installed executable
+
+	> src/hugin_script_interface/CMakeLists.txt
+	> src/hugin_script_interface/plugins-dev/CMakeLists.txt
+	> src/hugin_script_interface/plugins/CMakeLists.txt
+
+2011-06-26 21:32 +0100  Bruno Postle <bruno@postle.net>  (c779e3d3d5a0)  
+
+	Script with shebang should be executable
+
+	> src/hugin_script_interface/hpi.py
+
+2011-06-26 12:09 -0400  Yuval Levy <yuv@users.sourceforge.net>  (762b8d80811f)  
+
+	Build against the proper SWIG version conditional on the Python
+	version available https://bugs.launchpad.net/hugin/+bug/801869
+	(credits: Andreas Metzler, Kay F. Jahnke)
+
+	> CMakeLists.txt
+	> src/hugin_script_interface/CMakeLists.txt
+
+2011-06-22 21:23 +0200  tmodes  (efb762e478bf)  
+
+	Don't add mask to new images [800411]
+
+	> src/hugin1/hugin/wxPanoCommand.cpp
+	> src/hugin_base/panodata/SrcPanoImage.cpp
+	> src/hugin_base/panodata/SrcPanoImage.h
+
+2011-06-22 20:50 +0200  tmodes  (32c537e0a647)  
+
+	Added new mask type to documentation
+
+	> doc/nona.txt
+
+2011-06-19 23:58 -0400  Kay F. Jahnke <_kfj@yahoo.com>  (849f9640d7c3)  
+
+	* added new template scripts
+	* polished shooting pattern script
+
+	+ src/hugin_script_interface/plugins-dev/CMakeLists.txt
+	+ src/hugin_script_interface/plugins-dev/dual_use.py
+	+ src/hugin_script_interface/plugins-dev/plugin_skeleton.py
+	+ src/hugin_script_interface/plugins/shooting_pattern.py
+	> src/hugin_script_interface/CMakeLists.txt
+	- src/hugin_script_interface/plugins/demo_plugin.py
+
+2011-06-19 18:13 -0400  Yuval Levy <yuv@users.sourceforge.net>  (cf0eaefbe0dd)  
+
+	Added tag 2011.2beta1 for changeset b5df442ec624
+
+	> .hgtags
+
+2011-06-19 18:08 -0400  Yuval Levy <yuv@users.sourceforge.net>  (b5df442ec624)  2011.2beta1
+
+	red splash screen to indicate release cycle with no artwork selected
+	yet
+
+	> src/hugin1/hugin/xrc/data/splash.png
+
+2011-06-19 17:55 -0400  Yuval Levy <yuv@users.sourceforge.net>  (8346b9db3b93)  
+
+	bumping version number
+
+	> CMakeLists.txt
+	> mac/Version.xcconfig
+
+2011-06-19 17:52 -0400  Yuval Levy <yuv@users.sourceforge.net>  (f3bfd6927c6c)  
+
+	Updated ChangeLog
+
+	> ChangeLog
+
+2011-06-19 22:16 +0100  Bruno Postle <bruno@postle.net>  (84e37554ce38)  
 
 	merge
 
