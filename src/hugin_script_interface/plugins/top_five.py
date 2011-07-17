@@ -4,8 +4,8 @@ from __future__ import print_function
 
 # @category Control Points
 # @name     keep 5 CPs per image pair
-# @api-min  2011.1
-# @api-max  2011.2
+# @api-min  2011.1.0
+# @api-max  2011.2.0
 
 #    top_five.py - keep the five best CPs for each image pair
 
