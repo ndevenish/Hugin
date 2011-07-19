@@ -7,6 +7,7 @@ Kai-Uwe Behrmann	gui, panoviewer adds, original German translation
 Kornel Benko	maintenance CMake build
 Stephen Bennett	show points patch
 Jakub Bogusz	Polish translation
+Pavel Heimlich	Fixes Solaris build
 Luís Henrique Camargo Quiroz	Brazilian translation
 Albert Capellades Badia	original Catalan translation
 Carlos Eduardo G. Carvalho	Original FreeBSD port

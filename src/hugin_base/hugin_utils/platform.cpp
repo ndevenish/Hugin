@@ -27,6 +27,8 @@
 
 #ifdef _WIN32
 #include "vigra/windows.h"
+#elif defined(sun) || defined(__sun) || defined(__sun__)
+#include <unistd.h>
 #else
 #include <unistd.h>
 #include <sys/sysctl.h>
