@@ -3593,6 +3593,8 @@
 		733AC15A131C277600D276B9 /* wxImageCache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wxImageCache.cpp; sourceTree = "<group>"; };
 		733DF63F117F2268002EC787 /* pano_modify */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = pano_modify; sourceTree = BUILT_PRODUCTS_DIR; };
 		733DF66E117F2384002EC787 /* pto_merge */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = pto_merge; sourceTree = BUILT_PRODUCTS_DIR; };
+		733E08CB13AFB4BB00EE081B /* dual_use.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = dual_use.py; path = "hugin_script_interface/plugins-dev/dual_use.py"; sourceTree = "<group>"; };
+		733E08CC13AFB4BB00EE081B /* plugin_skeleton.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = plugin_skeleton.py; path = "hugin_script_interface/plugins-dev/plugin_skeleton.py"; sourceTree = "<group>"; };
 		7340668D125BB2AF00FC4790 /* CPDetectorDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CPDetectorDialog.cpp; sourceTree = "<group>"; };
 		734066E9125BB83400FC4790 /* FindPanoDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FindPanoDialog.cpp; sourceTree = "<group>"; };
 		734066EA125BB83400FC4790 /* FailedProjectsDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FailedProjectsDialog.cpp; sourceTree = "<group>"; };
@@ -3776,7 +3778,6 @@
 		73B1ACE513A6A014006A3C54 /* hpi.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = hpi.py; path = hugin_script_interface/hpi.py; sourceTree = "<group>"; };
 		73B1ACE613A6A014006A3C54 /* hsi.i */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c.preprocessed; name = hsi.i; path = hugin_script_interface/hsi.i; sourceTree = "<group>"; };
 		73B1ACE913A6A014006A3C54 /* crop_cp.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = crop_cp.py; sourceTree = "<group>"; };
-		73B1ACEA13A6A014006A3C54 /* demo_plugin.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = demo_plugin.py; sourceTree = "<group>"; };
 		73B1ACEC13A6A014006A3C54 /* top_five.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = top_five.py; sourceTree = "<group>"; };
 		73B1ACED13A6A014006A3C54 /* woa.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = woa.py; sourceTree = "<group>"; };
 		73B1AD0613A6A0B0006A3C54 /* _hsi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = _hsi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -6311,6 +6312,15 @@
 			name = assistant_makefile;
 			sourceTree = "<group>";
 		};
+		733E08C213AFB47400EE081B /* plugins-dev */ = {
+			isa = PBXGroup;
+			children = (
+				733E08CB13AFB4BB00EE081B /* dual_use.py */,
+				733E08CC13AFB4BB00EE081B /* plugin_skeleton.py */,
+			);
+			name = "plugins-dev";
+			sourceTree = "<group>";
+		};
 		734FB8DC0EB38B9400CD7122 /* celeste */ = {
 			isa = PBXGroup;
 			children = (
@@ -6416,6 +6426,7 @@
 				73B1ACE513A6A014006A3C54 /* hpi.py */,
 				73B1ACE613A6A014006A3C54 /* hsi.i */,
 				73B1ACE713A6A014006A3C54 /* plugins */,
+				733E08C213AFB47400EE081B /* plugins-dev */,
 			);
 			name = hugin_script_interface;
 			sourceTree = "<group>";
@@ -6424,7 +6435,6 @@
 			isa = PBXGroup;
 			children = (
 				73B1ACE913A6A014006A3C54 /* crop_cp.py */,
-				73B1ACEA13A6A014006A3C54 /* demo_plugin.py */,
 				73B1ACEC13A6A014006A3C54 /* top_five.py */,
 				73B1ACED13A6A014006A3C54 /* woa.py */,
 			);
@@ -12591,7 +12601,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(RELEASE_ARCHS_32)";
+				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
