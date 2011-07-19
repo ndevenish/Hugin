@@ -574,6 +574,10 @@ void PreferencesDialog::UpdateDisplayData(int panel)
         MY_BOOL_VAL("pref_processor_overwrite", t);
         t = cfg->Read(wxT("/Processor/verbose"), HUGIN_PROCESSOR_VERBOSE) == 1;
         MY_BOOL_VAL("pref_processor_verbose", t);
+        t = cfg->Read(wxT("/Processor/quit"), HUGIN_PROCESSOR_QUIT) == 1;
+        MY_BOOL_VAL("pref_processor_quit", t);
+        t = cfg->Read(wxT("/Processor/shutdown"), HUGIN_PROCESSOR_SHUTDOWN) == 1;
+        MY_BOOL_VAL("pref_processor_shutdown", t);
         UpdateProcessorControls();
     }
 
@@ -742,6 +746,8 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
             cfg->Write(wxT("/Processor/parallel"), HUGIN_PROCESSOR_PARALLEL);
             cfg->Write(wxT("/Processor/overwrite"), HUGIN_PROCESSOR_OVERWRITE);
             cfg->Write(wxT("/Processor/verbose"), HUGIN_PROCESSOR_VERBOSE);
+            cfg->Write(wxT("/Processor/quit"), HUGIN_PROCESSOR_QUIT);
+            cfg->Write(wxT("/Processor/shutdown"), HUGIN_PROCESSOR_SHUTDOWN);
 
         }
         if (noteb->GetSelection() == 5) {
@@ -872,6 +878,8 @@ void PreferencesDialog::UpdateConfigData()
     cfg->Write(wxT("/Processor/parallel"), MY_G_BOOL_VAL("pref_processor_parallel"));
     cfg->Write(wxT("/Processor/overwrite"), MY_G_BOOL_VAL("pref_processor_overwrite"));
     cfg->Write(wxT("/Processor/verbose"), MY_G_BOOL_VAL("pref_processor_verbose"));
+    cfg->Write(wxT("/Processor/quit"), MY_G_BOOL_VAL("pref_processor_quit"));
+    cfg->Write(wxT("/Processor/shutdown"), MY_G_BOOL_VAL("pref_processor_shutdown"));
 
     /////
     /// STITCHING
@@ -1060,6 +1068,8 @@ void PreferencesDialog::UpdateProcessorControls()
     XRCCTRL(*this,"pref_processor_start",wxCheckBox)->Enable(i==0);
     XRCCTRL(*this,"pref_processor_parallel",wxCheckBox)->Enable(i==0);
     XRCCTRL(*this,"pref_processor_verbose",wxCheckBox)->Enable(i==0);
+    XRCCTRL(*this,"pref_processor_quit",wxCheckBox)->Enable(i==0);
+    XRCCTRL(*this,"pref_processor_shutdown",wxCheckBox)->Enable(i==0);
     switch(i)
     {
         case 0:
@@ -1069,6 +1079,8 @@ void PreferencesDialog::UpdateProcessorControls()
                 XRCCTRL(*this,"pref_processor_start",wxCheckBox)->SetValue(config->Read(wxT("/Processor/start"), HUGIN_PROCESSOR_START) == 1);
                 XRCCTRL(*this,"pref_processor_parallel",wxCheckBox)->SetValue(config->Read(wxT("/Processor/parallel"), HUGIN_PROCESSOR_PARALLEL) == 1);
                 XRCCTRL(*this,"pref_processor_verbose",wxCheckBox)->SetValue(config->Read(wxT("/Processor/verbose"), HUGIN_PROCESSOR_VERBOSE) == 1);
+                XRCCTRL(*this,"pref_processor_quit",wxCheckBox)->SetValue(config->Read(wxT("/Processor/quit"), HUGIN_PROCESSOR_QUIT) == 1);
+                XRCCTRL(*this,"pref_processor_shutdown",wxCheckBox)->SetValue(config->Read(wxT("/Processor/shutdown"), HUGIN_PROCESSOR_SHUTDOWN) == 1);
             }
             break;
         case 1:
@@ -1076,6 +1088,8 @@ void PreferencesDialog::UpdateProcessorControls()
             XRCCTRL(*this,"pref_processor_start",wxCheckBox)->SetValue(true);
             XRCCTRL(*this,"pref_processor_parallel",wxCheckBox)->SetValue(false);
             XRCCTRL(*this,"pref_processor_verbose",wxCheckBox)->SetValue(true);
+            XRCCTRL(*this,"pref_processor_quit",wxCheckBox)->SetValue(true);
+            XRCCTRL(*this,"pref_processor_shutdown",wxCheckBox)->SetValue(false);
             break;
     };
 };

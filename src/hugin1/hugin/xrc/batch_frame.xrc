@@ -96,6 +96,12 @@
                   <flag>wxEXPAND</flag>
                 </object>
                 <object class="sizeritem">
+                  <object class="wxCheckBox" name="cb_quit">
+                    <label>Quit when done</label>
+                  </object>
+                  <flag>wxEXPAND</flag>
+                </object>
+                <object class="sizeritem">
                   <object class="wxCheckBox" name="cb_verbose">
                     <label>Verbose output</label>
                   </object>
