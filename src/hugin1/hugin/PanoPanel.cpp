@@ -1201,28 +1201,27 @@ void PanoPanel::DoSendToBatch()
 		
 		int os = wxGetOsVersion(&osVersionMajor, &osVersionMinor);
 		
-		if ((osVersionMajor == 0x10) && (osVersionMinor >= 0x50))
-		{ //This is Leopard and Snow Leopard. Use the bundles Snow Leopard open command
-			//wxExecute(wxT("open -b net.sourceforge.hugin.PTBatcherGUI  --args ")+switches+wxQuoteFilename(projectFile)+wxT(" ")+wxQuoteFilename(dlg.GetPath()));
-
-			wxString cmd = MacGetPathToBundledExecutableFile(CFSTR("open"));  
-			if(cmd != wxT(""))
-			{
-				cmd = wxQuoteString(cmd); 
-				args = wxT("-b net.sourceforge.hugin.PTBatcherGUI --args ")+switches+wxQuoteFilename(projectFile)+wxT(" ")+wxQuoteFilename(dlg.GetPath());
-			}
-			else
-			{
-				wxMessageBox(wxString::Format(_("External program %s not found in the bundle, reverting to system path"), wxT("open")), _("Error"));
-				args = _T("-b net.sourceforge.hugin.PTBatcherGUI ")+wxQuoteFilename(projectFile);
-				cmd = wxT("open");  
-			}
-			cmd += wxT(" ") + args;	
-			wxExecute(cmd);
-		} 
-		else { //This is Tiger
-			wxExecute(_T("open -b net.sourceforge.hugin.PTBatcherGUI "+wxQuoteFilename(projectFile)));
+		// Terrible but working work-around for the Mac bundle
+		// Always start PTBatcherGui with a simple open. This works on every system.
+		//If it's already open than the extra instance will be killed immediately.
+		wxExecute(_T("open -b net.sourceforge.hugin.PTBatcherGUI"));
+		sleep(5);
+		// And now we start PTBatcherGui the linux way because that works.
+		wxString cmd = MacGetPathToBundledExecutableFile(CFSTR("PTBatcherGui"));
+		if(cmd != wxT(""))
+		{ //Found PTBatcherGui (symbolic link) inside the bundle. Call it directly.
+			cmd = wxQuoteString(cmd); 
+			args = wxT(" ")+switches+wxQuoteFilename(projectFile)+wxT(" ")+wxQuoteFilename(dlg.GetPath());
 		}
+		else
+		{ //Can't find PTBatcherGui (symbolic link) inside the bundle. Use the most straightforward call possible
+			wxMessageBox(wxString::Format(_("External program %s not found in the bundle, reverting to system path"), wxT("open")), _("Error"));
+			args = _T("-b net.sourceforge.hugin.PTBatcherGUI ")+wxQuoteFilename(projectFile);
+			cmd = wxT("open");  
+		}
+		cmd += wxT(" ") + args;	
+		wxExecute(cmd);
+		
 #else
 #ifdef __WINDOWS__
         wxString huginPath = getExePath(wxGetApp().argv[0])+wxFileName::GetPathSeparator();

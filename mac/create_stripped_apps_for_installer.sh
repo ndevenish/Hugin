@@ -18,6 +18,7 @@ do
 	rm $binary
 	ln -s "../$relHuginApp/MacOS/$binary"
 done
+
 cd "$PTBatcherGuiApp"
 # Remove frameworks, Libraries and Resources and create symbolic links
 # PTBatcherGui.icns are nowadays also installed in Hugin.app
@@ -34,5 +35,10 @@ ln -s "$relHuginApp/Frameworks"
 ln -s "$relHuginApp/Libraries"
 ln -s "$relHuginApp/Resources"
 cd $installerfolder
-# That should do it
+## That should do it
+
+#Finally create a symbolic link to PTBatcherGui inside Hugin.app for simpler call to straight binary
+cd "$HuginApp/MacOS"
+ln -s ../../../PTBatcherGui.app/Contents/MacOS/PTBatcherGui PTBatcherGui
+ 
 
