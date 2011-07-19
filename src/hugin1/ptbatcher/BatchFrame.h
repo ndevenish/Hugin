@@ -84,6 +84,7 @@ public:
 	void OnCheckOverwrite(wxCommandEvent &event);
 	void OnCheckParallel(wxCommandEvent &event);
 	void OnCheckShutdown(wxCommandEvent &event);
+  void OnCheckQuit(wxCommandEvent &event);
 	void OnCheckVerbose(wxCommandEvent &event);
 	
 	//Called on window close to take care of the child thread
@@ -107,6 +108,8 @@ public:
 	bool GetCheckDelete() { return XRCCTRL(*this,"cb_delete",wxCheckBox)->IsChecked();};
 	/** return if shutdown checkbox is checked */
 	bool GetCheckShutdown() { return XRCCTRL(*this,"cb_shutdown",wxCheckBox)->IsChecked();};
+  /** return if quit checkbox is checked */
+  bool GetCheckQuit() { return XRCCTRL(*this,"cb_quit",wxCheckBox)->IsChecked();};
 	/** return if overwrite checkbox is checked */
 	bool GetCheckOverwrite() { return XRCCTRL(*this,"cb_overwrite",wxCheckBox)->IsChecked();};
 	/** return if verbose checkbox is checked */

@@ -1148,6 +1148,15 @@ void PanoPanel::DoSendToBatch()
     {
         switches += wxT("-v ");
     }
+    if (wxConfigBase::Get()->Read(wxT("/Processor/quit"), HUGIN_PROCESSOR_QUIT) != 0)
+    {
+        switches += wxT("-q ");
+    }
+    if (wxConfigBase::Get()->Read(wxT("/Processor/shutdown"), HUGIN_PROCESSOR_SHUTDOWN) != 0)
+    {
+        switches += wxT("-s ");
+    }
+
     if(pano->isDirty())
     {
         wxCommandEvent dummy;
