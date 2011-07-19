@@ -124,7 +124,7 @@ vigra_ext/ImageTransformsGPU.h
 
 IF (${HUGIN_SHARED_LIBS})
   add_library(huginbase SHARED ${HUGIN_BASE_SRC} ${HUGIN_BASE_HEADER})
-  target_link_libraries(huginbase ${Boost_LIBRARIES})
+  target_link_libraries(huginbase ${Boost_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
   set_target_properties(huginbase PROPERTIES VERSION ${HUGIN_LIB_VERSION})
   IF(WIN32)
     install(TARGETS huginbase RUNTIME DESTINATION ${BINDIR})
@@ -140,7 +140,7 @@ ENDIF (${HUGIN_SHARED_LIBS})
 TARGET_LINK_LIBRARIES(huginbase huginlevmar huginvigraimpex makefilelib
         ${Boost_LIBRARIES} ${EXIV2_LIBRARIES} ${PANO_LIBRARIES}
         ${TIFF_LIBRARIES} ${LAPACK_LIBRARIES} ${GLEW_LIBRARIES}
-        ${OPENGL_LIBRARIES} ${GLUT_LIBRARIES})
+        ${OPENGL_LIBRARIES} ${GLUT_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
         
 add_subdirectory(makefilelib)
 add_subdirectory(lines)

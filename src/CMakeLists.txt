@@ -5,7 +5,7 @@ IF (MSVC)
     # boost_thread is linked automatically
     # additionally link to our getopt
     set(common_libs huginbase hugingetopt
-        ${PANO_LIBRARIES} ${LAPACK_LIBRARIES} huginlevmar)
+        ${PANO_LIBRARIES} ${LAPACK_LIBRARIES} huginlevmar ${CMAKE_THREAD_LIBS_INIT})
   ELSE(LAPACK_FOUND)
     set(common_libs huginbase hugingetopt
         ${PANO_LIBRARIES} huginlevmar)
