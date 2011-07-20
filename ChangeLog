@@ -1,4 +1,27 @@
-2011-07-17 09:04 -0400  Yuval Levy <yuv@users.sourceforge.net>  (792273ca04d7)  tip
+2011-07-19 19:26 +0200  harryvanderwolf <hvdwolf@gmail.com>  (9ffd16347303)  tip
+
+	[OSX] work around PTBatcherGui call: First straightforward call to
+	open bundle, then second direct call to ptbatchergui binary with all
+	options. That should work on Tiger, Leopard and Snow Leopard
+
+	> mac/Hugin.xcodeproj/project.pbxproj
+	> mac/create_stripped_apps_for_installer.sh
+	> src/hugin1/hugin/AssistantPanel.cpp
+	> src/hugin1/hugin/PanoPanel.cpp
+
+2011-07-17 09:29 -0400  Yuval Levy <yuv@users.sourceforge.net>  (27dac3681b9e)  
+
+	Added tag 2011.2.0_rc1 for changeset 3c7024cb80ba
+
+	> .hgtags
+
+2011-07-17 09:28 -0400  Yuval Levy <yuv@users.sourceforge.net>  (3c7024cb80ba)  2011.2.0_rc1
+
+	Updated ChangeLog
+
+	> ChangeLog
+
+2011-07-17 09:04 -0400  Yuval Levy <yuv@users.sourceforge.net>  (792273ca04d7)  
 
 	added 2011.2 splash screen contributed by David Haberthür
 
