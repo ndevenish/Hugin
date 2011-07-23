@@ -1,4 +1,5 @@
 #! /usr/bin/env python
+# -*- coding: utf-8 -*-
 
 from __future__ import print_function
 
@@ -953,6 +954,9 @@ def mask_nonoverlaps ( pano , img0 , img1 ) :
         # as the current reverse transform fails for 0.0
 
         img1.overlap_center = point ( 0.000001 , 0.000001 )
+
+        img0.overlap_center = project_in ( img1.overlap_center )
+        
         if ( maxx - minx ) < ( maxy - miny ) :
             img0.rotate_overlap_pano = True
         else :
