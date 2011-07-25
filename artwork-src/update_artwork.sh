@@ -121,7 +121,8 @@ convert  -size 58x58 xc:white -composite ./${SRC}/splash.i.png -resize 58x58 -gr
 # Website branding 128x128 with transparent background
 convert  ./${SRC}/splash.i.png -resize 128x128 -gravity center -background transparent -extent 128x128 \
   ${P}website/css/hugin-icon.png
-
+# 2011-July-24 added shadow to the background
+convert ${P}website/css/hugin-icon.png '(' +clone -background white -shadow 90x6+6+6 ')' +swap -background none -layers merge +repage ${P}website/css/hugin-shadow.png
 # Website branding 48x48 icon with transparent background (where is it used?)
 convert  ./${SRC}/splash.i.png -resize 48x48 -gravity center -background transparent -extent 48x48 \
   ${P}website/css/icon.png
