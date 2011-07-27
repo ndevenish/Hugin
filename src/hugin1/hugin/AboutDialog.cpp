@@ -31,6 +31,7 @@
 #include "panoinc.h"
 #include "hugin/huginApp.h"
 #include <hugin_version.h>
+#include <wx/version.h>
 
 
 BEGIN_EVENT_TABLE(AboutDialog, wxDialog)
@@ -170,6 +171,13 @@ void AboutDialog::GetSystemInformation(wxFont *font)
     text=text+wxT("\n\nHugin\n")+wxString::Format(_("Version: %s"),wxString(DISPLAY_VERSION,wxConvLocal).c_str());
     text=text+wxT("\n")+wxString::Format(_("Path to resources: %s"),huginApp::Get()->GetXRCPath().c_str());
     text=text+wxT("\n")+wxString::Format(_("Path to data: %s"),huginApp::Get()->GetDataPath().c_str());
+    text=text+wxT("\n\nLibraries");
+    text=text+wxT("\n")+wxString::Format(_("wxWidgets: %i.%i.%i.%i"),
+                                            wxMAJOR_VERSION,
+                                            wxMINOR_VERSION,
+                                            wxRELEASE_NUMBER,
+                                            wxSUBRELEASE_NUMBER
+                                        );
     infoText->SetValue(text);
 }
 
