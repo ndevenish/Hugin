@@ -4,13 +4,13 @@ Default=0
 
 [AutoPano/AutoPano_0]
 Type=1
-Description=Hugins CPFind
+Description=Hugin's CPFind
 Program=cpfind.exe
 Arguments=--multirow -o %o %s
 
 [AutoPano/AutoPano_1]
 Type=1
-Description=Hugins CPFind + Celeste (slower but more accurate, no cps on clouds)
+Description=Hugin's CPFind + Celeste (slower but more accurate, no cps on clouds)
 Program=cpfind.exe
 Arguments=--celeste --multirow -o %o %s
 

@@ -1,8 +1,8 @@
 /*!
-\page introduction Introduction to Hugins source code
+\page introduction Introduction to Hugin's source code
 
 
-This page will give a short overview about some aspects of Hugins source code.
+This page will give a short overview about some aspects of Hugin's source code.
 
 \section model Panorama Model
    Holds the Panorama state. It contains the following objects:

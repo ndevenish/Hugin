@@ -39,7 +39,7 @@ using namespace PT;
 // forward declarations, to save the #include statements
 class CPEditorPanel;
 
-/** hugins first panel
+/** Hugin's first panel
  *
  *  This Panel is for loading of images into Panorama.
  *  Here one can set first values vor the camera orientation and

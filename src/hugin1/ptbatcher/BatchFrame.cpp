@@ -145,7 +145,7 @@ BatchFrame::BatchFrame(wxLocale* locale, wxString xrc)
     if(wxTaskBarIcon::IsAvailable())
     {
         m_tray=new BatchTaskBarIcon();
-        m_tray->SetIcon(myIcon,_("Hugins Batch processor"));
+        m_tray->SetIcon(myIcon,_("Hugin's Batch processor"));
     }
     else
     {
@@ -155,7 +155,7 @@ BatchFrame::BatchFrame(wxLocale* locale, wxString xrc)
     m_tray=new BatchTaskBarIcon();
     if(m_tray->IsOk())
     {
-        m_tray->SetIcon(myIcon,_("Hugins Batch processor"));
+        m_tray->SetIcon(myIcon,_("Hugin's Batch processor"));
     }
     else
     {

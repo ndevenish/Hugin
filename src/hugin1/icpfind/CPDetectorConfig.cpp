@@ -30,7 +30,7 @@
 #include <wx/fileconf.h>
 
 /** description of default cp generator, for fall back procedure */
-wxString default_cpgenerator_desc(wxT("Hugins Cpfind"));
+wxString default_cpgenerator_desc(wxT("Hugin's Cpfind"));
 /** program name of default cp generator, for fall back procedure */
 #ifdef __WINDOWS__
 wxString default_cpgenerator_prog(wxT("cpfind.exe"));

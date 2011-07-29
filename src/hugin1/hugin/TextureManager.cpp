@@ -788,7 +788,7 @@ void TextureManager::TextureInfo::DefineLevels(int min,
                // select exposure and response curve for LDR output
                std::vector<double> outLut;
                // @TODO better handling of output EMoR parameters
-               // Hugins stitcher is currently using the EMoR parameters of the first image
+               // Hugin's stitcher is currently using the EMoR parameters of the first image
                // as so called output EMoR parameter, so enforce this also for the fast
                // preview window
                // vigra_ext::EMoR::createEMoRLUT(dest_img.outputEMoRParams, outLut);

@@ -97,7 +97,7 @@
       <object class="wxMenuItem" name="ID_SHOW_FULL_SCREEN">
         <label>Full Screen</label>
         <accel>F11</accel>
-        <help>Shows hugins main window on full screen</help>
+        <help>Shows Hugin's main window on full screen</help>
       </object>
       <object class="wxMenuItem" name="ID_CP_TABLE">
         <label>&amp;Control point table</label>

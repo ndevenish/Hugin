@@ -87,7 +87,7 @@ bool parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
 {
 	try {
 
-		CmdLine cmd("Hugins cpfind", ' ', DISPLAY_VERSION );
+		CmdLine cmd("Hugin's cpfind", ' ', DISPLAY_VERSION );
 
 		MyOutput my;
 		cmd.setOutput(&my);
@@ -244,7 +244,7 @@ bool parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
 
 int main(int argc, char **argv) 
 {
-	std::cout << "Hugins cpfind " << DISPLAY_VERSION << endl;
+	std::cout << "Hugin's cpfind " << DISPLAY_VERSION << endl;
 	std::cout << "based on Pan-o-matic by Anael Orlinski" << endl;
 
 	// create a panodetector object
