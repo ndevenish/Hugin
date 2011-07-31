@@ -293,7 +293,7 @@
                         </object>
                         <object class="sizeritem">
                           <object class="wxStaticText">
-                            <label>Feature Matching (Autopano)</label>
+                            <label>Feature Matching</label>
                             <font>
                               <style platform="mac">normal</style>
                               <family platform="mac">swiss</family>
