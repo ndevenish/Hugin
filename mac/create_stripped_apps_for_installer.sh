@@ -5,7 +5,7 @@
 installerfolder="$TARGET_BUILD_DIR/InstallerFolder"
 HuginApp="$installerfolder/Hugin.app/Contents"
 PTBatcherGuiApp="$installerfolder/PTBatcherGui.app/Contents"
-lens_calibrate_guiApp="$installerfolder/lens_calibrate_gui.app/Contents"
+calibrate_lens_guiApp="$installerfolder/calibrate_lens_gui.app/Contents"
 relHuginApp="../../Hugin.app/Contents"
 
 #------------------------------------------------
@@ -29,7 +29,7 @@ ln -s "$relHuginApp/Resources"
 cd $installerfolder
 
 # Do about the same for the calibrate_lens_gui app
-cd "$lens_calibrate_guiApp"
+cd "$calibrate_lens_guiApp"
 rm -rf Frameworks Libraries Resources
 ln -s "$relHuginApp/Frameworks"
 ln -s "$relHuginApp/Libraries"
