@@ -39,7 +39,6 @@
 				73C5F82112E2FAC00033A6E1 /* PBXTargetDependency */,
 				73A95EB4124887530076D3FB /* PBXTargetDependency */,
 				73FE2B361249194B0002E246 /* PBXTargetDependency */,
-				73FDC9D413A7D6830042030D /* PBXTargetDependency */,
 			);
 			name = frameworks;
 			productName = "lib dynamic";
@@ -156,9 +155,9 @@
 			name = "configure hugin_version.h";
 			productName = "configure hugin_version.h";
 		};
-		737C8C12139A689500F82635 /* Create Hugin-PTBatcherGui-lens_calibrate_gui for Installer */ = {
+		737C8C12139A689500F82635 /* Create Hugin-PTBatcherGui-calibrate_lens_gui for Installer */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = 737C8C16139A68B600F82635 /* Build configuration list for PBXAggregateTarget "Create Hugin-PTBatcherGui-lens_calibrate_gui for Installer" */;
+			buildConfigurationList = 737C8C16139A68B600F82635 /* Build configuration list for PBXAggregateTarget "Create Hugin-PTBatcherGui-calibrate_lens_gui for Installer" */;
 			buildPhases = (
 				737D5F20139BACC700829EED /* Remove Installerfolder */,
 				737C8C18139A690500F82635 /* CopyFiles */,
@@ -167,7 +166,7 @@
 			dependencies = (
 				73E263D6139ACB1D00487F3C /* PBXTargetDependency */,
 			);
-			name = "Create Hugin-PTBatcherGui-lens_calibrate_gui for Installer";
+			name = "Create Hugin-PTBatcherGui-calibrate_lens_gui for Installer";
 			productName = "Hugin-PTBatcherGui for Installer";
 		};
 		737E490C11D3FCFB002BA8AE /* Apps */ = {
@@ -992,7 +991,7 @@
 		734066F6125BB8BD00FC4790 /* FindPanoDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 734066E9125BB83400FC4790 /* FindPanoDialog.cpp */; };
 		73406703125BB8FA00FC4790 /* libexiv2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E8A7D98310FB69FC00839DF3 /* libexiv2.dylib */; };
 		73406733125BBD7100FC4790 /* CPDetectorConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 733609841247DA57009225D2 /* CPDetectorConfig.h */; };
-		734FC460139B8433007B675D /* lens_calibrate_gui.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 73DFBD9D139B69E900558A2D /* lens_calibrate_gui.app */; };
+		734FC460139B8433007B675D /* calibrate_lens_gui.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = 73DFBD9D139B69E900558A2D /* calibrate_lens_gui.app */; };
 		73573E3410F9EEA300CF0ECD /* HuginBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 576900AA0D24D29300A6AD01 /* HuginBase.framework */; };
 		73573E3510F9EEA300CF0ECD /* HuginVigraImpex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5769FE380D24CFEC00A6AD01 /* HuginVigraImpex.framework */; };
 		73573E3610F9EEA300CF0ECD /* libpano13.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 573B8F85067BAAB900B7B355 /* libpano13.dylib */; };
@@ -2879,13 +2878,6 @@
 			remoteGlobalIDString = 739A0CA010FA567700D8E4C7;
 			remoteInfo = "vig_optimize dynamic";
 		};
-		73FDC9D313A7D6830042030D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 73B1AD0513A6A0AF006A3C54;
-			remoteInfo = _hsi;
-		};
 		73FE2A62124910C30002E246 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
@@ -2963,7 +2955,7 @@
 			dstPath = InstallerFolder;
 			dstSubfolderSpec = 16;
 			files = (
-				734FC460139B8433007B675D /* lens_calibrate_gui.app in CopyFiles */,
+				734FC460139B8433007B675D /* calibrate_lens_gui.app in CopyFiles */,
 				737C8CC0139A75A200F82635 /* Hugin.app in CopyFiles */,
 				737C8CC1139A75A200F82635 /* PTBatcherGUI.app in CopyFiles */,
 			);
@@ -3851,7 +3843,7 @@
 		73DFBD0F139B5DC300558A2D /* LensCalImageCtrl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LensCalImageCtrl.cpp; path = calibrate_lens/LensCalImageCtrl.cpp; sourceTree = "<group>"; };
 		73DFBD10139B5DC300558A2D /* LensCalFrame.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LensCalFrame.cpp; path = calibrate_lens/LensCalFrame.cpp; sourceTree = "<group>"; };
 		73DFBD11139B5DC300558A2D /* LensCalApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LensCalApp.cpp; path = calibrate_lens/LensCalApp.cpp; sourceTree = "<group>"; };
-		73DFBD9D139B69E900558A2D /* lens_calibrate_gui.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = lens_calibrate_gui.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		73DFBD9D139B69E900558A2D /* calibrate_lens_gui.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = calibrate_lens_gui.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		73DFBD9F139B69EA00558A2D /* nona_gui-Info copy.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "nona_gui-Info copy.plist"; path = "../mac/nona_gui-Info copy.plist"; sourceTree = "<group>"; };
 		73DFBDF4139B72EE00558A2D /* lens_calibrate_gui-xrc.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "lens_calibrate_gui-xrc.sh"; sourceTree = "<group>"; };
 		73E1B9CB11D00CFA00765DAD /* HG-rev.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "HG-rev.xcconfig"; sourceTree = "<group>"; };
@@ -5854,7 +5846,7 @@
 				737C8CBF139A757700F82635 /* PTBatcherGUI.app */,
 				57525A250C54BC4400BF8096 /* Nona.app */,
 				57D50A620F595A6300CCDCB5 /* PTBatcherGUI.app */,
-				73DFBD9D139B69E900558A2D /* lens_calibrate_gui.app */,
+				73DFBD9D139B69E900558A2D /* calibrate_lens_gui.app */,
 			);
 			name = "Mac OS X";
 			sourceTree = "<group>";
@@ -8266,9 +8258,9 @@
 			productReference = 73D24B4E106152CD00B8A25D /* cpclean */;
 			productType = "com.apple.product-type.tool";
 		};
-		73DFBD75139B69E900558A2D /* lens_calibrate_gui */ = {
+		73DFBD75139B69E900558A2D /* calibrate_lens_gui */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 73DFBD99139B69E900558A2D /* Build configuration list for PBXNativeTarget "lens_calibrate_gui" */;
+			buildConfigurationList = 73DFBD99139B69E900558A2D /* Build configuration list for PBXNativeTarget "calibrate_lens_gui" */;
 			buildPhases = (
 				73DFBD78139B69E900558A2D /* Sources */,
 				73DFBD7A139B69E900558A2D /* Frameworks */,
@@ -8282,9 +8274,9 @@
 			dependencies = (
 				73DFBD76139B69E900558A2D /* PBXTargetDependency */,
 			);
-			name = lens_calibrate_gui;
+			name = calibrate_lens_gui;
 			productName = Nona;
-			productReference = 73DFBD9D139B69E900558A2D /* lens_calibrate_gui.app */;
+			productReference = 73DFBD9D139B69E900558A2D /* calibrate_lens_gui.app */;
 			productType = "com.apple.product-type.application";
 		};
 		73E676D510F8BF18001807AB /* hugin_base */ = {
@@ -8431,7 +8423,7 @@
 				737E491B11D3FD74002BA8AE /* Hugin */,
 				57525A240C54BC4400BF8096 /* Nona */,
 				57D50A2F0F595A6300CCDCB5 /* PTBatcherGUI */,
-				73DFBD75139B69E900558A2D /* lens_calibrate_gui */,
+				73DFBD75139B69E900558A2D /* calibrate_lens_gui */,
 				57E347330C4A8EED006AA781 /* tools */,
 				57D382C50E2369D000445A37 /* tools - other dynamic */,
 				739A0C0010FA510300D8E4C7 /* Separate tools package */,
@@ -8443,7 +8435,7 @@
 				576482C00C469056003AFC2F /* vig_optimize static */,
 				73C958F40DA2C9DB00E19110 /* tca_correct static */,
 				57D50B380F5971A600CCDCB5 /* celeste static */,
-				737C8C12139A689500F82635 /* Create Hugin-PTBatcherGui-lens_calibrate_gui for Installer */,
+				737C8C12139A689500F82635 /* Create Hugin-PTBatcherGui-calibrate_lens_gui for Installer */,
 			);
 		};
 /* End PBXProject section */
@@ -8955,7 +8947,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ $ACTION = \"build\" ]\nthen\n sh ../mac/lens_calibrate_gui-xrc.sh\nfi";
+			shellScript = "if [ $ACTION = \"build\" ]\nthen\n sh ../mac/calibrate_lens_gui-xrc.sh\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -10243,7 +10235,7 @@
 		};
 		738AF5CD139B743200574EB1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 73DFBD75139B69E900558A2D /* lens_calibrate_gui */;
+			target = 73DFBD75139B69E900558A2D /* calibrate_lens_gui */;
 			targetProxy = 738AF5CC139B743200574EB1 /* PBXContainerItemProxy */;
 		};
 		7396E4451269806E0096D1B3 /* PBXTargetDependency */ = {
@@ -10378,7 +10370,7 @@
 		};
 		73DFBDA1139B69F800558A2D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 73DFBD75139B69E900558A2D /* lens_calibrate_gui */;
+			target = 73DFBD75139B69E900558A2D /* calibrate_lens_gui */;
 			targetProxy = 73DFBDA0139B69F800558A2D /* PBXContainerItemProxy */;
 		};
 		73E263D6139ACB1D00487F3C /* PBXTargetDependency */ = {
@@ -10460,11 +10452,6 @@
 			isa = PBXTargetDependency;
 			target = 739A0CA010FA567700D8E4C7 /* vig_optimize */;
 			targetProxy = 73FC2AFB110057CB00EAB009 /* PBXContainerItemProxy */;
-		};
-		73FDC9D413A7D6830042030D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 73B1AD0513A6A0AF006A3C54 /* _hsi */;
-			targetProxy = 73FDC9D313A7D6830042030D /* PBXContainerItemProxy */;
 		};
 		73FE2A63124910C30002E246 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -14852,7 +14839,7 @@
 					"$(WX_INCLUDE_DIR_LIB)",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "../mac/lens_calibrate_gui-Info copy.plist";
+				INFOPLIST_FILE = "../mac/calibrate_lens_gui-Info copy.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
@@ -14864,7 +14851,7 @@
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
-				PRODUCT_NAME = lens_calibrate_gui;
+				PRODUCT_NAME = calibrate_lens_gui;
 			};
 			name = Release;
 		};
@@ -15598,7 +15585,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		737C8C16139A68B600F82635 /* Build configuration list for PBXAggregateTarget "Create Hugin-PTBatcherGui-lens_calibrate_gui for Installer" */ = {
+		737C8C16139A68B600F82635 /* Build configuration list for PBXAggregateTarget "Create Hugin-PTBatcherGui-calibrate_lens_gui for Installer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				737C8C13139A689700F82635 /* Debug */,
@@ -15758,7 +15745,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		73DFBD99139B69E900558A2D /* Build configuration list for PBXNativeTarget "lens_calibrate_gui" */ = {
+		73DFBD99139B69E900558A2D /* Build configuration list for PBXNativeTarget "calibrate_lens_gui" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				73DFBD9A139B69E900558A2D /* Debug */,
