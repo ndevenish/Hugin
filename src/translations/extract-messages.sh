@@ -2,7 +2,7 @@
 BASEDIR="../" # root of translatable sources
 PROJECT="hugin" # project name
 #BUGADDR="pablo.dangelo@web.de" # MSGID-Bugs
-BUGADDR="http://sourceforge.net/tracker/?group_id=77506&atid=550441" # MSGID-Bugs
+BUGADDR="https://bugs.launchpad.net/hugin/" # MSGID-Bugs
 COPYRIGHT="Pablo dAngelo"
 WDIR=`pwd` # working dir
 
