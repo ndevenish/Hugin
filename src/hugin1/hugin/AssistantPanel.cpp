@@ -43,6 +43,10 @@
 #include "hugin/config_defaults.h"
 #include "hugin/wxPanoCommand.h"
 
+/*#ifdef __WXMAC__
+	#include <Foundation/Foundation.h>
+#endif */
+
 using namespace hugin_utils;
 using namespace std;
 
@@ -457,33 +461,52 @@ void AssistantPanel::OnAlignSendToBatch(wxCommandEvent &e)
 	if(wxFileName::FileExists(projectFile))
 	{
 #if defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
-		int osVersionMajor;
-		int osVersionMinor;
-		wxString args;
-
-		int os = wxGetOsVersion(&osVersionMajor, &osVersionMinor);
-
-		// Terrible but working work-around for the Mac bundle
-		// Always start PTBatcherGui with a simple open. This works on every system.
-		//If it's already open than the extra instance will be killed immediately.
-		wxExecute(_T("open -b net.sourceforge.hugin.PTBatcherGUI"));
-		sleep(5);
-		// And now we start PTBatcherGui the linux way because that works.
-		wxString cmd = MacGetPathToBundledExecutableFile(CFSTR("PTBatcherGui"));
-		if(cmd != wxT(""))
-		{ //Found PTBatcherGui (symbolic link) inside the bundle. Call it directly.
-			cmd = wxQuoteString(cmd); 
-			args = wxT(" -a ")+wxQuoteFilename(projectFile);
-		}
-		else
-		{ //Can't find PTBatcherGui (symbolic link) inside the bundle. Use the most straightforward call possible
-			wxMessageBox(wxString::Format(_("External program %s not found in the bundle, reverting to system path"), wxT("open")), _("Error"));
-			args = _T("-b net.sourceforge.hugin.PTBatcherGUI ")+wxQuoteFilename(projectFile);
-			cmd = wxT("open");  
-		}
-		cmd += wxT(" ") + args;	
-		wxExecute(cmd);
+		// Original patch for OSX by Charlie Reiman dd. 18 June 2011
+		// Slightly modified by HvdW. Errors in here are mine, not Charlie's. 
+		FSRef appRef;
+		FSRef actuallyLaunched;
+		OSStatus err;
+		FSRef documentArray[1]; // Don't really need an array if we only have 1 item
+		LSLaunchFSRefSpec launchSpec;
+		Boolean  isDir;
 		
+		err = LSFindApplicationForInfo(kLSUnknownCreator,
+									   CFSTR("net.sourceforge.hugin.PTBatcherGUI"),
+									   NULL,
+									   &appRef,
+									   NULL);
+		if (err != noErr) {
+			// error, can't find PTBatcherGUI
+			wxMessageBox(wxString::Format(_("External program %s not found in the bundle, reverting to system path"), wxT("open")), _("Error"));
+			// Possibly a silly attempt otherwise the previous would have worked as well, but just try it.
+			wxExecute(_T("open -b net.sourceforge.hugin.PTBatcherGUI ")+wxQuoteFilename(projectFile));
+		}
+		
+		wxCharBuffer projectFilebuffer=projectFile.ToUTF8();
+		// Point to document
+		err = FSPathMakeRef((unsigned char*) projectFilebuffer.data(), &documentArray[0], &isDir);
+		if (err != noErr || isDir) {
+			// Something went wrong.
+			wxMessageBox(wxString::Format(_("Project file not found"), wxT("open")), _("Error"));
+		}
+		launchSpec.appRef = &appRef;
+		launchSpec.numDocs = sizeof(documentArray)/sizeof(documentArray[0]);
+		launchSpec.itemRefs = documentArray;
+		launchSpec.passThruParams = NULL;
+		launchSpec.launchFlags = kLSLaunchDontAddToRecents + kLSLaunchDontSwitch;
+		launchSpec.asyncRefCon = NULL;
+		
+		err = LSOpenFromRefSpec(&launchSpec, &actuallyLaunched);
+		if (err != noErr && err != kLSLaunchInProgressErr) {  // Should be ok if it's in progress... I think. 
+			// Launch failed.
+			wxMessageBox(wxString::Format(_("Can't launch PTBatcherGui"), wxT("open")), _("Error"));
+		}
+		
+		// Should verify that actuallyLaunched and appRef are the same.
+		if (FSCompareFSRefs(&appRef, &actuallyLaunched) != noErr) {
+			// error, lauched the wrong thing.
+			wxMessageBox(wxString::Format(_("Launched incorrect programme"), wxT("open")), _("Error"));
+		}
 #else
 #ifdef __WINDOWS__
 		wxString huginPath = getExePath(wxGetApp().argv[0])+wxFileName::GetPathSeparator(); 
