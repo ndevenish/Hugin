@@ -72,6 +72,7 @@ Gerry Patterson	Code
 Eduardo Pérez Esteban	Spanish translation
 Matthew Petroff	Windows installer and icons
 Bruno Postle	initial packaging, website, documentation, initial British English translation, GSoC 2009 mentor, GSoC 2010 admin and mentor, release manager on many occasions including 2010.02
+Thomas Pryds	Danish translation
 Alexandre Prokoudine	Initial Russian translation, GSoC 2008 admin
 Jozef Riha	original Slovak translation
 Marijn Ros	bug reports and patches
@@ -97,4 +98,3 @@ Fabian Wetzel	Panoglview
 Ulf Wilhelmson	original Swedish translation
 Douglas Wilkins	packaging, translation, bugfixes
 Ziv Yaniv	RanSaC code
-Thomas Pryds	Danish translation
