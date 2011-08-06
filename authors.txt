@@ -97,3 +97,4 @@ Fabian Wetzel	Panoglview
 Ulf Wilhelmson	original Swedish translation
 Douglas Wilkins	packaging, translation, bugfixes
 Ziv Yaniv	RanSaC code
+Thomas Pryds	Danish translation
