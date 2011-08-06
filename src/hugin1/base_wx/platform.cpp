@@ -31,6 +31,12 @@
 #if defined __WXMAC__
 
 #include <CoreFoundation/CFBundle.h>
+// next four only neccessary when "cout"ing to system log
+#include <iostream>
+#include <stdio.h>
+#include "wx/utils.h"
+
+using namespace std;
 
 // note this is a "create" function for ownership
 CFStringRef MacCreateCFStringWithWxString(const wxString& string)
@@ -93,6 +99,78 @@ wxString MacGetPathToMainExecutableFileOfBundle(CFStringRef bundlePath)
             }
         }
     }
+    return theResult;
+}
+
+wxString MacGetPathToMainExecutableFileOfRegisteredBundle(CFStringRef BundleIdentifier)
+{
+    wxString theResult = wxT("");
+	
+	FSRef appRef;
+	CFURLRef bundleURL;
+	FSRef actuallyLaunched;
+	OSStatus err;
+	FSRef documentArray[1]; // Don't really need an array if we only have 1 item
+	LSLaunchFSRefSpec launchSpec;
+	//Boolean  isDir;
+	
+	err = LSFindApplicationForInfo(kLSUnknownCreator,
+								   CFSTR("net.sourceforge.hugin.PTBatcherGUI"),
+								   NULL,
+								   &appRef,
+								   &bundleURL);
+	if (err != noErr) {
+		// error, can't find PTBatcherGUI
+		cout << "PTBatcherGui check failed \n" << endl;
+		wxMessageBox(wxString::Format(_("External program %s not found in the bundle, reverting to system path"), wxT("open")), _("Error"));
+	}
+    if(bundleURL == NULL)
+    {
+        DEBUG_INFO("Mac: CFURL from string (" << bundlePath << ") failed." );
+        return theResult;
+    }
+    
+    CFBundleRef bundle = CFBundleCreate(NULL, bundleURL);
+    CFRelease(bundleURL);
+    
+    if(bundle == NULL)
+    {
+        DEBUG_INFO("Mac: CFBundleCreate (" << bundlePath << " ) failed" );
+    }
+    else
+    {
+        CFURLRef PTOurl = CFBundleCopyExecutableURL(bundle);
+        CFRelease( bundle );
+        if(PTOurl == NULL)
+        {
+            DEBUG_INFO("Mac: Cannot locate the executable in the bundle.");
+        }
+        else
+        {
+            CFURLRef PTOAbsURL = CFURLCopyAbsoluteURL( PTOurl );
+            CFRelease( PTOurl );
+            if(PTOAbsURL == NULL)
+            {
+                DEBUG_INFO("Mac: Cannot convert the file path to absolute");
+            }
+            else
+            {
+                CFStringRef pathInCFString = CFURLCopyFileSystemPath(PTOAbsURL, kCFURLPOSIXPathStyle);
+                CFRelease( PTOAbsURL );
+                if(pathInCFString == NULL)
+                {
+                    DEBUG_INFO("Mac: Failed to get URL in CFString");
+                }
+                else
+                {
+                    CFRetain( pathInCFString );
+                    theResult =  wxMacCFStringHolder(pathInCFString).AsString(wxLocale::GetSystemEncoding());
+                    DEBUG_INFO("Mac: the executable's full path in the application bundle: " << theResult.mb_str(wxConvLocal));
+                }
+            }
+        }
+    }
+	cout << "PTBatcherGui check returned  value " << theResult << "\n" << endl;
     return theResult;
 }
 

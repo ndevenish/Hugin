@@ -60,6 +60,7 @@ extern "C" {
 #include "base_wx/platform.h"
 #include "base_wx/huginConfig.h"
 
+
 #define WX_BROKEN_SIZER_UNKNOWN
 
 using namespace PT;
@@ -1186,32 +1187,22 @@ void PanoPanel::DoSendToBatch()
         };
 
 #if defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
-		int osVersionMajor;
-		int osVersionMinor;
-		wxString args;
-		
-		int os = wxGetOsVersion(&osVersionMajor, &osVersionMinor);
-		
-		// Terrible but working work-around for the Mac bundle
-		// Always start PTBatcherGui with a simple open. This works on every system.
-		//If it's already open than the extra instance will be killed immediately.
-		wxExecute(_T("open -b net.sourceforge.hugin.PTBatcherGUI"));
-		sleep(5);
-		// And now we start PTBatcherGui the linux way because that works.
-		wxString cmd = MacGetPathToBundledExecutableFile(CFSTR("PTBatcherGui"));
+		wxString cmd = MacGetPathToMainExecutableFileOfRegisteredBundle(CFSTR("net.sourceforge.hugin.PTBatcherGUI"));
 		if(cmd != wxT(""))
-		{ //Found PTBatcherGui (symbolic link) inside the bundle. Call it directly.
+		{ 
+			//Found PTBatcherGui inside the (registered) PTBatcherGui bundle. Call it directly.
+			//We need to call the binary from it's own bundle and not from the hugin bundle otherwise we get no menu as OSX assumes that the hugin bundle
+			//will provide the menu
 			cmd = wxQuoteString(cmd); 
-			args = wxT(" ")+switches+wxQuoteFilename(projectFile)+wxT(" ")+wxQuoteFilename(dlg.GetPath());
+			cmd += wxT(" ")+switches+wxQuoteFilename(projectFile)+wxT(" ")+wxQuoteFilename(dlg.GetPath());	
+			wxExecute(cmd);
 		}
 		else
-		{ //Can't find PTBatcherGui (symbolic link) inside the bundle. Use the most straightforward call possible
-			wxMessageBox(wxString::Format(_("External program %s not found in the bundle, reverting to system path"), wxT("open")), _("Error"));
-			args = _T("-b net.sourceforge.hugin.PTBatcherGUI ")+wxQuoteFilename(projectFile);
-			cmd = wxT("open");  
+		{ //Can't find PTBatcherGui.app bundle. Use the most straightforward call possible to the bundle but this should actually not work either.
+				wxMessageBox(wxString::Format(_("External program %s not found in the bundle, reverting to system path"), wxT("open")), _("Error"));
+				cmd = wxT("open -b net.sourceforge.hugin.PTBatcherGUI ")+wxQuoteFilename(projectFile);
+				wxExecute(cmd);
 		}
-		cmd += wxT(" ") + args;	
-		wxExecute(cmd);
 		
 #else
 #ifdef __WINDOWS__
