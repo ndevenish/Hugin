@@ -26,22 +26,22 @@
 		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
-	<string>lens_calibrate_gui</string>
+	<string>calibrate_lens_gui</string>
+	<key>CFBundleGetInfoString</key>
+	<string>Hugin ${HUGIN_PACKAGE_VERSION} (Mac)</string>
 	<key>CFBundleIconFile</key>
 	<string></string>
 	<key>CFBundleIdentifier</key>
-	<string>net.sourceforge.hugin.lens_calibrate_gui</string>
+	<string>net.sourceforge.hugin.calibrate_lens_gui</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>${HUGIN_PACKAGE_VERSION}</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>${HUGIN_WC_REVISION}</string>
-	<key>CFBundleGetInfoString</key>
-	<string>Hugin ${HUGIN_PACKAGE_VERSION} (Mac)</string>
-	<key>CFBundleShortVersionString</key>
-	<string>${HUGIN_PACKAGE_VERSION}</string>
 </dict>
 </plist>
