@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: da\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2011-06-19 17:11-0400\n"
-"PO-Revision-Date: 2011-07-29 16:54+0100\n"
+"PO-Revision-Date: 2011-08-09 18:41+0100\n"
 "Last-Translator: Thomas Pryds <thomas@pryds.eu>\n"
 "Language-Team: danish <da@li.org>\n"
 "Language: \n"
@@ -172,7 +172,7 @@ msgstr "Indlæs objektivparametre"
 
 #: hugin1/base_wx/LensTools.cpp:221
 msgid "Lens Project Files (*.ini)|*.ini|All files (*.*)|*.*"
-msgstr "Objektivprojektfiler (*.ini)|*.ini|All files (*.*)|*.*"
+msgstr "Objektivprojektfiler (*.ini)|*.ini|Alle filer (*.*)|*.*"
 
 #: hugin1/base_wx/LensTools.cpp:242
 msgid ""
@@ -239,7 +239,7 @@ msgstr "Optimerer Panorama"
 
 #: hugin1/base_wx/platform.h:40
 msgid "All Image files|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr;*.HDR;*.exr;*.EXR|JPEG files (*.jpg,*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|TIFF files (*.tif,*.tiff)|*.tif;*.TIF;*.tiff;*.TIFF|PNG files (*.png)|*.png;*.PNG|HDR files (*.hdr)|*.hdr;*.HDR|EXR files (*.exr)|*.exr;*.EXR|All files (*)|*"
-msgstr "Alle billedfiler|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr;*.HDR;*.exr;*.EXR|JPEG files (*.jpg,*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|TIFF files (*.tif,*.tiff)|*.tif;*.TIF;*.tiff;*.TIFF|PNG files (*.png)|*.png;*.PNG|HDR files (*.hdr)|*.hdr;*.HDR|EXR files (*.exr)|*.exr;*.EXR|All files (*)|*"
+msgstr "Alle billedfiler|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr;*.HDR;*.exr;*.EXR|JPEG-filer (*.jpg,*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|TIFF-filer (*.tif,*.tiff)|*.tif;*.TIF;*.tiff;*.TIFF|PNG-filer (*.png)|*.png;*.PNG|HDR-filer (*.hdr)|*.hdr;*.HDR|EXR-filer (*.exr)|*.exr;*.EXR|Alle filer (*)|*"
 
 #: hugin1/base_wx/PTWXDlg.cpp:48
 #: hugin1/base_wx/PTWXDlg.cpp:66
@@ -368,7 +368,7 @@ msgid ""
 "The filename(s) contains one of the following invalid characters: %s\n"
 "Hugin can not work with these filenames. Please rename your file(s) and try again."
 msgstr ""
-"Filnavnet (navnene) indeholder et af de følgende tegn, som ikke er tilladt: %s\n"
+"Filnavnet (navnene) indeholder et af de følgende ugyldige tegn: %s\n"
 "Hugin kan ikke arbejde med disse filnavne. Omdøb filen(erne) og prøv igen."
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:169
@@ -465,7 +465,7 @@ msgstr "Gem fil med objektivparametre"
 #: hugin1/calibrate_lens/LensCalFrame.cpp:743
 #: hugin1/hugin/LensPanel.cpp:765
 msgid "Lens Project Files (*.ini)|*.ini|All files (*)|*"
-msgstr "Objektivprojektfil (*.ini)|*.ini|All files (*)|*"
+msgstr "Objektivprojektfil (*.ini)|*.ini|Alle filer (*)|*"
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:754
 #: hugin1/calibrate_lens/LensCalFrame.cpp:785
@@ -491,7 +491,7 @@ msgstr "Gem projektfil"
 #: hugin1/calibrate_lens/LensCalFrame.cpp:775
 #: hugin1/hugin/MainFrame.cpp:743
 msgid "Project files (*.pto)|*.pto|All files (*)|*"
-msgstr "Projektfiler (*.pto)|*.pto|All files (*)|*"
+msgstr "Projektfiler (*.pto)|*.pto|Alle filer (*)|*"
 
 #: hugin1/hugin/AboutDialog.cpp:126
 #, c-format
@@ -709,7 +709,7 @@ msgstr "Fejl under finjustering"
 #: hugin1/hugin/CPEditorPanel.cpp:1070
 #, c-format
 msgid "Point finetuned, angle: %.0f deg, correlation coefficient: %0.3f, curvature: %0.3f %0.3f "
-msgstr "Punkt finjusteret, vinkel: %.0f grader, korrelationskoefficient: %0.3f, krumning: %0.3f %0.3f"
+msgstr "Punkt finjusteret, vinkel: %.0f grader, samhørighedskoefficient: %0.3f, krumning: %0.3f %0.3f"
 
 #: hugin1/hugin/CPEditorPanel.cpp:807
 #: hugin1/hugin/CPEditorPanel.cpp:937
@@ -740,7 +740,7 @@ msgid ""
 "Correlation coefficient (%.3f) is lower than the threshold set in the preferences."
 msgstr ""
 "Check ensartetheden visuelt.\n"
-"Korrelationskoefficient (%.3f) er lavere end begrænsningen, der er sat i indstillingerne."
+"Samhørighedskoefficient (%.3f) er lavere end begrænsningen, der er sat i indstillingerne."
 
 #: hugin1/hugin/CPEditorPanel.cpp:1089
 #, c-format
@@ -749,7 +749,7 @@ msgid ""
 "Correlation coefficient (%.3f) is lower than the threshold set in the preferences."
 msgstr ""
 "Intet lignende punkt fundet. Check ensartetheden visuelt.\n"
-"Korrelationskoefficient (%.3f) er lavere end begrænsningen, der er sat i indstillingerne."
+"Samhørighedskoefficient (%.3f) er lavere end begrænsningen, der er sat i indstillingerne."
 
 #: hugin1/hugin/CPEditorPanel.cpp:1258
 #: hugin1/hugin/CPEditorPanel.cpp:1269
@@ -937,7 +937,7 @@ msgstr ""
 
 #: hugin1/hugin/DragTool.cpp:234
 msgid "Drag to move."
-msgstr ""
+msgstr "Hold musetasten nede for at flytte."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:283
 msgid "Fast Panorama preview"
@@ -956,7 +956,7 @@ msgstr "Centrum"
 #: translations/xrc.cpp:814
 #: xrc.cpp:814
 msgid "Fit"
-msgstr ""
+msgstr "Tilpas"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:329
 #: translations/xrc.cpp:816
@@ -1240,18 +1240,24 @@ msgid ""
 "You have hidden the infobar, which shows hints about selection of projection.\n"
 "If you want to see the bar again, activate the bar in the preferences again."
 msgstr ""
+"Du har skjult infobaren, som viser hints om valg og projektion.\n"
+"Hvis du vil se baren igen, aktivér den da igen i indstillingerne."
 
 #: hugin1/hugin/GLViewer.cpp:151
 msgid ""
 "Error initializing GLEW\n"
 "Fast preview window can not be opened."
 msgstr ""
+"Fejl under initialiseringen af GLEW\n"
+"Hurtig-preview-vindue kan ikke åbnes."
 
 #: hugin1/hugin/GLViewer.cpp:161
 msgid ""
 "Sorry, the fast preview window requires a system which supports OpenGL version 1.1 with the GL_ARB_multitexture extension.\n"
 "The fast preview cannot be opened."
 msgstr ""
+"Desværre, hurtig-preview-vinduet kræver et system, der understøtter OpenGL version 1.1 med GL_ARB_multitexture udvidelsen.\n"
+"Hurtig-preview kan ikke åbnes."
 
 #: hugin1/hugin/HDRMergeOptionDialog.cpp:157
 msgid "Invalid input\n"
@@ -1382,7 +1388,7 @@ msgstr ""
 #: hugin1/hugin/ImagesPanel.cpp:331
 #, c-format
 msgid "Added %lu control points"
-msgstr ""
+msgstr "Tilføjede %lu kontrolpunkter"
 
 #: hugin1/hugin/ImagesPanel.cpp:331
 msgid "Control point detector result"
@@ -1424,19 +1430,19 @@ msgstr "Fjern kontrolpunkter"
 
 #: hugin1/hugin/ImagesPanel.cpp:974
 msgid "Your project must have at least two stacks before you can assign images to a different stack."
-msgstr ""
+msgstr "Dit projekt skal have mindst to stakke, før du kan tildele billeder til en anden stak."
 
 #: hugin1/hugin/ImagesPanel.cpp:978
 msgid "Enter new stack number"
-msgstr ""
+msgstr "Tast nyt staknummer"
 
 #: hugin1/hugin/ImagesPanel.cpp:979
 msgid "stack number"
-msgstr ""
+msgstr "staknummer"
 
 #: hugin1/hugin/ImagesPanel.cpp:980
 msgid "Change stack number"
-msgstr ""
+msgstr "Ændr staknummer"
 
 #: hugin1/hugin/ImagesPanel.cpp:1101
 #, c-format
@@ -1497,11 +1503,11 @@ msgstr "Tips ikke tilgængeligt, desværre!"
 
 #: hugin1/hugin/LocalizedFileTipProvider.cpp:106
 msgid "&Next Tip"
-msgstr ""
+msgstr "&Næste tip"
 
 #: hugin1/hugin/LocalizedFileTipProvider.cpp:107
 msgid "&Show tips at startup"
-msgstr ""
+msgstr "&Vis tips ved opstart"
 
 #: hugin1/hugin/LocalizedFileTipProvider.cpp:108
 msgid "Tip of the Day"
@@ -1511,7 +1517,7 @@ msgstr "Dagens tip"
 #: translations/xrc.cpp:66
 #: xrc.cpp:66
 msgid "&Close"
-msgstr ""
+msgstr "&Luk"
 
 #: hugin1/hugin/LocalizedFileTipProvider.cpp:110
 msgid "Did you know..."
@@ -1527,6 +1533,8 @@ msgid ""
 "Fatal installation error\n"
 "The file data/splash.png was not found at:"
 msgstr ""
+"Fatal installationsfejl\n"
+"Filen data/splash.png blev ikke fundet på:"
 
 #: hugin1/hugin/MainFrame.cpp:281
 #: hugin1/ptbatcher/BatchFrame.cpp:125
@@ -1537,15 +1545,15 @@ msgstr ""
 #: xrc.cpp:399
 #: xrc.cpp:400
 msgid "&Help"
-msgstr ""
+msgstr "&Hjælp"
 
 #: hugin1/hugin/MainFrame.cpp:344
 msgid "&Actions"
-msgstr ""
+msgstr "&Handlinger"
 
 #: hugin1/hugin/MainFrame.cpp:432
 msgid "Started"
-msgstr ""
+msgstr "Startet"
 
 #: hugin1/hugin/MainFrame.cpp:605
 msgid "Save changes to the panorama before closing?"
@@ -1553,7 +1561,7 @@ msgstr "Gem ændringer på panorama før programmet lukkes?"
 
 #: hugin1/hugin/MainFrame.cpp:613
 msgid "If you close without saving, changes since your last save will be discarded"
-msgstr "Hvis du lukket uden at gemme, vil dine ændringer siden sidste gemning mistes"
+msgstr "Hvis du lukket uden at gemme, vil dine ændringer siden sidste gemning blive kasseret"
 
 #: hugin1/hugin/MainFrame.cpp:616
 msgid "Don't Save"
@@ -1578,7 +1586,7 @@ msgstr "gemte projekt %s"
 #: translations/xrc.cpp:325
 #: xrc.cpp:325
 msgid "Hugin - Panorama Stitcher"
-msgstr "Hugin - Panorama Stitcher"
+msgstr "Hugin - Panorama-sammenføjning"
 
 #: hugin1/hugin/MainFrame.cpp:724
 #, c-format
@@ -1609,20 +1617,20 @@ msgstr ""
 
 #: hugin1/hugin/MainFrame.cpp:804
 msgid "Open project:   "
-msgstr ""
+msgstr "Åbn projekt:"
 
 #: hugin1/hugin/MainFrame.cpp:818
 msgid "Project opened"
-msgstr ""
+msgstr "Projekt åbnet"
 
 #: hugin1/hugin/MainFrame.cpp:831
 msgid "Error opening project:   "
-msgstr ""
+msgstr "Fejl under åbning af projekt:"
 
 #: hugin1/hugin/MainFrame.cpp:877
 #: hugin1/hugin/MainFrame.cpp:1477
 msgid "Open project file"
-msgstr ""
+msgstr "Åbn projektfil"
 
 #: hugin1/hugin/MainFrame.cpp:879
 #: hugin1/hugin/MainFrame.cpp:1479
@@ -1631,20 +1639,20 @@ msgstr ""
 #: hugin1/ptbatcher/BatchFrame.cpp:410
 #: hugin1/stitch_project/hugin_stitch_project.cpp:378
 msgid "Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files (*)|*"
-msgstr ""
+msgstr "Projektfiler (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|Alle filer (*)|*"
 
 #: hugin1/hugin/MainFrame.cpp:893
 msgid "Open project: cancel"
-msgstr ""
+msgstr "Åbn projekt: Annullér"
 
 #: hugin1/hugin/MainFrame.cpp:1334
 msgid "Can't start system's web browser"
-msgstr ""
+msgstr "Kan ikke starte systemets webbrowser"
 
 #: hugin1/hugin/MainFrame.cpp:1512
 #, c-format
 msgid "Could not read project file %s."
-msgstr ""
+msgstr "Kunne ikke indlæse projektfil %s."
 
 #: hugin1/hugin/MainFrame.cpp:1524
 msgid "Choose template project"
@@ -1652,14 +1660,14 @@ msgstr ""
 
 #: hugin1/hugin/MainFrame.cpp:1585
 msgid "Fine-tuning all points"
-msgstr ""
+msgstr "Finjusterer alle punkter"
 
 #: hugin1/hugin/MainFrame.cpp:1585
 msgid "Finetuning"
-msgstr ""
+msgstr "Finjustering"
 
 #: hugin1/hugin/MainFrame.cpp:1677
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "%d points fine-tuned, %d points not updated due to low correlation\n"
 "\n"
@@ -1671,22 +1679,25 @@ msgid ""
 "\n"
 "Use the Control Point list (F3) to see all points of the current project\n"
 msgstr ""
+"%d punkter finjusteret, %d punkter ikke opdateret på grund af lav samhørighed\n"
+"\n"
+"Tip: "
 
 #: hugin1/hugin/MainFrame.cpp:1679
 msgid "Fine-tune result"
-msgstr ""
+msgstr "Finjusteringsresultat"
 
 #: hugin1/hugin/MainFrame.cpp:1697
 msgid "Removing control points in masks"
-msgstr ""
+msgstr "Fjerner kontrolpunkter i masker"
 
 #: hugin1/hugin/MainFrame.cpp:1706
 msgid "Select python script"
-msgstr ""
+msgstr "Vælg Python-script"
 
 #: hugin1/hugin/MainFrame.cpp:1708
 msgid "Python script (*.py)|*.py|All files (*.*)|*.*"
-msgstr ""
+msgstr "Python-script (*.py)|*.py|Alle filer (*.*)|*.*"
 
 #: hugin1/hugin/MainFrame.cpp:1982
 #, c-format
@@ -1694,6 +1705,8 @@ msgid ""
 "File \"%s\" not found.\n"
 "Maybe file was renamed, moved or deleted."
 msgstr ""
+"Fil \"%s\" ikke fundet.\n"
+"Måske er den blevet omdøbt, flyttet eller slettet."
 
 #: hugin1/hugin/MainFrame.cpp:1983
 #: hugin1/ptbatcher/Batch.cpp:357
@@ -1701,51 +1714,51 @@ msgstr ""
 #: hugin1/ptbatcher/Batch.cpp:792
 #: hugin1/ptbatcher/Batch.cpp:1029
 msgid "Error!"
-msgstr ""
+msgstr "Fejl!"
 
 #: hugin1/hugin/MainFrame.cpp:2009
 #, c-format
 msgid "Celeste model expected in %s not found, Hugin needs to be properly installed."
-msgstr ""
+msgstr "Celeste-model forventet i %s blev ikke fundet. Hugin skal installeres korrekt."
 
 #: hugin1/hugin/MainFrame.cpp:2014
 #, c-format
 msgid "Could not load Celeste model file %s"
-msgstr ""
+msgstr "Kunne ikke indlæse Celeste-modelfil %s"
 
 #: hugin1/hugin/MaskEditorPanel.cpp:105
 msgid "Mask type"
-msgstr ""
+msgstr "Masketype"
 
 #: hugin1/hugin/MaskEditorPanel.cpp:337
 msgid "Create a polygon mask by clicking with left mouse button on image, set last point with right mouse button."
-msgstr ""
+msgstr "Opret en polygonmaske ved at klikke med venstre museknap på billedet; sæt sidste punkt med højre museknap."
 
 #: hugin1/hugin/MaskEditorPanel.cpp:346
 msgid "Save mask"
-msgstr ""
+msgstr "Gem maske"
 
 #: hugin1/hugin/MaskEditorPanel.cpp:348
 #: hugin1/hugin/MaskEditorPanel.cpp:433
 msgid "Mask files (*.msk)|*.msk|All files (*)|*"
-msgstr ""
+msgstr "Maskefiler (*.msk)|*.msk|Alle filer (*)|*"
 
 #: hugin1/hugin/MaskEditorPanel.cpp:360
 msgid "Save Mask"
-msgstr ""
+msgstr "Gem maske"
 
 #: hugin1/hugin/MaskEditorPanel.cpp:431
 msgid "Load mask"
-msgstr ""
+msgstr "Indlæs maske"
 
 #: hugin1/hugin/MaskEditorPanel.cpp:437
 msgid "Load mask: cancel"
-msgstr ""
+msgstr "Indlæs maske: annullér"
 
 #: hugin1/hugin/MaskEditorPanel.cpp:448
 #, c-format
 msgid "Could not parse mask from file %s."
-msgstr ""
+msgstr "Kunne ikke tolke maske fra fil %s."
 
 #: hugin1/hugin/NonaOptionsDialog.cpp:55
 msgid "Nona options"
@@ -1763,6 +1776,15 @@ msgid ""
 "\n"
 "Apply the changes anyway?"
 msgstr ""
+"Optimering udført.\n"
+"ADVARSEL: et meget lille synsfelt (v) er blevet beregnet\n"
+"\n"
+"Resultatet er sansynligvis ubrugeligt.\n"
+"\n"
+"Optimering af synsfeltet (v) af delvise panoramaer can føre til dårlige resultater.\n"
+"Prøv at tilføje flere billeder og flere kontrolpunkter.\n"
+"\n"
+"Gennemfør disse ændringer alligevel?"
 
 #: hugin1/hugin/OptimizePanel.cpp:758
 #, c-format
@@ -1780,6 +1802,18 @@ msgid ""
 "\n"
 "Apply the changes anyway?"
 msgstr ""
+"Optimering udført.\n"
+"Resultat:\n"
+" gennemsnitlig kontrolpunktafstand: %f\n"
+" standardafvigelse: %f\n"
+" maksimum: %f\n"
+"\n"
+"*ADVARSEL*: meget høje forvrængningskoefficienter (a,b,c) er blevet beregnet.\n"
+"Resultatet er sansynligvis ubrugeligt.\n"
+"Optimér kun alle forvrængningsparametre, når der bruges mange, jævnt spredte kontrolpunkter.\n"
+"Sæt venligst parametrene a, b og c til nul og tilføj flere kontrolpunkter.\n"
+"\n"
+"Gennemfør disse ændringer alligevel?"
 
 #: hugin1/hugin/OptimizePanel.cpp:762
 #, c-format
@@ -1792,10 +1826,17 @@ msgid ""
 "\n"
 "Apply the changes?"
 msgstr ""
+"Optimering udført.\n"
+"Resultat:\n"
+" gennemsnitlig kontrolpunktafstand: %f\n"
+" standardafvigelse: %f\n"
+" maksimum: %f\n"
+"\n"
+"Gennemfør disse ændringer?"
 
 #: hugin1/hugin/OptimizePanel.cpp:767
 msgid "Optimization result"
-msgstr ""
+msgstr "Optimeringsresultat"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:492
 msgid ""
@@ -1814,10 +1855,12 @@ msgid ""
 "You selected no parameters to optimize.\n"
 "Therefore optimization will be canceled."
 msgstr ""
+"Du valgte ingen parametre at optimere.\n"
+"Optimeringsprocessen annulleres derfor."
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:533
 msgid "Exposure optimization"
-msgstr ""
+msgstr "Eksponeringsoptimering"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:545
 msgid ""
@@ -1827,35 +1870,35 @@ msgstr ""
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:546
 msgid "Number of points per image"
-msgstr ""
+msgstr "Antal punkter pr. billede"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:547
 msgid "Photometric optimization"
-msgstr ""
+msgstr "Fotometrisk optimering"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:554
 msgid "Photometric alignment"
-msgstr ""
+msgstr "Fotometrisk justering"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:554
 msgid "Loading images"
-msgstr ""
+msgstr "Indlæser billeder"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:565
 msgid "Error: could not load all images"
-msgstr ""
+msgstr "Fejl: kunne ikke indlæse alle billeder"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:585
 msgid "Error: no overlapping points found, Photometric optimization aborted"
-msgstr ""
+msgstr "Fejl: ingen overlappende punkter fundet. Fotometrisk optimering afbrudt"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:608
 msgid "Internal error during photometric optimization:\n"
-msgstr ""
+msgstr "Intern fejl under fotometrisk optimering:\n"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:608
 msgid "Internal error"
-msgstr ""
+msgstr "Intern fejl"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:614
 #, c-format
@@ -1865,14 +1908,18 @@ msgid ""
 "\n"
 "Apply results?"
 msgstr ""
+"Resultat af fotometrisk optimering:\n"
+"Gennemsnitlig forskel (RMSE) mellem overlappende pixels: %.2f gråværdier (2..255)\n"
+"\n"
+"Gennemfør ændringer?"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:615
 msgid "Photometric optimization finished"
-msgstr ""
+msgstr "Fotometrisk optimering udført"
 
 #: hugin1/hugin/PanoPanel.cpp:145
 msgid "Fisheye"
-msgstr ""
+msgstr "Fisheye"
 
 #: hugin1/hugin/PanoPanel.cpp:147
 msgid "Mercator"
@@ -1908,7 +1955,7 @@ msgstr ""
 
 #: hugin1/hugin/PanoPanel.cpp:155
 msgid "Architectural"
-msgstr ""
+msgstr "Arkitekturisk"
 
 #: hugin1/hugin/PanoPanel.cpp:158
 msgid "Equirectangular Panini"
@@ -1928,7 +1975,7 @@ msgstr ""
 
 #: hugin1/hugin/PanoPanel.cpp:162
 msgid "Thoby Projection"
-msgstr ""
+msgstr "Thoby-projektion"
 
 #: hugin1/hugin/PanoPanel.cpp:483
 #: translations/xrc.cpp:590
@@ -1936,19 +1983,19 @@ msgstr ""
 #: xrc.cpp:590
 #: xrc.cpp:595
 msgid "Compression:"
-msgstr ""
+msgstr "Komprimering:"
 
 #: hugin1/hugin/PanoPanel.cpp:498
 msgid "Quality:"
-msgstr ""
+msgstr "Kvalitet:"
 
 #: hugin1/hugin/PanoPanel.cpp:671
 msgid "width needs to be an integer bigger than 0"
-msgstr ""
+msgstr "bredde skal være et heltal større end 0"
 
 #: hugin1/hugin/PanoPanel.cpp:688
 msgid "height needs to be an integer bigger than 0"
-msgstr ""
+msgstr "højde skal være et heltal større end 0"
 
 #: hugin1/hugin/PanoPanel.cpp:786
 msgid " PTmender options not yet implemented"
@@ -1964,7 +2011,7 @@ msgstr ""
 
 #: hugin1/hugin/PanoPanel.cpp:992
 msgid "Could not create temporary project file"
-msgstr ""
+msgstr "Kunne ikke oprette midlertidig projektfil"
 
 #: hugin1/hugin/PanoPanel.cpp:1045
 #: hugin1/hugin/PanoPanel.cpp:1173
@@ -1982,18 +2029,20 @@ msgid ""
 "The given filename contains one of the following invalid characters: %s\n"
 "Hugin can not work with this filename. Please enter a valid filename."
 msgstr ""
+"Det givne filnavn indeholder en af de følgende ugyldige tegn: %s\n"
+"Hugin kan ikke arbejde med dette filnavn. Indtast venligst et gyldigt filnavn."
 
 #: hugin1/hugin/PanoPanel.cpp:1112
 msgid "Could not execute command: "
-msgstr ""
+msgstr "Kunne ikke udføre kommandoen:"
 
 #: hugin1/hugin/PanoPanel.cpp:1112
 msgid "ShellExecuteEx failed"
-msgstr ""
+msgstr "ShellExecuteEx fejlede"
 
 #: hugin1/hugin/PanoPanel.cpp:1404
 msgid "Are you sure you want to stitch such a large panorama?"
-msgstr ""
+msgstr "Er du sikker på, at du vil sammenføje så stort et panorama?"
 
 #: hugin1/hugin/PanoPanel.cpp:1412
 #, c-format
@@ -2001,14 +2050,16 @@ msgid ""
 "The panorama you are trying to stitch is %.1f gigapixels.\n"
 "If this is too big, reduce the panorama Canvas Size and the cropped region and stitch from the Stitcher tab. Stitching a panorama this size could take a long time and a large amount of memory."
 msgstr ""
+"Panoramaet, du prøver at sammenføje, er %.1f gigapixels stort.\n"
+"Hvis dette er for stort, kan du reducere panoramaets lærredstørrelse og tilskæring, og sammenføj fra Sammenføjning-tab'en. Sammenføjning af et panorama af denne størrelse kan tage lang tid og bruge meget hukommelse."
 
 #: hugin1/hugin/PanoPanel.cpp:1414
 msgid "Stitch anyway"
-msgstr ""
+msgstr "Sammenføj alligevel"
 
 #: hugin1/hugin/PanoPanel.cpp:1414
 msgid "Let me fix that"
-msgstr ""
+msgstr "Lad mig fikse det"
 
 #: hugin1/hugin/PanoPanel.cpp:1431
 #, c-format
@@ -2018,6 +2069,10 @@ msgid ""
 "The panorama you are trying to stitch is %.1f gigapixels.\n"
 "If this is too big, reduce the panorama Canvas Size and the cropped region and stitch from the Stitcher tab. Stitching a panorama this size could take a long time and a large amount of memory."
 msgstr ""
+"Er du sikker på, at du vil sammenføje så stort et panorama?\n"
+"\n"
+"Panoramaet, du prøver at sammenføje, er %.1f gigapixels stort.\n"
+"Hvis dette er for stort, kan du reducere panoramaets lærredstørrelse og tilskæring, og sammenføj fra Sammenføjning-tab'en. Sammenføjning af et panorama af denne størrelse kan tage lang tid og bruge meget hukommelse."
 
 #: hugin1/hugin/PluginItems.cpp:68
 msgid "Miscellaneous"
@@ -2025,7 +2080,7 @@ msgstr ""
 
 #: hugin1/hugin/PreferencesDialog.cpp:121
 msgid "System default"
-msgstr ""
+msgstr "Systemstandard"
 
 #: hugin1/hugin/PreferencesDialog.cpp:124
 msgid "Bulgarian"
@@ -2124,33 +2179,33 @@ msgstr ""
 #: hugin1/hugin/PreferencesDialog.cpp:328
 #: hugin1/hugin/PreferencesDialog.cpp:344
 msgid "Executables (*.exe)|*.exe"
-msgstr ""
+msgstr "Eksekvérbare filer (*.exe)|*.exe"
 
 #: hugin1/hugin/PreferencesDialog.cpp:308
 msgid "Select image editor"
-msgstr ""
+msgstr "Vælg billedbehandler"
 
 #: hugin1/hugin/PreferencesDialog.cpp:325
 msgid "Select Enblend"
-msgstr ""
+msgstr "Vælg Enblend"
 
 #: hugin1/hugin/PreferencesDialog.cpp:341
 msgid "Select Enfuse"
-msgstr ""
+msgstr "Vælg Enfuse"
 
 #: hugin1/hugin/PreferencesDialog.cpp:377
 msgid "Panotools details"
-msgstr ""
+msgstr "Panotools detaljer"
 
 #: hugin1/hugin/PreferencesDialog.cpp:659
 msgid "Really reset displayed preferences to default values?"
-msgstr ""
+msgstr "Nulstil virkelig de viste indstillinger til standardværdierne?"
 
 #: hugin1/hugin/PreferencesDialog.cpp:659
 #: translations/xrc.cpp:791
 #: xrc.cpp:791
 msgid "Load Defaults"
-msgstr ""
+msgstr "Indlæs standardværdier"
 
 #: hugin1/hugin/PreferencesDialog.cpp:921
 msgid "Please select an entry first"
@@ -2165,48 +2220,50 @@ msgid ""
 "You can't delete the last setting.\n"
 "At least one setting is required."
 msgstr ""
+"Du kan ikke fjerne den sidste indstilling.\n"
+"Mindst én indstilling er nødvendig."
 
 #: hugin1/hugin/PreferencesDialog.cpp:944
 #, c-format
 msgid "Do you really want to remove control point detector setting \"%s\"?"
-msgstr ""
+msgstr "Vil du virkelig fjerne kontrolpunkt-detektor-indstilling \"%s\"?"
 
 #: hugin1/hugin/PreferencesDialog.cpp:945
 msgid "Delete control point detector setting"
-msgstr ""
+msgstr "Fjern kontrolpunkt-detektor-indstilling"
 
 #: hugin1/hugin/PreferencesDialog.cpp:998
 msgid "Load control point detector settings"
-msgstr ""
+msgstr "Indlæs kontrolpunkt-detektor-indstillinger"
 
 #: hugin1/hugin/PreferencesDialog.cpp:1000
 #: hugin1/hugin/PreferencesDialog.cpp:1015
 msgid "Control point detector settings (*.setting)|*.setting"
-msgstr ""
+msgstr "Kontrolpunkt-detektor-indstilling"
 
 #: hugin1/hugin/PreferencesDialog.cpp:1013
 msgid "Save control point detector settings"
-msgstr ""
+msgstr "Gem kontrolpunkt-detektor-indstillinger"
 
 #: hugin1/hugin/PreviewColorPickerTool.cpp:44
 msgid "Click on a area which should be neutral gray / white in the final panorama."
-msgstr ""
+msgstr "Klik på et område, der skal være neutralgrå / hvid i den endelige panorama."
 
 #: hugin1/hugin/PreviewCropTool.cpp:55
 msgid "Drag the inside of the cropping rectangle to adjust the crop."
-msgstr ""
+msgstr "Høld venstre musetast inde mens musen er over det indvendige af rektanglet for at justere beskæringen."
 
 #: hugin1/hugin/PreviewFrame.cpp:117
 msgid "Panorama preview"
-msgstr ""
+msgstr "Panorama preview"
 
 #: hugin1/hugin/PreviewFrame.cpp:198
 msgid "Preview Options"
-msgstr ""
+msgstr "Preview-indstillinger"
 
 #: hugin1/hugin/PreviewFrame.cpp:201
 msgid "projection (f):"
-msgstr ""
+msgstr "projektion (f):"
 
 #: hugin1/hugin/PreviewFrame.cpp:226
 #: translations/xrc.cpp:841
@@ -2216,7 +2273,7 @@ msgstr ""
 
 #: hugin1/hugin/PreviewFrame.cpp:248
 msgid "Output:"
-msgstr ""
+msgstr "Output:"
 
 #: hugin1/hugin/PreviewFrame.cpp:253
 msgid "LDR"
@@ -2234,34 +2291,34 @@ msgstr ""
 
 #: hugin1/hugin/PreviewFrame.cpp:296
 msgid "Projection Parameters"
-msgstr ""
+msgstr "Projektionsparametre"
 
 #: hugin1/hugin/PreviewFrame.cpp:340
 #: hugin1/hugin/PreviewPanel.cpp:780
 msgid "Left click to define new center point, right click to move point to horizon."
-msgstr ""
+msgstr "Venstreklik for at definere nyt centerpunkt, højreklik for at flytte punkt til horisont."
 
 #: hugin1/hugin/PreviewFrame.cpp:375
 #: hugin1/hugin/PreviewFrame.cpp:504
 msgid "Center panorama with left mouse button, set horizon with right button"
-msgstr ""
+msgstr "Centrér panorama med venstre museknap, sæt horisont med højre museknap"
 
 #: hugin1/hugin/PreviewIdentifyTool.cpp:201
 #: hugin1/hugin/PreviewIdentifyTool.cpp:317
 msgid "Move the mouse over the images or image buttons to identify them."
-msgstr ""
+msgstr "Flyt musen henover billederne eller billedknapperne for at identificere dem."
 
 #: hugin1/hugin/PreviewIdentifyTool.cpp:315
 msgid "Click to create or edit control points here."
-msgstr ""
+msgstr "Klik for at oprette eller ændre kontrolpunkter her."
 
 #: hugin1/hugin/PreviewLayoutLinesTool.cpp:177
 msgid "Click a connection to edit control points."
-msgstr ""
+msgstr "Klik på en forbindelse for at ændre kontrolpunkter."
 
 #: hugin1/hugin/PreviewPanel.cpp:500
 msgid "Error during Stitching"
-msgstr ""
+msgstr "Fejl under sammenføjning"
 
 #: hugin1/hugin/wxPanoCommand.cpp:197
 #, c-format
@@ -2270,10 +2327,13 @@ msgid ""
 "%s\n"
 "Abort"
 msgstr ""
+"Kunne ikke afkode billede:\n"
+"%s\n"
+"Afbrudt"
 
 #: hugin1/hugin/wxPanoCommand.cpp:197
 msgid "Unsupported image file format"
-msgstr ""
+msgstr "Billedfilformat ikke understøttet"
 
 #: hugin1/hugin/wxPanoCommand.cpp:405
 #, c-format
@@ -2282,10 +2342,13 @@ msgid ""
 "%s\n"
 "Please select correct image"
 msgstr ""
+"Billedfil ikke fundet:\n"
+"%s\n"
+"Vælg venligst korrekt billede"
 
 #: hugin1/hugin/wxPanoCommand.cpp:405
 msgid "Image file not found"
-msgstr ""
+msgstr "Billedfil ikke fundet"
 
 #: hugin1/hugin/wxPanoCommand.cpp:499
 #, c-format
@@ -2294,10 +2357,13 @@ msgid ""
 "\n"
 "Press OK to remove."
 msgstr ""
+"%d ugyldig(e) kontrolpunkt(er) fundet.\n"
+"\n"
+"Klik OK for at fjerne."
 
 #: hugin1/hugin/wxPanoCommand.cpp:500
 msgid "Error Detected"
-msgstr ""
+msgstr "Fejl opfanget"
 
 #: hugin1/hugin/wxPanoCommand.cpp:665
 #, c-format
@@ -2313,11 +2379,11 @@ msgstr ""
 
 #: hugin1/hugin/wxPanoCommand.cpp:692
 msgid "Error loading project file"
-msgstr ""
+msgstr "Fejl under indlæsning af projektfil"
 
 #: hugin1/hugin/wxPanoCommand.cpp:706
 msgid "Result"
-msgstr ""
+msgstr "Resultat"
 
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:205
 #, c-format
@@ -2325,21 +2391,23 @@ msgid ""
 "Could not find \"%s\" in path.\n"
 "Maybe you have not installed it properly or given a wrong path in the settings."
 msgstr ""
+"Kunne ikke finde \"%s\" i stien.\n"
+"Måske har du ikke installeret det korrekt, eller givet en forkert sti i indstillingerne."
 
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:329
 msgid "cleaning up temporary keypoint files"
-msgstr ""
+msgstr "rydder op i midlertidige nøglepunkt-filer"
 
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:388
 #, c-format
 msgid "Please use  %namefile, %i or %s to specify the input files for control point detector"
-msgstr ""
+msgstr "Brug venligst %namefile, %i eller %s for at specificere inputfilerne til kontrolpunkt-detektor"
 
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:389
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:517
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:523
 msgid "Error in control point detector command"
-msgstr ""
+msgstr "Fejl i kommando til kontrolpunkt-detektor"
 
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:437
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:600
@@ -2350,12 +2418,16 @@ msgid ""
 "Please select less images, or place the images in a folder with\n"
 "a shorter pathname"
 msgstr ""
+"Kommandolinie for kontrolpunkt-detektor er for lang.\n"
+"Dette er en Windows-begrænsning\n"
+"Vælg venligst færre billeder eller placér billederne i en mappe\n"
+"med et kortere stinavn"
 
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:438
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:601
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:696
 msgid "Too many images selected"
-msgstr ""
+msgstr "For mange billeder er valgt"
 
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:450
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:706
@@ -2365,6 +2437,9 @@ msgid ""
 "\n"
 " Could not execute command: %s"
 msgstr ""
+"For mange argumenter (billeder). Prøv at bruge %%s-parametren i indstillingerne.\n"
+"\n"
+"Kunne ikke udføre kommando: %s"
 
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:450
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:461
@@ -2378,13 +2453,13 @@ msgstr ""
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:717
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:721
 msgid "wxExecute Error"
-msgstr ""
+msgstr "wxExecute fejl"
 
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:456
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:617
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:712
 msgid "finding control points"
-msgstr ""
+msgstr "finder kontrolpunkter"
 
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:461
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:557
@@ -2392,7 +2467,7 @@ msgstr ""
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:717
 #, c-format
 msgid "Could not execute command: %s"
-msgstr ""
+msgstr "Kunne ikke udføre kommando: %s"
 
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:464
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:563
@@ -2403,6 +2478,8 @@ msgid ""
 "Command: %s\n"
 "failed with error code: %d"
 msgstr ""
+"Kommando: %s\n"
+"fejlede med fejlkode: %d"
 
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:470
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:637
@@ -2415,12 +2492,17 @@ msgid ""
 "\n"
 "Executed command: %s"
 msgstr ""
+"Kunne ikke åbne %s for læsning\n"
+"Dette indikerer, at kaldet til kontrolpunkt-detektoren fejlede,\n"
+"eller at forkerte kommandolinie-parametre er brugt.\n"
+"\n"
+"Udført kommando: %s"
 
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:471
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:638
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:729
 msgid "Control point detector failure"
-msgstr ""
+msgstr "Fejl ved kontrolpunkt-detektor"
 
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:516
 msgid "Please use %i to specify the input files and %k to specify the keypoint file for generate keys step"
@@ -2432,7 +2514,7 @@ msgstr ""
 
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:550
 msgid "generating key file"
-msgstr ""
+msgstr "genererer nøglefil"
 
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:612
 #, c-format
@@ -2441,16 +2523,19 @@ msgid ""
 "\n"
 " Could not execute command: %s"
 msgstr ""
+"For mange argumenter (billeder). Prøv at bruge en cp generator indstilling, som understøtter %%s-parametren i indstillingerne.\n"
+"\n"
+"Kunne ikke udføre kommando: %s"
 
 #: hugin1/icpfind/CPDetectorConfig.cpp:137
 msgid "Default"
-msgstr ""
+msgstr "Standard"
 
 #: hugin1/nona_gui/nona_gui.cpp:165
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:158
 #: hugin1/stitch_project/hugin_stitch_project.cpp:350
 msgid "Syntax error in parameters detected, aborting."
-msgstr ""
+msgstr "Syntaksfejl fundet i parametre, afbryder."
 
 #: hugin1/nona_gui/nona_gui.cpp:180
 #: hugin1/ptbatcher/Batch.cpp:640
@@ -2460,34 +2545,36 @@ msgstr ""
 
 #: hugin1/nona_gui/nona_gui.cpp:203
 msgid "Could not find project file:"
-msgstr ""
+msgstr "Kunne ikke finde projektfil:"
 
 #: hugin1/nona_gui/nona_gui.cpp:212
 msgid "Specify output image filename"
-msgstr ""
+msgstr "Specificér output-billedfilnavn"
 
 #: hugin1/nona_gui/nona_gui.cpp:221
 #: hugin1/ptbatcher/Batch.cpp:665
 msgid "No project files specified"
-msgstr ""
+msgstr "Ingen projektfil specificeret"
 
 #: hugin1/nona_gui/nona_gui.cpp:237
 msgid "Stitching Panorama"
-msgstr ""
+msgstr "Sammenføjer panorama"
 
 #: hugin1/nona_gui/nona_gui.cpp:256
 msgid "Wrong number of images specified on command line"
-msgstr ""
+msgstr "Forkert antal billeder specificeret på kommandolinien"
 
 #: hugin1/nona_gui/nona_gui.cpp:271
 msgid "output image size: "
-msgstr ""
+msgstr "output-billedstørrelse:"
 
 #: hugin1/ptbatcher/Batch.cpp:246
 msgid ""
 "Cannot clear batch in progress.\n"
 "Do you want to cancel it?"
 msgstr ""
+"Kan ikke tømme jobliste, der kører.\n"
+"Vil du annullere den?"
 
 #: hugin1/ptbatcher/Batch.cpp:248
 #: hugin1/ptbatcher/BatchFrame.cpp:639
@@ -2500,46 +2587,46 @@ msgstr ""
 #: translations/xrc.cpp:743
 #: xrc.cpp:743
 msgid "PTBatcherGUI"
-msgstr ""
+msgstr "PTBatcherGUI"
 
 #: hugin1/ptbatcher/Batch.cpp:262
 #: hugin1/ptbatcher/Batch.cpp:283
 msgid "Cleared batch."
-msgstr ""
+msgstr "Jobliste tømt."
 
 #: hugin1/ptbatcher/Batch.cpp:357
 #, c-format
 msgid "Error: Could not get status, project with index %d is not in list."
-msgstr ""
+msgstr "Fejl: Kunne ikke finde status; projekt med indeks %d er ikke i listen."
 
 #: hugin1/ptbatcher/Batch.cpp:405
 msgid "Error: Could not load batch file."
-msgstr ""
+msgstr "Fejl: Kunne ikke indlæse joblistefil."
 
 #: hugin1/ptbatcher/Batch.cpp:527
 msgid "Batch successfully completed."
-msgstr ""
+msgstr "Jobliste gennemført med succes."
 
 #: hugin1/ptbatcher/Batch.cpp:538
 msgid "Batch completed with errors."
-msgstr ""
+msgstr "Jobliste gennemført med fejl."
 
 #: hugin1/ptbatcher/Batch.cpp:557
 msgid "Initializing shutdown..."
-msgstr ""
+msgstr "Begynder nedlukning..."
 
 #: hugin1/ptbatcher/Batch.cpp:557
 #: hugin1/ptbatcher/Batch.cpp:562
 msgid "Shutting down..."
-msgstr ""
+msgstr "Lukker ned..."
 
 #: hugin1/ptbatcher/Batch.cpp:586
 msgid "Error shutting down."
-msgstr ""
+msgstr "Fejl under nedlukning."
 
 #: hugin1/ptbatcher/Batch.cpp:588
 msgid "Error shutting down. Do you have root privileges?"
-msgstr ""
+msgstr "Fejl under nedlukning. Har du rettigheder som root?"
 
 #: hugin1/ptbatcher/Batch.cpp:659
 msgid "No output prefix specified"
@@ -2549,12 +2636,12 @@ msgstr ""
 #: hugin1/stitch_project/hugin_stitch_project.cpp:441
 #, c-format
 msgid "%s - Stitching"
-msgstr ""
+msgstr "%s - Sammenføjer"
 
 #: hugin1/ptbatcher/Batch.cpp:725
 #, c-format
 msgid "%s - Assistant"
-msgstr ""
+msgstr "%s - Assistent"
 
 #: hugin1/ptbatcher/Batch.cpp:775
 #, c-format
@@ -2567,76 +2654,76 @@ msgstr ""
 
 #: hugin1/ptbatcher/Batch.cpp:811
 msgid "Running batch..."
-msgstr ""
+msgstr "Kører jobliste..."
 
 #: hugin1/ptbatcher/Batch.cpp:844
 msgid "Batch already in progress."
-msgstr ""
+msgstr "Jobliste kører allerede."
 
 #: hugin1/ptbatcher/Batch.cpp:861
 msgid "Running command \""
-msgstr ""
+msgstr "Kører kommando \""
 
 #: hugin1/ptbatcher/Batch.cpp:899
 #: hugin1/ptbatcher/Batch.cpp:934
 #, c-format
 msgid "Now stitching: %s"
-msgstr ""
+msgstr "Sammenføjer nu: %s"
 
 #: hugin1/ptbatcher/Batch.cpp:909
 #: hugin1/ptbatcher/Batch.cpp:944
 #, c-format
 msgid "Now detecting: %s"
-msgstr ""
+msgstr "Lokaliserer nu: %s"
 
 #: hugin1/ptbatcher/Batch.cpp:1029
 #, c-format
 msgid "Error: Could not set status, project with index %d is not in list."
-msgstr ""
+msgstr "Fejl: Kunne ikke sætte status; projekt med indeks %d er ikke i listen."
 
 #: hugin1/ptbatcher/BatchFrame.cpp:133
 msgid "Not doing much..."
-msgstr ""
+msgstr "Udfører ikke så meget..."
 
 #: hugin1/ptbatcher/BatchFrame.cpp:147
 #: hugin1/ptbatcher/BatchFrame.cpp:157
 msgid "Hugins Batch processor"
-msgstr ""
+msgstr "Hugin jobliste-processor"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:364
 msgid "Please enter the command-line application to execute:"
-msgstr ""
+msgstr "Indtast venligst kommandolinie-applikationen, som skal køres:"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:364
 msgid "Enter application"
-msgstr ""
+msgstr "Indtast applikation"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:385
 #: hugin1/ptbatcher/FindPanoDialog.cpp:186
 msgid "Specify a directory to search for projects in"
-msgstr ""
+msgstr "Specificér en mappe for søgning efter projekter"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:408
 msgid "Specify project source file(s)"
-msgstr ""
+msgstr "Specificér projektkildefil(er)"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:442
 msgid "Added projects from dir "
-msgstr ""
+msgstr "Tilføjede projekter fra mappe"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:453
 #, c-format
 msgid "Add project %s to stitching queue."
-msgstr ""
+msgstr "Tilføj projekt %s til sammenføjningskø."
 
 #: hugin1/ptbatcher/BatchFrame.cpp:456
 #, c-format
 msgid "Add project %s to assistant queue."
-msgstr ""
+msgstr "Tilføj projekt %s til assistentkø."
 
 #: hugin1/ptbatcher/BatchFrame.cpp:470
 msgid "Batch stopped"
-msgstr ""
+msgstr "Jobliste stoppede"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:480
 msgid "Specify output prefix for project "
@@ -2648,119 +2735,127 @@ msgstr ""
 
 #: hugin1/ptbatcher/BatchFrame.cpp:507
 msgid "Please select a project"
-msgstr ""
+msgstr "Vælg venligst et projekt"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:578
 msgid "help file: "
-msgstr ""
+msgstr "hjælpefil:"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:600
 msgid "Specify batch file to open"
-msgstr ""
+msgstr "Specificér joblistefil til indlæsning"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:602
 msgid "Batch files (*.ptb)|*.ptb;|All files (*)|*"
-msgstr ""
+msgstr "Joblistefiler (*.ptb)|*.ptb;|Alle filer (*)|*"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:633
 msgid "Cannot open app in Hugin."
-msgstr ""
+msgstr "Kan ikke åbne app i Hugin."
 
 #: hugin1/ptbatcher/BatchFrame.cpp:637
 msgid "No project selected. Open Hugin without project?"
-msgstr ""
+msgstr "Intet projekt valgt. Åbn Hugin uden et projekt?"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:665
 msgid "Batch paused"
-msgstr ""
+msgstr "Jobliste på pause"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:675
 msgid "Continuing batch..."
-msgstr ""
+msgstr "Fortsætter jobliste..."
 
 #: hugin1/ptbatcher/BatchFrame.cpp:690
 msgid ""
 "There are failed projects in the list.\n"
 "Remove them also?"
 msgstr ""
+"Der er fejlslagne projekter i listen.\n"
+"Fjern også dem?"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:723
 msgid ""
 "Cannot remove project in progress.\n"
 "Do you want to cancel it?"
 msgstr ""
+"Kan ikke fjerne projekt, der kører.\n"
+"Vil du annullere det?"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:737
 msgid "Removed project "
-msgstr ""
+msgstr "Fjernede projekt"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:745
 msgid "Please select a project to remove"
-msgstr ""
+msgstr "Vælg venligst et projekt, der skal fjernes"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:757
 msgid ""
 "Cannot reset project in progress.\n"
 "Do you want to cancel it?"
 msgstr ""
+"Kan ikke nulstille projekt, der kører.\n"
+"Vil du annullere det?"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:772
 msgid "Reset project "
-msgstr ""
+msgstr "Nulstil projekt"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:776
 msgid "Please select a project to reset"
-msgstr ""
+msgstr "Vælg venligst et projekt, der skal nulstilles"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:784
 msgid ""
 "Cannot reset projects in progress.\n"
 "Do you want to cancel the batch?"
 msgstr ""
+"Kan ikke nulstille projekter, der kører.\n"
+"Vil du annullere joblisten?"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:816
 msgid "Specify batch file to save"
-msgstr ""
+msgstr "Specificér joblistefil, der skal gemmes"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:818
 msgid "Batch file (*.ptb)|*.ptb;|All files (*)|*"
-msgstr ""
+msgstr "Joblistefil (*.ptb)|*.ptb;|Alle filer (*)|*"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:1047
 msgid "Starting batch"
-msgstr ""
+msgstr "Starter jobliste"
 
 #: hugin1/ptbatcher/BatchTrayIcon.cpp:57
 msgid "&Show window"
-msgstr ""
+msgstr "&Vis vindue"
 
 #: hugin1/ptbatcher/BatchTrayIcon.cpp:60
 #: translations/xrc.cpp:99
 #: xrc.cpp:99
 msgid "Start batch"
-msgstr ""
+msgstr "Start jobliste"
 
 #: hugin1/ptbatcher/BatchTrayIcon.cpp:64
 msgid "Continue batch"
-msgstr ""
+msgstr "Fortsæt jobliste"
 
 #: hugin1/ptbatcher/BatchTrayIcon.cpp:68
 #: translations/xrc.cpp:105
 #: xrc.cpp:105
 msgid "Pause batch"
-msgstr ""
+msgstr "Pause jobliste"
 
 #: hugin1/ptbatcher/BatchTrayIcon.cpp:71
 msgid "Stop batch"
-msgstr ""
+msgstr "Stop jobliste"
 
 #: hugin1/ptbatcher/BatchTrayIcon.cpp:74
 msgid "Add project to queue..."
-msgstr ""
+msgstr "Tilføj projekt til kø..."
 
 #: hugin1/ptbatcher/BatchTrayIcon.cpp:78
 msgid "E&xit"
-msgstr ""
+msgstr "&Afslut"
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:175
 msgid ""
@@ -2768,10 +2863,13 @@ msgid ""
 "If you close the dialog, you will lose them.\n"
 "Continue anyway?"
 msgstr ""
+"Listen indeholder projekter, der muligvis ikke har kørt.\n"
+"Hvis du lukker dialogboksen, vil du miste dem.\n"
+"Fortsæt alligevel?"
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:200
 msgid "Accepted"
-msgstr ""
+msgstr "Accepteret"
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:210
 msgid ""
@@ -2779,10 +2877,13 @@ msgid ""
 "If you continue, they will be disregarded.\n"
 "Do you still want to continue?"
 msgstr ""
+"Listen indeholder projekter, der ikke har kørt.\n"
+"Hvis du fortsætter, vil de blive set bort fra.\n"
+"Fortsæt alligevel?"
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:220
 msgid "Stop"
-msgstr ""
+msgstr "Stop"
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:228
 #, c-format
@@ -2790,76 +2891,82 @@ msgid ""
 "Directory %s does not exist.\n"
 "Please give an existing directory."
 msgstr ""
+"Mappen %s eksisterer ikke.\n"
+"Angiv venligst en eksisterende mappe."
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:248
 msgid ""
 "You have selected no possible panorama.\n"
 "Please select at least one panorama and try again."
 msgstr ""
+"Du har ikke valgt et muligt panorama.\n"
+"Vælg venligst mindst ét panorama og prøv igen."
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:270
 msgid ""
 "Not all project files could be written successfully.\n"
 "Maybe you have no write permission for these directories or your hard disc is full."
 msgstr ""
+"Der kunne ikke skrives til alle projektfiler med succes.\n"
+"Måske har du ikke skrivetilladelse for disse mapper, eller din harddisk er fuld."
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:295
 #, c-format
 msgid "Reading file %s"
-msgstr ""
+msgstr "Indlæser fil %s"
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:374
 #: translations/xrc.cpp:59
 #: xrc.cpp:59
 msgid "Start"
-msgstr ""
+msgstr "Start"
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:380
 #, c-format
 msgid "Found %d possible panoramas."
-msgstr ""
+msgstr "Fandt %d mulige panoramaer."
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:384
 msgid "No possible panoramas found."
-msgstr ""
+msgstr "Ingen mulige panoramaer fundet."
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:537
 #, c-format
 msgid "%d images: %s"
-msgstr ""
+msgstr "%d billeder: %s"
 
 #: hugin1/ptbatcher/ProjectArray.cpp:66
 msgid "Waiting"
-msgstr ""
+msgstr "Venter"
 
 #: hugin1/ptbatcher/ProjectArray.cpp:68
 msgid "In progress"
-msgstr ""
+msgstr "Under kørsel"
 
 #: hugin1/ptbatcher/ProjectArray.cpp:70
 msgid "Complete"
-msgstr ""
+msgstr "Færdig"
 
 #: hugin1/ptbatcher/ProjectArray.cpp:72
 msgid "Failed"
-msgstr ""
+msgstr "Fejl"
 
 #: hugin1/ptbatcher/ProjectArray.cpp:74
 #: hugin1/ptbatcher/ProjectListBox.cpp:225
 msgid "File missing"
-msgstr ""
+msgstr "Fil mangler"
 
 #: hugin1/ptbatcher/ProjectArray.cpp:76
 msgid "Paused"
-msgstr ""
+msgstr "Pause"
 
 #: hugin1/ptbatcher/ProjectListBox.cpp:50
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #: hugin1/ptbatcher/ProjectListBox.cpp:51
 msgid "Project"
-msgstr ""
+msgstr "Projekt"
 
 #: hugin1/ptbatcher/ProjectListBox.cpp:52
 msgid "Output prefix"
@@ -2867,34 +2974,34 @@ msgstr ""
 
 #: hugin1/ptbatcher/ProjectListBox.cpp:53
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #: hugin1/ptbatcher/ProjectListBox.cpp:54
 msgid "Last modified"
-msgstr ""
+msgstr "Sidst ændret"
 
 #: hugin1/ptbatcher/ProjectListBox.cpp:55
 msgid "Output format"
-msgstr ""
+msgstr "Output-format"
 
 #: hugin1/ptbatcher/ProjectListBox.cpp:56
 #: translations/xrc.cpp:852
 #: xrc.cpp:852
 msgid "Projection"
-msgstr ""
+msgstr "Projektion"
 
 #: hugin1/ptbatcher/ProjectListBox.cpp:57
 msgid "Size"
-msgstr ""
+msgstr "Størrelse"
 
 #: hugin1/ptbatcher/ProjectListBox.cpp:149
 #, c-format
 msgid "%d"
-msgstr ""
+msgstr "%d"
 
 #: hugin1/ptbatcher/ProjectListBox.cpp:172
 msgid "Error, cannot convert id"
-msgstr ""
+msgstr "Fejl, kan ikke konvertere id"
 
 #: hugin1/ptbatcher/ProjectListBox.cpp:279
 #: translations/xrc.cpp:326
@@ -2904,7 +3011,7 @@ msgstr ""
 #: xrc.cpp:381
 #: xrc.cpp:676
 msgid "Assistant"
-msgstr ""
+msgstr "Assistent"
 
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:131
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:144
@@ -2941,29 +3048,29 @@ msgstr ""
 #: xrc.cpp:409
 #: xrc.cpp:445
 msgid "About Hugin"
-msgstr ""
+msgstr "Om Hugin"
 
 #: translations/xrc.cpp:2
 #: xrc.cpp:2
 msgid "version"
-msgstr ""
+msgstr "version"
 
 #: translations/xrc.cpp:3
 #: translations/xrc.cpp:446
 #: xrc.cpp:3
 #: xrc.cpp:446
 msgid "About"
-msgstr ""
+msgstr "Om"
 
 #: translations/xrc.cpp:4
 #: xrc.cpp:4
 msgid "Authors"
-msgstr ""
+msgstr "Forfattere"
 
 #: translations/xrc.cpp:5
 #: xrc.cpp:5
 msgid "Sponsors"
-msgstr ""
+msgstr "Sponsorer"
 
 #: translations/xrc.cpp:6
 #: xrc.cpp:6
@@ -2973,12 +3080,12 @@ msgstr ""
 #: translations/xrc.cpp:7
 #: xrc.cpp:7
 msgid "License"
-msgstr ""
+msgstr "Licens"
 
 #: translations/xrc.cpp:8
 #: xrc.cpp:8
 msgid "System"
-msgstr ""
+msgstr "System"
 
 #: translations/xrc.cpp:9
 #: translations/xrc.cpp:32
@@ -3001,27 +3108,27 @@ msgstr ""
 #: xrc.cpp:793
 #: xrc.cpp:893
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: translations/xrc.cpp:10
 #: xrc.cpp:10
 msgid "1. Load images..."
-msgstr ""
+msgstr "1. Indlæs billeder..."
 
 #: translations/xrc.cpp:11
 #: xrc.cpp:11
 msgid "Load a series of images"
-msgstr ""
+msgstr "Indlæs en serie billeder"
 
 #: translations/xrc.cpp:12
 #: xrc.cpp:12
 msgid "no images loaded"
-msgstr ""
+msgstr "ingen billeder indlæst"
 
 #: translations/xrc.cpp:13
 #: xrc.cpp:13
 msgid "Automatic (use EXIF data)"
-msgstr ""
+msgstr "Automatisk (brug EXIF-data)"
 
 #: translations/xrc.cpp:14
 #: translations/xrc.cpp:25
@@ -3030,7 +3137,7 @@ msgstr ""
 #: xrc.cpp:25
 #: xrc.cpp:242
 msgid "Lens type:"
-msgstr ""
+msgstr "Objektivtype:"
 
 #: translations/xrc.cpp:15
 #: translations/xrc.cpp:30
@@ -3039,7 +3146,7 @@ msgstr ""
 #: xrc.cpp:30
 #: xrc.cpp:243
 msgid "Focal length:"
-msgstr ""
+msgstr "Brændvidde:"
 
 #: translations/xrc.cpp:16
 #: translations/xrc.cpp:31
@@ -3048,14 +3155,14 @@ msgstr ""
 #: xrc.cpp:31
 #: xrc.cpp:244
 msgid "Focal length multiplier:"
-msgstr ""
+msgstr "Brændvidde-multiplikator:"
 
 #: translations/xrc.cpp:17
 #: translations/xrc.cpp:273
 #: xrc.cpp:17
 #: xrc.cpp:273
 msgid "Load lens..."
-msgstr ""
+msgstr "Indlæs objektiv..."
 
 #: translations/xrc.cpp:18
 #: translations/xrc.cpp:328
@@ -3064,52 +3171,52 @@ msgstr ""
 #: xrc.cpp:328
 #: xrc.cpp:385
 msgid "Camera and Lens"
-msgstr ""
+msgstr "Kamera og objektiv"
 
 #: translations/xrc.cpp:19
 #: xrc.cpp:19
 msgid "2. Align..."
-msgstr ""
+msgstr "2. Justér..."
 
 #: translations/xrc.cpp:20
 #: xrc.cpp:20
 msgid "Align all images. Creates control points and optimizes the image positions"
-msgstr ""
+msgstr "Justér alle billeder. Opretter kontrolpunkter og optimerer billedpositioner"
 
 #: translations/xrc.cpp:21
 #: xrc.cpp:21
 msgid "Send to assistant queue"
-msgstr ""
+msgstr "Send til assistentkø"
 
 #: translations/xrc.cpp:22
 #: xrc.cpp:22
 msgid "3. Create panorama..."
-msgstr ""
+msgstr "3. Opret panorama..."
 
 #: translations/xrc.cpp:23
 #: xrc.cpp:23
 msgid "Create a high resolution panorama"
-msgstr ""
+msgstr "Opret et højopløst panorama"
 
 #: translations/xrc.cpp:24
 #: xrc.cpp:24
 msgid "Camera and Lens data"
-msgstr ""
+msgstr "Kamera- og objektivdata"
 
 #: translations/xrc.cpp:26
 #: xrc.cpp:26
 msgid "Load lens data..."
-msgstr ""
+msgstr "Indlæs objektivdata..."
 
 #: translations/xrc.cpp:27
 #: xrc.cpp:27
 msgid "Enter horizontal field of view (HFOV) or focal length and crop factor:"
-msgstr ""
+msgstr "Indtast vandret synsfelt (HFOV) eller brændvidden og beskæringsfaktor"
 
 #: translations/xrc.cpp:28
 #: xrc.cpp:28
 msgid "HFOV (v):"
-msgstr ""
+msgstr "HFOV (v):"
 
 #: translations/xrc.cpp:29
 #: translations/xrc.cpp:719
@@ -3118,22 +3225,22 @@ msgstr ""
 #: xrc.cpp:719
 #: xrc.cpp:721
 msgid "degrees"
-msgstr ""
+msgstr "grader"
 
 #: translations/xrc.cpp:34
 #: xrc.cpp:34
 msgid "Batch Processor"
-msgstr ""
+msgstr "Jobliste-processor"
 
 #: translations/xrc.cpp:35
 #: xrc.cpp:35
 msgid "Add application"
-msgstr ""
+msgstr "Tilføj applikation"
 
 #: translations/xrc.cpp:36
 #: xrc.cpp:36
 msgid "Remove complete"
-msgstr ""
+msgstr "Fjernelse gennemført"
 
 #: translations/xrc.cpp:37
 #: xrc.cpp:37
@@ -3143,62 +3250,62 @@ msgstr ""
 #: translations/xrc.cpp:38
 #: xrc.cpp:38
 msgid "Reset project"
-msgstr ""
+msgstr "Nulstil projekt"
 
 #: translations/xrc.cpp:39
 #: xrc.cpp:39
 msgid "Reset all"
-msgstr ""
+msgstr "Nulstil alt"
 
 #: translations/xrc.cpp:40
 #: xrc.cpp:40
 msgid "Edit with Hugin"
-msgstr ""
+msgstr "Ændr med Hugin"
 
 #: translations/xrc.cpp:41
 #: xrc.cpp:41
 msgid "Move project up"
-msgstr ""
+msgstr "Flyt projekt op"
 
 #: translations/xrc.cpp:42
 #: xrc.cpp:42
 msgid "Move project down"
-msgstr ""
+msgstr "Flyt projekt ned"
 
 #: translations/xrc.cpp:43
 #: xrc.cpp:43
 msgid "Parallel execution"
-msgstr ""
+msgstr "Paralleludførsel"
 
 #: translations/xrc.cpp:44
 #: xrc.cpp:44
 msgid "Delete *.pto files"
-msgstr ""
+msgstr "Slet *.pto filer"
 
 #: translations/xrc.cpp:45
 #: xrc.cpp:45
 msgid "Overwrite always"
-msgstr ""
+msgstr "Overskriv altid"
 
 #: translations/xrc.cpp:46
 #: xrc.cpp:46
 msgid "Shutdown when done"
-msgstr ""
+msgstr "Luk ned efter kørsel"
 
 #: translations/xrc.cpp:47
 #: xrc.cpp:47
 msgid "Verbose output"
-msgstr ""
+msgstr "Uddybende output"
 
 #: translations/xrc.cpp:48
 #: xrc.cpp:48
 msgid "Directories"
-msgstr ""
+msgstr "Mapper"
 
 #: translations/xrc.cpp:49
 #: xrc.cpp:49
 msgid "Directory:"
-msgstr ""
+msgstr "Mappe:"
 
 #: translations/xrc.cpp:50
 #: translations/xrc.cpp:131
@@ -3219,32 +3326,32 @@ msgstr ""
 #: xrc.cpp:778
 #: xrc.cpp:797
 msgid "Choose..."
-msgstr ""
+msgstr "Vælg..."
 
 #: translations/xrc.cpp:51
 #: xrc.cpp:51
 msgid "include sub-directories"
-msgstr ""
+msgstr "inkludér undermapper"
 
 #: translations/xrc.cpp:52
 #: xrc.cpp:52
 msgid "Naming:"
-msgstr ""
+msgstr "Navngivning:"
 
 #: translations/xrc.cpp:53
 #: xrc.cpp:53
 msgid "PanoramaXX.pto"
-msgstr ""
+msgstr "PanoramaXX.pto"
 
 #: translations/xrc.cpp:54
 #: xrc.cpp:54
 msgid "First file - last file.pto"
-msgstr ""
+msgstr "Første fil - sidste fil.pto"
 
 #: translations/xrc.cpp:55
 #: xrc.cpp:55
 msgid "Foldername.pto"
-msgstr ""
+msgstr "Mappenavn.pto"
 
 #: translations/xrc.cpp:56
 #: xrc.cpp:56
@@ -3264,19 +3371,19 @@ msgstr ""
 #: translations/xrc.cpp:60
 #: xrc.cpp:60
 msgid "Found panoramas"
-msgstr ""
+msgstr "Fandt panoramaer"
 
 #: translations/xrc.cpp:61
 #: xrc.cpp:61
 msgid "Send selected panoramas to queue"
-msgstr ""
+msgstr "Send panoramaer til kø"
 
 #: translations/xrc.cpp:62
 #: translations/xrc.cpp:833
 #: xrc.cpp:62
 #: xrc.cpp:833
 msgid "Close"
-msgstr ""
+msgstr "Luk"
 
 #: translations/xrc.cpp:63
 #: xrc.cpp:63
@@ -3286,17 +3393,17 @@ msgstr ""
 #: translations/xrc.cpp:64
 #: xrc.cpp:64
 msgid "Failed projects"
-msgstr ""
+msgstr "Fejlede projekter"
 
 #: translations/xrc.cpp:65
 #: xrc.cpp:65
 msgid "Output"
-msgstr ""
+msgstr "Output"
 
 #: translations/xrc.cpp:67
 #: xrc.cpp:67
 msgid "Status report"
-msgstr ""
+msgstr "Statusreport"
 
 #: translations/xrc.cpp:68
 #: translations/xrc.cpp:272
@@ -3305,48 +3412,48 @@ msgstr ""
 #: xrc.cpp:272
 #: xrc.cpp:335
 msgid "&File"
-msgstr ""
+msgstr "&Fil"
 
 #: translations/xrc.cpp:69
 #: xrc.cpp:69
 msgid "Add project..."
-msgstr ""
+msgstr "Tilføj projekt..."
 
 #: translations/xrc.cpp:70
 #: xrc.cpp:70
 msgid "Adds a project to the batch list."
-msgstr ""
+msgstr "Tilføjer et projekt til joblisten."
 
 #: translations/xrc.cpp:71
 #: translations/xrc.cpp:114
 #: xrc.cpp:71
 #: xrc.cpp:114
 msgid "Remove project"
-msgstr ""
+msgstr "Fjern projekt"
 
 #: translations/xrc.cpp:72
 #: translations/xrc.cpp:115
 #: xrc.cpp:72
 #: xrc.cpp:115
 msgid "Removes selected project from the batch list"
-msgstr ""
+msgstr "Fjerner det valgte projekt fra joblisten"
 
 #: translations/xrc.cpp:73
 #: xrc.cpp:73
 msgid "Search directory for..."
-msgstr ""
+msgstr "Gennemsøg mappe efter..."
 
 #: translations/xrc.cpp:74
 #: xrc.cpp:74
 msgid "Project files"
-msgstr ""
+msgstr "Projektfiler"
 
 #: translations/xrc.cpp:75
 #: translations/xrc.cpp:118
 #: xrc.cpp:75
 #: xrc.cpp:118
 msgid "Appends all project files from a directory and subdirectories"
-msgstr ""
+msgstr "Sammensætter alle projektfiler fra en mappe og dens undermapper"
 
 #: translations/xrc.cpp:76
 #: translations/xrc.cpp:327
@@ -3355,59 +3462,59 @@ msgstr ""
 #: xrc.cpp:327
 #: xrc.cpp:383
 msgid "Images"
-msgstr ""
+msgstr "Billeder"
 
 #: translations/xrc.cpp:77
 #: xrc.cpp:77
 msgid "Searches in directories for image files suitable for panoramas"
-msgstr ""
+msgstr "Gennemsøger mapper efter billedfiler, der er passende til panoramaer"
 
 #: translations/xrc.cpp:78
 #: xrc.cpp:78
 msgid "Searches in directories for existing projects or for images"
-msgstr ""
+msgstr "Gennemsøger mapper efter eksisterende projekter eller efter billeder"
 
 #: translations/xrc.cpp:79
 #: translations/xrc.cpp:93
 #: xrc.cpp:79
 #: xrc.cpp:93
 msgid "Open batch"
-msgstr ""
+msgstr "Indlæs jobliste"
 
 #: translations/xrc.cpp:80
 #: translations/xrc.cpp:94
 #: xrc.cpp:80
 #: xrc.cpp:94
 msgid "Opens a batch file with a list of projects"
-msgstr ""
+msgstr "Indlæser en joblistefil med en liste af projekter"
 
 #: translations/xrc.cpp:81
 #: translations/xrc.cpp:96
 #: xrc.cpp:81
 #: xrc.cpp:96
 msgid "Save batch"
-msgstr ""
+msgstr "Gem jobliste"
 
 #: translations/xrc.cpp:82
 #: translations/xrc.cpp:97
 #: xrc.cpp:82
 #: xrc.cpp:97
 msgid "Saves a batch file with a list of projects"
-msgstr ""
+msgstr "Gemmer en joblistefil med en liste af projekter"
 
 #: translations/xrc.cpp:83
 #: translations/xrc.cpp:90
 #: xrc.cpp:83
 #: xrc.cpp:90
 msgid "Clear batch"
-msgstr ""
+msgstr "Tøm jobliste"
 
 #: translations/xrc.cpp:84
 #: translations/xrc.cpp:91
 #: xrc.cpp:84
 #: xrc.cpp:91
 msgid "Clears the batch list"
-msgstr ""
+msgstr "Tømmer joblisten"
 
 #: translations/xrc.cpp:85
 #: translations/xrc.cpp:271
@@ -3416,114 +3523,114 @@ msgstr ""
 #: xrc.cpp:271
 #: xrc.cpp:355
 msgid "&Quit"
-msgstr ""
+msgstr "%Afslut"
 
 #: translations/xrc.cpp:86
 #: translations/xrc.cpp:356
 #: xrc.cpp:86
 #: xrc.cpp:356
 msgid "Exit program"
-msgstr ""
+msgstr "Afslut program"
 
 #: translations/xrc.cpp:88
 #: xrc.cpp:88
 msgid "Batch Stitcher help"
-msgstr ""
+msgstr "Hjælp til jobliste-sammenføjning"
 
 #: translations/xrc.cpp:89
 #: xrc.cpp:89
 msgid "Open Batch Stitcher help."
-msgstr ""
+msgstr "Åbn hjælp til jobliste-sammenføjning"
 
 #: translations/xrc.cpp:92
 #: xrc.cpp:92
 msgid "clear"
-msgstr ""
+msgstr "tøm"
 
 #: translations/xrc.cpp:95
 #: xrc.cpp:95
 msgid "open"
-msgstr ""
+msgstr "indlæs"
 
 #: translations/xrc.cpp:98
 #: xrc.cpp:98
 msgid "save"
-msgstr ""
+msgstr "gem"
 
 #: translations/xrc.cpp:100
 #: xrc.cpp:100
 msgid "Starts batch execution"
-msgstr ""
+msgstr "Starter joblisteudførsel"
 
 #: translations/xrc.cpp:101
 #: xrc.cpp:101
 msgid "start"
-msgstr ""
+msgstr "start"
 
 #: translations/xrc.cpp:102
 #: xrc.cpp:102
 msgid "Skip project(s)"
-msgstr ""
+msgstr "Spring projekt(er) over"
 
 #: translations/xrc.cpp:103
 #: xrc.cpp:103
 msgid "Skips execution of currently running project(s)"
-msgstr ""
+msgstr "Springer udførsel af det kørende projekt(er) over"
 
 #: translations/xrc.cpp:104
 #: xrc.cpp:104
 msgid "skip"
-msgstr ""
+msgstr "spring over"
 
 #: translations/xrc.cpp:106
 #: xrc.cpp:106
 msgid "Pauses batch execution"
-msgstr ""
+msgstr "Pauser "
 
 #: translations/xrc.cpp:107
 #: xrc.cpp:107
 msgid "pause"
-msgstr ""
+msgstr "pause"
 
 #: translations/xrc.cpp:108
 #: xrc.cpp:108
 msgid "Cancel batch"
-msgstr ""
+msgstr "Annullér jobliste"
 
 #: translations/xrc.cpp:109
 #: xrc.cpp:109
 msgid "Cancels batch execution"
-msgstr ""
+msgstr "Annullerer kørsel af jobliste"
 
 #: translations/xrc.cpp:110
 #: xrc.cpp:110
 msgid "cancel"
-msgstr ""
+msgstr "annullér"
 
 #: translations/xrc.cpp:111
 #: xrc.cpp:111
 msgid "Add project(s)"
-msgstr ""
+msgstr "Tilføj projekt(er)"
 
 #: translations/xrc.cpp:112
 #: xrc.cpp:112
 msgid "Appends project file(s) to the batch list"
-msgstr ""
+msgstr "Tilføjer projektfil(er) til joblisten"
 
 #: translations/xrc.cpp:113
 #: xrc.cpp:113
 msgid "add"
-msgstr ""
+msgstr "tilføj"
 
 #: translations/xrc.cpp:116
 #: xrc.cpp:116
 msgid "remove"
-msgstr ""
+msgstr "fjern"
 
 #: translations/xrc.cpp:117
 #: xrc.cpp:117
 msgid "Search directory"
-msgstr ""
+msgstr "Gennemsøg mappe"
 
 #: translations/xrc.cpp:119
 #: xrc.cpp:119
@@ -3533,7 +3640,7 @@ msgstr ""
 #: translations/xrc.cpp:120
 #: xrc.cpp:120
 msgid "Description:"
-msgstr ""
+msgstr "Beskrivelse:"
 
 #: translations/xrc.cpp:121
 #: translations/xrc.cpp:286
@@ -3542,32 +3649,32 @@ msgstr ""
 #: xrc.cpp:286
 #: xrc.cpp:320
 msgid "Type:"
-msgstr ""
+msgstr "Type:"
 
 #: translations/xrc.cpp:122
 #: xrc.cpp:122
 msgid "Autopano (by A. Jenny)"
-msgstr ""
+msgstr "Autopano (af A. Jenny)"
 
 #: translations/xrc.cpp:123
 #: xrc.cpp:123
 msgid "All images at once"
-msgstr ""
+msgstr "Alle billeder på én gang"
 
 #: translations/xrc.cpp:124
 #: xrc.cpp:124
 msgid "Panorama with stacks"
-msgstr ""
+msgstr "Panorama med stakke"
 
 #: translations/xrc.cpp:125
 #: xrc.cpp:125
 msgid "Multi-row panorama"
-msgstr ""
+msgstr "Multirække-panorama"
 
 #: translations/xrc.cpp:126
 #: xrc.cpp:126
 msgid "Multi-row panorama with stacks"
-msgstr ""
+msgstr "Multirække-panorama med stakke"
 
 #: translations/xrc.cpp:127
 #: xrc.cpp:127
@@ -3589,7 +3696,7 @@ msgstr ""
 #: xrc.cpp:130
 #: xrc.cpp:143
 msgid "Program:"
-msgstr ""
+msgstr "Program:"
 
 #: translations/xrc.cpp:132
 #: translations/xrc.cpp:137
@@ -3602,12 +3709,12 @@ msgstr ""
 #: xrc.cpp:145
 #: xrc.cpp:696
 msgid "Arguments:"
-msgstr ""
+msgstr "Argumenter:"
 
 #: translations/xrc.cpp:133
 #: xrc.cpp:133
 msgid "Cleanup arguments:"
-msgstr ""
+msgstr "Cleanup-argumenter:"
 
 #: translations/xrc.cpp:134
 #: xrc.cpp:134
@@ -3637,12 +3744,12 @@ msgstr ""
 #: translations/xrc.cpp:146
 #: xrc.cpp:146
 msgid "Advanced option"
-msgstr ""
+msgstr "Avancerede valgmuligheder"
 
 #: translations/xrc.cpp:147
 #: xrc.cpp:147
 msgid "This setting has no advanced options."
-msgstr ""
+msgstr "Denne indstilling har ingen avancerede valgmuligheder."
 
 #: translations/xrc.cpp:148
 #: xrc.cpp:148
@@ -3661,17 +3768,17 @@ msgstr ""
 #: translations/xrc.cpp:151
 #: xrc.cpp:151
 msgid "Parameters for Control Point Detectors"
-msgstr ""
+msgstr "Parametre for kontrolpunkt-detektors"
 
 #: translations/xrc.cpp:152
 #: xrc.cpp:152
 msgid "previous image pair"
-msgstr ""
+msgstr "forrige billedpar"
 
 #: translations/xrc.cpp:153
 #: xrc.cpp:153
 msgid "next image pair"
-msgstr ""
+msgstr "næste billedpar"
 
 #: translations/xrc.cpp:154
 #: xrc.cpp:154
@@ -3681,92 +3788,92 @@ msgstr ""
 #: translations/xrc.cpp:156
 #: xrc.cpp:156
 msgid "vertical line"
-msgstr ""
+msgstr "lodret linie"
 
 #: translations/xrc.cpp:157
 #: xrc.cpp:157
 msgid "horizontal line"
-msgstr ""
+msgstr "vandret linie"
 
 #: translations/xrc.cpp:158
 #: translations/xrc.cpp:457
 #: xrc.cpp:158
 #: xrc.cpp:457
 msgid "Zoom:"
-msgstr ""
+msgstr "Zoom:"
 
 #: translations/xrc.cpp:159
 #: translations/xrc.cpp:458
 #: xrc.cpp:159
 #: xrc.cpp:458
 msgid "fit to window"
-msgstr ""
+msgstr "tilpas til vindue"
 
 #: translations/xrc.cpp:160
 #: translations/xrc.cpp:705
 #: xrc.cpp:160
 #: xrc.cpp:705
 msgid "Fine-tune"
-msgstr ""
+msgstr "Finjustering"
 
 #: translations/xrc.cpp:161
 #: xrc.cpp:161
 msgid "Tries to optimize the currently active point"
-msgstr ""
+msgstr "Prøver at optimere det aktive punkt"
 
 #: translations/xrc.cpp:162
 #: translations/xrc.cpp:790
 #: xrc.cpp:162
 #: xrc.cpp:790
 msgid "Celeste"
-msgstr ""
+msgstr "Celeste"
 
 #: translations/xrc.cpp:163
 #: translations/xrc.cpp:200
 #: xrc.cpp:163
 #: xrc.cpp:200
 msgid "Tries to remove control points from clouds"
-msgstr ""
+msgstr "Prøver at fjerne kontrolpunkter fra skyer"
 
 #: translations/xrc.cpp:164
 #: xrc.cpp:164
 msgid "auto fine-&tune"
-msgstr ""
+msgstr "auto-finjus&tering"
 
 #: translations/xrc.cpp:165
 #: xrc.cpp:165
 msgid "auto add"
-msgstr ""
+msgstr "auto-tilføj"
 
 #: translations/xrc.cpp:166
 #: xrc.cpp:166
 msgid "immediately add control point when selecting a second point"
-msgstr ""
+msgstr "tilføj kontrolpunkt umiddelbart efter valg af punkt nr. to"
 
 #: translations/xrc.cpp:167
 #: xrc.cpp:167
 msgid "auto estimate"
-msgstr ""
+msgstr "auto-beregn"
 
 #: translations/xrc.cpp:168
 #: xrc.cpp:168
 msgid "tries to estimate shift between the images and use it while placing control points"
-msgstr ""
+msgstr "prøver at beregne forskydning mellem billederne og bruger denne til at placere kontrolpunkter"
 
 #: translations/xrc.cpp:169
 #: xrc.cpp:169
 msgid "&Delete"
-msgstr ""
+msgstr "&Fjern"
 
 #: translations/xrc.cpp:170
 #: xrc.cpp:170
 msgid "&Add"
-msgstr ""
+msgstr "&Tilføj"
 
 #: translations/xrc.cpp:171
 #: xrc.cpp:171
 msgid "add a new Point"
-msgstr ""
+msgstr "tilføj et nyt punkt"
 
 #: translations/xrc.cpp:172
 #: translations/xrc.cpp:331
@@ -3775,52 +3882,52 @@ msgstr ""
 #: xrc.cpp:331
 #: xrc.cpp:391
 msgid "Control Points"
-msgstr ""
+msgstr "Kontrolpunkter"
 
 #: translations/xrc.cpp:173
 #: translations/xrc.cpp:727
 #: xrc.cpp:173
 #: xrc.cpp:727
 msgid "Delete"
-msgstr ""
+msgstr "Fjern"
 
 #: translations/xrc.cpp:174
 #: xrc.cpp:174
 msgid "Select by Distance"
-msgstr ""
+msgstr "Vælg efter afstand"
 
 #: translations/xrc.cpp:175
 #: translations/xrc.cpp:576
 #: xrc.cpp:175
 #: xrc.cpp:576
 msgid "Top:"
-msgstr ""
+msgstr "Top:"
 
 #: translations/xrc.cpp:176
 #: translations/xrc.cpp:575
 #: xrc.cpp:176
 #: xrc.cpp:575
 msgid "Left:"
-msgstr ""
+msgstr "Venstre:"
 
 #: translations/xrc.cpp:177
 #: translations/xrc.cpp:577
 #: xrc.cpp:177
 #: xrc.cpp:577
 msgid "Right:"
-msgstr ""
+msgstr "Højre:"
 
 #: translations/xrc.cpp:178
 #: translations/xrc.cpp:578
 #: xrc.cpp:178
 #: xrc.cpp:578
 msgid "Bottom:"
-msgstr ""
+msgstr "Bund:"
 
 #: translations/xrc.cpp:179
 #: xrc.cpp:179
 msgid "Always center Crop on d,e"
-msgstr ""
+msgstr "Centrér altid beskæring efter d,e"
 
 #: translations/xrc.cpp:180
 #: translations/xrc.cpp:218
@@ -3831,76 +3938,76 @@ msgstr ""
 #: xrc.cpp:252
 #: xrc.cpp:883
 msgid "Reset"
-msgstr ""
+msgstr "Nulstil"
 
 #: translations/xrc.cpp:181
 #: xrc.cpp:181
 msgid "Edit Panorama Tools Script"
-msgstr ""
+msgstr "Redigér Panorama Tools-script"
 
 #: translations/xrc.cpp:182
 #: xrc.cpp:182
 msgid "This is the script which will be sent to the Panorama Tools engine.  Editing these lines is an advanced technique."
-msgstr ""
+msgstr "Dette er det script, som vil blive sendt til Panorama Tools-maskinen. At redigere dette er en avanceret teknik."
 
 #: translations/xrc.cpp:183
 #: xrc.cpp:183
 msgid "Continue with these changes"
-msgstr ""
+msgstr "Fortsæt med disse ændringer"
 
 #: translations/xrc.cpp:184
 #: xrc.cpp:184
 msgid "Discard changes and cancel"
-msgstr ""
+msgstr "Kassér ændringer og annullér"
 
 #: translations/xrc.cpp:185
 #: xrc.cpp:185
 msgid "Add individual images..."
-msgstr ""
+msgstr "Tilføj individuelle billeder..."
 
 #: translations/xrc.cpp:186
 #: xrc.cpp:186
 msgid "Load one or more pictures for this project"
-msgstr ""
+msgstr "Indlæs et eller flere billeder for dette projekt"
 
 #: translations/xrc.cpp:187
 #: xrc.cpp:187
 msgid "Add time-series of images..."
-msgstr ""
+msgstr "Tilføj tidsserie af billeder..."
 
 #: translations/xrc.cpp:188
 #: xrc.cpp:188
 msgid "Load a set of pictures taken at the same time"
-msgstr ""
+msgstr "Indlæs en mængde billeder, der er taget på samme tidspunkt"
 
 #: translations/xrc.cpp:189
 #: translations/xrc.cpp:728
 #: xrc.cpp:189
 #: xrc.cpp:728
 msgid "Move up"
-msgstr ""
+msgstr "Flyt op"
 
 #: translations/xrc.cpp:190
 #: translations/xrc.cpp:729
 #: xrc.cpp:190
 #: xrc.cpp:729
 msgid "Move down"
-msgstr ""
+msgstr "Flyt ned"
 
 #: translations/xrc.cpp:191
 #: xrc.cpp:191
 msgid "Remove selected image(s)"
-msgstr ""
+msgstr "Fjern valgte billede(r)"
 
 #: translations/xrc.cpp:192
 #: xrc.cpp:192
 msgid "Remove the selected images from this project"
-msgstr ""
+msgstr "Fjern de valgte billeder fra dette projekt"
 
 #: translations/xrc.cpp:193
 #: xrc.cpp:193
 msgid "New stack"
-msgstr ""
+msgstr "Ny stak"
 
 #: translations/xrc.cpp:194
 #: xrc.cpp:194
@@ -3910,27 +4017,27 @@ msgstr ""
 #: translations/xrc.cpp:195
 #: xrc.cpp:195
 msgid "Change stack..."
-msgstr ""
+msgstr "Skift stak..."
 
 #: translations/xrc.cpp:196
 #: xrc.cpp:196
 msgid "Switch the selected images to a different stack."
-msgstr ""
+msgstr "Skift de valgte billeder til en anden stak."
 
 #: translations/xrc.cpp:197
 #: xrc.cpp:197
 msgid "Remove points"
-msgstr ""
+msgstr "Fjern punkter"
 
 #: translations/xrc.cpp:198
 #: xrc.cpp:198
 msgid "Remove control points connecting the selected images"
-msgstr ""
+msgstr "Fjern de punkter, der forbinder de valgte billeder"
 
 #: translations/xrc.cpp:199
 #: xrc.cpp:199
 msgid "Run Celeste"
-msgstr ""
+msgstr "Kør Celeste"
 
 #: translations/xrc.cpp:201
 #: xrc.cpp:201
@@ -3945,7 +4052,7 @@ msgstr ""
 #: translations/xrc.cpp:203
 #: xrc.cpp:203
 msgid "Image Position"
-msgstr ""
+msgstr "Billedposition"
 
 #: translations/xrc.cpp:204
 #: xrc.cpp:204
@@ -4052,7 +4159,7 @@ msgstr ""
 #: translations/xrc.cpp:219
 #: xrc.cpp:219
 msgid "Reset position of selected image(s)"
-msgstr ""
+msgstr "Nulstil position for valgte billede(r)"
 
 #: translations/xrc.cpp:220
 #: xrc.cpp:220
@@ -4107,59 +4214,59 @@ msgstr ""
 #: translations/xrc.cpp:231
 #: xrc.cpp:231
 msgid "Selected Image"
-msgstr ""
+msgstr "Valgt billede"
 
 #: translations/xrc.cpp:232
 #: xrc.cpp:232
 msgid "Filename:"
-msgstr ""
+msgstr "Filnavn:"
 
 #: translations/xrc.cpp:233
 #: xrc.cpp:233
 msgid "Camera Maker:"
-msgstr ""
+msgstr "Kameraproducent:"
 
 #: translations/xrc.cpp:234
 #: xrc.cpp:234
 msgid "Camera Model:"
-msgstr ""
+msgstr "Kameramodel:"
 
 #: translations/xrc.cpp:235
 #: xrc.cpp:235
 msgid "Capture Date:"
-msgstr ""
+msgstr "Eksponeringsdato:"
 
 #: translations/xrc.cpp:236
 #: xrc.cpp:236
 msgid "Focal Length:"
-msgstr ""
+msgstr "Brændvidde:"
 
 #: translations/xrc.cpp:237
 #: xrc.cpp:237
 msgid "Aperture:"
-msgstr ""
+msgstr "Blænde:"
 
 #: translations/xrc.cpp:238
 #: xrc.cpp:238
 msgid "Shutter Speed:"
-msgstr ""
+msgstr "Lukkerhastighed:"
 
 #: translations/xrc.cpp:239
 #: xrc.cpp:239
 msgid "ISO:"
-msgstr ""
+msgstr "ISO:"
 
 #: translations/xrc.cpp:240
 #: translations/xrc.cpp:431
 #: xrc.cpp:240
 #: xrc.cpp:431
 msgid "Add"
-msgstr ""
+msgstr "Tilføj"
 
 #: translations/xrc.cpp:241
 #: xrc.cpp:241
 msgid "Remove"
-msgstr ""
+msgstr "Fjern"
 
 #: translations/xrc.cpp:245
 #: xrc.cpp:245
@@ -4179,12 +4286,12 @@ msgstr ""
 #: translations/xrc.cpp:248
 #: xrc.cpp:248
 msgid "Maximal image size:"
-msgstr ""
+msgstr "Maksimal billedstørrelse:"
 
 #: translations/xrc.cpp:249
 #: xrc.cpp:249
 msgid "Minimum line length:"
-msgstr ""
+msgstr "Minimal linielængde:"
 
 #: translations/xrc.cpp:250
 #: translations/xrc.cpp:470
@@ -4214,7 +4321,7 @@ msgstr ""
 #: translations/xrc.cpp:251
 #: xrc.cpp:251
 msgid "Find lines"
-msgstr ""
+msgstr "Find linier"
 
 #: translations/xrc.cpp:253
 #: translations/xrc.cpp:294
@@ -4278,24 +4385,24 @@ msgstr ""
 #: xrc.cpp:434
 #: xrc.cpp:485
 msgid "Optimize"
-msgstr ""
+msgstr "Optimér"
 
 #: translations/xrc.cpp:261
 #: xrc.cpp:261
 msgid "Save lens"
-msgstr ""
+msgstr "Gem objektiv"
 
 #: translations/xrc.cpp:262
 #: translations/xrc.cpp:886
 #: xrc.cpp:262
 #: xrc.cpp:886
 msgid "Lens parameters"
-msgstr ""
+msgstr "Objektivparametre"
 
 #: translations/xrc.cpp:263
 #: xrc.cpp:263
 msgid "Original"
-msgstr ""
+msgstr "Original"
 
 #: translations/xrc.cpp:264
 #: xrc.cpp:264
@@ -4310,7 +4417,7 @@ msgstr ""
 #: translations/xrc.cpp:266
 #: xrc.cpp:266
 msgid "Show lines"
-msgstr ""
+msgstr "Vis linier"
 
 #: translations/xrc.cpp:267
 #: xrc.cpp:267
@@ -4320,102 +4427,102 @@ msgstr ""
 #: translations/xrc.cpp:269
 #: xrc.cpp:269
 msgid "&Save as project file..."
-msgstr ""
+msgstr "&Gem som projektfil..."
 
 #: translations/xrc.cpp:270
 #: xrc.cpp:270
 msgid "Saves the images and lines as pto file for further tuning inside hugin."
-msgstr ""
+msgstr "Gemmer billederne og linierne som en pto-fil for videre justering i Hugin."
 
 #: translations/xrc.cpp:274
 #: xrc.cpp:274
 msgid "Load lens parameters from a file"
-msgstr ""
+msgstr "Indlæs objektivparametre fra en fil"
 
 #: translations/xrc.cpp:275
 #: xrc.cpp:275
 msgid "Save lens..."
-msgstr ""
+msgstr "Gem objektiv..."
 
 #: translations/xrc.cpp:276
 #: xrc.cpp:276
 msgid "Save lens parameters to a file"
-msgstr ""
+msgstr "Gem objektivparametre til en fil"
 
 #: translations/xrc.cpp:277
 #: xrc.cpp:277
 msgid "Load EXIF"
-msgstr ""
+msgstr "Indlæs EXIF"
 
 #: translations/xrc.cpp:278
 #: xrc.cpp:278
 msgid "Try to read HFOV from the EXIF data"
-msgstr ""
+msgstr "Forsøg at læse HFOV fra EXIF-data"
 
 #: translations/xrc.cpp:279
 #: xrc.cpp:279
 msgid "New Lens"
-msgstr ""
+msgstr "Nyt objektiv"
 
 #: translations/xrc.cpp:280
 #: xrc.cpp:280
 msgid "Create a new lens and assign it to selected images"
-msgstr ""
+msgstr "Opret et nyt objektiv og tildel det til de valgte billeder"
 
 #: translations/xrc.cpp:281
 #: xrc.cpp:281
 msgid "Change lens..."
-msgstr ""
+msgstr "Ændr objektiv..."
 
 #: translations/xrc.cpp:282
 #: xrc.cpp:282
 msgid "change lens of selected images"
-msgstr ""
+msgstr "ændr objektiv for valgte billeder"
 
 #: translations/xrc.cpp:283
 #: xrc.cpp:283
 msgid "Reset..."
-msgstr ""
+msgstr "Nulstil..."
 
 #: translations/xrc.cpp:284
 #: xrc.cpp:284
 msgid "Geometric"
-msgstr ""
+msgstr "Geometrisk"
 
 #: translations/xrc.cpp:285
 #: xrc.cpp:285
 msgid "Lens"
-msgstr ""
+msgstr "Objektiv"
 
 #: translations/xrc.cpp:287
 #: xrc.cpp:287
 msgid "degrees of view (v):"
-msgstr ""
+msgstr "vinkel for synsfelt i grader (v):"
 
 #: translations/xrc.cpp:288
 #: xrc.cpp:288
 msgid "Horizontal Field of View"
-msgstr ""
+msgstr "Vandret synsfelt"
 
 #: translations/xrc.cpp:290
 #: xrc.cpp:290
 msgid "focal length:"
-msgstr ""
+msgstr "brændvidde:"
 
 #: translations/xrc.cpp:291
 #: xrc.cpp:291
 msgid "true focal length in mm"
-msgstr ""
+msgstr "faktisk brændvidde i mm"
 
 #: translations/xrc.cpp:292
 #: xrc.cpp:292
 msgid "crop factor:"
-msgstr ""
+msgstr "beskæringsfaktor:"
 
 #: translations/xrc.cpp:293
 #: xrc.cpp:293
 msgid "35mm film diameter / ccd diameter"
-msgstr ""
+msgstr "35 mm film-diameter / ccd-diameter"
 
 #: translations/xrc.cpp:303
 #: xrc.cpp:303
