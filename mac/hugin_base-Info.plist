@@ -13,9 +13,9 @@
 	<key>CFBundlePackageType</key>
 	<string>FMWK</string>
 	<key>CFBundleSignature</key>
-	<string>????</string>
+	<string>Hgin</string>
 	<key>CFBundleVersion</key>
-	<string>1.0</string>
+	<string>${HUGIN_WC_REVISION}</string>
 	<key>CFBundleGetInfoString</key>
 	<string>Hugin ${HUGIN_PACKAGE_VERSION} (Mac)</string>
 </dict>

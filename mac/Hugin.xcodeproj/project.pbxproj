@@ -39,6 +39,7 @@
 				73C5F82112E2FAC00033A6E1 /* PBXTargetDependency */,
 				73A95EB4124887530076D3FB /* PBXTargetDependency */,
 				73FE2B361249194B0002E246 /* PBXTargetDependency */,
+				7354FD6213F3FAD7005940D0 /* PBXTargetDependency */,
 			);
 			name = frameworks;
 			productName = "lib dynamic";
@@ -835,6 +836,7 @@
 		7332AEC00D8D4C45002BF5FF /* APImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7332AE560D8D491B002BF5FF /* APImage.cpp */; };
 		7332AEC30D8D4C45002BF5FF /* Descriptor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7332AE790D8D491B002BF5FF /* Descriptor.cpp */; };
 		7332AEC40D8D4C45002BF5FF /* HessianDetector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7332AE840D8D491C002BF5FF /* HessianDetector.cpp */; };
+		7334FC6513F4156500D89311 /* _hsi.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 73B1AD0613A6A0B0006A3C54 /* _hsi.framework */; };
 		733609961247DA6D009225D2 /* libboost_filesystem.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E8A7DD3310FCA0AF00839DF3 /* libboost_filesystem.dylib */; };
 		733609971247DA6D009225D2 /* libboost_thread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57565A640D088DAD00344F55 /* libboost_thread.dylib */; };
 		733609981247DA6D009225D2 /* libboost_system.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 734BB02B1247A37A0062CF12 /* libboost_system.dylib */; };
@@ -2409,6 +2411,13 @@
 			remoteGlobalIDString = 73EBC08F0EC9E0B20068B821;
 			remoteInfo = "celeste dynamic";
 		};
+		7354FD6113F3FAD7005940D0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 73B1AD0513A6A0AF006A3C54;
+			remoteInfo = _hsi;
+		};
 		73573E2D10F9EEA300CF0ECD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
@@ -3002,6 +3011,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				7334FC6513F4156500D89311 /* _hsi.framework in Copy Frameworks */,
 				73C5F87F12E309F20033A6E1 /* flann_cpp.framework in Copy Frameworks */,
 				733EAA5E125CDA8D00658EAF /* icpfind.framework in Copy Frameworks */,
 				737E497B11D3FD74002BA8AE /* localfeatures.framework in Copy Frameworks */,
@@ -3651,6 +3661,9 @@
 		734FBA830EB3A40300CD7122 /* NonaOptionsDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NonaOptionsDialog.cpp; sourceTree = "<group>"; };
 		734FBA840EB3A40300CD7122 /* NonaOptionsDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NonaOptionsDialog.h; sourceTree = "<group>"; };
 		734FC450139B83A4007B675D /* lens_calibrate_gui-Info copy 2.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "lens_calibrate_gui-Info copy 2.plist"; path = "../mac/lens_calibrate_gui-Info copy 2.plist"; sourceTree = "<group>"; };
+		7354FD9E13F40AFE005940D0 /* localfeatures-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "localfeatures-Info.plist"; sourceTree = "<group>"; };
+		7354FD9F13F40AFE005940D0 /* icpfind-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "icpfind-Info.plist"; sourceTree = "<group>"; };
+		7354FDA013F40AFE005940D0 /* flann_cpp-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "flann_cpp-Info.plist"; sourceTree = "<group>"; };
 		73573E5110F9EEF400CF0ECD /* pano_trafo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pano_trafo.cpp; sourceTree = "<group>"; };
 		7357E4F3124777380098B385 /* Anything.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Anything.cpp; path = makefilelib/Anything.cpp; sourceTree = "<group>"; };
 		7357E4F4124777380098B385 /* Anything.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Anything.h; path = makefilelib/Anything.h; sourceTree = "<group>"; };
@@ -5060,6 +5073,10 @@
 		57114E9E06BC2301004F4FA7 /* mac */ = {
 			isa = PBXGroup;
 			children = (
+				73B1AD0713A6A0B0006A3C54 /* _hsi-Info.plist */,
+				7354FD9E13F40AFE005940D0 /* localfeatures-Info.plist */,
+				7354FD9F13F40AFE005940D0 /* icpfind-Info.plist */,
+				7354FDA013F40AFE005940D0 /* flann_cpp-Info.plist */,
 				73B1AD3813A6AE00006A3C54 /* swigpyrun.h */,
 				737D5EDF139BA53300829EED /* create_stripped_apps_for_installer.sh */,
 				73DFBDF4139B72EE00558A2D /* lens_calibrate_gui-xrc.sh */,
@@ -6212,7 +6229,6 @@
 				7357E524124777EB0098B385 /* makefilelib-Info.plist */,
 				7307F826131A91A400B864F9 /* autooptimiser-static */,
 				734FC450139B83A4007B675D /* lens_calibrate_gui-Info copy 2.plist */,
-				73B1AD0713A6A0B0006A3C54 /* _hsi-Info.plist */,
 				735EC88613ED65F20009E75F /* ApplicationServices.framework */,
 				735EC89113ED66670009E75F /* Foundation.framework */,
 			);
@@ -10115,6 +10131,11 @@
 			target = 73EBC08F0EC9E0B20068B821 /* celeste dynamic */;
 			targetProxy = 7342A471126E01CB003FC5AB /* PBXContainerItemProxy */;
 		};
+		7354FD6213F3FAD7005940D0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 73B1AD0513A6A0AF006A3C54 /* _hsi */;
+			targetProxy = 7354FD6113F3FAD7005940D0 /* PBXContainerItemProxy */;
+		};
 		73573E2C10F9EEA300CF0ECD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 5769FE370D24CFEC00A6AD01 /* vigra_impex Framework */;
@@ -12806,7 +12827,7 @@
 					"$(REPOSITORY_DIR)/include/OpenEXR",
 					../src,
 				);
-				INFOPLIST_FILE = "";
+				INFOPLIST_FILE = "../mac/localfeatures-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				OTHER_LDFLAGS = "";
 				PREBINDING = YES;
@@ -12937,7 +12958,7 @@
 					"$(REPOSITORY_DIR)/include",
 					../src,
 				);
-				INFOPLIST_FILE = "";
+				INFOPLIST_FILE = "../mac/icpfind-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -14559,7 +14580,7 @@
 					"$(REPOSITORY_DIR)/include",
 					../src,
 				);
-				INFOPLIST_FILE = "";
+				INFOPLIST_FILE = "../mac/flann_cpp-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";

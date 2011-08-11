@@ -7,15 +7,17 @@
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIdentifier</key>
-	<string>net.sourceforge.hugin.celeste</string>
+	<string>net.sourceforge.hugin.hsi</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundlePackageType</key>
 	<string>FMWK</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0</string>
 	<key>CFBundleSignature</key>
 	<string>Hgin</string>
 	<key>CFBundleVersion</key>
-	<string>${HUGIN_WC_REVISION}</string>
+	<string>${HUGIN_PACKAGE_VERSION}</string>
 	<key>CFBundleGetInfoString</key>
 	<string>Hugin ${HUGIN_PACKAGE_VERSION} (Mac)</string>
 </dict>
