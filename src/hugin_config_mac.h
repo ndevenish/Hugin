@@ -94,3 +94,4 @@
 
 // python hsi/hpi built in
 #define BUILD_HSI 1
+#define HUGIN_HSI 1
