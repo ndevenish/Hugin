@@ -163,6 +163,7 @@
 				737D5F20139BACC700829EED /* Remove Installerfolder */,
 				737C8C18139A690500F82635 /* Copy Apps into InstallerFolder */,
 				737D5EE2139BA55700829EED /* create stripped apps for installer */,
+				7348BECE13F5180500855B23 /* Create Hugin Tools folder with symlinks */,
 			);
 			dependencies = (
 				73E263D6139ACB1D00487F3C /* PBXTargetDependency */,
@@ -8716,6 +8717,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "rm -f ../src/hugin_version.h\nsed -e \"s/\\${V_MAJOR}/$HUGIN_VERSION_MAJOR/\" \\\n    -e \"s/\\${V_MINOR}/$HUGIN_VERSION_MINOR/\" \\\n    -e \"s/\\${V_PATCH}/$HUGIN_VERSION_PATCH/\" \\\n    -e \"s/\\${HUGIN_WC_REVISION}/$HUGIN_WC_REVISION/\" \\\n    -e \"s/\\${HUGIN_PACKAGE_VERSION}/$HUGIN_PACKAGE_VERSION/\" \\\n    -e \"s/\\${DISPLAY_VERSION}/$HUGIN_PACKAGE_VERSION/\" \\\n    -e \"s/\\${HUGIN_BUILDER}/$HUGIN_BUILDER/\" \\\n    -e \"s/^.*HUGIN_DEVELOPMENT_VERSION.*$/\\/\\/&/\" \\\n    ../src/hugin_version.h.in.cmake > ../src/hugin_version.h\n\nif [ \"$HUGIN_DEVELOPMENT_VERSION\" -gt 0 ]\nthen\n echo \"\"                                    >> ../src/hugin_version.h\n echo \"#ifndef HUGIN_DEVELOPMENT_VERSION\"   >> ../src/hugin_version.h\n echo \"#define HUGIN_DEVELOPMENT_VERSION 1\" >> ../src/hugin_version.h\n echo \"#endif\"                              >> ../src/hugin_version.h\nfi";
+		};
+		7348BECE13F5180500855B23 /* Create Hugin Tools folder with symlinks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Create Hugin Tools folder with symlinks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/sh\n\n# $Id: create_hugin_tools_folder.sh $\n\nbinaries=\"align_image_stack autooptimiser celeste_standalone checkpto cpclean cpfind hugin_hdrmerge icpfind nona pano_modify PTblender PTmasker PTmender PToptimizer PTroller enfuse enblend gnumake\"\ntarg_folder=\"$TARGET_BUILD_DIR/InstallerFolder/Hugin Tools\"\n\n#------------------------------------------------\n\nrm -rf \"$targ_folder\"\nmkdir -p \"$targ_folder\"\ncd \"$targ_folder\"\nfor bins in $binaries\ndo\n ln -s \"../Hugin.app/Contents/MacOS/$bins\" \"$bins\"\ndone\n";
 		};
 		737D5EE2139BA55700829EED /* create stripped apps for installer */ = {
 			isa = PBXShellScriptBuildPhase;
