@@ -1,4 +1,97 @@
-2011-07-19 19:26 +0200  harryvanderwolf <hvdwolf@gmail.com>  (9ffd16347303)  tip
+2011-08-13 23:08 +0200  Vaclav Cerny <vatoz@seznam.cz>  (5974676dfce0)  tip
+
+	updated czech translation
+
+	> src/translations/cs_CZ.po
+
+2011-08-07 11:08 +0200  harryvanderwolf <hvdwolf@gmail.com>  (1841017f2572)  
+
+	[OSX] things forgotten when correcting the lens_calibrate_gui to
+	correct calibrate_lens_gui
+
+	+ mac/calibrate_lens_gui-Info copy.plist
+	+ mac/calibrate_lens_gui-xrc.sh
+	- mac/lens_calibrate_gui-Info copy.plist
+	- mac/lens_calibrate_gui-xrc.sh
+
+2011-08-06 17:59 +0200  harryvanderwolf <hvdwolf@gmail.com>  (0a0f61e687e2)  
+
+	[OSX] Complete rework of PTBatcherGui call based on patch by Charlie
+	Reiman dd. 18-06-2011
+
+	> mac/Hugin.xcodeproj/project.pbxproj
+	> src/hugin1/base_wx/platform.cpp
+	> src/hugin1/base_wx/platform.h
+	> src/hugin1/hugin/AssistantPanel.cpp
+	> src/hugin1/hugin/PanoPanel.cpp
+
+2011-08-04 19:46 +0200  harryvanderwolf <hvdwolf@gmail.com>  (f0d4c3e891ad)  
+
+	[OSX] Also update the installer to use the correct
+	calibrate_lens_gui.app name and so on
+
+	> mac/HuginCompleteInstaller.pmproj
+
+2011-08-04 19:23 +0200  harryvanderwolf <hvdwolf@gmail.com>  (59b1575b9d6c)  
+
+	[OSX] rename incorrect lens_calibrate_gui.app to correct
+	calibrate_lens_gui.app including all references and usages
+
+	> mac/Hugin.xcodeproj/project.pbxproj
+	> mac/create_stripped_apps_for_installer.sh
+	> mac/lens_calibrate_gui-Info copy.plist
+	> mac/lens_calibrate_gui-xrc.sh
+
+2011-07-27 23:18 +0200  Vaclav Cerny <vatoz@seznam.cz>  (6973435c5a20)  
+
+	Updated Czech translation
+
+	> src/translations/cs_CZ.po
+
+2011-07-27 10:45 -0400  Yuval Levy <yuv@users.sourceforge.net>  (43f8cb0a32ae)  
+
+	Updated Brazilian Portuguese translation (Luís Henrique Camargo
+	Quiroz)
+
+	> src/translations/pt_BR.po
+
+2011-07-27 10:44 -0400  Yuval Levy <yuv@users.sourceforge.net>  (219a244726f4)  
+
+	Updated French translation (Jean-Luc Coulon)
+
+	> src/translations/fr.po
+
+2011-07-27 10:43 -0400  Yuval Levy <yuv@users.sourceforge.net>  (5d4c1c40fbb6)  
+
+	Updated Hungarian translation (Lajos Höss)
+
+	> src/translations/hu.po
+
+2011-07-27 10:42 -0400  Yuval Levy <yuv@users.sourceforge.net>  (fcf10f92e9ef)  
+
+	Updated German translation (Carl von Einem)
+
+	> src/translations/de.po
+
+2011-07-23 18:09 -0400  Yuval Levy <yuv@users.sourceforge.net>  (e53925281c8d)  
+
+	plain forgot to set the center for img0 (KFJ)
+
+	> src/hugin_script_interface/plugins/woa.py
+
+2011-07-19 23:53 -0400  Yuval Levy <yuv@users.sourceforge.net>  (ca00bb7b3e88)  
+
+	Added tag 2011.2.0_rc2 for changeset 68a9839c47a6
+
+	> .hgtags
+
+2011-07-19 23:52 -0400  Yuval Levy <yuv@users.sourceforge.net>  (68a9839c47a6)  2011.2.0_rc2
+
+	Updated ChangeLog
+
+	> ChangeLog
+
+2011-07-19 19:26 +0200  harryvanderwolf <hvdwolf@gmail.com>  (9ffd16347303)  
 
 	[OSX] work around PTBatcherGui call: First straightforward call to
 	open bundle, then second direct call to ptbatchergui binary with all
