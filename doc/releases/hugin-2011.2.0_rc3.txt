@@ -1,0 +1,295 @@
+Hugin-2011.2.0_rc3 RELEASE NOTES
+
+ABOUT
+
+Hugin is more than just a panorama stitcher.  A new version is available.
+This is a release candidate and may be declared a final release in a few days.
+
+Hugin can be found at
+* SourceForge:  http://hugin.sourceforge.net/
+* Launchpad:    https://launchpad.net/hugin
+
+
+DOWNLOAD
+
+The 2011.2.0_rc3 source tarball can be downloaded
+
+* from SourceForge at
+http://sourceforge.net/projects/hugin/files/hugin/hugin-2011.2_beta/hugin-2011.2.0_rc3.tar.bz2/download
+
+* from Launchpad at
+http://launchpad.net/hugin/2011.2/2011.2rc3/+download/hugin-2011.2.0_rc3.tar.bz2
+
+This is a source code release.  For executables see below.
+
+This tarball is equivalent to rev/changeset 5491:228a678d3af6 in our Mercurial
+repository, where it is also tagged 2011.2.0_rc2
+
+Verify its SHA1SUM
+08fa0809bcafbd2dfc5fc73b57286d9052838628  hugin-2011.2.0_rc3.tar.bz2
+
+EXECUTABLES
+
+Users communities produce executables for their respective platforms.
+
+These executables are then added to the download section on SourceForge at
+http://sourceforge.net/projects/hugin/files/hugin/
+
+A number of users have built recent snapshots and executables are likely to be
+announced within a few days of this tarball release.
+
+Watch http://groups.google.com/group/hugin-ptx for the announcements of binary
+releases.  If you don't see a binary for your platform it has most likely not
+been produced yet.  Consider stepping up to the task.  Instructions at
+
+http://wiki.panotools.org/Development_of_Open_Source_tools#Supported_Platforms
+
+Announce your build on http://groups.google.com/group/hugin-ptx
+
+
+SPLASH SCREEN
+
+To promote artists using Hugin the project has adopted a user-contributed
+artwork to enrich the splash screen of this release.
+
+Read more about the Fafleralp panorama and author/contributor David Haberthür at
+http://hugin.sourceforge.net/releases/2011.2.0/
+
+
+CHANGES SINCE 2011.0.0
+
+Little time has passed since our last release and yet there is new major
+functionality.  Hugin has received a Python scripting interface and new
+lens calibration tool.  A critical bug affecting a significant number of
+Mac users has been fixed and many general improvements have been made.
+
+
+_Lens Calibration Tool_
+
+Lenses are designed to follow a perfect geometric model.  For rectilinear
+lenses, a straight line in the depicted scene should be straight in the
+picture.  This is not always the case:  most lenses have an inherent
+deviation from the perfect model, resulting in imperfections such as
+pincushion or barrel distortion in rectilinear lenses.
+
+Adherence to the perfect geometric model is desirable for aesthetic purposes
+and indespensible to achieve proper alignment when stitching images.
+Hugin can calculate lens distortion parameters on the fly when optimizing
+a project, however this requires more control points and more computational
+effort than a project starting with a calibrated lens, and is prone to more
+errors.
+
+The new lens calibration tool calculates the distortion parameters of a
+lens based on an input image.  The input image must contain straight
+lines, ideally many of them at different distances from the center of the
+lens, covering at least one quadrant of the image.  The calculated
+parameters are valid for a given combination of focal distance,
+aperture (F-stop), and sensor.
+
+The values, saved into a lens profile, can be used in Hugin to achieve
+a better stitch, or on single images taken with this lens / settings
+combination to achieve a more aesthetically pleasing outcome.
+
+
+_Python Scripting Interface_
+
+Hugin now exposes some of its data structure and functionalities through
+a Python module.  To get started with scripting, start your Python
+interpreter and type:
+
+   >>> import hsi
+   >>> help (hsi)
+
+Standalone Python programs can access a panorama object with Hugin's
+functionality.  It is possible to develop complete command line and
+even GUI tools based on this module.
+
+The Python Scripting Interface does not work on Mac OSX yet.
+
+
+_Python Plugin Interface_
+
+Hugin can now run Python scripts inside the application.  In an enabled
+Hugin binary, a new "Actions" menu gives access to system-wide plugins
+distributed with Hugin.  Moreover, plugins can be written, modified,
+customized in the user's own directory.
+
+Currently there are only a few plugins available, but we expect the
+body of available plugins and functionality to grow organically as
+the interface is being made available to the general public.
+
+The Python Plugin Interface does not work on Mac OSX yet.
+
+
+_Other Improvements_
+
+* PTBatcherGUI has matured to become the default processor for
+  stitching projects.
+* ICC profiles saved in output.
+* Support for newer Olympus camera.
+* Improved auto cropping.
+* New mask type: exclude region from all images shot with the same lens
+* Copy&paste of masks in Mask Tab
+* Show extent of active masks and crop in Mask Editor
+* Fix for critical issue affecting stitching on Mac OS X Leopard.
+* Many more improvements and bug fixes.
+
+
+_Libraries and Build_
+
+The Python interface introduces new dependencies:
+* SWIG >2.0
+* Python
+
+
+UPGRADING
+
+Upgrading from previous versions of Hugin should be seamless. If you do have
+problems with old settings, these can be reset in the Preferences by clicking
+'Load defaults'.
+
+It is strongly recommeded to set the default control point detector to
+Hugin's CPFind.  It is the only control point generator endorsed by Hugin.
+Third-party generators may be compatible with the plug-in architecture.
+
+
+COMPILING
+
+Users compiling from source refer to the dependencies listed at
+http://wiki.panotools.org/Development_of_Open_Source_tools#Dependencies
+
+and the build processes listed at
+http://wiki.panotools.org/Development_of_Open_Source_tools#Build_your_Own_Test_Builds
+
+More information in the README and INSTALL_cmake files in the tarball.
+
+
+KNOWN ISSUES AND WORKAROUNDS
+
+Fast Preview is affected by a threading issue.
+href="https://bugs.launchpad.net/hugin/+bug/792896
+
+Plane overview is wrong if opening fast preview window the first time
+https://bugs.launchpad.net/hugin/+bug/726183
+
+
+Panosphere Overview window seperated from the content
+https://bugs.launchpad.net/hugin/+bug/726997
+
+
+There is a known problem building Hugin with CMake 2.8.5rc2.
+Workaround: Upgrade to a newer CMake version.
+
+
+Mac OS X 10.7 Lion has been recently introduced by Apple.
+Initial reports indicate that it is not compatible with Hugin.
+Support will start as soon as possible.
+
+
+An updated list of issues deemed to be critical, including discussions
+and workarounds is in the issue tracker.
+https://bugs.launchpad.net/hugin/+bugs?search=Search&field.importance=Critical
+
+
+RELEASE MANAGEMENT
+
+Hugin is looking for a new release manager.
+
+The process is documented in detail at
+
+http://wiki.panotools.org/Development_of_Open_Source_tools#Release
+
+I will keep hanging out on Hugin-PTX and will gladly help the next
+release manager transition into the role.
+
+
+THANKS
+
+Thanks to all the contributors to this release and members of the hugin-ptx
+mailing list, too many to mention here.
+
+Hugin can be found at http://hugin.sourceforge.net/ and at https://launchpad.net/hugin
+
+
+A DETAILED CHANGELOG SINCE THE LAST RELEASE FOLLOWS
+
+2011-08-13 23:08 +0200  Vaclav Cerny <vatoz@seznam.cz>  (5974676dfce0)  tip
+
+  updated czech translation
+
+  > src/translations/cs_CZ.po
+
+2011-08-07 11:08 +0200  harryvanderwolf <hvdwolf@gmail.com>  (1841017f2572)
+
+  [OSX] things forgotten when correcting the lens_calibrate_gui to
+  correct calibrate_lens_gui
+
+  + mac/calibrate_lens_gui-Info copy.plist
+  + mac/calibrate_lens_gui-xrc.sh
+  - mac/lens_calibrate_gui-Info copy.plist
+  - mac/lens_calibrate_gui-xrc.sh
+
+2011-08-06 17:59 +0200  harryvanderwolf <hvdwolf@gmail.com>  (0a0f61e687e2)
+
+  [OSX] Complete rework of PTBatcherGui call based on patch by Charlie
+  Reiman dd. 18-06-2011
+
+  > mac/Hugin.xcodeproj/project.pbxproj
+  > src/hugin1/base_wx/platform.cpp
+  > src/hugin1/base_wx/platform.h
+  > src/hugin1/hugin/AssistantPanel.cpp
+  > src/hugin1/hugin/PanoPanel.cpp
+
+2011-08-04 19:46 +0200  harryvanderwolf <hvdwolf@gmail.com>  (f0d4c3e891ad)
+
+  [OSX] Also update the installer to use the correct
+  calibrate_lens_gui.app name and so on
+
+  > mac/HuginCompleteInstaller.pmproj
+
+2011-08-04 19:23 +0200  harryvanderwolf <hvdwolf@gmail.com>  (59b1575b9d6c)
+
+  [OSX] rename incorrect lens_calibrate_gui.app to correct
+  calibrate_lens_gui.app including all references and usages
+
+  > mac/Hugin.xcodeproj/project.pbxproj
+  > mac/create_stripped_apps_for_installer.sh
+  > mac/lens_calibrate_gui-Info copy.plist
+  > mac/lens_calibrate_gui-xrc.sh
+
+2011-07-27 23:18 +0200  Vaclav Cerny <vatoz@seznam.cz>  (6973435c5a20)
+
+  Updated Czech translation
+
+  > src/translations/cs_CZ.po
+
+2011-07-27 10:45 -0400  Yuval Levy <yuv@users.sourceforge.net>  (43f8cb0a32ae)
+
+  Updated Brazilian Portuguese translation (Luís Henrique Camargo
+  Quiroz)
+
+  > src/translations/pt_BR.po
+
+2011-07-27 10:44 -0400  Yuval Levy <yuv@users.sourceforge.net>  (219a244726f4)
+
+  Updated French translation (Jean-Luc Coulon)
+
+  > src/translations/fr.po
+
+2011-07-27 10:43 -0400  Yuval Levy <yuv@users.sourceforge.net>  (5d4c1c40fbb6)
+
+  Updated Hungarian translation (Lajos Höss)
+
+  > src/translations/hu.po
+
+2011-07-27 10:42 -0400  Yuval Levy <yuv@users.sourceforge.net>  (fcf10f92e9ef)
+
+  Updated German translation (Carl von Einem)
+
+  > src/translations/de.po
+
+2011-07-23 18:09 -0400  Yuval Levy <yuv@users.sourceforge.net>  (e53925281c8d)
+
+  plain forgot to set the center for img0 (KFJ)
+
+  > src/hugin_script_interface/plugins/woa.py
