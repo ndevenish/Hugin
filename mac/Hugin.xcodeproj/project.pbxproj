@@ -3903,7 +3903,6 @@
 		73D24B9A1061566B00B8A25D /* cpclean.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cpclean.cpp; sourceTree = "<group>"; };
 		73D24BB11061592C00B8A25D /* CleanCP.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CleanCP.cpp; sourceTree = "<group>"; };
 		73D24BB21061592C00B8A25D /* CleanCP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CleanCP.h; sourceTree = "<group>"; };
-		73DAADC9119DB8DC002149AC /* copyPTBatcherGuiBins.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = copyPTBatcherGuiBins.sh; sourceTree = "<group>"; };
 		73DFBC91139B516C00558A2D /* LinesTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LinesTypes.h; path = lines/LinesTypes.h; sourceTree = "<group>"; };
 		73DFBC92139B516C00558A2D /* FindN8Lines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FindN8Lines.h; path = lines/FindN8Lines.h; sourceTree = "<group>"; };
 		73DFBC93139B516C00558A2D /* FindN8Lines.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FindN8Lines.cpp; path = lines/FindN8Lines.cpp; sourceTree = "<group>"; };
@@ -5190,7 +5189,6 @@
 				737E48EB11D3F9B5002BA8AE /* copyExtraTools.sh */,
 				571D8C910E213879006D0305 /* localise-help.sh */,
 				571D8C700E213216006D0305 /* patch-xrc.sh */,
-				73DAADC9119DB8DC002149AC /* copyPTBatcherGuiBins.sh */,
 				57A2BC2E0D45422800E9FFEC /* copyExifTool.sh */,
 				576902090D24DBA100A6AD01 /* complete-bundle.sh */,
 				739A0D4810FA599A00D8E4C7 /* complete-tools-package.sh */,
@@ -9085,7 +9083,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ $ACTION = \"build\" ]\nthen\n sh ../mac/copyPTBatcherGuiBins.sh\nfi";
+			shellScript = "#if [ $ACTION = \"build\" ]\n#then\n# sh ../mac/copyPTBatcherGuiBins.sh\n#fi\n\n\n# $Id: copyPTBatcherGuibin $\n\n# This script will copy the necessary binaries to the MacOS folder\n# inside PTBatcherGui.app\n# This replaces the original copy step in XCode to facilate 32bits builds\n# as well as 32/64bit builds.\n\nbin_dir=\"$REPOSITORY_DIR/bin\"\nApp=\"$TARGET_BUILD_DIR/$PRODUCT_NAME.app\"\n\n\nextbins=\"PTblender PTmasker PTmender PToptimizer PTroller enfuse enblend gnumake\"\n\n# Copy external binaries to MacOS folder in PTBatcherGui.app\nfor bins in $extbins\ndo\n cp -Rf $bin_dir/$bins \"$App/Contents/MacOS/\"\ndone\n";
 		};
 		73DFBD98139B69E900558A2D /* Complete Bundle */ = {
 			isa = PBXShellScriptBuildPhase;
