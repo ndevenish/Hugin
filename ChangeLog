@@ -1,4 +1,29 @@
-2011-08-13 23:08 +0200  Vaclav Cerny <vatoz@seznam.cz>  (5974676dfce0)  tip
+2011-08-16 20:29 -0400  Yuval Levy <yuv@users.sourceforge.net>  (6fabe70066c1)  tip
+
+	Updated Dutch translation (Harry van der Wolf)
+
+	> src/translations/nl.po
+
+2011-08-16 08:35 -0400  Yuval Levy <yuv@users.sourceforge.net>  (5359d87407ac)  
+
+	New Danish translation, thank you Thomas Pryds!
+
+	+ src/translations/da.po
+	> authors.txt
+
+2011-08-14 12:37 -0400  Yuval Levy <yuv@users.sourceforge.net>  (752ea80728d6)  
+
+	Added tag 2011.2.0_rc3 for changeset 228a678d3af6
+
+	> .hgtags
+
+2011-08-14 12:37 -0400  Yuval Levy <yuv@users.sourceforge.net>  (228a678d3af6)  2011.2.0_rc3
+
+	Updated ChangeLog
+
+	> ChangeLog
+
+2011-08-13 23:08 +0200  Vaclav Cerny <vatoz@seznam.cz>  (5974676dfce0)  
 
 	updated czech translation
 
