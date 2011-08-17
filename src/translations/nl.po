@@ -10,13 +10,13 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?"
 "group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2011-06-19 17:11-0400\n"
-"PO-Revision-Date: 2011-03-01 18:29+0100\n"
+"PO-Revision-Date: 2011-08-16 18:58+0100\n"
 "Last-Translator: Harry van der Wolf <harryvanderwolf@home.nl>\n"
 "Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "X-Poedit-Language: Dutch\n"
 "X-Poedit-Country: NETHERLANDS\n"
 "X-Generator: Lokalize 0.3\n"
@@ -330,18 +330,20 @@ msgstr ""
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:169
 msgid "Hugin Lens calibration GUI"
-msgstr ""
+msgstr "Hugin Lens calibratie GUI"
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:371
 #, c-format
 msgid "Added %s"
-msgstr ""
+msgstr "%s toegevoegd"
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:397
 #, c-format
 msgid ""
 "The size of the images (%s) does not match with the already added image(s)."
 msgstr ""
+"De grootte van de afbeeldingen (%s) komt niet overeen met de al toegevoegde "
+"afbeelding(en)."
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:410
 #, c-format
@@ -350,6 +352,10 @@ msgid ""
 "already added image(s).\n"
 "Please check the image again, if you selected the correct images."
 msgstr ""
+"De EXIF informatie van de toegevoegde afbeeldingen (%s) zijn niet consistent "
+"met de al toegevoegde afbeelding(en).\n"
+"Controleer de afbeelding om te zien of u de correcte afbeelding(en) "
+"toegevoegd heeft."
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:419 hugin1/hugin/MainFrame.cpp:922
 #: hugin1/hugin/wxPanoCommand.cpp:412 hugin1/hugin/wxPanoCommand.cpp:591
@@ -364,35 +370,32 @@ msgstr "Voeg afbeelding toe: annuleer"
 #: hugin1/calibrate_lens/LensCalFrame.cpp:502
 #, c-format
 msgid "%s (%d lines)"
-msgstr ""
+msgstr "%s (%d lijnen)"
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:590
 #: hugin1/calibrate_lens/LensCalFrame.cpp:613
 #: hugin1/calibrate_lens/LensCalFrame.cpp:728
 #: hugin1/calibrate_lens/LensCalFrame.cpp:770
 #: hugin1/calibrate_lens/LensCalFrame.cpp:842
-#, fuzzy
 msgid ""
 "There are invalid values in the input boxes.\n"
 "Please check your inputs."
 msgstr ""
-"Tenminste één invoer veld is leeg.\n"
+"Incorrecte waarden in de invoer velden.\n"
 "Controleer uw invoer."
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:599
 msgid "Detecting edges..."
-msgstr ""
+msgstr "detecteren van randen..."
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:601
-#, fuzzy
 msgid "Finding lines..."
-msgstr "Wijzig lens..."
+msgstr "Lijnen zoeken..."
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:605
 #: hugin1/calibrate_lens/LensCalFrame.cpp:721
-#, fuzzy
 msgid "Finished"
-msgstr "Fins"
+msgstr "Klaar"
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:621
 msgid ""
@@ -400,10 +403,13 @@ msgid ""
 "Please run \"Find lines\" before. If there are no lines found, change the "
 "parameters."
 msgstr ""
+"Er zijn geen lijnen gedetecteerd.\n"
+"U dient eerst \"Vind lijnen\" uitvoeren. Als er geen lijnen gevonden worden "
+"moet u de parameters aanpassen."
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:705
 msgid "Optimizing lens distortions parameters..."
-msgstr ""
+msgstr "Optimaliseren van lens vervorming parameters..."
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:736
 msgid ""
@@ -411,6 +417,9 @@ msgid ""
 "Please run \"Find lines\" and \"Optimize\" before saving the lens data. If "
 "there are no lines found, change the parameters."
 msgstr ""
+"Er zijn geen lijnen gedetecteerd.\n"
+"Voer svp \"Vind lijnen\" en \"Optimaliseer\" voordat u de lens data opslaat. "
+"Als er geen lijnen gevonden zijn dient u de parameters aan te passen."
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:741 hugin1/hugin/LensPanel.cpp:763
 msgid "Save lens parameters file"
@@ -1422,6 +1431,9 @@ msgid ""
 "You selected only one image.\n"
 "Should the loaded parameters applied to all images with the same lens?"
 msgstr ""
+"U hebt maar één afbeelding geselecteerd.\n"
+"Moeten de geladen parameters toegepast worden op alle afbeeldingen met "
+"dezelfde lens?"
 
 #: hugin1/hugin/LensPanel.cpp:787 hugin1/ptbatcher/FindPanoDialog.cpp:176
 #: hugin1/ptbatcher/FindPanoDialog.cpp:211
@@ -1434,6 +1446,10 @@ msgid ""
 "Apply lens parameter file can result in unwanted results.\n"
 "Apply settings anyway?"
 msgstr ""
+"U hebt afbeeldingen geselecteerd van verschillende grootte.\n"
+"Het toepassen van de lens parameters kan resulteren in ongewenste "
+"resultaten.\n"
+"Instellingen toch toepassen?"
 
 #: hugin1/hugin/LensPanel.cpp:847
 msgid ""
@@ -1500,9 +1516,8 @@ msgid "&Help"
 msgstr "&Help"
 
 #: hugin1/hugin/MainFrame.cpp:344
-#, fuzzy
 msgid "&Actions"
-msgstr "Parameters"
+msgstr "&Acties"
 
 #: hugin1/hugin/MainFrame.cpp:432
 msgid "Started"
@@ -1668,14 +1683,12 @@ msgid "Removing control points in masks"
 msgstr "Ijkpunten verwijderen in masker"
 
 #: hugin1/hugin/MainFrame.cpp:1706
-#, fuzzy
 msgid "Select python script"
-msgstr "Selecteer autopano front-end (script)"
+msgstr "Selecteer python script"
 
 #: hugin1/hugin/MainFrame.cpp:1708
-#, fuzzy
 msgid "Python script (*.py)|*.py|All files (*.*)|*.*"
-msgstr "Bulkbestanden (*.ptb)|*.ptb|Alle bestanden (*)|*"
+msgstr "ython script (*.py)|*.py||Alle bestanden (*)|*"
 
 #: hugin1/hugin/MainFrame.cpp:1982
 #, c-format
@@ -1738,9 +1751,9 @@ msgid "Load mask: cancel"
 msgstr "Laad masker: annuleer"
 
 #: hugin1/hugin/MaskEditorPanel.cpp:448
-#, fuzzy, c-format
+#, c-format
 msgid "Could not parse mask from file %s."
-msgstr "Kan projectbestand %s niet openen:"
+msgstr "Kan masker van bestand %s niet uitvoeren:"
 
 #: hugin1/hugin/NonaOptionsDialog.cpp:55
 msgid "Nona options"
@@ -2077,7 +2090,7 @@ msgstr ""
 
 #: hugin1/hugin/PluginItems.cpp:68
 msgid "Miscellaneous"
-msgstr ""
+msgstr "Diverse"
 
 #: hugin1/hugin/PreferencesDialog.cpp:121
 msgid "System default"
@@ -2250,6 +2263,8 @@ msgstr "IJkpunt detector instellingen opslaan"
 msgid ""
 "Click on a area which should be neutral gray / white in the final panorama."
 msgstr ""
+"Klik op een gebied dat neutraal grijs / wit zou moeten zijn in het "
+"uiteindelijke panorama."
 
 #: hugin1/hugin/PreviewCropTool.cpp:55
 msgid "Drag the inside of the cropping rectangle to adjust the crop."
@@ -2387,7 +2402,7 @@ msgstr "Fout bij openen projectbestand"
 
 #: hugin1/hugin/wxPanoCommand.cpp:706
 msgid "Result"
-msgstr ""
+msgstr "Resultaat"
 
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:205
 #, c-format
@@ -2677,14 +2692,14 @@ msgid "Running command \""
 msgstr "Uitvoeren commando \""
 
 #: hugin1/ptbatcher/Batch.cpp:899 hugin1/ptbatcher/Batch.cpp:934
-#, fuzzy, c-format
+#, c-format
 msgid "Now stitching: %s"
-msgstr "Samenvoegen %s"
+msgstr "Nu samenvoegen: %s"
 
 #: hugin1/ptbatcher/Batch.cpp:909 hugin1/ptbatcher/Batch.cpp:944
-#, fuzzy, c-format
+#, c-format
 msgid "Now detecting: %s"
-msgstr "Fout bij uitvoeren %s"
+msgstr "Nu detecteren: %s"
 
 #: hugin1/ptbatcher/Batch.cpp:1029
 #, c-format
@@ -2697,9 +2712,8 @@ msgid "Not doing much..."
 msgstr "Ik verveel me..."
 
 #: hugin1/ptbatcher/BatchFrame.cpp:147 hugin1/ptbatcher/BatchFrame.cpp:157
-#, fuzzy
 msgid "Hugins Batch processor"
-msgstr "&Start Bulkprocessor"
+msgstr "Hugins  Bulkprocessor"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:364
 msgid "Please enter the command-line application to execute:"
@@ -2722,17 +2736,16 @@ msgid "Added projects from dir "
 msgstr "Voeg projecten toe uit dir"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:453
-#, fuzzy, c-format
+#, c-format
 msgid "Add project %s to stitching queue."
-msgstr "Voeg project toe aan het bulkproces"
+msgstr "Voeg project %s toe aan de samenvoegen wachtrij"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:456
-#, fuzzy, c-format
+#, c-format
 msgid "Add project %s to assistant queue."
-msgstr "Stuur naar de Assistent wachtij"
+msgstr "Voeg project %s toe aan Assistent wachtij"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:470
-#, fuzzy
 msgid "Batch stopped"
 msgstr "Bulkproces gepauzeerd"
 
@@ -2833,42 +2846,36 @@ msgid "Batch file (*.ptb)|*.ptb;|All files (*)|*"
 msgstr "Bulkbestanden (*.ptb)|*.ptb|Alle bestanden (*)|*"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:1047
-#, fuzzy
 msgid "Starting batch"
 msgstr "Start bulkproces"
 
 #: hugin1/ptbatcher/BatchTrayIcon.cpp:57
-#, fuzzy
 msgid "&Show window"
-msgstr "&Voorbeeldvenster"
+msgstr "&Toon venster"
 
 #: hugin1/ptbatcher/BatchTrayIcon.cpp:60 translations/xrc.cpp:99 xrc.cpp:99
 msgid "Start batch"
 msgstr "Start bulkproces"
 
 #: hugin1/ptbatcher/BatchTrayIcon.cpp:64
-#, fuzzy
 msgid "Continue batch"
-msgstr "Verder gaan met het bulkproces"
+msgstr "Continueer bulkproces"
 
 #: hugin1/ptbatcher/BatchTrayIcon.cpp:68 translations/xrc.cpp:105 xrc.cpp:105
 msgid "Pause batch"
 msgstr "Pauzeer bulkproces"
 
 #: hugin1/ptbatcher/BatchTrayIcon.cpp:71
-#, fuzzy
 msgid "Stop batch"
-msgstr "Start bulkproces"
+msgstr "Stop bulkproces"
 
 #: hugin1/ptbatcher/BatchTrayIcon.cpp:74
-#, fuzzy
 msgid "Add project to queue..."
-msgstr "Voeg project toe..."
+msgstr "Voeg project toe aan wachtrij..."
 
 #: hugin1/ptbatcher/BatchTrayIcon.cpp:78
-#, fuzzy
 msgid "E&xit"
-msgstr "S&toppen\tAlt-T"
+msgstr "S&toppen"
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:175
 msgid ""
@@ -3276,16 +3283,15 @@ msgstr "Foldernaam.pto"
 
 #: translations/xrc.cpp:56 xrc.cpp:56
 msgid "Stacks:"
-msgstr ""
+msgstr "Lagen:"
 
 #: translations/xrc.cpp:57 xrc.cpp:57
-#, fuzzy
 msgid "Create links"
-msgstr "Maak ijkpunten"
+msgstr "Maak links"
 
 #: translations/xrc.cpp:58 xrc.cpp:58
 msgid "Check if the stacks were shoot on a tripod."
-msgstr ""
+msgstr "Controleer of de foto lagen vanaf een statief zijn gemaakt."
 
 #: translations/xrc.cpp:60 xrc.cpp:60
 msgid "Found panoramas"
@@ -3956,32 +3962,28 @@ msgid "Add"
 msgstr "Voeg toe"
 
 #: translations/xrc.cpp:241 xrc.cpp:241
-#, fuzzy
 msgid "Remove"
-msgstr "verwijder"
+msgstr "Verwijder"
 
 #: translations/xrc.cpp:245 xrc.cpp:245
 msgid "Images (with straight lines)"
-msgstr ""
+msgstr "afbeeldingen (met rechte lijnen)"
 
 #: translations/xrc.cpp:246 xrc.cpp:246
-#, fuzzy
 msgid "Edge detection scale:"
-msgstr "Hoekdetectieschaal"
+msgstr "Rand detectieschaal"
 
 #: translations/xrc.cpp:247 xrc.cpp:247
-#, fuzzy
 msgid "Edge detection threshold:"
-msgstr "Hoek detectie drempel:"
+msgstr "Rand detectie drempel:"
 
 #: translations/xrc.cpp:248 xrc.cpp:248
-#, fuzzy
 msgid "Maximal image size:"
-msgstr "Afbeeldings grootte:"
+msgstr "Maximale afbeeldings grootte:"
 
 #: translations/xrc.cpp:249 xrc.cpp:249
 msgid "Minimum line length:"
-msgstr ""
+msgstr "Minimun lijn lengte:"
 
 #: translations/xrc.cpp:250 translations/xrc.cpp:470 translations/xrc.cpp:612
 #: translations/xrc.cpp:615 translations/xrc.cpp:618 translations/xrc.cpp:621
@@ -3994,7 +3996,7 @@ msgstr "Parameters"
 
 #: translations/xrc.cpp:251 xrc.cpp:251
 msgid "Find lines"
-msgstr ""
+msgstr "Vind lijnen"
 
 #: translations/xrc.cpp:253 translations/xrc.cpp:294 xrc.cpp:253 xrc.cpp:294
 msgid "Radial Distortion"
@@ -4033,7 +4035,6 @@ msgid "Optimize"
 msgstr "Optimaliseer"
 
 #: translations/xrc.cpp:261 xrc.cpp:261
-#, fuzzy
 msgid "Save lens"
 msgstr "Sla lens op..."
 
@@ -4043,34 +4044,33 @@ msgstr "Lensparameters"
 
 #: translations/xrc.cpp:263 xrc.cpp:263
 msgid "Original"
-msgstr ""
+msgstr "Origineel"
 
 #: translations/xrc.cpp:264 xrc.cpp:264
 msgid "Edge detection"
-msgstr ""
+msgstr "Rand detectie"
 
 #: translations/xrc.cpp:265 xrc.cpp:265
-#, fuzzy
 msgid "Corrected"
-msgstr "Correctie"
+msgstr "Gecorrigeerd"
 
 #: translations/xrc.cpp:266 xrc.cpp:266
-#, fuzzy
 msgid "Show lines"
-msgstr "Toon alle afbeeldingen"
+msgstr "Toon lijnen"
 
 #: translations/xrc.cpp:267 xrc.cpp:267
 msgid "Refresh"
-msgstr ""
+msgstr "Ververs"
 
 #: translations/xrc.cpp:269 xrc.cpp:269
-#, fuzzy
 msgid "&Save as project file..."
-msgstr "Opslaan project bestand"
+msgstr "Op&slaan als project bestand..."
 
 #: translations/xrc.cpp:270 xrc.cpp:270
 msgid "Saves the images and lines as pto file for further tuning inside hugin."
 msgstr ""
+"Sla de afbeeldingen en lijnen als pto bestand op voor verdere optimalisatie "
+"binnen hugin."
 
 #: translations/xrc.cpp:274 xrc.cpp:274
 msgid "Load lens parameters from a file"
@@ -4359,11 +4359,11 @@ msgstr "Voeg nog een afbeelding toe aan het huidige project"
 
 #: translations/xrc.cpp:370 xrc.cpp:370
 msgid "Run User &Python script"
-msgstr ""
+msgstr "Voer gebruiker &Python script uit"
 
 #: translations/xrc.cpp:371 xrc.cpp:371
 msgid "Run a python script"
-msgstr ""
+msgstr "Voer een python script uit"
 
 #: translations/xrc.cpp:372 xrc.cpp:372
 msgid "&View"
@@ -4594,9 +4594,8 @@ msgid "Include region from stack"
 msgstr "Gebruik regio in laag"
 
 #: translations/xrc.cpp:456 xrc.cpp:456
-#, fuzzy
 msgid "Exclude region from all images of this lens"
-msgstr "Uitsluiten regio uit laag "
+msgstr "Uitsluiten regio uit alle afbeeldingen van deze lens"
 
 #: translations/xrc.cpp:459 translations/xrc.cpp:732 xrc.cpp:459 xrc.cpp:732
 msgid "Export"
@@ -4608,16 +4607,15 @@ msgstr "Importeer"
 
 #: translations/xrc.cpp:461 xrc.cpp:461
 msgid "Copy"
-msgstr ""
+msgstr "Copiëer"
 
 #: translations/xrc.cpp:462 xrc.cpp:462
 msgid "Paste"
-msgstr ""
+msgstr "Voeg in"
 
 #: translations/xrc.cpp:463 xrc.cpp:463
-#, fuzzy
 msgid "Import/Export"
-msgstr "Importeer"
+msgstr "Importeer/Exporteer"
 
 #: translations/xrc.cpp:464 xrc.cpp:464
 msgid "Excluded"
@@ -4636,13 +4634,12 @@ msgid "Unselected"
 msgstr "ge-deselecteerd"
 
 #: translations/xrc.cpp:468 xrc.cpp:468
-#, fuzzy
 msgid "Colour"
 msgstr "Kleur"
 
 #: translations/xrc.cpp:469 xrc.cpp:469
 msgid "Show extent of active masks and crop"
-msgstr ""
+msgstr "Toon extent van aktieve maskers en uitsnijdingen"
 
 #: translations/xrc.cpp:471 xrc.cpp:471
 msgid "Image size:"
@@ -5169,9 +5166,8 @@ msgid "enblend"
 msgstr "enblend"
 
 #: translations/xrc.cpp:622 translations/xrc.cpp:623 xrc.cpp:622 xrc.cpp:623
-#, fuzzy
 msgid "Stitch!"
-msgstr "Samenvoegen"
+msgstr "Samenvoegen!"
 
 #: translations/xrc.cpp:635 xrc.cpp:635
 msgid "HDR Merge Options"
@@ -5326,11 +5322,11 @@ msgstr "Laat leeg om standaardwaarde besturingssysteem te gebruiken"
 
 #: translations/xrc.cpp:674 xrc.cpp:674
 msgid "Plugin dir:"
-msgstr ""
+msgstr "Plugin folder:"
 
 #: translations/xrc.cpp:675 xrc.cpp:675
 msgid "(where you store your customized plugins)"
-msgstr ""
+msgstr "(waar je je aangepaste plugins bewaart)"
 
 #: translations/xrc.cpp:677 xrc.cpp:677
 msgid "Image loading"
@@ -5574,15 +5570,15 @@ msgstr "Uitvoerformaat"
 
 #: translations/xrc.cpp:744 xrc.cpp:744
 msgid "Hugin&stitch&project"
-msgstr ""
+msgstr "Hugin&stitch&project"
 
 #: translations/xrc.cpp:745 xrc.cpp:745
 msgid "The engine that will run the stitch"
-msgstr ""
+msgstr "Het programma dat het samenvoegen zal uitvoeren"
 
 #: translations/xrc.cpp:746 xrc.cpp:746
 msgid "Start stitching jobs immediately"
-msgstr ""
+msgstr "Start samenvoeg opdrachten onmiddelijk "
 
 #: translations/xrc.cpp:747 xrc.cpp:747
 msgid ""
@@ -5590,10 +5586,13 @@ msgid ""
 "queue.  Otherwise the processor is started in suspended state and the user "
 "has to start the processing manually."
 msgstr ""
+"Indien geselecteerd zal de proecessor onmiddelijk beginnen met verwerken van "
+"de invoer rij. Anders wordt de processor gestart in afwachtende modus en "
+"moet de gebruiker het uitvoeren handmatig starten"
 
 #: translations/xrc.cpp:748 xrc.cpp:748
 msgid "Run stitching jobs in parallel"
-msgstr ""
+msgstr "Voer de uit te voeren opdrachten parallel uit"
 
 #: translations/xrc.cpp:749 xrc.cpp:749
 msgid ""
@@ -5602,18 +5601,21 @@ msgid ""
 "may actually result in slower stitches, depending on the system's resources "
 "and bottlenecks."
 msgstr ""
+"Indien geselecteerd zal de processor meerdere opdrachten simultaan "
+"uitvoeren. Anders worden de opdrachten stuk voor stuk uitgevoerd. Notabene: "
+"het selecteren van de optie kan resulteren in langere uitvoer tijd "
+"afhankelijk van mogelijkheden van het systeem. "
 
 #: translations/xrc.cpp:750 xrc.cpp:750
-#, fuzzy
 msgid "Overwrite existing files"
 msgstr "Bestaande afbeeldingen overschrijven"
 
 #: translations/xrc.cpp:751 xrc.cpp:751
 msgid "WARNING: existing files with be silently overwritten."
 msgstr ""
+"WAARSCHUWING: bestaande bestanden zullen ongevraagd overschreven worden."
 
 #: translations/xrc.cpp:752 xrc.cpp:752
-#, fuzzy
 msgid "Verbose Output"
 msgstr "Uitgebreid voortgang weergeven"
 
@@ -5622,11 +5624,12 @@ msgid ""
 "Enable to get the details, useful when reporting a bug or just to watch the "
 "project's progress."
 msgstr ""
+"Activeer om details te verkrijgen. Nuttig als u een programma fout wilt "
+"rapporteren of om de voortgang te volgen."
 
 #: translations/xrc.cpp:755 xrc.cpp:755
-#, fuzzy
 msgid "Processor"
-msgstr "Bulkprocessor"
+msgstr "Processor"
 
 #: translations/xrc.cpp:756 xrc.cpp:756
 msgid "Stitching"
@@ -5688,9 +5691,8 @@ msgid "Enfuse"
 msgstr "Enfuse"
 
 #: translations/xrc.cpp:782 xrc.cpp:782
-#, fuzzy
 msgid "Programs"
-msgstr "Programma:"
+msgstr "Programma's"
 
 #: translations/xrc.cpp:783 xrc.cpp:783
 msgid "Celeste parameters"
@@ -5862,11 +5864,11 @@ msgstr ""
 #: translations/xrc.cpp:844 xrc.cpp:844
 msgid "Correct global white balance by selecting a neutral gray area."
 msgstr ""
+"Corrigeer de globale witbalans door een neutraal grijs gebied te selecteren."
 
 #: translations/xrc.cpp:845 translations/xrc.cpp:846 xrc.cpp:845 xrc.cpp:846
-#, fuzzy
 msgid "Gray picker"
-msgstr "Grijs selectie"
+msgstr "Grijs selectie werktuig"
 
 #: translations/xrc.cpp:849 xrc.cpp:849
 msgid "Scale:"
@@ -5938,7 +5940,7 @@ msgstr "onderkant:"
 
 #: translations/xrc.cpp:874 xrc.cpp:874
 msgid "Reset crop to maximal possible area"
-msgstr ""
+msgstr "Zet uitsnijding terug naar maximaal oppervlak"
 
 #: translations/xrc.cpp:875 xrc.cpp:875
 msgid "Change the panorama's cropping region"
