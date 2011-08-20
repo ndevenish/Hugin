@@ -511,6 +511,11 @@ PanosphereOverviewVisualizationState::PanosphereOverviewVisualizationState(PT::P
     projection_info = new OutputProjectionInfo(&opts);
 }
 
+PanosphereOverviewVisualizationState::~PanosphereOverviewVisualizationState()
+{
+    delete projection_info;
+}
+
 HuginBase::PanoramaOptions * PanosphereOverviewVisualizationState::GetOptions()
 {
     return &opts;
@@ -579,6 +584,11 @@ PlaneOverviewVisualizationState::PlaneOverviewVisualizationState(PT::Panorama* p
     opts.setHFOV(180.0);
     opts.setVFOV(180.0);
     projection_info = new OutputProjectionInfo(&opts);
+}
+
+PlaneOverviewVisualizationState::~PlaneOverviewVisualizationState()
+{
+    delete projection_info;
 }
 
 HuginBase::PanoramaOptions * PlaneOverviewVisualizationState::GetOptions()
