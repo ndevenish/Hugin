@@ -103,6 +103,7 @@ BEGIN_EVENT_TABLE(CPEditorPanel, wxPanel)
     EVT_NOTEBOOK_PAGE_CHANGED ( XRCID("cp_editor_right_tab"),CPEditorPanel::OnRightImgChange )
 #endif
     EVT_LIST_ITEM_SELECTED(XRCID("cp_editor_cp_list"), CPEditorPanel::OnCPListSelect)
+    EVT_LIST_ITEM_DESELECTED(XRCID("cp_editor_cp_list"), CPEditorPanel::OnCPListDeselect)
     EVT_LIST_COL_END_DRAG(XRCID("cp_editor_cp_list"), CPEditorPanel::OnColumnWidthChange)
     EVT_CHOICE(XRCID("cp_editor_choice_zoom"), CPEditorPanel::OnZoom)
     EVT_TEXT_ENTER(XRCID("cp_editor_x1"), CPEditorPanel::OnTextPointChange )
@@ -1783,6 +1784,18 @@ void CPEditorPanel::OnCPListSelect(wxListEvent & ev)
         SelectLocalPoint((unsigned int) t);
         changeState(NO_POINT);
     }
+}
+
+void CPEditorPanel::OnCPListDeselect(wxListEvent & ev)
+{
+    // disable CP controls
+    m_cpModeChoice->Disable();
+    m_addButton->Disable();
+    m_delButton->Disable();
+    XRCCTRL(*this, "cp_editor_finetune_button", wxButton)->Disable();
+    m_selectedPoint = UINT_MAX;
+    changeState(NO_POINT);
+    UpdateDisplay(true);
 }
 
 void CPEditorPanel::OnZoom(wxCommandEvent & e)

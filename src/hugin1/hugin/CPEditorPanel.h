@@ -177,6 +177,7 @@ private:
     void OnRightImgChange(wxNotebookEvent & e);
 #endif
     void OnCPListSelect(wxListEvent & e);
+    void OnCPListDeselect(wxListEvent & e);
     void OnAddButton(wxCommandEvent & e);
     void OnZoom(wxCommandEvent & e);
     void OnTextPointChange(wxCommandEvent &e);
