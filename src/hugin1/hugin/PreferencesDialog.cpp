@@ -135,6 +135,9 @@ PreferencesDialog::PreferencesDialog(wxWindow *parent)
     *lp = wxLANGUAGE_CZECH;
     lang_choice->Append(_("Czech"), lp);
     lp = new long;
+    *lp = wxLANGUAGE_DANISH;
+    lang_choice->Append(_("Danish"), lp);
+    lp = new long;
     *lp = wxLANGUAGE_DUTCH;
     lang_choice->Append(_("Dutch"), lp);
     lp = new long;
