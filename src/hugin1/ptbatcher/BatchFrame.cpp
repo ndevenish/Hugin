@@ -302,7 +302,7 @@ void BatchFrame::OnUpdateListBox(wxCommandEvent &event)
 	bool change = false;
 	for(int i = 0; i< m_batch->GetProjectCount(); i++)
 	{
-        if(m_batch->GetProject(i)->id >= 0)
+        if(m_batch->GetProject(i)->id >= 0 && m_batch->GetStatus(i)!=Project::FINISHED)
 		{
 			tempFile.Assign(m_batch->GetProject(i)->path);
 			if(tempFile.FileExists())
