@@ -158,7 +158,7 @@ IF(WIN32)
       NO_SYSTEM_ENVIRONMENT_PATH
     )
     FIND_FILE(GLUT_DLL
-      NAMES glut.dll freeglut.dll
+      NAMES glut.dll freeglut.dll glut32.dll
       PATHS ${SOURCE_BASE_DIR}/freeglut-2.6.0/VisualStudio2008/Release ${SOURCE_BASE_DIR}/glut/Release
       NO_SYSTEM_ENVIRONMENT_PATH
     )
