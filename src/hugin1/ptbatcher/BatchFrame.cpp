@@ -1203,9 +1203,15 @@ void BatchFrame::OnMinimize(wxIconizeEvent& e)
     //hide/show window in taskbar when minimizing
     if(m_tray!=NULL)
     {
+#if wxCHECK_VERSION(2,9,0)
         Show(!e.IsIconized());
         //switch off verbose output if PTBatcherGUI is in tray/taskbar
         if(e.IsIconized())
+#else
+        Show(!e.Iconized());
+        //switch off verbose output if PTBatcherGUI is in tray/taskbar
+        if(e.Iconized())
+#endif
         {
             m_batch->verbose=false;
         }
