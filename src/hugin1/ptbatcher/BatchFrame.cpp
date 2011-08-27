@@ -982,6 +982,11 @@ void BatchFrame::OnCheckVerbose(wxCommandEvent &event)
 	m_batch->ShowOutput(m_batch->verbose);
 }
 
+void BatchFrame::SetInternalVerbose(bool newVerbose)
+{
+    m_batch->verbose=newVerbose;
+};
+
 void BatchFrame::OnClose(wxCloseEvent &event)
 {
     //save windows position
