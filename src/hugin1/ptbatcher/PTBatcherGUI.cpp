@@ -336,6 +336,11 @@ bool PTBatcherGUI::OnInit()
 	};
 	m_frame->SetCheckboxes();
 	m_frame->PropagateDefaults();
+    //deactivate verbose output if started minimized
+    if(m_frame->IsStartedMinimized())
+    {
+        m_frame->SetInternalVerbose(false);
+    };
 	if (parser.Found(wxT("b")) ) {
 		m_frame->RunBatch();
     }

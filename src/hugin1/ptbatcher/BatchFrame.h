@@ -130,6 +130,8 @@ public:
     void UpdateBatchVerboseStatus();
     /** returns true, if last session was finished minimized */
     bool IsStartedMinimized() { return m_startedMinimized; };
+    /** sets the current verbose status, does not update the checkbox */
+    void SetInternalVerbose(bool newVerbose);
 
 #ifdef __WXMSW__
     /** return help controller for open help */
