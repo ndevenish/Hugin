@@ -78,11 +78,20 @@ END_EVENT_TABLE()
 
 static Panorama * g_pano;
 
-#if wxCHECK_VERSION(2,9,0)
-static int wxCALLBACK compareError(long item1, long item2, wxIntPtr sortData)
+#if wxCHECK_VERSION(2,9,2)
+#define COMPARETYPEITEM wxIntPtr
+#define COMPARETYPESORTDATA wxIntPtr
 #else
-static int wxCALLBACK compareError(long item1, long item2, long sortData)
+#if wxCHECK_VERSION(2,9,0)
+#define COMPARETYPEITEM long
+#define COMPARETYPESORTDATA wxIntPtr
+#else
+#define COMPARETYPEITEM long
+#define COMPARETYPESORTDATA long
 #endif
+#endif
+
+static int wxCALLBACK compareError(COMPARETYPEITEM item1, COMPARETYPEITEM item2, COMPARETYPESORTDATA sortData)
 {
     const ControlPoint &p1 = g_pano->getCtrlPoint(item1);
     const ControlPoint &p2 = g_pano->getCtrlPoint(item2);
@@ -94,11 +103,7 @@ static int wxCALLBACK compareError(long item1, long item2, long sortData)
         return 0;
 }
 
-#if wxCHECK_VERSION(2,9,0)
-static int wxCALLBACK compareErrorGreater(long item1, long item2, wxIntPtr sortData)
-#else
-static int wxCALLBACK compareErrorGreater(long item1, long item2, long sortData)
-#endif
+static int wxCALLBACK compareErrorGreater(COMPARETYPEITEM item1, COMPARETYPEITEM item2, COMPARETYPESORTDATA sortData)
 {
     const ControlPoint &p1 = g_pano->getCtrlPoint(item1);
     const ControlPoint &p2 = g_pano->getCtrlPoint(item2);
@@ -110,11 +115,7 @@ static int wxCALLBACK compareErrorGreater(long item1, long item2, long sortData)
         return 0;
 }
 
-#if wxCHECK_VERSION(2,9,0)
-static int wxCALLBACK compareCPNr(long item1, long item2, wxIntPtr sortData)
-#else
-static int wxCALLBACK compareCPNr(long item1, long item2, long sortData)
-#endif
+static int wxCALLBACK compareCPNr(COMPARETYPEITEM item1, COMPARETYPEITEM item2, COMPARETYPESORTDATA sortData)
 {
     if (item1 < item2)
         return -1;
@@ -124,11 +125,7 @@ static int wxCALLBACK compareCPNr(long item1, long item2, long sortData)
         return 0;
 }
 
-#if wxCHECK_VERSION(2,9,0)
-static int wxCALLBACK compareCPNrGreater(long p1, long p2, wxIntPtr sortData)
-#else
-static int wxCALLBACK compareCPNrGreater(long p1, long p2, long sortData)
-#endif
+static int wxCALLBACK compareCPNrGreater(COMPARETYPEITEM p1, COMPARETYPEITEM p2, COMPARETYPESORTDATA sortData)
 {
     if (p1 > p2)
         return -1;
@@ -138,11 +135,7 @@ static int wxCALLBACK compareCPNrGreater(long p1, long p2, long sortData)
         return 0;
 }
 
-#if wxCHECK_VERSION(2,9,0)
-static int wxCALLBACK compareImg1Nr(long item1, long item2, wxIntPtr sortData)
-#else
-static int wxCALLBACK compareImg1Nr(long item1, long item2, long sortData)
-#endif
+static int wxCALLBACK compareImg1Nr(COMPARETYPEITEM item1, COMPARETYPEITEM item2, COMPARETYPESORTDATA sortData)
 {
     const ControlPoint &p1 = g_pano->getCtrlPoint(item1);
     const ControlPoint &p2 = g_pano->getCtrlPoint(item2);
@@ -154,11 +147,7 @@ static int wxCALLBACK compareImg1Nr(long item1, long item2, long sortData)
         return 0;
 }
 
-#if wxCHECK_VERSION(2,9,0)
-static int wxCALLBACK compareImg1NrGreater(long item1, long item2, wxIntPtr sortData)
-#else
-static int wxCALLBACK compareImg1NrGreater(long item1, long item2, long sortData)
-#endif
+static int wxCALLBACK compareImg1NrGreater(COMPARETYPEITEM item1, COMPARETYPEITEM item2, COMPARETYPESORTDATA sortData)
 {
     const ControlPoint &p1 = g_pano->getCtrlPoint(item1);
     const ControlPoint &p2 = g_pano->getCtrlPoint(item2);
@@ -170,11 +159,7 @@ static int wxCALLBACK compareImg1NrGreater(long item1, long item2, long sortData
         return 0;
 }
 
-#if wxCHECK_VERSION(2,9,0)
-static int wxCALLBACK compareImg2Nr(long item1, long item2, wxIntPtr sortData)
-#else
-static int wxCALLBACK compareImg2Nr(long item1, long item2, long sortData)
-#endif
+static int wxCALLBACK compareImg2Nr(COMPARETYPEITEM item1, COMPARETYPEITEM item2, COMPARETYPESORTDATA sortData)
 {
     const ControlPoint &p1 = g_pano->getCtrlPoint(item1);
     const ControlPoint &p2 = g_pano->getCtrlPoint(item2);
@@ -186,11 +171,7 @@ static int wxCALLBACK compareImg2Nr(long item1, long item2, long sortData)
         return 0;
 }
 
-#if wxCHECK_VERSION(2,9,0)
-static int wxCALLBACK compareImg2NrGreater(long item1, long item2, wxIntPtr sortData)
-#else
-static int wxCALLBACK compareImg2NrGreater(long item1, long item2, long sortData)
-#endif
+static int wxCALLBACK compareImg2NrGreater(COMPARETYPEITEM item1, COMPARETYPEITEM item2, COMPARETYPESORTDATA sortData)
 {
     const ControlPoint &p1 = g_pano->getCtrlPoint(item1);
     const ControlPoint &p2 = g_pano->getCtrlPoint(item2);
@@ -202,11 +183,7 @@ static int wxCALLBACK compareImg2NrGreater(long item1, long item2, long sortData
         return 0;
 }
 
-#if wxCHECK_VERSION(2,9,0)
-static int wxCALLBACK compareMode(long item1, long item2, wxIntPtr sortData)
-#else
-static int wxCALLBACK compareMode(long item1, long item2, long sortData)
-#endif
+static int wxCALLBACK compareMode(COMPARETYPEITEM item1, COMPARETYPEITEM item2, COMPARETYPESORTDATA sortData)
 {
     const ControlPoint &p1 = g_pano->getCtrlPoint(item1);
     const ControlPoint &p2 = g_pano->getCtrlPoint(item2);
@@ -218,11 +195,7 @@ static int wxCALLBACK compareMode(long item1, long item2, long sortData)
         return 0;
 }
 
-#if wxCHECK_VERSION(2,9,0)
-static int wxCALLBACK compareModeGreater(long item1, long item2, wxIntPtr sortData)
-#else
-static int wxCALLBACK compareModeGreater(long item1, long item2, long sortData)
-#endif
+static int wxCALLBACK compareModeGreater(COMPARETYPEITEM item1, COMPARETYPEITEM item2, COMPARETYPESORTDATA sortData)
 {
     const ControlPoint &p1 = g_pano->getCtrlPoint(item1);
     const ControlPoint &p2 = g_pano->getCtrlPoint(item2);
