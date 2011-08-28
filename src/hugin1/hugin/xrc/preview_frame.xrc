@@ -386,14 +386,6 @@
                       </object>
                       <flag>wxALIGN_CENTRE_VERTICAL</flag>
                     </object>
-                    <object class="sizeritem">
-                      <object class="wxCheckBox" name="preview_flip">
-                        <label>Flip</label>
-                        <tooltip>Flip the overview inside out.</tooltip>
-                      </object>
-                      <flag>wxALL</flag>
-                      <border>2</border>
-                    </object>
                     <orient>wxVERTICAL</orient>
                   </object>
                   <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
