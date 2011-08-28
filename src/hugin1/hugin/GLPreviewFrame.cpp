@@ -172,7 +172,6 @@ BEGIN_EVENT_TABLE(GLPreviewFrame, wxFrame)
     EVT_TOOL(ID_UNDO, GLPreviewFrame::OnUndo)
     EVT_TOOL(ID_REDO, GLPreviewFrame::OnRedo)
     EVT_COLOURPICKER_CHANGED(XRCID("preview_background"), GLPreviewFrame::OnPreviewBackgroundColorChanged)
-    EVT_CHECKBOX(XRCID("preview_flip"), GLPreviewFrame::OnFlip)
 END_EVENT_TABLE()
 
 BEGIN_EVENT_TABLE(ImageToogleButtonEventHandler, wxEvtHandler)
@@ -531,9 +530,6 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
 
     m_topsizer->Add(vis_panel, 1, wxEXPAND);
 
-    // initialize flip status
-    m_flipSwitch = XRCCTRL(*this, "preview_flip", wxCheckBox);
-    m_flip=false;
 
     m_ProjectionChoice = XRCCTRL(*this,"projection_choice",wxChoice);
 
@@ -2615,18 +2611,4 @@ void GLPreviewFrame::OnPreviewBackgroundColorChanged(wxColourPickerEvent & e) {
 
 wxColor GLPreviewFrame::GetPreviewBackgroundColor() {
   return m_preview_background_color;
-}
-
-void GLPreviewFrame::OnFlip(wxCommandEvent & e) {
-    if(m_flipSwitch->GetValue()) {
-        m_flip = true;
-    } else {
-        m_flip = false;
-    }
-    m_GLOverview->Refresh();
-    redrawPreview();
-}
-
-bool GLPreviewFrame::GetFlip() {
-     return m_flip;
 }

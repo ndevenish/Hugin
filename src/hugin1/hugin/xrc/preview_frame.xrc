@@ -363,6 +363,12 @@
                   <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
                 </object>
                 <object class="sizeritem">
+                  <object class="wxStaticLine">
+                    <size>2,-1</size>
+                  </object>
+                  <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                </object>
+                <object class="sizeritem">
                   <object class="wxBoxSizer">
                     <object class="sizeritem">
                       <object class="wxBoxSizer">
@@ -380,21 +386,20 @@
                           <border>5</border>
                           <object class="wxColourPickerCtrl" name="preview_background">
                             <value>#000000</value>
-                            <style>wxCLRP_SHOW_LABEL</style>
+                            <style>wxCLRP_DEFAULT_STYLE</style>
                           </object>
                         </object>
                       </object>
                       <flag>wxALIGN_CENTRE_VERTICAL</flag>
                     </object>
-                    <object class="sizeritem">
-                      <object class="wxCheckBox" name="preview_flip">
-                        <label>Flip</label>
-                        <tooltip>Flip the overview inside out.</tooltip>
-                      </object>
-                      <flag>wxALL</flag>
-                      <border>2</border>
-                    </object>
                     <orient>wxVERTICAL</orient>
+                    <object class="sizeritem">
+                      <object class="wxCheckBox" name="preview_show_grid">
+                        <label>Grid</label>
+                      </object>
+                      <flag>wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                      <border>5</border>
+                    </object>
                   </object>
                   <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
                   <border>4</border>
@@ -814,13 +819,7 @@
         <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
         <border>5</border>
       </object>
-      <object class="sizeritem">
-        <object class="wxCheckBox" name="preview_show_grid">
-          <label>Grid</label>
-        </object>
-        <flag>wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
-        <border>5</border>
-      </object>
+    
     </object>
   </object>
 </resource>

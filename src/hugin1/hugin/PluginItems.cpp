@@ -35,7 +35,6 @@
 
 //for console/debugging output
 #include <iostream>
-char buf[200];
 
 bool comparePluginItem(PluginItem item1,PluginItem item2)
 {
@@ -107,8 +106,7 @@ void PluginItem::ParseMetadata()
     int pos;
 
     // tell me who you are processing
-    strncpy( buf, (const char*)m_filename.GetFullPath().mb_str(wxConvUTF8),200 );
-    std::cout << buf << std::endl;
+    std::cout << m_filename.GetFullPath().mb_str(wxConvLocal) << std::endl;
 
 
     while(!in.Eof() && !(foundCategory && foundName && foundAPImin && foundAPImax && foundSYS && foundDescription))
@@ -160,8 +158,7 @@ void PluginItem::ParseMetadata()
         {
             m_category = line.Mid(pos+1+tagCategory.length()).Trim().Trim(false);
             foundCategory=true;
-            strncpy( buf, (const char*)m_category.mb_str(wxConvUTF8),200 );
-            std::cout << "   CAT:" << buf << std::endl;
+            std::cout << "   CAT:" << m_category.mb_str(wxConvLocal) << std::endl;
             continue;
         };
         pos=lowerLine.Find(tagName);
@@ -169,8 +166,7 @@ void PluginItem::ParseMetadata()
         {
             m_name = line.Mid(pos+1+tagName.length()).Trim().Trim(false);
             foundName=true;
-            strncpy( buf, (const char*)m_name.mb_str(wxConvUTF8),200 );
-            std::cout << "   NAM:" << buf << std::endl;
+            std::cout << "   NAM:" << m_name.mb_str(wxConvLocal) << std::endl;
             continue;
         };
         pos=lowerLine.Find(tagDescription);

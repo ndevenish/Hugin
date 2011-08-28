@@ -884,6 +884,12 @@ void MaskImageCtrl::rescaleImage()
         imageSize.SetWidth(scale(imageSize.GetWidth()));
         imageSize.SetHeight(scale(imageSize.GetHeight()));
         img=img.Scale(scale(m_realSize.GetWidth()), scale(m_realSize.GetHeight()));
+    }
+    else
+    {
+        //the conversion to disabled bitmap would work on the original cached image file
+        //therefore we need to create a copy to work on it
+        img=img.Copy();
     };
     //and now rotating
     switch(m_imgRotation)

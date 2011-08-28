@@ -170,9 +170,6 @@
 
 #endif
 
-// personal python plugin folder (relative to user home folder)
-#define HUGIN_PLUGIN_PYTHON_DIR               "hugin_python_plugins"
-
 // enblend args
 #define HUGIN_ENBLEND_ARGS                    ""
 #define HUGIN_ENFUSE_ARGS                     ""
@@ -209,7 +206,5 @@
 #define HUGIN_PROCESSOR_PARALLEL        0l    // boolean
 #define HUGIN_PROCESSOR_OVERWRITE       0l    // boolean
 #define HUGIN_PROCESSOR_VERBOSE         1l    // boolean
-#define HUGIN_PROCESSOR_QUIT            1l    // boolean
-#define HUGIN_PROCESSOR_SHUTDOWN        0l    // boolean
 
 #endif // _CONFIG_DEFAULTS_H

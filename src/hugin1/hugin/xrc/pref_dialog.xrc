@@ -186,7 +186,8 @@
                     <label>File Options</label>
                     <orient>wxVERTICAL</orient>
                     <object class="sizeritem">
-                      <object class="wxFlexGridSizer">
+                      <object class="wxBoxSizer">
+                        <orient>wxHORIZONTAL</orient>
                         <object class="sizeritem">
                           <object class="wxStaticText">
                             <label>Temporary dir:</label>
@@ -207,29 +208,6 @@
                           <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                           <border>5</border>
                         </object>
-                        <object class="sizeritem">
-                          <object class="wxStaticText">
-                            <label>Plugin dir:</label>
-                          </object>
-                          <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-                          <border>5</border>
-                        </object>
-                        <object class="sizeritem">
-                          <object class="wxTextCtrl" name="prefs_misc_plugins_python_dir"/>
-                          <option>1</option>
-                          <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
-                          <border>5</border>
-                        </object>
-                        <object class="sizeritem">
-                          <object class="wxStaticText">
-                            <label>(where you store your customized plugins)</label>
-                          </object>
-                          <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
-                          <border>5</border>
-                        </object>
-                        <cols>3</cols>
-                        <rows>2</rows>
-                        <growablecols>1</growablecols>
                       </object>
                       <flag>wxEXPAND</flag>
                     </object>
@@ -957,22 +935,6 @@ for HDR panoramas use Preview window.</label>
                                 <object class="wxCheckBox" name="pref_processor_verbose">
                                   <label>Verbose Output</label>
                                   <tooltip>Enable to get the details, useful when reporting a bug or just to watch the project's progress.</tooltip>
-                                </object>
-                                <flag>wxALL</flag>
-                                <border>5</border>
-                              </object>
-                              <object class="sizeritem">
-                                <object class="wxCheckBox" name="pref_processor_quit">
-                                  <label>Quit on finish</label>
-                                  <tooltip>Quit batch processor at the end of the batch.</tooltip>
-                                </object>
-                                <flag>wxALL</flag>
-                                <border>5</border>
-                              </object>
-                              <object class="sizeritem">
-                                <object class="wxCheckBox" name="pref_processor_shutdown">
-                                  <label>Shutdown on finish</label>
-                                  <tooltip>Shutdown computer at the end of the batch.</tooltip>
                                 </object>
                                 <flag>wxALL</flag>
                                 <border>5</border>

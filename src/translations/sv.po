@@ -1915,7 +1915,7 @@ msgstr "Sinusoidal"
 
 #: hugin1/hugin/PanoPanel.cpp:150
 msgid "Lambert Cylindrical Equal Area"
-msgstr "Lambert Equal Area Azimuthal"
+msgstr "Lambert Cylindrical Equal Area"
 
 #: hugin1/hugin/PanoPanel.cpp:151
 msgid "Lambert Equal Area Azimuthal"

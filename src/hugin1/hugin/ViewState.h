@@ -281,6 +281,7 @@ class PanosphereOverviewVisualizationState : public OverviewVisualizationState
 public:
 
     PanosphereOverviewVisualizationState(PT::Panorama* pano, ViewState* view_state, GLViewer * viewer, void (*RefreshFunction)(void*), void *arg);
+    ~PanosphereOverviewVisualizationState();
 
     HuginBase::PanoramaOptions *GetOptions();
     OutputProjectionInfo *GetProjectionInfo();
@@ -324,6 +325,7 @@ class PlaneOverviewVisualizationState : public OverviewVisualizationState
 public:
 
     PlaneOverviewVisualizationState(PT::Panorama* pano, ViewState* view_state, GLViewer * viewer, void (*RefreshFunction)(void*), void *arg);
+    ~PlaneOverviewVisualizationState();
 
     HuginBase::PanoramaOptions *GetOptions();
     OutputProjectionInfo *GetProjectionInfo();

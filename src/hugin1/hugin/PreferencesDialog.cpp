@@ -31,10 +31,6 @@
 
 #include "base_wx/wxPlatform.h"
 
-#include <wx/utils.h>
-#include <wx/filename.h>
-#include <wx/stdpaths.h>
-
 #include "hugin/huginApp.h"
 #include "hugin/config_defaults.h"
 #include "hugin/PreferencesDialog.h"
@@ -134,6 +130,9 @@ PreferencesDialog::PreferencesDialog(wxWindow *parent)
     lp = new long;
     *lp = wxLANGUAGE_CZECH;
     lang_choice->Append(_("Czech"), lp);
+    lp = new long;
+    *lp = wxLANGUAGE_DANISH;
+    lang_choice->Append(_("Danish"), lp);
     lp = new long;
     *lp = wxLANGUAGE_DUTCH;
     lang_choice->Append(_("Dutch"), lp);
@@ -470,15 +469,6 @@ void PreferencesDialog::UpdateDisplayData(int panel)
 
         // tempdir
         MY_STR_VAL("prefs_misc_tempdir", cfg->Read(wxT("tempDir"),wxT("")));
-        // python plugin dir
-        XRCCTRL(*this, "prefs_misc_plugins_python_dir", wxTextCtrl)->SetValue(
-            cfg->Read(wxT("PluginPythonDir"), 
-#ifdef __WXGTK__
-                wxGetHomeDir()
-#else
-                wxStandardPaths::Get().GetUserDataDir()
-#endif
-                +wxFileName::GetPathSeparator()+wxT(HUGIN_PLUGIN_PYTHON_DIR)));
 
     }
 
@@ -574,10 +564,6 @@ void PreferencesDialog::UpdateDisplayData(int panel)
         MY_BOOL_VAL("pref_processor_overwrite", t);
         t = cfg->Read(wxT("/Processor/verbose"), HUGIN_PROCESSOR_VERBOSE) == 1;
         MY_BOOL_VAL("pref_processor_verbose", t);
-        t = cfg->Read(wxT("/Processor/quit"), HUGIN_PROCESSOR_QUIT) == 1;
-        MY_BOOL_VAL("pref_processor_quit", t);
-        t = cfg->Read(wxT("/Processor/shutdown"), HUGIN_PROCESSOR_SHUTDOWN) == 1;
-        MY_BOOL_VAL("pref_processor_shutdown", t);
         UpdateProcessorControls();
     }
 
@@ -688,15 +674,6 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
             cfg->Write(wxT("smartUndo"), HUGIN_SMART_UNDO);
             // projection hints
             cfg->Write(wxT("/GLPreviewFrame/ShowProjectionHints"), HUGIN_SHOW_PROJECTION_HINTS);
-            // python plugin dir
-            cfg->Write(wxT("PluginPythonDir"), 
-#ifdef __WXGTK__
-                wxGetHomeDir()
-#else
-                wxStandardPaths::Get().GetUserDataDir()
-#endif
-                +wxFileName::GetPathSeparator()+wxT(HUGIN_PLUGIN_PYTHON_DIR));
-
         }
         if (noteb->GetSelection() == 1) {
             cfg->Write(wxT("/Assistant/autoAlign"), HUGIN_ASS_AUTO_ALIGN);
@@ -746,8 +723,6 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
             cfg->Write(wxT("/Processor/parallel"), HUGIN_PROCESSOR_PARALLEL);
             cfg->Write(wxT("/Processor/overwrite"), HUGIN_PROCESSOR_OVERWRITE);
             cfg->Write(wxT("/Processor/verbose"), HUGIN_PROCESSOR_VERBOSE);
-            cfg->Write(wxT("/Processor/quit"), HUGIN_PROCESSOR_QUIT);
-            cfg->Write(wxT("/Processor/shutdown"), HUGIN_PROCESSOR_SHUTDOWN);
 
         }
         if (noteb->GetSelection() == 5) {
@@ -857,8 +832,6 @@ void PreferencesDialog::UpdateConfigData()
     //    cfg->Write(wxT("/CPImageCtrl/CursorType"), MY_G_SPIN_VAL("prefs_cp_CursorType"));
     // tempdir
     cfg->Write(wxT("tempDir"),MY_G_STR_VAL("prefs_misc_tempdir"));
-    // python plugin dir
-    cfg->Write(wxT("PluginPythonDir"),MY_G_STR_VAL("prefs_misc_plugins_python_dir"));
     /////
     /// AUTOPANO
     cpdetector_config_edit.Write(cfg);
@@ -878,8 +851,6 @@ void PreferencesDialog::UpdateConfigData()
     cfg->Write(wxT("/Processor/parallel"), MY_G_BOOL_VAL("pref_processor_parallel"));
     cfg->Write(wxT("/Processor/overwrite"), MY_G_BOOL_VAL("pref_processor_overwrite"));
     cfg->Write(wxT("/Processor/verbose"), MY_G_BOOL_VAL("pref_processor_verbose"));
-    cfg->Write(wxT("/Processor/quit"), MY_G_BOOL_VAL("pref_processor_quit"));
-    cfg->Write(wxT("/Processor/shutdown"), MY_G_BOOL_VAL("pref_processor_shutdown"));
 
     /////
     /// STITCHING
@@ -1068,8 +1039,6 @@ void PreferencesDialog::UpdateProcessorControls()
     XRCCTRL(*this,"pref_processor_start",wxCheckBox)->Enable(i==0);
     XRCCTRL(*this,"pref_processor_parallel",wxCheckBox)->Enable(i==0);
     XRCCTRL(*this,"pref_processor_verbose",wxCheckBox)->Enable(i==0);
-    XRCCTRL(*this,"pref_processor_quit",wxCheckBox)->Enable(i==0);
-    XRCCTRL(*this,"pref_processor_shutdown",wxCheckBox)->Enable(i==0);
     switch(i)
     {
         case 0:
@@ -1079,8 +1048,6 @@ void PreferencesDialog::UpdateProcessorControls()
                 XRCCTRL(*this,"pref_processor_start",wxCheckBox)->SetValue(config->Read(wxT("/Processor/start"), HUGIN_PROCESSOR_START) == 1);
                 XRCCTRL(*this,"pref_processor_parallel",wxCheckBox)->SetValue(config->Read(wxT("/Processor/parallel"), HUGIN_PROCESSOR_PARALLEL) == 1);
                 XRCCTRL(*this,"pref_processor_verbose",wxCheckBox)->SetValue(config->Read(wxT("/Processor/verbose"), HUGIN_PROCESSOR_VERBOSE) == 1);
-                XRCCTRL(*this,"pref_processor_quit",wxCheckBox)->SetValue(config->Read(wxT("/Processor/quit"), HUGIN_PROCESSOR_QUIT) == 1);
-                XRCCTRL(*this,"pref_processor_shutdown",wxCheckBox)->SetValue(config->Read(wxT("/Processor/shutdown"), HUGIN_PROCESSOR_SHUTDOWN) == 1);
             }
             break;
         case 1:
@@ -1088,8 +1055,6 @@ void PreferencesDialog::UpdateProcessorControls()
             XRCCTRL(*this,"pref_processor_start",wxCheckBox)->SetValue(true);
             XRCCTRL(*this,"pref_processor_parallel",wxCheckBox)->SetValue(false);
             XRCCTRL(*this,"pref_processor_verbose",wxCheckBox)->SetValue(true);
-            XRCCTRL(*this,"pref_processor_quit",wxCheckBox)->SetValue(true);
-            XRCCTRL(*this,"pref_processor_shutdown",wxCheckBox)->SetValue(false);
             break;
     };
 };

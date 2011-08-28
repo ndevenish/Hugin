@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: da\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?group_id=77506&atid=550441\n"
 "POT-Creation-Date: 2011-06-19 17:11-0400\n"
-"PO-Revision-Date: 2011-08-16 12:11+0100\n"
+"PO-Revision-Date: 2011-08-26 16:36+0100\n"
 "Last-Translator: Thomas Pryds <thomas@pryds.eu>\n"
 "Language-Team: danish <da@li.org>\n"
 "Language: \n"
@@ -656,7 +656,7 @@ msgstr "Kørbare filer (*.exe,*.vbs,*.cmd, *.bat)|*.exe;*.vbs;*.cmd;*.bat"
 #: hugin1/hugin/ImagesList.cpp:85
 #: hugin1/hugin/MaskEditorPanel.cpp:104
 msgid "#"
-msgstr "#"
+msgstr "nr."
 
 #: hugin1/hugin/CPEditorPanel.cpp:207
 msgid "left x"
@@ -919,7 +919,7 @@ msgstr "Indtast venligst et gyldigt tal"
 #: hugin1/hugin/DragTool.cpp:78
 #: hugin1/hugin/DragTool.cpp:353
 msgid "Drag to move images (optionally use shift to constrain), or roll with right-drag or ctrl-drag."
-msgstr "Træk billederne for at flytte dem (eller brug Shift for at fastgøre), eller rul ved at højre-trække eller Ctrl-trække."
+msgstr "Træk billederne for at flytte dem (eller brug Shift for at fastlåse), eller rul ved at højre-trække eller Ctrl-trække."
 
 #: hugin1/hugin/DragTool.cpp:106
 msgid "Currently constrained to moving only pitch. Make a larger movement in the opposite direction to constrain to yaw."
@@ -951,7 +951,7 @@ msgstr "Hurtig Panorama preview"
 #: xrc.cpp:804
 #: xrc.cpp:811
 msgid "Center"
-msgstr "Centrum"
+msgstr "Centrér"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:328
 #: hugin1/hugin/GLPreviewFrame.cpp:330
@@ -970,12 +970,12 @@ msgstr "Stræk"
 #: hugin1/hugin/GLPreviewFrame.cpp:2199
 #: hugin1/hugin/PanoPanel.cpp:942
 msgid "Autocrop"
-msgstr "Autotilskæring"
+msgstr "Autobeskæring"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:349
 #: hugin1/hugin/PreviewFrame.cpp:132
 msgid "displayed images"
-msgstr "viste billeder"
+msgstr "Viste billeder"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:374
 #: translations/xrc.cpp:824
@@ -1381,7 +1381,7 @@ msgstr "hfov (v)"
 #: xrc.cpp:387
 #: xrc.cpp:876
 msgid "Crop"
-msgstr "Beskær"
+msgstr "Beskæring"
 
 #: hugin1/hugin/ImagesList.cpp:740
 msgid "Number of masks"
@@ -2074,7 +2074,7 @@ msgid ""
 "If this is too big, reduce the panorama Canvas Size and the cropped region and stitch from the Stitcher tab. Stitching a panorama this size could take a long time and a large amount of memory."
 msgstr ""
 "Panoramaet, du prøver at sammenføje, er %.1f gigapixels stort.\n"
-"Hvis dette er for stort, kan du reducere panoramaets lærredstørrelse og tilskæring, og sammenføj fra Sammenføjning-tab'en. Sammenføjning af et panorama af denne størrelse kan tage lang tid og bruge meget hukommelse."
+"Hvis dette er for stort, kan du reducere panoramaets lærredstørrelse og beskæring, og sammenføj fra Sammenføjning-tab'en. Sammenføjning af et panorama af denne størrelse kan tage lang tid og bruge meget hukommelse."
 
 #: hugin1/hugin/PanoPanel.cpp:1414
 msgid "Stitch anyway"
@@ -2095,7 +2095,7 @@ msgstr ""
 "Er du sikker på, at du vil sammenføje så stort et panorama?\n"
 "\n"
 "Panoramaet, du prøver at sammenføje, er %.1f gigapixels stort.\n"
-"Hvis dette er for stort, kan du reducere panoramaets lærredstørrelse og tilskæring, og sammenføj fra Sammenføjning-tab'en. Sammenføjning af et panorama af denne størrelse kan tage lang tid og bruge meget hukommelse."
+"Hvis dette er for stort, kan du reducere panoramaets lærredstørrelse og beskæring, og sammenføj fra Sammenføjning-tab'en. Sammenføjning af et panorama af denne størrelse kan tage lang tid og bruge meget hukommelse."
 
 #: hugin1/hugin/PluginItems.cpp:68
 msgid "Miscellaneous"
@@ -3554,7 +3554,7 @@ msgstr "Tømmer joblisten"
 #: xrc.cpp:271
 #: xrc.cpp:355
 msgid "&Quit"
-msgstr "%Afslut"
+msgstr "&Afslut"
 
 #: translations/xrc.cpp:86
 #: translations/xrc.cpp:356
@@ -3803,7 +3803,7 @@ msgstr ""
 "%i -- billedfiler\n"
 "%namefile -- fil, der indeholder billedfilnavne\n"
 "%s -- input PanoTools-script\n"
-"%k -- mellemlæggende nøglefil(er)"
+"%k -- mellemliggende nøglefil(er)"
 
 #: translations/xrc.cpp:151
 #: xrc.cpp:151
@@ -4735,7 +4735,7 @@ msgstr "Liste over nyligt brugte projektfiler"
 #: translations/xrc.cpp:348
 #: xrc.cpp:348
 msgid "&Run Batch Processor"
-msgstr "%Kør jobliste-kørsel"
+msgstr "&Kør jobliste-kørsel"
 
 #: translations/xrc.cpp:349
 #: xrc.cpp:349
@@ -5081,7 +5081,7 @@ msgstr "Vis preview-billedet"
 #: xrc.cpp:442
 #: xrc.cpp:839
 msgid "Show control points"
-msgstr "Vil kontrolpunkter"
+msgstr "Vis kontrolpunkter"
 
 #: translations/xrc.cpp:443
 #: xrc.cpp:443
@@ -5141,7 +5141,7 @@ msgstr "Inkludér område fra stak"
 #: translations/xrc.cpp:456
 #: xrc.cpp:456
 msgid "Exclude region from all images of this lens"
-msgstr "Ekskludér område fra alle billeder af dette objektiv"
+msgstr "Ekskludér område fra alle billeder fra dette objektiv"
 
 #: translations/xrc.cpp:459
 #: translations/xrc.cpp:732
@@ -5474,7 +5474,7 @@ msgstr "Hvidbalance (Er, Eb):"
 #: translations/xrc.cpp:535
 #: xrc.cpp:535
 msgid "Camera and Lens variables:"
-msgstr "Kamera- og objektivvariabler:"
+msgstr "Kamera- og objektivvariable:"
 
 #: translations/xrc.cpp:536
 #: xrc.cpp:536
@@ -5654,12 +5654,12 @@ msgstr "Beregn den optimale billedstørrelse, sådan at opløsningen i billedets
 #: translations/xrc.cpp:574
 #: xrc.cpp:574
 msgid "Crop:"
-msgstr "Beskær:"
+msgstr "Beskæring:"
 
 #: translations/xrc.cpp:579
 #: xrc.cpp:579
 msgid "Fit Crop to Images"
-msgstr "Tilpas tilskæring til billeder"
+msgstr "Tilpas beskæring til billeder"
 
 #: translations/xrc.cpp:580
 #: xrc.cpp:580
@@ -5735,7 +5735,7 @@ msgstr "Remappede billeder:"
 #: translations/xrc.cpp:599
 #: xrc.cpp:599
 msgid "Output remapped, exposure corrected images. Useful for manual blending of an exposure corrected panorama."
-msgstr "Output remappet billeder med eksponeringskorrektion. Nyttig til manuel sammenføjning med bløde overgange af et panorama med korrektion for eksponering."
+msgstr "Output remappet billeder med eksponeringskorrektion. Nyttig til manuel sammenføjning med bløde overgange af et panorama med eksponeringskorrektion."
 
 #: translations/xrc.cpp:600
 #: xrc.cpp:600
@@ -5785,7 +5785,7 @@ msgstr "Output et komplet panorama med bløde overgange for hvert eksponeringssk
 #: translations/xrc.cpp:610
 #: xrc.cpp:610
 msgid "Processing:"
-msgstr "Processerer:"
+msgstr "Processorer:"
 
 #: translations/xrc.cpp:611
 #: translations/xrc.cpp:624
@@ -6742,7 +6742,7 @@ msgstr "Udret automatisk en bølget horisont."
 #: translations/xrc.cpp:859
 #: xrc.cpp:859
 msgid "Drag mode:"
-msgstr "Træk-modus:"
+msgstr "Træk-type:"
 
 #: translations/xrc.cpp:867
 #: xrc.cpp:867
@@ -6799,7 +6799,7 @@ msgstr "Vis/Skjul"
 #: xrc.cpp:879
 #: xrc.cpp:880
 msgid "Mode:"
-msgstr "Modus:"
+msgstr "Type:"
 
 #: translations/xrc.cpp:881
 #: xrc.cpp:881

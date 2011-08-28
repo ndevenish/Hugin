@@ -511,6 +511,11 @@ PanosphereOverviewVisualizationState::PanosphereOverviewVisualizationState(PT::P
     projection_info = new OutputProjectionInfo(&opts);
 }
 
+PanosphereOverviewVisualizationState::~PanosphereOverviewVisualizationState()
+{
+    delete projection_info;
+}
+
 HuginBase::PanoramaOptions * PanosphereOverviewVisualizationState::GetOptions()
 {
     return &opts;
@@ -518,10 +523,6 @@ HuginBase::PanoramaOptions * PanosphereOverviewVisualizationState::GetOptions()
 
 OutputProjectionInfo *PanosphereOverviewVisualizationState::GetProjectionInfo()
 {
-    if (projection_info) {
-        delete projection_info;
-    }
-    projection_info = new OutputProjectionInfo(&opts);
     return projection_info;
 }
 
@@ -536,10 +537,7 @@ void PanosphereOverviewVisualizationState::SetOptions(const HuginBase::PanoramaO
     opts.setProjection(HuginBase::PanoramaOptions::EQUIRECTANGULAR);
     opts.setHFOV(360.0);
     opts.setVFOV(180.0);
-    if (projection_info) {
-        delete projection_info;
-        projection_info = NULL;
-    }
+    delete projection_info;
     projection_info = new OutputProjectionInfo(&opts);
 }
 
@@ -581,6 +579,11 @@ PlaneOverviewVisualizationState::PlaneOverviewVisualizationState(PT::Panorama* p
     projection_info = new OutputProjectionInfo(&opts);
 }
 
+PlaneOverviewVisualizationState::~PlaneOverviewVisualizationState()
+{
+    delete projection_info;
+}
+
 HuginBase::PanoramaOptions * PlaneOverviewVisualizationState::GetOptions()
 {
     return &opts;
@@ -588,10 +591,6 @@ HuginBase::PanoramaOptions * PlaneOverviewVisualizationState::GetOptions()
 
 OutputProjectionInfo *PlaneOverviewVisualizationState::GetProjectionInfo()
 {
-    if (projection_info) {
-        delete projection_info;
-    }
-    projection_info = new OutputProjectionInfo(&opts);
     return projection_info;
 }
 
@@ -601,10 +600,7 @@ void PlaneOverviewVisualizationState::SetOptions(const HuginBase::PanoramaOption
     opts.setProjection(HuginBase::PanoramaOptions::RECTILINEAR);
     opts.setHFOV(90.0);
     opts.setVFOV(90.0);
-    if (projection_info) {
-        delete projection_info;
-        projection_info = NULL;
-    }
+    delete projection_info;
     projection_info = new OutputProjectionInfo(&opts);
 }
 

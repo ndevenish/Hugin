@@ -57,7 +57,6 @@ public:
 	bool parallel;
 	bool deleteFiles;
 	bool shutdown;
-  bool quit;
 	bool overwrite;
 	bool verbose;
 	bool gui;
