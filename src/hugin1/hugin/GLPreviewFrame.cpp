@@ -320,14 +320,23 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     SetStatusText(wxT(""),2);
     wxConfigBase * cfg = wxConfigBase::Get();
 
+#if wxCHECK_VERSION(2,9,2)
+    wxPanel *tool_panel = wxXmlResource::Get()->LoadPanel(this,wxT("mode_panel_29"));
+    XRCCTRL(*this,"preview_center_tool",wxButton)->SetBitmapMargins(0,0);
+    XRCCTRL(*this,"preview_fit_pano_tool",wxButton)->SetBitmapMargins(0,0);
+    XRCCTRL(*this,"preview_straighten_pano_tool",wxButton)->SetBitmapMargins(0,0);
+    XRCCTRL(*this,"preview_fit_pano_tool2",wxButton)->SetBitmapMargins(0,0);
+    XRCCTRL(*this,"preview_autocrop_tool",wxButton)->SetBitmapMargins(0,0);
+#else
     wxPanel *tool_panel = wxXmlResource::Get()->LoadPanel(this,wxT("mode_panel"));
-    m_tool_notebook = XRCCTRL(*this,"mode_toolbar_notebook",wxNotebook);
-    m_ToolBar_Identify = XRCCTRL(*this,"preview_mode_toolbar",wxToolBar);
     AddLabelToBitmapButton(XRCCTRL(*this,"preview_center_tool",wxBitmapButton),_("Center"));
     AddLabelToBitmapButton(XRCCTRL(*this,"preview_fit_pano_tool",wxBitmapButton),_("Fit"));
     AddLabelToBitmapButton(XRCCTRL(*this,"preview_straighten_pano_tool",wxBitmapButton),_("Straighten"));
     AddLabelToBitmapButton(XRCCTRL(*this,"preview_fit_pano_tool2",wxBitmapButton),_("Fit"));
     AddLabelToBitmapButton(XRCCTRL(*this,"preview_autocrop_tool",wxBitmapButton),_("Autocrop"));
+#endif
+    m_tool_notebook = XRCCTRL(*this,"mode_toolbar_notebook",wxNotebook);
+    m_ToolBar_Identify = XRCCTRL(*this,"preview_mode_toolbar",wxToolBar);
 
     // initialize preview background color
     wxString c = cfg->Read(wxT("/GLPreviewFrame/PreviewBackground"),wxT(HUGIN_PREVIEW_BACKGROUND));
@@ -366,18 +375,30 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     wxPanel *panel = new wxPanel(toggle_panel);
     wxBitmap bitmap;
     bitmap.LoadFile(huginApp::Get()->GetXRCPath()+wxT("data/preview_show_all.png"),wxBITMAP_TYPE_PNG);
+#if wxCHECK_VERSION(2,9,2)
+    wxButton* select_all=new wxButton(panel,ID_SHOW_ALL,_("All"),wxDefaultPosition,wxDefaultSize,wxBU_EXACTFIT);
+    select_all->SetBitmap(bitmap,wxLEFT);
+    select_all->SetBitmapMargins(0,0);
+#else
     wxBitmapButton * select_all = new wxBitmapButton(panel,ID_SHOW_ALL,bitmap);
+#endif
     bitmap.LoadFile(huginApp::Get()->GetXRCPath()+wxT("data/preview_show_none.png"),wxBITMAP_TYPE_PNG);
+#if wxCHECK_VERSION(2,9,2)
+    wxButton* select_none=new wxButton(panel,ID_SHOW_NONE,_("None"),wxDefaultPosition,wxDefaultSize,wxBU_EXACTFIT);
+    select_none->SetBitmap(bitmap,wxLEFT);
+    select_none->SetBitmapMargins(0,0);
+#else
     wxBitmapButton * select_none = new wxBitmapButton(panel,ID_SHOW_NONE,bitmap);
-    
+    AddLabelToBitmapButton(select_all,_("All"),false);
+    AddLabelToBitmapButton(select_none,_("None"), false);
+#endif
+
     wxBoxSizer *sizer = new wxBoxSizer(wxHORIZONTAL);
     sizer->Add(select_all,0,wxALIGN_CENTER_VERTICAL | wxLEFT | wxTOP | wxBOTTOM,5);
     sizer->Add(select_none,0,wxALIGN_CENTER_VERTICAL | wxRIGHT | wxTOP | wxBOTTOM,5);
     panel->SetSizer(sizer);
     m_ToggleButtonSizer->Add(panel, 0, wxALIGN_CENTER_VERTICAL);
     m_ToggleButtonSizer->Add(m_ButtonPanel, 1, wxEXPAND | wxADJUST_MINSIZE | wxALIGN_CENTER_VERTICAL, 0);
-    AddLabelToBitmapButton(select_all,_("All"),false);
-    AddLabelToBitmapButton(select_none,_("None"), false);
 
     toggle_panel_sizer->Add(m_ToggleButtonSizer, wxEXPAND);
 
