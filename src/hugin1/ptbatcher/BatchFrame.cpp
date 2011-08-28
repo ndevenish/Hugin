@@ -140,6 +140,9 @@ BatchFrame::BatchFrame(wxLocale* locale, wxString xrc)
 #endif
     SetIcon(myIcon);
 
+#if defined __WXMSW__
+    //show tray icon only on windows
+    //because not all window manager on *nix provide a usable tray area
 #if wxCHECK_VERSION(2,9,0)
     if(wxTaskBarIcon::IsAvailable())
     {
@@ -160,6 +163,9 @@ BatchFrame::BatchFrame(wxLocale* locale, wxString xrc)
     {
         m_tray=NULL;
     };
+#endif
+#else
+    m_tray=NULL;
 #endif
 	m_batch = new Batch(this,wxTheApp->argv[0],true);
 	m_batch->gui = true;
