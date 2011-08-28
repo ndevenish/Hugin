@@ -932,6 +932,10 @@
 		733EAA19125C5BBA00658EAF /* config.h in Headers */ = {isa = PBXBuildFile; fileRef = 57E347610C4A8F7D006AA781 /* config.h */; };
 		733EAA29125CD89600658EAF /* icpfind.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7336099F1247DA6D009225D2 /* icpfind.framework */; };
 		733EAA5E125CDA8D00658EAF /* icpfind.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 7336099F1247DA6D009225D2 /* icpfind.framework */; };
+		733EF75A13FEC51300536F16 /* Python.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 733EF75913FEC51300536F16 /* Python.framework */; };
+		733EF75B13FEC51300536F16 /* Python.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 733EF75913FEC51300536F16 /* Python.framework */; };
+		733EF75C13FEC51300536F16 /* Python.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 733EF75913FEC51300536F16 /* Python.framework */; };
+		733EF75E13FEC54D00536F16 /* Python.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 733EF75913FEC51300536F16 /* Python.framework */; };
 		734065AA125BA2CA00FC4790 /* HuginBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 576900AA0D24D29300A6AD01 /* HuginBase.framework */; };
 		734065AB125BA2CA00FC4790 /* HuginVigraImpex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5769FE380D24CFEC00A6AD01 /* HuginVigraImpex.framework */; };
 		734065AC125BA2CA00FC4790 /* libboost_date_time.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73360A161247E32E009225D2 /* libboost_date_time.dylib */; };
@@ -1327,7 +1331,6 @@
 		73A1602A10FB1A0100931D10 /* libPTLensDB.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5771F8150C30268F00736343 /* libPTLensDB.a */; };
 		73A8A34313F56F2300BB58F2 /* HuginBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 576900AA0D24D29300A6AD01 /* HuginBase.framework */; };
 		73A8A34913F56F8100BB58F2 /* hugin_python_interface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73B1AD0613A6A0B0006A3C54 /* hugin_python_interface.framework */; };
-		73A8A34B13F56F9900BB58F2 /* Python.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73B1AD5813A6B041006A3C54 /* Python.framework */; };
 		73A8A35613F5709500BB58F2 /* hsi_ImageVariableGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = 73A8A35213F5709500BB58F2 /* hsi_ImageVariableGroup.h */; };
 		73A8A35713F5709500BB58F2 /* hsi_Panorama.h in Headers */ = {isa = PBXBuildFile; fileRef = 73A8A35313F5709500BB58F2 /* hsi_Panorama.h */; };
 		73A8A35813F5709500BB58F2 /* hsi_PanoramaData.h in Headers */ = {isa = PBXBuildFile; fileRef = 73A8A35413F5709500BB58F2 /* hsi_PanoramaData.h */; };
@@ -1366,7 +1369,6 @@
 		73B1AD0E13A6A14D006A3C54 /* hpi_classes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73B1ACE113A6A014006A3C54 /* hpi_classes.cpp */; };
 		73B1AD0F13A6A14D006A3C54 /* hpi_classes.h in Headers */ = {isa = PBXBuildFile; fileRef = 73B1ACE213A6A014006A3C54 /* hpi_classes.h */; };
 		73B1AD3913A6AE00006A3C54 /* swigpyrun.h in Headers */ = {isa = PBXBuildFile; fileRef = 73B1AD3813A6AE00006A3C54 /* swigpyrun.h */; };
-		73B1AD5913A6B041006A3C54 /* Python.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73B1AD5813A6B041006A3C54 /* Python.framework */; };
 		73B3F2F113F69549001E557D /* swigpyrun.h in Headers */ = {isa = PBXBuildFile; fileRef = 73B1AD3813A6AE00006A3C54 /* swigpyrun.h */; };
 		73B3F33013F699B7001E557D /* hsi.i in Headers */ = {isa = PBXBuildFile; fileRef = 73B1ACE613A6A014006A3C54 /* hsi.i */; };
 		73B3F49913F69D33001E557D /* HuginVigraImpex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5769FE380D24CFEC00A6AD01 /* HuginVigraImpex.framework */; };
@@ -1391,6 +1393,7 @@
 		73B3F8E713F6A27F001E557D /* libGLEW.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E8A7D98410FB69FC00839DF3 /* libGLEW.dylib */; };
 		73B3F8E813F6A27F001E557D /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 739F846B0EC75402004771D6 /* OpenGL.framework */; };
 		73B3F91813F6A358001E557D /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73C0DBA51046EAC700CB55B7 /* GLUT.framework */; };
+		73B6022613FD874700B56CE1 /* Python.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73B1AD5813A6B041006A3C54 /* Python.framework */; };
 		73BB093D0FACC71200B04997 /* PanoToolsUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73BB093B0FACC71200B04997 /* PanoToolsUtils.cpp */; };
 		73BB093E0FACC71200B04997 /* PanoToolsUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 73BB093C0FACC71200B04997 /* PanoToolsUtils.h */; };
 		73BB093F0FACC71200B04997 /* PanoToolsUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73BB093B0FACC71200B04997 /* PanoToolsUtils.cpp */; };
@@ -3639,6 +3642,7 @@
 		733DF66E117F2384002EC787 /* pto_merge */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = pto_merge; sourceTree = BUILT_PRODUCTS_DIR; };
 		733E08CB13AFB4BB00EE081B /* dual_use.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = dual_use.py; path = "hugin_script_interface/plugins-dev/dual_use.py"; sourceTree = "<group>"; };
 		733E08CC13AFB4BB00EE081B /* plugin_skeleton.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = plugin_skeleton.py; path = "hugin_script_interface/plugins-dev/plugin_skeleton.py"; sourceTree = "<group>"; };
+		733EF75913FEC51300536F16 /* Python.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Python.framework; path = /Library/Frameworks/Python.framework; sourceTree = "<absolute>"; };
 		7340668D125BB2AF00FC4790 /* CPDetectorDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CPDetectorDialog.cpp; sourceTree = "<group>"; };
 		734066E9125BB83400FC4790 /* FindPanoDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FindPanoDialog.cpp; sourceTree = "<group>"; };
 		734066EA125BB83400FC4790 /* FailedProjectsDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FailedProjectsDialog.cpp; sourceTree = "<group>"; };
@@ -4221,6 +4225,7 @@
 				E864E2C610CE8437007AC6E4 /* liblcms.dylib in Frameworks */,
 				E8A7D98610FB6B9E00839DF3 /* libGLEW.dylib in Frameworks */,
 				E8A7D98B10FB6CE300839DF3 /* libexiv2.dylib in Frameworks */,
+				733EF75E13FEC54D00536F16 /* Python.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4740,6 +4745,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				73B6022613FD874700B56CE1 /* Python.framework in Frameworks */,
 				73A8A7C613F598D500BB58F2 /* hugin_python_interface.framework in Frameworks */,
 				737E495F11D3FD74002BA8AE /* Carbon.framework in Frameworks */,
 				737E496111D3FD74002BA8AE /* libiconv.dylib in Frameworks */,
@@ -4775,6 +4781,7 @@
 				737E497811D3FD74002BA8AE /* libGLEW.dylib in Frameworks */,
 				737E497911D3FD74002BA8AE /* libexiv2.dylib in Frameworks */,
 				735F091712DF6F300081D893 /* AGL.framework in Frameworks */,
+				733EF75B13FEC51300536F16 /* Python.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4957,7 +4964,7 @@
 				73B3F49913F69D33001E557D /* HuginVigraImpex.framework in Frameworks */,
 				73A8A34313F56F2300BB58F2 /* HuginBase.framework in Frameworks */,
 				73A8A34913F56F8100BB58F2 /* hugin_python_interface.framework in Frameworks */,
-				73A8A34B13F56F9900BB58F2 /* Python.framework in Frameworks */,
+				733EF75C13FEC51300536F16 /* Python.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4997,8 +5004,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				73B1AD5913A6B041006A3C54 /* Python.framework in Frameworks */,
 				73FDC9D513A7D69C0042030D /* HuginBase.framework in Frameworks */,
+				733EF75A13FEC51300536F16 /* Python.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5558,6 +5565,7 @@
 		5745FC05094E1D5400E6B672 /* External */ = {
 			isa = PBXGroup;
 			children = (
+				733EF75913FEC51300536F16 /* Python.framework */,
 				7302E00613ADE56600700CD0 /* Snow Leopard binaries */,
 				5749F84D067B601A00A6EDD4 /* Mac OS SDK */,
 				73EAB5250E86CEA90020D514 /* lib-static */,
@@ -9021,7 +9029,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#if [ $ACTION = \"build\" ]\n#then\n# sh ../mac/preprocess_swig_headers.sh\n#fi\n\n# $Id: preprocess_swig_headers $\n\nCOMMAND=\"gcc -E -D_HSI_IGNORE_SECTION\"\nHUGIN_BASE_DIR=\"../src\"\nPanoheader_dir=\"../src/hugin_base/panodata\"\nHSI_dir=\"../src/hugin_script_interface\"\nimg_vars=\"$Panoheader_dir/image_variables.h\"\n\nrm -rf \"$HSI_dir/hsi_ImageVariableGroup.h\" \"$HSI_dir/hsi_Panorama.h\" \"$HSI_dir/hsi_PanoramaData.h\" \"$HSI_dir/hsi_SrcPanoImage.h\"\n\n\n# First C-preprocess the sections from accessor-generating\n# headers that SWIG needs to see, ignoring the parts\n# where _HSI_IGNORE_SECTION is define.\n$COMMAND \"$Panoheader_dir/ImageVariableGroup.h\" > \"$HSI_dir/hsi_ImageVariableGroup.h\"  \"$img_vars\"\n$COMMAND \"$Panoheader_dir/Panorama.h\" > \"$HSI_dir/hsi_Panorama.h\"  \"$img_vars\"\n$COMMAND \"$Panoheader_dir/PanoramaData.h\" > \"$HSI_dir/hsi_PanoramaData.h\"  \"$img_vars\"\n$COMMAND \"$Panoheader_dir/SrcPanoImage.h\" > \"$HSI_dir/hsi_SrcPanoImage.h\"  \"$img_vars\"\n\n\n# Now create the hsiPYTHON_wrap.cxx\n##        cd /opt/software/hugin/build/src/hugin_script_interface && /usr/bin/swig2.0 -python -I/opt/software/hugin/build/src/hugin_script_interface -outdir /opt/software/hugin/build/src/hugin_script_interface -c++ -I/opt/software/hugin/build/src -I/opt/software/hugin/src/hugin_base -I/opt/software/hugin/src/foreign -I/opt/software/hugin/src/foreign/vigra -I/opt/software/hugin/src/celeste -I/opt/software/hugin/build/src/celeste -I/opt/software/hugin/src -I/usr/include -I/usr/include/OpenEXR -I/usr/local/include -I/usr/include/python2.7 -I/opt/software/hugin/src/hugin_script_interface -I/opt/software/hugin/build/src/hugin_script_interface -o /opt/software/hugin/build/src/hugin_script_interface/hsiPYTHON_wrap.cxx /opt/software/hugin/src/hugin_script_interface/hsi.i\n\ninclude_folders=\"-I../src/hugin_script_interface -I../src -I../src/hugin_base -I../src/foreign/vigra -I../src/celeste -I../src -I/usr/include -I/usr/include/python2.7 -I/System/Library/Frameworks/Python.framework/Headers\"\n\n\nswig -python -outdir $HSI_dir -c++ $include_folders -o $HSI_dir/hsiPYTHON_wrap.cxx $HSI_dir/hsi.i\n\n\nwraps=\"  ${HUGIN_BASE_DIR}/appbase/DocumentData.h \\\n  ${HUGIN_BASE_DIR}/panodata/PanoramaData.h \\\n  ${HUGIN_BASE_DIR}/panodata/ImageVariable.h \\\n  ${HUGIN_BASE_DIR}/panodata/ImageVariableGroup.h \\\n  ${HUGIN_BASE_DIR}/panodata/StandardImageVariableGroups.h \\\n  ${HUGIN_BASE_DIR}/panodata/ImageVariableTranslate.h \\\n  ${HUGIN_BASE_DIR}/panodata/Lens.h \\\n  ${HUGIN_BASE_DIR}/panodata/SrcPanoImage.h \\\n  ${HUGIN_BASE_DIR}/panodata/PanoramaVariable.h \\\n  ${HUGIN_BASE_DIR}/panodata/ControlPoint.h \\\n  ${HUGIN_BASE_DIR}/panodata/PanoramaOptions.h \\\n  ${HUGIN_BASE_DIR}/panodata/PanoramaData.h \\\n  ${HUGIN_BASE_DIR}/panodata/Panorama.h \\\n  ${HUGIN_BASE_DIR}/panotools/PanoToolsUtils.h \\\n  ${HUGIN_BASE_DIR}/panotools/PanoToolsInterface.h \\\n  ${HUGIN_BASE_DIR}/panotools/PanoToolsOptimizerWrapper.h \\\n  ${HUGIN_BASE_DIR}/algorithms/PanoramaAlgorithm.h \\\n  ${HUGIN_BASE_DIR}/algorithms/StitcherAlgorithm.h \\\n  ${HUGIN_BASE_DIR}/algorithms/assistant_makefile/AssistantMakefilelibExport.h \\\n  ${HUGIN_BASE_DIR}/algorithms/basic/CalculateCPStatistics.h \\\n  ${HUGIN_BASE_DIR}/algorithms/basic/CalculateMeanExposure.h \\\n  ${HUGIN_BASE_DIR}/algorithms/basic/CalculateOptimalROI.h \\\n  ${HUGIN_BASE_DIR}/algorithms/basic/CalculateOptimalScale.h \\\n  ${HUGIN_BASE_DIR}/algorithms/basic/CalculateOverlap.h \\\n  ${HUGIN_BASE_DIR}/algorithms/basic/RotatePanorama.h \\\n  ${HUGIN_BASE_DIR}/algorithms/basic/StraightenPanorama.h \\\n  ${HUGIN_BASE_DIR}/algorithms/basic/TranslatePanorama.h \\\n  ${HUGIN_BASE_DIR}/algorithms/control_points/CleanCP.h \\\n  ${HUGIN_BASE_DIR}/algorithms/nona/CalculateFOV.h \\\n  ${HUGIN_BASE_DIR}/algorithms/nona/CenterHorizontally.h \\\n  ${HUGIN_BASE_DIR}/algorithms/nona/ComputeImageROI.h \\\n  ${HUGIN_BASE_DIR}/algorithms/nona/FitPanorama.h \\\n  ${HUGIN_BASE_DIR}/algorithms/nona/NonaFileStitcher.h \\\n  ${HUGIN_BASE_DIR}/algorithms/optimizer/PhotometricOptimizer.h \\\n  ${HUGIN_BASE_DIR}/algorithms/optimizer/PTOptimizer.h \\\n  ${HUGIN_BASE_DIR}/algorithms/panorama_makefile/PanoramaMakefilelibExport.h \\\n  ${HUGIN_BASE_DIR}/algorithms/point_sampler/PointSampler.h\"\n\n";
+			shellScript = "#if [ $ACTION = \"build\" ]\n#then\n# sh ../mac/preprocess_swig_headers.sh\n#fi\n\n#export PATH=/usr/bin:$PATH\n\n#FIRST CREATE THE SWIGPYRUN>H\nswig -c++ -python -external-runtime\n\n# $Id: preprocess_swig_headers $\n\nCOMMAND=\"gcc -E -D_HSI_IGNORE_SECTION\"\nHUGIN_BASE_DIR=\"../src\"\nPanoheader_dir=\"../src/hugin_base/panodata\"\nHSI_dir=\"../src/hugin_script_interface\"\nimg_vars=\"$Panoheader_dir/image_variables.h\"\n\nrm -rf \"$HSI_dir/hsi_ImageVariableGroup.h\" \"$HSI_dir/hsi_Panorama.h\" \"$HSI_dir/hsi_PanoramaData.h\" \"$HSI_dir/hsi_SrcPanoImage.h\"\n\n\n# First C-preprocess the sections from accessor-generating\n# headers that SWIG needs to see, ignoring the parts\n# where _HSI_IGNORE_SECTION is define.\n$COMMAND \"$Panoheader_dir/ImageVariableGroup.h\" > \"$HSI_dir/hsi_ImageVariableGroup.h\"  \"$img_vars\"\n$COMMAND \"$Panoheader_dir/Panorama.h\" > \"$HSI_dir/hsi_Panorama.h\"  \"$img_vars\"\n$COMMAND \"$Panoheader_dir/PanoramaData.h\" > \"$HSI_dir/hsi_PanoramaData.h\"  \"$img_vars\"\n$COMMAND \"$Panoheader_dir/SrcPanoImage.h\" > \"$HSI_dir/hsi_SrcPanoImage.h\"  \"$img_vars\"\n\n\n# Now create the hsiPYTHON_wrap.cxx\n##        cd /opt/software/hugin/build/src/hugin_script_interface && /usr/bin/swig2.0 -python -I/opt/software/hugin/build/src/hugin_script_interface -outdir /opt/software/hugin/build/src/hugin_script_interface -c++ -I/opt/software/hugin/build/src -I/opt/software/hugin/src/hugin_base -I/opt/software/hugin/src/foreign -I/opt/software/hugin/src/foreign/vigra -I/opt/software/hugin/src/celeste -I/opt/software/hugin/build/src/celeste -I/opt/software/hugin/src -I/usr/include -I/usr/include/OpenEXR -I/usr/local/include -I/usr/include/python2.7 -I/opt/software/hugin/src/hugin_script_interface -I/opt/software/hugin/build/src/hugin_script_interface -o /opt/software/hugin/build/src/hugin_script_interface/hsiPYTHON_wrap.cxx /opt/software/hugin/src/hugin_script_interface/hsi.i\n\ninclude_folders=\"-I../src/hugin_script_interface -I../src -I../src/hugin_base -I../src/foreign/vigra -I../src/celeste -I../src -I/usr/include -I/System/Library/Frameworks/Python.framework/Headers\"\n\n#swig -python -outdir $HSI_dir -c++ $include_folders -o \n\nswig -python -outdir $HSI_dir -c++ $include_folders  $HSI_dir/hsi.i -o $HSI_dir/hsiPYTHON_wrap.cxx\n\n\nwraps=\"  ${HUGIN_BASE_DIR}/appbase/DocumentData.h \\\n  ${HUGIN_BASE_DIR}/panodata/PanoramaData.h \\\n  ${HUGIN_BASE_DIR}/panodata/ImageVariable.h \\\n  ${HUGIN_BASE_DIR}/panodata/ImageVariableGroup.h \\\n  ${HUGIN_BASE_DIR}/panodata/StandardImageVariableGroups.h \\\n  ${HUGIN_BASE_DIR}/panodata/ImageVariableTranslate.h \\\n  ${HUGIN_BASE_DIR}/panodata/Lens.h \\\n  ${HUGIN_BASE_DIR}/panodata/SrcPanoImage.h \\\n  ${HUGIN_BASE_DIR}/panodata/PanoramaVariable.h \\\n  ${HUGIN_BASE_DIR}/panodata/ControlPoint.h \\\n  ${HUGIN_BASE_DIR}/panodata/PanoramaOptions.h \\\n  ${HUGIN_BASE_DIR}/panodata/PanoramaData.h \\\n  ${HUGIN_BASE_DIR}/panodata/Panorama.h \\\n  ${HUGIN_BASE_DIR}/panotools/PanoToolsUtils.h \\\n  ${HUGIN_BASE_DIR}/panotools/PanoToolsInterface.h \\\n  ${HUGIN_BASE_DIR}/panotools/PanoToolsOptimizerWrapper.h \\\n  ${HUGIN_BASE_DIR}/algorithms/PanoramaAlgorithm.h \\\n  ${HUGIN_BASE_DIR}/algorithms/StitcherAlgorithm.h \\\n  ${HUGIN_BASE_DIR}/algorithms/assistant_makefile/AssistantMakefilelibExport.h \\\n  ${HUGIN_BASE_DIR}/algorithms/basic/CalculateCPStatistics.h \\\n  ${HUGIN_BASE_DIR}/algorithms/basic/CalculateMeanExposure.h \\\n  ${HUGIN_BASE_DIR}/algorithms/basic/CalculateOptimalROI.h \\\n  ${HUGIN_BASE_DIR}/algorithms/basic/CalculateOptimalScale.h \\\n  ${HUGIN_BASE_DIR}/algorithms/basic/CalculateOverlap.h \\\n  ${HUGIN_BASE_DIR}/algorithms/basic/RotatePanorama.h \\\n  ${HUGIN_BASE_DIR}/algorithms/basic/StraightenPanorama.h \\\n  ${HUGIN_BASE_DIR}/algorithms/basic/TranslatePanorama.h \\\n  ${HUGIN_BASE_DIR}/algorithms/control_points/CleanCP.h \\\n  ${HUGIN_BASE_DIR}/algorithms/nona/CalculateFOV.h \\\n  ${HUGIN_BASE_DIR}/algorithms/nona/CenterHorizontally.h \\\n  ${HUGIN_BASE_DIR}/algorithms/nona/ComputeImageROI.h \\\n  ${HUGIN_BASE_DIR}/algorithms/nona/FitPanorama.h \\\n  ${HUGIN_BASE_DIR}/algorithms/nona/NonaFileStitcher.h \\\n  ${HUGIN_BASE_DIR}/algorithms/optimizer/PhotometricOptimizer.h \\\n  ${HUGIN_BASE_DIR}/algorithms/optimizer/PTOptimizer.h \\\n  ${HUGIN_BASE_DIR}/algorithms/panorama_makefile/PanoramaMakefilelibExport.h \\\n  ${HUGIN_BASE_DIR}/algorithms/point_sampler/PointSampler.h\"\n\n";
 		};
 		73A8A36713F57EA100BB58F2 /* Copy all tools into Hugin.app */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -9063,7 +9071,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "swig -c++ -python -external-runtime";
+			shellScript = "#swig -c++ -python -external-runtime";
 		};
 		73DAADCE119DB90B002149AC /* Copy External Excecutable files */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -14535,7 +14543,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(WX_ARCH)";
-				BUNDLE_LOADER = /Library/Frameworks/Python.framework/Versions/2.7/bin/python2.7;
+				BUNDLE_LOADER = /usr/bin/python;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DYLIB_COMPATIBILITY_VERSION = "";
@@ -14557,7 +14565,6 @@
 					../src/foreign/vigra,
 					../src/celeste,
 					"$(WX_INCLUDE_DIR)",
-					/usr/include/python2.7,
 				);
 				INSTALL_PATH = "@executable_path/../Libraries";
 				LIBRARY_SEARCH_PATHS = (
@@ -14753,6 +14760,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(WX_ARCH)";
+				BUNDLE_LOADER = "";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DYLIB_COMPATIBILITY_VERSION = 1;
