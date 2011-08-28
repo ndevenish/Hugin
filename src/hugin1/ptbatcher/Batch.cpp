@@ -25,9 +25,7 @@
  */
 
 #include "Batch.h"
-#include "PTBatcherGUI.h"
 #include <wx/stdpaths.h>
-#include <wx/app.h>
 
 BEGIN_EVENT_TABLE(Batch, wxFrame)
  EVT_END_PROCESS(-1, Batch::OnProcessTerminate)
@@ -46,7 +44,6 @@ Batch::Batch(wxFrame* parent, wxString path, bool bgui) : wxFrame(parent,wxID_AN
 	parallel = false;
 	deleteFiles = false;
 	shutdown = false;
-  quit = false;
 	overwrite = true;
 	verbose = false;
 	gui = bgui;
@@ -599,16 +596,6 @@ void Batch::OnProcessTerminate(wxProcessEvent & event)
 						}
 					}
 				}
-				if(quit)  //after we are finished we quit the GUI app if checked
-        {
-            if(gui)
-            {
-                wxGetApp().GetTopWindow()->Close();
-                wxExit();
-            }
-            else
-                cout << "Quit implemented in GUI only." << endl;
-        }
 			}
 			else
 			{

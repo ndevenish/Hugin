@@ -209,7 +209,5 @@
 #define HUGIN_PROCESSOR_PARALLEL        0l    // boolean
 #define HUGIN_PROCESSOR_OVERWRITE       0l    // boolean
 #define HUGIN_PROCESSOR_VERBOSE         1l    // boolean
-#define HUGIN_PROCESSOR_QUIT            1l    // boolean
-#define HUGIN_PROCESSOR_SHUTDOWN        0l    // boolean
 
 #endif // _CONFIG_DEFAULTS_H

@@ -126,7 +126,6 @@ bool PTBatcherGUI::OnInit()
       { wxCMD_LINE_SWITCH, "d", "delete",  "delete *.pto files after stitching" },
       { wxCMD_LINE_SWITCH, "o", "overwrite",  "overwrite previous files without asking" },
       { wxCMD_LINE_SWITCH, "s", "shutdown",  "shutdown computer after batch is complete" },
-      { wxCMD_LINE_SWITCH, "q", "quit",  "quit after batch is complete" },
       { wxCMD_LINE_SWITCH, "v", "verbose",  "show verbose output when processing projects" },
       { wxCMD_LINE_SWITCH, "a", "assistant", "run the assistant on the given projects" },
       { wxCMD_LINE_PARAM,  NULL, NULL, _("stitch_project.pto [output prefix]|assistant_project.pto"),
@@ -140,7 +139,6 @@ bool PTBatcherGUI::OnInit()
 	  { wxCMD_LINE_SWITCH, wxT("d"), wxT("delete"),  wxT("delete *.pto files after stitching") },
 	  { wxCMD_LINE_SWITCH, wxT("o"), wxT("overwrite"),  wxT("overwrite previous files without asking") },
 	  { wxCMD_LINE_SWITCH, wxT("s"), wxT("shutdown"),  wxT("shutdown computer after batch is complete") },
-    { wxCMD_LINE_SWITCH, wxT("q"), wxT("quit"),  wxT("quit after batch is complete") },
 	  { wxCMD_LINE_SWITCH, wxT("v"), wxT("verbose"),  wxT("show verbose output when processing projects") },
       { wxCMD_LINE_SWITCH, wxT("a"), wxT("assistant"), wxT("run the assistant on the given projects") },
       { wxCMD_LINE_PARAM,  NULL, NULL, _("stitch_project.pto [output prefix]|assistant_project.pto"),
@@ -304,8 +302,6 @@ bool PTBatcherGUI::OnInit()
 			config->Write(wxT("/BatchFrame/ParallelCheck"), 1l);
 		if (parser.Found(wxT("s")))
 			config->Write(wxT("/BatchFrame/ShutdownCheck"), 1l);
-    if (parser.Found(wxT("q")))
-      config->Write(wxT("/BatchFrame/QuitCheck"), 1l);
 		if (parser.Found(wxT("o")))
 			config->Write(wxT("/BatchFrame/OverwriteCheck"), 1l);
 		if (parser.Found(wxT("v")))
@@ -320,8 +316,6 @@ bool PTBatcherGUI::OnInit()
 			conn->Request(wxT("SetParallelCheck"));
 		if (parser.Found(wxT("s")))
 			conn->Request(wxT("SetShutdownCheck"));
-    if (parser.Found(wxT("q")))
-      conn->Request(wxT("SetQuitCheck"));
 		if (parser.Found(wxT("o")))
 			conn->Request(wxT("SetOverwriteCheck"));
 		if (parser.Found(wxT("v")))
@@ -440,12 +434,6 @@ wxChar* BatchIPCConnection::OnRequest(const wxString& topic, const wxString& ite
 			MyBatchFrame->OnCheckShutdown(event);
 			MyBatchFrame->SetCheckboxes();
 		};
-  if(item==wxT("SetQuitCheck"))
-    if(!MyBatchFrame->GetCheckQuit())
-    {
-      MyBatchFrame->OnCheckQuit(event);
-      MyBatchFrame->SetCheckboxes();
-    };
 	if(item==wxT("SetOverwriteCheck"))
 		if(!MyBatchFrame->GetCheckOverwrite())
 		{

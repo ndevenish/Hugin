@@ -97,7 +97,6 @@ BEGIN_EVENT_TABLE(BatchFrame, wxFrame)
 	EVT_CHECKBOX(XRCID("cb_delete"), BatchFrame::OnCheckDelete)
 	EVT_CHECKBOX(XRCID("cb_overwrite"), BatchFrame::OnCheckOverwrite)
 	EVT_CHECKBOX(XRCID("cb_shutdown"), BatchFrame::OnCheckShutdown)
-  EVT_CHECKBOX(XRCID("cb_quit"), BatchFrame::OnCheckQuit)
 	EVT_CHECKBOX(XRCID("cb_verbose"), BatchFrame::OnCheckVerbose)
 	EVT_END_PROCESS(-1, BatchFrame::OnProcessTerminate)
 	EVT_CLOSE(BatchFrame::OnClose)
@@ -900,12 +899,7 @@ void BatchFrame::SetCheckboxes()
 		XRCCTRL(*this,"cb_shutdown",wxCheckBox)->SetValue(false);
 	else
 		XRCCTRL(*this,"cb_shutdown",wxCheckBox)->SetValue(true);
-  i=config->Read(wxT("/BatchFrame/QuitCheck"), 0l);
-  if(i==0)
-    XRCCTRL(*this,"cb_quit",wxCheckBox)->SetValue(false);
-  else
-    XRCCTRL(*this,"cb_quit",wxCheckBox)->SetValue(true);
-  i=config->Read(wxT("/BatchFrame/OverwriteCheck"), 0l);
+	i=config->Read(wxT("/BatchFrame/OverwriteCheck"), 0l);
 	if(i==0)
 		XRCCTRL(*this,"cb_overwrite",wxCheckBox)->SetValue(false);
 	else
@@ -971,20 +965,6 @@ void BatchFrame::OnCheckShutdown(wxCommandEvent &event)
 		m_batch->shutdown = false;
 		wxConfigBase::Get()->Write(wxT("/BatchFrame/ShutdownCheck"), 0l);
 	}
-}
-
-void BatchFrame::OnCheckQuit(wxCommandEvent &event)
-{
-  if(event.IsChecked())
-  {
-    m_batch->quit = true;
-    wxConfigBase::Get()->Write(wxT("/BatchFrame/QuitCheck"), 1l);
-  }
-  else
-  {
-    m_batch->quit = false;
-    wxConfigBase::Get()->Write(wxT("/BatchFrame/QuitCheck"), 0l);
-  }
 }
 
 void BatchFrame::OnCheckVerbose(wxCommandEvent &event)
@@ -1056,10 +1036,6 @@ void BatchFrame::PropagateDefaults()
 		m_batch->shutdown = true;
 	else
 		m_batch->shutdown = false;
-  if(GetCheckQuit())
-    m_batch->quit = true;
-  else
-    m_batch->quit = false;
 	if(GetCheckOverwrite())
 		m_batch->overwrite = true;
 	else

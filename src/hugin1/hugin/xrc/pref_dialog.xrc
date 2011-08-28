@@ -961,22 +961,6 @@ for HDR panoramas use Preview window.</label>
                                 <flag>wxALL</flag>
                                 <border>5</border>
                               </object>
-                              <object class="sizeritem">
-                                <object class="wxCheckBox" name="pref_processor_quit">
-                                  <label>Quit on finish</label>
-                                  <tooltip>Quit batch processor at the end of the batch.</tooltip>
-                                </object>
-                                <flag>wxALL</flag>
-                                <border>5</border>
-                              </object>
-                              <object class="sizeritem">
-                                <object class="wxCheckBox" name="pref_processor_shutdown">
-                                  <label>Shutdown on finish</label>
-                                  <tooltip>Shutdown computer at the end of the batch.</tooltip>
-                                </object>
-                                <flag>wxALL</flag>
-                                <border>5</border>
-                              </object>
                               <label>Options</label>
                               <orient>wxVERTICAL</orient>
                             </object>
