@@ -282,21 +282,6 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     SetMenuBar(wxXmlResource::Get()->LoadMenuBar(this, wxT("main_menubar")));
 
 #ifdef HUGIN_HSI
-
-    // if the folder for the storage of custom plugins does not exist, create it
-    wxString p;
-    if(!wxConfigBase::Get()->Read(wxT("/pythonScriptPath"), &p))
-    {
-        // is it really necessary to try to create the dir at each startup?
-        if(wxConfigBase::Get()->Read(wxT("PluginPythonDir"), &p))
-        {
-            if(!p.IsEmpty())
-            {
-                wxFileName::Mkdir(p,0700,wxPATH_MKDIR_FULL);
-            };
-        };
-    }
-
     wxMenuBar* menubar=GetMenuBar();
     // the plugin menu will be generated dynamically
     wxMenu *pluginMenu=new wxMenu();
@@ -1705,13 +1690,7 @@ void MainFrame::OnPythonScript(wxCommandEvent & e)
             wxConfigBase::Get()->Read(wxT("/lensPath"),wxT("")), wxT(""),
             _("Python script (*.py)|*.py|All files (*.*)|*.*"),
             wxFD_OPEN, wxDefaultPosition);
-
-    wxString p;
-    if(!wxConfigBase::Get()->Read(wxT("/pythonScriptPath"), &p))
-    {
-        wxConfigBase::Get()->Read(wxT("PluginPythonDir"), &p);
-    }
-    dlg.SetDirectory(p);
+    dlg.SetDirectory(wxConfigBase::Get()->Read(wxT("/pythonScriptPath"),wxT("")));
 
     if (dlg.ShowModal() == wxID_OK)
     {
