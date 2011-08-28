@@ -28,6 +28,7 @@
 #include "panoinc.h"
 #include "panoinc_WX.h"
 #include "PTWXDlg.h"
+#include <wx/app.h>
 
 extern "C" {
 #include <pano13/filter.h>
@@ -61,6 +62,7 @@ static int PTProgressWX( int command, char* argument ){
         case _initProgress:
             if (dlg) {
                 dlg->Destroy();
+                wxTheApp->Yield();
                 dlg = 0;
             } else {
                 dlg = new wxProgressDialog(_("Panorama Tools"),
@@ -87,6 +89,7 @@ static int PTProgressWX( int command, char* argument ){
             if( dlg != 0 )
             {
                 dlg->Destroy();
+                wxTheApp->Yield();
                 dlg=0;
             }
 
@@ -111,6 +114,7 @@ static int PTInfoDlgWX ( int command, char* argument )	// Display info: same arg
         case _initProgress:
             if (dlg) {
                 dlg->Destroy();
+                wxTheApp->Yield();
                 dlg = 0;
             } else {
                 // we need to ensure that there is are enough lines in the dialog..
@@ -164,6 +168,7 @@ static int PTInfoDlgWX ( int command, char* argument )	// Display info: same arg
             if( dlg != 0 )
             {
                 dlg->Destroy();
+                wxTheApp->Yield();
                 dlg=0;
             }
 
