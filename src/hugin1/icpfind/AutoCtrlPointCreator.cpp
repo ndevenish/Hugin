@@ -419,7 +419,12 @@ CPVector AutoPanoSift::automatch(CPDetectorSetting &setting, Panorama & pano, co
         autopanoArgs.Replace(wxT("%s"), ptoinfile_name);
 
         ofstream ptoinstream(ptoinfile_name.mb_str(wxConvFile));
-        pano.printPanoramaScript(ptoinstream, pano.getOptimizeVector(), pano.getOptions(), imgs, false);
+        //delete all existing control points in temp project
+        //otherwise the existing control points will be loaded again
+        Panorama tempPano=pano.duplicate();
+        CPVector emptyCPV;
+        tempPano.setCtrlPoints(emptyCPV);
+        tempPano.printPanoramaScript(ptoinstream, tempPano.getOptimizeVector(), tempPano.getOptions(), imgs, false);
     }
 
 #ifdef __WXMSW__
