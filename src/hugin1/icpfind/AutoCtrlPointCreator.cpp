@@ -371,10 +371,6 @@ CPVector AutoPanoSift::automatch(CPDetectorSetting &setting, Panorama & pano, co
     tmp.Printf(wxT("%d"), (int) firstImg.getProjection());
     autopanoArgs.Replace(wxT("%f"), tmp);
 
-    // build a list of all image files, and a corrosponding connection map.
-    // local img nr -> global (panorama) img number
-    std::map<int,int> imgMapping;
-
     long idx = autopanoArgs.Find(wxT("%namefile")) ;
     DEBUG_DEBUG("find %namefile in '"<< autopanoArgs.mb_str(wxConvLocal) << "' returned: " << idx);
     bool use_namefile = idx >=0;
@@ -398,13 +394,10 @@ CPVector AutoPanoSift::automatch(CPDetectorSetting &setting, Panorama & pano, co
         DEBUG_DEBUG("before replace %namefile: " << autopanoArgs.mb_str(wxConvLocal));
         autopanoArgs.Replace(wxT("%namefile"), namefile_name);
         DEBUG_DEBUG("after replace %namefile: " << autopanoArgs.mb_str(wxConvLocal));
-        int imgNr=0;
         for(UIntSet::const_iterator it = imgs.begin(); it != imgs.end(); it++)
         {
-            imgMapping[imgNr] = *it;
             namefile.Write(wxString(pano.getImage(*it).getFilename().c_str(), HUGIN_CONV_FILENAME));
             namefile.Write(wxT("\r\n"));
-            imgNr++;
         }
         // close namefile
         if (namefile_name != wxString(wxT(""))) {
@@ -412,12 +405,9 @@ CPVector AutoPanoSift::automatch(CPDetectorSetting &setting, Panorama & pano, co
         }
     } else {
         string imgFiles;
-        int imgNr=0;
         for(UIntSet::const_iterator it = imgs.begin(); it != imgs.end(); it++)
         {
-            imgMapping[imgNr] = *it;
             imgFiles.append(" ").append(quoteFilename(pano.getImage(*it).getFilename()));
-            imgNr++;
         }
         autopanoArgs.Replace(wxT("%i"), wxString (imgFiles.c_str(), HUGIN_CONV_FILENAME));
     }
@@ -581,17 +571,10 @@ CPVector AutoPanoSift::automatch(CPDetectorSetting &setting, PT::Panorama & pano
     tmp.Printf(wxT("%d"), (int) firstImg.getProjection());
     matcherArgs.Replace(wxT("%f"), tmp);
 
-    // build a list of all image files, and a corrosponding connection map.
-    // local img nr -> global (panorama) img number
-    std::map<int,int> imgMapping;
-
     wxString imgFiles;
-    int imgNr=0;
     for(UIntSet::const_iterator it = imgs.begin(); it != imgs.end(); it++)
     {
-        imgMapping[imgNr] = *it;
         imgFiles.append(wxT(" ")).append(wxQuoteFilename(keyFiles[*it]));
-        imgNr++;
      };
      matcherArgs.Replace(wxT("%k"), wxString (imgFiles.wc_str(), HUGIN_CONV_FILENAME));
 
@@ -658,16 +641,10 @@ CPVector AutoPanoKolor::automatch(CPDetectorSetting &setting, Panorama & pano, c
     // write default autopano.kolor.com flags
     wxString autopanoArgs = setting.GetArgs();
 
-    // build a list of all image files, and a corrosponding connection map.
-    // local img nr -> global (panorama) img number
-    std::map<int,int> imgMapping;
     string imgFiles;
-    int imgNr=0;
     for(UIntSet::const_iterator it = imgs.begin(); it != imgs.end(); it++)
     {
-        imgMapping[imgNr] = *it;
         imgFiles.append(" ").append(quoteFilename(pano.getImage(*it).getFilename()));
-        imgNr++;
     }
 
     wxString ptofilepath = wxFileName::CreateTempFileName(wxT("ap_res"));
