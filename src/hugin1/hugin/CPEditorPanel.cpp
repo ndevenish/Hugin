@@ -1788,14 +1788,17 @@ void CPEditorPanel::OnCPListSelect(wxListEvent & ev)
 
 void CPEditorPanel::OnCPListDeselect(wxListEvent & ev)
 {
-    // disable CP controls
-    m_cpModeChoice->Disable();
+    // disable controls
+    // when doing changes to this procedure do also check
+    // interaction with control point table
+    // e.g. m_selectedPoint=UINT_MAX will result in a endless loop and crash
+    changeState(NO_POINT);
     m_addButton->Disable();
     m_delButton->Disable();
     XRCCTRL(*this, "cp_editor_finetune_button", wxButton)->Disable();
-    m_selectedPoint = UINT_MAX;
-    changeState(NO_POINT);
-    UpdateDisplay(true);
+    EnablePointEdit(false);
+    m_leftImg->deselect();
+    m_rightImg->deselect();
 }
 
 void CPEditorPanel::OnZoom(wxCommandEvent & e)
