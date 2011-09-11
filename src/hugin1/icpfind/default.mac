@@ -1,5 +1,5 @@
 [AutoPano]
-AutoPanoCount=6
+AutoPanoCount=7
 Default=0
 
 [AutoPano/AutoPano_0]
@@ -38,3 +38,11 @@ Description=Panomatic (Configured, not installed)
 Program=Use the Choose button to search for it
 Arguments=-o %o %i
 
+[AutoPano/AutoPano_6]
+Type=1
+Description=Vertical lines
+Program=linefind
+Arguments=-o %o %s
+ProgramMatcher=
+ArgumentsMatcher=
+Option=1

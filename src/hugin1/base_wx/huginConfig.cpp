@@ -244,6 +244,14 @@ AssistantPrograms getAssistantProgramsConfig(wxString bundledBinDir, wxConfigBas
     } catch (wxString s) {
         wxMessageBox(s, _("Warning"));
     }
+    try
+    {
+        progs.linefind= getProgram(config,bindir, wxT("linefind"), wxT("linefind"));
+    }
+    catch (wxString s)
+    {
+        wxMessageBox(s, _("Warning"));
+    }
     return progs;
 }
 

@@ -94,6 +94,7 @@ bool AssistantMakefilelibExport::createItems()
     newVarDef(vcpclean, "CPCLEAN", progs.cpclean)
     newVarDef(vautooptimiser, "AUTOOPTIMISER", progs.autooptimiser)
     newVarDef(vpanomodify, "PANO_MODIFY", progs.pano_modify)
+    newVarDef(vlinefind, "LINEFIND", progs.linefind)
 
     newVarDef(vproject, "PROJECT", projectFile, Makefile::MAKE);
     newVarDef(vprojectShell, "PROJECT_SHELL", projectFile,Makefile::SHELL)
@@ -134,10 +135,24 @@ bool AssistantMakefilelibExport::createItems()
         //building cpclean command
         if(runCPClean)
         {
-            all->addCommand(vcheckpto->getRef()+" "+vprojectShell->getRef());
             echoInfo(*all,"Statistical cleaning of control points...");
             all->addCommand(vcpclean->getRef()+outinproject);
         };
+    };
+    //vertical line detector
+    CPVector allCP=pano.getCtrlPoints();
+    bool hasVerticalLines=false;
+    if(allCP.size()>0)
+    {
+        for(size_t i=0;i<allCP.size() && !hasVerticalLines;i++)
+        {
+            hasVerticalLines=(allCP[i].mode==ControlPoint::X);
+        };
+    };
+    if(!hasVerticalLines)
+    {
+        echoInfo(*all,"Searching for vertical lines...");
+        all->addCommand(vlinefind->getRef()+outinproject);
     };
     //now optimise all
     all->addCommand(vcheckpto->getRef()+" "+vprojectShell->getRef());

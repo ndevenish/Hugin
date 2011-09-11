@@ -399,7 +399,7 @@ void SmartOptimise::smartOptimize(PanoramaData& optPano)
     
     // do global optimisation of position with all control points.
     optPano.setCtrlPoints(cps);
-    OptimizeVector optvars = createOptVars(optPano, OPT_POS);
+    OptimizeVector optvars = createOptVars(optPano, OPT_POS, optPano.getOptions().optimizeReferenceImage);
     optPano.setOptimizeVector(optvars);
     PTools::optimize(optPano);
     
@@ -475,7 +475,7 @@ void SmartOptimise::smartOptimize(PanoramaData& optPano)
         // save old variables, might be needed if optimization went wrong
         VariableMapVector oldVars = optPano.getVariables();
         DEBUG_DEBUG("oldVars[0].b: " << const_map_get(oldVars[0],"b").getValue());
-        optvars = createOptVars(optPano, optmode);
+        optvars = createOptVars(optPano, optmode, optPano.getOptions().optimizeReferenceImage);
         optPano.setOptimizeVector(optvars);
         // global optimisation.
         DEBUG_DEBUG("before opt 1: newVars[0].b: " << const_map_get(optPano.getVariables()[0],"b").getValue());
@@ -517,7 +517,7 @@ void SmartOptimise::smartOptimize(PanoramaData& optPano)
             DEBUG_DEBUG("oldVars[0].b: " << const_map_get(oldVars[0],"b").getValue());
             optPano.updateVariables(oldVars);
             DEBUG_DEBUG("before opt 2: newVars[0].b: " << const_map_get(optPano.getVariables()[0],"b").getValue());
-            optvars = createOptVars(optPano, optmode);
+            optvars = createOptVars(optPano, optmode, optPano.getOptions().optimizeReferenceImage);
             optPano.setOptimizeVector(optvars);
             DEBUG_DEBUG("recover optimisation: " << optmode);
             // global optimisation.
@@ -538,7 +538,7 @@ void SmartOptimise::smartOptimize(PanoramaData& optPano)
                 // revert and redo optimisation
                 optPano.updateVariables(oldVars);
                 DEBUG_DEBUG("before opt 3: newVars[0].b: " << const_map_get(optPano.getVariables()[0],"b").getValue());
-                optvars = createOptVars(optPano, optmode);
+                optvars = createOptVars(optPano, optmode, optPano.getOptions().optimizeReferenceImage);
                 optPano.setOptimizeVector(optvars);
                 // global optimisation.
                 PTools::optimize(optPano);
@@ -571,6 +571,13 @@ OptimizeVector SmartOptimizerStub::createOptVars(const PanoramaData& optPano, in
                 imgopt.insert("y");
             }
         }
+        //we need to optimize roll and pitch to level the pano
+        //possible after introduction of line finder
+        if((i==anchorImg) && (mode & OPT_POS))
+        {
+            imgopt.insert("r");
+            imgopt.insert("p");
+        };
         // do not optimise anchor image for exposure.
         if (i!=anchorImg)
         {

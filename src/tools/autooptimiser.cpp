@@ -224,10 +224,27 @@ int main(int argc, char *argv[])
         if (!quiet) std::cerr << "*** Geometric parameters not optimized" << endl;
     }
 
-    if (doLevel) {
-        // straighten
-        StraightenPanorama(pano).run();
-        CenterHorizontally(pano).run();
+    if (doLevel)
+    {
+        bool hasVerticalLines=false;
+        CPVector allCP=pano.getCtrlPoints();
+        if(allCP.size()>0 && (doPairwise || doAutoOpt || doNormalOpt))
+        {
+            for(size_t i=0;i<allCP.size() && !hasVerticalLines;i++)
+            {
+                hasVerticalLines=(allCP[i].mode==ControlPoint::X);
+            };
+        };
+        // straighten only if there are no vertical control points
+        if(hasVerticalLines)
+        {
+            cout << "Skipping automatic leveling because of existing vertical control points." << endl;
+        }
+        else
+        {
+            StraightenPanorama(pano).run();
+            CenterHorizontally(pano).run();
+        };
     }
 
     if (chooseProj) {

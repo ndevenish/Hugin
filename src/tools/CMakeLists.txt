@@ -17,6 +17,9 @@ target_link_libraries(vig_optimize ${common_libs} ${image_libs})
 add_executable(align_image_stack align_image_stack.cpp)
 target_link_libraries(align_image_stack ${common_libs} ${image_libs} ${GLEW_LIBRARIES} ${GLUT_LIBRARIES})
 
+add_executable(linefind linefind.cpp)
+target_link_libraries(linefind ${common_libs} ${image_libs} huginlines)
+
 add_executable(tca_correct tca_correct.cpp)
 target_link_libraries(tca_correct ${common_libs} ${image_libs})
 
@@ -41,7 +44,7 @@ target_link_libraries(pano_modify ${common_libs} )
 add_executable(hugin_hdrmerge hugin_hdrmerge.cpp ../deghosting/deghosting.cpp ../deghosting/deghosting.h ../deghosting/khan.h ../deghosting/support.h ../deghosting/algtinyvector.h)
 target_link_libraries(hugin_hdrmerge ${common_libs} ${image_libs} )
 
-install(TARGETS nona vig_optimize autooptimiser fulla align_image_stack
+install(TARGETS nona vig_optimize autooptimiser fulla align_image_stack linefind
         tca_correct pto2mk cpclean checkpto hugin_hdrmerge pano_trafo pano_modify pto_merge
         DESTINATION ${BINDIR})
 

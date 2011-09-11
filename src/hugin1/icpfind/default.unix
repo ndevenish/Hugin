@@ -1,5 +1,5 @@
 [AutoPano]
-AutoPanoCount=8
+AutoPanoCount=9
 Default=0
 
 [AutoPano/AutoPano_0]
@@ -61,3 +61,11 @@ Description=Align image stack FullFrameFisheye
 Program=align_image_stack
 Arguments=-f %v -e -p %o %i
 
+[AutoPano/AutoPano_8]
+Type=1
+Description=Vertical lines
+Program=linefind
+Arguments=-o %o %s
+ProgramMatcher=
+ArgumentsMatcher=
+Option=1

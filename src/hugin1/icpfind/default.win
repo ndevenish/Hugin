@@ -1,5 +1,5 @@
 [AutoPano]
-AutoPanoCount=8
+AutoPanoCount=9
 Default=0
 
 [AutoPano/AutoPano_0]
@@ -59,4 +59,13 @@ ArgumentsMatcher=--maxmatches %p %o %k
 ArgumentsCleanup=
 ProgramStack=align_image_stack.exe
 ArgumentsStack=-f %v -v -p %o %i
+Option=1
+
+[AutoPano/AutoPano_8]
+Type=1
+Description=Vertical lines
+Program=linefind.exe
+Arguments=-o %o %s
+ProgramMatcher=
+ArgumentsMatcher=
 Option=1

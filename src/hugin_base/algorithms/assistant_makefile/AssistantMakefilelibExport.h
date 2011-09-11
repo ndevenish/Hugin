@@ -51,7 +51,8 @@ public:
         std::string autooptimiser;
         std::string pano_modify;
         std::string checkpto;
- 
+        std::string linefind;
+
         AssistantPrograms()
         {
             // default programs
@@ -61,6 +62,7 @@ public:
             autooptimiser="autooptimiser";
             pano_modify="pano_modify";
             checkpto="checkpto";
+            linefind="linefind";
         };
     };
 
