@@ -283,17 +283,23 @@ void FindPanoDialog::EnableButtons(const bool state)
     m_button_send->Enable(state);
 };
 
+int SortWxFilenames(const wxString& s1,const wxString& s2)
+{
+    return doj::alphanum_comp(std::string(s1.mb_str(wxConvLocal)),std::string(s2.mb_str(wxConvLocal)));
+};
+
 void FindPanoDialog::SearchInDir(wxString dirstring, bool includeSubdir)
 {
-    wxDir dir(dirstring);
     std::vector<PossiblePano*> newPanos;
     wxTimeSpan max_diff(0,0,30,0); //max. 30 s difference between images
     wxString filename;
-    bool cont=dir.GetFirst(&filename,wxEmptyString,wxDIR_FILES|wxDIR_HIDDEN);
-    while(cont && !m_stopped)
+    wxArrayString fileList;
+    wxDir::GetAllFiles(dirstring,&fileList,wxEmptyString,wxDIR_FILES|wxDIR_HIDDEN);
+    fileList.Sort(SortWxFilenames);
+    for(size_t j=0;j<fileList.size() && !m_stopped;j++)
     {
-        m_statustext->SetLabel(wxString::Format(_("Reading file %s"),filename.c_str()));
-        wxFileName file(dir.GetName(),filename);
+        m_statustext->SetLabel(wxString::Format(_("Reading file %s"),fileList[j].c_str()));
+        wxFileName file(fileList[j]);
         file.MakeAbsolute();
         wxString ext=file.GetExt();
         if(ext.CmpNoCase(wxT("jpg"))==0 || ext.CmpNoCase(wxT("jpeg"))==0 ||
@@ -301,11 +307,6 @@ void FindPanoDialog::SearchInDir(wxString dirstring, bool includeSubdir)
         {
             std::string filenamestr(file.GetFullPath().mb_str(HUGIN_CONV_FILENAME));
             SrcPanoImage *img=new SrcPanoImage(filenamestr);
-            // this must be called before the first call to newPanos
-            // otherwise the first/second image is not processed in the right way
-            // But when running in debug mode it works; seems to be a kind of
-            // race conditions
-            wxGetApp().Yield(true);
             if(img->hasEXIFread())
             {
                 bool found=false;
@@ -334,12 +335,10 @@ void FindPanoDialog::SearchInDir(wxString dirstring, bool includeSubdir)
                 //could not read exif infos, disregard this image
                 delete img;
             };
-
         };
         //allow processing events
         wxGetApp().Yield(true);
-        cont=dir.GetNext(&filename);
-    }
+    };
     if(!m_stopped && newPanos.size()>0)
     {
         for(size_t i=0;i<newPanos.size();i++)
@@ -356,11 +355,12 @@ void FindPanoDialog::SearchInDir(wxString dirstring, bool includeSubdir)
             };
         };
     };
-                
+
     if(includeSubdir && !m_stopped)
     {
         //now we go into all directories
-        cont=dir.GetFirst(&filename,wxEmptyString,wxDIR_DIRS);
+        wxDir dir(dirstring);
+        bool cont=dir.GetFirst(&filename,wxEmptyString,wxDIR_DIRS);
         while(cont && !m_stopped)
         {
             SearchInDir(dir.GetName()+wxFileName::GetPathSeparator()+filename,includeSubdir);
