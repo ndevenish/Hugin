@@ -308,8 +308,7 @@ public:
     
     /** try to convert Exif date time string to struct tm 
      *  @return 0, if conversion was sucessfull */
-    const int getExifDateTime(struct tm* datetime) const
-    { return Exiv2::exifTime(m_ExifDate.getData().c_str(),datetime); }
+    const int getExifDateTime(struct tm* datetime) const;
 
     /** unlinking vignetting parameters should unlink the vignetting correction mode
      */
