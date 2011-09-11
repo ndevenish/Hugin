@@ -878,4 +878,13 @@ bool SrcPanoImage::trustExivOrientation()
     return true;
 }
 
+const int SrcPanoImage::getExifDateTime(struct tm* datetime) const
+{
+    //initialize struct
+    std::memset(datetime, 0x0, sizeof(*datetime));
+    //ignore daylight saving flag because it is not saved in EXIF date time format
+    datetime->tm_isdst=-1;
+    return Exiv2::exifTime(m_ExifDate.getData().c_str(),datetime);
+};
+
 } // namespace
