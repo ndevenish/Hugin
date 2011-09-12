@@ -427,7 +427,11 @@ HuginBase::CPVector GetVerticalLines(const HuginBase::Panorama& pano,const unsig
                 vigra::Diff2D diff((double)detectedLines[0].x2-detectedLines[0].x1,(double)detectedLines[0].y2-detectedLines[0].y1);
                 if(abs((diff.x*cos(DEG_TO_RAD(roll))+diff.y*sin(DEG_TO_RAD(roll)))/diff.magnitude())<0.05)
                 {
-                        verticalLines.push_back(detectedLines[0]);
+                    HuginBase::ControlPoint cp=detectedLines[0];
+                    cp.image1Nr=imgNr;
+                    cp.image2Nr=imgNr;
+                    cp.error=0;
+                    verticalLines.push_back(cp);
                 };
             };
         };
