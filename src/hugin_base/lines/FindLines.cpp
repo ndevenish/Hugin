@@ -346,7 +346,11 @@ HuginBase::CPVector GetVerticalLines(const HuginBase::Panorama& pano,const unsig
                 cp.x2=xout;
                 cp.y2=yout;
             };
-            detectedLines.push_back(cp);
+            if(cp.x1>=0 && cp.x1<srcImage.getWidth() && cp.y1>=0 && cp.y1<srcImage.getHeight() &&
+               cp.x2>=0 && cp.x2<srcImage.getWidth() && cp.y2>=0 && cp.y2<srcImage.getHeight())
+            {
+                detectedLines.push_back(cp);
+            };
         };
         //now a final check of the found vertical lines
         //we optimize the pano with a single image and disregard vertical lines with bigger errors
