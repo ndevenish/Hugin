@@ -37,7 +37,11 @@ ToolHelper::ToolHelper(PT::Panorama *pano_in,
     visualization_state = visualization_state_in;
     frame = frame_in;
     images_under_mouse_current = false;
-    mouse_over_pano = true;
+    mouse_over_pano = false;
+    mouse_screen_x = 0;
+    mouse_screen_y = 0;
+    mouse_pano_x = 0;
+    mouse_pano_y = 0;
 }
 
 ToolHelper::~ToolHelper()
