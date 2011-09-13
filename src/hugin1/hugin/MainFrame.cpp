@@ -863,13 +863,33 @@ void MainFrame::OnLoadProject(wxCommandEvent & e)
                          _("Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files (*)|*"),
                          wxFD_OPEN, wxDefaultPosition);
         dlg.SetDirectory(defaultdir);
-        if (dlg.ShowModal() == wxID_OK) {
-            // remove old images from cache
-            ImageCache::getInstance().flush();
-
+        if (dlg.ShowModal() == wxID_OK)
+        {
             wxString filename = dlg.GetPath();
-            LoadProjectFile(filename);
-            return;
+            if(vigra::isImage(filename.mb_str(HUGIN_CONV_FILENAME)))
+            {
+                if(wxMessageBox(wxString::Format(_("File %s is an image file and not a project file.\nThis file can't be open with File, Open.\nDo you want instead add this image file to the current project?"),filename.c_str()),
+#ifdef __WXMSW__
+                    _("Hugin"),
+#else
+                    wxT(""),
+#endif
+                    wxYES_NO | wxICON_QUESTION)==wxYES)
+                {
+                    wxArrayString filenameArray;
+                    filenameArray.Add(filename);
+                    AddImages(filenameArray);
+                };
+                return;
+            }
+            else
+            {
+                // remove old images from cache
+                ImageCache::getInstance().flush();
+
+                LoadProjectFile(filename);
+                return;
+            };
         }
     }
     // do not close old project
@@ -934,38 +954,13 @@ void MainFrame::OnAddImages( wxCommandEvent& event )
     if (dlg.ShowModal() == wxID_OK) {
         // get the selections
         wxArrayString Pathnames;
-        wxArrayString Filenames;
         dlg.GetPaths(Pathnames);
-        dlg.GetFilenames(Filenames);
 
         // e safe the current path to config
         config->Write(wxT("/actualPath"), dlg.GetDirectory());  // remember for later
 
-        bool foundForbiddenChars=false;
-        for(unsigned int i=0;i<Pathnames.GetCount(); i++)
-           foundForbiddenChars=foundForbiddenChars || containsInvalidCharacters(Pathnames[i]);
-        if(foundForbiddenChars)
-        {
-            wxMessageBox(wxString::Format(_("The filename(s) contains one of the following invalid characters: %s\nHugin can not work with these filenames. Please rename your file(s) and try again."),getInvalidCharacters().c_str()),
-                _("Error"),wxOK | wxICON_EXCLAMATION,this);
-        }
-        else
-        {
-            std::vector<std::string> filesv;
-            for (unsigned int i=0; i< Pathnames.GetCount(); i++) {
-                filesv.push_back((const char *)Pathnames[i].mb_str(HUGIN_CONV_FILENAME));
-            }
+        AddImages(Pathnames);
 
-            // we got some images to add.
-            if (filesv.size() > 0) {
-                // use a Command to ensure proper undo and updating of GUI
-                // parts
-                wxBusyCursor();
-                GlobalCmdHist::getInstance().addCommand(
-                    new wxAddImagesCmd(pano,filesv)
-                    );
-            };
-        };
         DEBUG_INFO ( wxString::Format(wxT("img_ext: %d"), dlg.GetFilterIndex()).mb_str(wxConvLocal) )
         // save the image extension
         switch ( dlg.GetFilterIndex() ) {
@@ -985,6 +980,35 @@ void MainFrame::OnAddImages( wxCommandEvent& event )
 
     DEBUG_TRACE("");
 }
+
+void MainFrame::AddImages(wxArrayString& filenameArray)
+{
+    bool foundForbiddenChars=false;
+    for(unsigned int i=0;i<filenameArray.GetCount(); i++)
+        foundForbiddenChars=foundForbiddenChars || containsInvalidCharacters(filenameArray[i]);
+    if(foundForbiddenChars)
+    {
+        wxMessageBox(wxString::Format(_("The filename(s) contains one of the following invalid characters: %s\nHugin can not work with these filenames. Please rename your file(s) and try again."),getInvalidCharacters().c_str()),
+            _("Error"),wxOK | wxICON_EXCLAMATION,this);
+    }
+    else
+    {
+        std::vector<std::string> filesv;
+        for (unsigned int i=0; i< filenameArray.GetCount(); i++) {
+            filesv.push_back((const char *)filenameArray[i].mb_str(HUGIN_CONV_FILENAME));
+        }
+
+        // we got some images to add.
+        if (filesv.size() > 0) {
+            // use a Command to ensure proper undo and updating of GUI
+            // parts
+            wxBusyCursor();
+            GlobalCmdHist::getInstance().addCommand(
+                new wxAddImagesCmd(pano,filesv)
+                );
+        };
+    };
+};
 
 time_t ReadExifTime(const char* filename)
 {

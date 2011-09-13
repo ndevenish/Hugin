@@ -210,6 +210,8 @@ private:
     void UpdatePanels(wxCommandEvent & e);
     void OnSize(wxSizeEvent &e);
     void enableTools(bool option);
+    /** adds the given files to the projects, with checking for invalid filenames */
+    void AddImages(wxArrayString& filenameArray);
 
     void OnShowDonate(wxCommandEvent &e);
     void OnShowPanel(wxCommandEvent &e);
