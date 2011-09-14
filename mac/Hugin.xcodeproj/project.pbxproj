@@ -3529,7 +3529,7 @@
 		57DD345E0F5939D80030B958 /* celeste-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "celeste-Info.plist"; sourceTree = "<group>"; };
 		57E122010D2BDBF300743A93 /* BuildConfig.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = BuildConfig.xcconfig; sourceTree = SOURCE_ROOT; };
 		57E122480D2BE45700743A93 /* hugin_version.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 30; path = hugin_version.h; sourceTree = "<group>"; };
-		57E122580D2BE4E900743A93 /* align_image_stack-static */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "align_image_stack-static"; sourceTree = BUILT_PRODUCTS_DIR; };
+		57E122580D2BE4E900743A93 /* align_image_stack-static */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; name = "align_image_stack-static"; path = "/Users/Shared/development/hugin_related/hugin/mac/build/Release/align_image_stack-static"; sourceTree = "<absolute>"; };
 		57E32FAF0C4A87F1006AA781 /* ImageGraph.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ImageGraph.h; sourceTree = "<group>"; };
 		57E32FB00C4A87F1006AA781 /* PTOptimise.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PTOptimise.h; sourceTree = "<group>"; };
 		57E32FB10C4A87F1006AA781 /* PanoCommand.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PanoCommand.h; sourceTree = "<group>"; };
@@ -3562,7 +3562,6 @@
 		57E330E30C4A87F2006AA781 /* template.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = template.png; sourceTree = "<group>"; };
 		57E330FB0C4A87F2006AA781 /* hdrmerge_vips.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = hdrmerge_vips.cpp; sourceTree = "<group>"; };
 		57E330FC0C4A87F2006AA781 /* img2vips.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = img2vips.cpp; sourceTree = "<group>"; };
-		57E331000C4A8859006AA781 /* AnchorPositionCtrl.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = AnchorPositionCtrl.h; sourceTree = "<group>"; };
 		57E331010C4A8859006AA781 /* AssistantPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = AssistantPanel.cpp; sourceTree = "<group>"; };
 		57E331020C4A8859006AA781 /* AssistantPanel.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = AssistantPanel.h; sourceTree = "<group>"; };
 		57E331060C4A8859006AA781 /* CPEditorPanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CPEditorPanel.cpp; sourceTree = "<group>"; };
@@ -3677,7 +3676,6 @@
 		73360A161247E32E009225D2 /* libboost_date_time.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_date_time.dylib; path = "../../ExternalPrograms/3way-repository/lib/libboost_date_time.dylib"; sourceTree = SOURCE_ROOT; };
 		73360A401247E898009225D2 /* AssistantMakefilelibExport.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AssistantMakefilelibExport.cpp; path = algorithms/assistant_makefile/AssistantMakefilelibExport.cpp; sourceTree = "<group>"; };
 		73360A411247E898009225D2 /* AssistantMakefilelibExport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AssistantMakefilelibExport.h; path = algorithms/assistant_makefile/AssistantMakefilelibExport.h; sourceTree = "<group>"; };
-		73373CED11A2852D00E7A929 /* panomatic-lib.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "panomatic-lib.sh"; sourceTree = "<group>"; };
 		733AC12C131AFE1600D276B9 /* PanosphereSphereTool.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PanosphereSphereTool.cpp; sourceTree = "<group>"; };
 		733AC12D131AFE1600D276B9 /* PreviewColorPickerTool.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PreviewColorPickerTool.cpp; sourceTree = "<group>"; };
 		733AC12E131AFE1600D276B9 /* HtmlWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HtmlWindow.cpp; sourceTree = "<group>"; };
@@ -3826,11 +3824,9 @@
 		737C8CB4139A742500F82635 /* BatchTrayIcon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BatchTrayIcon.cpp; sourceTree = "<group>"; };
 		737C8CB5139A742500F82635 /* BatchTrayIcon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BatchTrayIcon.h; sourceTree = "<group>"; };
 		737C8CBF139A757700F82635 /* PTBatcherGUI.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = PTBatcherGUI.app; sourceTree = "<group>"; };
-		737D5EDF139BA53300829EED /* create_stripped_apps_for_installer.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = create_stripped_apps_for_installer.sh; sourceTree = "<group>"; };
 		737E1C180EC9EC0300BA4D9B /* hugin_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hugin_config.h; sourceTree = "<group>"; };
 		737E48DA11D3F8C6002BA8AE /* HuginStitchProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HuginStitchProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		737E48DC11D3F8C6002BA8AE /* hugin_stitch_project-Info copy.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "hugin_stitch_project-Info copy.plist"; path = "../mac/hugin_stitch_project-Info copy.plist"; sourceTree = "<group>"; };
-		737E48EB11D3F9B5002BA8AE /* copyExtraTools.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = copyExtraTools.sh; sourceTree = "<group>"; };
 		737E498F11D3FD74002BA8AE /* Hugin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hugin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		737E499111D3FD74002BA8AE /* Hugin-Info copy.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Hugin-Info copy.plist"; path = "../mac/Hugin-Info copy.plist"; sourceTree = "<group>"; };
 		737E922D1125EC5F00773356 /* liblocalfeatures.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = liblocalfeatures.dylib; path = ../../ExternalPrograms/repository/lib/liblocalfeatures.dylib; sourceTree = SOURCE_ROOT; };
@@ -3958,7 +3954,6 @@
 		73DFBD11139B5DC300558A2D /* LensCalApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LensCalApp.cpp; path = calibrate_lens/LensCalApp.cpp; sourceTree = "<group>"; };
 		73DFBD9D139B69E900558A2D /* calibrate_lens_gui.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = calibrate_lens_gui.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		73DFBD9F139B69EA00558A2D /* nona_gui-Info copy.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "nona_gui-Info copy.plist"; path = "../mac/nona_gui-Info copy.plist"; sourceTree = "<group>"; };
-		73DFBDF4139B72EE00558A2D /* lens_calibrate_gui-xrc.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "lens_calibrate_gui-xrc.sh"; sourceTree = "<group>"; };
 		73E1B9CB11D00CFA00765DAD /* HG-rev.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "HG-rev.xcconfig"; sourceTree = "<group>"; };
 		73E488F710D5997300A083C8 /* CalculateOptimalROI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CalculateOptimalROI.h; path = algorithms/basic/CalculateOptimalROI.h; sourceTree = "<group>"; };
 		73E488F810D5997300A083C8 /* CalculateOptimalROI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CalculateOptimalROI.cpp; path = algorithms/basic/CalculateOptimalROI.cpp; sourceTree = "<group>"; };
@@ -4078,8 +4073,6 @@
 		73FE2B0D124918020002E246 /* RansacFiltering.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RansacFiltering.h; sourceTree = "<group>"; };
 		73FE2B0E124918020002E246 /* Sieve.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sieve.h; sourceTree = "<group>"; };
 		73FE2B0F124918020002E246 /* WaveFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaveFilter.h; sourceTree = "<group>"; };
-		73FE2B1E124918FB0002E246 /* Arg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Arg.h; path = tclap/Arg.h; sourceTree = "<group>"; };
-		73FE2B1F124918FB0002E246 /* ArgException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ArgException.h; path = tclap/ArgException.h; sourceTree = "<group>"; };
 		73FE2B20124918FB0002E246 /* CmdLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CmdLine.h; path = tclap/CmdLine.h; sourceTree = "<group>"; };
 		73FE2B21124918FB0002E246 /* CmdLineInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CmdLineInterface.h; path = tclap/CmdLineInterface.h; sourceTree = "<group>"; };
 		73FE2B22124918FB0002E246 /* CmdLineOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CmdLineOutput.h; path = tclap/CmdLineOutput.h; sourceTree = "<group>"; };
@@ -5243,8 +5236,6 @@
 				7354FD9F13F40AFE005940D0 /* icpfind-Info.plist */,
 				7354FDA013F40AFE005940D0 /* flann_cpp-Info.plist */,
 				73B1AD3813A6AE00006A3C54 /* swigpyrun.h */,
-				737D5EDF139BA53300829EED /* create_stripped_apps_for_installer.sh */,
-				73DFBDF4139B72EE00558A2D /* lens_calibrate_gui-xrc.sh */,
 				739A0EA310FA7A3100D8E4C7 /* Hugin_tools */,
 				5751D8600939F1C0001477EA /* Hugin.xcodeproj */,
 				57D18D8E0E13BD340054A523 /* Version.xcconfig */,
@@ -5258,12 +5249,10 @@
 				57114EA006BC2301004F4FA7 /* Hugin.icns */,
 				57B8C693083AB7F400283C06 /* localised.sh */,
 				73138A2B1183358100DCF373 /* copyTools.sh */,
-				737E48EB11D3F9B5002BA8AE /* copyExtraTools.sh */,
 				571D8C910E213879006D0305 /* localise-help.sh */,
 				571D8C700E213216006D0305 /* patch-xrc.sh */,
 				57A2BC2E0D45422800E9FFEC /* copyExifTool.sh */,
 				576902090D24DBA100A6AD01 /* complete-bundle.sh */,
-				73373CED11A2852D00E7A929 /* panomatic-lib.sh */,
 				573E2E440B76AC5100E86281 /* ExternalPrograms */,
 				573E2E5E0B76AD0100E86281 /* Documents */,
 				57701A750E5B036A00E5026B /* autopano-complete-mac.sh */,
@@ -6058,7 +6047,6 @@
 		57D18D880E13BC8A0054A523 /* tools-static */ = {
 			isa = PBXGroup;
 			children = (
-				57E122580D2BE4E900743A93 /* align_image_stack-static */,
 				57D50B520F5971A600CCDCB5 /* celeste_standalone-static */,
 				576482BE0C469052003AFC2F /* fulla-static */,
 				57D3830D0E236A0800445A37 /* matchpoint-static */,
@@ -6257,7 +6245,6 @@
 				734FBA5A0EB3A20500CD7122 /* ViewState.h */,
 				57E331490C4A8859006AA781 /* config.h.tmpl */,
 				57E3314A0C4A8859006AA781 /* config_defaults.h */,
-				57E331000C4A8859006AA781 /* AnchorPositionCtrl.h */,
 				57E331010C4A8859006AA781 /* AssistantPanel.cpp */,
 				57E331020C4A8859006AA781 /* AssistantPanel.h */,
 				57E331070C4A8859006AA781 /* CPEditorPanel.h */,
@@ -6931,8 +6918,6 @@
 		73FE2B1D124918D90002E246 /* tclap */ = {
 			isa = PBXGroup;
 			children = (
-				73FE2B1E124918FB0002E246 /* Arg.h */,
-				73FE2B1F124918FB0002E246 /* ArgException.h */,
 				73FE2B20124918FB0002E246 /* CmdLine.h */,
 				73FE2B21124918FB0002E246 /* CmdLineInterface.h */,
 				73FE2B22124918FB0002E246 /* CmdLineOutput.h */,
