@@ -107,7 +107,7 @@ int main(int argc, char* argv[])
                     int imgNr=atoi(optarg);
                     if((imgNr==0) && (strcmp(optarg,"0")!=0))
                     {
-                        cerr << "Could not parse projection number.";
+                        cerr << "Could not parse image number.";
                         return 1;
                     };
                     cmdlineImages.insert(imgNr);
@@ -117,7 +117,7 @@ int main(int argc, char* argv[])
                 nrLines=atoi(optarg);
                 if(nrLines<1)
                 {
-                    cerr << "Cound not parse number of lines or invalid number.";
+                    cerr << "Could not parse number of lines.";
                     return 1;
                 };
                 break;
