@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="Content-Style-Type" content="text/css" />
+		<meta name="generator" content="MediaWiki 1.14.0" />
+		<meta name="keywords" content="Linefind,Calibrate lens gui,Control points,Hugin,Roll,Vertical control points" />
+		
+		
+		
+		
+		
+		
+		<title>Linefind - PanoTools.org Wiki</title>
+		
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		
+		
+		
+		
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+
+		
+
+		
+		<style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
+		
+				
+	</head>
+<body class="mediawiki ltr ns-0 ns-subject page-Linefind skin-monobook">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 id="firstHeading" class="firstHeading">Linefind</h1>
+		<div id="bodyContent">
+			
+			
+												<!-- start content -->
+			<a name="General_and_description" id="General_and_description"></a><h1> <span class="mw-headline"> General and description </span></h1>
+<p><b>Linefind</b> is a detector for vertical features in images. It tries to find vertical lines using the same algorithm as <a href="Calibrate_lens_gui.html#Line_detection" title="Calibrate lens gui">Calibrate_lens_gui</a> and assign <a href="Vertical_control_points.html" title="Vertical control points">vertical control points</a> to them.
+It using the <a href="Roll.html" title="Roll">roll value</a>, saved in the pto project file, to determine what is "top" and "bottom". So before running <b>linefind</b> check that your <a href="Roll.html" title="Roll">roll values</a> are correct (E.g. when using images straight from the camera, use a roll value of 0 for landscape and a value of 90 or 270 for portrait images. If your camera has an orientation sensor, <a href="Hugin.html" title="Hugin">Hugin</a> can detection this information automatically and sets the roll value accordingly when adding such images into Hugin.
+</p>
+<a name="Usage" id="Usage"></a><h1> <span class="mw-headline"> Usage </span></h1>
+<p>The general usage is
+</p>
+<pre>     linefind -o output.pto input.pto
+</pre>
+<p>If the --output/-o switch is missing then the suffix "_line" is added to the filename.
+</p><p>The maximal number of lines added per image can be given with the --lines switch (or short -l):
+</p>
+<pre>     linefind --lines=10 -o output.pto input.pto
+</pre>
+<p>By default maximal 5 lines per image are added to the project file. 
+</p><p><b>Attention:</b> Keep in mind that more <a href="Vertical_control_points.html" title="Vertical control points">vertical control points</a> will dominate the optimisation in favour of <a href="Control_points.html" title="Control points">"normal" control points</a>. 
+</p><p>Normally <b>linefind</b> tries to find vertical lines in all images of the project file. If you want to limit the detection to some selected images, you can use the --image/-i switch, e.g.
+</p>
+<pre>    linefind --image=0 --image=4 -o output.pto input.pto
+</pre>
+<p>will only search for vertical lines in image 0 and 4.
+</p>
+
+
+
+<div class="printfooter">
+Retrieved from "<a href="Linefind.html">http://wiki.panotools.org/Linefind</a>"</div>
+						<!-- end content -->
+						
+		</div>
+	</div>
+		</div>
+		<!-- end of the left (by default at least) column -->
+			
+			<!-- end of the left (by default at least) column -->
+			
+			
+</div>
+
+		
+
+
+
+<!-- Served in 0.202 secs. --></body></html>

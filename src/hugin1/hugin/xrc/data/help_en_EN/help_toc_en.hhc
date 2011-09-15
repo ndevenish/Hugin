@@ -144,6 +144,10 @@
 			<param name="Local" value="Icpfind.html">
 			</OBJECT>
 		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Linefind">
+			<param name="Local" value="Linefind.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
 			<param name="Name" value="Vig_optimise">
 			<param name="Local" value="Vig_optimize.html">
 			</OBJECT>
@@ -259,6 +263,10 @@
 		<LI> <OBJECT type="text/sitemap">
 			<param name="Name" value="Align_image_stack">
 			<param name="Local" value="Align_image_stack.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Linefind">
+			<param name="Local" value="Linefind.html">
 			</OBJECT>
 	</UL>
 	<LI> <OBJECT type="text/sitemap">

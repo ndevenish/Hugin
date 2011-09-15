@@ -88,6 +88,7 @@ Landscape
 Lens_correction_model
 Lens_distortion
 Lightprobe
+Linefind
 MatchPoint
 Nadir
 Nodal_Point

@@ -60,9 +60,9 @@
 </dd><dd>Note: When using a version of Poedit before 1.4.3, editing comments directly in the right pane doesn't work, the text isn't saved into the .po file. To edit comments, use the "edit comment" dialogue from the menu. With Poedit 1.4.3 and later, please note that to see the comment window you have to check "View / Show comment window", and to be able to modify the comment you must go to "File / Preferences..." and check "Comment window is editable" in the "Editor" tab.
 </dd><dd>Messages marked as <b>fuzzy</b> are actually not used in the GUI, their English counterparts are used instead. This seems to be an automagic suggestion which naturally often fails, so compare a fuzzy translation with the original phrase.
 </dd></dl>
-<ul><li>3 Verify your translation
+<ul><li>3. Verify your translation
 </li></ul>
-<dl><dd>In order to test the new translation and to save some time for developers that will apply to trunk your file, it's recommanded to <a href="Hugin_translation_guide.html#How_to_check_the_translated_file_for_syntax_errors" class="external text" title="http://wiki.panotools.org/Hugin_translation_guide#How_to_check_the_translated_file_for_syntax_errors" rel="nofollow">check</a> your newly translated po file.
+<dl><dd>In order to test your new translation and as well save some time for the developers who apply your file to trunk it's recommanded to <a href="Hugin_translation_guide.html#How_to_check_the_translated_file_for_syntax_errors" class="external text" title="http://wiki.panotools.org/Hugin_translation_guide#How_to_check_the_translated_file_for_syntax_errors" rel="nofollow">check</a> your newly translated po file for syntax errors. It's also a good idea to <a href="Hugin_translation_guide.html#Use_your_new_translation_file" class="external text" title="http://wiki.panotools.org/Hugin_translation_guide#Use_your_new_translation_file" rel="nofollow">temporarily load</a> your new translation file into the latest available hugin build.
 </dd></dl>
 <ul><li>4. Submit your *.po file, or even better, commit your changes through Mercurial
 <ul><li>You can submit your edited translation via hugin's tracker<a class="external" href="https://bugs.launchpad.net/hugin/">[*]</a> on launchpad (you'll need a launchpad account to log in). Add the tags "translation" and "hugin" and attach your file.
@@ -124,7 +124,7 @@
 </li><li> Enter a title/summary (e.g. German Translation).
 </li><li> Launchpad will look for duplicates.  This is good for bug reports, but for updated translations you can ignore it, scroll down to the bottom of the page and hit the "No, I need to report a new bug".
 </li><li> On the reporting form, enter a description in the "Further Information" field, then scroll to the bottom and hit the link "Extra options".
-</li><li> There you will find an Attachment field.  Hit it and browse to the .po.
+</li><li> There you will find an Attachment field. Hit it and browse to the .po file. When the bug tracker asks you if this is a patch: click yes, even though technically it isn't one. In this case it will help make developers aware of a file that needs to be reviewed and added to the codebase.
 </li><li> Click the "Submit Bug Report" button.
 </li></ul>
 <a name="eMail" id="eMail"></a><h3> <span class="mw-headline"> eMail </span></h3>
@@ -387,8 +387,9 @@ hg push ssh://YOUR-SOURCEFORGE-USERNAME@hugin.hg.sourceforge.net/hgroot/hugin/hu
 </li></ul>
 <a name="Website_.2F_Release_Notes" id="Website_.2F_Release_Notes"></a><h2> <span class="mw-headline"> Website / Release Notes </span></h2>
 <p>Some translators contribute also translated release notes.  These are published on the web at http://hugin.sourceforge.net/releases/<a class="external" href="http://hugin.sourceforge.net/releases/">[*]</a> . Usually the release manager will draft the release notes in English early on in the release process.  Even if they are not linked, you can find them in the repository at http://hugin.hg.sourceforge.net/hgweb/hugin/hugin-web/file/tip/releases<a class="external" href="http://hugin.hg.sourceforge.net/hgweb/hugin/hugin-web/file/tip/releases">[*]</a>
-</p><p><b>Important</b>: make sure you translate the file from the repository and not the resulting file displayed on the web, e.g. translate
-http://hugin.hg.sourceforge.net/hgweb/hugin/hugin-web/file/e9990e702c7c/releases/2010.4.0/en.shtml<a class="external" href="http://hugin.hg.sourceforge.net/hgweb/hugin/hugin-web/file/e9990e702c7c/releases/2010.4.0/en.shtml">[*]</a> and not http://hugin.sourceforge.net/releases/2010.4.0/en.shtml<a class="external" href="http://hugin.sourceforge.net/releases/2010.4.0/en.shtml">[*]</a> - the former is the source for the page while the latter is the resulting page after server side includes and other server side transformations.
+</p><p><b>Important</b>: make sure you translate the file from the repository and not the resulting file displayed on the web, e.g. for 2011.2.0 translate
+http://hugin.hg.sourceforge.net/hgweb/hugin/hugin-web/raw-file/458a1ac79848/releases/2011.2.0/en.shtml<a class="external" href="http://hugin.hg.sourceforge.net/hgweb/hugin/hugin-web/raw-file/458a1ac79848/releases/2011.2.0/en.shtml">[*]</a> and not http://hugin.sourceforge.net/releases/2011.2.0/en.shtml<a class="external" href="http://hugin.sourceforge.net/releases/2011.2.0/en.shtml">[*]</a> - the former is the source for the page while the latter is the resulting page after server side includes and other server side transformations.
+</p><p>Thanks for your contributions!
 </p>
 
 

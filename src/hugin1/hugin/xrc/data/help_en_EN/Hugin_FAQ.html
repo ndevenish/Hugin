@@ -191,6 +191,13 @@ TMPDIR=/media/disk-2/tmp hugin &amp;
 <p>Hugin currently does not do plausibility checks on the paths and file names that are given to it. It relies on the operating system's conventions and limitations. However Hugin uses make to run the stitching process, and make has more restrictive limitation than the operating system.
 </p><p>Please don't use the above characters in your files and folders when you want to make sure they work with Hugin. If you absolutely need files named this way, rename them after processing. Do not file bug reports based on filenames with the above characters. The issue<a class="external" href="https://sourceforge.net/tracker/?func=detail&amp;atid=550441&amp;aid=2883450&amp;group_id=77506">[*]</a> is known, analyzed, and may be fixed in the future.
 </p>
+<a name="Stitch_fails_when_.27.26.27_is_part_of_the_Windows_7_user-name" id="Stitch_fails_when_.27.26.27_is_part_of_the_Windows_7_user-name"></a><h3> <span class="mw-headline"> Stitch fails when '&amp;' is part of the Windows 7 <i>user-name</i> </span></h3>
+<p>This is a variant of the above, but more difficult to work around.  The <i>user-name</i> is part of all paths in the user's data area, including the temporary file locations defined by TMP and TEMP.  Stitch fails almost immediately with a make path error.
+</p><p>Work-around: Move your hugin data to a folder in the root directory such as C:\hugin.  Then go to the Windows Control Panel and change <i>System, Advanced, Environment, user TMP</i> to a folder in the root, such as 'C:\temp' (create it if necessary).
+</p><p>Notes:  This work-around probably needs Win 7 <i>Administrator</i> privileges.
+</p><p>A simpler solution should be to set hugin <i>File, Preferences, Temporary dir</i> to C:\hugin; but it doesn't fix
+the problem! Seemingly, at least one temporary file still gets created in the TMP folder.
+</p>
 <a name="Hugin_fails_stitching_some_stereographics_and_other_polar_projections" id="Hugin_fails_stitching_some_stereographics_and_other_polar_projections"></a><h3> <span class="mw-headline"> Hugin fails stitching some stereographics and other polar projections  </span></h3>
 <p>This is a known limitation caused by photos being distorted into extreme 'C' and 'O' shapes. The workaround: stitch all of your pictures into a single equirectangular, and then load the equirectangular into Hugin to generate the stereographic or other projections you wanted to do in the first place.
 </p><p><br />
@@ -207,10 +214,33 @@ images and is the only way to preview hdr or fused output.
 <p>Can I restart a stitching process that was interrupted manually or by an error without starting everything from scratch?
 </p><p>Unfortunately the Hugin Makefile system only supports restarting if you stitch on the command-line.  The GUI tools always create new temporary .pto project and Makefile files every time they stitch, so this forces make to recreate everything for every stitch.
 </p>
-<a name="Python_Scripting" id="Python_Scripting"></a><h3> <span class="mw-headline"> Python Scripting </span></h3>
-<p>Python scripting is a recent feature added to Hugin 2011.2.  It must be explicitly activated at build time with the CMake boolean parameter -DBUILD_HSI:BOOL=ON.
-</p><p>It is currently untested / unavailable on OSX.
-</p><p>Some of the scripts delivered with Hugin may not work on your system because of missing run-time dependencies.  The scripting functionality was developed in Ubuntu Linux and may or may not work in other Linux flavors and non-Linux system.  As more experience and wisdom is collected, we will try to document it.  In the meantime, if running a script does not work, you have two options:  find out why and contribute a patch; or use Hugin on Ubuntu.  You can achieve this second one with a virtual machine from the comfort of your favorite operating system.
+<a name="Python_Scripting" id="Python_Scripting"></a><h2> <span class="mw-headline"> Python Scripting </span></h2>
+<a name="What_is_Python_Scripting.3F" id="What_is_Python_Scripting.3F"></a><h3> <span class="mw-headline"> What is Python Scripting? </span></h3>
+<p>Python is a powerful scripting language.  Starting with Hugin 2011.2, Hugin exposes the panorama object through hsi.py in Python.  It must be explicitly activated at build time with the CMake boolean parameter -DBUILD_HSI:BOOL=ON.  It is currently untested / unavailable on OSX.
+</p>
+<a name="How_do_I_start_Scripting.3F" id="How_do_I_start_Scripting.3F"></a><h3> <span class="mw-headline"> How do I start Scripting? </span></h3>
+<pre>
+$ python
+Python 2.7.1+ (r271:86832, Apr 11 2011, 18:13:53) 
+[GCC 4.5.2] on linux2
+Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+&gt;&gt;&gt; import hsi
+&gt;&gt;&gt; help (hsi)
+</pre>
+<a name="What_is_the_difference_between_a_Plugin_and_a_Script.3F" id="What_is_the_difference_between_a_Plugin_and_a_Script.3F"></a><h3> <span class="mw-headline"> What is the difference between a Plugin and a Script? </span></h3>
+<p>Strictly speaking, they are both Python scripts.  A Plugin runs inside Hugin, while a Script runs in a shell or desktop.
+</p>
+<a name="Where_Are_the_Plugins_in_Hugin_and_how_do_I_use_them.3F" id="Where_Are_the_Plugins_in_Hugin_and_how_do_I_use_them.3F"></a><h3> <span class="mw-headline"> Where Are the Plugins in Hugin and how do I use them? </span></h3>
+<p>If Hugin was compiled with HSI, a menu Action will list categories of system-wide plugins.  Just select one to run it.  Moreover, you can write your own plugins and run them with the menu Edit -&gt; Run User Python Plugin.  The default location for user plugins is set in the preferences.
+</p>
+<a name="Script_Returned_-10" id="Script_Returned_-10"></a><h3> <span class="mw-headline"> Script Returned -10 </span></h3>
+<p>This error message indicates that the plugin tried to import something and failed.  hpi.py currently has no other way of telling hugin what's wrong than to 'return -10'.  Try to start Hugin from the command line and see if there is more verbose output there.  Copy the output and ask for help on hugin-ptx.
+</p>
+<a name="Script_Returned_-11" id="Script_Returned_-11"></a><h3> <span class="mw-headline"> Script Returned -11 </span></h3>
+<p>The plugin failing with an exception.  Ask the plugin maintainer to produce more specific error messages.  It is good practice to catch such exceptions and let the user know what dependency is missing.
+</p>
+<a name="Why_do_I_read_of_users_having_access_to_a_certain_action_and_I_don.27t_see_it_on_my_system.3F" id="Why_do_I_read_of_users_having_access_to_a_certain_action_and_I_don.27t_see_it_on_my_system.3F"></a><h3> <span class="mw-headline"> Why do I read of users having access to a certain action and I don't see it on my system? </span></h3>
+<p>Some actions only work with specific versions of Hugin or operating systems.  It is possible that they have a different system than yours and that the plugin in question does not support your system.  Often times this is just a matter of lack of testing resources on a particular platform.  Help test the plugin and it may become accessible on your system as well.
 </p>
 <a name="Control_Point_creation" id="Control_Point_creation"></a><h2> <span class="mw-headline"> Control Point creation </span></h2>
 <a name="How_do_I_add_control_points" id="How_do_I_add_control_points"></a><h3> <span class="mw-headline"> How do I add control points </span></h3>
@@ -253,6 +283,10 @@ be the same.
 <p>Cpfind is a recent addition to the Hugin suite and its parameters still require some fine tuning.  Unlike older CP generators used with Hugin, it depends on information passed in the PTO file.  Make sure that your input project file contains reasonable information about the used lens.  If you are using a fisheye or wide angle lens, try increasing the parameters --sieve1width --sieve1height --sieve1size.  A combinations that may work is "--sieve1width 50 --sieve1height 50 --sieve1size 300".  Sometimes also the option "--fullscale" might help.  Read the <a href="Cpfind.html" title="Cpfind">Cpfind</a> documentation.
 </p>
 <a name="Common_problems_when_creating_a_panorama" id="Common_problems_when_creating_a_panorama"></a><h2> <span class="mw-headline"> Common problems when creating a panorama </span></h2>
+<a name="I_get_thin_horizontal_black_or_white_lines_in_large_panoramas" id="I_get_thin_horizontal_black_or_white_lines_in_large_panoramas"></a><h3> <span class="mw-headline"> I get thin horizontal black or white lines in large panoramas </span></h3>
+<p>This is a known bug in the memory handling of <a href="Enblend.html" title="Enblend">enblend</a> that manifests with large panoramas.
+</p><p>You can workaround it by reducing the size of the panorama, or by adjusting the cache size in <a href="Hugin_Stitcher_tab.html" title="Hugin Stitcher tab">Hugin_Stitcher_tab</a> -&gt; <b>Blender options</b>. e.g. the default is 1024MB (1 GB), so if you have 4GB RAM you can try raising the cache to use most of your free memory, such as 3000MB, i.e: <i>-m 3000</i>
+</p>
 <a name="The_Control_Points_tab_shows_my_photos_rotated" id="The_Control_Points_tab_shows_my_photos_rotated"></a><h3> <span class="mw-headline"> The Control Points tab shows my photos rotated </span></h3>
 <p>The rotation of photos in the <a href="Hugin_Control_Points_tab.html" title="Hugin Control Points tab">Hugin Control Points tab</a> isn't necessarily
 related to the orientation of the files themselves.
@@ -409,6 +443,30 @@ You will need to download a separate package to get this version from sourceforg
 </p><p>2. enblend_mp/enfuse_mp
 </p><p>These executables can utilize several cores of modern multi-core processors and are therefore significantly faster on modern processors.  But they may fail on very big images because they are working without the image cache.
 </p><p>Both variants can utilize a modern graphic card to accelerate the optimizing of the seam line between two images. To use this feature supply the parameter --gpu to enblend.
+</p>
+<a name="Support" id="Support"></a><h2> <span class="mw-headline"> Support </span></h2>
+<a name="Reporting_Bugs" id="Reporting_Bugs"></a><h3> <span class="mw-headline"> Reporting Bugs </span></h3>
+<p>If you think you have found a bug in Hugin, please report it to help us make Hugin better.  Before reporting a bug, try a few things to make sure it is really a bug.  Then collect the following information and transmit it to the developers via the bug tracker.
+</p>
+<ol><li> What version of Hugin are you using?  Consider upgrading and try to reproduce the bug.  Maybe it was fixed in a more recent version.
+</li><li> read the output log.  Are there any suggested actions or messages in there?  If so, follow the advice and try again.  Save the output log to a text file and attach it to the report if you file a bug report. 
+</li><li> Attach the .pto file to the bug report.
+</li><li> Use a meaningful title for the bug report.  The line reporting the error in the output log is a good place to start.  Before filing a new bug report, check for duplicates.  Launchpad does already a little bit so.  If the bug is already known, add yourself and you files with a comment to the bug.  This will give your report and your log more visibility than if somebody looking at your bug has to mark it as duplicate.
+</li></ol>
+<a name="Why_is_my_Bug_Report_marked_Invalid.3F" id="Why_is_my_Bug_Report_marked_Invalid.3F"></a><h3> <span class="mw-headline"> Why is my Bug Report marked Invalid? </span></h3>
+<p>We trust you that you are experiencing the issue on your end and that it bugs you, but most likely the solution lies not in the Hugin codebase.  If you feel that your report has been marked Invalid by mistake, feel free to reply and to set the status back to New for a re-evaluation.  Somebody may explain to you why the report was marked as Invalid and what you can do.
+</p>
+<a name="Why_is_my_Bug_Report_marked_Incomplete.3F" id="Why_is_my_Bug_Report_marked_Incomplete.3F"></a><h3> <span class="mw-headline"> Why is my Bug Report marked Incomplete? </span></h3>
+<p>Every system is different and those trying to help fixing the bugs do not see and experience what you do.  In order to help you, they are likely to need more information.  Without that information the bug report is of little use.  We mark as Incomplete reports that require additional information.  Once you provide it, please mark the report status as New again
+</p>
+<a name="How_do_I_Change_the_Status_of_my_Report.3F" id="How_do_I_Change_the_Status_of_my_Report.3F"></a><h3> <span class="mw-headline"> How do I Change the Status of my Report? </span></h3>
+<ul><li> If you reply via the web interface:  hit the yellow round button next to the current status to get a selection of stati.  Unless you know what you are doing, set it to New to attract developer's attention.
+</li><li> If you reply by email: at the bottom of your email enter a line starting with one single space and the following words: <code> status new</code>.  Read more about the email interface<a class="external" href="https://help.launchpad.net/Bugs/EmailInterface">[*]</a>.
+</li></ul>
+<a name="User_Support:_Mailing_List" id="User_Support:_Mailing_List"></a><h3> <span class="mw-headline"> User Support: Mailing List </span></h3>
+<p>Hugin has a lively and friendly user groups.  Connect with expert users and ask questions on the Hugin-PTX mailing list.  To subscribe send an empty email to hugin-ptx+subscribe@googlegroups.com and follow the instructions in the email you receive back.
+To ask questions, send an email to hugin-ptx@googlegroups.com
+Your first emails will be moderated, so be patient if you don't see your message right away.
 </p>
 
 

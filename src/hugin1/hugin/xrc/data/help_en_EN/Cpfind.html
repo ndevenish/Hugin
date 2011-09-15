@@ -51,12 +51,12 @@
 </pre>
 <p>Internal the control point detector algorithm is divided into 2 parts: 
 </p>
-<ul><li> The first step is the feature description: In this step the images of the project file are loaded and so called keypoints are searched. They describe destinctive features in the image. Cpfind is using a gradient based descriptor for the feature description of the keypoints. 
-</li><li> In a second step, the feature matching, all keypoints of two images are matched against each other to find features which are on both images. If this matching was successfull two keypoints in the two images become one control point.
+<ul><li> The first step is the feature description: In this step the images of the project file are loaded and so called keypoints are searched. They describe distinctive features in the image. Cpfind is using a gradient based descriptor for the feature description of the keypoints. 
+</li><li> In a second step, the feature matching, all keypoints of two images are matched against each other to find features which are on both images. If this matching was successful two keypoints in the two images become one control point.
 </li></ul>
 <a name="Usage" id="Usage"></a><h1> <span class="mw-headline"> Usage </span></h1>
 <a name="Rectilinear_and_fisheye_images" id="Rectilinear_and_fisheye_images"></a><h2> <span class="mw-headline"> Rectilinear and fisheye images </span></h2>
-<p>Cpfind can find control points in rectilinear and fisheye images. To achieve good control points images with a high horizontal field of view (e.g. ultra wide rectilinear or fisheye) are therefor remapped into a conformal space (cpfind is using the stereographic projection<a class="external" href="http://wiki.panotools.org/Projection#Stereographic_projection">[*]</a>) and the feature matching occurs in this space. Before writing the control points the coordinates are remapped back to the image space. This happens automatic depending on the information about the lens in the input project file. So check that your input project file contains reasonable information about the used lens.
+<p>Cpfind can find control points in rectilinear and fisheye images. To achieve good control points images with a high horizontal field of view (e.g. ultra wide rectilinear or fisheye) are therefore remapped into a conformal space (cpfind is using the stereographic projection<a class="external" href="http://wiki.panotools.org/Projection#Stereographic_projection">[*]</a>) and the feature matching occurs in this space. Before writing the control points the coordinates are remapped back to the image space. This happens automatic depending on the information about the lens in the input project file. So check that your input project file contains reasonable information about the used lens.
 </p><p><b>WARNING:</b> cpfind in hugin 2010.4 has some bugs and won't work properly with fisheye images. Use a 2010.5 development snapshot (rev c137328f1418, from 2011-01-20) or wait for the next release.
 </p>
 <a name="Using_celeste" id="Using_celeste"></a><h2> <span class="mw-headline"> Using celeste </span></h2>
@@ -94,7 +94,7 @@
    cpfind -k 0 -k 1 input.pto
 </pre>
 <p>The keypoint files are saved by default into the same directory as the images with the extension .key. In this case no matching of images occurs and therefore no output project file needs to specified. If <b>cpfind</b> finds keyfiles for an image in the project it will use them automatically and not run the feature descriptor again on this image.
-If you want to save them to annother directory use the --keypath switch. 
+If you want to save them to another directory use the --keypath switch. 
 </p><p>This procedure can also be automate with the switch --cache:
 </p>
 <pre>   cpfind --cache -o output.pto input.pto
@@ -114,7 +114,7 @@ If you want to save them to annother directory use the --keypath switch.
 </p><p>--kdtreesteps &lt;int&gt;           KDTree: search steps (default: 200)
 </p><p>--kdtreeseconddist &lt;double&gt;   KDTree: distance of 2nd match (default: 0.25)
 </p><p><b>Cpfind</b> stores maximal sieve1width * sieve1height * sieve1size keypoints per image. If you have only a small overlap, e.g. for 360 degree panorama shoot with fisheye images, you can get better results if you increase sieve1size. You can also try to increase sieve1width and/or sieve1height.
-</p><p>Effectively cpfind splits your image in rectangles: sieve1width horizontally by sieve1height vertically. It will try to find sieve1size interest points. This ensures a reasonably uniform distribution of interest points over your image. These features will be matched in the matching step. With the default parameters, up to 10000 interest points will be used in the feature matching step.
+</p><p>Effectively cpfind splits your image in rectangles or buckets: sieve1width horizontally by sieve1height vertically. It will try to find sieve1size keypoints per bucket. This ensures a reasonably uniform distribution of interest points over your image. These features will be matched in the matching step. With the default parameters, up to 10000 interest points will be used in the feature matching step.
 </p>
 <a name="Feature_matching" id="Feature_matching"></a><h2> <span class="mw-headline"> Feature matching </span></h2>
 <p>Fine-tuning of the matching step by the following parameters:
@@ -138,6 +138,7 @@ If you want to save them to annother directory use the --keypath switch.
 </p><p>--sieve2size &lt;int&gt;            Sieve 2: Max points per bucket (default: 1)
 </p><p><b>Cpfind</b> generates between minmatches and sieve2width * sieve2height * sieve2size control points between an image pair. (Default setting is between 4 and 25 (=5*5*1) control points per image pair.) 
 If less then minmatches control points are found for a given image pairs these control points are disregarded and this image pair is considered as not connected. For narrow overlaps you can try to decrease minmatches, but this increases the risk of getting wrong control points.
+This filtering step (sieve2) works similar like sieve1 step described above: The rectangular area, which is covered by control points, is divided into sieve2width * sieve2height rectangles/buckets - sieve1width horizontally by sieve1height vertically. For each bucket only sieve2size control points are saved in the project file. This step is intended to get an uniform distribution of the control points.
 </p>
 
 

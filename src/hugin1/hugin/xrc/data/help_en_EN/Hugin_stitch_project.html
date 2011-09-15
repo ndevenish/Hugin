@@ -47,13 +47,14 @@
 </p>
 <pre>   hugin_stitch_project --output=path/to/output/prefix project.pto
 </pre>
-<p>If you don't need the project file after stitching it can be deleted automatic at the end of the stitching with the switch --delete.
+<p>If you don't need the project file after stitching it can be deleted automatic at the end of the stitching with the switch <code>--delete</code>.
+</p><p><b>Hugin_stitch_project</b> checks for the existence of the generated files and ask for confirmation for overwriting these files. This confirmation can be suppressed by supplying the switch <code>/w</code> or <code>--overwrite</code> on the command line.
 </p><p>Internal it creates a temporary makefile for stitching and executes the makefile with make. If you need this functionality without a GUI you can use the following commands on the command line
 </p>
 <pre>    pto2mk -o makefile.mk -p prefix project.pto
     make -f makefile.mk all
 </pre>
-<p><b>Hugin_stitch_project</b> makes use of specified alternative programs for enblend and enfuse and their default command line switches. <a href="Pto2mk.html" title="Pto2mk">pto2mk</a> can not read the <a href="Hugin_Preferences.html" title="Hugin Preferences">Hugin Preferences</a> and does not use the specifed alternative programs.
+<p><b>Hugin_stitch_project</b> makes use of specified alternative programs for enblend and enfuse and their default command line switches. <a href="Pto2mk.html" title="Pto2mk">pto2mk</a> can not read the <a href="Hugin_Preferences.html" title="Hugin Preferences">Hugin Preferences</a> and does not use the specified alternative programs.
 </p>
 
 
