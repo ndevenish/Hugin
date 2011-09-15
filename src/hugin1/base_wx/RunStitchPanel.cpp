@@ -323,6 +323,7 @@ bool RunStitchPanel::DetectProject(wxString scriptFile,
     double celesteThreshold;
     config.Read(wxT("/Celeste/Threshold"), &celesteThreshold, HUGIN_CELESTE_THRESHOLD);
     bool celesteSmall=config.Read(wxT("/Celeste/Filter"), HUGIN_CELESTE_FILTER)!=0;
+    bool runLinefind=config.Read(wxT("/Assistant/Linefind"), HUGIN_ASS_LINEFIND)!=0;
     bool runCPClean=config.Read(wxT("/Assistant/AutoCPClean"), HUGIN_ASS_AUTO_CPCLEAN)!=0;
     double scale;
     config.Read(wxT("/Assistant/panoDownsizeFactor"), &scale, HUGIN_ASS_PANO_DOWNSIZE_FACTOR);
@@ -343,7 +344,7 @@ bool RunStitchPanel::DetectProject(wxString scriptFile,
         std::ofstream makefile(m_currentMakefn.mb_str(HUGIN_CONV_FILENAME));
         makefile.exceptions( std::ofstream::eofbit | std::ofstream::failbit | std::ofstream::badbit );
         std::string scriptString(scriptFile.mb_str(HUGIN_CONV_FILENAME));
-        HuginBase::AssistantMakefilelibExport::createMakefile(pano,progs,runCeleste,celesteThreshold,celesteSmall,
+        HuginBase::AssistantMakefilelibExport::createMakefile(pano,progs,runLinefind,runCeleste,celesteThreshold,celesteSmall,
             runCPClean,scale,makefile,scriptString);
         makefile.close();
 

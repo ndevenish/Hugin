@@ -241,6 +241,14 @@
                 <object class="sizeritem">
                   <object class="wxStaticBoxSizer">
                     <object class="sizeritem">
+                      <object class="wxCheckBox" name="prefs_ass_linefind">
+                        <label>Detect vertical lines</label>
+                        <tooltip>Detects vertical lines in the images to level the pano</tooltip>
+                      </object>
+                      <flag>wxALL</flag>
+                      <border>5</border>
+                    </object>
+                    <object class="sizeritem">
                       <object class="wxCheckBox" name="prefs_celeste_auto">
                         <label>Remove cloud-like control points (Celeste)</label>
                       </object>
@@ -254,7 +262,7 @@
                       <flag>wxALL</flag>
                       <border>5</border>
                     </object>
-                    <label>Automatic control point checking after detecting control points</label>
+                    <label>Optional assistant steps</label>
                     <orient>wxVERTICAL</orient>
                   </object>
                   <flag>wxALL|wxEXPAND</flag>

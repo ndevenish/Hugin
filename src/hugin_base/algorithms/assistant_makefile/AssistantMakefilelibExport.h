@@ -71,6 +71,7 @@ private:
 	std::ostream & makefile;
 	const std::string& projectFile;
     const AssistantPrograms &progs;
+    const bool &runLinefind;
     const bool &runCeleste;
     const double &celesteThreshold;
     const bool &celesteSmallRadius;
@@ -89,6 +90,7 @@ private:
 public:
 	AssistantMakefilelibExport(PanoramaData & pano_,
             const AssistantPrograms & progs_,
+            const bool &runLinefind_,
             const bool &runCeleste_,
             const double &celesteThreshold_,
             const bool &celesteSmallRadius_,
@@ -97,7 +99,7 @@ public:
             std::ostream & makefile_,
             const std::string& projectFile_)
 	: PanoramaAlgorithm(pano_),
-      pano(pano_), progs(progs_), 
+      pano(pano_), progs(progs_), runLinefind(runLinefind_),
       runCeleste(runCeleste_), celesteThreshold(celesteThreshold_), celesteSmallRadius(celesteSmallRadius_),
       runCPClean(runCPClean_), scale(scale_), makefile(makefile_), projectFile(projectFile_)
 	{
@@ -106,6 +108,7 @@ public:
 
 	static void createMakefile(PanoramaData & pano_,
             const AssistantPrograms & progs_,
+            const bool &runLinefind_,
             const bool &runCeleste_,
             const double &celesteThreshold_,
             const bool &celesteSmallRadius_,
@@ -115,7 +118,7 @@ public:
             const std::string& projectFile_)
 	{
 		AssistantMakefilelibExport* instance = new AssistantMakefilelibExport(
-				pano_, progs_, runCeleste_, celesteThreshold_, celesteSmallRadius_,
+				pano_, progs_, runLinefind_, runCeleste_, celesteThreshold_, celesteSmallRadius_,
                 runCPClean_, scale_, makefile_, projectFile_);
 		instance->createItems();
 		instance->writeMakefile();

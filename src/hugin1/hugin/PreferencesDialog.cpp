@@ -489,6 +489,8 @@ void PreferencesDialog::UpdateDisplayData(int panel)
         MY_STR_VAL("prefs_ass_editor_args", cfg->Read(wxT("/Stitcher/EditorArgs"),
                    wxT(HUGIN_STITCHER_EDITOR_ARGS)));
         MY_CHOICE_VAL("prefs_ass_preview", cfg->Read(wxT("/Assistant/PreviewWindow"), HUGIN_ASS_PREVIEW));
+        t = cfg->Read(wxT("/Assistant/Linefind"), HUGIN_ASS_LINEFIND) == 1;
+        MY_BOOL_VAL("prefs_ass_linefind", t);
         t = cfg->Read(wxT("/Celeste/Auto"), HUGIN_CELESTE_AUTO) == 1;
         MY_BOOL_VAL("prefs_celeste_auto", t);
         t = cfg->Read(wxT("/Assistant/AutoCPClean"), HUGIN_ASS_AUTO_CPCLEAN) == 1;
@@ -683,6 +685,7 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
             cfg->Write(wxT("/Stitcher/Editor"), wxT(HUGIN_STITCHER_EDITOR));
             cfg->Write(wxT("/Stitcher/EditorArgs"), wxT(HUGIN_STITCHER_EDITOR_ARGS));
             cfg->Write(wxT("/Assistant/PreviewWindow"), HUGIN_ASS_PREVIEW);
+            cfg->Write(wxT("/Assistant/Linefind"), HUGIN_ASS_LINEFIND);
             cfg->Write(wxT("/Celeste/Auto"), HUGIN_CELESTE_AUTO);
             cfg->Write(wxT("/Assistant/AutoCPClean"), HUGIN_ASS_AUTO_CPCLEAN);
         }
@@ -770,6 +773,7 @@ void PreferencesDialog::UpdateConfigData()
     cfg->Write(wxT("/Assistant/nControlPoints"), MY_G_SPIN_VAL("prefs_ass_nControlPoints"));
     cfg->Write(wxT("/Assistant/panoDownsizeFactor"), MY_G_SPIN_VAL("prefs_ass_panoDownsizeFactor") / 100.0);
     cfg->Write(wxT("/Assistant/PreviewWindow"), MY_G_CHOICE_VAL("prefs_ass_preview"));
+    cfg->Write(wxT("/Assistant/Linefind"), MY_G_BOOL_VAL("prefs_ass_linefind"));
     cfg->Write(wxT("/Celeste/Auto"), MY_G_BOOL_VAL("prefs_celeste_auto"));
     cfg->Write(wxT("/Assistant/AutoCPClean"), MY_G_BOOL_VAL("prefs_auto_cpclean"));
     // editor

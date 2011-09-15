@@ -140,19 +140,22 @@ bool AssistantMakefilelibExport::createItems()
         };
     };
     //vertical line detector
-    CPVector allCP=pano.getCtrlPoints();
-    bool hasVerticalLines=false;
-    if(allCP.size()>0)
+    if(runLinefind)
     {
-        for(size_t i=0;i<allCP.size() && !hasVerticalLines;i++)
+        CPVector allCP=pano.getCtrlPoints();
+        bool hasVerticalLines=false;
+        if(allCP.size()>0)
         {
-            hasVerticalLines=(allCP[i].mode==ControlPoint::X);
+            for(size_t i=0;i<allCP.size() && !hasVerticalLines;i++)
+            {
+                hasVerticalLines=(allCP[i].mode==ControlPoint::X);
+            };
         };
-    };
-    if(!hasVerticalLines)
-    {
-        echoInfo(*all,"Searching for vertical lines...");
-        all->addCommand(vlinefind->getRef()+outinproject);
+        if(!hasVerticalLines)
+        {
+            echoInfo(*all,"Searching for vertical lines...");
+            all->addCommand(vlinefind->getRef()+outinproject);
+        };
     };
     //now optimise all
     all->addCommand(vcheckpto->getRef()+" "+vprojectShell->getRef());
