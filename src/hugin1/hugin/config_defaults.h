@@ -170,9 +170,6 @@
 
 #endif
 
-// personal python plugin folder (relative to user home folder)
-#define HUGIN_PLUGIN_PYTHON_DIR               "hugin_python_plugins"
-
 // enblend args
 #define HUGIN_ENBLEND_ARGS                    ""
 #define HUGIN_ENFUSE_ARGS                     ""
