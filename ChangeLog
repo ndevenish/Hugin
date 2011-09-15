@@ -1,4 +1,96 @@
-2011-08-16 20:29 -0400  Yuval Levy <yuv@users.sourceforge.net>  (6fabe70066c1)  tip
+2011-09-15 17:14 +0200  tmodes  (22275e04b36b)  tip
+
+	Correctly initialize panosphere visualization state [726183]
+
+	> src/hugin1/hugin/ViewState.cpp
+
+2011-09-13 18:44 +0200  tmodes  (196c1e666836)  
+
+	Correctly initialize some variables
+
+	> src/hugin1/hugin/ToolHelper.cpp
+
+2011-09-11 10:00 +0200  tmodes  (c9c9c77abf56)  
+
+	Correctly initialize struct tm to convert EXIF datetime [815608]
+
+	> src/hugin_base/panodata/SrcPanoImage.cpp
+	> src/hugin_base/panodata/SrcPanoImage.h
+
+2011-08-28 17:32 +0200  tmodes  (96e662f127f2)  
+
+	Use PTBatcherGUI tray icon only on windows
+
+	> src/hugin1/ptbatcher/BatchFrame.cpp
+
+2011-09-15 17:37 +0200  tmodes  (e84e95a8546d)  
+
+	Removed unused preferences setting
+
+	> src/hugin1/hugin/MainFrame.cpp
+	> src/hugin1/hugin/PreferencesDialog.cpp
+	> src/hugin1/hugin/config_defaults.h
+	> src/hugin1/hugin/xrc/main_menu.xrc
+	> src/hugin1/hugin/xrc/pref_dialog.xrc
+
+2011-08-27 13:29 +0200  tmodes  (5aec6a8b7c00)  
+
+	Fixes compilation with wxWidgets 2.9.2
+
+	> src/hugin1/hugin/CPListFrame.cpp
+
+2011-08-27 08:43 +0200  tmodes  (2acd7e6b95fb)  
+
+	Improved starting PTBatcherGUI with minimized window
+
+	> src/hugin1/ptbatcher/BatchFrame.cpp
+	> src/hugin1/ptbatcher/BatchFrame.h
+	> src/hugin1/ptbatcher/PTBatcherGUI.cpp
+
+2011-08-27 08:38 +0200  tmodes  (55a20202cfb7)  
+
+	Fixes compilation on older wxWidgets versions
+
+	> src/hugin1/ptbatcher/BatchFrame.cpp
+
+2011-08-24 19:17 +0200  tmodes  (bce9816219ef)  
+
+	PTBatcherGUI: Don't update finished projects
+
+	> src/hugin1/ptbatcher/BatchFrame.cpp
+
+2011-08-21 18:24 +0200  tmodes  (73afaffab3fe)  
+
+	Fixes issue, that image becomes white in mask tab [823823]
+
+	> src/hugin1/hugin/MaskImageCtrl.cpp
+
+2011-08-20 09:16 +0200  Lukas Jirkovsky <l.jirkovsky@gmail.com>  (4c6d3257ebba)  
+
+	Remove some useless code.
+
+	> src/hugin1/hugin/ViewState.cpp
+
+2011-08-20 09:04 +0200  Lukas Jirkovsky <l.jirkovsky@gmail.com>  (d72a637e4476)  
+
+	Add some destructors, fixes two small memory leaks.
+
+	> src/hugin1/hugin/ViewState.cpp
+	> src/hugin1/hugin/ViewState.h
+
+2011-08-16 20:31 -0400  Yuval Levy <yuv@users.sourceforge.net>  (da2f450aef66)  
+
+	Added tag 2011.2.0_rc4 for changeset 38785809a4b2
+
+	> .hgtags
+
+2011-08-16 20:30 -0400  Yuval Levy <yuv@users.sourceforge.net>  (38785809a4b2)  2011.2.0_rc4
+
+	Updated ChangeLog
+
+	> ChangeLog
+
+2011-08-16 20:29 -0400  Yuval Levy <yuv@users.sourceforge.net>  (6fabe70066c1)  
 
 	Updated Dutch translation (Harry van der Wolf)
 
