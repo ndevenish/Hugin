@@ -92,3 +92,6 @@
 // Exiv2
 #define HUGIN_USE_EXIV2 1
 
+// python hsi/hpi built in
+#define BUILD_HSI 1
+#define HUGIN_HSI 1
