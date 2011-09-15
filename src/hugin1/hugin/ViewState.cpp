@@ -485,24 +485,13 @@ HuginBase::SrcPanoImage * VisualizationState::GetSrcImage(unsigned int image_nr)
 PanosphereOverviewVisualizationState::PanosphereOverviewVisualizationState(PT::Panorama* pano, ViewState* view_state, GLViewer * viewer, void (*RefreshFunction)(void*), void *arg)
         : OverviewVisualizationState(pano, view_state, viewer, RefreshFunction, arg, (PanosphereOverviewMeshManager*) NULL) 
 {
-
     scale = 1;
 
     angx = M_PI / 2.0;
-//    angx = 0;
     angy = 0;
     fov = 40;
     R = 500;
-
     sphere_radius = 100;
-
-//    int number_of_images = m_pano->getNrOfImages();
-//    for (unsigned int img = 0; img < number_of_images; img++)
-//    {
-//        img_states[img] = m_pano->getSrcImage(img);
-//        img_states[img].setYaw(0);
-//        img_states[img].setPitch(0);
-//    }
 
     opts = (*(m_view_state->GetOptions()));
     opts.setProjection(HuginBase::PanoramaOptions::EQUIRECTANGULAR);
@@ -526,11 +515,6 @@ OutputProjectionInfo *PanosphereOverviewVisualizationState::GetProjectionInfo()
     return projection_info;
 }
 
-//HuginBase::SrcPanoImage * PanosphereOverviewVisualizationState::GetSrcImage(unsigned int image_nr)
-//{
-//    return &(img_states[image_nr]);
-//}
-
 void PanosphereOverviewVisualizationState::SetOptions(const HuginBase::PanoramaOptions * new_opts)
 {
     opts = *new_opts;
@@ -540,14 +524,6 @@ void PanosphereOverviewVisualizationState::SetOptions(const HuginBase::PanoramaO
     delete projection_info;
     projection_info = new OutputProjectionInfo(&opts);
 }
-
-//void PanosphereOverviewVisualizationState::SetSrcImage(unsigned int image_nr, HuginBase::SrcPanoImage * new_img)
-//{
-//    //FIXME: YAW and PITCH shouldn't be set in here, but just in the mesh manager.
-//    img_states[image_nr] = *new_img;
-//    img_states[image_nr].setYaw(0);
-//    img_states[image_nr].setPitch(0);
-//}
 
 void PanosphereOverviewVisualizationState::setAngX(double angx_in)
 {
@@ -570,12 +546,14 @@ PlaneOverviewVisualizationState::PlaneOverviewVisualizationState(PT::Panorama* p
 
     fov = 60;
     R = 500;
+    X = 0;
+    Y = 0;
 
     opts = (*(m_view_state->GetOptions()));
     opts.setProjection(HuginBase::PanoramaOptions::RECTILINEAR);
     //TODO: hfov and vfov need to be divided into values for the output and values for the visualization
-    opts.setHFOV(180.0);
-    opts.setVFOV(180.0);
+    opts.setHFOV(90.0);
+    opts.setVFOV(90.0);
     projection_info = new OutputProjectionInfo(&opts);
 }
 
