@@ -6,6 +6,8 @@
 	<string>English</string>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
+	<key>CFBundleGetInfoString</key>
+	<string>Hugin ${HUGIN_PACKAGE_VERSION} (Mac)</string>
 	<key>CFBundleIdentifier</key>
 	<string>net.sourceforge.hugin.base_wx</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -16,7 +18,5 @@
 	<string>Hgin</string>
 	<key>CFBundleVersion</key>
 	<string>${HUGIN_WC_REVISION}</string>
-	<key>CFBundleGetInfoString</key>
-	<string>Hugin ${HUGIN_PACKAGE_VERSION} (Mac)</string>
 </dict>
 </plist>
