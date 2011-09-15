@@ -1813,7 +1813,7 @@ void GLPreviewFrame::MakePanosphereOverviewTools(PanosphereOverviewToolHelper *p
     panosphere_overview_identify_tool = new PreviewIdentifyTool(panosphere_overview_helper, this);
     panosphere_overview_helper->ActivateTool(panosphere_overview_identify_tool);
 
-    panosphere_sphere_tool = new PanosphereSphereTool(panosphere_overview_helper);
+    panosphere_sphere_tool = new PanosphereSphereTool(panosphere_overview_helper, GetPreviewBackgroundColor());
     panosphere_overview_helper->ActivateTool(panosphere_sphere_tool);
     
     overview_projection_grid = new PanosphereOverviewProjectionGridTool(panosphere_overview_helper);
@@ -2622,6 +2622,7 @@ void GLPreviewFrame::OnPreviewBackgroundColorChanged(wxColourPickerEvent & e) {
     wxConfigBase* cfg=wxConfigBase::Get();
     cfg->Write(wxT("/GLPreviewFrame/PreviewBackground"), c);
     cfg->Flush();
+    panosphere_sphere_tool->SetPreviewBackgroundColor(m_preview_background_color);
     m_GLPreview->SetViewerBackground(m_preview_background_color);
     m_GLOverview->SetViewerBackground(m_preview_background_color);
     redrawPreview();

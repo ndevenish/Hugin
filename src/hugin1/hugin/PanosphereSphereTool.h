@@ -31,16 +31,15 @@ class PanosphereSphereTool : public PanosphereOverviewTool
 {
 public:
     void Activate();
-    PanosphereSphereTool(PanosphereOverviewToolHelper *helper) : PanosphereOverviewTool(helper) {}
+    PanosphereSphereTool(PanosphereOverviewToolHelper *helper, const wxColour backgroundColour);
     
     void BeforeDrawImagesBackEvent();
     void BeforeDrawImagesFrontEvent();
     /** sets the sphere background color */
-///    void SetPreviewBackgroundColor (wxColour c);
+    void SetPreviewBackgroundColor (wxColour c);
 
 protected:
-///    wxColour m_background_color;
-
+    wxColour m_background_color;
 };
 
 #endif

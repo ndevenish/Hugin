@@ -28,8 +28,6 @@
 //#include <vector>
 /* something messed up... temporary fix :-( */
 #include "hugin_utils/utils.h"
-#include "hugin/config_defaults.h"
-#define DEBUG_HEADER ""
 #include <base_wx/wxImageCache.h>
 #include <vigra_ext/ROIImage.h>
 #include <vigra/diff2d.hxx>
@@ -51,9 +49,7 @@ class GLRenderer
 public:
     /** ctor.
      */
-//    GLRenderer(PT::Panorama * pano, TextureManager *tex_man,
-//               MeshManager *mesh_man, VisualizationState *visualization_state,
-//               PreviewToolHelper *tool_helper);
+    GLRenderer(const wxColour backgroundColour);
 
     /** dtor.
      */
@@ -70,7 +66,7 @@ public:
     void SetBackground(unsigned char red, unsigned char green, unsigned char blue);
     float width_o, height_o;
     /** sets the preview background color */
-    void SetPreviewBackgroundColor (wxColour c);
+    void SetPreviewBackgroundColor(const wxColour c);
 
 protected:
     PT::Panorama  * m_pano;
@@ -90,40 +86,24 @@ class GLPreviewRenderer : public GLRenderer
 public:
     GLPreviewRenderer(PT::Panorama * pano, TextureManager *tex_man,
                MeshManager *mesh_man, VisualizationState *visualization_state,
-               PreviewToolHelper *tool_helper);
+               PreviewToolHelper *tool_helper, const wxColour backgroundColour);
 
     vigra::Diff2D Resize(int width, int height);
     void Redraw();
 
 protected:
-
-
     VisualizationState * m_visualization_state;
-
-
-};
-
-class GLOverviewRenderer : public GLRenderer
-{
-public:
-//    GLOverviewRenderer(PT::Panorama * pano, TextureManager *tex_man,
-//               MeshManager *mesh_man, PanosphereOverviewVisualizationState *visualization_state,
-//               OverviewToolHelper *tool_helper) 
-
-protected:
-    
-
 };
 
 /**
  * subclass for the panosphere overview mode
  */
-class GLPanosphereOverviewRenderer : public GLOverviewRenderer
+class GLPanosphereOverviewRenderer : public GLRenderer
 {
 public:
     GLPanosphereOverviewRenderer(PT::Panorama * pano, TextureManager *tex_man,
                MeshManager *mesh_man, PanosphereOverviewVisualizationState *visualization_state,
-               PanosphereOverviewToolHelper *tool_helper);
+               PanosphereOverviewToolHelper *tool_helper, const wxColour backgroundColour);
 
     vigra::Diff2D Resize(int width, int height);
     void Redraw();
@@ -135,12 +115,12 @@ protected:
 /**
  * subclass for the plane overview mode
  */
-class GLPlaneOverviewRenderer : public GLOverviewRenderer
+class GLPlaneOverviewRenderer : public GLRenderer
 {
 public:
     GLPlaneOverviewRenderer(PT::Panorama * pano, TextureManager *tex_man,
                MeshManager *mesh_man, PlaneOverviewVisualizationState *visualization_state,
-               PlaneOverviewToolHelper *tool_helper);
+               PlaneOverviewToolHelper *tool_helper, const wxColour backgroundColour);
 
     vigra::Diff2D Resize(int width, int height);
     void Redraw();

@@ -36,14 +36,12 @@
   #include <GLUT/glut.h>
 #endif
 
-
 #include "PanosphereSphereTool.h"
-#include "GLPreviewFrame.h"
 
-///PanosphereSphereTool::PanosphereSphereTool(PanosphereOverviewToolHelper *helper) : PanosphereOverviewTool(helper)
-///{
-///      m_background_color = wxColour(255,255,255);
-///}
+PanosphereSphereTool::PanosphereSphereTool(PanosphereOverviewToolHelper *helper, const wxColour backgroundColour) : PanosphereOverviewTool(helper)
+{
+    m_background_color = backgroundColour;
+}
 
 void PanosphereSphereTool::Activate()
 {
@@ -54,9 +52,7 @@ void PanosphereSphereTool::Activate()
 void PanosphereSphereTool::BeforeDrawImagesBackEvent()
 {
     glDisable(GL_TEXTURE_2D);
-    // background color
-    wxColour c = helper->GetPreviewFrame()->GetPreviewBackgroundColor();
-    glColor4f((float)c.Red()/255, (float)c.Green()/255, (float)c.Blue()/255, 0.8);
+    glColor4f((float)m_background_color.Red()/255, (float)m_background_color.Green()/255, (float)m_background_color.Blue()/255, 0.8);
  
     glEnable(GL_BLEND);
     glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -73,9 +69,9 @@ void PanosphereSphereTool::BeforeDrawImagesBackEvent()
 void PanosphereSphereTool::BeforeDrawImagesFrontEvent()
 {
 
-
 }
 
-///void PanosphereSphereTool::SetPreviewBackgroundColor (wxColour c) {
-///    m_background_color = c;
-///}
+void PanosphereSphereTool::SetPreviewBackgroundColor (wxColour c)
+{
+    m_background_color = c;
+}

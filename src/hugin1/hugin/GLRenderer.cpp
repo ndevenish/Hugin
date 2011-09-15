@@ -46,23 +46,39 @@
 #include "ToolHelper.h"
 #include <panodata/PanoramaOptions.h>
 
-#include "GLPreviewFrame.h"
+GLRenderer::GLRenderer(const wxColour backgroundColour)
+{
+    m_background_color = backgroundColour;
+};
+
+void GLRenderer::SetPreviewBackgroundColor(const wxColour c)
+{
+    m_background_color = c;
+}
+
+void GLRenderer::SetBackground(unsigned char red, unsigned char green, unsigned char blue)
+{
+    glClearColor((float) red / 255.0, (float) green / 255.0, (float) blue / 255.0, 1.0);
+}
+
+GLRenderer::~GLRenderer()
+{
+}
 
 GLPreviewRenderer::GLPreviewRenderer(PT::Panorama *pano, TextureManager *tex_man,
                        MeshManager *mesh_man, VisualizationState *visualization_state,
-                       PreviewToolHelper *tool_helper)
+                       PreviewToolHelper *tool_helper,const wxColour backgroundColour) : GLRenderer(backgroundColour)
 {
     m_pano = pano;
     m_tex_man = tex_man;
     m_mesh_man = mesh_man;
     m_visualization_state = visualization_state;
     m_tool_helper = tool_helper;
-    m_background_color = wxColour(0,0,0);
 }
 
 GLPanosphereOverviewRenderer::GLPanosphereOverviewRenderer(PT::Panorama *pano, TextureManager *tex_man,
                        MeshManager *mesh_man, PanosphereOverviewVisualizationState *visualization_state,
-                       PanosphereOverviewToolHelper *tool_helper)
+                       PanosphereOverviewToolHelper *tool_helper, const wxColour backgroundColour) : GLRenderer(backgroundColour)
 {
     m_pano = pano;
     m_tex_man = tex_man;
@@ -73,7 +89,7 @@ GLPanosphereOverviewRenderer::GLPanosphereOverviewRenderer(PT::Panorama *pano, T
 
 GLPlaneOverviewRenderer::GLPlaneOverviewRenderer(PT::Panorama *pano, TextureManager *tex_man,
                        MeshManager *mesh_man, PlaneOverviewVisualizationState *visualization_state,
-                       PlaneOverviewToolHelper *tool_helper)
+                       PlaneOverviewToolHelper *tool_helper, const wxColour backgroundColour) : GLRenderer(backgroundColour)
 {
 
     m_pano = pano;
@@ -81,11 +97,6 @@ GLPlaneOverviewRenderer::GLPlaneOverviewRenderer(PT::Panorama *pano, TextureMana
     m_mesh_man = mesh_man;
     m_visualization_state = visualization_state;
     m_tool_helper = tool_helper;
-}
-
-
-GLRenderer::~GLRenderer()
-{
 }
 
 vigra::Diff2D GLPreviewRenderer::Resize(int in_width, int in_height)
@@ -129,11 +140,6 @@ vigra::Diff2D GLPreviewRenderer::Resize(int in_width, int in_height)
   // return the offset from the top left corner of the viewpoer to the top left
   // corner of the panorama.
   return vigra::Diff2D(int (x_offs / scale), int (y_offs / scale));
-}
-
-void GLRenderer::SetBackground(unsigned char red, unsigned char green, unsigned char blue)
-{
-    glClearColor((float) red / 255.0, (float) green / 255.0, (float) blue / 255.0, 1.0);
 }
 
 void GLPreviewRenderer::Redraw()
@@ -214,7 +220,7 @@ void GLPreviewRenderer::Redraw()
 
 void GLPanosphereOverviewRenderer::Redraw()
 {
-  glClearColor(0,0,0,0);
+    glClearColor(0,0,0,0);
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	glMatrixMode(GL_MODELVIEW);
@@ -234,9 +240,6 @@ void GLPanosphereOverviewRenderer::Redraw()
     int imgs = m_pano->getNrOfImages();
     // offset by a half a pixel
     glPushMatrix();
-
-    // background color of sphere
-    glColor3f((float)m_background_color.Red()/255, (float)m_background_color.Green()/255, (float)m_background_color.Blue()/255);
 
     //draw the rectangle around the sphere
     glColor3f(0.5, 0.5, 0.5);
@@ -413,7 +416,7 @@ vigra::Diff2D GLPanosphereOverviewRenderer::Resize(int w, int h)
 void GLPlaneOverviewRenderer::Redraw()
 {
     // background color of mosaic plane
-    glColor3f((float)m_background_color.Red()/255, (float)m_background_color.Green()/255, (float)m_background_color.Blue()/255);
+    glClearColor((float)m_background_color.Red()/255, (float)m_background_color.Green()/255, (float)m_background_color.Blue()/255,1.0);
 
 	glClear(GL_COLOR_BUFFER_BIT);
 
@@ -434,7 +437,6 @@ void GLPlaneOverviewRenderer::Redraw()
     glPushMatrix();
 
     glColor3f(0.5,0.5,0.5);
-
     double side = 150;
     glBegin(GL_LINE_LOOP);
 
@@ -562,6 +564,3 @@ vigra::Diff2D GLPlaneOverviewRenderer::Resize(int w, int h)
     return vigra::Diff2D(0,0);
 }
 
-void GLRenderer::SetPreviewBackgroundColor (wxColour c) {
-    m_background_color = c;
-}

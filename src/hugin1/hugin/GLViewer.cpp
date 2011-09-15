@@ -185,14 +185,12 @@ void GLPreview::setUp()
     // now make a renderer
     m_renderer =  new GLPreviewRenderer(m_pano, m_view_state->GetTextureManager(),
                                  m_visualization_state->GetMeshManager(),
-                                 m_visualization_state, helper);
+                                 m_visualization_state, helper, m_background_color);
     // check, if gpu supports multitextures
     // fill blend mode choice box in fast preview window
     // we can fill it just now, because we need a OpenGL context, which was created now,
     // to check if all necessary extentions are available
     frame->FillBlendChoice();
-    // pass the background color to the preview renderer
-    m_renderer->SetPreviewBackgroundColor(m_background_color);
 }
 
 void GLOverview::setUp()
@@ -220,10 +218,10 @@ DEBUG_DEBUG("Overview Setup");
     // now make a renderer
     panosphere_m_renderer =  new GLPanosphereOverviewRenderer(m_pano, m_view_state->GetTextureManager(),
                                  panosphere_m_visualization_state->GetMeshManager(),
-                                 panosphere_m_visualization_state, panosphere_m_tool_helper);
+                                 panosphere_m_visualization_state, panosphere_m_tool_helper, m_background_color);
     plane_m_renderer =  new GLPlaneOverviewRenderer(m_pano, m_view_state->GetTextureManager(),
                                  plane_m_visualization_state->GetMeshManager(),
-                                 plane_m_visualization_state, plane_m_tool_helper);
+                                 plane_m_visualization_state, plane_m_tool_helper, m_background_color);
                                  
     switch(mode) {
         case PANOSPHERE:
