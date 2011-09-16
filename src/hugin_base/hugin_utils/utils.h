@@ -57,14 +57,18 @@
 
 // misc utility functions / macros
 
+// remark:
+// on unix_like systems don't use CurrentTime, this is defined as a macro in X.h and breaks the debug messages
+// on windows we can't use GetCurrentTime because this is replaced with GetTickCount
+
 #ifdef __GNUC__
     // the full function name is too long..
 //  #define DEBUG_HEADER hugin_utils::CurrentTime() <<" (" << __FILE__ << ":" << __LINE__ << ") "  << __PRETTY_FUNCTION__ << "()" << std::endl << "    "
-    #define DEBUG_HEADER hugin_utils::CurrentTime() <<" (" << __FILE__ << ":" << __LINE__ << ") "  << __func__ << "(): "
+    #define DEBUG_HEADER hugin_utils::GetCurrentTimeString() <<" (" << __FILE__ << ":" << __LINE__ << ") "  << __func__ << "(): "
 #elif _MSC_VER > 1300
-    #define DEBUG_HEADER hugin_utils::CurrentTime() <<" (" << __FILE__ << ":" << __LINE__ << ") "  << __FUNCTION__ << "(): "
+    #define DEBUG_HEADER hugin_utils::GetCurrentTimeString() <<" (" << __FILE__ << ":" << __LINE__ << ") "  << __FUNCTION__ << "(): "
 #else
-    #define DEBUG_HEADER hugin_utils::CurrentTime() <<" (" << __FILE__ << ":" << __LINE__ << ") "  << __func__ << "(): "
+    #define DEBUG_HEADER hugin_utils::GetCurrentTimeString() <<" (" << __FILE__ << ":" << __LINE__ << ") "  << __func__ << "(): "
 #endif
 
 
@@ -147,7 +151,7 @@ namespace hugin_utils
 {
     
     /** current time as a string */
-    IMPEX std::string CurrentTime();
+    IMPEX std::string GetCurrentTimeString();
 
     /** convert a double to a string, suitable for display
      *  within a GUI.

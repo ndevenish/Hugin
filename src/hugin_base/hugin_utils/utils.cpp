@@ -37,7 +37,7 @@
 namespace hugin_utils {
     
 #ifdef UNIX_LIKE
-std::string CurrentTime()
+std::string GetCurrentTimeString()
 {
   char tmp[100];
   struct tm t;
@@ -49,7 +49,7 @@ std::string CurrentTime()
   return tmp;
 }
 #else
-std::string CurrentTime()
+std::string GetCurrentTimeString()
 {
     // FIXME implement for Win
     return "";

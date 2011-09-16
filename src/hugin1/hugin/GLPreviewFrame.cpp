@@ -53,11 +53,6 @@
 #include "hugin/CommandHistory.h"
 #include "hugin/GLViewer.h"
 #include "hugin/TextKillFocusHandler.h"
-// something messed up... temporary fix :-(
-#include "hugin_utils/utils.h"
-#define DEBUG_HEADER ""
-/*#include <vigra_ext/ImageTransforms.h>
-*/
 
 extern "C" {
 #include <pano13/queryfeature.h>
