@@ -310,7 +310,7 @@ void ImagesPanel::SIFTMatching(wxCommandEvent & e)
     UIntSet selImg = images_list->GetSelected();
     //if only one image is selected, run detector on all images, except for linefind
     wxString progName=cpdetector_config.settings[m_CPDetectorChoice->GetSelection()].GetProg().Lower();
-    if ( selImg.size() < 2 && progName.Find(wxT("linefind"))==wxNOT_FOUND)
+    if ((selImg.size()==0) || (selImg.size()==1 && progName.Find(wxT("linefind"))==wxNOT_FOUND))
     {
         // add all images.
         selImg.clear();
