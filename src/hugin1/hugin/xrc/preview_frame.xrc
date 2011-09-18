@@ -444,7 +444,7 @@
                 </object>
                 <object class="sizeritem">
                   <object class="wxStaticText">
-                    <label>* A grey line indicates there are no control points, but the image pair overlaps.
+                    <label>* A gray line indicates there are no control points, but the image pair overlaps.
 * Green, yellow and red lines indicate good, medium and poor alignment.
 * Click a line to edit the associated images in the Control Points tab.</label>
                   </object>
@@ -1063,7 +1063,7 @@
                 </object>
                 <object class="sizeritem">
                   <object class="wxStaticText">
-                    <label>* A grey line indicates there are no control points, but the image pair overlaps.
+                    <label>* A gray line indicates there are no control points, but the image pair overlaps.
 * Green, yellow and red lines indicate good, medium and poor alignment.
 * Click a line to edit the associated images in the Control Points tab.</label>
                   </object>
