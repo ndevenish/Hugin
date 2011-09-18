@@ -1,4 +1,17 @@
-2011-09-15 17:14 +0200  tmodes  (22275e04b36b)  tip
+2011-09-17 08:48 +0200  tmodes  (a2d764c769ce)  tip
+
+	Updated swedish and danish translation from default branch
+
+	> src/translations/da.po
+	> src/translations/sv.po
+
+2011-09-15 18:49 +0200  tmodes  (60a6a5a67d0b)  
+
+	Update changelog
+
+	> ChangeLog
+
+2011-09-15 17:14 +0200  tmodes  (22275e04b36b)  
 
 	Correctly initialize panosphere visualization state [726183]
 
