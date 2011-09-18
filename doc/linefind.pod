@@ -1,0 +1,53 @@
+=head1 NAME
+
+linefind - Detect vertical features in images
+
+=head1 SYNOPSIS
+
+B<linefind> [options] -o I<output.pto> I<input.pto>
+
+=head1 DESCRIPTION
+
+B<linefind> is a detector for vertical features in images. It tries to find
+vertical lines using the same algorithm as Calibrate_lens_gui and assigns
+vertical control points to them. The detection runs on the source images, if
+the input images are rectilinear images. In the other cases (e. g. fisheye
+images) the input images are reprojected to an equirectangular projection and
+the detection works on the reprojected images. It using the roll value, saved
+in the pto project file, to determine what is "top" and "bottom". So before
+running linefind check that your roll values are correct (E. g. when using
+images straight from the camera, use a roll value of 0 for landscape and a
+value of 90 or 270 for portrait images. If your camera has an orientation
+sensor, Hugin can detect this information automatically and sets the roll
+value accordingly when adding such images into Hugin.
+
+=head1 OPTIONS
+
+=over
+
+=item B<-o|--output> output.pto
+
+Output Hugin PTO file. Default: '<filename>_line.pto'.
+
+=item B<-l|--lines> num
+
+The maximum number of lines added per image (default: 5) Attention: Keep in
+mind that more vertical control points will dominate the optimisation in favour
+of "normal" control points.
+
+=item B<-i|--image> num
+
+Image number(s) to process.  Normally linefind tries to find vertical lines in
+all images of the project file. If you want to limit the detection to some
+selected images, you can use this parameter. Can be used multiple times.
+
+=item B<-h|--help>
+
+shows help
+
+=back
+
+=head1 AUTHORS
+
+Thomas Modes, line detection code based on L<calibrate_lens> by Tim Nugent
+
