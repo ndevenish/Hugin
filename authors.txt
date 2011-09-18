@@ -42,6 +42,7 @@ Alexandre Jenny	SpaceTransform class, GSoC 2008 mentoring
 Jing Jin	GSoC 2007 deghosting
 Lukáš Jirkovský	GSoC 2009 deghosting in enfuse
 Gareth Jones	British English translation
+Ewing Kang	Traditional Chinese translation
 Allard Katan	Windows installer
 Guido Kohlmeyer	German translation, Windows SDK, bug fixes
 Erik Krause	Enfuse and enblend droplets for Windows

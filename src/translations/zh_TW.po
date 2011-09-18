@@ -20,7 +20,7 @@ msgstr ""
 msgid ""
 "External program %s not found as specified in preferences, reverting to "
 "bundled version"
-msgstr "預設項目中未發現您所指定的外部應用程式%s, 回到內部軟體集"
+msgstr "偏好設定目中未發現您所指定的外部應用程式%s, 回到內部軟體集"
 
 #: hugin1/base_wx/huginConfig.cpp:47 hugin1/base_wx/huginConfig.cpp:57
 #: hugin1/base_wx/huginConfig.cpp:69 hugin1/base_wx/huginConfig.cpp:82
@@ -55,7 +55,7 @@ msgstr "預設軟體集中未發現您所指定的外部應用程式 %s, 回到�
 #: hugin1/base_wx/huginConfig.cpp:95 hugin1/base_wx/huginConfig.cpp:109
 #, c-format
 msgid "Program %s not found in preferences, reverting to default value"
-msgstr "預設項目中未發現您所指定的外部應用程式 %s, 回到預設值"
+msgstr "偏好設定目中未發現您所指定的外部應用程式 %s, 回到預設值"
 
 #: hugin1/base_wx/huginConfig.cpp:129 hugin1/base_wx/huginConfig.cpp:134
 #: hugin1/base_wx/huginConfig.cpp:140 hugin1/base_wx/huginConfig.cpp:145
@@ -307,21 +307,23 @@ msgid ""
 "Hugin can not work with these filenames. Please rename your file(s) and try "
 "again."
 msgstr ""
+"檔案名稱包含非正確格式的字元 %s\n"
+"Hugin 不能辨識這些字元，請重新命名您的檔案，並再試一次"
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:169
 msgid "Hugin Lens calibration GUI"
-msgstr ""
+msgstr "Hugin 鏡頭校正視窗"
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:371
 #, c-format
 msgid "Added %s"
-msgstr ""
+msgstr "新增 %s"
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:397
 #, c-format
 msgid ""
 "The size of the images (%s) does not match with the already added image(s)."
-msgstr ""
+msgstr "這些影像 (%s) 的尺寸與已經存在的影像尺寸不符"
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:410
 #, c-format
@@ -330,15 +332,17 @@ msgid ""
 "already added image(s).\n"
 "Please check the image again, if you selected the correct images."
 msgstr ""
+"這些新增影像(%s)的EXIF資訊與已新增的影像不符\n"
+"請再次檢查，確定您選取的是正確的影像"
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:419 hugin1/hugin/MainFrame.cpp:922
 #: hugin1/hugin/wxPanoCommand.cpp:412 hugin1/hugin/wxPanoCommand.cpp:591
 msgid "Add images"
-msgstr "增加圖片"
+msgstr "增加影像"
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:484 hugin1/hugin/MainFrame.cpp:999
 msgid "Add Image: cancel"
-msgstr "增加圖片: 取消"
+msgstr "增加影像: 取消"
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:492
 #: hugin1/calibrate_lens/LensCalFrame.cpp:502
@@ -356,12 +360,12 @@ msgid ""
 "There are invalid values in the input boxes.\n"
 "Please check your inputs."
 msgstr ""
-"至少有一個欄位空白.\n"
-"請檢查."
+"至少有一個欄位空白。\n"
+"請檢查。"
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:599
 msgid "Detecting edges..."
-msgstr ""
+msgstr "偵測到邊緣..."
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:601
 #, fuzzy
@@ -383,7 +387,7 @@ msgstr ""
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:705
 msgid "Optimizing lens distortions parameters..."
-msgstr ""
+msgstr "鏡頭變形最佳化..."
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:736
 msgid ""
@@ -442,7 +446,7 @@ msgstr "建築"
 #: hugin1/hugin/AboutDialog.cpp:135
 #, c-format
 msgid "Free memory: %ld kiB"
-msgstr ""
+msgstr "剩餘記憶體： %ld kiB"
 
 #: hugin1/hugin/AboutDialog.cpp:138
 #, c-format
@@ -567,7 +571,7 @@ msgstr ""
 msgid ""
 "The assistant did not complete successfully. Please check the resulting "
 "project file."
-msgstr ""
+msgstr "對準沒有成功，請檢查輸出的結果。"
 
 #: hugin1/hugin/CPDetectorDialog.cpp:93
 msgid "Autopano from http://autopano.kolor.com is not available for OSX"
@@ -684,7 +688,7 @@ msgid ""
 "preferences."
 msgstr ""
 "沒有發現相似點. 真實地檢查相似處.\n"
-"相關係數 (%.3f) 低於預設項中設定的閥值."
+"相關係數 (%.3f) 低於偏好設定中設定的閥值."
 
 #: hugin1/hugin/CPEditorPanel.cpp:1089
 #, c-format
@@ -694,7 +698,7 @@ msgid ""
 "preferences."
 msgstr ""
 "沒有發現相似點. 真實地檢查相似處.\n"
-"相關係數 (%.3f) 低於預設項中設定的閥值."
+"相關係數 (%.3f) 低於偏好設定中設定的閥值."
 
 #: hugin1/hugin/CPEditorPanel.cpp:1258 hugin1/hugin/CPEditorPanel.cpp:1269
 msgid "Add new Line"
@@ -731,7 +735,7 @@ msgid ""
 "enter a higher number."
 msgstr ""
 "建立新的控制點.\n"
-"如果想創建較少點,\n"
+"如果想建立較少控制點,\n"
 "請輸入更高數字."
 
 #: hugin1/hugin/CPEditorPanel.cpp:1941
@@ -774,7 +778,7 @@ msgstr "執行 Celeste"
 
 #: hugin1/hugin/CPEditorPanel.cpp:2190 hugin1/hugin/ImagesPanel.cpp:1037
 msgid "searching for cloud-like control points..."
-msgstr "正在尋找雲似的基準點..."
+msgstr "正在尋找建立在雲上的基準點..."
 
 #: hugin1/hugin/CPEditorPanel.cpp:2191 hugin1/hugin/ImagesPanel.cpp:1038
 #, fuzzy
@@ -930,7 +934,7 @@ msgstr "拖曳以修改水平視角"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:479
 msgid "Panosphere"
-msgstr ""
+msgstr "全景球"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:480
 #, fuzzy
@@ -1023,6 +1027,8 @@ msgid ""
 "Switching to panosphere overview mode requires that all images have zero XYZ "
 "parameters. Do you want to set all XYZ parameters to zero for all images?"
 msgstr ""
+"切換到全景球模式需要視角移動(XYZ)值 為0，你希望先把所有視角移動(XYZ)值重設為0"
+"嗎？"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1585
 #, fuzzy
@@ -1075,21 +1081,21 @@ msgstr "無效的可見視角值. 這個投影的最大可見視角值是 %lf."
 msgid ""
 "With a wide field of view, panoramas with rectilinear projection get very "
 "stretched towards the edges.\n"
-msgstr ""
+msgstr "因為全景圖有過寬的視野角度，使用直線投影將會使的邊緣被嚴重拉伸。\n"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:2499
 msgid ""
 "Since the field of view is only very wide in the horizontal direction, try a "
 "cylindrical projection instead."
-msgstr ""
+msgstr "因為視野角度只有在水平方向過寬，請嘗試圓柱投影"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:2501
 msgid "For a very wide panorama, try equirectangular projection instead."
-msgstr ""
+msgstr "角度非常寬的全景，請試試等距長方圓柱投影。"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:2503
 msgid " You could also try Panini projection."
-msgstr ""
+msgstr "你也可以嘗試Panini 投影"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:2508
 msgid ""
@@ -1098,6 +1104,8 @@ msgid ""
 "An equirectangular projection would fit the same content in less vertical "
 "space."
 msgstr ""
+"因為全景圖垂直方向上有過大的視野角度，使用圓柱投影將會造成上下端嚴重拉伸變形"
+"等距長方圓柱投影可以把同樣的畫面顯示在較小的垂直距離內"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:2514
 msgid ""
@@ -1105,6 +1113,8 @@ msgid ""
 "panorama projection to cylindrical.\n"
 "Cylindrical projection preserves vertical lines, unlike equirectangular."
 msgstr ""
+"垂直方向的視野角度並不是太大，你可以試著將投影方式改為圓柱投影。\n"
+"圓柱投影不像等距長方圓柱投影，它會保留垂直線"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:2520
 msgid ""
@@ -1113,6 +1123,8 @@ msgid ""
 "A conformal projection preserves angles around a point, which often makes it "
 "easier on the eye."
 msgstr ""
+"球極平面投影的角度不向魚眼投影，它是平均的。等角投影讓角度沿著一個點彎曲，使"
+"它更為直覺。"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:2525
 msgid ""
@@ -1121,12 +1133,14 @@ msgid ""
 "The Fisheye panorama projection compresses it, so you can fit in a wide "
 "field of view and still have a reasonable coverage of the middle."
 msgstr ""
+"球極平面投影會讓有具有寬視野角度的全景在邊緣有嚴重的拉伸變形。\n"
+"魚眼投影會壓縮這些變形，讓照片的寬度降低同時合理的保存中央畫面。"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:2532
 msgid ""
 "Setting the panorama to rectilinear projection would keep the straight lines "
 "straight."
-msgstr ""
+msgstr "在全景上使用直線投影會讓畫面中的直線保持直的樣子"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:2574
 msgid ""
@@ -1134,12 +1148,16 @@ msgid ""
 "projection.\n"
 "If you want to see the bar again, activate the bar in the preferences again."
 msgstr ""
+"你把可以顯示投影法提示的資訊列關閉了。\n"
+"你可以在偏好設定中開啟資訊列。"
 
 #: hugin1/hugin/GLViewer.cpp:151
 msgid ""
 "Error initializing GLEW\n"
 "Fast preview window can not be opened."
 msgstr ""
+"初始化 GLEW 失敗\n"
+"快速預覽視窗將不會開啟。"
 
 #: hugin1/hugin/GLViewer.cpp:161
 msgid ""
@@ -1147,6 +1165,9 @@ msgid ""
 "version 1.1 with the GL_ARB_multitexture extension.\n"
 "The fast preview cannot be opened."
 msgstr ""
+"很抱歉，快速預覽視窗只能在支援具有GL_ARB_multitexture的OpenGL1.1的系統上面運"
+"作 \n"
+"快速預覽視窗無法開啟。"
 
 #: hugin1/hugin/HDRMergeOptionDialog.cpp:157
 msgid "Invalid input\n"
@@ -1182,7 +1203,7 @@ msgstr ""
 "沒有或者只有局部視角資訊存在於圖片中\n"
 "%s\n"
 "\n"
-"請輸入水平視角 (HFOV) 或者焦距和鏡頭焦距轉換率."
+"請輸入水平視角 (HFOV) 或者焦距和鏡頭焦距位移率."
 
 #: hugin1/hugin/HFOVDialog.cpp:159
 msgid "The horizontal field of view must be positive."
@@ -1194,7 +1215,7 @@ msgstr "焦距必須是正數."
 
 #: hugin1/hugin/HFOVDialog.cpp:251
 msgid "The crop factor must be positive."
-msgstr "鏡頭焦距轉換率必須是正數."
+msgstr "鏡頭焦距位移率必須是正數."
 
 #: hugin1/hugin/ImagesList.cpp:406 hugin1/hugin/ImagesList.cpp:534
 msgid "Filename"
@@ -1347,6 +1368,8 @@ msgid ""
 "You selected only one image.\n"
 "Should the loaded parameters applied to all images with the same lens?"
 msgstr ""
+"你只有選取一個影像。\n"
+"載入的參數應該要加到所有具有同樣鏡頭的影像上嗎？"
 
 #: hugin1/hugin/LensPanel.cpp:787 hugin1/ptbatcher/FindPanoDialog.cpp:176
 #: hugin1/ptbatcher/FindPanoDialog.cpp:211
@@ -1359,6 +1382,9 @@ msgid ""
 "Apply lens parameter file can result in unwanted results.\n"
 "Apply settings anyway?"
 msgstr ""
+"你選擇了多個不同尺寸的影像。\n"
+"直接套用鏡頭參數可能導致意外的結果。\n"
+"確定要直接套用設定嗎？"
 
 #: hugin1/hugin/LensPanel.cpp:847
 msgid ""
@@ -1433,12 +1459,12 @@ msgstr "開始了"
 
 #: hugin1/hugin/MainFrame.cpp:605
 msgid "Save changes to the panorama before closing?"
-msgstr ""
+msgstr "在關閉前儲存檔案？"
 
 #: hugin1/hugin/MainFrame.cpp:613
 msgid ""
 "If you close without saving, changes since your last save will be discarded"
-msgstr ""
+msgstr "如果你想要在儲存前關閉檔案，所有沒有存檔的部分將不會保留。"
 
 #: hugin1/hugin/MainFrame.cpp:616
 #, fuzzy
@@ -1472,6 +1498,11 @@ msgid ""
 "\n"
 "(Error code: %s)"
 msgstr ""
+"無法儲存專案的執行檔案\"%s\"\n"
+"但是專案檔已成功儲存。\n"
+"檔案或資料夾權限可能被設為只能讀取\n"
+"\n"
+"(錯誤碼： %s)"
 
 #: hugin1/hugin/MainFrame.cpp:728
 #, c-format
@@ -1481,6 +1512,10 @@ msgid ""
 "\n"
 "(Error code: %s)"
 msgstr ""
+"無法儲存專案檔 \"%s\"\n"
+"檔案或資料夾權限可能被設為只能讀取\n"
+"\n"
+"(錯誤碼： %s)"
 
 #: hugin1/hugin/MainFrame.cpp:775
 msgid "Save PTmender script file"
@@ -1556,7 +1591,7 @@ msgid ""
 "\n"
 "Use the Control Point list (F3) to see all points of the current project\n"
 msgstr ""
-"%d 個點被調整了, %d 個點由於相關度較低所以沒有被更新\n"
+"%d 個點被調整了, %d 個點由於相關係數較低所以沒有被更新\n"
 "\n"
 "提示: 被調整點的誤差值已經被設定成了相關係數\n"
 "有問題的點能夠被標記出來 (只在調整後,  最佳化前)\n"
@@ -1577,7 +1612,7 @@ msgstr "移除了 %d 個控制點"
 
 #: hugin1/hugin/MainFrame.cpp:1706
 msgid "Select python script"
-msgstr ""
+msgstr "選擇"
 
 #: hugin1/hugin/MainFrame.cpp:1708
 #, fuzzy
@@ -1747,11 +1782,13 @@ msgid ""
 "You selected no parameters to optimize.\n"
 "Therefore optimization will be canceled."
 msgstr ""
+"你沒有選擇參數來最佳化\n"
+"最佳化將被取消"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:533
 #, fuzzy
 msgid "Exposure optimization"
-msgstr "光學性質最佳化"
+msgstr "曝光最佳化"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:545
 msgid ""
@@ -1920,6 +1957,8 @@ msgid ""
 "The given filename contains one of the following invalid characters: %s\n"
 "Hugin can not work with this filename. Please enter a valid filename."
 msgstr ""
+"指定的檔名包含以下無法使用的字符： %s\n"
+"Hugin 不能使用這些檔名，請重新輸入可接受的檔名。"
 
 #: hugin1/hugin/PanoPanel.cpp:1112
 msgid "Could not execute command: "
@@ -1931,7 +1970,7 @@ msgstr "ShellExecuteEx 失敗"
 
 #: hugin1/hugin/PanoPanel.cpp:1404
 msgid "Are you sure you want to stitch such a large panorama?"
-msgstr ""
+msgstr "你確定要拼接這麼大一張全景圖？"
 
 #: hugin1/hugin/PanoPanel.cpp:1412
 #, c-format
@@ -1941,6 +1980,9 @@ msgid ""
 "and stitch from the Stitcher tab. Stitching a panorama this size could take "
 "a long time and a large amount of memory."
 msgstr ""
+"你要拼接的全景圖有%.1f十億像素(gigapixels)\n"
+"如果太大的話，調整底圖大小並選取裁切範圍，然後透過接合器頁籤來拼接接合這麼大"
+"的全景可能會需要很多時間和很大的記憶體"
 
 #: hugin1/hugin/PanoPanel.cpp:1414
 #, fuzzy
@@ -1949,7 +1991,7 @@ msgstr "現在接合!"
 
 #: hugin1/hugin/PanoPanel.cpp:1414
 msgid "Let me fix that"
-msgstr ""
+msgstr "讓我重新設定"
 
 #: hugin1/hugin/PanoPanel.cpp:1431
 #, c-format
@@ -1961,10 +2003,15 @@ msgid ""
 "and stitch from the Stitcher tab. Stitching a panorama this size could take "
 "a long time and a large amount of memory."
 msgstr ""
+"你確定要拼接這麼大一張全景圖？\n"
+"\n"
+"你要拼接的全景圖有%.1f十億像素(gigapixels)\n"
+"如果太大的話，調整底圖大小並選取裁切範圍，然後透過接合器頁籤來拼接接合這麼大"
+"的全景可能會需要很多時間和很大的記憶體"
 
 #: hugin1/hugin/PluginItems.cpp:68
 msgid "Miscellaneous"
-msgstr ""
+msgstr "雜項"
 
 #: hugin1/hugin/PreferencesDialog.cpp:121
 msgid "System default"
@@ -2087,7 +2134,7 @@ msgstr "Panotools 細節"
 
 #: hugin1/hugin/PreferencesDialog.cpp:659
 msgid "Really reset displayed preferences to default values?"
-msgstr "真的要將顯示的預設項重新設定成預設值嗎?"
+msgstr "真的要將顯示的偏好設定重新設定成預設值嗎?"
 
 #: hugin1/hugin/PreferencesDialog.cpp:659 translations/xrc.cpp:791 xrc.cpp:791
 msgid "Load Defaults"
@@ -2137,7 +2184,7 @@ msgstr "刪除控制點偵測器設定"
 #: hugin1/hugin/PreviewColorPickerTool.cpp:44
 msgid ""
 "Click on a area which should be neutral gray / white in the final panorama."
-msgstr ""
+msgstr "點選在輸出的全景圖中應該要是中性的灰色/白色區域。"
 
 #: hugin1/hugin/PreviewCropTool.cpp:55
 msgid "Drag the inside of the cropping rectangle to adjust the crop."
@@ -2269,7 +2316,7 @@ msgstr "載入專案檔案發生錯誤"
 
 #: hugin1/hugin/wxPanoCommand.cpp:706
 msgid "Result"
-msgstr ""
+msgstr "結果"
 
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:205
 #, c-format
@@ -2283,7 +2330,7 @@ msgstr ""
 
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:329
 msgid "cleaning up temporary keypoint files"
-msgstr ""
+msgstr "正在清理暫時的識別點檔案"
 
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:388
 #, c-format
@@ -2326,7 +2373,7 @@ msgid ""
 "\n"
 " Could not execute command: %s"
 msgstr ""
-"存在過多引數(圖片) 請嘗試預設項目中 %%s參數.\n"
+"存在過多引數(圖片) 請嘗試偏好設定目中 %%s參數.\n"
 "\n"
 "不能執行指令:%s"
 
@@ -2417,7 +2464,7 @@ msgid ""
 "\n"
 " Could not execute command: %s"
 msgstr ""
-"存在過多引數(圖片) 請嘗試使用預設項目中能支援 %%s參數的控制點偵測器設定.\n"
+"存在過多引數(圖片) 請嘗試使用偏好設定目中能支援 %%s參數的控制點偵測器設定.\n"
 "\n"
 "不能執行指令: %s"
 
@@ -2601,7 +2648,7 @@ msgstr "增加一個專案到批次處理列表中."
 #: hugin1/ptbatcher/BatchFrame.cpp:456
 #, c-format
 msgid "Add project %s to assistant queue."
-msgstr ""
+msgstr "新增專案 %s 到助手列表中"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:470
 #, fuzzy
@@ -2614,7 +2661,7 @@ msgstr "為專案指定輸出檔名"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:501
 msgid "The prefix of an assistant target can not be changed."
-msgstr ""
+msgstr "助手列表的指定檔名不能修改"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:507
 msgid "Please select a project"
@@ -2748,10 +2795,13 @@ msgid ""
 "If you close the dialog, you will lose them.\n"
 "Continue anyway?"
 msgstr ""
+"清單中可能包含未處裡的全景\n"
+"如果關閉視窗可能會導致他們消失\n"
+"確定要繼續嗎？"
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:200
 msgid "Accepted"
-msgstr ""
+msgstr "接受"
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:210
 msgid ""
@@ -2759,6 +2809,9 @@ msgid ""
 "If you continue, they will be disregarded.\n"
 "Do you still want to continue?"
 msgstr ""
+"清單中可能包含未處裡的全景\n"
+"如果繼續可能會導致他們被忽略\n"
+"你仍然要繼續嗎？"
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:220
 #, fuzzy
@@ -2771,12 +2824,16 @@ msgid ""
 "Directory %s does not exist.\n"
 "Please give an existing directory."
 msgstr ""
+"目錄 %s 不存在 \n"
+"請指定有效的路徑"
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:248
 msgid ""
 "You have selected no possible panorama.\n"
 "Please select at least one panorama and try again."
 msgstr ""
+"你沒有選擇正常的全景\n"
+"請至少選擇一張全景並再試一次"
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:270
 msgid ""
@@ -2784,6 +2841,8 @@ msgid ""
 "Maybe you have no write permission for these directories or your hard disc "
 "is full."
 msgstr ""
+"不是所有的專案檔都能成功寫入\n"
+"你的硬碟可能沒有足夠空間或是沒有寫入的權限"
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:295
 #, fuzzy, c-format
@@ -2874,7 +2933,7 @@ msgstr "%d"
 
 #: hugin1/ptbatcher/ProjectListBox.cpp:172
 msgid "Error, cannot convert id"
-msgstr "錯誤, 無法轉換編號"
+msgstr "錯誤, 無法位移編號"
 
 #: hugin1/ptbatcher/ProjectListBox.cpp:279 translations/xrc.cpp:326
 #: translations/xrc.cpp:381 translations/xrc.cpp:676 xrc.cpp:326 xrc.cpp:381
@@ -3010,7 +3069,7 @@ msgstr "對準所有圖片. 創建控制點並且最佳化圖片位置"
 
 #: translations/xrc.cpp:21 xrc.cpp:21
 msgid "Send to assistant queue"
-msgstr ""
+msgstr "送到助手列表"
 
 #: translations/xrc.cpp:22 xrc.cpp:22
 msgid "3. Create panorama..."
@@ -3030,7 +3089,7 @@ msgstr "載入鏡頭數據..."
 
 #: translations/xrc.cpp:27 xrc.cpp:27
 msgid "Enter horizontal field of view (HFOV) or focal length and crop factor:"
-msgstr "輸入水平視角 (HFOV) 或者焦距和鏡頭焦距轉換率:"
+msgstr "輸入水平視角 (HFOV) 或者焦距和鏡頭焦距位移率:"
 
 #: translations/xrc.cpp:28 xrc.cpp:28
 msgid "HFOV (v):"
@@ -3117,11 +3176,11 @@ msgstr "選擇..."
 
 #: translations/xrc.cpp:51 xrc.cpp:51
 msgid "include sub-directories"
-msgstr ""
+msgstr "包含子目錄"
 
 #: translations/xrc.cpp:52 xrc.cpp:52
 msgid "Naming:"
-msgstr ""
+msgstr "重新命名："
 
 #: translations/xrc.cpp:53 xrc.cpp:53
 #, fuzzy
@@ -3139,7 +3198,7 @@ msgstr "檔案名稱"
 
 #: translations/xrc.cpp:56 xrc.cpp:56
 msgid "Stacks:"
-msgstr ""
+msgstr "堆棧："
 
 #: translations/xrc.cpp:57 xrc.cpp:57
 #, fuzzy
@@ -3148,7 +3207,7 @@ msgstr "建立新的控制點"
 
 #: translations/xrc.cpp:58 xrc.cpp:58
 msgid "Check if the stacks were shoot on a tripod."
-msgstr ""
+msgstr "檢查同一堆棧是否有用腳架拍攝"
 
 #: translations/xrc.cpp:60 xrc.cpp:60
 #, fuzzy
@@ -3225,11 +3284,11 @@ msgstr "圖片"
 
 #: translations/xrc.cpp:77 xrc.cpp:77
 msgid "Searches in directories for image files suitable for panoramas"
-msgstr ""
+msgstr "在目錄中尋找適合全景的影像檔"
 
 #: translations/xrc.cpp:78 xrc.cpp:78
 msgid "Searches in directories for existing projects or for images"
-msgstr ""
+msgstr "在目錄中尋找專案檔或影像"
 
 #: translations/xrc.cpp:79 translations/xrc.cpp:93 xrc.cpp:79 xrc.cpp:93
 msgid "Open batch"
@@ -3809,7 +3868,7 @@ msgstr "快門速度:"
 
 #: translations/xrc.cpp:239 xrc.cpp:239
 msgid "ISO:"
-msgstr ""
+msgstr "ISO感光度："
 
 #: translations/xrc.cpp:240 translations/xrc.cpp:431 xrc.cpp:240 xrc.cpp:431
 msgid "Add"
@@ -3841,7 +3900,7 @@ msgstr "圖片尺寸:"
 
 #: translations/xrc.cpp:249 xrc.cpp:249
 msgid "Minimum line length:"
-msgstr ""
+msgstr "最小直線長度"
 
 #: translations/xrc.cpp:250 translations/xrc.cpp:470 translations/xrc.cpp:612
 #: translations/xrc.cpp:615 translations/xrc.cpp:618 translations/xrc.cpp:621
@@ -3854,7 +3913,7 @@ msgstr "選項"
 
 #: translations/xrc.cpp:251 xrc.cpp:251
 msgid "Find lines"
-msgstr ""
+msgstr "尋找直線"
 
 #: translations/xrc.cpp:253 translations/xrc.cpp:294 xrc.cpp:253 xrc.cpp:294
 msgid "Radial Distortion"
@@ -3903,11 +3962,11 @@ msgstr "鏡頭參數"
 
 #: translations/xrc.cpp:263 xrc.cpp:263
 msgid "Original"
-msgstr ""
+msgstr "原始"
 
 #: translations/xrc.cpp:264 xrc.cpp:264
 msgid "Edge detection"
-msgstr ""
+msgstr "邊緣偵測"
 
 #: translations/xrc.cpp:265 xrc.cpp:265
 #, fuzzy
@@ -3921,7 +3980,7 @@ msgstr "顯示所有圖片"
 
 #: translations/xrc.cpp:267 xrc.cpp:267
 msgid "Refresh"
-msgstr ""
+msgstr "重新整理"
 
 #: translations/xrc.cpp:269 xrc.cpp:269
 #, fuzzy
@@ -3998,7 +4057,7 @@ msgstr "真實焦距 mm"
 
 #: translations/xrc.cpp:292 xrc.cpp:292
 msgid "crop factor:"
-msgstr "鏡頭焦距轉換率:"
+msgstr "鏡頭焦距位移率:"
 
 #: translations/xrc.cpp:293 xrc.cpp:293
 msgid "35mm film diameter / ccd diameter"
@@ -4027,30 +4086,30 @@ msgstr "光圈和顏色"
 #: translations/xrc.cpp:309 xrc.cpp:309
 #, fuzzy
 msgid "Exposure (Eev)"
-msgstr "光圈 (EV)"
+msgstr "曝光 (EV)"
 
 #: translations/xrc.cpp:311 xrc.cpp:311
 #, fuzzy
 msgid "Red multiplier (Er):"
-msgstr "紅色乘數:"
+msgstr "紅色乘數(Er):"
 
 #: translations/xrc.cpp:313 xrc.cpp:313
 #, fuzzy
 msgid "Blue multiplier (Eb):"
-msgstr "藍色乘數:"
+msgstr "藍色乘數(Eb):"
 
 #: translations/xrc.cpp:315 xrc.cpp:315
 msgid "Vignetting  (Vb, Vc, Vd)"
-msgstr ""
+msgstr "暈影效果 (Vb, Vc, Vd)"
 
 #: translations/xrc.cpp:317 xrc.cpp:317
 #, fuzzy
 msgid "Vignetting Center Shift (Vx, Vy)"
-msgstr "暈影效果中心變換"
+msgstr "暈影效果中心變換 (Vx, Vy)"
 
 #: translations/xrc.cpp:319 xrc.cpp:319
 msgid "Camera Response (Ra, Rb, Rc, Rd, Re)"
-msgstr ""
+msgstr "相機響應 (Ra, Rb, Rc, Rd, Re)"
 
 #: translations/xrc.cpp:321 xrc.cpp:321
 msgid "custom (EMoR)"
@@ -4160,7 +4219,7 @@ msgstr "套用先前已儲存的成套專案到目前圖片."
 
 #: translations/xrc.cpp:354 xrc.cpp:354
 msgid "&Preferences"
-msgstr "預設項 (&P)"
+msgstr "偏好設定 (&P)"
 
 #: translations/xrc.cpp:357 xrc.cpp:357
 msgid "&Edit"
@@ -4222,11 +4281,11 @@ msgstr "增加另外的圖片到目前專案中"
 
 #: translations/xrc.cpp:370 xrc.cpp:370
 msgid "Run User &Python script"
-msgstr ""
+msgstr "執行使用者&Python 語法"
 
 #: translations/xrc.cpp:371 xrc.cpp:371
 msgid "Run a python script"
-msgstr ""
+msgstr "執行Python語法"
 
 #: translations/xrc.cpp:372 xrc.cpp:372
 msgid "&View"
@@ -4266,7 +4325,7 @@ msgstr "顯示 OpenGL 預覽視窗"
 
 #: translations/xrc.cpp:382 xrc.cpp:382
 msgid "Show the Assistant panel"
-msgstr ""
+msgstr "顯示助手面板"
 
 #: translations/xrc.cpp:384 xrc.cpp:384
 #, fuzzy
@@ -4348,7 +4407,7 @@ msgstr "捐贈 (&D)"
 msgid ""
 "If you like hugin and want to see further improvements, please consider "
 "donating to the hugin project."
-msgstr "假如你喜歡 hugin 並且想目睹未來的提高, 請考慮捐贈 hugin 專案."
+msgstr "假如你喜歡 hugin 並且希望我們繼續進步, 請考慮捐贈 hugin 專案."
 
 #: translations/xrc.cpp:413 xrc.cpp:413
 msgid "New"
@@ -4476,15 +4535,15 @@ msgstr "光圈"
 
 #: translations/xrc.cpp:460 translations/xrc.cpp:731 xrc.cpp:460 xrc.cpp:731
 msgid "Import"
-msgstr ""
+msgstr "輸入"
 
 #: translations/xrc.cpp:461 xrc.cpp:461
 msgid "Copy"
-msgstr ""
+msgstr "複製"
 
 #: translations/xrc.cpp:462 xrc.cpp:462
 msgid "Paste"
-msgstr ""
+msgstr "貼上"
 
 #: translations/xrc.cpp:463 xrc.cpp:463
 #, fuzzy
@@ -4514,7 +4573,7 @@ msgstr "顏色"
 
 #: translations/xrc.cpp:469 xrc.cpp:469
 msgid "Show extent of active masks and crop"
-msgstr ""
+msgstr "顯示開啟的底圖和蒙版範圍"
 
 #: translations/xrc.cpp:471 xrc.cpp:471
 msgid "Image size:"
@@ -4534,11 +4593,11 @@ msgstr "不改變"
 
 #: translations/xrc.cpp:475 xrc.cpp:475
 msgid "Scale to fit"
-msgstr ""
+msgstr "調整符合大小"
 
 #: translations/xrc.cpp:476 xrc.cpp:476
 msgid "Scale proportional"
-msgstr ""
+msgstr "調整比例"
 
 #: translations/xrc.cpp:477 xrc.cpp:477
 msgid "Rotation"
@@ -4550,11 +4609,11 @@ msgstr "不旋轉"
 
 #: translations/xrc.cpp:479 xrc.cpp:479
 msgid "90° clockwise"
-msgstr ""
+msgstr "90° 順時鐘旋轉"
 
 #: translations/xrc.cpp:480 xrc.cpp:480
 msgid "90° counter-clockwise"
-msgstr ""
+msgstr "90° 逆時鐘旋轉"
 
 #: translations/xrc.cpp:483 xrc.cpp:483
 msgid "Loading mask"
@@ -4586,7 +4645,7 @@ msgstr "位置, 視角和桶狀失真 (y,p,r,v,b)"
 
 #: translations/xrc.cpp:491 xrc.cpp:491
 msgid "Everything without translation"
-msgstr ""
+msgstr "位移以外的所有參數"
 
 #: translations/xrc.cpp:492 translations/xrc.cpp:497 xrc.cpp:492 xrc.cpp:497
 msgid "----------------------------------------------------------"
@@ -4594,19 +4653,19 @@ msgstr ""
 
 #: translations/xrc.cpp:493 xrc.cpp:493
 msgid "Positions and Translation (y,p,r,x,y,z)"
-msgstr "位置和轉換 (y,p,r,b)"
+msgstr "位置和位移 (y,p,r,b)"
 
 #: translations/xrc.cpp:494 xrc.cpp:494
 msgid "Positions, Translation and View (y,p,r,x,y,z,v)"
-msgstr "位置,轉換和視角 (y,p,r,v)"
+msgstr "位置,位移和視角 (y,p,r,v)"
 
 #: translations/xrc.cpp:495 xrc.cpp:495
 msgid "Positions, Translation and Barrel (y,p,r,x,y,z,b)"
-msgstr "位置,轉換和桶狀失真 (y,p,r,v,b)"
+msgstr "位置,位移和桶狀失真 (y,p,r,v,b)"
 
 #: translations/xrc.cpp:496 xrc.cpp:496
 msgid "Positions, Translation, View and Barrel (y,p,r,x,y,z,v,b)"
-msgstr "位置,轉換,視角和桶狀失真 (y,p,r,v,b)"
+msgstr "位置,位移,視角和桶狀失真 (y,p,r,v,b)"
 
 #: translations/xrc.cpp:498 xrc.cpp:498
 msgid "the Custom parameters below"
@@ -4742,17 +4801,17 @@ msgstr "照相機和鏡頭變數:"
 #: translations/xrc.cpp:536 xrc.cpp:536
 #, fuzzy
 msgid "Vignetting (Vb, Vc, Vd):"
-msgstr "暈影效果:"
+msgstr "暈影效果(Vb, Vc, Vd):"
 
 #: translations/xrc.cpp:537 xrc.cpp:537
 #, fuzzy
 msgid "Vignetting Centre (Vx, Vy):"
-msgstr "暈影效果中心:"
+msgstr "暈影效果中心(Vx, Vy):"
 
 #: translations/xrc.cpp:538 xrc.cpp:538
 #, fuzzy
 msgid "Camera Response (Ra, Rb, Rc, Rd, Re):"
-msgstr "照相機回應:"
+msgstr "照相機回應(Ra, Rb, Rc, Rd, Re):"
 
 #: translations/xrc.cpp:539 xrc.cpp:539
 msgid "Interpolator (i):"
@@ -4884,7 +4943,7 @@ msgstr "裁剪"
 
 #: translations/xrc.cpp:579 xrc.cpp:579
 msgid "Fit Crop to Images"
-msgstr ""
+msgstr "依照影像調整裁切邊界"
 
 #: translations/xrc.cpp:580 xrc.cpp:580
 #, fuzzy
@@ -4905,7 +4964,7 @@ msgstr "標準輸出:"
 
 #: translations/xrc.cpp:583 translations/xrc.cpp:598 xrc.cpp:583 xrc.cpp:598
 msgid "Exposure corrected, low dynamic range"
-msgstr ""
+msgstr "曝光修正，低動態範圍"
 
 #: translations/xrc.cpp:584 xrc.cpp:584
 #, fuzzy
@@ -4943,7 +5002,7 @@ msgstr "檔案格式"
 #: translations/xrc.cpp:592 translations/xrc.cpp:602 xrc.cpp:592 xrc.cpp:602
 #, fuzzy
 msgid "High dynamic range"
-msgstr "低動態範圍"
+msgstr "高動態範圍"
 
 #: translations/xrc.cpp:593 xrc.cpp:593
 msgid ""
@@ -4961,11 +5020,11 @@ msgstr "重定位的圖片"
 msgid ""
 "Output remapped, exposure corrected images. Useful for manual blending of an "
 "exposure corrected panorama."
-msgstr ""
+msgstr "輸出重定位、曝光校正的影像。 對於手動融合需要曝光校正的全景很有用"
 
 #: translations/xrc.cpp:600 xrc.cpp:600
 msgid "No exposure correction, low dynamic range"
-msgstr ""
+msgstr "不做曝光校正，低動態範圍"
 
 #: translations/xrc.cpp:601 xrc.cpp:601
 #, fuzzy
@@ -4981,7 +5040,7 @@ msgstr "保留在途重定位未合併線性色彩空間圖片"
 
 #: translations/xrc.cpp:604 xrc.cpp:604
 msgid "Combined stacks:"
-msgstr ""
+msgstr "合併堆棧圖"
 
 #: translations/xrc.cpp:605 xrc.cpp:605
 #, fuzzy
@@ -4992,11 +5051,11 @@ msgstr "保留在途高動態已合併堆棧圖"
 msgid ""
 "Output remapped, high dynamic range merged stacks from highly overlapping "
 "images"
-msgstr ""
+msgstr "從幾乎完全重疊的影像中輸出經過重定位、高動態範圍的堆棧融合影像"
 
 #: translations/xrc.cpp:607 xrc.cpp:607
 msgid "Layers:"
-msgstr ""
+msgstr "圖層："
 
 #: translations/xrc.cpp:608 xrc.cpp:608
 #, fuzzy
@@ -5107,7 +5166,7 @@ msgstr "不要縮小圖片 (-a m)"
 
 #: translations/xrc.cpp:653 xrc.cpp:653
 msgid "Preferences - hugin"
-msgstr "預設項 - hugin"
+msgstr "偏好設定 - hugin"
 
 #: translations/xrc.cpp:654 xrc.cpp:654
 msgid "General"
@@ -5158,7 +5217,7 @@ msgstr "專案"
 
 #: translations/xrc.cpp:664 xrc.cpp:664
 msgid "based on containing folder"
-msgstr ""
+msgstr "基於包含的目錄中"
 
 #: translations/xrc.cpp:665 xrc.cpp:665
 #, fuzzy
@@ -5174,14 +5233,16 @@ msgid ""
 "May have unforseen consequences. \n"
 "(EXPERIMENTAL)"
 msgstr ""
+"可能有不可測的結果 \n"
+"(實驗性的)"
 
 #: translations/xrc.cpp:668 xrc.cpp:668
 msgid "Show hints about projections"
-msgstr ""
+msgstr "顯示投影的相關提示"
 
 #: translations/xrc.cpp:669 xrc.cpp:669
 msgid "The hints are shown only in the fast preview window"
-msgstr ""
+msgstr "提示只在快速預覽視窗中顯示"
 
 #: translations/xrc.cpp:670 xrc.cpp:670
 msgid "Show Druid (requires restarting hugin)"
@@ -5202,11 +5263,11 @@ msgstr "(空白時設定為作業系統預設)"
 
 #: translations/xrc.cpp:674 xrc.cpp:674
 msgid "Plugin dir:"
-msgstr ""
+msgstr "插件目錄："
 
 #: translations/xrc.cpp:675 xrc.cpp:675
 msgid "(where you store your customized plugins)"
-msgstr ""
+msgstr "(你儲存客製化插件的地方)"
 
 #: translations/xrc.cpp:677 xrc.cpp:677
 msgid "Image loading"
@@ -5426,7 +5487,7 @@ msgstr "預設引數:"
 
 #: translations/xrc.cpp:736 xrc.cpp:736
 msgid "default output format for final panorama"
-msgstr ""
+msgstr "預設的全景結果輸出格式"
 
 #: translations/xrc.cpp:737 xrc.cpp:737
 #, fuzzy
@@ -5435,7 +5496,7 @@ msgstr "壓縮:"
 
 #: translations/xrc.cpp:739 xrc.cpp:739
 msgid "default TIFF compression"
-msgstr ""
+msgstr "預設的TIFF壓縮器"
 
 #: translations/xrc.cpp:740 xrc.cpp:740
 #, fuzzy
@@ -5444,7 +5505,7 @@ msgstr "質量:"
 
 #: translations/xrc.cpp:741 xrc.cpp:741
 msgid "default JPEG compression setting"
-msgstr ""
+msgstr "預設的JPEG壓縮設定"
 
 #: translations/xrc.cpp:742 xrc.cpp:742
 #, fuzzy
@@ -5457,11 +5518,11 @@ msgstr ""
 
 #: translations/xrc.cpp:745 xrc.cpp:745
 msgid "The engine that will run the stitch"
-msgstr ""
+msgstr "核心程式會執行接圖"
 
 #: translations/xrc.cpp:746 xrc.cpp:746
 msgid "Start stitching jobs immediately"
-msgstr ""
+msgstr "立刻開始接合工作"
 
 #: translations/xrc.cpp:747 xrc.cpp:747
 msgid ""
@@ -5469,10 +5530,12 @@ msgid ""
 "queue.  Otherwise the processor is started in suspended state and the user "
 "has to start the processing manually."
 msgstr ""
+"選取這個選項，批次處理會立刻自動恢復處理程序，不然批次處理會在暫停的狀態下開"
+"始，需要手動啟動"
 
 #: translations/xrc.cpp:748 xrc.cpp:748
 msgid "Run stitching jobs in parallel"
-msgstr ""
+msgstr "同時執行接合工作"
 
 #: translations/xrc.cpp:749 xrc.cpp:749
 msgid ""
@@ -5481,6 +5544,8 @@ msgid ""
 "may actually result in slower stitches, depending on the system's resources "
 "and bottlenecks."
 msgstr ""
+"選取這個選項，批次處理會同時執行多項工作不然批次處理會一次執行一項工作勾選這"
+"個選項視系統資源和限制可能會導致較慢的接合"
 
 #: translations/xrc.cpp:750 xrc.cpp:750
 #, fuzzy
@@ -5489,7 +5554,7 @@ msgstr "覆蓋已經存在的圖片"
 
 #: translations/xrc.cpp:751 xrc.cpp:751
 msgid "WARNING: existing files with be silently overwritten."
-msgstr ""
+msgstr "警告： 已經存在的檔案可能會在沒有通知的情況下被覆蓋"
 
 #: translations/xrc.cpp:752 xrc.cpp:752
 #, fuzzy
@@ -5500,7 +5565,7 @@ msgstr "詳盡的輸出"
 msgid ""
 "Enable to get the details, useful when reporting a bug or just to watch the "
 "project's progress."
-msgstr ""
+msgstr "啟用來記錄細節。在回報問題或單純監看專案運作時很有用"
 
 #: translations/xrc.cpp:755 xrc.cpp:755
 #, fuzzy
@@ -5509,7 +5574,7 @@ msgstr "批次處理"
 
 #: translations/xrc.cpp:756 xrc.cpp:756
 msgid "Stitching"
-msgstr "接合中"
+msgstr "正在接合中"
 
 #: translations/xrc.cpp:757 xrc.cpp:757
 msgid "Default Interpolator (i):"
@@ -5733,11 +5798,11 @@ msgstr "將全景圖中的曝光值設定為全部圖片的曝光數平均值."
 
 #: translations/xrc.cpp:844 xrc.cpp:844
 msgid "Correct global white balance by selecting a neutral gray area."
-msgstr ""
+msgstr "藉由設定中性灰階區域來矯正全區白平衡"
 
 #: translations/xrc.cpp:845 translations/xrc.cpp:846 xrc.cpp:845 xrc.cpp:846
 msgid "Gray picker"
-msgstr ""
+msgstr "選擇灰階"
 
 #: translations/xrc.cpp:849 xrc.cpp:849
 msgid "Scale:"
@@ -5806,7 +5871,7 @@ msgstr "下:"
 
 #: translations/xrc.cpp:874 xrc.cpp:874
 msgid "Reset crop to maximal possible area"
-msgstr ""
+msgstr "重設裁切邊藉以符合最大區域"
 
 #: translations/xrc.cpp:875 xrc.cpp:875
 msgid "Change the panorama's cropping region"
@@ -5814,7 +5879,7 @@ msgstr "改變全景圖片裁剪區域"
 
 #: translations/xrc.cpp:878 xrc.cpp:878
 msgid "Show/Hide"
-msgstr ""
+msgstr "顯示/隱藏"
 
 #: translations/xrc.cpp:879 translations/xrc.cpp:880 xrc.cpp:879 xrc.cpp:880
 #, fuzzy
@@ -5823,7 +5888,7 @@ msgstr "型號:"
 
 #: translations/xrc.cpp:881 xrc.cpp:881
 msgid "Grid"
-msgstr ""
+msgstr "網格"
 
 #: translations/xrc.cpp:882 xrc.cpp:882
 msgid "Reset values"
@@ -5876,6 +5941,8 @@ msgid ""
 "However you will still have to install those Control Point Detectors "
 "separately if you haven't already done so."
 msgstr ""
+"如果你希望使用Hugin內建的CPFind以外的控制點偵測器，請在偏好設定->控制點偵測器"
+"中改變設定但你必須先自己安裝相關的控制點偵測器"
 
 #: hugin1/hugin/xrc/data/tips.txt:7
 msgid ""
@@ -5883,6 +5950,8 @@ msgid ""
 "Autopano, Autopano-SIFT-C, and Panomatic, via a plug-in mechanism controlled "
 "in Preferences -> Control Point Detectors."
 msgstr ""
+"透過偏好設定->控制點偵測器的插件管理機制，Hugin能支援數種的第三方控制點偵測軟"
+"體，包括Autopano、Autopano-SIFT-C、和Panomatic"
 
 #: hugin1/hugin/xrc/data/tips.txt:8
 #, fuzzy
@@ -5962,7 +6031,7 @@ msgstr "儘可能地分散控制點. 距離太近的控制點不能完美地定�
 msgid ""
 "Place control points on objects as far away from the camera as possible.  "
 "They are less prone to parallax error."
-msgstr ""
+msgstr "控制點之間應該距離彼此越遠越好有助於改善視差問題"
 
 #: hugin1/hugin/xrc/data/tips.txt:20
 msgid ""
@@ -6359,7 +6428,7 @@ msgstr ""
 #~ "通常每張圖片的水平視角在 5 至 120 度之間."
 
 #~ msgid "Consider adding a vertical or horizontal guide."
-#~ msgstr "建議您增加一條垂直或者水平的輔助線."
+#~ msgstr "建議您增加一條垂直或者水平的助手線."
 
 #~ msgid ""
 #~ "By adding vertical guides, the optimizer can ensure\n"
@@ -6632,10 +6701,10 @@ msgstr ""
 
 #~ msgid ""
 #~ "Autopano-SIFT not found. Please specify a valid path in the preferences"
-#~ msgstr "沒有發現 Autopano-SIFT. 請在預設項中指定一個有效目錄"
+#~ msgstr "沒有發現 Autopano-SIFT. 請在偏好設定中指定一個有效目錄"
 
 #~ msgid "\"%s\" not found. Please specify a valid path in the preferences"
-#~ msgstr "[%s]未被發現. 請在預設項中指定一個有效路徑"
+#~ msgstr "[%s]未被發現. 請在偏好設定中指定一個有效路徑"
 
 #~ msgid "Error in Autopano command"
 #~ msgstr "Autopano 指令錯誤"
@@ -6650,7 +6719,7 @@ msgstr ""
 #~ msgstr "Autopano 失敗"
 
 #~ msgid "%s not found. Please specify a valid path in the preferences"
-#~ msgstr "%s 未被發現 請在預設項中指定一個有效路徑"
+#~ msgstr "%s 未被發現 請在偏好設定中指定一個有效路徑"
 
 #~ msgid ""
 #~ "\n"
@@ -6754,13 +6823,13 @@ msgstr ""
 #~ "\n"
 #~ "Continue anyway?"
 #~ msgstr ""
-#~ "注意: PTmender (panotools 2.9 或者升級版) 只支持 TIFF_m 輸出.\n"
+#~ "注意: PTmender (panotools 2.9 或者升級版) 只支援 TIFF_m 輸出.\n"
 #~ "為了顏色和亮度校正, tiff 結果檔案必須使用 PTblender 進行處理.\n"
 #~ "\n"
 #~ "確定繼續?"
 
 #~ msgid "PTmender creates only plain TIFF_m files"
-#~ msgstr "PTmender 只創建無格式 TIFF_m 檔案"
+#~ msgstr "PTmender 只輸出無格式 TIFF_m 檔案"
 
 #~ msgid "Failed to launch the PTStitcher."
 #~ msgstr "載入 PTStitcher 失敗."
@@ -6805,7 +6874,7 @@ msgstr ""
 #~ "Do not set -w, -o and --compression arguments, they are set by hugin"
 #~ msgstr ""
 #~ "這裡是預設引數. 可以為了單獨專案在[接合器]索引標籤中改變它們.\n"
-#~ "不要設定 -w, -o 和 --compression 引數, 它們由 hugin 指定"
+#~ "不要設定 -w, -o 和 --compression 參數, 它們由 hugin 指定"
 
 #~ msgid "Parameters for autopano program"
 #~ msgstr "Autopano 應用程式的參數"
