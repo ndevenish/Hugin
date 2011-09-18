@@ -68,7 +68,10 @@ public:
 	 */
 	enum QuoteMode {MAKE, SHELL, NONE};
 	static string quote(const string& in, Makefile::QuoteMode mode);
-
+#ifdef WIN32
+    /** special quoting for environemnt variables on windows */
+    static string quoteEnvironment(const string& in);
+#endif
 
 	/**
 	 * Adds a MakefileItem to a list of existing Items.

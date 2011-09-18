@@ -126,6 +126,20 @@ string Makefile::quote(const string& in, Makefile::QuoteMode mode)
 	}
 }
 
+#ifdef WIN32
+/** special quoting for environemnt variables on windows 
+ *   - $ --> $$, # --> escape with backslash
+ */
+string Makefile::quoteEnvironment(const string& in)
+{
+    regex toescape;
+    string output;
+    toescape.assign(cstr("(\\$)|(\\#)"));
+    output.assign(cstr("(?1\\$$&)(?2\\\\$&)"));
+    return boost::regex_replace(in, toescape, output, boost::match_default | boost::format_all);
+};
+#endif
+
 int Makefile::writeMakefile(ostream& out)
 {
 	for(std::vector<MakefileItem*>::iterator i = items.begin(); i != items.end(); i++)

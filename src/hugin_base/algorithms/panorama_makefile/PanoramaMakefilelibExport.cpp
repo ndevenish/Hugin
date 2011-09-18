@@ -180,11 +180,12 @@ bool PanoramaMakefilelibExport::createItems()
         mf::Variable* vtmpdir = mgr.own(new mf::Variable("TMPDIR", tmpDir));
         vtmpdir->setExport(true); vtmpdir->getDef().add();
 #else
+        //special quoting for environment variable on windows
+        //variable TMP should not be exported with set
+        //variable TMP should not be quoted with quotes, appling special quoting
         mgr.own_add(new Comment("set temporary directory for not UNIX_LIKE"));
-        mf::Variable* vtmpdir = mgr.own(new mf::Variable("TEMP", tmpDir));
-        vtmpdir->setExport(true); vtmpdir->getDef().add();
-        mf::Variable* vtmpdir2 = mgr.own(new mf::Variable("TMP", tmpDir));
-        vtmpdir2->setExport(true); vtmpdir2->getDef().add();
+        mf::Variable* vtmpdir = mgr.own(new mf::Variable("TMP", Makefile::quoteEnvironment(tmpDir),Makefile::NONE));
+        vtmpdir->getDef().add();
 #endif
     }
 
