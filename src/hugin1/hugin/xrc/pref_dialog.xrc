@@ -1097,7 +1097,7 @@ for HDR panoramas use Preview window.</label>
                           </object>
                           <object class="sizeritem">
                             <object class="wxStaticText">
-                              <label>These are the default arguments. They can be changed for individual projects in the Stitcher tab.
+                              <label>These are the default arguments for new projects.\nThey can be changed for individual projects in the Stitcher tab.
 Do not set -w, -o and --compression arguments, they are set by hugin</label>
                             </object>
                             <flag>wxBOTTOM|wxLEFT|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
@@ -1176,7 +1176,7 @@ Do not set -w, -o and --compression arguments, they are set by hugin</label>
                           </object>
                           <object class="sizeritem">
                             <object class="wxStaticText">
-                              <label>These are the default arguments. They can be changed for individual projects in the Stitcher tab.
+                              <label>These are the default arguments for new projects.\nThey can be changed for individual projects in the Stitcher tab.
 Do not set -w, -o and --compression arguments, they are set by hugin</label>
                             </object>
                             <flag>wxBOTTOM|wxLEFT|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
