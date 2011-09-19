@@ -283,7 +283,7 @@ Variables which are cleared [ ] will act as references or anchors.</label>
                                 <orient>wxVERTICAL</orient>
                                 <object class="sizeritem">
                                   <object class="wxStaticText">
-                                    <label>Vignetting Centre (Vx, Vy):</label>
+                                    <label>Vignetting Center (Vx, Vy):</label>
                                   </object>
                                   <flag>wxEXPAND</flag>
                                 </object>
