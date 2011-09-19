@@ -13,7 +13,7 @@ vertical lines using the same algorithm as Calibrate_lens_gui and assigns
 vertical control points to them. The detection runs on the source images, if
 the input images are rectilinear images. In the other cases (e. g. fisheye
 images) the input images are reprojected to an equirectangular projection and
-the detection works on the reprojected images. It using the roll value, saved
+the detection works on the reprojected images. It uses the roll value, saved
 in the pto project file, to determine what is "top" and "bottom". So before
 running linefind check that your roll values are correct (E. g. when using
 images straight from the camera, use a roll value of 0 for landscape and a

@@ -140,12 +140,12 @@ Select the model used in the ransac step.
 
 hom: Assume a homography. Only applicable for non-wide angle
      views. Uses the original panomatic code. It is also more flexible
-     than required and can generate false matches, particlarly if most
+     than required and can generate false matches, particularly if most
      of the matches are located on a single line.
 
 rpy: Align images using roll, pitch and yaw. This requires a good
      estimate for the horizontal field of view (and distortion, for
-     heavily distorted images). It is the prefered mode if a
+     heavily distorted images). It is the preferred mode if a
      calibrated lens is used, or the HFOV could be read successfully
      from the EXIF data.
 
@@ -155,7 +155,7 @@ rpyv: Align pair by optimizing roll, pitch, yaw and field of
       panotools optimizer, it tends to shrink the fov to 0.
 
 rpyvb: Align pair by optimizing roll, pitch, yaw, field of view and
-       the "b" distortion parameter.  Probaby very fragile, just
+       the "b" distortion parameter.  Probably very fragile, just
        implemented for testing.
 
 auto: Use homography for images with hfov < 65 degrees and rpy otherwise.
