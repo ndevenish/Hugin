@@ -1287,8 +1287,6 @@ void GLPreviewFrame::OnCenterHorizontally(wxCommandEvent & e)
     GlobalCmdHist::getInstance().addCommand(
         new PT::CenterPanoCmd(m_pano)
         );
-    // fit pano afterwards
-    OnFitPano(e);
 }
 
 void GLPreviewFrame::OnStraighten(wxCommandEvent & e)
@@ -1298,13 +1296,6 @@ void GLPreviewFrame::OnStraighten(wxCommandEvent & e)
     GlobalCmdHist::getInstance().addCommand(
         new PT::StraightenPanoCmd(m_pano)
         );
-    if (m_pano.getOptions().getHFOV() > 359) {
-        // adjust canvas size for 360 deg panos
-        OnFitPano(e);
-    } else {
-        // also center non 360 deg panos
-        OnCenterHorizontally(e);
-    }
 }
 
 void GLPreviewFrame::OnFitPano(wxCommandEvent & e)

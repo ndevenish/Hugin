@@ -540,6 +540,13 @@ namespace PT {
         virtual bool processPanorama(Panorama& pano)
             {
                 pano.centerHorizontically();
+                // adjust canvas size
+                PanoramaOptions opts=pano.getOptions();
+                double hfov, height;
+                pano.fitPano(hfov, height);
+                opts.setHFOV(hfov);
+                opts.setHeight(hugin_utils::roundi(height));
+                pano.setOptions(opts);
                 pano.changeFinished();
 
                 return true;
@@ -569,6 +576,18 @@ namespace PT {
         virtual bool processPanorama(Panorama& pano)
             {
                 pano.straighten();
+                PanoramaOptions opts=pano.getOptions();
+                if(opts.getHFOV()<360)
+                {
+                    // center non 360 deg panos
+                    pano.centerHorizontically();
+                };
+                // adjust canvas size
+                double hfov, height;
+                pano.fitPano(hfov, height);
+                opts.setHFOV(hfov);
+                opts.setHeight(hugin_utils::roundi(height));
+                pano.setOptions(opts);
                 pano.changeFinished();
 
                 return true;
