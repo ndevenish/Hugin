@@ -299,11 +299,11 @@ void PreviewPanel::updatePreview()
 
     if (ratioPano < ratioPanel) {
         // panel is wider than pano
-        m_panoImgSize.x = ((int) (m_panoImgSize.y * ratioPano));
+        m_panoImgSize.x = hugin_utils::round(m_panoImgSize.y * ratioPano);
         DEBUG_DEBUG("portrait: " << m_panoImgSize);
     } else {
         // panel is taller than pano
-        m_panoImgSize.y = ((int)(m_panoImgSize.x / ratioPano));
+        m_panoImgSize.y = hugin_utils::round(m_panoImgSize.x / ratioPano);
         DEBUG_DEBUG("landscape: " << m_panoImgSize);
     }
 
@@ -579,7 +579,7 @@ void PreviewPanel::DrawPreview(wxDC & dc)
         Rect2D panoROI =  pano->getOptions().getROI();
         if (panoROI != vigra::Rect2D(panoSize)) {
 
-            double scale = min(w/(float)panoSize.x, h/(float)panoSize.y);
+            double scale = min(w/(double)panoSize.x, h/(double)panoSize.y);
             Rect2D previewROI = Rect2D(panoROI.upperLeft()* scale, panoROI.lowerRight() * scale);
             Rect2D screenROI = previewROI;
             screenROI.moveBy(offsetX, offsetY);
