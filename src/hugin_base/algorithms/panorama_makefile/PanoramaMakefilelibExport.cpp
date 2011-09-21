@@ -675,7 +675,10 @@ bool PanoramaMakefilelibExport::createItems()
     // test hugin_hdrmerge
     createcheckProgCmd(*test,"hugin_hdrmerge",vhdrmerge->getRef()+" -h");
     // test exiftool
-    createcheckProgCmd(*test,"exiftool",vexiftool->getRef()+" -ver");
+    if(copyMetadata)
+    {
+        createcheckProgCmd(*test,"exiftool",vexiftool->getRef()+" -ver");
+    };
     test->add();
 
     //----------
@@ -863,8 +866,11 @@ bool PanoramaMakefilelibExport::createItems()
         ruleldr->addPrereq(ldr_stacks_input[i]);
         ruleldr->addCommand(venfuse->getRef() +" "+ venfuseopts->getRef() + " -o " +
                 ldr_stacks_shell[i]->getRef() +" -- "+ ldr_stacks_input_shell[i]->getRef());
-        ruleldr->addCommand("-" + vexiftool->getRef() + " -overwrite_original_in_place -TagsFromFile " +
-                vinimage1shell->getRef() +" "+ vexiftoolcopyargs->getRef() +" "+ ldr_stacks_shell[i]->getRef());
+        if(copyMetadata)
+        {
+            ruleldr->addCommand("-" + vexiftool->getRef() + " -overwrite_original_in_place -TagsFromFile " +
+                    vinimage1shell->getRef() +" "+ vexiftoolcopyargs->getRef() +" "+ ldr_stacks_shell[i]->getRef());
+        };
 
         Rule* rulehdr = mgr.own(new Rule()); rulehdr->add();
         rulehdr->addTarget(hdr_stacks[i]);
@@ -891,7 +897,10 @@ bool PanoramaMakefilelibExport::createItems()
         rule->addTarget(vldrblended);
         rule->addPrereq(vldrlayers);
         rule->addCommand(enblendcmd + vldrblendedshell->getRef() +" -- "+ vldrlayersshell->getRef());
-        rule->addCommand(exifcmd2 + vldrblendedshell->getRef());
+        if(copyMetadata)
+        {
+            rule->addCommand(exifcmd2 + vldrblendedshell->getRef());
+        };
 
         // for LDR exposure blend planes
         for(unsigned i=0; i < exposures.size(); i++)
@@ -902,7 +911,10 @@ bool PanoramaMakefilelibExport::createItems()
             rule->addCommand(venblend->getRef() +" "+ venblendexposurecomp->getRef() + " " +
                 venblendopts->getRef() + " -o " + ldrexp_stacks_shell[i]->getRef() + " -- " + 
                 ldrexp_stacks_input_shell[i]->getRef());
-            rule->addCommand(exifcmd + ldrexp_stacks_shell[i]->getRef());
+            if(copyMetadata)
+            {
+                rule->addCommand(exifcmd + ldrexp_stacks_shell[i]->getRef());
+            };
         }
 
         // rules for enfuse blending
@@ -910,7 +922,10 @@ bool PanoramaMakefilelibExport::createItems()
         rule->addTarget(vldrstackedblended);
         rule->addPrereq(vldrstacks);
         rule->addCommand(enblendcmd + vldrstackedblendedshell->getRef() +" -- "+ vldrstacksshell->getRef());
-        rule->addCommand(exifcmd2 + vldrstackedblendedshell->getRef());
+        if(copyMetadata)
+        {
+            rule->addCommand(exifcmd2 + vldrstackedblendedshell->getRef());
+        };
 
         // rules for fusing blended layers
         rule = mgr.own(new Rule()); rule->add();
@@ -918,7 +933,10 @@ bool PanoramaMakefilelibExport::createItems()
         rule->addPrereq(vldrexposurelayers);
         rule->addCommand(venfuse->getRef() +" "+ venblendldrcomp->getRef() +" "+ venfuseopts->getRef() + " -o " +
                 vldrexposurelayersfusedshell->getRef() +" -- "+ vldrexposurelayersshell->getRef());
-        rule->addCommand(exifcmd2 + vldrexposurelayersfusedshell->getRef());
+        if(copyMetadata)
+        {
+            rule->addCommand(exifcmd2 + vldrexposurelayersfusedshell->getRef());
+        };
 
         // rules for hdr blending
         rule = mgr.own(new Rule()); rule->add();
@@ -962,7 +980,10 @@ bool PanoramaMakefilelibExport::createItems()
         rule->addPrereq(vldrlayers);
         rule->addCommand("-" + vrm->getRef() +" "+ vldrblendedshell->getRef());
         rule->addCommand(ptrollercmd + vldrblendedshell->getRef() +" "+ vldrlayersshell->getRef());
-        rule->addCommand(exifcmd2 + vldrblendedshell->getRef());
+        if(copyMetadata)
+        {
+            rule->addCommand(exifcmd2 + vldrblendedshell->getRef());
+        };
 
         // for LDR exposure blend planes
         for(unsigned i=0; i < exposures.size(); i++)
@@ -972,7 +993,10 @@ bool PanoramaMakefilelibExport::createItems()
             rule->addPrereq(ldrexp_stacks_input[i]);
             rule->addCommand("-" + vrm->getRef() +" "+ ldrexp_stacks_shell[i]->getRef());
             rule->addCommand(ptrollercmd + ldrexp_stacks_shell[i]->getRef());
-            rule->addCommand(exifcmd + ldrexp_stacks_shell[i]->getRef());
+            if(copyMetadata)
+            {
+                rule->addCommand(exifcmd + ldrexp_stacks_shell[i]->getRef());
+            };
         }
 
         rule = mgr.own(new Rule()); rule->add();
@@ -980,7 +1004,10 @@ bool PanoramaMakefilelibExport::createItems()
         rule->addPrereq(vldrstacks);
         rule->addCommand("-" + vrm->getRef() +" "+ vldrstackedblendedshell->getRef());
         rule->addCommand(ptrollercmd + vldrstackedblendedshell->getRef() +" "+ vldrstacksshell->getRef());
-        rule->addCommand(exifcmd2 + vldrstackedblendedshell->getRef());
+        if(copyMetadata)
+        {
+            rule->addCommand(exifcmd2 + vldrstackedblendedshell->getRef());
+        };
 
         // rules for non-blended HDR panoramas
         rule = mgr.own(new Rule()); rule->add();

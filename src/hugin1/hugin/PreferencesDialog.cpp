@@ -567,6 +567,9 @@ void PreferencesDialog::UpdateDisplayData(int panel)
         t = cfg->Read(wxT("/Processor/verbose"), HUGIN_PROCESSOR_VERBOSE) == 1;
         MY_BOOL_VAL("pref_processor_verbose", t);
         UpdateProcessorControls();
+
+        t = cfg->Read(wxT("/output/useExiftool"), 1l) == 1;
+        MY_BOOL_VAL("pref_exiftool_metadata", t);
     }
 
     if (panel==0 || panel == 6){
@@ -726,6 +729,7 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
             cfg->Write(wxT("/Processor/parallel"), HUGIN_PROCESSOR_PARALLEL);
             cfg->Write(wxT("/Processor/overwrite"), HUGIN_PROCESSOR_OVERWRITE);
             cfg->Write(wxT("/Processor/verbose"), HUGIN_PROCESSOR_VERBOSE);
+            cfg->Write(wxT("/output/useExiftool"), 1l);
 
         }
         if (noteb->GetSelection() == 5) {
@@ -856,6 +860,7 @@ void PreferencesDialog::UpdateConfigData()
     cfg->Write(wxT("/Processor/overwrite"), MY_G_BOOL_VAL("pref_processor_overwrite"));
     cfg->Write(wxT("/Processor/verbose"), MY_G_BOOL_VAL("pref_processor_verbose"));
 
+    cfg->Write(wxT("/output/useExiftool"), MY_G_BOOL_VAL("pref_exiftool_metadata"));
     /////
     /// STITCHING
     cfg->Write(wxT("/Nona/Interpolator"), MY_G_CHOICE_VAL("prefs_nona_interpolator"));

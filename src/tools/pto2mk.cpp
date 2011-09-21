@@ -147,7 +147,8 @@ int main(int argc, char *argv[])
             "",
             outputFiles,
             makeFileStream,
-            "");
+            "",
+            true);
 
     return 0;
 }

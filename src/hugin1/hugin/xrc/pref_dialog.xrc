@@ -819,146 +819,159 @@ for HDR panoramas use Preview window.</label>
             <object class="wxPanel">
               <object class="wxBoxSizer">
                 <orient>wxVERTICAL</orient>
-
                 <object class="sizeritem">
                   <object class="wxStaticBoxSizer">
-                    <object class="sizeritem">
-                      <object class="wxPanel">
-                        <object class="wxBoxSizer">
-                          <orient>wxHORIZONTAL</orient>
-                          <object class="sizeritem">
-                            <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
-                            <object class="wxStaticText">
-                              <label>Default File Format:</label>
-                            </object>
-                            <border>5</border>
-                          </object>
-                          <object class="sizeritem">
-                            <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
-                            <object class="wxChoice" name="pref_ldr_output_file_format">
-                              <content>
-                                <item>TIFF</item>
-                                <item>JPEG</item>
-                                <item>PNG</item>
-                              </content>
-                              <selection>0</selection>
-                              <tooltip>default output format for final panorama</tooltip>
-                              <border>5</border>
-                            </object>
-                          </object>
-                          <object class="sizeritem">
-                            <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
-                            <object class="wxStaticText" name="pref_tiff_compression_label">
-                              <label>TIFF Compression:</label>
-                            </object>
-                            <border>5</border>
-                          </object>
-                          <object class="sizeritem">
-                            <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
-                            <object class="wxChoice" name="pref_tiff_compression">
-                              <content>
-                                <item>None</item>
-                                <item>Packbits</item>
-                                <item>LZW</item>
-                                <item>Deflate</item>
-                              </content>
-                              <selection>0</selection>
-                              <tooltip>default TIFF compression</tooltip>
-                              <border>5</border>
-                            </object>
-                          </object>
-                          <object class="sizeritem">
-                            <object class="wxStaticText" name="pref_jpeg_quality_label">
-                              <label>JPEG Quality:</label>
-                            </object>
-                            <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
-                            <border>5</border>
-                          </object>
-                          <object class="sizeritem">
-                            <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
-                            <object class="wxSpinCtrl" name="pref_jpeg_quality">
-                              <min>1</min>
-                              <max>100</max>
-                              <size>60,-1</size>
-                              <tooltip>default JPEG compression setting</tooltip>
-                              <border>5</border>
-                            </object>
-                          </object>
-                          <flag>wxEXPAND</flag>
-                        </object>
-                      </object>
-                      <flag>wxEXPAND</flag>
-                    </object>
+                    
                     <label>Output Format</label>
                     <orient>wxVERTICAL</orient>
+                    <object class="sizeritem">
+                      <object class="wxBoxSizer">
+                        <object class="sizeritem">
+                          <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                          <object class="wxStaticText">
+                            <label>Default File Format:</label>
+                          </object>
+                          <border>5</border>
+                        </object>
+                        <object class="sizeritem">
+                          <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                          <object class="wxChoice" name="pref_ldr_output_file_format">
+                            <content>
+                              <item>TIFF</item>
+                              <item>JPEG</item>
+                              <item>PNG</item>
+                            </content>
+                            <selection>0</selection>
+                            <tooltip>default output format for final panorama</tooltip>
+                            <border>5</border>
+                          </object>
+                        </object>
+                        <object class="sizeritem">
+                          <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                          <object class="wxStaticText" name="pref_tiff_compression_label">
+                            <label>TIFF Compression:</label>
+                          </object>
+                          <border>5</border>
+                        </object>
+                        <object class="sizeritem">
+                          <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                          <object class="wxChoice" name="pref_tiff_compression">
+                            <content>
+                              <item>None</item>
+                              <item>Packbits</item>
+                              <item>LZW</item>
+                              <item>Deflate</item>
+                            </content>
+                            <selection>0</selection>
+                            <tooltip>default TIFF compression</tooltip>
+                            <border>5</border>
+                          </object>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxStaticText" name="pref_jpeg_quality_label">
+                            <label>JPEG Quality:</label>
+                          </object>
+                          <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                          <border>5</border>
+                        </object>
+                        <object class="sizeritem">
+                          <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                          <object class="wxSpinCtrl" name="pref_jpeg_quality">
+                            <min>1</min>
+                            <max>100</max>
+                            <size>60,-1</size>
+                            <tooltip>default JPEG compression setting</tooltip>
+                            <border>5</border>
+                          </object>
+                        </object>
+                        <orient>wxHORIZONTAL</orient>
+                      </object>
+                      <flag>wxALL|wxEXPAND</flag>
+                      <border>5</border>
+                    </object>
                   </object>
                   <flag>wxALL|wxEXPAND</flag>
                   <border>5</border>
                 </object>
                 <object class="sizeritem">
                   <object class="wxStaticBoxSizer">
-                    <object class="sizeritem">
-                      <object class="wxPanel">
-                        <object class="wxBoxSizer">
-                          <orient>wxVERTICAL</orient>
-                          <object class="sizeritem">
-                            <object class="wxChoice" name="pref_processor_gui">
-                              <content>
-                                <item>PTBatcherGUI</item>
-                                <item>Hugin_stitch_project</item>
-                              </content>
-                              <selection>0</selection>
-                              <tooltip>The engine that will run the stitch</tooltip>
-                            </object>
-                            <flag>wxALL</flag>
-                            <border>5</border>
-                          </object>
-                          <object class="sizeritem">
-                            <object class="wxStaticBoxSizer">
-                              <object class="sizeritem">
-                                <object class="wxCheckBox" name="pref_processor_start">
-                                  <label>Start stitching jobs immediately</label>
-                                  <tooltip>If selected, the processor will immediately resume processing the jobs queue.  Otherwise the processor is started in suspended state and the user has to start the processing manually.</tooltip>
-                                </object>
-                                <flag>wxALL</flag>
-                                <border>5</border>
-                              </object>
-                              <object class="sizeritem">
-                                <object class="wxCheckBox" name="pref_processor_parallel">
-                                  <label>Run stitching jobs in parallel</label>
-                                  <tooltip>If selected, the processor will run multiple jobs contemporaneously.  Otherwise it will run one job at a time.  Note that selecting this option may actually result in slower stitches, depending on the system's resources and bottlenecks.</tooltip>
-                                </object>
-                                <flag>wxALL</flag>
-                                <border>5</border>
-                              </object>
-                              <object class="sizeritem">
-                                <object class="wxCheckBox" name="pref_processor_overwrite">
-                                  <label>Overwrite existing files</label>
-                                  <tooltip>WARNING: existing files with be silently overwritten.</tooltip>
-                                </object>
-                                <flag>wxALL</flag>
-                                <border>5</border>
-                              </object>
-                              <object class="sizeritem">
-                                <object class="wxCheckBox" name="pref_processor_verbose">
-                                  <label>Verbose Output</label>
-                                  <tooltip>Enable to get the details, useful when reporting a bug or just to watch the project's progress.</tooltip>
-                                </object>
-                                <flag>wxALL</flag>
-                                <border>5</border>
-                              </object>
-                              <label>Options</label>
-                              <orient>wxVERTICAL</orient>
-                            </object>
-                            <flag>wxEXPAND|wxALL</flag>
-                            <border>5</border>
-                          </object>
-                        </object>
-                      </object>
-                      <flag>wxEXPAND</flag>
-                    </object>
+                    
                     <label>Processor</label>
                     <orient>wxVERTICAL</orient>
+                    <object class="sizeritem">
+                      <object class="wxBoxSizer">
+                        <object class="sizeritem">
+                          <object class="wxChoice" name="pref_processor_gui">
+                            <content>
+                              <item>PTBatcherGUI</item>
+                              <item>Hugin_stitch_project</item>
+                            </content>
+                            <selection>0</selection>
+                            <tooltip>The engine that will run the stitch</tooltip>
+                          </object>
+                          <flag>wxALL</flag>
+                          <border>5</border>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxStaticBoxSizer">
+                            <object class="sizeritem">
+                              <object class="wxCheckBox" name="pref_processor_start">
+                                <label>Start stitching jobs immediately</label>
+                                <tooltip>If selected, the processor will immediately resume processing the jobs queue.  Otherwise the processor is started in suspended state and the user has to start the processing manually.</tooltip>
+                              </object>
+                              <flag>wxALL</flag>
+                              <border>5</border>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxCheckBox" name="pref_processor_parallel">
+                                <label>Run stitching jobs in parallel</label>
+                                <tooltip>If selected, the processor will run multiple jobs contemporaneously.  Otherwise it will run one job at a time.  Note that selecting this option may actually result in slower stitches, depending on the system's resources and bottlenecks.</tooltip>
+                              </object>
+                              <flag>wxALL</flag>
+                              <border>5</border>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxCheckBox" name="pref_processor_overwrite">
+                                <label>Overwrite existing files</label>
+                                <tooltip>WARNING: existing files with be silently overwritten.</tooltip>
+                              </object>
+                              <flag>wxALL</flag>
+                              <border>5</border>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxCheckBox" name="pref_processor_verbose">
+                                <label>Verbose Output</label>
+                                <tooltip>Enable to get the details, useful when reporting a bug or just to watch the project's progress.</tooltip>
+                              </object>
+                              <flag>wxALL</flag>
+                              <border>5</border>
+                            </object>
+                            <label>Options</label>
+                            <orient>wxVERTICAL</orient>
+                          </object>
+                          <flag>wxEXPAND|wxALL</flag>
+                          <border>5</border>
+                        </object>
+                        <orient>wxVERTICAL</orient>
+                      </object>
+                      <flag>wxALL|wxEXPAND</flag>
+                      <border>5</border>
+                    </object>
+                  </object>
+                  <flag>wxALL|wxEXPAND</flag>
+                  <border>5</border>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxStaticBoxSizer">
+                    <label>Advanced options</label>
+                    <orient>wxVERTICAL</orient>
+                    <object class="sizeritem">
+                      <object class="wxCheckBox" name="pref_exiftool_metadata">
+                        <label>Copy metadata into final files using ExifTool</label>
+                      </object>
+                      <flag>wxALL|wxEXPAND</flag>
+                      <border>5</border>
+                    </object>
                   </object>
                   <flag>wxALL|wxEXPAND</flag>
                   <border>5</border>

@@ -695,7 +695,8 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
                                                               "",
                                                               outputFiles,
                                                               makefile,
-                                                              tmpDir);
+                                                              tmpDir,
+                                                              true);
         }
         SetStatusText(wxString::Format(_("saved project %s"), m_filename.c_str()),0);
         this->SetTitle(scriptName.GetName() + wxT(".") + scriptName.GetExt() + wxT(" - ") + _("Hugin - Panorama Stitcher"));

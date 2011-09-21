@@ -92,6 +92,7 @@ private:
 	std::vector<std::string> & outputFiles;
 	std::ostream & makefile;
 	const std::string& tmpDir;
+    const bool copyMetadata;
 
 	makefile::Manager mgr;
 	std::ostringstream valuestream;
@@ -139,11 +140,12 @@ public:
             const std::string & includePath_,
             std::vector<std::string> & outputFiles_,
             std::ostream & makefile_,
-            const std::string& tmpDir_)
+            const std::string& tmpDir_,
+            const bool copyMetadata_)
 	: PanoramaAlgorithm(pano),
 	  pano(pano_), ptofile(ptofile_), outputPrefix(outputPrefix_),
 	  progs(progs_), includePath(includePath_), outputFiles(outputFiles_),
-	  makefile(makefile_), tmpDir(tmpDir_)
+	  makefile(makefile_), tmpDir(tmpDir_), copyMetadata(copyMetadata_)
 	{
         images=getImagesinROI(pano_,images_);
         valuestream.imbue(makefile::GetMakefileLocale());
@@ -158,11 +160,12 @@ public:
             const std::string & includePath_,
             std::vector<std::string> & outputFiles_,
             std::ostream & makefile_,
-            const std::string& tmpDir_)
+            const std::string& tmpDir_,
+            const bool copyMetadata_)
 	{
 		PanoramaMakefilelibExport* instance = new PanoramaMakefilelibExport(
 				pano_, images_, ptofile_, outputPrefix_, progs_, includePath_,
-				outputFiles_, makefile_, tmpDir_);
+				outputFiles_, makefile_, tmpDir_, copyMetadata_);
 		instance->createItems();
 		instance->writeMakefile();
 		delete instance;
