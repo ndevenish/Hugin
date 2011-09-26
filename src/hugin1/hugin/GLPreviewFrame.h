@@ -323,6 +323,11 @@ private:
      * @param isShown true if the group checkboxes should be visible
      */
     void EnableGroupCheckboxes(bool isShown);
+    /** updates the mode of the overview window
+     *  @param newMode overview mode which should be setted
+     *  @return true, of mode was successful changed to desired mode
+     */
+    bool UpdateOverviewMode(int newMode);
     /** The dock manager */
     GLwxAuiManager * m_mgr;
 
@@ -445,6 +450,12 @@ private:
     bool loadedLayout;
 #endif
 
+    /** check, if panorama has non-zero translation parameters
+     *  @returns true, if panorama has non-zero translation parameters
+     */
+    bool HasNonZeroTranslationParameters();
+    /** resets all translation parameters to zero */
+    void ResetTranslationParameters();
     void CleanButtonColours();
     /** Tell the user anything suspicious about the projection choice.
      * If nothing is suspicious, any previous message is removed.

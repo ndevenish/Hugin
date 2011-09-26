@@ -1547,81 +1547,168 @@ void GLPreviewFrame::OnBlendChoice(wxCommandEvent & e)
 
 void GLPreviewFrame::OnDragChoice(wxCommandEvent & e)
 {
-    if (e.GetEventObject() == m_DragModeChoice)
+    if (drag_tool)
     {
-        if (drag_tool) {
-        
-		    int index = m_DragModeChoice->GetSelection();
-            switch (index) {
-                case 0: //normal
-                case 1:
-                    drag_tool->setDragMode(PreviewDragTool::drag_mode_normal);
-//		    		overview_drag_tool->setDragMode(PreviewDragTool::drag_mode_normal);
-                    break;
-                case 2: //mosaic
-                case 3:
-                    drag_tool->setDragMode(PreviewDragTool::drag_mode_mosaic);
-//		    		overview_drag_tool->setDragMode(PreviewDragTool::drag_mode_mosaic);
-                    break;
+        DragTool::DragMode oldDragMode=drag_tool->getDragMode();
+        DragTool::DragMode newDragMode=DragTool::drag_mode_normal;
+        int index = m_DragModeChoice->GetSelection();
+        switch (index) {
+            case 0: //normal
+            case 1:
+                newDragMode=DragTool::drag_mode_normal;
+                break;
+            case 2: //mosaic
+            case 3:
+                newDragMode=DragTool::drag_mode_mosaic;
+                break;
+        }
+        if(newDragMode==DragTool::drag_mode_mosaic)
+        {
+            //switch overview mode to plane
+            UpdateOverviewMode(1);
+            m_OverviewModeChoice->SetSelection(1);
+        }
+        else
+        {
+            //new mode is normal
+            if(m_GLOverview->GetMode()==GLOverview::PLANE)
+            {
+                bool updateMode=false;
+                if(HasNonZeroTranslationParameters())
+                {
+                    wxMessageDialog dialog(this, 
+                        _("Do you want to keep the current non-zero translation parameters?"),
+                        _("Keep XYZ parameters?"), wxYES_NO | wxYES_DEFAULT);
+                    if (dialog.ShowModal() == wxID_NO)
+                    {
+                        ResetTranslationParameters();
+                        updateMode=true;
+                    }
+                }
+                else
+                {
+                    updateMode=true;
+                };
+                if(updateMode)
+                {
+                    //set overview back to panosphere mode
+                    UpdateOverviewMode(0);
+                    m_OverviewModeChoice->SetSelection(0);
+                    m_GLOverview->m_visualization_state->ForceRequireRedraw();
+                    m_GLOverview->m_visualization_state->SetDirtyViewport();
+                };
+            };
+        };
+        //update drag mode
+        drag_tool->setDragMode(newDragMode);
+        EnableGroupCheckboxes(individualDragging());
+        // adjust the layout
+        DragChoiceLayout(index);
+    };
+};
+
+bool GLPreviewFrame::HasNonZeroTranslationParameters()
+{
+    size_t nr = m_pano.getNrOfImages();
+    for (size_t i = 0 ; i < nr; i++)
+    {
+        if (m_pano.getSrcImage(i).getX() != 0 ||
+            m_pano.getSrcImage(i).getY() != 0 ||
+            m_pano.getSrcImage(i).getZ() != 0)
+        {
+            return true;
+        };
+    }
+    return false;
+};
+
+void GLPreviewFrame::ResetTranslationParameters()
+{
+    UIntSet imgs;
+    Panorama newPan = m_pano.duplicate();
+    size_t nr = newPan.getNrOfImages();
+    for (size_t i = 0 ; i < nr ; i++)
+    {
+        SrcPanoImage img = newPan.getSrcImage(i);
+        img.setX(0);
+        img.setY(0);
+        img.setZ(0);
+        newPan.setSrcImage(i,img);
+        imgs.insert(i);
+    }
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::UpdateImagesVariablesCmd(m_pano, imgs, newPan.getVariables())
+    );
+};
+
+bool GLPreviewFrame::UpdateOverviewMode(int newMode)
+{
+    GLOverview::OverviewMode newOverviewMode=GLOverview::PANOSPHERE;
+    if(newMode==1)
+    {
+        newOverviewMode=GLOverview::PLANE;
+    };
+    if(m_GLOverview->GetMode()==newOverviewMode)
+    {
+        return true;
+    };
+    if (m_GLOverview->GetMode() == GLOverview::PLANE)
+    {
+        if (!HasNonZeroTranslationParameters())
+        {
+            m_GLOverview->SetMode(GLOverview::PANOSPHERE);
+            return true;
+        }
+        else
+        {
+            wxMessageDialog dialog(this, 
+            _("Switching to panosphere overview mode requires that all images have zero XYZ parameters. Do you want to set all XYZ parameters to zero for all images?"),   
+            _("Reset XYZ parameters?"), wxYES_NO);
+            if (dialog.ShowModal() == wxID_YES)
+            {
+                ResetTranslationParameters();
+                m_GLOverview->SetMode(GLOverview::PANOSPHERE);
+                return true;
             }
-            EnableGroupCheckboxes(individualDragging());
-            // adjust the layout
-            DragChoiceLayout(index);
+            else
+            {
+                return false;
+            };
         }
     }
     else
     {
-        // FIXME DEBUG_WARN("wxChoice event from unknown object received");
+        m_GLOverview->SetMode(GLOverview::PLANE);
+        return true;
     }
-}
+};
 
 void GLPreviewFrame::OnOverviewModeChoice( wxCommandEvent & e)
 {
-    int choice = m_OverviewModeChoice->GetSelection();
-    if (m_GLOverview->GetMode() == GLOverview::PLANE) {
-        if (choice == 0) {
-            unsigned int nr = m_pano.getNrOfImages();
-            bool allowed = true;
-            for (unsigned int i = 0 ; i < nr ; i++) {
-                if (m_pano.getSrcImage(i).getX() != 0) allowed = false;
-                if (m_pano.getSrcImage(i).getY() != 0) allowed = false;
-                if (m_pano.getSrcImage(i).getZ() != 0) allowed = false;
-            }
-            if (allowed) {
-                m_GLOverview->SetMode(GLOverview::PANOSPHERE);
-            } else {
-                wxMessageDialog dialog(this, 
-                _("Switching to panosphere overview mode requires that all images have zero XYZ parameters. Do you want to set all XYZ parameters to zero for all images?"),   
-                _("Reset XYZ parameters?"), wxYES_NO);
-                if (dialog.ShowModal() == wxID_YES) {
-
-                    UIntSet imgs;
-                    Panorama newPan = m_pano.duplicate();
-                    unsigned int nr = newPan.getNrOfImages();
-                    for (unsigned int i = 0 ; i < nr ; i++) {
-                        SrcPanoImage img = newPan.getSrcImage(i);
-                        img.setX(0);
-                        img.setY(0);
-                        img.setZ(0);
-                        newPan.setSrcImage(i,img);
-                        imgs.insert(i);
-                    }
-                    GlobalCmdHist::getInstance().addCommand(
-                        new PT::UpdateImagesVariablesCmd(m_pano, imgs, newPan.getVariables())
-                    );
-                    m_GLOverview->SetMode(GLOverview::PANOSPHERE);
-
-                }
-            }
-        }
-    } else {
-        if (choice == 1) {
-            m_GLOverview->SetMode(GLOverview::PLANE);
-        }
+    if(UpdateOverviewMode(m_OverviewModeChoice->GetSelection()))
+    {
+        m_GLOverview->m_visualization_state->ForceRequireRedraw();
+        m_GLOverview->m_visualization_state->SetDirtyViewport();
+        //set drag mode to normal if new mode is panosphere mode
+        if(m_GLOverview->GetMode()==GLOverview::PANOSPHERE && m_DragModeChoice->GetSelection()>1)
+        {
+            m_DragModeChoice->SetSelection(m_DragModeChoice->GetSelection()-2);
+            OnDragChoice(e);
+        };
     }
-    m_GLOverview->m_visualization_state->ForceRequireRedraw();
-    m_GLOverview->m_visualization_state->SetDirtyViewport();
-}
+    else
+    {
+        //change mode was not successful or canceled by user, set mode choice back
+        if(m_GLOverview->GetMode()==GLOverview::PANOSPHERE)
+        {
+            m_OverviewModeChoice->SetSelection(0);
+        }
+        else
+        {
+            m_OverviewModeChoice->SetSelection(1);
+        };
+    };
+};
 
 void GLPreviewFrame::DragChoiceLayout( int index )
 {
