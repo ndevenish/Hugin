@@ -111,7 +111,6 @@ void PreviewCropTool::ReallyAfterDrawImagesEvent()
         // tries to redraw the preview with the panorama's real ROI.
         opts->setROI(new_roi);
         helper->GetViewStatePtr()->SetOptions(opts);
-        helper->GetViewStatePtr()->Redraw();
     }
 }
 

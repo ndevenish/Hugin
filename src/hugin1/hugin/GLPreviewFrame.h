@@ -76,6 +76,8 @@ class PanosphereSphereTool;
 class PanosphereOverviewOutlinesTool;
 class PlaneOverviewOutlinesTool;
 
+class PreviewGuideTool;
+
 class GLPreviewFrame;
 
 class GLwxAuiManager;
@@ -317,6 +319,8 @@ protected:
     void OnColorPicker(wxCommandEvent &e);
     /** event handler when user changes background color */
     void OnPreviewBackgroundColorChanged(wxColourPickerEvent & e);
+    /** event handler when user selects different guide */
+    void OnGuideChanged(wxCommandEvent &e);
     
 private:
     /** changes the visibility of the group check boxes
@@ -356,6 +360,7 @@ private:
     wxChoice * m_DragModeChoice;
     wxChoice * m_ProjectionChoice;
     wxChoice * m_OverviewModeChoice;
+    wxChoice * m_GuideChoice;
     // No HDR display yet.
     // wxChoice * m_outputModeChoice;
     wxTextCtrl * m_exposureTextCtrl;
@@ -443,6 +448,8 @@ private:
     
     PanosphereOverviewOutlinesTool *overview_outlines_tool;
     PlaneOverviewOutlinesTool *plane_overview_outlines_tool;
+
+    PreviewGuideTool *preview_guide_tool;
 
     void TurnOffTools(std::set<Tool*> tools);
 

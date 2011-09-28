@@ -708,6 +708,41 @@
                   <object class="wxBoxSizer">
                     <object class="sizeritem">
                       <object class="wxStaticText">
+                        <label>Guides:</label>
+                      </object>
+                      <flag>wxALL</flag>
+                      <border>5</border>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxChoice" name="preview_guide_choice">
+                        <content>
+                          <item>None</item>
+                          <item>Rule of third</item>
+                          <item>Golden ratio</item>
+                          <item>Diagonal</item>
+                          <item>Golden triangle (down)</item>
+                          <item>Golden triangle (up)</item>
+                        </content>
+                        <selection>0</selection>
+                      </object>
+                      <flag>wxLEFT|wxBOTTOM|wxRIGHT</flag>
+                      <border>5</border>
+                    </object>
+                    <orient>wxVERTICAL</orient>
+                  </object>
+                  <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                  <border>5</border>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxStaticLine">
+                    <size>2,-1</size>
+                  </object>
+                  <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxBoxSizer">
+                    <object class="sizeritem">
+                      <object class="wxStaticText">
                         <label>left:</label>
                       </object>
                       <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
@@ -1333,6 +1368,41 @@
                     <direction>wxTOP</direction>
                     <style>wxBU_EXACTFIT</style>
                     <tooltip>Set the crop region to the largest rectangle covered by images</tooltip>
+                  </object>
+                  <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                  <border>5</border>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxStaticLine">
+                    <size>2,-1</size>
+                  </object>
+                  <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxBoxSizer">
+                    <object class="sizeritem">
+                      <object class="wxStaticText">
+                        <label>Guides:</label>
+                      </object>
+                      <flag>wxALL</flag>
+                      <border>5</border>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxChoice" name="preview_guide_choice">
+                        <content>
+                          <item>None</item>
+                          <item>Rule of third</item>
+                          <item>Golden ratio</item>
+                          <item>Diagonal</item>
+                          <item>Golden triangle (down)</item>
+                          <item>Golden triangle (up)</item>
+                        </content>
+                        <selection>0</selection>
+                      </object>
+                      <flag>wxLEFT|wxBOTTOM|wxRIGHT</flag>
+                      <border>5</border>
+                    </object>
+                    <orient>wxVERTICAL</orient>
                   </object>
                   <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                   <border>5</border>
