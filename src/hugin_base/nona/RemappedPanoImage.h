@@ -469,7 +469,7 @@ void RemappedPanoImage<RemapImage,AlphaImage>::remapImage(vigra::triple<ImgIter,
         invResponse.setOutput(1.0/pow(2.0,m_destImg.outputExposureValue), outLut,
                               maxVal);
     } else {
-        invResponse.setHDROutput();
+        invResponse.setHDROutput(true,1.0/pow(2.0,m_destImg.outputExposureValue));
     }
 
 
@@ -645,7 +645,7 @@ void RemappedPanoImage<RemapImage,AlphaImage>::remapImage(vigra::triple<ImgIter,
         invResponse.setOutput(1.0/pow(2.0,m_destImg.outputExposureValue), outLut,
                               maxVal);
     } else {
-        invResponse.setHDROutput();
+        invResponse.setHDROutput(true,1.0/pow(2.0,m_destImg.outputExposureValue));
     }
 
     if (((m_srcImg.hasActiveMasks()) || (m_srcImg.getCropMode() != SrcPanoImage::NO_CROP))) {

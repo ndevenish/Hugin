@@ -164,7 +164,7 @@ class InvResponseTransform : public ResponseTransform<VTIn>
         
     public:
         ///
-        void setHDROutput(bool hdrMode=true);
+        void setHDROutput(bool hdrMode, double destExposure);
         
         /// output lut
         void setOutput(double destExposure, const LUTD & destLut, double scale);
@@ -432,11 +432,11 @@ void InvResponseTransform<VTIn,VTOut>::init(const HuginBase::SrcPanoImage & src)
 }
 
 template <class VTIn, class VTOut>
-void InvResponseTransform<VTIn,VTOut>::setHDROutput(bool hdrMode)
+void InvResponseTransform<VTIn,VTOut>::setHDROutput(bool hdrMode, double destExposure)
 {
     m_hdrMode = hdrMode;
     m_intScale = 1;
-    m_destExposure = 1.0;
+    m_destExposure = destExposure;
     m_destLut.clear();
 }
 

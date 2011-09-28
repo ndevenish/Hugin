@@ -124,7 +124,7 @@ void PreviewColorPickerTool::CalcCorrectionForImage(unsigned int i,vigra::Point2
     }
     else
     {
-        invResponse.setHDROutput();
+        invResponse.setHDROutput(true,1.0/pow(2.0,helper->GetPanoramaPtr()->getOptions().outputExposureValue));
     }
     vigra::DRGBImage floatTemp(tempImage.size());
     vigra_ext::transformImageSpatial(srcImageRange(tempImage), destImage(floatTemp), invResponse, vigra::Diff2D(pos.x-ColorPickerSize,pos.y-ColorPickerSize));
