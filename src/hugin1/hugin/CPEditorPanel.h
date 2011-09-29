@@ -44,20 +44,6 @@
 
 #include "CPImagesComboBox.h"
 
-// Always use wxChoice, the tabs behave badly with many images on GTK as well.
-#define HUGIN_CP_IMG_CHOICE
-
-// Do not use a splitter between the ctrl points list and the images
-//#define HUGIN_CP_USE_SPLITTER
-
-//#ifdef __WXMAC__
-//// use wxChoice
-//#define HUGIN_CP_IMG_CHOICE
-//#else
-//// use wxNotebook tab
-//#define HUGIN_CP_IMG_TAB
-//#endif
-
 #include "CPImageCtrl.h"
 
 namespace vigra {
@@ -152,7 +138,6 @@ private:
     /// this is used to finally create the point in the panorama model
     void CreateNewPoint();
 
-
     /// search for region in destImg
 //    bool FindTemplate(unsigned int tmplImgNr, const wxRect &region, unsigned int dstImgNr, vigra_ext::CorrelationResult & res);
 
@@ -168,24 +153,15 @@ private:
     // event handler functions
     void OnMyButtonClicked(wxCommandEvent &e);
     void OnCPEvent(CPEvent &ev);
-#ifdef HUGIN_CP_IMG_CHOICE
     void OnLeftChoiceChange(wxCommandEvent & e);
     void OnRightChoiceChange(wxCommandEvent & e);
-#endif
-#ifdef HUGIN_CP_IMG_TAB
-    void OnLeftImgChange(wxNotebookEvent & e);
-    void OnRightImgChange(wxNotebookEvent & e);
-#endif
     void OnCPListSelect(wxListEvent & e);
     void OnCPListDeselect(wxListEvent & e);
     void OnAddButton(wxCommandEvent & e);
     void OnZoom(wxCommandEvent & e);
     void OnTextPointChange(wxCommandEvent &e);
     void OnKey(wxKeyEvent & e);
-    void OnKeyDown(wxKeyEvent & e);
-    void OnKeyUp(wxKeyEvent & e);
     void OnDeleteButton(wxCommandEvent & e);
-    void OnAutoAddCB(wxCommandEvent & e);
     void OnPrevImg(wxCommandEvent & e);
     void OnNextImg(wxCommandEvent & e);
 
@@ -193,9 +169,7 @@ private:
 
     void OnFineTuneButton(wxCommandEvent & e);
     void OnCelesteButton(wxCommandEvent & e);
-    
-    void OnSize(wxSizeEvent & e);
-    
+
     void FineTuneSelectedPoint(bool left);
     void FineTuneNewPoint(bool left);
     // local fine tune
@@ -203,9 +177,6 @@ private:
                                const vigra::Diff2D & srcPnt,
                                unsigned int moveNr,
                                const hugin_utils::FDiff2D & movePnt);
-
-    // experimental corner detector.
-    void OnAutoCreateCP();
 
     /** Estimate position of point in the other image
      *
@@ -253,13 +224,8 @@ private:
 
 
     // GUI controls
-#ifdef HUGIN_CP_IMG_CHOICE
     CPImagesComboBox *m_leftChoice;
     CPImagesComboBox *m_rightChoice;
-#endif
-#ifdef HUGIN_CP_IMG_TAB
-    wxNotebook *m_leftTabs, *m_rightTabs;
-#endif
     CPImageCtrl *m_leftImg, *m_rightImg;
     wxListCtrl *m_cpList;
 
@@ -270,11 +236,7 @@ private:
     wxCheckBox *m_autoAddCB;
     wxCheckBox *m_fineTuneCB;
     wxCheckBox *m_estimateCB;
-	wxPanel *m_cp_ctrls;
-#ifdef HUGIN_CP_USE_SPLITTER
-    wxSplitterWindow *m_cp_splitter;
-#endif
-    //wxSplitterWindow *m_cp_splitter_img;
+    wxPanel *m_cp_ctrls;
 
     // my data
     PT::Panorama * m_pano;
@@ -315,6 +277,5 @@ public:
     virtual wxObject *DoCreateResource();
     virtual bool CanHandle(wxXmlNode *node);
 };
-
 
 #endif // _CPEDITORPANEL_H

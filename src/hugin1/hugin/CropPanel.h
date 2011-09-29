@@ -24,15 +24,6 @@
 #ifndef _CROP_PANEL_H
 #define _CROP_PANEL_H
 
-
-#ifdef __WXMAC__
-// use wxChoice
-#define HUGIN_CP_IMG_CHOICE
-#else
-// use wxNotebook tab
-#define HUGIN_CP_IMG_TAB
-#endif
-
 class CenterCanvas;
 class ImagesListCrop;
 
