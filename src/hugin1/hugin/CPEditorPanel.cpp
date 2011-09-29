@@ -204,6 +204,7 @@ bool CPEditorPanel::Create(wxWindow* parent, wxWindowID id,
 
     // setup list view
     m_cpList = XRCCTRL(*this, "cp_editor_cp_list", wxListCtrl);
+    m_cpList->Connect(wxEVT_CHAR,wxKeyEventHandler(CPEditorPanel::OnKey),NULL,this);
     m_cpList->InsertColumn( 0, _("#"), wxLIST_FORMAT_RIGHT, 35);
     m_cpList->InsertColumn( 1, _("left x"), wxLIST_FORMAT_RIGHT, 65);
     m_cpList->InsertColumn( 2, _("left y"), wxLIST_FORMAT_RIGHT, 65);
