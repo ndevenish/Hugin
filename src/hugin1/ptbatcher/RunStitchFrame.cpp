@@ -31,11 +31,11 @@ BEGIN_EVENT_TABLE(RunStitchFrame, wxFrame)
     EVT_END_PROCESS(-1, RunStitchFrame::OnProcessTerminate)
 END_EVENT_TABLE()
 
-RunStitchFrame::RunStitchFrame(wxWindow * parent, const wxString& title, const wxPoint& pos, const wxSize& size) //ProjectArray projList, wxListBox *projListBox)
+RunStitchFrame::RunStitchFrame(wxWindow* parent, const wxString& title, const wxPoint& pos, const wxSize& size)  //ProjectArray projList, wxListBox *projListBox)
     : wxFrame(parent, -1, title, pos, size, wxRESIZE_BORDER | wxCAPTION | wxCLIP_CHILDREN), m_isStitching(false)
 {
 
-    wxBoxSizer * topsizer = new wxBoxSizer( wxVERTICAL );
+    wxBoxSizer* topsizer = new wxBoxSizer( wxVERTICAL );
     m_stitchPanel = new RunStitchPanel(this);
 
     topsizer->Add(m_stitchPanel, 1, wxEXPAND | wxALL, 2);
@@ -49,88 +49,84 @@ RunStitchFrame::RunStitchFrame(wxWindow * parent, const wxString& title, const w
 #endif
 
     SetSizer( topsizer );
-//    topsizer->SetSizeHints( this );   // set size hints to honour minimum size
 }
 
 int RunStitchFrame::GetProcessId()
 {
-	if(m_projectId<0)	//if a fake stitchframe is used (for a command), it doesn't have a stitch panel
-		return m_pid;
-	else
-		return m_stitchPanel->GetPid();
+    if(m_projectId<0)	//if a fake stitchframe is used (for a command), it doesn't have a stitch panel
+    {
+        return m_pid;
+    }
+    else
+    {
+        return m_stitchPanel->GetPid();
+    }
 }
 
 int RunStitchFrame::GetProjectId()
 {
-	return m_projectId;
+    return m_projectId;
 }
 
 void RunStitchFrame::SetProcessId(int pid)
 {
-	if(m_projectId<0)	//if a fake stitchframe is used (for a command), it doesn't have a stitch panel
-		m_pid = pid;
-	else
-		m_pid = m_stitchPanel->GetPid();
+    if(m_projectId<0)	//if a fake stitchframe is used (for a command), it doesn't have a stitch panel
+    {
+        m_pid = pid;
+    }
+    else
+    {
+        m_pid = m_stitchPanel->GetPid();
+    }
 }
 
 void RunStitchFrame::SetProjectId(int id)
 {
-	m_projectId=id;
+    m_projectId=id;
 }
-
 
 void RunStitchFrame::OnCancel(wxCommandEvent& WXUNUSED(event))
 {
     DEBUG_TRACE("");
-    if (m_isStitching) {
+    if (m_isStitching)
+    {
         m_stitchPanel->CancelStitch();
         m_isStitching = false;
-    } else {
+    }
+    else
+    {
         Close();
     }
 }
 
-void RunStitchFrame::OnProcessTerminate(wxProcessEvent & event)
+void RunStitchFrame::OnProcessTerminate(wxProcessEvent& event)
 {
-    if (! m_isStitching) {
-		// canceled stitch  
-		/*if (GetParent()) {		//send process notification to parent window
-			event.SetEventObject( this );
-			event.m_exitcode = 1;
-			event.SetId(m_processId);
-			DEBUG_TRACE("Sending wxProcess event");   
-			this->GetParent()->ProcessEvent( event );
-		}*/
-		event.SetEventObject( this );
-		event.m_exitcode = 1;
-		event.SetId(m_projectId);
-		DEBUG_TRACE("Sending wxProcess event");   
-		this->GetParent()->GetEventHandler()->ProcessEvent( event );
+    if (! m_isStitching)
+    {
+        event.SetEventObject( this );
+        event.m_exitcode = 1;
+        event.SetId(m_projectId);
+        DEBUG_TRACE("Sending wxProcess event");
+        this->GetParent()->GetEventHandler()->ProcessEvent( event );
         // TODO: Cleanup files?
         Close();
-    } else {
+    }
+    else
+    {
         m_isStitching = false;
-        if (event.GetExitCode() != 0) {
-			event.SetEventObject( this );
-			event.SetId(m_projectId);
-			//this->GetParent()->ProcessEvent( event );
-			this->GetParent()->GetEventHandler()->ProcessEvent( event );
-			Close();
-        } else {
-			//if (GetParent()) {		//send process notification to parent window
-				event.SetEventObject( this );
-				event.SetId(m_projectId);
-				DEBUG_TRACE("Sending wxProcess event");   
-				//m_evtParent->ProcessEvent( event );
-				this->GetParent()->GetEventHandler()->ProcessEvent( event );
-				//this->GetParent()->ProcessEvent( event );
-			//}
-			/*if(!m_projList.IsEmpty())		//returns true if batch list is not empty yet after removing the first
-			{
-				wxGetApp().OnStitch(wxGetApp().projList.Item(0).path, wxGetApp().projList.Item(0).prefix);
-				m_projList.RemoveAt(0);
-				m_projListBox->Delete(0);
-			}*/
+        if (event.GetExitCode() != 0)
+        {
+            event.SetEventObject( this );
+            event.SetId(m_projectId);
+            this->GetParent()->GetEventHandler()->ProcessEvent( event );
+            Close();
+        }
+        else
+        {
+            event.SetEventObject( this );
+            event.SetId(m_projectId);
+            DEBUG_TRACE("Sending wxProcess event");
+            this->GetParent()->GetEventHandler()->ProcessEvent( event );
             Close();
         }
     }
@@ -139,7 +135,8 @@ void RunStitchFrame::OnProcessTerminate(wxProcessEvent & event)
 bool RunStitchFrame::StitchProject(wxString scriptFile, wxString outname,
                                    HuginBase::PanoramaMakefilelibExport::PTPrograms progs)
 {
-    if (! m_stitchPanel->StitchProject(scriptFile, outname, progs)) {
+    if (! m_stitchPanel->StitchProject(scriptFile, outname, progs))
+    {
         return false;
     }
     m_isStitching = true;
@@ -159,8 +156,7 @@ bool RunStitchFrame::DetectProject(wxString scriptFile,
     return true;
 }
 
-bool RunStitchFrame::SaveLog(const wxString &filename)
+bool RunStitchFrame::SaveLog(const wxString& filename)
 {
     return m_stitchPanel->SaveLog(filename);
 };
-

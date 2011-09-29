@@ -31,11 +31,11 @@
 #include "hugin_utils/alphanum.h"
 
 BEGIN_EVENT_TABLE(FindPanoDialog,wxDialog)
-EVT_BUTTON(XRCID("find_pano_close"), FindPanoDialog::OnButtonClose)
-EVT_BUTTON(XRCID("find_pano_select_dir"), FindPanoDialog::OnButtonChoose)
-EVT_BUTTON(XRCID("find_pano_start_stop"), FindPanoDialog::OnButtonStart)
-EVT_BUTTON(XRCID("find_pano_add_queue"), FindPanoDialog::OnButtonSend)
-EVT_CLOSE(FindPanoDialog::OnClose)
+    EVT_BUTTON(XRCID("find_pano_close"), FindPanoDialog::OnButtonClose)
+    EVT_BUTTON(XRCID("find_pano_select_dir"), FindPanoDialog::OnButtonChoose)
+    EVT_BUTTON(XRCID("find_pano_start_stop"), FindPanoDialog::OnButtonStart)
+    EVT_BUTTON(XRCID("find_pano_add_queue"), FindPanoDialog::OnButtonSend)
+    EVT_CLOSE(FindPanoDialog::OnClose)
 END_EVENT_TABLE()
 
 bool SortFilename::operator()(const SrcPanoImage* img1, const SrcPanoImage* img2)
@@ -43,7 +43,7 @@ bool SortFilename::operator()(const SrcPanoImage* img1, const SrcPanoImage* img2
     return doj::alphanum_comp(img1->getFilename(),img2->getFilename())<0;
 };
 
-FindPanoDialog::FindPanoDialog(BatchFrame *batchframe, wxString xrcPrefix)
+FindPanoDialog::FindPanoDialog(BatchFrame* batchframe, wxString xrcPrefix)
 {
     // load our children. some children might need special
     // initialization. this will be done later.
@@ -58,7 +58,7 @@ FindPanoDialog::FindPanoDialog(BatchFrame *batchframe, wxString xrcPrefix)
     m_batchframe=batchframe;
     m_isRunning=false;
     m_stopped=false;
-    
+
     m_button_start=XRCCTRL(*this,"find_pano_start_stop",wxButton);
     m_button_choose=XRCCTRL(*this,"find_pano_select_dir",wxButton);
     m_button_send=XRCCTRL(*this,"find_pano_add_queue",wxButton);
@@ -71,7 +71,7 @@ FindPanoDialog::FindPanoDialog(BatchFrame *batchframe, wxString xrcPrefix)
     m_cb_createLinks=XRCCTRL(*this,"find_pano_create_links",wxCheckBox);
 
     //set parameters
-    wxConfigBase * config = wxConfigBase::Get();
+    wxConfigBase* config = wxConfigBase::Get();
     // restore position and size
     int dx,dy;
     wxDisplaySize(&dx,&dy);
@@ -107,7 +107,9 @@ FindPanoDialog::FindPanoDialog(BatchFrame *batchframe, wxString xrcPrefix)
     }
     wxString path=config->Read(wxT("/FindPanoDialog/actualPath"),wxEmptyString);
     if(!path.IsEmpty())
+    {
         m_textctrl_dir->SetValue(path);
+    }
     bool val;
     config->Read(wxT("/FindPanoDialog/includeSubDirs"),&val,false);
     m_cb_subdir->SetValue(val);
@@ -155,7 +157,7 @@ void FindPanoDialog::CleanUpPanolist()
 };
 
 //prevent closing window when running detection
-void FindPanoDialog::OnClose(wxCloseEvent &e)
+void FindPanoDialog::OnClose(wxCloseEvent& e)
 {
     if(e.CanVeto() && m_isRunning)
     {
@@ -168,30 +170,30 @@ void FindPanoDialog::OnClose(wxCloseEvent &e)
     };
 };
 
-void FindPanoDialog::OnButtonClose(wxCommandEvent &e)
+void FindPanoDialog::OnButtonClose(wxCommandEvent& e)
 {
     if(m_panos.size()>0)
     {
         if(wxMessageBox(_("The list contains possibly unprocessed panoramas.\nIf you close the dialog, you will lose them.\nContinue anyway?"),
-            _("Question"),wxYES_NO|wxICON_QUESTION,this)==wxNO)
+                        _("Question"),wxYES_NO|wxICON_QUESTION,this)==wxNO)
         {
             return;
         };
     };
-    this->Close();  
+    this->Close();
 };
 
-void FindPanoDialog::OnButtonChoose(wxCommandEvent &e)
+void FindPanoDialog::OnButtonChoose(wxCommandEvent& e)
 {
     wxDirDialog dlg(this, _("Specify a directory to search for projects in"),
-                     m_textctrl_dir->GetValue(), wxDD_DEFAULT_STYLE | wxDD_DIR_MUST_EXIST);
+                    m_textctrl_dir->GetValue(), wxDD_DEFAULT_STYLE | wxDD_DIR_MUST_EXIST);
     if (dlg.ShowModal()==wxID_OK)
     {
         m_textctrl_dir->SetValue(dlg.GetPath());
     };
 };
 
-void FindPanoDialog::OnButtonStart(wxCommandEvent &e)
+void FindPanoDialog::OnButtonStart(wxCommandEvent& e)
 {
     if(m_isRunning)
     {
@@ -208,7 +210,7 @@ void FindPanoDialog::OnButtonStart(wxCommandEvent &e)
             if(m_panos.size()>0)
             {
                 if(wxMessageBox(_("The list contains still not yet processed panoramas.\nIf you continue, they will be disregarded.\nDo you still want to continue?"),
-                    _("Question"),wxYES_NO|wxICON_QUESTION,this)==wxNO)
+                                _("Question"),wxYES_NO|wxICON_QUESTION,this)==wxNO)
                 {
                     return;
                 };
@@ -226,17 +228,19 @@ void FindPanoDialog::OnButtonStart(wxCommandEvent &e)
         else
         {
             wxMessageBox(wxString::Format(_("Directory %s does not exist.\nPlease give an existing directory."),m_start_dir.c_str()),
-                _("Warning"),wxOK | wxICON_EXCLAMATION,this);
+                         _("Warning"),wxOK | wxICON_EXCLAMATION,this);
         };
     };
 }
 
-void FindPanoDialog::OnButtonSend(wxCommandEvent &e)
+void FindPanoDialog::OnButtonSend(wxCommandEvent& e)
 {
     if(m_panos.size()==0)
+    {
         return;
+    }
     unsigned int nr=0;
-    for(unsigned int i=0;i<m_list_pano->GetCount();i++)
+    for(unsigned int i=0; i<m_list_pano->GetCount(); i++)
     {
         if(m_list_pano->IsChecked(i))
         {
@@ -250,7 +254,7 @@ void FindPanoDialog::OnButtonSend(wxCommandEvent &e)
     }
     bool failed=false;
     bool createLinks=m_cb_createLinks->GetValue();
-    for(unsigned int i=0;i<m_list_pano->GetCount();i++)
+    for(unsigned int i=0; i<m_list_pano->GetCount(); i++)
     {
         if(m_list_pano->IsChecked(i))
         {
@@ -296,21 +300,21 @@ void FindPanoDialog::SearchInDir(wxString dirstring, bool includeSubdir)
     wxArrayString fileList;
     wxDir::GetAllFiles(dirstring,&fileList,wxEmptyString,wxDIR_FILES|wxDIR_HIDDEN);
     fileList.Sort(SortWxFilenames);
-    for(size_t j=0;j<fileList.size() && !m_stopped;j++)
+    for(size_t j=0; j<fileList.size() && !m_stopped; j++)
     {
         m_statustext->SetLabel(wxString::Format(_("Reading file %s"),fileList[j].c_str()));
         wxFileName file(fileList[j]);
         file.MakeAbsolute();
         wxString ext=file.GetExt();
         if(ext.CmpNoCase(wxT("jpg"))==0 || ext.CmpNoCase(wxT("jpeg"))==0 ||
-        ext.CmpNoCase(wxT("tif"))==0 || ext.CmpNoCase(wxT("tiff"))==0)
+                ext.CmpNoCase(wxT("tif"))==0 || ext.CmpNoCase(wxT("tiff"))==0)
         {
             std::string filenamestr(file.GetFullPath().mb_str(HUGIN_CONV_FILENAME));
-            SrcPanoImage *img=new SrcPanoImage(filenamestr);
+            SrcPanoImage* img=new SrcPanoImage(filenamestr);
             if(img->hasEXIFread())
             {
                 bool found=false;
-                for(unsigned int i=0;i<newPanos.size() && !m_stopped && !found;i++)
+                for(unsigned int i=0; i<newPanos.size() && !m_stopped && !found; i++)
                 {
                     //compare with all other image groups
                     if(newPanos[i]->BelongsTo(img,max_diff))
@@ -325,7 +329,7 @@ void FindPanoDialog::SearchInDir(wxString dirstring, bool includeSubdir)
                 };
                 if(!found)
                 {
-                    PossiblePano *newPano=new PossiblePano();
+                    PossiblePano* newPano=new PossiblePano();
                     newPano->AddSrcPanoImage(img);
                     newPanos.push_back(newPano);
                 };
@@ -341,7 +345,7 @@ void FindPanoDialog::SearchInDir(wxString dirstring, bool includeSubdir)
     };
     if(!m_stopped && newPanos.size()>0)
     {
-        for(size_t i=0;i<newPanos.size();i++)
+        for(size_t i=0; i<newPanos.size(); i++)
         {
             if(newPanos[i]->GetImageCount()>1)
             {
@@ -391,23 +395,31 @@ PossiblePano::~PossiblePano()
 {
     if(m_images.size()>0)
     {
-        for(ImageSet::reverse_iterator it=m_images.rbegin();it!=m_images.rend();it++)
+        for(ImageSet::reverse_iterator it=m_images.rbegin(); it!=m_images.rend(); it++)
         {
             delete (*it);
         }
     };
 };
 
-bool PossiblePano::BelongsTo(SrcPanoImage *img, const wxTimeSpan max_time_diff)
+bool PossiblePano::BelongsTo(SrcPanoImage* img, const wxTimeSpan max_time_diff)
 {
     if(m_make.compare(img->getExifMake())!=0)
+    {
         return false;
+    }
     if(m_camera.compare(img->getExifModel())!=0)
+    {
         return false;
+    }
     if(fabs(m_focallength-img->getExifFocalLength())>0.01)
+    {
         return false;
+    }
     if(m_size!=img->getSize())
+    {
         return false;
+    }
     if(!GetDateTime(img).IsBetween(m_dt_start-max_time_diff,m_dt_end+max_time_diff))
     {
         return false;
@@ -418,10 +430,12 @@ bool PossiblePano::BelongsTo(SrcPanoImage *img, const wxTimeSpan max_time_diff)
 double PossiblePano::GetMaxExposureDifference()
 {
     if(m_images.empty())
+    {
         return 0;
+    }
     double minEv=1000;
     double maxEv=-1000;
-    for(ImageSet::const_iterator it=m_images.begin();it!=m_images.end();it++)
+    for(ImageSet::const_iterator it=m_images.begin(); it!=m_images.end(); it++)
     {
         double ev=(*it)->getExposureValue();
         minEv=std::min(minEv,ev);
@@ -433,34 +447,46 @@ double PossiblePano::GetMaxExposureDifference()
 bool PossiblePano::IsStacked()
 {
     if(m_images.empty())
+    {
         return false;
+    }
     // this algorithm is based on panostart by Bruno Postle
     // bracketed pano has at least a dynamic range of 1.2 ev values (corresponds to bracket with +-2/3)
     if(GetMaxExposureDifference()<1.2)
+    {
         return false;
+    }
     //if image is shooted in auto exposure mode then it is not a bracket pano
     if((*m_images.begin())->getExifExposureMode()==0)
+    {
         return false;
+    }
     //now collect all unique exposure values
     std::set<int> evValues;
-    for(ImageSet::const_iterator it=m_images.begin();it!=m_images.end();it++)
+    for(ImageSet::const_iterator it=m_images.begin(); it!=m_images.end(); it++)
     {
         //we multiply with 10 to don't get fooled by rounded double values
         evValues.insert(int((*it)->getExposureValue()*10));
     };
     //if there is only one unique exposure value then there are no stacks
     if(evValues.size()<2)
+    {
         return false;
+    }
     //if number of unique exposure values is equal the number of images then there are no stacks
     if(evValues.size()==m_images.size())
+    {
         return false;
-    //if number of images is not a multiple of number of unique exposure values 
+    }
+    //if number of images is not a multiple of number of unique exposure values
     //then the stacks are incomplete, skipping
     if(m_images.size() % evValues.size()!=0)
+    {
         return false;
+    }
     //check if exposure value is repeated with step size of bracket size
     ImageSet::const_iterator it=m_images.begin();
-    for(unsigned int i=0;i<evValues.size();i++)
+    for(unsigned int i=0; i<evValues.size(); i++)
     {
         it++;
     };
@@ -488,7 +514,7 @@ const wxDateTime PossiblePano::GetDateTime(const SrcPanoImage* img)
     };
 };
 
-void PossiblePano::AddSrcPanoImage(HuginBase::SrcPanoImage *img)
+void PossiblePano::AddSrcPanoImage(HuginBase::SrcPanoImage* img)
 {
     if(m_images.size()==0)
     {
@@ -537,7 +563,7 @@ const wxString PossiblePano::GetItemString(const wxString BasePath) const
     return wxString::Format(_("%d images: %s"),m_images.size(),GetFilestring(BasePath).c_str());
 };
 
-bool PossiblePano::GetNewProjectFilename(NamingConvention nc,const wxString basePath, wxFileName &projectFile)
+bool PossiblePano::GetNewProjectFilename(NamingConvention nc,const wxString basePath, wxFileName& projectFile)
 {
     wxString mask;
     unsigned int i=1;
@@ -612,16 +638,16 @@ wxString PossiblePano::GeneratePanorama(NamingConvention nc,bool createLinks)
     };
     //generate panorama
     HuginBase::Panorama pano;
-    for(ImageSet::iterator it=m_images.begin();it!=m_images.end();it++)
+    for(ImageSet::iterator it=m_images.begin(); it!=m_images.end(); it++)
     {
         pano.addImage(*(*it));
     };
     //assign all images the same lens number
     HuginBase::StandardImageVariableGroups variable_groups(pano);
-    HuginBase::ImageVariableGroup & lenses = variable_groups.getLenses();
+    HuginBase::ImageVariableGroup& lenses = variable_groups.getLenses();
     if(pano.getNrOfImages()>1)
     {
-        for(unsigned int i=1;i<pano.getNrOfImages();i++)
+        for(unsigned int i=1; i<pano.getNrOfImages(); i++)
         {
             SrcPanoImage img=pano.getSrcImage(i);
             double ev=img.getExposureValue();
@@ -640,7 +666,7 @@ wxString PossiblePano::GeneratePanorama(NamingConvention nc,bool createLinks)
         //if it is a stacked pano, create the stacks and link position if desired
         unsigned int imgNr=0;
         double ev=pano.getImage(imgNr).getExposureValue();
-        for(unsigned int i=1;i<pano.getNrOfImages();i++)
+        for(unsigned int i=1; i<pano.getNrOfImages(); i++)
         {
             if(abs(pano.getImage(i).getExposureValue()-ev)<0.1)
             {
@@ -677,7 +703,7 @@ wxString PossiblePano::GeneratePanorama(NamingConvention nc,bool createLinks)
         std::string Pathprefix(projectFile.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR).mb_str(HUGIN_CONV_FILENAME));
         pano.printPanoramaScript(script, pano.getOptimizeVector(), pano.getOptions(), all, false, Pathprefix);
     }
-    catch (std::exception & e) 
+    catch (std::exception& e)
     {
         return wxEmptyString;
     };

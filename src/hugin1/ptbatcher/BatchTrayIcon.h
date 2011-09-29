@@ -48,7 +48,7 @@ protected:
     /** handler to adding a project to stitching queue */
     void OnAddProject(wxCommandEvent& e);
     /** creates the popup menu */
-    virtual wxMenu *CreatePopupMenu();
+    virtual wxMenu* CreatePopupMenu();
 
     DECLARE_EVENT_TABLE()
 };
@@ -64,21 +64,21 @@ protected:
 // idea from http://wiki.wxwidgets.org/WxTaskBarIcon
 class TaskBarBalloon : public wxFrame
 {
-    public:
-        TaskBarBalloon(wxString sTitle, wxString sMessage);
-        virtual ~TaskBarBalloon();
-        /** timer to close window */
-        void OnTimerTick(wxTimerEvent & e);
-        /** click on the balloon */
-        void OnClick(wxMouseEvent & e);
-        /** key down event in the balloon */
-        void OnKeyDown(wxKeyEvent & e);
- 
-        /** display the baloon and run the timer */
-        void showBalloon(unsigned int iTimeout);
-    private:
-        wxTimer * m_timer;
-        DECLARE_EVENT_TABLE();
+public:
+    TaskBarBalloon(wxString sTitle, wxString sMessage);
+    virtual ~TaskBarBalloon();
+    /** timer to close window */
+    void OnTimerTick(wxTimerEvent& e);
+    /** click on the balloon */
+    void OnClick(wxMouseEvent& e);
+    /** key down event in the balloon */
+    void OnKeyDown(wxKeyEvent& e);
+
+    /** display the baloon and run the timer */
+    void showBalloon(unsigned int iTimeout);
+private:
+    wxTimer* m_timer;
+    DECLARE_EVENT_TABLE();
 };
 #endif
 

@@ -30,10 +30,10 @@
 #include "Batch.h"
 
 BEGIN_EVENT_TABLE(FailedProjectsDialog,wxDialog)
-EVT_LISTBOX(XRCID("failed_list"),FailedProjectsDialog::OnSelectProject)
+    EVT_LISTBOX(XRCID("failed_list"),FailedProjectsDialog::OnSelectProject)
 END_EVENT_TABLE()
 
-FailedProjectsDialog::FailedProjectsDialog(wxWindow *parent,Batch *batch,wxString xrcPrefix)
+FailedProjectsDialog::FailedProjectsDialog(wxWindow* parent,Batch* batch,wxString xrcPrefix)
 {
     // load our children. some children might need special
     // initialization. this will be done later.
@@ -51,7 +51,7 @@ FailedProjectsDialog::FailedProjectsDialog(wxWindow *parent,Batch *batch,wxStrin
     m_log=XRCCTRL(*this,"failed_log",wxTextCtrl);
 
     //fill list
-    for(unsigned int i=0;i<batch->GetFailedProjectsCount();i++)
+    for(unsigned int i=0; i<batch->GetFailedProjectsCount(); i++)
     {
         m_list->AppendString(batch->GetFailedProjectName(i));
     };
@@ -63,7 +63,7 @@ FailedProjectsDialog::FailedProjectsDialog(wxWindow *parent,Batch *batch,wxStrin
     };
 
     //set parameters
-    wxConfigBase * config = wxConfigBase::Get();
+    wxConfigBase* config = wxConfigBase::Get();
     // restore position and size
     int dx,dy;
     wxDisplaySize(&dx,&dy);
@@ -71,7 +71,7 @@ FailedProjectsDialog::FailedProjectsDialog(wxWindow *parent,Batch *batch,wxStrin
     if (maximized)
     {
         this->Maximize();
-	}
+    }
     else
     {
         //size
@@ -118,7 +118,7 @@ FailedProjectsDialog::~FailedProjectsDialog()
     };
 };
 
-void FailedProjectsDialog::OnSelectProject(wxCommandEvent &e)
+void FailedProjectsDialog::OnSelectProject(wxCommandEvent& e)
 {
     int sel=m_list->GetSelection();
     m_log->Clear();

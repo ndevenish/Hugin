@@ -36,19 +36,19 @@
  * If it found images, it compares EXIF information to deduce which images could belong
  * to a panorama.
  * After it the user can select which panoramas should created and added to detection queue
- * 
+ *
  */
 class FailedProjectsDialog : public wxDialog
 {
 public:
     /** Constructor, read from xrc ressource; restore last uses settings, size and position */
-    FailedProjectsDialog(wxWindow *parent,Batch *batch,wxString xrcPrefix);
+    FailedProjectsDialog(wxWindow* parent,Batch* batch,wxString xrcPrefix);
     /** destructor, saves size and position */
     ~FailedProjectsDialog();
 
 protected:
     /** event handler, if new project was selected */
-    void OnSelectProject(wxCommandEvent &e);
+    void OnSelectProject(wxCommandEvent& e);
 private:
     Batch* m_batch;
     wxListBox* m_list;

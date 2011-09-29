@@ -26,7 +26,7 @@
  */
 
 #include "BatchTrayIcon.h"
-#include <wx/app.h> 
+#include <wx/app.h>
 #include <wx/menu.h>
 #include "PTBatcherGUI.h"
 
@@ -51,9 +51,9 @@ BEGIN_EVENT_TABLE(BatchTaskBarIcon, wxTaskBarIcon)
 END_EVENT_TABLE()
 
 // Overridables
-wxMenu *BatchTaskBarIcon::CreatePopupMenu()
+wxMenu* BatchTaskBarIcon::CreatePopupMenu()
 {
-    wxMenu *menu = new wxMenu;
+    wxMenu* menu = new wxMenu;
     menu->Append(ID_SHOWGUI,_("&Show window"));
     menu->AppendSeparator();
     bool isRunning=wxGetApp().GetFrame()->IsRunning();
@@ -72,7 +72,7 @@ wxMenu *BatchTaskBarIcon::CreatePopupMenu()
     menu->Enable(ID_STOP,isRunning);
     menu->AppendSeparator();
     menu->Append(ID_ADDPROJECT,_("Add project to queue..."));
-#ifndef __WXMAC_OSX__ 
+#ifndef __WXMAC_OSX__
     /*Mac has built-in quit menu*/
     menu->AppendSeparator();
     menu->Append(ID_EXIT, _("E&xit"));
@@ -137,20 +137,20 @@ BEGIN_EVENT_TABLE(TaskBarBalloon, wxFrame)
     EVT_KEY_DOWN(TaskBarBalloon::OnKeyDown)
     EVT_TIMER(TIMER_BALLOON,TaskBarBalloon::OnTimerTick)
 END_EVENT_TABLE()
- 
+
 TaskBarBalloon::TaskBarBalloon(wxString sTitle, wxString sMessage)
     : wxFrame(NULL,-1,wxT("no title"),wxDefaultPosition,wxDefaultSize,wxNO_BORDER | wxSTAY_ON_TOP | wxFRAME_SHAPED | wxFRAME_NO_TASKBAR)
 {
     SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_INFOBK));
-    wxBoxSizer * mainSizer = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer* mainSizer = new wxBoxSizer(wxVERTICAL);
 
-    wxStaticText * title = new wxStaticText(this, -1, sTitle);
+    wxStaticText* title = new wxStaticText(this, -1, sTitle);
     wxFont titleFont = GetFont();
     titleFont.SetWeight(wxFONTWEIGHT_BOLD);
     title->SetFont(titleFont);
     title->SetBackgroundColour(GetBackgroundColour());
     mainSizer->Add(title,0,wxEXPAND | wxTOP | wxLEFT | wxRIGHT, 5);
-    wxStaticText * text = new wxStaticText(this, -1, sMessage);
+    wxStaticText* text = new wxStaticText(this, -1, sMessage);
     text->SetBackgroundColour(GetBackgroundColour());
     mainSizer->Add(text,1,wxEXPAND | wxBOTTOM | wxLEFT | wxRIGHT, 5);
     SetSizer(mainSizer);
@@ -172,17 +172,17 @@ TaskBarBalloon::~TaskBarBalloon()
 };
 
 /** closing frame at end of timeout */
-void TaskBarBalloon::OnTimerTick(wxTimerEvent &e)
+void TaskBarBalloon::OnTimerTick(wxTimerEvent& e)
 {
     Destroy();
 }
 
-void TaskBarBalloon::OnClick(wxMouseEvent &e)
+void TaskBarBalloon::OnClick(wxMouseEvent& e)
 {
     Destroy();
 };
 
-void TaskBarBalloon::OnKeyDown(wxKeyEvent &e)
+void TaskBarBalloon::OnKeyDown(wxKeyEvent& e)
 {
     Destroy();
 };

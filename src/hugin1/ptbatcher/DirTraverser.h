@@ -26,38 +26,39 @@
 
 #include <wx/dir.h>
 #include <wx/filename.h>
-//#include <wx/msgdlg.h>
 
 class DirTraverser : public wxDirTraverser
 {
 public:
-	DirTraverser():wxDirTraverser(){ }
+    DirTraverser():wxDirTraverser() { }
 
-	//Called when directory traverser evaluates a file
+    //Called when directory traverser evaluates a file
     virtual wxDirTraverseResult OnFile(const wxString& file)
     {
-		wxFileName fileName(file);
-		wxString ext = fileName.GetExt();
-		//we add all project files to array
-		if (ext.CmpNoCase(wxT("pto")) == 0 || ext.CmpNoCase(wxT("ptp")) == 0|| 
-			ext.CmpNoCase(wxT("pts")) == 0|| ext.CmpNoCase(wxT("oto")) == 0)
-			projectFiles.Add(file);
-		
-		//TO-DO: include image file heuristics to detect potential projects
-		return wxDIR_CONTINUE;
-    }
+        wxFileName fileName(file);
+        wxString ext = fileName.GetExt();
+        //we add all project files to array
+        if (ext.CmpNoCase(wxT("pto")) == 0 || ext.CmpNoCase(wxT("ptp")) == 0||
+                ext.CmpNoCase(wxT("pts")) == 0|| ext.CmpNoCase(wxT("oto")) == 0)
+        {
+            projectFiles.Add(file);
+        }
 
-	//Called when directory traverser evaluates a directory
-    virtual wxDirTraverseResult OnDir(const wxString& WXUNUSED(dir))
-    {	
+        //TO-DO: include image file heuristics to detect potential projects
         return wxDIR_CONTINUE;
     }
-	
-	//Returns an array with all project files found
-	wxArrayString GetProjectFiles()
-	{
-		return projectFiles;
-	}
+
+    //Called when directory traverser evaluates a directory
+    virtual wxDirTraverseResult OnDir(const wxString& WXUNUSED(dir))
+    {
+        return wxDIR_CONTINUE;
+    }
+
+    //Returns an array with all project files found
+    wxArrayString GetProjectFiles()
+    {
+        return projectFiles;
+    }
 private:
-	wxArrayString projectFiles;
+    wxArrayString projectFiles;
 };

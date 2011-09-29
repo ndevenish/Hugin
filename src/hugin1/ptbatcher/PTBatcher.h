@@ -30,14 +30,15 @@
 class HostApp : public wxApp
 {
 public:
-	//Pseudo constructor
-	virtual bool OnInit();
+    //Pseudo constructor
+    virtual bool OnInit();
 
-	//Initializes batch object
-	void InitBatch(wxString path){
-		batch = new Batch(NULL,path,false);
-	};
-	Batch* batch;
+    //Initializes batch object
+    void InitBatch(wxString path)
+    {
+        batch = new Batch(NULL,path,false);
+    };
+    Batch* batch;
 };
 
 IMPLEMENT_APP(HostApp)

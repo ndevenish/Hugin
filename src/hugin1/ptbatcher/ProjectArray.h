@@ -41,50 +41,53 @@ class Project;
 WX_DECLARE_OBJARRAY(Project, ProjectArray);		//declare an array of projects - main data structure for the batch processor
 WX_DEFINE_ARRAY_INT(int,IntArray);
 
-class Project{
+class Project
+{
 public:
-	enum Status{
-		FINISHED=0,
-		WAITING,
-		RUNNING,
-		FAILED,
-		MISSING,
-		PAUSED
-	};
-    enum Target{
+    enum Status
+    {
+        FINISHED=0,
+        WAITING,
+        RUNNING,
+        FAILED,
+        MISSING,
+        PAUSED
+    };
+    enum Target
+    {
         STITCHING=0,
         DETECTING
     };
 
-	//generator for unique ids of projects
-	static long idGenerator;
-	//unique id of project
-	long id;
-	//project status
-	Status status;
+    //generator for unique ids of projects
+    static long idGenerator;
+    //unique id of project
+    long id;
+    //project status
+    Status status;
     //project target: stitching or detecting/assistant
     Target target;
-	//project input path
-	wxString path;
-	//project output prefix path and filename
-	wxString prefix;
-	//last modification date and time of project
-	wxDateTime modDate;
-	//project options
-	HuginBase::PanoramaOptions options;
-	//true if project is missing or should be skipped for a different reason when executing batch
-	bool skip;
+    //project input path
+    wxString path;
+    //project output prefix path and filename
+    wxString prefix;
+    //last modification date and time of project
+    wxDateTime modDate;
+    //project options
+    HuginBase::PanoramaOptions options;
+    //true if project is missing or should be skipped for a different reason when executing batch
+    bool skip;
 
-	//Constructor for project files
-	Project(wxString pth,wxString pfx,Project::Target newTarget=STITCHING);
-	//Constructor for applications
-	Project(wxString command);
-	//Returns status of project in string form
-	wxString GetStatusText();
-	//Reads and returns options from a project file 
-	PanoramaOptions ReadOptions(wxString projectFile);
-	//Resets the project options of project
-	void ResetOptions();
+    //Constructor for project files
+    Project(wxString pth,wxString pfx,Project::Target newTarget=STITCHING);
+    //Constructor for applications
+    Project(wxString command);
+    //Returns status of project in string form
+    wxString GetStatusText();
+    //Reads and returns options from a project file
+    PanoramaOptions ReadOptions(wxString projectFile);
+    //Resets the project options of project
+    void ResetOptions();
 };
 
 #endif //PROJECTARRAY_H

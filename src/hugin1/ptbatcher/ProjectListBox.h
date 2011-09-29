@@ -32,61 +32,62 @@
 class ProjectListBox : public wxListCtrl
 {
 public:
-	//Constructor
-	bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTAB_TRAVERSAL, const wxString& name = wxT("panel"));
+    //Constructor
+    bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTAB_TRAVERSAL, const wxString& name = wxT("panel"));
 
-	//Appends project to list
-	void AppendProject(Project* project);
-	void ChangePrefix(int index, wxString newPrefix);
-	void Deselect(int index);
-	void Fill(Batch* batch);
-	int GetIndex(int id);
-	int GetProjectCountByPath(wxString path);
-	int GetProjectId(int index);
-	int GetSelectedIndex();
-	wxString GetSelectedProject();
-	/** gets the prefix of the currently selected project */
-	wxString GetSelectedProjectPrefix();
+    //Appends project to list
+    void AppendProject(Project* project);
+    void ChangePrefix(int index, wxString newPrefix);
+    void Deselect(int index);
+    void Fill(Batch* batch);
+    int GetIndex(int id);
+    int GetProjectCountByPath(wxString path);
+    int GetProjectId(int index);
+    int GetSelectedIndex();
+    wxString GetSelectedProject();
+    /** gets the prefix of the currently selected project */
+    wxString GetSelectedProjectPrefix();
     /** return the target of the currently selected project */
     Project::Target GetSelectedProjectTarget();
-	wxString GetText(int row, int column);
-	void ReloadProject(int index, Project* project);
-	void Select(int index);
-	void SetMissing(int index);
-	void SwapProject(int index);
-	bool UpdateStatus(int index, Project* project);
-	
+    wxString GetText(int row, int column);
+    void ReloadProject(int index, Project* project);
+    void Select(int index);
+    void SetMissing(int index);
+    void SwapProject(int index);
+    bool UpdateStatus(int index, Project* project);
+
 private:
-	int m_selected;
-	Batch* m_batch;
-	IntArray columns;
+    int m_selected;
+    Batch* m_batch;
+    IntArray columns;
 
-	wxString GetAttributeString(int i, Project* project);
-	wxString GetLongerFormatName(std::string str);
-	void OnColumnWidthChange(wxListEvent &event);
-	void OnDeselect(wxListEvent &event);
-	void OnSelect(wxListEvent &event);
+    wxString GetAttributeString(int i, Project* project);
+    wxString GetLongerFormatName(std::string str);
+    void OnColumnWidthChange(wxListEvent& event);
+    void OnDeselect(wxListEvent& event);
+    void OnSelect(wxListEvent& event);
 
-	enum ColumnName {
-            ID,
-			PROJECT,
-			PREFIX,
-			MODDATE,
-			FORMAT,
-			PROJECTION,
-			SIZE,
-			STATUS
-        };
-	//options taken from enum in PanoramaOptions.h. Should it change 
-	//in the future, these arrays should be corrected also
-	static const wxString fileFormat[];
-	static const wxString outputMode[];
-	static const wxString HDRMergeType[];
-	static const wxString blendingMechanism[];
-	static const wxString colorCorrection[];
+    enum ColumnName
+    {
+        ID,
+        PROJECT,
+        PREFIX,
+        MODDATE,
+        FORMAT,
+        PROJECTION,
+        SIZE,
+        STATUS
+    };
+    //options taken from enum in PanoramaOptions.h. Should it change
+    //in the future, these arrays should be corrected also
+    static const wxString fileFormat[];
+    static const wxString outputMode[];
+    static const wxString HDRMergeType[];
+    static const wxString blendingMechanism[];
+    static const wxString colorCorrection[];
 
-	DECLARE_EVENT_TABLE()
-	DECLARE_DYNAMIC_CLASS(ProjectListBox)
+    DECLARE_EVENT_TABLE()
+    DECLARE_DYNAMIC_CLASS(ProjectListBox)
 };
 
 /** xrc handler */
@@ -94,8 +95,8 @@ class ProjectListBoxXmlHandler : public wxListCtrlXmlHandler
 {
     DECLARE_DYNAMIC_CLASS(ProjectListBoxXmlHandler)
 
-    public:
-        ProjectListBoxXmlHandler();
-        virtual wxObject *DoCreateResource();
-        virtual bool CanHandle(wxXmlNode *node);
+public:
+    ProjectListBoxXmlHandler();
+    virtual wxObject* DoCreateResource();
+    virtual bool CanHandle(wxXmlNode* node);
 };

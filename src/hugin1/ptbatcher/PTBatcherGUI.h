@@ -27,8 +27,6 @@
 #include "RunStitchFrame.h"
 #include "Batch.h"
 #include "BatchFrame.h"
-//#include "FilePoller.h"
-//#include "ProjectArray.h"
 
 #include <wx/dir.h>
 #include <wx/wfstream.h>
@@ -41,7 +39,7 @@
 
 #ifndef FRAMEARRAY
 #define FRAMEARRAY
-	WX_DEFINE_ARRAY_PTR(RunStitchFrame*,FrameArray);
+WX_DEFINE_ARRAY_PTR(RunStitchFrame*,FrameArray);
 #endif
 
 #ifndef PTBATCHERGUI_H
@@ -58,9 +56,9 @@ class BatchIPCConnection : public wxConnection
 public:
     /** request handler for transfer */
 #if wxCHECK_VERSION(2,9,0)
-    virtual const void *OnRequest(const wxString& topic, const wxString& item, size_t *size = NULL, wxIPCFormat format = wxIPC_TEXT);
+    virtual const void* OnRequest(const wxString& topic, const wxString& item, size_t* size = NULL, wxIPCFormat format = wxIPC_TEXT);
 #else
-    virtual wxChar *OnRequest(const wxString& topic, const wxString& item, int *size = NULL, wxIPCFormat format = wxIPC_TEXT);
+    virtual wxChar* OnRequest(const wxString& topic, const wxString& item, int* size = NULL, wxIPCFormat format = wxIPC_TEXT);
 #endif
 };
 
@@ -68,8 +66,8 @@ public:
 class BatchIPCServer : public wxServer
 {
 public:
-	/**accept connection handler (establish the connection) */
-	virtual wxConnectionBase *OnAcceptConnection (const wxString& topic);
+    /**accept connection handler (establish the connection) */
+    virtual wxConnectionBase* OnAcceptConnection (const wxString& topic);
 };
 
 /** topic name for BatchIPCConnection and BatchIPCServer */
@@ -84,36 +82,39 @@ class PTBatcherGUI : public wxApp
 public:
     /** pseudo constructor. with the ability to fail gracefully.
      */
-	virtual bool OnInit();
-	virtual int OnExit();
+    virtual bool OnInit();
+    virtual int OnExit();
 
-	//Handles some input keys for the frame
-	void OnItemActivated(wxListEvent &event);
-	void OnKeyDown(wxKeyEvent &event);
-	
-	//Main batch list
-	ProjectArray projList;
-	//List of projects in progress (their RunStitchFrames)
-	FrameArray stitchFrames;
-	BatchFrame* GetFrame() {return m_frame;};
+    //Handles some input keys for the frame
+    void OnItemActivated(wxListEvent& event);
+    void OnKeyDown(wxKeyEvent& event);
+
+    //Main batch list
+    ProjectArray projList;
+    //List of projects in progress (their RunStitchFrames)
+    FrameArray stitchFrames;
+    BatchFrame* GetFrame()
+    {
+        return m_frame;
+    };
 
 #ifdef __WXMAC__
-/** the wx calls this method when the app gets "Open file" AppleEvent */
-    void MacOpenFile(const wxString &fileName);
+    /** the wx calls this method when the app gets "Open file" AppleEvent */
+    void MacOpenFile(const wxString& fileName);
 #endif
 
 private:
-	BatchFrame *m_frame;
+    BatchFrame* m_frame;
     wxLocale m_locale;
-	wxString m_xrcPrefix;
-	wxSingleInstanceChecker *m_checker;
-	BatchIPCServer *m_server;
+    wxString m_xrcPrefix;
+    wxSingleInstanceChecker* m_checker;
+    BatchIPCServer* m_server;
 
 #ifdef __WXMAC__
     wxString m_macFileNameToOpenOnStart;
 #endif
 
-	DECLARE_EVENT_TABLE()
+    DECLARE_EVENT_TABLE()
 };
 
 DECLARE_APP(PTBatcherGUI)
