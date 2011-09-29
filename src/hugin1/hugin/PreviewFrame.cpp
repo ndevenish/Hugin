@@ -507,7 +507,7 @@ void PreviewFrame::panoramaChanged(Panorama &pano)
     m_VFOVSlider->SetValue(roundi(opts.getVFOV()));
 
     m_oldProjFormat = opts.getProjection();
-
+    updatePano();
 }
 
 void PreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
@@ -579,6 +579,7 @@ void PreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
 		DEBUG_INFO("New m_ButtonPanel width: " << (m_ButtonPanel->GetSize()).GetWidth());
 		DEBUG_INFO("New m_ButtonPanel Height: " << (m_ButtonPanel->GetSize()).GetHeight());
     }
+    updatePano();
 }
 
 
