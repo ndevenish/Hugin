@@ -593,25 +593,49 @@
                   <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
                 </object>
                 <object class="sizeritem">
-                  <object class="wxBoxSizer">
-                    <orient>wxHORIZONTAL</orient>
+                  <object class="wxFlexGridSizer">
                     <object class="sizeritem">
                       <object class="wxStaticText">
                         <label>Drag mode:</label>
                       </object>
-                      <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                      <flag>wxLEFT|wxBOTTOM|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
                       <border>5</border>
                     </object>
                     <object class="sizeritem">
-                      <object class="wxChoice" name="drag_mode_choice">
-                        <content/>
-                      </object>
-                      <flag>wxRIGHT</flag>
+                      <object class="wxChoice" name="drag_mode_choice"/>
+                      <flag>wxLEFT|wxRIGHT|wxBOTTOM|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
                       <border>5</border>
                     </object>
+                    <object class="sizeritem">
+                      <object class="wxStaticText">
+                        <label>Guides:</label>
+                      </object>
+                      <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxChoice" name="preview_guide_choice_drag">
+                        <content>
+                          <item>None</item>
+                          <item>Rule of third</item>
+                          <item>Golden ratio</item>
+                          <item>Diagonal</item>
+                          <item>Diagonal method</item>
+                          <item>Golden triangle (down)</item>
+                          <item>Golden triangle (up)</item>
+                        </content>
+                        <selection>0</selection>
+                      </object>
+                      <flag>wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                      <border>5</border>
+                    </object>
+                    <cols>2</cols>
+                    <rows>2</rows>
+                    <growablecols>1</growablecols>
                   </object>
-                  <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                  <flag>wxALIGN_CENTRE_VERTICAL|wxALL</flag>
+                  <border>5</border>
                 </object>
+                
                 <object class="sizeritem">
                   <object class="wxStaticLine">
                     <size>2,-1</size>
@@ -1300,24 +1324,47 @@
                   <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
                 </object>
                 <object class="sizeritem">
-                  <object class="wxBoxSizer">
-                    <orient>wxHORIZONTAL</orient>
+                  <object class="wxFlexGridSizer">
                     <object class="sizeritem">
                       <object class="wxStaticText">
                         <label>Drag mode:</label>
                       </object>
-                      <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                      <flag>wxLEFT|wxBOTTOM|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
                       <border>5</border>
                     </object>
                     <object class="sizeritem">
-                      <object class="wxChoice" name="drag_mode_choice">
-                        <content/>
-                      </object>
-                      <flag>wxRIGHT</flag>
+                      <object class="wxChoice" name="drag_mode_choice"/>
+                      <flag>wxLEFT|wxRIGHT|wxBOTTOM|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
                       <border>5</border>
                     </object>
+                    <object class="sizeritem">
+                      <object class="wxStaticText">
+                        <label>Guides:</label>
+                      </object>
+                      <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxChoice" name="preview_guide_choice_drag">
+                        <content>
+                          <item>None</item>
+                          <item>Rule of third</item>
+                          <item>Golden ratio</item>
+                          <item>Diagonal</item>
+                          <item>Diagonal method</item>
+                          <item>Golden triangle (down)</item>
+                          <item>Golden triangle (up)</item>
+                        </content>
+                        <selection>0</selection>
+                      </object>
+                      <flag>wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                      <border>5</border>
+                    </object>
+                    <cols>2</cols>
+                    <rows>2</rows>
+                    <growablecols>1</growablecols>
                   </object>
-                  <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                  <flag>wxALIGN_CENTRE_VERTICAL|wxALL</flag>
+                  <border>5</border>
                 </object>
                 <object class="sizeritem">
                   <object class="wxStaticLine">

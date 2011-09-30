@@ -166,7 +166,6 @@ void PreviewGuideTool::ReallyAfterDrawImagesEvent()
     };
     HuginBase::PanoramaOptions *opts = helper->GetViewStatePtr()->GetOptions();
     vigra::Rect2D roi = opts->getROI();
-    glEnable(GL_BLEND);
     glDisable(GL_TEXTURE_2D);
     glColor3f(1,1,0);
     switch(m_guide)
@@ -190,7 +189,6 @@ void PreviewGuideTool::ReallyAfterDrawImagesEvent()
             DrawDiagonalMethod(roi);
             break;
     };
-    glDisable(GL_BLEND);
     glEnable(GL_TEXTURE_2D);
 }
 

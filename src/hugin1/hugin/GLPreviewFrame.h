@@ -361,6 +361,7 @@ private:
     wxChoice * m_ProjectionChoice;
     wxChoice * m_OverviewModeChoice;
     wxChoice * m_GuideChoiceCrop;
+    wxChoice * m_GuideChoiceDrag;
     wxChoice * m_GuideChoiceProj;
     // No HDR display yet.
     // wxChoice * m_outputModeChoice;

@@ -141,6 +141,7 @@ BEGIN_EVENT_TABLE(GLPreviewFrame, wxFrame)
     EVT_CHOICE(XRCID("projection_choice"), GLPreviewFrame::OnProjectionChoice)
     EVT_CHOICE(XRCID("overview_mode_choice"), GLPreviewFrame::OnOverviewModeChoice)
     EVT_CHOICE(XRCID("preview_guide_choice_crop"), GLPreviewFrame::OnGuideChanged)
+    EVT_CHOICE(XRCID("preview_guide_choice_drag"), GLPreviewFrame::OnGuideChanged)
     EVT_CHOICE(XRCID("preview_guide_choice_proj"), GLPreviewFrame::OnGuideChanged)
     EVT_TOGGLEBUTTON(XRCID("overview_toggle"), GLPreviewFrame::OnOverviewToggle)
     EVT_CHECKBOX(XRCID("preview_show_grid"), GLPreviewFrame::OnSwitchPreviewGrid)
@@ -499,9 +500,11 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
 
     m_GuideChoiceCrop = XRCCTRL(*this, "preview_guide_choice_crop", wxChoice);
     m_GuideChoiceProj = XRCCTRL(*this, "preview_guide_choice_proj", wxChoice);
+    m_GuideChoiceDrag = XRCCTRL(*this, "preview_guide_choice_drag", wxChoice);
     int guide=cfg->Read(wxT("/GLPreviewFrame/guide"),0l);
     m_GuideChoiceCrop->SetSelection(guide);
     m_GuideChoiceProj->SetSelection(guide);
+    m_GuideChoiceDrag->SetSelection(guide);
 
     flexSizer->Add(m_HFOVSlider, 0, wxEXPAND);
 
@@ -2399,6 +2402,7 @@ void GLPreviewFrame::SetMode(int newMode)
             preview_helper->DeactivateTool(preview_guide_tool);
             break;
         case mode_drag:
+            preview_helper->DeactivateTool(preview_guide_tool);
             preview_helper->DeactivateTool(drag_tool);
             panosphere_overview_helper->DeactivateTool(overview_drag_tool);
             if (individualDragging()) {
@@ -2441,6 +2445,7 @@ void GLPreviewFrame::SetMode(int newMode)
             preview_helper->ActivateTool(preview_guide_tool);
             break;
         case mode_drag:
+            preview_helper->ActivateTool(preview_guide_tool);
             TurnOffTools(preview_helper->ActivateTool(drag_tool));
             TurnOffTools(panosphere_overview_helper->ActivateTool(overview_drag_tool));
             if (individualDragging()) {
@@ -2733,6 +2738,7 @@ void GLPreviewFrame::OnGuideChanged(wxCommandEvent &e)
         //synchronize wxChoice in projection and crop tab
         m_GuideChoiceCrop->SetSelection(selection);
         m_GuideChoiceProj->SetSelection(selection);
+        m_GuideChoiceDrag->SetSelection(selection);
         redrawPreview();
     };
 };
