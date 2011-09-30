@@ -112,7 +112,50 @@ void DrawTriangle(const vigra::Rect2D roi, const bool up)
         glVertex2f(roi.left(), roi.bottom());
     }
     glEnd();
+};
 
+void DrawDiagonalMethod(const vigra::Rect2D roi)
+{
+    double w=roi.width();
+    double h=roi.height();
+    glBegin(GL_LINES);
+    glVertex2f(roi.left(), roi.top());
+    if(w>h)
+    {
+        glVertex2f(roi.left()+h, roi.bottom());
+    }
+    else
+    {
+        glVertex2f(roi.right(), roi.top()+w);
+    };
+    glVertex2f(roi.left(), roi.bottom());
+    if(w>h)
+    {
+        glVertex2f(roi.left()+h, roi.top());
+    }
+    else
+    {
+        glVertex2f(roi.right(), roi.bottom()-w);
+    };
+    glVertex2f(roi.right(), roi.top());
+    if(w>h)
+    {
+        glVertex2f(roi.right()-h, roi.bottom());
+    }
+    else
+    {
+        glVertex2f(roi.left(), roi.top()+w);
+    };
+    glVertex2f(roi.right(), roi.bottom());
+    if(w>h)
+    {
+        glVertex2f(roi.right()-h, roi.top());
+    }
+    else
+    {
+        glVertex2f(roi.left(), roi.bottom()-w);
+    };
+    glEnd();
 };
 
 void PreviewGuideTool::ReallyAfterDrawImagesEvent()
@@ -142,6 +185,9 @@ void PreviewGuideTool::ReallyAfterDrawImagesEvent()
             break;
         case TRIANGLE_UP:
             DrawTriangle(roi,true);
+            break;
+        case DIAGONAL_METHOD:
+            DrawDiagonalMethod(roi);
             break;
     };
     glDisable(GL_BLEND);

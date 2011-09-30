@@ -40,8 +40,9 @@ public:
         THIRDS=1,
         GOLDENRATIO=2,
         DIAGONAL=3,
-        TRIANGLE_DOWN=4,
-        TRIANGLE_UP=5
+        DIAGONAL_METHOD=4,
+        TRIANGLE_DOWN=5,
+        TRIANGLE_UP=6
     };
     /** constructor */
     PreviewGuideTool(PreviewToolHelper *helper);
