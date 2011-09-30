@@ -140,7 +140,8 @@ BEGIN_EVENT_TABLE(GLPreviewFrame, wxFrame)
     EVT_CHOICE(XRCID("drag_mode_choice"), GLPreviewFrame::OnDragChoice)
     EVT_CHOICE(XRCID("projection_choice"), GLPreviewFrame::OnProjectionChoice)
     EVT_CHOICE(XRCID("overview_mode_choice"), GLPreviewFrame::OnOverviewModeChoice)
-    EVT_CHOICE(XRCID("preview_guide_choice"), GLPreviewFrame::OnGuideChanged)
+    EVT_CHOICE(XRCID("preview_guide_choice_crop"), GLPreviewFrame::OnGuideChanged)
+    EVT_CHOICE(XRCID("preview_guide_choice_proj"), GLPreviewFrame::OnGuideChanged)
     EVT_TOGGLEBUTTON(XRCID("overview_toggle"), GLPreviewFrame::OnOverviewToggle)
     EVT_CHECKBOX(XRCID("preview_show_grid"), GLPreviewFrame::OnSwitchPreviewGrid)
 #ifndef __WXMAC__
@@ -496,9 +497,11 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     DEBUG_ASSERT(m_ROIBottomTxt);
     m_ROIBottomTxt->PushEventHandler(new TextKillFocusHandler(this));
 
-    m_GuideChoice = XRCCTRL(*this, "preview_guide_choice", wxChoice);
+    m_GuideChoiceCrop = XRCCTRL(*this, "preview_guide_choice_crop", wxChoice);
+    m_GuideChoiceProj = XRCCTRL(*this, "preview_guide_choice_proj", wxChoice);
     int guide=cfg->Read(wxT("/GLPreviewFrame/guide"),0l);
-    m_GuideChoice->SetSelection(guide);
+    m_GuideChoiceCrop->SetSelection(guide);
+    m_GuideChoiceProj->SetSelection(guide);
 
     flexSizer->Add(m_HFOVSlider, 0, wxEXPAND);
 
@@ -755,7 +758,7 @@ GLPreviewFrame::~GLPreviewFrame()
     cfg->Write(wxT("/GLPreviewFrame/overview_hidden"), !(m_OverviewToggle->GetValue()));
     cfg->Write(wxT("/GLPreviewFrame/showPreviewGrid"), m_previewGrid->GetValue());
     cfg->Write(wxT("/GLPreviewFrame/individualDragMode"), individualDragging());
-    cfg->Write(wxT("/GLPreviewFrame/guide"),m_GuideChoice->GetSelection());
+    cfg->Write(wxT("/GLPreviewFrame/guide"),m_GuideChoiceProj->GetSelection());
     
     // delete all of the tools. When the preview is never used we never get an
     // OpenGL context and therefore don't create the tools.
@@ -1878,7 +1881,7 @@ void GLPreviewFrame::MakePreviewTools(PreviewToolHelper *preview_helper_in)
         preview_helper->ActivateTool(preview_projection_grid);
     };
     preview_guide_tool = new PreviewGuideTool(preview_helper);
-    preview_guide_tool->SetGuideStyle((PreviewGuideTool::Guides)m_GuideChoice->GetSelection());
+    preview_guide_tool->SetGuideStyle((PreviewGuideTool::Guides)m_GuideChoiceProj->GetSelection());
 
     // activate tools that are always active.
     preview_helper->ActivateTool(pano_mask_tool);
@@ -2393,6 +2396,7 @@ void GLPreviewFrame::SetMode(int newMode)
             updateBlendMode();
             break;
         case mode_projection:
+            preview_helper->DeactivateTool(preview_guide_tool);
             break;
         case mode_drag:
             preview_helper->DeactivateTool(drag_tool);
@@ -2434,6 +2438,7 @@ void GLPreviewFrame::SetMode(int newMode)
             OnLayoutScaleChange(dummy);
             break;
         case mode_projection:
+            preview_helper->ActivateTool(preview_guide_tool);
             break;
         case mode_drag:
             TurnOffTools(preview_helper->ActivateTool(drag_tool));
@@ -2723,7 +2728,11 @@ void GLPreviewFrame::OnGuideChanged(wxCommandEvent &e)
 {
     if(preview_guide_tool)
     {
-        preview_guide_tool->SetGuideStyle((PreviewGuideTool::Guides)m_GuideChoice->GetSelection());
+        int selection=e.GetSelection();
+        preview_guide_tool->SetGuideStyle((PreviewGuideTool::Guides)selection);
+        //synchronize wxChoice in projection and crop tab
+        m_GuideChoiceCrop->SetSelection(selection);
+        m_GuideChoiceProj->SetSelection(selection);
         redrawPreview();
     };
 };

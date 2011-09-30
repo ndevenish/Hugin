@@ -360,7 +360,8 @@ private:
     wxChoice * m_DragModeChoice;
     wxChoice * m_ProjectionChoice;
     wxChoice * m_OverviewModeChoice;
-    wxChoice * m_GuideChoice;
+    wxChoice * m_GuideChoiceCrop;
+    wxChoice * m_GuideChoiceProj;
     // No HDR display yet.
     // wxChoice * m_outputModeChoice;
     wxTextCtrl * m_exposureTextCtrl;
