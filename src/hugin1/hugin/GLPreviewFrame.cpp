@@ -2350,14 +2350,28 @@ void GLPreviewFrame::OnFullScreen(wxCommandEvent & e)
 
 void GLPreviewFrame::OnUndo(wxCommandEvent &e)
 {
-    wxCommandEvent dummy(wxEVT_COMMAND_MENU_SELECTED, XRCID("ID_EDITUNDO"));
-    m_parent->GetEventHandler()->AddPendingEvent(dummy);
+    if(GlobalCmdHist::getInstance().canUndo())
+    {
+        wxCommandEvent dummy(wxEVT_COMMAND_MENU_SELECTED, XRCID("ID_EDITUNDO"));
+        m_parent->GetEventHandler()->AddPendingEvent(dummy);
+    }
+    else
+    {
+        wxBell();
+    };
 };
 
 void GLPreviewFrame::OnRedo(wxCommandEvent &e)
 {
-    wxCommandEvent dummy(wxEVT_COMMAND_MENU_SELECTED, XRCID("ID_EDITREDO"));
-    m_parent->GetEventHandler()->AddPendingEvent(dummy);
+    if(GlobalCmdHist::getInstance().canRedo())
+    {
+        wxCommandEvent dummy(wxEVT_COMMAND_MENU_SELECTED, XRCID("ID_EDITREDO"));
+        m_parent->GetEventHandler()->AddPendingEvent(dummy);
+    }
+    else
+    {
+        wxBell();
+    };
 };
 
 void GLPreviewFrame::SetMode(int newMode)
