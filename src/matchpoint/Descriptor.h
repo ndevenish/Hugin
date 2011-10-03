@@ -52,7 +52,7 @@ class Descriptor
     double _euclidianDistance(int x1, int y1, int x2, int y2);
     //double _initDescriptor(double* desciptor);
     void _GaborResponse(int x,int y,double maxima,double* descriptor);
-    void _RegionResponse(int x,int y,double maxima,double* descriptor);
+    //void _RegionResponse(int x,int y,double maxima,double* descriptor);
     void _ShapeContext(int x,int y,double maxima,double* descriptor);
 
     vector<vector<int> >* maximas;

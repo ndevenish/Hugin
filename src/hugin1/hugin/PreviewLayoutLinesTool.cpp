@@ -610,7 +610,7 @@ float PreviewLayoutLinesTool::LineDetails::getDistance(hugin_utils::FDiff2D poin
     if (dud)
     {
         // This isn't a real line, so return the maximum distance to it possible.
-        return DBL_MAX;
+        return FLT_MAX;
     }
     else
     {

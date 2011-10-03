@@ -93,7 +93,7 @@ bool APImage::open() {
         }
         return true;
     }
-    catch (vigra::StdException & e)
+    catch (...)
     {
         // catch any errors that might have occured and print their reason
         return false;

@@ -2259,7 +2259,7 @@ void GLPreviewFrame::SetDragGroupImages(UIntSet imageDragGroup_in, bool update_c
     std::vector<wxCheckBox*>::iterator it;
     unsigned int nr = 0;
     for(it = m_GroupToggleButtons.begin() ; it != m_GroupToggleButtons.end() ; it++) {
-        (*it)->SetValue(imageDragGroup.count(nr++));
+        (*it)->SetValue(imageDragGroup.count(nr++)>0);
     }
 }
 UIntSet GLPreviewFrame::GetDragGroupImages() {

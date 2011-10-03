@@ -590,7 +590,7 @@ void Descriptor::_GaborResponse(int x,int y, double maxima, double* descriptor) 
     }
 }
 
-void Descriptor::_RegionResponse(int x,int y, double maxima, double* descriptor) {
+/*void Descriptor::_RegionResponse(int x,int y, double maxima, double* descriptor) {
     int add;
     int sum1;
     int sum2;
@@ -598,7 +598,7 @@ void Descriptor::_RegionResponse(int x,int y, double maxima, double* descriptor)
     int sum4;
     int cnt=0;
 
-    /*for(int i=2; i<=32;i*=2) {
+    for(int i=2; i<=32;i*=2) {
         add=vigra::round(maxima*i);
         sum1=this->image->getRegionSum(x-add,y,x,y+add);
         sum2=-1*this->image->getRegionSum(x,y,x+add,y+add);
@@ -609,8 +609,8 @@ void Descriptor::_RegionResponse(int x,int y, double maxima, double* descriptor)
         descriptor[cnt+2]+=(sum1+sum2+sum3+sum4)/pow(i,4);
         descriptor[cnt+3]+=abs(sum1+sum2+sum3+sum4)/pow(i,4);
         cnt+=5;
-    }*/
-}
+    }
+}*/
 
 void Descriptor::_ShapeContext(int x,int y, double maxima, double* descriptor) {
 

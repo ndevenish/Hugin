@@ -1427,7 +1427,6 @@ bool PanoPanel::CheckGoodSize()
 #endif
                 wxICON_EXCLAMATION | wxYES_NO);
 #endif
-        bool result;
         switch (dialog.ShowModal())
         {
             case wxID_OK:

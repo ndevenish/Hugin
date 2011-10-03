@@ -703,7 +703,7 @@ wxString PossiblePano::GeneratePanorama(NamingConvention nc,bool createLinks)
         std::string Pathprefix(projectFile.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR).mb_str(HUGIN_CONV_FILENAME));
         pano.printPanoramaScript(script, pano.getOptimizeVector(), pano.getOptions(), all, false, Pathprefix);
     }
-    catch (std::exception& e)
+    catch (...)
     {
         return wxEmptyString;
     };
