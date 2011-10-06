@@ -51,6 +51,7 @@ void PanosphereSphereTool::Activate()
 
 void PanosphereSphereTool::BeforeDrawImagesBackEvent()
 {
+    helper->GetViewStatePtr()->GetTextureManager()->DisableTexture();
     glDisable(GL_TEXTURE_2D);
     glColor4f((float)m_background_color.Red()/255, (float)m_background_color.Green()/255, (float)m_background_color.Blue()/255, 0.8);
  
