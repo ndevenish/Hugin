@@ -285,7 +285,6 @@ void GLPanosphereOverviewRenderer::Redraw()
     //event called only before drawing of the images with front faces culled (the inner face of the panosphere)
     ((PanosphereOverviewToolHelper*)m_tool_helper)->BeforeDrawImagesBack();
     //generic draw before images are drawn (called twice with front and back faces culled)
-    m_tex_man->DisableTexture();
     m_tool_helper->BeforeDrawImages();
 
     m_tex_man->Begin();
