@@ -82,10 +82,11 @@ BEGIN_EVENT_TABLE(BatchFrame, wxFrame)
     EVT_TOOL(XRCID("tool_skip"),BatchFrame::OnButtonSkip)
     EVT_TOOL(XRCID("tool_pause"),BatchFrame::OnButtonPause)
     EVT_TOOL(XRCID("tool_cancel"),BatchFrame::OnButtonCancel)
-    EVT_TOOL(XRCID("tool_add"),BatchFrame::OnButtonAddToList)
+    EVT_TOOL(XRCID("tool_add"),BatchFrame::OnButtonAddToStitchingQueue)
     EVT_TOOL(XRCID("tool_remove"),BatchFrame::OnButtonRemoveFromList)
     EVT_TOOL(XRCID("tool_adddir"),BatchFrame::OnButtonAddDir)
-    EVT_MENU(XRCID("menu_add"),BatchFrame::OnButtonAddToList)
+    EVT_MENU(XRCID("menu_add"),BatchFrame::OnButtonAddToStitchingQueue)
+    EVT_MENU(XRCID("menu_add_assistant"),BatchFrame::OnButtonAddToAssistantQueue)
     EVT_MENU(XRCID("menu_remove"),BatchFrame::OnButtonRemoveFromList)
     EVT_MENU(XRCID("menu_adddir"),BatchFrame::OnButtonAddDir)
     EVT_MENU(XRCID("menu_searchpano"), BatchFrame::OnButtonSearchPano)
@@ -342,7 +343,7 @@ void BatchFrame::OnButtonSearchPano(wxCommandEvent& e)
     findpano_dlg.ShowModal();
 };
 
-void BatchFrame::OnButtonAddToList(wxCommandEvent& event)
+void BatchFrame::OnButtonAddToStitchingQueue(wxCommandEvent& event)
 {
     wxString defaultdir = wxConfigBase::Get()->Read(wxT("/BatchFrame/actualPath"),wxT(""));
     wxFileDialog dlg(0,
@@ -360,6 +361,29 @@ void BatchFrame::OnButtonAddToList(wxCommandEvent& event)
         for(unsigned int i=0; i<paths.GetCount(); i++)
         {
             AddToList(paths.Item(i));
+        }
+        m_batch->SaveTemp();
+    };
+}
+
+void BatchFrame::OnButtonAddToAssistantQueue(wxCommandEvent& event)
+{
+    wxString defaultdir = wxConfigBase::Get()->Read(wxT("/BatchFrame/actualPath"),wxT(""));
+    wxFileDialog dlg(0,
+                     _("Specify project source file(s)"),
+                     defaultdir, wxT(""),
+                     _("Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files (*)|*"),
+                     wxFD_OPEN | wxFD_MULTIPLE, wxDefaultPosition);
+    dlg.SetDirectory(wxConfigBase::Get()->Read(wxT("/BatchFrame/actualPath"),wxT("")));
+
+    if (dlg.ShowModal() == wxID_OK)
+    {
+        wxConfig::Get()->Write(wxT("/BatchFrame/actualPath"), dlg.GetDirectory());  // remember for later
+        wxArrayString paths;
+        dlg.GetPaths(paths);
+        for(unsigned int i=0; i<paths.GetCount(); i++)
+        {
+            AddToList(paths.Item(i),Project::DETECTING);
         }
         m_batch->SaveTemp();
     };

@@ -37,6 +37,7 @@ enum
     ID_PAUSE=wxID_HIGHEST+103,
     ID_STOP=wxID_HIGHEST+104,
     ID_ADDPROJECT=wxID_HIGHEST+105,
+    ID_ADDPROJECTASSISTANT=wxID_HIGHEST+106,
     ID_EXIT=wxID_HIGHEST+120
 };
 
@@ -47,6 +48,7 @@ BEGIN_EVENT_TABLE(BatchTaskBarIcon, wxTaskBarIcon)
     EVT_MENU(ID_PAUSE, BatchTaskBarIcon::OnPauseBatch)
     EVT_MENU(ID_STOP, BatchTaskBarIcon::OnStopBatch)
     EVT_MENU(ID_ADDPROJECT, BatchTaskBarIcon::OnAddProject)
+    EVT_MENU(ID_ADDPROJECTASSISTANT, BatchTaskBarIcon::OnAddProjectToAssistant)
     EVT_MENU(ID_EXIT, BatchTaskBarIcon::OnExit)
 END_EVENT_TABLE()
 
@@ -71,7 +73,8 @@ wxMenu* BatchTaskBarIcon::CreatePopupMenu()
     menu->Append(ID_STOP,_("Stop batch"));
     menu->Enable(ID_STOP,isRunning);
     menu->AppendSeparator();
-    menu->Append(ID_ADDPROJECT,_("Add project to queue..."));
+    menu->Append(ID_ADDPROJECT,_("Add project to stitching queue..."));
+    menu->Append(ID_ADDPROJECTASSISTANT,_("Add project to assistant queue..."));
 #ifndef __WXMAC_OSX__
     /*Mac has built-in quit menu*/
     menu->AppendSeparator();
@@ -108,6 +111,12 @@ void BatchTaskBarIcon::OnStopBatch(wxCommandEvent& e)
 void BatchTaskBarIcon::OnAddProject(wxCommandEvent& e)
 {
     wxCommandEvent ev(wxEVT_COMMAND_MENU_SELECTED ,XRCID("menu_add"));
+    wxGetApp().GetFrame()->GetEventHandler()->AddPendingEvent(ev);
+};
+
+void BatchTaskBarIcon::OnAddProjectToAssistant(wxCommandEvent& e)
+{
+    wxCommandEvent ev(wxEVT_COMMAND_MENU_SELECTED ,XRCID("menu_add_assistant"));
     wxGetApp().GetFrame()->GetEventHandler()->AddPendingEvent(ev);
 };
 

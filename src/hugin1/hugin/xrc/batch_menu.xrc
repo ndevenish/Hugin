@@ -4,8 +4,12 @@
     <object class="wxMenu" name="file_menu">
       <label>&amp;File</label>
       <object class="wxMenuItem" name="menu_add">
-        <label>Add project...</label>
-        <help>Adds a project to the batch list.</help>
+        <label>Add project to stitching queue...</label>
+        <help>Adds a project to the stitching queue</help>
+      </object>
+      <object class="wxMenuItem" name="menu_add_assistant">
+        <label>Add project to assistant queue...</label>
+        <help>Adds a project to the assistant queue</help>
       </object>
       <object class="wxMenuItem" name="menu_remove">
         <label>Remove project</label>

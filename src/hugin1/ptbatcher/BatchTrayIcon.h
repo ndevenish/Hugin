@@ -47,6 +47,8 @@ protected:
     void OnExit(wxCommandEvent& e);
     /** handler to adding a project to stitching queue */
     void OnAddProject(wxCommandEvent& e);
+    /** handler to adding a project to assistant queue */
+    void OnAddProjectToAssistant(wxCommandEvent& e);
     /** creates the popup menu */
     virtual wxMenu* CreatePopupMenu();
 

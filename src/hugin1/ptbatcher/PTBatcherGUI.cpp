@@ -419,7 +419,7 @@ void PTBatcherGUI::OnKeyDown(wxKeyEvent& event)
             m_frame->OnButtonRemoveFromList(dummy);
             break;
         case WXK_INSERT:
-            m_frame->OnButtonAddToList(dummy);
+            m_frame->OnButtonAddToStitchingQueue(dummy);
             break;
         case WXK_ESCAPE:
             m_frame->OnButtonCancel(dummy);

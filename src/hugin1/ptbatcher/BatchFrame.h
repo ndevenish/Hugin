@@ -62,7 +62,10 @@ public:
     void OnButtonAddCommand(wxCommandEvent& event);
     void OnButtonAddDir(wxCommandEvent& event);
     void OnButtonSearchPano(wxCommandEvent& e);
-    void OnButtonAddToList(wxCommandEvent& event);
+    /** let the user select a project file which should be added to the stitching queue */
+    void OnButtonAddToStitchingQueue(wxCommandEvent& event);
+    /** let the user select a project file which should be added to the stitching queue */
+    void OnButtonAddToAssistantQueue(wxCommandEvent& event);
     void OnButtonCancel(wxCommandEvent& event);
     void OnButtonChangePrefix(wxCommandEvent& event);
     void OnButtonClear(wxCommandEvent& event);
