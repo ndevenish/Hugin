@@ -217,6 +217,13 @@ bool PanoramaMakefilelibExport::createItems()
     mf::Variable* vexiftool = mgr.own(new mf::Variable("EXIFTOOL", progs.exiftool));
     vexiftool->getDef().add();
 
+    if(nrThreads>0)
+    {
+        //set environment variable for OpenMP enabled enblend/enfuse
+        mf::Variable* vOpenMPThreads = mgr.own(new mf::Variable("OMP_NUM_THREADS", nrThreads));
+        vOpenMPThreads->setExport(true);
+        vOpenMPThreads->getDef().add();
+    };
     //----------
     // Project parameters
     mgr.own_add(new Comment("Project parameters"));
@@ -249,8 +256,16 @@ bool PanoramaMakefilelibExport::createItems()
         vnonaldr = mgr.own(new mf::Variable("NONA_LDR_REMAPPED_COMP", val, Makefile::NONE));
         vnonaldr->getDef().add();
 
-        vnonaopts = mgr.own(new mf::Variable("NONA_OPTS",
-                opts.remapUsingGPU ? "-g " : "", Makefile::NONE));
+        valuestream.str("");
+        if(opts.remapUsingGPU)
+        {
+            valuestream << "-g ";
+        };
+        if(nrThreads>0)
+        {
+            valuestream << "-t " << nrThreads;
+        };
+        vnonaopts = mgr.own(new mf::Variable("NONA_OPTS",valuestream.str(), Makefile::NONE));
         vnonaopts->getDef().add();
     }
 

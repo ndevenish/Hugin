@@ -235,6 +235,7 @@ bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname,
         wxConfigBase* config=wxConfigBase::Get();
         std::string tmpDir((config->Read(wxT("tempDir"),wxT(""))).mb_str(HUGIN_CONV_FILENAME));
         bool copyMetadata=config->Read(wxT("/output/useExiftool"),1l)==1l;
+        int nrThreads=config->Read(wxT("/output/NumberOfThreads"),0l);
 
         std::vector<std::string> outputFiles;
         HuginBase::PanoramaMakefilelibExport::createMakefile(pano,
@@ -246,7 +247,8 @@ bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname,
                            outputFiles,
                            makeFileStream,
                            tmpDir,
-                           copyMetadata);
+                           copyMetadata,
+                           nrThreads);
         makeFileStream.close();
 
         // cd to output directory, if one is given.

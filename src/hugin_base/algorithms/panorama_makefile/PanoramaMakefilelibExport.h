@@ -93,6 +93,7 @@ private:
 	std::ostream & makefile;
 	const std::string& tmpDir;
     const bool copyMetadata;
+    const int nrThreads;
 
 	makefile::Manager mgr;
 	std::ostringstream valuestream;
@@ -141,11 +142,12 @@ public:
             std::vector<std::string> & outputFiles_,
             std::ostream & makefile_,
             const std::string& tmpDir_,
-            const bool copyMetadata_)
+            const bool copyMetadata_,
+            const int nrThreads_)
 	: PanoramaAlgorithm(pano),
 	  pano(pano_), ptofile(ptofile_), outputPrefix(outputPrefix_),
 	  progs(progs_), includePath(includePath_), outputFiles(outputFiles_),
-	  makefile(makefile_), tmpDir(tmpDir_), copyMetadata(copyMetadata_)
+      makefile(makefile_), tmpDir(tmpDir_), copyMetadata(copyMetadata_), nrThreads(nrThreads_)
 	{
         images=getImagesinROI(pano_,images_);
         valuestream.imbue(makefile::GetMakefileLocale());
@@ -161,11 +163,12 @@ public:
             std::vector<std::string> & outputFiles_,
             std::ostream & makefile_,
             const std::string& tmpDir_,
-            const bool copyMetadata_)
+            const bool copyMetadata_,
+            const int nrThreads_)
 	{
 		PanoramaMakefilelibExport* instance = new PanoramaMakefilelibExport(
 				pano_, images_, ptofile_, outputPrefix_, progs_, includePath_,
-				outputFiles_, makefile_, tmpDir_, copyMetadata_);
+                outputFiles_, makefile_, tmpDir_, copyMetadata_, nrThreads_);
 		instance->createItems();
 		instance->writeMakefile();
 		delete instance;
