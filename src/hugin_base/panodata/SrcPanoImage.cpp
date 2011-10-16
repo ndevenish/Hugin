@@ -41,6 +41,7 @@
 #include <hugin_utils/utils.h>
 #include <exiv2/exif.hpp>
 #include <exiv2/image.hpp>
+#include <exiv2/easyaccess.hpp>
 
 #ifdef __FreeBSD__
 #define log2(x)        (log(x) / M_LN2)
@@ -366,6 +367,18 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, double & 
     } else {
         setExifModel("Unknown");
     }
+
+    Exiv2::ExifData::const_iterator itr2 = Exiv2::lensName(exifData);
+    if (itr2!=exifData.end())
+    {
+        //we are using prettyPrint function to get string of lens name
+        //it2->toString returns for many cameras only an ID number
+        setExifLens(itr2->print(&exifData));
+    }
+    else
+    {
+        setExifLens("Unknown");
+    };
 
     long orientation = 0;
     if (getExiv2Value(exifData,"Exif.Image.Orientation",orientation) && trustExivOrientation()) {

@@ -606,12 +606,22 @@ void ImagesPanel::ShowExifInfo(unsigned int imgNr)
         SetLabel(wxFileName(wxString(val.c_str(),HUGIN_CONV_FILENAME)).GetFullName());
 
     val = img.getExifMake();
-    XRCCTRL(*this, "images_camera_make",wxStaticText) ->
-        SetLabel(wxString(val.c_str(),wxConvLocal));
+    if(val!="Unknown")
+    {
+        XRCCTRL(*this, "images_camera_make",wxStaticText)->SetLabel(wxString(val.c_str(),wxConvLocal));
+    };
 
     val = img.getExifModel();
-    XRCCTRL(*this, "images_camera_model",wxStaticText) ->
-        SetLabel(wxString(val.c_str(),wxConvLocal));
+    if(val!="Unknown")
+    {
+        XRCCTRL(*this, "images_camera_model",wxStaticText)->SetLabel(wxString(val.c_str(),wxConvLocal));
+    };
+
+    val = img.getExifLens();
+    if(val!="Unknown")
+    {
+        XRCCTRL(*this, "images_lens",wxStaticText)->SetLabel(wxString(val.c_str(),wxConvLocal));
+    };
 
     struct tm exifdatetime;
     if(img.getExifDateTime(&exifdatetime)==0)
@@ -688,10 +698,12 @@ void ImagesPanel::ClearImgExifInfo()
     XRCCTRL(*this, "images_filename", wxStaticText) ->SetLabel(wxT(""));
     XRCCTRL(*this, "images_camera_make", wxStaticText) ->SetLabel(wxT(""));
     XRCCTRL(*this, "images_camera_model", wxStaticText) ->SetLabel(wxT(""));
+    XRCCTRL(*this, "images_lens", wxStaticText) ->SetLabel(wxT(""));
     XRCCTRL(*this, "images_capture_date", wxStaticText) ->SetLabel(wxT(""));
     XRCCTRL(*this, "images_focal_length", wxStaticText) ->SetLabel(wxT(""));
     XRCCTRL(*this, "images_aperture", wxStaticText) ->SetLabel(wxT(""));
     XRCCTRL(*this, "images_shutter_speed", wxStaticText) ->SetLabel(wxT(""));
+    XRCCTRL(*this, "images_iso", wxStaticText) ->SetLabel(wxT(""));
 }
 
 
