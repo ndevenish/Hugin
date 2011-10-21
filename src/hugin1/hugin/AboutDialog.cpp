@@ -135,7 +135,7 @@ void AboutDialog::GetSystemInformation(wxFont *font)
     text=text+wxT("\n")+wxString::Format(_("Architecture: %s"),is64.c_str());
     // wxGetFreeMemory returns a wxMemorySize, which is undocumented.
     // However, we know -1 is returned on failure, so it must be signed.
-    text=text+wxT("\n")+wxString::Format(_("Free memory: %ld kiB"),(long int) wxGetFreeMemory().GetValue()/1024);
+    text=text+wxT("\n")+wxString::Format(_("Free memory: %ld kiB"),(long long) wxGetFreeMemory().GetValue()/1024);
 #ifdef _WINDOWS
     UINT cp=GetACP();
     text=text+wxT("\n")+wxString::Format(_("Active Codepage: %u"),cp); 
