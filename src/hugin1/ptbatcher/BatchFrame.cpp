@@ -107,12 +107,15 @@ BEGIN_EVENT_TABLE(BatchFrame, wxFrame)
     EVT_CHECKBOX(XRCID("cb_overwrite"), BatchFrame::OnCheckOverwrite)
     EVT_CHECKBOX(XRCID("cb_shutdown"), BatchFrame::OnCheckShutdown)
     EVT_CHECKBOX(XRCID("cb_verbose"), BatchFrame::OnCheckVerbose)
+    EVT_CHECKBOX(XRCID("cb_autoremove"), BatchFrame::OnCheckAutoRemove)
+    EVT_CHECKBOX(XRCID("cb_autostitch"), BatchFrame::OnCheckAutoStitch)
     EVT_END_PROCESS(-1, BatchFrame::OnProcessTerminate)
     EVT_CLOSE(BatchFrame::OnClose)
     EVT_MENU(wxEVT_COMMAND_RELOAD_BATCH, BatchFrame::OnReloadBatch)
     EVT_MENU(wxEVT_COMMAND_UPDATE_LISTBOX, BatchFrame::OnUpdateListBox)
     EVT_COMMAND(wxID_ANY, EVT_BATCH_FAILED, BatchFrame::OnBatchFailed)
     EVT_COMMAND(wxID_ANY, EVT_INFORMATION, BatchFrame::OnBatchInformation)
+    EVT_COMMAND(wxID_ANY, EVT_UPDATE_PARENT, BatchFrame::OnRefillListBox)
     EVT_ICONIZE(BatchFrame::OnMinimize)
 END_EVENT_TABLE()
 
@@ -863,6 +866,10 @@ void BatchFrame::SetCheckboxes()
     XRCCTRL(*this,"cb_overwrite",wxCheckBox)->SetValue(i!=0);
     i=config->Read(wxT("/BatchFrame/VerboseCheck"), 0l);
     XRCCTRL(*this,"cb_verbose",wxCheckBox)->SetValue(i!=0);
+    i=config->Read(wxT("/BatchFrame/AutoRemoveCheck"), 0l);
+    XRCCTRL(*this,"cb_autoremove",wxCheckBox)->SetValue(i!=0);
+    i=config->Read(wxT("/BatchFrame/AutoStitchCheck"), 0l);
+    XRCCTRL(*this,"cb_autostitch",wxCheckBox)->SetValue(i!=0);
 };
 
 void BatchFrame::OnCheckOverwrite(wxCommandEvent& event)
@@ -927,6 +934,37 @@ void BatchFrame::SetInternalVerbose(bool newVerbose)
     m_batch->verbose=newVerbose;
 };
 
+void BatchFrame::OnCheckAutoRemove(wxCommandEvent& event)
+{
+    m_batch->autoremove=event.IsChecked();
+    wxConfigBase* config=wxConfigBase::Get();
+    if(m_batch->autoremove)
+    {
+        config->Write(wxT("/BatchFrame/AutoRemoveCheck"), 1l);
+    }
+    else
+    {
+        config->Write(wxT("/BatchFrame/AutoRemoveCheck"), 0l);
+    }
+    config->Flush();
+};
+
+
+void BatchFrame::OnCheckAutoStitch(wxCommandEvent& event)
+{
+    m_batch->autostitch=event.IsChecked();
+    wxConfigBase* config=wxConfigBase::Get();
+    if(m_batch->autostitch)
+    {
+        config->Write(wxT("/BatchFrame/AutoStitchCheck"), 1l);
+    }
+    else
+    {
+        config->Write(wxT("/BatchFrame/AutoStitchCheck"), 0l);
+    }
+    config->Flush();
+};
+
 void BatchFrame::OnClose(wxCloseEvent& event)
 {
     //save windows position
@@ -969,6 +1007,8 @@ void BatchFrame::PropagateDefaults()
     m_batch->shutdown=GetCheckShutdown();
     m_batch->overwrite=GetCheckOverwrite();
     m_batch->verbose=GetCheckVerbose();
+    m_batch->autoremove=GetCheckAutoRemove();
+    m_batch->autostitch=GetCheckAutoStitch();
 }
 
 void BatchFrame::RunBatch()
@@ -1104,3 +1144,22 @@ void BatchFrame::UpdateBatchVerboseStatus()
     m_batch->ShowOutput(m_batch->verbose);
 };
 
+void BatchFrame::OnRefillListBox(wxCommandEvent& event)
+{
+    int index=projListBox->GetSelectedIndex();
+    int id=-1;
+    if(index!=-1)
+    {
+        id=projListBox->GetProjectId(index);
+    };
+    projListBox->DeleteAllItems();
+    projListBox->Fill(m_batch);
+    if(id!=-1)
+    {
+        index=projListBox->GetIndex(id);
+        if(index!=-1)
+        {
+            projListBox->Select(index);
+        };
+    };
+};

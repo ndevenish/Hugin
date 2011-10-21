@@ -87,6 +87,10 @@ public:
     void OnCheckParallel(wxCommandEvent& event);
     void OnCheckShutdown(wxCommandEvent& event);
     void OnCheckVerbose(wxCommandEvent& event);
+    /** event handler called when auto remove checkbox was changed */
+    void OnCheckAutoRemove(wxCommandEvent& event);
+    /** event handler called when auto stitch checkbox was changed */
+    void OnCheckAutoStitch(wxCommandEvent& event);
 
     //Called on window close to take care of the child thread
     void OnClose(wxCloseEvent& event);
@@ -122,6 +126,16 @@ public:
     bool GetCheckVerbose()
     {
         return XRCCTRL(*this,"cb_verbose",wxCheckBox)->IsChecked();
+    };
+    /** return if auto remove checkbox is checked */
+    bool GetCheckAutoRemove()
+    {
+        return XRCCTRL(*this,"cb_autoremove",wxCheckBox)->IsChecked();
+    };
+    /** return if auto stitch checkbox is checked */
+    bool GetCheckAutoStitch()
+    {
+        return XRCCTRL(*this,"cb_autostitch",wxCheckBox)->IsChecked();
     };
     void RestoreSize();
     void AddToList(wxString aFile, Project::Target target=Project::STITCHING);
@@ -183,6 +197,8 @@ private:
     void OnBatchFailed(wxCommandEvent& event);
     /** called when batch wants to show some progress message */
     void OnBatchInformation(wxCommandEvent& e);
+    /** called if the project box needs to be updated, because projects were added or deleted */
+    void OnRefillListBox(wxCommandEvent& e);
 
     DECLARE_EVENT_TABLE()
 };

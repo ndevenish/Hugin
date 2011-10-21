@@ -34,9 +34,11 @@ END_EVENT_TABLE()
 #if _WINDOWS && defined Hugin_shared
 DEFINE_LOCAL_EVENT_TYPE(EVT_BATCH_FAILED)
 DEFINE_LOCAL_EVENT_TYPE(EVT_INFORMATION)
+DEFINE_LOCAL_EVENT_TYPE(EVT_UPDATE_PARENT)
 #else
 DEFINE_EVENT_TYPE(EVT_BATCH_FAILED)
 DEFINE_EVENT_TYPE(EVT_INFORMATION)
+DEFINE_EVENT_TYPE(EVT_UPDATE_PARENT)
 #endif
 
 Batch::Batch(wxFrame* parent, wxString path, bool bgui) : wxFrame(parent,wxID_ANY,_T("Batch"))
@@ -47,6 +49,8 @@ Batch::Batch(wxFrame* parent, wxString path, bool bgui) : wxFrame(parent,wxID_AN
     shutdown = false;
     overwrite = true;
     verbose = false;
+    autoremove = false;
+    autostitch = false;
     gui = bgui;
     m_cancelled = false;
     m_paused = false;
@@ -559,6 +563,27 @@ void Batch::OnProcessTerminate(wxProcessEvent& event)
         else
         {
             m_projList.Item(i).status=Project::FINISHED;
+            // don't sent event for command app
+            if(gui && m_projList.Item(i).id>=0)
+            {
+                bool notifyParent=false;
+                if(autostitch && m_projList.Item(i).target==Project::DETECTING)
+                {
+                    wxFileName name(m_projList.Item(i).path);
+                    AddProjectToBatch(m_projList.Item(i).path,name.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR) + name.GetName(),Project::STITCHING);
+                    notifyParent=true;
+                };
+                if(autoremove)
+                {
+                    RemoveProjectAtIndex(i);
+                    notifyParent=true;
+                };
+                if(notifyParent)
+                {
+                    wxCommandEvent e(EVT_UPDATE_PARENT,wxID_ANY);
+                    GetParent()->GetEventHandler()->AddPendingEvent(e);
+                };
+            };
         }
         if(!m_cancelled && !m_paused)
         {

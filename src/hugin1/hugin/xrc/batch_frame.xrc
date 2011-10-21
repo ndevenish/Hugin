@@ -86,6 +86,20 @@
                   <flag>wxEXPAND</flag>
                 </object>
                 <object class="sizeritem">
+                  <object class="wxCheckBox" name="cb_autoremove">
+                    <label>Remove finished project</label>
+                    <tooltip>Automatic remove successfully finished projects from queue.</tooltip>
+                  </object>
+                  <flag>wxEXPAND</flag>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxCheckBox" name="cb_autostitch">
+                    <label>Automatic stitch after assistant</label>
+                    <tooltip>Automatic stitch projects after (successful) running assistant.</tooltip>
+                  </object>
+                  <flag>wxEXPAND</flag>
+                </object>
+                <object class="sizeritem">
                   <object class="wxCheckBox" name="cb_shutdown">
                     <label>Shutdown when done</label>
                     <tooltip>Shutdown computer if all tasks are finished</tooltip>
