@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: en_GB\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
-"POT-Creation-Date: 2011-10-21 21:34+0200\n"
+"POT-Creation-Date: 2011-10-21 22:38+0200\n"
 "PO-Revision-Date: 2011-02-28 15:18+0000\n"
 "Last-Translator: Gareth Jones <gareth.k.jones@gmail.com>\n"
 "Language-Team: British English <en_GB@li.org>\n"
@@ -405,52 +405,51 @@ msgstr ""
 msgid "Project files (*.pto)|*.pto|All files (*)|*"
 msgstr ""
 
-#: hugin1/hugin/AboutDialog.cpp:127
+#: hugin1/hugin/AboutDialog.cpp:129
 #, c-format
 msgid "Operating System: %s"
 msgstr ""
 
-#: hugin1/hugin/AboutDialog.cpp:130
+#: hugin1/hugin/AboutDialog.cpp:132
 msgid "64 bit"
 msgstr ""
 
-#: hugin1/hugin/AboutDialog.cpp:132
+#: hugin1/hugin/AboutDialog.cpp:134
 msgid "32 bit"
 msgstr ""
 
-#: hugin1/hugin/AboutDialog.cpp:133
+#: hugin1/hugin/AboutDialog.cpp:135
 #, c-format
 msgid "Architecture: %s"
 msgstr ""
 
-#: hugin1/hugin/AboutDialog.cpp:136
+#: hugin1/hugin/AboutDialog.cpp:138
 #, c-format
 msgid "Free memory: %ld kiB"
 msgstr ""
 
-#: hugin1/hugin/AboutDialog.cpp:139
+#: hugin1/hugin/AboutDialog.cpp:141
 #, c-format
 msgid "Active Codepage: %u"
 msgstr ""
 
-#: hugin1/hugin/AboutDialog.cpp:171
+#: hugin1/hugin/AboutDialog.cpp:173
 #, c-format
 msgid "Version: %s"
 msgstr ""
 
-#: hugin1/hugin/AboutDialog.cpp:172
+#: hugin1/hugin/AboutDialog.cpp:174
 #, c-format
 msgid "Path to resources: %s"
 msgstr ""
 
-#: hugin1/hugin/AboutDialog.cpp:173
+#: hugin1/hugin/AboutDialog.cpp:175
 #, c-format
 msgid "Path to data: %s"
 msgstr ""
 
-#: hugin1/hugin/AboutDialog.cpp:175
-#, c-format
-msgid "wxWidgets: %i.%i.%i.%i"
+#: hugin1/hugin/AboutDialog.cpp:176
+msgid "Libraries"
 msgstr ""
 
 #: hugin1/hugin/AssistantPanel.cpp:224

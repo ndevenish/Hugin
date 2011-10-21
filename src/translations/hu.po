@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hugin 2011.2.0\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
-"POT-Creation-Date: 2011-10-21 21:34+0200\n"
+"POT-Creation-Date: 2011-10-21 22:38+0200\n"
 "PO-Revision-Date: 2011-07-21 09:02+0100\n"
 "Last-Translator: Höss Lajos <pgc1682@freemail.hu>\n"
 "Language-Team: Balló György <ballogy@freestart.hu>\n"
@@ -439,53 +439,53 @@ msgstr "Projektfájl mentése"
 msgid "Project files (*.pto)|*.pto|All files (*)|*"
 msgstr "Projektfájlok (*.pto)|*.pto|Minden fájl (*)|*"
 
-#: hugin1/hugin/AboutDialog.cpp:127
+#: hugin1/hugin/AboutDialog.cpp:129
 #, c-format
 msgid "Operating System: %s"
 msgstr "Operációs Rendszer: %s"
 
-#: hugin1/hugin/AboutDialog.cpp:130
+#: hugin1/hugin/AboutDialog.cpp:132
 msgid "64 bit"
 msgstr "64 bit"
 
-#: hugin1/hugin/AboutDialog.cpp:132
+#: hugin1/hugin/AboutDialog.cpp:134
 msgid "32 bit"
 msgstr "32 bit"
 
-#: hugin1/hugin/AboutDialog.cpp:133
+#: hugin1/hugin/AboutDialog.cpp:135
 #, c-format
 msgid "Architecture: %s"
 msgstr "Architektúra: %s"
 
-#: hugin1/hugin/AboutDialog.cpp:136
+#: hugin1/hugin/AboutDialog.cpp:138
 #, c-format
 msgid "Free memory: %ld kiB"
 msgstr "Szabad memória: %ld kiB"
 
-#: hugin1/hugin/AboutDialog.cpp:139
+#: hugin1/hugin/AboutDialog.cpp:141
 #, c-format
 msgid "Active Codepage: %u"
 msgstr "Aktív kódlap: %u"
 
-#: hugin1/hugin/AboutDialog.cpp:171
+#: hugin1/hugin/AboutDialog.cpp:173
 #, c-format
 msgid "Version: %s"
 msgstr "Verzió: %s"
 
-#: hugin1/hugin/AboutDialog.cpp:172
+#: hugin1/hugin/AboutDialog.cpp:174
 #, c-format
 msgid "Path to resources: %s"
 msgstr "Útvonal az erőforrásokhoz: %s"
 
-#: hugin1/hugin/AboutDialog.cpp:173
+#: hugin1/hugin/AboutDialog.cpp:175
 #, c-format
 msgid "Path to data: %s"
 msgstr "Útvonal az adatokhoz: %s"
 
-#: hugin1/hugin/AboutDialog.cpp:175
-#, c-format
-msgid "wxWidgets: %i.%i.%i.%i"
-msgstr ""
+#: hugin1/hugin/AboutDialog.cpp:176
+#, fuzzy
+msgid "Libraries"
+msgstr "Könyvtárak"
 
 #: hugin1/hugin/AssistantPanel.cpp:224
 msgid "Please load images by pressing on the Load images button."
