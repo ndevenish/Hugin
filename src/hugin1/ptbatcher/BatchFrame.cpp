@@ -104,7 +104,6 @@ BEGIN_EVENT_TABLE(BatchFrame, wxFrame)
     EVT_BUTTON(XRCID("button_move_up"),BatchFrame::OnButtonMoveUp)
     EVT_BUTTON(XRCID("button_move_down"),BatchFrame::OnButtonMoveDown)
     EVT_CHECKBOX(XRCID("cb_parallel"), BatchFrame::OnCheckParallel)
-    EVT_CHECKBOX(XRCID("cb_delete"), BatchFrame::OnCheckDelete)
     EVT_CHECKBOX(XRCID("cb_overwrite"), BatchFrame::OnCheckOverwrite)
     EVT_CHECKBOX(XRCID("cb_shutdown"), BatchFrame::OnCheckShutdown)
     EVT_CHECKBOX(XRCID("cb_verbose"), BatchFrame::OnCheckVerbose)
@@ -856,15 +855,6 @@ void BatchFrame::SetCheckboxes()
 {
     wxConfigBase* config=wxConfigBase::Get();
     int i;
-    i=config->Read(wxT("/BatchFrame/DeleteCheck"), 0l);
-    if(i==0)
-    {
-        XRCCTRL(*this,"cb_delete",wxCheckBox)->SetValue(false);
-    }
-    else
-    {
-        XRCCTRL(*this,"cb_delete",wxCheckBox)->SetValue(true);
-    }
     i=config->Read(wxT("/BatchFrame/ParallelCheck"), 0l);
     if(i==0)
     {
@@ -902,20 +892,6 @@ void BatchFrame::SetCheckboxes()
         XRCCTRL(*this,"cb_verbose",wxCheckBox)->SetValue(true);
     }
 };
-
-void BatchFrame::OnCheckDelete(wxCommandEvent& event)
-{
-    if(event.IsChecked())
-    {
-        m_batch->deleteFiles = true;
-        wxConfigBase::Get()->Write(wxT("/BatchFrame/DeleteCheck"), 1l);
-    }
-    else
-    {
-        m_batch->deleteFiles = false;
-        wxConfigBase::Get()->Write(wxT("/BatchFrame/DeleteCheck"), 0l);
-    }
-}
 
 void BatchFrame::OnCheckOverwrite(wxCommandEvent& event)
 {
@@ -1024,14 +1000,6 @@ void BatchFrame::PropagateDefaults()
     else
     {
         m_batch->parallel = false;
-    }
-    if(GetCheckDelete())
-    {
-        m_batch->deleteFiles = true;
-    }
-    else
-    {
-        m_batch->deleteFiles = false;
     }
     if(GetCheckShutdown())
     {

@@ -83,7 +83,6 @@ public:
     void OnButtonSaveBatch(wxCommandEvent& event);
     void OnButtonSkip(wxCommandEvent& event);
 
-    void OnCheckDelete(wxCommandEvent& event);
     void OnCheckOverwrite(wxCommandEvent& event);
     void OnCheckParallel(wxCommandEvent& event);
     void OnCheckShutdown(wxCommandEvent& event);
@@ -108,11 +107,6 @@ public:
     bool GetCheckParallel()
     {
         return XRCCTRL(*this,"cb_parallel",wxCheckBox)->IsChecked();
-    };
-    /** return if delete checkbox is checked */
-    bool GetCheckDelete()
-    {
-        return XRCCTRL(*this,"cb_delete",wxCheckBox)->IsChecked();
     };
     /** return if shutdown checkbox is checked */
     bool GetCheckShutdown()

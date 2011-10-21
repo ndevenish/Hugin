@@ -131,7 +131,6 @@ bool PTBatcherGUI::OnInit()
         },
         { wxCMD_LINE_SWITCH, "b", "batch",  "run batch immediately" },
         { wxCMD_LINE_SWITCH, "p", "parallel",  "run batch projects in parallel" },
-        { wxCMD_LINE_SWITCH, "d", "delete",  "delete *.pto files after stitching" },
         { wxCMD_LINE_SWITCH, "o", "overwrite",  "overwrite previous files without asking" },
         { wxCMD_LINE_SWITCH, "s", "shutdown",  "shutdown computer after batch is complete" },
         { wxCMD_LINE_SWITCH, "v", "verbose",  "show verbose output when processing projects" },
@@ -148,7 +147,6 @@ bool PTBatcherGUI::OnInit()
         },
         { wxCMD_LINE_SWITCH, wxT("b"), wxT("batch"),  wxT("run batch immediately") },
         { wxCMD_LINE_SWITCH, wxT("p"), wxT("parallel"),  wxT("run batch projects in parallel") },
-        { wxCMD_LINE_SWITCH, wxT("d"), wxT("delete"),  wxT("delete *.pto files after stitching") },
         { wxCMD_LINE_SWITCH, wxT("o"), wxT("overwrite"),  wxT("overwrite previous files without asking") },
         { wxCMD_LINE_SWITCH, wxT("s"), wxT("shutdown"),  wxT("shutdown computer after batch is complete") },
         { wxCMD_LINE_SWITCH, wxT("v"), wxT("verbose"),  wxT("show verbose output when processing projects") },
@@ -329,10 +327,6 @@ bool PTBatcherGUI::OnInit()
     if(IsFirstInstance)
     {
         wxConfigBase* config=wxConfigBase::Get();
-        if (parser.Found(wxT("d")))
-        {
-            config->Write(wxT("/BatchFrame/DeleteCheck"), 1l);
-        }
         if (parser.Found(wxT("p")))
         {
             config->Write(wxT("/BatchFrame/ParallelCheck"), 1l);
@@ -353,10 +347,6 @@ bool PTBatcherGUI::OnInit()
     }
     else
     {
-        if (parser.Found(wxT("d")))
-        {
-            conn->Request(wxT("SetDeleteCheck"));
-        }
         if (parser.Found(wxT("p")))
         {
             conn->Request(wxT("SetParallelCheck"));
@@ -474,12 +464,6 @@ wxChar* BatchIPCConnection::OnRequest(const wxString& topic, const wxString& ite
     };
     wxCommandEvent event;
     event.SetInt(1);
-    if(item==wxT("SetDeleteCheck"))
-        if(!MyBatchFrame->GetCheckDelete())
-        {
-            MyBatchFrame->OnCheckDelete(event);
-            MyBatchFrame->SetCheckboxes();
-        };
     if(item==wxT("SetParallelCheck"))
         if(!MyBatchFrame->GetCheckParallel())
         {

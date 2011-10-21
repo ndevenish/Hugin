@@ -77,12 +77,7 @@
                   </object>
                   <flag>wxEXPAND</flag>
                 </object>
-                <object class="sizeritem">
-                  <object class="wxCheckBox" name="cb_delete">
-                    <label>Delete *.pto files</label>
-                  </object>
-                  <flag>wxEXPAND</flag>
-                </object>
+                
                 <object class="sizeritem">
                   <object class="wxCheckBox" name="cb_overwrite">
                     <label>Overwrite always</label>
