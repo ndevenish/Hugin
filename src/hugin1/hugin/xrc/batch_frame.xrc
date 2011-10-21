@@ -74,25 +74,28 @@
                 <object class="sizeritem">
                   <object class="wxCheckBox" name="cb_parallel">
                     <label>Parallel execution</label>
+                    <tooltip>Stitch several projects parallel.</tooltip>
                   </object>
                   <flag>wxEXPAND</flag>
                 </object>
-                
                 <object class="sizeritem">
                   <object class="wxCheckBox" name="cb_overwrite">
                     <label>Overwrite always</label>
+                    <tooltip>Overwrite existing image files without further notice.</tooltip>
                   </object>
                   <flag>wxEXPAND</flag>
                 </object>
                 <object class="sizeritem">
                   <object class="wxCheckBox" name="cb_shutdown">
                     <label>Shutdown when done</label>
+                    <tooltip>Shutdown computer if all tasks are finished</tooltip>
                   </object>
                   <flag>wxEXPAND</flag>
                 </object>
                 <object class="sizeritem">
                   <object class="wxCheckBox" name="cb_verbose">
                     <label>Verbose output</label>
+                    <tooltip>Show detailed output in separate window.</tooltip>
                   </object>
                   <flag>wxEXPAND</flag>
                 </object>
