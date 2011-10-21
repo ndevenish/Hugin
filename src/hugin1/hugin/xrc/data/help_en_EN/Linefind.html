@@ -4,7 +4,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta http-equiv="Content-Style-Type" content="text/css" />
 		<meta name="generator" content="MediaWiki 1.14.0" />
-		<meta name="keywords" content="Linefind,Calibrate lens gui,Control points,Hugin,Roll,Vertical control points" />
+		<meta name="keywords" content="Linefind,Calibrate lens gui,Control points,Equirectangular Projection,Fisheye Projection,Hugin,Rectilinear Projection,Roll,Vertical control points" />
 		
 		
 		
@@ -44,8 +44,8 @@
 			
 												<!-- start content -->
 			<a name="General_and_description" id="General_and_description"></a><h1> <span class="mw-headline"> General and description </span></h1>
-<p><b>Linefind</b> is a detector for vertical features in images. It tries to find vertical lines using the same algorithm as <a href="Calibrate_lens_gui.html#Line_detection" title="Calibrate lens gui">Calibrate_lens_gui</a> and assign <a href="Vertical_control_points.html" title="Vertical control points">vertical control points</a> to them.
-It using the <a href="Roll.html" title="Roll">roll value</a>, saved in the pto project file, to determine what is "top" and "bottom". So before running <b>linefind</b> check that your <a href="Roll.html" title="Roll">roll values</a> are correct (E.g. when using images straight from the camera, use a roll value of 0 for landscape and a value of 90 or 270 for portrait images. If your camera has an orientation sensor, <a href="Hugin.html" title="Hugin">Hugin</a> can detection this information automatically and sets the roll value accordingly when adding such images into Hugin.
+<p><b>Linefind</b> is a detector for vertical features in images. It tries to find vertical lines using the same algorithm as <a href="Calibrate_lens_gui.html#Line_detection" title="Calibrate lens gui">Calibrate_lens_gui</a> and assigns <a href="Vertical_control_points.html" title="Vertical control points">vertical control points</a> to them. The detection runs on the source images, if the input images are <a href="Rectilinear_Projection.html" title="Rectilinear Projection">rectilinear images</a>. In the other cases (e. g. <a href="Fisheye_Projection.html" title="Fisheye Projection">fisheye images</a>) the input images are reprojected to an <a href="Equirectangular_Projection.html" title="Equirectangular Projection">equirectangular projection</a> and the detection works on the reprojected images.
+It uses the <a href="Roll.html" title="Roll">roll value</a>, saved in the pto project file, to determine what is "top" and "bottom". So before running <b>linefind</b> check that your <a href="Roll.html" title="Roll">roll values</a> are correct (E. g. when using images straight from the camera, use a roll value of 0 for landscape and a value of 90 or 270 for portrait images. If your camera has an orientation sensor, <a href="Hugin.html" title="Hugin">Hugin</a> can detect this information automatically and sets the roll value accordingly when adding such images into Hugin.
 </p>
 <a name="Usage" id="Usage"></a><h1> <span class="mw-headline"> Usage </span></h1>
 <p>The general usage is
@@ -77,8 +77,6 @@ Retrieved from "<a href="Linefind.html">http://wiki.panotools.org/Linefind</a>"<
 		</div>
 		<!-- end of the left (by default at least) column -->
 			
-			<!-- end of the left (by default at least) column -->
-			
 			
 </div>
 
@@ -86,4 +84,4 @@ Retrieved from "<a href="Linefind.html">http://wiki.panotools.org/Linefind</a>"<
 
 
 
-<!-- Served in 0.202 secs. --></body></html>
+<!-- Served in 0.141 secs. --></body></html>
