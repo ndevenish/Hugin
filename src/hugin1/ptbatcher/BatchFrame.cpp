@@ -856,41 +856,13 @@ void BatchFrame::SetCheckboxes()
     wxConfigBase* config=wxConfigBase::Get();
     int i;
     i=config->Read(wxT("/BatchFrame/ParallelCheck"), 0l);
-    if(i==0)
-    {
-        XRCCTRL(*this,"cb_parallel",wxCheckBox)->SetValue(false);
-    }
-    else
-    {
-        XRCCTRL(*this,"cb_parallel",wxCheckBox)->SetValue(true);
-    }
+    XRCCTRL(*this,"cb_parallel",wxCheckBox)->SetValue(i!=0);
     i=config->Read(wxT("/BatchFrame/ShutdownCheck"), 0l);
-    if(i==0)
-    {
-        XRCCTRL(*this,"cb_shutdown",wxCheckBox)->SetValue(false);
-    }
-    else
-    {
-        XRCCTRL(*this,"cb_shutdown",wxCheckBox)->SetValue(true);
-    }
+    XRCCTRL(*this,"cb_shutdown",wxCheckBox)->SetValue(i!=0);
     i=config->Read(wxT("/BatchFrame/OverwriteCheck"), 0l);
-    if(i==0)
-    {
-        XRCCTRL(*this,"cb_overwrite",wxCheckBox)->SetValue(false);
-    }
-    else
-    {
-        XRCCTRL(*this,"cb_overwrite",wxCheckBox)->SetValue(true);
-    }
+    XRCCTRL(*this,"cb_overwrite",wxCheckBox)->SetValue(i!=0);
     i=config->Read(wxT("/BatchFrame/VerboseCheck"), 0l);
-    if(i==0)
-    {
-        XRCCTRL(*this,"cb_verbose",wxCheckBox)->SetValue(false);
-    }
-    else
-    {
-        XRCCTRL(*this,"cb_verbose",wxCheckBox)->SetValue(true);
-    }
+    XRCCTRL(*this,"cb_verbose",wxCheckBox)->SetValue(i!=0);
 };
 
 void BatchFrame::OnCheckOverwrite(wxCommandEvent& event)
@@ -993,38 +965,10 @@ void BatchFrame::OnClose(wxCloseEvent& event)
 
 void BatchFrame::PropagateDefaults()
 {
-    if(GetCheckParallel())
-    {
-        m_batch->parallel = true;
-    }
-    else
-    {
-        m_batch->parallel = false;
-    }
-    if(GetCheckShutdown())
-    {
-        m_batch->shutdown = true;
-    }
-    else
-    {
-        m_batch->shutdown = false;
-    }
-    if(GetCheckOverwrite())
-    {
-        m_batch->overwrite = true;
-    }
-    else
-    {
-        m_batch->overwrite = false;
-    }
-    if(GetCheckVerbose())
-    {
-        m_batch->verbose = true;
-    }
-    else
-    {
-        m_batch->verbose = false;
-    }
+    m_batch->parallel=GetCheckParallel();
+    m_batch->shutdown=GetCheckShutdown();
+    m_batch->overwrite=GetCheckOverwrite();
+    m_batch->verbose=GetCheckVerbose();
 }
 
 void BatchFrame::RunBatch()
