@@ -122,13 +122,13 @@ If you want to save them to another directory use the --keypath switch.
 </p><p>--ransacdist &lt;int&gt;            Ransac: homography estimation distance threshold (pixels) (default: 25)
 </p><p>--ransacmode &lt;string&gt;        Select the mode used in the ransac step. Possible values: auto, hom, rpy, rpyv, rpyb (default: auto)
 </p>
-<ul><li> hom: Assume a homography. Only applicable for non-wide angle views. Uses the original panomatic code. It is also more flexible than required and can generate false matches, particlarly if most of the matches are located on a single line.
+<ul><li> hom: Assume a homography. Only applicable for non-wide angle views. Uses the original panomatic code. It is also more flexible than required and can generate false matches, particularly if most of the matches are located on a single line.
 </li></ul>
-<ul><li> rpy: Align images using roll, pitch and yaw. This requires a good estimate for the horizontal field of view (and distortion, for  heavily distorted images). It is the prefered mode if a calibrated lens is used, or the HFOV could be read successfully from the EXIF data.
+<ul><li> rpy: Align images using roll, pitch and yaw. This requires a good estimate for the horizontal field of view (and distortion, for  heavily distorted images). It is the preferred mode if a calibrated lens is used, or the HFOV could be read successfully from the EXIF data.
 </li></ul>
 <ul><li> rpyv: Align pair by optimizing roll, pitch, yaw and field of view. Should work without prior knowledge of the field of view, but might fail more often, due to error function used in the panotools optimizer, it tends to shrink the fov to 0.
 </li></ul>
-<ul><li> rpyvb: Align pair by optimizing roll, pitch, yaw, field of view and the "b" distortion parameter.  Probaby very fragile, just implemented for testing.
+<ul><li> rpyvb: Align pair by optimizing roll, pitch, yaw, field of view and the "b" distortion parameter.  Probably very fragile, just implemented for testing.
 </li></ul>
 <ul><li> auto: Use homography for images with hfov &lt; 65 degrees and rpy otherwise.
 </li></ul>
