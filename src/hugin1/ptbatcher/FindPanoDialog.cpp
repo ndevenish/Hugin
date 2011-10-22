@@ -412,6 +412,10 @@ bool PossiblePano::BelongsTo(SrcPanoImage* img, const wxTimeSpan max_time_diff)
     {
         return false;
     }
+    if(m_lens.compare(img->getExifLens())!=0)
+    {
+        return false;
+    }
     if(fabs(m_focallength-img->getExifFocalLength())>0.01)
     {
         return false;
@@ -521,6 +525,7 @@ void PossiblePano::AddSrcPanoImage(HuginBase::SrcPanoImage* img)
         //fill all values from first image
         m_make=img->getExifMake();
         m_camera=img->getExifModel();
+        m_lens=img->getExifLens();
         m_focallength=img->getExifFocalLength();
         m_size=img->getSize();
         m_dt_start=GetDateTime(img);

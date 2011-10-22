@@ -141,6 +141,7 @@ private:
 
     std::string m_make;
     std::string m_camera;
+    std::string m_lens;
     wxDateTime m_dt_start;
     wxDateTime m_dt_end;
     double m_focallength;
