@@ -283,6 +283,17 @@ void ImagesList::SelectAll()
     }
 }
 
+void ImagesList::DeselectAll()
+{
+    unsigned int nrItems = GetItemCount();
+    for (unsigned int i=0; i < nrItems ; i++) {
+        int selected = GetItemState(i, wxLIST_STATE_SELECTED);
+        if (selected) {
+            SetItemState(i, 0, wxLIST_STATE_SELECTED);
+        }
+    }
+}
+
 void ImagesList::OnItemSelected ( wxListEvent & e )
 {
     DEBUG_TRACE(e.GetIndex());

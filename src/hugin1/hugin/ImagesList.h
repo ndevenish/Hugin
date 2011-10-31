@@ -120,6 +120,9 @@ public:
     /** Select all images */
     void SelectAll();
 
+    /** Deselects all images */
+    void DeselectAll();
+
     /** get the currently selected images */
     const UIntSet & GetSelected() const;
 

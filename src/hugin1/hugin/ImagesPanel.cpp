@@ -869,6 +869,11 @@ void ImagesPanel::OnRemoveImages(wxCommandEvent & e)
     for (UIntSet::iterator it = selImg.begin(); it != selImg.end(); ++it) {
         filenames.push_back(pano->getImage(*it).getFilename());
     }
+    //deselect images if multiple image were selected
+    if(selImg.size()>1)
+    {
+        images_list->DeselectAll();
+    };
     DEBUG_TRACE("Sending remove images command");
     GlobalCmdHist::getInstance().addCommand(
         new PT::RemoveImagesCmd(*pano, selImg)
