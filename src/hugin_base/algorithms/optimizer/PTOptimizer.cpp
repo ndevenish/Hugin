@@ -320,8 +320,7 @@ bool RANSACOptimizer::runAlgorithm()
 }
     
 
-void AutoOptimise::autoOptimise(PanoramaData& pano)
-    
+void AutoOptimise::autoOptimise(PanoramaData& pano, bool optRoll)
 {
     // DGSW FIXME - Unreferenced
     //	unsigned nImg = unsigned(pano.getNrOfImages());
@@ -337,7 +336,10 @@ void AutoOptimise::autoOptimise(PanoramaData& pano)
     }
 #endif
     std::set<std::string> optvars;
-    optvars.insert("r");
+    if(optRoll)
+    {
+        optvars.insert("r");
+    };
     optvars.insert("p");
     optvars.insert("y");
     

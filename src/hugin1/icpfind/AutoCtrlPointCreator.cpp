@@ -953,7 +953,21 @@ CPVector AutoPanoSiftMultiRow::automatch(CPDetectorSetting &setting, Panorama & 
             optvars.push_back(imgopt);
         }
         optPano.setOptimizeVector(optvars);
+
+        // remove vertical and horizontal control points
+        CPVector backupOldCPS = optPano.getCtrlPoints();
+        CPVector backupNewCPS;
+        for (CPVector::const_iterator it = backupOldCPS.begin(); it != backupOldCPS.end(); it++) {
+            if (it->mode == ControlPoint::X_Y)
+            {
+                backupNewCPS.push_back(*it);
+            }
+        }
+        optPano.setCtrlPoints(backupNewCPS);
+        // do a first pairwise optimisation step
+        HuginBase::AutoOptimise::autoOptimise(optPano,false);
         HuginBase::PTools::optimize(optPano);
+        optPano.setCtrlPoints(backupOldCPS);
         //and find cp on overlapping images
         //work only on image pairs, which are not yet connected
         AutoPanoSiftPreAlign matcher;

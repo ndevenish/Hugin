@@ -104,7 +104,7 @@ namespace HuginBase {
         
         public:
             ///
-            AutoOptimise(PanoramaData& panorama)
+            AutoOptimise(PanoramaData& panorama, bool optRoll=true)
              : PTOptimizer(panorama)
             {};
         
@@ -115,7 +115,7 @@ namespace HuginBase {
         
         public:
             ///
-            static void autoOptimise(PanoramaData& pano);
+            static void autoOptimise(PanoramaData& pano, bool optRoll=true);
             
         protected:
             /// a traverse functor to optimise the image links

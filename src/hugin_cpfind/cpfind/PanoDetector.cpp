@@ -964,16 +964,31 @@ bool PanoDetector::matchMultiRow(PoolExecutor& aExecutor)
             optvars.push_back(imgopt);
         }
         optPano.setOptimizeVector(optvars);
+
+        // remove vertical and horizontal control points
+        CPVector cps = optPano.getCtrlPoints();
+        CPVector newCP;
+        for (CPVector::const_iterator it = cps.begin(); it != cps.end(); it++) {
+            if (it->mode == ControlPoint::X_Y)
+            {
+                newCP.push_back(*it);
+            }
+        }
+        optPano.setCtrlPoints(newCP);
+
         if (getVerbose() < 2) 
         {
             PT_setProgressFcn(ptProgress);
             PT_setInfoDlgFcn(ptinfoDlg);
         };
+        //in a first step do a pairwise optimisation
+        HuginBase::AutoOptimise::autoOptimise(optPano, false);
+        //now the final optimisation
         HuginBase::PTools::optimize(optPano);
         if (getVerbose() < 2) 
         {
-    		PT_setProgressFcn(NULL);
-	    	PT_setInfoDlgFcn(NULL);
+            PT_setProgressFcn(NULL);
+            PT_setInfoDlgFcn(NULL);
         };
 
         HuginBase::CalculateImageOverlap overlap(&optPano);
