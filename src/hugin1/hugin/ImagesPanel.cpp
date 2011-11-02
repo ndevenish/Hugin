@@ -498,8 +498,6 @@ void ImagesPanel::ListSelectionChanged(wxListEvent & e)
             ShowImgParameters(imgNr);
             m_optAnchorButton->Enable();
             m_colorAnchorButton->Enable();
-            m_moveDownButton->Enable();
-            m_moveUpButton->Enable();
         } else {
             DEBUG_DEBUG("Multiselection, or no image selected");
             // multiselection, clear all values
@@ -507,9 +505,10 @@ void ImagesPanel::ListSelectionChanged(wxListEvent & e)
             ClearImgParameters();
             m_optAnchorButton->Disable();
             m_colorAnchorButton->Disable();
-            m_moveDownButton->Disable();
-            m_moveUpButton->Disable();
         }
+        bool movePossible=*(sel.begin())+sel.size()-1 == *(sel.rbegin());
+        m_moveDownButton->Enable(movePossible);
+        m_moveUpButton->Enable(movePossible);
     }
 }
 
@@ -924,42 +923,64 @@ void ImagesPanel::OnRemoveCtrlPoints(wxCommandEvent & e)
 void ImagesPanel::OnMoveImageDown(wxCommandEvent & e)
 {
     UIntSet selImg = images_list->GetSelected();
-    if ( selImg.size() == 1) {
-        unsigned int i1 = *selImg.begin();
+    size_t num = selImg.size();
+    if(num>0)
+    {
+        //last selected image
+        unsigned int i1 = *selImg.rbegin();
+        //image to move into
         unsigned int i2 = i1+1;
-        if (i2 < pano->getNrOfImages() ) {
-            images_list->SetItemState(i1,0,wxLIST_STATE_SELECTED);
+        //Test if there is room to move images down
+        if (i2 < pano->getNrOfImages() )
+        {
+            //Group repeated move commands within undo history
+            std::vector<PanoCommand*> cmds;
+            for (size_t i=0; i<num; i++)
+            {
+                cmds.push_back(new SwapImagesCmd(*pano,i2, i1));
+                i1--;
+                i2--;
+             }
             GlobalCmdHist::getInstance().addCommand(
-                new SwapImagesCmd(*pano,i1, i2)
-            );
+                new PT::CombinedPanoCommand(*pano, cmds));
             // set new selection
-            images_list->SelectSingleImage(i2);
+            images_list->SelectImageRange(*selImg.begin()+1,*selImg.begin()+num);
             // Bring the focus back to the button.
-            m_moveDownButton->CaptureMouse();
-            m_moveDownButton->ReleaseMouse();
-        }
-    }
-}
+            m_moveDownButton->SetFocus();
+        };
+    };
+};
 
 void ImagesPanel::OnMoveImageUp(wxCommandEvent & e)
 {
     UIntSet selImg = images_list->GetSelected();
-    if ( selImg.size() == 1) {
-        unsigned int i1 = *selImg.begin();
-        unsigned int i2 = i1 -1;
-        if (i1 > 0) {
-            images_list->SetItemState(i1,0,wxLIST_STATE_SELECTED);
+    size_t num = selImg.size();
+    if(num>0)
+    {
+        //first selected image
+        size_t i1 = *selImg.begin();
+        //image to move into. 
+        size_t i2 = i1-1;
+        //Test if there is room to move images up
+        if (i1 > 0 )
+        {
+            //Group repeated move commands within undo history
+            std::vector<PanoCommand*> cmds;
+            for (size_t i=0; i<num; i++)
+            {
+                cmds.push_back(new SwapImagesCmd(*pano,i2, i1));
+                i1++;
+                i2++;
+            }
             GlobalCmdHist::getInstance().addCommand(
-                new SwapImagesCmd(*pano,i1, i2)
-            );
+                    new PT::CombinedPanoCommand(*pano, cmds));
             // set new selection
-            images_list->SelectSingleImage(i2);
+            images_list->SelectImageRange(*selImg.begin()-1,*selImg.begin()+num-2);
             // Bring the focus back to the button.
-            m_moveUpButton->CaptureMouse();
-            m_moveUpButton->ReleaseMouse();
-        }
-    }
-}
+            m_moveUpButton->SetFocus();
+        };
+    };
+};
 
 void ImagesPanel::ReloadCPDetectorSettings()
 {

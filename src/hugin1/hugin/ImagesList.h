@@ -116,7 +116,13 @@ public:
      *  selects image @p imgNr, and deselects all other images
      */
     void SelectSingleImage(unsigned int imgNr);
-
+     /** Select an image range
+      *
+      *  selects images between @p imgNs and @p imgNe, 
+      *  and deselects all other images
+      */
+    void SelectImageRange(unsigned int imgStart,unsigned int imgEnd);
+ 
     /** Select all images */
     void SelectAll();
 

@@ -274,6 +274,30 @@ void ImagesList::SelectSingleImage(unsigned int imgNr)
     SetItemState(imgNr, wxLIST_STATE_SELECTED, wxLIST_STATE_SELECTED);
 }
 
+void ImagesList::SelectImageRange(unsigned int imgStart,unsigned int imgEnd)
+{
+    size_t nrItems = GetItemCount();
+    size_t _imgStart=imgStart;
+    size_t _imgEnd=imgEnd;
+    if(imgEnd<imgStart)
+    {
+        _imgStart=imgEnd;
+        _imgEnd=imgStart;
+    }
+    for (size_t i=0; i < nrItems ; i++)
+    {
+        int selected = GetItemState(i, wxLIST_STATE_SELECTED);
+        if ((i < _imgStart || i>_imgEnd ) && selected)
+        {
+            SetItemState(i, 0, wxLIST_STATE_SELECTED);
+        }
+    }
+    for(size_t i=_imgStart; i<=_imgEnd; i++)
+    {
+        SetItemState(i, wxLIST_STATE_SELECTED, wxLIST_STATE_SELECTED);
+    };
+};
+
 void ImagesList::SelectAll()
 {
     unsigned int nrItems = GetItemCount();
