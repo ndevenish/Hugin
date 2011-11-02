@@ -106,7 +106,7 @@ template<>
 
     static vigra::UInt16 fromUInt8(vigra::UInt8 v)
     {
-        return v<<8;
+        return (v<<8) + v;
     }
 };
 
@@ -121,7 +121,7 @@ template<>
 
     static vigra::Int16 fromUInt8(vigra::UInt8 v)
     {
-        return v<<7;
+        return (v<<7)+ (v & 127);
     }
 };
 
@@ -136,7 +136,7 @@ struct MaskConv<vigra::UInt32>
 
     static vigra::UInt32 fromUInt8(vigra::UInt8 v)
     {
-        return v<<24;
+        return (v<<24) + (v<<16) + (v<<8) + v;
     }
 };
 
@@ -151,7 +151,7 @@ struct MaskConv<vigra::Int32>
 
     static vigra::Int16 fromUInt8(vigra::UInt8 v)
     {
-        return v<<23;
+        return (v<<23) + (v<<15) + (v<<7) + (v & 127);
     }
 };
 
