@@ -149,7 +149,7 @@ struct MaskConv<vigra::Int32>
     }
 
 
-    static vigra::Int16 fromUInt8(vigra::UInt8 v)
+    static vigra::Int32 fromUInt8(vigra::UInt8 v)
     {
         return (v<<23) + (v<<15) + (v<<7) + (v & 127);
     }
