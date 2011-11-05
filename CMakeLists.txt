@@ -40,7 +40,7 @@ project(hugin)
 
 # version
 set(V_MAJOR 2011)
-set(V_MINOR 3)
+set(V_MINOR 5)
 set(V_PATCH 0)
 
 #
