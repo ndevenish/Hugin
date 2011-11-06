@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the hugin package.
 #
 #
-# Jean-Luc Coulon (f5ibh) <jean-luc.coulon@wanadoo.fr>, 2004-2009, 2010, 2011.
+# Jean-Luc Coulon (f5ibh) <jean-luc.coulon@wanadoo.fr>, 2004-2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Hugin 2011-2.0-rc2\n"
+"Project-Id-Version: Hugin 2011-4.0\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
 "POT-Creation-Date: 2011-10-21 22:38+0200\n"
-"PO-Revision-Date: 2011-07-20 10:32+0200\n"
+"PO-Revision-Date: 2011-11-06 16:10+0100\n"
 "Last-Translator: Jean-Luc Coulon <jean-luc.coulon@wanadoo.fr>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Language: French\n"
@@ -369,7 +369,7 @@ msgstr "Ajout d'images : abandon"
 #: hugin1/calibrate_lens/LensCalFrame.cpp:502
 #, c-format
 msgid "%s (%d lines)"
-msgstr "%s (%d lines)"
+msgstr "%s (%d lignes)"
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:590
 #: hugin1/calibrate_lens/LensCalFrame.cpp:613
@@ -494,9 +494,8 @@ msgid "Path to data: %s"
 msgstr "Chemin vers les données : %s"
 
 #: hugin1/hugin/AboutDialog.cpp:176
-#, fuzzy
 msgid "Libraries"
-msgstr "Répertoires"
+msgstr "Bibliothèques"
 
 #: hugin1/hugin/AssistantPanel.cpp:224
 msgid "Please load images by pressing on the Load images button."
@@ -617,17 +616,16 @@ msgstr ""
 "de projet résultant."
 
 #: hugin1/hugin/AssistantPanel.cpp:491
-#, fuzzy
 msgid "Project file not found"
-msgstr "Fichier image introuvable"
+msgstr "Fichier de projet introuvable"
 
 #: hugin1/hugin/AssistantPanel.cpp:503
 msgid "Can't launch PTBatcherGui"
-msgstr ""
+msgstr "Impossible de lancer PTBatcherGui"
 
 #: hugin1/hugin/AssistantPanel.cpp:509
 msgid "Launched incorrect programme"
-msgstr ""
+msgstr "Un programme incorrect a été lancé"
 
 #: hugin1/hugin/CPDetectorDialog.cpp:93
 msgid "Autopano from http://autopano.kolor.com is not available for OSX"
@@ -1044,7 +1042,6 @@ msgid "mosaic, individual"
 msgstr "moaïque, individuel"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:639
-#, fuzzy
 msgid "Resets the projection's parameters to their default values."
 msgstr "Réinitialiser les paramètres de projection à leur valeur par défaut."
 
@@ -1101,25 +1098,24 @@ msgstr "La valeur doit être numérique."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1597
 msgid "Do you want to keep the current non-zero translation parameters?"
-msgstr ""
+msgstr "Voulez-vous le paramètre de translation non nul actuel ?"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1598
-#, fuzzy
 msgid "Keep XYZ parameters?"
-msgstr "Réinitialier les paramètres XYZ ?"
+msgstr "Faut-il conserver les paramètres XYZ ?"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1682
 msgid ""
 "Switching to panosphere overview mode requires that all images have zero XYZ "
 "parameters. Do you want to set all XYZ parameters to zero for all images?"
 msgstr ""
-"Passer au mode d'apercç panosphère exique que toutes les images aient les "
+"Passer au mode d'aperçu panosphère exiqe que toutes les images aient les "
 "paramètres XYZ nuls. Voulez-vous définir à zéro tous les paramètres XYZ pour "
 "toutes les images."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1683
 msgid "Reset XYZ parameters?"
-msgstr "Réinitialier les paramètres XYZ ?"
+msgstr "Réinitialiser les paramètres XYZ ?"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:2293 hugin1/hugin/PreviewFrame.cpp:232
 msgid "difference"
@@ -1481,7 +1477,7 @@ msgid ""
 "Should the loaded parameters applied to all images with the same lens?"
 msgstr ""
 "Vous n'avez sélectionné qu'une seule image.\n"
-"Les paramètres chargés doivent-isl être appliqués à toutes les images "
+"Les paramètres chargés doivent-ils être appliqués à toutes les images "
 "utilisant le même objectif ?"
 
 #: hugin1/hugin/LensPanel.cpp:787 hugin1/ptbatcher/FindPanoDialog.cpp:178
@@ -1676,6 +1672,9 @@ msgid ""
 "This file can't be open with File, Open.\n"
 "Do you want instead add this image file to the current project?"
 msgstr ""
+"Le fichier %s est un fichier d'image et non un fichier de projet.\n"
+"Ce fichier ne peut pas être ouvert par Fichier -> Ouvrir.\n"
+"Voulez-vous plutôt ajouter ce fichier d'image au projet actuel ?"
 
 #: hugin1/hugin/MainFrame.cpp:899
 msgid "Open project: cancel"
@@ -2181,9 +2180,8 @@ msgid "Czech"
 msgstr "tchèque"
 
 #: hugin1/hugin/PreferencesDialog.cpp:135
-#, fuzzy
 msgid "Danish"
-msgstr "espagnol"
+msgstr "danois"
 
 #: hugin1/hugin/PreferencesDialog.cpp:138
 msgid "Dutch"
@@ -2489,7 +2487,7 @@ msgid ""
 "Maybe you have not installed it properly or given a wrong path in the "
 "settings."
 msgstr ""
-"« %s » introuvable dans le chemin.\n"
+"« %s » introuvable dans le chemin.\n"
 "Vous ne l'avez peut-être pas installé correctement ou vous avez indiqué un "
 "chemin erroné dans les préférences."
 
@@ -2793,7 +2791,6 @@ msgid "Not doing much..."
 msgstr "Ne fait pas grand chose..."
 
 #: hugin1/ptbatcher/BatchFrame.cpp:161 hugin1/ptbatcher/BatchFrame.cpp:171
-#, fuzzy
 msgid "Hugin's Batch processor"
 msgstr "Processeur de traitement par lots de Hugin"
 
@@ -2952,14 +2949,12 @@ msgid "Stop batch"
 msgstr "Arrêter le traitement par lots"
 
 #: hugin1/ptbatcher/BatchTrayIcon.cpp:76 translations/xrc.cpp:76 xrc.cpp:76
-#, fuzzy
 msgid "Add project to stitching queue..."
-msgstr "Ajouter le projet %s à la file de traitement par lots."
+msgstr "Ajouter le projet à la file de traitement par lots."
 
 #: hugin1/ptbatcher/BatchTrayIcon.cpp:77 translations/xrc.cpp:78 xrc.cpp:78
-#, fuzzy
 msgid "Add project to assistant queue..."
-msgstr "Ajouter le projet %s à la file d'attente de l'assistant"
+msgstr "Ajouter le projet à la file d'attente de l'assistant"
 
 #: hugin1/ptbatcher/BatchTrayIcon.cpp:81
 msgid "E&xit"
@@ -3321,51 +3316,51 @@ msgstr "Exécution en parallèle"
 
 #: translations/xrc.cpp:44 xrc.cpp:44
 msgid "Stitch several projects parallel."
-msgstr ""
+msgstr "Assembler plusieurs projets en parallèle."
 
 #: translations/xrc.cpp:45 xrc.cpp:45
 msgid "Overwrite always"
 msgstr "Toujours écraser"
 
 #: translations/xrc.cpp:46 xrc.cpp:46
-#, fuzzy
 msgid "Overwrite existing image files without further notice."
-msgstr "Écraser les images existantes"
+msgstr "Écraser les images existantes sans avertissement supplémentaire."
 
 #: translations/xrc.cpp:47 xrc.cpp:47
-#, fuzzy
 msgid "Remove finished project"
-msgstr "Projet supprimé "
+msgstr "Supprimer le projet terminé"
 
 #: translations/xrc.cpp:48 xrc.cpp:48
 msgid "Automatic remove successfully finished projects from queue."
 msgstr ""
+"Supprimer automatiquement de la fiel d'attente les projets terminés avec "
+"succès."
 
 #: translations/xrc.cpp:49 xrc.cpp:49
 msgid "Automatic stitch after assistant"
-msgstr ""
+msgstr "Assembler automatiquement après déroulement de l'assistant"
 
 #: translations/xrc.cpp:50 xrc.cpp:50
 msgid "Automatic stitch projects after (successful) running assistant."
 msgstr ""
+"Assembler automatiquement les projets après avoir le déroulement (avec "
+"succès) de l'assistant."
 
 #: translations/xrc.cpp:51 xrc.cpp:51
 msgid "Shutdown when done"
 msgstr "Arrêter une fois terminé"
 
 #: translations/xrc.cpp:52 xrc.cpp:52
-#, fuzzy
 msgid "Shutdown computer if all tasks are finished"
-msgstr "Arrer l'ordinateur à la fin du lot."
+msgstr "Arrêter l'ordinateur une fois toutes les tâches terminées"
 
 #: translations/xrc.cpp:53 xrc.cpp:53
 msgid "Verbose output"
 msgstr "Sortie verbeuse"
 
 #: translations/xrc.cpp:54 xrc.cpp:54
-#, fuzzy
 msgid "Show detailed output in separate window."
-msgstr "Afficher la fenêtre d'aperçu OpenGL"
+msgstr "Afficher la sortie détaillée dans une fenêtre séparée."
 
 #: translations/xrc.cpp:55 xrc.cpp:55
 msgid "Directories"
@@ -3413,7 +3408,7 @@ msgstr "Créer des liens"
 
 #: translations/xrc.cpp:65 xrc.cpp:65
 msgid "Check if the stacks were shoot on a tripod."
-msgstr "Vérifier si les ensemlbes ont été pris avec un trépied."
+msgstr "Vérifier si les ensembles ont été pris avec un trépied."
 
 #: translations/xrc.cpp:67 xrc.cpp:67
 msgid "Found panoramas"
@@ -3449,14 +3444,12 @@ msgid "&File"
 msgstr "&Fichier"
 
 #: translations/xrc.cpp:77 xrc.cpp:77
-#, fuzzy
 msgid "Adds a project to the stitching queue"
-msgstr "Ajouter le projet %s à la file de traitement par lots."
+msgstr "Ajouter un projet à la file de traitement par lots."
 
 #: translations/xrc.cpp:79 xrc.cpp:79
-#, fuzzy
 msgid "Adds a project to the assistant queue"
-msgstr "Ajouter le projet %s à la file d'attente de l'assistant"
+msgstr "Ajouter un projet à la file d'attente de l'assistant"
 
 #: translations/xrc.cpp:80 translations/xrc.cpp:123 xrc.cpp:80 xrc.cpp:123
 msgid "Remove project"
@@ -3944,7 +3937,7 @@ msgstr ""
 
 #: translations/xrc.cpp:212 xrc.cpp:212
 msgid "Image Position"
-msgstr "POsition de l'image"
+msgstr "Position de l'image"
 
 #: translations/xrc.cpp:213 xrc.cpp:213
 msgid "yaw:"
@@ -4015,9 +4008,8 @@ msgid "Reset position of selected image(s)"
 msgstr "Replacer la ou les images à leur position par défaut"
 
 #: translations/xrc.cpp:229 xrc.cpp:229
-#, fuzzy
 msgid "Feature Matching"
-msgstr "Outil de correspondance de motifs :"
+msgstr "Correspondance de motifs"
 
 #: translations/xrc.cpp:230 xrc.cpp:230
 msgid "Settings:"
@@ -4078,9 +4070,8 @@ msgid "Camera Model:"
 msgstr "Modèle de l'appareil photo :"
 
 #: translations/xrc.cpp:244 xrc.cpp:244
-#, fuzzy
 msgid "Lens:"
-msgstr "Objectif"
+msgstr "Objectif :"
 
 #: translations/xrc.cpp:245 xrc.cpp:245
 msgid "Capture Date:"
@@ -4504,9 +4495,8 @@ msgid "Add another image to the current project"
 msgstr "Ajouter une nouvelle image au projet en cours"
 
 #: translations/xrc.cpp:380 xrc.cpp:380
-#, fuzzy
 msgid "Run &Python script"
-msgstr "Lancer un script utilisateur &Python"
+msgstr "Lancer un script &Python"
 
 #: translations/xrc.cpp:381 xrc.cpp:381
 msgid "Run a python script"
@@ -4521,7 +4511,6 @@ msgid "Full Screen"
 msgstr "Plein écran"
 
 #: translations/xrc.cpp:384 xrc.cpp:384
-#, fuzzy
 msgid "Shows Hugin's main window on full screen"
 msgstr "Afficher la fenêtre principale de Hugin en plein écran"
 
@@ -5029,7 +5018,6 @@ msgid "Vignetting (Vb, Vc, Vd):"
 msgstr "Vignetage (Vb, Vc, Vd) :"
 
 #: translations/xrc.cpp:547 xrc.cpp:547
-#, fuzzy
 msgid "Vignetting Center (Vx, Vy):"
 msgstr "Centre du vignetage(Vx, Vy) :"
 
@@ -5416,14 +5404,13 @@ msgid "Number of CPUs:"
 msgstr "Nombre de processeurs :"
 
 #: translations/xrc.cpp:669 xrc.cpp:669
-#, fuzzy
 msgid ""
 "Hugins preview window can use multiple threads for processing.\n"
 "Set this to the number of processors or processor cores available in your "
 "system"
 msgstr ""
-"Nona peut utiliser plusieurs processus légers (« threads ») pour le "
-"traitement\n"
+"La prévisualisation de Hugin peut utiliser plusieurs processus légers "
+"(« threads ») pour le traitement\n"
 "Indiquez ici le nombre de processeurs ou de cœurs que comporte votre système."
 
 #: translations/xrc.cpp:670 xrc.cpp:670
@@ -5495,13 +5482,14 @@ msgid "Automatically align images after loading"
 msgstr "Aligner automatiquement les images après leur chargement"
 
 #: translations/xrc.cpp:687 xrc.cpp:687
-#, fuzzy
 msgid "Detect vertical lines"
-msgstr "Ligne verticale"
+msgstr "Détecter les lignes verticales"
 
 #: translations/xrc.cpp:688 xrc.cpp:688
 msgid "Detects vertical lines in the images to level the pano"
 msgstr ""
+"Détecter les lignes verticales dans les images afin de mettre de niveau le "
+"panorama"
 
 #: translations/xrc.cpp:689 xrc.cpp:689
 msgid "Remove cloud-like control points (Celeste)"
@@ -5514,7 +5502,7 @@ msgstr ""
 
 #: translations/xrc.cpp:691 xrc.cpp:691
 msgid "Optional assistant steps"
-msgstr ""
+msgstr "Étapes optionnelles de l'assistant"
 
 #: translations/xrc.cpp:692 xrc.cpp:692
 msgid "Auto align"
@@ -5745,7 +5733,7 @@ msgstr ""
 
 #: translations/xrc.cpp:756 xrc.cpp:756
 msgid "The engine that will run the stitch"
-msgstr "Moteur qi effectuera l'assemblage"
+msgstr "Moteur qui effectuera l'assemblage"
 
 #: translations/xrc.cpp:757 xrc.cpp:757
 msgid "Start stitching jobs immediately"
@@ -5784,7 +5772,7 @@ msgstr "Écraser les images existantes"
 
 #: translations/xrc.cpp:762 xrc.cpp:762
 msgid "WARNING: existing files with be silently overwritten."
-msgstr "ATTENTION : les fichiers existants seront écrasés silencieusement."
+msgstr "ATTENTION : les fichiers existants seront écrasés silencieusement."
 
 #: translations/xrc.cpp:763 xrc.cpp:763
 msgid "Verbose Output"
@@ -5799,34 +5787,32 @@ msgstr ""
 "pour visualiser l'avancement du projet."
 
 #: translations/xrc.cpp:766 xrc.cpp:766
-#, fuzzy
 msgid "Advanced options"
 msgstr "Options avancées"
 
 #: translations/xrc.cpp:767 xrc.cpp:767
 msgid "Copy metadata into final files using ExifTool"
-msgstr ""
+msgstr "Copier les métadonnées dans le fichier final en utilisant ExifTool"
 
 #: translations/xrc.cpp:768 xrc.cpp:768
-#, fuzzy
 msgid "Number of threads:"
-msgstr "Nombre de masques"
+msgstr "Nombre de processus :"
 
 #: translations/xrc.cpp:769 xrc.cpp:769
-#, fuzzy
 msgid ""
 "Nona and the OpenMP enabled enblend/enfuse can use multiple threads for "
 "processing.\n"
 "Set this number maximal to the number of processors or processor cores "
 "available in your system"
 msgstr ""
-"Nona peut utiliser plusieurs processus légers (« threads ») pour le "
-"traitement\n"
-"Indiquez ici le nombre de processeurs ou de cœurs que comporte votre système."
+"Nona et enblend/enfuse avec OpenNP validé peuvent utiliser plusieurs "
+"processus légers (« threads ») pour le traitement\n"
+"Indiquez ici le nombre de processeurs ou de cœurs disponibles sur votre "
+"système."
 
 #: translations/xrc.cpp:770 xrc.cpp:770
 msgid "0 for automatic detection"
-msgstr ""
+msgstr "0 pour détection automatique"
 
 #: translations/xrc.cpp:771 xrc.cpp:771
 msgid "Stitching"
@@ -5861,14 +5847,14 @@ msgid "Default Arguments:"
 msgstr "Paramètres par défaut :"
 
 #: translations/xrc.cpp:789 translations/xrc.cpp:795 xrc.cpp:789 xrc.cpp:795
-#, fuzzy
 msgid ""
 "These are the default arguments for new projects.\n"
 "They can be changed for individual projects in the Stitcher tab.\n"
 "Do not set -w, -o and --compression arguments, they are set by hugin"
 msgstr ""
-"Ce sont les paramètres par défaut. Ils peuvent être modifiés pour chacun des "
-"projets dans l'onglet d'assemblage.\n"
+"Ce sont les paramètres par défaut pour les nouveaux projets.\n"
+"Ils peuvent être modifiés pour chacun des projets dans l'onglet "
+"d'assemblage.\n"
 "Ne pas définir les paramètres -w, -o et --compression, ils sont définis par "
 "hugin"
 
@@ -6089,7 +6075,6 @@ msgid "Scale:"
 msgstr "Échelle :"
 
 #: translations/xrc.cpp:867 translations/xrc.cpp:940 xrc.cpp:867 xrc.cpp:940
-#, fuzzy
 msgid ""
 "* A gray line indicates there are no control points, but the image pair "
 "overlaps.\n"
@@ -6120,44 +6105,43 @@ msgstr "×"
 #: translations/xrc.cpp:947 translations/xrc.cpp:962 translations/xrc.cpp:981
 #: xrc.cpp:873 xrc.cpp:885 xrc.cpp:903 xrc.cpp:947 xrc.cpp:962 xrc.cpp:981
 msgid "Guides:"
-msgstr ""
+msgstr "Guides :"
 
 #: translations/xrc.cpp:875 translations/xrc.cpp:887 translations/xrc.cpp:905
 #: translations/xrc.cpp:949 translations/xrc.cpp:964 translations/xrc.cpp:983
 #: xrc.cpp:875 xrc.cpp:887 xrc.cpp:905 xrc.cpp:949 xrc.cpp:964 xrc.cpp:983
 msgid "Rule of third"
-msgstr ""
+msgstr "Règle des tiers"
 
 #: translations/xrc.cpp:876 translations/xrc.cpp:888 translations/xrc.cpp:906
 #: translations/xrc.cpp:950 translations/xrc.cpp:965 translations/xrc.cpp:984
 #: xrc.cpp:876 xrc.cpp:888 xrc.cpp:906 xrc.cpp:950 xrc.cpp:965 xrc.cpp:984
-#, fuzzy
 msgid "Golden ratio"
-msgstr "Nom_dossier.pto"
+msgstr "Nombre d'or"
 
 #: translations/xrc.cpp:877 translations/xrc.cpp:889 translations/xrc.cpp:907
 #: translations/xrc.cpp:951 translations/xrc.cpp:966 translations/xrc.cpp:985
 #: xrc.cpp:877 xrc.cpp:889 xrc.cpp:907 xrc.cpp:951 xrc.cpp:966 xrc.cpp:985
 msgid "Diagonal"
-msgstr ""
+msgstr "Diagonale"
 
 #: translations/xrc.cpp:878 translations/xrc.cpp:890 translations/xrc.cpp:908
 #: translations/xrc.cpp:952 translations/xrc.cpp:967 translations/xrc.cpp:986
 #: xrc.cpp:878 xrc.cpp:890 xrc.cpp:908 xrc.cpp:952 xrc.cpp:967 xrc.cpp:986
 msgid "Diagonal method"
-msgstr ""
+msgstr "Méthode diagonale"
 
 #: translations/xrc.cpp:879 translations/xrc.cpp:891 translations/xrc.cpp:909
 #: translations/xrc.cpp:953 translations/xrc.cpp:968 translations/xrc.cpp:987
 #: xrc.cpp:879 xrc.cpp:891 xrc.cpp:909 xrc.cpp:953 xrc.cpp:968 xrc.cpp:987
 msgid "Golden triangle (down)"
-msgstr ""
+msgstr "Triangle d'or (vers le bas)"
 
 #: translations/xrc.cpp:880 translations/xrc.cpp:892 translations/xrc.cpp:910
 #: translations/xrc.cpp:954 translations/xrc.cpp:969 translations/xrc.cpp:988
 #: xrc.cpp:880 xrc.cpp:892 xrc.cpp:910 xrc.cpp:954 xrc.cpp:969 xrc.cpp:988
 msgid "Golden triangle (up)"
-msgstr ""
+msgstr "Triangle d'or (vers le haut)"
 
 #: translations/xrc.cpp:883 translations/xrc.cpp:960 xrc.cpp:883 xrc.cpp:960
 msgid "Automatically straighten a wavy horizon."
@@ -6398,7 +6382,7 @@ msgid ""
 "Editing the panorama in multiple layers with The Gimp or Photoshop offers "
 "many creative possibilities."
 msgstr ""
-"Éditer le panorama dans plusisurs calques avec The Gimp ou Photoshop offre "
+"Éditer le panorama dans plusieurs calques avec The Gimp ou Photoshop offre "
 "de nombreuses possibilités créatives."
 
 #: hugin1/hugin/xrc/data/tips.txt:22
@@ -6407,8 +6391,8 @@ msgid ""
 "information about creating panoramas and other images with panotools."
 msgstr ""
 "Le wiki de PanoTools se trouvant à http://wiki.panotools.org offre des "
-"information permettant la compréhesion de la création de panoramas et "
-"d'autres images avec panotools."
+"informations complètes concernant la création de panoramas et d'autres "
+"images avec panotools."
 
 #: hugin1/hugin/xrc/data/tips.txt:23
 msgid "The multilayer tiff file output can be read by The Gimp 2.0 or higher."
@@ -6422,11 +6406,11 @@ msgid ""
 "tab."
 msgstr ""
 "Le bouton du milieu de la souris peut être utilisé pour faire défiler une "
-"iimage dans l'onglet des points de contrôle."
+"image dans l'onglet des points de contrôle."
 
 #: hugin1/hugin/xrc/data/tips.txt:25
 msgid "The \"f\" key is the shortcut for Fine Tune button."
-msgstr "La touche « f » est un raccourci du bouton « Ajustement précis »."
+msgstr "La touche « f » est un raccourci du bouton « Ajustement précis »."
 
 #: hugin1/hugin/xrc/data/tips.txt:26
 msgid "Pressing \"Del\" will remove the currently selected control point."
@@ -6443,7 +6427,7 @@ msgstr ""
 #: hugin1/hugin/xrc/data/tips.txt:28
 msgid "Press \"1\" in the control points tab to zoom out to 100% view."
 msgstr ""
-"Presser « 1 » dans l’onglet des points de contrôle pour effectuer un zoom à "
+"Presser « 1 » dans l'onglet des points de contrôle pour effectuer un zoom à "
 "100%"
 
 #: hugin1/hugin/xrc/data/tips.txt:29
@@ -6453,7 +6437,7 @@ msgid ""
 "retouch the panorama in The Gimp or Photoshop."
 msgstr ""
 "Après que enblend a fusionné le panorama, les images de sorties reformatées "
-"(disponible dans le mêmz répertoire que l'image du panorama) peut être "
+"(disponible dans le même répertoire que l'image du panorama) peut être "
 "utilisé pour retoucher le panorama dans The Gimp ou Photoshop."
 
 #: hugin1/hugin/xrc/data/tips.txt:30
@@ -6503,53 +6487,85 @@ msgid ""
 "Optimization of all distortion parameters \"everything\" makes only sense "
 "with heavily overlapping images and many well distributed control points."
 msgstr ""
-"Optimisation de tous les paramètres, « tout » n'a de sens que pour des "
+"Optimisation de tous les paramètres, « tout » n'a de sens que pour des "
 "images ayant un important recouvrement et des points de contrôle nombreux "
 "bien distribués."
 
+msgid "Plugin dir:"
+msgstr "Répertoire d'extensions :"
+
+msgid "(where you store your customized plugins)"
+msgstr "(emplacement où se trouvent vos extensions personnelles"
+
+msgid "Saves and sends the project to the batch, to be picked up by PTBatcher"
+msgstr ""
+"Enregistrer le projet et l'envoyer dans la pile pour traitement par lots, il "
+"sera récupéré par PTBatcher"
+
+msgid "Save Project and Send to Batch"
+msgstr "Enregistrer le projet et l'envoyer pour traitement par lots"
+
+msgid "Everything"
+msgstr "tout"
+
+msgid "Cannot load image: "
+msgstr "Impossible de charger l'image : "
+
+msgid "Creating pyramid image for %s, level %d"
+msgstr "Création de l'image pyramide pour %s, niveau %d"
+
+msgid "Close window after running script"
+msgstr "Fermer la fenêtre après avoir exécuté le script"
+
+msgid "Quit on finish"
+msgstr "Quitter une fois terminé"
+
+msgid "Quit batch processor at the end of the batch."
+msgstr "Quitter le processeur de traitement par lots à la fin du lot"
+
+msgid "#000000"
+msgstr "#000000"
+
+msgid "Flip"
+msgstr "Retourner"
+
+msgid "Flip the overview inside out."
+msgstr "Retourner l'aperçu, intérieur vers extérieur."
+
+#, fuzzy
 #~ msgid "Add project to queue..."
-#~ msgstr "Ajouter un projet à la file d'attente..."
+#~ msgstr "Ajouter le projet à la file de traitement par lots."
 
+#, fuzzy
 #~ msgid "Delete *.pto files"
-#~ msgstr "Supprimer les fichiers .pto"
+#~ msgstr "Effacer les points de contrôle"
 
+#, fuzzy
 #~ msgid "Add project..."
-#~ msgstr "Ajouter un projet..."
+#~ msgstr "Ajouter un ou des projet(s)"
 
+#, fuzzy
 #~ msgid "Adds a project to the batch list."
-#~ msgstr "Ajouter un projet à la liste de traitement par lots."
+#~ msgstr ""
+#~ "Ajouter un ou des fichiers de projet à la liste de traitement par lots"
 
+#, fuzzy
 #~ msgid "Feature Matching (Autopano)"
-#~ msgstr "Correspondance d'éléments (Autopano)"
+#~ msgstr "Correspondance de motifs"
 
-#~ msgid "Plugin dir:"
-#~ msgstr "Répertoire d'extensions :"
-
-#~ msgid "(where you store your customized plugins)"
-#~ msgstr "(emplacement où se trouvent vos extensions personnelles"
-
+#, fuzzy
 #~ msgid "Automatic control point checking after detecting control points"
 #~ msgstr ""
-#~ "Vérification automatique des points de contrôle après leur détection"
+#~ "Ajouter immédiatement le point de contrôle lors de la sélection d'un "
+#~ "second point"
 
-#~ msgid ""
-#~ "Saves and sends the project to the batch, to be picked up by PTBatcher"
-#~ msgstr ""
-#~ "Enregistrer le projet et l'envoyer dans la pile pour traitement par lots, "
-#~ "il sera récupéré par PTBatcher"
-
-#~ msgid "Save Project and Send to Batch"
-#~ msgstr "Enregistrer le projet et l'envoyer pour traitement par lots"
-
-#~ msgid "Everything"
-#~ msgstr "tout"
-
+#, fuzzy
 #~ msgid "Control point finetune"
-#~ msgstr "Ajuster précisément les points de contrôle"
+#~ msgstr "Table des points de &contrôle"
 
 #, fuzzy
 #~ msgid "Added project "
-#~ msgstr "Ajouter un projet..."
+#~ msgstr "Ajouter un ou des projet(s)"
 
 #, fuzzy
 #~ msgid "Dedication"
@@ -6579,23 +6595,21 @@ msgstr ""
 #~ msgid "Stitch Now..."
 #~ msgstr "Assembler cependant"
 
+#, fuzzy
 #~ msgid "Loading image %s"
-#~ msgstr "Chargement de l'image %s"
+#~ msgstr "Chargement des images"
 
+#, fuzzy
 #~ msgid "Error reading image: %s"
-#~ msgstr "Erreur lors de la lecture de l'image : %s"
+#~ msgstr "Chargement des images"
 
-#~ msgid "Cannot load image: "
-#~ msgstr "Impossible de charger l'image : "
-
+#, fuzzy
 #~ msgid "Scaling image %s"
-#~ msgstr "Mise à l'échelle de l'image %s"
+#~ msgstr "Chargement des images"
 
+#, fuzzy
 #~ msgid "Creating grayscale %s"
-#~ msgstr "Création d'une échelle de gris %s"
-
-#~ msgid "Creating pyramid image for %s, level %d"
-#~ msgstr "Création de l'image pyramide pour %s, niveau %d"
+#~ msgstr "Système d'exploitation : %s"
 
 #, fuzzy
 #~ msgid "overview"
@@ -6605,44 +6619,34 @@ msgstr ""
 #~ msgid "Exposure:"
 #~ msgstr "Exposition"
 
+#, fuzzy
 #~ msgid "Really delete %lu control points?"
 #~ msgstr "Voulez-vous vraiment supprimer %lu points de contrôle ?"
 
+#, fuzzy
 #~ msgid "Stacks"
-#~ msgstr "Piles"
+#~ msgstr "Piles :"
 
+#, fuzzy
 #~ msgid "Control points"
 #~ msgstr "Points de contrôle"
 
+#, fuzzy
 #~ msgid "Control point detectors"
-#~ msgstr "Détecteurs de points de contrôle"
+#~ msgstr "Générateur de points de contrôle"
 
+#, fuzzy
 #~ msgid "Remove control points"
-#~ msgstr "Supprimer les points de contrôle"
+#~ msgstr "%d points de contrôle ont été supprimés"
 
+#, fuzzy
 #~ msgid "Running Python script"
-#~ msgstr "Exécution du script Python"
+#~ msgstr "Lancer un script &Python"
 
-#~ msgid "Close window after running script"
-#~ msgstr "Fermer la fenêtre après avoir exécuté le script"
-
+#, fuzzy
 #~ msgid "Quit when done"
-#~ msgstr "Quitter une fois terminé"
-
-#~ msgid "Quit on finish"
-#~ msgstr "Quitter une fois terminé"
-
-#~ msgid "Quit batch processor at the end of the batch."
-#~ msgstr "Quitter le processeur de traitement par lots à la fin du lot"
-
-#~ msgid "Shutdown on finish"
 #~ msgstr "Arrêter une fois terminé"
 
-#~ msgid "#000000"
-#~ msgstr "#000000"
-
-#~ msgid "Flip"
-#~ msgstr "Retourner"
-
-#~ msgid "Flip the overview inside out."
-#~ msgstr "Retourner l'aperçu, intérieur vers extérieur."
+#, fuzzy
+#~ msgid "Shutdown on finish"
+#~ msgstr "Arrêter une fois terminé"
