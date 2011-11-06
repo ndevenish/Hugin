@@ -26,10 +26,6 @@ Run batch immediately
 
 Run batch projects in parallel
 
-=item B<-d|--delete>
-
-Delete *.pto files after stitching
-
 =item B<-o|--overwrite>
 
 Overwrite previous files without asking
@@ -42,8 +38,12 @@ Shutdown computer after batch is complete
 
 Show verbose output when processing projects
 
+=item B<-a|--assistant>
+
+Run the assistant on the given projects
+
 =back
 
 =head1 AUTHORS
 
-Written by Pablo d'Angelo, Marko Kuder and others.
+Written by Pablo d'Angelo, Marko Kuder, Thomas Modes and others.
