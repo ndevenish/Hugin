@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: da\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
 "POT-Creation-Date: 2011-10-21 22:38+0200\n"
-"PO-Revision-Date: 2011-08-26 16:36+0100\n"
+"PO-Revision-Date: 2011-11-05 20:43+0100\n"
 "Last-Translator: Thomas Pryds <thomas@pryds.eu>\n"
 "Language-Team: danish <da@li.org>\n"
 "Language: \n"
@@ -485,9 +485,8 @@ msgid "Path to data: %s"
 msgstr "Sti til data: %s"
 
 #: hugin1/hugin/AboutDialog.cpp:176
-#, fuzzy
 msgid "Libraries"
-msgstr "Mapper"
+msgstr "Biblioteker"
 
 #: hugin1/hugin/AssistantPanel.cpp:224
 msgid "Please load images by pressing on the Load images button."
@@ -603,17 +602,16 @@ msgstr ""
 "projektfil."
 
 #: hugin1/hugin/AssistantPanel.cpp:491
-#, fuzzy
 msgid "Project file not found"
-msgstr "Billedfil ikke fundet"
+msgstr "Projektfil ikke fundet"
 
 #: hugin1/hugin/AssistantPanel.cpp:503
 msgid "Can't launch PTBatcherGui"
-msgstr ""
+msgstr "Kan ikke køre PTBatcherGui"
 
 #: hugin1/hugin/AssistantPanel.cpp:509
 msgid "Launched incorrect programme"
-msgstr ""
+msgstr "Kørte ukorrekt program"
 
 #: hugin1/hugin/CPDetectorDialog.cpp:93
 msgid "Autopano from http://autopano.kolor.com is not available for OSX"
@@ -1022,7 +1020,6 @@ msgid "mosaic, individual"
 msgstr "mosaik, individuel"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:639
-#, fuzzy
 msgid "Resets the projection's parameters to their default values."
 msgstr "Nulstiller projektionens parametre til deres udgangspunkt."
 
@@ -1079,12 +1076,11 @@ msgstr "Værdi skal være numerisk."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1597
 msgid "Do you want to keep the current non-zero translation parameters?"
-msgstr ""
+msgstr "Vil du beholde de aktuelle translateringsparametre, der ikke er nul?"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1598
-#, fuzzy
 msgid "Keep XYZ parameters?"
-msgstr "Nulstil XYZ-parametre?"
+msgstr "Behold XYZ-parametre?"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1682
 msgid ""
@@ -1642,6 +1638,9 @@ msgid ""
 "This file can't be open with File, Open.\n"
 "Do you want instead add this image file to the current project?"
 msgstr ""
+"Filen %s er en billedfil og ikke en projektfil.\n"
+"Denne fil kan ikke indlæses med Fil, Indlæs.\n"
+"Vil du i stedet tilføje dette billede til det aktuelle projekt?"
 
 #: hugin1/hugin/MainFrame.cpp:899
 msgid "Open project: cancel"
@@ -2142,9 +2141,8 @@ msgid "Czech"
 msgstr "Tjekkisk"
 
 #: hugin1/hugin/PreferencesDialog.cpp:135
-#, fuzzy
 msgid "Danish"
-msgstr "Spansk"
+msgstr "Dansk"
 
 #: hugin1/hugin/PreferencesDialog.cpp:138
 msgid "Dutch"
@@ -2740,9 +2738,8 @@ msgid "Not doing much..."
 msgstr "Udfører ikke så meget..."
 
 #: hugin1/ptbatcher/BatchFrame.cpp:161 hugin1/ptbatcher/BatchFrame.cpp:171
-#, fuzzy
 msgid "Hugin's Batch processor"
-msgstr "Hugin jobliste-processor"
+msgstr "Hugins jobliste-processor"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:315
 msgid "Please enter the command-line application to execute:"
@@ -2899,14 +2896,12 @@ msgid "Stop batch"
 msgstr "Stop jobliste"
 
 #: hugin1/ptbatcher/BatchTrayIcon.cpp:76 translations/xrc.cpp:76 xrc.cpp:76
-#, fuzzy
 msgid "Add project to stitching queue..."
-msgstr "Tilføj projekt %s til sammenføjningskø."
+msgstr "Tilføj projekt til sammenføjningskø..."
 
 #: hugin1/ptbatcher/BatchTrayIcon.cpp:77 translations/xrc.cpp:78 xrc.cpp:78
-#, fuzzy
 msgid "Add project to assistant queue..."
-msgstr "Tilføj projekt %s til assistentkø."
+msgstr "Tilføj projekt til assistentkø..."
 
 #: hugin1/ptbatcher/BatchTrayIcon.cpp:81
 msgid "E&xit"
@@ -3264,33 +3259,32 @@ msgstr "Paralleludførsel"
 
 #: translations/xrc.cpp:44 xrc.cpp:44
 msgid "Stitch several projects parallel."
-msgstr ""
+msgstr "Sammenføj adskillige projekter parallelt."
 
 #: translations/xrc.cpp:45 xrc.cpp:45
 msgid "Overwrite always"
 msgstr "Overskriv altid"
 
 #: translations/xrc.cpp:46 xrc.cpp:46
-#, fuzzy
 msgid "Overwrite existing image files without further notice."
-msgstr "Overskriv eksisterende billedfiler?"
+msgstr "Overskriv eksisterende billedfiler uden yderligere besked."
 
 #: translations/xrc.cpp:47 xrc.cpp:47
-#, fuzzy
 msgid "Remove finished project"
-msgstr "Fjernede projekt"
+msgstr "Fjern færdiggjort projekt"
 
 #: translations/xrc.cpp:48 xrc.cpp:48
 msgid "Automatic remove successfully finished projects from queue."
-msgstr ""
+msgstr "Fjern automatisk succesfuldt endte projekter fra køen."
 
 #: translations/xrc.cpp:49 xrc.cpp:49
 msgid "Automatic stitch after assistant"
-msgstr ""
+msgstr "Sammenføj automatisk efter assistent"
 
 #: translations/xrc.cpp:50 xrc.cpp:50
 msgid "Automatic stitch projects after (successful) running assistant."
 msgstr ""
+"Sammenføj automatisk projekter efter (succesfuld) kørsel af assistenten."
 
 #: translations/xrc.cpp:51 xrc.cpp:51
 msgid "Shutdown when done"
@@ -3298,16 +3292,15 @@ msgstr "Luk ned efter kørsel"
 
 #: translations/xrc.cpp:52 xrc.cpp:52
 msgid "Shutdown computer if all tasks are finished"
-msgstr ""
+msgstr "Luk computeren ned, hvis alle opgaver er færdiggjorte"
 
 #: translations/xrc.cpp:53 xrc.cpp:53
 msgid "Verbose output"
 msgstr "Uddybende output"
 
 #: translations/xrc.cpp:54 xrc.cpp:54
-#, fuzzy
 msgid "Show detailed output in separate window."
-msgstr "Vil OpenGL-preview-vinduet"
+msgstr "Vis detaljeret output i separat vindue."
 
 #: translations/xrc.cpp:55 xrc.cpp:55
 msgid "Directories"
@@ -3391,14 +3384,12 @@ msgid "&File"
 msgstr "&Fil"
 
 #: translations/xrc.cpp:77 xrc.cpp:77
-#, fuzzy
 msgid "Adds a project to the stitching queue"
-msgstr "Tilføj projekt %s til sammenføjningskø."
+msgstr "Tilføjer et projekt til sammenføjningskø"
 
 #: translations/xrc.cpp:79 xrc.cpp:79
-#, fuzzy
 msgid "Adds a project to the assistant queue"
-msgstr "Tilføj projekt %s til assistentkø."
+msgstr "Tilføjer et projekt til assistentkø"
 
 #: translations/xrc.cpp:80 translations/xrc.cpp:123 xrc.cpp:80 xrc.cpp:123
 msgid "Remove project"
@@ -3938,9 +3929,8 @@ msgid "Reset position of selected image(s)"
 msgstr "Nulstil position for valgte billede(r)"
 
 #: translations/xrc.cpp:229 xrc.cpp:229
-#, fuzzy
 msgid "Feature Matching"
-msgstr "Kendetegnssammenligner:"
+msgstr "Kendetegnssammenligning"
 
 #: translations/xrc.cpp:230 xrc.cpp:230
 msgid "Settings:"
@@ -3999,9 +3989,8 @@ msgid "Camera Model:"
 msgstr "Kameramodel:"
 
 #: translations/xrc.cpp:244 xrc.cpp:244
-#, fuzzy
 msgid "Lens:"
-msgstr "Objektiv"
+msgstr "Objektiv:"
 
 #: translations/xrc.cpp:245 xrc.cpp:245
 msgid "Capture Date:"
@@ -4422,9 +4411,8 @@ msgid "Add another image to the current project"
 msgstr "Tilføj endnu et billede til det aktuelle projekt"
 
 #: translations/xrc.cpp:380 xrc.cpp:380
-#, fuzzy
 msgid "Run &Python script"
-msgstr "Kør bruger-&Python-script"
+msgstr "Kør &Python-script"
 
 #: translations/xrc.cpp:381 xrc.cpp:381
 msgid "Run a python script"
@@ -4439,7 +4427,6 @@ msgid "Full Screen"
 msgstr "Fuld skærm"
 
 #: translations/xrc.cpp:384 xrc.cpp:384
-#, fuzzy
 msgid "Shows Hugin's main window on full screen"
 msgstr "Viser Hugins hovedvindue i fuld skærm"
 
@@ -4465,7 +4452,7 @@ msgstr "&Hurtig preview-vindue"
 
 #: translations/xrc.cpp:390 xrc.cpp:390
 msgid "Show the OpenGL preview window"
-msgstr "Vil OpenGL-preview-vinduet"
+msgstr "Vis OpenGL-preview-vinduet"
 
 #: translations/xrc.cpp:392 xrc.cpp:392
 msgid "Show the Assistant panel"
@@ -4940,7 +4927,6 @@ msgid "Vignetting (Vb, Vc, Vd):"
 msgstr "Vignettering (Vb, Vc, Vd):"
 
 #: translations/xrc.cpp:547 xrc.cpp:547
-#, fuzzy
 msgid "Vignetting Center (Vx, Vy):"
 msgstr "Vignetteringscentrum (Vx, Vy):"
 
@@ -5322,14 +5308,13 @@ msgid "Number of CPUs:"
 msgstr "Antal CPUer:"
 
 #: translations/xrc.cpp:669 xrc.cpp:669
-#, fuzzy
 msgid ""
 "Hugins preview window can use multiple threads for processing.\n"
 "Set this to the number of processors or processor cores available in your "
 "system"
 msgstr ""
-"Nona kan gøre brug af flere tråde til beregning.\n"
-"Sæt dette til det antal af processorer eller processorkerner, der er "
+"Hugins preview-vindue kan gøre brug af flere tråde til beregning.\n"
+"Sæt dette til antallet af processorer eller processorkerner, der er "
 "tilgængeligt på dit system"
 
 #: translations/xrc.cpp:670 xrc.cpp:670
@@ -5401,13 +5386,12 @@ msgid "Automatically align images after loading"
 msgstr "Justér automatisk billeder efter indlæsning"
 
 #: translations/xrc.cpp:687 xrc.cpp:687
-#, fuzzy
 msgid "Detect vertical lines"
-msgstr "lodret linie"
+msgstr "Detektér lodrette linier"
 
 #: translations/xrc.cpp:688 xrc.cpp:688
 msgid "Detects vertical lines in the images to level the pano"
-msgstr ""
+msgstr "Lokalisér lodrette linier i billederne for at levelere panoramaet"
 
 #: translations/xrc.cpp:689 xrc.cpp:689
 msgid "Remove cloud-like control points (Celeste)"
@@ -5419,7 +5403,7 @@ msgstr "Fjern perifere kontrolpunkter efter statistisk metode"
 
 #: translations/xrc.cpp:691 xrc.cpp:691
 msgid "Optional assistant steps"
-msgstr ""
+msgstr "Valgfrie skridt i assistenten"
 
 #: translations/xrc.cpp:692 xrc.cpp:692
 msgid "Auto align"
@@ -5703,34 +5687,32 @@ msgstr ""
 "eller bare se projektets fremgang."
 
 #: translations/xrc.cpp:766 xrc.cpp:766
-#, fuzzy
 msgid "Advanced options"
 msgstr "Avancerede valgmuligheder"
 
 #: translations/xrc.cpp:767 xrc.cpp:767
 msgid "Copy metadata into final files using ExifTool"
-msgstr ""
+msgstr "Kopiér metadata til de endelige filer ved hjælp af ExifTool"
 
 #: translations/xrc.cpp:768 xrc.cpp:768
-#, fuzzy
 msgid "Number of threads:"
-msgstr "Antal masker"
+msgstr "Antal tråde:"
 
 #: translations/xrc.cpp:769 xrc.cpp:769
-#, fuzzy
 msgid ""
 "Nona and the OpenMP enabled enblend/enfuse can use multiple threads for "
 "processing.\n"
 "Set this number maximal to the number of processors or processor cores "
 "available in your system"
 msgstr ""
-"Nona kan gøre brug af flere tråde til beregning.\n"
-"Sæt dette til det antal af processorer eller processorkerner, der er "
-"tilgængeligt på dit system"
+"Nona og de OpenMP-aktiverede enblend/enfuse kan gøre brug af flere tråde til "
+"beregning.\n"
+"Sæt maksimalt dette til antallet af processorer eller processorkerner, der "
+"er tilgængeligt på dit system"
 
 #: translations/xrc.cpp:770 xrc.cpp:770
 msgid "0 for automatic detection"
-msgstr ""
+msgstr "0 for automatisk lokalisering"
 
 #: translations/xrc.cpp:771 xrc.cpp:771
 msgid "Stitching"
@@ -5765,14 +5747,13 @@ msgid "Default Arguments:"
 msgstr "Standardargumenter:"
 
 #: translations/xrc.cpp:789 translations/xrc.cpp:795 xrc.cpp:789 xrc.cpp:795
-#, fuzzy
 msgid ""
 "These are the default arguments for new projects.\n"
 "They can be changed for individual projects in the Stitcher tab.\n"
 "Do not set -w, -o and --compression arguments, they are set by hugin"
 msgstr ""
-"Dette er standardargumenterne. De kan ændres for hvert individuelt projekt i "
-"Sammenføjning-tab'en.\n"
+"Dette er standardargumenterne for nye projekter.\n"
+"De kan ændres for hvert individuelt projekt i Sammenføjning-tab'en.\n"
 "Sæt ikke -w, -o og --compression-argumenterne. De styres af Hugin."
 
 #: translations/xrc.cpp:790 xrc.cpp:790
@@ -5978,7 +5959,7 @@ msgstr "Grå-vælger"
 
 #: translations/xrc.cpp:862 translations/xrc.cpp:935 xrc.cpp:862 xrc.cpp:935
 msgid "Background:"
-msgstr ""
+msgstr "Baggrund:"
 
 #: translations/xrc.cpp:863 translations/xrc.cpp:936 xrc.cpp:863 xrc.cpp:936
 msgid "Grid"
@@ -5989,7 +5970,6 @@ msgid "Scale:"
 msgstr "Skala:"
 
 #: translations/xrc.cpp:867 translations/xrc.cpp:940 xrc.cpp:867 xrc.cpp:940
-#, fuzzy
 msgid ""
 "* A gray line indicates there are no control points, but the image pair "
 "overlaps.\n"
@@ -5997,7 +5977,7 @@ msgid ""
 "* Click a line to edit the associated images in the Control Points tab."
 msgstr ""
 "* En grå linie indikerer, at der ikke er nogen kontrolpunkter, men "
-"billedparet overlapper.\n"
+"billedparret overlapper.\n"
 "* Grønne, gule og røde linier indikerer gode, medium og dårlige "
 "justeringer.\n"
 "* Klik på en linie for at redigere de tilhørende billeder i Kontrolpunkter-"
@@ -6020,44 +6000,43 @@ msgstr "×"
 #: translations/xrc.cpp:947 translations/xrc.cpp:962 translations/xrc.cpp:981
 #: xrc.cpp:873 xrc.cpp:885 xrc.cpp:903 xrc.cpp:947 xrc.cpp:962 xrc.cpp:981
 msgid "Guides:"
-msgstr ""
+msgstr "Guider:"
 
 #: translations/xrc.cpp:875 translations/xrc.cpp:887 translations/xrc.cpp:905
 #: translations/xrc.cpp:949 translations/xrc.cpp:964 translations/xrc.cpp:983
 #: xrc.cpp:875 xrc.cpp:887 xrc.cpp:905 xrc.cpp:949 xrc.cpp:964 xrc.cpp:983
 msgid "Rule of third"
-msgstr ""
+msgstr "Tredjedelsreglen"
 
 #: translations/xrc.cpp:876 translations/xrc.cpp:888 translations/xrc.cpp:906
 #: translations/xrc.cpp:950 translations/xrc.cpp:965 translations/xrc.cpp:984
 #: xrc.cpp:876 xrc.cpp:888 xrc.cpp:906 xrc.cpp:950 xrc.cpp:965 xrc.cpp:984
-#, fuzzy
 msgid "Golden ratio"
-msgstr "Mappenavn.pto"
+msgstr "Det gyldne snit"
 
 #: translations/xrc.cpp:877 translations/xrc.cpp:889 translations/xrc.cpp:907
 #: translations/xrc.cpp:951 translations/xrc.cpp:966 translations/xrc.cpp:985
 #: xrc.cpp:877 xrc.cpp:889 xrc.cpp:907 xrc.cpp:951 xrc.cpp:966 xrc.cpp:985
 msgid "Diagonal"
-msgstr ""
+msgstr "Diagonal"
 
 #: translations/xrc.cpp:878 translations/xrc.cpp:890 translations/xrc.cpp:908
 #: translations/xrc.cpp:952 translations/xrc.cpp:967 translations/xrc.cpp:986
 #: xrc.cpp:878 xrc.cpp:890 xrc.cpp:908 xrc.cpp:952 xrc.cpp:967 xrc.cpp:986
 msgid "Diagonal method"
-msgstr ""
+msgstr "Diagonalmetoden"
 
 #: translations/xrc.cpp:879 translations/xrc.cpp:891 translations/xrc.cpp:909
 #: translations/xrc.cpp:953 translations/xrc.cpp:968 translations/xrc.cpp:987
 #: xrc.cpp:879 xrc.cpp:891 xrc.cpp:909 xrc.cpp:953 xrc.cpp:968 xrc.cpp:987
 msgid "Golden triangle (down)"
-msgstr ""
+msgstr "Den gyldne trekant (ned)"
 
 #: translations/xrc.cpp:880 translations/xrc.cpp:892 translations/xrc.cpp:910
 #: translations/xrc.cpp:954 translations/xrc.cpp:969 translations/xrc.cpp:988
 #: xrc.cpp:880 xrc.cpp:892 xrc.cpp:910 xrc.cpp:954 xrc.cpp:969 xrc.cpp:988
 msgid "Golden triangle (up)"
-msgstr ""
+msgstr "Den gyldne trekant (op)"
 
 #: translations/xrc.cpp:883 translations/xrc.cpp:960 xrc.cpp:883 xrc.cpp:960
 msgid "Automatically straighten a wavy horizon."
