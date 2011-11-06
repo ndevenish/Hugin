@@ -28,8 +28,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cs_CZ\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
-"POT-Creation-Date: 2011-10-21 22:38+0200\n"
-"PO-Revision-Date: 2011-08-13 22:08+0100\n"
+"POT-Creation-Date: 2011-11-06 11:33+0100\n"
+"PO-Revision-Date: 2011-11-06 11:27+0100\n"
 "Last-Translator: Václav Černý <vatoz@seznam.cz>\n"
 "Language-Team: Čeština\n"
 "Language: \n"
@@ -119,43 +119,43 @@ msgstr ""
 msgid "Warning"
 msgstr "Varování"
 
-#: hugin1/base_wx/LensTools.cpp:37 hugin1/hugin/ImagesList.cpp:573
+#: hugin1/base_wx/LensTools.cpp:37 hugin1/hugin/ImagesList.cpp:608
 msgid "Normal (rectilinear)"
 msgstr "Obyčejný (rectilineární)"
 
-#: hugin1/base_wx/LensTools.cpp:38 hugin1/hugin/ImagesList.cpp:574
+#: hugin1/base_wx/LensTools.cpp:38 hugin1/hugin/ImagesList.cpp:609
 msgid "Panoramic (cylindrical)"
 msgstr "Panoramatický (cylindrický)"
 
-#: hugin1/base_wx/LensTools.cpp:39 hugin1/hugin/ImagesList.cpp:575
+#: hugin1/base_wx/LensTools.cpp:39 hugin1/hugin/ImagesList.cpp:610
 msgid "Circular fisheye"
 msgstr "Kruhové rybí oko"
 
-#: hugin1/base_wx/LensTools.cpp:40 hugin1/hugin/ImagesList.cpp:576
+#: hugin1/base_wx/LensTools.cpp:40 hugin1/hugin/ImagesList.cpp:611
 msgid "Full frame fisheye"
 msgstr "Plnosnímkové rybí oko"
 
 #: hugin1/base_wx/LensTools.cpp:41 hugin1/hugin/GLPreviewFrame.cpp:1288
-#: hugin1/hugin/ImagesList.cpp:577 hugin1/hugin/PreviewFrame.cpp:618
+#: hugin1/hugin/ImagesList.cpp:612 hugin1/hugin/PreviewFrame.cpp:618
 msgid "Equirectangular"
 msgstr "Equirectangular"
 
-#: hugin1/base_wx/LensTools.cpp:42 hugin1/hugin/ImagesList.cpp:578
+#: hugin1/base_wx/LensTools.cpp:42 hugin1/hugin/ImagesList.cpp:613
 #: hugin1/hugin/PanoPanel.cpp:157
 msgid "Orthographic"
 msgstr "Ortografické"
 
-#: hugin1/base_wx/LensTools.cpp:43 hugin1/hugin/ImagesList.cpp:579
+#: hugin1/base_wx/LensTools.cpp:43 hugin1/hugin/ImagesList.cpp:614
 #: hugin1/hugin/PanoPanel.cpp:147
 msgid "Stereographic"
 msgstr "Stereografické"
 
-#: hugin1/base_wx/LensTools.cpp:44 hugin1/hugin/ImagesList.cpp:580
+#: hugin1/base_wx/LensTools.cpp:44 hugin1/hugin/ImagesList.cpp:615
 #: hugin1/hugin/PanoPanel.cpp:158
 msgid "Equisolid"
 msgstr "Equisolid"
 
-#: hugin1/base_wx/LensTools.cpp:45 hugin1/hugin/ImagesList.cpp:581
+#: hugin1/base_wx/LensTools.cpp:45 hugin1/hugin/ImagesList.cpp:616
 msgid "Fisheye Thoby"
 msgstr "Rybí oko Thoby"
 
@@ -505,9 +505,8 @@ msgid "Path to data: %s"
 msgstr "Cesta k datům: %s"
 
 #: hugin1/hugin/AboutDialog.cpp:176
-#, fuzzy
 msgid "Libraries"
-msgstr "Adresáře"
+msgstr "Knihovny"
 
 #: hugin1/hugin/AssistantPanel.cpp:224
 msgid "Please load images by pressing on the Load images button."
@@ -831,16 +830,16 @@ msgstr ""
 
 #: hugin1/hugin/CPEditorPanel.cpp:1788 hugin1/hugin/CPEditorPanel.cpp:1810
 #: hugin1/hugin/CPEditorPanel.cpp:1827 hugin1/hugin/CPEditorPanel.cpp:1836
-#: hugin1/hugin/ImagesPanel.cpp:1051 hugin1/hugin/ImagesPanel.cpp:1080
-#: hugin1/hugin/ImagesPanel.cpp:1105 hugin1/hugin/ImagesPanel.cpp:1115
+#: hugin1/hugin/ImagesPanel.cpp:1077 hugin1/hugin/ImagesPanel.cpp:1106
+#: hugin1/hugin/ImagesPanel.cpp:1131 hugin1/hugin/ImagesPanel.cpp:1141
 msgid "Running Celeste"
 msgstr "Spouštím Celeste"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1789 hugin1/hugin/ImagesPanel.cpp:1052
+#: hugin1/hugin/CPEditorPanel.cpp:1789 hugin1/hugin/ImagesPanel.cpp:1078
 msgid "searching for cloud-like control points..."
 msgstr "hledám mrakům podobné body..."
 
-#: hugin1/hugin/CPEditorPanel.cpp:1790 hugin1/hugin/ImagesPanel.cpp:1053
+#: hugin1/hugin/CPEditorPanel.cpp:1790 hugin1/hugin/ImagesPanel.cpp:1079
 msgid "Loading model file"
 msgstr "Nahrávám soubor modelu"
 
@@ -849,7 +848,7 @@ msgstr "Nahrávám soubor modelu"
 msgid "Removed %d control points"
 msgstr "Odebráno %d kontrolních bodů"
 
-#: hugin1/hugin/CPEditorPanel.cpp:1837 hugin1/hugin/ImagesPanel.cpp:1116
+#: hugin1/hugin/CPEditorPanel.cpp:1837 hugin1/hugin/ImagesPanel.cpp:1142
 msgid "Celeste result"
 msgstr "Výsledky Celeste"
 
@@ -1036,7 +1035,6 @@ msgid "mosaic, individual"
 msgstr "mosaika, individuální"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:639
-#, fuzzy
 msgid "Resets the projection's parameters to their default values."
 msgstr "Obnoví parametry projekcí na výchozí hodnoty."
 
@@ -1093,12 +1091,11 @@ msgstr "Hodnota musí být číselná."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1597
 msgid "Do you want to keep the current non-zero translation parameters?"
-msgstr ""
+msgstr "Chcete ponechat současné nenulové parametry posunu?"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1598
-#, fuzzy
 msgid "Keep XYZ parameters?"
-msgstr "Obnovit XYZ parametry?"
+msgstr "Ponechat XYZ parametry?"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1682
 msgid ""
@@ -1302,77 +1299,77 @@ msgstr "Ohnisková vzdálenost musí být kladná."
 msgid "The crop factor must be positive."
 msgstr "Hodnota ořezu musí být kladná."
 
-#: hugin1/hugin/ImagesList.cpp:406 hugin1/hugin/ImagesList.cpp:534
+#: hugin1/hugin/ImagesList.cpp:441 hugin1/hugin/ImagesList.cpp:569
 msgid "Filename"
 msgstr "název souboru"
 
-#: hugin1/hugin/ImagesList.cpp:407
+#: hugin1/hugin/ImagesList.cpp:442
 msgid "width"
 msgstr "šířka"
 
-#: hugin1/hugin/ImagesList.cpp:408
+#: hugin1/hugin/ImagesList.cpp:443
 msgid "height"
 msgstr "výška"
 
-#: hugin1/hugin/ImagesList.cpp:409
+#: hugin1/hugin/ImagesList.cpp:444
 msgid "yaw (y)"
 msgstr "yaw (y)"
 
-#: hugin1/hugin/ImagesList.cpp:410
+#: hugin1/hugin/ImagesList.cpp:445
 msgid "pitch (p)"
 msgstr "pitch (p)"
 
-#: hugin1/hugin/ImagesList.cpp:411
+#: hugin1/hugin/ImagesList.cpp:446
 msgid "roll (r)"
 msgstr "roll (r)"
 
-#: hugin1/hugin/ImagesList.cpp:412
+#: hugin1/hugin/ImagesList.cpp:447
 msgid "X (TrX)"
 msgstr "X (TrX)"
 
-#: hugin1/hugin/ImagesList.cpp:413
+#: hugin1/hugin/ImagesList.cpp:448
 msgid "Y (TrY)"
 msgstr "Y (TrY)"
 
-#: hugin1/hugin/ImagesList.cpp:414
+#: hugin1/hugin/ImagesList.cpp:449
 msgid "Z (TrZ)"
 msgstr "Z (TrZ)"
 
-#: hugin1/hugin/ImagesList.cpp:415
+#: hugin1/hugin/ImagesList.cpp:450
 msgid "Anchor"
 msgstr "kotva"
 
-#: hugin1/hugin/ImagesList.cpp:416
+#: hugin1/hugin/ImagesList.cpp:451
 msgid "# Ctrl Pnts"
 msgstr "# kon. body"
 
-#: hugin1/hugin/ImagesList.cpp:417
+#: hugin1/hugin/ImagesList.cpp:452
 msgid "Stack Number"
 msgstr "Číslo štosu"
 
-#: hugin1/hugin/ImagesList.cpp:535
+#: hugin1/hugin/ImagesList.cpp:570
 msgid "Lens no."
 msgstr "Objektiv č."
 
-#: hugin1/hugin/ImagesList.cpp:536
+#: hugin1/hugin/ImagesList.cpp:571
 msgid "Lens type (f)"
 msgstr "Typ objektivu  (f)"
 
-#: hugin1/hugin/ImagesList.cpp:537
+#: hugin1/hugin/ImagesList.cpp:572
 msgid "EV"
 msgstr "EV"
 
-#: hugin1/hugin/ImagesList.cpp:538
+#: hugin1/hugin/ImagesList.cpp:573
 msgid "hfov (v)"
 msgstr "hfov (v)"
 
-#: hugin1/hugin/ImagesList.cpp:656 translations/xrc.cpp:339
+#: hugin1/hugin/ImagesList.cpp:691 translations/xrc.cpp:339
 #: translations/xrc.cpp:397 translations/xrc.cpp:917 translations/xrc.cpp:995
 #: xrc.cpp:339 xrc.cpp:397 xrc.cpp:917 xrc.cpp:995
 msgid "Crop"
 msgstr "Výřez"
 
-#: hugin1/hugin/ImagesList.cpp:740
+#: hugin1/hugin/ImagesList.cpp:775
 msgid "Number of masks"
 msgstr "Počet masek"
 
@@ -1410,16 +1407,16 @@ msgstr "Odebráno %u kontrolních bodů"
 msgid "Cleaning"
 msgstr "Čištění"
 
-#: hugin1/hugin/ImagesPanel.cpp:909
+#: hugin1/hugin/ImagesPanel.cpp:913
 #, c-format
 msgid "Really Delete %lu control points?"
 msgstr "Opravdu odebrat %lu kontrolních bodů?"
 
-#: hugin1/hugin/ImagesPanel.cpp:911
+#: hugin1/hugin/ImagesPanel.cpp:915
 msgid "Delete Control Points"
 msgstr "Smazat kontrolní body"
 
-#: hugin1/hugin/ImagesPanel.cpp:989
+#: hugin1/hugin/ImagesPanel.cpp:1015
 msgid ""
 "Your project must have at least two stacks before you can assign images to a "
 "different stack."
@@ -1427,19 +1424,19 @@ msgstr ""
 "Projekt musí mít nejméně dva štosy než budete moci přiřazovat obrázky do "
 "odlišného štosu."
 
-#: hugin1/hugin/ImagesPanel.cpp:993
+#: hugin1/hugin/ImagesPanel.cpp:1019
 msgid "Enter new stack number"
 msgstr "Zadejte nové číslo štosu"
 
-#: hugin1/hugin/ImagesPanel.cpp:994
+#: hugin1/hugin/ImagesPanel.cpp:1020
 msgid "stack number"
 msgstr "číslo štosu"
 
-#: hugin1/hugin/ImagesPanel.cpp:995
+#: hugin1/hugin/ImagesPanel.cpp:1021
 msgid "Change stack number"
 msgstr "Změnit číslo štosu"
 
-#: hugin1/hugin/ImagesPanel.cpp:1116
+#: hugin1/hugin/ImagesPanel.cpp:1142
 #, c-format
 msgid "Removed %lu control points"
 msgstr "Odebráno %lu kontrolních bodů"
@@ -1646,6 +1643,9 @@ msgid ""
 "This file can't be open with File, Open.\n"
 "Do you want instead add this image file to the current project?"
 msgstr ""
+"Soubor %s je obrázek a nikoli projekt.\n"
+"Proto nemůže být otevřen pomocí nabídky Soubor -> Otevřít.\n"
+"Chcete tento obrázek namísto toho přidat do aktuálního projektu?"
 
 #: hugin1/hugin/MainFrame.cpp:899
 msgid "Open project: cancel"
@@ -2143,9 +2143,8 @@ msgid "Czech"
 msgstr "Čeština"
 
 #: hugin1/hugin/PreferencesDialog.cpp:135
-#, fuzzy
 msgid "Danish"
-msgstr "Španělština"
+msgstr "Dánština"
 
 #: hugin1/hugin/PreferencesDialog.cpp:138
 msgid "Dutch"
@@ -2899,14 +2898,12 @@ msgid "Stop batch"
 msgstr "Zastavit dávku"
 
 #: hugin1/ptbatcher/BatchTrayIcon.cpp:76 translations/xrc.cpp:76 xrc.cpp:76
-#, fuzzy
 msgid "Add project to stitching queue..."
-msgstr "Přidá projekt  %s do seznamu ve frontě slepování."
+msgstr "Přidá projekt  do  fronty slepování."
 
 #: hugin1/ptbatcher/BatchTrayIcon.cpp:77 translations/xrc.cpp:78 xrc.cpp:78
-#, fuzzy
 msgid "Add project to assistant queue..."
-msgstr "Poslat projekt  %s do fronty asistenta."
+msgstr "Poslat projekt do fronty asistenta."
 
 #: hugin1/ptbatcher/BatchTrayIcon.cpp:81
 msgid "E&xit"
@@ -2984,7 +2981,7 @@ msgstr "Nalezeno  %d možných panoramat."
 msgid "No possible panoramas found."
 msgstr "Nebylo nalezeno žádné možné panorama."
 
-#: hugin1/ptbatcher/FindPanoDialog.cpp:563
+#: hugin1/ptbatcher/FindPanoDialog.cpp:568
 #, c-format
 msgid "%d images: %s"
 msgstr "%d obrázků: %s"
@@ -3266,51 +3263,47 @@ msgstr "Paralelní běh"
 
 #: translations/xrc.cpp:44 xrc.cpp:44
 msgid "Stitch several projects parallel."
-msgstr ""
+msgstr "Lepit několik projektů paraelně."
 
 #: translations/xrc.cpp:45 xrc.cpp:45
 msgid "Overwrite always"
 msgstr "Vždy přepisovat"
 
 #: translations/xrc.cpp:46 xrc.cpp:46
-#, fuzzy
 msgid "Overwrite existing image files without further notice."
-msgstr "Přepsat existující obrázky"
+msgstr "Přepsat existující obrázky bez dalšího varování."
 
 #: translations/xrc.cpp:47 xrc.cpp:47
-#, fuzzy
 msgid "Remove finished project"
-msgstr "Odebrané projekty"
+msgstr "Odebrat hotové projekty"
 
 #: translations/xrc.cpp:48 xrc.cpp:48
 msgid "Automatic remove successfully finished projects from queue."
-msgstr ""
+msgstr "Odebere úspěšně dokončené projekty z fronty."
 
 #: translations/xrc.cpp:49 xrc.cpp:49
 msgid "Automatic stitch after assistant"
-msgstr ""
+msgstr "Automaticky slepit po dokončení asistenta"
 
 #: translations/xrc.cpp:50 xrc.cpp:50
 msgid "Automatic stitch projects after (successful) running assistant."
-msgstr ""
+msgstr "Automatický slepí projekt po úspěšném běhu asistenta."
 
 #: translations/xrc.cpp:51 xrc.cpp:51
 msgid "Shutdown when done"
 msgstr "Vypnout počítač po dokončení"
 
 #: translations/xrc.cpp:52 xrc.cpp:52
-#, fuzzy
 msgid "Shutdown computer if all tasks are finished"
-msgstr "Vypne počítač po doběhnutí dávek."
+msgstr "Vypne počítač po doběhnutí všech úkolů."
 
 #: translations/xrc.cpp:53 xrc.cpp:53
 msgid "Verbose output"
 msgstr "Podrobný výstup"
 
 #: translations/xrc.cpp:54 xrc.cpp:54
-#, fuzzy
 msgid "Show detailed output in separate window."
-msgstr "Zobrazí okno OpenGL náhledu"
+msgstr "Zobrazí samostatné okno s podrobným náhledem"
 
 #: translations/xrc.cpp:55 xrc.cpp:55
 msgid "Directories"
@@ -3394,14 +3387,12 @@ msgid "&File"
 msgstr "&Soubor"
 
 #: translations/xrc.cpp:77 xrc.cpp:77
-#, fuzzy
 msgid "Adds a project to the stitching queue"
-msgstr "Přidá projekt  %s do seznamu ve frontě slepování."
+msgstr "Přidá projekt do  fronty slepování"
 
 #: translations/xrc.cpp:79 xrc.cpp:79
-#, fuzzy
 msgid "Adds a project to the assistant queue"
-msgstr "Poslat projekt  %s do fronty asistenta."
+msgstr "Přidá projekt  do fronty asistenta"
 
 #: translations/xrc.cpp:80 translations/xrc.cpp:123 xrc.cpp:80 xrc.cpp:123
 msgid "Remove project"
@@ -4003,9 +3994,8 @@ msgid "Camera Model:"
 msgstr "Model fotoaparátu:"
 
 #: translations/xrc.cpp:244 xrc.cpp:244
-#, fuzzy
 msgid "Lens:"
-msgstr "Objektiv"
+msgstr "Objektivy:"
 
 #: translations/xrc.cpp:245 xrc.cpp:245
 msgid "Capture Date:"
@@ -4423,9 +4413,8 @@ msgid "Add another image to the current project"
 msgstr "Přidat další obrázek do aktuálního projektu"
 
 #: translations/xrc.cpp:380 xrc.cpp:380
-#, fuzzy
 msgid "Run &Python script"
-msgstr "Spustit uživatelský &Python skript"
+msgstr "Spustit &Python skript"
 
 #: translations/xrc.cpp:381 xrc.cpp:381
 msgid "Run a python script"
@@ -4938,9 +4927,8 @@ msgid "Vignetting (Vb, Vc, Vd):"
 msgstr "Vinětace (Vb, Vc, Vd):"
 
 #: translations/xrc.cpp:547 xrc.cpp:547
-#, fuzzy
 msgid "Vignetting Center (Vx, Vy):"
-msgstr "Vinětační střed (Vx, Vy):"
+msgstr "Střed vinětace (Vx, Vy):"
 
 #: translations/xrc.cpp:548 xrc.cpp:548
 msgid "Camera Response (Ra, Rb, Rc, Rd, Re):"
@@ -5318,13 +5306,12 @@ msgid "Number of CPUs:"
 msgstr "Počet procesorů:"
 
 #: translations/xrc.cpp:669 xrc.cpp:669
-#, fuzzy
 msgid ""
 "Hugins preview window can use multiple threads for processing.\n"
 "Set this to the number of processors or processor cores available in your "
 "system"
 msgstr ""
-"Nona může použít více vláken pro zpracování.\n"
+"Okno náhledu může použít více vláken pro zpracování.\n"
 "Nastavte toto číslo na počet procesorů (nebo jader) přístupných v systému."
 
 #: translations/xrc.cpp:670 xrc.cpp:670
@@ -5396,13 +5383,12 @@ msgid "Automatically align images after loading"
 msgstr "Automaticky zarovnat obrázky po nahrání"
 
 #: translations/xrc.cpp:687 xrc.cpp:687
-#, fuzzy
 msgid "Detect vertical lines"
-msgstr "svislá  čára"
+msgstr "Vyhledat svislé  čáry"
 
 #: translations/xrc.cpp:688 xrc.cpp:688
 msgid "Detects vertical lines in the images to level the pano"
-msgstr ""
+msgstr "Vyhledá svislé čáry v obrázcích pro vyrovnání panoramata."
 
 #: translations/xrc.cpp:689 xrc.cpp:689
 msgid "Remove cloud-like control points (Celeste)"
@@ -5414,7 +5400,7 @@ msgstr "Odebere nezapadající kontrolní body pomocí statistických metod"
 
 #: translations/xrc.cpp:691 xrc.cpp:691
 msgid "Optional assistant steps"
-msgstr ""
+msgstr "Volitelné kroky asistenta"
 
 #: translations/xrc.cpp:692 xrc.cpp:692
 msgid "Auto align"
@@ -5696,33 +5682,31 @@ msgstr ""
 "běhu."
 
 #: translations/xrc.cpp:766 xrc.cpp:766
-#, fuzzy
 msgid "Advanced options"
 msgstr "Pokročilé nastavení"
 
 #: translations/xrc.cpp:767 xrc.cpp:767
 msgid "Copy metadata into final files using ExifTool"
-msgstr ""
+msgstr "Kopírovat metadata do výsledných souborů nástrojem ExifTool"
 
 #: translations/xrc.cpp:768 xrc.cpp:768
-#, fuzzy
 msgid "Number of threads:"
-msgstr "Počet masek"
+msgstr "Počet vláken:"
 
 #: translations/xrc.cpp:769 xrc.cpp:769
-#, fuzzy
 msgid ""
 "Nona and the OpenMP enabled enblend/enfuse can use multiple threads for "
 "processing.\n"
 "Set this number maximal to the number of processors or processor cores "
 "available in your system"
 msgstr ""
-"Nona může použít více vláken pro zpracování.\n"
+"Nona a enblend/anfuse s povoleným OpenMP mohou použít více vláken pro "
+"zpracování.\n"
 "Nastavte toto číslo na počet procesorů (nebo jader) přístupných v systému."
 
 #: translations/xrc.cpp:770 xrc.cpp:770
 msgid "0 for automatic detection"
-msgstr ""
+msgstr "0 pro automatické vyhledání"
 
 #: translations/xrc.cpp:771 xrc.cpp:771
 msgid "Stitching"
@@ -5757,14 +5741,13 @@ msgid "Default Arguments:"
 msgstr "Výchozí parametry:"
 
 #: translations/xrc.cpp:789 translations/xrc.cpp:795 xrc.cpp:789 xrc.cpp:795
-#, fuzzy
 msgid ""
 "These are the default arguments for new projects.\n"
 "They can be changed for individual projects in the Stitcher tab.\n"
 "Do not set -w, -o and --compression arguments, they are set by hugin"
 msgstr ""
-"Toto jsou výchozí nastavení. Pro jednotlivý projekt mohou být změněny v "
-"záložce projekt.\n"
+"Toto jsou výchozí nastavení nového projektu.\n"
+"Pro jednotlivý projekt mohou být změněny v záložce Slepovač.\n"
 "Nenastavujte  -w, -o či --compression , hugin je nastaví sám."
 
 #: translations/xrc.cpp:790 xrc.cpp:790
@@ -5977,7 +5960,6 @@ msgid "Scale:"
 msgstr "Měřítko:"
 
 #: translations/xrc.cpp:867 translations/xrc.cpp:940 xrc.cpp:867 xrc.cpp:940
-#, fuzzy
 msgid ""
 "* A gray line indicates there are no control points, but the image pair "
 "overlaps.\n"
@@ -6006,44 +5988,43 @@ msgstr "x"
 #: translations/xrc.cpp:947 translations/xrc.cpp:962 translations/xrc.cpp:981
 #: xrc.cpp:873 xrc.cpp:885 xrc.cpp:903 xrc.cpp:947 xrc.cpp:962 xrc.cpp:981
 msgid "Guides:"
-msgstr ""
+msgstr "Vodítka:"
 
 #: translations/xrc.cpp:875 translations/xrc.cpp:887 translations/xrc.cpp:905
 #: translations/xrc.cpp:949 translations/xrc.cpp:964 translations/xrc.cpp:983
 #: xrc.cpp:875 xrc.cpp:887 xrc.cpp:905 xrc.cpp:949 xrc.cpp:964 xrc.cpp:983
 msgid "Rule of third"
-msgstr ""
+msgstr "Pravidlo třetin"
 
 #: translations/xrc.cpp:876 translations/xrc.cpp:888 translations/xrc.cpp:906
 #: translations/xrc.cpp:950 translations/xrc.cpp:965 translations/xrc.cpp:984
 #: xrc.cpp:876 xrc.cpp:888 xrc.cpp:906 xrc.cpp:950 xrc.cpp:965 xrc.cpp:984
-#, fuzzy
 msgid "Golden ratio"
-msgstr "Složka.pto"
+msgstr "Zlatý řez"
 
 #: translations/xrc.cpp:877 translations/xrc.cpp:889 translations/xrc.cpp:907
 #: translations/xrc.cpp:951 translations/xrc.cpp:966 translations/xrc.cpp:985
 #: xrc.cpp:877 xrc.cpp:889 xrc.cpp:907 xrc.cpp:951 xrc.cpp:966 xrc.cpp:985
 msgid "Diagonal"
-msgstr ""
+msgstr "Diagonála"
 
 #: translations/xrc.cpp:878 translations/xrc.cpp:890 translations/xrc.cpp:908
 #: translations/xrc.cpp:952 translations/xrc.cpp:967 translations/xrc.cpp:986
 #: xrc.cpp:878 xrc.cpp:890 xrc.cpp:908 xrc.cpp:952 xrc.cpp:967 xrc.cpp:986
 msgid "Diagonal method"
-msgstr ""
+msgstr "Metoda diagonály"
 
 #: translations/xrc.cpp:879 translations/xrc.cpp:891 translations/xrc.cpp:909
 #: translations/xrc.cpp:953 translations/xrc.cpp:968 translations/xrc.cpp:987
 #: xrc.cpp:879 xrc.cpp:891 xrc.cpp:909 xrc.cpp:953 xrc.cpp:968 xrc.cpp:987
 msgid "Golden triangle (down)"
-msgstr ""
+msgstr "Zlatý trojuhelník (dolů)"
 
 #: translations/xrc.cpp:880 translations/xrc.cpp:892 translations/xrc.cpp:910
 #: translations/xrc.cpp:954 translations/xrc.cpp:969 translations/xrc.cpp:988
 #: xrc.cpp:880 xrc.cpp:892 xrc.cpp:910 xrc.cpp:954 xrc.cpp:969 xrc.cpp:988
 msgid "Golden triangle (up)"
-msgstr ""
+msgstr "Zlatý trojuhelník (nahoru) "
 
 #: translations/xrc.cpp:883 translations/xrc.cpp:960 xrc.cpp:883 xrc.cpp:960
 msgid "Automatically straighten a wavy horizon."
