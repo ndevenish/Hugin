@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: pt_BR\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
 "POT-Creation-Date: 2011-10-21 22:38+0200\n"
-"PO-Revision-Date: 2011-07-09 19:46-0300\n"
+"PO-Revision-Date: 2011-11-05 18:46-0200\n"
 "Last-Translator: Luís Henrique Camargo Quiroz <luishcq@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-doc@kde.org>\n"
 "Language: pt_BR\n"
@@ -491,9 +491,8 @@ msgid "Path to data: %s"
 msgstr "Caminho para dados: %s"
 
 #: hugin1/hugin/AboutDialog.cpp:176
-#, fuzzy
 msgid "Libraries"
-msgstr "Diretórios"
+msgstr "Bibliotecas"
 
 #: hugin1/hugin/AssistantPanel.cpp:224
 msgid "Please load images by pressing on the Load images button."
@@ -612,17 +611,16 @@ msgstr ""
 "criado."
 
 #: hugin1/hugin/AssistantPanel.cpp:491
-#, fuzzy
 msgid "Project file not found"
-msgstr "Arquivo de imagem não encontrado"
+msgstr "Arquivo do projeto não encontrado"
 
 #: hugin1/hugin/AssistantPanel.cpp:503
 msgid "Can't launch PTBatcherGui"
-msgstr ""
+msgstr "Não consegue iniciar o PTBatcherGui"
 
 #: hugin1/hugin/AssistantPanel.cpp:509
 msgid "Launched incorrect programme"
-msgstr ""
+msgstr "Disparou programa errado"
 
 #: hugin1/hugin/CPDetectorDialog.cpp:93
 msgid "Autopano from http://autopano.kolor.com is not available for OSX"
@@ -1036,7 +1034,6 @@ msgid "mosaic, individual"
 msgstr "mosaico, individual"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:639
-#, fuzzy
 msgid "Resets the projection's parameters to their default values."
 msgstr "Retorna os parâmetros de projeção para seus valores padrão."
 
@@ -1093,12 +1090,11 @@ msgstr "Valor precisa ser numérico."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1597
 msgid "Do you want to keep the current non-zero translation parameters?"
-msgstr ""
+msgstr "Você deseja manter os atuais parâmetros não-nulos de translação?"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1598
-#, fuzzy
 msgid "Keep XYZ parameters?"
-msgstr "Zerar valores de XYZ?"
+msgstr "Manter valores de XYZ?"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1682
 msgid ""
@@ -1660,6 +1656,9 @@ msgid ""
 "This file can't be open with File, Open.\n"
 "Do you want instead add this image file to the current project?"
 msgstr ""
+"O arquivo %s é uma imagem e não um arquivo de projeto.\n"
+"Este arquivo não pode ser aberto por Arquivo, Abrir.\n"
+"Você quer, alternativamente, adicionar esta imagem ao projeto atual?"
 
 #: hugin1/hugin/MainFrame.cpp:899
 msgid "Open project: cancel"
@@ -2162,9 +2161,8 @@ msgid "Czech"
 msgstr "Tcheco"
 
 #: hugin1/hugin/PreferencesDialog.cpp:135
-#, fuzzy
 msgid "Danish"
-msgstr "Espanhol"
+msgstr "Dinamarquês"
 
 #: hugin1/hugin/PreferencesDialog.cpp:138
 msgid "Dutch"
@@ -2769,9 +2767,8 @@ msgid "Not doing much..."
 msgstr "Fazendo praticamente nada..."
 
 #: hugin1/ptbatcher/BatchFrame.cpp:161 hugin1/ptbatcher/BatchFrame.cpp:171
-#, fuzzy
 msgid "Hugin's Batch processor"
-msgstr "Processamento em lote do Hugin"
+msgstr "Processador em lote do Hugin"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:315
 msgid "Please enter the command-line application to execute:"
@@ -2928,14 +2925,12 @@ msgid "Stop batch"
 msgstr "Parar lote"
 
 #: hugin1/ptbatcher/BatchTrayIcon.cpp:76 translations/xrc.cpp:76 xrc.cpp:76
-#, fuzzy
 msgid "Add project to stitching queue..."
-msgstr "Adicionar projeto %s à lista de lotes."
+msgstr "Adicionar projeto à fila de processamento..."
 
 #: hugin1/ptbatcher/BatchTrayIcon.cpp:77 translations/xrc.cpp:78 xrc.cpp:78
-#, fuzzy
 msgid "Add project to assistant queue..."
-msgstr "Enviar projeto %s para fila do assistente."
+msgstr "Adicionar projeto à fila do assistente..."
 
 #: hugin1/ptbatcher/BatchTrayIcon.cpp:81
 msgid "E&xit"
@@ -3300,33 +3295,31 @@ msgstr "Execução em paralelo"
 
 #: translations/xrc.cpp:44 xrc.cpp:44
 msgid "Stitch several projects parallel."
-msgstr ""
+msgstr "Processa vários projetos em paralelo."
 
 #: translations/xrc.cpp:45 xrc.cpp:45
 msgid "Overwrite always"
 msgstr "Sempre sobrescrever"
 
 #: translations/xrc.cpp:46 xrc.cpp:46
-#, fuzzy
 msgid "Overwrite existing image files without further notice."
-msgstr "Sobrescrever imagens existentes"
+msgstr "Sobrescrever imagens existentes sem ulteriores avisos."
 
 #: translations/xrc.cpp:47 xrc.cpp:47
-#, fuzzy
 msgid "Remove finished project"
-msgstr "Projeto removido: "
+msgstr "Remover projeto terminado"
 
 #: translations/xrc.cpp:48 xrc.cpp:48
 msgid "Automatic remove successfully finished projects from queue."
-msgstr ""
+msgstr "Remover automaticamente da lista projetos terminados com sucesso."
 
 #: translations/xrc.cpp:49 xrc.cpp:49
 msgid "Automatic stitch after assistant"
-msgstr ""
+msgstr "Processamento automático após o assistente"
 
 #: translations/xrc.cpp:50 xrc.cpp:50
 msgid "Automatic stitch projects after (successful) running assistant."
-msgstr ""
+msgstr "Processa automaticamente projetos após rodar o assistente com sucesso."
 
 #: translations/xrc.cpp:51 xrc.cpp:51
 msgid "Shutdown when done"
@@ -3334,16 +3327,15 @@ msgstr "Desligar quando terminar"
 
 #: translations/xrc.cpp:52 xrc.cpp:52
 msgid "Shutdown computer if all tasks are finished"
-msgstr ""
+msgstr "Desliga o computador se todas as tarefas terminaram."
 
 #: translations/xrc.cpp:53 xrc.cpp:53
 msgid "Verbose output"
 msgstr "Saída verbosa"
 
 #: translations/xrc.cpp:54 xrc.cpp:54
-#, fuzzy
 msgid "Show detailed output in separate window."
-msgstr "Mostrar a janela de pré-visualização em OpenGL"
+msgstr "Mostrar saída detalhada em janela separada."
 
 #: translations/xrc.cpp:55 xrc.cpp:55
 msgid "Directories"
@@ -3428,14 +3420,12 @@ msgid "&File"
 msgstr "&Arquivo"
 
 #: translations/xrc.cpp:77 xrc.cpp:77
-#, fuzzy
 msgid "Adds a project to the stitching queue"
-msgstr "Adicionar projeto %s à lista de lotes."
+msgstr "Adiciona  projeto à lista de processamento."
 
 #: translations/xrc.cpp:79 xrc.cpp:79
-#, fuzzy
 msgid "Adds a project to the assistant queue"
-msgstr "Enviar projeto %s para fila do assistente."
+msgstr "Envia projeto para fila do assistente"
 
 #: translations/xrc.cpp:80 translations/xrc.cpp:123 xrc.cpp:80 xrc.cpp:123
 msgid "Remove project"
@@ -3987,9 +3977,8 @@ msgid "Reset position of selected image(s)"
 msgstr "Reverte posição da(s) imagem(s) selecionada(s)"
 
 #: translations/xrc.cpp:229 xrc.cpp:229
-#, fuzzy
 msgid "Feature Matching"
-msgstr "Emparelhador de padrões:"
+msgstr "Emparelhamento de padrões"
 
 #: translations/xrc.cpp:230 xrc.cpp:230
 msgid "Settings:"
@@ -4048,9 +4037,8 @@ msgid "Camera Model:"
 msgstr "Modelo da Câmera:"
 
 #: translations/xrc.cpp:244 xrc.cpp:244
-#, fuzzy
 msgid "Lens:"
-msgstr "Lente"
+msgstr "Lente:"
 
 #: translations/xrc.cpp:245 xrc.cpp:245
 msgid "Capture Date:"
@@ -4473,7 +4461,6 @@ msgid "Add another image to the current project"
 msgstr "Adiciona uma nova imagem ao projeto atual"
 
 #: translations/xrc.cpp:380 xrc.cpp:380
-#, fuzzy
 msgid "Run &Python script"
 msgstr "Rodar script &Python do usuário"
 
@@ -4490,7 +4477,6 @@ msgid "Full Screen"
 msgstr "Tela &Cheia"
 
 #: translations/xrc.cpp:384 xrc.cpp:384
-#, fuzzy
 msgid "Shows Hugin's main window on full screen"
 msgstr "Mostra a janela principal do Hugin em tela cheia"
 
@@ -4991,7 +4977,6 @@ msgid "Vignetting (Vb, Vc, Vd):"
 msgstr "Vinheta (Vb, Vc, Vd):"
 
 #: translations/xrc.cpp:547 xrc.cpp:547
-#, fuzzy
 msgid "Vignetting Center (Vx, Vy):"
 msgstr "Centro de vinheta (Vx, Vy):"
 
@@ -5377,14 +5362,14 @@ msgid "Number of CPUs:"
 msgstr "Número de CPUs:"
 
 #: translations/xrc.cpp:669 xrc.cpp:669
-#, fuzzy
 msgid ""
 "Hugins preview window can use multiple threads for processing.\n"
 "Set this to the number of processors or processor cores available in your "
 "system"
 msgstr ""
-"O Nona pode utilizar várias threads para processamento.\n"
-"Defina aqui o número de processadores (cores) disponíveis no seu sistema"
+"A janela de previsão do Hugin pode utilizar várias threads para "
+"processamento.\n"
+"Defina aqui o número de processadores (núcleos) disponíveis no seu sistema"
 
 #: translations/xrc.cpp:670 xrc.cpp:670
 msgid "User Interface"
@@ -5456,13 +5441,12 @@ msgid "Automatically align images after loading"
 msgstr "Alinhar imagens automaticamente após carregamento"
 
 #: translations/xrc.cpp:687 xrc.cpp:687
-#, fuzzy
 msgid "Detect vertical lines"
-msgstr "linha vertical"
+msgstr "Detetar linhas verticais"
 
 #: translations/xrc.cpp:688 xrc.cpp:688
 msgid "Detects vertical lines in the images to level the pano"
-msgstr ""
+msgstr "Detecta linhas verticais nas imagens para nivelar o panorama"
 
 #: translations/xrc.cpp:689 xrc.cpp:689
 msgid "Remove cloud-like control points (Celeste)"
@@ -5474,7 +5458,7 @@ msgstr "Remover pontos de controle de bordas por modelo estatístico"
 
 #: translations/xrc.cpp:691 xrc.cpp:691
 msgid "Optional assistant steps"
-msgstr ""
+msgstr "Etapas opcionais do assistente"
 
 #: translations/xrc.cpp:692 xrc.cpp:692
 msgid "Auto align"
@@ -5701,9 +5685,8 @@ msgid "Processor"
 msgstr "Processador"
 
 #: translations/xrc.cpp:755 xrc.cpp:755
-#, fuzzy
 msgid "Hugin&stitch&project"
-msgstr "Montar&projeto&Hugin"
+msgstr "Hugin&stitch&project"
 
 #: translations/xrc.cpp:756 xrc.cpp:756
 msgid "The engine that will run the stitch"
@@ -5760,33 +5743,32 @@ msgstr ""
 "progresso do projeto."
 
 #: translations/xrc.cpp:766 xrc.cpp:766
-#, fuzzy
 msgid "Advanced options"
-msgstr "Opção Avançada"
+msgstr "Opções avançadas"
 
 #: translations/xrc.cpp:767 xrc.cpp:767
 msgid "Copy metadata into final files using ExifTool"
-msgstr ""
+msgstr "Copia metadados para os arquivos-resultado usando o ExifTool"
 
 #: translations/xrc.cpp:768 xrc.cpp:768
-#, fuzzy
 msgid "Number of threads:"
-msgstr "Número de máscaras"
+msgstr "Número de threads:"
 
 #: translations/xrc.cpp:769 xrc.cpp:769
-#, fuzzy
 msgid ""
 "Nona and the OpenMP enabled enblend/enfuse can use multiple threads for "
 "processing.\n"
 "Set this number maximal to the number of processors or processor cores "
 "available in your system"
 msgstr ""
-"O Nona pode utilizar várias threads para processamento.\n"
-"Defina aqui o número de processadores (cores) disponíveis no seu sistema"
+"O Nona e o enblend/enfuse habilitado para OpenMP podem utilizar várias "
+"threads para processamento.\n"
+"Defina este número no máximo igual ao número de processadores (núcleos) "
+"disponíveis no seu sistema"
 
 #: translations/xrc.cpp:770 xrc.cpp:770
 msgid "0 for automatic detection"
-msgstr ""
+msgstr "0 para detecção automática"
 
 #: translations/xrc.cpp:771 xrc.cpp:771
 msgid "Stitching"
@@ -5821,15 +5803,14 @@ msgid "Default Arguments:"
 msgstr "Argumentos Padrão:"
 
 #: translations/xrc.cpp:789 translations/xrc.cpp:795 xrc.cpp:789 xrc.cpp:795
-#, fuzzy
 msgid ""
 "These are the default arguments for new projects.\n"
 "They can be changed for individual projects in the Stitcher tab.\n"
 "Do not set -w, -o and --compression arguments, they are set by hugin"
 msgstr ""
-"Esses são os valores padrão. Eles podem ser alterados individualmente por "
-"projeto na aba do Montador.\n"
-"Não use as opções -w, -o e --compression, elas já são usadas pelo hugin"
+"Esses são os valores padrão para projetos novos.\n"
+"Eles podem ser alterados individualmente por projeto na aba do Montador.\n"
+"Não use as opções -w, -o e --compression, elas são ajustadas pelo hugin"
 
 #: translations/xrc.cpp:790 xrc.cpp:790
 msgid "Enblend"
@@ -6036,7 +6017,7 @@ msgstr "Apontador de cinza"
 
 #: translations/xrc.cpp:862 translations/xrc.cpp:935 xrc.cpp:862 xrc.cpp:935
 msgid "Background:"
-msgstr ""
+msgstr "Fundo:"
 
 #: translations/xrc.cpp:863 translations/xrc.cpp:936 xrc.cpp:863 xrc.cpp:936
 msgid "Grid"
@@ -6047,15 +6028,14 @@ msgid "Scale:"
 msgstr "Escala:"
 
 #: translations/xrc.cpp:867 translations/xrc.cpp:940 xrc.cpp:867 xrc.cpp:940
-#, fuzzy
 msgid ""
 "* A gray line indicates there are no control points, but the image pair "
 "overlaps.\n"
 "* Green, yellow and red lines indicate good, medium and poor alignment.\n"
 "* Click a line to edit the associated images in the Control Points tab."
 msgstr ""
-"* Uma linha cinza indica ausência de pontos de controle, mas as imagens se "
-"sobrepõem.\n"
+"* Uma linha cinza indica ausência de pontos de controle, mas o par de "
+"imagens se sobrepõe.\n"
 "* Linhas em verde, amarelo e vermelho indicam alinhamento bom, razoável e "
 "ruim.\n"
 "* Clique numa linha para abrir as respectivas imagens na aba de Pontos de "
@@ -6078,44 +6058,43 @@ msgstr "x"
 #: translations/xrc.cpp:947 translations/xrc.cpp:962 translations/xrc.cpp:981
 #: xrc.cpp:873 xrc.cpp:885 xrc.cpp:903 xrc.cpp:947 xrc.cpp:962 xrc.cpp:981
 msgid "Guides:"
-msgstr ""
+msgstr "Guias:"
 
 #: translations/xrc.cpp:875 translations/xrc.cpp:887 translations/xrc.cpp:905
 #: translations/xrc.cpp:949 translations/xrc.cpp:964 translations/xrc.cpp:983
 #: xrc.cpp:875 xrc.cpp:887 xrc.cpp:905 xrc.cpp:949 xrc.cpp:964 xrc.cpp:983
 msgid "Rule of third"
-msgstr ""
+msgstr "Regra do terço"
 
 #: translations/xrc.cpp:876 translations/xrc.cpp:888 translations/xrc.cpp:906
 #: translations/xrc.cpp:950 translations/xrc.cpp:965 translations/xrc.cpp:984
 #: xrc.cpp:876 xrc.cpp:888 xrc.cpp:906 xrc.cpp:950 xrc.cpp:965 xrc.cpp:984
-#, fuzzy
 msgid "Golden ratio"
-msgstr "Nomedodiretório.pto"
+msgstr "Razão áurea"
 
 #: translations/xrc.cpp:877 translations/xrc.cpp:889 translations/xrc.cpp:907
 #: translations/xrc.cpp:951 translations/xrc.cpp:966 translations/xrc.cpp:985
 #: xrc.cpp:877 xrc.cpp:889 xrc.cpp:907 xrc.cpp:951 xrc.cpp:966 xrc.cpp:985
 msgid "Diagonal"
-msgstr ""
+msgstr "Diagonal"
 
 #: translations/xrc.cpp:878 translations/xrc.cpp:890 translations/xrc.cpp:908
 #: translations/xrc.cpp:952 translations/xrc.cpp:967 translations/xrc.cpp:986
 #: xrc.cpp:878 xrc.cpp:890 xrc.cpp:908 xrc.cpp:952 xrc.cpp:967 xrc.cpp:986
 msgid "Diagonal method"
-msgstr ""
+msgstr "Método diagonal"
 
 #: translations/xrc.cpp:879 translations/xrc.cpp:891 translations/xrc.cpp:909
 #: translations/xrc.cpp:953 translations/xrc.cpp:968 translations/xrc.cpp:987
 #: xrc.cpp:879 xrc.cpp:891 xrc.cpp:909 xrc.cpp:953 xrc.cpp:968 xrc.cpp:987
 msgid "Golden triangle (down)"
-msgstr ""
+msgstr "Triângulo áureo (para baixo)"
 
 #: translations/xrc.cpp:880 translations/xrc.cpp:892 translations/xrc.cpp:910
 #: translations/xrc.cpp:954 translations/xrc.cpp:969 translations/xrc.cpp:988
 #: xrc.cpp:880 xrc.cpp:892 xrc.cpp:910 xrc.cpp:954 xrc.cpp:969 xrc.cpp:988
 msgid "Golden triangle (up)"
-msgstr ""
+msgstr "Triângulo áureo (para cima)"
 
 #: translations/xrc.cpp:883 translations/xrc.cpp:960 xrc.cpp:883 xrc.cpp:960
 msgid "Automatically straighten a wavy horizon."
