@@ -7008,7 +7008,7 @@ msgstr "Hulpen:"
 #: xrc.cpp:949
 #: xrc.cpp:964
 #: xrc.cpp:983
-msgid "Rule of third"
+msgid "Rule of thirds"
 msgstr "Rule of thirds"
 
 #: translations/xrc.cpp:876
