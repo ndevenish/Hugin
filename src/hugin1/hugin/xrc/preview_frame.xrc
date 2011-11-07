@@ -538,7 +538,7 @@
                       <object class="wxChoice" name="preview_guide_choice_proj">
                         <content>
                           <item>None</item>
-                          <item>Rule of third</item>
+                          <item>Rule of thirds</item>
                           <item>Golden ratio</item>
                           <item>Diagonal</item>
                           <item>Diagonal method</item>
@@ -616,7 +616,7 @@
                       <object class="wxChoice" name="preview_guide_choice_drag">
                         <content>
                           <item>None</item>
-                          <item>Rule of third</item>
+                          <item>Rule of thirds</item>
                           <item>Golden ratio</item>
                           <item>Diagonal</item>
                           <item>Diagonal method</item>
@@ -777,7 +777,7 @@
                       <object class="wxChoice" name="preview_guide_choice_crop">
                         <content>
                           <item>None</item>
-                          <item>Rule of third</item>
+                          <item>Rule of thirds</item>
                           <item>Golden ratio</item>
                           <item>Diagonal</item>
                           <item>Diagonal method</item>
@@ -1257,7 +1257,7 @@
                       <object class="wxChoice" name="preview_guide_choice_proj">
                         <content>
                           <item>None</item>
-                          <item>Rule of third</item>
+                          <item>Rule of thirds</item>
                           <item>Golden ratio</item>
                           <item>Diagonal</item>
                           <item>Diagonal method</item>
@@ -1347,7 +1347,7 @@
                       <object class="wxChoice" name="preview_guide_choice_drag">
                         <content>
                           <item>None</item>
-                          <item>Rule of third</item>
+                          <item>Rule of thirds</item>
                           <item>Golden ratio</item>
                           <item>Diagonal</item>
                           <item>Diagonal method</item>
@@ -1511,7 +1511,7 @@
                       <object class="wxChoice" name="preview_guide_choice_crop">
                         <content>
                           <item>None</item>
-                          <item>Rule of third</item>
+                          <item>Rule of thirds</item>
                           <item>Golden ratio</item>
                           <item>Diagonal</item>
                           <item>Diagonal method</item>

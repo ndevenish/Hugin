@@ -6019,7 +6019,7 @@ msgstr ""
 #: translations/xrc.cpp:875 translations/xrc.cpp:887 translations/xrc.cpp:905
 #: translations/xrc.cpp:949 translations/xrc.cpp:964 translations/xrc.cpp:983
 #: xrc.cpp:875 xrc.cpp:887 xrc.cpp:905 xrc.cpp:949 xrc.cpp:964 xrc.cpp:983
-msgid "Rule of third"
+msgid "Rule of thirds"
 msgstr ""
 
 #: translations/xrc.cpp:876 translations/xrc.cpp:888 translations/xrc.cpp:906
