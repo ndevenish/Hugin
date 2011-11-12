@@ -1173,7 +1173,7 @@ void CPImageCtrl::mousePressRMBEvent(wxMouseEvent& mouse)
     {
         return;
     }
-    if(mouse.ControlDown() && (editState==NO_SELECTION || editState==KNOWN_POINT_SELECTED || editState==NEW_POINT_SELECTED))
+    if(mouse.CmdDown() && (editState==NO_SELECTION || editState==KNOWN_POINT_SELECTED || editState==NEW_POINT_SELECTED))
     {
         rectStartPos=mpos;
         editState=SELECT_DELETE_REGION;
@@ -1313,11 +1313,11 @@ void CPImageCtrl::OnKey(wxKeyEvent & e)
     DEBUG_TRACE(" OnKey, key:" << e.m_keyCode);
     wxPoint delta(0,0);
     // check for cursor keys, if control is not pressed
-    if ((!e.ControlDown()) && e.GetKeyCode() == WXK_LEFT ) delta.x = -1;
-    if ((!e.ControlDown()) && e.GetKeyCode() == WXK_RIGHT ) delta.x = 1;
-    if ((!e.ControlDown()) && e.GetKeyCode() == WXK_UP ) delta.y = -1;
-    if ((!e.ControlDown()) && e.GetKeyCode() == WXK_DOWN ) delta.y = 1;
-    if ( (delta.x != 0 || delta.y != 0 ) && (e.ShiftDown() || e.ControlDown())) {
+    if ((!e.CmdDown()) && e.GetKeyCode() == WXK_LEFT ) delta.x = -1;
+    if ((!e.CmdDown()) && e.GetKeyCode() == WXK_RIGHT ) delta.x = 1;
+    if ((!e.CmdDown()) && e.GetKeyCode() == WXK_UP ) delta.y = -1;
+    if ((!e.CmdDown()) && e.GetKeyCode() == WXK_DOWN ) delta.y = 1;
+    if ( (delta.x != 0 || delta.y != 0 ) && (e.ShiftDown() || e.CmdDown())) {
         // move to the left
         double speed = (double) GetClientSize().GetWidth()/10;
         delta.x = (int) (delta.x * speed);
@@ -1327,7 +1327,7 @@ void CPImageCtrl::OnKey(wxKeyEvent & e)
             // as well.
             CPEvent e(this, CPEvent::SCROLLED, FDiff2D(delta.x, delta.y));
             emit(e);
-        } else if (e.ControlDown()) {
+        } else if (e.CmdDown()) {
             ScrollDelta(delta);
         }
     } else if (delta.x != 0 || delta.y != 0 ) {

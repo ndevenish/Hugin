@@ -1558,11 +1558,11 @@ void CPEditorPanel::OnKey(wxKeyEvent & e)
 	}
 #endif
 
-    } else if (e.ControlDown() && e.GetKeyCode() == WXK_LEFT) {
+    } else if (e.CmdDown() && e.GetKeyCode() == WXK_LEFT) {
         // move to previous
         wxCommandEvent dummy;
         OnPrevImg(dummy);
-    } else if (e.ControlDown() && e.GetKeyCode() == WXK_RIGHT) {
+    } else if (e.CmdDown() && e.GetKeyCode() == WXK_RIGHT) {
         // move to next
         wxCommandEvent dummy;
         OnNextImg(dummy);

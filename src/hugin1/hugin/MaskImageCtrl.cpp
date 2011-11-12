@@ -225,7 +225,7 @@ void MaskImageCtrl::mousePressLMBEvent(wxMouseEvent& mouse)
             DrawSelectionRectangle();
             break;
         case NO_SELECTION:
-            if(mouse.ControlDown())
+            if(mouse.CmdDown())
             {
                 // check if mouse clicks happens near one line of active polygon
                 unsigned int index=m_editingMask.FindPointNearPos(currentPos,5*maxSelectionDistance);
@@ -254,7 +254,7 @@ void MaskImageCtrl::mousePressLMBEvent(wxMouseEvent& mouse)
             };
             break;
         case POINTS_SELECTED:
-            if(mouse.ControlDown())
+            if(mouse.CmdDown())
             {
                 // check if mouse clicks happens near one line of active polygon
                 unsigned int index=m_editingMask.FindPointNearPos(currentPos, 5*maxSelectionDistance);
@@ -467,7 +467,7 @@ void MaskImageCtrl::mousePressRMBEvent(wxMouseEvent& mouse)
     {
         case NO_SELECTION:
         case POINTS_SELECTED:
-            if(mouse.ControlDown())
+            if(mouse.CmdDown())
             {
                 maskEditState=POINTS_DELETING;
                 DrawSelectionRectangle();

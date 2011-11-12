@@ -693,8 +693,8 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     m_showProjectionHints = cfg->Read(wxT("/GLPreviewFrame/ShowProjectionHints"), HUGIN_SHOW_PROJECTION_HINTS) == 1;
     wxAcceleratorEntry entries[3];
     entries[0].Set(wxACCEL_NORMAL,WXK_F11,ID_FULL_SCREEN);
-    entries[1].Set(wxACCEL_CTRL,(int)'Z',ID_UNDO);
-    entries[2].Set(wxACCEL_CTRL,(int)'R',ID_REDO);
+    entries[1].Set(wxACCEL_CMD,(int)'Z',ID_UNDO);
+    entries[2].Set(wxACCEL_CMD,(int)'R',ID_REDO);
     wxAcceleratorTable accel(3, entries);
     SetAcceleratorTable(accel);
 #ifdef __WXGTK__
