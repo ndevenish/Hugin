@@ -349,7 +349,7 @@ void ImagesList::OnChar(wxKeyEvent &e)
             };
         case 1: //Ctrl+A
             {
-                if(!m_singleSelect && e.ControlDown())
+                if(!m_singleSelect && e.CmdDown())
                 {
                     SelectAll();
                 }
