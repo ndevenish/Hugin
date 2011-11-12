@@ -107,15 +107,12 @@ class IMPEX CalculateOptimalROI : public PanoramaAlgorithm
 
         void makecheck(int left,int top,int right,int bottom);
         int autocrop();
-        void nonreccheck(int left,int top,int right,int bottom,int acc,int dodouble);
+        void nonreccheck(int left,int top,int right,int bottom,int acc,int searchStrategy);
         
         int count;
-        struct nonrec *begin;
         struct nonrec *head;
         struct nonrec *tail;
         struct nonrec best;
-        struct nonrec min;
-        struct nonrec max;
 
         long maxvalue;
 };

@@ -135,7 +135,7 @@ bool CalculateOptimalROI::imgPixel(int i, int j)
 
 void CalculateOptimalROI::makecheck(int left,int top,int right,int bottom)
 {
-    if(left<max.left || top<max.top || right>max.right || bottom>max.bottom)
+    if(left<0 || top<0 || right>o_optimalSize.x || bottom>o_optimalSize.y)
     {
         return;
     }
@@ -153,8 +153,6 @@ void CalculateOptimalROI::makecheck(int left,int top,int right,int bottom)
         }
         
         nonrec *tmp=head;
-        //no delete test
-        //nonrec *tmp=begin;
         //check if exists
         while(tmp!=NULL)
         {
@@ -181,7 +179,7 @@ void CalculateOptimalROI::makecheck(int left,int top,int right,int bottom)
     return;
 }
 
-void CalculateOptimalROI::nonreccheck(int left,int top,int right,int bottom,int acc,int dodouble)
+void CalculateOptimalROI::nonreccheck(int left,int top,int right,int bottom,int acc,int searchStrategy)
 {
     nonrec *tmp;
     tmp=new nonrec;
@@ -191,7 +189,6 @@ void CalculateOptimalROI::nonreccheck(int left,int top,int right,int bottom,int 
     tmp->bottom=bottom;
     tmp->next=NULL;
     
-    begin=tmp;
     head=tmp;
     tail=tmp;
     count=0;
@@ -225,76 +222,109 @@ void CalculateOptimalROI::nonreccheck(int left,int top,int right,int bottom,int 
         }
 
         //if failed, then recurse
-        
-        if(dodouble==1)
+
+        switch(searchStrategy)
         {
-            if(flag==1)
-            {
-                //all directions (shrink only)
-                makecheck(left,top+acc,right,bottom);
-                makecheck(left,top,right,bottom-acc);
-                makecheck(left+acc,top,right,bottom);
-                makecheck(left,top,right-acc,bottom);
-                
-            }
-            //it was good, stop recursing
-            else
-            {
-                //printf("\nGood\n");
-#ifdef USEAREA
-                if(maxvalue<(right-left)*(bottom-top))
-#else
-                if(maxvalue<(right-left)+(bottom-top))
-#endif
+            case 1:
+                if(flag==1)
                 {
-#ifdef USEAREA
-                    maxvalue=(right-left)*(bottom-top);
-#else
-                    maxvalue=(right-left)+(bottom-top);
-#endif
-                    best.right=right;
-                    best.left=left;
-                    best.top=top;
-                    best.bottom=bottom;
+                    //all directions (shrink only)
+                    makecheck(left,top+acc,right,bottom);
+                    makecheck(left,top,right,bottom-acc);
+                    makecheck(left+acc,top,right,bottom);
+                    makecheck(left,top,right-acc,bottom);
                 }
-            }
-        }
-        else
-        {
-            if(flag==0)
-            {
-                //check growth in all 4 directions
-                makecheck(left-acc,top,right,bottom);
-                makecheck(left,top,right+acc,bottom);
-                makecheck(left,top-acc,right,bottom);
-                makecheck(left,top,right,bottom+acc);
-                //check if shrinking in one direction will allow more growth in other direction
-                makecheck(left-acc*2,top+acc,right,bottom);
-                makecheck(left-acc*2,top,right,bottom-acc);
-                makecheck(left,top+acc,right+acc*2,bottom);
-                makecheck(left,top,right+acc*2,bottom-acc);
-                makecheck(left+acc,top-acc*2,right,bottom);
-                makecheck(left,top-acc*2,right-acc,bottom);
-                makecheck(left+acc,top,right,bottom+acc*2);
-                makecheck(left,top,right-acc,bottom+acc*2);
-#ifdef USEAREA
-                if(maxvalue<(right-left)*(bottom-top))
-#else
-                if(maxvalue<(right-left)+(bottom-top))
-#endif
+                //it was good, stop recursing
+                else
                 {
+                    //printf("\nGood\n");
 #ifdef USEAREA
-                    maxvalue=(right-left)*(bottom-top);
+                    if(maxvalue<(right-left)*(bottom-top))
 #else
-                    maxvalue=(right-left)+(bottom-top);
+                    if(maxvalue<(right-left)+(bottom-top))
 #endif
-                    best.right=right;
-                    best.left=left;
-                    best.top=top;
-                    best.bottom=bottom;
+                    {
+#ifdef USEAREA
+                        maxvalue=(right-left)*(bottom-top);
+#else
+                        maxvalue=(right-left)+(bottom-top);
+#endif
+                        best.right=right;
+                        best.left=left;
+                        best.top=top;
+                        best.bottom=bottom;
+                    }
                 }
-            }
-        }
+                break;
+            case 2:
+                if(flag==1)
+                {
+                    //all directions (shrink only)
+                    makecheck(left+(acc>>1),top,right-(acc>>1),bottom);
+                    makecheck(left,top+(acc>>1),right,bottom-(acc>>1));
+                }
+                //it was good, stop recursing
+                else
+                {
+                    //printf("\nGood\n");
+#ifdef USEAREA
+                    if(maxvalue<(right-left)*(bottom-top))
+#else
+                    if(maxvalue<(right-left)+(bottom-top))
+#endif
+                    {
+#ifdef USEAREA
+                        maxvalue=(right-left)*(bottom-top);
+#else
+                        maxvalue=(right-left)+(bottom-top);
+#endif
+                        best.right=right;
+                        best.left=left;
+                        best.top=top;
+                        best.bottom=bottom;
+                    }
+                }
+                break;
+            case 0:
+            default:
+                if(flag==0)
+                {
+                    //check growth in all 4 directions
+                    makecheck(left-acc,top,right,bottom);
+                    makecheck(left,top,right+acc,bottom);
+                    makecheck(left,top-acc,right,bottom);
+                    makecheck(left,top,right,bottom+acc);
+                    //check if shrinking in one direction will allow more growth in other direction
+                    makecheck(left-acc*2,top+acc,right,bottom);
+                    makecheck(left-acc*2,top,right,bottom-acc);
+                    makecheck(left,top+acc,right+acc*2,bottom);
+                    makecheck(left,top,right+acc*2,bottom-acc);
+                    makecheck(left+acc,top-acc*2,right,bottom);
+                    makecheck(left,top-acc*2,right-acc,bottom);
+                    makecheck(left+acc,top,right,bottom+acc*2);
+                    makecheck(left,top,right-acc,bottom+acc*2);
+                    makecheck(left-acc,top+acc,right+acc,bottom);
+                    makecheck(left-acc,top,right+acc,bottom-acc);
+                    makecheck(left+acc,top-acc,right,bottom+acc);
+                    makecheck(left,top-acc,right-acc,bottom+acc);
+#ifdef USEAREA
+                    if(maxvalue<(right-left)*(bottom-top))
+#else
+                    if(maxvalue<(right-left)+(bottom-top))
+#endif
+                    {
+#ifdef USEAREA
+                        maxvalue=(right-left)*(bottom-top);
+#else
+                        maxvalue=(right-left)+(bottom-top);
+#endif
+                        best.right=right;
+                        best.left=left;
+                        best.top=top;
+                        best.bottom=bottom;
+                    }
+                }
+        };
         
         tmp=head->next;
         if(tmp!=NULL)
@@ -313,7 +343,7 @@ void CalculateOptimalROI::nonreccheck(int left,int top,int right,int bottom,int 
         head=tmp;
     }
     
-    if(maxvalue>0 && acc==1 && dodouble==0)
+    if(maxvalue>0 && acc==1 && searchStrategy==0)
     {
         printf("Found Solution: %d %d %d %d\n",best.left,best.top,best.right,best.bottom);
     }
@@ -325,42 +355,47 @@ int CalculateOptimalROI::autocrop()
     
     maxvalue=0;
     count=0;
-    begin=NULL;
     head=NULL;
     tail=NULL;
 
     //put backwards at the start
-    min.right=0;
-    min.bottom=0;
-    min.left=o_optimalSize.x;
-    min.top=o_optimalSize.y;
-    
-    max.left=0;
-    max.top=0;
-    max.right=o_optimalSize.x;
-    max.bottom=o_optimalSize.y;
-    
     int startacc=pow(2.0,std::min((int)log2(o_optimalSize.x/2-1),(int)log2(o_optimalSize.y/2-1))-1);
     if(startacc<1)
         startacc=1;
-    
+
     //start smaller to get biggest initial position
-    for(int acc=startacc;acc>=1;acc/=2)
+    if(startacc>64)
     {
-        nonreccheck(0,0,o_optimalSize.x,o_optimalSize.y,acc,1);
-        if(maxvalue>0)
+        //we start searching with a symmetric decrease
+        for(int acc=startacc;acc>=64;acc/=2)
         {
-            printf("Inner %d %d: %d %d - %d %d\n",acc,maxvalue,best.left,best.right,best.top,best.bottom);
-            min=best;
-            break;
+            nonreccheck(0,0,o_optimalSize.x,o_optimalSize.y,acc,2);
+            if(maxvalue>0)
+            {
+                printf("Inner %d %d: %d %d - %d %d\n",acc,maxvalue,best.left,best.right,best.top,best.bottom);
+                break;
+            }
         }
-    }
+    };
+
+    if(maxvalue==0)
+    {
+        // if the rough symmetric search failed we are using also an asymmetric strategy
+        for(int acc=startacc;acc>=1;acc/=2)
+        {
+            nonreccheck(0,0,o_optimalSize.x,o_optimalSize.y,acc,1);
+            if(maxvalue>0)
+            {
+                printf("Inner %d %d: %d %d - %d %d\n",acc,maxvalue,best.left,best.right,best.top,best.bottom);
+                break;
+            }
+        }
+    };
     
     for(int acc=startacc;acc>=1;acc/=2)
     {
         printf("Starting %d: %d %d - %d %d\n",acc,best.left,best.right,best.top,best.bottom);
         nonreccheck(best.left,best.top,best.right,best.bottom,acc,0);
-        min=best;
     }
 
     //printf("Final Image: %dx%d\n",outpano->width,outpano->height);
