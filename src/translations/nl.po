@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: nl\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
 "POT-Creation-Date: 2011-10-21 22:38+0200\n"
-"PO-Revision-Date: 2011-11-06 21:41+0100\n"
+"PO-Revision-Date: 2011-11-13 08:29+0100\n"
 "Last-Translator: Harry van der Wolf <harryvanderwolf@home.nl>\n"
 "Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
 "Language: \n"
@@ -80,7 +80,7 @@ msgstr "Extern programma %s niet gevonden in de bundel, het systeempad wordt geb
 #: hugin1/base_wx/huginConfig.cpp:109
 #, c-format
 msgid "Program %s not found in preferences, reverting to default value"
-msgstr "Programma %s niet gevonden in de Voorkeuren, verder met de standaardinstelling"
+msgstr "Programma %s niet gevonden in de voorkeuren, verder met de standaardinstelling"
 
 #: hugin1/base_wx/huginConfig.cpp:129
 #: hugin1/base_wx/huginConfig.cpp:134
@@ -1788,7 +1788,7 @@ msgstr "Resultaat fijnafstemmen"
 # hugin1/hugin/ImagesPanel.cpp:866, c-format
 #: hugin1/hugin/MainFrame.cpp:1706
 msgid "Removing control points in masks"
-msgstr "Ijkpunten verwijderen in masker"
+msgstr "Ijkpunten verwijderen in maskers"
 
 #: hugin1/hugin/MainFrame.cpp:1715
 msgid "Select python script"
@@ -2121,7 +2121,7 @@ msgstr "Kan tijdelijk project bestand niet aanmaken"
 #: hugin1/ptbatcher/Batch.cpp:724
 #: hugin1/stitch_project/hugin_stitch_project.cpp:402
 msgid "Specify output prefix"
-msgstr "Geef voorlooptekst voor uitvoernaam"
+msgstr "Geef uitvoernaam zonder extensie"
 
 #: hugin1/hugin/PanoPanel.cpp:1055
 #: hugin1/hugin/PanoPanel.cpp:1183
@@ -2710,7 +2710,7 @@ msgstr "PTBatcherGUI"
 #: hugin1/ptbatcher/Batch.cpp:282
 #: hugin1/ptbatcher/Batch.cpp:304
 msgid "Cleared batch."
-msgstr "Bulk geleegd."
+msgstr "Wachtrij geleegd."
 
 #: hugin1/ptbatcher/Batch.cpp:392
 #, c-format
@@ -2719,7 +2719,7 @@ msgstr "Fout: Kon status niet opvragen, project met index  %d niet in de lijst."
 
 #: hugin1/ptbatcher/Batch.cpp:445
 msgid "Error: Could not load batch file."
-msgstr "Fout: Kon bulkbestand niet openen."
+msgstr "Fout: Kon wachtrij bestand niet openen."
 
 #: hugin1/ptbatcher/Batch.cpp:598
 msgid "Batch successfully completed."
@@ -2748,7 +2748,7 @@ msgstr "Fout bij afsluiten. Heeft u beheerdersrechten?"
 
 #: hugin1/ptbatcher/Batch.cpp:735
 msgid "No output prefix specified"
-msgstr "Geen output-voorloop opgegeven"
+msgstr "Geen uitvoernaam (zonder extensie) opgegeven"
 
 #: hugin1/ptbatcher/Batch.cpp:774
 #: hugin1/stitch_project/hugin_stitch_project.cpp:441
@@ -2846,11 +2846,11 @@ msgstr "Bulkproces gepauzeerd"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:446
 msgid "Specify output prefix for project "
-msgstr "Geef voorlooptekst voor project"
+msgstr "Geef project naam (zonder extensie)"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:469
 msgid "The prefix of an assistant target can not be changed."
-msgstr "De voorvoeging van een assistent doel can niet gewijzigd worden."
+msgstr "De naam (zonder extensie) van een assistent doel kan niet gewijzigd worden."
 
 #: hugin1/ptbatcher/BatchFrame.cpp:475
 msgid "Please select a project"
@@ -3097,7 +3097,7 @@ msgstr "Project"
 
 #: hugin1/ptbatcher/ProjectListBox.cpp:53
 msgid "Output prefix"
-msgstr "Geef voorlooptekst voor uitvoernaam"
+msgstr "Geef uitvoernaam zonder extensie"
 
 #: hugin1/ptbatcher/ProjectListBox.cpp:54
 msgid "Status"
@@ -3146,7 +3146,7 @@ msgstr "Assistent"
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:139
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:155
 msgid "stitch_project.pto [output prefix]|assistant_project.pto"
-msgstr "titch_project.pto [uitvoer voorloop]|assistant_project.pto"
+msgstr "stitch_project.pto [bestand naam zonder extensie]|assistant_project.pto"
 
 #: hugin1/stitch_project/hugin_stitch_project.cpp:141
 #, c-format
@@ -3381,7 +3381,7 @@ msgstr "Verwijder afgeronde"
 #: translations/xrc.cpp:37
 #: xrc.cpp:37
 msgid "Change prefix"
-msgstr "Verander voorzettekst"
+msgstr "Verander naam (zonder extensie)"
 
 #: translations/xrc.cpp:38
 #: xrc.cpp:38
