@@ -390,7 +390,7 @@ msgstr ""
 "請先執行\"尋找直線\"。如果找不到直線，請試著改變參數。"
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:705
-msgid "Optimizing lens distortions parameters..."
+msgid "Optimizing lens distortion parameters..."
 msgstr "最佳化鏡頭變形參數..."
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:736
@@ -5298,9 +5298,9 @@ msgstr "CPU 編號:"
 #: translations/xrc.cpp:669 xrc.cpp:669
 #, fuzzy
 msgid ""
-"Hugins preview window can use multiple threads for processing.\n"
+"Hugin's preview window can use multiple threads for processing.\n"
 "Set this to the number of processors or processor cores available in your "
-"system"
+"system."
 msgstr ""
 "Nona 能夠使用多執行緒處理.\n"
 "將這個數量設定為您的系統中可用的處理器或者處理器核心."
@@ -5667,7 +5667,7 @@ msgid "Overwrite existing files"
 msgstr "覆蓋已經存在的圖片"
 
 #: translations/xrc.cpp:762 xrc.cpp:762
-msgid "WARNING: existing files with be silently overwritten."
+msgid "WARNING: existing files will be silently overwritten."
 msgstr "警告： 已經存在的檔案可能會在沒有通知的情況下被覆蓋"
 
 #: translations/xrc.cpp:763 xrc.cpp:763

@@ -396,7 +396,7 @@ msgstr ""
 "változtassa meg a paramétereket."
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:705
-msgid "Optimizing lens distortions parameters..."
+msgid "Optimizing lens distortion parameters..."
 msgstr "Objektív torzítás paraméterek optimalizálása ..."
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:736
@@ -5324,9 +5324,9 @@ msgstr "CPU-k darabszáma:"
 
 #: translations/xrc.cpp:669 xrc.cpp:669
 msgid ""
-"Hugins preview window can use multiple threads for processing.\n"
+"Hugin's preview window can use multiple threads for processing.\n"
 "Set this to the number of processors or processor cores available in your "
-"system"
+"system."
 msgstr ""
 "Hugin előnézeti ablak használhatja a többszálú feldolgozást.\n"
 "Állítsa be hány processzor vagy processzor mag elérhető az ön rendszerén"
@@ -5687,7 +5687,7 @@ msgid "Overwrite existing files"
 msgstr "Létező fájlok felülírása"
 
 #: translations/xrc.cpp:762 xrc.cpp:762
-msgid "WARNING: existing files with be silently overwritten."
+msgid "WARNING: existing files will be silently overwritten."
 msgstr "FIGYELEM: a meglévő fájlokat csendben felülírja."
 
 #: translations/xrc.cpp:763 xrc.cpp:763

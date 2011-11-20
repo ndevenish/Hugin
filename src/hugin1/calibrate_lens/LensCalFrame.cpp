@@ -702,7 +702,7 @@ Panorama LensCalFrame::GetPanorama()
 
 void LensCalFrame::Optimize()
 {
-    SetStatusText(_("Optimizing lens distortions parameters..."));
+    SetStatusText(_("Optimizing lens distortion parameters..."));
     Panorama pano=GetPanorama();
     HuginBase::PTools::optimize(pano);
 

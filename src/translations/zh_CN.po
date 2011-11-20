@@ -386,7 +386,7 @@ msgstr ""
 "请先运行 \"查找行\". 如果不能查找到行, 请修改参数."
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:705
-msgid "Optimizing lens distortions parameters..."
+msgid "Optimizing lens distortion parameters..."
 msgstr "优化镜头失真参数..."
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:736
@@ -5193,9 +5193,9 @@ msgstr "CPU 编号:"
 #: translations/xrc.cpp:669 xrc.cpp:669
 #, fuzzy
 msgid ""
-"Hugins preview window can use multiple threads for processing.\n"
+"Hugin's preview window can use multiple threads for processing.\n"
 "Set this to the number of processors or processor cores available in your "
-"system"
+"system."
 msgstr ""
 "Nona 能够使用多线程.\n"
 "将这个参数设置成为您的系统中的处理器或者处理器内核的数量"
@@ -5552,7 +5552,7 @@ msgid "Overwrite existing files"
 msgstr "覆盖已经存在的文件"
 
 #: translations/xrc.cpp:762 xrc.cpp:762
-msgid "WARNING: existing files with be silently overwritten."
+msgid "WARNING: existing files will be silently overwritten."
 msgstr "警告: 已存在的文件将会被无提示地覆盖."
 
 #: translations/xrc.cpp:763 xrc.cpp:763
