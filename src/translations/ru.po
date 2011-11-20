@@ -398,7 +398,7 @@ msgid ""
 msgstr ""
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:705
-msgid "Optimizing lens distortions parameters..."
+msgid "Optimizing lens distortion parameters..."
 msgstr ""
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:736
@@ -5317,9 +5317,9 @@ msgstr "Количество процессоров:"
 #: translations/xrc.cpp:669 xrc.cpp:669
 #, fuzzy
 msgid ""
-"Hugins preview window can use multiple threads for processing.\n"
+"Hugin's preview window can use multiple threads for processing.\n"
 "Set this to the number of processors or processor cores available in your "
-"system"
+"system."
 msgstr ""
 "Nona может использовать несколько нитей процессов для обработки.\n"
 "Установите это значение равным количеству процессоров или ядер процессора в "
@@ -5680,7 +5680,7 @@ msgid "Overwrite existing files"
 msgstr "Перезаписать существующие снимки"
 
 #: translations/xrc.cpp:762 xrc.cpp:762
-msgid "WARNING: existing files with be silently overwritten."
+msgid "WARNING: existing files will be silently overwritten."
 msgstr ""
 
 #: translations/xrc.cpp:763 xrc.cpp:763

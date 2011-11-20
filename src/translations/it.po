@@ -490,7 +490,7 @@ msgstr ""
 "Eseguire prima «Cerca linee». Se non vengono trovate delle linee, modificare i parametri."
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:705
-msgid "Optimizing lens distortions parameters..."
+msgid "Optimizing lens distortion parameters..."
 msgstr "Ottimizzazione dei parametri di distorsione dell'obiettivo..."
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:736
@@ -6224,8 +6224,8 @@ msgstr "Numero di CPU:"
 #: translations/xrc.cpp:669
 #: xrc.cpp:669
 msgid ""
-"Hugins preview window can use multiple threads for processing.\n"
-"Set this to the number of processors or processor cores available in your system"
+"Hugin's preview window can use multiple threads for processing.\n"
+"Set this to the number of processors or processor cores available in your system."
 msgstr ""
 "La finestra dell'anteprima di Hugin è in grado di utilizzare diversi thread per l'elaborazione.\n"
 "Impostare questo valore al numero di processori o core di processori disponibili nel sistema."
@@ -6662,7 +6662,7 @@ msgstr "Sovrascrivi i file esistenti"
 
 #: translations/xrc.cpp:762
 #: xrc.cpp:762
-msgid "WARNING: existing files with be silently overwritten."
+msgid "WARNING: existing files will be silently overwritten."
 msgstr "ATTENZIONE: i file esistenti verranno sovrascritti senza chiederne conferma"
 
 #: translations/xrc.cpp:763

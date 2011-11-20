@@ -460,7 +460,7 @@ msgstr ""
 "U dient eerst \"Vind lijnen\" uitvoeren. Als er geen lijnen gevonden worden moet u de parameters aanpassen."
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:705
-msgid "Optimizing lens distortions parameters..."
+msgid "Optimizing lens distortion parameters..."
 msgstr "Optimaliseren van lens vervorming parameters..."
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:736
@@ -6107,8 +6107,8 @@ msgstr "Aantal processoren:"
 #: translations/xrc.cpp:669
 #: xrc.cpp:669
 msgid ""
-"Hugins preview window can use multiple threads for processing.\n"
-"Set this to the number of processors or processor cores available in your system"
+"Hugin's preview window can use multiple threads for processing.\n"
+"Set this to the number of processors or processor cores available in your system."
 msgstr ""
 "Hugin's voorbeeld venster kan meerdere threads gebruiken voor het bewerken.\n"
 "Stel de waarde in op het aantal processoren of processorkernen in uw systeem."
@@ -6535,7 +6535,7 @@ msgstr "Bestaande afbeeldingen overschrijven"
 
 #: translations/xrc.cpp:762
 #: xrc.cpp:762
-msgid "WARNING: existing files with be silently overwritten."
+msgid "WARNING: existing files will be silently overwritten."
 msgstr "WAARSCHUWING: bestaande bestanden zullen ongevraagd overschreven worden."
 
 #: translations/xrc.cpp:763
