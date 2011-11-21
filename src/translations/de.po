@@ -3325,7 +3325,7 @@ msgid "Automatic stitch after assistant"
 msgstr "Nach Assistent autom. zusammenfügen"
 
 #: translations/xrc.cpp:50 xrc.cpp:50
-msgid "Automatic stitch projects after (successful) running assistant."
+msgid "Automatically stitch projects after (successful) running assistant."
 msgstr ""
 "Projekte, die vom Assistenten erfolgreich abgeschlossen wurden, automatisch "
 "zusammenfügen."

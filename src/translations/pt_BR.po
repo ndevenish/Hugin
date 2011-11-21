@@ -3318,7 +3318,7 @@ msgid "Automatic stitch after assistant"
 msgstr "Processamento automático após o assistente"
 
 #: translations/xrc.cpp:50 xrc.cpp:50
-msgid "Automatic stitch projects after (successful) running assistant."
+msgid "Automatically stitch projects after (successful) running assistant."
 msgstr "Processa automaticamente projetos após rodar o assistente com sucesso."
 
 #: translations/xrc.cpp:51 xrc.cpp:51
