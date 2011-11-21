@@ -95,7 +95,7 @@
                 <object class="sizeritem">
                   <object class="wxCheckBox" name="cb_autostitch">
                     <label>Automatic stitch after assistant</label>
-                    <tooltip>Automatic stitch projects after (successful) running assistant.</tooltip>
+                    <tooltip>Automatically stitch projects after (successful) running assistant.</tooltip>
                   </object>
                   <flag>wxEXPAND</flag>
                 </object>
