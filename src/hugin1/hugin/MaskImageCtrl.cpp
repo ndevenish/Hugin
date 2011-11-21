@@ -815,10 +815,15 @@ void MaskImageCtrl::OnDraw(wxDC & dc)
                     delete []polygonPoints;
                 };
             };
+#ifndef __WXMAC__
+            // on Windows and GTK we need to compensate to clipping region
+            // by the scroll offset
+            // this seems not to be necessary for wxMac
             int x;
             int y;
             GetViewStart(&x,&y);
             region.Offset(-x,-y);
+#endif
             dc.SetDeviceClippingRegion(region);
             dc.DrawBitmap(disabledBitmap,offset,offset);
             dc.DestroyClippingRegion();
