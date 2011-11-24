@@ -46,8 +46,7 @@ along with hugin.  If not, see <http://www.gnu.org/licenses/>.
 #include <panodata/PanoramaData.h>
 #include <hugin_utils/utils.h>
 #include <hugin_version.h>
-#include <algorithms/basic/CalculateOverlap.h>
-#include <algorithms/nona/ComputeImageROI.h>
+#include <algorithms/basic/LayerStacks.h>
 #ifdef _WINDOWS
 #include "windows.h"
 #endif
@@ -71,97 +70,25 @@ static const makefile::string ldrRemappedExt(".tif");
 static const makefile::string ldrRemappedMode("TIFF_m");
 static const makefile::string hdrRemappedMode("EXR_m");
 
-// should be moved somewhere else (will be after GSOC anyway)
-vector<UIntSet> getHDRStacks(const PanoramaData & pano, UIntSet allImgs)
+PanoramaMakefilelibExport::PanoramaMakefilelibExport(PanoramaData & pano_,
+            const UIntSet & images_,
+            const std::string & ptofile_,
+            const std::string & outputPrefix_,
+            const PTPrograms & progs_,
+            const std::string & includePath_,
+            std::vector<std::string> & outputFiles_,
+            std::ostream & makefile_,
+            const std::string& tmpDir_,
+            const bool copyMetadata_,
+            const int nrThreads_)
+    : PanoramaAlgorithm(pano),
+      pano(pano_), ptofile(ptofile_), outputPrefix(outputPrefix_),
+      progs(progs_), includePath(includePath_), outputFiles(outputFiles_),
+      makefile(makefile_), tmpDir(tmpDir_), copyMetadata(copyMetadata_), nrThreads(nrThreads_)
 {
-    vector<UIntSet> result;
-
-    // if no images are available, return empty result vector
-    if ( allImgs.empty() )
-    {
-        return result;
-    }
-
-    UIntSet stack;
-
-    CalculateImageOverlap overlap(&pano);
-    overlap.calculate(10);  // we are testing 10*10=100 points
-    do {
-        unsigned srcImg = *(allImgs.begin());
-        stack.insert(srcImg);
-        allImgs.erase(srcImg);
-
-        // find all images that have a suitable overlap.
-        for (UIntSet::iterator it = allImgs.begin(); it !=  allImgs.end(); ) {
-            unsigned srcImg2 = *it;
-            it++;
-            if(overlap.getOverlap(srcImg,srcImg2)>0.7)
-            {
-                stack.insert(srcImg2);
-                allImgs.erase(srcImg2);
-            }
-        }
-        result.push_back(stack);
-        stack.clear();
-    } while (allImgs.size() > 0);
-
-    return result;
-}
-
-// should be moved somewhere else (will be after GSOC anyway)
-vector<UIntSet> getExposureLayers(const PanoramaData & pano, UIntSet allImgs)
-{
-    vector<UIntSet> result;
-
-    // if no images are available, return empty result vector
-    if ( allImgs.empty() )
-    {
-        return result;
-    }
-
-    UIntSet stack;
-
-    do {
-        unsigned srcImg = *(allImgs.begin());
-        stack.insert(srcImg);
-        allImgs.erase(srcImg);
-
-        // find all images that have a suitable overlap.
-        SrcPanoImage simg = pano.getSrcImage(srcImg);
-        // FIXME this should be a user preference
-        double maxEVDiff = 0.5;
-        for (UIntSet::iterator it = allImgs.begin(); it !=  allImgs.end(); ) {
-            unsigned srcImg2 = *it;
-            it++;
-            SrcPanoImage simg2 = pano.getSrcImage(srcImg2);
-            if ( fabs(simg.getExposureValue() - simg2.getExposureValue()) < maxEVDiff )
-            {
-                stack.insert(srcImg2);
-                allImgs.erase(srcImg2);
-            }
-        }
-        result.push_back(stack);
-        stack.clear();
-    } while (allImgs.size() > 0);
-
-    return result;
-}
-
-
-// should be moved somewhere else (will be after GSOC anyway)
-UIntSet getImagesinROI (const PanoramaData& pano, const UIntSet activeImages)
-{
-    UIntSet images;
-    PanoramaOptions opts = pano.getOptions();
-    for (UIntSet::const_iterator it = activeImages.begin(); it != activeImages.end(); ++it)
-    {
-        Rect2D roi = estimateOutputROI(pano, opts, *it);
-        if (! (roi.isEmpty())) {
-            images.insert(*it);
-        }
-    }
-    return images;
-}
+    images=getImagesinROI(pano_,images_);
+    valuestream.imbue(makefile::GetMakefileLocale());
+};
 
 bool PanoramaMakefilelibExport::createItems()
 {

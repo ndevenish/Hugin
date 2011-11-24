@@ -59,7 +59,7 @@ extern "C" {
 #include "hugin/config_defaults.h"
 #include "base_wx/platform.h"
 #include "base_wx/huginConfig.h"
-
+#include "algorithms/basic/LayerStacks.h"
 
 #define WX_BROKEN_SIZER_UNKNOWN
 

@@ -39,6 +39,7 @@
 #include <algorithms/basic/CalculateOptimalScale.h>
 #include <algorithms/basic/CalculateOverlap.h>
 #include <algorithms/basic/RotatePanorama.h>
+#include <algorithms/basic/LayerStacks.h>
 #include <algorithms/basic/StraightenPanorama.h>
 #include <algorithms/basic/TranslatePanorama.h>
 #include <algorithms/control_points/CleanCP.h>
@@ -260,6 +261,7 @@ using namespace HuginBase;
 %include <algorithms/basic/CalculateOptimalScale.h>
 %include <algorithms/basic/CalculateOverlap.h>
 %include <algorithms/basic/RotatePanorama.h>
+%include <algorithms/basic/LayerStacks.h>
 %include <algorithms/basic/StraightenPanorama.h>
 %include <algorithms/basic/TranslatePanorama.h>
 %include <algorithms/control_points/CleanCP.h>

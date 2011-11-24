@@ -40,11 +40,6 @@ along with hugin.  If not, see <http://www.gnu.org/licenses/>.
  */
 namespace HuginBase
 {
-
-IMPEX std::vector<UIntSet> getHDRStacks(const PanoramaData & pano, UIntSet allImgs);
-IMPEX std::vector<UIntSet> getExposureLayers(const PanoramaData & pano, UIntSet allImgs);
-IMPEX UIntSet getImagesinROI (const PanoramaData& pano, const UIntSet activeImages);
-
 class IMPEX PanoramaMakefilelibExport : public PanoramaAlgorithm
 {
 public:
@@ -133,7 +128,7 @@ private:
 		return makefile::Makefile::getSingleton().writeMakefile(makefile) != 0;
 	}
 public:
-	PanoramaMakefilelibExport(PanoramaData & pano_,
+    PanoramaMakefilelibExport(PanoramaData & pano_,
             const UIntSet & images_,
             const std::string & ptofile_,
             const std::string & outputPrefix_,
@@ -143,16 +138,7 @@ public:
             std::ostream & makefile_,
             const std::string& tmpDir_,
             const bool copyMetadata_,
-            const int nrThreads_)
-	: PanoramaAlgorithm(pano),
-	  pano(pano_), ptofile(ptofile_), outputPrefix(outputPrefix_),
-	  progs(progs_), includePath(includePath_), outputFiles(outputFiles_),
-      makefile(makefile_), tmpDir(tmpDir_), copyMetadata(copyMetadata_), nrThreads(nrThreads_)
-	{
-        images=getImagesinROI(pano_,images_);
-        valuestream.imbue(makefile::GetMakefileLocale());
-
-	}
+            const int nrThreads_);
 
 	static void createMakefile(PanoramaData & pano_,
             const UIntSet & images_,
