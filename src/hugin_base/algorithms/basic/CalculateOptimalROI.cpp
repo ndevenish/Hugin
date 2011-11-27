@@ -92,31 +92,58 @@ bool CalculateOptimalROI::calcOptimalROI(PanoramaData& panorama)
 }
 
 //now you can do dynamic programming, look thinks up on fly
+bool CalculateOptimalROI::stackPixel(int i, int j, UIntSet &stack)
+{
+    bool inside = intersection; // start with true for intersection mode and with false for union mode
+    //check that pixel at each place
+    for(UIntSet::const_iterator it=stack.begin();it!=stack.end();it++)
+    {
+        double xd,yd;
+        if(transfMap[*it]->transformImgCoord(xd,yd,(double)i,(double)j))
+        {
+            if(o_panorama.getImage(*it).isInside(vigra::Point2D(xd,yd)))
+            {
+                if (!intersection) {
+                    //if found in a single image, short cut out
+                    inside=true;
+                    break;
+                }
+            }
+            else {
+                if (intersection) {
+                    //outside of at least one image - return false
+                    inside=false;
+                    break;
+                }
+            }
+        }
+    }
+
+    return inside;
+}
+
 bool CalculateOptimalROI::imgPixel(int i, int j)
 {
     if(testedPixels[j*o_optimalSize.x+i]==0)
     {
-        bool inside = intersection; // start with true for intersection mode and with false for union mode
-        //check that pixel at each place
-        for(UIntSet::const_iterator it=activeImages.begin();it!=activeImages.end();it++)
+        bool inside;
+        
+        if (stacks.empty())
         {
-            double xd,yd;
-            if(transfMap[*it]->transformImgCoord(xd,yd,(double)i,(double)j))
+            // no stacks - test all images on union or intersection
+            inside = stackPixel(i, j, activeImages);
+        }
+        else
+        {
+            inside = false;
+            // pixel must be inside of at least one stack
+            for (unsigned s=0; s < stacks.size(); s++)
             {
-                if(o_panorama.getImage(*it).isInside(vigra::Point2D(xd,yd)))
+                // images in each stack are tested on intersection
+                if (stackPixel(i, j, stacks[s]))
                 {
-                    if (!intersection) {
-                        //if found in a single image, short cut out
-                        inside=true;
-                        break;
-                    }
-                }
-                else {
-                    if (intersection) {
-                        //outside of at least one image - return false
-                        inside=false;
-                        break;
-                    }
+                    inside = true;
+                    break;
                 }
             }
         }
@@ -401,5 +428,11 @@ int CalculateOptimalROI::autocrop()
     //printf("Final Image: %dx%d\n",outpano->width,outpano->height);
     return 0;
 }
+
+void CalculateOptimalROI::setStacks(std::vector<UIntSet> hdr_stacks)
+{
+    stacks=hdr_stacks;
+    intersection=true;
+};
 
 } //namespace

@@ -265,6 +265,7 @@ protected:
     void OnPhotometric(wxCommandEvent & e);
     void OnIdentify(wxCommandEvent &e);
     void OnAutocrop(wxCommandEvent &e);
+    void OnStackAutocrop(wxCommandEvent &e);
     void OnControlPoint(wxCommandEvent &e);
     void OnNumTransform(wxCommandEvent & e);
     void OnChangeFOV(wxScrollEvent & e);

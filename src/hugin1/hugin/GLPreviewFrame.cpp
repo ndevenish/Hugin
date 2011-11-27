@@ -130,6 +130,7 @@ BEGIN_EVENT_TABLE(GLPreviewFrame, wxFrame)
     EVT_TOOL(XRCID("preview_color_picker_tool"), GLPreviewFrame::OnColorPicker)
     EVT_CHECKBOX(XRCID("preview_control_point_tool"), GLPreviewFrame::OnControlPoint)
     EVT_BUTTON(XRCID("preview_autocrop_tool"), GLPreviewFrame::OnAutocrop)
+    EVT_BUTTON(XRCID("preview_stack_autocrop_tool"), GLPreviewFrame::OnStackAutocrop)
     EVT_NOTEBOOK_PAGE_CHANGED(XRCID("mode_toolbar_notebook"), GLPreviewFrame::OnSelectMode)
     EVT_NOTEBOOK_PAGE_CHANGING(XRCID("mode_toolbar_notebook"), GLPreviewFrame::OnToolModeChanging)
     EVT_BUTTON(ID_HIDE_HINTS, GLPreviewFrame::OnHideProjectionHints)
@@ -327,6 +328,7 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     XRCCTRL(*this,"preview_straighten_pano_tool",wxButton)->SetBitmapMargins(0,0);
     XRCCTRL(*this,"preview_fit_pano_tool2",wxButton)->SetBitmapMargins(0,0);
     XRCCTRL(*this,"preview_autocrop_tool",wxButton)->SetBitmapMargins(0,0);
+    XRCCTRL(*this,"preview_stack_autocrop_tool",wxButton)->SetBitmapMargins(0,0);
 #else
     wxPanel *tool_panel = wxXmlResource::Get()->LoadPanel(this,wxT("mode_panel"));
     AddLabelToBitmapButton(XRCCTRL(*this,"preview_center_tool",wxBitmapButton),_("Center"));
@@ -334,6 +336,7 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     AddLabelToBitmapButton(XRCCTRL(*this,"preview_straighten_pano_tool",wxBitmapButton),_("Straighten"));
     AddLabelToBitmapButton(XRCCTRL(*this,"preview_fit_pano_tool2",wxBitmapButton),_("Fit"));
     AddLabelToBitmapButton(XRCCTRL(*this,"preview_autocrop_tool",wxBitmapButton),_("Autocrop"));
+    AddLabelToBitmapButton(XRCCTRL(*this,"preview_stack_autocrop_tool",wxBitmapButton),_("HDR Autocrop"));
 #endif
     m_tool_notebook = XRCCTRL(*this,"mode_toolbar_notebook",wxNotebook);
     m_ToolBar_Identify = XRCCTRL(*this,"preview_mode_toolbar",wxToolBar);
@@ -983,6 +986,7 @@ void GLPreviewFrame::panoramaChanged(Panorama &pano)
     m_oldProjFormat = opts.getProjection();
 
     XRCCTRL(*this,"preview_autocrop_tool",wxBitmapButton)->Enable(activeImgs);
+    XRCCTRL(*this,"preview_stack_autocrop_tool",wxBitmapButton)->Enable(activeImgs);
     m_ROILeftTxt->SetValue(wxString::Format(wxT("%d"), opts.getROI().left() ));
     m_ROIRightTxt->SetValue(wxString::Format(wxT("%d"), opts.getROI().right() ));
     m_ROITopTxt->SetValue(wxString::Format(wxT("%d"), opts.getROI().top() ));
@@ -2319,6 +2323,43 @@ void GLPreviewFrame::OnAutocrop(wxCommandEvent &e)
     vigra::Size2D newSize;
     
     m_pano.calcOptimalROI(newROI, newSize);
+    
+    PanoramaOptions opt = m_pano.getOptions();
+    
+    DEBUG_INFO (   "ROI: left: " << opt.getROI().left()
+                << " top: " << opt.getROI().top()
+                << " right: " << opt.getROI().right()
+                << " bottom: " << opt.getROI().bottom() << " before update");
+    
+    //set the ROI - fail if the right/bottom is zero, meaning all zero
+    if(newROI.right() != 0 && newROI.bottom() != 0)
+    {
+        opt.setROI(newROI);
+
+        GlobalCmdHist::getInstance().addCommand(
+            new PT::SetPanoOptionsCmd(m_pano, opt )
+            );
+    }
+    PanoramaOptions opt2 = m_pano.getOptions();
+    DEBUG_INFO (   "ROI: left: " << opt2.getROI().left()
+                << " top: " << opt2.getROI().top()
+                << " right: " << opt2.getROI().right()
+                << " bottom: " << opt2.getROI().bottom() << " after update");
+}
+
+void GLPreviewFrame::OnStackAutocrop(wxCommandEvent &e)
+{
+    DEBUG_INFO("Dirty ROI Calc\n");
+    if (m_pano.getActiveImages().size() == 0) return;
+
+    ProgressReporterDialog progress(2, _("Autocrop"), _("Calculating optimal crop"),this, wxPD_AUTO_HIDE | wxPD_APP_MODAL | wxPD_ELAPSED_TIME);
+    progress.increaseProgress(1);
+    progress.Pulse();
+    
+    vigra::Rect2D newROI;
+    vigra::Size2D newSize;
+    
+    m_pano.calcOptimalStackROI(newROI, newSize);
     
     PanoramaOptions opt = m_pano.getOptions();
     
