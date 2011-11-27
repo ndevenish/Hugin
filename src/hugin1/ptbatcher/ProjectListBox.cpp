@@ -277,7 +277,11 @@ wxString ProjectListBox::GetAttributeString(int i, Project* project)
         case 2:
             if(project->target==Project::STITCHING)
             {
-                return project->prefix;
+                //make prefix relative to project path
+                wxFileName prefix(project->prefix);
+                wxFileName projectFile(project->path);
+                prefix.MakeRelativeTo(projectFile.GetPath());
+                return prefix.GetFullPath();
             }
             else
             {
