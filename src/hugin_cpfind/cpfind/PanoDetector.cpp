@@ -423,7 +423,6 @@ void PanoDetector::run()
 {
     // init the random time generator
     srandom((unsigned int)time(NULL));
-    PoolExecutor aExecutor(_cores);
 
     // Load the input project file
     if(!loadProject())
@@ -444,6 +443,43 @@ void PanoDetector::run()
         return;
     };
 
+    //checking, if memory allows running desired number of threads
+    unsigned long maxImageSize=0;
+    bool withRemap=false;
+    for (ImgDataIt_t aB = _filesData.begin(); aB != _filesData.end(); ++aB)
+    {
+        maxImageSize=std::max<unsigned long>(aB->second._detectWidth*aB->second._detectHeight,maxImageSize);
+        if(aB->second._needsremap)
+        {
+            withRemap=true;
+        };
+    };
+    unsigned long maxCores;
+    //determinded factors by testing of some projects
+    //the memory usage seems to be very high
+    //if the memory usage could be decreased these numbers can be decreased
+    if(withRemap)
+    {
+        maxCores=utils::getTotalMemory()/(maxImageSize*75);
+    }
+    else
+    {
+        maxCores=utils::getTotalMemory()/(maxImageSize*50);
+    };
+    if(maxCores<1)
+    {
+        maxCores=1;
+    }
+    if(maxCores<_cores)
+    {
+        if(getVerbose()>0)
+        {
+            std::cout << "\nThe available memory does not allow running " << _cores << " threads parallel.\n"
+                      << "Running cpfind with " << maxCores << " threads.\n";
+        };
+        setCores(maxCores);
+    };
+    PoolExecutor aExecutor(_cores);
     svmModel=NULL;
     if(_celeste)
     {

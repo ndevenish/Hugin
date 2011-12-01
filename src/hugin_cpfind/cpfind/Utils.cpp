@@ -22,7 +22,11 @@
 #if defined(HW_NCPU) || defined(__APPLE__)
 #include <sys/sysctl.h>
 #endif
-
+#ifdef _WINDOWS
+#include <Windows.h>
+#else
+#include <unistd.h>
+#endif
 
 int utils::getCPUCount()
 {
@@ -49,3 +53,20 @@ int utils::getCPUCount()
     return 1;
 #endif
 }
+
+#ifdef _WINDOWS
+unsigned long long utils::getTotalMemory()
+{
+    MEMORYSTATUSEX status;
+    status.dwLength = sizeof(status);
+    GlobalMemoryStatusEx(&status);
+    return status.ullTotalPhys;
+};
+#else
+unsigned long long utils::getTotalMemory()
+{
+    long pages = sysconf(_SC_PHYS_PAGES);
+    long page_size = sysconf(_SC_PAGE_SIZE);
+    return pages * page_size;
+}
+#endif

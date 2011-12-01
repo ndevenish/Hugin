@@ -73,8 +73,9 @@ inline int os_TimeDiff(os_TIME* time1, os_TIME* time2)
 #endif
 }
 
+/** returns the total memory in byte */
+unsigned long long getTotalMemory();
 
-//}
 }
 
 #endif // __utils_h
