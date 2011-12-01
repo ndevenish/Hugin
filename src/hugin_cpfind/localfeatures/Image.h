@@ -7,12 +7,12 @@
 * it under the terms of the GNU General Public License as published by
 * the Free Software Foundation; either version 2 of the License, or
 * (at your option) any later version.
-* 
+*
 * Panomatic is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 * GNU General Public License for more details.
-* 
+*
 * You should have received a copy of the GNU General Public License
 * along with Panomatic; if not, write to the Free Software
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
@@ -23,7 +23,8 @@
 
 #include "KeyPoint.h"
 
-namespace lfeat {
+namespace lfeat
+{
 
 // forward declaration
 class IntegralImage;
@@ -32,45 +33,57 @@ class LFIMPEX Image
 {
 public:
     Image() : _pixels(0), _width(0), _height(0), _ii(0), _own_ii(true) {};
-	
-	// Constructor from a pixel array (C style)
-	Image(double *iPixels, unsigned int iWidth, unsigned int iHeight, bool integral=false);
-	// setup the integral image
-	void init(double *iPixels, unsigned int iWidth, unsigned int iHeight, bool integral=false);
 
-	// cleanup
-	void clean();
+    // Constructor from a pixel array (C style)
+    Image(double* iPixels, unsigned int iWidth, unsigned int iHeight, bool integral=false);
+    // setup the integral image
+    void init(double* iPixels, unsigned int iWidth, unsigned int iHeight, bool integral=false);
 
-	// Destructor
-	~Image();
+    // cleanup
+    void clean();
 
-	// Accessors
-	inline double **		getPixels()			{ return _pixels; }
-	inline double **		getIntegralImage()	{ return _ii; }
-	inline unsigned int		getWidth()			{ return _width; }
-	inline unsigned int		getHeight()			{ return _height; }
+    // Destructor
+    ~Image();
 
-	// allocate and deallocate integral image pixels
-	static double **		AllocateImage(unsigned int iWidth, unsigned int iHeight);
-	static void				DeallocateImage(double **iImagePtr, unsigned int iHeight);
+    // Accessors
+    inline double** 		getPixels()
+    {
+        return _pixels;
+    }
+    inline double** 		getIntegralImage()
+    {
+        return _ii;
+    }
+    inline unsigned int		getWidth()
+    {
+        return _width;
+    }
+    inline unsigned int		getHeight()
+    {
+        return _height;
+    }
+
+    // allocate and deallocate integral image pixels
+    static double** 		AllocateImage(unsigned int iWidth, unsigned int iHeight);
+    static void				DeallocateImage(double** iImagePtr, unsigned int iHeight);
 
 private:
-	
-	// prepare the integral image
-	void					buildIntegralImage();
-	
-	// pixel data of the image
-	double**				_pixels;
-	
-	// image size
-	unsigned int			_width;
-	unsigned int			_height;
 
-	// integral image	
-	double**				_ii; // Data of the integral image Like data[lines][rows]
-	double _own_ii;
-	
-};	
+    // prepare the integral image
+    void					buildIntegralImage();
+
+    // pixel data of the image
+    double**				_pixels;
+
+    // image size
+    unsigned int			_width;
+    unsigned int			_height;
+
+    // integral image
+    double**				_ii; // Data of the integral image Like data[lines][rows]
+    double _own_ii;
+
+};
 
 }
 
