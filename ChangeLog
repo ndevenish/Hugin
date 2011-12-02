@@ -1,4 +1,199 @@
-2011-11-05 08:29 +0100  tmodes  (2cc62feada90)  tip
+2011-11-21 21:19 +0100  tmodes  (19ff55d2059b)  
+
+	Fixes drawing of active mask overlay on Mac [887406]
+
+	> src/hugin1/hugin/MaskImageCtrl.cpp
+
+2011-11-21 18:42 +0100  tmodes  (3277ec7de546)  
+
+	Fixes one more typo
+
+	> src/hugin1/hugin/xrc/batch_frame.xrc
+	> src/translations/bg.po
+	> src/translations/ca_ES.po
+	> src/translations/cs_CZ.po
+	> src/translations/da.po
+	> src/translations/de.po
+	> src/translations/en_GB.po
+	> src/translations/es.po
+	> src/translations/fi.po
+	> src/translations/fr.po
+	> src/translations/hu.po
+	> src/translations/hugin.pot
+	> src/translations/it.po
+	> src/translations/ja.po
+	> src/translations/ko.po
+	> src/translations/nl.po
+	> src/translations/pl.po
+	> src/translations/pt_BR.po
+	> src/translations/ro.po
+	> src/translations/ru.po
+	> src/translations/sk.po
+	> src/translations/sl.po
+	> src/translations/sv.po
+	> src/translations/uk.po
+	> src/translations/zh_CN.po
+	> src/translations/zh_TW.po
+
+2011-11-20 17:37 +0100  tmodes  (bedf77399e35)  
+
+	Fixes some typos spotted by Carl von Einem [892637]
+
+	> src/hugin1/calibrate_lens/LensCalFrame.cpp
+	> src/hugin1/hugin/xrc/pref_dialog.xrc
+	> src/translations/bg.po
+	> src/translations/ca_ES.po
+	> src/translations/cs_CZ.po
+	> src/translations/da.po
+	> src/translations/de.po
+	> src/translations/en_GB.po
+	> src/translations/es.po
+	> src/translations/fi.po
+	> src/translations/fr.po
+	> src/translations/hu.po
+	> src/translations/hugin.pot
+	> src/translations/it.po
+	> src/translations/ja.po
+	> src/translations/ko.po
+	> src/translations/nl.po
+	> src/translations/pl.po
+	> src/translations/pt_BR.po
+	> src/translations/ro.po
+	> src/translations/ru.po
+	> src/translations/sk.po
+	> src/translations/sl.po
+	> src/translations/sv.po
+	> src/translations/uk.po
+	> src/translations/zh_CN.po
+	> src/translations/zh_TW.po
+
+2011-11-20 16:47 +0100  tmodes  (9f7f2b539819)  
+
+	Updated Hungarian translation (Lajos H√∂ss)
+
+	> src/translations/hu.po
+
+2011-11-20 16:46 +0100  tmodes  (f196bac90e3d)  
+
+	Updated German translation (Carl von Einem)
+
+	> src/translations/de.po
+
+2011-11-13 08:56 +0100  tmodes  (9d834b027bef)  
+
+	Updated Dutch translation (Harry van der Wolf)
+
+	> src/translations/nl.po
+
+2011-11-13 08:55 +0100  tmodes  (85101fc02ff5)  
+
+	Updated Italien translation (Cristian Marchi)
+
+	> src/translations/it.po
+
+2011-11-12 09:02 +0100  tmodes  (1eddd56e3314)  
+
+	Updated manual
+
+	> src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Control_Points_tab.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Mask_tab.html
+
+2011-11-12 08:49 +0100  tmodes  (3293f1f10382)  
+
+	Use command key instead of control key on MacOS Fixes 887404
+
+	> src/hugin1/hugin/CPEditorPanel.cpp
+	> src/hugin1/hugin/CPImageCtrl.cpp
+	> src/hugin1/hugin/GLPreviewFrame.cpp
+	> src/hugin1/hugin/ImagesList.cpp
+	> src/hugin1/hugin/MaskEditorPanel.cpp
+	> src/hugin1/hugin/MaskImageCtrl.cpp
+	> src/hugin1/hugin/OverviewCameraTool.cpp
+	> src/hugin1/hugin/PreviewFrame.cpp
+
+2011-11-10 18:37 +0100  tmodes  (4e3daf088cbd)  
+
+	Forgot one occurrence of typo
+
+	> src/translations/hugin.pot
+
+2011-11-07 19:28 +0100  tmodes  (ae40bbe20bdd)  
+
+	Fixes typo
+
+	> src/hugin1/hugin/xrc/preview_frame.xrc
+	> src/translations/bg.po
+	> src/translations/ca_ES.po
+	> src/translations/cs_CZ.po
+	> src/translations/da.po
+	> src/translations/de.po
+	> src/translations/en_GB.po
+	> src/translations/es.po
+	> src/translations/fi.po
+	> src/translations/fr.po
+	> src/translations/hu.po
+	> src/translations/it.po
+	> src/translations/ja.po
+	> src/translations/ko.po
+	> src/translations/nl.po
+	> src/translations/pl.po
+	> src/translations/pt_BR.po
+	> src/translations/ro.po
+	> src/translations/ru.po
+	> src/translations/sk.po
+	> src/translations/sl.po
+	> src/translations/sv.po
+	> src/translations/uk.po
+	> src/translations/zh_CN.po
+	> src/translations/zh_TW.po
+
+2011-11-06 21:42 +0000  Bruno Postle <bruno@postle.net>  (f10891f92851)  
+
+	Update man page with new PTBatcher --assistant flag
+
+	> doc/PTBatcherGUI.pod
+
+2011-11-06 21:43 +0100  harryvanderwolf <hvdwolf@gmail.com>  (d5b1541d7751)  
+
+	Update Dutch translation (and occasionally a few minor XCode
+	changes)
+
+	> mac/Hugin.xcodeproj/project.pbxproj
+	> mac/HuginCompleteInstaller.pmproj
+	> src/translations/nl.po
+
+2011-11-06 17:57 +0100  tmodes  (eb96e517111f)  
+
+	Updated French translation (Jean-Luc Coulon)
+
+	> src/translations/fr.po
+
+2011-11-06 11:28 +0100  Vaclav Cerny <vatoz@seznam.cz>  (b264969b0fb8)  
+
+	updated Czech translation
+
+	> src/translations/cs_CZ.po
+
+2011-11-06 08:43 +0100  tmodes  (6d935eb6dfa4)  
+
+	Updated Danish translation (Thomas Pryds)
+
+	> src/translations/da.po
+
+2011-11-06 08:36 +0100  tmodes  (181cac609ab8)  
+
+	Updated Brazilian Portuguese translation (Lu√≠s Henrique Camargo
+	Quiroz)
+
+	> src/translations/pt_BR.po
+
+2011-11-05 08:31 +0100  tmodes  (4ddbc0de5115)  2011.4beta1
+
+	Update changelog
+
+	> ChangeLog
+
+2011-11-05 08:29 +0100  tmodes  (2cc62feada90)  
 
 	Bump version number
 
@@ -1216,7 +1411,7 @@
 
 2011-07-27 10:38 -0400  Yuval Levy <yuv@users.sourceforge.net>  (ac48623816ef)  
 
-	Updated Brazilian Portuguese translation (LuÌs Henrique Camargo
+	Updated Brazilian Portuguese translation (Lu√≠s Henrique Camargo
 	Quiroz)
 
 	> src/translations/pt_BR.po
@@ -1229,7 +1424,7 @@
 
 2011-07-27 10:36 -0400  Yuval Levy <yuv@users.sourceforge.net>  (4063f54c0477)  
 
-	Updated Hungarian translation Lajos Hˆss
+	Updated Hungarian translation Lajos H√∂ss
 
 	> src/translations/hu.po
 
@@ -3307,7 +3502,7 @@
 
 2011-03-21 18:40 +0100  tmodes  (8ae186caab1b)  
 
-	Updated brazilian portuguese translation (LuÌs Henrique Camargo
+	Updated brazilian portuguese translation (Lu√≠s Henrique Camargo
 	Quiroz)
 
 	> src/translations/pt_BR.po
@@ -3572,7 +3767,7 @@
 
 2011-03-09 20:24 +0100  tmodes  (0950db079845)  
 
-	Updated hungarian translation (Lajos Hˆss)
+	Updated hungarian translation (Lajos H√∂ss)
 
 	> src/translations/hu.po
 
@@ -3687,7 +3882,7 @@
 	latter up-to-date and ready for easy merging with the default
 	branch.
 
-	Hg: Ge‰ndert authors.txt
+	Hg: Ge√§ndert authors.txt
 
 	+ artwork-src/2010/buttons/preview_white_balance.svg
 	+ artwork-src/2010/splash/hugin-santa-splash.svg
@@ -4447,7 +4642,7 @@
 
 2011-02-27 07:47 -0500  Yuval Levy <yuv@users.sourceforge.net>  (5ac9ff8cbd02)  
 
-	updated Brazilian translation (LuÌs Henrique Camargo Quiroz)
+	updated Brazilian translation (Lu√≠s Henrique Camargo Quiroz)
 
 	> src/translations/pt_BR.po
 
@@ -6556,7 +6751,7 @@
 
 2011-01-01 17:09 -0500  Yuval Levy <yuv@users.sourceforge.net>  (da8710bb0657)  
 
-	added LuÌs Henrique Camargo Quiroz (pt_BR translation) to
+	added Lu√≠s Henrique Camargo Quiroz (pt_BR translation) to
 	authors.txt
 
 	> authors.txt
@@ -6665,7 +6860,7 @@
 2010-12-27 10:16 -0500  Yuval Levy <yuv@users.sourceforge.net>  (eb0bf4fe82cb)  
 
 	* fixed previous commit
-	* updated Hungarian translation (Lajos Hˆss)
+	* updated Hungarian translation (Lajos H√∂ss)
 	* updated man pages
 
 	> doc/PTBatcherGUI.1
@@ -6943,7 +7138,7 @@
 
 2010-12-11 12:58 +0100  tmodes  (c3e8f75da5f4)  
 
-	Updated hungarian translation (Lajos Hˆss)
+	Updated hungarian translation (Lajos H√∂ss)
 
 	> authors.txt
 	> src/translations/hu.po
@@ -12427,7 +12622,7 @@
 
 2010-06-28 20:55 +0100  Bruno Postle <bruno@postle.net>  (8ce1c813f7a1)  
 
-	Updated Hungarian translation #3021348 (Hˆss Lajos)
+	Updated Hungarian translation #3021348 (H√∂ss Lajos)
 
 	> src/translations/hu.po
 
@@ -14659,7 +14854,7 @@
 
 2010-04-02 16:07 +0000  tmodes <tmodes@users.sourceforge.net>  (a55a3ff8d153)  
 
-	Updated hungarian translation (Lajos Hˆss)
+	Updated hungarian translation (Lajos H√∂ss)
 
 	> src/translations/hu.po
 
@@ -14695,7 +14890,7 @@
 2010-03-29 07:36 +0000  michausm <michausm@users.sourceforge.net>  (b4c0a3b9e14f)  
 
 	Updated and corrected Polish translation file: working on new
-	entries (Micha? Smoczyk).
+	entries (Micha≈Ç Smoczyk).
 
 	> src/translations/pl.po
 
@@ -15074,7 +15269,7 @@
 
 2010-03-07 19:14 +0000  brunopostle <brunopostle@users.sourceforge.net>  (a4f4fe7bd016)  
 
-	Hungarian update (Hˆss Lajos)
+	Hungarian update (H√∂ss Lajos)
 
 	> src/translations/hu.po
 
@@ -15209,7 +15404,7 @@
 
 2010-02-23 22:17 +0000  brunopostle <brunopostle@users.sourceforge.net>  (2e2f70e96519)  
 
-	Hungarian update #2957181 (Lajos Hˆss)
+	Hungarian update #2957181 (Lajos H√∂ss)
 
 	> src/translations/hu.po
 
@@ -16183,7 +16378,7 @@
 
 2010-01-12 22:19 +0000  michausm <michausm@users.sourceforge.net>  (bb6719cda91a)  
 
-	Updated Polish translation file (Micha? Smoczyk) -- a few small
+	Updated Polish translation file (Micha≈Ç Smoczyk) -- a few small
 	fixes
 
 	> src/translations/pl.po
@@ -16735,8 +16930,8 @@
 
 2009-12-18 13:27 +0000  michausm <michausm@users.sourceforge.net>  (f321426bc810)  
 
-	Polish translation update (Micha? Smoczyk): translating new entries,
-	some polishing.
+	Polish translation update (Micha≈Ç Smoczyk): translating new
+	entries, some polishing.
 
 	> src/translations/pl.po
 
@@ -17242,7 +17437,8 @@
 
 2009-12-01 16:57 +0000  harryvanderwolf <harryvanderwolf@users.sourceforge.net>  (5529c17de4a3)  
 
-	fix for Del key issue in Control Points tab (thanks to Milan KnÌûek)
+	fix for Del key issue in Control Points tab (thanks to Milan
+	Kn√≠≈æek)
 
 	> src/hugin1/hugin/CPImageCtrl.cpp
 
@@ -17435,7 +17631,7 @@
 
 2009-11-07 11:49 +0000  michausm <michausm@users.sourceforge.net>  (46e9e2ff6708)  
 
-	Polish translation update: a few fixes (Micha? Smoczyk)
+	Polish translation update: a few fixes (Micha≈Ç Smoczyk)
 
 	> src/translations/pl.po
 
@@ -17523,8 +17719,8 @@
 
 2009-11-01 10:44 +0000  michausm <michausm@users.sourceforge.net>  (e160216b2142)  
 
-	Polish translation fixes (Micha? Smoczyk): shortened message in Fast
-	Preview window to fit the screen etc.
+	Polish translation fixes (Micha≈Ç Smoczyk): shortened message in
+	Fast Preview window to fit the screen etc.
 
 	> src/translations/pl.po
 
@@ -17542,7 +17738,7 @@
 
 2009-10-31 01:09 +0000  yuv <yuv@users.sourceforge.net>  (93c61a435f70)  
 
-	Hungarian translation fixes (Lajos Hˆss)
+	Hungarian translation fixes (Lajos H√∂ss)
 
 	> src/translations/hu.po
 
@@ -17576,7 +17772,7 @@
 
 2009-10-25 21:49 +0000  brunopostle <brunopostle@users.sourceforge.net>  (e627543a95a8)  
 
-	Updated Hungarian translation (Lajos Hˆss)
+	Updated Hungarian translation (Lajos H√∂ss)
 
 	> src/translations/hu.po
 
@@ -17594,7 +17790,7 @@
 
 2009-10-23 22:39 +0000  brunopostle <brunopostle@users.sourceforge.net>  (3320ab364f43)  
 
-	Updated Polish translation (Micha? Smoczyk)
+	Updated Polish translation (Micha≈Ç Smoczyk)
 
 	> src/translations/pl.po
 
@@ -17663,7 +17859,7 @@
 
 2009-10-14 22:59 +0000  brunopostle <brunopostle@users.sourceforge.net>  (dfa8b2bbee58)  
 
-	Updated Hungarian translation (Lajos Hˆss)
+	Updated Hungarian translation (Lajos H√∂ss)
 
 	> src/translations/hu.po
 
@@ -18381,7 +18577,7 @@
 
 2009-09-18 13:00 +0000  yuv <yuv@users.sourceforge.net>  (a92f3d5ad6c3)  
 
-	updated Hungarian translation (Hˆss Lajos)
+	updated Hungarian translation (H√∂ss Lajos)
 
 	> src/translations/hu.po
 
@@ -18815,7 +19011,7 @@
 
 2009-09-03 20:55 +0000  brunopostle <brunopostle@users.sourceforge.net>  (04dcf6df9e5e)  
 
-	Updated Spanish translation (Eduardo PÈrez Esteban)
+	Updated Spanish translation (Eduardo P√©rez Esteban)
 
 	> src/translations/es.po
 
@@ -18898,8 +19094,8 @@
 
 2009-08-31 14:35 +0000  yuv <yuv@users.sourceforge.net>  (f73ea6165902)  
 
-	added Rick Langford (translator) and Luk·ö Jirkovsk˝ (developer) to
-	credit screen
+	added Rick Langford (translator) and Luk√°≈° Jirkovsk√Ω (developer)
+	to credit screen
 
 	> src/hugin1/hugin/xrc/data/about.htm.in
 
@@ -19511,7 +19707,7 @@
 	make the build system use cmake's own FindBoost module which is way
 	better in detecting the right boost version in case more than one
 	version is installed and especially choosing matching headers and
-	libraries (Tiziano M¸ller)
+	libraries (Tiziano M√ºller)
 
 	> CMakeLists.txt
 	> src/CMakeLists.txt
@@ -19520,7 +19716,7 @@
 
 2009-07-22 08:50 +0000  brunopostle <brunopostle@users.sourceforge.net>  (f202845020cb)  
 
-	make hugin build with LDFLAGS="-Wl,--as-needed" (Tiziano M¸ller)
+	make hugin build with LDFLAGS="-Wl,--as-needed" (Tiziano M√ºller)
 
 	> src/foreign/levmar/CMakeLists.txt
 	> src/foreign/vigra/vigra_impex/CMakeLists.txt
@@ -19637,7 +19833,7 @@
 
 2009-07-07 09:54 +0000  brunopostle <brunopostle@users.sourceforge.net>  (89f4bf0e72fb)  
 
-	Spanish translation update (JosÈ Alejandro Carrillo Neira)
+	Spanish translation update (Jos√© Alejandro Carrillo Neira)
 
 	> src/translations/es.po
 
@@ -19750,7 +19946,7 @@
 
 2009-06-10 18:16 +0000  brunopostle <brunopostle@users.sourceforge.net>  (0cb0bd66eded)  
 
-	Hungarian translation (Hˆss Lajos)
+	Hungarian translation (H√∂ss Lajos)
 
 	> src/hugin1/hugin/hugin.desktop
 	> src/hugin1/ptbatcher/PTBatcherGUI.desktop
@@ -20291,7 +20487,7 @@
 2009-05-04 16:18 +0000  Lukas Jirkovsky <l.jirkovsky@gmail.com>  (1978ca7bb129)  
 
 	Fixed crash in photometric optimization (#2629418). Thanks to Milan
-	KnÌûek for extensive help with testing and to nobody who uploaded
+	Kn√≠≈æek for extensive help with testing and to nobody who uploaded
 	the fix to the hugin tracker (patch #2055537)
 
 	> src/foreign/levmar/misc_core.c
@@ -20460,7 +20656,7 @@
 
 2009-04-21 20:39 +0000  brunopostle <brunopostle@users.sourceforge.net>  (bdf78e7f2e9d)  
 
-	Spanish translation update (Eduardo PÈrez)
+	Spanish translation update (Eduardo P√©rez)
 
 	> src/translations/es.po
 
@@ -20557,7 +20753,7 @@
 
 2009-04-08 18:48 +0000  yuv <yuv@users.sourceforge.net>  (ff8408748995)  
 
-	added Eduardo PÈrez Esteban to list of translators in credits
+	added Eduardo P√©rez Esteban to list of translators in credits
 
 	> src/hugin1/hugin/xrc/data/about.htm.in
 
@@ -20570,7 +20766,7 @@
 
 2009-04-08 14:52 +0000  yuv <yuv@users.sourceforge.net>  (bb77dd3bfcc5)  
 
-	Updated Spanish Translation (Eduardo PÈrez Esteban)
+	Updated Spanish Translation (Eduardo P√©rez Esteban)
 	http://groups.google.com/group/hugin-ptx/msg/87f2b35115254c70
 
 	> src/translations/es.po
@@ -20705,7 +20901,7 @@
 
 2009-03-28 23:15 +0000  dangelo <dangelo@users.sourceforge.net>  (661e774dbccc)  
 
-	updates spanish translation (Jorge Gonz·lez)
+	updates spanish translation (Jorge Gonz√°lez)
 
 	> src/translations/es.po
 
@@ -20802,7 +20998,7 @@
 
 2009-03-17 17:30 +0000  brunopostle <brunopostle@users.sourceforge.net>  (983b87ccbfbe)  
 
-	Hungarian translation update (Hˆss Lajos)
+	Hungarian translation update (H√∂ss Lajos)
 
 	> src/translations/hu.po
 
@@ -21480,7 +21676,7 @@
 
 2009-03-02 22:44 +0000  brunopostle <brunopostle@users.sourceforge.net>  (31abc76aa381)  
 
-	hugin_hdrmerge -h should return success (Luk·ö Jirkovsk˝)
+	hugin_hdrmerge -h should return success (Luk√°≈° Jirkovsk√Ω)
 
 	> src/deghosting/hugin_hdrmerge.cpp
 
@@ -21493,7 +21689,7 @@
 
 2009-03-02 00:03 +0000  brunopostle <brunopostle@users.sourceforge.net>  (5cb2b7af7742)  
 
-	Fixes for gcc-4.4.0 (Caol·n McNamara)
+	Fixes for gcc-4.4.0 (Caol√°n McNamara)
 
 	> src/hugin_base/hugin_utils/utils.cpp
 	> src/hugin_base/panodata/PTScriptParsing.cpp
@@ -22978,15 +23174,15 @@
 
 2008-10-13 20:09 +0000  brunopostle <brunopostle@users.sourceforge.net>  (18e5becaffb0)  
 
-	Fix error: first argument of ëint main(unsigned int, char**)í should
-	be ëintí bug #2161163 (Lukas Jirkovsky)
+	Fix error: first argument of ‚Äòint main(unsigned int, char**)‚Äô
+	should be ‚Äòint‚Äô bug #2161163 (Lukas Jirkovsky)
 
 	> src/celeste/training/CelesteTrain.cpp
 
 2008-10-13 20:07 +0000  brunopostle <brunopostle@users.sourceforge.net>  (c15cc37e43c2)  
 
-	Fix error: first argument of ëint main(unsigned int, const char**)í
-	should be ëintí bug #2161163 (Lukas Jirkovsky)
+	Fix error: first argument of ‚Äòint main(unsigned int, const
+	char**)‚Äô should be ‚Äòint‚Äô bug #2161163 (Lukas Jirkovsky)
 
 	> src/celeste/Main.cpp
 
@@ -23767,7 +23963,7 @@
 
 2008-09-07 19:17 +0000  dangelo <dangelo@users.sourceforge.net>  (cf685354aa48)  
 
-	updated polish translation (Micha? Smoczyk)
+	updated polish translation (Micha≈Ç Smoczyk)
 
 	> src/translations/pl.po
 
@@ -24374,7 +24570,7 @@
 
 2008-07-31 21:25 +0000  brunopostle <brunopostle@users.sourceforge.net>  (f18abd6fc60b)  
 
-	Updated Hungarian translation (Hˆss Lajos)
+	Updated Hungarian translation (H√∂ss Lajos)
 
 	> src/translations/hu.po
 
@@ -24434,7 +24630,7 @@
 
 2008-07-29 22:46 +0000  brunopostle <brunopostle@users.sourceforge.net>  (d77e9b223321)  
 
-	Updated Hungarian translation (Lajos Hˆss)
+	Updated Hungarian translation (Lajos H√∂ss)
 
 	> src/translations/hu.po
 
@@ -24526,7 +24722,7 @@
 
 2008-07-24 21:31 +0000  brunopostle <brunopostle@users.sourceforge.net>  (5ff563b44c73)  
 
-	Updated hungarian translation (Lajos Hˆss)
+	Updated hungarian translation (Lajos H√∂ss)
 
 	> src/translations/hu.po
 
@@ -25057,7 +25253,7 @@
 
 2008-05-25 18:08 +0000  pooh22 <pooh22@users.sourceforge.net>  (d377d49a01e9)  
 
-	fixed a few cases of over-enthusiastic È uses
+	fixed a few cases of over-enthusiastic √© uses
 
 	> src/translations/nl.po
 
@@ -25728,7 +25924,7 @@
 2008-04-05 21:40 +0000  dangelo <dangelo@users.sourceforge.net>  (682ed8d0c1de)  
 
 	avoid crash when parameters to be optimized are not specified (patch
-	by Lars Kr¸ger)
+	by Lars Kr√ºger)
 
 	> src/tools/tca_correct.cpp
 
@@ -38399,7 +38595,7 @@
 
 2007-02-13 00:18 +0000  dangelo <dangelo@users.sourceforge.net>  (70944d11cd39)  
 
-	updated spanish translation (Jorge Gonz·lez Gonz·lez)
+	updated spanish translation (Jorge Gonz√°lez Gonz√°lez)
 
 	> src/hugin/po/ca_ES.po
 	> src/hugin/po/cs_CZ.po
@@ -43241,7 +43437,7 @@
 
 2005-11-07 00:03 +0000  dangelo <dangelo@users.sourceforge.net>  (fa6932c7efb8)  
 
-	added hungarian translation by Gyˆrgy Ball
+	added hungarian translation by Gy√∂rgy Ball
 
 	> AUTHORS
 	> src/build_msvc/hugin_msvc_install.bat
