@@ -24,6 +24,8 @@
 #endif
 #ifdef _WINDOWS
 #include <Windows.h>
+#elif defined __APPLE__
+#include <CoreServices/CoreServices.h>  //for gestalt
 #else
 #include <unistd.h>
 #endif
@@ -61,6 +63,21 @@ unsigned long long utils::getTotalMemory()
     status.dwLength = sizeof(status);
     GlobalMemoryStatusEx(&status);
     return status.ullTotalPhys;
+};
+#elif defined __APPLE__
+unsigned long long utils::getTotalMemory()
+{
+    long ramSize;
+    if(Gestalt(gestaltPhysicalRAMSizeInMegabytes, &ramSize)==noErr)
+    {
+        return ramSize * 1024 * 1024;
+    }
+    else
+    {
+        // if query was not successful return 1 GB, 
+        // return 0 would result in crash in calling function
+        return 1024*1024*1024;
+    }
 };
 #else
 unsigned long long utils::getTotalMemory()
