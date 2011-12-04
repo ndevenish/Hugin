@@ -448,36 +448,42 @@ void PanoDetector::run()
     bool withRemap=false;
     for (ImgDataIt_t aB = _filesData.begin(); aB != _filesData.end(); ++aB)
     {
-        maxImageSize=std::max<unsigned long>(aB->second._detectWidth*aB->second._detectHeight,maxImageSize);
-        if(aB->second._needsremap)
+        if(!aB->second._hasakeyfile)
         {
-            withRemap=true;
+            maxImageSize=std::max<unsigned long>(aB->second._detectWidth*aB->second._detectHeight,maxImageSize);
+            if(aB->second._needsremap)
+            {
+                withRemap=true;
+            };
         };
     };
-    unsigned long maxCores;
-    //determinded factors by testing of some projects
-    //the memory usage seems to be very high
-    //if the memory usage could be decreased these numbers can be decreased
-    if(withRemap)
+    if(maxImageSize!=0)
     {
-        maxCores=utils::getTotalMemory()/(maxImageSize*75);
-    }
-    else
-    {
-        maxCores=utils::getTotalMemory()/(maxImageSize*50);
-    };
-    if(maxCores<1)
-    {
-        maxCores=1;
-    }
-    if(maxCores<_cores)
-    {
-        if(getVerbose()>0)
+        unsigned long long maxCores;
+        //determinded factors by testing of some projects
+        //the memory usage seems to be very high
+        //if the memory usage could be decreased these numbers can be decreased
+        if(withRemap)
         {
-            std::cout << "\nThe available memory does not allow running " << _cores << " threads parallel.\n"
-                      << "Running cpfind with " << maxCores << " threads.\n";
+            maxCores=utils::getTotalMemory()/(maxImageSize*75);
+        }
+        else
+        {
+            maxCores=utils::getTotalMemory()/(maxImageSize*50);
         };
-        setCores(maxCores);
+        if(maxCores<1)
+        {
+            maxCores=1;
+        }
+        if(maxCores<_cores)
+        {
+            if(getVerbose()>0)
+            {
+                std::cout << "\nThe available memory does not allow running " << _cores << " threads parallel.\n"
+                            << "Running cpfind with " << maxCores << " threads.\n";
+            };
+            setCores(maxCores);
+        };
     };
     PoolExecutor aExecutor(_cores);
     svmModel=NULL;
