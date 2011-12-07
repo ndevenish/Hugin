@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Hugin 2011.4.0\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
 "POT-Creation-Date: 2011-10-21 22:38+0200\n"
-"PO-Revision-Date: 2011-11-17 17:20+0100\n"
+"PO-Revision-Date: 2011-12-06 13:39+0100\n"
 "Last-Translator: Höss Lajos <pgc1682@freemail.hu>\n"
 "Language-Team: Balló György <ballogy@freestart.hu>\n"
 "Language: \n"
@@ -6023,7 +6023,6 @@ msgstr "Vezetők:"
 #: translations/xrc.cpp:875 translations/xrc.cpp:887 translations/xrc.cpp:905
 #: translations/xrc.cpp:949 translations/xrc.cpp:964 translations/xrc.cpp:983
 #: xrc.cpp:875 xrc.cpp:887 xrc.cpp:905 xrc.cpp:949 xrc.cpp:964 xrc.cpp:983
-#, fuzzy
 msgid "Rule of thirds"
 msgstr "Harmadolás"
 
