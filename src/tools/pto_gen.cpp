@@ -148,9 +148,10 @@ int main(int argc, char* argv[])
     std::vector<string> filelist;
     while(optind<argc)
     {
-        string input=GetAbsoluteFilename(argv[optind]);
+        string input;
 #ifdef _WINDOWS
         //do globbing
+        input=GetAbsoluteFilename(argv[optind]);
         char drive[_MAX_DRIVE];
         char dir[_MAX_DIR];
         char fname[_MAX_FNAME];
@@ -177,11 +178,12 @@ int main(int argc, char* argv[])
             _findclose(findhandle);
         }
 #else
+        input=argv[optind];
         if(hugin_utils::FileExists(input))
         {
             if(vigra::isImage(input.c_str()))
             {
-                filelist.push_back(input);
+                filelist.push_back(GetAbsoluteFilename(input));
             };
         };
 #endif
