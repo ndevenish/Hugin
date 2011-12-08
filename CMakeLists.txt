@@ -287,6 +287,7 @@ ENDIF(MSGFMT_FOUND)
 
 FIND_PACKAGE(Threads)
 FIND_PACKAGE(ZThread)
+FIND_PACKAGE(flann)
 
 IF(WIN32)
   # HTML Helpworkshop for creating help file
