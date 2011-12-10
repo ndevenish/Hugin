@@ -62,26 +62,3 @@ IndexParams* IndexParams::createFromParameters(const FLANNParameters& p)
 
 
 } // namespace FLANN
-
-
-namespace
-{
-class StaticInit
-{
-    typedef flann::ObjectFactory<flann::IndexParams, flann_algorithm_t> ParamsFactory;
-public:
-    StaticInit() {
-        ParamsFactory::instance().register_<flann::LinearIndexParams>(FLANN_INDEX_LINEAR);
-        ParamsFactory::instance().register_<flann::KDTreeIndexParams>(FLANN_INDEX_KDTREE);
-        ParamsFactory::instance().register_<flann::KDTreeSingleIndexParams>(FLANN_INDEX_KDTREE_SINGLE);
-        ParamsFactory::instance().register_<flann::KMeansIndexParams>(FLANN_INDEX_KMEANS);
-        ParamsFactory::instance().register_<flann::CompositeIndexParams>(FLANN_INDEX_COMPOSITE);
-        ParamsFactory::instance().register_<flann::AutotunedIndexParams>(FLANN_INDEX_AUTOTUNED);
-//  ParamsFactory::instance().register_<SavedIndexParams>(SAVED);
-    }
-};
-
-static StaticInit __init;
-}
-
-

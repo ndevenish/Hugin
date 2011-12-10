@@ -1,5 +1,5 @@
 
-add_definitions(-D_FLANN_VERSION=1.6.8)
+add_definitions(-D_FLANN_VERSION=1.6.11)
 
 file(GLOB_RECURSE C_SOURCES *.cpp)
 file(GLOB_RECURSE CPP_SOURCES *.cpp)

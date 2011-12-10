@@ -32,6 +32,7 @@
 #define LOGGER_H
 
 #include <cstdio>
+#include <stdarg.h>
 #include "flann/general.h"
 
 
@@ -45,11 +46,11 @@ class FLANN_EXPORT Logger
 
 public:
 
-    Logger() : stream(stdout), logLevel(FLANN_LOG_WARN) {};
+    Logger() : stream(stdout), logLevel(FLANN_LOG_WARN) {}
 
     ~Logger()
     {
-        if (stream!=NULL && stream!=stdout) {
+        if ((stream!=NULL)&&(stream!=stdout)) {
             fclose(stream);
         }
     }
@@ -82,7 +83,7 @@ public:
     int info(const char* fmt, ...);
 };
 
-extern FLANN_EXPORT Logger logger;
+FLANN_EXPORT extern Logger logger;
 
 }
 
