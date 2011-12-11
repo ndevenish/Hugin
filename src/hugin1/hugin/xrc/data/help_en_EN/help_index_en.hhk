@@ -384,6 +384,11 @@
 		<param name="Local" value="The_General_Panini_Projection.html">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Generate pto file">
+		<param name="Name" value="Pto gen - PanoTools.org Wiki">
+		<param name="Local" value="Pto_gen.html">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="GIF">
 		<param name="Name" value="GIF">
 		<param name="Local" value="GIF.html">
@@ -691,6 +696,11 @@
 		<param name="Name" value="PTMender">
 		<param name="Name" value="PTmender">
 		<param name="Local" value="PTmender.html">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Pto_gen">
+		<param name="Name" value="Pto gen - PanoTools.org Wiki">
+		<param name="Local" value="Pto_gen.html">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Pto_merge">

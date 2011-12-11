@@ -50,7 +50,8 @@ The Batch Processor can also queue the creation of the final project. In this ca
 </p>
 
 <a name="Installation_on_Mac_OS_X" id="Installation_on_Mac_OS_X"></a><h1> <span class="mw-headline"> Installation on Mac OS X </span></h1>
-<p>At least on Mac OS X you have to download and install the BatchProcessor separately. You will find it at the Sourceforge page<a class="external" href="http://sourceforge.net/projects/hugin/files/hugin/">[*]</a> inside the folder for the latest version, e.g. ptbatchergui-mac-2011.0.0.dmg<a class="external" href="http://sourceforge.net/projects/hugin/files/hugin/hugin-2011.0/ptbatchergui-mac-2011.0.0.dmg/download">[*]</a>. Just copy the app into the same folder as hugin and run it.
+<p>Versions before the 2011.2.0 series required you to separately download and install the BatchProcessor. You will find the 2011.0.0 and older versions at the <a href="http://sourceforge.net/projects/hugin/files/hugin/" class="external text" title="http://sourceforge.net/projects/hugin/files/hugin/" rel="nofollow">Sourceforge page</a> inside the folder for the latest version, e.g. <a href="http://sourceforge.net/projects/hugin/files/hugin/hugin-2011.0/ptbatchergui-mac-2011.0.0.dmg/download" class="external text" title="http://sourceforge.net/projects/hugin/files/hugin/hugin-2011.0/ptbatchergui-mac-2011.0.0.dmg/download" rel="nofollow">ptbatchergui-mac-2011.0.0.dmg</a>. Just copy the app into the same folder as hugin and run it.
+The compressed disk image (DMGs) versions as of 2011.2.0 and newer contain Hugin, PTBatcherGui and calibrate_lens_gui all in one dmg.
 </p>
 <a name="Usage" id="Usage"></a><h1> <span class="mw-headline"> Usage </span></h1>
 <p>Just create several project files (do everything and just skip the export step), load them in the batch processor and start the process. This way you can run several large projects unattended. The output file name will be the same as the name of the corresponding project file (xyz.pto -&gt; xyz.tif) and is saved in the same folder.
@@ -100,9 +101,9 @@ You can also skip one project.
 <a name="Existing_project_files" id="Existing_project_files"></a><h3> <span class="mw-headline"> Existing project files </span></h3>
 <p>With File-&gt;Search directory for...-&gt;Projects you can search recursively in the given folder for (existing) project files and appends them to (stitching) queue.
 </p>
-<a name="New_project_files" id="New_project_files"></a><h3> <span class="mw-headline"> New project files </span></h3>
-<p>First select a folder in which should be searched. After pressing start is searches for image files in the folder (and optionally its sub folders). It uses the information stored in the EXIF data to decide which images could belong to a panorama. This works only in one folder level, it does not match images in different folders. (It uses camera maker, camera model, focal length, image size and date/time for this decision.) 
-</p><p>After the search has finished it shows a list of the found panoramas. With <b>Send selected panoramas to queue</b> the project files are created and send to the assistant queue. You can deselect individual panoramas from this processing step by untick the panorama.
+<a name="Image_sets_.28create_project_files.29" id="Image_sets_.28create_project_files.29"></a><h3> <span class="mw-headline"> Image sets (create project files) </span></h3>
+<p>First select a folder in which PTBatcherGui should search for image sets. After pressing start it will search for image files in the folder (and optionally its sub folders). It uses the information stored in the EXIF data to decide which images could belong to a an image set forming a panorama. This works only in one folder level, it does not match images in different folders. (The algorithm uses camera maker, camera model, focal length, image size and date/time for this decision.) 
+</p><p>After the search has finished it shows a list of the found panoramas. With <b>Send selected panoramas to queue</b> the project files are created and sent to the assistant queue. You can deselect individual panoramas from this processing step by untick the panorama.
 </p><p>The project files are named with the selected name scheme
 </p>
 <ul><li> PanoramaXX.pto: This will generate project files: panorama0.pto, panorama1.pto,...
@@ -110,8 +111,9 @@ You can also skip one project.
 </li><li> Foldername.pto: In this case the project file is named like the containing folder.
 </li></ul>
 <p>Existing project files will not be overwritten, instead it appends an increasing number.
-</p><p>If the images are shoot with auto bracketing it tries to generate the appropriate stacks. In this case check that you default control point generator setting is one which works with stacks (check <a href="Hugin_Preferences.html#Control_Point_Detectors" title="Hugin Preferences">Preferences in Hugin</a> and <a href="Hugin_Parameters_for_Control_Point_Detectors_dialog.html" title="Hugin Parameters for Control Point Detectors dialog">control point detector parameters</a>).
+</p><p>If the images are shot with auto bracketing it tries to generate the appropriate stacks. In this case check that your default control point generator setting is such that it works with stacks (check <a href="Hugin_Preferences.html#Control_Point_Detectors" title="Hugin Preferences">Preferences in Hugin</a> and <a href="Hugin_Parameters_for_Control_Point_Detectors_dialog.html" title="Hugin Parameters for Control Point Detectors dialog">control point detector parameters</a>).
 If you shoot from a tripod then you can select also <b>Create links</b>. This will link the positions of all images of one stack. If you deselect this option, it will create the stacks but will not link the positions of the images (e.g. when shooting free hand).
+</p><p>If you set the tickmark <b>Automatic stitch after assistant</b>, PTBatcherGui will first run the assistant on all found panoramas, thereby creating the complete project files, and then stitch all created projects.
 </p>
 <a name="Command_line_switches" id="Command_line_switches"></a><h1> <span class="mw-headline"> Command line switches </span></h1>
 <a name="PTBatcherGUI" id="PTBatcherGUI"></a><h2> <span class="mw-headline"> PTBatcherGUI </span></h2>

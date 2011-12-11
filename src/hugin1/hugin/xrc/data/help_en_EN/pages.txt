@@ -115,6 +115,7 @@ Perspective_distortion
 Pfstmo
 Pincushion_distortion
 Pitch
+Pto_gen
 Pto_merge
 PNG
 Portrait
