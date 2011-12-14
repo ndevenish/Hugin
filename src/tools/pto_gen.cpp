@@ -333,7 +333,7 @@ int main(int argc, char* argv[])
     //output
     if(output=="")
     {
-        output=hugin_utils::stripExtension(hugin_utils::stripPath(pano.getImage(0).getFilename()));
+        output=hugin_utils::stripExtension(pano.getImage(0).getFilename());
         if(pano.getNrOfImages()>1)
         {
             output.append("-");
