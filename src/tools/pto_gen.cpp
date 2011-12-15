@@ -51,6 +51,8 @@ static void usage(const char* name)
          << "     -o, --output=file.pto  Output Hugin PTO file." << endl
          << "     -p, --projection=INT   Projection type (default: 0)" << endl
          << "     -f, --fov=FLOAT        Horizontal field of view of images (default: 50)" << endl
+         << "     -c, --crop=left,right,top,bottom        Sets the crop of input" << endl
+         << "                            images (especially for fisheye lenses)" << endl
          << "     -s, --stacklength=INT  Number of images in stack" << endl
          << "                            (default: 1, no stacks)" << endl
          << "     -l, --linkstacks       Link image positions in stacks" << endl
@@ -61,13 +63,14 @@ static void usage(const char* name)
 int main(int argc, char* argv[])
 {
     // parse arguments
-    const char* optstring = "o:p:f:s:lh";
+    const char* optstring = "o:p:f:c:s:lh";
 
     static struct option longOptions[] =
     {
         {"output", required_argument, NULL, 'o' },
         {"projection", required_argument, NULL, 'p' },
         {"fov", required_argument, NULL, 'f' },
+        {"crop", required_argument, NULL, 'c' },
         {"stacklength", required_argument, NULL, 's' },
         {"linkstacks", no_argument, NULL, 'l' },
         {"help", no_argument, NULL, 'h' },
@@ -81,6 +84,7 @@ int main(int argc, char* argv[])
     float fov=-1;
     int stackLength=1;
     bool linkStacks=false;
+    vigra::Rect2D cropRect(0,0,0,0);
     while ((c = getopt_long (argc, argv, optstring, longOptions,&optionIndex)) != -1)
     {
         switch (c)
@@ -112,6 +116,30 @@ int main(int argc, char* argv[])
                 {
                     cerr << "Invalid field of view";
                     return 1;
+                };
+                break;
+            case 'c':
+                {
+                    int left, right, top, bottom;
+                    int n=sscanf(optarg, "%d,%d,%d,%d", &left, &right, &top, &bottom);
+                    if (n==4)
+                    {
+                        if(right>left && bottom>top && left>=0 && top>=0)
+                        {
+                            cropRect.setUpperLeft(vigra::Point2D(left,top));
+                            cropRect.setLowerRight(vigra::Point2D(right,bottom));
+                        }
+                        else
+                        {
+                            cerr << "Invalid crop area" << endl;
+                            return 1;
+                        };
+                    }
+                    else
+                    {
+                        cerr << "Could not parse crop values" << endl;
+                        return 1;
+                    };
                 };
                 break;
             case 's':
@@ -166,12 +194,16 @@ int main(int argc, char* argv[])
         {
             do
             {
-                _splitpath(finddata.name, NULL, NULL, fname, ext);
-                _makepath(newFile, drive, dir, fname, ext);
-                //check if valid image file
-                if(vigra::isImage(newFile))
+                //ignore folder, can be happen when using *.*
+                if((finddata.attrib & _A_SUBDIR)==0)
                 {
-                    filelist.push_back(std::string(newFile));
+                    _splitpath(finddata.name, NULL, NULL, fname, ext);
+                    _makepath(newFile, drive, dir, fname, ext);
+                    //check if valid image file
+                    if(vigra::isImage(newFile))
+                    {
+                        filelist.push_back(std::string(newFile));
+                    };
                 };
             }
             while (_findnext(findhandle, &finddata) == 0);
@@ -221,9 +253,24 @@ int main(int argc, char* argv[])
             //set plausible default value if they could not read from exif
             if(!srcImage.hasEXIFread())
             {
+                cout << "\tNo value for field of view found in EXIF data. " << endl
+                     << "\tAssuming a HFOV of 50 degrees. " << endl;
                 srcImage.setHFOV(50);
                 srcImage.setExifCropFactor(1.0);
             };
+        };
+        if(cropRect.width()>0 && cropRect.height()>0)
+        {
+            if(srcImage.isCircularCrop())
+            {
+                srcImage.setCropMode(SrcPanoImage::CROP_CIRCLE);
+            }
+            else
+            {
+                srcImage.setCropMode(SrcPanoImage::CROP_RECTANGLE);
+            };
+            srcImage.setAutoCenterCrop(false);
+            srcImage.setCropRect(cropRect);
         };
         try
         {
@@ -291,10 +338,17 @@ int main(int argc, char* argv[])
             };
         };
         cout << endl << "Assigned " << lenses.getNumberOfParts() << " lenses." << endl;
+        if(lenses.getNumberOfParts()>1 && stackLength>1)
+        {
+            cout << "Project contains more than one lens, but you requested to assign" << endl
+                 << "stacks. This is not supported. Therefore stacks will not be" << endl
+                 << "assigned." << endl << endl;
+            stackLength=1;
+        };
     };
 
     //link stacks
-    if(stackLength>1)
+    if(pano.getNrOfImages()>1 && stackLength>1)
     {
         stackLength=std::min<int>(stackLength,pano.getNrOfImages());
         int stackCount=pano.getNrOfImages() / stackLength;
