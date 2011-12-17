@@ -51,3 +51,7 @@ install(TARGETS nona vig_optimize autooptimiser fulla align_image_stack linefind
         tca_correct pto2mk cpclean checkpto hugin_hdrmerge pano_trafo pano_modify pto_merge pto_gen
         DESTINATION ${BINDIR})
 
+IF(UNIX)
+  INSTALL(FILES pto_gen.desktop DESTINATION ${DATADIR}/applications)
+ENDIF(UNIX)
+
