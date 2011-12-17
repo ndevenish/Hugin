@@ -45,12 +45,6 @@ http://wiki.panotools.org/Development_of_Open_Source_tools#Supported_Platforms
 
 Announce your build on http://groups.google.com/group/hugin-ptx
 
-TRANSLATIONS
-
-This beta releases introduces some new strings.  
-Now is a good time to help update your language.
-Instructions at http://wiki.panotools.org/Hugin_translation_guide 
-
 
 CHANGES SINCE 2011.2.0
 
