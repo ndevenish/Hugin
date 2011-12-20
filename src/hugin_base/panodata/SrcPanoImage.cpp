@@ -368,16 +368,35 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, double & 
         setExifModel("Unknown");
     }
 
-    Exiv2::ExifData::const_iterator itr2 = Exiv2::lensName(exifData);
-    if (itr2!=exifData.end())
+    //reading lens
+    // first we are reading LensModel in Exif section, this is only available
+    // with EXIF >= 2.3
+    std::string lensName;
+    if(getExiv2Value(exifData,"Exif.Photo.LensModel",lensName))
     {
-        //we are using prettyPrint function to get string of lens name
-        //it2->toString returns for many cameras only an ID number
-        setExifLens(itr2->print(&exifData));
+        if(lensName.length()>0)
+        {
+            setExifLens(lensName);
+        }
+        else
+        {
+            setExifLens("Unknown");
+        }
     }
     else
     {
-        setExifLens("Unknown");
+        //no lens in Exif found, now look in makernotes
+        Exiv2::ExifData::const_iterator itr2 = Exiv2::lensName(exifData);
+        if (itr2!=exifData.end() && itr2->count())
+        {
+            //we are using prettyPrint function to get string of lens name
+            //it2->toString returns for many cameras only an ID number
+            setExifLens(itr2->print(&exifData));
+        }
+        else
+        {
+            setExifLens("Unknown");
+        };
     };
 
     long orientation = 0;
