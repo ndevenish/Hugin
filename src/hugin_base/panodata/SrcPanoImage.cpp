@@ -372,7 +372,12 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, double & 
     // first we are reading LensModel in Exif section, this is only available
     // with EXIF >= 2.3
     std::string lensName;
+#if EXIV2_TEST_VERSION(0,22,0)
+    //the string "Exif.Photo.LensModel" is only defined in exiv2 0.22.0 and above
     if(getExiv2Value(exifData,"Exif.Photo.LensModel",lensName))
+#else
+    if(getExiv2Value(exifData,0xa434,"Photo",lensName))
+#endif
     {
         if(lensName.length()>0)
         {
@@ -798,6 +803,21 @@ bool SrcPanoImage::getExiv2Value(Exiv2::ExifData& exifData, std::string keyName,
         DEBUG_DEBUG("" << keyName << ": " << value);
         return true;
     } else {
+        return false;
+    }
+}
+
+bool SrcPanoImage::getExiv2Value(Exiv2::ExifData& exifData, uint16_t tagID, std::string groupName, std::string & value)
+{
+    Exiv2::ExifKey key(tagID,groupName);
+    Exiv2::ExifData::iterator itr = exifData.findKey(key);
+    if (itr != exifData.end() && itr->count())
+    {
+        value = itr->toString();
+        return true;
+    }
+    else
+    {
         return false;
     }
 }
