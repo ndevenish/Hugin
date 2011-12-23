@@ -311,7 +311,7 @@
         <object class="wxBoxSizer">
           <orient>wxHORIZONTAL</orient>
           <object class="sizeritem">
-            <object class="wxSplitterWindow">
+            <object class="wxSplitterWindow" name="failed_splitter">
               <object class="wxPanel">
                 <object class="wxStaticBoxSizer">
                   <label>Failed projects</label>
