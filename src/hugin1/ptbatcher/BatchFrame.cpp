@@ -1079,8 +1079,11 @@ void BatchFrame::RestoreSize()
 
 void BatchFrame::OnBatchFailed(wxCommandEvent& event)
 {
-    FailedProjectsDialog failedProjects_dlg(this,m_batch,m_xrcPrefix);
-    failedProjects_dlg.ShowModal();
+    if(m_batch->GetFailedProjectsCount()>0)
+    {
+        FailedProjectsDialog failedProjects_dlg(this,m_batch,m_xrcPrefix);
+        failedProjects_dlg.ShowModal();
+    };
 };
 
 void BatchFrame::OnBatchInformation(wxCommandEvent& e)
