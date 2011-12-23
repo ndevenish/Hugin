@@ -55,7 +55,7 @@ void createCPGraph(const PanoramaData & pano, CPGraph & graph)
 
         CPGraphIndexMap index = get(boost::vertex_index, graph);
         bool found=false;
-        for (tie(ai, ai_end) = adjacent_vertices(it->image1Nr, graph);
+        for (boost::tuples::tie(ai, ai_end) = adjacent_vertices(it->image1Nr, graph);
              ai != ai_end; ++ai)
         {
             if (index[*ai] == it->image2Nr) found = true;
@@ -83,7 +83,7 @@ void createCPGraph(const PanoramaData & pano, CPGraph & graph)
 
                 CPGraphIndexMap index = get(boost::vertex_index, graph);
                 bool found=false;
-                for (tie(ai, ai_end) = adjacent_vertices(i, graph);
+                for (boost::tuples::tie(ai, ai_end) = adjacent_vertices(i, graph);
                      ai != ai_end; ++ai)
                 {
                     if (index[*ai] == j) found = true;
