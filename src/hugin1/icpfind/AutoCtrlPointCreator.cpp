@@ -134,6 +134,46 @@ CPVector AutoCtrlPointCreator::readUpdatedControlPoints(const std::string & file
     return ctrlPoints;
 }
 
+CPVector AutoCtrlPointCreator::readUpdatedControlPoints(const std::string & file,
+                                                    PT::Panorama & pano, const PT::UIntSet & imgs)
+{
+    ifstream stream(file.c_str());
+    if (! stream.is_open()) {
+        DEBUG_ERROR("Could not open control point detector output: " << file);
+        return CPVector();
+    }
+
+    Panorama tmpp;
+    PanoramaMemento newPano;
+    int ptoVersion = 0;
+    newPano.loadPTScript(stream, ptoVersion, "");
+    tmpp.setMemento(newPano);
+
+    //check if sizes matches
+    if(tmpp.getNrOfImages()!=imgs.size())
+    {
+        return CPVector();
+    };
+
+    // create mapping between the panorama images.
+    vector<size_t> imgMapping(imgs.size());
+    size_t i=0;
+    for(UIntSet::const_iterator it=imgs.begin();it!=imgs.end();it++)
+    {
+        imgMapping[i++]=*it;
+    };
+
+    // get control points
+    CPVector ctrlPoints = tmpp.getCtrlPoints();
+    // make sure they are in correct order
+    for (CPVector::iterator it= ctrlPoints.begin(); it != ctrlPoints.end(); ++it) {
+        (*it).image1Nr = imgMapping[(*it).image1Nr];
+        (*it).image2Nr = imgMapping[(*it).image2Nr];
+    }
+
+    return ctrlPoints;
+}
+
 #if defined MAC_SELF_CONTAINED_BUNDLE
 wxString GetBundledProg(wxString progName)
 {
@@ -468,7 +508,14 @@ CPVector AutoPanoSift::automatch(CPDetectorSetting &setting, Panorama & pano, co
     }
 
     // read and update control points
-    cps = readUpdatedControlPoints((const char *)ptofile.mb_str(HUGIN_CONV_FILENAME), pano);
+    if(use_inputscript)
+    {
+        cps = readUpdatedControlPoints((const char*)ptofile.mb_str(HUGIN_CONV_FILENAME), pano, imgs);
+    }
+    else
+    {
+        cps = readUpdatedControlPoints((const char *)ptofile.mb_str(HUGIN_CONV_FILENAME), pano);
+    };
 
     if (namefile_name != wxString(wxT(""))) {
         namefile.Close();
@@ -953,7 +1000,21 @@ CPVector AutoPanoSiftMultiRow::automatch(CPDetectorSetting &setting, Panorama & 
             optvars.push_back(imgopt);
         }
         optPano.setOptimizeVector(optvars);
+
+        // remove vertical and horizontal control points
+        CPVector backupOldCPS = optPano.getCtrlPoints();
+        CPVector backupNewCPS;
+        for (CPVector::const_iterator it = backupOldCPS.begin(); it != backupOldCPS.end(); it++) {
+            if (it->mode == ControlPoint::X_Y)
+            {
+                backupNewCPS.push_back(*it);
+            }
+        }
+        optPano.setCtrlPoints(backupNewCPS);
+        // do a first pairwise optimisation step
+        HuginBase::AutoOptimise::autoOptimise(optPano,false);
         HuginBase::PTools::optimize(optPano);
+        optPano.setCtrlPoints(backupOldCPS);
         //and find cp on overlapping images
         //work only on image pairs, which are not yet connected
         AutoPanoSiftPreAlign matcher;

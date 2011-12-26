@@ -30,6 +30,7 @@
     #include <sys/time.h>
 #endif
 #include <time.h>
+#include <fstream>
 #include <stdio.h>
 #include <cstdio>
 
@@ -222,5 +223,47 @@ std::string doubleToString(double d, int digits)
         b = 0.0;
     }
 
+bool FileExists(const std::string filename)
+{
+    std::ifstream ifile(filename.c_str());
+    return !ifile.fail();
+}
+
+std::string GetAbsoluteFilename(const std::string filename)
+{
+#ifdef _WINDOWS
+    char fullpath[_MAX_PATH];
+    _fullpath(fullpath,filename.c_str(),_MAX_PATH);
+    return std::string(fullpath);
+#else
+    //realpath works only with existing files
+    //so as work around we create the file first, call then realpath 
+    //and delete the temp file
+    /** @TODO replace realpath with function with works without this hack */
+    bool tempFileCreated=false;
+    if(!FileExists(filename))
+    {
+        tempFileCreated=true;
+        std::ofstream os(filename.c_str());
+        os.close();
+    };
+    char *real_path = realpath(filename.c_str(), NULL);
+    std::string absPath;
+    if(real_path!=NULL)
+    {
+        absPath=std::string(real_path);
+        free(real_path);
+    }
+    else
+    {
+        absPath=filename;
+    };
+    if(tempFileCreated)
+    {
+        remove(filename.c_str());
+    };
+    return absPath;
+#endif
+};
 
 } //namespace

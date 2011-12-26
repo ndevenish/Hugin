@@ -453,29 +453,38 @@
                               <flag>wxALIGN_CENTRE_VERTICAL</flag>
                             </object>
                             <object class="sizeritem">
-                              <object class="wxStaticText" name="images_filename">
-                                <label></label>
-                              </object>
+                              <object class="wxStaticText" name="images_filename"/>
+                              <flag>wxALIGN_CENTRE_VERTICAL</flag>
                             </object>
                             <object class="sizeritem">
                               <object class="wxStaticText">
                                 <label>Camera Maker:</label>
                               </object>
+                              <flag>wxALIGN_CENTRE_VERTICAL</flag>
                             </object>
                             <object class="sizeritem">
-                              <object class="wxStaticText" name="images_camera_make">
-                                <label></label>
-                              </object>
+                              <object class="wxStaticText" name="images_camera_make"/>
+                              <flag>wxALIGN_CENTRE_VERTICAL</flag>
                             </object>
                             <object class="sizeritem">
                               <object class="wxStaticText">
                                 <label>Camera Model:</label>
                               </object>
+                              <flag>wxALIGN_CENTRE_VERTICAL</flag>
                             </object>
                             <object class="sizeritem">
-                              <object class="wxStaticText" name="images_camera_model">
-                                <label></label>
+                              <object class="wxStaticText" name="images_camera_model"/>
+                              <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxStaticText">
+                                <label>Lens:</label>
                               </object>
+                              <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxStaticText" name="images_lens"/>
+                              <flag>wxALIGN_CENTRE_VERTICAL</flag>
                             </object>
                             <object class="sizeritem">
                               <object class="wxStaticText">
@@ -484,40 +493,39 @@
                               <flag>wxALIGN_CENTRE_VERTICAL</flag>
                             </object>
                             <object class="sizeritem">
-                              <object class="wxStaticText" name="images_capture_date">
-                                <label></label>
-                              </object>
+                              <object class="wxStaticText" name="images_capture_date"/>
+                              <flag>wxALIGN_CENTRE_VERTICAL</flag>
                             </object>
                             <object class="sizeritem">
                               <object class="wxStaticText">
                                 <label>Focal Length:</label>
                               </object>
+                              <flag>wxALIGN_CENTRE_VERTICAL</flag>
                             </object>
                             <object class="sizeritem">
-                              <object class="wxStaticText" name="images_focal_length">
-                                <label></label>
-                              </object>
+                              <object class="wxStaticText" name="images_focal_length"/>
+                              <flag>wxALIGN_CENTRE_VERTICAL</flag>
                             </object>
                             <object class="sizeritem">
                               <object class="wxStaticText">
                                 <label>Aperture:</label>
                               </object>
+                              <flag>wxALIGN_CENTRE_VERTICAL</flag>
                             </object>
                             <object class="sizeritem">
-                              <object class="wxStaticText" name="images_aperture">
-                                <label></label>
-                              </object>
+                              <object class="wxStaticText" name="images_aperture"/>
+                              <flag>wxALIGN_CENTRE_VERTICAL</flag>
                             </object>
                             <cols>2</cols>
                             <object class="sizeritem">
                               <object class="wxStaticText">
                                 <label>Shutter Speed:</label>
                               </object>
+                              <flag>wxALIGN_CENTRE_VERTICAL</flag>
                             </object>
                             <object class="sizeritem">
-                              <object class="wxStaticText" name="images_shutter_speed">
-                                <label></label>
-                              </object>
+                              <object class="wxStaticText" name="images_shutter_speed"/>
+                              <flag>wxALIGN_CENTRE_VERTICAL</flag>
                             </object>
                             <vgap>6</vgap>
                             <hgap>6</hgap>
@@ -525,11 +533,11 @@
                               <object class="wxStaticText">
                                 <label>ISO:</label>
                               </object>
+                              <flag>wxALIGN_CENTRE_VERTICAL</flag>
                             </object>
                             <object class="sizeritem">
-                              <object class="wxStaticText" name="images_iso">
-                                <label></label>
-                              </object>
+                              <object class="wxStaticText" name="images_iso"/>
+                              <flag>wxALIGN_CENTRE_VERTICAL</flag>
                             </object>
                           </object>
                           <flag>wxALL|wxEXPAND</flag>

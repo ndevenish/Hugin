@@ -151,8 +151,8 @@ bool MaskEditorPanel::Create(wxWindow* parent, wxWindowID id,
 
     //set shortcuts
     wxAcceleratorEntry entries[2];
-    entries[0].Set(wxACCEL_CTRL,(int)'C',XRCID("mask_editor_copy"));
-    entries[1].Set(wxACCEL_CTRL,(int)'V',XRCID("mask_editor_paste"));
+    entries[0].Set(wxACCEL_CMD,(int)'C',XRCID("mask_editor_copy"));
+    entries[1].Set(wxACCEL_CMD,(int)'V',XRCID("mask_editor_paste"));
     wxAcceleratorTable accel(2, entries);
     SetAcceleratorTable(accel);
 

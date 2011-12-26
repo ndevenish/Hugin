@@ -7,12 +7,12 @@
 * it under the terms of the GNU General Public License as published by
 * the Free Software Foundation; either version 2 of the License, or
 * (at your option) any later version.
-* 
+*
 * Panomatic is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 * GNU General Public License for more details.
-* 
+*
 * You should have received a copy of the GNU General Public License
 * along with Panomatic; if not, write to the Free Software
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
@@ -43,68 +43,70 @@ template <typename _Key, typename _Compare = std::less<_Key> >
 class bounded_set
 {
 private:
-	size_t						_maxSize;
-	std::set< _Key, _Compare>	_set;
-	
-public:
-	typedef	typename std::set<_Key, _Compare>::iterator iterator;
+    size_t						_maxSize;
+    std::set< _Key, _Compare>	_set;
 
-	// define the constructors
+public:
+    typedef	typename std::set<_Key, _Compare>::iterator iterator;
+
+    // define the constructors
     bounded_set() : _maxSize(std::numeric_limits<size_t>::max()), _set(std::set<_Key, _Compare>()) {}
 
-	bounded_set(size_t iMaxSize) : _set(std::set<_Key, _Compare>()), _maxSize (iMaxSize) {}
-	
-	/// sets the max size of bounded set
-	void setMaxSize(int iMax)
-	{
-		_maxSize = iMax;
-	}
-	
-	///  Returns the maximum size of the bounded_set
-	size_t max_size() const
-	{ 
-		return _maxSize;
-	}
+    bounded_set(size_t iMaxSize) : _set(std::set<_Key, _Compare>()), _maxSize (iMaxSize) {}
 
-	///  Returns the size of the limited_multiset.
-	size_t size() const
-	{ 
-		return _set.size();
-	}
+    /// sets the max size of bounded set
+    void setMaxSize(int iMax)
+    {
+        _maxSize = iMax;
+    }
 
-	iterator begin()
-	{
-		return _set.begin();
-	}
+    ///  Returns the maximum size of the bounded_set
+    size_t max_size() const
+    {
+        return _maxSize;
+    }
 
-	iterator end()
-	{
-		return _set.end();
-	}
+    ///  Returns the size of the limited_multiset.
+    size_t size() const
+    {
+        return _set.size();
+    }
 
-	//	void swap(limited_multiset<_Key,_MaxLen ,_Compare, _Alloc>& __x)
-	//	{
-	//		multiset::swap(__x);
-	//	}
+    iterator begin()
+    {
+        return _set.begin();
+    }
 
-	void truncate()
-	{
-		while (_set.size() > _maxSize)
-			_set.erase(_set.begin());
-	}
+    iterator end()
+    {
+        return _set.end();
+    }
 
-	// be careful, the returned iterator is always end !!!
-	// in fact we don't know if the added value is truncated.
-	void insert(const _Key & x)
-	{ 
-		_set.insert(x);
-		truncate();
-	}
+    //	void swap(limited_multiset<_Key,_MaxLen ,_Compare, _Alloc>& __x)
+    //	{
+    //		multiset::swap(__x);
+    //	}
 
-	std::set< _Key, _Compare>& getSet()
-	{
-		return _set;
-	}
+    void truncate()
+    {
+        while (_set.size() > _maxSize)
+        {
+            _set.erase(_set.begin());
+        }
+    }
+
+    // be careful, the returned iterator is always end !!!
+    // in fact we don't know if the added value is truncated.
+    void insert(const _Key& x)
+    {
+        _set.insert(x);
+        truncate();
+    }
+
+    std::set< _Key, _Compare>& getSet()
+    {
+        return _set;
+    }
 
 };
 

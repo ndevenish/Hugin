@@ -8,12 +8,12 @@
 * it under the terms of the GNU General Public License as published by
 * the Free Software Foundation; either version 2 of the License, or
 * (at your option) any later version.
-* 
+*
 * Panomatic is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 * GNU General Public License for more details.
-* 
+*
 * You should have received a copy of the GNU General Public License
 * along with Panomatic; if not, write to the Free Software
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
@@ -60,7 +60,7 @@
 
 #ifndef srandom
 #define srandom srand
-#endif	
+#endif
 
 using namespace std;
 using namespace ZThread;
@@ -72,17 +72,21 @@ using namespace hugin_utils;
 
 #define TRACE_IMG(X) {if (_panoDetector.getVerbose() == 1) {TRACE_INFO("i" << _imgData._number << " : " << X << endl);}}
 #define TRACE_PAIR(X) {if (_panoDetector.getVerbose() == 1){ TRACE_INFO("i" << _matchData._i1->_number << " <> " \
-																		 "i" << _matchData._i2->_number << " : " << X << endl);}}
+                "i" << _matchData._i2->_number << " : " << X << endl);}}
 
 std::string includeTrailingPathSep(std::string path)
 {
     std::string pathWithSep(path);
 #ifdef _WINDOWS
     if(pathWithSep[pathWithSep.length()-1]!='\\' || pathWithSep[pathWithSep.length()-1]!='/')
+    {
         pathWithSep.append("\\");
+    }
 #else
     if(pathWithSep[pathWithSep.length()-1]!='/')
+    {
         pathWithSep.append("/");
+    }
 #endif
     return pathWithSep;
 };
@@ -104,26 +108,26 @@ std::string getKeyfilenameFor(std::string keyfilesPath, std::string filename)
     return newfilename;
 };
 
-PanoDetector::PanoDetector() :	
-	_writeAllKeyPoints(false), _verbose(1),
-	_sieve1Width(10), _sieve1Height(10), _sieve1Size(100), 
-	_kdTreeSearchSteps(200), _kdTreeSecondDistance(0.25), _ransacIters(1000), _ransacDistanceThres(50),
-	_sieve2Width(5), _sieve2Height(5),_sieve2Size(1), _test(false), _cores(utils::getCPUCount()),
-	_minimumMatches(6), _linearMatch(false), _linearMatchLen(1), _downscale(true), _cache(false), _cleanup(false),
+PanoDetector::PanoDetector() :
+    _writeAllKeyPoints(false), _verbose(1),
+    _sieve1Width(10), _sieve1Height(10), _sieve1Size(100),
+    _kdTreeSearchSteps(200), _kdTreeSecondDistance(0.25), _ransacIters(1000), _ransacDistanceThres(50),
+    _sieve2Width(5), _sieve2Height(5),_sieve2Size(1), _test(false), _cores(utils::getCPUCount()),
+    _minimumMatches(6), _linearMatch(false), _linearMatchLen(1), _downscale(true), _cache(false), _cleanup(false),
     _keypath(""), _outputFile("default.pto"), _outputGiven(false), _celeste(false), _celesteThreshold(0.5), _celesteRadius(20), _multirow(false)
 {
-	_panoramaInfo = new Panorama();
+    _panoramaInfo = new Panorama();
 }
 
 
 bool PanoDetector::checkData()
 {
-	// test linear match data
-	if (_linearMatchLen < 1)
-	{
-		std::cout << "Linear match length must be at least 1." << std::endl;
-		return false;
-	}
+    // test linear match data
+    if (_linearMatchLen < 1)
+    {
+        std::cout << "Linear match length must be at least 1." << std::endl;
+        return false;
+    }
 
     if(_linearMatch && _multirow)
     {
@@ -132,16 +136,16 @@ bool PanoDetector::checkData()
     };
 
     // check the test mode
-	if (_test)
-	{
-		if (_filesData.size() != 2)
-		{
-			std::cout << "In test mode you must provide exactly 2 images." << std::endl;
-			return false;
-		}
-	}
+    if (_test)
+    {
+        if (_filesData.size() != 2)
+        {
+            std::cout << "In test mode you must provide exactly 2 images." << std::endl;
+            return false;
+        }
+    }
 
-	return true;
+    return true;
 }
 
 void PanoDetector::printDetails()
@@ -151,18 +155,21 @@ void PanoDetector::printDetails()
     {
         cout << "Output file(s)      :  keyfile(s) for images";
         for (unsigned int i = 0; i < _keyPointsIdx.size(); ++i)
-        cout << " " << _keyPointsIdx[i] << endl;
+        {
+            cout << " " << _keyPointsIdx[i] << endl;
+        }
     }
     else
     {
         cout << "Output file       : " << _outputFile << endl;
     }
-	cout << "Number of CPU     : " << _cores << endl << endl;
-	cout << "Input image options" << endl;
-	cout << "  Downscale to half-size : " << (_downscale?"yes":"no") << endl;
-	if (_gradDescriptor) {
-		cout << "Gradient based description" << endl;
-	} 
+    cout << "Number of CPU     : " << _cores << endl << endl;
+    cout << "Input image options" << endl;
+    cout << "  Downscale to half-size : " << (_downscale?"yes":"no") << endl;
+    if (_gradDescriptor)
+    {
+        cout << "Gradient based description" << endl;
+    }
     if(_celeste)
     {
         cout << "Celeste options" << endl;
@@ -170,14 +177,14 @@ void PanoDetector::printDetails()
         cout << "  Radius : " << _celesteRadius << endl;
     }
     cout << "Sieve 1 Options" << endl;
-	cout << "  Width : " << _sieve1Width << endl;
-	cout << "  Height : " << _sieve1Height << endl;
-	cout << "  Size : " << _sieve1Size << endl;
-	cout << "  ==> Maximum keypoints per image : " << _sieve1Size * _sieve1Height * _sieve1Width << endl;
-	cout << "KDTree Options" << endl;
-	cout << "  Search steps : " << _kdTreeSearchSteps << endl;
-	cout << "  Second match distance : " << _kdTreeSecondDistance << endl;
-	cout << "Matching Options" << endl;
+    cout << "  Width : " << _sieve1Width << endl;
+    cout << "  Height : " << _sieve1Height << endl;
+    cout << "  Size : " << _sieve1Size << endl;
+    cout << "  ==> Maximum keypoints per image : " << _sieve1Size* _sieve1Height* _sieve1Width << endl;
+    cout << "KDTree Options" << endl;
+    cout << "  Search steps : " << _kdTreeSearchSteps << endl;
+    cout << "  Second match distance : " << _kdTreeSecondDistance << endl;
+    cout << "Matching Options" << endl;
     if(_linearMatch)
     {
         cout << "  Mode : Linear match with length of " << _linearMatch << " image" << endl;
@@ -193,48 +200,51 @@ void PanoDetector::printDetails()
             cout << "  Mode : All pairs" << endl;
         };
     };
-	cout << "  Distance threshold : " << _ransacDistanceThres << endl;
-	cout << "RANSAC Options" << endl;
-	cout << "  Mode : ";
-	switch (_ransacMode) {
-	case RANSACOptimizer::AUTO:
-		cout << "auto" << endl;
-		break;
-	case RANSACOptimizer::HOMOGRAPHY:
-		cout << "homography" << endl;
-		break;
-	case RANSACOptimizer::RPY:
-		cout << "roll, pitch, yaw" << endl;
-		break;
-	case RANSACOptimizer::RPYV:
-		cout << "roll, pitch, yaw, fov" << endl;
-		break;
-	case RANSACOptimizer::RPYVB:
-		cout << "roll, pitch, yaw, fov, distortion" << endl;
-		break;
-	}
-	cout << "  Iterations : " << _ransacIters << endl;
-	cout << "  Distance threshold : " << _ransacDistanceThres << endl;
-	cout << "Sieve 2 Options" << endl;
-	cout << "  Width : " << _sieve2Width << endl;
-	cout << "  Height : " << _sieve2Height << endl;
-	cout << "  Size : " << _sieve2Size << endl;
-	cout << "  ==> Maximum matches per image pair : " << _sieve2Size * _sieve2Height * _sieve2Width << endl;
+    cout << "  Distance threshold : " << _ransacDistanceThres << endl;
+    cout << "RANSAC Options" << endl;
+    cout << "  Mode : ";
+    switch (_ransacMode)
+    {
+        case RANSACOptimizer::AUTO:
+            cout << "auto" << endl;
+            break;
+        case RANSACOptimizer::HOMOGRAPHY:
+            cout << "homography" << endl;
+            break;
+        case RANSACOptimizer::RPY:
+            cout << "roll, pitch, yaw" << endl;
+            break;
+        case RANSACOptimizer::RPYV:
+            cout << "roll, pitch, yaw, fov" << endl;
+            break;
+        case RANSACOptimizer::RPYVB:
+            cout << "roll, pitch, yaw, fov, distortion" << endl;
+            break;
+    }
+    cout << "  Iterations : " << _ransacIters << endl;
+    cout << "  Distance threshold : " << _ransacDistanceThres << endl;
+    cout << "Sieve 2 Options" << endl;
+    cout << "  Width : " << _sieve2Width << endl;
+    cout << "  Height : " << _sieve2Height << endl;
+    cout << "  Size : " << _sieve2Size << endl;
+    cout << "  ==> Maximum matches per image pair : " << _sieve2Size* _sieve2Height* _sieve2Width << endl;
 }
 
 void PanoDetector::printFilenames()
 {
     cout << endl << "Project contains the following images:" << endl;
-    for(unsigned int i=0;i<_panoramaInfo->getNrOfImages();i++)
+    for(unsigned int i=0; i<_panoramaInfo->getNrOfImages(); i++)
     {
         std::string name(_panoramaInfo->getImage(i).getFilename());
         if(name.compare(0,_prefix.length(),_prefix)==0)
+        {
             name=name.substr(_prefix.length(),name.length()-_prefix.length());
+        }
         cout << "Image " << i << endl << "  Imagefile: " << name << endl;
         bool writeKeyfileForImage=false;
         if(_keyPointsIdx.size()>0)
         {
-            for(unsigned j=0;j<_keyPointsIdx.size() && !writeKeyfileForImage;j++)
+            for(unsigned j=0; j<_keyPointsIdx.size() && !writeKeyfileForImage; j++)
             {
                 writeKeyfileForImage=_keyPointsIdx[j]==i;
             };
@@ -243,7 +253,9 @@ void PanoDetector::printFilenames()
         {
             name=_filesData[i]._keyfilename;
             if(name.compare(0,_prefix.length(),_prefix)==0)
+            {
                 name=name.substr(_prefix.length(),name.length()-_prefix.length());
+            }
             cout << "  Keyfile  : " << name;
             if(writeKeyfileForImage)
             {
@@ -262,84 +274,90 @@ void PanoDetector::printFilenames()
 class ImgDataRunnable : public Runnable
 {
 public:
-	ImgDataRunnable(PanoDetector::ImgData& iImageData, const PanoDetector& iPanoDetector) :
-	  _imgData(iImageData), _panoDetector(iPanoDetector) {};
+    ImgDataRunnable(PanoDetector::ImgData& iImageData, const PanoDetector& iPanoDetector) :
+        _imgData(iImageData), _panoDetector(iPanoDetector) {};
 
-	  void run() 
-	  {	
-		  TRACE_IMG("Analyzing image...");
-		  if (!PanoDetector::AnalyzeImage(_imgData, _panoDetector)) return;
-		  PanoDetector::FindKeyPointsInImage(_imgData, _panoDetector);
-		  PanoDetector::FilterKeyPointsInImage(_imgData, _panoDetector);
-		  PanoDetector::MakeKeyPointDescriptorsInImage(_imgData, _panoDetector);
-		  PanoDetector::RemapBackKeypoints(_imgData, _panoDetector);
-		  PanoDetector::BuildKDTreesInImage(_imgData, _panoDetector);
-		  PanoDetector::FreeMemoryInImage(_imgData, _panoDetector);
-	  }
+    void run()
+    {
+        TRACE_IMG("Analyzing image...");
+        if (!PanoDetector::AnalyzeImage(_imgData, _panoDetector))
+        {
+            return;
+        }
+        PanoDetector::FindKeyPointsInImage(_imgData, _panoDetector);
+        PanoDetector::FilterKeyPointsInImage(_imgData, _panoDetector);
+        PanoDetector::MakeKeyPointDescriptorsInImage(_imgData, _panoDetector);
+        PanoDetector::RemapBackKeypoints(_imgData, _panoDetector);
+        PanoDetector::BuildKDTreesInImage(_imgData, _panoDetector);
+        PanoDetector::FreeMemoryInImage(_imgData, _panoDetector);
+    }
 private:
-	const PanoDetector&			_panoDetector;
-	PanoDetector::ImgData&		_imgData;
+    const PanoDetector&			_panoDetector;
+    PanoDetector::ImgData&		_imgData;
 };
 
 // definition of a runnable class for writeKeyPoints
 class WriteKeyPointsRunnable : public Runnable
 {
 public:
-	WriteKeyPointsRunnable(PanoDetector::ImgData& iImageData, const PanoDetector& iPanoDetector) :
-	  _imgData(iImageData), _panoDetector(iPanoDetector) {};
+    WriteKeyPointsRunnable(PanoDetector::ImgData& iImageData, const PanoDetector& iPanoDetector) :
+        _imgData(iImageData), _panoDetector(iPanoDetector) {};
 
-	  void run() 
-	  {	
-		  TRACE_IMG("Analyzing image...");
-		  if (!PanoDetector::AnalyzeImage(_imgData, _panoDetector)) return;
-		  PanoDetector::FindKeyPointsInImage(_imgData, _panoDetector);
-		  PanoDetector::FilterKeyPointsInImage(_imgData, _panoDetector);
-		  PanoDetector::MakeKeyPointDescriptorsInImage(_imgData, _panoDetector);
-		  PanoDetector::RemapBackKeypoints(_imgData, _panoDetector);
-		  PanoDetector::FreeMemoryInImage(_imgData, _panoDetector);
-	  }
+    void run()
+    {
+        TRACE_IMG("Analyzing image...");
+        if (!PanoDetector::AnalyzeImage(_imgData, _panoDetector))
+        {
+            return;
+        }
+        PanoDetector::FindKeyPointsInImage(_imgData, _panoDetector);
+        PanoDetector::FilterKeyPointsInImage(_imgData, _panoDetector);
+        PanoDetector::MakeKeyPointDescriptorsInImage(_imgData, _panoDetector);
+        PanoDetector::RemapBackKeypoints(_imgData, _panoDetector);
+        PanoDetector::FreeMemoryInImage(_imgData, _panoDetector);
+    }
 private:
-	const PanoDetector&			_panoDetector;
-	PanoDetector::ImgData&		_imgData;
+    const PanoDetector&			_panoDetector;
+    PanoDetector::ImgData&		_imgData;
 };
 
 // definition of a runnable class for keypoints data
 class LoadKeypointsDataRunnable : public Runnable
 {
-	public:
-	LoadKeypointsDataRunnable(PanoDetector::ImgData& iImageData, const PanoDetector& iPanoDetector) :
-		_imgData(iImageData), _panoDetector(iPanoDetector) {};
+public:
+    LoadKeypointsDataRunnable(PanoDetector::ImgData& iImageData, const PanoDetector& iPanoDetector) :
+        _imgData(iImageData), _panoDetector(iPanoDetector) {};
 
-	void run() 
-	{	
-		TRACE_IMG("Loading keypoints...");
-		PanoDetector::LoadKeypoints(_imgData, _panoDetector);
-		PanoDetector::BuildKDTreesInImage(_imgData, _panoDetector);
-	}
+    void run()
+    {
+        TRACE_IMG("Loading keypoints...");
+        PanoDetector::LoadKeypoints(_imgData, _panoDetector);
+        PanoDetector::BuildKDTreesInImage(_imgData, _panoDetector);
+    }
 
-	private:
-		const PanoDetector&			_panoDetector;
-		PanoDetector::ImgData&		_imgData;
+private:
+    const PanoDetector&			_panoDetector;
+    PanoDetector::ImgData&		_imgData;
 };
 
 // definition of a runnable class for MatchData
 class MatchDataRunnable : public Runnable
 {
 public:
-	MatchDataRunnable(PanoDetector::MatchData& iMatchData, const PanoDetector& iPanoDetector) :
-	  _matchData(iMatchData), _panoDetector(iPanoDetector) {};
+    MatchDataRunnable(PanoDetector::MatchData& iMatchData, const PanoDetector& iPanoDetector) :
+        _matchData(iMatchData), _panoDetector(iPanoDetector) {};
 
-	  void run() 
-	  {	
-		  //TRACE_PAIR("Matching...");
-		  PanoDetector::FindMatchesInPair(_matchData, _panoDetector);
-		  PanoDetector::RansacMatchesInPair(_matchData, _panoDetector);
-		  PanoDetector::FilterMatchesInPair(_matchData, _panoDetector);		  
-		  TRACE_PAIR("Found " << _matchData._matches.size() << " matches");
-	  }
+    void run()
+    {
+        //TRACE_PAIR("Matching...");
+        PanoDetector::FindMatchesInPair(_matchData, _panoDetector);
+        PanoDetector::RansacMatchesInPair(_matchData, _panoDetector);
+        PanoDetector::FilterMatchesInPair(_matchData, _panoDetector);
+        TRACE_PAIR("Found " << _matchData._matches.size() << " matches");
+    }
 private:
-	const PanoDetector&			_panoDetector;
-	PanoDetector::MatchData&	_matchData;
+    const PanoDetector&			_panoDetector;
+    PanoDetector::MatchData&	_matchData;
 };
 
 bool PanoDetector::LoadSVMModel()
@@ -370,29 +388,29 @@ bool PanoDetector::LoadSVMModel()
         }
 #elif defined MAC_SELF_CONTAINED_BUNDLE
         //string install_path_model = ("./xrc/");
-		char path[PATH_MAX + 1];
-		uint32_t size = sizeof(path);
-		string install_path_model("");
-		if (_NSGetExecutablePath(path, &size) == 0)
-		{
-			//install_path_model=path;
-			install_path_model=dirname(path);
-			install_path_model.append("/xrc/");
-			cout << "Detected path " << install_path_model << endl << endl;
-		}
+        char path[PATH_MAX + 1];
+        uint32_t size = sizeof(path);
+        string install_path_model("");
+        if (_NSGetExecutablePath(path, &size) == 0)
+        {
+            //install_path_model=path;
+            install_path_model=dirname(path);
+            install_path_model.append("/xrc/");
+            cout << "Detected path " << install_path_model << endl << endl;
+        }
 #else
         string install_path_model = (INSTALL_DATA_DIR);
 #endif
-		install_path_model.append(model_file);
+        install_path_model.append(model_file);
         ifstream test2(install_path_model.c_str());
-		if (!test2.good())
+        if (!test2.good())
         {
             cout << endl << "Couldn't open SVM model file " << model_file << endl;
-            cout << "Also tried " << install_path_model << endl << endl; 
+            cout << "Also tried " << install_path_model << endl << endl;
             return false;
         };
         model_file = install_path_model;
-  	}
+    }
     if(!celeste::loadSVMmodel(svmModel,model_file))
     {
         svmModel=NULL;
@@ -403,9 +421,8 @@ bool PanoDetector::LoadSVMModel()
 
 void PanoDetector::run()
 {
-	// init the random time generator
-	srandom((unsigned int)time(NULL));
-	PoolExecutor aExecutor(_cores);
+    // init the random time generator
+    srandom((unsigned int)time(NULL));
 
     // Load the input project file
     if(!loadProject())
@@ -414,7 +431,7 @@ void PanoDetector::run()
     };
     if(_writeAllKeyPoints)
     {
-        for(unsigned int i=0;i<_panoramaInfo->getNrOfImages();i++)
+        for(unsigned int i=0; i<_panoramaInfo->getNrOfImages(); i++)
         {
             _keyPointsIdx.push_back(i);
         };
@@ -426,6 +443,49 @@ void PanoDetector::run()
         return;
     };
 
+    //checking, if memory allows running desired number of threads
+    unsigned long maxImageSize=0;
+    bool withRemap=false;
+    for (ImgDataIt_t aB = _filesData.begin(); aB != _filesData.end(); ++aB)
+    {
+        if(!aB->second._hasakeyfile)
+        {
+            maxImageSize=std::max<unsigned long>(aB->second._detectWidth*aB->second._detectHeight,maxImageSize);
+            if(aB->second._needsremap)
+            {
+                withRemap=true;
+            };
+        };
+    };
+    if(maxImageSize!=0)
+    {
+        unsigned long long maxCores;
+        //determinded factors by testing of some projects
+        //the memory usage seems to be very high
+        //if the memory usage could be decreased these numbers can be decreased
+        if(withRemap)
+        {
+            maxCores=utils::getTotalMemory()/(maxImageSize*75);
+        }
+        else
+        {
+            maxCores=utils::getTotalMemory()/(maxImageSize*50);
+        };
+        if(maxCores<1)
+        {
+            maxCores=1;
+        }
+        if(maxCores<_cores)
+        {
+            if(getVerbose()>0)
+            {
+                std::cout << "\nThe available memory does not allow running " << _cores << " threads parallel.\n"
+                            << "Running cpfind with " << maxCores << " threads.\n";
+            };
+            setCores(maxCores);
+        };
+    };
+    PoolExecutor aExecutor(_cores);
     svmModel=NULL;
     if(_celeste)
     {
@@ -437,9 +497,10 @@ void PanoDetector::run()
     };
 
     //print some more information about the images
-	if (_verbose > 0) {
-		printFilenames();
-	}
+    if (_verbose > 0)
+    {
+        printFilenames();
+    }
 
     // 2. run analysis of images or keypoints
 #if _WINDOWS
@@ -448,12 +509,14 @@ void PanoDetector::run()
     //running multi threading part
     std::string s=vigra::impexListExtensions();
 #endif
-    try 
+    try
     {
         if (_keyPointsIdx.size() != 0)
         {
-			if (_verbose > 0)
-				TRACE_INFO(endl<< "--- Analyze Images ---" << endl);
+            if (_verbose > 0)
+            {
+                TRACE_INFO(endl<< "--- Analyze Images ---" << endl);
+            }
             for (unsigned int i = 0; i < _keyPointsIdx.size(); ++i)
             {
                 aExecutor.execute(new WriteKeyPointsRunnable(_filesData[_keyPointsIdx[i]], *this));
@@ -474,17 +537,17 @@ void PanoDetector::run()
                 }
             }
         }
-		aExecutor.wait();
-	} 
-	catch(Synchronization_Exception& e)
-	{ 
-		TRACE_ERROR(e.what() << endl);
+        aExecutor.wait();
+    }
+    catch(Synchronization_Exception& e)
+    {
+        TRACE_ERROR(e.what() << endl);
         if(svmModel!=NULL)
         {
             celeste::destroySVMmodel(svmModel);
         };
-		return;
-	}
+        return;
+    }
 
     if(svmModel!=NULL)
     {
@@ -494,10 +557,10 @@ void PanoDetector::run()
     // check if the load of images succeed.
     if (!checkLoadSuccess())
     {
-       TRACE_INFO("One or more images failed to load. Exiting.");
-       return;
+        TRACE_INFO("One or more images failed to load. Exiting.");
+        return;
     }
-  
+
     if(_cache)
     {
         TRACE_INFO(endl << "--- Cache keyfiles to disc ---" << endl);
@@ -511,7 +574,7 @@ void PanoDetector::run()
         };
     };
 
-    // Detect matches if writeKeyPoints wasn't set  
+    // Detect matches if writeKeyPoints wasn't set
     if(_keyPointsIdx.size() == 0)
     {
         if(_multirow)
@@ -528,9 +591,9 @@ void PanoDetector::run()
                 return;
             };
         };
-	}
-	
-	// 5. write output
+    }
+
+    // 5. write output
     if (_keyPointsIdx.size() != 0)
     {
         //Write all keyfiles
@@ -542,9 +605,9 @@ void PanoDetector::run()
         if(_outputGiven)
         {
             cout << endl << "Warning: You have given the --output switch." << endl
-                         << "This switch is not compatible with the --writekeyfile or --kall switch." << endl
-                         << "If you want to generate the keyfiles and" << endl
-                         << "do the matching in the same run use the --cache switch instead." << endl << endl;
+                 << "This switch is not compatible with the --writekeyfile or --kall switch." << endl
+                 << "If you want to generate the keyfiles and" << endl
+                 << "do the matching in the same run use the --cache switch instead." << endl << endl;
         };
     }
     else
@@ -561,38 +624,39 @@ bool PanoDetector::match(PoolExecutor& aExecutor)
     // 3. prepare matches
     prepareMatches();
     // 4. find matches
-	TRACE_INFO(endl<< "--- Find matches ---" << endl);
-    try 
+    TRACE_INFO(endl<< "--- Find matches ---" << endl);
+    try
     {
         BOOST_FOREACH(MatchData& aMD, _matchesData)
-            aExecutor.execute(new MatchDataRunnable(aMD, *this));
+        aExecutor.execute(new MatchDataRunnable(aMD, *this));
         aExecutor.wait();
-    } 
+    }
     catch(Synchronization_Exception& e)
-    { 
+    {
         TRACE_ERROR(e.what() << endl);
         return false;
     }
 
     // Add detected matches to _panoramaInfo
     BOOST_FOREACH(MatchData& aM, _matchesData)
-        BOOST_FOREACH(lfeat::PointMatchPtr& aPM, aM._matches)
-            _panoramaInfo->addCtrlPoint(ControlPoint(aM._i1->_number, aPM->_img1_x, aPM->_img1_y,
-                                                     aM._i2->_number, aPM->_img2_x, aPM->_img2_y));
+    BOOST_FOREACH(lfeat::PointMatchPtr& aPM, aM._matches)
+    _panoramaInfo->addCtrlPoint(ControlPoint(aM._i1->_number, aPM->_img1_x, aPM->_img1_y,
+                                aM._i2->_number, aPM->_img2_x, aPM->_img2_y));
     return true;
 };
 
 bool PanoDetector::loadProject()
 {
-   ifstream ptoFile(_inputFile.c_str());
-   if (ptoFile.bad()) { 
-       cerr << "ERROR: could not open file: '" << _inputFile << "'!" << endl; 
-       return false; 
-   } 
+    ifstream ptoFile(_inputFile.c_str());
+    if (ptoFile.bad())
+    {
+        cerr << "ERROR: could not open file: '" << _inputFile << "'!" << endl;
+        return false;
+    }
     _prefix=hugin_utils::getPathPrefix(_inputFile);
     if(_prefix.empty())
     {
-        // Get the current working directory: 
+        // Get the current working directory:
         char* buffer;
 #ifdef _WINDOWS
 #define getcwd _getcwd
@@ -602,54 +666,55 @@ bool PanoDetector::loadProject()
             _prefix.append(buffer);
             free(buffer);
             _prefix=includeTrailingPathSep(_prefix);
-       }
+        }
     };
-	_panoramaInfo->setFilePrefix(_prefix);
-	AppBase::DocumentData::ReadWriteError err = _panoramaInfo->readData(ptoFile);
-	if (err != AppBase::DocumentData::SUCCESSFUL) {
-		  cerr << "ERROR: couldn't parse panos tool script: '" << _inputFile << "'!" << endl;
-		  return false;
-	}
+    _panoramaInfo->setFilePrefix(_prefix);
+    AppBase::DocumentData::ReadWriteError err = _panoramaInfo->readData(ptoFile);
+    if (err != AppBase::DocumentData::SUCCESSFUL)
+    {
+        cerr << "ERROR: couldn't parse panos tool script: '" << _inputFile << "'!" << endl;
+        return false;
+    }
 
-	// Create a copy of panoramaInfo that will be used to define
-	// image options
-	_panoramaInfoCopy=_panoramaInfo->duplicate();
+    // Create a copy of panoramaInfo that will be used to define
+    // image options
+    _panoramaInfoCopy=_panoramaInfo->duplicate();
 
-	// Add images found in the project file to _filesData
-	unsigned int nImg = _panoramaInfo->getNrOfImages();
+    // Add images found in the project file to _filesData
+    unsigned int nImg = _panoramaInfo->getNrOfImages();
     unsigned int imgWithKeyfile=0;
-	for (unsigned int imgNr = 0; imgNr < nImg; ++imgNr)
-	{
-		// insert the image in the map
-		_filesData.insert(make_pair(imgNr, ImgData()));
-		
-		// get the data
-		ImgData& aImgData = _filesData[imgNr];
+    for (unsigned int imgNr = 0; imgNr < nImg; ++imgNr)
+    {
+        // insert the image in the map
+        _filesData.insert(make_pair(imgNr, ImgData()));
 
-		// get a copy of image info
-		SrcPanoImage img = _panoramaInfoCopy.getSrcImage(imgNr);
+        // get the data
+        ImgData& aImgData = _filesData[imgNr];
 
-		// set the name
-		aImgData._name = img.getFilename();
+        // get a copy of image info
+        SrcPanoImage img = _panoramaInfoCopy.getSrcImage(imgNr);
 
-		// modify image position in the copy
-		img.setYaw(0);
-		img.setRoll(0);
-		img.setPitch(0);
-		img.setX(0);
-		img.setY(0);
-		img.setZ(0);
-		img.setActive(true);
-		img.setResponseType(SrcPanoImage::RESPONSE_LINEAR);
-		img.setExposureValue(0);
-		_panoramaInfoCopy.setImage(imgNr,img);
+        // set the name
+        aImgData._name = img.getFilename();
 
-		// Number pointing to image info in _panoramaInfo
-		aImgData._number = imgNr;
+        // modify image position in the copy
+        img.setYaw(0);
+        img.setRoll(0);
+        img.setPitch(0);
+        img.setX(0);
+        img.setY(0);
+        img.setZ(0);
+        img.setActive(true);
+        img.setResponseType(SrcPanoImage::RESPONSE_LINEAR);
+        img.setExposureValue(0);
+        _panoramaInfoCopy.setImage(imgNr,img);
+
+        // Number pointing to image info in _panoramaInfo
+        aImgData._number = imgNr;
 
         aImgData._needsremap=(img.getHFOV()>=65 && img.getProjection() != SrcPanoImage::FISHEYE_STEREOGRAPHIC);
-		// set image detection size
-         if(aImgData._needsremap)
+        // set image detection size
+        if(aImgData._needsremap)
         {
             _filesData[imgNr]._detectWidth = max(img.getSize().width(),img.getSize().height());
             _filesData[imgNr]._detectHeight = max(img.getSize().width(),img.getSize().height());
@@ -662,37 +727,37 @@ bool PanoDetector::loadProject()
 
         if (_downscale)
         {
-           _filesData[imgNr]._detectWidth >>= 1;
-           _filesData[imgNr]._detectHeight >>= 1;
+            _filesData[imgNr]._detectWidth >>= 1;
+            _filesData[imgNr]._detectHeight >>= 1;
         }
 
         // set image remapping options
         if(aImgData._needsremap)
         {
-			aImgData._projOpts.setProjection(PanoramaOptions::STEREOGRAPHIC);
-			aImgData._projOpts.setHFOV(250);
-			aImgData._projOpts.setVFOV(250);
-			aImgData._projOpts.setWidth(250);
-			aImgData._projOpts.setHeight(250);
+            aImgData._projOpts.setProjection(PanoramaOptions::STEREOGRAPHIC);
+            aImgData._projOpts.setHFOV(250);
+            aImgData._projOpts.setVFOV(250);
+            aImgData._projOpts.setWidth(250);
+            aImgData._projOpts.setHeight(250);
 
-			// determine size of output image.
-			// The old code did not work with images with images with a FOV
-			// approaching 180 degrees
+            // determine size of output image.
+            // The old code did not work with images with images with a FOV
+            // approaching 180 degrees
             vigra::Rect2D roi=estimateOutputROI(_panoramaInfoCopy,aImgData._projOpts,imgNr);
-			double scalefactor = max((double)_filesData[imgNr]._detectWidth / roi.width(),
-									 (double)_filesData[imgNr]._detectHeight / roi.height() );
-			
-			// resize output canvas
-			vigra::Size2D canvasSize((int)aImgData._projOpts.getWidth() * scalefactor,
-									 (int)aImgData._projOpts.getHeight() * scalefactor);
-			aImgData._projOpts.setWidth(canvasSize.width(), false);
-			aImgData._projOpts.setHeight(canvasSize.height());
+            double scalefactor = max((double)_filesData[imgNr]._detectWidth / roi.width(),
+                                     (double)_filesData[imgNr]._detectHeight / roi.height() );
 
-			// set roi to cover the remapped input image
-			roi = roi * scalefactor;
+            // resize output canvas
+            vigra::Size2D canvasSize((int)aImgData._projOpts.getWidth() * scalefactor,
+                                     (int)aImgData._projOpts.getHeight() * scalefactor);
+            aImgData._projOpts.setWidth(canvasSize.width(), false);
+            aImgData._projOpts.setHeight(canvasSize.height());
+
+            // set roi to cover the remapped input image
+            roi = roi * scalefactor;
             _filesData[imgNr]._detectWidth = roi.width();
-			_filesData[imgNr]._detectHeight = roi.height();
-			aImgData._projOpts.setROI(roi);
+            _filesData[imgNr]._detectHeight = roi.height();
+            aImgData._projOpts.setROI(roi);
         }
 
         // Specify if the image has an associated keypoint file
@@ -755,29 +820,35 @@ void PanoDetector::CleanupKeyfiles()
 
 void PanoDetector::prepareMatches()
 {
-	unsigned int aLen = _filesData.size();
-	if (_linearMatch)
-		aLen = _linearMatchLen;
+    unsigned int aLen = _filesData.size();
+    if (_linearMatch)
+    {
+        aLen = _linearMatchLen;
+    }
 
-	if (aLen >= _filesData.size())
-		aLen = _filesData.size() - 1;
+    if (aLen >= _filesData.size())
+    {
+        aLen = _filesData.size() - 1;
+    }
 
-	for (unsigned int i1 = 0; i1 < _filesData.size(); ++i1)
-	{
-		unsigned int aEnd = i1 + 1 + aLen;
-		if (_filesData.size() < aEnd)
-			aEnd = _filesData.size();
+    for (unsigned int i1 = 0; i1 < _filesData.size(); ++i1)
+    {
+        unsigned int aEnd = i1 + 1 + aLen;
+        if (_filesData.size() < aEnd)
+        {
+            aEnd = _filesData.size();
+        }
 
-		for (unsigned int i2 = (i1+1); i2 < aEnd; ++i2) 
-		{
-			// create a new entry in the matches map
-			_matchesData.push_back(MatchData());
+        for (unsigned int i2 = (i1+1); i2 < aEnd; ++i2)
+        {
+            // create a new entry in the matches map
+            _matchesData.push_back(MatchData());
 
-			MatchData& aM = _matchesData.back();
-			aM._i1 = &(_filesData[i1]);
-			aM._i2 = &(_filesData[i2]);
-		}
-	}
+            MatchData& aM = _matchesData.back();
+            aM._i1 = &(_filesData[i1]);
+            aM._i2 = &(_filesData[i2]);
+        }
+    }
 }
 
 struct img_ev
@@ -790,7 +861,10 @@ struct stack_img
     unsigned int layer_nr;
     std::vector<img_ev> images;
 };
-bool sort_img_ev (img_ev i1, img_ev i2) { return (i1.ev<i2.ev); };
+bool sort_img_ev (img_ev i1, img_ev i2)
+{
+    return (i1.ev<i2.ev);
+};
 
 bool PanoDetector::matchMultiRow(PoolExecutor& aExecutor)
 {
@@ -803,7 +877,7 @@ bool PanoDetector::matchMultiRow(PoolExecutor& aExecutor)
         //check, if this stack is already in list
         bool found=false;
         unsigned int index=0;
-        for(index=0;index<stack_images.size();index++)
+        for(index=0; index<stack_images.size(); index++)
         {
             found=(stack_images[index].layer_nr==stack_nr);
             if(found)
@@ -829,7 +903,7 @@ bool PanoDetector::matchMultiRow(PoolExecutor& aExecutor)
     //get image with median exposure for search with cp generator
     vector<unsigned int> images_layer;
     UIntSet images_layer_set;
-    for(unsigned int i=0;i<stack_images.size();i++)
+    for(unsigned int i=0; i<stack_images.size(); i++)
     {
         std::sort(stack_images[i].images.begin(),stack_images[i].images.end(),sort_img_ev);
         unsigned int index=0;
@@ -842,7 +916,7 @@ bool PanoDetector::matchMultiRow(PoolExecutor& aExecutor)
         if(stack_images[i].images.size()>1)
         {
             //build match list for stacks
-            for(unsigned int j=0;j<stack_images[i].images.size()-1;j++)
+            for(unsigned int j=0; j<stack_images[i].images.size()-1; j++)
             {
                 _matchesData.push_back(MatchData());
                 MatchData& aM=_matchesData.back();
@@ -854,7 +928,7 @@ bool PanoDetector::matchMultiRow(PoolExecutor& aExecutor)
     //build match data list for image pairs
     if(images_layer.size()>1)
     {
-        for(unsigned int i=0;i<images_layer.size()-1;i++)
+        for(unsigned int i=0; i<images_layer.size()-1; i++)
         {
             _matchesData.push_back(MatchData());
             MatchData& aM = _matchesData.back();
@@ -863,10 +937,10 @@ bool PanoDetector::matchMultiRow(PoolExecutor& aExecutor)
         };
     };
     TRACE_INFO(endl<< "--- Find matches ---" << endl);
-    try 
+    try
     {
         BOOST_FOREACH(MatchData& aMD, _matchesData)
-            aExecutor.execute(new MatchDataRunnable(aMD, *this));
+        aExecutor.execute(new MatchDataRunnable(aMD, *this));
         aExecutor.wait();
     }
     catch(Synchronization_Exception& e)
@@ -877,10 +951,10 @@ bool PanoDetector::matchMultiRow(PoolExecutor& aExecutor)
 
     // Add detected matches to _panoramaInfo
     BOOST_FOREACH(MatchData& aM, _matchesData)
-        BOOST_FOREACH(lfeat::PointMatchPtr& aPM, aM._matches)
-            _panoramaInfo->addCtrlPoint(ControlPoint(aM._i1->_number, aPM->_img1_x, aPM->_img1_y,
-                                                     aM._i2->_number, aPM->_img2_x, aPM->_img2_y));
-    
+    BOOST_FOREACH(lfeat::PointMatchPtr& aPM, aM._matches)
+    _panoramaInfo->addCtrlPoint(ControlPoint(aM._i1->_number, aPM->_img1_x, aPM->_img1_y,
+                                aM._i2->_number, aPM->_img2_x, aPM->_img2_y));
+
     // step 2: connect all image groups
     _matchesData.clear();
     CPGraph graph;
@@ -890,15 +964,17 @@ bool PanoDetector::matchMultiRow(PoolExecutor& aExecutor)
     if(n>1)
     {
         vector<unsigned int> ImagesGroups;
-        for(unsigned int i=0;i<n;i++)
+        for(unsigned int i=0; i<n; i++)
         {
             ImagesGroups.push_back(*(comps[i].begin()));
             if(comps[i].size()>1)
+            {
                 ImagesGroups.push_back(*(comps[i].rbegin()));
+            }
         };
-        for(unsigned int i=0;i<ImagesGroups.size()-1;i++)
+        for(unsigned int i=0; i<ImagesGroups.size()-1; i++)
         {
-            for(unsigned int j=i+1;j<ImagesGroups.size();j++)
+            for(unsigned int j=i+1; j<ImagesGroups.size(); j++)
             {
                 _matchesData.push_back(MatchData());
                 MatchData& aM = _matchesData.back();
@@ -907,21 +983,21 @@ bool PanoDetector::matchMultiRow(PoolExecutor& aExecutor)
             };
         };
         TRACE_INFO(endl<< "--- Find matches in images groups ---" << endl);
-        try 
+        try
         {
             BOOST_FOREACH(MatchData& aMD, _matchesData)
-                aExecutor.execute(new MatchDataRunnable(aMD, *this));
+            aExecutor.execute(new MatchDataRunnable(aMD, *this));
             aExecutor.wait();
-        } 
+        }
         catch(Synchronization_Exception& e)
-        { 
+        {
             TRACE_ERROR(e.what() << endl);
             return false;
         }
         BOOST_FOREACH(MatchData& aM, _matchesData)
-            BOOST_FOREACH(lfeat::PointMatchPtr& aPM, aM._matches)
-                _panoramaInfo->addCtrlPoint(ControlPoint(aM._i1->_number, aPM->_img1_x, aPM->_img1_y,
-                                                         aM._i2->_number, aPM->_img2_x, aPM->_img2_y));
+        BOOST_FOREACH(lfeat::PointMatchPtr& aPM, aM._matches)
+        _panoramaInfo->addCtrlPoint(ControlPoint(aM._i1->_number, aPM->_img1_x, aPM->_img1_y,
+                                    aM._i2->_number, aPM->_img2_x, aPM->_img2_y));
     };
     // step 3: now connect all overlapping images
     _matchesData.clear();
@@ -947,8 +1023,8 @@ bool PanoDetector::matchMultiRow(PoolExecutor& aExecutor)
 
         //generate optimize vector, optimize only yaw and pitch
         OptimizeVector optvars;
-        const SrcPanoImage & anchorImage = optPano.getImage(opts.optimizeReferenceImage);
-        for (unsigned i=0; i < optPano.getNrOfImages(); i++) 
+        const SrcPanoImage& anchorImage = optPano.getImage(opts.optimizeReferenceImage);
+        for (unsigned i=0; i < optPano.getNrOfImages(); i++)
         {
             std::set<std::string> imgopt;
             if(i==opts.optimizeReferenceImage)
@@ -964,23 +1040,39 @@ bool PanoDetector::matchMultiRow(PoolExecutor& aExecutor)
             optvars.push_back(imgopt);
         }
         optPano.setOptimizeVector(optvars);
-        if (getVerbose() < 2) 
+
+        // remove vertical and horizontal control points
+        CPVector cps = optPano.getCtrlPoints();
+        CPVector newCP;
+        for (CPVector::const_iterator it = cps.begin(); it != cps.end(); it++)
+        {
+            if (it->mode == ControlPoint::X_Y)
+            {
+                newCP.push_back(*it);
+            }
+        }
+        optPano.setCtrlPoints(newCP);
+
+        if (getVerbose() < 2)
         {
             PT_setProgressFcn(ptProgress);
             PT_setInfoDlgFcn(ptinfoDlg);
         };
+        //in a first step do a pairwise optimisation
+        HuginBase::AutoOptimise::autoOptimise(optPano, false);
+        //now the final optimisation
         HuginBase::PTools::optimize(optPano);
-        if (getVerbose() < 2) 
+        if (getVerbose() < 2)
         {
-    		PT_setProgressFcn(NULL);
-	    	PT_setInfoDlgFcn(NULL);
+            PT_setProgressFcn(NULL);
+            PT_setInfoDlgFcn(NULL);
         };
 
         HuginBase::CalculateImageOverlap overlap(&optPano);
         overlap.calculate(10);
-        for(unsigned int i=0;i<images_layer.size()-2;i++)
+        for(unsigned int i=0; i<images_layer.size()-2; i++)
         {
-            for(unsigned int j=i+2;j<images_layer.size();j++)
+            for(unsigned int j=i+2; j<images_layer.size(); j++)
             {
                 if(overlap.getOverlap(i,j)>0)
                 {
@@ -992,10 +1084,10 @@ bool PanoDetector::matchMultiRow(PoolExecutor& aExecutor)
             };
         };
         TRACE_INFO(endl<< "--- Find matches for overlapping images ---" << endl);
-        try 
+        try
         {
             BOOST_FOREACH(MatchData& aMD, _matchesData)
-                aExecutor.execute(new MatchDataRunnable(aMD, *this));
+            aExecutor.execute(new MatchDataRunnable(aMD, *this));
             aExecutor.wait();
         }
         catch(Synchronization_Exception& e)
@@ -1006,9 +1098,9 @@ bool PanoDetector::matchMultiRow(PoolExecutor& aExecutor)
 
         // Add detected matches to _panoramaInfo
         BOOST_FOREACH(MatchData& aM, _matchesData)
-            BOOST_FOREACH(lfeat::PointMatchPtr& aPM, aM._matches)
-                _panoramaInfo->addCtrlPoint(ControlPoint(aM._i1->_number, aPM->_img1_x, aPM->_img1_y,
-                                                         aM._i2->_number, aPM->_img2_x, aPM->_img2_y));
+        BOOST_FOREACH(lfeat::PointMatchPtr& aPM, aM._matches)
+        _panoramaInfo->addCtrlPoint(ControlPoint(aM._i1->_number, aPM->_img1_x, aPM->_img1_y,
+                                    aM._i2->_number, aPM->_img2_x, aPM->_img2_y));
     };
     return true;
 };

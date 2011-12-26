@@ -538,7 +538,7 @@
                       <object class="wxChoice" name="preview_guide_choice_proj">
                         <content>
                           <item>None</item>
-                          <item>Rule of third</item>
+                          <item>Rule of thirds</item>
                           <item>Golden ratio</item>
                           <item>Diagonal</item>
                           <item>Diagonal method</item>
@@ -616,7 +616,7 @@
                       <object class="wxChoice" name="preview_guide_choice_drag">
                         <content>
                           <item>None</item>
-                          <item>Rule of third</item>
+                          <item>Rule of thirds</item>
                           <item>Golden ratio</item>
                           <item>Diagonal</item>
                           <item>Diagonal method</item>
@@ -759,6 +759,14 @@
                   <border>5</border>
                 </object>
                 <object class="sizeritem">
+                  <object class="wxBitmapButton" name="preview_stack_autocrop_tool">
+                    <bitmap>data/autocrop_tool.png</bitmap>
+                    <tooltip>Set the crop region to the largest rectangle covered by image stacks</tooltip>
+                  </object>
+                  <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                  <border>5</border>
+                </object>
+                <object class="sizeritem">
                   <object class="wxStaticLine">
                     <size>2,-1</size>
                   </object>
@@ -777,7 +785,7 @@
                       <object class="wxChoice" name="preview_guide_choice_crop">
                         <content>
                           <item>None</item>
-                          <item>Rule of third</item>
+                          <item>Rule of thirds</item>
                           <item>Golden ratio</item>
                           <item>Diagonal</item>
                           <item>Diagonal method</item>
@@ -1257,7 +1265,7 @@
                       <object class="wxChoice" name="preview_guide_choice_proj">
                         <content>
                           <item>None</item>
-                          <item>Rule of third</item>
+                          <item>Rule of thirds</item>
                           <item>Golden ratio</item>
                           <item>Diagonal</item>
                           <item>Diagonal method</item>
@@ -1347,7 +1355,7 @@
                       <object class="wxChoice" name="preview_guide_choice_drag">
                         <content>
                           <item>None</item>
-                          <item>Rule of third</item>
+                          <item>Rule of thirds</item>
                           <item>Golden ratio</item>
                           <item>Diagonal</item>
                           <item>Diagonal method</item>
@@ -1493,6 +1501,18 @@
                   <border>5</border>
                 </object>
                 <object class="sizeritem">
+                  <object class="wxButton" name="preview_stack_autocrop_tool">
+                    <label>HDR Autocrop</label>
+                    <bitmap>data/autocrop_tool.png</bitmap>
+                    <bitmapposition>wxTOP</bitmapposition>
+                    <direction>wxTOP</direction>
+                    <style>wxBU_EXACTFIT</style>
+                    <tooltip>Set the crop region to the largest rectangle covered by image stacks</tooltip>
+                  </object>
+                  <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                  <border>5</border>
+                </object>
+                <object class="sizeritem">
                   <object class="wxStaticLine">
                     <size>2,-1</size>
                   </object>
@@ -1511,7 +1531,7 @@
                       <object class="wxChoice" name="preview_guide_choice_crop">
                         <content>
                           <item>None</item>
-                          <item>Rule of third</item>
+                          <item>Rule of thirds</item>
                           <item>Golden ratio</item>
                           <item>Diagonal</item>
                           <item>Diagonal method</item>

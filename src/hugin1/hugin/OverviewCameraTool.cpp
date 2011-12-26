@@ -59,7 +59,7 @@ void PanosphereOverviewCameraTool::MouseMoveEvent(double x, double y, wxMouseEve
 void PanosphereOverviewCameraTool::MouseButtonEvent(wxMouseEvent &e)
 {
 //    DEBUG_DEBUG("mouse ov drag button");
-    if ((e.ButtonDown() && (!helper->IsMouseOverPano() || e.ControlDown() || e.AltDown())) || e.MiddleDown()) {
+    if ((e.ButtonDown() && (!helper->IsMouseOverPano() || e.CmdDown() || e.AltDown())) || e.MiddleDown()) {
         down = true;
         hugin_utils::FDiff2D pos = helper->GetMouseScreenPosition();
         start_x = pos.x;
@@ -175,7 +175,7 @@ void PlaneOverviewCameraTool::MouseButtonEvent(wxMouseEvent &e)
     PlaneOverviewToolHelper * thelper = (PlaneOverviewToolHelper*) helper;
     PlaneOverviewVisualizationState*  state = (PlaneOverviewVisualizationState*) helper->GetVisualizationStatePtr();
 //    DEBUG_DEBUG("mouse ov drag button");
-    if (((e.ControlDown() || e.AltDown()) && e.LeftDown()) || e.MiddleDown()) {
+    if (((e.CmdDown() || e.AltDown()) && e.LeftDown()) || e.MiddleDown()) {
         down = true;
         start_x = thelper->getPlaneX();
         start_y = thelper->getPlaneY();

@@ -4,7 +4,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta http-equiv="Content-Style-Type" content="text/css" />
 		<meta name="generator" content="MediaWiki 1.14.0" />
-		<meta name="keywords" content="Hugin Batch Processor,Hugin" />
+		<meta name="keywords" content="Hugin Batch Processor,Hugin,Hugin Assistant tab,Hugin Parameters for Control Point Detectors dialog,Hugin Preferences" />
 		
 		
 		
@@ -44,55 +44,137 @@
 			
 												<!-- start content -->
 			<p>Batch Processor is a component of <a href="Hugin.html" title="Hugin">hugin</a> that provides functionality to stitch multiple projects in a batch queue. Its goal is to make stitching of multiple projects faster. The process of stitching multiple projects is simplified using a queue of projects. User can add/edit/delete projects in the queue.
+The Batch Processor can also queue the creation of the final project. In this case it runs the same steps as in the <a href="Hugin_Assistant_tab.html" title="Hugin Assistant tab">Hugin Assistant tab</a>.
 </p><p><b>Hugin Batch Processor</b> consists of a list of projects. Projects in the list are ordered in sequential order. By default, the list is reinstated every time you open the application. What is more, entire queue of projects can be saved and reopened later using buttons Clear Batch, Open Batch, Save Batch.
+</p><p>There are 2 interfaces to the queue: <b>PTBatcher</b> provides a command line interface and <b>PTBatcherGUI</b> provides a graphical user interface. 
 </p>
-<a name="Installation" id="Installation"></a><h1> <span class="mw-headline"> Installation </span></h1>
-<p>At least on MacOS you have to download and install the BatchProcessor separately. You will find it at the Sourceforge page<a class="external" href="http://sourceforge.net/projects/hugin/files/hugin/">[*]</a> inside the lastest version, e.g. here<a class="external" href="http://sourceforge.net/projects/hugin/files/hugin/hugin-2010.4/ptbatchergui-mac-2010.4.0.dmg/download">[*]</a>. Just copy the app into the same folder as hugin and run it.
+
+<a name="Installation_on_Mac_OS_X" id="Installation_on_Mac_OS_X"></a><h1> <span class="mw-headline"> Installation on Mac OS X </span></h1>
+<p>Versions before the 2011.2.0 series required you to separately download and install the BatchProcessor. You will find the 2011.0.0 and older versions at the <a href="http://sourceforge.net/projects/hugin/files/hugin/" class="external text" title="http://sourceforge.net/projects/hugin/files/hugin/" rel="nofollow">Sourceforge page</a> inside the folder for the latest version, e.g. <a href="http://sourceforge.net/projects/hugin/files/hugin/hugin-2011.0/ptbatchergui-mac-2011.0.0.dmg/download" class="external text" title="http://sourceforge.net/projects/hugin/files/hugin/hugin-2011.0/ptbatchergui-mac-2011.0.0.dmg/download" rel="nofollow">ptbatchergui-mac-2011.0.0.dmg</a>. Just copy the app into the same folder as hugin and run it.
+The compressed disk image (DMGs) versions as of 2011.2.0 and newer contain Hugin, PTBatcherGui and calibrate_lens_gui all in one dmg.
 </p>
 <a name="Usage" id="Usage"></a><h1> <span class="mw-headline"> Usage </span></h1>
-<p>Just create several project files (do everything and just skip the export step), load them in the batch processor and start the process. This way you can run several large project unattended. The output filename will be the same as the projects name (xyz.pto -&gt; xyz.tif) in the same folder.
-</p><p>At least on MacOS there are some minor things to pay attention to:
-</p><p>You should only add the project files you want to process by using the "add project" (see below) or the menu "File - Add Project". Be aware that you will not be able to delete or deactivate a single project from the list - you will have to clean up the whole list using the menu "File - Clean List". If you want to process all projects inside a folder, just use the "folder search" (see below). Apart from this, all works fine. 
+<p>Just create several project files (do everything and just skip the export step), load them in the batch processor and start the process. This way you can run several large projects unattended. The output file name will be the same as the name of the corresponding project file (xyz.pto -&gt; xyz.tif) and is saved in the same folder.
+</p><p>At least on Mac OS X there are some minor issues to pay attention to (This should be fixed in 2011.1, rev. 43043d2742e4):
+</p>
+<ul><li> You should only add the project files you want to process by using the "add project" (see below) or the menu "File - Add Project". Be aware that you will not be able to delete or deactivate a single project from the list - you will have to clean up the whole list using the menu "File - Clean List".<br />If you want to process all projects inside a folder, just use the "folder search" (see below). 
+</li><li> Some older entries in PTBatcherGUI's list view (those with status "File missing") may not be removable by clicking the 'minus' symbol or the "Remove complete" button.<br />To remove those just close PTBatcherGui, open it again and immediately select one of the missing pto files and start deleting them using the 'minus' symbol. As an alternative, use the button "Remove completed"  on the right side which will remove all completed projects in one go.
+</li></ul>
+<p><br />
+Apart from this, all works fine.
 </p>
 <a name="Flag_options" id="Flag_options"></a><h1> <span class="mw-headline"> Flag options </span></h1>
 <p>Batch process is also influenced by the following check boxes:
 </p>
 <ul><li> <b>parallel execution</b>: Execute stitching of projects in the list parallel rather than in sequential order. Check this only if you are certain your computer is up for the task of stitching multiple projects at the same time.
-</li><li> <b>delete .pto files</b>: After stitching of each projects ends, Batch Processor will delete the project file of the currently processed project. Be careful, deleted files are lost!
 </li><li> <b>overwrite always</b>: Always(for each project) overwrite output filename if it exists. Otherwise, you will get a dialog box whether you want to overwrite files or not.
 </li><li> <b>Shutdown when done</b>: Turn off computer when batch process ends.
+</li><li> <b>Remove finished projects</b>: If checked successful finished projects will be automatic removed from the queue. Otherwise the items remains in the queue and the user is responsible for the queue management.
+</li><li> <b>Automatic stitch after assistant</b>: If checked successful detected projects (projects in the assistant queue) will be added the stitching queue and will therefore automatically stitched.
 </li></ul>
-<a name="Buttons" id="Buttons"></a><h1> <span class="mw-headline"> Buttons </span></h1>
-<a name="Clear_batch" id="Clear_batch"></a><h2> <span class="mw-headline"> <img alt="Image:Hugin_clear_batch.png" src="Hugin_clear_batch.png" width="32" height="32" border="0" /><a class="external" href="http://wiki.panotools.org/File:Hugin_clear_batch.png">[*]</a> Clear batch </span></h2>
-<p>Removes all projects from the list.
+<a name="Functions" id="Functions"></a><h1> <span class="mw-headline"> Functions </span></h1>
+<a name="Queue_management" id="Queue_management"></a><h2> <span class="mw-headline"> Queue management </span></h2>
+<p>The management of the queue can done by the appropriate menu items or by the corresponding toolbar buttons.
 </p>
-<a name="Open_batch" id="Open_batch"></a><h2> <span class="mw-headline"> <img alt="Image:Hugin_open_batch.png" src="Hugin_open_batch.png" width="32" height="32" border="0" /><a class="external" href="http://wiki.panotools.org/File:Hugin_open_batch.png">[*]</a> Open batch </span></h2>
-<p>Open a batch file with a list of projects that was saved earlier.
+<ul><li> Add project files to queue
+</li><li> Remove project file from queue (you need to select the project file in the list)
+</li><li> The complete queue list can be saved and loaded from disc (The current active list is automatically saved at the end. You don't need to save it explicitly.)
+</li><li> The complete list can be cleared.
+</li></ul>
+<a name="Item_management" id="Item_management"></a><h2> <span class="mw-headline"> Item management </span></h2>
+<p>The single items in the queue can be modified by the buttons on the right side of the window
 </p>
-<a name="Save_batch" id="Save_batch"></a><h2> <span class="mw-headline"> <img alt="Image:Hugin_save_batch.png" src="Hugin_save_batch.png" width="32" height="32" border="0" /><a class="external" href="http://wiki.panotools.org/File:Hugin_save_batch.png">[*]</a> Save batch </span></h2>
-<p>Save current list of projects to a file. File can later be opened using the Open batch button
+<ul><li> <b>Remove complete</b> will remove all items form the queue which were successfully finished.
+</li><li> <b>Change prefix</b> will change the output prefix. This is only possible if the item is in the stitching queue. It does not work for items in the assistant queue.
+</li><li> <b>Reset project</b>/<b>Reset all</b> resets the status of the selected project/all projects to default value. This allows to execute the stitching again.
+</li><li> <b>Edit with Hugin</b> opens the selected in Hugin to modify it.
+</li><li> The order of the items can be change with <b>Move project up</b> and <b>Move project down</b>
+</li><li> You can also add an arbitrary command to the queue with <b>Add application</b>. 
+</li></ul>
+<a name="Executing_queue" id="Executing_queue"></a><h2> <span class="mw-headline"> Executing queue </span></h2>
+<p>The queue can be started, paused/resumed and stopped with the toolbar buttons.
+You can also skip one project.
 </p>
-<a name="Start" id="Start"></a><h2> <span class="mw-headline"> <img alt="Image:Hugin_start_batch.png" src="Hugin_start_batch.png" width="32" height="32" border="0" /><a class="external" href="http://wiki.panotools.org/File:Hugin_start_batch.png">[*]</a> Start </span></h2>
-<p>Starts the batch process and stitches all projects in the queue.
+<a name="Automation" id="Automation"></a><h2> <span class="mw-headline"> Automation </span></h2>
+<p>PTBatcherGUI provides some more features for automation. This can be accessed by File-&gt;Search directory for.
 </p>
-<a name="Skip" id="Skip"></a><h2> <span class="mw-headline"> <img alt="Image:Hugin_skip_batch.png" src="Hugin_skip_batch.png" width="32" height="32" border="0" /><a class="external" href="http://wiki.panotools.org/File:Hugin_skip_batch.png">[*]</a> Skip </span></h2>
-<p>Stops stitching of current project in batch process and starts stitching next project in the queue. This button is inactive when batch process is not running.
+<a name="Existing_project_files" id="Existing_project_files"></a><h3> <span class="mw-headline"> Existing project files </span></h3>
+<p>With File-&gt;Search directory for...-&gt;Projects you can search recursively in the given folder for (existing) project files and appends them to (stitching) queue.
 </p>
-<a name="Pause" id="Pause"></a><h2> <span class="mw-headline"> <img alt="Image:Hugin_pause_batch.png" src="Hugin_pause_batch.png" width="32" height="32" border="0" /><a class="external" href="http://wiki.panotools.org/File:Hugin_pause_batch.png">[*]</a> Pause </span></h2>
-<p>Pauses the current batch process. In order to continue the process press the Start button. This button is inactive when batch process is not running.
+<a name="Image_sets_.28create_project_files.29" id="Image_sets_.28create_project_files.29"></a><h3> <span class="mw-headline"> Image sets (create project files) </span></h3>
+<p>First select a folder in which PTBatcherGui should search for image sets. After pressing start it will search for image files in the folder (and optionally its sub folders). It uses the information stored in the EXIF data to decide which images could belong to a an image set forming a panorama. This works only in one folder level, it does not match images in different folders. (The algorithm uses camera maker, camera model, focal length, image size and date/time for this decision.) 
+</p><p>After the search has finished it shows a list of the found panoramas. With <b>Send selected panoramas to queue</b> the project files are created and sent to the assistant queue. You can deselect individual panoramas from this processing step by untick the panorama.
+</p><p>The project files are named with the selected name scheme
 </p>
-<a name="Cancel" id="Cancel"></a><h2> <span class="mw-headline"> <img alt="Image:Hugin_cancel_batch.png" src="Hugin_cancel_batch.png" width="22" height="22" border="0" /><a class="external" href="http://wiki.panotools.org/File:Hugin_cancel_batch.png">[*]</a> Cancel </span></h2>
-<p>Stops batch execution. This button is active only when batch process is running.
+<ul><li> PanoramaXX.pto: This will generate project files: panorama0.pto, panorama1.pto,...
+</li><li> First file - last file.pto: The project files will by named by the first and last image of the panorama.
+</li><li> Foldername.pto: In this case the project file is named like the containing folder.
+</li></ul>
+<p>Existing project files will not be overwritten, instead it appends an increasing number.
+</p><p>If the images are shot with auto bracketing it tries to generate the appropriate stacks. In this case check that your default control point generator setting is such that it works with stacks (check <a href="Hugin_Preferences.html#Control_Point_Detectors" title="Hugin Preferences">Preferences in Hugin</a> and <a href="Hugin_Parameters_for_Control_Point_Detectors_dialog.html" title="Hugin Parameters for Control Point Detectors dialog">control point detector parameters</a>).
+If you shoot from a tripod then you can select also <b>Create links</b>. This will link the positions of all images of one stack. If you deselect this option, it will create the stacks but will not link the positions of the images (e.g. when shooting free hand).
+</p><p>If you set the tickmark <b>Automatic stitch after assistant</b>, PTBatcherGui will first run the assistant on all found panoramas, thereby creating the complete project files, and then stitch all created projects.
 </p>
-<a name="Add_project" id="Add_project"></a><h2> <span class="mw-headline"> <img alt="Image:Hugin_add_project.png" src="Hugin_add_project.png" width="32" height="32" border="0" /><a class="external" href="http://wiki.panotools.org/File:Hugin_add_project.png">[*]</a> Add project </span></h2>
-<p>Adds projects to the list. A file browser appears where users can select one or multiple .pto or .pts files.
+<a name="Command_line_switches" id="Command_line_switches"></a><h1> <span class="mw-headline"> Command line switches </span></h1>
+<a name="PTBatcherGUI" id="PTBatcherGUI"></a><h2> <span class="mw-headline"> PTBatcherGUI </span></h2>
+<p>To add a project to the (stitching) queue use
 </p>
-<a name="Remove_project" id="Remove_project"></a><h2> <span class="mw-headline"> <img alt="Image:Hugin_remove_project.png" src="Hugin_remove_project.png" width="32" height="32" border="0" /><a class="external" href="http://wiki.panotools.org/File:Hugin_remove_project.png">[*]</a> Remove project </span></h2>
-<p>Removes selected project from the list.
+<pre>   PTBatcherGUI project.pto output_prefix
+</pre>
+<p>on Mac OS X use
 </p>
-<a name="Folder_search" id="Folder_search"></a><h2> <span class="mw-headline"> <img alt="Image:Hugin_folder_search.png" src="Hugin_folder_search.png" width="32" height="32" border="0" /><a class="external" href="http://wiki.panotools.org/File:Hugin_folder_search.png">[*]</a> Folder search </span></h2>
-<p>Recursively searches given folder for project files and appends them to project list.
+<pre>   open PTBatcherGui.app --args project.pto output_prefix
+</pre>
+<p><br />
+</p><p>You can also add several projects
 </p>
+<pre>   PTBatcherGUI project1.pto prefix1 project2.pto prefix2
+</pre>
+<p>on Mac OS X use
+</p>
+<pre>   open PTBatcherGui.app --args project1.pto prefix1 project2.pto prefix2
+</pre>
+<p><br />
+The prefix is optionally. If you don't provide a prefix, the filename (without extension) of the project file is used as prefix.
+</p><p><br />
+You can also add a project to the assistant queue.
+</p>
+<pre>   PTBatcherGUI --assistant project.pto
+</pre>
+<p>and on Mac OS X
+</p>
+<pre>   open PTBatcherGui.app --args --assistant project.pto
+</pre>
+<p>Some of the above described options can be accessed also by command line switches:
+</p>
+<ul><li>  <code> /h, --help </code>           show this help message
+</li><li>  <code> /b, --batch </code>          run batch immediately
+</li><li>  <code> /p, --parallel </code>       run batch projects in parallel
+</li><li>  <code> /d, --delete </code>         delete *.pto files after stitching
+</li><li>  <code> /o, --overwrite </code>      overwrite previous files without asking
+</li><li>  <code> /s, --shutdown </code>       shutdown computer after batch is complete
+</li><li>  <code>/v, --verbose </code>        show verbose output when processing projects
+</li></ul>
+<p>Please keep in mind that only one instance of PTBatcherGUI can run at one time. Starting PTBatcherGUI a second time with command line switches will influence the already running instance and not start a second instance with own options.
+</p>
+<a name="PTBatcher" id="PTBatcher"></a><h2> <span class="mw-headline"> PTBatcher </span></h2>
+<p>PTBatcher provides a very similar interface compared to the GUI version. It works with the same list that is used by the GUI version.
+Attention: Only the short names of the switches are recognized.
+</p>
+<ul><li>  <code>-a file</code> add project to queue. Unless -o option is present, the default prefix is appointed.
+</li><li>  <code>-o</code> output prefix (together with -a option)
+</li><li>  <code>-l</code> list all projects in batch queue
+</li><li>  <code>-c</code> clear all projects from batch queue
+</li><li>  <code>-x id</code> remove project with specified id
+</li><li>  <code>-r</code> reset all projects to waiting status
+</li><li>  <code>-b</code> start batch process
+</li><li>  <code>-p</code> use parallel processing (together with -b option)
+</li><li>  <code>-d</code> delete .pto files when complete (together with -b option)
+</li><li>  <code>-s</code> shutdown computer when complete (together with -b option)
+</li><li>  <code>-v</code> verbose mode
+</li><li>  <code>-h</code> print this
+</li></ul>
+
 
 
 

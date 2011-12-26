@@ -32,7 +32,9 @@
 #include "hugin/huginApp.h"
 #include <hugin_version.h>
 #include <wx/version.h>
-
+#include "pano13/version.h"
+#include "boost/version.hpp"
+#include "exiv2/version.hpp"
 
 BEGIN_EVENT_TABLE(AboutDialog, wxDialog)
     EVT_NOTEBOOK_PAGE_CHANGED(XRCID("about_notebook"), AboutDialog::OnChangedTab)
@@ -133,7 +135,7 @@ void AboutDialog::GetSystemInformation(wxFont *font)
     text=text+wxT("\n")+wxString::Format(_("Architecture: %s"),is64.c_str());
     // wxGetFreeMemory returns a wxMemorySize, which is undocumented.
     // However, we know -1 is returned on failure, so it must be signed.
-    text=text+wxT("\n")+wxString::Format(_("Free memory: %ld kiB"),(long int) wxGetFreeMemory().GetValue()/1024);
+    text=text+wxT("\n")+wxString::Format(_("Free memory: %ld kiB"),(long long) wxGetFreeMemory().GetValue()/1024);
 #ifdef _WINDOWS
     UINT cp=GetACP();
     text=text+wxT("\n")+wxString::Format(_("Active Codepage: %u"),cp); 
@@ -171,13 +173,16 @@ void AboutDialog::GetSystemInformation(wxFont *font)
     text=text+wxT("\n\nHugin\n")+wxString::Format(_("Version: %s"),wxString(DISPLAY_VERSION,wxConvLocal).c_str());
     text=text+wxT("\n")+wxString::Format(_("Path to resources: %s"),huginApp::Get()->GetXRCPath().c_str());
     text=text+wxT("\n")+wxString::Format(_("Path to data: %s"),huginApp::Get()->GetDataPath().c_str());
-    text=text+wxT("\n\nLibraries");
-    text=text+wxT("\n")+wxString::Format(_("wxWidgets: %i.%i.%i.%i"),
+    text=text+wxT("\n\n")+_("Libraries");
+    text=text+wxT("\n")+wxString::Format(wxT("wxWidgets: %i.%i.%i.%i"),
                                             wxMAJOR_VERSION,
                                             wxMINOR_VERSION,
                                             wxRELEASE_NUMBER,
                                             wxSUBRELEASE_NUMBER
                                         );
+    text=text+wxT("\nlibpano13: ")+wxT(VERSION);
+    text=text+wxT("\n")+wxString::Format(wxT("Boost: %i.%i.%i"),BOOST_VERSION / 100000, BOOST_VERSION / 100 % 1000, BOOST_VERSION % 100);
+    text=text+wxT("\n")+wxString::Format(wxT("Exiv2: %i.%i.%i"),EXIV2_MAJOR_VERSION,EXIV2_MINOR_VERSION,EXIV2_PATCH_VERSION);
     infoText->SetValue(text);
 }
 

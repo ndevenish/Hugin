@@ -74,30 +74,42 @@
                 <object class="sizeritem">
                   <object class="wxCheckBox" name="cb_parallel">
                     <label>Parallel execution</label>
-                  </object>
-                  <flag>wxEXPAND</flag>
-                </object>
-                <object class="sizeritem">
-                  <object class="wxCheckBox" name="cb_delete">
-                    <label>Delete *.pto files</label>
+                    <tooltip>Stitch several projects parallel.</tooltip>
                   </object>
                   <flag>wxEXPAND</flag>
                 </object>
                 <object class="sizeritem">
                   <object class="wxCheckBox" name="cb_overwrite">
                     <label>Overwrite always</label>
+                    <tooltip>Overwrite existing image files without further notice.</tooltip>
+                  </object>
+                  <flag>wxEXPAND</flag>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxCheckBox" name="cb_autoremove">
+                    <label>Remove finished project</label>
+                    <tooltip>Automatic remove successfully finished projects from queue.</tooltip>
+                  </object>
+                  <flag>wxEXPAND</flag>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxCheckBox" name="cb_autostitch">
+                    <label>Automatic stitch after assistant</label>
+                    <tooltip>Automatically stitch projects after (successful) running assistant.</tooltip>
                   </object>
                   <flag>wxEXPAND</flag>
                 </object>
                 <object class="sizeritem">
                   <object class="wxCheckBox" name="cb_shutdown">
                     <label>Shutdown when done</label>
+                    <tooltip>Shutdown computer if all tasks are finished</tooltip>
                   </object>
                   <flag>wxEXPAND</flag>
                 </object>
                 <object class="sizeritem">
                   <object class="wxCheckBox" name="cb_verbose">
                     <label>Verbose output</label>
+                    <tooltip>Show detailed output in separate window.</tooltip>
                   </object>
                   <flag>wxEXPAND</flag>
                 </object>
@@ -299,7 +311,7 @@
         <object class="wxBoxSizer">
           <orient>wxHORIZONTAL</orient>
           <object class="sizeritem">
-            <object class="wxSplitterWindow">
+            <object class="wxSplitterWindow" name="failed_splitter">
               <object class="wxPanel">
                 <object class="wxStaticBoxSizer">
                   <label>Failed projects</label>

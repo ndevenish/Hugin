@@ -40,7 +40,7 @@ project(hugin)
 
 # version
 set(V_MAJOR 2011)
-set(V_MINOR 3)
+set(V_MINOR 5)
 set(V_PATCH 0)
 
 #
@@ -287,6 +287,7 @@ ENDIF(MSGFMT_FOUND)
 
 FIND_PACKAGE(Threads)
 FIND_PACKAGE(ZThread)
+FIND_PACKAGE(flann)
 
 IF(WIN32)
   # HTML Helpworkshop for creating help file

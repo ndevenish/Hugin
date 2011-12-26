@@ -287,6 +287,11 @@ namespace hugin_utils
     IMPEX void ControlPointErrorColour(const double cperr, 
         double &r,double &g, double &b);
 
+    /** checks if file exists */
+    IMPEX bool FileExists(const std::string filename);
+
+    /** returns the full absolute filename */
+    IMPEX std::string GetAbsoluteFilename(const std::string filename);
 } // namespace
 
 

@@ -570,6 +570,10 @@ void PreferencesDialog::UpdateDisplayData(int panel)
 
         t = cfg->Read(wxT("/output/useExiftool"), 1l) == 1;
         MY_BOOL_VAL("pref_exiftool_metadata", t);
+
+        int nThreads = cfg->Read(wxT("/output/NumberOfThreads"), 0l);
+        MY_SPIN_VAL("prefs_output_NumberOfThreads", nThreads);
+
     }
 
     if (panel==0 || panel == 6){
@@ -730,6 +734,7 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
             cfg->Write(wxT("/Processor/overwrite"), HUGIN_PROCESSOR_OVERWRITE);
             cfg->Write(wxT("/Processor/verbose"), HUGIN_PROCESSOR_VERBOSE);
             cfg->Write(wxT("/output/useExiftool"), 1l);
+            cfg->Write(wxT("/output/NumberOfThreads"), 0l);
 
         }
         if (noteb->GetSelection() == 5) {
@@ -861,6 +866,7 @@ void PreferencesDialog::UpdateConfigData()
     cfg->Write(wxT("/Processor/verbose"), MY_G_BOOL_VAL("pref_processor_verbose"));
 
     cfg->Write(wxT("/output/useExiftool"), MY_G_BOOL_VAL("pref_exiftool_metadata"));
+    cfg->Write(wxT("/output/NumberOfThreads"), MY_G_SPIN_VAL("prefs_output_NumberOfThreads"));
     /////
     /// STITCHING
     cfg->Write(wxT("/Nona/Interpolator"), MY_G_CHOICE_VAL("prefs_nona_interpolator"));

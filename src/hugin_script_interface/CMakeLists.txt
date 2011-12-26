@@ -159,6 +159,7 @@ SET(hsi_wrappees
   "${HUGIN_BASE_DIR}/algorithms/basic/CalculateOptimalScale.h"
   "${HUGIN_BASE_DIR}/algorithms/basic/CalculateOverlap.h"
   "${HUGIN_BASE_DIR}/algorithms/basic/RotatePanorama.h"
+  "${HUGIN_BASE_DIR}/algorithms/basic/LayerStacks.h"
   "${HUGIN_BASE_DIR}/algorithms/basic/StraightenPanorama.h"
   "${HUGIN_BASE_DIR}/algorithms/basic/TranslatePanorama.h"
   "${HUGIN_BASE_DIR}/algorithms/control_points/CleanCP.h"

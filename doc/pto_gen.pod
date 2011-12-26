@@ -1,0 +1,56 @@
+=head1 NAME
+
+pto_gen - Generate a Hugin project file from a list of images.
+
+=head1 SYNOPSIS
+
+B<pto_gen> [options] I<image> [...]
+
+=head1 DESCRIPTION
+
+B<pto_gen> assembles a Hugin .pto project file that is suitable as input for
+further tools such as the B<cpfind> control-point generator, or for opening
+with the Hugin panorama GUI itself.  Functionality is similar to
+B<match-n-shift>.
+
+=head1 USAGE
+
+   pto_gen *.jpg
+
+This creates a project file from all jpg images, in the same folder as the
+first photo. The project file is named first_file-last_file.pto using the same
+convention as the Hugin GUI. 
+
+=head1 OPTIONS
+
+=over
+
+=item B<-o|--output> I<file>
+
+Output Hugin PTO file.
+
+=item B<-p|--projection> I<num>
+
+Projection type (default: 0)
+
+=item B<-f|--fov> I<float>
+
+Horizontal field of view of images (default: 50)
+
+=item B<-s|--stacklength> I<num>
+
+Number of images in stack (default: 1, no stacks)
+
+=item B<-l|--linkstacks>
+
+Link image positions in stacks
+
+=item B<-h|--help>
+
+shows help
+
+=back
+
+=head1 AUTHORS
+
+Thomas Modes

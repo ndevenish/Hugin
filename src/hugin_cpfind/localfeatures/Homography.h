@@ -7,12 +7,12 @@
 * it under the terms of the GNU General Public License as published by
 * the Free Software Foundation; either version 2 of the License, or
 * (at your option) any later version.
-* 
+*
 * Panomatic is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 * GNU General Public License for more details.
-* 
+*
 * You should have received a copy of the GNU General Public License
 * along with Panomatic; if not, write to the Free Software
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
@@ -33,45 +33,45 @@ namespace lfeat
 class LFIMPEX Homography
 {
 public:
-	Homography();
-	~Homography();
+    Homography();
+    ~Homography();
 
-	void initMatchesNormalization(PointMatchVector_t& iMatches);
+    void initMatchesNormalization(PointMatchVector_t& iMatches);
 
-	bool estimate(PointMatchVector_t& iMatches);
+    bool estimate(PointMatchVector_t& iMatches);
 
-	friend ostream& operator<< (ostream& o, const Homography& H);
+    friend ostream& operator<< (ostream& o, const Homography& H);
 
-	void transformPoint(double iX, double iY, double& oX, double& oY);
+    void transformPoint(double iX, double iY, double& oX, double& oY);
 
 
 private:
-	void initialize(void);
+    void initialize(void);
 
-	void addMatch(int iIndex, PointMatch& iMatch);
+    void addMatch(int iIndex, PointMatch& iMatch);
 
-	double ** AA; 
-	double	* B, * X, *r;
+    double** AA;
+    double*	 B, * X, *r;
 
-	static const int kNCols;
+    static const int kNCols;
 
-	
-	void allocMemory(int iNPoints);
-	void freeMemory();
-	
-	// the matrices for solving least squares
-	double **_Amat;
-	double *_Bvec;
-	double *_Rvec;
-	double *_Xvec;
+
+    void allocMemory(int iNPoints);
+    void freeMemory();
+
+    // the matrices for solving least squares
+    double** _Amat;
+    double* _Bvec;
+    double* _Rvec;
+    double* _Xvec;
 
 public:
-	double	_H[3][3];	// the homography matrix.
-	int		_nMatches;	// number of matches to calc homography
-	int		_currentPair; // the current pair to be set
-	
-	// values for vector normalization
-	double _v1x, _v2x, _v1y, _v2y;
+    double	_H[3][3];	// the homography matrix.
+    int		_nMatches;	// number of matches to calc homography
+    int		_currentPair; // the current pair to be set
+
+    // values for vector normalization
+    double _v1x, _v2x, _v1y, _v2y;
 
 
 };

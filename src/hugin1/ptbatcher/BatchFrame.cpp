@@ -104,16 +104,18 @@ BEGIN_EVENT_TABLE(BatchFrame, wxFrame)
     EVT_BUTTON(XRCID("button_move_up"),BatchFrame::OnButtonMoveUp)
     EVT_BUTTON(XRCID("button_move_down"),BatchFrame::OnButtonMoveDown)
     EVT_CHECKBOX(XRCID("cb_parallel"), BatchFrame::OnCheckParallel)
-    EVT_CHECKBOX(XRCID("cb_delete"), BatchFrame::OnCheckDelete)
     EVT_CHECKBOX(XRCID("cb_overwrite"), BatchFrame::OnCheckOverwrite)
     EVT_CHECKBOX(XRCID("cb_shutdown"), BatchFrame::OnCheckShutdown)
     EVT_CHECKBOX(XRCID("cb_verbose"), BatchFrame::OnCheckVerbose)
+    EVT_CHECKBOX(XRCID("cb_autoremove"), BatchFrame::OnCheckAutoRemove)
+    EVT_CHECKBOX(XRCID("cb_autostitch"), BatchFrame::OnCheckAutoStitch)
     EVT_END_PROCESS(-1, BatchFrame::OnProcessTerminate)
     EVT_CLOSE(BatchFrame::OnClose)
     EVT_MENU(wxEVT_COMMAND_RELOAD_BATCH, BatchFrame::OnReloadBatch)
     EVT_MENU(wxEVT_COMMAND_UPDATE_LISTBOX, BatchFrame::OnUpdateListBox)
     EVT_COMMAND(wxID_ANY, EVT_BATCH_FAILED, BatchFrame::OnBatchFailed)
     EVT_COMMAND(wxID_ANY, EVT_INFORMATION, BatchFrame::OnBatchInformation)
+    EVT_COMMAND(wxID_ANY, EVT_UPDATE_PARENT, BatchFrame::OnRefillListBox)
     EVT_ICONIZE(BatchFrame::OnMinimize)
 END_EVENT_TABLE()
 
@@ -856,66 +858,19 @@ void BatchFrame::SetCheckboxes()
 {
     wxConfigBase* config=wxConfigBase::Get();
     int i;
-    i=config->Read(wxT("/BatchFrame/DeleteCheck"), 0l);
-    if(i==0)
-    {
-        XRCCTRL(*this,"cb_delete",wxCheckBox)->SetValue(false);
-    }
-    else
-    {
-        XRCCTRL(*this,"cb_delete",wxCheckBox)->SetValue(true);
-    }
     i=config->Read(wxT("/BatchFrame/ParallelCheck"), 0l);
-    if(i==0)
-    {
-        XRCCTRL(*this,"cb_parallel",wxCheckBox)->SetValue(false);
-    }
-    else
-    {
-        XRCCTRL(*this,"cb_parallel",wxCheckBox)->SetValue(true);
-    }
+    XRCCTRL(*this,"cb_parallel",wxCheckBox)->SetValue(i!=0);
     i=config->Read(wxT("/BatchFrame/ShutdownCheck"), 0l);
-    if(i==0)
-    {
-        XRCCTRL(*this,"cb_shutdown",wxCheckBox)->SetValue(false);
-    }
-    else
-    {
-        XRCCTRL(*this,"cb_shutdown",wxCheckBox)->SetValue(true);
-    }
+    XRCCTRL(*this,"cb_shutdown",wxCheckBox)->SetValue(i!=0);
     i=config->Read(wxT("/BatchFrame/OverwriteCheck"), 0l);
-    if(i==0)
-    {
-        XRCCTRL(*this,"cb_overwrite",wxCheckBox)->SetValue(false);
-    }
-    else
-    {
-        XRCCTRL(*this,"cb_overwrite",wxCheckBox)->SetValue(true);
-    }
+    XRCCTRL(*this,"cb_overwrite",wxCheckBox)->SetValue(i!=0);
     i=config->Read(wxT("/BatchFrame/VerboseCheck"), 0l);
-    if(i==0)
-    {
-        XRCCTRL(*this,"cb_verbose",wxCheckBox)->SetValue(false);
-    }
-    else
-    {
-        XRCCTRL(*this,"cb_verbose",wxCheckBox)->SetValue(true);
-    }
+    XRCCTRL(*this,"cb_verbose",wxCheckBox)->SetValue(i!=0);
+    i=config->Read(wxT("/BatchFrame/AutoRemoveCheck"), 0l);
+    XRCCTRL(*this,"cb_autoremove",wxCheckBox)->SetValue(i!=0);
+    i=config->Read(wxT("/BatchFrame/AutoStitchCheck"), 0l);
+    XRCCTRL(*this,"cb_autostitch",wxCheckBox)->SetValue(i!=0);
 };
-
-void BatchFrame::OnCheckDelete(wxCommandEvent& event)
-{
-    if(event.IsChecked())
-    {
-        m_batch->deleteFiles = true;
-        wxConfigBase::Get()->Write(wxT("/BatchFrame/DeleteCheck"), 1l);
-    }
-    else
-    {
-        m_batch->deleteFiles = false;
-        wxConfigBase::Get()->Write(wxT("/BatchFrame/DeleteCheck"), 0l);
-    }
-}
 
 void BatchFrame::OnCheckOverwrite(wxCommandEvent& event)
 {
@@ -979,6 +934,37 @@ void BatchFrame::SetInternalVerbose(bool newVerbose)
     m_batch->verbose=newVerbose;
 };
 
+void BatchFrame::OnCheckAutoRemove(wxCommandEvent& event)
+{
+    m_batch->autoremove=event.IsChecked();
+    wxConfigBase* config=wxConfigBase::Get();
+    if(m_batch->autoremove)
+    {
+        config->Write(wxT("/BatchFrame/AutoRemoveCheck"), 1l);
+    }
+    else
+    {
+        config->Write(wxT("/BatchFrame/AutoRemoveCheck"), 0l);
+    }
+    config->Flush();
+};
+
+
+void BatchFrame::OnCheckAutoStitch(wxCommandEvent& event)
+{
+    m_batch->autostitch=event.IsChecked();
+    wxConfigBase* config=wxConfigBase::Get();
+    if(m_batch->autostitch)
+    {
+        config->Write(wxT("/BatchFrame/AutoStitchCheck"), 1l);
+    }
+    else
+    {
+        config->Write(wxT("/BatchFrame/AutoStitchCheck"), 0l);
+    }
+    config->Flush();
+};
+
 void BatchFrame::OnClose(wxCloseEvent& event)
 {
     //save windows position
@@ -1017,46 +1003,12 @@ void BatchFrame::OnClose(wxCloseEvent& event)
 
 void BatchFrame::PropagateDefaults()
 {
-    if(GetCheckParallel())
-    {
-        m_batch->parallel = true;
-    }
-    else
-    {
-        m_batch->parallel = false;
-    }
-    if(GetCheckDelete())
-    {
-        m_batch->deleteFiles = true;
-    }
-    else
-    {
-        m_batch->deleteFiles = false;
-    }
-    if(GetCheckShutdown())
-    {
-        m_batch->shutdown = true;
-    }
-    else
-    {
-        m_batch->shutdown = false;
-    }
-    if(GetCheckOverwrite())
-    {
-        m_batch->overwrite = true;
-    }
-    else
-    {
-        m_batch->overwrite = false;
-    }
-    if(GetCheckVerbose())
-    {
-        m_batch->verbose = true;
-    }
-    else
-    {
-        m_batch->verbose = false;
-    }
+    m_batch->parallel=GetCheckParallel();
+    m_batch->shutdown=GetCheckShutdown();
+    m_batch->overwrite=GetCheckOverwrite();
+    m_batch->verbose=GetCheckVerbose();
+    m_batch->autoremove=GetCheckAutoRemove();
+    m_batch->autostitch=GetCheckAutoStitch();
 }
 
 void BatchFrame::RunBatch()
@@ -1127,8 +1079,11 @@ void BatchFrame::RestoreSize()
 
 void BatchFrame::OnBatchFailed(wxCommandEvent& event)
 {
-    FailedProjectsDialog failedProjects_dlg(this,m_batch,m_xrcPrefix);
-    failedProjects_dlg.ShowModal();
+    if(m_batch->GetFailedProjectsCount()>0)
+    {
+        FailedProjectsDialog failedProjects_dlg(this,m_batch,m_xrcPrefix);
+        failedProjects_dlg.ShowModal();
+    };
 };
 
 void BatchFrame::OnBatchInformation(wxCommandEvent& e)
@@ -1192,3 +1147,22 @@ void BatchFrame::UpdateBatchVerboseStatus()
     m_batch->ShowOutput(m_batch->verbose);
 };
 
+void BatchFrame::OnRefillListBox(wxCommandEvent& event)
+{
+    int index=projListBox->GetSelectedIndex();
+    int id=-1;
+    if(index!=-1)
+    {
+        id=projListBox->GetProjectId(index);
+    };
+    projListBox->DeleteAllItems();
+    projListBox->Fill(m_batch);
+    if(id!=-1)
+    {
+        index=projListBox->GetIndex(id);
+        if(index!=-1)
+        {
+            projListBox->Select(index);
+        };
+    };
+};

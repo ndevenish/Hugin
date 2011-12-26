@@ -11,6 +11,7 @@ algorithms/basic/RotatePanorama.cpp
 algorithms/basic/TranslatePanorama.cpp
 algorithms/basic/StraightenPanorama.cpp
 algorithms/basic/CalculateOverlap.cpp
+algorithms/basic/LayerStacks.cpp
 algorithms/nona/CalculateFOV.cpp
 algorithms/nona/CenterHorizontally.cpp
 algorithms/nona/FitPanorama.cpp
@@ -71,6 +72,7 @@ algorithms/basic/RotatePanorama.h
 algorithms/basic/TranslatePanorama.h
 algorithms/basic/StraightenPanorama.h
 algorithms/basic/CalculateOverlap.h
+algorithms/basic/LayerStacks.h
 algorithms/nona/CalculateFOV.h
 algorithms/nona/CenterHorizontally.h
 algorithms/nona/FitPanorama.h

@@ -188,7 +188,7 @@ TMPDIR=/media/disk-2/tmp hugin &amp;
 </th><th> &gt;
 </th><th> and the space character.
 </th></tr></table>
-<p>Hugin currently does not do plausibility checks on the paths and file names that are given to it. It relies on the operating system's conventions and limitations. However Hugin uses make to run the stitching process, and make has more restrictive limitation than the operating system.
+<p>Hugin currently does not do plausibility checks on the paths and file names that are given to it. It relies on the operating system's conventions and limitations. However Hugin uses make<a class="external" href="http://en.wikipedia.org/wiki/Make_%28software%29">[*]</a> to run the stitching process, and make has more restrictive limitations than the operating system.
 </p><p>Please don't use the above characters in your files and folders when you want to make sure they work with Hugin. If you absolutely need files named this way, rename them after processing. Do not file bug reports based on filenames with the above characters. The issue<a class="external" href="https://sourceforge.net/tracker/?func=detail&amp;atid=550441&amp;aid=2883450&amp;group_id=77506">[*]</a> is known, analyzed, and may be fixed in the future.
 </p>
 <a name="Stitch_fails_when_.27.26.27_is_part_of_the_Windows_7_user-name" id="Stitch_fails_when_.27.26.27_is_part_of_the_Windows_7_user-name"></a><h3> <span class="mw-headline"> Stitch fails when '&amp;' is part of the Windows 7 <i>user-name</i> </span></h3>
@@ -213,6 +213,11 @@ images and is the only way to preview hdr or fused output.
 <a name="Makefile_based_stitching_process" id="Makefile_based_stitching_process"></a><h3> <span class="mw-headline"> Makefile based stitching process </span></h3>
 <p>Can I restart a stitching process that was interrupted manually or by an error without starting everything from scratch?
 </p><p>Unfortunately the Hugin Makefile system only supports restarting if you stitch on the command-line.  The GUI tools always create new temporary .pto project and Makefile files every time they stitch, so this forces make to recreate everything for every stitch.
+</p>
+<a name="Patching_nadir_shots_using_XYZ_mosaic_mode_cuts_the_photos_in_half" id="Patching_nadir_shots_using_XYZ_mosaic_mode_cuts_the_photos_in_half"></a><h3> <span class="mw-headline"> Patching nadir shots using XYZ mosaic mode cuts the photos in half </span></h3>
+<p>"If an image is mapped to the <a href="Nadir.html" title="Nadir">nadir</a> of a panorama and all translation parameters (X,Y,Z) are set to zero, the image is properly mapped and covers the entire nadir of the shot. However, if any of the X,Y,Z parameters are non-zero, then the image is cut in half and only occupies half of the nadir."
+</p><p>Basically the XYZ mosaic mode as it is implemented currently in <a href="Hugin.html" title="Hugin">Hugin</a> requires that the mosaic photos must be mapped to a plane perpendicular to the view direction - In practice this means that what you are trying to do only works if the panorama is rotated such that the nadir is in the middle of the canvas and not at the bottom.
+</p><p>This isn't so bad, the nadir-in-the-middle image looks a bit weird, you can just reload the stitched <a href="Equirectangular_Projection.html" title="Equirectangular Projection">equirectangular Projection</a> result into a new single-photo project and straighten it there.
 </p>
 <a name="Python_Scripting" id="Python_Scripting"></a><h2> <span class="mw-headline"> Python Scripting </span></h2>
 <a name="What_is_Python_Scripting.3F" id="What_is_Python_Scripting.3F"></a><h3> <span class="mw-headline"> What is Python Scripting? </span></h3>

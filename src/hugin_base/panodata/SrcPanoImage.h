@@ -412,6 +412,7 @@ private:
     bool getExiv2Value(Exiv2::ExifData& exifData, std::string keyName, long & value);
     bool getExiv2Value(Exiv2::ExifData& exifData, std::string keyName, float & value);
     bool getExiv2Value(Exiv2::ExifData& exifData, std::string keyName, std::string & value);
+    bool getExiv2Value(Exiv2::ExifData& exifData, uint16_t tagID, std::string groupName, std::string & value);
 
     /** Check if Exiv orientation tag can be trusted */
     bool trustExivOrientation();

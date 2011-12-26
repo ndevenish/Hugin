@@ -44,6 +44,14 @@ class IMPEX CalculateOptimalROI : public PanoramaAlgorithm
             o_optimalROI = vigra::Rect2D(0,0,0,0);
             o_optimalSize = vigra::Size2D(0,0);
         }
+
+        CalculateOptimalROI(PanoramaData& panorama, std::vector<UIntSet> hdr_stacks)
+         : PanoramaAlgorithm(panorama), intersection(true), stacks(hdr_stacks)
+        {
+            //set to zero for error condition
+            o_optimalROI = vigra::Rect2D(0,0,0,0);
+            o_optimalSize = vigra::Size2D(0,0);
+        }
         
         ///
         virtual ~CalculateOptimalROI()
@@ -83,12 +91,16 @@ class IMPEX CalculateOptimalROI : public PanoramaAlgorithm
             return o_optimalSize;
         }
 
+        /** sets the stack vector */
+        void setStacks(std::vector<UIntSet> hdr_stacks);
 
     private:
         vigra::Rect2D o_optimalROI;
         vigra::Size2D o_optimalSize;
         
         bool intersection;
+        
+        std::vector<UIntSet> stacks;
         
         UIntSet activeImages;
         std::map<unsigned int,PTools::Transform*> transfMap;
@@ -97,6 +109,7 @@ class IMPEX CalculateOptimalROI : public PanoramaAlgorithm
         boost::dynamic_bitset<> pixels;
         
         bool imgPixel(int i, int j);
+        bool stackPixel(int i, int j, UIntSet &stack);
         
         //local stuff, convert over later
         struct nonrec
@@ -107,15 +120,12 @@ class IMPEX CalculateOptimalROI : public PanoramaAlgorithm
 
         void makecheck(int left,int top,int right,int bottom);
         int autocrop();
-        void nonreccheck(int left,int top,int right,int bottom,int acc,int dodouble);
+        void nonreccheck(int left,int top,int right,int bottom,int acc,int searchStrategy);
         
         int count;
-        struct nonrec *begin;
         struct nonrec *head;
         struct nonrec *tail;
         struct nonrec best;
-        struct nonrec min;
-        struct nonrec max;
 
         long maxvalue;
 };

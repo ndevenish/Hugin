@@ -122,6 +122,7 @@ image_variable( kb, std::vector<double>, ,  )
 // store camera information from exif tags...
 image_variable( ExifModel, std::string, "" )
 image_variable( ExifMake, std::string, "" )
+image_variable( ExifLens, std::string, "" )
 image_variable( ExifCropFactor, double, 0 )
 image_variable( ExifFocalLength, double, 0 )
 image_variable( ExifOrientation, double, 0 )

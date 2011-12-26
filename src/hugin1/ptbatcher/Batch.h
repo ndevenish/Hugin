@@ -56,6 +56,8 @@ public:
     bool shutdown;
     bool overwrite;
     bool verbose;
+    bool autostitch;
+    bool autoremove;
     bool gui;
 
     /** Main constructor */
@@ -184,9 +186,11 @@ private:
 #if _WINDOWS && defined Hugin_shared
 DECLARE_LOCAL_EVENT_TYPE(EVT_BATCH_FAILED,-1)
 DECLARE_LOCAL_EVENT_TYPE(EVT_INFORMATION,-1)
+DECLARE_LOCAL_EVENT_TYPE(EVT_UPDATE_PARENT, -1)
 #else
 DECLARE_EVENT_TYPE(EVT_BATCH_FAILED,-1)
 DECLARE_EVENT_TYPE(EVT_INFORMATION,-1)
+DECLARE_EVENT_TYPE(EVT_UPDATE_PARENT, -1)
 #endif
 
 #endif //BATCH_H

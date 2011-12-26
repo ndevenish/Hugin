@@ -85,6 +85,13 @@ FailedProjectsDialog::FailedProjectsDialog(wxWindow* parent,Batch* batch,wxStrin
         {
             this->Fit();
         }
+        //splitter position
+        int splitter_pos=config->Read(wxT("/FailedProjectsDialog/splitterPos"),-1l);
+        wxSplitterWindow* splitWindow=XRCCTRL(*this,"failed_splitter",wxSplitterWindow);
+        if(splitter_pos>0 && splitter_pos<splitWindow->GetSize().GetWidth())
+        {
+            splitWindow->SetSashPosition(splitter_pos);
+        };
         //position
         int x = config->Read(wxT("/FailedProjectsDialog/positionX"),-1l);
         int y = config->Read(wxT("/FailedProjectsDialog/positionY"),-1l);
@@ -116,6 +123,7 @@ FailedProjectsDialog::~FailedProjectsDialog()
     {
         config->Write(wxT("/FailedProjectsDialog/maximized"), 1l);
     };
+    config->Write(wxT("/FailedProjectsDialog/splitterPos"), XRCCTRL(*this,"failed_splitter",wxSplitterWindow)->GetSashPosition());
 };
 
 void FailedProjectsDialog::OnSelectProject(wxCommandEvent& e)

@@ -17,13 +17,13 @@
  * along with Panomatic; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
- 
+
 
 #ifndef __lfeat_KeyPointIO_h
 #define __lfeat_KeyPointIO_h
- 
+
 #include <iostream>
-#include <string> 
+#include <string>
 
 #include "KeyPoint.h"
 #include "KeyPointDetector.h"
@@ -33,18 +33,18 @@ namespace lfeat
 
 struct LFIMPEX ImageInfo
 {
-	ImageInfo()
-	: width(0), height(0), dimensions(0)
-	{ }
-	
-	ImageInfo(const std::string & filename, int width, int height)
-	: filename(filename), width(width), height(height), dimensions(0)
-	{ }
-	
-	std::string   filename;
-	int           width;
-	int           height;
-	int           dimensions;
+    ImageInfo()
+        : width(0), height(0), dimensions(0)
+    { }
+
+    ImageInfo(const std::string& filename, int width, int height)
+        : filename(filename), width(width), height(height), dimensions(0)
+    { }
+
+    std::string   filename;
+    int           width;
+    int           height;
+    int           dimensions;
 };
 
 
@@ -52,7 +52,7 @@ struct LFIMPEX ImageInfo
 //bool identifySIFTKeypoints( const std::string & filename);
 //ImageInfo loadSIFTKeypoints( const std::string & filename, KeyPointInsertor & insertor);
 
-ImageInfo LFIMPEX loadKeypoints( const std::string & filename, KeyPointVect_t & insertor);
+ImageInfo LFIMPEX loadKeypoints( const std::string& filename, KeyPointVect_t& insertor);
 
 
 /// Base class for a keypoint writer
@@ -60,73 +60,73 @@ class LFIMPEX KeypointWriter
 {
 
 protected:
-	std::ostream & o;
+    std::ostream& o;
 
 public:
 
-    KeypointWriter(std::ostream & out=std::cout)
-	: o ( out )
-	{
-	}
+    KeypointWriter(std::ostream& out=std::cout)
+        : o ( out )
+    {
+    }
 
-	virtual void writeHeader ( const ImageInfo & imageinfo, int nKeypoints, int dims ) = 0;
+    virtual void writeHeader ( const ImageInfo& imageinfo, int nKeypoints, int dims ) = 0;
 
-	virtual void writeKeypoint ( double x, double y, double scale, double orientation, double score, int dims, double * vec ) = 0;
+    virtual void writeKeypoint ( double x, double y, double scale, double orientation, double score, int dims, double* vec ) = 0;
 
-	virtual void writeFooter() = 0;
+    virtual void writeFooter() = 0;
 };
 
 class LFIMPEX SIFTFormatWriter : public KeypointWriter
 {
 
-	ImageInfo _image;
+    ImageInfo _image;
 
 public:
-    SIFTFormatWriter(std::ostream & out=std::cout)
-	 : KeypointWriter(out)
-	{
-	}
+    SIFTFormatWriter(std::ostream& out=std::cout)
+        : KeypointWriter(out)
+    {
+    }
 
-	void writeHeader (const ImageInfo & imageinfo, int nKeypoints, int dims );
+    void writeHeader (const ImageInfo& imageinfo, int nKeypoints, int dims );
 
-	void writeKeypoint ( double x, double y, double scale, double orientation, double score, int dims, double * vec );
+    void writeKeypoint ( double x, double y, double scale, double orientation, double score, int dims, double* vec );
 
-	void writeFooter();
+    void writeFooter();
 };
 
 class LFIMPEX DescPerfFormatWriter : public KeypointWriter
 {
 
-	ImageInfo _image;
+    ImageInfo _image;
 
 public:
-    DescPerfFormatWriter(std::ostream & out=std::cout)
-	 : KeypointWriter(out)
-	{
-	}
+    DescPerfFormatWriter(std::ostream& out=std::cout)
+        : KeypointWriter(out)
+    {
+    }
 
-	void writeHeader (const ImageInfo & imageinfo, int nKeypoints, int dims );
+    void writeHeader (const ImageInfo& imageinfo, int nKeypoints, int dims );
 
-	void writeKeypoint ( double x, double y, double scale, double orientation, double score, int dims, double * vec );
+    void writeKeypoint ( double x, double y, double scale, double orientation, double score, int dims, double* vec );
 
-	void writeFooter();
+    void writeFooter();
 };
 
 
 class LFIMPEX AutopanoSIFTWriter : public KeypointWriter
 {
-	
+
 public:
-    AutopanoSIFTWriter(std::ostream & out=std::cout)
-	 : KeypointWriter(out)
-	{
-	}
+    AutopanoSIFTWriter(std::ostream& out=std::cout)
+        : KeypointWriter(out)
+    {
+    }
 
-	void writeHeader ( const ImageInfo & imageinfo, int nKeypoints, int dims );
+    void writeHeader ( const ImageInfo& imageinfo, int nKeypoints, int dims );
 
-	void writeKeypoint ( double x, double y, double scale, double orientation, double score, int dims, double * vec );
+    void writeKeypoint ( double x, double y, double scale, double orientation, double score, int dims, double* vec );
 
-	void writeFooter();
+    void writeFooter();
 };
 
 }

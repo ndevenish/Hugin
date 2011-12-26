@@ -1,0 +1,149 @@
+Hugin-2011.4 RELEASE NOTES
+
+ABOUT
+
+Hugin is more than just a panorama stitcher. 
+
+Hugin can be found at
+* SourceForge:  http://hugin.sourceforge.net/
+* Launchpad:    https://launchpad.net/hugin
+
+
+DOWNLOAD
+
+The 2011.4 source tarball can be downloaded
+
+* from SourceForge at
+http://sourceforge.net/projects/hugin/files/hugin/hugin-2011.4/hugin-2011.4.0.tar.bz2/download
+
+* from Launchpad at
+http://launchpad.net/hugin/2011.4/2011.4.0/+download/hugin-2011.4.0.tar.bz2
+
+This is a source code release.  For executables see below.
+
+This tarball is equivalent to rev/changeset cf9be9344356 in our Mercurial
+repository, where it is also tagged 2011.4.0
+
+Verify its SHA1SUM
+89f6ea1f10fae589357bb51581008d7e8e66ed82  hugin-2011.4.0.tar.bz2
+
+EXECUTABLES
+
+Users communities produce executables for their respective platforms.
+
+These executables are then added to the download section on SourceForge at
+http://sourceforge.net/projects/hugin/files/hugin/
+
+A number of users have built recent snapshots and executables are likely to be
+announced within a few days of this tarball release.
+
+Watch http://groups.google.com/group/hugin-ptx for the announcements of binary
+releases.  If you don't see a binary for your platform it has most likely not
+been produced yet.  Consider stepping up to the task.  Instructions at
+
+http://wiki.panotools.org/Development_of_Open_Source_tools#Supported_Platforms
+
+Announce your build on http://groups.google.com/group/hugin-ptx
+
+
+CHANGES SINCE 2011.2.0
+
+Hugin has got a vertical feature detection tool for automatic levelling
+of panoramas. Beside this also many bugs have fixed and many general
+improvements have been made.
+
+
+Vertical feature detection tool
+
+Often a panorama, created from several single photos, is not level. In
+this case the experienced user adds vertical and horizontal control
+points to level the panorama.
+
+With this release Hugin introduces a tool named /linefind/ which
+automatically detects vertical features in the photos such as the edges
+of buildings and windows, and assigns vertical control points to them.
+This makes it easier than before to level a panorama, in most cases it
+works without any intervention.
+
+
+Other Improvements
+
+  * The Fast Preview window can now show composition guides such as
+    Rule of Thirds and Golden ratio to support an easier composition
+    of the final panorama.
+  * The output of High Dynamic Range (HDR) images has been modified to
+    prevent clipping of the exposure in EXR format images. The
+    previous versions of Hugin outputted HDR images with absolute
+    exposure values, now with this 2011.4.0 release, Hugin uses relative
+    exposure values. This means that the output Exposure Value (EV) of
+    the panorama, which can be set in the preview window, has an
+    influence on the HDR output (as already for normal LDR images) and
+    should be set to the medium exposure value of the images. If you set
+    the output exposure value to zero, the old behavior is restored.
+  * The batch processor PTBatcherGUI has been extended:
+      o It is now possible to directly add unaligned projects to the
+        assistant queue for aligning and control point generation.
+      o Successfully stitched projects can be automatically removed from
+        the queue, this makes the queue management easier.
+      o If a project was successfully finished by the assistant, it can
+        be automatically added to the stitching queue. This now allows
+        for a fully automatic panorama creation workflow.
+  * Many more improvements and bug fixes.
+
+
+UPGRADING
+
+Upgrading from previous versions of Hugin should be seamless. If you do have
+problems with old settings, these can be reset in the Preferences by clicking
+'Load defaults'.
+
+It is strongly recommeded to set the default control point detector to
+Hugin's CPFind.  It is the only control point generator endorsed by Hugin.
+Third-party generators may be compatible with the plug-in architecture.
+
+
+COMPILING
+
+Users compiling from source refer to the dependencies listed at
+http://wiki.panotools.org/Development_of_Open_Source_tools#Dependencies
+
+and the build processes listed at
+http://wiki.panotools.org/Development_of_Open_Source_tools#Build_your_Own_Test_Builds
+
+More information in the README and INSTALL_cmake files in the tarball.
+
+
+KNOWN ISSUES AND WORKAROUNDS
+
+Panosphere Overview window seperated from the content
+https://bugs.launchpad.net/hugin/+bug/726997
+
+
+There is a known problem building Hugin with CMake 2.8.5rc2.
+Workaround: Upgrade to a newer CMake version.
+
+
+Mac OS X Users at Tiger and Lion: this version of Hugin contains an openMP enabled 
+enblend and enfuse. These versions don't run on Tiger and currently not on Lion either. 
+Please use the Tiger-compatible enblend and enfuse from the enblend-enfuse-4.0 folder 
+in this dmg. You can specify alternative "external" enblend and enfuse from the Programs 
+pane in the preferences after installing these special version by following the instructions 
+in the README in the enblend-enfuse-4.0 folder. 
+https://bugs.launchpad.net/hugin/+bug/814280
+
+An updated list of issues deemed to be critical, including discussions
+and workarounds is in the issue tracker.
+https://bugs.launchpad.net/hugin/+bugs?search=Search&field.importance=Critical
+
+
+THANKS
+
+Thanks to all the contributors to this release and members of the hugin-ptx
+mailing list, too many to mention here.
+
+Hugin can be found at http://hugin.sourceforge.net/ and at https://launchpad.net/hugin
+
+
+CHANGELOG
+
+A detailed changelog can be found in the file Changelog.

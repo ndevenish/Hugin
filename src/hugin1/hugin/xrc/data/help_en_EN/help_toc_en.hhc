@@ -136,6 +136,10 @@
 			<param name="Local" value="Checkpto.html">
 			</OBJECT>
 		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Pto_gen">
+			<param name="Local" value="Pto_gen.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
 			<param name="Name" value="Cpfind">
 			<param name="Local" value="Cpfind.html">
 			</OBJECT>

@@ -104,7 +104,7 @@ namespace HuginBase {
         
         public:
             ///
-            AutoOptimise(PanoramaData& panorama)
+            AutoOptimise(PanoramaData& panorama, bool optRoll=true)
              : PTOptimizer(panorama)
             {};
         
@@ -115,7 +115,7 @@ namespace HuginBase {
         
         public:
             ///
-            static void autoOptimise(PanoramaData& pano);
+            static void autoOptimise(PanoramaData& pano, bool optRoll=true);
             
         protected:
             /// a traverse functor to optimise the image links
@@ -233,7 +233,7 @@ void AutoOptimise::OptimiseVisitor::discover_vertex(Vertex v, const Graph & g)
     // collect all optimized neighbours
     typename boost::graph_traits<CPGraph>::adjacency_iterator ai;
     typename boost::graph_traits<CPGraph>::adjacency_iterator ai_end;
-    for (tie(ai, ai_end) = adjacent_vertices(v, g);
+    for (boost::tuples::tie(ai, ai_end) = adjacent_vertices(v, g);
          ai != ai_end; ++ai)
     {
         if (*ai != v) {

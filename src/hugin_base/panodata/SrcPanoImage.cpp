@@ -41,6 +41,7 @@
 #include <hugin_utils/utils.h>
 #include <exiv2/exif.hpp>
 #include <exiv2/image.hpp>
+#include <exiv2/easyaccess.hpp>
 
 #ifdef __FreeBSD__
 #define log2(x)        (log(x) / M_LN2)
@@ -366,6 +367,42 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, double & 
     } else {
         setExifModel("Unknown");
     }
+
+    //reading lens
+    // first we are reading LensModel in Exif section, this is only available
+    // with EXIF >= 2.3
+    std::string lensName;
+#if EXIV2_TEST_VERSION(0,22,0)
+    //the string "Exif.Photo.LensModel" is only defined in exiv2 0.22.0 and above
+    if(getExiv2Value(exifData,"Exif.Photo.LensModel",lensName))
+#else
+    if(getExiv2Value(exifData,0xa434,"Photo",lensName))
+#endif
+    {
+        if(lensName.length()>0)
+        {
+            setExifLens(lensName);
+        }
+        else
+        {
+            setExifLens("Unknown");
+        }
+    }
+    else
+    {
+        //no lens in Exif found, now look in makernotes
+        Exiv2::ExifData::const_iterator itr2 = Exiv2::lensName(exifData);
+        if (itr2!=exifData.end() && itr2->count())
+        {
+            //we are using prettyPrint function to get string of lens name
+            //it2->toString returns for many cameras only an ID number
+            setExifLens(itr2->print(&exifData));
+        }
+        else
+        {
+            setExifLens("Unknown");
+        };
+    };
 
     long orientation = 0;
     if (getExiv2Value(exifData,"Exif.Image.Orientation",orientation) && trustExivOrientation()) {
@@ -766,6 +803,21 @@ bool SrcPanoImage::getExiv2Value(Exiv2::ExifData& exifData, std::string keyName,
         DEBUG_DEBUG("" << keyName << ": " << value);
         return true;
     } else {
+        return false;
+    }
+}
+
+bool SrcPanoImage::getExiv2Value(Exiv2::ExifData& exifData, uint16_t tagID, std::string groupName, std::string & value)
+{
+    Exiv2::ExifKey key(tagID,groupName);
+    Exiv2::ExifData::iterator itr = exifData.findKey(key);
+    if (itr != exifData.end() && itr->count())
+    {
+        value = itr->toString();
+        return true;
+    }
+    else
+    {
         return false;
     }
 }

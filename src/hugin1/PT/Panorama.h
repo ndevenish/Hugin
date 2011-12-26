@@ -36,7 +36,7 @@
 #include <algorithms/basic/StraightenPanorama.h>
 #include <algorithms/basic/CalculateMeanExposure.h>
 #include <algorithms/basic/CalculateOptimalROI.h>
-
+#include <algorithms/basic/LayerStacks.h>
 
 #include <typeinfo>
 #include "PT/PanoImage.h"
@@ -105,6 +105,25 @@ public:
         
         cropPano.run();
         
+        roi=cropPano.getResultOptimalROI();
+        size=cropPano.getResultOptimalSize();
+    }
+
+    /** Calculates the Stack-based ROI to make the best ROI without excess for crop
+         */
+    void calcOptimalStackROI(vigra::Rect2D & roi,vigra::Size2D & size)
+    {
+        printf("calcOptimalROI Called\n");
+        UIntSet activeImages=getActiveImages();
+        std::vector<UIntSet> stackImgs=getHDRStacks(*this,activeImages);
+        HuginBase::CalculateOptimalROI cropPano(*this);
+        //only use hdr autocrop for projects with stacks
+        //otherwise fall back to "normal" autocrop
+        if(stackImgs.size()<activeImages.size())
+        {
+            cropPano.setStacks(stackImgs);
+        }
+        cropPano.run();
         roi=cropPano.getResultOptimalROI();
         size=cropPano.getResultOptimalSize();
     }

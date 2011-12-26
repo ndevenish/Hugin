@@ -85,6 +85,9 @@ static void usage(const char * name)
          << "             Useful for aligning focus stacks with slightly different magnification." << std::endl
          << "  -d        Optimize radial distortion for all images, except for first." << std::endl
          << "  -i        Optimize image center shift for all images, except for first." << std::endl
+         << "  -x        Optimize X coordinate of the camera position." << std::endl
+         << "  -y        Optimize Y coordinate of the camera position." << std::endl
+         << "  -z        Optimize Z coordinate of the camera position." << std::endl
          << "             Useful for aligning more distorted images." << std::endl
          << "  -S        Assume stereo images - allow horizontal shift of control points." << std::endl
          << "  -A        Align stereo window - assumes -S." << std::endl
@@ -388,13 +391,16 @@ struct Parameters
     {
         cpErrorThreshold = 3;
         nPoints = 8;
-	grid = 5;
+        grid = 5;
         hfov = 0;
         pyrLevel = 1;
-	linear = false;	   // Assume linear input files if true
+        linear = false;   // Assume linear input files if true
         optHFOV = false;
         optDistortion = false;
         optCenter = false;
+        optX = false;
+        optY = false;
+        optZ = false;
         stereo = false;
         stereo_window = false;
         pop_out = false;
@@ -410,6 +416,9 @@ struct Parameters
     bool optHFOV;
     bool optDistortion;
     bool optCenter;
+    bool optX;
+    bool optY;
+    bool optZ;
     bool fisheye;
     bool stereo;
     bool stereo_window;
@@ -600,6 +609,15 @@ int main2(std::vector<std::string> files, Parameters param)
                 vars.insert("d");
                 vars.insert("e");
             }
+            if (param.optX) {
+                vars.insert("TrX");
+            }
+            if (param.optY) {
+                vars.insert("TrY");
+            }
+            if (param.optZ) {
+                vars.insert("TrZ");
+            }
             optvars.push_back(vars);
         }
         delete leftImg;
@@ -706,7 +724,7 @@ int main2(std::vector<std::string> files, Parameters param)
 int main(int argc, char *argv[])
 {
     // parse arguments
-    const char * optstring = "a:ef:g:hlmdiSAPCp:vo:s:t:c:";
+    const char * optstring = "a:ef:g:hlmdiSAPCp:vo:s:t:c:xyz";
     int c;
 
     opterr = 0;
@@ -756,6 +774,15 @@ int main(int argc, char *argv[])
             break;
         case 'i':
             param.optCenter = true;
+            break;
+        case 'x':
+            param.optX = true;
+            break;
+        case 'y':
+            param.optY = true;
+            break;
+        case 'z':
+            param.optZ = true;
             break;
         case 'S':
             param.stereo = true;
