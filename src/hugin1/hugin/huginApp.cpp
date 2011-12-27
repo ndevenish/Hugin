@@ -215,14 +215,14 @@ bool huginApp::OnInit()
     }
 
     // here goes and comes configuration
-    wxConfigBase * cfg = wxConfigBase::Get();
+    wxConfigBase * config = wxConfigBase::Get();
     // do not record default values in the preferences file
-    cfg->SetRecordDefaults(false);
+    config->SetRecordDefaults(false);
 
-    cfg->Flush();
+    config->Flush();
 
     // initialize i18n
-    int localeID = cfg->Read(wxT("language"), (long) HUGIN_LANGUAGE);
+    int localeID = config->Read(wxT("language"), (long) HUGIN_LANGUAGE);
     DEBUG_TRACE("localeID: " << localeID);
     {
         bool bLInit;
@@ -246,29 +246,32 @@ bool huginApp::OnInit()
  *  to abort before making changes.  Prevent surprises.
  */
     // read version number of last Hugin binary to use these preferences
-    m_Version = cfg->Read(wxT("/version"),wxT(""));
+    wxString last_version = config->Read(wxT("/version"),wxT(""));
 
     // upgrade
-    if (checkVersion(m_Version,wxT(HUGIN_API_VERSION)))
+    if (checkVersion(last_version,wxT(HUGIN_API_VERSION)))
     {
-
-      wxString text = wxString::Format(_("I am Hugin version %s.  I have found preferences from an older version %s.  I might not be compatible with the older preferences.  If you experience malfunction, please go to the menu  File -> Preference and in each tab hit the 'Load Defaults' button"),wxString(HUGIN_API_VERSION,wxConvLocal).c_str(),m_Version.c_str());
-
-      wxMessageBox(text, _("Warning"));
-
-      cfg->Write(wxT("/version"), wxT(HUGIN_API_VERSION));     
-      cfg->Flush();
-      
-      };
+        wxMessageBox(wxString::Format(_("I am Hugin version %s. I have found preferences from an older version %s. I might not be compatible with the older preferences. If you experience malfunction, please go to the menu File -> Preference and in each tab hit the 'Load Defaults' button"),wxString(HUGIN_API_VERSION,wxConvLocal).c_str(),last_version.c_str()), 
+#ifdef _WINDOWS
+            _("Hugin"),
+#else
+            wxT(""),
+#endif
+            wxOK | wxICON_INFORMATION);
+        config->Write(wxT("/version"), wxT(HUGIN_API_VERSION));
+        config->Flush();
+    };
 
     // downgrade
-    if (checkVersion(wxT(HUGIN_API_VERSION),m_Version))
+    if (checkVersion(wxT(HUGIN_API_VERSION),last_version))
     {
-
-      wxString text = wxString::Format(_("I am Hugin version %s.  I have found preferences from a newer version %s.  I might not be compatible with the newer preferences.  If you experience malfunction, please go to the menu  File -> Preference and in each tab hit the 'Load Defaults' button"),wxString(HUGIN_API_VERSION,wxConvLocal).c_str(),m_Version.c_str());
-
-      wxMessageBox(text, _("Warning"));
-      
+        wxMessageBox(wxString::Format(_("I am Hugin version %s. I have found preferences from a newer version %s. I might not be compatible with the newer preferences. If you experience malfunction, please go to the menu File -> Preference and in each tab hit the 'Load Defaults' button"),wxString(HUGIN_API_VERSION,wxConvLocal).c_str(),last_version.c_str()),
+#ifdef _WINDOWS
+            _("Hugin"),
+#else
+            wxT(""),
+#endif
+            wxOK | wxICON_INFORMATION);
     };
 
     // initialize image handlers
@@ -351,7 +354,7 @@ bool huginApp::OnInit()
 
     wxString cwd = wxFileName::GetCwd();
 
-    m_workDir = cfg->Read(wxT("tempDir"),wxT(""));
+    m_workDir = config->Read(wxT("tempDir"),wxT(""));
     // FIXME, make secure against some symlink attacks
     // get a temp dir
     if (m_workDir == wxT("")) {
@@ -450,7 +453,7 @@ bool huginApp::OnInit()
                     // Use the first filename to set actualPath.
                     if (! actualPathSet)
                     {
-                        cfg->Write(wxT("/actualPath"), file.GetPath());
+                        config->Write(wxT("/actualPath"), file.GetPath());
                         actualPathSet = true;
                     }
                 }
@@ -474,7 +477,7 @@ bool huginApp::OnInit()
 	if(secondParam.Cmp(_T("-notips"))!=0)
 	{
 		//load tip startup preferences (tips will be started after splash terminates)
-		int nValue = cfg->Read(wxT("/MainFrame/ShowStartTip"), 1l);
+		int nValue = config->Read(wxT("/MainFrame/ShowStartTip"), 1l);
 
 		//show tips if needed now
 		if(nValue > 0)
@@ -558,7 +561,7 @@ void RestoreFramePosition(wxTopLevelWindow * frame, const wxString & basename)
 {
     DEBUG_TRACE(basename.mb_str(wxConvLocal));
 
-    wxConfigBase * cfg = wxConfigBase::Get();
+    wxConfigBase * config = wxConfigBase::Get();
 
     // get display size
     int dx,dy;
@@ -568,37 +571,37 @@ void RestoreFramePosition(wxTopLevelWindow * frame, const wxString & basename)
 // restoring the splitter positions properly when maximising doesn't work.
 // Disabling maximise on wxWidgets >= 2.6.0 and gtk
         //size
-        int w = cfg->Read(wxT("/") + basename + wxT("/width"),-1l);
-        int h = cfg->Read(wxT("/") + basename + wxT("/height"),-1l);
+        int w = config->Read(wxT("/") + basename + wxT("/width"),-1l);
+        int h = config->Read(wxT("/") + basename + wxT("/height"),-1l);
         if (w > 0 && w <= dx) {
             frame->SetClientSize(w,h);
         } else {
             frame->Fit();
         }
         //position
-        int x = cfg->Read(wxT("/") + basename + wxT("/positionX"),-1l);
-        int y = cfg->Read(wxT("/") + basename + wxT("/positionY"),-1l);
+        int x = config->Read(wxT("/") + basename + wxT("/positionX"),-1l);
+        int y = config->Read(wxT("/") + basename + wxT("/positionY"),-1l);
         if ( y >= 0 && x >= 0 && x < dx && y < dy) {
             frame->Move(x, y);
         } else {
             frame->Move(0, 44);
         }
 #else
-    bool maximized = cfg->Read(wxT("/") + basename + wxT("/maximized"), 0l) != 0;
+    bool maximized = config->Read(wxT("/") + basename + wxT("/maximized"), 0l) != 0;
     if (maximized) {
         frame->Maximize();
 	} else {
         //size
-        int w = cfg->Read(wxT("/") + basename + wxT("/width"),-1l);
-        int h = cfg->Read(wxT("/") + basename + wxT("/height"),-1l);
+        int w = config->Read(wxT("/") + basename + wxT("/width"),-1l);
+        int h = config->Read(wxT("/") + basename + wxT("/height"),-1l);
         if (w > 0 && w <= dx) {
             frame->SetClientSize(w,h);
         } else {
             frame->Fit();
         }
         //position
-        int x = cfg->Read(wxT("/") + basename + wxT("/positionX"),-1l);
-        int y = cfg->Read(wxT("/") + basename + wxT("/positionY"),-1l);
+        int x = config->Read(wxT("/") + basename + wxT("/positionX"),-1l);
+        int y = config->Read(wxT("/") + basename + wxT("/positionY"),-1l);
         if ( y >= 0 && x >= 0 && x < dx && y < dy) {
             frame->Move(x, y);
         } else {
@@ -613,30 +616,30 @@ void StoreFramePosition(wxTopLevelWindow * frame, const wxString & basename)
 {
     DEBUG_TRACE(basename);
 
-    wxConfigBase * cfg = wxConfigBase::Get();
+    wxConfigBase * config = wxConfigBase::Get();
 
 #if ( __WXGTK__ ) &&  wxCHECK_VERSION(2,6,0)
 // restoring the splitter positions properly when maximising doesn't work.
 // Disabling maximise on wxWidgets >= 2.6.0 and gtk
     
         wxSize sz = frame->GetClientSize();
-        cfg->Write(wxT("/") + basename + wxT("/width"), sz.GetWidth());
-        cfg->Write(wxT("/") + basename + wxT("/height"), sz.GetHeight());
+        config->Write(wxT("/") + basename + wxT("/width"), sz.GetWidth());
+        config->Write(wxT("/") + basename + wxT("/height"), sz.GetHeight());
         wxPoint ps = frame->GetPosition();
-        cfg->Write(wxT("/") + basename + wxT("/positionX"), ps.x);
-        cfg->Write(wxT("/") + basename + wxT("/positionY"), ps.y);
-        cfg->Write(wxT("/") + basename + wxT("/maximized"), 0);
+        config->Write(wxT("/") + basename + wxT("/positionX"), ps.x);
+        config->Write(wxT("/") + basename + wxT("/positionY"), ps.y);
+        config->Write(wxT("/") + basename + wxT("/maximized"), 0);
 #else
     if ( (! frame->IsMaximized()) && (! frame->IsIconized()) ) {
         wxSize sz = frame->GetClientSize();
-        cfg->Write(wxT("/") + basename + wxT("/width"), sz.GetWidth());
-        cfg->Write(wxT("/") + basename + wxT("/height"), sz.GetHeight());
+        config->Write(wxT("/") + basename + wxT("/width"), sz.GetWidth());
+        config->Write(wxT("/") + basename + wxT("/height"), sz.GetHeight());
         wxPoint ps = frame->GetPosition();
-        cfg->Write(wxT("/") + basename + wxT("/positionX"), ps.x);
-        cfg->Write(wxT("/") + basename + wxT("/positionY"), ps.y);
-        cfg->Write(wxT("/") + basename + wxT("/maximized"), 0);
+        config->Write(wxT("/") + basename + wxT("/positionX"), ps.x);
+        config->Write(wxT("/") + basename + wxT("/positionY"), ps.y);
+        config->Write(wxT("/") + basename + wxT("/maximized"), 0);
     } else if (frame->IsMaximized()){
-        cfg->Write(wxT("/") + basename + wxT("/maximized"), 1l);
+        config->Write(wxT("/") + basename + wxT("/maximized"), 1l);
     }
 #endif
 }

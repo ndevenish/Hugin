@@ -154,10 +154,6 @@ public:
 #endif
 
 private:
-
-    /** API version */
-    wxString m_Version;
-    
     /** locale for internationalisation */
     wxLocale locale;
 
