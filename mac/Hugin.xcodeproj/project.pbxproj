@@ -1072,6 +1072,7 @@
 		73573E4110F9EEA300CF0ECD /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73D24B641061556700B8A25D /* AGL.framework */; };
 		73573E4210F9EEA300CF0ECD /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 739F846B0EC75402004771D6 /* OpenGL.framework */; };
 		73573E5210F9EEF400CF0ECD /* pano_trafo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73573E5110F9EEF400CF0ECD /* pano_trafo.cpp */; };
+		7359810C14AB2517002CF4D7 /* PTBatcher in Copy Executable Files */ = {isa = PBXBuildFile; fileRef = 734BDF5B0EB8EC19007EBA09 /* PTBatcher */; };
 		7359F22B126A18BB00D3291B /* checkpto in Copy Executable Files */ = {isa = PBXBuildFile; fileRef = 7396E4601269806E0096D1B3 /* checkpto */; };
 		7359F235126A191100D3291B /* autooptimiser in Copy Executable Files */ = {isa = PBXBuildFile; fileRef = E8A7D9AF10FB6F5A00839DF3 /* autooptimiser */; };
 		7359F236126A191100D3291B /* celeste_standalone in Copy Executable Files */ = {isa = PBXBuildFile; fileRef = 73EBC0900EC9E0B20068B821 /* celeste_standalone */; };
@@ -1829,8 +1830,8 @@
 		73CA10271296FD4900A4BC75 /* libboost_signals.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73CA0FFB1296FB9500A4BC75 /* libboost_signals.dylib */; };
 		73CA10281296FD5800A4BC75 /* libboost_signals.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73CA0FFB1296FB9500A4BC75 /* libboost_signals.dylib */; };
 		73CA10291296FD6900A4BC75 /* libboost_signals.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73CA0FFB1296FB9500A4BC75 /* libboost_signals.dylib */; };
-		73CAEC5814227A090064D5E8 /* hugin_python_interface.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 73B1AD0613A6A0B0006A3C54 /* hugin_python_interface.framework */; };
 		73CE4996124A667F001F0F42 /* icpfind.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7336099F1247DA6D009225D2 /* icpfind.framework */; };
+		73D0C7ED1494DB03008C2C22 /* hierarchical_clustering_index.h in Headers */ = {isa = PBXBuildFile; fileRef = 73D0C7EC1494DB03008C2C22 /* hierarchical_clustering_index.h */; };
 		73D24B69106155D700B8A25D /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73D24B641061556700B8A25D /* AGL.framework */; };
 		73D24B6A106155D700B8A25D /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 739F846B0EC75402004771D6 /* OpenGL.framework */; };
 		73D24B861061561400B8A25D /* libboost_thread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57565A640D088DAD00344F55 /* libboost_thread.dylib */; };
@@ -2936,7 +2937,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 7377D6BE148FD612004FE48D /* pto_gen */;
+			remoteGlobalIDString = 7377D6BE148FD612004FE48D;
 			remoteInfo = pto_gen;
 		};
 		737E48B011D3F8C6002BA8AE /* PBXContainerItemProxy */ = {
@@ -3623,6 +3624,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 6;
 			files = (
+				7359810C14AB2517002CF4D7 /* PTBatcher in Copy Executable Files */,
 				7377D74D148FE48A004FE48D /* pto_gen in Copy Executable Files */,
 				73120196141FCA71005071A9 /* linefind in Copy Executable Files */,
 				738A8754126AE53A00DC20B6 /* autooptimiser in Copy Executable Files */,
@@ -3666,7 +3668,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				73CAEC5814227A090064D5E8 /* hugin_python_interface.framework in Copy Frameworks */,
 				73C5F87F12E309F20033A6E1 /* flann_cpp.framework in Copy Frameworks */,
 				733EAA5E125CDA8D00658EAF /* icpfind.framework in Copy Frameworks */,
 				737E497B11D3FD74002BA8AE /* localfeatures.framework in Copy Frameworks */,
@@ -4541,6 +4542,7 @@
 		73C5F7A412E2DC490033A6E1 /* flann_cpp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = flann_cpp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		73C959140DA2C9DB00E19110 /* tca_correct-static */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "tca_correct-static"; sourceTree = BUILT_PRODUCTS_DIR; };
 		73CA0FFB1296FB9500A4BC75 /* libboost_signals.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_signals.dylib; path = "../../ExternalPrograms/3way-repository/lib/libboost_signals.dylib"; sourceTree = SOURCE_ROOT; };
+		73D0C7EC1494DB03008C2C22 /* hierarchical_clustering_index.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hierarchical_clustering_index.h; sourceTree = "<group>"; };
 		73D24B4E106152CD00B8A25D /* cpclean */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = cpclean; sourceTree = BUILT_PRODUCTS_DIR; };
 		73D24B641061556700B8A25D /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
 		73D24B9A1061566B00B8A25D /* cpclean.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cpclean.cpp; sourceTree = "<group>"; };
@@ -7389,6 +7391,7 @@
 		73C5F71112E212910033A6E1 /* algorithms */ = {
 			isa = PBXGroup;
 			children = (
+				73D0C7EC1494DB03008C2C22 /* hierarchical_clustering_index.h */,
 				73C5F71212E212910033A6E1 /* all_indices.h */,
 				73C5F71312E212910033A6E1 /* autotuned_index.h */,
 				73C5F71412E212910033A6E1 /* composite_index.h */,
@@ -8236,6 +8239,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				73D0C7ED1494DB03008C2C22 /* hierarchical_clustering_index.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -9837,7 +9841,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "rm -f ../src/hugin_version.h\nrm -f ./build/src/hugin_version.h\n\nsed -e \"s/\\${V_MAJOR}/$HUGIN_VERSION_MAJOR/\" \\\n    -e \"s/\\${V_MINOR}/$HUGIN_VERSION_MINOR/\" \\\n    -e \"s/\\${V_PATCH}/$HUGIN_VERSION_PATCH/\" \\\n    -e \"s/\\${HUGIN_WC_REVISION}/$HUGIN_WC_REVISION/\" \\\n    -e \"s/\\${HUGIN_PACKAGE_VERSION}/$HUGIN_PACKAGE_VERSION/\" \\\n    -e \"s/\\${DISPLAY_VERSION}/$HUGIN_PACKAGE_VERSION/\" \\\n    -e \"s/\\${HUGIN_BUILDER}/$HUGIN_BUILDER/\" \\\n    -e \"s/^.*HUGIN_DEVELOPMENT_VERSION.*$/\\/\\/&/\" \\\n    ../src/hugin_version.h.in.cmake > ../src/hugin_version.h\n\nif [ \"$HUGIN_DEVELOPMENT_VERSION\" -gt 0 ]\nthen\n echo \"\"                                    >> ../src/hugin_version.h\n echo \"#ifndef HUGIN_DEVELOPMENT_VERSION\"   >> ../src/hugin_version.h\n echo \"#define HUGIN_DEVELOPMENT_VERSION 1\" >> ../src/hugin_version.h\n echo \"#endif\"                              >> ../src/hugin_version.h\nfi";
+			shellScript = "rm -rf ../src/hugin_version.h\nrm -rf ./build/src/hugin_version.h\n\nsed -e \"s/\\${V_MAJOR}/$HUGIN_VERSION_MAJOR/\" \\\n    -e \"s/\\${V_MINOR}/$HUGIN_VERSION_MINOR/\" \\\n    -e \"s/\\${V_PATCH}/$HUGIN_VERSION_PATCH/\" \\\n    -e \"s/\\${HUGIN_WC_REVISION}/$HUGIN_WC_REVISION/\" \\\n    -e \"s/\\${HUGIN_PACKAGE_VERSION}/$HUGIN_PACKAGE_VERSION/\" \\\n    -e \"s/\\${DISPLAY_VERSION}/$HUGIN_PACKAGE_VERSION/\" \\\n    -e \"s/\\${HUGIN_BUILDER}/$HUGIN_BUILDER/\" \\\n    -e \"s/^.*HUGIN_DEVELOPMENT_VERSION.*$/\\/\\/&/\" \\\n    ../src/hugin_version.h.in.cmake > ../src/hugin_version.h\n\nif [ \"$HUGIN_DEVELOPMENT_VERSION\" -gt 0 ]\nthen\n echo \"\"                                    >> ../src/hugin_version.h\n echo \"#ifndef HUGIN_DEVELOPMENT_VERSION\"   >> ../src/hugin_version.h\n echo \"#define HUGIN_DEVELOPMENT_VERSION 1\" >> ../src/hugin_version.h\n echo \"#endif\"                              >> ../src/hugin_version.h\nfi";
 		};
 		737D5EE2139BA55700829EED /* create stripped apps for installer */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -10142,7 +10146,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/bin/sh\n\n#  $Id: create_hugin_tools_folder with symlinks $\n\nbinaries=\"align_image_stack autooptimiser celeste_standalone checkpto cpclean cpfind deghosting_mask exiv2 fulla hugin_hdrmerge icpfind linefind matchpoint nona pano_modify pano_trafo pto2mk pto_gen pto_merge PTblender PTcrop PTinfo PTmasker PTmender PToptimizer PTroller PTtiff2psd PTtiffdump PTuncrop tca_correct vig_optimize enfuse enblend gnumake\"\ntarg_folder=\"$TARGET_BUILD_DIR/InstallerFolder/HuginTools\"\n\n#------------------------------------------------\n\nrm -rf \"$targ_folder\"\nmkdir -p \"$targ_folder\"\ncd \"$targ_folder\"\nfor bins in $binaries\ndo\n ln -s \"../Hugin.app/Contents/MacOS/$bins\" \"$bins\"\ndone\n";
+			shellScript = "#!/bin/sh\n\n#  $Id: create_hugin_tools_folder with symlinks $\n\nbinaries=\"align_image_stack autooptimiser celeste_standalone checkpto cpclean cpfind deghosting_mask exiv2 fulla hugin_hdrmerge icpfind linefind matchpoint nona pano_modify pano_trafo pto2mk pto_gen pto_merge PTBatcher PTblender PTcrop PTinfo PTmasker PTmender PToptimizer PTroller PTtiff2psd PTtiffdump PTuncrop tca_correct vig_optimize enfuse enblend gnumake\"\ntarg_folder=\"$TARGET_BUILD_DIR/InstallerFolder/HuginTools\"\n\n#------------------------------------------------\n\nrm -rf \"$targ_folder\"\nmkdir -p \"$targ_folder\"\ncd \"$targ_folder\"\nfor bins in $binaries\ndo\n ln -s \"../Hugin.app/Contents/MacOS/$bins\" \"$bins\"\ndone\n";
 		};
 		73B1AD1313A6A5D1006A3C54 /* let swig create wrapper swigpyrun.h */ = {
 			isa = PBXShellScriptBuildPhase;
