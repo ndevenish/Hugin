@@ -26,6 +26,7 @@
 # 20100831.0 hvdw Upgraded to 1_44
 # 20100920.0 hvdw Add removed libboost_system again and add iostreams and regex
 # 20100920.1 hvdw Add date_time as well
+# 20111230.0 hvdw Adapt for versions >= 1.46. slightly different source tree structure
 # -------------------------------
 
 fail()
@@ -34,8 +35,12 @@ fail()
         exit 1
 }
 
+# Uncomment correct version
+#BOOST_VER="1_44"
+#BOOST_VER="1_46"
+BOOST_VER="1_48"
 
-BOOST_VER="1_44"
+echo "\n## Version set to $BOOST_VER ##\n"
 
 # install headers
 
@@ -43,14 +48,21 @@ mkdir -p "$REPOSITORYDIR/include"
 rm -rf "$REPOSITORYDIR/include/boost";
 cp -R "./boost" "$REPOSITORYDIR/include/";
 
-
-# compile bjam
-
-cd "./tools/jam/src";
-sh "build.sh";
-cd "../../../";
-BJAM=$(ls ./tools/jam/src/bin.mac*/bjam)
-
+echo "## First compiling bjam ##\n"
+if [ $BOOST_VER > "1_45" ]
+then
+ cd "./tools/build/v2/engine"
+ sh "build.sh"
+ cd "../../../../"
+ BJAM=$(ls ./tools/build/v2/engine/bin.mac*/bjam)
+else
+ # For versions < 1.48
+ cd "./tools/jam/src";
+ sh "build.sh";
+ cd "../../../";
+ BJAM=$(ls ./tools/jam/src/bin.mac*/bjam)
+fi
+echo "## Done compiling bjam ##"
 
 # init
 
@@ -68,7 +80,7 @@ mkdir -p "$REPOSITORYDIR/lib";
 
 for ARCH in $ARCHS
 do
-
+ echo "\n## Now building architecture $ARCH ##\n"
  rm -rf "stage-$ARCH";
  mkdir -p "stage-$ARCH";
 
@@ -121,18 +133,6 @@ then
   boostTOOLSET="--user-config=./TEMP-userconf.jam"
  fi
  
- # hack that sends extra arguments to g++
-# $BJAM -a --stagedir="stage-$ARCH" --prefix=$REPOSITORYDIR $boostTOOLSET -n stage \
-#  --with-thread --with-filesystem \
-#  variant=release link=static \
-#  architecture="$boostARCHITECTURE" address-model="$boostADDRESSMODEL" \
-#  macosx-version="$SDKVRSION" macosx-version-min="$OSVERSION" \
-#  | grep "^    " | sed 's/"//g' | sed s/$CXX/$CXX\ "$OPTIMIZE"/ | sed 's/-O3/-O2/g' \
-#  | while read COMMAND
-#    do
-#     echo "running command: $COMMAND"
-#     $COMMAND
-#    done;
  
  # hack that sends extra arguments to g++
  $BJAM -a --stagedir="stage-$ARCH" --prefix=$REPOSITORYDIR $boostTOOLSET -n stage \
