@@ -27,6 +27,7 @@
 # 20100920.0 hvdw Add removed libboost_system again and add iostreams and regex
 # 20100920.1 hvdw Add date_time as well
 # 20111230.0 hvdw Adapt for versions >= 1.46. slightly different source tree structure
+# 20111230.1 hvdw Correct stupid typo
 # -------------------------------
 
 fail()
@@ -56,7 +57,7 @@ then
  cd "../../../../"
  BJAM=$(ls ./tools/build/v2/engine/bin.mac*/bjam)
 else
- # For versions < 1.48
+ # For versions < 1.46
  cd "./tools/jam/src";
  sh "build.sh";
  cd "../../../";
