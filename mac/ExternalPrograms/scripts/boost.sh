@@ -47,6 +47,8 @@ echo "\n## Version set to $BOOST_VER ##\n"
 
 mkdir -p "$REPOSITORYDIR/include"
 rm -rf "$REPOSITORYDIR/include/boost";
+echo "\n## First copying all boost includes to $REPOSITORYDIR/include/ ##"
+echo "## This will take some time ##\n"
 cp -R "./boost" "$REPOSITORYDIR/include/";
 
 echo "## First compiling bjam ##\n"
