@@ -21,6 +21,7 @@
 # -------------------------------
 # 20111231.0 hvdw first version. Still experimental. Don't know which
 #		  cross arch settings are necessary and which not.
+# 20120106.0 hvdw adaprt for version 0.2
 # -------------------------------
 
 # init
@@ -106,12 +107,12 @@ do
  echo "## Now compiling $ARCH version ##\n"
  env \
    CC=$CC CXX=$CXX \
-   CFLAGS="-isysroot $MACSDKDIR -I. -I$REPOSITORYDIR/include -O -arch $ARCH $ARCHARGs $OTHERARGs -dead_strip" \
-   CXXFLAGS="-isysroot $MACSDKDIR -I. -I$REPOSITORYDIR/include -O -arch $ARCH $ARCHARGs $OTHERARGs -dead_strip" \
+   CFLAGS="-isysroot $MACSDKDIR -I. -I$REPOSITORYDIR/include -O2 -arch $ARCH $ARCHARGs $OTHERARGs -dead_strip" \
+   CXXFLAGS="-isysroot $MACSDKDIR -I. -I$REPOSITORYDIR/include -O2 -arch $ARCH $ARCHARGs $OTHERARGs -dead_strip" \
    CPPFLAGS="-I. -I$REPOSITORYDIR/include -I/usr/include" \
    LDFLAGS="-ltiff -ljpeg -L$REPOSITORYDIR/lib -L/usr/lib -mmacosx-version-min=$OSVERSION -dead_strip" \
    NEXT_ROOT="$MACSDKDIR" \
-   $CXX -L$REPOSITORYDIR/lib/ -O -I$REPOSITORYDIR/include/ -I$MACSDKDIR/usr/include -isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs \
+   $CXX -L$REPOSITORYDIR/lib/ -O2 -I$REPOSITORYDIR/include/ -I$MACSDKDIR/usr/include -isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs \
    -ltiff -ljpeg multiblend.cpp -o multiblend || fail "compile step for $ARCH";
 
    mv multiblend $REPOSITORYDIR/arch/$ARCH/bin 
