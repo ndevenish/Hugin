@@ -28,6 +28,12 @@
 
 # init
 
+fail()
+{
+        echo "** Failed at $1 **"
+        exit 1
+}
+
 # Fancy doc builds on Enblend 3.2 are doomed to failure, so don't even try...
 AC_INIT=$(grep AC_INIT Configure.in)
 TEX=$(which tex)
@@ -127,9 +133,8 @@ do
    PKG_CONFIG_PATH="$REPOSITORYDIR/lib/pkgconfig" \
    ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
      --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH --with-apple-opengl-framework \
-     --disable-image-cache --enable-openmp=yes \
-     --with-glew $extraConfig \
-   ;
+     --disable-image-cache --enable-openmp \
+     --with-glew $extraConfig || fail "configure step for $ARCH";
 
  # hack; AC_FUNC_MALLOC sucks!!
 
@@ -147,8 +152,8 @@ do
  sed -e "s/-O[0-9]/-O3/g" "src/Makefile.bak" > src/Makefile
 
  make clean;
- make all $extraBuild ;
- make install $extraInstall ;
+ make all $extraBuild || fail "failed at make step of $ARCH";
+ make install $extraInstall || fail "failed at make install step of $ARCH";
  
 done
 
