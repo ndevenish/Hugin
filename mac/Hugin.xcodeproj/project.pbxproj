@@ -14228,6 +14228,7 @@
 					"-framework",
 					Foundation,
 				);
+				PER_ARCH_CFLAGS_x86_64 = "-march=core2 -mtune=core2 -ftree-vectorize";
 				PREBINDING = YES;
 				PRODUCT_NAME = cpfind;
 				ZERO_LINK = NO;

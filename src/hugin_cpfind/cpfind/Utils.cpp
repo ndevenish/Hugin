@@ -67,7 +67,7 @@ unsigned long long utils::getTotalMemory()
 #elif defined __APPLE__
 unsigned long long utils::getTotalMemory()
 {
-    long ramSize;
+    SInt32 ramSize;
     if(Gestalt(gestaltPhysicalRAMSizeInMegabytes, &ramSize)==noErr)
     {
         return ramSize * 1024 * 1024;
