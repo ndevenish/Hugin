@@ -751,7 +751,7 @@ msgid ""
 msgstr ""
 "コントロールポイントを生成します。\n"
 "生成される数を減らすには、\n"
-"値を大きくして下さい。\n"
+"値を大きくして下さい。"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1578
 msgid "Corner Detection threshold"
