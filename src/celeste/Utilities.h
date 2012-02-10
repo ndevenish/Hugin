@@ -33,6 +33,8 @@ Copyright (c) 2002-3 Adriaan Tijsseling
 #include <stdio.h>
 #ifdef _WINDOWS
 #include "direct.h"
+#else
+#include <unistd.h>
 #endif
 
 using namespace std; 
