@@ -24,7 +24,7 @@
 #include "PhotometricOptimizer.h"
 
 #include <fstream>
-#include <levmar/lm.h>
+#include <foreign/levmar/lm.h>
 #include <photometric/ResponseTransform.h>
 
 #ifdef DEBUG

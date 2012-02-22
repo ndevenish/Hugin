@@ -50,7 +50,7 @@
 #include <panotools/PanoToolsOptimizerWrapper.h>
 #include <algorithms/optimizer/PTOptimizer.h>
 #include <nona/Stitcher.h>
-#include <levmar/lm.h>
+#include <foreign/levmar/lm.h>
 
 #include <hugin_version.h>
 

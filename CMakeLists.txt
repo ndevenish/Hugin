@@ -107,7 +107,6 @@ set(HUGIN_LIB_VERSION 0.0)
 
 include_directories( ${CMAKE_BINARY_DIR}/src )
 include_directories( ${CMAKE_SOURCE_DIR}/src/hugin_base )
-include_directories( ${CMAKE_SOURCE_DIR}/src/foreign )
 include_directories( ${CMAKE_SOURCE_DIR}/src/foreign/vigra )
 include_directories( ${CMAKE_SOURCE_DIR}/src/celeste )
 include_directories( ${CMAKE_BINARY_DIR}/src/celeste )
@@ -288,6 +287,10 @@ ENDIF(MSGFMT_FOUND)
 FIND_PACKAGE(Threads)
 FIND_PACKAGE(ZThread)
 FIND_PACKAGE(flann)
+
+IF(NOT FLANN_FOUND)
+  INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/src/foreign)
+ENDIF(NOT FLANN_FOUND)
 
 IF(WIN32)
   # HTML Helpworkshop for creating help file

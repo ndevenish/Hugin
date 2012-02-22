@@ -45,7 +45,7 @@
 
 #include <hugin_basic.h>
 
-#include <lensdb/PTLensDB.h>
+#include <foreign/lensdb/PTLensDB.h>
 
 #include <tiffio.h>
 #include <vigra_ext/MultiThreadOperations.h>
