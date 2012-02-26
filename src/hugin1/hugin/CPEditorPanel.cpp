@@ -1310,6 +1310,8 @@ void CPEditorPanel::UpdateDisplay(bool newPair)
 
 void CPEditorPanel::EnablePointEdit(bool state)
 {
+    m_delButton->Enable(state);
+    XRCCTRL(*this, "cp_editor_finetune_button", wxButton)->Enable(state);
     m_x1Text->Enable(state);
     m_y1Text->Enable(state);
     m_x2Text->Enable(state);
@@ -1405,6 +1407,7 @@ void CPEditorPanel::OnCPListSelect(wxListEvent & ev)
         SelectLocalPoint((unsigned int) t);
         changeState(NO_POINT);
     }
+    EnablePointEdit(true);
 }
 
 void CPEditorPanel::OnCPListDeselect(wxListEvent & ev)
@@ -1414,9 +1417,6 @@ void CPEditorPanel::OnCPListDeselect(wxListEvent & ev)
     // interaction with control point table
     // e.g. m_selectedPoint=UINT_MAX will result in a endless loop and crash
     changeState(NO_POINT);
-    m_addButton->Disable();
-    m_delButton->Disable();
-    XRCCTRL(*this, "cp_editor_finetune_button", wxButton)->Disable();
     EnablePointEdit(false);
     m_leftImg->deselect();
     m_rightImg->deselect();
