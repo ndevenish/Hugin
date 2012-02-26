@@ -576,6 +576,7 @@ void Batch::OnProcessTerminate(wxProcessEvent& event)
                 if(autoremove)
                 {
                     RemoveProjectAtIndex(i);
+                    SaveTemp();
                     notifyParent=true;
                 };
                 if(notifyParent)
@@ -589,6 +590,7 @@ void Batch::OnProcessTerminate(wxProcessEvent& event)
         {
             if(AllDone())
             {
+                SaveTemp();
                 m_running = false;
                 if(NoErrors())
                 {
