@@ -84,7 +84,7 @@ vigra::BImage* detectEdges(UInt8RGBImage input,double scale,double threshold,uns
 
     // Convert to greyscale
     BImage grey(scaled.width(), scaled.height());
-    copyImage(srcImageRange(scaled, RGBToGrayAccessor<RGBValue<UInt16> >()), destImage(grey));
+    copyImage(srcImageRange(scaled, RGBToGrayAccessor<RGBValue<UInt8> >()), destImage(grey));
 
     // Run Canny edge detector
     BImage* image=new BImage(grey.width(), grey.height(), 255);

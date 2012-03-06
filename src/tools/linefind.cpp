@@ -35,6 +35,10 @@
 #include <panodata/Panorama.h>
 #include <lines/FindLines.h>
 #include <vigra/impex.hxx>
+#include <vigra_ext/impexalpha.hxx>
+#include <vigra/functorexpression.hxx>
+#include <vigra_ext/utils.h>
+
 extern "C"
 {
 #include <pano13/filter.h>
@@ -72,6 +76,121 @@ static int ptinfoDlg( int command, char* argument )
 {
     return 1;
 }
+
+/** converts the given image to UInt16RGBImage
+ *  only this image is correctly processed by celeste
+ *  @param src input image
+ *  @param origType pixel type of input image
+ *  @param dest converted image
+ */
+template <class SrcIMG>
+void convertToUInt8(SrcIMG & src, const std::string & origType, vigra::UInt8RGBImage & dest)
+{
+    dest.resize(src.size());
+    long newMax=vigra_ext::getMaxValForPixelType("UINT8");
+    // float needs to be from min ... max.
+    if (origType == "FLOAT" || origType == "DOUBLE")
+    {
+        /** @TODO this convert routine scale the input values range into the full scale of UInt16
+         *  this is not fully correct
+         */
+        vigra::RGBToGrayAccessor<vigra::RGBValue<float> > ga;
+        vigra::FindMinMax<float> minmax;   // init functor
+        vigra::inspectImage(srcImageRange(src, ga),
+                            minmax);
+        double minVal = minmax.min;
+        double maxVal = minmax.max;
+        vigra_ext::applyMapping(srcImageRange(src), destImage(dest), minVal, maxVal, 0);
+    }
+    else
+    {
+        vigra::transformImage(srcImageRange(src), destImage(dest),
+            vigra::functor::Arg1()*vigra::functor::Param( newMax/ vigra_ext::getMaxValForPixelType(origType)));
+    };
+}
+
+vigra::UInt8RGBImage loadAndConvertImage(string imagefile)
+{
+    vigra::ImageImportInfo info(imagefile.c_str());
+    std::string pixelType=info.getPixelType();
+    vigra::UInt8RGBImage image;
+    if(pixelType=="UINT8")
+    {
+        image.resize(info.width(),info.height());
+        if(info.numExtraBands()==1)
+        {
+            vigra::BImage mask(info.size());
+            vigra::importImageAlpha(info,destImage(image),destImage(mask));
+            mask.resize(0,0);
+        }
+        else
+        {
+            importImage(info,destImage(image));
+        };
+    }
+    else
+    {
+        if(pixelType=="UINT16" || pixelType=="INT16")
+        {
+            vigra::UInt16RGBImage imageIn(info.width(),info.height());
+            if(info.numExtraBands()==1)
+            {
+                vigra::BImage mask(info.size());
+                vigra::importImageAlpha(info,destImage(imageIn),destImage(mask));
+                mask.resize(0,0);
+            }
+            else
+            {
+                importImage(info,destImage(imageIn));
+            };
+            convertToUInt8(imageIn,pixelType,image);
+            imageIn.resize(0,0);
+        }
+        else
+        {
+            if(pixelType=="INT32" || pixelType=="UINT32")
+            {
+                vigra::UInt32RGBImage imageIn(info.width(),info.height());
+                if(info.numExtraBands()==1)
+                {
+                    vigra::BImage mask(info.size());
+                    vigra::importImageAlpha(info,destImage(imageIn),destImage(mask));
+                    mask.resize(0,0);
+                }
+                else
+                {
+                    importImage(info,destImage(imageIn));
+                };
+                convertToUInt8(imageIn,pixelType,image);
+                imageIn.resize(0,0);
+            }
+            else
+            {
+                if(pixelType=="FLOAT" || pixelType=="DOUBLE")
+                {
+                    vigra::FRGBImage imagefloat(info.width(),info.height());
+                    if(info.numExtraBands()==1)
+                    {
+                        vigra::BImage mask(info.size());
+                        vigra::importImageAlpha(info,destImage(imagefloat),destImage(mask));
+                        mask.resize(0,0);
+                    }
+                    else
+                    {
+                        importImage(info,destImage(imagefloat));
+                    };
+                    convertToUInt8(imagefloat,pixelType,image);
+                    imagefloat.resize(0,0);
+                }
+                else
+                {
+                    std::cerr << "Unsupported pixel type" << std::endl;
+                };
+            };
+        };
+    };
+    return image;
+};
 
 int main(int argc, char* argv[])
 {
@@ -204,9 +323,7 @@ int main(int argc, char* argv[])
     {
         unsigned int imgNr=imagesToProcess[i];
         cout << "Working on image " << pano.getImage(imgNr).getFilename() << endl;
-        vigra::ImageImportInfo imageInfo(pano.getImage(imgNr).getFilename().c_str());
-        vigra::UInt8RGBImage image(imageInfo.width(),imageInfo.height());
-        vigra::importImage(imageInfo,destImage(image));
+        vigra::UInt8RGBImage image=loadAndConvertImage(pano.getImage(imgNr).getFilename().c_str());
         CPVector foundLines=HuginLines::GetVerticalLines(pano,imgNr,image,nrLines);
 #ifndef HAS_PPL
         cout << "Found " << foundLines.size() << " vertical lines" << endl;
