@@ -86,6 +86,42 @@ using namespace hugin_utils;
 #undef FindWindow
 #endif
 
+/** class for showing splash screen
+    the class wxSplashScreen from wxWidgets does not work correctly for our use case, it closes
+    automatically the window if the user presses a key or does mouse clicks. These modified
+    version does ignore these events. The window needs to be explicitly closed by the caller */
+class HuginSplashScreen : public wxFrame
+{
+public:
+    HuginSplashScreen() {};
+    HuginSplashScreen(wxWindow* parent, wxBitmap bitmap) : 
+        wxFrame(parent, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxFRAME_TOOL_WINDOW | wxFRAME_NO_TASKBAR | wxSTAY_ON_TOP)
+    {
+        SetExtraStyle(GetExtraStyle() | wxWS_EX_TRANSIENT);
+        wxSizer* topSizer=new wxBoxSizer(wxVERTICAL);
+        wxStaticBitmap* staticBitmap=new wxStaticBitmap(this,wxID_ANY,bitmap);
+        topSizer->Add(staticBitmap,1,wxEXPAND);
+        SetSizerAndFit(topSizer);
+        SetClientSize(bitmap.GetWidth(), bitmap.GetHeight());
+        CenterOnScreen();
+        Show(true);
+        SetFocus();
+#if defined(__WXMSW__) || defined(__WXMAC__)
+        Update();
+#elif defined(__WXGTK20__)
+        //do nothing
+#else
+        wxYieldIfNeeded();
+#endif
+    };
+    DECLARE_DYNAMIC_CLASS(HuginSplashScreen)
+    DECLARE_EVENT_TABLE()
+};
+
+IMPLEMENT_DYNAMIC_CLASS(HuginSplashScreen, wxFrame)
+BEGIN_EVENT_TABLE(HuginSplashScreen, wxFrame)
+END_EVENT_TABLE()
+
 /** file drag and drop handler method */
 bool PanoDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& filenames)
 {
@@ -226,7 +262,7 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     svmModel=NULL;
 
     wxBitmap bitmap;
-    wxSplashScreen* splash = 0;
+    HuginSplashScreen* splash = 0;
     wxYield();
 
     if (bitmap.LoadFile(huginApp::Get()->GetXRCPath() + wxT("data/splash.png"), wxBITMAP_TYPE_PNG))
@@ -251,11 +287,7 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
             dc.DrawText(version, bitmap.GetWidth() - tw - 3, bitmap.GetHeight() - th - 3);
         }
 
-        splash = new wxSplashScreen(bitmap,
-                                    wxSPLASH_CENTRE_ON_SCREEN|wxSPLASH_NO_TIMEOUT,
-                                    0, NULL, -1, wxDefaultPosition,
-                                    wxDefaultSize,
-                                    wxSIMPLE_BORDER);
+        splash = new HuginSplashScreen(NULL, bitmap);
     } else {
         wxLogFatalError(_("Fatal installation error\nThe file data/splash.png was not found at:") + huginApp::Get()->GetXRCPath());
         abort();
