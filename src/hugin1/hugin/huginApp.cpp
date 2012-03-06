@@ -67,6 +67,7 @@
 #include <hugin_version.h>
 //for natural sorting
 #include "hugin_utils/alphanum.h"
+#include "lensdb/LensDB.h"
 
 bool checkVersion(wxString v1, wxString v2)
 {
@@ -140,6 +141,7 @@ huginApp::~huginApp()
 	// todo: remove all listeners from the panorama object
 
 //    delete frame;
+    HuginBase::LensDB::LensDB::Clean();
     DEBUG_TRACE("dtor end");
 }
 
@@ -179,6 +181,9 @@ bool huginApp::OnInit()
 
     // locale setup
     locale.AddCatalogLookupPathPrefix(huginRoot + wxT("/share/locale"));
+    // lensfun database init
+    wxString lensfunDBPath=huginRoot + wxT("/share/lensfun");
+    HuginBase::LensDB::LensDB::GetSingleton().SetMainDBPath(std::string(lensfunDBPath.mb_str(HUGIN_CONV_FILENAME)));
 
 #elif defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
     // initialize paths
@@ -326,6 +331,7 @@ bool huginApp::OnInit()
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("optimize_panel.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("pano_panel.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("mask_editor_panel.xrc"));
+    wxXmlResource::Get()->Load(m_xrcPrefix + wxT("lensdb_dialogs.xrc"));
 #endif
 
 #ifdef __WXMAC__

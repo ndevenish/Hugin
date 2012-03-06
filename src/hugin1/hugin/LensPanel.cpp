@@ -49,6 +49,8 @@
 #include "hugin/wxPanoCommand.h"
 //#include "hugin/VigCorrDialog.h"
 #include "hugin/ResetDialog.h"
+#include <wx/arrstr.h>
+#include <base_wx/wxLensDB.h>
 
 using namespace PT;
 using namespace hugin_utils;
@@ -668,6 +670,7 @@ void LensPanel::EnableInputs()
             XRCCTRL(*this, "lens_inherit_R", wxCheckBox)->Enable();
             XRCCTRL(*this, "lens_inherit_Vb", wxCheckBox)->Enable();
             XRCCTRL(*this, "lens_inherit_Vx", wxCheckBox)->Enable();
+            XRCCTRL(*this, "lens_button_load", wxButton)->Enable();
             XRCCTRL(*this, "lens_button_loadEXIF", wxButton)->Enable();
             XRCCTRL(*this, "lens_button_newlens", wxButton)->Enable();
             XRCCTRL(*this, "lens_button_changelens", wxButton)->Enable();
@@ -675,10 +678,6 @@ void LensPanel::EnableInputs()
 
         if (m_selectedImages.size() == 1) {
             // single selection, its parameters
-            // update values
-            unsigned int img = *(m_selectedImages.begin());
-            DEBUG_DEBUG("updating LensPanel with Image " << img);
-            XRCCTRL(*this, "lens_button_load", wxButton)->Enable();
             XRCCTRL(*this, "lens_button_save", wxButton)->Enable();
             UpdateLensDisplay();
         } else {
@@ -715,8 +714,6 @@ void LensPanel::EnableInputs()
             XRCCTRL(*this, "lens_inherit_Vb", wxCheckBox)->SetValue(false);
             XRCCTRL(*this, "lens_inherit_Vx", wxCheckBox)->SetValue(false);
             XRCCTRL(*this, "lens_inherit_R", wxCheckBox)->SetValue(false);
-
-            XRCCTRL(*this, "lens_button_load", wxButton)->Disable();
             XRCCTRL(*this, "lens_button_save", wxButton)->Disable();
         }
     }
@@ -752,12 +749,11 @@ void LensPanel::OnReadExif(wxCommandEvent & e)
 
 }
 
-
-
-void LensPanel::OnSaveLensParameters(wxCommandEvent & e)
+void LensPanel::SaveLensParametersToIni()
 {
     DEBUG_TRACE("")
-    if (m_selectedImages.size() == 1) {
+    if (m_selectedImages.size() == 1)
+    {
         unsigned int imgNr = *(m_selectedImages.begin());
         wxFileDialog dlg(this,
                          _("Save lens parameters file"),
@@ -765,17 +761,55 @@ void LensPanel::OnSaveLensParameters(wxCommandEvent & e)
                          _("Lens Project Files (*.ini)|*.ini|All files (*)|*"),
                          wxFD_SAVE, wxDefaultPosition);
         dlg.SetDirectory(wxConfigBase::Get()->Read(wxT("/lensPath"),wxT("")));
-        if (dlg.ShowModal() == wxID_OK) {
+        if (dlg.ShowModal() == wxID_OK)
+        {
             wxFileName filename(dlg.GetPath());
             if(!filename.HasExt())
+            {
                 filename.SetExt(wxT("ini"));
+            }
             wxConfig::Get()->Write(wxT("/lensPath"), dlg.GetDirectory());  // remember for later
             SaveLensParameters(filename.GetFullPath(),pano,imgNr);
         }
-    } else {
+    }
+    else 
+    {
         wxLogError(_("Please select an image and try again"));
     }
 }
+
+void LensPanel::OnSaveLensParameters(wxCommandEvent & e)
+{
+    if (m_selectedImages.size() == 1)
+    {
+        unsigned int imgNr = *(m_selectedImages.begin());
+        wxArrayString choices;
+        choices.push_back(_("Save lens parameters to ini file"));
+        choices.push_back(_("Save lens parameters to lensfun database"));
+        choices.push_back(_("Save camera parameters to lensfun database"));
+        wxSingleChoiceDialog save_dlg(this,_("Saving lens data"),_("Save lens"),choices);
+        if(save_dlg.ShowModal()==wxID_OK)
+        {
+            switch(save_dlg.GetSelection())
+            {
+                case 1:
+                    SaveLensParameters(this,pano->getImage(imgNr));
+                    break;
+                case 2:
+                    SaveCameraCropFactor(this,pano->getImage(imgNr));
+                    break;
+                case 0:
+                default:
+                    SaveLensParametersToIni();
+                    break;
+            };
+        }
+    }
+    else 
+    {
+        wxLogError(_("Please select an image and try again"));
+    }
+};
 
 void LensPanel::OnLoadLensParameters(wxCommandEvent & e)
 {
@@ -812,9 +846,25 @@ void LensPanel::OnLoadLensParameters(wxCommandEvent & e)
             };
         };
         PT::PanoCommand* cmd=NULL;
-        if(ApplyLensParameters(this,pano,images,cmd))
+        wxArrayString choices;
+        choices.push_back(_("From ini file"));
+        choices.push_back(_("From lensfun database"));
+        wxSingleChoiceDialog load_dlg(this,_("Loading lens data from"),_("Load lens"),choices);
+        if(load_dlg.ShowModal()==wxID_OK)
         {
-            GlobalCmdHist::getInstance().addCommand(cmd);
+            bool isLoaded=false;
+            if(load_dlg.GetSelection()==0)
+            {
+                isLoaded=ApplyLensParameters(this,pano,images,cmd);
+            }
+            else
+            {
+                isLoaded=ApplyLensDBParameters(this,pano,images,cmd);
+            };
+            if(isLoaded)
+            {
+                GlobalCmdHist::getInstance().addCommand(cmd);
+            };
         };
     }
     else

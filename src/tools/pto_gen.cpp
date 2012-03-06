@@ -36,6 +36,7 @@
 #include <algorithms/basic/CalculateMeanExposure.h>
 #include "hugin_utils/alphanum.h"
 #include <vigra/impex.hxx>
+#include <lensdb/LensDB.h>
 
 using namespace std;
 using namespace HuginBase;
@@ -59,6 +60,30 @@ static void usage(const char* name)
          << "     -h, --help             Shows this help" << endl
          << endl;
 }
+
+void InitLensDB()
+{
+#ifdef _WINDOWS
+    char buffer[MAX_PATH];//always use MAX_PATH for filepaths
+    GetModuleFileName(NULL,buffer,sizeof(buffer));
+    string working_path=string(buffer);
+    //remove filename
+    std::string::size_type pos=working_path.rfind("\\");
+    if(pos!=std::string::npos)
+    {
+        working_path.erase(pos);
+        //remove last dir: should be bin
+        pos=working_path.rfind("\\");
+        if(pos!=std::string::npos)
+        {
+            working_path.erase(pos);
+            //append path delimiter and path
+            working_path.append("\\share\\lensfun\\");
+            HuginBase::LensDB::LensDB::GetSingleton().SetMainDBPath(working_path);
+        }
+    }
+#endif
+};
 
 int main(int argc, char* argv[])
 {
@@ -231,6 +256,11 @@ int main(int argc, char* argv[])
     //sort filenames
     sort(filelist.begin(),filelist.end(),doj::alphanum_less());
 
+    if(projection<0)
+    {
+        InitLensDB();
+    };
+
     Panorama pano;
     for(size_t i=0; i<filelist.size();i++)
     {
@@ -239,6 +269,10 @@ int main(int argc, char* argv[])
         if(projection>=0)
         {
             srcImage.setProjection((HuginBase::BaseSrcPanoImage::Projection)projection);
+        }
+        else
+        {
+            srcImage.readProjectionFromDB();
         };
         if(fov>0)
         {
@@ -297,6 +331,7 @@ int main(int argc, char* argv[])
     if(pano.getNrOfImages()==0)
     {
         cerr << "Adding images to project files failed." << endl;
+        HuginBase::LensDB::LensDB::Clean();
         return 1;
     };
 
@@ -403,5 +438,6 @@ int main(int argc, char* argv[])
     pano.printPanoramaScript(of, pano.getOptimizeVector(), pano.getOptions(), imgs, false, hugin_utils::getPathPrefix(output));
 
     cout << endl << "Written output to " << output << endl;
+    HuginBase::LensDB::LensDB::Clean();
     return 0;
 }

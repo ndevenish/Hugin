@@ -21,7 +21,8 @@ SET(XRCFILES
     batch_frame.xrc
     batch_menu.xrc
     batch_toolbar.xrc
-    lenscal_frame.xrc)
+    lenscal_frame.xrc
+    lensdb_dialogs.xrc)
 
 
 INSTALL(FILES ${XRCFILES} DESTINATION ${HUGINDATADIR}/xrc)

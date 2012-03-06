@@ -107,6 +107,8 @@ class LensPanel: public wxPanel, public PT::PanoramaObserver
     void OnReadExif(wxCommandEvent & e);
 
     /** save the current lens parameters to a simple ini file */
+    void SaveLensParametersToIni();
+    /** saves the current lens parameters to database or ini file */
     void OnSaveLensParameters(wxCommandEvent & e);
 
     /** load the lens parameters for a file */

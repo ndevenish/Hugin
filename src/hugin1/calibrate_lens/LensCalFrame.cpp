@@ -37,6 +37,8 @@
 #include "LensCalApp.h"
 #include "hugin/config_defaults.h"
 #include <algorithms/optimizer/PTOptimizer.h>
+#include "lensdb/LensDB.h"
+#include "base_wx/wxLensDB.h"
 
 using namespace HuginBase;
 
@@ -235,6 +237,7 @@ LensCalFrame::~LensCalFrame()
         delete m_images[i];
     };
     m_images.clear();
+    LensDB::LensDB::Clean();
     DEBUG_TRACE("dtor end");
 }
 
@@ -377,6 +380,7 @@ void LensCalFrame::AddImages(wxArrayString files)
             XRCCTRL(*this,"lenscal_cropfactor",wxTextCtrl)->SetValue(
                 hugin_utils::doubleTowxString(image->GetPanoImage()->getExifCropFactor(),2)
                 );
+            SelectProjection(m_choice_projection,image->GetPanoImage()->getProjection());
         };
     }
     UpdateList(false);
@@ -721,22 +725,8 @@ void LensCalFrame::Optimize()
     SetStatusText(_("Finished"));
 };
 
-void LensCalFrame::OnSaveLens(wxCommandEvent &e)
+void LensCalFrame::SaveLensToIni()
 {
-    if(!ReadInputs(true,false,true))
-    {
-        wxMessageBox(_("There are invalid values in the input boxes.\nPlease check your inputs."),_("Warning"),wxOK | wxICON_INFORMATION, this);
-        return;
-    }
-    unsigned int count=0;
-    for(unsigned int i=0;i<m_images.size();i++)
-        count+=m_images[i]->GetNrOfValidLines();
-    if(count==0)
-    {
-        wxMessageBox(_("There are no detected lines.\nPlease run \"Find lines\" and \"Optimize\" before saving the lens data. If there are no lines found, change the parameters."),_("Warning"),wxOK  | wxICON_INFORMATION, this);
-        return;
-    };
-
     wxFileDialog dlg(this,
                         _("Save lens parameters file"),
                         wxConfigBase::Get()->Read(wxT("/lensPath"),wxT("")), wxT(""),
@@ -761,6 +751,40 @@ void LensCalFrame::OnSaveLens(wxCommandEvent &e)
         Panorama pano=GetPanorama();
         SaveLensParameters(filename.GetFullPath(),&pano,0);
     }
+};
+
+void LensCalFrame::OnSaveLens(wxCommandEvent &e)
+{
+    if(!ReadInputs(true,false,true))
+    {
+        wxMessageBox(_("There are invalid values in the input boxes.\nPlease check your inputs."),_("Warning"),wxOK | wxICON_INFORMATION, this);
+        return;
+    }
+    unsigned int count=0;
+    for(unsigned int i=0;i<m_images.size();i++)
+        count+=m_images[i]->GetNrOfValidLines();
+    if(count==0)
+    {
+        wxMessageBox(_("There are no detected lines.\nPlease run \"Find lines\" and \"Optimize\" before saving the lens data. If there are no lines found, change the parameters."),_("Warning"),wxOK  | wxICON_INFORMATION, this);
+        return;
+    };
+
+    wxArrayString choices;
+    choices.push_back(_("Save lens parameters to ini file"));
+    choices.push_back(_("Save lens parameters to lensfun database"));
+    wxSingleChoiceDialog save_dlg(this,_("Saving lens data"),_("Save lens"),choices);
+    if(save_dlg.ShowModal()==wxID_OK)
+    {
+        if(save_dlg.GetSelection()==0)
+        {
+            SaveLensToIni();
+        }
+        else
+        {
+            Panorama pano=GetPanorama();
+            SaveLensParameters(this,pano.getImage(0),false);
+        };
+    };
 };
 
 void LensCalFrame::OnSaveProject(wxCommandEvent &e)

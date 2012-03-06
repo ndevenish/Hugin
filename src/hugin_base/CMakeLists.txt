@@ -35,6 +35,7 @@ hugin_math/Vector3.cpp
 hugin_utils/alphanum.cpp
 hugin_utils/utils.cpp
 hugin_utils/platform.cpp
+lensdb/LensDB.cpp
 nona/SpaceTransform.cpp
 nona/Stitcher1.cpp
 nona/Stitcher2.cpp
@@ -98,6 +99,7 @@ hugin_math/Vector3.h
 hugin_utils/alphanum.h
 hugin_utils/utils.h
 hugin_utils/platform.h
+lensdb/LensDB.h
 nona/ImageRemapper.h
 nona/RemappedPanoImage.h
 nona/SpaceTransform.h
@@ -142,7 +144,8 @@ ENDIF (${HUGIN_SHARED_LIBS})
 TARGET_LINK_LIBRARIES(huginbase huginlevmar huginvigraimpex makefilelib
         ${Boost_LIBRARIES} ${EXIV2_LIBRARIES} ${PANO_LIBRARIES}
         ${TIFF_LIBRARIES} ${LAPACK_LIBRARIES} ${GLEW_LIBRARIES}
-        ${OPENGL_LIBRARIES} ${GLUT_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
+        ${OPENGL_LIBRARIES} ${GLUT_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT}
+        ${LENSFUN_LIBRARIES} )
         
 add_subdirectory(makefilelib)
 add_subdirectory(lines)

@@ -79,6 +79,7 @@ private:
     void OnRemoveImage(wxCommandEvent &e);
     void OnFindLines(wxCommandEvent &e);
     void OnOptimize(wxCommandEvent &e);
+    void SaveLensToIni();
     void OnSaveLens(wxCommandEvent &e);
     void OnSaveProject(wxCommandEvent &e);
     void OnImageSelected(wxCommandEvent &e);

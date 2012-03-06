@@ -28,6 +28,7 @@
 #ifdef __WXMSW__
 #include "wx/cshelp.h"
 #endif
+#include "lensdb/LensDB.h"
 
 // make wxwindows use this class as the main application
 IMPLEMENT_APP(PTBatcherGUI)
@@ -60,6 +61,9 @@ bool PTBatcherGUI::OnInit()
     wxString huginRoot;
     wxFileName::SplitPath(huginExeDir, &huginRoot, NULL, NULL);
     m_xrcPrefix = wxString(huginRoot + wxT("/share/hugin/xrc/"));
+    // lensfun database init
+    wxString lensfunDBPath=huginRoot + wxT("/share/lensfun");
+    HuginBase::LensDB::LensDB::GetSingleton().SetMainDBPath(std::string(lensfunDBPath.mb_str(HUGIN_CONV_FILENAME)));
 
     // locale setup
     m_locale.AddCatalogLookupPathPrefix(huginRoot + wxT("/share/locale"));
@@ -117,6 +121,7 @@ bool PTBatcherGUI::OnInit()
         wxXmlResource::Get()->Load(m_xrcPrefix + wxT("batch_frame.xrc"));
         wxXmlResource::Get()->Load(m_xrcPrefix + wxT("batch_toolbar.xrc"));
         wxXmlResource::Get()->Load(m_xrcPrefix + wxT("batch_menu.xrc"));
+        wxXmlResource::Get()->Load(m_xrcPrefix + wxT("lensdb_dialogs.xrc"));
     };
 
     // parse arguments
@@ -389,6 +394,7 @@ bool PTBatcherGUI::OnInit()
 
 int PTBatcherGUI::OnExit()
 {
+    HuginBase::LensDB::LensDB::Clean();
     delete m_checker;
     delete m_server;
     return 0;

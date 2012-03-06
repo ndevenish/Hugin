@@ -193,6 +193,11 @@ void wxAddImagesCmd::execute()
         srcImg.setWhiteBalanceRed(1);
         srcImg.setWhiteBalanceBlue(1);
         bool ok = srcImg.readEXIF(focalLength, cropFactor, true, true);
+        if(cropFactor<=0)
+        {
+            srcImg.readCropfactorFromDB();
+            ok=(srcImg.getExifFocalLength()>0 && srcImg.getExifCropFactor()>0);
+        };
         if (srcImg.getSize().x == 0 || srcImg.getSize().y == 0) {
             wxMessageBox(wxString::Format(_("Could not decode image:\n%s\nAbort"), fname.c_str()), _("Unsupported image file format"));
             return;
@@ -250,6 +255,7 @@ void wxAddImagesCmd::execute()
         int matchingLensNr=-1;
         // if no similar image found, ask user
         if (! ok) {
+            srcImg.readProjectionFromDB();
             if (!getLensDataFromUser(MainFrame::Get(), srcImg, focalLength, cropFactor)) {
                 // assume a standart lens
                 srcImg.setHFOV(50);
@@ -309,6 +315,7 @@ void wxAddImagesCmd::execute()
         // If matchingLensNr == -1 still, we haven't found a good lens to use.
         // We shouldn't attach the image to a lens in this case, it will have
         // its own new lens.
+        srcImg.readProjectionFromDB();
         int imgNr = pano.addImage(srcImg);
         variable_groups.update();
         if (matchingLensNr != -1)

@@ -305,6 +305,9 @@ IF(NOT TCLAP_FOUND)
   MESSAGE(FATAL_ERROR "Tclap library not found")
 ENDIF(NOT TCLAP_FOUND)
 
+FIND_PACKAGE(Lensfun REQUIRED)
+INCLUDE_DIRECTORIES(${LENSFUN_INCLUDE_DIR})
+
 OPTION(BUILD_HSI "Python Scripting Interface" OFF)
 IF(BUILD_HSI)
   # find Python first because the version of SWIG required depends on the

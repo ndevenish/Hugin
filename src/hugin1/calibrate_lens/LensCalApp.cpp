@@ -33,6 +33,7 @@
 #include "base_wx/huginConfig.h"
 #include "hugin/config_defaults.h"
 #include "base_wx/PTWXDlg.h"
+#include "lensdb/LensDB.h"
 
 #include <tiffio.h>
 
@@ -53,6 +54,9 @@ bool LensCalApp::OnInit()
     wxString huginRoot;
     wxFileName::SplitPath( huginExeDir, &huginRoot, NULL, NULL );
     m_xrcPrefix = huginRoot + wxT("/share/hugin/xrc/");
+    // lensfun database init
+    wxString lensfunDBPath=huginRoot + wxT("/share/lensfun");
+    HuginBase::LensDB::LensDB::GetSingleton().SetMainDBPath(std::string(lensfunDBPath.mb_str(HUGIN_CONV_FILENAME)));
     // locale setup
     locale.AddCatalogLookupPathPrefix(huginRoot + wxT("/share/locale"));
 #elif defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
@@ -114,6 +118,7 @@ bool LensCalApp::OnInit()
     wxXmlResource::Get()->AddHandler(new LensCalImageCtrlXmlHandler());
     // load XRC files
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("lenscal_frame.xrc"));
+    wxXmlResource::Get()->Load(m_xrcPrefix + wxT("lensdb_dialogs.xrc"));
 
     // create main frame
     m_frame = new LensCalFrame(NULL);

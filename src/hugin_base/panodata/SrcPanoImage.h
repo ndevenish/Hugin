@@ -383,6 +383,15 @@ public:
     /** updates the crop factor, the hfov is calculates so that focal length remains the same */
     void updateCropFactor(double focalLength, double newCropFactor);
 
+    /** tries to read cropfactor from lensfun database
+        you need to call SrcPanoImage::readEXIF before to fill some values 
+        @return true, if information could be read from database */
+    bool readCropfactorFromDB();
+    /** tries to read projection and crop area from lensfun database
+        you need to call SrcPanoImage::readEXIF before to fill some values 
+        @return true, if information could be read from database */
+    bool readProjectionFromDB();
+
     /** returns true, if image has masks associated */
     bool hasMasks() const;
     /** returns true, if image has positive masks */

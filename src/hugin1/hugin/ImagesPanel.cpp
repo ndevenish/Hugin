@@ -605,19 +605,19 @@ void ImagesPanel::ShowExifInfo(unsigned int imgNr)
         SetLabel(wxFileName(wxString(val.c_str(),HUGIN_CONV_FILENAME)).GetFullName());
 
     val = img.getExifMake();
-    if(val!="Unknown")
+    if(!val.empty())
     {
         XRCCTRL(*this, "images_camera_make",wxStaticText)->SetLabel(wxString(val.c_str(),wxConvLocal));
     };
 
     val = img.getExifModel();
-    if(val!="Unknown")
+    if(!val.empty())
     {
         XRCCTRL(*this, "images_camera_model",wxStaticText)->SetLabel(wxString(val.c_str(),wxConvLocal));
     };
 
     val = img.getExifLens();
-    if(val!="Unknown")
+    if(!val.empty())
     {
         XRCCTRL(*this, "images_lens",wxStaticText)->SetLabel(wxString(val.c_str(),wxConvLocal));
     };
