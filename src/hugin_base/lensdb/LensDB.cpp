@@ -24,6 +24,7 @@
 #include "LensDB.h"
 #include <boost/filesystem.hpp>
 #include <iostream>
+#include <hugin_utils/stl_utils.h>
 
 // minimum version for all features is 0.2.5.1, for earlierer version only a subset of the functions
 // is supported
@@ -61,6 +62,7 @@ LensDB::LensDB()
     m_newDB=NULL;
     m_updatedLenses=NULL;
     m_currentLens=NULL;
+    m_updatedMounts=NULL;
 };
 
 LensDB::~LensDB()
@@ -210,7 +212,7 @@ bool LensDB::GetCropFactor(std::string maker, std::string model, double &cropFac
     return cropFactor>0;
 };
 
-bool LensDB::FindLens(std::string lens)
+bool LensDB::FindLens(std::string camMaker, std::string camModel, std::string lens)
 {
     if(m_lenses!=NULL)
     {
@@ -222,7 +224,26 @@ bool LensDB::FindLens(std::string lens)
     {
         return false;
     };
-    m_lenses=m_db->FindLenses(NULL,NULL,lens.c_str());
+    if(camMaker.empty() && camModel.empty() && lens.empty())
+    {
+        return false;
+    };
+    if(lens.empty() || hugin_utils::tolower(lens)=="standard")
+    {
+        const lfCamera** cam=m_db->FindCameras(camMaker.c_str(),camModel.c_str());
+        if(cam)
+        {
+            m_lenses=m_db->FindLenses(cam[0],NULL,"Standard");
+        }
+        else
+        {
+            return false;
+        };
+    }
+    else
+    {
+        m_lenses=m_db->FindLenses(NULL,NULL,lens.c_str());
+    };
     if(m_lenses)
     {
         return true;
@@ -261,7 +282,7 @@ bool LensDB::CheckLensAperture(double aperture)
     };
 };
 
-bool LensDB::FindLenses(std::string lensname, LensDBList &foundLenses, bool fuzzy)
+bool LensDB::FindLenses(std::string camMaker, std::string camModel, std::string lensname, LensDBList &foundLenses, bool fuzzy)
 {
     InitDB();
     if(!m_initialized)
@@ -269,20 +290,54 @@ bool LensDB::FindLenses(std::string lensname, LensDBList &foundLenses, bool fuzz
         return false;
     };
     foundLenses.clear();
+    if(camMaker.empty() && camModel.empty() && lensname.empty())
+    {
+        return false;
+    };
+    const lfLens **lenses;
     int searchFlag=fuzzy ? LF_SEARCH_LOOSE : 0;
-    const lfLens **lenses=m_db->FindLenses(NULL,NULL,lensname.c_str(),searchFlag);
+    if(lensname.empty() || hugin_utils::tolower(lensname)=="standard")
+    {
+        const lfCamera** cam=m_db->FindCameras(camMaker.c_str(),camModel.c_str());
+        if(cam)
+        {
+            lenses=m_db->FindLenses(cam[0],NULL,"Standard",searchFlag);
+        }
+        else
+        {
+            return false;
+        };
+    }
+    else
+    {
+        lenses=m_db->FindLenses(NULL,NULL,lensname.c_str(),searchFlag);
+    };
+
+    //const lfLens **lenses=m_db->FindLenses(NULL,NULL,lensname.c_str(),searchFlag);
     if(lenses)
     {
         for(int i=0;lenses[i];i++)
         {
-            foundLenses.push_back(lenses[i]->Model);
+            LensListItem item;
+            item.cameraMaker=camMaker;
+            item.cameraModel=camModel;
+            item.lensname=lenses[i]->Model;
+            if(item.lensname=="Standard")
+            {
+                item.displayString=camModel + " (" + camMaker + ")";
+            }
+            else
+            {
+                item.displayString=lenses[i]->Model;
+            };
+            foundLenses.push_back(item);
         }
     };
     lf_free(lenses);
     return foundLenses.size()>0;
 };
 
-bool LensDB::GetMounts(LensDBList &foundMounts)
+bool LensDB::GetMounts(std::vector<std::string> &foundMounts)
 {
     InitDB();
     if(!m_initialized)
@@ -581,19 +636,28 @@ bool LensDB::SaveCameraCrop(std::string filename, std::string maker, std::string
     setlocale(LC_NUMERIC,"C");
 #endif
 
-    lfDatabase* newDB=lf_db_new();
+    if(m_newDB!=NULL)
+    {
+        CleanSaveInformation();
+    };
+    m_newDB=lf_db_new();
+    if(!m_newDB)
+    {
+        m_newDB=NULL;
+        return false;
+    };
     // load if file exists already
     basic_path p(filename);
     if(boost::filesystem::exists(p))
     {
         if(boost::filesystem::is_regular_file(p))
         {
-            newDB->Load(filename.c_str());
+            m_newDB->Load(filename.c_str());
             //ignore errors
         };
     };
     // check if camera is already in db
-    const lfCamera **oldCameras=newDB->FindCameras(maker.c_str(),model.c_str());
+    const lfCamera **oldCameras=m_newDB->FindCameras(maker.c_str(),model.c_str());
     bool updateCam=false;
     if(oldCameras)
     {
@@ -603,8 +667,15 @@ bool LensDB::SaveCameraCrop(std::string filename, std::string maker, std::string
         };
     };
 
+    //check, if we have a new mount
+    bool newMount=false;
+    if(!updateCam)
+    {
+        newMount=IsNewMount(mount);
+    };
+
     //count, how many cameras are in the db
-    const lfCamera *const* allCameras=newDB->GetCameras();
+    const lfCamera *const* allCameras=m_newDB->GetCameras();
     size_t nrCam=0;
     if(allCameras)
     {
@@ -657,7 +728,15 @@ bool LensDB::SaveCameraCrop(std::string filename, std::string maker, std::string
     };
 
     //finally save
-    lfError e=newDB->Save(filename.c_str(),newDB->GetMounts(),updatedCams,newDB->GetLenses());
+    lfError e;
+    if(newMount)
+    {
+        e=m_newDB->Save(filename.c_str(), m_updatedMounts, updatedCams, m_newDB->GetLenses());
+    }
+    else
+    {
+        e=m_newDB->Save(filename.c_str(),m_newDB->GetMounts(),updatedCams,m_newDB->GetLenses());
+    };
     //cleanup
     if (updatedCams)
     {
@@ -671,7 +750,8 @@ bool LensDB::SaveCameraCrop(std::string filename, std::string maker, std::string
     setlocale(LC_NUMERIC, old_locale);
     free(old_locale);
 #endif
-    newDB->Destroy();
+    m_newDB->Destroy();
+    m_newDB=NULL;
     return e==LF_NO_ERROR;
 };
 
@@ -739,6 +819,10 @@ int LensDB::BeginSaveLens(std::string filename, std::string maker, std::string l
             m_newDB->Destroy();
             return 3;
         };
+    }
+    else
+    {
+        IsNewMount(mount);
     };
 
     //count, how many lenses are in the db
@@ -977,7 +1061,14 @@ bool LensDB::EndSaveLens()
         setlocale(LC_NUMERIC,"C");
 #endif
         m_currentLens->Check();
-        e=m_newDB->Save(m_lensFilename.c_str(),m_newDB->GetMounts(),m_newDB->GetCameras(),m_updatedLenses);
+        if(m_updatedMounts!=NULL)
+        {
+            e=m_newDB->Save(m_lensFilename.c_str(),m_updatedMounts,m_newDB->GetCameras(),m_updatedLenses);
+        }
+        else
+        {
+            e=m_newDB->Save(m_lensFilename.c_str(),m_newDB->GetMounts(),m_newDB->GetCameras(),m_updatedLenses);
+        };
         m_lensFilename.clear();
 #if LF_VERSION < MIN_LF_VERSION
         setlocale(LC_NUMERIC,old_locale);
@@ -990,6 +1081,7 @@ bool LensDB::EndSaveLens()
 
 void LensDB::CleanSaveInformation()
 {
+    CleanUpdatedMounts();
     if (m_updatedLenses!=NULL)
     {
         for (int i = 0; m_updatedLenses[i]; i++)
@@ -1003,6 +1095,64 @@ void LensDB::CleanSaveInformation()
     {
         m_newDB->Destroy();
         m_newDB=NULL;
+    };
+};
+
+bool LensDB::IsNewMount(std::string newMount)
+{
+    CleanUpdatedMounts();
+    //check, if mount is already in main database
+    const lfMount* mount=m_db->FindMount(newMount.c_str());
+    if(mount)
+    {
+        return false;
+    };
+    //check, if mount is already in new file
+    mount=NULL;
+    mount=m_newDB->FindMount(newMount.c_str());
+    if(mount)
+    {
+        return false;
+    };
+    //we have a new mount
+    const lfMount *const* allMounts=m_newDB->GetMounts();
+    size_t nrMounts=0;
+    if(allMounts)
+    {
+        for(size_t i=0;allMounts[i];i++)
+        {
+            nrMounts++;
+        };
+    };
+    nrMounts++;
+
+    //build the updated list
+    //lensfun does not provide an easy way to add a new camera, so we are using this ugly workaround
+    m_updatedMounts=new lfMount*[nrMounts+1];
+    m_updatedMounts[nrMounts]=NULL;
+
+    for(size_t i=0;allMounts[i];i++)
+    {
+        //lf_mount_copy(m_updatedMounts[i],allMounts[i]);
+        m_updatedMounts[i]=new lfMount(*allMounts[i]);
+    };
+
+    m_updatedMounts[nrMounts-1]=new lfMount();
+    m_updatedMounts[nrMounts-1]->SetName(newMount.c_str());
+    m_updatedMounts[nrMounts-1]->AddCompat("Generic");
+    return true;
+};
+
+void LensDB::CleanUpdatedMounts()
+{
+    if (m_updatedMounts!=NULL)
+    {
+        for (int i = 0; m_updatedMounts[i]; i++)
+        {
+            delete m_updatedMounts[i];
+        };
+        delete []m_updatedMounts;
+        m_updatedMounts=NULL;
     };
 };
 

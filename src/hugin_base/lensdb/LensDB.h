@@ -38,8 +38,17 @@ namespace HuginBase
 namespace LensDB
 {
 
-/** vector to store a list of strings */
-typedef std::vector<std::string> LensDBList;
+/** struct to save a list of lenses */
+struct LensListItem
+{
+    std::string displayString;
+    std::string cameraMaker;
+    std::string cameraModel;
+    std::string lensname;
+};
+
+/** vector to store a list of found lenses */
+typedef std::vector<LensListItem> LensDBList;
 
 /** main wrapper class for lensfun database */
 class IMPEX LensDB
@@ -67,8 +76,11 @@ public:
         @return true, if the crop factor could be obtained from the database, otherwise false */
     bool GetCropFactor(std::string maker, std::string model, double &cropFactor);
     /** searches for the given lens and store it parameters inside 
+        @param camMaker maker of the camera, for fixed lens cameras
+        @param camModel model of the camera, for fixed lens cameras
+        @param lens lens for searching
         @return true, if a lens was found */
-    bool FindLens(std::string lens);
+    bool FindLens(std::string camMaker, std::string camModel, std::string lens);
     /** checks if the focal length matches the lens spec 
         @return true, if focal length is inside spec*/
     bool CheckLensFocal(double focal);
@@ -76,14 +88,16 @@ public:
         @return true, if aperture is inside spec*/
     bool CheckLensAperture(double aperture);
     /** searches for the given lens and gives back a list of matching lenses 
+        @param camMaker maker of the camera, for fixed lens cameras
+        @param camModel model of the camera, for fixed lens cameras
         @param lensname lensname to search
         @param foundLenses contains found lenses names
         @param fuzzy set to true, if search should use fuzzy algorithm
         @return true, if lenses were found */
-    bool FindLenses(std::string lensname, LensDBList &foundLenses, bool fuzzy=false);
+    bool FindLenses(std::string camMaker, std::string camModel, std::string lensname, LensDBList &foundLenses, bool fuzzy=false);
     /** searches for all mounts in the database
         @return true, if mounts were found */
-    bool GetMounts(LensDBList &foundMounts);
+    bool GetMounts(std::vector<std::string> &foundMounts);
     /** returns the projection of the last found lens (you need to call LensDB::FindLens before calling this procedure)
         @param projection contains the projection of the lens 
         @return true, if the database has stored information about the lens projection */
@@ -121,7 +135,7 @@ public:
         @param mount mount of the used camera model
         @param cropfactor crop factor for given camera
         @return true, if saving was successful */
-    static bool SaveCameraCrop(std::string filename, std::string maker, std::string model, std::string mount, double cropfactor);
+    bool SaveCameraCrop(std::string filename, std::string maker, std::string model, std::string mount, double cropfactor);
 
     /** starts saving a lens to database, call LensDB::SaveHFOV, LensDB::SaveCrop, LensDB::SaveDistortion and/or LensDB::SaveVignetting
         to add information to database, finally save information to file with LensDB::EndSaveLens
@@ -166,14 +180,21 @@ private:
     bool LoadFilesInDir(std::string path);
     /** free all ressources used for saving lens */
     void CleanSaveInformation();
+    /** check, if mount is already in database, if not it populates the LensDB::m_updatedMounts with the mounts
+        @return true, if new mount is found */
+    bool IsNewMount(std::string newMount);
+    /** cleans up the information stored for mounts (variable LensDB::m_updatedMounts) */
+    void CleanUpdatedMounts();
     /** the main database */
     struct lfDatabase *m_db;
-    /** database for saving */
+    /** database for saving */ 
     struct lfDatabase *m_newDB;
     /** found lenses for LensDB::GetProjection, LensDB::GetCrop */
     const struct lfLens **m_lenses;
     /** list of lenses for saving */
     struct lfLens **m_updatedLenses;
+    /** list of new mounts for saving */
+    struct lfMount **m_updatedMounts;
     /** struct of lens currently is saved */
     struct lfLens *m_currentLens;
     /** current filename for saving lens */

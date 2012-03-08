@@ -662,7 +662,7 @@ bool SrcPanoImage::readProjectionFromDB()
     if(!getExifLens().empty())
     {
         LensDB::LensDB& lensDB=LensDB::LensDB::GetSingleton();
-        if(lensDB.FindLens(getExifLens()))
+        if(lensDB.FindLens(getExifMake(), getExifModel(), getExifLens()))
         {
             Projection dbProjection;
             if(lensDB.GetProjection(dbProjection))

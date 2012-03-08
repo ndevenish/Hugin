@@ -11,17 +11,49 @@
                 <object class="wxGridBagSizer">
                   <object class="sizeritem">
                     <object class="wxStaticText">
-                      <label>Lens name:</label>
+                      <label>Camera maker:</label>
                     </object>
-                    <flag>wxEXPAND | wxALIGN_CENTRE_VERTICAL | wxALL</flag>
+                    <flag> wxALIGN_CENTRE_VERTICAL | wxALL | wxALIGN_RIGHT</flag>
                     <border>3</border>
                     <cellpos>0,0</cellpos>
                   </object>
                   <object class="sizeritem">
-                    <object class="wxTextCtrl" name="load_lens_name"/>
+                    <object class="wxTextCtrl" name="load_lens_camera_maker"/>
                     <flag>wxEXPAND | wxALIGN_CENTRE_VERTICAL | wxALL</flag>
                     <border>3</border>
                     <cellpos>0,1</cellpos>
+                    <cellspan>0,2</cellspan>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxStaticText">
+                      <label>Camera model:</label>
+                    </object>
+                    <flag>wxALIGN_CENTRE_VERTICAL | wxALL | wxALIGN_RIGHT</flag>
+                    <border>3</border>
+                    <cellpos>1,0</cellpos>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxTextCtrl" name="load_lens_camera_model"/>
+                    <flag>wxEXPAND | wxALIGN_CENTRE_VERTICAL | wxALL</flag>
+                    <border>3</border>
+                    <cellpos>1,1</cellpos>
+                    <cellspan>0,2</cellspan>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxStaticText">
+                      <label>Lens name:</label>
+                    </object>
+                    <flag>wxALIGN_CENTRE_VERTICAL | wxALL | wxALIGN_RIGHT</flag>
+                    <border>3</border>
+                    <cellpos>2,0</cellpos>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxTextCtrl" name="load_lens_name">
+                      <tooltip>Leave empty for compact cameras</tooltip>
+                    </object>
+                    <flag>wxEXPAND | wxALIGN_CENTRE_VERTICAL | wxALL</flag>
+                    <border>3</border>
+                    <cellpos>2,1</cellpos>
                     <cellspan>0,2</cellspan>
                   </object>
                   <object class="sizeritem">
@@ -30,7 +62,7 @@
                     </object>
                     <flag>wxEXPAND | wxALIGN_CENTRE_VERTICAL | wxALL</flag>
                     <border>3</border>
-                    <cellpos>1,1</cellpos>
+                    <cellpos>3,1</cellpos>
                   </object>
                   <object class="sizeritem">
                     <object class="wxButton" name="load_lens_search">
@@ -38,7 +70,7 @@
                     </object>
                     <flag>wxEXPAND | wxALIGN_CENTRE_VERTICAL | wxALL</flag>
                     <border>3</border>
-                    <cellpos>1,2</cellpos>
+                    <cellpos>3,2</cellpos>
                   </object>
                   <growablecols>1</growablecols>
                 </object>
