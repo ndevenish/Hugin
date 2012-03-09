@@ -60,7 +60,6 @@ protected:
     void OnOk(wxCommandEvent & e);
     /** handler for searching for lenses in database */
     void OnSearch(wxCommandEvent & e);
-    void OnListSelected(wxCommandEvent & e);
     void OnCheckChanged(wxCommandEvent & e);
 
 private:
@@ -78,7 +77,7 @@ private:
 BEGIN_EVENT_TABLE(LoadLensDBDialog,wxDialog)
     EVT_BUTTON(wxID_OK, LoadLensDBDialog::OnOk)
     EVT_BUTTON(XRCID("load_lens_search"), LoadLensDBDialog::OnSearch)
-    EVT_LISTBOX(XRCID("load_lens_list"), LoadLensDBDialog::OnListSelected)
+    EVT_LISTBOX(XRCID("load_lens_list"), LoadLensDBDialog::OnCheckChanged)
     EVT_CHECKBOX(XRCID("load_lens_distortion"), LoadLensDBDialog::OnCheckChanged)
     EVT_CHECKBOX(XRCID("load_lens_vignetting"), LoadLensDBDialog::OnCheckChanged)
 END_EVENT_TABLE()
@@ -185,7 +184,7 @@ HuginBase::LensDB::LensListItem LoadLensDBDialog::GetLens() const
 void LoadLensDBDialog::SetFocalLength(double focal)
 {
     m_focal=focal;
-    XRCCTRL(*this,"load_lens_focallength",wxTextCtrl)->SetValue(hugin_utils::doubleTowxString(m_focal,0));
+    XRCCTRL(*this,"load_lens_focallength",wxTextCtrl)->SetValue(hugin_utils::doubleTowxString(m_focal,1));
 };
 
 double LoadLensDBDialog::GetFocalLength() const
@@ -308,15 +307,10 @@ void LoadLensDBDialog::OnSearch(wxCommandEvent & e)
     XRCCTRL(*this,"wxID_OK",wxButton)->Enable(false);
 };
 
-void LoadLensDBDialog::OnListSelected(wxCommandEvent & e)
-{
-    int sel=m_lenslist->GetSelection();
-    XRCCTRL(*this,"wxID_OK",wxButton)->Enable(sel!=wxNOT_FOUND);
-};
-
 void LoadLensDBDialog::OnCheckChanged(wxCommandEvent & e)
 {
-    XRCCTRL(*this,"wxID_OK",wxButton)->Enable(m_loadDistortion->GetValue() || m_loadVignetting->GetValue());
+    int sel=m_lenslist->GetSelection();
+    XRCCTRL(*this,"wxID_OK",wxButton)->Enable(sel!=wxNOT_FOUND && (m_loadDistortion->GetValue() || m_loadVignetting->GetValue()));
 };
 
 bool ApplyLensDBParameters(wxWindow * parent, PT::Panorama *pano, HuginBase::UIntSet images, PT::PanoCommand*& cmd)
@@ -495,7 +489,7 @@ void SaveLensDBDialog::SetLensName(std::string lensname)
 {
     if(!lensname.empty())
     {
-        XRCCTRL(*this,"save_lens_name",wxTextCtrl)->SetLabel(wxString(lensname.c_str(), wxConvLocal));
+        XRCCTRL(*this,"save_lens_name",wxTextCtrl)->SetValue(wxString(lensname.c_str(), wxConvLocal));
     };
 };
 
@@ -517,7 +511,7 @@ std::string SaveLensDBDialog::GetLensMount() const
 void SaveLensDBDialog::SetFocalLength(double focal)
 {
     m_focal=focal;
-    XRCCTRL(*this,"save_lens_focallength",wxTextCtrl)->SetValue(hugin_utils::doubleTowxString(m_focal,0));
+    XRCCTRL(*this,"save_lens_focallength",wxTextCtrl)->SetValue(hugin_utils::doubleTowxString(m_focal,1));
 };
 
 double SaveLensDBDialog::GetFocalLength() const
@@ -785,7 +779,7 @@ void SaveCamDBDialog::SetCameraMaker(std::string maker)
 {
     if(!maker.empty())
     {
-        XRCCTRL(*this,"save_cam_maker",wxTextCtrl)->SetLabel(wxString(maker.c_str(), wxConvLocal));
+        XRCCTRL(*this,"save_cam_maker",wxTextCtrl)->SetValue(wxString(maker.c_str(), wxConvLocal));
     };
 };
 
@@ -798,7 +792,7 @@ void SaveCamDBDialog::SetCameraModel(std::string model)
 {
     if(!model.empty())
     {
-        XRCCTRL(*this,"save_cam_model",wxTextCtrl)->SetLabel(wxString(model.c_str(), wxConvLocal));
+        XRCCTRL(*this,"save_cam_model",wxTextCtrl)->SetValue(wxString(model.c_str(), wxConvLocal));
     };
 };
 
