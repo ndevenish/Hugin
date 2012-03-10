@@ -75,6 +75,12 @@ public:
         @param cropFactor contains the crop factor
         @return true, if the crop factor could be obtained from the database, otherwise false */
     bool GetCropFactor(std::string maker, std::string model, double &cropFactor);
+    /** returns the mount of the given camera (maker/model) 
+        @param maker maker of the desired camera 
+        @param model camera model
+        @param mount contains the mount
+        @return true, if the mount could be obtained from the database, otherwise false */
+    bool GetCameraMount(std::string maker, std::string model, std::string &mount);
     /** searches for the given lens and store it parameters inside 
         @param camMaker maker of the camera, for fixed lens cameras
         @param camModel model of the camera, for fixed lens cameras

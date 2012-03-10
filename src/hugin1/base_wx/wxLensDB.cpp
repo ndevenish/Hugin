@@ -410,9 +410,14 @@ class SaveLensDBDialog : public wxDialog
 public:
     /** Constructor, read from xrc ressource; restore last uses settings, size and position */
     SaveLensDBDialog(wxWindow *parent);
+    void SetCameraMaker(std::string maker);
+    std::string GetCameraMaker() const;
+    void SetCameraModel(std::string model);
+    std::string GetCameraModel() const;
     void SetLensName(std::string lensname);
     std::string GetLensName() const;
     std::string GetLensMaker() const;
+    void SetLensMount(std::string mount);
     std::string GetLensMount() const;
     void SetFocalLength(double focal);
     double GetFocalLength() const;
@@ -485,6 +490,32 @@ SaveLensDBDialog::SaveLensDBDialog(wxWindow *parent)
     m_saveVignetting->SetValue(b);
 };
 
+void SaveLensDBDialog::SetCameraMaker(std::string maker)
+{
+    if(!maker.empty())
+    {
+        XRCCTRL(*this,"save_lens_camera_maker",wxTextCtrl)->SetValue(wxString(maker.c_str(), wxConvLocal));
+    };
+};
+
+std::string SaveLensDBDialog::GetCameraMaker() const
+{
+    return std::string(XRCCTRL(*this,"save_lens_camera_maker",wxTextCtrl)->GetValue().Trim().mb_str(wxConvLocal));
+};
+
+void SaveLensDBDialog::SetCameraModel(std::string model)
+{
+    if(!model.empty())
+    {
+        XRCCTRL(*this,"save_lens_camera_model",wxTextCtrl)->SetValue(wxString(model.c_str(), wxConvLocal));
+    };
+};
+
+std::string SaveLensDBDialog::GetCameraModel() const
+{
+    return std::string(XRCCTRL(*this,"save_lens_camera_model",wxTextCtrl)->GetValue().Trim().mb_str(wxConvLocal));
+};
+
 void SaveLensDBDialog::SetLensName(std::string lensname)
 {
     if(!lensname.empty())
@@ -501,6 +532,14 @@ std::string SaveLensDBDialog::GetLensName() const
 std::string SaveLensDBDialog::GetLensMaker() const
 {
     return std::string(XRCCTRL(*this,"save_lens_maker",wxTextCtrl)->GetValue().Trim().mb_str(wxConvLocal));
+};
+
+void SaveLensDBDialog::SetLensMount(std::string mount)
+{
+    if(!mount.empty())
+    {
+        XRCCTRL(*this,"save_lens_mount",wxTextCtrl)->SetValue(wxString(mount.c_str(), wxConvLocal));
+    };
 };
 
 std::string SaveLensDBDialog::GetLensMount() const
@@ -563,9 +602,9 @@ void SaveLensDBDialog::OnOk(wxCommandEvent & e)
     {
         return;
     };
-    if(GetLensName().empty())
+    if(GetLensName().empty() && GetCameraMaker().empty() && GetCameraModel().empty())
     {
-        wxMessageBox(_("The lens name contains only an empty string."),_("Warning"),wxOK|wxICON_ERROR,this);
+        wxMessageBox(_("There are too less information for saving data into database. Please check your input!"),_("Warning"),wxOK|wxICON_ERROR,this);
         return;
     };
     if(!str2double(this,XRCCTRL(*this,"save_lens_focallength",wxTextCtrl)->GetValue(),m_focal))
@@ -630,6 +669,31 @@ bool ShowFileDialogWithWarning(wxFileDialog &dlg,wxString userDBPath)
     };
 };
 
+//build mount name from camera maker and camera model
+std::string BuildMountName(std::string maker, std::string model)
+{
+    std::string result;
+    for(size_t i=0;i<maker.length();i++)
+    {
+        if(isalpha(maker[i]))
+        {
+            result+=tolower(maker[i]);
+        }
+        else
+        {
+            break;
+        };
+    };
+    for(size_t i=0;i<model.length();i++)
+    {
+        if(isalnum(model[i]))
+        {
+            result+=model[i];
+        };
+    };
+    return result;
+};
+
 bool SaveLensParameters(wxWindow * parent, const HuginBase::SrcPanoImage& img, bool includeVignetting)
 {
     HuginBase::LensDB::LensDB& lensDB=HuginBase::LensDB::LensDB::GetSingleton();
@@ -646,18 +710,63 @@ bool SaveLensParameters(wxWindow * parent, const HuginBase::SrcPanoImage& img, b
     if(ShowFileDialogWithWarning(dlg,userDBPath))
     {
         SaveLensDBDialog lensDlg(parent);
+        lensDlg.SetCameraMaker(img.getExifMake());
+        lensDlg.SetCameraModel(img.getExifModel());
         lensDlg.SetLensName(img.getExifLens());
         lensDlg.SetFocalLength(img.getExifFocalLength());
         lensDlg.SetAperture(img.getExifAperture());
         lensDlg.SetSubjectDistance(img.getExifDistance());
+        std::string mount;
+        if(lensDB.GetCameraMount(img.getExifMake(), img.getExifModel(), mount))
+        {
+            lensDlg.SetLensMount(mount);
+        };
         if(!includeVignetting)
         {
             lensDlg.DeactivateSaveVignetting();
         };
         if(lensDlg.ShowModal()==wxID_OK)
         {
-            int e=lensDB.BeginSaveLens(std::string(dlg.GetPath().mb_str(HUGIN_CONV_FILENAME)),lensDlg.GetLensMaker(),
-                lensDlg.GetLensName(),lensDlg.GetLensMount(),img.getProjection(),img.getExifCropFactor());
+            std::string filename=std::string(dlg.GetPath().mb_str(HUGIN_CONV_FILENAME));
+            std::string lensname=lensDlg.GetLensName();
+            if(lensname.empty())
+            {
+                //empty lensname, assuming it is a compact camera
+                lensname="Standard";
+            };
+            mount=lensDlg.GetLensMount();
+            if(!lensDlg.GetCameraMaker().empty() && !lensDlg.GetCameraModel().empty())
+            {
+                if(mount.empty())
+                {
+                    //checking, if camera is already in database
+                    if(!lensDB.GetCameraMount(lensDlg.GetCameraMaker(), lensDlg.GetCameraModel(), mount))
+                    {
+                        //unknown camera, build mount name and save into database
+                        mount=BuildMountName(lensDlg.GetCameraMaker(), lensDlg.GetCameraModel());
+                        if(!lensDB.SaveCameraCrop(filename, lensDlg.GetCameraMaker(), lensDlg.GetCameraModel(), mount, img.getExifCropFactor()))
+                        {
+                            wxMessageBox(_("Could not save information into database file."),_("Error"),wxOK|wxICON_ERROR,parent);
+                            return false;
+                        };
+                    };
+                }
+                else
+                {
+                    //mount given, check if camera is already in database
+                    std::string s;
+                    if(!lensDB.GetCameraMount(lensDlg.GetCameraMaker(), lensDlg.GetCameraModel(), s))
+                    {
+                        if(!lensDB.SaveCameraCrop(filename, lensDlg.GetCameraMaker(), lensDlg.GetCameraModel(), mount, img.getExifCropFactor()))
+                        {
+                            wxMessageBox(_("Could not save information into database file."),_("Error"),wxOK|wxICON_ERROR,parent);
+                            return false;
+                        };
+                    };
+                };
+            };
+
+            int e=lensDB.BeginSaveLens(filename, lensDlg.GetLensMaker(), lensname, mount, img.getProjection(), img.getExifCropFactor());
             if(e==0)
             {
                 double focal=lensDlg.GetFocalLength();
@@ -727,6 +836,7 @@ public:
     std::string GetCameraMaker() const;
     void SetCameraModel(std::string model);
     std::string GetCameraModel() const;
+    void SetCameraMount(std::string mount);
     std::string GetCameraMount() const;
 
 protected:
@@ -801,6 +911,14 @@ std::string SaveCamDBDialog::GetCameraModel() const
     return std::string(XRCCTRL(*this,"save_cam_model",wxTextCtrl)->GetValue().Trim().mb_str(wxConvLocal));
 };
 
+void SaveCamDBDialog::SetCameraMount(std::string mount)
+{
+    if(!mount.empty())
+    {
+        XRCCTRL(*this,"save_cam_mount",wxTextCtrl)->SetValue(wxString(mount.c_str(), wxConvLocal));
+    };
+};
+
 std::string SaveCamDBDialog::GetCameraMount() const
 {
     return std::string(XRCCTRL(*this,"save_cam_mount",wxTextCtrl)->GetValue().Trim().mb_str(wxConvLocal));
@@ -848,6 +966,11 @@ bool SaveCameraCropFactor(wxWindow * parent, const HuginBase::SrcPanoImage& img)
         SaveCamDBDialog camDlg(parent);
         camDlg.SetCameraMaker(img.getExifMake());
         camDlg.SetCameraModel(img.getExifModel());
+        std::string mount;
+        if(lensDB.GetCameraMount(img.getExifMake(), img.getExifModel(), mount))
+        {
+            camDlg.SetCameraMount(mount);
+        };
         if(camDlg.ShowModal()==wxID_OK)
         {
             if(lensDB.SaveCameraCrop(std::string(dlg.GetPath().mb_str(HUGIN_CONV_FILENAME)),

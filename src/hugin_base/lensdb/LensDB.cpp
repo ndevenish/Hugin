@@ -212,6 +212,21 @@ bool LensDB::GetCropFactor(std::string maker, std::string model, double &cropFac
     return cropFactor>0;
 };
 
+bool LensDB::GetCameraMount(std::string maker, std::string model, std::string &mount)
+{
+    InitDB();
+    if(!m_initialized)
+        return false;
+    mount="";
+    const lfCamera **cameras=m_db->FindCameras(maker.c_str(),model.c_str());
+    if(cameras)
+    {
+        mount=std::string(cameras[0]->Mount);
+    }
+    lf_free (cameras);
+    return !mount.empty();
+};
+
 bool LensDB::FindLens(std::string camMaker, std::string camModel, std::string lens)
 {
     if(m_lenses!=NULL)
@@ -789,7 +804,18 @@ int LensDB::BeginSaveLens(std::string filename, std::string maker, std::string l
     };
 
     // check if lens is already in db
-    const lfLens **oldLenses=m_newDB->FindLenses(NULL,NULL,lensname.c_str());
+    lfCamera* cam=NULL;
+    if(!mount.empty())
+    {
+        cam=new lfCamera();
+        cam->SetMount(mount.c_str());
+        cam->CropFactor=cropfactor;
+    };
+    const lfLens **oldLenses=m_newDB->FindLenses(cam,NULL,lensname.c_str());
+    if(cam!=NULL)
+    {
+        delete cam;
+    };
     bool updateLens=false;
     if(oldLenses)
     {
@@ -858,7 +884,24 @@ int LensDB::BeginSaveLens(std::string filename, std::string maker, std::string l
             if(strcmp(m_updatedLenses[i]->Model,oldLenses[0]->Model)==0 && 
                strcmp(m_updatedLenses[i]->Maker,oldLenses[0]->Maker)==0)
             {
-                m_currentLens=m_updatedLenses[i];
+                bool compareMounts=false;
+                if(oldLenses[0]->Mounts)
+                {
+                    for(int j=0; oldLenses[0]->Mounts[j] && !compareMounts; j++)
+                    {
+                        for(int k=0; m_updatedLenses[i]->Mounts[k] && !compareMounts; k++)
+                        {
+                            if(strcmp(m_updatedLenses[i]->Mounts[k], oldLenses[0]->Mounts[j])==0)
+                            {
+                                compareMounts=true;
+                            };
+                        };
+                    };
+                };
+                if(compareMounts)
+                {
+                    m_currentLens=m_updatedLenses[i];
+                };
             };
         };
     };

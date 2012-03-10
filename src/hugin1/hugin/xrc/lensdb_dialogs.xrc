@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<resource class="wxBoxSizer">
+<resource>
   <object class="wxDialog" name="load_lens_dlg">
     <object class="wxBoxSizer">
       <orient>wxVERTICAL</orient>
@@ -49,7 +49,7 @@
                   </object>
                   <object class="sizeritem">
                     <object class="wxTextCtrl" name="load_lens_name">
-                      <tooltip>Leave empty for compact cameras</tooltip>
+                      <tooltip>Leave empty for compact cameras.</tooltip>
                     </object>
                     <flag>wxEXPAND | wxALIGN_CENTRE_VERTICAL | wxALL</flag>
                     <border>3</border>
@@ -238,7 +238,33 @@
                 <object class="wxFlexGridSizer">
                   <object class="sizeritem">
                     <object class="wxStaticText">
-                      <label>Maker:</label>
+                      <label>Camera maker:</label>
+                    </object>
+                    <flag>wxALIGN_CENTRE_VERTICAL|wxALL|wxALIGN_RIGHT</flag>
+                    <border>3</border>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxTextCtrl" name="save_lens_camera_maker"/>
+                    <option>1</option>
+                    <flag>wxALIGN_CENTRE_VERTICAL|wxALL|wxEXPAND</flag>
+                    <border>3</border>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxStaticText">
+                      <label>Camera model:</label>
+                    </object>
+                    <flag>wxALIGN_CENTRE_VERTICAL|wxALL|wxALIGN_RIGHT</flag>
+                    <border>3</border>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxTextCtrl" name="save_lens_camera_model"/>
+                    <option>1</option>
+                    <flag>wxALIGN_CENTRE_VERTICAL|wxALL|wxEXPAND</flag>
+                    <border>3</border>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxStaticText">
+                      <label>Lens maker:</label>
                     </object>
                     <flag>wxALIGN_CENTRE_VERTICAL|wxALL|wxALIGN_RIGHT</flag>
                     <border>3</border>
@@ -257,7 +283,9 @@
                     <border>3</border>
                   </object>
                   <object class="sizeritem">
-                    <object class="wxTextCtrl" name="save_lens_name"/>
+                    <object class="wxTextCtrl" name="save_lens_name">
+                      <tooltip>Leave empty for compact cameras.</tooltip>
+                    </object>
                     <flag>wxALIGN_CENTRE_VERTICAL|wxALL|wxEXPAND</flag>
                     <border>3</border>
                   </object>
@@ -274,7 +302,7 @@
                     <border>3</border>
                   </object>
                   <cols>2</cols>
-                  <rows>3</rows>
+                  <rows>6</rows>
                   <growablecols>1</growablecols>
                 </object>
                 <option>1</option>
