@@ -113,8 +113,9 @@ PanoDetector::PanoDetector() :
     _sieve1Width(10), _sieve1Height(10), _sieve1Size(100),
     _kdTreeSearchSteps(200), _kdTreeSecondDistance(0.25), _ransacIters(1000), _ransacDistanceThres(50),
     _sieve2Width(5), _sieve2Height(5),_sieve2Size(1), _test(false), _cores(utils::getCPUCount()),
-    _minimumMatches(6), _linearMatch(false), _linearMatchLen(1), _downscale(true), _cache(false), _cleanup(false),
-    _keypath(""), _outputFile("default.pto"), _outputGiven(false), _celeste(false), _celesteThreshold(0.5), _celesteRadius(20), _multirow(false)
+    _minimumMatches(6), _linearMatchLen(1), _downscale(true), _cache(false), _cleanup(false),
+    _keypath(""), _outputFile("default.pto"), _outputGiven(false), _celeste(false), _celesteThreshold(0.5), _celesteRadius(20), 
+    _matchingStrategy(ALLPAIRS)
 {
     _panoramaInfo = new Panorama();
 }
@@ -128,12 +129,6 @@ bool PanoDetector::checkData()
         std::cout << "Linear match length must be at least 1." << std::endl;
         return false;
     }
-
-    if(_linearMatch && _multirow)
-    {
-        std::cout << "Linear match and multi row matching strategy does not work together." << std::endl;
-        return false;
-    };
 
     // check the test mode
     if (_test)
@@ -185,20 +180,20 @@ void PanoDetector::printDetails()
     cout << "  Search steps : " << _kdTreeSearchSteps << endl;
     cout << "  Second match distance : " << _kdTreeSecondDistance << endl;
     cout << "Matching Options" << endl;
-    if(_linearMatch)
+    switch(_matchingStrategy)
     {
-        cout << "  Mode : Linear match with length of " << _linearMatch << " image" << endl;
-    }
-    else
-    {
-        if(_multirow)
-        {
-            cout << "  Mode : Multi row" << endl;
-        }
-        else
-        {
+        case ALLPAIRS:
             cout << "  Mode : All pairs" << endl;
-        };
+            break;
+        case LINEAR:
+            cout << "  Mode : Linear match with length of " << _linearMatchLen << " image" << endl;
+            break;
+        case MULTIROW:
+            cout << "  Mode : Multi row" << endl;
+            break;
+        case PREALIGNED:
+            cout << "  Mode : Prealigned positions" << endl;
+            break;
     };
     cout << "  Distance threshold : " << _ransacDistanceThres << endl;
     cout << "RANSAC Options" << endl;
@@ -577,19 +572,47 @@ void PanoDetector::run()
     // Detect matches if writeKeyPoints wasn't set
     if(_keyPointsIdx.size() == 0)
     {
-        if(_multirow)
+        switch (getMatchingStrategy())
         {
-            if(!matchMultiRow(aExecutor))
-            {
-                return;
-            };
-        }
-        else
-        {
-            if(!match(aExecutor))
-            {
-                return;
-            };
+            case ALLPAIRS:
+            case LINEAR:
+                if(!match(aExecutor))
+                {
+                    return;
+                };
+                break;
+            case MULTIROW:
+                if(!matchMultiRow(aExecutor))
+                {
+                    return;
+                };
+                break;
+            case PREALIGNED:
+                {
+                    //check, which image pairs are already connected by control points
+                    std::vector<HuginBase::UIntSet> connectedImages(_panoramaInfo->getNrOfImages());
+                    HuginBase::CPVector cps=_panoramaInfo->getCtrlPoints();
+                    for(HuginBase::CPVector::const_iterator it=cps.begin();it!=cps.end(); it++)
+                    {
+                        if((*it).mode==HuginBase::ControlPoint::X_Y)
+                        {
+                            connectedImages[(*it).image1Nr].insert((*it).image2Nr);
+                            connectedImages[(*it).image2Nr].insert((*it).image1Nr);
+                        };
+                    };
+                    //build dummy map
+                    std::vector<size_t> imgMap(_panoramaInfo->getNrOfImages());
+                    for(size_t i=0; i<_panoramaInfo->getNrOfImages(); i++)
+                    {
+                        imgMap[i]=i;
+                    };
+                    //and the final matching step
+                    if(!matchPrealigned(aExecutor,_panoramaInfo, connectedImages, imgMap))
+                    {
+                        return;
+                    };
+                }
+                break;
         };
     }
 
@@ -821,7 +844,7 @@ void PanoDetector::CleanupKeyfiles()
 void PanoDetector::prepareMatches()
 {
     unsigned int aLen = _filesData.size();
-    if (_linearMatch)
+    if (getMatchingStrategy()==LINEAR)
     {
         aLen = _linearMatchLen;
     }
@@ -869,6 +892,7 @@ bool sort_img_ev (img_ev i1, img_ev i2)
 bool PanoDetector::matchMultiRow(PoolExecutor& aExecutor)
 {
     //step 1
+    std::vector<HuginBase::UIntSet> checkedImagePairs(_panoramaInfo->getNrOfImages());
     std::vector<stack_img> stack_images;
     HuginBase::StandardImageVariableGroups* variable_groups = new HuginBase::StandardImageVariableGroups(*_panoramaInfo);
     for(unsigned int i=0; i<_panoramaInfo->getNrOfImages(); i++)
@@ -901,7 +925,7 @@ bool PanoDetector::matchMultiRow(PoolExecutor& aExecutor)
     };
     delete variable_groups;
     //get image with median exposure for search with cp generator
-    vector<unsigned int> images_layer;
+    vector<size_t> images_layer;
     UIntSet images_layer_set;
     for(unsigned int i=0; i<stack_images.size(); i++)
     {
@@ -918,10 +942,14 @@ bool PanoDetector::matchMultiRow(PoolExecutor& aExecutor)
             //build match list for stacks
             for(unsigned int j=0; j<stack_images[i].images.size()-1; j++)
             {
+                size_t img1=stack_images[i].images[j].img_nr;
+                size_t img2=stack_images[i].images[j+1].img_nr;
                 _matchesData.push_back(MatchData());
                 MatchData& aM=_matchesData.back();
-                aM._i1=&(_filesData[stack_images[i].images[j].img_nr]);
-                aM._i2=&(_filesData[stack_images[i].images[j+1].img_nr]);
+                aM._i1=&(_filesData[img1]);
+                aM._i2=&(_filesData[img2]);
+                checkedImagePairs[img1].insert(img2);
+                checkedImagePairs[img2].insert(img1);
             };
         };
     };
@@ -930,10 +958,14 @@ bool PanoDetector::matchMultiRow(PoolExecutor& aExecutor)
     {
         for(unsigned int i=0; i<images_layer.size()-1; i++)
         {
+            size_t img1=images_layer[i];
+            size_t img2=images_layer[i+1];
             _matchesData.push_back(MatchData());
             MatchData& aM = _matchesData.back();
-            aM._i1 = &(_filesData[images_layer[i]]);
-            aM._i2 = &(_filesData[images_layer[i+1]]);
+            aM._i1 = &(_filesData[img1]);
+            aM._i2 = &(_filesData[img2]);
+            checkedImagePairs[img1].insert(img2);
+            checkedImagePairs[img2].insert(img1);
         };
     };
     TRACE_INFO(endl<< "--- Find matches ---" << endl);
@@ -976,10 +1008,19 @@ bool PanoDetector::matchMultiRow(PoolExecutor& aExecutor)
         {
             for(unsigned int j=i+1; j<ImagesGroups.size(); j++)
             {
+                size_t img1=ImagesGroups[i];
+                size_t img2=ImagesGroups[j];
+                //skip already checked image pairs
+                if(set_contains(checkedImagePairs[img1],img2))
+                {
+                    continue;
+                };
                 _matchesData.push_back(MatchData());
                 MatchData& aM = _matchesData.back();
-                aM._i1 = &(_filesData[ImagesGroups[i]]);
-                aM._i2 = &(_filesData[ImagesGroups[j]]);
+                aM._i1 = &(_filesData[img1]);
+                aM._i2 = &(_filesData[img2]);
+                checkedImagePairs[img1].insert(img2);
+                checkedImagePairs[img2].insert(img1);
             };
         };
         TRACE_INFO(endl<< "--- Find matches in images groups ---" << endl);
@@ -1068,40 +1109,57 @@ bool PanoDetector::matchMultiRow(PoolExecutor& aExecutor)
             PT_setInfoDlgFcn(NULL);
         };
 
-        HuginBase::CalculateImageOverlap overlap(&optPano);
-        overlap.calculate(10);
-        for(unsigned int i=0; i<images_layer.size()-2; i++)
+        //now match overlapping images
+        if(!matchPrealigned(aExecutor, &optPano, checkedImagePairs, images_layer))
         {
-            for(unsigned int j=i+2; j<images_layer.size(); j++)
-            {
-                if(overlap.getOverlap(i,j)>0)
-                {
-                    _matchesData.push_back(MatchData());
-                    MatchData& aM = _matchesData.back();
-                    aM._i1 = &(_filesData[images_layer[i]]);
-                    aM._i2 = &(_filesData[images_layer[j]]);
-                };
-            };
-        };
-        TRACE_INFO(endl<< "--- Find matches for overlapping images ---" << endl);
-        try
-        {
-            BOOST_FOREACH(MatchData& aMD, _matchesData)
-            aExecutor.execute(new MatchDataRunnable(aMD, *this));
-            aExecutor.wait();
-        }
-        catch(Synchronization_Exception& e)
-        {
-            TRACE_ERROR(e.what() << endl);
             return false;
-        }
-
-        // Add detected matches to _panoramaInfo
-        BOOST_FOREACH(MatchData& aM, _matchesData)
-        BOOST_FOREACH(lfeat::PointMatchPtr& aPM, aM._matches)
-        _panoramaInfo->addCtrlPoint(ControlPoint(aM._i1->_number, aPM->_img1_x, aPM->_img1_y,
-                                    aM._i2->_number, aPM->_img2_x, aPM->_img2_y));
+        };
     };
     return true;
 };
 
+bool PanoDetector::matchPrealigned(PoolExecutor& aExecutor, Panorama* pano, std::vector<HuginBase::UIntSet> &connectedImages, std::vector<size_t> imgMap)
+{
+    HuginBase::CalculateImageOverlap overlap(pano);
+    overlap.calculate(10);
+    for(size_t i=0; i<pano->getNrOfImages()-1; i++)
+    {
+        for(size_t j=i+1; j<pano->getNrOfImages(); j++)
+        {
+            if(set_contains(connectedImages[imgMap[i]],imgMap[j]))
+            {
+                continue;
+            };
+            if(overlap.getOverlap(i,j)>0)
+            {
+                _matchesData.push_back(MatchData());
+                MatchData& aM = _matchesData.back();
+                aM._i1 = &(_filesData[imgMap[i]]);
+                aM._i2 = &(_filesData[imgMap[j]]);
+                connectedImages[imgMap[i]].insert(imgMap[j]);
+                connectedImages[imgMap[j]].insert(imgMap[i]);
+            };
+        };
+    };
+
+    TRACE_INFO(endl<< "--- Find matches for overlapping images ---" << endl);
+    try
+    {
+        BOOST_FOREACH(MatchData& aMD, _matchesData)
+        aExecutor.execute(new MatchDataRunnable(aMD, *this));
+        aExecutor.wait();
+    }
+    catch(Synchronization_Exception& e)
+    {
+        TRACE_ERROR(e.what() << endl);
+        return false;
+    }
+
+    // Add detected matches to _panoramaInfo
+    BOOST_FOREACH(MatchData& aM, _matchesData)
+    BOOST_FOREACH(lfeat::PointMatchPtr& aPM, aM._matches)
+    _panoramaInfo->addCtrlPoint(ControlPoint(imgMap[aM._i1->_number], aPM->_img1_x, aPM->_img1_y,
+                                imgMap[aM._i2->_number], aPM->_img2_x, aPM->_img2_y));
+
+    return true;
+};

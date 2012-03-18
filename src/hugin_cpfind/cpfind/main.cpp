@@ -39,7 +39,6 @@ public:
     virtual void failure(CmdLineInterface& c, ArgException& e)
     {
         std::cerr << "Parse error: " << e.argId() << std::endl << "             " << e.error() << std::endl << std::endl << endl;
-        usage(c);
     }
 
     virtual void usage(CmdLineInterface& c)
@@ -99,24 +98,35 @@ bool parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
 
         SwitchArg aArgQuiet("q","quiet", "Do not output progress\n", false);
         SwitchArg aArgVerbose("v","verbose", "Increase verbosity of output\n", false);
-        SwitchArg aArgFullScale("","fullscale", "Uses full scale image to detect keypoints    (default:false)\n", false);
-        ValueArg<int> aArgSieve1Width("","sieve1width", "Sieve 1 : Number of buckets on width    (default : 10)", false, 10, "int");
-        ValueArg<int> aArgSieve1Height("","sieve1height",  "Sieve 1 : Number of buckets on height    (default : 10)", false, 10, "int");
-        ValueArg<int> aArgSieve1Size("","sieve1size",	"Sieve 1 : Max points per bucket    (default : 100)\n", false, 100, "int");
-        SwitchArg aArgLinearMatch("","linearmatch", "Enable linear images matching (default : all pairs)", false);
-        ValueArg<int> aArgLinearMatchLen("","linearmatchlen", "Number of images to match in linear matching (default:1)\n", false, 1 ,"int");
-        SwitchArg aArgMultiRow("","multirow", "Enable heuristic multi row matching (default: off)",false);
+        SwitchArg aArgFullScale("","fullscale", "Uses full scale image to detect keypoints\t(default:false)\n", false);
+        ValueArg<int> aArgSieve1Width("","sieve1width", "Sieve 1: Number of buckets on width\t(default: 10)", false, 10, "int");
+        ValueArg<int> aArgSieve1Height("","sieve1height", "Sieve 1: Number of buckets on height\t(default: 10)", false, 10, "int");
+        ValueArg<int> aArgSieve1Size("","sieve1size", "Sieve 1: Max points per bucket (default: 100)\n", false, 100, "int");
 
-        ValueArg<int> aArgKDTreeSearchSteps("","kdtreesteps",   "KDTree : search steps    (default : 200)", false, 200, "int");
-        ValueArg<double> aArgKDTreeSecondDist("","kdtreeseconddist", "KDTree : distance of 2nd match    (default : 0.25)\n", false, 0.25, "double");
-        ValueArg<int> aArgMinMatches("","minmatches", "Minimum matches    (default : 6)", false, 6, "int");
-        ValueArg<std::string> aArgRansacMode("","ransacmode", "Ransac : mode (auto, hom, rpy, rpyv, rpyvb (default : auto)", false, "auto", "string");
-        ValueArg<int> aArgRansacIter("","ransaciter", "Ransac : iterations    (default : 1000)", false, 1000, "int");
-        ValueArg<int> aArgRansacDist("","ransacdist", "Ransac : homography estimation distance threshold (pixels)"
-                                     "\t    (default : 50)", false, 50, "int");
-        ValueArg<int> aArgSieve2Width("","sieve2width", "Sieve 2 : Number of buckets on width    (default : 5)", false, 5, "int");
-        ValueArg<int> aArgSieve2Height("","sieve2height", "Sieve 2 : Number of buckets on height    (default : 5)", false, 5, "int");
-        ValueArg<int> aArgSieve2Size("","sieve2size", "Sieve 2 : Max points per bucket    (default : 1)\n", false, 1 ,"int");
+        SwitchArg aArgLinearMatch("","linearmatch", "Enable linear images matching (default: off)", false);
+        ValueArg<int> aArgLinearMatchLen("","linearmatchlen", "Number of images to match in linear matching\t(default: 1)\n", false, 1 ,"int");
+        SwitchArg aArgMultiRow("","multirow", "Enable heuristic multi row matching\t(default: off)",false);
+        SwitchArg aArgPreAligned("", "prealigned", "Match only overlapping images\trequires a rough aligned panorama. (default: off)",false);
+
+        ValueArg<int> aArgKDTreeSearchSteps("","kdtreesteps", "KDTree search steps (default: 200)", false, 200, "int");
+        ValueArg<double> aArgKDTreeSecondDist("","kdtreeseconddist", "KDTree: distance of 2nd match (default: 0.25)\n", false, 0.25, "double");
+        ValueArg<int> aArgMinMatches("","minmatches", "Minimum matches (default: 6)", false, 6, "int");
+
+        std::vector<std::string> allowedRansacMode;
+        allowedRansacMode.push_back("auto");
+        allowedRansacMode.push_back("hom");
+        allowedRansacMode.push_back("rpy");
+        allowedRansacMode.push_back("rpyv");
+        allowedRansacMode.push_back("rpyvb");
+        ValuesConstraint<string> allowedRansacVals(allowedRansacMode);
+        ValueArg<std::string> aArgRansacMode("","ransacmode", "Ransac mode (default: auto)\n", false, "auto", &allowedRansacVals);
+        ValueArg<int> aArgRansacIter("","ransaciter", "Ransac iterations (default: 1000)", false, 1000, "int");
+        ValueArg<int> aArgRansacDist("","ransacdist", "Ransac: homography estimation distance threshold \t(in pixels) "
+                                     "(default: 50)", false, 50, "int");
+
+        ValueArg<int> aArgSieve2Width("","sieve2width", "Sieve 2: Number of buckets on width (default: 5)", false, 5, "int");
+        ValueArg<int> aArgSieve2Height("","sieve2height", "Sieve 2: Number of buckets on height (default: 5)", false, 5, "int");
+        ValueArg<int> aArgSieve2Size("","sieve2size", "Sieve 2: Max points per bucket (default: 1)\n", false, 1 ,"int");
 
         cmd.add(aArgQuiet);
         cmd.add(aArgVerbose);
@@ -130,6 +140,7 @@ bool parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
         cmd.add(aArgLinearMatchLen);
         cmd.add(aArgLinearMatch);
         cmd.add(aArgMultiRow);
+        cmd.add(aArgPreAligned);
         cmd.add(aArgKDTreeSecondDist);
         cmd.add(aArgKDTreeSearchSteps);
         cmd.add(aArgSieve1Size);
@@ -140,10 +151,10 @@ bool parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
         SwitchArg aArgTest("t","test", "Enables test mode\n", false);
         cmd.add( aArgTest );
 
-        ValueArg<int> aArgCores("n","ncores", "Number of CPU/Cores    (default:autodetect)", false, utils::getCPUCount(), "int");
+        ValueArg<int> aArgCores("n","ncores", "Number of CPU/Cores (default:autodetect)", false, utils::getCPUCount(), "int");
         cmd.add( aArgCores );
 
-        UnlabeledValueArg<string> aArgInputFile("fileName", "Input Project File", true, "default","string");
+        UnlabeledValueArg<string> aArgInputFile("filename", "Input Project File", true, "default","string");
         cmd.add( aArgInputFile );
 
         ValueArg<string> aArgOutputFile("o","output","Output file",false, "default", "string");
@@ -164,7 +175,7 @@ bool parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
         ValueArg<string> aArgKeypath("p","keypath","Path to cache keyfiles",false,"","string");
         cmd.add(aArgKeypath);
 
-        SwitchArg aArgCeleste("","celeste", "Run celeste after loading images",false);
+        SwitchArg aArgCeleste("","celeste", "Run celeste after loading images\n",false);
         cmd.add(aArgCeleste);
         ValueArg<double> aArgCelesteThreshold("","celesteThreshold","Threshold for celeste (default 0.5)",false,0.5,"double");
         cmd.add(aArgCelesteThreshold);
@@ -183,7 +194,8 @@ bool parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
         }
         else
         {
-            cout << "ERROR: Input project file is missing." << endl;
+            // can also be happen with invalid command line parameters, does not show message
+            // cout << "ERROR: Input project file is missing." << endl;
             return false;
         }
         if (aArgOutputFile.isSet())
@@ -274,15 +286,34 @@ bool parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
         }
         if (aArgLinearMatch.isSet())
         {
-            ioPanoDetector.setLinearMatch(aArgLinearMatch.getValue());
-        }
+            if(aArgMultiRow.isSet() || aArgPreAligned.isSet())
+            {
+                std::cout << "ERROR: --linearmatch does not work together with --multirow or --prealigned." << endl;
+                return false;
+            };
+            ioPanoDetector.setMatchingStrategy(PanoDetector::LINEAR);
+        };
+        if (aArgMultiRow.isSet())
+        {
+            if(aArgLinearMatch.isSet() || aArgPreAligned.isSet())
+            {
+                std::cout << "ERROR: --multirow does not work together with --linearmatch or --prealigned." << endl;
+                return false;
+            };
+            ioPanoDetector.setMatchingStrategy(PanoDetector::MULTIROW);
+        };
+        if (aArgPreAligned.isSet())
+        {
+            if(aArgLinearMatch.isSet() || aArgMultiRow.isSet())
+            {
+                std::cout << "ERROR: --prealigned does not work together with --linearmatch or --multirow." << endl;
+                return false;
+            };
+            ioPanoDetector.setMatchingStrategy(PanoDetector::PREALIGNED);
+        };
         if (aArgLinearMatchLen.isSet())
         {
             ioPanoDetector.setLinearMatchLen(aArgLinearMatchLen.getValue());
-        }
-        if (aArgMultiRow.isSet())
-        {
-            ioPanoDetector.setMultiRow(aArgMultiRow.getValue());
         }
         if (aArgFullScale.isSet())
         {

@@ -57,15 +57,32 @@ public:
 
     typedef lfeat::KeyPointDetector KeyPointDetector;
 
+    /** for selecting matching strategy */
+    enum MatchingStrategy
+    {
+        ALLPAIRS=0,
+        LINEAR,
+        MULTIROW,
+        PREALIGNED
+    };
+
     PanoDetector();
 
-    bool		checkData();
-    void		printDetails();
+    bool checkData();
+    void printDetails();
     void printFilenames();
-    void		printHelp();
-    void		run();
+    void printHelp();
+    void run();
     bool match(ZThread::PoolExecutor& aExecutor);
     bool matchMultiRow(ZThread::PoolExecutor& aExecutor);
+    /** does only matches image pairs which overlaps and don't have control points
+        @param aExecutor executor for threading
+        @param pano pano, which should be used for determing of overlap, can contain also less images than _panoramaInfo
+        @param connectedImages contains a list of already connected or tested image pairs, which should be skipped
+        @param imgMap map of image nr in partial pano and full panorama 
+        @return true, if detection was successful
+    */
+    bool matchPrealigned(ZThread::PoolExecutor& aExecutor, Panorama* pano, std::vector<HuginBase::UIntSet> &connectedImages, std::vector<size_t> imgMap);
 
 
     // accessors
@@ -180,7 +197,7 @@ public:
     {
         return _ransacDistanceThres;
     }
-    inline RANSACOptimizer::Mode setRansacMode()
+    inline RANSACOptimizer::Mode getRansacMode()
     {
         return _ransacMode;
     }
@@ -210,29 +227,21 @@ public:
         return _sieve2Size;
     }
 
-    inline void setLinearMatch(bool iLin)
-    {
-        _linearMatch = iLin;
-    }
     inline void setLinearMatchLen(int iLen)
     {
         _linearMatchLen = iLen;
-    }
-    inline bool getLinearMatch() const
-    {
-        return _linearMatch;
     }
     inline int  getLinearMatchLen() const
     {
         return _linearMatchLen;
     }
-    inline void setMultiRow(bool iMultirow)
+    inline void setMatchingStrategy(MatchingStrategy iMatchStrategy)
     {
-        _multirow = iMultirow;
+        _matchingStrategy = iMatchStrategy;
     }
-    inline bool getMultiRow() const
+    inline MatchingStrategy getMatchingStrategy() const
     {
-        return _multirow;
+        return _matchingStrategy;
     }
 
     inline bool	getDownscale() const
@@ -341,9 +350,8 @@ private:
     int						_sieve2Height;
     int						_sieve2Size;
 
-    bool						_linearMatch;
+    MatchingStrategy _matchingStrategy;
     int						_linearMatchLen;
-    bool        _multirow;
 
     bool						_test;
     int						_cores;
