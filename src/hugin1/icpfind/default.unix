@@ -1,5 +1,5 @@
 [AutoPano]
-AutoPanoCount=9
+AutoPanoCount=10
 Default=0
 
 [AutoPano/AutoPano_0]
@@ -69,3 +69,13 @@ Arguments=-o %o %s
 ProgramMatcher=
 ArgumentsMatcher=
 Option=1
+
+[AutoPano/AutoPano_9]
+Type=1
+Description=Hugin's CPFind (prealigned)
+Program=cpfind
+Arguments=--prealigned -o %o %s
+ProgramMatcher=
+ArgumentsMatcher=
+Option=1
+
