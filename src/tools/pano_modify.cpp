@@ -40,6 +40,7 @@
 #include <algorithms/nona/FitPanorama.h>
 #include <algorithms/basic/CalculateOptimalScale.h>
 #include <algorithms/basic/CalculateOptimalROI.h>
+#include <algorithms/basic/LayerStacks.h>
 
 using namespace std;
 using namespace HuginBase;
@@ -64,8 +65,9 @@ static void usage(const char * name)
          << "                                   AUTO: calculate optimal canvas size" << endl
          << "                                   num%: scales the optimal size by given percent" << endl
          << "                                   WIDTHxHEIGHT: set to given size" << endl
-         << "     --crop=AUTO|left,right,top,bottom  Sets the crop rectangle" << endl
+         << "     --crop=AUTO|AUTOHDR|left,right,top,bottom  Sets the crop rectangle" << endl
          << "                                   AUTO: autocrop panorama" << endl
+         << "                                   AUTOHDR: autocrop HDR panorama" << endl
          << "                                   left,right,top,bottom: to given size" << endl
          << "     -h, --help             Shows this help" << endl
          << endl;
@@ -114,6 +116,7 @@ int main(int argc, char *argv[])
     bool doCenter=false;
     bool doOptimalSize=false;
     bool doAutocrop=false;
+    bool autocropHDR=false;
     int c;
     int optionIndex = 0;
     string output;
@@ -246,9 +249,13 @@ int main(int argc, char *argv[])
                 //crop
                 param=optarg;
                 param=strToUpper(param);
-                if(param=="AUTO")
+                if(param=="AUTO" || param=="AUTOHDR")
                 {
                     doAutocrop=true;
+                    if(param=="AUTOHDR")
+                    {
+                        autocropHDR=true;
+                    };
                 }
                 else
                 {
@@ -387,8 +394,11 @@ int main(int argc, char *argv[])
     if(doAutocrop)
     {
         cout << "Searching for best crop rectangle" << endl;
-
         CalculateOptimalROI cropPano(pano);
+        if(autocropHDR)
+        {
+            cropPano.setStacks(getHDRStacks(pano,pano.getActiveImages()));
+        }
         cropPano.run();
         
         vigra::Rect2D roi=cropPano.getResultOptimalROI();
