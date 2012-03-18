@@ -200,6 +200,26 @@
                           <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
                           <cellpos>3,1</cellpos>
                         </object>
+                        <object class="sizeritem">
+                          <object class="wxStaticText">
+                            <label>Lens database:</label>
+                          </object>
+                          <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          <cellpos>4,0</cellpos>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxCheckBox" name="find_pano_load_distortion">
+                            <label>Load distortion data</label>
+                          </object>
+                          <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                          <cellpos>4,1</cellpos>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxCheckBox" name="find_pano_load_vignetting">
+                            <label>Load vignetting data</label>
+                          </object>
+                          <cellpos>5,1</cellpos>
+                        </object>
                         <vgap>6</vgap>
                         <hgap>12</hgap>
                         <growablecols>1</growablecols>

@@ -391,6 +391,14 @@ public:
         you need to call SrcPanoImage::readEXIF before to fill some values 
         @return true, if information could be read from database */
     bool readProjectionFromDB();
+    /** tries to read distortion data from lensfun database
+        you need to call SrcPanoImage::readEXIF before to fill some values 
+        @return true, if information could be read from database */
+    bool readDistortionFromDB();
+    /** tries to read vignetting data from lensfun database
+        you need to call SrcPanoImage::readEXIF before to fill some values 
+        @return true, if information could be read from database */
+    bool readVignettingFromDB();
 
     /** returns true, if image has masks associated */
     bool hasMasks() const;

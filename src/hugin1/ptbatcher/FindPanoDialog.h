@@ -79,6 +79,8 @@ private:
     wxCheckListBox* m_list_pano;
     wxChoice* m_ch_naming;
     wxCheckBox* m_cb_createLinks;
+    wxCheckBox* m_cb_loadDistortion;
+    wxCheckBox* m_cb_loadVignetting;
 
     std::vector<PossiblePano*> m_panos;
     wxString m_start_dir;
@@ -87,7 +89,7 @@ private:
     TIFFErrorHandler m_oldtiffwarning;
 
     void EnableButtons(const bool state);
-    void SearchInDir(wxString dirstring,bool includeSubdir);
+    void SearchInDir(wxString dirstring,bool includeSubdir, bool loadDistortion, bool loadVignetting);
     void CleanUpPanolist();
     DECLARE_EVENT_TABLE()
 };

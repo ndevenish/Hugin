@@ -70,6 +70,8 @@ FindPanoDialog::FindPanoDialog(BatchFrame* batchframe, wxString xrcPrefix)
     m_list_pano=XRCCTRL(*this,"find_pano_list",wxCheckListBox);
     m_ch_naming=XRCCTRL(*this,"find_pano_naming",wxChoice);
     m_cb_createLinks=XRCCTRL(*this,"find_pano_create_links",wxCheckBox);
+    m_cb_loadDistortion=XRCCTRL(*this,"find_pano_load_distortion",wxCheckBox);
+    m_cb_loadVignetting=XRCCTRL(*this,"find_pano_load_vignetting",wxCheckBox);
 
     //set parameters
     wxConfigBase* config = wxConfigBase::Get();
@@ -118,6 +120,10 @@ FindPanoDialog::FindPanoDialog(BatchFrame* batchframe, wxString xrcPrefix)
     m_ch_naming->SetSelection(i);
     config->Read(wxT("/FindPanoDialog/linkStacks"),&val,true);
     m_cb_createLinks->SetValue(val);
+    config->Read(wxT("/FindPanoDialog/loadDistortion"),&val,false);
+    m_cb_loadDistortion->SetValue(val);
+    config->Read(wxT("/FindPanoDialog/loadVignetting"),&val,false);
+    m_cb_loadVignetting->SetValue(val);
     m_button_send->Disable();
 };
 
@@ -142,6 +148,8 @@ FindPanoDialog::~FindPanoDialog()
     config->Write(wxT("/FindPanoDialog/includeSubDirs"),m_cb_subdir->GetValue());
     config->Write(wxT("/FindPanoDialog/Naming"),m_ch_naming->GetSelection());
     config->Write(wxT("/FindPanoDialog/linkStacks"),m_cb_createLinks->GetValue());
+    config->Write(wxT("/FindPanoDialog/loadDistortion"),m_cb_loadDistortion->GetValue());
+    config->Write(wxT("/FindPanoDialog/loadVignetting"),m_cb_loadDistortion->GetValue());
     CleanUpPanolist();
 };
 
@@ -224,7 +232,7 @@ void FindPanoDialog::OnButtonStart(wxCommandEvent& e)
             CleanUpPanolist();
             m_list_pano->Clear();
             EnableButtons(false);
-            SearchInDir(m_start_dir,m_cb_subdir->GetValue());
+            SearchInDir(m_start_dir,m_cb_subdir->GetValue(), m_cb_loadDistortion->GetValue(), m_cb_loadVignetting->GetValue());
         }
         else
         {
@@ -293,7 +301,7 @@ int SortWxFilenames(const wxString& s1,const wxString& s2)
     return doj::alphanum_comp(std::string(s1.mb_str(wxConvLocal)),std::string(s2.mb_str(wxConvLocal)));
 };
 
-void FindPanoDialog::SearchInDir(wxString dirstring, bool includeSubdir)
+void FindPanoDialog::SearchInDir(wxString dirstring, bool includeSubdir, bool loadDistortion, bool loadVignetting)
 {
     std::vector<PossiblePano*> newPanos;
     wxTimeSpan max_diff(0,0,30,0); //max. 30 s difference between images
@@ -318,6 +326,14 @@ void FindPanoDialog::SearchInDir(wxString dirstring, bool includeSubdir)
             if(img->hasEXIFread())
             {
                 img->readProjectionFromDB();
+                if(loadDistortion)
+                {
+                    img->readDistortionFromDB();
+                };
+                if(loadVignetting)
+                {
+                    img->readVignettingFromDB();
+                };
                 bool found=false;
                 for(unsigned int i=0; i<newPanos.size() && !m_stopped && !found; i++)
                 {
@@ -372,7 +388,7 @@ void FindPanoDialog::SearchInDir(wxString dirstring, bool includeSubdir)
         bool cont=dir.GetFirst(&filename,wxEmptyString,wxDIR_DIRS);
         while(cont && !m_stopped)
         {
-            SearchInDir(dir.GetName()+wxFileName::GetPathSeparator()+filename,includeSubdir);
+            SearchInDir(dir.GetName()+wxFileName::GetPathSeparator()+filename,includeSubdir, loadDistortion, loadVignetting);
             cont=dir.GetNext(&filename);
         }
     };

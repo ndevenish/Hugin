@@ -724,6 +724,54 @@ bool SrcPanoImage::readProjectionFromDB()
     return success;
 };
 
+bool SrcPanoImage::readDistortionFromDB()
+{
+    bool success=false;
+    if(!getExifLens().empty() || (!getExifMake().empty() && !getExifModel().empty()))
+    {
+        LensDB::LensDB& lensDB=LensDB::LensDB::GetSingleton();
+        if(lensDB.FindLens(getExifMake(), getExifModel(), getExifLens()))
+        {
+            if(getExifFocalLength()>0)
+            {
+                std::vector<double> dist;
+                if(lensDB.GetDistortion(getExifFocalLength(),dist))
+                {
+                    if(dist.size()==3)
+                    {
+                        dist.push_back(1.0-dist[0]-dist[1]-dist[2]);
+                        setRadialDistortion(dist);
+                        success=true;
+                    };
+                };
+            };
+        };
+    };
+    return success;
+};
+
+bool SrcPanoImage::readVignettingFromDB()
+{
+    bool success=false;
+    if(!getExifLens().empty() || (!getExifMake().empty() && !getExifModel().empty()))
+    {
+        LensDB::LensDB& lensDB=LensDB::LensDB::GetSingleton();
+        if(lensDB.FindLens(getExifMake(), getExifModel(), getExifLens()))
+        {
+            if(getExifFocalLength()>0)
+            {
+                std::vector<double> vig;
+                if(lensDB.GetVignetting(getExifFocalLength(),getExifAperture(),getExifDistance(),vig))
+                {
+                    setRadialVigCorrCoeff(vig);
+                    success=true;
+                };
+            };
+        };
+    };
+    return success;
+};
+
 double SrcPanoImage::calcHFOV(SrcPanoImage::Projection proj, double fl, double crop, vigra::Size2D imageSize)
 {
     // calculate diagonal of film

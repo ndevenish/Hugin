@@ -57,6 +57,10 @@ static void usage(const char* name)
          << "     -s, --stacklength=INT  Number of images in stack" << endl
          << "                            (default: 1, no stacks)" << endl
          << "     -l, --linkstacks       Link image positions in stacks" << endl
+         << "     --distortion           Try to load distortion information from" 
+         << "                            lensfun database" << endl
+         << "     --vignetting           Try to load vignetting information from" 
+         << "                            lensfun database" << endl
          << "     -h, --help             Shows this help" << endl
          << endl;
 }
@@ -98,7 +102,10 @@ int main(int argc, char* argv[])
         {"crop", required_argument, NULL, 'c' },
         {"stacklength", required_argument, NULL, 's' },
         {"linkstacks", no_argument, NULL, 'l' },
+        {"distortion", no_argument, NULL, 300 },
+        {"vignetting", no_argument, NULL, 301 },
         {"help", no_argument, NULL, 'h' },
+
         0
     };
 
@@ -110,6 +117,8 @@ int main(int argc, char* argv[])
     int stackLength=1;
     bool linkStacks=false;
     vigra::Rect2D cropRect(0,0,0,0);
+    bool loadDistortion=false;
+    bool loadVignetting=false;
     while ((c = getopt_long (argc, argv, optstring, longOptions,&optionIndex)) != -1)
     {
         switch (c)
@@ -177,6 +186,12 @@ int main(int argc, char* argv[])
                 break;
             case 'l':
                 linkStacks=true;
+                break;
+            case 300:
+                loadDistortion=true;
+                break;
+            case 301:
+                loadVignetting=true;
                 break;
             case ':':
                 cerr <<"Option " << longOptions[optionIndex].name << " requires a number" << endl;
@@ -323,6 +338,28 @@ int main(int argc, char* argv[])
         {
             cerr << "ERROR: caught exception: " << e.what() << std::endl;
             cerr << "Could not get pixel type for file " << filelist[i] << std::endl;
+        };
+        if(loadDistortion)
+        {
+            if(srcImage.readDistortionFromDB())
+            {
+                cout << "\tRead distortion data from lensfun database." << endl;
+            }
+            else
+            {
+                cout << "\tNo valid distortion data found in lensfun database." << endl;
+            };
+        };
+        if(loadVignetting)
+        {
+            if(srcImage.readVignettingFromDB())
+            {
+                cout << "\tRead vignetting data from lensfun database." << endl;
+            }
+            else
+            {
+                cout << "\tNo valid vignetting data found in lensfun database." << endl;
+            };
         };
 
         pano.addImage(srcImage);
