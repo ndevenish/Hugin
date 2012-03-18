@@ -128,7 +128,11 @@ void Batch::AppendBatchFile(wxString file)
         aFile.GetTimes(NULL,NULL,&m_lastmod);
         wxFileInputStream fileStream(file);
         wxString projectName = _T("");
+#ifdef __WXMSW__
+        wxTextInputStream textStream(fileStream, wxT(" \t"), wxConvLocal);
+#else
         wxTextInputStream textStream(fileStream);
+#endif
 
         //TO-DO: batch file error checking?
         //first line in file is idGenerator, we save it a temp variable, cause it gets set when adding projects
@@ -1063,7 +1067,11 @@ void Batch::RunNextInBatch()
 void Batch::SaveBatchFile(wxString file)
 {
     wxFileOutputStream fileStream(file);
+#ifdef __WXMSW__
+    wxTextOutputStream textStream(fileStream, wxEOL_NATIVE, wxConvLocal);
+#else
     wxTextOutputStream textStream(fileStream);
+#endif
     //we write current idGenerator to file
     wxString line = _T("");
     line << Project::idGenerator;
