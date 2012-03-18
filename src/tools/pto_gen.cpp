@@ -57,9 +57,9 @@ static void usage(const char* name)
          << "     -s, --stacklength=INT  Number of images in stack" << endl
          << "                            (default: 1, no stacks)" << endl
          << "     -l, --linkstacks       Link image positions in stacks" << endl
-         << "     --distortion           Try to load distortion information from" 
+         << "     --distortion           Try to load distortion information from" << endl
          << "                            lensfun database" << endl
-         << "     --vignetting           Try to load vignetting information from" 
+         << "     --vignetting           Try to load vignetting information from" << endl
          << "                            lensfun database" << endl
          << "     -h, --help             Shows this help" << endl
          << endl;
