@@ -28,6 +28,9 @@
 
 #include <hugin_shared.h>
 #include <string>
+#ifndef Hugin_shared
+#define CONF_LENSFUN_STATIC
+#endif
 #include <lensfun.h>
 #include <panodata/SrcPanoImage.h>
 #include <hugin_math/hugin_math.h>
