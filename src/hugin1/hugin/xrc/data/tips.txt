@@ -1,6 +1,9 @@
 # Tips for hugin
 # These tips are translated via gettext.
 _("Welcome to Hugin. To create a panorama, just follow the sequence shown in the assistant tab.")
+_("If you have a folder with images from different panoramas, you can use the menu File>Search directory for...>Images in PTBatcherGUI to automatically create the appropriate project file, run the assistant and optionally stitch the final panorama.")
+_("To run the assistant on a bunch of projects use the batch processor PTBatcherGUI.")
+_("To stitch a bunch of projects use the batch processor PTBatcherGUI.")
 _("If the horizon of a panorama is wavy, use the straighten function in the preview window to straighten it")
 _("The Preview window can be used to center the panorama by clicking with the left mouse button. A right click will rotate the panorama")
 _("If you prefer to use an alternative control point detector to Hugin's built-in CPFind, settings are provided in Preferences -> Control Point Detectors.  However you will still have to install those Control Point Detectors separately if you haven't already done so.")
