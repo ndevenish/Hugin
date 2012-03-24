@@ -1221,15 +1221,29 @@ void MainFrame::OnAddTimeImages( wxCommandEvent& event )
         }
     } while (changed);
 
-    // sort files by date
-    sortbytime spred(timeMap);
-    sort(filesv.begin(), filesv.end(), spred);
+    if(filesv.size()>0)
+    {
+        // sort files by date
+        sortbytime spred(timeMap);
+        sort(filesv.begin(), filesv.end(), spred);
 
-    // Load all of the named files.
-    wxBusyCursor();
-    GlobalCmdHist::getInstance().addCommand(
-        new wxAddImagesCmd(pano,filesv)
-        );
+        // Load all of the named files.
+        wxBusyCursor();
+        GlobalCmdHist::getInstance().addCommand(
+            new wxAddImagesCmd(pano,filesv)
+            );
+    }
+    else
+    {
+        wxMessageBox(
+            _("No matching images found."),
+#ifdef _WINDOWS
+            _("Hugin"),
+#else
+            wxT(""),
+#endif
+            wxOK | wxICON_INFORMATION, this);
+    };
 }
 
 void MainFrame::OnShowDonate(wxCommandEvent & e)
