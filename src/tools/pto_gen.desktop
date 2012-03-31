@@ -11,3 +11,6 @@ Type=Application
 Categories=Graphics;
 MimeType=image/tiff;image/jpeg;
 GenericName=Panorama project generator
+Name[cs]=Hugin PTO generátor
+Comment[cs]=Vytvoří panorama v Huginu z několika fotografií 
+GenericName[cs]=Generátor panoramatických projektů
