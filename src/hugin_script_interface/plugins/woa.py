@@ -25,7 +25,7 @@ gpl = r"""
 # @category Control Points
 # @name     Warped Overlap Analysis
 # @api-min  2011.1
-# @api-max  2011.2
+# @api-max  2011.5
 
 # note that if you want to read the script, it's written bottom-up, so the
 # higher-level routines are towards the end.
@@ -33,6 +33,7 @@ gpl = r"""
 import hsi
 import os
 import sys
+import traceback
 import re
 import copy
 import math
@@ -88,8 +89,9 @@ class argobj :
             self.margin = config.getint ( 'woa arguments' , 'margin' )
             self.prolific = config.getboolean ( 'woa arguments' , 'prolific' )
             self.scale = config.getfloat ( 'woa arguments' , 'scale' )
+            self.stop = config.get ( 'woa arguments' , 'stop' )
             self.threshold = config.getfloat ( 'woa arguments' , 'threshold' )
-            self.verbose = config.get ( 'woa arguments' , 'verbose' )
+            self.verbose = config.getboolean ( 'woa arguments' , 'verbose' )
 
         else :
                 
@@ -101,8 +103,9 @@ class argobj :
             self.margin = 0
             self.prolific = False
             self.scale = 0.25
+            self.stop = None
             self.threshold = 0.01
-            self.verbose = True
+            self.verbose = False
 
 # we want to use this variable globally:
 
@@ -140,12 +143,6 @@ def check_helpers() :
     require_program ( args.cpg )
 
 
-# due to differences in coordinate system for raster and vector graphics
-# if the mask coincides with the left image margin, I have to extend it 
-# by one pixel.
-
-mask_offset = -1.0
-
 # when comparing positions, if they differ by at most POSITION_DELTA,
 # they will be considered equal
 
@@ -182,6 +179,38 @@ def normalize ( cart ) :
     rv = ( cart[0] / mag , cart[1] / mag , cart[2] / mag )
     return rv
 
+# KFJ 2012-03-17 common subroutine for calling helper
+# programs. The helper's output is captured and returned
+# to the caller together with the return code.
+# per default, the command's output is not displayed,
+# which differs from the previous behaviour, where
+# the CPG's greeting lines etc. were littering the
+# output too much for my taste.
+
+def run_helper_program ( args , mute = True ) :
+
+    # vpr ( 'calling %s %s' % ( args[0] , args[1:] ) )
+    
+    try :
+        p = subprocess.Popen ( args ,
+                               stdout = subprocess.PIPE ,
+                               stderr = subprocess.STDOUT)
+    except OSError as problem :
+        message = ( 'OS error: "%s"\nwhen trying to execute:\n  %s\n' %
+                    ( problem.strerror , args ) )
+        raise WoaError ( message )
+    
+    p.wait()
+    output=p.stdout.readlines()
+    
+    if not mute:
+        for line in output:
+            print ( line.strip() )
+            
+    # vpr ( '%s returned %d' % ( args[0] , p.returncode ) )
+    
+    return p.returncode, output
+
 # get_tiff_offset is needed to find the offsets in cropped TIFFS.
 # This is done with a call to tiffdump, a utility program that comes
 # with libtiff. I'm not entirely happy with this solution, but I found
@@ -193,23 +222,14 @@ def normalize ( cart ) :
 
 def get_tiff_offset ( image_file ) :
 
-    # KFJ 2011-06-15 switching to the default (shell=False)
-    # and the args passed in a sequence instead of a string
-    # also added some error handling
-
-    try :
-        p = subprocess.Popen ( args = [ 'tiffdump' , image_file ] ,
-                               stdout=subprocess.PIPE )
-    except OSError as problem :
-        print ( 'an OS error occured: "%s"\nwhen trying to execute tiffdump\n'
-                % problem.strerror )
-        raise WoaError ( 'tiffdump is missing' )
-        
-
+    
+    # KFJ 2012-03-17 now using run_helper_program() to execute tiffdump
+    
+    returncode, output = run_helper_program ( [ 'tiffdump' , image_file ] )
+    
     # to find the offset values, we have to pick apart tiffdump's
     # console output:
     
-    output=p.stdout.readlines()
     gleaned = dict()
     
     for tag in output :
@@ -431,6 +451,9 @@ def img_to_point_list ( img ) :
     w = img.getWidth()
     h = img.getHeight()
 
+    # note that we're in center-relative coordinates, so this symmetric
+    # setup is subpixel-correct.
+    
     left =   - w / 2.0 - args.margin
     bottom = - h / 2.0 - args.margin
     right =    w / 2.0 + args.margin
@@ -664,6 +687,8 @@ def mask_nonoverlaps ( pano , img0 , img1 ) :
     w0 = img0.getWidth()
     h0 = img0.getHeight()
 
+    # note, again, we're using center-realtive symmetric coordinates
+    
     true_left = - w0 / 2.0
     true_bottom = - h0 / 2.0
 
@@ -682,7 +707,7 @@ def mask_nonoverlaps ( pano , img0 , img1 ) :
                      abs ( top - p.y ) )
     
     # 'inside' criterion: True if point p is within this images's
-    # boundaries. Note that here the rouine works on points in
+    # boundaries. Note that here the routine works on points in
     # 'this' image's coordinates.
     # We return the minimal distance from the margin to allow
     # for smaller strides near the edge. Negative proximity
@@ -712,23 +737,24 @@ def mask_nonoverlaps ( pano , img0 , img1 ) :
     # below, but this didn't work sometimes. I've now increased the
     # threshold to .01, which seems to work, but TODO: I'd like to
     # figure out a better way KFJ 2011-06-13
+    # lowered further from .01 to .1 KFJ 2011-09-15
     
     def put_on_margin ( p ) :
 
         x = None
         y = None
 
-        if abs ( p.x - left ) <= 0.01 :
+        if abs ( p.x - left ) <= 0.1 :
             x = left
             y = p.y
-        elif abs ( p.x - right ) <= 0.01 :
+        elif abs ( p.x - right ) <= 0.1 :
             x = right
             y = p.y
 
-        if abs ( p.y - top ) <= 0.01 :
+        if abs ( p.y - top ) <= 0.1 :
             y = top
             x = p.x
-        elif abs ( p.y - bottom ) <= 0.01 :
+        elif abs ( p.y - bottom ) <= 0.1 :
             y = bottom
             x = p.x
 
@@ -884,10 +910,10 @@ def mask_nonoverlaps ( pano , img0 , img1 ) :
         # first, find the leftmost point and extents of
         # the 'other' image's outline.
 
-        minx = 1000000.0
-        miny = 1000000.0
-        maxx = -1000000.0
-        maxy = -1000000.0
+        minx = 1000000000.0
+        miny = 1000000000.0
+        maxx = -1000000000.0
+        maxy = -1000000000.0
         
         for p in outline :
             if p.twin.x < minx :
@@ -976,28 +1002,31 @@ def mask_nonoverlaps ( pano , img0 , img1 ) :
         return True
 
     # the special case is dealt with, we continue with the ordinary:
+
+    # section removed, 'center' is calculated further down
+    ## later on we need the 'center' of the overlap. We make an
+    ## informed guess here by taking the mean of all crossover
+    ## points. Notice that the mean is calculated in real 3D
+    ## coordinates and reprojected onto the sphere.
     
-    # later on we need the 'center' of the overlap. We make an
-    # informed guess here by taking the mean of all crossover
-    # points. Notice that the mean is calculated in real 3D
-    # coordinates and reprojected onto the sphere.
+    #xm = 0.0
+    #ym = 0.0
+    #zm = 0.0
+    #for xp in crossings :
+        #xxp = transform_point ( xp , rtf1 )
+        #cart = polar2_to_cartesian3 ( xxp )
+        #xm += cart[0]
+        #ym += cart[1]
+        #zm += cart[2]
+    #xm /= len ( crossings )
+    #ym /= len ( crossings )
+    #zm /= len ( crossings )
+    #cart = normalize ( ( xm, ym, zm ) )
+    #pol = cartesian3_to_polar2 ( cart )
+    #center = point ( pol[0] , pol[1] )
+    #center = transform_point ( center , tf0 )
     
-    xm = 0.0
-    ym = 0.0
-    zm = 0.0
-    for xp in crossings :
-        xxp = transform_point ( xp , rtf1 )
-        cart = polar2_to_cartesian3 ( xxp )
-        xm += cart[0]
-        ym += cart[1]
-        zm += cart[2]
-    xm /= len ( crossings )
-    ym /= len ( crossings )
-    zm /= len ( crossings )
-    cart = normalize ( ( xm, ym, zm ) )
-    pol = cartesian3_to_polar2 ( cart )
-    center = point ( pol[0] , pol[1] )
-    center = transform_point ( center , tf0 )
+    #print ( '******* old center calculation: %s' % center )
         
     outline = in_point_to_tip ( amended_outline )
 
@@ -1116,10 +1145,10 @@ def mask_nonoverlaps ( pano , img0 , img1 ) :
 
     # we use the include masks to find the maximal extents
     
-    minx =  1000000.0
-    maxx = -1000000.0
-    miny =  1000000.0
-    maxy = -1000000.0
+    minx =  1000000000.0
+    maxx = -1000000000.0
+    miny =  1000000000.0
+    maxy = -1000000000.0
     
     for m in include_masks :
         for p in m :
@@ -1142,6 +1171,11 @@ def mask_nonoverlaps ( pano , img0 , img1 ) :
 
     img0.exclude_masks = exclude_masks
     img0.include_masks = include_masks
+
+    # KFJ 2012-03-18 center is now calculated here:
+    
+    center = calculate_overlap_center ( img0 )
+    
     img0.overlap_center = center
     img0.rotate_overlap_pano = rotate_pano
 
@@ -1155,8 +1189,6 @@ def attach_exclude_masks ( img ) :
 
     # the mask data are calculated with the origin in the center of the
     # image, we have to change that to corner-relative pixel coordinates.
-    # also, due to a bug in hugin masking code, we have to shift mask
-    # points on the left image margin by one pixel to the left.
     
     wh = img.getWidth() / 2.0
     hh = img.getHeight() / 2.0
@@ -1164,10 +1196,15 @@ def attach_exclude_masks ( img ) :
     for m in img.exclude_masks :
         Mask = hsi.MaskPolygon()
         for p in m :
-            cpx = p[0] + wh
-            cpy = p[1] + hh
-            if abs ( cpx ) < POSITION_DELTA :
-                cpx = mask_offset
+            # KFJ 2012-03-17 added '- 0.5', because the coordinate system
+            # used by PT for pixel coordinates, where the coordinates run
+            # from -0.5 to w-0.5 and -0.5 to h-0.5
+            cpx = p[0] + wh - 0.5
+            cpy = p[1] + hh - 0.5
+            # this fix I had to use earlier (to work around the assumed
+            # mask bug, which isn't there after all) can now be taken out:
+            #if abs ( cpx ) < POSITION_DELTA :
+                #cpx = mask_offset
             Mask.addPoint ( hsi.FDiff2D ( cpx , cpy ) )
         img.addMask ( Mask )
 
@@ -1193,12 +1230,40 @@ def calculate_overlap_ratio ( img ) :
     img.overlap_ratio = overlap_area / ( w * h )
     vpr ( 'overlap ratio:' , img.overlap_ratio )
 
+# a routine to calculate the overlap's center from the include masks.
+# the 'center' is found by calcuating the center of gravity off all
+# mask's outlines, for simplicity's sake.
+
+def calculate_overlap_center ( img ) :
+
+    xsum = 0.0
+    ysum = 0.0
+    lsum = 0.0
+    for m in img.include_masks :
+        previous = m[-1]
+        for current in m :
+            # length of the edge
+            dx = previous[0] - current[0]
+            dy = previous[1] - current[1]
+            l = math.sqrt ( dx * dx + dy * dy )
+            # center of the edge
+            mx = ( previous[0] + current[0] ) / 2.0
+            my = ( previous[1] + current[1] ) / 2.0
+            # weighted sum of edge centers, and also total of
+            # lengths, to calcualte the final outcome
+            lsum += l
+            xsum += l * mx
+            ysum += l * my
+            previous = current
+
+    return point ( xsum / lsum,  ysum / lsum ) 
+
 # the next routine will calculate the overlap of the images a and b
 # in the panorama pano and generate control points for the overlapping
 # area using the warped overlap method.
 # overlap_threshold defines from what size overlap the images will be
 # processed at all. The value refers to the normalized overlap area,
-# that's the ration ove pixels in overlapping areas to total pixels.
+# that's the ration of pixels in overlapping areas to total pixels.
 # scaling_factor defines by how much the images are scaled compared to
 # the 'optimal size' that hugin would calculate for the panorama that
 # generates the warped images.
@@ -1350,7 +1415,7 @@ def cps_from_overlap ( pano , a , b ) :
     # to get as many CPs as possible, like for calibration, using
     # the original size or even a larger size should be optimal,
     # whereas if it's only a matter of gaining well-distributed CPs,
-    # the size can be shrunk.
+    # the size can be lower.
 
     scale_calc = hsi.CalculateOptimalScale ( subpano )
     scale_calc.run()
@@ -1395,8 +1460,17 @@ def cps_from_overlap ( pano , a , b ) :
                 warped_image_basename ,
                 nona_file_name ]
 
-    retval = subprocess.call ( command )
+    # KFJ 2012-03-17 using run_helper_program() instead of subprocess.call()
+    
+    # retval = subprocess.call ( command )
 
+    retval , output = run_helper_program ( command )
+
+    if retval or output:
+        print ( 'nona returned %d, output:' % retval )
+        for line in output :
+            print ( line , end = "" )
+    
     # we check if nona really made the two images to process
     # and only proceed then - there may be corner cases when an
     # overlap was detected for (a,b) but not (b,a) - in this case
@@ -1407,10 +1481,18 @@ def cps_from_overlap ( pano , a , b ) :
     nona_output = [ '%s0000.tif' % warped_image_basename ,
                     '%s0001.tif' % warped_image_basename ]
 
+    # KFJ 2012-03-14 now cleaning up all transient files per default
+    
+    cleanup_list = []
+    
     for f in nona_output :
         if not os.path.exists ( f ) :
+            # AFAICT this happens if the image boundaries do overlap
+            # but there is no output because the overlap is masked
+            vpr ( 'no intermediate file %s, no CPs added' % f )
             return 0
-        
+        cleanup_list.append ( f )
+
     # next generate CPs from the warped images. What I do currently is
     # use autopano-sift-c with hardcoded parameters. apsc isn't easy
     # to handle for the purpose, so it has to be tricked into doing
@@ -1432,9 +1514,23 @@ def cps_from_overlap ( pano , a , b ) :
     # the scaling is done as desired when the warped images
     # are created.
 
+    # KFJ 2012-01-12 I found sieve2size of 10 is too generous,
+    # so I set it down to 5, which is now my favourite setting.
+
+    # KFJ 2012-03-21 added --ransacmode hom. If warped images
+    # are of different size due to masking in the original
+    # pano, default ransac mode rpy fails, as the arbitrary
+    # fov of 50 is applied to both warped images. rpy mode
+    # needs precise fov data.
+    
+    mute_command_output = True
+    
     if args.cpg == 'cpfind' :
 
-        ofs = hsi.ofstream ( '_%s' % warped_pto )
+        cpfind_input = '_%s' % warped_pto
+        cleanup_list.append ( cpfind_input )
+        
+        ofs = hsi.ofstream ( cpfind_input )
         warp = hsi.Panorama()
         wi0 = hsi.SrcPanoImage ( nona_output[0] )
         wi1 = hsi.SrcPanoImage ( nona_output[1] )
@@ -1445,9 +1541,10 @@ def cps_from_overlap ( pano , a , b ) :
             
         command = [ 'cpfind' ,
                     '--fullscale' ,
-                    '--sieve2size' , '10' ,
+                    '--sieve2size' , '5' ,
+                    '--ransacmode' , 'hom' ,
                     '-o' , warped_pto ,
-                    '_%s' % warped_pto ]
+                    cpfind_input ]
 
     elif args.cpg == 'autopano-sift-c' :
         
@@ -1461,24 +1558,43 @@ def cps_from_overlap ( pano , a , b ) :
                     '--maxmatches' , '0' ,
                     warped_pto ] + nona_output
 
+        # when using apsc, we let it display it's license warning etc:
+        
+        mute_command_output = False
+
     else :
 
-        raise WoaError ( 'only cpfind and apsc are allowed as CPG' )
+        raise WoaError ( 'only cpfind and autopano-sift-c are allowed as CPG' )
 
-    vpr ( 'cp detection:' , command )    
-    retval = subprocess.call ( command )
+    vpr ( 'cp detection: %s %s' % ( command[0] , command[1:] ) ) 
+    
+    # KFJ 2012-03-17 using run_helper_program() instead of subprocess.call()
+    
+    # retval = subprocess.call ( command )
+
+    retval , output = run_helper_program ( command ,
+                                           mute_command_output )
 
     ## now the CPG has made a panorama for us, and the only thing we
     # care for from that is the CPs it's generated. Let's get them:
-    
-    ifs = hsi.ifstream ( warped_pto )
-    warp = hsi.Panorama()
-    warp.readData ( ifs )
-    del ifs
 
-    # we take the lot as a CPVector:
-    
-    cpv = warp.getCtrlPoints()
+    # KFJ 2012-03-18 check if the CPG actually produced output;
+    # if not, assume there are no CPs.
+
+    if not os.path.exists ( warped_pto ) :
+        cpv = hsi.CPVector()
+    else :
+        ifs = hsi.ifstream ( warped_pto )
+        warp = hsi.Panorama()
+        warp.readData ( ifs )
+        del ifs
+
+        cleanup_list.append ( warped_pto )
+        
+        # we take the lot as a CPVector:
+        
+        cpv = warp.getCtrlPoints()
+
     vpr ( 'CPG found %d CPs' % len ( cpv ) )
 
     # We want to put the remapped CPs into this CPVector:
@@ -1507,30 +1623,33 @@ def cps_from_overlap ( pano , a , b ) :
     
     scale = 360.0 / float ( subpano_width )
     cps_added = 0
-    
+
     for cp in cpv :
         # the coordinates in cpv refer to the warped images. Since
         # these are, really, 360x180 equirect in cropped TIFF, all we
         # need to do with the coordinates the CPG has generated is
         # - add the TIFF crop offsets
+        #   KFJ 2012-03-17:
+        # - add 0.5 te get from pixel coordinate to image-center-relative
         # - scale to 360X180
-        # - shift the origin to the center
+        # - shift the origin to the center by subtracting 180, or 90
         # vpr ( 'cp: ' , cp.x1 , cp.y1 , cp.x2 , cp.y2 )
-        x1 = scale * ( cp.x1 + xoff1 ) - 180.0
-        x2 = scale * ( cp.x2 + xoff2 ) - 180.0
-        y1 = scale * ( cp.y1 + yoff1 ) - 90.0
-        y2 = scale * ( cp.y2 + yoff2 ) - 90.0
+        x1 = scale * ( cp.x1 + xoff1 + 0.5 ) - 180.0
+        x2 = scale * ( cp.x2 + xoff2 + 0.5 ) - 180.0
+        y1 = scale * ( cp.y1 + yoff1 + 0.5 ) - 90.0
+        y2 = scale * ( cp.y2 + yoff2 + 0.5 ) - 90.0
         # vpr ( 'angles' , x1 , y1 , x2 , y2 )
         # - transform these angles into original image coordinates
         cp0 = transform_point ( point ( x1 , y1 ) , tf0 )
         cp1 = transform_point ( point ( x2 , y2 ) , tf1 )
         # vpr ( 'in img0:' , cp0 , 'in img1' , cp1 )
-        # - convert from image-center origin image coordinates
+        # - convert from image-center-relative coordinates
         #   to corner origin pixel coordinates
-        x1 = cp0.x + xcenter0
-        y1 = cp0.y + ycenter0
-        x2 = cp1.x + xcenter1
-        y2 = cp1.y + ycenter1
+        #   KFJ 2012-03-17, added '- 0.5':
+        x1 = cp0.x + xcenter0 - 0.5
+        y1 = cp0.y + ycenter0 - 0.5
+        x2 = cp1.x + xcenter1 - 0.5
+        y2 = cp1.y + ycenter1 - 0.5
 
         # KFJ 2011-06-13 the inverse transformation sometimes failed
         # on me producing nan (for example when reverse-transforming
@@ -1557,11 +1676,15 @@ def cps_from_overlap ( pano , a , b ) :
         
         # - generate a ControlPoint object if the point is inside
         #   the image - sometimes the CPGs produce CPs outside the
-        #   overlap area, I haven't found out why.
-        if (    x1 < 0.0 or x1 > w0
-             or y1 < 0.0 or y1 > h0
-             or x2 < 0.0 or x2 > w1
-             or y2 < 0.0 or y2 > h1 ) :
+        #   overlap area, I haven't found out why
+        # KFJ 2012-03-18 I think I know now, but I'm not sure
+        # TODO later remove the print statement
+        if (    x1 < -0.5 or x1 > w0 - 0.5
+             or y1 < -0.5 or y1 > h0 - 0.5
+             or x2 < -0.5 or x2 > w1 - 0.5
+             or y2 < -0.5 or y2 > h1 - 0.5 ) :
+            vpr ( '****** CP outside image: (%f,%f) (%f,%f)'
+                  % ( x1, y1 , x2, y2 ) )
             continue
         
         tcp = hsi.ControlPoint ( a , x1 , y1 , b , x2 , y2 ,
@@ -1581,7 +1704,11 @@ def cps_from_overlap ( pano , a , b ) :
         ofs = hsi.ofstream ( nona_file_name )
         subpano.writeData ( ofs )
         del ofs
-        
+    else :
+        for f in cleanup_list :
+            # vpr ( 'removing temporary file %s' % f )
+            os.remove ( f )
+
     # finally we return the number of control points we've added
     # to the panorama
 
@@ -1610,10 +1737,43 @@ def process_image_set ( pano , image_set ) :
     total_cps_added = 0
     
     for pair in pairs :
+        
+        # first check if a stop file is set and present
+        
+        if args.stop and os.path.exists ( args.stop ) :
+            
+            print ( 'found stop file %s' % args.stop )
+            print ( 'ending woa, %d new CPs' % total_cps_added )
+            break
+        
         vpr ( 'examining image pair' , pair )
-        cps_added = cps_from_overlap ( pano , *pair )
-        total_cps_added += cps_added
-        vpr ( 'pair' , pair , 'CPs added' , cps_added )
+        try:
+            cps_added = cps_from_overlap ( pano , *pair )
+            total_cps_added += cps_added
+            if cps_added:
+                print (   'image pair %s: %3d control points added'
+                        % ( '(%3d, %3d)' % pair , cps_added ) )
+        except Exception:
+            
+            # KFJ 2012-03-18 took over catch-all exception handling
+            # from hpi.py so that now there's a stack trace printout
+                
+            # first we retrieve the details of the exception:
+
+            exc_type, exc_value, exc_traceback = sys.exc_info()
+
+            # emit a message with the type and text of the exception:
+            
+            print('matching pair %s failed with %s: "%s"'
+                % ( pair,
+                    exc_type.__name__,
+                    exc_value) )
+
+            # and, for good measure, a stack traceback to point
+            # to the precise location and call history of the error:
+            
+            print ( 'stack traceback:' )
+            traceback.print_tb ( exc_traceback )
 
     return total_cps_added
 
@@ -1639,6 +1799,7 @@ def entry ( pano ) :
     vpr ( 'focus:  ' , args.focus )
     vpr ( 'margin: ' , args.margin )
     vpr ( 'scale:  ' , args.scale )
+    vpr ( 'stop:   ' , args.stop )
     vpr ( 'thresh: ' , args.threshold )
     vpr ( 'prolific' , args.prolific )
     vpr ( 'verbose:' , args.verbose )
@@ -1661,7 +1822,15 @@ def entry ( pano ) :
                       in range ( pano.getNrOfImages() ) ]
 
     total_cps_added = process_image_set ( pano , image_set )
-    return total_cps_added
+
+    # KFJ 2012-03-18 I used to return total_cps_added.
+    # This resulted in the 'script returned XXX' popup
+    # turining up, usually, hidden behind other windows
+    # so now I return 0 and there is only a popup if an
+    # error occured.
+    
+    # return total_cps_added
+    return 0
 
 # main() is called if the program is called from the command line.
 # In this case we have a proper set of arguments to process:
@@ -1700,7 +1869,7 @@ def main() :
                         help='dummy: end a group of image numbers')
 
     parser.add_argument('-g', '--cpg',
-                        metavar='<cpfind or apsc>',
+                        metavar='<cpfind or autopano-sift-c>',
                         default = 'cpfind', # KFJ 2011-06-13, was apsc
                         type=str,
                         help='choose which CP generator to use')
@@ -1763,6 +1932,12 @@ def main() :
                         type=int,
                         help='image numbers to exclude')
 
+    parser.add_argument('-z' , '--stop',
+                        metavar = '<stop file>' ,
+                        type = str ,
+                        default = None ,
+                        help = 'stop woa if this file is present' )
+
     parser.add_argument('input' ,
                         metavar = '<pto file>' ,
                         type = str ,
@@ -1800,6 +1975,7 @@ def main() :
     vpr ( 'margin: ' , args.margin )
     vpr ( 'output: ' , args.output )
     vpr ( 'scale:  ' , args.scale )
+    vpr ( 'stop:   ' , args.stop )
     vpr ( 'thresh: ' , args.threshold )
     vpr ( 'prolific' , args.prolific )
     vpr ( 'ptofile:' , args.input )
