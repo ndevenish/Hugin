@@ -82,6 +82,7 @@ do
    OSVERSION="$i386OSVERSION"
    CC=$i386CC
    CXX=$i386CXX
+   OPENMP_IMAGECACHE=" --enable-image-cache --disable-openmp "
  elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ] ; then
    TARGET=$ppcTARGET
    MACSDKDIR=$ppcMACSDKDIR
@@ -89,6 +90,7 @@ do
    OSVERSION="$ppcOSVERSION"
    CC=$ppcCC
    CXX=$ppcCXX
+   OPENMP_IMAGECACHE=" --enable-image-cache --disable-openmp "
  elif [ $ARCH = "ppc64" -o $ARCH = "ppc970" ] ; then
    TARGET=$ppc64TARGET
    MACSDKDIR=$ppc64MACSDKDIR
@@ -103,6 +105,7 @@ do
    OSVERSION="$x64OSVERSION"
    CC=$x64CC
    CXX=$x64CXX
+   OPENMP_IMAGECACHE=" --disable-image-cache --enable-openmp "
  fi
 
 # To build documentation, you will need to install the following (port) packages:
@@ -124,17 +127,16 @@ do
 
  env \
    CC=$CC CXX=$CXX \
-   CFLAGS="-fopenmp -isysroot $MACSDKDIR -I$REPOSITORYDIR/include -arch $ARCH $ARCHARGs $OTHERARGs -dead_strip" \
-   CXXFLAGS="-fopenmp -isysroot $MACSDKDIR -I$REPOSITORYDIR/include -arch $ARCH $ARCHARGs $OTHERARGs -dead_strip" \
-   CPPFLAGS="-fopenmp -I$REPOSITORYDIR/include -I$REPOSITORYDIR/include/OpenEXR -I/usr/include" \
+   CFLAGS="-isysroot $MACSDKDIR -I$REPOSITORYDIR/include -arch $ARCH $ARCHARGs $OTHERARGs -dead_strip" \
+   CXXFLAGS="-isysroot $MACSDKDIR -I$REPOSITORYDIR/include -arch $ARCH $ARCHARGs $OTHERARGs -dead_strip" \
+   CPPFLAGS="-I$REPOSITORYDIR/include -I$REPOSITORYDIR/include/OpenEXR -I/usr/include" \
    LIBS="-lGLEW -framework GLUT -lobjc -framework OpenGL -framework AGL" \
    LDFLAGS="-L$REPOSITORYDIR/lib -L/usr/lib -mmacosx-version-min=$OSVERSION -dead_strip" \
    NEXT_ROOT="$MACSDKDIR" \
    PKG_CONFIG_PATH="$REPOSITORYDIR/lib/pkgconfig" \
    ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
      --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH --with-apple-opengl-framework \
-     --disable-image-cache --enable-openmp \
-     --with-glew $extraConfig || fail "configure step for $ARCH";
+     --disable-image-cache --enable-openmp --with-glew $extraConfig || fail "configure step for $ARCH";
 
  # hack; AC_FUNC_MALLOC sucks!!
 

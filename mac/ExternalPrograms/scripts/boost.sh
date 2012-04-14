@@ -38,8 +38,8 @@ fail()
 
 # Uncomment correct version
 #BOOST_VER="1_44"
-#BOOST_VER="1_46"
-BOOST_VER="1_48"
+BOOST_VER="1_46"
+#BOOST_VER="1_48"
 
 echo "\n## Version set to $BOOST_VER ##\n"
 
@@ -51,21 +51,31 @@ echo "\n## First copying all boost includes to $REPOSITORYDIR/include/ ##"
 echo "## This will take some time ##\n"
 cp -R "./boost" "$REPOSITORYDIR/include/";
 
-echo "## First compiling bjam ##\n"
-if [ $BOOST_VER > "1_45" ]
-then
- cd "./tools/build/v2/engine"
- sh "build.sh"
- cd "../../../../"
- BJAM=$(ls ./tools/build/v2/engine/bin.mac*/bjam)
-else
- # For versions < 1.46
- cd "./tools/jam/src";
- sh "build.sh";
- cd "../../../";
- BJAM=$(ls ./tools/jam/src/bin.mac*/bjam)
-fi
+ echo "## First compiling bjam ##\n"
+case "$BOOST_VER" in
+  1_44|1_45)
+       cd "./tools/jam/src";
+       sh "build.sh";
+       cd "../../../";
+       BJAM=$(ls ./tools/jam/src/bin.mac*/bjam)
+       ;;
+  1_46)
+       cd "./tools/build/v2/engine/src"
+       sh "build.sh"
+       cd "../../../../../"
+       BJAM=$(ls ./tools/build/v2/engine/src/bin.mac*/bjam)
+       echo $BJAM
+       ;;
+  1_47|1_48|1_49)
+       cd "./tools/build/v2/engine"
+       sh "build.sh"
+       cd "../../../../"
+       BJAM=$(ls ./tools/build/v2/engine/bin.mac*/bjam)
+       ;;
+esac
+echo "BJAM command is: $BJAM"
 echo "## Done compiling bjam ##"
+
 
 # init
 
@@ -127,6 +137,7 @@ do
 
  SDKVRSION=$(echo $MACSDKDIR | sed 's/^[^1]*\([[:digit:]]*\.[[:digit:]]*\).*/\1/')
 
+echo "CXX should now be known: $CXX"
 if [ "$CXX" = "" ] 
 then
   boostTOOLSET="--toolset=darwin"
@@ -135,7 +146,7 @@ then
   echo "using darwin : : $CXX ;" > ./TEMP-userconf.jam
   boostTOOLSET="--user-config=./TEMP-userconf.jam"
  fi
- 
+
  
  # hack that sends extra arguments to g++
  $BJAM -a --stagedir="stage-$ARCH" --prefix=$REPOSITORYDIR $boostTOOLSET -n stage \

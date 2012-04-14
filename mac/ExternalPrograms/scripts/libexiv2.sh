@@ -22,6 +22,7 @@
 # 20100111.0 sg Script tested for building dylib
 # 20100121.0 sg Script updated for 0.19
 # 20100624.0 hvdw More robust error checking on compilation
+# 20120414.0 hvdw update to 0.22
 # -------------------------------
 
 # init
@@ -33,8 +34,7 @@ fail()
 }
 
 
-EXIV2VER_M="6"
-EXIV2VER_FULL="$EXIV2VER_M.3.1"
+EXIV2VER="11"
 
 let NUMARCH="0"
 
@@ -62,7 +62,9 @@ do
  if [ $ARCH = "i386" -o $ARCH = "i686" ] ; then
    TARGET=$i386TARGET
    MACSDKDIR=$i386MACSDKDIR
-   ARCHARGs="$i386ONLYARG"
+#   ARCHARGs="$i386ONLYARG"
+   # exiv2 not yet fully compliant with openmp on 32bits
+   ARCHARGs="-march=prescott -mtune=pentium-m -ftree-vectorize -mmacosx-version-min=10.5"
    OSVERSION="$i386OSVERSION"
    CC=$i386CC
    CXX=$i386CXX
@@ -89,16 +91,19 @@ do
    CXX=$x64CXX
  fi
 
+ echo "Now building for architecture $ARCH"
+
  env \
   CC=$CC CXX=$CXX \
   CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O3 -dead_strip" \
   CXXFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O3 -dead_strip" \
   CPPFLAGS="-I$REPOSITORYDIR/include" \
-  LDFLAGS="-L$REPOSITORYDIR/lib -arch $ARCH -mmacosx-version-min=$OSVERSION -dead_strip -prebind" \
+  LDFLAGS="-L$REPOSITORYDIR/lib -arch $ARCH -mmacosx-version-min=$OSVERSION -dead_strip  -prebind" \
   NEXT_ROOT="$MACSDKDIR" \
   ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
-  --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
+  --host="$TARGET" --build="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
   --enable-shared --with-libiconv-prefix=$REPOSITORYDIR --with-libintl-prefix=$REPOSITORYDIR \
+  --with-expat=$REPOSITORYDIR --with-zlib=$MACSDKDIR/usr --disable-lensdata --disable-commercial \
   --enable-static  || fail "configure step for $ARCH";
 
  [ -f "libtool-bk" ] && rm libtool-bk; 
@@ -109,20 +114,20 @@ do
 
  make clean;
 
- cd xmpsdk/src;
- make xmpsdk
- cd ../../;
+ #cd xmpsdk/src;
+ #make xmpsdk
+ #cd ../../;
 
- cd src;
+ #cd src;
  make $OTHERMAKEARGs || fail "failed at make step of $ARCH";
  make install || fail "make install step of $ARCH";
- cd ../;
+ #cd ../;
 done
 
 
 # merge libexiv2
 
-for liba in lib/libexiv2.a lib/libexiv2.$EXIV2VER_M.dylib
+for liba in lib/libexiv2.a lib/libexiv2.$EXIV2VER.dylib
 do
 
  if [ $NUMARCH -eq 1 ] ; then
@@ -158,11 +163,10 @@ do
 done
 
 
-if [ -f "$REPOSITORYDIR/lib/libexiv2.$EXIV2VER_M.dylib" ]
+if [ -f "$REPOSITORYDIR/lib/libexiv2.$EXIV2VER.dylib" ]
 then
- install_name_tool -id "$REPOSITORYDIR/lib/libexiv2.$EXIV2VER_M.dylib" "$REPOSITORYDIR/lib/libexiv2.$EXIV2VER_M.dylib"
-# ln -sfn libexiv2.$EXIV2VER_FULL.dylib $REPOSITORYDIR/lib/libexiv2.$EXIV2VER_M.dylib;
- ln -sfn libexiv2.$EXIV2VER_M.dylib $REPOSITORYDIR/lib/libexiv2.dylib;
+ install_name_tool -id "$REPOSITORYDIR/lib/libexiv2.$EXIV2VER.dylib" "$REPOSITORYDIR/lib/libexiv2.$EXIV2VER.dylib"
+ ln -sfn libexiv2.$EXIV2VER.dylib $REPOSITORYDIR/lib/libexiv2.dylib;
 fi
 
 # merge execs
@@ -206,7 +210,7 @@ done
 
 for ARCH in $ARCHS
 do
-  install_name_tool -change $REPOSITORYDIR/arch/$ARCH/lib/libexiv2.$EXIV2VER_M.dylib $REPOSITORYDIR/lib/libexiv2.$EXIV2VER_M.dylib $REPOSITORYDIR/bin/exiv2
+  install_name_tool -change $REPOSITORYDIR/arch/$ARCH/lib/libexiv2.$EXIV2VER.dylib $REPOSITORYDIR/lib/libexiv2.$EXIV2VER.dylib $REPOSITORYDIR/bin/exiv2
 done
 
 

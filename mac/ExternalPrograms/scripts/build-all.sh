@@ -9,6 +9,7 @@
 # 20100118.1 sg Fixed missing "" and named SVN directory for panotools libpano13-2.9.16
 # 20100121.0 sg Updated for newer packages: boost,jpeg,png,tiff,exiv2,lcms
 # 20100121.1 sg Backed out new version of boost
+# 20120413.0 hvdw update a lot of stuff. Add new scripts
 # -------------------------------
 
 cd /PATHTOHUGIN/hugin/mac/ExternalPrograms/scripts || exit 1
@@ -20,22 +21,28 @@ pst=">>>>>>>>>>>>>>>>>>>>"
 # To start this script in the middle, uncomment the next 2 lines and move the "fi" line down as needed
 #if [ -z "this will test will fail" ] ; then
 #fi
-echo "$pre boost $pst"           && cd ../boost_1_40_0 || exit 1       && sh ../scripts/boost.sh
-echo "$pre expat $pst"           && cd ../expat-2.0.1 || exit 1        && sh ../scripts/libexpat.sh;
+echo "$pre boost $pst"           && cd ../boost_1_46_0 || exit 1       && sh ../scripts/boost.sh
+echo "$pre expat $pst"           && cd ../expat-2.1.0 || exit 1        && sh ../scripts/libexpat.sh;
 echo "$pre libiconv $pst"        && cd ../libiconv-1.13.1  || exit 1   && sh ../scripts/libiconv.sh;
 echo "$pre gettext $pst"         && cd ../gettext-0.17  || exit 1      && sh ../scripts/gettext.sh
-echo "$pre libjpeg-8 $pst"       && cd ../jpeg-8 || exit 1             && sh ../scripts/libjpeg.sh;
-echo "$pre libpng $pst"          && cd ../libpng-1.2.42 || exit 1      && sh ../scripts/libpng.sh;
+echo "$pre libjpeg-8d $pst"      && cd ../jpeg-8d || exit 1            && sh ../scripts/libjpeg.sh;
+echo "$pre libpng $pst"          && cd ../libpng-1.2.44 || exit 1      && sh ../scripts/libpng.sh;
 echo "$pre libtiff $pst"         && cd ../tiff-3.9.2 || exit 1         && sh ../scripts/libtiff.sh;
-echo "$pre wxmac $pst"           && cd ../wxMac-2.8.10 || exit 1       && sh ../scripts/wxmac28.sh;
-echo "$pre ilmbase $pst"         && cd ../ilmbase-1.0.1 || exit 1      && sh ../scripts/ilmbase.sh;
-echo "$pre openexr $pst"         && cd ../openexr-1.6.1 || exit 1      && sh ../scripts/openexr16.sh;
-echo "$pre libpano13 $pst"       && cd ../libpano13-2.9.16 || exit 1   && sh ../scripts/pano13.sh;
-echo "$pre libexiv2 $pst"        && cd ../exiv2-0.19 || exit 1         && sh ../scripts/libexiv2.sh;
+echo "$pre wxmac $pst"           && cd ../wxMac-2.8.12 || exit 1       && sh ../scripts/wxmac28.sh;
+echo "$pre ilmbase $pst"         && cd ../ilmbase-1.0.2 || exit 1      && sh ../scripts/ilmbase.sh;
+echo "$pre openexr $pst"         && cd ../openexr-1.7.0 || exit 1      && sh ../scripts/openexr17.sh;
+echo "$pre libpano13 $pst"       && cd ../libpano13-2.9.18 || exit 1   && sh ../scripts/pano13.sh;
+echo "$pre libexiv2 $pst"        && cd ../exiv2-0.22 || exit 1         && sh ../scripts/libexiv2.sh;
 echo "$pre liblcms $pst"         && cd ../lcms-1.19 || exit 1          && sh ../scripts/lcms.sh;
+echo "$pre liblcms-2 $pst"       && cd ../lcms-2.2 || exit 1           && sh ../scripts/lcms2.sh;
+echo "$pre tclap $pst"           && cd ../tclap-1.21 || exit 1         && sh ../scripts/tclap.sh;
+echo "$pre gnu science lib"      && cd ../gsl-1.15 || exit 1           && sh ../scripts/gsl.sh; 
 echo "$pre libxmi $pst"          && cd ../libxmi-1.2 || exit 1         && sh ../scripts/libxmi.sh;
-echo "$pre libglew $pst"         && cd ../glew-1.5.2 || exit 1         && sh ../scripts/libglew.sh;
+echo "$pre libglew $pst"         && cd ../glew-1.7.0 || exit 1         && sh ../scripts/libglew.sh;
+echo "$pre libffi $pst"          && cd ../libffi-3.0.11 || exit 1      && sh ../scripts/libffi.sh;
+echo "$pre libdbus $pst"         && cd ../libdbus-1.42 || exit 1       && sh ../scripts/libdbus.sh;
 echo "$pre gnumake-119 $pst"     && cd ../gnumake-119 || exit 1        && sh ../scripts/gnumake.sh;
+echo "$pre multiblend $pst"      && cd ../multiblend || exit 1         && sh ../scripts/multiblend.sh;
 # Correct funky name for the enblend-enfuse-4.0 directory
 if [ ! -d ../enblend-enfuse-4.0 ] && [ -d ../enblend-enfuse-4.0-753b534c819d ] ; then
 	ln -s enblend-enfuse-4.0-753b534c819d ../enblend-enfuse-4.0

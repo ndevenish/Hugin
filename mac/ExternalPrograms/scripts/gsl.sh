@@ -20,6 +20,7 @@
 
 # -------------------------------
 # 20120111.0 initial version of gnu science library
+# Dependency for new enblend after GSOC 2011
 # -------------------------------
 
 # init

@@ -25,6 +25,7 @@
 # 20091206.0 sg Script tested and used to build 2009.4.0-RC3
 #               Works Intel: 10.5, 10.6 & Powerpc 10.4, 10.5
 # 20100624.0 hvdw More robust error checking on compilation
+# 20120415.0 hvdw upgrade to 2.8.12
 # -------------------------------
 
 fail()
@@ -60,7 +61,8 @@ WXVERSION="2.8"
 WXVER_COMP="$WXVERSION.0"
 #WXVER_FULL="$WXVER_COMP.5.0"  # for 2.8.8
 #WXVER_FULL="$WXVER_COMP.6.0"  # for 2.8.10
-WXVER_FULL="$WXVER_COMP.7.0"  # for 2.8.11
+#WXVER_FULL="$WXVER_COMP.7.0"  # for 2.8.11
+WXVER_FULL="$WXVER_COMP.8.0"  # for 2.8.12
 
 mkdir -p "$REPOSITORYDIR/bin";
 mkdir -p "$REPOSITORYDIR/lib";

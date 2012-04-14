@@ -1,5 +1,5 @@
 # ------------------
-# multiblend 0.1a   
+# multiblend 0.31beta   
 # ------------------
 # $Id: multiblend.sh 1908 2007-02-05 14:59:45Z ippei $
 # Copyright (c) 2007, Ippei Ukai
@@ -21,7 +21,7 @@
 # -------------------------------
 # 20111231.0 hvdw first version. Still experimental. Don't know which
 #		  cross arch settings are necessary and which not.
-# 20120106.0 hvdw adaprt for version 0.2
+# 20120106.0 hvdw adapt for version 0.2
 # -------------------------------
 
 # init
@@ -77,7 +77,9 @@ do
  if [ $ARCH = "i386" -o $ARCH = "i686" ] ; then
    TARGET=$i386TARGET
    MACSDKDIR=$i386MACSDKDIR
-   ARCHARGs="$i386ONLYARG"
+#   ARCHARGs="$i386ONLYARG"
+   # multiblend not yet fully compliant with openmp on 32bits
+   ARCHARGs="-march=prescott -mtune=pentium-m -ftree-vectorize -mmacosx-version-min=10.5"
    OSVERSION="$i386OSVERSION"
    CC=$i386CC
    CXX=$i386CXX

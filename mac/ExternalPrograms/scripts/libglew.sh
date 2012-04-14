@@ -21,11 +21,12 @@
 # 20091206.0 sg Script tested and used to build 2009.4.0-RC3
 # 20100110.0 sg Script enhanced to copy dynamic lib also
 # 20100624.0 hvdw More robust error checking on compilation
+# 20120414.0 hvdw updated to 1.7
 # -------------------------------
 
 GLEW_MAJOR=1
-GLEW_MINOR=5
-GLEW_REV=2
+GLEW_MINOR=7
+GLEW_REV=0
 
 fail()
 {

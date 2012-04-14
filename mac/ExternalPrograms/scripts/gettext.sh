@@ -70,7 +70,8 @@ do
  if [ $ARCH = "i386" -o $ARCH = "i686" ] ; then
    TARGET=$i386TARGET
    MACSDKDIR=$i386MACSDKDIR
-   ARCHARGs="$i386ONLYARG"
+#   ARCHARGs="$i386ONLYARG"
+   ARCHARGs='-march=prescott -mtune=pentium-m -ftree-vectorize -mmacosx-version-min=10.5'
    OSVERSION="$i386OSVERSION"
    CC=$i386CC
    CXX=$i386CXX
@@ -112,9 +113,9 @@ do
   ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
     --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
     --enable-shared --enable-static --disable-csharp --disable-java \
-    --with-included-gettext --with-included-glib \
+    --with-included-gettext --with-included-glib --disable-openmp \
     --with-included-libxml --without-examples --with-libexpat-prefix=$REPOSITORYDIR \
-    --with-included-libcroco  --without-emacs --with-libiconf-prefix=$REPOSITORYDIR || fail "configure step for $ARCH" ;
+    --with-included-libcroco  --without-emacs --with-libiconv-prefix=$REPOSITORYDIR || fail "configure step for $ARCH" ;
 
  make clean;
  make || fail "failed at make step of $ARCH";

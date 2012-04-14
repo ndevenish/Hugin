@@ -21,6 +21,7 @@
 # -------------------------------
 # 20091206.0 sg Script tested and used to build 2009.4.0-RC3
 # 20100624.0 hvdw More robust error checking on compilation
+# 20120413.0 hvdw update to version 2.1.0
 # -------------------------------
 
 fail()
@@ -60,8 +61,7 @@ mkdir -p "$REPOSITORYDIR/lib";
 mkdir -p "$REPOSITORYDIR/include";
 
 # Generated library claims to be 1.5.2 for the 2.0.1 sources 
-EXPATVER_M="1"
-EXPATVER_FULL="$EXPATVER_M.5.2"
+EXPATVER="1"
 
 
 # compile
@@ -112,7 +112,7 @@ do
 	 10.4 )
    		crt1obj="lib/crt1.o"
 			;;
-   10.5 | 10.6 )
+   10.5 | 10.6 | 10.7)
       crt1obj="lib/crt1.$NATIVE_OSVERSION.o"
 			;;
 	 * )
@@ -146,7 +146,7 @@ done
 
 # merge libexpat
 
-for liba in lib/libexpat.a lib/libexpat.$EXPATVER_FULL.dylib
+for liba in lib/libexpat.a lib/libexpat.$EXPATVER.dylib
 do
 
  if [ $NUMARCH -eq 1 ] ; then
@@ -181,8 +181,7 @@ do
 
 done
 
-if [ -f "$REPOSITORYDIR/lib/libexpat.$EXPATVER_FULL.dylib" ] ; then
- install_name_tool -id "$REPOSITORYDIR/lib/libexpat.$EXPATVER_FULL.dylib" "$REPOSITORYDIR/lib/libexpat.$EXPATVER_FULL.dylib"
- ln -sfn libexpat.$EXPATVER_FULL.dylib $REPOSITORYDIR/lib/libexpat.$EXPATVER_M.dylib;
- ln -sfn libexpat.$EXPATVER_FULL.dylib $REPOSITORYDIR/lib/libexpat.dylib;
+if [ -f "$REPOSITORYDIR/lib/libexpat.$EXPATVER.dylib" ] ; then
+ install_name_tool -id "$REPOSITORYDIR/lib/libexpat.$EXPATVER.dylib" "$REPOSITORYDIR/lib/libexpat.$EXPATVER.dylib"
+ ln -sfn libexpat.$EXPATVER.dylib $REPOSITORYDIR/lib/libexpat.dylib;
 fi

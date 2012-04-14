@@ -14209,7 +14209,7 @@
 					../src/hugin_base,
 					"$(inherited)",
 				);
-				INSTALL_PATH = /usr/local/bin;
+				INSTALL_PATH = "";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
@@ -14224,12 +14224,9 @@
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-				);
+				OTHER_LDFLAGS = "";
 				PER_ARCH_CFLAGS_x86_64 = "-march=core2 -mtune=core2 -ftree-vectorize";
-				PREBINDING = YES;
+				PREBINDING = NO;
 				PRODUCT_NAME = cpfind;
 				ZERO_LINK = NO;
 			};
@@ -14414,7 +14411,7 @@
 				INFOPLIST_FILE = "../mac/localfeatures-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				OTHER_LDFLAGS = "";
-				PREBINDING = YES;
+				PREBINDING = NO;
 				PRODUCT_NAME = localfeatures;
 				ZERO_LINK = NO;
 			};
