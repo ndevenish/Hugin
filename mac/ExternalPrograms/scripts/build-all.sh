@@ -40,7 +40,8 @@ echo "$pre gnu science lib"      && cd ../gsl-1.15 || exit 1           && sh ../
 echo "$pre libxmi $pst"          && cd ../libxmi-1.2 || exit 1         && sh ../scripts/libxmi.sh;
 echo "$pre libglew $pst"         && cd ../glew-1.7.0 || exit 1         && sh ../scripts/libglew.sh;
 echo "$pre libffi $pst"          && cd ../libffi-3.0.11 || exit 1      && sh ../scripts/libffi.sh;
-echo "$pre libdbus $pst"         && cd ../libdbus-1.42 || exit 1       && sh ../scripts/libdbus.sh;
+#echo "$pre libdbus $pst"         && cd ../libdbus-1.42 || exit 1       && sh ../scripts/libdbus.sh;
+echo "$pre lensfun $pst"         && cd ../lensfun-svn || exit 1        && sh ../scripts/lensfun.sh;
 echo "$pre gnumake-119 $pst"     && cd ../gnumake-119 || exit 1        && sh ../scripts/gnumake.sh;
 echo "$pre multiblend $pst"      && cd ../multiblend || exit 1         && sh ../scripts/multiblend.sh;
 # Correct funky name for the enblend-enfuse-4.0 directory
