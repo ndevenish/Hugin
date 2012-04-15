@@ -35,6 +35,7 @@
 #include "pano13/version.h"
 #include "boost/version.hpp"
 #include "exiv2/version.hpp"
+#include "lensdb/LensDB.h"
 
 BEGIN_EVENT_TABLE(AboutDialog, wxDialog)
     EVT_NOTEBOOK_PAGE_CHANGED(XRCID("about_notebook"), AboutDialog::OnChangedTab)
@@ -173,6 +174,9 @@ void AboutDialog::GetSystemInformation(wxFont *font)
     text=text+wxT("\n\nHugin\n")+wxString::Format(_("Version: %s"),wxString(DISPLAY_VERSION,wxConvLocal).c_str());
     text=text+wxT("\n")+wxString::Format(_("Path to resources: %s"),huginApp::Get()->GetXRCPath().c_str());
     text=text+wxT("\n")+wxString::Format(_("Path to data: %s"),huginApp::Get()->GetDataPath().c_str());
+    HuginBase::LensDB::LensDB& lensDB=HuginBase::LensDB::LensDB::GetSingleton();
+    text=text+wxT("\n")+wxString::Format(_("Path to public lensfun database: %s"),lensDB.GetMainDBPath().c_str());
+    text=text+wxT("\n")+wxString::Format(_("Path to user lensfun database: %s"),lensDB.GetUserDBPath().c_str());
     text=text+wxT("\n\n")+_("Libraries");
     text=text+wxT("\n")+wxString::Format(wxT("wxWidgets: %i.%i.%i.%i"),
                                             wxMAJOR_VERSION,
