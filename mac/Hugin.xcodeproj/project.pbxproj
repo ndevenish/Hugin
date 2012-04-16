@@ -834,6 +834,48 @@
 		731006D7126CAAF500358FDA /* libZThread.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 731389121182EFC500DCF373 /* libZThread.a */; };
 		73120196141FCA71005071A9 /* linefind in Copy Executable Files */ = {isa = PBXBuildFile; fileRef = 73E7D404141FBDF800A6C583 /* linefind */; };
 		731201A8141FCBF5005071A9 /* linefind in Copy Executable Files */ = {isa = PBXBuildFile; fileRef = 73E7D404141FBDF800A6C583 /* linefind */; };
+		7314557F153C93EC00D62D6A /* liblensfun.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73145578153C93EC00D62D6A /* liblensfun.dylib */; };
+		73145580153C93EC00D62D6A /* libgthread-2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73145579153C93EC00D62D6A /* libgthread-2.dylib */; };
+		73145581153C93EC00D62D6A /* libgobject-2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7314557A153C93EC00D62D6A /* libgobject-2.dylib */; };
+		73145582153C93EC00D62D6A /* libgmodule-2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7314557B153C93EC00D62D6A /* libgmodule-2.dylib */; };
+		73145583153C93EC00D62D6A /* libglib-2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7314557C153C93EC00D62D6A /* libglib-2.dylib */; };
+		73145584153C93EC00D62D6A /* libgio-2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7314557D153C93EC00D62D6A /* libgio-2.dylib */; };
+		73145585153C93EC00D62D6A /* libffi.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7314557E153C93EC00D62D6A /* libffi.dylib */; };
+		73145586153C93EC00D62D6A /* liblensfun.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73145578153C93EC00D62D6A /* liblensfun.dylib */; };
+		73145587153C93EC00D62D6A /* libgthread-2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73145579153C93EC00D62D6A /* libgthread-2.dylib */; };
+		73145588153C93ED00D62D6A /* libgobject-2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7314557A153C93EC00D62D6A /* libgobject-2.dylib */; };
+		73145589153C93ED00D62D6A /* libgmodule-2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7314557B153C93EC00D62D6A /* libgmodule-2.dylib */; };
+		7314558A153C93ED00D62D6A /* libglib-2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7314557C153C93EC00D62D6A /* libglib-2.dylib */; };
+		7314558B153C93ED00D62D6A /* libgio-2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7314557D153C93EC00D62D6A /* libgio-2.dylib */; };
+		7314558C153C93ED00D62D6A /* libffi.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7314557E153C93EC00D62D6A /* libffi.dylib */; };
+		7314558D153C93ED00D62D6A /* liblensfun.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73145578153C93EC00D62D6A /* liblensfun.dylib */; };
+		7314558E153C93ED00D62D6A /* libgthread-2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73145579153C93EC00D62D6A /* libgthread-2.dylib */; };
+		7314558F153C93ED00D62D6A /* libgobject-2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7314557A153C93EC00D62D6A /* libgobject-2.dylib */; };
+		73145590153C93ED00D62D6A /* libgmodule-2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7314557B153C93EC00D62D6A /* libgmodule-2.dylib */; };
+		73145591153C93ED00D62D6A /* libglib-2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7314557C153C93EC00D62D6A /* libglib-2.dylib */; };
+		73145592153C93ED00D62D6A /* libgio-2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7314557D153C93EC00D62D6A /* libgio-2.dylib */; };
+		73145593153C93ED00D62D6A /* libffi.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7314557E153C93EC00D62D6A /* libffi.dylib */; };
+		73145594153C93ED00D62D6A /* liblensfun.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73145578153C93EC00D62D6A /* liblensfun.dylib */; };
+		73145595153C93ED00D62D6A /* libgthread-2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73145579153C93EC00D62D6A /* libgthread-2.dylib */; };
+		73145596153C93ED00D62D6A /* libgobject-2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7314557A153C93EC00D62D6A /* libgobject-2.dylib */; };
+		73145597153C93ED00D62D6A /* libgmodule-2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7314557B153C93EC00D62D6A /* libgmodule-2.dylib */; };
+		73145598153C93ED00D62D6A /* libglib-2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7314557C153C93EC00D62D6A /* libglib-2.dylib */; };
+		73145599153C93ED00D62D6A /* libgio-2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7314557D153C93EC00D62D6A /* libgio-2.dylib */; };
+		7314559A153C93ED00D62D6A /* libffi.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7314557E153C93EC00D62D6A /* libffi.dylib */; };
+		7314559B153C93ED00D62D6A /* liblensfun.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73145578153C93EC00D62D6A /* liblensfun.dylib */; };
+		7314559C153C93ED00D62D6A /* libgthread-2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73145579153C93EC00D62D6A /* libgthread-2.dylib */; };
+		7314559D153C93ED00D62D6A /* libgobject-2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7314557A153C93EC00D62D6A /* libgobject-2.dylib */; };
+		7314559E153C93ED00D62D6A /* libgmodule-2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7314557B153C93EC00D62D6A /* libgmodule-2.dylib */; };
+		7314559F153C93ED00D62D6A /* libglib-2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7314557C153C93EC00D62D6A /* libglib-2.dylib */; };
+		731455A0153C93ED00D62D6A /* libgio-2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7314557D153C93EC00D62D6A /* libgio-2.dylib */; };
+		731455A1153C93ED00D62D6A /* libffi.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7314557E153C93EC00D62D6A /* libffi.dylib */; };
+		731455A2153C93ED00D62D6A /* liblensfun.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73145578153C93EC00D62D6A /* liblensfun.dylib */; };
+		731455A3153C93ED00D62D6A /* libgthread-2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73145579153C93EC00D62D6A /* libgthread-2.dylib */; };
+		731455A4153C93ED00D62D6A /* libgobject-2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7314557A153C93EC00D62D6A /* libgobject-2.dylib */; };
+		731455A5153C93ED00D62D6A /* libgmodule-2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7314557B153C93EC00D62D6A /* libgmodule-2.dylib */; };
+		731455A6153C93ED00D62D6A /* libglib-2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7314557C153C93EC00D62D6A /* libglib-2.dylib */; };
+		731455A7153C93ED00D62D6A /* libgio-2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7314557D153C93EC00D62D6A /* libgio-2.dylib */; };
+		731455A8153C93ED00D62D6A /* libffi.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7314557E153C93EC00D62D6A /* libffi.dylib */; };
 		7318CA66119D371100DBD6FD /* CalculateOverlap.h in Headers */ = {isa = PBXBuildFile; fileRef = 7318CA64119D371100DBD6FD /* CalculateOverlap.h */; };
 		7318CA67119D371100DBD6FD /* CalculateOverlap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7318CA65119D371100DBD6FD /* CalculateOverlap.cpp */; };
 		7318CA68119D371100DBD6FD /* CalculateOverlap.h in Headers */ = {isa = PBXBuildFile; fileRef = 7318CA64119D371100DBD6FD /* CalculateOverlap.h */; };
@@ -2077,6 +2119,11 @@
 		73F161C9118EB72A002FC7DD /* libiconv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73F161C7118EB72A002FC7DD /* libiconv.a */; };
 		73F161CA118EB743002FC7DD /* libIlmThread.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EAB52E0E86CF120020D514 /* libIlmThread.a */; };
 		73F161D8118EB8CC002FC7DD /* Transforms.h in Headers */ = {isa = PBXBuildFile; fileRef = 73F161D7118EB8CC002FC7DD /* Transforms.h */; };
+		73F26568153C8A69009287D8 /* wxLensDB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73F26567153C8A69009287D8 /* wxLensDB.cpp */; };
+		73F2656C153C8B1F009287D8 /* LensDB.h in Headers */ = {isa = PBXBuildFile; fileRef = 73F2656A153C8B1F009287D8 /* LensDB.h */; };
+		73F2656D153C8B1F009287D8 /* LensDB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73F2656B153C8B1F009287D8 /* LensDB.cpp */; };
+		73F2656E153C8B1F009287D8 /* LensDB.h in Headers */ = {isa = PBXBuildFile; fileRef = 73F2656A153C8B1F009287D8 /* LensDB.h */; };
+		73F2656F153C8B1F009287D8 /* LensDB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73F2656B153C8B1F009287D8 /* LensDB.cpp */; };
 		73F54BA2129809A000141773 /* TranslatePanorama.h in Headers */ = {isa = PBXBuildFile; fileRef = 73F54BA0129809A000141773 /* TranslatePanorama.h */; };
 		73F54BA3129809A000141773 /* TranslatePanorama.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73F54BA1129809A000141773 /* TranslatePanorama.cpp */; };
 		73FDC9BE13A7D4DC0042030D /* alphanum.h in Headers */ = {isa = PBXBuildFile; fileRef = 73FDC9BC13A7D4DC0042030D /* alphanum.h */; };
@@ -4225,6 +4272,13 @@
 		730B1AE91139B2B20014462B /* MaskLoadDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MaskLoadDialog.cpp; sourceTree = "<group>"; };
 		731389121182EFC500DCF373 /* libZThread.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libZThread.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		73138A2B1183358100DCF373 /* copyTools.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = copyTools.sh; sourceTree = "<group>"; };
+		73145578153C93EC00D62D6A /* liblensfun.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = liblensfun.dylib; path = ../../ExternalPrograms/repository/lib/liblensfun.dylib; sourceTree = SOURCE_ROOT; };
+		73145579153C93EC00D62D6A /* libgthread-2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libgthread-2.dylib"; path = "../../ExternalPrograms/repository/lib/libgthread-2.dylib"; sourceTree = SOURCE_ROOT; };
+		7314557A153C93EC00D62D6A /* libgobject-2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libgobject-2.dylib"; path = "../../ExternalPrograms/repository/lib/libgobject-2.dylib"; sourceTree = SOURCE_ROOT; };
+		7314557B153C93EC00D62D6A /* libgmodule-2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libgmodule-2.dylib"; path = "../../ExternalPrograms/repository/lib/libgmodule-2.dylib"; sourceTree = SOURCE_ROOT; };
+		7314557C153C93EC00D62D6A /* libglib-2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libglib-2.dylib"; path = "../../ExternalPrograms/repository/lib/libglib-2.dylib"; sourceTree = SOURCE_ROOT; };
+		7314557D153C93EC00D62D6A /* libgio-2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libgio-2.dylib"; path = "../../ExternalPrograms/repository/lib/libgio-2.dylib"; sourceTree = SOURCE_ROOT; };
+		7314557E153C93EC00D62D6A /* libffi.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libffi.dylib; path = ../../ExternalPrograms/repository/lib/libffi.dylib; sourceTree = SOURCE_ROOT; };
 		7318CA64119D371100DBD6FD /* CalculateOverlap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CalculateOverlap.h; path = algorithms/basic/CalculateOverlap.h; sourceTree = "<group>"; };
 		7318CA65119D371100DBD6FD /* CalculateOverlap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CalculateOverlap.cpp; path = algorithms/basic/CalculateOverlap.cpp; sourceTree = "<group>"; };
 		731DBF01129D835200793A38 /* Hugin.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Hugin.icns; sourceTree = "<group>"; };
@@ -4267,7 +4321,7 @@
 		7336099F1247DA6D009225D2 /* icpfind.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = icpfind.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		73360A0D1247E299009225D2 /* PanoramaMakefilelibExport.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PanoramaMakefilelibExport.cpp; sourceTree = "<group>"; };
 		73360A0E1247E299009225D2 /* PanoramaMakefilelibExport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PanoramaMakefilelibExport.h; sourceTree = "<group>"; };
-		73360A161247E32E009225D2 /* libboost_date_time.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_date_time.dylib; path = "../../ExternalPrograms/3way-repository/lib/libboost_date_time.dylib"; sourceTree = SOURCE_ROOT; };
+		73360A161247E32E009225D2 /* libboost_date_time.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_date_time.dylib; path = ../../ExternalPrograms/repository/lib/libboost_date_time.dylib; sourceTree = SOURCE_ROOT; };
 		73360A401247E898009225D2 /* AssistantMakefilelibExport.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AssistantMakefilelibExport.cpp; path = algorithms/assistant_makefile/AssistantMakefilelibExport.cpp; sourceTree = "<group>"; };
 		73360A411247E898009225D2 /* AssistantMakefilelibExport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AssistantMakefilelibExport.h; path = algorithms/assistant_makefile/AssistantMakefilelibExport.h; sourceTree = "<group>"; };
 		733705F21423CB8800D2034A /* hugin_version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hugin_version.h; sourceTree = "<group>"; };
@@ -4286,9 +4340,9 @@
 		73411F131077B205001831AF /* HDRMergeOptionDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HDRMergeOptionDialog.cpp; sourceTree = "<group>"; };
 		73411F141077B205001831AF /* HDRMergeOptionDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDRMergeOptionDialog.h; sourceTree = "<group>"; };
 		7346528A1420E23C0092A4BB /* align_image_stack-static */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "align_image_stack-static"; sourceTree = BUILT_PRODUCTS_DIR; };
-		734BB02B1247A37A0062CF12 /* libboost_system.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_system.dylib; path = "../../ExternalPrograms/3way-repository/lib/libboost_system.dylib"; sourceTree = SOURCE_ROOT; };
-		734BB03A1247A87C0062CF12 /* libboost_iostreams.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_iostreams.dylib; path = "../../ExternalPrograms/3way-repository/lib/libboost_iostreams.dylib"; sourceTree = SOURCE_ROOT; };
-		734BB03C1247AB3A0062CF12 /* libboost_regex.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_regex.dylib; path = "../../ExternalPrograms/3way-repository/lib/libboost_regex.dylib"; sourceTree = SOURCE_ROOT; };
+		734BB02B1247A37A0062CF12 /* libboost_system.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_system.dylib; path = ../../ExternalPrograms/repository/lib/libboost_system.dylib; sourceTree = SOURCE_ROOT; };
+		734BB03A1247A87C0062CF12 /* libboost_iostreams.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_iostreams.dylib; path = ../../ExternalPrograms/repository/lib/libboost_iostreams.dylib; sourceTree = SOURCE_ROOT; };
+		734BB03C1247AB3A0062CF12 /* libboost_regex.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_regex.dylib; path = ../../ExternalPrograms/repository/lib/libboost_regex.dylib; sourceTree = SOURCE_ROOT; };
 		734BDF5B0EB8EC19007EBA09 /* PTBatcher */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PTBatcher; sourceTree = BUILT_PRODUCTS_DIR; };
 		734FB8DD0EB38B9400CD7122 /* Celeste.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Celeste.cpp; sourceTree = "<group>"; };
 		734FB8DE0EB38B9400CD7122 /* Celeste.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Celeste.h; sourceTree = "<group>"; };
@@ -4465,8 +4519,8 @@
 		739C2E8812DA50E1006C4F77 /* ProjectionGridTool.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ProjectionGridTool.cpp; sourceTree = "<group>"; };
 		739F846B0EC75402004771D6 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
 		739F84780EC754CC004771D6 /* libwx_macu_gl-2.8.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_macu_gl-2.8.dylib"; path = "lib/libwx_macu_gl-2.8.dylib"; sourceTree = "<group>"; };
-		73A20D1114B05A9D008B4EAD /* multiblend */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = multiblend; path = "../../ExternalPrograms/3way-repository/bin/multiblend"; sourceTree = SOURCE_ROOT; };
-		73A20D3114B05B88008B4EAD /* libtiffxx.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libtiffxx.dylib; path = "../../ExternalPrograms/3way-repository/lib/libtiffxx.dylib"; sourceTree = SOURCE_ROOT; };
+		73A20D1114B05A9D008B4EAD /* multiblend */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = multiblend; path = ../../ExternalPrograms/repository/bin/multiblend; sourceTree = SOURCE_ROOT; };
+		73A20D3114B05B88008B4EAD /* libtiffxx.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libtiffxx.dylib; path = ../../ExternalPrograms/repository/lib/libtiffxx.dylib; sourceTree = SOURCE_ROOT; };
 		73A8A31E13F56DB600BB58F2 /* _hsi.so */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = _hsi.so; sourceTree = BUILT_PRODUCTS_DIR; };
 		73A8A35213F5709500BB58F2 /* hsi_ImageVariableGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hsi_ImageVariableGroup.h; path = hugin_script_interface/hsi_ImageVariableGroup.h; sourceTree = "<group>"; };
 		73A8A35313F5709500BB58F2 /* hsi_Panorama.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hsi_Panorama.h; path = hugin_script_interface/hsi_Panorama.h; sourceTree = "<group>"; };
@@ -4543,7 +4597,7 @@
 		73C5F71A12E212910033A6E1 /* nn_index.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nn_index.h; sourceTree = "<group>"; };
 		73C5F7A412E2DC490033A6E1 /* flann_cpp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = flann_cpp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		73C959140DA2C9DB00E19110 /* tca_correct-static */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "tca_correct-static"; sourceTree = BUILT_PRODUCTS_DIR; };
-		73CA0FFB1296FB9500A4BC75 /* libboost_signals.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_signals.dylib; path = "../../ExternalPrograms/3way-repository/lib/libboost_signals.dylib"; sourceTree = SOURCE_ROOT; };
+		73CA0FFB1296FB9500A4BC75 /* libboost_signals.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_signals.dylib; path = ../../ExternalPrograms/repository/lib/libboost_signals.dylib; sourceTree = SOURCE_ROOT; };
 		73D0C7EC1494DB03008C2C22 /* hierarchical_clustering_index.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hierarchical_clustering_index.h; sourceTree = "<group>"; };
 		73D24B4E106152CD00B8A25D /* cpclean */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = cpclean; sourceTree = BUILT_PRODUCTS_DIR; };
 		73D24B641061556700B8A25D /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
@@ -4588,6 +4642,9 @@
 		73F161C6118EB729002FC7DD /* libintl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libintl.a; path = "../../ExternalPrograms/repository/lib-static/libintl.a"; sourceTree = SOURCE_ROOT; };
 		73F161C7118EB72A002FC7DD /* libiconv.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libiconv.a; path = "../../ExternalPrograms/repository/lib-static/libiconv.a"; sourceTree = SOURCE_ROOT; };
 		73F161D7118EB8CC002FC7DD /* Transforms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Transforms.h; path = ../src/hugin_base/hugin_math/Transforms.h; sourceTree = SOURCE_ROOT; };
+		73F26567153C8A69009287D8 /* wxLensDB.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = wxLensDB.cpp; sourceTree = "<group>"; };
+		73F2656A153C8B1F009287D8 /* LensDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LensDB.h; path = lensdb/LensDB.h; sourceTree = "<group>"; };
+		73F2656B153C8B1F009287D8 /* LensDB.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LensDB.cpp; path = lensdb/LensDB.cpp; sourceTree = "<group>"; };
 		73F54BA0129809A000141773 /* TranslatePanorama.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TranslatePanorama.h; path = algorithms/basic/TranslatePanorama.h; sourceTree = "<group>"; };
 		73F54BA1129809A000141773 /* TranslatePanorama.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TranslatePanorama.cpp; path = algorithms/basic/TranslatePanorama.cpp; sourceTree = "<group>"; };
 		73FDC9BC13A7D4DC0042030D /* alphanum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = alphanum.h; sourceTree = "<group>"; };
@@ -4871,6 +4928,13 @@
 				E864E2C610CE8437007AC6E4 /* liblcms.dylib in Frameworks */,
 				E8A7D98610FB6B9E00839DF3 /* libGLEW.dylib in Frameworks */,
 				E8A7D98B10FB6CE300839DF3 /* libexiv2.dylib in Frameworks */,
+				73145586153C93EC00D62D6A /* liblensfun.dylib in Frameworks */,
+				73145587153C93EC00D62D6A /* libgthread-2.dylib in Frameworks */,
+				73145588153C93ED00D62D6A /* libgobject-2.dylib in Frameworks */,
+				73145589153C93ED00D62D6A /* libgmodule-2.dylib in Frameworks */,
+				7314558A153C93ED00D62D6A /* libglib-2.dylib in Frameworks */,
+				7314558B153C93ED00D62D6A /* libgio-2.dylib in Frameworks */,
+				7314558C153C93ED00D62D6A /* libffi.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4896,6 +4960,13 @@
 				576900F80D24D3DC00A6AD01 /* libwx_macu-2.8.dylib in Frameworks */,
 				5731C4CD0D55378000605D22 /* libexpat.dylib in Frameworks */,
 				5739AEC40D251B51000DBBF3 /* libiconv.dylib in Frameworks */,
+				73145594153C93ED00D62D6A /* liblensfun.dylib in Frameworks */,
+				73145595153C93ED00D62D6A /* libgthread-2.dylib in Frameworks */,
+				73145596153C93ED00D62D6A /* libgobject-2.dylib in Frameworks */,
+				73145597153C93ED00D62D6A /* libgmodule-2.dylib in Frameworks */,
+				73145598153C93ED00D62D6A /* libglib-2.dylib in Frameworks */,
+				73145599153C93ED00D62D6A /* libgio-2.dylib in Frameworks */,
+				7314559A153C93ED00D62D6A /* libffi.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5380,6 +5451,13 @@
 				7377D6D9148FD612004FE48D /* HuginBase.framework in Frameworks */,
 				7377D6DA148FD612004FE48D /* libiconv.dylib in Frameworks */,
 				7377D6DB148FD612004FE48D /* libexiv2.dylib in Frameworks */,
+				7314558D153C93ED00D62D6A /* liblensfun.dylib in Frameworks */,
+				7314558E153C93ED00D62D6A /* libgthread-2.dylib in Frameworks */,
+				7314558F153C93ED00D62D6A /* libgobject-2.dylib in Frameworks */,
+				73145590153C93ED00D62D6A /* libgmodule-2.dylib in Frameworks */,
+				73145591153C93ED00D62D6A /* libglib-2.dylib in Frameworks */,
+				73145592153C93ED00D62D6A /* libgio-2.dylib in Frameworks */,
+				73145593153C93ED00D62D6A /* libffi.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5453,6 +5531,13 @@
 				737E497811D3FD74002BA8AE /* libGLEW.dylib in Frameworks */,
 				737E497911D3FD74002BA8AE /* libexiv2.dylib in Frameworks */,
 				735F091712DF6F300081D893 /* AGL.framework in Frameworks */,
+				7314559B153C93ED00D62D6A /* liblensfun.dylib in Frameworks */,
+				7314559C153C93ED00D62D6A /* libgthread-2.dylib in Frameworks */,
+				7314559D153C93ED00D62D6A /* libgobject-2.dylib in Frameworks */,
+				7314559E153C93ED00D62D6A /* libgmodule-2.dylib in Frameworks */,
+				7314559F153C93ED00D62D6A /* libglib-2.dylib in Frameworks */,
+				731455A0153C93ED00D62D6A /* libgio-2.dylib in Frameworks */,
+				731455A1153C93ED00D62D6A /* libffi.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5488,6 +5573,13 @@
 				7392861A14225F240051CAEC /* libGLEW.dylib in Frameworks */,
 				7392861B14225F240051CAEC /* libexiv2.dylib in Frameworks */,
 				7392861C14225F240051CAEC /* Python.framework in Frameworks */,
+				7314557F153C93EC00D62D6A /* liblensfun.dylib in Frameworks */,
+				73145580153C93EC00D62D6A /* libgthread-2.dylib in Frameworks */,
+				73145581153C93EC00D62D6A /* libgobject-2.dylib in Frameworks */,
+				73145582153C93EC00D62D6A /* libgmodule-2.dylib in Frameworks */,
+				73145583153C93EC00D62D6A /* libglib-2.dylib in Frameworks */,
+				73145584153C93EC00D62D6A /* libgio-2.dylib in Frameworks */,
+				73145585153C93EC00D62D6A /* libffi.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5532,6 +5624,13 @@
 				739286C514225FDB0051CAEC /* libexiv2.dylib in Frameworks */,
 				739286C614225FDB0051CAEC /* AGL.framework in Frameworks */,
 				739286C714225FDB0051CAEC /* Python.framework in Frameworks */,
+				731455A2153C93ED00D62D6A /* liblensfun.dylib in Frameworks */,
+				731455A3153C93ED00D62D6A /* libgthread-2.dylib in Frameworks */,
+				731455A4153C93ED00D62D6A /* libgobject-2.dylib in Frameworks */,
+				731455A5153C93ED00D62D6A /* libgmodule-2.dylib in Frameworks */,
+				731455A6153C93ED00D62D6A /* libglib-2.dylib in Frameworks */,
+				731455A7153C93ED00D62D6A /* libgio-2.dylib in Frameworks */,
+				731455A8153C93ED00D62D6A /* libffi.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6291,6 +6390,13 @@
 		5745FBE5094E1C4700E6B672 /* repository */ = {
 			isa = PBXGroup;
 			children = (
+				73145578153C93EC00D62D6A /* liblensfun.dylib */,
+				73145579153C93EC00D62D6A /* libgthread-2.dylib */,
+				7314557A153C93EC00D62D6A /* libgobject-2.dylib */,
+				7314557B153C93EC00D62D6A /* libgmodule-2.dylib */,
+				7314557C153C93EC00D62D6A /* libglib-2.dylib */,
+				7314557D153C93EC00D62D6A /* libgio-2.dylib */,
+				7314557E153C93EC00D62D6A /* libffi.dylib */,
 				73A20D1114B05A9D008B4EAD /* multiblend */,
 				73CA0FFB1296FB9500A4BC75 /* libboost_signals.dylib */,
 				73360A161247E32E009225D2 /* libboost_date_time.dylib */,
@@ -6419,6 +6525,7 @@
 		57565A3D0D088CFD00344F55 /* base_wx */ = {
 			isa = PBXGroup;
 			children = (
+				73F26567153C8A69009287D8 /* wxLensDB.cpp */,
 				737C8C25139A6ECB00F82635 /* LensTools.cpp */,
 				737C8C26139A6ECB00F82635 /* LensTools.h */,
 				733AC15A131C277600D276B9 /* wxImageCache.cpp */,
@@ -6549,19 +6656,20 @@
 		5771F5E60C3007B300736343 /* hugin_base */ = {
 			isa = PBXGroup;
 			children = (
+				57EA83A40C3A7CD700E4965E /* algorithms */,
+				57EA83940C3A7A0C00E4965E /* algorithm */,
+				5759D9B40C3271640043F754 /* appbase */,
+				576EC4A40C3FC9750076A417 /* huginapp */,
+				5771F7BF0C3021B000736343 /* hugin_math */,
+				5771F5E70C3007CE00736343 /* hugin_utils */,
+				73F26569153C8AE4009287D8 /* lensdb */,
 				73DFBC8C139B513400558A2D /* lines */,
 				7357E4F2124776D30098B385 /* makefilelib */,
 				57098D730C453E5F00BD1C53 /* hugin_basic.h */,
-				5759D9B40C3271640043F754 /* appbase */,
-				57EA83940C3A7A0C00E4965E /* algorithm */,
-				57EA83A40C3A7CD700E4965E /* algorithms */,
-				5771F7BF0C3021B000736343 /* hugin_math */,
-				5771F5E70C3007CE00736343 /* hugin_utils */,
-				576EC4A40C3FC9750076A417 /* huginapp */,
 				57237F410C391052005818A4 /* nona */,
 				5759DA590C327DC90043F754 /* panodata */,
-				57B88E610C36CD8F00EC6519 /* photometric */,
 				5713006E0C33D43B00252FE3 /* panotools */,
+				57B88E610C36CD8F00EC6519 /* photometric */,
 				5771F7200C301FC100736343 /* vigra_ext */,
 				570227170C425C44008A44D6 /* test */,
 				57098D750C453E6600BD1C53 /* hugin_base.pch */,
@@ -7501,6 +7609,15 @@
 			path = wx;
 			sourceTree = "<group>";
 		};
+		73F26569153C8AE4009287D8 /* lensdb */ = {
+			isa = PBXGroup;
+			children = (
+				73F2656A153C8B1F009287D8 /* LensDB.h */,
+				73F2656B153C8B1F009287D8 /* LensDB.cpp */,
+			);
+			name = lensdb;
+			sourceTree = "<group>";
+		};
 		73FE2A90124914550002E246 /* zthread */ = {
 			isa = PBXGroup;
 			children = (
@@ -7853,6 +7970,7 @@
 				73DFBC97139B516C00558A2D /* FindN8Lines.h in Headers */,
 				73DFBC99139B516C00558A2D /* FindLines.h in Headers */,
 				73FDC9BE13A7D4DC0042030D /* alphanum.h in Headers */,
+				73F2656E153C8B1F009287D8 /* LensDB.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -8184,6 +8302,7 @@
 				739285B814225F240051CAEC /* FindN8Lines.h in Headers */,
 				739285B914225F240051CAEC /* FindLines.h in Headers */,
 				739285BA14225F240051CAEC /* alphanum.h in Headers */,
+				73F2656C153C8B1F009287D8 /* LensDB.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -10420,6 +10539,7 @@
 				73DFBC9A139B516C00558A2D /* FindLines.cpp in Sources */,
 				73FDC9BF13A7D4DC0042030D /* alphanum.cpp in Sources */,
 				7377D716148FDA70004FE48D /* LayerStacks.cpp in Sources */,
+				73F2656F153C8B1F009287D8 /* LensDB.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -10435,6 +10555,7 @@
 				57A6869D0D567BFB00F215C4 /* RunStitchPanel.cpp in Sources */,
 				733AC15B131C277600D276B9 /* wxImageCache.cpp in Sources */,
 				737C8C27139A6ECB00F82635 /* LensTools.cpp in Sources */,
+				73F26568153C8A69009287D8 /* wxLensDB.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -10911,6 +11032,7 @@
 				739285FE14225F240051CAEC /* FindLines.cpp in Sources */,
 				739285FF14225F240051CAEC /* alphanum.cpp in Sources */,
 				7377D717148FDA70004FE48D /* LayerStacks.cpp in Sources */,
+				73F2656D153C8B1F009287D8 /* LensDB.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -12391,9 +12513,9 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = Nona;
 			};
 			name = Debug;
@@ -12431,9 +12553,9 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = Nona;
 			};
 			name = Development;
@@ -12470,9 +12592,9 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = Nona;
 			};
 			name = Release;
@@ -12713,16 +12835,18 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_7)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_9)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
 				);
+				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_5 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_7 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_9 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_9 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = HuginBase;
 			};
 			name = Debug;
@@ -12749,16 +12873,18 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_7)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_9)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
 				);
+				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_5 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_7 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_9 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_9 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = HuginBase;
 			};
 			name = Development;
@@ -12825,9 +12951,11 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = HuginBaseWx;
 				STRIP_INSTALLED_PRODUCT = NO;
@@ -12863,9 +12991,11 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = HuginBaseWx;
 				STRIP_INSTALLED_PRODUCT = NO;
@@ -12901,10 +13031,12 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = HuginBaseWx;
 			};
 			name = Release;
@@ -13257,9 +13389,9 @@
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_5 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_5 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_7 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_7 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = nona;
 			};
 			name = Debug;
@@ -13288,9 +13420,9 @@
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_5 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_5 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_7 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_7 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = nona;
 			};
 			name = Development;
@@ -13320,9 +13452,9 @@
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_5 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_5 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_7 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_7 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = nona;
 				SEPARATE_STRIP = NO;
 				STRIP_INSTALLED_PRODUCT = NO;
@@ -13564,9 +13696,9 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = PTBatcherGUI;
 			};
 			name = Debug;
@@ -13602,9 +13734,9 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = PTBatcherGUI;
 			};
 			name = Development;
@@ -13641,9 +13773,9 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = PTBatcherGUI;
 			};
 			name = Release;
@@ -13664,7 +13796,7 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = hugin_celeste;
 				STRIP_STYLE = debugging;
@@ -13687,7 +13819,7 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = hugin_celeste;
 				STRIP_STYLE = debugging;
@@ -14132,10 +14264,10 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				OTHER_LDFLAGS = (
 					"-framework",
 					Foundation,
@@ -14166,10 +14298,10 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				OTHER_LDFLAGS = (
 					"-framework",
 					Foundation,
@@ -14220,10 +14352,10 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				OTHER_LDFLAGS = "";
 				PER_ARCH_CFLAGS_x86_64 = "-march=core2 -mtune=core2 -ftree-vectorize";
 				PREBINDING = NO;
@@ -14446,12 +14578,12 @@
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_5 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_7 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_7 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				OTHER_LDFLAGS = (
 					"-framework",
 					Carbon,
@@ -14490,12 +14622,12 @@
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_5 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_7 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_7 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				OTHER_LDFLAGS = (
 					"-framework",
 					Carbon,
@@ -14546,12 +14678,12 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_5 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_5 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				OTHER_LDFLAGS = "";
 				PREBINDING = NO;
 				PRODUCT_NAME = icpfind;
@@ -14790,9 +14922,9 @@
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_5 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_5 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_7 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_7 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = PTBatcher;
 			};
 			name = Debug;
@@ -14836,9 +14968,9 @@
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_5 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_5 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_7 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_7 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = PTBatcher;
 			};
 			name = Development;
@@ -14879,9 +15011,9 @@
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_5 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_5 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				OTHER_LDFLAGS_QUOTED_FOR_TARGET_1 = "\"$(REPOSITORY_DIR)/lib\"";
 				OTHER_LDFLAGS_QUOTED_FOR_TARGET_2 = "\"$(REPOSITORY_DIR)/include\"";
 				OTHER_LDFLAGS_QUOTED_FOR_TARGET_3 = "\"$(REPOSITORY_DIR)/lib/wx/include/mac-unicode-release-2.8\"";
@@ -15092,12 +15224,14 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_2)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = hugin_hdrmerge;
 			};
 			name = Debug;
@@ -15118,12 +15252,14 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_2)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = hugin_hdrmerge;
 			};
 			name = Development;
@@ -15146,12 +15282,14 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_5)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_5 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_5 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = pto_gen;
 			};
 			name = Release;
@@ -15218,9 +15356,9 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = HuginStitchProject;
 			};
 			name = Debug;
@@ -15256,9 +15394,9 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = HuginStitchProject;
 			};
 			name = Development;
@@ -15295,9 +15433,9 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = HuginStitchProject;
 			};
 			name = Release;
@@ -15361,15 +15499,17 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_7)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
 				);
+				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_5 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_7 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = Hugin;
 			};
 			name = Debug;
@@ -15412,15 +15552,17 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_7)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
 				);
+				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_5 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_7 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = Hugin;
 			};
 			name = Development;
@@ -15465,15 +15607,17 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_7)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_9)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_5 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_7 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_9 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = Hugin;
 			};
@@ -15544,16 +15688,18 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_7)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_9)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
 				);
+				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_5 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_7 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_9 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_9 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = HuginBase;
 			};
 			name = Debug;
@@ -15580,16 +15726,18 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_7)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_9)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
 				);
+				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_5 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_7 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_9 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_9 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = HuginBase;
 			};
 			name = Development;
@@ -15685,15 +15833,17 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_7)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
 				);
+				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_5 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_7 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = Hugin;
 			};
 			name = Debug;
@@ -15736,15 +15886,17 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_7)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
 				);
+				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_5 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_7 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = Hugin;
 			};
 			name = Development;
@@ -15789,15 +15941,17 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_7)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_9)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_5 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_7 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_9 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = Hugin;
 			};
@@ -16040,10 +16194,10 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_3 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = hugin_hdrmerge;
 			};
 			name = Debug;
@@ -16066,10 +16220,10 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_3 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = hugin_hdrmerge;
 			};
 			name = Development;
@@ -16095,9 +16249,9 @@
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_5 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_5 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = autooptimiser;
 			};
 			name = Release;
@@ -16248,9 +16402,9 @@
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = hugin_hdrmerge;
 			};
 			name = Debug;
@@ -16274,9 +16428,9 @@
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = hugin_hdrmerge;
 			};
 			name = Development;
@@ -16302,9 +16456,9 @@
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_5 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_5 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = pto2mk;
 			};
 			name = Release;
@@ -16326,7 +16480,7 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PREBINDING = NO;
@@ -16351,7 +16505,7 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				PREBINDING = NO;
@@ -16394,7 +16548,7 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				MACH_O_TYPE = mh_bundle;
@@ -16423,10 +16577,10 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				OTHER_LDFLAGS = (
 					"-framework",
 					Foundation,
@@ -16457,10 +16611,10 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				OTHER_LDFLAGS = (
 					"-framework",
 					Foundation,
@@ -16511,10 +16665,10 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				OTHER_LDFLAGS = "";
 				PREBINDING = YES;
 				PRODUCT_NAME = icpfind;
@@ -16886,9 +17040,9 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = Nona;
 			};
 			name = Debug;
@@ -16926,9 +17080,9 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = Nona;
 			};
 			name = Development;
@@ -16965,9 +17119,9 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
 				);
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = calibrate_lens_gui;
 			};
 			name = Release;
@@ -17205,9 +17359,9 @@
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_5 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_7 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = celeste;
 			};
 			name = Debug;
@@ -17240,9 +17394,9 @@
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_5 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_7 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				PRODUCT_NAME = celeste;
 			};
 			name = Development;
@@ -17276,9 +17430,9 @@
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib-static\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_5 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_7 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8 = "\"$(SRCROOT)/../../ExternalPrograms/3way-repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				PREBINDING = YES;
 				PRODUCT_NAME = celeste_standalone;
 			};

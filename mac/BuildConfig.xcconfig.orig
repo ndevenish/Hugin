@@ -7,6 +7,7 @@
 // 20100121.1 sg Backed out boost 1_41
 // 201010xx.0 hvdw Upgraded to boost 1.44 and Added lot of boost libraries
 // 20101119.0 hvdw Added boost_signals
+// 20120416.0 hvdw Remove ppc stuff and update minimum version to 10.5
 //----------------------------------
 
 // where external libraries are installed
@@ -19,37 +20,28 @@ REPOSITORY_ABSOLUTE_PATH = /PATH/TO/HUGIN/SOURCE/mac/ExternalPrograms/repository
 REPOSITORY_DIR = ./ExternalPrograms/repository
 
 // release architectures:
-RELEASE_ARCHS_32 = ppc i386
-// If doing a 3-way build on Leopard or Snow Leopard, Uncomment the following line
-//RELEASE_ARCHS_64 = x86_64
+RELEASE_ARCHS_32 = i386
+RELEASE_ARCHS_64 = x86_64
 
 GCC_VERSION_i386 = 4.0
-GCC_VERSION_ppc  = 4.0
-// If doing a 3-way build on Leopard or Snow Leopard, Uncomment the following line:
-//GCC_VERSION_x86_64 = 4.2
+GCC_VERSION_x86_64 = 4.2
 
 // SDK target
-SDKROOT_ppc = /Developer/SDKs/MacOSX10.4u.sdk
-SDKROOT_i386 = /Developer/SDKs/MacOSX10.4u.sdk
-// If doing 3-way build on Leopard or Snow Leopard, Uncomment the following line:
-//SDKROOT_x86_64 = /Developer/SDKs/MacOSX10.5.sdk
+SDKROOT_i386 = /Developer/SDKs/MacOSX10.5.sdk
+SDKROOT_x86_64 = /Developer/SDKs/MacOSX10.5.sdk
 
 // deployment target
-MACOSX_DEPLOYMENT_TARGET_ppc = 10.4
-MACOSX_DEPLOYMENT_TARGET_i386 = 10.4
-// If doing 3-way build on Leopard or Snow Leopard, Uncomment the following 2 lines:
-//MACOSX_DEPLOYMENT_TARGET_x86_64 = 10.5
+MACOSX_DEPLOYMENT_TARGET_i386 = 10.5
+MACOSX_DEPLOYMENT_TARGET_x86_64 = 10.5
 
 // special optimization
-PER_ARCH_CFLAGS_ppc = -mcpu=G3 -mtune=G4
 PER_ARCH_CFLAGS_i386 = -march=prescott -mtune=pentium-m -ftree-vectorize
-// If doing 3-way build on Leopard or Snow Leopard, Uncomment the following 2 lines:
-//PER_ARCH_CFLAGS_x86_64 = -march=core2 -mtune=core2 -ftree-vectorize
+PER_ARCH_CFLAGS_x86_64 = -march=core2 -mtune=core2 -ftree-vectorize
 
 // wxWidgets
 WX_MAJOR_VERSION = 2.8
 // See comments above for REPOSITORY_DIR. This may need to be a fully qualified path.
-WX_LOCALE_DIR = ../mac/ExternalPrograms/wxMac-2.8.11/locale
+WX_LOCALE_DIR = ../mac/ExternalPrograms/wxMac-2.8.12/locale
 
 // gettext
 GETTEXT_VERSION = 0.17
@@ -59,7 +51,7 @@ GETTEXT_VERSION = 0.17
 EXIFTOOL_DIR = ../mac/ExternalPrograms/Image-ExifTool-8.29
 
 // Boost Thread
-BOOST_VER = 1_44
+BOOST_VER = 1_46
 BOOST_THREAD_LIB = libboost_thread
 BOOST_DATE_TIME_LIB = libboost_date_time
 BOOST_FILESYSTEM_LIB = libboost_filesystem
