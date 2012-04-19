@@ -106,24 +106,7 @@ do
   boostADDRESSMODEL="32"
   export CC=$i386CC;
   export CXX=$i386CXX;
- elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ]
- then
-  MACSDKDIR=$ppcMACSDKDIR
-  OSVERSION=$ppcOSVERSION
-  OPTIMIZE=$ppcOPTIMIZE
-  boostARCHITECTURE="power"
-  boostADDRESSMODEL="32"
-  export CC=$ppcCC;
-  export CXX=$ppcCXX;
- elif [ $ARCH = "ppc64" -o $ARCH = "ppc970" ]
- then
-  MACSDKDIR=$ppc64MACSDKDIR
-  OSVERSION=$ppc64OSVERSION
-  OPTIMIZE=$ppc64OPTIMIZE
-  boostARCHITECTURE="power"
-  boostADDRESSMODEL="64"
-  export CC=$ppc64CC;
-  export CXX=$ppc64CXX;
+  export ARCHTARGET=$i386TARGET;
  elif [ $ARCH = "x86_64" ]
  then
   MACSDKDIR=$x64MACSDKDIR
@@ -133,6 +116,7 @@ do
   boostADDRESSMODEL="64"
   export CC=$x64CC;
   export CXX=$x64CXX;
+  export ARCHTARGET=$x86_64TARGET;
  fi
 
  SDKVRSION=$(echo $MACSDKDIR | sed 's/^[^1]*\([[:digit:]]*\.[[:digit:]]*\).*/\1/')

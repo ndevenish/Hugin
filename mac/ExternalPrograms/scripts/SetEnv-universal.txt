@@ -21,7 +21,7 @@ export \
  REPOSITORYDIR="$myREPOSITORYDIR" \
  ARCHS="i386 x86_64" \
  \
- i386TARGET="i386-apple-darwin8" \
+ i386TARGET="i386-apple-darwin9" \
  i386OSVERSION="10.5" \
  i386MACSDKDIR="/Developer/SDKs/MacOSX10.5.sdk" \
  i386OPTIMIZE="-march=prescott -mtune=pentium-m -ftree-vectorize -fopenmp" \

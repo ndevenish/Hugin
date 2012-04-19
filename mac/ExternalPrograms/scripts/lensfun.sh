@@ -95,7 +95,7 @@ do
          -I$REPOSITORYDIR/arch/$ARCH/lib/glib-2.0/include -I$REPOSITORYDIR/arch/$ARCH/lib/gio/include -I$REPOSITORYDIR/include" \
   CPPFLAGS="-arch $ARCH -I$REPOSITORYDIR/include/glib-2.0 -I$REPOSITORYDIR/include/gio-unix-2.0 -I/usr/include \
          -I$REPOSITORYDIR/arch/$ARCH/lib/glib-2.0/include -I$REPOSITORYDIR/arch/$ARCH/lib/gio/include -I$REPOSITORYDIR/include" \
-  LDFLAGS="-arch $ARCH -L$REPOSITORYDIR/arch/$ARCH/lib -L$REPOSITORYDIR/lib -L/usr/lib -mmacosx-version-min=$OSVERSION -dead_strip" \
+  LDFLAGS="-arch $ARCH -L$REPOSITORYDIR/lib -L/usr/lib -mmacosx-version-min=$OSVERSION -dead_strip" \
   NEXT_ROOT="$MACSDKDIR" \
   ./configure --prefix="$REPOSITORYDIR/arch/$ARCH" --sdkdir="$REPOSITORYDIR/arch/$ARCH" --mode="release" \
   || fail "configure step for $ARCH";
@@ -141,6 +141,7 @@ do
 		echo "File arch/$ARCH/$liba was not found. Aborting build";
 		exit 1;
 	fi
+        install_name_tool -id "$REPOSITORYDIR/lib/liblensfun.dylib" "$REPOSITORYDIR/arch/$ARCH/$liba"
  done
 
  lipo $LIPOARGs -create -output "$REPOSITORYDIR/$liba";

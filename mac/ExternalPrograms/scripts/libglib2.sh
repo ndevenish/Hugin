@@ -117,14 +117,12 @@ done
 
 # merge libglib2
 
-for liba in lib/libglib-$VERSION.a lib/libglib-$FULLVERSION.dylib lib/libgmodule-$VERSION.a lib/libgmodule-$FULLVERSION.dylib \
-    lib/libgthread-$VERSION.a lib/libgthread-$FULLVERSION.dylib lib/libgobject-$VERSION.a lib/libgobject-$FULLVERSION.dylib \
-    lib/libgio-$VERSION.a lib/libgio-$FULLVERSION.dylib
+for liba in lib/libglib-$VERSION.a lib/libglib-$FULLVERSION.dylib lib/libgmodule-$VERSION.a lib/libgmodule-$FULLVERSION.dylib lib/libgthread-$VERSION.a lib/libgthread-$FULLVERSION.dylib lib/libgobject-$VERSION.a lib/libgobject-$FULLVERSION.dylib lib/libgio-$VERSION.a lib/libgio-$FULLVERSION.dylib
 do
 
  if [ $NUMARCH -eq 1 ] ; then
    if [ -f $REPOSITORYDIR/arch/$ARCHS/$liba ] ; then
-		 echo "Moving arch/$ARCHS/$liba to $liba"
+	 echo "Moving arch/$ARCHS/$liba to $liba"
   	 mv "$REPOSITORYDIR/arch/$ARCHS/$liba" "$REPOSITORYDIR/$liba";
 	   #Power programming: if filename ends in "a" then ...
 	   [ ${liba##*.} = a ] && ranlib "$REPOSITORYDIR/$liba";
@@ -136,6 +134,7 @@ do
  fi
 
  LIPOARGs=""
+
  
  for ARCH in $ARCHS
  do
@@ -146,7 +145,17 @@ do
 		echo "File arch/$ARCH/$liba was not found. Aborting build";
 		exit 1;
 	fi
+        echo "First doing the install name stuff for glib libs"
+        # Do the name_change thing as the libs are linked to each other in the arc/$ARCH libs.
+        # We don't want that
+        for lib in $(otool -L $REPOSITORYDIR/arch/$ARCH/$liba | grep $REPOSITORYDIR/arch/$ARCH/lib | sed -e 's/ (.*$//' -e 's/^.*\///')
+        do
+           echo "Changing install name for: $lib inside : $liba for $ARCH"
+           install_name_tool -change "$REPOSITORYDIR/arch/$ARCH/lib/$lib" "$REPOSITORYDIR/lib/$lib" $REPOSITORYDIR/arch/$ARCH/$liba
+        done
+        install_name_tool -id "$REPOSITORYDIR/lib/$liba" $REPOSITORYDIR/arch/$ARCH/$liba
  done
+
 
  lipo $LIPOARGs -create -output "$REPOSITORYDIR/$liba";
  #Power programming: if filename ends in "a" then ...
@@ -158,43 +167,50 @@ if [ -f $REPOSITORYDIR/lib/libglib-$FULLVERSION.dylib ] ; then
          install_name_tool \
            -id "$REPOSITORYDIR/lib/libglib-$FULLVERSION.dylib" \
            "$REPOSITORYDIR/lib/libglib-$FULLVERSION.dylib";
-                 ln -sfn "libglib-$FULLVERSION.dylib" "$REPOSITORYDIR/lib/libglib-$VERSION.dylib";
-                 ln -sfn "libglib-$FULLVERSION.dylib" "$REPOSITORYDIR/lib/libglib-2.dylib";
+           ln -sfn "libglib-$FULLVERSION.dylib" "$REPOSITORYDIR/lib/libglib-$VERSION.dylib";
+           ln -sfn "libglib-$FULLVERSION.dylib" "$REPOSITORYDIR/lib/libglib-2.dylib";
+           echo "install_name_tool id on libglib-$FULLVERSION.dylib plus symlinking";
 fi
 
 if [ -f $REPOSITORYDIR/lib/libgmodule-$FULLVERSION.dylib ] ; then
          install_name_tool \
            -id "$REPOSITORYDIR/lib/libgmodule-$FULLVERSION.dylib" \
            "$REPOSITORYDIR/lib/libgmodule-$FULLVERSION.dylib";
-                 ln -sfn "libgmodule-$FULLVERSION.dylib" "$REPOSITORYDIR/lib/libgmodule-$VERSION.dylib";
-                 ln -sfn "libgmodule-$FULLVERSION.dylib" "$REPOSITORYDIR/lib/libgmodule-2.dylib";
+           ln -sfn "libgmodule-$FULLVERSION.dylib" "$REPOSITORYDIR/lib/libgmodule-$VERSION.dylib";
+           ln -sfn "libgmodule-$FULLVERSION.dylib" "$REPOSITORYDIR/lib/libgmodule-2.dylib";
+           echo "install_name_tool id on libgmodule-$FULLVERSION.dylib plus symlinking";
 fi
 
 if [ -f $REPOSITORYDIR/lib/libgthread-$FULLVERSION.dylib ] ; then
          install_name_tool \
            -id "$REPOSITORYDIR/lib/libgthread-$FULLVERSION.dylib" \
            "$REPOSITORYDIR/lib/libgthread-$FULLVERSION.dylib";
-                 ln -sfn "libgthread-$FULLVERSION.dylib" "$REPOSITORYDIR/lib/libgthread-$VERSION.dylib";
-                 ln -sfn "libgthread-$FULLVERSION.dylib" "$REPOSITORYDIR/lib/libgthread-2.dylib";
+           ln -sfn "libgthread-$FULLVERSION.dylib" "$REPOSITORYDIR/lib/libgthread-$VERSION.dylib";
+           ln -sfn "libgthread-$FULLVERSION.dylib" "$REPOSITORYDIR/lib/libgthread-2.dylib";
+           echo "install_name_tool id on libgthread-$FULLVERSION.dylib plus symlinking";
 fi
 
 if [ -f $REPOSITORYDIR/lib/libgobject-$FULLVERSION.dylib ] ; then
          install_name_tool \
            -id "$REPOSITORYDIR/lib/libgobject-$FULLVERSION.dylib" \
            "$REPOSITORYDIR/lib/libgobject-$FULLVERSION.dylib";
-                 ln -sfn "libgobject-$FULLVERSION.dylib" "$REPOSITORYDIR/lib/libgobject-$VERSION.dylib";
-                 ln -sfn "libgobject-$FULLVERSION.dylib" "$REPOSITORYDIR/lib/libgobject-2.dylib";
+           ln -sfn "libgobject-$FULLVERSION.dylib" "$REPOSITORYDIR/lib/libgobject-$VERSION.dylib";
+           ln -sfn "libgobject-$FULLVERSION.dylib" "$REPOSITORYDIR/lib/libgobject-2.dylib";
+           echo "install_name_tool id on libgobject-$FULLVERSION.dylib plus symlinking";
 fi
 
 if [ -f $REPOSITORYDIR/lib/libgio-$FULLVERSION.dylib ] ; then
          install_name_tool \
            -id "$REPOSITORYDIR/lib/libgio-$FULLVERSION.dylib" \
            "$REPOSITORYDIR/lib/libgio-$FULLVERSION.dylib";
-                 ln -sfn "libgio-$FULLVERSION.dylib" "$REPOSITORYDIR/lib/libgio-$VERSION.dylib";
-                 ln -sfn "libgio-$FULLVERSION.dylib" "$REPOSITORYDIR/lib/libgio-2.dylib";
+           ln -sfn "libgio-$FULLVERSION.dylib" "$REPOSITORYDIR/lib/libgio-$VERSION.dylib";
+           ln -sfn "libgio-$FULLVERSION.dylib" "$REPOSITORYDIR/lib/libgio-2.dylib";
+           echo "install_name_tool id on libgio-$FULLVERSION.dylib plus symlinking";
 fi
 
+
 #pkgconfig
+echo "Installing pkcconfig file glib-2.0.pc"
 for ARCH in $ARCHS
 do
  mkdir -p $REPOSITORYDIR/lib/pkgconfig
