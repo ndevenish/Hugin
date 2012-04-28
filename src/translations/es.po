@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: hugin\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
 "POT-Creation-Date: 2011-10-21 22:38+0200\n"
-"PO-Revision-Date: 2012-04-07 15:57+0200\n"
+"PO-Revision-Date: 2012-04-23 22:31+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
 "Language: es\n"
@@ -580,6 +580,12 @@ msgid ""
 "geometrical optimization from the Optimizer tab and the photometric "
 "optimization from the Exposure tab."
 msgstr ""
+"Nota: el alineamiento automático usa la configuración predeterminada de las "
+"preferencias. Si personaliza la configuración para este proyecto en las "
+"pestañas avanzadas y quiere usar esa configuración personalizada, ejecute la "
+"detección de puntos de control desde la pestaña «Imágenes», la «Optimización "
+"geométrica» desde la pestaña del «Optimizador» y la «Optimización "
+"fotométrica» desde la pestaña «Exposición»."
 
 # Se necesitan al menos dos imágenes.\n
 # Añade más imágenes.
@@ -1311,7 +1317,7 @@ msgstr ""
 "visión en la imagen\n"
 "%s\n"
 "\n"
-"Escriba el campo de visión horizontal (HFOV) o la profundidad de foco y "
+"Escriba el campo de visión horizontal (CdVH) o la profundidad de foco y "
 "factor de recorte."
 
 #: hugin1/hugin/HFOVDialog.cpp:159
@@ -2432,9 +2438,8 @@ msgid "Click to create or edit control points here."
 msgstr "Pulse aquí para crear o editar puntos de control."
 
 #: hugin1/hugin/PreviewLayoutLinesTool.cpp:177
-#, fuzzy
 msgid "Click a connection to edit control points."
-msgstr "Pulse aquí para crear o editar puntos de control."
+msgstr "Pulse una conexión para editar los puntos de control."
 
 #: hugin1/hugin/PreviewPanel.cpp:500
 msgid "Error during Stitching"
@@ -2477,22 +2482,19 @@ msgid "Image file not found"
 msgstr "No se encontró el archivo de la imagen"
 
 #: hugin1/hugin/wxPanoCommand.cpp:502
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%d invalid control point(s) found.\n"
 "\n"
 "Press OK to remove."
 msgstr ""
-"Punto de control inválido: %d\n"
+"Se encontraron %d puntos de control no válidos\n"
 "\n"
-"Entre imágenes: %d y %d\n"
-"\n"
-"Pulse OK para borrarlo"
+"Pulse Aceptar para eliminarlos."
 
 #: hugin1/hugin/wxPanoCommand.cpp:503
-#, fuzzy
 msgid "Error Detected"
-msgstr "Error Detectado"
+msgstr "Se detectó un error"
 
 #: hugin1/hugin/wxPanoCommand.cpp:668
 #, c-format
@@ -2529,20 +2531,19 @@ msgid "cleaning up temporary keypoint files"
 msgstr "limpiando los archivos temporales de puntos clave"
 
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:384
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please use  %namefile, %i or %s to specify the input files for control point "
 "detector"
 msgstr ""
-"Use %namefile, %i o %s para indicar los archivos de entrada para autopano-"
-"sift"
+"Use %namefile, %i o %s para especificar los archivos de entrada para el "
+"detector de puntos de control"
 
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:385
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:512
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:518
-#, fuzzy
 msgid "Error in control point detector command"
-msgstr "Error al crear los puntos de control:\n"
+msgstr "Error en el comando de detección de puntos de control"
 
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:432
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:588
@@ -2568,16 +2569,16 @@ msgstr "Ha elegido demasiadas imágenes"
 
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:445
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:688
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Too many arguments (images). Try using the %%s parameter in preferences.\n"
 "\n"
 " Could not execute command: %s"
 msgstr ""
-"Demasiados argumentos (imágenes). Intenta usar el parámetro %s en las "
+"Demasiados argumentos (imágenes). Intente usar el parámetro %%s en las "
 "preferencias.\n"
 "\n"
-" No se pudo ejecutar el comando: "
+" No se pudo ejecutar el comando: %s"
 
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:445
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:456
@@ -2603,21 +2604,21 @@ msgstr "buscando puntos de control"
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:552
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:612
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:699
-#, fuzzy, c-format
+#, c-format
 msgid "Could not execute command: %s"
-msgstr "No se pudo ejecutar el comando: "
+msgstr "No se pudo ejecutar el comando: %s"
 
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:459
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:558
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:618
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:702
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Command: %s\n"
 "failed with error code: %d"
 msgstr ""
-"\n"
-"falló con código de error: "
+"Comando: %s\n"
+"falló con código de error: %d"
 
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:465
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:625
@@ -2639,9 +2640,8 @@ msgstr ""
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:466
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:626
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:711
-#, fuzzy
 msgid "Control point detector failure"
-msgstr "Detectores de puntos de control"
+msgstr "Detector de fallos de los puntos de control"
 
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:511
 #, fuzzy
@@ -2676,7 +2676,6 @@ msgstr ""
 " No se pudo ejecutar el comando: "
 
 #: hugin1/icpfind/CPDetectorConfig.cpp:137
-#, fuzzy
 msgid "Default"
 msgstr "Predeterminado"
 
@@ -2732,9 +2731,8 @@ msgstr ""
 #: hugin1/ptbatcher/BatchFrame.cpp:737 hugin1/ptbatcher/BatchFrame.cpp:766
 #: hugin1/ptbatcher/BatchFrame.cpp:1097 hugin1/ptbatcher/BatchFrame.cpp:1104
 #: translations/xrc.cpp:754 xrc.cpp:754
-#, fuzzy
 msgid "PTBatcherGUI"
-msgstr "PTStitcher"
+msgstr "PTBatcherGUI"
 
 #: hugin1/ptbatcher/Batch.cpp:282 hugin1/ptbatcher/Batch.cpp:304
 msgid "Cleared batch."
@@ -2787,9 +2785,9 @@ msgid "%s - Stitching"
 msgstr "%s - Empalmando"
 
 #: hugin1/ptbatcher/Batch.cpp:809
-#, fuzzy, c-format
+#, c-format
 msgid "%s - Assistant"
-msgstr "Asistente"
+msgstr "%s: asistente"
 
 # Error eliminando, el proyecto con id %d no está en la lista.
 #: hugin1/ptbatcher/Batch.cpp:867
@@ -2814,14 +2812,14 @@ msgid "Running command \""
 msgstr "Ejecutando comando \""
 
 #: hugin1/ptbatcher/Batch.cpp:985 hugin1/ptbatcher/Batch.cpp:1024
-#, fuzzy, c-format
+#, c-format
 msgid "Now stitching: %s"
-msgstr "Empalmando %s"
+msgstr "Empalmando ahora: %s"
 
 #: hugin1/ptbatcher/Batch.cpp:995 hugin1/ptbatcher/Batch.cpp:1034
-#, fuzzy, c-format
+#, c-format
 msgid "Now detecting: %s"
-msgstr "Error mientras se ejecutaba %s"
+msgstr "Detectando ahora: %s"
 
 # Error: no se ha podido establecer estado, el proyecto con índice %d no está en la lista.
 #: hugin1/ptbatcher/Batch.cpp:1139
@@ -2837,9 +2835,8 @@ msgstr "No haciendo mucho..."
 
 # &Ejecutar Procesador de Lotes
 #: hugin1/ptbatcher/BatchFrame.cpp:161 hugin1/ptbatcher/BatchFrame.cpp:171
-#, fuzzy
 msgid "Hugin's Batch processor"
-msgstr "&Ejecutar procesador de lotes"
+msgstr "Procesador de lotes de Hugin"
 
 # Ingresa la aplicación de línea de comandos a ejecutar:
 #: hugin1/ptbatcher/BatchFrame.cpp:315
@@ -2866,9 +2863,9 @@ msgid "Added projects from dir "
 msgstr "Proyectos añadidos desde una carpeta "
 
 #: hugin1/ptbatcher/BatchFrame.cpp:418
-#, fuzzy, c-format
+#, c-format
 msgid "Add project %s to stitching queue."
-msgstr "Añade un proyecto a la lista de lotes."
+msgstr "Añadir el proyecto %s a la cola de empalmado."
 
 #: hugin1/ptbatcher/BatchFrame.cpp:421
 #, c-format
@@ -2876,7 +2873,6 @@ msgid "Add project %s to assistant queue."
 msgstr "Añadir el proyecto %s a la cola del asistente."
 
 #: hugin1/ptbatcher/BatchFrame.cpp:435
-#, fuzzy
 msgid "Batch stopped"
 msgstr "Lote parado"
 
@@ -3074,24 +3070,22 @@ msgid "Reading file %s"
 msgstr "Leyendo archivo %s"
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:378 translations/xrc.cpp:66 xrc.cpp:66
-#, fuzzy
 msgid "Start"
-msgstr "Iniciado"
+msgstr "Iniciar"
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:384
-#, fuzzy, c-format
+#, c-format
 msgid "Found %d possible panoramas."
-msgstr "Panorama mezclado y fusionado"
+msgstr "Se encontraron %d panorámicas posibles."
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:388
-#, fuzzy
 msgid "No possible panoramas found."
-msgstr "No se encontró un punto similar"
+msgstr "No se encontró ninguna panorámica posible."
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:563
-#, fuzzy, c-format
+#, c-format
 msgid "%d images: %s"
-msgstr "Añadir imágenes"
+msgstr "%d imágenes: %s"
 
 #: hugin1/ptbatcher/ProjectArray.cpp:67
 msgid "Waiting"
@@ -3181,7 +3175,6 @@ msgstr ""
 "Versión: %s"
 
 #: hugin1/stitch_project/hugin_stitch_project.cpp:176
-#, fuzzy
 msgid ""
 "Error during stitching\n"
 "Please report the complete text to the bug tracker on https://bugs.launchpad."
@@ -3190,18 +3183,18 @@ msgid ""
 "Do you want to save the log file?"
 msgstr ""
 "Error durante el empalme\n"
-"Envíe el texto completo al rastreador de errores en http://sf.net/projects/"
-"hugin."
+"Envíe el texto completo al rastreador de errores en https://bugs.launchpad."
+"net/hugin.\n"
+"\n"
+"¿Quiere guardar el archivo de registro?"
 
 #: hugin1/stitch_project/hugin_stitch_project.cpp:181
-#, fuzzy
 msgid "Specify log file"
-msgstr "Indique el nombre de la imagen de salida"
+msgstr "Especificar archivo de registro"
 
 #: hugin1/stitch_project/hugin_stitch_project.cpp:183
-#, fuzzy
 msgid "Log files (*.log)|*.log|All files (*)|*"
-msgstr "Archivos de proyectos (*.pto)|*.pto|Todos los archivos (*)|*"
+msgstr "Archivos de registro (*.log)|*.log|Todos los archivos (*)|*"
 
 #: translations/xrc.cpp:1 translations/xrc.cpp:419 translations/xrc.cpp:455
 #: xrc.cpp:1 xrc.cpp:419 xrc.cpp:455
@@ -3209,18 +3202,16 @@ msgid "About Hugin"
 msgstr "Acerca de Hugin"
 
 #: translations/xrc.cpp:2 xrc.cpp:2
-#, fuzzy
 msgid "version"
-msgstr "Versión %s"
+msgstr "versión"
 
 #: translations/xrc.cpp:3 translations/xrc.cpp:456 xrc.cpp:3 xrc.cpp:456
 msgid "About"
 msgstr "Acerca de"
 
 #: translations/xrc.cpp:4 xrc.cpp:4
-#, fuzzy
 msgid "Authors"
-msgstr "Auto"
+msgstr "Autores"
 
 #: translations/xrc.cpp:5 xrc.cpp:5
 msgid "Sponsors"
@@ -3231,14 +3222,12 @@ msgid "Upstream"
 msgstr ""
 
 #: translations/xrc.cpp:7 xrc.cpp:7
-#, fuzzy
 msgid "License"
-msgstr "Objetivo"
+msgstr "Licencia"
 
 #: translations/xrc.cpp:8 xrc.cpp:8
-#, fuzzy
 msgid "System"
-msgstr "Predeterminados del sistema"
+msgstr "Sistema"
 
 #: translations/xrc.cpp:9 translations/xrc.cpp:32 translations/xrc.cpp:158
 #: translations/xrc.cpp:491 translations/xrc.cpp:561 translations/xrc.cpp:565
@@ -3253,9 +3242,8 @@ msgid "1. Load images..."
 msgstr "1. Cargar imágenes..."
 
 #: translations/xrc.cpp:11 xrc.cpp:11
-#, fuzzy
 msgid "Load a series of images"
-msgstr "cargar una serie de fotos"
+msgstr "Cargar una serie de imágenes"
 
 #: translations/xrc.cpp:12 xrc.cpp:12
 msgid "no images loaded"
@@ -3422,9 +3410,8 @@ msgid "Verbose output"
 msgstr "Salida prolija"
 
 #: translations/xrc.cpp:54 xrc.cpp:54
-#, fuzzy
 msgid "Show detailed output in separate window."
-msgstr "Mostrar la venta de vista previa de OpenGL"
+msgstr "Mostrar la salida detallada en una ventana separada."
 
 #: translations/xrc.cpp:55 xrc.cpp:55
 msgid "Directories"
@@ -3460,9 +3447,8 @@ msgid "First file - last file.pto"
 msgstr "Primer archivo: último archivo .pto"
 
 #: translations/xrc.cpp:62 xrc.cpp:62
-#, fuzzy
 msgid "Foldername.pto"
-msgstr "Nombre del archivo"
+msgstr "Nombredecarpeta.pto"
 
 #: translations/xrc.cpp:63 xrc.cpp:63
 msgid "Stacks:"
@@ -3510,14 +3496,12 @@ msgid "&File"
 msgstr "&Archivo"
 
 #: translations/xrc.cpp:77 xrc.cpp:77
-#, fuzzy
 msgid "Adds a project to the stitching queue"
-msgstr "Añade un proyecto a la cola de "
+msgstr "Añade un proyecto a la cola de empalmado"
 
 #: translations/xrc.cpp:79 xrc.cpp:79
-#, fuzzy
 msgid "Adds a project to the assistant queue"
-msgstr "Añade un proyecto a la lista de lotes."
+msgstr "Añade un proyecto a la cola del asistente"
 
 # Eliminar proyecto
 #: translations/xrc.cpp:80 translations/xrc.cpp:123 xrc.cpp:80 xrc.cpp:123
@@ -3530,14 +3514,12 @@ msgid "Removes selected project from the batch list"
 msgstr "Quita el proyecto seleccionado de la lista de lotes"
 
 #: translations/xrc.cpp:82 xrc.cpp:82
-#, fuzzy
 msgid "Search directory for..."
-msgstr "Carpeta de búsqueda"
+msgstr "Buscar en carpeta..."
 
 #: translations/xrc.cpp:83 xrc.cpp:83
-#, fuzzy
 msgid "Project files"
-msgstr "Guardar archivo de proyecto"
+msgstr "Archivos de proyectos"
 
 #: translations/xrc.cpp:84 translations/xrc.cpp:127 xrc.cpp:84 xrc.cpp:127
 msgid "Appends all project files from a directory and subdirectories"
@@ -3550,11 +3532,11 @@ msgstr "Imágenes"
 
 #: translations/xrc.cpp:86 xrc.cpp:86
 msgid "Searches in directories for image files suitable for panoramas"
-msgstr ""
+msgstr "Busca en carpetas archivos de imágenes apropiados para panorámicas"
 
 #: translations/xrc.cpp:87 xrc.cpp:87
 msgid "Searches in directories for existing projects or for images"
-msgstr ""
+msgstr "Busca en carpetas proyectos existentes o imágenes"
 
 #: translations/xrc.cpp:88 translations/xrc.cpp:102 xrc.cpp:88 xrc.cpp:102
 msgid "Open batch"
@@ -3705,9 +3687,8 @@ msgid "Multi-row panorama with stacks"
 msgstr "Panorámica de varias filas con pilas"
 
 #: translations/xrc.cpp:136 xrc.cpp:136
-#, fuzzy
 msgid "Prealigned panorama"
-msgstr "Vista previa del panorama"
+msgstr "Panorámica prealineado"
 
 #: translations/xrc.cpp:137 xrc.cpp:137
 msgid "Detector"
@@ -3759,10 +3740,9 @@ msgstr "Opciones avanzadas"
 
 #: translations/xrc.cpp:156 xrc.cpp:156
 msgid "This setting has no advanced options."
-msgstr ""
+msgstr "Este ajuste no tiene opciones avanzadas."
 
 #: translations/xrc.cpp:157 xrc.cpp:157
-#, fuzzy
 msgid ""
 "following patterns will be substituted before running:\n"
 "%o  -- output project (0.oto will be appended when using Autopano)\n"
@@ -3777,11 +3757,12 @@ msgstr ""
 "los siguientes patrones serán sustituidos antes de ejecutar:\n"
 "%o  -- salida del proyecto (0.oto será añadido cuando use Autopano)\n"
 "%p  -- número de puntos de control entre cada par\n"
-"%v  -- HFOV of first image\n"
+"%v  -- CdVH de la primera imagen\n"
 "%f  -- proyeccción de primera imagen (0-4, como en panotools)\n"
-"%i  -- archivo de imagen\n"
-"%namefile -- archivo que contiene archivos de imagen\n"
-"%s -- entrar script panotools"
+"%i  -- archivos de imágenes\n"
+"%namefile -- archivo que contiene archivos de imágenes\n"
+"%s -- script de entrada de panotools\n"
+"%k -- archivo(s) de claves intermedias"
 
 #: translations/xrc.cpp:160 xrc.cpp:160
 msgid "Parameters for Control Point Detectors"
@@ -3968,6 +3949,7 @@ msgstr "Pila nueva"
 #: translations/xrc.cpp:203 xrc.cpp:203
 msgid "Link the positions of the selected images only with themselves"
 msgstr ""
+"Enlazar las posiciones de las imágenes seleccionadas sólo consigo mismas"
 
 #: translations/xrc.cpp:204 xrc.cpp:204
 msgid "Change stack..."
@@ -3975,7 +3957,7 @@ msgstr "Cambiar pila..."
 
 #: translations/xrc.cpp:205 xrc.cpp:205
 msgid "Switch the selected images to a different stack."
-msgstr ""
+msgstr "Cambiar las imágenes seleccionadas a una pila diferente."
 
 # Elminar puntos
 #: translations/xrc.cpp:206 xrc.cpp:206
@@ -4074,9 +4056,8 @@ msgid "Reset position of selected image(s)"
 msgstr "Restaurar la posición de la(s) imagen(es) seleccionada(s)"
 
 #: translations/xrc.cpp:229 xrc.cpp:229
-#, fuzzy
 msgid "Feature Matching"
-msgstr "Fecha de captura:"
+msgstr ""
 
 #: translations/xrc.cpp:230 xrc.cpp:230
 msgid "Settings:"
@@ -4103,22 +4084,22 @@ msgid "Anchor this image for position"
 msgstr "Anclar esta imagen para la posición"
 
 #: translations/xrc.cpp:237 xrc.cpp:237
-#, fuzzy
 msgid ""
 "Use currently selected image as anchor image. That is, do not optimize the "
 "(complete) position of this image"
 msgstr ""
-"utilizar la imagen actualmente seleccionada como anclaje. Esto es, no "
-"optimizar la posición de esta imagen."
+"Usar la imagen actualmente seleccionada como anclaje. Esto es, no optimizar "
+"la posición (completa) de esta imagen."
 
 #: translations/xrc.cpp:238 xrc.cpp:238
 msgid "Anchor this image for exposure"
 msgstr "Anclar esta imagen para la exposición"
 
 #: translations/xrc.cpp:239 xrc.cpp:239
-#, fuzzy
 msgid "Use the currently selected images as color correction anchor image"
-msgstr "usar la imagen elegida como imagen de anclaje para corrección de color"
+msgstr ""
+"Usar la imagen elegida actualmente como imagen de anclaje para corrección de "
+"color"
 
 #: translations/xrc.cpp:240 xrc.cpp:240
 msgid "Selected Image"
@@ -4295,7 +4276,7 @@ msgstr "Cargar EXIF"
 
 #: translations/xrc.cpp:288 xrc.cpp:288
 msgid "Try to read HFOV from the EXIF data"
-msgstr "Intentar leer HFOV de los datos EXIF"
+msgstr "Intentar leer CdVH de los datos EXIF"
 
 #: translations/xrc.cpp:289 xrc.cpp:289
 msgid "New Lens"
@@ -7452,16 +7433,16 @@ msgid "pixel width:"
 msgstr "anchura en píxeles:"
 
 #, fuzzy
+msgid "Feature Matching (Autopano)"
+msgstr "Fecha de captura:"
+
+#, fuzzy
 #~ msgid "Delete *.pto files"
 #~ msgstr "Eliminar los puntos de control"
 
 #, fuzzy
 #~ msgid "Add project..."
 #~ msgstr "Añadir proyecto(s)"
-
-#, fuzzy
-#~ msgid "Feature Matching (Autopano)"
-#~ msgstr "Fecha de captura:"
 
 #, fuzzy
 #~ msgid "Automatic control point checking after detecting control points"
@@ -7583,7 +7564,7 @@ msgstr "anchura en píxeles:"
 
 #, fuzzy
 #~ msgid "Blended and fused panorama"
-#~ msgstr "Vista previa del panorama"
+#~ msgstr "Panorámica prealineado"
 
 #, fuzzy
 #~ msgid "HDR merging"
@@ -7591,7 +7572,7 @@ msgstr "anchura en píxeles:"
 
 #, fuzzy
 #~ msgid "Merged and blended panorama"
-#~ msgstr "Vista previa del panorama"
+#~ msgstr "Panorámica prealineado"
 
 #, fuzzy
 #~ msgid "Remapped merged stacks"
@@ -7724,7 +7705,7 @@ msgstr "anchura en píxeles:"
 
 #, fuzzy
 #~ msgid "Error in Autopano command"
-#~ msgstr "Error al crear los puntos de control:\n"
+#~ msgstr "Error en el comando de detección de puntos de control"
 
 #, fuzzy
 #~ msgid "command: "
@@ -7866,7 +7847,7 @@ msgstr "anchura en píxeles:"
 
 #, fuzzy
 #~ msgid "Blended HDR panorama"
-#~ msgstr "Vista previa del panorama"
+#~ msgstr "Panorámica prealineado"
 
 #, fuzzy
 #~ msgid "Stacked HDR images"
