@@ -308,7 +308,11 @@ ENDIF(NOT TCLAP_FOUND)
 FIND_PACKAGE(Lensfun REQUIRED)
 INCLUDE_DIRECTORIES(${LENSFUN_INCLUDE_DIR})
 
-OPTION(BUILD_HSI "Python Scripting Interface" OFF)
+IF(UNIX)
+  OPTION(BUILD_HSI "Python Scripting Interface" ON)
+ELSE(UNIX)
+  OPTION(BUILD_HSI "Python Scripting Interface" OFF)
+ENDIF(UNIX)
 IF(BUILD_HSI)
   # find Python first because the version of SWIG required depends on the
   # version of Python available
