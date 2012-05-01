@@ -9190,6 +9190,7 @@
 				737E498811D3FD74002BA8AE /* Localise Help */,
 				737E498911D3FD74002BA8AE /* Complete Bundle */,
 				737E498A11D3FD74002BA8AE /* Complete Embedding */,
+				738A05C6154FD7C2009A842E /* Copy lensfun public databases into Hugin */,
 			);
 			buildRules = (
 			);
@@ -10107,6 +10108,20 @@
 			shellPath = /bin/sh;
 			shellScript = "#if [ $ACTION = \"build\" ]\n#then\n# sh ../mac/complete-embed.sh\n#fi\n\n#  $Id: complete-embed $\n\ndylib_install_loc=\"Libraries\"\n\nHuginApp=\"$TARGET_BUILD_DIR/Hugin.app\"\nStitcherApp=\"$HuginApp/Contents/Resources/HuginStitchProject.app\"\n\n#------------------------------------------------\n\nrm -Rf \"$StitcherApp/Contents/$dylib_install_loc\"\n#ln -s \"../../../$dylib_install_loc\" \"$StitcherApp/Contents/$dylib_install_loc\"\n\nrm -Rf \"$StitcherApp/Contents/Frameworks\"\n#ln -s \"../../../Frameworks\" \"$StitcherApp/Contents/Frameworks\"\n\nif (file \"$StitcherApp/Contents/Resources\" | grep -q -v \"symbolic link\")\nthen\n cp -r \"$StitcherApp/Contents/Resources\"/* \"$HuginApp/Contents/Resources/\"\nfi\nrm -Rf \"$StitcherApp/Contents/Resources\"\nln -s \"../../../Resources\" \"$StitcherApp/Contents/Resources\"\n\ncp -f \"$StitcherApp/Contents/MacOS/\"* \"$HuginApp/Contents/MacOS\"\nrm -Rf \"$StitcherApp/Contents/MacOS\"\nln -s \"../../../MacOS\" \"$StitcherApp/Contents/MacOS\"\n";
 			showEnvVarsInLog = 0;
+		};
+		738A05C6154FD7C2009A842E /* Copy lensfun public databases into Hugin */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy lensfun public databases into Hugin";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Copy lensfun public databases in Hugin\n\nresdir=\"$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/Resources\"\n\ncp -Rfv $REPOSITORY_DIR/share/lensfun $resdir";
 		};
 		7392855814225E6A0051CAEC /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;

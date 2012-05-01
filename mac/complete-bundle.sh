@@ -11,9 +11,13 @@ new_install_name_dirname="@executable_path/../$dylib_install_loc"
 App="$TARGET_BUILD_DIR/$PRODUCT_NAME.app"
 
 archs="i386 x86_64"
-libs="libwx_macu-$WX_MAJOR_VERSION libwx_macu_gl-$WX_MAJOR_VERSION libpano13 $BOOST_THREAD_LIB-$BOOST_VER $BOOST_DATE_TIME_LIB-$BOOST_VER $BOOST_FILESYSTEM_LIB-$BOOST_VER $BOOST_IOSTREAMS_LIB-$BOOST_VER $BOOST_REGEX_LIB-$BOOST_VER $BOOST_SYSTEM_LIB-$BOOST_VER $BOOST_SIGNALS_LIB-$BOOST_VER libpng libtiff libtiffxx libjpeg libIex libImath libIlmImf libIlmThread libHalf libexpat liblcms libintl libgettextsrc-$GETTEXT_VERSION libgettextpo libgettextlib-$GETTEXT_VERSION libasprintf libexiv2 libGLEW libxmi libiconv libffi libglib-2 libgio-2 libgobject-2 libgmodule-2 libgthread-2 liblensfun libpython2.7" 
+libs="libwx_macu-$WX_MAJOR_VERSION libwx_macu_gl-$WX_MAJOR_VERSION libpano13 $BOOST_THREAD_LIB-$BOOST_VER $BOOST_DATE_TIME_LIB-$BOOST_VER $BOOST_FILESYSTEM_LIB-$BOOST_VER $BOOST_IOSTREAMS_LIB-$BOOST_VER $BOOST_REGEX_LIB-$BOOST_VER $BOOST_SYSTEM_LIB-$BOOST_VER $BOOST_SIGNALS_LIB-$BOOST_VER libpng libtiff libtiffxx libjpeg libIex libImath libIlmImf libIlmThread libHalf libexpat liblcms libintl libgettextsrc-$GETTEXT_VERSION libgettextpo libgettextlib-$GETTEXT_VERSION libasprintf libexiv2 libGLEW libxmi libiconv libffi libglib-2 libgio-2 libgobject-2 libgmodule-2 libgthread-2 liblensfun" 
+# python version
+#libs="libwx_macu-$WX_MAJOR_VERSION libwx_macu_gl-$WX_MAJOR_VERSION libpano13 $BOOST_THREAD_LIB-$BOOST_VER $BOOST_DATE_TIME_LIB-$BOOST_VER $BOOST_FILESYSTEM_LIB-$BOOST_VER $BOOST_IOSTREAMS_LIB-$BOOST_VER $BOOST_REGEX_LIB-$BOOST_VER $BOOST_SYSTEM_LIB-$BOOST_VER $BOOST_SIGNALS_LIB-$BOOST_VER libpng libtiff libtiffxx libjpeg libIex libImath libIlmImf libIlmThread libHalf libexpat liblcms libintl libgettextsrc-$GETTEXT_VERSION libgettextpo libgettextlib-$GETTEXT_VERSION libasprintf libexiv2 libGLEW libxmi libiconv libffi libglib-2 libgio-2 libgobject-2 libgmodule-2 libgthread-2 liblensfun libpython2.7" 
+openmp_libs_dylib_dir="/usr/local/lib"
+lion_required_openmp_libs="libgcc_s.1 libgomp.1 libstdc++.6"
 
-binaries="$App/Contents/$dylib_install_loc/*.dylib $App/Contents/MacOS/* $App/Contents/Frameworks/Hugin*.framework/Hugin* $App/Contents/Frameworks/icpfind.framework/icpfind* $App/Contents/Frameworks/local*.framework/local* $App/Contents/Resources/align_image_stack $App/Contents/Resources/cpfind"
+binaries="$App/Contents/$dylib_install_loc/*.dylib $App/Contents/MacOS/* $App/Contents/Frameworks/Hugin*.framework/Hugin* $App/Contents/Frameworks/icpfind.framework/icpfind* $App/Contents/Frameworks/local*.framework/local*"
 
 
 #------------------------------------------------
@@ -22,7 +26,12 @@ rm -Rf "$App/Contents/$dylib_install_loc"
 mkdir -p "$App/Contents/$dylib_install_loc"
 for dylib in $libs
 do
- cp -Rf $dylib_dir/$dylib.*ylib "$App/Contents/$dylib_install_loc/"
+ cp -Rf $dylib_dir/$dylib*.*ylib "$App/Contents/$dylib_install_loc/"
+done
+# Now do the same for the openmp required gcc-4.6 libraries
+for dylib in $lion_required_openmp_libs
+do
+ cp -Rf $openmp_libs_dylib_dir/$dylib.*ylib "$App/Contents/$dylib_install_loc/"
 done
 
 

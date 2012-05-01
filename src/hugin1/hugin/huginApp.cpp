@@ -206,6 +206,16 @@ bool huginApp::OnInit()
             return false;
         }
     }
+	
+	{
+		wxString thePath = MacGetPathToBundledResourceFile(CFSTR("lensfun"));
+		if (thePath == wxT("")) {
+			wxMessageBox(_("lensfun directory not found in bundle"),
+						 _("Fatal Error"));
+			return false;
+		}
+		HuginBase::LensDB::LensDB::GetSingleton().SetMainDBPath(std::string(thePath.mb_str(HUGIN_CONV_FILENAME)));
+	}
 
 #else
     // add the locale directory specified during configure
