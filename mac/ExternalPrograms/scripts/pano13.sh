@@ -25,6 +25,7 @@
 # 201004xx.0 hvdw support 2.9.17
 # 20100624.0 hvdw More robust error checking on compilation
 # 20110107.0 hvdw support for 2.9.18
+# 20110427.0 hvdw compile x86_64 with gcc 4.6 for openmp compatibility on lion and up
 # -------------------------------
 
 # init
@@ -35,6 +36,7 @@ fail()
         exit 1
 }
 
+ORGPATH=$PATH
 
 # AC_INIT([pano13], [2.9.14], BUG-REPORT-ADDRESS)
 libpanoVsn=$(grep "AC_INIT" configure.ac|cut -f 2 -d ,|cut -c 7-8)
@@ -95,37 +97,34 @@ do
    OSVERSION="$i386OSVERSION"
    CC=$i386CC
    CXX=$i386CXX
- elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ] ; then
-   TARGET=$ppcTARGET
-   MACSDKDIR=$ppcMACSDKDIR
-   ARCHARGs="$ppcONLYARG"
-   OSVERSION="$ppcOSVERSION"
-   CC=$ppcCC
-   CXX=$ppcCXX
- elif [ $ARCH = "ppc64" -o $ARCH = "ppc970" ] ; then
-   TARGET=$ppc64TARGET
-   MACSDKDIR=$ppc64MACSDKDIR
-   ARCHARGs="$ppc64ONLYARG"
-   OSVERSION="$ppc64OSVERSION"
-   CC=$ppc64CC
-   CXX=$ppc64CXX
+   myPATH=$ORGPATH
+   ARCHFLAG="-m32"
  elif [ $ARCH = "x86_64" ] ; then
    TARGET=$x64TARGET
    MACSDKDIR=$x64MACSDKDIR
    ARCHARGs="$x64ONLYARG"
    OSVERSION="$x64OSVERSION"
-   CC=$x64CC
-   CXX=$x64CXX
+#   CC=$x64CC
+#   CXX=$x64CXX
+# This port can be compiled with gcc 4.6
+   CC=gcc-4.6
+   CXX=g++-4.6
+   myPATH=/usr/local/bin:$PATH 
+   ARCHFLAG="-m64"
  fi
- 
+
+ #read key 
+
  [ -d ./.libs ] && rm -R ./.libs
  env \
+  PATH=$myPATH \
   CC=$CC CXX=$CXX \
-  CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
-  CXXFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O2 -dead_strip" \
+  CFLAGS="-isysroot $MACSDKDIR $ARCHFLAG $ARCHARGs $OTHERARGs -O2 -dead_strip $ARCGFLAG" \
+  CXXFLAGS="-isysroot $MACSDKDIR $ARCHFLAG $ARCHARGs $OTHERARGs -O2 -dead_strip $ARCGFLAG" \
   CPPFLAGS="-I$REPOSITORYDIR/include" \
-  LDFLAGS="-L$REPOSITORYDIR/lib -mmacosx-version-min=$OSVERSION -dead_strip -prebind" \
+  LDFLAGS="-L$REPOSITORYDIR/lib -mmacosx-version-min=$OSVERSION -dead_strip -prebind $ARCGFLAG" \
   NEXT_ROOT="$MACSDKDIR" \
+  PKGCONFIG="$REPOSITORYDIR/lib" \
   ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
   --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
   --without-java \
@@ -138,7 +137,7 @@ do
  #Stupid libtool... (perhaps could be done by passing LDFLAGS to make and install)
  [ -f libtool-bk ] && rm libtool-bak
  mv "libtool" "libtool-bk"; # could be created each time we run configure
- sed -e "s#-dynamiclib#-dynamiclib -arch $ARCH -isysroot $MACSDKDIR#g" "libtool-bk" > "libtool";
+ sed -e "s#-dynamiclib#-dynamiclib $ARCHFLAG -isysroot $MACSDKDIR#g" "libtool-bk" > "libtool";
  chmod +x libtool
  
  make clean;

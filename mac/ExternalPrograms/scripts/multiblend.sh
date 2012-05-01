@@ -22,6 +22,7 @@
 # 20111231.0 hvdw first version. Still experimental. Don't know which
 #		  cross arch settings are necessary and which not.
 # 20120106.0 hvdw adapt for version 0.2
+# 20120426.0 hvdw adapt for 0.31 and compile x86_64 with gcc-4.6 for lion and up openmp compatibility
 # -------------------------------
 
 # init
@@ -32,25 +33,9 @@ fail()
         exit 1
 }
 
+ORGPATH=$PATH
 
 let NUMARCH="0"
-
-# remove ppc  archs from ARCHS
-ARCHS_TMP=$ARCHS
-ARCHS=""
-for ARCH in $ARCHS_TMP
-do
- if [ $ARCH = "i386" -o $ARCH = "i686" -o $ARCH = "x86_64" ]
- then
-   NUMARCH=$(($NUMARCH + 1))
-   if [ -n "$ARCHS" ]
-   then
-     ARCHS="$ARCHS $ARCH"
-   else
-     ARCHS=$ARCH
-   fi
- fi
-done
 
 
 for i in $ARCHS
@@ -83,38 +68,29 @@ do
    OSVERSION="$i386OSVERSION"
    CC=$i386CC
    CXX=$i386CXX
- elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ] ; then
-   TARGET=$ppcTARGET
-   MACSDKDIR=$ppcMACSDKDIR
-   ARCHARGs="$ppcONLYARG"
-   OSVERSION="$ppcOSVERSION"
-   CC=$ppcCC
-   CXX=$ppcCXX
- elif [ $ARCH = "ppc64" -o $ARCH = "ppc970" ] ; then
-   TARGET=$ppc64TARGET
-   MACSDKDIR=$ppc64MACSDKDIR
-   ARCHARGs="$ppc64ONLYARG"
-   OSVERSION="$ppc64OSVERSION"
-   CC=$ppc64CC
-   CXX=$ppc64CXX
+   myPATH=$ORGPATH
+   ARCHFLAG="-m32"
  elif [ $ARCH = "x86_64" ] ; then
    TARGET=$x64TARGET
    MACSDKDIR=$x64MACSDKDIR
    ARCHARGs="$x64ONLYARG"
    OSVERSION="$x64OSVERSION"
-   CC=$x64CC
-   CXX=$x64CXX
+   CC="gcc-4.6"
+   CXX="g++-4.6"
+   ARCHFLAG="-m64"
+   myPATH=/usr/local/bin:$PATH
  fi
 
  echo "## Now compiling $ARCH version ##\n"
  env \
+   PATH=$myPATH \
    CC=$CC CXX=$CXX \
-   CFLAGS="-isysroot $MACSDKDIR -I. -I$REPOSITORYDIR/include -O2 -arch $ARCH $ARCHARGs $OTHERARGs -dead_strip" \
-   CXXFLAGS="-isysroot $MACSDKDIR -I. -I$REPOSITORYDIR/include -O2 -arch $ARCH $ARCHARGs $OTHERARGs -dead_strip" \
+   CFLAGS="-isysroot $MACSDKDIR -I. -I$REPOSITORYDIR/include -O2 $ARCHFLAG $ARCHARGs $OTHERARGs -dead_strip" \
+   CXXFLAGS="-isysroot $MACSDKDIR -I. -I$REPOSITORYDIR/include -O2 $ARCHFLAG $ARCHARGs $OTHERARGs -dead_strip" \
    CPPFLAGS="-I. -I$REPOSITORYDIR/include -I/usr/include" \
-   LDFLAGS="-ltiff -ljpeg -L$REPOSITORYDIR/lib -L/usr/lib -mmacosx-version-min=$OSVERSION -dead_strip" \
+   LDFLAGS="-ltiff -ljpeg -L$REPOSITORYDIR/lib -L/usr/lib -mmacosx-version-min=$OSVERSION -dead_strip $ARCHFLAG" \
    NEXT_ROOT="$MACSDKDIR" \
-   $CXX -L$REPOSITORYDIR/lib/ -O2 -I$REPOSITORYDIR/include/ -I$MACSDKDIR/usr/include -isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs \
+   $CXX -L$REPOSITORYDIR/lib/ -O2 -I$REPOSITORYDIR/include/ -I$MACSDKDIR/usr/include -isysroot $MACSDKDIR $ARCHFLAG $ARCHARGs $OTHERARGs \
    -ltiff -ljpeg multiblend.cpp -o multiblend || fail "compile step for $ARCH";
 
    mv multiblend $REPOSITORYDIR/arch/$ARCH/bin 

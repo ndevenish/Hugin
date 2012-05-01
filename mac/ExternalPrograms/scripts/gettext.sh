@@ -32,6 +32,7 @@ fail()
         exit 1
 }
 
+ORGPATH=$PATH
 
 let NUMARCH="0"
 
@@ -75,6 +76,8 @@ do
    OSVERSION="$i386OSVERSION"
    CC=$i386CC
    CXX=$i386CXX
+   myPATH=/usr/bin:$ORGPATH
+   ARCHFLAG="-m32"
  elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ] ; then
    TARGET=$ppcTARGET
    MACSDKDIR=$ppcMACSDKDIR
@@ -94,21 +97,26 @@ do
    MACSDKDIR=$x64MACSDKDIR
    ARCHARGs="$x64ONLYARG"
    OSVERSION="$x64OSVERSION"
+   #CC="gcc-4.6"
+   #CXX="g++-4.6"
    CC=$x64CC
    CXX=$x64CXX
+   ARCHFLAG="-m64"
+   #myPATH=/usr/local/bin:$PATH
+   myPATH=/usr/bin:$ORGPATH
  fi
 
  # first patch the make file
  #patch -po < patch-gettext-tools-Makefile.in
 
- export PATH=/usr/bin:$PATH
 
  env \
+  PATH=$myPATH \
   CC=$CC CXX=$CXX \
-  CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O3 -dead_strip" \
-  CXXFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O3 -dead_strip" \
+  CFLAGS="-isysroot $MACSDKDIR $ARCHFLAG $ARCHARGs $OTHERARGs -O3 -dead_strip" \
+  CXXFLAGS="-isysroot $MACSDKDIR $ARCHFLAG $ARCHARGs $OTHERARGs -O3 -dead_strip" \
   CPPFLAGS="-I$REPOSITORYDIR/include -I/usr/include -no-cpp-precomp" \
-  LDFLAGS="-L$REPOSITORYDIR/lib -L/usr/lib -mmacosx-version-min=$OSVERSION -dead_strip" \
+  LDFLAGS="-L$REPOSITORYDIR/lib -L/usr/lib -mmacosx-version-min=$OSVERSION -dead_strip $ARCHFLAG" \
   NEXT_ROOT="$MACSDKDIR" \
   ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
     --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \

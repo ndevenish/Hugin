@@ -1035,8 +1035,6 @@
 		733EAA19125C5BBA00658EAF /* config.h in Headers */ = {isa = PBXBuildFile; fileRef = 57E347610C4A8F7D006AA781 /* config.h */; };
 		733EAA29125CD89600658EAF /* icpfind.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7336099F1247DA6D009225D2 /* icpfind.framework */; };
 		733EAA5E125CDA8D00658EAF /* icpfind.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 7336099F1247DA6D009225D2 /* icpfind.framework */; };
-		733EF75A13FEC51300536F16 /* Python.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 733EF75913FEC51300536F16 /* Python.framework */; };
-		733EF75C13FEC51300536F16 /* Python.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 733EF75913FEC51300536F16 /* Python.framework */; };
 		734065AA125BA2CA00FC4790 /* HuginBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 576900AA0D24D29300A6AD01 /* HuginBase.framework */; };
 		734065AB125BA2CA00FC4790 /* HuginVigraImpex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5769FE380D24CFEC00A6AD01 /* HuginVigraImpex.framework */; };
 		734065AC125BA2CA00FC4790 /* libboost_date_time.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73360A161247E32E009225D2 /* libboost_date_time.dylib */; };
@@ -1097,6 +1095,10 @@
 		734066F6125BB8BD00FC4790 /* FindPanoDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 734066E9125BB83400FC4790 /* FindPanoDialog.cpp */; };
 		73406703125BB8FA00FC4790 /* libexiv2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E8A7D98310FB69FC00839DF3 /* libexiv2.dylib */; };
 		73406733125BBD7100FC4790 /* CPDetectorConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 733609841247DA57009225D2 /* CPDetectorConfig.h */; };
+		734BB9E415407A1800AE0963 /* libpython2.7.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 734BB9E315407A1800AE0963 /* libpython2.7.dylib */; };
+		734BB9E515407A1800AE0963 /* libpython2.7.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 734BB9E315407A1800AE0963 /* libpython2.7.dylib */; };
+		734BB9F615407A5E00AE0963 /* libpython2.7.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 734BB9E315407A1800AE0963 /* libpython2.7.dylib */; };
+		734BBA2B1540845900AE0963 /* libpython2.7.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 734BB9E315407A1800AE0963 /* libpython2.7.dylib */; };
 		734FC460139B8433007B675D /* calibrate_lens_gui.app in Copy Apps into InstallerFolder */ = {isa = PBXBuildFile; fileRef = 73DFBD9D139B69E900558A2D /* calibrate_lens_gui.app */; };
 		73573E3410F9EEA300CF0ECD /* HuginBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 576900AA0D24D29300A6AD01 /* HuginBase.framework */; };
 		73573E3510F9EEA300CF0ECD /* HuginVigraImpex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5769FE380D24CFEC00A6AD01 /* HuginVigraImpex.framework */; };
@@ -1512,7 +1514,6 @@
 		7392861914225F240051CAEC /* liblcms.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E864E2C510CE8437007AC6E4 /* liblcms.dylib */; };
 		7392861A14225F240051CAEC /* libGLEW.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E8A7D98410FB69FC00839DF3 /* libGLEW.dylib */; };
 		7392861B14225F240051CAEC /* libexiv2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E8A7D98310FB69FC00839DF3 /* libexiv2.dylib */; };
-		7392861C14225F240051CAEC /* Python.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 733EF75913FEC51300536F16 /* Python.framework */; };
 		7392866014225FDB0051CAEC /* hugin_config.h in Headers */ = {isa = PBXBuildFile; fileRef = 737E1C180EC9EC0300BA4D9B /* hugin_config.h */; };
 		7392866114225FDB0051CAEC /* config.h in Headers */ = {isa = PBXBuildFile; fileRef = 57E347610C4A8F7D006AA781 /* config.h */; };
 		7392866214225FDB0051CAEC /* CPDetectorConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 733609841247DA57009225D2 /* CPDetectorConfig.h */; };
@@ -1578,7 +1579,6 @@
 		7392869F14225FDB0051CAEC /* PreviewColorPickerTool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 733AC12D131AFE1600D276B9 /* PreviewColorPickerTool.cpp */; };
 		739286A014225FDB0051CAEC /* HtmlWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 733AC12E131AFE1600D276B9 /* HtmlWindow.cpp */; };
 		739286A114225FDB0051CAEC /* PluginItems.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73A8A3BB13F58BDF00BB58F2 /* PluginItems.cpp */; };
-		739286A314225FDB0051CAEC /* Python.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73B1AD5813A6B041006A3C54 /* Python.framework */; };
 		739286A414225FDB0051CAEC /* hugin_python_interface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73B1AD0613A6A0B0006A3C54 /* hugin_python_interface.framework */; };
 		739286A514225FDB0051CAEC /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5749FA9B067B80F000A6EDD4 /* Carbon.framework */; };
 		739286A614225FDB0051CAEC /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989581068E2FD7009F90BF /* libiconv.dylib */; };
@@ -1614,7 +1614,6 @@
 		739286C414225FDB0051CAEC /* libGLEW.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E8A7D98410FB69FC00839DF3 /* libGLEW.dylib */; };
 		739286C514225FDB0051CAEC /* libexiv2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E8A7D98310FB69FC00839DF3 /* libexiv2.dylib */; };
 		739286C614225FDB0051CAEC /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 735F091612DF6F300081D893 /* AGL.framework */; };
-		739286C714225FDB0051CAEC /* Python.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 733EF75913FEC51300536F16 /* Python.framework */; };
 		739286C914225FDB0051CAEC /* hugin_python_interface.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 73B1AD0613A6A0B0006A3C54 /* hugin_python_interface.framework */; };
 		739286CA14225FDB0051CAEC /* flann_cpp.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 73C5F7A412E2DC490033A6E1 /* flann_cpp.framework */; };
 		739286CB14225FDB0051CAEC /* icpfind.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 7336099F1247DA6D009225D2 /* icpfind.framework */; };
@@ -1736,7 +1735,6 @@
 		739A0DED10FA605300D8E4C7 /* pto2mk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 739A0DE710FA602200D8E4C7 /* pto2mk.cpp */; };
 		739A0E7610FA667600D8E4C7 /* PTLensDB.h in Headers */ = {isa = PBXBuildFile; fileRef = 5771F83B0C3026D200736343 /* PTLensDB.h */; };
 		739A6DC714376C54004DBBA5 /* PreviewGuideTool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 739A6DC614376C54004DBBA5 /* PreviewGuideTool.cpp */; };
-		739A6DC814376C54004DBBA5 /* PreviewGuideTool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 739A6DC614376C54004DBBA5 /* PreviewGuideTool.cpp */; };
 		739A6DC914376C54004DBBA5 /* PreviewGuideTool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 739A6DC614376C54004DBBA5 /* PreviewGuideTool.cpp */; };
 		739C2E5F12DA4FE1006C4F77 /* ToolHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 739C2E5B12DA4FE1006C4F77 /* ToolHelper.cpp */; };
 		739C2E6112DA4FE1006C4F77 /* Tool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 739C2E5D12DA4FE1006C4F77 /* Tool.cpp */; };
@@ -1872,6 +1870,7 @@
 		73CA10271296FD4900A4BC75 /* libboost_signals.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73CA0FFB1296FB9500A4BC75 /* libboost_signals.dylib */; };
 		73CA10281296FD5800A4BC75 /* libboost_signals.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73CA0FFB1296FB9500A4BC75 /* libboost_signals.dylib */; };
 		73CA10291296FD6900A4BC75 /* libboost_signals.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73CA0FFB1296FB9500A4BC75 /* libboost_signals.dylib */; };
+		73CAEAF8154098CC00FCBE86 /* liblensfun.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73145578153C93EC00D62D6A /* liblensfun.dylib */; };
 		73CE4996124A667F001F0F42 /* icpfind.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7336099F1247DA6D009225D2 /* icpfind.framework */; };
 		73D0C7ED1494DB03008C2C22 /* hierarchical_clustering_index.h in Headers */ = {isa = PBXBuildFile; fileRef = 73D0C7EC1494DB03008C2C22 /* hierarchical_clustering_index.h */; };
 		73D24B69106155D700B8A25D /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73D24B641061556700B8A25D /* AGL.framework */; };
@@ -2086,7 +2085,6 @@
 		73E7D3FD141FBDF800A6C583 /* HuginBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 576900AA0D24D29300A6AD01 /* HuginBase.framework */; };
 		73E7D3FE141FBDF800A6C583 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989581068E2FD7009F90BF /* libiconv.dylib */; };
 		73E7D3FF141FBDF800A6C583 /* libexiv2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E8A7D98310FB69FC00839DF3 /* libexiv2.dylib */; };
-		73E7D414141FBEA700A6C583 /* linefind.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73E7D412141FBEA700A6C583 /* linefind.cpp */; };
 		73E7D415141FBEA700A6C583 /* linefind.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73E7D412141FBEA700A6C583 /* linefind.cpp */; };
 		73EA611110FB1168004ACE07 /* Config.h in Headers */ = {isa = PBXBuildFile; fileRef = 734FB8E20EB38B9400CD7122 /* Config.h */; };
 		73EA612910FB15FC004ACE07 /* libhugin_celeste.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57D50ADB0F596DB700CCDCB5 /* libhugin_celeste.a */; };
@@ -2903,6 +2901,13 @@
 			remoteGlobalIDString = 73EBC08F0EC9E0B20068B821;
 			remoteInfo = "celeste dynamic";
 		};
+		734BBA0615407C1100AE0963 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7392863F14225F7B0051CAEC;
+			remoteInfo = "frameworks python version";
+		};
 		73573E2D10F9EEA300CF0ECD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
@@ -3169,13 +3174,6 @@
 			remoteGlobalIDString = 73B1AD0513A6A0AF006A3C54;
 			remoteInfo = _hsi;
 		};
-		7392865414225FDB0051CAEC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 5769FC280D24A26400A6AD01;
-			remoteInfo = frameworks;
-		};
 		7392865614225FDB0051CAEC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
@@ -3385,13 +3383,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 576900A90D24D29300A6AD01;
 			remoteInfo = "hugin_base Framework";
-		};
-		73A8A34113F56EFE00BB58F2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 73B1AD0513A6A0AF006A3C54;
-			remoteInfo = hugin_python_interface;
 		};
 		73A95EB3124887530076D3FB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -3784,11 +3775,11 @@
 				739286D114225FDB0051CAEC /* align_image_stack in Copy Executable Files */,
 				739286D214225FDB0051CAEC /* autooptimiser in Copy Executable Files */,
 				739286D314225FDB0051CAEC /* celeste_standalone in Copy Executable Files */,
+				739286D814225FDB0051CAEC /* checkpto in Copy Executable Files */,
 				739286D414225FDB0051CAEC /* cpclean in Copy Executable Files */,
 				739286D514225FDB0051CAEC /* cpfind in Copy Executable Files */,
 				739286D614225FDB0051CAEC /* icpfind in Copy Executable Files */,
 				739286D714225FDB0051CAEC /* pano_modify in Copy Executable Files */,
-				739286D814225FDB0051CAEC /* checkpto in Copy Executable Files */,
 			);
 			name = "Copy Executable Files";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4333,7 +4324,6 @@
 		733DF66E117F2384002EC787 /* pto_merge */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = pto_merge; sourceTree = BUILT_PRODUCTS_DIR; };
 		733E08CB13AFB4BB00EE081B /* dual_use.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = dual_use.py; path = "hugin_script_interface/plugins-dev/dual_use.py"; sourceTree = "<group>"; };
 		733E08CC13AFB4BB00EE081B /* plugin_skeleton.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; name = plugin_skeleton.py; path = "hugin_script_interface/plugins-dev/plugin_skeleton.py"; sourceTree = "<group>"; };
-		733EF75913FEC51300536F16 /* Python.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Python.framework; path = /Library/Frameworks/Python.framework; sourceTree = "<absolute>"; };
 		7340668D125BB2AF00FC4790 /* CPDetectorDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CPDetectorDialog.cpp; sourceTree = "<group>"; };
 		734066E9125BB83400FC4790 /* FindPanoDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FindPanoDialog.cpp; sourceTree = "<group>"; };
 		734066EA125BB83400FC4790 /* FailedProjectsDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FailedProjectsDialog.cpp; sourceTree = "<group>"; };
@@ -4343,6 +4333,11 @@
 		734BB02B1247A37A0062CF12 /* libboost_system.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_system.dylib; path = ../../ExternalPrograms/repository/lib/libboost_system.dylib; sourceTree = SOURCE_ROOT; };
 		734BB03A1247A87C0062CF12 /* libboost_iostreams.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_iostreams.dylib; path = ../../ExternalPrograms/repository/lib/libboost_iostreams.dylib; sourceTree = SOURCE_ROOT; };
 		734BB03C1247AB3A0062CF12 /* libboost_regex.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_regex.dylib; path = ../../ExternalPrograms/repository/lib/libboost_regex.dylib; sourceTree = SOURCE_ROOT; };
+		734BB9E315407A1800AE0963 /* libpython2.7.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpython2.7.dylib; path = ../../ExternalPrograms/repository/lib/libpython2.7.dylib; sourceTree = SOURCE_ROOT; };
+		734BBA5915408F1800AE0963 /* python-config */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "python-config"; path = "../../ExternalPrograms/repository/bin/python-config"; sourceTree = SOURCE_ROOT; };
+		734BBA5A15408F1800AE0963 /* python */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = python; path = ../../ExternalPrograms/repository/bin/python; sourceTree = SOURCE_ROOT; };
+		734BBA5B15408F1800AE0963 /* python2.7-config */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "python2.7-config"; path = "../../ExternalPrograms/repository/bin/python2.7-config"; sourceTree = SOURCE_ROOT; };
+		734BBA5C15408F1800AE0963 /* python2.7 */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = python2.7; path = ../../ExternalPrograms/repository/bin/python2.7; sourceTree = SOURCE_ROOT; };
 		734BDF5B0EB8EC19007EBA09 /* PTBatcher */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PTBatcher; sourceTree = BUILT_PRODUCTS_DIR; };
 		734FB8DD0EB38B9400CD7122 /* Celeste.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Celeste.cpp; sourceTree = "<group>"; };
 		734FB8DE0EB38B9400CD7122 /* Celeste.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Celeste.h; sourceTree = "<group>"; };
@@ -4482,7 +4477,6 @@
 		737E48DC11D3F8C6002BA8AE /* hugin_stitch_project-Info copy.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "hugin_stitch_project-Info copy.plist"; path = "../mac/hugin_stitch_project-Info copy.plist"; sourceTree = "<group>"; };
 		737E498F11D3FD74002BA8AE /* Hugin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hugin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		737E499111D3FD74002BA8AE /* Hugin-Info copy.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Hugin-Info copy.plist"; path = "../mac/Hugin-Info copy.plist"; sourceTree = "<group>"; };
-		737E922D1125EC5F00773356 /* liblocalfeatures.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = liblocalfeatures.dylib; path = ../../ExternalPrograms/repository/lib/liblocalfeatures.dylib; sourceTree = SOURCE_ROOT; };
 		737E923B1125FE0100773356 /* exiv2 */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = exiv2; path = ../../ExternalPrograms/repository/bin/exiv2; sourceTree = SOURCE_ROOT; };
 		7388EAFB0F6BFB1B001E08FA /* ResetDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ResetDialog.cpp; sourceTree = "<group>"; };
 		7388EAFC0F6BFB1B001E08FA /* ResetDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResetDialog.h; sourceTree = "<group>"; };
@@ -4521,7 +4515,7 @@
 		739F84780EC754CC004771D6 /* libwx_macu_gl-2.8.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_macu_gl-2.8.dylib"; path = "lib/libwx_macu_gl-2.8.dylib"; sourceTree = "<group>"; };
 		73A20D1114B05A9D008B4EAD /* multiblend */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = multiblend; path = ../../ExternalPrograms/repository/bin/multiblend; sourceTree = SOURCE_ROOT; };
 		73A20D3114B05B88008B4EAD /* libtiffxx.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libtiffxx.dylib; path = ../../ExternalPrograms/repository/lib/libtiffxx.dylib; sourceTree = SOURCE_ROOT; };
-		73A8A31E13F56DB600BB58F2 /* _hsi.so */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = _hsi.so; sourceTree = BUILT_PRODUCTS_DIR; };
+		73A8A31E13F56DB600BB58F2 /* lib_hsi.a */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = lib_hsi.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		73A8A35213F5709500BB58F2 /* hsi_ImageVariableGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hsi_ImageVariableGroup.h; path = hugin_script_interface/hsi_ImageVariableGroup.h; sourceTree = "<group>"; };
 		73A8A35313F5709500BB58F2 /* hsi_Panorama.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hsi_Panorama.h; path = hugin_script_interface/hsi_Panorama.h; sourceTree = "<group>"; };
 		73A8A35413F5709500BB58F2 /* hsi_PanoramaData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hsi_PanoramaData.h; path = hugin_script_interface/hsi_PanoramaData.h; sourceTree = "<group>"; };
@@ -5572,7 +5566,6 @@
 				7392861914225F240051CAEC /* liblcms.dylib in Frameworks */,
 				7392861A14225F240051CAEC /* libGLEW.dylib in Frameworks */,
 				7392861B14225F240051CAEC /* libexiv2.dylib in Frameworks */,
-				7392861C14225F240051CAEC /* Python.framework in Frameworks */,
 				7314557F153C93EC00D62D6A /* liblensfun.dylib in Frameworks */,
 				73145580153C93EC00D62D6A /* libgthread-2.dylib in Frameworks */,
 				73145581153C93EC00D62D6A /* libgobject-2.dylib in Frameworks */,
@@ -5580,6 +5573,7 @@
 				73145583153C93EC00D62D6A /* libglib-2.dylib in Frameworks */,
 				73145584153C93EC00D62D6A /* libgio-2.dylib in Frameworks */,
 				73145585153C93EC00D62D6A /* libffi.dylib in Frameworks */,
+				734BB9E415407A1800AE0963 /* libpython2.7.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5587,7 +5581,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				739286A314225FDB0051CAEC /* Python.framework in Frameworks */,
 				739286A414225FDB0051CAEC /* hugin_python_interface.framework in Frameworks */,
 				739286A514225FDB0051CAEC /* Carbon.framework in Frameworks */,
 				739286A614225FDB0051CAEC /* libiconv.dylib in Frameworks */,
@@ -5623,7 +5616,6 @@
 				739286C414225FDB0051CAEC /* libGLEW.dylib in Frameworks */,
 				739286C514225FDB0051CAEC /* libexiv2.dylib in Frameworks */,
 				739286C614225FDB0051CAEC /* AGL.framework in Frameworks */,
-				739286C714225FDB0051CAEC /* Python.framework in Frameworks */,
 				731455A2153C93ED00D62D6A /* liblensfun.dylib in Frameworks */,
 				731455A3153C93ED00D62D6A /* libgthread-2.dylib in Frameworks */,
 				731455A4153C93ED00D62D6A /* libgobject-2.dylib in Frameworks */,
@@ -5631,6 +5623,7 @@
 				731455A6153C93ED00D62D6A /* libglib-2.dylib in Frameworks */,
 				731455A7153C93ED00D62D6A /* libgio-2.dylib in Frameworks */,
 				731455A8153C93ED00D62D6A /* libffi.dylib in Frameworks */,
+				734BB9E515407A1800AE0963 /* libpython2.7.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5789,6 +5782,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				73CAEAF8154098CC00FCBE86 /* liblensfun.dylib in Frameworks */,
 				73B3F91813F6A358001E557D /* GLUT.framework in Frameworks */,
 				73B3F8E613F6A27F001E557D /* AGL.framework in Frameworks */,
 				73B3F8E713F6A27F001E557D /* libGLEW.dylib in Frameworks */,
@@ -5813,7 +5807,7 @@
 				73B3F49913F69D33001E557D /* HuginVigraImpex.framework in Frameworks */,
 				73A8A34313F56F2300BB58F2 /* HuginBase.framework in Frameworks */,
 				73A8A34913F56F8100BB58F2 /* hugin_python_interface.framework in Frameworks */,
-				733EF75C13FEC51300536F16 /* Python.framework in Frameworks */,
+				734BBA2B1540845900AE0963 /* libpython2.7.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5854,7 +5848,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				73FDC9D513A7D69C0042030D /* HuginBase.framework in Frameworks */,
-				733EF75A13FEC51300536F16 /* Python.framework in Frameworks */,
+				734BB9F615407A5E00AE0963 /* libpython2.7.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6390,6 +6384,11 @@
 		5745FBE5094E1C4700E6B672 /* repository */ = {
 			isa = PBXGroup;
 			children = (
+				734BBA5915408F1800AE0963 /* python-config */,
+				734BBA5A15408F1800AE0963 /* python */,
+				734BBA5B15408F1800AE0963 /* python2.7-config */,
+				734BBA5C15408F1800AE0963 /* python2.7 */,
+				734BB9E315407A1800AE0963 /* libpython2.7.dylib */,
 				73145578153C93EC00D62D6A /* liblensfun.dylib */,
 				73145579153C93EC00D62D6A /* libgthread-2.dylib */,
 				7314557A153C93EC00D62D6A /* libgobject-2.dylib */,
@@ -6404,7 +6403,6 @@
 				734BB03A1247A87C0062CF12 /* libboost_iostreams.dylib */,
 				734BB02B1247A37A0062CF12 /* libboost_system.dylib */,
 				737E923B1125FE0100773356 /* exiv2 */,
-				737E922D1125EC5F00773356 /* liblocalfeatures.dylib */,
 				57989581068E2FD7009F90BF /* libiconv.dylib */,
 				570898E30D4CB635008949E7 /* gnumake */,
 				5769F7A10D239D6A00A6AD01 /* PTmender */,
@@ -6446,7 +6444,6 @@
 		5745FC05094E1D5400E6B672 /* External */ = {
 			isa = PBXGroup;
 			children = (
-				733EF75913FEC51300536F16 /* Python.framework */,
 				7302E00613ADE56600700CD0 /* Snow Leopard binaries */,
 				5749F84D067B601A00A6EDD4 /* Mac OS SDK */,
 				73EAB5250E86CEA90020D514 /* lib-static */,
@@ -7214,7 +7211,7 @@
 				734FC450139B83A4007B675D /* lens_calibrate_gui-Info copy 2.plist */,
 				735EC88613ED65F20009E75F /* ApplicationServices.framework */,
 				735EC89113ED66670009E75F /* Foundation.framework */,
-				73A8A31E13F56DB600BB58F2 /* _hsi.so */,
+				73A8A31E13F56DB600BB58F2 /* lib_hsi.a */,
 				7346528A1420E23C0092A4BB /* align_image_stack-static */,
 				7392862114225F240051CAEC /* HuginBase.framework */,
 				739286E814225FDB0051CAEC /* Hugin.app */,
@@ -9248,7 +9245,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				7392865314225FDB0051CAEC /* PBXTargetDependency */,
+				734BBA0715407C1100AE0963 /* PBXTargetDependency */,
 				7392865514225FDB0051CAEC /* PBXTargetDependency */,
 				7392865714225FDB0051CAEC /* PBXTargetDependency */,
 				7392865914225FDB0051CAEC /* PBXTargetDependency */,
@@ -9383,11 +9380,10 @@
 			);
 			dependencies = (
 				73A8A34013F56EFE00BB58F2 /* PBXTargetDependency */,
-				73A8A34213F56EFE00BB58F2 /* PBXTargetDependency */,
 			);
 			name = _hsi;
 			productName = _hsi;
-			productReference = 73A8A31E13F56DB600BB58F2 /* _hsi.so */;
+			productReference = 73A8A31E13F56DB600BB58F2 /* lib_hsi.a */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
 		73A95ECD124888EB0076D3FB /* icpfind dynamic */ = {
@@ -10139,7 +10135,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# $Id: copyExtraTools.sh $\n\n# This script will copy all extra tools to the Hugin.app MacOS folder\n\nbin_dir=\"$REPOSITORY_DIR/bin\"\nApp=\"$TARGET_BUILD_DIR/$PRODUCT_NAME.app\"\n\n\nExtbins=\"PTBlender PTcrop PTinfo PTmasker PTmender PToptimizer PTroller PTtiff2psd PTtiffdump PTuncrop exiv2 gnumake enblend enfuse multiblend\"\n\n# Copy external binaries to MacOS folder in Hugin.app from Repositorydir folder\nfor bins in $Extbins\ndo\n cp -Rf $bin_dir/$bins \"$App/Contents/MacOS/\"\ndone\n\n";
+			shellScript = "# $Id: copyExtraTools.sh $\n\n# This script will copy all extra tools to the Hugin.app MacOS folder\n\nbin_dir=\"$REPOSITORY_DIR/bin\"\nApp=\"$TARGET_BUILD_DIR/$PRODUCT_NAME.app\"\n\n\nExtbins=\"PTBlender PTcrop PTinfo PTmasker PTmender PToptimizer PTroller PTtiff2psd PTtiffdump PTuncrop exiv2 gnumake enblend enfuse multiblend python python2.7\"\n\n# Copy external binaries to MacOS folder in Hugin.app from Repositorydir folder\nfor bins in $Extbins\ndo\n cp -Rf $bin_dir/$bins \"$App/Contents/MacOS/\"\ndone\n\n";
 		};
 		739286DF14225FDB0051CAEC /* Patch and Copy XRC */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -10241,7 +10237,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#if [ $ACTION = \"build\" ]\n#then\n# sh ../mac/preprocess_swig_headers.sh\n#fi\n\n#export PATH=/usr/bin:$PATH\n\n#FIRST CREATE THE SWIGPYRUN>H\nswig -c++ -python -external-runtime\n\n# $Id: preprocess_swig_headers $\n\nCOMMAND=\"gcc -E -D_HSI_IGNORE_SECTION\"\nHUGIN_BASE_DIR=\"../src\"\nPanoheader_dir=\"../src/hugin_base/panodata\"\nHSI_dir=\"../src/hugin_script_interface\"\nimg_vars=\"$Panoheader_dir/image_variables.h\"\n\nrm -rf \"$HSI_dir/hsi_ImageVariableGroup.h\" \"$HSI_dir/hsi_Panorama.h\" \"$HSI_dir/hsi_PanoramaData.h\" \"$HSI_dir/hsi_SrcPanoImage.h\"\n\n\n# First C-preprocess the sections from accessor-generating\n# headers that SWIG needs to see, ignoring the parts\n# where _HSI_IGNORE_SECTION is define.\n$COMMAND \"$Panoheader_dir/ImageVariableGroup.h\" > \"$HSI_dir/hsi_ImageVariableGroup.h\"  \"$img_vars\"\n$COMMAND \"$Panoheader_dir/Panorama.h\" > \"$HSI_dir/hsi_Panorama.h\"  \"$img_vars\"\n$COMMAND \"$Panoheader_dir/PanoramaData.h\" > \"$HSI_dir/hsi_PanoramaData.h\"  \"$img_vars\"\n$COMMAND \"$Panoheader_dir/SrcPanoImage.h\" > \"$HSI_dir/hsi_SrcPanoImage.h\"  \"$img_vars\"\n\n\n# Now create the hsiPYTHON_wrap.cxx\n##        cd /opt/software/hugin/build/src/hugin_script_interface && /usr/bin/swig2.0 -python -I/opt/software/hugin/build/src/hugin_script_interface -outdir /opt/software/hugin/build/src/hugin_script_interface -c++ -I/opt/software/hugin/build/src -I/opt/software/hugin/src/hugin_base -I/opt/software/hugin/src/foreign -I/opt/software/hugin/src/foreign/vigra -I/opt/software/hugin/src/celeste -I/opt/software/hugin/build/src/celeste -I/opt/software/hugin/src -I/usr/include -I/usr/include/OpenEXR -I/usr/local/include -I/usr/include/python2.7 -I/opt/software/hugin/src/hugin_script_interface -I/opt/software/hugin/build/src/hugin_script_interface -o /opt/software/hugin/build/src/hugin_script_interface/hsiPYTHON_wrap.cxx /opt/software/hugin/src/hugin_script_interface/hsi.i\n\ninclude_folders=\"-I../src/hugin_script_interface -I../src -I../src/hugin_base -I../src/foreign/vigra -I../src/celeste -I../src -I/usr/include -I/System/Library/Frameworks/Python.framework/Headers\"\n\n#swig -python -outdir $HSI_dir -c++ $include_folders -o \n\nswig -python -outdir $HSI_dir -c++ $include_folders  $HSI_dir/hsi.i -o $HSI_dir/hsiPYTHON_wrap.cxx\n\n\nwraps=\"  ${HUGIN_BASE_DIR}/appbase/DocumentData.h \\\n  ${HUGIN_BASE_DIR}/panodata/PanoramaData.h \\\n  ${HUGIN_BASE_DIR}/panodata/ImageVariable.h \\\n  ${HUGIN_BASE_DIR}/panodata/ImageVariableGroup.h \\\n  ${HUGIN_BASE_DIR}/panodata/StandardImageVariableGroups.h \\\n  ${HUGIN_BASE_DIR}/panodata/ImageVariableTranslate.h \\\n  ${HUGIN_BASE_DIR}/panodata/Lens.h \\\n  ${HUGIN_BASE_DIR}/panodata/SrcPanoImage.h \\\n  ${HUGIN_BASE_DIR}/panodata/PanoramaVariable.h \\\n  ${HUGIN_BASE_DIR}/panodata/ControlPoint.h \\\n  ${HUGIN_BASE_DIR}/panodata/PanoramaOptions.h \\\n  ${HUGIN_BASE_DIR}/panodata/PanoramaData.h \\\n  ${HUGIN_BASE_DIR}/panodata/Panorama.h \\\n  ${HUGIN_BASE_DIR}/panotools/PanoToolsUtils.h \\\n  ${HUGIN_BASE_DIR}/panotools/PanoToolsInterface.h \\\n  ${HUGIN_BASE_DIR}/panotools/PanoToolsOptimizerWrapper.h \\\n  ${HUGIN_BASE_DIR}/algorithms/PanoramaAlgorithm.h \\\n  ${HUGIN_BASE_DIR}/algorithms/StitcherAlgorithm.h \\\n  ${HUGIN_BASE_DIR}/algorithms/assistant_makefile/AssistantMakefilelibExport.h \\\n  ${HUGIN_BASE_DIR}/algorithms/basic/CalculateCPStatistics.h \\\n  ${HUGIN_BASE_DIR}/algorithms/basic/CalculateMeanExposure.h \\\n  ${HUGIN_BASE_DIR}/algorithms/basic/CalculateOptimalROI.h \\\n  ${HUGIN_BASE_DIR}/algorithms/basic/CalculateOptimalScale.h \\\n  ${HUGIN_BASE_DIR}/algorithms/basic/CalculateOverlap.h \\\n  ${HUGIN_BASE_DIR}/algorithms/basic/RotatePanorama.h \\\n  ${HUGIN_BASE_DIR}/algorithms/basic/StraightenPanorama.h \\\n  ${HUGIN_BASE_DIR}/algorithms/basic/TranslatePanorama.h \\\n  ${HUGIN_BASE_DIR}/algorithms/control_points/CleanCP.h \\\n  ${HUGIN_BASE_DIR}/algorithms/nona/CalculateFOV.h \\\n  ${HUGIN_BASE_DIR}/algorithms/nona/CenterHorizontally.h \\\n  ${HUGIN_BASE_DIR}/algorithms/nona/ComputeImageROI.h \\\n  ${HUGIN_BASE_DIR}/algorithms/nona/FitPanorama.h \\\n  ${HUGIN_BASE_DIR}/algorithms/nona/NonaFileStitcher.h \\\n  ${HUGIN_BASE_DIR}/algorithms/optimizer/PhotometricOptimizer.h \\\n  ${HUGIN_BASE_DIR}/algorithms/optimizer/PTOptimizer.h \\\n  ${HUGIN_BASE_DIR}/algorithms/panorama_makefile/PanoramaMakefilelibExport.h \\\n  ${HUGIN_BASE_DIR}/algorithms/point_sampler/PointSampler.h\"\n\n";
+			shellScript = "#if [ $ACTION = \"build\" ]\n#then\n# sh ../mac/preprocess_swig_headers.sh\n#fi\n\n#export PATH=/usr/bin:$PATH\n\n#FIRST CREATE THE SWIGPYRUN>H\nswig -c++ -python -external-runtime\n\n# $Id: preprocess_swig_headers $\n\nCOMMAND=\"$CC -E -D_HSI_IGNORE_SECTION\"\nHUGIN_BASE_DIR=\"../src\"\nPanoheader_dir=\"../src/hugin_base/panodata\"\nHSI_dir=\"../src/hugin_script_interface\"\nimg_vars=\"$Panoheader_dir/image_variables.h\"\n\nrm -rf \"$HSI_dir/hsi_ImageVariableGroup.h\" \"$HSI_dir/hsi_Panorama.h\" \"$HSI_dir/hsi_PanoramaData.h\" \"$HSI_dir/hsi_SrcPanoImage.h\"\n\n\n# First C-preprocess the sections from accessor-generating\n# headers that SWIG needs to see, ignoring the parts\n# where _HSI_IGNORE_SECTION is define.\n$COMMAND \"$Panoheader_dir/ImageVariableGroup.h\" > \"$HSI_dir/hsi_ImageVariableGroup.h\"  \"$img_vars\"\n$COMMAND \"$Panoheader_dir/Panorama.h\" > \"$HSI_dir/hsi_Panorama.h\"  \"$img_vars\"\n$COMMAND \"$Panoheader_dir/PanoramaData.h\" > \"$HSI_dir/hsi_PanoramaData.h\"  \"$img_vars\"\n$COMMAND \"$Panoheader_dir/SrcPanoImage.h\" > \"$HSI_dir/hsi_SrcPanoImage.h\"  \"$img_vars\"\n\n\n# Now create the hsiPYTHON_wrap.cxx\n##        cd /opt/software/hugin/build/src/hugin_script_interface && /usr/bin/swig2.0 -python -I/opt/software/hugin/build/src/hugin_script_interface -outdir /opt/software/hugin/build/src/hugin_script_interface -c++ -I/opt/software/hugin/build/src -I/opt/software/hugin/src/hugin_base -I/opt/software/hugin/src/foreign -I/opt/software/hugin/src/foreign/vigra -I/opt/software/hugin/src/celeste -I/opt/software/hugin/build/src/celeste -I/opt/software/hugin/src -I/usr/include -I/usr/include/OpenEXR -I/usr/local/include -I/usr/include/python2.7 -I/opt/software/hugin/src/hugin_script_interface -I/opt/software/hugin/build/src/hugin_script_interface -o /opt/software/hugin/build/src/hugin_script_interface/hsiPYTHON_wrap.cxx /opt/software/hugin/src/hugin_script_interface/hsi.i\n\ninclude_folders=\"-I../src/hugin_script_interface -I../src -I../src/hugin_base -I../src/foreign/vigra -I../src/celeste -I../src -I/usr/include -I/System/Library/Frameworks/Python.framework/Headers\"\n\n#swig -python -outdir $HSI_dir -c++ $include_folders -o \n\nswig -python -outdir $HSI_dir -c++ $include_folders  $HSI_dir/hsi.i -o $HSI_dir/hsiPYTHON_wrap.cxx\n\n\nwraps=\"  ${HUGIN_BASE_DIR}/appbase/DocumentData.h \\\n  ${HUGIN_BASE_DIR}/panodata/PanoramaData.h \\\n  ${HUGIN_BASE_DIR}/panodata/ImageVariable.h \\\n  ${HUGIN_BASE_DIR}/panodata/ImageVariableGroup.h \\\n  ${HUGIN_BASE_DIR}/panodata/StandardImageVariableGroups.h \\\n  ${HUGIN_BASE_DIR}/panodata/ImageVariableTranslate.h \\\n  ${HUGIN_BASE_DIR}/panodata/Lens.h \\\n  ${HUGIN_BASE_DIR}/panodata/SrcPanoImage.h \\\n  ${HUGIN_BASE_DIR}/panodata/PanoramaVariable.h \\\n  ${HUGIN_BASE_DIR}/panodata/ControlPoint.h \\\n  ${HUGIN_BASE_DIR}/panodata/PanoramaOptions.h \\\n  ${HUGIN_BASE_DIR}/panodata/PanoramaData.h \\\n  ${HUGIN_BASE_DIR}/panodata/Panorama.h \\\n  ${HUGIN_BASE_DIR}/panotools/PanoToolsUtils.h \\\n  ${HUGIN_BASE_DIR}/panotools/PanoToolsInterface.h \\\n  ${HUGIN_BASE_DIR}/panotools/PanoToolsOptimizerWrapper.h \\\n  ${HUGIN_BASE_DIR}/algorithms/PanoramaAlgorithm.h \\\n  ${HUGIN_BASE_DIR}/algorithms/StitcherAlgorithm.h \\\n  ${HUGIN_BASE_DIR}/algorithms/assistant_makefile/AssistantMakefilelibExport.h \\\n  ${HUGIN_BASE_DIR}/algorithms/basic/CalculateCPStatistics.h \\\n  ${HUGIN_BASE_DIR}/algorithms/basic/CalculateMeanExposure.h \\\n  ${HUGIN_BASE_DIR}/algorithms/basic/CalculateOptimalROI.h \\\n  ${HUGIN_BASE_DIR}/algorithms/basic/CalculateOptimalScale.h \\\n  ${HUGIN_BASE_DIR}/algorithms/basic/CalculateOverlap.h \\\n  ${HUGIN_BASE_DIR}/algorithms/basic/RotatePanorama.h \\\n  ${HUGIN_BASE_DIR}/algorithms/basic/StraightenPanorama.h \\\n  ${HUGIN_BASE_DIR}/algorithms/basic/TranslatePanorama.h \\\n  ${HUGIN_BASE_DIR}/algorithms/control_points/CleanCP.h \\\n  ${HUGIN_BASE_DIR}/algorithms/nona/CalculateFOV.h \\\n  ${HUGIN_BASE_DIR}/algorithms/nona/CenterHorizontally.h \\\n  ${HUGIN_BASE_DIR}/algorithms/nona/ComputeImageROI.h \\\n  ${HUGIN_BASE_DIR}/algorithms/nona/FitPanorama.h \\\n  ${HUGIN_BASE_DIR}/algorithms/nona/NonaFileStitcher.h \\\n  ${HUGIN_BASE_DIR}/algorithms/optimizer/PhotometricOptimizer.h \\\n  ${HUGIN_BASE_DIR}/algorithms/optimizer/PTOptimizer.h \\\n  ${HUGIN_BASE_DIR}/algorithms/panorama_makefile/PanoramaMakefilelibExport.h \\\n  ${HUGIN_BASE_DIR}/algorithms/point_sampler/PointSampler.h\"\n\n";
 		};
 		73A8A36713F57EA100BB58F2 /* Copy all tools into Hugin.app */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -11158,8 +11154,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				738A7C1513F680270085CB54 /* hsiPYTHON_wrap.cxx in Sources */,
-				73E7D414141FBEA700A6C583 /* linefind.cpp in Sources */,
-				739A6DC814376C54004DBBA5 /* PreviewGuideTool.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -11687,6 +11681,11 @@
 			target = 73EBC08F0EC9E0B20068B821 /* celeste dynamic */;
 			targetProxy = 7342A471126E01CB003FC5AB /* PBXContainerItemProxy */;
 		};
+		734BBA0715407C1100AE0963 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7392863F14225F7B0051CAEC /* frameworks python version */;
+			targetProxy = 734BBA0615407C1100AE0963 /* PBXContainerItemProxy */;
+		};
 		73573E2C10F9EEA300CF0ECD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 5769FE370D24CFEC00A6AD01 /* vigra_impex Framework */;
@@ -11877,11 +11876,6 @@
 			target = 73B1AD0513A6A0AF006A3C54 /* hugin_python_interface */;
 			targetProxy = 7392864D14225F7B0051CAEC /* PBXContainerItemProxy */;
 		};
-		7392865314225FDB0051CAEC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 5769FC280D24A26400A6AD01 /* frameworks */;
-			targetProxy = 7392865414225FDB0051CAEC /* PBXContainerItemProxy */;
-		};
 		7392865514225FDB0051CAEC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 57D50ACA0F596DB700CCDCB5 /* celeste */;
@@ -12031,11 +12025,6 @@
 			isa = PBXTargetDependency;
 			target = 576900A90D24D29300A6AD01 /* hugin_base Framework */;
 			targetProxy = 73A8A33F13F56EFE00BB58F2 /* PBXContainerItemProxy */;
-		};
-		73A8A34213F56EFE00BB58F2 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 73B1AD0513A6A0AF006A3C54 /* hugin_python_interface */;
-			targetProxy = 73A8A34113F56EFE00BB58F2 /* PBXContainerItemProxy */;
 		};
 		73A95EB4124887530076D3FB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -12452,7 +12441,7 @@
 					"$(PRECOMP_MACRO)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_VERSION = 4.0;
+				GCC_VERSION = 4.2;
 				HEADER_SEARCH_PATHS = (
 					/usr/include,
 					/Developer/Headers/FlatCarbon,
@@ -12468,7 +12457,7 @@
 				);
 				OTHER_LDFLAGS = "";
 				PRECOMP_MACRO = HUGIN_PRECOMP;
-				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+				SDKROOT = /Developer/SDKs/MacOSX10.5.sdk;
 				SEPARATE_STRIP = YES;
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = YES;
@@ -15689,8 +15678,10 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_9)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_2)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
@@ -15727,8 +15718,10 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_9)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_2)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
@@ -15834,8 +15827,10 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_7)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_2)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
@@ -15887,8 +15882,10 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_7)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_2)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
@@ -15942,8 +15939,10 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_7)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_9)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_10)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_10 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../../../Shared/development/hugin/mac/ExternalPrograms/repository/lib-static\"";
@@ -16479,7 +16478,11 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_2)",
 				);
+				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
@@ -16504,7 +16507,11 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_2)",
 				);
+				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
@@ -16517,19 +16524,25 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(WX_ARCH)";
-				BUNDLE_LOADER = /usr/bin/python;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1 = "x86_64 i386 ppc";
+				BUNDLE_LOADER = "$(REPOSITORY_DIR)/bin/python";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DYLIB_COMPATIBILITY_VERSION = "";
 				DYLIB_CURRENT_VERSION = "";
-				EXECUTABLE_EXTENSION = so;
-				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_EXTENSION = a;
+				EXECUTABLE_PREFIX = lib;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_SYMBOL_SEPARATION = NO;
 				GCC_MODEL_TUNING = "";
-				GENERATE_MASTER_OBJECT_FILE = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(DEBUG_MACRO)",
+					"$(PRECOMP_MACRO)",
+				);
+				GENERATE_MASTER_OBJECT_FILE = NO;
 				HEADER_SEARCH_PATHS = (
-					/Library/Frameworks/Python.framework/Headers,
+					"$(REPOSITORY_DIR)/include/python2.7",
 					/usr/include,
 					"$(REPOSITORY_DIR)/include",
 					../src,
@@ -16539,6 +16552,7 @@
 					../src/foreign,
 					../src/foreign/vigra,
 					../src/celeste,
+					"$(REPOSITORY_DIR)/include/boost",
 					"$(WX_INCLUDE_DIR)",
 				);
 				INSTALL_PATH = "@executable_path/../Libraries";
@@ -16547,13 +16561,20 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_5)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/ExternalPrograms/repository/lib\"";
-				MACH_O_TYPE = mh_bundle;
-				PREBINDING = NO;
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_5 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
+				MACH_O_TYPE = staticlib;
+				PREBINDING = YES;
+				PRIVATE_HEADERS_FOLDER_PATH = "";
 				PRODUCT_NAME = _hsi;
+				PUBLIC_HEADERS_FOLDER_PATH = /usr/include;
+				SDKROOT = /Developer/SDKs/MacOSX10.5.sdk;
 				ZERO_LINK = NO;
 			};
 			name = Release;
@@ -16692,6 +16713,11 @@
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
 				INFOPLIST_FILE = "_hsi-Info.plist";
 				INSTALL_PATH = "$(HOME)/Library/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				OTHER_LDFLAGS = (
 					"-framework",
 					Foundation,
@@ -16719,6 +16745,11 @@
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
 				INFOPLIST_FILE = "_hsi-Info.plist";
 				INSTALL_PATH = "$(HOME)/Library/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				OTHER_LDFLAGS = (
 					"-framework",
 					Foundation,
@@ -16753,10 +16784,15 @@
 					../src/hugin_base,
 					../src/foreign,
 					../src/foreign/vigra,
-					/Library/Frameworks/Python.framework/Headers,
+					"$(REPOSITORY_DIR)/include/python2.7",
 				);
 				INFOPLIST_FILE = "hugin_python_interface-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../ExternalPrograms/repository/lib\"";
 				OTHER_LDFLAGS = "";
 				PREBINDING = NO;
 				PRODUCT_NAME = hugin_python_interface;

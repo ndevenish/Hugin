@@ -22,6 +22,7 @@
 # -------------------------------
 # 20120307 hvdw initial lensfun based on svn 152
 # 20120415.0 hvdw now builds correctly
+# 20120429.0 hvdw compile x86_64 with gcc-4.6 for lion and up openmp compatibility
 # -------------------------------
 
 # init
@@ -31,6 +32,8 @@ fail()
         echo "** Failed at $1 **"
         exit 1
 }
+
+ORGPATH=$PATH
 
 #patch -Np0 < ../scripts/lensfun-patch-pkgconfig.diff
 
@@ -63,6 +66,8 @@ do
    OSVERSION="$i386OSVERSION"
    CC=$i386CC
    CXX=$i386CXX
+   myPATH=$ORGPATH
+   ARCHFLAG="-m32"
  elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ] ; then
    TARGET=$ppcTARGET
    MACSDKDIR=$ppcMACSDKDIR
@@ -82,20 +87,25 @@ do
    MACSDKDIR=$x64MACSDKDIR
    ARCHARGs="$x64ONLYARG"
    OSVERSION="$x64OSVERSION"
-   CC=$x64CC
-   CXX=$x64CXX
+#   CC=$x64CC
+#   CXX=$x64CXX
+   CC="gcc-4.6"
+   CXX="g++-4.6"
+   ARCHFLAG="-m64"
+   myPATH=/usr/local/bin:$PATH
  fi
 
  make clean;
  env \
+  PATH=$myPATH \
   CC=$CC CXX=$CXX \
-  CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O3 -dead_strip -I$REPOSITORYDIR/include/glib-2.0 -I$REPOSITORYDIR/include/gio-unix-2.0 \
+  CFLAGS="-isysroot $MACSDKDIR $ARCHFLAG $ARCHARGs $OTHERARGs -O3 -dead_strip -I$REPOSITORYDIR/include/glib-2.0 -I$REPOSITORYDIR/include/gio-unix-2.0 \
          -I$REPOSITORYDIR/arch/$ARCH/lib/glib-2.0/include -I$REPOSITORYDIR/arch/$ARCH/lib/gio/include -I$REPOSITORYDIR/include" \
-  CXXFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O3 -dead_strip -I$REPOSITORYDIR/include/glib-2.0 -I$REPOSITORYDIR/include/gio-unix-2.0 \
+  CXXFLAGS="-isysroot $MACSDKDIR $ARCHFLAG $ARCHARGs $OTHERARGs -O3 -dead_strip -I$REPOSITORYDIR/include/glib-2.0 -I$REPOSITORYDIR/include/gio-unix-2.0 \
          -I$REPOSITORYDIR/arch/$ARCH/lib/glib-2.0/include -I$REPOSITORYDIR/arch/$ARCH/lib/gio/include -I$REPOSITORYDIR/include" \
-  CPPFLAGS="-arch $ARCH -I$REPOSITORYDIR/include/glib-2.0 -I$REPOSITORYDIR/include/gio-unix-2.0 -I/usr/include \
+  CPPFLAGS="$ARCHFLAG -I$REPOSITORYDIR/include/glib-2.0 -I$REPOSITORYDIR/include/gio-unix-2.0 -I/usr/include \
          -I$REPOSITORYDIR/arch/$ARCH/lib/glib-2.0/include -I$REPOSITORYDIR/arch/$ARCH/lib/gio/include -I$REPOSITORYDIR/include" \
-  LDFLAGS="-arch $ARCH -L$REPOSITORYDIR/lib -L/usr/lib -mmacosx-version-min=$OSVERSION -dead_strip" \
+  LDFLAGS="$ARCHFLAG -L$REPOSITORYDIR/lib -L/usr/lib -mmacosx-version-min=$OSVERSION -dead_strip" \
   NEXT_ROOT="$MACSDKDIR" \
   ./configure --prefix="$REPOSITORYDIR/arch/$ARCH" --sdkdir="$REPOSITORYDIR/arch/$ARCH" --mode="release" \
   || fail "configure step for $ARCH";
@@ -104,7 +114,7 @@ do
 # Very stupid lensfun doesn't listen very well to CFLAGS/CXXFLAGS etc.. so we have 
 # to manually modify the config.mak
  cp config.mak config.mak.org
- sed -e "s+/opt/local/lib+$REPOSITORYDIR/arch/$ARCH/lib+g" -e "s+/opt/local/include+$REPOSITORYDIR/include+g" -e 's+png14+png12+g'  config.mak.org > config.mak
+ sed -e "s+/opt/local/lib+$REPOSITORYDIR/arch/$ARCH/lib+g" -e "s+/opt/local/include+$REPOSITORYDIR/include+g" -e 's+png14+png15+g'  config.mak.org > config.mak
 
 
  make libs || fail "failed at make step of $ARCH";

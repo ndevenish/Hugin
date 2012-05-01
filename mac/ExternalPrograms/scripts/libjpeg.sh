@@ -21,6 +21,7 @@
 # 20091206.0 sg Script tested and used to build 2009.4.0-RC3
 # 20100121.0 sg Script updated for version 8
 # 20100624.0 hvdw More robust error checking on compilation
+# 20120427.0 hvdw compile x86_64 with gcc 4.6 for Lion and up openmp compatibility
 # -------------------------------
 
 JPEGLIBVER="8"
@@ -33,6 +34,8 @@ fail()
 
 
 # init
+
+ORGPATH=$PATH
 
 uname_release=$(uname -r)
 uname_arch=$(uname -p)
@@ -97,33 +100,24 @@ do
    OSVERSION="$i386OSVERSION"
    CC=$i386CC
    CXX=$i386CXX
- elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ] ; then
-   TARGET=$ppcTARGET
-   MACSDKDIR=$ppcMACSDKDIR
-   ARCHARGs="$ppcONLYARG"
-   OSVERSION="$ppcOSVERSION"
-   CC=$ppcCC
-   CXX=$ppcCXX
- elif [ $ARCH = "ppc64" -o $ARCH = "ppc970" ] ; then
-   TARGET=$ppc64TARGET
-   MACSDKDIR=$ppc64MACSDKDIR
-   ARCHARGs="$ppc64ONLYARG"
-   OSVERSION="$ppc64OSVERSION"
-   CC=$ppc64CC
-   CXX=$ppc64CXX
+   myPATH=$ORGPATH
+   ARCHFLAG="-m32"
  elif [ $ARCH = "x86_64" ] ; then
    TARGET=$x64TARGET
    MACSDKDIR=$x64MACSDKDIR
    ARCHARGs="$x64ONLYARG"
    OSVERSION="$x64OSVERSION"
-   CC=$x64CC
-   CXX=$x64CXX
- fi
+    CC="gcc-4.6"
+   CXX="g++-4.6"
+   ARCHFLAG="-m64"
+   myPATH=/usr/local/bin:$PATH
+fi
 
  env \
+  PATH=$myPATH \
   CC=$CC CXX=$CXX \
-  CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O3 -dead_strip" \
-  CXXFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O3 -dead_strip" \
+  CFLAGS="-isysroot $MACSDKDIR $ARCHFLAG $ARCHARGs $OTHERARGs -O3 -dead_strip" \
+  CXXFLAGS="-isysroot $MACSDKDIR $ARCHFLAG $ARCHARGs $OTHERARGs -O3 -dead_strip" \
   CPPFLAGS="-I$REPOSITORYDIR/include -I/usr/include" \
   LDFLAGS="-L$REPOSITORYDIR/lib -L/usr/lib -mmacosx-version-min=$OSVERSION -dead_strip" \
   NEXT_ROOT="$MACSDKDIR" \

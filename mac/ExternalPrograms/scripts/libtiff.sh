@@ -78,20 +78,6 @@ do
    OSVERSION="$i386OSVERSION"
    CC=$i386CC
    CXX=$i386CXX
- elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ] ; then
-   TARGET=$ppcTARGET
-   MACSDKDIR=$ppcMACSDKDIR
-   ARCHARGs="$ppcONLYARG"
-   OSVERSION="$ppcOSVERSION"
-   CC=$ppcCC
-   CXX=$ppcCXX
- elif [ $ARCH = "ppc64" -o $ARCH = "ppc970" ] ; then
-   TARGET=$ppc64TARGET
-   MACSDKDIR=$ppc64MACSDKDIR
-   ARCHARGs="$ppc64ONLYARG"
-   OSVERSION="$ppc64OSVERSION"
-   CC=$ppc64CC
-   CXX=$ppc64CXX
  elif [ $ARCH = "x86_64" ] ; then
    TARGET=$x64TARGET
    MACSDKDIR=$x64MACSDKDIR

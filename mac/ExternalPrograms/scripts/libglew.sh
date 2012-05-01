@@ -22,6 +22,7 @@
 # 20100110.0 sg Script enhanced to copy dynamic lib also
 # 20100624.0 hvdw More robust error checking on compilation
 # 20120414.0 hvdw updated to 1.7
+# 20120428.0 hvdw use gcc 4.6 for x86_64 for openmp compatibility on lion an up
 # -------------------------------
 
 GLEW_MAJOR=1
@@ -36,37 +37,14 @@ fail()
 
 
 # init
-uname_release=$(uname -r)
-uname_arch=$(uname -p)
-[ $uname_arch = powerpc ] && uname_arch="ppc"
-os_dotvsn=${uname_release%%.*}
-os_dotvsn=$(($os_dotvsn - 4))
-case $os_dotvsn in
- 4 ) os_sdkvsn="10.4u" ;;
- 5|6 ) os_sdkvsn=10.$os_dotvsn ;;
- * ) echo "Unhandled OS Version: 10.$os_dotvsn. Build aborted."; exit 1 ;;
-esac
+ORGPATH=$PATH
 
-NATIVE_SDKDIR="/Developer/SDKs/MacOSX$os_sdkvsn.sdk"
-NATIVE_OSVERSION="10.$os_dotvsn"
-NATIVE_ARCH=$uname_arch
-NATIVE_OPTIMIZE=""
+# patch 1.7 for gcc 4.6
+cp config/Makefile.darwin config/Makefile.darwin.org
+cp config/Makefile.darwin-x86_64 config/Makefile.darwin-x86_64.org
+sed 's/-no-cpp-precomp//' config/Makefile.darwin.org > config/Makefile.darwin
+sed 's/-no-cpp-precomp//' config/Makefile.darwin-x86_64.org > config/Makefile.darwin-x86_64
 
-# update config.guess and config.sub -- locations vary by OS version
-case $NATIVE_OSVERSION in
-	10.4 )
-		;;
-	10.5 )
-		cp -f /usr/share/libtool/config.{guess,sub} ./config/ 
-		;;
-	10.6 )
-		cp -f /usr/share/libtool/config/config.{guess,sub} ./config/ 
-		;;
-	* )
-		echo "Unknown OS version; Add code to support $NATIVE_OSVERSION"; 
-		exit 1 
-		;;
-esac
 
 let NUMARCH="0"
 
@@ -98,31 +76,27 @@ do
    ARCHARGs="$i386ONLYARG"
    CC=$i386CC
    CXX=$i386CXX
- elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ] ; then
-   TARGET=$ppcTARGET
-   MACSDKDIR=$ppcMACSDKDIR
-   ARCHARGs="$ppcONLYARG"
-   CC=$ppcCC
-   CXX=$ppcCXX
- elif [ $ARCH = "ppc64" -o $ARCH = "ppc970" ] ; then
-   TARGET=$ppc64TARGET
-   MACSDKDIR=$ppc64MACSDKDIR
-   ARCHARGs="$ppc64ONLYARG"
-   CC=$ppc64CC
-   CXX=$ppc64CXX
+   myPATH=$ORGPATH
+   ARCHFLAG="-m32"
  elif [ $ARCH = "x86_64" ] ; then
    TARGET=$x64TARGET
    MACSDKDIR=$x64MACSDKDIR
    ARCHARGs="$x64ONLYARG"
-   CC=$x64CC
-   CXX=$x64CXX
+#   CC=$x64CC
+#   CXX=$x64CXX
+   CC="gcc-4.6"
+   CXX="g++-4.6"
+   ARCHFLAG="-m64"
+   myPATH=/usr/local/bin:$PATH
  fi
 
+ env PATH=$myPATH;
  make clean;
  make install \
   GLEW_DEST="$REPOSITORYDIR/arch/$ARCH" \
-  CC="$CC -isysroot $MACSDKDIR -arch $ARCH $ARCHARGs -O3 -dead_strip" \
-  LD="$CC -isysroot $MACSDKDIR -arch $ARCH $ARCHARGs -O3" \
+  CC="$CC -isysroot $MACSDKDIR $ARCHFLAG $ARCHARGs -O3 -dead_strip" \
+  CXX="$CC -isysroot $MACSDKDIR $ARCHFLAG $ARCHARGs -O3 -dead_strip" \
+  LD="$CC -isysroot $MACSDKDIR $ARCHFLAG $ARCHARGs -O3" \
   || fail "failed at make step of $ARCH";
 
 done

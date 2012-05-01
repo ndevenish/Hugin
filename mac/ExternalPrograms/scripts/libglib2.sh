@@ -31,6 +31,8 @@ fail()
         exit 1
 }
 
+ORGPATH=$PATH
+
 VERSION="2.0"
 FULLVERSION="2.0.0"
 
@@ -67,6 +69,8 @@ do
    OSVERSION="$i386OSVERSION"
    CC=$i386CC
    CXX=$i386CXX
+   myPATH=$ORGPATH
+   ARCHFLAG="-m32"
  elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ] ; then
    TARGET=$ppcTARGET
    MACSDKDIR=$ppcMACSDKDIR
@@ -88,6 +92,10 @@ do
    OSVERSION="$x64OSVERSION"
    CC=$x64CC
    CXX=$x64CXX
+#   CC="gcc-4.6"
+#   CXX="g++-4.6"
+   ARCHFLAG="-m64"
+#   myPATH=/usr/local/bin:$PATH
  fi
 
 
@@ -95,11 +103,12 @@ do
 
 
  env \
+  PATH=$myPATH \
   CC=$CC CXX=$CXX \
-  CFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O3 -dead_strip -fstrict-aliasing" \
-  CXXFLAGS="-isysroot $MACSDKDIR -arch $ARCH $ARCHARGs $OTHERARGs -O3 -dead_strip -fstrict-aliasing" \
+  CFLAGS="-isysroot $MACSDKDIR $ARCHFLAG $ARCHARGs $OTHERARGs -O3 -dead_strip -fstrict-aliasing" \
+  CXXFLAGS="-isysroot $MACSDKDIR $ARCHFLAG $ARCHARGs $OTHERARGs -O3 -dead_strip -fstrict-aliasing" \
   CPPFLAGS="-I$REPOSITORYDIR/include" \
-  LDFLAGS="-L$REPOSITORYDIR/lib -mmacosx-version-min=$OSVERSION -L$MACSDKDIR/usr/lib -dead_strip -lresolv -bind_at_load" \
+  LDFLAGS="-L$REPOSITORYDIR/lib -mmacosx-version-min=$OSVERSION -L$MACSDKDIR/usr/lib -dead_strip -lresolv -bind_at_load $ARCHFLAG" \
   NEXT_ROOT="$MACSDKDIR" \
   ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
   --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \

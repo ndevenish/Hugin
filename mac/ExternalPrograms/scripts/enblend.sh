@@ -24,6 +24,7 @@
 # 20091223.0 sg Added argument to configure to locate missing TTF
 #               Building enblend documentation requires tex. Check if possible.
 # 20100624.0 hvdw More robust error checking on compilation
+# 20120430.0 hvdw Patch too old vigra in enblend for libpng 14
 # -------------------------------
 
 # init
@@ -34,6 +35,11 @@ fail()
         exit 1
 }
 
+# Patch the far too old vigra version inside enblend for libpng >= 1.4
+patch -Np0 < ../scripts/libpng14_for_enblendvigra.diff
+
+
+ORGPATH=$PATH
 
 # Fancy doc builds on Enblend 3.2 are doomed to failure, so don't even try...
 AC_INIT=$(grep AC_INIT Configure.in)
@@ -79,31 +85,24 @@ do
  if [ $ARCH = "i386" -o $ARCH = "i686" ] ; then
    TARGET=$i386TARGET
    MACSDKDIR=$i386MACSDKDIR
-   ARCHARGs="$i386ONLYARG"
+#   ARCHARGs="$i386ONLYARG"
+   ARCHARGs="-march=prescott -mtune=pentium-m -ftree-vectorize -mmacosx-version-min=10.5"
    OSVERSION="$i386OSVERSION"
    CC=$i386CC
    CXX=$i386CXX
- elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ] ; then
-   TARGET=$ppcTARGET
-   MACSDKDIR=$ppcMACSDKDIR
-   ARCHARGs="$ppcONLYARG"
-   OSVERSION="$ppcOSVERSION"
-   CC=$ppcCC
-   CXX=$ppcCXX
- elif [ $ARCH = "ppc64" -o $ARCH = "ppc970" ] ; then
-   TARGET=$ppc64TARGET
-   MACSDKDIR=$ppc64MACSDKDIR
-   ARCHARGs="$ppc64ONLYARG"
-   OSVERSION="$ppc64OSVERSION"
-   CC=$ppc64CC
-   CXX=$ppc64CXX
+   myPATH=$ORGPATH
+   ARCHFLAG="-m32"
  elif [ $ARCH = "x86_64" ] ; then
    TARGET=$x64TARGET
    MACSDKDIR=$x64MACSDKDIR
    ARCHARGs="$x64ONLYARG"
    OSVERSION="$x64OSVERSION"
-   CC=$x64CC
-   CXX=$x64CXX
+#   CC=$x64CC
+#   CXX=$x64CXX
+   CC="gcc-4.6"
+   CXX="g++-4.6"
+   ARCHFLAG="-m64"
+   myPATH=/usr/local/bin:$PATH
  fi
 
 # To build documentation, you will need to install the following (port) packages:
@@ -123,19 +122,28 @@ do
 # export PATH=/usr/local/texlive/2009/bin/universal-darwin:$PATH
 # To make the change permanent, edit ~/.profile.
 
- env \
+ export \
+   PATH=$myPATH \
    CC=$CC CXX=$CXX \
-   CFLAGS="-isysroot $MACSDKDIR -I$REPOSITORYDIR/include -I$REPOSITORYDIR/include/OpenEXR -I$REPOSITORYDIR/include/boost -arch $ARCH $ARCHARGs $OTHERARGs -dead_strip" \
-   CXXFLAGS="-isysroot $MACSDKDIR -I$REPOSITORYDIR/include -I$REPOSITORYDIR/include/OpenEXR -I$REPOSITORYDIR/include/boost -arch $ARCH $ARCHARGs $OTHERARGs -dead_strip" \
+   CFLAGS="-isysroot $MACSDKDIR -I$REPOSITORYDIR/include -I$REPOSITORYDIR/include/OpenEXR -I$REPOSITORYDIR/include/boost $ARCHFLAG $ARCHARGs $OTHERARGs -dead_strip" \
+   CXXFLAGS="-isysroot $MACSDKDIR -I$REPOSITORYDIR/include -I$REPOSITORYDIR/include/OpenEXR -I$REPOSITORYDIR/include/boost $ARCHFLAG $ARCHARGs $OTHERARGs -dead_strip" \
    CPPFLAGS="-I$REPOSITORYDIR/include -I$REPOSITORYDIR/include/OpenEXR -I/usr/include" \
    LIBS="-lGLEW -framework GLUT -lobjc -framework OpenGL -framework AGL" \
    LDFLAGS="-L$REPOSITORYDIR/lib -L/usr/lib -mmacosx-version-min=$OSVERSION -dead_strip" \
    NEXT_ROOT="$MACSDKDIR" \
-   PKG_CONFIG_PATH="$REPOSITORYDIR/lib/pkgconfig" \
-   ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking --enable-image-cache=yes \
+   PKG_CONFIG_PATH="$REPOSITORYDIR/lib/pkgconfig" ;
+
+   if [ $ARCH = "i386" -o $ARCH = "i686" ] ; then
+     ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
+     --enable-image-cache=yes --disable-openmp  --disable-gpu-support \
      --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH --with-apple-opengl-framework \
      --with-glew $extraConfig --with-openexr || fail "configure step for $ARCH";
-
+   elif [ $ARCH = "x86_64" ] ; then
+    ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
+     --disable-image-cache --enable-openmp  --disable-gpu-support \
+     --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH --with-apple-opengl-framework \
+     --with-glew $extraConfig --with-openexr || fail "configure step for $ARCH";
+   fi 
  # hack; AC_FUNC_MALLOC sucks!!
 
  mv ./config.h ./config.h-copy; 

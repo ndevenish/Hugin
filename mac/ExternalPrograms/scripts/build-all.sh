@@ -26,7 +26,7 @@ echo "$pre expat $pst"           && cd ../expat-2.1.0 || exit 1        && sh ../
 echo "$pre libiconv $pst"        && cd ../libiconv-1.13.1  || exit 1   && sh ../scripts/libiconv.sh;
 echo "$pre gettext $pst"         && cd ../gettext-0.17  || exit 1      && sh ../scripts/gettext.sh
 echo "$pre libjpeg-8d $pst"      && cd ../jpeg-8d || exit 1            && sh ../scripts/libjpeg.sh;
-echo "$pre libpng $pst"          && cd ../libpng-1.2.44 || exit 1      && sh ../scripts/libpng.sh;
+echo "$pre libpng $pst"          && cd ../libpng-1.4.11 || exit 1      && sh ../scripts/libpng.sh;
 echo "$pre libtiff $pst"         && cd ../tiff-3.9.2 || exit 1         && sh ../scripts/libtiff.sh;
 echo "$pre wxmac $pst"           && cd ../wxMac-2.8.12 || exit 1       && sh ../scripts/wxmac28.sh;
 echo "$pre ilmbase $pst"         && cd ../ilmbase-1.0.2 || exit 1      && sh ../scripts/ilmbase.sh;

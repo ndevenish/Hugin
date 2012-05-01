@@ -79,6 +79,8 @@ echo "## Done compiling bjam ##"
 
 # init
 
+ORGPATH=$PATH
+
 let NUMARCH="0"
 
 for i in $ARCHS
@@ -107,6 +109,8 @@ do
   export CC=$i386CC;
   export CXX=$i386CXX;
   export ARCHTARGET=$i386TARGET;
+  myPATH=$ORGPATH
+  ARCHFLAG="-m32"
  elif [ $ARCH = "x86_64" ]
  then
   MACSDKDIR=$x64MACSDKDIR
@@ -117,7 +121,11 @@ do
   export CC=$x64CC;
   export CXX=$x64CXX;
   export ARCHTARGET=$x86_64TARGET;
+  ARCHFLAG="-m64"
+  myPATH=/usr/local/bin:$PATH
  fi
+
+ env $myPATH
 
  SDKVRSION=$(echo $MACSDKDIR | sed 's/^[^1]*\([[:digit:]]*\.[[:digit:]]*\).*/\1/')
 
