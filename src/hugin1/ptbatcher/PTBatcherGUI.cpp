@@ -78,6 +78,7 @@ bool PTBatcherGUI::OnInit()
         else
         {
             wxMessageBox(_("xrc directory not found in bundle"), _("Fatal Error"));
+            return false;
         }
 
         wxString thePath = MacGetPathToBundledResourceFile(CFSTR("locale"));
@@ -90,6 +91,13 @@ bool PTBatcherGUI::OnInit()
             wxMessageBox(_("Translations not found in bundle"), _("Fatal Error"));
             return false;
         }
+        wxString thePath = MacGetPathToBundledResourceFile(CFSTR("lensfun"));
+        if (thePath == wxT("")) {
+            wxMessageBox(_("lensfun directory not found in bundle"),
+                            _("Fatal Error"));
+            return false;
+        }
+        HuginBase::LensDB::LensDB::GetSingleton().SetMainDBPath(std::string(thePath.mb_str(HUGIN_CONV_FILENAME)));
     }
 #else
     // add the locale directory specified during configure

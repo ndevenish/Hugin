@@ -38,6 +38,13 @@
 #include <vigra/impex.hxx>
 #include <lensdb/LensDB.h>
 
+#ifdef __APPLE__
+#include <hugin_config.h>
+#include <mach-o/dyld.h>    /* _NSGetExecutablePath */
+#include <limits.h>         /* PATH_MAX */
+#include <libgen.h>         /* dirname */
+#endif
+
 using namespace std;
 using namespace HuginBase;
 
@@ -85,6 +92,16 @@ void InitLensDB()
             working_path.append("\\share\\lensfun\\");
             HuginBase::LensDB::LensDB::GetSingleton().SetMainDBPath(working_path);
         }
+    }
+#elif defined MAC_SELF_CONTAINED_BUNDLE
+    char path[PATH_MAX + 1];
+    uint32_t size = sizeof(path);
+    string install_path_lensfun("");
+    if (_NSGetExecutablePath(path, &size) == 0)
+    {
+        install_path_lensfun=dirname(path);
+        install_path_lensfun.append("/../Resources/lensfun/");
+        HuginBase::LensDB::LensDB::GetSingleton().SetMainDBPath(install_path_lensfun);
     }
 #endif
 };
