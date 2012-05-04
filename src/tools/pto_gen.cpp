@@ -175,7 +175,7 @@ int main(int argc, char* argv[])
                     int n=sscanf(optarg, "%d,%d,%d,%d", &left, &right, &top, &bottom);
                     if (n==4)
                     {
-                        if(right>left && bottom>top && left>=0 && top>=0)
+                        if(right>left && bottom>top)
                         {
                             cropRect.setUpperLeft(vigra::Point2D(left,top));
                             cropRect.setLowerRight(vigra::Point2D(right,bottom));
