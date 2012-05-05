@@ -30,6 +30,7 @@
 #include "StandardImageVariableGroups.h"
 #include <panotools/PanoToolsInterface.h>
 #include <algorithms/basic/CalculateOverlap.h>
+#include <panodata/OptimizerSwitches.h>
 
 #include <fstream>
 #include <typeinfo>
@@ -93,6 +94,8 @@ void Panorama::reset()
     state.deleteAllImages();
     state.options.reset();
     state.optvec.clear();
+    state.optSwitch=0;
+    state.optPhotoSwitch=0;
     state.needsOptimization = false;
 }
 
@@ -386,6 +389,21 @@ void Panorama::setOptimizeVector(const OptimizeVector & optvec)
     state.optvec = optvec;
 }
 
+void Panorama::setOptimizerSwitch(const int newSwitch)
+{
+    if(state.optSwitch!=newSwitch)
+    {
+        state.optSwitch=newSwitch;
+    };
+};
+
+void Panorama::setPhotometricOptimizerSwitch(const int newSwitch)
+{
+    if(state.optPhotoSwitch!=newSwitch)
+    {
+        state.optPhotoSwitch=newSwitch;
+    };
+};
 
 unsigned int Panorama::addImage(const SrcPanoImage &img)
 {
@@ -824,6 +842,17 @@ void Panorama::printPanoramaScript(std::ostream & o,
     o << "#hugin_outputImageTypeHDR " << output.outputImageTypeHDR << endl;
     o << "#hugin_outputImageTypeHDRCompression " << output.outputImageTypeHDRCompression << endl;
 
+    if(optvars==getOptimizeVector())
+    {
+        o << "#hugin_optimizerMasterSwitch " << getOptimizerSwitch() << endl;
+        o << "#hugin_optimizerPhotoMasterSwitch " << getPhotometricOptimizerSwitch() << endl;
+    }
+    else
+    {
+        o << "#hugin_optimizerMasterSwitch 0" << endl;
+        o << "#hugin_optimizerPhotoMasterSwitch 0" << endl;
+    };
+
 #ifdef __unix__
     // reset locale
     setlocale(LC_NUMERIC,old_locale);
@@ -1069,6 +1098,7 @@ void Panorama::changeFinished(bool keepDirty)
     };
     //update masks
     updateMasks();
+    updateOptimizeVector();
     std::set<PanoramaObserver *>::iterator it;
     for(it = observers.begin(); it != observers.end(); ++it) {
         DEBUG_TRACE("notifying listener");
@@ -1377,7 +1407,6 @@ vigra::Rect2D Panorama::centerCropImage(unsigned int imgNr)
     return cropRect;
 };
 
-                     
 void Panorama::centerCrop(unsigned int imgNr)
 {
     vigra::Rect2D cropRect;
@@ -1413,6 +1442,159 @@ void Panorama::centerCrop(unsigned int imgNr)
                     imageChanged(i);
                 };
             };
+        };
+    };
+};
+
+void UpdateOptVectorSet(std::set<std::string>& imgVar, const std::string var, const bool opt)
+{
+    if(opt)
+    {
+        imgVar.insert(var);
+    }
+    else
+    {
+        imgVar.erase(var);
+    };
+};
+
+void Panorama::updateOptimizeVector()
+{
+    if(state.images.size()==0)
+    {
+        return;
+    };
+    if(state.optSwitch!=0)
+    {
+        unsigned int refImg = getOptions().optimizeReferenceImage;
+        std::set<size_t> refImgs;
+        refImgs.insert(refImg);
+        const HuginBase::SrcPanoImage & refImage = getImage(refImg);
+        for (size_t imgNr = 0; imgNr < getNrOfImages(); imgNr++)
+        {
+            if(imgNr!=refImg)
+            {
+                const HuginBase::SrcPanoImage & compImage = getImage(imgNr);
+                if (refImage.YawisLinkedWith(compImage))
+                {
+                    refImgs.insert(imgNr);
+                };
+            };
+        };
+
+        // count number of vertical/horizontal control points
+        int nHCP = 0;
+        int nVCP = 0;
+        const CPVector & cps = getCtrlPoints();
+        for (CPVector::const_iterator it = cps.begin(); it != cps.end(); it++)
+        {
+            // control points
+            if (it->mode == ControlPoint::X)
+            {
+                nVCP++;
+            }
+            else
+            {
+                if (it->mode == ControlPoint::Y)
+                {
+                    nHCP++;
+                }
+            };
+        };
+
+        // try to select sensible position optimisation parameters,
+        // dependent on output projection
+        bool linkRefImgsYaw=false;
+        bool linkRefImgsPitch=false;
+        bool linkRefImgsRoll=false;
+        switch (getOptions().getProjection())
+        {
+            case PanoramaOptions::RECTILINEAR:
+                linkRefImgsRoll = nVCP + nHCP >= 1;
+                linkRefImgsYaw = nVCP + nHCP >= 3 && nVCP >= 1 && nHCP >= 1;
+                linkRefImgsPitch = nVCP + nHCP >= 2;
+                break;
+            case PanoramaOptions::CYLINDRICAL:
+            case PanoramaOptions::EQUIRECTANGULAR:
+                linkRefImgsPitch =  nHCP + nVCP > 1;
+                linkRefImgsRoll = nHCP + nVCP >= 1;
+                break;
+            default:
+                break;
+        };
+        for(size_t i=0;i<getNrOfImages();i++)
+        {
+            if(state.optSwitch & OPT_PAIR)
+            {
+                UpdateOptVectorSet(state.optvec[i],"y",true);
+                UpdateOptVectorSet(state.optvec[i],"p",true);
+                UpdateOptVectorSet(state.optvec[i],"r",true);
+                UpdateOptVectorSet(state.optvec[i],"Trx",false);
+                UpdateOptVectorSet(state.optvec[i],"Try",false);
+                UpdateOptVectorSet(state.optvec[i],"Trz",false);
+            }
+            else
+            {
+                if(state.optSwitch & OPT_POSITION || state.optSwitch & OPT_ALL)
+                {
+                    if(set_contains(refImgs,i))
+                    {
+                        UpdateOptVectorSet(state.optvec[i],"y",linkRefImgsYaw);
+                        UpdateOptVectorSet(state.optvec[i],"p",linkRefImgsPitch);
+                        UpdateOptVectorSet(state.optvec[i],"r",linkRefImgsRoll);
+                        //don't optimize translation parameters of anchor
+                        UpdateOptVectorSet(state.optvec[i],"Trx",false);
+                        UpdateOptVectorSet(state.optvec[i],"Try",false);
+                        UpdateOptVectorSet(state.optvec[i],"Trz",false);
+                    }
+                    else
+                    {
+                        UpdateOptVectorSet(state.optvec[i],"y",true);
+                        UpdateOptVectorSet(state.optvec[i],"p",true);
+                        UpdateOptVectorSet(state.optvec[i],"r",true);
+                        UpdateOptVectorSet(state.optvec[i],"Trx",(state.optSwitch & OPT_TRANSLATION)>0);
+                        UpdateOptVectorSet(state.optvec[i],"Try",(state.optSwitch & OPT_TRANSLATION)>0);
+                        UpdateOptVectorSet(state.optvec[i],"Trz",(state.optSwitch & OPT_TRANSLATION)>0);
+                    };
+                }
+                else
+                {
+                    UpdateOptVectorSet(state.optvec[i],"y",false);
+                    UpdateOptVectorSet(state.optvec[i],"p",false);
+                    UpdateOptVectorSet(state.optvec[i],"r",false);
+                    UpdateOptVectorSet(state.optvec[i],"Trx",false);
+                    UpdateOptVectorSet(state.optvec[i],"Try",false);
+                    UpdateOptVectorSet(state.optvec[i],"Trz",false);
+                };
+            };
+            UpdateOptVectorSet(state.optvec[i],"v",state.optSwitch & OPT_VIEW || state.optSwitch & OPT_ALL);
+            UpdateOptVectorSet(state.optvec[i],"a",(state.optSwitch & OPT_ALL)>0);
+            UpdateOptVectorSet(state.optvec[i],"b",state.optSwitch & OPT_BARREL || state.optSwitch & OPT_ALL);
+            UpdateOptVectorSet(state.optvec[i],"c",(state.optSwitch & OPT_ALL)>0);
+            UpdateOptVectorSet(state.optvec[i],"d",(state.optSwitch & OPT_ALL)>0);
+            UpdateOptVectorSet(state.optvec[i],"e",(state.optSwitch & OPT_ALL)>0);
+            //shear not include in master switches
+            UpdateOptVectorSet(state.optvec[i],"g",false);
+            UpdateOptVectorSet(state.optvec[i],"t",false);
+        };
+    };
+    if(state.optPhotoSwitch!=0)
+    {
+        for(size_t i=0;i<getNrOfImages();i++)
+        {
+            UpdateOptVectorSet(state.optvec[i],"Eev",state.optPhotoSwitch & OPT_EXPOSURE && i!=state.options.colorReferenceImage);
+            UpdateOptVectorSet(state.optvec[i],"Er", state.optPhotoSwitch & OPT_WHITEBALANCE && i!=state.options.colorReferenceImage);
+            UpdateOptVectorSet(state.optvec[i],"Eb", state.optPhotoSwitch & OPT_WHITEBALANCE && i!=state.options.colorReferenceImage);
+            UpdateOptVectorSet(state.optvec[i],"Vb", (state.optPhotoSwitch & OPT_VIGNETTING)>0);
+            UpdateOptVectorSet(state.optvec[i],"Vc", (state.optPhotoSwitch & OPT_VIGNETTING)>0);
+            UpdateOptVectorSet(state.optvec[i],"Vd", (state.optPhotoSwitch & OPT_VIGNETTING)>0);
+            UpdateOptVectorSet(state.optvec[i],"Vx", (state.optPhotoSwitch & OPT_VIGNETTING_CENTER)>0);
+            UpdateOptVectorSet(state.optvec[i],"Vy", (state.optPhotoSwitch & OPT_VIGNETTING_CENTER)>0);
+            UpdateOptVectorSet(state.optvec[i],"Ra", (state.optPhotoSwitch & OPT_RESPONSE)>0);
+            UpdateOptVectorSet(state.optvec[i],"Rb", (state.optPhotoSwitch & OPT_RESPONSE)>0);
+            UpdateOptVectorSet(state.optvec[i],"Rc", (state.optPhotoSwitch & OPT_RESPONSE)>0);
+            UpdateOptVectorSet(state.optvec[i],"Rd", (state.optPhotoSwitch & OPT_RESPONSE)>0);
+            UpdateOptVectorSet(state.optvec[i],"Re", (state.optPhotoSwitch & OPT_RESPONSE)>0);
         };
     };
 };
@@ -1460,6 +1642,61 @@ void Panorama::swapImages(unsigned int img1, unsigned int img2)
     imageChanged(img1);
     imageChanged(img2);
 }
+
+void Panorama::moveImage(size_t img1, size_t img2)
+{
+    //generate a vector with the translated image numbers
+    std::vector<size_t> imgList(getNrOfImages(),-1);
+    for(size_t i=0; i<getNrOfImages(); i++)
+    {
+        imgList[i]=i;
+    };
+    imgList.erase(imgList.begin()+img1);
+    if(img2<imgList.size())
+    {
+        imgList.insert(imgList.begin()+img2, img1);
+    }
+    else
+    {
+        imgList.push_back(img1);
+    };
+    //generate map for translation of old -> new image numbers
+    std::map<size_t,size_t> imgMap;
+    for(size_t i=0; i<imgList.size(); i++)
+    {
+        imgMap[imgList[i]]=i;
+    };
+    // now generate the new images list
+    std::vector<SrcPanoImage *> new_images(getNrOfImages());
+    for(size_t i=0; i<imgList.size(); i++)
+    {
+        new_images[i]=state.images[imgList[i]];
+        if(i!=imgList[i])
+        {
+            imageChanged(imgList[i]);
+        };
+    };
+    state.images=new_images;
+
+    // update optimize vector
+    OptimizeVector newOptVec;
+    for(size_t i=0; i<state.optvec.size(); i++)
+    {
+        newOptVec.push_back(state.optvec[imgList[i]]);
+    };
+    state.optvec=newOptVec;
+
+    // update control points
+    for (CPVector::iterator it=state.ctrlPoints.begin(); it != state.ctrlPoints.end(); it++)
+    {
+        (*it).image1Nr = imgMap[(*it).image1Nr];
+        (*it).image2Nr = imgMap[(*it).image2Nr];
+    }
+
+    // update panorama options
+    state.options.colorReferenceImage=imgMap[state.options.colorReferenceImage];
+    state.options.optimizeReferenceImage=imgMap[state.options.optimizeReferenceImage];
+};
 
 bool Panorama::setMementoToCopyOf(const PanoramaDataMemento* memento)
 {
@@ -1619,6 +1856,8 @@ Panorama Panorama::getSubset(const UIntSet & imgs) const
     subset.imgFilePrefix = imgFilePrefix;
     subset.dirty = dirty;
     subset.state.options = state.options;
+    subset.state.optSwitch=0;
+    subset.state.optPhotoSwitch=0;
     subset.state.needsOptimization = state.needsOptimization;
     subset.changedImages = changedImages;
     subset.m_forceImagesUpdate = m_forceImagesUpdate;
@@ -1903,8 +2142,10 @@ PanoramaMemento & PanoramaMemento::operator=(const PanoramaMemento & data)
     
     options = data.options;
     
+    optSwitch = data.optSwitch;
+    optPhotoSwitch = data.optPhotoSwitch;
     optvec = data.optvec;
-    
+
     needsOptimization = data.needsOptimization;
     
     return *this;
@@ -2439,7 +2680,12 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
                         options.outputImageTypeHDR = value;
                     } else if (var == "#hugin_outputImageTypeHDRCompression") {
                         options.outputImageTypeHDRCompression = value;
-                    }
+                    } else if (var == "#hugin_optimizerMasterSwitch") {
+                        optSwitch = atoi(value.c_str());
+                    } else if (var == "#hugin_optimizerPhotoMasterSwitch") {
+                        optPhotoSwitch = atoi(value.c_str());
+                    };
+
                 }
             }
             break;

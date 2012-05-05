@@ -336,4 +336,32 @@ bool LoadLensParametersChoose(wxWindow * parent, HuginBase::Lens & lens,
     };
 };
 
+void SaveLensParametersToIni(wxWindow * parent, PT::Panorama *pano, const HuginBase::UIntSet images)
+{
+    if (images.size() == 1)
+    {
+        unsigned int imgNr = *(images.begin());
+        wxFileDialog dlg(parent,
+                         _("Save lens parameters file"),
+                         wxConfigBase::Get()->Read(wxT("/lensPath"),wxT("")), wxT(""),
+                         _("Lens Project Files (*.ini)|*.ini|All files (*)|*"),
+                         wxFD_SAVE, wxDefaultPosition);
+        dlg.SetDirectory(wxConfigBase::Get()->Read(wxT("/lensPath"),wxT("")));
+        if (dlg.ShowModal() == wxID_OK)
+        {
+            wxFileName filename(dlg.GetPath());
+            if(!filename.HasExt())
+            {
+                filename.SetExt(wxT("ini"));
+            }
+            wxConfig::Get()->Write(wxT("/lensPath"), dlg.GetDirectory());  // remember for later
+            SaveLensParameters(filename.GetFullPath(),pano,imgNr);
+        }
+    }
+    else 
+    {
+        wxLogError(_("Please select an image and try again"));
+    }
+}
+
 

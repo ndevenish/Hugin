@@ -44,7 +44,6 @@
 #include "hugin/CPEditorPanel.h"
 #include "hugin/OptimizePhotometricPanel.h"
 #include "hugin/PanoPanel.h"
-#include "hugin/LensPanel.h"
 #include "hugin/ImagesList.h"
 #include "hugin/PreviewPanel.h"
 #include "hugin/GLPreviewFrame.h"
@@ -52,6 +51,8 @@
 #include "hugin/CommandHistory.h"
 #include "hugin/wxPanoCommand.h"
 #include "hugin/HtmlWindow.h"
+#include "hugin/treelistctrl.h"
+#include "hugin/ImagesTree.h"
 
 #include "base_wx/platform.h"
 #include "base_wx/huginConfig.h"
@@ -303,7 +304,6 @@ bool huginApp::OnInit()
     // add custom XRC handlers
     wxXmlResource::Get()->AddHandler(new AssistantPanelXmlHandler());
     wxXmlResource::Get()->AddHandler(new ImagesPanelXmlHandler());
-    wxXmlResource::Get()->AddHandler(new LensPanelXmlHandler());
     wxXmlResource::Get()->AddHandler(new ImagesListImageXmlHandler());
     wxXmlResource::Get()->AddHandler(new ImagesListLensXmlHandler());
     wxXmlResource::Get()->AddHandler(new ImagesListCropXmlHandler());
@@ -320,6 +320,8 @@ bool huginApp::OnInit()
     wxXmlResource::Get()->AddHandler(new PanoPanelXmlHandler());
     wxXmlResource::Get()->AddHandler(new PreviewPanelXmlHandler());
     wxXmlResource::Get()->AddHandler(new HtmlWindowXmlHandler());
+    wxXmlResource::Get()->AddHandler(new wxTreeListCtrlXmlHandler());
+    wxXmlResource::Get()->AddHandler(new ImagesTreeCtrlXmlHandler());
 
     // load XRC files
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("crop_panel.xrc"));
@@ -335,13 +337,13 @@ bool huginApp::OnInit()
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("optimize_photo_panel.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("cp_editor_panel.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("images_panel.xrc"));
-    wxXmlResource::Get()->Load(m_xrcPrefix + wxT("lens_panel.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("assistant_panel.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("main_frame.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("optimize_panel.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("pano_panel.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("mask_editor_panel.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("lensdb_dialogs.xrc"));
+    wxXmlResource::Get()->Load(m_xrcPrefix + wxT("image_variable_dlg.xrc"));
 #endif
 
 #ifdef __WXMAC__
@@ -353,9 +355,6 @@ bool huginApp::OnInit()
     // create main frame
     frame = new MainFrame(NULL, pano);
     SetTopWindow(frame);
-
-    // restore layout
-    frame->RestoreLayoutOnNextResize();
 
     // setup main frame size, after it has been created.
     RestoreFramePosition(frame, wxT("MainFrame"));

@@ -12,7 +12,6 @@ SET(XRCFILES
     optimize_photo_panel.xrc
     cp_editor_panel.xrc
     images_panel.xrc
-    lens_panel.xrc
     assistant_panel.xrc
     main_frame.xrc
     mask_editor_panel.xrc
@@ -22,7 +21,8 @@ SET(XRCFILES
     batch_menu.xrc
     batch_toolbar.xrc
     lenscal_frame.xrc
-    lensdb_dialogs.xrc)
+    lensdb_dialogs.xrc
+    image_variable_dlg.xrc)
 
 
 INSTALL(FILES ${XRCFILES} DESTINATION ${HUGINDATADIR}/xrc)

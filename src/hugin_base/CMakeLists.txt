@@ -107,6 +107,7 @@ nona/Stitcher.h
 panodata/ControlPoint.h
 panodata/Lens.h
 panodata/Mask.h
+panodata/OptimizerSwitches.h
 panodata/PanoramaData.h
 panodata/Panorama.h
 panodata/PanoramaOptions.h

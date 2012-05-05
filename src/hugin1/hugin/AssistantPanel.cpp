@@ -36,7 +36,6 @@
 #include "hugin/CommandHistory.h"
 #include "base_wx/RunStitchPanel.h"
 #include "hugin/ImagesList.h"
-#include "hugin/LensPanel.h"
 #include "hugin/MainFrame.h"
 #include "hugin/huginApp.h"
 #include "hugin/TextKillFocusHandler.h"
@@ -185,29 +184,8 @@ AssistantPanel::~AssistantPanel(void)
     DEBUG_TRACE("dtor end");
 }
 
-
-// We need to override the default handling of size events because the
-// sizers set the virtual size but not the actual size. We reverse
-// the standard handling and fit the child to the parent rather than
-// fitting the parent around the child
-/*
-void AssistantPanel::OnSize( wxSizeEvent & e )
-{
-    wxSize new_size = GetSize();
-    XRCCTRL(*this, "assistant_panel", wxPanel)->SetSize ( new_size );
-    DEBUG_INFO( "assistant panel: " << new_size.GetWidth() <<"x"<< new_size.GetHeight()  );
-
-    if (m_restoreLayoutOnResize) {
-        m_restoreLayoutOnResize = false;
-        RestoreLayout();
-    }
-
-    e.Skip();
-}
-*/
 void AssistantPanel::panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & _imgNr)
 {
-
 }
 
 void AssistantPanel::panoramaChanged(PT::Panorama &pano)

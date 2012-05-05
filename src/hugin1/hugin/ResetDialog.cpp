@@ -6,8 +6,6 @@
  *
  *  @author Thomas Modes
  *
- *  $Id$
- *
  */
 
 /*  This is free software; you can redistribute it and/or
@@ -82,6 +80,24 @@ ResetDialog::ResetDialog(wxWindow *parent)
     {
         this->Move(0, 44);
     };
+};
+
+void ResetDialog::LimitToGeometric()
+{
+    XRCCTRL(*this,"reset_exposure",wxCheckBox)->Show(false);
+    XRCCTRL(*this,"combo_exposure",wxComboBox)->Show(false);
+    XRCCTRL(*this,"reset_color",wxCheckBox)->Show(false);
+    XRCCTRL(*this,"reset_vignetting",wxCheckBox)->Show(false);
+    XRCCTRL(*this,"reset_response",wxCheckBox)->Show(false);
+    Fit();
+};
+
+void ResetDialog::LimitToPhotometric()
+{
+    XRCCTRL(*this,"reset_pos",wxCheckBox)->Show(false);
+    XRCCTRL(*this,"reset_fov",wxCheckBox)->Show(false);
+    XRCCTRL(*this,"reset_lens",wxCheckBox)->Show(false);
+    Fit();
 };
 
 void ResetDialog::OnOk(wxCommandEvent & e)

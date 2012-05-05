@@ -38,6 +38,6 @@
       </object>
       <orient>wxVERTICAL</orient>
     </object>
-    <style>wxDEFAULT_DIALOG_STYLE|wxDIALOG_MODAL|wxRESIZE_BORDER|wxTAB_TRAVERSAL</style>
+    <style>wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER|wxTAB_TRAVERSAL</style>
   </object>
 </resource>

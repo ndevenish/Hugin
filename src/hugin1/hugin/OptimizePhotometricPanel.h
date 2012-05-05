@@ -3,9 +3,9 @@
  *
  *  @author Pablo d'Angelo <pablo.dangelo@web.de>
  *
- *  $Id$
- *
- *  This is free software; you can redistribute it and/or
+ */
+
+/*  This is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU General Public
  *  License as published by the Free Software Foundation; either
  *  version 2 of the License, or (at your option) any later version.
@@ -26,8 +26,9 @@
 
 #include <PT/Panorama.h>
 #include <panodata/StandardImageVariableGroups.h>
+#include "GuiLevel.h"
 
-class wxCheckListBox;
+class ImagesTreeCtrl;
 
 /** run the optimizer. this is tied into the wxWindows hugin
  *
@@ -51,59 +52,25 @@ public:
     /** receives notification about panorama changes */
     virtual void panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & imgNr);
 
-    /** return currently selected OptimizeVector
-     *
-     *  @return OptimizeVector that contains the settings from
-     *          the GUI
-     */
-    PT::OptimizeVector getOptimizeVector();
-
-    /** updates the display to fit the settings in optimize vector */
-    void setOptimizeVector(const PT::OptimizeVector & optvec);
-
     /** run the optimizer */
     void OnOptimizeButton(wxCommandEvent & e);
+    void SetGuiLevel(GuiLevel newGuiLevel);
 
 protected:
 
     void OnClose(wxCloseEvent& e);
-
-    // shortcuts to check/uncheck
-    void OnSelExposure(wxCommandEvent & e);
-    void OnDelExposure(wxCommandEvent & e);
-    void OnSelWB(wxCommandEvent & e);
-    void OnDelWB(wxCommandEvent & e);
-    void OnSelVignetting(wxCommandEvent & e);
-    void OnDelVignetting(wxCommandEvent & e);
-    void OnSelVignettingCentre(wxCommandEvent & e);
-    void OnDelVignettingCentre(wxCommandEvent & e);
-    void OnSelResponse(wxCommandEvent & e);
-    void OnDelResponse(wxCommandEvent & e);
-
-    // helper function for wxCheckListBox
-    void SetCheckMark(wxCheckListBox * l, int check, int anchor = -1);
-
-    // called whenever the optimize mode changes
-    void OnChangeMode(wxCommandEvent & e);
+    void OnReset(wxCommandEvent& e);
 
     void runOptimizer(const PT::UIntSet & img);
 
     wxCheckBox * m_only_active_images_cb;
 
-    wxCheckListBox * m_vig_list;
-    wxCheckListBox * m_vigc_list;
-    wxCheckListBox * m_exp_list;
-    wxCheckListBox * m_wb_list;
-    wxCheckListBox * m_resp_list;
-
-    wxChoice * m_mode_cb;
-
-    wxScrolledWindow *m_opt_ctrls;
+    ImagesTreeCtrl* m_images_tree;
+    ImagesTreeCtrl* m_lens_tree;
 
     PT::Panorama * m_pano;
-    HuginBase::ConstStandardImageVariableGroups *variable_groups;
+
 private:
-	
     DECLARE_EVENT_TABLE()
     DECLARE_DYNAMIC_CLASS(OptimizePhotometricPanel)
 };

@@ -26,9 +26,9 @@
 
 #include <PT/Panorama.h>
 #include <wx/xrc/xmlres.h>
-#include <panodata/StandardImageVariableGroups.h>
+#include "GuiLevel.h"
 
-class wxCheckListBox;
+class ImagesTreeCtrl;
 class wxCheckBox;
 
 /** run the optimizer. this is tied into the wxWindows hugin
@@ -54,65 +54,26 @@ public:
     /** receives notification about panorama changes */
     virtual void panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & imgNr);
 
-    /** return currently selected OptimizeVector
-     *
-     *  @return OptimizeVector that contains the settings from
-     *          the GUI
-     */
-    PT::OptimizeVector getOptimizeVector();
-
-    /** updates the display to fit the settings in optimize vector */
-    void setOptimizeVector(const PT::OptimizeVector & optvec);
-
     /** run the optimizer */
     void OnOptimizeButton(wxCommandEvent & e);
-
-    /** updates the display to custom mode **/
-    void setModeCustom();
+    void SetGuiLevel(GuiLevel newGuiLevel);
 
 protected:
 
     void OnClose(wxCloseEvent& e);
-
-    // Select/Clear button handler
-    void OnListButton(wxCommandEvent & e);
-
-    // helper function for wxCheckListBox
-    void SetCheckMark(wxCheckListBox * l, int check);
-
-    // called whenever the optimize mode changes
-    void OnChangeMode(wxCommandEvent & e);
-
-    // called whenever a checkbox state changes
-    void OnCheckBoxChanged(wxCommandEvent & e);
+    void OnReset(wxCommandEvent& e);
 
     void runOptimizer(const PT::UIntSet & img);
 
     bool AskApplyResult(const PT::Panorama & pano);
 
-    wxCheckListBox * m_yaw_list;
-    wxCheckListBox * m_pitch_list;
-    wxCheckListBox * m_roll_list;
-
-    wxCheckListBox * m_x_list;
-    wxCheckListBox * m_y_list;
-    wxCheckListBox * m_z_list;
-
-    wxCheckListBox * m_v_list;
-    wxCheckListBox * m_a_list;
-    wxCheckListBox * m_b_list;
-    wxCheckListBox * m_c_list;
-    wxCheckListBox * m_d_list;
-    wxCheckListBox * m_e_list;
+    ImagesTreeCtrl* m_images_tree_list;
+    ImagesTreeCtrl* m_lens_tree_list;
 
     wxCheckBox * m_only_active_images_cb;
     wxCheckBox * m_edit_cb;
-    wxChoice * m_mode_cb;
-
-    wxScrolledWindow *m_opt_ctrls;
 
     PT::Panorama * m_pano;
-    HuginBase::StandardImageVariableGroups *variable_groups;
 private:
 
     DECLARE_EVENT_TABLE()

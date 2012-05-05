@@ -43,11 +43,6 @@ extern "C" {
 }
 
 #include "hugin/CommandHistory.h"
-//#include "hugin/ImageCache.h"
-//#include "hugin/CPEditorPanel.h"
-//#include "hugin/List.h"
-//#include "hugin/LensPanel.h"
-//#include "hugin/ImagesPanel.h"
 #include "hugin/CPImageCtrl.h"
 #include "hugin/CPImagesComboBox.h"
 #include "hugin/PanoPanel.h"
@@ -114,7 +109,7 @@ BEGIN_EVENT_TABLE(PanoPanel, wxPanel)
 END_EVENT_TABLE()
 
 PanoPanel::PanoPanel()
-    : pano(0), updatesDisabled(false)
+    : pano(0), updatesDisabled(false), m_guiLevel(GUI_BEGINNER)
 {
 
 }
@@ -387,25 +382,31 @@ void PanoPanel::UpdateDisplay(const PanoramaOptions & opt, const bool hasStacks)
     m_ROIBottomTxt->SetValue(wxString::Format(wxT("%d"), opt.getROI().bottom() ));
 
     // output types
-    XRCCTRL(*this, "pano_cb_ldr_output_blended",
-            wxCheckBox)->SetValue(opt.outputLDRBlended);
-    XRCCTRL(*this, "pano_cb_ldr_output_layers",
-            wxCheckBox)->SetValue(opt.outputLDRLayers);
-    XRCCTRL(*this, "pano_cb_ldr_output_exposure_blended",
-            wxCheckBox)->SetValue(opt.outputLDRExposureBlended);
-    XRCCTRL(*this, "pano_cb_ldr_output_exposure_layers_fused",
-            wxCheckBox)->SetValue(opt.outputLDRExposureLayersFused);
-    XRCCTRL(*this, "pano_cb_ldr_output_exposure_layers",
-            wxCheckBox)->SetValue(opt.outputLDRExposureLayers);
-    XRCCTRL(*this, "pano_cb_ldr_output_exposure_remapped",
-            wxCheckBox)->SetValue(opt.outputLDRExposureRemapped);
-    XRCCTRL(*this, "pano_cb_hdr_output_blended",
-            wxCheckBox)->SetValue(opt.outputHDRBlended);
-    XRCCTRL(*this, "pano_cb_hdr_output_stacks",
-            wxCheckBox)->SetValue(opt.outputHDRStacks);
-    XRCCTRL(*this, "pano_cb_hdr_output_layers",
-            wxCheckBox)->SetValue(opt.outputHDRLayers);
-    
+    XRCCTRL(*this, "pano_cb_ldr_output_blended", wxCheckBox)->SetValue(opt.outputLDRBlended);
+    XRCCTRL(*this, "pano_cb_ldr_output_exposure_blended", wxCheckBox)->SetValue(opt.outputLDRExposureBlended);
+    XRCCTRL(*this, "pano_cb_ldr_output_exposure_layers_fused", wxCheckBox)->SetValue(opt.outputLDRExposureLayersFused);
+    XRCCTRL(*this, "pano_cb_hdr_output_blended", wxCheckBox)->SetValue(opt.outputHDRBlended);
+    XRCCTRL(*this, "pano_cb_hdr_output_blended", wxCheckBox)->Show(opt.outputHDRBlended || m_guiLevel>GUI_BEGINNER);
+
+    //remapped images
+    XRCCTRL(*this, "pano_text_remapped_images", wxStaticText)->Show(opt.outputLDRLayers || opt.outputLDRExposureRemapped || opt.outputHDRLayers || m_guiLevel>GUI_BEGINNER);
+    XRCCTRL(*this, "pano_cb_ldr_output_layers", wxCheckBox)->SetValue(opt.outputLDRLayers);
+    XRCCTRL(*this, "pano_cb_ldr_output_layers", wxCheckBox)->Show(opt.outputLDRLayers || m_guiLevel>GUI_BEGINNER);
+    XRCCTRL(*this, "pano_cb_ldr_output_exposure_remapped", wxCheckBox)->SetValue(opt.outputLDRExposureRemapped);
+    XRCCTRL(*this, "pano_cb_ldr_output_exposure_remapped", wxCheckBox)->Show(opt.outputLDRExposureRemapped || m_guiLevel>GUI_BEGINNER);
+    XRCCTRL(*this, "pano_cb_hdr_output_layers", wxCheckBox)->SetValue(opt.outputHDRLayers);
+    XRCCTRL(*this, "pano_cb_hdr_output_layers", wxCheckBox)->Show(opt.outputHDRLayers || m_guiLevel>GUI_BEGINNER);
+
+    //stacks
+    XRCCTRL(*this, "pano_text_stacks", wxStaticText)->Show(opt.outputHDRStacks || m_guiLevel>GUI_BEGINNER);
+    XRCCTRL(*this, "pano_cb_hdr_output_stacks", wxCheckBox)->SetValue(opt.outputHDRStacks);
+    XRCCTRL(*this, "pano_cb_hdr_output_stacks", wxCheckBox)->Show(opt.outputHDRStacks || m_guiLevel>GUI_BEGINNER);
+
+    //layers
+    XRCCTRL(*this, "pano_text_layers", wxStaticText)->Show(opt.outputLDRExposureLayers || m_guiLevel>GUI_BEGINNER);
+    XRCCTRL(*this, "pano_cb_ldr_output_exposure_layers", wxCheckBox)->SetValue(opt.outputLDRExposureLayers);
+    XRCCTRL(*this, "pano_cb_ldr_output_exposure_layers", wxCheckBox)->Show(opt.outputLDRExposureLayers || m_guiLevel>GUI_BEGINNER);
+
     bool anyOutputSelected = (opt.outputLDRBlended || 
                               opt.outputLDRLayers || 
                               opt.outputLDRExposureLayers || 
@@ -446,25 +447,41 @@ void PanoPanel::UpdateDisplay(const PanoramaOptions & opt, const bool hasStacks)
     }
 #endif
 
-    bool blenderEnabled = opt.outputLDRBlended || 
+    m_RemapperChoice->Show(m_guiLevel>GUI_BEGINNER);
+    m_RemapperChoice->Enable(m_guiLevel>GUI_BEGINNER);
+    XRCCTRL(*this, "pano_button_remapper_opts", wxButton)->Show(m_guiLevel>GUI_BEGINNER);
+    XRCCTRL(*this, "pano_button_remapper_opts", wxButton)->Enable(m_guiLevel>GUI_BEGINNER);
+    XRCCTRL(*this, "pano_text_remapper", wxStaticText)->Show(m_guiLevel>GUI_BEGINNER);
+    XRCCTRL(*this, "pano_text_processing", wxStaticText)->Show(m_guiLevel>GUI_BEGINNER);
+
+    bool blenderEnabled = (opt.outputLDRBlended || 
                           opt.outputLDRExposureBlended || 
                           opt.outputLDRExposureLayersFused || 
                           opt.outputLDRExposureLayers || 
-                          opt.outputHDRBlended;
+                          opt.outputHDRBlended ) && m_guiLevel>GUI_BEGINNER;
 
     m_BlenderChoice->Enable(blenderEnabled);
+    m_BlenderChoice->Show(m_guiLevel>GUI_BEGINNER);
     XRCCTRL(*this, "pano_button_blender_opts", wxButton)->Enable(blenderEnabled);
+    XRCCTRL(*this, "pano_button_blender_opts", wxButton)->Show(m_guiLevel>GUI_BEGINNER);
     XRCCTRL(*this, "pano_text_blender", wxStaticText)->Enable(blenderEnabled);
+    XRCCTRL(*this, "pano_text_blender", wxStaticText)->Show(m_guiLevel>GUI_BEGINNER);
 
-    bool fusionEnabled = (opt.outputLDRExposureBlended || opt.outputLDRExposureLayersFused);
+    bool fusionEnabled = (opt.outputLDRExposureBlended || opt.outputLDRExposureLayersFused) && m_guiLevel>GUI_BEGINNER;
     m_FusionChoice->Enable(fusionEnabled);
+    m_FusionChoice->Show(m_guiLevel>GUI_BEGINNER);
     XRCCTRL(*this, "pano_button_fusion_opts", wxButton)->Enable(fusionEnabled);
+    XRCCTRL(*this, "pano_button_fusion_opts", wxButton)->Show(m_guiLevel>GUI_BEGINNER);
     XRCCTRL(*this, "pano_text_fusion", wxStaticText)->Enable(fusionEnabled);
+    XRCCTRL(*this, "pano_text_fusion", wxStaticText)->Show(m_guiLevel>GUI_BEGINNER);
 
-    bool hdrMergeEnabled = opt.outputHDRBlended || opt.outputHDRStacks;
+    bool hdrMergeEnabled = (opt.outputHDRBlended || opt.outputHDRStacks) && m_guiLevel>GUI_BEGINNER;
     m_HDRMergeChoice->Enable(hdrMergeEnabled);
+    m_HDRMergeChoice->Show(m_guiLevel>GUI_BEGINNER);
     XRCCTRL(*this, "pano_button_hdrmerge_opts", wxButton)->Enable(hdrMergeEnabled);
+    XRCCTRL(*this, "pano_button_hdrmerge_opts", wxButton)->Show(m_guiLevel>GUI_BEGINNER);
     XRCCTRL(*this, "pano_text_hdrmerge", wxStaticText)->Enable(hdrMergeEnabled);
+    XRCCTRL(*this, "pano_text_hdrmerge", wxStaticText)->Show(m_guiLevel>GUI_BEGINNER);
 
     // output file mode
     bool ldr_pano_enabled = opt.outputLDRBlended ||
@@ -519,9 +536,13 @@ void PanoPanel::UpdateDisplay(const PanoramaOptions & opt, const bool hasStacks)
     bool hdr_pano_enabled = opt.outputHDRBlended;
     
     XRCCTRL(*this, "pano_output_hdr_format_label", wxStaticText)->Enable(hdr_pano_enabled);
+    XRCCTRL(*this, "pano_output_hdr_format_label", wxStaticText)->Show(hdr_pano_enabled || m_guiLevel>GUI_BEGINNER);
     m_HDRFileFormatChoice->Enable(hdr_pano_enabled);
+    m_HDRFileFormatChoice->Show(hdr_pano_enabled || m_guiLevel>GUI_BEGINNER);
     m_HDRFileFormatLabelTIFFCompression->Enable(hdr_pano_enabled);
+    m_HDRFileFormatLabelTIFFCompression->Show(hdr_pano_enabled || m_guiLevel>GUI_BEGINNER);
     m_FileFormatHDRTIFFCompChoice->Enable(hdr_pano_enabled);
+    m_FileFormatHDRTIFFCompChoice->Show(hdr_pano_enabled || m_guiLevel>GUI_BEGINNER);
     
     i=0;
     if (opt.outputImageTypeHDR == "exr") {
@@ -1444,6 +1465,11 @@ bool PanoPanel::CheckGoodSize()
     return true;
 }
 
+void PanoPanel::SetGuiLevel(GuiLevel newGuiLevel)
+{
+    m_guiLevel=newGuiLevel;
+    UpdateDisplay(m_oldOpt, false);
+};
 
 IMPLEMENT_DYNAMIC_CLASS(PanoPanel, wxPanel)
 

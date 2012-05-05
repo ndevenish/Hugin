@@ -148,7 +148,13 @@ public:
         *  swaps the images, image @p img1 becomes @p img2 and the other way round
         */
     virtual void swapImages(unsigned int img1, unsigned int img2) =0;
-    
+
+    /** moves images.
+        *
+        * moves the image from pos1 to pos2 
+        */
+    virtual void moveImage(size_t img1, size_t img2) =0;
+
     /// get a complete description of a source image
     virtual SrcPanoImage getSrcImage(unsigned imgNr) const =0;
     
@@ -314,7 +320,17 @@ public:
     /** set optimize setting */
     virtual void setOptimizeVector(const OptimizeVector & optvec) =0;
 
-    
+
+    /** returns optimizer master switch */
+    virtual const int getOptimizerSwitch() const =0;
+    /** set optimizer master switch */
+    virtual void setOptimizerSwitch(const int newSwitch) =0;
+
+    /** return the photometric optimizer master switch */
+    virtual const int getPhotometricOptimizerSwitch() const =0;
+    /** sets the photometric optimizer master switch */
+    virtual void setPhotometricOptimizerSwitch(const int newSwitch) =0;
+
 // = Panorama options =    
 
     /** returns the options for this panorama */

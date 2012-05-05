@@ -25,19 +25,13 @@
 #define _IMAGESPANEL_H
 
 #include "hugin/MainFrame.h"
-#include "hugin/ImagesList.h"
-
-// Celeste files
-#include "Celeste.h"
-#include "CelesteGlobals.h"
-#include "Utilities.h"
 
 #include "base_wx/wxImageCache.h"
 
 using namespace PT;
 
 // forward declarations, to save the #include statements
-class CPEditorPanel;
+class ImagesTreeCtrl;
 
 /** Hugin's first panel
  *
@@ -56,15 +50,6 @@ public:
 
     ~ImagesPanel();
 
-    /** restore layout after hugin start */
-    void RestoreLayout();
-
-    /// hack to restore the layout on next resize
-    void RestoreLayoutOnNextResize()
-    {
-        m_restoreLayoutOnResize = true;
-    }
-
     /** this is called whenever the panorama has changed.
      *
      *  This function must now update all the gui representations
@@ -82,76 +67,61 @@ public:
      *  @todo   react on different update signals more special
      */
 //    virtual void panoramaChanged(PT::Panorama &pano);
-    void panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & imgNr);
+    /** receives notification about panorama changes */
+    virtual void panoramaChanged(PT::Panorama & pano);
+    virtual void panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & imgNr);
     /** Reloads the cp detector settings from config, necessary after edit preferences */
     void ReloadCPDetectorSettings();
     /** returns the default cp detector settings */
     CPDetectorSetting& GetDefaultSetting() { return cpdetector_config.settings.Item(cpdetector_config.GetDefaultGenerator());};
+
+    /** sets the GuiLevel for all controls on this panel */
+    void SetGuiLevel(GuiLevel newGuiLevel);
+protected:
+    /** event handler for geometric optimizer */
+    void OnOptimizeButton(wxCommandEvent &e);
+    /** event handler for photometric optimizer */
+    void OnPhotometricOptimizeButton(wxCommandEvent &e);
+
 private:
     // a window event
     void OnSize(wxSizeEvent & e);
 
     /** the model */
-    Panorama * pano;
+    Panorama * m_pano;
 
-    // event handlers
-    void OnAddImages(wxCommandEvent & e);
-    void OnRemoveImages(wxCommandEvent & e);
-    void OnPositionChanged(wxSplitterEvent& event);
-
-    // Here we select the preview image
-
-    /**  gui -> pano */
-    void OnVarTextChanged ( wxCommandEvent & e );
-    void OnImageLinkChanged ( wxCommandEvent & e );
-
-    void OnOptAnchorChanged(wxCommandEvent & e);
-    void OnColorAnchorChanged(wxCommandEvent &e );
-
-    void OnRemoveCtrlPoints(wxCommandEvent & e);
-    void OnResetImagePositions(wxCommandEvent & e);
-
-    void OnMoveImageUp(wxCommandEvent & e);
-    void OnMoveImageDown(wxCommandEvent & e);
-    
-    void OnNewStack(wxCommandEvent & e);
-    void OnChangeStack(wxCommandEvent & e); 
-
-    /** gui -> pano
-     *
-     *  usually for events to set the new pano state
-     *
-     *  @param  type  "r", "p" or "y"
-     *  @param  var   the new value
-     */
-    void ChangePano ( std::string type, double var );
-
-    /** sift feature matching */
-    void SIFTMatching(wxCommandEvent & e);
-    /** clean the control points ala ptoclean */
-    void OnCleanCP(wxCommandEvent & e);
-
+    /** control point detection event handler*/
+    void CPGenerate(wxCommandEvent & e);
     /** change displayed variables if the selection
      *  has changed.
      */
-    void ListSelectionChanged(wxListEvent & e);
+    void OnSelectionChanged(wxTreeEvent & e);
 
-    void OnCelesteButton(wxCommandEvent & e);
+    /** updates the lens type for the selected images */
+    void OnLensTypeChanged(wxCommandEvent & e);
+    /** updates the focal length for the selected images */
+    void OnFocalLengthChanged(wxCommandEvent & e);
+    /** updates the crop factor for the selected images */
+    void OnCropFactorChanged(wxCommandEvent & e);
 
-    /** pano -> gui
-     */
-    void ShowImgParameters(unsigned int imgNr);
-
-    /** clear display */
-    void ClearImgParameters();
+    /** event handler when grouping selection was changed */
+    void OnGroupModeChanged(wxCommandEvent & e);
+    /** event handler when display mode (which information should be shown) was changed */
+    void OnDisplayModeChanged(wxCommandEvent & e);
+    /** event handler, when optimizer master switch was changed */
+    void OnOptimizerSwitchChanged(wxCommandEvent &e);
+    /** event handler, when photometric optimizer master switch was changed */
+    void OnPhotometricOptimizerSwitchChanged(wxCommandEvent &e);
+    /** fills the grouping wxChoice with values depending on GuiLevel */
+    void FillGroupChoice();
+    /** fills the optmizer wxChoices with values depending on GuiLevel */
+    void FillOptimizerChoice();
 
     void DisableImageCtrls();
     void EnableImageCtrls();
 
     /** show a bigger thumbnail */
     void ShowImage(unsigned int imgNr);
-    void ShowExifInfo(unsigned int imgNr);
-    void ClearImgExifInfo();
     void UpdatePreviewImage();
 
     /** bitmap with default image */
@@ -160,32 +130,29 @@ private:
     /** Request for thumbnail image */
     HuginBase::ImageCache::RequestPtr thumbnail_request;
 
-    /** pointer to the list control */
-    ImagesListImage* images_list;
+    /** pointer to the main control */
+    ImagesTreeCtrl* m_images_tree;
+    /** pointer to the preview image control */
     wxStaticBitmap * m_smallImgCtrl;
-    unsigned m_showImgNr;
-
-    wxButton * m_optAnchorButton;
-    wxButton * m_colorAnchorButton;
-    wxButton * m_moveUpButton;
-    wxButton * m_moveDownButton;
-    wxButton * m_stackNewButton;
-    wxButton * m_stackChangeButton;
+    /** pointer to lens type selector */
+    wxChoice *m_lenstype;
+    /** pointer to optimizer switch selector */
+    wxChoice *m_optChoice;
+    /** pointer to photometric optimizer switch selector */
+    wxChoice *m_optPhotoChoice;
+    /** the text input control for focal length */
+    wxTextCtrl *m_focallength;
+    /** the text input control for crop factor */
+    wxTextCtrl *m_cropfactor;
+    size_t m_showImgNr;
 
     wxButton * m_matchingButton;
-    wxButton * m_cleaningButton;
-    wxButton * m_removeCPButton;
-    
-    wxCheckBox * m_linkCheckBox;
-
-    wxPanel *m_img_ctrls;
     wxChoice *m_CPDetectorChoice;
     //storing for different cp detector settings
     CPDetectorConfig cpdetector_config;
 
+    GuiLevel m_guiLevel;
     int m_degDigits;
-
-    bool m_restoreLayoutOnResize;
 
     DECLARE_EVENT_TABLE()
     DECLARE_DYNAMIC_CLASS(ImagesPanel)
@@ -200,39 +167,6 @@ public:
     ImagesPanelXmlHandler();
     virtual wxObject *DoCreateResource();
     virtual bool CanHandle(wxXmlNode *node);
-};
-
-
-
-//------------------------------------------------------------------------------
-
-/** simple Image Preview
- *
- *  Define a new canvas which can receive some events.
- *  Use pointerTo_ImgPreview->Refresh() to update if needed.
- *
- *  @todo  give the referenced image as an pointer in the argument list.
- */
-class ImgPreview: public wxScrolledWindow
-{
- public:
-    ImgPreview(wxWindow *parent, const wxPoint& pos, const wxSize& size, Panorama *pano);
-    ~ImgPreview(void) ;
-
-    // Here we select the preview image
-    void ChangePreview ( wxImage & s_img );
-
- private:
-    void OnMouse ( wxMouseEvent & event );
-
-    void OnDraw(wxDC& dc);
-    //void OnPaint(wxPaintEvent& event);
-
-    /** the model */
-    Panorama * pano;
-
-
-    DECLARE_EVENT_TABLE()
 };
 
 #endif // _IMAGESPANEL_H

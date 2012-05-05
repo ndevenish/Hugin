@@ -605,7 +605,7 @@
                 -->
                 <!-- Remapped Images -->
                 <object class="sizeritem">
-                  <object class="wxStaticText">
+                  <object class="wxStaticText" name="pano_text_remapped_images">
                     <label>Remapped Images:</label>
                     <font>
                       <style platform="mac">normal</style>
@@ -650,7 +650,7 @@
                 </object>
                 <!-- Others -->
                 <object class="sizeritem">
-                  <object class="wxStaticText">
+                  <object class="wxStaticText" name="pano_text_stacks">
                     <label>Combined stacks:</label>
                     <font>
                       <style platform="mac">normal</style>
@@ -676,7 +676,7 @@
                   <cellspan>1,5</cellspan>
                 </object>
                 <object class="sizeritem">
-                  <object class="wxStaticText">
+                  <object class="wxStaticText" name="pano_text_layers">
                     <label>Layers:</label>
                     <font>
                       <style platform="mac">normal</style>
@@ -703,7 +703,7 @@
                 </object>
                 <!-- Processing section -->
                 <object class="sizeritem">
-                  <object class="wxStaticText">
+                  <object class="wxStaticText" name="pano_text_processing">
                     <label>Processing:</label>
                     <font>
                       <style platform="mac">normal</style>
@@ -717,7 +717,7 @@
                   <cellspan>1,1</cellspan>
                 </object>
                 <object class="sizeritem">
-                  <object class="wxStaticText">
+                  <object class="wxStaticText" name="pano_text_remapper">
                     <label>Remapper:</label>
                   </object>
                   <flag>wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>

@@ -41,6 +41,8 @@ WXIMPEX size_t GetSelectedProjection(wxControlWithItems* list);
 
 /** save the lens parameters of the image to a lens file named filename */
 WXIMPEX void SaveLensParameters(const wxString filename, HuginBase::Panorama* pano, unsigned int imgNr);
+/** saves the lens parameters to ini files, provides all necessary dialogs */
+WXIMPEX void SaveLensParametersToIni(wxWindow * parent, PT::Panorama *pano, const HuginBase::UIntSet images);
 
 /** applies lens parameter from user selected file to pano using GlobalCmdHist
   *  @param parent parent window for showing message boxes

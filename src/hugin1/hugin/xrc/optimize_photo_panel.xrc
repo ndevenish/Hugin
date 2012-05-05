@@ -4,395 +4,149 @@
     <object class="wxBoxSizer">
       <orient>wxVERTICAL</orient>
       <object class="sizeritem">
-        <object class="wxScrolledWindow" name="optimize_photo_controls_panel">
-          <object class="wxBoxSizer">
-            <orient>wxVERTICAL</orient>
-            <object class="sizeritem">
-              <object class="wxBoxSizer">
-                <orient>wxVERTICAL</orient>
-                <object class="sizeritem">
-                  <object class="wxStaticText">
-                    <label>Photometric Optimization</label>
-                    <font>
-                      <style platform="mac">normal</style>
-                      <family platform="mac">swiss</family>
-                      <weight>bold</weight>
-                      <size platform="mac">12</size>
-                    </font>
-                  </object>
-                  <flag>wxBOTTOM</flag>
-                  <border>6</border>
+        <object class="wxBoxSizer">
+          <object class="sizeritem">
+            <object class="wxBoxSizer">
+              <orient>wxVERTICAL</orient>
+              <object class="sizeritem">
+                <object class="wxStaticText">
+                  <label>Photometric Optimization</label>
+                  <font>
+                    <style platform="mac">normal</style>
+                    <family platform="mac">swiss</family>
+                    <weight>bold</weight>
+                    <size platform="mac">12</size>
+                  </font>
                 </object>
-                <object class="sizeritem">
-                  <object class="wxBoxSizer">
-                    <orient>wxHORIZONTAL</orient>
-                    <object class="sizeritem">
-                      <object class="wxStaticText">
-                        <label>Optimize preset</label>
-                      </object>
-                      <flag>wxALIGN_CENTRE_VERTICAL</flag>
-                    </object>
-                    <object class="sizeritem">
-                      <object class="wxChoice" name="optimize_photo_panel_mode">
-                        <content>
-                          <item>Low dynamic range</item>
-                          <item>Low dynamic range, variable white balance</item>
-                          <item>High dynamic range, fixed exposure</item>
-                          <item>High dynamic range, variable white balance, fixed exposure</item>
-                          <item>Custom parameters below</item>
-                        </content>
-                        <selection>0</selection>
-                        <style></style>
-                      </object>
-                      <option>1</option>
-                      <flag>wxLEFT|wxALIGN_CENTRE_VERTICAL</flag>
-                      <border>12</border>
-                    </object>
-                    <object class="sizeritem">
-                      <object class="wxButton" name="optimize_photo_frame_optimize">
-                        <label>Optimize now!</label>
-                        <tooltip>execute the PTOptimizer engine</tooltip>
-                      </object>
-                      <option>0</option>
-                      <flag>wxLEFT|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-                      <border>12</border>
-                    </object>
-                  </object>
-                  <flag>wxLEFT</flag>
-                  <border>12</border>
-                </object>
+                <flag>wxBOTTOM</flag>
+                <border>6</border>
               </object>
-              <flag>wxALL|wxEXPAND</flag>
-              <border>6</border>
-            </object>
-            <object class="sizeritem">
-              <object class="wxBoxSizer">
-                <orient>wxVERTICAL</orient>
-                <object class="spacer">
-                  <size>0,15</size>
-                </object>
-                <object class="sizeritem">
-                  <object class="wxStaticText">
-                    <label>Any variables below which are marked [x] will be optimized.
-Variables which are cleared [ ] will act as references or anchors.</label>
-                  </object>
-                  <flag>wxLEFT|wxEXPAND</flag>
-                  <border>12</border>
-                </object>
-                <object class="spacer">
-                  <size>0,6</size>
-                </object>
-                <object class="sizeritem">
-                  <object class="wxCheckBox" name="optimize_photo_only_active_images">
-                    <label>Only use images selected in preview.</label>
-                    <checked>0</checked>
-                    <tooltip>Only consider images selected in preview window. Useful to avoid errors due to badly fitting images, such as the nadir image in most fisheye panoramas</tooltip>
-                  </object>
-                  <flag>wxLEFT|wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>
-                  <border>12</border>
-                </object>
-                <object class="spacer">
-                  <size>0,20</size>
-                </object>
-                <object class="sizeritem">
-                  <object class="wxBoxSizer">
-                    <orient>wxVERTICAL</orient>
-                    <object class="sizeritem">
-                      <object class="wxBoxSizer">
-                        <orient>wxVERTICAL</orient>
-                        <object class="sizeritem">
-                          <object class="wxStaticText">
-                            <label>Image variables:</label>
-                            <font>
-                              <style platform="mac">normal</style>
-                              <family platform="mac">swiss</family>
-                              <weight>bold</weight>
-                              <size platform="mac">12</size>
-                            </font>
-                          </object>
-                          <flag>wxBOTTOM</flag>
-                          <border>6</border>
+              <object class="sizeritem">
+                <object class="wxBoxSizer">
+                  <object class="sizeritem">
+                    <object class="wxBoxSizer">
+                      <object class="sizeritem">
+                        <object class="wxStaticText">
+                          <label>Any variables below which are bold and underlined will be optimized. Use control/command + left mouse click click to toggle state of variables.
+Variables which shown in normal font will act as references or anchors.</label>
                         </object>
-                       <object class="sizeritem">
-                          <object class="wxGridSizer">
-                            <object class="sizeritem">
-                              <object class="wxBoxSizer">
-                                <orient>wxVERTICAL</orient>
-                                <object class="sizeritem">
-                                  <object class="wxStaticText">
-                                    <label>Exposure (Eev):</label>
-                                  </object>
-                                  <flag>wxEXPAND</flag>
-                                </object>
-                                <object class="sizeritem">
-                                  <object class="wxCheckListBox" name="optimize_photo_exp_list">
-                                    <content/>
-                                  </object>
-                                  <option>1</option>
-                                  <flag>wxALL|wxEXPAND</flag>
-                                  <border>3</border>
-                                </object>
-                                <object class="sizeritem">
-                                  <object class="wxGridSizer">
-                                    <object class="sizeritem">
-                                      <object class="wxBitmapButton" name="opt_exp_select">
-                                        <bitmap stock_id="wxART_TICK_MARK"></bitmap>
-                                      </object>
-                                      <flag>wxLEFT|wxRIGHT|wxALIGN_RIGHT</flag>
-                                      <border>3</border>
-                                    </object>
-                                    <object class="sizeritem">
-                                      <object class="wxBitmapButton" name="opt_exp_clear">
-                                        <bitmap stock_id="wxART_CROSS_MARK"></bitmap>
-                                      </object>
-                                      <flag>wxRIGHT</flag>
-                                      <border>3</border>
-                                    </object>
-                                    <cols>2</cols>
-                                    <rows>1</rows>
-                                    <hgap>12</hgap>
-                                  </object>
-                                  <flag>wxEXPAND|wxALIGN_CENTRE_HORIZONTAL</flag>
-                                </object>
-                              </object>
-                              <option>1</option>
-                              <flag>wxEXPAND</flag>
-                            </object>
-                            <object class="sizeritem">
-                              <object class="wxBoxSizer">
-                                <orient>wxVERTICAL</orient>
-                                <object class="sizeritem">
-                                  <object class="wxStaticText">
-                                    <label>White balance (Er, Eb):</label>
-                                  </object>
-                                  <flag>wxEXPAND</flag>
-                                </object>
-                                <object class="sizeritem">
-                                  <object class="wxCheckListBox" name="optimize_photo_wb_list">
-                                    <content/>
-                                  </object>
-                                  <option>1</option>
-                                  <flag>wxALL|wxEXPAND</flag>
-                                  <border>3</border>
-                                </object>
-                                <object class="sizeritem">
-                                  <object class="wxGridSizer">
-                                    <object class="sizeritem">
-                                      <object class="wxBitmapButton" name="opt_wb_select">
-                                        <bitmap stock_id="wxART_TICK_MARK"></bitmap>
-                                      </object>
-                                      <flag>wxLEFT|wxRIGHT|wxALIGN_RIGHT</flag>
-                                      <border>3</border>
-                                    </object>
-                                    <object class="sizeritem">
-                                      <object class="wxBitmapButton" name="opt_wb_clear">
-                                        <bitmap stock_id="wxART_CROSS_MARK"></bitmap>
-                                      </object>
-                                      <flag>wxRIGHT</flag>
-                                      <border>3</border>
-                                    </object>
-                                    <cols>2</cols>
-                                    <rows>1</rows>
-                                    <hgap>12</hgap>
-                                  </object>
-                                  <flag>wxEXPAND|wxALIGN_CENTRE_HORIZONTAL</flag>
-                                </object>
-                              </object>
-                              <option>1</option>
-                              <flag>wxEXPAND</flag>
-                            </object>
-                            <cols>2</cols>
-                            <rows>1</rows>
-                            <hgap>12</hgap>
-                          </object>
-                          <option>1</option>
-                          <flag>wxLEFT|wxEXPAND</flag>
-                          <border>6</border>
-                        </object>
+                        <flag>wxEXPAND</flag>
                       </object>
-                      <option>3</option>
-                      <flag>wxEXPAND</flag>
-                    </object>
-                    <object class="sizeritem">
-                      <object class="wxBoxSizer">
-                        <orient>wxVERTICAL</orient>
-                        <object class="spacer">
-                          <size>0,20</size>
-                        </object>
-                        <object class="sizeritem">
-                          <object class="wxStaticText">
-                            <label>Camera and Lens variables:</label>
-                            <font>
-                              <style platform="mac">normal</style>
-                              <family platform="mac">swiss</family>
-                              <weight>bold</weight>
-                              <size platform="mac">12</size>
-                            </font>
-                          </object>
-                          <flag>wxBOTTOM</flag>
-                          <border>6</border>
-                        </object>
-                        <object class="sizeritem">
-                          <object class="wxGridSizer">
-                            <object class="sizeritem">
-                              <object class="wxBoxSizer">
-                                <orient>wxVERTICAL</orient>
-                                <object class="sizeritem">
-                                  <object class="wxStaticText">
-                                    <label>Vignetting (Vb, Vc, Vd):</label>
-                                  </object>
-                                  <flag>wxEXPAND</flag>
-                                </object>
-                                <object class="sizeritem">
-                                  <object class="wxCheckListBox" name="optimize_photo_vig_list">
-                                    <content/>
-                                  </object>
-                                  <option>1</option>
-                                  <flag>wxALL|wxEXPAND</flag>
-                                  <border>3</border>
-                                  <minsize>-1,60</minsize>
-                                </object>
-                                <object class="sizeritem">
-                                  <object class="wxGridSizer">
-                                    <object class="sizeritem">
-                                      <object class="wxBitmapButton" name="opt_vig_select">
-                                        <bitmap stock_id="wxART_TICK_MARK"></bitmap>
-                                      </object>
-                                      <flag>wxLEFT|wxRIGHT|wxALIGN_RIGHT</flag>
-                                      <border>3</border>
-                                    </object>
-                                    <object class="sizeritem">
-                                      <object class="wxBitmapButton" name="opt_vig_clear">
-                                        <bitmap stock_id="wxART_CROSS_MARK"></bitmap>
-                                      </object>
-                                      <flag>wxRIGHT</flag>
-                                      <border>3</border>
-                                    </object>
-                                    <cols>2</cols>
-                                    <rows>1</rows>
-                                    <hgap>12</hgap>
-                                  </object>
-                                  <flag>wxEXPAND|wxALIGN_CENTRE_HORIZONTAL</flag>
-                                </object>
-                              </object>
-                              <option>1</option>
-                              <flag>wxEXPAND</flag>
-                            </object>
-                            <object class="sizeritem">
-                              <object class="wxBoxSizer">
-                                <orient>wxVERTICAL</orient>
-                                <object class="sizeritem">
-                                  <object class="wxStaticText">
-                                    <label>Vignetting Center (Vx, Vy):</label>
-                                  </object>
-                                  <flag>wxEXPAND</flag>
-                                </object>
-                                <object class="sizeritem">
-                                  <object class="wxCheckListBox" name="optimize_photo_vigc_list">
-                                    <content/>
-                                  </object>
-                                  <option>1</option>
-                                  <flag>wxALL|wxEXPAND</flag>
-                                  <border>3</border>
-                                  <minsize>-1,60</minsize>
-                                </object>
-                                <object class="sizeritem">
-                                  <object class="wxGridSizer">
-                                    <object class="sizeritem">
-                                      <object class="wxBitmapButton" name="opt_vigc_select">
-                                        <bitmap stock_id="wxART_TICK_MARK"></bitmap>
-                                      </object>
-                                      <flag>wxLEFT|wxRIGHT|wxALIGN_RIGHT</flag>
-                                      <border>3</border>
-                                    </object>
-                                    <object class="sizeritem">
-                                      <object class="wxBitmapButton" name="opt_vigc_clear">
-                                        <bitmap stock_id="wxART_CROSS_MARK"></bitmap>
-                                      </object>
-                                      <flag>wxRIGHT</flag>
-                                      <border>3</border>
-                                    </object>
-                                    <cols>2</cols>
-                                    <rows>1</rows>
-                                    <hgap>12</hgap>
-                                  </object>
-                                  <flag>wxEXPAND|wxALIGN_CENTRE_HORIZONTAL</flag>
-                                </object>
-                              </object>
-                              <option>1</option>
-                              <flag>wxEXPAND</flag>
-                            </object>
-                            <object class="sizeritem">
-                              <object class="wxBoxSizer">
-                                <orient>wxVERTICAL</orient>
-                                <object class="sizeritem">
-                                  <object class="wxStaticText">
-                                    <label>Camera Response (Ra, Rb, Rc, Rd, Re):</label>
-                                  </object>
-                                  <flag>wxEXPAND</flag>
-                                </object>
-                                <object class="sizeritem">
-                                  <object class="wxCheckListBox" name="optimize_photo_resp_list">
-                                    <content/>
-                                  </object>
-                                  <option>1</option>
-                                  <flag>wxALL|wxEXPAND</flag>
-                                  <border>3</border>
-                                  <minsize>-1,60</minsize>
-                                </object>
-                                <object class="sizeritem">
-                                  <object class="wxGridSizer">
-                                    <object class="sizeritem">
-                                      <object class="wxBitmapButton" name="opt_resp_select">
-                                        <bitmap stock_id="wxART_TICK_MARK"></bitmap>
-                                      </object>
-                                      <flag>wxLEFT|wxRIGHT|wxALIGN_RIGHT</flag>
-                                      <border>3</border>
-                                    </object>
-                                    <object class="sizeritem">
-                                      <object class="wxBitmapButton" name="opt_resp_clear">
-                                        <bitmap stock_id="wxART_CROSS_MARK"></bitmap>
-                                      </object>
-                                      <flag>wxRIGHT</flag>
-                                      <border>3</border>
-                                    </object>
-                                    <cols>2</cols>
-                                    <rows>1</rows>
-                                    <hgap>12</hgap>
-                                  </object>
-                                  <flag>wxEXPAND|wxALIGN_CENTRE_HORIZONTAL</flag>
-                                </object>
-                              </object>
-                              <option>1</option>
-                              <flag>wxEXPAND</flag>
-                            </object>
-                            <cols>3</cols>
-                            <rows>1</rows>
-                            <hgap>12</hgap>
-                          </object>
-                          <option>1</option>
-                          <flag>wxBOTTOM|wxLEFT|wxEXPAND</flag>
-                          <border>6</border>
-                        </object>
+                      <object class="spacer">
+                        <size>-1,12</size>
                       </object>
-                      <option>2</option>
-                      <flag>wxEXPAND</flag>
+                      <object class="sizeritem">
+                        <object class="wxCheckBox" name="optimize_photo_panel_only_active_images">
+                          <label>Only use images selected in preview.</label>
+                          <tooltip>Only consider images selected in preview window. Useful to avoid errors due to badly fitting images, such as the nadir image in most fisheye panoramas</tooltip>
+                        </object>
+                        <flag>wxALIGN_LEFT|wxALIGN_CENTRE_VERTICAL</flag>
+                      </object>
+                      <orient>wxVERTICAL</orient>
                     </object>
+                    <option>1</option>
+                    <flag>wxEXPAND</flag>
                   </object>
-                  <option>1</option>
-                  <flag>wxLEFT|wxEXPAND</flag>
-                  <border>12</border>
+                  <object class="sizeritem">
+                    <object class="wxBoxSizer">
+                      <object class="sizeritem">
+                        <object class="wxButton" name="optimize_photo_panel_optimize">
+                          <label>Optimize now!</label>
+                          <tooltip>execute the PTOptimizer engine</tooltip>
+                        </object>
+                        <flag>wxALL|wxEXPAND</flag>
+                        <border>3</border>
+                      </object>
+                      <object class="sizeritem">
+                        <object class="wxButton" name="optimize_photo_panel_reset">
+                          <label>Reset</label>
+                        </object>
+                        <flag>wxALL|wxEXPAND</flag>
+                        <border>3</border>
+                      </object>
+                      <orient>wxVERTICAL</orient>
+                    </object>
+                    <flag>wxEXPAND</flag>
+                  </object>
+                  <orient>wxHORIZONTAL</orient>
                 </object>
+                <option>1</option>
+                <flag>wxEXPAND</flag>
+                <border>6</border>
               </object>
-              <option>1</option>
-              <flag>wxLEFT|wxRIGHT|wxEXPAND</flag>
-              <border>6</border>
             </object>
+            <flag>wxALL|wxEXPAND</flag>
+            <border>6</border>
           </object>
-          <style>wxTAB_TRAVERSAL</style>
+          <object class="spacer">
+            <size>0,15</size>
+          </object>
+          <object class="sizeritem">
+            <object class="wxBoxSizer">
+              <object class="sizeritem">
+                <object class="wxBoxSizer">
+                  <orient>wxVERTICAL</orient>
+                  <object class="sizeritem">
+                    <object class="wxStaticText">
+                      <label>Image variables:</label>
+                      <font>
+                        <style platform="mac">normal</style>
+                        <family platform="mac">swiss</family>
+                        <weight>bold</weight>
+                        <size platform="mac">12</size>
+                      </font>
+                    </object>
+                    <flag>wxBOTTOM</flag>
+                    <border>6</border>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="ImagesTreeList" name="optimize_photo_panel_images"/>
+                    <option>1</option>
+                    <flag>wxEXPAND</flag>
+                  </object>
+                </object>
+                <option>3</option>
+                <flag>wxEXPAND</flag>
+              </object>
+              <object class="spacer">
+                <size>0,12</size>
+              </object>
+              <object class="sizeritem">
+                <object class="wxBoxSizer">
+                  <orient>wxVERTICAL</orient>
+                  
+                  <object class="sizeritem">
+                    <object class="wxStaticText">
+                      <label>Camera and Lens variables:</label>
+                      <font>
+                        <style platform="mac">normal</style>
+                        <family platform="mac">swiss</family>
+                        <weight>bold</weight>
+                        <size platform="mac">12</size>
+                      </font>
+                    </object>
+                    <flag>wxBOTTOM</flag>
+                    <border>6</border>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="ImagesTreeList" name="optimize_photo_panel_lens"/>
+                    <option>1</option>
+                    <flag>wxEXPAND</flag>
+                  </object>
+                </object>
+                <option>2</option>
+                <flag>wxEXPAND</flag>
+              </object>
+              <orient>wxVERTICAL</orient>
+            </object>
+            <option>1</option>
+            <flag>wxEXPAND</flag>
+          </object>
+          <orient>wxVERTICAL</orient>
         </object>
         <option>1</option>
-        <flag>wxEXPAND</flag>
+        <flag>wxLEFT|wxRIGHT|wxEXPAND</flag>
+        <border>6</border>
       </object>
     </object>
     <style>wxTAB_TRAVERSAL</style>

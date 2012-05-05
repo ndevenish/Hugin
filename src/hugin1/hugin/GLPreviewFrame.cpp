@@ -513,9 +513,6 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
 
     wxPanel *overview_command_panel = wxXmlResource::Get()->LoadPanel(overview_panel,wxT("overview_command_panel"));
     m_OverviewModeChoice = XRCCTRL(*this, "overview_mode_choice", wxChoice);
-    m_OverviewModeChoice->Append(_("Panosphere"));
-    m_OverviewModeChoice->Append(_("Mosaic plane"));
-    m_OverviewModeChoice->SetSelection(0);
     overview_command_panel->SetSize(0,0,200,20,wxSIZE_AUTO_WIDTH);
 
     overview_sizer->Add(overview_command_panel, 0, wxEXPAND);
@@ -586,11 +583,7 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     m_BlendModeChoice->SetSelection(0);
 
     m_DragModeChoice = XRCCTRL(*this, "drag_mode_choice", wxChoice);
-    m_DragModeChoice->Append(_("normal"));
-    m_DragModeChoice->Append(_("normal, individual"));
-    m_DragModeChoice->Append(_("mosaic"));
-    m_DragModeChoice->Append(_("mosaic, individual"));
-
+    SetGuiLevel(GUI_BEGINNER);
     bool individualDrag;
     cfg->Read(wxT("/GLPreviewFrame/individualDragMode"), &individualDrag, false);
     if(individualDrag)
@@ -2797,4 +2790,50 @@ void GLPreviewFrame::OnGuideChanged(wxCommandEvent &e)
         redrawPreview();
     };
 };
+
+void GLPreviewFrame::SetGuiLevel(GuiLevel newLevel)
+{
+    int old_selection=m_DragModeChoice->GetSelection();
+    m_DragModeChoice->Clear();
+    m_DragModeChoice->Append(_("normal"));
+    m_DragModeChoice->Append(_("normal, individual"));
+    if(newLevel==GUI_EXPERT)
+    {
+        m_DragModeChoice->Append(_("mosaic"));
+        m_DragModeChoice->Append(_("mosaic, individual"));
+        m_DragModeChoice->SetSelection(old_selection);
+    }
+    else
+    {
+        if(old_selection>1)
+        {
+            m_DragModeChoice->SetSelection(old_selection-2);
+        }
+        else
+        {
+            m_DragModeChoice->SetSelection(old_selection);
+        };
+    };
+    DragChoiceLayout(m_DragModeChoice->GetSelection());
+    wxCommandEvent dummy;
+    OnDragChoice(dummy);
+
+    old_selection=m_OverviewModeChoice->GetSelection();
+    m_OverviewModeChoice->Clear();
+    m_OverviewModeChoice->Append(_("Panosphere"));
+    if(newLevel==GUI_EXPERT)
+    {
+        m_OverviewModeChoice->Append(_("Mosaic plane"));
+    };
+    if(newLevel==GUI_EXPERT && old_selection==1)
+    {
+        m_OverviewModeChoice->SetSelection(1);
+    }
+    else
+    {
+        m_GLOverview->SetMode(GLOverview::PANOSPHERE);
+        m_OverviewModeChoice->SetSelection(0);
+    };
+};
+
 

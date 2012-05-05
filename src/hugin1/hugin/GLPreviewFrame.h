@@ -87,6 +87,7 @@ class GLwxAuiFloatingFrame;
 #include <wx/frame.h>
 #include <wx/aui/aui.h>
 #include <wx/clrpicker.h>
+#include "hugin/GuiLevel.h"
 
 #include <iostream>
 
@@ -213,6 +214,8 @@ public:
     void LoadOpenGLLayout();
     /** init previews */
     void InitPreviews();
+    /** sets the gui level */
+    void SetGuiLevel(GuiLevel newLevel);
 
     GLwxAuiManager* getAuiManager() {return m_mgr;}
     GLPreview* getPreview() {return m_GLPreview;}

@@ -35,7 +35,6 @@
 #include "hugin/huginApp.h"
 #include "hugin/HFOVDialog.h"
 #include "hugin/MainFrame.h"
-#include "hugin/LensPanel.h"
 
 using namespace PT;
 using namespace std;

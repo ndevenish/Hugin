@@ -33,6 +33,8 @@
 #include <base_wx/wxImageCache.h>
 #include <base_wx/platform.h>
 #include <hugin/wxPanoCommand.h>
+#include <hugin/MainFrame.h>
+#include <panodata/OptimizerSwitches.h>
 
 #include <vigra/cornerdetection.hxx>
 #include <vigra/localminmax.hxx>
@@ -581,6 +583,8 @@ void wxNewProjectCmd::execute()
     opts.hdrmergeOptions = HUGIN_HDRMERGE_ARGS;
     pano.setOptions(opts);
 
+    pano.setOptimizerSwitch(HuginBase::OPT_PAIR);
+    pano.setPhotometricOptimizerSwitch(HuginBase::OPT_EXPOSURE | HuginBase::OPT_VIGNETTING | HuginBase::OPT_RESPONSE);
     pano.changeFinished();
 }
 

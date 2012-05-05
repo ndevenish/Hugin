@@ -55,7 +55,7 @@ class IMPEX PanoramaMemento : public PanoramaDataMemento
         
     public:
         PanoramaMemento()
-        : PanoramaDataMemento(), needsOptimization(false)
+            : PanoramaDataMemento(), needsOptimization(false), optSwitch(0), optPhotoSwitch(0)
         {};
         
         /// copy ctor.
@@ -102,7 +102,11 @@ class IMPEX PanoramaMemento : public PanoramaDataMemento
         PanoramaOptions options;
         
         OptimizeVector optvec;
-        
+        /** stores the optimizer switch, use OR of HuginBase::OptimizerSwitches */
+        int optSwitch;
+        /** stores the photometric optimizer switch, use OR of HuginBase::OptimizerSwitches */
+        int optPhotoSwitch;
+
         // indicates that changes have been made to
         // control points or lens parameters after the
         // last optimisation
@@ -244,6 +248,12 @@ class IMPEX Panorama : public ManagedPanoramaData, public AppBase::DocumentData
             *  swaps the images, image @p img1 becomes @p img2 and the other way round
             */
         void swapImages(unsigned int img1, unsigned int img2);
+
+        /** moves images.
+            *
+            * moves the image from pos1 to pos2 
+            */
+        void moveImage(size_t img1, size_t img2);
         
         /** get a description of a source image
          * 
@@ -429,6 +439,18 @@ class IMPEX Panorama : public ManagedPanoramaData, public AppBase::DocumentData
         /** set optimize setting */
         void setOptimizeVector(const OptimizeVector & optvec);
         
+        /** returns optimizer master switch */
+        const int getOptimizerSwitch() const
+            { return state.optSwitch;};
+        /** set optimizer master switch */
+        void setOptimizerSwitch(const int newSwitch);
+
+        /** return the photometric optimizer master switch */
+        const int getPhotometricOptimizerSwitch() const
+            { return state.optPhotoSwitch; };
+        /** sets the photometric optimizer master switch */
+        void setPhotometricOptimizerSwitch(const int newSwitch);
+
         /** @note Is this the most appropriate way to remember which variables
          * need optimisation? Can we have optimisation information in
          * ImageVariables instead now?
@@ -552,7 +574,8 @@ class IMPEX Panorama : public ManagedPanoramaData, public AppBase::DocumentData
         /** transfers given mask from image imgNr to all targetImgs
          */
         void transferMask(MaskPolygon mask,unsigned int imgNr, const UIntSet targetImgs);
-        
+        /** updates the optimize vector according to master switches */
+        void updateOptimizeVector();
         
         // -- Memento interface --
         

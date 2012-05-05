@@ -5,8 +5,6 @@
  *
  *  @author Thomas Modes
  *
- *  $Id$
- *
  */
 
 /*  This is free software; you can redistribute it and/or
@@ -66,6 +64,10 @@ public:
 	/** Return TRUE, when user selected "Reset Camera Response" */
 	bool GetResetResponse();
 
+    /** limits the displayed parameters to geometric parameters */
+    void LimitToGeometric();
+    /** limits the displayed parameters to photometric parameters */
+    void LimitToPhotometric();
 protected:
 	/** Method for enabling/disable combobox to select reset exposure to EXIF or ZERO
 	 * depending on state of "Reset exposure" checkbox

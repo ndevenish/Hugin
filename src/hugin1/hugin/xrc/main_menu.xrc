@@ -46,10 +46,6 @@
         <help>Assign the settings of a previously saved project to the current images.</help>
       </object>
       <object class="separator"/>
-      <object class="wxMenuItem" name="action_show_prefs">
-        <label>&amp;Preferences</label>
-      </object>
-      <object class="separator"/>
       <object class="wxMenuItem" name="action_exit_hugin">
         <label>&amp;Quit</label>
         <accel>Ctrl-q</accel>
@@ -125,11 +121,7 @@
         <accel>Shift-F2</accel>
         <help>Show the Images panel</help>
       </object>
-      <object class="wxMenuItem" name="ID_SHOW_PANEL_LENS">
-        <label>Camera and Lens</label>
-        <accel>Shift-F3</accel>
-        <help>Show the Camera and Lens panel</help>
-      </object>
+      
       <object class="wxMenuItem" name="ID_SHOW_PANEL_CROP">
         <label>Crop</label>
         <accel>Shift-F4</accel>
@@ -140,26 +132,46 @@
         <accel>Shift-F5</accel>
         <help>Show the Mask panel</help>
       </object>
-       <object class="wxMenuItem" name="ID_SHOW_PANEL_CP_EDITOR">
+      <object class="wxMenuItem" name="ID_SHOW_PANEL_CP_EDITOR">
         <label>Control Points</label>
         <accel>Shift-F6</accel>
         <help>Show the Control Points panel</help>
       </object>
-       <object class="wxMenuItem" name="ID_SHOW_PANEL_OPTIMIZER">
+      <object class="wxMenuItem" name="ID_SHOW_PANEL_OPTIMIZER">
         <label>Optimizer</label>
         <accel>Shift-F7</accel>
         <help>Show the Optimizer panel</help>
       </object>
-       <object class="wxMenuItem" name="ID_SHOW_PANEL_OPTIMIZER_PHOTOMETRIC">
+      <object class="wxMenuItem" name="ID_SHOW_PANEL_OPTIMIZER_PHOTOMETRIC">
         <label>Exposure</label>
         <accel>Shift-F8</accel>
         <help>Show the Exposure panel</help>
       </object>
-       <object class="wxMenuItem" name="ID_SHOW_PANEL_PANORAMA">
+      <object class="wxMenuItem" name="ID_SHOW_PANEL_PANORAMA">
         <label>Stitcher</label>
         <accel>Shift-F9</accel>
         <help>Show the Stitcher panel</help>
-      </object>  
+      </object>
+    </object>
+    <object class="wxMenu" name="pref_menu">
+      <object class="wxMenuItem" name="action_show_prefs">
+        <label>&amp;Preferences</label>
+      </object>
+      <object class="separator"/>
+      <object class="wxMenuItem" name="action_gui_beginner">
+        <label>Beginner</label>
+        <radio>1</radio>
+        <checked>1</checked>
+      </object>
+      <object class="wxMenuItem" name="action_gui_advanced">
+        <label>Advanced</label>
+        <radio>1</radio>
+      </object>
+      <object class="wxMenuItem" name="action_gui_expert">
+        <label>Expert</label>
+        <radio>1</radio>
+      </object>
+      <label>Settings</label>
     </object>
     <object class="wxMenu" name="help_menu">
       <label>&amp;Help</label>

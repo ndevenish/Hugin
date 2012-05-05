@@ -1,0 +1,594 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<resource>
+  <object class="wxDialog" name="image_variables_dialog">
+    <object class="wxBoxSizer">
+      <orient>wxVERTICAL</orient>
+      <object class="sizeritem">
+        <object class="wxNotebook">
+          <object class="notebookpage">
+            <object class="wxPanel">
+              <object class="wxBoxSizer">
+                <object class="sizeritem">
+                  <object class="wxGridBagSizer">
+                    <object class="sizeritem">
+                      <object class="wxStaticText">
+                        <label>Yaw:</label>
+                      </object>
+                      <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                      <cellpos>0,0</cellpos>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxTextCtrl" name="image_variable_y">
+                        <size>65,-1</size>
+                      </object>
+                      <cellpos>0,1</cellpos>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxStaticText">
+                        <label>Pitch:</label>
+                      </object>
+                      <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                      <cellpos>1,0</cellpos>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxTextCtrl" name="image_variable_p">
+                        <size>65,-1</size>
+                      </object>
+                      <cellpos>1,1</cellpos>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxStaticText">
+                        <label>Roll:</label>
+                      </object>
+                      <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                      <cellpos>2,0</cellpos>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxTextCtrl" name="image_variable_r">
+                        <size>65,-1</size>
+                      </object>
+                      <cellpos>2,1</cellpos>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxStaticText" name="image_variable_text_translation">
+                        <label>Translation parameter</label>
+                        <font>
+                          <style platform="mac">normal</style>
+                          <family platform="mac">swiss</family>
+                          <weight>bold</weight>
+                          <size platform="mac">12</size>
+                        </font>
+                      </object>
+                      <flag>wxTOP</flag>
+                      <border>12</border>
+                      <cellpos>3,0</cellpos>
+                      <cellspan>1,2</cellspan>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxStaticText" name="image_variable_text_translation_x">
+                        <label>X:</label>
+                      </object>
+                      <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                      <cellpos>4,0</cellpos>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxTextCtrl" name="image_variable_TrX">
+                        <size>65,-1</size>
+                      </object>
+                      <cellpos>4,1</cellpos>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxStaticText" name="image_variable_text_translation_y">
+                        <label>Y:</label>
+                      </object>
+                      <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                      <cellpos>5,0</cellpos>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxTextCtrl" name="image_variable_TrY">
+                        <size>65,-1</size>
+                      </object>
+                      <cellpos>5,1</cellpos>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxStaticText" name="image_variable_text_translation_z">
+                        <label>Z:</label>
+                      </object>
+                      <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                      <cellpos>6,0</cellpos>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxTextCtrl" name="image_variable_TrZ">
+                        <size>65, -1</size>
+                      </object>
+                      <cellpos>6,1</cellpos>
+                    </object>
+                    <vgap>3</vgap>
+                    <hgap>6</hgap>
+                  </object>
+                  <option>1</option>
+                  <flag>wxEXPAND|wxALL</flag>
+                  <border>15</border>
+                </object>
+                <orient>wxVERTICAL</orient>
+              </object>
+            </object>
+            <label>Positions</label>
+          </object>
+          <object class="notebookpage">
+            <object class="wxPanel">
+              <object class="wxBoxSizer">
+                <orient>wxHORIZONTAL</orient>
+                <object class="sizeritem">
+                  <object class="wxGridBagSizer">
+                    <object class="sizeritem">
+                      <object class="wxStaticText">
+                        <label>Lens</label>
+                        <font>
+                          <style platform="mac">normal</style>
+                          <family platform="mac">swiss</family>
+                          <weight>bold</weight>
+                          <size platform="mac">12</size>
+                        </font>
+                      </object>
+                      <cellpos>0,0</cellpos>
+                      <cellspan>1,2</cellspan>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxStaticText">
+                        <label>degrees of view (v):</label>
+                      </object>
+                      <flag>wxALIGN_CENTRE_VERTICAL|wxALL</flag>
+                      <border>3</border>
+                      <cellpos>1,0</cellpos>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxTextCtrl" name="image_variable_v">
+                        <size>65,-1</size>
+                      </object>
+                      <cellpos>1,1</cellpos>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxStaticText">
+                        <label>Radial Distortion</label>
+                        <font>
+                          <style platform="mac">normal</style>
+                          <family platform="mac">swiss</family>
+                          <weight>bold</weight>
+                          <size platform="mac">12</size>
+                        </font>
+                      </object>
+                      <flag>wxTOP</flag>
+                      <border>12</border>
+                      <cellpos>2,0</cellpos>
+                      <cellspan>1,2</cellspan>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxStaticText">
+                        <label>distortion (a):</label>
+                      </object>
+                      <flag>wxALIGN_CENTRE_VERTICAL|wxALL</flag>
+                      <border>3</border>
+                      <cellpos>3,0</cellpos>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxTextCtrl" name="image_variable_a">
+                        <size>65,-1</size>
+                      </object>
+                      <cellpos>3,1</cellpos>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxStaticText">
+                        <label>barrel (b):</label>
+                      </object>
+                      <flag>wxALIGN_CENTRE_VERTICAL|wxALL</flag>
+                      <border>3</border>
+                      <cellpos>4,0</cellpos>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxTextCtrl" name="image_variable_b">
+                        <size>65,-1</size>
+                      </object>
+                      <cellpos>4,1</cellpos>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxStaticText">
+                        <label>distortion (c):</label>
+                      </object>
+                      <flag>wxALIGN_CENTRE_VERTICAL|wxALL</flag>
+                      <border>3</border>
+                      <cellpos>5,0</cellpos>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxTextCtrl" name="image_variable_c">
+                        <size>65,-1</size>
+                      </object>
+                      <cellpos>5,1</cellpos>
+                    </object>
+                    <vgap>6</vgap>
+                  </object>
+                  <flag>wxEXPAND|wxALL</flag>
+                  <border>6</border>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxStaticLine">
+                    <style>wxLI_VERTICAL</style>
+                  </object>
+                  <flag>wxEXPAND</flag>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxGridBagSizer">
+                    <object class="sizeritem">
+                      <object class="wxStaticText">
+                        <label>Image Center Shift</label>
+                        <font>
+                          <style platform="mac">normal</style>
+                          <family platform="mac">swiss</family>
+                          <weight>bold</weight>
+                          <size platform="mac">12</size>
+                        </font>
+                      </object>
+                      <cellpos>0,0</cellpos>
+                      <cellspan>1,2</cellspan>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxStaticText">
+                        <label>horizontal (d):</label>
+                      </object>
+                      <flag>wxALIGN_CENTRE_VERTICAL|wxALL</flag>
+                      <border>3</border>
+                      <cellpos>1,0</cellpos>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxTextCtrl" name="image_variable_d">
+                        <size>65,-1</size>
+                      </object>
+                      <cellpos>1,1</cellpos>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxStaticText">
+                        <label>vertical (e):</label>
+                      </object>
+                      <flag>wxALIGN_CENTRE_VERTICAL|wxALL</flag>
+                      <border>3</border>
+                      <cellpos>2,0</cellpos>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxTextCtrl" name="image_variable_e">
+                        <size>65,-1</size>
+                      </object>
+                      <cellpos>2,1</cellpos>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxStaticText">
+                        <label>Image Shearing</label>
+                        <font>
+                          <style platform="mac">normal</style>
+                          <family platform="mac">swiss</family>
+                          <weight>bold</weight>
+                          <size platform="mac">12</size>
+                        </font>
+                      </object>
+                      <flag>wxTOP</flag>
+                      <border>12</border>
+                      <cellpos>3,0</cellpos>
+                      <cellspan>1,2</cellspan>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxStaticText">
+                        <label>horizontal (g):</label>
+                      </object>
+                      <flag>wxALIGN_CENTRE_VERTICAL|wxALL</flag>
+                      <border>3</border>
+                      <cellpos>4,0</cellpos>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxTextCtrl" name="image_variable_g">
+                        <size>65,-1</size>
+                      </object>
+                      <cellpos>4,1</cellpos>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxStaticText">
+                        <label>vertical (t):</label>
+                      </object>
+                      <flag>wxALIGN_CENTRE_VERTICAL|wxALL</flag>
+                      <border>3</border>
+                      <cellpos>5,0</cellpos>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxTextCtrl" name="image_variable_t">
+                        <size>65,-1</size>
+                      </object>
+                      <cellpos>5,1</cellpos>
+                    </object>
+                    <vgap>6</vgap>
+                  </object>
+                  <flag>wxEXPAND|wxALL</flag>
+                  <border>6</border>
+                </object>
+              </object>
+            </object>
+            <label>Lens</label>
+          </object>
+          <object class="notebookpage">
+            <object class="wxPanel">
+              <object class="wxBoxSizer">
+                <orient>wxVERTICAL</orient>
+                <object class="sizeritem">
+                  <object class="wxBoxSizer">
+                    <object class="sizeritem">
+                      <object class="wxStaticText">
+                        <label>Exposure and Color</label>
+                        <font>
+                          <style platform="mac">normal</style>
+                          <family platform="mac">swiss</family>
+                          <weight>bold</weight>
+                          <size platform="mac">12</size>
+                        </font>
+                      </object>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxFlexGridSizer">
+                        <object class="sizeritem">
+                          <object class="wxStaticText">
+                            <label>Exposure (Eev):</label>
+                          </object>
+                          <flag>wxALIGN_CENTRE_VERTICAL|wxALL</flag>
+                          <border>3</border>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxTextCtrl" name="image_variable_Eev">
+                            <size>65,-1</size>
+                          </object>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxStaticText">
+                            <label>Red multiplier (Er):</label>
+                          </object>
+                          <flag>wxALIGN_CENTRE_VERTICAL|wxALL</flag>
+                          <border>3</border>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxTextCtrl" name="image_variable_Er">
+                            <size>65,-1</size>
+                          </object>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxStaticText">
+                            <label>Blue multiplier (Eb):</label>
+                          </object>
+                          <flag>wxALIGN_CENTRE_VERTICAL|wxALL</flag>
+                          <border>3</border>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxTextCtrl" name="image_variable_Eb">
+                            <size>65,-1</size>
+                          </object>
+                        </object>
+                        <cols>2</cols>
+                        <vgap>6</vgap>
+                      </object>
+                      <flag>wxEXPAND|wxALL</flag>
+                      <border>6</border>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxStaticLine">
+                        <style>wxLI_HORIZONTAL</style>
+                      </object>
+                      <flag>wxEXPAND</flag>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxStaticText">
+                        <label>Vignetting</label>
+                        <font>
+                          <style platform="mac">normal</style>
+                          <family platform="mac">swiss</family>
+                          <weight>bold</weight>
+                          <size platform="mac">12</size>
+                        </font>
+                      </object>
+                      <flag>wxTOP</flag>
+                      <border>12</border>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxBoxSizer">
+                        <object class="sizeritem">
+                          <object class="wxBoxSizer">
+                            <object class="sizeritem">
+                              <object class="wxTextCtrl" name="image_variable_Vb">
+                                <size>65,-1</size>
+                              </object>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxStaticText">
+                                <label>* r^2 +</label>
+                              </object>
+                              <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL|wxALL</flag>
+                              <border>3</border>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxTextCtrl" name="image_variable_Vc">
+                                <size>65,-1</size>
+                              </object>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxStaticText">
+                                <label>* r^4 +</label>
+                              </object>
+                              <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL|wxALL</flag>
+                              <border>3</border>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxTextCtrl" name="image_variable_Vd">
+                                <size>65,-1</size>
+                              </object>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxStaticText">
+                                <label>* r^6</label>
+                              </object>
+                              <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL|wxALL</flag>
+                              <border>3</border>
+                            </object>
+                            <orient>wxHORIZONTAL</orient>
+                          </object>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxStaticText">
+                            <label>Vignetting Center Shift</label>
+                          </object>
+                          <flag>wxTOP</flag>
+                          <border>6</border>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxBoxSizer">
+                            <object class="sizeritem">
+                              <object class="wxStaticText">
+                                <label>x:</label>
+                              </object>
+                              <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL|wxALL</flag>
+                              <border>3</border>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxTextCtrl" name="image_variable_Vx">
+                                <size>65,-1</size>
+                              </object>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxStaticText">
+                                <label>y:</label>
+                              </object>
+                              <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL|wxALL</flag>
+                              <border>3</border>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxTextCtrl" name="image_variable_Vy">
+                                <size>65,-1</size>
+                              </object>
+                            </object>
+                            <orient>wxHORIZONTAL</orient>
+                          </object>
+                        </object>
+                        <orient>wxVERTICAL</orient>
+                      </object>
+                      <flag>wxEXPAND|wxALL</flag>
+                      <border>6</border>
+                    </object>
+                    <orient>wxVERTICAL</orient>
+                  </object>
+                  <flag>wxALL</flag>
+                  <border>3</border>
+                </object>
+              </object>
+            </object>
+            <label>Photometrics</label>
+          </object>
+          <object class="notebookpage">
+            <object class="wxPanel">
+              <object class="wxBoxSizer">
+                <orient>wxVERTICAL</orient>
+                <object class="sizeritem">
+                  <object class="wxBoxSizer">
+                    <object class="sizeritem">
+                      <object class="wxBoxSizer">
+                        <object class="sizeritem">
+                          <object class="wxStaticText">
+                            <label>Type:</label>
+                            <style>wxALIGN_RIGHT</style>
+                          </object>
+                          <flag>wxALIGN_CENTRE_VERTICAL|wxALL</flag>
+                          <border>3</border>
+                        </object>
+                        <object class="spacer">
+                          <size>6,-1</size>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxChoice" name="image_variable_responseType">
+                            <content>
+                              <item>custom (EMoR)</item>
+                              <item>Linear</item>
+                            </content>
+                          </object>
+                        </object>
+                        <orient>wxHORIZONTAL</orient>
+                      </object>
+                      <flag>wxALL|wxEXPAND</flag>
+                      <border>6</border>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxStaticText">
+                        <label>Parameters:</label>
+                      </object>
+                      <flag>wxLEFT|wxTOP|wxEXPAND</flag>
+                      <border>6</border>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxFlexGridSizer">
+                        <object class="sizeritem">
+                          <object class="wxTextCtrl" name="image_variable_Ra">
+                            <size>65,-1</size>
+                          </object>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxTextCtrl" name="image_variable_Rb">
+                            <size>65,-1</size>
+                          </object>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxTextCtrl" name="image_variable_Rc">
+                            <size>65,-1</size>
+                          </object>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxTextCtrl" name="image_variable_Rd">
+                            <size>65,-1</size>
+                          </object>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxTextCtrl" name="image_variable_Re">
+                            <size>65,-1</size>
+                          </object>
+                        </object>
+                        <cols>2</cols>
+                        <vgap>5</vgap>
+                        <hgap>6</hgap>
+                      </object>
+                      <flag>wxALL|wxEXPAND</flag>
+                      <border>6</border>
+                    </object>
+                    <orient>wxVERTICAL</orient>
+                  </object>
+                  <flag>wxALL</flag>
+                  <border>12</border>
+                </object>
+              </object>
+            </object>
+            <label>Camera response</label>
+          </object>
+        </object>
+        <flag>wxEXPAND|wxALL</flag>
+        <border>6</border>
+      </object>
+      <object class="sizeritem">
+        <object class="wxStdDialogButtonSizer">
+          <object class="button">
+            <object class="wxButton" name="wxID_OK">
+              <label>OK</label>
+              <default>1</default>
+            </object>
+          </object>
+          <object class="button">
+            <object class="wxButton" name="wxID_CANCEL">
+              <label>Cancel</label>
+            </object>
+          </object>
+        </object>
+        <flag>wxALL|wxEXPAND</flag>
+        <border>6</border>
+      </object>
+    </object>
+    <title>Image variables</title>
+    <style>wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER</style>
+  </object>
+</resource>

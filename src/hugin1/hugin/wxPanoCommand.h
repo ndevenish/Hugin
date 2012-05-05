@@ -29,7 +29,6 @@
 #include "PT/PanoToolsUtils.h"
 #include "PT/PanoCommand.h"
 #include "vigra/impex.hxx"
-#include "hugin/LensPanel.h"
 #include "hugin/config_defaults.h"
 #include "base_wx/platform.h"
 

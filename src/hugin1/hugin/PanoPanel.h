@@ -27,6 +27,7 @@
 #define _PANOPANEL_H
 
 #include "hugin/MainFrame.h"
+#include "GuiLevel.h"
 
 //using namespace PT;
 class PanoDialog;
@@ -81,6 +82,7 @@ public:
     /** stitching with PTBatcherGUI */
     void DoSendToBatch();
 
+    void SetGuiLevel(GuiLevel newGuiLevel);
 
  private:
 
@@ -165,6 +167,8 @@ public:
 
     // the model
     Panorama * pano;
+    //current gui level
+    GuiLevel m_guiLevel;
 
     // don't listen to input on gui elements during
     // updating the gui from the model, to prevent recursion,

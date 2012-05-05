@@ -22,7 +22,7 @@ ENDIF(APPLE)
 
 # sources
 set(hugin_SOURCES
-huginApp.cpp ImagesList.cpp MainFrame.cpp CPImageCtrl.cpp CPImagesComboBox.cpp CPEditorPanel.cpp CPDetectorDialog.cpp LensPanel.cpp 
+huginApp.cpp ImagesList.cpp MainFrame.cpp CPImageCtrl.cpp CPImagesComboBox.cpp CPEditorPanel.cpp CPDetectorDialog.cpp  
 ImagesPanel.cpp CommandHistory.cpp PanoPanel.cpp NonaOptionsDialog.cpp HDRMergeOptionDialog.cpp
 PreviewFrame.cpp PreviewPanel.cpp GLPreviewFrame.cpp GLViewer.cpp GLRenderer.cpp NumTransDialog.cpp
 CropPanel.cpp OptimizePhotometricPanel.cpp OptimizePanel.cpp CPListFrame.cpp
@@ -34,10 +34,12 @@ OutputProjectionInfo.cpp ToolHelper.cpp Tool.cpp  OverviewCameraTool.cpp Project
 PreviewCropTool.cpp DragTool.cpp PreviewIdentifyTool.cpp PanosphereSphereTool.cpp
 PreviewDifferenceTool.cpp PreviewPanoMaskTool.cpp PreviewControlPointTool.cpp
 GreatCircles.cpp AboutDialog.cpp LayoutRemapper.cpp PreviewLayoutLinesTool.cpp PreviewColorPickerTool.cpp PreviewGuideTool.cpp
-MaskEditorPanel.cpp MaskImageCtrl.cpp MaskLoadDialog.cpp HtmlWindow.cpp)
+MaskEditorPanel.cpp MaskImageCtrl.cpp MaskLoadDialog.cpp HtmlWindow.cpp 
+PanoOperation.cpp treelistctrl.cpp ImagesTree.cpp 
+GuiLevel.cpp ImageVariableDialog.cpp)
 
 set(hugin_HEADERS
-huginApp.h ImagesList.h MainFrame.h CPImageCtrl.h CPImagesComboBox.h CPEditorPanel.h CPDetectorDialog.h LensPanel.h 
+huginApp.h ImagesList.h MainFrame.h CPImageCtrl.h CPImagesComboBox.h CPEditorPanel.h CPDetectorDialog.h 
 ImagesPanel.h CommandHistory.h PanoPanel.h NonaOptionsDialog.h HDRMergeOptionDialog.h
 PreviewFrame.h PreviewPanel.h GLPreviewFrame.h GLViewer.h GLRenderer.h NumTransDialog.h
 CropPanel.h OptimizePhotometricPanel.h OptimizePanel.h CPListFrame.h
@@ -49,7 +51,9 @@ OutputProjectionInfo.h ToolHelper.h Tool.h OverviewCameraTool.h ProjectionGridTo
 PreviewCropTool.h DragTool.h PreviewIdentifyTool.h PanosphereSphereTool.h
 PreviewDifferenceTool.h PreviewPanoMaskTool.h PreviewControlPointTool.h
 GreatCircles.h AboutDialog.h LayoutRemapper.h PreviewLayoutLinesTool.h PreviewColorPickerTool.h PreviewGuideTool.h
-MaskEditorPanel.h MaskImageCtrl.h MaskLoadDialog.h HtmlWindow.h)
+MaskEditorPanel.h MaskImageCtrl.h MaskLoadDialog.h HtmlWindow.h 
+PanoOperation.h treelistctrl.h ImagesTree.h 
+GuiLevel.h ImageVariableDialog.h)
 
 IF(BUILD_HSI)
 LIST(APPEND hugin_SOURCES PluginItems.cpp)

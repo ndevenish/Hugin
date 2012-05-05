@@ -48,7 +48,6 @@
 #include "hugin/PanoPanel.h"
 #include "hugin/AssistantPanel.h"
 #include "hugin/ImagesPanel.h"
-#include "hugin/LensPanel.h"
 #include "hugin/CropPanel.h"
 #include "hugin/MaskEditorPanel.h"
 #include "hugin/OptimizePanel.h"
@@ -61,6 +60,7 @@
 #include "hugin/LocalizedFileTipProvider.h"
 #include "hugin/HFOVDialog.h"
 #include "algorithms/control_points/CleanCP.h"
+#include "hugin/PanoOperation.h"
 
 #include "base_wx/MyProgressDialog.h"
 #include "base_wx/wxImageCache.h"
@@ -76,10 +76,6 @@
 using namespace PT;
 using namespace std;
 using namespace hugin_utils;
-
-//ImagesPanel * images_panel;
-//LensPanel * lens_panel;
-//OptimizeVector * optset;
 
 #ifdef __MINGW32__
 // fixes for mingw compilation...
@@ -209,6 +205,9 @@ BEGIN_EVENT_TABLE(MainFrame, wxFrame)
     EVT_MENU(XRCID("action_show_faq"),  MainFrame::OnFAQ)
     EVT_MENU(XRCID("action_show_donate"),  MainFrame::OnShowDonate)
     EVT_MENU(XRCID("action_show_prefs"), MainFrame::OnShowPrefs)
+    EVT_MENU(XRCID("action_gui_beginner"), MainFrame::OnSetGuiBeginner)
+    EVT_MENU(XRCID("action_gui_advanced"), MainFrame::OnSetGuiAdvanced)
+    EVT_MENU(XRCID("action_gui_expert"), MainFrame::OnSetGuiExpert)
 #ifdef HUGIN_HSI
     EVT_MENU(XRCID("action_python_script"), MainFrame::OnPythonScript)
 #endif
@@ -231,7 +230,6 @@ BEGIN_EVENT_TABLE(MainFrame, wxFrame)
 
     EVT_MENU(XRCID("ID_SHOW_PANEL_ASSISTANT"), MainFrame::OnShowPanel)
     EVT_MENU(XRCID("ID_SHOW_PANEL_IMAGES"), MainFrame::OnShowPanel)
-    EVT_MENU(XRCID("ID_SHOW_PANEL_LENS"), MainFrame::OnShowPanel)
     EVT_MENU(XRCID("ID_SHOW_PANEL_CROP"), MainFrame::OnShowPanel)
     EVT_MENU(XRCID("ID_SHOW_PANEL_MASK"), MainFrame::OnShowPanel)
     EVT_MENU(XRCID("ID_SHOW_PANEL_CP_EDITOR"), MainFrame::OnShowPanel)
@@ -242,7 +240,6 @@ BEGIN_EVENT_TABLE(MainFrame, wxFrame)
     EVT_BUTTON(XRCID("action_add_images"),  MainFrame::OnAddImages)
     EVT_MENU(XRCID("action_add_time_images"),  MainFrame::OnAddTimeImages)
     EVT_BUTTON(XRCID("action_add_time_images"),  MainFrame::OnAddTimeImages)
-    //EVT_NOTEBOOK_PAGE_CHANGED(XRCID( "controls_notebook"), MainFrame::UpdatePanels)
     EVT_CLOSE(  MainFrame::OnExit)
     EVT_SIZE(MainFrame::OnSize)
 END_EVENT_TABLE()
@@ -254,7 +251,7 @@ END_EVENT_TABLE()
 //WX_DEFINE_ARRAY()
 
 MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
-    : cp_frame(0), pano(pano), m_doRestoreLayout(false)
+    : cp_frame(0), pano(pano)
 {
     preview_frame = 0;
     m_progressMax = 1;
@@ -390,12 +387,6 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
 //    m_notebook = ((wxNotebook*) (FindWindow(XRCID("controls_notebook"))));
     DEBUG_ASSERT(m_notebook);
 
-    // the lens_panel
-    lens_panel = XRCCTRL(*this, "lens_panel_unknown", LensPanel);
-    assert(lens_panel);
-    lens_panel->Init(&pano);
-
-
     // the crop panel
     crop_panel = XRCCTRL(*this, "crop_panel_unknown", CropPanel);
     assert(crop_panel);
@@ -420,10 +411,12 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     opt_panel = XRCCTRL(*this, "optimizer_panel_unknown", OptimizePanel);
     assert(opt_panel);
     opt_panel->Init(&pano);
+    m_show_opt_panel=true;
 
     opt_photo_panel = XRCCTRL(*this, "optimizer_photometric_panel_unknown", OptimizePhotometricPanel);
     assert(opt_photo_panel);
     opt_photo_panel->Init(&pano);
+    m_show_opt_photo_panel=true;
 
     preview_frame = new PreviewFrame(this, pano);
     gl_preview_frame = new GLPreviewFrame(this, pano);
@@ -439,6 +432,8 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     // create a new drop handler. wxwindows deletes the automaticall
     SetDropTarget(new PanoDropTarget(pano));
     DEBUG_TRACE("");
+
+    PanoOperation::GeneratePanoOperationVector();
 
     // create a status bar
     const int fields (2);
@@ -540,6 +535,11 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     m_mruFiles.Load(*config);
     m_mruFiles.UseMenu(GetMenuBar()->GetMenu(0)->FindItem(XRCID("menu_mru"))->GetSubMenu());
     m_mruFiles.AddFilesToMenu();
+    //reload gui level
+    long guiLevel=config->Read(wxT("/GuiLevel"),(long)0);
+    guiLevel=max<long>(0,min<long>(2,guiLevel));
+    SetGuiLevel((GuiLevel)guiLevel, true);
+
     DEBUG_TRACE("");
 #ifdef __WXGTK__
     // set explicit focus to assistant panel for better processing key presses
@@ -565,11 +565,14 @@ MainFrame::~MainFrame()
 
     //store most recently used files
     m_mruFiles.Save(*config);
+    //store gui level
+    config->Write(wxT("/GuiLevel"),(long)m_guiLevel);
     config->Flush();
     if(svmModel!=NULL)
     {
         celeste::destroySVMmodel(svmModel);
     };
+    PanoOperation::CleanPanoOperationVector();
 
     DEBUG_TRACE("dtor end");
 }
@@ -584,17 +587,44 @@ void MainFrame::panoramaChanged(PT::Panorama &pano)
     bool can_redo = GlobalCmdHist::getInstance().canRedo();
     theMenuBar->Enable    (XRCID("ID_EDITREDO"), can_redo);
     theToolBar->EnableTool(XRCID("ID_EDITREDO"), can_redo);
-}
 
-void MainFrame::RestoreLayout()
-{
-    DEBUG_TRACE("");
-    // restore layout of child widgets, now that all widgets have been created,
-    // are of similar size
-//    cpe->RestoreLayout();
-//    lens_panel->RestoreLayout();
-//    images_panel->RestoreLayout();
-    DEBUG_TRACE("");
+    //show or hide optimizer and exposure optimizer tab depending on optimizer master switches
+    if(pano.getOptimizerSwitch()==0 && !m_show_opt_panel)
+    {
+        m_notebook->InsertPage(5, opt_panel, _("Optimizer"));
+        m_show_opt_panel=true;
+    };
+    if(pano.getOptimizerSwitch()!=0 && m_show_opt_panel)
+    {
+        m_notebook->RemovePage(5);
+        m_show_opt_panel=false;
+    };
+    if(pano.getPhotometricOptimizerSwitch()==0 && !m_show_opt_photo_panel)
+    {
+        if(m_show_opt_panel)
+        {
+            m_notebook->InsertPage(6, opt_photo_panel, _("Exposure"));
+        }
+        else
+        {
+            m_notebook->InsertPage(5, opt_photo_panel, _("Exposure"));
+        }
+        m_show_opt_photo_panel=true;
+    };
+    if(pano.getPhotometricOptimizerSwitch()!=0 && m_show_opt_photo_panel)
+    {
+        if(m_show_opt_panel)
+        {
+            m_notebook->RemovePage(6);
+        }
+        else
+        {
+            m_notebook->RemovePage(5);
+        };
+        m_show_opt_photo_panel=false;
+    };
+    theMenuBar->Enable(XRCID("ID_SHOW_PANEL_OPTIMIZER"), m_show_opt_panel);
+    theMenuBar->Enable(XRCID("ID_SHOW_PANEL_OPTIMIZER_PHOTOMETRIC"), m_show_opt_photo_panel);
 }
 
 //void MainFrame::panoramaChanged(PT::Panorama &panorama)
@@ -691,12 +721,11 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
         DEBUG_DEBUG("stripping " << path << " from image filenames");
         std::ofstream script(scriptName.GetFullPath().mb_str(HUGIN_CONV_FILENAME));
         script.exceptions ( std::ofstream::eofbit | std::ofstream::failbit | std::ofstream::badbit );
-        PT::OptimizeVector optvec = opt_panel->getOptimizeVector();
         PT::UIntSet all;
         if (pano.getNrOfImages() > 0) {
            fill_set(all, 0, pano.getNrOfImages()-1);
         }
-        pano.printPanoramaScript(script, optvec, pano.getOptions(), all, false, path);
+        pano.printPanoramaScript(script, pano.getOptimizeVector(), pano.getOptions(), all, false, path);
         script.close();
         savedProjectFile=true;
 
@@ -832,7 +861,11 @@ void MainFrame::LoadProjectFile(const wxString & filename)
         GlobalCmdHist::getInstance().clear();
         registerPTWXDlgFcn(MainFrame::Get());
         DEBUG_DEBUG("project contains " << pano.getNrOfImages() << " after load");
-        opt_panel->setModeCustom();
+        GuiLevel reqGuiLevel=GetMinimumGuiLevel(pano);
+        if(reqGuiLevel>m_guiLevel)
+        {
+            SetGuiLevel(reqGuiLevel, true);
+        };
         SetStatusText(_("Project opened"));
         m_mruFiles.AddFileToHistory(fname.GetFullPath());
         this->SetTitle(fname.GetName() + wxT(".") + fname.GetExt() + wxT(" - ") + _("Hugin - Panorama Stitcher"));
@@ -950,64 +983,15 @@ void MainFrame::OnNewProject(wxCommandEvent & e)
 void MainFrame::OnAddImages( wxCommandEvent& event )
 {
     DEBUG_TRACE("");
-    wxString e_stat;
-
-    // To get users path we do following:
-    // get the global config object
-    wxConfigBase* config = wxConfigBase::Get();
-
-    wxString path = config->Read(wxT("/actualPath"), wxT(""));
-    wxFileDialog dlg(this,_("Add images"),
-                     path, wxT(""),
-                     HUGIN_WX_FILE_IMG_FILTER,
-                     wxFD_OPEN | wxFD_MULTIPLE, wxDefaultPosition);
-    dlg.SetDirectory(path);
-
-    // remember the image extension
-    wxString img_ext;
-    if (config->HasEntry(wxT("lastImageType"))){
-      img_ext = config->Read(wxT("lastImageType")).c_str();
+    PanoOperation::AddImageOperation addImage;
+    UIntSet images;
+    PanoCommand* cmd=addImage.GetCommand(this,pano,images);
+    if(cmd!=NULL)
+    {
+        GlobalCmdHist::getInstance().addCommand(cmd);
     }
-    if (img_ext == wxT("all images"))
-      dlg.SetFilterIndex(0);
-    else if (img_ext == wxT("jpg"))
-      dlg.SetFilterIndex(1);
-    else if (img_ext == wxT("tiff"))
-      dlg.SetFilterIndex(2);
-    else if (img_ext == wxT("png"))
-      dlg.SetFilterIndex(3);
-    else if (img_ext == wxT("hdr"))
-      dlg.SetFilterIndex(4);
-    else if (img_ext == wxT("exr"))
-      dlg.SetFilterIndex(5);
-    else if (img_ext == wxT("all files"))
-      dlg.SetFilterIndex(6);
-    DEBUG_INFO ( "Image extention: " << img_ext.mb_str(wxConvLocal) )
-
-    // call the file dialog
-    if (dlg.ShowModal() == wxID_OK) {
-        // get the selections
-        wxArrayString Pathnames;
-        dlg.GetPaths(Pathnames);
-
-        // e safe the current path to config
-        config->Write(wxT("/actualPath"), dlg.GetDirectory());  // remember for later
-
-        AddImages(Pathnames);
-
-        DEBUG_INFO ( wxString::Format(wxT("img_ext: %d"), dlg.GetFilterIndex()).mb_str(wxConvLocal) )
-        // save the image extension
-        switch ( dlg.GetFilterIndex() ) {
-        case 0: config->Write(wxT("lastImageType"), wxT("all images")); break;
-        case 1: config->Write(wxT("lastImageType"), wxT("jpg")); break;
-        case 2: config->Write(wxT("lastImageType"), wxT("tiff")); break;
-        case 3: config->Write(wxT("lastImageType"), wxT("png")); break;
-        case 4: config->Write(wxT("lastImageType"), wxT("hdr")); break;
-        case 5: config->Write(wxT("lastImageType"), wxT("exr")); break;
-        case 6: config->Write(wxT("lastImageType"), wxT("all files")); break;
-        }
-
-    } else {
+    else
+    {
         // nothing to open
         SetStatusText( _("Add Image: cancel"));
     }
@@ -1044,207 +1028,16 @@ void MainFrame::AddImages(wxArrayString& filenameArray)
     };
 };
 
-time_t ReadExifTime(const char* filename)
-{
-    Exiv2::Image::AutoPtr image;
-    try {
-        image = Exiv2::ImageFactory::open(filename);
-    }catch(...) {
-        return 0;
-    }
-    if (image.get() == 0) {
-        return 0;
-    }
-
-    image->readMetadata();
-    Exiv2::ExifData &exifData = image->exifData();
-    if (exifData.empty()) {
-        return 0;
-    }
-
-    Exiv2::Exifdatum& tag = exifData["Exif.Image.DateTime"];
-    const std::string date_time = tag.toString();
-
-    // Remember the file and a shutter timestamp.
-    struct tm when;
-    memset(&when, 0, sizeof(when));
-    when.tm_wday = -1;
-
-    // parse into the tm_structure
-    const int a = sscanf(date_time.c_str(), "%d:%d:%d %d:%d:%d",
-            &when.tm_year, &when.tm_mon, &when.tm_mday,
-            &when.tm_hour, &when.tm_min, &when.tm_sec);
-
-    if (a == 6){
-        when.tm_isdst = -1;
-        when.tm_mon -= 1;      // Adjust for unix zero-based months
-        when.tm_year -= 1900;  // Adjust for year starting at 1900
-    } else {
-        // Not in EXIF format
-        return 0;
-    }
-
-    time_t stamp;
-    stamp = mktime(&when);
-    if (stamp == (time_t)(-1))
-        return 0;
-
-    return stamp;
-}
-
-WX_DECLARE_STRING_HASH_MAP(time_t, StringToPointerHash);
-WX_DECLARE_STRING_HASH_MAP(int, StringToFlagHash);
-
-struct sortbytime
-{
-    sortbytime(map<string, time_t> & h)
-        : m_time(h)
-    { }
-
-    bool operator()(const std::string & s1, const std::string & s2)
-    {
-        time_t t1 = m_time[s1];
-        time_t t2 = m_time[s2];
-        return t1 < t2;
-    }
-
-    map<string, time_t> & m_time;
-};
-
-
 void MainFrame::OnAddTimeImages( wxCommandEvent& event )
 {
-    DEBUG_TRACE("");
-
-    int maxtimediff = wxConfigBase::Get()->Read(wxT("CaptureTimeSpan"), HUGIN_CAPTURE_TIMESPAN);
-
-    // If no images already loaded, offer user a chance to pick one.
-    int images = pano.getNrOfImages();
-    if (!images) {
-        OnAddImages(event);
-        images = pano.getNrOfImages();
-        if (!images)
-            return;
-    }
-
-    DEBUG_TRACE("seeking similarly timed images");
-
-    // Collect potential image-mates.
-    StringToPointerHash filenames;
-    StringToFlagHash preloaded;
-    while (images)
+    PanoOperation::AddImagesSeriesOperation imageSeriesOp;
+    UIntSet images;
+    PT::PanoCommand* cmd=imageSeriesOp.GetCommand(this,pano,images);
+    if(cmd!=NULL)
     {
-        --images;
-
-        // Get the filename.
-        const SrcPanoImage& image = pano.getImage(images);
-        std::string filename = image.getFilename();
-        wxString file(filename.c_str(), HUGIN_CONV_FILENAME);
-        preloaded[file] = 1;
-
-        // Glob for all files of same type in same directory.
-        wxString name(filename.c_str(), HUGIN_CONV_FILENAME);
-        wxString path = ::wxPathOnly(name) + wxT("/*");
-        file = ::wxFindFirstFile(path);
-        while (!file.IsEmpty())
-        {
-            // Associated with a NULL dummy timestamp for now.
-            if(vigra::isImage(file.mb_str(HUGIN_CONV_FILENAME)))
-            {
-			    filenames[file] = 0;
-            };
-			file = ::wxFindNextFile();
-        }
-    }
-
-    DEBUG_INFO("found " << filenames.size() <<
-                " candidate files to search.");
-
-    // For each globbed or loaded file,
-    StringToPointerHash::iterator found;
-    std::map<std::string, time_t> timeMap;
-    for (found = filenames.begin(); found != filenames.end(); found++)
-    {
-        wxString file = found->first;
-        // Check the time if it's got a camera EXIF timestamp.
-		  time_t stamp = ReadExifTime(file.mb_str(HUGIN_CONV_FILENAME));
-      	  if (stamp) {
-            filenames[file] = stamp;
-            timeMap[(const char *)file.mb_str(HUGIN_CONV_FILENAME)] = stamp;
-      	  }
-    }
-
-    //TODO: sorting the filenames keys by timestamp would be useful
-
-    std::vector<std::string> filesv;
-    int changed;
-    do
-    {
-        changed = FALSE;
-
-        // For each timestamped file,
-        for (found = filenames.begin(); found != filenames.end(); found++)
-        {
-            wxString recruit = found->first;
-			if (preloaded[recruit] == 1)
-			  continue;
-            time_t pledge = filenames[recruit];
-            if (!pledge)
-                continue;
-
-            // For each other image already loaded,
-            images = pano.getNrOfImages();
-            while (images)
-            {
-                --images;
-                const SrcPanoImage& image = pano.getImage(images);
-                std::string filename = image.getFilename();
-                wxString file(filename.c_str(), HUGIN_CONV_FILENAME);
-                if (file == recruit)
-                    continue;
-
-                // If it is within threshold time,
-                time_t stamp = filenames[file];
-                if (abs((int)(pledge - stamp)) < maxtimediff)
-                {
-                    // Load this file, and remember it.
-                    DEBUG_TRACE("Recruited " << recruit.mb_str(wxConvLocal));
-                    std::string file = (const char *)recruit.mb_str(HUGIN_CONV_FILENAME);
-                    filesv.push_back(file);
-                    // Don't recruit it again.
-                    filenames[recruit] = 0;
-                    // Count this as a change.
-                    changed++;
-                    break;
-                }
-            }
-        }
-    } while (changed);
-
-    if(filesv.size()>0)
-    {
-        // sort files by date
-        sortbytime spred(timeMap);
-        sort(filesv.begin(), filesv.end(), spred);
-
-        // Load all of the named files.
-        wxBusyCursor();
-        GlobalCmdHist::getInstance().addCommand(
-            new wxAddImagesCmd(pano,filesv)
-            );
-    }
-    else
-    {
-        wxMessageBox(
-            _("No matching images found."),
-#ifdef _WINDOWS
-            _("Hugin"),
-#else
-            wxT(""),
-#endif
-            wxOK | wxICON_INFORMATION, this);
+        GlobalCmdHist::getInstance().addCommand(cmd);
     };
-}
+};
 
 void MainFrame::OnShowDonate(wxCommandEvent & e)
 {
@@ -1257,28 +1050,50 @@ void MainFrame::OnShowPanel(wxCommandEvent & e)
     if(e.GetId()==XRCID("ID_SHOW_PANEL_IMAGES"))
         m_notebook->SetSelection(1);
     else
-        if(e.GetId()==XRCID("ID_SHOW_PANEL_LENS"))
+        if(e.GetId()==XRCID("ID_SHOW_PANEL_CROP"))
             m_notebook->SetSelection(2);
         else
-            if(e.GetId()==XRCID("ID_SHOW_PANEL_CROP"))
+            if(e.GetId()==XRCID("ID_SHOW_PANEL_MASK"))
                 m_notebook->SetSelection(3);
             else
-                if(e.GetId()==XRCID("ID_SHOW_PANEL_MASK"))
+                if(e.GetId()==XRCID("ID_SHOW_PANEL_CP_EDITOR"))
                     m_notebook->SetSelection(4);
                 else
-                    if(e.GetId()==XRCID("ID_SHOW_PANEL_CP_EDITOR"))
+                    if(e.GetId()==XRCID("ID_SHOW_PANEL_OPTIMIZER"))
                         m_notebook->SetSelection(5);
                     else
-                        if(e.GetId()==XRCID("ID_SHOW_PANEL_OPTIMIZER"))
-                            m_notebook->SetSelection(6);
-                        else
-                            if(e.GetId()==XRCID("ID_SHOW_PANEL_OPTIMIZER_PHOTOMETRIC"))
-                                m_notebook->SetSelection(7);
+                        if(e.GetId()==XRCID("ID_SHOW_PANEL_OPTIMIZER_PHOTOMETRIC"))
+                        {
+                            if(m_show_opt_panel)
+                            {
+                                m_notebook->SetSelection(6);
+                            }
                             else
-                                if(e.GetId()==XRCID("ID_SHOW_PANEL_PANORAMA"))
-                                    m_notebook->SetSelection(8);
+                            {
+                                m_notebook->SetSelection(5);
+                            };
+                        }
+                        else
+                            if(e.GetId()==XRCID("ID_SHOW_PANEL_PANORAMA"))
+                            {
+                                if(m_show_opt_panel && m_show_opt_photo_panel)
+                                {
+                                    m_notebook->SetSelection(7);
+                                }
                                 else
-                                    m_notebook->SetSelection(0);
+                                {
+                                    if(m_show_opt_panel || m_show_opt_photo_panel)
+                                    {
+                                        m_notebook->SetSelection(6);
+                                    }
+                                    else
+                                    {
+                                        m_notebook->SetSelection(5);
+                                    };
+                                };
+                            }
+                            else
+                                m_notebook->SetSelection(0);
 }
 
 
@@ -1515,6 +1330,12 @@ void MainFrame::OnOptimize(wxCommandEvent & e)
     opt_panel->OnOptimizeButton(dummy);
 }
 
+void MainFrame::OnPhotometricOptimize(wxCommandEvent & e)
+{
+    wxCommandEvent dummy;
+    opt_photo_panel->OnOptimizeButton(dummy);
+};
+
 void MainFrame::OnDoStitch(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
@@ -1552,7 +1373,6 @@ void MainFrame::OnMergeProject(wxCommandEvent & e)
                 GlobalCmdHist::getInstance().addCommand(
                     new MergePanoCmd(pano, new_pano)
                 );
-                opt_panel->setModeCustom();
                 pano.clearDirty();
                 m_mruFiles.AddFileToHistory(fname.GetFullPath());
                 // force update of preview window
@@ -1897,14 +1717,6 @@ void MainFrame::OnSize(wxSizeEvent &e)
                 " virtual: "<< vsz.x << "," << vsz.y);
 
     Layout();
-    // redo layout if requested
-    if (m_doRestoreLayout) {
-        m_doRestoreLayout = false;
-        // first, layout everything. This should ensure that the
-        // children have the correct size
-        // then restore the layout
-        RestoreLayout();
-    }
     e.Skip();
 }
 
@@ -1912,14 +1724,6 @@ CPDetectorSetting& MainFrame::GetDefaultSetting()
 {
     return images_panel->GetDefaultSetting();
 };
-
-void MainFrame::RestoreLayoutOnNextResize()
-{
-    cout << "MainFrame::RestoreLayoutOnNextResize()" << endl;
-    m_doRestoreLayout = true;
-    //crop_panel->RestoreLayoutOnNextResize();
-    //images_panel->RestoreLayoutOnNextResize();
-}
 
 const wxString & MainFrame::GetXRCPath()
 {
@@ -2072,5 +1876,70 @@ GLPreviewFrame * MainFrame::getGLPreview()
 {
     return gl_preview_frame;
 }
+
+void MainFrame::SetGuiLevel(GuiLevel newLevel, const bool updateMenu)
+{
+    m_guiLevel=newLevel;
+    images_panel->SetGuiLevel(m_guiLevel);
+    opt_panel->SetGuiLevel(m_guiLevel);
+    opt_photo_panel->SetGuiLevel(m_guiLevel);
+    pano_panel->SetGuiLevel(m_guiLevel);
+    gl_preview_frame->SetGuiLevel(m_guiLevel);
+    if(updateMenu)
+    {
+        switch(m_guiLevel)
+        {
+            case GUI_BEGINNER:
+                GetMenuBar()->FindItem(XRCID("action_gui_beginner"))->Check();
+                break;
+            case GUI_ADVANCED:
+                GetMenuBar()->FindItem(XRCID("action_gui_advanced"))->Check();
+                break;
+            case GUI_EXPERT:
+                GetMenuBar()->FindItem(XRCID("action_gui_expert"))->Check();
+                break;
+        };
+    };
+};
+
+void MainFrame::OnSetGuiBeginner(wxCommandEvent & e)
+{
+    GuiLevel reqGuiLevel=GetMinimumGuiLevel(pano);
+    if(reqGuiLevel<=GUI_BEGINNER)
+    {
+        SetGuiLevel(GUI_BEGINNER);
+    }
+    else
+    {
+        wxBell();
+        if(m_guiLevel<reqGuiLevel)
+        {
+            SetGuiLevel(reqGuiLevel, true);
+        }
+        else
+        {
+            SetGuiLevel(m_guiLevel, true);
+        };
+    };
+};
+
+void MainFrame::OnSetGuiAdvanced(wxCommandEvent & e)
+{
+    GuiLevel reqGuiLevel=GetMinimumGuiLevel(pano);
+    if(reqGuiLevel<=GUI_ADVANCED)
+    {
+        SetGuiLevel(GUI_ADVANCED);
+    }
+    else
+    {
+        wxBell();
+        SetGuiLevel(GUI_EXPERT, true);
+    };
+};
+
+void MainFrame::OnSetGuiExpert(wxCommandEvent & e)
+{
+    SetGuiLevel(GUI_EXPERT);
+};
 
 MainFrame * MainFrame::m_this = 0;

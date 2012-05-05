@@ -462,6 +462,10 @@ namespace PT {
     };
 
 
+    //=========================================================================
+    //=========================================================================
+
+    /** updates the optimize vector, aka all variables which should be optimized */
     class UpdateOptimizeVectorCmd : public PanoCommand
     {
     public:
@@ -472,6 +476,9 @@ namespace PT {
 
     virtual bool processPanorama(Panorama & pano)
         {
+            // set master switches to custom, so the modified vector is not modified
+            pano.setOptimizerSwitch(0);
+            pano.setPhotometricOptimizerSwitch(0);
             pano.setOptimizeVector(m_optvec);
             pano.changeFinished();
             return true;
@@ -487,7 +494,63 @@ namespace PT {
         int mode;
 
     };
-        
+
+
+    //=========================================================================
+    //=========================================================================
+
+    /** update the optimizer master switch */
+    class UpdateOptimizerSwitchCmd : public PanoCommand
+    {
+    public:
+        UpdateOptimizerSwitchCmd(Panorama &p, int mode)
+            : PanoCommand(p),
+              m_mode(mode)
+        { };
+
+    virtual bool processPanorama(Panorama & pano)
+        {
+            pano.setOptimizerSwitch(m_mode);
+            pano.changeFinished();
+            return true;
+        }
+
+    virtual std::string getName() const
+        {
+            return "update optimizer master switch";
+        }
+
+    private:
+        int m_mode;
+    };
+
+    //=========================================================================
+    //=========================================================================
+
+    /** update the photometric optimizer master switch */
+    class UpdatePhotometricOptimizerSwitchCmd : public PanoCommand
+    {
+    public:
+        UpdatePhotometricOptimizerSwitchCmd(Panorama &p, int mode)
+            : PanoCommand(p),
+              m_mode(mode)
+        { };
+
+    virtual bool processPanorama(Panorama & pano)
+        {
+            pano.setPhotometricOptimizerSwitch(m_mode);
+            pano.changeFinished();
+            return true;
+        }
+
+    virtual std::string getName() const
+        {
+            return "update photometric optimizer master switch";
+        }
+
+    private:
+        int m_mode;
+    };
 
 
     //=========================================================================
@@ -831,6 +894,31 @@ namespace PT {
         unsigned int m_i2;
     };
 
+    /** move image from position1 to position2 */
+    class MoveImageCmd : public PanoCommand
+    {
+    public:
+        MoveImageCmd(Panorama & p, size_t i1, size_t i2)
+            : PanoCommand(p), m_i1(i1), m_i2(i2)
+            { };
+
+        virtual bool processPanorama(Panorama& pano)
+            {
+                pano.moveImage(m_i1, m_i2);
+                pano.changeFinished();
+
+                return true;
+            }
+        
+        virtual std::string getName() const
+            {
+                return "move images";
+            }
+
+    private:
+        unsigned int m_i1;
+        unsigned int m_i2;
+    };
 
     /** merge two project files */
     class MergePanoCmd : public PanoCommand

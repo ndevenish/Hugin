@@ -44,13 +44,13 @@
 
 // Celeste header
 #include "Celeste.h"
+#include "GuiLevel.h"
 
 using namespace PT;
 
 // forward declarations, to save the #include statements
 class AssistantPanel;
 class CPEditorPanel;
-class LensPanel;
 class ImgPreview;
 class ImagesPanel;
 class CropPanel;
@@ -119,13 +119,6 @@ public:
 
     // load a project
     void LoadProjectFile(const wxString & filename);
-	
-    // Restore the layout
-    void RestoreLayout();
-    
-    /// hack to restore the layout on next resize
-    void RestoreLayoutOnNextResize();
-    
 
 #ifdef __WXMAC__
     void MacOnOpenFile(const wxString & filename);
@@ -135,11 +128,16 @@ public:
     // TODO: create a nice generic optimisation & stitching function
     // instead of these gateway functions to the optimizer and pano panels.
     void OnOptimize(wxCommandEvent & e);
+    void OnPhotometricOptimize(wxCommandEvent & e);
     void OnDoStitch(wxCommandEvent & e);
     void OnTogglePreviewFrame(wxCommandEvent & e);
     void OnToggleGLPreviewFrame(wxCommandEvent & e);
     void OnAddImages(wxCommandEvent & e);
     void OnSaveProject(wxCommandEvent & e);
+    void OnSetGuiBeginner(wxCommandEvent & e);
+    void OnSetGuiAdvanced(wxCommandEvent & e);
+    void OnSetGuiExpert(wxCommandEvent & e);
+
     /** call help browser with given file */
     void DisplayHelp(wxString section);
 
@@ -164,6 +162,8 @@ public:
 #ifdef __WXMSW__
     wxCHMHelpController& GetHelpController() { return m_msHtmlHelp; }
 #endif
+    void SetGuiLevel(GuiLevel newLevel, const bool updateMenu=false);
+    const GuiLevel GetGuiLevel() const { return m_guiLevel; };
 
 protected:
     // called when a progress message should be displayed
@@ -224,12 +224,13 @@ private:
     // tab panels
     AssistantPanel* assistant_panel;
     ImagesPanel* images_panel;
-    LensPanel* lens_panel;
     CropPanel* crop_panel;
     MaskEditorPanel* mask_panel;
     CPEditorPanel * cpe;
     OptimizePanel * opt_panel;
+    bool m_show_opt_panel;
     OptimizePhotometricPanel * opt_photo_panel;
+    bool m_show_opt_photo_panel;
     PanoPanel * pano_panel;
     struct celeste::svm_model* svmModel;
 
@@ -237,6 +238,7 @@ private:
     PreviewFrame * preview_frame;
     GLPreviewFrame * gl_preview_frame;
     CPListFrame * cp_frame;
+    GuiLevel m_guiLevel;
 
     // Image Preview
     ImgPreview *canvas;
@@ -249,9 +251,6 @@ private:
 
     // filename of the current project
     wxString m_filename;
-
-
-    bool m_doRestoreLayout;
 
     // self
     static MainFrame* m_this;

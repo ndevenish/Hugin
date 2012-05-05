@@ -1,8 +1,6 @@
-<?xml version="1.0" encoding="cp1252"?>
+<?xml version="1.0" encoding="ISO-8859-1"?>
 <resource>
   <object class="wxDialog" name="reset_dialog">
-    <title>Reset values</title>
-    <style>wxDEFAULT_DIALOG_STYLE|wxCAPTION|wxTAB_TRAVERSAL</style>
     <object class="wxBoxSizer">
       <orient>wxVERTICAL</orient>
       <object class="sizeritem">
@@ -20,6 +18,7 @@
           <object class="sizeritem">
             <object class="wxCheckBox" name="reset_fov">
               <label>Field of View</label>
+              <checked>1</checked>
             </object>
             <flag>wxALL|wxEXPAND</flag>
             <border>5</border>
@@ -43,10 +42,7 @@
                 <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
                 <border>0</border>
               </object>
-              <object class="spacer">
-                <size>10</size>
-                <flag>wxEXPAND</flag>
-              </object>
+              
               <object class="sizeritem">
                 <object class="wxComboBox" name="combo_exposure">
                   <content>
@@ -56,8 +52,8 @@
                   <selection>0</selection>
                   <style>wxCB_READONLY</style>
                 </object>
-                <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_HORIZONTAL</flag>
-                <border>0</border>
+                <flag>wxLEFT|wxEXPAND|wxALIGN_CENTRE_HORIZONTAL</flag>
+                <border>10</border>
               </object>
             </object>
             <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
@@ -109,5 +105,7 @@
         <border>5</border>
       </object>
     </object>
+    <title>Reset values</title>
+    <style>wxDEFAULT_DIALOG_STYLE|wxCAPTION|wxTAB_TRAVERSAL</style>
   </object>
 </resource>
