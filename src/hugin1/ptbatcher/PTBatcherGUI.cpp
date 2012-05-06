@@ -207,6 +207,10 @@ bool PTBatcherGUI::OnInit()
         {
             m_frame->Show(true);
         }
+        else
+        {
+            m_frame->SetStatusInformation(_("PTBatcherGUI started"), true);
+        };
         m_server = new BatchIPCServer();
         if (!m_server->Create(servername))
         {
