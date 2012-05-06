@@ -589,6 +589,6 @@
       </object>
     </object>
     <title>Image variables</title>
-    <style>wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER</style>
+    <style>wxDEFAULT_DIALOG_STYLE</style>
   </object>
 </resource>

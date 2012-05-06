@@ -16,7 +16,6 @@
                   <option>1</option>
                   <flag>wxEXPAND</flag>
                 </object>
-                
                 <object class="sizeritem">
                   <object class="wxBoxSizer">
                     <object class="sizeritem">
@@ -51,6 +50,14 @@
                       <border>3</border>
                     </object>
                     <orient>wxVERTICAL</orient>
+                    <object platform="win" class="sizeritem">
+                      <object class="wxStaticBitmap">
+                        <bitmap>data/hugin.png</bitmap>
+                      </object>
+                      <option>1</option>
+                      <flag>wxEXPAND|wxALIGN_CENTRE_HORIZONTAL|wxALIGN_CENTRE_VERTICAL|wxALL</flag>
+                      <border>6</border>
+                    </object>
                   </object>
                   <flag>wxALL|wxEXPAND</flag>
                   <border>6</border>

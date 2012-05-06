@@ -157,12 +157,25 @@ void ImagesPanel::Init(Panorama * panorama)
     m_pano->addObserver(this);
 }
 
+void DeleteClientData(wxChoice* cb)
+{
+    for(size_t i = 0; i < cb->GetCount(); i++)
+    {
+        delete static_cast<int*>(cb->GetClientData(i));
+    };
+};
+
 ImagesPanel::~ImagesPanel()
 {
     DEBUG_TRACE("dtor");
     m_focallength->PopEventHandler(true);
     m_cropfactor->PopEventHandler(true);
     m_pano->removeObserver(this);
+    wxChoice* group=XRCCTRL(*this,"images_group_mode", wxChoice);
+    size_t sel=group->GetSelection();
+    DeleteClientData(group);
+    DeleteClientData(m_optChoice);
+    DeleteClientData(m_optPhotoChoice);
     DEBUG_TRACE("dtor end");
 }
 
@@ -181,7 +194,6 @@ void ImagesPanel::OnSize( wxSizeEvent & e )
     e.Skip();
 }
 
-
 void ImagesPanel::panoramaChanged(PT::Panorama & pano)
 {
     //update optimizer choice selection
@@ -189,7 +201,7 @@ void ImagesPanel::panoramaChanged(PT::Panorama & pano)
     int found=wxNOT_FOUND;
     for(size_t i=0;i<m_optChoice->GetCount();i++)
     {
-        if(optSwitch==(int)m_optChoice->GetClientData(i))
+        if(optSwitch==*static_cast<int*>(m_optChoice->GetClientData(i)))
         {
             found=i;
             break;
@@ -211,7 +223,7 @@ void ImagesPanel::panoramaChanged(PT::Panorama & pano)
     found=wxNOT_FOUND;
     for(size_t i=0;i<m_optPhotoChoice->GetCount();i++)
     {
-        if(optSwitch==(int)m_optPhotoChoice->GetClientData(i))
+        if(optSwitch==*static_cast<int*>(m_optPhotoChoice->GetClientData(i)))
         {
             found=i;
             break;
@@ -386,7 +398,6 @@ void ImagesPanel::ShowImage(unsigned int imgNr)
     UpdatePreviewImage();
 }
 
-
 void ImagesPanel::UpdatePreviewImage()
 {
     if (m_showImgNr < 0 || m_showImgNr >= m_pano->getNrOfImages())
@@ -513,16 +524,27 @@ void ImagesPanel::FillGroupChoice()
 {
     wxChoice* group=XRCCTRL(*this,"images_group_mode", wxChoice);
     size_t sel=group->GetSelection();
+    DeleteClientData(group);
     group->Clear();
-    group->Append(_("None"), (void*)ImagesTreeCtrl::GROUP_NONE);
-    group->Append(_("Lens"), (void*)ImagesTreeCtrl::GROUP_LENS);
+    int* i=new int;
+    *i=ImagesTreeCtrl::GROUP_NONE;
+    group->Append(_("None"), i);
+    i=new int;
+    *i=ImagesTreeCtrl::GROUP_LENS;
+    group->Append(_("Lens"), i);
     if(m_guiLevel>GUI_BEGINNER)
     {
-        group->Append(_("Stacks"), (void*)ImagesTreeCtrl::GROUP_STACK);
+        i=new int;
+        *i=ImagesTreeCtrl::GROUP_STACK;
+        group->Append(_("Stacks"), i);
         if(m_guiLevel==GUI_EXPERT)
         {
-            group->Append(_("Output layers"), (void*)ImagesTreeCtrl::GROUP_OUTPUTLAYERS);
-            group->Append(_("Output stacks"), (void*)ImagesTreeCtrl::GROUP_OUTPUTSTACK);
+            i=new int;
+            *i=ImagesTreeCtrl::GROUP_OUTPUTLAYERS;
+            group->Append(_("Output layers"), i);
+            i=new int;
+            *i=ImagesTreeCtrl::GROUP_OUTPUTSTACK;
+            group->Append(_("Output stacks"), i);
         };
     };
     if((m_guiLevel==GUI_ADVANCED && sel>2) || (m_guiLevel==GUI_BEGINNER && sel>1))
@@ -536,31 +558,65 @@ void ImagesPanel::FillGroupChoice()
 
 void ImagesPanel::FillOptimizerChoice()
 {
+    DeleteClientData(m_optChoice);
     m_optChoice->Clear();
-    m_optChoice->Append(_("Positions (incremental, starting from anchor)"), (void*)HuginBase::OPT_PAIR);
-    m_optChoice->Append(_("Positions (y,p,r)"), (void*)HuginBase::OPT_POSITION);
-    m_optChoice->Append(_("Positions and View (y,p,r,v)"), (void*)(HuginBase::OPT_POSITION | HuginBase::OPT_VIEW));
-    m_optChoice->Append(_("Positions and Barrel Distortion (y,p,r,b)"), (void*)(HuginBase::OPT_POSITION | HuginBase::OPT_BARREL));
-    m_optChoice->Append(_("Positions, View and Barrel (y,p,r,v,b)"), (void*)(HuginBase::OPT_POSITION | HuginBase::OPT_VIEW | HuginBase::OPT_BARREL));
-    m_optChoice->Append(_("Everything without translation"), (void*)HuginBase::OPT_ALL);
+    int* i=new int;
+    *i=HuginBase::OPT_PAIR;
+    m_optChoice->Append(_("Positions (incremental, starting from anchor)"), i);
+    i=new int;
+    *i=HuginBase::OPT_POSITION;
+    m_optChoice->Append(_("Positions (y,p,r)"), i);
+    i=new int;
+    *i=(HuginBase::OPT_POSITION | HuginBase::OPT_VIEW);
+    m_optChoice->Append(_("Positions and View (y,p,r,v)"), i);
+    i=new int;
+    *i=(HuginBase::OPT_POSITION | HuginBase::OPT_BARREL);
+    m_optChoice->Append(_("Positions and Barrel Distortion (y,p,r,b)"), i);
+    i=new int;
+    *i=(HuginBase::OPT_POSITION | HuginBase::OPT_VIEW | HuginBase::OPT_BARREL);
+    m_optChoice->Append(_("Positions, View and Barrel (y,p,r,v,b)"), i);
+    i=new int;
+    *i=HuginBase::OPT_ALL;
+    m_optChoice->Append(_("Everything without translation"), i);
     if(m_guiLevel==GUI_EXPERT)
     {
-        m_optChoice->Append(_("Positions and Translation (y,p,r,x,y,z)"), (void*)(HuginBase::OPT_POSITION | HuginBase::OPT_TRANSLATION));
-        m_optChoice->Append(_("Positions, Translation and View (y,p,r,x,y,z,v)"), (void*)(HuginBase::OPT_POSITION | HuginBase::OPT_TRANSLATION | HuginBase::OPT_VIEW));
-        m_optChoice->Append(_("Positions, Translation and Barrel (y,p,r,x,y,z,b)"), (void*)(HuginBase::OPT_POSITION | HuginBase::OPT_TRANSLATION | HuginBase::OPT_BARREL));
-        m_optChoice->Append(_("Positions, Translation, View and Barrel (y,p,r,x,y,z,v,b)"), (void*)(HuginBase::OPT_POSITION | HuginBase::OPT_TRANSLATION | HuginBase::OPT_VIEW | HuginBase::OPT_BARREL));
+        i=new int;
+        *i=(HuginBase::OPT_POSITION | HuginBase::OPT_TRANSLATION);
+        m_optChoice->Append(_("Positions and Translation (y,p,r,x,y,z)"), i);
+        i=new int;
+        *i=(HuginBase::OPT_POSITION | HuginBase::OPT_TRANSLATION | HuginBase::OPT_VIEW);
+        m_optChoice->Append(_("Positions, Translation and View (y,p,r,x,y,z,v)"), i);
+        i=new int;
+        *i=(HuginBase::OPT_POSITION | HuginBase::OPT_TRANSLATION | HuginBase::OPT_BARREL);
+        m_optChoice->Append(_("Positions, Translation and Barrel (y,p,r,x,y,z,b)"), i);
+        i=new int;
+        *i=(HuginBase::OPT_POSITION | HuginBase::OPT_TRANSLATION | HuginBase::OPT_VIEW | HuginBase::OPT_BARREL);
+        m_optChoice->Append(_("Positions, Translation, View and Barrel (y,p,r,x,y,z,v,b)"), i);
     };
-    m_optChoice->Append(_("Custom parameters"),(void*)0);
+    i=new int;
+    *i=0;
+    m_optChoice->Append(_("Custom parameters"), i);
 
+    DeleteClientData(m_optPhotoChoice);
     m_optPhotoChoice->Clear();
-    m_optPhotoChoice->Append(_("Low dynamic range"), (void*)(HuginBase::OPT_EXPOSURE | HuginBase::OPT_VIGNETTING | HuginBase::OPT_RESPONSE));
-    m_optPhotoChoice->Append(_("Low dynamic range, variable white balance"), (void*)(HuginBase::OPT_EXPOSURE | HuginBase::OPT_VIGNETTING | HuginBase::OPT_RESPONSE | HuginBase::OPT_WHITEBALANCE));
+    i=new int;
+    *i=(HuginBase::OPT_EXPOSURE | HuginBase::OPT_VIGNETTING | HuginBase::OPT_RESPONSE);
+    m_optPhotoChoice->Append(_("Low dynamic range"), i);
+    i=new int;
+    *i=(HuginBase::OPT_EXPOSURE | HuginBase::OPT_VIGNETTING | HuginBase::OPT_RESPONSE | HuginBase::OPT_WHITEBALANCE);
+    m_optPhotoChoice->Append(_("Low dynamic range, variable white balance"), i);
     if(m_guiLevel>GUI_BEGINNER)
     {
-        m_optPhotoChoice->Append(_("High dynamic range, fixed exposure"), (void*)(HuginBase::OPT_VIGNETTING | HuginBase::OPT_RESPONSE));
-        m_optPhotoChoice->Append(_("High dynamic range, variable white balance, fixed exposure"), (void*)(HuginBase::OPT_WHITEBALANCE | HuginBase::OPT_VIGNETTING | HuginBase::OPT_RESPONSE));
+        i=new int;
+        *i=(HuginBase::OPT_VIGNETTING | HuginBase::OPT_RESPONSE);
+        m_optPhotoChoice->Append(_("High dynamic range, fixed exposure"), i);
+        i=new int;
+        *i=(HuginBase::OPT_WHITEBALANCE | HuginBase::OPT_VIGNETTING | HuginBase::OPT_RESPONSE);
+        m_optPhotoChoice->Append(_("High dynamic range, variable white balance, fixed exposure"), i);
     };
-    m_optPhotoChoice->Append(_("Custom parameters"),(void*)0);
+    i=new int;
+    *i=0;
+    m_optPhotoChoice->Append(_("Custom parameters"), i);
     m_optChoice->GetParent()->Layout();
     Refresh();
 };
@@ -568,7 +624,7 @@ void ImagesPanel::FillOptimizerChoice()
 void ImagesPanel::OnGroupModeChanged(wxCommandEvent & e)
 {
     wxChoice* group=XRCCTRL(*this,"images_group_mode", wxChoice);
-    m_images_tree->SetGroupMode(ImagesTreeCtrl::GroupMode((int)group->GetClientData(group->GetSelection())));
+    m_images_tree->SetGroupMode(ImagesTreeCtrl::GroupMode(*static_cast<int*>(group->GetClientData(group->GetSelection()))));
 };
 
 void ImagesPanel::OnDisplayModeChanged(wxCommandEvent & e)
@@ -579,7 +635,7 @@ void ImagesPanel::OnDisplayModeChanged(wxCommandEvent & e)
 
 void ImagesPanel::OnOptimizerSwitchChanged(wxCommandEvent &e)
 {
-    int optSwitch=(int)m_optChoice->GetClientData(m_optChoice->GetSelection());
+    int optSwitch=*static_cast<int*>(m_optChoice->GetClientData(m_optChoice->GetSelection()));
     if(optSwitch!=m_pano->getOptimizerSwitch())
     {
         GlobalCmdHist::getInstance().addCommand(
@@ -590,7 +646,7 @@ void ImagesPanel::OnOptimizerSwitchChanged(wxCommandEvent &e)
 
 void ImagesPanel::OnPhotometricOptimizerSwitchChanged(wxCommandEvent &e)
 {
-    int optSwitch=(int)m_optPhotoChoice->GetClientData(m_optPhotoChoice->GetSelection());
+    int optSwitch=*static_cast<int*>(m_optPhotoChoice->GetClientData(m_optPhotoChoice->GetSelection()));
     if(optSwitch!=m_pano->getPhotometricOptimizerSwitch())
     {
         GlobalCmdHist::getInstance().addCommand(

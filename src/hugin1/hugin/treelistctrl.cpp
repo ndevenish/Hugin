@@ -56,6 +56,7 @@
 
 #include <wx/log.h>  // only required for debugging purpose
 #include <wx/msgdlg.h>  // only required for debugging purpose
+#include <algorithm>
 
 // ---------------------------------------------------------------------------
 // array types
@@ -947,7 +948,7 @@ public:
     bool IsSelected()  const        { return m_hasHilight != 0; }
     bool IsExpanded()  const        { return !m_isCollapsed; }
     bool HasPlus()     const        { return m_hasPlus || HasChildren(); }
-    bool IsBold()      const        { return m_props_row.m_isBold==1; }
+    bool IsBold()      const        { return m_props_row.m_isBold; }
     bool IsBold(int column) const
     {
         wxTreeListItemCellAttrHash::const_iterator entry = m_props_cell.find( column );

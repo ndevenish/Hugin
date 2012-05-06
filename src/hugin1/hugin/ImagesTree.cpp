@@ -1644,7 +1644,7 @@ void ImagesTreeCtrl::OnEndEdit(wxTreeEvent &e)
                 };
                 UIntSet imgs;
                 imgs.insert(data->GetImgNr());
-                Variable var(m_columnVector[e.GetInt()].c_str(), val);
+                Variable var(m_columnVector[e.GetInt()], val);
                 GlobalCmdHist::getInstance().addCommand(
                     new PT::SetVariableCmd(*m_pano, imgs, var)
                 );
