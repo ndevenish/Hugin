@@ -135,6 +135,8 @@ protected:
     void OnExecuteOperation(wxCommandEvent & e);
     /** event handler to display context menu */
     void OnContextMenu(wxTreeEvent & e);
+    /** event handler for context menu on header */
+    void OnHeaderContextMenu(wxListEvent & e);
 
 private:
     /** creates all columns and stores information in m_columnMap, m_columnVector, m_editableColumns and m_variableVector */

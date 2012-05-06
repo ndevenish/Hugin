@@ -59,6 +59,7 @@ enum
 BEGIN_EVENT_TABLE(ImagesTreeCtrl, wxTreeListCtrl)
     EVT_LIST_COL_END_DRAG(-1, ImagesTreeCtrl::OnColumnWidthChange)
     EVT_TREE_ITEM_MENU(-1, ImagesTreeCtrl::OnContextMenu)
+    EVT_LIST_COL_RIGHT_CLICK(-1, ImagesTreeCtrl::OnHeaderContextMenu)
     EVT_MENU(ID_LINK, ImagesTreeCtrl::OnLinkImageVariables)
     EVT_MENU(ID_UNLINK, ImagesTreeCtrl::OnUnlinkImageVariables)
     EVT_MENU(ID_EDIT, ImagesTreeCtrl::OnEditImageVariables)
@@ -1101,7 +1102,7 @@ void ImagesTreeCtrl::OnContextMenu(wxTreeEvent & e)
         {
             menu.AppendSeparator();
         };
-        menu.Append(ID_EDIT, _("Edit"));
+        menu.Append(ID_EDIT, _("Edit image variables..."));
         if(m_variable_groups->getLenses().getNumberOfParts()<m_pano->getNrOfImages())
         {
             menu.Append(ID_NEW_LENS,_("New lens"));
@@ -1178,6 +1179,19 @@ void ImagesTreeCtrl::GenerateSubMenu(wxMenu* menu, PanoOperation::PanoOperationV
             id++;
         }
     };
+};
+
+void ImagesTreeCtrl::OnHeaderContextMenu(wxListEvent & e)
+{
+    m_selectedColumn=e.GetColumn();
+    wxMenu menu;
+    if(m_optimizerMode && set_contains(m_editableColumns, m_selectedColumn))
+    {
+        menu.Append(ID_SELECT_ALL, _("Select all"));
+        menu.Append(ID_UNSELECT_ALL, _("Unselect all"));
+        PopupMenu(&menu);
+    };
+    e.Skip();
 };
 
 void ImagesTreeCtrl::UnLinkImageVariables(bool linked)
