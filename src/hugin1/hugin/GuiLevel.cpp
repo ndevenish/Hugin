@@ -28,34 +28,38 @@
 
 GuiLevel GetMinimumGuiLevel(HuginBase::PanoramaData& pano)
 {
-    for(size_t i=0;i<pano.getNrOfImages()-1;i++)
+    if(pano.getNrOfImages()>0)
     {
-        const HuginBase::SrcPanoImage& img=pano.getImage(i);
-        if(img.getX()!=0 || img.getY()!=0 || img.getZ()!=0 || img.getShear().squareLength()>0)
+        for(size_t i=0;i<pano.getNrOfImages()-1;i++)
         {
-            return GUI_EXPERT;
-        };
-    }
-    HuginBase::StandardImageVariableGroups variable_group(pano);
-    if(variable_group.getStacks().getNumberOfParts()<pano.getNrOfImages())
-    {
-        return GUI_ADVANCED;
-    };
-    for(size_t i=0;i<pano.getNrOfImages()-1;i++)
-    {
-        const HuginBase::SrcPanoImage& img=pano.getImage(i);
-        if(img.getRadialDistortionCenterShift().squareLength()>0 || img.getRadialVigCorrCenterShift().squareLength()>0)
+            const HuginBase::SrcPanoImage& img=pano.getImage(i);
+            if(img.getX()!=0 || img.getY()!=0 || img.getZ()!=0 || img.getShear().squareLength()>0)
+            {
+                return GUI_EXPERT;
+            };
+        }
+        HuginBase::StandardImageVariableGroups variable_group(pano);
+        if(variable_group.getStacks().getNumberOfParts()<pano.getNrOfImages())
         {
             return GUI_ADVANCED;
         };
-        HuginBase::MaskPolygonVector masks=img.getMasks();
-        for(size_t j=0; j<masks.size(); j++)
+        for(size_t i=0;i<pano.getNrOfImages()-1;i++)
         {
-            if(masks[j].getMaskType()==HuginBase::MaskPolygon::Mask_Stack_negative ||
-                masks[j].getMaskType()==HuginBase::MaskPolygon::Mask_Stack_positive)
+            const HuginBase::SrcPanoImage& img=pano.getImage(i);
+            if(img.getRadialDistortionCenterShift().squareLength()>0 || img.getRadialVigCorrCenterShift().squareLength()>0)
             {
                 return GUI_ADVANCED;
             };
+            HuginBase::MaskPolygonVector masks=img.getMasks();
+            for(size_t j=0; j<masks.size(); j++)
+            {
+                if(masks[j].getMaskType()==HuginBase::MaskPolygon::Mask_Stack_negative ||
+                    masks[j].getMaskType()==HuginBase::MaskPolygon::Mask_Stack_positive)
+                {
+                    return GUI_ADVANCED;
+                };
+            };
         };
     };
+    return GUI_BEGINNER;
 };
