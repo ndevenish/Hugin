@@ -10,7 +10,7 @@ Arguments=--multirow -o %o %s
 
 [AutoPano/AutoPano_1]
 Type=1
-Description=cpfind + celeste (slower but more accurate, no cps on clouds)
+Description=cpfind + celeste (slower, but no cps on clouds)
 Program=cpfind
 Arguments=--celeste -o %o %s
 
