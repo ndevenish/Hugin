@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: da\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
 "POT-Creation-Date: 2011-10-21 22:38+0200\n"
-"PO-Revision-Date: 2011-11-05 20:43+0100\n"
+"PO-Revision-Date: 2012-05-08 10:33+0100\n"
 "Last-Translator: Thomas Pryds <thomas@pryds.eu>\n"
 "Language-Team: danish <da@li.org>\n"
 "Language: \n"
@@ -135,12 +135,12 @@ msgstr "Panoramisk (cylindrisk)"
 #: hugin1/base_wx/LensTools.cpp:39
 #: hugin1/hugin/ImagesList.cpp:575
 msgid "Circular fisheye"
-msgstr "Cirkulær fisheye"
+msgstr "Cirkulært fiskeøje"
 
 #: hugin1/base_wx/LensTools.cpp:40
 #: hugin1/hugin/ImagesList.cpp:576
 msgid "Full frame fisheye"
-msgstr "Full frame fisheye"
+msgstr "Full-frame fiskeøje"
 
 #: hugin1/base_wx/LensTools.cpp:41
 #: hugin1/hugin/GLPreviewFrame.cpp:1288
@@ -170,7 +170,7 @@ msgstr "Ækvisolid"
 #: hugin1/base_wx/LensTools.cpp:45
 #: hugin1/hugin/ImagesList.cpp:581
 msgid "Fisheye Thoby"
-msgstr "Fisheye Thoby"
+msgstr "Fiskeøje-Thoby"
 
 #: hugin1/base_wx/LensTools.cpp:219
 msgid "Load lens parameters"
@@ -567,7 +567,7 @@ msgstr "%d uforbundne billedgrupper fundet:"
 
 #: hugin1/hugin/AssistantPanel.cpp:304
 msgid "Please use the Control Points tab to connect all images with control points.\n"
-msgstr "Brug venligst Kontrolpunkter-tab'en for at forbinde alle billeder med kontrolpunkter.\n"
+msgstr "Brug venligst Kontrolpunkter-fanebladet for at forbinde alle billeder med kontrolpunkter.\n"
 
 #: hugin1/hugin/AssistantPanel.cpp:307
 msgid "Images or control points have changed, new alignment is needed."
@@ -596,7 +596,7 @@ msgstr "Middelværdi for fejl efter optimering: %.1f pixel, max: %.1f\n"
 
 #: hugin1/hugin/AssistantPanel.cpp:334
 msgid "Note: automatic alignment uses default settings from the preferences. If you customize settings for this project in the advanced tabs and want to use these customized settings, run the CP detection from the Images Tab, the geometrical optimization from the Optimizer tab and the photometric optimization from the Exposure tab."
-msgstr "Bemærk: automatisk justering bruger standardindstillingerne fra Indstillinger. Hvis du selv tilpasser indstillingerne for dette projekt i de avancerede tab'er og vil bruge disse tilpassede indstillinger, kør da CP-lokalisering fra Billeder-tab'en, den geometriske optimering fra Optimering-tab'en samt den fotometriske optimering fra Eksponering-tab'en."
+msgstr "Bemærk: automatisk justering bruger standardindstillingerne fra Indstillinger. Hvis du selv tilpasser indstillingerne for dette projekt i de avancerede faneblade og vil bruge disse tilpassede indstillinger, kør da CP-lokalisering fra Billeder-fanebladet, den geometriske optimering fra Optimering-fanebladet samt den fotometriske optimering fra Eksponering-fanebladet."
 
 #: hugin1/hugin/AssistantPanel.cpp:365
 msgid ""
@@ -621,7 +621,7 @@ msgid ""
 "\n"
 "After adding the points, press the \"Align\" button again"
 msgstr ""
-"Opret venligst kontrolpunkter mellem uforbundne billeder ved hjælp af Kontrolpunkter-tab'en.\n"
+"Opret venligst kontrolpunkter mellem uforbundne billeder ved hjælp af Kontrolpunkter-fanebladet.\n"
 "\n"
 "Efter at have tilføjet punkterne, klik på \"Justér\"-knappen igen"
 
@@ -1278,8 +1278,8 @@ msgid ""
 "Stereographic projection is conformal, unlike this Fisheye panorama projection.\n"
 "A conformal projection preserves angles around a point, which often makes it easier on the eye."
 msgstr ""
-"Stereografisk projektion er conformal, modsat denne fisheye-panorama-projektion.\n"
-"En conformal projektion bevarer vinkler omkring et punkt, hvilket ofte gør det pænere at kigge på."
+"Stereografisk projektion er konform, modsat denne fiskeøje-projektion.\n"
+"En konform projektion bevarer vinkler omkring et punkt, hvilket ofte gør det pænere at kigge på."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:2660
 msgid ""
@@ -1287,7 +1287,7 @@ msgid ""
 "The Fisheye panorama projection compresses it, so you can fit in a wide field of view and still have a reasonable coverage of the middle."
 msgstr ""
 "Panoramaer med stereografisk projektion og et meget bredt synsfelt strækker billedet meget henimod kanterne.\n"
-"Fisheye-panorama-projektion trykker det mere sammen, så du kan få et bredt synsfelt men stadig have en fornuftig dækning af midten."
+"Fiskeøje-panorama-projektion trykker det mere sammen, så du kan få et bredt synsfelt men stadig have en fornuftig dækning af midten."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:2667
 msgid "Setting the panorama to rectilinear projection would keep the straight lines straight."
@@ -2012,7 +2012,7 @@ msgstr "Fotometrisk optimering udført"
 
 #: hugin1/hugin/PanoPanel.cpp:146
 msgid "Fisheye"
-msgstr "Fisheye"
+msgstr "Fiskeøje"
 
 #: hugin1/hugin/PanoPanel.cpp:148
 msgid "Mercator"
@@ -2144,7 +2144,7 @@ msgid ""
 "If this is too big, reduce the panorama Canvas Size and the cropped region and stitch from the Stitcher tab. Stitching a panorama this size could take a long time and a large amount of memory."
 msgstr ""
 "Panoramaet, du prøver at sammenføje, er %.1f gigapixels stort.\n"
-"Hvis dette er for stort, kan du reducere panoramaets lærredstørrelse og beskæring, og sammenføj fra Sammenføjning-tab'en. Sammenføjning af et panorama af denne størrelse kan tage lang tid og bruge meget hukommelse."
+"Hvis dette er for stort, kan du reducere panoramaets lærredstørrelse og beskæring, og sammenføj fra Sammenføjning-fanebladet. Sammenføjning af et panorama af denne størrelse kan tage lang tid og bruge meget hukommelse."
 
 #: hugin1/hugin/PanoPanel.cpp:1404
 msgid "Stitch anyway"
@@ -2165,7 +2165,7 @@ msgstr ""
 "Er du sikker på, at du vil sammenføje så stort et panorama?\n"
 "\n"
 "Panoramaet, du prøver at sammenføje, er %.1f gigapixels stort.\n"
-"Hvis dette er for stort, kan du reducere panoramaets lærredstørrelse og beskæring, og sammenføj fra Sammenføjning-tab'en. Sammenføjning af et panorama af denne størrelse kan tage lang tid og bruge meget hukommelse."
+"Hvis dette er for stort, kan du reducere panoramaets lærredstørrelse og beskæring, og sammenføj fra Sammenføjning-fanebladet. Sammenføjning af et panorama af denne størrelse kan tage lang tid og bruge meget hukommelse."
 
 #: hugin1/hugin/PluginItems.cpp:71
 msgid "Miscellaneous"
@@ -5500,7 +5500,7 @@ msgstr "Brug kun kontrolpunkter mellem billeder, der er valgt i preview-vinduet.
 #: translations/xrc.cpp:513
 #: xrc.cpp:513
 msgid "Only use control points between images selected in preview window. Useful to avoid errors due to badly fitting images, such as the nadir image in most fisheye panoramas"
-msgstr "Brug kun kontrolpunkter mellem billeder, der er valgt i preview-vinduet. Nyttig for at undgå fejl på grund af billeder, der passer dårligt sammen, så som nadir-billeder i de fleste fisheye-panoramaer"
+msgstr "Brug kun kontrolpunkter mellem billeder, der er valgt i preview-vinduet. Nyttig for at undgå fejl på grund af billeder, der passer dårligt sammen, så som nadir-billeder i de fleste fiskeøje-panoramaer"
 
 #: translations/xrc.cpp:514
 #: translations/xrc.cpp:998
@@ -5577,12 +5577,12 @@ msgstr "Low dynamic range, variabel hvidbalance"
 #: translations/xrc.cpp:534
 #: xrc.cpp:534
 msgid "High dynamic range, fixed exposure"
-msgstr "High dynamic range, eksponeringskorrektion"
+msgstr "High Dynamic Range, eksponeringskorrektion"
 
 #: translations/xrc.cpp:535
 #: xrc.cpp:535
 msgid "High dynamic range, variable white balance, fixed exposure"
-msgstr "High dynamic range, variabel hvidbalance, eksponeringskorrektion"
+msgstr "High Dynamic Range, variabel hvidbalance, eksponeringskorrektion"
 
 #: translations/xrc.cpp:536
 #: xrc.cpp:536
@@ -5597,7 +5597,7 @@ msgstr "Brug kun billeder valgt i preview."
 #: translations/xrc.cpp:541
 #: xrc.cpp:541
 msgid "Only consider images selected in preview window. Useful to avoid errors due to badly fitting images, such as the nadir image in most fisheye panoramas"
-msgstr "Overvej kun billeder, der er valgt i preview-vinduet. Nyttig til at undgå fejl opstået på grund af dårligt passende billeder, såsom nadir-billedet i de fleste fisheye-panoramaer."
+msgstr "Overvej kun billeder, der er valgt i preview-vinduet. Nyttig til at undgå fejl opstået på grund af dårligt passende billeder, såsom nadir-billedet i de fleste fiskeøje-panoramaer."
 
 #: translations/xrc.cpp:542
 #: xrc.cpp:542
@@ -5829,7 +5829,7 @@ msgstr "Eksponeringskorrektion, low dynamic range"
 #: translations/xrc.cpp:594
 #: xrc.cpp:594
 msgid "Blend all images into a seamless panorama, using exposure set in the Exposure tab"
-msgstr "Sammenføj alle billeder til et sømløs panorama ved at bruge eksponeringen, der er angivet i eksponerings-tab'en"
+msgstr "Sammenføj alle billeder til et sømløs panorama ved at bruge eksponeringen, der er angivet i Eksponering-fanebladet"
 
 #: translations/xrc.cpp:595
 #: xrc.cpp:595
@@ -5903,12 +5903,12 @@ msgstr "Kombinerede stakke:"
 #: translations/xrc.cpp:615
 #: xrc.cpp:615
 msgid "High dynamic range merged stacks"
-msgstr "High dynamic range kombinerede stakke"
+msgstr "Kombinerede stakke med High Dynamic Range"
 
 #: translations/xrc.cpp:616
 #: xrc.cpp:616
 msgid "Output remapped, high dynamic range merged stacks from highly overlapping images"
-msgstr "Output remappede, high dynamic range kombinerede stakke udfra kraftigt overlappende billeder"
+msgstr "Output remappede, High Dynamic Range kombinerede stakke udfra kraftigt overlappende billeder"
 
 #: translations/xrc.cpp:617
 #: xrc.cpp:617
@@ -6614,7 +6614,7 @@ msgid ""
 "Do not set -w, -o and --compression arguments, they are set by hugin"
 msgstr ""
 "Dette er standardargumenterne for nye projekter.\n"
-"De kan ændres for hvert individuelt projekt i Sammenføjning-tab'en.\n"
+"De kan ændres for hvert individuelt projekt i Sammenføjning-fanebladet.\n"
 "Sæt ikke -w, -o og --compression-argumenterne. De styres af Hugin."
 
 #: translations/xrc.cpp:790
@@ -6941,7 +6941,7 @@ msgid ""
 msgstr ""
 "* En grå linie indikerer, at der ikke er nogen kontrolpunkter, men billedparret overlapper.\n"
 "* Grønne, gule og røde linier indikerer gode, medium og dårlige justeringer.\n"
-"* Klik på en linie for at redigere de tilhørende billeder i Kontrolpunkter-tab'en."
+"* Klik på en linie for at redigere de tilhørende billeder i Kontrolpunkter-fanebladet."
 
 #: translations/xrc.cpp:868
 #: translations/xrc.cpp:941
@@ -7192,7 +7192,7 @@ msgstr "Kamerarespons"
 
 #: hugin1/hugin/xrc/data/tips.txt:3
 msgid "Welcome to Hugin. To create a panorama, just follow the sequence shown in the assistant tab."
-msgstr "Velkommen til Hugin. For at lave et panorama, kan du blot følge anvisningerne i assistent-tab'en."
+msgstr "Velkommen til Hugin. For at lave et panorama, kan du blot følge anvisningerne i assistent-fanebladet."
 
 #: hugin1/hugin/xrc/data/tips.txt:4
 msgid "If the horizon of a panorama is wavy, use the straighten function in the preview window to straighten it"
@@ -7212,15 +7212,15 @@ msgstr "Hugin understøtter en antal tredjeparts-kontrolpunkt-detektorer, inklus
 
 #: hugin1/hugin/xrc/data/tips.txt:8
 msgid "Sometimes the control point detector can not find connections between all images. In this case, control points have to be created manually, using the control points tab."
-msgstr "Nogle gange kan kontrolpunkt-detektoren ikke finde forbindelser mellem alle billeder. I sådanne tilfælde er man nødt til at oprette kontrolpunkter manuelt ved at bruge Kontrolpunkter-tab'en."
+msgstr "Nogle gange kan kontrolpunkt-detektoren ikke finde forbindelser mellem alle billeder. I sådanne tilfælde er man nødt til at oprette kontrolpunkter manuelt ved at bruge Kontrolpunkter-fanebladet."
 
 #: hugin1/hugin/xrc/data/tips.txt:9
 msgid "To scroll both the images in the control points tab, hold the shift key while moving the mouse."
-msgstr "For at bruge scroll-funktionen på begge billeder i Kontrolpunkter-tab'en kan du holde Shift-tasten nede, mens du flytter musen."
+msgstr "For at bruge scroll-funktionen på begge billeder i Kontrolpunkter-fanebladet kan du holde Shift-tasten nede, mens du flytter musen."
 
 #: hugin1/hugin/xrc/data/tips.txt:10
 msgid "The control key or the middle mouse button can be used to pan one image in the control points tab."
-msgstr "Ctrl-tasten eller den midterste museknap kan bruges til at panorere et billede i Kontrolpunkter-tab'en."
+msgstr "Ctrl-tasten eller den midterste museknap kan bruges til at panorere et billede i Kontrolpunkter-fanebladet."
 
 #: hugin1/hugin/xrc/data/tips.txt:11
 msgid "Rotating the camera around the entrance pupil (sometimes also called \"nodal point\") avoids parallax errors and makes panorama creation a lot easier."
@@ -7236,7 +7236,7 @@ msgstr "Hvis panoramaet ser fint ud, men horisonten er bølget, kan du tilføje 
 
 #: hugin1/hugin/xrc/data/tips.txt:14
 msgid "Horizontal or vertical control point pairs can be set by selecting the same image on both sides of the control points tab."
-msgstr "Vandrette eller lodrette kontrolpunkt-par kan oprettes ved at vælge det samme billede på begge sider af Kontrolpunkter-tab'en."
+msgstr "Vandrette eller lodrette kontrolpunkt-par kan oprettes ved at vælge det samme billede på begge sider af Kontrolpunkter-fanebladet."
 
 #: hugin1/hugin/xrc/data/tips.txt:15
 msgid "Control points should be placed on static objects. Avoid placing them people, trees and other moving or deforming objects."
@@ -7276,7 +7276,7 @@ msgstr "Output-TIFF-filen med flere lag kan læses af The Gimp 2.0 eller nyere."
 
 #: hugin1/hugin/xrc/data/tips.txt:24
 msgid "You can press the middle mouse button to pan images in the Control Points tab."
-msgstr "Du kan holde midterstet museknap nede for at panorere billederne i Kontrolpunkter-tab'en."
+msgstr "Du kan holde midterste museknap nede for at panorere billederne i Kontrolpunkter-fanebladet."
 
 #: hugin1/hugin/xrc/data/tips.txt:25
 msgid "The \"f\" key is the shortcut for Fine Tune button."
@@ -7288,11 +7288,11 @@ msgstr "Ved at trykke på \"Delete\"-tasten på tastaturet fjernes det valgte ko
 
 #: hugin1/hugin/xrc/data/tips.txt:27
 msgid "Press \"0\" in the control points tab to zoom out to full view."
-msgstr "Tryk \"0\" i Kontrolpunkter-tab'en for at zoome ud til fuld visning."
+msgstr "Tryk \"0\" i Kontrolpunkter-fanebladet for at zoome ud til fuld visning."
 
 #: hugin1/hugin/xrc/data/tips.txt:28
 msgid "Press \"1\" in the control points tab to zoom out to 100% view."
-msgstr "Tryk \"1\" i Kontrolpunkter-tab'en for at zoome ud til 100%-visning."
+msgstr "Tryk \"1\" i Kontrolpunkter-fanebladet for at zoome ud til 100%-visning."
 
 #: hugin1/hugin/xrc/data/tips.txt:29
 msgid "After enblend has blended the panorama, the remapped output images (available in the same directory as the panorama image) can be used to retouch the panorama in The Gimp or Photoshop."
@@ -7308,11 +7308,11 @@ msgstr "The Panorama Tools, som Hugin er baseret på, blev oprindeligt skrevet a
 
 #: hugin1/hugin/xrc/data/tips.txt:32
 msgid "The precision of \"fine tuning\" control points can be improved by enabling rotation search. This is essential for fisheye and wide angle images."
-msgstr "Præcisionen af \"finjustering\" af kontrolpunkter kan forbedres ved at slå rotationssøgning til. Dette er essentielt for fisheye- og bredvinkelbilleder."
+msgstr "Præcisionen af \"finjustering\" af kontrolpunkter kan forbedres ved at slå rotationssøgning til. Dette er essentielt for fiskeøje- og vidvinkelbilleder."
 
 #: hugin1/hugin/xrc/data/tips.txt:33
 msgid "Multiple images can be selected in the image and lens tabs. Commands will act on all selected images."
-msgstr "Flere end ét billede kan vælges ad gangen i Billede- og Objektiv-tab'erne. Kommandoer vil reagere på alle valgte billeder."
+msgstr "Flere end ét billede kan vælges ad gangen i Billeder- og Objektiv-fanebladene. Kommandoer vil reagere på alle valgte billeder."
 
 #: hugin1/hugin/xrc/data/tips.txt:34
 msgid "Lens parameters may vary with changing focus. For best results, calibrate the parameters using know settings and reuse them later."
