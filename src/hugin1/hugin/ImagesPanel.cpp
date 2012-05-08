@@ -665,13 +665,13 @@ void ImagesPanel::SetGuiLevel(GuiLevel newGuiLevel)
     switch(m_guiLevel)
     {
         case GUI_BEGINNER:
-            textlabel->SetLabel(_("Mode: Beginner"));
+            textlabel->SetLabel(_("Gui Mode: Beginner"));
             break;
         case GUI_ADVANCED:
-            textlabel->SetLabel(_("Mode: Advanced"));
+            textlabel->SetLabel(_("Gui Mode: Advanced"));
             break;
         case GUI_EXPERT:
-            textlabel->SetLabel(_("Mode: Expert"));
+            textlabel->SetLabel(_("Gui Mode: Expert"));
             break;
     };
     textlabel->GetParent()->Layout();
