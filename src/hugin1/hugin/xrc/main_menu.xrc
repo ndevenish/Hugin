@@ -46,6 +46,10 @@
         <help>Assign the settings of a previously saved project to the current images.</help>
       </object>
       <object class="separator"/>
+      <object class="wxMenuItem" name="action_show_prefs">
+        <label>&amp;Preferences</label>
+      </object>
+      <object class="separator"/>
       <object class="wxMenuItem" name="action_exit_hugin">
         <label>&amp;Quit</label>
         <accel>Ctrl-q</accel>
@@ -121,7 +125,6 @@
         <accel>Shift-F2</accel>
         <help>Show the Images panel</help>
       </object>
-      
       <object class="wxMenuItem" name="ID_SHOW_PANEL_CROP">
         <label>Crop</label>
         <accel>Shift-F4</accel>
@@ -153,11 +156,7 @@
         <help>Show the Stitcher panel</help>
       </object>
     </object>
-    <object class="wxMenu" name="pref_menu">
-      <object class="wxMenuItem" name="action_show_prefs">
-        <label>&amp;Preferences</label>
-      </object>
-      <object class="separator"/>
+    <object class="wxMenu" name="gui_level_menu">
       <object class="wxMenuItem" name="action_gui_beginner">
         <label>Beginner</label>
         <radio>1</radio>
@@ -171,7 +170,7 @@
         <label>Expert</label>
         <radio>1</radio>
       </object>
-      <label>Settings</label>
+      <label>GUI mode</label>
     </object>
     <object class="wxMenu" name="help_menu">
       <label>&amp;Help</label>
