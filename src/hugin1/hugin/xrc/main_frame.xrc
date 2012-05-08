@@ -23,7 +23,7 @@
               <object class="AssistantPanel" name="assistant_panel_unknown"/>
             </object>
             <object class="notebookpage">
-              <label>Images</label>
+              <label>Photos</label>
               <object class="ImagesPanel" name="images_panel_unknown"/>
             </object>
             

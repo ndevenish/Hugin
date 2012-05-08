@@ -63,7 +63,7 @@ BEGIN_EVENT_TABLE(ImagesPanel, wxPanel)
     EVT_TREE_SEL_CHANGED(XRCID("images_tree_ctrl"), ImagesPanel::OnSelectionChanged )
     EVT_CHOICE     ( XRCID("images_lens_type"), ImagesPanel::OnLensTypeChanged)
     EVT_CHOICE     ( XRCID("images_group_mode"), ImagesPanel::OnGroupModeChanged)
-    EVT_CHOICE     ( XRCID("images_column_choice"), ImagesPanel::OnDisplayModeChanged)
+    EVT_RADIOBOX   ( XRCID("images_column_radiobox"), ImagesPanel::OnDisplayModeChanged)
     EVT_CHOICE     ( XRCID("images_optimize_mode"), ImagesPanel::OnOptimizerSwitchChanged)
     EVT_CHOICE     ( XRCID("images_photo_optimize_mode"), ImagesPanel::OnPhotometricOptimizerSwitchChanged)
     EVT_TEXT_ENTER ( XRCID("images_focal_length"), ImagesPanel::OnFocalLengthChanged)
@@ -629,7 +629,7 @@ void ImagesPanel::OnGroupModeChanged(wxCommandEvent & e)
 
 void ImagesPanel::OnDisplayModeChanged(wxCommandEvent & e)
 {
-    wxChoice* display=XRCCTRL(*this,"images_column_choice", wxChoice);
+    wxRadioBox* display=XRCCTRL(*this,"images_column_radiobox", wxRadioBox);
     m_images_tree->SetDisplayMode((ImagesTreeCtrl::DisplayMode)display->GetSelection());
 };
 
@@ -661,6 +661,21 @@ void ImagesPanel::SetGuiLevel(GuiLevel newGuiLevel)
     m_images_tree->SetGuiLevel(newGuiLevel);
     FillGroupChoice();
     FillOptimizerChoice();
+    wxStaticText* textlabel=XRCCTRL(*this, "images_mode_text", wxStaticText);
+    switch(m_guiLevel)
+    {
+        case GUI_BEGINNER:
+            textlabel->SetLabel(_("Mode: Beginner"));
+            break;
+        case GUI_ADVANCED:
+            textlabel->SetLabel(_("Mode: Advanced"));
+            break;
+        case GUI_EXPERT:
+            textlabel->SetLabel(_("Mode: Expert"));
+            break;
+    };
+    textlabel->GetParent()->Layout();
+    textlabel->Refresh();
     panoramaChanged(*m_pano);
 };
 

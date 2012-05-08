@@ -19,6 +19,13 @@
                 <object class="sizeritem">
                   <object class="wxBoxSizer">
                     <object class="sizeritem">
+                      <object class="wxStaticText" name="images_mode_text">
+                        <style>wxALIGN_CENTRE</style>
+                      </object>
+                      <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_HORIZONTAL</flag>
+                      <border>3</border>
+                    </object>
+                    <object class="sizeritem">
                       <object class="wxStaticText">
                         <label>Group by:</label>
                       </object>
@@ -28,15 +35,10 @@
                       <flag>wxEXPAND|wxALL</flag>
                       <border>3</border>
                     </object>
+                    
                     <object class="sizeritem">
-                      <object class="wxStaticText">
-                        <label>Display:</label>
-                      </object>
-                      <flag>wxTOP</flag>
-                      <border>6</border>
-                    </object>
-                    <object class="sizeritem">
-                      <object class="wxChoice" name="images_column_choice">
+                      <object class="wxRadioBox" name="images_column_radiobox">
+                        <label>Display</label>
                         <content>
                           <item>General</item>
                           <item>EXIF data</item>
@@ -45,12 +47,13 @@
                           <item>Photometric parameters</item>
                         </content>
                         <selection>0</selection>
+                        <style>wxRA_SPECIFY_COLS</style>
                       </object>
                       <flag>wxEXPAND|wxALL</flag>
                       <border>3</border>
                     </object>
                     <orient>wxVERTICAL</orient>
-                    <object platform="win" class="sizeritem">
+                    <object class="sizeritem" platform="win">
                       <object class="wxStaticBitmap">
                         <bitmap>data/hugin.png</bitmap>
                       </object>
