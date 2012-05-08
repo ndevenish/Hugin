@@ -91,7 +91,7 @@ bool PTBatcherGUI::OnInit()
             wxMessageBox(_("Translations not found in bundle"), _("Fatal Error"));
             return false;
         }
-        wxString thePath = MacGetPathToBundledResourceFile(CFSTR("lensfun"));
+        thePath = MacGetPathToBundledResourceFile(CFSTR("lensfun"));
         if (thePath == wxT("")) {
             wxMessageBox(_("lensfun directory not found in bundle"),
                             _("Fatal Error"));
