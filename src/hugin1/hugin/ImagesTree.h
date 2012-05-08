@@ -188,6 +188,8 @@ private:
     double m_editVal;
     /** wxString, as shown before editing started */
     wxString m_editOldString;
+    /** helper variable for update of output stacks/layers */
+    bool m_needsUpdate;
 
     /** pointer to root item, not shown */
     wxTreeItemId m_root;

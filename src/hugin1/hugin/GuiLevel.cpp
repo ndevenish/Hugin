@@ -46,7 +46,7 @@ GuiLevel GetMinimumGuiLevel(HuginBase::PanoramaData& pano)
         for(size_t i=0;i<pano.getNrOfImages();i++)
         {
             const HuginBase::SrcPanoImage& img=pano.getImage(i);
-            if(img.getRadialDistortionCenterShift().squareLength()>0 || img.getRadialVigCorrCenterShift().squareLength()>0)
+            if(img.getRadialVigCorrCenterShift().squareLength()>0)
             {
                 return GUI_ADVANCED;
             };

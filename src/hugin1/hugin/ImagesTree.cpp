@@ -100,6 +100,7 @@ ImagesTreeCtrl::ImagesTreeCtrl()
     m_dragging=false;
     m_displayMode=DISPLAY_GENERAL;
     m_optimizerMode=false;
+    m_needsUpdate=true;
 }
 
 bool ImagesTreeCtrl::Create(wxWindow* parent, wxWindowID id,
@@ -231,6 +232,13 @@ void ImagesTreeCtrl::panoramaChanged(PT::Panorama & pano)
         UpdateOptimizerVariables();
         Thaw();
     };
+    if(m_needsUpdate && (m_groupMode==GROUP_OUTPUTLAYERS || m_groupMode==GROUP_OUTPUTSTACK))
+    {
+        UIntSet imgs;
+        fill_set(imgs, 0, pano.getNrOfImages()-1);
+        panoramaImagesChanged(pano, imgs);
+    };
+    m_needsUpdate=true;
 };
 
 void ImagesTreeCtrl::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
@@ -288,9 +296,11 @@ void ImagesTreeCtrl::panoramaImagesChanged(Panorama &pano, const UIntSet &change
                 break;
             case GROUP_OUTPUTSTACK:
                 imageGroups=getHDRStacks(*m_pano,m_pano->getActiveImages());
+                m_needsUpdate=false;
                 break;
             case GROUP_OUTPUTLAYERS:
                 imageGroups=getExposureLayers(*m_pano,m_pano->getActiveImages());
+                m_needsUpdate=false;
                 break;
         };
 
@@ -326,10 +336,6 @@ void ImagesTreeCtrl::panoramaImagesChanged(Panorama &pano, const UIntSet &change
         };
     };
 
-    if(m_optimizerMode)
-    {
-        UpdateOptimizerVariables();
-    };
     Thaw();
 
     // HACK! need to notify clients anyway... send dummy event..
@@ -1032,8 +1038,8 @@ void ImagesTreeCtrl::SetDisplayMode(DisplayMode newMode)
     SetColumnShown(m_columnMap["a"], m_displayMode==DISPLAY_LENS);
     SetColumnShown(m_columnMap["b"], m_displayMode==DISPLAY_LENS);
     SetColumnShown(m_columnMap["c"], m_displayMode==DISPLAY_LENS);
-    SetColumnShown(m_columnMap["d"], m_displayMode==DISPLAY_LENS && m_guiLevel>=GUI_ADVANCED);
-    SetColumnShown(m_columnMap["e"], m_displayMode==DISPLAY_LENS && m_guiLevel>=GUI_ADVANCED);
+    SetColumnShown(m_columnMap["d"], m_displayMode==DISPLAY_LENS);
+    SetColumnShown(m_columnMap["e"], m_displayMode==DISPLAY_LENS);
     SetColumnShown(m_columnMap["g"], m_displayMode==DISPLAY_LENS && m_guiLevel>=GUI_EXPERT);
     SetColumnShown(m_columnMap["t"], m_displayMode==DISPLAY_LENS && m_guiLevel>=GUI_EXPERT);
 
