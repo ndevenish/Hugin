@@ -133,6 +133,7 @@ void ImageVariableDialog::InitValues()
 
 void ImageVariableDialog::SetGuiLevel(GuiLevel newLevel)
 {
+    // translation
     XRCCTRL(*this, "image_variable_text_translation", wxStaticText)->Show(newLevel==GUI_EXPERT);
     XRCCTRL(*this, "image_variable_text_translation_x", wxStaticText)->Show(newLevel==GUI_EXPERT);
     XRCCTRL(*this, "image_variable_text_translation_y", wxStaticText)->Show(newLevel==GUI_EXPERT);
@@ -140,6 +141,12 @@ void ImageVariableDialog::SetGuiLevel(GuiLevel newLevel)
     XRCCTRL(*this, "image_variable_TrX", wxTextCtrl)->Show(newLevel==GUI_EXPERT);
     XRCCTRL(*this, "image_variable_TrY", wxTextCtrl)->Show(newLevel==GUI_EXPERT);
     XRCCTRL(*this, "image_variable_TrZ", wxTextCtrl)->Show(newLevel==GUI_EXPERT);
+    // shear
+    XRCCTRL(*this, "image_variable_text_shear", wxStaticText)->Show(newLevel==GUI_EXPERT);
+    XRCCTRL(*this, "image_variable_text_shear_g", wxStaticText)->Show(newLevel==GUI_EXPERT);
+    XRCCTRL(*this, "image_variable_text_shear_t", wxStaticText)->Show(newLevel==GUI_EXPERT);
+    XRCCTRL(*this, "image_variable_g", wxTextCtrl)->Show(newLevel==GUI_EXPERT);
+    XRCCTRL(*this, "image_variable_t", wxTextCtrl)->Show(newLevel==GUI_EXPERT);
 };
 
 bool ImageVariableDialog::ApplyNewVariables()

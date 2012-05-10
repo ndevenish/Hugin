@@ -564,7 +564,7 @@ void ImagesTreeCtrl::UpdateImageText(wxTreeItemId item)
     }
     else
     {
-        hugin_utils::FDiff2D p=img.getRadialDistortionCenterShift();
+        hugin_utils::FDiff2D p=img.getShear();
         SetItemText(item, m_columnMap["g"], doubleTowxString(p.x,m_distDigits));
         SetItemText(item, m_columnMap["t"], doubleTowxString(p.y,m_distDigits));
     };
@@ -734,7 +734,7 @@ void ImagesTreeCtrl::UpdateGroupText(wxTreeItemId item)
 
         if(m_groupMode==GROUP_LENS && img.ShearisLinked())
         {
-            hugin_utils::FDiff2D p=img.getRadialDistortionCenterShift();
+            hugin_utils::FDiff2D p=img.getShear();
             SetItemText(item, m_columnMap["g"], doubleTowxString(p.x,m_distDigits));
             SetItemText(item, m_columnMap["t"], doubleTowxString(p.y,m_distDigits));
         }
@@ -945,7 +945,7 @@ HuginBase::UIntSet ImagesTreeCtrl::GetSelectedImages()
                 {
                     data=(ImagesTreeData*)GetItemData(item);
                     imgs.insert(data->GetImgNr());
-                    item=GetNextSibling(item);
+                    item=GetNextChild(item, cookie);
                 };
             }
             else

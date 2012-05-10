@@ -260,7 +260,7 @@
                       <cellpos>2,1</cellpos>
                     </object>
                     <object class="sizeritem">
-                      <object class="wxStaticText">
+                      <object class="wxStaticText" name="image_variable_text_shear">
                         <label>Image Shearing</label>
                         <font>
                           <style platform="mac">normal</style>
@@ -275,7 +275,7 @@
                       <cellspan>1,2</cellspan>
                     </object>
                     <object class="sizeritem">
-                      <object class="wxStaticText">
+                      <object class="wxStaticText" name="image_variable_text_shear_g">
                         <label>horizontal (g):</label>
                       </object>
                       <flag>wxALIGN_CENTRE_VERTICAL|wxALL</flag>
@@ -289,7 +289,7 @@
                       <cellpos>4,1</cellpos>
                     </object>
                     <object class="sizeritem">
-                      <object class="wxStaticText">
+                      <object class="wxStaticText" name="image_variable_text_shear_t">
                         <label>vertical (t):</label>
                       </object>
                       <flag>wxALIGN_CENTRE_VERTICAL|wxALL</flag>
