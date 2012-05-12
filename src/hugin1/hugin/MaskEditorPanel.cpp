@@ -6,8 +6,6 @@
  *
  *  @author Thomas Modes
  *
- *  $Id$
- *
  */
 
 /*  This program is free software; you can redistribute it and/or
@@ -32,6 +30,7 @@
 #endif
 
 #include "panoinc.h"
+#include <hugin_utils/stl_utils.h>
 
 // hugin's
 #include "base_wx/platform.h"
@@ -41,6 +40,7 @@
 #include "hugin/MaskEditorPanel.h"
 #include "hugin/MaskLoadDialog.h"
 #include <wx/clipbrd.h>
+#include "hugin/TextKillFocusHandler.h"
 
 BEGIN_EVENT_TABLE(MaskEditorPanel, wxPanel)
     EVT_LIST_ITEM_SELECTED(XRCID("mask_editor_images_list"), MaskEditorPanel::OnImageSelect)
@@ -61,13 +61,20 @@ BEGIN_EVENT_TABLE(MaskEditorPanel, wxPanel)
     EVT_COLOURPICKER_CHANGED(XRCID("mask_editor_colour_polygon_positive"),MaskEditorPanel::OnColourChanged)
     EVT_COLOURPICKER_CHANGED(XRCID("mask_editor_colour_point_selected"),MaskEditorPanel::OnColourChanged)
     EVT_COLOURPICKER_CHANGED(XRCID("mask_editor_colour_point_unselected"),MaskEditorPanel::OnColourChanged)
+    EVT_TEXT_ENTER (XRCID("crop_left_text") ,MaskEditorPanel::OnSetLeft )
+    EVT_TEXT_ENTER (XRCID("crop_right_text") ,MaskEditorPanel::OnSetRight )
+    EVT_TEXT_ENTER (XRCID("crop_top_text") ,MaskEditorPanel::OnSetTop )
+    EVT_TEXT_ENTER (XRCID("crop_bottom_text") ,MaskEditorPanel::OnSetBottom )
+    EVT_BUTTON ( XRCID("crop_reset_button") , MaskEditorPanel::OnResetButton )
+    EVT_CHECKBOX( XRCID("crop_autocenter_cb") , MaskEditorPanel::OnAutoCenter)
+    EVT_NOTEBOOK_PAGE_CHANGED(XRCID("mask_editor_mask_crop_notebook"), MaskEditorPanel::OnModeChanged)
 END_EVENT_TABLE()
 
 MaskEditorPanel::MaskEditorPanel()
 {
     DEBUG_TRACE("**********************");
     m_pano = 0;
-
+    m_maskCropCtrl=NULL;
 }
 
 bool MaskEditorPanel::Create(wxWindow* parent, wxWindowID id,
@@ -82,7 +89,7 @@ bool MaskEditorPanel::Create(wxWindow* parent, wxWindowID id,
         return false;
     }
 
-    m_ImageNr=UINT_MAX;
+    m_selectedImages.clear();
     m_MaskNr=UINT_MAX;
     m_File="";
 
@@ -103,6 +110,11 @@ bool MaskEditorPanel::Create(wxWindow* parent, wxWindowID id,
     m_maskList = XRCCTRL(*this, "mask_editor_mask_list", wxListCtrl);
     m_maskList->InsertColumn( 0, _("#"), wxLIST_FORMAT_RIGHT, 35);
     m_maskList->InsertColumn( 1, _("Mask type"), wxLIST_FORMAT_LEFT, 120);
+
+    m_maskCropCtrl = XRCCTRL(*this, "mask_editor_mask_crop_notebook", wxNotebook);
+    DEBUG_ASSERT(m_maskCropCtrl);
+    m_maskCropCtrl->SetSelection(0);
+    m_maskMode=true;
 
     //get saved width
     wxConfigBase *config=wxConfigBase::Get();
@@ -149,6 +161,25 @@ bool MaskEditorPanel::Create(wxWindow* parent, wxWindowID id,
     XRCCTRL(*this, "mask_editor_paste", wxButton)->Disable();
     XRCCTRL(*this, "mask_editor_delete", wxButton)->Disable();
 
+    m_left_textctrl = XRCCTRL(*this,"crop_left_text", wxTextCtrl);
+    DEBUG_ASSERT(m_left_textctrl);
+    m_left_textctrl->PushEventHandler(new TextKillFocusHandler(this));
+
+    m_top_textctrl = XRCCTRL(*this,"crop_top_text", wxTextCtrl);
+    DEBUG_ASSERT(m_top_textctrl);
+    m_top_textctrl->PushEventHandler(new TextKillFocusHandler(this));
+
+    m_right_textctrl = XRCCTRL(*this,"crop_right_text", wxTextCtrl);
+    DEBUG_ASSERT(m_right_textctrl);
+    m_right_textctrl->PushEventHandler(new TextKillFocusHandler(this));
+
+    m_bottom_textctrl = XRCCTRL(*this,"crop_bottom_text", wxTextCtrl);
+    DEBUG_ASSERT(m_bottom_textctrl);
+    m_bottom_textctrl->PushEventHandler(new TextKillFocusHandler(this));
+
+    m_autocenter_cb = XRCCTRL(*this,"crop_autocenter_cb", wxCheckBox);
+    DEBUG_ASSERT(m_autocenter_cb);
+
     //set shortcuts
     wxAcceleratorEntry entries[2];
     entries[0].Set(wxACCEL_CMD,(int)'C',XRCID("mask_editor_copy"));
@@ -173,24 +204,47 @@ void MaskEditorPanel::Init(PT::Panorama * pano)
 
 MaskEditorPanel::~MaskEditorPanel()
 {
+    m_left_textctrl->PopEventHandler(true);
+    m_right_textctrl->PopEventHandler(true);
+    m_top_textctrl->PopEventHandler(true);
+    m_bottom_textctrl->PopEventHandler(true);
     wxConfigBase::Get()->Write(wxT("/MaskEditorPanel/ShowActiveMasks"),XRCCTRL(*this,"mask_editor_show_active_masks",wxCheckBox)->GetValue());
     DEBUG_TRACE("dtor");
     m_pano->removeObserver(this);
 }
 
+size_t MaskEditorPanel::GetImgNr()
+{
+    if(m_selectedImages.size()==0)
+    {
+        return UINT_MAX;
+    }
+    else
+    {
+        return *(m_selectedImages.begin());
+    };
+};
+
 void MaskEditorPanel::setImage(unsigned int imgNr)
 {
     DEBUG_TRACE("image " << imgNr);
-    bool restoreMaskSelection=(imgNr==m_ImageNr);
+    bool restoreMaskSelection=(imgNr==GetImgNr());
     bool updateImage=true;
-    m_ImageNr = imgNr;
+    if(imgNr==UINT_MAX)
+    {
+        m_selectedImages.clear();
+    }
+    else
+    {
+        m_selectedImages.insert(imgNr);
+    };
     HuginBase::MaskPolygonVector masksToDraw;
     if (imgNr == UINT_MAX) 
     {
         m_File = "";
         HuginBase::MaskPolygonVector mask;
         m_currentMasks=mask;
-        m_editImg->setCrop(HuginBase::SrcPanoImage::NO_CROP,vigra::Rect2D());
+        m_editImg->setCrop(HuginBase::SrcPanoImage::NO_CROP,vigra::Rect2D(), false, hugin_utils::FDiff2D(), false);
     } 
     else 
     {
@@ -206,7 +260,7 @@ void MaskEditorPanel::setImage(unsigned int imgNr)
             };
         m_currentMasks=image.getMasks();
         masksToDraw=image.getActiveMasks();
-        m_editImg->setCrop(image.getCropMode(),image.getCropRect());
+        m_editImg->setCrop(image.getCropMode(),image.getCropRect(), image.getAutoCenterCrop(), image.getRadialDistortionCenter(), image.isCircularCrop());
     };
     // update mask editor
     if(updateImage)
@@ -237,7 +291,7 @@ void MaskEditorPanel::setMask(unsigned int maskNr)
     XRCCTRL(*this,"mask_editor_delete", wxButton)->Enable(m_MaskNr<UINT_MAX);
     XRCCTRL(*this, "mask_editor_save", wxButton)->Enable(m_MaskNr<UINT_MAX);
     XRCCTRL(*this, "mask_editor_copy", wxButton)->Enable(m_MaskNr<UINT_MAX);
-    if(m_ImageNr<UINT_MAX && m_MaskNr<UINT_MAX)
+    if(GetImgNr()<UINT_MAX && m_MaskNr<UINT_MAX)
         m_maskType->SetSelection(m_currentMasks[m_MaskNr].getMaskType());
     else
         m_maskType->SetSelection(0);
@@ -245,19 +299,19 @@ void MaskEditorPanel::setMask(unsigned int maskNr)
 
 void MaskEditorPanel::UpdateMask()
 {
-    if(m_ImageNr<UINT_MAX)
+    if(GetImgNr()<UINT_MAX)
     {
         m_currentMasks=m_editImg->getNewMask();
-        GlobalCmdHist::getInstance().addCommand(new PT::UpdateMaskForImgCmd(*m_pano,m_ImageNr,m_currentMasks));
+        GlobalCmdHist::getInstance().addCommand(new PT::UpdateMaskForImgCmd(*m_pano,GetImgNr(),m_currentMasks));
     };
 };
 
 void MaskEditorPanel::AddMask()
 {
-    if(m_ImageNr<UINT_MAX)
+    if(GetImgNr()<UINT_MAX)
     {
         m_currentMasks=m_editImg->getNewMask();
-        GlobalCmdHist::getInstance().addCommand(new PT::UpdateMaskForImgCmd(*m_pano,m_ImageNr,m_currentMasks));
+        GlobalCmdHist::getInstance().addCommand(new PT::UpdateMaskForImgCmd(*m_pano,GetImgNr(),m_currentMasks));
         //select added mask
         SelectMask(m_currentMasks.size()-1);
         m_editImg->selectAllMarkers();
@@ -266,7 +320,7 @@ void MaskEditorPanel::AddMask()
 
 void MaskEditorPanel::SelectMask(unsigned int newMaskNr)
 {
-    if(m_ImageNr<UINT_MAX)
+    if(GetImgNr()<UINT_MAX)
         if(newMaskNr<m_currentMasks.size())
             m_maskList->SetItemState(newMaskNr,wxLIST_STATE_SELECTED,wxLIST_STATE_SELECTED);
         else
@@ -279,7 +333,6 @@ void MaskEditorPanel::panoramaChanged(PT::Panorama &pano)
 
 void MaskEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
 {
-    m_imagesListMask->panoramaImagesChanged(pano, changed);
     unsigned int nrImages = pano.getNrOfImages();
     ImageCache::getInstance().softFlush();
     if (nrImages==0)
@@ -287,29 +340,50 @@ void MaskEditorPanel::panoramaImagesChanged(Panorama &pano, const UIntSet &chang
     else
     {
         // select some other image if we deleted the current image
-        if ((m_ImageNr<UINT_MAX) && (m_ImageNr >= nrImages))
+        if ((GetImgNr()<UINT_MAX) && (GetImgNr() >= nrImages))
             setImage(nrImages-1);
         else
             // update changed images
-            if(set_contains(changed,m_ImageNr))
+            if(set_contains(changed,GetImgNr()))
             {
                 unsigned int countOldMasks=m_currentMasks.size();
-                setImage(m_ImageNr);
-                if(countOldMasks!=pano.getImage(m_ImageNr).getMasks().size())
+                setImage(GetImgNr());
+                if(countOldMasks!=pano.getImage(GetImgNr()).getMasks().size())
                     SelectMask(UINT_MAX);
             };
     };
+
+    if (m_selectedImages.size() > 0)
+    {
+        if (set_contains(changed, GetImgNr()))
+        {
+            DisplayCrop(GetImgNr());
+        }
+    }
+    else
+    {
+        UpdateCropDisplay();
+    }
+
 }
 
 void MaskEditorPanel::OnImageSelect(wxListEvent &e)
 {
-    UIntSet selected=m_imagesListMask->GetSelected();
+    m_selectedImages=m_imagesListMask->GetSelected();
     //select no mask
     setMask(UINT_MAX);
-    if(selected.size()==0)
-        setImage(UINT_MAX);
-    else
-        setImage(*selected.begin());
+    setImage(GetImgNr());
+
+    bool hasImage = (m_selectedImages.size() > 0);
+    m_left_textctrl->Enable(hasImage);
+    m_top_textctrl->Enable(hasImage);
+    m_bottom_textctrl->Enable(hasImage);
+    m_right_textctrl->Enable(hasImage);
+    if (hasImage)
+    {
+        // show first image.
+        DisplayCrop(GetImgNr());
+    };
 };
 
 void MaskEditorPanel::OnMaskSelect(wxListEvent &e)
@@ -319,16 +393,16 @@ void MaskEditorPanel::OnMaskSelect(wxListEvent &e)
 
 void MaskEditorPanel::OnMaskTypeChange(wxCommandEvent &e)
 {
-    if(m_ImageNr<UINT_MAX && m_MaskNr<UINT_MAX)
+    if(GetImgNr()<UINT_MAX && m_MaskNr<UINT_MAX)
     {
         m_currentMasks[m_MaskNr].setMaskType((HuginBase::MaskPolygon::MaskType)e.GetSelection());
-        GlobalCmdHist::getInstance().addCommand(new PT::UpdateMaskForImgCmd(*m_pano,m_ImageNr,m_currentMasks));
+        GlobalCmdHist::getInstance().addCommand(new PT::UpdateMaskForImgCmd(*m_pano,GetImgNr(),m_currentMasks));
     };
 };
 
 void MaskEditorPanel::OnMaskAdd(wxCommandEvent &e)
 {
-    if(m_ImageNr<UINT_MAX)
+    if(GetImgNr()<UINT_MAX)
     {
         //deselect current selected mask
         if(m_MaskNr<UINT_MAX)
@@ -341,7 +415,7 @@ void MaskEditorPanel::OnMaskAdd(wxCommandEvent &e)
 
 void MaskEditorPanel::OnMaskSave(wxCommandEvent &e)
 {
-    if(m_ImageNr<UINT_MAX && m_MaskNr<UINT_MAX)
+    if(GetImgNr()<UINT_MAX && m_MaskNr<UINT_MAX)
     {
         wxFileDialog dlg(this, _("Save mask"),
                 wxConfigBase::Get()->Read(wxT("/actualPath"), wxT("")),
@@ -373,10 +447,10 @@ void MaskEditorPanel::OnMaskSave(wxCommandEvent &e)
 
 void MaskEditorPanel::SaveMaskToStream(std::ostream& stream)
 {
-    vigra::Size2D imageSize = m_pano->getImage(m_ImageNr).getSize();
+    vigra::Size2D imageSize = m_pano->getImage(GetImgNr()).getSize();
     stream << "# w" << imageSize.width() << " h" << imageSize.height() << std::endl;
     HuginBase::MaskPolygon maskToWrite = m_currentMasks[m_MaskNr];
-    maskToWrite.printPolygonLine(stream,m_ImageNr);
+    maskToWrite.printPolygonLine(stream,GetImgNr());
 };
 
 void MaskEditorPanel::LoadMaskFromStream(std::istream& stream,vigra::Size2D& imageSize,HuginBase::MaskPolygonVector &newMasks)
@@ -401,7 +475,7 @@ void MaskEditorPanel::LoadMaskFromStream(std::istream& stream,vigra::Size2D& ima
             {
                 HuginBase::MaskPolygon newPolygon;
                 //Ignore image number set in mask
-                newPolygon.setImgNr(m_ImageNr);
+                newPolygon.setImgNr(GetImgNr());
                 unsigned int param;
                 if (getIntParam(param,line,"t"))
                 {
@@ -426,7 +500,7 @@ void MaskEditorPanel::LoadMaskFromStream(std::istream& stream,vigra::Size2D& ima
 
 void MaskEditorPanel::OnMaskLoad(wxCommandEvent &e)
 {
-    if (m_ImageNr<UINT_MAX)
+    if (GetImgNr()<UINT_MAX)
     {
         wxFileDialog dlg(this,_("Load mask"),
                 wxConfigBase::Get()->Read(wxT("/actualPath"),wxT("")),
@@ -450,10 +524,10 @@ void MaskEditorPanel::OnMaskLoad(wxCommandEvent &e)
         };
         // compare image size from file with that of current image alert user
         // if different.
-        if (maskImageSize != m_pano->getImage(m_ImageNr).getSize()) 
+        if (maskImageSize != m_pano->getImage(GetImgNr()).getSize()) 
         {
             MaskLoadDialog dlg(this);
-            dlg.initValues(m_pano->getImage(m_ImageNr),loadedMasks,maskImageSize);
+            dlg.initValues(m_pano->getImage(GetImgNr()),loadedMasks,maskImageSize);
             if(dlg.ShowModal()!=wxID_OK)
             {
                 // abort
@@ -464,13 +538,13 @@ void MaskEditorPanel::OnMaskLoad(wxCommandEvent &e)
         for(unsigned int i=0;i<loadedMasks.size();i++)
             m_currentMasks.push_back(loadedMasks[i]);
         // Update the pano with the imported masks
-        GlobalCmdHist::getInstance().addCommand(new PT::UpdateMaskForImgCmd(*m_pano,m_ImageNr,m_currentMasks));
+        GlobalCmdHist::getInstance().addCommand(new PT::UpdateMaskForImgCmd(*m_pano,GetImgNr(),m_currentMasks));
     }
 };
 
 void MaskEditorPanel::OnMaskCopy(wxCommandEvent &e)
 {
-    if(m_ImageNr<UINT_MAX && m_MaskNr<UINT_MAX)
+    if(GetImgNr()<UINT_MAX && m_MaskNr<UINT_MAX)
     {
         std::ostringstream stream;
         SaveMaskToStream(stream);
@@ -486,7 +560,7 @@ void MaskEditorPanel::OnMaskCopy(wxCommandEvent &e)
 
 void MaskEditorPanel::OnMaskPaste(wxCommandEvent &e)
 {
-    if(m_ImageNr<UINT_MAX)
+    if(GetImgNr()<UINT_MAX)
     {
         if (wxTheClipboard->Open())
         {
@@ -507,10 +581,10 @@ void MaskEditorPanel::OnMaskPaste(wxCommandEvent &e)
             };
             // compare image size from file with that of current image alert user
             // if different.
-            if (maskImageSize != m_pano->getImage(m_ImageNr).getSize()) 
+            if (maskImageSize != m_pano->getImage(GetImgNr()).getSize()) 
             {
                 MaskLoadDialog dlg(this);
-                dlg.initValues(m_pano->getImage(m_ImageNr),loadedMasks,maskImageSize);
+                dlg.initValues(m_pano->getImage(GetImgNr()),loadedMasks,maskImageSize);
                 if(dlg.ShowModal()!=wxID_OK)
                 {
                     // abort
@@ -521,19 +595,19 @@ void MaskEditorPanel::OnMaskPaste(wxCommandEvent &e)
             for(unsigned int i=0;i<loadedMasks.size();i++)
                 m_currentMasks.push_back(loadedMasks[i]);
             // Update the pano with the imported masks
-            GlobalCmdHist::getInstance().addCommand(new PT::UpdateMaskForImgCmd(*m_pano,m_ImageNr,m_currentMasks));
+            GlobalCmdHist::getInstance().addCommand(new PT::UpdateMaskForImgCmd(*m_pano,GetImgNr(),m_currentMasks));
         };
     };
 };
 
 void MaskEditorPanel::OnMaskDelete(wxCommandEvent &e)
 {
-    if(m_ImageNr<UINT_MAX && m_MaskNr<UINT_MAX)
+    if(GetImgNr()<UINT_MAX && m_MaskNr<UINT_MAX)
     {
         HuginBase::MaskPolygonVector editedMasks=m_currentMasks;
         editedMasks.erase(editedMasks.begin()+m_MaskNr);
         //setMask(UINT_MAX);
-        GlobalCmdHist::getInstance().addCommand(new PT::UpdateMaskForImgCmd(*m_pano,m_ImageNr,editedMasks));
+        GlobalCmdHist::getInstance().addCommand(new PT::UpdateMaskForImgCmd(*m_pano,GetImgNr(),editedMasks));
     };
 };
 
@@ -602,7 +676,7 @@ void MaskEditorPanel::UpdateMaskList(bool restoreSelection)
 {
     unsigned int oldSelection=GetSelectedMask();
     m_maskList->Freeze();
-    if(m_ImageNr<UINT_MAX)
+    if(GetImgNr()<UINT_MAX)
     {
         if(m_currentMasks.size()>0)
         {
@@ -694,6 +768,192 @@ MaskImageCtrl::ImageRotation MaskEditorPanel::GetRot(const unsigned int imgNr)
 void MaskEditorPanel::OnShowActiveMasks(wxCommandEvent &e)
 {
     m_editImg->setDrawingActiveMasks(e.IsChecked());
+};
+
+void MaskEditorPanel::DisplayCrop(int imgNr)
+{
+    const SrcPanoImage & img = m_pano->getImage(imgNr);
+    m_cropMode=img.getCropMode();
+    m_cropRect=img.getCropRect();
+    m_autoCenterCrop=img.getAutoCenterCrop();
+
+    int dx = hugin_utils::roundi(img.getRadialDistortionCenterShift().x);
+    int dy = hugin_utils::roundi(img.getRadialDistortionCenterShift().y);
+    /// @todo can this be done with img.getSize() / 2 + img.getRadialDistortionCenterShift()?
+    m_cropCenter = vigra::Point2D(img.getSize().width()/2 + dx, img.getSize().height()/2 + dy);
+
+    UpdateCropDisplay();
+}
+
+// transfer our state to panorama
+void MaskEditorPanel::UpdateCrop(bool updateFromImgCtrl)
+{
+    // set crop image options.
+    if(updateFromImgCtrl)
+    {
+        m_cropRect=m_editImg->getCrop();
+    };
+    vector<SrcPanoImage> imgs;
+    for (UIntSet::iterator it = m_selectedImages.begin(); it != m_selectedImages.end(); ++it)
+    {
+        SrcPanoImage img=m_pano->getSrcImage(*it);
+        img.setCropRect(m_cropRect);
+        img.setAutoCenterCrop(m_autoCenterCrop);
+        imgs.push_back(img);
+    };
+
+    GlobalCmdHist::getInstance().addCommand(
+            new PT::UpdateSrcImagesCmd(*m_pano, m_selectedImages, imgs)
+    );
+}
+
+void MaskEditorPanel::UpdateCropFromImage()
+{
+    m_cropRect=m_editImg->getCrop();
+    UpdateCropDisplay();
+};
+
+// redraw display with new information
+void MaskEditorPanel::UpdateCropDisplay()
+{
+    DEBUG_TRACE("")
+    m_autocenter_cb->SetValue(m_autoCenterCrop);
+    m_left_textctrl->SetValue(wxString::Format(wxT("%d"),m_cropRect.left()));
+    m_right_textctrl->SetValue(wxString::Format(wxT("%d"),m_cropRect.right()));
+    m_top_textctrl->SetValue(wxString::Format(wxT("%d"),m_cropRect.top()));
+    m_bottom_textctrl->SetValue(wxString::Format(wxT("%d"),m_cropRect.bottom()));
+}
+
+
+void MaskEditorPanel::OnSetTop(wxCommandEvent & e)
+{
+    long val;
+    if (m_top_textctrl->GetValue().ToLong(&val))
+    {
+        m_cropRect.setUpperLeft(vigra::Point2D(m_cropRect.left(), val));
+        if (m_autoCenterCrop)
+        {
+            CenterCrop();
+            UpdateCropDisplay();
+        };
+        UpdateCrop();
+    }
+    else
+    {
+        wxLogError(_("Please enter a valid number"));
+    };
+};
+
+void MaskEditorPanel::OnSetBottom(wxCommandEvent & e)
+{
+    long val;
+    if (m_bottom_textctrl->GetValue().ToLong(&val))
+    {
+        m_cropRect.setLowerRight(vigra::Point2D(m_cropRect.right(), val));
+        if (m_autoCenterCrop)
+        {
+            CenterCrop();
+            UpdateCropDisplay();
+        }
+        UpdateCrop();
+    }
+    else
+    {
+        wxLogError(_("Please enter a valid number"));
+    };
+};
+
+void MaskEditorPanel::OnSetLeft(wxCommandEvent & e)
+{
+    long val = 0;
+    if (m_left_textctrl->GetValue().ToLong(&val))
+    {
+        m_cropRect.setUpperLeft(vigra::Point2D(val, m_cropRect.top()));
+        if (m_autoCenterCrop)
+        {
+            CenterCrop();
+            UpdateCropDisplay();
+        }
+        UpdateCrop();
+    }
+    else
+    {
+        wxLogError(_("Please enter a valid number"));
+    };
+};
+
+void MaskEditorPanel::OnSetRight(wxCommandEvent & e)
+{
+    long val = 0;
+    if (m_right_textctrl->GetValue().ToLong(&val))
+    {
+        m_cropRect.setLowerRight(vigra::Point2D(val, m_cropRect.bottom()));
+        if (m_autoCenterCrop)
+        {
+            CenterCrop();
+            UpdateCropDisplay();
+        };
+        UpdateCrop();
+    }
+    else
+    {
+        wxLogError(_("Please enter a valid number"));
+    };
+};
+
+void MaskEditorPanel::OnResetButton(wxCommandEvent & e)
+{
+    // suitable defaults.
+    m_cropRect.setUpperLeft(vigra::Point2D(0,0));
+    m_cropRect.setLowerRight(vigra::Point2D(0,0));
+    m_autoCenterCrop = true;
+    m_cropMode=SrcPanoImage::NO_CROP;
+    UpdateCropDisplay();
+    UpdateCrop();
+}
+
+void MaskEditorPanel::OnAutoCenter(wxCommandEvent & e)
+{
+    m_autoCenterCrop = e.IsChecked();
+    if (m_autoCenterCrop)
+    {
+        CenterCrop();
+        UpdateCropDisplay();
+    };
+    UpdateCrop();
+}
+
+void MaskEditorPanel::CenterCrop()
+{
+    vigra::Diff2D d(m_cropRect.width()/2, m_cropRect.height() / 2);
+    m_cropRect.setUpperLeft( m_cropCenter - d);
+    m_cropRect.setLowerRight( m_cropCenter + d);
+}
+
+void MaskEditorPanel::OnModeChanged(wxNotebookEvent& e)
+{
+    if(m_maskCropCtrl==NULL)
+    {
+        return;
+    };
+    if(m_maskCropCtrl->GetSelection()==0)
+    {
+        m_maskMode=true;
+        size_t imgNr=GetImgNr();
+        m_selectedImages.clear();
+        m_selectedImages.insert(imgNr);
+        m_imagesListMask->SetSingleSelect(true);
+        m_imagesListMask->SelectSingleImage(imgNr);
+        m_editImg->SetMaskMode(true);
+    }
+    else
+    {
+        m_maskMode=false;
+        m_imagesListMask->SetSingleSelect(false);
+        m_editImg->SetMaskMode(false);
+        SelectMask(UINT_MAX);
+    };
+    m_editImg->Refresh();
 };
 
 IMPLEMENT_DYNAMIC_CLASS(MaskEditorPanel, wxPanel)

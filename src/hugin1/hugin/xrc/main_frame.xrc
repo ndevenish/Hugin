@@ -26,11 +26,6 @@
               <label>Photos</label>
               <object class="ImagesPanel" name="images_panel_unknown"/>
             </object>
-            
-            <object class="notebookpage">
-              <object class="CropPanel" name="crop_panel_unknown"/>
-              <label>Crop</label>
-            </object>
             <object class="notebookpage">
               <object class="MaskEditorPanel" name="mask_panel_unknown"/>
               <label>Mask</label>

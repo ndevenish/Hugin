@@ -125,34 +125,30 @@
         <accel>Shift-F2</accel>
         <help>Show the Images panel</help>
       </object>
-      <object class="wxMenuItem" name="ID_SHOW_PANEL_CROP">
-        <label>Crop</label>
-        <accel>Shift-F4</accel>
-        <help>Show the Crop panel</help>
-      </object>
+      
       <object class="wxMenuItem" name="ID_SHOW_PANEL_MASK">
         <label>Mask</label>
-        <accel>Shift-F5</accel>
+        <accel>Shift-F3</accel>
         <help>Show the Mask panel</help>
       </object>
       <object class="wxMenuItem" name="ID_SHOW_PANEL_CP_EDITOR">
         <label>Control Points</label>
-        <accel>Shift-F6</accel>
+        <accel>Shift-F4</accel>
         <help>Show the Control Points panel</help>
       </object>
       <object class="wxMenuItem" name="ID_SHOW_PANEL_OPTIMIZER">
         <label>Optimizer</label>
-        <accel>Shift-F7</accel>
+        <accel>Shift-F5</accel>
         <help>Show the Optimizer panel</help>
       </object>
       <object class="wxMenuItem" name="ID_SHOW_PANEL_OPTIMIZER_PHOTOMETRIC">
         <label>Exposure</label>
-        <accel>Shift-F8</accel>
+        <accel>Shift-F6</accel>
         <help>Show the Exposure panel</help>
       </object>
       <object class="wxMenuItem" name="ID_SHOW_PANEL_PANORAMA">
         <label>Stitcher</label>
-        <accel>Shift-F9</accel>
+        <accel>Shift-F7</accel>
         <help>Show the Stitcher panel</help>
       </object>
     </object>

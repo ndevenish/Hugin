@@ -40,7 +40,7 @@ public:
     /** ctor.
      */
     MaskImageCtrl()
-        : scaleFactor(1),fitToWindow(false),maskEditState(NO_IMAGE)
+        : m_scaleFactor(1),m_fitToWindow(false),m_maskEditState(NO_IMAGE)
         { }
 
     bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTAB_TRAVERSAL, const wxString& name = wxT("panel"));
@@ -60,7 +60,9 @@ public:
     /** updates masks for currently selected image */
     void setNewMasks(HuginBase::MaskPolygonVector newMasks, HuginBase::MaskPolygonVector masksToDraw);
     /** updates the crop mode and crop rect */
-    void setCrop(HuginBase::SrcPanoImage::CropMode newCropMode,vigra::Rect2D newCropRect);
+    void setCrop(HuginBase::SrcPanoImage::CropMode newCropMode,vigra::Rect2D newCropRect, bool isCentered, hugin_utils::FDiff2D center, bool isCircleCrop);
+    /** returns the current crop rect */
+    vigra::Rect2D getCrop() { return m_cropRect; };
     /** mark mask with image as beeing editing */
     void setActiveMask(unsigned int newMask, bool doUpdate=true);
     /** returns the vector of all mask (including new created mask) */
@@ -69,17 +71,17 @@ public:
     void selectAllMarkers();
 
     /** event handler when mouse is moving */
-    void mouseMoveEvent(wxMouseEvent& mouse);
+    void OnMouseMove(wxMouseEvent& mouse);
     /** event handler when left mouse button is pressed */
-    void mousePressLMBEvent(wxMouseEvent& mouse);
+    void OnLeftMouseDown(wxMouseEvent& mouse);
     /** event handler when right mouse button is released */
-    void mouseReleaseLMBEvent(wxMouseEvent& mouse);
+    void OnLeftMouseUp(wxMouseEvent& mouse);
     /** event handler for left double click */
-    void mouseDblClickLeftEvent(wxMouseEvent& mouse);
+    void OnLeftMouseDblClick(wxMouseEvent& mouse);
     /** event handler when right mouse button is pressed */
-    void mousePressRMBEvent(wxMouseEvent& mouse);
+    void OnRightMouseDown(wxMouseEvent& mouse);
     /** event handler when right mouse button is released */
-    void mouseReleaseRMBEvent(wxMouseEvent& mouse);
+    void OnRightMouseUp(wxMouseEvent& mouse);
     /** event handler for keyboard */
     void OnKeyUp(wxKeyEvent &e);
     /** event handler, when mouse capture is lost, e.g. user click outside of window 
@@ -93,6 +95,9 @@ public:
     /** returns size of currently scaled image */
     wxSize DoGetBestSize() const;
 
+    /** sets the control to mask (newMaskMode=true) or crop (newMaskMode=false) mode */
+    void SetMaskMode(bool newMaskMode);
+
     /** set the scaling factor for mask editing display.
      *
      *  @param factor zoom factor, 0 means fit to window.
@@ -101,7 +106,7 @@ public:
 
     /** return scale factor, 0 for autoscale */
     double getScale()
-        { return fitToWindow ? 0 : scaleFactor; }
+        { return m_fitToWindow ? 0 : m_scaleFactor; }
 
     /** returns the current rotation of displayed image */
     ImageRotation getCurrentRotation() { return m_imgRotation; };
@@ -133,21 +138,26 @@ protected:
  private:
 
     //scaled bitmap
-    wxBitmap bitmap;
-    wxBitmap disabledBitmap;
+    wxBitmap m_bitmap;
+    wxBitmap m_disabledBitmap;
     //filename of current editing file
-    std::string imageFilename;
+    std::string m_imageFilename;
     // stores rotation of image
     ImageRotation m_imgRotation;
     // size of displayed (probably scaled) image
-    wxSize imageSize;
+    wxSize m_imageSize;
     // size of real image
     wxSize m_realSize;
     // variables for crop
     HuginBase::SrcPanoImage::CropMode m_cropMode;
     vigra::Rect2D m_cropRect;
+    bool m_cropCentered;
+    bool m_cropCircle;
+    hugin_utils::FDiff2D m_cropCenter;
     // draw active masks 
     bool m_showActiveMasks;
+    // mask or crop mode
+    bool m_maskMode;
 
     /** scale of width/height */
     int scale(int x) const
@@ -163,7 +173,7 @@ protected:
     double transform(double x) const
         {  return (x+HuginBase::maskOffset) * getScaleFactor(); }
 
-    wxPoint transform(hugin_utils::FDiff2D p) const
+    wxPoint transform(const hugin_utils::FDiff2D & p) const
         {
             wxPoint r;
             r.x = transform(p.x);
@@ -236,10 +246,23 @@ protected:
     void DrawPolygon(wxDC &dc, HuginBase::MaskPolygon poly, bool isSelected, bool drawMarker);
     //draw a selection rectange, when called the second time the rectangle is deleted
     void DrawSelectionRectangle();
+    // draws the crop rectangle and/or circle
+    void DrawCrop(wxDC & dc);
+    void DrawCrop();
     // find the polygon for which the point p is inside the polygon
     void FindPolygon(hugin_utils::FDiff2D p);
     // returns a set of points which are in the selection rectangle 
     bool SelectPointsInsideMouseRect(HuginBase::UIntSet &points,const bool considerSelectedOnly);
+    // updates the crop
+    void UpdateCrop(hugin_utils::FDiff2D delta);
+
+    // where the cursor is 
+    enum ClickPos
+    {
+        CLICK_OUTSIDE, CLICK_INSIDE, CLICK_LEFT, CLICK_RIGHT, CLICK_TOP, CLICK_BOTTOM, CLICK_CIRCLE
+    };
+    // test, where the curos is
+    ClickPos GetClickPos(vigra::Point2D pos);
 
     /**  different states of the editor */
     enum MaskEditorState
@@ -254,12 +277,19 @@ protected:
         POLYGON_SELECTING, // selecting an region to select an other polygon
         REGION_SELECTING, // currently selecting an region
         NEW_POLYGON_STARTED, // modus is new polygon, but no point setted yet
-        NEW_POLYGON_CREATING  // currently creating new polygon
+        NEW_POLYGON_CREATING,  // currently creating new polygon
+        CROP_SHOWING,  // only showing the crop
+        CROP_MOVING,  // dragging crop
+        CROP_CIRCLE_SCALING, // circular crop changing
+        CROP_LEFT_MOVING, // dragging left border of crop
+        CROP_RIGHT_MOVING, // dragging right border of crop
+        CROP_TOP_MOVING,  // dragging top border of crop
+        CROP_BOTTOM_MOVING // dragging bottom border of crop
     };
-    MaskEditorState maskEditState;
+    MaskEditorState m_maskEditState;
 
-    double scaleFactor;
-    bool fitToWindow;
+    double m_scaleFactor;
+    bool m_fitToWindow;
     bool m_previewOnly;
 
     MaskEditorPanel * m_editPanel;

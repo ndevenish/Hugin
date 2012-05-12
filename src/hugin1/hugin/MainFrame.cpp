@@ -48,7 +48,6 @@
 #include "hugin/PanoPanel.h"
 #include "hugin/AssistantPanel.h"
 #include "hugin/ImagesPanel.h"
-#include "hugin/CropPanel.h"
 #include "hugin/MaskEditorPanel.h"
 #include "hugin/OptimizePanel.h"
 #include "hugin/OptimizePhotometricPanel.h"
@@ -230,7 +229,6 @@ BEGIN_EVENT_TABLE(MainFrame, wxFrame)
 
     EVT_MENU(XRCID("ID_SHOW_PANEL_ASSISTANT"), MainFrame::OnShowPanel)
     EVT_MENU(XRCID("ID_SHOW_PANEL_IMAGES"), MainFrame::OnShowPanel)
-    EVT_MENU(XRCID("ID_SHOW_PANEL_CROP"), MainFrame::OnShowPanel)
     EVT_MENU(XRCID("ID_SHOW_PANEL_MASK"), MainFrame::OnShowPanel)
     EVT_MENU(XRCID("ID_SHOW_PANEL_CP_EDITOR"), MainFrame::OnShowPanel)
     EVT_MENU(XRCID("ID_SHOW_PANEL_OPTIMIZER"), MainFrame::OnShowPanel)
@@ -386,11 +384,6 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
 //    m_notebook = ((wxNotebook*) ((*this).FindWindow(XRCID("controls_notebook"))));
 //    m_notebook = ((wxNotebook*) (FindWindow(XRCID("controls_notebook"))));
     DEBUG_ASSERT(m_notebook);
-
-    // the crop panel
-    crop_panel = XRCCTRL(*this, "crop_panel_unknown", CropPanel);
-    assert(crop_panel);
-    crop_panel->Init(&pano);
 
     // the mask panel
     mask_panel = XRCCTRL(*this, "mask_panel_unknown", MaskEditorPanel);
@@ -1050,50 +1043,47 @@ void MainFrame::OnShowPanel(wxCommandEvent & e)
     if(e.GetId()==XRCID("ID_SHOW_PANEL_IMAGES"))
         m_notebook->SetSelection(1);
     else
-        if(e.GetId()==XRCID("ID_SHOW_PANEL_CROP"))
+        if(e.GetId()==XRCID("ID_SHOW_PANEL_MASK"))
             m_notebook->SetSelection(2);
         else
-            if(e.GetId()==XRCID("ID_SHOW_PANEL_MASK"))
+            if(e.GetId()==XRCID("ID_SHOW_PANEL_CP_EDITOR"))
                 m_notebook->SetSelection(3);
             else
-                if(e.GetId()==XRCID("ID_SHOW_PANEL_CP_EDITOR"))
+                if(e.GetId()==XRCID("ID_SHOW_PANEL_OPTIMIZER"))
                     m_notebook->SetSelection(4);
                 else
-                    if(e.GetId()==XRCID("ID_SHOW_PANEL_OPTIMIZER"))
-                        m_notebook->SetSelection(5);
-                    else
-                        if(e.GetId()==XRCID("ID_SHOW_PANEL_OPTIMIZER_PHOTOMETRIC"))
+                    if(e.GetId()==XRCID("ID_SHOW_PANEL_OPTIMIZER_PHOTOMETRIC"))
+                    {
+                        if(m_show_opt_panel)
                         {
-                            if(m_show_opt_panel)
+                            m_notebook->SetSelection(5);
+                        }
+                        else
+                        {
+                            m_notebook->SetSelection(4);
+                        };
+                    }
+                    else
+                        if(e.GetId()==XRCID("ID_SHOW_PANEL_PANORAMA"))
+                        {
+                            if(m_show_opt_panel && m_show_opt_photo_panel)
                             {
                                 m_notebook->SetSelection(6);
                             }
                             else
                             {
-                                m_notebook->SetSelection(5);
-                            };
-                        }
-                        else
-                            if(e.GetId()==XRCID("ID_SHOW_PANEL_PANORAMA"))
-                            {
-                                if(m_show_opt_panel && m_show_opt_photo_panel)
+                                if(m_show_opt_panel || m_show_opt_photo_panel)
                                 {
-                                    m_notebook->SetSelection(7);
+                                    m_notebook->SetSelection(5);
                                 }
                                 else
                                 {
-                                    if(m_show_opt_panel || m_show_opt_photo_panel)
-                                    {
-                                        m_notebook->SetSelection(6);
-                                    }
-                                    else
-                                    {
-                                        m_notebook->SetSelection(5);
-                                    };
+                                    m_notebook->SetSelection(4);
                                 };
-                            }
-                            else
-                                m_notebook->SetSelection(0);
+                            };
+                        }
+                        else
+                            m_notebook->SetSelection(0);
 }
 
 
@@ -1628,13 +1618,13 @@ void MainFrame::OnRedo(wxCommandEvent & e)
 void MainFrame::ShowCtrlPoint(unsigned int cpNr)
 {
     DEBUG_DEBUG("Showing control point " << cpNr);
-    m_notebook->SetSelection(5);
+    m_notebook->SetSelection(3);
     cpe->ShowControlPoint(cpNr);
 }
 
 void MainFrame::ShowCtrlPointEditor(unsigned int img1, unsigned int img2)
 {
-    m_notebook->SetSelection(5);
+    m_notebook->SetSelection(3);
     cpe->setLeftImage(img1);
     cpe->setRightImage(img2);
 }
@@ -1642,7 +1632,21 @@ void MainFrame::ShowCtrlPointEditor(unsigned int img1, unsigned int img2)
 void MainFrame::ShowStitcherTab()
 {
     ///@todo Stop using magic numbers for the tabs.
-    m_notebook->SetSelection(8);
+    if(m_show_opt_panel && m_show_opt_photo_panel)
+    {
+        m_notebook->SetSelection(6);
+    }
+    else
+    {
+        if(m_show_opt_panel || m_show_opt_photo_panel)
+        {
+            m_notebook->SetSelection(5);
+        }
+        else
+        {
+            m_notebook->SetSelection(4);
+        };
+    };
 }
 
 /** update the display */

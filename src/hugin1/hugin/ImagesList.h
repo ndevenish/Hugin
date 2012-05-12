@@ -170,102 +170,6 @@ protected:
     DECLARE_DYNAMIC_CLASS(ImagesList)
 };
 
-/** specialized to display image data (width, position)
- */
-class ImagesListImage : public ImagesList
-{
-public:
-    ImagesListImage();
-
-    bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTAB_TRAVERSAL, const wxString& name = wxT("panel"));
-
-    void Init(PT::Panorama * pano);
-
-    /** update the information in an already existing list item
-     */
-    virtual void UpdateItem(unsigned int imgNr);
-    
-    /// refresh the stack numbers
-    virtual void UpdatePartNumbersForItem(unsigned int imgNr);
-
-    DECLARE_DYNAMIC_CLASS(ImagesListImage)
-};
-
-/** xrc handler */
-class ImagesListImageXmlHandler : public wxXmlResourceHandler
-{
-    DECLARE_DYNAMIC_CLASS(ImagesListImageXmlHandler)
-
-    public:
-        ImagesListImageXmlHandler();
-        virtual wxObject *DoCreateResource();
-        virtual bool CanHandle(wxXmlNode *node);
-};
-
-/** specialized to display the lens aspect of images
- */
-class ImagesListLens : public ImagesList
-{
-public:
-    ImagesListLens();
-
-    bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTAB_TRAVERSAL, const wxString& name = wxT("panel"));
-
-    void Init(PT::Panorama * pano);
-
-    ImagesListLens(wxWindow * parent, Panorama * pano);
-
-    /** update the information in an already existing list item
-     */
-    virtual void UpdateItem(unsigned int imgNr);
-    
-    /** update the part numbers in an already existing list item.
-     */ 
-    virtual void UpdatePartNumbersForItem(unsigned int imgNr);
-
-    DECLARE_DYNAMIC_CLASS(ImagesListLens)
-};
-
-/** xrc handler */
-class ImagesListLensXmlHandler : public wxXmlResourceHandler
-{
-    DECLARE_DYNAMIC_CLASS(ImagesListLensXmlHandler)
-
-    public:
-        ImagesListLensXmlHandler();
-        virtual wxObject *DoCreateResource();
-        virtual bool CanHandle(wxXmlNode *node);
-};
-
-/** specialized to display the crop aspect of images
- */
-class ImagesListCrop : public ImagesList
-{
-public:
-    ImagesListCrop();
-
-    bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTAB_TRAVERSAL, const wxString& name = wxT("panel"));
-
-    void Init(PT::Panorama * pano);
-
-    /** update the information in an already existing list item
-     */
-    virtual void UpdateItem(unsigned int imgNr);
-
-    DECLARE_DYNAMIC_CLASS(ImagesListCrop)
-};
-
-/** xrc handler */
-class ImagesListCropXmlHandler : public wxXmlResourceHandler
-{
-    DECLARE_DYNAMIC_CLASS(ImagesListCropXmlHandler)
-
-    public:
-        ImagesListCropXmlHandler();
-        virtual wxObject *DoCreateResource();
-        virtual bool CanHandle(wxXmlNode *node);
-};
-
 /** specialized to display the mask aspect of images
  */
 class ImagesListMask : public ImagesList
@@ -280,6 +184,8 @@ public:
     /** update the information in an already existing list item
      */
     virtual void UpdateItem(unsigned int imgNr);
+    /** sets the listbox to single item select or multiply item select */
+    void SetSingleSelect(bool isSingleSelect);
 
     DECLARE_DYNAMIC_CLASS(ImagesListMask)
 };

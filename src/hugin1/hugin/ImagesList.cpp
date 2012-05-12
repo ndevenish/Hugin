@@ -417,348 +417,11 @@ IMPLEMENT_DYNAMIC_CLASS(ImagesList, wxListCtrl)
 
 // ============================================================================
 // ============================================================================
-// Image
-
-ImagesListImage::ImagesListImage()
-{
-
-}
-
-
-bool ImagesListImage::Create(wxWindow* parent, wxWindowID id,
-                        const wxPoint& pos,
-                        const wxSize& size,
-                        long style,
-                        const wxString& name)
-{
-    DEBUG_TRACE("ListImage");
-    if (! ImagesList::Create(parent, id, pos, size, style, name)) {
-        return false;
-    }
-
-    m_configClassName = wxT("/ImagesListImage");
-
-    InsertColumn( 1, _("Filename"), wxLIST_FORMAT_LEFT, 200 );
-    InsertColumn( 2, _("width"), wxLIST_FORMAT_RIGHT, 60 );
-    InsertColumn( 3, _("height"), wxLIST_FORMAT_RIGHT, 60 );
-    InsertColumn( 4, _("yaw (y)"), wxLIST_FORMAT_RIGHT, 60 );
-    InsertColumn( 5, _("pitch (p)"), wxLIST_FORMAT_RIGHT, 60 );
-    InsertColumn( 6, _("roll (r)"), wxLIST_FORMAT_RIGHT, 60 );
-    InsertColumn( 7, _("X (TrX)"), wxLIST_FORMAT_RIGHT, 60 );
-    InsertColumn( 8, _("Y (TrY)"), wxLIST_FORMAT_RIGHT, 60 );
-    InsertColumn( 9, _("Z (TrZ)"), wxLIST_FORMAT_RIGHT, 60 );
-    InsertColumn( 10, _("Anchor"), wxLIST_FORMAT_RIGHT, 60 );
-    InsertColumn( 11, _("# Ctrl Pnts"), wxLIST_FORMAT_RIGHT, 60);
-    InsertColumn( 12, _("Stack Number"), wxLIST_FORMAT_RIGHT, 60);
-    
-    //get saved width
-    for ( int j=0; j < GetColumnCount() ; j++ )
-    {
-        // -1 is auto
-        int width = wxConfigBase::Get()->Read(wxString::Format(m_configClassName+wxT("/ColumnWidth%d"), j ), -1);
-        if(width != -1)
-            SetColumnWidth(j, width);
-    }
-    return true;
-}
-
-void ImagesListImage::Init(PT::Panorama * panorama)
-{
-    ImagesList::Init(panorama);
-}
-
-void ImagesListImage::UpdateItem(unsigned int imgNr)
-{
-    DEBUG_DEBUG("update image list item " << imgNr);
-    DEBUG_ASSERT((int)imgNr < GetItemCount());
-    const SrcPanoImage & img = pano->getImage(imgNr);
-    wxFileName fn(wxString (img.getFilename().c_str(), HUGIN_CONV_FILENAME));
-
-//    wxLogMessage(wxString::Format(_("updating image list item %d, filename %s"),imgNr, fn.GetFullName()));
-
-    SetItem(imgNr, 1, fn.GetFullName() );
-    SetItem(imgNr, 2, wxString::Format(wxT("%d"), img.getSize().width()));
-    SetItem(imgNr, 3, wxString::Format(wxT("%d"), img.getSize().height()));
-    SetItem(imgNr, 4, doubleTowxString(img.getYaw(), m_degDigits));
-    SetItem(imgNr, 5, doubleTowxString(img.getPitch(), m_degDigits));
-    SetItem(imgNr, 6, doubleTowxString(img.getRoll(), m_degDigits));
-    SetItem(imgNr, 7, doubleTowxString(img.getX(), m_distDigits));
-    SetItem(imgNr, 8, doubleTowxString(img.getY(), m_distDigits));
-    SetItem(imgNr, 9, doubleTowxString(img.getZ(), m_distDigits));
-    wxChar flags[] = wxT("--");
-    if (pano->getOptions().optimizeReferenceImage == imgNr) {
-        flags[0]='A';
-    }
-    if (pano->getOptions().colorReferenceImage == imgNr) {
-        flags[1]='C';
-    }
-    SetItem(imgNr,10, wxString(flags, wxConvLocal));
-    // urgh.. slow.. stupid.. traverse control point list for each image..
-    const CPVector & cps = pano->getCtrlPoints();
-    int nCP=0;
-    for (CPVector::const_iterator it = cps.begin(); it != cps.end(); ++it) {
-        if ((*it).image1Nr == imgNr || (*it).image2Nr == imgNr) {
-            nCP++;
-        }
-    }
-    SetItem(imgNr, 11, wxString::Format(wxT("%d"), nCP));
-}
-
-void ImagesListImage::UpdatePartNumbersForItem(unsigned int imgNr)
-{
-    unsigned int stackNumber = variable_groups->getStacks().getPartNumber(imgNr);
-    SetItem(imgNr, 12, wxString::Format(wxT("%d"), stackNumber));
-}
-
-IMPLEMENT_DYNAMIC_CLASS(ImagesListImage, ImagesList)
-
-ImagesListImageXmlHandler::ImagesListImageXmlHandler()
-    : wxXmlResourceHandler()
-{
-    AddWindowStyles();
-}
-
-wxObject *ImagesListImageXmlHandler::DoCreateResource()
-{
-    XRC_MAKE_INSTANCE(cp, ImagesListImage)
-
-    cp->Create(m_parentAsWindow,
-               GetID(),
-               GetPosition(), GetSize(),
-               GetStyle(wxT("style")),
-               GetName());
-
-    SetupWindow( cp);
-
-    return cp;
-}
-
-bool ImagesListImageXmlHandler::CanHandle(wxXmlNode *node)
-{
-    return IsOfClass(node, wxT("ImagesListImage"));
-}
-
-IMPLEMENT_DYNAMIC_CLASS(ImagesListImageXmlHandler, wxXmlResourceHandler)
-
-      
-// ============================================================================
-// ============================================================================
-// Lens
-
-
-ImagesListLens::ImagesListLens()
-{
-
-}
-
-
-bool ImagesListLens::Create(wxWindow* parent, wxWindowID id,
-                        const wxPoint& pos,
-                        const wxSize& size,
-                        long style,
-                        const wxString& name)
-{
-    DEBUG_TRACE("ListLens");
-    if (! ImagesList::Create(parent, id, pos, size, style, name)) {
-        return false;
-    }
-    DEBUG_TRACE("ListLens: Add list headers");
-
-    m_configClassName = wxT("/ImagesListLens");
-
-    InsertColumn( 1, _("Filename"), wxLIST_FORMAT_LEFT, 200 );
-    InsertColumn( 2, _("Lens no."), wxLIST_FORMAT_LEFT, 60);
-    InsertColumn( 3, _("Lens type (f)"), wxLIST_FORMAT_LEFT, 100 );
-    InsertColumn( 4, _("EV"), wxLIST_FORMAT_RIGHT, 50 );
-    InsertColumn( 5, _("hfov (v)"), wxLIST_FORMAT_RIGHT, 80 );
-    InsertColumn( 6, wxT("a"), wxLIST_FORMAT_RIGHT, 40 );
-    InsertColumn( 7, wxT("b"), wxLIST_FORMAT_RIGHT, 40 );
-    InsertColumn( 8, wxT("c"), wxLIST_FORMAT_RIGHT, 40 );
-    InsertColumn( 9, wxT("d"), wxLIST_FORMAT_RIGHT, 40 );
-    InsertColumn( 10, wxT("e"), wxLIST_FORMAT_RIGHT, 40 );
-    InsertColumn( 11, wxT("g"), wxLIST_FORMAT_RIGHT, 40 );
-    InsertColumn( 12, wxT("t"), wxLIST_FORMAT_RIGHT, 40 );
-
-    //get saved width
-    for ( int j=0; j < GetColumnCount() ; j++ )
-    {
-        // -1 is auto
-        int width = wxConfigBase::Get()->Read(wxString::Format(m_configClassName+wxT("/ColumnWidth%d"), j ), -1);
-        if(width != -1)
-            SetColumnWidth(j, width);
-    }
-    return true;
-}
-
-void ImagesListLens::Init(PT::Panorama * panorama)
-{
-    ImagesList::Init(panorama);
-}
-
-void ImagesListLens::UpdateItem(unsigned int imgNr)
-{
-    const SrcPanoImage & img = pano->getImage(imgNr);
-    wxFileName fn(wxString (img.getFilename().c_str(), HUGIN_CONV_FILENAME));
-    SetItem(imgNr, 1, fn.GetFullName() );
-    SetItem(imgNr, 2, wxString::Format(wxT("%d"),variable_groups->getLenses().getPartNumber(imgNr)));
-
-    VariableMap var = pano->getImageVariables(imgNr);
-    wxString ps;
-    switch ( img.getProjection() ) {
-    case SrcPanoImage::RECTILINEAR:          ps << _("Normal (rectilinear)"); break;
-    case SrcPanoImage::PANORAMIC:            ps << _("Panoramic (cylindrical)"); break;
-    case SrcPanoImage::CIRCULAR_FISHEYE:     ps << _("Circular fisheye"); break;
-    case SrcPanoImage::FULL_FRAME_FISHEYE:   ps << _("Full frame fisheye"); break;
-    case SrcPanoImage::EQUIRECTANGULAR:      ps << _("Equirectangular"); break;
-    case SrcPanoImage::FISHEYE_ORTHOGRAPHIC: ps << _("Orthographic"); break;
-    case SrcPanoImage::FISHEYE_STEREOGRAPHIC:ps << _("Stereographic"); break;
-    case SrcPanoImage::FISHEYE_EQUISOLID:    ps << _("Equisolid"); break;
-    case SrcPanoImage::FISHEYE_THOBY:        ps << _("Fisheye Thoby"); break;
-    }
-    SetItem(imgNr, 3, ps);
-    SetItem(imgNr, 4, doubleTowxString( map_get(var, "Eev").getValue(),1));
-    SetItem(imgNr, 5, doubleTowxString( map_get(var, "v").getValue(),m_degDigits));
-    SetItem(imgNr, 6, doubleTowxString( map_get(var, "a").getValue(),m_distDigits));
-    SetItem(imgNr, 7, doubleTowxString( map_get(var, "b").getValue(),m_distDigits));
-    SetItem(imgNr, 8, doubleTowxString( map_get(var, "c").getValue(),m_distDigits));
-    SetItem(imgNr, 9, doubleTowxString( map_get(var, "d").getValue(),m_pixelDigits));
-    SetItem(imgNr, 10, doubleTowxString( map_get(var, "e").getValue(),m_pixelDigits));
-    SetItem(imgNr, 11, doubleTowxString( map_get(var, "g").getValue(),m_distDigits));
-    SetItem(imgNr, 12, doubleTowxString( map_get(var, "t").getValue(),m_distDigits));
-}
-
-void ImagesListLens::UpdatePartNumbersForItem(unsigned int imgNr)
-{
-    // Update the part numbers.
-    SetItem(imgNr, 2, wxString::Format(wxT("%d"),variable_groups->getLenses().getPartNumber(imgNr)));
-}
-
-
-IMPLEMENT_DYNAMIC_CLASS(ImagesListLens, ImagesList)
-
-ImagesListLensXmlHandler::ImagesListLensXmlHandler()
-    : wxXmlResourceHandler()
-{
-    AddWindowStyles();
-}
-
-wxObject *ImagesListLensXmlHandler::DoCreateResource()
-{
-    XRC_MAKE_INSTANCE(cp, ImagesListLens)
-
-            cp->Create(m_parentAsWindow,
-                       GetID(),
-                       GetPosition(), GetSize(),
-                       GetStyle(wxT("style")),
-                       GetName());
-
-    SetupWindow( cp);
-
-    return cp;
-}
-
-bool ImagesListLensXmlHandler::CanHandle(wxXmlNode *node)
-{
-    return IsOfClass(node, wxT("ImagesListLens"));
-}
-
-IMPLEMENT_DYNAMIC_CLASS(ImagesListLensXmlHandler, wxXmlResourceHandler)
-
-      
-// ============================================================================
-// ============================================================================
-// Crop
-
-
-ImagesListCrop::ImagesListCrop()
-{
-
-}
-
-
-bool ImagesListCrop::Create(wxWindow* parent, wxWindowID id,
-                             const wxPoint& pos,
-                             const wxSize& size,
-                             long style,
-                             const wxString& name)
-{
-    DEBUG_TRACE("");
-    if (!ImagesList::Create(parent, id, pos, size, style, name))
-        return false;
-
-    m_configClassName = wxT("/ImagesListCrop");
-
-    InsertColumn(1, _("Crop"), wxLIST_FORMAT_RIGHT,120);
-
-    //get saved width
-    for ( int j=0; j < GetColumnCount() ; j++ )
-    {
-        // -1 is auto
-        int width = wxConfigBase::Get()->Read(wxString::Format(m_configClassName+wxT("/ColumnWidth%d"), j ), -1);
-        if(width != -1)
-            SetColumnWidth(j, width);
-    }
-    return true;
-}
-
-
-void ImagesListCrop::Init(PT::Panorama * panorama)
-{
-    ImagesList::Init(panorama);
-}
-
-void ImagesListCrop::UpdateItem(unsigned int imgNr)
-{
-    const SrcPanoImage & img = pano->getImage(imgNr);
-    wxFileName fn(wxString (img.getFilename().c_str(), HUGIN_CONV_FILENAME));
-
-    wxString cropstr(wxT("-"));
-    if ( img.getCropMode() != SrcPanoImage::NO_CROP ) {
-        vigra::Rect2D c = img.getCropRect();
-        cropstr.Printf(wxT("%d,%d,%d,%d"), c.left(), c.right(), c.top(), c.bottom());
-    }
-    SetItem(imgNr, 1, cropstr);
-}
-
-IMPLEMENT_DYNAMIC_CLASS(ImagesListCrop, ImagesList)
-
-ImagesListCropXmlHandler::ImagesListCropXmlHandler()
-    : wxXmlResourceHandler()
-{
-    AddWindowStyles();
-}
-
-wxObject *ImagesListCropXmlHandler::DoCreateResource()
-{
-    XRC_MAKE_INSTANCE(cp, ImagesListCrop)
-
-    cp->Create(m_parentAsWindow,
-               GetID(),
-               GetPosition(), GetSize(),
-               GetStyle(wxT("style")),
-               GetName());
-
-    SetupWindow( cp);
-
-    return cp;
-}
-
-bool ImagesListCropXmlHandler::CanHandle(wxXmlNode *node)
-{
-    return IsOfClass(node, wxT("ImagesListCrop"));
-}
-
-IMPLEMENT_DYNAMIC_CLASS(ImagesListCropXmlHandler, wxXmlResourceHandler)
-
-
-// ============================================================================
-// ============================================================================
 // Mask
 
 ImagesListMask::ImagesListMask()
 {
 }
-
 
 bool ImagesListMask::Create(wxWindow* parent, wxWindowID id,
                              const wxPoint& pos,
@@ -772,7 +435,9 @@ bool ImagesListMask::Create(wxWindow* parent, wxWindowID id,
 
     m_configClassName = wxT("/ImagesListMask");
 
-    InsertColumn(1, _("Number of masks"), wxLIST_FORMAT_RIGHT,120);
+    InsertColumn(1, _("Filename"), wxLIST_FORMAT_LEFT, 200 );
+    InsertColumn(2, _("Number of masks"), wxLIST_FORMAT_RIGHT,120);
+    InsertColumn(3, _("Crop"), wxLIST_FORMAT_RIGHT,120);
 
     //get saved width
     for ( int j=0; j < GetColumnCount() ; j++ )
@@ -793,13 +458,38 @@ void ImagesListMask::Init(PT::Panorama * panorama)
 
 void ImagesListMask::UpdateItem(unsigned int imgNr)
 {
+    const SrcPanoImage & img = pano->getImage(imgNr);
+    wxFileName fn(wxString (img.getFilename().c_str(), HUGIN_CONV_FILENAME));
+    SetItem(imgNr, 1, fn.GetFullName() );
+
     wxString maskstr;
-    if(pano->getImage(imgNr).hasMasks())
+    if(img.hasMasks())
         maskstr=wxString::Format(wxT("%lu"), (unsigned long int) pano->getImage(imgNr).getMasks().size());
     else
         maskstr=wxT("-");
-    SetItem(imgNr, 1, maskstr);
+    SetItem(imgNr, 2, maskstr);
+
+    wxString cropstr(wxT("-"));
+    if ( img.getCropMode() != SrcPanoImage::NO_CROP )
+    {
+        vigra::Rect2D c = img.getCropRect();
+        cropstr.Printf(wxT("%d,%d,%d,%d"), c.left(), c.right(), c.top(), c.bottom());
+    }
+    SetItem(imgNr, 3, cropstr);
 }
+
+void ImagesListMask::SetSingleSelect(bool isSingleSelect)
+{
+    if(isSingleSelect)
+    {
+        SetWindowStyle(GetWindowStyle() | wxLC_SINGLE_SEL);
+    }
+    else
+    {
+        SetWindowStyle(GetWindowStyle() & ~wxLC_SINGLE_SEL);
+    };
+    m_singleSelect=(GetWindowStyle() & wxLC_SINGLE_SEL)!=0;
+};
 
 IMPLEMENT_DYNAMIC_CLASS(ImagesListMask, ImagesList)
 

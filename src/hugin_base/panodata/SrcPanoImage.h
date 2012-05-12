@@ -253,7 +253,7 @@ public:
     void setCropMode(CropMode val);
 
     /** returns true, if projection requires cicular crop */
-    bool isCircularCrop();
+    bool isCircularCrop() const;
 
     /** Set the image size in pixels
      * 

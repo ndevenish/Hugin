@@ -39,7 +39,6 @@
 #include "hugin/huginApp.h"
 #include "hugin/AssistantPanel.h"
 #include "hugin/ImagesPanel.h"
-#include "hugin/CropPanel.h"
 #include "hugin/MaskEditorPanel.h"
 #include "hugin/CPEditorPanel.h"
 #include "hugin/OptimizePhotometricPanel.h"
@@ -304,11 +303,6 @@ bool huginApp::OnInit()
     // add custom XRC handlers
     wxXmlResource::Get()->AddHandler(new AssistantPanelXmlHandler());
     wxXmlResource::Get()->AddHandler(new ImagesPanelXmlHandler());
-    wxXmlResource::Get()->AddHandler(new ImagesListImageXmlHandler());
-    wxXmlResource::Get()->AddHandler(new ImagesListLensXmlHandler());
-    wxXmlResource::Get()->AddHandler(new ImagesListCropXmlHandler());
-    wxXmlResource::Get()->AddHandler(new CropPanelXmlHandler());
-    wxXmlResource::Get()->AddHandler(new CenterCanvasXmlHandler());
     wxXmlResource::Get()->AddHandler(new CPEditorPanelXmlHandler());
     wxXmlResource::Get()->AddHandler(new CPImageCtrlXmlHandler());
     wxXmlResource::Get()->AddHandler(new CPImagesComboBoxXmlHandler());
@@ -324,7 +318,6 @@ bool huginApp::OnInit()
     wxXmlResource::Get()->AddHandler(new ImagesTreeCtrlXmlHandler());
 
     // load XRC files
-    wxXmlResource::Get()->Load(m_xrcPrefix + wxT("crop_panel.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("cp_list_frame.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("preview_frame.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("edit_script_dialog.xrc"));
