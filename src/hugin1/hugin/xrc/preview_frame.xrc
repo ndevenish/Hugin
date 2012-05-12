@@ -174,27 +174,16 @@
         <border>10</border>
       </object>
       <object class="sizeritem">
-        <object class="wxBoxSizer">
-          <orient>wxHORIZONTAL</orient>
-          <object class="spacer">
-            <size>0,0</size>
-            <option>1</option>
-            <flag>wxEXPAND</flag>
-          </object>
-          <object class="sizeritem">
-            <object class="wxButton" name="apply_numeric_transform">
-              <label>Apply</label>
-              <tooltip>Center the preview horizontally</tooltip>
-              <flag>wxLEFT</flag>
-              <border>10</border>
-            </object>
-          </object>
-          <object class="sizeritem">
+        <object class="wxStdDialogButtonSizer">
+          <object class="button">
             <object class="wxButton" name="wxID_OK">
-              <label>Close</label>
+              <label>OK</label>
             </object>
-            <flag>wxRIGHT</flag>
-            <border>10</border>
+          </object>
+          <object class="button">
+            <object class="wxButton" name="wxID_CANCEL">
+              <label>Cancel</label>
+            </object>
           </object>
         </object>
         <flag>wxALL|wxEXPAND</flag>
