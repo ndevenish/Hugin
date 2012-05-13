@@ -842,6 +842,9 @@ void Panorama::printPanoramaScript(std::ostream & o,
     o << "#hugin_outputImageTypeHDR " << output.outputImageTypeHDR << endl;
     o << "#hugin_outputImageTypeHDRCompression " << output.outputImageTypeHDRCompression << endl;
 
+    o << "#hugin_outputStacksMinOverlap " << setprecision(3) << output.outputStacksMinOverlap << endl;
+    o << "#hugin_outputLayersExposureDiff " << setprecision(2) << output.outputLayersExposureDiff << endl;
+
     if(optvars==getOptimizeVector())
     {
         o << "#hugin_optimizerMasterSwitch " << getOptimizerSwitch() << endl;
@@ -2204,20 +2207,8 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
     ImgInfo PTGUILens;
 
     // set new options to some sensible default.
+    options.reset();
     options.tiff_saveROI = false;
-    options.blendMode = PanoramaOptions::ENBLEND_BLEND;
-    options.remapper = PanoramaOptions::NONA;
-    options.hdrMergeMode = PanoramaOptions::HDRMERGE_AVERAGE;
-    options.enblendOptions.clear();
-    options.enfuseOptions.clear();
-    options.hdrmergeOptions.clear();
-    options.outputLDRBlended = true;
-    options.outputLDRLayers = false;
-    options.outputLDRExposureLayers = false;
-    options.outputLDRExposureLayersFused = false;
-    options.outputHDRBlended = false;
-    options.outputHDRLayers = false;
-    options.outputHDRStacks = false;
 
     ptoVersion = 1;
 
@@ -2667,6 +2658,19 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
                         options.outputHDRLayers = (value == "true");
                     } else if (var == "#hugin_outputHDRStacks") {
                         options.outputHDRStacks = (value == "true");
+
+                    } else if (var == "#hugin_outputStacksMinOverlap") {
+                        double val=atof(value.c_str());
+                        if(val>0 && val <= 1)
+                        {
+                            options.outputStacksMinOverlap = val;
+                        };
+                    } else if (var == "#hugin_outputLayersExposureDiff") {
+                        double val=atof(value.c_str());
+                        if(val>0.01)
+                        {
+                            options.outputLayersExposureDiff = val;
+                        }
 
                     } else if (var == "#hugin_outputLayersCompression") {
                         options.outputLayersCompression = value;

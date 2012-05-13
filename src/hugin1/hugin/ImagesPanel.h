@@ -103,6 +103,10 @@ private:
     void OnFocalLengthChanged(wxCommandEvent & e);
     /** updates the crop factor for the selected images */
     void OnCropFactorChanged(wxCommandEvent & e);
+    /** updates the minimum overlap */
+    void OnMinimumOverlapChanged(wxCommandEvent & e);
+    /** updates the max ev difference */
+    void OnMaxEvDiffChanged(wxCommandEvent& e);
 
     /** event handler when grouping selection was changed */
     void OnGroupModeChanged(wxCommandEvent & e);
@@ -144,6 +148,10 @@ private:
     wxTextCtrl *m_focallength;
     /** the text input control for crop factor */
     wxTextCtrl *m_cropfactor;
+    /** the text input control for minimum overlap */
+    wxTextCtrl *m_overlap;
+    /** the text input control for max ev difference */
+    wxTextCtrl *m_maxEv;
     size_t m_showImgNr;
 
     wxButton * m_matchingButton;

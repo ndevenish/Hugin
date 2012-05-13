@@ -295,11 +295,11 @@ void ImagesTreeCtrl::panoramaImagesChanged(Panorama &pano, const UIntSet &change
                 };
                 break;
             case GROUP_OUTPUTSTACK:
-                imageGroups=getHDRStacks(*m_pano,m_pano->getActiveImages());
+                imageGroups=getHDRStacks(*m_pano,m_pano->getActiveImages(), m_pano->getOptions());
                 m_needsUpdate=false;
                 break;
             case GROUP_OUTPUTLAYERS:
-                imageGroups=getExposureLayers(*m_pano,m_pano->getActiveImages());
+                imageGroups=getExposureLayers(*m_pano,m_pano->getActiveImages(), m_pano->getOptions());
                 m_needsUpdate=false;
                 break;
         };

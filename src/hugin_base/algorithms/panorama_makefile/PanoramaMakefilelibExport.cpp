@@ -411,7 +411,7 @@ bool PanoramaMakefilelibExport::createItems()
     // hdr, exposure, ldr stacks
     std::vector<mf::Variable*> hdr_stacks, hdr_stacks_shell, hdr_stacks_input, hdr_stacks_input_shell;
     mgr.own_add(new Comment("stacked hdr images"));
-    std::vector<UIntSet> stacks = getHDRStacks(pano, images);
+    std::vector<UIntSet> stacks = getHDRStacks(pano, images, opts);
     mf::Variable* vhdrstacks,* vhdrstacksshell;
     std::vector<std::string> stackedhdrImgs;
     createstacks(stacks, "HDR_STACK", "_stack_hdr_", "_hdr_", hdrRemappedExt,
@@ -420,7 +420,7 @@ bool PanoramaMakefilelibExport::createItems()
     std::vector<mf::Variable*> ldrexp_stacks, ldrexp_stacks_shell, ldrexp_stacks_input, ldrexp_stacks_input_shell, ldrexp_stacks_pt_input, ldrexp_stacks_input_pt_shell;
     mgr.own_add(new Comment("number of image sets with similar exposure"));
     mf::Variable* vldrexposurelayers,* vldrexposurelayersshell,* vldrexposurelayersremapped,* vldrexposurelayersremappedshell;
-    std::vector<UIntSet> exposures = getExposureLayers(pano, images);
+    std::vector<UIntSet> exposures = getExposureLayers(pano, images, opts);
     std::vector<std::string> exposureimgs;
     createexposure(exposures, "LDR_EXPOSURE_LAYER", "_exposure_", "_exposure_layers_", ldrRemappedExt,
                 ldrexp_stacks, ldrexp_stacks_shell, ldrexp_stacks_input, ldrexp_stacks_input_shell, ldrexp_stacks_pt_input, ldrexp_stacks_input_pt_shell,
@@ -673,6 +673,12 @@ bool PanoramaMakefilelibExport::createItems()
     infostream.str("");
     infostream << setprecision(2) << opts.outputExposureValue;
     echoInfo(*info,"Output exposure value: "+infostream.str());
+    infostream.str("");
+    infostream << setprecision(3) << opts.outputStacksMinOverlap;
+    echoInfo(*info,"Output stacks minimum overlap: "+infostream.str());
+    infostream.str("");
+    infostream << setprecision(2) << opts.outputLayersExposureDiff;
+    echoInfo(*info,"Output layers maximum Ev difference: "+infostream.str());
     echoInfo(*info,"Selected outputs");
     if(opts.outputLDRBlended || opts.outputLDRLayers)
     {

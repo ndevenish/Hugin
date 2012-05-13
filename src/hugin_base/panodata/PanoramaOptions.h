@@ -242,6 +242,9 @@ class IMPEX PanoramaOptions
 
             panoProjectionFeaturesQuery(m_projectionFormat, &m_projFeatures);
             resetProjectionParameters();
+
+            outputStacksMinOverlap = 0.7;
+            outputLayersExposureDiff = 0.5;
         }
 
     public:
@@ -403,6 +406,10 @@ class IMPEX PanoramaOptions
 
         // choose pixel type for output images.
         std::string outputPixelType;
+
+        // parameters for generating output layers and stacks
+        double outputStacksMinOverlap;
+        double outputLayersExposureDiff;
 
         pano_projection_features m_projFeatures;
 

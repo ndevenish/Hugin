@@ -397,7 +397,7 @@ int main(int argc, char *argv[])
         CalculateOptimalROI cropPano(pano);
         if(autocropHDR)
         {
-            cropPano.setStacks(getHDRStacks(pano,pano.getActiveImages()));
+            cropPano.setStacks(getHDRStacks(pano,pano.getActiveImages(), pano.getOptions()));
         }
         cropPano.run();
         

@@ -35,7 +35,52 @@
                       <flag>wxEXPAND|wxALL</flag>
                       <border>3</border>
                     </object>
-                    
+                    <object class="sizeritem">
+                      <object class="wxBoxSizer">
+                        <object class="sizeritem">
+                          <object class="wxStaticText" name="images_text_overlap">
+                            <label>Minimum overlap:</label>
+                            <hidden>1</hidden>
+                          </object>
+                          <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxTextCtrl" name="images_overlap">
+                            <size>65,-1</size>
+                            <tooltip>Minimum overlap for output stack detection</tooltip>
+                            <enabled>0</enabled>
+                            <hidden>1</hidden>
+                          </object>
+                          <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                        </object>
+                        <orient>wxHORIZONTAL</orient>
+                      </object>
+                      <flag>wxALL|wxALIGN_CENTRE_HORIZONTAL</flag>
+                      <border>3</border>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxBoxSizer">
+                        <object class="sizeritem">
+                          <object class="wxStaticText" name="images_text_maxev">
+                            <label>Maximum Ev difference:</label>
+                            <hidden>1</hidden>
+                          </object>
+                          <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxTextCtrl" name="images_maxev">
+                            <size>65,-1</size>
+                            <tooltip>Maxmum EV difference for detection of output layers</tooltip>
+                            <enabled>0</enabled>
+                            <hidden>1</hidden>
+                          </object>
+                          <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                        </object>
+                        <orient>wxHORIZONTAL</orient>
+                      </object>
+                      <flag>wxALL|wxALIGN_CENTRE_HORIZONTAL</flag>
+                      <border>3</border>
+                    </object>
                     <object class="sizeritem">
                       <object class="wxRadioBox" name="images_column_radiobox">
                         <label>Display</label>
