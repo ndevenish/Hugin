@@ -1,6 +1,5 @@
 SET(XRCFILES
     about.xrc 
-    crop_panel.xrc
     cp_list_frame.xrc
     preview_frame.xrc
     edit_script_dialog.xrc
