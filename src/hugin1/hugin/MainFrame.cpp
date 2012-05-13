@@ -1883,6 +1883,43 @@ GLPreviewFrame * MainFrame::getGLPreview()
 
 void MainFrame::SetGuiLevel(GuiLevel newLevel, const bool updateMenu)
 {
+    if(m_guiLevel==GUI_EXPERT && newLevel!=GUI_EXPERT && pano.getOptimizerSwitch()==0)
+    {
+        bool needsUpdateOptimizerVar=false;
+        OptimizeVector optVec=pano.getOptimizeVector();
+        for(size_t i=0; i<optVec.size(); i++)
+        {
+            bool hasTrX=optVec[i].erase("TrX")>0;
+            bool hasTrY=optVec[i].erase("TrY")>0;
+            bool hasTrZ=optVec[i].erase("TrZ")>0;
+            bool hasg=optVec[i].erase("g")>0;
+            bool hast=optVec[i].erase("t")>0;
+            needsUpdateOptimizerVar=needsUpdateOptimizerVar || hasTrX || hasTrY || hasTrZ || hasg || hast;
+        };
+        if(needsUpdateOptimizerVar)
+        {
+            GlobalCmdHist::getInstance().addCommand(
+                new PT::UpdateOptimizeVectorCmd(pano, optVec)
+            );
+        };
+    };
+    if(newLevel==GUI_BEGINNER && pano.getPhotometricOptimizerSwitch()==0)
+    {
+        bool needsUpdateOptimizerVar=false;
+        OptimizeVector optVec=pano.getOptimizeVector();
+        for(size_t i=0; i<optVec.size(); i++)
+        {
+            bool hasVx=optVec[i].erase("Vx")>0;
+            bool hasVy=optVec[i].erase("Vy")>0;
+            needsUpdateOptimizerVar=needsUpdateOptimizerVar || hasVx || hasVy;
+        };
+        if(needsUpdateOptimizerVar)
+        {
+            GlobalCmdHist::getInstance().addCommand(
+                new PT::UpdateOptimizeVectorCmd(pano, optVec)
+            );
+        };
+    };
     m_guiLevel=newLevel;
     images_panel->SetGuiLevel(m_guiLevel);
     opt_panel->SetGuiLevel(m_guiLevel);
@@ -1915,15 +1952,27 @@ void MainFrame::OnSetGuiBeginner(wxCommandEvent & e)
     }
     else
     {
-        wxBell();
-        if(m_guiLevel<reqGuiLevel)
+        if(reqGuiLevel==GUI_ADVANCED)
         {
-            SetGuiLevel(reqGuiLevel, true);
+            wxMessageBox(_("Can't switch to beginner interface. The project is using stacks.\nStacks are not supported in beginner mode."),
+#ifdef __WXMSW__
+                         wxT("Hugin"),
+#else
+                         wxT(""),
+#endif
+                         wxOK | wxICON_INFORMATION, this);
         }
         else
         {
-            SetGuiLevel(m_guiLevel, true);
-        };
+            wxMessageBox(_("Can't switch to beginner interface. The project is using translation parameters or shear parameters.\nThese parameter are not supported in beginner mode."),
+#ifdef __WXMSW__
+                         wxT("Hugin"),
+#else
+                         wxT(""),
+#endif
+                         wxOK | wxICON_INFORMATION, this);
+        }
+        SetGuiLevel(m_guiLevel, true);
     };
 };
 
@@ -1936,7 +1985,13 @@ void MainFrame::OnSetGuiAdvanced(wxCommandEvent & e)
     }
     else
     {
-        wxBell();
+        wxMessageBox(_("Can't switch to advanced interface. The project is using translation parameters or shear parameters.\nThese parameter are not supported in advanced mode."),
+#ifdef __WXMSW__
+                     wxT("Hugin"),
+#else
+                     wxT(""),
+#endif
+                     wxOK | wxICON_INFORMATION, this);
         SetGuiLevel(GUI_EXPERT, true);
     };
 };

@@ -166,7 +166,7 @@
         <label>Expert</label>
         <radio>1</radio>
       </object>
-      <label>GUI mode</label>
+      <label>Interface</label>
     </object>
     <object class="wxMenu" name="help_menu">
       <label>&amp;Help</label>
