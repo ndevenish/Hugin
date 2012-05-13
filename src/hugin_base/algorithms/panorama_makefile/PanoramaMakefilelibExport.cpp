@@ -482,31 +482,48 @@ bool PanoramaMakefilelibExport::createItems()
         }
     }
 
-    if(opts.outputLDRExposureBlended)
+    if(opts.outputLDRExposureLayersFused)
     {
-        allprereqs.push_back(vldrstackedblended);
-        append(outputFiles, vldrstackedblended->getValues());
-        newVarDef(vdoldrstackedblended, "DO_LDR_STACKED_BLENDED", 1);
-        cleanprereqs.push_back(vldrstacksshell);
+        allprereqs.push_back(vldrexposurelayersfused);
+        append(outputFiles, vldrexposurelayersfused->getValues());
+        newVarDef(vdoldrexposurelayersfused, "DO_LDR_EXPOSURE_LAYERS_FUSED", 1);
+        if(!opts.outputLDRExposureLayers)
+        {
+            cleanprereqs.push_back(vldrexposurelayersshell);
+            append(outputFiles, exposureimgs);
+            if(!opts.outputLDRExposureRemapped)
+            {
+                cleanprereqs.push_back(vldrexposurelayersremappedshell);
+                append(outputFiles, vldrexposurelayersremapped->getValues());
+            }
+        }
+    }
+
+    if(opts.outputLDRStacks)
+    {
+        allprereqs.push_back(vldrstacks);
         append(outputFiles, stackedldrimgs);
-        if(!opts.outputLDRExposureRemapped && !opts.outputLDRExposureLayers)
+        if(!opts.outputLDRExposureRemapped)
         {
             cleanprereqs.push_back(vldrexposurelayersremappedshell);
             append(outputFiles, vldrexposurelayersremapped->getValues());
         }
     }
 
-    if(opts.outputLDRExposureLayersFused)
+    if(opts.outputLDRExposureBlended)
     {
-        allprereqs.push_back(vldrexposurelayersfused);
-        append(outputFiles, vldrexposurelayersfused->getValues());
-        newVarDef(vdoldrexposurelayersfused, "DO_LDR_EXPOSURE_LAYERS_FUSED", 1);
-        append(outputFiles, exposureimgs);
-        if(!opts.outputLDRExposureRemapped && !opts.outputLDRExposureLayers)
+        allprereqs.push_back(vldrstackedblended);
+        append(outputFiles, vldrstackedblended->getValues());
+        newVarDef(vdoldrstackedblended, "DO_LDR_STACKED_BLENDED", 1);
+        if(!opts.outputLDRStacks)
         {
-            cleanprereqs.push_back(vldrexposurelayersremappedshell);
-            append(outputFiles, vldrexposurelayersremapped->getValues());
-            cleanprereqs.push_back(vldrexposurelayersshell);
+            cleanprereqs.push_back(vldrstacksshell);
+            append(outputFiles, stackedldrimgs);
+            if(!opts.outputLDRExposureRemapped)
+            {
+                cleanprereqs.push_back(vldrexposurelayersremappedshell);
+                append(outputFiles, vldrexposurelayersremapped->getValues());
+            }
         }
     }
 
@@ -682,7 +699,7 @@ bool PanoramaMakefilelibExport::createItems()
         if(opts.outputLDRLayers)
             echoInfo(*info,"* Remapped images");
     };
-    if(opts.outputLDRExposureBlended || opts.outputLDRExposureLayersFused || opts.outputLDRExposureLayers || opts.outputLDRExposureRemapped)
+    if(opts.outputLDRExposureBlended || opts.outputLDRExposureLayersFused || opts.outputLDRExposureLayers || opts.outputLDRExposureRemapped || opts.outputLDRStacks)
     {
         echoInfo(*info,"Exposure fusion");
         if(opts.outputLDRExposureBlended)
@@ -691,6 +708,8 @@ bool PanoramaMakefilelibExport::createItems()
             echoInfo(*info,"* Blended and fused panorama");
         if(opts.outputLDRExposureLayers)
             echoInfo(*info,"* Blended exposure layers");
+        if(opts.outputLDRStacks)
+            echoInfo(*info,"* Remapped fused stacks");
         if(opts.outputLDRExposureRemapped)
             echoInfo(*info,"* Remapped images");
     };

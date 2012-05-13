@@ -221,6 +221,7 @@ class IMPEX PanoramaOptions
             outputLDRExposureRemapped = false;
             outputLDRExposureLayers = false;
             outputLDRExposureLayersFused = false;
+            outputLDRStacks = false;
             outputLDRExposureBlended = false;
             outputHDRBlended = false;
             outputHDRLayers = false;
@@ -382,6 +383,7 @@ class IMPEX PanoramaOptions
         bool outputLDRExposureRemapped;///< save remapped layers (no exposure adjustment)
         bool outputLDRExposureLayers;  ///< save blended exposure layers, do not perform fusion (no exposure adjustment)
         bool outputLDRExposureLayersFused; ///< save blended exposure layers which are then fused (no exposure adjustment)
+        bool outputLDRStacks;          /// < save exposure fused stacks (no exposure adjustment)
         bool outputLDRExposureBlended; ///< save blended exposure layers created from fused image stacks (no exposure adjustment)
         bool outputHDRBlended;         ///< save blended panorama (HDR)
         bool outputHDRLayers;          ///< save remapped layers (HDR)
