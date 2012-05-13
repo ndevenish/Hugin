@@ -82,6 +82,7 @@ BEGIN_EVENT_TABLE(PanoPanel, wxPanel)
     EVT_CHECKBOX ( XRCID("pano_cb_ldr_output_exposure_layers"), PanoPanel::OnOutputFilesChanged)
     EVT_CHECKBOX ( XRCID("pano_cb_ldr_output_exposure_blended"), PanoPanel::OnOutputFilesChanged)
     EVT_CHECKBOX ( XRCID("pano_cb_ldr_output_exposure_layers_fused"), PanoPanel::OnOutputFilesChanged)
+    EVT_CHECKBOX ( XRCID("pano_cb_ldr_output_stacks"), PanoPanel::OnOutputFilesChanged)
     EVT_CHECKBOX ( XRCID("pano_cb_ldr_output_exposure_remapped"), PanoPanel::OnOutputFilesChanged)
     EVT_CHECKBOX ( XRCID("pano_cb_hdr_output_blended"), PanoPanel::OnOutputFilesChanged)
     EVT_CHECKBOX ( XRCID("pano_cb_hdr_output_stacks"), PanoPanel::OnOutputFilesChanged)
@@ -309,7 +310,7 @@ bool PanoPanel::StackCheck(PT::Panorama &pano)
     // Determine if there are stacks in the pano.
     UIntSet activeImages = pano.getActiveImages();
     UIntSet images = getImagesinROI(pano,activeImages);
-    vector<UIntSet> hdrStacks = HuginBase::getHDRStacks(pano, images);
+    vector<UIntSet> hdrStacks = HuginBase::getHDRStacks(pano, images, pano.getOptions());
     DEBUG_DEBUG(hdrStacks.size() << ": HDR stacks detected");
     const bool hasStacks = (hdrStacks.size() != activeImages.size());
 
@@ -398,7 +399,9 @@ void PanoPanel::UpdateDisplay(const PanoramaOptions & opt, const bool hasStacks)
     XRCCTRL(*this, "pano_cb_hdr_output_layers", wxCheckBox)->Show(opt.outputHDRLayers || m_guiLevel>GUI_BEGINNER);
 
     //stacks
-    XRCCTRL(*this, "pano_text_stacks", wxStaticText)->Show(opt.outputHDRStacks || m_guiLevel>GUI_BEGINNER);
+    XRCCTRL(*this, "pano_text_stacks", wxStaticText)->Show(opt.outputHDRStacks || opt.outputLDRStacks || m_guiLevel>GUI_BEGINNER);
+    XRCCTRL(*this, "pano_cb_ldr_output_stacks", wxCheckBox)->SetValue(opt.outputLDRStacks);
+    XRCCTRL(*this, "pano_cb_ldr_output_stacks", wxCheckBox)->Show(opt.outputLDRStacks || m_guiLevel>GUI_BEGINNER);
     XRCCTRL(*this, "pano_cb_hdr_output_stacks", wxCheckBox)->SetValue(opt.outputHDRStacks);
     XRCCTRL(*this, "pano_cb_hdr_output_stacks", wxCheckBox)->Show(opt.outputHDRStacks || m_guiLevel>GUI_BEGINNER);
 
@@ -413,6 +416,7 @@ void PanoPanel::UpdateDisplay(const PanoramaOptions & opt, const bool hasStacks)
                               opt.outputLDRExposureBlended || 
                               opt.outputLDRExposureLayersFused || 
                               opt.outputLDRExposureRemapped || 
+                              opt.outputLDRStacks ||
                               opt.outputHDRBlended || 
                               opt.outputHDRStacks || 
                               opt.outputHDRLayers);
@@ -467,7 +471,7 @@ void PanoPanel::UpdateDisplay(const PanoramaOptions & opt, const bool hasStacks)
     XRCCTRL(*this, "pano_text_blender", wxStaticText)->Enable(blenderEnabled);
     XRCCTRL(*this, "pano_text_blender", wxStaticText)->Show(m_guiLevel>GUI_BEGINNER);
 
-    bool fusionEnabled = (opt.outputLDRExposureBlended || opt.outputLDRExposureLayersFused) && m_guiLevel>GUI_BEGINNER;
+    bool fusionEnabled = (opt.outputLDRExposureBlended || opt.outputLDRExposureLayersFused || opt.outputLDRStacks) && m_guiLevel>GUI_BEGINNER;
     m_FusionChoice->Enable(fusionEnabled);
     m_FusionChoice->Show(m_guiLevel>GUI_BEGINNER);
     XRCCTRL(*this, "pano_button_fusion_opts", wxButton)->Enable(fusionEnabled);
@@ -1388,6 +1392,8 @@ void PanoPanel::OnOutputFilesChanged(wxCommandEvent & e)
         opts.outputLDRExposureLayersFused = e.IsChecked();
     } else if (id == XRCID("pano_cb_ldr_output_exposure_remapped") ) {
         opts.outputLDRExposureRemapped = e.IsChecked();
+    } else if (id == XRCID("pano_cb_ldr_output_stacks") ) {
+        opts.outputLDRStacks = e.IsChecked();
     } else if (id == XRCID("pano_cb_hdr_output_blended") ) {
         opts.outputHDRBlended = e.IsChecked();
     } else if (id == XRCID("pano_cb_hdr_output_stacks") ) {

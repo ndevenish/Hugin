@@ -830,6 +830,7 @@ void Panorama::printPanoramaScript(std::ostream & o,
     o << "#hugin_outputLDRExposureRemapped " << (output.outputLDRExposureRemapped ? "true" : "false") << endl;
     o << "#hugin_outputLDRExposureLayers " << (output.outputLDRExposureLayers ? "true" : "false") << endl;
     o << "#hugin_outputLDRExposureBlended " << (output.outputLDRExposureBlended ? "true" : "false") << endl;
+    o << "#hugin_outputLDRStacks " << (output.outputLDRStacks ? "true" : "false") << endl;
     o << "#hugin_outputLDRExposureLayersFused " << (output.outputLDRExposureLayersFused ? "true" : "false") << endl;
     o << "#hugin_outputHDRBlended " << (output.outputHDRBlended ? "true" : "false") << endl;
     o << "#hugin_outputHDRLayers " << (output.outputHDRLayers ? "true" : "false") << endl;
@@ -2652,6 +2653,8 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
                         options.outputLDRExposureBlended = (value == "true");
                     } else if (var == "#hugin_outputLDRExposureLayersFused") {
                         options.outputLDRExposureLayersFused = (value == "true");
+                    } else if (var == "#hugin_outputLDRStacks") {
+                        options.outputLDRStacks = (value == "true");
                     } else if (var == "#hugin_outputHDRBlended") {
                         options.outputHDRBlended = (value == "true");
                     } else if (var == "#hugin_outputHDRLayers") {
