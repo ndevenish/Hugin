@@ -115,7 +115,7 @@ public:
     {
         printf("calcOptimalROI Called\n");
         UIntSet activeImages=getActiveImages();
-        std::vector<UIntSet> stackImgs=getHDRStacks(*this,activeImages);
+        std::vector<UIntSet> stackImgs=getHDRStacks(*this,activeImages, getOptions());
         HuginBase::CalculateOptimalROI cropPano(*this);
         //only use hdr autocrop for projects with stacks
         //otherwise fall back to "normal" autocrop

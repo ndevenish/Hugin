@@ -31,7 +31,7 @@ namespace HuginBase
 {
 using namespace std;
 
-vector<UIntSet> getHDRStacks(const PanoramaData & pano, UIntSet allImgs)
+vector<UIntSet> getHDRStacks(const PanoramaData & pano, UIntSet allImgs, PanoramaOptions opts)
 {
     vector<UIntSet> result;
 
@@ -54,7 +54,7 @@ vector<UIntSet> getHDRStacks(const PanoramaData & pano, UIntSet allImgs)
         for (UIntSet::iterator it = allImgs.begin(); it !=  allImgs.end(); ) {
             unsigned srcImg2 = *it;
             it++;
-            if(overlap.getOverlap(srcImg,srcImg2)>0.7)
+            if(overlap.getOverlap(srcImg,srcImg2)>opts.outputStacksMinOverlap)
             {
                 stack.insert(srcImg2);
                 allImgs.erase(srcImg2);
@@ -67,7 +67,7 @@ vector<UIntSet> getHDRStacks(const PanoramaData & pano, UIntSet allImgs)
     return result;
 }
 
-vector<UIntSet> getExposureLayers(const PanoramaData & pano, UIntSet allImgs)
+vector<UIntSet> getExposureLayers(const PanoramaData & pano, UIntSet allImgs, PanoramaOptions opts)
 {
     vector<UIntSet> result;
 
@@ -86,8 +86,7 @@ vector<UIntSet> getExposureLayers(const PanoramaData & pano, UIntSet allImgs)
 
         // find all images that have a suitable overlap.
         SrcPanoImage simg = pano.getSrcImage(srcImg);
-        // FIXME this should be a user preference
-        double maxEVDiff = 0.5;
+        double maxEVDiff = opts.outputLayersExposureDiff;
         for (UIntSet::iterator it = allImgs.begin(); it !=  allImgs.end(); ) {
             unsigned srcImg2 = *it;
             it++;

@@ -68,6 +68,8 @@ BEGIN_EVENT_TABLE(ImagesPanel, wxPanel)
     EVT_CHOICE     ( XRCID("images_photo_optimize_mode"), ImagesPanel::OnPhotometricOptimizerSwitchChanged)
     EVT_TEXT_ENTER ( XRCID("images_focal_length"), ImagesPanel::OnFocalLengthChanged)
     EVT_TEXT_ENTER ( XRCID("images_crop_factor"),  ImagesPanel::OnCropFactorChanged)
+    EVT_TEXT_ENTER ( XRCID("images_overlap"), ImagesPanel::OnMinimumOverlapChanged)
+    EVT_TEXT_ENTER ( XRCID("images_maxev"), ImagesPanel::OnMaxEvDiffChanged)
     EVT_BUTTON     ( XRCID("images_feature_matching"), ImagesPanel::CPGenerate)
     EVT_BUTTON     ( XRCID("images_optimize"), ImagesPanel::OnOptimizeButton)
     EVT_BUTTON     ( XRCID("images_photo_optimize"), ImagesPanel::OnPhotometricOptimizeButton)
@@ -95,8 +97,6 @@ bool ImagesPanel::Create(wxWindow *parent, wxWindowID id, const wxPoint& pos, co
     m_images_tree = XRCCTRL(*this, "images_tree_ctrl", ImagesTreeCtrl);
     DEBUG_ASSERT(m_images_tree);
 
-    FillGroupChoice();
-
     m_showImgNr = INT_MAX;
 
     m_matchingButton = XRCCTRL(*this, "images_feature_matching", wxButton);
@@ -123,6 +123,16 @@ bool ImagesPanel::Create(wxWindow *parent, wxWindowID id, const wxPoint& pos, co
     m_cropfactor = XRCCTRL(*this, "images_crop_factor", wxTextCtrl);
     DEBUG_ASSERT(m_cropfactor);
     m_cropfactor->PushEventHandler(new TextKillFocusHandler(this));
+
+    m_overlap = XRCCTRL(*this, "images_overlap", wxTextCtrl);
+    DEBUG_ASSERT(m_overlap);
+    m_overlap->PushEventHandler(new TextKillFocusHandler(this));
+
+    m_maxEv = XRCCTRL(*this, "images_maxev", wxTextCtrl);
+    DEBUG_ASSERT(m_maxEv);
+    m_maxEv->PushEventHandler(new TextKillFocusHandler(this));
+
+    FillGroupChoice();
 
     wxTreeEvent ev;
     OnSelectionChanged(ev);
@@ -170,6 +180,8 @@ ImagesPanel::~ImagesPanel()
     DEBUG_TRACE("dtor");
     m_focallength->PopEventHandler(true);
     m_cropfactor->PopEventHandler(true);
+    m_overlap->PopEventHandler(true);
+    m_maxEv->PopEventHandler(true);
     m_pano->removeObserver(this);
     wxChoice* group=XRCCTRL(*this,"images_group_mode", wxChoice);
     size_t sel=group->GetSelection();
@@ -239,6 +251,9 @@ void ImagesPanel::panoramaChanged(PT::Panorama & pano)
     {
         m_optPhotoChoice->SetSelection(found);
     };
+    const PanoramaOptions opts=m_pano->getOptions();
+    m_overlap->SetValue(hugin_utils::doubleTowxString(opts.outputStacksMinOverlap,3));
+    m_maxEv->SetValue(hugin_utils::doubleTowxString(opts.outputLayersExposureDiff,2));
 }
 
 void ImagesPanel::panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & _imgNr)
@@ -520,6 +535,66 @@ void ImagesPanel::OnCropFactorChanged(wxCommandEvent & e)
     );
 }
 
+void ImagesPanel::OnMinimumOverlapChanged(wxCommandEvent & e)
+{
+    wxString text = m_overlap->GetValue();
+    if(text.IsEmpty())
+    {
+        return;
+    };
+    double val;
+    if (!str2double(text, val))
+    {
+        return;
+    }
+    if(val<=0 || val>1)
+    {
+        wxMessageBox(_("The minimum overlap have to be greater than 0 and small than 1."),
+#ifdef _WINDOWS
+            _("Hugin"),
+#else
+            wxT(""),
+#endif
+            wxOK | wxICON_INFORMATION, this);
+        return;
+    };
+    PanoramaOptions opt=m_pano->getOptions();
+    opt.outputStacksMinOverlap=val;
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::SetPanoOptionsCmd(*m_pano,opt)
+    );
+};
+
+void ImagesPanel::OnMaxEvDiffChanged(wxCommandEvent& e)
+{
+    wxString text = m_maxEv->GetValue();
+    if(text.IsEmpty())
+    {
+        return;
+    };
+    double val;
+    if (!str2double(text, val))
+    {
+        return;
+    }
+    if(val<0)
+    {
+        wxMessageBox(_("The maximum Ev difference have to be greater than 0."),
+#ifdef _WINDOWS
+            _("Hugin"),
+#else
+            wxT(""),
+#endif
+            wxOK | wxICON_INFORMATION, this);
+        return;
+    };
+    PanoramaOptions opt=m_pano->getOptions();
+    opt.outputLayersExposureDiff=val;
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::SetPanoOptionsCmd(*m_pano,opt)
+    );
+};
+
 void ImagesPanel::FillGroupChoice()
 {
     wxChoice* group=XRCCTRL(*this,"images_group_mode", wxChoice);
@@ -624,7 +699,16 @@ void ImagesPanel::FillOptimizerChoice()
 void ImagesPanel::OnGroupModeChanged(wxCommandEvent & e)
 {
     wxChoice* group=XRCCTRL(*this,"images_group_mode", wxChoice);
-    m_images_tree->SetGroupMode(ImagesTreeCtrl::GroupMode(*static_cast<int*>(group->GetClientData(group->GetSelection()))));
+    ImagesTreeCtrl::GroupMode mode=ImagesTreeCtrl::GroupMode(*static_cast<int*>(group->GetClientData(group->GetSelection())));
+    m_images_tree->SetGroupMode(mode);
+    XRCCTRL(*this, "images_text_overlap", wxStaticText)->Show(mode==ImagesTreeCtrl::GROUP_OUTPUTSTACK);
+    m_overlap->Show(mode==ImagesTreeCtrl::GROUP_OUTPUTSTACK);
+    m_overlap->Enable(mode==ImagesTreeCtrl::GROUP_OUTPUTSTACK);
+    XRCCTRL(*this, "images_text_maxev", wxStaticText)->Show(mode==ImagesTreeCtrl::GROUP_OUTPUTLAYERS);
+    m_maxEv->Show(mode==ImagesTreeCtrl::GROUP_OUTPUTLAYERS);
+    m_maxEv->Enable(mode==ImagesTreeCtrl::GROUP_OUTPUTLAYERS);
+    Layout();
+    Refresh();
 };
 
 void ImagesPanel::OnDisplayModeChanged(wxCommandEvent & e)

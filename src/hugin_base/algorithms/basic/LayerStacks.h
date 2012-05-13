@@ -29,9 +29,9 @@
 namespace HuginBase
 {
 /** returns vector of set of output stacks */
-IMPEX std::vector<UIntSet> getHDRStacks(const PanoramaData & pano, UIntSet allImgs);
+IMPEX std::vector<UIntSet> getHDRStacks(const PanoramaData & pano, UIntSet allImgs, PanoramaOptions opts);
 /** returns vector of set of output exposure layers */
-IMPEX std::vector<UIntSet> getExposureLayers(const PanoramaData & pano, UIntSet allImgs);
+IMPEX std::vector<UIntSet> getExposureLayers(const PanoramaData & pano, UIntSet allImgs, PanoramaOptions opts);
 /** returns set of images which are visible in output ROI */
 IMPEX UIntSet getImagesinROI (const PanoramaData& pano, const UIntSet activeImages);
 }

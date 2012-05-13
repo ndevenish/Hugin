@@ -374,7 +374,6 @@
                   </content>
                   <selection>1</selection>
                 </object>
-                <option>1</option>
                 <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                 <border>3</border>
               </object>
