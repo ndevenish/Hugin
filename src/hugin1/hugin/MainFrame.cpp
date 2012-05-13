@@ -584,23 +584,23 @@ void MainFrame::panoramaChanged(PT::Panorama &pano)
     //show or hide optimizer and exposure optimizer tab depending on optimizer master switches
     if(pano.getOptimizerSwitch()==0 && !m_show_opt_panel)
     {
-        m_notebook->InsertPage(5, opt_panel, _("Optimizer"));
+        m_notebook->InsertPage(4, opt_panel, _("Optimizer"));
         m_show_opt_panel=true;
     };
     if(pano.getOptimizerSwitch()!=0 && m_show_opt_panel)
     {
-        m_notebook->RemovePage(5);
+        m_notebook->RemovePage(4);
         m_show_opt_panel=false;
     };
     if(pano.getPhotometricOptimizerSwitch()==0 && !m_show_opt_photo_panel)
     {
         if(m_show_opt_panel)
         {
-            m_notebook->InsertPage(6, opt_photo_panel, _("Exposure"));
+            m_notebook->InsertPage(5, opt_photo_panel, _("Exposure"));
         }
         else
         {
-            m_notebook->InsertPage(5, opt_photo_panel, _("Exposure"));
+            m_notebook->InsertPage(4, opt_photo_panel, _("Exposure"));
         }
         m_show_opt_photo_panel=true;
     };
@@ -608,11 +608,11 @@ void MainFrame::panoramaChanged(PT::Panorama &pano)
     {
         if(m_show_opt_panel)
         {
-            m_notebook->RemovePage(6);
+            m_notebook->RemovePage(5);
         }
         else
         {
-            m_notebook->RemovePage(5);
+            m_notebook->RemovePage(4);
         };
         m_show_opt_photo_panel=false;
     };
