@@ -1954,7 +1954,7 @@ void MainFrame::OnSetGuiBeginner(wxCommandEvent & e)
     {
         if(reqGuiLevel==GUI_ADVANCED)
         {
-            wxMessageBox(_("Can't switch to beginner interface. The project is using stacks.\nStacks are not supported in beginner mode."),
+            wxMessageBox(_("Can't switch to beginner interface. The project is using stacks and/or vignetting center shift.\nThese features are not supported in beginner mode."),
 #ifdef __WXMSW__
                          wxT("Hugin"),
 #else
@@ -1964,7 +1964,7 @@ void MainFrame::OnSetGuiBeginner(wxCommandEvent & e)
         }
         else
         {
-            wxMessageBox(_("Can't switch to beginner interface. The project is using translation parameters or shear parameters.\nThese parameter are not supported in beginner mode."),
+            wxMessageBox(_("Can't switch to beginner interface. The project is using translation or shear parameters.\nThese parameters are not supported in beginner mode."),
 #ifdef __WXMSW__
                          wxT("Hugin"),
 #else
@@ -1985,7 +1985,7 @@ void MainFrame::OnSetGuiAdvanced(wxCommandEvent & e)
     }
     else
     {
-        wxMessageBox(_("Can't switch to advanced interface. The project is using translation parameters or shear parameters.\nThese parameter are not supported in advanced mode."),
+        wxMessageBox(_("Can't switch to advanced interface. The project is using translation or shear parameters.\nThese parameters are not supported in advanced mode."),
 #ifdef __WXMSW__
                      wxT("Hugin"),
 #else
