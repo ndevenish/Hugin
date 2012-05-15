@@ -87,12 +87,18 @@ void MaskImageCtrl::SetMaskMode(bool newMaskMode)
     if(m_maskMode)
     {
         SetCursor(wxNullCursor);
-        m_maskEditState=NO_SELECTION;
-        setActiveMask(UINT_MAX,false);
+        if(m_maskEditState!=NO_IMAGE)
+        {
+            m_maskEditState=NO_SELECTION;
+            setActiveMask(UINT_MAX,false);
+        };
     }
     else
     {
-        m_maskEditState=CROP_SHOWING;
+        if(m_maskEditState!=NO_IMAGE)
+        {
+            m_maskEditState=CROP_SHOWING;
+        };
     };
 };
 
