@@ -122,7 +122,10 @@ public:
       *  and deselects all other images
       */
     void SelectImageRange(unsigned int imgStart,unsigned int imgEnd);
- 
+
+    /** selects the given images */
+    void SelectImages(const HuginBase::UIntSet imgs);
+
     /** Select all images */
     void SelectAll();
 

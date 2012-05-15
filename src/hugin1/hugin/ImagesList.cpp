@@ -274,6 +274,23 @@ void ImagesList::SelectSingleImage(unsigned int imgNr)
     SetItemState(imgNr, wxLIST_STATE_SELECTED, wxLIST_STATE_SELECTED);
 }
 
+void ImagesList::SelectImages(const HuginBase::UIntSet imgs)
+{
+    unsigned int nrItems = GetItemCount();
+    for (unsigned int i=0; i < nrItems ; i++){
+        if(set_contains(imgs, i))
+        {
+            SetItemState(i, wxLIST_STATE_SELECTED, wxLIST_STATE_SELECTED);
+        }
+        else
+        {
+            SetItemState(i, 0, wxLIST_STATE_SELECTED);
+        };
+    }
+    SetItemState(*imgs.begin(), wxLIST_STATE_SELECTED, wxLIST_STATE_SELECTED);
+    selectedItems=imgs;
+}
+
 void ImagesList::SelectImageRange(unsigned int imgStart,unsigned int imgEnd)
 {
     size_t nrItems = GetItemCount();
@@ -482,13 +499,49 @@ void ImagesListMask::SetSingleSelect(bool isSingleSelect)
 {
     if(isSingleSelect)
     {
-        SetWindowStyle(GetWindowStyle() | wxLC_SINGLE_SEL);
+        SetSingleStyle(wxLC_SINGLE_SEL, true);
     }
     else
     {
-        SetWindowStyle(GetWindowStyle() & ~wxLC_SINGLE_SEL);
+        SetSingleStyle(wxLC_SINGLE_SEL, false);
     };
     m_singleSelect=(GetWindowStyle() & wxLC_SINGLE_SEL)!=0;
+
+#ifdef __WXGTK__
+    // wxGTK shows a bad behaviour, if we change the style
+    // all items and columns are deleted, we need to create it again
+    Freeze();
+    InsertColumn(0, _("#"), wxLIST_FORMAT_RIGHT, 35 );
+    InsertColumn(1, _("Filename"), wxLIST_FORMAT_LEFT, 200 );
+    InsertColumn(2, _("Number of masks"), wxLIST_FORMAT_RIGHT,120);
+    InsertColumn(3, _("Crop"), wxLIST_FORMAT_RIGHT,120);
+
+    //get saved width
+    for ( int j=0; j < GetColumnCount() ; j++ )
+    {
+        // -1 is auto
+        int width = wxConfigBase::Get()->Read(wxString::Format(m_configClassName+wxT("/ColumnWidth%d"), j ), -1);
+        if(width != -1)
+            SetColumnWidth(j, width);
+    }
+
+    for(size_t i=0; i<pano->getNrOfImages(); i++)
+    {
+        CreateItem(i);
+    };
+    //restore selection
+    if(selectedItems.size()>0)
+    {
+        if(m_singleSelect)
+        {
+            size_t imgNr=*selectedItems.begin();
+            selectedItems.clear();
+            selectedItems.insert(imgNr);
+        }
+        SelectImages(selectedItems);
+    };
+    Thaw();
+#endif
 };
 
 IMPLEMENT_DYNAMIC_CLASS(ImagesListMask, ImagesList)
