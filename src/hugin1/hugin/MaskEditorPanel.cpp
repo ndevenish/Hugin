@@ -544,7 +544,7 @@ void MaskEditorPanel::OnMaskLoad(wxCommandEvent &e)
 
 void MaskEditorPanel::OnMaskCopy(wxCommandEvent &e)
 {
-    if(GetImgNr()<UINT_MAX && m_MaskNr<UINT_MAX)
+    if(GetImgNr()<UINT_MAX && m_MaskNr<UINT_MAX && m_maskMode)
     {
         std::ostringstream stream;
         SaveMaskToStream(stream);
@@ -560,7 +560,7 @@ void MaskEditorPanel::OnMaskCopy(wxCommandEvent &e)
 
 void MaskEditorPanel::OnMaskPaste(wxCommandEvent &e)
 {
-    if(GetImgNr()<UINT_MAX)
+    if(GetImgNr()<UINT_MAX && m_maskMode)
     {
         if (wxTheClipboard->Open())
         {
