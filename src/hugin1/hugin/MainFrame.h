@@ -132,7 +132,7 @@ public:
     void OnToggleGLPreviewFrame(wxCommandEvent & e);
     void OnAddImages(wxCommandEvent & e);
     void OnSaveProject(wxCommandEvent & e);
-    void OnSetGuiBeginner(wxCommandEvent & e);
+    void OnSetGuiSimple(wxCommandEvent & e);
     void OnSetGuiAdvanced(wxCommandEvent & e);
     void OnSetGuiExpert(wxCommandEvent & e);
 

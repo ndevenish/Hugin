@@ -203,7 +203,7 @@ BEGIN_EVENT_TABLE(MainFrame, wxFrame)
     EVT_MENU(XRCID("action_show_faq"),  MainFrame::OnFAQ)
     EVT_MENU(XRCID("action_show_donate"),  MainFrame::OnShowDonate)
     EVT_MENU(XRCID("action_show_prefs"), MainFrame::OnShowPrefs)
-    EVT_MENU(XRCID("action_gui_beginner"), MainFrame::OnSetGuiBeginner)
+    EVT_MENU(XRCID("action_gui_simple"), MainFrame::OnSetGuiSimple)
     EVT_MENU(XRCID("action_gui_advanced"), MainFrame::OnSetGuiAdvanced)
     EVT_MENU(XRCID("action_gui_expert"), MainFrame::OnSetGuiExpert)
 #ifdef HUGIN_HSI
@@ -541,7 +541,7 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
 MainFrame::~MainFrame()
 {
     DEBUG_TRACE("dtor");
-    if(m_guiLevel==GUI_BEGINNER)
+    if(m_guiLevel==GUI_SIMPLE)
     {
         delete m_menu_file_advanced;
     }
@@ -684,7 +684,7 @@ bool MainFrame::CloseProject(bool cancelable)
 void MainFrame::OnExit(wxCloseEvent & e)
 {
     DEBUG_TRACE("");
-    if(m_guiLevel!=GUI_BEGINNER)
+    if(m_guiLevel!=GUI_SIMPLE)
     {
         if(!CloseProject(e.CanVeto()))
         {
@@ -771,7 +771,7 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
                                                               0);
         }
         SetStatusText(wxString::Format(_("saved project %s"), m_filename.c_str()),0);
-        if(m_guiLevel==GUI_BEGINNER)
+        if(m_guiLevel==GUI_SIMPLE)
         {
             gl_preview_frame->SetTitle(scriptName.GetName() + wxT(".") + scriptName.GetExt() + wxT(" - ") + _("Hugin - Panorama Stitcher"));
             SetTitle(scriptName.GetName() + wxT(".") + scriptName.GetExt() + wxT(" - ") + _("Panorama editor"));
@@ -887,7 +887,7 @@ void MainFrame::LoadProjectFile(const wxString & filename)
         };
         SetStatusText(_("Project opened"));
         m_mruFiles.AddFileToHistory(fname.GetFullPath());
-        if(m_guiLevel==GUI_BEGINNER)
+        if(m_guiLevel==GUI_SIMPLE)
         {
             gl_preview_frame->SetTitle(fname.GetName() + wxT(".") + fname.GetExt() + wxT(" - ") + _("Hugin - Panorama Stitcher"));
             SetTitle(fname.GetName() + wxT(".") + fname.GetExt() + wxT(" - ") + _("Panorama editor"));
@@ -1000,7 +1000,7 @@ void MainFrame::OnNewProject(wxCommandEvent & e)
     GlobalCmdHist::getInstance().clear();
     // remove old images from cache
     ImageCache::getInstance().flush();
-    if(m_guiLevel==GUI_BEGINNER)
+    if(m_guiLevel==GUI_SIMPLE)
     {
         gl_preview_frame->SetTitle(_("Hugin - Panorama Stitcher"));
         SetTitle(_("Panorama editor"));
@@ -1947,7 +1947,7 @@ void MainFrame::SetGuiLevel(GuiLevel newLevel, const bool updateMenu)
             );
         };
     };
-    if(newLevel==GUI_BEGINNER && pano.getPhotometricOptimizerSwitch()==0)
+    if(newLevel==GUI_SIMPLE && pano.getPhotometricOptimizerSwitch()==0)
     {
         bool needsUpdateOptimizerVar=false;
         OptimizeVector optVec=pano.getOptimizeVector();
@@ -1974,8 +1974,8 @@ void MainFrame::SetGuiLevel(GuiLevel newLevel, const bool updateMenu)
     {
         switch(m_guiLevel)
         {
-            case GUI_BEGINNER:
-                GetMenuBar()->FindItem(XRCID("action_gui_beginner"))->Check();
+            case GUI_SIMPLE:
+                GetMenuBar()->FindItem(XRCID("action_gui_simple"))->Check();
                 break;
             case GUI_ADVANCED:
                 GetMenuBar()->FindItem(XRCID("action_gui_advanced"))->Check();
@@ -1985,7 +1985,7 @@ void MainFrame::SetGuiLevel(GuiLevel newLevel, const bool updateMenu)
                 break;
         };
     };
-    if(m_guiLevel==GUI_BEGINNER)
+    if(m_guiLevel==GUI_SIMPLE)
     {
         if(!gl_preview_frame->IsShown())
         {
@@ -2024,18 +2024,18 @@ void MainFrame::SetGuiLevel(GuiLevel newLevel, const bool updateMenu)
     };
 };
 
-void MainFrame::OnSetGuiBeginner(wxCommandEvent & e)
+void MainFrame::OnSetGuiSimple(wxCommandEvent & e)
 {
     GuiLevel reqGuiLevel=GetMinimumGuiLevel(pano);
-    if(reqGuiLevel<=GUI_BEGINNER)
+    if(reqGuiLevel<=GUI_SIMPLE)
     {
-        SetGuiLevel(GUI_BEGINNER);
+        SetGuiLevel(GUI_SIMPLE);
     }
     else
     {
         if(reqGuiLevel==GUI_ADVANCED)
         {
-            wxMessageBox(_("Can't switch to beginner interface. The project is using stacks and/or vignetting center shift.\nThese features are not supported in beginner mode."),
+            wxMessageBox(_("Can't switch to simple interface. The project is using stacks and/or vignetting center shift.\nThese features are not supported in beginner mode."),
 #ifdef __WXMSW__
                          wxT("Hugin"),
 #else
@@ -2045,7 +2045,7 @@ void MainFrame::OnSetGuiBeginner(wxCommandEvent & e)
         }
         else
         {
-            wxMessageBox(_("Can't switch to beginner interface. The project is using translation or shear parameters.\nThese parameters are not supported in beginner mode."),
+            wxMessageBox(_("Can't switch to simple interface. The project is using translation or shear parameters.\nThese parameters are not supported in beginner mode."),
 #ifdef __WXMSW__
                          wxT("Hugin"),
 #else

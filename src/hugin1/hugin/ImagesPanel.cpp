@@ -78,7 +78,7 @@ END_EVENT_TABLE()
 ImagesPanel::ImagesPanel()
 {
     m_pano = 0;
-    m_guiLevel=GUI_BEGINNER;
+    m_guiLevel=GUI_SIMPLE;
 }
 
 bool ImagesPanel::Create(wxWindow *parent, wxWindowID id, const wxPoint& pos, const wxSize& size,
@@ -607,7 +607,7 @@ void ImagesPanel::FillGroupChoice()
     i=new int;
     *i=ImagesTreeCtrl::GROUP_LENS;
     group->Append(_("Lens"), i);
-    if(m_guiLevel>GUI_BEGINNER)
+    if(m_guiLevel>GUI_SIMPLE)
     {
         i=new int;
         *i=ImagesTreeCtrl::GROUP_STACK;
@@ -622,7 +622,7 @@ void ImagesPanel::FillGroupChoice()
             group->Append(_("Output stacks"), i);
         };
     };
-    if((m_guiLevel==GUI_ADVANCED && sel>2) || (m_guiLevel==GUI_BEGINNER && sel>1))
+    if((m_guiLevel==GUI_ADVANCED && sel>2) || (m_guiLevel==GUI_SIMPLE && sel>1))
     {
         sel=0;
     };
@@ -680,7 +680,7 @@ void ImagesPanel::FillOptimizerChoice()
     i=new int;
     *i=(HuginBase::OPT_EXPOSURE | HuginBase::OPT_VIGNETTING | HuginBase::OPT_RESPONSE | HuginBase::OPT_WHITEBALANCE);
     m_optPhotoChoice->Append(_("Low dynamic range, variable white balance"), i);
-    if(m_guiLevel>GUI_BEGINNER)
+    if(m_guiLevel>GUI_SIMPLE)
     {
         i=new int;
         *i=(HuginBase::OPT_VIGNETTING | HuginBase::OPT_RESPONSE);
@@ -748,8 +748,8 @@ void ImagesPanel::SetGuiLevel(GuiLevel newGuiLevel)
     wxStaticText* textlabel=XRCCTRL(*this, "images_mode_text", wxStaticText);
     switch(m_guiLevel)
     {
-        case GUI_BEGINNER:
-            textlabel->SetLabel(_("Beginner interface"));
+        case GUI_SIMPLE:
+            textlabel->SetLabel(_("Simple interface"));
             break;
         case GUI_ADVANCED:
             textlabel->SetLabel(_("Advanced interface"));

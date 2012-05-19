@@ -357,7 +357,7 @@ bool huginApp::OnInit()
     // we are closing Hugin, if the top level window is deleted
     SetExitOnFrameDelete(true);
     // show the frame.
-    if(frame->GetGuiLevel()==GUI_BEGINNER)
+    if(frame->GetGuiLevel()==GUI_SIMPLE)
     {
         SetTopWindow(frame->getGLPreview());
     }

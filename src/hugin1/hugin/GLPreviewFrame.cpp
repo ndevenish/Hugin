@@ -658,7 +658,7 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     m_BlendModeChoice->SetSelection(0);
 
     m_DragModeChoice = XRCCTRL(*this, "drag_mode_choice", wxChoice);
-    SetGuiLevel(GUI_BEGINNER);
+    SetGuiLevel(GUI_SIMPLE);
     bool individualDrag;
     cfg->Read(wxT("/GLPreviewFrame/individualDragMode"), &individualDrag, false);
     if(individualDrag)
@@ -884,7 +884,7 @@ GLPreviewFrame::~GLPreviewFrame()
      if (m_mgr) {
         delete m_mgr;
      }
-     if(m_guiLevel!=GUI_BEGINNER)
+     if(m_guiLevel!=GUI_SIMPLE)
      {
          delete m_simpleMenu;
      };
@@ -1094,7 +1094,7 @@ void GLPreviewFrame::panoramaChanged(Panorama &pano)
         m_GLPreview->SetOverlayText(_("Note: automatic alignment uses default settings from the preferences. If you want to use customized settings, run the CP detection, the geometrical optimization and the photometric optimization from the Photos tab in the panorama editor."));
     };
 
-    if(m_guiLevel==GUI_BEGINNER)
+    if(m_guiLevel==GUI_SIMPLE)
     {
         GetMenuBar()->Enable(XRCID("ID_EDITUNDO"), GlobalCmdHist::getInstance().canUndo());
         GetMenuBar()->Enable(XRCID("ID_EDITREDO"), GlobalCmdHist::getInstance().canRedo());
@@ -1466,7 +1466,7 @@ void GLPreviewFrame::OnClose(wxCloseEvent& event)
 {
     DEBUG_TRACE("OnClose")
     // do not close, just hide if we're not forced
-    if(m_guiLevel==GUI_BEGINNER)
+    if(m_guiLevel==GUI_SIMPLE)
     {
         if(!MainFrame::Get()->CloseProject(event.CanVeto()))
         {
@@ -3060,7 +3060,7 @@ void GLPreviewFrame::SetGuiLevel(GuiLevel newLevel)
         m_GLOverview->SetMode(GLOverview::PANOSPHERE);
         m_OverviewModeChoice->SetSelection(0);
     };
-    if(m_guiLevel==GUI_BEGINNER)
+    if(m_guiLevel==GUI_SIMPLE)
     {
         SetMenuBar(m_simpleMenu);
         SetTitle(MainFrame::Get()->GetTitle());

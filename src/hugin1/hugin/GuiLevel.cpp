@@ -61,5 +61,5 @@ GuiLevel GetMinimumGuiLevel(HuginBase::PanoramaData& pano)
             };
         };
     };
-    return GUI_BEGINNER;
+    return GUI_SIMPLE;
 };

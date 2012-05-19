@@ -95,8 +95,8 @@
       </object>
     </object>
     <object class="wxMenu" name="gui_level_menu">
-      <object class="wxMenuItem" name="action_gui_beginner">
-        <label>Beginner</label>
+      <object class="wxMenuItem" name="action_gui_simple">
+        <label>Simple</label>
         <radio>1</radio>
         <checked>1</checked>
       </object>

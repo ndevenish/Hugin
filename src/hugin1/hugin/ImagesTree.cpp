@@ -96,7 +96,7 @@ ImagesTreeCtrl::ImagesTreeCtrl()
 {
     m_pano = NULL;
     m_groupMode=GROUP_NONE;
-    m_guiLevel=GUI_BEGINNER;
+    m_guiLevel=GUI_SIMPLE;
     m_dragging=false;
     m_displayMode=DISPLAY_GENERAL;
     m_optimizerMode=false;
@@ -1117,7 +1117,7 @@ void ImagesTreeCtrl::OnContextMenu(wxTreeEvent & e)
         {
             menu.Append(ID_CHANGE_LENS, _("Change lens..."));
         };
-        if(m_guiLevel>GUI_BEGINNER)
+        if(m_guiLevel>GUI_SIMPLE)
         {
             if(m_variable_groups->getStacks().getNumberOfParts()<m_pano->getNrOfImages())
             {

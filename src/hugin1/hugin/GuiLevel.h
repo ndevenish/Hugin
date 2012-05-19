@@ -30,7 +30,7 @@
 
 enum GuiLevel
 {
-     GUI_BEGINNER=0,
+     GUI_SIMPLE=0,
      GUI_ADVANCED,
      GUI_EXPERT
 };
