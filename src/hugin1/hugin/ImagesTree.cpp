@@ -1152,18 +1152,30 @@ void ImagesTreeCtrl::OnContextMenu(wxTreeEvent & e)
         if(subMenu->GetMenuItemCount()>0)
         {
             menu.Append(-1,_("Lens"), subMenu);
+        }
+        else
+        {
+            delete subMenu;
         };
         subMenu=new wxMenu();
         GenerateSubMenu(subMenu, PanoOperation::GetControlPointsOperationVector(), id);
         if(subMenu->GetMenuItemCount()>0)
         {
             menu.Append(-1, _("Control points"), subMenu);
+        }
+        else
+        {
+            delete subMenu;
         };
         subMenu=new wxMenu();
         GenerateSubMenu(subMenu, PanoOperation::GetResetOperationVector(), id);
         if(subMenu->GetMenuItemCount()>0)
         {
             menu.Append(-1, _("Reset"), subMenu);
+        }
+        else
+        {
+            delete subMenu;
         };
     };
     if(menu.GetMenuItemCount()>0)
