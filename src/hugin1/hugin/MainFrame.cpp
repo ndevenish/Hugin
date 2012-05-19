@@ -304,10 +304,11 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     wxApp::s_macExitMenuItemId = XRCID("action_exit_hugin");
     wxApp::s_macHelpMenuTitleName = _("&Help");
 #endif
-    SetMenuBar(wxXmlResource::Get()->LoadMenuBar(this, wxT("main_menubar")));
+    wxMenuBar* mainMenu=wxXmlResource::Get()->LoadMenuBar(this, wxT("main_menubar"));
     m_menu_file_simple=wxXmlResource::Get()->LoadMenu(wxT("file_menu_simple"));
     m_menu_file_advanced=wxXmlResource::Get()->LoadMenu(wxT("file_menu_advanced"));
-    GetMenuBar()->Insert(0, m_menu_file_simple, _("&File"));
+    mainMenu->Insert(0, m_menu_file_simple, _("&File"));
+    SetMenuBar(mainMenu);
 
 #ifdef HUGIN_HSI
     wxMenuBar* menubar=GetMenuBar();

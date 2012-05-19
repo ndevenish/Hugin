@@ -476,11 +476,11 @@ void GLViewer::Redraw()
     // FIXME shouldn't this work on textured backrounds?
     wxColour col = wxSystemSettings::GetColour(wxSYS_COLOUR_APPWORKSPACE);
     m_renderer->SetBackground(col.Red(), col.Green(), col.Blue());
-    int w, h;
-    GetClientSize(&w, &h);
     if (m_visualization_state->RequireRecalculateViewport())
     {
         // resize the viewport in case the panorama dimensions have changed.
+        int w, h;
+        GetClientSize(&w, &h);
         offset = m_renderer->Resize(w, h);
     }
     m_visualization_state->DoUpdates();
@@ -492,6 +492,8 @@ void GLViewer::Redraw()
     //finally draw the overlay text above all
     if(m_overlay && !m_overlayText.IsEmpty())
     {
+        int w, h;
+        GetClientSize(&w, &h);
         wxClientDC dc(this);
         PrepareDC(dc);
         dc.SetBackgroundMode(wxSOLID);

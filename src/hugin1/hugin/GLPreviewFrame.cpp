@@ -3062,11 +3062,17 @@ void GLPreviewFrame::SetGuiLevel(GuiLevel newLevel)
     };
     if(m_guiLevel==GUI_SIMPLE)
     {
+#ifdef __WXMAC__
+        wxApp::s_macExitMenuItemId = XRCID("action_exit_preview");
+#endif
         SetMenuBar(m_simpleMenu);
         SetTitle(MainFrame::Get()->GetTitle());
     }
     else
     {
+#ifdef __WXMAC__
+        wxApp::s_macExitMenuItemId = XRCID("action_exit_hugin");
+#endif
         SetMenuBar(NULL);
         SetTitle(_("Fast Panorama preview"));
     };
