@@ -1591,6 +1591,84 @@ namespace PT {
             }
     };
 
+    //=========================================================================
+    //=========================================================================
+
+    /** distributes all images above the sphere, for the assistant */
+    class DistributeImagesCmd : public PanoCommand
+    {
+    public:
+        DistributeImagesCmd(Panorama & p)
+            : PanoCommand(p)
+        { };
+
+        virtual bool processPanorama(Panorama& pano)
+            {
+                int nrImages=pano.getNrOfImages();
+                if(nrImages>0)
+                {
+                    const SrcPanoImage& img=pano.getImage(0);
+                    double hfov=img.getHFOV();
+                    int imgsPerRow;
+                    //distribute all images
+                    //for rectilinear images calculate number of rows
+                    if(img.getProjection()==HuginBase::SrcPanoImage::RECTILINEAR)
+                    {
+                        imgsPerRow=std::max(3, int(360/(0.8*hfov)));
+                        imgsPerRow=std::min(imgsPerRow, nrImages);
+                    }
+                    else
+                    {
+                        //all other images do in one row to prevent cluttered images with fisheye images and the like
+                        imgsPerRow=nrImages;
+                    };
+                    double offset=0.75*hfov;
+                    if((imgsPerRow-1)*offset>360)
+                    {
+                        offset=360/(imgsPerRow-1);
+                    };
+                    double yaw=-(imgsPerRow-1)/2.0*offset;
+                    double pitch=0;
+                    if(imgsPerRow<nrImages)
+                    {
+                        pitch=(-(std::ceil(double(nrImages)/double(imgsPerRow))-1)/2.0*offset);
+                    };
+                    HuginBase::VariableMapVector varsVec=pano.getVariables();
+                    size_t counter=0;
+                    for(size_t i=0; i<nrImages; i++)
+                    {
+                        HuginBase::VariableMap::iterator it=varsVec[i].find("y");
+                        if(it!=varsVec[i].end())
+                        {
+                            it->second.setValue(yaw);
+                        };
+                        it=varsVec[i].find("p");
+                        if(it!=varsVec[i].end())
+                        {
+                            it->second.setValue(pitch);
+                        };
+                        yaw+=offset;
+                        counter++;
+                        if(counter==imgsPerRow)
+                        {
+                            counter=0;
+                            pitch+=offset;
+                            yaw=-(imgsPerRow-1)/2.0*offset;
+                        };
+                    };
+                    pano.updateVariables(varsVec);
+                    pano.changeFinished();
+                };
+
+                return true;
+            }
+        
+        virtual std::string getName() const
+            {
+                return "distribute images";
+            }
+    };
+
 
 } // namespace PT
 

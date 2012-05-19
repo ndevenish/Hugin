@@ -2,62 +2,8 @@
 <resource>
   <object class="wxMenuBar" name="main_menubar">
     <style>wxMB_DOCKABLE</style>
-    <object class="wxMenu" name="file_menu">
-      <label>&amp;File</label>
-      <object class="wxMenuItem" name="action_new_project">
-        <label>&amp;New</label>
-        <accel>Ctrl-n</accel>
-        <help>New project</help>
-      </object>
-      <object class="wxMenuItem" name="action_load_project">
-        <label>&amp;Open</label>
-        <accel>Ctrl-o</accel>
-        <help>Open project</help>
-      </object>
-      <object class="wxMenuItem" name="action_save_project">
-        <label>&amp;Save</label>
-        <accel>Ctrl-s</accel>
-        <help>Save current project file</help>
-      </object>
-      <object class="wxMenuItem" name="action_save_as_project">
-        <label>S&amp;ave as</label>
-        <help>Save current project to a new file</help>
-      </object>
-      <object class="wxMenuItem" name="action_save_as_ptstitcher">
-        <label>&amp;Write PTStitcher script</label>
-        <help>Write current project to a PTStitcher compatible script file, useful for batch processing</help>
-      </object>
-      <object class="wxMenu" name="menu_mru">
-        <label>Most recently used projects</label>
-        <help>List of most recently used project files</help>
-      </object>
-      <object class="separator"/>
-      <object class="wxMenuItem" name="action_open_batch_processor">
-        <label>&amp;Run Batch Processor</label>
-        <help>Opens PTBatcher, the batch processor for Hugin's project files</help>
-      </object>
-      <object class="separator"/>
-      <object class="wxMenuItem" name="action_import_project">
-        <label>&amp;Merge project...</label>
-        <help>Merges an existing project file with the current project.</help>
-      </object>
-      <object class="wxMenuItem" name="action_apply_template">
-        <label>Apply &amp;Template</label>
-        <help>Assign the settings of a previously saved project to the current images.</help>
-      </object>
-      <object class="separator"/>
-      <object class="wxMenuItem" name="action_show_prefs">
-        <label>&amp;Preferences</label>
-      </object>
-      <object class="separator"/>
-      <object class="wxMenuItem" name="action_exit_hugin">
-        <label>&amp;Quit</label>
-        <accel>Ctrl-q</accel>
-        <help>Exit program</help>
-      </object>
-    </object>
+    
     <object class="wxMenu" name="edit_menue">
-      <label>&amp;Edit</label>
       <object class="wxMenuItem" name="ID_EDITUNDO">
         <label>&amp;Undo</label>
         <accel>Ctrl-z</accel>
@@ -91,6 +37,7 @@
         <label>Run &amp;Python script</label>
         <help>Run a python script</help>
       </object>
+      <label>&amp;Edit</label>
     </object>
     <object class="wxMenu" name="view_menu">
       <label>&amp;View</label>
@@ -115,40 +62,35 @@
         <help>Show the OpenGL preview window</help>
       </object>
       <object class="separator"/>
-      <object class="wxMenuItem" name="ID_SHOW_PANEL_ASSISTANT">
-        <label>Assistant</label>
-        <accel>Shift-F1</accel>
-        <help>Show the Assistant panel</help>
-      </object>
+      
       <object class="wxMenuItem" name="ID_SHOW_PANEL_IMAGES">
         <label>Images</label>
-        <accel>Shift-F2</accel>
+        <accel>Shift-F1</accel>
         <help>Show the Images panel</help>
       </object>
-      
       <object class="wxMenuItem" name="ID_SHOW_PANEL_MASK">
         <label>Mask</label>
-        <accel>Shift-F3</accel>
+        <accel>Shift-F2</accel>
         <help>Show the Mask panel</help>
       </object>
       <object class="wxMenuItem" name="ID_SHOW_PANEL_CP_EDITOR">
         <label>Control Points</label>
-        <accel>Shift-F4</accel>
+        <accel>Shift-F3</accel>
         <help>Show the Control Points panel</help>
       </object>
       <object class="wxMenuItem" name="ID_SHOW_PANEL_OPTIMIZER">
         <label>Optimizer</label>
-        <accel>Shift-F5</accel>
+        <accel>Shift-F4</accel>
         <help>Show the Optimizer panel</help>
       </object>
       <object class="wxMenuItem" name="ID_SHOW_PANEL_OPTIMIZER_PHOTOMETRIC">
         <label>Exposure</label>
-        <accel>Shift-F6</accel>
+        <accel>Shift-F5</accel>
         <help>Show the Exposure panel</help>
       </object>
       <object class="wxMenuItem" name="ID_SHOW_PANEL_PANORAMA">
         <label>Stitcher</label>
-        <accel>Shift-F7</accel>
+        <accel>Shift-F6</accel>
         <help>Show the Stitcher panel</help>
       </object>
     </object>
@@ -197,5 +139,84 @@
         <help>If you like hugin and want to see further improvements, please consider donating to the hugin project.</help>
       </object>
     </object>
+  </object>
+  <object class="wxMenu" name="file_menu_advanced">
+    <object class="wxMenuItem" name="action_new_project">
+      <label>&amp;New</label>
+      <accel>Ctrl-n</accel>
+      <help>New project</help>
+    </object>
+    <object class="wxMenuItem" name="action_load_project">
+      <label>&amp;Open</label>
+      <accel>Ctrl-o</accel>
+      <help>Open project</help>
+    </object>
+    <object class="wxMenuItem" name="action_save_project">
+      <label>&amp;Save</label>
+      <accel>Ctrl-s</accel>
+      <help>Save current project file</help>
+    </object>
+    <object class="wxMenuItem" name="action_save_as_project">
+      <label>S&amp;ave as</label>
+      <help>Save current project to a new file</help>
+    </object>
+    <object class="wxMenuItem" name="action_save_as_ptstitcher">
+      <label>&amp;Write PTStitcher script</label>
+      <help>Write current project to a PTStitcher compatible script file, useful for batch processing</help>
+    </object>
+    <object class="wxMenu" name="menu_mru">
+      <label>Most recently used projects</label>
+      <help>List of most recently used project files</help>
+    </object>
+    <object class="separator"/>
+    <object class="wxMenuItem" name="action_open_batch_processor">
+      <label>&amp;Run Batch Processor</label>
+      <help>Opens PTBatcher, the batch processor for Hugin's project files</help>
+    </object>
+    <object class="separator"/>
+    <object class="wxMenuItem" name="action_import_project">
+      <label>&amp;Merge project...</label>
+      <help>Merges an existing project file with the current project.</help>
+    </object>
+    <object class="wxMenuItem" name="action_apply_template">
+      <label>Apply &amp;Template</label>
+      <help>Assign the settings of a previously saved project to the current images.</help>
+    </object>
+    <object class="separator"/>
+    <object class="wxMenuItem" name="action_show_prefs">
+      <label>&amp;Preferences</label>
+    </object>
+    <object class="separator"/>
+    <object class="wxMenuItem" name="action_exit_hugin">
+      <label>&amp;Quit</label>
+      <accel>Ctrl-q</accel>
+      <help>Exit program</help>
+    </object>
+    <label>&amp;File</label>
+  </object>
+  <object class="wxMenu" name="file_menu_simple">
+    <object class="wxMenuItem" name="action_open_batch_processor">
+      <label>&amp;Run Batch Processor</label>
+      <help>Opens PTBatcher, the batch processor for Hugin's project files</help>
+    </object>
+    <object class="separator"/>
+    <object class="wxMenuItem" name="action_import_project">
+      <label>&amp;Merge project...</label>
+      <help>Merges an existing project file with the current project.</help>
+    </object>
+    <object class="wxMenuItem" name="action_apply_template">
+      <label>Apply &amp;Template</label>
+      <help>Assign the settings of a previously saved project to the current images.</help>
+    </object>
+    <object class="separator"/>
+    <object class="wxMenuItem" name="action_show_prefs">
+      <label>&amp;Preferences</label>
+    </object>
+    <object class="separator"/>
+    <object class="wxMenuItem" name="action_exit_hugin">
+      <label>&amp;Close editor</label>
+      <help>Closes panorama editor</help>
+    </object>
+    <label>&amp;File</label>
   </object>
 </resource>

@@ -37,7 +37,6 @@
 
 #include "hugin/config_defaults.h"
 #include "hugin/huginApp.h"
-#include "hugin/AssistantPanel.h"
 #include "hugin/ImagesPanel.h"
 #include "hugin/MaskEditorPanel.h"
 #include "hugin/CPEditorPanel.h"
@@ -301,7 +300,6 @@ bool huginApp::OnInit()
     #else
 
     // add custom XRC handlers
-    wxXmlResource::Get()->AddHandler(new AssistantPanelXmlHandler());
     wxXmlResource::Get()->AddHandler(new ImagesPanelXmlHandler());
     wxXmlResource::Get()->AddHandler(new CPEditorPanelXmlHandler());
     wxXmlResource::Get()->AddHandler(new CPImageCtrlXmlHandler());
@@ -330,7 +328,6 @@ bool huginApp::OnInit()
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("optimize_photo_panel.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("cp_editor_panel.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("images_panel.xrc"));
-    wxXmlResource::Get()->Load(m_xrcPrefix + wxT("assistant_panel.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("main_frame.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("optimize_panel.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("pano_panel.xrc"));
@@ -357,8 +354,17 @@ bool huginApp::OnInit()
     frame->SendSizeEvent();
 #endif
 
+    // we are closing Hugin, if the top level window is deleted
+    SetExitOnFrameDelete(true);
     // show the frame.
-    frame->Show(TRUE);
+    if(frame->GetGuiLevel()==GUI_BEGINNER)
+    {
+        SetTopWindow(frame->getGLPreview());
+    }
+    else
+    {
+        frame->Show(TRUE);
+    };
 
     wxString cwd = wxFileName::GetCwd();
 

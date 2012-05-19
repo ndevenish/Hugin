@@ -79,9 +79,13 @@ public:
 #endif
 
     void SetViewerBackground(wxColour col);
-    
-protected:
 
+    /** sets the text which should overlay the preview */
+    void SetOverlayText(const wxString text);
+    /** switches the overlay on/off */
+    void SetOverlayVisibility(const bool isVisible);
+
+protected:
     void OnEraseBackground(wxEraseEvent& e);
     void MouseMotion(wxMouseEvent& e);
     void MouseLeave(wxMouseEvent & e);
@@ -89,9 +93,9 @@ protected:
     void MouseWheel(wxMouseEvent& e);
     void KeyDown(wxKeyEvent & e);
     void KeyUp(wxKeyEvent & e);
-    
+
     DECLARE_EVENT_TABLE()
-    
+
     ToolHelper *m_tool_helper;
     GLRenderer *m_renderer;
 #if defined __WXGTK__ || wxCHECK_VERSION(2,9,0)
@@ -99,17 +103,18 @@ protected:
 #endif
     PT::Panorama  * m_pano;
 
+    wxString m_overlayText;
+    bool m_overlay;
     virtual void setUp() = 0;
-    
+
     bool started_creation, redrawing;
     static bool initialised_glew;
     vigra::Diff2D offset;
     GLPreviewFrame *frame;
 
     bool active;
-    
-    wxColour m_background_color;
 
+    wxColour m_background_color;
 };
 
 class GLPreview : public GLViewer

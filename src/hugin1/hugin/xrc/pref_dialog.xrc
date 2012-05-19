@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <resource>
   <object class="wxDialog" name="pref_dialog">
-    <title>Preferences - hugin</title>
-    <style>wxDEFAULT_DIALOG_STYLE|wxCAPTION|wxRESIZE_BORDER|wxTAB_TRAVERSAL</style>
     <object class="wxBoxSizer">
       <orient>wxVERTICAL</orient>
       <object class="sizeritem">
@@ -61,7 +59,7 @@
                         </object>
                         <object class="sizeritem">
                           <object class="wxStaticText">
-                            <label></label>
+                            <label/>
                           </object>
                           <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
                           <border>5</border>
@@ -97,7 +95,7 @@
                         <object class="sizeritem">
                           <object class="wxStaticText">
                             <label>(requires restarting hugin)</label>
-                            <style></style>
+                            <style/>
                           </object>
                           <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
                           <border>5</border>
@@ -292,7 +290,7 @@ per overlap</label>
                         </object>
                         <object class="sizeritem">
                           <object class="wxStaticText">
-                            <label></label>
+                            <label/>
                           </object>
                           <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                           <border>5</border>
@@ -327,53 +325,7 @@ per overlap</label>
                   <flag>wxALL|wxEXPAND</flag>
                   <border>5</border>
                 </object>
-                <object class="sizeritem">
-                  <object class="wxStaticBoxSizer">
-                    <label>Show Preview</label>
-                    <orient>wxVERTICAL</orient>
-                    <object class="sizeritem">
-                      <object class="wxBoxSizer">
-                        <object class="sizeritem">
-                          <object class="wxBoxSizer">
-                            <orient>wxHORIZONTAL</orient>
-                            <object class="sizeritem">
-                              <object class="wxStaticText">
-                                <label>After align open</label>
-                              </object>
-                              <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-                              <border>5</border>
-                            </object>
-                            <object class="sizeritem">
-                              <object class="wxChoice" name="prefs_ass_preview">
-                                <content>
-                                  <item>Nothing</item>
-                                  <item>Fast Preview window</item>
-                                  <item>Preview window</item>
-                                </content>
-                              </object>
-                              <flag>wxLEFT|wxRIGHT|wxEXPAND</flag>
-                              <border>5</border>
-                            </object>
-                          </object>
-                          <flag>wxEXPAND</flag>
-                        </object>
-                        <orient>wxVERTICAL</orient>
-                        <object class="sizeritem">
-                          <object class="wxStaticText">
-                            <label>Use Fast Preview window for general use, 
-for HDR panoramas use Preview window.</label>
-                          </object>
-                          <flag>wxALL|wxEXPAND</flag>
-                          <border>5</border>
-                        </object>
-                      </object>
-                      <flag>wxEXPAND</flag>
-                      <border>5</border>
-                    </object>
-                  </object>
-                  <flag>wxALL|wxEXPAND</flag>
-                  <border>5</border>
-                </object>
+                
                 <object class="sizeritem">
                   <object class="wxPanel">
                     <object class="wxStaticBoxSizer">
@@ -401,7 +353,7 @@ for HDR panoramas use Preview window.</label>
                               <orient>wxHORIZONTAL</orient>
                               <object class="sizeritem">
                                 <object class="wxTextCtrl" name="prefs_ass_editor">
-                                  <style></style>
+                                  <style/>
                                 </object>
                                 <option>1</option>
                                 <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
@@ -564,7 +516,7 @@ for HDR panoramas use Preview window.</label>
                         <object class="sizeritem">
                           <object class="wxStaticText">
                             <label>pixels</label>
-                            <tooltip></tooltip>
+                            <tooltip/>
                           </object>
                           <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                           <border>5</border>
@@ -584,7 +536,7 @@ for HDR panoramas use Preview window.</label>
                         <object class="sizeritem">
                           <object class="wxStaticText">
                             <label>0: no similarity\n1: maximum similarity</label>
-                            <tooltip></tooltip>
+                            <tooltip/>
                           </object>
                           <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                           <border>5</border>
@@ -604,7 +556,7 @@ for HDR panoramas use Preview window.</label>
                         <object class="sizeritem">
                           <object class="wxStaticText">
                             <label>0: no peak\n0.2: distinctive peak</label>
-                            <tooltip></tooltip>
+                            <tooltip/>
                           </object>
                           <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                           <border>5</border>
@@ -640,7 +592,7 @@ for HDR panoramas use Preview window.</label>
                           </object>
                           <object class="sizeritem">
                             <object class="wxSpinCtrl" name="prefs_ft_RotationStartAngle">
-                              <style></style>
+                              <style/>
                             </object>
                             <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                             <border>5</border>
@@ -821,7 +773,6 @@ for HDR panoramas use Preview window.</label>
                 <orient>wxVERTICAL</orient>
                 <object class="sizeritem">
                   <object class="wxStaticBoxSizer">
-                    
                     <label>Output Format</label>
                     <orient>wxVERTICAL</orient>
                     <object class="sizeritem">
@@ -895,7 +846,6 @@ for HDR panoramas use Preview window.</label>
                 </object>
                 <object class="sizeritem">
                   <object class="wxStaticBoxSizer">
-                    
                     <label>Processor</label>
                     <orient>wxVERTICAL</orient>
                     <object class="sizeritem">
@@ -1351,9 +1301,11 @@ Do not set -w, -o and --compression arguments, they are set by hugin</label>
         <border>5</border>
       </object>
     </object>
+    <title>Preferences - hugin</title>
+    <style>wxDEFAULT_DIALOG_STYLE|wxCAPTION|wxRESIZE_BORDER|wxTAB_TRAVERSAL</style>
   </object>
   <object class="wxDialog" name="WORKBENCH">
-    <title></title>
+    <title/>
     <object class="wxPanel">
       <object class="wxBoxSizer">
         <orient>wxVERTICAL</orient>

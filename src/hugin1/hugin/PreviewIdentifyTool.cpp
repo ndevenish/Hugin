@@ -197,8 +197,9 @@ void PreviewIdentifyTool::Activate()
     /* TODO if it becomes possible to activate the tool by a keyboard shortcut
      * or something, call ImagesUnderMouseChangedEvent() to make sure we display
      * indicators for images currently under the cursor. */
-     
-     helper->SetStatusMessage(_("Move the mouse over the images or image buttons to identify them."));
+    ImagesUnderMouseChangedEvent();
+
+    helper->SetStatusMessage(_("Move the mouse over the images or image buttons to identify them."));
 }
 
 void PreviewIdentifyTool::StopUpdating() {
@@ -514,7 +515,7 @@ void PreviewIdentifyTool::MouseButtonEvent(wxMouseEvent & e)
 
     if (holdLeft && e.LeftUp() && image_set.size() == 2) {
         holdLeft = false;
-        if (constantOn) {
+        if (constantOn || e.CmdDown()) {
                 // when there are only two images with indicators shown, show the
                 // control point editor with those images when left clicked.
                 MainFrame::Get()->ShowCtrlPointEditor(*(image_set.begin()),

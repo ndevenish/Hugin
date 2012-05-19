@@ -46,7 +46,6 @@
 #include "hugin/wxPanoCommand.h"
 #include "hugin/CommandHistory.h"
 #include "hugin/PanoPanel.h"
-#include "hugin/AssistantPanel.h"
 #include "hugin/ImagesPanel.h"
 #include "hugin/MaskEditorPanel.h"
 #include "hugin/OptimizePanel.h"
@@ -227,7 +226,6 @@ BEGIN_EVENT_TABLE(MainFrame, wxFrame)
     EVT_MENU(XRCID("ID_CP_TABLE"), MainFrame::OnShowCPFrame)
     EVT_BUTTON(XRCID("ID_CP_TABLE"),MainFrame::OnShowCPFrame)
 
-    EVT_MENU(XRCID("ID_SHOW_PANEL_ASSISTANT"), MainFrame::OnShowPanel)
     EVT_MENU(XRCID("ID_SHOW_PANEL_IMAGES"), MainFrame::OnShowPanel)
     EVT_MENU(XRCID("ID_SHOW_PANEL_MASK"), MainFrame::OnShowPanel)
     EVT_MENU(XRCID("ID_SHOW_PANEL_CP_EDITOR"), MainFrame::OnShowPanel)
@@ -307,6 +305,9 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     wxApp::s_macHelpMenuTitleName = _("&Help");
 #endif
     SetMenuBar(wxXmlResource::Get()->LoadMenuBar(this, wxT("main_menubar")));
+    m_menu_file_simple=wxXmlResource::Get()->LoadMenu(wxT("file_menu_simple"));
+    m_menu_file_advanced=wxXmlResource::Get()->LoadMenu(wxT("file_menu_advanced"));
+    GetMenuBar()->Insert(0, m_menu_file_simple, _("&File"));
 
 #ifdef HUGIN_HSI
     wxMenuBar* menubar=GetMenuBar();
@@ -370,10 +371,6 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     // finish the images_panel
     DEBUG_TRACE("");
 
-    assistant_panel = XRCCTRL(*this, "assistant_panel_unknown", AssistantPanel);
-    assert(assistant_panel);
-    assistant_panel->Init(&pano);
-
     // image_panel
     images_panel = XRCCTRL(*this, "images_panel_unknown", ImagesPanel);
     assert(images_panel);
@@ -410,6 +407,12 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     assert(opt_photo_panel);
     opt_photo_panel->Init(&pano);
     m_show_opt_photo_panel=true;
+
+    // generate list of most recently uses files and add it to menu
+    // needs to be initialized before the fast preview, there we call AddFilesToMenu()
+    wxConfigBase * config=wxConfigBase::Get();
+    m_mruFiles.Load(*config);
+    m_mruFiles.UseMenu(m_menu_file_advanced->FindItem(XRCID("menu_mru"))->GetSubMenu());
 
     preview_frame = new PreviewFrame(this, pano);
     gl_preview_frame = new GLPreviewFrame(this, pano);
@@ -523,11 +526,6 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
 #endif
 #endif
 #endif
-    // generate list of most recently uses files and add it to menu
-    wxConfigBase * config=wxConfigBase::Get();
-    m_mruFiles.Load(*config);
-    m_mruFiles.UseMenu(GetMenuBar()->GetMenu(0)->FindItem(XRCID("menu_mru"))->GetSubMenu());
-    m_mruFiles.AddFilesToMenu();
     //reload gui level
     long guiLevel=config->Read(wxT("/GuiLevel"),(long)0);
     guiLevel=max<long>(0,min<long>(2,guiLevel));
@@ -536,13 +534,21 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     DEBUG_TRACE("");
 #ifdef __WXGTK__
     // set explicit focus to assistant panel for better processing key presses
-    assistant_panel->SetFocus();
+    images_panel->SetFocus();
 #endif
 }
 
 MainFrame::~MainFrame()
 {
     DEBUG_TRACE("dtor");
+    if(m_guiLevel==GUI_BEGINNER)
+    {
+        delete m_menu_file_advanced;
+    }
+    else
+    {
+        delete m_menu_file_simple;
+    };
     ImageCache::getInstance().setProgressDisplay(0);
 	delete & ImageCache::getInstance();
 	delete & GlobalCmdHist::getInstance();
@@ -584,23 +590,23 @@ void MainFrame::panoramaChanged(PT::Panorama &pano)
     //show or hide optimizer and exposure optimizer tab depending on optimizer master switches
     if(pano.getOptimizerSwitch()==0 && !m_show_opt_panel)
     {
-        m_notebook->InsertPage(4, opt_panel, _("Optimizer"));
+        m_notebook->InsertPage(3, opt_panel, _("Optimizer"));
         m_show_opt_panel=true;
     };
     if(pano.getOptimizerSwitch()!=0 && m_show_opt_panel)
     {
-        m_notebook->RemovePage(4);
+        m_notebook->RemovePage(3);
         m_show_opt_panel=false;
     };
     if(pano.getPhotometricOptimizerSwitch()==0 && !m_show_opt_photo_panel)
     {
         if(m_show_opt_panel)
         {
-            m_notebook->InsertPage(5, opt_photo_panel, _("Exposure"));
+            m_notebook->InsertPage(4, opt_photo_panel, _("Exposure"));
         }
         else
         {
-            m_notebook->InsertPage(4, opt_photo_panel, _("Exposure"));
+            m_notebook->InsertPage(3, opt_photo_panel, _("Exposure"));
         }
         m_show_opt_photo_panel=true;
     };
@@ -608,11 +614,11 @@ void MainFrame::panoramaChanged(PT::Panorama &pano)
     {
         if(m_show_opt_panel)
         {
-            m_notebook->RemovePage(5);
+            m_notebook->RemovePage(4);
         }
         else
         {
-            m_notebook->RemovePage(4);
+            m_notebook->RemovePage(3);
         };
         m_show_opt_photo_panel=false;
     };
@@ -640,7 +646,7 @@ void MainFrame::OnUserQuit(wxCommandEvent & e)
 bool MainFrame::CloseProject(bool cancelable)
 {
     if (pano.isDirty()) {
-        wxMessageDialog message(this,
+        wxMessageDialog message(wxGetActiveWindow(),
                                 _("Save changes to the panorama before closing?"),
 #ifdef _WINDOWS
                                 _("Hugin"),
@@ -678,15 +684,27 @@ bool MainFrame::CloseProject(bool cancelable)
 void MainFrame::OnExit(wxCloseEvent & e)
 {
     DEBUG_TRACE("");
-    if(!CloseProject(e.CanVeto()))
+    if(m_guiLevel!=GUI_BEGINNER)
     {
-       if (e.CanVeto())
-       {
+        if(!CloseProject(e.CanVeto()))
+        {
+           if (e.CanVeto())
+           {
+                e.Veto();
+                return;
+           }
+           wxLogError(_("forced close"));
+        }
+    }
+    else
+    {
+        if(e.CanVeto())
+        {
+            Hide();
             e.Veto();
             return;
-       }
-       wxLogError(_("forced close"));
-    }
+        };
+    };
 
     if(preview_frame)
     {
@@ -694,8 +712,7 @@ void MainFrame::OnExit(wxCloseEvent & e)
     }
 
     ImageCache::getInstance().flush();
-    //Close(TRUE);
-    this->Destroy();
+    Destroy();
     DEBUG_TRACE("");
 }
 
@@ -754,7 +771,16 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
                                                               0);
         }
         SetStatusText(wxString::Format(_("saved project %s"), m_filename.c_str()),0);
-        this->SetTitle(scriptName.GetName() + wxT(".") + scriptName.GetExt() + wxT(" - ") + _("Hugin - Panorama Stitcher"));
+        if(m_guiLevel==GUI_BEGINNER)
+        {
+            gl_preview_frame->SetTitle(scriptName.GetName() + wxT(".") + scriptName.GetExt() + wxT(" - ") + _("Hugin - Panorama Stitcher"));
+            SetTitle(scriptName.GetName() + wxT(".") + scriptName.GetExt() + wxT(" - ") + _("Panorama editor"));
+        }
+        else
+        {
+            SetTitle(scriptName.GetName() + wxT(".") + scriptName.GetExt() + wxT(" - ") + _("Hugin - Panorama Stitcher"));
+        };
+
         pano.clearDirty();
     }
     } catch (std::exception & e) {
@@ -777,7 +803,7 @@ void MainFrame::OnSaveProjectAs(wxCommandEvent & e)
     if (m_filename == wxT("")) {
         scriptName.Assign(getDefaultProjectName(pano) + wxT(".pto"));
     }
-    wxFileDialog dlg(this,
+    wxFileDialog dlg(wxGetActiveWindow(),
                      _("Save project file"),
                      scriptName.GetPath(), scriptName.GetFullName(),
                      _("Project files (*.pto)|*.pto|All files (*)|*"),
@@ -811,7 +837,7 @@ void MainFrame::OnSavePTStitcherAs(wxCommandEvent & e)
     }
     wxFileName scriptNameFN(scriptName);
     wxString fn = scriptNameFN.GetName() + wxT(".txt");
-    wxFileDialog dlg(this,
+    wxFileDialog dlg(wxGetActiveWindow(),
                      _("Save PTmender script file"),
                      wxConfigBase::Get()->Read(wxT("/actualPath"),wxT("")), fn,
                      _("PTmender files (*.txt)|*.txt"),
@@ -849,7 +875,7 @@ void MainFrame::LoadProjectFile(const wxString & filename)
         wxBusyCursor wait;
         deregisterPTWXDlgFcn();
         GlobalCmdHist::getInstance().addCommand(
-           new wxLoadPTProjectCmd(pano,(const char *)filename.mb_str(HUGIN_CONV_FILENAME), (const char *)path.mb_str(HUGIN_CONV_FILENAME))
+           new wxLoadPTProjectCmd(pano,(const char *)filename.mb_str(HUGIN_CONV_FILENAME), (const char *)path.mb_str(HUGIN_CONV_FILENAME), true)
            );
         GlobalCmdHist::getInstance().clear();
         registerPTWXDlgFcn(MainFrame::Get());
@@ -861,7 +887,15 @@ void MainFrame::LoadProjectFile(const wxString & filename)
         };
         SetStatusText(_("Project opened"));
         m_mruFiles.AddFileToHistory(fname.GetFullPath());
-        this->SetTitle(fname.GetName() + wxT(".") + fname.GetExt() + wxT(" - ") + _("Hugin - Panorama Stitcher"));
+        if(m_guiLevel==GUI_BEGINNER)
+        {
+            gl_preview_frame->SetTitle(fname.GetName() + wxT(".") + fname.GetExt() + wxT(" - ") + _("Hugin - Panorama Stitcher"));
+            SetTitle(fname.GetName() + wxT(".") + fname.GetExt() + wxT(" - ") + _("Panorama editor"));
+        }
+        else
+        {
+            SetTitle(fname.GetName() + wxT(".") + fname.GetExt() + wxT(" - ") + _("Hugin - Panorama Stitcher"));
+        };
         if (! (fname.GetExt() == wxT("pto"))) {
             // do not remember filename if its not a hugin project
             // to avoid overwriting the original project with an
@@ -917,7 +951,7 @@ void MainFrame::OnLoadProject(wxCommandEvent & e)
         wxConfigBase* config = wxConfigBase::Get();
 
         wxString defaultdir = config->Read(wxT("/actualPath"),wxT(""));
-        wxFileDialog dlg(this,
+        wxFileDialog dlg(wxGetActiveWindow(),
                          _("Open project file"),
                          defaultdir, wxT(""),
                          _("Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files (*)|*"),
@@ -966,7 +1000,15 @@ void MainFrame::OnNewProject(wxCommandEvent & e)
     GlobalCmdHist::getInstance().clear();
     // remove old images from cache
     ImageCache::getInstance().flush();
-    this->SetTitle(_("Hugin - Panorama Stitcher"));
+    if(m_guiLevel==GUI_BEGINNER)
+    {
+        gl_preview_frame->SetTitle(_("Hugin - Panorama Stitcher"));
+        SetTitle(_("Panorama editor"));
+    }
+    else
+    {
+        SetTitle(_("Hugin - Panorama Stitcher"));
+    };
     pano.clearDirty();
 
     wxCommandEvent dummy;
@@ -978,7 +1020,7 @@ void MainFrame::OnAddImages( wxCommandEvent& event )
     DEBUG_TRACE("");
     PanoOperation::AddImageOperation addImage;
     UIntSet images;
-    PanoCommand* cmd=addImage.GetCommand(this,pano,images);
+    PanoCommand* cmd=addImage.GetCommand(wxGetActiveWindow(),pano,images);
     if(cmd!=NULL)
     {
         GlobalCmdHist::getInstance().addCommand(cmd);
@@ -1000,7 +1042,7 @@ void MainFrame::AddImages(wxArrayString& filenameArray)
     if(foundForbiddenChars)
     {
         wxMessageBox(wxString::Format(_("The filename(s) contains one of the following invalid characters: %s\nHugin can not work with these filenames. Please rename your file(s) and try again."),getInvalidCharacters().c_str()),
-            _("Error"),wxOK | wxICON_EXCLAMATION,this);
+            _("Error"),wxOK | wxICON_EXCLAMATION);
     }
     else
     {
@@ -1025,7 +1067,7 @@ void MainFrame::OnAddTimeImages( wxCommandEvent& event )
 {
     PanoOperation::AddImagesSeriesOperation imageSeriesOp;
     UIntSet images;
-    PT::PanoCommand* cmd=imageSeriesOp.GetCommand(this,pano,images);
+    PT::PanoCommand* cmd=imageSeriesOp.GetCommand(wxGetActiveWindow(),pano,images);
     if(cmd!=NULL)
     {
         GlobalCmdHist::getInstance().addCommand(cmd);
@@ -1040,56 +1082,53 @@ void MainFrame::OnShowDonate(wxCommandEvent & e)
 
 void MainFrame::OnShowPanel(wxCommandEvent & e)
 {
-    if(e.GetId()==XRCID("ID_SHOW_PANEL_IMAGES"))
+    if(e.GetId()==XRCID("ID_SHOW_PANEL_MASK"))
         m_notebook->SetSelection(1);
     else
-        if(e.GetId()==XRCID("ID_SHOW_PANEL_MASK"))
+        if(e.GetId()==XRCID("ID_SHOW_PANEL_CP_EDITOR"))
             m_notebook->SetSelection(2);
         else
-            if(e.GetId()==XRCID("ID_SHOW_PANEL_CP_EDITOR"))
+            if(e.GetId()==XRCID("ID_SHOW_PANEL_OPTIMIZER"))
                 m_notebook->SetSelection(3);
             else
-                if(e.GetId()==XRCID("ID_SHOW_PANEL_OPTIMIZER"))
-                    m_notebook->SetSelection(4);
-                else
-                    if(e.GetId()==XRCID("ID_SHOW_PANEL_OPTIMIZER_PHOTOMETRIC"))
+                if(e.GetId()==XRCID("ID_SHOW_PANEL_OPTIMIZER_PHOTOMETRIC"))
+                {
+                    if(m_show_opt_panel)
                     {
-                        if(m_show_opt_panel)
+                        m_notebook->SetSelection(4);
+                    }
+                    else
+                    {
+                        m_notebook->SetSelection(3);
+                    };
+                }
+                else
+                    if(e.GetId()==XRCID("ID_SHOW_PANEL_PANORAMA"))
+                    {
+                        if(m_show_opt_panel && m_show_opt_photo_panel)
                         {
                             m_notebook->SetSelection(5);
                         }
                         else
                         {
-                            m_notebook->SetSelection(4);
-                        };
-                    }
-                    else
-                        if(e.GetId()==XRCID("ID_SHOW_PANEL_PANORAMA"))
-                        {
-                            if(m_show_opt_panel && m_show_opt_photo_panel)
+                            if(m_show_opt_panel || m_show_opt_photo_panel)
                             {
-                                m_notebook->SetSelection(6);
+                                m_notebook->SetSelection(4);
                             }
                             else
                             {
-                                if(m_show_opt_panel || m_show_opt_photo_panel)
-                                {
-                                    m_notebook->SetSelection(5);
-                                }
-                                else
-                                {
-                                    m_notebook->SetSelection(4);
-                                };
+                                m_notebook->SetSelection(3);
                             };
-                        }
-                        else
-                            m_notebook->SetSelection(0);
+                        };
+                    }
+                    else
+                        m_notebook->SetSelection(0);
 }
 
 
 void MainFrame::OnAbout(wxCommandEvent & e)
 {
-    AboutDialog dlg(this);
+    AboutDialog dlg(wxGetActiveWindow());
     dlg.ShowModal();
 }
 
@@ -1213,7 +1252,7 @@ void MainFrame::OnTipOfDay(wxCommandEvent& WXUNUSED(e))
 
     DEBUG_INFO("Reading tips from " << strFile.mb_str(wxConvLocal));
     wxTipProvider *tipProvider = new LocalizedFileTipProvider(strFile, nValue);
-    bShowAtStartup = wxShowTip(this, tipProvider,(nValue ? true:false));
+    bShowAtStartup = wxShowTip(wxGetActiveWindow(), tipProvider,(nValue ? true:false));
 
     //store startup preferences
     nValue = (bShowAtStartup ? tipProvider->GetCurrentTip() : 0);
@@ -1227,7 +1266,7 @@ void MainFrame::OnShowPrefs(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
 //    wxDialog dlg(this, -1, _("Preferences"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE | wxDIALOG_MODAL);
-    PreferencesDialog * pref_dlg = new PreferencesDialog(this);
+    PreferencesDialog * pref_dlg = new PreferencesDialog(wxGetActiveWindow());
     pref_dlg->ShowModal();
     //update image cache size
     wxConfigBase* cfg=wxConfigBase::Get();
@@ -1339,7 +1378,7 @@ void MainFrame::OnMergeProject(wxCommandEvent & e)
     wxConfigBase* config = wxConfigBase::Get();
 
     wxString defaultdir = config->Read(wxT("/actualPath"),wxT(""));
-    wxFileDialog dlg(this,
+    wxFileDialog dlg(wxGetActiveWindow(),
                      _("Open project file"),
                      defaultdir, wxT(""),
                      _("Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files (*)|*"),
@@ -1385,7 +1424,7 @@ void MainFrame::OnApplyTemplate(wxCommandEvent & e)
     // get the global config object
     wxConfigBase* config = wxConfigBase::Get();
 
-    wxFileDialog dlg(this,
+    wxFileDialog dlg(wxGetActiveWindow(),
                      _("Choose template project"),
                      config->Read(wxT("/templatePath"),wxT("")), wxT(""),
                      _("Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files (*)|*"),
@@ -1447,7 +1486,7 @@ void MainFrame::OnFineTuneAll(wxCommandEvent & e)
                               HUGIN_FT_CURV_THRESHOLD);
 
     {
-    ProgressReporterDialog progress(unoptimized.size(),_("Fine-tuning all points"),_("Finetuning"),this);
+    ProgressReporterDialog progress(unoptimized.size(),_("Fine-tuning all points"),_("Finetuning"),wxGetActiveWindow());
 
     ImageCache & imgCache = ImageCache::getInstance();
 
@@ -1559,7 +1598,7 @@ void MainFrame::OnRemoveCPinMasks(wxCommandEvent & e)
                     new PT::RemoveCtrlPointsCmd(pano,cps)
                     );
         wxMessageBox(wxString::Format(_("Removed %d control points"), cps.size()),
-                   _("Removing control points in masks"),wxOK|wxICON_INFORMATION,this);
+                   _("Removing control points in masks"),wxOK|wxICON_INFORMATION);
     };
 }
 
@@ -1567,7 +1606,7 @@ void MainFrame::OnRemoveCPinMasks(wxCommandEvent & e)
 void MainFrame::OnPythonScript(wxCommandEvent & e)
 {
     wxString fname;
-    wxFileDialog dlg(this,
+    wxFileDialog dlg(wxGetActiveWindow(),
             _("Select python script"),
             wxConfigBase::Get()->Read(wxT("/lensPath"),wxT("")), wxT(""),
             _("Python script (*.py)|*.py|All files (*.*)|*.*"),
@@ -1618,13 +1657,18 @@ void MainFrame::OnRedo(wxCommandEvent & e)
 void MainFrame::ShowCtrlPoint(unsigned int cpNr)
 {
     DEBUG_DEBUG("Showing control point " << cpNr);
-    m_notebook->SetSelection(3);
+    m_notebook->SetSelection(2);
     cpe->ShowControlPoint(cpNr);
 }
 
 void MainFrame::ShowCtrlPointEditor(unsigned int img1, unsigned int img2)
 {
-    m_notebook->SetSelection(3);
+    if(!IsShown())
+    {
+        Show();
+        Raise();
+    };
+    m_notebook->SetSelection(2);
     cpe->setLeftImage(img1);
     cpe->setRightImage(img2);
 }
@@ -1634,17 +1678,17 @@ void MainFrame::ShowStitcherTab()
     ///@todo Stop using magic numbers for the tabs.
     if(m_show_opt_panel && m_show_opt_photo_panel)
     {
-        m_notebook->SetSelection(6);
+        m_notebook->SetSelection(5);
     }
     else
     {
         if(m_show_opt_panel || m_show_opt_photo_panel)
         {
-            m_notebook->SetSelection(5);
+            m_notebook->SetSelection(4);
         }
         else
         {
-            m_notebook->SetSelection(4);
+            m_notebook->SetSelection(3);
         };
     };
 }
@@ -1941,6 +1985,43 @@ void MainFrame::SetGuiLevel(GuiLevel newLevel, const bool updateMenu)
                 break;
         };
     };
+    if(m_guiLevel==GUI_BEGINNER)
+    {
+        if(!gl_preview_frame->IsShown())
+        {
+            wxCommandEvent dummy;
+            OnToggleGLPreviewFrame(dummy);
+        };
+        wxGetApp().SetTopWindow(gl_preview_frame);
+        GetMenuBar()->Remove(0);
+        GetMenuBar()->Insert(0, m_menu_file_simple, _("&File"));
+        if(m_filename.IsEmpty())
+        {
+            gl_preview_frame->SetTitle(_("Hugin - Panorama Stitcher"));
+            SetTitle(_("Panorama editor"));
+        }
+        else
+        {
+            wxFileName scriptName = m_filename;
+            gl_preview_frame->SetTitle(scriptName.GetName() + wxT(".") + scriptName.GetExt() + wxT(" - ") + _("Hugin - Panorama Stitcher"));
+            SetTitle(scriptName.GetName() + wxT(".") + scriptName.GetExt() + wxT(" - ") + _("Panorama editor"));
+        };
+    }
+    else
+    {
+        wxGetApp().SetTopWindow(this);
+        GetMenuBar()->Remove(0);
+        GetMenuBar()->Insert(0, m_menu_file_advanced, _("&File"));
+        if(m_filename.IsEmpty())
+        {
+            SetTitle(_("Hugin - Panorama Stitcher"));
+        }
+        else
+        {
+            wxFileName scriptName = m_filename;
+            SetTitle(scriptName.GetName() + wxT(".") + scriptName.GetExt() + wxT(" - ") + _("Hugin - Panorama Stitcher"));
+        };
+    };
 };
 
 void MainFrame::OnSetGuiBeginner(wxCommandEvent & e)
@@ -1960,7 +2041,7 @@ void MainFrame::OnSetGuiBeginner(wxCommandEvent & e)
 #else
                          wxT(""),
 #endif
-                         wxOK | wxICON_INFORMATION, this);
+                         wxOK | wxICON_INFORMATION);
         }
         else
         {
@@ -1970,7 +2051,7 @@ void MainFrame::OnSetGuiBeginner(wxCommandEvent & e)
 #else
                          wxT(""),
 #endif
-                         wxOK | wxICON_INFORMATION, this);
+                         wxOK | wxICON_INFORMATION);
         }
         SetGuiLevel(m_guiLevel, true);
     };
@@ -1991,7 +2072,7 @@ void MainFrame::OnSetGuiAdvanced(wxCommandEvent & e)
 #else
                      wxT(""),
 #endif
-                     wxOK | wxICON_INFORMATION, this);
+                     wxOK | wxICON_INFORMATION);
         SetGuiLevel(GUI_EXPERT, true);
     };
 };

@@ -27,7 +27,7 @@ ImagesPanel.cpp CommandHistory.cpp PanoPanel.cpp NonaOptionsDialog.cpp HDRMergeO
 PreviewFrame.cpp PreviewPanel.cpp GLPreviewFrame.cpp GLViewer.cpp GLRenderer.cpp 
 OptimizePhotometricPanel.cpp OptimizePanel.cpp CPListFrame.cpp
 TextKillFocusHandler.cpp PreferencesDialog.cpp ResetDialog.cpp
-LocalizedFileTipProvider.cpp  wxPanoCommand.cpp AssistantPanel.cpp
+LocalizedFileTipProvider.cpp  wxPanoCommand.cpp 
 HFOVDialog.cpp TextureManager.cpp MeshRemapper.cpp VertexCoordRemapper.cpp
 TexCoordRemapper.cpp ChoosyRemapper.cpp MeshManager.cpp ViewState.cpp
 OutputProjectionInfo.cpp ToolHelper.cpp Tool.cpp  OverviewCameraTool.cpp ProjectionGridTool.cpp OverviewOutlinesTool.cpp
@@ -44,7 +44,7 @@ ImagesPanel.h CommandHistory.h PanoPanel.h NonaOptionsDialog.h HDRMergeOptionDia
 PreviewFrame.h PreviewPanel.h GLPreviewFrame.h GLViewer.h GLRenderer.h 
 OptimizePhotometricPanel.h OptimizePanel.h CPListFrame.h
 TextKillFocusHandler.h PreferencesDialog.h ResetDialog.h
-LocalizedFileTipProvider.h  wxPanoCommand.h AssistantPanel.h
+LocalizedFileTipProvider.h  wxPanoCommand.h 
 HFOVDialog.h TextureManager.h MeshRemapper.h VertexCoordRemapper.h
 TexCoordRemapper.h ChoosyRemapper.h MeshManager.h ViewState.h
 OutputProjectionInfo.h ToolHelper.h Tool.h OverviewCameraTool.h ProjectionGridTool.h OverviewOutlinesTool.h

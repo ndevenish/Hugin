@@ -19,10 +19,6 @@
           <object class="wxNotebook" name="controls_notebook">
             <usenotebooksizer>1</usenotebooksizer>
             <object class="notebookpage">
-              <label>Assistant</label>
-              <object class="AssistantPanel" name="assistant_panel_unknown"/>
-            </object>
-            <object class="notebookpage">
               <label>Photos</label>
               <object class="ImagesPanel" name="images_panel_unknown"/>
             </object>

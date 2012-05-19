@@ -45,7 +45,15 @@
 #include "panoinc.h"
 
 #include "base_wx/platform.h"
+#include "base_wx/wxPlatform.h"
+#include "base_wx/huginConfig.h"
+#include "base_wx/LensTools.h"
+#include "PT/ImageGraph.h"
+
 #include "base_wx/MyProgressDialog.h"
+#include "base_wx/RunStitchPanel.h"
+#include "hugin/wxPanoCommand.h"
+
 #include "hugin/config_defaults.h"
 #include "hugin/GLPreviewFrame.h"
 #include "hugin/huginApp.h"
@@ -53,6 +61,7 @@
 #include "hugin/CommandHistory.h"
 #include "hugin/GLViewer.h"
 #include "hugin/TextKillFocusHandler.h"
+#include "hugin/PanoOperation.h"
 
 extern "C" {
 #include <pano13/queryfeature.h>
@@ -101,13 +110,42 @@ enum {
 
 /** enum, which contains all different toolbar modes */
 enum{
-    mode_preview=0,
+    mode_assistant=0,
+    mode_preview,
     mode_layout,
     mode_projection,
     mode_drag,
     mode_crop
 };
 
+//------------------------------------------------------------------------------
+// utility function
+static wxString Components2Str(const CPComponents & comp)
+{
+    wxString ret;
+    for (unsigned i=0; i < comp.size(); i++) {
+        ret = ret + wxT("[");
+        CPComponents::value_type::const_iterator it;
+        size_t c=0;
+        for (it = comp[i].begin();
+            it != comp[i].end();
+            ++it) 
+        {
+            ret = ret + wxString::Format(wxT("%d"), (*it));
+            if (c+1 != comp[i].size()) {
+                ret = ret + wxT(", ");
+            }
+            c++;
+        }
+        if (i+1 != comp.size())
+            ret = ret + wxT("], ");
+        else
+            ret = ret + wxT("]");
+    }
+    return ret;
+}
+
+//------------------------------------------------------------------------------
 BEGIN_EVENT_TABLE(GLwxAuiFloatingFrame, wxAuiFloatingFrame)
     EVT_ACTIVATE(GLwxAuiFloatingFrame::OnActivate)
 END_EVENT_TABLE()
@@ -172,6 +210,15 @@ BEGIN_EVENT_TABLE(GLPreviewFrame, wxFrame)
     EVT_TOOL(ID_UNDO, GLPreviewFrame::OnUndo)
     EVT_TOOL(ID_REDO, GLPreviewFrame::OnRedo)
     EVT_COLOURPICKER_CHANGED(XRCID("preview_background"), GLPreviewFrame::OnPreviewBackgroundColorChanged)
+    EVT_MENU(XRCID("ID_SHOW_FULL_SCREEN_PREVIEW"), GLPreviewFrame::OnFullScreen)
+    EVT_MENU(XRCID("action_show_main_frame"), GLPreviewFrame::OnShowMainFrame)
+    EVT_MENU(XRCID("action_exit_preview"), GLPreviewFrame::OnUserExit)
+    EVT_CHOICE     ( XRCID("ass_lens_type"), GLPreviewFrame::OnLensTypeChanged)
+    EVT_TEXT_ENTER ( XRCID("ass_focal_length"), GLPreviewFrame::OnFocalLengthChanged)
+    EVT_TEXT_ENTER ( XRCID("ass_crop_factor"), GLPreviewFrame::OnCropFactorChanged)
+    EVT_BUTTON     ( XRCID("ass_load_images_button"), GLPreviewFrame::OnLoadImages)
+    EVT_BUTTON     ( XRCID("ass_align_button"), GLPreviewFrame::OnAlign)
+    EVT_BUTTON     ( XRCID("ass_create_button"), GLPreviewFrame::OnCreate)
 END_EVENT_TABLE()
 
 BEGIN_EVENT_TABLE(ImageToogleButtonEventHandler, wxEvtHandler)
@@ -340,6 +387,10 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
 #endif
     m_tool_notebook = XRCCTRL(*this,"mode_toolbar_notebook",wxNotebook);
     m_ToolBar_Identify = XRCCTRL(*this,"preview_mode_toolbar",wxToolBar);
+
+    m_simpleMenu=wxXmlResource::Get()->LoadMenuBar(this, wxT("preview_simple_menu"));
+    MainFrame::Get()->GetFileHistory()->UseMenu(m_simpleMenu->FindItem(XRCID("menu_mru_preview"))->GetSubMenu());
+    MainFrame::Get()->GetFileHistory()->AddFilesToMenu();
 
     // initialize preview background color
     wxString c = cfg->Read(wxT("/GLPreviewFrame/PreviewBackground"),wxT(HUGIN_PREVIEW_BACKGROUND));
@@ -558,6 +609,30 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
 
     m_topsizer->Add(vis_panel, 1, wxEXPAND);
 
+    //assistant related controls
+    m_imagesText = XRCCTRL(*this, "ass_load_images_text", wxStaticText);
+    DEBUG_ASSERT(m_imagesText);
+
+    m_lensTypeChoice = XRCCTRL(*this, "ass_lens_type", wxChoice);
+    DEBUG_ASSERT(m_lensTypeChoice);
+    FillLensProjectionList(m_lensTypeChoice);
+    m_lensTypeChoice->SetSelection(0);
+
+    m_focalLengthText = XRCCTRL(*this, "ass_focal_length", wxTextCtrl);
+    DEBUG_ASSERT(m_focalLengthText);
+    m_focalLengthText->PushEventHandler(new TextKillFocusHandler(this));
+
+    m_cropFactorText = XRCCTRL(*this, "ass_crop_factor", wxTextCtrl);
+    DEBUG_ASSERT(m_cropFactorText);
+    m_cropFactorText->PushEventHandler(new TextKillFocusHandler(this));
+
+    m_alignButton = XRCCTRL(*this, "ass_align_button", wxButton);
+    DEBUG_ASSERT(m_alignButton);
+    m_alignButton->Disable();
+
+    m_createButton = XRCCTRL(*this, "ass_create_button", wxButton);
+    DEBUG_ASSERT(m_createButton);
+    m_createButton->Disable();
 
     m_ProjectionChoice = XRCCTRL(*this,"projection_choice",wxChoice);
 
@@ -687,6 +762,7 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
 #endif
 
     m_showProjectionHints = cfg->Read(wxT("/GLPreviewFrame/ShowProjectionHints"), HUGIN_SHOW_PROJECTION_HINTS) == 1;
+    m_degDigits = wxConfigBase::Get()->Read(wxT("/General/DegreeFractionalDigitsEdit"),3);
     wxAcceleratorEntry entries[3];
     entries[0].Set(wxACCEL_NORMAL,WXK_F11,ID_FULL_SCREEN);
     entries[1].Set(wxACCEL_CMD,(int)'Z',ID_UNDO);
@@ -788,6 +864,8 @@ GLPreviewFrame::~GLPreviewFrame()
         preview_helper->DeactivateTool(preview_guide_tool);
         delete preview_guide_tool;
     };
+    m_focalLengthText->PopEventHandler(true);
+    m_cropFactorText->PopEventHandler(true);
     m_HFOVText->PopEventHandler(true);
     m_VFOVText->PopEventHandler(true);
     m_ROILeftTxt->PopEventHandler(true);
@@ -806,6 +884,10 @@ GLPreviewFrame::~GLPreviewFrame()
      if (m_mgr) {
         delete m_mgr;
      }
+     if(m_guiLevel!=GUI_BEGINNER)
+     {
+         delete m_simpleMenu;
+     };
 
     DEBUG_TRACE("dtor end");
 }
@@ -899,6 +981,127 @@ void GLPreviewFrame::updateBlendMode()
 
 void GLPreviewFrame::panoramaChanged(Panorama &pano)
 {
+    m_lensTypeChoice->Enable(pano.getNrOfImages()>0);
+    m_focalLengthText->Enable(pano.getNrOfImages()>0);
+    m_cropFactorText->Enable(pano.getNrOfImages()>0);
+    m_alignButton->Enable(pano.getNrOfImages()>1);
+
+    if(pano.getNrOfImages()==0)
+    {
+        m_createButton->Disable();
+        m_imagesText->SetLabel(_("No images loaded."));
+    }
+    else
+    {
+        int images = pano.getNrOfImages();
+        bool enableCreate = false;;
+        if (images > 1)
+        {
+            while (images)
+            {
+                --images;
+                const VariableMap & vars = pano.getImageVariables(images);
+                if (const_map_get(vars,"y").getValue() != 0.0)
+                {
+                    enableCreate = true;
+                    break;
+                }
+                if (const_map_get(vars,"p").getValue() != 0.0)
+                {
+                    enableCreate = true;
+                    break;
+                }
+                if (const_map_get(vars,"r").getValue() != 0.0)
+                {
+                    enableCreate = true;
+                    break;
+                }
+            }
+        }
+
+        m_createButton->Enable(enableCreate);
+
+        // in wxWidgets 2.9, format must have types that exactly match.
+        // However std::size_t could be any unsiged integer, so we cast it to
+        // unsigned long.int to be on the safe side.
+        wxString imgMsg = wxString::Format(_("%lu images loaded."), (unsigned long int) pano.getNrOfImages());
+        m_imagesText->SetLabel(imgMsg);
+
+        // update data in lens display
+        const SrcPanoImage& img=pano.getImage(0);
+        SelectProjection(m_lensTypeChoice, img.getProjection());
+        double focal_length = SrcPanoImage::calcFocalLength(img.getProjection(), img.getHFOV(), img.getExifCropFactor(), img.getSize());
+        m_focalLengthText->SetValue(doubleTowxString(focal_length,m_degDigits));
+        m_cropFactorText->SetValue(doubleTowxString(img.getExifCropFactor(),m_degDigits));
+    }
+    m_imagesText->GetParent()->Layout();
+
+    if (pano.getNrOfImages() > 1)
+    {
+        // in wxWidgets 2.9, format must have types that exactly match.
+        // However std::size_t could be any unsiged integer, so we cast it to
+        // unsigned long.int to be on the safe side.
+        wxString alignMsg = wxString::Format(_("Images are connected by %lu control points.\n"), (unsigned long int) pano.getCtrlPoints().size());
+
+        if (m_pano.getNrOfCtrlPoints() > 0)
+        {
+            // find components..
+            CPGraph graph;
+            createCPGraph(m_pano, graph);
+            CPComponents comps;
+            int n= findCPComponents(graph, comps);
+            if (n > 1)
+            {
+                alignMsg += wxString::Format(_("%d unconnected image groups found: "), n) + Components2Str(comps) + wxT("\n");
+                alignMsg += _("Please use the Control Points tab to connect all images with control points.\n");
+            }
+            else
+            {
+                if (m_pano.needsOptimization())
+                {
+                    alignMsg += _("Images or control points have changed, new alignment is needed.");
+                }
+                else
+                {
+                    double min;
+                    double max;
+                    double mean;
+                    double var;
+                    m_pano.calcCtrlPntsErrorStats( min, max, mean, var);
+
+                    if (max != 0.0)
+                    {
+                        wxString distStr;
+                        if (mean < 1)
+                            distStr = _("Very good fit.");
+                        else if (mean < 3)
+                            distStr = _("Good fit.");
+                        else if (mean < 7)
+                            distStr = _("Bad fit, some control points might be bad, or there are parallax and movement errors");
+                        else
+                            distStr = _("Very bad fit. Check for bad control points, lens parameters, or images with parallax or movement. The optimizer might have failed. Manual intervention required.");
+
+                        alignMsg = alignMsg + wxString::Format(_("Mean error after optimization: %.1f pixel, max: %.1f\n"), mean, max)
+                                + distStr; 
+                    }
+                }
+            }
+        }
+        m_GLPreview->SetOverlayText(alignMsg);
+    }
+    else
+    {
+        m_GLPreview->SetOverlayText(_("Note: automatic alignment uses default settings from the preferences. If you want to use customized settings, run the CP detection, the geometrical optimization and the photometric optimization from the Photos tab in the panorama editor."));
+    };
+
+    if(m_guiLevel==GUI_BEGINNER)
+    {
+        GetMenuBar()->Enable(XRCID("ID_EDITUNDO"), GlobalCmdHist::getInstance().canUndo());
+        GetMenuBar()->Enable(XRCID("ID_EDITREDO"), GlobalCmdHist::getInstance().canRedo());
+    };
+
+    // TODO: update meaningful help text and dynamic links to relevant tabs
+
     const PanoramaOptions & opts = pano.getOptions();
 
     wxString projection;
@@ -989,6 +1192,7 @@ void GLPreviewFrame::panoramaChanged(Panorama &pano)
     {
         ShowProjectionWarnings();
     };
+    Refresh();
     redrawPreview();
 }
 
@@ -1130,10 +1334,10 @@ void GLPreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &change
 
     if(nrImages==0)
     {
-        SetMode(mode_preview);
-        m_tool_notebook->ChangeSelection(mode_preview);
+        SetMode(mode_assistant);
+        m_tool_notebook->ChangeSelection(mode_assistant);
     };
-    for(size_t i=1; i<m_tool_notebook->GetPageCount();i++)
+    for(size_t i=2; i<m_tool_notebook->GetPageCount();i++)
     {
         m_tool_notebook->GetPage(i)->Enable(nrImages!=0);
     };
@@ -1262,14 +1466,32 @@ void GLPreviewFrame::OnClose(wxCloseEvent& event)
 {
     DEBUG_TRACE("OnClose")
     // do not close, just hide if we're not forced
-    if (event.CanVeto()) {
-        event.Veto();
-        Hide();
-        DEBUG_DEBUG("hiding");
-    } else {
-        DEBUG_DEBUG("closing");
-        this->Destroy();
+    if(m_guiLevel==GUI_BEGINNER)
+    {
+        if(!MainFrame::Get()->CloseProject(event.CanVeto()))
+        {
+           if (event.CanVeto())
+           {
+               event.Veto();
+               return;
+           };
+        };
+        MainFrame::Get()->Close(true);
     }
+    else
+    {
+        if (event.CanVeto())
+        {
+            event.Veto();
+            Hide();
+            DEBUG_DEBUG("hiding");
+        }
+        else
+        {
+            DEBUG_DEBUG("closing");
+            this->Destroy();
+        }
+    };
 }
 
 #if 0
@@ -1889,7 +2111,7 @@ void GLPreviewFrame::MakePreviewTools(PreviewToolHelper *preview_helper_in)
     updateBlendMode();
     m_GLPreview->SetPhotometricCorrect(true);
     // update toolbar
-    SetMode(mode_preview);
+    SetMode(mode_assistant);
 }
 
 void GLPreviewFrame::MakePanosphereOverviewTools(PanosphereOverviewToolHelper *panosphere_overview_helper_in)
@@ -2122,7 +2344,7 @@ void ImageToogleButtonEventHandler::OnEnter(wxMouseEvent & e)
     // the user moves the mouse over the image buttons, but only if the image
     // is being shown.
     if ( 
-//        identify_toolbutton->IsToggled() && 
+        identify_toolbutton->IsToggled() && 
         m_pano->getActiveImages().count(image_number))
     {
         std::vector<PreviewIdentifyTool**>::iterator it;
@@ -2138,7 +2360,7 @@ void ImageToogleButtonEventHandler::OnLeave(wxMouseEvent & e)
     // if the mouse left one of the image toggle buttons with the identification
     // tool active, we should stop showing the image indicator for that button.
     if ( 
-//        identify_toolbutton->IsToggled() && 
+        identify_toolbutton->IsToggled() && 
         m_pano->getActiveImages().count(image_number))
     {
         std::vector<PreviewIdentifyTool**>::iterator it;
@@ -2415,6 +2637,7 @@ void GLPreviewFrame::SetMode(int newMode)
     SetStatusText(wxT(""), 0); // blank status text as it refers to an old tool.
     switch(m_mode)
     {
+        case mode_assistant:
         case mode_preview:
             // switch off identify and show cp tool
             identify_tool->setConstantOn(false);
@@ -2469,6 +2692,7 @@ void GLPreviewFrame::SetMode(int newMode)
     wxScrollEvent dummy;
     switch(m_mode)
     {
+        case mode_assistant:
         case mode_preview:
             break;
         case mode_layout:
@@ -2508,6 +2732,7 @@ void GLPreviewFrame::SetMode(int newMode)
             preview_helper->ActivateTool(preview_guide_tool);
             break;
     };
+    m_GLPreview->SetOverlayVisibility(m_mode==mode_assistant);
     //enable group checkboxes only for drag mode tab
     EnableGroupCheckboxes(m_mode==mode_drag && individualDragging());
     m_GLPreview->Refresh();
@@ -2793,6 +3018,7 @@ void GLPreviewFrame::OnGuideChanged(wxCommandEvent &e)
 
 void GLPreviewFrame::SetGuiLevel(GuiLevel newLevel)
 {
+    m_guiLevel=newLevel;
     int old_selection=m_DragModeChoice->GetSelection();
     m_DragModeChoice->Clear();
     m_DragModeChoice->Append(_("normal"));
@@ -2834,6 +3060,242 @@ void GLPreviewFrame::SetGuiLevel(GuiLevel newLevel)
         m_GLOverview->SetMode(GLOverview::PANOSPHERE);
         m_OverviewModeChoice->SetSelection(0);
     };
+    if(m_guiLevel==GUI_BEGINNER)
+    {
+        SetMenuBar(m_simpleMenu);
+        SetTitle(MainFrame::Get()->GetTitle());
+    }
+    else
+    {
+        SetMenuBar(NULL);
+        SetTitle(_("Fast Panorama preview"));
+    };
 };
 
+void GLPreviewFrame::OnShowMainFrame(wxCommandEvent &e)
+{
+    MainFrame::Get()->Show();
+};
+
+void GLPreviewFrame::OnUserExit(wxCommandEvent &e)
+{
+    Close();
+};
+
+void GLPreviewFrame::OnLoadImages( wxCommandEvent & e )
+{
+    // load the images.
+    PanoOperation::AddImageOperation addImage;
+    UIntSet images;
+    PanoCommand* cmd=addImage.GetCommand(wxGetActiveWindow(),m_pano,images);
+    if(cmd==NULL)
+    {
+        return;
+    }
+    //distribute images only if the existing images are not connected
+    //otherwise it would destruct the existing image pattern
+    bool distributeImages=m_pano.getNrOfCtrlPoints()==0;
+
+    long autoAlign = wxConfigBase::Get()->Read(wxT("/Assistant/autoAlign"), HUGIN_ASS_AUTO_ALIGN); 
+    if (autoAlign)
+    {
+        GlobalCmdHist::getInstance().addCommand(cmd);
+        wxCommandEvent dummy;
+        OnAlign(dummy);
+    }
+    else
+    {
+        std::vector<PanoCommand*> cmds;
+        cmds.push_back(cmd);
+        if(distributeImages)
+        {
+            cmds.push_back(new PT::DistributeImagesCmd(m_pano));
+            cmds.push_back(new PT::CenterPanoCmd(m_pano));
+        };
+        GlobalCmdHist::getInstance().addCommand(new PT::CombinedPanoCommand(m_pano, cmds));
+    };
+}
+
+void GLPreviewFrame::OnAlign( wxCommandEvent & e )
+{
+    if (m_pano.getNrOfImages() < 2)
+    {
+        wxMessageBox(_("At least two images are required.\nPlease add more images."),_("Error"), wxOK, this);
+        return;
+    }
+
+    //generate list of all necessary programs with full path
+    wxString bindir = huginApp::Get()->GetUtilsBinDir();
+    wxConfigBase* config=wxConfigBase::Get();
+    AssistantPrograms progs = getAssistantProgramsConfig(bindir, config);
+
+    //read main settings
+    bool runCeleste=config->Read(wxT("/Celeste/Auto"), HUGIN_CELESTE_AUTO)!=0;
+    double celesteThreshold;
+    config->Read(wxT("/Celeste/Threshold"), &celesteThreshold, HUGIN_CELESTE_THRESHOLD);
+    bool celesteSmall=config->Read(wxT("/Celeste/Filter"), HUGIN_CELESTE_FILTER)==0;
+    bool runLinefind=config->Read(wxT("/Assistant/Linefind"), HUGIN_ASS_LINEFIND)!=0;
+    bool runCPClean=config->Read(wxT("/Assistant/AutoCPClean"), HUGIN_ASS_AUTO_CPCLEAN)!=0;
+    double scale;
+    config->Read(wxT("/Assistant/panoDownsizeFactor"), &scale, HUGIN_ASS_PANO_DOWNSIZE_FACTOR);
+    int scalei=roundi(scale*100);
+
+    //save project into temp directory
+    wxString tempDir= config->Read(wxT("tempDir"),wxT(""));
+    if(!tempDir.IsEmpty())
+    {
+        if(tempDir.Last()!=wxFileName::GetPathSeparator())
+        {
+            tempDir.Append(wxFileName::GetPathSeparator());
+        }
+    };
+    wxString scriptName=wxFileName::CreateTempFileName(tempDir+wxT("ha"));
+    std::ofstream script(scriptName.mb_str(HUGIN_CONV_FILENAME));
+    script.exceptions ( std::ofstream::eofbit | std::ofstream::failbit | std::ofstream::badbit );
+    PT::UIntSet all;
+    fill_set(all, 0, m_pano.getNrOfImages()-1);
+    m_pano.printPanoramaScript(script, m_pano.getOptimizeVector(), m_pano.getOptions(), all, false);
+    script.close();
+    //generate makefile
+    wxString makefileName=wxFileName::CreateTempFileName(tempDir+wxT("ham"));
+    std::ofstream makefile(makefileName.mb_str(HUGIN_CONV_FILENAME));
+    makefile.exceptions( std::ofstream::eofbit | std::ofstream::failbit | std::ofstream::badbit );
+    std::string scriptString(scriptName.mb_str(HUGIN_CONV_FILENAME));
+    HuginBase::AssistantMakefilelibExport::createMakefile(m_pano,progs,runLinefind,runCeleste,celesteThreshold,celesteSmall,
+        runCPClean,scale,makefile,scriptString);
+    makefile.close();
+
+    //execute makefile
+    wxString args = wxT("-f ") + wxQuoteFilename(makefileName) + wxT(" all");
+    int ret=MyExecuteCommandOnDialog(getGNUMakeCmd(args),wxEmptyString,this,_("Running assistant"),true);
+
+    //read back panofile
+    GlobalCmdHist::getInstance().addCommand(new wxLoadPTProjectCmd(m_pano,
+        (const char *)scriptName.mb_str(HUGIN_CONV_FILENAME),"",ret==0));
+
+    //delete temporary files
+    wxRemoveFile(scriptName);
+    wxRemoveFile(makefileName);
+    //if return value is non-zero, an error occured in assistant makefile
+    if(ret!=0)
+    {
+        //check for unconnected images
+        CPGraph graph;
+        createCPGraph(m_pano, graph);
+        CPComponents comps;
+        int n = findCPComponents(graph, comps);
+        if(n > 1)
+        {
+            // switch to images panel.
+            unsigned i1 = *(comps[0].rbegin());
+            unsigned i2 = *(comps[1].begin());
+            MainFrame::Get()->ShowCtrlPointEditor( i1, i2);
+            // display message box with 
+            wxMessageBox(wxString::Format(_("Warning %d unconnected image groups found:"), n) + Components2Str(comps) + wxT("\n")
+                + _("Please create control points between unconnected images using the Control Points tab.\n\nAfter adding the points, press the \"Align\" button again"),_("Error"), wxOK , this);
+            return;
+        };
+        wxMessageBox(_("The assistant did not complete successfully. Please check the resulting project file."),
+                     _("Warning"),wxOK | wxICON_INFORMATION, this); 
+    };
+
+    // enable stitch button
+    m_createButton->Enable();
+}
+
+void GLPreviewFrame::OnCreate( wxCommandEvent & e )
+{
+    // just run the stitcher
+    // this is kind of a bad hack, since several settings are determined
+    // based on the current state of PanoPanel, and not the Panorama object itself
+
+    // calc optimal size using output projection
+    double sizeFactor = HUGIN_ASS_PANO_DOWNSIZE_FACTOR;
+    wxConfigBase::Get()->Read(wxT("/Assistant/panoDownsizeFactor"), &sizeFactor, HUGIN_ASS_PANO_DOWNSIZE_FACTOR);
+    PanoramaOptions opts = m_pano.getOptions();
+    int w = m_pano.calcOptimalWidth();
+    // check if resize was plausible!
+    if (w> 0)
+    {
+        opts.setWidth(floori(w*sizeFactor), true);
+        // copy information into our panorama
+        GlobalCmdHist::getInstance().addCommand(
+            new PT::SetPanoOptionsCmd(m_pano, opts)
+            );
+    }
+
+    wxCommandEvent dummy;
+    MainFrame::Get()->OnDoStitch(dummy);
+}
+
+void GLPreviewFrame::OnLensTypeChanged (wxCommandEvent & e)
+{
+    // uses enum Lens::LensProjectionFormat from PanoramaMemento.h
+    size_t var = GetSelectedProjection(m_lensTypeChoice);
+    const SrcPanoImage& img=m_pano.getImage(0);
+    if (img.getProjection() != (Lens::LensProjectionFormat) var)
+    {
+        double fl = SrcPanoImage::calcFocalLength(img.getProjection(), img.getHFOV(), img.getExifCropFactor(), img.getSize());
+        UIntSet imgs;
+        imgs.insert(0);
+        std::vector<PanoCommand*> commands;
+        commands.push_back(
+                new PT::ChangeImageProjectionCmd(
+                                    m_pano,
+                                    imgs,
+                                    (HuginBase::SrcPanoImage::Projection) var
+                                )
+            );
+        
+        commands.push_back(new PT::UpdateFocalLengthCmd(m_pano, imgs, fl));
+        GlobalCmdHist::getInstance().addCommand(
+                new PT::CombinedPanoCommand(m_pano, commands));
+    }
+}
+
+void GLPreviewFrame::OnFocalLengthChanged(wxCommandEvent & e)
+{
+    if (m_pano.getNrOfImages() == 0)
+    {
+        return;
+    };
+
+    // always change first lens
+    wxString text = m_focalLengthText->GetValue();
+    DEBUG_INFO("focal length: " << text.mb_str(wxConvLocal));
+    double val;
+    if (!str2double(text, val))
+    {
+        return;
+    }
+    
+    // always change first lens...
+    UIntSet images0;
+    images0.insert(0);
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::UpdateFocalLengthCmd(m_pano, images0, val)
+    );
+}
+
+void GLPreviewFrame::OnCropFactorChanged(wxCommandEvent & e)
+{
+    if (m_pano.getNrOfImages() == 0)
+    {
+        return;
+    };
+
+    wxString text = m_cropFactorText->GetValue();
+    DEBUG_INFO("crop factor: " << text.mb_str(wxConvLocal));
+    double val;
+    if (!str2double(text, val))
+    {
+        return;
+    }
+
+    UIntSet images;
+    images.insert(0);
+    GlobalCmdHist::getInstance().addCommand(
+        new PT::UpdateCropFactorCmd(m_pano,images,val)
+    );
+}
 

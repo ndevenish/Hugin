@@ -49,7 +49,6 @@
 using namespace PT;
 
 // forward declarations, to save the #include statements
-class AssistantPanel;
 class CPEditorPanel;
 class ImgPreview;
 class ImagesPanel;
@@ -122,7 +121,7 @@ public:
 #ifdef __WXMAC__
     void MacOnOpenFile(const wxString & filename);
 #endif
-    bool CloseProject(bool cnacelable);
+    bool CloseProject(bool cancelable);
 
     // TODO: create a nice generic optimisation & stitching function
     // instead of these gateway functions to the optimizer and pano panels.
@@ -163,6 +162,8 @@ public:
 #endif
     void SetGuiLevel(GuiLevel newLevel, const bool updateMenu=false);
     const GuiLevel GetGuiLevel() const { return m_guiLevel; };
+
+    wxFileHistory* GetFileHistory() { return &m_mruFiles; };
 
 protected:
     // called when a progress message should be displayed
@@ -221,7 +222,6 @@ private:
     wxFileHistory m_mruFiles;
     wxNotebook * m_notebook;
     // tab panels
-    AssistantPanel* assistant_panel;
     ImagesPanel* images_panel;
     MaskEditorPanel* mask_panel;
     CPEditorPanel * cpe;
@@ -252,6 +252,9 @@ private:
 
     // self
     static MainFrame* m_this;
+    // file menu
+    wxMenu* m_menu_file_simple;
+    wxMenu* m_menu_file_advanced;
 
     // progress reporter
     double m_progressMax;

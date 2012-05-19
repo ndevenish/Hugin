@@ -279,6 +279,8 @@ protected:
     void OnProjParameterReset(wxCommandEvent & e);
     /** event handler for switch on/off grid on preview */
     void OnSwitchPreviewGrid(wxCommandEvent & e);
+    /** user wants to quit program */
+    void OnUserExit(wxCommandEvent & e);
 
     void OnDefaultExposure( wxCommandEvent & e );
     void OnDecreaseExposure( wxSpinEvent & e );
@@ -325,7 +327,16 @@ protected:
     void OnPreviewBackgroundColorChanged(wxColourPickerEvent & e);
     /** event handler when user selects different guide */
     void OnGuideChanged(wxCommandEvent &e);
-    
+    /** event handler to show main frame */
+    void OnShowMainFrame(wxCommandEvent &e);
+    // assistant related event handler
+    void OnLoadImages( wxCommandEvent & e );
+    void OnAlign( wxCommandEvent & e );
+    void OnCreate( wxCommandEvent & e );
+    void OnLensTypeChanged (wxCommandEvent & e);
+    void OnFocalLengthChanged(wxCommandEvent & e);
+    void OnCropFactorChanged(wxCommandEvent & e);
+
 private:
     /** changes the visibility of the group check boxes
      * @param isShown true if the group checkboxes should be visible
@@ -344,6 +355,8 @@ private:
 
     GLPreview * m_GLPreview;
     GLOverview * m_GLOverview;
+
+    GuiLevel m_guiLevel;
 
     ViewState* m_view_state;
 
@@ -380,6 +393,16 @@ private:
     // True if the status bar text has been replaced with projection information
     bool m_projectionStatusPushed;
 #endif
+    //assistant related controls
+    wxStaticText * m_imagesText;
+    wxButton * m_alignButton;
+    wxButton * m_createButton;
+    wxChoice   * m_lensTypeChoice;
+    wxTextCtrl * m_focalLengthText;
+    wxTextCtrl * m_cropFactorText;
+    wxButton   * m_loadLensButton;
+
+    int m_degDigits;
 
     wxColour m_preview_background_color;
 
@@ -388,9 +411,9 @@ private:
     // index of difference mode
     int m_differenceIndex;
 
-	  wxScrolledWindow * m_ButtonPanel;
-	  wxBoxSizer * m_ButtonSizer;
-	  wxStaticBoxSizer * m_ToggleButtonSizer;
+    wxScrolledWindow * m_ButtonPanel;
+    wxBoxSizer * m_ButtonSizer;
+    wxStaticBoxSizer * m_ToggleButtonSizer;
 
     wxBoxSizer * m_topsizer;
     wxBoxSizer * m_projParamSizer;
@@ -456,6 +479,8 @@ private:
     PlaneOverviewOutlinesTool *plane_overview_outlines_tool;
 
     PreviewGuideTool *preview_guide_tool;
+
+    wxMenuBar* m_simpleMenu;
 
     void TurnOffTools(std::set<Tool*> tools);
 

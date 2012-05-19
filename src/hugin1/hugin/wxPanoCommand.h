@@ -53,7 +53,7 @@ public:
     : PanoCommand(pano), files(newfiles)
     { };
 
-    virtual void execute();
+    virtual bool processPanorama(Panorama& pano);
 
     virtual std::string getName() const
         {
@@ -78,7 +78,7 @@ public:
           markAsOptimized(markAsOptimized)
     { };
 
-    virtual void execute();
+    virtual bool processPanorama(Panorama& pano);
 
     virtual std::string getName() const
     {
@@ -98,7 +98,7 @@ class wxNewProjectCmd : public PanoCommand
 public:
     wxNewProjectCmd(Panorama & p) : PanoCommand(p){};
 
-    virtual void execute();
+    virtual bool processPanorama(Panorama& pano);
 
     virtual std::string getName() const
     {
@@ -118,7 +118,7 @@ public:
           in(i)
     { };
 
-    virtual void execute();
+    virtual bool processPanorama(Panorama& pano);
 
     virtual std::string getName() const
     {
@@ -141,7 +141,7 @@ private:
             : PanoCommand(p), img1(i1), img2(i2), scale(scale), cornerThreshold(threshold)
             { }
 
-        virtual void execute();
+        virtual bool processPanorama(Panorama& pano);
 
         virtual std::string getName() const
             {

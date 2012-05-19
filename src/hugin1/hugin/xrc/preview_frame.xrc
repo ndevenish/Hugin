@@ -1,75 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <resource>
-  <object class="wxFrame" name="FRAME1">
-    <title>Preview</title>
-    <object class="wxStaticBoxSizer">
-      <label></label>
-      <orient>wxVERTICAL</orient>
-      <object class="sizeritem">
-        <object class="wxFlexGridSizer">
-          <object class="sizeritem">
-            <object class="PreviewPanel" name="preview_panel"/>
-            <option>1</option>
-            <flag>wxEXPAND</flag>
-            <minsize>256,128</minsize>
-          </object>
-          <object class="sizeritem">
-            <object class="wxSlider">
-              <value></value>
-              <min></min>
-              <max></max>
-              <style>wxSL_VERTICAL</style>
-            </object>
-            <flag>wxEXPAND</flag>
-          </object>
-          <cols>2</cols>
-          <rows>2</rows>
-          <object class="sizeritem">
-            <object class="wxSlider">
-              <value></value>
-              <min></min>
-              <max></max>
-              <style>wxSL_HORIZONTAL</style>
-            </object>
-            <flag>wxEXPAND</flag>
-          </object>
-          <object class="spacer">
-            <size>0,0</size>
-          </object>
-          <growablerows>0</growablerows>
-          <growablecols>0</growablecols>
-        </object>
-        <option>1</option>
-        <flag>wxEXPAND</flag>
-      </object>
-      <object class="sizeritem">
-        <object class="wxBoxSizer">
-          <orient>wxHORIZONTAL</orient>
-          <object class="sizeritem">
-            <object class="wxButton" name="preview_center_button">
-              <label>Center</label>
-              <tooltip>Center the preview horizontally</tooltip>
-            </object>
-          </object>
-          <object class="sizeritem">
-            <object class="wxStaticLine"/>
-          </object>
-          <object class="sizeritem">
-            <object class="wxCheckBox" name="preview_auto_cb">
-              <label>Auto Preview</label>
-              <tooltip>Automatically update preview on relevant changes</tooltip>
-            </object>
-          </object>
-          <object class="sizeritem">
-            <object class="wxButton" name="preview_update_button">
-              <label>Update</label>
-              <tooltip>Update preview</tooltip>
-            </object>
-          </object>
-        </object>
-      </object>
-    </object>
-  </object>
   <object class="wxToolBar" name="preview_toolbar">
     <style>wxTB_FLAT|wxTB_TEXT</style>
     <object class="tool" name="preview_center_tool">
@@ -196,7 +126,125 @@
       <orient>wxHORIZONTAL</orient>
       <object class="sizeritem">
         <object class="wxNotebook" name="mode_toolbar_notebook">
-
+          <object class="notebookpage">
+            <object class="wxPanel" name="assistant_mode_panel">
+              <object class="wxBoxSizer">
+                <orient>wxHORIZONTAL</orient>
+                <object class="sizeritem">
+                  <object class="wxBoxSizer">
+                    <object class="sizeritem">
+                      <object class="wxButton" name="ass_load_images_button">
+                        <label>1. Load images...</label>
+                        <tooltip>Load a series of images</tooltip>
+                      </object>
+                      <flag>wxALIGN_CENTRE_HORIZONTAL|wxBOTTOM</flag>
+                      <border>6</border>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxStaticText" name="ass_load_images_text">
+                        <label>no images loaded</label>
+                      </object>
+                      <flag>wxALIGN_CENTRE_HORIZONTAL</flag>
+                    </object>
+                    <orient>wxVERTICAL</orient>
+                  </object>
+                  <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                  <border>12</border>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxGridBagSizer">
+                    <object class="sizeritem">
+                      <object class="wxStaticText">
+                        <label>Lens type:</label>
+                      </object>
+                      <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                      <cellpos>0,0</cellpos>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxChoice" name="ass_lens_type"/>
+                      <flag>wxEXPAND</flag>
+                      <cellpos>0,1</cellpos>
+                      <cellspan>0,5</cellspan>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxStaticText">
+                        <label>Focal length:</label>
+                      </object>
+                      <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                      <cellpos>1,0</cellpos>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxTextCtrl" name="ass_focal_length"/>
+                      <minsize>60,-1</minsize>
+                      <cellpos>1,1</cellpos>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxStaticText">
+                        <label>mm</label>
+                      </object>
+                      <flag>wxALIGN_CENTRE_VERTICAL|wxRIGHT</flag>
+                      <border>6</border>
+                      <cellpos>1,2</cellpos>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxStaticText">
+                        <label>Focal length multiplier:</label>
+                      </object>
+                      <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                      <cellpos>1,3</cellpos>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxTextCtrl" name="ass_crop_factor"/>
+                      <minsize>60,-1</minsize>
+                      <cellpos>1,4</cellpos>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxStaticText">
+                        <label>x</label>
+                      </object>
+                      <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                      <cellpos>1,5</cellpos>
+                    </object>
+                    <vgap>3</vgap>
+                    <hgap>3</hgap>
+                  </object>
+                  <flag>wxALIGN_CENTRE_VERTICAL|wxALL</flag>
+                  <border>6</border>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxStaticLine">
+                    <size>2,-1</size>
+                  </object>
+                  <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxButton" name="ass_align_button">
+                    <label>2. Align...</label>
+                    <tooltip>Align all images. Creates control points and optimizes the image positions</tooltip>
+                  </object>
+                  <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                  <border>12</border>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxStaticLine">
+                    <size>2,-1</size>
+                  </object>
+                  <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxButton" name="ass_create_button">
+                    <label>3. Create panorama...</label>
+                    <tooltip>Create a high resolution panorama</tooltip>
+                  </object>
+                  <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                  <border>12</border>
+                </object>
+              </object>
+            </object>
+            <label>Assistant</label>
+            <selected>1</selected>
+            <bitmap>data/hugin_small.png</bitmap>
+          </object>
           <object class="notebookpage">
             <object class="wxPanel" name="preview_mode_panel">
               <object class="wxBoxSizer">
@@ -297,7 +345,7 @@
                         </object>
                         <object class="sizeritem">
                           <object class="wxBitmapButton" name="exposure_default_button">
-                            <bitmap stock_id="wxART_REDO"></bitmap>
+                            <bitmap stock_id="wxART_REDO"/>
                             <tooltip>Sets the exposure value of the panorama to the mean exposure of all images.</tooltip>
                           </object>
                           <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
@@ -397,7 +445,6 @@
               <tooltip>Preview panorama</tooltip>
             </object>
             <label>Preview</label>
-            <selected>1</selected>
             <bitmap>data/gl_preview_small.png</bitmap>
           </object>
           <object class="notebookpage">
@@ -624,7 +671,6 @@
                   <flag>wxALIGN_CENTRE_VERTICAL|wxALL</flag>
                   <border>5</border>
                 </object>
-                
                 <object class="sizeritem">
                   <object class="wxStaticLine">
                     <size>2,-1</size>
@@ -858,7 +904,7 @@
                     <orient>wxHORIZONTAL</orient>
                     <object class="sizeritem">
                       <object class="wxBitmapButton" name="reset_crop_button">
-                        <bitmap stock_id="wxART_REDO"></bitmap>
+                        <bitmap stock_id="wxART_REDO"/>
                         <tooltip>Reset crop to maximal possible area</tooltip>
                       </object>
                       <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
@@ -912,7 +958,6 @@
         <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
         <border>5</border>
       </object>
-    
     </object>
   </object>
   <object class="wxPanel" name="mode_panel_29">
@@ -920,6 +965,125 @@
       <orient>wxHORIZONTAL</orient>
       <object class="sizeritem">
         <object class="wxNotebook" name="mode_toolbar_notebook">
+          <object class="notebookpage">
+            <object class="wxPanel" name="assistant_mode_panel">
+              <object class="wxBoxSizer">
+                <orient>wxHORIZONTAL</orient>
+                <object class="sizeritem">
+                  <object class="wxBoxSizer">
+                    <object class="sizeritem">
+                      <object class="wxButton" name="ass_load_images_button">
+                        <label>1. Load images...</label>
+                        <tooltip>Load a series of images</tooltip>
+                      </object>
+                      <flag>wxALIGN_CENTRE_HORIZONTAL|wxBOTTOM</flag>
+                      <border>6</border>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxStaticText" name="ass_load_images_text">
+                        <label>no images loaded</label>
+                      </object>
+                      <flag>wxALIGN_CENTRE_HORIZONTAL</flag>
+                    </object>
+                    <orient>wxVERTICAL</orient>
+                  </object>
+                  <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                  <border>12</border>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxGridBagSizer">
+                    <object class="sizeritem">
+                      <object class="wxStaticText">
+                        <label>Lens type:</label>
+                      </object>
+                      <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                      <cellpos>0,0</cellpos>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxChoice" name="ass_lens_type"/>
+                      <flag>wxEXPAND</flag>
+                      <cellpos>0,1</cellpos>
+                      <cellspan>0,5</cellspan>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxStaticText">
+                        <label>Focal length:</label>
+                      </object>
+                      <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                      <cellpos>1,0</cellpos>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxTextCtrl" name="ass_focal_length"/>
+                      <minsize>60,-1</minsize>
+                      <cellpos>1,1</cellpos>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxStaticText">
+                        <label>mm</label>
+                      </object>
+                      <flag>wxALIGN_CENTRE_VERTICAL|wxRIGHT</flag>
+                      <border>6</border>
+                      <cellpos>1,2</cellpos>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxStaticText">
+                        <label>Focal length multiplier:</label>
+                      </object>
+                      <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                      <cellpos>1,3</cellpos>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxTextCtrl" name="ass_crop_factor"/>
+                      <minsize>60,-1</minsize>
+                      <cellpos>1,4</cellpos>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxStaticText">
+                        <label>x</label>
+                      </object>
+                      <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                      <cellpos>1,5</cellpos>
+                    </object>
+                    <vgap>3</vgap>
+                    <hgap>3</hgap>
+                  </object>
+                  <flag>wxALIGN_CENTRE_VERTICAL|wxALL</flag>
+                  <border>6</border>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxStaticLine">
+                    <size>2,-1</size>
+                  </object>
+                  <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxButton" name="ass_align_button">
+                    <label>2. Align...</label>
+                    <tooltip>Align all images. Creates control points and optimizes the image positions</tooltip>
+                  </object>
+                  <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                  <border>12</border>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxStaticLine">
+                    <size>2,-1</size>
+                  </object>
+                  <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxButton" name="ass_create_button">
+                    <label>3. Create panorama...</label>
+                    <tooltip>Create a high resolution panorama</tooltip>
+                  </object>
+                  <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                  <border>12</border>
+                </object>
+              </object>
+            </object>
+            <label>Assistant</label>
+            <selected>1</selected>
+            <bitmap>data/hugin_small.png</bitmap>
+          </object>
           <object class="notebookpage">
             <object class="wxPanel" name="preview_mode_panel">
               <object class="wxBoxSizer">
@@ -1120,7 +1284,6 @@
               <tooltip>Preview panorama</tooltip>
             </object>
             <label>Preview</label>
-            <selected>1</selected>
             <bitmap>data/gl_preview_small.png</bitmap>
           </object>
           <object class="notebookpage">
@@ -1625,5 +1788,106 @@
         <flag>wxEXPAND</flag>
       </object>
     </object>
+  </object>
+  <object class="wxMenuBar" name="preview_simple_menu">
+    <object class="wxMenu" name="file_menu">
+      <label>&amp;File</label>
+      <object class="wxMenuItem" name="action_new_project">
+        <label>&amp;New</label>
+        <accel>Ctrl-n</accel>
+        <help>New project</help>
+      </object>
+      <object class="wxMenuItem" name="action_load_project">
+        <label>&amp;Open</label>
+        <accel>Ctrl-o</accel>
+        <help>Open project</help>
+      </object>
+      <object class="wxMenuItem" name="action_save_project">
+        <label>&amp;Save</label>
+        <accel>Ctrl-s</accel>
+        <help>Save current project file</help>
+      </object>
+      <object class="wxMenuItem" name="action_save_as_project">
+        <label>S&amp;ave as</label>
+        <help>Save current project to a new file</help>
+      </object>
+      <object class="wxMenu" name="menu_mru_preview">
+        <label>Most recently used projects</label>
+        <help>List of most recently used project files</help>
+      </object>
+      <object class="separator"/>
+      <object class="wxMenuItem" name="action_show_main_frame">
+        <label>E&amp;dit panorama</label>
+      </object>
+      <object class="wxMenuItem" name="action_open_batch_processor">
+        <label>&amp;Run Batch Processor</label>
+        <help>Opens PTBatcher, the batch processor for Hugin's project files</help>
+      </object>
+      <object class="separator"/>
+      <object class="wxMenuItem" name="action_show_prefs">
+        <label>&amp;Preferences</label>
+      </object>
+      <object class="separator"/>
+      <object class="wxMenuItem" name="action_exit_preview">
+        <label>&amp;Quit</label>
+        <accel>Ctrl-q</accel>
+        <help>Exit program</help>
+      </object>
+    </object>
+    <object class="wxMenu" name="edit_menue">
+      <object class="wxMenuItem" name="ID_EDITUNDO">
+        <label>&amp;Undo</label>
+        <accel>Ctrl-z</accel>
+        <help>Undo the last action</help>
+      </object>
+      <object class="wxMenuItem" name="ID_EDITREDO">
+        <label>&amp;Redo</label>
+        <accel>Ctrl-r</accel>
+        <help>Redo the last action</help>
+      </object>
+      <object class="separator"/>
+      <object class="wxMenuItem" name="ID_SHOW_FULL_SCREEN_PREVIEW">
+        <label>Full Screen</label>
+        <accel>F11</accel>
+        <help>Shows Hugin's main window on full screen</help>
+      </object>
+      
+      
+      
+      
+      
+      
+      <label>&amp;Edit</label>
+    </object>
+    <object class="wxMenu" name="help_menu">
+      <object class="wxMenuItem" name="action_show_help">
+        <label>&amp;Help</label>
+        <accel>F1</accel>
+        <help>Some information on the different buttons and so on.</help>
+      </object>
+      <object class="wxMenuItem" name="action_show_tip">
+        <label>&amp;Tip of the day</label>
+        <help>Show one of the tips of the day.</help>
+      </object>
+      <object class="wxMenuItem" name="action_show_shortcuts">
+        <label>&amp;Keyboard Shortcuts</label>
+        <help>keyboard shortcuts</help>
+      </object>
+      <object class="wxMenuItem" name="action_show_faq">
+        <label>&amp;FAQ</label>
+        <help>Frequently Asked Questions</help>
+      </object>
+      <object class="separator"/>
+      <object class="wxMenuItem" name="action_show_about">
+        <label>&amp;About</label>
+        <help>About Hugin</help>
+      </object>
+      <object class="wxMenuItem" name="action_show_donate">
+        <label>&amp;Donate</label>
+        <help>If you like hugin and want to see further improvements, please consider donating to the hugin project.</help>
+      </object>
+      <label>&amp;Help</label>
+    </object>
+    <style>wxMB_DOCKABLE</style>
   </object>
 </resource>
