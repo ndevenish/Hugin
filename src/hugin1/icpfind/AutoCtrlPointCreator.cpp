@@ -36,7 +36,7 @@
 #include "PT/ImageGraph.h"
 
 #include <hugin_utils/platform.h>
-#include "hugin/huginApp.h"
+#include <wx/app.h>
 #include "hugin/config_defaults.h"
 #include "icpfind/AutoCtrlPointCreator.h"
 #include <algorithms/optimizer/PTOptimizer.h>
