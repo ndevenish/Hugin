@@ -119,12 +119,20 @@ IF(WIN32)
   IF(${HUGIN_SHARED})
     FIND_FILE(TIFF_DLL
       NAMES libtiff.dll 
-      PATHS ${SOURCE_BASE_DIR}/tiff-4.0.0beta7/libtiff ${SOURCE_BASE_DIR}/tiff-4.0.0beta5/libtiff
+      PATHS 
+            ${SOURCE_BASE_DIR}/tiff-4.0.1/libtiff
+            ${SOURCE_BASE_DIR}/tiff-4.0.0beta7/libtiff 
+            ${SOURCE_BASE_DIR}/tiff-4.0.0beta5/libtiff
       NO_SYSTEM_ENVIRONMENT_PATH
     )
     FIND_FILE(JPEG_DLL
       NAMES jpeg.dll 
-      PATHS ${SOURCE_BASE_DIR}/jpeg-8c/lib ${SOURCE_BASE_DIR}/jpeg-8b/Release ${SOURCE_BASE_DIR}/jpeg-8a/Release ${SOURCE_BASE_DIR}/jpeg-8/Release
+      PATHS 
+            ${SOURCE_BASE_DIR}/jpeg-8d/lib 
+            ${SOURCE_BASE_DIR}/jpeg-8c/lib 
+            ${SOURCE_BASE_DIR}/jpeg-8b/Release 
+            ${SOURCE_BASE_DIR}/jpeg-8a/Release 
+            ${SOURCE_BASE_DIR}/jpeg-8/Release
       NO_SYSTEM_ENVIRONMENT_PATH
     )
     FIND_FILE(PNG_DLL
