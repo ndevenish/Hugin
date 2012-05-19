@@ -1673,6 +1673,17 @@ void MainFrame::ShowCtrlPointEditor(unsigned int img1, unsigned int img2)
     cpe->setRightImage(img2);
 }
 
+void MainFrame::ShowMaskEditor(size_t imgNr)
+{
+    if(!IsShown())
+    {
+        Show();
+        Raise();
+    };
+    m_notebook->SetSelection(1);
+    mask_panel->setImage(imgNr, true);
+};
+
 void MainFrame::ShowStitcherTab()
 {
     ///@todo Stop using magic numbers for the tabs.

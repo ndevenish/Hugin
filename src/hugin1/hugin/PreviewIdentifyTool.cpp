@@ -513,14 +513,23 @@ void PreviewIdentifyTool::MouseButtonEvent(wxMouseEvent & e)
         holdLeft = true;
     } 
 
-    if (holdLeft && e.LeftUp() && image_set.size() == 2) {
+    if (holdLeft && e.LeftUp() && (image_set.size()==1 || image_set.size() == 2)) 
+    {
         holdLeft = false;
-        if (constantOn || e.CmdDown()) {
-                // when there are only two images with indicators shown, show the
-                // control point editor with those images when left clicked.
+        if (constantOn || e.CmdDown())
+        {
+            // when there are only two images with indicators shown, show the
+            // control point editor with those images when left clicked.
+            if(image_set.size()==2)
+            {
                 MainFrame::Get()->ShowCtrlPointEditor(*(image_set.begin()),
-                                                      *(++image_set.begin()));
-                MainFrame::Get()->Raise();
+                                                        *(++image_set.begin()));
+            }
+            else
+            {
+                MainFrame::Get()->ShowMaskEditor(*image_set.begin());
+            };
+            MainFrame::Get()->Raise();
         }
     }
 

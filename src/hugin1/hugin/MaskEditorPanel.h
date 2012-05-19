@@ -58,8 +58,13 @@ public:
 
     void SetPano(PT::Panorama * panorama)
         { m_pano = panorama; };
-    /** sets the image, which is currently edited, set imgNr to UINT_MAX if no image is editing */
-    void setImage(unsigned int imgNr);
+    /** sets the image, which is currently edited 
+         @param imgNr the image which should be shown, use UINT_MAX for no image selected 
+         @param updateListSelection if true, the selection of the images list is updated, 
+                otherwise the selection of the list remains unchanged (e.g. when calling 
+                 from the list selection changed event handler)
+      */
+    void setImage(unsigned int imgNr, bool updateListSelection=false);
     /** sets active mask number, set to UINT_MAX, if no mask is currently editing */
     void setMask(unsigned int maskNr);
     /** called when mask where changed in MaskImageCtrl */

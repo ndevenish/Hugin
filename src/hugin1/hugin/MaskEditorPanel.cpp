@@ -225,7 +225,7 @@ size_t MaskEditorPanel::GetImgNr()
     };
 };
 
-void MaskEditorPanel::setImage(unsigned int imgNr)
+void MaskEditorPanel::setImage(unsigned int imgNr, bool updateListSelection)
 {
     DEBUG_TRACE("image " << imgNr);
     bool restoreMaskSelection=(imgNr==GetImgNr());
@@ -281,6 +281,10 @@ void MaskEditorPanel::setImage(unsigned int imgNr)
     UpdateMaskList(restoreMaskSelection);
     // FIXME: lets hope that nobody holds references to these images..
     ImageCache::getInstance().softFlush();
+    if(updateListSelection)
+    {
+        m_imagesListMask->SelectSingleImage(imgNr);
+    };
 }
 
 void MaskEditorPanel::setMask(unsigned int maskNr)
