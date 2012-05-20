@@ -393,4 +393,166 @@
       </object>
     </object>
   </object>
+  <object class="wxDialog" name="dlg_focallength">
+    <object class="wxBoxSizer">
+      <orient>wxVERTICAL</orient>
+      <object class="sizeritem">
+        <object class="wxBoxSizer">
+          <orient>wxVERTICAL</orient>
+          <object class="sizeritem">
+            <object class="wxStaticText" name="lensdlg_message">
+              <label>a0123456789012345678901234567890123456789
+b
+c
+d
+e</label>
+            </object>
+            <flag>wxEXPAND|wxADJUST_MINSIZE</flag>
+          </object>
+          <object class="spacer">
+            <size>0,10</size>
+          </object>
+          <object class="sizeritem">
+            <object class="wxBoxSizer">
+              <object class="sizeritem">
+                <object class="wxStaticText">
+                  <label>Lens type:</label>
+                  <style>wxALIGN_RIGHT</style>
+                </object>
+                <flag>wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                <border>6</border>
+              </object>
+              <object class="sizeritem">
+                <object class="wxChoice" name="lensdlg_type_choice">
+                  <content>
+                    <item/>
+                  </content>
+                </object>
+              </object>
+              <object class="spacer">
+                <option>1</option>
+                <flag>wxEXPAND</flag>
+              </object>
+              <object class="sizeritem">
+                <object class="wxButton" name="lensdlg_load_lens_button">
+                  <label>Load lens data...</label>
+                  <style/>
+                </object>
+                <flag>wxLEFT|wxALIGN_RIGHT</flag>
+                <border>12</border>
+              </object>
+              <orient>wxHORIZONTAL</orient>
+            </object>
+            <flag>wxLEFT|wxEXPAND</flag>
+            <border>12</border>
+          </object>
+          <object class="spacer">
+            <size>0,10</size>
+          </object>
+          <object class="sizeritem">
+            <object class="wxStaticText">
+              <label>Enter horizontal field of view (HFOV) or focal length and crop factor:</label>
+            </object>
+            <flag>wxEXPAND</flag>
+          </object>
+          <object class="spacer">
+            <size>0,6</size>
+          </object>
+          <object class="sizeritem">
+            <object class="wxFlexGridSizer">
+              <object class="sizeritem">
+                <object class="wxStaticText">
+                  <label>HFOV (v):</label>
+                  <style>wxALIGN_RIGHT</style>
+                </object>
+                <flag>wxALIGN_CENTRE_VERTICAL</flag>
+              </object>
+              <object class="sizeritem">
+                <object class="wxTextCtrl" name="lensdlg_hfov_text"/>
+                <minsize>60,-1</minsize>
+              </object>
+              <object class="sizeritem">
+                <object class="wxStaticText">
+                  <label>degrees</label>
+                </object>
+                <flag>wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+              </object>
+              <object class="spacer">
+                <size>0,0</size>
+              </object>
+              <object class="spacer">
+                <size>0,0</size>
+              </object>
+              <object class="spacer">
+                <size>0,0</size>
+              </object>
+              <object class="sizeritem">
+                <object class="wxStaticText">
+                  <label>Focal length:</label>
+                  <style>wxALIGN_RIGHT</style>
+                </object>
+                <flag>wxALIGN_CENTRE_VERTICAL</flag>
+              </object>
+              <object class="sizeritem">
+                <object class="wxTextCtrl" name="lensdlg_focallength_text"/>
+                <minsize>60,-1</minsize>
+              </object>
+              <cols>6</cols>
+              <vgap>6</vgap>
+              <hgap>6</hgap>
+              <object class="sizeritem">
+                <object class="wxStaticText">
+                  <label>mm</label>
+                </object>
+                <flag>wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+              </object>
+              <object class="sizeritem">
+                <object class="wxStaticText">
+                  <label>Focal length multiplier:</label>
+                </object>
+                <flag>wxLEFT|wxALIGN_CENTRE_VERTICAL</flag>
+                <border>20</border>
+              </object>
+              <object class="sizeritem">
+                <object class="wxTextCtrl" name="lensdlg_cropfactor_text"/>
+                <minsize>60,-1</minsize>
+              </object>
+              <object class="sizeritem">
+                <object class="wxStaticText">
+                  <label>x</label>
+                </object>
+                <flag>wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+              </object>
+            </object>
+            <flag>wxLEFT|wxEXPAND</flag>
+            <border>12</border>
+          </object>
+          <object class="spacer">
+            <size>0,6</size>
+          </object>
+        </object>
+        <flag>wxALL</flag>
+        <border>10</border>
+      </object>
+      <object class="sizeritem">
+        <object class="wxStdDialogButtonSizer">
+          <object class="button">
+            <object class="wxButton" name="wxID_OK">
+              <label>OK</label>
+              <default>1</default>
+            </object>
+          </object>
+          <object class="button">
+            <object class="wxButton" name="wxID_CANCEL">
+              <label>Cancel</label>
+            </object>
+          </object>
+        </object>
+        <flag>wxALL|wxEXPAND</flag>
+        <border>5</border>
+      </object>
+    </object>
+    <title>Camera and Lens data</title>
+    <style>wxCAPTION|wxRESIZE_BORDER</style>
+  </object>
 </resource>
