@@ -1816,9 +1816,7 @@
         <help>List of most recently used project files</help>
       </object>
       <object class="separator"/>
-      <object class="wxMenuItem" name="action_show_main_frame">
-        <label>E&amp;dit panorama</label>
-      </object>
+      
       <object class="wxMenuItem" name="action_open_batch_processor">
         <label>&amp;Run Batch Processor</label>
         <help>Opens PTBatcher, the batch processor for Hugin's project files</help>
@@ -1846,17 +1844,14 @@
         <help>Redo the last action</help>
       </object>
       <object class="separator"/>
+      <object class="wxMenuItem" name="action_show_main_frame">
+        <label>E&amp;dit panorama</label>
+      </object>
       <object class="wxMenuItem" name="ID_SHOW_FULL_SCREEN_PREVIEW">
         <label>Full Screen</label>
         <accel>F11</accel>
         <help>Shows Hugin's main window on full screen</help>
       </object>
-      
-      
-      
-      
-      
-      
       <label>&amp;Edit</label>
     </object>
     <object class="wxMenu" name="help_menu">
