@@ -19,7 +19,7 @@
 # @category Examples
 # @name     Skeleton Plugin
 # @api-min  2011.1.0
-# @api-max  2011.2.0
+# @api-max  2011.5.0
 
 # we use modern type python print statements:
 
