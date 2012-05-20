@@ -1034,7 +1034,6 @@ void GLPreviewFrame::panoramaChanged(Panorama &pano)
         m_focalLengthText->SetValue(doubleTowxString(focal_length,m_degDigits));
         m_cropFactorText->SetValue(doubleTowxString(img.getExifCropFactor(),m_degDigits));
     }
-    m_imagesText->GetParent()->Layout();
 
     if (pano.getNrOfImages() > 1)
     {
@@ -1192,7 +1191,6 @@ void GLPreviewFrame::panoramaChanged(Panorama &pano)
     {
         ShowProjectionWarnings();
     };
-    Refresh();
     redrawPreview();
 }
 
