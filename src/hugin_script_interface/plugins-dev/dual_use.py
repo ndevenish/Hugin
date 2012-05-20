@@ -24,7 +24,7 @@ gpl = r"""
 # @category Examples
 # @name     Dual Use Plugin
 # @api-min  2011.1.0
-# @api-max  2011.2.0
+# @api-max  2011.5.0
 
 # dual_use will function as a hugin plugin and as a standalone
 # Python script.
