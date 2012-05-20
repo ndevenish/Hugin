@@ -1266,7 +1266,7 @@ void MainFrame::OnTipOfDay(wxCommandEvent& WXUNUSED(e))
 void MainFrame::OnShowPrefs(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
-    PreferencesDialog pref_dlg(PreferencesDialog(wxTheApp->GetTopWindow()));
+    PreferencesDialog pref_dlg(wxTheApp->GetTopWindow());
     pref_dlg.ShowModal();
     //update image cache size
     wxConfigBase* cfg=wxConfigBase::Get();
