@@ -1747,24 +1747,15 @@ void MainFrame::updateProgressDisplay()
 
 void MainFrame::enableTools(bool option)
 {
-    {
-	wxToolBar* theToolBar = GetToolBar();
-	theToolBar->EnableTool(XRCID("action_optimize"), option);
-	theToolBar->EnableTool(XRCID("ID_SHOW_PREVIEW_FRAME"), option);
-	theToolBar->EnableTool(XRCID("ID_SHOW_GL_PREVIEW_FRAME"), option);
-	//theToolBar->EnableTool(XRCID("action_save_project"), option);
-	//theToolBar->EnableTool(XRCID("action_save_as_project"), option);
-    }
-    {
-	wxMenuBar* theMenuBar = GetMenuBar();
-	theMenuBar->Enable(XRCID("action_optimize"), option);
-	theMenuBar->Enable(XRCID("action_finetune_all_cp"), option);
-	theMenuBar->Enable(XRCID("ID_SHOW_PREVIEW_FRAME"), option);
-	theMenuBar->Enable(XRCID("ID_SHOW_GL_PREVIEW_FRAME"), option);
-	//theMenuBar->Enable(XRCID("action_save_project"), option);
-	//theMenuBar->Enable(XRCID("action_save_as_project"), option);
-	//theMenuBar->Enable(XRCID("action_save_as_ptstitcher"), option);
-    }
+    wxToolBar* theToolBar = GetToolBar();
+    theToolBar->EnableTool(XRCID("action_optimize"), option);
+    theToolBar->EnableTool(XRCID("ID_SHOW_PREVIEW_FRAME"), option);
+    //theToolBar->EnableTool(XRCID("ID_SHOW_GL_PREVIEW_FRAME"), option);
+    wxMenuBar* theMenuBar = GetMenuBar();
+    theMenuBar->Enable(XRCID("action_optimize"), option);
+    theMenuBar->Enable(XRCID("action_finetune_all_cp"), option);
+    theMenuBar->Enable(XRCID("ID_SHOW_PREVIEW_FRAME"), option);
+    //theMenuBar->Enable(XRCID("ID_SHOW_GL_PREVIEW_FRAME"), option);
 }
 
 
