@@ -1180,8 +1180,13 @@ void GLPreviewFrame::panoramaChanged(Panorama &pano)
 
     m_oldProjFormat = opts.getProjection();
 
+#if wxCHECK_VERSION(2,9,2)
+    XRCCTRL(*this,"preview_autocrop_tool",wxButton)->Enable(activeImgs);
+    XRCCTRL(*this,"preview_stack_autocrop_tool",wxButton)->Enable(activeImgs);
+#else
     XRCCTRL(*this,"preview_autocrop_tool",wxBitmapButton)->Enable(activeImgs);
     XRCCTRL(*this,"preview_stack_autocrop_tool",wxBitmapButton)->Enable(activeImgs);
+#endif
     m_ROILeftTxt->SetValue(wxString::Format(wxT("%d"), opts.getROI().left() ));
     m_ROIRightTxt->SetValue(wxString::Format(wxT("%d"), opts.getROI().right() ));
     m_ROITopTxt->SetValue(wxString::Format(wxT("%d"), opts.getROI().top() ));
