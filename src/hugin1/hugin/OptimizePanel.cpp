@@ -91,6 +91,8 @@ bool OptimizePanel::Create(wxWindow* parent, wxWindowID id , const wxPoint& pos,
     m_edit_cb = XRCCTRL(*this, "optimizer_panel_edit_script", wxCheckBox);
     DEBUG_ASSERT(m_edit_cb);
 
+    XRCCTRL(*this, "optimizer_panel_splitter", wxSplitterWindow)->SetSashGravity(0.66);
+
     return true;
 }
 

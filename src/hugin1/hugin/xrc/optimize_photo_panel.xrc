@@ -82,8 +82,8 @@ Variables which shown in normal font will act as references or anchors.</label>
             <size>0,15</size>
           </object>
           <object class="sizeritem">
-            <object class="wxBoxSizer">
-              <object class="sizeritem">
+            <object class="wxSplitterWindow" name="optimize_photo_panel_splitter">
+              <object class="wxPanel">
                 <object class="wxBoxSizer">
                   <orient>wxVERTICAL</orient>
                   <object class="sizeritem">
@@ -105,16 +105,10 @@ Variables which shown in normal font will act as references or anchors.</label>
                     <flag>wxEXPAND</flag>
                   </object>
                 </object>
-                <option>3</option>
-                <flag>wxEXPAND</flag>
               </object>
-              <object class="spacer">
-                <size>0,12</size>
-              </object>
-              <object class="sizeritem">
+              <object class="wxPanel">
                 <object class="wxBoxSizer">
                   <orient>wxVERTICAL</orient>
-                  
                   <object class="sizeritem">
                     <object class="wxStaticText">
                       <label>Camera and Lens variables:</label>
@@ -134,14 +128,15 @@ Variables which shown in normal font will act as references or anchors.</label>
                     <flag>wxEXPAND</flag>
                   </object>
                 </object>
-                <option>2</option>
-                <flag>wxEXPAND</flag>
               </object>
-              <orient>wxVERTICAL</orient>
+              <orientation>horizontal</orientation>
+              <minsize>100</minsize>
+              <style>wxSP_LIVE_UPDATE</style>
             </object>
             <option>1</option>
             <flag>wxEXPAND</flag>
           </object>
+          
           <orient>wxVERTICAL</orient>
         </object>
         <option>1</option>

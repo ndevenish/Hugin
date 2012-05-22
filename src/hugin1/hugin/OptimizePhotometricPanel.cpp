@@ -89,6 +89,8 @@ bool OptimizePhotometricPanel::Create(wxWindow *parent, wxWindowID id, const wxP
     m_lens_tree = XRCCTRL(*this, "optimize_photo_panel_lens", ImagesTreeCtrl);
     DEBUG_ASSERT(m_lens_tree);
 
+    XRCCTRL(*this, "optimize_photo_panel_splitter", wxSplitterWindow)->SetSashGravity(0.66);
+
     return true;
 }
 
