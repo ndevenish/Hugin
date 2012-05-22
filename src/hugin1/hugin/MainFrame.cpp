@@ -168,10 +168,23 @@ bool PanoDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& file
         }
     }
     // we got some images to add.
-    if (filesv.size() > 0) {
+    if (filesv.size() > 0)
+    {
         // use a Command to ensure proper undo and updating of GUI parts
         wxBusyCursor();
-        GlobalCmdHist::getInstance().addCommand(new wxAddImagesCmd(pano,filesv));
+        if(pano.getNrOfCtrlPoints()>0)
+        {
+            GlobalCmdHist::getInstance().addCommand(new wxAddImagesCmd(pano,filesv));
+        }
+        else
+        {
+            std::vector<PanoCommand*> cmds;
+            cmds.push_back(new wxAddImagesCmd(pano, filesv));
+            cmds.push_back(new PT::DistributeImagesCmd(pano));
+            cmds.push_back(new PT::CenterPanoCmd(pano));
+            GlobalCmdHist::getInstance().addCommand(new PT::CombinedPanoCommand(pano, cmds));
+        };
+
     }
     if(foundForbiddenChars)
     {

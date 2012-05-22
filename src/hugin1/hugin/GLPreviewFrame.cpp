@@ -57,6 +57,7 @@
 #include "hugin/config_defaults.h"
 #include "hugin/GLPreviewFrame.h"
 #include "hugin/huginApp.h"
+#include "hugin/MainFrame.h"
 #include "hugin/ImagesPanel.h"
 #include "hugin/CommandHistory.h"
 #include "hugin/GLViewer.h"
@@ -787,6 +788,7 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
         LoadOpenGLLayout();
 #endif
     }
+    SetDropTarget(new PanoDropTarget(m_pano, true));
 }
 
 void GLPreviewFrame::LoadOpenGLLayout()
