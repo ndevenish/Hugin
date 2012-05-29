@@ -514,6 +514,9 @@ class IMPEX ManagedPanoramaData : public PanoramaData
         */
         virtual void changeFinished() =0;
         
+        /** clear dirty flag. call after load, save or new project */
+        virtual void clearDirty() =0;
+
         /** mark image for change notification.
         *
         *  Does not send the notification, this is left

@@ -550,8 +550,6 @@ class IMPEX Panorama : public ManagedPanoramaData, public AppBase::DocumentData
             *  changes have been made.
             *  Allows to compress multiple changes into one notification.
             *
-            *  @param keepDirty  do not set dirty flag. useful for changing
-            *                    the dirty flag itself
             */
         void changeFinished()
             { changeFinished(false); }
@@ -629,12 +627,10 @@ class IMPEX Panorama : public ManagedPanoramaData, public AppBase::DocumentData
         }
         
         /** clear dirty flag. call after save */
-        void clearDirty()
+        virtual void clearDirty()
         {
             AppBase::DocumentData::clearDirty();
-            
             dirty = false;
-            changeFinished(true);
         }
         
     protected:

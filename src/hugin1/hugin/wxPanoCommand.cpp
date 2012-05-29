@@ -140,7 +140,6 @@ bool wxAddCtrlPointGridCmd::processPanorama(Panorama& pano)
         }
     }
 #endif
-    pano.changeFinished();
     return true;
 }
 
@@ -350,7 +349,6 @@ bool wxAddImagesCmd::processPanorama(Panorama& pano)
             }
         }
     }
-    pano.changeFinished();
     return true;
 }
 
@@ -429,7 +427,6 @@ bool wxLoadPTProjectCmd::processPanorama(Panorama& pano)
                     PanoramaMemento emptyPano;
                     pano.setMemento(emptyPano);
                             // set an empty panorama
-                    pano.changeFinished();
                     return true;
                 }
                 fname.Assign(dlg.GetPath());
@@ -514,7 +511,6 @@ bool wxLoadPTProjectCmd::processPanorama(Panorama& pano)
     {
         pano.markAsOptimized();
     };
-    pano.changeFinished();
     return true;
 }
 
@@ -576,7 +572,6 @@ bool wxNewProjectCmd::processPanorama(Panorama& pano)
 
     pano.setOptimizerSwitch(HuginBase::OPT_PAIR);
     pano.setPhotometricOptimizerSwitch(HuginBase::OPT_EXPOSURE | HuginBase::OPT_VIGNETTING | HuginBase::OPT_RESPONSE);
-    pano.changeFinished();
     return true;
 }
 
@@ -664,7 +659,6 @@ bool wxApplyTemplateCmd::processPanorama(Panorama& pano)
         if (nOldImg != nNewImg) {
             wxString errMsg = wxString::Format(_("Error, template expects %d images,\ncurrent project contains %d images\n"), nNewImg, nOldImg);
             wxMessageBox(errMsg, _("Could not apply template"), wxICON_ERROR);
-            pano.changeFinished();
             return false;
         }
 
@@ -691,7 +685,6 @@ bool wxApplyTemplateCmd::processPanorama(Panorama& pano)
     } else {
         wxMessageBox(_("Error loading project file"), _("Could not apply template"), wxICON_ERROR);
     }
-    pano.changeFinished();
     return true;
 }
 
@@ -714,7 +707,6 @@ bool PythonScriptPanoCmd::processPanorama(Panorama& pano)
             pano.imageChanged(i);
         };
     };
-    pano.changeFinished();
 
     return true;
 }

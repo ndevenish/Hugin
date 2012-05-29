@@ -519,9 +519,6 @@ bool huginApp::OnInit()
 		}
 	}
 
-    pano.changeFinished();
-    pano.clearDirty();
-
     DEBUG_TRACE("=========================== huginApp::OnInit() end ===================");
     return true;
 }

@@ -97,6 +97,8 @@ void Panorama::reset()
     state.optSwitch=0;
     state.optPhotoSwitch=0;
     state.needsOptimization = false;
+    AppBase::DocumentData::setDirty(false);
+    dirty=false;
 }
 
 

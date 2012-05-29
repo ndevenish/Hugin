@@ -41,12 +41,12 @@ namespace HuginBase
         
         ///
         PanoCommand(ManagedPanoramaData& panoData)
-            : pano(panoData), memento(NULL), redoMemento(NULL)
+            : pano(panoData), memento(NULL), redoMemento(NULL), m_clearDirty(false)
         {};
         
         ///
         PanoCommand(ManagedPanoramaData& panoData, const StringType& commandName)
-            : AppBase::Command<StringType>(commandName), pano(panoData), memento(NULL), redoMemento(NULL)
+            : AppBase::Command<StringType>(commandName), pano(panoData), memento(NULL), redoMemento(NULL), m_clearDirty(false)
         {};
         
         ///
@@ -90,8 +90,17 @@ namespace HuginBase
             bool success = processPanorama(pano);
             
             AppBase::Command<StringType>::setSuccessful(success);
-            
-            if(!success)
+
+            if(success)
+            {
+                // notify all observers about changes
+                pano.changeFinished();
+                if(m_clearDirty)
+                {
+                    pano.clearDirty();
+                };
+            }
+            else
             {
                 // [TODO] warning!
                 pano.setMementoToCopyOf(memento);
@@ -154,9 +163,10 @@ namespace HuginBase
         
         ///
         PanoramaDataMemento* redoMemento;
-        
+
+        // if true, the dirty tag is cleared, otherwise it is keep
+        bool m_clearDirty;
     };
 
-    
 } // namespace
 #endif // _H

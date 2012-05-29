@@ -924,20 +924,6 @@ void MainFrame::LoadProjectFile(const wxString & filename)
         DEBUG_ERROR("Could not open file " << filename);
     }
 
-    // clean up some cruft from older versions
-    PanoramaOptions opts = pano.getOptions();
-    switch (opts.outputFormat) {
-        case PanoramaOptions::TIFF:
-        case PanoramaOptions::JPEG:
-        case PanoramaOptions::PNG:
-            opts.outputLDRBlended = true;
-            break;
-        default:
-            break;
-    }
-
-    pano.clearDirty();
-
     // force update of preview window
     if ( !(preview_frame->IsIconized() ||(! preview_frame->IsShown()) ) ) {
         wxCommandEvent dummy;
@@ -1023,7 +1009,6 @@ void MainFrame::OnNewProject(wxCommandEvent & e)
     {
         SetTitle(_("Hugin - Panorama Stitcher"));
     };
-    pano.clearDirty();
 
     wxCommandEvent dummy;
     preview_frame->OnUpdate(dummy);
@@ -1417,7 +1402,6 @@ void MainFrame::OnMergeProject(wxCommandEvent & e)
                 GlobalCmdHist::getInstance().addCommand(
                     new MergePanoCmd(pano, new_pano)
                 );
-                pano.clearDirty();
                 m_mruFiles.AddFileToHistory(fname.GetFullPath());
                 // force update of preview window
                 if ( !(preview_frame->IsIconized() ||(! preview_frame->IsShown()) ) )

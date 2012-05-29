@@ -76,7 +76,7 @@ public:
           filename(filename),
           prefix(prefix),
           markAsOptimized(markAsOptimized)
-    { };
+    { m_clearDirty=true; };
 
     virtual bool processPanorama(Panorama& pano);
 
@@ -96,7 +96,7 @@ private:
 class wxNewProjectCmd : public PanoCommand
 {
 public:
-    wxNewProjectCmd(Panorama & p) : PanoCommand(p){};
+    wxNewProjectCmd(Panorama & p) : PanoCommand(p) { m_clearDirty=true; };
 
     virtual bool processPanorama(Panorama& pano);
 
