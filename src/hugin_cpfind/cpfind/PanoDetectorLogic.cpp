@@ -557,6 +557,10 @@ bool PanoDetector::BuildKDTreesInImage(ImgData& ioImgInfo, const PanoDetector& i
 {
     TRACE_IMG("Build KDTree...");
 
+    if(ioImgInfo._kp.size()==0)
+    {
+        return false;
+    };
     // build a vector of KDElemKeyPointPtr
 
     // create feature vector matrix for flann
