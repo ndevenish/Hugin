@@ -345,10 +345,13 @@ public:
     void run()
     {
         //TRACE_PAIR("Matching...");
-        PanoDetector::FindMatchesInPair(_matchData, _panoDetector);
-        PanoDetector::RansacMatchesInPair(_matchData, _panoDetector);
-        PanoDetector::FilterMatchesInPair(_matchData, _panoDetector);
-        TRACE_PAIR("Found " << _matchData._matches.size() << " matches");
+        if(_matchData._i1->_kp.size()>0 && _matchData._i2->_kp.size()>0)
+        {
+            PanoDetector::FindMatchesInPair(_matchData, _panoDetector);
+            PanoDetector::RansacMatchesInPair(_matchData, _panoDetector);
+            PanoDetector::FilterMatchesInPair(_matchData, _panoDetector);
+            TRACE_PAIR("Found " << _matchData._matches.size() << " matches");
+        };
     }
 private:
     const PanoDetector&			_panoDetector;
