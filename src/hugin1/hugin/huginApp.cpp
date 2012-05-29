@@ -409,7 +409,20 @@ bool huginApp::OnInit()
     GlobalCmdHist::getInstance().addCommand(new wxNewProjectCmd(pano));
     GlobalCmdHist::getInstance().clear();
 
-    if (argc > 1) {
+    // suppress tiff warnings
+    TIFFSetWarningHandler(0);
+
+    if (argc > 1)
+    {
+#ifdef __WXMSW__
+        //on Windows we need to update the fast preview first
+        //otherwise there is an infinite loop when starting with a project file
+        //and closed panorama editor aka mainframe
+        if(frame->GetGuiLevel()==GUI_SIMPLE)
+        {
+            frame->getGLPreview()->Update();
+        };
+#endif
         wxFileName file(argv[1]);
         // if the first file is a project file, open it
         if (file.GetExt().CmpNoCase(wxT("pto")) == 0 ||
@@ -418,9 +431,9 @@ bool huginApp::OnInit()
         {
             if(file.IsRelative())
                 file.MakeAbsolute(cwd);
-	    // Loading the project file with set actualPath to its
-	    // parent directory.  (actualPath is used as starting
-	    // directory by many subsequent file selection dialogs.)
+            // Loading the project file with set actualPath to its
+            // parent directory.  (actualPath is used as starting
+            // directory by many subsequent file selection dialogs.)
             frame->LoadProjectFile(file.GetFullPath());
         } else {
             std::vector<std::string> filesv;
@@ -475,9 +488,14 @@ bool huginApp::OnInit()
                 } while (dir.GetNext(&foundFile));
 #endif
             }
-            GlobalCmdHist::getInstance().addCommand(
-                    new PT::wxAddImagesCmd(pano,filesv)
-                                                );
+            if(filesv.size()>0)
+            {
+                std::vector<PT::PanoCommand*> cmds;
+                cmds.push_back(new PT::wxAddImagesCmd(pano,filesv));
+                cmds.push_back(new PT::DistributeImagesCmd(pano));
+                cmds.push_back(new PT::CenterPanoCmd(pano));
+                GlobalCmdHist::getInstance().addCommand(new PT::CombinedPanoCommand(pano, cmds));
+            }
         }
     }
 #ifdef __WXMAC__
@@ -500,9 +518,6 @@ bool huginApp::OnInit()
 			frame->OnTipOfDay(dummy);
 		}
 	}
-
-    // suppress tiff warnings
-    TIFFSetWarningHandler(0);
 
     pano.changeFinished();
     pano.clearDirty();
