@@ -2038,6 +2038,10 @@ void MainFrame::SetGuiLevel(GuiLevel newLevel, const bool updateMenu)
             wxFileName scriptName = m_filename;
             SetTitle(scriptName.GetName() + wxT(".") + scriptName.GetExt() + wxT(" - ") + _("Hugin - Panorama Stitcher"));
         };
+        if(!IsShown())
+        {
+            Show();
+        };
     };
 };
 
