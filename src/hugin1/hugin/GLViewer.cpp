@@ -284,7 +284,7 @@ void GLViewer::SetUpContext()
                 DEBUG_ERROR("Error initialising GLEW: "
                         << glewGetErrorString(error_state) << ".");
                 frame->Close();
-                wxMessageBox(_("Error initializing GLEW\nFast preview window can not be opened."),_("Error"), wxOK | wxICON_ERROR,MainFrame::Get());
+                wxMessageBox(_("Error initializing GLEW\nFast preview window can not be opened."),_("Error"), wxOK | wxICON_ERROR,wxTheApp->GetTopWindow());
                 return;
             }
         }
@@ -294,7 +294,7 @@ void GLViewer::SetUpContext()
             started_creation=false;
             DEBUG_ERROR("Sorry, OpenGL 1.1 + GL_ARB_multitexture extension required.");
             frame->Close();
-            wxMessageBox(_("Sorry, the fast preview window requires a system which supports OpenGL version 1.1 with the GL_ARB_multitexture extension.\nThe fast preview cannot be opened."),_("Error"), wxOK | wxICON_ERROR,MainFrame::Get());
+            wxMessageBox(_("Sorry, the fast preview window requires a system which supports OpenGL version 1.1 with the GL_ARB_multitexture extension.\nThe fast preview cannot be opened."),_("Error"), wxOK | wxICON_ERROR,wxTheApp->GetTopWindow());
             return;
         }
 
