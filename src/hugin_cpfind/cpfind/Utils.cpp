@@ -62,7 +62,13 @@ unsigned long long utils::getTotalMemory()
     MEMORYSTATUSEX status;
     status.dwLength = sizeof(status);
     GlobalMemoryStatusEx(&status);
+#ifndef _WIN64
+    // when compiled as 32 bit version, we can only use about 2 GB
+    // even if we have more memory available on a 64 bit system
+    return std::min<unsigned long long>(status.ullTotalPhys, 1500*1024*1024);
+#else
     return status.ullTotalPhys;
+#endif
 };
 #elif defined __APPLE__
 unsigned long long utils::getTotalMemory()
