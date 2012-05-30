@@ -104,8 +104,6 @@ enum {
     ID_FULL_SCREEN = wxID_HIGHEST+1710,
     ID_SHOW_ALL = wxID_HIGHEST+1711,
     ID_SHOW_NONE = wxID_HIGHEST+1712,
-    ID_UNDO = wxID_HIGHEST+1713,
-    ID_REDO = wxID_HIGHEST+1714,
     ID_HIDE_HINTS = wxID_HIGHEST+1715
 };
 
@@ -183,7 +181,7 @@ BEGIN_EVENT_TABLE(GLPreviewFrame, wxFrame)
     EVT_CHOICE(XRCID("preview_guide_choice_crop"), GLPreviewFrame::OnGuideChanged)
     EVT_CHOICE(XRCID("preview_guide_choice_drag"), GLPreviewFrame::OnGuideChanged)
     EVT_CHOICE(XRCID("preview_guide_choice_proj"), GLPreviewFrame::OnGuideChanged)
-    EVT_TOGGLEBUTTON(XRCID("overview_toggle"), GLPreviewFrame::OnOverviewToggle)
+    EVT_MENU(XRCID("action_show_overview"), GLPreviewFrame::OnOverviewToggle)
     EVT_CHECKBOX(XRCID("preview_show_grid"), GLPreviewFrame::OnSwitchPreviewGrid)
 #ifndef __WXMAC__
     // wxMac does not process these
@@ -208,8 +206,6 @@ BEGIN_EVENT_TABLE(GLPreviewFrame, wxFrame)
     EVT_COMMAND_RANGE(PROJ_PARAM_VAL_ID,PROJ_PARAM_VAL_ID+PANO_PROJECTION_MAX_PARMS,wxEVT_COMMAND_TEXT_ENTER,GLPreviewFrame::OnProjParameterChanged)
     EVT_BUTTON(PROJ_PARAM_RESET_ID, GLPreviewFrame::OnProjParameterReset)
     EVT_TOOL(ID_FULL_SCREEN, GLPreviewFrame::OnFullScreen)
-    EVT_TOOL(ID_UNDO, GLPreviewFrame::OnUndo)
-    EVT_TOOL(ID_REDO, GLPreviewFrame::OnRedo)
     EVT_COLOURPICKER_CHANGED(XRCID("preview_background"), GLPreviewFrame::OnPreviewBackgroundColorChanged)
     EVT_MENU(XRCID("ID_SHOW_FULL_SCREEN_PREVIEW"), GLPreviewFrame::OnFullScreen)
     EVT_MENU(XRCID("action_show_main_frame"), GLPreviewFrame::OnShowMainFrame)
@@ -355,6 +351,7 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     panosphere_difference_tool = NULL;
     pano_mask_tool = NULL;
     preview_guide_tool = NULL;
+    m_guiLevel=GUI_SIMPLE;
 #ifdef __WXGTK__
     loadedLayout=false;
 #endif
@@ -389,9 +386,13 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     m_tool_notebook = XRCCTRL(*this,"mode_toolbar_notebook",wxNotebook);
     m_ToolBar_Identify = XRCCTRL(*this,"preview_mode_toolbar",wxToolBar);
 
-    m_simpleMenu=wxXmlResource::Get()->LoadMenuBar(this, wxT("preview_simple_menu"));
-    MainFrame::Get()->GetFileHistory()->UseMenu(m_simpleMenu->FindItem(XRCID("menu_mru_preview"))->GetSubMenu());
+    //build menu bar
+    wxMenuBar* simpleMenu=wxXmlResource::Get()->LoadMenuBar(this, wxT("preview_simple_menu"));
+    m_filemenuSimple=wxXmlResource::Get()->LoadMenu(wxT("preview_file_menu"));
+    MainFrame::Get()->GetFileHistory()->UseMenu(m_filemenuSimple->FindItem(XRCID("menu_mru_preview"))->GetSubMenu());
     MainFrame::Get()->GetFileHistory()->AddFilesToMenu();
+    simpleMenu->Insert(0, m_filemenuSimple, _("&File"));
+    SetMenuBar(simpleMenu);
 
     // initialize preview background color
     wxString c = cfg->Read(wxT("/GLPreviewFrame/PreviewBackground"),wxT(HUGIN_PREVIEW_BACKGROUND));
@@ -403,20 +404,15 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     m_topsizer = new wxBoxSizer( wxVERTICAL );
 
     wxPanel * toggle_panel = new wxPanel(this);
-    wxBoxSizer * toggle_panel_sizer = new wxBoxSizer(wxHORIZONTAL);
-    toggle_panel->SetSizer(toggle_panel_sizer);
-
-    wxPanel *overview_toggle_panel = wxXmlResource::Get()->LoadPanel(toggle_panel,wxT("overview_toggle_panel"));
-    toggle_panel_sizer->Add(overview_toggle_panel, 0, wxALL | wxEXPAND | wxALIGN_CENTER_VERTICAL, 0);
 
     bool overview_hidden;
     cfg->Read(wxT("/GLPreviewFrame/overview_hidden"), &overview_hidden, false);
-    m_OverviewToggle = XRCCTRL(*this, "overview_toggle", wxToggleButton);
-    m_OverviewToggle->SetValue(!overview_hidden);
+    GetMenuBar()->FindItem(XRCID("action_show_overview"))->Check(!overview_hidden);
 
     m_ToggleButtonSizer = new wxStaticBoxSizer(
         new wxStaticBox(toggle_panel, -1, _("displayed images")),
     wxHORIZONTAL );
+    toggle_panel->SetSizer(m_ToggleButtonSizer);
 
 	m_ButtonPanel = new wxScrolledWindow(toggle_panel, -1, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL);
 	// Set min height big enough to display scrollbars as well
@@ -454,8 +450,6 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     panel->SetSizer(sizer);
     m_ToggleButtonSizer->Add(panel, 0, wxALIGN_CENTER_VERTICAL);
     m_ToggleButtonSizer->Add(m_ButtonPanel, 1, wxEXPAND | wxADJUST_MINSIZE | wxALIGN_CENTER_VERTICAL, 0);
-
-    toggle_panel_sizer->Add(m_ToggleButtonSizer, wxEXPAND);
 
     m_topsizer->Add(tool_panel, 0, wxEXPAND | wxALL, 2);
     m_topsizer->Add(toggle_panel, 0, wxEXPAND | wxADJUST_MINSIZE | wxBOTTOM, 5);
@@ -764,16 +758,6 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
 
     m_showProjectionHints = cfg->Read(wxT("/GLPreviewFrame/ShowProjectionHints"), HUGIN_SHOW_PROJECTION_HINTS) == 1;
     m_degDigits = wxConfigBase::Get()->Read(wxT("/General/DegreeFractionalDigitsEdit"),3);
-    wxAcceleratorEntry entries[3];
-    entries[0].Set(wxACCEL_NORMAL,WXK_F11,ID_FULL_SCREEN);
-    entries[1].Set(wxACCEL_CMD,(int)'Z',ID_UNDO);
-    entries[2].Set(wxACCEL_CMD,(int)'R',ID_REDO);
-    wxAcceleratorTable accel(3, entries);
-    SetAcceleratorTable(accel);
-#ifdef __WXGTK__
-    // set explicit focus to button panel, otherwise the hotkey F11 is not right processed
-    m_ButtonPanel->SetFocus();
-#endif
 
      // tell the manager to "commit" all the changes just made
     m_mgr->Update();
@@ -805,7 +789,7 @@ void GLPreviewFrame::LoadOpenGLLayout()
     {
         m_mgr->LoadPerspective(OpenGLLayout,true);
 #ifdef __WXGTK__
-        if(!m_OverviewToggle->GetValue())
+        if(!GetMenuBar()->FindItem(XRCID("action_show_overview"))->IsChecked())
         {
             m_GLOverview->SetActive(false);
         };
@@ -832,7 +816,7 @@ GLPreviewFrame::~GLPreviewFrame()
 
     cfg->Write(wxT("/GLPreviewFrame/blendMode"), m_BlendModeChoice->GetSelection());
     cfg->Write(wxT("/GLPreviewFrame/OpenGLLayout"), m_mgr->SavePerspective());
-    cfg->Write(wxT("/GLPreviewFrame/overview_hidden"), !(m_OverviewToggle->GetValue()));
+    cfg->Write(wxT("/GLPreviewFrame/overview_hidden"), !(GetMenuBar()->FindItem(XRCID("action_show_overview"))->IsChecked()));
     cfg->Write(wxT("/GLPreviewFrame/showPreviewGrid"), m_previewGrid->GetValue());
     cfg->Write(wxT("/GLPreviewFrame/individualDragMode"), individualDragging());
     cfg->Write(wxT("/GLPreviewFrame/guide"),m_GuideChoiceProj->GetSelection());
@@ -888,7 +872,7 @@ GLPreviewFrame::~GLPreviewFrame()
      }
      if(m_guiLevel!=GUI_SIMPLE)
      {
-         delete m_simpleMenu;
+         delete m_filemenuSimple;
      };
 
     DEBUG_TRACE("dtor end");
@@ -1095,11 +1079,8 @@ void GLPreviewFrame::panoramaChanged(Panorama &pano)
         m_GLPreview->SetOverlayText(_("Note: automatic alignment uses default settings from the preferences. If you want to use customized settings, run the CP detection, the geometrical optimization and the photometric optimization from the Photos tab in the panorama editor."));
     };
 
-    if(m_guiLevel==GUI_SIMPLE)
-    {
-        GetMenuBar()->Enable(XRCID("ID_EDITUNDO"), GlobalCmdHist::getInstance().canUndo());
-        GetMenuBar()->Enable(XRCID("ID_EDITREDO"), GlobalCmdHist::getInstance().canRedo());
-    };
+    GetMenuBar()->Enable(XRCID("ID_EDITUNDO"), GlobalCmdHist::getInstance().canUndo());
+    GetMenuBar()->Enable(XRCID("ID_EDITREDO"), GlobalCmdHist::getInstance().canRedo());
 
     // TODO: update meaningful help text and dynamic links to relevant tabs
 
@@ -1359,7 +1340,7 @@ void GLPreviewFrame::OnShowEvent(wxShowEvent& e)
 {
 
     DEBUG_TRACE("OnShow");
-    bool toggle_on = m_OverviewToggle->GetValue();
+    bool toggle_on = GetMenuBar()->FindItem(XRCID("action_show_overview"))->IsChecked();
     wxAuiPaneInfo &inf = m_mgr->GetPane(wxT("overview"));
     if (inf.IsOk()) {
 #if wxCHECK_VERSION(2,8,11)
@@ -1391,7 +1372,7 @@ void GLPreviewFrame::KeyDown(wxKeyEvent& e)
     if (preview_helper) {
         preview_helper->KeypressEvent(e.GetKeyCode(), e.GetModifiers(), true);
     }
-    if (m_OverviewToggle->GetValue()) {
+    if (GetMenuBar()->FindItem(XRCID("action_show_overview"))->IsChecked()) {
         if(m_GLOverview->GetMode() == GLOverview::PLANE) {
             if (plane_overview_helper) {
                 plane_overview_helper->KeypressEvent(e.GetKeyCode(), e.GetModifiers(), true);
@@ -1411,7 +1392,7 @@ void GLPreviewFrame::KeyUp(wxKeyEvent& e)
     if (preview_helper) {
         preview_helper->KeypressEvent(e.GetKeyCode(), e.GetModifiers(), false);
     }
-    if (m_OverviewToggle->GetValue()) {
+    if (GetMenuBar()->FindItem(XRCID("action_show_overview"))->IsChecked()) {
         if(m_GLOverview->GetMode() == GLOverview::PLANE) {
             if (plane_overview_helper) {
                 plane_overview_helper->KeypressEvent(e.GetKeyCode(), e.GetModifiers(), false);
@@ -1431,7 +1412,7 @@ void GLPreviewFrame::KeyUp(wxKeyEvent& e)
 void GLPreviewFrame::OnOverviewToggle(wxCommandEvent& e)
 {
     DEBUG_TRACE("overview toggle");
-    bool toggle_on = m_OverviewToggle->GetValue();
+    bool toggle_on = GetMenuBar()->FindItem(XRCID("action_show_overview"))->IsChecked();
     wxAuiPaneInfo &inf = m_mgr->GetPane(wxT("overview"));
     if (inf.IsOk()) {
         if (inf.IsShown() && !toggle_on) {
@@ -2609,32 +2590,6 @@ void GLPreviewFrame::OnFullScreen(wxCommandEvent & e)
     ShowFullScreen(!IsFullScreen(), wxFULLSCREEN_NOBORDER | wxFULLSCREEN_NOCAPTION);
 };
 
-void GLPreviewFrame::OnUndo(wxCommandEvent &e)
-{
-    if(GlobalCmdHist::getInstance().canUndo())
-    {
-        wxCommandEvent dummy(wxEVT_COMMAND_MENU_SELECTED, XRCID("ID_EDITUNDO"));
-        m_parent->GetEventHandler()->AddPendingEvent(dummy);
-    }
-    else
-    {
-        wxBell();
-    };
-};
-
-void GLPreviewFrame::OnRedo(wxCommandEvent &e)
-{
-    if(GlobalCmdHist::getInstance().canRedo())
-    {
-        wxCommandEvent dummy(wxEVT_COMMAND_MENU_SELECTED, XRCID("ID_EDITREDO"));
-        m_parent->GetEventHandler()->AddPendingEvent(dummy);
-    }
-    else
-    {
-        wxBell();
-    };
-};
-
 void GLPreviewFrame::SetMode(int newMode)
 {
     if(m_mode==newMode)
@@ -3023,7 +2978,10 @@ void GLPreviewFrame::OnGuideChanged(wxCommandEvent &e)
 
 void GLPreviewFrame::SetGuiLevel(GuiLevel newLevel)
 {
-    m_guiLevel=newLevel;
+    if(m_guiLevel==newLevel)
+    {
+        return;
+    };
     int old_selection=m_DragModeChoice->GetSelection();
     m_DragModeChoice->Clear();
     m_DragModeChoice->Append(_("normal"));
@@ -3065,12 +3023,12 @@ void GLPreviewFrame::SetGuiLevel(GuiLevel newLevel)
         m_GLOverview->SetMode(GLOverview::PANOSPHERE);
         m_OverviewModeChoice->SetSelection(0);
     };
-    if(m_guiLevel==GUI_SIMPLE)
+    if(newLevel==GUI_SIMPLE)
     {
 #ifdef __WXMAC__
         wxApp::s_macExitMenuItemId = XRCID("action_exit_preview");
 #endif
-        SetMenuBar(m_simpleMenu);
+        GetMenuBar()->Insert(0, m_filemenuSimple, _("&File"));
         SetTitle(MainFrame::Get()->GetTitle());
     }
     else
@@ -3078,9 +3036,10 @@ void GLPreviewFrame::SetGuiLevel(GuiLevel newLevel)
 #ifdef __WXMAC__
         wxApp::s_macExitMenuItemId = XRCID("action_exit_hugin");
 #endif
-        SetMenuBar(NULL);
+        GetMenuBar()->Remove(0);
         SetTitle(_("Fast Panorama preview"));
     };
+    m_guiLevel=newLevel;
 };
 
 void GLPreviewFrame::OnShowMainFrame(wxCommandEvent &e)

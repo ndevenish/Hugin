@@ -311,10 +311,6 @@ protected:
     void updatePano();
     /** event handler for full screen */
     void OnFullScreen(wxCommandEvent &e);
-    /** event handler for undo */
-    void OnUndo(wxCommandEvent &e);
-    /** event handler for redo */
-    void OnRedo(wxCommandEvent &e);
     /** event handler for selection of new mode */
     void OnSelectMode(wxNotebookEvent &e);
     /** event handler for blocking changing mode when panorama contains no images*/
@@ -401,6 +397,7 @@ private:
     wxTextCtrl * m_focalLengthText;
     wxTextCtrl * m_cropFactorText;
     wxButton   * m_loadLensButton;
+    wxMenu* m_filemenuSimple;
 
     int m_degDigits;
 
@@ -430,8 +427,6 @@ private:
     std::vector<wxPanel *> m_ToggleButtonPanel;
     std::vector<ImageToogleButtonEventHandler *> toogle_button_event_handlers;
     std::vector<ImageGroupButtonEventHandler *> toggle_group_button_event_handlers;
-
-    wxToggleButton * m_OverviewToggle;
 
     DECLARE_EVENT_TABLE()
 
@@ -479,8 +474,6 @@ private:
     PlaneOverviewOutlinesTool *plane_overview_outlines_tool;
 
     PreviewGuideTool *preview_guide_tool;
-
-    wxMenuBar* m_simpleMenu;
 
     void TurnOffTools(std::set<Tool*> tools);
 

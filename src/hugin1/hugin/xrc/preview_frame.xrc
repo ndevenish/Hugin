@@ -926,19 +926,6 @@
       </object>
     </object>
   </object>
-  <object class="wxPanel" name="overview_toggle_panel">
-    <object class="wxStaticBoxSizer" name="overview_toggle_sizer">
-      <label>Overview</label>
-      <orient>wxHORIZONTAL</orient>
-      <object class="sizeritem">
-        <object class="wxToggleButton" name="overview_toggle">
-          <label>Show/Hide</label>
-        </object>
-        <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
-        <border>5</border>
-      </object>
-    </object>
-  </object>
   <object class="wxPanel" name="overview_command_panel">
     <object class="wxBoxSizer">
       <orient>wxHORIZONTAL</orient>
@@ -1790,49 +1777,7 @@
     </object>
   </object>
   <object class="wxMenuBar" name="preview_simple_menu">
-    <object class="wxMenu" name="file_menu">
-      <label>&amp;File</label>
-      <object class="wxMenuItem" name="action_new_project">
-        <label>&amp;New</label>
-        <accel>Ctrl-n</accel>
-        <help>New project</help>
-      </object>
-      <object class="wxMenuItem" name="action_load_project">
-        <label>&amp;Open</label>
-        <accel>Ctrl-o</accel>
-        <help>Open project</help>
-      </object>
-      <object class="wxMenuItem" name="action_save_project">
-        <label>&amp;Save</label>
-        <accel>Ctrl-s</accel>
-        <help>Save current project file</help>
-      </object>
-      <object class="wxMenuItem" name="action_save_as_project">
-        <label>S&amp;ave as</label>
-        <help>Save current project to a new file</help>
-      </object>
-      <object class="wxMenu" name="menu_mru_preview">
-        <label>Most recently used projects</label>
-        <help>List of most recently used project files</help>
-      </object>
-      <object class="separator"/>
-      
-      <object class="wxMenuItem" name="action_open_batch_processor">
-        <label>&amp;Run Batch Processor</label>
-        <help>Opens PTBatcher, the batch processor for Hugin's project files</help>
-      </object>
-      <object class="separator"/>
-      <object class="wxMenuItem" name="action_show_prefs">
-        <label>&amp;Preferences</label>
-      </object>
-      <object class="separator"/>
-      <object class="wxMenuItem" name="action_exit_preview">
-        <label>&amp;Quit</label>
-        <accel>Ctrl-q</accel>
-        <help>Exit program</help>
-      </object>
-    </object>
-    <object class="wxMenu" name="edit_menue">
+    <object class="wxMenu" name="edit_menu">
       <object class="wxMenuItem" name="ID_EDITUNDO">
         <label>&amp;Undo</label>
         <accel>Ctrl-z</accel>
@@ -1847,12 +1792,20 @@
       <object class="wxMenuItem" name="action_show_main_frame">
         <label>E&amp;dit panorama</label>
       </object>
+      <label>&amp;Edit</label>
+    </object>
+    <object class="wxMenu" name="preview_view_menu">
       <object class="wxMenuItem" name="ID_SHOW_FULL_SCREEN_PREVIEW">
         <label>Full Screen</label>
         <accel>F11</accel>
         <help>Shows Hugin's main window on full screen</help>
       </object>
-      <label>&amp;Edit</label>
+      <object class="wxMenuItem" name="action_show_overview">
+        <label>&amp;Overview</label>
+        <help>Shows the overview of the panorama sphere.</help>
+        <checkable>1</checkable>
+      </object>
+      <label>&amp;View</label>
     </object>
     <object class="wxMenu" name="help_menu">
       <object class="wxMenuItem" name="action_show_help">
@@ -1884,5 +1837,46 @@
       <label>&amp;Help</label>
     </object>
     <style>wxMB_DOCKABLE</style>
+  </object>
+  <object class="wxMenu" name="preview_file_menu">
+    <object class="wxMenuItem" name="action_new_project">
+      <label>&amp;New</label>
+      <accel>Ctrl-n</accel>
+      <help>New project</help>
+    </object>
+    <object class="wxMenuItem" name="action_load_project">
+      <label>&amp;Open</label>
+      <accel>Ctrl-o</accel>
+      <help>Open project</help>
+    </object>
+    <object class="wxMenuItem" name="action_save_project">
+      <label>&amp;Save</label>
+      <accel>Ctrl-s</accel>
+      <help>Save current project file</help>
+    </object>
+    <object class="wxMenuItem" name="action_save_as_project">
+      <label>S&amp;ave as</label>
+      <help>Save current project to a new file</help>
+    </object>
+    <object class="wxMenu" name="menu_mru_preview">
+      <label>Most recently used projects</label>
+      <help>List of most recently used project files</help>
+    </object>
+    <object class="separator"/>
+    <object class="wxMenuItem" name="action_open_batch_processor">
+      <label>&amp;Run Batch Processor</label>
+      <help>Opens PTBatcher, the batch processor for Hugin's project files</help>
+    </object>
+    <object class="separator"/>
+    <object class="wxMenuItem" name="action_show_prefs">
+      <label>&amp;Preferences</label>
+    </object>
+    <object class="separator"/>
+    <object class="wxMenuItem" name="action_exit_preview">
+      <label>&amp;Quit</label>
+      <accel>Ctrl-q</accel>
+      <help>Exit program</help>
+    </object>
+    <label>&amp;File</label>
   </object>
 </resource>

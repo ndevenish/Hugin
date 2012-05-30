@@ -1644,13 +1644,23 @@ void MainFrame::OnPlugin(wxCommandEvent & e)
 void MainFrame::OnUndo(wxCommandEvent & e)
 {
     DEBUG_TRACE("OnUndo");
-    GlobalCmdHist::getInstance().undo();
+    if(GlobalCmdHist::getInstance().canUndo())
+    {
+        GlobalCmdHist::getInstance().undo();
+    }
+    else
+    {
+        wxBell();
+    };
 }
 
 void MainFrame::OnRedo(wxCommandEvent & e)
 {
     DEBUG_TRACE("OnRedo");
-    GlobalCmdHist::getInstance().redo();
+    if(GlobalCmdHist::getInstance().canRedo())
+    {
+        GlobalCmdHist::getInstance().redo();
+    };
 }
 
 void MainFrame::ShowCtrlPoint(unsigned int cpNr)
