@@ -3036,7 +3036,10 @@ void GLPreviewFrame::SetGuiLevel(GuiLevel newLevel)
 #ifdef __WXMAC__
         wxApp::s_macExitMenuItemId = XRCID("action_exit_hugin");
 #endif
-        GetMenuBar()->Remove(0);
+        if(m_guiLevel==GUI_SIMPLE)
+        {
+            GetMenuBar()->Remove(0);
+        };
         SetTitle(_("Fast Panorama preview"));
     };
     m_guiLevel=newLevel;
