@@ -4,7 +4,7 @@
 // Created:     01/02/97
 // Author:      Robert Roebling
 // Maintainer:  Ronan Chartois (pgriddev)
-// Version:     $Id: treelistctrl.h 2896 2011-12-27 18:05:06Z pgriddev $
+// Version:     $Id: treelistctrl.h 3022 2012-05-28 14:14:48Z pgriddev $
 // Copyright:   (c) 2004-2011 Robert Roebling, Julian Smart, Alberto Griggio,
 //              Vadim Zeitlin, Otto Wyss, Ronan Chartois
 // Licence:     wxWindows
@@ -81,7 +81,7 @@ public:
     wxString GetText() const { return m_text; }
     wxTreeListColumnInfo& SetText (const wxString& text) { m_text = text; return *this; }
 
-    int GetWidth() const { return m_width; }
+    int GetWidth() const { return m_shown ? m_width : 0; }
     wxTreeListColumnInfo& SetWidth (int width) { m_width = width; return *this; }
 
     int GetAlignment() const { return m_flag; }

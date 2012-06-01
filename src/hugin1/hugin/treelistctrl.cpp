@@ -4,7 +4,7 @@
 // Created:     01/02/97
 // Author:      Robert Roebling
 // Maintainer:  Ronan Chartois (pgriddev)
-// Version:     $Id: treelistctrl.cpp 2896 2011-12-27 18:05:06Z pgriddev $
+// Version:     $Id: treelistctrl.cpp 3022 2012-05-28 14:14:48Z pgriddev $
 // Copyright:   (c) 2004-2011 Robert Roebling, Julian Smart, Alberto Griggio,
 //              Vadim Zeitlin, Otto Wyss, Ronan Chartois
 // Licence:     wxWindows
@@ -1674,41 +1674,31 @@ void wxTreeListHeaderWindow::SendListEvent (wxEventType type, wxPoint pos) {
 
 void wxTreeListHeaderWindow::AddColumn (const wxTreeListColumnInfo& colInfo) {
     m_columns.Add (colInfo);
-    if(colInfo.IsShown()) {
-        m_total_col_width += colInfo.GetWidth();
-    };
+    m_total_col_width += colInfo.GetWidth();
     m_owner->AdjustMyScrollbars();
     m_owner->m_dirty = true;
 }
 
 void wxTreeListHeaderWindow::SetColumnWidth (int column, int width) {
     wxCHECK_RET ((column >= 0) && (column < GetColumnCount()), _T("Invalid column"));
-    if(m_columns[column].IsShown()) {
-        m_total_col_width -= m_columns[column].GetWidth();
-    };
+    m_total_col_width -= m_columns[column].GetWidth();
     m_columns[column].SetWidth(width);
-    if(m_columns[column].IsShown()) {
-        m_total_col_width += width;
-        m_owner->AdjustMyScrollbars();
-        m_owner->m_dirty = true;
-    };
+    m_total_col_width += m_columns[column].GetWidth();
+    m_owner->AdjustMyScrollbars();
+    m_owner->m_dirty = true;
 }
 
 void wxTreeListHeaderWindow::InsertColumn (int before, const wxTreeListColumnInfo& colInfo) {
     wxCHECK_RET ((before >= 0) && (before < GetColumnCount()), _T("Invalid column"));
     m_columns.Insert (colInfo, before);
-    if(colInfo.IsShown()) {
-        m_total_col_width += colInfo.GetWidth();
-        m_owner->AdjustMyScrollbars();
-        m_owner->m_dirty = true;
-    };
+    m_total_col_width += colInfo.GetWidth();
+    m_owner->AdjustMyScrollbars();
+    m_owner->m_dirty = true;
 }
 
 void wxTreeListHeaderWindow::RemoveColumn (int column) {
     wxCHECK_RET ((column >= 0) && (column < GetColumnCount()), _T("Invalid column"));
-    if(m_columns[column].IsShown()) {
-        m_total_col_width -= m_columns[column].GetWidth();
-    };
+    m_total_col_width -= m_columns[column].GetWidth();
     m_columns.RemoveAt (column);
     m_owner->AdjustMyScrollbars();
     m_owner->m_dirty = true;
@@ -1716,14 +1706,14 @@ void wxTreeListHeaderWindow::RemoveColumn (int column) {
 
 void wxTreeListHeaderWindow::SetColumn (int column, const wxTreeListColumnInfo& info) {
     wxCHECK_RET ((column >= 0) && (column < GetColumnCount()), _T("Invalid column"));
-    int w = m_columns[column].IsShown() ? m_columns[column].GetWidth() : 0;
-    int w2 = info.IsShown() ? info.GetWidth() : 0;
+    int w = m_columns[column].GetWidth();
     m_columns[column] = info;
-    if (w != w2) {
-        m_total_col_width += w2 - w;
+    if (w != info.GetWidth()) {
+        m_total_col_width -= w;
+        m_total_col_width += info.GetWidth();
         m_owner->AdjustMyScrollbars();
-        m_owner->m_dirty = true;
     }
+    m_owner->m_dirty = true;
 }
 
 // ---------------------------------------------------------------------------
@@ -1790,7 +1780,7 @@ size_t wxTreeListItem::GetChildrenCount (bool recursively) const {
 void wxTreeListItem::GetSize (int &x, int &y, const wxTreeListMainWindow *theButton) {
     int bottomY = m_y + theButton->GetLineHeight (this);
     if (y < bottomY) y = bottomY;
-    int width = m_x +  m_width;
+    int width = m_x +  GetWidth();
     if ( x < width ) x = width;
 
     if (IsExpanded()) {
@@ -1862,7 +1852,7 @@ wxTreeListItem *wxTreeListItem::HitTest (const wxPoint& point,
             }
 
             // check for label hit
-            if ((point.x >= m_text_x) && (point.x <= (m_text_x + m_width))) {
+            if ((point.x >= m_text_x) && (point.x <= (m_text_x + GetWidth()))) {
                 flags |= wxTREE_HITTEST_ONITEMLABEL;
                 return this;
             }
@@ -1870,16 +1860,14 @@ wxTreeListItem *wxTreeListItem::HitTest (const wxPoint& point,
             // check for indent hit after button and image hit
             if (point.x < m_x) {
                 flags |= wxTREE_HITTEST_ONITEMINDENT;
-// Ronan, 2008.07.17: removed, not consistent               column = -1; // considered not belonging to main column
                 return this;
             }
 
             // check for right of label
             int end = 0;
             for (int i = 0; i <= theCtrl->GetMainColumn(); ++i) end += header_win->GetColumnWidth (i);
-            if ((point.x > (m_text_x + m_width)) && (point.x <= end)) {
+            if ((point.x > (m_text_x + GetWidth())) && (point.x <= end)) {
                 flags |= wxTREE_HITTEST_ONITEMRIGHT;
-// Ronan, 2008.07.17: removed, not consistent                column = -1; // considered not belonging to main column
                 return this;
             }
 
@@ -3998,7 +3986,7 @@ void wxTreeListMainWindow::OnChar (wxKeyEvent &event) {
         default:
             if (event.GetKeyCode() >= (int)' ') {
                 if (!m_findTimer->IsRunning()) m_findStr.Clear();
-                m_findStr.Append ((char)event.GetKeyCode());
+                m_findStr.Append ((const char *)event.GetKeyCode());
                 m_findTimer->Start (FIND_TIMER_TICKS, wxTIMER_ONE_SHOT);
                 wxTreeItemId prev = m_curItem? (wxTreeItemId*)m_curItem: (wxTreeItemId*)NULL;
                 while (true) {
