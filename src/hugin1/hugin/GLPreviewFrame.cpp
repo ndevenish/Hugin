@@ -2978,11 +2978,11 @@ void GLPreviewFrame::OnGuideChanged(wxCommandEvent &e)
 
 void GLPreviewFrame::SetGuiLevel(GuiLevel newLevel)
 {
-    if(m_guiLevel==newLevel)
-    {
-        return;
-    };
     int old_selection=m_DragModeChoice->GetSelection();
+    if(old_selection==wxNOT_FOUND)
+    {
+        old_selection=0;
+    };
     m_DragModeChoice->Clear();
     m_DragModeChoice->Append(_("normal"));
     m_DragModeChoice->Append(_("normal, individual"));
@@ -3028,7 +3028,10 @@ void GLPreviewFrame::SetGuiLevel(GuiLevel newLevel)
 #ifdef __WXMAC__
         wxApp::s_macExitMenuItemId = XRCID("action_exit_preview");
 #endif
-        GetMenuBar()->Insert(0, m_filemenuSimple, _("&File"));
+        if(m_guiLevel!=GUI_SIMPLE)
+        {
+            GetMenuBar()->Insert(0, m_filemenuSimple, _("&File"));
+        };
         SetTitle(MainFrame::Get()->GetTitle());
     }
     else
