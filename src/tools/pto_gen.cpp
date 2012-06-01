@@ -33,6 +33,7 @@
 #endif
 #include <panodata/Panorama.h>
 #include <panodata/StandardImageVariableGroups.h>
+#include <panodata/OptimizerSwitches.h>
 #include <algorithms/basic/CalculateMeanExposure.h>
 #include "hugin_utils/alphanum.h"
 #include <vigra/impex.hxx>
@@ -472,6 +473,9 @@ int main(int argc, char* argv[])
     PanoramaOptions opt = pano.getOptions();
     opt.outputExposureValue = CalculateMeanExposure::calcMeanExposure(pano);
     pano.setOptions(opt);
+    // set optimizer switches
+    pano.setOptimizerSwitch(HuginBase::OPT_PAIR);
+    pano.setPhotometricOptimizerSwitch(HuginBase::OPT_EXPOSURE | HuginBase::OPT_VIGNETTING | HuginBase::OPT_RESPONSE);
 
     //output
     if(output=="")

@@ -27,6 +27,7 @@
 #include "FindPanoDialog.h"
 #include "base_wx/wxPlatform.h"
 #include "panoinc.h"
+#include "panodata/OptimizerSwitches.h"
 #include "PTBatcherGUI.h"
 #include "hugin_utils/alphanum.h"
 #include "hugin/config_defaults.h"
@@ -762,6 +763,9 @@ wxString PossiblePano::GeneratePanorama(NamingConvention nc,bool createLinks)
     opts.hdrMergeMode = PanoramaOptions::HDRMERGE_AVERAGE;
     opts.hdrmergeOptions = HUGIN_HDRMERGE_ARGS;
     pano.setOptions(opts);
+    // set optimizer switches
+    pano.setOptimizerSwitch(HuginBase::OPT_POSITION);
+    pano.setPhotometricOptimizerSwitch(HuginBase::OPT_EXPOSURE | HuginBase::OPT_VIGNETTING | HuginBase::OPT_RESPONSE);
 
     std::ofstream script(projectFile.GetFullPath().mb_str(HUGIN_CONV_FILENAME));
     script.exceptions ( std::ofstream::eofbit | std::ofstream::failbit | std::ofstream::badbit );
