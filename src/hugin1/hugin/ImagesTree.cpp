@@ -73,6 +73,7 @@ BEGIN_EVENT_TABLE(ImagesTreeCtrl, wxTreeListCtrl)
     EVT_TREE_BEGIN_DRAG(-1, ImagesTreeCtrl::OnBeginDrag)
     EVT_LEFT_UP(ImagesTreeCtrl::OnEndDrag)
     EVT_LEFT_DOWN(ImagesTreeCtrl::OnLeftDown)
+    EVT_LEFT_DCLICK(ImagesTreeCtrl::OnLeftDblClick)
     EVT_TREE_KEY_DOWN(-1, ImagesTreeCtrl::OnChar)
     EVT_TREE_BEGIN_LABEL_EDIT(-1, ImagesTreeCtrl::OnBeginEdit)
     EVT_TREE_END_LABEL_EDIT(-1, ImagesTreeCtrl::OnEndEdit)
@@ -1704,6 +1705,16 @@ void ImagesTreeCtrl::OnExecuteOperation(wxCommandEvent & e)
     {
         GlobalCmdHist::getInstance().addCommand(cmd);
     };
+};
+
+void ImagesTreeCtrl::OnLeftDblClick(wxMouseEvent &e)
+{
+    if(!m_optimizerMode)
+    {
+        wxCommandEvent commandEvent(wxEVT_COMMAND_MENU_SELECTED, ID_EDIT);
+        GetEventHandler()->AddPendingEvent(commandEvent);
+    };
+    e.Skip();
 };
 
 IMPLEMENT_DYNAMIC_CLASS(ImagesTreeCtrl, wxTreeListCtrl)

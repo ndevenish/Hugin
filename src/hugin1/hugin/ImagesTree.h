@@ -121,6 +121,8 @@ protected:
     void OnEndDrag(wxMouseEvent &e);
     /** event handler for left mouse down, handles toggle of optimizer variables */
     void OnLeftDown(wxMouseEvent &e);
+    /** event handler for left double click */
+    void OnLeftDblClick(wxMouseEvent &e);
     /** event handler for select all optimizer variables */
     void OnSelectAll(wxCommandEvent &e);
     /** event handler for unselect all optimizer variables */
