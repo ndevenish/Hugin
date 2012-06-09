@@ -3051,6 +3051,7 @@ void GLPreviewFrame::SetGuiLevel(GuiLevel newLevel)
 void GLPreviewFrame::OnShowMainFrame(wxCommandEvent &e)
 {
     MainFrame::Get()->Show();
+    MainFrame::Get()->Raise();
 };
 
 void GLPreviewFrame::OnUserExit(wxCommandEvent &e)
