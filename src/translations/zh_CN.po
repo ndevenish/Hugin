@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: for Hugin\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
 "POT-Creation-Date: 2011-10-21 22:38+0200\n"
-"PO-Revision-Date: 2011-09-24 21:28+0800\n"
+"PO-Revision-Date: 2012-06-03 10:28+0800\n"
 "Last-Translator: Lu Fang\n"
 "Language-Team: Simplified Chinese <N/A>\n"
 "Language: \n"
@@ -472,9 +472,8 @@ msgid "Path to data: %s"
 msgstr "数据路径: %s"
 
 #: hugin1/hugin/AboutDialog.cpp:176
-#, fuzzy
 msgid "Libraries"
-msgstr "目录"
+msgstr "收藏库"
 
 #: hugin1/hugin/AssistantPanel.cpp:224
 msgid "Please load images by pressing on the Load images button."
@@ -580,17 +579,16 @@ msgid ""
 msgstr "助理没有成功处理. 请检查项目文件的结果."
 
 #: hugin1/hugin/AssistantPanel.cpp:491
-#, fuzzy
 msgid "Project file not found"
-msgstr "没有发现图像文件"
+msgstr "没有发现项目文件"
 
 #: hugin1/hugin/AssistantPanel.cpp:503
 msgid "Can't launch PTBatcherGui"
-msgstr ""
+msgstr "不能载入 PTBatcherGui"
 
 #: hugin1/hugin/AssistantPanel.cpp:509
 msgid "Launched incorrect programme"
-msgstr ""
+msgstr "载入了错误程序"
 
 #: hugin1/hugin/CPDetectorDialog.cpp:93
 msgid "Autopano from http://autopano.kolor.com is not available for OSX"
@@ -988,9 +986,8 @@ msgid "mosaic, individual"
 msgstr "马塞克, 独立"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:639
-#, fuzzy
 msgid "Resets the projection's parameters to their default values."
-msgstr "重置项目参数到默认值."
+msgstr "重置项目参数到它们的默认值."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:648 hugin1/hugin/PreviewFrame.cpp:310
 msgid "param:"
@@ -1045,12 +1042,11 @@ msgstr "数值必须是数字"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1597
 msgid "Do you want to keep the current non-zero translation parameters?"
-msgstr ""
+msgstr "您想保持目前的非零传递参数吗?"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1598
-#, fuzzy
 msgid "Keep XYZ parameters?"
-msgstr "重置 XYZ 参数?"
+msgstr "保持 XYZ 参数?"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1682
 msgid ""
@@ -1585,6 +1581,9 @@ msgid ""
 "This file can't be open with File, Open.\n"
 "Do you want instead add this image file to the current project?"
 msgstr ""
+"文件 %s 是一个图像文件而不是一个项目文件.\n"
+"这个文件不能通过 \"文件, 打开\" 的方式来打开.\n"
+"您想用增加这个文件到当前项目的方式来代替吗?"
 
 #: hugin1/hugin/MainFrame.cpp:899
 msgid "Open project: cancel"
@@ -2066,9 +2065,8 @@ msgid "Czech"
 msgstr "捷克语"
 
 #: hugin1/hugin/PreferencesDialog.cpp:135
-#, fuzzy
 msgid "Danish"
-msgstr "西班牙"
+msgstr "丹麦"
 
 #: hugin1/hugin/PreferencesDialog.cpp:138
 msgid "Dutch"
@@ -2651,9 +2649,8 @@ msgid "Not doing much..."
 msgstr "不再做..."
 
 #: hugin1/ptbatcher/BatchFrame.cpp:161 hugin1/ptbatcher/BatchFrame.cpp:171
-#, fuzzy
 msgid "Hugin's Batch processor"
-msgstr "Hugins 批处理器"
+msgstr "Hugins 的批处理器"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:315
 msgid "Please enter the command-line application to execute:"
@@ -2810,14 +2807,12 @@ msgid "Stop batch"
 msgstr "停止批处理"
 
 #: hugin1/ptbatcher/BatchTrayIcon.cpp:76 translations/xrc.cpp:76 xrc.cpp:76
-#, fuzzy
 msgid "Add project to stitching queue..."
-msgstr "增加项目 %s 到缝合队列."
+msgstr "增加项目到缝合队列..."
 
 #: hugin1/ptbatcher/BatchTrayIcon.cpp:77 translations/xrc.cpp:78 xrc.cpp:78
-#, fuzzy
 msgid "Add project to assistant queue..."
-msgstr "增加项目 %s 到助理队列."
+msgstr "增加项目到助理队列..."
 
 #: hugin1/ptbatcher/BatchTrayIcon.cpp:81
 msgid "E&xit"
@@ -3173,33 +3168,31 @@ msgstr "并行执行"
 
 #: translations/xrc.cpp:44 xrc.cpp:44
 msgid "Stitch several projects parallel."
-msgstr ""
+msgstr "并行缝合几个项目."
 
 #: translations/xrc.cpp:45 xrc.cpp:45
 msgid "Overwrite always"
 msgstr "总是覆写"
 
 #: translations/xrc.cpp:46 xrc.cpp:46
-#, fuzzy
 msgid "Overwrite existing image files without further notice."
-msgstr "覆盖已经存在的图像"
+msgstr "不再提示地覆盖已经存在的图像."
 
 #: translations/xrc.cpp:47 xrc.cpp:47
-#, fuzzy
 msgid "Remove finished project"
-msgstr "移除项目"
+msgstr "移除完成的项目"
 
 #: translations/xrc.cpp:48 xrc.cpp:48
 msgid "Automatic remove successfully finished projects from queue."
-msgstr ""
+msgstr "自动从队列中移除成功完成的项目."
 
 #: translations/xrc.cpp:49 xrc.cpp:49
 msgid "Automatic stitch after assistant"
-msgstr ""
+msgstr "助理完成后自动缝合"
 
 #: translations/xrc.cpp:50 xrc.cpp:50
 msgid "Automatically stitch projects after (successful) running assistant."
-msgstr ""
+msgstr "(成功) 运行助理后自动缝合项目."
 
 #: translations/xrc.cpp:51 xrc.cpp:51
 msgid "Shutdown when done"
@@ -3207,16 +3200,15 @@ msgstr "完成后关机"
 
 #: translations/xrc.cpp:52 xrc.cpp:52
 msgid "Shutdown computer if all tasks are finished"
-msgstr ""
+msgstr "完成所有任务后关闭计算机"
 
 #: translations/xrc.cpp:53 xrc.cpp:53
 msgid "Verbose output"
 msgstr "冗长的输出"
 
 #: translations/xrc.cpp:54 xrc.cpp:54
-#, fuzzy
 msgid "Show detailed output in separate window."
-msgstr "显示 OpenGL 预览窗口"
+msgstr "在分离窗口中显示细节."
 
 #: translations/xrc.cpp:55 xrc.cpp:55
 msgid "Directories"
@@ -3300,14 +3292,12 @@ msgid "&File"
 msgstr "文件 (&F)"
 
 #: translations/xrc.cpp:77 xrc.cpp:77
-#, fuzzy
 msgid "Adds a project to the stitching queue"
-msgstr "增加项目 %s 到缝合队列."
+msgstr "增加一个项目到缝合队列"
 
 #: translations/xrc.cpp:79 xrc.cpp:79
-#, fuzzy
 msgid "Adds a project to the assistant queue"
-msgstr "增加项目 %s 到助理队列."
+msgstr "增加一个项目到助理队列"
 
 #: translations/xrc.cpp:80 translations/xrc.cpp:123 xrc.cpp:80 xrc.cpp:123
 msgid "Remove project"
@@ -3842,9 +3832,8 @@ msgid "Reset position of selected image(s)"
 msgstr "重置选择的图像的位置"
 
 #: translations/xrc.cpp:229 xrc.cpp:229
-#, fuzzy
 msgid "Feature Matching"
-msgstr "特征匹配:"
+msgstr "特征匹配"
 
 #: translations/xrc.cpp:230 xrc.cpp:230
 msgid "Settings:"
@@ -3901,9 +3890,8 @@ msgid "Camera Model:"
 msgstr "照相机型号:"
 
 #: translations/xrc.cpp:244 xrc.cpp:244
-#, fuzzy
 msgid "Lens:"
-msgstr "镜头"
+msgstr "镜头:"
 
 #: translations/xrc.cpp:245 xrc.cpp:245
 msgid "Capture Date:"
@@ -4319,9 +4307,8 @@ msgid "Add another image to the current project"
 msgstr "增加另外的图像到当前项目中"
 
 #: translations/xrc.cpp:380 xrc.cpp:380
-#, fuzzy
 msgid "Run &Python script"
-msgstr "运行用户 Python 脚本 (&P)"
+msgstr "运行 Python 脚本 (&P)"
 
 #: translations/xrc.cpp:381 xrc.cpp:381
 msgid "Run a python script"
@@ -4336,9 +4323,8 @@ msgid "Full Screen"
 msgstr "全屏"
 
 #: translations/xrc.cpp:384 xrc.cpp:384
-#, fuzzy
 msgid "Shows Hugin's main window on full screen"
-msgstr "全屏显示 hugins 主窗口"
+msgstr "全屏显示 Hugin 的主窗口"
 
 #: translations/xrc.cpp:385 xrc.cpp:385
 msgid "&Control point table"
@@ -4830,7 +4816,6 @@ msgid "Vignetting (Vb, Vc, Vd):"
 msgstr "渐晕 (Vb, Vc, Vd):"
 
 #: translations/xrc.cpp:547 xrc.cpp:547
-#, fuzzy
 msgid "Vignetting Center (Vx, Vy):"
 msgstr "渐晕中心 (Vx, Vy):"
 
@@ -5191,13 +5176,12 @@ msgid "Number of CPUs:"
 msgstr "CPU 编号:"
 
 #: translations/xrc.cpp:669 xrc.cpp:669
-#, fuzzy
 msgid ""
 "Hugin's preview window can use multiple threads for processing.\n"
 "Set this to the number of processors or processor cores available in your "
 "system."
 msgstr ""
-"Nona 能够使用多线程.\n"
+"Hugin 的预览窗口能够使用多线程进行处理.\n"
 "将这个参数设置成为您的系统中的处理器或者处理器内核的数量"
 
 #: translations/xrc.cpp:670 xrc.cpp:670
@@ -5269,13 +5253,12 @@ msgid "Automatically align images after loading"
 msgstr "加载后自动排列图像"
 
 #: translations/xrc.cpp:687 xrc.cpp:687
-#, fuzzy
 msgid "Detect vertical lines"
-msgstr "垂直线"
+msgstr "检测垂直线"
 
 #: translations/xrc.cpp:688 xrc.cpp:688
 msgid "Detects vertical lines in the images to level the pano"
-msgstr ""
+msgstr "检测垂直线以便使全景图像水平"
 
 #: translations/xrc.cpp:689 xrc.cpp:689
 msgid "Remove cloud-like control points (Celeste)"
@@ -5287,7 +5270,7 @@ msgstr "通过统计方法移除边远控制点"
 
 #: translations/xrc.cpp:691 xrc.cpp:691
 msgid "Optional assistant steps"
-msgstr ""
+msgstr "可选的助理步骤"
 
 #: translations/xrc.cpp:692 xrc.cpp:692
 msgid "Auto align"
@@ -5566,33 +5549,30 @@ msgid ""
 msgstr "允许显示细节, 适用于报告一个 bug 或者只是查看项目的进程."
 
 #: translations/xrc.cpp:766 xrc.cpp:766
-#, fuzzy
 msgid "Advanced options"
 msgstr "高级选项"
 
 #: translations/xrc.cpp:767 xrc.cpp:767
 msgid "Copy metadata into final files using ExifTool"
-msgstr ""
+msgstr "使用 ExifTool 复制元数据到最终图像"
 
 #: translations/xrc.cpp:768 xrc.cpp:768
-#, fuzzy
 msgid "Number of threads:"
-msgstr "蒙板编号"
+msgstr "线程编号:"
 
 #: translations/xrc.cpp:769 xrc.cpp:769
-#, fuzzy
 msgid ""
 "Nona and the OpenMP enabled enblend/enfuse can use multiple threads for "
 "processing.\n"
 "Set this number maximal to the number of processors or processor cores "
 "available in your system"
 msgstr ""
-"Nona 能够使用多线程.\n"
+"Nona 和 OpenMP 能够使用或者不使用多线程进行处理.\n"
 "将这个参数设置成为您的系统中的处理器或者处理器内核的数量"
 
 #: translations/xrc.cpp:770 xrc.cpp:770
 msgid "0 for automatic detection"
-msgstr ""
+msgstr "0 个自动检测"
 
 #: translations/xrc.cpp:771 xrc.cpp:771
 msgid "Stitching"
@@ -5627,13 +5607,13 @@ msgid "Default Arguments:"
 msgstr "默认参数:"
 
 #: translations/xrc.cpp:789 translations/xrc.cpp:795 xrc.cpp:789 xrc.cpp:795
-#, fuzzy
 msgid ""
 "These are the default arguments for new projects.\n"
 "They can be changed for individual projects in the Stitcher tab.\n"
 "Do not set -w, -o and --compression arguments, they are set by hugin"
 msgstr ""
-"这些是默认参数. 可以为了单独项目在缝合器面板中改变它们.\n"
+"这些是新项目的默认参数.\n"
+"可以为了单独项目在缝合器面板中改变它们.\n"
 "不要设置 -w, -o 和 --compression 参数, 它们由 hugin 指定"
 
 #: translations/xrc.cpp:790 xrc.cpp:790
@@ -5835,7 +5815,7 @@ msgstr "灰度拾取器"
 
 #: translations/xrc.cpp:862 translations/xrc.cpp:935 xrc.cpp:862 xrc.cpp:935
 msgid "Background:"
-msgstr ""
+msgstr "背景:"
 
 #: translations/xrc.cpp:863 translations/xrc.cpp:936 xrc.cpp:863 xrc.cpp:936
 msgid "Grid"
@@ -5846,7 +5826,6 @@ msgid "Scale:"
 msgstr "缩放:"
 
 #: translations/xrc.cpp:867 translations/xrc.cpp:940 xrc.cpp:867 xrc.cpp:940
-#, fuzzy
 msgid ""
 "* A gray line indicates there are no control points, but the image pair "
 "overlaps.\n"
@@ -5874,44 +5853,43 @@ msgstr "×"
 #: translations/xrc.cpp:947 translations/xrc.cpp:962 translations/xrc.cpp:981
 #: xrc.cpp:873 xrc.cpp:885 xrc.cpp:903 xrc.cpp:947 xrc.cpp:962 xrc.cpp:981
 msgid "Guides:"
-msgstr ""
+msgstr "引导线:"
 
 #: translations/xrc.cpp:875 translations/xrc.cpp:887 translations/xrc.cpp:905
 #: translations/xrc.cpp:949 translations/xrc.cpp:964 translations/xrc.cpp:983
 #: xrc.cpp:875 xrc.cpp:887 xrc.cpp:905 xrc.cpp:949 xrc.cpp:964 xrc.cpp:983
 msgid "Rule of thirds"
-msgstr ""
+msgstr "三等分法"
 
 #: translations/xrc.cpp:876 translations/xrc.cpp:888 translations/xrc.cpp:906
 #: translations/xrc.cpp:950 translations/xrc.cpp:965 translations/xrc.cpp:984
 #: xrc.cpp:876 xrc.cpp:888 xrc.cpp:906 xrc.cpp:950 xrc.cpp:965 xrc.cpp:984
-#, fuzzy
 msgid "Golden ratio"
-msgstr "Foldername.pto"
+msgstr "黄金比例"
 
 #: translations/xrc.cpp:877 translations/xrc.cpp:889 translations/xrc.cpp:907
 #: translations/xrc.cpp:951 translations/xrc.cpp:966 translations/xrc.cpp:985
 #: xrc.cpp:877 xrc.cpp:889 xrc.cpp:907 xrc.cpp:951 xrc.cpp:966 xrc.cpp:985
 msgid "Diagonal"
-msgstr ""
+msgstr "对角线"
 
 #: translations/xrc.cpp:878 translations/xrc.cpp:890 translations/xrc.cpp:908
 #: translations/xrc.cpp:952 translations/xrc.cpp:967 translations/xrc.cpp:986
 #: xrc.cpp:878 xrc.cpp:890 xrc.cpp:908 xrc.cpp:952 xrc.cpp:967 xrc.cpp:986
 msgid "Diagonal method"
-msgstr ""
+msgstr "对角线方法"
 
 #: translations/xrc.cpp:879 translations/xrc.cpp:891 translations/xrc.cpp:909
 #: translations/xrc.cpp:953 translations/xrc.cpp:968 translations/xrc.cpp:987
 #: xrc.cpp:879 xrc.cpp:891 xrc.cpp:909 xrc.cpp:953 xrc.cpp:968 xrc.cpp:987
 msgid "Golden triangle (down)"
-msgstr ""
+msgstr "黄金三角 (下)"
 
 #: translations/xrc.cpp:880 translations/xrc.cpp:892 translations/xrc.cpp:910
 #: translations/xrc.cpp:954 translations/xrc.cpp:969 translations/xrc.cpp:988
 #: xrc.cpp:880 xrc.cpp:892 xrc.cpp:910 xrc.cpp:954 xrc.cpp:969 xrc.cpp:988
 msgid "Golden triangle (up)"
-msgstr ""
+msgstr "黄金三角 (上)"
 
 #: translations/xrc.cpp:883 translations/xrc.cpp:960 xrc.cpp:883 xrc.cpp:960
 msgid "Automatically straighten a wavy horizon."
