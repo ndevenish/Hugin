@@ -820,8 +820,10 @@ void ImagesTreeCtrl::UpdateGroupText(wxTreeItemId item)
 void ImagesTreeCtrl::UpdateGroup(wxTreeItemId parent, const UIntSet imgs, UIntSet& changed)
 {
     size_t nrItems=GetChildrenCount(parent,false);
+    bool forceUpdate=false;
     if(nrItems!=imgs.size())
     {
+        forceUpdate=true;
         if(nrItems<imgs.size())
         {
             for(size_t i=nrItems;i<imgs.size();i++)
@@ -863,7 +865,7 @@ void ImagesTreeCtrl::UpdateGroup(wxTreeItemId parent, const UIntSet imgs, UIntSe
                 needsUpdate=true;
             };
         };
-        if(needsUpdate)
+        if(needsUpdate || forceUpdate)
         {
             UpdateImageText(item);
             changed.erase(*it);
@@ -871,7 +873,6 @@ void ImagesTreeCtrl::UpdateGroup(wxTreeItemId parent, const UIntSet imgs, UIntSe
         item=GetNextChild(parent, cookie);
         it++;
     };
-
 };
 
 void ImagesTreeCtrl::UpdateOptimizerVariables()
