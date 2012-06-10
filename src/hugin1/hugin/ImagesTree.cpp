@@ -241,7 +241,18 @@ void ImagesTreeCtrl::panoramaImagesChanged(Panorama &pano, const UIntSet &change
     Freeze();
     UIntSet changedImgs(changed);
     // Make sure the part numbers are up to date before writing them to the table.
+    size_t oldLensCount=m_variable_groups->getLenses().getNumberOfParts();
+    size_t oldStackCount=m_variable_groups->getStacks().getNumberOfParts();
     m_variable_groups->update();
+    //if the number of lenses or stacks have changed we need to update all images
+    //because the changed images set contains only the list of the changed imagges
+    //but not these images where the stack or lens number has changed because
+    //an images has been inserted
+    if(m_variable_groups->getLenses().getNumberOfParts()!=oldLensCount ||
+        m_variable_groups->getStacks().getNumberOfParts()!=oldStackCount)
+    {
+        fill_set(changedImgs, 0, pano.getNrOfImages()-1);
+    };
     if(m_optimizerMode)
     {
         if(m_groupMode==GROUP_NONE && m_pano->getNrOfImages()>m_variable_groups->getStacks().getNumberOfParts())
