@@ -195,6 +195,17 @@ protected:
     virtual PT::PanoCommand* GetInternalCommand(wxWindow* parent, PT::Panorama& pano, HuginBase::UIntSet images);
 };
 
+/** PanoOperation to assigns stacks */
+class AssignStacksOperation : public PanoOperation
+{
+public:
+    /** return true, if operation is enabled with the given image set */
+    virtual bool IsEnabled(PT::Panorama& pano,HuginBase::UIntSet images);
+    virtual wxString GetLabel();
+protected:
+    virtual PT::PanoCommand* GetInternalCommand(wxWindow* parent, PT::Panorama& pano, HuginBase::UIntSet images);
+};
+
 typedef std::vector<PanoOperation*> PanoOperationVector;
 
 /** generates the PanoOperationVector for context menu */
@@ -206,6 +217,8 @@ void CleanPanoOperationVector();
 PanoOperationVector* GetImagesOperationVector();
 /** returns list of PanoOperation for work with lenses */
 PanoOperationVector* GetLensesOperationVector();
+/** returns list of PanoOperation for stacks */
+PanoOperationVector* GetStacksOperationVector();
 /** returns list of PanoOperation for work with control points */
 PanoOperationVector* GetControlPointsOperationVector();
 /** returns list of PanoOperation for resetting */

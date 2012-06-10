@@ -940,8 +940,60 @@ bool ResetOperation::ShowDialog(wxWindow* parent)
     };
 };
 
+bool AssignStacksOperation::IsEnabled(PT::Panorama& pano,HuginBase::UIntSet images)
+{
+    return pano.getNrOfImages()>1;
+};
+
+wxString AssignStacksOperation::GetLabel()
+{
+    return _("Set stack size...");
+};
+
+PT::PanoCommand* AssignStacksOperation::GetInternalCommand(wxWindow* parent, PT::Panorama& pano, HuginBase::UIntSet images)
+{
+    long stackSize = wxGetNumberFromUser(
+                            _("Enter image count per stacks"),
+                            _("stack size"),
+                            _("Images per stack"), 3, 1,
+                            pano.getNrOfImages()
+                                 );
+
+    std::vector<PT::PanoCommand *> commands;
+    HuginBase::StandardImageVariableGroups variable_groups(pano);
+    if(variable_groups.getStacks().getNumberOfParts()<pano.getNrOfImages())
+    {
+        // first remove all existing stacks
+        for(size_t i=1; i<pano.getNrOfImages(); i++)
+        {
+            UIntSet imgs;
+            imgs.insert(i);
+            commands.push_back(new PT::NewPartCmd(pano, imgs, HuginBase::StandardImageVariableGroups::getStackVariables()));
+        };
+    };
+
+    if (stackSize > 1)
+    {
+        size_t stackNr=0;
+        size_t imgNr=0;
+        while(imgNr<pano.getNrOfImages())
+        {
+            UIntSet imgs;
+            for(size_t i=0; i<stackSize && imgNr<pano.getNrOfImages(); i++)
+            {
+                imgs.insert(imgNr);
+                imgNr++;
+            };
+            commands.push_back(new PT::ChangePartNumberCmd(pano, imgs, stackNr, HuginBase::StandardImageVariableGroups::getStackVariables()));
+            stackNr++;
+        };
+    };
+    return new PT::CombinedPanoCommand(pano, commands);
+};
+
 static PanoOperationVector PanoOpImages;
 static PanoOperationVector PanoOpLens;
+static PanoOperationVector PanoOpStacks;
 static PanoOperationVector PanoOpControlPoints;
 static PanoOperationVector PanoOpReset;
 
@@ -953,6 +1005,11 @@ PanoOperationVector* GetImagesOperationVector()
 PanoOperationVector* GetLensesOperationVector()
 {
     return &PanoOpLens;
+};
+
+PanoOperationVector* GetStacksOperationVector()
+{
+    return &PanoOpStacks;
 };
 
 PanoOperationVector* GetControlPointsOperationVector()
@@ -979,6 +1036,8 @@ void GeneratePanoOperationVector()
     PanoOpLens.push_back(new SaveLensOperation(1));
     PanoOpLens.push_back(new SaveLensOperation(2));
 
+    PanoOpStacks.push_back(new AssignStacksOperation());
+
     PanoOpControlPoints.push_back(new RemoveControlPointsOperation());
     PanoOpControlPoints.push_back(new CelesteOperation());
     PanoOpControlPoints.push_back(new CleanControlPointsOperation());
@@ -1004,6 +1063,7 @@ void CleanPanoOperationVector()
 {
     _CleanPanoOperationVector(PanoOpImages);
     _CleanPanoOperationVector(PanoOpLens);
+    _CleanPanoOperationVector(PanoOpStacks);
     _CleanPanoOperationVector(PanoOpControlPoints);
     _CleanPanoOperationVector(PanoOpReset);
 };

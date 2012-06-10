@@ -1159,6 +1159,19 @@ void ImagesTreeCtrl::OnContextMenu(wxTreeEvent & e)
         {
             delete subMenu;
         };
+        if(m_guiLevel>GUI_SIMPLE)
+        {
+            subMenu=new wxMenu();
+            GenerateSubMenu(subMenu, PanoOperation::GetStacksOperationVector(), id);
+            if(subMenu->GetMenuItemCount()>0)
+            {
+                menu.Append(-1,_("Stacks"), subMenu);
+            }
+            else
+            {
+                delete subMenu;
+            };
+        };
         subMenu=new wxMenu();
         GenerateSubMenu(subMenu, PanoOperation::GetControlPointsOperationVector(), id);
         if(subMenu->GetMenuItemCount()>0)
