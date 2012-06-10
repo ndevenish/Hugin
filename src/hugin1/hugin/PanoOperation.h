@@ -109,6 +109,28 @@ protected:
     virtual PT::PanoCommand* GetInternalCommand(wxWindow* parent, PT::Panorama& pano, HuginBase::UIntSet images);
 };
 
+/** PanoOperation to assign new lens */
+class NewLensOperation : public PanoOperation
+{
+public:
+    /** return true, if operation is enabled with the given image set */
+    virtual bool IsEnabled(PT::Panorama& pano,HuginBase::UIntSet images);
+    virtual wxString GetLabel();
+protected:
+    virtual PT::PanoCommand* GetInternalCommand(wxWindow* parent, PT::Panorama& pano, HuginBase::UIntSet images);
+};
+
+/** PanoOperation to change lens number */
+class ChangeLensOperation : public PanoOperation
+{
+public:
+    /** return true, if operation is enabled with the given image set */
+    virtual bool IsEnabled(PT::Panorama& pano,HuginBase::UIntSet images);
+    virtual wxString GetLabel();
+protected:
+    virtual PT::PanoCommand* GetInternalCommand(wxWindow* parent, PT::Panorama& pano, HuginBase::UIntSet images);
+};
+
 /** PanoOperation to load lens from ini file or lensfun database*/
 class LoadLensOperation : public PanoMultiImageOperation
 {
@@ -190,6 +212,28 @@ private:
 class CelesteOperation : public CleanControlPointsOperation
 {
 public:
+    virtual wxString GetLabel();
+protected:
+    virtual PT::PanoCommand* GetInternalCommand(wxWindow* parent, PT::Panorama& pano, HuginBase::UIntSet images);
+};
+
+/** PanoOperation to assign new stack */
+class NewStackOperation : public PanoOperation
+{
+public:
+    /** return true, if operation is enabled with the given image set */
+    virtual bool IsEnabled(PT::Panorama& pano,HuginBase::UIntSet images);
+    virtual wxString GetLabel();
+protected:
+    virtual PT::PanoCommand* GetInternalCommand(wxWindow* parent, PT::Panorama& pano, HuginBase::UIntSet images);
+};
+
+/** PanoOperation to change lens number */
+class ChangeStackOperation : public PanoOperation
+{
+public:
+    /** return true, if operation is enabled with the given image set */
+    virtual bool IsEnabled(PT::Panorama& pano,HuginBase::UIntSet images);
     virtual wxString GetLabel();
 protected:
     virtual PT::PanoCommand* GetInternalCommand(wxWindow* parent, PT::Panorama& pano, HuginBase::UIntSet images);

@@ -107,14 +107,6 @@ protected:
     void OnUnlinkImageVariables(wxCommandEvent &e);
     /** event handler for showing image variables editing dialog */
     void OnEditImageVariables(wxCommandEvent &e);
-    /** event handler for generate new lens */
-    void OnNewLens(wxCommandEvent &e);
-    /** event handler for generate new stack */
-    void OnNewStack(wxCommandEvent &e);
-    /** event handler for change lens number */
-    void OnChangeLens(wxCommandEvent &e);
-    /** event handler for change stack number */
-    void OnChangeStack(wxCommandEvent &e);
     /** event handler when dragging begins, veto if dragging is not possible */
     void OnBeginDrag(wxTreeEvent &e);
     /** event handler when dragging ends, updates the Panorama */

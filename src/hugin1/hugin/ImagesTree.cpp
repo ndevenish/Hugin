@@ -47,10 +47,6 @@ enum
     ID_LINK=wxID_HIGHEST+230,
     ID_UNLINK,
     ID_EDIT,
-    ID_NEW_LENS,
-    ID_CHANGE_LENS,
-    ID_NEW_STACK,
-    ID_CHANGE_STACK,
     ID_SELECT_ALL,
     ID_UNSELECT_ALL,
     ID_OPERATION_START=wxID_HIGHEST+300
@@ -63,10 +59,6 @@ BEGIN_EVENT_TABLE(ImagesTreeCtrl, wxTreeListCtrl)
     EVT_MENU(ID_LINK, ImagesTreeCtrl::OnLinkImageVariables)
     EVT_MENU(ID_UNLINK, ImagesTreeCtrl::OnUnlinkImageVariables)
     EVT_MENU(ID_EDIT, ImagesTreeCtrl::OnEditImageVariables)
-    EVT_MENU(ID_NEW_LENS, ImagesTreeCtrl::OnNewLens)
-    EVT_MENU(ID_NEW_STACK, ImagesTreeCtrl::OnNewStack)
-    EVT_MENU(ID_CHANGE_LENS, ImagesTreeCtrl::OnChangeLens)
-    EVT_MENU(ID_CHANGE_STACK, ImagesTreeCtrl::OnChangeStack)
     EVT_MENU(ID_SELECT_ALL, ImagesTreeCtrl::OnSelectAll)
     EVT_MENU(ID_UNSELECT_ALL, ImagesTreeCtrl::OnUnselectAll)
     EVT_MENU_RANGE(ID_OPERATION_START, ID_OPERATION_START+50, ImagesTreeCtrl::OnExecuteOperation)
@@ -1111,25 +1103,6 @@ void ImagesTreeCtrl::OnContextMenu(wxTreeEvent & e)
             menu.AppendSeparator();
         };
         menu.Append(ID_EDIT, _("Edit image variables..."));
-        if(m_variable_groups->getLenses().getNumberOfParts()<m_pano->getNrOfImages())
-        {
-            menu.Append(ID_NEW_LENS,_("New lens"));
-        };
-        if(m_variable_groups->getLenses().getNumberOfParts()>1)
-        {
-            menu.Append(ID_CHANGE_LENS, _("Change lens..."));
-        };
-        if(m_guiLevel>GUI_SIMPLE)
-        {
-            if(m_variable_groups->getStacks().getNumberOfParts()<m_pano->getNrOfImages())
-            {
-                menu.Append(ID_NEW_STACK,_("New stack"));
-            };
-            if(m_variable_groups->getStacks().getNumberOfParts()>1)
-            {
-                menu.Append(ID_CHANGE_STACK, _("Change stack..."));
-            };
-        };
     }
     else
     {
@@ -1275,54 +1248,6 @@ void ImagesTreeCtrl::OnEditImageVariables(wxCommandEvent &e)
         ImageVariableDialog dlg(this, m_pano, imgs);
         dlg.SetGuiLevel(m_guiLevel);
         dlg.ShowModal();
-    };
-};
-
-void ImagesTreeCtrl::OnNewLens(wxCommandEvent &e)
-{
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::NewPartCmd(*m_pano,GetSelectedImages(),HuginBase::StandardImageVariableGroups::getLensVariables())
-    );
-};
-
-void ImagesTreeCtrl::OnNewStack(wxCommandEvent &e)
-{
-    GlobalCmdHist::getInstance().addCommand(
-        new PT::NewPartCmd(*m_pano,GetSelectedImages(),HuginBase::StandardImageVariableGroups::getStackVariables())
-    );
-};
-
-void ImagesTreeCtrl::OnChangeLens(wxCommandEvent &e)
-{
-    long nr = wxGetNumberFromUser(
-                            _("Enter new lens number"),
-                            _("Lens number"),
-                            _("Change lens number"), 0, 0,
-                            m_variable_groups->getLenses().getNumberOfParts()-1
-                                 );
-    if (nr >= 0)
-    {
-        // user accepted
-        GlobalCmdHist::getInstance().addCommand(
-            new PT::ChangePartNumberCmd(*m_pano, GetSelectedImages(), nr, HuginBase::StandardImageVariableGroups::getLensVariables())
-        );
-    };
-};
-
-void ImagesTreeCtrl::OnChangeStack(wxCommandEvent &e)
-{
-    long nr = wxGetNumberFromUser(
-                            _("Enter new stack number"),
-                            _("stack number"),
-                            _("Change stack number"), 0, 0,
-                            m_variable_groups->getStacks().getNumberOfParts()-1
-                                 );
-    if (nr >= 0)
-    {
-        // user accepted
-        GlobalCmdHist::getInstance().addCommand(
-            new PT::ChangePartNumberCmd(*m_pano, GetSelectedImages(), nr, HuginBase::StandardImageVariableGroups::getStackVariables())
-        );
     };
 };
 

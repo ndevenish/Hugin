@@ -415,6 +415,68 @@ PT::PanoCommand* ChangeColorAnchorImageOperation::GetInternalCommand(wxWindow* p
     return new PT::SetPanoOptionsCmd(pano, opt);
 };
 
+bool NewLensOperation::IsEnabled(PT::Panorama& pano,HuginBase::UIntSet images)
+{
+    if(pano.getNrOfImages()==0 || images.size()==0)
+    {
+        return false;
+    }
+    else
+    {
+        HuginBase::StandardImageVariableGroups variable_groups(pano);
+        return variable_groups.getLenses().getNumberOfParts()<pano.getNrOfImages();
+    };
+};
+
+wxString NewLensOperation::GetLabel()
+{
+    return _("New lens");
+};
+
+PT::PanoCommand* NewLensOperation::GetInternalCommand(wxWindow* parent, PT::Panorama& pano, HuginBase::UIntSet images)
+{
+    return new PT::NewPartCmd(pano, images, HuginBase::StandardImageVariableGroups::getLensVariables());
+};
+
+bool ChangeLensOperation::IsEnabled(PT::Panorama& pano,HuginBase::UIntSet images)
+{
+    if(pano.getNrOfImages()==0 || images.size()==0)
+    {
+        return false;
+    }
+    else
+    {
+        //project must have more than 1 lens before you can assign an other lens number
+        HuginBase::StandardImageVariableGroups variableGroups(pano);
+        return variableGroups.getLenses().getNumberOfParts() > 1;
+    };
+};
+
+wxString ChangeLensOperation::GetLabel()
+{
+    return _("Change lens...");
+};
+
+PT::PanoCommand* ChangeLensOperation::GetInternalCommand(wxWindow* parent, PT::Panorama& pano, HuginBase::UIntSet images)
+{
+    HuginBase::StandardImageVariableGroups variable_groups(pano);
+    long nr = wxGetNumberFromUser(
+                            _("Enter new lens number"),
+                            _("Lens number"),
+                            _("Change lens number"), 0, 0,
+                            variable_groups.getLenses().getNumberOfParts()-1
+                                 );
+    if (nr >= 0)
+    {
+        // user accepted
+        return new PT::ChangePartNumberCmd(pano, images, nr, HuginBase::StandardImageVariableGroups::getLensVariables());
+    }
+    else
+    {
+        return NULL;
+    };
+};
+
 LoadLensOperation::LoadLensOperation(bool fromLensfunDB)
 {
     m_fromLensfunDB=fromLensfunDB;
@@ -940,6 +1002,68 @@ bool ResetOperation::ShowDialog(wxWindow* parent)
     };
 };
 
+bool NewStackOperation::IsEnabled(PT::Panorama& pano,HuginBase::UIntSet images)
+{
+    if(pano.getNrOfImages()==0 || images.size()==0)
+    {
+        return false;
+    }
+    else
+    {
+        HuginBase::StandardImageVariableGroups variable_groups(pano);
+        return variable_groups.getStacks().getNumberOfParts()<pano.getNrOfImages();
+    };
+};
+
+wxString NewStackOperation::GetLabel()
+{
+    return _("New stack");
+};
+
+PT::PanoCommand* NewStackOperation::GetInternalCommand(wxWindow* parent, PT::Panorama& pano, HuginBase::UIntSet images)
+{
+    return new PT::NewPartCmd(pano, images, HuginBase::StandardImageVariableGroups::getStackVariables());
+};
+
+bool ChangeStackOperation::IsEnabled(PT::Panorama& pano,HuginBase::UIntSet images)
+{
+    if(pano.getNrOfImages()==0 || images.size()==0)
+    {
+        return false;
+    }
+    else
+    {
+        //project must have more than 1 stack before you can assign an other stack number
+        HuginBase::StandardImageVariableGroups variableGroups(pano);
+        return variableGroups.getStacks().getNumberOfParts() > 1;
+    };
+};
+
+wxString ChangeStackOperation::GetLabel()
+{
+    return _("Change stack...");
+};
+
+PT::PanoCommand* ChangeStackOperation::GetInternalCommand(wxWindow* parent, PT::Panorama& pano, HuginBase::UIntSet images)
+{
+    HuginBase::StandardImageVariableGroups variable_groups(pano);
+    long nr = wxGetNumberFromUser(
+                            _("Enter new stack number"),
+                            _("stack number"),
+                            _("Change stack number"), 0, 0,
+                            variable_groups.getStacks().getNumberOfParts()-1
+                                 );
+    if (nr >= 0)
+    {
+        // user accepted
+        return new PT::ChangePartNumberCmd(pano, images, nr, HuginBase::StandardImageVariableGroups::getStackVariables());
+    }
+    else
+    {
+        return NULL;
+    };
+};
+
 bool AssignStacksOperation::IsEnabled(PT::Panorama& pano,HuginBase::UIntSet images)
 {
     return pano.getNrOfImages()>1;
@@ -958,7 +1082,10 @@ PT::PanoCommand* AssignStacksOperation::GetInternalCommand(wxWindow* parent, PT:
                             _("Images per stack"), 3, 1,
                             pano.getNrOfImages()
                                  );
-
+    if(stackSize<0)
+    {
+        return NULL;
+    };
     std::vector<PT::PanoCommand *> commands;
     HuginBase::StandardImageVariableGroups variable_groups(pano);
     if(variable_groups.getStacks().getNumberOfParts()<pano.getNrOfImages())
@@ -1030,12 +1157,16 @@ void GeneratePanoOperationVector()
     PanoOpImages.push_back(new ChangeAnchorImageOperation());
     PanoOpImages.push_back(new ChangeColorAnchorImageOperation());
 
+    PanoOpLens.push_back(new NewLensOperation());
+    PanoOpLens.push_back(new ChangeLensOperation());
     PanoOpLens.push_back(new LoadLensOperation(false));
     PanoOpLens.push_back(new LoadLensOperation(true));
     PanoOpLens.push_back(new SaveLensOperation(0));
     PanoOpLens.push_back(new SaveLensOperation(1));
     PanoOpLens.push_back(new SaveLensOperation(2));
 
+    PanoOpStacks.push_back(new NewStackOperation());
+    PanoOpStacks.push_back(new ChangeStackOperation());
     PanoOpStacks.push_back(new AssignStacksOperation());
 
     PanoOpControlPoints.push_back(new RemoveControlPointsOperation());
