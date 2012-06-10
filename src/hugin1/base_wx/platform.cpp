@@ -28,7 +28,7 @@
 
 #include <hugin_utils/utils.h>
 
-#if defined __WXMAC__ || defined __WX_OSX_COCOA__
+#if defined __WXMAC__ || defined __WXOSX_COCOA__
 
 #include <CoreFoundation/CFBundle.h>
 #include "wx/osx/core/cfstring.h"
