@@ -39,9 +39,10 @@ PER_ARCH_CFLAGS_i386 = -march=prescott -mtune=pentium-m -ftree-vectorize
 PER_ARCH_CFLAGS_x86_64 = -march=core2 -mtune=core2 -ftree-vectorize
 
 // wxWidgets
-WX_MAJOR_VERSION = 2.8
+WX_MAJOR_VERSION = 2.9
+WX_VERSION = 2.9.3
 // See comments above for REPOSITORY_DIR. This may need to be a fully qualified path.
-WX_LOCALE_DIR = ../mac/ExternalPrograms/wxMac-2.8.12/locale
+WX_LOCALE_DIR = ../mac/ExternalPrograms/wxWidgets-2.9.3/locale
 
 // gettext
 GETTEXT_VERSION = 0.17
