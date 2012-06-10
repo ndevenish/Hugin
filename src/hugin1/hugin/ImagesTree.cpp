@@ -1281,22 +1281,16 @@ void ImagesTreeCtrl::OnBeginDrag(wxTreeEvent &e)
                 };
                 break;
             case GROUP_LENS:
-                if(m_variable_groups->getLenses().getNumberOfParts()>1)
-                {
-                    m_draggingImages=GetSelectedImages();
-                    e.Allow();
-                    SetCursor(wxCURSOR_HAND);
-                    m_dragging=true;
-                };
+                m_draggingImages=GetSelectedImages();
+                e.Allow();
+                SetCursor(wxCURSOR_HAND);
+                m_dragging=true;
                 break;
             case GROUP_STACK:
-                if(m_variable_groups->getStacks().getNumberOfParts()>1)
-                {
-                    m_draggingImages=GetSelectedImages();
-                    e.Allow();
-                    SetCursor(wxCURSOR_HAND);
-                    m_dragging=true;
-                };
+                m_draggingImages=GetSelectedImages();
+                e.Allow();
+                SetCursor(wxCURSOR_HAND);
+                m_dragging=true;
                 break;
         };
     };
@@ -1385,9 +1379,20 @@ void ImagesTreeCtrl::OnEndDrag(wxMouseEvent &e)
                     };
                 };
             }
-            else // item not ok, drop not on existing item
+            else // item not ok, drop not on existing item, create new lens/stack
             {
-                wxBell();
+                if(m_groupMode==GROUP_LENS)
+                {
+                    GlobalCmdHist::getInstance().addCommand(
+                        new PT::NewPartCmd(*m_pano, m_draggingImages, HuginBase::StandardImageVariableGroups::getLensVariables())
+                    );
+                }
+                else
+                {
+                    GlobalCmdHist::getInstance().addCommand(
+                        new PT::NewPartCmd(*m_pano, m_draggingImages, HuginBase::StandardImageVariableGroups::getStackVariables())
+                    );
+                }
             };
         }
         m_draggingImages.clear();
