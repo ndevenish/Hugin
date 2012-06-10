@@ -28,10 +28,10 @@
 
 #include <hugin_utils/utils.h>
 
-#if defined __WXMAC__
+#if defined __WXMAC__ || defined __WX_OSX_COCOA__
 
 #include <CoreFoundation/CFBundle.h>
-// next four only neccessary when "cout"ing to system log
+#include "wx/osx/core/cfstring.h"
 #include <iostream>
 #include <stdio.h>
 #include "wx/utils.h"
@@ -93,7 +93,7 @@ wxString MacGetPathToMainExecutableFileOfBundle(CFStringRef bundlePath)
                 else
                 {
                     CFRetain( pathInCFString );
-                    theResult =  wxMacCFStringHolder(pathInCFString).AsString(wxLocale::GetSystemEncoding());
+                    theResult =  wxCFStringRef(pathInCFString).AsString(wxLocale::GetSystemEncoding());
                     DEBUG_INFO("Mac: the executable's full path in the application bundle: " << theResult.mb_str(wxConvLocal));
                 }
             }
@@ -164,7 +164,7 @@ wxString MacGetPathToMainExecutableFileOfRegisteredBundle(CFStringRef BundleIden
                 else
                 {
                     CFRetain( pathInCFString );
-                    theResult =  wxMacCFStringHolder(pathInCFString).AsString(wxLocale::GetSystemEncoding());
+                    theResult =  wxCFStringRef(pathInCFString).AsString(wxLocale::GetSystemEncoding());
                     DEBUG_INFO("Mac: the executable's full path in the application bundle: " << theResult.mb_str(wxConvLocal));
                 }
             }
@@ -229,7 +229,7 @@ wxString MacGetPathToBundledAppMainExecutableFile(CFStringRef appname)
                         else
                         {
                             CFRetain( pathInCFString );
-                            theResult =  wxMacCFStringHolder(pathInCFString).AsString(wxLocale::GetSystemEncoding());
+                            theResult =  wxCFStringRef(pathInCFString).AsString(wxLocale::GetSystemEncoding());
                             DEBUG_INFO("Mac: the executable's full path in the application bundle: " << theResult.mb_str(wxConvLocal));
                         }
                     }
@@ -267,7 +267,7 @@ wxString MacGetPathToBundledResourceFile(CFStringRef filename)
             else
             {
                 CFRetain( pathInCFString );
-                theResult = wxMacCFStringHolder(pathInCFString).AsString(wxLocale::GetSystemEncoding());
+                theResult = wxCFStringRef(pathInCFString).AsString(wxLocale::GetSystemEncoding());
                 DEBUG_INFO("Mac: the resource file's path in the application bundle: " << theResult.mb_str(wxConvLocal));
             }
         }
@@ -309,7 +309,7 @@ wxString MacGetPathToBundledExecutableFile(CFStringRef filename)
                 else
                 {
                     CFRetain( pathInCFString );
-                    theResult =  wxMacCFStringHolder(pathInCFString).AsString(wxLocale::GetSystemEncoding());
+                    theResult =  wxCFStringRef(pathInCFString).AsString(wxLocale::GetSystemEncoding());
                     DEBUG_INFO("Mac: executable's full path in the application bundle: " << theResult.mb_str(wxConvLocal));
                 }
             }
@@ -332,7 +332,7 @@ wxString MacGetPathToUserDomainTempDir()
         {
             CFStringRef tmpPath = CFURLCopyFileSystemPath(tempDirURL, kCFURLPOSIXPathStyle);
             CFRetain(tmpPath);
-            tmpDirPath = wxMacCFStringHolder(tmpPath).AsString(wxLocale::GetSystemEncoding());
+            tmpDirPath = wxCFStringRef(tmpPath).AsString(wxLocale::GetSystemEncoding());
             
             CFRelease(tempDirURL);
         }
@@ -354,7 +354,7 @@ wxString MacGetPathToUserAppSupportAutoPanoFolder()
         CFURLRef autopanoURL = CFURLCreateCopyAppendingPathComponent(kCFAllocatorDefault,appSupportHugin,CFSTR("Autopano"),true);
         CFStringRef tmpPath = CFURLCopyFileSystemPath(autopanoURL,  kCFURLPOSIXPathStyle);
         CFRetain(tmpPath);
-        appSupportAutoPanoFolder = wxMacCFStringHolder(tmpPath).AsString(wxLocale::GetSystemEncoding());
+        appSupportAutoPanoFolder = wxCFStringRef(tmpPath).AsString(wxLocale::GetSystemEncoding());
 
         CFRelease(autopanoURL);
     }

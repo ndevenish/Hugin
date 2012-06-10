@@ -49,7 +49,7 @@
 #include <wx/hashmap.h>
 
 #ifdef __WXMAC__
-#include "wx/mac/private.h"
+#include "wx/osx/private.h"
 #endif
 
 #include "treelistctrl.h"
@@ -2018,7 +2018,7 @@ bool wxTreeListMainWindow::Create (wxTreeListCtrl *parent,
                                    const wxValidator &validator,
                                    const wxString& name) {
 
-#ifdef __WXMAC__
+/*#ifdef __WXMAC__
     if (style & wxTR_HAS_BUTTONS) style |= wxTR_MAC_BUTTONS;
     if (style & wxTR_HAS_BUTTONS) style &= ~wxTR_HAS_BUTTONS;
     style &= ~wxTR_LINES_AT_ROOT;
@@ -2027,7 +2027,7 @@ bool wxTreeListMainWindow::Create (wxTreeListCtrl *parent,
     int major,minor;
     wxGetOsVersion( &major, &minor );
     if (major < 10) style |= wxTR_ROW_LINES;
-#endif
+#endif */
 
     wxScrolledWindow::Create (parent, id, pos, size, style|wxHSCROLL|wxVSCROLL, name);
 

@@ -183,17 +183,9 @@ BEGIN_EVENT_TABLE(GLPreviewFrame, wxFrame)
     EVT_CHOICE(XRCID("preview_guide_choice_proj"), GLPreviewFrame::OnGuideChanged)
     EVT_MENU(XRCID("action_show_overview"), GLPreviewFrame::OnOverviewToggle)
     EVT_CHECKBOX(XRCID("preview_show_grid"), GLPreviewFrame::OnSwitchPreviewGrid)
-#ifndef __WXMAC__
-    // wxMac does not process these
-    EVT_SCROLL_CHANGED(GLPreviewFrame::OnChangeFOV)
     EVT_COMMAND_SCROLL(XRCID("layout_scale_slider"), GLPreviewFrame::OnLayoutScaleChange)
-#else
-    EVT_SCROLL_THUMBRELEASE(GLPreviewFrame::OnChangeFOV)
-    EVT_SCROLL_ENDSCROLL(GLPreviewFrame::OnChangeFOV)
-    EVT_COMMAND_SCROLL_THUMBRELEASE(XRCID("layout_scale_slider"), GLPreviewFrame::OnLayoutScaleChange)
-    EVT_COMMAND_SCROLL_ENDSCROLL(XRCID("layout_scale_slider"), GLPreviewFrame::OnLayoutScaleChange)
-    EVT_COMMAND_SCROLL_THUMBTRACK(XRCID("layout_scale_slider"), GLPreviewFrame::OnLayoutScaleChange)
-#endif
+	EVT_SCROLL_CHANGED(GLPreviewFrame::OnChangeFOV)
+	EVT_COMMAND_SCROLL_CHANGED(XRCID("layout_scale_slider"), GLPreviewFrame::OnLayoutScaleChange)
     EVT_SCROLL_THUMBTRACK(GLPreviewFrame::OnTrackChangeFOV)
     EVT_TEXT_ENTER(XRCID("pano_text_hfov"), GLPreviewFrame::OnHFOVChanged )
     EVT_TEXT_ENTER(XRCID("pano_text_vfov"), GLPreviewFrame::OnVFOVChanged )
@@ -387,6 +379,9 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     m_ToolBar_Identify = XRCCTRL(*this,"preview_mode_toolbar",wxToolBar);
 
     //build menu bar
+#ifdef __WXMAC__
+    wxApp::s_macExitMenuItemId = XRCID("action_exit_preview");
+#endif
     wxMenuBar* simpleMenu=wxXmlResource::Get()->LoadMenuBar(this, wxT("preview_simple_menu"));
     m_filemenuSimple=wxXmlResource::Get()->LoadMenu(wxT("preview_file_menu"));
     MainFrame::Get()->GetFileHistory()->UseMenu(m_filemenuSimple->FindItem(XRCID("menu_mru_preview"))->GetSubMenu());
@@ -773,6 +768,10 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
 #endif
     }
     SetDropTarget(new PanoDropTarget(m_pano, true));
+#if defined __WXMAC__
+    Layout();
+    Update();
+#endif
 }
 
 void GLPreviewFrame::LoadOpenGLLayout()

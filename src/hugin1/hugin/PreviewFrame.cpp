@@ -96,15 +96,7 @@ BEGIN_EVENT_TABLE(PreviewFrame, wxFrame)
 #else
     EVT_CHECKBOX(-1, PreviewFrame::OnChangeDisplayedImgs)
 #endif
-
-#ifndef __WXMAC__
-    // wxMac does not process these
-    EVT_SCROLL_CHANGED(PreviewFrame::OnChangeFOV)
-#else
-    EVT_SCROLL_THUMBRELEASE(PreviewFrame::OnChangeFOV)
-    EVT_SCROLL_ENDSCROLL(PreviewFrame::OnChangeFOV)
-    EVT_SCROLL_THUMBTRACK(PreviewFrame::OnChangeFOV)
-#endif
+	EVT_SCROLL_CHANGED(PreviewFrame::OnChangeFOV)
     EVT_TOOL(ID_FULL_SCREEN, PreviewFrame::OnFullScreen)
     EVT_TOOL(ID_UNDO, PreviewFrame::OnUndo)
     EVT_TOOL(ID_REDO, PreviewFrame::OnRedo)

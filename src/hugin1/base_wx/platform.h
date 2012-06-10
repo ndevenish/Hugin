@@ -39,10 +39,11 @@
 
 #define HUGIN_WX_FILE_IMG_FILTER _("All Image files|*.jpg;*.JPG;*jpeg;*JPEG;*.tif;*.TIF;*.tiff;*.TIFF;*.png;*.PNG;*.bmp;*.BMP;*.gif;*.GIF;*.pnm;*.PNM;*.sun;*.viff;*.hdr;*.HDR;*.exr;*.EXR|JPEG files (*.jpg,*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|TIFF files (*.tif,*.tiff)|*.tif;*.TIF;*.tiff;*.TIFF|PNG files (*.png)|*.png;*.PNG|HDR files (*.hdr)|*.hdr;*.HDR|EXR files (*.exr)|*.exr;*.EXR|All files (*)|*")
 
-#if defined __WXMAC__ 
+#if defined __WXMAC__ || defined __WXOSX_COCOA__
 
-#include <CoreFoundation/CFString.h>
-#include <wx/mac/private.h>
+//#include <CoreFoundation/CFString.h>
+#include "wx/osx/core/cfstring.h"
+#include <wx/osx/private.h>
 
 CFStringRef MacCreateCFStringWithWxString(const wxString& string);
 
