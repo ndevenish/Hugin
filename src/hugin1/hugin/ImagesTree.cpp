@@ -1501,17 +1501,27 @@ void ImagesTreeCtrl::OnLeftDown(wxMouseEvent &e)
                             var.insert("Rd");
                             var.insert("Re");
                         };
-                        for(HuginBase::UIntSet::const_iterator it=imgs.begin(); it!=imgs.end(); it++)
+                        for(std::set<std::string>::const_iterator varIt=var.begin(); varIt!=var.end(); varIt++)
                         {
-                            for(std::set<std::string>::const_iterator it2=var.begin(); it2!=var.end(); it2++)
+                            //search, if image variable is marked for optimise for at least one image of group
+                            bool deactivate=false;
+                            for(HuginBase::UIntSet::const_iterator imgIt=imgs.begin(); imgIt!=imgs.end() && !deactivate; imgIt++)
                             {
-                                if(set_contains(optVec[*it], *it2))
+                                deactivate=set_contains(optVec[*imgIt], *varIt);
+                            };
+                            // now deactivate or activate the image variable for optimisation
+                            if(deactivate)
+                            {
+                                for(HuginBase::UIntSet::const_iterator imgIt=imgs.begin(); imgIt!=imgs.end(); imgIt++)
                                 {
-                                    optVec[*it].erase(*it2);
-                                }
-                                else
+                                    optVec[*imgIt].erase(*varIt);
+                                };
+                            }
+                            else
+                            {
+                                for(HuginBase::UIntSet::const_iterator imgIt=imgs.begin(); imgIt!=imgs.end(); imgIt++)
                                 {
-                                    optVec[*it].insert(*it2);
+                                    optVec[*imgIt].insert(*varIt);
                                 };
                             };
                         };
