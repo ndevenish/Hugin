@@ -248,10 +248,13 @@ void ImagesTreeCtrl::panoramaImagesChanged(Panorama &pano, const UIntSet &change
     //because the changed images set contains only the list of the changed imagges
     //but not these images where the stack or lens number has changed because
     //an images has been inserted
-    if(m_variable_groups->getLenses().getNumberOfParts()!=oldLensCount ||
-        m_variable_groups->getStacks().getNumberOfParts()!=oldStackCount)
+    if(pano.getNrOfImages()>0)
     {
-        fill_set(changedImgs, 0, pano.getNrOfImages()-1);
+        if(m_variable_groups->getLenses().getNumberOfParts()!=oldLensCount ||
+            m_variable_groups->getStacks().getNumberOfParts()!=oldStackCount)
+        {
+            fill_set(changedImgs, 0, pano.getNrOfImages()-1);
+        };
     };
     if(m_optimizerMode)
     {
