@@ -579,9 +579,12 @@ void PanoDetector::run()
         {
             case ALLPAIRS:
             case LINEAR:
-                if(!match(aExecutor))
                 {
-                    return;
+                    std::vector<HuginBase::UIntSet> imgPairs(_panoramaInfo->getNrOfImages());
+                    if(!match(aExecutor, imgPairs))
+                    {
+                        return;
+                    };
                 };
                 break;
             case MULTIROW:
@@ -645,12 +648,48 @@ void PanoDetector::run()
     };
 }
 
-bool PanoDetector::match(PoolExecutor& aExecutor)
+bool PanoDetector::match(PoolExecutor& aExecutor, std::vector<HuginBase::UIntSet> &checkedPairs)
 {
     // 3. prepare matches
-    prepareMatches();
+    _matchesData.clear();
+    unsigned int aLen = _filesData.size();
+    if (getMatchingStrategy()==LINEAR)
+    {
+        aLen = _linearMatchLen;
+    }
+
+    if (aLen >= _filesData.size())
+    {
+        aLen = _filesData.size() - 1;
+    }
+
+    for (unsigned int i1 = 0; i1 < _filesData.size(); ++i1)
+    {
+        unsigned int aEnd = i1 + 1 + aLen;
+        if (_filesData.size() < aEnd)
+        {
+            aEnd = _filesData.size();
+        }
+
+        for (unsigned int i2 = (i1+1); i2 < aEnd; ++i2)
+        {
+            if(set_contains(checkedPairs[i1], i2))
+            {
+                continue;
+            };
+            // create a new entry in the matches map
+            _matchesData.push_back(MatchData());
+
+            MatchData& aM = _matchesData.back();
+            aM._i1 = &(_filesData[i1]);
+            aM._i2 = &(_filesData[i2]);
+
+            checkedPairs[i1].insert(i2);
+            checkedPairs[i2].insert(i1);
+        }
+    }
     // 4. find matches
-    TRACE_INFO(endl<< "--- Find matches ---" << endl);
+    TRACE_INFO(endl<< "--- Find pair-wise matches ---" << endl);
     try
     {
         BOOST_FOREACH(MatchData& aMD, _matchesData)
@@ -844,39 +883,6 @@ void PanoDetector::CleanupKeyfiles()
     };
 };
 
-void PanoDetector::prepareMatches()
-{
-    unsigned int aLen = _filesData.size();
-    if (getMatchingStrategy()==LINEAR)
-    {
-        aLen = _linearMatchLen;
-    }
-
-    if (aLen >= _filesData.size())
-    {
-        aLen = _filesData.size() - 1;
-    }
-
-    for (unsigned int i1 = 0; i1 < _filesData.size(); ++i1)
-    {
-        unsigned int aEnd = i1 + 1 + aLen;
-        if (_filesData.size() < aEnd)
-        {
-            aEnd = _filesData.size();
-        }
-
-        for (unsigned int i2 = (i1+1); i2 < aEnd; ++i2)
-        {
-            // create a new entry in the matches map
-            _matchesData.push_back(MatchData());
-
-            MatchData& aM = _matchesData.back();
-            aM._i1 = &(_filesData[i1]);
-            aM._i2 = &(_filesData[i2]);
-        }
-    }
-}
-
 struct img_ev
 {
     unsigned int img_nr;
@@ -1046,74 +1052,84 @@ bool PanoDetector::matchMultiRow(PoolExecutor& aExecutor)
     // step 3: now connect all overlapping images
     _matchesData.clear();
     createCPGraph(*_panoramaInfo,graph);
-    if(findCPComponents(graph, comps)==1 && images_layer.size()>2)
+    if(findCPComponents(graph, comps)==1)
     {
-        PT::Panorama optPano=_panoramaInfo->getSubset(images_layer_set);
-        //next steps happens only when all images are connected;
-        //now optimize panorama
-        PanoramaOptions opts = _panoramaInfo->getOptions();
-        opts.setProjection(PanoramaOptions::EQUIRECTANGULAR);
-        opts.optimizeReferenceImage=0;
-        // calculate proper scaling, 1:1 resolution.
-        // Otherwise optimizer distances are meaningless.
-        opts.setWidth(30000, false);
-        opts.setHeight(15000);
-
-        optPano.setOptions(opts);
-        int w = optPano.calcOptimalWidth();
-        opts.setWidth(w);
-        opts.setHeight(w/2);
-        optPano.setOptions(opts);
-
-        //generate optimize vector, optimize only yaw and pitch
-        OptimizeVector optvars;
-        const SrcPanoImage& anchorImage = optPano.getImage(opts.optimizeReferenceImage);
-        for (unsigned i=0; i < optPano.getNrOfImages(); i++)
+        if(images_layer.size()>2)
         {
-            std::set<std::string> imgopt;
-            if(i==opts.optimizeReferenceImage)
+            PT::Panorama optPano=_panoramaInfo->getSubset(images_layer_set);
+            //next steps happens only when all images are connected;
+            //now optimize panorama
+            PanoramaOptions opts = _panoramaInfo->getOptions();
+            opts.setProjection(PanoramaOptions::EQUIRECTANGULAR);
+            opts.optimizeReferenceImage=0;
+            // calculate proper scaling, 1:1 resolution.
+            // Otherwise optimizer distances are meaningless.
+            opts.setWidth(30000, false);
+            opts.setHeight(15000);
+
+            optPano.setOptions(opts);
+            int w = optPano.calcOptimalWidth();
+            opts.setWidth(w);
+            opts.setHeight(w/2);
+            optPano.setOptions(opts);
+
+            //generate optimize vector, optimize only yaw and pitch
+            OptimizeVector optvars;
+            const SrcPanoImage& anchorImage = optPano.getImage(opts.optimizeReferenceImage);
+            for (unsigned i=0; i < optPano.getNrOfImages(); i++)
             {
-                //optimize only anchors pitch, not yaw
-                imgopt.insert("p");
+                std::set<std::string> imgopt;
+                if(i==opts.optimizeReferenceImage)
+                {
+                    //optimize only anchors pitch, not yaw
+                    imgopt.insert("p");
+                }
+                else
+                {
+                    imgopt.insert("p");
+                    imgopt.insert("y");
+                };
+                optvars.push_back(imgopt);
             }
-            else
+            optPano.setOptimizeVector(optvars);
+
+            // remove vertical and horizontal control points
+            CPVector cps = optPano.getCtrlPoints();
+            CPVector newCP;
+            for (CPVector::const_iterator it = cps.begin(); it != cps.end(); it++)
             {
-                imgopt.insert("p");
-                imgopt.insert("y");
+                if (it->mode == ControlPoint::X_Y)
+                {
+                    newCP.push_back(*it);
+                }
+            }
+            optPano.setCtrlPoints(newCP);
+
+            if (getVerbose() < 2)
+            {
+                PT_setProgressFcn(ptProgress);
+                PT_setInfoDlgFcn(ptinfoDlg);
             };
-            optvars.push_back(imgopt);
-        }
-        optPano.setOptimizeVector(optvars);
-
-        // remove vertical and horizontal control points
-        CPVector cps = optPano.getCtrlPoints();
-        CPVector newCP;
-        for (CPVector::const_iterator it = cps.begin(); it != cps.end(); it++)
-        {
-            if (it->mode == ControlPoint::X_Y)
+            //in a first step do a pairwise optimisation
+            HuginBase::AutoOptimise::autoOptimise(optPano, false);
+            //now the final optimisation
+            HuginBase::PTools::optimize(optPano);
+            if (getVerbose() < 2)
             {
-                newCP.push_back(*it);
-            }
-        }
-        optPano.setCtrlPoints(newCP);
+                PT_setProgressFcn(NULL);
+                PT_setInfoDlgFcn(NULL);
+            };
 
-        if (getVerbose() < 2)
-        {
-            PT_setProgressFcn(ptProgress);
-            PT_setInfoDlgFcn(ptinfoDlg);
+            //now match overlapping images
+            if(!matchPrealigned(aExecutor, &optPano, checkedImagePairs, images_layer))
+            {
+                return false;
+            };
         };
-        //in a first step do a pairwise optimisation
-        HuginBase::AutoOptimise::autoOptimise(optPano, false);
-        //now the final optimisation
-        HuginBase::PTools::optimize(optPano);
-        if (getVerbose() < 2)
-        {
-            PT_setProgressFcn(NULL);
-            PT_setInfoDlgFcn(NULL);
-        };
-
-        //now match overlapping images
-        if(!matchPrealigned(aExecutor, &optPano, checkedImagePairs, images_layer))
+    }
+    else
+    {
+        if(!match(aExecutor, checkedImagePairs))
         {
             return false;
         };

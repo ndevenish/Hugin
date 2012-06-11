@@ -73,7 +73,7 @@ public:
     void printFilenames();
     void printHelp();
     void run();
-    bool match(ZThread::PoolExecutor& aExecutor);
+    bool match(ZThread::PoolExecutor& aExecutor, std::vector<HuginBase::UIntSet> &checkedPairs);
     bool matchMultiRow(ZThread::PoolExecutor& aExecutor);
     /** does only matches image pairs which overlaps and don't have control points
         @param aExecutor executor for threading
@@ -375,13 +375,9 @@ private:
     Panorama*			_panoramaInfo;
     Panorama				_panoramaInfoCopy;
 
-    //	void					prepareImages();
     bool					loadProject();
-    //	void					loadImages();
-    //	void					remapBackMatches();
     bool	      		checkLoadSuccess();
     void CleanupKeyfiles();
-    void					prepareMatches();
 
     void					writeOutput();
     void					writeKeyfile(ImgData& imgInfo);
