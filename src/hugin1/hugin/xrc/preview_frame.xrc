@@ -1788,13 +1788,14 @@
         <accel>Ctrl-r</accel>
         <help>Redo the last action</help>
       </object>
-      <object class="separator"/>
-      <object class="wxMenuItem" name="action_show_main_frame">
-        <label>E&amp;dit panorama</label>
-      </object>
+      
+      
       <label>&amp;Edit</label>
     </object>
     <object class="wxMenu" name="preview_view_menu">
+      <object class="wxMenuItem" name="action_show_main_frame">
+        <label>Panorama &amp;editor</label>
+      </object>
       <object class="wxMenuItem" name="ID_SHOW_FULL_SCREEN_PREVIEW">
         <label>Full Screen</label>
         <accel>F11</accel>
