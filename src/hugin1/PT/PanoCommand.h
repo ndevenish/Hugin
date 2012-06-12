@@ -466,9 +466,6 @@ namespace PT {
 
     virtual bool processPanorama(Panorama & pano)
         {
-            // set master switches to custom, so the modified vector is not modified
-            pano.setOptimizerSwitch(0);
-            pano.setPhotometricOptimizerSwitch(0);
             pano.setOptimizeVector(m_optvec);
             return true;
         }
