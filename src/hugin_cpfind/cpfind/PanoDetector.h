@@ -80,9 +80,11 @@ public:
         @param pano pano, which should be used for determing of overlap, can contain also less images than _panoramaInfo
         @param connectedImages contains a list of already connected or tested image pairs, which should be skipped
         @param imgMap map of image nr in partial pano and full panorama 
+        @param exactOverlap if true, only really overlapping image pairs are matched, if false it increases the hfov
+                 to take also narrow overlaps better into account
         @return true, if detection was successful
     */
-    bool matchPrealigned(ZThread::PoolExecutor& aExecutor, Panorama* pano, std::vector<HuginBase::UIntSet> &connectedImages, std::vector<size_t> imgMap);
+    bool matchPrealigned(ZThread::PoolExecutor& aExecutor, Panorama* pano, std::vector<HuginBase::UIntSet> &connectedImages, std::vector<size_t> imgMap, bool exactOverlap=true);
 
 
     // accessors

@@ -1057,6 +1057,15 @@ bool PanoDetector::matchMultiRow(PoolExecutor& aExecutor)
         if(images_layer.size()>2)
         {
             PT::Panorama optPano=_panoramaInfo->getSubset(images_layer_set);
+            //reset translation parameters
+            VariableMapVector varMapVec=optPano.getVariables();
+            for(size_t i=0; i<varMapVec.size(); i++)
+            {
+                map_get(varMapVec[i], "TrX").setValue(0);
+                map_get(varMapVec[i], "TrY").setValue(0);
+                map_get(varMapVec[i], "TrZ").setValue(0);
+            };
+            optPano.updateVariables(varMapVec);
             //next steps happens only when all images are connected;
             //now optimize panorama
             PanoramaOptions opts = _panoramaInfo->getOptions();
@@ -1121,7 +1130,7 @@ bool PanoDetector::matchMultiRow(PoolExecutor& aExecutor)
             };
 
             //now match overlapping images
-            if(!matchPrealigned(aExecutor, &optPano, checkedImagePairs, images_layer))
+            if(!matchPrealigned(aExecutor, &optPano, checkedImagePairs, images_layer, false))
             {
                 return false;
             };
@@ -1137,13 +1146,25 @@ bool PanoDetector::matchMultiRow(PoolExecutor& aExecutor)
     return true;
 };
 
-bool PanoDetector::matchPrealigned(PoolExecutor& aExecutor, Panorama* pano, std::vector<HuginBase::UIntSet> &connectedImages, std::vector<size_t> imgMap)
+bool PanoDetector::matchPrealigned(PoolExecutor& aExecutor, Panorama* pano, std::vector<HuginBase::UIntSet> &connectedImages, std::vector<size_t> imgMap, bool exactOverlap)
 {
-    HuginBase::CalculateImageOverlap overlap(pano);
-    overlap.calculate(10);
-    for(size_t i=0; i<pano->getNrOfImages()-1; i++)
+    Panorama tempPano=pano->duplicate();
+    if(!exactOverlap)
     {
-        for(size_t j=i+1; j<pano->getNrOfImages(); j++)
+        // increase hfov by 25 % to handle narrow overlaps (or even no overlap) better
+        VariableMapVector varMapVec=tempPano.getVariables();
+        for(size_t i=0; i<tempPano.getNrOfImages(); i++)
+        {
+            Variable hfovVar=map_get(varMapVec[i], "v");
+            hfovVar.setValue(std::min(360.0, 1.25 * hfovVar.getValue()));
+        };
+        tempPano.updateVariables(varMapVec);
+    };
+    HuginBase::CalculateImageOverlap overlap(&tempPano);
+    overlap.calculate(10);
+    for(size_t i=0; i<tempPano.getNrOfImages()-1; i++)
+    {
+        for(size_t j=i+1; j<tempPano.getNrOfImages(); j++)
         {
             if(set_contains(connectedImages[imgMap[i]],imgMap[j]))
             {
