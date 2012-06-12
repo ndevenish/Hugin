@@ -24,7 +24,7 @@
             </object>
             <object class="notebookpage">
               <object class="MaskEditorPanel" name="mask_panel_unknown"/>
-              <label>Mask</label>
+              <label>Masks</label>
             </object>
             <object class="notebookpage">
               <label>Control Points</label>
