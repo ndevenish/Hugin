@@ -66,12 +66,12 @@
       <object class="wxMenuItem" name="ID_SHOW_PANEL_IMAGES">
         <label>Photos</label>
         <accel>Shift-F1</accel>
-        <help>Show the Images panel</help>
+        <help>Show the Photos panel</help>
       </object>
       <object class="wxMenuItem" name="ID_SHOW_PANEL_MASK">
         <label>Masks</label>
         <accel>Shift-F2</accel>
-        <help>Show the Mask panel</help>
+        <help>Show the Masks panel</help>
       </object>
       <object class="wxMenuItem" name="ID_SHOW_PANEL_CP_EDITOR">
         <label>Control Points</label>
