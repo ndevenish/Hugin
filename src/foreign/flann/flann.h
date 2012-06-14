@@ -28,16 +28,52 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *************************************************************************/
 
-#ifndef FLANN_H
-#define FLANN_H
+#ifndef FLANN_H_
+#define FLANN_H_
 
-
-#include "flann/general.h"
+#include "defines.h"
 
 #ifdef __cplusplus
 extern "C"
 {
+    using namespace flann;
 #endif
+
+
+struct FLANNParameters
+{
+    enum flann_algorithm_t algorithm; /* the algorithm to use */
+
+    /* search time parameters */
+    int checks;                /* how many leafs (features) to check in one search */
+    float cb_index;            /* cluster boundary index. Used when searching the kmeans tree */
+    float eps;     /* eps parameter for eps-knn search */
+
+    /*  kdtree index parameters */
+    int trees;                 /* number of randomized trees to use (for kdtree) */
+    int leaf_max_size;
+
+    /* kmeans index parameters */
+    int branching;             /* branching factor (for kmeans tree) */
+    int iterations;            /* max iterations to perform in one kmeans cluetering (kmeans tree) */
+    enum flann_centers_init_t centers_init;  /* algorithm used for picking the initial cluster centers for kmeans tree */
+
+    /* autotuned index parameters */
+    float target_precision;    /* precision desired (used for autotuning, -1 otherwise) */
+    float build_weight;        /* build tree time weighting factor */
+    float memory_weight;       /* index memory weigthing factor */
+    float sample_fraction;     /* what fraction of the dataset to use for autotuning */
+
+    /* LSH parameters */
+    unsigned int table_number_; /** The number of hash tables to use */
+    unsigned int key_size_;     /** The length of the key in the hash tables */
+    unsigned int multi_probe_level_; /** Number of levels to use in multi-probe LSH, 0 for standard LSH */
+
+    /* other parameters */
+    enum flann_log_level_t log_level;    /* determines the verbosity of each flann function */
+    long random_seed;            /* random seed to use */
+};
+
 
 typedef void* FLANN_INDEX; /* deprecated */
 typedef void* flann_index_t;
@@ -175,7 +211,6 @@ FLANN_EXPORT flann_index_t flann_load_index_int(char* filename,
     indices = pointer to matrix for the indices of the nearest neighbors of the testset features in the dataset
             (must have trows number of rows and nn number of columns)
     nn = how many nearest neighbors to return
-    index_params = index related parameters
     flann_params = generic flann parameters
 
    Returns: zero or -1 for error
@@ -240,6 +275,8 @@ FLANN_EXPORT int flann_find_nearest_neighbors_int(int* dataset,
     trows = number of rows (features) in the query dataset (same dimensionality as features in the dataset)
     indices = pointer to matrix for the indices of the nearest neighbors of the testset features in the dataset
             (must have trows number of rows and nn number of columns)
+    dists = pointer to matrix for the distances of the nearest neighbors of the testset features in the dataset
+            (must have trows number of rows and 1 column)
     nn = how many nearest neighbors to return
     flann_params = generic flann parameters
 
@@ -294,11 +331,16 @@ FLANN_EXPORT int flann_find_nearest_neighbors_index_int(flann_index_t index_id,
  * search will return all the neighbours found within a search radius
  * of the query point.
  *
- * The check parameter in the function below sets the level of approximation
+ * The check parameter in the FLANNParameters below sets the level of approximation
  * for the search by only visiting "checks" number of features in the index
  * (the same way as for the KNN search). A lower value for checks will give
  * a higher search speedup at the cost of potentially not returning all the
  * neighbours in the specified radius.
+ *
+ * The cores parameter in the FLANNParameters below sets the number of cores
+ * that will be used for the radius search, in case Intel TBB is present on
+ * the system and FLANN is built with multicore support on. Auto core selection
+ * can be achieved by setting the number of cores to -1.
  */
 FLANN_EXPORT int flann_radius_search(flann_index_t index_ptr, /* the index */
                                      float* query, /* query point */
@@ -428,5 +470,5 @@ FLANN_EXPORT int flann_compute_cluster_centers_int(int* dataset,
 #endif
 
 
-#endif /*FLANN_H*/
+#endif /*FLANN_H_*/
 

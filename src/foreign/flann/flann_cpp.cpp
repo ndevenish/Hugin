@@ -26,39 +26,5 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *************************************************************************/
 
-#include <stdexcept>
-#include <vector>
 
-#include "flann/flann.h"
-#include "flann/general.h"
-#include "flann/util/timer.h"
-#include "flann/util/logger.h"
-#include "flann/nn/index_testing.h"
-#include "flann/util/saving.h"
-#include "flann/nn/ground_truth.h"
-#include "flann/util/object_factory.h"
-// index types
-#include "flann/algorithms/all_indices.h"
-
-
-namespace flann
-{
-
-void log_verbosity(int level)
-{
-    if (level >= 0) {
-        logger.setLevel(level);
-    }
-}
-
-
-IndexParams* IndexParams::createFromParameters(const FLANNParameters& p)
-{
-    IndexParams* params = ParamsFactory::instance().create(p.algorithm);
-    params->fromParameters(p);
-
-    return params;
-}
-
-
-} // namespace FLANN
+#include "flann/flann.hpp"

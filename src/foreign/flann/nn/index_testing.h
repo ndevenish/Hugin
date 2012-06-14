@@ -28,8 +28,8 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *************************************************************************/
 
-#ifndef TESTING_H
-#define TESTING_H
+#ifndef FLANN_INDEX_TESTING_H_
+#define FLANN_INDEX_TESTING_H_
 
 #include <cstring>
 #include <cassert>
@@ -45,7 +45,19 @@
 namespace flann
 {
 
-FLANN_EXPORT int countCorrectMatches(int* neighbors, int* groundTruth, int n);
+inline int countCorrectMatches(int* neighbors, int* groundTruth, int n)
+{
+    int count = 0;
+    for (int i=0; i<n; ++i) {
+        for (int k=0; k<n; ++k) {
+            if (neighbors[i]==groundTruth[k]) {
+                count++;
+                break;
+            }
+        }
+    }
+    return count;
+}
 
 
 template <typename Distance>
@@ -78,7 +90,7 @@ float search_with_ground_truth(NNIndex<Distance>& index, const Matrix<typename D
     typedef typename Distance::ResultType DistanceType;
 
     if (matches.cols<size_t(nn)) {
-        logger.info("matches.cols=%d, nn=%d\n",matches.cols,nn);
+        Logger::info("matches.cols=%d, nn=%d\n",matches.cols,nn);
 
         throw FLANNException("Ground truth is not computed for as many neighbors as requested");
     }
@@ -90,8 +102,8 @@ float search_with_ground_truth(NNIndex<Distance>& index, const Matrix<typename D
     DistanceType* dists = new DistanceType[nn+skipMatches];
     int* neighbors = indices + skipMatches;
 
-    int correct;
-    DistanceType distR;
+    int correct = 0;
+    DistanceType distR = 0;
     StartStopTimer t;
     int repeats = 0;
     while (t.value<0.2) {
@@ -100,15 +112,16 @@ float search_with_ground_truth(NNIndex<Distance>& index, const Matrix<typename D
         correct = 0;
         distR = 0;
         for (size_t i = 0; i < testData.rows; i++) {
-            resultSet.init(indices, dists);
+            resultSet.clear();
             index.findNeighbors(resultSet, testData[i], searchParams);
+            resultSet.copy(indices,dists,nn+skipMatches);
 
             correct += countCorrectMatches(neighbors,matches[i], nn);
             distR += computeDistanceRaport<Distance>(inputData, testData[i], neighbors, matches[i], testData.cols, nn, distance);
         }
         t.stop();
     }
-    time = t.value/repeats;
+    time = float(t.value/repeats);
 
     delete[] indices;
     delete[] dists;
@@ -117,8 +130,8 @@ float search_with_ground_truth(NNIndex<Distance>& index, const Matrix<typename D
 
     dist = distR/(testData.rows*nn);
 
-    logger.info("%8d %10.4g %10.5g %10.5g %10.5g\n",
-                checks, precicion, time, 1000.0 * time / testData.rows, dist);
+    Logger::info("%8d %10.4g %10.5g %10.5g %10.5g\n",
+                 checks, precicion, time, 1000.0 * time / testData.rows, dist);
 
     return precicion;
 }
@@ -131,8 +144,8 @@ float test_index_checks(NNIndex<Distance>& index, const Matrix<typename Distance
 {
     typedef typename Distance::ResultType DistanceType;
 
-    logger.info("  Nodes  Precision(%)   Time(s)   Time/vec(ms)  Mean dist\n");
-    logger.info("---------------------------------------------------------\n");
+    Logger::info("  Nodes  Precision(%)   Time(s)   Time/vec(ms)  Mean dist\n");
+    Logger::info("---------------------------------------------------------\n");
 
     float time = 0;
     DistanceType dist = 0;
@@ -147,29 +160,29 @@ float test_index_precision(NNIndex<Distance>& index, const Matrix<typename Dista
                            float precision, int& checks, const Distance& distance, int nn = 1, int skipMatches = 0)
 {
     typedef typename Distance::ResultType DistanceType;
-    const float SEARCH_EPS = 0.001;
+    const float SEARCH_EPS = 0.001f;
 
-    logger.info("  Nodes  Precision(%)   Time(s)   Time/vec(ms)  Mean dist\n");
-    logger.info("---------------------------------------------------------\n");
+    Logger::info("  Nodes  Precision(%)   Time(s)   Time/vec(ms)  Mean dist\n");
+    Logger::info("---------------------------------------------------------\n");
 
     int c2 = 1;
     float p2;
     int c1 = 1;
-    float p1;
+//     float p1;
     float time;
     DistanceType dist;
 
     p2 = search_with_ground_truth(index, inputData, testData, matches, nn, c2, time, dist, distance, skipMatches);
 
     if (p2>precision) {
-        logger.info("Got as close as I can\n");
+        Logger::info("Got as close as I can\n");
         checks = c2;
         return time;
     }
 
     while (p2<precision) {
         c1 = c2;
-        p1 = p2;
+//         p1 = p2;
         c2 *=2;
         p2 = search_with_ground_truth(index, inputData, testData, matches, nn, c2, time, dist, distance, skipMatches);
     }
@@ -177,7 +190,7 @@ float test_index_precision(NNIndex<Distance>& index, const Matrix<typename Dista
     int cx;
     float realPrecision;
     if (fabs(p2-precision)>SEARCH_EPS) {
-        logger.info("Start linear estimation\n");
+        Logger::info("Start linear estimation\n");
         // after we got to values in the vecinity of the desired precision
         // use linear approximation get a better estimation
 
@@ -193,7 +206,7 @@ float test_index_precision(NNIndex<Distance>& index, const Matrix<typename Dista
             }
             cx = (c1+c2)/2;
             if (cx==c1) {
-                logger.info("Got as close as I can\n");
+                Logger::info("Got as close as I can\n");
                 break;
             }
             realPrecision = search_with_ground_truth(index, inputData, testData, matches, nn, cx, time, dist, distance, skipMatches);
@@ -204,7 +217,7 @@ float test_index_precision(NNIndex<Distance>& index, const Matrix<typename Dista
 
     }
     else {
-        logger.info("No need for linear estimation\n");
+        Logger::info("No need for linear estimation\n");
         cx = c2;
         realPrecision = p2;
     }
@@ -229,8 +242,8 @@ void test_index_precisions(NNIndex<Distance>& index, const Matrix<typename Dista
     int pindex = 0;
     float precision = precisions[pindex];
 
-    logger.info("  Nodes  Precision(%)   Time(s)   Time/vec(ms)  Mean dist\n");
-    logger.info("---------------------------------------------------------\n");
+    Logger::info("  Nodes  Precision(%)   Time(s)   Time/vec(ms)  Mean dist\n");
+    Logger::info("---------------------------------------------------------\n");
 
     int c2 = 1;
     float p2;
@@ -251,7 +264,7 @@ void test_index_precisions(NNIndex<Distance>& index, const Matrix<typename Dista
     }
 
     if (pindex==precisions_length) {
-        logger.info("Got as close as I can\n");
+        Logger::info("Got as close as I can\n");
         return;
     }
 
@@ -269,7 +282,7 @@ void test_index_precisions(NNIndex<Distance>& index, const Matrix<typename Dista
         int cx;
         float realPrecision;
         if (fabs(p2-precision)>SEARCH_EPS) {
-            logger.info("Start linear estimation\n");
+            Logger::info("Start linear estimation\n");
             // after we got to values in the vecinity of the desired precision
             // use linear approximation get a better estimation
 
@@ -285,7 +298,7 @@ void test_index_precisions(NNIndex<Distance>& index, const Matrix<typename Dista
                 }
                 cx = (c1+c2)/2;
                 if (cx==c1) {
-                    logger.info("Got as close as I can\n");
+                    Logger::info("Got as close as I can\n");
                     break;
                 }
                 realPrecision = search_with_ground_truth(index, inputData, testData, matches, nn, cx, time, dist, distance, skipMatches);
@@ -296,7 +309,7 @@ void test_index_precisions(NNIndex<Distance>& index, const Matrix<typename Dista
 
         }
         else {
-            logger.info("No need for linear estimation\n");
+            Logger::info("No need for linear estimation\n");
             cx = c2;
             realPrecision = p2;
         }
@@ -306,4 +319,4 @@ void test_index_precisions(NNIndex<Distance>& index, const Matrix<typename Dista
 
 }
 
-#endif //TESTING_H
+#endif //FLANN_INDEX_TESTING_H_

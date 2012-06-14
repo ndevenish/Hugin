@@ -28,8 +28,8 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *************************************************************************/
 
-#ifndef SIMPLEX_DOWNHILL_H
-#define SIMPLEX_DOWNHILL_H
+#ifndef FLANN_SIMPLEX_DOWNHILL_H_
+#define FLANN_SIMPLEX_DOWNHILL_H_
 
 namespace flann
 {
@@ -123,7 +123,7 @@ float optimizeSimplexDownhill(T* points, int n, F func, float* vals = NULL )
         if ((val_r>=vals[0])&&(val_r<vals[n])) {
             // reflection between second highest and lowest
             // add it to the simplex
-            logger.info("Choosing reflection\n");
+            Logger::info("Choosing reflection\n");
             addValue(n, val_r,vals, p_r, points, n);
             continue;
         }
@@ -138,11 +138,11 @@ float optimizeSimplexDownhill(T* points, int n, F func, float* vals = NULL )
             float val_e = func(p_e);
 
             if (val_e<val_r) {
-                logger.info("Choosing reflection and expansion\n");
+                Logger::info("Choosing reflection and expansion\n");
                 addValue(n, val_e,vals,p_e,points,n);
             }
             else {
-                logger.info("Choosing reflection\n");
+                Logger::info("Choosing reflection\n");
                 addValue(n, val_r,vals,p_r,points,n);
             }
             continue;
@@ -154,13 +154,13 @@ float optimizeSimplexDownhill(T* points, int n, F func, float* vals = NULL )
             float val_e = func(p_e);
 
             if (val_e<vals[n]) {
-                logger.info("Choosing contraction\n");
+                Logger::info("Choosing contraction\n");
                 addValue(n,val_e,vals,p_e,points,n);
                 continue;
             }
         }
         {
-            logger.info("Full contraction\n");
+            Logger::info("Full contraction\n");
             for (int j=1; j<=n; ++j) {
                 for (int i=0; i<n; ++i) {
                     points[j*n+i] = (points[j*n+i]+points[i])/2;
@@ -183,4 +183,4 @@ float optimizeSimplexDownhill(T* points, int n, F func, float* vals = NULL )
 
 }
 
-#endif //SIMPLEX_DOWNHILL_H
+#endif //FLANN_SIMPLEX_DOWNHILL_H_

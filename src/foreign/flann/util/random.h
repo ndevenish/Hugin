@@ -28,12 +28,13 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *************************************************************************/
 
-#ifndef RANDOM_H
-#define RANDOM_H
+#ifndef FLANN_RANDOM_H
+#define FLANN_RANDOM_H
 
 #include <algorithm>
 #include <cstdlib>
-#include <cassert>
+#include <vector>
+
 #include "flann/general.h"
 
 namespace flann
@@ -41,78 +42,74 @@ namespace flann
 
 /**
  * Seeds the random number generator
+ *  @param seed Random seed
  */
-FLANN_EXPORT void seed_random(unsigned int seed);
+inline void seed_random(unsigned int seed)
+{
+    srand(seed);
+}
 
 /*
  * Generates a random double value.
  */
-FLANN_EXPORT double rand_double(double high = 1.0, double low = 0);
-
-/*
- * Generates a random integer value.
+/**
+ * Generates a random double value.
+ * @param high Upper limit
+ * @param low Lower limit
+ * @return Random double value
  */
-FLANN_EXPORT int rand_int(int high = RAND_MAX, int low = 0);
+inline double rand_double(double high = 1.0, double low = 0)
+{
+    return low + ((high-low) * (std::rand() / (RAND_MAX + 1.0)));
+}
 
+/**
+ * Generates a random integer value.
+ * @param high Upper limit
+ * @param low Lower limit
+ * @return Random integer value
+ */
+inline int rand_int(int high = RAND_MAX, int low = 0)
+{
+    return low + (int) ( double(high-low) * (std::rand() / (RAND_MAX + 1.0)));
+}
 
 /**
  * Random number generator that returns a distinct number from
  * the [0,n) interval each time.
- *
- * TODO: improve on this to use a generator function instead of an
- * array of randomly permuted numbers
  */
 class UniqueRandom
 {
-    int* vals;
-    int size;
-    int counter;
+    std::vector<int> vals_;
+    int size_;
+    int counter_;
 
 public:
     /**
      * Constructor.
-     * Params:
-     *     n = the size of the interval from which to generate
-     *       random numbers.
+     * @param n Size of the interval from which to generate
+     * @return
      */
-    UniqueRandom(int n) : vals(NULL)
+    UniqueRandom(int n)
     {
         init(n);
     }
 
-    ~UniqueRandom()
-    {
-        delete[] vals;
-    }
-
     /**
      * Initializes the number generator.
-     * Params:
-     *   n = the size of the interval from which to generate
-     *       random numbers.
+     * @param n the size of the interval from which to generate random numbers.
      */
     void init(int n)
     {
         // create and initialize an array of size n
-        if ((vals == NULL)||(n != size)) {
-            delete[] vals;
-            size = n;
-            vals = new int[size];
-        }
-        for (int i = 0; i < size; ++i) {
-            vals[i] = i;
-        }
+        vals_.resize(n);
+        size_ = n;
+        for (int i = 0; i < size_; ++i) vals_[i] = i;
 
         // shuffle the elements in the array
-        // Fisher-Yates shuffle
-        for (int i = size; i > 0; --i) {
-            //    int rand = cast(int) (drand48() * n);
-            int rnd = rand_int(i);
-            assert(rnd >= 0 && rnd < i);
-            std::swap(vals[i-1], vals[rnd]);
-        }
+        std::random_shuffle(vals_.begin(), vals_.end());
 
-        counter = 0;
+        counter_ = 0;
     }
 
     /**
@@ -122,17 +119,17 @@ public:
      */
     int next()
     {
-        if (counter == size) {
+        if (counter_ == size_) {
             return -1;
         }
         else {
-            return vals[counter++];
+            return vals_[counter_++];
         }
     }
 };
 
 }
 
-#endif //RANDOM_H
+#endif //FLANN_RANDOM_H
 
 

@@ -27,8 +27,8 @@
  *************************************************************************/
 
 
-#ifndef IO_H_
-#define IO_H_
+#ifndef FLANN_HDF5_H_
+#define FLANN_HDF5_H_
 
 #include <hdf5.h>
 
@@ -77,8 +77,19 @@ hid_t get_hdf5_type<long double>() { return H5T_NATIVE_LDOUBLE; }
 template<typename T>
 void save_to_file(const flann::Matrix<T>& dataset, const std::string& filename, const std::string& name)
 {
+
+#if H5Eset_auto_vers == 2
+    H5Eset_auto( H5E_DEFAULT, NULL, NULL );
+#else
+    H5Eset_auto( NULL, NULL );
+#endif
+
     herr_t status;
-    hid_t file_id = H5Fcreate(filename.c_str(), H5F_ACC_TRUNC, H5P_DEFAULT, H5P_DEFAULT);
+    hid_t file_id;
+    file_id = H5Fopen(filename.c_str(), H5F_ACC_RDWR, H5P_DEFAULT);
+    if (file_id < 0) {
+        file_id = H5Fcreate(filename.c_str(), H5F_ACC_EXCL, H5P_DEFAULT, H5P_DEFAULT);
+    }
     CHECK_ERROR(file_id,"Error creating hdf5 file.");
 
     hsize_t     dimsf[2];              // dataset dimensions
@@ -89,14 +100,22 @@ void save_to_file(const flann::Matrix<T>& dataset, const std::string& filename, 
     hid_t memspace_id = H5Screate_simple(2, dimsf, NULL);
 
     hid_t dataset_id;
-#if H5_VERS_MINOR >= 8
+#if H5Dcreate_vers == 2
     dataset_id = H5Dcreate2(file_id, name.c_str(), get_hdf5_type<T>(), space_id, H5P_DEFAULT, H5P_DEFAULT, H5P_DEFAULT);
 #else
     dataset_id = H5Dcreate(file_id, name.c_str(), get_hdf5_type<T>(), space_id, H5P_DEFAULT);
 #endif
-    CHECK_ERROR(dataset_id,"Error creating dataset in file.");
 
-    status = H5Dwrite(dataset_id, get_hdf5_type<T>(), memspace_id, space_id, H5P_DEFAULT, dataset.data );
+    if (dataset_id<0) {
+#if H5Dopen_vers == 2
+        dataset_id = H5Dopen2(file_id, name.c_str(), H5P_DEFAULT);
+#else
+        dataset_id = H5Dopen(file_id, name.c_str());
+#endif
+    }
+    CHECK_ERROR(dataset_id,"Error creating or opening dataset in file.");
+
+    status = H5Dwrite(dataset_id, get_hdf5_type<T>(), memspace_id, space_id, H5P_DEFAULT, dataset.ptr() );
     CHECK_ERROR(status, "Error writing to dataset");
 
     H5Sclose(memspace_id);
@@ -115,7 +134,7 @@ void load_from_file(flann::Matrix<T>& dataset, const std::string& filename, cons
     CHECK_ERROR(file_id,"Error opening hdf5 file.");
 
     hid_t dataset_id;
-#if H5_VERS_MINOR >= 8
+#if H5Dopen_vers == 2
     dataset_id = H5Dopen2(file_id, name.c_str(), H5P_DEFAULT);
 #else
     dataset_id = H5Dopen(file_id, name.c_str());
@@ -166,7 +185,7 @@ void load_from_file(flann::Matrix<T>& dataset, const std::string& filename, cons
     CHECK_ERROR(file_id,"Error opening hdf5 file.");
     H5Pclose(plist_id);
     hid_t dataset_id;
-#if H5_VERS_MINOR >= 8
+#if H5Dopen_vers == 2
     dataset_id = H5Dopen2(file_id, name.c_str(), H5P_DEFAULT);
 #else
     dataset_id = H5Dopen(file_id, name.c_str());
@@ -192,13 +211,11 @@ void load_from_file(flann::Matrix<T>& dataset, const std::string& filename, cons
 
     H5Sselect_hyperslab(space_id, H5S_SELECT_SET, offset, NULL, count, NULL);
 
-    dataset.rows = count[0];
-    dataset.cols = count[1];
-    dataset.data = new T[dataset.rows*dataset.cols];
+    dataset = flann::Matrix<T>(new T[count[0]*count[1]], count[0], count[1]);
 
     plist_id = H5Pcreate(H5P_DATASET_XFER);
-    H5Pset_dxpl_mpio(plist_id, H5FD_MPIO_COLLECTIVE);
-    status = H5Dread(dataset_id, get_hdf5_type<T>(), memspace_id, space_id, plist_id, dataset.data);
+//    H5Pset_dxpl_mpio(plist_id, H5FD_MPIO_COLLECTIVE);
+    status = H5Dread(dataset_id, get_hdf5_type<T>(), memspace_id, space_id, plist_id, dataset[0]);
     CHECK_ERROR(status, "Error reading dataset");
 
     H5Pclose(plist_id);
@@ -211,4 +228,4 @@ void load_from_file(flann::Matrix<T>& dataset, const std::string& filename, cons
 #endif // HAVE_MPI
 } // namespace flann::mpi
 
-#endif /* IO_H_ */
+#endif /* FLANN_HDF5_H_ */

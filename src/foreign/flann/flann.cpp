@@ -26,23 +26,79 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *************************************************************************/
 
-// include flann_cpp stuff
-#include "flann_cpp.cpp"
+#include "flann.h"
 
 #define FLANN_FIRST_MATCH
 
 
 struct FLANNParameters DEFAULT_FLANN_PARAMETERS = {
     FLANN_INDEX_KDTREE,
-    32, 0.2, 0.0,
+    32, 0.2f, 0.0f,
     4, 4,
     32, 11, FLANN_CENTERS_RANDOM,
-    0.9, 0.01, 0, 0.1,
+    0.9f, 0.01f, 0, 0.1f,
     FLANN_LOG_NONE, 0
 };
 
 
 using namespace flann;
+
+
+flann::IndexParams create_parameters(FLANNParameters* p)
+{
+    flann::IndexParams params;
+
+    params["algorithm"] = p->algorithm;
+
+    params["checks"] = p->checks;
+    params["cb_index"] = p->cb_index;
+    params["eps"] = p->eps;
+
+    if (p->algorithm == FLANN_INDEX_KDTREE) {
+        params["trees"] = p->trees;
+    }
+
+    if (p->algorithm == FLANN_INDEX_KDTREE_SINGLE) {
+        params["trees"] = p->trees;
+        params["leaf_max_size"] = p->leaf_max_size;
+    }
+    
+    if (p->algorithm == FLANN_INDEX_KDTREE_CUDA) {
+        params["leaf_max_size"] = p->leaf_max_size;
+    }
+
+    if (p->algorithm == FLANN_INDEX_KMEANS) {
+        params["branching"] = p->branching;
+        params["iterations"] = p->iterations;
+        params["centers_init"] = p->centers_init;
+    }
+
+    if (p->algorithm == FLANN_INDEX_AUTOTUNED) {
+        params["target_precision"] = p->target_precision;
+        params["build_weight"] = p->build_weight;
+        params["memory_weight"] = p->memory_weight;
+        params["sample_fraction"] = p->sample_fraction;
+    }
+
+    if (p->algorithm == FLANN_INDEX_HIERARCHICAL) {
+        params["branching"] = p->branching;
+        params["centers_init"] = p->centers_init;
+        params["trees"] = p->trees;
+        params["leaf_size"] = p->leaf_max_size;
+    }
+
+    if (p->algorithm == FLANN_INDEX_LSH) {
+        params["table_number"] = p->table_number_;
+        params["key_size"] = p->key_size_;
+        params["multi_probe_level"] = p->multi_probe_level_;
+    }
+
+    params["log_level"] = p->log_level;
+    params["random_seed"] = p->random_seed;
+
+    return params;
+}
+
 
 
 void init_flann_parameters(FLANNParameters* p)
@@ -82,23 +138,25 @@ flann_index_t __flann_build_index(typename Distance::ElementType* dataset, int r
         if (flann_params == NULL) {
             throw FLANNException("The flann_params argument must be non-null");
         }
-        IndexParams* params = IndexParams::createFromParameters(*flann_params);
-        Index<Distance>* index = new Index<Distance>(Matrix<ElementType>(dataset,rows,cols), *params, d);
+        IndexParams params = create_parameters(flann_params);
+        Index<Distance>* index = new Index<Distance>(Matrix<ElementType>(dataset,rows,cols), params, d);
         index->buildIndex();
-        const IndexParams* index_params = index->getIndexParameters();
-        index_params->toParameters(*flann_params);
+        params = index->getParameters();
 
-        if (index->getIndex()->getType()==FLANN_INDEX_AUTOTUNED) {
+        // FIXME
+        //index_params->toParameters(*flann_params);
+
+        if (index->getType()==FLANN_INDEX_AUTOTUNED) {
             AutotunedIndex<Distance>* autotuned_index = (AutotunedIndex<Distance>*)index->getIndex();
-            flann_params->checks = autotuned_index->getSearchParameters()->checks;
+            // FIXME
+            flann_params->checks = autotuned_index->getSearchParameters().checks;
             *speedup = autotuned_index->getSpeedup();
         }
 
-        delete params;
         return index;
     }
     catch (std::runtime_error& e) {
-        logger.error("Caught exception: %s\n",e.what());
+        Logger::error("Caught exception: %s\n",e.what());
         return NULL;
     }
 }
@@ -128,7 +186,7 @@ flann_index_t _flann_build_index(T* dataset, int rows, int cols, float* speedup,
         return __flann_build_index<KL_Divergence<T> >(dataset, rows, cols, speedup, flann_params);
     }
     else {
-        logger.error( "Distance type unsupported in the C bindings, use the C++ bindings instead\n");
+        Logger::error( "Distance type unsupported in the C bindings, use the C++ bindings instead\n");
         return NULL;
     }
 }
@@ -172,7 +230,7 @@ int __flann_save_index(flann_index_t index_ptr, char* filename)
         return 0;
     }
     catch (std::runtime_error& e) {
-        logger.error("Caught exception: %s\n",e.what());
+        Logger::error("Caught exception: %s\n",e.what());
         return -1;
     }
 }
@@ -202,7 +260,7 @@ int _flann_save_index(flann_index_t index_ptr, char* filename)
         return __flann_save_index<KL_Divergence<T> >(index_ptr, filename);
     }
     else {
-        logger.error( "Distance type unsupported in the C bindings, use the C++ bindings instead\n");
+        Logger::error( "Distance type unsupported in the C bindings, use the C++ bindings instead\n");
         return -1;
     }
 }
@@ -242,7 +300,7 @@ flann_index_t __flann_load_index(char* filename, typename Distance::ElementType*
         return index;
     }
     catch (std::runtime_error& e) {
-        logger.error("Caught exception: %s\n",e.what());
+        Logger::error("Caught exception: %s\n",e.what());
         return NULL;
     }
 }
@@ -272,7 +330,7 @@ flann_index_t _flann_load_index(char* filename, T* dataset, int rows, int cols)
         return __flann_load_index<KL_Divergence<T> >(filename, dataset, rows, cols);
     }
     else {
-        logger.error( "Distance type unsupported in the C bindings, use the C++ bindings instead\n");
+        Logger::error( "Distance type unsupported in the C bindings, use the C++ bindings instead\n");
         return NULL;
     }
 }
@@ -314,8 +372,8 @@ int __flann_find_nearest_neighbors(typename Distance::ElementType* dataset,  int
     try {
         init_flann_parameters(flann_params);
 
-        IndexParams* params = IndexParams::createFromParameters(*flann_params);
-        Index<Distance>* index = new Index<Distance>(Matrix<ElementType>(dataset,rows,cols), *params, d);
+        IndexParams params = create_parameters(flann_params);
+        Index<Distance>* index = new Index<Distance>(Matrix<ElementType>(dataset,rows,cols), params, d);
         index->buildIndex();
         Matrix<int> m_indices(result,tcount, nn);
         Matrix<DistanceType> m_dists(dists,tcount, nn);
@@ -323,11 +381,10 @@ int __flann_find_nearest_neighbors(typename Distance::ElementType* dataset,  int
                          m_indices,
                          m_dists, nn, SearchParams(flann_params->checks) );
         delete index;
-        delete params;
         return 0;
     }
     catch (std::runtime_error& e) {
-        logger.error("Caught exception: %s\n",e.what());
+        Logger::error("Caught exception: %s\n",e.what());
         return -1;
     }
 
@@ -360,7 +417,7 @@ int _flann_find_nearest_neighbors(T* dataset,  int rows, int cols, T* testset, i
         return __flann_find_nearest_neighbors<KL_Divergence<T> >(dataset, rows, cols, testset, tcount, result, dists, nn, flann_params);
     }
     else {
-        logger.error( "Distance type unsupported in the C bindings, use the C++ bindings instead\n");
+        Logger::error( "Distance type unsupported in the C bindings, use the C++ bindings instead\n");
         return -1;
     }
 }
@@ -415,7 +472,7 @@ int __flann_find_nearest_neighbors_index(flann_index_t index_ptr, typename Dista
         return 0;
     }
     catch (std::runtime_error& e) {
-        logger.error("Caught exception: %s\n",e.what());
+        Logger::error("Caught exception: %s\n",e.what());
         return -1;
     }
 
@@ -448,7 +505,7 @@ int _flann_find_nearest_neighbors_index(flann_index_t index_ptr, T* testset, int
         return __flann_find_nearest_neighbors_index<KL_Divergence<T> >(index_ptr, testset, tcount, result, dists, nn, flann_params);
     }
     else {
-        logger.error( "Distance type unsupported in the C bindings, use the C++ bindings instead\n");
+        Logger::error( "Distance type unsupported in the C bindings, use the C++ bindings instead\n");
         return -1;
     }
 }
@@ -509,7 +566,7 @@ int __flann_radius_search(flann_index_t index_ptr,
         return count;
     }
     catch (std::runtime_error& e) {
-        logger.error("Caught exception: %s\n",e.what());
+        Logger::error("Caught exception: %s\n",e.what());
         return -1;
     }
 }
@@ -545,7 +602,7 @@ int _flann_radius_search(flann_index_t index_ptr,
         return __flann_radius_search<KL_Divergence<T> >(index_ptr, query, indices, dists, max_nn, radius, flann_params);
     }
     else {
-        logger.error( "Distance type unsupported in the C bindings, use the C++ bindings instead\n");
+        Logger::error( "Distance type unsupported in the C bindings, use the C++ bindings instead\n");
         return -1;
     }
 }
@@ -620,7 +677,7 @@ int __flann_free_index(flann_index_t index_ptr, FLANNParameters* flann_params)
         return 0;
     }
     catch (std::runtime_error& e) {
-        logger.error("Caught exception: %s\n",e.what());
+        Logger::error("Caught exception: %s\n",e.what());
         return -1;
     }
 }
@@ -650,7 +707,7 @@ int _flann_free_index(flann_index_t index_ptr, FLANNParameters* flann_params)
         return __flann_free_index<KL_Divergence<T> >(index_ptr, flann_params);
     }
     else {
-        logger.error( "Distance type unsupported in the C bindings, use the C++ bindings instead\n");
+        Logger::error( "Distance type unsupported in the C bindings, use the C++ bindings instead\n");
         return -1;
     }
 }
@@ -699,7 +756,7 @@ int __flann_compute_cluster_centers(typename Distance::ElementType* dataset, int
         return clusterNum;
     }
     catch (std::runtime_error& e) {
-        logger.error("Caught exception: %s\n",e.what());
+        Logger::error("Caught exception: %s\n",e.what());
         return -1;
     }
 }
@@ -730,7 +787,7 @@ int _flann_compute_cluster_centers(T* dataset, int rows, int cols, int clusters,
         return __flann_compute_cluster_centers<KL_Divergence<T> >(dataset, rows, cols, clusters, result, flann_params);
     }
     else {
-        logger.error( "Distance type unsupported in the C bindings, use the C++ bindings instead\n");
+        Logger::error( "Distance type unsupported in the C bindings, use the C++ bindings instead\n");
         return -1;
     }
 }

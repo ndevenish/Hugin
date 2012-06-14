@@ -28,95 +28,103 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *************************************************************************/
 
-#ifndef DATASET_H
-#define DATASET_H
-
-#include <stdio.h>
+#ifndef FLANN_DATASET_H_
+#define FLANN_DATASET_H_
 
 #include "flann/general.h"
+#include <stdio.h>
 
 namespace flann
 {
 
+typedef unsigned char uchar;
+
+class Matrix_
+{
+public:
+
+	Matrix_() : rows(0), cols(0), stride(0), data(NULL)
+	{
+	};
+
+    Matrix_(void* data_, size_t rows_, size_t cols_, flann_datatype_t type, size_t stride_ = 0) :
+        rows(rows_), cols(cols_),  stride(stride_)
+    {
+    	data = static_cast<uchar*>(data_);
+    	if (stride==0) stride = flann_datatype_size(type)*cols;
+    }
+
+    /**
+     * Operator that returns a (pointer to a) row of the data.
+     */
+    inline void* operator[](size_t index) const
+    {
+        return data+index*stride;
+    }
+
+    void* ptr() const
+    {
+        return data;
+    }
+
+    size_t rows;
+    size_t cols;
+    size_t stride;
+    flann_datatype_t type;
+protected:
+    uchar* data;
+
+};
 
 
 /**
  * Class that implements a simple rectangular matrix stored in a memory buffer and
  * provides convenient matrix-like access using the [] operators.
+ *
+ * This class has the same memory structure as the un-templated class flann::Matrix_ and
+ * it's directly convertible from it.
  */
 template <typename T>
-class Matrix
+class Matrix : public Matrix_
 {
 public:
     typedef T type;
 
-    size_t rows;
-    size_t cols;
-    T* data;
-
-    Matrix() : rows(0), cols(0), data(NULL)
+    Matrix() : Matrix_()
     {
     }
 
-    Matrix(T* data_, long rows_, long cols_) :
-        rows(rows_), cols(cols_), data(data_)
+    Matrix(T* data_, size_t rows_, size_t cols_, size_t stride_ = 0) :
+    	Matrix_(data_, rows_, cols_, flann_datatype<T>::value, stride_)
     {
     }
 
     /**
      * Convenience function for deallocating the storage data.
      */
-    void free()
+    FLANN_DEPRECATED void free()
     {
-        if (data!=NULL) delete[] data;
-    }
-
-    ~Matrix()
-    {
+        fprintf(stderr, "The flann::Matrix<T>::free() method is deprecated "
+                "and it does not do any memory deallocation any more.  You are"
+                "responsible for deallocating the matrix memory (by doing"
+                "'delete[] matrix.ptr()' for example)");
     }
 
     /**
-     * Operator that return a (pointer to a) row of the data.
+     * Operator that returns a (pointer to a) row of the data.
      */
-    T* operator[](size_t index)
+    inline T* operator[](size_t index) const
     {
-        return data+index*cols;
+    	return reinterpret_cast<T*>(static_cast<uchar*>(Matrix_::data)+index*stride);
+//    	return (T*)(Matrix_::operator [](index));
     }
 
-    T* operator[](size_t index) const
+    T* ptr() const
     {
-        return data+index*cols;
-    }
-};
-
-
-class UntypedMatrix
-{
-public:
-    size_t rows;
-    size_t cols;
-    void* data;
-    flann_datatype_t type;
-
-    UntypedMatrix(void* data_, long rows_, long cols_) :
-        rows(rows_), cols(cols_), data(data_)
-    {
-    }
-
-    ~UntypedMatrix()
-    {
-    }
-
-
-    template<typename T>
-    Matrix<T> as()
-    {
-        return Matrix<T>((T*)data, rows, cols);
+    	return reinterpret_cast<T*>(Matrix_::data);
     }
 };
-
-
 
 }
 
-#endif //DATASET_H
+#endif //FLANN_DATASET_H_

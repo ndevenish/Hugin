@@ -1,20 +1,15 @@
 
-add_definitions(-D_FLANN_VERSION=1.6.11)
+add_definitions(-D_FLANN_VERSION=1.7.1)
 
-file(GLOB_RECURSE C_SOURCES *.cpp)
-file(GLOB_RECURSE CPP_SOURCES *.cpp)
-
-file(GLOB_RECURSE C_FLANN flann.cpp)
-file(GLOB_RECURSE CPP_FLANN flann_cpp.cpp)
-
-list(REMOVE_ITEM CPP_SOURCES ${C_FLANN})
-list(REMOVE_ITEM C_SOURCES ${CPP_FLANN})
+file(GLOB_RECURSE C_SOURCES flann.cpp)
+file(GLOB_RECURSE CPP_SOURCES flann_cpp.cpp)
 
 IF (${HUGIN_SHARED_LIBS})
 
 IF(CMAKE_SYSTEM_NAME STREQUAL "Linux" AND CMAKE_COMPILER_IS_GNUCC)
     add_library(flann_cpp_s STATIC ${CPP_SOURCES})
     set_target_properties(flann_cpp_s PROPERTIES COMPILE_FLAGS -fPIC)
+    set_property(TARGET flann_cpp_s PROPERTY COMPILE_DEFINITIONS FLANN_STATIC)
 
     add_library(flann_cpp SHARED "")
     target_link_libraries(flann_cpp -Wl,-whole-archive flann_cpp_s -Wl,-no-whole-archive)
@@ -39,5 +34,5 @@ ENDIF()
 
 ELSE(${HUGIN_SHARED_LIBS})
     add_library(flann_cpp STATIC ${CPP_SOURCES})
+    set_property(TARGET flann_cpp PROPERTY COMPILE_DEFINITIONS FLANN_STATIC)    
 ENDIF(${HUGIN_SHARED_LIBS})
-
