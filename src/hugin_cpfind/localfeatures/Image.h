@@ -22,6 +22,7 @@
 #define __lfeat_image_h
 
 #include "KeyPoint.h"
+#include "vigra/stdimage.hxx"
 
 namespace lfeat
 {
@@ -32,12 +33,12 @@ class IntegralImage;
 class LFIMPEX Image
 {
 public:
-    Image() : _pixels(0), _width(0), _height(0), _ii(0), _own_ii(true) {};
+    Image() : _width(0), _height(0), _ii(0) {};
 
     // Constructor from a pixel array (C style)
-    Image(double* iPixels, unsigned int iWidth, unsigned int iHeight, bool integral=false);
+    Image(vigra::DImage &img);
     // setup the integral image
-    void init(double* iPixels, unsigned int iWidth, unsigned int iHeight, bool integral=false);
+    void init(vigra::DImage &img);
 
     // cleanup
     void clean();
@@ -46,43 +47,34 @@ public:
     ~Image();
 
     // Accessors
-    inline double** 		getPixels()
-    {
-        return _pixels;
-    }
-    inline double** 		getIntegralImage()
+    inline double** getIntegralImage()
     {
         return _ii;
     }
-    inline unsigned int		getWidth()
+    inline unsigned int getWidth()
     {
         return _width;
     }
-    inline unsigned int		getHeight()
+    inline unsigned int getHeight()
     {
         return _height;
     }
 
     // allocate and deallocate integral image pixels
-    static double** 		AllocateImage(unsigned int iWidth, unsigned int iHeight);
-    static void				DeallocateImage(double** iImagePtr, unsigned int iHeight);
+    static double** AllocateImage(unsigned int iWidth, unsigned int iHeight);
+    static void DeallocateImage(double** iImagePtr, unsigned int iHeight);
 
 private:
 
     // prepare the integral image
-    void					buildIntegralImage();
-
-    // pixel data of the image
-    double**				_pixels;
+    void buildIntegralImage(vigra::DImage &img);
 
     // image size
-    unsigned int			_width;
-    unsigned int			_height;
+    unsigned int _width;
+    unsigned int _height;
 
     // integral image
-    double**				_ii; // Data of the integral image Like data[lines][rows]
-    double _own_ii;
-
+    double**_ii; // Data of the integral image Like data[lines][rows]
 };
 
 }
