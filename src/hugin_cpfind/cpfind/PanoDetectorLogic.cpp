@@ -383,7 +383,7 @@ bool PanoDetector::AnalyzeImage(ImgData& ioImgInfo, const PanoDetector& iPanoDet
 
         // Build integral image
         TRACE_IMG("Build integral image...");
-        ioImgInfo._ii.init(final_img.begin(), final_img.width(),final_img.height());
+        ioImgInfo._ii.init(final_img);
         final_img.resize(0,0);
 
         // compute distance map

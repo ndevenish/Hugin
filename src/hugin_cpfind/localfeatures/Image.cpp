@@ -26,53 +26,27 @@
 using namespace lfeat;
 using namespace std;
 
-Image::Image(double* iPixels, unsigned int iWidth, unsigned int iHeight, bool integral)
+Image::Image(vigra::DImage &img)
 {
-    init(iPixels, iWidth, iHeight, integral);
+    init(img);
 }
 
-void Image::init(double* iPixels, unsigned int iWidth, unsigned int iHeight, bool integral)
+void Image::init(vigra::DImage &img)
 {
-    typedef double* double_ptr;
     // store values
+    _width = img.width();
+    _height = img.height();
 
-    if (! integral)
-    {
-        _width = iWidth;
-        _height = iHeight;
-        _pixels = new double_ptr[iHeight];
-        _pixels[0] = iPixels;
-        for (unsigned int i=1; i <  iHeight; i++)
-        {
-            _pixels[i] = _pixels[i-1] + iWidth;
-        }
+    // allocate the integral image data
+    _ii = AllocateImage(_width + 1, _height + 1);
 
-        // allocate the integral image data
-        _ii = AllocateImage(_width + 1, _height + 1);
-        _own_ii = true;
-
-        // create the integral image
-        buildIntegralImage();
-    }
-    else
-    {
-        _width = iWidth -1;
-        _height = iHeight -1;
-        _pixels = 0;
-        // just set the integral image
-        _ii = new double_ptr[iHeight];
-        _ii[0] = iPixels;
-        for (unsigned int i=1; i <  iHeight; i++)
-        {
-            _ii[i] = _ii[i-1] + iWidth;
-        }
-        _own_ii = false;
-    }
+    // create the integral image
+    buildIntegralImage(img);
 }
 
 void Image::clean()
 {
-    if (_ii && _own_ii)
+    if (_ii)
     {
         DeallocateImage(_ii, _height + 1);
     }
@@ -81,20 +55,14 @@ void Image::clean()
         delete[] _ii;
     }
     _ii = 0;
-    if (_pixels)
-    {
-        delete[] _pixels;
-    }
-    _pixels = 0;
 }
-
 
 Image::~Image()
 {
     clean();
 }
 
-void Image::buildIntegralImage()
+void Image::buildIntegralImage(vigra::DImage &img)
 {
     // to make easier the later computation, shift the image by 1 pix (x and y)
     // so the image has a size of +1 for width and height compared to orig image.
@@ -115,7 +83,7 @@ void Image::buildIntegralImage()
     for(unsigned int i = 1; i <= _height; ++i)
         for(unsigned int j = 1; j <= _width; ++j)
         {
-            _ii[i][j] = _pixels[i-1][j-1] + _ii[i-1][j] + _ii[i][j-1] - _ii[i-1][j-1];
+            _ii[i][j] = img[i-1][j-1] + _ii[i-1][j] + _ii[i][j-1] - _ii[i-1][j-1];
         }
 
 }
@@ -145,6 +113,4 @@ void Image::DeallocateImage(double** iImagePtr, unsigned int iHeight)
 
     // delete the lines holder
     delete[] iImagePtr;
-
 }
-
