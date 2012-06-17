@@ -7,7 +7,7 @@
         <object class="wxBoxSizer">
           <object class="sizeritem">
             <object class="ImagesListMask" name="mask_editor_images_list"/>
-            <option>1</option>
+            <option>2</option>
             <flag>wxALL|wxEXPAND</flag>
             <border>5</border>
           </object>
@@ -332,7 +332,7 @@
                 <label>Crop</label>
               </object>
             </object>
-            <option>2</option>
+            <option>3</option>
             <flag>wxEXPAND</flag>
           </object>
           <orient>wxVERTICAL</orient>
