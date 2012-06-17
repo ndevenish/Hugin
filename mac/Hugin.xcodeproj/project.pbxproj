@@ -1850,11 +1850,7 @@
 		73C0DC30104707E000CB55B7 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 739F846B0EC75402004771D6 /* OpenGL.framework */; };
 		73C5F72B12E215C00033A6E1 /* flann_mpi.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 73C5F70F12E212910033A6E1 /* flann_mpi.hpp */; };
 		73C5F7B112E2DD160033A6E1 /* flann_cpp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73C5F71012E212910033A6E1 /* flann_cpp.cpp */; };
-		73C5F80E12E2F9560033A6E1 /* logger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73C5F6F812E212910033A6E1 /* logger.cpp */; };
-		73C5F80F12E2F9560033A6E1 /* random.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73C5F6FD12E212910033A6E1 /* random.cpp */; };
-		73C5F81012E2F9560033A6E1 /* saving.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73C5F70112E212910033A6E1 /* saving.cpp */; };
 		73C5F82412E2FAE20033A6E1 /* flann_cpp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73C5F7A412E2DC490033A6E1 /* flann_cpp.framework */; };
-		73C5F84F12E2FFBB0033A6E1 /* index_testing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73C5F70612E212910033A6E1 /* index_testing.cpp */; };
 		73C5F87F12E309F20033A6E1 /* flann_cpp.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 73C5F7A412E2DC490033A6E1 /* flann_cpp.framework */; };
 		73C958FA0DA2C9DB00E19110 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 579895AB068E3002009F90BF /* libz.dylib */; };
 		73C959160DA2CA1300E19110 /* tca_correct.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 736FD2C80DA158A2009A47C2 /* tca_correct.cpp */; };
@@ -12835,10 +12831,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				73C5F7B112E2DD160033A6E1 /* flann_cpp.cpp in Sources */,
-				73C5F80E12E2F9560033A6E1 /* logger.cpp in Sources */,
-				73C5F80F12E2F9560033A6E1 /* random.cpp in Sources */,
-				73C5F81012E2F9560033A6E1 /* saving.cpp in Sources */,
-				73C5F84F12E2FFBB0033A6E1 /* index_testing.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -14118,7 +14110,7 @@
 				STRIP_STYLE = "non-global";
 				WX_ARCH = "$(RELEASE_ARCHS_32) $(RELEASE_ARCHS_64)";
 				WX_INCLUDE_DIR = "$(REPOSITORY_DIR)/include/wx-$(WX_MAJOR_VERSION)";
-				WX_INCLUDE_DIR_LIB = "$(REPOSITORY_DIR)/lib/wx/include/mac-unicode-release-$(WX_MAJOR_VERSION)";
+				WX_INCLUDE_DIR_LIB = "$(REPOSITORY_DIR)/lib/wx/include/osx_cocoa-unicode-release-$(WX_MAJOR_VERSION)";
 				ZERO_LINK = NO;
 			};
 			name = Release;
@@ -14805,7 +14797,6 @@
 			buildSettings = {
 				HEADER_SEARCH_PATHS = (
 					/usr/include,
-					/Developer/Headers/FlatCarbon,
 					"$(REPOSITORY_DIR)/include",
 					"$(REPOSITORY_DIR)/include/OpenEXR",
 					"$(REPOSITORY_DIR)/include/GL",
@@ -16192,10 +16183,11 @@
 				GCC_PREFIX_HEADER = "";
 				HEADER_SEARCH_PATHS = (
 					../src/hugin_cpfind,
-					/Developer/Headers/FlatCarbon,
 					"$(REPOSITORY_DIR)/include",
 					"$(REPOSITORY_DIR)/include/OpenEXR",
 					../src,
+					../src/foreign,
+					../src/foreign/vigra,
 				);
 				INFOPLIST_FILE = "../mac/localfeatures-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
@@ -18556,7 +18548,6 @@
 				HEADER_SEARCH_PATHS = (
 					../src/foreign,
 					../src/foreign/flann,
-					/Developer/Headers/FlatCarbon,
 					"$(REPOSITORY_DIR)/include",
 					../src,
 				);
