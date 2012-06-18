@@ -1056,7 +1056,6 @@ void MaskImageCtrl::DrawCrop(wxDC & dc)
         // draw all areas without fillings
         dc.SetBrush(*wxTRANSPARENT_BRUSH);
         dc.SetLogicalFunction (wxINVERT);
-		dc.SetPen(*wxBLACK_PEN);
         wxPoint middle=transform(applyRot((m_cropRect.lowerRight()+m_cropRect.upperLeft())/2));
 
         int c = 8; // size of midpoint cross
