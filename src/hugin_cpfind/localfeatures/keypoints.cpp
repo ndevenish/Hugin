@@ -185,7 +185,7 @@ bool DetectKeypoints ( const std::string& imgfile, bool downscale,
         TRACE_IMG ( "Build integral image..." );
         // create integral image
         lfeat::Image img;
-        img.init ( aImageDouble.begin(), aImageDouble.width(), aImageDouble.height() );
+        img.init ( aImageDouble );
 
         KeyPointVect_t kp;
         KeyPointVectInsertor aInsertor = KeyPointVectInsertor ( kp );
