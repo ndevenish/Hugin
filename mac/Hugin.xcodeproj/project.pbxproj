@@ -349,7 +349,6 @@
 		574092C10C3943D000D16607 /* Stitcher3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57237F4A0C391053005818A4 /* Stitcher3.cpp */; };
 		574092C20C3943D000D16607 /* Stitcher4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57237F4B0C391053005818A4 /* Stitcher4.cpp */; };
 		57525A390C54BCCB00BF8096 /* nona_gui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 57E330BF0C4A87F2006AA781 /* nona_gui.cpp */; };
-		57525A3C0C54BCEA00BF8096 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5749FA9B067B80F000A6EDD4 /* Carbon.framework */; };
 		57525A410C54BCEA00BF8096 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989581068E2FD7009F90BF /* libiconv.dylib */; };
 		57525A420C54BCEA00BF8096 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 579895AB068E3002009F90BF /* libz.dylib */; };
 		57525A430C54BCEA00BF8096 /* libmx.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57D55913067BDB84005E4CCD /* libmx.dylib */; };
@@ -754,7 +753,6 @@
 		57D3832B0E236B1D00445A37 /* libhugin_levmar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5720E47A0BD456CD00E63404 /* libhugin_levmar.a */; };
 		57D3832C0E236B1D00445A37 /* libhugin_nona.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5740922A0C393E6600D16607 /* libhugin_nona.a */; };
 		57D3832D0E236B1D00445A37 /* libhugin_math.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5771F77A0C30216F00736343 /* libhugin_math.a */; };
-		57D50A390F595A6300CCDCB5 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5749FA9B067B80F000A6EDD4 /* Carbon.framework */; };
 		57D50A3B0F595A6300CCDCB5 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989581068E2FD7009F90BF /* libiconv.dylib */; };
 		57D50A3C0F595A6300CCDCB5 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 579895AB068E3002009F90BF /* libz.dylib */; };
 		57D50A3D0F595A6300CCDCB5 /* libmx.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57D55913067BDB84005E4CCD /* libmx.dylib */; };
@@ -1212,7 +1210,6 @@
 		737D5ED5139BA43800829EED /* PTBatcherGui.icns in Resources */ = {isa = PBXBuildFile; fileRef = 731DBF1A129D846500793A38 /* PTBatcherGui.icns */; };
 		737E1C190EC9EC0300BA4D9B /* hugin_config.h in Headers */ = {isa = PBXBuildFile; fileRef = 737E1C180EC9EC0300BA4D9B /* hugin_config.h */; };
 		737E48B411D3F8C6002BA8AE /* hugin_stitch_project.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 575670980D089B1F00344F55 /* hugin_stitch_project.cpp */; };
-		737E48B611D3F8C6002BA8AE /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5749FA9B067B80F000A6EDD4 /* Carbon.framework */; };
 		737E48B811D3F8C6002BA8AE /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989581068E2FD7009F90BF /* libiconv.dylib */; };
 		737E48B911D3F8C6002BA8AE /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 579895AB068E3002009F90BF /* libz.dylib */; };
 		737E48BA11D3F8C6002BA8AE /* libmx.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57D55913067BDB84005E4CCD /* libmx.dylib */; };
@@ -1283,7 +1280,6 @@
 		737E495B11D3FD74002BA8AE /* MaskEditorPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 738A773A112B4507004E3612 /* MaskEditorPanel.cpp */; };
 		737E495C11D3FD74002BA8AE /* MaskImageCtrl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 738A773C112B4507004E3612 /* MaskImageCtrl.cpp */; };
 		737E495D11D3FD74002BA8AE /* MaskLoadDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 730B1AE91139B2B20014462B /* MaskLoadDialog.cpp */; };
-		737E495F11D3FD74002BA8AE /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5749FA9B067B80F000A6EDD4 /* Carbon.framework */; };
 		737E496111D3FD74002BA8AE /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989581068E2FD7009F90BF /* libiconv.dylib */; };
 		737E496211D3FD74002BA8AE /* libintl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7368E40A1083930D00519ED0 /* libintl.dylib */; };
 		737E496311D3FD74002BA8AE /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 579895AB068E3002009F90BF /* libz.dylib */; };
@@ -1589,7 +1585,6 @@
 		739286A014225FDB0051CAEC /* HtmlWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 733AC12E131AFE1600D276B9 /* HtmlWindow.cpp */; };
 		739286A114225FDB0051CAEC /* PluginItems.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73A8A3BB13F58BDF00BB58F2 /* PluginItems.cpp */; };
 		739286A414225FDB0051CAEC /* hugin_python_interface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73B1AD0613A6A0B0006A3C54 /* hugin_python_interface.framework */; };
-		739286A514225FDB0051CAEC /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5749FA9B067B80F000A6EDD4 /* Carbon.framework */; };
 		739286A614225FDB0051CAEC /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989581068E2FD7009F90BF /* libiconv.dylib */; };
 		739286A714225FDB0051CAEC /* libintl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7368E40A1083930D00519ED0 /* libintl.dylib */; };
 		739286A814225FDB0051CAEC /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 579895AB068E3002009F90BF /* libz.dylib */; };
@@ -1901,7 +1896,6 @@
 		73DFBC98139B516C00558A2D /* FindN8Lines.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73DFBC93139B516C00558A2D /* FindN8Lines.cpp */; };
 		73DFBC99139B516C00558A2D /* FindLines.h in Headers */ = {isa = PBXBuildFile; fileRef = 73DFBC94139B516C00558A2D /* FindLines.h */; };
 		73DFBC9A139B516C00558A2D /* FindLines.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73DFBC95139B516C00558A2D /* FindLines.cpp */; };
-		73DFBD7B139B69E900558A2D /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5749FA9B067B80F000A6EDD4 /* Carbon.framework */; };
 		73DFBD7C139B69E900558A2D /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57989581068E2FD7009F90BF /* libiconv.dylib */; };
 		73DFBD7D139B69E900558A2D /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 579895AB068E3002009F90BF /* libz.dylib */; };
 		73DFBD7E139B69E900558A2D /* libmx.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57D55913067BDB84005E4CCD /* libmx.dylib */; };
@@ -5519,7 +5513,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				57525A3C0C54BCEA00BF8096 /* Carbon.framework in Frameworks */,
 				57525A410C54BCEA00BF8096 /* libiconv.dylib in Frameworks */,
 				57525A420C54BCEA00BF8096 /* libz.dylib in Frameworks */,
 				57525A430C54BCEA00BF8096 /* libmx.dylib in Frameworks */,
@@ -5820,7 +5813,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				57D50A390F595A6300CCDCB5 /* Carbon.framework in Frameworks */,
 				57D50A3B0F595A6300CCDCB5 /* libiconv.dylib in Frameworks */,
 				73406703125BB8FA00FC4790 /* libexiv2.dylib in Frameworks */,
 				57D50A3C0F595A6300CCDCB5 /* libz.dylib in Frameworks */,
@@ -6180,7 +6172,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				737E48B611D3F8C6002BA8AE /* Carbon.framework in Frameworks */,
 				737E48B811D3F8C6002BA8AE /* libiconv.dylib in Frameworks */,
 				737E48B911D3F8C6002BA8AE /* libz.dylib in Frameworks */,
 				737E48BA11D3F8C6002BA8AE /* libmx.dylib in Frameworks */,
@@ -6213,7 +6204,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				737E495F11D3FD74002BA8AE /* Carbon.framework in Frameworks */,
 				737E496111D3FD74002BA8AE /* libiconv.dylib in Frameworks */,
 				737E496211D3FD74002BA8AE /* libintl.dylib in Frameworks */,
 				737E496311D3FD74002BA8AE /* libz.dylib in Frameworks */,
@@ -6305,7 +6295,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				739286A414225FDB0051CAEC /* hugin_python_interface.framework in Frameworks */,
-				739286A514225FDB0051CAEC /* Carbon.framework in Frameworks */,
 				739286A614225FDB0051CAEC /* libiconv.dylib in Frameworks */,
 				739286A714225FDB0051CAEC /* libintl.dylib in Frameworks */,
 				739286A814225FDB0051CAEC /* libz.dylib in Frameworks */,
@@ -6640,7 +6629,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				73DFBD7B139B69E900558A2D /* Carbon.framework in Frameworks */,
 				73DFBD7C139B69E900558A2D /* libiconv.dylib in Frameworks */,
 				73DFBD7D139B69E900558A2D /* libz.dylib in Frameworks */,
 				73DFBD7E139B69E900558A2D /* libmx.dylib in Frameworks */,
