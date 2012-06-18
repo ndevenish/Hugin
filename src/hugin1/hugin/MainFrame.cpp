@@ -120,6 +120,7 @@ END_EVENT_TABLE()
 bool PanoDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& filenames)
 {
     DEBUG_TRACE("OnDropFiles");
+	wxMessageBox(filenames[0]);
     MainFrame * mf = MainFrame::Get();
     if (!mf) return false;
 

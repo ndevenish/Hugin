@@ -31,7 +31,9 @@
 #if defined __WXMAC__ || defined __WXOSX_COCOA__
 
 #include <CoreFoundation/CFBundle.h>
-#include "wx/osx/core/cfstring.h"
+#if wxCHECK_VERSION(2,9,0)
+ #include "wx/osx/core/cfstring.h"
+#endif
 #include <iostream>
 #include <stdio.h>
 #include "wx/utils.h"
@@ -93,7 +95,11 @@ wxString MacGetPathToMainExecutableFileOfBundle(CFStringRef bundlePath)
                 else
                 {
                     CFRetain( pathInCFString );
-                    theResult =  wxCFStringRef(pathInCFString).AsString(wxLocale::GetSystemEncoding());
+                    #if wxCHECK_VERSION(2,9,0)
+                      theResult =  wxCFStringRef(pathInCFString).AsString(wxLocale::GetSystemEncoding());
+                    #else
+                      theResult =  wxMacCFStringHolder(pathInCFString).AsString(wxLocale::GetSystemEncoding());
+                    #endif
                     DEBUG_INFO("Mac: the executable's full path in the application bundle: " << theResult.mb_str(wxConvLocal));
                 }
             }
@@ -164,7 +170,11 @@ wxString MacGetPathToMainExecutableFileOfRegisteredBundle(CFStringRef BundleIden
                 else
                 {
                     CFRetain( pathInCFString );
-                    theResult =  wxCFStringRef(pathInCFString).AsString(wxLocale::GetSystemEncoding());
+                    #if wxCHECK_VERSION(2,9,0)
+                      theResult =  wxCFStringRef(pathInCFString).AsString(wxLocale::GetSystemEncoding());
+                    #else
+                      theResult =  wxMacCFStringHolder(pathInCFString).AsString(wxLocale::GetSystemEncoding());
+                    #endif
                     DEBUG_INFO("Mac: the executable's full path in the application bundle: " << theResult.mb_str(wxConvLocal));
                 }
             }
@@ -229,7 +239,11 @@ wxString MacGetPathToBundledAppMainExecutableFile(CFStringRef appname)
                         else
                         {
                             CFRetain( pathInCFString );
-                            theResult =  wxCFStringRef(pathInCFString).AsString(wxLocale::GetSystemEncoding());
+                            #if wxCHECK_VERSION(2,9,0)
+                              theResult =  wxCFStringRef(pathInCFString).AsString(wxLocale::GetSystemEncoding());
+                            #else
+                              theResult =  wxMacCFStringHolder(pathInCFString).AsString(wxLocale::GetSystemEncoding());
+                            #endif
                             DEBUG_INFO("Mac: the executable's full path in the application bundle: " << theResult.mb_str(wxConvLocal));
                         }
                     }
@@ -267,7 +281,11 @@ wxString MacGetPathToBundledResourceFile(CFStringRef filename)
             else
             {
                 CFRetain( pathInCFString );
-                theResult = wxCFStringRef(pathInCFString).AsString(wxLocale::GetSystemEncoding());
+                #if wxCHECK_VERSION(2,9,0)
+                  theResult = wxCFStringRef(pathInCFString).AsString(wxLocale::GetSystemEncoding());
+                #else
+                  theResult = wxMacCFStringHolder(pathInCFString).AsString(wxLocale::GetSystemEncoding());
+                #endif
                 DEBUG_INFO("Mac: the resource file's path in the application bundle: " << theResult.mb_str(wxConvLocal));
             }
         }
@@ -309,7 +327,11 @@ wxString MacGetPathToBundledExecutableFile(CFStringRef filename)
                 else
                 {
                     CFRetain( pathInCFString );
-                    theResult =  wxCFStringRef(pathInCFString).AsString(wxLocale::GetSystemEncoding());
+                    #if wxCHECK_VERSION(2,9,0)
+                      theResult =  wxCFStringRef(pathInCFString).AsString(wxLocale::GetSystemEncoding());
+                    #else
+                      theResult =  wxMacCFStringHolder(pathInCFString).AsString(wxLocale::GetSystemEncoding());
+                    #endif
                     DEBUG_INFO("Mac: executable's full path in the application bundle: " << theResult.mb_str(wxConvLocal));
                 }
             }
@@ -332,7 +354,11 @@ wxString MacGetPathToUserDomainTempDir()
         {
             CFStringRef tmpPath = CFURLCopyFileSystemPath(tempDirURL, kCFURLPOSIXPathStyle);
             CFRetain(tmpPath);
-            tmpDirPath = wxCFStringRef(tmpPath).AsString(wxLocale::GetSystemEncoding());
+            #if wxCHECK_VERSION(2,9,0)
+              tmpDirPath = wxCFStringRef(tmpPath).AsString(wxLocale::GetSystemEncoding());
+            #else
+              tmpDirPath = wxMacCFStringHolder(tmpPath).AsString(wxLocale::GetSystemEncoding());
+            #endif
             
             CFRelease(tempDirURL);
         }
@@ -354,7 +380,11 @@ wxString MacGetPathToUserAppSupportAutoPanoFolder()
         CFURLRef autopanoURL = CFURLCreateCopyAppendingPathComponent(kCFAllocatorDefault,appSupportHugin,CFSTR("Autopano"),true);
         CFStringRef tmpPath = CFURLCopyFileSystemPath(autopanoURL,  kCFURLPOSIXPathStyle);
         CFRetain(tmpPath);
-        appSupportAutoPanoFolder = wxCFStringRef(tmpPath).AsString(wxLocale::GetSystemEncoding());
+        #if wxCHECK_VERSION(2,9,0)
+          appSupportAutoPanoFolder = wxCFStringRef(tmpPath).AsString(wxLocale::GetSystemEncoding());
+        #else
+          appSupportAutoPanoFolder = wxMacCFStringHolder(tmpPath).AsString(wxLocale::GetSystemEncoding());
+        #endif
 
         CFRelease(autopanoURL);
     }

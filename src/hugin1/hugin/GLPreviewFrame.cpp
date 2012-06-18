@@ -183,10 +183,24 @@ BEGIN_EVENT_TABLE(GLPreviewFrame, wxFrame)
     EVT_CHOICE(XRCID("preview_guide_choice_proj"), GLPreviewFrame::OnGuideChanged)
     EVT_MENU(XRCID("action_show_overview"), GLPreviewFrame::OnOverviewToggle)
     EVT_CHECKBOX(XRCID("preview_show_grid"), GLPreviewFrame::OnSwitchPreviewGrid)
-    EVT_COMMAND_SCROLL(XRCID("layout_scale_slider"), GLPreviewFrame::OnLayoutScaleChange)
+#ifndef __WXMAC__
+	EVT_COMMAND_SCROLL(XRCID("layout_scale_slider"), GLPreviewFrame::OnLayoutScaleChange)
 	EVT_SCROLL_CHANGED(GLPreviewFrame::OnChangeFOV)
 	EVT_COMMAND_SCROLL_CHANGED(XRCID("layout_scale_slider"), GLPreviewFrame::OnLayoutScaleChange)
-    EVT_SCROLL_THUMBTRACK(GLPreviewFrame::OnTrackChangeFOV)
+#else
+ #if wxCHECK_VERSION(2,9,0)
+	EVT_COMMAND_SCROLL(XRCID("layout_scale_slider"), GLPreviewFrame::OnLayoutScaleChange)
+	EVT_SCROLL_CHANGED(GLPreviewFrame::OnChangeFOV)
+	EVT_COMMAND_SCROLL_CHANGED(XRCID("layout_scale_slider"), GLPreviewFrame::OnLayoutScaleChange)
+ #else
+	EVT_SCROLL_THUMBRELEASE(GLPreviewFrame::OnChangeFOV)
+	EVT_SCROLL_ENDSCROLL(GLPreviewFrame::OnChangeFOV)
+	EVT_COMMAND_SCROLL_THUMBRELEASE(XRCID("layout_scale_slider"), GLPreviewFrame::OnLayoutScaleChange)
+	EVT_COMMAND_SCROLL_ENDSCROLL(XRCID("layout_scale_slider"), GLPreviewFrame::OnLayoutScaleChange)
+	EVT_COMMAND_SCROLL_THUMBTRACK(XRCID("layout_scale_slider"), GLPreviewFrame::OnLayoutScaleChange)
+ #endif
+#endif
+	EVT_SCROLL_THUMBTRACK(GLPreviewFrame::OnTrackChangeFOV)
     EVT_TEXT_ENTER(XRCID("pano_text_hfov"), GLPreviewFrame::OnHFOVChanged )
     EVT_TEXT_ENTER(XRCID("pano_text_vfov"), GLPreviewFrame::OnVFOVChanged )
     EVT_TEXT_ENTER(XRCID("pano_val_roi_left"), GLPreviewFrame::OnROIChanged)

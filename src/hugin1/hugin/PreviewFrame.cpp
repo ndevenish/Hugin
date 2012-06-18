@@ -96,8 +96,18 @@ BEGIN_EVENT_TABLE(PreviewFrame, wxFrame)
 #else
     EVT_CHECKBOX(-1, PreviewFrame::OnChangeDisplayedImgs)
 #endif
+#ifndef __WXMAC__
 	EVT_SCROLL_CHANGED(PreviewFrame::OnChangeFOV)
-    EVT_TOOL(ID_FULL_SCREEN, PreviewFrame::OnFullScreen)
+#else
+ #if wxCHECK_VERSION(2,9,0)
+	EVT_SCROLL_CHANGED(PreviewFrame::OnChangeFOV)
+ #else
+	EVT_SCROLL_THUMBRELEASE(PreviewFrame::OnChangeFOV)
+	EVT_SCROLL_ENDSCROLL(PreviewFrame::OnChangeFOV)
+	EVT_SCROLL_THUMBTRACK(PreviewFrame::OnChangeFOV)
+ #endif
+#endif
+	EVT_TOOL(ID_FULL_SCREEN, PreviewFrame::OnFullScreen)
     EVT_TOOL(ID_UNDO, PreviewFrame::OnUndo)
     EVT_TOOL(ID_REDO, PreviewFrame::OnRedo)
     EVT_BUTTON(PROJ_PARAM_RESET_ID, PreviewFrame::OnProjParameterReset)
