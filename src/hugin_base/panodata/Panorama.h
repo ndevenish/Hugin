@@ -701,7 +701,7 @@ class IMPEX Panorama : public ManagedPanoramaData, public AppBase::DocumentData
         bool dirty;
 
         PanoramaMemento state;
-        std::set<PanoramaObserver *> observers;
+        std::list<PanoramaObserver *> observers;
         /// the images that have been changed since the last changeFinished()
         UIntSet changedImages;
 

@@ -1105,7 +1105,7 @@ void Panorama::changeFinished(bool keepDirty)
     //update masks
     updateMasks();
     updateOptimizeVector();
-    std::set<PanoramaObserver *>::iterator it;
+    std::list<PanoramaObserver *>::iterator it;
     for(it = observers.begin(); it != observers.end(); ++it) {
         DEBUG_TRACE("notifying listener");
         if (changedImages.size() > 0 || m_forceImagesUpdate) {
@@ -1768,12 +1768,14 @@ void Panorama::setOptions(const PanoramaOptions & opt)
 
 void Panorama::addObserver(PanoramaObserver * o)
 {
-    observers.insert(o);
+    observers.push_back(o);
 }
 
 bool Panorama::removeObserver(PanoramaObserver * o)
 {
-    return observers.erase(o) > 0;
+    size_t oldCount=observers.size();
+    observers.remove(o);
+    return observers.size()!=oldCount;
 }
 
 void Panorama::clearObservers()
