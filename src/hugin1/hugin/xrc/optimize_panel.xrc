@@ -27,10 +27,9 @@
                   <object class="sizeritem">
                     <object class="wxBoxSizer">
                       <object class="sizeritem">
-                        <object class="wxStaticText">
-                          <label>Any variables below which are bold and underlined will be optimized. Use control/command + left mouse click click to toggle state of variables.
-Variables which shown in normal font will act as references or anchors.</label>
-                        </object>
+                        <object class="wxStaticText" name="optimizer_panel_information_text"/>
+                        <option>1</option>
+                        <flag>wxEXPAND</flag>
                       </object>
                       <object class="spacer">
                         <size>-1,12</size>

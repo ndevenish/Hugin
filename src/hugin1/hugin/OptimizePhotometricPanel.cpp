@@ -91,6 +91,17 @@ bool OptimizePhotometricPanel::Create(wxWindow *parent, wxWindowID id, const wxP
 
     XRCCTRL(*this, "optimize_photo_panel_splitter", wxSplitterWindow)->SetSashGravity(0.66);
 
+    wxString text(_("Any variables below which are bold and underlined will be optimized."));
+    text.Append(wxT(" "));
+#if defined __WXMAC__ || defined __WXOSX_COCOA__
+    text.Append(_("Use command + left mouse click click to toggle state of variables."));
+#else
+    text.Append(_("Use control + left mouse click click to toggle state of variables."));
+#endif
+    text.Append(wxT(" "));
+    text.Append(_("Variables which shown in normal font will act as references or anchors."));
+    XRCCTRL(*this, "optimize_photo_panel_information_text", wxStaticText)->SetLabel(text);
+
     return true;
 }
 
