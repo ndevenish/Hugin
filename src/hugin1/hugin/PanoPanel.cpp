@@ -964,37 +964,34 @@ void PanoPanel::DoCalcOptimalWidth(wxCommandEvent & e)
 void PanoPanel::DoCalcOptimalROI(wxCommandEvent & e)
 {
     DEBUG_INFO("Dirty ROI Calc\n");
-    if (pano->getActiveImages().size() == 0) return;
-    ProgressReporterDialog progress(2, _("Autocrop"), _("Calculating optimal crop"),this, wxPD_AUTO_HIDE | wxPD_APP_MODAL | wxPD_ELAPSED_TIME);
-    progress.increaseProgress(1);
-    progress.Pulse();
+    if (pano->getActiveImages().size() == 0)
+    {
+        return;
+    };
 
-    //unsigned int left,top,right,bottom;
     vigra::Rect2D newROI;
     vigra::Size2D newSize;
-    
-    pano->calcOptimalROI(newROI,newSize);
-    
-    
+    {
+        ProgressReporterDialog progress(2, _("Autocrop"), _("Calculating optimal crop"), this, wxPD_AUTO_HIDE | wxPD_APP_MODAL | wxPD_ELAPSED_TIME);
+        progress.increaseProgress(1);
+        progress.Pulse();
+        pano->calcOptimalROI(newROI,newSize);
+    };
+#ifdef __WXMSW__
+    //try to workaround an issue that the main window lost it focus after wxProgressDialog is destroyed
+    MainFrame::Get()->Raise();
+#endif
+
     PanoramaOptions opt = pano->getOptions();
-    
-    DEBUG_INFO ( "ROI: left: " << opt.getROI().left() << "  top: " << opt.getROI().top() << " right: " << opt.getROI().right() << "  bottom: " << opt.getROI().bottom()  << "  before update");
-    
     //set the ROI - fail if the right/bottom is zero, meaning all zero
     if(newROI.right() != 0 && newROI.bottom() != 0)
     {
-        //opt.setWidth(newSize.x);
-        //opt.setHeight(newSize.y);
         opt.setROI(newROI);
-
         GlobalCmdHist::getInstance().addCommand(
             new PT::SetPanoOptionsCmd( *pano, opt )
             );
-    }
-    PanoramaOptions opt2 = pano->getOptions();
-    DEBUG_INFO ( "ROI: left: " << opt2.getROI().left() << "  top: " << opt2.getROI().top() << " right: " << opt2.getROI().right() << "  bottom: " << opt2.getROI().bottom()  << "  after update");
-    
-}
+    };
+};
 
 void PanoPanel::DoStitch()
 {

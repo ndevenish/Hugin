@@ -2527,75 +2527,65 @@ void GLPreviewFrame::FillBlendChoice()
 void GLPreviewFrame::OnAutocrop(wxCommandEvent &e)
 {
     DEBUG_INFO("Dirty ROI Calc\n");
-    if (m_pano.getActiveImages().size() == 0) return;
+    if (m_pano.getActiveImages().size() == 0)
+    {
+        return;
+    };
 
-    ProgressReporterDialog progress(2, _("Autocrop"), _("Calculating optimal crop"),this, wxPD_AUTO_HIDE | wxPD_APP_MODAL | wxPD_ELAPSED_TIME);
-    progress.increaseProgress(1);
-    progress.Pulse();
-    
     vigra::Rect2D newROI;
-    vigra::Size2D newSize;
-    
-    m_pano.calcOptimalROI(newROI, newSize);
-    
+    {
+        ProgressReporterDialog progress(2, _("Autocrop"), _("Calculating optimal crop"),this, wxPD_AUTO_HIDE | wxPD_APP_MODAL | wxPD_ELAPSED_TIME);
+        progress.increaseProgress(1);
+        progress.Pulse();
+        vigra::Size2D newSize;
+        m_pano.calcOptimalROI(newROI, newSize);
+    };
+#ifdef __WXMSW__
+    //try to workaround an issue that the main window lost it focus after wxProgressDialog is destroyed
+    Raise();
+#endif
+
     PanoramaOptions opt = m_pano.getOptions();
-    
-    DEBUG_INFO (   "ROI: left: " << opt.getROI().left()
-                << " top: " << opt.getROI().top()
-                << " right: " << opt.getROI().right()
-                << " bottom: " << opt.getROI().bottom() << " before update");
-    
     //set the ROI - fail if the right/bottom is zero, meaning all zero
     if(newROI.right() != 0 && newROI.bottom() != 0)
     {
         opt.setROI(newROI);
-
         GlobalCmdHist::getInstance().addCommand(
             new PT::SetPanoOptionsCmd(m_pano, opt )
             );
     }
-    PanoramaOptions opt2 = m_pano.getOptions();
-    DEBUG_INFO (   "ROI: left: " << opt2.getROI().left()
-                << " top: " << opt2.getROI().top()
-                << " right: " << opt2.getROI().right()
-                << " bottom: " << opt2.getROI().bottom() << " after update");
 }
 
 void GLPreviewFrame::OnStackAutocrop(wxCommandEvent &e)
 {
     DEBUG_INFO("Dirty ROI Calc\n");
-    if (m_pano.getActiveImages().size() == 0) return;
+    if (m_pano.getActiveImages().size() == 0)
+    {
+        return;
+    };
 
-    ProgressReporterDialog progress(2, _("Autocrop"), _("Calculating optimal crop"),this, wxPD_AUTO_HIDE | wxPD_APP_MODAL | wxPD_ELAPSED_TIME);
-    progress.increaseProgress(1);
-    progress.Pulse();
-    
     vigra::Rect2D newROI;
-    vigra::Size2D newSize;
-    
-    m_pano.calcOptimalStackROI(newROI, newSize);
-    
+    {
+        ProgressReporterDialog progress(2, _("Autocrop"), _("Calculating optimal crop"),this, wxPD_AUTO_HIDE | wxPD_APP_MODAL | wxPD_ELAPSED_TIME);
+        progress.increaseProgress(1);
+        progress.Pulse();
+        vigra::Size2D newSize;
+        m_pano.calcOptimalStackROI(newROI, newSize);
+    };
+#ifdef __WXMSW__
+    //try to workaround an issue that the main window lost it focus after wxProgressDialog is destroyed
+    Raise();
+#endif
+
     PanoramaOptions opt = m_pano.getOptions();
-    
-    DEBUG_INFO (   "ROI: left: " << opt.getROI().left()
-                << " top: " << opt.getROI().top()
-                << " right: " << opt.getROI().right()
-                << " bottom: " << opt.getROI().bottom() << " before update");
-    
     //set the ROI - fail if the right/bottom is zero, meaning all zero
     if(newROI.right() != 0 && newROI.bottom() != 0)
     {
         opt.setROI(newROI);
-
         GlobalCmdHist::getInstance().addCommand(
             new PT::SetPanoOptionsCmd(m_pano, opt )
             );
     }
-    PanoramaOptions opt2 = m_pano.getOptions();
-    DEBUG_INFO (   "ROI: left: " << opt2.getROI().left()
-                << " top: " << opt2.getROI().top()
-                << " right: " << opt2.getROI().right()
-                << " bottom: " << opt2.getROI().bottom() << " after update");
 }
 
 void GLPreviewFrame::OnFullScreen(wxCommandEvent & e)
