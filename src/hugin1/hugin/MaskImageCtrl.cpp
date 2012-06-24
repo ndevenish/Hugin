@@ -34,6 +34,9 @@
 #include "hugin/MaskImageCtrl.h"
 #include "hugin/MaskEditorPanel.h"
 #include "base_wx/wxImageCache.h"
+#ifndef SUPPORTS_WXINVERT
+#include <vigra/inspectimage.hxx>
+#endif
 
 using namespace hugin_utils;
 
@@ -376,7 +379,9 @@ void MaskImageCtrl::OnMouseMove(wxMouseEvent& mouse)
         case POLYGON_SELECTING:
         case REGION_SELECTING:
         case POINTS_DELETING:
+#if defined SUPPORTS_WXINVERT
             DrawSelectionRectangle();
+#endif
             m_currentPos=mpos;
             DrawSelectionRectangle();
             break;
@@ -444,10 +449,16 @@ void MaskImageCtrl::OnMouseMove(wxMouseEvent& mouse)
         case CROP_TOP_MOVING:
         case CROP_BOTTOM_MOVING:
         case CROP_CIRCLE_SCALING:
+#if defined SUPPORTS_WXINVERT
             DrawCrop();
+#else
+            doUpdate=true;
+#endif
             UpdateCrop(currentPos);
             m_currentPos=mpos;
+#if defined SUPPORTS_WXINVERT
             DrawCrop();
+#endif
             m_editPanel->UpdateCropFromImage();
             break;
     };
@@ -582,9 +593,14 @@ void MaskImageCtrl::OnLeftMouseDown(wxMouseEvent& mouse)
             {
                 if(m_cropMode==SrcPanoImage::NO_CROP && m_cropCircle)
                 {
+#if defined SUPPORTS_WXINVERT
                     DrawCrop();
                     m_cropMode=SrcPanoImage::CROP_CIRCLE;
                     DrawCrop();
+#else
+                    m_cropMode=SrcPanoImage::CROP_CIRCLE;
+                    update();
+#endif
                 };
             };
             break;
@@ -638,7 +654,11 @@ void MaskImageCtrl::OnLeftMouseUp(wxMouseEvent& mouse)
         case POLYGON_SELECTING:
             if(HasCapture())
                 ReleaseMouse();
+#if defined SUPPORTS_WXINVERT
             DrawSelectionRectangle();
+#else
+            doUpdate=true;
+#endif
             m_currentPos=mpos;
             m_maskEditState=NO_SELECTION;
             {
@@ -700,8 +720,15 @@ void MaskImageCtrl::OnLeftMouseUp(wxMouseEvent& mouse)
         case CROP_CIRCLE_SCALING:
             if(HasCapture())
                 ReleaseMouse();
+#if defined SUPPORTS_WXINVERT
             DrawCrop();
+#else
+            doUpdate=true;
+#endif
             UpdateCrop(currentPos);
+#if defined SUPPORTS_WXINVERT
+            DrawCrop();
+#endif
             m_maskEditState=CROP_SHOWING;
             SetCursor(wxNullCursor);
             m_editPanel->UpdateCrop(true);
@@ -1055,7 +1082,11 @@ void MaskImageCtrl::DrawCrop(wxDC & dc)
     {
         // draw all areas without fillings
         dc.SetBrush(*wxTRANSPARENT_BRUSH);
+#if defined SUPPORTS_WXINVERT
         dc.SetLogicalFunction (wxINVERT);
+#else
+        dc.SetPen(wxPen(m_color_selection, 1, wxPENSTYLE_SOLID));
+#endif
         wxPoint middle=transform(applyRot((m_cropRect.lowerRight()+m_cropRect.upperLeft())/2));
 
         int c = 8; // size of midpoint cross
@@ -1214,6 +1245,20 @@ void MaskImageCtrl::rescaleImage()
     {
         return;
     }
+#ifndef SUPPORTS_WXINVERT
+    //determine average colour and set selection colour corresponding
+    vigra::FindAverage<vigra::RGBValue<vigra::UInt8> > average;
+    vigra::inspectImage(vigra::srcImageRange(*(m_img->get8BitImage())), average);
+    vigra::RGBValue<vigra::UInt8> RGBaverage=average.average();
+    if(RGBaverage[0]<180 && RGBaverage[1]<180 && RGBaverage[2]<180)
+    {
+        m_color_selection=*wxWHITE;
+    }
+    else
+    {
+        m_color_selection=*wxBLACK;
+    };
+#endif
     wxImage img = imageCacheEntry2wxImage(m_img);
     if (img.GetWidth() == 0)
     {
@@ -1296,8 +1341,13 @@ void MaskImageCtrl::DrawSelectionRectangle()
 {
     wxClientDC dc(this);
     PrepareDC(dc);
+#if defined SUPPORTS_WXINVERT
     dc.SetLogicalFunction(wxINVERT);
     dc.SetPen(wxPen(*wxWHITE,1,wxDOT));
+#else
+    OnDraw(dc);
+    dc.SetPen(wxPen(m_color_selection, scale(1), wxDOT));
+#endif
     dc.SetBrush(*wxTRANSPARENT_BRUSH);
     dc.DrawRectangle(m_dragStartPos.x,m_dragStartPos.y,
         (m_currentPos.x-m_dragStartPos.x),(m_currentPos.y-m_dragStartPos.y));

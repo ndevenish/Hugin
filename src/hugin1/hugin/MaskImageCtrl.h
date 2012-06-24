@@ -28,6 +28,16 @@
 
 #include <base_wx/wxImageCache.h>
 
+#if defined __WXOSX_CARBON__ || defined __WXOSX_COCOA__
+// on wxMac wxInvert does not work for drawing rubberband, so we are the following workaround
+// instead of using wxInvert we are drawing the background image before the selection rectangle
+// or the crop rectangle, the color of the selection is defined by the overall colour of the image
+// this approach is already used for the polygon editor also on wxMSW and wxGTK
+#undef SUPPORTS_WXINVERT
+#else
+#define SUPPORTS_WXINVERT 1
+#endif
+
 class MaskEditorPanel;
 
 /** @brief mask editor
@@ -312,6 +322,9 @@ protected:
     wxColor m_colour_polygon_positive;
     wxColor m_colour_point_selected;
     wxColor m_colour_point_unselected;
+#ifndef SUPPORTS_WXINVERT
+    wxColour m_color_selection;
+#endif
 
     DECLARE_EVENT_TABLE();
     DECLARE_DYNAMIC_CLASS(MaskImageCtrl)
