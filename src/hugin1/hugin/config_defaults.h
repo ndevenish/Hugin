@@ -207,4 +207,7 @@
 #define HUGIN_PROCESSOR_OVERWRITE       0l    // boolean
 #define HUGIN_PROCESSOR_VERBOSE         1l    // boolean
 
+//photometric optimizer
+#define HUGIN_PHOTOMETRIC_OPTIMIZER_NRPOINTS 200l
+
 #endif // _CONFIG_DEFAULTS_H

@@ -611,13 +611,13 @@ void PreferencesDialog::UpdateDisplayData(int panel)
     
     if (panel==0 || panel == 7) {
         // Celeste settings
-
         d=HUGIN_CELESTE_THRESHOLD;
         cfg->Read(wxT("/Celeste/Threshold"), &d, HUGIN_CELESTE_THRESHOLD);
         tstr = hugin_utils::doubleTowxString(d);
         MY_STR_VAL("prefs_celeste_threshold", tstr);
-
-	MY_CHOICE_VAL("prefs_celeste_filter", cfg->Read(wxT("/Celeste/Filter"), HUGIN_CELESTE_FILTER));
+        MY_CHOICE_VAL("prefs_celeste_filter", cfg->Read(wxT("/Celeste/Filter"), HUGIN_CELESTE_FILTER));
+        // photometric optimizer settings
+        MY_SPIN_VAL("prefs_photo_optimizer_nr_points", cfg->Read(wxT("/OptimizePhotometric/nRandomPointsPerImage"), HUGIN_PHOTOMETRIC_OPTIMIZER_NRPOINTS));
 
     }
 
@@ -746,13 +746,14 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
             cfg->Write(wxT("/Enfuse/Custom"), HUGIN_ENFUSE_EXE_CUSTOM);
             cfg->Write(wxT("/Enfuse/Args"), wxT(HUGIN_ENFUSE_ARGS));
         }
-	
+
         if (noteb->GetSelection() == 6) {
             /// Celeste
             cfg->Write(wxT("/Celeste/Threshold"), HUGIN_CELESTE_THRESHOLD);
             cfg->Write(wxT("/Celeste/Filter"), HUGIN_CELESTE_FILTER);
-        }	
-	
+            cfg->Write(wxT("/OptimizePhotometric/nRandomPointsPerImage"), HUGIN_PHOTOMETRIC_OPTIMIZER_NRPOINTS);
+        }
+
 /*
         if (noteb->GetSelection() == 5) {
             cfg->Write(wxT("/PTmender/Exe"), wxT(HUGIN_PT_MENDER_EXE) );
@@ -886,6 +887,8 @@ void PreferencesDialog::UpdateConfigData()
     hugin_utils::stringToDouble(std::string(t.mb_str(wxConvLocal)), td);
     cfg->Write(wxT("/Celeste/Threshold"), td);
     cfg->Write(wxT("/Celeste/Filter"), MY_G_CHOICE_VAL("prefs_celeste_filter"));
+    //photometric optimizer
+    cfg->Write(wxT("/OptimizePhotometric/nRandomPointsPerImage"), MY_G_SPIN_VAL("prefs_photo_optimizer_nr_points"));
 
     cfg->Flush();
     UpdateDisplayData(0);

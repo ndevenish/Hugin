@@ -256,115 +256,101 @@ void OptimizePhotometricPanel::runOptimizer(const UIntSet & imgs)
         };
     };
 
-    std::vector<vigra_ext::PointPairRGB> m_points;
-    // extract points only if not done previously
-
-    long nPoints = 200;
-    wxConfigBase::Get()->Read(wxT("/OptimizePhotometric/nRandomPointsPerImage"), & nPoints);
-    // get parameters for estimation.
-    nPoints = wxGetNumberFromUser(_("The vignetting and exposure correction is determined by analysing color values in the overlapping areas.\nTo speed up the computation, only a random subset of points is used."),
-                                    _("Number of points per image"),
-                                    _("Photometric optimization"), nPoints, 0, 32000,
-                                    this);
-    if (nPoints < 0)
+    double error = 0;
     {
-        return;
-    }
-    wxConfigBase::Get()->Write(wxT("/OptimizePhotometric/nRandomPointsPerImage"),nPoints);
+        std::vector<vigra_ext::PointPairRGB> points;
+        long nPoints = wxConfigBase::Get()->Read(wxT("/OptimizePhotometric/nRandomPointsPerImage"), HUGIN_PHOTOMETRIC_OPTIMIZER_NRPOINTS);
 
-    ProgressReporterDialog progress(5.0, _("Photometric alignment"), _("Loading images"));
+        ProgressReporterDialog progress(5.0, _("Photometric alignment"), _("Loading images"));
+        progress.Show();
 
-    progress.Show();
-
-    nPoints = nPoints * optPano.getNrOfImages();
-    // get the small images
-    std::vector<vigra::FRGBImage *> srcImgs;
-    for (size_t i=0; i < optPano.getNrOfImages(); i++)
-    {
-        ImageCache::EntryPtr e = ImageCache::getInstance().getSmallImage(optPano.getImage(i).getFilename());
-        vigra::FRGBImage * img = new FRGBImage;
-        if (!e)
+        nPoints = nPoints * optPano.getNrOfImages();
+        // get the small images
+        std::vector<vigra::FRGBImage *> srcImgs;
+        for (size_t i=0; i < optPano.getNrOfImages(); i++)
         {
-            wxMessageBox(_("Error: could not load all images"), _("Error"));
-            return;
-        }
-        if (e->image8 && e->image8->width() > 0)
-        {
-            reduceToNextLevel(*(e->image8), *img);
-            transformImage(vigra::srcImageRange(*img), vigra::destImage(*img),
-                            vigra::functor::Arg1()/vigra::functor::Param(255.0));
-        }
-        else
-        {
-            if (e->image16 && e->image16->width() > 0)
+            ImageCache::EntryPtr e = ImageCache::getInstance().getSmallImage(optPano.getImage(i).getFilename());
+            vigra::FRGBImage * img = new FRGBImage;
+            if (!e)
             {
-                reduceToNextLevel(*(e->image16), *img);
+                wxMessageBox(_("Error: could not load all images"), _("Error"));
+                return;
+            }
+            if (e->image8 && e->image8->width() > 0)
+            {
+                reduceToNextLevel(*(e->image8), *img);
                 transformImage(vigra::srcImageRange(*img), vigra::destImage(*img),
-                               vigra::functor::Arg1()/vigra::functor::Param(65535.0));
+                                vigra::functor::Arg1()/vigra::functor::Param(255.0));
             }
             else
             {
-                reduceToNextLevel(*(e->imageFloat), *img);
-            }
-        };
-        srcImgs.push_back(img);
-    }
-    bool randomPoints = true;
-    extractPoints(optPano, srcImgs, nPoints, randomPoints, progress, m_points);
-
-    if (m_points.size() == 0)
-    {
-        wxMessageBox(_("Error: no overlapping points found, Photometric optimization aborted"), _("Error"));
-        return;
-    }
-
-    double error = 0;
-    try
-    {
-        //wxBusyCursor busyc;
-        if (mode != 0)
-        {
-            // run automatic optimisation
-            // ensure that we have a valid anchor.
-            PanoramaOptions opts = optPano.getOptions();
-            if (opts.colorReferenceImage >= optPano.getNrOfImages())
-            {
-                opts.colorReferenceImage = 0;
-                optPano.setOptions(opts);
-            }
-            PhotometricOptimizeMode optMode;
-            switch(mode)
-            {
-                case (HuginBase::OPT_EXPOSURE | HuginBase::OPT_VIGNETTING | HuginBase::OPT_RESPONSE):
-                    optMode=OPT_PHOTOMETRIC_LDR;
-                    break;
-                case (HuginBase::OPT_EXPOSURE | HuginBase::OPT_VIGNETTING | HuginBase::OPT_RESPONSE | HuginBase::OPT_WHITEBALANCE):
-                    optMode=OPT_PHOTOMETRIC_LDR_WB;
-                    break;
-                case (HuginBase::OPT_VIGNETTING | HuginBase::OPT_RESPONSE):
-                    optMode=OPT_PHOTOMETRIC_HDR;
-                    break;
-                case (HuginBase::OPT_WHITEBALANCE | HuginBase::OPT_VIGNETTING | HuginBase::OPT_RESPONSE):
-                    optMode=OPT_PHOTOMETRIC_HDR_WB;
-                    break;
-                default:
-                    //invalid combination
-                    return;
+                if (e->image16 && e->image16->width() > 0)
+                {
+                    reduceToNextLevel(*(e->image16), *img);
+                    transformImage(vigra::srcImageRange(*img), vigra::destImage(*img),
+                                   vigra::functor::Arg1()/vigra::functor::Param(65535.0));
+                }
+                else
+                {
+                    reduceToNextLevel(*(e->imageFloat), *img);
+                }
             };
-            smartOptimizePhotometric(optPano, optMode, m_points, progress, error);
+            srcImgs.push_back(img);
         }
-        else
-        {
-            // optimize selected parameters
-            optimizePhotometric(optPano, optvars, m_points, progress, error);
-        }
-    }
-    catch (std::exception & error)
-    {
-        wxMessageBox(_("Internal error during photometric optimization:\n") + wxString(error.what(), wxConvLocal), _("Internal error"));
-    }
+        bool randomPoints = true;
+        extractPoints(optPano, srcImgs, nPoints, randomPoints, progress, points);
 
-    progress.Close();
+        if (points.size() == 0)
+        {
+            wxMessageBox(_("Error: no overlapping points found, Photometric optimization aborted"), _("Error"));
+            return;
+        }
+
+        try
+        {
+            if (mode != 0)
+            {
+                // run automatic optimisation
+                // ensure that we have a valid anchor.
+                PanoramaOptions opts = optPano.getOptions();
+                if (opts.colorReferenceImage >= optPano.getNrOfImages())
+                {
+                    opts.colorReferenceImage = 0;
+                    optPano.setOptions(opts);
+                }
+                PhotometricOptimizeMode optMode;
+                switch(mode)
+                {
+                    case (HuginBase::OPT_EXPOSURE | HuginBase::OPT_VIGNETTING | HuginBase::OPT_RESPONSE):
+                        optMode=OPT_PHOTOMETRIC_LDR;
+                        break;
+                    case (HuginBase::OPT_EXPOSURE | HuginBase::OPT_VIGNETTING | HuginBase::OPT_RESPONSE | HuginBase::OPT_WHITEBALANCE):
+                        optMode=OPT_PHOTOMETRIC_LDR_WB;
+                        break;
+                    case (HuginBase::OPT_VIGNETTING | HuginBase::OPT_RESPONSE):
+                        optMode=OPT_PHOTOMETRIC_HDR;
+                        break;
+                    case (HuginBase::OPT_WHITEBALANCE | HuginBase::OPT_VIGNETTING | HuginBase::OPT_RESPONSE):
+                        optMode=OPT_PHOTOMETRIC_HDR_WB;
+                        break;
+                    default:
+                        //invalid combination
+                        return;
+                };
+                smartOptimizePhotometric(optPano, optMode, points, progress, error);
+            }
+            else
+            {
+                // optimize selected parameters
+                optimizePhotometric(optPano, optvars, points, progress, error);
+            }
+        }
+        catch (std::exception & error)
+        {
+            wxMessageBox(_("Internal error during photometric optimization:\n") + wxString(error.what(), wxConvLocal), _("Internal error"));
+        }
+    }
+    wxYield();
 
     // display information about the estimation process:
     int ret = wxMessageBox(wxString::Format(_("Photometric optimization results:\nAverage difference (RMSE) between overlapping pixels: %.2f gray values (0..255)\n\nApply results?"), error*255),
