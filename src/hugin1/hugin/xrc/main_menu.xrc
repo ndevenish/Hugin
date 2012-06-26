@@ -96,7 +96,8 @@
       <label>&amp;View</label>
       <object class="wxMenuItem" name="ID_SHOW_FULL_SCREEN">
         <label>Full Screen</label>
-        <accel>F11</accel>
+        <accel platform="win|unix">F11</accel>
+        <accel platform="mac">Ctrl-F</accel>
         <help>Shows Hugin's main window on full screen</help>
       </object>
       <object class="wxMenuItem" name="ID_CP_TABLE">
