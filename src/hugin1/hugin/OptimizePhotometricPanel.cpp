@@ -259,7 +259,8 @@ void OptimizePhotometricPanel::runOptimizer(const UIntSet & imgs)
     double error = 0;
     {
         std::vector<vigra_ext::PointPairRGB> points;
-        long nPoints = wxConfigBase::Get()->Read(wxT("/OptimizePhotometric/nRandomPointsPerImage"), HUGIN_PHOTOMETRIC_OPTIMIZER_NRPOINTS);
+        long nPoints = 200;
+        wxConfigBase::Get()->Read(wxT("/OptimizePhotometric/nRandomPointsPerImage"), &nPoints , HUGIN_PHOTOMETRIC_OPTIMIZER_NRPOINTS);
 
         ProgressReporterDialog progress(5.0, _("Photometric alignment"), _("Loading images"));
         progress.Show();
