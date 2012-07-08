@@ -1263,7 +1263,6 @@
 		737E495411D3FD74002BA8AE /* PreviewControlPointTool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73C0DC6B104715E500CB55B7 /* PreviewControlPointTool.cpp */; };
 		737E495511D3FD74002BA8AE /* GreatCircles.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73C0DC6E104715E500CB55B7 /* GreatCircles.cpp */; };
 		737E495611D3FD74002BA8AE /* HDRMergeOptionDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73411F131077B205001831AF /* HDRMergeOptionDialog.cpp */; };
-		737E495711D3FD74002BA8AE /* NumTransDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7368E4631083ABF200519ED0 /* NumTransDialog.cpp */; };
 		737E495811D3FD74002BA8AE /* AboutDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 738C044910A0A5D90061D144 /* AboutDialog.cpp */; };
 		737E495911D3FD74002BA8AE /* LayoutRemapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 732927AB10E4C15700D3C8CB /* LayoutRemapper.cpp */; };
 		737E495A11D3FD74002BA8AE /* PreviewLayoutLinesTool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 732927AD10E4C15700D3C8CB /* PreviewLayoutLinesTool.cpp */; };
@@ -1561,7 +1560,6 @@
 		7392868D14225FDB0051CAEC /* PreviewControlPointTool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73C0DC6B104715E500CB55B7 /* PreviewControlPointTool.cpp */; };
 		7392868E14225FDB0051CAEC /* GreatCircles.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73C0DC6E104715E500CB55B7 /* GreatCircles.cpp */; };
 		7392868F14225FDB0051CAEC /* HDRMergeOptionDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73411F131077B205001831AF /* HDRMergeOptionDialog.cpp */; };
-		7392869014225FDB0051CAEC /* NumTransDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7368E4631083ABF200519ED0 /* NumTransDialog.cpp */; };
 		7392869114225FDB0051CAEC /* AboutDialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 738C044910A0A5D90061D144 /* AboutDialog.cpp */; };
 		7392869214225FDB0051CAEC /* LayoutRemapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 732927AB10E4C15700D3C8CB /* LayoutRemapper.cpp */; };
 		7392869314225FDB0051CAEC /* PreviewLayoutLinesTool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 732927AD10E4C15700D3C8CB /* PreviewLayoutLinesTool.cpp */; };
@@ -10948,7 +10946,6 @@
 				737E495411D3FD74002BA8AE /* PreviewControlPointTool.cpp in Sources */,
 				737E495511D3FD74002BA8AE /* GreatCircles.cpp in Sources */,
 				737E495611D3FD74002BA8AE /* HDRMergeOptionDialog.cpp in Sources */,
-				737E495711D3FD74002BA8AE /* NumTransDialog.cpp in Sources */,
 				737E495811D3FD74002BA8AE /* AboutDialog.cpp in Sources */,
 				737E495911D3FD74002BA8AE /* LayoutRemapper.cpp in Sources */,
 				737E495A11D3FD74002BA8AE /* PreviewLayoutLinesTool.cpp in Sources */,
@@ -11094,7 +11091,6 @@
 				7392868D14225FDB0051CAEC /* PreviewControlPointTool.cpp in Sources */,
 				7392868E14225FDB0051CAEC /* GreatCircles.cpp in Sources */,
 				7392868F14225FDB0051CAEC /* HDRMergeOptionDialog.cpp in Sources */,
-				7392869014225FDB0051CAEC /* NumTransDialog.cpp in Sources */,
 				7392869114225FDB0051CAEC /* AboutDialog.cpp in Sources */,
 				7392869214225FDB0051CAEC /* LayoutRemapper.cpp in Sources */,
 				7392869314225FDB0051CAEC /* PreviewLayoutLinesTool.cpp in Sources */,
@@ -14543,6 +14539,8 @@
 					"$(REPOSITORY_DIR)/include",
 					"$(REPOSITORY_DIR)/include/OpenEXR",
 					../src,
+					../src/foreign,
+					../src/foreign/vigra,
 				);
 				INFOPLIST_FILE = "../mac/localfeatures-Info.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
