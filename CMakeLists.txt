@@ -639,13 +639,44 @@ SET(CPACK_SOURCE_IGNORE_FILES
 IF(NOT DISABLE_DPKG)
   # Use dpkg-shlibdeps to get the needed dependences
   SET(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
+
+  # the following part copied from http://www.cmake.org/Wiki/CMake_RPATH_handling
+  # use, i.e. don't skip the full RPATH for the build tree
+  SET(CMAKE_SKIP_BUILD_RPATH  FALSE)
+  # when building, don't use the install RPATH already
+  # (but later on when installing)
+  SET(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE) 
+
+  SET(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib/hugin")
+  SET(CPACK_DEBIAN_PACKAGE_DEBUG ON)
+
+  # add the automatically determined parts of the RPATH
+  # which point to directories outside the build tree to the install RPATH
+  SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+
+
+  # the RPATH to be used when installing, but only if it's not a system directory
+  LIST(FIND CMAKE_PLATFORM_IMPLICIT_LINK_DIRECTORIES "${CMAKE_INSTALL_PREFIX}/lib/hugin" isSystemDir)
+  IF("${isSystemDir}" STREQUAL "-1")
+     SET(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib/hugin")
+  ENDIF("${isSystemDir}" STREQUAL "-1")
+
+  #this environment will be used by dpkg-shlibdebs to find local created libs
+  string(REGEX REPLACE "^/(.*)" "\\1" LDLIBPATH "${CMAKE_INSTALL_RPATH}")
+  #message(STATUS "CMAKE_INSTALL_RPATH set to ${CMAKE_INSTALL_RPATH}")
+  #message(STATUS "LDLIBPATH = ${LDLIBPATH}")
+  set(CPACK_PROJECT_CONFIG_FILE "${CMAKE_BINARY_DIR}/CPackEnv.cmake")
+  FILE(WRITE "${CPACK_PROJECT_CONFIG_FILE}" "set(ENV{LD_LIBRARY_PATH} \"${LDLIBPATH}\")")
+
 ELSE()
   # incomplete manually set dependencies but we don't really care since this package is not for distribution
   # and whoever use the DISABLE_DPKG option knows what they are doing
   SET(CPACK_DEBIAN_PACKAGE_DEPENDS "libpano13(>=2.9.17)")
 ENDIF()
 
-SET(CPACK_DEBIAN_PACKAGE_CONTROL_EXTRA "${CMAKE_CURRENT_SOURCE_DIR}/Debian/postinst")
+message(STATUS "Current source dir = ${CMAKE_CURRENT_SOURCE_DIR}")
+SET(CPACK_DEBIAN_PACKAGE_CONTROL_EXTRA "${CMAKE_CURRENT_SOURCE_DIR}/Debian/postinst"
+				       "${CMAKE_CURRENT_SOURCE_DIR}/Debian/shlibs.local")
 INCLUDE(CPack)
 
 ##
