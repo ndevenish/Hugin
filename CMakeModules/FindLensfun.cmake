@@ -2,7 +2,9 @@
 
 FIND_PATH(LENSFUN_INCLUDE_DIR lensfun.h
   /usr/local/include
+  /usr/local/include/lensfun
   /usr/include
+  /usr/include/lensfun
   ${SOURCE_BASE_DIR}/lensfun/include/lensfun
 )
 
