@@ -88,18 +88,20 @@ KNOWN ISSUES AND WORKAROUNDS
 Panosphere Overview window seperated from the content
 https://bugs.launchpad.net/hugin/+bug/726997
 
-
 There is a known problem building Hugin with CMake 2.8.5rc2.
 Workaround: Upgrade to a newer CMake version.
 
-
-Mac OS X Users at Tiger and Lion: this version of Hugin contains an openMP enabled 
-enblend and enfuse. These versions don't run on Tiger and currently not on Lion either. 
-Please use the Tiger-compatible enblend and enfuse from the enblend-enfuse-4.0 folder 
-in this dmg. You can specify alternative "external" enblend and enfuse from the Programs 
-pane in the preferences after installing these special version by following the instructions 
-in the README in the enblend-enfuse-4.0 folder. 
-https://bugs.launchpad.net/hugin/+bug/814280
+Mac OS X:
+- Mac OS X Tiger (10.4) is no longer supported.
+- The PPC platform is no longer supported.
+- The OpenMP enabled enblend is now compatible on Mac OS X Lion (10.7).
+- The cmake compilation of Hugin is currently broken due to the fact that
+the boost library on OS X is currently at version 1.50 and boost versions => 1.48
+conflict with a number of Mac OS X macros (from AssertMacros.h). This can
+not be disabled as WxWindows for Mac (a.k.a. WxMac) needs these macros.
+An XCode build, where a specific boost (<=1.46) can be specified, is
+possible. The 2012.0 OSX bundle will be based on an XCode build with boost
+1.46.
 
 An updated list of issues deemed to be critical, including discussions
 and workarounds is in the issue tracker.
