@@ -28,8 +28,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cs_CZ\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
-"POT-Creation-Date: 2012-06-26 21:21+0200\n"
-"PO-Revision-Date: 2012-03-31 12:01+0100\n"
+"POT-Creation-Date: 2012-07-21 13:19+0200\n"
+"PO-Revision-Date: 2012-07-20 18:24+0100\n"
 "Last-Translator: Václav Černý <vatoz@seznam.cz>\n"
 "Language-Team: Čeština\n"
 "Language: \n"
@@ -411,9 +411,8 @@ msgstr "Překlad nebyl nalezen."
 
 #: hugin1/calibrate_lens/LensCalApp.cpp:79 hugin1/hugin/huginApp.cpp:213
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:96
-#, fuzzy
 msgid "lensfun directory not found in bundle"
-msgstr "Adresář xrc nebyl v balíčku nalezen."
+msgstr "Adresář lensfun nebyl v balíčku nalezen."
 
 #: hugin1/calibrate_lens/LensCalApp.cpp:92 hugin1/hugin/huginApp.cpp:228
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:119
@@ -615,14 +614,14 @@ msgid "Path to data: %s"
 msgstr "Cesta k datům: %s"
 
 #: hugin1/hugin/AboutDialog.cpp:178
-#, fuzzy, c-format
+#, c-format
 msgid "Path to public lensfun database: %s"
-msgstr "Z databáze lensfun"
+msgstr "Cesta k veřejné databázi lensfun: %s"
 
 #: hugin1/hugin/AboutDialog.cpp:179
-#, fuzzy, c-format
+#, c-format
 msgid "Path to user lensfun database: %s"
-msgstr "Z databáze lensfun"
+msgstr "Cesta k uživatelské databázi lensfun: %s"
 
 #: hugin1/hugin/AboutDialog.cpp:180
 msgid "Libraries"
@@ -3238,9 +3237,8 @@ msgid "stitch_project.pto [output prefix]|assistant_project.pto"
 msgstr "slepovaný_projekt.pto [výstupní prefix]|projekt_pomocníka.pto"
 
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:212
-#, fuzzy
 msgid "PTBatcherGUI started"
-msgstr "PTBatcherGUI"
+msgstr "PTBatcherGUI spuštěn"
 
 #: hugin1/stitch_project/hugin_stitch_project.cpp:141
 #, c-format
@@ -5436,16 +5434,12 @@ msgid "Combined stacks:"
 msgstr "Kombinované štosy:"
 
 #: translations/xrc.cpp:657 xrc.cpp:657
-#, fuzzy
 msgid "Exposure fused stacks"
-msgstr "Expoziční fúze ze štosů"
+msgstr "Expoziční zfúzované štosy"
 
 #: translations/xrc.cpp:658 xrc.cpp:658
-#, fuzzy
 msgid "Output exposure fused stacks from highly overlapping images"
-msgstr ""
-"Zapíše přemapované sloučené štosy s vysokým dynamickým rozsahem vytvořené z "
-"překrývajících se obrázků."
+msgstr "Výstup expozičně zfůzovaných  štosů  z překrývajících se obrázků."
 
 #: translations/xrc.cpp:659 xrc.cpp:659
 msgid "High dynamic range merged stacks"
