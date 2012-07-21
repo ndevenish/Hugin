@@ -73,6 +73,10 @@ void LensCalImageCtrl::OnMouseEvent(wxMouseEvent &e)
         e.Skip();
         return;
     };
+    if(m_imageLines==NULL)
+    {
+        return;
+    };
     vigra::Point2D pos(e.GetPosition().x,e.GetPosition().y);
     HuginLines::Lines lines=m_imageLines->GetLines();
     if(lines.empty())
