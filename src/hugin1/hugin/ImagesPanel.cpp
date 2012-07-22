@@ -299,7 +299,27 @@ void ImagesPanel::CPGenerate(wxCommandEvent & e)
         return;
     }
 
-    long nFeatures = wxConfigBase::Get()->Read(wxT("/Assistant/nControlPoints"), HUGIN_ASS_NCONTROLPOINTS);
+    wxConfigBase* config=wxConfigBase::Get();
+    long nFeatures = HUGIN_ASS_NCONTROLPOINTS;
+    if(wxGetKeyState(WXK_COMMAND))
+    {
+        nFeatures = config->Read(wxT("/MainFrame/nControlPoints"), HUGIN_ASS_NCONTROLPOINTS);
+        nFeatures = wxGetNumberFromUser(
+                            _("Enter maximal number of control points per image pair"),
+                            _("Points per Overlap"),
+                            _("Control point detector option"), 
+                            nFeatures, 1, 10000
+                                 );
+        if(nFeatures<1)
+        {
+            return;
+        };
+        config->Write(wxT("/MainFrame/nControlPoints"), nFeatures);
+    }
+    else
+    {
+        nFeatures = config->Read(wxT("/Assistant/nControlPoints"), HUGIN_ASS_NCONTROLPOINTS);
+    };
 
     AutoCtrlPointCreator matcher;
     CPVector cps = matcher.automatch(cpdetector_config.settings[m_CPDetectorChoice->GetSelection()],
