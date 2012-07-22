@@ -1240,7 +1240,14 @@ void PanoPanel::DoSendToBatch()
 void PanoPanel::OnDoStitch ( wxCommandEvent & e )
 {
     long t;
-    wxConfigBase::Get()->Read(wxT("/Processor/gui"),&t,HUGIN_PROCESSOR_GUI);
+    if(wxGetKeyState(WXK_COMMAND))
+    {
+        t=1;
+    }
+    else
+    {
+        wxConfigBase::Get()->Read(wxT("/Processor/gui"),&t,HUGIN_PROCESSOR_GUI);
+    };
     switch (t)
     {
         // PTBatcher
