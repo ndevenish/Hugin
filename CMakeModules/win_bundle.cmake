@@ -180,28 +180,28 @@ IF(WIN32)
     )
     # hand tuned dll, so that only necesarry dll are install and not all wxWidgets DLL to save space
     FIND_FILE(WXWIDGETS_DLL1 
-              NAMES wxbase293u_vc_custom.dll wxbase292u_vc_custom.dll wxbase291u_vc_custom.dll wxbase28u_vc_custom.dll 
+              NAMES wxbase294u_vc_custom.dll wxbase293u_vc_custom.dll wxbase292u_vc_custom.dll wxbase291u_vc_custom.dll wxbase28u_vc_custom.dll 
               PATHS ${wxWidgets_LIB_DIR} NO_SYSTEM_ENVIRONMENT_PATH)
     FIND_FILE(WXWIDGETS_DLL2 
-              NAMES wxmsw293u_core_vc_custom.dll wxmsw292u_core_vc_custom.dll wxmsw291u_core_vc_custom.dll wxmsw28u_core_vc_custom.dll
+              NAMES wxmsw294u_core_vc_custom.dll wxmsw293u_core_vc_custom.dll wxmsw292u_core_vc_custom.dll wxmsw291u_core_vc_custom.dll wxmsw28u_core_vc_custom.dll
               PATHS ${wxWidgets_LIB_DIR} NO_SYSTEM_ENVIRONMENT_PATH)
     FIND_FILE(WXWIDGETS_DLL3 
-              NAMES wxmsw293u_xrc_vc_custom.dll wxmsw292u_xrc_vc_custom.dll wxmsw291u_xrc_vc_custom.dll wxmsw28u_xrc_vc_custom.dll
+              NAMES wxmsw294u_xrc_vc_custom.dll wxmsw293u_xrc_vc_custom.dll wxmsw292u_xrc_vc_custom.dll wxmsw291u_xrc_vc_custom.dll wxmsw28u_xrc_vc_custom.dll
               PATHS ${wxWidgets_LIB_DIR} NO_SYSTEM_ENVIRONMENT_PATH)
     FIND_FILE(WXWIDGETS_DLL4 
-              NAMES wxmsw293u_adv_vc_custom.dll wxmsw292u_adv_vc_custom.dll wxmsw291u_adv_vc_custom.dll wxmsw28u_adv_vc_custom.dll
+              NAMES wxmsw294u_adv_vc_custom.dll wxmsw293u_adv_vc_custom.dll wxmsw292u_adv_vc_custom.dll wxmsw291u_adv_vc_custom.dll wxmsw28u_adv_vc_custom.dll
               PATHS ${wxWidgets_LIB_DIR} NO_SYSTEM_ENVIRONMENT_PATH)
     FIND_FILE(WXWIDGETS_DLL5 
-              NAMES wxmsw293u_gl_vc_custom.dll wxmsw292u_gl_vc_custom.dll wxmsw291u_gl_vc_custom.dll wxmsw28u_gl_vc_custom.dll
+              NAMES wxmsw294u_gl_vc_custom.dll wxmsw293u_gl_vc_custom.dll wxmsw292u_gl_vc_custom.dll wxmsw291u_gl_vc_custom.dll wxmsw28u_gl_vc_custom.dll
               PATHS ${wxWidgets_LIB_DIR} NO_SYSTEM_ENVIRONMENT_PATH)
     FIND_FILE(WXWIDGETS_DLL6 
-              NAMES wxmsw293u_html_vc_custom.dll wxmsw292u_html_vc_custom.dll wxmsw291u_html_vc_custom.dll wxmsw28u_html_vc_custom.dll
+              NAMES wxmsw294u_html_vc_custom.dll wxmsw293u_html_vc_custom.dll wxmsw292u_html_vc_custom.dll wxmsw291u_html_vc_custom.dll wxmsw28u_html_vc_custom.dll
               PATHS ${wxWidgets_LIB_DIR} NO_SYSTEM_ENVIRONMENT_PATH)
     FIND_FILE(WXWIDGETS_DLL7 
-              NAMES wxbase293u_xml_vc_custom.dll wxbase292u_xml_vc_custom.dll wxbase291u_xml_vc_custom.dll wxbase28u_xml_vc_custom.dll
+              NAMES wxbase294u_xml_vc_custom.dll wxbase293u_xml_vc_custom.dll wxbase292u_xml_vc_custom.dll wxbase291u_xml_vc_custom.dll wxbase28u_xml_vc_custom.dll
               PATHS ${wxWidgets_LIB_DIR} NO_SYSTEM_ENVIRONMENT_PATH)
     FIND_FILE(WXWIDGETS_DLL8 
-              NAMES wxmsw293u_aui_vc_custom.dll wxmsw292u_aui_vc_custom.dll wxmsw291u_aui_vc_custom.dll wxmsw28u_aui_vc_custom.dll
+              NAMES wxmsw294u_aui_vc_custom.dll wxmsw293u_aui_vc_custom.dll wxmsw292u_aui_vc_custom.dll wxmsw291u_aui_vc_custom.dll wxmsw28u_aui_vc_custom.dll
               PATHS ${wxWidgets_LIB_DIR} NO_SYSTEM_ENVIRONMENT_PATH)
 
     INSTALL(FILES ${TIFF_DLL} ${JPEG_DLL} ${PNG_DLL} ${ZLIB_DLL} ${OPENEXR_DLL} 
