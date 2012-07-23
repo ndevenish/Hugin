@@ -16,6 +16,7 @@
               </object>
               <option>1</option>
               <flag>wxEXPAND</flag>
+              <minsize>200,100</minsize>
             </object>
             <object class="sizeritem">
               <object class="wxBoxSizer">
