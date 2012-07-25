@@ -5,10 +5,13 @@
 # script skeleton by Ippei Ukai
 # cmake part Harry van der Wolf
 
-# NOTE: This script needs to be run from the hugin source directory
+# NOTE: This script needs to be run from the hugin top level source directory
+# not the scrpts folder and neiter the src folder
 
 # prepare
-source ./mac/ExternalPrograms/scripts/SetEnv-universal.txt;
+# SCRIPT_DIR shuld be the full path to where the scripts are located
+#SCRIPT_DIR="/Users/Shared/development/hugin_related/hugin/mac/scripted_universal_build"
+#source $SCRIPT_DIR/SetEnv.txt;
 
 # export ="/PATH2HUGIN/mac/ExternalPrograms/repository" \
 # ARCHS="ppc i386" \
@@ -84,25 +87,27 @@ do
  # If you are on Tiger and you have dowloaded the binary subversion from
  # Martin Ott's webpage, you also need to add /usr/local/bin
  # In that case uncomment the line below and outcomment the above PATH statement
- export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:$REPOSITORYDIR/bin
+ #export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:$REPOSITORYDIR/bin
 
 # export CMAKE_INCLUDE_PATH="$CMAKE_INCLUDE_PATH:$REPOSITORYDIR/lib/wx/include/mac-unicode-release-2.8";
 
  export PKG_CONFIG_PATH="$REPOSITORYDIR/lib/pkgconfig";
+ export NEXT_ROOT="$MACSDKDIR";
 
 cmake  \
   -DCMAKE_BUILD_TYPE="Release" \
   -DCMAKE_INSTALL_PREFIX="$REPOSITORYDIR/arch/$ARCH" \
-  -DCMAKE_OSX_ARCHITECTURES="$TARGET" \
   -DCMAKE_OSX_SYSROOT="$MACSDKDIR"\
-  -DCMAKE_C_FLAGS="-arch $ARCH -O2 -dead_strip -I/usr/include -I$REPOSITORYDIR/include" \
-  -DCMAKE_CXX_FLAGS="-arch $ARCH -O2 -dead_strip -I/usr/include -I$REPOSITORYDIR/include" \
-  -DCMAKE_LDFLAGS="-L/usr/lib -L$REPOSITORYDIR/lib -dead_strip -prebind -liconv" \
+  -DCMAKE_C_FLAGS="-isysroot $MACSDKDIR -arch $ARCH -O2 -dead_strip -I/usr/include -I$REPOSITORYDIR/include" \
+  -DCMAKE_CXX_FLAGS="-isysroot $MACSDKDIR -arch $ARCH -O2 -dead_strip -I/usr/include -I$REPOSITORYDIR/include" \
+  -DCMAKE_LDFLAGS="-L/usr/lib -L$REPOSITORYDIR/lib -dead_strip -prebind -liconv -mmacosx-version-min=$OSVERSION" \
   -DEXIV2_INCLUDE_DIR=$REPOSITORYDIR/include \
   -DEXIV2_LIBRARIES=$REPOSITORYDIR/lib/libexiv2.dylib \
   -DOPENEXR_INCLUDE_DIR=$REPOSITORYDIR/include/OpenEXR \
+  -DBUILD_HSI=0 \
   ..;
 
+#   -DCMAKE_OSX_ARCHITECTURES="$TARGET" \
 #  -DCMAKE_C_FLAGS="-arch $ARCH -O2 -dead_strip -I/usr/include -I$REPOSITORYDIR/include -I$REPOSITORYDIR/lib/wx/include/mac-unicode-release-2.8" \
 #  -DCMAKE_CXX_FLAGS="-arch $ARCH -O2 -dead_strip -I/usr/include -I$REPOSITORYDIR/include -I$REPOSITORYDIR/lib/wx/include/mac-unicode-release-2.8" \
 

@@ -138,8 +138,6 @@ void PluginItem::ParseMetadata()
             };
             continue;
         };
-// test max API only for release versions
-#if ((VERSION_MINOR%2)==0)
         pos=lowerLine.Find(tagAPImax);
         if(pos!=wxNOT_FOUND)
         {
@@ -152,7 +150,6 @@ void PluginItem::ParseMetadata()
             };
             continue;
         };
-#endif
         pos=lowerLine.Find(tagCategory);
         if(pos!=wxNOT_FOUND)
         {

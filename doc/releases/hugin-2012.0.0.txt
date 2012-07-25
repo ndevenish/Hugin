@@ -1,0 +1,121 @@
+Hugin-2012.0 RELEASE NOTES
+
+ABOUT
+
+Hugin is more than just a panorama stitcher. 
+
+Hugin can be found at
+* SourceForge:  http://hugin.sourceforge.net/
+* Launchpad:    https://launchpad.net/hugin
+
+
+DOWNLOAD
+
+The 2012.0 source tarball can be downloaded
+
+* from SourceForge at
+http://sourceforge.net/projects/hugin/files/hugin/hugin-2012.0/hugin-2012.0.0.tar.bz2/download
+
+* from Launchpad at
+http://launchpad.net/hugin/2012.0/2012.0.0/+download/hugin-2012.0.0.tar.bz2
+
+This is a source code release.  For executables see below.
+
+This tarball is equivalent to rev/changeset ########## in our Mercurial
+repository, where it is also tagged 2012.0.0
+
+Verify its SHA1SUM
+################################  hugin-2012.0.0.tar.bz2
+
+EXECUTABLES
+
+Users communities produce executables for their respective platforms.
+
+These executables are then added to the download section on SourceForge at
+http://sourceforge.net/projects/hugin/files/hugin/
+
+A number of users have built recent snapshots and executables are likely to be
+announced within a few days of this tarball release.
+
+Watch http://groups.google.com/group/hugin-ptx for the announcements of binary
+releases.  If you don't see a binary for your platform it has most likely not
+been produced yet.  Consider stepping up to the task.  Instructions at
+
+http://wiki.panotools.org/Development_of_Open_Source_tools#Supported_Platforms
+
+Announce your build on http://groups.google.com/group/hugin-ptx
+
+
+CHANGES SINCE 2011.4.0
+
+The lensfun library for reading and writing lens parameters from/to database has now been integrated into Hugin.
+Users can now search the lensfun library and load lens parameters.
+
+Added new tool pto_gen for generation of pto file from image files.
+
+Other Improvements
+
+  * Various improvements to cpfind including a prealign matching strategy and pair     wise matching for multirow heuristic
+  * Added option to keep exposure fused stacks
+  * pano_modify: Added HDR autocrop option
+  * Many more improvements and bug fixes.
+
+
+UPGRADING
+
+Upgrading from previous versions of Hugin should be seamless. If you do have
+problems with old settings, these can be reset in the Preferences by clicking
+'Load defaults'.
+
+It is strongly recommeded to set the default control point detector to
+Hugin's CPFind.  It is the only control point generator endorsed by Hugin.
+Third-party generators may be compatible with the plug-in architecture.
+
+
+COMPILING
+
+Users compiling from source refer to the dependencies listed at
+http://wiki.panotools.org/Development_of_Open_Source_tools#Dependencies
+
+and the build processes listed at
+http://wiki.panotools.org/Development_of_Open_Source_tools#Build_your_Own_Test_Builds
+
+More information in the README and INSTALL_cmake files in the tarball.
+
+
+KNOWN ISSUES AND WORKAROUNDS
+
+Panosphere Overview window seperated from the content
+https://bugs.launchpad.net/hugin/+bug/726997
+
+There is a known problem building Hugin with CMake 2.8.5rc2.
+Workaround: Upgrade to a newer CMake version.
+
+Mac OS X:
+- Mac OS X Tiger (10.4) is no longer supported.
+- The PPC platform is no longer supported.
+- The OpenMP enabled enblend is now compatible on Mac OS X Lion (10.7).
+- The cmake compilation of Hugin is currently broken due to the fact that
+the boost library on OS X is currently at version 1.50 and boost versions => 1.48
+conflict with a number of Mac OS X macros (from AssertMacros.h). This can
+not be disabled as WxWindows for Mac (a.k.a. WxMac) needs these macros.
+An XCode build, where a specific boost (<=1.46) can be specified, is
+possible. The 2012.0 OSX bundle will be based on an XCode build with boost
+1.46.
+
+An updated list of issues deemed to be critical, including discussions
+and workarounds is in the issue tracker.
+https://bugs.launchpad.net/hugin/+bugs?search=Search&field.importance=Critical
+
+
+THANKS
+
+Thanks to all the contributors to this release and members of the hugin-ptx
+mailing list, too many to mention here.
+
+Hugin can be found at http://hugin.sourceforge.net/ and at https://launchpad.net/hugin
+
+
+CHANGELOG
+
+A detailed changelog can be found in the file Changelog.

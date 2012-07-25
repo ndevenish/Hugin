@@ -88,10 +88,11 @@ do
    CFLAGS="-isysroot $MACSDKDIR -I. -I$REPOSITORYDIR/include -O2 $ARCHFLAG $ARCHARGs $OTHERARGs -dead_strip" \
    CXXFLAGS="-isysroot $MACSDKDIR -I. -I$REPOSITORYDIR/include -O2 $ARCHFLAG $ARCHARGs $OTHERARGs -dead_strip" \
    CPPFLAGS="-I. -I$REPOSITORYDIR/include -I/usr/include" \
-   LDFLAGS="-ltiff -ljpeg -L$REPOSITORYDIR/lib -L/usr/lib -mmacosx-version-min=$OSVERSION -dead_strip $ARCHFLAG" \
+   LDFLAGS="-ltiff -ljpeg -lpng -L$REPOSITORYDIR/lib -L/usr/lib -mmacosx-version-min=$OSVERSION -dead_strip $ARCHFLAG" \
    NEXT_ROOT="$MACSDKDIR" \
+   PKG_CONFIG_PATH="$REPOSITORYDIR/lib/pkgconfig" \
    $CXX -L$REPOSITORYDIR/lib/ -O2 -I$REPOSITORYDIR/include/ -I$MACSDKDIR/usr/include -isysroot $MACSDKDIR $ARCHFLAG $ARCHARGs $OTHERARGs \
-   -ltiff -ljpeg multiblend.cpp -o multiblend || fail "compile step for $ARCH";
+   -ltiff -ljpeg -lpng multiblend.cpp -o multiblend || fail "compile step for $ARCH";
 
    mv multiblend $REPOSITORYDIR/arch/$ARCH/bin 
 done

@@ -376,7 +376,11 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
     }
     SetStatusText(_("Center panorama with left mouse button, set horizon with right button"),0);
     wxAcceleratorEntry entries[3];
+#ifdef __WXMAC
+    entries[0].Set(wxACCEL_CMD,(int)'F',ID_FULL_SCREEN);
+#else
     entries[0].Set(wxACCEL_NORMAL,WXK_F11,ID_FULL_SCREEN);
+#endif
     entries[1].Set(wxACCEL_CMD,(int)'Z',ID_UNDO);
     entries[2].Set(wxACCEL_CMD,(int)'R',ID_REDO);
     wxAcceleratorTable accel(3, entries);
