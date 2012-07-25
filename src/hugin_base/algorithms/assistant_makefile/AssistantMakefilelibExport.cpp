@@ -164,7 +164,7 @@ bool AssistantMakefilelibExport::createItems()
     // if necessary scale down final pano
     echoInfo(*all,"Setting output options...");
     valuestream.str("");
-    if(scale<1)
+    if(scale<=1.0)
     {
         valuestream << " --canvas=" << hugin_utils::roundi(scale*100) << "%%";
     };
