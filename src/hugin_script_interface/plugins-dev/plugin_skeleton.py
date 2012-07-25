@@ -18,8 +18,8 @@
 
 # @category Examples
 # @name     Skeleton Plugin
-# @api-min  2011.1.0
-# @api-max  2012.0.0
+# @api-min  2011.1
+# @api-max  2012.0
 
 # we use modern type python print statements:
 
