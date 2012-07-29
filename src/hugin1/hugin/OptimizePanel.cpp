@@ -721,6 +721,12 @@ void OptimizePanel::runOptimizer(const UIntSet & imgs)
 
     setlocale(LC_ALL,oldlocale);
     free(oldlocale);
+#ifdef __WXMSW__
+    // the progress window of the optimizer is marked for deletion
+    // but the final deletion happens only in the idle event
+    // so we need to process the event to really close the progress window
+    wxTheApp->ProcessIdle();
+#endif
     // calculate control point errors and display text.
     if (AskApplyResult(optPano)) {
         GlobalCmdHist::getInstance().addCommand(
