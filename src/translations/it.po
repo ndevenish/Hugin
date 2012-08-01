@@ -36,7 +36,7 @@ msgstr ""
 "Project-Id-Version: hugin 0.8\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
 "POT-Creation-Date: 2012-07-23 06:47+0200\n"
-"PO-Revision-Date: 2012-04-19 20:31+0100\n"
+"PO-Revision-Date: 2012-07-28 08:41+0100\n"
 "Last-Translator: Cristian Marchi <cri.penta@gmail.com>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "Language: it\n"
@@ -428,9 +428,8 @@ msgstr "Traduzioni non trovate nel bundle"
 
 #: hugin1/calibrate_lens/LensCalApp.cpp:79 hugin1/hugin/huginApp.cpp:213
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:96
-#, fuzzy
 msgid "lensfun directory not found in bundle"
-msgstr "Cartella xrc non trovata nel bundle"
+msgstr "Cartella di lensfun non trovata nel bundle"
 
 #: hugin1/calibrate_lens/LensCalApp.cpp:92 hugin1/hugin/huginApp.cpp:228
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:119
@@ -3350,9 +3349,8 @@ msgid "stitch_project.pto [output prefix]|assistant_project.pto"
 msgstr "progetto_unione.pto [output prefix]|progetto_assistente.pto"
 
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:212
-#, fuzzy
 msgid "PTBatcherGUI started"
-msgstr "PTBatcherGUI"
+msgstr "PTBatcherGUI avviato"
 
 #: hugin1/stitch_project/hugin_stitch_project.cpp:141
 #, c-format
@@ -5609,17 +5607,13 @@ msgid "Combined stacks:"
 msgstr "Pile combinate:"
 
 #: translations/xrc.cpp:657 xrc.cpp:657
-#, fuzzy
 msgid "Exposure fused stacks"
-msgstr "Fusione dell'esposizione dalle pile"
+msgstr "Pile con esposizioni fuse"
 
 # tooltip
 #: translations/xrc.cpp:658 xrc.cpp:658
-#, fuzzy
 msgid "Output exposure fused stacks from highly overlapping images"
-msgstr ""
-"Restituisce delle pile unite, rimappate in high dynamic range partendo da "
-"immagini molto sovrapposte"
+msgstr "Restituisce delle pile fuse partendo da immagini molto sovrapposte"
 
 # tooltip
 #: translations/xrc.cpp:659 xrc.cpp:659
