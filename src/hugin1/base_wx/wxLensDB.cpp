@@ -700,7 +700,7 @@ bool SaveLensParameters(wxWindow * parent, const HuginBase::SrcPanoImage& img, b
     wxString userDBPath=wxString(lensDB.GetUserDBPath().c_str(), wxConvLocal);
     if(!wxFileName::DirExists(userDBPath))
     {
-        wxMkdir(userDBPath);
+        wxFileName::Mkdir(userDBPath, 511, wxPATH_MKDIR_FULL);
     };
     wxFileDialog dlg(parent,
                         _("Save lens into database file"),
@@ -954,7 +954,7 @@ bool SaveCameraCropFactor(wxWindow * parent, const HuginBase::SrcPanoImage& img)
     wxString userDBPath=wxString(lensDB.GetUserDBPath().c_str(), wxConvLocal);
     if(!wxFileName::DirExists(userDBPath))
     {
-        wxMkdir(userDBPath);
+        wxFileName::Mkdir(userDBPath, 511, wxPATH_MKDIR_FULL);
     };
     wxFileDialog dlg(parent,
                         _("Save camera into database file"),
