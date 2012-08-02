@@ -156,7 +156,14 @@
                     <flag>wxALIGN_CENTRE_VERTICAL | wxALL</flag>
                     <border>3</border>
                   </object>
-                  <object class="spacer"/>
+                  <object class="sizeritem">
+                    <object class="wxStaticText">
+                      <label>m</label>
+                    </object>
+                    <flag>wxALIGN_CENTRE_VERTICAL | wxALL</flag>
+                    <border>3</border>
+                  </object>
+                  
                   <cols>3</cols>
                   <rows>3</rows>
                 </object>
@@ -367,7 +374,13 @@
                     <flag>wxALIGN_CENTRE_VERTICAL | wxALL</flag>
                     <border>3</border>
                   </object>
-                  <object class="spacer"/>
+                  <object class="sizeritem">
+                    <object class="wxStaticText">
+                      <label>m</label>
+                    </object>
+                    <flag>wxALIGN_CENTRE_VERTICAL | wxALL</flag>
+                    <border>3</border>
+                  </object>
                   <cols>3</cols>
                   <rows>3</rows>
                 </object>
