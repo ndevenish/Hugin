@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Hugin 2011-4.0\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
 "POT-Creation-Date: 2012-07-23 06:47+0200\n"
-"PO-Revision-Date: 2011-11-06 16:10+0100\n"
+"PO-Revision-Date: 2012-08-04 10:57+0800\n"
 "Last-Translator: Jean-Luc Coulon <jean-luc.coulon@wanadoo.fr>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Language: French\n"
@@ -292,28 +292,26 @@ msgid "Error during running assistant"
 msgstr "Erreur lors de l'exécution de l'assistant"
 
 #: hugin1/base_wx/wxLensDB.cpp:232
-#, fuzzy, c-format
+#, c-format
 msgid "The input \"%s\" is not a valid number."
-msgstr "L'entrée Input « %s » pour %s n'est pas un nombre valable\n"
+msgstr "La valeur \"%s\" n'est pas un nombre valable."
 
 #: hugin1/base_wx/wxLensDB.cpp:296
 #, c-format
 msgid "%d lenses found."
-msgstr ""
+msgstr "%d objectifs trouvés."
 
 #: hugin1/base_wx/wxLensDB.cpp:300
-#, fuzzy
 msgid "No lens found."
-msgstr "Aucun panorama possible n'a été trouvé."
+msgstr "Aucun objectif trouvé."
 
 #: hugin1/base_wx/wxLensDB.cpp:607
-#, fuzzy
 msgid ""
 "There are too less information for saving data into database. Please check "
 "your input!"
 msgstr ""
-"Il y a des valeurs incorrectes dans la fenêtre de saisie.\n"
-"Veuillez vérifier vos entrées."
+"Il manque certaines informations obligatoires. Veuillez compléter les "
+"données fournies."
 
 #: hugin1/base_wx/wxLensDB.cpp:658
 #, c-format
@@ -324,25 +322,29 @@ msgid ""
 "The default folder for the database files is \"%s\".\n"
 "Do you want to proceed anyway?"
 msgstr ""
+"Vous avez sélectionné le répertoire \"%s\" pour enregistrer la base de "
+"données.\n"
+"Ce n'est pas le répertoire par défaut. Vous ne pourrez pas automatiquement "
+"charger ces informations dans Hugin.\n"
+"Le répertoire par défaut pour la base de données est \"%s\".\n"
+"Voulez-vous tout de même continuer ?"
 
 #: hugin1/base_wx/wxLensDB.cpp:706
-#, fuzzy
 msgid "Save lens into database file"
-msgstr "Enregistrer le fichier des paramètres de l'objectif"
+msgstr "Enregistrer l'objectif dans la base de données"
 
 #: hugin1/base_wx/wxLensDB.cpp:708 hugin1/base_wx/wxLensDB.cpp:962
-#, fuzzy
 msgid "Lensfun database files (*.xml)|*.xml"
-msgstr "Fichiers de PTmender (*.txt)|*.txt"
+msgstr "Fichiers lensfun (*.xml)|*.xml"
 
 #: hugin1/base_wx/wxLensDB.cpp:749 hugin1/base_wx/wxLensDB.cpp:762
 #: hugin1/base_wx/wxLensDB.cpp:808 hugin1/base_wx/wxLensDB.cpp:983
 msgid "Could not save information into database file."
-msgstr ""
+msgstr "Impossible d'enregistrer les informations dans la base de données."
 
 #: hugin1/base_wx/wxLensDB.cpp:815
 msgid "Could not initialize database."
-msgstr ""
+msgstr "Impossible d'initialiser la base de données."
 
 #: hugin1/base_wx/wxLensDB.cpp:819
 #, c-format
@@ -352,19 +354,21 @@ msgid ""
 "Could not proceed.\n"
 "(Error code: %d)"
 msgstr ""
+"L'objectif sélectionné ne correspond pas aux données de la base de données.\n"
+"Opération annulée.\n"
+"(code d'erreur : %d)"
 
 #: hugin1/base_wx/wxLensDB.cpp:931
 msgid "The maker field contains only an empty string."
-msgstr ""
+msgstr "Le champ constructeur est vide."
 
 #: hugin1/base_wx/wxLensDB.cpp:936
 msgid "The model field contains only an empty string."
-msgstr ""
+msgstr "Le champ modèle est vide."
 
 #: hugin1/base_wx/wxLensDB.cpp:960
-#, fuzzy
 msgid "Save camera into database file"
-msgstr "Enregistrer les paramètres de l'objectif dans un fichier"
+msgstr "Enregistrer appareil photo dans base de données"
 
 #: hugin1/calibrate_lens/LensCalApp.cpp:66 hugin1/hugin/huginApp.cpp:193
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:80
@@ -391,9 +395,8 @@ msgstr "Traductions introuvables dans le paquet"
 
 #: hugin1/calibrate_lens/LensCalApp.cpp:79 hugin1/hugin/huginApp.cpp:213
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:96
-#, fuzzy
 msgid "lensfun directory not found in bundle"
-msgstr "Répertoire xrc introuvable dans le paquet"
+msgstr "Répertoire lensfun introuvable dans le paquet"
 
 #: hugin1/calibrate_lens/LensCalApp.cpp:92 hugin1/hugin/huginApp.cpp:228
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:119
@@ -533,19 +536,16 @@ msgstr ""
 "veuillez modifier les paramètres."
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:773 hugin1/hugin/LensPanel.cpp:787
-#, fuzzy
 msgid "Save lens parameters to ini file"
-msgstr "Enregistrer les paramètres de l'objectif dans un fichier"
+msgstr "Enregistrer les paramètres de l'objectif dans fichier ini"
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:774 hugin1/hugin/LensPanel.cpp:788
-#, fuzzy
 msgid "Save lens parameters to lensfun database"
-msgstr "Enregistrer les paramètres de l'objectif dans un fichier"
+msgstr "Enregistrer les paramètres de l'objectif dans la base de données"
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:775 hugin1/hugin/LensPanel.cpp:790
-#, fuzzy
 msgid "Saving lens data"
-msgstr "Charger les données de l'objectif..."
+msgstr "Enregistrement des données de l'objectif..."
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:775 hugin1/hugin/LensPanel.cpp:790
 #: translations/xrc.cpp:274 xrc.cpp:274
@@ -604,14 +604,14 @@ msgid "Path to data: %s"
 msgstr "Chemin vers les données : %s"
 
 #: hugin1/hugin/AboutDialog.cpp:178
-#, fuzzy, c-format
+#, c-format
 msgid "Path to public lensfun database: %s"
-msgstr "Chemin vers les données : %s"
+msgstr "Chemin vers données lensfun publiques : %s"
 
 #: hugin1/hugin/AboutDialog.cpp:179
-#, fuzzy, c-format
+#, c-format
 msgid "Path to user lensfun database: %s"
-msgstr "Chemin vers les données : %s"
+msgstr "Chemin vers données lensfun utilisateur : %s"
 
 #: hugin1/hugin/AboutDialog.cpp:180
 msgid "Libraries"
@@ -1095,9 +1095,8 @@ msgid "Autocrop"
 msgstr "Recadrage automatique"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:339 translations/xrc.cpp:1025 xrc.cpp:1025
-#, fuzzy
 msgid "HDR Autocrop"
-msgstr "Recadrage automatique"
+msgstr "Recadrage HDR"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:366 hugin1/hugin/PreviewFrame.cpp:132
 msgid "displayed images"
@@ -1456,6 +1455,12 @@ msgid ""
 "malfunction, please go to the menu File -> Preference and in each tab hit "
 "the 'Load Defaults' button"
 msgstr ""
+"Ceci est la version %s de Hugin. Des préférences de l'ancienne version %s "
+"ont été trouvé. Ces préférences ne sont peut être pas compatibles avec la "
+"nouvelle version. Si vous rencontrez des erreurs, vous pouvez réinitialiser "
+"les préférences pour la nouvelle version en allant dans Ficher -> "
+"Préférences, puis en cliquant dans chaque onglet sur le bouton 'Charger "
+"Défauts'"
 
 #: hugin1/hugin/huginApp.cpp:283
 #, c-format
@@ -1465,6 +1470,12 @@ msgid ""
 "malfunction, please go to the menu File -> Preference and in each tab hit "
 "the 'Load Defaults' button"
 msgstr ""
+"Ceci est la version %s de Hugin. Des préférences de la nouvelle version %s "
+"ont été trouvé. Ces préférences ne sont peut être pas compatibles avec "
+"l'ancienne version. Si vous rencontrez des erreurs, vous pouvez "
+"réinitialiser les préférences pour l'ancienne version en allant dans Ficher -"
+"> Préférences, puis en cliquant dans chaque onglet sur le bouton 'Charger "
+"Défauts'"
 
 #: hugin1/hugin/ImagesList.cpp:441 hugin1/hugin/ImagesList.cpp:569
 msgid "Filename"
@@ -1589,7 +1600,7 @@ msgid ""
 "different stack."
 msgstr ""
 "Votre projet doit comporter au moins deux ensembles avant que vous ne "
-"puissiez des images à un autre ensemble."
+"puissiez assigner des images à un autre ensemble."
 
 #: hugin1/hugin/ImagesPanel.cpp:1019
 msgid "Enter new stack number"
@@ -1615,9 +1626,10 @@ msgid "Please select an image and try again"
 msgstr "Veuillez sélectionner une image et réessayer"
 
 #: hugin1/hugin/LensPanel.cpp:789
-#, fuzzy
 msgid "Save camera parameters to lensfun database"
-msgstr "Enregistrer les paramètres de l'objectif dans un fichier"
+msgstr ""
+"Enregistrer les paramètres de l'appareil photo dans la base de données "
+"lensfun"
 
 #: hugin1/hugin/LensPanel.cpp:821
 msgid ""
@@ -1646,21 +1658,19 @@ msgstr ""
 
 #: hugin1/hugin/LensPanel.cpp:850
 msgid "From ini file"
-msgstr ""
+msgstr "Du fichier ini"
 
 #: hugin1/hugin/LensPanel.cpp:851
 msgid "From lensfun database"
-msgstr ""
+msgstr "De la base de données lensfun"
 
 #: hugin1/hugin/LensPanel.cpp:852
-#, fuzzy
 msgid "Loading lens data from"
-msgstr "Charger les données de l'objectif..."
+msgstr "Chargement des données de l'objectif de"
 
 #: hugin1/hugin/LensPanel.cpp:852
-#, fuzzy
 msgid "Load lens"
-msgstr "Charger l'objectif..."
+msgstr "Charger l'objectif"
 
 #: hugin1/hugin/LensPanel.cpp:897
 msgid ""
@@ -1847,9 +1857,8 @@ msgid "Open project: cancel"
 msgstr "Ouverture du projet : abandon"
 
 #: hugin1/hugin/MainFrame.cpp:1239
-#, fuzzy
 msgid "No matching images found."
-msgstr "Chargement des images"
+msgstr "Aucune image correspondante trouvée"
 
 #: hugin1/hugin/MainFrame.cpp:1389
 msgid "Can't start system's web browser"
@@ -3287,9 +3296,8 @@ msgid "stitch_project.pto [output prefix]|assistant_project.pto"
 msgstr "stitch_project.pto [préfixe de sortie]|assistant_project.pto"
 
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:212
-#, fuzzy
 msgid "PTBatcherGUI started"
-msgstr "PTBatcherGUI"
+msgstr "PTBatcherGUI a démarré"
 
 #: hugin1/stitch_project/hugin_stitch_project.cpp:141
 #, c-format
@@ -3590,19 +3598,16 @@ msgid "Check if the stacks were shoot on a tripod."
 msgstr "Vérifier si les ensembles ont été pris avec un trépied."
 
 #: translations/xrc.cpp:66 xrc.cpp:66
-#, fuzzy
 msgid "Lens database:"
-msgstr "Type d'objectif :"
+msgstr "Base de données d'objectifs :"
 
 #: translations/xrc.cpp:67 xrc.cpp:67
-#, fuzzy
 msgid "Load distortion data"
-msgstr "Distorsion (a) :"
+msgstr "Charger données distorsion"
 
 #: translations/xrc.cpp:68 xrc.cpp:68
-#, fuzzy
 msgid "Load vignetting data"
-msgstr "Charger les données de l'objectif..."
+msgstr "Charger données vignetage"
 
 #: translations/xrc.cpp:70 xrc.cpp:70
 msgid "Found panoramas"
@@ -4400,54 +4405,49 @@ msgstr ""
 "ultérieur dans hugin."
 
 #: translations/xrc.cpp:286 translations/xrc.cpp:302 xrc.cpp:286 xrc.cpp:302
-#, fuzzy
 msgid "Camera maker:"
 msgstr "Constructeur de l'appareil photo :"
 
 #: translations/xrc.cpp:287 translations/xrc.cpp:303 xrc.cpp:287 xrc.cpp:303
-#, fuzzy
 msgid "Camera model:"
 msgstr "Modèle de l'appareil photo :"
 
 #: translations/xrc.cpp:288 translations/xrc.cpp:305 translations/xrc.cpp:319
 #: xrc.cpp:288 xrc.cpp:305 xrc.cpp:319
-#, fuzzy
 msgid "Lens name:"
-msgstr "Objectif numéro"
+msgstr "Nom de l'objectif"
 
 #: translations/xrc.cpp:289 translations/xrc.cpp:306 xrc.cpp:289 xrc.cpp:306
-#, fuzzy
 msgid "Leave empty for compact cameras."
-msgstr "(laisser vide pour utiliser la valeur par défaut du système)"
+msgstr "Laissez vide pour appareils photo compacts."
 
 #: translations/xrc.cpp:290 xrc.cpp:290
 msgid "fuzzy search"
-msgstr ""
+msgstr "recherche floue"
 
 #: translations/xrc.cpp:291 xrc.cpp:291
 msgid "Search"
-msgstr ""
+msgstr "Recherche"
 
 #: translations/xrc.cpp:294 translations/xrc.cpp:310 xrc.cpp:294 xrc.cpp:310
-#, fuzzy
 msgid "Subject distance:"
-msgstr "Sélectionner par distance"
+msgstr "Distance du sujet"
 
 #: translations/xrc.cpp:295 xrc.cpp:295
 msgid ""
 "Select which parameters should be loaded\n"
 "from database"
 msgstr ""
+"Sélectionnez les paramètres à charger\n"
+"de la base de données"
 
 #: translations/xrc.cpp:296 xrc.cpp:296
-#, fuzzy
 msgid "Load distortion"
-msgstr "Distorsion radiale"
+msgstr "Charger distorsion"
 
 #: translations/xrc.cpp:297 xrc.cpp:297
-#, fuzzy
 msgid "Load vignetting"
-msgstr "Vignetage"
+msgstr "Charger vignetage"
 
 #: translations/xrc.cpp:298 translations/xrc.cpp:314 translations/xrc.cpp:321
 #: translations/xrc.cpp:337 xrc.cpp:298 xrc.cpp:314 xrc.cpp:321 xrc.cpp:337
@@ -4455,48 +4455,44 @@ msgid "Lens"
 msgstr "Objectif"
 
 #: translations/xrc.cpp:301 xrc.cpp:301
-#, fuzzy
 msgid "Load lens from database"
-msgstr "Charger les données de l'objectif..."
+msgstr "Charger l'objectif de la base de données"
 
 #: translations/xrc.cpp:304 xrc.cpp:304
-#, fuzzy
 msgid "Lens maker:"
-msgstr "Objectif numéro"
+msgstr "Constructeur objectif :"
 
 #: translations/xrc.cpp:307 translations/xrc.cpp:320 xrc.cpp:307 xrc.cpp:320
 msgid "Mount:"
-msgstr ""
+msgstr "Monture :"
 
 #: translations/xrc.cpp:311 xrc.cpp:311
 msgid ""
 "Select which parameters should be saved\n"
 "into database"
 msgstr ""
+"Sélectionnez les paramètres à enregistrer\n"
+"dans la base de données"
 
 #: translations/xrc.cpp:312 xrc.cpp:312
-#, fuzzy
 msgid "Save distortion"
-msgstr "Distorsion radiale"
+msgstr "Enregistrer distorsion"
 
 #: translations/xrc.cpp:313 xrc.cpp:313
-#, fuzzy
 msgid "Save vignetting"
-msgstr "Vignetage"
+msgstr "Enregistrer vignetage"
 
 #: translations/xrc.cpp:317 xrc.cpp:317
-#, fuzzy
 msgid "Save lens to database"
-msgstr "Enregistrer le fichier des paramètres de l'objectif"
+msgstr "Enregistrer l'objectif dans la base de données"
 
 #: translations/xrc.cpp:318 xrc.cpp:318
-#, fuzzy
 msgid "Maker:"
-msgstr "Constructeur de l'appareil photo :"
+msgstr "Constructeur :"
 
 #: translations/xrc.cpp:324 xrc.cpp:324
 msgid "Save camera to database"
-msgstr ""
+msgstr "Enregistrer caméra dans base de données"
 
 #: translations/xrc.cpp:326 xrc.cpp:326
 msgid "Load lens parameters from a file"
@@ -6545,16 +6541,24 @@ msgid ""
 "create the appropriate project file, run the assistant and optionally stitch "
 "the final panorama."
 msgstr ""
+"Si vous avez un répertoire contenant des images de panoramas différents, "
+"vous pouvez utiliser File -> Rechercher dans le répertoire... -> Images dans "
+"PTBatcherGUI pour automatiquement créer le projet correspondant, exécuté "
+"l'assisant et potentiellement assembler le panorama final."
 
 #: hugin1/hugin/xrc/data/tips.txt:5
 msgid ""
 "To run the assistant on a bunch of projects use the batch processor "
 "PTBatcherGUI."
 msgstr ""
+"Pour exécuter l'assistant sur plusieurs projets, utilisez le processeur de "
+"traitement par lots PTBatcherGUI."
 
 #: hugin1/hugin/xrc/data/tips.txt:6
 msgid "To stitch a bunch of projects use the batch processor PTBatcherGUI."
 msgstr ""
+"Pour assembler plusieurs projets, utilisez le processeur de traitement par "
+"lots PTBatcherGUI."
 
 #: hugin1/hugin/xrc/data/tips.txt:7
 msgid ""
