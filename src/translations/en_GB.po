@@ -11,7 +11,7 @@ msgstr ""
 "PO-Revision-Date: 2011-02-28 15:18+0000\n"
 "Last-Translator: Gareth Jones <gareth.k.jones@gmail.com>\n"
 "Language-Team: British English <en_GB@li.org>\n"
-"Language: \n"
+"Language: British English\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -311,7 +311,7 @@ msgstr ""
 
 #: hugin1/base_wx/wxLensDB.cpp:815
 msgid "Could not initialize database."
-msgstr ""
+msgstr "Could not initialise database."
 
 #: hugin1/base_wx/wxLensDB.cpp:819
 #, c-format
@@ -449,7 +449,7 @@ msgstr ""
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:709
 msgid "Optimizing lens distortion parameters..."
-msgstr ""
+msgstr "Optimising lens distortion parameters..."
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:731 hugin1/hugin/LensPanel.cpp:759
 msgid "Save lens parameters file"
@@ -478,6 +478,9 @@ msgid ""
 "Please run \"Find lines\" and \"Optimize\" before saving the lens data. If "
 "there are no lines found, change the parameters."
 msgstr ""
+"There are no detected lines.\n"
+"Please run \"Find lines\" and \"Optimise\" before saving the lens data. If "
+"there are no lines found, change the parameters."
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:773 hugin1/hugin/LensPanel.cpp:787
 msgid "Save lens parameters to ini file"
@@ -1245,6 +1248,8 @@ msgid ""
 "Error initializing GLEW\n"
 "Fast preview window can not be opened."
 msgstr ""
+"Error initialising GLEW\n"
+"Fast preview window can not be opened."
 
 #: hugin1/hugin/GLViewer.cpp:163
 msgid ""
@@ -1844,7 +1849,7 @@ msgstr ""
 "The results are probably invalid.\n"
 "Only optimise all distortion parameters when many, well spread control "
 "points are used.\n"
-"Please reset the a,b and c parameters to zero and add more control points\n"
+"Please reset the a, b and c parameters to zero and add more control points\n"
 "\n"
 "Apply the changes anyway?"
 
@@ -2279,6 +2284,7 @@ msgstr ""
 msgid ""
 "Click on a area which should be neutral gray / white in the final panorama."
 msgstr ""
+"Click on a area which should be neutral grey / white in the final panorama."
 
 #: hugin1/hugin/PreviewCropTool.cpp:55
 msgid "Drag the inside of the cropping rectangle to adjust the crop."
@@ -2614,7 +2620,7 @@ msgstr ""
 
 #: hugin1/ptbatcher/Batch.cpp:638
 msgid "Initializing shutdown..."
-msgstr "Initialising shutdown..."
+msgstr "Initialising shut-down..."
 
 #: hugin1/ptbatcher/Batch.cpp:638 hugin1/ptbatcher/Batch.cpp:643
 msgid "Shutting down..."
@@ -4682,7 +4688,6 @@ msgid "Unselected"
 msgstr ""
 
 #: translations/xrc.cpp:520 xrc.cpp:520
-#, fuzzy
 msgid "Colour"
 msgstr "Colour"
 
@@ -4859,7 +4864,7 @@ msgstr "Photometric Optimisation"
 
 #: translations/xrc.cpp:573 xrc.cpp:573
 msgid "Optimize preset"
-msgstr "Optimise preset"
+msgstr "Optimise pre-set"
 
 #: translations/xrc.cpp:574 xrc.cpp:574
 msgid "Low dynamic range"
@@ -4912,7 +4917,6 @@ msgid "Vignetting (Vb, Vc, Vd):"
 msgstr ""
 
 #: translations/xrc.cpp:589 xrc.cpp:589
-#, fuzzy
 msgid "Vignetting Center (Vx, Vy):"
 msgstr "Vignetting Centre (Vx, Vy):"
 
@@ -5101,7 +5105,7 @@ msgid ""
 "Images will be remapped in linear color space, stacks merged, then blended "
 "into a seamless High Dynamic Range panorama"
 msgstr ""
-"Images will be remapped in linear colour space, stacks merged, then blended "
+"Images will be remapped in linear colour-space, stacks merged, then blended "
 "into a seamless High Dynamic Range panorama"
 
 #: translations/xrc.cpp:649 xrc.cpp:649
@@ -5126,7 +5130,7 @@ msgstr ""
 
 #: translations/xrc.cpp:655 xrc.cpp:655
 msgid "Produce remapped, but not merged, linear color space images"
-msgstr "Produce remapped, but not merged, linear colour space images"
+msgstr "Produce remapped, but not merged, linear colour-space images"
 
 #: translations/xrc.cpp:656 xrc.cpp:656
 msgid "Combined stacks:"
@@ -5883,11 +5887,10 @@ msgstr ""
 
 #: translations/xrc.cpp:902 translations/xrc.cpp:976 xrc.cpp:902 xrc.cpp:976
 msgid "Correct global white balance by selecting a neutral gray area."
-msgstr ""
+msgstr "Correct global white-balance by selecting a neutral grey area."
 
 #: translations/xrc.cpp:903 translations/xrc.cpp:904 translations/xrc.cpp:977
 #: translations/xrc.cpp:978 xrc.cpp:903 xrc.cpp:904 xrc.cpp:977 xrc.cpp:978
-#, fuzzy
 msgid "Gray picker"
 msgstr "Grey picker"
 
@@ -5904,7 +5907,6 @@ msgid "Scale:"
 msgstr ""
 
 #: translations/xrc.cpp:910 translations/xrc.cpp:984 xrc.cpp:910 xrc.cpp:984
-#, fuzzy
 msgid ""
 "* A gray line indicates there are no control points, but the image pair "
 "overlaps.\n"
@@ -6269,29 +6271,32 @@ msgstr ""
 "Optimisation of all distortion parameters \"everything\" makes only sense "
 "with heavily overlapping images and many well distributed control points."
 
+msgid "Creating grayscale %s"
+msgstr "Creating greyscale %s"
+
+msgid ""
+"Warning: PTmender (from panotools 2.9 or later) only supports TIFF_m "
+"output.\n"
+"For color and brightness correction, the resulting tiff files must be "
+"processed with PTblender.\n"
+"\n"
+"Continue anyway?"
+msgstr ""
+"Warning: PTmender (from panotools 2.9 or later) only supports TIFF_m "
+"output.\n"
+"For colour and brightness correction, the resulting tiff files must be "
+"processed with PTblender.\n"
+"\n"
+"Continue anyway?"
+
+#, fuzzy
 #~ msgid "Colors:"
-#~ msgstr "Colours:"
+#~ msgstr "Colour"
 
-#~ msgid "Creating grayscale %s"
-#~ msgstr "Creating greyscale %s"
-
+#, fuzzy
 #~ msgid "Run the Optimizer to estimate the image positions."
-#~ msgstr "Run the Optimiser to estimate the image positions."
+#~ msgstr "Re-run the optimiser with current settings"
 
-#~ msgid ""
-#~ "Warning: PTmender (from panotools 2.9 or later) only supports TIFF_m "
-#~ "output.\n"
-#~ "For color and brightness correction, the resulting tiff files must be "
-#~ "processed with PTblender.\n"
-#~ "\n"
-#~ "Continue anyway?"
-#~ msgstr ""
-#~ "Warning: PTmender (from panotools 2.9 or later) only supports TIFF_m "
-#~ "output.\n"
-#~ "For colour and brightness correction, the resulting tiff files must be "
-#~ "processed with PTblender.\n"
-#~ "\n"
-#~ "Continue anyway?"
-
+#, fuzzy
 #~ msgid "Optimizing"
-#~ msgstr "Optimising"
+#~ msgstr "Optimise"
