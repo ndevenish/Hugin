@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: hugin\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
 "POT-Creation-Date: 2012-07-23 06:47+0200\n"
-"PO-Revision-Date: 2012-08-02 08:26+0200\n"
+"PO-Revision-Date: 2012-08-05 20:57+0200\n"
 "Last-Translator: Jorge González <aloriel@gmail.com>\n"
 "Language-Team: Español <es@li.org>\n"
 "Language: es\n"
@@ -1247,7 +1247,7 @@ msgstr "El valor debe ser numérico."
 #: hugin1/hugin/GLPreviewFrame.cpp:1610
 msgid "Do you want to keep the current non-zero translation parameters?"
 msgstr ""
-"¿Quiere mantener los parámetros de translación actuales distintos de cero?"
+"¿Quiere mantener los parámetros de traslación actuales distintos de cero?"
 
 # Parámetros del Objetivo
 #: hugin1/hugin/GLPreviewFrame.cpp:1611
@@ -1328,6 +1328,7 @@ msgstr ""
 #: hugin1/hugin/GLPreviewFrame.cpp:2686
 msgid "For a very wide panorama, try equirectangular projection instead."
 msgstr ""
+"Para una panorámica muy ancha inténte mejor la proyección equirectangular."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:2688
 msgid " You could also try Panini projection."
@@ -1393,6 +1394,9 @@ msgid ""
 "version 1.1 with the GL_ARB_multitexture extension.\n"
 "The fast preview cannot be opened."
 msgstr ""
+"La ventana de vista previa rápida requiere un sistema que soporte OpenGL "
+"versión 1.1 con la extensión GL_ARB_multitexture.\n"
+"No se puede abrir la vista previa rápida."
 
 #: hugin1/hugin/HDRMergeOptionDialog.cpp:157
 msgid "Invalid input\n"
@@ -1629,6 +1633,9 @@ msgid ""
 "You selected only one image.\n"
 "Should the loaded parameters applied to all images with the same lens?"
 msgstr ""
+"Sólo ha seleccionado una imagen.\n"
+"¿Se deberían aplicar los parámetros cargados a todas las imágenes con el "
+"mismo objetivo?"
 
 #: hugin1/hugin/LensPanel.cpp:821 hugin1/ptbatcher/FindPanoDialog.cpp:187
 #: hugin1/ptbatcher/FindPanoDialog.cpp:222
@@ -1779,6 +1786,11 @@ msgid ""
 "\n"
 "(Error code: %s)"
 msgstr ""
+"No se pudo guardar el «makefile» del proyecto «%s».\n"
+"Pero se guardó el archivo de proyecto.\n"
+"Quizá el archivo o la carpeta son de sólo lectura.\n"
+"\n"
+"(Código de error: %s)"
 
 #: hugin1/hugin/MainFrame.cpp:746
 #, c-format
@@ -1788,6 +1800,10 @@ msgid ""
 "\n"
 "(Error code: %s)"
 msgstr ""
+"No se pudo guardar el archivo de proyecto «%s».\n"
+"Quizá el archivo o la carpeta son de sólo lectura.\n"
+"\n"
+"(Código de error: %s)"
 
 #: hugin1/hugin/MainFrame.cpp:793
 msgid "Save PTmender script file"
@@ -1949,13 +1965,12 @@ msgid "Mask type"
 msgstr "Tipo de máscara"
 
 #: hugin1/hugin/MaskEditorPanel.cpp:337
-#, fuzzy
 msgid ""
 "Create a polygon mask by clicking with left mouse button on image, set last "
 "point with right mouse button."
 msgstr ""
-"Centre la panorámica con el botón izquierdo, establezca el horizonte con el "
-"dereho"
+"Cree una máscada poligonal pulsando con el botón izquierdo del ratón, "
+"establezca el último punto con el botón derecho del ratón."
 
 #: hugin1/hugin/MaskEditorPanel.cpp:346
 msgid "Save mask"
@@ -2325,6 +2340,12 @@ msgid ""
 "and stitch from the Stitcher tab. Stitching a panorama this size could take "
 "a long time and a large amount of memory."
 msgstr ""
+"¿Está seguro de que quiere empalmar una panorámica tan grande?\n"
+"\n"
+"La panorámica que está intentando empalmar tiene %.1f gigapíxeles.\n"
+"Si es demasiado grande, reduzca el tamaño del marco y la región de recorte y "
+"empalme desde la pestaña de Empalmador. Empalmar una panorámica de este "
+"tamaño puede llevar mucho tiempo y una gran cantidad de memoria."
 
 #: hugin1/hugin/PluginItems.cpp:71
 msgid "Miscellaneous"
@@ -2503,19 +2524,18 @@ msgstr "Cargar ajustes de detección de puntos de control"
 
 #: hugin1/hugin/PreferencesDialog.cpp:994
 #: hugin1/hugin/PreferencesDialog.cpp:1009
-#, fuzzy
 msgid "Control point detector settings (*.setting)|*.setting"
-msgstr "Detectores de puntos de control"
+msgstr "Ajustes de detección de puntos de control (*.setting)|*.setting"
 
 #: hugin1/hugin/PreferencesDialog.cpp:1007
-#, fuzzy
 msgid "Save control point detector settings"
-msgstr "Detectores de puntos de control"
+msgstr "Guardar ajustes de detección de puntos de control"
 
 #: hugin1/hugin/PreviewColorPickerTool.cpp:44
 msgid ""
 "Click on a area which should be neutral gray / white in the final panorama."
 msgstr ""
+"Pulse en un área que debería ser gris neutro o blanco en la panorámica final."
 
 #: hugin1/hugin/PreviewCropTool.cpp:55
 msgid "Drag the inside of the cropping rectangle to adjust the crop."
@@ -2680,6 +2700,9 @@ msgid ""
 "Maybe you have not installed it properly or given a wrong path in the "
 "settings."
 msgstr ""
+"No se pudo encontrar «%s» en la ruta.\n"
+"Quizá no lo ha instalado correctamente o ha proporcionado una ruta "
+"incorrecta en la configuración."
 
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:369
 msgid "cleaning up temporary keypoint files"
@@ -3185,6 +3208,9 @@ msgid ""
 "If you close the dialog, you will lose them.\n"
 "Continue anyway?"
 msgstr ""
+"Posiblemente esta lista contiene panorámicas sin procesar.\n"
+"Si cierra el diálogo las perderá.\n"
+"¿Quiere continuar?"
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:211
 msgid "Accepted"
@@ -3196,6 +3222,9 @@ msgid ""
 "If you continue, they will be disregarded.\n"
 "Do you still want to continue?"
 msgstr ""
+"La lista aún contiene panorámicas sin procesar.\n"
+"Si continua se descartarán.\n"
+"¿Quiere continuar?"
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:231
 msgid "Stop"
@@ -3207,12 +3236,16 @@ msgid ""
 "Directory %s does not exist.\n"
 "Please give an existing directory."
 msgstr ""
+"La carpeta %s no existe.\n"
+"Proporcione una carpeta existente."
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:261
 msgid ""
 "You have selected no possible panorama.\n"
 "Please select at least one panorama and try again."
 msgstr ""
+"No ha seleccionado ninguna panorámica.\n"
+"Seleccione al menos una panorámica e inténtelo de nuevo."
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:283
 msgid ""
@@ -3220,6 +3253,9 @@ msgid ""
 "Maybe you have no write permission for these directories or your hard disc "
 "is full."
 msgstr ""
+"No todos los archivos de proyecto se escribieron correctamente.\n"
+"Quizá no tenga permisos de escritura en esas carpetas o su disco duro esté "
+"lleno."
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:317
 #, c-format
@@ -3320,7 +3356,7 @@ msgstr "Asistente"
 
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:152 hugin1/ptbatcher/PTBatcherGUI.cpp:168
 msgid "stitch_project.pto [output prefix]|assistant_project.pto"
-msgstr ""
+msgstr "empalmar_proyecto.pto [prefijo de salida]|asistente_del_proyecto.pto"
 
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:212
 msgid "PTBatcherGUI started"
@@ -3376,11 +3412,11 @@ msgstr "Autores"
 
 #: translations/xrc.cpp:5 xrc.cpp:5
 msgid "Sponsors"
-msgstr ""
+msgstr "Sponsors"
 
 #: translations/xrc.cpp:6 xrc.cpp:6
 msgid "Upstream"
-msgstr ""
+msgstr "«Upstream»"
 
 #: translations/xrc.cpp:7 xrc.cpp:7
 msgid "License"
@@ -3552,6 +3588,7 @@ msgstr "Quitar proyectos finalizados"
 #: translations/xrc.cpp:48 xrc.cpp:48
 msgid "Automatic remove successfully finished projects from queue."
 msgstr ""
+"Quitar automáticamente de la cola los proyectos finalizados correcamente."
 
 #: translations/xrc.cpp:49 xrc.cpp:49
 msgid "Automatic stitch after assistant"
@@ -3560,6 +3597,8 @@ msgstr "Empalmado automático después del asistente"
 #: translations/xrc.cpp:50 xrc.cpp:50
 msgid "Automatically stitch projects after (successful) running assistant."
 msgstr ""
+"Empalmar automáticamente los proyectos después de ejecutar (correctamente) "
+"el asistente."
 
 #: translations/xrc.cpp:51 xrc.cpp:51
 msgid "Shutdown when done"
@@ -5202,11 +5241,11 @@ msgstr "Posiciones, vista y distorsión de barril (v,i,b,v,d)"
 
 #: translations/xrc.cpp:543 xrc.cpp:543
 msgid "Everything without translation"
-msgstr ""
+msgstr "Todo sin traslación"
 
 #: translations/xrc.cpp:544 translations/xrc.cpp:549 xrc.cpp:544 xrc.cpp:549
 msgid "----------------------------------------------------------"
-msgstr ""
+msgstr "----------------------------------------------------------"
 
 #: translations/xrc.cpp:545 xrc.cpp:545
 #, fuzzy
@@ -5517,6 +5556,8 @@ msgid ""
 "Calculate crop borders such that the final image has the largest area "
 "without excess"
 msgstr ""
+"Calcular los bordes del recorte para que la imagen final tenga el máximo "
+"área sin exceso"
 
 #: translations/xrc.cpp:634 xrc.cpp:634
 msgid "Panorama Outputs:"
@@ -5548,7 +5589,7 @@ msgstr ""
 
 #: translations/xrc.cpp:639 xrc.cpp:639
 msgid "Exposure fused from any arrangement"
-msgstr ""
+msgstr "Exposición fusionada de cualquier ajuste"
 
 # Las imágenes serán remapeadas y mezcladas en capas sin costuras, después las capas se mezclarán en una panorámica
 #: translations/xrc.cpp:640 xrc.cpp:640
@@ -5585,6 +5626,8 @@ msgid ""
 "Output remapped, exposure corrected images. Useful for manual blending of an "
 "exposure corrected panorama."
 msgstr ""
+"Generar imágenes remapeadas con exposición corregida. Útil para mezclar "
+"manualmente una panorámica de exposición corregida."
 
 #: translations/xrc.cpp:652 xrc.cpp:652
 msgid "No exposure correction, low dynamic range"
@@ -5609,18 +5652,16 @@ msgid "Combined stacks:"
 msgstr "Pilas combinadas"
 
 #: translations/xrc.cpp:657 xrc.cpp:657
-#, fuzzy
 msgid "Exposure fused stacks"
-msgstr "Exposición fusionada desde las pilas"
+msgstr "Pilas fusionadas de exposición"
 
 #: translations/xrc.cpp:658 xrc.cpp:658
 msgid "Output exposure fused stacks from highly overlapping images"
 msgstr ""
 
 #: translations/xrc.cpp:659 xrc.cpp:659
-#, fuzzy
 msgid "High dynamic range merged stacks"
-msgstr "Mantener las pilas intermedias HDR mezcladas"
+msgstr "Pilas fusionadas de alto rango dinámico"
 
 #: translations/xrc.cpp:660 xrc.cpp:660
 msgid ""
@@ -5633,18 +5674,16 @@ msgid "Layers:"
 msgstr "Capas:"
 
 #: translations/xrc.cpp:662 xrc.cpp:662
-#, fuzzy
 msgid "Blended layers of similar exposure, without exposure correction"
-msgstr "Generar imágenes remapeadas con la exposición corregida"
+msgstr "Capas mezcladas de exposición similar, sin corrección de exposición"
 
 #: translations/xrc.cpp:663 xrc.cpp:663
-#, fuzzy
 msgid ""
 "Output a complete blended panorama for each exposure step. Useful for manual "
 "contrast blending in an image editor."
 msgstr ""
-"Generar un panorama fusionado completo de cada exposición. Útil en fusiones "
-"de exposición a mano, por ejemplo en Photoshop o Gimp"
+"Generar una panorámica fusionado completo para cada exposición. Útil en "
+"fusiones de exposición a mano en un editor de imágenes."
 
 #: translations/xrc.cpp:664 xrc.cpp:664
 msgid "Processing:"
@@ -5701,7 +5740,7 @@ msgstr "Media lenta"
 
 #: translations/xrc.cpp:693 xrc.cpp:693
 msgid "Deghosting (Khan)"
-msgstr ""
+msgstr "Deghosting (Khan)"
 
 #: translations/xrc.cpp:694 translations/xrc.cpp:696 translations/xrc.cpp:704
 #: xrc.cpp:694 xrc.cpp:696 xrc.cpp:704
@@ -5710,7 +5749,7 @@ msgstr "Opciones avanzadas"
 
 #: translations/xrc.cpp:695 xrc.cpp:695
 msgid "Only consider pixels that are defined in all images (-c)"
-msgstr ""
+msgstr "Sólo considerar píxeles definidos en todas las imágenes (-c)"
 
 #: translations/xrc.cpp:697 xrc.cpp:697
 msgid "This merge mode has no further options."
@@ -5718,7 +5757,7 @@ msgstr "Este modo de mezcla no tiene más opciones."
 
 #: translations/xrc.cpp:698 xrc.cpp:698
 msgid "Options for deghosting"
-msgstr ""
+msgstr "Opciones para «deghosting»"
 
 #: translations/xrc.cpp:699 xrc.cpp:699
 msgid "Iterations:"
@@ -5734,11 +5773,11 @@ msgstr "Usar imágenes en gris para el procesado (-a f)"
 
 #: translations/xrc.cpp:702 xrc.cpp:702
 msgid "Use gamma 2.2 instead of logarithmic (-a g)"
-msgstr ""
+msgstr "Usar gamma 2.2 en lugar de logarítmica (-a g)"
 
 #: translations/xrc.cpp:703 xrc.cpp:703
 msgid "Do not scale images (-a m)"
-msgstr ""
+msgstr "No escalar las imágenes (-a m)"
 
 # Preferencias - hugin
 #: translations/xrc.cpp:707 xrc.cpp:707
@@ -5768,14 +5807,14 @@ msgid "Number of CPUs:"
 msgstr "Número de CPUs:"
 
 #: translations/xrc.cpp:713 xrc.cpp:713
-#, fuzzy
 msgid ""
 "Hugin's preview window can use multiple threads for processing.\n"
 "Set this to the number of processors or processor cores available in your "
 "system."
 msgstr ""
-"Nona puede usar múltiples hebras para el procesamiento.\n"
-"Establezca aquí el número de procesadores o número de núcleos de su sistema."
+"La ventana de vista previa de Hugin puede usar múltiples hilos para "
+"procesar.\n"
+"Establézcalo al número de procesadores o núcleos disponibles en su sistema."
 
 #: translations/xrc.cpp:714 xrc.cpp:714
 msgid "User Interface"
@@ -5786,9 +5825,8 @@ msgid "Language:"
 msgstr "Idioma:"
 
 #: translations/xrc.cpp:716 xrc.cpp:716
-#, fuzzy
 msgid "(requires restarting hugin)"
-msgstr "necesita reiniciar hugin"
+msgstr "(requiere reiniciar Hugin)"
 
 #: translations/xrc.cpp:717 xrc.cpp:717
 msgid "Project Name:"
@@ -6513,7 +6551,7 @@ msgstr "Modo de arrastre:"
 
 #: translations/xrc.cpp:943 translations/xrc.cpp:1021 xrc.cpp:943 xrc.cpp:1021
 msgid "Move the panorama or drag images into position"
-msgstr "Mover el panorama o arrastrar imágenes a la posición"
+msgstr "Mover la panorámica o arrastrar imágenes a la posición"
 
 #: translations/xrc.cpp:944 translations/xrc.cpp:1022 xrc.cpp:944 xrc.cpp:1022
 msgid "Move/Drag"
@@ -6525,10 +6563,9 @@ msgstr ""
 "Establecer el área de región al máximo rectángulo cubierto por las imágenes"
 
 #: translations/xrc.cpp:946 translations/xrc.cpp:1026 xrc.cpp:946 xrc.cpp:1026
-#, fuzzy
 msgid "Set the crop region to the largest rectangle covered by image stacks"
 msgstr ""
-"Establecer el área de región al máximo rectángulo cubierto por las imágenes"
+"Establecer el área de recorte al máximo rectángulo cubierto por las imágenes"
 
 #: translations/xrc.cpp:955 translations/xrc.cpp:1035 xrc.cpp:955 xrc.cpp:1035
 msgid "left:"
@@ -6613,10 +6650,13 @@ msgid ""
 "To run the assistant on a bunch of projects use the batch processor "
 "PTBatcherGUI."
 msgstr ""
+"Para ejecutar el asistente sobre un lote de proyectos use el procesador de "
+"lotes PTBatcherGUI."
 
 #: hugin1/hugin/xrc/data/tips.txt:6
 msgid "To stitch a bunch of projects use the batch processor PTBatcherGUI."
 msgstr ""
+"Para empalmar un lote de proyectos use el procesador de lotes PTBatcherGUI."
 
 # Si el horizonte de un panorama aparece curvado, usa la función enderezar en la ventana de vista previa para enderezarlo.
 #: hugin1/hugin/xrc/data/tips.txt:7
