@@ -412,7 +412,7 @@ void MaskEditorPanel::OnMaskAdd(wxCommandEvent &e)
         if(m_MaskNr<UINT_MAX)
             m_maskList->SetItemState(m_MaskNr,0,wxLIST_STATE_SELECTED);
         setMask(UINT_MAX);
-        MainFrame::Get()->SetStatusText(_("Create a polygon mask by clicking with left mouse button on image, set last point with right mouse button."),0);
+        MainFrame::Get()->SetStatusText(_("Create a polygon mask by clicking with the left mouse button on image, set the last point with the right mouse button."),0);
         m_editImg->startNewPolygon();
     };
 };
@@ -435,7 +435,7 @@ void MaskEditorPanel::OnMaskSave(wxCommandEvent &e)
             if (wxFile::Exists(fn)) 
             {
                 int d = wxMessageBox(wxString::Format(_("File %s exists. Overwrite?"), 
-                        fn.c_str()),_("Save Mask"), 
+                        fn.c_str()),_("Save mask"), 
                         wxYES_NO | wxICON_QUESTION);
                 if (d != wxYES) {
                     return;

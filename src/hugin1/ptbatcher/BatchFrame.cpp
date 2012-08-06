@@ -466,7 +466,7 @@ void BatchFrame::OnButtonChangePrefix(wxCommandEvent& event)
         }
         else
         {
-            SetStatusText(_("The prefix of an assistant target can not be changed."));
+            SetStatusText(_("The prefix of an assistant target cannot be changed."));
             wxBell();
         };
     }
@@ -665,7 +665,7 @@ void BatchFrame::OnButtonRemoveComplete(wxCommandEvent& event)
     bool removeErrors=false;
     if(!m_batch->NoErrors())
     {
-        wxMessageDialog message(this,_("There are failed projects in the list.\nRemove them also?"),
+        wxMessageDialog message(this,_("There are failed projects in the list.\nRemove them too?"),
 #ifdef _WINDOWS
                                 _("PTBatcherGUI"),
 #else

@@ -499,7 +499,7 @@ PT::PanoCommand* LoadLensOperation::GetInternalCommand(wxWindow* parent, PT::Pan
     HuginBase::StandardImageVariableGroups variable_groups(pano);
     if(images.size()==1)
     {
-        if(wxMessageBox(_("You selected only one image.\nShould the loaded parameters applied to all images with the same lens?"),_("Question"), wxICON_QUESTION | wxYES_NO)==wxYES)
+        if(wxMessageBox(_("You selected only one image.\nShould the loaded parameters be applied to all images with the same lens?"),_("Question"), wxICON_QUESTION | wxYES_NO)==wxYES)
         {
             unsigned int lensNr = variable_groups.getLenses().getPartNumber(*images.begin());
             // get all images with the current lens.

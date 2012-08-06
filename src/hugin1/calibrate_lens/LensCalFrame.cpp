@@ -398,7 +398,7 @@ void LensCalFrame::AddImages(wxArrayString files)
             if(i<wrongSize.size()-1)
                 fileText.Append(wxT(", "));
         };
-        wxMessageBox(wxString::Format(_("The size of the images (%s) does not match with the already added image(s)."),fileText.c_str()),
+        wxMessageBox(wxString::Format(_("The size of the images (%s) does not match the already added image(s)."),fileText.c_str()),
             _("Error"),wxOK|wxICON_EXCLAMATION,this);
     };
     if(wrongExif.size()>0)
@@ -411,7 +411,7 @@ void LensCalFrame::AddImages(wxArrayString files)
             if(i<wrongExif.size()-1)
                 fileText.Append(wxT(", "));
         };
-        wxMessageBox(wxString::Format(_("The EXIF information of the added images (%s) are not consistent with the already added image(s).\nPlease check the image again, if you selected the correct images."),fileText.c_str()),
+        wxMessageBox(wxString::Format(_("The EXIF information of the added images (%s) is not consistent with the already added image(s).\nPlease check the image again, if you selected the correct images."),fileText.c_str()),
             _("Warning"),wxOK|wxICON_EXCLAMATION,this);
     };
 };
@@ -622,7 +622,7 @@ void LensCalFrame::OnOptimize(wxCommandEvent &e)
         count+=m_images[i]->GetNrOfValidLines();
     if(count==0)
     {
-        wxMessageBox(_("There are no detected lines.\nPlease run \"Find lines\" before. If there are no lines found, change the parameters."),_("Warning"),wxOK  | wxICON_INFORMATION, this);
+        wxMessageBox(_("There are no detected lines.\nPlease run \"Find lines\" first. If there are no lines found, change the parameters."),_("Warning"),wxOK  | wxICON_INFORMATION, this);
         return;
     };
     Optimize();

@@ -604,7 +604,7 @@ void SaveLensDBDialog::OnOk(wxCommandEvent & e)
     };
     if(GetLensName().empty() && GetCameraMaker().empty() && GetCameraModel().empty())
     {
-        wxMessageBox(_("There are too less information for saving data into database. Please check your input!"),_("Warning"),wxOK|wxICON_ERROR,this);
+        wxMessageBox(_("There is too little information for saving data into database. Please check your input!"),_("Warning"),wxOK|wxICON_ERROR,this);
         return;
     };
     if(!str2double(this,XRCCTRL(*this,"save_lens_focallength",wxTextCtrl)->GetValue(),m_focal))
@@ -655,7 +655,7 @@ bool ShowFileDialogWithWarning(wxFileDialog &dlg,wxString userDBPath)
         };
         if(filename.GetPath()!=userDBPath)
         {
-            if(wxMessageBox(wxString::Format(_("You selected the folder \"%s\" to save your database file.\nThis is not the default folder. You won't be able to automatically load these informations back into Hugin.\nThe default folder for the database files is \"%s\".\nDo you want to proceed anyway?"),filename.GetPath().c_str(),userDBPath.c_str()),
+            if(wxMessageBox(wxString::Format(_("You selected the folder \"%s\" to save your database file.\nThis is not the default folder. You won't be able to automatically load this information back into Hugin.\nThe default folder for the database files is \"%s\".\nDo you want to proceed anyway?"),filename.GetPath().c_str(),userDBPath.c_str()),
                 _("Warning"),wxYES_NO,dlg.GetParent())==wxNO)
             {
                 return ShowFileDialogWithWarning(dlg,userDBPath);
@@ -816,7 +816,7 @@ bool SaveLensParameters(wxWindow * parent, const HuginBase::SrcPanoImage& img, b
                 }
                 else
                 {
-                    wxMessageBox(wxString::Format(_("The current selected lens does not match with the information of this lens in the selected database file.\nCould not proceed.\n(Error code: %d)"),e),
+                    wxMessageBox(wxString::Format(_("The current selected lens does not match with the information about this lens in the selected database file.\nCould not proceed.\n(Error code: %d)"),e),
                         _("Error"),wxOK|wxICON_ERROR,parent);
                 };
                 return false;

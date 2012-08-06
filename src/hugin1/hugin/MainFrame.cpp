@@ -962,7 +962,7 @@ void MainFrame::OnLoadProject(wxCommandEvent & e)
             wxString filename = dlg.GetPath();
             if(vigra::isImage(filename.mb_str(HUGIN_CONV_FILENAME)))
             {
-                if(wxMessageBox(wxString::Format(_("File %s is an image file and not a project file.\nThis file can't be open with File, Open.\nDo you want instead add this image file to the current project?"),filename.c_str()),
+                if(wxMessageBox(wxString::Format(_("File %s is an image file and not a project file.\nThis file can't be open with File, Open.\nDo you want to add this image file to the current project?"),filename.c_str()),
 #ifdef __WXMSW__
                     _("Hugin"),
 #else
@@ -1485,7 +1485,7 @@ void MainFrame::OnFineTuneAll(wxCommandEvent & e)
                               HUGIN_FT_CURV_THRESHOLD);
 
     {
-    ProgressReporterDialog progress(unoptimized.size(),_("Fine-tuning all points"),_("Finetuning"),wxTheApp->GetTopWindow());
+    ProgressReporterDialog progress(unoptimized.size(),_("Fine-tuning all points"),_("Fine-tuning"),wxTheApp->GetTopWindow());
 
     ImageCache & imgCache = ImageCache::getInstance();
 

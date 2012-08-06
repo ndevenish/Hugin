@@ -421,7 +421,7 @@ CPVector AutoPanoSift::automatch(CPDetectorSetting &setting, Panorama & pano, co
     bool use_inputscript = idx >=0;
 
     if (! (use_namefile || use_params || use_inputscript)) {
-        CPMessage(_("Please use  %namefile, %i or %s to specify the input files for control point detector"),
+        CPMessage(_("Please use %namefile, %i or %s to specify the input files for the control point detector"),
                      _("Error in control point detector command"), parent);
         return cps;
     }
@@ -469,7 +469,7 @@ CPVector AutoPanoSift::automatch(CPDetectorSetting &setting, Panorama & pano, co
 
 #ifdef __WXMSW__
     if (autopanoArgs.size() > 32000) {
-        CPMessage(_("Command line for control point detector too long.\nThis is a windows limitation\nPlease select less images, or place the images in a folder with\na shorter pathname"),
+        CPMessage(_("Command line for control point detector too long.\nThis is a Windows limitation\nPlease select less images, or place the images in a folder with\na shorter pathname"),
                      _("Too many images selected"), parent );
         return cps;
     }
@@ -502,7 +502,7 @@ CPVector AutoPanoSift::automatch(CPDetectorSetting &setting, Panorama & pano, co
     }
 
     if (! wxFileExists(ptofile.c_str())) {
-        CPMessage(wxString::Format(_("Could not open %s for reading\nThis is an indicator that the control point detector call failed,\nor wrong command line parameters have been used.\n\nExecuted command: %s"),ptofile.c_str(),cmd.c_str()),
+        CPMessage(wxString::Format(_("Could not open %s for reading\nThis is an indicator that the control point detector call failed,\nor incorrect command line parameters have been used.\n\nExecuted command: %s"),ptofile.c_str(),cmd.c_str()),
                      _("Control point detector failure"), parent );
         return cps;
     }
@@ -555,7 +555,7 @@ CPVector AutoPanoSift::automatch(CPDetectorSetting &setting, PT::Panorama & pano
     //check arguments
     if(generateKeysArgs.Find(wxT("%i"))==wxNOT_FOUND || generateKeysArgs.Find(wxT("%k"))==wxNOT_FOUND)
     {
-        CPMessage(_("Please use %i to specify the input files and %k to specify the keypoint file for generate keys step"),
+        CPMessage(_("Please use %i to specify the input files and %k to specify the keypoint file for the generate keys step"),
                      _("Error in control point detector command"), parent);
         return cps;
     };
@@ -632,7 +632,7 @@ CPVector AutoPanoSift::automatch(CPDetectorSetting &setting, PT::Panorama & pano
 
 #ifdef __WXMSW__
     if (matcherArgs.size() > 32000) {
-        CPMessage(_("Command line for control point detector too long.\nThis is a windows limitation\nPlease select less images, or place the images in a folder with\na shorter pathname"),
+        CPMessage(_("Command line for control point detector too long.\nThis is a Windows limitation\nPlease select less images, or place the images in a folder with\na shorter pathname"),
                      _("Too many images selected"), parent );
         return cps;
     }
@@ -669,7 +669,7 @@ CPVector AutoPanoSift::automatch(CPDetectorSetting &setting, PT::Panorama & pano
 
     if (! wxFileExists(ptofile.c_str()))
     {
-        CPMessage(wxString::Format(_("Could not open %s for reading\nThis is an indicator that the control point detector call failed,\nor wrong command line parameters have been used.\n\nExecuted command: %s"),ptofile.c_str(),cmd.c_str()),
+        CPMessage(wxString::Format(_("Could not open %s for reading\nThis is an indicator that the control point detector call failed,\nor incorrect command line parameters have been used.\n\nExecuted command: %s"),ptofile.c_str(),cmd.c_str()),
                      _("Control point detector failure"), parent );
         return cps;
     }
@@ -721,7 +721,7 @@ CPVector AutoPanoKolor::automatch(CPDetectorSetting &setting, Panorama & pano, c
     cmd.Printf(wxT("%s %s"), wxQuoteFilename(autopanoExe).c_str(), autopanoArgs.c_str());
 #ifdef __WXMSW__
     if (cmd.size() > 32766) {
-        CPMessage(_("Command line for control point detector too long.\nThis is a windows limitation\nPlease select less images, or place the images in a folder with\na shorter pathname"),
+        CPMessage(_("Command line for control point detector too long.\nThis is a Windows limitation\nPlease select less images, or place the images in a folder with\na shorter pathname"),
                      _("Too many images selected"), parent);
         return cps;
     }
@@ -754,7 +754,7 @@ CPVector AutoPanoKolor::automatch(CPDetectorSetting &setting, Panorama & pano, c
     ptofile = ptofn.GetFullPath();
     ptofile.append(wxT("0.oto"));
     if (! wxFileExists(ptofile.c_str()) ) {
-        CPMessage(wxString::Format(_("Could not open %s for reading\nThis is an indicator that the control point detector call failed,\nor wrong command line parameters have been used.\n\nExecuted command: %s"),ptofile.c_str(),cmd.c_str()),
+        CPMessage(wxString::Format(_("Could not open %s for reading\nThis is an indicator that the control point detector call failed,\nor incorrect command line parameters have been used.\n\nExecuted command: %s"),ptofile.c_str(),cmd.c_str()),
                      _("Control point detector failure"), parent );
         return cps;
     }

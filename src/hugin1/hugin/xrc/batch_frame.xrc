@@ -89,14 +89,14 @@
                 <object class="sizeritem">
                   <object class="wxCheckBox" name="cb_autoremove">
                     <label>Remove finished project</label>
-                    <tooltip>Automatic remove successfully finished projects from queue.</tooltip>
+                    <tooltip>Automatically remove successfully finished projects from queue.</tooltip>
                   </object>
                   <flag>wxEXPAND</flag>
                 </object>
                 <object class="sizeritem">
                   <object class="wxCheckBox" name="cb_autostitch">
                     <label>Automatic stitch after assistant</label>
-                    <tooltip>Automatically stitch projects after (successful) running assistant.</tooltip>
+                    <tooltip>Automatically stitch projects after (successfully) running assistant.</tooltip>
                   </object>
                   <flag>wxEXPAND</flag>
                 </object>
@@ -196,7 +196,7 @@
                         <object class="sizeritem">
                           <object class="wxCheckBox" name="find_pano_create_links">
                             <label>Create links</label>
-                            <tooltip>Check if the stacks were shoot on a tripod.</tooltip>
+                            <tooltip>Check if the stacks were shot on a tripod.</tooltip>
                           </object>
                           <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
                           <cellpos>3,1</cellpos>
