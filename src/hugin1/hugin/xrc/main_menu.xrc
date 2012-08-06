@@ -25,7 +25,7 @@
       </object>
       <object class="wxMenuItem" name="action_save_as_ptstitcher">
         <label>&amp;Write PTStitcher script</label>
-        <help>Write current project to a PTStitcher compatible script file, useful for batch processing</help>
+        <help>Write current project to a PTStitcher-compatible script file, useful for batch processing</help>
       </object>
       <object class="wxMenu" name="menu_mru">
         <label>Most recently used projects</label>
@@ -75,7 +75,7 @@
       </object>
       <object class="wxMenuItem" name="action_remove_cp_in_masks">
         <label>Remove control points in masks</label>
-        <help>Removes all control points, which are in one mask</help>
+        <help>Removes all control points, which are in masks</help>
       </object>
       <object class="separator"/>
       <object class="wxMenuItem" name="action_optimize">
@@ -98,7 +98,7 @@
         <label>Full Screen</label>
         <accel platform="win|unix">F11</accel>
         <accel platform="mac">Ctrl-F</accel>
-        <help>Shows Hugin's main window on full screen</help>
+        <help>Shows Hugin's main window on full-screen</help>
       </object>
       <object class="wxMenuItem" name="ID_CP_TABLE">
         <label>&amp;Control point table</label>

@@ -696,7 +696,7 @@ void CPEditorPanel::estimateAndAddOtherPoint(const FDiff2D & p,
                     otherImg->setNewPoint(corrPoint.maxpos);
                     changeState(BOTH_POINTS_SELECTED);
                     wxString s1;
-                    s1.Printf(_("Point finetuned, angle: %.0f deg, correlation coefficient: %0.3f, curvature: %0.3f %0.3f "),
+                    s1.Printf(_("Point fine-tuned, angle: %.0f deg, correlation coefficient: %0.3f, curvature: %0.3f %0.3f "),
                               corrPoint.maxAngle, corrPoint.maxi, corrPoint.curv.x, corrPoint.curv.y );
                     
                     wxString s2 = s1 + wxT(" -- ") + wxString(_("change points, or press right mouse button to add the pair"));
@@ -760,7 +760,7 @@ void CPEditorPanel::NewPointChange(FDiff2D p, bool left)
             thisImg->setScale(m_detailZoomFactor);
             thisImg->showPosition(p);
         } else {
-            // run auto estimate procedure?
+            // run auto-estimate procedure?
             if (estimate && (thisImgNr != otherImgNr) && currentPoints.size() > 0) {
                 estimateAndAddOtherPoint(p, left,
                                          thisImg, thisImgNr, THIS_POINT, THIS_POINT_RETRY,
@@ -826,7 +826,7 @@ void CPEditorPanel::NewPointChange(FDiff2D p, bool left)
                     }
                     thisImg->setNewPoint(corrRes.maxpos);
                     wxString s1;
-                    s1.Printf(_("Point finetuned, angle: %.0f deg, correlation coefficient: %0.3f, curvature: %0.3f %0.3f "),
+                    s1.Printf(_("Point fine-tuned, angle: %.0f deg, correlation coefficient: %0.3f, curvature: %0.3f %0.3f "),
                               corrRes.maxAngle, corrRes.maxi, corrRes.curv.x, corrRes.curv.y );
                     
                     corrMsg = s1 + wxT(" -- ") +  wxString(_("change points, or press right mouse button to add the pair"));
@@ -962,7 +962,7 @@ bool CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
     res.curv.x = - res.curv.x;
     res.curv.y = - res.curv.y;
 
-    MainFrame::Get()->SetStatusText(wxString::Format(_("Point finetuned, angle: %.0f deg, correlation coefficient: %0.3f, curvature: %0.3f %0.3f "),
+    MainFrame::Get()->SetStatusText(wxString::Format(_("Point fine-tuned, angle: %.0f deg, correlation coefficient: %0.3f, curvature: %0.3f %0.3f "),
                                     res.maxAngle, res.maxi, res.curv.x, res.curv.y ),0);
     if (res.maxi < corrThresh ||res.curv.x < curvThresh || res.curv.y < curvThresh  )
     {
@@ -1688,7 +1688,7 @@ void CPEditorPanel::changeState(CPCreationState newState)
         ClearSelection();
         m_addButton->Enable(false);
         m_delButton->Enable(false);
-        MainFrame::Get()->SetStatusText(_("Select Point in right image"),0);
+        MainFrame::Get()->SetStatusText(_("Select point in right image"),0);
         break;
     case RIGHT_POINT:
         m_leftImg->showSearchArea(fineTune);
@@ -1700,7 +1700,7 @@ void CPEditorPanel::changeState(CPCreationState newState)
         ClearSelection();
         m_addButton->Enable(false);
         m_delButton->Enable(false);
-        MainFrame::Get()->SetStatusText(_("Select Point in left image"),0);
+        MainFrame::Get()->SetStatusText(_("Select point in left image"),0);
         break;
     case LEFT_POINT_RETRY:
     case RIGHT_POINT_RETRY:

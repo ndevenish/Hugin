@@ -215,7 +215,7 @@
                       <object class="wxBoxSizer">
                         <object class="sizeritem">
                           <object class="wxStaticText">
-                            <label>Leave empty, when no control point detector should run on stacks.</label>
+                            <label>Leave empty when no control point detector should run on stacks.</label>
                           </object>
                           <flag>wxALL|wxEXPAND</flag>
                           <border>5</border>
@@ -299,7 +299,7 @@
               </object>
               <object class="sizeritem">
                 <object class="wxStaticText">
-                  <label>following patterns will be substituted before running:
+                  <label>The following patterns will be substituted before running:
 %o  -- output project (0.oto will be appended when using Autopano)
 %p  -- number of control points between each pair
 %v  -- HFOV of first image

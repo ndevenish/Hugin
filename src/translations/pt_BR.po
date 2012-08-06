@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pt_BR\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
-"POT-Creation-Date: 2012-07-23 06:47+0200\n"
+"POT-Creation-Date: 2012-08-06 16:47+0200\n"
 "PO-Revision-Date: 2012-08-04 15:34-0300\n"
 "Last-Translator: Luís Henrique Camargo Quiroz <luishcq@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-doc@kde.org>\n"
@@ -307,7 +307,7 @@ msgstr "Nenhuma lente encontrada."
 
 #: hugin1/base_wx/wxLensDB.cpp:607
 msgid ""
-"There are too less information for saving data into database. Please check "
+"There is too little information for saving data into database. Please check "
 "your input!"
 msgstr ""
 "Há muito pouca informação para gravar no banco de dados.Por favor verifique "
@@ -317,8 +317,8 @@ msgstr ""
 #, c-format
 msgid ""
 "You selected the folder \"%s\" to save your database file.\n"
-"This is not the default folder. You won't be able to automatically load "
-"these informations back into Hugin.\n"
+"This is not the default folder. You won't be able to automatically load this "
+"information back into Hugin.\n"
 "The default folder for the database files is \"%s\".\n"
 "Do you want to proceed anyway?"
 msgstr ""
@@ -348,8 +348,8 @@ msgstr "Não pôde inicializar o banco de dados."
 #: hugin1/base_wx/wxLensDB.cpp:819
 #, c-format
 msgid ""
-"The current selected lens does not match with the information of this lens "
-"in the selected database file.\n"
+"The current selected lens does not match with the information about this "
+"lens in the selected database file.\n"
 "Could not proceed.\n"
 "(Error code: %d)"
 msgstr ""
@@ -431,15 +431,14 @@ msgstr "Adicionados %s"
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:401
 #, c-format
-msgid ""
-"The size of the images (%s) does not match with the already added image(s)."
+msgid "The size of the images (%s) does not match the already added image(s)."
 msgstr ""
 "O tamanho das imagens (%s) não confere com o de imagens já adicionadas."
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:414
 #, c-format
 msgid ""
-"The EXIF information of the added images (%s) are not consistent with the "
+"The EXIF information of the added images (%s) is not consistent with the "
 "already added image(s).\n"
 "Please check the image again, if you selected the correct images."
 msgstr ""
@@ -490,7 +489,7 @@ msgstr "Terminado"
 #: hugin1/calibrate_lens/LensCalFrame.cpp:625
 msgid ""
 "There are no detected lines.\n"
-"Please run \"Find lines\" before. If there are no lines found, change the "
+"Please run \"Find lines\" first. If there are no lines found, change the "
 "parameters."
 msgstr ""
 "Não há linhas detectadas.\n"
@@ -615,7 +614,7 @@ msgid "Libraries"
 msgstr "Bibliotecas"
 
 #: hugin1/hugin/AssistantPanel.cpp:224
-msgid "Please load images by pressing on the Load images button."
+msgid "Please load images by pressing on the \"Load images\" button."
 msgstr "Carregue as imagens pressionando o botão \"Carregar Imagens\"."
 
 #: hugin1/hugin/AssistantPanel.cpp:257
@@ -739,11 +738,11 @@ msgid "Can't launch PTBatcherGui"
 msgstr "Não consegue iniciar o PTBatcherGui"
 
 #: hugin1/hugin/AssistantPanel.cpp:509
-msgid "Launched incorrect programme"
+msgid "Launched incorrect program"
 msgstr "Disparou programa errado"
 
 #: hugin1/hugin/CPDetectorDialog.cpp:93
-msgid "Autopano from http://autopano.kolor.com is not available for OSX"
+msgid "Autopano from http://autopano.kolor.com is not available for OS X"
 msgstr ""
 "Autopano, disponível em http://autopano.kolor.com não está disponível para "
 "OSX"
@@ -827,8 +826,8 @@ msgstr "Erro durante refinamento"
 #: hugin1/hugin/CPEditorPanel.cpp:965
 #, c-format
 msgid ""
-"Point finetuned, angle: %.0f deg, correlation coefficient: %0.3f, curvature: "
-"%0.3f %0.3f "
+"Point fine-tuned, angle: %.0f deg, correlation coefficient: %0.3f, "
+"curvature: %0.3f %0.3f "
 msgstr ""
 "Ponto refinado, ângulo: %.0f grau, coeficiente de correlação: %0.3f, "
 "curvatura: %0.3f %0.3f "
@@ -932,11 +931,11 @@ msgid "Error during control point creation:\n"
 msgstr "Erro durante criação de pontos de controle:\n"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1691
-msgid "Select Point in right image"
+msgid "Select point in right image"
 msgstr "Selecione ponto na imagem à direita"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1703
-msgid "Select Point in left image"
+msgid "Select point in left image"
 msgstr "Selecione ponto na imagem à esquerda"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1783
@@ -1432,11 +1431,11 @@ msgid "The crop factor must be positive."
 msgstr "O fator de corte precisa ser positivo."
 
 #: hugin1/hugin/huginApp.cpp:269
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "I am Hugin version %s. I have found preferences from an older version %s. I "
 "might not be compatible with the older preferences. If you experience "
-"malfunction, please go to the menu File -> Preference and in each tab hit "
+"malfunction, please select \"Preferences\" from the menu and in each tab hit "
 "the 'Load Defaults' button"
 msgstr ""
 "Sou o Hugin versão %s. Achei as preferências de uma versão anterior %s. Pode "
@@ -1445,11 +1444,11 @@ msgstr ""
 "botão 'Carregar padrões'"
 
 #: hugin1/hugin/huginApp.cpp:283
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "I am Hugin version %s. I have found preferences from a newer version %s. I "
 "might not be compatible with the newer preferences. If you experience "
-"malfunction, please go to the menu File -> Preference and in each tab hit "
+"malfunction, please select \"Preferences\" from the menu and in each tab hit "
 "the 'Load Defaults' button"
 msgstr ""
 "Sou o Hugin versão %s. Achei as preferências de uma versão %s mais recente. "
@@ -1613,7 +1612,7 @@ msgstr "Salvar parâmetros de câmera em um arquivo lensfun"
 #: hugin1/hugin/LensPanel.cpp:821
 msgid ""
 "You selected only one image.\n"
-"Should the loaded parameters applied to all images with the same lens?"
+"Should the loaded parameters be applied to all images with the same lens?"
 msgstr ""
 "Você selecionou só uma imagem.\n"
 "Os parâmetros que foram carregados devem ser aplicados a todas as imagens "
@@ -1824,7 +1823,7 @@ msgstr ""
 msgid ""
 "File %s is an image file and not a project file.\n"
 "This file can't be open with File, Open.\n"
-"Do you want instead add this image file to the current project?"
+"Do you want to add this image file to the current project?"
 msgstr ""
 "O arquivo %s é uma imagem e não um arquivo de projeto.\n"
 "Este arquivo não pode ser aberto por Arquivo, Abrir.\n"
@@ -1856,7 +1855,7 @@ msgid "Fine-tuning all points"
 msgstr "Refinando todos os pontos"
 
 #: hugin1/hugin/MainFrame.cpp:1640
-msgid "Finetuning"
+msgid "Fine-tuning"
 msgstr "Refinando"
 
 #: hugin1/hugin/MainFrame.cpp:1732
@@ -1939,8 +1938,8 @@ msgstr "Tipo de máscara"
 
 #: hugin1/hugin/MaskEditorPanel.cpp:337
 msgid ""
-"Create a polygon mask by clicking with left mouse button on image, set last "
-"point with right mouse button."
+"Create a polygon mask by clicking with the left mouse button on image, set "
+"the last point with the right mouse button."
 msgstr ""
 "Crie uma máscara poligonal clicando com o botão esquerdo na imagem (e mesmo "
 "fora das bordas), defina o último ponto clicando com o botão direito."
@@ -1952,10 +1951,6 @@ msgstr "Gravar máscara"
 #: hugin1/hugin/MaskEditorPanel.cpp:348 hugin1/hugin/MaskEditorPanel.cpp:433
 msgid "Mask files (*.msk)|*.msk|All files (*)|*"
 msgstr "Arquivos de máscara (*.msk)|*.msk|Todos os Arquivos (*)|*"
-
-#: hugin1/hugin/MaskEditorPanel.cpp:360
-msgid "Save Mask"
-msgstr "Gravar máscara"
 
 #: hugin1/hugin/MaskEditorPanel.cpp:431
 msgid "Load mask"
@@ -2529,10 +2524,6 @@ msgstr "EV:"
 msgid "Projection Parameters"
 msgstr "Parâmetros de Projeção"
 
-#: hugin1/hugin/PreviewFrame.cpp:301
-msgid "Resets the projections parameters to their default values."
-msgstr "Retorna os parâmetros de projeção para seus valores padrão."
-
 #: hugin1/hugin/PreviewFrame.cpp:340 hugin1/hugin/PreviewPanel.cpp:780
 msgid ""
 "Left click to define new center point, right click to move point to horizon."
@@ -2649,8 +2640,8 @@ msgstr "limpando arquivos de pontos de controle temporários"
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:424
 #, c-format
 msgid ""
-"Please use  %namefile, %i or %s to specify the input files for control point "
-"detector"
+"Please use %namefile, %i or %s to specify the input files for the control "
+"point detector"
 msgstr ""
 "Por favor use %namefile, %i ou %s para especificar os arquivos de origem "
 "para o detector de pontos de controle"
@@ -2666,7 +2657,7 @@ msgstr "Erro no comando de detecção de pontos de controle"
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:724
 msgid ""
 "Command line for control point detector too long.\n"
-"This is a windows limitation\n"
+"This is a Windows limitation\n"
 "Please select less images, or place the images in a folder with\n"
 "a shorter pathname"
 msgstr ""
@@ -2740,7 +2731,7 @@ msgstr ""
 msgid ""
 "Could not open %s for reading\n"
 "This is an indicator that the control point detector call failed,\n"
-"or wrong command line parameters have been used.\n"
+"or incorrect command line parameters have been used.\n"
 "\n"
 "Executed command: %s"
 msgstr ""
@@ -2759,7 +2750,7 @@ msgstr "Falha no detector de pontos de controle"
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:558
 msgid ""
 "Please use %i to specify the input files and %k to specify the keypoint file "
-"for generate keys step"
+"for the generate keys step"
 msgstr ""
 "Por favor use %i para especificar arquivos de entrada e %k para o arquivo de "
 "pontos de controle para a etapa de geração de pontos"
@@ -2983,7 +2974,7 @@ msgid "Specify output prefix for project "
 msgstr "Especifique o prefixo de saída do projeto "
 
 #: hugin1/ptbatcher/BatchFrame.cpp:469
-msgid "The prefix of an assistant target can not be changed."
+msgid "The prefix of an assistant target cannot be changed."
 msgstr "O prefixo de um alvo do assistente não pode ser modificado."
 
 #: hugin1/ptbatcher/BatchFrame.cpp:475
@@ -3021,7 +3012,7 @@ msgstr "Continuando lote..."
 #: hugin1/ptbatcher/BatchFrame.cpp:668
 msgid ""
 "There are failed projects in the list.\n"
-"Remove them also?"
+"Remove them too?"
 msgstr ""
 "Há projetos com falha na lista.\n"
 "Removê-los também?"
@@ -3158,8 +3149,8 @@ msgstr ""
 #: hugin1/ptbatcher/FindPanoDialog.cpp:283
 msgid ""
 "Not all project files could be written successfully.\n"
-"Maybe you have no write permission for these directories or your hard disc "
-"is full."
+"Maybe you have no write permission for these directories or your disc is "
+"full."
 msgstr ""
 "Nem todos os arquivos de projeto puderam ser gravados com sucesso. \n"
 "Talvez você não tenha permissão para escrita nestes diretórios ou o disco "
@@ -3491,7 +3482,7 @@ msgid "Remove finished project"
 msgstr "Remover projeto terminado"
 
 #: translations/xrc.cpp:48 xrc.cpp:48
-msgid "Automatic remove successfully finished projects from queue."
+msgid "Automatically remove successfully finished projects from queue."
 msgstr "Remover automaticamente da lista projetos terminados com sucesso."
 
 #: translations/xrc.cpp:49 xrc.cpp:49
@@ -3499,7 +3490,7 @@ msgid "Automatic stitch after assistant"
 msgstr "Processamento automático após o assistente"
 
 #: translations/xrc.cpp:50 xrc.cpp:50
-msgid "Automatically stitch projects after (successful) running assistant."
+msgid "Automatically stitch projects after (successfully) running assistant."
 msgstr "Processa automaticamente projetos após rodar o assistente com sucesso."
 
 #: translations/xrc.cpp:51 xrc.cpp:51
@@ -3563,7 +3554,7 @@ msgid "Create links"
 msgstr "Criar ligações"
 
 #: translations/xrc.cpp:65 xrc.cpp:65
-msgid "Check if the stacks were shoot on a tripod."
+msgid "Check if the stacks were shot on a tripod."
 msgstr "Verifique se as pilhas foram fotografadas com um tripé."
 
 #: translations/xrc.cpp:66 xrc.cpp:66
@@ -3845,14 +3836,10 @@ msgid "Detector for stacks"
 msgstr "Detector para pilhas"
 
 #: translations/xrc.cpp:154 xrc.cpp:154
-msgid "Leave empty, when no control point detector should run on stacks."
+msgid "Leave empty when no control point detector should run on stacks."
 msgstr ""
 "Deixar em branco se não for para usar um detector de pontos de controle em "
 "pilhas."
-
-#: translations/xrc.cpp:158 xrc.cpp:158
-msgid "Advanced option"
-msgstr "Opção Avançada"
 
 #: translations/xrc.cpp:159 xrc.cpp:159
 msgid "This setting has no advanced options."
@@ -3860,7 +3847,7 @@ msgstr "Este ajuste não tem opções avançadas."
 
 #: translations/xrc.cpp:160 xrc.cpp:160
 msgid ""
-"following patterns will be substituted before running:\n"
+"The following patterns will be substituted before running:\n"
 "%o  -- output project (0.oto will be appended when using Autopano)\n"
 "%p  -- number of control points between each pair\n"
 "%v  -- HFOV of first image\n"
@@ -3943,13 +3930,13 @@ msgstr ""
 "ponto de controle"
 
 #: translations/xrc.cpp:179 xrc.cpp:179
-msgid "auto estimate"
+msgid "auto-estimate"
 msgstr "auto estimar"
 
 #: translations/xrc.cpp:180 xrc.cpp:180
 msgid ""
-"tries to estimate shift between the images and use it while placing control "
-"points"
+"tries to estimate the shift between the images and use it while placing "
+"control points"
 msgstr ""
 "tenta estimar o deslocamento entre as imagens para uso na criação de pontos "
 "de controle"
@@ -4632,7 +4619,7 @@ msgstr "&Gravar script PTStitcher"
 
 #: translations/xrc.cpp:397 xrc.cpp:397
 msgid ""
-"Write current project to a PTStitcher compatible script file, useful for "
+"Write current project to a PTStitcher-compatible script file, useful for "
 "batch processing"
 msgstr ""
 "Grava o projeto atual como um script do PTStitcher, útil para processamento "
@@ -4715,7 +4702,8 @@ msgid "Remove control points in masks"
 msgstr "Remove pontos de controle em máscaras"
 
 #: translations/xrc.cpp:417 xrc.cpp:417
-msgid "Removes all control points, which are in one mask"
+#, fuzzy
+msgid "Removes all control points, which are in masks"
 msgstr "Remove todos os pontos de controle que estiverem em uma máscara"
 
 #: translations/xrc.cpp:418 xrc.cpp:418
@@ -4751,7 +4739,7 @@ msgid "Full Screen"
 msgstr "Tela &Cheia"
 
 #: translations/xrc.cpp:426 xrc.cpp:426
-msgid "Shows Hugin's main window on full screen"
+msgid "Shows Hugin's main window on full-screen"
 msgstr "Mostra a janela principal do Hugin em tela cheia"
 
 #: translations/xrc.cpp:427 xrc.cpp:427
@@ -5011,10 +4999,6 @@ msgstr "Selecionado"
 #: translations/xrc.cpp:519 xrc.cpp:519
 msgid "Unselected"
 msgstr "Não selecionado"
-
-#: translations/xrc.cpp:520 xrc.cpp:520
-msgid "Colour"
-msgstr "Cor"
 
 #: translations/xrc.cpp:521 xrc.cpp:521
 msgid "Show extent of active masks and crop"
@@ -5808,7 +5792,7 @@ msgstr "Editor:"
 #: translations/xrc.cpp:751 xrc.cpp:751
 #, c-format
 msgid ""
-"The following patterns will be substituted before running:\n"
+"The The following patterns will be substituted before running:\n"
 "%f  -- final panorama\n"
 "%i  -- first input image"
 msgstr ""
@@ -6716,7 +6700,7 @@ msgstr ""
 
 #: hugin1/hugin/xrc/data/tips.txt:34
 msgid ""
-"The Panorama Tools, on which hugin is based were originally written by "
+"The Panorama Tools, on which hugin is based, were originally written by "
 "Helmut Dersch."
 msgstr ""
 "As \"Ferramentas Panorama\" (\"Panorama Tools\"), nas quais o Hugin é  "
@@ -6755,6 +6739,18 @@ msgstr ""
 "A opção de otimização de todos os parâmetros de distorção faz sentido apenas "
 "com imagens com bastante sobreposição e com vários pontos de controle, bem "
 "distribuídos."
+
+#~ msgid "Save Mask"
+#~ msgstr "Gravar máscara"
+
+#~ msgid "Resets the projections parameters to their default values."
+#~ msgstr "Retorna os parâmetros de projeção para seus valores padrão."
+
+#~ msgid "Advanced option"
+#~ msgstr "Opção Avançada"
+
+#~ msgid "Colour"
+#~ msgstr "Cor"
 
 #~ msgid "Add project to queue..."
 #~ msgstr "Adicionar projeto à fila..."

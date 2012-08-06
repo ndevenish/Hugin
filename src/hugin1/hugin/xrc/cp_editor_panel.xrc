@@ -273,8 +273,8 @@
                         </object>
                         <object class="sizeritem">
                           <object class="wxCheckBox" name="cp_editor_auto_estimate">
-                            <label>auto estimate</label>
-                            <tooltip>tries to estimate shift between the images and use it while placing control points</tooltip>
+                            <label>auto-estimate</label>
+                            <tooltip>tries to estimate the shift between the images and use it while placing control points</tooltip>
                           </object>
                           <flag>wxALL|wxEXPAND</flag>
                         </object>

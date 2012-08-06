@@ -298,7 +298,7 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
 
     wxBitmapButton * resetProjButton=new wxBitmapButton(this, PROJ_PARAM_RESET_ID, 
         wxArtProvider::GetBitmap(wxART_REDO));
-    resetProjButton->SetToolTip(_("Resets the projections parameters to their default values."));
+    resetProjButton->SetToolTip(_("Resets the projection's parameters to their default values."));
     m_projParamSizer->Add(resetProjButton, 0, wxLEFT | wxRIGHT | wxALIGN_CENTER_VERTICAL, 5);
 
     m_projParamNamesLabel.resize(PANO_PROJECTION_MAX_PARMS);

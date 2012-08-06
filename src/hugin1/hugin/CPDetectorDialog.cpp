@@ -90,7 +90,7 @@ void CPDetectorDialog::OnOk(wxCommandEvent & e)
 #ifdef __WXMAC__
     if(m_cpdetector_type->GetSelection()==0)
     {
-        wxMessageBox(_("Autopano from http://autopano.kolor.com is not available for OSX"), 
+        wxMessageBox(_("Autopano from http://autopano.kolor.com is not available for OS X"), 
                      _("Using Autopano-Sift instead"),wxOK|wxICON_EXCLAMATION, this); 
         m_cpdetector_type->SetSelection(1);
     };

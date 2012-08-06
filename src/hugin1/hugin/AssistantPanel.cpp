@@ -221,7 +221,7 @@ void AssistantPanel::panoramaChanged(PT::Panorama &pano)
 
     if (pano.getNrOfImages() == 0) {
         m_createButton->Disable();
-        m_imagesText->SetLabel(_("Please load images by pressing on the Load images button."));
+        m_imagesText->SetLabel(_("Please load images by pressing on the \"Load images\" button."));
         m_exifToggle->Disable();
         XRCCTRL(*this, "ass_lens_group", wxPanel)->Disable();
         m_noImage = true;
@@ -506,7 +506,7 @@ void AssistantPanel::OnAlignSendToBatch(wxCommandEvent &e)
 		// Should verify that actuallyLaunched and appRef are the same.
 		if (FSCompareFSRefs(&appRef, &actuallyLaunched) != noErr) {
 			// error, lauched the wrong thing.
-			wxMessageBox(wxString::Format(_("Launched incorrect programme"), wxT("open")), _("Error"));
+			wxMessageBox(wxString::Format(_("Launched incorrect program"), wxT("open")), _("Error"));
 		}
 #else
 #ifdef __WINDOWS__

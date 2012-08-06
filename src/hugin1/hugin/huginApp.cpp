@@ -266,7 +266,7 @@ bool huginApp::OnInit()
     // upgrade
     if (checkVersion(last_version,wxT(HUGIN_API_VERSION)))
     {
-        wxMessageBox(wxString::Format(_("I am Hugin version %s. I have found preferences from an older version %s. I might not be compatible with the older preferences. If you experience malfunction, please go to the menu File -> Preference and in each tab hit the 'Load Defaults' button"),wxString(HUGIN_API_VERSION,wxConvLocal).c_str(),last_version.c_str()), 
+        wxMessageBox(wxString::Format(_("I am Hugin version %s. I have found preferences from an older version %s. I might not be compatible with the older preferences. If you experience malfunction, please select \"Preferences\" from the menu and in each tab hit the 'Load Defaults' button"),wxString(HUGIN_API_VERSION,wxConvLocal).c_str(),last_version.c_str()), 
 #ifdef _WINDOWS
             _("Hugin"),
 #else
@@ -280,7 +280,7 @@ bool huginApp::OnInit()
     // downgrade
     if (checkVersion(wxT(HUGIN_API_VERSION),last_version))
     {
-        wxMessageBox(wxString::Format(_("I am Hugin version %s. I have found preferences from a newer version %s. I might not be compatible with the newer preferences. If you experience malfunction, please go to the menu File -> Preference and in each tab hit the 'Load Defaults' button"),wxString(HUGIN_API_VERSION,wxConvLocal).c_str(),last_version.c_str()),
+        wxMessageBox(wxString::Format(_("I am Hugin version %s. I have found preferences from a newer version %s. I might not be compatible with the newer preferences. If you experience malfunction, please select \"Preferences\" from the menu and in each tab hit the 'Load Defaults' button"),wxString(HUGIN_API_VERSION,wxConvLocal).c_str(),last_version.c_str()),
 #ifdef _WINDOWS
             _("Hugin"),
 #else

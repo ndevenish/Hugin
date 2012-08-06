@@ -436,7 +436,7 @@ for HDR panoramas use Preview window.</label>
                       </object>
                       <object class="sizeritem">
                         <object class="wxStaticText">
-                          <label>The following patterns will be substituted before running:
+                          <label>The The following patterns will be substituted before running:
 %f  -- final panorama
 %i  -- first input image</label>
                         </object>
