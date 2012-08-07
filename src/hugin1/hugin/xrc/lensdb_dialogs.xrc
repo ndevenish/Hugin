@@ -458,7 +458,7 @@
             <object class="wxFlexGridSizer">
               <object class="sizeritem">
                 <object class="wxStaticText">
-                  <label>Maker:</label>
+                  <label>Camera maker:</label>
                 </object>
                 <flag>wxALIGN_CENTRE_VERTICAL|wxALL|wxALIGN_RIGHT</flag>
                 <border>3</border>
@@ -472,7 +472,7 @@
               </object>
               <object class="sizeritem">
                 <object class="wxStaticText">
-                  <label>Lens name:</label>
+                  <label>Camera model:</label>
                 </object>
                 <flag>wxALIGN_CENTRE_VERTICAL|wxALL|wxALIGN_RIGHT</flag>
                 <border>3</border>
@@ -500,15 +500,12 @@
               </object>
               <cols>2</cols>
               <rows>3</rows>
-              <growablecols/>
+              <growablecols></growablecols>
             </object>
-            <option>1</option>
-            <flag>wxEXPAND</flag>
           </object>
-          <label>Lens</label>
-          <orient>wxVERTICAL</orient>
+          <orient>wxHORIZONTAL</orient>
         </object>
-        <flag>wxALL|wxEXPAND</flag>
+        <flag>wxALL</flag>
         <border>6</border>
       </object>
       <object class="sizeritem">
