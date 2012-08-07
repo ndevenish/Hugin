@@ -1,14 +1,14 @@
 # British English translations for the Hugin package.
-# Copyright (C) 2004-2011 Pablo dAngelo
+# Copyright © 2004-2011 Pablo dAngelo
+# Copyright © 2011-2012 Gareth Jones <gareth.k.jones@gmail.com>
 # This file is distributed under the same license as the Hugin package.
-# Gareth Jones <gareth.k.jones@gmail.com>, 2011
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: en_GB\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
 "POT-Creation-Date: 2012-08-06 16:47+0200\n"
-"PO-Revision-Date: 2011-02-28 15:18+0000\n"
+"PO-Revision-Date: 2012-08-07 19:39+0100\n"
 "Last-Translator: Gareth Jones <gareth.k.jones@gmail.com>\n"
 "Language-Team: British English <en_GB@li.org>\n"
 "Language: British English\n"
@@ -1531,7 +1531,7 @@ msgstr ""
 
 #: hugin1/hugin/LocalizedFileTipProvider.cpp:107
 msgid "&Show tips at startup"
-msgstr ""
+msgstr "&Show tips at start-up"
 
 #: hugin1/hugin/LocalizedFileTipProvider.cpp:108
 msgid "Tip of the Day"
@@ -2848,6 +2848,9 @@ msgid ""
 "If you close the dialog, you will lose them.\n"
 "Continue anyway?"
 msgstr ""
+"The list contains possibly unprocessed panoramas.\n"
+"If you close the dialogue, you will lose them.\n"
+"Continue anyway?"
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:211
 msgid "Accepted"
@@ -3209,11 +3212,11 @@ msgstr ""
 
 #: translations/xrc.cpp:51 xrc.cpp:51
 msgid "Shutdown when done"
-msgstr ""
+msgstr "Shut-down when done"
 
 #: translations/xrc.cpp:52 xrc.cpp:52
 msgid "Shutdown computer if all tasks are finished"
-msgstr ""
+msgstr "Shut-down computer if all tasks are finished"
 
 #: translations/xrc.cpp:53 xrc.cpp:53
 msgid "Verbose output"
@@ -3505,7 +3508,7 @@ msgstr ""
 
 #: translations/xrc.cpp:139 xrc.cpp:139
 msgid "Prealigned panorama"
-msgstr ""
+msgstr "Pre-aligned panorama"
 
 #: translations/xrc.cpp:140 xrc.cpp:140
 msgid "Detector"
@@ -3527,7 +3530,7 @@ msgstr ""
 
 #: translations/xrc.cpp:145 xrc.cpp:145
 msgid "Cleanup arguments:"
-msgstr ""
+msgstr "Clean-up arguments:"
 
 #: translations/xrc.cpp:146 xrc.cpp:146
 msgid "Two step detector"
@@ -4492,11 +4495,11 @@ msgstr ""
 
 #: translations/xrc.cpp:456 xrc.cpp:456
 msgid "&Keyboard Shortcuts"
-msgstr ""
+msgstr "&Keyboard Short-cuts"
 
 #: translations/xrc.cpp:457 xrc.cpp:457
 msgid "keyboard shortcuts"
-msgstr ""
+msgstr "keyboard short-cuts"
 
 #: translations/xrc.cpp:458 xrc.cpp:458
 msgid "&FAQ"
@@ -5173,7 +5176,7 @@ msgstr ""
 
 #: translations/xrc.cpp:671 translations/xrc.cpp:684 xrc.cpp:671 xrc.cpp:684
 msgid "builtin"
-msgstr ""
+msgstr "built-in"
 
 #: translations/xrc.cpp:673 translations/xrc.cpp:686 xrc.cpp:673 xrc.cpp:686
 msgid "Blender:"
@@ -5205,7 +5208,7 @@ msgstr ""
 
 #: translations/xrc.cpp:693 xrc.cpp:693
 msgid "Deghosting (Khan)"
-msgstr ""
+msgstr "De-ghosting (Khan)"
 
 #: translations/xrc.cpp:694 translations/xrc.cpp:696 translations/xrc.cpp:704
 #: xrc.cpp:694 xrc.cpp:696 xrc.cpp:704
@@ -5222,7 +5225,7 @@ msgstr ""
 
 #: translations/xrc.cpp:698 xrc.cpp:698
 msgid "Options for deghosting"
-msgstr ""
+msgstr "Options for de-ghosting"
 
 #: translations/xrc.cpp:699 xrc.cpp:699
 msgid "Iterations:"
@@ -5262,7 +5265,7 @@ msgstr ""
 
 #: translations/xrc.cpp:711 xrc.cpp:711
 msgid "Keep fullsize images in memory, until this limit is exceeded"
-msgstr ""
+msgstr "Keep full-size images in memory, until this limit is exceeded"
 
 #: translations/xrc.cpp:712 xrc.cpp:712
 msgid "Number of CPUs:"
@@ -6195,7 +6198,7 @@ msgstr ""
 
 #: hugin1/hugin/xrc/data/tips.txt:28
 msgid "The \"f\" key is the shortcut for Fine Tune button."
-msgstr ""
+msgstr "The \"f\" key is the short-cut for Fine Tune button."
 
 #: hugin1/hugin/xrc/data/tips.txt:29
 msgid "Pressing \"Del\" will remove the currently selected control point."
@@ -6254,26 +6257,27 @@ msgstr ""
 "Optimisation of all distortion parameters \"everything\" makes only sense "
 "with heavily overlapping images and many well distributed control points."
 
+msgid "Creating grayscale %s"
+msgstr "Creating greyscale %s"
+
+msgid ""
+"Warning: PTmender (from panotools 2.9 or later) only supports TIFF_m "
+"output.\n"
+"For color and brightness correction, the resulting tiff files must be "
+"processed with PTblender.\n"
+"\n"
+"Continue anyway?"
+msgstr ""
+"Warning: PTmender (from panotools 2.9 or later) only supports TIFF_m "
+"output.\n"
+"For colour and brightness correction, the resulting tiff files must be "
+"processed with PTblender.\n"
+"\n"
+"Continue anyway?"
+
+#, fuzzy
 #~ msgid "Colour"
 #~ msgstr "Colour"
-
-#~ msgid "Creating grayscale %s"
-#~ msgstr "Creating greyscale %s"
-
-#~ msgid ""
-#~ "Warning: PTmender (from panotools 2.9 or later) only supports TIFF_m "
-#~ "output.\n"
-#~ "For color and brightness correction, the resulting tiff files must be "
-#~ "processed with PTblender.\n"
-#~ "\n"
-#~ "Continue anyway?"
-#~ msgstr ""
-#~ "Warning: PTmender (from panotools 2.9 or later) only supports TIFF_m "
-#~ "output.\n"
-#~ "For colour and brightness correction, the resulting tiff files must be "
-#~ "processed with PTblender.\n"
-#~ "\n"
-#~ "Continue anyway?"
 
 #, fuzzy
 #~ msgid "Colors:"
