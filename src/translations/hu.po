@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Hugin 2011.4.0\n"
+"Project-Id-Version: Hugin 2012.0.0\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
 "POT-Creation-Date: 2012-08-06 16:47+0200\n"
-"PO-Revision-Date: 2011-12-06 13:39+0100\n"
+"PO-Revision-Date: 2012-08-07 13:25+0100\n"
 "Last-Translator: Höss Lajos <pgc1682@freemail.hu>\n"
 "Language-Team: Balló György <ballogy@freestart.hu>\n"
 "Language: \n"
@@ -282,28 +282,26 @@ msgid "Error during running assistant"
 msgstr "Hiba a futtatási segéd közben"
 
 #: hugin1/base_wx/wxLensDB.cpp:232
-#, fuzzy, c-format
+#, c-format
 msgid "The input \"%s\" is not a valid number."
-msgstr "\"%s\" bemenet %s részére nem egy érvényes szám\n"
+msgstr "A \"%s\" bemenet nem egy érvényes szám."
 
 #: hugin1/base_wx/wxLensDB.cpp:296
-#, fuzzy, c-format
+#, c-format
 msgid "%d lenses found."
-msgstr "Fájl nem található"
+msgstr "%d objektíveket talált."
 
 #: hugin1/base_wx/wxLensDB.cpp:300
-#, fuzzy
 msgid "No lens found."
-msgstr "Nem talált lehetséges panorámát."
+msgstr "Nem található objektív."
 
 #: hugin1/base_wx/wxLensDB.cpp:607
-#, fuzzy
 msgid ""
 "There is too little information for saving data into database. Please check "
 "your input!"
 msgstr ""
-"Érvénytelen értékek vannak a beviteli mezőkben.\n"
-"Ellenőrizze a beviteleket."
+"Túl kevés információ van az adat mentéséhez az adatbázishoz. Kérem, "
+"ellenőrizze a bevitt adatokat!"
 
 #: hugin1/base_wx/wxLensDB.cpp:658
 #, c-format
@@ -314,25 +312,28 @@ msgid ""
 "The default folder for the database files is \"%s\".\n"
 "Do you want to proceed anyway?"
 msgstr ""
+"Ön a \"%s\" könyvtárat választotta a saját adatbázis fájl elmentésére.\n"
+"Ez nem az alapértelmezett könyvtár. Nem lesz képes automatikusan "
+"visszatölteni ezeket az információk a Hugin-ba.\n"
+"Az alapértelmezett mappa az adatbázis fájlokhoz ez \"%s\".\n"
+"Szeretné folytatni egyébként?"
 
 #: hugin1/base_wx/wxLensDB.cpp:706
-#, fuzzy
 msgid "Save lens into database file"
-msgstr "Objektív paramétereinek mentése"
+msgstr "Objektív mentése adatbázis fájlba"
 
 #: hugin1/base_wx/wxLensDB.cpp:708 hugin1/base_wx/wxLensDB.cpp:962
-#, fuzzy
 msgid "Lensfun database files (*.xml)|*.xml"
-msgstr "PTmender fájlok (*.txt)|*.txt"
+msgstr "Lensfun adatbázis fájlok (*.xml)|*.xml"
 
 #: hugin1/base_wx/wxLensDB.cpp:749 hugin1/base_wx/wxLensDB.cpp:762
 #: hugin1/base_wx/wxLensDB.cpp:808 hugin1/base_wx/wxLensDB.cpp:983
 msgid "Could not save information into database file."
-msgstr ""
+msgstr "Nem sikerült menteni adatokat az adatbázis fájlba."
 
 #: hugin1/base_wx/wxLensDB.cpp:815
 msgid "Could not initialize database."
-msgstr ""
+msgstr "Nem sikerült inicializálni az adatbázist."
 
 #: hugin1/base_wx/wxLensDB.cpp:819
 #, c-format
@@ -342,19 +343,22 @@ msgid ""
 "Could not proceed.\n"
 "(Error code: %d)"
 msgstr ""
+"A kiválasztott objektív nem egyezik meg a kiválasztott adatbázis fájlban "
+"lévő objektív információval.\n"
+"Nem lehet folytatni.\n"
+"(Hibakód: %d)"
 
 #: hugin1/base_wx/wxLensDB.cpp:931
 msgid "The maker field contains only an empty string."
-msgstr ""
+msgstr "A gyártó mező csak üres karakterláncot tartalmaz."
 
 #: hugin1/base_wx/wxLensDB.cpp:936
 msgid "The model field contains only an empty string."
-msgstr ""
+msgstr "A modell mező csak üres karakterláncot tartalmaz."
 
 #: hugin1/base_wx/wxLensDB.cpp:960
-#, fuzzy
 msgid "Save camera into database file"
-msgstr "Objektív paraméterek mentése fájlba"
+msgstr "Kamera mentése adatbázis fájlba"
 
 #: hugin1/calibrate_lens/LensCalApp.cpp:66 hugin1/hugin/huginApp.cpp:193
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:80
@@ -381,9 +385,8 @@ msgstr "Fordítás nincs a csomagban"
 
 #: hugin1/calibrate_lens/LensCalApp.cpp:79 hugin1/hugin/huginApp.cpp:213
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:96
-#, fuzzy
 msgid "lensfun directory not found in bundle"
-msgstr "xrc könyvtár nincs a csomagban"
+msgstr "lensfun könyvtár nem található a csomagban"
 
 #: hugin1/calibrate_lens/LensCalApp.cpp:92 hugin1/hugin/huginApp.cpp:228
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:119
@@ -521,19 +524,16 @@ msgstr ""
 "paramétereket."
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:773 hugin1/hugin/LensPanel.cpp:787
-#, fuzzy
 msgid "Save lens parameters to ini file"
-msgstr "Objektív paraméterek mentése fájlba"
+msgstr "Objektív paraméterek mentése ini fájlba"
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:774 hugin1/hugin/LensPanel.cpp:788
-#, fuzzy
 msgid "Save lens parameters to lensfun database"
-msgstr "Objektív paraméterek mentése fájlba"
+msgstr "Objektív paraméterek mentése lensfun adatbázisba"
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:775 hugin1/hugin/LensPanel.cpp:790
-#, fuzzy
 msgid "Saving lens data"
-msgstr "Objektív adatok betöltése..."
+msgstr "Objektív adat mentés"
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:775 hugin1/hugin/LensPanel.cpp:790
 #: translations/xrc.cpp:274 xrc.cpp:274
@@ -592,14 +592,14 @@ msgid "Path to data: %s"
 msgstr "Útvonal az adatokhoz: %s"
 
 #: hugin1/hugin/AboutDialog.cpp:178
-#, fuzzy, c-format
+#, c-format
 msgid "Path to public lensfun database: %s"
-msgstr "Útvonal az adatokhoz: %s"
+msgstr "Útvonal a közösségi lensfun adatbázishoz: %s"
 
 #: hugin1/hugin/AboutDialog.cpp:179
-#, fuzzy, c-format
+#, c-format
 msgid "Path to user lensfun database: %s"
-msgstr "Útvonal az adatokhoz: %s"
+msgstr "Útvonal a felhasználói lensfun adatbázishoz: %s"
 
 #: hugin1/hugin/AboutDialog.cpp:180
 msgid "Libraries"
@@ -1069,9 +1069,8 @@ msgid "Autocrop"
 msgstr "Automatikus képkivágás"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:339 translations/xrc.cpp:1025 xrc.cpp:1025
-#, fuzzy
 msgid "HDR Autocrop"
-msgstr "Automatikus képkivágás"
+msgstr "HDR Automatikus képkivágás"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:366 hugin1/hugin/PreviewFrame.cpp:132
 msgid "displayed images"
@@ -1417,22 +1416,30 @@ msgid "The crop factor must be positive."
 msgstr "A körbevágás tényezőnek pozitívnak kell lennie."
 
 #: hugin1/hugin/huginApp.cpp:269
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "I am Hugin version %s. I have found preferences from an older version %s. I "
 "might not be compatible with the older preferences. If you experience "
 "malfunction, please select \"Preferences\" from the menu and in each tab hit "
 "the 'Load Defaults' button"
 msgstr ""
+"A Hugin %s verziója vagyok. Beállításokat találtam egy régebbi %s verzióból. "
+"Lehet, hogy nem kompatibilis a régebbi beállításokkal. Ha hibákat észlel, "
+"keresse meg a Fájl -> Beállítások menüpontot és minden fülnél nyomja meg az "
+"'Alapértelmezés betöltése' gombot"
 
 #: hugin1/hugin/huginApp.cpp:283
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "I am Hugin version %s. I have found preferences from a newer version %s. I "
 "might not be compatible with the newer preferences. If you experience "
 "malfunction, please select \"Preferences\" from the menu and in each tab hit "
 "the 'Load Defaults' button"
 msgstr ""
+"A Hugin %s verziója vagyok. Beállításokat találtam egy újabb %s verzióból. "
+"Lehet, hogy nem kompatibilis az újabb beállításokkal. Ha hibákat észlel, "
+"keresse meg a Fájl -> Beállítások menüpontot és minden fülnél nyomja meg az "
+"'Alapértelmezés betöltése' gombot"
 
 #: hugin1/hugin/ImagesList.cpp:441 hugin1/hugin/ImagesList.cpp:569
 msgid "Filename"
@@ -1583,9 +1590,8 @@ msgid "Please select an image and try again"
 msgstr "Jelöljön ki egy képet és próbálja újra"
 
 #: hugin1/hugin/LensPanel.cpp:789
-#, fuzzy
 msgid "Save camera parameters to lensfun database"
-msgstr "Objektív paraméterek mentése fájlba"
+msgstr "Kamera paraméterek mentése lensfun adatbázisba"
 
 #: hugin1/hugin/LensPanel.cpp:821
 msgid ""
@@ -1612,21 +1618,19 @@ msgstr ""
 
 #: hugin1/hugin/LensPanel.cpp:850
 msgid "From ini file"
-msgstr ""
+msgstr "ini fájlból"
 
 #: hugin1/hugin/LensPanel.cpp:851
 msgid "From lensfun database"
-msgstr ""
+msgstr "lensfun adatbázisból"
 
 #: hugin1/hugin/LensPanel.cpp:852
-#, fuzzy
 msgid "Loading lens data from"
-msgstr "Objektív adatok betöltése..."
+msgstr "Objektív adat betöltés innen"
 
 #: hugin1/hugin/LensPanel.cpp:852
-#, fuzzy
 msgid "Load lens"
-msgstr "Objektív betöltése..."
+msgstr "Objektív betöltés"
 
 #: hugin1/hugin/LensPanel.cpp:897
 msgid ""
@@ -1770,7 +1774,7 @@ msgstr "PTmender fájlok (*.txt)|*.txt"
 
 #: hugin1/hugin/MainFrame.cpp:822
 msgid "Open project:   "
-msgstr "Projekt megnyitása: "
+msgstr "Projekt megnyitása:   "
 
 #: hugin1/hugin/MainFrame.cpp:836
 msgid "Project opened"
@@ -1778,7 +1782,7 @@ msgstr "Projekt megnyitva"
 
 #: hugin1/hugin/MainFrame.cpp:849
 msgid "Error opening project:   "
-msgstr "Hiba projekt megnyitása közben: "
+msgstr "Hiba projekt megnyitása közben:   "
 
 #: hugin1/hugin/MainFrame.cpp:895 hugin1/hugin/MainFrame.cpp:1532
 msgid "Open project file"
@@ -1811,9 +1815,8 @@ msgid "Open project: cancel"
 msgstr "Projekt megnyitása: mégse"
 
 #: hugin1/hugin/MainFrame.cpp:1239
-#, fuzzy
 msgid "No matching images found."
-msgstr "Képek betöltése"
+msgstr "Nem találhatóak összeillő képek."
 
 #: hugin1/hugin/MainFrame.cpp:1389
 msgid "Can't start system's web browser"
@@ -3231,9 +3234,8 @@ msgid "stitch_project.pto [output prefix]|assistant_project.pto"
 msgstr "összefűzés_projekt.pto [kimenti előtag]|segéd_projekt.pto"
 
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:212
-#, fuzzy
 msgid "PTBatcherGUI started"
-msgstr "PTBatcherGUI"
+msgstr "PTBatcherGUI elindult"
 
 #: hugin1/stitch_project/hugin_stitch_project.cpp:141
 #, c-format
@@ -3532,19 +3534,16 @@ msgid "Check if the stacks were shot on a tripod."
 msgstr "Ellenőrizze, ha a kötegek állványon voltak fényképezve"
 
 #: translations/xrc.cpp:66 xrc.cpp:66
-#, fuzzy
 msgid "Lens database:"
-msgstr "Objektívtípus:"
+msgstr "Objektív adatbázis:"
 
 #: translations/xrc.cpp:67 xrc.cpp:67
-#, fuzzy
 msgid "Load distortion data"
-msgstr "torzítás (a):"
+msgstr "Torzítás adat betöltése"
 
 #: translations/xrc.cpp:68 xrc.cpp:68
-#, fuzzy
 msgid "Load vignetting data"
-msgstr "Objektív adatok betöltése..."
+msgstr "Vignettálás adat betöltése"
 
 #: translations/xrc.cpp:70 xrc.cpp:70
 msgid "Found panoramas"
@@ -4322,54 +4321,49 @@ msgstr ""
 "Elmenti a képeket és vonalakat pto fájlba, további finomításra Hugin-nal."
 
 #: translations/xrc.cpp:286 translations/xrc.cpp:302 xrc.cpp:286 xrc.cpp:302
-#, fuzzy
 msgid "Camera maker:"
-msgstr "Kamera Gyártó:"
+msgstr "Kamera gyártó:"
 
 #: translations/xrc.cpp:287 translations/xrc.cpp:303 xrc.cpp:287 xrc.cpp:303
-#, fuzzy
 msgid "Camera model:"
-msgstr "Kamera Modell:"
+msgstr "Kamera modell:"
 
 #: translations/xrc.cpp:288 translations/xrc.cpp:305 translations/xrc.cpp:319
 #: xrc.cpp:288 xrc.cpp:305 xrc.cpp:319
-#, fuzzy
 msgid "Lens name:"
-msgstr "Objektívszám"
+msgstr "Objektívnév:"
 
 #: translations/xrc.cpp:289 translations/xrc.cpp:306 xrc.cpp:289 xrc.cpp:306
-#, fuzzy
 msgid "Leave empty for compact cameras."
-msgstr "(üresen hagyva az OS alapértelmezése)"
+msgstr "Hagyja üresen a kompakt fényképezőgépekhez."
 
 #: translations/xrc.cpp:290 xrc.cpp:290
 msgid "fuzzy search"
-msgstr ""
+msgstr "hasonlót keres"
 
 #: translations/xrc.cpp:291 xrc.cpp:291
 msgid "Search"
-msgstr ""
+msgstr "Keresés"
 
 #: translations/xrc.cpp:294 translations/xrc.cpp:310 xrc.cpp:294 xrc.cpp:310
-#, fuzzy
 msgid "Subject distance:"
-msgstr "Kijelölés távolság alapján"
+msgstr "Tárgytávolság:"
 
 #: translations/xrc.cpp:295 xrc.cpp:295
 msgid ""
 "Select which parameters should be loaded\n"
 "from database"
 msgstr ""
+"Válassza ki, melyik paramétert kell betölteni\n"
+"az adatbázisból"
 
 #: translations/xrc.cpp:296 xrc.cpp:296
-#, fuzzy
 msgid "Load distortion"
-msgstr "Sugárirányú (Radial) torzítás"
+msgstr "Torzítás betöltése"
 
 #: translations/xrc.cpp:297 xrc.cpp:297
-#, fuzzy
 msgid "Load vignetting"
-msgstr "Vignettálás"
+msgstr "Vignettálás betöltése"
 
 #: translations/xrc.cpp:298 translations/xrc.cpp:314 translations/xrc.cpp:321
 #: translations/xrc.cpp:337 xrc.cpp:298 xrc.cpp:314 xrc.cpp:321 xrc.cpp:337
@@ -4377,48 +4371,44 @@ msgid "Lens"
 msgstr "Objektív"
 
 #: translations/xrc.cpp:301 xrc.cpp:301
-#, fuzzy
 msgid "Load lens from database"
-msgstr "Objektív adatok betöltése..."
+msgstr "Objektív betöltése adatbázisból"
 
 #: translations/xrc.cpp:304 xrc.cpp:304
-#, fuzzy
 msgid "Lens maker:"
-msgstr "Objektívszám"
+msgstr "Objektív gyártó:"
 
 #: translations/xrc.cpp:307 translations/xrc.cpp:320 xrc.cpp:307 xrc.cpp:320
 msgid "Mount:"
-msgstr ""
+msgstr "Foglalat:"
 
 #: translations/xrc.cpp:311 xrc.cpp:311
 msgid ""
 "Select which parameters should be saved\n"
 "into database"
 msgstr ""
+"Válassza ki, melyik paramétereket kell menteni\n"
+"az adatbázisba"
 
 #: translations/xrc.cpp:312 xrc.cpp:312
-#, fuzzy
 msgid "Save distortion"
-msgstr "Sugárirányú (Radial) torzítás"
+msgstr "Torzítás mentése"
 
 #: translations/xrc.cpp:313 xrc.cpp:313
-#, fuzzy
 msgid "Save vignetting"
-msgstr "Vignettálás"
+msgstr "Vignettálás mentése"
 
 #: translations/xrc.cpp:317 xrc.cpp:317
-#, fuzzy
 msgid "Save lens to database"
-msgstr "Objektív paramétereinek mentése"
+msgstr "Objektív mentése adatbázisba "
 
 #: translations/xrc.cpp:318 xrc.cpp:318
-#, fuzzy
 msgid "Maker:"
-msgstr "Kamera Gyártó:"
+msgstr "Gyártó:"
 
 #: translations/xrc.cpp:324 xrc.cpp:324
 msgid "Save camera to database"
-msgstr ""
+msgstr "Kamera mentése adatbázisba"
 
 #: translations/xrc.cpp:326 xrc.cpp:326
 msgid "Load lens parameters from a file"
@@ -5447,16 +5437,12 @@ msgid "Combined stacks:"
 msgstr "Kombinált kötegek:"
 
 #: translations/xrc.cpp:657 xrc.cpp:657
-#, fuzzy
 msgid "Exposure fused stacks"
-msgstr "Expozíció fúzió kötegekből"
+msgstr "Expozíció fuzionált kötegek"
 
 #: translations/xrc.cpp:658 xrc.cpp:658
-#, fuzzy
 msgid "Output exposure fused stacks from highly overlapping images"
-msgstr ""
-"Áttranszformált kimenet, nagy dinamikai tartományú egyesített kötegek "
-"egymást erősen átfedő képekből"
+msgstr "Expozíció fuzionált kötegek kimenet egymást erősen átfedő képekből"
 
 #: translations/xrc.cpp:659 xrc.cpp:659
 msgid "High dynamic range merged stacks"
@@ -6365,9 +6351,9 @@ msgid "Set the crop region to the largest rectangle covered by images"
 msgstr "Beállítja a képkivágást a legnagyobb téglalapra amit a képek lefednek"
 
 #: translations/xrc.cpp:946 translations/xrc.cpp:1026 xrc.cpp:946 xrc.cpp:1026
-#, fuzzy
 msgid "Set the crop region to the largest rectangle covered by image stacks"
-msgstr "Beállítja a képkivágást a legnagyobb téglalapra amit a képek lefednek"
+msgstr ""
+"Beállítja a képkivágást a legnagyobb téglalapra amit a kép kötegek lefednek"
 
 #: translations/xrc.cpp:955 translations/xrc.cpp:1035 xrc.cpp:955 xrc.cpp:1035
 msgid "left:"
@@ -6440,16 +6426,23 @@ msgid ""
 "create the appropriate project file, run the assistant and optionally stitch "
 "the final panorama."
 msgstr ""
+"Ha rendelkezik egy könyvtárral különböző panorámákból származó képekkel, "
+"akkor használja a menü Fájl>Keresési könyvtár ezekhez...>Képek a "
+"PTBatcherGUI-ban hogy automatikusan létrehozza a megfelelő projekt fájlt, "
+"futtassa a segédet és opcionálisan fűzze össze a végső panorámát."
 
 #: hugin1/hugin/xrc/data/tips.txt:5
 msgid ""
 "To run the assistant on a bunch of projects use the batch processor "
 "PTBatcherGUI."
 msgstr ""
+"A segéd futtatásához több projekten használja a kötegelt feldolgozó "
+"PTBatcherGUI-t."
 
 #: hugin1/hugin/xrc/data/tips.txt:6
 msgid "To stitch a bunch of projects use the batch processor PTBatcherGUI."
 msgstr ""
+"Több projekt összefűzéséhez használhatja a PTBatcherGUI kötegelt feldolgozót."
 
 #: hugin1/hugin/xrc/data/tips.txt:7
 msgid ""
