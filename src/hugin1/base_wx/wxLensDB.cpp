@@ -859,19 +859,6 @@ SaveCamDBDialog::SaveCamDBDialog(wxWindow *parent)
 
     //set parameters
     wxConfigBase * config = wxConfigBase::Get();
-    // get display size
-    int dx,dy;
-    wxDisplaySize(&dx,&dy);
-    int w = config->Read(wxT("/SaveCamDialog/width"),-1l);
-    int h = config->Read(wxT("/SaveCamDialog/height"),-1l);
-    if (w>0 && w<=dx && h>0 && h<=dy)
-    {
-        SetClientSize(w,h);
-    }
-    else
-    {
-        Fit();
-    }
     //position
     int x = config->Read(wxT("/SaveCamDialog/positionX"),-1l);
     int y = config->Read(wxT("/SaveCamDialog/positionY"),-1l);
@@ -938,9 +925,6 @@ void SaveCamDBDialog::OnOk(wxCommandEvent & e)
     };
     //store selected options
     wxConfigBase * config = wxConfigBase::Get();
-    wxSize sz = this->GetClientSize();
-    config->Write(wxT("/SaveCamDialog/width"), sz.GetWidth());
-    config->Write(wxT("/SaveCamDialog/height"), sz.GetHeight());
     wxPoint ps = this->GetPosition();
     config->Write(wxT("/SaveCamDialog/positionX"), ps.x);
     config->Write(wxT("/SaveCamDialog/positionY"), ps.y);
