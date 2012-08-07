@@ -278,7 +278,7 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
 //                                          wxArtProvider::GetBitmap(wxART_GO_BACK));
 //    blendModeSizer->Add(m_decExposureBut);
 
-    m_exposureTextCtrl = new wxTextCtrl(this, ID_EXPOSURE_TEXT, _("0"),
+    m_exposureTextCtrl = new wxTextCtrl(this, ID_EXPOSURE_TEXT, wxT("0"),
                                         wxDefaultPosition,wxSize(50,-1), wxTE_PROCESS_ENTER);
     blendModeSizer->Add(m_exposureTextCtrl,
                           0,        // not vertically strechable

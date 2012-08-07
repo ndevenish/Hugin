@@ -82,7 +82,7 @@ bool ImagesList::Create(wxWindow* parent, wxWindowID id,
     DEBUG_TRACE("List, adding columns");
 
     m_notifyParents = true;
-    InsertColumn( 0, _("#"), wxLIST_FORMAT_RIGHT, 35 );
+    InsertColumn( 0, wxT("#"), wxLIST_FORMAT_RIGHT, 35 );
 
     // get a good size for the images
     wxPoint sz(1,11);
@@ -511,7 +511,7 @@ void ImagesListMask::SetSingleSelect(bool isSingleSelect)
     // wxGTK shows a bad behaviour, if we change the style
     // all items and columns are deleted, we need to create it again
     Freeze();
-    InsertColumn(0, _("#"), wxLIST_FORMAT_RIGHT, 35 );
+    InsertColumn(0, wxT("#"), wxLIST_FORMAT_RIGHT, 35 );
     InsertColumn(1, _("Filename"), wxLIST_FORMAT_LEFT, 200 );
     InsertColumn(2, _("Number of masks"), wxLIST_FORMAT_RIGHT,120);
     InsertColumn(3, _("Crop"), wxLIST_FORMAT_RIGHT,120);

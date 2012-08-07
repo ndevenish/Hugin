@@ -108,7 +108,7 @@ bool MaskEditorPanel::Create(wxWindow* parent, wxWindowID id,
     m_imagesListMask = XRCCTRL(*this, "mask_editor_images_list", ImagesListMask);
     // mask list
     m_maskList = XRCCTRL(*this, "mask_editor_mask_list", wxListCtrl);
-    m_maskList->InsertColumn( 0, _("#"), wxLIST_FORMAT_RIGHT, 35);
+    m_maskList->InsertColumn( 0, wxT("#"), wxLIST_FORMAT_RIGHT, 35);
     m_maskList->InsertColumn( 1, _("Mask type"), wxLIST_FORMAT_LEFT, 120);
 
     m_maskCropCtrl = XRCCTRL(*this, "mask_editor_mask_crop_notebook", wxNotebook);

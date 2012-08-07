@@ -725,7 +725,7 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
                         0,        // not vertically strechable
                         wxLEFT | wxRIGHT | wxALIGN_CENTER_VERTICAL, // draw border all around
                         5);       // border width
-        m_projParamTextCtrl[i] = new wxTextCtrl(m_projection_panel, PROJ_PARAM_VAL_ID+i, _("0"),
+        m_projParamTextCtrl[i] = new wxTextCtrl(m_projection_panel, PROJ_PARAM_VAL_ID+i, wxT("0"),
                                     wxDefaultPosition, wxSize(35,-1), wxTE_PROCESS_ENTER);
         m_projParamSizer->Add(m_projParamTextCtrl[i],
                         0,        // not vertically strechable

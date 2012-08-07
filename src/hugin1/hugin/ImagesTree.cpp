@@ -133,7 +133,7 @@ void ImagesTreeCtrl::CreateColumns()
     };\
     m_variableVector.push_back(IVE);\
     counter++;
-    ADDCOLUMN(_("#"), "imgNr", 35, wxALIGN_LEFT,false, HuginBase::ImageVariableGroup::IVE_Filename)
+    ADDCOLUMN(wxT("#"), "imgNr", 35, wxALIGN_LEFT,false, HuginBase::ImageVariableGroup::IVE_Filename)
     ADDCOLUMN(_("Filename"), "filename", 200, wxALIGN_LEFT,false, HuginBase::ImageVariableGroup::IVE_Filename)
     ADDCOLUMN(_("width"), "width", 60, wxALIGN_RIGHT,false, HuginBase::ImageVariableGroup::IVE_Filename)
     ADDCOLUMN(_("height"), "height", 60, wxALIGN_RIGHT,false, HuginBase::ImageVariableGroup::IVE_Filename)
