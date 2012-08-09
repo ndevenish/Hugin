@@ -29,7 +29,7 @@ msgstr ""
 "Project-Id-Version: cs_CZ\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
 "POT-Creation-Date: 2012-08-06 16:47+0200\n"
-"PO-Revision-Date: 2012-07-20 18:24+0100\n"
+"PO-Revision-Date: 2012-08-09 19:34+0100\n"
 "Last-Translator: Václav Černý <vatoz@seznam.cz>\n"
 "Language-Team: Čeština\n"
 "Language: \n"
@@ -1422,7 +1422,7 @@ msgid "The crop factor must be positive."
 msgstr "Hodnota ořezu musí být kladná."
 
 #: hugin1/hugin/huginApp.cpp:269
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "I am Hugin version %s. I have found preferences from an older version %s. I "
 "might not be compatible with the older preferences. If you experience "
@@ -1430,12 +1430,12 @@ msgid ""
 "the 'Load Defaults' button"
 msgstr ""
 "Spouští se Hugin ve verzi  %s. Vaše nastavení pochází ze starší verze  %s.  "
-"Je možné, že neumím s tímto nastavením pracovat správně. Pokud něco nebude "
-"pracovat správně, zkuste v nabídce Soubor -> Nastavení v každé záložce "
-"tlačítkem Nahrát výchozí použít výchozí hodnoty nastavení."
+"Je možné, že Hugin nebude s tímto nastavením pracovat správně.Pro případnou "
+"zkuste v nabídce Soubor -> Nastavení v každé záložce tlačítkem Nahrát "
+"výchozí použít výchozí hodnoty nastavení."
 
 #: hugin1/hugin/huginApp.cpp:283
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "I am Hugin version %s. I have found preferences from a newer version %s. I "
 "might not be compatible with the newer preferences. If you experience "
@@ -1443,9 +1443,9 @@ msgid ""
 "the 'Load Defaults' button"
 msgstr ""
 "Spouští se Hugin ve verzi  %s. Vaše nastavení pochází z novější verze  %s.  "
-"Je možné, že neumím s tímto nastavením pracovat správně. Pokud něco nebude "
-"pracovat správně, zkuste v nabídce Soubor -> Nastavení v každé záložce "
-"tlačítkem Nahrát výchozí použít výchozí hodnoty nastavení."
+"Je možné, že Hugin nebude s tímto nastavením pracovat správně.Pro případnou "
+"zkuste v nabídce Soubor -> Nastavení v každé záložce tlačítkem Nahrát "
+"výchozí použít výchozí hodnoty nastavení."
 
 #: hugin1/hugin/ImagesList.cpp:441 hugin1/hugin/ImagesList.cpp:569
 msgid "Filename"
@@ -4655,9 +4655,8 @@ msgid "Remove control points in masks"
 msgstr "Odebere kontrolní body v maskách"
 
 #: translations/xrc.cpp:417 xrc.cpp:417
-#, fuzzy
 msgid "Removes all control points, which are in masks"
-msgstr "Odebere všechny kontrolní body z jedné masky"
+msgstr "Odebere všechny kontrolní body zakryté maskami"
 
 #: translations/xrc.cpp:418 xrc.cpp:418
 msgid "&Optimize"
