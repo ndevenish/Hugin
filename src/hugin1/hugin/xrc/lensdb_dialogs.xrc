@@ -163,7 +163,6 @@
                     <flag>wxALIGN_CENTRE_VERTICAL | wxALL</flag>
                     <border>3</border>
                   </object>
-                  
                   <cols>3</cols>
                   <rows>3</rows>
                 </object>
@@ -500,9 +499,10 @@
               </object>
               <cols>2</cols>
               <rows>3</rows>
-              <growablecols></growablecols>
+              <growablecols/>
             </object>
           </object>
+          <label>Camera</label>
           <orient>wxHORIZONTAL</orient>
         </object>
         <flag>wxALL</flag>
