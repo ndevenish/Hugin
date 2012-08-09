@@ -56,6 +56,13 @@ public:
     void SwapProject(int index);
     bool UpdateStatus(int index, Project* project);
 
+protected:
+    void OnContextMenu(wxContextMenuEvent& e);
+    void OnChangePrefix(wxCommandEvent& e);
+    void OnResetProject(wxCommandEvent& e);
+    void OnEditProject(wxCommandEvent& e);
+    void OnRemoveProject(wxCommandEvent& e);
+
 private:
     int m_selected;
     Batch* m_batch;

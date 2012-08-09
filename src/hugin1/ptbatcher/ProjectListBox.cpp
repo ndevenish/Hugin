@@ -26,10 +26,23 @@
 
 #include "ProjectListBox.h"
 
+enum
+{
+    ID_CHANGE_PREFIX=wxID_HIGHEST+200,
+    ID_RESET_PROJECT=wxID_HIGHEST+201,
+    ID_EDIT_PROJECT=wxID_HIGHEST+202,
+    ID_REMOVE_PROJECT=wxID_HIGHEST+203
+};
+
 BEGIN_EVENT_TABLE(ProjectListBox, wxListCtrl)
     EVT_LIST_ITEM_SELECTED(wxID_ANY, ProjectListBox::OnSelect)
     EVT_LIST_ITEM_DESELECTED(wxID_ANY, ProjectListBox::OnDeselect)
     EVT_LIST_COL_END_DRAG(wxID_ANY, ProjectListBox::OnColumnWidthChange)
+    EVT_CONTEXT_MENU(ProjectListBox::OnContextMenu)
+    EVT_MENU(ID_CHANGE_PREFIX, ProjectListBox::OnChangePrefix)
+    EVT_MENU(ID_RESET_PROJECT, ProjectListBox::OnResetProject)
+    EVT_MENU(ID_EDIT_PROJECT, ProjectListBox::OnEditProject)
+    EVT_MENU(ID_REMOVE_PROJECT, ProjectListBox::OnRemoveProject)
 END_EVENT_TABLE()
 
 bool ProjectListBox::Create(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name)
@@ -367,6 +380,56 @@ void ProjectListBox::OnSelect(wxListEvent& event)
 {
     m_selected = ((wxListEvent)event).GetIndex();
 }
+
+// functions for context menu
+void ProjectListBox::OnContextMenu(wxContextMenuEvent& e)
+{
+    if(m_selected!=-1)
+    {
+        wxPoint point = e.GetPosition();
+        // if from keyboard
+        if((point.x==-1) && (point.y==-1))
+        {
+            wxSize size = GetSize();
+            point.x = size.x / 2;
+            point.y = size.y / 2;
+        }
+        else
+        {
+            point = ScreenToClient(point);
+        }
+        wxMenu menu;
+        menu.Append(ID_CHANGE_PREFIX, _("Change prefix"));
+        menu.Append(ID_RESET_PROJECT, _("Reset project"));
+        menu.Append(ID_EDIT_PROJECT, _("Edit with Hugin"));
+        menu.Append(ID_REMOVE_PROJECT, _("Remove"));
+        PopupMenu(&menu, point.x, point.y);
+    };
+};
+
+void ProjectListBox::OnChangePrefix(wxCommandEvent& e)
+{
+    wxCommandEvent ev(wxEVT_COMMAND_BUTTON_CLICKED, XRCID("button_prefix"));
+    GetParent()->GetEventHandler()->AddPendingEvent(ev);
+};
+
+void ProjectListBox::OnResetProject(wxCommandEvent& e)
+{
+    wxCommandEvent ev(wxEVT_COMMAND_BUTTON_CLICKED, XRCID("button_reset"));
+    GetParent()->GetEventHandler()->AddPendingEvent(ev);
+};
+
+void ProjectListBox::OnEditProject(wxCommandEvent& e)
+{
+    wxCommandEvent ev(wxEVT_COMMAND_BUTTON_CLICKED, XRCID("button_edit"));
+    GetParent()->GetEventHandler()->AddPendingEvent(ev);
+};
+
+void ProjectListBox::OnRemoveProject(wxCommandEvent& e)
+{
+    wxCommandEvent ev(wxEVT_COMMAND_TOOL_CLICKED, XRCID("tool_remove"));
+    GetParent()->GetEventHandler()->AddPendingEvent(ev);
+};
 
 const wxString ProjectListBox::fileFormat[] = {_T("JPEG"),
         _T("PNG"),
