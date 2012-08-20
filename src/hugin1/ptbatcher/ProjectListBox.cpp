@@ -126,9 +126,11 @@ void ProjectListBox::AppendProject(Project* project)
 
 void ProjectListBox::ChangePrefix(int index, wxString newPrefix)
 {
-    if(columns.Index(PREFIX)!=wxNOT_FOUND)
+    int colIndex=columns.Index(PREFIX);
+    if(colIndex!=wxNOT_FOUND)
     {
-        this->SetItem(index,columns.Index(PREFIX),newPrefix);
+        Project* project=m_batch->GetProject(index);
+        this->SetItem(index,colIndex,this->GetAttributeString(colIndex,project));
     }
 }
 
