@@ -75,7 +75,7 @@ void DragTool::Activate()
     helper->NotifyMe(PreviewToolHelper::MOUSE_PRESS, this);
     helper->NotifyMe(PreviewToolHelper::REALLY_DRAW_OVER_IMAGES, this);
     // a handy message for the user:
-    helper->SetStatusMessage(_("Drag to move images (optionally use shift to constrain), or roll with right-drag or ctrl-drag."));
+    helper->SetStatusMessage(_("Drag to move images (optionally use shift to constrain), or roll with right-drag or Ctrl-drag."));
 }
 
 void DragTool::MouseMoveEvent(double x, double y, wxMouseEvent & e)

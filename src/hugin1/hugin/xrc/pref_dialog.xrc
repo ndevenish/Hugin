@@ -141,7 +141,7 @@
                         </object>
                         <object class="sizeritem">
                           <object class="wxStaticText">
-                            <label>May have unforseen consequences. \n(EXPERIMENTAL)</label>
+                            <label>May have unforeseen consequences. \n(EXPERIMENTAL)</label>
                           </object>
                           <flag>wxLEFT|wxEXPAND|wxALIGN_RIGHT|wxALIGN_TOP</flag>
                           <border>5</border>

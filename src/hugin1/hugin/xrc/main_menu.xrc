@@ -17,11 +17,11 @@
       <object class="separator"/>
       <object class="wxMenuItem" name="action_finetune_all_cp">
         <label>Fine-&amp;tune all Points</label>
-        <help>Runs fine-tune on all control points. useful for projects created with other tools, like PTGui or PTAssembler</help>
+        <help>Runs fine-tune on all control points. Useful for projects created with other tools, like PTGui or PTAssembler</help>
       </object>
       <object class="wxMenuItem" name="action_remove_cp_in_masks">
         <label>Remove control points in masks</label>
-        <help>Removes all control points, which are masks</help>
+        <help>Removes all control points inside masked areas.</help>
       </object>
       <object class="separator"/>
       <object class="wxMenuItem" name="action_optimize">
