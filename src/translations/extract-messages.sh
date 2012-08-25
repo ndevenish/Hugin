@@ -1,10 +1,21 @@
 #!/bin/sh
+# Usage: ./extract-messages XX.po
+# where XX.po is the po file to update
+# run ./extract-messages without any argument to update all the po files in the translation folder
+
 BASEDIR="../" # root of translatable sources
 PROJECT="hugin" # project name
 #BUGADDR="pablo.dangelo@web.de" # MSGID-Bugs
 BUGADDR="https://bugs.launchpad.net/hugin/" # MSGID-Bugs
 COPYRIGHT="Pablo dAngelo"
 WDIR=`pwd` # working dir
+
+# Read language file to update and default to all po files if none specified
+languagefile="$1" # Read language file to update
+if [ "$languagefile" = '' ]
+then
+    languagefile="*.po"
+fi
 
 # safety checks
 which wxrc &> /dev/null || { echo "Error: wxrc utility not found"; exit 0; }
@@ -36,9 +47,9 @@ xgettext --from-code=UTF-8 -C -k_ --copyright-holder="$COPYRIGHT" \
          --files-from=infiles.list -D ${BASEDIR} -D ${WDIR} -o ${PROJECT}.pot || { echo "error while calling xgettext. aborting."; exit 1; }
 echo "Done extracting messages"
        
-       
+echo $languagefile       
 echo "Merging translations"
-catalogs=`find . -name '*.po'`
+catalogs=`find . -name "$languagefile"`
 for cat in $catalogs; do
   echo $cat
   msgmerge --verbose -o $cat.new $cat ${PROJECT}.pot
