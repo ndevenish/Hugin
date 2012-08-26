@@ -353,13 +353,18 @@ void BatchFrame::OnButtonAddToStitchingQueue(wxCommandEvent& event)
                      defaultdir, wxT(""),
                      _("Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files (*)|*"),
                      wxFD_OPEN | wxFD_MULTIPLE, wxDefaultPosition);
-    dlg.SetDirectory(wxConfigBase::Get()->Read(wxT("/BatchFrame/actualPath"),wxT("")));
+    dlg.SetDirectory(defaultdir);
 
     if (dlg.ShowModal() == wxID_OK)
     {
-        wxConfig::Get()->Write(wxT("/BatchFrame/actualPath"), dlg.GetDirectory());  // remember for later
         wxArrayString paths;
         dlg.GetPaths(paths);
+#ifdef __WXGTK__
+        //workaround a bug in GTK, see https://bugzilla.redhat.com/show_bug.cgi?id=849692 and http://trac.wxwidgets.org/ticket/14525
+        wxConfig::Get()->Write(wxT("/BatchFrame/actualPath"), wxPathOnly(paths[0]));  // remember for later
+#else
+        wxConfig::Get()->Write(wxT("/BatchFrame/actualPath"), dlg.GetDirectory());  // remember for later
+#endif
         for(unsigned int i=0; i<paths.GetCount(); i++)
         {
             AddToList(paths.Item(i));
@@ -376,13 +381,18 @@ void BatchFrame::OnButtonAddToAssistantQueue(wxCommandEvent& event)
                      defaultdir, wxT(""),
                      _("Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files (*)|*"),
                      wxFD_OPEN | wxFD_MULTIPLE, wxDefaultPosition);
-    dlg.SetDirectory(wxConfigBase::Get()->Read(wxT("/BatchFrame/actualPath"),wxT("")));
+    dlg.SetDirectory(defaultdir);
 
     if (dlg.ShowModal() == wxID_OK)
     {
-        wxConfig::Get()->Write(wxT("/BatchFrame/actualPath"), dlg.GetDirectory());  // remember for later
         wxArrayString paths;
         dlg.GetPaths(paths);
+#ifdef __WXGTK__
+        //workaround a bug in GTK, see https://bugzilla.redhat.com/show_bug.cgi?id=849692 and http://trac.wxwidgets.org/ticket/14525
+        wxConfig::Get()->Write(wxT("/BatchFrame/actualPath"), wxPathOnly(paths[0]));  // remember for later
+#else
+        wxConfig::Get()->Write(wxT("/BatchFrame/actualPath"), dlg.GetDirectory());  // remember for later
+#endif
         for(unsigned int i=0; i<paths.GetCount(); i++)
         {
             AddToList(paths.Item(i),Project::DETECTING);

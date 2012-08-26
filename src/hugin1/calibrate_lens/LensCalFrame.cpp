@@ -454,8 +454,13 @@ void LensCalFrame::OnAddImage(wxCommandEvent &e)
         wxArrayString Pathnames;
         dlg.GetPaths(Pathnames);
 
-        // e safe the current path to config
+        // save the current path to config
+#ifdef __WXGTK__
+        //workaround a bug in GTK, see https://bugzilla.redhat.com/show_bug.cgi?id=849692 and http://trac.wxwidgets.org/ticket/14525
+        config->Write(wxT("/actualPath"), wxPathOnly(Pathnames[0]));  // remember for later
+#else
         config->Write(wxT("/actualPath"), dlg.GetDirectory());  // remember for later
+#endif
 
         bool foundForbiddenChars=false;
         for(unsigned int i=0;i<Pathnames.GetCount(); i++)

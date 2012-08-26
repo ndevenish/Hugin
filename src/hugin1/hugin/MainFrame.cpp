@@ -990,8 +990,13 @@ void MainFrame::OnAddImages( wxCommandEvent& event )
         wxArrayString Pathnames;
         dlg.GetPaths(Pathnames);
 
-        // e safe the current path to config
+        // remember path for later
+#ifdef __WXGTK__
+        //workaround a bug in GTK, see https://bugzilla.redhat.com/show_bug.cgi?id=849692 and http://trac.wxwidgets.org/ticket/14525
+        config->Write(wxT("/actualPath"), wxPathOnly(Pathnames[0]));  // remember for later
+#else
         config->Write(wxT("/actualPath"), dlg.GetDirectory());  // remember for later
+#endif
 
         AddImages(Pathnames);
 
