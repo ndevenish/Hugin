@@ -655,6 +655,7 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
                         5);       // border width
         m_projParamTextCtrl[i] = new wxTextCtrl(m_projection_panel, PROJ_PARAM_VAL_ID+i, _("0"),
                                     wxDefaultPosition, wxSize(35,-1), wxTE_PROCESS_ENTER);
+        m_projParamTextCtrl[i]->PushEventHandler(new TextKillFocusHandler(this));
         m_projParamSizer->Add(m_projParamTextCtrl[i],
                         0,        // not vertically strechable
                         wxLEFT | wxRIGHT | wxALIGN_CENTER_VERTICAL, // draw border all around
@@ -810,6 +811,10 @@ GLPreviewFrame::~GLPreviewFrame()
         m_ToggleButtons[i]->PopEventHandler(true);
         m_GroupToggleButtons[i]->PopEventHandler(true);
     }
+    for (int i=0; i < PANO_PROJECTION_MAX_PARMS; i++)
+    {
+        m_projParamTextCtrl[i]->PopEventHandler(true);
+    };
     m_pano.removeObserver(this);
 
      // deinitialize the frame manager

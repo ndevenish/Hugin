@@ -44,6 +44,7 @@
 #include "hugin/PreviewPanel.h"
 #include "hugin/ImagesPanel.h"
 #include "hugin/CommandHistory.h"
+#include "hugin/TextKillFocusHandler.h"
 
 #include <vigra_ext/ImageTransforms.h>
 
@@ -314,6 +315,7 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
                         5);       // border width
         m_projParamTextCtrl[i] = new wxTextCtrl(this, PROJ_PARAM_VAL_ID+i, wxT("0"),
                                     wxDefaultPosition, wxSize(35,-1), wxTE_PROCESS_ENTER);
+        m_projParamTextCtrl[i]->PushEventHandler(new TextKillFocusHandler(this));
         m_projParamSizer->Add(m_projParamTextCtrl[i],
                         0,        // not vertically strechable
                         wxALL | wxALIGN_CENTER_VERTICAL, // draw border all around
@@ -406,6 +408,10 @@ PreviewFrame::~PreviewFrame()
     bool checked = m_ToolBar->GetToolState(XRCID("preview_auto_update_tool"));
     config->Write(wxT("/PreviewFrame/autoUpdate"), checked ? 1l: 0l);
     config->Write(wxT("/PreviewFrame/blendMode"), m_BlendModeChoice->GetSelection());
+    for (int i=0; i < PANO_PROJECTION_MAX_PARMS; i++)
+    {
+        m_projParamTextCtrl[i]->PopEventHandler(true);
+    };
     m_pano.removeObserver(this);
     DEBUG_TRACE("dtor end");
 }
