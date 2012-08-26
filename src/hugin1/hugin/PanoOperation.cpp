@@ -117,12 +117,15 @@ bool AddImageDialog(wxWindow* parent, std::vector<std::string>& files)
     {
         // get the selections
         wxArrayString Pathnames;
-        wxArrayString Filenames;
         dlg.GetPaths(Pathnames);
-        dlg.GetFilenames(Filenames);
 
         // remember path for later
+#ifdef __WXGTK__
+        //workaround a bug in GTK, see https://bugzilla.redhat.com/show_bug.cgi?id=849692 and http://trac.wxwidgets.org/ticket/14525
+        config->Write(wxT("/actualPath"), wxPathOnly(Pathnames[0]));
+#else
         config->Write(wxT("/actualPath"), dlg.GetDirectory());
+#endif
         // save the image extension
         switch (dlg.GetFilterIndex())
         {

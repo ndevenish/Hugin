@@ -613,12 +613,15 @@ bool wxApplyTemplateCmd::processPanorama(Panorama& pano)
         if (dlg.ShowModal() == wxID_OK) {
             // get the selections
             wxArrayString Pathnames;
-            wxArrayString Filenames;
             dlg.GetPaths(Pathnames);
-            dlg.GetFilenames(Filenames);
 
-            // e safe the current path to config
-            config->Write(wxT("actualPath"), dlg.GetDirectory());  // remember for later
+            // save the current path to config
+#ifdef __WXGTK__
+            //workaround a bug in GTK, see https://bugzilla.redhat.com/show_bug.cgi?id=849692 and http://trac.wxwidgets.org/ticket/14525
+            config->Write(wxT("/actualPath"), wxPathOnly(Pathnames[0]));
+#else
+            config->Write(wxT("/actualPath"), dlg.GetDirectory());
+#endif
             DEBUG_INFO ( wxString::Format(wxT("img_ext: %d"), dlg.GetFilterIndex()).mb_str(wxConvLocal) );
             // save the image extension
             switch ( dlg.GetFilterIndex() ) {
