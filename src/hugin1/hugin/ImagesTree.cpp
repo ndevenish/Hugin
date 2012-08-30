@@ -957,7 +957,7 @@ HuginBase::UIntSet ImagesTreeCtrl::GetSelectedImages()
                 {
                     data=(ImagesTreeData*)GetItemData(item);
                     imgs.insert(data->GetImgNr());
-                    item=GetNextChild(item, cookie);
+                    item=GetNextChild(selected[i], cookie);
                 };
             }
             else
