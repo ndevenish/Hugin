@@ -180,7 +180,30 @@ BatchFrame::BatchFrame(wxLocale* locale, wxString xrc)
 #endif
     m_batch = new Batch(this,wxTheApp->argv[0],true);
     m_batch->gui = true;
-    m_batch->LoadTemp();
+    if(wxGetKeyState(WXK_COMMAND))
+    {
+#ifdef __WXMAC__
+        wxString text(_("You have pressed the Command key."));
+#else
+        wxString text(_("You have pressed the Control key."));
+#endif
+        text.Append(wxT("\n"));
+        text.Append(_("Should the loading of the batch queue skipped?"));
+        if(wxMessageBox(text, 
+#ifdef __WXMSW__
+            wxT("PTBatcherGUI"),
+#else
+            wxEmptyString(),
+#endif
+            wxYES_NO | wxICON_EXCLAMATION, NULL)==wxNO)
+        {
+            m_batch->LoadTemp();
+        };
+    }
+    else
+    {
+        m_batch->LoadTemp();
+    };
     if(m_batch->GetLastFile().length()==0)
     {
         m_batch->SaveTemp();
