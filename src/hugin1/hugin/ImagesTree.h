@@ -119,6 +119,10 @@ protected:
     void OnSelectAll(wxCommandEvent &e);
     /** event handler for unselect all optimizer variables */
     void OnUnselectAll(wxCommandEvent &e);
+    /** event handler for select all optimizer variables for selected lens/stack*/
+    void OnSelectLensStack(wxCommandEvent &e);
+    /** event handler for unselect all optimizer variables for selected lens/stack */
+    void OnUnselectLensStack(wxCommandEvent &e);
     /** event handler for key events */
     void OnChar(wxTreeEvent &e);
     /** event handler for beginning editing */
@@ -137,8 +141,11 @@ private:
     void CreateColumns();
     /** helper procedure for link/unlink image variables */
     void UnLinkImageVariables(bool linked);
-    /** select/unselect all variables in the active column */
-    void SelectAllParameters(bool select);
+    /** select/unselect all variables in the active column 
+      *  @select true selects all, false unselect all
+      *  @allImages true works on all images, false only on images of current lens or stack
+      */
+    void SelectAllParameters(bool select, bool allImages);
     /** updates the display of the optimizer variables (set font) */
     void UpdateOptimizerVariables();
     /** generates submenu for given PanoOperationVector */

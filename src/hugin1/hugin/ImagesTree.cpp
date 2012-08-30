@@ -49,6 +49,8 @@ enum
     ID_EDIT,
     ID_SELECT_ALL,
     ID_UNSELECT_ALL,
+    ID_SELECT_LENS_STACK,
+    ID_UNSELECT_LENS_STACK,
     ID_OPERATION_START=wxID_HIGHEST+300
 };
 
@@ -61,6 +63,8 @@ BEGIN_EVENT_TABLE(ImagesTreeCtrl, wxTreeListCtrl)
     EVT_MENU(ID_EDIT, ImagesTreeCtrl::OnEditImageVariables)
     EVT_MENU(ID_SELECT_ALL, ImagesTreeCtrl::OnSelectAll)
     EVT_MENU(ID_UNSELECT_ALL, ImagesTreeCtrl::OnUnselectAll)
+    EVT_MENU(ID_SELECT_LENS_STACK, ImagesTreeCtrl::OnSelectLensStack)
+    EVT_MENU(ID_UNSELECT_LENS_STACK, ImagesTreeCtrl::OnUnselectLensStack)
     EVT_MENU_RANGE(ID_OPERATION_START, ID_OPERATION_START+50, ImagesTreeCtrl::OnExecuteOperation)
     EVT_TREE_BEGIN_DRAG(-1, ImagesTreeCtrl::OnBeginDrag)
     EVT_LEFT_UP(ImagesTreeCtrl::OnEndDrag)
@@ -1077,44 +1081,56 @@ void ImagesTreeCtrl::OnContextMenu(wxTreeEvent & e)
     if(e.GetItem().IsOk())
     {
         //click on item
-        bool hasItems=false;
         if(set_contains(m_editableColumns,m_selectedColumn))
         {
+            bool emptyText=GetItemText(e.GetItem(),m_selectedColumn).IsEmpty();
+            ImagesTreeData* data=(ImagesTreeData*)GetItemData(e.GetItem());
             if((m_groupMode==GROUP_LENS && m_variableVector[m_selectedColumn]!=HuginBase::ImageVariableGroup::IVE_Yaw) ||
                (m_groupMode==GROUP_STACK && m_variableVector[m_selectedColumn]==HuginBase::ImageVariableGroup::IVE_Yaw) )
             {
-                ImagesTreeData* data=(ImagesTreeData*)GetItemData(e.GetItem());
                 if(data->IsGroup())
                 {
-                    if(GetItemText(e.GetItem(),m_selectedColumn).IsEmpty())
+                    if(emptyText)
                     {
                         menu.Append(ID_LINK,_("Link"));
-                        hasItems=true;
                     }
                     else
                     {
                         menu.Append(ID_UNLINK, _("Unlink"));
-                        hasItems=true;
                     };
                 }
                 else
                 {
-                    if(GetItemText(e.GetItem(),m_selectedColumn).IsEmpty())
+                    if(emptyText)
                     {
                         menu.Append(ID_UNLINK,_("Unlink"));
-                        hasItems=true;
                     }
                     else
                     {
                         menu.Append(ID_LINK, _("Link"));
-                        hasItems=true;
                     };
                 };
+                menu.AppendSeparator();
             };
-        };
-        if(hasItems)
-        {
-            menu.AppendSeparator();
+            if(m_optimizerMode)
+            {
+                if(data->IsGroup() == emptyText)
+                {
+                    if(m_groupMode==GROUP_LENS && m_variableVector[m_selectedColumn]!=HuginBase::ImageVariableGroup::IVE_Yaw)
+                    {
+                        menu.Append(ID_SELECT_LENS_STACK, _("Select all for current lens"));
+                        menu.Append(ID_UNSELECT_LENS_STACK, _("Unselect all for current lens"));
+                    };
+                    if(m_groupMode==GROUP_STACK && m_variableVector[m_selectedColumn]==HuginBase::ImageVariableGroup::IVE_Yaw)
+                    {
+                        menu.Append(ID_SELECT_LENS_STACK, _("Select all for current stack"));
+                        menu.Append(ID_UNSELECT_LENS_STACK, _("Unselect all for current stack"));
+                    };
+                };
+                menu.Append(ID_SELECT_ALL, _("Select all"));
+                menu.Append(ID_UNSELECT_ALL, _("Unselect all"));
+                menu.AppendSeparator();
+            }
         };
         menu.Append(ID_EDIT, _("Edit image variables..."));
     }
@@ -1494,7 +1510,7 @@ void ImagesTreeCtrl::OnLeftDown(wxMouseEvent &e)
     e.Skip();
 };
 
-void ImagesTreeCtrl::SelectAllParameters(bool select)
+void ImagesTreeCtrl::SelectAllParameters(bool select, bool allImages)
 {
     std::set<std::string> imgVars;
     std::string var=m_columnVector[m_selectedColumn];
@@ -1520,28 +1536,63 @@ void ImagesTreeCtrl::SelectAllParameters(bool select)
         imgVars.insert("Rd");
         imgVars.insert("Re");
     };
-    for(size_t i=0; i<m_pano->getNrOfImages(); i++)
+
+    UIntSet imgs;
+    if(allImages)
+    {
+        fill_set(imgs, 0, m_pano->getNrOfImages()-1);
+    }
+    else
+    {
+        wxArrayTreeItemIds selectedItem;
+        if(GetSelections(selectedItem)>0)
+        {
+            for(size_t i=0;i<selectedItem.size();i++)
+            {
+                ImagesTreeData* data=(ImagesTreeData*)GetItemData(selectedItem[i]);
+                wxTreeItemId startItem;
+                if(data->IsGroup())
+                {
+                    startItem=selectedItem[i];
+                }
+                else
+                {
+                    startItem=GetItemParent(selectedItem[i]);
+                };
+                wxTreeItemIdValue cookie;
+                wxTreeItemId item=GetFirstChild(startItem,cookie);
+                while(item.IsOk())
+                {
+                    data=(ImagesTreeData*)GetItemData(item);
+                    imgs.insert(data->GetImgNr());
+                    item=GetNextChild(startItem, cookie);
+                };
+            };
+        };
+    };
+
+    for(UIntSet::iterator img=imgs.begin(); img!=imgs.end(); img++)
     {
         for(std::set<std::string>::const_iterator it=imgVars.begin(); it!=imgVars.end(); it++)
         {
             if(select)
             {
                 if((*it=="y" || *it=="p" || *it=="r" || *it=="TrX" || *it=="TrY" || *it=="TrZ") && 
-                    i==m_pano->getOptions().optimizeReferenceImage)
+                    *img==m_pano->getOptions().optimizeReferenceImage)
                 {
-                    optVec[i].erase(*it);
+                    optVec[*img].erase(*it);
                     continue;
                 };
-                if((*it=="Eev" || *it=="Er" || *it=="Eb") && i==m_pano->getOptions().colorReferenceImage)
+                if((*it=="Eev" || *it=="Er" || *it=="Eb") && *img==m_pano->getOptions().colorReferenceImage)
                 {
-                    optVec[i].erase(*it);
+                    optVec[*img].erase(*it);
                     continue;
                 };
-                optVec[i].insert(*it);
+                optVec[*img].insert(*it);
             }
             else
             {
-                optVec[i].erase(*it);
+                optVec[*img].erase(*it);
             };
         };
     };
@@ -1552,12 +1603,22 @@ void ImagesTreeCtrl::SelectAllParameters(bool select)
 
 void ImagesTreeCtrl::OnSelectAll(wxCommandEvent &e)
 {
-    SelectAllParameters(true);
+    SelectAllParameters(true, true);
 };
 
 void ImagesTreeCtrl::OnUnselectAll(wxCommandEvent &e)
 {
-    SelectAllParameters(false);
+    SelectAllParameters(false, true);
+};
+
+void ImagesTreeCtrl::OnSelectLensStack(wxCommandEvent &e)
+{
+    SelectAllParameters(true, false);
+};
+
+void ImagesTreeCtrl::OnUnselectLensStack(wxCommandEvent &e)
+{
+    SelectAllParameters(false, false);
 };
 
 void ImagesTreeCtrl::OnChar(wxTreeEvent &e)
