@@ -193,7 +193,7 @@ BatchFrame::BatchFrame(wxLocale* locale, wxString xrc)
 #ifdef __WXMSW__
             wxT("PTBatcherGUI"),
 #else
-            wxEmptyString(),
+            wxEmptyString,
 #endif
             wxYES_NO | wxICON_EXCLAMATION, NULL)==wxNO)
         {
