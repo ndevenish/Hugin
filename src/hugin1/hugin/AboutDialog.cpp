@@ -175,8 +175,11 @@ void AboutDialog::GetSystemInformation(wxFont *font)
     text=text+wxT("\n")+wxString::Format(_("Path to resources: %s"),huginApp::Get()->GetXRCPath().c_str());
     text=text+wxT("\n")+wxString::Format(_("Path to data: %s"),huginApp::Get()->GetDataPath().c_str());
     HuginBase::LensDB::LensDB& lensDB=HuginBase::LensDB::LensDB::GetSingleton();
-    text=text+wxT("\n")+wxString::Format(_("Path to public lensfun database: %s"),lensDB.GetMainDBPath().c_str());
-    text=text+wxT("\n")+wxString::Format(_("Path to user lensfun database: %s"),lensDB.GetUserDBPath().c_str());
+    if(!lensDB.GetMainDBPath().empty())
+    {
+        text=text+wxT("\n")+wxString::Format(_("Path to public lensfun database: %s"),wxString(lensDB.GetMainDBPath().c_str(), wxConvLocal).c_str());
+    };
+    text=text+wxT("\n")+wxString::Format(_("Path to user lensfun database: %s"),wxString(lensDB.GetUserDBPath().c_str(), wxConvLocal).c_str());
     text=text+wxT("\n\n")+_("Libraries");
     text=text+wxT("\n")+wxString::Format(wxT("wxWidgets: %i.%i.%i.%i"),
                                             wxMAJOR_VERSION,
