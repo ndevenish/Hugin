@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: da\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
 "POT-Creation-Date: 2012-08-06 16:47+0200\n"
-"PO-Revision-Date: 2012-08-06 22:19+0200\n"
+"PO-Revision-Date: 2012-09-03 07:41+0200\n"
 "Last-Translator: Thomas Pryds <thomas@pryds.eu>\n"
 "Language-Team: danish <da@li.org>\n"
 "Language: \n"
@@ -2901,7 +2901,7 @@ msgstr "Fejl: Kunne ikke sætte status; projekt med indeks %d er ikke i listen."
 
 #: hugin1/ptbatcher/BatchFrame.cpp:144
 msgid "Not doing much..."
-msgstr "Udfører ikke så meget..."
+msgstr "I øjeblikket inaktiv..."
 
 #: hugin1/ptbatcher/BatchFrame.cpp:161 hugin1/ptbatcher/BatchFrame.cpp:171
 msgid "Hugin's Batch processor"
@@ -2939,7 +2939,7 @@ msgstr "Tilføj projekt %s til assistentkø."
 
 #: hugin1/ptbatcher/BatchFrame.cpp:435
 msgid "Batch stopped"
-msgstr "Jobliste stoppede"
+msgstr "Jobliste stoppet"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:446
 msgid "Specify output prefix for project "
@@ -3165,7 +3165,7 @@ msgstr "Færdig"
 
 #: hugin1/ptbatcher/ProjectArray.cpp:73
 msgid "Failed"
-msgstr "Fejl"
+msgstr "Fejlede"
 
 #: hugin1/ptbatcher/ProjectArray.cpp:75
 #: hugin1/ptbatcher/ProjectListBox.cpp:227
