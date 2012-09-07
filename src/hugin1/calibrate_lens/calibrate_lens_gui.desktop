@@ -1,7 +1,6 @@
-
 [Desktop Entry]
 Name=Hugin Calibrate Lens
-Comment=Stitch photographs together
+Comment=Characterise lens distortion
 GenericName=Lens Calibrator
 Categories=Graphics;
 Exec=calibrate_lens_gui
@@ -9,7 +8,6 @@ Icon=hugin
 StartupNotify=false
 Terminal=false
 Type=Application
-MimeType=application/x-ptoptimizer-script;
 Name[en_AU]=Hugin Calibrate Lens
 Name[cs]=Hugin kalibrace objetivů
 GenericName[cs]=Kalibrace objektivů
