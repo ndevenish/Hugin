@@ -399,7 +399,7 @@ int CalculateOptimalROI::autocrop()
             nonreccheck(0,0,o_optimalSize.x,o_optimalSize.y,acc,2);
             if(maxvalue>0)
             {
-                printf("Inner %d %ld: %d %d - %d %d\n",acc,maxvalue,best.left,best.right,best.top,best.bottom);
+                printf("Inner %d %ld: %d %d - %d %d\n",acc,(long) maxvalue,best.left,best.right,best.top,best.bottom);
                 break;
             }
         }
@@ -413,7 +413,7 @@ int CalculateOptimalROI::autocrop()
             nonreccheck(0,0,o_optimalSize.x,o_optimalSize.y,acc,1);
             if(maxvalue>0)
             {
-                printf("Inner %d %ld: %d %d - %d %d\n",acc,maxvalue,best.left,best.right,best.top,best.bottom);
+                printf("Inner %d %ld: %d %d - %d %d\n",acc,(long) maxvalue,best.left,best.right,best.top,best.bottom);
                 break;
             }
         }
