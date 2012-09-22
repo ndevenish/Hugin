@@ -158,6 +158,7 @@ private:
     PT::Panorama * m_pano;
     // current masks vector
     HuginBase::MaskPolygonVector m_currentMasks;
+    HuginBase::MaskPolygon::MaskType m_defaultMaskType;
     // mask or crop mode
     bool m_maskMode;
     // the current images

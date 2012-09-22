@@ -75,6 +75,7 @@ MaskEditorPanel::MaskEditorPanel()
     DEBUG_TRACE("**********************");
     m_pano = 0;
     m_maskCropCtrl=NULL;
+    m_defaultMaskType=HuginBase::MaskPolygon::Mask_negative;
 }
 
 bool MaskEditorPanel::Create(wxWindow* parent, wxWindowID id,
@@ -151,6 +152,8 @@ bool MaskEditorPanel::Create(wxWindow* parent, wxWindowID id,
 
     // other controls
     m_maskType = XRCCTRL(*this, "mask_editor_choice_masktype", wxChoice);
+    m_defaultMaskType=(HuginBase::MaskPolygon::MaskType)wxConfigBase::Get()->Read(wxT("/MaskEditorPanel/DefaultMaskType"), 0l);
+    m_maskType->SetSelection((int)m_defaultMaskType);
     // disable some controls
     m_maskType->Disable();
     XRCCTRL(*this, "mask_editor_choice_zoom", wxChoice)->Disable();
@@ -209,6 +212,7 @@ MaskEditorPanel::~MaskEditorPanel()
     m_top_textctrl->PopEventHandler(true);
     m_bottom_textctrl->PopEventHandler(true);
     wxConfigBase::Get()->Write(wxT("/MaskEditorPanel/ShowActiveMasks"),XRCCTRL(*this,"mask_editor_show_active_masks",wxCheckBox)->GetValue());
+    wxConfigBase::Get()->Write(wxT("/MaskEditorPanel/DefaultMaskType"),(long)m_defaultMaskType);
     DEBUG_TRACE("dtor");
     m_pano->removeObserver(this);
 }
@@ -298,7 +302,7 @@ void MaskEditorPanel::setMask(unsigned int maskNr)
     if(GetImgNr()<UINT_MAX && m_MaskNr<UINT_MAX)
         m_maskType->SetSelection(m_currentMasks[m_MaskNr].getMaskType());
     else
-        m_maskType->SetSelection(0);
+        m_maskType->SetSelection((int)m_defaultMaskType);
 };
 
 void MaskEditorPanel::UpdateMask()
@@ -315,6 +319,7 @@ void MaskEditorPanel::AddMask()
     if(GetImgNr()<UINT_MAX)
     {
         m_currentMasks=m_editImg->getNewMask();
+        m_currentMasks[m_currentMasks.size()-1].setMaskType(m_defaultMaskType);
         GlobalCmdHist::getInstance().addCommand(new PT::UpdateMaskForImgCmd(*m_pano,GetImgNr(),m_currentMasks));
         //select added mask
         SelectMask(m_currentMasks.size()-1);
@@ -400,6 +405,7 @@ void MaskEditorPanel::OnMaskTypeChange(wxCommandEvent &e)
     if(GetImgNr()<UINT_MAX && m_MaskNr<UINT_MAX)
     {
         m_currentMasks[m_MaskNr].setMaskType((HuginBase::MaskPolygon::MaskType)e.GetSelection());
+        m_defaultMaskType=(HuginBase::MaskPolygon::MaskType)e.GetSelection();
         GlobalCmdHist::getInstance().addCommand(new PT::UpdateMaskForImgCmd(*m_pano,GetImgNr(),m_currentMasks));
     };
 };
