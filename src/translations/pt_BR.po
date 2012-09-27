@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: pt_BR\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
 "POT-Creation-Date: 2012-08-06 16:47+0200\n"
-"PO-Revision-Date: 2012-08-04 15:34-0300\n"
+"PO-Revision-Date: 2012-09-15 10:58-0300\n"
 "Last-Translator: Luís Henrique Camargo Quiroz <luishcq@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-doc@kde.org>\n"
 "Language: pt_BR\n"
@@ -1431,7 +1431,7 @@ msgid "The crop factor must be positive."
 msgstr "O fator de corte precisa ser positivo."
 
 #: hugin1/hugin/huginApp.cpp:269
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "I am Hugin version %s. I have found preferences from an older version %s. I "
 "might not be compatible with the older preferences. If you experience "
@@ -1441,10 +1441,10 @@ msgstr ""
 "Sou o Hugin versão %s. Achei as preferências de uma versão anterior %s. Pode "
 "haver incompatibilidades com as preferências anteriores. Se você notar "
 "problemas, favor ir ao menu Arquivo -> Preferências e em cada aba aperte o "
-"botão 'Carregar padrões'"
+"botão \"Carregar padrões\""
 
 #: hugin1/hugin/huginApp.cpp:283
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "I am Hugin version %s. I have found preferences from a newer version %s. I "
 "might not be compatible with the newer preferences. If you experience "
@@ -1454,7 +1454,7 @@ msgstr ""
 "Sou o Hugin versão %s. Achei as preferências de uma versão %s mais recente. "
 "Pode haver incompatibilidades com as preferências mais novas. Se você notar "
 "problemas, favor ir ao menu Arquivo -> Preferências e em cada aba aperte o "
-"botão 'Carregar padrões'"
+"botão \"Carregar padrões\""
 
 #: hugin1/hugin/ImagesList.cpp:441 hugin1/hugin/ImagesList.cpp:569
 msgid "Filename"
@@ -4702,9 +4702,8 @@ msgid "Remove control points in masks"
 msgstr "Remove pontos de controle em máscaras"
 
 #: translations/xrc.cpp:417 xrc.cpp:417
-#, fuzzy
 msgid "Removes all control points, which are in masks"
-msgstr "Remove todos os pontos de controle que estiverem em uma máscara"
+msgstr "Remove todos os pontos de controle que estejam em uma máscara"
 
 #: translations/xrc.cpp:418 xrc.cpp:418
 msgid "&Optimize"
