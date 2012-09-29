@@ -85,6 +85,8 @@ void PreviewProjectionGridTool::AfterDrawImagesEvent()
     glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     if(helper->GetViewStatePtr()->GetSupportMultiTexture())
     {
+        glActiveTexture(GL_TEXTURE1);
+        glDisable(GL_TEXTURE_2D);
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, texture_num);
     }
@@ -141,6 +143,8 @@ void PanosphereOverviewProjectionGridTool::AfterDrawImagesBackEvent()
     glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     if(helper->GetViewStatePtr()->GetSupportMultiTexture())
     {
+        glActiveTexture(GL_TEXTURE1);
+        glDisable(GL_TEXTURE_2D);
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, texture_num);
     }
