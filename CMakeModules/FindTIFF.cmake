@@ -17,6 +17,7 @@
 FIND_PATH(TIFF_INCLUDE_DIR tiff.h
   /usr/local/include
   /usr/include
+  ${SOURCE_BASE_DIR}/tiff-4.0.3/libtiff
   ${SOURCE_BASE_DIR}/tiff-4.0.1/libtiff
   ${SOURCE_BASE_DIR}/tiff-4.0.0beta7/libtiff
   ${SOURCE_BASE_DIR}/tiff-4.0.0beta6/libtiff
@@ -34,6 +35,7 @@ IF(WIN32 AND ${HUGIN_SHARED})
   find_library(TIFF_LIBRARIES
     NAMES libtiff_i
     PATHS ${SYSTEM_LIB_DIRS}
+          ${SOURCE_BASE_DIR}/tiff-4.0.3/libtiff
           ${SOURCE_BASE_DIR}/tiff-4.0.1/libtiff
           ${SOURCE_BASE_DIR}/tiff-4.0.0beta7/libtiff
           ${SOURCE_BASE_DIR}/tiff-4.0.0beta6/libtiff
@@ -44,6 +46,7 @@ ELSE(WIN32 AND ${HUGIN_SHARED})
     WIN32_DEBUG_POSTFIX d
     NAMES tiff libtiff wxtiff
     PATHS ${SYSTEM_LIB_DIRS}
+          ${SOURCE_BASE_DIR}/tiff-4.0.3/libtiff
           ${SOURCE_BASE_DIR}/tiff-4.0.1/libtiff
           ${SOURCE_BASE_DIR}/tiff-4.0.0beta7/libtiff
           ${SOURCE_BASE_DIR}/tiff-4.0.0beta6/libtiff

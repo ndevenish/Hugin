@@ -32,7 +32,7 @@ include(FindLibraryWithDebug)
 
 find_library_with_debug(ZLIB_LIBRARIES
   WIN32_DEBUG_POSTFIX d
-  NAMES z zlib zlib1 wxzlib
+  NAMES z zlib zlib1 wxzlib zlibstatic
   PATHS ${SYSTEM_LIB_DIRS} ${SOURCE_BASE_DIR}/zlib/lib ${SOURCE_BASE_DIR}/zlib ${wxWidgets_LIB_DIR}
 )
 
