@@ -251,6 +251,9 @@
 %focallength - focal length
 %date - date (of first image)
 %time - time (of first image)
+%maker - camera maker (of first image)
+%model - camera model (of first image)
+%lens - lens (of first image)
 %projectname - project filename (only for output prefix)</label>
                           </object>
                           <flag>wxALL|wxEXPAND</flag>

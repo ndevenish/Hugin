@@ -137,6 +137,28 @@ bool PanoPanel::Create(wxWindow *parent, wxWindowID id, const wxPoint& pos, cons
     m_keepViewOnResize = true;
     m_hasStacks=false;
 
+#ifdef ThisNeverHappens
+// provide some translatable strings for the drop down menu
+    wxLogMessage(_("Fisheye"));
+    wxLogMessage(_("Stereographic"));
+    wxLogMessage(_("Mercator"));
+    wxLogMessage(_("Trans Mercator"));
+    wxLogMessage(_("Sinusoidal"));
+    wxLogMessage(_("Lambert Cylindrical Equal Area"));
+    wxLogMessage(_("Lambert Equal Area Azimuthal"));
+    wxLogMessage(_("Albers Equal Area Conic"));
+    wxLogMessage(_("Miller Cylindrical"));
+    wxLogMessage(_("Panini"));
+    wxLogMessage(_("Architectural"));
+    wxLogMessage(_("Orthographic"));
+    wxLogMessage(_("Equisolid"));
+    wxLogMessage(_("Equirectangular Panini"));
+    wxLogMessage(_("Biplane"));
+    wxLogMessage(_("Triplane"));
+    wxLogMessage(_("Panini General"));
+    wxLogMessage(_("Thoby Projection"));
+#endif
+
     /* populate with all available projection types */
     int nP = panoProjectionFormatCount();
     for(int n=0; n < nP; n++) {

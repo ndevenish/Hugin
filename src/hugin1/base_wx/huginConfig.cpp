@@ -283,30 +283,20 @@ wxString getExePath(wxString argv0)
 // functions to handle with default project/output filenames
 typedef std::map<wxString, wxString> Placeholdersmap;
 
-void GeneratePlaceholdermap(Placeholdersmap & placeholder)
-{
-    placeholder.insert(std::make_pair(wxT("%firstimage"), wxT("")));
-    placeholder.insert(std::make_pair(wxT("%lastimage"), wxT("")));
-    placeholder.insert(std::make_pair(wxT("%#images"), wxT("")));
-    placeholder.insert(std::make_pair(wxT("%directory"), wxT("")));
-    placeholder.insert(std::make_pair(wxT("%projection"), wxT("")));
-    placeholder.insert(std::make_pair(wxT("%focallength"), wxT("")));
-    placeholder.insert(std::make_pair(wxT("%date"), wxT("")));
-    placeholder.insert(std::make_pair(wxT("%time"), wxT("")));
-};
-
 void FillDefaultPlaceholders(Placeholdersmap & placeholder)
 {
     placeholder[wxT("%firstimage")]=_("first image");
     placeholder[wxT("%lastimage")]=_("last image");
     placeholder[wxT("%#images")]=wxT("0");
     placeholder[wxT("%directory")]=_("directory");
-    placeholder[wxT("%projection")]=_("projection");
-    placeholder[wxT("%focallength")]=wxT("0");
+    placeholder[wxT("%projection")]=_("Equirectangular");
+    placeholder[wxT("%focallength")]=wxT("28");
     wxDateTime datetime=wxDateTime(13,wxDateTime::May,2012,11,35);
     placeholder[wxT("%date")]=datetime.FormatDate();
     placeholder[wxT("%time")]=datetime.FormatTime();
-
+    placeholder[wxT("%maker")]=_("Camera maker");
+    placeholder[wxT("%model")]=_("Camera model");
+    placeholder[wxT("%lens")]=_("Lens");
 };
 
 void FillPlaceholders(Placeholdersmap & placeholder, const HuginBase::Panorama & pano)
@@ -326,76 +316,23 @@ void FillPlaceholders(Placeholdersmap & placeholder, const HuginBase::Panorama &
         placeholder[wxT("%date")]=datetime.FormatDate();
         placeholder[wxT("%time")]=datetime.FormatTime();
     };
+    placeholder[wxT("%maker")]=wxString(img0.getExifMake().c_str(), wxConvLocal);
+    placeholder[wxT("%model")]=wxString(img0.getExifModel().c_str(), wxConvLocal);
+    placeholder[wxT("%lens")]=wxString(img0.getExifLens().c_str(), wxConvLocal);
 
     wxFileName lastImg(wxString(pano.getImage(pano.getNrOfImages()-1).getFilename().c_str(),HUGIN_CONV_FILENAME));
     placeholder[wxT("%lastimage")]=lastImg.GetName();
     placeholder[wxT("%#images")]=wxString::Format(wxT("%d"), pano.getNrOfImages());
     PanoramaOptions opts=pano.getOptions();
-    switch(opts.getProjection())
+    pano_projection_features proj;
+    if (panoProjectionFeaturesQuery(opts.getProjection(), &proj))
     {
-        case PanoramaOptions::RECTILINEAR:
-            placeholder[wxT("%projection")]=_("Rectilinear");
-            break;
-        case PanoramaOptions::CYLINDRICAL:
-            placeholder[wxT("%projection")]=_("Cylindrical");
-            break;
-        case PanoramaOptions::EQUIRECTANGULAR:
-            placeholder[wxT("%projection")]=_("Equirectangular");
-            break;
-        case PanoramaOptions::FULL_FRAME_FISHEYE:
-            placeholder[wxT("%projection")]=_("Fisheye");
-            break;
-        case PanoramaOptions::STEREOGRAPHIC:
-            placeholder[wxT("%projection")]=_("Stereographic");
-            break;
-        case PanoramaOptions::MERCATOR:
-            placeholder[wxT("%projection")]=_("Mercator");
-            break;
-        case PanoramaOptions::TRANSVERSE_MERCATOR:
-            placeholder[wxT("%projection")]=_("Trans Mercator");
-            break;
-        case PanoramaOptions::SINUSOIDAL:
-            placeholder[wxT("%projection")]=_("Sinusoidal");
-            break;
-        case PanoramaOptions::LAMBERT:
-            placeholder[wxT("%projection")]=_("Lambert Cylindrical Equal Area");
-            break;
-        case PanoramaOptions::LAMBERT_AZIMUTHAL:
-            placeholder[wxT("%projection")]=_("Lambert Equal Area Azimuthal");
-            break;
-        case PanoramaOptions::ALBERS_EQUAL_AREA_CONIC:
-            placeholder[wxT("%projection")]=_("Albers Equal Area Conic");
-            break;
-        case PanoramaOptions::MILLER_CYLINDRICAL:
-            placeholder[wxT("%projection")]=_("Miller Cylindrical");
-            break;
-        case PanoramaOptions::PANINI:
-            placeholder[wxT("%projection")]=_("Panini");
-            break;
-        case PanoramaOptions::ARCHITECTURAL:
-            placeholder[wxT("%projection")]=_("Architectural");
-            break;
-        case PanoramaOptions::ORTHOGRAPHIC:
-            placeholder[wxT("%projection")]=_("Orthographic");
-            break;
-        case PanoramaOptions::EQUISOLID:
-            placeholder[wxT("%projection")]=_("Equisolid");
-            break;
-        case PanoramaOptions::EQUI_PANINI:
-            placeholder[wxT("%projection")]=_("Equirectangular Panini");
-            break;
-        case PanoramaOptions::BIPLANE:
-            placeholder[wxT("%projection")]=_("Biplane");
-            break;
-        case PanoramaOptions::TRIPLANE:
-            placeholder[wxT("%projection")]=_("Triplane");
-            break;
-        case PanoramaOptions::GENERAL_PANINI:
-            placeholder[wxT("%projection")]=_("Panini General");
-            break;
-        case PanoramaOptions::THOBY_PROJECTION:
-            placeholder[wxT("%projection")]=_("Thoby Projection");
-            break;
+        wxString str2(proj.name, wxConvLocal);
+        placeholder[wxT("%projection")]=wxGetTranslation(str2);
+    }
+    else
+    {
+        placeholder[wxT("%projection")]=_("unknown projection");
     };
 };
 
@@ -415,7 +352,6 @@ wxString getDefaultProjectName(const HuginBase::Panorama & pano,const wxString f
     };
     wxString pathPrefix;
     Placeholdersmap placeholder;
-    GeneratePlaceholdermap(placeholder);
     if(pano.getNrOfImages()>0)
     {
         FillPlaceholders(placeholder, pano);
@@ -470,7 +406,6 @@ wxString getDefaultOutputName(const wxString projectname, const HuginBase::Panor
     };
     wxString pathPrefix=project.GetPathWithSep();
     Placeholdersmap placeholder;
-    GeneratePlaceholdermap(placeholder);
     if(pano.getNrOfImages()>0)
     {
         FillPlaceholders(placeholder, pano);
