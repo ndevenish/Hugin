@@ -100,7 +100,7 @@ void Batch::AddProjectToBatch(wxString projectFile, wxString outputFile,Project:
     else
     {
         //on output set as "", it defaults to same path and name as project file
-        Project* proj = new Project(projectName.GetFullPath(),projectName.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR) + projectName.GetName());
+        Project* proj = new Project(projectName.GetFullPath(),wxT(""));
         m_projList.Add(proj);
     }
 }

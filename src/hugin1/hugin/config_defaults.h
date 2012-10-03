@@ -74,7 +74,8 @@
 #define HUGIN_LENS_ASSUME_SIMILAR             1l
 
 // project naming convention
-#define HUGIN_PROJECT_NAMING_CONVENTION       0l
+#define HUGIN_DEFAULT_PROJECT_NAME            "%firstimage - %lastimage"
+#define HUGIN_DEFAULT_OUTPUT_NAME             "%projectname"
 
 // smart undo
 #define HUGIN_SMART_UNDO                      0l

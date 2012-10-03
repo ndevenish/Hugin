@@ -102,29 +102,6 @@
                         </object>
                         <object class="sizeritem">
                           <object class="wxStaticText">
-                            <label>Project Name:</label>
-                          </object>
-                          <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-                          <border>5</border>
-                        </object>
-                        <object class="sizeritem">
-                          <object class="wxCheckBox" name="prefs_project_naming_convention">
-                            <label>based on containing folder</label>
-                            <flag>wxALL|wxEXPAND|wxALIGN_CENTRE|wxALIGN_TOP</flag>
-                            <border>5</border>
-                          </object>
-                          <flag>wxALL|wxEXPAND|wxALIGN_TOP</flag>
-                          <border>5</border>
-                        </object>
-                        <object class="sizeritem">
-                          <object class="wxStaticText">
-                            <label> </label>
-                          </object>
-                          <flag>wxLEFT|wxEXPAND|wxALIGN_RIGHT|wxALIGN_TOP</flag>
-                          <border>5</border>
-                        </object>
-                        <object class="sizeritem">
-                          <object class="wxStaticText">
                             <label>Undo:</label>
                           </object>
                           <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
@@ -179,6 +156,13 @@
                   <flag>wxALL|wxEXPAND</flag>
                   <border>5</border>
                 </object>
+              </object>
+            </object>
+          </object>
+          <object class="notebookpage">
+            <object class="wxPanel">
+              <object class="wxBoxSizer">
+                <orient>wxVERTICAL</orient>
                 <object class="sizeritem">
                   <object class="wxStaticBoxSizer">
                     <label>File Options</label>
@@ -213,8 +197,77 @@
                   <flag>wxALL|wxEXPAND</flag>
                   <border>5</border>
                 </object>
+                <object class="sizeritem">
+                  <object class="wxStaticBoxSizer">
+                    <object class="sizeritem">
+                      <object class="wxFlexGridSizer">
+                        <object class="sizeritem">
+                          <object class="wxStaticText">
+                            <label>Default project filename:</label>
+                          </object>
+                          <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          <border>3</border>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxTextCtrl" name="prefs_project_filename"/>
+                          <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                          <border>3</border>
+                        </object>
+                        <object class="spacer"/>
+                        <object class="sizeritem">
+                          <object class="wxStaticText" name="prefs_project_filename_preview"/>
+                          <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                          <border>3</border>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxStaticText">
+                            <label>Default output prefix:</label>
+                          </object>
+                          <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          <border>3</border>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxTextCtrl" name="prefs_output_filename"/>
+                          <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                          <border>3</border>
+                        </object>
+                        <object class="spacer"/>
+                        <object class="sizeritem">
+                          <object class="wxStaticText" name="prefs_output_filename_preview"/>
+                          <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                          <border>3</border>
+                        </object>
+                        <object class="spacer"/>
+                        <cols>2</cols>
+                        <growablecols>1</growablecols>
+                        <object class="sizeritem">
+                          <object class="wxStaticText">
+                            <label>The following placeholder are replaced automatically:
+%firstimage - filename of first image file
+%lastimage - filename of last image file
+%#images - number of images
+%directory  - folder name (based on first image file)
+%projection - projection name
+%focallength - focal length
+%date - date (of first image)
+%time - time (of first image)
+%projectname - project filename (only for output prefix)</label>
+                          </object>
+                          <flag>wxALL|wxEXPAND</flag>
+                          <border>3</border>
+                        </object>
+                      </object>
+                      <flag>wxEXPAND</flag>
+                    </object>
+                    <label>Default filenames</label>
+                    <orient>wxVERTICAL</orient>
+                  </object>
+                  <flag>wxALL|wxEXPAND</flag>
+                  <border>5</border>
+                </object>
               </object>
             </object>
+            <label>Filenames</label>
           </object>
           <object class="notebookpage">
             <label>Assistant</label>

@@ -26,6 +26,7 @@
 
 #include "ProjectArray.h"
 #include <wx/arrimpl.cpp>
+#include "base_wx/huginConfig.h"
 #include <fstream>
 
 using namespace std;
@@ -101,14 +102,18 @@ PanoramaOptions Project::ReadOptions(wxString projectFile)
         if (ptoVersion < 2)
         {
             HuginBase::PanoramaOptions opts = pano.getOptions();
-            //needed to access config data
-            wxConfig* config = new wxConfig(wxT("hugin"));
-            wxConfigBase::Set(config);
             // no options stored in file, use default arguments in config
             opts.enblendOptions = wxConfigBase::Get()->Read(wxT("/Enblend/Args"), wxT("")).mb_str(wxConvLocal);
             opts.enfuseOptions = wxConfigBase::Get()->Read(wxT("/Enfuse/Args"), wxT("")).mb_str(wxConvLocal);
             pano.setOptions(opts);
         }
+        // set default prefix, if not given
+        if(prefix.IsEmpty())
+        {
+            wxFileName prefixFilename(getDefaultOutputName(projectFile, pano));
+            prefixFilename.Normalize();
+            prefix=prefixFilename.GetFullPath();
+        };
     }
     else
     {

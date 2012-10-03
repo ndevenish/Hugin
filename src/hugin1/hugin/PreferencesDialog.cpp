@@ -35,6 +35,8 @@
 #include "hugin/config_defaults.h"
 #include "hugin/PreferencesDialog.h"
 #include "hugin/CPDetectorDialog.h"
+#include "hugin/MainFrame.h"
+#include "base_wx/huginConfig.h"
 
 // validators are working different somehow...
 //#define MY_STR_VAL(id, filter) { XRCCTRL(*this, "prefs_" #id, wxTextCtrl)->SetValidator(wxTextValidator(filter, &id)); }
@@ -81,6 +83,8 @@ BEGIN_EVENT_TABLE(PreferencesDialog, wxDialog)
     EVT_BUTTON(XRCID("pref_cpdetector_help"), PreferencesDialog::OnCPDetectorHelp)
     EVT_CHOICE(XRCID("pref_ldr_output_file_format"), PreferencesDialog::OnFileFormatChanged)
     EVT_CHOICE(XRCID("pref_processor_gui"), PreferencesDialog::OnProcessorChanged)
+    EVT_TEXT(XRCID("prefs_project_filename"), PreferencesDialog::OnUpdateProjectFilename)
+    EVT_TEXT(XRCID("prefs_output_filename"), PreferencesDialog::OnUpdateOutputFilename)
 //  EVT_CLOSE(RunOptimizerFrame::OnClose)
 END_EVENT_TABLE()
 
@@ -452,27 +456,33 @@ void PreferencesDialog::UpdateDisplayData(int panel)
             DEBUG_WARN("Unknown language configured");
         }
 
-        // project naming convention
-        t = cfg->Read(wxT("ProjectNamingConvention"), HUGIN_PROJECT_NAMING_CONVENTION) == 1;
-        MY_BOOL_VAL("prefs_project_naming_convention", t);
-
         // smart undo
         t = cfg->Read(wxT("smartUndo"), HUGIN_SMART_UNDO) == 1;
         MY_BOOL_VAL("prefs_smart_undo", t);
 
         t = cfg->Read(wxT("/GLPreviewFrame/ShowProjectionHints"), HUGIN_SHOW_PROJECTION_HINTS) == 1;
         MY_BOOL_VAL("pref_show_projection_hints", t)
+    };
 
-        // cursor setting
-//    mem = cfg->Read(wxT("/CPImageCtrl/CursorType"), HUGIN_CP_CURSOR);
-//    MY_SPIN_VAL("prefs_cp_CursorType", mem);
-
+    // filename panel 
+    if(panel==0 || panel==2)
+    {
         // tempdir
         MY_STR_VAL("prefs_misc_tempdir", cfg->Read(wxT("tempDir"),wxT("")));
-
+        // default filenames
+        wxString filename=cfg->Read(wxT("ProjectFilename"), wxT(HUGIN_DEFAULT_PROJECT_NAME));
+#ifdef __WXMSW__
+        filename.Replace(wxT("/"),wxT("\\"),true);
+#endif
+        MY_STR_VAL("prefs_project_filename", filename);
+        filename=cfg->Read(wxT("OutputFilename"), wxT(HUGIN_DEFAULT_OUTPUT_NAME));
+#ifdef __WXMSW__
+        filename.Replace(wxT("/"),wxT("\\"),true);
+#endif
+        MY_STR_VAL("prefs_output_filename", filename);
     }
 
-    if (panel==0 || panel == 2) {
+    if (panel==0 || panel == 3) {
         // Assistant settings
         t = cfg->Read(wxT("/Assistant/autoAlign"), HUGIN_ASS_AUTO_ALIGN) == 1;
         MY_BOOL_VAL("prefs_ass_autoAlign", t);
@@ -497,7 +507,7 @@ void PreferencesDialog::UpdateDisplayData(int panel)
     }
        // Fine tune settings
 
-    if (panel==0 || panel == 3) {
+    if (panel==0 || panel == 4) {
         // hdr display settings
         MY_CHOICE_VAL("prefs_misc_hdr_mapping", cfg->Read(wxT("/ImageCache/Mapping"), HUGIN_IMGCACHE_MAPPING_FLOAT));
         //MY_CHOICE_VAL("prefs_misc_hdr_range", cfg->Read(wxT("/ImageCache/Range"), HUGIN_IMGCACHE_RANGE));
@@ -540,11 +550,11 @@ void PreferencesDialog::UpdateDisplayData(int panel)
     /////
     /// CP Detector programs
 
-    if (panel==0 || panel == 4){
+    if (panel==0 || panel == 5){
         cpdetector_config_edit.FillControl(m_CPDetectorList,true,true);
     }
 
-    if (panel==0 || panel == 5){
+    if (panel==0 || panel == 6){
         /////
         /// DEFAULT OUTPUT FORMAT
         MY_CHOICE_VAL("pref_ldr_output_file_format", cfg->Read(wxT("/output/ldr_format"), HUGIN_LDR_OUTPUT_FORMAT));
@@ -575,7 +585,7 @@ void PreferencesDialog::UpdateDisplayData(int panel)
 
     }
 
-    if (panel==0 || panel == 6){
+    if (panel==0 || panel == 7){
 
         /////
         /// NONA
@@ -609,7 +619,7 @@ void PreferencesDialog::UpdateDisplayData(int panel)
                                                       wxT(HUGIN_ENFUSE_ARGS)));
     }
     
-    if (panel==0 || panel == 7) {
+    if (panel==0 || panel == 8) {
         // Celeste settings
         d=HUGIN_CELESTE_THRESHOLD;
         cfg->Read(wxT("/Celeste/Threshold"), &d, HUGIN_CELESTE_THRESHOLD);
@@ -676,14 +686,19 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
             cfg->Write(wxT("/Nona/NumberOfThreads"), cpucount);
             // locale
             cfg->Write(wxT("language"), int(HUGIN_LANGUAGE));
-            // project naming convention
-            cfg->Write(wxT("ProjectNamingConvention"), HUGIN_PROJECT_NAMING_CONVENTION);
             // smart undo
             cfg->Write(wxT("smartUndo"), HUGIN_SMART_UNDO);
             // projection hints
             cfg->Write(wxT("/GLPreviewFrame/ShowProjectionHints"), HUGIN_SHOW_PROJECTION_HINTS);
         }
-        if (noteb->GetSelection() == 1) {
+        if(noteb->GetSelection() == 1)
+        {
+            cfg->Write(wxT("tempDir"), wxT(""));
+            cfg->Write(wxT("ProjectFilename"), wxT(HUGIN_DEFAULT_PROJECT_NAME));
+            cfg->Write(wxT("OutputFilename"), wxT(HUGIN_DEFAULT_OUTPUT_NAME));
+        };
+        if (noteb->GetSelection() == 2)
+        {
             cfg->Write(wxT("/Assistant/autoAlign"), HUGIN_ASS_AUTO_ALIGN);
             cfg->Write(wxT("/Assistant/nControlPoints"), HUGIN_ASS_NCONTROLPOINTS);
             cfg->Write(wxT("/Assistant/panoDownsizeFactor"),HUGIN_ASS_PANO_DOWNSIZE_FACTOR);
@@ -694,7 +709,8 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
             cfg->Write(wxT("/Celeste/Auto"), HUGIN_CELESTE_AUTO);
             cfg->Write(wxT("/Assistant/AutoCPClean"), HUGIN_ASS_AUTO_CPCLEAN);
         }
-        if (noteb->GetSelection() == 2) {
+        if (noteb->GetSelection() == 3)
+        {
             // hdr
             cfg->Write(wxT("/ImageCache/Mapping"), HUGIN_IMGCACHE_MAPPING_FLOAT);
             //cfg->Write(wxT("/ImageCache/Range"), HUGIN_IMGCACHE_RANGE);
@@ -711,14 +727,15 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
             cfg->Write(wxT("/Finetune/RotationStopAngle"), HUGIN_FT_ROTATION_STOP_ANGLE);
             cfg->Write(wxT("/Finetune/RotationSteps"), HUGIN_FT_ROTATION_STEPS);
         }
-        if (noteb->GetSelection() == 3) {
+        if (noteb->GetSelection() == 4)
+        {
             /////
             /// AUTOPANO
             cpdetector_config_edit.ReadFromFile(huginApp::Get()->GetDataPath()+wxT("default.setting"));
             cpdetector_config_edit.Write(cfg);
         }
-        if (noteb->GetSelection() == 4) {
-
+        if (noteb->GetSelection() == 5)
+        {
             /// OUTPUT
             cfg->Write(wxT("/output/ldr_format"), HUGIN_LDR_OUTPUT_FORMAT);
             /** HDR currently deactivated since HDR TIFF broken and only choice is EXR */
@@ -735,8 +752,8 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
             cfg->Write(wxT("/output/NumberOfThreads"), 0l);
 
         }
-        if (noteb->GetSelection() == 5) {
-
+        if (noteb->GetSelection() == 6)
+        {
             /// ENBLEND
             cfg->Write(wxT("/Enblend/Exe"), wxT(HUGIN_ENBLEND_EXE));
             cfg->Write(wxT("/Enblend/Custom"), HUGIN_ENBLEND_EXE_CUSTOM);
@@ -747,7 +764,8 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
             cfg->Write(wxT("/Enfuse/Args"), wxT(HUGIN_ENFUSE_ARGS));
         }
 
-        if (noteb->GetSelection() == 6) {
+        if (noteb->GetSelection() == 7)
+        {
             /// Celeste
             cfg->Write(wxT("/Celeste/Threshold"), HUGIN_CELESTE_THRESHOLD);
             cfg->Write(wxT("/Celeste/Filter"), HUGIN_CELESTE_FILTER);
@@ -833,8 +851,6 @@ void PreferencesDialog::UpdateConfigData()
     long templ =  * static_cast<long *>(tmplp);
     cfg->Write(wxT("language"), templ);
     DEBUG_INFO("Language Selection ID: " << templ);
-    // project naming convention
-    cfg->Write(wxT("ProjectNamingConvention"), MY_G_BOOL_VAL("prefs_project_naming_convention"));
     // smart undo
     cfg->Write(wxT("smartUndo"), MY_G_BOOL_VAL("prefs_smart_undo"));
     // show projections hints
@@ -843,6 +859,17 @@ void PreferencesDialog::UpdateConfigData()
     //    cfg->Write(wxT("/CPImageCtrl/CursorType"), MY_G_SPIN_VAL("prefs_cp_CursorType"));
     // tempdir
     cfg->Write(wxT("tempDir"),MY_G_STR_VAL("prefs_misc_tempdir"));
+    // filename templates
+    wxString filename=XRCCTRL(*this, "prefs_project_filename", wxTextCtrl)->GetValue();
+#ifdef __WXMSW__
+    filename.Replace(wxT("\\"), wxT("/"), true);
+#endif
+    cfg->Write(wxT("ProjectFilename"), filename);
+    filename=XRCCTRL(*this, "prefs_output_filename", wxTextCtrl)->GetValue();
+#ifdef __WXMSW__
+    filename.Replace(wxT("\\"), wxT("/"), true);
+#endif
+    cfg->Write(wxT("OutputFilename"), filename);
     /////
     /// AUTOPANO
     cpdetector_config_edit.Write(cfg);
@@ -1073,3 +1100,18 @@ void PreferencesDialog::UpdateProcessorControls()
             break;
     };
 };
+
+void PreferencesDialog::OnUpdateProjectFilename(wxCommandEvent & e)
+{
+    XRCCTRL(*this, "prefs_project_filename_preview", wxStaticText)->SetLabel(
+        getDefaultProjectName(MainFrame::Get()->getPanorama(), XRCCTRL(*this, "prefs_project_filename", wxTextCtrl)->GetValue())
+    );
+};
+
+void PreferencesDialog::OnUpdateOutputFilename(wxCommandEvent & e)
+{
+    XRCCTRL(*this, "prefs_output_filename_preview", wxStaticText)->SetLabel(
+        getDefaultOutputName(MainFrame::Get()->getProjectName(), MainFrame::Get()->getPanorama(), XRCCTRL(*this, "prefs_output_filename", wxTextCtrl)->GetValue())
+    );
+};
+

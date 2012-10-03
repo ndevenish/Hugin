@@ -37,9 +37,6 @@ void StoreFramePosition(wxTopLevelWindow * frame, const wxString & basename);
 /// Restore window size and position from configfile/registry
 void RestoreFramePosition(wxTopLevelWindow * frame, const wxString & basename);
 
-///
-wxString getDefaultProjectName(const Panorama & pano);
-
 /** Resources Definition
  *
  */

@@ -85,31 +85,6 @@ bool str2double(wxString s, double & d)
     return true;
 }
 
-wxString getDefaultProjectName(const Panorama & pano)
-{
-    bool t = (wxConfigBase::Get()->Read(wxT("ProjectNamingConvention"), HUGIN_PROJECT_NAMING_CONVENTION) != 0);
-    if(t){
-        if (pano.getNrOfImages() > 0) {
-            wxFileName first_img(wxString(pano.getImage(0).getFilename().c_str(),HUGIN_CONV_FILENAME));
-            if(first_img.GetDirCount()>0)
-                return first_img.GetPathWithSep()+first_img.GetDirs().Last();
-            else
-                return first_img.GetPathWithSep()+wxT("pano");
-        } else {
-            return wxT("pano");
-        }
-    }else{
-        if (pano.getNrOfImages() > 0) {
-            wxFileName first_img(wxString(pano.getImage(0).getFilename().c_str(),HUGIN_CONV_FILENAME));
-            first_img.ClearExt();
-            wxFileName last_img(wxString(pano.getImage(pano.getNrOfImages()-1).getFilename().c_str(),HUGIN_CONV_FILENAME));
-            return first_img.GetFullPath() + wxT("-") + last_img.GetName();
-        } else {
-            return wxT("pano");
-        }
-    }
-}
-
 #if _WINDOWS && defined Hugin_shared
 DEFINE_LOCAL_EVENT_TYPE( EVT_IMAGE_READY )
 #else

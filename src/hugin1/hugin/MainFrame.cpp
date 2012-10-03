@@ -814,9 +814,15 @@ void MainFrame::OnSaveProjectAs(wxCommandEvent & e)
 {
     DEBUG_TRACE("");
     wxFileName scriptName;
-    if (m_filename == wxT("")) {
+    if (m_filename.IsEmpty())
+    {
         scriptName.Assign(getDefaultProjectName(pano) + wxT(".pto"));
     }
+    else
+    {
+        scriptName=m_filename;
+    };
+    scriptName.Normalize();
     wxFileDialog dlg(wxTheApp->GetTopWindow(),
                      _("Save project file"),
                      scriptName.GetPath(), scriptName.GetFullName(),

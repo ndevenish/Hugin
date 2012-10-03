@@ -51,4 +51,10 @@ WXIMPEX PT::AssistantPrograms getAssistantProgramsConfig(wxString huginRoot, wxC
  */
 WXIMPEX wxString getExePath(wxString argv0);
 
+/** gets the default project name, as defined in the preferences */
+WXIMPEX wxString getDefaultProjectName(const HuginBase::Panorama & pano, const wxString filenameTemplate=wxT(""));
+/** gets the default output prefix, based on filename and images in project
+  * the setting is read from the preferences */
+WXIMPEX wxString getDefaultOutputName(const wxString projectname, const HuginBase::Panorama & pano, const wxString filenameTemplate=wxT(""));
+
 #endif

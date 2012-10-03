@@ -444,7 +444,7 @@ void BatchFrame::AddDirToList(wxString aDir)
 void BatchFrame::AddToList(wxString aFile,Project::Target target)
 {
     wxFileName name(aFile);
-    m_batch->AddProjectToBatch(aFile,name.GetPath(wxPATH_GET_VOLUME | wxPATH_GET_SEPARATOR) + name.GetName(),target);
+    m_batch->AddProjectToBatch(aFile,wxT(""),target);
     wxString s;
     switch(target)
     {

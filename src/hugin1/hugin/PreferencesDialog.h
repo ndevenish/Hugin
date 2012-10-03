@@ -88,6 +88,11 @@ protected:
     void OnFileFormatChanged(wxCommandEvent & e);
     /** event handler if processor was changed */
     void OnProcessorChanged(wxCommandEvent & e);
+    /** event handler to update preview for project filename */
+    void OnUpdateProjectFilename(wxCommandEvent & e);
+    /** event handler to update preview for project filename */
+    void OnUpdateOutputFilename(wxCommandEvent & e);
+
     void EnableRotationCtrls(bool enable);
     bool GetPanoVersion();
 
