@@ -190,6 +190,12 @@ PreferencesDialog::PreferencesDialog(wxWindow *parent)
     lang_choice->Append(_("Finnish"), lp);
     lang_choice->SetSelection(0);
 
+#if wxCHECK_VERSION(2,9,1)
+    wxStaticText* preview=XRCCTRL(*this, "prefs_project_filename_preview", wxStaticText);
+    preview->SetWindowStyle(preview->GetWindowStyle() | wxST_ELLIPSIZE_START);
+    preview=XRCCTRL(*this, "prefs_output_filename_preview", wxStaticText);
+    preview->SetWindowStyle(preview->GetWindowStyle() | wxST_ELLIPSIZE_START);
+#endif
     // load autopano settings
     wxConfigBase * cfg = wxConfigBase::Get();
     m_CPDetectorList = XRCCTRL(*this, "pref_cpdetector_list", wxListBox);

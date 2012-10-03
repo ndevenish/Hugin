@@ -234,12 +234,10 @@
                         <object class="spacer"/>
                         <object class="sizeritem">
                           <object class="wxStaticText" name="prefs_output_filename_preview"/>
-                          <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                          <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
                           <border>3</border>
                         </object>
                         <object class="spacer"/>
-                        <cols>2</cols>
-                        <growablecols>1</growablecols>
                         <object class="sizeritem">
                           <object class="wxStaticText">
                             <label>The following placeholder are replaced automatically:
@@ -259,6 +257,8 @@
                           <flag>wxALL|wxEXPAND</flag>
                           <border>3</border>
                         </object>
+                        <cols>2</cols>
+                        <growablecols>1</growablecols>
                       </object>
                       <flag>wxEXPAND</flag>
                     </object>
