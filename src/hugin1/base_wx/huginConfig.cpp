@@ -405,6 +405,9 @@ wxString getDefaultProjectName(const HuginBase::Panorama & pano,const wxString f
     if(filenameTemplate.IsEmpty())
     {
         filename=wxConfigBase::Get()->Read(wxT("ProjectFilename"), wxT(HUGIN_DEFAULT_PROJECT_NAME));
+#ifdef __WXMSW__
+        filename.Replace(wxT("/"), wxT("\\"), true);
+#endif
     }
     else
     {
@@ -457,6 +460,9 @@ wxString getDefaultOutputName(const wxString projectname, const HuginBase::Panor
     if(filenameTemplate.IsEmpty())
     {
         filename=wxConfigBase::Get()->Read(wxT("OutputFilename"), wxT(HUGIN_DEFAULT_PROJECT_NAME));
+#ifdef __WXMSW__
+        filename.Replace(wxT("/"), wxT("\\"), true);
+#endif
     }
     else
     {
