@@ -631,6 +631,21 @@ bool PossiblePano::GetNewProjectFilename(NamingConvention nc,const wxString base
                 mask=mask+wxT("_%d");
             }
             break;
+        case NAMING_TEMPLATE:
+            {
+                HuginBase::Panorama tempPano;
+                tempPano.addImage(**m_images.begin());
+                tempPano.addImage(**m_images.rbegin());
+                wxFileName newProject(getDefaultProjectName(tempPano));
+                mask=newProject.GetName();
+                projectFile.SetName(mask);
+                if(!projectFile.FileExists())
+                {
+                    return true;
+                }
+                mask=mask+wxT("_%d");
+            };
+            break;
         default:
             mask=wxT("panorama%d");
     };

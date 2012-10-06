@@ -109,7 +109,8 @@ public:
     {
         NAMING_PANO=0,
         NAMING_FIRST_LAST=1,
-        NAMING_FOLDER=2
+        NAMING_FOLDER=2,
+        NAMING_TEMPLATE=3
     };
     /** destructor, cleans up used variables */
     ~PossiblePano();
