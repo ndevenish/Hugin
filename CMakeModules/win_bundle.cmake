@@ -120,6 +120,7 @@ IF(WIN32)
     FIND_FILE(TIFF_DLL
       NAMES libtiff.dll 
       PATHS 
+            ${SOURCE_BASE_DIR}/tiff-4.0.3/libtiff
             ${SOURCE_BASE_DIR}/tiff-4.0.1/libtiff
             ${SOURCE_BASE_DIR}/tiff-4.0.0beta7/libtiff 
             ${SOURCE_BASE_DIR}/tiff-4.0.0beta5/libtiff
@@ -141,7 +142,7 @@ IF(WIN32)
       NO_SYSTEM_ENVIRONMENT_PATH
     )
     FIND_FILE(ZLIB_DLL
-      NAMES zlib1.dll 
+      NAMES zlib1.dll zlib.dll
       PATHS ${SOURCE_BASE_DIR}/zlib ${SOURCE_BASE_DIR}/zlib/bin
       NO_SYSTEM_ENVIRONMENT_PATH
     )
