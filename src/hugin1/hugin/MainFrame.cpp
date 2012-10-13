@@ -1449,12 +1449,38 @@ void MainFrame::OnApplyTemplate(wxCommandEvent & e)
 
 void MainFrame::OnOpenPTBatcher(wxCommandEvent & e)
 {
+#if defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
+	// Original patch for OSX by Charlie Reiman dd. 18 June 2011
+	// Slightly modified by HvdW. Errors in here are mine, not Charlie's. 
+	FSRef appRef;
+	FSRef actuallyLaunched;
+	OSStatus err;
+	FSRef documentArray[1]; // Don't really need an array if we only have 1 item
+	LSLaunchFSRefSpec launchSpec;
+	Boolean  isDir;
+	
+	err = LSFindApplicationForInfo(kLSUnknownCreator,
+								   CFSTR("net.sourceforge.hugin.PTBatcherGUI"),
+								   NULL,
+								   &appRef,
+								   NULL);
+	if (err != noErr) {
+		// error, can't find PTBatcherGUI
+		wxMessageBox(wxString::Format(_("External program %s not found in the bundle, reverting to system path"), wxT("open")), _("Error"));
+		// Possibly a silly attempt otherwise the previous would have worked as well, but just try it.
+		wxExecute(_T("open -b net.sourceforge.hugin.PTBatcherGUI"));
+	}
+	else {
+		wxExecute(_T("open -b net.sourceforge.hugin.PTBatcherGUI"));
+	}	
+#else
 #ifdef __WINDOWS__
 	wxString huginPath = getExePath(wxGetApp().argv[0])+wxFileName::GetPathSeparator();
 #else
 	wxString huginPath = _T("");	//we call the batch processor directly without path on linux
 #endif
 	wxExecute(huginPath+_T("PTBatcherGUI"));
+#endif
 }
 
 void MainFrame::OnFineTuneAll(wxCommandEvent & e)
