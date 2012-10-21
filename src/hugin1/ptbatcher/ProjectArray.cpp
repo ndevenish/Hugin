@@ -44,6 +44,7 @@ Project::Project(wxString pth,wxString pfx, Project::Target newTarget)
     {
         file.GetTimes(NULL,&modDate,NULL);
     }
+    isAligned = true;
     options = ReadOptions(pth);
     skip = false;
     status = WAITING;
@@ -56,6 +57,7 @@ Project::Project(wxString command)
     id = -Project::idGenerator;
     Project::idGenerator++;
     skip = false;
+    isAligned = true;
     status = WAITING;
     target = STITCHING;
 }
@@ -113,6 +115,12 @@ PanoramaOptions Project::ReadOptions(wxString projectFile)
             wxFileName prefixFilename(getDefaultOutputName(projectFile, pano));
             prefixFilename.Normalize();
             prefix=prefixFilename.GetFullPath();
+        };
+        // if project contains at least 2 images and no control points add to assistant queue
+        // a single image project is assumed as target for reprojection/remapping
+        if(pano.getNrOfImages()>1 && pano.getNrOfCtrlPoints()==0)
+        {
+            isAligned=false;
         };
     }
     else

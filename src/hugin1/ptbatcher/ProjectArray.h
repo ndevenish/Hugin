@@ -77,6 +77,8 @@ public:
     HuginBase::PanoramaOptions options;
     //true if project is missing or should be skipped for a different reason when executing batch
     bool skip;
+    // true, if project is probably aligned
+    bool isAligned;
 
     //Constructor for project files
     Project(wxString pth,wxString pfx,Project::Target newTarget=STITCHING);

@@ -435,7 +435,12 @@ void BatchFrame::AddDirToList(wxString aDir)
     for(unsigned int i=0; i<projects.GetCount(); i++)
     {
         m_batch->AddProjectToBatch(projects.Item(i));
-        projListBox->AppendProject(m_batch->GetProject(m_batch->GetProjectCount()-1));
+        Project* proj=m_batch->GetProject(m_batch->GetProjectCount()-1);
+        if(!proj->isAligned)
+        {
+            proj->target=Project::DETECTING;
+        };
+        projListBox->AppendProject(proj);
     };
     m_batch->SaveTemp();
     SetStatusText(_("Added projects from dir ")+aDir);
