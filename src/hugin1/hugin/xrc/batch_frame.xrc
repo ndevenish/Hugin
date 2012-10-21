@@ -134,125 +134,165 @@
           <object class="wxBoxSizer">
             <orient>wxVERTICAL</orient>
             <object class="sizeritem">
-              <object class="wxStaticBoxSizer">
-                <orient>wxVERTICAL</orient>
-                <label>Directories</label>
-                <object class="sizeritem">
-                  <object class="wxBoxSizer">
-                    <object class="sizeritem">
-                      <object class="wxGridBagSizer">
-                        <object class="sizeritem">
-                          <object class="wxStaticText" name="find_pano_label_dir">
-                            <label>Directory:</label>
+              <object class="wxNotebook">
+                <object class="notebookpage">
+                  <object class="wxPanel">
+                    <object class="wxBoxSizer">
+                      <orient>wxVERTICAL</orient>
+                      <object class="sizeritem">
+                        <object class="wxBoxSizer">
+                          <object class="sizeritem">
+                            <object class="wxGridBagSizer">
+                              <object class="sizeritem">
+                                <object class="wxStaticText" name="find_pano_label_dir">
+                                  <label>Directory:</label>
+                                </object>
+                                <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                                <cellpos>0,0</cellpos>
+                              </object>
+                              <object class="sizeritem">
+                                <object class="wxTextCtrl" name="find_pano_dir"/>
+                                <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                                <cellpos>0,1</cellpos>
+                              </object>
+                              <object class="sizeritem">
+                                <object class="wxButton" name="find_pano_select_dir">
+                                  <label>Choose...</label>
+                                </object>
+                                <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                                <cellpos>0,2</cellpos>
+                              </object>
+                              <object class="sizeritem">
+                                <object class="wxCheckBox" name="find_pano_subdir">
+                                  <label>include sub-directories</label>
+                                </object>
+                                <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                                <cellpos>1,1</cellpos>
+                              </object>
+                              <object class="sizeritem">
+                                <object class="wxStaticText">
+                                  <label>Naming:</label>
+                                </object>
+                                <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                                <cellpos>2,0</cellpos>
+                              </object>
+                              <object class="sizeritem">
+                                <object class="wxChoice" name="find_pano_naming">
+                                  <content>
+                                    <item>PanoramaXX.pto</item>
+                                    <item>First file - last file.pto</item>
+                                    <item>Foldername.pto</item>
+                                    <item>Template from preferences</item>
+                                  </content>
+                                  <selection>0</selection>
+                                </object>
+                                <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                                <cellpos>2,1</cellpos>
+                              </object>
+                              <vgap>6</vgap>
+                              <hgap>12</hgap>
+                              <growablecols>1</growablecols>
+                            </object>
+                            <option>1</option>
+                            <flag>wxALL|wxEXPAND</flag>
+                            <border>12</border>
                           </object>
-                          <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-                          <cellpos>0,0</cellpos>
-                        </object>
-                        <object class="sizeritem">
-                          <object class="wxTextCtrl" name="find_pano_dir"/>
-                          <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
-                          <cellpos>0,1</cellpos>
-                        </object>
-                        <object class="sizeritem">
-                          <object class="wxButton" name="find_pano_select_dir">
-                            <label>Choose...</label>
+                          <object class="spacer">
+                            <size>24,-1</size>
                           </object>
-                          <flag>wxALIGN_CENTRE_VERTICAL</flag>
-                          <cellpos>0,2</cellpos>
-                        </object>
-                        <object class="sizeritem">
-                          <object class="wxCheckBox" name="find_pano_subdir">
-                            <label>include sub-directories</label>
+                          <object class="sizeritem">
+                            <object class="wxButton" name="find_pano_start_stop">
+                              <label>Start</label>
+                            </object>
+                            <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                            <border>6</border>
                           </object>
-                          <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
-                          <cellpos>1,1</cellpos>
+                          <orient>wxHORIZONTAL</orient>
                         </object>
-                        <object class="sizeritem">
-                          <object class="wxStaticText">
-                            <label>Naming:</label>
-                          </object>
-                          <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-                          <cellpos>2,0</cellpos>
-                        </object>
-                        <object class="sizeritem">
-                          <object class="wxChoice" name="find_pano_naming">
-                            <content>
-                              <item>PanoramaXX.pto</item>
-                              <item>First file - last file.pto</item>
-                              <item>Foldername.pto</item>
-                              <item>Template from preferences</item>
-                            </content>
-                            <selection>0</selection>
-                          </object>
-                          <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
-                          <cellpos>2,1</cellpos>
-                        </object>
-                        <object class="sizeritem">
-                          <object class="wxStaticText">
-                            <label>Stacks:</label>
-                          </object>
-                          <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-                          <cellpos>3,0</cellpos>
-                        </object>
-                        <object class="sizeritem">
-                          <object class="wxCheckBox" name="find_pano_create_links">
-                            <label>Create links</label>
-                            <tooltip>Check if the stacks were shot on a tripod.</tooltip>
-                          </object>
-                          <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
-                          <cellpos>3,1</cellpos>
-                        </object>
-                        <object class="sizeritem">
-                          <object class="wxStaticText">
-                            <label>Lens database:</label>
-                          </object>
-                          <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-                          <cellpos>4,0</cellpos>
-                        </object>
-                        <object class="sizeritem">
-                          <object class="wxCheckBox" name="find_pano_load_distortion">
-                            <label>Load distortion data</label>
-                          </object>
-                          <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
-                          <cellpos>4,1</cellpos>
-                        </object>
-                        <object class="sizeritem">
-                          <object class="wxCheckBox" name="find_pano_load_vignetting">
-                            <label>Load vignetting data</label>
-                          </object>
-                          <cellpos>5,1</cellpos>
-                        </object>
-                        <vgap>6</vgap>
-                        <hgap>12</hgap>
-                        <growablecols>1</growablecols>
+                        <flag>wxALL|wxEXPAND</flag>
+                        <border>6</border>
                       </object>
-                      <option>1</option>
-                      <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
-                      <border>6</border>
-                    </object>
-                    <object class="spacer">
-                      <size>24,-1</size>
-                    </object>
-                    <object class="sizeritem">
-                      <object class="wxButton" name="find_pano_start_stop">
-                        <label>Start</label>
+                      <object class="sizeritem">
+                        <object class="wxStaticText" name="find_pano_label"/>
+                        <flag>wxALL|wxEXPAND</flag>
+                        <border>6</border>
                       </object>
-                      <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
-                      <border>6</border>
                     </object>
-                    <orient>wxHORIZONTAL</orient>
                   </object>
-                  <option>1</option>
-                  <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
+                  <label>Directories</label>
                 </object>
-                <object class="sizeritem">
-                  <object class="wxStaticText" name="find_pano_label">
-                    <label/>
+                <object class="notebookpage">
+                  <object class="wxPanel">
+                    <object class="wxBoxSizer">
+                      <orient>wxVERTICAL</orient>
+                      <object class="sizeritem">
+                        <object class="wxGridBagSizer">
+                          <object class="sizeritem">
+                            <object class="wxStaticText">
+                              <label>Minimum number of images:</label>
+                            </object>
+                            <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                            <cellpos>0,0</cellpos>
+                          </object>
+                          <object class="sizeritem">
+                            <object class="wxSpinCtrl" name="find_pano_min_number_images">
+                              <size>80,-1</size>
+                              <value>2</value>
+                              <min>2</min>
+                              <max>100</max>
+                              <tooltip>Minimum number of images a panorama should contain.</tooltip>
+                            </object>
+                            <cellpos>0,1</cellpos>
+                          </object>
+                          <object class="sizeritem">
+                            <object class="wxStaticText">
+                              <label>Stacks:</label>
+                            </object>
+                            <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                            <cellpos>1,0</cellpos>
+                          </object>
+                          <object class="sizeritem">
+                            <object class="wxCheckBox" name="find_pano_create_links">
+                              <label>Create links</label>
+                              <tooltip>Check if the stacks were shot on a tripod.</tooltip>
+                            </object>
+                            <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                            <cellpos>1,1</cellpos>
+                          </object>
+                          <object class="sizeritem">
+                            <object class="wxStaticText">
+                              <label>Lens database:</label>
+                            </object>
+                            <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                            <cellpos>2,0</cellpos>
+                          </object>
+                          <object class="sizeritem">
+                            <object class="wxCheckBox" name="find_pano_load_distortion">
+                              <label>Load distortion data</label>
+                              <tooltip>Trys to load distortion data from lensfun database if checked.</tooltip>
+                            </object>
+                            <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                            <cellpos>2,1</cellpos>
+                          </object>
+                          <object class="sizeritem">
+                            <object class="wxCheckBox" name="find_pano_load_vignetting">
+                              <label>Load vignetting data</label>
+                              <tooltip>Trys to load vignetting data from lensfun database if checked.</tooltip>
+                            </object>
+                            <cellpos>3,1</cellpos>
+                          </object>
+                          <vgap>6</vgap>
+                          <hgap>12</hgap>
+                          <growablecols>1</growablecols>
+                        </object>
+                        <flag>wxALL|wxEXPAND</flag>
+                        <border>12</border>
+                      </object>
+                    </object>
                   </object>
-                  <flag>wxALL|wxEXPAND</flag>
+                  <label>Options</label>
                 </object>
               </object>
-              <option>0</option>
               <flag>wxALL|wxEXPAND|wxADJUST_MINSIZE</flag>
               <border>6</border>
             </object>
