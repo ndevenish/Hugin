@@ -182,7 +182,7 @@ BEGIN_EVENT_TABLE(GLPreviewFrame, wxFrame)
     EVT_CHOICE(XRCID("preview_guide_choice_drag"), GLPreviewFrame::OnGuideChanged)
     EVT_CHOICE(XRCID("preview_guide_choice_proj"), GLPreviewFrame::OnGuideChanged)
     EVT_MENU(XRCID("action_show_overview"), GLPreviewFrame::OnOverviewToggle)
-    EVT_CHECKBOX(XRCID("preview_show_grid"), GLPreviewFrame::OnSwitchPreviewGrid)
+    EVT_MENU(XRCID("action_show_grid"), GLPreviewFrame::OnSwitchPreviewGrid)
 #ifndef __WXMAC__
 	EVT_COMMAND_SCROLL(XRCID("layout_scale_slider"), GLPreviewFrame::OnLayoutScaleChange)
 	EVT_SCROLL_CHANGED(GLPreviewFrame::OnChangeFOV)
@@ -573,10 +573,9 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     overview_sizer->Add(overview_command_panel, 0, wxEXPAND);
     overview_sizer->Add(m_GLOverview, 1, wxEXPAND);
 
-    m_previewGrid = XRCCTRL(*this, "preview_show_grid", wxCheckBox);
     bool showGrid;
     cfg->Read(wxT("/GLPreviewFrame/showPreviewGrid"),&showGrid,true);
-    m_previewGrid->SetValue(showGrid);
+    GetMenuBar()->FindItem(XRCID("action_show_grid"))->Check(showGrid);
 
     preview_panel->SetSizer(flexSizer);
     overview_panel->SetSizer(overview_sizer);
@@ -831,7 +830,7 @@ GLPreviewFrame::~GLPreviewFrame()
     cfg->Write(wxT("/GLPreviewFrame/blendMode"), m_BlendModeChoice->GetSelection());
     cfg->Write(wxT("/GLPreviewFrame/OpenGLLayout"), m_mgr->SavePerspective());
     cfg->Write(wxT("/GLPreviewFrame/overview_hidden"), !(GetMenuBar()->FindItem(XRCID("action_show_overview"))->IsChecked()));
-    cfg->Write(wxT("/GLPreviewFrame/showPreviewGrid"), m_previewGrid->GetValue());
+    cfg->Write(wxT("/GLPreviewFrame/showPreviewGrid"), GetMenuBar()->FindItem(XRCID("action_show_grid"))->IsChecked());
     cfg->Write(wxT("/GLPreviewFrame/individualDragMode"), individualDragging());
     cfg->Write(wxT("/GLPreviewFrame/guide"),m_GuideChoiceProj->GetSelection());
     
@@ -1452,7 +1451,7 @@ void GLPreviewFrame::OnOverviewToggle(wxCommandEvent& e)
 
 void GLPreviewFrame::OnSwitchPreviewGrid(wxCommandEvent & e)
 {
-    if(m_previewGrid->GetValue())
+    if(GetMenuBar()->FindItem(XRCID("action_show_grid"))->IsChecked())
     {
         preview_helper->ActivateTool(preview_projection_grid);
         panosphere_overview_helper->ActivateTool(overview_projection_grid);
@@ -2102,7 +2101,7 @@ void GLPreviewFrame::MakePreviewTools(PreviewToolHelper *preview_helper_in)
     m_preview_layoutLinesTool = new PreviewLayoutLinesTool(preview_helper);
 
     preview_projection_grid = new PreviewProjectionGridTool(preview_helper);
-    if(m_previewGrid->GetValue())
+    if(GetMenuBar()->FindItem(XRCID("action_show_grid"))->IsChecked())
     {
         preview_helper->ActivateTool(preview_projection_grid);
     };
@@ -2131,7 +2130,7 @@ void GLPreviewFrame::MakePanosphereOverviewTools(PanosphereOverviewToolHelper *p
     panosphere_overview_helper->ActivateTool(panosphere_sphere_tool);
     
     overview_projection_grid = new PanosphereOverviewProjectionGridTool(panosphere_overview_helper);
-    if(m_previewGrid->GetValue())
+    if(GetMenuBar()->FindItem(XRCID("action_show_grid"))->IsChecked())
     {
         panosphere_overview_helper->ActivateTool(overview_projection_grid);
     }

@@ -1256,13 +1256,6 @@
                       <flag>wxALIGN_CENTRE_VERTICAL</flag>
                     </object>
                     <orient>wxVERTICAL</orient>
-                    <object class="sizeritem">
-                      <object class="wxCheckBox" name="preview_show_grid">
-                        <label>Grid</label>
-                      </object>
-                      <flag>wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
-                      <border>5</border>
-                    </object>
                   </object>
                   <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
                   <border>4</border>
@@ -1788,8 +1781,6 @@
         <accel>Ctrl-r</accel>
         <help>Redo the last action</help>
       </object>
-      
-      
       <label>&amp;Edit</label>
     </object>
     <object class="wxMenu" name="preview_view_menu">
@@ -1805,6 +1796,11 @@
       <object class="wxMenuItem" name="action_show_overview">
         <label>&amp;Overview</label>
         <help>Shows the overview of the panorama sphere.</help>
+        <checkable>1</checkable>
+      </object>
+      <object class="wxMenuItem" name="action_show_grid">
+        <label>Grid</label>
+        <help>Shows a grid.</help>
         <checkable>1</checkable>
       </object>
       <label>&amp;View</label>

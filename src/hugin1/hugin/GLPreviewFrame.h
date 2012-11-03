@@ -381,7 +381,6 @@ private:
     wxTextCtrl * m_exposureTextCtrl;
     wxBitmapButton * m_defaultExposureBut;
     wxSpinButton * m_exposureSpinBut;
-    wxCheckBox * m_previewGrid;
 #if wxCHECK_VERSION(2, 9, 1)
     /// Bar for context sensitive projection information.
     wxInfoBar * m_infoBar;
