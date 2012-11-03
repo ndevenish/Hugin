@@ -213,6 +213,7 @@ PreferencesDialog::PreferencesDialog(wxWindow *parent)
     wxCheckBox* show_hints=XRCCTRL(*this,"pref_show_projection_hints",wxCheckBox);
     show_hints->Enable(true);
     show_hints->Show(true);
+    Update();
 #endif
 
     GetSizer()->SetSizeHints(this);
