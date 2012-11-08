@@ -1,0 +1,66 @@
+# Configuration for 4 part universal build, only possible from Leopard
+# Copyright (c) 2008, Ippei Ukai
+
+
+# has to be the absolute path from /
+myREPOSITORYDIR="/PATH2HUGIN/mac/ExternalPrograms/repository";
+
+# number of jobs that make can use, probably same as the number of CPUs.
+#PROCESSNUM=2
+if [ $(uname -p) = i386 ] ; then
+  PROCESSNUM=$(hostinfo | grep "Processors active:" | sed 's/^.*://' | wc -w | sed 's/[^[:digit:]]//g');
+else
+  PROCESSNUM="1"
+fi
+
+mkdir -p $myREPOSITORYDIR;
+
+export \
+ REPOSITORYDIR="$myREPOSITORYDIR" \
+ ARCHS="ppc i386 ppc64 x86_64" \
+ \
+ ppcTARGET="powerpc-apple-darwin8" \
+ ppcOSVERSION="10.4" \
+ ppcMACSDKDIR="/Developer/SDKs/MacOSX10.4u.sdk" \
+ ppcOPTIMIZE="-mcpu=G3 -mtune=G4 -ftree-vectorize" \
+ ppcCC="gcc-4.0" \
+ ppcCXX="g++-4.0" \
+ \
+ i386TARGET="i386-apple-darwin8" \
+ i386OSVERSION="10.4" \
+ i386MACSDKDIR="/Developer/SDKs/MacOSX10.4u.sdk" \
+ i386OPTIMIZE="-march=prescott -mtune=pentium-m -ftree-vectorize" \
+ i386CC="gcc-4.0" \
+ i386CXX="g++-4.0" \
+ \
+ ppc64TARGET="powerpc64-apple-darwin9" \
+ ppc64OSVERSION="10.5" \
+ ppc64MACSDKDIR="/Developer/SDKs/MacOSX10.5.sdk" \
+ ppc64OPTIMIZE="-mcpu=G5 -mtune=G5 -ftree-vectorize" \
+ ppc64CC="gcc-4.2" \
+ ppc64CXX="g++-4.2" \
+ \
+ x64TARGET="x86_64-apple-darwin9" \
+ x64OSVERSION="10.5" \
+ x64MACSDKDIR="/Developer/SDKs/MacOSX10.5.sdk" \
+ x64OPTIMIZE="-march=core2 -mtune=core2 -ftree-vectorize" \
+ x64CC="gcc-4.2" \
+ x64CXX="g++-4.2" \
+ \
+ OTHERARGs="" \
+ OTHERMAKEARGs="--jobs=$PROCESSNUM";
+
+
+# Deprecated:
+export \
+ ppcONLYARG="$ppcOPTIMIZE -mmacosx-version-min=$ppcOSVERSION" \
+ i386ONLYARG="$i386OPTIMIZE -mmacosx-version-min=$i386OSVERSION" \
+ ppc64ONLYARG="$ppc64OPTIMIZE -mmacosx-version-min=$ppc64OSVERSION" \
+ x64ONLYARG="$x64OPTIMIZE -mmacosx-version-min=$x64OSVERSION";
+
+
+# cmake settings
+export CMAKE_INCLUDE_PATH="$REPOSITORYDIR/include"
+export CMAKE_LIBRARY_PATH="$REPOSITORYDIR/lib"
+
+# $Id: SetEnv-universal.txt 2238 2007-07-08 11:19:04Z ippei $

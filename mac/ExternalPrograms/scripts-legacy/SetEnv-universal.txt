@@ -1,0 +1,52 @@
+# Configuration for 4 part universal build, only possible from Leopard and up
+# Copyright (c) 2008, Ippei Ukai
+# Somewhere end of 2010 removed the 64bit ppc stuf as Apple doesn;t support it anymore
+# April 2012: Remove support for PPC and Tiger. 
+
+# has to be the absolute path from /
+myREPOSITORYDIR="/PATH2HUGIN/mac/ExternalPrograms/repository";
+
+
+# number of jobs that make can use, probably same as the number of CPUs.
+#PROCESSNUM=2
+if [ $(uname -p) = i386 ] ; then
+  PROCESSNUM=$(hostinfo | grep "Processors active:" | sed 's/^.*://' | wc -w | sed 's/[^[:digit:]]//g');
+else
+  PROCESSNUM="1"
+fi
+
+mkdir -p $myREPOSITORYDIR;
+
+export \
+ REPOSITORYDIR="$myREPOSITORYDIR" \
+ ARCHS="i386 x86_64" \
+ \
+ i386TARGET="i386-apple-darwin9" \
+ i386OSVERSION="10.5" \
+ i386MACSDKDIR="/Developer/SDKs/MacOSX10.5.sdk" \
+ i386OPTIMIZE="-march=prescott -mtune=pentium-m -ftree-vectorize -fopenmp" \
+ i386CC="gcc-4.2" \
+ i386CXX="g++-4.2" \
+ \
+ x64TARGET="x86_64-apple-darwin9" \
+ x64OSVERSION="10.5" \
+ x64MACSDKDIR="/Developer/SDKs/MacOSX10.5.sdk" \
+ x64OPTIMIZE="-march=core2 -mtune=core2 -ftree-vectorize -fopenmp" \
+ x64CC="gcc-4.6" \
+ x64CXX="g++-4.6" \
+ \
+ OTHERARGs="" \
+ OTHERMAKEARGs="--jobs=$PROCESSNUM";
+
+
+# Deprecated:
+export \
+ i386ONLYARG="$i386OPTIMIZE -mmacosx-version-min=$i386OSVERSION" \
+ x64ONLYARG="$x64OPTIMIZE -mmacosx-version-min=$x64OSVERSION";
+
+
+# cmake settings
+export CMAKE_INCLUDE_PATH="$REPOSITORYDIR/include"
+export CMAKE_LIBRARY_PATH="$REPOSITORYDIR/lib"
+
+# $Id: SetEnv-universal.txt 2238 2007-07-08 11:19:04Z ippei $
