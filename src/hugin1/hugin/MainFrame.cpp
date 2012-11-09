@@ -267,6 +267,43 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     m_progress = 0;
     svmModel=NULL;
 
+    bool disableOpenGL=false;
+#if wxCHECK_VERSION(2,9,4)
+    if(wxGetKeyState(WXK_COMMAND))
+#else
+    if(wxGetKeyState(WXK_CONTROL))
+#endif
+    {
+        wxDialog dlg;
+        wxXmlResource::Get()->LoadDialog(&dlg, NULL, wxT("disable_opengl_dlg"));
+        long noOpenGL=wxConfigBase::Get()->Read(wxT("DisableOpenGL"), 0l);
+        if(noOpenGL==1)
+        {
+            XRCCTRL(dlg, "disable_dont_ask_checkbox", wxCheckBox)->SetValue(true);
+        };
+        if(dlg.ShowModal()==wxID_OK)
+        {
+            if(XRCCTRL(dlg, "disable_dont_ask_checkbox", wxCheckBox)->IsChecked())
+            {
+                wxConfigBase::Get()->Write(wxT("DisableOpenGL"), 1l);
+            }
+            else
+            {
+                wxConfigBase::Get()->Write(wxT("DisableOpenGL"), 0l);
+            };
+            disableOpenGL=true;
+        }
+        else
+        {
+            wxConfigBase::Get()->Write(wxT("DisableOpenGL"), 0l);
+        };
+    }
+    else
+    {
+        long noOpenGL=wxConfigBase::Get()->Read(wxT("DisableOpenGL"), 0l);
+        disableOpenGL=(noOpenGL==1);
+    };
+
     wxBitmap bitmap;
     HuginSplashScreen* splash = 0;
     wxYield();
@@ -429,7 +466,16 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     m_mruFiles.UseMenu(m_menu_file_advanced->FindItem(XRCID("menu_mru"))->GetSubMenu());
 
     preview_frame = new PreviewFrame(this, pano);
-    gl_preview_frame = new GLPreviewFrame(this, pano);
+    if(disableOpenGL)
+    {
+        gl_preview_frame=NULL;
+        DisableOpenGLTools();
+        m_mruFiles.AddFilesToMenu();
+    }
+    else
+    {
+        gl_preview_frame = new GLPreviewFrame(this, pano);
+    };
 
     // set the minimize icon
 #ifdef __WXMSW__
@@ -543,6 +589,10 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     //reload gui level
     long guiLevel=config->Read(wxT("/GuiLevel"),(long)0);
     guiLevel=max<long>(0,min<long>(2,guiLevel));
+    if(guiLevel==GUI_SIMPLE && disableOpenGL)
+    {
+        guiLevel=GUI_ADVANCED;
+    };
     SetGuiLevel((GuiLevel)guiLevel, true);
 
     DEBUG_TRACE("");
@@ -787,7 +837,10 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
         SetStatusText(wxString::Format(_("saved project %s"), m_filename.c_str()),0);
         if(m_guiLevel==GUI_SIMPLE)
         {
-            gl_preview_frame->SetTitle(scriptName.GetName() + wxT(".") + scriptName.GetExt() + wxT(" - ") + _("Hugin - Panorama Stitcher"));
+            if(gl_preview_frame)
+            {
+                gl_preview_frame->SetTitle(scriptName.GetName() + wxT(".") + scriptName.GetExt() + wxT(" - ") + _("Hugin - Panorama Stitcher"));
+            };
             SetTitle(scriptName.GetName() + wxT(".") + scriptName.GetExt() + wxT(" - ") + _("Panorama editor"));
         }
         else
@@ -909,7 +962,10 @@ void MainFrame::LoadProjectFile(const wxString & filename)
         m_mruFiles.AddFileToHistory(fname.GetFullPath());
         if(m_guiLevel==GUI_SIMPLE)
         {
-            gl_preview_frame->SetTitle(fname.GetName() + wxT(".") + fname.GetExt() + wxT(" - ") + _("Hugin - Panorama Stitcher"));
+            if(gl_preview_frame)
+            {
+                gl_preview_frame->SetTitle(fname.GetName() + wxT(".") + fname.GetExt() + wxT(" - ") + _("Hugin - Panorama Stitcher"));
+            };
             SetTitle(fname.GetName() + wxT(".") + fname.GetExt() + wxT(" - ") + _("Panorama editor"));
         }
         else
@@ -1008,7 +1064,10 @@ void MainFrame::OnNewProject(wxCommandEvent & e)
     ImageCache::getInstance().flush();
     if(m_guiLevel==GUI_SIMPLE)
     {
-        gl_preview_frame->SetTitle(_("Hugin - Panorama Stitcher"));
+        if(gl_preview_frame)
+        {
+            gl_preview_frame->SetTitle(_("Hugin - Panorama Stitcher"));
+        };
         SetTitle(_("Panorama editor"));
     }
     else
@@ -1291,8 +1350,10 @@ void MainFrame::OnShowPrefs(wxCommandEvent & e)
     ImageCache::getInstance().SetUpperLimit(cfg->Read(wxT("/ImageCache/UpperBound"), HUGIN_IMGCACHE_UPPERBOUND));
 #endif
     images_panel->ReloadCPDetectorSettings();
-    gl_preview_frame->SetShowProjectionHints(cfg->Read(wxT("/GLPreviewFrame/ShowProjectionHints"),HUGIN_SHOW_PROJECTION_HINTS)!=0);
-
+    if(gl_preview_frame)
+    {
+        gl_preview_frame->SetShowProjectionHints(cfg->Read(wxT("/GLPreviewFrame/ShowProjectionHints"),HUGIN_SHOW_PROJECTION_HINTS)!=0);
+    };
 }
 
 void MainFrame::UpdatePanels( wxCommandEvent& WXUNUSED(event) )
@@ -1318,6 +1379,10 @@ void MainFrame::OnTogglePreviewFrame(wxCommandEvent & e)
 
 void MainFrame::OnToggleGLPreviewFrame(wxCommandEvent & e)
 {
+    if(gl_preview_frame==NULL)
+    {
+        return;
+    };
 #if defined __WXMSW__ || defined __WXMAC__
     gl_preview_frame->InitPreviews();
 #endif
@@ -1970,6 +2035,11 @@ GLPreviewFrame * MainFrame::getGLPreview()
 
 void MainFrame::SetGuiLevel(GuiLevel newLevel, const bool updateMenu)
 {
+    if(gl_preview_frame==NULL && newLevel==GUI_SIMPLE)
+    {
+        SetGuiLevel(GUI_ADVANCED, updateMenu);
+        return;
+    };
     if(m_guiLevel==GUI_EXPERT && newLevel!=GUI_EXPERT && pano.getOptimizerSwitch()==0)
     {
         bool needsUpdateOptimizerVar=false;
@@ -2012,7 +2082,10 @@ void MainFrame::SetGuiLevel(GuiLevel newLevel, const bool updateMenu)
     opt_panel->SetGuiLevel(m_guiLevel);
     opt_photo_panel->SetGuiLevel(m_guiLevel);
     pano_panel->SetGuiLevel(m_guiLevel);
-    gl_preview_frame->SetGuiLevel(m_guiLevel);
+    if(gl_preview_frame)
+    {
+        gl_preview_frame->SetGuiLevel(m_guiLevel);
+    };
     if(updateMenu)
     {
         switch(m_guiLevel)
@@ -2127,6 +2200,13 @@ void MainFrame::OnSetGuiAdvanced(wxCommandEvent & e)
 void MainFrame::OnSetGuiExpert(wxCommandEvent & e)
 {
     SetGuiLevel(GUI_EXPERT);
+};
+
+void MainFrame::DisableOpenGLTools()
+{
+    GetMenuBar()->Enable(XRCID("ID_SHOW_GL_PREVIEW_FRAME"), false);
+    GetMenuBar()->Enable(XRCID("action_gui_simple"), false);
+    GetToolBar()->EnableTool(XRCID("ID_SHOW_GL_PREVIEW_FRAME"), false); 
 };
 
 MainFrame * MainFrame::m_this = 0;

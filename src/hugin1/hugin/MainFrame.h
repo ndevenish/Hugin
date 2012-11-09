@@ -120,6 +120,8 @@ public:
     // load a project
     void LoadProjectFile(const wxString & filename);
 
+    /** disables all OpenGL related menu items and toobar buttons */
+    void DisableOpenGLTools();
 #ifdef __WXMAC__
     void MacOnOpenFile(const wxString & filename);
 #endif
