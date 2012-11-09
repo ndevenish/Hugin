@@ -180,7 +180,11 @@ BatchFrame::BatchFrame(wxLocale* locale, wxString xrc)
 #endif
     m_batch = new Batch(this,wxTheApp->argv[0],true);
     m_batch->gui = true;
+#if wxCHECK_VERSION(2,9,4)
     if(wxGetKeyState(WXK_COMMAND))
+#else
+    if(wxGetKeyState(WXK_CONTROL))
+#endif
     {
 #ifdef __WXMAC__
         wxString text(_("You have pressed the Command key."));

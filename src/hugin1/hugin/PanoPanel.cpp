@@ -1228,7 +1228,11 @@ void PanoPanel::DoSendToBatch()
 void PanoPanel::OnDoStitch ( wxCommandEvent & e )
 {
     long t;
+#if wxCHECK_VERSION(2,9,4)
     if(wxGetKeyState(WXK_COMMAND))
+#else
+    if(wxGetKeyState(WXK_CONTROL))
+#endif
     {
         t=1;
     }
