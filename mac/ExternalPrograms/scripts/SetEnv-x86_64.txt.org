@@ -1,7 +1,8 @@
-# Configuration for 4 part universal build, only possible from Leopard and up
+# Configuration for 64-bit build, only possible from Leopard and up
 # Copyright (c) 2008, Ippei Ukai
 # Somewhere end of 2010 removed the 64bit ppc stuf as Apple doesn;t support it anymore
 # April 2012: Remove support for PPC and Tiger. 
+# November 2012: tune for only 64-bit
 
 # has to be the absolute path from /
 myREPOSITORYDIR="/PATH2HUGIN/mac/ExternalPrograms/repository";
@@ -9,7 +10,7 @@ myREPOSITORYDIR="/PATH2HUGIN/mac/ExternalPrograms/repository";
 
 # number of jobs that make can use, probably same as the number of CPUs.
 #PROCESSNUM=2
-if [ $(uname -p) = i386 ] ; then
+if [ $(uname -p) = i386 ] | [ $(uname -p) = x86_64 ] ; then
   PROCESSNUM=$(hostinfo | grep "Processors active:" | sed 's/^.*://' | wc -w | sed 's/[^[:digit:]]//g');
 else
   PROCESSNUM="1"
@@ -19,14 +20,7 @@ mkdir -p $myREPOSITORYDIR;
 
 export \
  REPOSITORYDIR="$myREPOSITORYDIR" \
- ARCHS="i386 x86_64" \
- \
- i386TARGET="i386-apple-darwin9" \
- i386OSVERSION="10.5" \
- i386MACSDKDIR="/Developer/SDKs/MacOSX10.5.sdk" \
- i386OPTIMIZE="-march=prescott -mtune=pentium-m -ftree-vectorize -fopenmp" \
- i386CC="gcc-4.2" \
- i386CXX="g++-4.2" \
+ ARCHS="x86_64" \
  \
  x64TARGET="x86_64-apple-darwin9" \
  x64OSVERSION="10.5" \
