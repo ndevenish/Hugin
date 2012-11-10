@@ -42,11 +42,11 @@ WX_VERSION = 2.9.4
 WX_LOCALE_DIR = ../mac/ExternalPrograms/wxWidgets-$WX_VERSION/locale
 
 // gettext
-GETTEXT_VERSION = 0.17
+GETTEXT_VERSION = 0.18.1
 
 /// ExifTool
 // See comments above for REPOSITORY_DIR. This may need to be a fully qualified path.
-EXIFTOOL_DIR = ../mac/ExternalPrograms/Image-ExifTool-8.29
+EXIFTOOL_DIR = ../mac/ExternalPrograms/Image-ExifTool-9.04
 
 // Boost Thread
 BOOST_VER = 1_46
