@@ -4993,7 +4993,7 @@ msgstr "&O programie"
 
 #: translations/xrc.cpp:371 translations/xrc.cpp:987 xrc.cpp:371 xrc.cpp:987
 msgid "&Donate"
-msgstr "&Wspomórz finansowo"
+msgstr "&Wspomóż finansowo"
 
 #: translations/xrc.cpp:372 translations/xrc.cpp:988 xrc.cpp:372 xrc.cpp:988
 msgid ""
