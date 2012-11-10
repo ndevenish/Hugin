@@ -6,17 +6,6 @@
 
 # prepare
 
-# export REPOSITORYDIR="/PATH2HUGIN/mac/ExternalPrograms/repository" \
-# ARCHS="ppc i386" \
-#  ppcTARGET="powerpc-apple-darwin7" \
-#  i386TARGET="i386-apple-darwin8" \
-#  ppcMACSDKDIR="/Developer/SDKs/MacOSX10.3.9.sdk" \
-#  i386MACSDKDIR="/Developer/SDKs/MacOSX10.4u.sdk" \
-#  ppcONLYARG="-mcpu=G3 -mtune=G4" \
-#  i386ONLYARG="-mfpmath=sse -msse2 -mtune=pentium-m -ftree-vectorize" \
-#  ppc64ONLYARG="-mcpu=G5 -mtune=G5 -ftree-vectorize" \
-#  OTHERARGs="";
-
 # -------------------------------
 # 20091206.0 sg Script tested and used to build 2009.4.0-RC3
 # 20091209.0 sg Script enhanced to build Enblemd-Enfuse 4.0
@@ -25,6 +14,7 @@
 #               Building enblend documentation requires tex. Check if possible.
 # 20100624.0 hvdw More robust error checking on compilation
 # 20120430.0 hvdw Patch too old vigra in enblend for libpng 14
+# 20121010.0 hvdw simplify script to make this the default non openmp one
 # -------------------------------
 
 # init
@@ -85,24 +75,19 @@ do
  if [ $ARCH = "i386" -o $ARCH = "i686" ] ; then
    TARGET=$i386TARGET
    MACSDKDIR=$i386MACSDKDIR
-#   ARCHARGs="$i386ONLYARG"
-   ARCHARGs="-march=prescott -mtune=pentium-m -ftree-vectorize -mmacosx-version-min=10.5"
+   ARCHARGs="$i386ONLYARG"
    OSVERSION="$i386OSVERSION"
    CC=$i386CC
    CXX=$i386CXX
-   myPATH=$ORGPATH
    ARCHFLAG="-m32"
- elif [ $ARCH = "x86_64" ] ; then
+ else [ $ARCH = "x86_64" ] ;
    TARGET=$x64TARGET
    MACSDKDIR=$x64MACSDKDIR
    ARCHARGs="$x64ONLYARG"
    OSVERSION="$x64OSVERSION"
-#   CC=$x64CC
-#   CXX=$x64CXX
-   CC="gcc-4.6"
-   CXX="g++-4.6"
+   CC=$x64CC
+   CXX=$x64CXX
    ARCHFLAG="-m64"
-   myPATH=/usr/local/bin:$PATH
  fi
 
 # To build documentation, you will need to install the following (port) packages:
@@ -123,7 +108,6 @@ do
 # To make the change permanent, edit ~/.profile.
 
  export \
-   PATH=$myPATH \
    CC=$CC CXX=$CXX \
    CFLAGS="-isysroot $MACSDKDIR -I$REPOSITORYDIR/include -I$REPOSITORYDIR/include/OpenEXR -I$REPOSITORYDIR/include/boost $ARCHFLAG $ARCHARGs $OTHERARGs -dead_strip" \
    CXXFLAGS="-isysroot $MACSDKDIR -I$REPOSITORYDIR/include -I$REPOSITORYDIR/include/OpenEXR -I$REPOSITORYDIR/include/boost $ARCHFLAG $ARCHARGs $OTHERARGs -dead_strip" \
@@ -133,17 +117,10 @@ do
    NEXT_ROOT="$MACSDKDIR" \
    PKG_CONFIG_PATH="$REPOSITORYDIR/lib/pkgconfig" ;
 
-   if [ $ARCH = "i386" -o $ARCH = "i686" ] ; then
-     ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
-     --enable-image-cache=yes --disable-openmp  --disable-gpu-support \
-     --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH --with-apple-opengl-framework \
-     --with-glew $extraConfig --with-openexr || fail "configure step for $ARCH";
-   elif [ $ARCH = "x86_64" ] ; then
-    ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
-     --disable-image-cache --enable-openmp  --disable-gpu-support \
-     --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH --with-apple-opengl-framework \
-     --with-glew $extraConfig --with-openexr || fail "configure step for $ARCH";
-   fi 
+   ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
+   --enable-image-cache=yes --disable-openmp  --disable-gpu-support \
+   --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH --with-apple-opengl-framework \
+   --with-glew $extraConfig --with-openexr || fail "configure step for $ARCH";
  # hack; AC_FUNC_MALLOC sucks!!
 
  mv ./config.h ./config.h-copy; 

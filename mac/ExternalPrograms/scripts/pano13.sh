@@ -26,6 +26,7 @@
 # 20100624.0 hvdw More robust error checking on compilation
 # 20110107.0 hvdw support for 2.9.18
 # 20110427.0 hvdw compile x86_64 with gcc 4.6 for openmp compatibility on lion and up
+# 20121010.0 hvdw remove openmp stuff to make it easier to build
 # -------------------------------
 
 # init
@@ -41,22 +42,6 @@ ORGPATH=$PATH
 # AC_INIT([pano13], [2.9.14], BUG-REPORT-ADDRESS)
 libpanoVsn=$(grep "AC_INIT" configure.ac|cut -f 2 -d ,|cut -c 7-8)
 case $libpanoVsn in
-  "14")
-        GENERATED_DYLIB_NAME="libpano13.1.0.0.dylib";
-				GENERATED_DYLIB_INSTALL_NAME="libpano13.1.dylib";
-				;;
-  "15")
-        GENERATED_DYLIB_NAME="libpano13.2.0.0.dylib";
-				GENERATED_DYLIB_INSTALL_NAME="libpano13.2.dylib";
-				;;
-  "16")
-        GENERATED_DYLIB_NAME="libpano13.2.dylib";
-                                GENERATED_DYLIB_INSTALL_NAME="libpano13.dylib";
-                                ;;
-  "17")
-        GENERATED_DYLIB_NAME="libpano13.2.dylib";
-                                GENERATED_DYLIB_INSTALL_NAME="libpano13.dylib";
-                                ;;
   "18")
         GENERATED_DYLIB_NAME="libpano13.2.dylib";
                                 GENERATED_DYLIB_INSTALL_NAME="libpano13.dylib";
@@ -104,20 +89,21 @@ do
    MACSDKDIR=$x64MACSDKDIR
    ARCHARGs="$x64ONLYARG"
    OSVERSION="$x64OSVERSION"
-#   CC=$x64CC
-#   CXX=$x64CXX
+   CC=$x64CC
+   CXX=$x64CXX
 # This port can be compiled with gcc 4.6
-   CC=gcc-4.6
-   CXX=g++-4.6
-   myPATH=/usr/local/bin:$PATH 
+#   CC=gcc-4.6
+#   CXX=g++-4.6
+#   myPATH=/usr/local/bin:$PATH 
    ARCHFLAG="-m64"
  fi
 
  #read key 
 
  [ -d ./.libs ] && rm -R ./.libs
+#  PATH=$myPATH \
+
  env \
-  PATH=$myPATH \
   CC=$CC CXX=$CXX \
   CFLAGS="-isysroot $MACSDKDIR $ARCHFLAG $ARCHARGs $OTHERARGs -O2 -dead_strip $ARCGFLAG" \
   CXXFLAGS="-isysroot $MACSDKDIR $ARCHFLAG $ARCHARGs $OTHERARGs -O2 -dead_strip $ARCGFLAG" \

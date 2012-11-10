@@ -7,21 +7,11 @@
 
 # prepare
 
-# export REPOSITORYDIR="/PATH2HUGIN/mac/ExternalPrograms/repository" \
-# ARCHS="ppc i386" \
-# ppcTARGET="powerpc-apple-darwin7" \
-# i386TARGET="i386-apple-darwin8" \
-#  ppcMACSDKDIR="/Developer/SDKs/MacOSX10.4u.sdk" \
-#  i386MACSDKDIR="/Developer/SDKs/MacOSX10.3.9.sdk" \
-#  ppcONLYARG="-mcpu=G3 -mtune=G4" \
-#  i386ONLYARG="-mfpmath=sse -msse2 -mtune=pentium-m -ftree-vectorize" \
-#  OTHERARGs="";
-
-
 # -------------------------------
 # 20091206.0 sg Script tested and used to build 2009.4.0-RC3
 # 20100121.0 sg Script updated for 3.9.2
 # 20100624.0 hvdw More robust error checking on compilation
+# 20121010.0 hvdw Update to 4.03
 # -------------------------------
 
 fail()
@@ -35,11 +25,7 @@ uname_arch=$(uname -p)
 [ $uname_arch = powerpc ] && uname_arch="ppc"
 os_dotvsn=${uname_release%%.*}
 os_dotvsn=$(($os_dotvsn - 4))
-case $os_dotvsn in
- 4 ) os_sdkvsn="10.4u" ;;
- 5|6 ) os_sdkvsn=10.$os_dotvsn ;;
- * ) echo "Unhandled OS Version: 10.$os_dotvsn. Build aborted."; exit 1 ;;
-esac
+os_sdkvsn=10.$os_dotvsn
 
 NATIVE_SDKDIR="/Developer/SDKs/MacOSX$os_sdkvsn.sdk"
 NATIVE_OSVERSION="10.$os_dotvsn"
@@ -47,6 +33,8 @@ NATIVE_ARCH=$uname_arch
 NATIVE_OPTIMIZE=""
 
 # init
+
+TIFF_VERSION="5" 
 
 let NUMARCH="0"
 
@@ -72,10 +60,10 @@ do
  MACSDKDIR=""
 
  if [ $ARCH = "i386" -o $ARCH = "i686" ] ; then
-   TARGET=$i386TARGET
+   TARGET=$i3866TARGET
    MACSDKDIR=$i386MACSDKDIR
    ARCHARGs="$i386ONLYARG"
-   OSVERSION="$i386OSVERSION"
+   OSVERSION="i$386OSVERSION"
    CC=$i386CC
    CXX=$i386CXX
  elif [ $ARCH = "x86_64" ] ; then
@@ -89,21 +77,10 @@ do
 
  # Configure is looking for a specific version of crt1.o based on what the compiler was built for
  # This library isn't in the search path, so copy it to lib
- case $NATIVE_OSVERSION in
-	 10.4 )
-   		crt1obj="lib/crt1.o"
-			;;
-   10.5 | 10.6 )
-      crt1obj="lib/crt1.$NATIVE_OSVERSION.o"
-			;;
-	 * )
-			echo "Unsupported OS Version: $NATIVE_OSVERSION";
-			exit 1;
-			;;
- esac
+ crt1obj="lib/crt1.$NATIVE_OSVERSION.o"
 
  [ -f $REPOSITORYDIR/$crt1obj ] || cp $NATIVE_SDK/usr/$crt1obj $REPOSITORYDIR/$crt1obj ;
- # File exists for 10.5 and 10.6. 10.4 is now fixed
+ # File exists for 10.5 and 10.6. 
  [ -f $REPOSITORYDIR/$crt1obj ] || exit 1 ;
 
  env \
@@ -131,8 +108,8 @@ done
 
 
 # merge libtiff
-
-for liba in lib/libtiff.a lib/libtiffxx.a lib/libtiff.3.dylib lib/libtiffxx.3.dylib
+echo "tiff version is" $TIFF_VERSION
+for liba in lib/libtiff.a lib/libtiffxx.a lib/libtiff.$TIFF_VERSION.dylib lib/libtiffxx.$TIFF_VERSION.dylib
 do
 
  if [ $NUMARCH -eq 1 ] ; then
@@ -165,17 +142,17 @@ do
 done
 
 
-if [ -f "$REPOSITORYDIR/lib/libtiff.3.dylib" ] ; then
-  install_name_tool -id "$REPOSITORYDIR/lib/libtiff.3.dylib" "$REPOSITORYDIR/lib/libtiff.3.dylib";
-  ln -sfn libtiff.3.dylib $REPOSITORYDIR/lib/libtiff.dylib;
+if [ -f "$REPOSITORYDIR/lib/libtiff.$TIFF_VERSION.dylib" ] ; then
+  install_name_tool -id "$REPOSITORYDIR/lib/libtiff.$TIFF_VERSION.dylib" "$REPOSITORYDIR/lib/libtiff.$TIFF_VERSION.dylib";
+  ln -sfn libtiff.$TIFF_VERSION.dylib $REPOSITORYDIR/lib/libtiff.dylib;
 fi
-if [ -f "$REPOSITORYDIR/lib/libtiffxx.3.dylib" ] ; then
-  install_name_tool -id "$REPOSITORYDIR/lib/libtiffxx.3.dylib" "$REPOSITORYDIR/lib/libtiffxx.3.dylib";
+if [ -f "$REPOSITORYDIR/lib/libtiffxx.$TIFF_VERSION.dylib" ] ; then
+  install_name_tool -id "$REPOSITORYDIR/lib/libtiffxx.$TIFF_VERSION.dylib" "$REPOSITORYDIR/lib/libtiffxx.$TIFF_VERSION.dylib";
   for ARCH in $ARCHS
   do
-    install_name_tool -change "$REPOSITORYDIR/arch/$ARCH/lib/libtiff.3.dylib" "$REPOSITORYDIR/lib/libtiff.3.dylib" "$REPOSITORYDIR/lib/libtiffxx.3.dylib";
+    install_name_tool -change "$REPOSITORYDIR/arch/$ARCH/lib/libtiff.$TIFF_VERSION.dylib" "$REPOSITORYDIR/lib/libtiff.$TIFF_VERSION.dylib" "$REPOSITORYDIR/lib/libtiffxx.$TIFF_VERSION.dylib";
   done
-  ln -sfn libtiffxx.3.dylib $REPOSITORYDIR/lib/libtiffxx.dylib;
+  ln -sfn libtiffxx.$TIFF_VERSION.dylib $REPOSITORYDIR/lib/libtiffxx.dylib;
 fi
 
 # merge config.h
@@ -194,18 +171,6 @@ do
   do
     if [ $ARCH = "i386" -o $ARCH = "i686" ] ; then
       echo "#if defined(__i386__)"              >> "$REPOSITORYDIR/$conf_h";
-      echo ""                                   >> "$REPOSITORYDIR/$conf_h";
-      cat  "$REPOSITORYDIR/arch/$ARCH/$conf_h"  >> "$REPOSITORYDIR/$conf_h";
-      echo ""                                   >> "$REPOSITORYDIR/$conf_h";
-      echo "#endif"                             >> "$REPOSITORYDIR/$conf_h";
-    elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ] ; then
-      echo "#if defined(__ppc__)"               >> "$REPOSITORYDIR/$conf_h";
-      echo ""                                   >> "$REPOSITORYDIR/$conf_h";
-      cat  "$REPOSITORYDIR/arch/$ARCH/$conf_h"  >> "$REPOSITORYDIR/$conf_h";
-      echo ""                                   >> "$REPOSITORYDIR/$conf_h";
-      echo "#endif"                             >> "$REPOSITORYDIR/$conf_h";
-    elif [ $ARCH = "ppc64" -o $ARCH = "ppc970" ] ; then
-      echo "#if defined(__ppc64__)"             >> "$REPOSITORYDIR/$conf_h";
       echo ""                                   >> "$REPOSITORYDIR/$conf_h";
       cat  "$REPOSITORYDIR/arch/$ARCH/$conf_h"  >> "$REPOSITORYDIR/$conf_h";
       echo ""                                   >> "$REPOSITORYDIR/$conf_h";

@@ -37,9 +37,7 @@ fail()
 }
 
 # Uncomment correct version
-#BOOST_VER="1_44"
 BOOST_VER="1_46"
-#BOOST_VER="1_48"
 
 echo "\n## Version set to $BOOST_VER ##\n"
 

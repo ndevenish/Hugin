@@ -46,15 +46,15 @@ mkdir -p "$REPOSITORYDIR/lib";
 mkdir -p "$REPOSITORYDIR/include";
 
 GETTEXTVER_M="0"
-GEETTEXTVER_FULL="$GETTEXTVER_M.17"
+GETTEXTVER_FULL="$GETTEXTVER_M.18.1"
 MAIN_LIB_VER="0"
-FULL_LIB_VER="$MAIN_LIB_VER.17"
-ASPRINTFVER_F="0.0.0"
-ASPRINTFVER_M="0"
-GETTEXTVERPO_M="0"
-GETTEXTVERPO_F="0.4.0"
-LIBINTLVER_F="8.0.2"
-LIBINTLVER_M="8"
+FULL_LIB_VER="$MAIN_LIB_VER.18.1"
+ASPRINTFVER_F="0"
+#ASPRINTFVER_M="0"
+#GETTEXTVERPO_M="0"
+GETTEXTVERPO_F="0"
+LIBINTLVER_F="8"
+#LIBINTLVER_M="8"
 
 # compile
 
@@ -78,27 +78,11 @@ do
    CXX=$i386CXX
    myPATH=/usr/bin:$ORGPATH
    ARCHFLAG="-m32"
- elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ] ; then
-   TARGET=$ppcTARGET
-   MACSDKDIR=$ppcMACSDKDIR
-   ARCHARGs="$ppcONLYARG"
-   OSVERSION="$ppcOSVERSION"
-   CC=$ppcCC
-   CXX=$ppcCXX
- elif [ $ARCH = "ppc64" -o $ARCH = "ppc970" ] ; then
-   TARGET=$ppc64TARGET
-   MACSDKDIR=$ppc64MACSDKDIR
-   ARCHARGs="$ppc64ONLYARG"
-   OSVERSION="$ppc64OSVERSION"
-   CC=$ppc64CC
-   CXX=$ppc64CXX
- elif [ $ARCH = "x86_64" ] ; then
+ else [ $ARCH = "x86_64" ] ;
    TARGET=$x64TARGET
    MACSDKDIR=$x64MACSDKDIR
    ARCHARGs="$x64ONLYARG"
    OSVERSION="$x64OSVERSION"
-   #CC="gcc-4.6"
-   #CXX="g++-4.6"
    CC=$x64CC
    CXX=$x64CXX
    ARCHFLAG="-m64"
@@ -133,7 +117,6 @@ done
 
 # merge libgettext
 
-#for liba in lib/libgettext.a lib/libgettextlib-$FULL_LIB_VER.dylib lib/libgettextpo.$GETTEXTVERPO_F.dylib lib/libgettextsrc-$FULL_LIB_VER.dylib lib/libasprintf.$ASPRINTFVER_F.dylib lib/libasprintf.a lib/libintl.$LIBINTLVER_F.dylib lib/libintl.a  
 for liba in lib/libgettextlib-$FULL_LIB_VER.dylib lib/libgettextpo.$GETTEXTVERPO_F.dylib lib/libgettextsrc-$FULL_LIB_VER.dylib lib/libasprintf.$ASPRINTFVER_F.dylib lib/libasprintf.a lib/libintl.$LIBINTLVER_F.dylib lib/libintl.a  
 do
 

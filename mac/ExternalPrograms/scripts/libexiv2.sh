@@ -23,6 +23,7 @@
 # 20100121.0 sg Script updated for 0.19
 # 20100624.0 hvdw More robust error checking on compilation
 # 20120414.0 hvdw update to 0.22
+# 20121010.0 hvdw update to 0.23
 # -------------------------------
 
 # init
@@ -34,7 +35,7 @@ fail()
 }
 
 
-EXIV2VER="11"
+EXIV2VER="12"
 
 let NUMARCH="0"
 
@@ -68,21 +69,7 @@ do
    OSVERSION="$i386OSVERSION"
    CC=$i386CC
    CXX=$i386CXX
- elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ] ; then
-   TARGET=$ppcTARGET
-   MACSDKDIR=$ppcMACSDKDIR
-   ARCHARGs="$ppcONLYARG"
-   OSVERSION="$ppcOSVERSION"
-   CC=$ppcCC
-   CXX=$ppcCXX
- elif [ $ARCH = "ppc64" -o $ARCH = "ppc970" ] ; then
-   TARGET=$ppc64TARGET
-   MACSDKDIR=$ppc64MACSDKDIR
-   ARCHARGs="$ppc64ONLYARG"
-   OSVERSION="$ppc64OSVERSION"
-   CC=$ppc64CC
-   CXX=$ppc64CXX
- elif [ $ARCH = "x86_64" ] ; then
+ else [ $ARCH = "x86_64" ] ;
    TARGET=$x64TARGET
    MACSDKDIR=$x64MACSDKDIR
    ARCHARGs="$x64ONLYARG"

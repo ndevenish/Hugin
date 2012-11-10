@@ -42,11 +42,7 @@ uname_arch=$(uname -p)
 [ $uname_arch = powerpc ] && uname_arch="ppc"
 os_dotvsn=${uname_release%%.*}
 os_dotvsn=$(($os_dotvsn - 4))
-case $os_dotvsn in
- 4 ) os_sdkvsn="10.4u" ;;
- 5|6 ) os_sdkvsn=10.$os_dotvsn ;;
- * ) echo "Unhandled OS Version: 10.$os_dotvsn. Build aborted."; exit 1 ;;
-esac
+os_sdkvsn=10.$os_dotvsn
 
 NATIVE_SDKDIR="/Developer/SDKs/MacOSX$os_sdkvsn.sdk"
 NATIVE_OSVERSION="10.$os_dotvsn"
@@ -69,8 +65,6 @@ mkdir -p "$REPOSITORYDIR/include";
 
 # update config.guess and config.sub -- locations vary by OS version
 case $NATIVE_OSVERSION in
-	10.4 )
-		;;
 	10.5 )
 		cp /usr/share/libtool/config.{guess,sub} ./ 
 		;;

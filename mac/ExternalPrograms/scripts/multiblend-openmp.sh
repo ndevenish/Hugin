@@ -7,13 +7,22 @@
 
 # prepare
 
+# export REPOSITORYDIR="/PATH2HUGIN/mac/ExternalPrograms/repository" \
+# ARCHS="ppc i386" \
+#  ppcTARGET="powerpc-apple-darwin7" \
+#  i386TARGET="i386-apple-darwin8" \
+#  ppcMACSDKDIR="/Developer/SDKs/MacOSX10.3.9.sdk" \
+#  i386MACSDKDIR="/Developer/SDKs/MacOSX10.4u.sdk" \
+#  ppcONLYARG="-mcpu=G3 -mtune=G4" \
+#  i386ONLYARG="-mfpmath=sse -msse2 -mtune=pentium-m -ftree-vectorize" \
+#  ppc64ONLYARG="-mcpu=G5 -mtune=G5 -ftree-vectorize" \
+#  OTHERARGs="";
 
 # -------------------------------
 # 20111231.0 hvdw first version. Still experimental. Don't know which
 #		  cross arch settings are necessary and which not.
 # 20120106.0 hvdw adapt for version 0.2
 # 20120426.0 hvdw adapt for 0.31 and compile x86_64 with gcc-4.6 for lion and up openmp compatibility
-# 20121010.0 hvdw update for 0.5; remove openmp stuff to openmp script
 # -------------------------------
 
 # init
@@ -53,23 +62,28 @@ do
  if [ $ARCH = "i386" -o $ARCH = "i686" ] ; then
    TARGET=$i386TARGET
    MACSDKDIR=$i386MACSDKDIR
-   ARCHARGs="$i386ONLYARG"
+#   ARCHARGs="$i386ONLYARG"
+   # multiblend not yet fully compliant with openmp on 32bits
+   ARCHARGs="-march=prescott -mtune=pentium-m -ftree-vectorize -mmacosx-version-min=10.5"
    OSVERSION="$i386OSVERSION"
    CC=$i386CC
    CXX=$i386CXX
+   myPATH=$ORGPATH
    ARCHFLAG="-m32"
- else [ $ARCH = "x86_64" ] ;
+ elif [ $ARCH = "x86_64" ] ; then
    TARGET=$x64TARGET
    MACSDKDIR=$x64MACSDKDIR
    ARCHARGs="$x64ONLYARG"
    OSVERSION="$x64OSVERSION"
-   CC=$x64CC
-   CXX=$x64CXX
+   CC="gcc-4.6"
+   CXX="g++-4.6"
    ARCHFLAG="-m64"
+   myPATH=/usr/local/bin:$PATH
  fi
 
  echo "## Now compiling $ARCH version ##\n"
  env \
+   PATH=$myPATH \
    CC=$CC CXX=$CXX \
    CFLAGS="-isysroot $MACSDKDIR -I. -I$REPOSITORYDIR/include -O2 $ARCHFLAG $ARCHARGs $OTHERARGs -dead_strip" \
    CXXFLAGS="-isysroot $MACSDKDIR -I. -I$REPOSITORYDIR/include -O2 $ARCHFLAG $ARCHARGs $OTHERARGs -dead_strip" \

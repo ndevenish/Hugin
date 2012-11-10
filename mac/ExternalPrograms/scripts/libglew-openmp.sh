@@ -23,11 +23,10 @@
 # 20100624.0 hvdw More robust error checking on compilation
 # 20120414.0 hvdw updated to 1.7
 # 20120428.0 hvdw use gcc 4.6 for x86_64 for openmp compatibility on lion an up
-# 20121010.0 hvdw update to 1.9; remove openmp stuff and place in openmp script
 # -------------------------------
 
 GLEW_MAJOR=1
-GLEW_MINOR=9
+GLEW_MINOR=7
 GLEW_REV=0
 
 fail()
@@ -41,7 +40,6 @@ fail()
 ORGPATH=$PATH
 
 # patch 1.7 for gcc 4.6
-# just leave patch in
 cp config/Makefile.darwin config/Makefile.darwin.org
 cp config/Makefile.darwin-x86_64 config/Makefile.darwin-x86_64.org
 sed 's/-no-cpp-precomp//' config/Makefile.darwin.org > config/Makefile.darwin
@@ -80,14 +78,16 @@ do
    CXX=$i386CXX
    myPATH=$ORGPATH
    ARCHFLAG="-m32"
- else [ $ARCH = "x86_64" ] ;
+ elif [ $ARCH = "x86_64" ] ; then
    TARGET=$x64TARGET
    MACSDKDIR=$x64MACSDKDIR
    ARCHARGs="$x64ONLYARG"
-   CC=$x64CC
-   CXX=$x64CXX
+#   CC=$x64CC
+#   CXX=$x64CXX
+   CC="gcc-4.6"
+   CXX="g++-4.6"
    ARCHFLAG="-m64"
-#   myPATH=/usr/local/bin:$PATH
+   myPATH=/usr/local/bin:$PATH
  fi
 
  env PATH=$myPATH;

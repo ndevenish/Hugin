@@ -86,10 +86,8 @@ do
    OSVERSION="$x64OSVERSION"
    CC=$x64CC
    CXX=$x64CXX
-   CC="gcc-4.6"
-   CXX="g++-4.6"
    ARCHFLAG="-m64"
-   myPATH=/usr/local/bin:$PATH
+   #myPATH=/usr/local/bin:$PATH
  fi
 
  # makefile.darwin

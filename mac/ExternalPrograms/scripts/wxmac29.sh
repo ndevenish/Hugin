@@ -27,6 +27,7 @@
 # 20100624.0 hvdw More robust error checking on compilation
 # 20120415.0 hvdw upgrade to 2.8.12
 # 20120526.0 hvdw upgrade to 2.9.3 and rename to wxmac29.sh
+# 20121010.0 hvdw upgrade to 2.9.4
 # -------------------------------
 
 fail()
@@ -41,11 +42,7 @@ uname_arch=$(uname -p)
 [ $uname_arch = powerpc ] && uname_arch="ppc"
 os_dotvsn=${uname_release%%.*}
 os_dotvsn=$(($os_dotvsn - 4))
-case $os_dotvsn in
- 4 ) os_sdkvsn="10.4u" ;;
- 5|6 ) os_sdkvsn=10.$os_dotvsn ;;
- * ) echo "Unhandled OS Version: 10.$os_dotvsn. Build aborted."; exit 1 ;;
-esac
+os_sdkvsn=10.$os_dotvsn
 
 NATIVE_SDKDIR="/Developer/SDKs/MacOSX$os_sdkvsn.sdk"
 NATIVE_OSVERSION="10.$os_dotvsn"
@@ -53,7 +50,7 @@ NATIVE_ARCH=$uname_arch
 NATIVE_OPTIMIZE=""
 
 WX_MAJOR_VERSION="2.9"
-WXVERSION="2.9.3"
+WXVERSION="2.9.4"
 WXVER_FULL="$WXVERSION.0.0" 
 
 mkdir -p "$REPOSITORYDIR/bin";
@@ -130,20 +127,10 @@ fi
  echo "install: " >> utils/wxrc/Makefile;
 #~hack
 
- case $NATIVE_OSVERSION in
-	 10.4 )
-     dylib_name="dylib1.o"
-		 ;;
-	 10.5 | 10.6 )
-		 dylib_name="dylib1.10.5.o"
-		 ;;
-	 * )
-		 echo "OS Version $NATIVE_OSVERSION not supported"; exit 1
-		 ;;
- esac
- cp $NATIVE_SDKDIR/usr/lib/$dylib_name $REPOSITORYDIR/lib/
+dylib_name="dylib1.10.5.o"
+cp $NATIVE_SDKDIR/usr/lib/$dylib_name $REPOSITORYDIR/lib/
 
-# Need to build single-threaded. libwx_osx_cocoau-2.8.dylib needs to be built before libwx_osx_cocoau_gl-2.8 to avoid a link error.
+# Need to build single-threaded. libwx_osx_cocoau-2.9.dylib needs to be built before libwx_osx_cocoau_gl-2.9 to avoid a link error.
 # This is only problematic for Intel builds, where jobs can be >1
  make --jobs=1 || fail "failed at make step of $ARCH";
  make install || fail "make install step of $ARCH";
