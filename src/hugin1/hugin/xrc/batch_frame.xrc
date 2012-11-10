@@ -246,10 +246,39 @@
                           </object>
                           <object class="sizeritem">
                             <object class="wxStaticText">
-                              <label>Stacks:</label>
+                              <label>Maximum time difference:</label>
                             </object>
                             <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
                             <cellpos>1,0</cellpos>
+                          </object>
+                          <object class="sizeritem">
+                            <object class="wxBoxSizer">
+                              <object class="sizeritem">
+                                <object class="wxSpinCtrl" name="find_pano_max_time_diff">
+                                  <size>80,-1</size>
+                                  <value>30</value>
+                                  <min>1</min>
+                                  <max>3600</max>
+                                  <tooltip>Maximal time difference in seconds between two consecutive images belonging to one panorama.</tooltip>
+                                </object>
+                              </object>
+                              <orient>wxHORIZONTAL</orient>
+                              <object class="sizeritem">
+                                <object class="wxStaticText">
+                                  <label>s</label>
+                                </object>
+                                <flag>wxLEFT|wxALIGN_CENTRE_VERTICAL</flag>
+                                <border>6</border>
+                              </object>
+                            </object>
+                            <cellpos>1,1</cellpos>
+                          </object>
+                          <object class="sizeritem">
+                            <object class="wxStaticText">
+                              <label>Stacks:</label>
+                            </object>
+                            <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                            <cellpos>2,0</cellpos>
                           </object>
                           <object class="sizeritem">
                             <object class="wxCheckBox" name="find_pano_create_links">
@@ -257,14 +286,14 @@
                               <tooltip>Check if the stacks were shot on a tripod.</tooltip>
                             </object>
                             <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
-                            <cellpos>1,1</cellpos>
+                            <cellpos>2,1</cellpos>
                           </object>
                           <object class="sizeritem">
                             <object class="wxStaticText">
                               <label>Lens database:</label>
                             </object>
                             <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-                            <cellpos>2,0</cellpos>
+                            <cellpos>3,0</cellpos>
                           </object>
                           <object class="sizeritem">
                             <object class="wxCheckBox" name="find_pano_load_distortion">
@@ -272,14 +301,14 @@
                               <tooltip>Trys to load distortion data from lensfun database if checked.</tooltip>
                             </object>
                             <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
-                            <cellpos>2,1</cellpos>
+                            <cellpos>3,1</cellpos>
                           </object>
                           <object class="sizeritem">
                             <object class="wxCheckBox" name="find_pano_load_vignetting">
                               <label>Load vignetting data</label>
                               <tooltip>Trys to load vignetting data from lensfun database if checked.</tooltip>
                             </object>
-                            <cellpos>3,1</cellpos>
+                            <cellpos>4,1</cellpos>
                           </object>
                           <vgap>6</vgap>
                           <hgap>12</hgap>

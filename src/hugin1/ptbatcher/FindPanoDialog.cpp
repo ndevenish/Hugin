@@ -74,6 +74,7 @@ FindPanoDialog::FindPanoDialog(BatchFrame* batchframe, wxString xrcPrefix)
     m_cb_loadDistortion=XRCCTRL(*this,"find_pano_load_distortion",wxCheckBox);
     m_cb_loadVignetting=XRCCTRL(*this,"find_pano_load_vignetting",wxCheckBox);
     m_sc_minNumberImages=XRCCTRL(*this, "find_pano_min_number_images", wxSpinCtrl);
+    m_sc_maxTimeDiff=XRCCTRL(*this, "find_pano_max_time_diff", wxSpinCtrl);
 
     //set parameters
     wxConfigBase* config = wxConfigBase::Get();
@@ -128,6 +129,8 @@ FindPanoDialog::FindPanoDialog(BatchFrame* batchframe, wxString xrcPrefix)
     m_cb_loadVignetting->SetValue(val);
     i=config->Read(wxT("/FindPanoDialog/MinNumberImages"), 2l);
     m_sc_minNumberImages->SetValue(i);
+    i=config->Read(wxT("/FindPanoDialog/MaxTimeDiff"), 30l);
+    m_sc_maxTimeDiff->SetValue(i);
     m_button_send->Disable();
 };
 
@@ -155,6 +158,7 @@ FindPanoDialog::~FindPanoDialog()
     config->Write(wxT("/FindPanoDialog/loadDistortion"),m_cb_loadDistortion->GetValue());
     config->Write(wxT("/FindPanoDialog/loadVignetting"),m_cb_loadDistortion->GetValue());
     config->Write(wxT("/FindPanoDialog/MinNumberImages"), m_sc_minNumberImages->GetValue());
+    config->Write(wxT("/FindPanoDialog/MaxTimeDiff"), m_sc_maxTimeDiff->GetValue());
     CleanUpPanolist();
 };
 
@@ -237,7 +241,8 @@ void FindPanoDialog::OnButtonStart(wxCommandEvent& e)
             CleanUpPanolist();
             m_list_pano->Clear();
             EnableButtons(false);
-            SearchInDir(m_start_dir,m_cb_subdir->GetValue(), m_cb_loadDistortion->GetValue(), m_cb_loadVignetting->GetValue(), m_sc_minNumberImages->GetValue());
+            SearchInDir(m_start_dir,m_cb_subdir->GetValue(), m_cb_loadDistortion->GetValue(), m_cb_loadVignetting->GetValue(), 
+                m_sc_minNumberImages->GetValue(), m_sc_maxTimeDiff->GetValue());
         }
         else
         {
@@ -306,10 +311,10 @@ int SortWxFilenames(const wxString& s1,const wxString& s2)
     return doj::alphanum_comp(std::string(s1.mb_str(wxConvLocal)),std::string(s2.mb_str(wxConvLocal)));
 };
 
-void FindPanoDialog::SearchInDir(wxString dirstring, const bool includeSubdir, const bool loadDistortion, const bool loadVignetting, const size_t minNumberImages)
+void FindPanoDialog::SearchInDir(wxString dirstring, const bool includeSubdir, const bool loadDistortion, const bool loadVignetting, const size_t minNumberImages, const size_t maxTimeDiff)
 {
     std::vector<PossiblePano*> newPanos;
-    wxTimeSpan max_diff(0,0,30,0); //max. 30 s difference between images
+    wxTimeSpan max_diff(0, 0, maxTimeDiff, 0); 
     wxString filename;
     wxArrayString fileList;
     wxDir::GetAllFiles(dirstring,&fileList,wxEmptyString,wxDIR_FILES|wxDIR_HIDDEN);
@@ -393,7 +398,7 @@ void FindPanoDialog::SearchInDir(wxString dirstring, const bool includeSubdir, c
         bool cont=dir.GetFirst(&filename,wxEmptyString,wxDIR_DIRS);
         while(cont && !m_stopped)
         {
-            SearchInDir(dir.GetName()+wxFileName::GetPathSeparator()+filename,includeSubdir, loadDistortion, loadVignetting, minNumberImages);
+            SearchInDir(dir.GetName()+wxFileName::GetPathSeparator()+filename,includeSubdir, loadDistortion, loadVignetting, minNumberImages, maxTimeDiff);
             cont=dir.GetNext(&filename);
         }
     };
