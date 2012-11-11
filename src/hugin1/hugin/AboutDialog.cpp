@@ -190,6 +190,9 @@ void AboutDialog::GetSystemInformation(wxFont *font)
     text=text+wxT("\nlibpano13: ")+wxT(VERSION);
     text=text+wxT("\n")+wxString::Format(wxT("Boost: %i.%i.%i"),BOOST_VERSION / 100000, BOOST_VERSION / 100 % 1000, BOOST_VERSION % 100);
     text=text+wxT("\n")+wxString::Format(wxT("Exiv2: %i.%i.%i"),EXIV2_MAJOR_VERSION,EXIV2_MINOR_VERSION,EXIV2_PATCH_VERSION);
+#ifdef LF_VERSION_MAJOR
+    text=text+wxT("\n")+wxString::Format(wxT("Lensfun: %i.%i.%i.%i"), LF_VERSION_MAJOR, LF_VERSION_MINOR, LF_VERSION_MICRO, LF_VERSION_BUGFIX);
+#endif
     infoText->SetValue(text);
 }
 
