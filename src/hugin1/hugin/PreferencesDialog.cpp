@@ -467,6 +467,10 @@ void PreferencesDialog::UpdateDisplayData(int panel)
         t = cfg->Read(wxT("smartUndo"), HUGIN_SMART_UNDO) == 1;
         MY_BOOL_VAL("prefs_smart_undo", t);
 
+        // copy log to clipboard
+        t = cfg->Read(wxT("CopyLogToClipboard"), 0l) == 1;
+        MY_BOOL_VAL("prefs_copy_log", t);
+
         t = cfg->Read(wxT("/GLPreviewFrame/ShowProjectionHints"), HUGIN_SHOW_PROJECTION_HINTS) == 1;
         MY_BOOL_VAL("pref_show_projection_hints", t)
     };
@@ -695,6 +699,7 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
             cfg->Write(wxT("language"), int(HUGIN_LANGUAGE));
             // smart undo
             cfg->Write(wxT("smartUndo"), HUGIN_SMART_UNDO);
+            cfg->Write(wxT("CopyLogToClipboard"), 0l);
             // projection hints
             cfg->Write(wxT("/GLPreviewFrame/ShowProjectionHints"), HUGIN_SHOW_PROJECTION_HINTS);
         }
@@ -860,6 +865,7 @@ void PreferencesDialog::UpdateConfigData()
     DEBUG_INFO("Language Selection ID: " << templ);
     // smart undo
     cfg->Write(wxT("smartUndo"), MY_G_BOOL_VAL("prefs_smart_undo"));
+    cfg->Write(wxT("CopyLogToClipboard"), MY_G_BOOL_VAL("prefs_copy_log"));
     // show projections hints
     cfg->Write(wxT("/GLPreviewFrame/ShowProjectionHints"), MY_G_BOOL_VAL("pref_show_projection_hints"));
     // cursor

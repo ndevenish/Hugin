@@ -58,6 +58,7 @@ public:
     bool verbose;
     bool autostitch;
     bool autoremove;
+    bool saveLog;
     bool gui;
 
     /** Main constructor */

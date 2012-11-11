@@ -519,6 +519,12 @@ bool MyExecPanel::SaveLog(const wxString &filename)
     return m_textctrl->SaveFile(filename);
 };
 
+void MyExecPanel::CopyLogToClipboard()
+{
+    m_textctrl->SelectAll();
+    m_textctrl->Copy();
+};
+
 // ----------------------------------------------------------------------------
 // MyProcess
 // ----------------------------------------------------------------------------
@@ -617,6 +623,10 @@ MyExecDialog::MyExecDialog(wxWindow * parent, const wxString& title, const wxPoi
 void MyExecDialog::OnProcessTerminate(wxProcessEvent & event)
 {
     DEBUG_DEBUG("Process terminated with return code: " << event.GetExitCode());
+    if(wxConfigBase::Get()->Read(wxT("CopyLogToClipboard"), 0l)==1l)
+    {
+        m_execPanel->CopyLogToClipboard();
+    };
     if (m_cancelled) {
         EndModal(HUGIN_EXIT_CODE_CANCELLED);
     } else {

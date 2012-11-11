@@ -51,6 +51,7 @@ Batch::Batch(wxFrame* parent, wxString path, bool bgui) : wxFrame(parent,wxID_AN
     verbose = false;
     autoremove = false;
     autostitch = false;
+    saveLog = false;
     gui = bgui;
     m_cancelled = false;
     m_paused = false;
@@ -536,12 +537,9 @@ void Batch::OnProcessTerminate(wxProcessEvent& event)
             m_paused = false;
         }
         i = GetIndex(event.GetId());
-        if (event.GetExitCode() != 0 || event.GetTimestamp()==-1) //timestamp is used as a fake exit code because it cannot be set manually
+        wxString savedLogfile=wxEmptyString;
+        if(saveLog || event.GetExitCode() != 0 || event.GetTimestamp()==-1)
         {
-            m_projList.Item(i).status=Project::FAILED;
-            struct FailedProject failedProject;
-            failedProject.project=m_projList.Item(i).path;
-            failedProject.logfile=wxEmptyString;
             //get filename for automatic saving of log file
             wxFileName logFile(m_projList.Item(i).path);
             logFile.MakeAbsolute();
@@ -558,9 +556,16 @@ void Batch::OnProcessTerminate(wxProcessEvent& event)
                 //now save log file
                 if(((RunStitchFrame*)(event.GetEventObject()))->SaveLog(logFile.GetFullPath()))
                 {
-                    failedProject.logfile=logFile.GetFullPath();
+                    savedLogfile=logFile.GetFullPath();
                 }
             };
+        };
+        if (event.GetExitCode() != 0 || event.GetTimestamp()==-1) //timestamp is used as a fake exit code because it cannot be set manually
+        {
+            m_projList.Item(i).status=Project::FAILED;
+            struct FailedProject failedProject;
+            failedProject.project=m_projList.Item(i).path;
+            failedProject.logfile=savedLogfile;
             //remember failed project
             m_failedProjects.push_back(failedProject);
         }

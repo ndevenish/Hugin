@@ -91,6 +91,9 @@ public:
     void OnCheckAutoRemove(wxCommandEvent& event);
     /** event handler called when auto stitch checkbox was changed */
     void OnCheckAutoStitch(wxCommandEvent& event);
+    /** event handler called when always save log checkbox was changed */
+    void OnCheckSaveLog(wxCommandEvent& event);
+
 
     //Called on window close to take care of the child thread
     void OnClose(wxCloseEvent& event);
@@ -108,35 +111,19 @@ public:
     void SwapProject(int index);
     //PanoramaOptions readOptions(wxString projectFile);
     /** return if parallel checkbox is checked */
-    bool GetCheckParallel()
-    {
-        return XRCCTRL(*this,"cb_parallel",wxCheckBox)->IsChecked();
-    };
+    bool GetCheckParallel();
     /** return if shutdown checkbox is checked */
-    bool GetCheckShutdown()
-    {
-        return XRCCTRL(*this,"cb_shutdown",wxCheckBox)->IsChecked();
-    };
+    bool GetCheckShutdown();
     /** return if overwrite checkbox is checked */
-    bool GetCheckOverwrite()
-    {
-        return XRCCTRL(*this,"cb_overwrite",wxCheckBox)->IsChecked();
-    };
+    bool GetCheckOverwrite();
     /** return if verbose checkbox is checked */
-    bool GetCheckVerbose()
-    {
-        return XRCCTRL(*this,"cb_verbose",wxCheckBox)->IsChecked();
-    };
+    bool GetCheckVerbose();
     /** return if auto remove checkbox is checked */
-    bool GetCheckAutoRemove()
-    {
-        return XRCCTRL(*this,"cb_autoremove",wxCheckBox)->IsChecked();
-    };
+    bool GetCheckAutoRemove();
     /** return if auto stitch checkbox is checked */
-    bool GetCheckAutoStitch()
-    {
-        return XRCCTRL(*this,"cb_autostitch",wxCheckBox)->IsChecked();
-    };
+    bool GetCheckAutoStitch();
+    /** return if always save log is checked */
+    bool GetCheckSaveLog();
     void RestoreSize();
     void AddToList(wxString aFile, Project::Target target=Project::STITCHING);
     void AddDirToList(wxString aDir);

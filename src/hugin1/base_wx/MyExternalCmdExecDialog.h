@@ -77,6 +77,8 @@ public:
     /** save the content of the window into a given log file 
         @return true if log was saved successful */
     bool SaveLog(const wxString &filename);
+    /** copy the content of the log window into the clipboard */
+    void CopyLogToClipboard();
     
     virtual ~MyExecPanel();
 

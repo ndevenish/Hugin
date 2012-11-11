@@ -109,6 +109,7 @@ BEGIN_EVENT_TABLE(BatchFrame, wxFrame)
     EVT_CHECKBOX(XRCID("cb_verbose"), BatchFrame::OnCheckVerbose)
     EVT_CHECKBOX(XRCID("cb_autoremove"), BatchFrame::OnCheckAutoRemove)
     EVT_CHECKBOX(XRCID("cb_autostitch"), BatchFrame::OnCheckAutoStitch)
+    EVT_CHECKBOX(XRCID("cb_savelog"), BatchFrame::OnCheckSaveLog)
     EVT_END_PROCESS(-1, BatchFrame::OnProcessTerminate)
     EVT_CLOSE(BatchFrame::OnClose)
     EVT_MENU(wxEVT_COMMAND_RELOAD_BATCH, BatchFrame::OnReloadBatch)
@@ -913,6 +914,43 @@ void BatchFrame::SetCheckboxes()
     XRCCTRL(*this,"cb_autoremove",wxCheckBox)->SetValue(i!=0);
     i=config->Read(wxT("/BatchFrame/AutoStitchCheck"), 0l);
     XRCCTRL(*this,"cb_autostitch",wxCheckBox)->SetValue(i!=0);
+    i=config->Read(wxT("/BatchFrame/SaveLog"), 0l);
+    XRCCTRL(*this, "cb_savelog",wxCheckBox)->SetValue(i!=0);
+};
+
+bool BatchFrame::GetCheckParallel()
+{
+    return XRCCTRL(*this,"cb_parallel",wxCheckBox)->IsChecked();
+};
+
+bool BatchFrame::GetCheckShutdown()
+{
+    return XRCCTRL(*this,"cb_shutdown",wxCheckBox)->IsChecked();
+};
+
+bool BatchFrame::GetCheckOverwrite()
+{
+    return XRCCTRL(*this,"cb_overwrite",wxCheckBox)->IsChecked();
+};
+
+bool BatchFrame::GetCheckVerbose()
+{
+    return XRCCTRL(*this,"cb_verbose",wxCheckBox)->IsChecked();
+};
+
+bool BatchFrame::GetCheckAutoRemove()
+{
+    return XRCCTRL(*this,"cb_autoremove",wxCheckBox)->IsChecked();
+};
+
+bool BatchFrame::GetCheckAutoStitch()
+{
+    return XRCCTRL(*this,"cb_autostitch",wxCheckBox)->IsChecked();
+};
+
+bool BatchFrame::GetCheckSaveLog()
+{
+    return XRCCTRL(*this,"cb_savelog",wxCheckBox)->IsChecked();
 };
 
 void BatchFrame::OnCheckOverwrite(wxCommandEvent& event)
@@ -992,7 +1030,6 @@ void BatchFrame::OnCheckAutoRemove(wxCommandEvent& event)
     config->Flush();
 };
 
-
 void BatchFrame::OnCheckAutoStitch(wxCommandEvent& event)
 {
     m_batch->autostitch=event.IsChecked();
@@ -1004,6 +1041,21 @@ void BatchFrame::OnCheckAutoStitch(wxCommandEvent& event)
     else
     {
         config->Write(wxT("/BatchFrame/AutoStitchCheck"), 0l);
+    }
+    config->Flush();
+};
+
+void BatchFrame::OnCheckSaveLog(wxCommandEvent& event)
+{
+    m_batch->saveLog=event.IsChecked();
+    wxConfigBase* config=wxConfigBase::Get();
+    if(m_batch->saveLog)
+    {
+        config->Write(wxT("/BatchFrame/SaveLog"), 1l);
+    }
+    else
+    {
+        config->Write(wxT("/BatchFrame/SaveLog"), 0l);
     }
     config->Flush();
 };
