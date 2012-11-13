@@ -77,6 +77,7 @@ Thomas Pryds	Danish translation
 Alexandre Prokoudine	Initial Russian translation, GSoC 2008 admin
 Jozef Riha	original Slovak translation
 Marijn Ros	bug reports and patches
+Maider Likona Santamarina	Basque translation
 Joachim Schneider	German translation
 Tom Sharpless	Windows build, GSoC 2009 mentor, code
 Jiri Slaby	original Czech translation
