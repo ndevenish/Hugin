@@ -120,6 +120,9 @@ PreferencesDialog::PreferencesDialog(wxWindow *parent)
     *lp = wxLANGUAGE_DEFAULT;
     lang_choice->Append(_("System default"), lp);
     lp = new long;
+    *lp = wxLANGUAGE_BASQUE;
+    lang_choice->Append(_("Basque"), lp);
+    lp = new long;
     *lp = wxLANGUAGE_BULGARIAN;
     lang_choice->Append(_("Bulgarian"), lp);
     lp = new long;
