@@ -99,6 +99,13 @@ vigra::UInt16RGBImage loadAndConvertImage(string imagefile)
     vigra::ImageImportInfo info(imagefile.c_str());
     std::string pixelType=info.getPixelType();
     vigra::UInt16RGBImage image;
+    if(!info.isColor())
+    {
+        std::cerr << "Celeste works only on colour images, " << std::endl 
+            << "but image " << imagefile << " has  " << info.numBands() << " channels." << std::endl 
+            << "Skipping this image." << std::endl;
+        return image;
+    };
     if(pixelType=="UINT8" || pixelType=="INT16")
     {
         vigra::UInt16RGBImage imageIn(info.width(),info.height());
