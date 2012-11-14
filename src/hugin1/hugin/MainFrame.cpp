@@ -513,32 +513,6 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     SetSizeHints(780, 455); //set minumum size
 #endif
 
-#if 0
-    bool maximized = config->Read(wxT("/MainFrame/maximized"), 0l) != 0;
-    if (maximized) {
-        this->Maximize();
-        // explicitly layout after maximize
-        this->Layout();
-    } else {
-        //size
-        int w = config->Read(wxT("/MainFrame/width"),-1l);
-        int h = config->Read(wxT("/MainFrame/height"),-1l);
-        if (w >0) {
-            SetClientSize(w,h);
-        } else {
-            Fit();
-        }
-        //position
-        int x = config->Read(wxT("/MainFrame/positionX"),-1l);
-        int y = config->Read(wxT("/MainFrame/positionY"),-1l);
-        if ( y > 0) {
-            Move(x, y);
-        } else {
-            Move(0, 44);
-        }
-    }
-#endif
-
     // set progress display for image cache.
     ImageCache::getInstance().setProgressDisplay(this);
 #if defined __WXMSW__

@@ -228,41 +228,6 @@ bool huginApp::OnInit()
     // set the name of locale recource to look for
     locale.AddCatalog(wxT("hugin"));
 
-    /**
- *  Here we check the version of the preferences stored on the computer against the version of the Hugin binary.
- *  Please notify the user here of important changes.
- *  You can also implement changes such as new preferences, but please notify the user / give him the possibility
- *  to abort before making changes.  Prevent surprises.
- */
-    // read version number of last Hugin binary to use these preferences
-    wxString last_version = config->Read(wxT("/version"),wxT(""));
-
-    // upgrade
-    if (checkVersion(last_version,wxT(HUGIN_API_VERSION)))
-    {
-        wxMessageBox(wxString::Format(_("I am Hugin version %s. I have found preferences from an older version %s. I might not be compatible with the older preferences. If you experience malfunction, please select \"Preferences\" from the menu and in each tab hit the 'Load Defaults' button"),wxString(HUGIN_API_VERSION,wxConvLocal).c_str(),last_version.c_str()), 
-#ifdef _WINDOWS
-            _("Hugin"),
-#else
-            wxT(""),
-#endif
-            wxOK | wxICON_INFORMATION);
-        config->Write(wxT("/version"), wxT(HUGIN_API_VERSION));
-        config->Flush();
-    };
-
-    // downgrade
-    if (checkVersion(wxT(HUGIN_API_VERSION),last_version))
-    {
-        wxMessageBox(wxString::Format(_("I am Hugin version %s. I have found preferences from a newer version %s. I might not be compatible with the newer preferences. If you experience malfunction, please select \"Preferences\" from the menu and in each tab hit the 'Load Defaults' button"),wxString(HUGIN_API_VERSION,wxConvLocal).c_str(),last_version.c_str()),
-#ifdef _WINDOWS
-            _("Hugin"),
-#else
-            wxT(""),
-#endif
-            wxOK | wxICON_INFORMATION);
-    };
-
     // initialize image handlers
     wxInitAllImageHandlers();
 
