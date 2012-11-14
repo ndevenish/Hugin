@@ -99,20 +99,23 @@
             <flag>wxEXPAND</flag>
           </object>
           <object class="sizeritem">
-            <object class="wxButton" name="wxID_OK">
-              <label>Yes</label>
-              <default>1</default>
+            <object class="wxStdDialogButtonSizer">
+              <orient>wxVERTICAL</orient>
+              <object class="button">
+                <object class="wxButton" name="wxID_OK">
+                  <label>Yes</label>
+                  <default>1</default>
+                </object>
+              </object>
+              <object class="button">
+                <object class="wxButton" name="wxID_CANCEL">
+                  <label>No</label>
+                </object>
+              </object>
             </object>
-            <flag>wxALL</flag>
-            <border>3</border>
           </object>
-          <object class="sizeritem">
-            <object class="wxButton" name="wxID_CANCEL">
-              <label>No</label>
-            </object>
-            <flag>wxALL</flag>
-            <border>3</border>
-          </object>
+          
+          
           <orient>wxHORIZONTAL</orient>
         </object>
         <flag>wxALL|wxEXPAND</flag>
