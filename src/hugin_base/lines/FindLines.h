@@ -44,6 +44,7 @@ namespace HuginLines
      *  @return image with the marked edges
      */
     LINESIMPEX vigra::BImage* detectEdges(vigra::UInt8RGBImage input,double scale,double threshold,unsigned int resize_dimension, double &size_factor);
+    LINESIMPEX vigra::BImage* detectEdges(vigra::BImage input,double scale,double threshold,unsigned int resize_dimension, double &size_factor);
     /** @brief find straightish non-crossing lines 
      *  find straightish non-crossing lines in an edge map
      *  using 8-neighborhood operations. (Points on the edges
@@ -76,5 +77,6 @@ namespace HuginLines
      *  @return HuginBase::CPVector with all vertical control points
      */
     LINESIMPEX HuginBase::CPVector GetVerticalLines(const HuginBase::Panorama& pano,const unsigned int imgNr,vigra::UInt8RGBImage& image,const unsigned int nrLines);
+    LINESIMPEX HuginBase::CPVector GetVerticalLines(const HuginBase::Panorama& pano,const unsigned int imgNr,vigra::BImage& image,const unsigned int nrLines);
 };
 #endif

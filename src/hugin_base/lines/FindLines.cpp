@@ -39,7 +39,8 @@ using namespace std;
 
 namespace HuginLines
 {
-double resize_image(UInt8RGBImage& in, UInt8RGBImage& out, int resize_dimension)
+template <class ImageType>
+double resize_image(ImageType& in, ImageType& out, int resize_dimension)
 {
     // Re-size to max dimension
     double sizefactor=1.0;
@@ -89,6 +90,19 @@ vigra::BImage* detectEdges(UInt8RGBImage input,double scale,double threshold,uns
     // Run Canny edge detector
     BImage* image=new BImage(grey.width(), grey.height(), 255);
     cannyEdgeImage(srcImageRange(grey), destImage(*image), scale, threshold, 0);
+    return image;
+};
+
+vigra::BImage* detectEdges(BImage input,double scale,double threshold,unsigned int resize_dimension, double& size_factor)
+{
+    // Resize image
+    UInt8Image scaled;
+    size_factor=resize_image(input, scaled, resize_dimension);
+    input.resize(0,0);
+
+    // Run Canny edge detector
+    BImage* image=new BImage(scaled.width(), scaled.height(), 255);
+    cannyEdgeImage(srcImageRange(scaled), destImage(*image), scale, threshold, 0);
     return image;
 };
 
@@ -238,7 +252,8 @@ bool SortByError(const HuginBase::ControlPoint& cp1, const HuginBase::ControlPoi
     return cp1.error<cp2.error;
 };
 
-HuginBase::CPVector GetVerticalLines(const HuginBase::Panorama& pano,const unsigned int imgNr,vigra::UInt8RGBImage& image, const unsigned int nrLines)
+template <class ImageType>
+HuginBase::CPVector _getVerticalLines(const HuginBase::Panorama& pano,const unsigned int imgNr,ImageType& image, const unsigned int nrLines)
 {
     HuginBase::CPVector verticalLines;
     HuginBase::CPVector detectedLines;
@@ -285,11 +300,11 @@ HuginBase::CPVector GetVerticalLines(const HuginBase::Panorama& pano,const unsig
         tempPano.setOptions(opts);
 
         //finally remap image
-        HuginBase::Nona::RemappedPanoImage<vigra::UInt8RGBImage,vigra::BImage>* remapped=new HuginBase::Nona::RemappedPanoImage<vigra::UInt8RGBImage,vigra::BImage>;
+        HuginBase::Nona::RemappedPanoImage<ImageType,vigra::BImage>* remapped=new HuginBase::Nona::RemappedPanoImage<ImageType,vigra::BImage>;
         AppBase::MultiProgressDisplay* progress=new AppBase::DummyMultiProgressDisplay();
         remapped->setPanoImage(remappedImage,opts,opts.getROI());
         remapped->remapImage(vigra::srcImageRange(image),vigra_ext::INTERP_CUBIC,*progress);
-        vigra::UInt8RGBImage remappedBitmap=remapped->m_image;
+        ImageType remappedBitmap=remapped->m_image;
         //detect edges
         edge=detectEdges(remappedBitmap,2,4,std::max(remappedBitmap.width(),remappedBitmap.height())+10,size_factor);
         delete remapped;
@@ -441,6 +456,16 @@ HuginBase::CPVector GetVerticalLines(const HuginBase::Panorama& pano,const unsig
         };
     };
     return verticalLines;
+};
+
+HuginBase::CPVector GetVerticalLines(const HuginBase::Panorama& pano,const unsigned int imgNr,vigra::UInt8RGBImage& image, const unsigned int nrLines)
+{
+    return _getVerticalLines(pano, imgNr, image, nrLines);
+};
+
+HuginBase::CPVector GetVerticalLines(const HuginBase::Panorama& pano,const unsigned int imgNr,vigra::BImage& image, const unsigned int nrLines)
+{
+    return _getVerticalLines(pano, imgNr, image, nrLines);
 };
 
 }; //namespace

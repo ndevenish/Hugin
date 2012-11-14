@@ -77,12 +77,13 @@ static int ptinfoDlg( int command, char* argument )
     return 1;
 }
 
-/** converts the given image to UInt16RGBImage
- *  only this image is correctly processed by celeste
+/** converts the given image to UInt8RGBImage
+ *  only this image is correctly processed by linefind
  *  @param src input image
  *  @param origType pixel type of input image
  *  @param dest converted image
  */
+// 2 versions: one for color images, the other for gray images
 template <class SrcIMG>
 void convertToUInt8(SrcIMG & src, const std::string & origType, vigra::UInt8RGBImage & dest)
 {
@@ -109,11 +110,76 @@ void convertToUInt8(SrcIMG & src, const std::string & origType, vigra::UInt8RGBI
     };
 }
 
-vigra::UInt8RGBImage loadAndConvertImage(string imagefile)
+template <class SrcIMG>
+void convertGrayToUInt8(SrcIMG & src, const std::string & origType, vigra::BImage & dest)
 {
-    vigra::ImageImportInfo info(imagefile.c_str());
-    std::string pixelType=info.getPixelType();
+    dest.resize(src.size());
+    long newMax=vigra_ext::getMaxValForPixelType("UINT8");
+    // float needs to be from min ... max.
+    if (origType == "FLOAT" || origType == "DOUBLE")
+    {
+        /** @TODO this convert routine scale the input values range into the full scale of UInt16
+         *  this is not fully correct
+         */
+        vigra::FindMinMax<float> minmax;   // init functor
+        vigra::inspectImage(srcImageRange(src), minmax);
+        double minVal = minmax.min;
+        double maxVal = minmax.max;
+        vigra_ext::applyMapping(srcImageRange(src), destImage(dest), minVal, maxVal, 0);
+    }
+    else
+    {
+        vigra::transformImage(srcImageRange(src), destImage(dest),
+            vigra::functor::Arg1()*vigra::functor::Param( newMax/ vigra_ext::getMaxValForPixelType(origType)));
+    };
+}
+
+template <class SrcIMG>
+vigra::BImage LoadGrayImageAndConvert(vigra::ImageImportInfo & info)
+{
+    vigra::BImage image;
+    SrcIMG imageIn(info.width(),info.height());
+    if(info.numExtraBands()==1)
+    {
+        vigra::BImage mask(info.size());
+        vigra::importImageAlpha(info,destImage(imageIn),destImage(mask));
+        mask.resize(0,0);
+    }
+    else
+    {
+        importImage(info,destImage(imageIn));
+    };
+    convertGrayToUInt8(imageIn,info.getPixelType(),image);
+    imageIn.resize(0,0);
+    return image;
+};
+
+template <class SrcIMG>
+vigra::UInt8RGBImage LoadImageAndConvert(vigra::ImageImportInfo & info)
+{
     vigra::UInt8RGBImage image;
+    SrcIMG imageIn(info.width(),info.height());
+    if(info.numExtraBands()==1)
+    {
+        vigra::BImage mask(info.size());
+        vigra::importImageAlpha(info,destImage(imageIn),destImage(mask));
+        mask.resize(0,0);
+    }
+    else
+    {
+        importImage(info,destImage(imageIn));
+    };
+    convertToUInt8(imageIn,info.getPixelType(),image);
+    imageIn.resize(0,0);
+    return image;
+};
+
+// loads the gray images and finds vertical lines, returns a CPVector with found vertical lines
+HuginBase::CPVector LoadGrayImageAndFindLines(vigra::ImageImportInfo info, Panorama & pano, size_t imgNr, int nrLines)
+{
+    vigra::BImage image;
+    HuginBase::CPVector lineCp;
+    std::string pixelType=info.getPixelType();
     if(pixelType=="UINT8")
     {
         image.resize(info.width(),info.height());
@@ -132,55 +198,19 @@ vigra::UInt8RGBImage loadAndConvertImage(string imagefile)
     {
         if(pixelType=="UINT16" || pixelType=="INT16")
         {
-            vigra::UInt16RGBImage imageIn(info.width(),info.height());
-            if(info.numExtraBands()==1)
-            {
-                vigra::BImage mask(info.size());
-                vigra::importImageAlpha(info,destImage(imageIn),destImage(mask));
-                mask.resize(0,0);
-            }
-            else
-            {
-                importImage(info,destImage(imageIn));
-            };
-            convertToUInt8(imageIn,pixelType,image);
-            imageIn.resize(0,0);
+            image=LoadGrayImageAndConvert<vigra::UInt16Image>(info);
         }
         else
         {
             if(pixelType=="INT32" || pixelType=="UINT32")
             {
-                vigra::UInt32RGBImage imageIn(info.width(),info.height());
-                if(info.numExtraBands()==1)
-                {
-                    vigra::BImage mask(info.size());
-                    vigra::importImageAlpha(info,destImage(imageIn),destImage(mask));
-                    mask.resize(0,0);
-                }
-                else
-                {
-                    importImage(info,destImage(imageIn));
-                };
-                convertToUInt8(imageIn,pixelType,image);
-                imageIn.resize(0,0);
+                image=LoadGrayImageAndConvert<vigra::UInt32Image>(info);
             }
             else
             {
                 if(pixelType=="FLOAT" || pixelType=="DOUBLE")
                 {
-                    vigra::FRGBImage imagefloat(info.width(),info.height());
-                    if(info.numExtraBands()==1)
-                    {
-                        vigra::BImage mask(info.size());
-                        vigra::importImageAlpha(info,destImage(imagefloat),destImage(mask));
-                        mask.resize(0,0);
-                    }
-                    else
-                    {
-                        importImage(info,destImage(imagefloat));
-                    };
-                    convertToUInt8(imagefloat,pixelType,image);
-                    imagefloat.resize(0,0);
+                    image=LoadGrayImageAndConvert<vigra::FImage>(info);
                 }
                 else
                 {
@@ -189,7 +219,63 @@ vigra::UInt8RGBImage loadAndConvertImage(string imagefile)
             };
         };
     };
-    return image;
+    if(image.width()>0 && image.height()>0)
+    {
+        lineCp=HuginLines::GetVerticalLines(pano, imgNr, image, nrLines);
+    };
+    return lineCp;
+};
+
+// loads the color images and finds vertical lines, returns a CPVector with found vertical lines
+HuginBase::CPVector LoadImageAndFindLines(vigra::ImageImportInfo info, Panorama & pano, size_t imgNr, int nrLines)
+{
+    vigra::UInt8RGBImage image;
+    HuginBase::CPVector lineCp;
+    std::string pixelType=info.getPixelType();
+    if(pixelType=="UINT8")
+    {
+        image.resize(info.width(),info.height());
+        if(info.numExtraBands()==1)
+        {
+            vigra::BImage mask(info.size());
+            vigra::importImageAlpha(info,destImage(image),destImage(mask));
+            mask.resize(0,0);
+        }
+        else
+        {
+            importImage(info,destImage(image));
+        };
+    }
+    else
+    {
+        if(pixelType=="UINT16" || pixelType=="INT16")
+        {
+            image=LoadImageAndConvert<vigra::UInt16RGBImage>(info);
+        }
+        else
+        {
+            if(pixelType=="INT32" || pixelType=="UINT32")
+            {
+                image=LoadImageAndConvert<vigra::UInt32RGBImage>(info);
+            }
+            else
+            {
+                if(pixelType=="FLOAT" || pixelType=="DOUBLE")
+                {
+                    image=LoadImageAndConvert<vigra::FRGBImage>(info);
+                }
+                else
+                {
+                    std::cerr << "Unsupported pixel type" << std::endl;
+                };
+            };
+        };
+    };
+    if(image.width()>0 && image.height()>0)
+    {
+        lineCp=HuginLines::GetVerticalLines(pano, imgNr, image, nrLines);
+    };
+    return lineCp;
 };
 
 int main(int argc, char* argv[])
@@ -314,6 +400,12 @@ int main(int argc, char* argv[])
     PT_setInfoDlgFcn(ptinfoDlg);
 
     cout << argv[0] << " is searching for vertical lines" << endl;
+#if _WINDOWS
+    //multi threading of image loading results sometime in a race condition
+    //try to prevent this by initialisation of codecManager before
+    //running multi threading part
+    std::string s=vigra::impexListExtensions();
+#endif
 #ifdef HAS_PPL
     size_t nrCPS=pano.getNrOfCtrlPoints();
     Concurrency::parallel_for<size_t>(0,imagesToProcess.size(),[&pano,imagesToProcess,nrLines](size_t i)
@@ -323,8 +415,28 @@ int main(int argc, char* argv[])
     {
         unsigned int imgNr=imagesToProcess[i];
         cout << "Working on image " << pano.getImage(imgNr).getFilename() << endl;
-        vigra::UInt8RGBImage image=loadAndConvertImage(pano.getImage(imgNr).getFilename().c_str());
-        CPVector foundLines=HuginLines::GetVerticalLines(pano,imgNr,image,nrLines);
+        // now load and process all images
+        vigra::ImageImportInfo info(pano.getImage(imgNr).getFilename().c_str());
+        HuginBase::CPVector foundLines;
+        if(info.isGrayscale())
+        {
+            foundLines=LoadGrayImageAndFindLines(info, pano, imgNr, nrLines);
+        }
+        else
+        {
+            if(info.isColor())
+            {
+                //colour images
+                foundLines=LoadImageAndFindLines(info, pano, imgNr, nrLines);
+            }
+            else
+            {
+                std::cerr << "Image " << pano.getImage(imgNr).getFilename().c_str() << " has " 
+                    << info.numBands() << " channels." << std::endl
+                    << "Linefind works only with grayscale or color images." << std::endl
+                    << "Skipping image." << std::endl;
+            };
+        };
 #ifndef HAS_PPL
         cout << "Found " << foundLines.size() << " vertical lines" << endl;
 #endif
