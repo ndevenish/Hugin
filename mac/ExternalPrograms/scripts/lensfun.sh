@@ -90,6 +90,11 @@ do
  make libs || fail "failed at make step of $ARCH";
  make install || fail "make install step of $ARCH";
 
+ # somehow lensfun.h is not copied to REPOSITYDIR/include
+ cp $REPOSITORYDIR/arch/$ARCH/include/lensfun.h $REPOSITORYDIR/include
+ # and neither is the share folder with the public database
+ mkdir -p $REPOSITORYDIR/share
+ cp -a $REPOSITORYDIR/arch/$ARCH/share/lensfun  $REPOSITORYDIR/share
 done
 
 # merge lensfun libs

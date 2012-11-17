@@ -8,20 +8,12 @@
 
 # prepare
 
-# export REPOSITORYDIR="/PATH2HUGIN/mac/ExternalPrograms/repository" \
-# ARCHS="ppc i386" \
-#  ppcTARGET="powerpc-apple-darwin8" \
-#  i386TARGET="i386-apple-darwin8" \
-#  ppcMACSDKDIR="/Developer/SDKs/MacOSX10.4u.sdk" \
-#  i386MACSDKDIR="/Developer/SDKs/MacOSX10.4u.sdk" \
-#  ppcONLYARG="-mcpu=G3 -mtune=G4" \
-#  i386ONLYARG="-mfpmath=sse -msse2 -mtune=pentium-m -ftree-vectorize" \
-#  OTHERARGs="";
-
 # -------------------------------
 # 20091206.0 sg Script tested and used to build 2009.4.0-RC3
 # 20100116.0 HvdW Correct script for libintl install_name in libgettext*.dylib
 # 20100624.0 hvdw More robust error checking on compilation
+# 20121110.0 hvdw update to 0.18.1
+# 20121114.0 hvdw fix some errors in symlinking
 # -------------------------------
 
 # init
@@ -50,11 +42,8 @@ GETTEXTVER_FULL="$GETTEXTVER_M.18.1"
 MAIN_LIB_VER="0"
 FULL_LIB_VER="$MAIN_LIB_VER.18.1"
 ASPRINTFVER_F="0"
-#ASPRINTFVER_M="0"
-#GETTEXTVERPO_M="0"
 GETTEXTVERPO_F="0"
 LIBINTLVER_F="8"
-#LIBINTLVER_M="8"
 
 # compile
 
@@ -165,19 +154,16 @@ fi
 
 if [ -f "$REPOSITORYDIR/lib/libgettextpo.$GETTEXTVERPO_F.dylib" ] ; then
  install_name_tool -id "$REPOSITORYDIR/lib/libgettextpo.$GETTEXTVERPO_F.dylib" "$REPOSITORYDIR/lib/libgettextpo.$GETTEXTVERPO_F.dylib"
- ln -sfn libgettextpo.$GETTEXTVERPO_F.dylib $REPOSITORYDIR/lib/libgettextpo.0.dylib;
  ln -sfn libgettextpo.$GETTEXTVERPO_F.dylib $REPOSITORYDIR/lib/libgettextpo.dylib;
 fi
 
 if [ -f "$REPOSITORYDIR/lib/libasprintf.$ASPRINTFVER_F.dylib" ] ; then
  install_name_tool -id "$REPOSITORYDIR/lib/libasprintf.$ASPRINTFVER_F.dylib" "$REPOSITORYDIR/lib/libasprintf.$ASPRINTFVER_F.dylib"
- ln -sfn libasprintf.$ASPRINTFVER_F.dylib $REPOSITORYDIR/lib/libasprintf.0.dylib;
  ln -sfn libasprintf.$ASPRINTFVER_F.dylib $REPOSITORYDIR/lib/libasprintf.dylib;
 fi
 
-if [ -f "$REPOSITORYDIR/lib/libintl.8.0.2.dylib" ] ; then
+if [ -f "$REPOSITORYDIR/lib/libintl.$LIBINTLVER_F.dylib" ] ; then
  install_name_tool -id "$REPOSITORYDIR/lib/libintl.$LIBINTLVER_F.dylib" "$REPOSITORYDIR/lib/libintl.$LIBINTLVER_F.dylib"
- ln -sfn libintl.$LIBINTLVER_F.dylib $REPOSITORYDIR/lib/libintl.8.dylib;
  ln -sfn libintl.$LIBINTLVER_F.dylib $REPOSITORYDIR/lib/libintl.dylib;
 fi
 

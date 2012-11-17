@@ -5,14 +5,14 @@
 
 # YOU NEED TO SPECIFY WHERE YOU HAVE ExifTool
 # This needs to be the absolute path
-EXIFTOOL_DIR="$REPOSITORYDIR/../Image-ExifTool-7.25"
+EXIFTOOL_DIR="$REPOSITORYDIR/../Image-ExifTool-9.04"
 
 # Specify where your WxWidgets (a.k.a WxMac a.k.a. wxWindows) locale directory is
 # Note: this is inside your wxWidgets source directory
-WX_LOCALE_DIR="$REPOSITORYDIR/../wxMac-2.8.8/locale"
+WX_LOCALE_DIR="$REPOSITORYDIR/../wxMac-2.9.4/locale"
 
 # Type your name into this variable
-HUGIN_BUILDER="spiderman"
+HUGIN_BUILDER="Harry van der Wolf"
 
 export EXIFTOOL_DIR;
 export WX_LOCALE_DIR;

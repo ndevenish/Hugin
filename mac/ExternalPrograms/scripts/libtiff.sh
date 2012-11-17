@@ -164,6 +164,16 @@ do
 
   if [ $NUMARCH -eq 1 ] ; then
 	  mv $REPOSITORYDIR/arch/$ARCHS/$conf_h $REPOSITORYDIR/$conf_h;
+	  # patch for tiff 4.03 on 64bits OS X
+#	  if [ $ARCH = "x86_64" ] ; then
+#	    echo "/* patch for tiff 4.03 on 64bits OS X */" >> "$REPOSITORYDIR/$conf_h";
+#        echo "#if defined(__x86_64__)"                  >> "$REPOSITORYDIR/$conf_h";
+#        echo " #ifndef _UINT64"                         >> "$REPOSITORYDIR/$conf_h";
+#        echo "  typedef unsigned long uint64;"          >> "$REPOSITORYDIR/$conf_h";
+#        echo " #define _UINT64"                         >> "$REPOSITORYDIR/$conf_h";
+#        echo " #endif"                                  >> "$REPOSITORYDIR/$conf_h";
+#        echo "#endif"                                   >> "$REPOSITORYDIR/$conf_h";
+#      fi  
     continue;
   fi
 
@@ -176,7 +186,7 @@ do
       echo ""                                   >> "$REPOSITORYDIR/$conf_h";
       echo "#endif"                             >> "$REPOSITORYDIR/$conf_h";
     elif [ $ARCH = "x86_64" ] ; then
-      echo "#if defined(__x86_64__)"             >> "$REPOSITORYDIR/$conf_h";
+      echo "#if defined(__x86_64__)"            >> "$REPOSITORYDIR/$conf_h";
       echo ""                                   >> "$REPOSITORYDIR/$conf_h";
       cat  "$REPOSITORYDIR/arch/$ARCH/$conf_h"  >> "$REPOSITORYDIR/$conf_h";
       echo ""                                   >> "$REPOSITORYDIR/$conf_h";

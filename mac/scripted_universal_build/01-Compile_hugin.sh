@@ -5,6 +5,15 @@
 # script skeleton by Ippei Ukai
 # cmake part Harry van der Wolf
 
+# 20121010 hvdw Start versioning this script
+# 20121113.0 hvdw Update to hugin 2012 and compile for x86_64
+# 20121112.1 hvdw As Cmakes FindBoost always prefers mutlithreaded libs (*mt*) before all other
+# boost libs we really need to set DBoost_USE_MULTITHREADED=0 otherwise we can never
+# use another file path
+
+
+
+
 # NOTE: This script needs to be run from the hugin top level source directory
 # not the scrpts folder and neiter the src folder
 
@@ -12,17 +21,6 @@
 # SCRIPT_DIR shuld be the full path to where the scripts are located
 #SCRIPT_DIR="/Users/Shared/development/hugin_related/hugin/mac/scripted_universal_build"
 #source $SCRIPT_DIR/SetEnv.txt;
-
-# export ="/PATH2HUGIN/mac/ExternalPrograms/repository" \
-# ARCHS="ppc i386" \
-#  ppcTARGET="powerpc-apple-darwin8" \
-#  i386TARGET="i386-apple-darwin8" \
-#  ppcMACSDKDIR="/Developer/SDKs/MacOSX10.4u.sdk" \
-#  i386MACSDKDIR="/Developer/SDKs/MacOSX10.4u.sdk" \
-#  ppcONLYARG="-mcpu=G3 -mtune=G4" \
-#  i386ONLYARG="-mfpmath=sse -msse2 -mtune=pentium-m -ftree-vectorize" \
-#  ppc64ONLYARG="-mcpu=G5 -mtune=G5 -ftree-vectorize" \
-#  OTHERARGs="";
 
 
 
@@ -54,26 +52,22 @@ do
  ARCHARGs=""
  MACSDKDIR=""
 
- if [ $ARCH = "i386" -o $ARCH = "i686" ]
- then
-  TARGET=$i386TARGET
-  MACSDKDIR=$i386MACSDKDIR
-  ARCHARGs="$i386ONLYARG"
- elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ]
- then
-  TARGET=$ppcTARGET
-  MACSDKDIR=$ppcMACSDKDIR
-  ARCHARGs="$ppcONLYARG"
- elif [ $ARCH = "ppc64" -o $ARCH = "ppc970" ]
- then
-  TARGET=$ppc64TARGET
-  MACSDKDIR=$ppc64MACSDKDIR
-  ARCHARGs="$ppc64ONLYARG"
- elif [ $ARCH = "x86_64" ]
- then
-  TARGET=$x64TARGET
-  MACSDKDIR=$x64MACSDKDIR
-  ARCHARGs="$x64ONLYARG"
+ if [ $ARCH = "i386" -o $ARCH = "i686" ] ; then
+   TARGET=$i386TARGET
+   MACSDKDIR=$i386MACSDKDIR
+   ARCHARGs="$i386ONLYARG"
+   OSVERSION="$i386OSVERSION"
+   CC=$i386CC
+   CXX=$i386CXX
+   ARCHFLAG="-m32"
+ else [ $ARCH = "x86_64" ] ;
+   TARGET=$x64TARGET
+   MACSDKDIR=$x64MACSDKDIR
+   ARCHARGs="$x64ONLYARG"
+   OSVERSION="$x64OSVERSION"
+   CC=$x64CC
+   CXX=$x64CXX
+   ARCHFLAG="-m64"
  fi
 
  mkdir -p $ARCH;
@@ -96,6 +90,7 @@ do
 
 cmake  \
   -DCMAKE_BUILD_TYPE="Release" \
+  -DCMAKE_PREFIX_PATH="$REPOSITORYDIR" \
   -DCMAKE_INSTALL_PREFIX="$REPOSITORYDIR/arch/$ARCH" \
   -DCMAKE_OSX_SYSROOT="$MACSDKDIR"\
   -DCMAKE_C_FLAGS="-isysroot $MACSDKDIR -arch $ARCH -O2 -dead_strip -I/usr/include -I$REPOSITORYDIR/include" \
@@ -103,6 +98,10 @@ cmake  \
   -DCMAKE_LDFLAGS="-L/usr/lib -L$REPOSITORYDIR/lib -dead_strip -prebind -liconv -mmacosx-version-min=$OSVERSION" \
   -DEXIV2_INCLUDE_DIR=$REPOSITORYDIR/include \
   -DEXIV2_LIBRARIES=$REPOSITORYDIR/lib/libexiv2.dylib \
+  -DBoost_USE_MULTITHREADED=0 \
+  -DBoost_INCLUDE_DIR=$REPOSITORYDIR/include \
+  -DBoost_LIBRARY_DIRS:FILEPATH=$REPOSITORYDIR/lib \
+  -DwxWidgets_INCLUDE_DIRS=$REPOSITORYDIR/include \
   -DOPENEXR_INCLUDE_DIR=$REPOSITORYDIR/include/OpenEXR \
   -DBUILD_HSI=0 \
   ..;
@@ -116,6 +115,13 @@ cmake  \
   #  copy preconfigured hugin_config_mac.h to hugin_config.h but save cmake created one
   cp "src/hugin_config.h" "src/hugin_config.h.cmake"
   cp "../src/hugin_config_mac.h" "src/hugin_config.h"
+
+  # cmake's boost find ALWAYS looks for /opt/local instead of listening to the environment settings
+  # so we have to update the CMakeCache.txt
+#  mv CMakeCache.txt CMakeCache.txt.org
+#  sed -e 's+/opt/local/lib+\$REPOSITORYDIR/lib+g' CMakeCache.txt.org > CMakeCache.txt 
+#  sed -i 's+/opt/local/lib+\$REPOSITORYDIR/lib+g' CMakeCache.txt
+
 
   make;
   make install;
