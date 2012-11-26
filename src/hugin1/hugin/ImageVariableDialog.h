@@ -38,6 +38,8 @@ public:
     ImageVariableDialog(wxWindow *parent, PT::Panorama* pano, HuginBase::UIntSet imgs);
     /** sets the GuiLevel */
     void SetGuiLevel(GuiLevel newLevel);
+    /** selects the tab with index i */
+    void SelectTab(size_t i);
 
 protected:
     /** Saves current state of all checkboxes when closing dialog with Ok */

@@ -68,6 +68,11 @@ ImageVariableDialog::ImageVariableDialog(wxWindow *parent, PT::Panorama* pano, H
     InitValues();
 };
 
+void ImageVariableDialog::SelectTab(size_t i)
+{
+    XRCCTRL(*this, "image_variable_notebook", wxNotebook)->SetSelection(i);
+};
+
 wxTextCtrl* GetImageVariableControl(const wxWindow* parent, const char* varname)
 {
     return wxStaticCast(

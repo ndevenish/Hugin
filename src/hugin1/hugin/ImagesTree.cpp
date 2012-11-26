@@ -1279,6 +1279,31 @@ void ImagesTreeCtrl::OnEditImageVariables(wxCommandEvent &e)
     {
         ImageVariableDialog dlg(this, m_pano, imgs);
         dlg.SetGuiLevel(m_guiLevel);
+        switch(m_displayMode)
+        {
+            case DISPLAY_LENS:
+                dlg.SelectTab(1);
+                break;
+            case DISPLAY_PHOTOMETRICS:
+            case DISPLAY_PHOTOMETRICS_IMAGES:
+            case DISPLAY_PHOTOMETRICS_LENSES:
+                if(m_selectedColumn==m_columnMap["response"] ||
+                    m_selectedColumn==m_columnMap["Ra"] ||
+                    m_selectedColumn==m_columnMap["Rb"] ||
+                    m_selectedColumn==m_columnMap["Rc"] ||
+                    m_selectedColumn==m_columnMap["Rd"] ||
+                    m_selectedColumn==m_columnMap["Re"] )
+                {
+                    dlg.SelectTab(3);
+                }
+                else
+                {
+                    dlg.SelectTab(2);
+                };
+                break;
+            default:
+                break;
+        };
         dlg.ShowModal();
     };
 };
@@ -1741,6 +1766,10 @@ void ImagesTreeCtrl::OnLeftDblClick(wxMouseEvent &e)
 {
     if(!m_optimizerMode)
     {
+        int flags;
+        int col;
+        wxTreeItemId item=HitTest(e.GetPosition(), flags, col);
+        m_selectedColumn=col;
         wxCommandEvent commandEvent(wxEVT_COMMAND_MENU_SELECTED, ID_EDIT);
         GetEventHandler()->AddPendingEvent(commandEvent);
     };
