@@ -567,7 +567,7 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     {
         guiLevel=GUI_ADVANCED;
     };
-    SetGuiLevel((GuiLevel)guiLevel, true);
+    SetGuiLevel((GuiLevel)guiLevel);
 
     DEBUG_TRACE("");
 #ifdef __WXGTK__
@@ -930,7 +930,7 @@ void MainFrame::LoadProjectFile(const wxString & filename)
         GuiLevel reqGuiLevel=GetMinimumGuiLevel(pano);
         if(reqGuiLevel>m_guiLevel)
         {
-            SetGuiLevel(reqGuiLevel, true);
+            SetGuiLevel(reqGuiLevel);
         };
         SetStatusText(_("Project opened"));
         m_mruFiles.AddFileToHistory(fname.GetFullPath());
@@ -2007,11 +2007,11 @@ GLPreviewFrame * MainFrame::getGLPreview()
     return gl_preview_frame;
 }
 
-void MainFrame::SetGuiLevel(GuiLevel newLevel, const bool updateMenu)
+void MainFrame::SetGuiLevel(GuiLevel newLevel)
 {
     if(gl_preview_frame==NULL && newLevel==GUI_SIMPLE)
     {
-        SetGuiLevel(GUI_ADVANCED, updateMenu);
+        SetGuiLevel(GUI_ADVANCED);
         return;
     };
     if(m_guiLevel==GUI_EXPERT && newLevel!=GUI_EXPERT && pano.getOptimizerSwitch()==0)
@@ -2060,20 +2060,17 @@ void MainFrame::SetGuiLevel(GuiLevel newLevel, const bool updateMenu)
     {
         gl_preview_frame->SetGuiLevel(m_guiLevel);
     };
-    if(updateMenu)
+    switch(m_guiLevel)
     {
-        switch(m_guiLevel)
-        {
-            case GUI_SIMPLE:
-                GetMenuBar()->FindItem(XRCID("action_gui_simple"))->Check();
-                break;
-            case GUI_ADVANCED:
-                GetMenuBar()->FindItem(XRCID("action_gui_advanced"))->Check();
-                break;
-            case GUI_EXPERT:
-                GetMenuBar()->FindItem(XRCID("action_gui_expert"))->Check();
-                break;
-        };
+        case GUI_SIMPLE:
+            GetMenuBar()->FindItem(XRCID("action_gui_simple"))->Check();
+            break;
+        case GUI_ADVANCED:
+            GetMenuBar()->FindItem(XRCID("action_gui_advanced"))->Check();
+            break;
+        case GUI_EXPERT:
+            GetMenuBar()->FindItem(XRCID("action_gui_expert"))->Check();
+            break;
     };
     if(m_guiLevel==GUI_SIMPLE)
     {
@@ -2147,7 +2144,7 @@ void MainFrame::OnSetGuiSimple(wxCommandEvent & e)
 #endif
                          wxOK | wxICON_INFORMATION);
         }
-        SetGuiLevel(m_guiLevel, true);
+        SetGuiLevel(m_guiLevel);
     };
 };
 
@@ -2167,7 +2164,7 @@ void MainFrame::OnSetGuiAdvanced(wxCommandEvent & e)
                      wxT(""),
 #endif
                      wxOK | wxICON_INFORMATION);
-        SetGuiLevel(GUI_EXPERT, true);
+        SetGuiLevel(GUI_EXPERT);
     };
 };
 

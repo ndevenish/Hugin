@@ -167,7 +167,7 @@ public:
 #ifdef __WXMSW__
     wxCHMHelpController& GetHelpController() { return m_msHtmlHelp; }
 #endif
-    void SetGuiLevel(GuiLevel newLevel, const bool updateMenu=false);
+    void SetGuiLevel(GuiLevel newLevel);
     const GuiLevel GetGuiLevel() const { return m_guiLevel; };
 
     wxFileHistory* GetFileHistory() { return &m_mruFiles; };

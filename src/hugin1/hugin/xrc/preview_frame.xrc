@@ -1805,6 +1805,22 @@
       </object>
       <label>&amp;View</label>
     </object>
+    <object class="wxMenu" name="gui_level_menu">
+      <object class="wxMenuItem" name="action_gui_simple">
+        <label>Simple</label>
+        <radio>1</radio>
+        <checked>1</checked>
+      </object>
+      <object class="wxMenuItem" name="action_gui_advanced">
+        <label>Advanced</label>
+        <radio>1</radio>
+      </object>
+      <object class="wxMenuItem" name="action_gui_expert">
+        <label>Expert</label>
+        <radio>1</radio>
+      </object>
+      <label>Interface</label>
+    </object>
     <object class="wxMenu" name="help_menu">
       <object class="wxMenuItem" name="action_show_help">
         <label>&amp;Help</label>

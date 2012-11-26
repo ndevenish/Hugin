@@ -3053,6 +3053,19 @@ void GLPreviewFrame::SetGuiLevel(GuiLevel newLevel)
         SetTitle(_("Fast Panorama preview"));
     };
     m_guiLevel=newLevel;
+    // update menu items
+    switch(m_guiLevel)
+    {
+        case GUI_SIMPLE:
+            GetMenuBar()->FindItem(XRCID("action_gui_simple"))->Check();
+            break;
+        case GUI_ADVANCED:
+            GetMenuBar()->FindItem(XRCID("action_gui_advanced"))->Check();
+            break;
+        case GUI_EXPERT:
+            GetMenuBar()->FindItem(XRCID("action_gui_expert"))->Check();
+            break;
+    };
 };
 
 void GLPreviewFrame::OnShowMainFrame(wxCommandEvent &e)
