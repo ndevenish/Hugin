@@ -15,6 +15,19 @@
         <help>Redo the last action</help>
       </object>
       <object class="separator"/>
+      <object class="wxMenuItem" name="action_add_images">
+        <label>&amp;Add Image</label>
+        <help>Add another image to the current project</help>
+      </object>
+      <object class="wxMenuItem" name="action_assistant">
+        <label>Run a&amp;ssistant</label>
+      </object>
+      <object class="wxMenuItem" name="action_optimize">
+        <label>&amp;Optimize</label>
+        <accel>Ctrl-t</accel>
+        <help>Re-run the optimizer with current settings</help>
+      </object>
+      <object class="separator"/>
       <object class="wxMenuItem" name="action_finetune_all_cp">
         <label>Fine-&amp;tune all Points</label>
         <help>Runs fine-tune on all control points. Useful for projects created with other tools, like PTGui or PTAssembler</help>
@@ -22,16 +35,6 @@
       <object class="wxMenuItem" name="action_remove_cp_in_masks">
         <label>Remove control points in masks</label>
         <help>Removes all control points inside masked areas.</help>
-      </object>
-      <object class="separator"/>
-      <object class="wxMenuItem" name="action_optimize">
-        <label>&amp;Optimize</label>
-        <accel>Ctrl-t</accel>
-        <help>Re-run the optimizer with current settings</help>
-      </object>
-      <object class="wxMenuItem" name="action_add_images">
-        <label>&amp;Add Image</label>
-        <help>Add another image to the current project</help>
       </object>
       <object class="wxMenuItem" name="action_python_script">
         <label>Run &amp;Python script</label>

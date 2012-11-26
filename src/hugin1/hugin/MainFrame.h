@@ -119,6 +119,7 @@ public:
 
     // load a project
     void LoadProjectFile(const wxString & filename);
+    void RunAssistant(wxWindow* mainWin);
 
     /** disables all OpenGL related menu items and toobar buttons */
     void DisableOpenGLTools();
@@ -202,6 +203,7 @@ private:
     void OnLoadProject(wxCommandEvent & e);
     void OnNewProject(wxCommandEvent & e);
     void OnAddTimeImages(wxCommandEvent & e);
+    void OnRunAssistant(wxCommandEvent & e);
     void OnFineTuneAll(wxCommandEvent & e);
     void OnRemoveCPinMasks(wxCommandEvent & e);
     void OnMergeProject(wxCommandEvent & e);

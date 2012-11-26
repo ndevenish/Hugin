@@ -46,12 +46,10 @@
 
 #include "base_wx/platform.h"
 #include "base_wx/wxPlatform.h"
-#include "base_wx/huginConfig.h"
 #include "base_wx/LensTools.h"
 #include "PT/ImageGraph.h"
 
 #include "base_wx/MyProgressDialog.h"
-#include "base_wx/RunStitchPanel.h"
 #include "hugin/wxPanoCommand.h"
 
 #include "hugin/config_defaults.h"
@@ -116,33 +114,6 @@ enum{
     mode_drag,
     mode_crop
 };
-
-//------------------------------------------------------------------------------
-// utility function
-static wxString Components2Str(const CPComponents & comp)
-{
-    wxString ret;
-    for (unsigned i=0; i < comp.size(); i++) {
-        ret = ret + wxT("[");
-        CPComponents::value_type::const_iterator it;
-        size_t c=0;
-        for (it = comp[i].begin();
-            it != comp[i].end();
-            ++it) 
-        {
-            ret = ret + wxString::Format(wxT("%d"), (*it));
-            if (c+1 != comp[i].size()) {
-                ret = ret + wxT(", ");
-            }
-            c++;
-        }
-        if (i+1 != comp.size())
-            ret = ret + wxT("], ");
-        else
-            ret = ret + wxT("]");
-    }
-    return ret;
-}
 
 //------------------------------------------------------------------------------
 BEGIN_EVENT_TABLE(GLwxAuiFloatingFrame, wxAuiFloatingFrame)
@@ -3115,87 +3086,7 @@ void GLPreviewFrame::OnLoadImages( wxCommandEvent & e )
 
 void GLPreviewFrame::OnAlign( wxCommandEvent & e )
 {
-    if (m_pano.getNrOfImages() < 2)
-    {
-        wxMessageBox(_("At least two images are required.\nPlease add more images."),_("Error"), wxOK, this);
-        return;
-    }
-
-    //generate list of all necessary programs with full path
-    wxString bindir = huginApp::Get()->GetUtilsBinDir();
-    wxConfigBase* config=wxConfigBase::Get();
-    AssistantPrograms progs = getAssistantProgramsConfig(bindir, config);
-
-    //read main settings
-    bool runCeleste=config->Read(wxT("/Celeste/Auto"), HUGIN_CELESTE_AUTO)!=0;
-    double celesteThreshold;
-    config->Read(wxT("/Celeste/Threshold"), &celesteThreshold, HUGIN_CELESTE_THRESHOLD);
-    bool celesteSmall=config->Read(wxT("/Celeste/Filter"), HUGIN_CELESTE_FILTER)==0;
-    bool runLinefind=config->Read(wxT("/Assistant/Linefind"), HUGIN_ASS_LINEFIND)!=0;
-    bool runCPClean=config->Read(wxT("/Assistant/AutoCPClean"), HUGIN_ASS_AUTO_CPCLEAN)!=0;
-    double scale;
-    config->Read(wxT("/Assistant/panoDownsizeFactor"), &scale, HUGIN_ASS_PANO_DOWNSIZE_FACTOR);
-    int scalei=roundi(scale*100);
-
-    //save project into temp directory
-    wxString tempDir= config->Read(wxT("tempDir"),wxT(""));
-    if(!tempDir.IsEmpty())
-    {
-        if(tempDir.Last()!=wxFileName::GetPathSeparator())
-        {
-            tempDir.Append(wxFileName::GetPathSeparator());
-        }
-    };
-    wxString scriptName=wxFileName::CreateTempFileName(tempDir+wxT("ha"));
-    std::ofstream script(scriptName.mb_str(HUGIN_CONV_FILENAME));
-    script.exceptions ( std::ofstream::eofbit | std::ofstream::failbit | std::ofstream::badbit );
-    PT::UIntSet all;
-    fill_set(all, 0, m_pano.getNrOfImages()-1);
-    m_pano.printPanoramaScript(script, m_pano.getOptimizeVector(), m_pano.getOptions(), all, false);
-    script.close();
-    //generate makefile
-    wxString makefileName=wxFileName::CreateTempFileName(tempDir+wxT("ham"));
-    std::ofstream makefile(makefileName.mb_str(HUGIN_CONV_FILENAME));
-    makefile.exceptions( std::ofstream::eofbit | std::ofstream::failbit | std::ofstream::badbit );
-    std::string scriptString(scriptName.mb_str(HUGIN_CONV_FILENAME));
-    HuginBase::AssistantMakefilelibExport::createMakefile(m_pano,progs,runLinefind,runCeleste,celesteThreshold,celesteSmall,
-        runCPClean,scale,makefile,scriptString);
-    makefile.close();
-
-    //execute makefile
-    wxString args = wxT("-f ") + wxQuoteFilename(makefileName) + wxT(" all");
-    int ret=MyExecuteCommandOnDialog(getGNUMakeCmd(args),wxEmptyString,this,_("Running assistant"),true);
-
-    //read back panofile
-    GlobalCmdHist::getInstance().addCommand(new wxLoadPTProjectCmd(m_pano,
-        (const char *)scriptName.mb_str(HUGIN_CONV_FILENAME),"",ret==0));
-
-    //delete temporary files
-    wxRemoveFile(scriptName);
-    wxRemoveFile(makefileName);
-    //if return value is non-zero, an error occured in assistant makefile
-    if(ret!=0)
-    {
-        //check for unconnected images
-        CPGraph graph;
-        createCPGraph(m_pano, graph);
-        CPComponents comps;
-        int n = findCPComponents(graph, comps);
-        if(n > 1)
-        {
-            // switch to images panel.
-            unsigned i1 = *(comps[0].rbegin());
-            unsigned i2 = *(comps[1].begin());
-            MainFrame::Get()->ShowCtrlPointEditor( i1, i2);
-            // display message box with 
-            wxMessageBox(wxString::Format(_("Warning %d unconnected image groups found:"), n) + Components2Str(comps) + wxT("\n")
-                + _("Please create control points between unconnected images using the Control Points tab.\n\nAfter adding the points, press the \"Align\" button again"),_("Error"), wxOK , this);
-            return;
-        };
-        wxMessageBox(_("The assistant did not complete successfully. Please check the resulting project file."),
-                     _("Warning"),wxOK | wxICON_INFORMATION, this); 
-    };
-
+    MainFrame::Get()->RunAssistant(this);
     // enable stitch button
     m_createButton->Enable();
 }

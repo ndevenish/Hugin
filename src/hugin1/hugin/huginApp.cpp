@@ -85,6 +85,31 @@ bool str2double(wxString s, double & d)
     return true;
 }
 
+wxString Components2Str(const CPComponents & comp)
+{
+    wxString ret;
+    for (unsigned i=0; i < comp.size(); i++) {
+        ret = ret + wxT("[");
+        CPComponents::value_type::const_iterator it;
+        size_t c=0;
+        for (it = comp[i].begin();
+            it != comp[i].end();
+            ++it) 
+        {
+            ret = ret + wxString::Format(wxT("%d"), (*it));
+            if (c+1 != comp[i].size()) {
+                ret = ret + wxT(", ");
+            }
+            c++;
+        }
+        if (i+1 != comp.size())
+            ret = ret + wxT("], ");
+        else
+            ret = ret + wxT("]");
+    }
+    return ret;
+}
+
 #if _WINDOWS && defined Hugin_shared
 DEFINE_LOCAL_EVENT_TYPE( EVT_IMAGE_READY )
 #else

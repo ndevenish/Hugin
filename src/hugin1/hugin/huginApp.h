@@ -26,11 +26,13 @@
 
 #include "config.h"
 #include <huginapp/ImageCache.h>
+#include <PT/ImageGraph.h>
 
 #include "hugin/MainFrame.h"
 
 // utility functions
 bool str2double(wxString s, double & d);
+wxString Components2Str(const CPComponents & comp);
 
 /// Store window size and position in configfile/registry
 void StoreFramePosition(wxTopLevelWindow * frame, const wxString & basename);
