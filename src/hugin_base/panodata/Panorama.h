@@ -30,6 +30,7 @@
 #ifndef _HSI_IGNORE_SECTION
 
 #include <hugin_shared.h>
+#include <list>
 #include <appbase/DocumentData.h>
 #include <panodata/PanoramaData.h>
 
