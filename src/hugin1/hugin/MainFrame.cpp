@@ -678,6 +678,7 @@ void MainFrame::panoramaImagesChanged(PT::Panorama &panorama, const PT::UIntSet 
 	} else {
 	  enableTools(true);
 	}
+    GetMenuBar()->Enable(XRCID("action_assistant"), pano.getNrOfImages()>=2);
 }
 
 void MainFrame::OnUserQuit(wxCommandEvent & e)
