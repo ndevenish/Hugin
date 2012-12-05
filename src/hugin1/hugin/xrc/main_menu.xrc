@@ -22,6 +22,9 @@
       <object class="wxMenuItem" name="action_assistant">
         <label>Run a&amp;ssistant</label>
       </object>
+      <object class="wxMenuItem" name="action_batch_assistant">
+        <label>Send to assistant &amp;queue</label>
+      </object>
       <object class="wxMenuItem" name="action_optimize">
         <label>&amp;Optimize</label>
         <accel>Ctrl-t</accel>
@@ -66,7 +69,6 @@
         <help>Show the OpenGL preview window</help>
       </object>
       <object class="separator"/>
-      
       <object class="wxMenuItem" name="ID_SHOW_PANEL_IMAGES">
         <label>Photos</label>
         <accel>Shift-F1</accel>

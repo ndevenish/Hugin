@@ -208,8 +208,9 @@ private:
     void OnRemoveCPinMasks(wxCommandEvent & e);
     void OnMergeProject(wxCommandEvent & e);
     void OnApplyTemplate(wxCommandEvent & e);
-	void OnSendToBatch(wxCommandEvent & e);
-	void OnOpenPTBatcher(wxCommandEvent & e);
+    void OnSendToBatch(wxCommandEvent & e);
+    void OnSendToAssistantQueue(wxCommandEvent & e);
+    void OnOpenPTBatcher(wxCommandEvent & e);
 //    void OnToggleOptimizeFrame(wxCommandEvent & e);
     void OnShowCPFrame(wxCommandEvent & e);
     /** event handler for recently used files */
