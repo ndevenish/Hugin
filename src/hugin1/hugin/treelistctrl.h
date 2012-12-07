@@ -55,7 +55,8 @@ public:
                           int flag = wxALIGN_LEFT,
                           int image = -1,
                           bool shown = true,
-                          bool edit = false) {
+                          bool edit = false,
+                          const wxString &tooltip = wxEmptyString) {
         m_text = text;
         m_width = width;
         m_flag = flag;
@@ -63,6 +64,7 @@ public:
         m_selected_image = -1;
         m_shown = shown;
         m_edit = edit;
+        m_tooltip = tooltip;
     }
 
     wxTreeListColumnInfo (const wxTreeListColumnInfo& other) {
@@ -73,6 +75,7 @@ public:
         m_selected_image = other.m_selected_image;
         m_shown = other.m_shown;
         m_edit = other.m_edit;
+        m_tooltip = other.m_tooltip;
     }
 
     ~wxTreeListColumnInfo() {}
@@ -97,6 +100,9 @@ public:
     wxTreeListColumnInfo& SetEditable (bool edit)
         { m_edit = edit; return *this; }
 
+    wxString GetTooltip() const { return m_tooltip; }
+    wxTreeListColumnInfo& SetTooltip (const wxString& text) { m_tooltip = text; return *this; }
+
     bool IsShown() const { return m_shown; }
     wxTreeListColumnInfo& SetShown(bool shown) { m_shown = shown; return *this; }
 
@@ -108,6 +114,7 @@ private:
     int m_selected_image;
     bool m_shown;
     bool m_edit;
+    wxString m_tooltip;
 };
 
 //----------------------------------------------------------------------------
@@ -217,8 +224,9 @@ public:
                     int flag = wxALIGN_LEFT,
                     int image = -1,
                     bool shown = true,
-                    bool edit = false) {
-        AddColumn (wxTreeListColumnInfo (text, width, flag, image, shown, edit));
+                    bool edit = false,
+                    const wxString& tooltip = wxEmptyString) {
+        AddColumn (wxTreeListColumnInfo (text, width, flag, image, shown, edit, tooltip));
     }
     void AddColumn (const wxTreeListColumnInfo& colInfo);
 
@@ -229,9 +237,10 @@ public:
                        int flag = wxALIGN_LEFT,
                        int image = -1,
                        bool shown = true,
-                       bool edit = false) {
+                       bool edit = false,
+                       const wxString& tooltip = wxEmptyString) {
         InsertColumn (before,
-                      wxTreeListColumnInfo (text, width, flag, image, shown, edit));
+                      wxTreeListColumnInfo (text, width, flag, image, shown, edit, tooltip));
     }
     void InsertColumn (int before, const wxTreeListColumnInfo& colInfo);
 

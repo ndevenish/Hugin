@@ -1542,9 +1542,17 @@ void wxTreeListHeaderWindow::OnMouse (wxMouseEvent &event) {
     m_owner->CalcUnscrolledPosition(event.GetX(), 0, &x, NULL);
 
 #if wxCHECK_VERSION_FULL(2, 7, 0, 1)
+    int col = XToCol(x);
+    if(col>=0 && col<GetColumnCount())
+    {
+        SetToolTip(m_columns[col].GetTooltip());
+    }
+    else
+    {
+        SetToolTip(wxEmptyString);
+    };
     if ( event.Moving() )
     {
-        int col = XToCol(x);
         if ( col != m_hotTrackCol )
         {
             // Refresh the col header so it will be painted with hot tracking
