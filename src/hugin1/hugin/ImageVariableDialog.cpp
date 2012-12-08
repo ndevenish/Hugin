@@ -27,6 +27,7 @@
 #include "hugin/ImageVariableDialog.h"
 #include "base_wx/wxPlatform.h"
 #include "panoinc.h"
+#include "photometric/ResponseTransform.h"
 #include <map>
 #include <string>
 
@@ -37,6 +38,9 @@ using namespace HuginBase;
 
 BEGIN_EVENT_TABLE(ImageVariableDialog,wxDialog)
     EVT_BUTTON(wxID_OK, ImageVariableDialog::OnOk)
+    EVT_BUTTON(XRCID("image_show_distortion_graph"), ImageVariableDialog::OnShowDistortionGraph)
+    EVT_BUTTON(XRCID("image_show_vignetting_graph"), ImageVariableDialog::OnShowVignettingGraph)
+    EVT_BUTTON(XRCID("image_show_response_graph"), ImageVariableDialog::OnShowResponseGraph)
 END_EVENT_TABLE()
 
 ImageVariableDialog::ImageVariableDialog(wxWindow *parent, PT::Panorama* pano, HuginBase::UIntSet imgs)
@@ -65,7 +69,17 @@ ImageVariableDialog::ImageVariableDialog(wxWindow *parent, PT::Panorama* pano, H
     };
     m_pano=pano;
     m_images=imgs;
+    m_popup=NULL;
     InitValues();
+};
+
+ImageVariableDialog::~ImageVariableDialog()
+{
+    wxConfigBase * cfg = wxConfigBase::Get();
+    wxPoint ps = this->GetPosition();
+    cfg->Write(wxT("/ImageVariablesDialog/positionX"), ps.x);
+    cfg->Write(wxT("/ImageVariablesDialog/positionY"), ps.y);
+    cfg->Flush();
 };
 
 void ImageVariableDialog::SelectTab(size_t i)
@@ -211,11 +225,6 @@ void ImageVariableDialog::OnOk(wxCommandEvent & e)
 {
     if(ApplyNewVariables())
     {
-        wxConfigBase * cfg = wxConfigBase::Get();
-        wxPoint ps = this->GetPosition();
-        cfg->Write(wxT("/ImageVariablesDialog/positionX"), ps.x);
-        cfg->Write(wxT("/ImageVariablesDialog/positionY"), ps.y);
-        cfg->Flush();
         e.Skip();
     };
 };
@@ -225,3 +234,364 @@ const char *ImageVariableDialog::m_varNames[] = { "y", "p", "r", "TrX", "TrY", "
                                   "Eev", "Er", "Eb", 
                                   "Vb", "Vc", "Vd", "Vx", "Vy",
                                   "Ra", "Rb", "Rc", "Rd", "Re", 0};
+
+IMPLEMENT_CLASS(GraphPopupWindow, wxPopupTransientWindow)
+
+BEGIN_EVENT_TABLE(GraphPopupWindow, wxPopupTransientWindow)
+EVT_LEFT_DOWN(GraphPopupWindow::OnLeftDown)
+END_EVENT_TABLE()
+
+GraphPopupWindow::GraphPopupWindow(wxWindow* parent, wxBitmap bitmap) : wxPopupTransientWindow(parent)
+{
+    wxPanel* panel=new wxPanel(this);
+    m_bitmapControl=new wxStaticBitmap(panel, wxID_ANY, bitmap);
+    panel->Connect(wxEVT_LEFT_DOWN, wxMouseEventHandler(GraphPopupWindow::OnLeftDown), NULL, this);
+    m_bitmapControl->Connect(wxEVT_LEFT_DOWN, wxMouseEventHandler(GraphPopupWindow::OnLeftDown), NULL, this);
+    m_bitmapControl->Connect(wxEVT_RIGHT_DOWN, wxMouseEventHandler(GraphPopupWindow::OnRightDown), NULL, this);
+    wxBoxSizer* topsizer=new wxBoxSizer(wxHORIZONTAL);
+    topsizer->Add(m_bitmapControl);
+    panel->SetSizer(topsizer);
+    topsizer->Fit(panel);
+    topsizer->Fit(this);
+};
+
+void GraphPopupWindow::OnLeftDown(wxMouseEvent &e)
+{
+    Dismiss();
+};
+
+void GraphPopupWindow::OnRightDown(wxMouseEvent &e)
+{
+    wxConfigBase* config=wxConfigBase::Get();
+    wxFileDialog dlg(this,
+                        _("Save graph"),
+                        config->Read(wxT("/actualPath"),wxT("")), wxT(""),
+                        _("Bitmap (*.bmp)|*.bmp|PNG-File (*.png)|*.png"),
+                        wxFD_SAVE, wxDefaultPosition);
+    dlg.SetDirectory(config->Read(wxT("/actualPath"),wxT("")));
+    dlg.SetFilterIndex(config->Read(wxT("/lastImageTypeIndex"), 0l));
+    if (dlg.ShowModal() == wxID_OK)
+    {
+        config->Write(wxT("/actualPath"), dlg.GetDirectory());  // remember for later
+        wxFileName filename(dlg.GetPath());
+        int imageType=dlg.GetFilterIndex();
+        config->Write(wxT("/lastImageTypeIndex"), imageType);
+        if(!filename.HasExt())
+        {
+            switch(imageType)
+            {
+                case 1:
+                    filename.SetExt(wxT("png"));
+                    break;
+                case 0:
+                default:
+                    filename.SetExt(wxT("bmp"));
+                    break;
+            };
+        };
+        if (filename.FileExists())
+        {
+            int d = wxMessageBox(wxString::Format(_("File %s exists. Overwrite?"), filename.GetFullPath().c_str()),
+                                 _("Save image"), wxYES_NO | wxICON_QUESTION);
+            if (d != wxYES)
+            {
+                return;
+            }
+        }
+        switch(imageType)
+        {
+            case 1:
+                m_bitmapControl->GetBitmap().SaveFile(filename.GetFullPath(), wxBITMAP_TYPE_PNG);
+                break;
+            case 0:
+            default:
+                m_bitmapControl->GetBitmap().SaveFile(filename.GetFullPath(), wxBITMAP_TYPE_BMP);
+                break;
+        };
+    };
+};
+
+/**help class to draw charts */
+class Graph
+{
+public:
+    /** constructors, set size and background colour of resulting bitmap */
+    Graph(int graphWidth, int graphHeight, wxColour backgroundColour)
+    {
+        m_width=graphWidth;
+        m_height=graphHeight;
+        //create bitmap
+        m_bitmap=new wxBitmap(m_width, m_height);
+        m_dc.SelectObject(*m_bitmap);
+        m_dc.SetBackground(wxBrush(backgroundColour));
+        m_dc.Clear();
+        //draw border
+        m_dc.SetPen(wxPen(wxSystemSettings::GetColour(wxSYS_COLOUR_WINDOWTEXT)));
+        m_dc.SetBrush(*wxTRANSPARENT_BRUSH);
+        m_dc.DrawRectangle(0, 0, m_width, m_height);
+        SetChartArea(0,0, m_width, m_height);
+        SetChartDisplay(0,0,1,1);
+    };
+
+    /** destructor */
+    ~Graph()
+    {
+        m_dc.SelectObject(wxNullBitmap);
+    };
+
+    /** set where to draw the chart on the bitmap */
+    void SetChartArea(int left, int top, int right, int bottom)
+    {
+        m_dc.DestroyClippingRegion();
+        m_left=left;
+        m_top=top;
+        m_right=right;
+        m_bottom=bottom;
+        m_dc.SetClippingRegion(m_left-1, m_top-1, m_right-m_left+2, m_bottom-m_top+2);
+    };
+
+    /** set the real dimension of the chart */
+    void SetChartDisplay(double xmin, double ymin, double xmax, double ymax)
+    {
+        m_xmin=xmin;
+        m_ymin=ymin;
+        m_xmax=xmax;
+        m_ymax=ymax;
+    };
+
+    /** draws the grid with linesX lines in x-direction and linexY lines in y-direction */
+    void DrawGrid(size_t linesX, size_t linesY)
+    {
+        m_dc.SetPen(wxPen(wxSystemSettings::GetColour(wxSYS_COLOUR_WINDOWTEXT)));
+        for(size_t i=0; i<linesX; i++)
+        {
+            int x=TransformX((double)i*(m_xmax-m_xmin)/(linesX-1)+m_xmin);
+            m_dc.DrawLine(x, m_top, x, m_bottom);
+        };
+        for(size_t i=0; i<linesY; i++)
+        {
+            int y=TransformY((double)i*(m_ymax-m_ymin)/(linesY-1)+m_ymin);
+            m_dc.DrawLine(m_left, y, m_right, y);
+        };
+    };
+
+    /** draws a line with the coordinates given in points */
+    void DrawLine(std::vector<hugin_utils::FDiff2D> points, wxColour colour, int penWidth=1)
+    {
+        if(points.size()<2)
+        {
+            return;
+        };
+        wxPoint *polygonPoints=new wxPoint[points.size()];
+        for(size_t i=0; i<points.size(); i++)
+        {
+            polygonPoints[i].x=TransformX(points[i].x);
+            polygonPoints[i].y=TransformY(points[i].y);
+        };
+        m_dc.SetPen(wxPen(colour, penWidth));
+        m_dc.DrawLines(points.size(), polygonPoints);
+        delete []polygonPoints;
+    };
+
+    const wxBitmap GetGraph() const { return *m_bitmap; };
+private:
+    //helper function to transform coordinates from real world to bitmap
+    int TransformX(float x)
+    {
+        return (x-m_xmin)/(m_xmax-m_xmin)*(m_right-m_left)+m_left;
+    };
+    int TransformY(float y)
+    {
+        return m_bottom-(y-m_ymin)/(m_ymax-m_ymin)*(m_bottom-m_top);
+    };
+    // area to be drawn
+    double m_xmin, m_xmax, m_ymin, m_ymax;
+    // size of canvas
+    int m_width, m_height;
+    // chart area
+    int m_left, m_top, m_right, m_bottom;
+    // bitmap
+    wxBitmap* m_bitmap;
+    wxMemoryDC m_dc;
+};
+
+void ImageVariableDialog::OnShowDistortionGraph(wxCommandEvent & e)
+{
+    wxString stringa=GetImageVariableControl(this, "a")->GetValue();
+    wxString stringb=GetImageVariableControl(this, "b")->GetValue();
+    wxString stringc=GetImageVariableControl(this, "c")->GetValue();
+    if(stringa.empty() || stringb.empty() || stringc.empty())
+    {
+        wxBell();
+        return;
+    };
+    std::vector<double> radialDist(4 ,0);
+    if(!str2double(stringa, radialDist[0]) || !str2double(stringb, radialDist[1]) || !str2double(stringc, radialDist[2]))
+    {
+        wxBell();
+        return;
+    };
+    radialDist[3] = 1 - radialDist[0] - radialDist[1] - radialDist[2];
+
+    //create transformation
+    SrcPanoImage srcImage;
+#define NRPOINTS 100
+    srcImage.setSize(vigra::Size2D(2*NRPOINTS, 2*NRPOINTS));
+    srcImage.setRadialDistortion(radialDist);
+    PanoramaOptions opts;
+    opts.setHFOV(srcImage.getHFOV());
+    opts.setProjection(PanoramaOptions::RECTILINEAR);
+    opts.setWidth(2*NRPOINTS);
+    opts.setHeight(2*NRPOINTS);
+    HuginBase::PTools::Transform transform;
+    transform.createTransform(srcImage, opts);
+
+    //draw graph
+    delete m_popup;
+    Graph graph(300, 200, wxSystemSettings::GetColour(wxSYS_COLOUR_WINDOW));
+    graph.SetChartArea(10, 10, 290, 190);
+    graph.SetChartDisplay(0, -0.1, 1, 0.1);
+    graph.DrawGrid(6, 7);
+    std::vector<hugin_utils::FDiff2D> points;
+    for(size_t i=0; i<NRPOINTS; i++)
+    {
+        double x,y;
+        if(transform.transformImgCoord(x, y, NRPOINTS, NRPOINTS-i))
+        {
+            points.push_back(hugin_utils::FDiff2D(double(i)/NRPOINTS,(NRPOINTS-i-y)/(NRPOINTS)));
+        };
+    };
+    graph.DrawLine(points, wxSystemSettings::GetColour(wxSYS_COLOUR_WINDOWTEXT), 2);
+
+    //show popup
+    m_popup = new GraphPopupWindow(this, graph.GetGraph());
+    wxWindow *button = (wxWindow*) e.GetEventObject();
+    wxPoint pos=button->ClientToScreen(wxPoint(0,0));
+    m_popup->Position(pos, button->GetSize());
+    m_popup->Popup();
+};
+
+void ImageVariableDialog::OnShowVignettingGraph(wxCommandEvent & e)
+{
+    wxString stringVb=GetImageVariableControl(this, "Vb")->GetValue();
+    wxString stringVc=GetImageVariableControl(this, "Vc")->GetValue();
+    wxString stringVd=GetImageVariableControl(this, "Vd")->GetValue();
+    if(stringVb.empty() || stringVc.empty() || stringVd.empty())
+    {
+        wxBell();
+        return;
+    };
+    std::vector<double> vigCorr(4,0);
+    vigCorr[0]=1.0;
+    if(!str2double(stringVb, vigCorr[1]) || !str2double(stringVc, vigCorr[2]) || !str2double(stringVd,  vigCorr[3]))
+    {
+        wxBell();
+        return;
+    };
+    delete m_popup;
+    Graph graph(300, 200, wxSystemSettings::GetColour(wxSYS_COLOUR_WINDOW));
+    graph.SetChartArea(10, 10, 290, 190);
+    graph.SetChartDisplay(0, 0.8, 1, 1);
+    graph.DrawGrid(6, 6);
+
+    //create ResponseTransform with vignetting only
+    SrcPanoImage srcImage;
+    srcImage.setRadialVigCorrCoeff(vigCorr);
+    srcImage.setSize(vigra::Size2D(2*NRPOINTS, 2*NRPOINTS));
+    Photometric::ResponseTransform<double> transform(srcImage);
+    transform.enforceMonotonicity();
+
+    //now calc vignetting curve
+    std::vector<hugin_utils::FDiff2D> points;
+#define NRPOINTS 100
+    for(size_t i=0; i<=NRPOINTS; i++)
+    {
+        points.push_back(hugin_utils::FDiff2D(i/double(NRPOINTS),transform(1.0, hugin_utils::FDiff2D(NRPOINTS-i, NRPOINTS-i))));
+    };
+    graph.DrawLine(points, wxSystemSettings::GetColour(wxSYS_COLOUR_WINDOWTEXT), 2);
+
+    //display popup
+    m_popup = new GraphPopupWindow(this, graph.GetGraph());
+    wxWindow *button = (wxWindow*) e.GetEventObject();
+    wxPoint pos=button->ClientToScreen(wxPoint(0,0));
+    m_popup->Position(pos, button->GetSize());
+    m_popup->Popup();
+};
+
+void ImageVariableDialog::OnShowResponseGraph(wxCommandEvent & e)
+{
+    SrcPanoImage::ResponseType responseType=(SrcPanoImage::ResponseType)XRCCTRL(*this, "image_variable_responseType", wxChoice)->GetSelection();
+    wxString stringRa=GetImageVariableControl(this, "Ra")->GetValue();
+    wxString stringRb=GetImageVariableControl(this, "Rb")->GetValue();
+    wxString stringRc=GetImageVariableControl(this, "Rc")->GetValue();
+    wxString stringRd=GetImageVariableControl(this, "Rd")->GetValue();
+    wxString stringRe=GetImageVariableControl(this, "Re")->GetValue();
+    if(stringRa.empty() || stringRb.empty() || stringRc.empty() || stringRd.empty() || stringRe.empty())
+    {
+        wxBell();
+        return;
+    };
+    double Ra, Rb, Rc, Rd, Re;
+    if(!str2double(stringRa, Ra) || !str2double(stringRb, Rb) || !str2double(stringRc, Rc) ||
+        !str2double(stringRd, Rd) || !str2double(stringRe, Re))
+    {
+        wxBell();
+        return;
+    };
+    delete m_popup;
+    Graph graph(300, 200, wxSystemSettings::GetColour(wxSYS_COLOUR_WINDOW));
+    graph.SetChartArea(10, 10, 290, 190);
+    graph.SetChartDisplay(0, 0, 1, 1);
+    graph.DrawGrid(6, 6);
+    switch(responseType)
+    {
+        case SrcPanoImage::RESPONSE_EMOR:
+            {
+                //draw standard EMOR curve
+                std::vector<float> emor(5, 0.0);
+                std::vector<double> outLutStd;
+                vigra_ext::EMoR::createEMoRLUT(emor, outLutStd);
+                vigra_ext::enforceMonotonicity(outLutStd);
+                graph.SetChartDisplay(0, 0, outLutStd.size()-1.0, 1.0);
+                std::vector<hugin_utils::FDiff2D> points;
+                for(size_t i=0; i<outLutStd.size(); i++)
+                {
+                    points.push_back(hugin_utils::FDiff2D(i, outLutStd[i]));
+                };
+                graph.DrawLine(points, wxSystemSettings::GetColour(wxSYS_COLOUR_WINDOWTEXT), 1);
+                outLutStd.clear();
+                points.clear();
+                // now draw our curve
+                emor[0]=Ra;
+                emor[1]=Rb;
+                emor[2]=Rc;
+                emor[3]=Rd;
+                emor[4]=Re;
+                std::vector<double> outLut;
+                vigra_ext::EMoR::createEMoRLUT(emor, outLut);
+                vigra_ext::enforceMonotonicity(outLut);
+                graph.SetChartDisplay(0, 0, outLut.size()-1.0, 1.0);
+                for(size_t i=0; i<outLut.size(); i++)
+                {
+                    points.push_back(hugin_utils::FDiff2D(i, outLut[i]));
+                };
+                graph.DrawLine(points, wxSystemSettings::GetColour(wxSYS_COLOUR_WINDOWTEXT), 2);
+            };
+            break;
+        case SrcPanoImage::RESPONSE_LINEAR:
+        default:
+            {
+                std::vector<hugin_utils::FDiff2D> points;
+                points.push_back(hugin_utils::FDiff2D(0, 0));
+                points.push_back(hugin_utils::FDiff2D(1, 1));
+                graph.DrawLine(points, wxSystemSettings::GetColour(wxSYS_COLOUR_WINDOWTEXT), 2);
+            };
+            break;
+    };
+    //show popup
+    m_popup = new GraphPopupWindow(this, graph.GetGraph());
+    wxWindow *button = (wxWindow*) e.GetEventObject();
+    wxPoint pos=button->ClientToScreen(wxPoint(0,0));
+    m_popup->Position(pos, button->GetSize());
+    m_popup->Popup();
+};

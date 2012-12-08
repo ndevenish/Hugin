@@ -206,6 +206,15 @@
                       <cellpos>5,1</cellpos>
                     </object>
                     <vgap>6</vgap>
+                    <object class="sizeritem">
+                      <object class="wxButton" name="image_show_distortion_graph">
+                        <label>Show graph &gt;&gt;</label>
+                      </object>
+                      <flag>wxALL</flag>
+                      <border>3</border>
+                      <cellpos>6,0</cellpos>
+                      <cellspan>1,2</cellspan>
+                    </object>
                   </object>
                   <flag>wxEXPAND|wxALL</flag>
                   <border>6</border>
@@ -379,17 +388,32 @@
                       <flag>wxEXPAND</flag>
                     </object>
                     <object class="sizeritem">
-                      <object class="wxStaticText">
-                        <label>Vignetting</label>
-                        <font>
-                          <style platform="mac">normal</style>
-                          <family platform="mac">swiss</family>
-                          <weight>bold</weight>
-                          <size platform="mac">12</size>
-                        </font>
+                      <object class="wxBoxSizer">
+                        <object class="sizeritem">
+                          <object class="wxStaticText">
+                            <label>Vignetting</label>
+                            <font>
+                              <style platform="mac">normal</style>
+                              <family platform="mac">swiss</family>
+                              <weight>bold</weight>
+                              <size platform="mac">12</size>
+                            </font>
+                          </object>
+                          <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                        </object>
+                        <object class="spacer">
+                          <size>30,-1</size>
+                          <option>1</option>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxButton" name="image_show_vignetting_graph">
+                            <label>Show graph &gt;&gt;</label>
+                          </object>
+                          <flag>wxALL</flag>
+                          <border>3</border>
+                        </object>
+                        <orient>wxHORIZONTAL</orient>
                       </object>
-                      <flag>wxTOP</flag>
-                      <border>12</border>
                     </object>
                     <object class="sizeritem">
                       <object class="wxBoxSizer">
@@ -558,6 +582,13 @@
                       <border>6</border>
                     </object>
                     <orient>wxVERTICAL</orient>
+                    <object class="sizeritem">
+                      <object class="wxButton" name="image_show_response_graph">
+                        <label>Show graph &gt;&gt;</label>
+                      </object>
+                      <flag>wxALL</flag>
+                      <border>3</border>
+                    </object>
                   </object>
                   <flag>wxALL</flag>
                   <border>12</border>
