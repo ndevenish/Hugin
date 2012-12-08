@@ -29,13 +29,30 @@
 #include "panoinc_WX.h"
 #include "panoinc.h"
 #include "GuiLevel.h"
+#include "wx/popupwin.h"
+
+/** simple popup to show graph */
+class GraphPopupWindow: public wxPopupTransientWindow
+{
+public:
+    GraphPopupWindow(wxWindow* parent, wxBitmap bitmap);
+protected:
+    void OnLeftDown(wxMouseEvent &e);
+    void OnRightDown(wxMouseEvent &e);
+private:
+    wxStaticBitmap* m_bitmapControl;
+    DECLARE_CLASS(GraphPopupWindow)
+    DECLARE_EVENT_TABLE()
+};
 
 /** Dialog for editing image variables */
 class ImageVariableDialog : public wxDialog
 {
 public:
-    /** Constructor, read from xrc ressource; restore last uses settings, size and position */
+    /** Constructor, read from xrc ressource; restore last uses settings and position */
     ImageVariableDialog(wxWindow *parent, PT::Panorama* pano, HuginBase::UIntSet imgs);
+    /** destructor, saves position */
+    ~ImageVariableDialog();
     /** sets the GuiLevel */
     void SetGuiLevel(GuiLevel newLevel);
     /** selects the tab with index i */
@@ -44,11 +61,18 @@ public:
 protected:
     /** Saves current state of all checkboxes when closing dialog with Ok */
     void OnOk(wxCommandEvent & e);
+    /** shows a popup with distortion graph */
+    void OnShowDistortionGraph(wxCommandEvent & e);
+    /** shows a popup with vignetting graph */
+    void OnShowVignettingGraph(wxCommandEvent & e);
+    /** shows a popup with response graph */
+    void OnShowResponseGraph(wxCommandEvent & e);
 
 private:
     PT::Panorama* m_pano;
     HuginBase::UIntSet m_images;
     static const char *m_varNames[];
+    GraphPopupWindow* m_popup;
     /** copy the variables from Panorama to dialog */
     void InitValues();
     /** applies the changed variables to the Panorama class, using CommandHistory */
