@@ -111,15 +111,6 @@ public:
         return _writeAllKeyPoints;
     }
 
-    inline void setGradientDescriptor(bool grad=true)
-    {
-        _gradDescriptor = grad;
-    }
-    inline bool getGradientDescriptor() const
-    {
-        return _gradDescriptor;
-    }
-
     inline void setVerbose(int level)
     {
         _verbose = level;
@@ -331,8 +322,6 @@ private:
 
     bool						_writeAllKeyPoints;
     std::vector<int>		_keyPointsIdx;
-
-    bool						_gradDescriptor;
 
     int                     _verbose;
 
