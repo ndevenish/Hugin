@@ -145,10 +145,10 @@ bool PanoDetector::checkData()
 
 void PanoDetector::printDetails()
 {
-    cout << "Input file        : " << _inputFile << endl;
+    cout << "Input file           : " << _inputFile << endl;
     if (_keyPointsIdx.size() != 0)
     {
-        cout << "Output file(s)      :  keyfile(s) for images";
+        cout << "Output file(s)       : keyfile(s) for images";
         for (unsigned int i = 0; i < _keyPointsIdx.size(); ++i)
         {
             cout << " " << _keyPointsIdx[i] << endl;
@@ -156,15 +156,30 @@ void PanoDetector::printDetails()
     }
     else
     {
-        cout << "Output file       : " << _outputFile << endl;
+        if(_writeAllKeyPoints)
+        {
+            cout << "Output file(s)       : keyfiles for all images in project" << endl;
+        }
+        else
+        {
+            cout << "Output file          : " << _outputFile << endl;
+        };
     }
-    cout << "Number of CPU     : " << _cores << endl << endl;
+    if(_keypath.size()>0)
+    {
+        cout <<     "Path to keyfiles     : " << _keypath << endl;
+    };
+    if(_cleanup)
+    {
+        cout << "Cleanup temporary files." << endl;
+    };
+    if(_cache)
+    {
+        cout << "Automatically cache keypoints files to disc." << endl;
+    };
+    cout << "Number of CPU        : " << _cores << endl << endl;
     cout << "Input image options" << endl;
     cout << "  Downscale to half-size : " << (_downscale?"yes":"no") << endl;
-    if (_gradDescriptor)
-    {
-        cout << "Gradient based description" << endl;
-    }
     if(_celeste)
     {
         cout << "Celeste options" << endl;
@@ -218,6 +233,7 @@ void PanoDetector::printDetails()
     }
     cout << "  Iterations : " << _ransacIters << endl;
     cout << "  Distance threshold : " << _ransacDistanceThres << endl;
+    cout << "Minimum matches per image pair: " << _minimumMatches << endl;
     cout << "Sieve 2 Options" << endl;
     cout << "  Width : " << _sieve2Width << endl;
     cout << "  Height : " << _sieve2Height << endl;
