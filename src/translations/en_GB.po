@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: en_GB\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
-"POT-Creation-Date: 2012-12-15 10:03+0100\n"
+"POT-Creation-Date: 2012-12-15 10:47+0100\n"
 "PO-Revision-Date: 2012-08-07 19:39+0100\n"
 "Last-Translator: Gareth Jones <gareth.k.jones@gmail.com>\n"
 "Language-Team: British English <en_GB@li.org>\n"
@@ -1383,55 +1383,59 @@ msgstr ""
 msgid "Positions, View and Barrel (y,p,r,v,b)"
 msgstr ""
 
-#: hugin1/hugin/ImagesPanel.cpp:679
+#: hugin1/hugin/ImagesPanel.cpp:681
 msgid "Everything without translation"
 msgstr ""
 
-#: hugin1/hugin/ImagesPanel.cpp:684
+#: hugin1/hugin/ImagesPanel.cpp:685
+msgid "Everything"
+msgstr ""
+
+#: hugin1/hugin/ImagesPanel.cpp:691
 msgid "Positions and Translation (y,p,r,x,y,z)"
 msgstr ""
 
-#: hugin1/hugin/ImagesPanel.cpp:687
+#: hugin1/hugin/ImagesPanel.cpp:694
 msgid "Positions, Translation and View (y,p,r,x,y,z,v)"
 msgstr ""
 
-#: hugin1/hugin/ImagesPanel.cpp:690
+#: hugin1/hugin/ImagesPanel.cpp:697
 msgid "Positions, Translation and Barrel (y,p,r,x,y,z,b)"
 msgstr ""
 
-#: hugin1/hugin/ImagesPanel.cpp:693
+#: hugin1/hugin/ImagesPanel.cpp:700
 msgid "Positions, Translation, View and Barrel (y,p,r,x,y,z,v,b)"
 msgstr ""
 
-#: hugin1/hugin/ImagesPanel.cpp:697 hugin1/hugin/ImagesPanel.cpp:718
+#: hugin1/hugin/ImagesPanel.cpp:704 hugin1/hugin/ImagesPanel.cpp:725
 msgid "Custom parameters"
 msgstr ""
 
-#: hugin1/hugin/ImagesPanel.cpp:703
+#: hugin1/hugin/ImagesPanel.cpp:710
 msgid "Low dynamic range"
 msgstr ""
 
-#: hugin1/hugin/ImagesPanel.cpp:706
+#: hugin1/hugin/ImagesPanel.cpp:713
 msgid "Low dynamic range, variable white balance"
 msgstr ""
 
-#: hugin1/hugin/ImagesPanel.cpp:711
+#: hugin1/hugin/ImagesPanel.cpp:718
 msgid "High dynamic range, fixed exposure"
 msgstr ""
 
-#: hugin1/hugin/ImagesPanel.cpp:714
+#: hugin1/hugin/ImagesPanel.cpp:721
 msgid "High dynamic range, variable white balance, fixed exposure"
 msgstr ""
 
-#: hugin1/hugin/ImagesPanel.cpp:776
+#: hugin1/hugin/ImagesPanel.cpp:783
 msgid "Simple interface"
 msgstr ""
 
-#: hugin1/hugin/ImagesPanel.cpp:779
+#: hugin1/hugin/ImagesPanel.cpp:786
 msgid "Advanced interface"
 msgstr ""
 
-#: hugin1/hugin/ImagesPanel.cpp:782
+#: hugin1/hugin/ImagesPanel.cpp:789
 msgid "Expert interface"
 msgstr ""
 
@@ -4407,8 +4411,8 @@ msgstr ""
 msgid "Parameters:"
 msgstr ""
 
-#: translations/xrc.cpp:247 xrc.cpp:247
-msgid "Camera response"
+#: translations/xrc.cpp:247 translations/xrc.cpp:1041 xrc.cpp:247 xrc.cpp:1041
+msgid "Camera Response"
 msgstr ""
 
 #: translations/xrc.cpp:250 xrc.cpp:250
@@ -6323,10 +6327,6 @@ msgstr ""
 #: translations/xrc.cpp:1039 xrc.cpp:1039
 msgid "Color"
 msgstr "Colour"
-
-#: translations/xrc.cpp:1041 xrc.cpp:1041
-msgid "Camera Response"
-msgstr ""
 
 #: translations/xrc.cpp:1044 xrc.cpp:1044
 msgid "Reset values"

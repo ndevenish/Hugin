@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: for hugin 2011.2.0_rc5\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
-"POT-Creation-Date: 2012-12-15 10:03+0100\n"
+"POT-Creation-Date: 2012-12-15 10:47+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ewing Kang <f039281310@yahoo.com.tw>\n"
 "Language-Team: Chinese Traditional <NA>\n"
@@ -1475,58 +1475,62 @@ msgstr "位置和桶狀失真 (y,p,r,b)"
 msgid "Positions, View and Barrel (y,p,r,v,b)"
 msgstr "位置, 視角和桶狀失真 (y,p,r,v,b)"
 
-#: hugin1/hugin/ImagesPanel.cpp:679
+#: hugin1/hugin/ImagesPanel.cpp:681
 msgid "Everything without translation"
 msgstr "位移以外的所有參數"
 
-#: hugin1/hugin/ImagesPanel.cpp:684
+#: hugin1/hugin/ImagesPanel.cpp:685
+msgid "Everything"
+msgstr "所有參數"
+
+#: hugin1/hugin/ImagesPanel.cpp:691
 msgid "Positions and Translation (y,p,r,x,y,z)"
 msgstr "位置和位移 (y,p,r,b)"
 
-#: hugin1/hugin/ImagesPanel.cpp:687
+#: hugin1/hugin/ImagesPanel.cpp:694
 msgid "Positions, Translation and View (y,p,r,x,y,z,v)"
 msgstr "位置,位移和視角 (y,p,r,v)"
 
-#: hugin1/hugin/ImagesPanel.cpp:690
+#: hugin1/hugin/ImagesPanel.cpp:697
 msgid "Positions, Translation and Barrel (y,p,r,x,y,z,b)"
 msgstr "位置,位移和桶狀失真 (y,p,r,v,b)"
 
-#: hugin1/hugin/ImagesPanel.cpp:693
+#: hugin1/hugin/ImagesPanel.cpp:700
 msgid "Positions, Translation, View and Barrel (y,p,r,x,y,z,v,b)"
 msgstr "位置,位移,視角和桶狀失真 (y,p,r,v,b)"
 
-#: hugin1/hugin/ImagesPanel.cpp:697 hugin1/hugin/ImagesPanel.cpp:718
+#: hugin1/hugin/ImagesPanel.cpp:704 hugin1/hugin/ImagesPanel.cpp:725
 #, fuzzy
 msgid "Custom parameters"
 msgstr "下列自定義參數"
 
-#: hugin1/hugin/ImagesPanel.cpp:703
+#: hugin1/hugin/ImagesPanel.cpp:710
 msgid "Low dynamic range"
 msgstr "低動態範圍"
 
-#: hugin1/hugin/ImagesPanel.cpp:706
+#: hugin1/hugin/ImagesPanel.cpp:713
 msgid "Low dynamic range, variable white balance"
 msgstr "低動態範圍, 修正白平衡"
 
-#: hugin1/hugin/ImagesPanel.cpp:711
+#: hugin1/hugin/ImagesPanel.cpp:718
 msgid "High dynamic range, fixed exposure"
 msgstr "高動態範圍, 光圈不變"
 
-#: hugin1/hugin/ImagesPanel.cpp:714
+#: hugin1/hugin/ImagesPanel.cpp:721
 msgid "High dynamic range, variable white balance, fixed exposure"
 msgstr "高動態範圍, 修正白平衡, 光圈不變"
 
-#: hugin1/hugin/ImagesPanel.cpp:776
+#: hugin1/hugin/ImagesPanel.cpp:783
 #, fuzzy
 msgid "Simple interface"
 msgstr "使用者介面"
 
-#: hugin1/hugin/ImagesPanel.cpp:779
+#: hugin1/hugin/ImagesPanel.cpp:786
 #, fuzzy
 msgid "Advanced interface"
 msgstr "進階選項"
 
-#: hugin1/hugin/ImagesPanel.cpp:782
+#: hugin1/hugin/ImagesPanel.cpp:789
 #, fuzzy
 msgid "Expert interface"
 msgstr "使用者介面"
@@ -4720,9 +4724,8 @@ msgstr "光學性質"
 msgid "Parameters:"
 msgstr "參數:"
 
-#: translations/xrc.cpp:247 xrc.cpp:247
-#, fuzzy
-msgid "Camera response"
+#: translations/xrc.cpp:247 translations/xrc.cpp:1041 xrc.cpp:247 xrc.cpp:1041
+msgid "Camera Response"
 msgstr "照相機回應"
 
 #: translations/xrc.cpp:250 xrc.cpp:250
@@ -6767,10 +6770,6 @@ msgstr "調整至0(無光圈校正)"
 msgid "Color"
 msgstr "顏色"
 
-#: translations/xrc.cpp:1041 xrc.cpp:1041
-msgid "Camera Response"
-msgstr "照相機回應"
-
 #: translations/xrc.cpp:1044 xrc.cpp:1044
 msgid "Reset values"
 msgstr "重新設定值"
@@ -7011,6 +7010,10 @@ msgid ""
 msgstr ""
 "只有當圖片重疊程度很高並且有很多分布良好的控制點時, 對所有失真參數執行最佳化"
 "選項 [所有參數] 才會有效果."
+
+#, fuzzy
+#~ msgid "Camera response"
+#~ msgstr "照相機回應"
 
 #, fuzzy
 #~ msgid "Progress:"
@@ -7469,9 +7472,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "overview"
 #~ msgstr "預覽"
-
-#~ msgid "Everything"
-#~ msgstr "所有參數"
 
 #~ msgid "Exposure:"
 #~ msgstr "光圈:"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hugin\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
-"POT-Creation-Date: 2012-12-15 10:03+0100\n"
+"POT-Creation-Date: 2012-12-15 10:47+0100\n"
 "PO-Revision-Date: 2011-01-15 22:53+0100\n"
 "Last-Translator: Jozef Riha <jose1711@gmail.com>\n"
 "Language-Team: Slovak <sk@li.org>\n"
@@ -1509,58 +1509,62 @@ msgstr "Pozície a súdkovitosť (y,p,r,b)"
 msgid "Positions, View and Barrel (y,p,r,v,b)"
 msgstr "Pozície, pohľad a súdkovitosť (y,p,r,v,b)"
 
-#: hugin1/hugin/ImagesPanel.cpp:679
+#: hugin1/hugin/ImagesPanel.cpp:681
 msgid "Everything without translation"
 msgstr "Všetko bez premiestnenia"
 
-#: hugin1/hugin/ImagesPanel.cpp:684
+#: hugin1/hugin/ImagesPanel.cpp:685
+msgid "Everything"
+msgstr "Všetko"
+
+#: hugin1/hugin/ImagesPanel.cpp:691
 msgid "Positions and Translation (y,p,r,x,y,z)"
 msgstr "Pozície a premiestnenie (y,p,r,x,y,z)"
 
-#: hugin1/hugin/ImagesPanel.cpp:687
+#: hugin1/hugin/ImagesPanel.cpp:694
 msgid "Positions, Translation and View (y,p,r,x,y,z,v)"
 msgstr "Pozície, premiestnenie a pohľad (y,p,r,x,y,z,v)"
 
-#: hugin1/hugin/ImagesPanel.cpp:690
+#: hugin1/hugin/ImagesPanel.cpp:697
 msgid "Positions, Translation and Barrel (y,p,r,x,y,z,b)"
 msgstr "Pozície, premiestnenie a súdkovitosť (y,p,r,x,y,z,b)"
 
-#: hugin1/hugin/ImagesPanel.cpp:693
+#: hugin1/hugin/ImagesPanel.cpp:700
 msgid "Positions, Translation, View and Barrel (y,p,r,x,y,z,v,b)"
 msgstr "Pozície, premiestnenie, pohľad a súdkovitosť (y,p,r,x,y,z,v,b)"
 
-#: hugin1/hugin/ImagesPanel.cpp:697 hugin1/hugin/ImagesPanel.cpp:718
+#: hugin1/hugin/ImagesPanel.cpp:704 hugin1/hugin/ImagesPanel.cpp:725
 #, fuzzy
 msgid "Custom parameters"
 msgstr "Vlastné nastavenia nižšie"
 
-#: hugin1/hugin/ImagesPanel.cpp:703
+#: hugin1/hugin/ImagesPanel.cpp:710
 msgid "Low dynamic range"
 msgstr "Nízky dynamický rozsah"
 
-#: hugin1/hugin/ImagesPanel.cpp:706
+#: hugin1/hugin/ImagesPanel.cpp:713
 msgid "Low dynamic range, variable white balance"
 msgstr "Nízky dynamický rozsah, premenlivé vyváženie bielej"
 
-#: hugin1/hugin/ImagesPanel.cpp:711
+#: hugin1/hugin/ImagesPanel.cpp:718
 msgid "High dynamic range, fixed exposure"
 msgstr "Vysoký dynamický rozsah, fixná expozícia"
 
-#: hugin1/hugin/ImagesPanel.cpp:714
+#: hugin1/hugin/ImagesPanel.cpp:721
 msgid "High dynamic range, variable white balance, fixed exposure"
 msgstr "Vysoký dynamický rozsah, premenlivé vyváženie bielej, fixná expozícia"
 
-#: hugin1/hugin/ImagesPanel.cpp:776
+#: hugin1/hugin/ImagesPanel.cpp:783
 #, fuzzy
 msgid "Simple interface"
 msgstr "Užívateľské rozhranie"
 
-#: hugin1/hugin/ImagesPanel.cpp:779
+#: hugin1/hugin/ImagesPanel.cpp:786
 #, fuzzy
 msgid "Advanced interface"
 msgstr "Pokročilé voľby"
 
-#: hugin1/hugin/ImagesPanel.cpp:782
+#: hugin1/hugin/ImagesPanel.cpp:789
 #, fuzzy
 msgid "Expert interface"
 msgstr "Užívateľské rozhranie"
@@ -4764,9 +4768,8 @@ msgstr "Fotometrika"
 msgid "Parameters:"
 msgstr "Parametre:"
 
-#: translations/xrc.cpp:247 xrc.cpp:247
-#, fuzzy
-msgid "Camera response"
+#: translations/xrc.cpp:247 translations/xrc.cpp:1041 xrc.cpp:247 xrc.cpp:1041
+msgid "Camera Response"
 msgstr "Reakcia fotoaparátu"
 
 #: translations/xrc.cpp:250 xrc.cpp:250
@@ -6812,10 +6815,6 @@ msgstr "na nulu (bez korekcie expozície)"
 msgid "Color"
 msgstr "Farba"
 
-#: translations/xrc.cpp:1041 xrc.cpp:1041
-msgid "Camera Response"
-msgstr "Reakcia fotoaparátu"
-
 #: translations/xrc.cpp:1044 xrc.cpp:1044
 msgid "Reset values"
 msgstr "Resetovať hodnoty"
@@ -7088,6 +7087,10 @@ msgstr ""
 "Optimalizácia všetkých parametrov skreslenia \"všetko\" má zmysel iba vtedy, "
 "ak sa obrázky veľmi prekrývajú a použili ste tiež mnoho dobre rozprestrených "
 "kontrolných bodov."
+
+#, fuzzy
+#~ msgid "Camera response"
+#~ msgstr "Reakcia fotoaparátu"
 
 #, fuzzy
 #~ msgid "Progress:"
@@ -7535,9 +7538,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "overview"
 #~ msgstr "Náhľad"
-
-#~ msgid "Everything"
-#~ msgstr "Všetko"
 
 #~ msgid "Exposure:"
 #~ msgstr "Expozícia:"

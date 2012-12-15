@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Slovenski prevod\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
-"POT-Creation-Date: 2012-12-15 10:03+0100\n"
+"POT-Creation-Date: 2012-12-15 10:47+0100\n"
 "PO-Revision-Date: 2009-02-17 22:25+0100\n"
 "Last-Translator: Zoran Mesec <zoran.mesec@gmail.com>\n"
 "Language-Team: Zoran Mesec <zoran.mesec@gmail.com>\n"
@@ -1460,62 +1460,66 @@ msgstr "Položaji in izbočenje (z,o,n,b)"
 msgid "Positions, View and Barrel (y,p,r,v,b)"
 msgstr "Položaji, pogled in izbočenje (z,o,n,v,b)"
 
-#: hugin1/hugin/ImagesPanel.cpp:679
+#: hugin1/hugin/ImagesPanel.cpp:681
 msgid "Everything without translation"
 msgstr ""
 
-#: hugin1/hugin/ImagesPanel.cpp:684
+#: hugin1/hugin/ImagesPanel.cpp:685
+msgid "Everything"
+msgstr "Vse"
+
+#: hugin1/hugin/ImagesPanel.cpp:691
 #, fuzzy
 msgid "Positions and Translation (y,p,r,x,y,z)"
 msgstr "Položaji in izbočenje (z,o,n,b)"
 
-#: hugin1/hugin/ImagesPanel.cpp:687
+#: hugin1/hugin/ImagesPanel.cpp:694
 #, fuzzy
 msgid "Positions, Translation and View (y,p,r,x,y,z,v)"
 msgstr "Položaji (z,o,n,v)"
 
-#: hugin1/hugin/ImagesPanel.cpp:690
+#: hugin1/hugin/ImagesPanel.cpp:697
 #, fuzzy
 msgid "Positions, Translation and Barrel (y,p,r,x,y,z,b)"
 msgstr "Položaji, pogled in izbočenje (z,o,n,v,b)"
 
-#: hugin1/hugin/ImagesPanel.cpp:693
+#: hugin1/hugin/ImagesPanel.cpp:700
 #, fuzzy
 msgid "Positions, Translation, View and Barrel (y,p,r,x,y,z,v,b)"
 msgstr "Položaji, pogled in izbočenje (z,o,n,v,b)"
 
-#: hugin1/hugin/ImagesPanel.cpp:697 hugin1/hugin/ImagesPanel.cpp:718
+#: hugin1/hugin/ImagesPanel.cpp:704 hugin1/hugin/ImagesPanel.cpp:725
 #, fuzzy
 msgid "Custom parameters"
 msgstr "Poljubni parametri spodaj"
 
-#: hugin1/hugin/ImagesPanel.cpp:703
+#: hugin1/hugin/ImagesPanel.cpp:710
 msgid "Low dynamic range"
 msgstr "Majhen dinamičen razpon"
 
-#: hugin1/hugin/ImagesPanel.cpp:706
+#: hugin1/hugin/ImagesPanel.cpp:713
 msgid "Low dynamic range, variable white balance"
 msgstr "Majhen dinamičen razpon, spremenljiva belina"
 
-#: hugin1/hugin/ImagesPanel.cpp:711
+#: hugin1/hugin/ImagesPanel.cpp:718
 msgid "High dynamic range, fixed exposure"
 msgstr "Velik dinamičen razpon, fiksna osvetlitev"
 
-#: hugin1/hugin/ImagesPanel.cpp:714
+#: hugin1/hugin/ImagesPanel.cpp:721
 msgid "High dynamic range, variable white balance, fixed exposure"
 msgstr "Velik dinamičen razpon, spremenljiva belina, fiksna osvetlitev"
 
-#: hugin1/hugin/ImagesPanel.cpp:776
+#: hugin1/hugin/ImagesPanel.cpp:783
 #, fuzzy
 msgid "Simple interface"
 msgstr "Uporabniški vmesnik"
 
-#: hugin1/hugin/ImagesPanel.cpp:779
+#: hugin1/hugin/ImagesPanel.cpp:786
 #, fuzzy
 msgid "Advanced interface"
 msgstr "Blender možnosti"
 
-#: hugin1/hugin/ImagesPanel.cpp:782
+#: hugin1/hugin/ImagesPanel.cpp:789
 #, fuzzy
 msgid "Expert interface"
 msgstr "Uporabniški vmesnik"
@@ -4770,9 +4774,8 @@ msgstr "Fotometrično"
 msgid "Parameters:"
 msgstr "Parametri:"
 
-#: translations/xrc.cpp:247 xrc.cpp:247
-#, fuzzy
-msgid "Camera response"
+#: translations/xrc.cpp:247 translations/xrc.cpp:1041 xrc.cpp:247 xrc.cpp:1041
+msgid "Camera Response"
 msgstr "Odziv fotoaparata"
 
 #: translations/xrc.cpp:250 xrc.cpp:250
@@ -6852,10 +6855,6 @@ msgstr "Izboljšava osvetlitve in vinjet"
 msgid "Color"
 msgstr "Zapri"
 
-#: translations/xrc.cpp:1041 xrc.cpp:1041
-msgid "Camera Response"
-msgstr "Odziv fotoaparata"
-
 #: translations/xrc.cpp:1044 xrc.cpp:1044
 #, fuzzy
 msgid "Reset values"
@@ -7077,6 +7076,10 @@ msgid ""
 "Optimization of all distortion parameters \"everything\" makes only sense "
 "with heavily overlapping images and many well distributed control points."
 msgstr ""
+
+#, fuzzy
+#~ msgid "Camera response"
+#~ msgstr "Odziv fotoaparata"
 
 #, fuzzy
 #~ msgid "Progress:"
@@ -7486,9 +7489,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "overview"
 #~ msgstr "Predogled"
-
-#~ msgid "Everything"
-#~ msgstr "Vse"
 
 #~ msgid "Exposure:"
 #~ msgstr "Osvetlitev:"

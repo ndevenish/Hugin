@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nl\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
-"POT-Creation-Date: 2012-12-15 10:03+0100\n"
+"POT-Creation-Date: 2012-12-15 10:47+0100\n"
 "PO-Revision-Date: 2012-08-09 23:45+0100\n"
 "Last-Translator: Harry van der Wolf <harryvanderwolf@home.nl>\n"
 "Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
@@ -1524,58 +1524,62 @@ msgstr "Posities en Tonvervorming (y,p,r,b)"
 msgid "Positions, View and Barrel (y,p,r,v,b)"
 msgstr "Posities, Kijkhoek en Tonvervorming (y,p,r,v,b)"
 
-#: hugin1/hugin/ImagesPanel.cpp:679
+#: hugin1/hugin/ImagesPanel.cpp:681
 msgid "Everything without translation"
 msgstr "Alles zonder translatie"
 
-#: hugin1/hugin/ImagesPanel.cpp:684
+#: hugin1/hugin/ImagesPanel.cpp:685
+msgid "Everything"
+msgstr "Alle parameters"
+
+#: hugin1/hugin/ImagesPanel.cpp:691
 msgid "Positions and Translation (y,p,r,x,y,z)"
 msgstr "Posities en Translatie (y,p,r,x,y,z)"
 
-#: hugin1/hugin/ImagesPanel.cpp:687
+#: hugin1/hugin/ImagesPanel.cpp:694
 msgid "Positions, Translation and View (y,p,r,x,y,z,v)"
 msgstr "Posities, Translatie en Kijkhoek (y,p,r,x,y,z,v)"
 
-#: hugin1/hugin/ImagesPanel.cpp:690
+#: hugin1/hugin/ImagesPanel.cpp:697
 msgid "Positions, Translation and Barrel (y,p,r,x,y,z,b)"
 msgstr "Posities, Translatie en Tonvervorming (y,p,r,x,y,z,b)"
 
-#: hugin1/hugin/ImagesPanel.cpp:693
+#: hugin1/hugin/ImagesPanel.cpp:700
 msgid "Positions, Translation, View and Barrel (y,p,r,x,y,z,v,b)"
 msgstr "Posities, Translatie, Kijkhoek en Tonvervorming (y,p,r,x,y,z,v,b)"
 
-#: hugin1/hugin/ImagesPanel.cpp:697 hugin1/hugin/ImagesPanel.cpp:718
+#: hugin1/hugin/ImagesPanel.cpp:704 hugin1/hugin/ImagesPanel.cpp:725
 #, fuzzy
 msgid "Custom parameters"
 msgstr "De aangepaste parameters hieronder"
 
-#: hugin1/hugin/ImagesPanel.cpp:703
+#: hugin1/hugin/ImagesPanel.cpp:710
 msgid "Low dynamic range"
 msgstr "Laag dynamisch bereik"
 
-#: hugin1/hugin/ImagesPanel.cpp:706
+#: hugin1/hugin/ImagesPanel.cpp:713
 msgid "Low dynamic range, variable white balance"
 msgstr "Laag dynamisch bereik, verschillende witbalans"
 
-#: hugin1/hugin/ImagesPanel.cpp:711
+#: hugin1/hugin/ImagesPanel.cpp:718
 msgid "High dynamic range, fixed exposure"
 msgstr "Hoog dynamisch bereik, vaste belichting"
 
-#: hugin1/hugin/ImagesPanel.cpp:714
+#: hugin1/hugin/ImagesPanel.cpp:721
 msgid "High dynamic range, variable white balance, fixed exposure"
 msgstr "Hoog dynamisch bereik, verschillende witbalans, vaste belichting"
 
-#: hugin1/hugin/ImagesPanel.cpp:776
+#: hugin1/hugin/ImagesPanel.cpp:783
 #, fuzzy
 msgid "Simple interface"
 msgstr "Gebruikersinterface"
 
-#: hugin1/hugin/ImagesPanel.cpp:779
+#: hugin1/hugin/ImagesPanel.cpp:786
 #, fuzzy
 msgid "Advanced interface"
 msgstr "Geavanceerde Optie"
 
-#: hugin1/hugin/ImagesPanel.cpp:782
+#: hugin1/hugin/ImagesPanel.cpp:789
 #, fuzzy
 msgid "Expert interface"
 msgstr "Gebruikersinterface"
@@ -4778,9 +4782,8 @@ msgstr "Fotometrisch"
 msgid "Parameters:"
 msgstr "Parameters"
 
-#: translations/xrc.cpp:247 xrc.cpp:247
-#, fuzzy
-msgid "Camera response"
+#: translations/xrc.cpp:247 translations/xrc.cpp:1041 xrc.cpp:247 xrc.cpp:1041
+msgid "Camera Response"
 msgstr "Cameragevoeligheid"
 
 #: translations/xrc.cpp:250 xrc.cpp:250
@@ -6815,10 +6818,6 @@ msgstr "naar nul (geen belichtingscorrectie)"
 msgid "Color"
 msgstr "Kleur"
 
-#: translations/xrc.cpp:1041 xrc.cpp:1041
-msgid "Camera Response"
-msgstr "Cameragevoeligheid"
-
 #: translations/xrc.cpp:1044 xrc.cpp:1044
 msgid "Reset values"
 msgstr "Reset waardes"
@@ -7107,6 +7106,10 @@ msgid ""
 msgstr ""
 "Optimalisatie van alle vervormingsparameters. Optie \"alles\" heeft alleen "
 "zin bij sterk overlappende afbeeldingen met vele goed verspreide ijkpunten."
+
+#, fuzzy
+#~ msgid "Camera response"
+#~ msgstr "Cameragevoeligheid"
 
 #, fuzzy
 #~ msgid "Progress:"
@@ -7593,9 +7596,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "overview"
 #~ msgstr "Voorbeeld"
-
-#~ msgid "Everything"
-#~ msgstr "Alle parameters"
 
 #~ msgid "Exposure:"
 #~ msgstr "Belichting:"

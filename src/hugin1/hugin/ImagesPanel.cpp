@@ -676,7 +676,14 @@ void ImagesPanel::FillOptimizerChoice()
     m_optChoice->Append(_("Positions, View and Barrel (y,p,r,v,b)"), i);
     i=new int;
     *i=HuginBase::OPT_ALL;
-    m_optChoice->Append(_("Everything without translation"), i);
+    if(m_guiLevel==GUI_EXPERT)
+    {
+        m_optChoice->Append(_("Everything without translation"), i);
+    }
+    else
+    {
+        m_optChoice->Append(_("Everything"), i);
+    };
     if(m_guiLevel==GUI_EXPERT)
     {
         i=new int;

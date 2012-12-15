@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hugin\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
-"POT-Creation-Date: 2012-12-15 10:03+0100\n"
+"POT-Creation-Date: 2012-12-15 10:47+0100\n"
 "PO-Revision-Date: 2008-04-29 13:39+0900\n"
 "Last-Translator: homin,Lee <ff4500@gmail.com>\n"
 "Language-Team: Gnome-kr-hackers <gnome-kr-hackers@lists.kldp.net>\n"
@@ -1458,62 +1458,66 @@ msgstr "위치와 렌즈왜곡 (y,p,r,b)"
 msgid "Positions, View and Barrel (y,p,r,v,b)"
 msgstr "위치, 시점, 배럴 (y,p,r,v,b)"
 
-#: hugin1/hugin/ImagesPanel.cpp:679
+#: hugin1/hugin/ImagesPanel.cpp:681
 msgid "Everything without translation"
 msgstr ""
 
-#: hugin1/hugin/ImagesPanel.cpp:684
+#: hugin1/hugin/ImagesPanel.cpp:685
+msgid "Everything"
+msgstr "모두"
+
+#: hugin1/hugin/ImagesPanel.cpp:691
 #, fuzzy
 msgid "Positions and Translation (y,p,r,x,y,z)"
 msgstr "위치와 렌즈왜곡 (y,p,r,b)"
 
-#: hugin1/hugin/ImagesPanel.cpp:687
+#: hugin1/hugin/ImagesPanel.cpp:694
 #, fuzzy
 msgid "Positions, Translation and View (y,p,r,x,y,z,v)"
 msgstr "위치, 시점 (y,p,r,v)"
 
-#: hugin1/hugin/ImagesPanel.cpp:690
+#: hugin1/hugin/ImagesPanel.cpp:697
 #, fuzzy
 msgid "Positions, Translation and Barrel (y,p,r,x,y,z,b)"
 msgstr "위치, 시점, 배럴 (y,p,r,v,b)"
 
-#: hugin1/hugin/ImagesPanel.cpp:693
+#: hugin1/hugin/ImagesPanel.cpp:700
 #, fuzzy
 msgid "Positions, Translation, View and Barrel (y,p,r,x,y,z,v,b)"
 msgstr "위치, 시점, 배럴 (y,p,r,v,b)"
 
-#: hugin1/hugin/ImagesPanel.cpp:697 hugin1/hugin/ImagesPanel.cpp:718
+#: hugin1/hugin/ImagesPanel.cpp:704 hugin1/hugin/ImagesPanel.cpp:725
 #, fuzzy
 msgid "Custom parameters"
 msgstr "아래의 사용자 파라미터"
 
-#: hugin1/hugin/ImagesPanel.cpp:703
+#: hugin1/hugin/ImagesPanel.cpp:710
 msgid "Low dynamic range"
 msgstr "낮은 다이나믹 레인지"
 
-#: hugin1/hugin/ImagesPanel.cpp:706
+#: hugin1/hugin/ImagesPanel.cpp:713
 msgid "Low dynamic range, variable white balance"
 msgstr "낮은 다이다믹 레인지, 다양한 화이트 밸런스"
 
-#: hugin1/hugin/ImagesPanel.cpp:711
+#: hugin1/hugin/ImagesPanel.cpp:718
 msgid "High dynamic range, fixed exposure"
 msgstr "높은 다이나믹 레인지, 고정된 노출"
 
-#: hugin1/hugin/ImagesPanel.cpp:714
+#: hugin1/hugin/ImagesPanel.cpp:721
 msgid "High dynamic range, variable white balance, fixed exposure"
 msgstr "높은 다이나믹 레인지, 다양한 화이트 밸런스, 고정된 노출"
 
-#: hugin1/hugin/ImagesPanel.cpp:776
+#: hugin1/hugin/ImagesPanel.cpp:783
 #, fuzzy
 msgid "Simple interface"
 msgstr "사용자 인터페이스"
 
-#: hugin1/hugin/ImagesPanel.cpp:779
+#: hugin1/hugin/ImagesPanel.cpp:786
 #, fuzzy
 msgid "Advanced interface"
 msgstr "Blender 옵션"
 
-#: hugin1/hugin/ImagesPanel.cpp:782
+#: hugin1/hugin/ImagesPanel.cpp:789
 #, fuzzy
 msgid "Expert interface"
 msgstr "사용자 인터페이스"
@@ -4763,9 +4767,8 @@ msgstr "광도"
 msgid "Parameters:"
 msgstr "파라미터:"
 
-#: translations/xrc.cpp:247 xrc.cpp:247
-#, fuzzy
-msgid "Camera response"
+#: translations/xrc.cpp:247 translations/xrc.cpp:1041 xrc.cpp:247 xrc.cpp:1041
+msgid "Camera Response"
 msgstr "카메라 응답"
 
 #: translations/xrc.cpp:250 xrc.cpp:250
@@ -6852,10 +6855,6 @@ msgstr "노출 보정:"
 msgid "Color"
 msgstr "색 (d)"
 
-#: translations/xrc.cpp:1041 xrc.cpp:1041
-msgid "Camera Response"
-msgstr "카메라 응답"
-
 #: translations/xrc.cpp:1044 xrc.cpp:1044
 #, fuzzy
 msgid "Reset values"
@@ -7115,6 +7114,10 @@ msgid ""
 msgstr ""
 "모든 왜곡 파라미터들을 최적화. \"모두\"는 이미지간 중첩 범위가 넓고 조정 위치"
 "들이 잘 분산되어 있어야 잘 동작 합니다."
+
+#, fuzzy
+#~ msgid "Camera response"
+#~ msgstr "카메라 응답"
 
 #, fuzzy
 #~ msgid "Progress:"
@@ -7524,9 +7527,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "overview"
 #~ msgstr "미리보기"
-
-#~ msgid "Everything"
-#~ msgstr "모두"
 
 #~ msgid "Exposure:"
 #~ msgstr "노출:"

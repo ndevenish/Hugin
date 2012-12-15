@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: da\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
-"POT-Creation-Date: 2012-12-15 10:03+0100\n"
+"POT-Creation-Date: 2012-12-15 10:47+0100\n"
 "PO-Revision-Date: 2012-09-03 07:41+0200\n"
 "Last-Translator: Thomas Pryds <thomas@pryds.eu>\n"
 "Language-Team: danish <da@li.org>\n"
@@ -1505,60 +1505,64 @@ msgstr "Positioner og tøndeforvrængning (y,p,r,b)"
 msgid "Positions, View and Barrel (y,p,r,v,b)"
 msgstr "Positioner, synsfeltvinkel og tøndeforvrængning (y,p,r,v,b)"
 
-#: hugin1/hugin/ImagesPanel.cpp:679
+#: hugin1/hugin/ImagesPanel.cpp:681
 msgid "Everything without translation"
 msgstr "Alt undtagen translatering"
 
-#: hugin1/hugin/ImagesPanel.cpp:684
+#: hugin1/hugin/ImagesPanel.cpp:685
+msgid "Everything"
+msgstr ""
+
+#: hugin1/hugin/ImagesPanel.cpp:691
 msgid "Positions and Translation (y,p,r,x,y,z)"
 msgstr "Positioner og translatering (y,p,r,x,y,z)"
 
-#: hugin1/hugin/ImagesPanel.cpp:687
+#: hugin1/hugin/ImagesPanel.cpp:694
 msgid "Positions, Translation and View (y,p,r,x,y,z,v)"
 msgstr "Positioner, translatering og synsfeltvinkel (y,p,r,x,y,z,v)"
 
-#: hugin1/hugin/ImagesPanel.cpp:690
+#: hugin1/hugin/ImagesPanel.cpp:697
 msgid "Positions, Translation and Barrel (y,p,r,x,y,z,b)"
 msgstr "Positioner, translatering og tøndeforvrængning (y,p,r,x,y,z,b)"
 
-#: hugin1/hugin/ImagesPanel.cpp:693
+#: hugin1/hugin/ImagesPanel.cpp:700
 msgid "Positions, Translation, View and Barrel (y,p,r,x,y,z,v,b)"
 msgstr ""
 "Positioner, translatering, synsfeltvinkel og tøndeforvrængning (y,p,r,x,y,z,"
 "v,b)"
 
-#: hugin1/hugin/ImagesPanel.cpp:697 hugin1/hugin/ImagesPanel.cpp:718
+#: hugin1/hugin/ImagesPanel.cpp:704 hugin1/hugin/ImagesPanel.cpp:725
 #, fuzzy
 msgid "Custom parameters"
 msgstr "Brugerdefinerede parametre herunder"
 
-#: hugin1/hugin/ImagesPanel.cpp:703
+#: hugin1/hugin/ImagesPanel.cpp:710
 msgid "Low dynamic range"
 msgstr "Low dynamic range"
 
-#: hugin1/hugin/ImagesPanel.cpp:706
+#: hugin1/hugin/ImagesPanel.cpp:713
 msgid "Low dynamic range, variable white balance"
 msgstr "Low dynamic range, variabel hvidbalance"
 
-#: hugin1/hugin/ImagesPanel.cpp:711
+#: hugin1/hugin/ImagesPanel.cpp:718
 msgid "High dynamic range, fixed exposure"
 msgstr "High Dynamic Range, eksponeringskorrektion"
 
-#: hugin1/hugin/ImagesPanel.cpp:714
+#: hugin1/hugin/ImagesPanel.cpp:721
 msgid "High dynamic range, variable white balance, fixed exposure"
 msgstr "High Dynamic Range, variabel hvidbalance, eksponeringskorrektion"
 
-#: hugin1/hugin/ImagesPanel.cpp:776
+#: hugin1/hugin/ImagesPanel.cpp:783
 #, fuzzy
 msgid "Simple interface"
 msgstr "Brugerflade"
 
-#: hugin1/hugin/ImagesPanel.cpp:779
+#: hugin1/hugin/ImagesPanel.cpp:786
 #, fuzzy
 msgid "Advanced interface"
 msgstr "Avancerede valgmuligheder"
 
-#: hugin1/hugin/ImagesPanel.cpp:782
+#: hugin1/hugin/ImagesPanel.cpp:789
 #, fuzzy
 msgid "Expert interface"
 msgstr "Brugerflade"
@@ -4743,9 +4747,8 @@ msgstr "Fotometrik"
 msgid "Parameters:"
 msgstr "Parametre:"
 
-#: translations/xrc.cpp:247 xrc.cpp:247
-#, fuzzy
-msgid "Camera response"
+#: translations/xrc.cpp:247 translations/xrc.cpp:1041 xrc.cpp:247 xrc.cpp:1041
+msgid "Camera Response"
 msgstr "Kamerarespons"
 
 #: translations/xrc.cpp:250 xrc.cpp:250
@@ -6768,10 +6771,6 @@ msgstr "til nul (ingen eksponeringskorrektion)"
 msgid "Color"
 msgstr "Farve"
 
-#: translations/xrc.cpp:1041 xrc.cpp:1041
-msgid "Camera Response"
-msgstr "Kamerarespons"
-
 #: translations/xrc.cpp:1044 xrc.cpp:1044
 msgid "Reset values"
 msgstr "Nulstil værdier"
@@ -7056,6 +7055,10 @@ msgid ""
 msgstr ""
 "Optimering af alle forvrængningsparametre \"Alt\" giver kun mening ved "
 "kraftigt overlappende billeder og mange jævnt spredte kontrolpunkter."
+
+#, fuzzy
+#~ msgid "Camera response"
+#~ msgstr "Kamerarespons"
 
 #, fuzzy
 #~ msgid "Progress:"

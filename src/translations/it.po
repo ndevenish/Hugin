@@ -35,7 +35,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hugin 0.8\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
-"POT-Creation-Date: 2012-12-15 10:03+0100\n"
+"POT-Creation-Date: 2012-12-15 10:47+0100\n"
 "PO-Revision-Date: 2012-11-24 15:42+0100\n"
 "Last-Translator: Cristian Marchi <cri.penta@gmail.com>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
@@ -1557,55 +1557,59 @@ msgstr "Posizioni e distorsione barilotto (y, p, r, b)"
 msgid "Positions, View and Barrel (y,p,r,v,b)"
 msgstr "Posizioni, vista e barilotto (y, p, r, v, b)"
 
-#: hugin1/hugin/ImagesPanel.cpp:679
+#: hugin1/hugin/ImagesPanel.cpp:681
 msgid "Everything without translation"
 msgstr "Tutto eccetto traslazione"
 
-#: hugin1/hugin/ImagesPanel.cpp:684
+#: hugin1/hugin/ImagesPanel.cpp:685
+msgid "Everything"
+msgstr "Tutto"
+
+#: hugin1/hugin/ImagesPanel.cpp:691
 msgid "Positions and Translation (y,p,r,x,y,z)"
 msgstr "Posizioni e traslazione (y,p,r,x,y,z)"
 
-#: hugin1/hugin/ImagesPanel.cpp:687
+#: hugin1/hugin/ImagesPanel.cpp:694
 msgid "Positions, Translation and View (y,p,r,x,y,z,v)"
 msgstr "Posizioni, traslazione e vista (y,p,r,x,y,z,v)"
 
-#: hugin1/hugin/ImagesPanel.cpp:690
+#: hugin1/hugin/ImagesPanel.cpp:697
 msgid "Positions, Translation and Barrel (y,p,r,x,y,z,b)"
 msgstr "Posizioni, traslazione e barilotto (y,p,r,x,y,z,b)"
 
-#: hugin1/hugin/ImagesPanel.cpp:693
+#: hugin1/hugin/ImagesPanel.cpp:700
 msgid "Positions, Translation, View and Barrel (y,p,r,x,y,z,v,b)"
 msgstr "Posizioni, traslazione, vista e barilotto (y,p,r,x,y,z,v,b)"
 
-#: hugin1/hugin/ImagesPanel.cpp:697 hugin1/hugin/ImagesPanel.cpp:718
+#: hugin1/hugin/ImagesPanel.cpp:704 hugin1/hugin/ImagesPanel.cpp:725
 msgid "Custom parameters"
 msgstr "Parametri personalizzati"
 
-#: hugin1/hugin/ImagesPanel.cpp:703
+#: hugin1/hugin/ImagesPanel.cpp:710
 msgid "Low dynamic range"
 msgstr "Low dynamic range"
 
-#: hugin1/hugin/ImagesPanel.cpp:706
+#: hugin1/hugin/ImagesPanel.cpp:713
 msgid "Low dynamic range, variable white balance"
 msgstr "Low dynamic range, bilanciamento bianco variabile"
 
-#: hugin1/hugin/ImagesPanel.cpp:711
+#: hugin1/hugin/ImagesPanel.cpp:718
 msgid "High dynamic range, fixed exposure"
 msgstr "High dynamic range, esposizione fissa"
 
-#: hugin1/hugin/ImagesPanel.cpp:714
+#: hugin1/hugin/ImagesPanel.cpp:721
 msgid "High dynamic range, variable white balance, fixed exposure"
 msgstr "High dynamic range, bilanciamento bianco variabile, esposizione fissa"
 
-#: hugin1/hugin/ImagesPanel.cpp:776
+#: hugin1/hugin/ImagesPanel.cpp:783
 msgid "Simple interface"
 msgstr "Interfaccia semplice"
 
-#: hugin1/hugin/ImagesPanel.cpp:779
+#: hugin1/hugin/ImagesPanel.cpp:786
 msgid "Advanced interface"
 msgstr "Interfaccia avanzata"
 
-#: hugin1/hugin/ImagesPanel.cpp:782
+#: hugin1/hugin/ImagesPanel.cpp:789
 msgid "Expert interface"
 msgstr "Interfaccia per esperti"
 
@@ -4853,8 +4857,8 @@ msgstr "Fotometrico"
 msgid "Parameters:"
 msgstr "Parametri:"
 
-#: translations/xrc.cpp:247 xrc.cpp:247
-msgid "Camera response"
+#: translations/xrc.cpp:247 translations/xrc.cpp:1041 xrc.cpp:247 xrc.cpp:1041
+msgid "Camera Response"
 msgstr "Risposta fotocamera"
 
 #: translations/xrc.cpp:250 xrc.cpp:250
@@ -6929,10 +6933,6 @@ msgstr "a zero (nessuna correzione dell'esposizione)"
 msgid "Color"
 msgstr "Colore"
 
-#: translations/xrc.cpp:1041 xrc.cpp:1041
-msgid "Camera Response"
-msgstr "Risposta fotocamera"
-
 #: translations/xrc.cpp:1044 xrc.cpp:1044
 msgid "Reset values"
 msgstr "Ripristina valori"
@@ -7231,6 +7231,9 @@ msgid ""
 msgstr ""
 "L'ottimizzazione di tutti i parametri di distorsione ha senso solo con "
 "immagini fortemente sovrapposte e molti punti di controllo ben distribuiti."
+
+#~ msgid "Camera response"
+#~ msgstr "Risposta fotocamera"
 
 #~ msgid ""
 #~ "I am Hugin version %s. I have found preferences from an older version %s. "
@@ -8107,9 +8110,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "overview"
 #~ msgstr "Anteprima"
-
-#~ msgid "Everything"
-#~ msgstr "Tutto"
 
 #~ msgid "Exposure:"
 #~ msgstr "Esposizione:"

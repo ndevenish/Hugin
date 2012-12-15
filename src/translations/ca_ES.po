@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hugin 0.5\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
-"POT-Creation-Date: 2012-12-15 10:03+0100\n"
+"POT-Creation-Date: 2012-12-15 10:47+0100\n"
 "PO-Revision-Date: 2005-11-10 18:48+0100\n"
 "Last-Translator: Albert Capellades Badia <albertcba@gmail.com>\n"
 "Language-Team: Translation Project Catalan Team <albertcba@gmail.com>\n"
@@ -1461,62 +1461,66 @@ msgstr "Posicions i distorsió de barrilet (y, p, r, b)"
 msgid "Positions, View and Barrel (y,p,r,v,b)"
 msgstr "Posicions, Vista i Barrilet (y, p, r, v, b)"
 
-#: hugin1/hugin/ImagesPanel.cpp:679
+#: hugin1/hugin/ImagesPanel.cpp:681
 msgid "Everything without translation"
 msgstr ""
 
-#: hugin1/hugin/ImagesPanel.cpp:684
+#: hugin1/hugin/ImagesPanel.cpp:685
+msgid "Everything"
+msgstr "Tot"
+
+#: hugin1/hugin/ImagesPanel.cpp:691
 #, fuzzy
 msgid "Positions and Translation (y,p,r,x,y,z)"
 msgstr "Posicions i distorsió de barrilet (y, p, r, b)"
 
-#: hugin1/hugin/ImagesPanel.cpp:687
+#: hugin1/hugin/ImagesPanel.cpp:694
 #, fuzzy
 msgid "Positions, Translation and View (y,p,r,x,y,z,v)"
 msgstr "Posicions i vista (y, p, r, v)"
 
-#: hugin1/hugin/ImagesPanel.cpp:690
+#: hugin1/hugin/ImagesPanel.cpp:697
 #, fuzzy
 msgid "Positions, Translation and Barrel (y,p,r,x,y,z,b)"
 msgstr "Posicions, Vista i Barrilet (y, p, r, v, b)"
 
-#: hugin1/hugin/ImagesPanel.cpp:693
+#: hugin1/hugin/ImagesPanel.cpp:700
 #, fuzzy
 msgid "Positions, Translation, View and Barrel (y,p,r,x,y,z,v,b)"
 msgstr "Posicions, Vista i Barrilet (y, p, r, v, b)"
 
-#: hugin1/hugin/ImagesPanel.cpp:697 hugin1/hugin/ImagesPanel.cpp:718
+#: hugin1/hugin/ImagesPanel.cpp:704 hugin1/hugin/ImagesPanel.cpp:725
 #, fuzzy
 msgid "Custom parameters"
 msgstr "els paràmetres personalitzats a sota"
 
-#: hugin1/hugin/ImagesPanel.cpp:703
+#: hugin1/hugin/ImagesPanel.cpp:710
 msgid "Low dynamic range"
 msgstr ""
 
-#: hugin1/hugin/ImagesPanel.cpp:706
+#: hugin1/hugin/ImagesPanel.cpp:713
 msgid "Low dynamic range, variable white balance"
 msgstr ""
 
-#: hugin1/hugin/ImagesPanel.cpp:711
+#: hugin1/hugin/ImagesPanel.cpp:718
 msgid "High dynamic range, fixed exposure"
 msgstr ""
 
-#: hugin1/hugin/ImagesPanel.cpp:714
+#: hugin1/hugin/ImagesPanel.cpp:721
 msgid "High dynamic range, variable white balance, fixed exposure"
 msgstr ""
 
-#: hugin1/hugin/ImagesPanel.cpp:776
+#: hugin1/hugin/ImagesPanel.cpp:783
 #, fuzzy
 msgid "Simple interface"
 msgstr "Interfície d'usuari"
 
-#: hugin1/hugin/ImagesPanel.cpp:779
+#: hugin1/hugin/ImagesPanel.cpp:786
 #, fuzzy
 msgid "Advanced interface"
 msgstr "Opcions d'Enblend"
 
-#: hugin1/hugin/ImagesPanel.cpp:782
+#: hugin1/hugin/ImagesPanel.cpp:789
 #, fuzzy
 msgid "Expert interface"
 msgstr "Interfície d'usuari"
@@ -4774,9 +4778,9 @@ msgstr ""
 msgid "Parameters:"
 msgstr "Paràmetres de la lent"
 
-#: translations/xrc.cpp:247 xrc.cpp:247
+#: translations/xrc.cpp:247 translations/xrc.cpp:1041 xrc.cpp:247 xrc.cpp:1041
 #, fuzzy
-msgid "Camera response"
+msgid "Camera Response"
 msgstr "Camera i lents"
 
 #: translations/xrc.cpp:250 xrc.cpp:250
@@ -6867,11 +6871,6 @@ msgstr "Correcció d'exposició :"
 msgid "Color"
 msgstr "Color (d)"
 
-#: translations/xrc.cpp:1041 xrc.cpp:1041
-#, fuzzy
-msgid "Camera Response"
-msgstr "Camera i lents"
-
 #: translations/xrc.cpp:1044 xrc.cpp:1044
 #, fuzzy
 msgid "Reset values"
@@ -7140,6 +7139,10 @@ msgstr ""
 "L'optimització de tots els paràmetres de distorsió \"tot\" s'aplica sols en "
 "imatges amb un grau elevat de encavalcament i molts punts de control "
 "distribuïts correctament."
+
+#, fuzzy
+#~ msgid "Camera response"
+#~ msgstr "Camera i lents"
 
 #, fuzzy
 #~ msgid "Progress:"
@@ -7539,9 +7542,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "overview"
 #~ msgstr "Prèvia"
-
-#~ msgid "Everything"
-#~ msgstr "Tot"
 
 #, fuzzy
 #~ msgid "Exposure:"

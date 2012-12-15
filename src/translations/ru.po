@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hugin 2011.0.0\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
-"POT-Creation-Date: 2012-12-15 10:03+0100\n"
+"POT-Creation-Date: 2012-12-15 10:47+0100\n"
 "PO-Revision-Date: 2011-04-16 16:27+0400\n"
 "Last-Translator: Александр Прокудин <alexandre.prokoudine@gmail.com>\n"
 "Language-Team: Russian <gnome-cyr@lists.gnome.org>\n"
@@ -1486,60 +1486,64 @@ msgstr "Позиции и «бочку» (y,p,r,b)"
 msgid "Positions, View and Barrel (y,p,r,v,b)"
 msgstr "Позиции, вид и «бочку» (y,p,r,v,b)"
 
-#: hugin1/hugin/ImagesPanel.cpp:679
+#: hugin1/hugin/ImagesPanel.cpp:681
 msgid "Everything without translation"
 msgstr "Всё без переноса"
 
-#: hugin1/hugin/ImagesPanel.cpp:684
+#: hugin1/hugin/ImagesPanel.cpp:685
+msgid "Everything"
+msgstr "Всё"
+
+#: hugin1/hugin/ImagesPanel.cpp:691
 msgid "Positions and Translation (y,p,r,x,y,z)"
 msgstr "Позиции и перенос (y,p,r,x,y,z)"
 
-#: hugin1/hugin/ImagesPanel.cpp:687
+#: hugin1/hugin/ImagesPanel.cpp:694
 msgid "Positions, Translation and View (y,p,r,x,y,z,v)"
 msgstr "Позиции, перенос и вид (y,p,r,x,y,z,v)"
 
-#: hugin1/hugin/ImagesPanel.cpp:690
+#: hugin1/hugin/ImagesPanel.cpp:697
 msgid "Positions, Translation and Barrel (y,p,r,x,y,z,b)"
 msgstr "Позиции, перенос и «бочку» (y,p,r,x,y,z,b)"
 
-#: hugin1/hugin/ImagesPanel.cpp:693
+#: hugin1/hugin/ImagesPanel.cpp:700
 msgid "Positions, Translation, View and Barrel (y,p,r,x,y,z,v,b)"
 msgstr "Позиции, перенос, вид и «бочку» (y,p,r,x,y,z,v,b)"
 
-#: hugin1/hugin/ImagesPanel.cpp:697 hugin1/hugin/ImagesPanel.cpp:718
+#: hugin1/hugin/ImagesPanel.cpp:704 hugin1/hugin/ImagesPanel.cpp:725
 #, fuzzy
 msgid "Custom parameters"
 msgstr "По вручную заданным ниже параметрам"
 
-#: hugin1/hugin/ImagesPanel.cpp:703
+#: hugin1/hugin/ImagesPanel.cpp:710
 msgid "Low dynamic range"
 msgstr "Узкий динамический диапазон"
 
-#: hugin1/hugin/ImagesPanel.cpp:706
+#: hugin1/hugin/ImagesPanel.cpp:713
 msgid "Low dynamic range, variable white balance"
 msgstr "Узкий динамический диапазон, переменный баланс белого"
 
-#: hugin1/hugin/ImagesPanel.cpp:711
+#: hugin1/hugin/ImagesPanel.cpp:718
 msgid "High dynamic range, fixed exposure"
 msgstr "Широкий динамический диапазон, переменный баланс белого"
 
-#: hugin1/hugin/ImagesPanel.cpp:714
+#: hugin1/hugin/ImagesPanel.cpp:721
 msgid "High dynamic range, variable white balance, fixed exposure"
 msgstr ""
 "Широкий динамический диапазон, переменный баланс белого, фиксированная "
 "экспозиция"
 
-#: hugin1/hugin/ImagesPanel.cpp:776
+#: hugin1/hugin/ImagesPanel.cpp:783
 #, fuzzy
 msgid "Simple interface"
 msgstr "Пользовательский интерфейс"
 
-#: hugin1/hugin/ImagesPanel.cpp:779
+#: hugin1/hugin/ImagesPanel.cpp:786
 #, fuzzy
 msgid "Advanced interface"
 msgstr "Дополнительно"
 
-#: hugin1/hugin/ImagesPanel.cpp:782
+#: hugin1/hugin/ImagesPanel.cpp:789
 #, fuzzy
 msgid "Expert interface"
 msgstr "Пользовательский интерфейс"
@@ -4741,9 +4745,8 @@ msgstr "Фотометрика"
 msgid "Parameters:"
 msgstr "Параметры:"
 
-#: translations/xrc.cpp:247 xrc.cpp:247
-#, fuzzy
-msgid "Camera response"
+#: translations/xrc.cpp:247 translations/xrc.cpp:1041 xrc.cpp:247 xrc.cpp:1041
+msgid "Camera Response"
 msgstr "Отклик камеры"
 
 #: translations/xrc.cpp:250 xrc.cpp:250
@@ -6793,10 +6796,6 @@ msgstr "в ноль (без коррекции экспозиции)"
 msgid "Color"
 msgstr "Цвет"
 
-#: translations/xrc.cpp:1041 xrc.cpp:1041
-msgid "Camera Response"
-msgstr "Отклик камеры"
-
 #: translations/xrc.cpp:1044 xrc.cpp:1044
 msgid "Reset values"
 msgstr "Сбросить значения"
@@ -7071,6 +7070,10 @@ msgstr ""
 "Тип оптимизации «Всё» стоит использовать только в том случае, когда "
 "объединяются сильно пересекающиеся изображения с заметно удалёнными друг от "
 "друга контрольными точками."
+
+#, fuzzy
+#~ msgid "Camera response"
+#~ msgstr "Отклик камеры"
 
 #, fuzzy
 #~ msgid "Progress:"
@@ -7515,9 +7518,6 @@ msgstr ""
 
 #~ msgid "Creating pyramid image for %s, level %d"
 #~ msgstr "Создаётся пирамидальное изображение для %s, уровень %d"
-
-#~ msgid "Everything"
-#~ msgstr "Всё"
 
 #~ msgid "Exposure:"
 #~ msgstr "Экспозиция:"

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bg\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
-"POT-Creation-Date: 2012-12-15 10:03+0100\n"
+"POT-Creation-Date: 2012-12-15 10:47+0100\n"
 "PO-Revision-Date: 2008-07-10 10:12+0200\n"
 "Last-Translator: Svetoslav Stefanov <lfu.project@gmail.com>\n"
 "Language-Team: Bulgarian <bg@li.org>\n"
@@ -1469,63 +1469,67 @@ msgstr "Позиции и изкривяване тип «бъчва» (y,p,r,b)
 msgid "Positions, View and Barrel (y,p,r,v,b)"
 msgstr "Позиции, Изгледи и изкривяване тип «бъчва» (y,p,r,v,b)"
 
-#: hugin1/hugin/ImagesPanel.cpp:679
+#: hugin1/hugin/ImagesPanel.cpp:681
 msgid "Everything without translation"
 msgstr ""
 
-#: hugin1/hugin/ImagesPanel.cpp:684
+#: hugin1/hugin/ImagesPanel.cpp:685
+msgid "Everything"
+msgstr "Всичко"
+
+#: hugin1/hugin/ImagesPanel.cpp:691
 #, fuzzy
 msgid "Positions and Translation (y,p,r,x,y,z)"
 msgstr "Позиции и изкривяване тип «бъчва» (y,p,r,b)"
 
-#: hugin1/hugin/ImagesPanel.cpp:687
+#: hugin1/hugin/ImagesPanel.cpp:694
 #, fuzzy
 msgid "Positions, Translation and View (y,p,r,x,y,z,v)"
 msgstr "Позиции и Изглед (y,p,r,v)"
 
-#: hugin1/hugin/ImagesPanel.cpp:690
+#: hugin1/hugin/ImagesPanel.cpp:697
 #, fuzzy
 msgid "Positions, Translation and Barrel (y,p,r,x,y,z,b)"
 msgstr "Позиции, Изгледи и изкривяване тип «бъчва» (y,p,r,v,b)"
 
-#: hugin1/hugin/ImagesPanel.cpp:693
+#: hugin1/hugin/ImagesPanel.cpp:700
 #, fuzzy
 msgid "Positions, Translation, View and Barrel (y,p,r,x,y,z,v,b)"
 msgstr "Позиции, Изгледи и изкривяване тип «бъчва» (y,p,r,v,b)"
 
-#: hugin1/hugin/ImagesPanel.cpp:697 hugin1/hugin/ImagesPanel.cpp:718
+#: hugin1/hugin/ImagesPanel.cpp:704 hugin1/hugin/ImagesPanel.cpp:725
 #, fuzzy
 msgid "Custom parameters"
 msgstr "Ръчно зададените параметри по-долу"
 
-#: hugin1/hugin/ImagesPanel.cpp:703
+#: hugin1/hugin/ImagesPanel.cpp:710
 msgid "Low dynamic range"
 msgstr "Нисък динамичен диапазон"
 
-#: hugin1/hugin/ImagesPanel.cpp:706
+#: hugin1/hugin/ImagesPanel.cpp:713
 msgid "Low dynamic range, variable white balance"
 msgstr "Нисък динамичен диапазон, променлив баланс на бялото"
 
-#: hugin1/hugin/ImagesPanel.cpp:711
+#: hugin1/hugin/ImagesPanel.cpp:718
 msgid "High dynamic range, fixed exposure"
 msgstr "Висок динамичен диапазон, фиксирана експозиция"
 
-#: hugin1/hugin/ImagesPanel.cpp:714
+#: hugin1/hugin/ImagesPanel.cpp:721
 msgid "High dynamic range, variable white balance, fixed exposure"
 msgstr ""
 "Висок динамичен диапазон, променлив баланс на бялото, фиксирана експозиция"
 
-#: hugin1/hugin/ImagesPanel.cpp:776
+#: hugin1/hugin/ImagesPanel.cpp:783
 #, fuzzy
 msgid "Simple interface"
 msgstr "Потребителски интерфейс"
 
-#: hugin1/hugin/ImagesPanel.cpp:779
+#: hugin1/hugin/ImagesPanel.cpp:786
 #, fuzzy
 msgid "Advanced interface"
 msgstr "Настройки на сливане"
 
-#: hugin1/hugin/ImagesPanel.cpp:782
+#: hugin1/hugin/ImagesPanel.cpp:789
 #, fuzzy
 msgid "Expert interface"
 msgstr "Потребителски интерфейс"
@@ -4801,9 +4805,8 @@ msgstr "Фотометрична"
 msgid "Parameters:"
 msgstr "Параметри:"
 
-#: translations/xrc.cpp:247 xrc.cpp:247
-#, fuzzy
-msgid "Camera response"
+#: translations/xrc.cpp:247 translations/xrc.cpp:1041 xrc.cpp:247 xrc.cpp:1041
+msgid "Camera Response"
 msgstr "Отклик на камерата"
 
 #: translations/xrc.cpp:250 xrc.cpp:250
@@ -6905,10 +6908,6 @@ msgstr "Коррекция экспозиции:"
 msgid "Color"
 msgstr "Цвет (d)"
 
-#: translations/xrc.cpp:1041 xrc.cpp:1041
-msgid "Camera Response"
-msgstr "Отклик на камерата"
-
 #: translations/xrc.cpp:1044 xrc.cpp:1044
 #, fuzzy
 msgid "Reset values"
@@ -7187,6 +7186,10 @@ msgstr ""
 "Оптимизацията на всички параметри на изкривяване \"everything\" има смисъл "
 "да се използва само при силно застъпващи се изображения и много добре "
 "разположени контролни точки."
+
+#, fuzzy
+#~ msgid "Camera response"
+#~ msgstr "Отклик на камерата"
 
 #, fuzzy
 #~ msgid "Progress:"
@@ -7604,9 +7607,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "overview"
 #~ msgstr "Предварителен преглед"
-
-#~ msgid "Everything"
-#~ msgstr "Всичко"
 
 #~ msgid "Exposure:"
 #~ msgstr "Експозиция:"

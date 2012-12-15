@@ -595,7 +595,7 @@
                 </object>
               </object>
             </object>
-            <label>Camera response</label>
+            <label>Camera Response</label>
           </object>
         </object>
         <flag>wxEXPAND|wxALL</flag>
