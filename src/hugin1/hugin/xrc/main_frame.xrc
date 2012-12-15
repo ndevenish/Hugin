@@ -63,8 +63,8 @@
             <object class="wxBoxSizer">
               <object class="sizeritem">
                 <object class="wxStaticText">
-                  <label platform="win|unix">You pressed the control key.</label>
-                  <label platform="mac">You pressed the command key.</label>
+                  <label platform="win|unix">You have pressed the Control key.</label>
+                  <label platform="mac">You have pressed the Command key.</label>
                   <style>wxALIGN_LEFT</style>
                 </object>
               </object>

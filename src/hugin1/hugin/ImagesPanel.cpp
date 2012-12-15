@@ -573,7 +573,7 @@ void ImagesPanel::OnMinimumOverlapChanged(wxCommandEvent & e)
     }
     if(val<=0 || val>1)
     {
-        wxMessageBox(_("The minimum overlap have to be greater than 0 and small than 1."),
+        wxMessageBox(_("The minimum overlap have to be greater than 0 and smaller than 1."),
 #ifdef _WINDOWS
             _("Hugin"),
 #else

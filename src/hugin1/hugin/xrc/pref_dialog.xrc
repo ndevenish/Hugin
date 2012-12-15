@@ -125,15 +125,14 @@
                         </object>
                         <object class="sizeritem">
                           <object class="wxStaticText">
-                            <label>Progress:</label>
+                            <label>Log messages:</label>
                           </object>
                           <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
                           <border>5</border>
                         </object>
                         <object class="sizeritem">
                           <object class="wxCheckBox" name="prefs_copy_log">
-                            <label>Remember log messages.</label>
-                            <tooltip>Copies the log messages to the clipboard.</tooltip>
+                            <label>Copy log messages to clipboard.</label>
                           </object>
                           <flag>wxALL|wxEXPAND|wxALIGN_TOP</flag>
                           <border>5</border>
