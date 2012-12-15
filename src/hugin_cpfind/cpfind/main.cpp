@@ -23,356 +23,399 @@
 #include <vector>
 #include <string>
 #include <boost/foreach.hpp>
-#include "tclap/CmdLine.h"
 #include "Utils.h"
+#include <getopt.h>
 
 using namespace std;
-using namespace TCLAP;
-
 
 #include "PanoDetector.h"
 
-class MyOutput : public StdOutput
-{
-public:
-
-    virtual void failure(CmdLineInterface& c, ArgException& e)
-    {
-        std::cerr << "Parse error: " << e.argId() << std::endl << "             " << e.error() << std::endl << std::endl << endl;
-    }
-
-    virtual void usage(CmdLineInterface& c)
-    {
-        int iML = 30;
-        cout << "Basic usage : " << endl;
-        cout << "  "<< c.getProgramName() << " -o output_project project.pto" << endl;
-        cout << "  "<< c.getProgramName() << " -k i0 -k i1 ... -k in project.pto" << endl;
-        cout << "  "<< c.getProgramName() << " --kall project.pto" << endl;
-
-        cout << endl <<"All options : " << endl;
-        list<Arg*> args = c.getArgList();
-        for (ArgListIterator it = args.begin(); it != args.end(); it++)
-        {
-            string aL = (*it)->longID();
-            string aD = (*it)->getDescription();
-            // replace tabs by n spaces.
-            size_t p = aD.find_first_of("\t");
-            while(p != string::npos)
-            {
-                string aD1 = aD.substr(0, p);
-                string aD2 = aD.substr(p+1, aD.size() - p + 1);
-
-                aD = aD1 + "\n" + string(iML, ' ') + aD2;
-                p = aD.find_first_of("\t");
-            }
-
-
-            if (aL.size() > iML)
-            {
-                cout << aL << endl << string(iML, ' ')  << aD << endl;
-            }
-            else
-            {
-                cout << aL  << string(iML - aL.size(), ' ')   << aD << endl;
-            }
-        }
-    }
-
-    virtual void version(CmdLineInterface& c)
-    {
-        cout << "my version message: 0.1" << endl;
-    }
-};
-
-
-
-bool parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
-{
-    try
-    {
-
-        CmdLine cmd("Hugin's cpfind", ' ', DISPLAY_VERSION );
-
-        MyOutput my;
-        cmd.setOutput(&my);
-
-        SwitchArg aArgQuiet("q","quiet", "Do not output progress\n", false);
-        SwitchArg aArgVerbose("v","verbose", "Increase verbosity of output\n", false);
-        SwitchArg aArgFullScale("","fullscale", "Uses full scale image to detect keypoints\t(default:false)\n", false);
-        ValueArg<int> aArgSieve1Width("","sieve1width", "Sieve 1: Number of buckets on width\t(default: 10)", false, 10, "int");
-        ValueArg<int> aArgSieve1Height("","sieve1height", "Sieve 1: Number of buckets on height\t(default: 10)", false, 10, "int");
-        ValueArg<int> aArgSieve1Size("","sieve1size", "Sieve 1: Max points per bucket (default: 100)\n", false, 100, "int");
-
-        SwitchArg aArgLinearMatch("","linearmatch", "Enable linear images matching (default: off)", false);
-        ValueArg<int> aArgLinearMatchLen("","linearmatchlen", "Number of images to match in linear matching\t(default: 1)\n", false, 1 ,"int");
-        SwitchArg aArgMultiRow("","multirow", "Enable heuristic multi row matching\t(default: off)",false);
-        SwitchArg aArgPreAligned("", "prealigned", "Match only overlapping images\trequires a rough aligned panorama. (default: off)",false);
-
-        ValueArg<int> aArgKDTreeSearchSteps("","kdtreesteps", "KDTree search steps (default: 200)", false, 200, "int");
-        ValueArg<double> aArgKDTreeSecondDist("","kdtreeseconddist", "KDTree: distance of 2nd match (default: 0.25)\n", false, 0.25, "double");
-        ValueArg<int> aArgMinMatches("","minmatches", "Minimum matches (default: 6)", false, 6, "int");
-
-        std::vector<std::string> allowedRansacMode;
-        allowedRansacMode.push_back("auto");
-        allowedRansacMode.push_back("hom");
-        allowedRansacMode.push_back("rpy");
-        allowedRansacMode.push_back("rpyv");
-        allowedRansacMode.push_back("rpyvb");
-        ValuesConstraint<string> allowedRansacVals(allowedRansacMode);
-        ValueArg<std::string> aArgRansacMode("","ransacmode", "Ransac mode (default: auto)\n", false, "auto", &allowedRansacVals);
-        ValueArg<int> aArgRansacIter("","ransaciter", "Ransac iterations (default: 1000)", false, 1000, "int");
-        ValueArg<int> aArgRansacDist("","ransacdist", "Ransac: homography estimation distance threshold \t(in pixels) "
-                                     "(default: 50)", false, 50, "int");
-
-        ValueArg<int> aArgSieve2Width("","sieve2width", "Sieve 2: Number of buckets on width (default: 5)", false, 5, "int");
-        ValueArg<int> aArgSieve2Height("","sieve2height", "Sieve 2: Number of buckets on height (default: 5)", false, 5, "int");
-        ValueArg<int> aArgSieve2Size("","sieve2size", "Sieve 2: Max points per bucket (default: 1)\n", false, 1 ,"int");
-
-        cmd.add(aArgQuiet);
-        cmd.add(aArgVerbose);
-        cmd.add(aArgSieve2Size);
-        cmd.add(aArgSieve2Height);
-        cmd.add(aArgSieve2Width);
-        cmd.add(aArgRansacMode);
-        cmd.add(aArgRansacDist);
-        cmd.add(aArgRansacIter);
-        cmd.add(aArgMinMatches);
-        cmd.add(aArgLinearMatchLen);
-        cmd.add(aArgLinearMatch);
-        cmd.add(aArgMultiRow);
-        cmd.add(aArgPreAligned);
-        cmd.add(aArgKDTreeSecondDist);
-        cmd.add(aArgKDTreeSearchSteps);
-        cmd.add(aArgSieve1Size);
-        cmd.add(aArgSieve1Height);
-        cmd.add(aArgSieve1Width);
-        cmd.add(aArgFullScale);
-
-        SwitchArg aArgTest("t","test", "Enables test mode\n", false);
-        cmd.add( aArgTest );
-
-        ValueArg<int> aArgCores("n","ncores", "Number of CPU/Cores (default:autodetect)", false, utils::getCPUCount(), "int");
-        cmd.add( aArgCores );
-
-        UnlabeledValueArg<string> aArgInputFile("filename", "Input Project File", true, "default","string");
-        cmd.add( aArgInputFile );
-
-        ValueArg<string> aArgOutputFile("o","output","Output file",false, "default", "string");
-        cmd.add( aArgOutputFile );
-
-        MultiArg<int> aArgWriteKeyFiles("k","writekeyfile", "Write a keyfile for this image number", false, "int");
-        cmd.add( aArgWriteKeyFiles );
-
-        SwitchArg aArgWriteAllKeyFiles("","kall", "Write keyfiles for all images", false);
-        cmd.add( aArgWriteAllKeyFiles );
-
-        SwitchArg aArgCacheKeyfiles("c", "cache", "Caches keypoints to external file", false);
-        cmd.add(aArgCacheKeyfiles);
-
-        SwitchArg aArgClean("", "clean", "Clean up cached keyfiles", false);
-        cmd.add(aArgClean);
-
-        ValueArg<string> aArgKeypath("p","keypath","Path to cache keyfiles",false,"","string");
-        cmd.add(aArgKeypath);
-
-        SwitchArg aArgCeleste("","celeste", "Run celeste after loading images\n",false);
-        cmd.add(aArgCeleste);
-        ValueArg<double> aArgCelesteThreshold("","celesteThreshold","Threshold for celeste (default 0.5)",false,0.5,"double");
-        cmd.add(aArgCelesteThreshold);
-        ValueArg<int> aArgCelesteRadius("","celesteRadius","Radius for celeste (default 20)",false,20,"int");
-        cmd.add(aArgCelesteRadius);
-
-        cmd.parse(argc,argv);
-
-        //
-        // Set variables
-        //
-
-        if (aArgInputFile.isSet())
-        {
-            ioPanoDetector.setInputFile(aArgInputFile.getValue());
-        }
-        else
-        {
-            // can also be happen with invalid command line parameters, does not show message
-            // cout << "ERROR: Input project file is missing." << endl;
-            return false;
-        }
-        if (aArgOutputFile.isSet())
-        {
-            ioPanoDetector.setOutputFile(aArgOutputFile.getValue());
-        }
-
-        ioPanoDetector.setGradientDescriptor(true);
-
-        if (aArgVerbose.isSet())
-        {
-            ioPanoDetector.setVerbose(2);
-        }
-        if (aArgQuiet.isSet())
-        {
-            ioPanoDetector.setVerbose(0);
-        }
-        if (aArgSieve1Width.isSet())
-        {
-            ioPanoDetector.setSieve1Width(aArgSieve1Width.getValue());
-        }
-        if (aArgSieve1Height.isSet())
-        {
-            ioPanoDetector.setSieve1Height(aArgSieve1Height.getValue());
-        }
-        if (aArgSieve1Size.isSet())
-        {
-            ioPanoDetector.setSieve1Size(aArgSieve1Size.getValue());
-        }
-        if (aArgKDTreeSearchSteps.isSet())
-        {
-            ioPanoDetector.setKDTreeSearchSteps(aArgKDTreeSearchSteps.getValue());
-        }
-        if (aArgKDTreeSecondDist.isSet())
-        {
-            ioPanoDetector.setKDTreeSecondDistance(aArgKDTreeSecondDist.getValue());
-        }
-        if (aArgMinMatches.isSet())
-        {
-            ioPanoDetector.setMinimumMatches(aArgMinMatches.getValue());
-        }
-        if (aArgRansacMode.isSet())
-        {
-            if (aArgRansacMode.getValue() ==  "auto")
-            {
-                ioPanoDetector.setRansacMode(RANSACOptimizer::AUTO);
-            }
-            else if (aArgRansacMode.getValue()==  "hom")
-            {
-                ioPanoDetector.setRansacMode(RANSACOptimizer::HOMOGRAPHY);
-            }
-            else if (aArgRansacMode.getValue()==  "rpy")
-            {
-                ioPanoDetector.setRansacMode(RANSACOptimizer::RPY);
-            }
-            else if (aArgRansacMode.getValue()==  "rpyv")
-            {
-                ioPanoDetector.setRansacMode(RANSACOptimizer::RPYV);
-            }
-            else if (aArgRansacMode.getValue()==  "rpyvb")
-            {
-                ioPanoDetector.setRansacMode(RANSACOptimizer::RPYVB);
-            }
-            else
-            {
-                cout << "ERROR: invalid --ransacmode." << endl;
-            }
-        }
-        if (aArgRansacIter.isSet())
-        {
-            ioPanoDetector.setRansacIterations(aArgRansacIter.getValue());
-        }
-        if (aArgRansacDist.isSet())
-        {
-            ioPanoDetector.setRansacDistanceThreshold(aArgRansacDist.getValue());
-        }
-        if (aArgSieve2Width.isSet())
-        {
-            ioPanoDetector.setSieve2Width(aArgSieve2Width.getValue());
-        }
-        if (aArgSieve2Height.isSet())
-        {
-            ioPanoDetector.setSieve2Height(aArgSieve2Height.getValue());
-        }
-        if (aArgSieve2Size.isSet())
-        {
-            ioPanoDetector.setSieve2Size(aArgSieve2Size.getValue());
-        }
-        if (aArgLinearMatch.isSet())
-        {
-            if(aArgMultiRow.isSet() || aArgPreAligned.isSet())
-            {
-                std::cout << "ERROR: --linearmatch does not work together with --multirow or --prealigned." << endl;
-                return false;
-            };
-            ioPanoDetector.setMatchingStrategy(PanoDetector::LINEAR);
-        };
-        if (aArgMultiRow.isSet())
-        {
-            if(aArgLinearMatch.isSet() || aArgPreAligned.isSet())
-            {
-                std::cout << "ERROR: --multirow does not work together with --linearmatch or --prealigned." << endl;
-                return false;
-            };
-            ioPanoDetector.setMatchingStrategy(PanoDetector::MULTIROW);
-        };
-        if (aArgPreAligned.isSet())
-        {
-            if(aArgLinearMatch.isSet() || aArgMultiRow.isSet())
-            {
-                std::cout << "ERROR: --prealigned does not work together with --linearmatch or --multirow." << endl;
-                return false;
-            };
-            ioPanoDetector.setMatchingStrategy(PanoDetector::PREALIGNED);
-        };
-        if (aArgLinearMatchLen.isSet())
-        {
-            ioPanoDetector.setLinearMatchLen(aArgLinearMatchLen.getValue());
-        }
-        if (aArgFullScale.isSet())
-        {
-            ioPanoDetector.setDownscale(false);
-        }
-        if (aArgTest.isSet())
-        {
-            ioPanoDetector.setTest(aArgTest.getValue());
-        }
-        if (aArgCores.isSet())
-        {
-            ioPanoDetector.setCores(aArgCores.getValue());
-        }
-
-        if (aArgWriteAllKeyFiles.isSet())
-        {
-            ioPanoDetector.setWriteAllKeyPoints();
-        }
-        ioPanoDetector.setKeyPointsIdx(aArgWriteKeyFiles.getValue());
-
-        if(aArgCacheKeyfiles.isSet())
-        {
-            ioPanoDetector.setCached(true);
-        }
-        if(aArgClean.isSet())
-        {
-            ioPanoDetector.setCleanup(true);
-        }
-        if(aArgKeypath.isSet())
-        {
-            ioPanoDetector.setKeyfilesPath(aArgKeypath.getValue());
-        }
-        if(aArgCeleste.isSet())
-        {
-            ioPanoDetector.setCeleste(true);
-        }
-        if(aArgCelesteThreshold.isSet())
-        {
-            ioPanoDetector.setCelesteThreshold(aArgCelesteThreshold.getValue());
-        }
-        if(aArgCelesteRadius.isSet())
-        {
-            ioPanoDetector.setCelesteRadius(aArgCelesteRadius.getValue());
-        }
-
-    }
-    catch ( ArgException& e )
-    {
-        cout << "ERROR: " << e.error() << " " << e.argId() << endl;
-        return false;
-    }
-    return true;
-}
-
-int main(int argc, char** argv)
+void printVersion()
 {
     std::cout << "Hugin's cpfind " << DISPLAY_VERSION << endl;
     std::cout << "based on Pan-o-matic by Anael Orlinski" << endl;
+};
 
+void printUsage()
+{
+    printVersion();
+    cout << endl
+        << "Basic usage: " << endl
+        << "  cpfind -o output_project project.pto" << endl
+        << "  cpfind -k i0 -k i1 ... -k in project.pto" << endl
+        << "  cpfind --kall project.pto" << endl
+        << endl << "The input project file is required." << endl
+        << endl << "General options" << endl
+        << "  -q|--quiet   Do not output progress" << endl
+        << "  -v|--verbose  Verbose output" << endl
+        << "  -h|--help     Shows this help screen" << endl
+        << "  --version     Prints the version number and exits then" << endl
+        << "  -o|--output=<string>  Sets the filename of the output file" << endl
+        << "                        (default: default.pto)" << endl
+        << endl << "Matching strategy (these options are mutually exclusive)" << endl
+        << "  --linearmatch   Enable linear images matching" << endl
+        << "                  Can be fine tuned with" << endl
+        << "      --linearmatchlen=<int>  Number of images to match (default: 1)" << endl
+        << "  --multirow      Enable heuristic multi row matching" << endl
+        << "  --prealigned    Match only overlapping images," << endl
+        << "                  requires a rough aligned panorama" << endl
+        << endl << "Feature description options" << endl
+        << "  --sieve1width=<int>    Sieve 1: Number of buckets on width (default: 10)" << endl
+        << "  --sieve1height=<int>   Sieve 1: Number of buckets on height (default: 10)" << endl
+        << "  --sieve1size=<int>     Sieve 1: Max points per bucket (default: 100)" << endl
+        << "  --kdtreesteps=<int>          KDTree: search steps (default: 200)" << endl
+        << "  --kdtreeseconddist=<double>  KDTree: distance of 2nd match (default: 0.25)" << endl
+        << endl << "Feature matching options" << endl
+        << "  --ransaciter=<int>     Ransac: iterations (default: 1000)" << endl
+        << "  --ransacdist=<int>     Ransac: homography estimation distance threshold" << endl
+        << "                                 (in pixels) (default: 25)" << endl
+        << "  --ransacmode=<string>  Ransac: Select the mode used in the ransac step." << endl
+        << "                                 Possible values: auto, hom, rpy, rpyv, rpyb" << endl
+        << "                                 (default: auto)" << endl
+        << "  --minmatches=<int>     Minimum matches (default: 6)" << endl
+        << "  --sieve2width=<int>    Sieve 2: Number of buckets on width (default: 5)" << endl
+        << "  --sieve2height=<int>   Sieve 2: Number of buckets on height (default: 5)" << endl
+        << "  --sieve2size=<int>     Sieve 2: Max points per bucket (default: 1)" << endl
+        << endl << "Caching options" << endl
+        << "  -c|--cache    Caches automaticall keypoints to external file" << endl
+        << "  --clean       Clean up cached keyfiles" << endl
+        << "  -p|--keypath=<string>    Store keyfiles in given path" << endl
+        << "  -k|--writekeyfile=<int>  Write a keyfile for this image number" << endl
+        << "  --kall                   Write keyfiles for all images in the project" << endl
+        << endl << "Advanced options" << endl
+        << "  --celeste       Masks area with clouds before running feature descriptor" << endl
+        << "                  Celeste can be fine tuned with the following parameters" << endl
+        << "      --celestethreshold=<int>  Threshold for celeste (default 0.5)" << endl
+        << "      --celesteradius=<int>     Radius for celeste (in pixels, default 20)" << endl
+        << "  --ncores=<int>  Number of threads to use (default: autodetect number of cores)" << endl;
+};
+
+bool parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
+{
+    enum
+    {
+        SIEVE1WIDTH=256,
+        SIEVE1HEIGHT,
+        SIEVE1SIZE,
+        LINEARMATCH,
+        LINEARMATCHLEN,
+        MULTIROW,
+        PREALIGNED,
+        KDTREESTEPS,
+        KDTREESECONDDIST,
+        MINMATCHES,
+        RANSACMODE,
+        RANSACITER,
+        RANSACDIST,
+        SIEVE2WIDTH,
+        SIEVE2HEIGHT,
+        SIEVE2SIZE,
+        KALL,
+        CLEAN,
+        CELESTE,
+        CELESTETHRESHOLD,
+        CELESTERADIUS,
+        CPFINDVERSION
+    };
+    const char* optstring = "qvftn:o:k:cp:h";
+    static struct option longOptions[] =
+    {
+        {"quiet", no_argument, NULL, 'q' },
+        {"verbose", no_argument, NULL, 'v'},
+        {"fullscale", no_argument, NULL, 'f'},
+        {"sieve1width", required_argument, NULL, SIEVE1WIDTH},
+        {"sieve1height", required_argument, NULL, SIEVE1HEIGHT},
+        {"sieve1size", required_argument, NULL, SIEVE1SIZE},
+        {"linearmatch", no_argument, NULL, LINEARMATCH},
+        {"linearmatchlen", required_argument, NULL, LINEARMATCHLEN},
+        {"multirow", no_argument, NULL, MULTIROW},
+        {"prealigned", no_argument, NULL, PREALIGNED},
+        {"kdtreesteps", required_argument, NULL, KDTREESTEPS},
+        {"kdtreeseconddist", required_argument, NULL, KDTREESECONDDIST},
+        {"minmatches", required_argument, NULL, MINMATCHES},
+        {"ransacmode", required_argument, NULL, RANSACMODE},
+        {"ransaciter", required_argument, NULL, RANSACITER},
+        {"ransacdist", required_argument, NULL, RANSACDIST},
+        {"sieve2width", required_argument, NULL, SIEVE2WIDTH},
+        {"sieve2height", required_argument, NULL, SIEVE2HEIGHT},
+        {"sieve2size", required_argument, NULL, SIEVE2SIZE},
+        {"test", no_argument, NULL, 't'},
+        {"ncores", required_argument, NULL, 'n'},
+        {"output", required_argument, NULL, 'o'},
+        {"writekeyfile", required_argument, NULL, 'k'},
+        {"kall", no_argument, NULL, KALL},
+        {"cache", no_argument, NULL, 'c'},
+        {"clean", no_argument, NULL, CLEAN},
+        {"keypath", required_argument, NULL, 'p'},
+        {"celeste", no_argument, NULL, CELESTE},
+        {"celestethreshold", required_argument, NULL, CELESTETHRESHOLD},
+        {"celesteradius", required_argument, NULL, CELESTERADIUS},
+        {"version", no_argument, NULL, CPFINDVERSION},
+        {"help", no_argument, NULL, 'h'},
+        0
+    };
+
+    int c;
+    int optionIndex = 0;
+    int number;
+    double floatNumber;
+    string ransacMode;
+    vector<int> keyfilesIndex;
+    int doLinearMatch=0;
+    int doMultirow=0;
+    int doPrealign=0;
+    while ((c = getopt_long (argc, argv, optstring, longOptions,&optionIndex)) != -1)
+    {
+        switch (c)
+        {
+            case 'q':
+                ioPanoDetector.setVerbose(0);
+                break;
+            case 'v':
+                ioPanoDetector.setVerbose(2);
+                break;
+            case 'f':
+                ioPanoDetector.setDownscale(false);
+                break;
+            case SIEVE1WIDTH:
+                number=atoi(optarg);
+                if(number>0)
+                {
+                    ioPanoDetector.setSieve1Width(number);
+                };
+                break;
+            case SIEVE1HEIGHT:
+                number=atoi(optarg);
+                if(number>0)
+                {
+                    ioPanoDetector.setSieve1Height(number);
+                };
+                break;
+            case SIEVE1SIZE:
+                number=atoi(optarg);
+                if(number>0)
+                {
+                    ioPanoDetector.setSieve1Size(number);
+                };
+                break;
+            case LINEARMATCH:
+                doLinearMatch=1;
+                break;
+            case LINEARMATCHLEN:
+                number=atoi(optarg);
+                if(number>0)
+                {
+                    ioPanoDetector.setLinearMatchLen(number);
+                };
+                break;
+            case MULTIROW:
+                doMultirow=1;
+                break;
+            case PREALIGNED:
+                doPrealign=1;
+                break;
+            case KDTREESTEPS:
+                number=atoi(optarg);
+                if(number>0)
+                {
+                    ioPanoDetector.setKDTreeSearchSteps(number);
+                };
+                break;
+            case KDTREESECONDDIST:
+                floatNumber=atof(optarg);
+                if(floatNumber>0)
+                {
+                    ioPanoDetector.setKDTreeSecondDistance(floatNumber);
+                };
+                break;
+            case MINMATCHES:
+                number=atoi(optarg);
+                if(number>0)
+                {
+                    ioPanoDetector.setMinimumMatches(number);
+                };
+                break;
+            case RANSACMODE:
+                ransacMode=optarg;
+                cout << "Ransac: " << ransacMode << endl;
+                transform(ransacMode.begin(), ransacMode.end(), ransacMode.begin(),(int(*)(int)) tolower);
+                cout << "Ransac: " << ransacMode << endl;
+                if(ransacMode=="auto")
+                {
+                    ioPanoDetector.setRansacMode(RANSACOptimizer::AUTO);
+                }
+                else
+                {
+                    if(ransacMode=="hom")
+                    {
+                        ioPanoDetector.setRansacMode(RANSACOptimizer::HOMOGRAPHY);
+                    }
+                    else
+                    {
+                        if(ransacMode=="rpy")
+                        {
+                            ioPanoDetector.setRansacMode(RANSACOptimizer::RPY);
+                        }
+                        else
+                        {
+                            if(ransacMode=="rpyv")
+                            {
+                                ioPanoDetector.setRansacMode(RANSACOptimizer::RPYV);
+                            }
+                            else
+                            {
+                                if(ransacMode=="rpyvb")
+                                {
+                                    ioPanoDetector.setRansacMode(RANSACOptimizer::RPYVB);
+                                }
+                                else
+                                {
+                                    cout << "Warning: Invalid parameter in --ransacmode." << endl;
+                                };
+                            };
+                        };
+                    };
+                };
+                break;
+            case RANSACITER:
+                number=atoi(optarg);
+                if(number>0)
+                {
+                    ioPanoDetector.setRansacIterations(number);
+                };
+                break;
+            case RANSACDIST:
+                number=atoi(optarg);
+                if(number>0)
+                {
+                    ioPanoDetector.setRansacDistanceThreshold(number);
+                };
+                break;
+            case SIEVE2WIDTH:
+                number=atoi(optarg);
+                if(number>0)
+                {
+                    ioPanoDetector.setSieve2Width(number);
+                };
+                break;
+            case SIEVE2HEIGHT:
+                number=atoi(optarg);
+                if(number>0)
+                {
+                    ioPanoDetector.setSieve2Height(number);
+                };
+                break;
+            case SIEVE2SIZE:
+                number=atoi(optarg);
+                if(number>0)
+                {
+                    ioPanoDetector.setSieve2Size(number);
+                };
+                break;
+            case 't':
+                ioPanoDetector.setTest(true);
+                break;
+            case 'n':
+                number=atoi(optarg);
+                if(number>0)
+                {
+                    ioPanoDetector.setCores(number);
+                };
+                break;
+            case 'o':
+                ioPanoDetector.setOutputFile(optarg);
+                break;
+            case 'k':
+                number=atoi(optarg);
+                if((number==0) && (strcmp(optarg,"0")!=0))
+                {
+                    cout << "Warning: " << optarg << " is not a valid image number of writekeyfile." << endl;
+                }
+                else
+                {
+                    keyfilesIndex.push_back(number);
+                };
+                break;
+            case KALL:
+                ioPanoDetector.setWriteAllKeyPoints();
+                break;
+            case 'c':
+                ioPanoDetector.setCached(true);
+                break;
+            case CLEAN:
+                ioPanoDetector.setCleanup(true);
+                break;
+            case 'p':
+                ioPanoDetector.setKeyfilesPath(optarg);
+                break;
+            case CELESTE:
+                ioPanoDetector.setCeleste(true);
+                break;
+            case CELESTETHRESHOLD:
+                floatNumber=atof(optarg);
+                if(floatNumber>0.0)
+                {
+                    ioPanoDetector.setCelesteThreshold(floatNumber);
+                };
+                break;
+            case CELESTERADIUS:
+                number=atoi(optarg);
+                if(number>0)
+                {
+                    ioPanoDetector.setCelesteRadius(number);
+                };
+                break;
+            case CPFINDVERSION:
+                printVersion();
+                return false;
+                break;
+            case 'h':
+                printUsage();
+                return false;
+                break;
+            case ':':
+                cerr <<"Option " << longOptions[optionIndex].name << " requires an argument" << endl;
+                return false;
+                break;
+            case '?':
+            default:
+                break;
+        };
+    };
+    
+    if (argc - optind != 1)
+    {
+        cout << "Error: cpfind requires at least an input project file." << endl;
+        return false;
+    };
+    ioPanoDetector.setInputFile(argv[optind]);
+    if(doLinearMatch + doMultirow + doPrealign>1)
+    {
+        cout << "Error: The arguments --linearmatch, --multirow and --prealigned" << endl
+             << "       mutually exclusive. Use only one of them." << endl;
+        return false;
+    };
+    if(doLinearMatch)
+    {
+        ioPanoDetector.setMatchingStrategy(PanoDetector::LINEAR);
+    };
+    if(doMultirow)
+    {
+        ioPanoDetector.setMatchingStrategy(PanoDetector::MULTIROW);
+    };
+    if(doPrealign)
+    {
+        ioPanoDetector.setMatchingStrategy(PanoDetector::PREALIGNED);
+    };
+    if(keyfilesIndex.size()>0)
+    {
+        ioPanoDetector.setKeyPointsIdx(keyfilesIndex);
+    };
+    return true;
+};
+
+int main(int argc, char** argv)
+{
     // create a panodetector object
     PanoDetector aPanoDetector;
     if(!parseOptions(argc, argv, aPanoDetector))
@@ -385,6 +428,7 @@ int main(int argc, char** argv)
         return 0;
     }
 
+    printVersion();
     if (aPanoDetector.getVerbose() > 1)
     {
         aPanoDetector.printDetails();
