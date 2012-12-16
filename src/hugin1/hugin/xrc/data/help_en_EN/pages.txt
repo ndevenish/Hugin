@@ -81,6 +81,7 @@ Hugin_Stitcher_tab
 Hugin_stitch_project
 Hugin_Trackers
 Hugin_translation_guide
+Image_positioning_model
 Interpolation
 Icpfind
 JPEG

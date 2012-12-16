@@ -436,6 +436,17 @@
 		<param name="Local" value="PSD.html">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Image position">
+		<param name="Name" value="Image position model - PanoTools.org Wiki">
+		<param name="Local" value="Image_positioning_model.html">
+		<param name="Name" value="Yaw - PanoTools.org Wiki">
+		<param name="Local" value="Yaw.html">
+		<param name="Name" value="Pitch - PanoTools.org Wiki">
+		<param name="Local" value="Pitch.html">
+		<param name="Name" value="Roll - PanoTools.org Wiki">
+		<param name="Local" value="Roll.html">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Images tab">
 		<param name="Name" value="Hugin Images tab">
 		<param name="Local" value="Hugin_Images_tab.html">

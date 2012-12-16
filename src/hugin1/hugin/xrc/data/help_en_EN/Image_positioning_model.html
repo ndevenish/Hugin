@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="Content-Style-Type" content="text/css" />
+		<meta name="generator" content="MediaWiki 1.14.0" />
+		
+		<title>Image position model - PanoTools.org Wiki</title>
+		
+		
+		
+		<!--[if lt IE 5.5000]><![endif]-->
+		<!--[if IE 5.5000]><![endif]-->
+		<!--[if IE 6]><![endif]-->
+		<!--[if IE 7]><![endif]-->
+		
+		
+		
+		
+		<!--[if lt IE 7]>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+
+		
+
+		
+		<style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
+		
+				
+	</head>
+<body class="mediawiki ltr ns-0 ns-subject page-Icpfind skin-monobook">
+	<div id="globalWrapper">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 id="firstHeading" class="firstHeading">Images position model</h1>
+		<div id="bodyContent">
+			
+			
+												<!-- start content -->
+
+<h2> <span class="mw-headline" id="Image_positioning_model"> Image positioning model </span></h2>
+<p>The panorama tools model to position images in a panorama assumes that all images are shot from a common viewpoint. A common viewpoint is the only way to avoid <a href="Parallax.html" title="Parallax">Parallax</a> between adjacent images, which might cause unrecoverable <a href="http://wiki.panotools.org/Stitching" title="Stitching">stitching</a> errors. This point is determined by lens geometry and commonly called <a href="No-parallax_point.html" title="No-parallax point">no-parallax point</a>. 
+</p><p>To shoot a panorama the camera can be rotated in three angles around this point: From side to side, up and down and around the <a href="http://wiki.panotools.org/Optical_axis" title="Optical axis">optical axis</a> (like a steering wheel). The names used in all <a href="http://wiki.panotools.org/GUI_front-ends" title="GUI front-ends">panotools products</a> for this three angles are <a href="Yaw.html" title="Yaw">Yaw</a>, <a href="Pitch.html" title="Pitch">Pitch</a> and <a href="Roll.html" title="Roll">Roll</a>, a special case of <a href="http://www.wikipedia.org/wiki/Euler_angles" class="extiw" title="wikipedia:Euler angles">wikipedia: Euler angles</a>, the so called <a href="http://www.wikipedia.org/wiki/Euler_angles#Tait.E2.80.93Bryan_angles" class="extiw" title="wikipedia:Euler angles">wikipedia: Tait–Bryan angles</a>. With same name and meaning they are also used for the <a href="http://www.wikipedia.org/wiki/Aircraft_principal_axes" class="extiw" title="wikipedia:Aircraft principal axes">wikipedia: Aircraft principal axes</a>.
+</p><p>To take a (little) movement of the camera into account, this model has been extended with the translation parameters TrX, TrY and TrZ, which describe the movement of the camera in 3D (see <a href="Stitching_a_photo-mosaic.html" title="Stitching a photo-mosaic">Stitching a photo-mosaic</a> for a more detailed description).
+</p>
+<h3> <span class="mw-headline" id="Coordinate_system"> Coordinate system </span></h3>
+<p>Images are positioned inside a virtual sphere no matter what output <a href="http://wiki.panotools.org/Projection" title="Projection" class="mw-redirect">projection</a> is used. The center of the result canvas is always Yaw=0 and Pitch=0. Positive Yaw values mean image is positioned right, negative values left. Positive Pitch is up, negative down. Positive Roll values mean the image is rotated clockwise, negative counterclockwise. Yaw and Roll range is from -180° to +180° with both 180° and -180° meaning the same position, Pitch range is from -90° (<a href="Nadir.html" title="Nadir">Nadir</a>) to +90° (<a href="Zenith.html" title="Zenith">Zenith</a>). Yaw=0 is a vertical line through the canvas center, Pitch=0 is the equator of the virtual output sphere, a horizontal line through the canvas center. Roll=0 means the camera was exactly horizontal (for landscape oriented images) or exactly vertical (for portrait oriented images).
+</p>
+<h3> <span class="mw-headline" id="Source_images"> Source images </span></h3>
+<p>Yaw, Pitch and Roll values of a source image always refer to the <a href="http://wiki.panotools.org/Optical_axis" title="Optical axis">optical axis</a>. An image positioned in Yaw=0 and Pitch=0 means the source image <a href="http://wiki.panotools.org/Optical_axis" title="Optical axis">optical axis</a> is in the canvas center. Please note that the actual source image center does not need to match the <a href="http://wiki.panotools.org/Optical_axis" title="Optical axis">optical axis</a> due to <a href="Lens_correction_model.html#Lens_or_image_shift_d_.26_e_parameters" title="Lens correction model">Lens shift correction</a>. Hence the image boundaries of an image with Yaw=0 and Pitch=0 need not to be centered on the result canvas. Other <a href="Lens_correction_model.html" title="Lens correction model">lens correction parameters</a> don't affect image positioning since they are performed symmetrically around the optical axis.
+</p>
+<h3> <span class="mw-headline" id="Optimization"> Optimization </span></h3>
+<p>Relative image positions are usually obtained by <a href="Control_points.html" title="Control points">control points</a> in the <a href="Optimization.html" title="Optimization">optimization</a> step of image alignment. Same as you need at least two needles to pin a printed image to the wall such that it can't move you need at least two control point pairs per image pair to fix their relative position. However, the distance between the control points might be different in both images. It is the duty of the optimizer to find the best approximation. See this post by <a href="http://wiki.panotools.org/Helmut_Dersch" title="Helmut Dersch">Helmut Dersch</a>: <a rel="nofollow" class="external text" href="http://www.panotools.org/mailarchive/msg/5542">"Number of Control Points"</a>. More control points might be needed to optimize for <a href="Lens_correction_model.html" title="Lens correction model">lens distortion</a>.
+
+<div class="printfooter">
+Retrieved from "<a href="Image_positioning_model.html">http://wiki.panotools.org/Image_positioning_model</a>"</div>
+			</div></div></div></div></body></html>
+			
+			
+
