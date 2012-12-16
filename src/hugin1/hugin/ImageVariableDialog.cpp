@@ -38,6 +38,7 @@ using namespace HuginBase;
 
 BEGIN_EVENT_TABLE(ImageVariableDialog,wxDialog)
     EVT_BUTTON(wxID_OK, ImageVariableDialog::OnOk)
+    EVT_BUTTON(wxID_HELP, ImageVariableDialog::OnHelp)
     EVT_BUTTON(XRCID("image_show_distortion_graph"), ImageVariableDialog::OnShowDistortionGraph)
     EVT_BUTTON(XRCID("image_show_vignetting_graph"), ImageVariableDialog::OnShowVignettingGraph)
     EVT_BUTTON(XRCID("image_show_response_graph"), ImageVariableDialog::OnShowResponseGraph)
@@ -226,6 +227,27 @@ void ImageVariableDialog::OnOk(wxCommandEvent & e)
     if(ApplyNewVariables())
     {
         e.Skip();
+    };
+};
+
+void ImageVariableDialog::OnHelp(wxCommandEvent & e)
+{
+    // open help on appropriate page
+    switch(XRCCTRL(*this, "image_variable_notebook", wxNotebook)->GetSelection())
+    {
+        //lens parameters
+        case 1:
+            MainFrame::Get()->DisplayHelp(wxT("/Lens_correction_model.html"));
+            break;
+        case 2:
+            MainFrame::Get()->DisplayHelp(wxT("/Vignetting.html"));
+            break;
+        case 3:
+            MainFrame::Get()->DisplayHelp(wxT("/Camera_response_curve.html"));
+            break;
+        default:
+            MainFrame::Get()->DisplayHelp(wxT("/Image_positioning_model.html"));
+            break;
     };
 };
 

@@ -58,6 +58,7 @@ public:
 protected:
     void OnOk(wxCommandEvent & e);
     void OnApply(wxCommandEvent & e);
+    void OnHelp(wxCommandEvent & e);
     void OnCancel(wxCommandEvent & e);
     void OnDefaults(wxCommandEvent & e);
     void OnRotationCheckBox(wxCommandEvent & e);

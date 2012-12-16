@@ -59,6 +59,7 @@ BEGIN_EVENT_TABLE(PreferencesDialog, wxDialog)
     EVT_CLOSE(PreferencesDialog::OnClose)
     EVT_BUTTON(wxID_OK, PreferencesDialog::OnOk)
     EVT_BUTTON(wxID_APPLY,PreferencesDialog::OnApply)
+    EVT_BUTTON(wxID_HELP, PreferencesDialog::OnHelp)
     EVT_BUTTON(wxID_CANCEL, PreferencesDialog::OnCancel)
     EVT_BUTTON(XRCID("prefs_defaults"), PreferencesDialog::OnRestoreDefaults)
     EVT_BUTTON(XRCID("prefs_ptstitcher_select"), PreferencesDialog::OnPTStitcherExe)
@@ -291,6 +292,11 @@ void PreferencesDialog::OnDefaults(wxCommandEvent & e)
 {
     DEBUG_WARN("Not implemented yet");
 }
+
+void PreferencesDialog::OnHelp(wxCommandEvent & e)
+{
+    MainFrame::Get()->DisplayHelp(wxT("/Hugin_Preferences.html"));
+};
 
 void PreferencesDialog::OnRotationCheckBox(wxCommandEvent & e)
 {

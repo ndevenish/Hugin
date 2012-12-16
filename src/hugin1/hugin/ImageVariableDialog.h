@@ -61,6 +61,8 @@ public:
 protected:
     /** Saves current state of all checkboxes when closing dialog with Ok */
     void OnOk(wxCommandEvent & e);
+    /** shows the help */
+    void OnHelp(wxCommandEvent & e);
     /** shows a popup with distortion graph */
     void OnShowDistortionGraph(wxCommandEvent & e);
     /** shows a popup with vignetting graph */

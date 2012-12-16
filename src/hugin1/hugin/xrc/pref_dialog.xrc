@@ -1400,6 +1400,11 @@ Do not set -w, -o and --compression arguments, they are set by hugin</label>
                   <label>Cancel</label>
                 </object>
               </object>
+              <object class="button">
+                <object class="wxButton" name="wxID_HELP">
+                  <label>Help</label>
+                </object>
+              </object>
             </object>
             <flag>wxALL|wxEXPAND</flag>
           </object>
