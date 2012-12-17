@@ -1,21 +1,22 @@
 # Danish translation for hugin package.
 # Copyright (C) 2004 Pablo dAngelo
 # This file is distributed under the same license as the hugin package.
-# Thomas Pryds <thomas@pryds.eu>, 2011, 2012.
 #
+# Thomas Pryds <thomas@pryds.eu>, 2011, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: da\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
 "POT-Creation-Date: 2012-12-15 10:47+0100\n"
-"PO-Revision-Date: 2012-09-03 07:41+0200\n"
+"PO-Revision-Date: 2012-12-17 22:08+0100\n"
 "Last-Translator: Thomas Pryds <thomas@pryds.eu>\n"
-"Language-Team: danish <da@li.org>\n"
-"Language: \n"
+"Language-Team: Danish <da@li.org>\n"
+"Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
+"X-Generator: Lokalize 1.5\n"
 
 #: hugin1/base_wx/huginConfig.cpp:47 hugin1/base_wx/huginConfig.cpp:82
 #, c-format
@@ -105,19 +106,16 @@ msgid "Warning"
 msgstr "Advarsel"
 
 #: hugin1/base_wx/huginConfig.cpp:288
-#, fuzzy
 msgid "first image"
-msgstr "Tilpas beskæring til billeder"
+msgstr "første billede"
 
 #: hugin1/base_wx/huginConfig.cpp:289
-#, fuzzy
 msgid "last image"
-msgstr "Tilføj billede"
+msgstr "sidste billede"
 
 #: hugin1/base_wx/huginConfig.cpp:291
-#, fuzzy
 msgid "directory"
-msgstr "Mappe:"
+msgstr "mappe"
 
 #: hugin1/base_wx/huginConfig.cpp:292 hugin1/base_wx/LensTools.cpp:41
 #: hugin1/hugin/GLPreviewFrame.cpp:1481 hugin1/hugin/ImagesTree.cpp:370
@@ -126,14 +124,12 @@ msgid "Equirectangular"
 msgstr "Ækvirektangulært"
 
 #: hugin1/base_wx/huginConfig.cpp:297 hugin1/hugin/ImagesTree.cpp:149
-#, fuzzy
 msgid "Camera maker"
-msgstr "Kameraproducent:"
+msgstr "Kameraproducent"
 
 #: hugin1/base_wx/huginConfig.cpp:298 hugin1/hugin/ImagesTree.cpp:150
-#, fuzzy
 msgid "Camera model"
-msgstr "Kameramodel:"
+msgstr "Kameramodel"
 
 #: hugin1/base_wx/huginConfig.cpp:299 hugin1/hugin/ImagesPanel.cpp:633
 #: hugin1/hugin/ImagesTree.cpp:151 hugin1/hugin/ImagesTree.cpp:1161
@@ -143,9 +139,8 @@ msgid "Lens"
 msgstr "Objektiv"
 
 #: hugin1/base_wx/huginConfig.cpp:335
-#, fuzzy
 msgid "unknown projection"
-msgstr "Thoby-projektion"
+msgstr "ukendt projektion"
 
 #: hugin1/base_wx/LensTools.cpp:37 hugin1/hugin/ImagesTree.cpp:366
 msgid "Normal (rectilinear)"
@@ -927,7 +922,6 @@ msgid "Select Control Points"
 msgstr "Vælg kontrolpunkter"
 
 #: hugin1/hugin/DragTool.cpp:78
-#, fuzzy
 msgid ""
 "Drag to move images (optionally use shift to constrain), or roll with right-"
 "drag or Ctrl-drag."
@@ -1069,9 +1063,8 @@ msgid "param:"
 msgstr "param:"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:966
-#, fuzzy
 msgid "No images loaded."
-msgstr "ingen billeder indlæst"
+msgstr "Ingen billeder indlæst."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1001
 #, c-format
@@ -1132,7 +1125,6 @@ msgid "Mean error after optimization: %.1f pixel, max: %.1f\n"
 msgstr "Middelværdi for fejl efter optimering: %.1f pixel, max: %.1f\n"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1067
-#, fuzzy
 msgid ""
 "Note: automatic alignment uses default settings from the preferences. If you "
 "want to use customized settings, run the CP detection, the geometrical "
@@ -1140,11 +1132,10 @@ msgid ""
 "panorama editor."
 msgstr ""
 "Bemærk: automatisk justering bruger standardindstillingerne fra "
-"Indstillinger. Hvis du selv tilpasser indstillingerne for dette projekt i de "
-"avancerede faneblade og vil bruge disse tilpassede indstillinger, kør da CP-"
-"lokalisering fra Billeder-fanebladet, den geometriske optimering fra "
-"Optimering-fanebladet samt den fotometriske optimering fra Eksponering-"
-"fanebladet."
+"Indstillinger. Hvis du vil bruge tilpassede indstillinger kun for dette "
+"projekt, kør da CP-lokalisering, den geometriske optimering og den "
+"fotometriske optimering fra Fotografier-fanebladet i "
+"panorama-redigeringen."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1479 hugin1/hugin/PreviewFrame.cpp:628
 msgid "Rectilinear"
@@ -1439,19 +1430,16 @@ msgid "Crop"
 msgstr "Beskæring"
 
 #: hugin1/hugin/ImagesPanel.cpp:312
-#, fuzzy
 msgid "Enter maximal number of control points per image pair"
-msgstr "Antal punkter pr. billede"
+msgstr "Indtast maksimalt antal kontrolpunkter pr. billedpar"
 
 #: hugin1/hugin/ImagesPanel.cpp:313
-#, fuzzy
 msgid "Points per Overlap"
-msgstr "Punkter per overlapning:"
+msgstr "Punkter per overlapning"
 
 #: hugin1/hugin/ImagesPanel.cpp:314
-#, fuzzy
 msgid "Control point detector option"
-msgstr "Resultat af kontrolpunkt-detektor"
+msgstr "Indstillinger for kontrolpunkt-detektor"
 
 #: hugin1/hugin/ImagesPanel.cpp:332
 #, c-format
@@ -1464,26 +1452,23 @@ msgstr "Resultat af kontrolpunkt-detektor"
 
 #: hugin1/hugin/ImagesPanel.cpp:576
 msgid "The minimum overlap have to be greater than 0 and smaller than 1."
-msgstr ""
+msgstr "Den minimale overlapning skal være større end 0 og mindre end 1."
 
 #: hugin1/hugin/ImagesPanel.cpp:606
 msgid "The maximum Ev difference have to be greater than 0."
-msgstr ""
+msgstr "Den maksimale EV-forskel skal være større end 0."
 
 #: hugin1/hugin/ImagesPanel.cpp:638 hugin1/hugin/ImagesTree.cpp:1173
-#, fuzzy
 msgid "Stacks"
-msgstr "Stakke:"
+msgstr "Stakke"
 
 #: hugin1/hugin/ImagesPanel.cpp:643
-#, fuzzy
 msgid "Output layers"
-msgstr "Output"
+msgstr "Output-lag"
 
 #: hugin1/hugin/ImagesPanel.cpp:646
-#, fuzzy
 msgid "Output stacks"
-msgstr "Output"
+msgstr "Output-stakke"
 
 #: hugin1/hugin/ImagesPanel.cpp:664
 msgid "Positions (incremental, starting from anchor)"
@@ -1511,7 +1496,7 @@ msgstr "Alt undtagen translatering"
 
 #: hugin1/hugin/ImagesPanel.cpp:685
 msgid "Everything"
-msgstr ""
+msgstr "Alt"
 
 #: hugin1/hugin/ImagesPanel.cpp:691
 msgid "Positions and Translation (y,p,r,x,y,z)"
@@ -1532,9 +1517,8 @@ msgstr ""
 "v,b)"
 
 #: hugin1/hugin/ImagesPanel.cpp:704 hugin1/hugin/ImagesPanel.cpp:725
-#, fuzzy
 msgid "Custom parameters"
-msgstr "Brugerdefinerede parametre herunder"
+msgstr "Brugerdefinerede parametre"
 
 #: hugin1/hugin/ImagesPanel.cpp:710
 msgid "Low dynamic range"
@@ -1553,179 +1537,148 @@ msgid "High dynamic range, variable white balance, fixed exposure"
 msgstr "High Dynamic Range, variabel hvidbalance, eksponeringskorrektion"
 
 #: hugin1/hugin/ImagesPanel.cpp:783
-#, fuzzy
 msgid "Simple interface"
-msgstr "Brugerflade"
+msgstr "Simpel brugerflade"
 
 #: hugin1/hugin/ImagesPanel.cpp:786
-#, fuzzy
 msgid "Advanced interface"
-msgstr "Avancerede valgmuligheder"
+msgstr "Avanceret brugerflade"
 
 #: hugin1/hugin/ImagesPanel.cpp:789
-#, fuzzy
 msgid "Expert interface"
-msgstr "Brugerflade"
+msgstr "Ekspertbrugerflade"
 
 #: hugin1/hugin/ImagesTree.cpp:140
-#, fuzzy
 msgid "Image number"
-msgstr "Objektivnummer"
+msgstr "Billednummer"
 
 #: hugin1/hugin/ImagesTree.cpp:142
-#, fuzzy
 msgid "Width"
-msgstr "Bredde:"
+msgstr "Bredde"
 
 #: hugin1/hugin/ImagesTree.cpp:142
-#, fuzzy
 msgid "Image width"
-msgstr "Billedstørrelse:"
+msgstr "Billedbredde"
 
 #: hugin1/hugin/ImagesTree.cpp:143
-#, fuzzy
 msgid "Height"
-msgstr "Højde:"
+msgstr "Højde"
 
 #: hugin1/hugin/ImagesTree.cpp:143
-#, fuzzy
 msgid "Image height"
-msgstr "Billedeforvridning"
+msgstr "Billedehøjde"
 
 #: hugin1/hugin/ImagesTree.cpp:144
 msgid "Anchor"
 msgstr "Anker"
 
 #: hugin1/hugin/ImagesTree.cpp:144
-#, fuzzy
 msgid "Anchor image for position and/or exposure"
-msgstr "Forankr dette billede for position"
+msgstr "Forankr dette billede for position og/eller eksponering"
 
 #: hugin1/hugin/ImagesTree.cpp:145
 msgid "# Ctrl Pnts"
 msgstr "Antal kontr.pnkt."
 
 #: hugin1/hugin/ImagesTree.cpp:145
-#, fuzzy
 msgid "Number of control points in this image"
-msgstr "Antal punkter pr. billede"
+msgstr "Antal kontrolpunkter i dette billede"
 
 #: hugin1/hugin/ImagesTree.cpp:146
 msgid "Lens no."
 msgstr "Objektivnr."
 
 #: hugin1/hugin/ImagesTree.cpp:146
-#, fuzzy
 msgid "Assigned lens number"
-msgstr "Ændr objektivnummer"
+msgstr "Tildelte objektivnummer"
 
 #: hugin1/hugin/ImagesTree.cpp:147
-#, fuzzy
 msgid "Stack no."
-msgstr "Stakke:"
+msgstr "Stak nr."
 
 #: hugin1/hugin/ImagesTree.cpp:147
-#, fuzzy
 msgid "Assigned stack number"
-msgstr "Ændr staknummer"
+msgstr "Tildelte staknummer"
 
 #: hugin1/hugin/ImagesTree.cpp:149
-#, fuzzy
 msgid "Maker"
-msgstr "Producent:"
+msgstr "Producent"
 
 #: hugin1/hugin/ImagesTree.cpp:150
-#, fuzzy
 msgid "Model"
-msgstr "Type:"
+msgstr "Model"
 
 #: hugin1/hugin/ImagesTree.cpp:151
-#, fuzzy
 msgid "Used lens"
-msgstr "Nyt objektiv"
+msgstr "Brugte objektiv"
 
 #: hugin1/hugin/ImagesTree.cpp:152
-#, fuzzy
 msgid "Capture date"
-msgstr "Eksponeringsdato:"
+msgstr "Eksponeringsdato"
 
 #: hugin1/hugin/ImagesTree.cpp:152
 msgid "Date, image was taken"
-msgstr ""
+msgstr "Dato, billedet blev taget"
 
 #: hugin1/hugin/ImagesTree.cpp:153
-#, fuzzy
 msgid "Focal length"
-msgstr "Brændvidde:"
+msgstr "Brændvidde"
 
 #: hugin1/hugin/ImagesTree.cpp:154
-#, fuzzy
 msgid "Aperture"
-msgstr "Blænde:"
+msgstr "Blænde"
 
 #: hugin1/hugin/ImagesTree.cpp:155
-#, fuzzy
 msgid "Shutter Speed"
-msgstr "Lukkerhastighed:"
+msgstr "Lukkerhastighed"
 
 #: hugin1/hugin/ImagesTree.cpp:155
-#, fuzzy
 msgid "Shutter speed"
-msgstr "Lukkerhastighed:"
+msgstr "Lukkerhastighed"
 
 #: hugin1/hugin/ImagesTree.cpp:156
-#, fuzzy
 msgid "ISO"
-msgstr "ISO:"
+msgstr "ISO"
 
 #: hugin1/hugin/ImagesTree.cpp:156
 msgid "ISO speed"
-msgstr ""
+msgstr "ISO-hastighed"
 
 #: hugin1/hugin/ImagesTree.cpp:158
-#, fuzzy
 msgid "Yaw (y)"
-msgstr "yaw (y)"
+msgstr "Yaw (y)"
 
 #: hugin1/hugin/ImagesTree.cpp:158
-#, fuzzy
 msgid "Yaw"
-msgstr "Yaw:"
+msgstr "Yaw"
 
 #: hugin1/hugin/ImagesTree.cpp:159
-#, fuzzy
 msgid "Pitch (p)"
-msgstr "pitch (p)"
+msgstr "Pitch (p)"
 
 #: hugin1/hugin/ImagesTree.cpp:159
-#, fuzzy
 msgid "Pitch"
-msgstr "Pitch:"
+msgstr "Pitch"
 
 #: hugin1/hugin/ImagesTree.cpp:160
-#, fuzzy
 msgid "Roll (r)"
-msgstr "roll (r)"
+msgstr "Roll (r)"
 
 #: hugin1/hugin/ImagesTree.cpp:160
-#, fuzzy
 msgid "Roll"
-msgstr "Roll:"
+msgstr "Roll"
 
 #: hugin1/hugin/ImagesTree.cpp:161
-#, fuzzy
 msgid "Camera translation X"
-msgstr "Kamerarespons"
+msgstr "Kameratranslatering X"
 
 #: hugin1/hugin/ImagesTree.cpp:162
-#, fuzzy
 msgid "Camera translation Y"
-msgstr "Kamerarespons"
+msgstr "Kameratranslatering Y"
 
 #: hugin1/hugin/ImagesTree.cpp:163
-#, fuzzy
 msgid "Camera translation Z"
-msgstr "Kamerarespons"
+msgstr "Kameratranslatering Z"
 
 #: hugin1/hugin/ImagesTree.cpp:165
 msgid "Lens type (f)"
@@ -1733,97 +1686,82 @@ msgstr "Objektivtype (f)"
 
 #: hugin1/hugin/ImagesTree.cpp:165
 msgid "Lens type (rectilinear, fisheye, equirectangular, ...)"
-msgstr ""
+msgstr "Objektivtype (retliniet, fiskeøje, ækvirektangulært, ...)"
 
 #: hugin1/hugin/ImagesTree.cpp:166
-#, fuzzy
 msgid "Hfov (v)"
-msgstr "hfov (v)"
+msgstr "Hfov (v)"
 
 #: hugin1/hugin/ImagesTree.cpp:166
-#, fuzzy
 msgid "Horizontal field of view (v)"
-msgstr "Vandret synsfelt"
+msgstr "Vandret synsfelt (v)"
 
 #: hugin1/hugin/ImagesTree.cpp:167
-#, fuzzy
 msgid "Radial distortion (a)"
-msgstr "Radialforvrængning"
+msgstr "Radialforvrængning (a)"
 
 #: hugin1/hugin/ImagesTree.cpp:168
-#, fuzzy
 msgid "Radial distortion (b, barrel)"
-msgstr "Radialforvrængning"
+msgstr "Radialforvrængning (b, tønde)"
 
 #: hugin1/hugin/ImagesTree.cpp:169
-#, fuzzy
 msgid "Radial distortion (c)"
-msgstr "Radialforvrængning"
+msgstr "Radialforvrængning (c)"
 
 #: hugin1/hugin/ImagesTree.cpp:170
 msgid "Horizontal image center shift (d)"
-msgstr ""
+msgstr "Vandret forskydning af billedcentrum (d)"
 
 #: hugin1/hugin/ImagesTree.cpp:171
-#, fuzzy
 msgid "Vertical image center shift (e)"
-msgstr "Forskydning af billedcentrum"
+msgstr "Lodret forskydning af billedcentrum (e)"
 
 #: hugin1/hugin/ImagesTree.cpp:172
 msgid "Horizontal image shearing (g)"
-msgstr ""
+msgstr "Vandret billedforvridning (g)"
 
 #: hugin1/hugin/ImagesTree.cpp:173
 msgid "Vertical image shearing (t)"
-msgstr ""
+msgstr "Lodret billedforvridning (t)"
 
 #: hugin1/hugin/ImagesTree.cpp:175
-#, fuzzy
 msgid "Exposure value (Eev)"
-msgstr "Eksponering (Eev)"
+msgstr "Eksponeringsværdi (Eev)"
 
 #: hugin1/hugin/ImagesTree.cpp:176
-#, fuzzy
 msgid "Red multiplier (Er)"
-msgstr "Rød-multiplikator (Er):"
+msgstr "Rød-multiplikator (Er)"
 
 #: hugin1/hugin/ImagesTree.cpp:177
-#, fuzzy
 msgid "Blue multiplier (Eb)"
-msgstr "Blå-multiplikator (Eb):"
+msgstr "Blå-multiplikator (Eb)"
 
 #: hugin1/hugin/ImagesTree.cpp:178 hugin1/hugin/ImagesTree.cpp:179
 #: hugin1/hugin/ImagesTree.cpp:180
-#, fuzzy
 msgid "Vignetting (Vb, Vc, Vd)"
-msgstr "Vignettering (Vb, Vc, Vd):"
+msgstr "Vignettering (Vb, Vc, Vd)"
 
 #: hugin1/hugin/ImagesTree.cpp:181
-#, fuzzy
 msgid "Horizontal vignetting center shift (Vx)"
-msgstr "Forskydning af vignetteringscentrum (Vx, Vy)"
+msgstr "Vandret forskydning af vignetteringscentrum (Vx)"
 
 #: hugin1/hugin/ImagesTree.cpp:182
-#, fuzzy
 msgid "Vertical vignetting center shift (Vy)"
-msgstr "Forskydning af vignetteringscentrum (Vx, Vy)"
+msgstr "Lodret forskydning af vignetteringscentrum (Vy)"
 
 #: hugin1/hugin/ImagesTree.cpp:183
-#, fuzzy
 msgid "Response type"
-msgstr "Objektivtype:"
+msgstr "Responstype"
 
 #: hugin1/hugin/ImagesTree.cpp:183
-#, fuzzy
 msgid "Camera response type"
-msgstr "Kamerarespons"
+msgstr "Kameraresponstype"
 
 #: hugin1/hugin/ImagesTree.cpp:184 hugin1/hugin/ImagesTree.cpp:185
 #: hugin1/hugin/ImagesTree.cpp:186 hugin1/hugin/ImagesTree.cpp:187
 #: hugin1/hugin/ImagesTree.cpp:188
-#, fuzzy
 msgid "Camera response parameter"
-msgstr "Kamerarespons"
+msgstr "Kameraresponsparameter"
 
 #: hugin1/hugin/ImagesTree.cpp:385 translations/xrc.cpp:243 xrc.cpp:243
 msgid "custom (EMoR)"
@@ -1834,24 +1772,24 @@ msgid "Linear"
 msgstr "Lineær"
 
 #: hugin1/hugin/ImagesTree.cpp:663
-#, fuzzy, c-format
+#, c-format
 msgid "Lens %d"
-msgstr "Objektiv"
+msgstr "Objektiv %d"
 
 #: hugin1/hugin/ImagesTree.cpp:666
-#, fuzzy, c-format
+#, c-format
 msgid "Stack %d"
-msgstr "Stakke:"
+msgstr "Stak %d"
 
 #: hugin1/hugin/ImagesTree.cpp:669
 #, c-format
 msgid "Output stack %d"
-msgstr ""
+msgstr "Output-stak %d"
 
 #: hugin1/hugin/ImagesTree.cpp:672
 #, c-format
 msgid "Output exposure layer %d"
-msgstr ""
+msgstr "Output eksponeringslag %d"
 
 #: hugin1/hugin/ImagesTree.cpp:1097 hugin1/hugin/ImagesTree.cpp:1112
 msgid "Link"
@@ -1859,43 +1797,39 @@ msgstr "Sammenkæd"
 
 #: hugin1/hugin/ImagesTree.cpp:1101 hugin1/hugin/ImagesTree.cpp:1108
 msgid "Unlink"
-msgstr ""
+msgstr "Frakæd"
 
 #: hugin1/hugin/ImagesTree.cpp:1123
 msgid "Select all for current lens"
-msgstr ""
+msgstr "Vælg alle for aktuel objektiv"
 
 #: hugin1/hugin/ImagesTree.cpp:1124
 msgid "Unselect all for current lens"
-msgstr ""
+msgstr "Fravælg alt for aktuelt objektiv"
 
 #: hugin1/hugin/ImagesTree.cpp:1128
 msgid "Select all for current stack"
-msgstr ""
+msgstr "Vælg alt for aktuel stak"
 
 #: hugin1/hugin/ImagesTree.cpp:1129
 msgid "Unselect all for current stack"
-msgstr ""
+msgstr "Fravælg alt for aktuel stak"
 
 #: hugin1/hugin/ImagesTree.cpp:1132 hugin1/hugin/ImagesTree.cpp:1143
 #: hugin1/hugin/ImagesTree.cpp:1228
-#, fuzzy
 msgid "Select all"
-msgstr "Nulstil alt"
+msgstr "Vælg alt"
 
 #: hugin1/hugin/ImagesTree.cpp:1133 hugin1/hugin/ImagesTree.cpp:1144
 #: hugin1/hugin/ImagesTree.cpp:1229
-#, fuzzy
 msgid "Unselect all"
-msgstr "Ikke valgt"
+msgstr "Fravælg alt"
 
 #: hugin1/hugin/ImagesTree.cpp:1137
-#, fuzzy
 msgid "Edit image variables..."
-msgstr "Billedvariable:"
+msgstr "Redigér billedvariable..."
 
 #: hugin1/hugin/ImagesTree.cpp:1184
-#, fuzzy
 msgid "Control points"
 msgstr "Kontrolpunkter"
 
@@ -1907,18 +1841,16 @@ msgid "Reset"
 msgstr "Nulstil"
 
 #: hugin1/hugin/ImageVariableDialog.cpp:267
-#, fuzzy
 msgid "Save graph"
-msgstr "Gem jobliste"
+msgstr "Gem graf"
 
 #: hugin1/hugin/ImageVariableDialog.cpp:269
 msgid "Bitmap (*.bmp)|*.bmp|PNG-File (*.png)|*.png"
-msgstr ""
+msgstr "Bitmap (*.bmp)|*.bmp|PNG-File (*.png)|*.png"
 
 #: hugin1/hugin/ImageVariableDialog.cpp:295
-#, fuzzy
 msgid "Save image"
-msgstr "Gem maske"
+msgstr "Gem billede"
 
 #: hugin1/hugin/LocalizedFileTipProvider.cpp:48
 msgid "Tips not available, sorry!"
@@ -2024,9 +1956,8 @@ msgstr "Hugin - Panorama-sammenføjning"
 #: hugin1/hugin/MainFrame.cpp:825 hugin1/hugin/MainFrame.cpp:950
 #: hugin1/hugin/MainFrame.cpp:1052 hugin1/hugin/MainFrame.cpp:2095
 #: hugin1/hugin/MainFrame.cpp:2101
-#, fuzzy
 msgid "Panorama editor"
-msgstr "Panorama preview"
+msgstr "Panorama-editor"
 
 #: hugin1/hugin/MainFrame.cpp:838
 #, c-format
@@ -2206,6 +2137,9 @@ msgid ""
 "vignetting center shift.\n"
 "These features are not supported in beginner mode."
 msgstr ""
+"Kan ikke skifte til simpel brugerflade. Dette projekt bruger stakke og/eller "
+"vignetteringsforskydning.\n"
+"Disse funktioner understøttes ikke i begyndertilstand."
 
 #: hugin1/hugin/MainFrame.cpp:2146
 msgid ""
@@ -2213,6 +2147,9 @@ msgid ""
 "parameters.\n"
 "These parameters are not supported in beginner mode."
 msgstr ""
+"Kan ikke skifte til simpel brugerflade. Dette projekt bruger translaterings- "
+"eller forvridningsparametre.\n"
+"Disse parametre understøttes ikke i begyndertilstand."
 
 #: hugin1/hugin/MainFrame.cpp:2167
 msgid ""
@@ -2220,6 +2157,9 @@ msgid ""
 "shear parameters.\n"
 "These parameters are not supported in advanced mode."
 msgstr ""
+"Kan ikke skifte til avanceret brugerflade. Dette projekt bruger "
+"translaterings- eller forvridningsparametre.\n"
+"Disse parametre understøttes ikke i avanceret tilstand."
 
 #: hugin1/hugin/MainFrame.cpp:2194
 msgid ""
@@ -2267,7 +2207,6 @@ msgid "Can't launch PTBatcherGui"
 msgstr "Kan ikke køre PTBatcherGui"
 
 #: hugin1/hugin/MainFrame.cpp:2339
-#, fuzzy
 msgid "Launched incorrect programme"
 msgstr "Kørte ukorrekt program"
 
@@ -2317,21 +2256,24 @@ msgstr "Nona valgmuligheder"
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:94
 msgid "Any variables below which are bold and underlined will be optimized."
 msgstr ""
+"Alle variable herunder, som er fede og underlinieret, vil blive optimeret."
 
 #: hugin1/hugin/OptimizePanel.cpp:99
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:97
 msgid "Use command + left mouse click click to toggle state of variables."
 msgstr ""
+"Brug Command + venstre musetast for at skifte mellem variables tilstande."
 
 #: hugin1/hugin/OptimizePanel.cpp:101
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:99
 msgid "Use control + left mouse click click to toggle state of variables."
-msgstr ""
+msgstr "Brug Ctrl + venstre musetast for at skifte mellem variables tilstande."
 
 #: hugin1/hugin/OptimizePanel.cpp:104
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:102
 msgid "Variables which shown in normal font will act as references or anchors."
 msgstr ""
+"Variable, som vises med normal skrift, vil optræde som referencer eller ankre."
 
 #: hugin1/hugin/OptimizePanel.cpp:169
 msgid ""
@@ -2339,6 +2281,9 @@ msgid ""
 "Please activate at least one image in the (fast) preview window.\n"
 "Optimization canceled."
 msgstr ""
+"Projektet indeholder ingen aktive billeder.\n"
+"Aktivér venligst et billede i (hurtig)-preview-vinduet.\n"
+"Optimering annulleret."
 
 #: hugin1/hugin/OptimizePanel.cpp:328
 msgid ""
@@ -2425,6 +2370,9 @@ msgid ""
 "Please activate at least 2 images in the (fast) preview window.\n"
 "Optimization canceled."
 msgstr ""
+"Projektet indeholder ingen aktive billeder.\n"
+"Aktivér venligst mindst 2 billeder i (hurtig)-preview-vinduet.\n"
+"Optimering annulleret."
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:217
 msgid ""
@@ -2523,7 +2471,6 @@ msgid "Anchor this image for exposure"
 msgstr "Forankr dette billede for eksponering"
 
 #: hugin1/hugin/PanoOperation.cpp:436
-#, fuzzy
 msgid "New lens"
 msgstr "Nyt objektiv"
 
@@ -2544,14 +2491,12 @@ msgid "Change lens number"
 msgstr "Ændr objektivnummer"
 
 #: hugin1/hugin/PanoOperation.cpp:492
-#, fuzzy
 msgid "Load lens from Lensfun database"
-msgstr "Indlæs objektiv fra database"
+msgstr "Indlæs objektiv fra Lensfun-database"
 
 #: hugin1/hugin/PanoOperation.cpp:496
-#, fuzzy
 msgid "Load lens from ini file"
-msgstr "Indlæs objektivparametre fra en fil"
+msgstr "Indlæs objektiv fra ini-fil"
 
 #: hugin1/hugin/PanoOperation.cpp:505
 msgid ""
@@ -2578,21 +2523,19 @@ msgstr ""
 "Gennemfør indstillinger alligevel?"
 
 #: hugin1/hugin/PanoOperation.cpp:562
-#, fuzzy
 msgid "Save lens to ini file"
-msgstr "Gem objektivparametre til ini-fil"
+msgstr "Gem objektiv til ini-fil"
 
 #: hugin1/hugin/PanoOperation.cpp:568
 msgid "Save camera parameters to lensfun database"
 msgstr "Gem kameraparametre til lensfun-database"
 
 #: hugin1/hugin/PanoOperation.cpp:595
-#, fuzzy
 msgid "Remove control points"
-msgstr "Fjernede %d kontrolpunkter"
+msgstr "Fjern kontrolpunkter"
 
 #: hugin1/hugin/PanoOperation.cpp:623
-#, fuzzy, c-format
+#, c-format
 msgid "Really delete %lu control points?"
 msgstr "Fjern virkelig %lu kontrolpunkter?"
 
@@ -2630,28 +2573,24 @@ msgid "Cleaning"
 msgstr "Rydder"
 
 #: hugin1/hugin/PanoOperation.cpp:703
-#, fuzzy
 msgid "Remove control points on clouds"
-msgstr "Fjern kontrolpunkter i masker"
+msgstr "Fjern kontrolpunkter i skyer"
 
 #: hugin1/hugin/PanoOperation.cpp:802
 msgid "Reset user defined..."
-msgstr ""
+msgstr "Nulstil brugerdefineret..."
 
 #: hugin1/hugin/PanoOperation.cpp:805
-#, fuzzy
 msgid "Reset positions"
-msgstr "Nulstil projekt"
+msgstr "Nulstil positioner"
 
 #: hugin1/hugin/PanoOperation.cpp:808
-#, fuzzy
 msgid "Reset lens parameters"
-msgstr "Nulstil XYZ-parametre?"
+msgstr "Nulstil objektivparametre"
 
 #: hugin1/hugin/PanoOperation.cpp:811
-#, fuzzy
 msgid "Reset photometric parameters"
-msgstr "Nulstil XYZ-parametre?"
+msgstr "Nulstil fotometriske parametre"
 
 #: hugin1/hugin/PanoOperation.cpp:1023
 msgid "New stack"
@@ -2674,22 +2613,20 @@ msgid "Change stack number"
 msgstr "Ændr staknummer"
 
 #: hugin1/hugin/PanoOperation.cpp:1077
-#, fuzzy
 msgid "Set stack size..."
-msgstr "Skift stak..."
+msgstr "Sæt stakstørrelse..."
 
 #: hugin1/hugin/PanoOperation.cpp:1083
 msgid "Enter image count per stacks"
-msgstr ""
+msgstr "Indtast antal billeder pr. stak"
 
 #: hugin1/hugin/PanoOperation.cpp:1084
-#, fuzzy
 msgid "stack size"
-msgstr "Maskestørrelse"
+msgstr "stakstørrelse"
 
 #: hugin1/hugin/PanoOperation.cpp:1085
 msgid "Images per stack"
-msgstr ""
+msgstr "Billeder pr. stak"
 
 #: hugin1/hugin/PanoPanel.cpp:142
 msgid "Fisheye"
@@ -2862,7 +2799,7 @@ msgstr "Systemstandard"
 
 #: hugin1/hugin/PreferencesDialog.cpp:124
 msgid "Basque"
-msgstr ""
+msgstr "baskisk"
 
 #: hugin1/hugin/PreferencesDialog.cpp:127
 msgid "Bulgarian"
@@ -3483,15 +3420,15 @@ msgstr "Hugins jobliste-processor"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:191 translations/xrc.cpp:331 xrc.cpp:331
 msgid "You have pressed the Command key."
-msgstr ""
+msgstr "Du har trykket på Command-tasten."
 
 #: hugin1/ptbatcher/BatchFrame.cpp:193 translations/xrc.cpp:330 xrc.cpp:330
 msgid "You have pressed the Control key."
-msgstr ""
+msgstr "Du har trykket på Ctrl-tasten."
 
 #: hugin1/ptbatcher/BatchFrame.cpp:196
 msgid "Should the loading of the batch queue skipped?"
-msgstr ""
+msgstr "Skal indlæsning af joblisten springes over?"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:343
 msgid "Please enter the command-line application to execute:"
@@ -3985,7 +3922,7 @@ msgstr "Vis detaljeret output i separat vindue."
 
 #: translations/xrc.cpp:31 xrc.cpp:31
 msgid "Always save log"
-msgstr ""
+msgstr "Gem altid log"
 
 #: translations/xrc.cpp:32 xrc.cpp:32
 msgid "Directory:"
@@ -4021,31 +3958,31 @@ msgstr "Mappenavn.pto"
 
 #: translations/xrc.cpp:39 xrc.cpp:39
 msgid "Template from preferences"
-msgstr ""
+msgstr "Skabelon fra indstillinger"
 
 #: translations/xrc.cpp:41 xrc.cpp:41
 msgid "Directories"
 msgstr "Mapper"
 
 #: translations/xrc.cpp:42 xrc.cpp:42
-#, fuzzy
 msgid "Minimum number of images:"
-msgstr "Antal masker"
+msgstr "Minimal antal billeder:"
 
 #: translations/xrc.cpp:43 xrc.cpp:43
 msgid "Minimum number of images a panorama should contain."
-msgstr ""
+msgstr "Det minimale antal billeder, et panorama skal indeholde."
 
 #: translations/xrc.cpp:44 xrc.cpp:44
-#, fuzzy
 msgid "Maximum time difference:"
-msgstr "forskel"
+msgstr "Maksimal tidsforskel:"
 
 #: translations/xrc.cpp:45 xrc.cpp:45
 msgid ""
 "Maximal time difference in seconds between two consecutive images belonging "
 "to one panorama."
 msgstr ""
+"Maksimal tidsforskel i sekunder imellem to fortløbende billeder, der hører "
+"til samme panorama."
 
 #: translations/xrc.cpp:46 xrc.cpp:46
 msgid "Stacks:"
@@ -4069,7 +4006,7 @@ msgstr "Indlæs forvrængningsdata"
 
 #: translations/xrc.cpp:51 xrc.cpp:51
 msgid "Trys to load distortion data from lensfun database if checked."
-msgstr ""
+msgstr "Prøver at indlæse forvrængningsdata fra Lensfun-databasen, hvis valgt."
 
 #: translations/xrc.cpp:52 xrc.cpp:52
 msgid "Load vignetting data"
@@ -4077,7 +4014,7 @@ msgstr "Indlæs vignetteringsdata"
 
 #: translations/xrc.cpp:53 xrc.cpp:53
 msgid "Trys to load vignetting data from lensfun database if checked."
-msgstr ""
+msgstr "Prøver at indlæse vignetteringsdata fra Lensfun-databasen, hvis valgt."
 
 #: translations/xrc.cpp:54 translations/xrc.cpp:261 translations/xrc.cpp:479
 #: translations/xrc.cpp:596 translations/xrc.cpp:599 translations/xrc.cpp:602
@@ -4497,29 +4434,27 @@ msgstr "Kassér ændringer og annullér"
 
 #: translations/xrc.cpp:176 xrc.cpp:176
 msgid "Group by:"
-msgstr ""
+msgstr "Gruppér efter:"
 
 #: translations/xrc.cpp:177 xrc.cpp:177
-#, fuzzy
 msgid "Minimum overlap:"
-msgstr "Minimal linielængde:"
+msgstr "Minimal overlapning:"
 
 #: translations/xrc.cpp:178 xrc.cpp:178
 msgid "Minimum overlap for output stack detection"
-msgstr ""
+msgstr "Minimum overlapning for output-stak-detektering"
 
 #: translations/xrc.cpp:179 xrc.cpp:179
-#, fuzzy
 msgid "Maximum Ev difference:"
-msgstr "forskel"
+msgstr "Maksimal Ev-forskel:"
 
 #: translations/xrc.cpp:180 xrc.cpp:180
 msgid "Maxmum EV difference for detection of output layers"
-msgstr ""
+msgstr "Maksimum EV-forskel for detektering af output-lag"
 
 #: translations/xrc.cpp:181 xrc.cpp:181
 msgid "Display"
-msgstr ""
+msgstr "Skærm"
 
 #: translations/xrc.cpp:182 translations/xrc.cpp:637 xrc.cpp:182 xrc.cpp:637
 msgid "General"
@@ -4527,12 +4462,11 @@ msgstr "Generelt"
 
 #: translations/xrc.cpp:183 xrc.cpp:183
 msgid "EXIF data"
-msgstr ""
+msgstr "EXIF-data"
 
 #: translations/xrc.cpp:184 translations/xrc.cpp:219 xrc.cpp:184 xrc.cpp:219
-#, fuzzy
 msgid "Positions"
-msgstr "Billedposition"
+msgstr "Positioner"
 
 #: translations/xrc.cpp:185 translations/xrc.cpp:273 translations/xrc.cpp:1035
 #: xrc.cpp:185 xrc.cpp:273 xrc.cpp:1035
@@ -4540,19 +4474,16 @@ msgid "Lens parameters"
 msgstr "Objektivparametre"
 
 #: translations/xrc.cpp:186 xrc.cpp:186
-#, fuzzy
 msgid "Photometric parameters"
-msgstr "Fotometrisk justering"
+msgstr "Fotometriske parametre"
 
 #: translations/xrc.cpp:187 xrc.cpp:187
-#, fuzzy
 msgid "Lens type"
-msgstr "Objektivtype:"
+msgstr "Objektivtype"
 
 #: translations/xrc.cpp:188 xrc.cpp:188
-#, fuzzy
 msgid "Add images..."
-msgstr "Tilføj billeder"
+msgstr "Tilføj billeder..."
 
 #: translations/xrc.cpp:189 translations/xrc.cpp:202 translations/xrc.cpp:253
 #: translations/xrc.cpp:820 translations/xrc.cpp:903 xrc.cpp:189 xrc.cpp:202
@@ -4591,18 +4522,16 @@ msgid "Optimize"
 msgstr "Optimér"
 
 #: translations/xrc.cpp:197 xrc.cpp:197
-#, fuzzy
 msgid "Geometric:"
-msgstr "Geometrisk"
+msgstr "Geometrisk:"
 
 #: translations/xrc.cpp:198 translations/xrc.cpp:200 xrc.cpp:198 xrc.cpp:200
 msgid "Calculate"
-msgstr ""
+msgstr "Beregn"
 
 #: translations/xrc.cpp:199 xrc.cpp:199
-#, fuzzy
 msgid "Photometric:"
-msgstr "Fotometrisk"
+msgstr "Fotometrisk:"
 
 #: translations/xrc.cpp:201 xrc.cpp:201
 msgid "Selected Image"
@@ -4645,9 +4574,8 @@ msgid "Roll:"
 msgstr "Roll:"
 
 #: translations/xrc.cpp:215 xrc.cpp:215
-#, fuzzy
 msgid "Translation parameter"
-msgstr "Sammenkæd parametre"
+msgstr "Translateringsparameter"
 
 #: translations/xrc.cpp:216 translations/xrc.cpp:875 translations/xrc.cpp:961
 #: xrc.cpp:216 xrc.cpp:875 xrc.cpp:961
@@ -4687,7 +4615,7 @@ msgstr "forvrængning (c):"
 #: translations/xrc.cpp:226 translations/xrc.cpp:239 translations/xrc.cpp:246
 #: xrc.cpp:226 xrc.cpp:239 xrc.cpp:246
 msgid "Show graph >>"
-msgstr ""
+msgstr "Vis graf >>"
 
 #: translations/xrc.cpp:227 translations/xrc.cpp:268 xrc.cpp:227 xrc.cpp:268
 msgid "Image Center Shift"
@@ -4734,9 +4662,8 @@ msgid "Vignetting"
 msgstr "Vignettering"
 
 #: translations/xrc.cpp:240 xrc.cpp:240
-#, fuzzy
 msgid "Vignetting Center Shift"
-msgstr "Forskydning af vignetteringscentrum (Vx, Vy)"
+msgstr "Forskydning af vignetteringscentrum"
 
 #: translations/xrc.cpp:241 translations/xrc.cpp:831 translations/xrc.cpp:914
 #: xrc.cpp:241 xrc.cpp:831 xrc.cpp:914
@@ -4752,9 +4679,8 @@ msgid "Camera Response"
 msgstr "Kamerarespons"
 
 #: translations/xrc.cpp:250 xrc.cpp:250
-#, fuzzy
 msgid "Image variables"
-msgstr "Billedvariable:"
+msgstr "Billedvariable"
 
 #: translations/xrc.cpp:251 translations/xrc.cpp:443 xrc.cpp:251 xrc.cpp:443
 msgid "Add"
@@ -4896,46 +4822,41 @@ msgid "Save lens to database"
 msgstr "Gem objektiv til database"
 
 #: translations/xrc.cpp:319 xrc.cpp:319
-#, fuzzy
 msgid "Camera"
-msgstr "Kameraproducent:"
+msgstr "Kamera"
 
 #: translations/xrc.cpp:322 xrc.cpp:322
 msgid "Save camera to database"
 msgstr "Gem kamera i databasen"
 
 #: translations/xrc.cpp:324 translations/xrc.cpp:363 xrc.cpp:324 xrc.cpp:363
-#, fuzzy
 msgid "Photos"
-msgstr "Fotometrik"
+msgstr "Fotografier"
 
 #: translations/xrc.cpp:325 translations/xrc.cpp:365 translations/xrc.cpp:480
 #: xrc.cpp:325 xrc.cpp:365 xrc.cpp:480
-#, fuzzy
 msgid "Masks"
-msgstr "Masker:"
+msgstr "Masker"
 
 #: translations/xrc.cpp:329 translations/xrc.cpp:373 xrc.cpp:329 xrc.cpp:373
 msgid "Stitcher"
 msgstr "Sammenføjning"
 
 #: translations/xrc.cpp:332 xrc.cpp:332
-#, fuzzy
 msgid "Should the OpenGL powered fast preview window disabled?"
-msgstr "Vis OpenGL-preview-vinduet"
+msgstr "Skal det OpenGL-drevne hurtig-preview-vindue slåes fra?"
 
 #: translations/xrc.cpp:333 xrc.cpp:333
 msgid "Don't ask again"
-msgstr ""
+msgstr "Spørg ikke igen"
 
 #: translations/xrc.cpp:334 xrc.cpp:334
 msgid "Yes"
-msgstr ""
+msgstr "Ja"
 
 #: translations/xrc.cpp:335 xrc.cpp:335
-#, fuzzy
 msgid "No"
-msgstr "Ingen"
+msgstr "Nej"
 
 #: translations/xrc.cpp:337 translations/xrc.cpp:986 xrc.cpp:337 xrc.cpp:986
 msgid "&Undo"
@@ -4964,14 +4885,12 @@ msgid "Add another image to the current project"
 msgstr "Tilføj endnu et billede til det aktuelle projekt"
 
 #: translations/xrc.cpp:343 xrc.cpp:343
-#, fuzzy
 msgid "Run a&ssistant"
-msgstr "Kører assistent"
+msgstr "Kører a&ssistent"
 
 #: translations/xrc.cpp:344 xrc.cpp:344
-#, fuzzy
 msgid "Send to assistant &queue"
-msgstr "Send til assistentkø"
+msgstr "Send til assistent&kø"
 
 #: translations/xrc.cpp:345 xrc.cpp:345
 msgid "&Optimize"
@@ -4986,7 +4905,6 @@ msgid "Fine-&tune all Points"
 msgstr "Fin&justér alle punkter"
 
 #: translations/xrc.cpp:348 xrc.cpp:348
-#, fuzzy
 msgid ""
 "Runs fine-tune on all control points. Useful for projects created with other "
 "tools, like PTGui or PTAssembler"
@@ -4999,9 +4917,8 @@ msgid "Remove control points in masks"
 msgstr "Fjern kontrolpunkter i masker"
 
 #: translations/xrc.cpp:350 xrc.cpp:350
-#, fuzzy
 msgid "Removes all control points inside masked areas."
-msgstr "Fjern kontrolpunkter i masker"
+msgstr "Fjern alle kontrolpunkter inden i maskerede områder."
 
 #: translations/xrc.cpp:351 xrc.cpp:351
 msgid "Run &Python script"
@@ -5052,14 +4969,12 @@ msgid "Show the OpenGL preview window"
 msgstr "Vis OpenGL-preview-vinduet"
 
 #: translations/xrc.cpp:364 xrc.cpp:364
-#, fuzzy
 msgid "Show the Photos panel"
-msgstr "Vis beskæringspanelet"
+msgstr "Vis Fotografipanelet"
 
 #: translations/xrc.cpp:366 xrc.cpp:366
-#, fuzzy
 msgid "Show the Masks panel"
-msgstr "Vis maskepanelet"
+msgstr "Vis Maskepanelet"
 
 #: translations/xrc.cpp:368 xrc.cpp:368
 msgid "Show the Control Points panel"
@@ -5079,19 +4994,17 @@ msgstr "Vis sammenføjningspanelet"
 
 #: translations/xrc.cpp:375 translations/xrc.cpp:999 xrc.cpp:375 xrc.cpp:999
 msgid "Simple"
-msgstr ""
+msgstr "Simpel"
 
 #: translations/xrc.cpp:376 translations/xrc.cpp:1000 xrc.cpp:376 xrc.cpp:1000
-#, fuzzy
 msgid "Advanced"
-msgstr "Avancerede valgmuligheder"
+msgstr "Avanceret"
 
 #: translations/xrc.cpp:377 translations/xrc.cpp:1001 xrc.cpp:377 xrc.cpp:1001
 msgid "Expert"
-msgstr ""
+msgstr "Ekspert"
 
 #: translations/xrc.cpp:378 translations/xrc.cpp:1002 xrc.cpp:378 xrc.cpp:1002
-#, fuzzy
 msgid "Interface"
 msgstr "Brugerflade"
 
@@ -5230,13 +5143,12 @@ msgid "&Preferences"
 msgstr "&Indstillinger"
 
 #: translations/xrc.cpp:421 xrc.cpp:421
-#, fuzzy
 msgid "&Close editor"
-msgstr "&Luk"
+msgstr "&Luk editor"
 
 #: translations/xrc.cpp:422 xrc.cpp:422
 msgid "Closes panorama editor"
-msgstr ""
+msgstr "Lukker panorama-editor"
 
 #: translations/xrc.cpp:425 xrc.cpp:425
 msgid "New"
@@ -5461,9 +5373,8 @@ msgid "Loading mask"
 msgstr "Indlæser maske"
 
 #: translations/xrc.cpp:503 xrc.cpp:503
-#, fuzzy
 msgid "Geometric optimizer"
-msgstr "Fotometrisk optimering"
+msgstr "Geometrisk optimering"
 
 #: translations/xrc.cpp:504 xrc.cpp:504
 msgid "Only use control points between image selected in preview window."
@@ -5934,7 +5845,6 @@ msgid "Skip over visibility toggles"
 msgstr "Spring over synlighedsvalgmuligheder"
 
 #: translations/xrc.cpp:648 xrc.cpp:648
-#, fuzzy
 msgid ""
 "May have unforeseen consequences. \n"
 "(EXPERIMENTAL)"
@@ -5943,13 +5853,12 @@ msgstr ""
 "(EKSPERIMENTELT)"
 
 #: translations/xrc.cpp:649 xrc.cpp:649
-#, fuzzy
 msgid "Log messages:"
-msgstr "Indlæser billeder"
+msgstr "Logbeskeder:"
 
 #: translations/xrc.cpp:650 xrc.cpp:650
 msgid "Copy log messages to clipboard."
-msgstr ""
+msgstr "Kopiér logbeskeder til udklipsholder."
 
 #: translations/xrc.cpp:651 xrc.cpp:651
 msgid "Show hints about projections"
@@ -5976,14 +5885,12 @@ msgid "(leave empty for OS default)"
 msgstr "(efterlad tomt for OS-standard)"
 
 #: translations/xrc.cpp:657 xrc.cpp:657
-#, fuzzy
 msgid "Default project filename:"
-msgstr "Indlæs en projektfil"
+msgstr "Standard-projektfilnavn:"
 
 #: translations/xrc.cpp:658 xrc.cpp:658
-#, fuzzy
 msgid "Default output prefix:"
-msgstr "Angiv outputpræfiks"
+msgstr "Standard-outputpræfiks:"
 
 #: translations/xrc.cpp:659 xrc.cpp:659
 #, c-format
@@ -6002,16 +5909,27 @@ msgid ""
 "%lens - lens (of first image)\n"
 "%projectname - project filename (only for output prefix)"
 msgstr ""
+"De følgende pladsholdere bliver automatisk erstattet:\n"
+"%firstimage - første billedfils filnavn\n"
+"%lastimage - sidste billedfils filnavn\n"
+"%#images - antal billeder\n"
+"%directory  - mappenavn (baseret på første billedfil)\n"
+"%projection - projektionsnavn\n"
+"%focallength - brændvidde\n"
+"%date - dato (for første billede)\n"
+"%time - tid (for første billede)\n"
+"%maker - kameraproducent (for første billede)\n"
+"%model - kameramodel (for første billede)\n"
+"%lens - objektiv (for første billede)\n"
+"%projectname - projektfilnavn (kun for output-prefix)"
 
 #: translations/xrc.cpp:660 xrc.cpp:660
-#, fuzzy
 msgid "Default filenames"
-msgstr "Standardfilformat:"
+msgstr "Standardfilnavne"
 
 #: translations/xrc.cpp:661 xrc.cpp:661
-#, fuzzy
 msgid "Filenames"
-msgstr "Filnavn"
+msgstr "Filnavne"
 
 #: translations/xrc.cpp:663 xrc.cpp:663
 msgid "Image loading"
@@ -6440,18 +6358,16 @@ msgstr ""
 "punkter."
 
 #: translations/xrc.cpp:778 xrc.cpp:778
-#, fuzzy
 msgid "Number of points per image: "
-msgstr "Antal punkter pr. billede"
+msgstr "Antal punkter pr. billede:"
 
 #: translations/xrc.cpp:779 xrc.cpp:779
-#, fuzzy
 msgid "Photometric optimizer"
 msgstr "Fotometrisk optimering"
 
 #: translations/xrc.cpp:780 xrc.cpp:780
 msgid "Misc"
-msgstr ""
+msgstr "Diverse"
 
 #: translations/xrc.cpp:782 translations/xrc.cpp:878 translations/xrc.cpp:964
 #: xrc.cpp:782 xrc.cpp:878 xrc.cpp:964
@@ -6741,23 +6657,20 @@ msgid "Mode:"
 msgstr "Type:"
 
 #: translations/xrc.cpp:991 xrc.cpp:991
-#, fuzzy
 msgid "Panorama &editor"
-msgstr "Panorama preview"
+msgstr "Panorama-&editor"
 
 #: translations/xrc.cpp:994 xrc.cpp:994
-#, fuzzy
 msgid "&Overview"
-msgstr "Overblik"
+msgstr "&Overblik"
 
 #: translations/xrc.cpp:995 xrc.cpp:995
-#, fuzzy
 msgid "Shows the overview of the panorama sphere."
-msgstr "Vis hele panoramaet"
+msgstr "Viser overblik over hele panorama-kuglen."
 
 #: translations/xrc.cpp:997 xrc.cpp:997
 msgid "Shows a grid."
-msgstr ""
+msgstr "Viser et gitter."
 
 #: translations/xrc.cpp:1037 xrc.cpp:1037
 msgid "to EXIF values"
@@ -7053,7 +6966,7 @@ msgid ""
 "Optimization of all distortion parameters \"everything\" makes only sense "
 "with heavily overlapping images and many well distributed control points."
 msgstr ""
-"Optimering af alle forvrængningsparametre \"Alt\" giver kun mening ved "
+"Optimering af alle forvrængningsparametre \"alt\" giver kun mening ved "
 "kraftigt overlappende billeder og mange jævnt spredte kontrolpunkter."
 
 #, fuzzy
