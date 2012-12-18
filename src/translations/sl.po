@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Slovenski prevod\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
-"POT-Creation-Date: 2012-12-15 10:47+0100\n"
+"POT-Creation-Date: 2012-12-18 21:59+0100\n"
 "PO-Revision-Date: 2009-02-17 22:25+0100\n"
 "Last-Translator: Zoran Mesec <zoran.mesec@gmail.com>\n"
 "Language-Team: Zoran Mesec <zoran.mesec@gmail.com>\n"
@@ -93,7 +93,7 @@ msgstr ""
 #: hugin1/hugin/GLPreviewFrame.cpp:1606 hugin1/hugin/GLPreviewFrame.cpp:1613
 #: hugin1/hugin/GLPreviewFrame.cpp:1620 hugin1/hugin/MainFrame.cpp:838
 #: hugin1/hugin/MainFrame.cpp:1716 hugin1/hugin/MainFrame.cpp:2270
-#: hugin1/hugin/MaskEditorPanel.cpp:532 hugin1/hugin/PreferencesDialog.cpp:977
+#: hugin1/hugin/MaskEditorPanel.cpp:532 hugin1/hugin/PreferencesDialog.cpp:983
 #: hugin1/ptbatcher/FindPanoDialog.cpp:250
 #: hugin1/ptbatcher/FindPanoDialog.cpp:271
 msgid "Warning"
@@ -134,8 +134,8 @@ msgstr "ODziv fotoaparata:"
 
 #: hugin1/base_wx/huginConfig.cpp:299 hugin1/hugin/ImagesPanel.cpp:633
 #: hugin1/hugin/ImagesTree.cpp:151 hugin1/hugin/ImagesTree.cpp:1161
-#: translations/xrc.cpp:220 translations/xrc.cpp:233 translations/xrc.cpp:296
-#: translations/xrc.cpp:312 xrc.cpp:220 xrc.cpp:233 xrc.cpp:296 xrc.cpp:312
+#: translations/xrc.cpp:220 translations/xrc.cpp:233 translations/xrc.cpp:297
+#: translations/xrc.cpp:313 xrc.cpp:220 xrc.cpp:233 xrc.cpp:297 xrc.cpp:313
 msgid "Lens"
 msgstr "Objektiv"
 
@@ -230,13 +230,13 @@ msgstr "Napaka pri odpiranju projekta:"
 #: hugin1/base_wx/MyExternalCmdExecDialog.cpp:612
 #: hugin1/ptbatcher/RunStitchFrame.cpp:43
 #: hugin1/stitch_project/hugin_stitch_project.cpp:126 translations/xrc.cpp:147
-#: translations/xrc.cpp:210 translations/xrc.cpp:249 translations/xrc.cpp:298
-#: translations/xrc.cpp:314 translations/xrc.cpp:321 translations/xrc.cpp:501
-#: translations/xrc.cpp:534 translations/xrc.cpp:538 translations/xrc.cpp:542
-#: translations/xrc.cpp:636 translations/xrc.cpp:784 translations/xrc.cpp:816
-#: translations/xrc.cpp:1043 xrc.cpp:147 xrc.cpp:210 xrc.cpp:249 xrc.cpp:298
-#: xrc.cpp:314 xrc.cpp:321 xrc.cpp:501 xrc.cpp:534 xrc.cpp:538 xrc.cpp:542
-#: xrc.cpp:636 xrc.cpp:784 xrc.cpp:816 xrc.cpp:1043
+#: translations/xrc.cpp:210 translations/xrc.cpp:249 translations/xrc.cpp:299
+#: translations/xrc.cpp:315 translations/xrc.cpp:322 translations/xrc.cpp:502
+#: translations/xrc.cpp:535 translations/xrc.cpp:539 translations/xrc.cpp:543
+#: translations/xrc.cpp:637 translations/xrc.cpp:785 translations/xrc.cpp:818
+#: translations/xrc.cpp:1045 xrc.cpp:147 xrc.cpp:210 xrc.cpp:249 xrc.cpp:299
+#: xrc.cpp:315 xrc.cpp:322 xrc.cpp:502 xrc.cpp:535 xrc.cpp:539 xrc.cpp:543
+#: xrc.cpp:637 xrc.cpp:785 xrc.cpp:818 xrc.cpp:1045
 msgid "Cancel"
 msgstr "Prekliči"
 
@@ -266,7 +266,7 @@ msgstr ""
 "*.jpeg)|*.jpg;*.JPG;*.jpeg;*.JPEG|Vse datoteke (*)|*"
 
 #: hugin1/base_wx/PTWXDlg.cpp:49 hugin1/base_wx/PTWXDlg.cpp:68
-#: hugin1/base_wx/PTWXDlg.cpp:122 translations/xrc.cpp:786 xrc.cpp:786
+#: hugin1/base_wx/PTWXDlg.cpp:122 translations/xrc.cpp:788 xrc.cpp:788
 msgid "Panorama Tools"
 msgstr "Panorama Tools"
 
@@ -527,7 +527,7 @@ msgstr ""
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:749
 #: hugin1/calibrate_lens/LensCalFrame.cpp:814
-#: hugin1/hugin/ImageVariableDialog.cpp:294 hugin1/hugin/MainFrame.cpp:873
+#: hugin1/hugin/ImageVariableDialog.cpp:316 hugin1/hugin/MainFrame.cpp:873
 #: hugin1/hugin/MaskEditorPanel.cpp:443
 #, c-format
 msgid "File %s exists. Overwrite?"
@@ -535,7 +535,7 @@ msgstr "Datoteka %s obstaja. Prepiši?"
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:750
 #: hugin1/calibrate_lens/LensCalFrame.cpp:815 hugin1/hugin/MainFrame.cpp:874
-#: translations/xrc.cpp:430 xrc.cpp:430
+#: translations/xrc.cpp:431 xrc.cpp:431
 msgid "Save project"
 msgstr "Shrani projekt"
 
@@ -562,8 +562,8 @@ msgstr "Shrani parametre objektiva v datoteko"
 msgid "Saving lens data"
 msgstr "Naloži podatke objektiva..."
 
-#: hugin1/calibrate_lens/LensCalFrame.cpp:780 translations/xrc.cpp:272
-#: xrc.cpp:272
+#: hugin1/calibrate_lens/LensCalFrame.cpp:780 translations/xrc.cpp:273
+#: xrc.cpp:273
 #, fuzzy
 msgid "Save lens"
 msgstr "Shrani objektiv..."
@@ -742,7 +742,7 @@ msgstr "Ni soležne točke."
 #: hugin1/hugin/MainFrame.cpp:1010 hugin1/hugin/OptimizePanel.cpp:171
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:153
 #: hugin1/hugin/PanoOperation.cpp:368 hugin1/hugin/PanoPanel.cpp:1419
-#: hugin1/hugin/PanoPanel.cpp:1447 translations/xrc.cpp:336 xrc.cpp:336
+#: hugin1/hugin/PanoPanel.cpp:1447 translations/xrc.cpp:337 xrc.cpp:337
 #, fuzzy
 msgid "Hugin"
 msgstr "madžarski"
@@ -951,30 +951,30 @@ msgstr ""
 msgid "Fast Panorama preview"
 msgstr "Predogled panorame"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:356 translations/xrc.cpp:795
-#: translations/xrc.cpp:943 xrc.cpp:795 xrc.cpp:943
+#: hugin1/hugin/GLPreviewFrame.cpp:356 translations/xrc.cpp:797
+#: translations/xrc.cpp:945 xrc.cpp:797 xrc.cpp:945
 msgid "Center"
 msgstr "Center"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:357 hugin1/hugin/GLPreviewFrame.cpp:359
-#: translations/xrc.cpp:798 translations/xrc.cpp:931 translations/xrc.cpp:945
-#: xrc.cpp:798 xrc.cpp:931 xrc.cpp:945
+#: translations/xrc.cpp:800 translations/xrc.cpp:933 translations/xrc.cpp:947
+#: xrc.cpp:800 xrc.cpp:933 xrc.cpp:947
 msgid "Fit"
 msgstr "Prilagodi"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:358 translations/xrc.cpp:800
-#: translations/xrc.cpp:947 xrc.cpp:800 xrc.cpp:947
+#: hugin1/hugin/GLPreviewFrame.cpp:358 translations/xrc.cpp:802
+#: translations/xrc.cpp:949 xrc.cpp:802 xrc.cpp:949
 msgid "Straighten"
 msgstr "Poravnaj"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:360 hugin1/hugin/GLPreviewFrame.cpp:2512
 #: hugin1/hugin/GLPreviewFrame.cpp:2544 hugin1/hugin/PanoPanel.cpp:975
-#: translations/xrc.cpp:967 xrc.cpp:967
+#: translations/xrc.cpp:969 xrc.cpp:969
 #, fuzzy
 msgid "Autocrop"
 msgstr "Auto"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:361 translations/xrc.cpp:969 xrc.cpp:969
+#: hugin1/hugin/GLPreviewFrame.cpp:361 translations/xrc.cpp:971 xrc.cpp:971
 #, fuzzy
 msgid "HDR Autocrop"
 msgstr "Auto"
@@ -982,9 +982,9 @@ msgstr "Auto"
 #: hugin1/hugin/GLPreviewFrame.cpp:374 hugin1/hugin/GLPreviewFrame.cpp:3011
 #: hugin1/hugin/MainFrame.cpp:365 hugin1/hugin/MainFrame.cpp:2091
 #: hugin1/hugin/MainFrame.cpp:2108 translations/xrc.cpp:63
-#: translations/xrc.cpp:283 translations/xrc.cpp:413 translations/xrc.cpp:423
-#: translations/xrc.cpp:1031 xrc.cpp:63 xrc.cpp:283 xrc.cpp:413 xrc.cpp:423
-#: xrc.cpp:1031
+#: translations/xrc.cpp:284 translations/xrc.cpp:414 translations/xrc.cpp:424
+#: translations/xrc.cpp:1033 xrc.cpp:63 xrc.cpp:284 xrc.cpp:414 xrc.cpp:424
+#: xrc.cpp:1033
 msgid "&File"
 msgstr "&Datoteka"
 
@@ -993,17 +993,17 @@ msgid "displayed images"
 msgstr "prikazane slike"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:410 hugin1/hugin/GLPreviewFrame.cpp:423
-#: translations/xrc.cpp:808 xrc.cpp:808
+#: translations/xrc.cpp:810 xrc.cpp:810
 msgid "All"
 msgstr "Vse"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:418 hugin1/hugin/GLPreviewFrame.cpp:424
-#: hugin1/hugin/ImagesPanel.cpp:630 translations/xrc.cpp:573
-#: translations/xrc.cpp:578 translations/xrc.cpp:721 translations/xrc.cpp:810
-#: translations/xrc.cpp:853 translations/xrc.cpp:865 translations/xrc.cpp:884
-#: translations/xrc.cpp:936 translations/xrc.cpp:951 translations/xrc.cpp:972
-#: xrc.cpp:573 xrc.cpp:578 xrc.cpp:721 xrc.cpp:810 xrc.cpp:853 xrc.cpp:865
-#: xrc.cpp:884 xrc.cpp:936 xrc.cpp:951 xrc.cpp:972
+#: hugin1/hugin/ImagesPanel.cpp:630 translations/xrc.cpp:574
+#: translations/xrc.cpp:579 translations/xrc.cpp:722 translations/xrc.cpp:812
+#: translations/xrc.cpp:855 translations/xrc.cpp:867 translations/xrc.cpp:886
+#: translations/xrc.cpp:938 translations/xrc.cpp:953 translations/xrc.cpp:974
+#: xrc.cpp:574 xrc.cpp:579 xrc.cpp:722 xrc.cpp:812 xrc.cpp:855 xrc.cpp:867
+#: xrc.cpp:886 xrc.cpp:938 xrc.cpp:953 xrc.cpp:974
 msgid "None"
 msgstr "Brez"
 
@@ -1029,9 +1029,9 @@ msgstr "HFOV"
 msgid "drag to change the horizontal field of view"
 msgstr "povleci za spreminjanje horizontalnega zornega kota"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:560 translations/xrc.cpp:279
-#: translations/xrc.cpp:452 translations/xrc.cpp:844 translations/xrc.cpp:926
-#: xrc.cpp:279 xrc.cpp:452 xrc.cpp:844 xrc.cpp:926
+#: hugin1/hugin/GLPreviewFrame.cpp:560 translations/xrc.cpp:280
+#: translations/xrc.cpp:453 translations/xrc.cpp:846 translations/xrc.cpp:928
+#: xrc.cpp:280 xrc.cpp:453 xrc.cpp:846 xrc.cpp:928
 msgid "Preview"
 msgstr "Predogled"
 
@@ -1156,7 +1156,7 @@ msgstr "Vrednost zasuka mora biti numerična."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1639 hugin1/hugin/GLPreviewFrame.cpp:1661
 #: hugin1/hugin/GLPreviewFrame.cpp:2754 hugin1/hugin/GLPreviewFrame.cpp:2785
-#: hugin1/hugin/huginApp.cpp:82 hugin1/hugin/ImageVariableDialog.cpp:187
+#: hugin1/hugin/huginApp.cpp:82 hugin1/hugin/ImageVariableDialog.cpp:188
 #: hugin1/hugin/PanoPanel.cpp:614 hugin1/hugin/PanoPanel.cpp:645
 #: hugin1/hugin/PreviewFrame.cpp:768 hugin1/hugin/PreviewFrame.cpp:783
 msgid "Value must be numeric."
@@ -1388,8 +1388,8 @@ msgid "Number of masks"
 msgstr "Številu procesorjev:"
 
 #: hugin1/hugin/ImagesList.cpp:457 hugin1/hugin/ImagesList.cpp:517
-#: translations/xrc.cpp:487 translations/xrc.cpp:897 translations/xrc.cpp:985
-#: xrc.cpp:487 xrc.cpp:897 xrc.cpp:985
+#: translations/xrc.cpp:488 translations/xrc.cpp:899 translations/xrc.cpp:987
+#: xrc.cpp:488 xrc.cpp:899 xrc.cpp:987
 msgid "Crop"
 msgstr "Obreži"
 
@@ -1419,11 +1419,11 @@ msgid "Control point detector result"
 msgstr "Urejavalnik stičnih točk"
 
 #: hugin1/hugin/ImagesPanel.cpp:576
-msgid "The minimum overlap have to be greater than 0 and smaller than 1."
+msgid "The minimum overlap has to be greater than 0 and smaller than 1."
 msgstr ""
 
 #: hugin1/hugin/ImagesPanel.cpp:606
-msgid "The maximum Ev difference have to be greater than 0."
+msgid "The maximum Ev difference has to be greater than 0."
 msgstr ""
 
 #: hugin1/hugin/ImagesPanel.cpp:638 hugin1/hugin/ImagesTree.cpp:1173
@@ -1851,23 +1851,23 @@ msgstr "Spremenljivke slike:"
 msgid "Control points"
 msgstr "Stične točke"
 
-#: hugin1/hugin/ImagesTree.cpp:1194 translations/xrc.cpp:263
-#: translations/xrc.cpp:486 translations/xrc.cpp:508 translations/xrc.cpp:518
-#: translations/xrc.cpp:1032 xrc.cpp:263 xrc.cpp:486 xrc.cpp:508 xrc.cpp:518
-#: xrc.cpp:1032
+#: hugin1/hugin/ImagesTree.cpp:1194 translations/xrc.cpp:264
+#: translations/xrc.cpp:487 translations/xrc.cpp:509 translations/xrc.cpp:519
+#: translations/xrc.cpp:1034 xrc.cpp:264 xrc.cpp:487 xrc.cpp:509 xrc.cpp:519
+#: xrc.cpp:1034
 msgid "Reset"
 msgstr "Ponastavi"
 
-#: hugin1/hugin/ImageVariableDialog.cpp:267
+#: hugin1/hugin/ImageVariableDialog.cpp:289
 #, fuzzy
 msgid "Save graph"
 msgstr "&Shrani kot"
 
-#: hugin1/hugin/ImageVariableDialog.cpp:269
+#: hugin1/hugin/ImageVariableDialog.cpp:291
 msgid "Bitmap (*.bmp)|*.bmp|PNG-File (*.png)|*.png"
 msgstr ""
 
-#: hugin1/hugin/ImageVariableDialog.cpp:295
+#: hugin1/hugin/ImageVariableDialog.cpp:317
 #, fuzzy
 msgid "Save image"
 msgstr "&Shrani kot"
@@ -1913,9 +1913,9 @@ msgstr ""
 "Datoteka data/splash.png manjka:"
 
 #: hugin1/hugin/MainFrame.cpp:360 hugin1/ptbatcher/BatchFrame.cpp:137
-#: translations/xrc.cpp:84 translations/xrc.cpp:379 translations/xrc.cpp:380
-#: translations/xrc.cpp:1003 translations/xrc.cpp:1015 xrc.cpp:84 xrc.cpp:379
-#: xrc.cpp:380 xrc.cpp:1003 xrc.cpp:1015
+#: translations/xrc.cpp:84 translations/xrc.cpp:380 translations/xrc.cpp:381
+#: translations/xrc.cpp:1005 translations/xrc.cpp:1017 xrc.cpp:84 xrc.cpp:380
+#: xrc.cpp:381 xrc.cpp:1005 xrc.cpp:1017
 msgid "&Help"
 msgstr "&Pomoč"
 
@@ -1928,14 +1928,14 @@ msgstr "Možnosti"
 msgid "Started"
 msgstr "Začel"
 
-#: hugin1/hugin/MainFrame.cpp:636 translations/xrc.cpp:327
-#: translations/xrc.cpp:369 xrc.cpp:327 xrc.cpp:369
+#: hugin1/hugin/MainFrame.cpp:636 translations/xrc.cpp:328
+#: translations/xrc.cpp:370 xrc.cpp:328 xrc.cpp:370
 msgid "Optimizer"
 msgstr "Optimizator"
 
 #: hugin1/hugin/MainFrame.cpp:648 hugin1/hugin/MainFrame.cpp:652
-#: translations/xrc.cpp:328 translations/xrc.cpp:371 translations/xrc.cpp:1036
-#: xrc.cpp:328 xrc.cpp:371 xrc.cpp:1036
+#: translations/xrc.cpp:329 translations/xrc.cpp:372 translations/xrc.cpp:1038
+#: xrc.cpp:329 xrc.cpp:372 xrc.cpp:1038
 msgid "Exposure"
 msgstr "Osvetlitev"
 
@@ -1971,7 +1971,7 @@ msgstr "projekt %s shranjen"
 #: hugin1/hugin/MainFrame.cpp:1050 hugin1/hugin/MainFrame.cpp:1056
 #: hugin1/hugin/MainFrame.cpp:2094 hugin1/hugin/MainFrame.cpp:2100
 #: hugin1/hugin/MainFrame.cpp:2111 hugin1/hugin/MainFrame.cpp:2116
-#: translations/xrc.cpp:323 xrc.cpp:323
+#: translations/xrc.cpp:324 xrc.cpp:324
 #, fuzzy
 msgid "Hugin - Panorama Stitcher"
 msgstr "Hugin - grafični vmesnik za Panorama Tools"
@@ -2148,21 +2148,21 @@ msgstr "Napaka pri odpiranju datoteke:"
 msgid ""
 "Can't switch to simple interface. The project is using stacks and/or "
 "vignetting center shift.\n"
-"These features are not supported in beginner mode."
+"These features are not supported in simple interface."
 msgstr ""
 
 #: hugin1/hugin/MainFrame.cpp:2146
 msgid ""
 "Can't switch to simple interface. The project is using translation or shear "
 "parameters.\n"
-"These parameters are not supported in beginner mode."
+"These parameters are not supported in simple interface."
 msgstr ""
 
 #: hugin1/hugin/MainFrame.cpp:2167
 msgid ""
 "Can't switch to advanced interface. The project is using translation or "
 "shear parameters.\n"
-"These parameters are not supported in advanced mode."
+"These parameters are not supported in advanced interface."
 msgstr ""
 
 #: hugin1/hugin/MainFrame.cpp:2194
@@ -2266,12 +2266,12 @@ msgstr ""
 
 #: hugin1/hugin/OptimizePanel.cpp:99
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:97
-msgid "Use command + left mouse click click to toggle state of variables."
+msgid "Use command + left mouse click to toggle state of variables."
 msgstr ""
 
 #: hugin1/hugin/OptimizePanel.cpp:101
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:99
-msgid "Use control + left mouse click click to toggle state of variables."
+msgid "Use control + left mouse click to toggle state of variables."
 msgstr ""
 
 #: hugin1/hugin/OptimizePanel.cpp:104
@@ -2625,8 +2625,9 @@ msgid "Set stack size..."
 msgstr "Spremeni objektiv..."
 
 #: hugin1/hugin/PanoOperation.cpp:1083
-msgid "Enter image count per stacks"
-msgstr ""
+#, fuzzy
+msgid "Enter image count per stack"
+msgstr "Preslikane slike"
 
 #: hugin1/hugin/PanoOperation.cpp:1084
 #, fuzzy
@@ -2703,8 +2704,8 @@ msgstr "Splošno"
 msgid "Thoby Projection"
 msgstr "Projekt odprt"
 
-#: hugin1/hugin/PanoPanel.cpp:505 translations/xrc.cpp:572
-#: translations/xrc.cpp:577 xrc.cpp:572 xrc.cpp:577
+#: hugin1/hugin/PanoPanel.cpp:505 translations/xrc.cpp:573
+#: translations/xrc.cpp:578 xrc.cpp:573 xrc.cpp:578
 msgid "Compression:"
 msgstr "Kompresija:"
 
@@ -2797,182 +2798,182 @@ msgstr ""
 msgid "Miscellaneous"
 msgstr ""
 
-#: hugin1/hugin/PreferencesDialog.cpp:121
+#: hugin1/hugin/PreferencesDialog.cpp:122
 msgid "System default"
 msgstr "Privzeto sistemsko"
 
-#: hugin1/hugin/PreferencesDialog.cpp:124
+#: hugin1/hugin/PreferencesDialog.cpp:125
 msgid "Basque"
 msgstr ""
 
-#: hugin1/hugin/PreferencesDialog.cpp:127
+#: hugin1/hugin/PreferencesDialog.cpp:128
 #, fuzzy
 msgid "Bulgarian"
 msgstr "madžarski"
 
-#: hugin1/hugin/PreferencesDialog.cpp:130
+#: hugin1/hugin/PreferencesDialog.cpp:131
 msgid "Catalan"
 msgstr "katalonski"
 
-#: hugin1/hugin/PreferencesDialog.cpp:133
+#: hugin1/hugin/PreferencesDialog.cpp:134
 msgid "Chinese (Simplified)"
 msgstr "kitajski (enostavno)"
 
-#: hugin1/hugin/PreferencesDialog.cpp:136
+#: hugin1/hugin/PreferencesDialog.cpp:137
 msgid "Chinese (Traditional)"
 msgstr ""
 
-#: hugin1/hugin/PreferencesDialog.cpp:139
+#: hugin1/hugin/PreferencesDialog.cpp:140
 msgid "Czech"
 msgstr "češki"
 
-#: hugin1/hugin/PreferencesDialog.cpp:142
+#: hugin1/hugin/PreferencesDialog.cpp:143
 #, fuzzy
 msgid "Danish"
 msgstr "španski"
 
-#: hugin1/hugin/PreferencesDialog.cpp:145
+#: hugin1/hugin/PreferencesDialog.cpp:146
 msgid "Dutch"
 msgstr "nizozemski"
 
-#: hugin1/hugin/PreferencesDialog.cpp:148
+#: hugin1/hugin/PreferencesDialog.cpp:149
 msgid "English"
 msgstr "angleški"
 
-#: hugin1/hugin/PreferencesDialog.cpp:151
+#: hugin1/hugin/PreferencesDialog.cpp:152
 msgid "French"
 msgstr "francoski"
 
-#: hugin1/hugin/PreferencesDialog.cpp:154
+#: hugin1/hugin/PreferencesDialog.cpp:155
 msgid "German"
 msgstr "nemški"
 
-#: hugin1/hugin/PreferencesDialog.cpp:157
+#: hugin1/hugin/PreferencesDialog.cpp:158
 msgid "Hungarian"
 msgstr "madžarski"
 
-#: hugin1/hugin/PreferencesDialog.cpp:160
+#: hugin1/hugin/PreferencesDialog.cpp:161
 msgid "Italian"
 msgstr "italijanski"
 
-#: hugin1/hugin/PreferencesDialog.cpp:163
+#: hugin1/hugin/PreferencesDialog.cpp:164
 msgid "Japanese"
 msgstr "japonski"
 
-#: hugin1/hugin/PreferencesDialog.cpp:166
+#: hugin1/hugin/PreferencesDialog.cpp:167
 msgid "Korean"
 msgstr ""
 
-#: hugin1/hugin/PreferencesDialog.cpp:169
+#: hugin1/hugin/PreferencesDialog.cpp:170
 msgid "Polish"
 msgstr "poljski"
 
-#: hugin1/hugin/PreferencesDialog.cpp:172
+#: hugin1/hugin/PreferencesDialog.cpp:173
 msgid "Portuguese (Brazilian)"
 msgstr "portugalski (Brazilija)"
 
-#: hugin1/hugin/PreferencesDialog.cpp:175
+#: hugin1/hugin/PreferencesDialog.cpp:176
 msgid "Russian"
 msgstr "ruski"
 
-#: hugin1/hugin/PreferencesDialog.cpp:178
+#: hugin1/hugin/PreferencesDialog.cpp:179
 msgid "Slovak"
 msgstr "slovaški"
 
-#: hugin1/hugin/PreferencesDialog.cpp:181
+#: hugin1/hugin/PreferencesDialog.cpp:182
 #, fuzzy
 msgid "Slovenian"
 msgstr "slovaški"
 
-#: hugin1/hugin/PreferencesDialog.cpp:184
+#: hugin1/hugin/PreferencesDialog.cpp:185
 msgid "Spanish"
 msgstr "španski"
 
-#: hugin1/hugin/PreferencesDialog.cpp:187
+#: hugin1/hugin/PreferencesDialog.cpp:188
 msgid "Swedish"
 msgstr "švedski"
 
-#: hugin1/hugin/PreferencesDialog.cpp:190
+#: hugin1/hugin/PreferencesDialog.cpp:191
 msgid "Ukrainian"
 msgstr "ukrainski"
 
-#: hugin1/hugin/PreferencesDialog.cpp:193
+#: hugin1/hugin/PreferencesDialog.cpp:194
 msgid "Finnish"
 msgstr ""
 
-#: hugin1/hugin/PreferencesDialog.cpp:302
+#: hugin1/hugin/PreferencesDialog.cpp:308
 msgid "Select PTmender"
 msgstr "Izberi PTmender"
 
-#: hugin1/hugin/PreferencesDialog.cpp:306
-#: hugin1/hugin/PreferencesDialog.cpp:324
-#: hugin1/hugin/PreferencesDialog.cpp:341
-#: hugin1/hugin/PreferencesDialog.cpp:357
+#: hugin1/hugin/PreferencesDialog.cpp:312
+#: hugin1/hugin/PreferencesDialog.cpp:330
+#: hugin1/hugin/PreferencesDialog.cpp:347
+#: hugin1/hugin/PreferencesDialog.cpp:363
 msgid "Executables (*.exe)|*.exe"
 msgstr "Izvršljive (*.exe)|*.exe"
 
-#: hugin1/hugin/PreferencesDialog.cpp:321
+#: hugin1/hugin/PreferencesDialog.cpp:327
 msgid "Select image editor"
 msgstr "Izberi urejevalnik slik"
 
-#: hugin1/hugin/PreferencesDialog.cpp:338
+#: hugin1/hugin/PreferencesDialog.cpp:344
 msgid "Select Enblend"
 msgstr "Izberi Enblend"
 
-#: hugin1/hugin/PreferencesDialog.cpp:354
+#: hugin1/hugin/PreferencesDialog.cpp:360
 msgid "Select Enfuse"
 msgstr "Izberi Enfuse"
 
-#: hugin1/hugin/PreferencesDialog.cpp:390
+#: hugin1/hugin/PreferencesDialog.cpp:396
 msgid "Panotools details"
 msgstr "Panotools podrobnosti"
 
-#: hugin1/hugin/PreferencesDialog.cpp:681
+#: hugin1/hugin/PreferencesDialog.cpp:687
 msgid "Really reset displayed preferences to default values?"
 msgstr "Zares ponastavi nastavitve na privzete vrednosti?"
 
-#: hugin1/hugin/PreferencesDialog.cpp:681 translations/xrc.cpp:781 xrc.cpp:781
+#: hugin1/hugin/PreferencesDialog.cpp:687 translations/xrc.cpp:782 xrc.cpp:782
 msgid "Load Defaults"
 msgstr "Naloži privzete vrednosti"
 
-#: hugin1/hugin/PreferencesDialog.cpp:958
+#: hugin1/hugin/PreferencesDialog.cpp:964
 #, fuzzy
 msgid "Please select an entry first"
 msgstr "Prosimo izberite sliko in poskusite ponovno"
 
-#: hugin1/hugin/PreferencesDialog.cpp:958
+#: hugin1/hugin/PreferencesDialog.cpp:964
 #, fuzzy
 msgid "Select Entry"
 msgstr "Izberi Enfuse"
 
-#: hugin1/hugin/PreferencesDialog.cpp:977
+#: hugin1/hugin/PreferencesDialog.cpp:983
 msgid ""
 "You can't delete the last setting.\n"
 "At least one setting is required."
 msgstr ""
 
-#: hugin1/hugin/PreferencesDialog.cpp:981
+#: hugin1/hugin/PreferencesDialog.cpp:987
 #, c-format
 msgid "Do you really want to remove control point detector setting \"%s\"?"
 msgstr ""
 
-#: hugin1/hugin/PreferencesDialog.cpp:982
+#: hugin1/hugin/PreferencesDialog.cpp:988
 #, fuzzy
 msgid "Delete control point detector setting"
 msgstr "Urejavalnik stičnih točk"
 
-#: hugin1/hugin/PreferencesDialog.cpp:1035
+#: hugin1/hugin/PreferencesDialog.cpp:1041
 #, fuzzy
 msgid "Load control point detector settings"
 msgstr "Urejavalnik stičnih točk"
 
-#: hugin1/hugin/PreferencesDialog.cpp:1037
-#: hugin1/hugin/PreferencesDialog.cpp:1052
+#: hugin1/hugin/PreferencesDialog.cpp:1043
+#: hugin1/hugin/PreferencesDialog.cpp:1058
 #, fuzzy
 msgid "Control point detector settings (*.setting)|*.setting"
 msgstr "Urejavalnik stičnih točk"
 
-#: hugin1/hugin/PreferencesDialog.cpp:1050
+#: hugin1/hugin/PreferencesDialog.cpp:1056
 #, fuzzy
 msgid "Save control point detector settings"
 msgstr "Urejavalnik stičnih točk"
@@ -2998,8 +2999,8 @@ msgstr "Možnosti predogleda"
 msgid "projection (f):"
 msgstr "projekcija (f):"
 
-#: hugin1/hugin/PreviewFrame.cpp:229 translations/xrc.cpp:835
-#: translations/xrc.cpp:918 xrc.cpp:835 xrc.cpp:918
+#: hugin1/hugin/PreviewFrame.cpp:229 translations/xrc.cpp:837
+#: translations/xrc.cpp:920 xrc.cpp:837 xrc.cpp:920
 msgid "Blend mode:"
 msgstr "Način zlivanja:"
 
@@ -3015,8 +3016,8 @@ msgstr "LDR"
 msgid "HDR"
 msgstr "HDR"
 
-#: hugin1/hugin/PreviewFrame.cpp:269 translations/xrc.cpp:836
-#: translations/xrc.cpp:919 xrc.cpp:836 xrc.cpp:919
+#: hugin1/hugin/PreviewFrame.cpp:269 translations/xrc.cpp:838
+#: translations/xrc.cpp:921 xrc.cpp:838 xrc.cpp:921
 msgid "EV:"
 msgstr "EV:"
 
@@ -3316,7 +3317,7 @@ msgstr ""
 #: hugin1/ptbatcher/BatchFrame.cpp:714 hugin1/ptbatcher/BatchFrame.cpp:746
 #: hugin1/ptbatcher/BatchFrame.cpp:781 hugin1/ptbatcher/BatchFrame.cpp:810
 #: hugin1/ptbatcher/BatchFrame.cpp:1195 hugin1/ptbatcher/BatchFrame.cpp:1202
-#: translations/xrc.cpp:726 xrc.cpp:726
+#: translations/xrc.cpp:727 xrc.cpp:727
 #, fuzzy
 msgid "PTBatcherGUI"
 msgstr "PTStitcher"
@@ -3422,16 +3423,16 @@ msgstr ""
 msgid "Hugin's Batch processor"
 msgstr ""
 
-#: hugin1/ptbatcher/BatchFrame.cpp:191 translations/xrc.cpp:331 xrc.cpp:331
+#: hugin1/ptbatcher/BatchFrame.cpp:191 translations/xrc.cpp:332 xrc.cpp:332
 msgid "You have pressed the Command key."
 msgstr ""
 
-#: hugin1/ptbatcher/BatchFrame.cpp:193 translations/xrc.cpp:330 xrc.cpp:330
+#: hugin1/ptbatcher/BatchFrame.cpp:193 translations/xrc.cpp:331 xrc.cpp:331
 msgid "You have pressed the Control key."
 msgstr ""
 
 #: hugin1/ptbatcher/BatchFrame.cpp:196
-msgid "Should the loading of the batch queue skipped?"
+msgid "Should the loading of the batch queue be skipped?"
 msgstr ""
 
 #: hugin1/ptbatcher/BatchFrame.cpp:343
@@ -3735,8 +3736,8 @@ msgstr ""
 msgid "Output format"
 msgstr "Izhod"
 
-#: hugin1/ptbatcher/ProjectListBox.cpp:70 translations/xrc.cpp:848
-#: translations/xrc.cpp:930 xrc.cpp:848 xrc.cpp:930
+#: hugin1/ptbatcher/ProjectListBox.cpp:70 translations/xrc.cpp:850
+#: translations/xrc.cpp:932 xrc.cpp:850 xrc.cpp:932
 #, fuzzy
 msgid "Projection"
 msgstr "Projekt odprt"
@@ -3754,9 +3755,9 @@ msgstr "d"
 msgid "Error, cannot convert id"
 msgstr ""
 
-#: hugin1/ptbatcher/ProjectListBox.cpp:303 translations/xrc.cpp:662
-#: translations/xrc.cpp:827 translations/xrc.cpp:910 xrc.cpp:662 xrc.cpp:827
-#: xrc.cpp:910
+#: hugin1/ptbatcher/ProjectListBox.cpp:303 translations/xrc.cpp:663
+#: translations/xrc.cpp:829 translations/xrc.cpp:912 xrc.cpp:663 xrc.cpp:829
+#: xrc.cpp:912
 msgid "Assistant"
 msgstr "Asistent"
 
@@ -3773,8 +3774,8 @@ msgstr "Nov projekt"
 msgid "Edit with Hugin"
 msgstr ""
 
-#: hugin1/ptbatcher/ProjectListBox.cpp:407 translations/xrc.cpp:252
-#: xrc.cpp:252
+#: hugin1/ptbatcher/ProjectListBox.cpp:407 translations/xrc.cpp:253
+#: xrc.cpp:253
 #, fuzzy
 msgid "Remove"
 msgstr "Predogled"
@@ -3820,8 +3821,8 @@ msgstr "Označi izhodno datoteko s sliko"
 msgid "Log files (*.log)|*.log|All files (*)|*"
 msgstr "Projektne datoteke (*.pto)|*.pto|Vse datoteke (*)|*"
 
-#: translations/xrc.cpp:1 translations/xrc.cpp:389 translations/xrc.cpp:457
-#: translations/xrc.cpp:1012 xrc.cpp:1 xrc.cpp:389 xrc.cpp:457 xrc.cpp:1012
+#: translations/xrc.cpp:1 translations/xrc.cpp:390 translations/xrc.cpp:458
+#: translations/xrc.cpp:1014 xrc.cpp:1 xrc.cpp:390 xrc.cpp:458 xrc.cpp:1014
 msgid "About Hugin"
 msgstr "O Huginu"
 
@@ -3830,7 +3831,7 @@ msgstr "O Huginu"
 msgid "version"
 msgstr "Verzija %s"
 
-#: translations/xrc.cpp:3 translations/xrc.cpp:458 xrc.cpp:3 xrc.cpp:458
+#: translations/xrc.cpp:3 translations/xrc.cpp:459 xrc.cpp:3 xrc.cpp:459
 msgid "About"
 msgstr "O programu"
 
@@ -3858,13 +3859,13 @@ msgid "System"
 msgstr "Privzeto sistemsko"
 
 #: translations/xrc.cpp:9 translations/xrc.cpp:146 translations/xrc.cpp:209
-#: translations/xrc.cpp:248 translations/xrc.cpp:297 translations/xrc.cpp:313
-#: translations/xrc.cpp:320 translations/xrc.cpp:500 translations/xrc.cpp:533
-#: translations/xrc.cpp:537 translations/xrc.cpp:541 translations/xrc.cpp:635
-#: translations/xrc.cpp:783 translations/xrc.cpp:815 translations/xrc.cpp:1042
-#: xrc.cpp:9 xrc.cpp:146 xrc.cpp:209 xrc.cpp:248 xrc.cpp:297 xrc.cpp:313
-#: xrc.cpp:320 xrc.cpp:500 xrc.cpp:533 xrc.cpp:537 xrc.cpp:541 xrc.cpp:635
-#: xrc.cpp:783 xrc.cpp:815 xrc.cpp:1042
+#: translations/xrc.cpp:248 translations/xrc.cpp:298 translations/xrc.cpp:314
+#: translations/xrc.cpp:321 translations/xrc.cpp:501 translations/xrc.cpp:534
+#: translations/xrc.cpp:538 translations/xrc.cpp:542 translations/xrc.cpp:636
+#: translations/xrc.cpp:784 translations/xrc.cpp:817 translations/xrc.cpp:1044
+#: xrc.cpp:9 xrc.cpp:146 xrc.cpp:209 xrc.cpp:248 xrc.cpp:298 xrc.cpp:314
+#: xrc.cpp:321 xrc.cpp:501 xrc.cpp:534 xrc.cpp:538 xrc.cpp:542 xrc.cpp:636
+#: xrc.cpp:784 xrc.cpp:817 xrc.cpp:1044
 msgid "OK"
 msgstr "OK"
 
@@ -3960,10 +3961,10 @@ msgstr ""
 " trenutni direktorij"
 
 #: translations/xrc.cpp:33 translations/xrc.cpp:128 translations/xrc.cpp:133
-#: translations/xrc.cpp:136 translations/xrc.cpp:141 translations/xrc.cpp:677
-#: translations/xrc.cpp:759 translations/xrc.cpp:765 translations/xrc.cpp:788
-#: xrc.cpp:33 xrc.cpp:128 xrc.cpp:133 xrc.cpp:136 xrc.cpp:141 xrc.cpp:677
-#: xrc.cpp:759 xrc.cpp:765 xrc.cpp:788
+#: translations/xrc.cpp:136 translations/xrc.cpp:141 translations/xrc.cpp:678
+#: translations/xrc.cpp:760 translations/xrc.cpp:766 translations/xrc.cpp:790
+#: xrc.cpp:33 xrc.cpp:128 xrc.cpp:133 xrc.cpp:136 xrc.cpp:141 xrc.cpp:678
+#: xrc.cpp:760 xrc.cpp:766 xrc.cpp:790
 msgid "Choose..."
 msgstr "Izberi..."
 
@@ -4041,7 +4042,7 @@ msgid "Load distortion data"
 msgstr "popačenje (a):"
 
 #: translations/xrc.cpp:51 xrc.cpp:51
-msgid "Trys to load distortion data from lensfun database if checked."
+msgid "Tries to load distortion data from lensfun database if checked."
 msgstr ""
 
 #: translations/xrc.cpp:52 xrc.cpp:52
@@ -4050,15 +4051,15 @@ msgid "Load vignetting data"
 msgstr "Naloži podatke objektiva..."
 
 #: translations/xrc.cpp:53 xrc.cpp:53
-msgid "Trys to load vignetting data from lensfun database if checked."
+msgid "Tries to load vignetting data from lensfun database if checked."
 msgstr ""
 
-#: translations/xrc.cpp:54 translations/xrc.cpp:261 translations/xrc.cpp:479
-#: translations/xrc.cpp:596 translations/xrc.cpp:599 translations/xrc.cpp:602
-#: translations/xrc.cpp:605 translations/xrc.cpp:609 translations/xrc.cpp:612
-#: translations/xrc.cpp:615 translations/xrc.cpp:618 translations/xrc.cpp:737
-#: xrc.cpp:54 xrc.cpp:261 xrc.cpp:479 xrc.cpp:596 xrc.cpp:599 xrc.cpp:602
-#: xrc.cpp:605 xrc.cpp:609 xrc.cpp:612 xrc.cpp:615 xrc.cpp:618 xrc.cpp:737
+#: translations/xrc.cpp:54 translations/xrc.cpp:262 translations/xrc.cpp:480
+#: translations/xrc.cpp:597 translations/xrc.cpp:600 translations/xrc.cpp:603
+#: translations/xrc.cpp:606 translations/xrc.cpp:610 translations/xrc.cpp:613
+#: translations/xrc.cpp:616 translations/xrc.cpp:619 translations/xrc.cpp:738
+#: xrc.cpp:54 xrc.cpp:262 xrc.cpp:480 xrc.cpp:597 xrc.cpp:600 xrc.cpp:603
+#: xrc.cpp:606 xrc.cpp:610 xrc.cpp:613 xrc.cpp:616 xrc.cpp:619 xrc.cpp:738
 msgid "Options"
 msgstr "Možnosti"
 
@@ -4170,13 +4171,13 @@ msgstr "Začetni kot:"
 msgid "Clears the batch list"
 msgstr ""
 
-#: translations/xrc.cpp:82 translations/xrc.cpp:282 translations/xrc.cpp:411
-#: translations/xrc.cpp:1029 xrc.cpp:82 xrc.cpp:282 xrc.cpp:411 xrc.cpp:1029
+#: translations/xrc.cpp:82 translations/xrc.cpp:283 translations/xrc.cpp:412
+#: translations/xrc.cpp:1031 xrc.cpp:82 xrc.cpp:283 xrc.cpp:412 xrc.cpp:1031
 msgid "&Quit"
 msgstr "&Izhod"
 
-#: translations/xrc.cpp:83 translations/xrc.cpp:412 translations/xrc.cpp:1030
-#: xrc.cpp:83 xrc.cpp:412 xrc.cpp:1030
+#: translations/xrc.cpp:83 translations/xrc.cpp:413 translations/xrc.cpp:1032
+#: xrc.cpp:83 xrc.cpp:413 xrc.cpp:1032
 msgid "Exit program"
 msgstr "Izhod iz programa"
 
@@ -4330,8 +4331,8 @@ msgid "Program:"
 msgstr "Panorama"
 
 #: translations/xrc.cpp:129 translations/xrc.cpp:134 translations/xrc.cpp:137
-#: translations/xrc.cpp:142 translations/xrc.cpp:678 xrc.cpp:129 xrc.cpp:134
-#: xrc.cpp:137 xrc.cpp:142 xrc.cpp:678
+#: translations/xrc.cpp:142 translations/xrc.cpp:679 xrc.cpp:129 xrc.cpp:134
+#: xrc.cpp:137 xrc.cpp:142 xrc.cpp:679
 msgid "Arguments:"
 msgstr "Argumenti:"
 
@@ -4417,15 +4418,15 @@ msgstr "navpična črta"
 msgid "horizontal line"
 msgstr "vodoravna črta"
 
-#: translations/xrc.cpp:155 translations/xrc.cpp:488 xrc.cpp:155 xrc.cpp:488
+#: translations/xrc.cpp:155 translations/xrc.cpp:489 xrc.cpp:155 xrc.cpp:489
 msgid "Zoom:"
 msgstr "Povečava:"
 
-#: translations/xrc.cpp:156 translations/xrc.cpp:489 xrc.cpp:156 xrc.cpp:489
+#: translations/xrc.cpp:156 translations/xrc.cpp:490 xrc.cpp:156 xrc.cpp:490
 msgid "fit to window"
 msgstr "uravnaj na okno"
 
-#: translations/xrc.cpp:157 translations/xrc.cpp:687 xrc.cpp:157 xrc.cpp:687
+#: translations/xrc.cpp:157 translations/xrc.cpp:688 xrc.cpp:157 xrc.cpp:688
 msgid "Fine-tune"
 msgstr "Nadrobno usklajevanje"
 
@@ -4480,12 +4481,12 @@ msgstr "&Dodaj"
 msgid "add a new Point"
 msgstr "dodaj novo točko"
 
-#: translations/xrc.cpp:169 translations/xrc.cpp:326 translations/xrc.cpp:367
-#: xrc.cpp:169 xrc.cpp:326 xrc.cpp:367
+#: translations/xrc.cpp:169 translations/xrc.cpp:327 translations/xrc.cpp:368
+#: xrc.cpp:169 xrc.cpp:327 xrc.cpp:368
 msgid "Control Points"
 msgstr "Stične točke"
 
-#: translations/xrc.cpp:170 translations/xrc.cpp:709 xrc.cpp:170 xrc.cpp:709
+#: translations/xrc.cpp:170 translations/xrc.cpp:710 xrc.cpp:170 xrc.cpp:710
 msgid "Delete"
 msgstr "Izbriši"
 
@@ -4531,14 +4532,14 @@ msgid "Maximum Ev difference:"
 msgstr "razlika"
 
 #: translations/xrc.cpp:180 xrc.cpp:180
-msgid "Maxmum EV difference for detection of output layers"
+msgid "Maximum EV difference for detection of output layers"
 msgstr ""
 
 #: translations/xrc.cpp:181 xrc.cpp:181
 msgid "Display"
 msgstr ""
 
-#: translations/xrc.cpp:182 translations/xrc.cpp:637 xrc.cpp:182 xrc.cpp:637
+#: translations/xrc.cpp:182 translations/xrc.cpp:638 xrc.cpp:182 xrc.cpp:638
 msgid "General"
 msgstr "Splošno"
 
@@ -4551,8 +4552,8 @@ msgstr ""
 msgid "Positions"
 msgstr "Zlitje slike:"
 
-#: translations/xrc.cpp:185 translations/xrc.cpp:273 translations/xrc.cpp:1035
-#: xrc.cpp:185 xrc.cpp:273 xrc.cpp:1035
+#: translations/xrc.cpp:185 translations/xrc.cpp:274 translations/xrc.cpp:1037
+#: xrc.cpp:185 xrc.cpp:274 xrc.cpp:1037
 #, fuzzy
 msgid "Lens parameters"
 msgstr "Parametri objektiva"
@@ -4572,23 +4573,23 @@ msgstr "Tip objektiva:"
 msgid "Add images..."
 msgstr "Dodaj slike"
 
-#: translations/xrc.cpp:189 translations/xrc.cpp:202 translations/xrc.cpp:253
-#: translations/xrc.cpp:820 translations/xrc.cpp:903 xrc.cpp:189 xrc.cpp:202
-#: xrc.cpp:253 xrc.cpp:820 xrc.cpp:903
+#: translations/xrc.cpp:189 translations/xrc.cpp:202 translations/xrc.cpp:254
+#: translations/xrc.cpp:822 translations/xrc.cpp:905 xrc.cpp:189 xrc.cpp:202
+#: xrc.cpp:254 xrc.cpp:822 xrc.cpp:905
 msgid "Lens type:"
 msgstr "Tip objektiva:"
 
-#: translations/xrc.cpp:190 translations/xrc.cpp:207 translations/xrc.cpp:254
-#: translations/xrc.cpp:290 translations/xrc.cpp:306 translations/xrc.cpp:821
-#: translations/xrc.cpp:904 xrc.cpp:190 xrc.cpp:207 xrc.cpp:254 xrc.cpp:290
-#: xrc.cpp:306 xrc.cpp:821 xrc.cpp:904
+#: translations/xrc.cpp:190 translations/xrc.cpp:207 translations/xrc.cpp:255
+#: translations/xrc.cpp:291 translations/xrc.cpp:307 translations/xrc.cpp:823
+#: translations/xrc.cpp:906 xrc.cpp:190 xrc.cpp:207 xrc.cpp:255 xrc.cpp:291
+#: xrc.cpp:307 xrc.cpp:823 xrc.cpp:906
 #, fuzzy
 msgid "Focal length:"
 msgstr "Goriščna razdalja:"
 
-#: translations/xrc.cpp:191 translations/xrc.cpp:208 translations/xrc.cpp:255
-#: translations/xrc.cpp:822 translations/xrc.cpp:905 xrc.cpp:191 xrc.cpp:208
-#: xrc.cpp:255 xrc.cpp:822 xrc.cpp:905
+#: translations/xrc.cpp:191 translations/xrc.cpp:208 translations/xrc.cpp:256
+#: translations/xrc.cpp:824 translations/xrc.cpp:907 xrc.cpp:191 xrc.cpp:208
+#: xrc.cpp:256 xrc.cpp:824 xrc.cpp:907
 msgid "Focal length multiplier:"
 msgstr "Večkratnik goriščne razdalje:"
 
@@ -4606,8 +4607,8 @@ msgstr "Vinjetiranje:"
 msgid "Run external autopano program on the selected images"
 msgstr "Zaženi zunanji autopano program na izbranih slikah"
 
-#: translations/xrc.cpp:196 translations/xrc.cpp:271 translations/xrc.cpp:446
-#: xrc.cpp:196 xrc.cpp:271 xrc.cpp:446
+#: translations/xrc.cpp:196 translations/xrc.cpp:272 translations/xrc.cpp:447
+#: xrc.cpp:196 xrc.cpp:272 xrc.cpp:447
 msgid "Optimize"
 msgstr "Optimiziraj"
 
@@ -4642,8 +4643,8 @@ msgstr ""
 msgid "HFOV (v):"
 msgstr "HFOV (v):"
 
-#: translations/xrc.cpp:206 translations/xrc.cpp:701 translations/xrc.cpp:703
-#: xrc.cpp:206 xrc.cpp:701 xrc.cpp:703
+#: translations/xrc.cpp:206 translations/xrc.cpp:702 translations/xrc.cpp:704
+#: xrc.cpp:206 xrc.cpp:702 xrc.cpp:704
 msgid "degrees"
 msgstr "stopinj"
 
@@ -4651,18 +4652,18 @@ msgstr "stopinj"
 msgid "Camera and Lens data"
 msgstr "Podatki naprave in objektiva"
 
-#: translations/xrc.cpp:212 translations/xrc.cpp:812 translations/xrc.cpp:872
-#: translations/xrc.cpp:958 xrc.cpp:212 xrc.cpp:812 xrc.cpp:872 xrc.cpp:958
+#: translations/xrc.cpp:212 translations/xrc.cpp:814 translations/xrc.cpp:874
+#: translations/xrc.cpp:960 xrc.cpp:212 xrc.cpp:814 xrc.cpp:874 xrc.cpp:960
 msgid "Yaw:"
 msgstr "Odklon:"
 
-#: translations/xrc.cpp:213 translations/xrc.cpp:813 translations/xrc.cpp:873
-#: translations/xrc.cpp:959 xrc.cpp:213 xrc.cpp:813 xrc.cpp:873 xrc.cpp:959
+#: translations/xrc.cpp:213 translations/xrc.cpp:815 translations/xrc.cpp:875
+#: translations/xrc.cpp:961 xrc.cpp:213 xrc.cpp:815 xrc.cpp:875 xrc.cpp:961
 msgid "Pitch:"
 msgstr "Odklon:"
 
-#: translations/xrc.cpp:214 translations/xrc.cpp:814 translations/xrc.cpp:874
-#: translations/xrc.cpp:960 xrc.cpp:214 xrc.cpp:814 xrc.cpp:874 xrc.cpp:960
+#: translations/xrc.cpp:214 translations/xrc.cpp:816 translations/xrc.cpp:876
+#: translations/xrc.cpp:962 xrc.cpp:214 xrc.cpp:816 xrc.cpp:876 xrc.cpp:962
 msgid "Roll:"
 msgstr "Nagib:"
 
@@ -4671,19 +4672,19 @@ msgstr "Nagib:"
 msgid "Translation parameter"
 msgstr "Poveži vrednosti"
 
-#: translations/xrc.cpp:216 translations/xrc.cpp:875 translations/xrc.cpp:961
-#: xrc.cpp:216 xrc.cpp:875 xrc.cpp:961
+#: translations/xrc.cpp:216 translations/xrc.cpp:877 translations/xrc.cpp:963
+#: xrc.cpp:216 xrc.cpp:877 xrc.cpp:963
 msgid "X:"
 msgstr ""
 
-#: translations/xrc.cpp:217 translations/xrc.cpp:876 translations/xrc.cpp:962
-#: xrc.cpp:217 xrc.cpp:876 xrc.cpp:962
+#: translations/xrc.cpp:217 translations/xrc.cpp:878 translations/xrc.cpp:964
+#: xrc.cpp:217 xrc.cpp:878 xrc.cpp:964
 #, fuzzy
 msgid "Y:"
 msgstr "Odklon:"
 
-#: translations/xrc.cpp:218 translations/xrc.cpp:877 translations/xrc.cpp:963
-#: xrc.cpp:218 xrc.cpp:877 xrc.cpp:963
+#: translations/xrc.cpp:218 translations/xrc.cpp:879 translations/xrc.cpp:965
+#: xrc.cpp:218 xrc.cpp:879 xrc.cpp:965
 msgid "Z:"
 msgstr ""
 
@@ -4691,19 +4692,19 @@ msgstr ""
 msgid "degrees of view (v):"
 msgstr "vidni kot(v):"
 
-#: translations/xrc.cpp:222 translations/xrc.cpp:264 xrc.cpp:222 xrc.cpp:264
+#: translations/xrc.cpp:222 translations/xrc.cpp:265 xrc.cpp:222 xrc.cpp:265
 msgid "Radial Distortion"
 msgstr "Radialno popačenje"
 
-#: translations/xrc.cpp:223 translations/xrc.cpp:265 xrc.cpp:223 xrc.cpp:265
+#: translations/xrc.cpp:223 translations/xrc.cpp:266 xrc.cpp:223 xrc.cpp:266
 msgid "distortion (a):"
 msgstr "popačenje (a):"
 
-#: translations/xrc.cpp:224 translations/xrc.cpp:266 xrc.cpp:224 xrc.cpp:266
+#: translations/xrc.cpp:224 translations/xrc.cpp:267 xrc.cpp:224 xrc.cpp:267
 msgid "barrel (b):"
 msgstr "izbočenje (b):"
 
-#: translations/xrc.cpp:225 translations/xrc.cpp:267 xrc.cpp:225 xrc.cpp:267
+#: translations/xrc.cpp:225 translations/xrc.cpp:268 xrc.cpp:225 xrc.cpp:268
 msgid "distortion (c):"
 msgstr "popačenje (a):"
 
@@ -4712,15 +4713,15 @@ msgstr "popačenje (a):"
 msgid "Show graph >>"
 msgstr ""
 
-#: translations/xrc.cpp:227 translations/xrc.cpp:268 xrc.cpp:227 xrc.cpp:268
+#: translations/xrc.cpp:227 translations/xrc.cpp:269 xrc.cpp:227 xrc.cpp:269
 msgid "Image Center Shift"
 msgstr "Sredinski zamik slike"
 
-#: translations/xrc.cpp:228 translations/xrc.cpp:269 xrc.cpp:228 xrc.cpp:269
+#: translations/xrc.cpp:228 translations/xrc.cpp:270 xrc.cpp:228 xrc.cpp:270
 msgid "horizontal (d):"
 msgstr "vodoravno (d):"
 
-#: translations/xrc.cpp:229 translations/xrc.cpp:270 xrc.cpp:229 xrc.cpp:270
+#: translations/xrc.cpp:229 translations/xrc.cpp:271 xrc.cpp:229 xrc.cpp:271
 msgid "vertical (e):"
 msgstr "navpično (e):"
 
@@ -4755,7 +4756,7 @@ msgstr "Večkratnik rdeče:"
 msgid "Blue multiplier (Eb):"
 msgstr "Večkratnik modre:"
 
-#: translations/xrc.cpp:238 translations/xrc.cpp:1040 xrc.cpp:238 xrc.cpp:1040
+#: translations/xrc.cpp:238 translations/xrc.cpp:1042 xrc.cpp:238 xrc.cpp:1042
 msgid "Vignetting"
 msgstr "Vinjetiranje"
 
@@ -4764,8 +4765,8 @@ msgstr "Vinjetiranje"
 msgid "Vignetting Center Shift"
 msgstr "Sredinski zamik vinjetiranja"
 
-#: translations/xrc.cpp:241 translations/xrc.cpp:831 translations/xrc.cpp:914
-#: xrc.cpp:241 xrc.cpp:831 xrc.cpp:914
+#: translations/xrc.cpp:241 translations/xrc.cpp:833 translations/xrc.cpp:916
+#: xrc.cpp:241 xrc.cpp:833 xrc.cpp:916
 #, fuzzy
 msgid "Photometrics"
 msgstr "Fotometrično"
@@ -4774,258 +4775,264 @@ msgstr "Fotometrično"
 msgid "Parameters:"
 msgstr "Parametri:"
 
-#: translations/xrc.cpp:247 translations/xrc.cpp:1041 xrc.cpp:247 xrc.cpp:1041
+#: translations/xrc.cpp:247 translations/xrc.cpp:1043 xrc.cpp:247 xrc.cpp:1043
 msgid "Camera Response"
 msgstr "Odziv fotoaparata"
 
-#: translations/xrc.cpp:250 xrc.cpp:250
+#: translations/xrc.cpp:250 translations/xrc.cpp:716 translations/xrc.cpp:786
+#: xrc.cpp:250 xrc.cpp:716 xrc.cpp:786
+#, fuzzy
+msgid "Help"
+msgstr "&Pomoč"
+
+#: translations/xrc.cpp:251 xrc.cpp:251
 #, fuzzy
 msgid "Image variables"
 msgstr "Spremenljivke slike:"
 
-#: translations/xrc.cpp:251 translations/xrc.cpp:443 xrc.cpp:251 xrc.cpp:443
+#: translations/xrc.cpp:252 translations/xrc.cpp:444 xrc.cpp:252 xrc.cpp:444
 msgid "Add"
 msgstr "Dodaj"
 
-#: translations/xrc.cpp:256 xrc.cpp:256
+#: translations/xrc.cpp:257 xrc.cpp:257
 msgid "Images (with straight lines)"
 msgstr ""
 
-#: translations/xrc.cpp:257 xrc.cpp:257
+#: translations/xrc.cpp:258 xrc.cpp:258
 #, fuzzy
 msgid "Edge detection scale:"
 msgstr "Lestvica odkrivanja robov"
 
-#: translations/xrc.cpp:258 xrc.cpp:258
+#: translations/xrc.cpp:259 xrc.cpp:259
 #, fuzzy
 msgid "Edge detection threshold:"
 msgstr "Prag odkrivanja kotov"
 
-#: translations/xrc.cpp:259 xrc.cpp:259
+#: translations/xrc.cpp:260 xrc.cpp:260
 #, fuzzy
 msgid "Maximal image size:"
 msgstr "Datoteka s sliko:"
 
-#: translations/xrc.cpp:260 xrc.cpp:260
+#: translations/xrc.cpp:261 xrc.cpp:261
 msgid "Minimum line length:"
 msgstr ""
 
-#: translations/xrc.cpp:262 xrc.cpp:262
+#: translations/xrc.cpp:263 xrc.cpp:263
 msgid "Find lines"
 msgstr ""
 
-#: translations/xrc.cpp:274 xrc.cpp:274
+#: translations/xrc.cpp:275 xrc.cpp:275
 msgid "Original"
 msgstr ""
 
-#: translations/xrc.cpp:275 xrc.cpp:275
+#: translations/xrc.cpp:276 xrc.cpp:276
 msgid "Edge detection"
 msgstr ""
 
-#: translations/xrc.cpp:276 xrc.cpp:276
+#: translations/xrc.cpp:277 xrc.cpp:277
 #, fuzzy
 msgid "Corrected"
 msgstr "Popravek"
 
-#: translations/xrc.cpp:277 xrc.cpp:277
+#: translations/xrc.cpp:278 xrc.cpp:278
 #, fuzzy
 msgid "Show lines"
 msgstr "Pokaži vse slike"
 
-#: translations/xrc.cpp:278 xrc.cpp:278
+#: translations/xrc.cpp:279 xrc.cpp:279
 msgid "Refresh"
 msgstr ""
 
-#: translations/xrc.cpp:280 xrc.cpp:280
+#: translations/xrc.cpp:281 xrc.cpp:281
 #, fuzzy
 msgid "&Save as project file..."
 msgstr "Shrani projekt"
 
-#: translations/xrc.cpp:281 xrc.cpp:281
+#: translations/xrc.cpp:282 xrc.cpp:282
 msgid "Saves the images and lines as pto file for further tuning inside hugin."
 msgstr ""
-
-#: translations/xrc.cpp:284 translations/xrc.cpp:300 translations/xrc.cpp:316
-#: xrc.cpp:284 xrc.cpp:300 xrc.cpp:316
-#, fuzzy
-msgid "Camera maker:"
-msgstr "Naprava in objektiv"
 
 #: translations/xrc.cpp:285 translations/xrc.cpp:301 translations/xrc.cpp:317
 #: xrc.cpp:285 xrc.cpp:301 xrc.cpp:317
 #, fuzzy
+msgid "Camera maker:"
+msgstr "Naprava in objektiv"
+
+#: translations/xrc.cpp:286 translations/xrc.cpp:302 translations/xrc.cpp:318
+#: xrc.cpp:286 xrc.cpp:302 xrc.cpp:318
+#, fuzzy
 msgid "Camera model:"
 msgstr "ODziv fotoaparata:"
 
-#: translations/xrc.cpp:286 translations/xrc.cpp:303 xrc.cpp:286 xrc.cpp:303
+#: translations/xrc.cpp:287 translations/xrc.cpp:304 xrc.cpp:287 xrc.cpp:304
 #, fuzzy
 msgid "Lens name:"
 msgstr "Številka objektiva"
 
-#: translations/xrc.cpp:287 translations/xrc.cpp:304 xrc.cpp:287 xrc.cpp:304
+#: translations/xrc.cpp:288 translations/xrc.cpp:305 xrc.cpp:288 xrc.cpp:305
 #, fuzzy
 msgid "Leave empty for compact cameras."
 msgstr "ohrani privzete vrednosti op. sistema"
 
-#: translations/xrc.cpp:288 xrc.cpp:288
+#: translations/xrc.cpp:289 xrc.cpp:289
 msgid "fuzzy search"
 msgstr ""
 
-#: translations/xrc.cpp:289 xrc.cpp:289
+#: translations/xrc.cpp:290 xrc.cpp:290
 msgid "Search"
 msgstr ""
 
-#: translations/xrc.cpp:291 translations/xrc.cpp:307 xrc.cpp:291 xrc.cpp:307
+#: translations/xrc.cpp:292 translations/xrc.cpp:308 xrc.cpp:292 xrc.cpp:308
 msgid "Aperture:"
 msgstr ""
 
-#: translations/xrc.cpp:292 translations/xrc.cpp:308 xrc.cpp:292 xrc.cpp:308
+#: translations/xrc.cpp:293 translations/xrc.cpp:309 xrc.cpp:293 xrc.cpp:309
 #, fuzzy
 msgid "Subject distance:"
 msgstr "Izberi po razdalji"
 
-#: translations/xrc.cpp:293 xrc.cpp:293
+#: translations/xrc.cpp:294 xrc.cpp:294
 msgid ""
 "Select which parameters should be loaded\n"
 "from database"
 msgstr ""
 
-#: translations/xrc.cpp:294 xrc.cpp:294
+#: translations/xrc.cpp:295 xrc.cpp:295
 #, fuzzy
 msgid "Load distortion"
 msgstr "Radialno popačenje"
 
-#: translations/xrc.cpp:295 xrc.cpp:295
+#: translations/xrc.cpp:296 xrc.cpp:296
 #, fuzzy
 msgid "Load vignetting"
 msgstr "Vinjetiranje"
 
-#: translations/xrc.cpp:299 xrc.cpp:299
+#: translations/xrc.cpp:300 xrc.cpp:300
 #, fuzzy
 msgid "Load lens from database"
 msgstr "Naloži podatke objektiva..."
 
-#: translations/xrc.cpp:302 xrc.cpp:302
+#: translations/xrc.cpp:303 xrc.cpp:303
 #, fuzzy
 msgid "Lens maker:"
 msgstr "Številka objektiva"
 
-#: translations/xrc.cpp:305 translations/xrc.cpp:318 xrc.cpp:305 xrc.cpp:318
+#: translations/xrc.cpp:306 translations/xrc.cpp:319 xrc.cpp:306 xrc.cpp:319
 msgid "Mount:"
 msgstr ""
 
-#: translations/xrc.cpp:309 xrc.cpp:309
+#: translations/xrc.cpp:310 xrc.cpp:310
 msgid ""
 "Select which parameters should be saved\n"
 "into database"
 msgstr ""
 
-#: translations/xrc.cpp:310 xrc.cpp:310
+#: translations/xrc.cpp:311 xrc.cpp:311
 #, fuzzy
 msgid "Save distortion"
 msgstr "Radialno popačenje"
 
-#: translations/xrc.cpp:311 xrc.cpp:311
+#: translations/xrc.cpp:312 xrc.cpp:312
 #, fuzzy
 msgid "Save vignetting"
 msgstr "Vinjetiranje"
 
-#: translations/xrc.cpp:315 xrc.cpp:315
+#: translations/xrc.cpp:316 xrc.cpp:316
 #, fuzzy
 msgid "Save lens to database"
 msgstr "Shrani parametre objektiva"
 
-#: translations/xrc.cpp:319 xrc.cpp:319
+#: translations/xrc.cpp:320 xrc.cpp:320
 #, fuzzy
 msgid "Camera"
 msgstr "Naprava in objektiv"
 
-#: translations/xrc.cpp:322 xrc.cpp:322
+#: translations/xrc.cpp:323 xrc.cpp:323
 msgid "Save camera to database"
 msgstr ""
 
-#: translations/xrc.cpp:324 translations/xrc.cpp:363 xrc.cpp:324 xrc.cpp:363
+#: translations/xrc.cpp:325 translations/xrc.cpp:364 xrc.cpp:325 xrc.cpp:364
 #, fuzzy
 msgid "Photos"
 msgstr "Fotometrično"
 
-#: translations/xrc.cpp:325 translations/xrc.cpp:365 translations/xrc.cpp:480
-#: xrc.cpp:325 xrc.cpp:365 xrc.cpp:480
+#: translations/xrc.cpp:326 translations/xrc.cpp:366 translations/xrc.cpp:481
+#: xrc.cpp:326 xrc.cpp:366 xrc.cpp:481
 #, fuzzy
 msgid "Masks"
 msgstr "Tip objektiva:"
 
-#: translations/xrc.cpp:329 translations/xrc.cpp:373 xrc.cpp:329 xrc.cpp:373
+#: translations/xrc.cpp:330 translations/xrc.cpp:374 xrc.cpp:330 xrc.cpp:374
 msgid "Stitcher"
 msgstr "Šivalnik"
 
-#: translations/xrc.cpp:332 xrc.cpp:332
+#: translations/xrc.cpp:333 xrc.cpp:333
 #, fuzzy
 msgid "Should the OpenGL powered fast preview window disabled?"
 msgstr "Pokaži okno s predogledom"
 
-#: translations/xrc.cpp:333 xrc.cpp:333
+#: translations/xrc.cpp:334 xrc.cpp:334
 msgid "Don't ask again"
 msgstr ""
 
-#: translations/xrc.cpp:334 xrc.cpp:334
+#: translations/xrc.cpp:335 xrc.cpp:335
 msgid "Yes"
 msgstr ""
 
-#: translations/xrc.cpp:335 xrc.cpp:335
+#: translations/xrc.cpp:336 xrc.cpp:336
 #, fuzzy
 msgid "No"
 msgstr "Brez"
 
-#: translations/xrc.cpp:337 translations/xrc.cpp:986 xrc.cpp:337 xrc.cpp:986
+#: translations/xrc.cpp:338 translations/xrc.cpp:988 xrc.cpp:338 xrc.cpp:988
 msgid "&Undo"
 msgstr "&Razveljavi"
 
-#: translations/xrc.cpp:338 translations/xrc.cpp:438 translations/xrc.cpp:987
-#: xrc.cpp:338 xrc.cpp:438 xrc.cpp:987
+#: translations/xrc.cpp:339 translations/xrc.cpp:439 translations/xrc.cpp:989
+#: xrc.cpp:339 xrc.cpp:439 xrc.cpp:989
 msgid "Undo the last action"
 msgstr "Razveljavi zadnjo dejanje"
 
-#: translations/xrc.cpp:339 translations/xrc.cpp:988 xrc.cpp:339 xrc.cpp:988
+#: translations/xrc.cpp:340 translations/xrc.cpp:990 xrc.cpp:340 xrc.cpp:990
 msgid "&Redo"
 msgstr "&Obnovi"
 
-#: translations/xrc.cpp:340 translations/xrc.cpp:441 translations/xrc.cpp:989
-#: xrc.cpp:340 xrc.cpp:441 xrc.cpp:989
+#: translations/xrc.cpp:341 translations/xrc.cpp:442 translations/xrc.cpp:991
+#: xrc.cpp:341 xrc.cpp:442 xrc.cpp:991
 msgid "Redo the last action"
 msgstr "Obnovi zadnje dejanje"
 
-#: translations/xrc.cpp:341 xrc.cpp:341
+#: translations/xrc.cpp:342 xrc.cpp:342
 msgid "&Add Image"
 msgstr "&Dodaj sliko"
 
-#: translations/xrc.cpp:342 translations/xrc.cpp:444 xrc.cpp:342 xrc.cpp:444
+#: translations/xrc.cpp:343 translations/xrc.cpp:445 xrc.cpp:343 xrc.cpp:445
 msgid "Add another image to the current project"
 msgstr "Dodaj sliko trenutnemu projektu"
 
-#: translations/xrc.cpp:343 xrc.cpp:343
+#: translations/xrc.cpp:344 xrc.cpp:344
 #, fuzzy
 msgid "Run a&ssistant"
 msgstr "Asistent"
 
-#: translations/xrc.cpp:344 xrc.cpp:344
+#: translations/xrc.cpp:345 xrc.cpp:345
 #, fuzzy
 msgid "Send to assistant &queue"
 msgstr "Nov projekt"
 
-#: translations/xrc.cpp:345 xrc.cpp:345
+#: translations/xrc.cpp:346 xrc.cpp:346
 msgid "&Optimize"
 msgstr "&Optimiziraj"
 
-#: translations/xrc.cpp:346 translations/xrc.cpp:447 xrc.cpp:346 xrc.cpp:447
+#: translations/xrc.cpp:347 translations/xrc.cpp:448 xrc.cpp:347 xrc.cpp:448
 msgid "Re-run the optimizer with current settings"
 msgstr "Ponovno zaženi optimizator s trenutnimi nastavitvami"
 
-#: translations/xrc.cpp:347 xrc.cpp:347
+#: translations/xrc.cpp:348 xrc.cpp:348
 msgid "Fine-&tune all Points"
 msgstr "Nadrobno usklajevanje vseh točk"
 
-#: translations/xrc.cpp:348 xrc.cpp:348
+#: translations/xrc.cpp:349 xrc.cpp:349
 #, fuzzy
 msgid ""
 "Runs fine-tune on all control points. Useful for projects created with other "
@@ -5034,152 +5041,152 @@ msgstr ""
 "Zažene nadrobno usklajevanje vseh stičnih točk. Uporabno pri projektih, "
 "ustvarjenih z drugimi orodij kot so: PTGui ali PTAssembler"
 
-#: translations/xrc.cpp:349 xrc.cpp:349
+#: translations/xrc.cpp:350 xrc.cpp:350
 #, fuzzy
 msgid "Remove control points in masks"
 msgstr "Dodanih %d stičnih točk"
 
-#: translations/xrc.cpp:350 xrc.cpp:350
+#: translations/xrc.cpp:351 xrc.cpp:351
 #, fuzzy
 msgid "Removes all control points inside masked areas."
 msgstr "Dodanih %d stičnih točk"
 
-#: translations/xrc.cpp:351 xrc.cpp:351
+#: translations/xrc.cpp:352 xrc.cpp:352
 #, fuzzy
 msgid "Run &Python script"
 msgstr "Izberite autopano skriptni vmesnik"
 
-#: translations/xrc.cpp:352 xrc.cpp:352
+#: translations/xrc.cpp:353 xrc.cpp:353
 msgid "Run a python script"
 msgstr ""
 
-#: translations/xrc.cpp:353 translations/xrc.cpp:990 xrc.cpp:353 xrc.cpp:990
+#: translations/xrc.cpp:354 translations/xrc.cpp:992 xrc.cpp:354 xrc.cpp:992
 msgid "&Edit"
 msgstr "&Uredi"
 
-#: translations/xrc.cpp:354 translations/xrc.cpp:998 xrc.cpp:354 xrc.cpp:998
+#: translations/xrc.cpp:355 translations/xrc.cpp:1000 xrc.cpp:355 xrc.cpp:1000
 msgid "&View"
 msgstr "&Poglej"
 
-#: translations/xrc.cpp:355 translations/xrc.cpp:992 xrc.cpp:355 xrc.cpp:992
+#: translations/xrc.cpp:356 translations/xrc.cpp:994 xrc.cpp:356 xrc.cpp:994
 msgid "Full Screen"
 msgstr ""
 
-#: translations/xrc.cpp:356 translations/xrc.cpp:993 xrc.cpp:356 xrc.cpp:993
+#: translations/xrc.cpp:357 translations/xrc.cpp:995 xrc.cpp:357 xrc.cpp:995
 msgid "Shows Hugin's main window on full-screen"
 msgstr ""
 
-#: translations/xrc.cpp:357 xrc.cpp:357
+#: translations/xrc.cpp:358 xrc.cpp:358
 msgid "&Control point table"
 msgstr "&Tabela stičnih točk"
 
-#: translations/xrc.cpp:358 xrc.cpp:358
+#: translations/xrc.cpp:359 xrc.cpp:359
 msgid "Shows all control point distances"
 msgstr "Prikaži razdalje vseh stičnih točk"
 
-#: translations/xrc.cpp:359 xrc.cpp:359
+#: translations/xrc.cpp:360 xrc.cpp:360
 msgid "&Preview window"
 msgstr "&Predogled"
 
-#: translations/xrc.cpp:360 xrc.cpp:360
+#: translations/xrc.cpp:361 xrc.cpp:361
 msgid "Show the preview window"
 msgstr "Pokaži okno s predogledom"
 
-#: translations/xrc.cpp:361 xrc.cpp:361
+#: translations/xrc.cpp:362 xrc.cpp:362
 #, fuzzy
 msgid "&Fast Preview window"
 msgstr "&Predogled"
 
-#: translations/xrc.cpp:362 xrc.cpp:362
+#: translations/xrc.cpp:363 xrc.cpp:363
 #, fuzzy
 msgid "Show the OpenGL preview window"
 msgstr "Pokaži okno s predogledom"
 
-#: translations/xrc.cpp:364 xrc.cpp:364
+#: translations/xrc.cpp:365 xrc.cpp:365
 #, fuzzy
 msgid "Show the Photos panel"
 msgstr "Pokaži celo panoramo"
 
-#: translations/xrc.cpp:366 xrc.cpp:366
+#: translations/xrc.cpp:367 xrc.cpp:367
 #, fuzzy
 msgid "Show the Masks panel"
 msgstr "Pokaži celo panoramo"
 
-#: translations/xrc.cpp:368 xrc.cpp:368
+#: translations/xrc.cpp:369 xrc.cpp:369
 #, fuzzy
 msgid "Show the Control Points panel"
 msgstr "Pokaži stične točke"
 
-#: translations/xrc.cpp:370 xrc.cpp:370
+#: translations/xrc.cpp:371 xrc.cpp:371
 #, fuzzy
 msgid "Show the Optimizer panel"
 msgstr "Pokaži okno s predogledom"
 
-#: translations/xrc.cpp:372 xrc.cpp:372
+#: translations/xrc.cpp:373 xrc.cpp:373
 #, fuzzy
 msgid "Show the Exposure panel"
 msgstr "Pokaži okno s predogledom"
 
-#: translations/xrc.cpp:374 xrc.cpp:374
+#: translations/xrc.cpp:375 xrc.cpp:375
 #, fuzzy
 msgid "Show the Stitcher panel"
 msgstr "Pokaži celo panoramo"
 
-#: translations/xrc.cpp:375 translations/xrc.cpp:999 xrc.cpp:375 xrc.cpp:999
+#: translations/xrc.cpp:376 translations/xrc.cpp:1001 xrc.cpp:376 xrc.cpp:1001
 msgid "Simple"
 msgstr ""
 
-#: translations/xrc.cpp:376 translations/xrc.cpp:1000 xrc.cpp:376 xrc.cpp:1000
+#: translations/xrc.cpp:377 translations/xrc.cpp:1002 xrc.cpp:377 xrc.cpp:1002
 #, fuzzy
 msgid "Advanced"
 msgstr "Blender možnosti"
 
-#: translations/xrc.cpp:377 translations/xrc.cpp:1001 xrc.cpp:377 xrc.cpp:1001
+#: translations/xrc.cpp:378 translations/xrc.cpp:1003 xrc.cpp:378 xrc.cpp:1003
 msgid "Expert"
 msgstr ""
 
-#: translations/xrc.cpp:378 translations/xrc.cpp:1002 xrc.cpp:378 xrc.cpp:1002
+#: translations/xrc.cpp:379 translations/xrc.cpp:1004 xrc.cpp:379 xrc.cpp:1004
 #, fuzzy
 msgid "Interface"
 msgstr "Uporabniški vmesnik"
 
-#: translations/xrc.cpp:381 translations/xrc.cpp:1004 xrc.cpp:381 xrc.cpp:1004
+#: translations/xrc.cpp:382 translations/xrc.cpp:1006 xrc.cpp:382 xrc.cpp:1006
 msgid "Some information on the different buttons and so on."
 msgstr "Informacije o različnih gumbih in tako naprej."
 
-#: translations/xrc.cpp:382 translations/xrc.cpp:1005 xrc.cpp:382 xrc.cpp:1005
+#: translations/xrc.cpp:383 translations/xrc.cpp:1007 xrc.cpp:383 xrc.cpp:1007
 msgid "&Tip of the day"
 msgstr "&Nasvet dneva"
 
-#: translations/xrc.cpp:383 translations/xrc.cpp:1006 xrc.cpp:383 xrc.cpp:1006
+#: translations/xrc.cpp:384 translations/xrc.cpp:1008 xrc.cpp:384 xrc.cpp:1008
 msgid "Show one of the tips of the day."
 msgstr "Prikažni nasvet dneva"
 
-#: translations/xrc.cpp:384 translations/xrc.cpp:1007 xrc.cpp:384 xrc.cpp:1007
+#: translations/xrc.cpp:385 translations/xrc.cpp:1009 xrc.cpp:385 xrc.cpp:1009
 msgid "&Keyboard Shortcuts"
 msgstr "&Bližnjice tipkovnice"
 
-#: translations/xrc.cpp:385 translations/xrc.cpp:1008 xrc.cpp:385 xrc.cpp:1008
+#: translations/xrc.cpp:386 translations/xrc.cpp:1010 xrc.cpp:386 xrc.cpp:1010
 msgid "keyboard shortcuts"
 msgstr "Bližnjice tipkovnice"
 
-#: translations/xrc.cpp:386 translations/xrc.cpp:1009 xrc.cpp:386 xrc.cpp:1009
+#: translations/xrc.cpp:387 translations/xrc.cpp:1011 xrc.cpp:387 xrc.cpp:1011
 msgid "&FAQ"
 msgstr "&FAQ"
 
-#: translations/xrc.cpp:387 translations/xrc.cpp:1010 xrc.cpp:387 xrc.cpp:1010
+#: translations/xrc.cpp:388 translations/xrc.cpp:1012 xrc.cpp:388 xrc.cpp:1012
 msgid "Frequently Asked Questions"
 msgstr "Pogosto zastavljena vprašanja"
 
-#: translations/xrc.cpp:388 translations/xrc.cpp:1011 xrc.cpp:388 xrc.cpp:1011
+#: translations/xrc.cpp:389 translations/xrc.cpp:1013 xrc.cpp:389 xrc.cpp:1013
 msgid "&About"
 msgstr "&O programu"
 
-#: translations/xrc.cpp:390 translations/xrc.cpp:1013 xrc.cpp:390 xrc.cpp:1013
+#: translations/xrc.cpp:391 translations/xrc.cpp:1015 xrc.cpp:391 xrc.cpp:1015
 msgid "&Donate"
 msgstr "&Doniraj"
 
-#: translations/xrc.cpp:391 translations/xrc.cpp:1014 xrc.cpp:391 xrc.cpp:1014
+#: translations/xrc.cpp:392 translations/xrc.cpp:1016 xrc.cpp:392 xrc.cpp:1016
 msgid ""
 "If you like hugin and want to see further improvements, please consider "
 "donating to the hugin project."
@@ -5187,47 +5194,47 @@ msgstr ""
 "Če vam je hugin všel in bi želeli nove izboljšave, potem donirajte sredstva "
 "projektu hugin."
 
-#: translations/xrc.cpp:392 translations/xrc.cpp:1016 xrc.cpp:392 xrc.cpp:1016
+#: translations/xrc.cpp:393 translations/xrc.cpp:1018 xrc.cpp:393 xrc.cpp:1018
 msgid "&New"
 msgstr "&Novo"
 
-#: translations/xrc.cpp:393 translations/xrc.cpp:424 translations/xrc.cpp:1017
-#: xrc.cpp:393 xrc.cpp:424 xrc.cpp:1017
+#: translations/xrc.cpp:394 translations/xrc.cpp:425 translations/xrc.cpp:1019
+#: xrc.cpp:394 xrc.cpp:425 xrc.cpp:1019
 msgid "New project"
 msgstr "Nov projekt"
 
-#: translations/xrc.cpp:394 translations/xrc.cpp:1018 xrc.cpp:394 xrc.cpp:1018
+#: translations/xrc.cpp:395 translations/xrc.cpp:1020 xrc.cpp:395 xrc.cpp:1020
 msgid "&Open"
 msgstr "$Odpri"
 
-#: translations/xrc.cpp:395 translations/xrc.cpp:427 translations/xrc.cpp:1019
-#: xrc.cpp:395 xrc.cpp:427 xrc.cpp:1019
+#: translations/xrc.cpp:396 translations/xrc.cpp:428 translations/xrc.cpp:1021
+#: xrc.cpp:396 xrc.cpp:428 xrc.cpp:1021
 msgid "Open project"
 msgstr "Odpri projekt"
 
-#: translations/xrc.cpp:396 translations/xrc.cpp:1020 xrc.cpp:396 xrc.cpp:1020
+#: translations/xrc.cpp:397 translations/xrc.cpp:1022 xrc.cpp:397 xrc.cpp:1022
 msgid "&Save"
 msgstr "&Shrani"
 
-#: translations/xrc.cpp:397 translations/xrc.cpp:432 translations/xrc.cpp:1021
-#: xrc.cpp:397 xrc.cpp:432 xrc.cpp:1021
+#: translations/xrc.cpp:398 translations/xrc.cpp:433 translations/xrc.cpp:1023
+#: xrc.cpp:398 xrc.cpp:433 xrc.cpp:1023
 msgid "Save current project file"
 msgstr "Shrani trenutno projektno datoteko"
 
-#: translations/xrc.cpp:398 translations/xrc.cpp:1022 xrc.cpp:398 xrc.cpp:1022
+#: translations/xrc.cpp:399 translations/xrc.cpp:1024 xrc.cpp:399 xrc.cpp:1024
 msgid "S&ave as"
 msgstr "&Shrani kot"
 
-#: translations/xrc.cpp:399 translations/xrc.cpp:435 translations/xrc.cpp:1023
-#: xrc.cpp:399 xrc.cpp:435 xrc.cpp:1023
+#: translations/xrc.cpp:400 translations/xrc.cpp:436 translations/xrc.cpp:1025
+#: xrc.cpp:400 xrc.cpp:436 xrc.cpp:1025
 msgid "Save current project to a new file"
 msgstr "Shrani trenutni projekt v novo datoteko"
 
-#: translations/xrc.cpp:400 xrc.cpp:400
+#: translations/xrc.cpp:401 xrc.cpp:401
 msgid "&Write PTStitcher script"
 msgstr "&Zapiši PTStitcher skripto"
 
-#: translations/xrc.cpp:401 xrc.cpp:401
+#: translations/xrc.cpp:402 xrc.cpp:402
 msgid ""
 "Write current project to a PTStitcher-compatible script file, useful for "
 "batch processing"
@@ -5235,309 +5242,309 @@ msgstr ""
 "Zapiši trenutni projekt v PTStitcher kompatibilno skripto, uporabno za "
 "paketno procesiranje"
 
-#: translations/xrc.cpp:402 translations/xrc.cpp:1024 xrc.cpp:402 xrc.cpp:1024
+#: translations/xrc.cpp:403 translations/xrc.cpp:1026 xrc.cpp:403 xrc.cpp:1026
 msgid "Most recently used projects"
 msgstr ""
 
-#: translations/xrc.cpp:403 translations/xrc.cpp:1025 xrc.cpp:403 xrc.cpp:1025
+#: translations/xrc.cpp:404 translations/xrc.cpp:1027 xrc.cpp:404 xrc.cpp:1027
 #, fuzzy
 msgid "List of most recently used project files"
 msgstr "Označite izvorno datoteko projekta"
 
-#: translations/xrc.cpp:404 translations/xrc.cpp:414 translations/xrc.cpp:1026
-#: xrc.cpp:404 xrc.cpp:414 xrc.cpp:1026
+#: translations/xrc.cpp:405 translations/xrc.cpp:415 translations/xrc.cpp:1028
+#: xrc.cpp:405 xrc.cpp:415 xrc.cpp:1028
 msgid "&Run Batch Processor"
 msgstr ""
 
-#: translations/xrc.cpp:405 translations/xrc.cpp:415 translations/xrc.cpp:1027
-#: xrc.cpp:405 xrc.cpp:415 xrc.cpp:1027
+#: translations/xrc.cpp:406 translations/xrc.cpp:416 translations/xrc.cpp:1029
+#: xrc.cpp:406 xrc.cpp:416 xrc.cpp:1029
 msgid "Opens PTBatcher, the batch processor for Hugin's project files"
 msgstr ""
 
-#: translations/xrc.cpp:406 translations/xrc.cpp:416 xrc.cpp:406 xrc.cpp:416
+#: translations/xrc.cpp:407 translations/xrc.cpp:417 xrc.cpp:407 xrc.cpp:417
 #, fuzzy
 msgid "&Merge project..."
 msgstr "Nov projekt"
 
-#: translations/xrc.cpp:407 translations/xrc.cpp:417 xrc.cpp:407 xrc.cpp:417
+#: translations/xrc.cpp:408 translations/xrc.cpp:418 xrc.cpp:408 xrc.cpp:418
 #, fuzzy
 msgid "Merges an existing project file with the current project."
 msgstr "Dodaj sliko trenutnemu projektu"
 
-#: translations/xrc.cpp:408 translations/xrc.cpp:418 xrc.cpp:408 xrc.cpp:418
+#: translations/xrc.cpp:409 translations/xrc.cpp:419 xrc.cpp:409 xrc.cpp:419
 msgid "Apply &Template"
 msgstr "Uveljavi &predlogo"
 
-#: translations/xrc.cpp:409 translations/xrc.cpp:419 xrc.cpp:409 xrc.cpp:419
+#: translations/xrc.cpp:410 translations/xrc.cpp:420 xrc.cpp:410 xrc.cpp:420
 msgid ""
 "Assign the settings of a previously saved project to the current images."
 msgstr "Določi nastavitve predhodno shranjenih projektov trenutnim slikam."
 
-#: translations/xrc.cpp:410 translations/xrc.cpp:420 translations/xrc.cpp:1028
-#: xrc.cpp:410 xrc.cpp:420 xrc.cpp:1028
+#: translations/xrc.cpp:411 translations/xrc.cpp:421 translations/xrc.cpp:1030
+#: xrc.cpp:411 xrc.cpp:421 xrc.cpp:1030
 msgid "&Preferences"
 msgstr "&Nastavitve"
 
-#: translations/xrc.cpp:421 xrc.cpp:421
+#: translations/xrc.cpp:422 xrc.cpp:422
 #, fuzzy
 msgid "&Close editor"
 msgstr "Zapri"
 
-#: translations/xrc.cpp:422 xrc.cpp:422
+#: translations/xrc.cpp:423 xrc.cpp:423
 #, fuzzy
 msgid "Closes panorama editor"
 msgstr "Panoramski čarovnik"
 
-#: translations/xrc.cpp:425 xrc.cpp:425
+#: translations/xrc.cpp:426 xrc.cpp:426
 msgid "New"
 msgstr "Nov"
 
-#: translations/xrc.cpp:426 xrc.cpp:426
+#: translations/xrc.cpp:427 xrc.cpp:427
 msgid "Start a new project"
 msgstr "Začni z novim projektom"
 
-#: translations/xrc.cpp:428 xrc.cpp:428
+#: translations/xrc.cpp:429 xrc.cpp:429
 msgid "Open"
 msgstr "Odpri"
 
-#: translations/xrc.cpp:429 xrc.cpp:429
+#: translations/xrc.cpp:430 xrc.cpp:430
 msgid "Open a project file"
 msgstr "Odpri projekt"
 
-#: translations/xrc.cpp:431 xrc.cpp:431
+#: translations/xrc.cpp:432 xrc.cpp:432
 msgid "Save"
 msgstr "Shrani"
 
-#: translations/xrc.cpp:433 xrc.cpp:433
+#: translations/xrc.cpp:434 xrc.cpp:434
 msgid "Save project as"
 msgstr "Shrani projekt kot"
 
-#: translations/xrc.cpp:434 xrc.cpp:434
+#: translations/xrc.cpp:435 xrc.cpp:435
 msgid "Save As"
 msgstr "Shrani kot"
 
-#: translations/xrc.cpp:436 translations/xrc.cpp:437 xrc.cpp:436 xrc.cpp:437
+#: translations/xrc.cpp:437 translations/xrc.cpp:438 xrc.cpp:437 xrc.cpp:438
 msgid "Undo"
 msgstr "Razveljavi"
 
-#: translations/xrc.cpp:439 translations/xrc.cpp:440 xrc.cpp:439 xrc.cpp:440
+#: translations/xrc.cpp:440 translations/xrc.cpp:441 xrc.cpp:440 xrc.cpp:441
 msgid "Redo"
 msgstr "Obnovi"
 
-#: translations/xrc.cpp:442 xrc.cpp:442
+#: translations/xrc.cpp:443 xrc.cpp:443
 msgid "Add image"
 msgstr "Dodaj sliko"
 
-#: translations/xrc.cpp:445 xrc.cpp:445
+#: translations/xrc.cpp:446 xrc.cpp:446
 msgid "Re-optimize"
 msgstr "Ponovno optimiziraj"
 
-#: translations/xrc.cpp:448 xrc.cpp:448
+#: translations/xrc.cpp:449 xrc.cpp:449
 #, fuzzy
 msgid "Fast Preview panorama"
 msgstr "Predogled panorame"
 
-#: translations/xrc.cpp:449 xrc.cpp:449
+#: translations/xrc.cpp:450 xrc.cpp:450
 #, fuzzy
 msgid "Fast Preview"
 msgstr "Avtomatski predogled"
 
-#: translations/xrc.cpp:450 xrc.cpp:450
+#: translations/xrc.cpp:451 xrc.cpp:451
 #, fuzzy
 msgid "Show the OpenGL preview image"
 msgstr "Pokaži okno s predogledom"
 
-#: translations/xrc.cpp:451 translations/xrc.cpp:843 translations/xrc.cpp:925
-#: xrc.cpp:451 xrc.cpp:843 xrc.cpp:925
+#: translations/xrc.cpp:452 translations/xrc.cpp:845 translations/xrc.cpp:927
+#: xrc.cpp:452 xrc.cpp:845 xrc.cpp:927
 msgid "Preview panorama"
 msgstr "Predogled panorame"
 
-#: translations/xrc.cpp:453 xrc.cpp:453
+#: translations/xrc.cpp:454 xrc.cpp:454
 #, fuzzy
 msgid "Show the preview image"
 msgstr "Pokaži okno s predogledom"
 
-#: translations/xrc.cpp:454 translations/xrc.cpp:833 translations/xrc.cpp:916
-#: xrc.cpp:454 xrc.cpp:833 xrc.cpp:916
+#: translations/xrc.cpp:455 translations/xrc.cpp:835 translations/xrc.cpp:918
+#: xrc.cpp:455 xrc.cpp:835 xrc.cpp:918
 msgid "Show control points"
 msgstr "Pokaži stične točke"
 
-#: translations/xrc.cpp:455 xrc.cpp:455
+#: translations/xrc.cpp:456 xrc.cpp:456
 msgid "Points"
 msgstr "Točke"
 
-#: translations/xrc.cpp:456 xrc.cpp:456
+#: translations/xrc.cpp:457 xrc.cpp:457
 msgid "Show all control points in a single table"
 msgstr "Pokaži vse stične točke v eni tabeli"
 
-#: translations/xrc.cpp:459 xrc.cpp:459
+#: translations/xrc.cpp:460 xrc.cpp:460
 msgid "Display credits for the creators of Hugin"
 msgstr "Pokaži zasluge ustvarjalcem Hugina"
 
-#: translations/xrc.cpp:460 xrc.cpp:460
+#: translations/xrc.cpp:461 xrc.cpp:461
 #, fuzzy
 msgid "Add new mask"
 msgstr "Dodaj smer"
 
-#: translations/xrc.cpp:461 xrc.cpp:461
+#: translations/xrc.cpp:462 xrc.cpp:462
 #, fuzzy
 msgid "Delete mask"
 msgstr "Izbriši"
 
-#: translations/xrc.cpp:462 xrc.cpp:462
+#: translations/xrc.cpp:463 xrc.cpp:463
 #, fuzzy
 msgid "Mask type:"
 msgstr "Tip objektiva:"
 
-#: translations/xrc.cpp:463 xrc.cpp:463
+#: translations/xrc.cpp:464 xrc.cpp:464
 msgid "Exclude region"
 msgstr ""
 
-#: translations/xrc.cpp:464 xrc.cpp:464
+#: translations/xrc.cpp:465 xrc.cpp:465
 msgid "Include region"
 msgstr ""
 
-#: translations/xrc.cpp:465 xrc.cpp:465
+#: translations/xrc.cpp:466 xrc.cpp:466
 msgid "Exclude region from stack"
 msgstr ""
 
-#: translations/xrc.cpp:466 xrc.cpp:466
+#: translations/xrc.cpp:467 xrc.cpp:467
 msgid "Include region from stack"
 msgstr ""
 
-#: translations/xrc.cpp:467 xrc.cpp:467
+#: translations/xrc.cpp:468 xrc.cpp:468
 msgid "Exclude region from all images of this lens"
 msgstr ""
 
-#: translations/xrc.cpp:468 translations/xrc.cpp:714 xrc.cpp:468 xrc.cpp:714
+#: translations/xrc.cpp:469 translations/xrc.cpp:715 xrc.cpp:469 xrc.cpp:715
 #, fuzzy
 msgid "Export"
 msgstr "Osvetlitev"
 
-#: translations/xrc.cpp:469 translations/xrc.cpp:713 xrc.cpp:469 xrc.cpp:713
+#: translations/xrc.cpp:470 translations/xrc.cpp:714 xrc.cpp:470 xrc.cpp:714
 msgid "Import"
 msgstr ""
 
-#: translations/xrc.cpp:470 xrc.cpp:470
+#: translations/xrc.cpp:471 xrc.cpp:471
 msgid "Copy"
 msgstr ""
 
-#: translations/xrc.cpp:471 xrc.cpp:471
+#: translations/xrc.cpp:472 xrc.cpp:472
 msgid "Paste"
 msgstr ""
 
-#: translations/xrc.cpp:472 xrc.cpp:472
+#: translations/xrc.cpp:473 xrc.cpp:473
 #, fuzzy
 msgid "Import/Export"
 msgstr "Osvetlitev"
 
-#: translations/xrc.cpp:473 xrc.cpp:473
+#: translations/xrc.cpp:474 xrc.cpp:474
 msgid "Excluded"
 msgstr ""
 
-#: translations/xrc.cpp:474 xrc.cpp:474
+#: translations/xrc.cpp:475 xrc.cpp:475
 msgid "Included"
 msgstr ""
 
-#: translations/xrc.cpp:475 xrc.cpp:475
+#: translations/xrc.cpp:476 xrc.cpp:476
 #, fuzzy
 msgid "Selected"
 msgstr "Izberi Enblend"
 
-#: translations/xrc.cpp:476 xrc.cpp:476
+#: translations/xrc.cpp:477 xrc.cpp:477
 #, fuzzy
 msgid "Unselected"
 msgstr "izberi"
 
-#: translations/xrc.cpp:477 xrc.cpp:477
+#: translations/xrc.cpp:478 xrc.cpp:478
 #, fuzzy
 msgid "Colour"
 msgstr "Zapri"
 
-#: translations/xrc.cpp:478 xrc.cpp:478
+#: translations/xrc.cpp:479 xrc.cpp:479
 msgid "Show extent of active masks and crop"
 msgstr ""
 
-#: translations/xrc.cpp:481 translations/xrc.cpp:558 xrc.cpp:481 xrc.cpp:558
+#: translations/xrc.cpp:482 translations/xrc.cpp:559 xrc.cpp:482 xrc.cpp:559
 msgid "Top:"
 msgstr "Zgoraj:"
 
-#: translations/xrc.cpp:482 translations/xrc.cpp:557 xrc.cpp:482 xrc.cpp:557
+#: translations/xrc.cpp:483 translations/xrc.cpp:558 xrc.cpp:483 xrc.cpp:558
 msgid "Left:"
 msgstr "Levo:"
 
-#: translations/xrc.cpp:483 translations/xrc.cpp:559 xrc.cpp:483 xrc.cpp:559
+#: translations/xrc.cpp:484 translations/xrc.cpp:560 xrc.cpp:484 xrc.cpp:560
 msgid "Right:"
 msgstr "Desno:"
 
-#: translations/xrc.cpp:484 translations/xrc.cpp:560 xrc.cpp:484 xrc.cpp:560
+#: translations/xrc.cpp:485 translations/xrc.cpp:561 xrc.cpp:485 xrc.cpp:561
 msgid "Bottom:"
 msgstr "Spodaj:"
 
-#: translations/xrc.cpp:485 xrc.cpp:485
+#: translations/xrc.cpp:486 xrc.cpp:486
 msgid "Always center Crop on d,e"
 msgstr "Vedno sredinski izrez na d,e"
 
-#: translations/xrc.cpp:490 xrc.cpp:490
+#: translations/xrc.cpp:491 xrc.cpp:491
 #, fuzzy
 msgid "Image size:"
 msgstr "Datoteka s sliko:"
 
-#: translations/xrc.cpp:491 xrc.cpp:491
+#: translations/xrc.cpp:492 xrc.cpp:492
 msgid "Mask size:"
 msgstr ""
 
-#: translations/xrc.cpp:492 xrc.cpp:492
+#: translations/xrc.cpp:493 xrc.cpp:493
 #, fuzzy
 msgid "Mask size"
 msgstr "Tip objektiva:"
 
-#: translations/xrc.cpp:493 xrc.cpp:493
+#: translations/xrc.cpp:494 xrc.cpp:494
 msgid "Don't change"
 msgstr ""
 
-#: translations/xrc.cpp:494 xrc.cpp:494
+#: translations/xrc.cpp:495 xrc.cpp:495
 msgid "Scale to fit"
 msgstr ""
 
-#: translations/xrc.cpp:495 xrc.cpp:495
+#: translations/xrc.cpp:496 xrc.cpp:496
 #, fuzzy
 msgid "Scale proportional"
 msgstr "vodoravna črta"
 
-#: translations/xrc.cpp:496 xrc.cpp:496
+#: translations/xrc.cpp:497 xrc.cpp:497
 #, fuzzy
 msgid "Rotation"
 msgstr "italijanski"
 
-#: translations/xrc.cpp:497 xrc.cpp:497
+#: translations/xrc.cpp:498 xrc.cpp:498
 #, fuzzy
 msgid "Don't rotate"
 msgstr "&Doniraj"
 
-#: translations/xrc.cpp:498 xrc.cpp:498
+#: translations/xrc.cpp:499 xrc.cpp:499
 msgid "90° clockwise"
 msgstr ""
 
-#: translations/xrc.cpp:499 xrc.cpp:499
+#: translations/xrc.cpp:500 xrc.cpp:500
 msgid "90° counter-clockwise"
 msgstr ""
 
-#: translations/xrc.cpp:502 xrc.cpp:502
+#: translations/xrc.cpp:503 xrc.cpp:503
 #, fuzzy
 msgid "Loading mask"
 msgstr "Nalaganje slik"
 
-#: translations/xrc.cpp:503 xrc.cpp:503
+#: translations/xrc.cpp:504 xrc.cpp:504
 #, fuzzy
 msgid "Geometric optimizer"
 msgstr "Fotometrična optimizacija"
 
-#: translations/xrc.cpp:504 xrc.cpp:504
+#: translations/xrc.cpp:505 xrc.cpp:505
 msgid "Only use control points between image selected in preview window."
 msgstr "Uporabi samo stične točke med slikama v oknu s predogledom."
 
-#: translations/xrc.cpp:505 xrc.cpp:505
+#: translations/xrc.cpp:506 xrc.cpp:506
 #, fuzzy
 msgid ""
 "Only use control points between images selected in preview window. Useful to "
@@ -5548,39 +5555,39 @@ msgstr ""
 "izogibanje napak slabega uejmanju pri slikah kot sta zenit in nadir v "
 "večini  fisheye panoram."
 
-#: translations/xrc.cpp:506 translations/xrc.cpp:516 xrc.cpp:506 xrc.cpp:516
+#: translations/xrc.cpp:507 translations/xrc.cpp:517 xrc.cpp:507 xrc.cpp:517
 msgid "Optimize now!"
 msgstr "Optimiziraj zdaj!"
 
-#: translations/xrc.cpp:507 translations/xrc.cpp:517 xrc.cpp:507 xrc.cpp:517
+#: translations/xrc.cpp:508 translations/xrc.cpp:518 xrc.cpp:508 xrc.cpp:518
 msgid "execute the PTOptimizer engine"
 msgstr "začeni PTOpitmizer jedro"
 
-#: translations/xrc.cpp:509 translations/xrc.cpp:1033 xrc.cpp:509 xrc.cpp:1033
+#: translations/xrc.cpp:510 translations/xrc.cpp:1035 xrc.cpp:510 xrc.cpp:1035
 msgid "Image Orientation"
 msgstr "Orientacija slike"
 
-#: translations/xrc.cpp:510 xrc.cpp:510
+#: translations/xrc.cpp:511 xrc.cpp:511
 msgid "Lens Parameters"
 msgstr "Parametri objektiva"
 
-#: translations/xrc.cpp:511 xrc.cpp:511
+#: translations/xrc.cpp:512 xrc.cpp:512
 msgid "edit script before optimizing"
 msgstr "uredi skripto pred optimizacijo"
 
-#: translations/xrc.cpp:512 xrc.cpp:512
+#: translations/xrc.cpp:513 xrc.cpp:513
 msgid "for advanced users"
 msgstr "za napredne uporabnike"
 
-#: translations/xrc.cpp:513 xrc.cpp:513
+#: translations/xrc.cpp:514 xrc.cpp:514
 msgid "Photometric Optimization"
 msgstr "Fotometrična optimizacija"
 
-#: translations/xrc.cpp:514 xrc.cpp:514
+#: translations/xrc.cpp:515 xrc.cpp:515
 msgid "Only use images selected in preview."
 msgstr "Uporabi samo slike na predogledu"
 
-#: translations/xrc.cpp:515 xrc.cpp:515
+#: translations/xrc.cpp:516 xrc.cpp:516
 msgid ""
 "Only consider images selected in preview window. Useful to avoid errors due "
 "to badly fitting images, such as the nadir image in most fisheye panoramas"
@@ -5588,133 +5595,133 @@ msgstr ""
 "Upoštevaj samo slike v oknu s predogledom. Uporabno za izogibanje napak "
 "slabega uejmanju pri slikah kot sta zenit in nadir v večini  fisheye panoram."
 
-#: translations/xrc.cpp:519 xrc.cpp:519
+#: translations/xrc.cpp:520 xrc.cpp:520
 msgid "Image variables:"
 msgstr "Spremenljivke slike:"
 
-#: translations/xrc.cpp:520 xrc.cpp:520
+#: translations/xrc.cpp:521 xrc.cpp:521
 msgid "Camera and Lens variables:"
 msgstr "Spremenljivke fotoaparata in objektiva:"
 
-#: translations/xrc.cpp:521 xrc.cpp:521
+#: translations/xrc.cpp:522 xrc.cpp:522
 msgid "Interpolator (i):"
 msgstr "Interpolator (i):"
 
-#: translations/xrc.cpp:522 translations/xrc.cpp:745 xrc.cpp:522 xrc.cpp:745
+#: translations/xrc.cpp:523 translations/xrc.cpp:746 xrc.cpp:523 xrc.cpp:746
 msgid "Poly3 (Bicubic)"
 msgstr "Poly3 (Bicubic)"
 
-#: translations/xrc.cpp:523 translations/xrc.cpp:746 xrc.cpp:523 xrc.cpp:746
+#: translations/xrc.cpp:524 translations/xrc.cpp:747 xrc.cpp:524 xrc.cpp:747
 msgid "Spline 16"
 msgstr "Polinomska 16"
 
-#: translations/xrc.cpp:524 translations/xrc.cpp:747 xrc.cpp:524 xrc.cpp:747
+#: translations/xrc.cpp:525 translations/xrc.cpp:748 xrc.cpp:525 xrc.cpp:748
 msgid "Spline 36"
 msgstr "Polinomska 36"
 
-#: translations/xrc.cpp:525 translations/xrc.cpp:748 xrc.cpp:525 xrc.cpp:748
+#: translations/xrc.cpp:526 translations/xrc.cpp:749 xrc.cpp:526 xrc.cpp:749
 msgid "Sinc 256"
 msgstr "Sinc 256"
 
-#: translations/xrc.cpp:526 translations/xrc.cpp:749 xrc.cpp:526 xrc.cpp:749
+#: translations/xrc.cpp:527 translations/xrc.cpp:750 xrc.cpp:527 xrc.cpp:750
 msgid "Spline 64"
 msgstr "Polinomska 64"
 
-#: translations/xrc.cpp:527 translations/xrc.cpp:750 xrc.cpp:527 xrc.cpp:750
+#: translations/xrc.cpp:528 translations/xrc.cpp:751 xrc.cpp:528 xrc.cpp:751
 msgid "Bilinear"
 msgstr "Bilinearna"
 
-#: translations/xrc.cpp:528 translations/xrc.cpp:751 xrc.cpp:528 xrc.cpp:751
+#: translations/xrc.cpp:529 translations/xrc.cpp:752 xrc.cpp:529 xrc.cpp:752
 msgid "Nearest neighbor"
 msgstr "Najbližji sosed"
 
-#: translations/xrc.cpp:529 translations/xrc.cpp:752 xrc.cpp:529 xrc.cpp:752
+#: translations/xrc.cpp:530 translations/xrc.cpp:753 xrc.cpp:530 xrc.cpp:753
 msgid "Sinc 1024"
 msgstr "Sinc 1024"
 
-#: translations/xrc.cpp:530 translations/xrc.cpp:753 xrc.cpp:530 xrc.cpp:753
+#: translations/xrc.cpp:531 translations/xrc.cpp:754 xrc.cpp:531 xrc.cpp:754
 msgid "approximation of values between source pixels"
 msgstr "aproksimacija vrednosti med izvornimi piksli"
 
-#: translations/xrc.cpp:531 xrc.cpp:531
+#: translations/xrc.cpp:532 xrc.cpp:532
 msgid "Save cropped images"
 msgstr "Shrani neizrezane slike"
 
-#: translations/xrc.cpp:532 xrc.cpp:532
+#: translations/xrc.cpp:533 xrc.cpp:533
 #, fuzzy
 msgid "Save cropped tiff output. Useful for enblend 2.4 and higher"
 msgstr "Shrani izrezani tiff izhod. Uporabno za enblend 2.4 in višji."
 
-#: translations/xrc.cpp:535 xrc.cpp:535
+#: translations/xrc.cpp:536 xrc.cpp:536
 msgid "Nona Options"
 msgstr "Nona možnosti"
 
-#: translations/xrc.cpp:536 translations/xrc.cpp:540 xrc.cpp:536 xrc.cpp:540
+#: translations/xrc.cpp:537 translations/xrc.cpp:541 xrc.cpp:537 xrc.cpp:541
 msgid "Command line options"
 msgstr "Možnosti ukazne vrstice"
 
-#: translations/xrc.cpp:539 xrc.cpp:539
+#: translations/xrc.cpp:540 xrc.cpp:540
 msgid "Blender Options"
 msgstr "Blender možnosti"
 
-#: translations/xrc.cpp:543 xrc.cpp:543
+#: translations/xrc.cpp:544 xrc.cpp:544
 msgid "Enfuse options"
 msgstr "Enfuse možnosti"
 
-#: translations/xrc.cpp:544 xrc.cpp:544
+#: translations/xrc.cpp:545 xrc.cpp:545
 #, fuzzy
 msgid "Projection:"
 msgstr "Projekt odprt"
 
-#: translations/xrc.cpp:545 xrc.cpp:545
+#: translations/xrc.cpp:546 xrc.cpp:546
 #, fuzzy
 msgid "Field of View:"
 msgstr "Vidni kot"
 
-#: translations/xrc.cpp:546 xrc.cpp:546
+#: translations/xrc.cpp:547 xrc.cpp:547
 #, fuzzy
 msgid "Horizontal:"
 msgstr "vodoravno (d):"
 
-#: translations/xrc.cpp:547 xrc.cpp:547
+#: translations/xrc.cpp:548 xrc.cpp:548
 #, fuzzy
 msgid "Vertical:"
 msgstr "vodoravno"
 
-#: translations/xrc.cpp:548 xrc.cpp:548
+#: translations/xrc.cpp:549 xrc.cpp:549
 #, fuzzy
 msgid "Calculate field of view"
 msgstr "Izračunaj vidni kot"
 
-#: translations/xrc.cpp:549 xrc.cpp:549
+#: translations/xrc.cpp:550 xrc.cpp:550
 msgid "Calculate Field of View"
 msgstr "Izračunaj vidni kot"
 
-#: translations/xrc.cpp:550 xrc.cpp:550
+#: translations/xrc.cpp:551 xrc.cpp:551
 #, fuzzy
 msgid "Canvas Size:"
 msgstr "Velikost platna panorame"
 
-#: translations/xrc.cpp:551 xrc.cpp:551
+#: translations/xrc.cpp:552 xrc.cpp:552
 #, fuzzy
 msgid "Width:"
 msgstr "širina:"
 
-#: translations/xrc.cpp:552 xrc.cpp:552
+#: translations/xrc.cpp:553 xrc.cpp:553
 #, fuzzy
 msgid "Height:"
 msgstr "višina:"
 
-#: translations/xrc.cpp:553 xrc.cpp:553
+#: translations/xrc.cpp:554 xrc.cpp:554
 msgid "Calculate Optimal Size"
 msgstr "Izračunaj optimalno velikost"
 
-#: translations/xrc.cpp:554 xrc.cpp:554
+#: translations/xrc.cpp:555 xrc.cpp:555
 #, fuzzy
 msgid "Calculate optimal size"
 msgstr "Izračunaj optimalno velikost"
 
-#: translations/xrc.cpp:555 xrc.cpp:555
+#: translations/xrc.cpp:556 xrc.cpp:556
 #, fuzzy
 msgid ""
 "Calculate optimal image size, such that the resolution in the image center "
@@ -5723,36 +5730,36 @@ msgstr ""
 "Izračunaj optimalno velikost slike tako, da resolucija slike na sredini "
 "ostane enaka."
 
-#: translations/xrc.cpp:556 xrc.cpp:556
+#: translations/xrc.cpp:557 xrc.cpp:557
 #, fuzzy
 msgid "Crop:"
 msgstr "Obreži"
 
-#: translations/xrc.cpp:561 xrc.cpp:561
+#: translations/xrc.cpp:562 xrc.cpp:562
 msgid "Fit Crop to Images"
 msgstr ""
 
-#: translations/xrc.cpp:562 xrc.cpp:562
+#: translations/xrc.cpp:563 xrc.cpp:563
 #, fuzzy
 msgid "Fit crop to images"
 msgstr "Shrani neizrezane slike"
 
-#: translations/xrc.cpp:563 xrc.cpp:563
+#: translations/xrc.cpp:564 xrc.cpp:564
 msgid ""
 "Calculate crop borders such that the final image has the largest area "
 "without excess"
 msgstr ""
 
-#: translations/xrc.cpp:564 xrc.cpp:564
+#: translations/xrc.cpp:565 xrc.cpp:565
 #, fuzzy
 msgid "Panorama Outputs:"
 msgstr "Narmoalni izhod:"
 
-#: translations/xrc.cpp:565 translations/xrc.cpp:580 xrc.cpp:565 xrc.cpp:580
+#: translations/xrc.cpp:566 translations/xrc.cpp:581 xrc.cpp:566 xrc.cpp:581
 msgid "Exposure corrected, low dynamic range"
 msgstr ""
 
-#: translations/xrc.cpp:566 xrc.cpp:566
+#: translations/xrc.cpp:567 xrc.cpp:567
 #, fuzzy
 msgid ""
 "Blend all images into a seamless panorama, using exposure set in the "
@@ -5761,222 +5768,222 @@ msgstr ""
 "Spoji vse slike v enotno panoramo. Uporabi, če imajo vse slike podobno "
 "osvetlitev"
 
-#: translations/xrc.cpp:567 xrc.cpp:567
+#: translations/xrc.cpp:568 xrc.cpp:568
 #, fuzzy
 msgid "Exposure fused from stacks"
 msgstr "Osvetlitev"
 
-#: translations/xrc.cpp:568 xrc.cpp:568
+#: translations/xrc.cpp:569 xrc.cpp:569
 msgid ""
 "Images will be remapped, stacks exposure fused, then blended into a seamless "
 "panorama"
 msgstr ""
 
-#: translations/xrc.cpp:569 xrc.cpp:569
+#: translations/xrc.cpp:570 xrc.cpp:570
 msgid "Exposure fused from any arrangement"
 msgstr ""
 
-#: translations/xrc.cpp:570 xrc.cpp:570
+#: translations/xrc.cpp:571 xrc.cpp:571
 msgid ""
 "Images will be remapped, blended into seamless layers, then layers exposure "
 "fused into a panorama"
 msgstr ""
 
-#: translations/xrc.cpp:571 translations/xrc.cpp:576 xrc.cpp:571 xrc.cpp:576
+#: translations/xrc.cpp:572 translations/xrc.cpp:577 xrc.cpp:572 xrc.cpp:577
 #, fuzzy
 msgid "Format:"
 msgstr "Vrste datotek"
 
-#: translations/xrc.cpp:574 translations/xrc.cpp:584 xrc.cpp:574 xrc.cpp:584
+#: translations/xrc.cpp:575 translations/xrc.cpp:585 xrc.cpp:575 xrc.cpp:585
 #, fuzzy
 msgid "High dynamic range"
 msgstr "Majhen dinamičen razpon"
 
-#: translations/xrc.cpp:575 xrc.cpp:575
+#: translations/xrc.cpp:576 xrc.cpp:576
 msgid ""
 "Images will be remapped in linear color space, stacks merged, then blended "
 "into a seamless High Dynamic Range panorama"
 msgstr ""
 
-#: translations/xrc.cpp:579 xrc.cpp:579
+#: translations/xrc.cpp:580 xrc.cpp:580
 #, fuzzy
 msgid "Remapped Images:"
 msgstr "Preslikane slike"
 
-#: translations/xrc.cpp:581 xrc.cpp:581
+#: translations/xrc.cpp:582 xrc.cpp:582
 msgid ""
 "Output remapped, exposure corrected images. Useful for manual blending of an "
 "exposure corrected panorama."
 msgstr ""
 
-#: translations/xrc.cpp:582 xrc.cpp:582
+#: translations/xrc.cpp:583 xrc.cpp:583
 msgid "No exposure correction, low dynamic range"
 msgstr ""
 
-#: translations/xrc.cpp:583 xrc.cpp:583
+#: translations/xrc.cpp:584 xrc.cpp:584
 msgid ""
 "Output remapped images with unmodified exposure. Useful for manual exposure "
 "fusing."
 msgstr ""
 
-#: translations/xrc.cpp:585 xrc.cpp:585
+#: translations/xrc.cpp:586 xrc.cpp:586
 msgid "Produce remapped, but not merged, linear color space images"
 msgstr ""
 
-#: translations/xrc.cpp:586 xrc.cpp:586
+#: translations/xrc.cpp:587 xrc.cpp:587
 msgid "Combined stacks:"
 msgstr ""
 
-#: translations/xrc.cpp:587 xrc.cpp:587
+#: translations/xrc.cpp:588 xrc.cpp:588
 #, fuzzy
 msgid "Exposure fused stacks"
 msgstr "Osvetlitev"
 
-#: translations/xrc.cpp:588 xrc.cpp:588
+#: translations/xrc.cpp:589 xrc.cpp:589
 msgid "Output exposure fused stacks from highly overlapping images"
 msgstr ""
 
-#: translations/xrc.cpp:589 xrc.cpp:589
+#: translations/xrc.cpp:590 xrc.cpp:590
 #, fuzzy
 msgid "High dynamic range merged stacks"
 msgstr "Velik dinamičen razpon, fiksna osvetlitev"
 
-#: translations/xrc.cpp:590 xrc.cpp:590
+#: translations/xrc.cpp:591 xrc.cpp:591
 msgid ""
 "Output remapped, high dynamic range merged stacks from highly overlapping "
 "images"
 msgstr ""
 
-#: translations/xrc.cpp:591 xrc.cpp:591
+#: translations/xrc.cpp:592 xrc.cpp:592
 msgid "Layers:"
 msgstr ""
 
-#: translations/xrc.cpp:592 xrc.cpp:592
+#: translations/xrc.cpp:593 xrc.cpp:593
 msgid "Blended layers of similar exposure, without exposure correction"
 msgstr ""
 
-#: translations/xrc.cpp:593 xrc.cpp:593
+#: translations/xrc.cpp:594 xrc.cpp:594
 msgid ""
 "Output a complete blended panorama for each exposure step. Useful for manual "
 "contrast blending in an image editor."
 msgstr ""
 
-#: translations/xrc.cpp:594 xrc.cpp:594
+#: translations/xrc.cpp:595 xrc.cpp:595
 #, fuzzy
 msgid "Processing:"
 msgstr "Obdelava"
 
-#: translations/xrc.cpp:595 translations/xrc.cpp:608 xrc.cpp:595 xrc.cpp:608
+#: translations/xrc.cpp:596 translations/xrc.cpp:609 xrc.cpp:596 xrc.cpp:609
 msgid "Remapper:"
 msgstr "Preslikovalnik:"
 
-#: translations/xrc.cpp:597 translations/xrc.cpp:610 xrc.cpp:597 xrc.cpp:610
+#: translations/xrc.cpp:598 translations/xrc.cpp:611 xrc.cpp:598 xrc.cpp:611
 msgid "Image fusion:"
 msgstr "Zlitje slike:"
 
-#: translations/xrc.cpp:598 translations/xrc.cpp:611 xrc.cpp:598 xrc.cpp:611
+#: translations/xrc.cpp:599 translations/xrc.cpp:612 xrc.cpp:599 xrc.cpp:612
 msgid "enfuse"
 msgstr "enfuse"
 
-#: translations/xrc.cpp:600 translations/xrc.cpp:613 xrc.cpp:600 xrc.cpp:613
+#: translations/xrc.cpp:601 translations/xrc.cpp:614 xrc.cpp:601 xrc.cpp:614
 msgid "HDR merger:"
 msgstr "HDR združevalnik:"
 
-#: translations/xrc.cpp:601 translations/xrc.cpp:614 xrc.cpp:601 xrc.cpp:614
+#: translations/xrc.cpp:602 translations/xrc.cpp:615 xrc.cpp:602 xrc.cpp:615
 msgid "builtin"
 msgstr "vgrajeno"
 
-#: translations/xrc.cpp:603 translations/xrc.cpp:616 xrc.cpp:603 xrc.cpp:616
+#: translations/xrc.cpp:604 translations/xrc.cpp:617 xrc.cpp:604 xrc.cpp:617
 msgid "Blender:"
 msgstr "Spajanje:"
 
-#: translations/xrc.cpp:604 translations/xrc.cpp:617 xrc.cpp:604 xrc.cpp:617
+#: translations/xrc.cpp:605 translations/xrc.cpp:618 xrc.cpp:605 xrc.cpp:618
 msgid "enblend"
 msgstr "enblend"
 
-#: translations/xrc.cpp:606 translations/xrc.cpp:607 xrc.cpp:606 xrc.cpp:607
+#: translations/xrc.cpp:607 translations/xrc.cpp:608 xrc.cpp:607 xrc.cpp:608
 #, fuzzy
 msgid "Stitch!"
 msgstr "Šivalnik"
 
-#: translations/xrc.cpp:619 xrc.cpp:619
+#: translations/xrc.cpp:620 xrc.cpp:620
 #, fuzzy
 msgid "HDR Merge Options"
 msgstr "HDR združevalnik:"
 
-#: translations/xrc.cpp:620 xrc.cpp:620
+#: translations/xrc.cpp:621 xrc.cpp:621
 #, fuzzy
 msgid "Merge Mode:"
 msgstr "Združi v HDR"
 
-#: translations/xrc.cpp:621 xrc.cpp:621
+#: translations/xrc.cpp:622 xrc.cpp:622
 msgid "Average"
 msgstr ""
 
-#: translations/xrc.cpp:622 xrc.cpp:622
+#: translations/xrc.cpp:623 xrc.cpp:623
 msgid "Average slow"
 msgstr ""
 
-#: translations/xrc.cpp:623 xrc.cpp:623
+#: translations/xrc.cpp:624 xrc.cpp:624
 msgid "Deghosting (Khan)"
 msgstr ""
 
-#: translations/xrc.cpp:624 translations/xrc.cpp:626 translations/xrc.cpp:634
-#: xrc.cpp:624 xrc.cpp:626 xrc.cpp:634
+#: translations/xrc.cpp:625 translations/xrc.cpp:627 translations/xrc.cpp:635
+#: xrc.cpp:625 xrc.cpp:627 xrc.cpp:635
 #, fuzzy
 msgid "Advanced Options"
 msgstr "Blender možnosti"
 
-#: translations/xrc.cpp:625 xrc.cpp:625
+#: translations/xrc.cpp:626 xrc.cpp:626
 msgid "Only consider pixels that are defined in all images (-c)"
 msgstr ""
 
-#: translations/xrc.cpp:627 xrc.cpp:627
+#: translations/xrc.cpp:628 xrc.cpp:628
 msgid "This merge mode has no further options."
 msgstr ""
 
-#: translations/xrc.cpp:628 xrc.cpp:628
+#: translations/xrc.cpp:629 xrc.cpp:629
 msgid "Options for deghosting"
 msgstr ""
 
-#: translations/xrc.cpp:629 xrc.cpp:629
+#: translations/xrc.cpp:630 xrc.cpp:630
 #, fuzzy
 msgid "Iterations:"
 msgstr "Skriptna datoteka:"
 
-#: translations/xrc.cpp:630 xrc.cpp:630
+#: translations/xrc.cpp:631 xrc.cpp:631
 msgid "Sigma:"
 msgstr ""
 
-#: translations/xrc.cpp:631 xrc.cpp:631
+#: translations/xrc.cpp:632 xrc.cpp:632
 msgid "Use gray images for processing (-a f)"
 msgstr ""
 
-#: translations/xrc.cpp:632 xrc.cpp:632
+#: translations/xrc.cpp:633 xrc.cpp:633
 msgid "Use gamma 2.2 instead of logarithmic (-a g)"
 msgstr ""
 
-#: translations/xrc.cpp:633 xrc.cpp:633
+#: translations/xrc.cpp:634 xrc.cpp:634
 msgid "Do not scale images (-a m)"
 msgstr ""
 
-#: translations/xrc.cpp:638 xrc.cpp:638
+#: translations/xrc.cpp:639 xrc.cpp:639
 msgid "Resource Usage"
 msgstr "Poraba virov"
 
-#: translations/xrc.cpp:639 xrc.cpp:639
+#: translations/xrc.cpp:640 xrc.cpp:640
 msgid "Image cache memory:"
 msgstr "Predpomnilnik slik:"
 
-#: translations/xrc.cpp:640 xrc.cpp:640
+#: translations/xrc.cpp:641 xrc.cpp:641
 msgid "Keep fullsize images in memory, until this limit is exceeded"
 msgstr "Ohrani slike polnih velikost v pomnilniku dokler omejitev ni dosežena"
 
-#: translations/xrc.cpp:641 xrc.cpp:641
+#: translations/xrc.cpp:642 xrc.cpp:642
 msgid "Number of CPUs:"
 msgstr "Številu procesorjev:"
 
-#: translations/xrc.cpp:642 xrc.cpp:642
+#: translations/xrc.cpp:643 xrc.cpp:643
 #, fuzzy
 msgid ""
 "Hugin's preview window can use multiple threads for processing.\n"
@@ -5986,82 +5993,82 @@ msgstr ""
 "Nona lahko uporablja večnitno procesiranje.\n"
 "Nastavi število procesorjev ali procesorskih jeder, ki so na voljo v sistemu."
 
-#: translations/xrc.cpp:643 xrc.cpp:643
+#: translations/xrc.cpp:644 xrc.cpp:644
 msgid "User Interface"
 msgstr "Uporabniški vmesnik"
 
-#: translations/xrc.cpp:644 xrc.cpp:644
+#: translations/xrc.cpp:645 xrc.cpp:645
 #, fuzzy
 msgid "Language:"
 msgstr "Jezik"
 
-#: translations/xrc.cpp:645 xrc.cpp:645
+#: translations/xrc.cpp:646 xrc.cpp:646
 #, fuzzy
 msgid "(requires restarting hugin)"
 msgstr "potreben ponoven zagon hugina"
 
-#: translations/xrc.cpp:646 xrc.cpp:646
+#: translations/xrc.cpp:647 xrc.cpp:647
 #, fuzzy
 msgid "Undo:"
 msgstr "Razveljavi"
 
-#: translations/xrc.cpp:647 xrc.cpp:647
+#: translations/xrc.cpp:648 xrc.cpp:648
 msgid "Skip over visibility toggles"
 msgstr ""
 
-#: translations/xrc.cpp:648 xrc.cpp:648
+#: translations/xrc.cpp:649 xrc.cpp:649
 msgid ""
 "May have unforeseen consequences. \n"
 "(EXPERIMENTAL)"
 msgstr ""
 
-#: translations/xrc.cpp:649 xrc.cpp:649
+#: translations/xrc.cpp:650 xrc.cpp:650
 #, fuzzy
 msgid "Log messages:"
 msgstr "Nalaganje slik"
 
-#: translations/xrc.cpp:650 xrc.cpp:650
+#: translations/xrc.cpp:651 xrc.cpp:651
 msgid "Copy log messages to clipboard."
 msgstr ""
 
-#: translations/xrc.cpp:651 xrc.cpp:651
+#: translations/xrc.cpp:652 xrc.cpp:652
 msgid "Show hints about projections"
 msgstr ""
 
-#: translations/xrc.cpp:652 xrc.cpp:652
+#: translations/xrc.cpp:653 xrc.cpp:653
 msgid "The hints are shown only in the fast preview window"
 msgstr ""
 
-#: translations/xrc.cpp:653 xrc.cpp:653
+#: translations/xrc.cpp:654 xrc.cpp:654
 msgid "Show Druid (requires restarting hugin)"
 msgstr "Pokaži druida (potreben ponoven zagon hugina)"
 
-#: translations/xrc.cpp:654 xrc.cpp:654
+#: translations/xrc.cpp:655 xrc.cpp:655
 #, fuzzy
 msgid "File Options"
 msgstr "Možnosti datotek"
 
-#: translations/xrc.cpp:655 xrc.cpp:655
+#: translations/xrc.cpp:656 xrc.cpp:656
 #, fuzzy
 msgid "Temporary dir:"
 msgstr "Začasni imenik:"
 
-#: translations/xrc.cpp:656 xrc.cpp:656
+#: translations/xrc.cpp:657 xrc.cpp:657
 #, fuzzy
 msgid "(leave empty for OS default)"
 msgstr "ohrani privzete vrednosti op. sistema"
 
-#: translations/xrc.cpp:657 xrc.cpp:657
+#: translations/xrc.cpp:658 xrc.cpp:658
 #, fuzzy
 msgid "Default project filename:"
 msgstr "Odpri projekt"
 
-#: translations/xrc.cpp:658 xrc.cpp:658
+#: translations/xrc.cpp:659 xrc.cpp:659
 #, fuzzy
 msgid "Default output prefix:"
 msgstr "Označi izhodno predpono"
 
-#: translations/xrc.cpp:659 xrc.cpp:659
+#: translations/xrc.cpp:660 xrc.cpp:660
 #, c-format
 msgid ""
 "The following placeholder are replaced automatically:\n"
@@ -6079,51 +6086,51 @@ msgid ""
 "%projectname - project filename (only for output prefix)"
 msgstr ""
 
-#: translations/xrc.cpp:660 xrc.cpp:660
+#: translations/xrc.cpp:661 xrc.cpp:661
 #, fuzzy
 msgid "Default filenames"
 msgstr "Privzeti argumenti:"
 
-#: translations/xrc.cpp:661 xrc.cpp:661
+#: translations/xrc.cpp:662 xrc.cpp:662
 #, fuzzy
 msgid "Filenames"
 msgstr "Ime datoteke"
 
-#: translations/xrc.cpp:663 xrc.cpp:663
+#: translations/xrc.cpp:664 xrc.cpp:664
 msgid "Image loading"
 msgstr "Nalaganje slik"
 
-#: translations/xrc.cpp:664 xrc.cpp:664
+#: translations/xrc.cpp:665 xrc.cpp:665
 msgid "Automatically align images after loading"
 msgstr "Samodejno razmeščanje slik po nalaganju"
 
-#: translations/xrc.cpp:665 xrc.cpp:665
+#: translations/xrc.cpp:666 xrc.cpp:666
 #, fuzzy
 msgid "Detect vertical lines"
 msgstr "navpična črta"
 
-#: translations/xrc.cpp:666 xrc.cpp:666
+#: translations/xrc.cpp:667 xrc.cpp:667
 msgid "Detects vertical lines in the images to level the pano"
 msgstr ""
 
-#: translations/xrc.cpp:667 xrc.cpp:667
+#: translations/xrc.cpp:668 xrc.cpp:668
 #, fuzzy
 msgid "Remove cloud-like control points (Celeste)"
 msgstr "Dodanih %d stičnih točk"
 
-#: translations/xrc.cpp:668 xrc.cpp:668
+#: translations/xrc.cpp:669 xrc.cpp:669
 msgid "Remove outlying control points by statistical method"
 msgstr ""
 
-#: translations/xrc.cpp:669 xrc.cpp:669
+#: translations/xrc.cpp:670 xrc.cpp:670
 msgid "Optional assistant steps"
 msgstr ""
 
-#: translations/xrc.cpp:670 xrc.cpp:670
+#: translations/xrc.cpp:671 xrc.cpp:671
 msgid "Auto align"
 msgstr "Samodejno razmeščanje"
 
-#: translations/xrc.cpp:671 xrc.cpp:671
+#: translations/xrc.cpp:672 xrc.cpp:672
 msgid ""
 "Number of Control Points\n"
 "per overlap"
@@ -6131,27 +6138,27 @@ msgstr ""
 "Število stičnih točk\n"
 "na prekritje"
 
-#: translations/xrc.cpp:672 xrc.cpp:672
+#: translations/xrc.cpp:673 xrc.cpp:673
 msgid "Downscale final pano"
 msgstr "Pomanjšanje obsega končne panorame"
 
-#: translations/xrc.cpp:673 xrc.cpp:673
+#: translations/xrc.cpp:674 xrc.cpp:674
 msgid "percent of max. width"
 msgstr "procent max. širine"
 
-#: translations/xrc.cpp:674 xrc.cpp:674
+#: translations/xrc.cpp:675 xrc.cpp:675
 msgid "Create"
 msgstr "Ustvari"
 
-#: translations/xrc.cpp:675 xrc.cpp:675
+#: translations/xrc.cpp:676 xrc.cpp:676
 msgid "Open final panorama in external editor"
 msgstr "Odpri končno panoramo v zunanjem urejevalniku"
 
-#: translations/xrc.cpp:676 xrc.cpp:676
+#: translations/xrc.cpp:677 xrc.cpp:677
 msgid "Editor:"
 msgstr "Urejevalnik:"
 
-#: translations/xrc.cpp:679 xrc.cpp:679
+#: translations/xrc.cpp:680 xrc.cpp:680
 #, c-format
 msgid ""
 "The The following patterns will be substituted before running:\n"
@@ -6162,61 +6169,61 @@ msgstr ""
 "%f  -- končna panorama\n"
 "%i  -- prva vhodna slika"
 
-#: translations/xrc.cpp:680 xrc.cpp:680
+#: translations/xrc.cpp:681 xrc.cpp:681
 msgid "Control Points Editor"
 msgstr "Urejavalnik stičnih točk"
 
-#: translations/xrc.cpp:681 xrc.cpp:681
+#: translations/xrc.cpp:682 xrc.cpp:682
 msgid "HDR and 16 Bit display"
 msgstr "HDR in 16 bitni prikaz"
 
-#: translations/xrc.cpp:682 xrc.cpp:682
+#: translations/xrc.cpp:683 xrc.cpp:683
 msgid "Curve"
 msgstr "Krivulja"
 
-#: translations/xrc.cpp:683 xrc.cpp:683
+#: translations/xrc.cpp:684 xrc.cpp:684
 msgid "linear"
 msgstr "linearno"
 
-#: translations/xrc.cpp:684 xrc.cpp:684
+#: translations/xrc.cpp:685 xrc.cpp:685
 msgid "logarithmic"
 msgstr "logaritmično"
 
-#: translations/xrc.cpp:685 xrc.cpp:685
+#: translations/xrc.cpp:686 xrc.cpp:686
 msgid "gamma 2.2"
 msgstr "gama 2.2"
 
-#: translations/xrc.cpp:686 xrc.cpp:686
+#: translations/xrc.cpp:687 xrc.cpp:687
 msgid "used for display in GUI"
 msgstr "uporaba za prikaz na grafičnem vmesniku"
 
-#: translations/xrc.cpp:688 xrc.cpp:688
+#: translations/xrc.cpp:689 xrc.cpp:689
 msgid "Patch width:"
 msgstr "Širina zaplate:"
 
-#: translations/xrc.cpp:689 translations/xrc.cpp:693 xrc.cpp:689 xrc.cpp:693
+#: translations/xrc.cpp:690 translations/xrc.cpp:694 xrc.cpp:690 xrc.cpp:694
 msgid "pixels"
 msgstr "piksli"
 
-#: translations/xrc.cpp:690 xrc.cpp:690
+#: translations/xrc.cpp:691 xrc.cpp:691
 #, fuzzy
 msgid "Search area width:"
 msgstr "Širina lokalnega iskalnega območja:"
 
-#: translations/xrc.cpp:691 xrc.cpp:691
+#: translations/xrc.cpp:692 xrc.cpp:692
 #, fuzzy
 msgid "percent of image width"
 msgstr "procent max. širine"
 
-#: translations/xrc.cpp:692 xrc.cpp:692
+#: translations/xrc.cpp:693 xrc.cpp:693
 msgid "Local search area width:"
 msgstr "Širina lokalnega iskalnega območja:"
 
-#: translations/xrc.cpp:694 xrc.cpp:694
+#: translations/xrc.cpp:695 xrc.cpp:695
 msgid "Correlation Threshold:"
 msgstr "Prag korelacije"
 
-#: translations/xrc.cpp:695 xrc.cpp:695
+#: translations/xrc.cpp:696 xrc.cpp:696
 msgid ""
 "0: no similarity\n"
 "1: maximum similarity"
@@ -6224,11 +6231,11 @@ msgstr ""
 "0: ni podobnosti\n"
 "1: maksimalna podobnost"
 
-#: translations/xrc.cpp:696 xrc.cpp:696
+#: translations/xrc.cpp:697 xrc.cpp:697
 msgid "Peak Curvature Threshold:"
 msgstr "Prag vrha ukrivljenosti:"
 
-#: translations/xrc.cpp:697 xrc.cpp:697
+#: translations/xrc.cpp:698 xrc.cpp:698
 #, fuzzy
 msgid ""
 "0: no peak\n"
@@ -6237,129 +6244,124 @@ msgstr ""
 "0: ni vrha\n"
 " 0.2: razločen vrh"
 
-#: translations/xrc.cpp:698 xrc.cpp:698
+#: translations/xrc.cpp:699 xrc.cpp:699
 msgid "Rotation search"
 msgstr "Rotacijsko iskanje"
 
-#: translations/xrc.cpp:699 xrc.cpp:699
+#: translations/xrc.cpp:700 xrc.cpp:700
 msgid "Enable rotation search (slower, but more accurate)"
 msgstr "Omogoči rotacijsko iskanje (počasno, a natančno)"
 
-#: translations/xrc.cpp:700 xrc.cpp:700
+#: translations/xrc.cpp:701 xrc.cpp:701
 msgid "Start angle:"
 msgstr "Začetni kot:"
 
-#: translations/xrc.cpp:702 xrc.cpp:702
+#: translations/xrc.cpp:703 xrc.cpp:703
 msgid "Stop angle:"
 msgstr "Končni kot:"
 
-#: translations/xrc.cpp:704 xrc.cpp:704
+#: translations/xrc.cpp:705 xrc.cpp:705
 msgid "Steps:"
 msgstr "Koraki:"
 
-#: translations/xrc.cpp:705 xrc.cpp:705
+#: translations/xrc.cpp:706 xrc.cpp:706
 #, fuzzy
 msgid "Control Point Detectors"
 msgstr "Urejavalnik stičnih točk"
 
-#: translations/xrc.cpp:706 xrc.cpp:706
+#: translations/xrc.cpp:707 xrc.cpp:707
 #, fuzzy
 msgid "Control Point Detector Programs"
 msgstr "Urejavalnik stičnih točk"
 
-#: translations/xrc.cpp:707 xrc.cpp:707
+#: translations/xrc.cpp:708 xrc.cpp:708
 #, fuzzy
 msgid "New..."
 msgstr "..."
 
-#: translations/xrc.cpp:708 xrc.cpp:708
+#: translations/xrc.cpp:709 xrc.cpp:709
 #, fuzzy
 msgid "Edit..."
 msgstr "&Uredi"
 
-#: translations/xrc.cpp:710 xrc.cpp:710
+#: translations/xrc.cpp:711 xrc.cpp:711
 msgid "Move up"
 msgstr "Premakni gor"
 
-#: translations/xrc.cpp:711 xrc.cpp:711
+#: translations/xrc.cpp:712 xrc.cpp:712
 msgid "Move down"
 msgstr "Premakni dol"
 
-#: translations/xrc.cpp:712 xrc.cpp:712
+#: translations/xrc.cpp:713 xrc.cpp:713
 #, fuzzy
 msgid "Set default"
 msgstr "Privzeto sistemsko"
 
-#: translations/xrc.cpp:715 xrc.cpp:715
-#, fuzzy
-msgid "Help"
-msgstr "&Pomoč"
-
-#: translations/xrc.cpp:716 xrc.cpp:716
+#: translations/xrc.cpp:717 xrc.cpp:717
 msgid "The assistant is using the default setting."
 msgstr ""
 
-#: translations/xrc.cpp:717 xrc.cpp:717
+#: translations/xrc.cpp:718 xrc.cpp:718
 #, fuzzy
 msgid "Output Format"
 msgstr "Izhod"
 
-#: translations/xrc.cpp:718 xrc.cpp:718
+#: translations/xrc.cpp:719 xrc.cpp:719
 #, fuzzy
 msgid "Default File Format:"
 msgstr "Privzeti argumenti:"
 
-#: translations/xrc.cpp:719 xrc.cpp:719
+#: translations/xrc.cpp:720 xrc.cpp:720
 msgid "default output format for final panorama"
 msgstr ""
 
-#: translations/xrc.cpp:720 xrc.cpp:720
+#: translations/xrc.cpp:721 xrc.cpp:721
 #, fuzzy
 msgid "TIFF Compression:"
 msgstr "Kompresija:"
 
-#: translations/xrc.cpp:722 xrc.cpp:722
+#: translations/xrc.cpp:723 xrc.cpp:723
 msgid "default TIFF compression"
 msgstr ""
 
-#: translations/xrc.cpp:723 xrc.cpp:723
+#: translations/xrc.cpp:724 xrc.cpp:724
 #, fuzzy
 msgid "JPEG Quality:"
 msgstr "Kakovost:"
 
-#: translations/xrc.cpp:724 xrc.cpp:724
+#: translations/xrc.cpp:725 xrc.cpp:725
 msgid "default JPEG compression setting"
 msgstr ""
 
-#: translations/xrc.cpp:725 xrc.cpp:725
+#: translations/xrc.cpp:726 xrc.cpp:726
 #, fuzzy
 msgid "Processor"
 msgstr "Obdelava"
 
-#: translations/xrc.cpp:727 xrc.cpp:727
+#: translations/xrc.cpp:728 xrc.cpp:728
 msgid "Hugin&stitch&project"
 msgstr ""
 
-#: translations/xrc.cpp:728 xrc.cpp:728
+#: translations/xrc.cpp:729 xrc.cpp:729
 msgid "The engine that will run the stitch"
 msgstr ""
 
-#: translations/xrc.cpp:729 xrc.cpp:729
+#: translations/xrc.cpp:730 xrc.cpp:730
 msgid "Start stitching jobs immediately"
 msgstr ""
 
-#: translations/xrc.cpp:730 xrc.cpp:730
+#: translations/xrc.cpp:731 xrc.cpp:731
 msgid ""
 "If selected, the processor will immediately resume processing the jobs "
 "queue.  Otherwise the processor is started in suspended state and the user "
 "has to start the processing manually."
 msgstr ""
 
-#: translations/xrc.cpp:731 xrc.cpp:731
+#: translations/xrc.cpp:732 xrc.cpp:732
 msgid "Run stitching jobs in parallel"
 msgstr ""
 
-#: translations/xrc.cpp:732 xrc.cpp:732
+#: translations/xrc.cpp:733 xrc.cpp:733
 msgid ""
 "If selected, the processor will run multiple jobs contemporaneously.  "
 "Otherwise it will run one job at a time.  Note that selecting this option "
@@ -6367,41 +6369,41 @@ msgid ""
 "and bottlenecks."
 msgstr ""
 
-#: translations/xrc.cpp:733 xrc.cpp:733
+#: translations/xrc.cpp:734 xrc.cpp:734
 #, fuzzy
 msgid "Overwrite existing files"
 msgstr "Prepiši obstoječe slike?"
 
-#: translations/xrc.cpp:734 xrc.cpp:734
+#: translations/xrc.cpp:735 xrc.cpp:735
 msgid "WARNING: existing files will be silently overwritten."
 msgstr ""
 
-#: translations/xrc.cpp:735 xrc.cpp:735
+#: translations/xrc.cpp:736 xrc.cpp:736
 #, fuzzy
 msgid "Verbose Output"
 msgstr "Izhod"
 
-#: translations/xrc.cpp:736 xrc.cpp:736
+#: translations/xrc.cpp:737 xrc.cpp:737
 msgid ""
 "Enable to get the details, useful when reporting a bug or just to watch the "
 "project's progress."
 msgstr ""
 
-#: translations/xrc.cpp:738 xrc.cpp:738
+#: translations/xrc.cpp:739 xrc.cpp:739
 #, fuzzy
 msgid "Advanced options"
 msgstr "Blender možnosti"
 
-#: translations/xrc.cpp:739 xrc.cpp:739
+#: translations/xrc.cpp:740 xrc.cpp:740
 msgid "Copy metadata into final files using ExifTool"
 msgstr ""
 
-#: translations/xrc.cpp:740 xrc.cpp:740
+#: translations/xrc.cpp:741 xrc.cpp:741
 #, fuzzy
 msgid "Number of threads:"
 msgstr "Številu procesorjev:"
 
-#: translations/xrc.cpp:741 xrc.cpp:741
+#: translations/xrc.cpp:742 xrc.cpp:742
 #, fuzzy
 msgid ""
 "Nona and the OpenMP enabled enblend/enfuse can use multiple threads for "
@@ -6412,45 +6414,45 @@ msgstr ""
 "Nona lahko uporablja večnitno procesiranje.\n"
 "Nastavi število procesorjev ali procesorskih jeder, ki so na voljo v sistemu."
 
-#: translations/xrc.cpp:742 xrc.cpp:742
+#: translations/xrc.cpp:743 xrc.cpp:743
 msgid "0 for automatic detection"
 msgstr ""
 
-#: translations/xrc.cpp:743 xrc.cpp:743
+#: translations/xrc.cpp:744 xrc.cpp:744
 msgid "Stitching"
 msgstr "Šivanje"
 
-#: translations/xrc.cpp:744 xrc.cpp:744
+#: translations/xrc.cpp:745 xrc.cpp:745
 #, fuzzy
 msgid "Default Interpolator (i):"
 msgstr "Interpolator (i):"
 
-#: translations/xrc.cpp:754 xrc.cpp:754
+#: translations/xrc.cpp:755 xrc.cpp:755
 #, fuzzy
 msgid "Create cropped images by default"
 msgstr "Shrani neizrezane slike"
 
-#: translations/xrc.cpp:755 xrc.cpp:755
+#: translations/xrc.cpp:756 xrc.cpp:756
 msgid "Use GPU for remapping (EXPERIMENTAL)"
 msgstr ""
 
-#: translations/xrc.cpp:756 xrc.cpp:756
+#: translations/xrc.cpp:757 xrc.cpp:757
 msgid "Use video card GPU to speed up remapping"
 msgstr ""
 
-#: translations/xrc.cpp:757 xrc.cpp:757
+#: translations/xrc.cpp:758 xrc.cpp:758
 msgid "Use alternative Enblend program"
 msgstr "Uporabi alternativni Enblend program"
 
-#: translations/xrc.cpp:758 xrc.cpp:758
+#: translations/xrc.cpp:759 xrc.cpp:759
 msgid "Enblend executable:"
 msgstr "Enblend zagonska datoteka:"
 
-#: translations/xrc.cpp:760 translations/xrc.cpp:766 xrc.cpp:760 xrc.cpp:766
+#: translations/xrc.cpp:761 translations/xrc.cpp:767 xrc.cpp:761 xrc.cpp:767
 msgid "Default Arguments:"
 msgstr "Privzeti argumenti:"
 
-#: translations/xrc.cpp:761 translations/xrc.cpp:767 xrc.cpp:761 xrc.cpp:767
+#: translations/xrc.cpp:762 translations/xrc.cpp:768 xrc.cpp:762 xrc.cpp:768
 #, fuzzy
 msgid ""
 "These are the default arguments for new projects.\n"
@@ -6461,62 +6463,62 @@ msgstr ""
 "Šivanje.\n"
 "Ne nastavite -w, -o in --compression argumentov, saj jih nastavi že hugin"
 
-#: translations/xrc.cpp:762 xrc.cpp:762
+#: translations/xrc.cpp:763 xrc.cpp:763
 msgid "Enblend"
 msgstr "Enblend"
 
-#: translations/xrc.cpp:763 xrc.cpp:763
+#: translations/xrc.cpp:764 xrc.cpp:764
 msgid "Use alternative Enfuse program"
 msgstr "Alternativni Enfuse program"
 
-#: translations/xrc.cpp:764 xrc.cpp:764
+#: translations/xrc.cpp:765 xrc.cpp:765
 msgid "Enfuse executable:"
 msgstr "Enfuse zagonska datoteka"
 
-#: translations/xrc.cpp:768 xrc.cpp:768
+#: translations/xrc.cpp:769 xrc.cpp:769
 msgid "Enfuse"
 msgstr "Enfuse"
 
-#: translations/xrc.cpp:769 xrc.cpp:769
+#: translations/xrc.cpp:770 xrc.cpp:770
 #, fuzzy
 msgid "Programs"
 msgstr "Panorama"
 
-#: translations/xrc.cpp:770 xrc.cpp:770
+#: translations/xrc.cpp:771 xrc.cpp:771
 #, fuzzy
 msgid "Celeste parameters"
 msgstr "Naloži parametre objektiva"
 
-#: translations/xrc.cpp:771 xrc.cpp:771
+#: translations/xrc.cpp:772 xrc.cpp:772
 msgid "SVM threshold:"
 msgstr ""
 
-#: translations/xrc.cpp:772 xrc.cpp:772
+#: translations/xrc.cpp:773 xrc.cpp:773
 msgid ""
 "greater than 0.5: less sensitive\n"
 "less than 0.5: more sensitive"
 msgstr ""
 
-#: translations/xrc.cpp:773 xrc.cpp:773
+#: translations/xrc.cpp:774 xrc.cpp:774
 msgid "Gabor filter size"
 msgstr ""
 
-#: translations/xrc.cpp:774 xrc.cpp:774
+#: translations/xrc.cpp:775 xrc.cpp:775
 msgid "small"
 msgstr ""
 
-#: translations/xrc.cpp:775 xrc.cpp:775
+#: translations/xrc.cpp:776 xrc.cpp:776
 #, fuzzy
 msgid "large"
 msgstr "izbriši"
 
-#: translations/xrc.cpp:776 xrc.cpp:776
+#: translations/xrc.cpp:777 xrc.cpp:777
 msgid ""
 "large is more accurate\n"
 "small can examine control points close to image border"
 msgstr ""
 
-#: translations/xrc.cpp:777 xrc.cpp:777
+#: translations/xrc.cpp:778 xrc.cpp:778
 msgid ""
 "The vignetting and exposure correction is determined by analysing color "
 "values in the overlapping areas.\n"
@@ -6526,183 +6528,183 @@ msgstr ""
 "vrednosti na prekritjih.\n"
 "Za pohitritev izračuna se uporablja naključna podmnožica točk."
 
-#: translations/xrc.cpp:778 xrc.cpp:778
+#: translations/xrc.cpp:779 xrc.cpp:779
 #, fuzzy
 msgid "Number of points per image: "
 msgstr "Število točk na sliko"
 
-#: translations/xrc.cpp:779 xrc.cpp:779
+#: translations/xrc.cpp:780 xrc.cpp:780
 #, fuzzy
 msgid "Photometric optimizer"
 msgstr "Fotometrična optimizacija"
 
-#: translations/xrc.cpp:780 xrc.cpp:780
+#: translations/xrc.cpp:781 xrc.cpp:781
 msgid "Misc"
 msgstr ""
 
-#: translations/xrc.cpp:782 translations/xrc.cpp:878 translations/xrc.cpp:964
-#: xrc.cpp:782 xrc.cpp:878 xrc.cpp:964
+#: translations/xrc.cpp:783 translations/xrc.cpp:880 translations/xrc.cpp:966
+#: xrc.cpp:783 xrc.cpp:880 xrc.cpp:966
 msgid "Apply"
 msgstr "Uveljavi"
 
-#: translations/xrc.cpp:785 xrc.cpp:785
+#: translations/xrc.cpp:787 xrc.cpp:787
 msgid "Preferences - hugin"
 msgstr "Nastavitve - hugin"
 
-#: translations/xrc.cpp:787 xrc.cpp:787
+#: translations/xrc.cpp:789 xrc.cpp:789
 msgid "Use alternative PTStitcher program"
 msgstr "Uporabi alternativni PTStitcher program"
 
-#: translations/xrc.cpp:789 xrc.cpp:789
+#: translations/xrc.cpp:791 xrc.cpp:791
 msgid "Scriptfile:"
 msgstr "Skriptna datoteka:"
 
-#: translations/xrc.cpp:790 xrc.cpp:790
+#: translations/xrc.cpp:792 xrc.cpp:792
 msgid "Name of the temporary script file used by Panotools"
 msgstr "Ime začasne datoteke za Panotools"
 
-#: translations/xrc.cpp:791 xrc.cpp:791
+#: translations/xrc.cpp:793 xrc.cpp:793
 msgid "Panotools:"
 msgstr "Panotools:"
 
-#: translations/xrc.cpp:792 xrc.cpp:792
+#: translations/xrc.cpp:794 xrc.cpp:794
 msgid "Panotools"
 msgstr "Panotools"
 
-#: translations/xrc.cpp:793 xrc.cpp:793
+#: translations/xrc.cpp:795 xrc.cpp:795
 msgid "Details"
 msgstr "Podrobnosti"
 
-#: translations/xrc.cpp:794 translations/xrc.cpp:860 translations/xrc.cpp:944
-#: xrc.cpp:794 xrc.cpp:860 xrc.cpp:944
+#: translations/xrc.cpp:796 translations/xrc.cpp:862 translations/xrc.cpp:946
+#: xrc.cpp:796 xrc.cpp:862 xrc.cpp:946
 msgid "Center the preview horizontally"
 msgstr "Poravnaj predogled horizontalno"
 
-#: translations/xrc.cpp:796 xrc.cpp:796
+#: translations/xrc.cpp:798 xrc.cpp:798
 msgid "Show the whole panorama"
 msgstr "Pokaži celo panoramo"
 
-#: translations/xrc.cpp:797 translations/xrc.cpp:849 translations/xrc.cpp:861
-#: translations/xrc.cpp:932 translations/xrc.cpp:946 xrc.cpp:797 xrc.cpp:849
-#: xrc.cpp:861 xrc.cpp:932 xrc.cpp:946
+#: translations/xrc.cpp:799 translations/xrc.cpp:851 translations/xrc.cpp:863
+#: translations/xrc.cpp:934 translations/xrc.cpp:948 xrc.cpp:799 xrc.cpp:851
+#: xrc.cpp:863 xrc.cpp:934 xrc.cpp:948
 msgid "Estimate field of view"
 msgstr "Oceni zorni kot"
 
-#: translations/xrc.cpp:799 xrc.cpp:799
+#: translations/xrc.cpp:801 xrc.cpp:801
 #, fuzzy
 msgid "Automatically straighten a wavy horizon"
 msgstr "Samodejno poravnaj valovit horizont."
 
-#: translations/xrc.cpp:801 translations/xrc.cpp:811 xrc.cpp:801 xrc.cpp:811
+#: translations/xrc.cpp:803 translations/xrc.cpp:813 xrc.cpp:803 xrc.cpp:813
 msgid "Numerical Transform"
 msgstr "Numerična transformacija"
 
-#: translations/xrc.cpp:802 xrc.cpp:802
+#: translations/xrc.cpp:804 xrc.cpp:804
 msgid "Num. Transf."
 msgstr "Num. transf."
 
-#: translations/xrc.cpp:803 xrc.cpp:803
+#: translations/xrc.cpp:805 xrc.cpp:805
 msgid "Auto update"
 msgstr "Samodejno osveževanje"
 
-#: translations/xrc.cpp:804 xrc.cpp:804
+#: translations/xrc.cpp:806 xrc.cpp:806
 msgid "Auto"
 msgstr "Auto"
 
-#: translations/xrc.cpp:805 xrc.cpp:805
+#: translations/xrc.cpp:807 xrc.cpp:807
 msgid "Update preview"
 msgstr "Osveži predogled"
 
-#: translations/xrc.cpp:806 xrc.cpp:806
+#: translations/xrc.cpp:808 xrc.cpp:808
 msgid "Update"
 msgstr "Osveži"
 
-#: translations/xrc.cpp:807 xrc.cpp:807
+#: translations/xrc.cpp:809 xrc.cpp:809
 msgid "Show all images"
 msgstr "Pokaži vse slike"
 
-#: translations/xrc.cpp:809 xrc.cpp:809
+#: translations/xrc.cpp:811 xrc.cpp:811
 msgid "Show none of the images"
 msgstr "Skrij vse slike"
 
-#: translations/xrc.cpp:817 translations/xrc.cpp:900 xrc.cpp:817 xrc.cpp:900
+#: translations/xrc.cpp:819 translations/xrc.cpp:902 xrc.cpp:819 xrc.cpp:902
 msgid "1. Load images..."
 msgstr "1. Naloži slike..."
 
-#: translations/xrc.cpp:818 translations/xrc.cpp:901 xrc.cpp:818 xrc.cpp:901
+#: translations/xrc.cpp:820 translations/xrc.cpp:903 xrc.cpp:820 xrc.cpp:903
 #, fuzzy
 msgid "Load a series of images"
 msgstr "naloži serijo slik"
 
-#: translations/xrc.cpp:819 translations/xrc.cpp:902 xrc.cpp:819 xrc.cpp:902
+#: translations/xrc.cpp:821 translations/xrc.cpp:904 xrc.cpp:821 xrc.cpp:904
 msgid "no images loaded"
 msgstr "ni naloženih slik"
 
-#: translations/xrc.cpp:823 translations/xrc.cpp:906 xrc.cpp:823 xrc.cpp:906
+#: translations/xrc.cpp:825 translations/xrc.cpp:908 xrc.cpp:825 xrc.cpp:908
 msgid "2. Align..."
 msgstr "2. Razmeščanje"
 
-#: translations/xrc.cpp:824 translations/xrc.cpp:907 xrc.cpp:824 xrc.cpp:907
+#: translations/xrc.cpp:826 translations/xrc.cpp:909 xrc.cpp:826 xrc.cpp:909
 msgid ""
 "Align all images. Creates control points and optimizes the image positions"
 msgstr "Razmesti vse slike. Ustvari stične točke in optimiziraj položaje slik"
 
-#: translations/xrc.cpp:825 translations/xrc.cpp:908 xrc.cpp:825 xrc.cpp:908
+#: translations/xrc.cpp:827 translations/xrc.cpp:910 xrc.cpp:827 xrc.cpp:910
 msgid "3. Create panorama..."
 msgstr "3. Ustvari panoramo..."
 
-#: translations/xrc.cpp:826 translations/xrc.cpp:909 xrc.cpp:826 xrc.cpp:909
+#: translations/xrc.cpp:828 translations/xrc.cpp:911 xrc.cpp:828 xrc.cpp:911
 #, fuzzy
 msgid "Create a high resolution panorama"
 msgstr "Ustvari panoramo visoke ločljivosti."
 
-#: translations/xrc.cpp:828 translations/xrc.cpp:911 xrc.cpp:828 xrc.cpp:911
+#: translations/xrc.cpp:830 translations/xrc.cpp:913 xrc.cpp:830 xrc.cpp:913
 msgid "Match images to their numbers"
 msgstr ""
 
-#: translations/xrc.cpp:829 translations/xrc.cpp:830 translations/xrc.cpp:912
-#: translations/xrc.cpp:913 xrc.cpp:829 xrc.cpp:830 xrc.cpp:912 xrc.cpp:913
+#: translations/xrc.cpp:831 translations/xrc.cpp:832 translations/xrc.cpp:914
+#: translations/xrc.cpp:915 xrc.cpp:831 xrc.cpp:832 xrc.cpp:914 xrc.cpp:915
 msgid "Identify"
 msgstr ""
 
-#: translations/xrc.cpp:832 translations/xrc.cpp:915 xrc.cpp:832 xrc.cpp:915
+#: translations/xrc.cpp:834 translations/xrc.cpp:917 xrc.cpp:834 xrc.cpp:917
 msgid "Use full photometric correction (slow)"
 msgstr ""
 
-#: translations/xrc.cpp:834 translations/xrc.cpp:917 xrc.cpp:834 xrc.cpp:917
+#: translations/xrc.cpp:836 translations/xrc.cpp:919 xrc.cpp:836 xrc.cpp:919
 msgid ""
 "Show lines between the ends of each control point. The longer the line, the "
 "bigger the error."
 msgstr ""
 
-#: translations/xrc.cpp:837 translations/xrc.cpp:920 xrc.cpp:837 xrc.cpp:920
+#: translations/xrc.cpp:839 translations/xrc.cpp:922 xrc.cpp:839 xrc.cpp:922
 msgid ""
 "Sets the exposure value of the panorama to the mean exposure of all images."
 msgstr ""
 
-#: translations/xrc.cpp:838 translations/xrc.cpp:921 xrc.cpp:838 xrc.cpp:921
+#: translations/xrc.cpp:840 translations/xrc.cpp:923 xrc.cpp:840 xrc.cpp:923
 msgid "Correct global white balance by selecting a neutral gray area."
 msgstr ""
 
-#: translations/xrc.cpp:839 translations/xrc.cpp:840 translations/xrc.cpp:922
-#: translations/xrc.cpp:923 xrc.cpp:839 xrc.cpp:840 xrc.cpp:922 xrc.cpp:923
+#: translations/xrc.cpp:841 translations/xrc.cpp:842 translations/xrc.cpp:924
+#: translations/xrc.cpp:925 xrc.cpp:841 xrc.cpp:842 xrc.cpp:924 xrc.cpp:925
 msgid "Gray picker"
 msgstr ""
 
-#: translations/xrc.cpp:841 translations/xrc.cpp:924 xrc.cpp:841 xrc.cpp:924
+#: translations/xrc.cpp:843 translations/xrc.cpp:926 xrc.cpp:843 xrc.cpp:926
 msgid "Background:"
 msgstr ""
 
-#: translations/xrc.cpp:842 translations/xrc.cpp:996 xrc.cpp:842 xrc.cpp:996
+#: translations/xrc.cpp:844 translations/xrc.cpp:998 xrc.cpp:844 xrc.cpp:998
 msgid "Grid"
 msgstr ""
 
-#: translations/xrc.cpp:845 translations/xrc.cpp:927 xrc.cpp:845 xrc.cpp:927
+#: translations/xrc.cpp:847 translations/xrc.cpp:929 xrc.cpp:847 xrc.cpp:929
 #, fuzzy
 msgid "Scale:"
 msgstr "Shrani"
 
-#: translations/xrc.cpp:846 translations/xrc.cpp:928 xrc.cpp:846 xrc.cpp:928
+#: translations/xrc.cpp:848 translations/xrc.cpp:930 xrc.cpp:848 xrc.cpp:930
 msgid ""
 "* A gray line indicates there are no control points, but the image pair "
 "overlaps.\n"
@@ -6710,152 +6712,152 @@ msgid ""
 "* Click a line to edit the associated images in the Control Points tab."
 msgstr ""
 
-#: translations/xrc.cpp:847 translations/xrc.cpp:929 xrc.cpp:847 xrc.cpp:929
+#: translations/xrc.cpp:849 translations/xrc.cpp:931 xrc.cpp:849 xrc.cpp:931
 msgid "Layout"
 msgstr ""
 
-#: translations/xrc.cpp:850 translations/xrc.cpp:933 translations/xrc.cpp:1034
-#: xrc.cpp:850 xrc.cpp:933 xrc.cpp:1034
+#: translations/xrc.cpp:852 translations/xrc.cpp:935 translations/xrc.cpp:1036
+#: xrc.cpp:852 xrc.cpp:935 xrc.cpp:1036
 msgid "Field of View"
 msgstr "Vidni kot"
 
-#: translations/xrc.cpp:851 translations/xrc.cpp:934 xrc.cpp:851 xrc.cpp:934
+#: translations/xrc.cpp:853 translations/xrc.cpp:936 xrc.cpp:853 xrc.cpp:936
 msgid "×"
-msgstr ""
-
-#: translations/xrc.cpp:852 translations/xrc.cpp:864 translations/xrc.cpp:883
-#: translations/xrc.cpp:935 translations/xrc.cpp:950 translations/xrc.cpp:971
-#: xrc.cpp:852 xrc.cpp:864 xrc.cpp:883 xrc.cpp:935 xrc.cpp:950 xrc.cpp:971
-msgid "Guides:"
 msgstr ""
 
 #: translations/xrc.cpp:854 translations/xrc.cpp:866 translations/xrc.cpp:885
 #: translations/xrc.cpp:937 translations/xrc.cpp:952 translations/xrc.cpp:973
 #: xrc.cpp:854 xrc.cpp:866 xrc.cpp:885 xrc.cpp:937 xrc.cpp:952 xrc.cpp:973
-msgid "Rule of thirds"
+msgid "Guides:"
 msgstr ""
-
-#: translations/xrc.cpp:855 translations/xrc.cpp:867 translations/xrc.cpp:886
-#: translations/xrc.cpp:938 translations/xrc.cpp:953 translations/xrc.cpp:974
-#: xrc.cpp:855 xrc.cpp:867 xrc.cpp:886 xrc.cpp:938 xrc.cpp:953 xrc.cpp:974
-#, fuzzy
-msgid "Golden ratio"
-msgstr "Ime datoteke"
 
 #: translations/xrc.cpp:856 translations/xrc.cpp:868 translations/xrc.cpp:887
 #: translations/xrc.cpp:939 translations/xrc.cpp:954 translations/xrc.cpp:975
 #: xrc.cpp:856 xrc.cpp:868 xrc.cpp:887 xrc.cpp:939 xrc.cpp:954 xrc.cpp:975
-msgid "Diagonal"
+msgid "Rule of thirds"
 msgstr ""
 
 #: translations/xrc.cpp:857 translations/xrc.cpp:869 translations/xrc.cpp:888
 #: translations/xrc.cpp:940 translations/xrc.cpp:955 translations/xrc.cpp:976
 #: xrc.cpp:857 xrc.cpp:869 xrc.cpp:888 xrc.cpp:940 xrc.cpp:955 xrc.cpp:976
-msgid "Diagonal method"
-msgstr ""
+#, fuzzy
+msgid "Golden ratio"
+msgstr "Ime datoteke"
 
 #: translations/xrc.cpp:858 translations/xrc.cpp:870 translations/xrc.cpp:889
 #: translations/xrc.cpp:941 translations/xrc.cpp:956 translations/xrc.cpp:977
 #: xrc.cpp:858 xrc.cpp:870 xrc.cpp:889 xrc.cpp:941 xrc.cpp:956 xrc.cpp:977
-msgid "Golden triangle (down)"
+msgid "Diagonal"
 msgstr ""
 
 #: translations/xrc.cpp:859 translations/xrc.cpp:871 translations/xrc.cpp:890
 #: translations/xrc.cpp:942 translations/xrc.cpp:957 translations/xrc.cpp:978
 #: xrc.cpp:859 xrc.cpp:871 xrc.cpp:890 xrc.cpp:942 xrc.cpp:957 xrc.cpp:978
+msgid "Diagonal method"
+msgstr ""
+
+#: translations/xrc.cpp:860 translations/xrc.cpp:872 translations/xrc.cpp:891
+#: translations/xrc.cpp:943 translations/xrc.cpp:958 translations/xrc.cpp:979
+#: xrc.cpp:860 xrc.cpp:872 xrc.cpp:891 xrc.cpp:943 xrc.cpp:958 xrc.cpp:979
+msgid "Golden triangle (down)"
+msgstr ""
+
+#: translations/xrc.cpp:861 translations/xrc.cpp:873 translations/xrc.cpp:892
+#: translations/xrc.cpp:944 translations/xrc.cpp:959 translations/xrc.cpp:980
+#: xrc.cpp:861 xrc.cpp:873 xrc.cpp:892 xrc.cpp:944 xrc.cpp:959 xrc.cpp:980
 msgid "Golden triangle (up)"
 msgstr ""
 
-#: translations/xrc.cpp:862 translations/xrc.cpp:948 xrc.cpp:862 xrc.cpp:948
+#: translations/xrc.cpp:864 translations/xrc.cpp:950 xrc.cpp:864 xrc.cpp:950
 #, fuzzy
 msgid "Automatically straighten a wavy horizon."
 msgstr "Samodejno poravnaj valovit horizont."
 
-#: translations/xrc.cpp:863 translations/xrc.cpp:949 xrc.cpp:863 xrc.cpp:949
+#: translations/xrc.cpp:865 translations/xrc.cpp:951 xrc.cpp:865 xrc.cpp:951
 #, fuzzy
 msgid "Drag mode:"
 msgstr "način:"
 
-#: translations/xrc.cpp:879 translations/xrc.cpp:965 xrc.cpp:879 xrc.cpp:965
+#: translations/xrc.cpp:881 translations/xrc.cpp:967 xrc.cpp:881 xrc.cpp:967
 #, fuzzy
 msgid "Move the panorama or drag images into position"
 msgstr "Nastavi sliko za sidrišče"
 
-#: translations/xrc.cpp:880 translations/xrc.cpp:966 xrc.cpp:880 xrc.cpp:966
+#: translations/xrc.cpp:882 translations/xrc.cpp:968 xrc.cpp:882 xrc.cpp:968
 msgid "Move/Drag"
 msgstr ""
 
-#: translations/xrc.cpp:881 translations/xrc.cpp:968 xrc.cpp:881 xrc.cpp:968
+#: translations/xrc.cpp:883 translations/xrc.cpp:970 xrc.cpp:883 xrc.cpp:970
 msgid "Set the crop region to the largest rectangle covered by images"
 msgstr ""
 
-#: translations/xrc.cpp:882 translations/xrc.cpp:970 xrc.cpp:882 xrc.cpp:970
+#: translations/xrc.cpp:884 translations/xrc.cpp:972 xrc.cpp:884 xrc.cpp:972
 msgid "Set the crop region to the largest rectangle covered by image stacks"
 msgstr ""
 
-#: translations/xrc.cpp:891 translations/xrc.cpp:979 xrc.cpp:891 xrc.cpp:979
+#: translations/xrc.cpp:893 translations/xrc.cpp:981 xrc.cpp:893 xrc.cpp:981
 msgid "left:"
 msgstr "levo:"
 
-#: translations/xrc.cpp:892 translations/xrc.cpp:980 xrc.cpp:892 xrc.cpp:980
+#: translations/xrc.cpp:894 translations/xrc.cpp:982 xrc.cpp:894 xrc.cpp:982
 msgid "top:"
 msgstr "zgoraj:"
 
-#: translations/xrc.cpp:893 translations/xrc.cpp:981 xrc.cpp:893 xrc.cpp:981
+#: translations/xrc.cpp:895 translations/xrc.cpp:983 xrc.cpp:895 xrc.cpp:983
 msgid "right:"
 msgstr "desno:"
 
-#: translations/xrc.cpp:894 translations/xrc.cpp:982 xrc.cpp:894 xrc.cpp:982
+#: translations/xrc.cpp:896 translations/xrc.cpp:984 xrc.cpp:896 xrc.cpp:984
 msgid "bottom:"
 msgstr "spodaj:"
 
-#: translations/xrc.cpp:895 translations/xrc.cpp:983 xrc.cpp:895 xrc.cpp:983
+#: translations/xrc.cpp:897 translations/xrc.cpp:985 xrc.cpp:897 xrc.cpp:985
 msgid "Reset crop to maximal possible area"
 msgstr ""
 
-#: translations/xrc.cpp:896 translations/xrc.cpp:984 xrc.cpp:896 xrc.cpp:984
+#: translations/xrc.cpp:898 translations/xrc.cpp:986 xrc.cpp:898 xrc.cpp:986
 msgid "Change the panorama's cropping region"
 msgstr ""
 
-#: translations/xrc.cpp:898 translations/xrc.cpp:899 xrc.cpp:898 xrc.cpp:899
+#: translations/xrc.cpp:900 translations/xrc.cpp:901 xrc.cpp:900 xrc.cpp:901
 #, fuzzy
 msgid "Mode:"
 msgstr "način:"
 
-#: translations/xrc.cpp:991 xrc.cpp:991
+#: translations/xrc.cpp:993 xrc.cpp:993
 #, fuzzy
 msgid "Panorama &editor"
 msgstr "Predogled panorame"
 
-#: translations/xrc.cpp:994 xrc.cpp:994
+#: translations/xrc.cpp:996 xrc.cpp:996
 #, fuzzy
 msgid "&Overview"
 msgstr "Predogled"
 
-#: translations/xrc.cpp:995 xrc.cpp:995
+#: translations/xrc.cpp:997 xrc.cpp:997
 #, fuzzy
 msgid "Shows the overview of the panorama sphere."
 msgstr "pokaži predogled slike v Panoramskem druidu"
 
-#: translations/xrc.cpp:997 xrc.cpp:997
+#: translations/xrc.cpp:999 xrc.cpp:999
 msgid "Shows a grid."
 msgstr ""
 
-#: translations/xrc.cpp:1037 xrc.cpp:1037
+#: translations/xrc.cpp:1039 xrc.cpp:1039
 msgid "to EXIF values"
 msgstr ""
 
-#: translations/xrc.cpp:1038 xrc.cpp:1038
+#: translations/xrc.cpp:1040 xrc.cpp:1040
 #, fuzzy
 msgid "to zero (no exposure correction)"
 msgstr "Izboljšava osvetlitve in vinjet"
 
-#: translations/xrc.cpp:1039 xrc.cpp:1039
+#: translations/xrc.cpp:1041 xrc.cpp:1041
 #, fuzzy
 msgid "Color"
 msgstr "Zapri"
 
-#: translations/xrc.cpp:1044 xrc.cpp:1044
+#: translations/xrc.cpp:1046 xrc.cpp:1046
 #, fuzzy
 msgid "Reset values"
 msgstr "Ponastavi"

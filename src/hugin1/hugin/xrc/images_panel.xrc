@@ -71,7 +71,7 @@
                         <object class="sizeritem">
                           <object class="wxTextCtrl" name="images_maxev">
                             <size>65,-1</size>
-                            <tooltip>Maxmum EV difference for detection of output layers</tooltip>
+                            <tooltip>Maximum EV difference for detection of output layers</tooltip>
                             <enabled>0</enabled>
                             <hidden>1</hidden>
                             <style>wxTE_PROCESS_ENTER</style>

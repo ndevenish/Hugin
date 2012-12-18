@@ -1080,7 +1080,7 @@ wxString AssignStacksOperation::GetLabel()
 PT::PanoCommand* AssignStacksOperation::GetInternalCommand(wxWindow* parent, PT::Panorama& pano, HuginBase::UIntSet images)
 {
     long stackSize = wxGetNumberFromUser(
-                            _("Enter image count per stacks"),
+                            _("Enter image count per stack"),
                             _("stack size"),
                             _("Images per stack"), 3, 1,
                             pano.getNrOfImages()

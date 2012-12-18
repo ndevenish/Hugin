@@ -193,7 +193,7 @@ BatchFrame::BatchFrame(wxLocale* locale, wxString xrc)
         wxString text(_("You have pressed the Control key."));
 #endif
         text.Append(wxT("\n"));
-        text.Append(_("Should the loading of the batch queue skipped?"));
+        text.Append(_("Should the loading of the batch queue be skipped?"));
         if(wxMessageBox(text, 
 #ifdef __WXMSW__
             wxT("PTBatcherGUI"),
