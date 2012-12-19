@@ -24,13 +24,13 @@ for my $file (@ARGV)
     $data =~ s/<div id=["']searchBody["'].*?<\/div>//gs;
     $data =~ s/<div id=["']column-one["'].*?<\/div>//gs;
     $data =~ s/<div id="(f-poweredbyico|f-copyrightico)".*?<\/div>//gs;
-    $data =~ s/<div id=["']catlinks["'].*/<\/div><\/div><\/div><\/div><\/body><\/html>/gs;
+    $data =~ s/<div id=["']catlinks["'].*/<\/div><\/div><\/body><\/html>/gs;
     $data =~ s/<ul id="f-list">.*?<\/ul>//gs;
     $data =~ s/<!-- Saved in parser cache.*?-->//gs;
     $data =~ s/<a href="(https?:[^"]*).*?>(.*?)<\/a>/$2<a class="external" href="$1">[*]<\/a>/gs;
     $data =~ s/<!--[^>]*NewPP limit report[^>]*-->//gs;
     $data =~ s/<div[^>]*>[[:space:]]*<\/div>//gs;
-    $data =~ s/<!-- Head Scripts -->/<style media="screen" type="text\/css" title="Screen style sheet"> \@import url(manual.css); <\/style>/s;
+    $data =~ s/<meta name="ResourceLoaderDynamicStyles".*? \/>/<style media="screen" type="text\/css" title="Screen style sheet"> \@import url(manual.css); <\/style>/s;
 
     open FILE, ">$file";
     print FILE $data;
