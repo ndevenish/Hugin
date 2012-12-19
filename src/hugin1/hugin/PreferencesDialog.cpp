@@ -82,8 +82,8 @@ BEGIN_EVENT_TABLE(PreferencesDialog, wxDialog)
 END_EVENT_TABLE()
 
 
-PreferencesDialog::PreferencesDialog(wxWindow *parent)
-    //: wxDialog(parent, -1, _("Preferences - hugin"))
+PreferencesDialog::PreferencesDialog(wxWindow* parent)
+//: wxDialog(parent, -1, _("Preferences - hugin"))
 {
     DEBUG_TRACE("");
     // load our children. some children might need special
@@ -102,14 +102,14 @@ PreferencesDialog::PreferencesDialog(wxWindow *parent)
     XRCCTRL(*this, "prefs_ft_RotationStopAngle", wxSpinCtrl)->SetRange(0,180);
     XRCCTRL(*this, "prefs_ass_nControlPoints", wxSpinCtrl)->SetRange(3,3000);
 
-    wxChoice *lang_choice = XRCCTRL(*this, "prefs_gui_language", wxChoice);
+    wxChoice* lang_choice = XRCCTRL(*this, "prefs_gui_language", wxChoice);
 
 #if __WXMAC__
     lang_choice->Disable();
 #endif
 
     // add languages to choice
-    long * lp = new long;
+    long* lp = new long;
     *lp = wxLANGUAGE_DEFAULT;
     lang_choice->Append(_("System default"), lp);
     lp = new long;
@@ -193,7 +193,7 @@ PreferencesDialog::PreferencesDialog(wxWindow *parent)
     preview->SetWindowStyle(preview->GetWindowStyle() | wxST_ELLIPSIZE_START);
 #endif
     // load autopano settings
-    wxConfigBase * cfg = wxConfigBase::Get();
+    wxConfigBase* cfg = wxConfigBase::Get();
     m_CPDetectorList = XRCCTRL(*this, "pref_cpdetector_list", wxListBox);
     cpdetector_config_edit.Read(cfg);
 
@@ -213,7 +213,7 @@ PreferencesDialog::PreferencesDialog(wxWindow *parent)
 #endif
 
     GetSizer()->SetSizeHints(this);
-//    GetSizer()->Layout();
+    //    GetSizer()->Layout();
 
 
     // only enable bundled if the build is actually bundled.
@@ -226,7 +226,7 @@ PreferencesDialog::PreferencesDialog(wxWindow *parent)
 
     MY_BOOL_VAL("prefs_enblend_enfuseCustom", HUGIN_ENFUSE_EXE_CUSTOM);
     XRCCTRL(*this, "prefs_enblend_enfuseCustom", wxCheckBox)->Hide();
-    cfg->Write(wxT("/Enfuse/Custom"), HUGIN_ENFUSE_EXE_CUSTOM);    
+    cfg->Write(wxT("/Enfuse/Custom"), HUGIN_ENFUSE_EXE_CUSTOM);
 #endif
 
     RestoreFramePosition(this, wxT("PreferencesDialog"));
@@ -240,21 +240,22 @@ PreferencesDialog::~PreferencesDialog()
     StoreFramePosition(this, wxT("PreferencesDialog"));
 
     // delete custom list data
-    wxChoice *lang_choice = XRCCTRL(*this, "prefs_gui_language", wxChoice);
-    for (int i = 0; i < (int) lang_choice->GetCount(); i++) {
+    wxChoice* lang_choice = XRCCTRL(*this, "prefs_gui_language", wxChoice);
+    for (int i = 0; i < (int) lang_choice->GetCount(); i++)
+    {
         delete static_cast<long*>(lang_choice->GetClientData(i));
     }
 
     DEBUG_TRACE("end dtor");
 }
 
-void PreferencesDialog::OnOk(wxCommandEvent & e)
+void PreferencesDialog::OnOk(wxCommandEvent& e)
 {
     UpdateConfigData();
     this->EndModal(wxOK);
 }
 
-void PreferencesDialog::OnCancel(wxCommandEvent & e)
+void PreferencesDialog::OnCancel(wxCommandEvent& e)
 {
     this->EndModal(wxCANCEL);
 }
@@ -263,66 +264,71 @@ void PreferencesDialog::OnClose(wxCloseEvent& event)
 {
     DEBUG_DEBUG("OnClose");
     // do not close, just hide if we're not forced
-    if (event.CanVeto()) {
+    if (event.CanVeto())
+    {
         event.Veto();
         Hide();
         DEBUG_DEBUG("hiding");
-    } else {
+    }
+    else
+    {
         DEBUG_DEBUG("about to destroy");
         Destroy();
         DEBUG_DEBUG("destroyed");
     }
 }
 
-void PreferencesDialog::OnHelp(wxCommandEvent & e)
+void PreferencesDialog::OnHelp(wxCommandEvent& e)
 {
     MainFrame::Get()->DisplayHelp(wxT("/Hugin_Preferences.html"));
 };
 
-void PreferencesDialog::OnRotationCheckBox(wxCommandEvent & e)
+void PreferencesDialog::OnRotationCheckBox(wxCommandEvent& e)
 {
     EnableRotationCtrls(e.IsChecked());
 }
 
-void PreferencesDialog::OnEnblendExe(wxCommandEvent & e)
+void PreferencesDialog::OnEnblendExe(wxCommandEvent& e)
 {
     wxFileDialog dlg(this,_("Select Enblend"),
-	             wxT(""), wxT(HUGIN_ENBLEND_EXE),
+                     wxT(""), wxT(HUGIN_ENBLEND_EXE),
 #ifdef __WXMSW__
-		     _("Executables (*.exe)|*.exe"),
+                     _("Executables (*.exe)|*.exe"),
 #else
-		     wxT("*"),
+                     wxT("*"),
 #endif
-                    wxFD_OPEN, wxDefaultPosition);
-    if (dlg.ShowModal() == wxID_OK) {
-	XRCCTRL(*this, "prefs_enblend_EnblendExe", wxTextCtrl)->SetValue(
-		dlg.GetPath());
+                     wxFD_OPEN, wxDefaultPosition);
+    if (dlg.ShowModal() == wxID_OK)
+    {
+        XRCCTRL(*this, "prefs_enblend_EnblendExe", wxTextCtrl)->SetValue(
+            dlg.GetPath());
     }
 }
 
-void PreferencesDialog::OnEnfuseExe(wxCommandEvent & e)
+void PreferencesDialog::OnEnfuseExe(wxCommandEvent& e)
 {
     wxFileDialog dlg(this,_("Select Enfuse"),
-	             wxT(""), wxT(HUGIN_ENFUSE_EXE),
+                     wxT(""), wxT(HUGIN_ENFUSE_EXE),
 #ifdef __WXMSW__
-		     _("Executables (*.exe)|*.exe"),
+                     _("Executables (*.exe)|*.exe"),
 #else
-		     wxT("*"),
+                     wxT("*"),
 #endif
-                    wxFD_OPEN, wxDefaultPosition);
-    if (dlg.ShowModal() == wxID_OK) {
-	XRCCTRL(*this, "prefs_enblend_EnfuseExe", wxTextCtrl)->SetValue(
-		dlg.GetPath());
+                     wxFD_OPEN, wxDefaultPosition);
+    if (dlg.ShowModal() == wxID_OK)
+    {
+        XRCCTRL(*this, "prefs_enblend_EnfuseExe", wxTextCtrl)->SetValue(
+            dlg.GetPath());
     }
 }
 
-void PreferencesDialog::OnCustomEnblend(wxCommandEvent & e)
+void PreferencesDialog::OnCustomEnblend(wxCommandEvent& e)
 {
     XRCCTRL(*this, "prefs_enblend_EnblendExe", wxTextCtrl)->Enable(e.IsChecked());
     XRCCTRL(*this, "prefs_enblend_select", wxButton)->Enable(e.IsChecked());
 }
 
-void PreferencesDialog::OnCustomEnfuse(wxCommandEvent & e)
+void PreferencesDialog::OnCustomEnfuse(wxCommandEvent& e)
 {
     XRCCTRL(*this, "prefs_enblend_EnfuseExe", wxTextCtrl)->Enable(e.IsChecked());
     XRCCTRL(*this, "prefs_enblend_enfuse_select", wxButton)->Enable(e.IsChecked());
@@ -340,47 +346,58 @@ void PreferencesDialog::UpdateDisplayData(int panel)
     double d;
     bool t;
     wxString tstr;
-    wxConfigBase *cfg = wxConfigBase::Get();
+    wxConfigBase* cfg = wxConfigBase::Get();
 
-    if (panel==0 || panel == 1) {
+    if (panel==0 || panel == 1)
+    {
         // memory setting
         unsigned long long mem = cfg->Read(wxT("/ImageCache/UpperBound"), HUGIN_IMGCACHE_UPPERBOUND);
 #ifdef __WXMSW__
         unsigned long mem_low = cfg->Read(wxT("/ImageCache/UpperBound"), HUGIN_IMGCACHE_UPPERBOUND);
         unsigned long mem_high = cfg->Read(wxT("/ImageCache/UpperBoundHigh"), (long) 0);
-        if (mem_high > 0) {
-          mem = ((unsigned long long) mem_high << 32) + mem_low;
+        if (mem_high > 0)
+        {
+            mem = ((unsigned long long) mem_high << 32) + mem_low;
         }
-        else {
-          mem = mem_low;
+        else
+        {
+            mem = mem_low;
         }
 #endif
         MY_SPIN_VAL("prefs_cache_UpperBound", mem >> 20);
 
         // number of threads
         int nThreads = wxThread::GetCPUCount();
-        if (nThreads < 1) nThreads = 1;
+        if (nThreads < 1)
+        {
+            nThreads = 1;
+        }
         nThreads = cfg->Read(wxT("/Nona/NumberOfThreads"), nThreads);
         MY_SPIN_VAL("prefs_nona_NumberOfThreads", nThreads);
 
         // language
         // check if current language is in list and activate it then.
-        wxChoice *lang_choice = XRCCTRL(*this, "prefs_gui_language", wxChoice);
+        wxChoice* lang_choice = XRCCTRL(*this, "prefs_gui_language", wxChoice);
         int curlang = cfg->Read(wxT("language"), HUGIN_LANGUAGE);
         bool found = false;
         int idx = 0;
-        for (int i = 0; i < (int)lang_choice->GetCount(); i++) {
-            long lang = * static_cast<long *>(lang_choice->GetClientData(i));
-            if (curlang == lang) {
+        for (int i = 0; i < (int)lang_choice->GetCount(); i++)
+        {
+            long lang = * static_cast<long*>(lang_choice->GetClientData(i));
+            if (curlang == lang)
+            {
                 found = true;
                 idx = i;
             }
         }
-        if (found) {
+        if (found)
+        {
             DEBUG_DEBUG("wxChoice language updated:" << curlang);
             // update language
             lang_choice->SetSelection(idx);
-        } else {
+        }
+        else
+        {
             // unknown language selected..
             DEBUG_WARN("Unknown language configured");
         }
@@ -397,7 +414,7 @@ void PreferencesDialog::UpdateDisplayData(int panel)
         MY_BOOL_VAL("pref_show_projection_hints", t)
     };
 
-    // filename panel 
+    // filename panel
     if(panel==0 || panel==2)
     {
         // tempdir
@@ -415,7 +432,8 @@ void PreferencesDialog::UpdateDisplayData(int panel)
         MY_STR_VAL("prefs_output_filename", filename);
     }
 
-    if (panel==0 || panel == 3) {
+    if (panel==0 || panel == 3)
+    {
         // Assistant settings
         t = cfg->Read(wxT("/Assistant/autoAlign"), HUGIN_ASS_AUTO_ALIGN) == 1;
         MY_BOOL_VAL("prefs_ass_autoAlign", t);
@@ -431,19 +449,20 @@ void PreferencesDialog::UpdateDisplayData(int panel)
         t = cfg->Read(wxT("/Assistant/AutoCPClean"), HUGIN_ASS_AUTO_CPCLEAN) == 1;
         MY_BOOL_VAL("prefs_auto_cpclean", t);
     }
-       // Fine tune settings
+    // Fine tune settings
 
-    if (panel==0 || panel == 4) {
+    if (panel==0 || panel == 4)
+    {
         // hdr display settings
         MY_CHOICE_VAL("prefs_misc_hdr_mapping", cfg->Read(wxT("/ImageCache/Mapping"), HUGIN_IMGCACHE_MAPPING_FLOAT));
         //MY_CHOICE_VAL("prefs_misc_hdr_range", cfg->Read(wxT("/ImageCache/Range"), HUGIN_IMGCACHE_RANGE));
 
         MY_SPIN_VAL("prefs_ft_TemplateSize",
-            cfg->Read(wxT("/Finetune/TemplateSize"),HUGIN_FT_TEMPLATE_SIZE));
+                    cfg->Read(wxT("/Finetune/TemplateSize"),HUGIN_FT_TEMPLATE_SIZE));
         MY_SPIN_VAL("prefs_ft_SearchAreaPercent",cfg->Read(wxT("/Finetune/SearchAreaPercent"),
-                                                   HUGIN_FT_SEARCH_AREA_PERCENT));
+                    HUGIN_FT_SEARCH_AREA_PERCENT));
         MY_SPIN_VAL("prefs_ft_LocalSearchWidth", cfg->Read(wxT("/Finetune/LocalSearchWidth"),
-                                                   HUGIN_FT_LOCAL_SEARCH_WIDTH));
+                    HUGIN_FT_LOCAL_SEARCH_WIDTH));
 
         d=HUGIN_FT_CORR_THRESHOLD;
         cfg->Read(wxT("/Finetune/CorrThreshold"), &d, HUGIN_FT_CORR_THRESHOLD);
@@ -467,7 +486,7 @@ void PreferencesDialog::UpdateDisplayData(int panel)
         MY_SPIN_VAL("prefs_ft_RotationStopAngle", hugin_utils::roundi(d));
 
         MY_SPIN_VAL("prefs_ft_RotationSteps", cfg->Read(wxT("/Finetune/RotationSteps"),
-                                                HUGIN_FT_ROTATION_STEPS));
+                    HUGIN_FT_ROTATION_STEPS));
     }
 
     /////
@@ -476,11 +495,13 @@ void PreferencesDialog::UpdateDisplayData(int panel)
     /////
     /// CP Detector programs
 
-    if (panel==0 || panel == 5){
+    if (panel==0 || panel == 5)
+    {
         cpdetector_config_edit.FillControl(m_CPDetectorList,true,true);
     }
 
-    if (panel==0 || panel == 6){
+    if (panel==0 || panel == 6)
+    {
         /////
         /// DEFAULT OUTPUT FORMAT
         MY_CHOICE_VAL("pref_ldr_output_file_format", cfg->Read(wxT("/output/ldr_format"), HUGIN_LDR_OUTPUT_FORMAT));
@@ -511,7 +532,8 @@ void PreferencesDialog::UpdateDisplayData(int panel)
 
     }
 
-    if (panel==0 || panel == 7){
+    if (panel==0 || panel == 7)
+    {
 
         /////
         /// NONA
@@ -524,28 +546,29 @@ void PreferencesDialog::UpdateDisplayData(int panel)
         /////
         /// ENBLEND
         MY_STR_VAL("prefs_enblend_EnblendExe", cfg->Read(wxT("/Enblend/Exe"),
-                                                     wxT(HUGIN_ENBLEND_EXE)));
+                   wxT(HUGIN_ENBLEND_EXE)));
         bool customEnblendExe = HUGIN_ENBLEND_EXE_CUSTOM;
         cfg->Read(wxT("/Enblend/Custom"), &customEnblendExe);
         MY_BOOL_VAL("prefs_enblend_Custom", customEnblendExe);
         XRCCTRL(*this, "prefs_enblend_EnblendExe", wxTextCtrl)->Enable(customEnblendExe);
         XRCCTRL(*this, "prefs_enblend_select", wxButton)->Enable(customEnblendExe);
         MY_STR_VAL("prefs_enblend_EnblendArgs", cfg->Read(wxT("/Enblend/Args"),
-                                                      wxT(HUGIN_ENBLEND_ARGS)));
+                   wxT(HUGIN_ENBLEND_ARGS)));
         /////
         /// ENFUSE
         MY_STR_VAL("prefs_enblend_EnfuseExe", cfg->Read(wxT("/Enfuse/Exe"),
-                                                     wxT(HUGIN_ENFUSE_EXE)));
+                   wxT(HUGIN_ENFUSE_EXE)));
         bool customEnfuseExe = HUGIN_ENFUSE_EXE_CUSTOM;
         cfg->Read(wxT("/Enfuse/Custom"), &customEnfuseExe);
         MY_BOOL_VAL("prefs_enblend_enfuseCustom", customEnfuseExe);
         XRCCTRL(*this, "prefs_enblend_EnfuseExe", wxTextCtrl)->Enable(customEnfuseExe);
         XRCCTRL(*this, "prefs_enblend_enfuse_select", wxButton)->Enable(customEnfuseExe);
         MY_STR_VAL("prefs_enblend_EnfuseArgs", cfg->Read(wxT("/Enfuse/Args"),
-                                                      wxT(HUGIN_ENFUSE_ARGS)));
+                   wxT(HUGIN_ENFUSE_ARGS)));
     }
-    
-    if (panel==0 || panel == 8) {
+
+    if (panel==0 || panel == 8)
+    {
         // Celeste settings
         d=HUGIN_CELESTE_THRESHOLD;
         cfg->Read(wxT("/Celeste/Threshold"), &d, HUGIN_CELESTE_THRESHOLD);
@@ -558,31 +581,35 @@ void PreferencesDialog::UpdateDisplayData(int panel)
     }
 }
 
-void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
+void PreferencesDialog::OnRestoreDefaults(wxCommandEvent& e)
 {
     DEBUG_TRACE("");
-    wxConfigBase *cfg = wxConfigBase::Get();
+    wxConfigBase* cfg = wxConfigBase::Get();
     // check which tab is enabled
-    wxNotebook * noteb = XRCCTRL(*this, "prefs_tab", wxNotebook);
+    wxNotebook* noteb = XRCCTRL(*this, "prefs_tab", wxNotebook);
     int really = wxMessageBox(_("Really reset displayed preferences to default values?"), _("Load Defaults"),
                               wxYES_NO, this);
     if ( really == wxYES)
     {
-        if (noteb->GetSelection() == 0) {
+        if (noteb->GetSelection() == 0)
+        {
             // MISC
             // cache
-/*
- * special treatment for windows not necessary here since we know the value of
- * HUGIN_IMGCACHE_UPPERBOUND must fit into 32bit to be compatible with 32bit systems.
- * However, just as a reminder:
-#ifdef __WXMSW__
-    cfg->Write(wxT("/ImageCache/UpperBoundHigh"), HUGIN_IMGCACHE_UPPERBOUND >> 32);
-#endif
-*/
+            /*
+             * special treatment for windows not necessary here since we know the value of
+             * HUGIN_IMGCACHE_UPPERBOUND must fit into 32bit to be compatible with 32bit systems.
+             * However, just as a reminder:
+            #ifdef __WXMSW__
+                cfg->Write(wxT("/ImageCache/UpperBoundHigh"), HUGIN_IMGCACHE_UPPERBOUND >> 32);
+            #endif
+            */
             cfg->Write(wxT("/ImageCache/UpperBound"), HUGIN_IMGCACHE_UPPERBOUND);
             // number of threads
             int cpucount = wxThread::GetCPUCount();
-            if (cpucount < 1) cpucount = 1;
+            if (cpucount < 1)
+            {
+                cpucount = 1;
+            }
             cfg->Write(wxT("/Nona/NumberOfThreads"), cpucount);
             // locale
             cfg->Write(wxT("language"), int(HUGIN_LANGUAGE));
@@ -670,28 +697,21 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
             cfg->Write(wxT("/OptimizePhotometric/nRandomPointsPerImage"), HUGIN_PHOTOMETRIC_OPTIMIZER_NRPOINTS);
         }
 
-/*
-        if (noteb->GetSelection() == 5) {
-            cfg->Write(wxT("/PTmender/Exe"), wxT(HUGIN_PT_MENDER_EXE) );
-            cfg->Write(wxT("/PTmender/Custom"),HUGIN_PT_MENDER_EXE_CUSTOM);
-            cfg->Write(wxT("/PanoTools/ScriptFile"), wxT("PT_script.txt"));
-        }
-*/
+        /*
+                if (noteb->GetSelection() == 5) {
+                    cfg->Write(wxT("/PTmender/Exe"), wxT(HUGIN_PT_MENDER_EXE) );
+                    cfg->Write(wxT("/PTmender/Custom"),HUGIN_PT_MENDER_EXE_CUSTOM);
+                    cfg->Write(wxT("/PanoTools/ScriptFile"), wxT("PT_script.txt"));
+                }
+        */
         UpdateDisplayData(noteb->GetSelection() + 1);
     }
 }
 
 void PreferencesDialog::UpdateConfigData()
 {
-	DEBUG_TRACE("");
-    wxConfigBase *cfg = wxConfigBase::Get();
-    // Panotools settings
-
-/*
-    cfg->Write(wxT("/PTmender/Custom"),MY_G_BOOL_VAL("prefs_pt_PTStitcherEXE_custom"));
-    cfg->Write(wxT("/Panotools/PTStitcherExe"), MY_G_STR_VAL("prefs_pt_PTStitcherEXE"));
-    cfg->Write(wxT("/PanoTools/ScriptFile"), MY_G_STR_VAL("prefs_pt_ScriptFile"));
-*/
+    DEBUG_TRACE("");
+    wxConfigBase* cfg = wxConfigBase::Get();
     // Assistant
     cfg->Write(wxT("/Assistant/autoAlign"),MY_G_BOOL_VAL("prefs_ass_autoAlign"));
     cfg->Write(wxT("/Assistant/nControlPoints"), MY_G_SPIN_VAL("prefs_ass_nControlPoints"));
@@ -712,17 +732,17 @@ void PreferencesDialog::UpdateConfigData()
     double td= HUGIN_FT_CORR_THRESHOLD;
     hugin_utils::stringToDouble(std::string(t.mb_str(wxConvLocal)), td);
     cfg->Write(wxT("/Finetune/CorrThreshold"), td);
-    
+
     t = MY_G_STR_VAL("prefs_ft_CurvThreshold");
     td = HUGIN_FT_CURV_THRESHOLD;
     hugin_utils::stringToDouble(std::string(t.mb_str(wxConvLocal)), td);
     cfg->Write(wxT("/Finetune/CurvThreshold"), td);
-    
+
     cfg->Write(wxT("/Finetune/RotationSearch"), MY_G_BOOL_VAL("prefs_ft_RotationSearch"));
     cfg->Write(wxT("/Finetune/RotationStartAngle"), (double) MY_G_SPIN_VAL("prefs_ft_RotationStartAngle"));
     cfg->Write(wxT("/Finetune/RotationStopAngle"), (double) MY_G_SPIN_VAL("prefs_ft_RotationStopAngle"));
     cfg->Write(wxT("/Finetune/RotationSteps"), MY_G_SPIN_VAL("prefs_ft_RotationSteps"));
-    
+
     /////
     /// MISC
     // cache
@@ -733,16 +753,16 @@ void PreferencesDialog::UpdateConfigData()
     cfg->Write(wxT("/ImageCache/UpperBound"), (long) MY_G_SPIN_VAL("prefs_cache_UpperBound") << 20);
     // number of threads
     cfg->Write(wxT("/Nona/NumberOfThreads"), MY_G_SPIN_VAL("prefs_nona_NumberOfThreads"));
-    
+
     // locale
     // language
-    wxChoice *lang = XRCCTRL(*this, "prefs_gui_language", wxChoice);
+    wxChoice* lang = XRCCTRL(*this, "prefs_gui_language", wxChoice);
     // DEBUG_TRACE("Language Selection Name: " << huginApp::Get()->GetLocale().GetLanguageName((int) lang->GetClientData(lang->GetSelection())).mb_str(wxConvLocal));
     //DEBUG_INFO("Language Selection locale: " << ((huginApp::Get()->GetLocale().GetLanguageInfo((int) lang->GetClientData(lang->GetSelection())))->CanonicalName).mb_str(wxConvLocal));
     //DEBUG_INFO("Current System Language ID: " << huginApp::Get()->GetLocale().GetSystemLanguage());
-    
-    void * tmplp = lang->GetClientData(lang->GetSelection());
-    long templ =  * static_cast<long *>(tmplp);
+
+    void* tmplp = lang->GetClientData(lang->GetSelection());
+    long templ =  * static_cast<long*>(tmplp);
     cfg->Write(wxT("language"), templ);
     DEBUG_INFO("Language Selection ID: " << templ);
     // smart undo
@@ -750,8 +770,6 @@ void PreferencesDialog::UpdateConfigData()
     cfg->Write(wxT("CopyLogToClipboard"), MY_G_BOOL_VAL("prefs_copy_log"));
     // show projections hints
     cfg->Write(wxT("/GLPreviewFrame/ShowProjectionHints"), MY_G_BOOL_VAL("pref_show_projection_hints"));
-    // cursor
-    //    cfg->Write(wxT("/CPImageCtrl/CursorType"), MY_G_SPIN_VAL("prefs_cp_CursorType"));
     // tempdir
     cfg->Write(wxT("tempDir"),MY_G_STR_VAL("prefs_misc_tempdir"));
     // filename templates
@@ -816,7 +834,7 @@ void PreferencesDialog::UpdateConfigData()
     UpdateDisplayData(0);
 }
 
-void PreferencesDialog::OnCPDetectorAdd(wxCommandEvent & e)
+void PreferencesDialog::OnCPDetectorAdd(wxCommandEvent& e)
 {
     CPDetectorDialog cpdetector_dlg(this);
     if(cpdetector_dlg.ShowModal()==wxOK)
@@ -828,15 +846,16 @@ void PreferencesDialog::OnCPDetectorAdd(wxCommandEvent & e)
     };
 };
 
-void PreferencesDialog::OnCPDetectorEdit(wxCommandEvent & e)
+void PreferencesDialog::OnCPDetectorEdit(wxCommandEvent& e)
 {
     CPDetectorDialog autopano_dlg(this);
     int selection=m_CPDetectorList->GetSelection();
-    if (selection == wxNOT_FOUND) 
+    if (selection == wxNOT_FOUND)
     {
         wxMessageBox(_("Please select an entry first"),_("Select Entry"),wxOK |
-                wxICON_EXCLAMATION,this);
-    } else 
+                     wxICON_EXCLAMATION,this);
+    }
+    else
     {
         autopano_dlg.UpdateFields(&cpdetector_config_edit, selection);
         if(autopano_dlg.ShowModal()==wxOK)
@@ -848,7 +867,7 @@ void PreferencesDialog::OnCPDetectorEdit(wxCommandEvent & e)
     }
 };
 
-void PreferencesDialog::OnCPDetectorDelete(wxCommandEvent & e)
+void PreferencesDialog::OnCPDetectorDelete(wxCommandEvent& e)
 {
     unsigned int selection=m_CPDetectorList->GetSelection();
     if(m_CPDetectorList->GetCount()==1)
@@ -858,20 +877,24 @@ void PreferencesDialog::OnCPDetectorDelete(wxCommandEvent & e)
     else
     {
         if(wxMessageBox(wxString::Format(_("Do you really want to remove control point detector setting \"%s\"?"),cpdetector_config_edit.settings[selection].GetCPDetectorDesc().c_str())
-            ,_("Delete control point detector setting"),wxYES_NO | wxICON_QUESTION,this)==wxYES)
+                        ,_("Delete control point detector setting"),wxYES_NO | wxICON_QUESTION,this)==wxYES)
         {
             if(cpdetector_config_edit.GetDefaultGenerator()==selection)
+            {
                 cpdetector_config_edit.SetDefaultGenerator(0);
+            }
             cpdetector_config_edit.settings.RemoveAt(selection);
             cpdetector_config_edit.FillControl(m_CPDetectorList,false,true);
             if(selection>=m_CPDetectorList->GetCount())
+            {
                 selection=m_CPDetectorList->GetCount()-1;
+            }
             m_CPDetectorList->SetSelection(selection);
         };
     };
 };
 
-void PreferencesDialog::OnCPDetectorMoveUp(wxCommandEvent & e)
+void PreferencesDialog::OnCPDetectorMoveUp(wxCommandEvent& e)
 {
     unsigned int selection=m_CPDetectorList->GetSelection();
     if(selection>0)
@@ -882,7 +905,7 @@ void PreferencesDialog::OnCPDetectorMoveUp(wxCommandEvent & e)
     };
 };
 
-void PreferencesDialog::OnCPDetectorMoveDown(wxCommandEvent & e)
+void PreferencesDialog::OnCPDetectorMoveDown(wxCommandEvent& e)
 {
     unsigned int selection=m_CPDetectorList->GetSelection();
     if(selection<m_CPDetectorList->GetCount()-1)
@@ -893,7 +916,7 @@ void PreferencesDialog::OnCPDetectorMoveDown(wxCommandEvent & e)
     };
 };
 
-void PreferencesDialog::OnCPDetectorDefault(wxCommandEvent & e)
+void PreferencesDialog::OnCPDetectorDefault(wxCommandEvent& e)
 {
     unsigned int selection=m_CPDetectorList->GetSelection();
     if(selection!=cpdetector_config_edit.GetDefaultGenerator())
@@ -904,16 +927,16 @@ void PreferencesDialog::OnCPDetectorDefault(wxCommandEvent & e)
     };
 };
 
-void PreferencesDialog::OnCPDetectorListDblClick(wxCommandEvent &e)
+void PreferencesDialog::OnCPDetectorListDblClick(wxCommandEvent& e)
 {
     OnCPDetectorEdit(e);
 };
 
-void PreferencesDialog::OnCPDetectorLoad(wxCommandEvent &e)
+void PreferencesDialog::OnCPDetectorLoad(wxCommandEvent& e)
 {
     wxFileDialog dlg(this,_("Load control point detector settings"),
-        wxConfigBase::Get()->Read(wxT("/actualPath"),wxT("")), wxEmptyString,
-        _("Control point detector settings (*.setting)|*.setting"),wxFD_OPEN | wxFD_FILE_MUST_EXIST);
+                     wxConfigBase::Get()->Read(wxT("/actualPath"),wxT("")), wxEmptyString,
+                     _("Control point detector settings (*.setting)|*.setting"),wxFD_OPEN | wxFD_FILE_MUST_EXIST);
     if (dlg.ShowModal() == wxID_OK)
     {
         wxConfig::Get()->Write(wxT("/actualPath"), dlg.GetDirectory());  // remember for later
@@ -924,11 +947,11 @@ void PreferencesDialog::OnCPDetectorLoad(wxCommandEvent &e)
     };
 };
 
-void PreferencesDialog::OnCPDetectorSave(wxCommandEvent &e)
+void PreferencesDialog::OnCPDetectorSave(wxCommandEvent& e)
 {
     wxFileDialog dlg(this,_("Save control point detector settings"),
-        wxConfigBase::Get()->Read(wxT("/actualPath"),wxT("")), wxEmptyString,
-        _("Control point detector settings (*.setting)|*.setting"),wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
+                     wxConfigBase::Get()->Read(wxT("/actualPath"),wxT("")), wxEmptyString,
+                     _("Control point detector settings (*.setting)|*.setting"),wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
     if (dlg.ShowModal() == wxID_OK)
     {
         wxConfig::Get()->Write(wxT("/actualPath"), dlg.GetDirectory());  // remember for later
@@ -945,7 +968,7 @@ void PreferencesDialog::OnCPDetectorSave(wxCommandEvent &e)
     };
 };
 
-void PreferencesDialog::OnFileFormatChanged(wxCommandEvent &e)
+void PreferencesDialog::OnFileFormatChanged(wxCommandEvent& e)
 {
     UpdateFileFormatControls();
 };
@@ -960,7 +983,7 @@ void PreferencesDialog::UpdateFileFormatControls()
     XRCCTRL(*this,"pref_tiff_compression",wxChoice)->GetParent()->Layout();
 };
 
-void PreferencesDialog::OnProcessorChanged(wxCommandEvent &e)
+void PreferencesDialog::OnProcessorChanged(wxCommandEvent& e)
 {
     UpdateProcessorControls();
 };
@@ -991,14 +1014,14 @@ void PreferencesDialog::UpdateProcessorControls()
     };
 };
 
-void PreferencesDialog::OnUpdateProjectFilename(wxCommandEvent & e)
+void PreferencesDialog::OnUpdateProjectFilename(wxCommandEvent& e)
 {
     XRCCTRL(*this, "prefs_project_filename_preview", wxStaticText)->SetLabel(
         getDefaultProjectName(MainFrame::Get()->getPanorama(), XRCCTRL(*this, "prefs_project_filename", wxTextCtrl)->GetValue())
     );
 };
 
-void PreferencesDialog::OnUpdateOutputFilename(wxCommandEvent & e)
+void PreferencesDialog::OnUpdateOutputFilename(wxCommandEvent& e)
 {
     XRCCTRL(*this, "prefs_output_filename_preview", wxStaticText)->SetLabel(
         getDefaultOutputName(MainFrame::Get()->getProjectName(), MainFrame::Get()->getPanorama(), XRCCTRL(*this, "prefs_output_filename", wxTextCtrl)->GetValue())
