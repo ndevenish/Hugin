@@ -103,10 +103,6 @@
 #define HUGIN_ENBLEND_EXE                     "enblend.exe"
 #define HUGIN_ENFUSE_EXE                      "enfuse.exe"
 
-#define HUGIN_STITCHER_RUN_EDITOR             0l
-#define HUGIN_STITCHER_EDITOR                 ""
-#define HUGIN_STITCHER_EDITOR_ARGS            "%f"
-
 #define HUGIN_STITCHER_TERMINAL               ""
 
 #define HUGIN_ENBLEND_EXE_CUSTOM              false

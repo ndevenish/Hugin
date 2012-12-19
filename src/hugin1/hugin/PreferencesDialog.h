@@ -57,21 +57,15 @@ public:
 
 protected:
     void OnOk(wxCommandEvent & e);
-    void OnApply(wxCommandEvent & e);
     void OnHelp(wxCommandEvent & e);
     void OnCancel(wxCommandEvent & e);
-    void OnDefaults(wxCommandEvent & e);
     void OnRotationCheckBox(wxCommandEvent & e);
     void OnClose(wxCloseEvent& event);
-    void OnPTStitcherExe(wxCommandEvent & e);
-    void OnPTDetails(wxCommandEvent & e);
-    void OnEditorExe(wxCommandEvent & e);
     void OnEnblendExe(wxCommandEvent & e);
     void OnEnfuseExe(wxCommandEvent & e);
     void OnRestoreDefaults(wxCommandEvent & e);
     void OnCustomEnblend(wxCommandEvent & e);
     void OnCustomEnfuse(wxCommandEvent & e);
-    void OnCustomPTStitcher(wxCommandEvent & e);
     void OnCPDetectorAdd(wxCommandEvent & e);
     void OnCPDetectorEdit(wxCommandEvent & e);
     void OnCPDetectorDelete(wxCommandEvent & e);
@@ -83,8 +77,6 @@ protected:
     void OnCPDetectorLoad(wxCommandEvent & e);
     /** event handler for saving cp detector settings */
     void OnCPDetectorSave(wxCommandEvent & e);
-    /** event handler for showing help for cp detector settings */
-    void OnCPDetectorHelp(wxCommandEvent & e);
     /** event handler if default file format was changed */
     void OnFileFormatChanged(wxCommandEvent & e);
     /** event handler if processor was changed */
@@ -95,18 +87,14 @@ protected:
     void OnUpdateOutputFilename(wxCommandEvent & e);
 
     void EnableRotationCtrls(bool enable);
-    bool GetPanoVersion();
 
 private:
     void UpdateFileFormatControls();
     void UpdateProcessorControls();
-    wxString m_PTVersion;
-    wxString m_PTDetails;
     wxListBox* m_CPDetectorList;
     CPDetectorConfig cpdetector_config_edit;
 
     DECLARE_EVENT_TABLE()
-
 };
 
 

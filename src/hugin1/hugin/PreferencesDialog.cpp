@@ -58,20 +58,14 @@
 BEGIN_EVENT_TABLE(PreferencesDialog, wxDialog)
     EVT_CLOSE(PreferencesDialog::OnClose)
     EVT_BUTTON(wxID_OK, PreferencesDialog::OnOk)
-    EVT_BUTTON(wxID_APPLY,PreferencesDialog::OnApply)
     EVT_BUTTON(wxID_HELP, PreferencesDialog::OnHelp)
     EVT_BUTTON(wxID_CANCEL, PreferencesDialog::OnCancel)
     EVT_BUTTON(XRCID("prefs_defaults"), PreferencesDialog::OnRestoreDefaults)
-    EVT_BUTTON(XRCID("prefs_ptstitcher_select"), PreferencesDialog::OnPTStitcherExe)
-    EVT_BUTTON(XRCID("prefs_editor_select"), PreferencesDialog::OnEditorExe)
     EVT_BUTTON(XRCID("prefs_enblend_select"), PreferencesDialog::OnEnblendExe)
     EVT_BUTTON(XRCID("prefs_enblend_enfuse_select"), PreferencesDialog::OnEnfuseExe)
-    EVT_BUTTON(XRCID("prefs_load_defaults"), PreferencesDialog::OnDefaults)
-    EVT_BUTTON(XRCID("prefs_panotools_details"), PreferencesDialog::OnPTDetails)
     EVT_CHECKBOX(XRCID("prefs_ft_RotationSearch"), PreferencesDialog::OnRotationCheckBox)
     EVT_CHECKBOX(XRCID("prefs_enblend_Custom"), PreferencesDialog::OnCustomEnblend)
     EVT_CHECKBOX(XRCID("prefs_enblend_enfuseCustom"), PreferencesDialog::OnCustomEnfuse)
-    EVT_CHECKBOX(XRCID("prefs_pt_PTStitcherEXE_custom"), PreferencesDialog::OnCustomPTStitcher)
     EVT_BUTTON(XRCID("pref_cpdetector_new"), PreferencesDialog::OnCPDetectorAdd)
     EVT_BUTTON(XRCID("pref_cpdetector_edit"), PreferencesDialog::OnCPDetectorEdit)
     EVT_BUTTON(XRCID("pref_cpdetector_del"), PreferencesDialog::OnCPDetectorDelete)
@@ -81,12 +75,10 @@ BEGIN_EVENT_TABLE(PreferencesDialog, wxDialog)
     EVT_LISTBOX_DCLICK(XRCID("pref_cpdetector_list"), PreferencesDialog::OnCPDetectorListDblClick)
     EVT_BUTTON(XRCID("pref_cpdetector_load"), PreferencesDialog::OnCPDetectorLoad)
     EVT_BUTTON(XRCID("pref_cpdetector_save"), PreferencesDialog::OnCPDetectorSave)
-    EVT_BUTTON(XRCID("pref_cpdetector_help"), PreferencesDialog::OnCPDetectorHelp)
     EVT_CHOICE(XRCID("pref_ldr_output_file_format"), PreferencesDialog::OnFileFormatChanged)
     EVT_CHOICE(XRCID("pref_processor_gui"), PreferencesDialog::OnProcessorChanged)
     EVT_TEXT(XRCID("prefs_project_filename"), PreferencesDialog::OnUpdateProjectFilename)
     EVT_TEXT(XRCID("prefs_output_filename"), PreferencesDialog::OnUpdateOutputFilename)
-//  EVT_CLOSE(RunOptimizerFrame::OnClose)
 END_EVENT_TABLE()
 
 
@@ -256,12 +248,6 @@ PreferencesDialog::~PreferencesDialog()
     DEBUG_TRACE("end dtor");
 }
 
-
-void PreferencesDialog::OnApply(wxCommandEvent & e)
-{
-    UpdateConfigData();
-}
-
 void PreferencesDialog::OnOk(wxCommandEvent & e)
 {
     UpdateConfigData();
@@ -288,11 +274,6 @@ void PreferencesDialog::OnClose(wxCloseEvent& event)
     }
 }
 
-void PreferencesDialog::OnDefaults(wxCommandEvent & e)
-{
-    DEBUG_WARN("Not implemented yet");
-}
-
 void PreferencesDialog::OnHelp(wxCommandEvent & e)
 {
     MainFrame::Get()->DisplayHelp(wxT("/Hugin_Preferences.html"));
@@ -302,42 +283,6 @@ void PreferencesDialog::OnRotationCheckBox(wxCommandEvent & e)
 {
     EnableRotationCtrls(e.IsChecked());
 }
-
-void PreferencesDialog::OnPTStitcherExe(wxCommandEvent & e)
-{
-    wxFileDialog dlg(this,_("Select PTmender"),
-	             wxT(""),
-                     wxT(HUGIN_PT_MENDER_EXE),
-#ifdef __WXMSW__
-		     _("Executables (*.exe)|*.exe"),
-#else
-		     wxT(""),
-#endif
-                    wxFD_OPEN, wxDefaultPosition);
-    if (dlg.ShowModal() == wxID_OK) {
-	XRCCTRL(*this, "prefs_pt_PTStitcherEXE", wxTextCtrl)->SetValue(
-		dlg.GetPath());
-    }
-
-}
-
-
-void PreferencesDialog::OnEditorExe(wxCommandEvent & e)
-{
-    wxFileDialog dlg(this,_("Select image editor"),
-                     wxT(""), wxT(HUGIN_STITCHER_EDITOR),
-#ifdef __WXMSW__
-             _("Executables (*.exe)|*.exe"),
-#else
-             wxT("(*)|*"),
-#endif
-                    wxFD_OPEN, wxDefaultPosition);
-    if (dlg.ShowModal() == wxID_OK) {
-        XRCCTRL(*this, "prefs_ass_editor", wxTextCtrl)->SetValue(
-                dlg.GetPath());
-    }
-}
-
 
 void PreferencesDialog::OnEnblendExe(wxCommandEvent & e)
 {
@@ -383,45 +328,13 @@ void PreferencesDialog::OnCustomEnfuse(wxCommandEvent & e)
     XRCCTRL(*this, "prefs_enblend_enfuse_select", wxButton)->Enable(e.IsChecked());
 }
 
-void PreferencesDialog::OnCustomPTStitcher(wxCommandEvent & e)
-{
-    XRCCTRL(*this, "prefs_pt_PTStitcherEXE", wxTextCtrl)->Enable(e.IsChecked());
-    XRCCTRL(*this, "prefs_ptstitcher_select", wxButton)->Enable(e.IsChecked());
-}
-
-void PreferencesDialog::OnPTDetails(wxCommandEvent & e)
-{
-	DEBUG_INFO("Panotools Details Requested:\n" << m_PTDetails.mb_str(wxConvLocal));
-
-    wxDialog dlg(this, -1, _("Panotools details"), wxDefaultPosition, wxDefaultSize, wxCAPTION|wxCLOSE_BOX|wxRESIZE_BORDER  );
-    wxBoxSizer *topsizer = new wxBoxSizer( wxVERTICAL );
-
-    wxTextCtrl * textctrl = new wxTextCtrl(&dlg, -1,  m_PTDetails, wxDefaultPosition,
-                                           wxSize(600,400), wxTE_MULTILINE);
-    topsizer->Add(textctrl, 1, wxEXPAND | wxADJUST_MINSIZE | wxALL, 5);
-
-    wxSizer *butsz = dlg.CreateButtonSizer(wxOK);
-    topsizer->Add(butsz, 0, wxALIGN_CENTER_HORIZONTAL);
-
-    dlg.SetSizer( topsizer );
-    topsizer->SetSizeHints( &dlg );
-
-	dlg.ShowModal();
-}
-
 void PreferencesDialog::EnableRotationCtrls(bool enable)
 {
     XRCCTRL(*this, "prefs_ft_rot_panel", wxPanel)->Enable(enable);
 }
 
-bool PreferencesDialog::GetPanoVersion()
-{
-  return false;
-}
-
 void PreferencesDialog::UpdateDisplayData(int panel)
 {
-
     DEBUG_DEBUG("Updating display data");
 
     double d;
@@ -511,13 +424,6 @@ void PreferencesDialog::UpdateDisplayData(int panel)
         double factor = HUGIN_ASS_PANO_DOWNSIZE_FACTOR;
         cfg->Read(wxT("/Assistant/panoDownsizeFactor"), &factor);
         MY_SPIN_VAL("prefs_ass_panoDownsizeFactor",(int)(factor*100.0));
-        // editor
-        t = cfg->Read(wxT("/Stitcher/RunEditor"), HUGIN_STITCHER_RUN_EDITOR) == 1;
-        MY_BOOL_VAL("prefs_ass_run_editor", t);
-        MY_STR_VAL("prefs_ass_editor", cfg->Read(wxT("/Stitcher/Editor"),
-                   wxT(HUGIN_STITCHER_EDITOR)));
-        MY_STR_VAL("prefs_ass_editor_args", cfg->Read(wxT("/Stitcher/EditorArgs"),
-                   wxT(HUGIN_STITCHER_EDITOR_ARGS)));
         t = cfg->Read(wxT("/Assistant/Linefind"), HUGIN_ASS_LINEFIND) == 1;
         MY_BOOL_VAL("prefs_ass_linefind", t);
         t = cfg->Read(wxT("/Celeste/Auto"), HUGIN_CELESTE_AUTO) == 1;
@@ -650,32 +556,6 @@ void PreferencesDialog::UpdateDisplayData(int panel)
         MY_SPIN_VAL("prefs_photo_optimizer_nr_points", cfg->Read(wxT("/OptimizePhotometric/nRandomPointsPerImage"), HUGIN_PHOTOMETRIC_OPTIMIZER_NRPOINTS));
 
     }
-
-
-
-
-/*
-    // Panotools settings
-    MY_STR_VAL("prefs_pt_PTStitcherEXE", cfg->Read(wxT("/PTmender/Exe"),wxT(HUGIN_PT_MENDER_EXE)));
-    bool customPTStitcherExe = HUGIN_PT_MENDER_EXE_CUSTOM;
-    cfg->Read(wxT("/PTmender/Custom"), &customPTStitcherExe);
-    MY_BOOL_VAL("prefs_pt_PTStitcherEXE_custom", customPTStitcherExe);
-    XRCCTRL(*this, "prefs_pt_PTStitcherEXE", wxTextCtrl)->Enable(customPTStitcherExe);
-    XRCCTRL(*this, "prefs_ptstitcher_select", wxButton)->Enable(customPTStitcherExe);
-    MY_STR_VAL("prefs_pt_ScriptFile", cfg->Read(wxT("/PanoTools/ScriptFile"),wxT(HUGIN_PT_SCRIPTFILE)));
-
-    /////
-	/// Display Panotools version if we can
-
-	if (GetPanoVersion())
-	{
-  	  MY_STATIC_VAL("prefs_panotools_version", m_PTVersion);
-	  XRCCTRL(*this, "prefs_panotools_details", wxButton)->Enable();
-	} else
-	{
-  	  MY_STATIC_VAL("prefs_panotools_version", _("Unknown Version"));
-	}
-*/
 }
 
 void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
@@ -723,9 +603,6 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent & e)
             cfg->Write(wxT("/Assistant/autoAlign"), HUGIN_ASS_AUTO_ALIGN);
             cfg->Write(wxT("/Assistant/nControlPoints"), HUGIN_ASS_NCONTROLPOINTS);
             cfg->Write(wxT("/Assistant/panoDownsizeFactor"),HUGIN_ASS_PANO_DOWNSIZE_FACTOR);
-            cfg->Write(wxT("/Stitcher/RunEditor"), HUGIN_STITCHER_RUN_EDITOR);
-            cfg->Write(wxT("/Stitcher/Editor"), wxT(HUGIN_STITCHER_EDITOR));
-            cfg->Write(wxT("/Stitcher/EditorArgs"), wxT(HUGIN_STITCHER_EDITOR_ARGS));
             cfg->Write(wxT("/Assistant/Linefind"), HUGIN_ASS_LINEFIND);
             cfg->Write(wxT("/Celeste/Auto"), HUGIN_CELESTE_AUTO);
             cfg->Write(wxT("/Assistant/AutoCPClean"), HUGIN_ASS_AUTO_CPCLEAN);
@@ -822,10 +699,6 @@ void PreferencesDialog::UpdateConfigData()
     cfg->Write(wxT("/Assistant/Linefind"), MY_G_BOOL_VAL("prefs_ass_linefind"));
     cfg->Write(wxT("/Celeste/Auto"), MY_G_BOOL_VAL("prefs_celeste_auto"));
     cfg->Write(wxT("/Assistant/AutoCPClean"), MY_G_BOOL_VAL("prefs_auto_cpclean"));
-    // editor
-    cfg->Write(wxT("/Stitcher/RunEditor"), MY_G_BOOL_VAL("prefs_ass_run_editor"));
-    cfg->Write(wxT("/Stitcher/Editor"), MY_G_STR_VAL("prefs_ass_editor"));
-    cfg->Write(wxT("/Stitcher/EditorArgs"), MY_G_STR_VAL("prefs_ass_editor_args"));
 
     // hdr display
     cfg->Write(wxT("/ImageCache/Mapping"),MY_G_CHOICE_VAL("prefs_misc_hdr_mapping"));
@@ -1070,11 +943,6 @@ void PreferencesDialog::OnCPDetectorSave(wxCommandEvent &e)
 #endif
         cpdetector_config_edit.WriteToFile(fn);
     };
-};
-
-void PreferencesDialog::OnCPDetectorHelp(wxCommandEvent &e)
-{
-    MainFrame::Get()->DisplayHelp(wxT("/Control_Point_Detector_Parameters.html"));
 };
 
 void PreferencesDialog::OnFileFormatChanged(wxCommandEvent &e)

@@ -1091,47 +1091,6 @@ void PanoPanel::DoStitch()
     wxExecute(command);
 #endif
 
-    // hmm, what to do with opening the result????
-#if 0
-        if (m_Stitcher->Stitch(pano, opt)) {
-            int runViewer = wxConfig::Get()->Read(wxT("/Stitcher/RunEditor"), HUGIN_STITCHER_RUN_EDITOR);
-            if (runViewer) {
-                // TODO: show image after it has been created
-                wxString editor = wxConfig::Get()->Read(wxT("/Stitcher/Editor"), wxT(HUGIN_STITCHER_EDITOR));
-                wxString args = wxConfig::Get()->Read(wxT("/Stitcher/EditorArgs"), wxT(HUGIN_STITCHER_EDITOR_ARGS));
-
-                if (opt.outputFormat == PanoramaOptions::TIFF_m || opt.outputFormat == PanoramaOptions::TIFF_mask)
-                {
-                    // TODO: tiff_m case? Open all files?
-                } else {
-                    wxString quoted = utils::wxQuoteFilename(wxfn);
-                    args.Replace(wxT("%f"), quoted);
-                    quoted = utils::wxQuoteFilename(wxString(pano->getImage(0).getFilename().c_str(), HUGIN_CONV_FILENAME));
-                    args.Replace(wxT("%i"), quoted);
-
-                    wxString cmdline = utils::wxQuoteFilename(editor) + wxT(" ") + args;
-
-                    DEBUG_DEBUG("editor command: " << cmdline.c_str());
-                    if (editor != wxT("")) {
-                        wxExecute(cmdline, wxEXEC_ASYNC);
-                    } else {
-#ifdef __WXMSW__
-                        // use default viewer on windows
-                        SHELLEXECUTEINFO seinfo;
-                        memset(&seinfo, 0, sizeof(SHELLEXECUTEINFO));
-                        seinfo.cbSize = sizeof(SHELLEXECUTEINFO);
-                        seinfo.fMask = SEE_MASK_NOCLOSEPROCESS;
-                        seinfo.lpFile = args.c_str();
-                        seinfo.lpParameters = args.c_str();
-                        if (!ShellExecuteEx(&seinfo)) {
-                            wxMessageBox(_("Could not execute command: ") + args, _("ShellExecuteEx failed"), wxCANCEL | wxICON_ERROR);
-                        }
-#endif
-                    }
-                }
-            }
-        }
-#endif
 }
 
 void PanoPanel::DoSendToBatch()
