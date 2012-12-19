@@ -1,1642 +1,343 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta http-equiv="Content-Style-Type" content="text/css" />
-		<meta name="generator" content="MediaWiki 1.14.0" />
-		<meta name="keywords" content="Enblend reference manual,Enblend" />
-		
-		
-		
-		
-		
-		
-		<title>Enblend reference manual - PanoTools.org Wiki</title>
-		
-		
-		
-		<!--[if lt IE 5.5000]><![endif]-->
-		<!--[if IE 5.5000]><![endif]-->
-		<!--[if IE 6]><![endif]-->
-		<!--[if IE 7]><![endif]-->
-		
-		
-		
-		
-		<!--[if lt IE 7]>
-		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="client-nojs">
+<head>
+<title>Enblend reference manual - PanoTools.org Wiki</title>
+<meta charset="UTF-8" />
+<meta name="generator" content="MediaWiki 1.19.0" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="PanoTools.org Wiki (en)" />
+<link rel="EditURI" type="application/rsd+xml" href="http://wiki.panotools.org/api.php?action=rsd" />
+<link rel="copyright" href="http://www.gnu.org/copyleft/fdl.html" />
+<link rel="alternate" type="application/atom+xml" title="PanoTools.org Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom" />
+<link rel="stylesheet" href="http://wiki.panotools.org/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cskins.vector&amp;only=styles&amp;skin=vector&amp;*" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<link rel="stylesheet" href="http://wiki.panotools.org/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=styles&amp;skin=vector&amp;*" />
+<style>a:lang(ar),a:lang(ckb),a:lang(fa),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}a.new,#quickbar a.new{color:#ba0000}
 
-		
+/* cache key: pt_wikidb:resourceloader:filter:minify-css:7:c88e2bcd56513749bec09a7e29cb3ffa */
+</style>
 
-		
-		<style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
-		
+<script src="load.php%3Fdebug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Enblend_reference_manual","wgTitle":"Enblend reference manual","wgCurRevisionId":13978,"wgArticleId":2672,"wgIsArticle":true,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":[],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgRelevantPageName":"Enblend_reference_manual","wgRestrictionEdit":[],"wgRestrictionMove":[]});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function($){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":0,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":5,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"en","language":"en","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":true,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":true,"searchNs10":false,"searchNs11":false,"searchNs12":true,"searchNs13":false,"searchNs14":false,"searchNs15":false});;},{},{});mw.loader.implement("user.tokens",function($){mw.user.tokens.set({"editToken":"+\\","watchToken":false});;},{},{});
+
+/* cache key: pt_wikidb:resourceloader:filter:minify-js:7:938e00507dd611bed23de13e424d3a6b */
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax"]);
+}</script>
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Enblend_reference_manual skin-vector action-view">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content" class="mw-body">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">
+				<span dir="auto">Enblend reference manual</span>
+			</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+								<!-- tagline -->
+				<div id="siteSub">From PanoTools.org Wiki</div>
+				<!-- /tagline -->
+								<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav" class="mw-jump">
+					Jump to: <a href="Enblend_reference_manual.html#mw-head">navigation</a>,
+					<a href="Enblend_reference_manual.html#p-search">search</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodycontent -->
+				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><h2> <span class="mw-headline" id="The_Enblend_reference_manual_for_the_most_recent_version_in_different_formats_can_be_found_on_http:.2F.2Fpanorama.dyndns.org.2FEandE-documentation.2F">The <a href="Enblend.html" title="Enblend">Enblend</a> reference manual for the most recent version in different formats can be found on <a rel="nofollow" class="external free" href="http://panorama.dyndns.org/EandE-documentation/">http://panorama.dyndns.org/EandE-documentation/</a></span></h2>
+<p>The wiki version of this manual was for <a href="Enblend.html" title="Enblend">enblend</a> version 3.2 which is outdated since 2008. It is still available in this wiki as <a rel="nofollow" class="external text" href="http://wiki.panotools.org/index.php?title=Enblend_reference_manual&amp;oldid=13483">older revision</a>
+</p>
+<!-- 
+NewPP limit report
+Preprocessor node count: 2/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key pt_wikidb:pcache:idhash:2672-0!*!0!*!*!*!* and timestamp 20121219012844 -->
+</div>				<!-- /bodycontent -->
+								<!-- printfooter -->
+				<div class="printfooter">
+				Retrieved from "<a href="http://wiki.panotools.org/index.php?title=Enblend_reference_manual&amp;oldid=13978">http://wiki.panotools.org/index.php?title=Enblend_reference_manual&amp;oldid=13978</a>"				</div>
+				<!-- /printfooter -->
+												<!-- catlinks -->
+				<div id='catlinks' class='catlinks catlinks-allhidden'></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+				<!-- debughtml -->
+								<!-- /debughtml -->
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Personal tools</h5>
+	<ul>
+		<li id="pt-login"><a href="http://wiki.panotools.org/index.php?title=Special:UserLogin&amp;returnto=Enblend+reference+manual" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in / create account</a></li>
+	</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
 				
-	</head>
-<body class="mediawiki ltr ns-0 ns-subject page-Enblend_reference_manual skin-monobook">
-	<div id="globalWrapper">
-		<div id="column-content">
-	<div id="content">
-		<a name="top" id="top"></a>
-				<h1 id="firstHeading" class="firstHeading">Enblend reference manual</h1>
-		<div id="bodyContent">
-			
-			
-												<!-- start content -->
-			<p><span id="Top"></span> <span id="SEC_Top"></span>
-</p><p>This manual is for <a href="Enblend.html" title="Enblend">Enblend</a> (version 3.2-cvs, Thu Sep 25 07:35:10 UTC 2008). It was written by Dr. Christoph L. Spiel, converted partly from the HTML version and corrected using the PDF version both found on http://panorama.dyndns.org/EandE-documentation/<a class="external" href="http://panorama.dyndns.org/EandE-documentation/">[*]</a>
-</p><p><span id="Overview"></span> <span id="SEC1"></span>
-</p>
-
-<a name="Overview" id="Overview"></a><h2> <span class="mw-headline">Overview</span></h2>
-<p>Enblend overlays multiple TIFF images using the Burt-Adelson multiresolution spline algorithm.<span id="DOCF1"></span> <a href="Enblend_reference_manual.html#FOOT1" title="">(1)</a> This technique tries to make the seams between the input images invisible. The basic idea is that image features should be blended across a transition zone proportional in size to the spatial frequency of the features. For example, objects like trees and windowpanes have rapid changes in color. By blending these features in a narrow zone, you will not be able to see the seam because the eye already expects to see color changes at the edge of these features. Clouds and sky are the opposite. These features have to be blended across a wide transition zone because any sudden change in color will be immediately noticeable.
-</p><p>Enblend expects each input file to have an alpha channel. The alpha channel should indicate the region of the file that has valid image data. Enblend compares the alpha regions in the input files to find the areas where images overlap. Alpha channels can be used to indicate to Enblend that certain portions of an input image should not contribute to the final image.
-</p><p><span id="IDX1"></span> <span id="IDX2"></span>
-</p><p>Enblend does <i>not</i> align images. Use a tool as <code>hugin</code> or PanoTools to do this. The TIFF files produced by these programs are exactly what Enblend is designed to work with. Sometimes these GUIs allow you to select feathering for the edges of your images. This treatment is detrimental to Enblend. Turn off feathering by deselecting it or setting the feather width to zero.
-</p><p>Enblend blends the images in the order they are specified on the command line. You should order your images according to the way that they overlap, for example from left-to-right across the panorama. If you are making a multi-row panorama, we recommend blending each horizontal row individually, and then running Enblend a last time to blend all of the rows together vertically.
-</p><p>Find out more about Enblend on its webpage<a class="external" href="http://enblend.sourceforge.net/">[*]</a>.
-</p>
-<hr />
-<p><span id="Invocation"></span> <span id="SEC2"></span>
-</p>
-<a name="Invocation" id="Invocation"></a><h2> <span class="mw-headline">Invocation</span></h2>
-<p><code>enblend</code> [<var>OPTIONS</var>] <code>-o</code> <var>OUTPUT-FILE</var> <var>INPUT-FILES</var><small class="enddots">....</small>
-</p><p>Assemble the sequence of images <var>INPUT-FILES</var><small class="enddots">....</small> into <var>OUTPUT-FILE</var>.
-</p>
-<table class="menu">
-<tr>
-<td align="left">
-<p><a href="Enblend_reference_manual.html#SEC3" title="">Common Options</a>
-</p>
-</td><td align="left"> General options
-</td></tr>
-<tr>
-<td align="left">
-<p><a href="Enblend_reference_manual.html#SEC4" title="">Extended Options</a>
-</p>
-</td><td align="left"> Memory and GPU control
-</td></tr>
-<tr>
-<td align="left">
-<p><a href="Enblend_reference_manual.html#SEC5" title="">Mask Generation Options</a>
-</p>
-</td><td align="left"> Mask generation control
-</td></tr></table>
-<hr />
-<p><span id="Common-Options"></span> <span id="SEC3"></span>
-</p>
-<a name="Common_Options" id="Common_Options"></a><h3> <span class="mw-headline">Common Options</span></h3>
-<p>Common options control some overall features of Enblend.
-</p>
-<dl><dt> <code>-a</code>
-</dt><dd> <span id="IDX3"></span> Pre-assemble non-overlapping images before each blending iteration.This overrides the default behavior which is to blend the images sequentially in the order given on the command line. Enblend will use fewer blending iterations, but it will do more work in each iteration.
-</dd><dt> <code>--compression=<var>COMPRESSION</var></code>
-</dt><dd> <span id="IDX4"></span> Write a compressed output file.Depending on the output file format Enblend accepts different values for <var>COMPRESSION</var>.
-<dl><dt> JPEG
-</dt><dd> <var>COMPRESSION</var> is a JPEG quality level ranging from 0–100.
-</dd><dt> TIFF
-</dt><dd> <var>COMPRESSION</var> is one of the keywords:
-<dl><dt> ‘NONE’
-</dt><dd> Do not compress. This is the default.
-</dd><dt> ‘DEFLATE’
-</dt><dd> <span id="IDX5"></span> <span id="IDX6"></span> Use the Deflate compression scheme also called ZIP-in-TIFF. Deflate is a lossless data compression algorithm that uses a combination of the LZ77 algorithm and Huffman coding.
-</dd><dt> ‘LZW’
-</dt><dd> <span id="IDX7"></span> <span id="IDX8"></span> Use Lempel-Ziv-Welch (LZW) adaptive compression scheme. LZW compression is lossless.
-</dd><dt> ‘PACKBITS’
-</dt><dd> <span id="IDX9"></span> <span id="IDX10"></span> Use PackBits compression scheme. PackBits is particular variant of run-length compression. It is lossless.
-</dd></dl>
-</dd></dl>
-<dl><dt> Any other format
-</dt><dd> Other formats like the PNG do not accept a <var>COMPRESSION</var> setting.
-</dd></dl>
-</dd></dl>
-<dl><dt> <code>-h</code>
-</dt><dt> <code>--help</code>
-</dt><dd> <span id="IDX11"></span> <span id="IDX12"></span> Print information on the available options and exit.
-</dd><dt> <code>-l <var>LEVELS</var></code>
-</dt><dd> <span id="IDX13"></span> Use exactly this many <var>LEVELS</var> for pyramid blending.This trades off quality of results for shorter execution time and lower memory usage. The default is to use as many levels as is possible given the size of the overlap regions. Enblend may still use a smaller number of levels if the geometry of the images demands.
-</dd><dt> <code>-o <var>OUTPUT-FILE</var></code>
-</dt><dd> <span id="IDX14"></span> Required option that specifies the name of the <var>OUTPUT-FILE</var>.
-</dd><dt> <code>-v</code>
-</dt><dt> <code>--verbose</code>
-</dt><dd> <span id="IDX15"></span> <span id="IDX16"></span> Increase the verbosity of progress reporting. Giving one or more ‘-v’ options will make Enblend more verbose.
-</dd><dt> <code>-V</code>
-</dt><dt> <code>--version</code>
-</dt><dd> <span id="IDX17"></span> <span id="IDX18"></span> Output information on the Enblend version and some configuration details like extra features that have been compiled in.
-</dd><dt> <code>-w</code>
-</dt><dd> <span id="IDX19"></span> Blend around the ± 180° boundary. Useful for full 360° panoramas. Version 3.2-cvs of Enblend, the one described here, does not blend neither zenith nor or nadir, so you may still see some seams in these areas.
-</dd><dt> <code>-x</code>
-</dt><dd> <span id="IDX20"></span> Checkpoint partial results to the output file after each blending step.
-</dd><dt> <code>-z</code>
-</dt><dd> <span id="IDX21"></span> This option has been deprecated. It is kept for backward compatability with older scripts. Use ‘--compression=LZW’ instead.
-</dd></dl>
-<hr />
-<p><span id="Extended-Options"></span> <span id="SEC4"></span>
-</p>
-<a name="Extended_Options" id="Extended_Options"></a><h3> <span class="mw-headline">Extended Options</span></h3>
-<p>Extended options control the image cache, the color model, and the cropping of the output image.
-</p>
-<dl><dt> <code>-b <var>BLOCKSIZE</var></code>
-</dt><dd> <span id="IDX22"></span> <span id="IDX23"></span> Set the <var>BLOCKSIZE</var> in kilobytes (KB) of Enblend's image cache.This is the amount of data that Enblend will move to and from the disk in one go. The default is 2048KB, which should be ok for most systems.
-</dd><dt> <code>-c</code>
-</dt><dd> <span id="IDX24"></span> <span id="IDX25"></span> <span id="IDX26"></span> Use the CIECAM02 color appearance model for blending colors.The input files should have embedded ICC profiles if this option is specified. If no ICC profile is present, Enblend will assume that the image uses the sRGB color space. The difference between this option and Enblend's default color blending algorithm is very slight and will be only noticeable when areas of different primary colors are blended together.
-</dd><dt> <code>-d</code>
-</dt><dt> <code>--depth=<var>DEPTH</var></code>
-</dt><dd> <span id="IDX27"></span> <span id="IDX28"></span> <span id="IDX29"></span> Force the number of bits per channel and the numeric format of the output image. All <var>DEPTH</var> specifications are valid in lowercase as well as uppercase letters. This option is only available in specific builds of Enblend. For integer format use
-<dl><dt> <code>8</code>, <code>uint8</code>
-</dt><dd> Unsigned 8 bit; range: 0..255
-</dd><dt> <code>int16</code>
-</dt><dd> Signed 16 bit; range: -32768..32767
-</dd><dt> <code>16</code>, <code>uint16</code>
-</dt><dd> Unsigned 16 bit; range: 0..65536
-</dd><dt> <code>int32</code>
-</dt><dd> Signed 32 bit; range: -2147483648..2147483647
-</dd><dt> <code>32</code>, <code>uint32</code>
-</dt><dd> Unsigned 32 bit; range: 0..4294967295 For floating-point format use
-</dd><dt> <code>r32</code>, <code>real32</code>, <code>float</code>
-</dt><dd> IEEE754 single precision floating-point, 32 bits wide, 24 bit significant
-<ul><li> - Minimal normalized value:  1.2 ×  10<sup>-38</sup>
-</li><li> - Epsilon:  1.2 ×  10<sup>-7</sup>
-</li><li> - Maximal finite value:  3.4 ×  10<sup>38</sup>
-</li></ul>
-</dd></dl>
-<dl><dt> <code>r64</code>, <code>real64</code>, <code>double</code>
-</dt><dd> IEEE754 double precision floating-point, 64 bits wide, 53 bit significant
-<ul><li> - Minimal normalized value:  2.2 ×  10<sup>-308</sup>
-</li><li> - Epsilon:  2.2 ×  10<sup>-16</sup>
-</li><li> - Maximal finite value:  1.8 ×  10<sup>308</sup>  If the requested <var>DEPTH</var> is not supported by the output file format, Enblend warns and chooses the <var>DEPTH</var> that matches best.
-</li></ul>
-</dd></dl>
-</dd></dl>
-<dl><dt> <code>-g</code>
-</dt><dd> <span id="IDX30"></span> <span id="IDX31"></span> <span id="IDX32"></span> <span id="IDX33"></span> Gimp (before version 2.0) and Cinepaint (see section <a href="Enblend_reference_manual.html#SEC10" title="">Helpful Additional Programs</a>) exhibit unusual behavior when loading images with unassociated alpha channels. Use option ‘-g’ to work around this problem. With this flag Enblend creates the output image with the associated alpha tag set, even though the image is really unassociated alpha.
-</dd><dt> <code>--gpu</code>
-</dt><dd> <span id="IDX34"></span> Use the graphics card to accelerate some computations.This is an experimental feature that may not work on all systems. In this version of Enblend, 3.2-cvs, only mask optimization strategy 1 benefits from this option.
-</dd><dt> <code>-f <var>WIDTH</var>x<var>HEIGHT</var></code>
-</dt><dt> <code>-f <var>WIDTH</var>x<var>HEIGHT</var>+x<var>XOFFSET</var>+y<var>YOFFSET</var></code>
-</dt><dd> <span id="IDX35"></span> <span id="IDX36"></span> Set the size of the output image manually to <var>WIDTH</var>× <var>HEIGHT</var>. Optionally specify the <var>X-OFFSET</var> and <var>Y-OFFSET</var>, too. <span id="IDX37"></span> <span id="IDX38"></span> This option is useful when the input images are cropped TIFF files, such as those produced by <code>nona</code>. The stitcher <code>nona</code> is part of Hugin. See section <a href="Enblend_reference_manual.html#SEC10" title="">Helpful Additional Programs</a>.
-</dd><dt> <code>-m <var>CACHESIZE</var></code>
-</dt><dd> <span id="IDX39"></span> <span id="IDX40"></span> Set the <var>CACHESIZE</var> in megabytes (MB) of Enblend's image cache.This is the amount of memory Enblend will use for storing image data before swapping to disk. The default is 1024MB which is good for systems with 3–4gigabytes (GB) of RAM.
-</dd><dt> <code>--visualize=<var>IMAGE-FILE</var></code>
-</dt><dd> <span id="IDX41"></span> <span id="IDX42"></span> Create an <var>IMAGE-FILE</var> that visualizes the mask optimization process.This shows Enblend's view of the overlap region and how it decided to route the seam line. If you are experiencing artifacts or unexpected output, it may be useful to include this visualization image in your bug report.
-</dd></dl>
-<hr />
-<p><span id="Mask-Generation-Options"></span> <span id="SEC5"></span>
-</p>
-<a name="Mask_Generation_Options" id="Mask_Generation_Options"></a><h3> <span class="mw-headline">Mask Generation Options</span></h3>
-<p>These options control the generation and the usage of masks.
-</p>
-<dl><dt> <code>--coarse-mask</code>
-</dt><dd> <span id="IDX43"></span> <span id="IDX44"></span> <span id="IDX45"></span> Use a scaled-down version of the input images to create the seam line. This is the default.
-</dd><dt> <code>--fine-mask</code>
-</dt><dd> <span id="IDX46"></span> <span id="IDX47"></span> <span id="IDX48"></span> Use the full-size images to create the seam line. This can be slow. Use ‘--fine-mask’ if you have very narrow overlap regions.
-</dd><dt> <code>--load-mask=<var>IMAGE-FILE</var></code>
-</dt><dd> <span id="IDX49"></span> <span id="IDX50"></span> <span id="IDX51"></span> Instead of generating a mask, use the one in <var>IMAGE-FILE</var>.
-</dd><dt> <code>--no-optimize</code>
-</dt><dd> <span id="IDX52"></span> <span id="IDX53"></span> <span id="IDX54"></span> Turn off seam line optimization. Combined with ‘--fine-mask’ this will produce the same type of mask as Enblend version 2.5.
-</dd><dt> <code>--optimize</code>
-</dt><dd> <span id="IDX55"></span> <span id="IDX56"></span> <span id="IDX57"></span> Use a two-strategy approach to route the seam line around mismatches in the overlap region. This is the default.
-</dd><dt> <code>--save-mask=<var>IMAGE-FILE</var></code>
-</dt><dd> <span id="IDX58"></span> <span id="IDX59"></span> <span id="IDX60"></span> Save the generated mask to <var>IMAGE-FILE</var>.Use this option if you wish to edit the location of the seam line by hand. This will give you a template of the right size that you can edit to make your changes. Later, use ‘--load-mask’ to blend the project with your custom seam line.
-</dd></dl>
-<hr />
-<p><span id="Understanding-Masks"></span> <span id="SEC6"></span>
-</p>
-<a name="Understanding_Masks" id="Understanding_Masks"></a><h2> <span class="mw-headline">Understanding Masks</span></h2>
-<p>A <i>binary mask</i> indicates for every pixel of an image if this pixel must be considered in further processing or ignored. For a <i>weight mask</i>, the value of the mask determines how much the pixel contributes, zero again meaning “no contribution”.
-</p><p>Masks arise in two places: as part of the input files and as separate files, showing the actual pixel weights prior to image blendung or fusion. We shall explore both occurrences in the next sections.
-</p>
-<hr />
-<p><span id="SEC7"></span>
-</p>
-<a name="Masks_in_Input_Files" id="Masks_in_Input_Files"></a><h3> <span class="mw-headline">Masks in Input Files</span></h3>
-<p>Each of the input files for Enfuse and Enblend can contain its own mask. Both applications interpret them as binary masks no matter how many bits per image pixel they contain.
-</p><p><span id="IDX61"></span> <span id="IDX62"></span>
-</p><p>Use ImageMagick's <code>identify</code> or, for TIFF files, <code>tiffinfo</code> to inquire quickly whether a file contains a mask. <a href="Enblend_reference_manual.html#SEC10" title="">Helpful Additional Programs</a> shows where to find these programs on the web.
-</p>
-<table>
-<tr>
-<td>
-<pre>$ identify -format "%f&nbsp;%m&nbsp;%wx%h&nbsp;%r&nbsp;%q-bit" remapped-0000.tif
-remapped-0000.tif TIFF 800x533 DirectClassRGBMatte 8-bit
-                                             ^^^^^ mask
-</pre>
-</td></tr></table>
-<table>
-<tr>
-<td>
-<pre>$ tiffinfo remapped-0000.tif
-TIFF Directory at offset 0x1a398a (1718666)
-  Subfile Type: (0 = 0x0)
-  Image Width: 800 Image Length: 533
-  Resolution: 150, 150 pixels/inch
-  Position: 0, 0
-  Bits/Sample: 8
-  Sample Format: unsigned integer
-  Compression Scheme: PackBits
-  Photometric Interpretation: RGB color
-  Extra Samples: 1&lt;unassoc-alpha&gt;            &lt;&lt;&lt;&lt;&lt; mask
-  Orientation: row 0 top, col 0 lhs
-  Samples/Pixel: 4                           &lt;&lt;&lt;&lt;&lt; R, G, B, and mask
-  Rows/Strip: 327
-  Planar Configuration: single image plane
-</pre>
-</td></tr></table>
-<p>The “Matte” part of the image class and the “Extra Samples” line tell us that the file features a mask. Also, many interactive image manipulation programs show the mask as a separate channel, sometimes called “Alpha”. There, the white (high mask value) parts of the mask enable pixels and black (low mask value) parts suppress them.
-</p><p>The multitude of terms all describing the concept of a mask is confusing.
-</p>
-<dl><dt> Mask
-</dt><dd> A mask defines a selection of pixels. A value of zero represents an unselected pixel. The maximum value (“white”) represents a selected pixel and the values between zero and the maximum are partially selected pixels. See Gimp-Savy<a class="external" href="http://gimp-savvy.com/BOOK/index.html$$$$node42.html">[*]</a>.
-</dd><dt> Alpha Channel
-</dt><dd> The alpha channel stores the transpacency value for each pixel, typically in the range from zero to one. A value of zero means the pixel is completely transparent, thus does not contribute to the image. A value of one on the other hand means the pixel is completely opaque.
-</dd><dt> Matte
-</dt><dd> The notion “matte” as used by ImageMagick refers to an inverted alpha channel, more precisely: 1 - alpha. See ImageMagick<a class="external" href="http://www.imagemagick.org/Usage/channels/#trans">[*]</a> for further explanations.
-</dd></dl>
-<p>Enblend and Enfuse only consider pixels that have an associated mask value different from zero. If an input image does not have an alpha channel, Enblend warns and assumes a mask of all non-zero values, this is, it will use every pixel of the input image for fusion.
-</p><p>Stitchers like <code>nona</code> add a mask to their output images.
-</p><p>Sometimes it is helpful to manually modify a mask before fusion. For example to suppress unwanted objects (insects and cars come into mind) that moved across the scene during the exposures. If the masks of all input images are black at a certain position, the output image will have a hole there.
-</p>
-<hr />
-<p><span id="SEC8"></span>
-</p>
-<a name="Weight_Mask_Files" id="Weight_Mask_Files"></a><h3> <span class="mw-headline">Weight Mask Files</span></h3>
-<p>...
-</p>
-<hr />
-<p><span id="Tuning-Memory-Usage"></span> <span id="SEC9"></span>
-</p>
-<a name="Tuning_Memory_Usage" id="Tuning_Memory_Usage"></a><h2> <span class="mw-headline">Tuning Memory Usage</span></h2>
-<p>The default configuration of Enfuse assumes a system with 3–4GB of RAM.
-</p><p><span id="IDX63"></span>
-</p><p>If Enfuse has been compiled with the C++-preprocessor symbol <code>ENBLEND_CACHE_IMAGES</code> it uses its own image cache, whose size is user configurable with the option ‘-m <var>CACHE-SIZE</var>’ (see section <a href="Enblend_reference_manual.html#SEC4" title="">Extended Options</a>). Furthermore, option ‘-b <var>BUFFER-SIZE</var>’ (see section <a href="Enblend_reference_manual.html#SEC4" title="">Extended Options</a>) allows for fine-tuning the size of a single buffer inside the image cache. Note that <var>CACHE-SIZE</var> is given in megabytes, whereas <var>BUFFER-SIZE</var> is given in kilobytes.
-</p><p>Usually the user lets the operating system take care of the memory management of all processes. However, a user of Enfuse might want to control the balance between the operating systems' Virtual Memory System and Enfuse's image cache for several reasons.
-</p>
-<ul><li> Paging in or out parts of a process' image runs at kernel level and thus can make user processes appear unresponsive or “jumpy”. The caching mechanism of Enfuse of course runs as a user process, which is why it has less detrimental effects on the system's overall responsiveness.
-</li><li> Enfuse's image cache has been optimized for accesses to image data. And all algorithms in Enfuse have been carefully arranged to play nice with the image cache. An operating system's cache has no knowledge of these particular memory access patterns.
-</li><li> The disk access of the operating system to the swap device has been highly optimized. Enfuse on the other hand uses the standard IO-layer which is a slower interface.
-</li><li> Limiting the amount of image cache prevents Enfuse from eating up most or all RAM, thereby forcing all user applications into the swap device.
-</li></ul>
-<p>The <var>CACHE-SIZE</var> should be set in a way as to reconcile all of the above aspects even for the biggest data sets (this is many images and large images).
-</p><p>Suggested cache- and buffer-sizes for different amounts of available RAM.
-</p>
-<div class="float"><span id="tab_003acache_002dsize_002dsettings"></span>
-<table border="1">
-<tr>
-<th> RAM
-</th><th> <i>CACHE-SIZE</i>
-</th><th> <i>BUFFER-SIZE</i>
-</th><th> Comment
-</th></tr>
-<tr>
-<th> MB
-</th><th> MB
-</th><th> KB
-</th></tr>
-<tr>
-<td> 4096
-</td><td> 1024
-</td><td> 2048
-</td><td> default
-</td></tr>
-<tr>
-<td> 2048
-</td><td> 512–1024
-</td><td> 1024
-</td></tr>
-<tr>
-<td> 1024
-</td><td> 256–512
-</td><td> 256–512
-</td></tr></table>
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Namespaces</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="Enblend_reference_manual.html"  title="View the content page [c]" accesskey="c">Page</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://wiki.panotools.org/index.php?title=Talk:Enblend_reference_manual&amp;action=edit&amp;redlink=1"  title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>
+			</ul>
 </div>
-<p><b>Table 4.1: Suggested cache-size settings </b>
-</p>
-<hr />
-<p><span id="Helpful-Programs"></span> <span id="SEC10"></span>
-</p>
-<a name="Helpful_Additional_Programs" id="Helpful_Additional_Programs"></a><h2> <span class="mw-headline">Helpful Additional Programs</span></h2>
-<p>Several libraries and programs have proven helpful when working with Enfuse and Enblend.
-</p>
-<dl><dt> <b>Raw Image Conversion</b>
-</dt></dl>
-<dl><dd><ul><li> <span id="IDX64"></span> <span id="IDX65"></span> DCRaw<a class="external" href="http://www.cybercom.net/~dcoffin/dcraw/">[*]</a> is a universal raw-converter.
-</li><li> <span id="IDX66"></span> <span id="IDX67"></span> <span id="IDX68"></span> UFRaw<a class="external" href="http://ufraw.sourceforge.net/">[*]</a>, a raw converter based on DCRaw, adds a GUI (<code>ufraw</code>), versatile batch processing (<code>ufraw-batch</code>), and some additional features like, for example, cropping, noise reduction with wavelets, and automatic lens error correction.
-</li></ul>
-</dd></dl>
-<dl><dt> <b>Image Alignment and Rendering</b>
-</dt></dl>
-<dl><dd><ul><li> <span id="IDX69"></span> <span id="IDX70"></span> ALE<a class="external" href="http://auricle.dyndns.org/ALE/">[*]</a>, David Hilvert's anti-lamenessing engine for the real die-hard command-line users aligns, filters, and renders images.
-</li><li> <span id="IDX71"></span> <span id="IDX72"></span> Hugin<a class="external" href="http://hugin.sourceforge.net/">[*]</a> is a GUI that aligns and stitches images. <span id="IDX73"></span> <span id="IDX74"></span> <span id="IDX75"></span> It comes with several command line tools, like <code>nona</code> to stitch panorama images, <code>align_image_stack</code> to align overlapping images for HDR or create focus stacks, and <code>fulla</code> to correct lens errors.
-</li><li> <span id="IDX76"></span> <span id="IDX77"></span> <span id="IDX78"></span> PanoTools<a class="external" href="http://panotools.sourceforge.net/">[*]</a> the successor of Helmut Dersch's original PanoTools<a class="external" href="http://www.panotools.org/dersch/">[*]</a> offers a set of command-line dirven applications to create panoramas. Most notable are <code>PTOptimizer</code> and <code>PTmender</code>.
-</li></ul>
-</dd></dl>
-<dl><dt> <b>Image Manipulation</b>
-</dt></dl>
-<dl><dd><ul><li> <span id="IDX79"></span> <span id="IDX80"></span> CinePaint<a class="external" href="http://www.cinepaint.org/">[*]</a> is a branch of an early Gimp forked off at version 1.0.4. It sports much less features than the current Gimp, but offers 8bit, 16bit and 32bit color channels, HDR (for example floating-point TIFF, and OpenEXR), and a tightly integrated color management system.
-</li><li> <span id="IDX81"></span> <span id="IDX82"></span> The [www.gimp.org/ Gimp] is a general purpose image manipulation program. At the time of this writing it is still limited to images with only 8bits per channel.
-</li><li> <span id="IDX83"></span> <span id="IDX84"></span> ImageMagick<a class="external" href="http://www.imagemagick.org/">[*]</a> and its clone GraphicsMagick<a class="external" href="http://www.graphicsmagick.org/">[*]</a> are general purpose command-line driven image manipulation programs.
-</li></ul>
-</dd></dl>
-<dl><dt> <b>High Dynamic Range</b>
-</dt></dl>
-<dl><dd><ul><li> <span id="IDX85"></span> OpenEXR<a class="external" href="http://www.openexr.com/">[*]</a> offers libraries and some programs to work with the EXR HDR format.
-</li><li> <span id="IDX86"></span> PFSTools<a class="external" href="http://pfstools.sourceforge.net/">[*]</a> create, modify, and tonemap high-dynamic range images.
-</li></ul>
-</dd></dl>
-<dl><dt> <b>Libraries</b>
-</dt></dl>
-<dl><dd><ul><li> <span id="IDX87"></span> LibJPEG<a class="external" href="http://www.ijg.org/">[*]</a> is a library for handling the JPEG (JFIF) image format.
-</li><li> <span id="IDX88"></span> LibPNG<a class="external" href="http://www.libpng.org/pub/png/libpng.html">[*]</a> is a library that handles the Portable Network Graphics (PNG) image format.
-</li><li> <span id="IDX89"></span> LibTIFF<a class="external" href="http://www.remotesensing.org/libtiff/">[*]</a> offers a library and utility programs to manipulate the ubiquitous Tagged Image File Format, TIFF. <span id="IDX90"></span> The nifty <code>tiffinfo</code> command quickly inquires the properties of TIFF files.
-</li></ul>
-</dd></dl>
-<dl><dt> <b>Meta-Data Handling</b>
-</dt></dl>
-<dl><dd><ul><li> <span id="IDX91"></span> <span id="IDX92"></span> EXIFTool<a class="external" href="http://www.sno.phy.queensu.ca/~phil/exiftool/">[*]</a> reads and writes EXIF meta data. In particular it copies meta data from one image to another.
-</li><li> <span id="IDX93"></span> <span id="IDX94"></span> LittleCMS<a class="external" href="http://www.littlecms.com/">[*]</a> is the color management library used by Hugin, DCRaw, UFRaw, Enblend, and Enfuse. It supplies some binaries, too. <code>tifficc</code>, an ICC color profile applier, is of particular interest.
-</li></ul>
-</dd></dl>
-<hr />
-<p><span id="Authors"></span> <span id="SEC11"></span>
-</p>
-<a name="A._Authors" id="A._Authors"></a><h2> <span class="mw-headline">A. Authors</span></h2>
-<ul><li> Andrew Mihal <a href="mailto:acmihal@users.sourceforge.net" class="external text" title="mailto:acmihal@users.sourceforge.net" rel="nofollow">acmihal@users.sourceforge.net</a>.
-</li></ul>
-<hr />
-<p><span id="Program-Index"></span> <span id="SEC13"></span>
-</p>
-<a name="Program_Index" id="Program_Index"></a><h2> <span class="mw-headline">Program Index</span></h2>
-<table>
-<tr>
-<th> Jump to:
-</th><td>
-<p><a href="Enblend_reference_manual.html#SEC13_0" title=""><b>A</b></a> <a href="Enblend_reference_manual.html#SEC13_1" title=""><b>C</b></a> <a href="Enblend_reference_manual.html#SEC13_2" title=""><b>D</b></a> <a href="Enblend_reference_manual.html#SEC13_3" title=""><b>E</b></a> <a href="Enblend_reference_manual.html#SEC13_4" title=""><b>F</b></a> <a href="Enblend_reference_manual.html#SEC13_5" title=""><b>G</b></a> <a href="Enblend_reference_manual.html#SEC13_6" title=""><b>H</b></a> <a href="Enblend_reference_manual.html#SEC13_7" title=""><b>I</b></a> <a href="Enblend_reference_manual.html#SEC13_8" title=""><b>L</b></a> <a href="Enblend_reference_manual.html#SEC13_9" title=""><b>N</b></a> <a href="Enblend_reference_manual.html#SEC13_10" title=""><b>O</b></a> <a href="Enblend_reference_manual.html#SEC13_11" title=""><b>P</b></a> <a href="Enblend_reference_manual.html#SEC13_12" title=""><b>T</b></a> <a href="Enblend_reference_manual.html#SEC13_13" title=""><b>U</b></a>
-</p>
-</td></tr></table>
-<table class="index-pg">
-<tr>
-<th align="left"> Index Entry
-</th><th align="left"> Section
-</th></tr>
-<tr>
-<td colspan="3">
-<hr />
-</td></tr>
-<tr>
-<th> <span id="SEC13_0"></span> A
-</th></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX69" title=""><code>ALE</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC10" title="">Helpful Additional Programs</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX74" title=""><code>align_image_stack</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC10" title="">Helpful Additional Programs</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX70" title=""><code>Anti-Lamenessing Engine</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC10" title="">Helpful Additional Programs</a>
-</p>
-</td></tr>
-<tr>
-<td colspan="3">
-<hr />
-</td></tr>
-<tr>
-<th> <span id="SEC13_1"></span> C
-</th></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX79" title=""><code>CinePaint</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC10" title="">Helpful Additional Programs</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX80" title=""><code>cinepaint</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC10" title="">Helpful Additional Programs</a>
-</p>
-</td></tr>
-<tr>
-<td colspan="3">
-<hr />
-</td></tr>
-<tr>
-<th> <span id="SEC13_2"></span> D
-</th></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX65" title=""><code>dcraw</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC10" title="">Helpful Additional Programs</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX64" title=""><code>DCRaw</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC10" title="">Helpful Additional Programs</a>
-</p>
-</td></tr>
-<tr>
-<td colspan="3">
-<hr />
-</td></tr>
-<tr>
-<th> <span id="SEC13_3"></span> E
-</th></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX92" title=""><code>exiftool</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC10" title="">Helpful Additional Programs</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX91" title=""><code>EXIFTool</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC10" title="">Helpful Additional Programs</a>
-</p>
-</td></tr>
-<tr>
-<td colspan="3">
-<hr />
-</td></tr>
-<tr>
-<th> <span id="SEC13_4"></span> F
-</th></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX75" title=""><code>fulla</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC10" title="">Helpful Additional Programs</a>
-</p>
-</td></tr>
-<tr>
-<td colspan="3">
-<hr />
-</td></tr>
-<tr>
-<th> <span id="SEC13_5"></span> G
-</th></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX82" title=""><code>gimp</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC10" title="">Helpful Additional Programs</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX81" title=""><code>Gimp</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC10" title="">Helpful Additional Programs</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX84" title=""><code>GraphicsMagick</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC10" title="">Helpful Additional Programs</a>
-</p>
-</td></tr>
-<tr>
-<td colspan="3">
-<hr />
-</td></tr>
-<tr>
-<th> <span id="SEC13_6"></span> H
-</th></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX1" title=""><code>hugin</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC1" title="">Overview</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX38" title=""><code>Hugin</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC4" title="">Extended Options</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX72" title=""><code>hugin</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC10" title="">Helpful Additional Programs</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX71" title=""><code>Hugin</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC10" title="">Helpful Additional Programs</a>
-</p>
-</td></tr>
-<tr>
-<td colspan="3">
-<hr />
-</td></tr>
-<tr>
-<th> <span id="SEC13_7"></span> I
-</th></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX61" title=""><code>identify</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC7" title="">Masks in Input Files</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX83" title=""><code>ImageMagick</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC10" title="">Helpful Additional Programs</a>
-</p>
-</td></tr>
-<tr>
-<td colspan="3">
-<hr />
-</td></tr>
-<tr>
-<th> <span id="SEC13_8"></span> L
-</th></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX87" title=""><code>LibJPEG</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC10" title="">Helpful Additional Programs</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX88" title=""><code>LibPNG</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC10" title="">Helpful Additional Programs</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX89" title=""><code>LibTIFF</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC10" title="">Helpful Additional Programs</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX93" title=""><code>LittleCMS, TiffICC</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC10" title="">Helpful Additional Programs</a>
-</p>
-</td></tr>
-<tr>
-<td colspan="3">
-<hr />
-</td></tr>
-<tr>
-<th> <span id="SEC13_9"></span> N
-</th></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX37" title=""><code>nona</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC4" title="">Extended Options</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX73" title=""><code>nona</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC10" title="">Helpful Additional Programs</a>
-</p>
-</td></tr>
-<tr>
-<td colspan="3">
-<hr />
-</td></tr>
-<tr>
-<th> <span id="SEC13_10"></span> O
-</th></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX85" title=""><code>OpenEXR</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC10" title="">Helpful Additional Programs</a>
-</p>
-</td></tr>
-<tr>
-<td colspan="3">
-<hr />
-</td></tr>
-<tr>
-<th> <span id="SEC13_11"></span> P
-</th></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX2" title=""><code>PanoTools</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC1" title="">Overview</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX76" title=""><code>PanoTools</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC10" title="">Helpful Additional Programs</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX86" title=""><code>PFSTools</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC10" title="">Helpful Additional Programs</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX78" title=""><code>PTmender</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC10" title="">Helpful Additional Programs</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX77" title=""><code>PTOptimizer</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC10" title="">Helpful Additional Programs</a>
-</p>
-</td></tr>
-<tr>
-<td colspan="3">
-<hr />
-</td></tr>
-<tr>
-<th> <span id="SEC13_12"></span> T
-</th></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX94" title=""><code>tifficc</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC10" title="">Helpful Additional Programs</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX62" title=""><code>tiffinfo</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC7" title="">Masks in Input Files</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX90" title=""><code>tiffinfo</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC10" title="">Helpful Additional Programs</a>
-</p>
-</td></tr>
-<tr>
-<td colspan="3">
-<hr />
-</td></tr>
-<tr>
-<th> <span id="SEC13_13"></span> U
-</th></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX66" title=""><code>UFRaw</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC10" title="">Helpful Additional Programs</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX67" title=""><code>ufraw</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC10" title="">Helpful Additional Programs</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX68" title=""><code>ufraw-batch</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC10" title="">Helpful Additional Programs</a>
-</p>
-</td></tr>
-<tr>
-<td colspan="3">
-<hr />
-</td></tr></table>
-<table>
-<tr>
-<th> Jump to:
-</th><td>
-<p><a href="Enblend_reference_manual.html#SEC13_0" title=""><b>A</b></a> <a href="Enblend_reference_manual.html#SEC13_1" title=""><b>C</b></a> <a href="Enblend_reference_manual.html#SEC13_2" title=""><b>D</b></a> <a href="Enblend_reference_manual.html#SEC13_3" title=""><b>E</b></a> <a href="Enblend_reference_manual.html#SEC13_4" title=""><b>F</b></a> <a href="Enblend_reference_manual.html#SEC13_5" title=""><b>G</b></a> <a href="Enblend_reference_manual.html#SEC13_6" title=""><b>H</b></a> <a href="Enblend_reference_manual.html#SEC13_7" title=""><b>I</b></a> <a href="Enblend_reference_manual.html#SEC13_8" title=""><b>L</b></a> <a href="Enblend_reference_manual.html#SEC13_9" title=""><b>N</b></a> <a href="Enblend_reference_manual.html#SEC13_10" title=""><b>O</b></a> <a href="Enblend_reference_manual.html#SEC13_11" title=""><b>P</b></a> <a href="Enblend_reference_manual.html#SEC13_12" title=""><b>T</b></a> <a href="Enblend_reference_manual.html#SEC13_13" title=""><b>U</b></a>
-</p>
-</td></tr></table>
-<hr />
-<p><span id="Option-Index"></span> <span id="SEC14"></span>
-</p>
-<a name="Option_Index" id="Option_Index"></a><h2> <span class="mw-headline">Option Index</span></h2>
-<table class="index-op">
-<tr>
-<th align="left"> Index Entry
-</th><th align="left"> Section
-</th></tr>
-<tr>
-<td colspan="3">
-<hr />
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX3" title=""><code>-a</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC3" title="">Common Options</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX22" title=""><code>-b</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC4" title="">Extended Options</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#SEC9" title=""><code>-b</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC9" title="">Tuning Memory Usage</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX24" title=""><code>-c</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC4" title="">Extended Options</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX43" title=""><code>--coarse-mask</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC5" title="">Mask Generation Options</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX4" title=""><code>--compression</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC3" title="">Common Options</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX27" title=""><code>-d</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC4" title="">Extended Options</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX28" title=""><code>--depth</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC4" title="">Extended Options</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX35" title=""><code>-f</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC4" title="">Extended Options</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX46" title=""><code>--fine-mask</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC5" title="">Mask Generation Options</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX30" title=""><code>-g</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC4" title="">Extended Options</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX34" title=""><code>--gpu</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC4" title="">Extended Options</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX11" title=""><code>-h</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC3" title="">Common Options</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX12" title=""><code>--help</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC3" title="">Common Options</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX13" title=""><code>-l</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC3" title="">Common Options</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX49" title=""><code>--load-mask</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC5" title="">Mask Generation Options</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX39" title=""><code>-m</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC4" title="">Extended Options</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#SEC9" title=""><code>-m</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC9" title="">Tuning Memory Usage</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX52" title=""><code>--no-optimize</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC5" title="">Mask Generation Options</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX14" title=""><code>-o</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC3" title="">Common Options</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX55" title=""><code>--optimize</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC5" title="">Mask Generation Options</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX58" title=""><code>--save-mask</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC5" title="">Mask Generation Options</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX17" title=""><code>-V</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC3" title="">Common Options</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX15" title=""><code>-v</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC3" title="">Common Options</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX16" title=""><code>--verbose</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC3" title="">Common Options</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX18" title=""><code>--version</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC3" title="">Common Options</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX41" title=""><code>--visualize</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC4" title="">Extended Options</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX19" title=""><code>-w</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC3" title="">Common Options</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX20" title=""><code>-x</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC3" title="">Common Options</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX21" title=""><code>-z</code></a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC3" title="">Common Options</a>
-</p>
-</td></tr>
-<tr>
-<td colspan="3">
-<hr />
-</td></tr></table>
-<hr />
-<p><span id="General-Index"></span> <span id="SEC15"></span>
-</p>
-<a name="General_Index" id="General_Index"></a><h2> <span class="mw-headline">General Index</span></h2>
-<table>
-<tr>
-<th> Jump to:
-</th><td>
-<p><a href="Enblend_reference_manual.html#SEC15_0" title=""><b>A</b></a> <a href="Enblend_reference_manual.html#SEC15_1" title=""><b>B</b></a> <a href="Enblend_reference_manual.html#SEC15_2" title=""><b>C</b></a> <a href="Enblend_reference_manual.html#SEC15_3" title=""><b>D</b></a> <a href="Enblend_reference_manual.html#SEC15_4" title=""><b>E</b></a> <a href="Enblend_reference_manual.html#SEC15_5" title=""><b>F</b></a> <a href="Enblend_reference_manual.html#SEC15_6" title=""><b>G</b></a> <a href="Enblend_reference_manual.html#SEC15_7" title=""><b>H</b></a> <a href="Enblend_reference_manual.html#SEC15_8" title=""><b>I</b></a> <a href="Enblend_reference_manual.html#SEC15_9" title=""><b>L</b></a> <a href="Enblend_reference_manual.html#SEC15_10" title=""><b>M</b></a> <a href="Enblend_reference_manual.html#SEC15_11" title=""><b>O</b></a> <a href="Enblend_reference_manual.html#SEC15_12" title=""><b>P</b></a> <a href="Enblend_reference_manual.html#SEC15_13" title=""><b>S</b></a> <a href="Enblend_reference_manual.html#SEC15_14" title=""><b>U</b></a> <a href="Enblend_reference_manual.html#SEC15_15" title=""><b>W</b></a>
-</p>
-</td></tr></table>
-<table class="index-cp">
-<tr>
-<th align="left"> Index Entry
-</th><th align="left"> Section
-</th></tr>
-<tr>
-<td colspan="3">
-<hr />
-</td></tr>
-<tr>
-<th> <span id="SEC15_0"></span> A
-</th></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX31" title="">alpha channels, unassociated</a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC4" title="">Extended Options</a>
-</p>
-</td></tr>
-<tr>
-<td colspan="3">
-<hr />
-</td></tr>
-<tr>
-<th> <span id="SEC15_1"></span> B
-</th></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#SEC6" title="">binary mask</a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC6" title="">Understanding Masks</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX29" title="">bits per channel</a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC4" title="">Extended Options</a>
-</p>
-</td></tr>
-<tr>
-<td colspan="3">
-<hr />
-</td></tr>
-<tr>
-<th> <span id="SEC15_2"></span> C
-</th></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX26" title="">CIECAM02</a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC4" title="">Extended Options</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX33" title="">Cinepaint</a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC4" title="">Extended Options</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX45" title="">coarse mask</a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC5" title="">Mask Generation Options</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX25" title="">color appearance model</a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC4" title="">Extended Options</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX6" title="">compression, deflate</a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC3" title="">Common Options</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX8" title="">compression, LZW</a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC3" title="">Common Options</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX10" title="">compression, packbits</a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC3" title="">Common Options</a>
-</p>
-</td></tr>
-<tr>
-<td colspan="3">
-<hr />
-</td></tr>
-<tr>
-<th> <span id="SEC15_3"></span> D
-</th></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX5" title="">deflate compression</a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC3" title="">Common Options</a>
-</p>
-</td></tr>
-<tr>
-<td colspan="3">
-<hr />
-</td></tr>
-<tr>
-<th> <span id="SEC15_4"></span> E
-</th></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX63" title=""><code>ENBLEND_CACHE_IMAGES</code> (preprocessor symbol)</a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC9" title="">Tuning Memory Usage</a>
-</p>
-</td></tr>
-<tr>
-<td colspan="3">
-<hr />
-</td></tr>
-<tr>
-<th> <span id="SEC15_5"></span> F
-</th></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX48" title="">fine mask</a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC5" title="">Mask Generation Options</a>
-</p>
-</td></tr>
-<tr>
-<td colspan="3">
-<hr />
-</td></tr>
-<tr>
-<th> <span id="SEC15_6"></span> G
-</th></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#SEC15" title="">general index</a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC15" title="">General Index</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX32" title="">Gimp</a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC4" title="">Extended Options</a>
-</p>
-</td></tr>
-<tr>
-<td colspan="3">
-<hr />
-</td></tr>
-<tr>
-<th> <span id="SEC15_7"></span> H
-</th></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#SEC10" title="">helpful programs</a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC10" title="">Helpful Additional Programs</a>
-</p>
-</td></tr>
-<tr>
-<td colspan="3">
-<hr />
-</td></tr>
-<tr>
-<th> <span id="SEC15_8"></span> I
-</th></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX23" title="">image cache, block size</a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC4" title="">Extended Options</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX40" title="">image cache, cache size</a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC4" title="">Extended Options</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#SEC15" title="">index, general</a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC15" title="">General Index</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#SEC14" title="">index, option</a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC14" title="">Option Index</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#SEC13" title="">index, program</a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC13" title="">Program Index</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#SEC7" title="">input masks</a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC7" title="">Masks in Input Files</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#SEC2" title="">invocation</a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC2" title="">Invocation</a>
-</p>
-</td></tr>
-<tr>
-<td colspan="3">
-<hr />
-</td></tr>
-<tr>
-<th> <span id="SEC15_9"></span> L
-</th></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX51" title="">load mask</a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC5" title="">Mask Generation Options</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX7" title="">LZW compression</a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC3" title="">Common Options</a>
-</p>
-</td></tr>
-<tr>
-<td colspan="3">
-<hr />
-</td></tr>
-<tr>
-<th> <span id="SEC15_10"></span> M
-</th></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#SEC6" title="">mask, binary</a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC6" title="">Understanding Masks</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX44" title="">mask, coarse</a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC5" title="">Mask Generation Options</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX47" title="">mask, fine</a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC5" title="">Mask Generation Options</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX50" title="">mask, load</a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC5" title="">Mask Generation Options</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX59" title="">mask, save</a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC5" title="">Mask Generation Options</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX42" title="">mask, visualization</a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC4" title="">Extended Options</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#SEC6" title="">mask, weight</a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC6" title="">Understanding Masks</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#SEC7" title="">masks, input files</a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC7" title="">Masks in Input Files</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#SEC6" title="">masks, undestanding</a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC6" title="">Understanding Masks</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#SEC8" title="">masks, weight</a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC8" title="">Weight Mask Files</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#SEC9" title="">memory, tuning usage of</a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC9" title="">Tuning Memory Usage</a>
-</p>
-</td></tr>
-<tr>
-<td colspan="3">
-<hr />
-</td></tr>
-<tr>
-<th> <span id="SEC15_11"></span> O
-</th></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX53" title="">optimize seam</a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC5" title="">Mask Generation Options</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX56" title="">optimize seam</a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC5" title="">Mask Generation Options</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#SEC14" title="">option index</a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC14" title="">Option Index</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#SEC3" title="">options, common</a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC3" title="">Common Options</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#SEC4" title="">options, extended</a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC4" title="">Extended Options</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#SEC5" title="">options, mask generation</a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC5" title="">Mask Generation Options</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX36" title="">output image, set size of</a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC4" title="">Extended Options</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#SEC1" title="">overview</a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC1" title="">Overview</a>
-</p>
-</td></tr>
-<tr>
-<td colspan="3">
-<hr />
-</td></tr>
-<tr>
-<th> <span id="SEC15_12"></span> P
-</th></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX9" title="">packbits compression</a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC3" title="">Common Options</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#SEC13" title="">program index</a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC13" title="">Program Index</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#SEC10" title="">programs, helpful additional</a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC10" title="">Helpful Additional Programs</a>
-</p>
-</td></tr>
-<tr>
-<td colspan="3">
-<hr />
-</td></tr>
-<tr>
-<th> <span id="SEC15_13"></span> S
-</th></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX60" title="">save mask</a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC5" title="">Mask Generation Options</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX54" title="">seam optimization</a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC5" title="">Mask Generation Options</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#IDX57" title="">seam optimization</a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC5" title="">Mask Generation Options</a>
-</p>
-</td></tr>
-<tr>
-<td colspan="3">
-<hr />
-</td></tr>
-<tr>
-<th> <span id="SEC15_14"></span> U
-</th></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#SEC6" title="">undestanding masks</a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC6" title="">Understanding Masks</a>
-</p>
-</td></tr>
-<tr>
-<td colspan="3">
-<hr />
-</td></tr>
-<tr>
-<th> <span id="SEC15_15"></span> W
-</th></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#SEC6" title="">weight mask</a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC6" title="">Understanding Masks</a>
-</p>
-</td></tr>
-<tr>
-<td>
-<p><a href="Enblend_reference_manual.html#SEC8" title="">weight masks</a>
-</p>
-</td><td>
-<p><a href="Enblend_reference_manual.html#SEC8" title="">Weight Mask Files</a>
-</p>
-</td></tr>
-<tr>
-<td colspan="3">
-<hr />
-</td></tr></table>
-<table>
-<tr>
-<th> Jump to:
-</th><td>
-<p><a href="Enblend_reference_manual.html#SEC15_0" title=""><b>A</b></a> <a href="Enblend_reference_manual.html#SEC15_1" title=""><b>B</b></a> <a href="Enblend_reference_manual.html#SEC15_2" title=""><b>C</b></a> <a href="Enblend_reference_manual.html#SEC15_3" title=""><b>D</b></a> <a href="Enblend_reference_manual.html#SEC15_4" title=""><b>E</b></a> <a href="Enblend_reference_manual.html#SEC15_5" title=""><b>F</b></a> <a href="Enblend_reference_manual.html#SEC15_6" title=""><b>G</b></a> <a href="Enblend_reference_manual.html#SEC15_7" title=""><b>H</b></a> <a href="Enblend_reference_manual.html#SEC15_8" title=""><b>I</b></a> <a href="Enblend_reference_manual.html#SEC15_9" title=""><b>L</b></a> <a href="Enblend_reference_manual.html#SEC15_10" title=""><b>M</b></a> <a href="Enblend_reference_manual.html#SEC15_11" title=""><b>O</b></a> <a href="Enblend_reference_manual.html#SEC15_12" title=""><b>P</b></a> <a href="Enblend_reference_manual.html#SEC15_13" title=""><b>S</b></a> <a href="Enblend_reference_manual.html#SEC15_14" title=""><b>U</b></a> <a href="Enblend_reference_manual.html#SEC15_15" title=""><b>W</b></a>
-</p>
-</td></tr></table>
-<hr />
-<p><span id="SEC_Foot"></span>
-</p>
-<a name="Footnotes" id="Footnotes"></a><h2> <span class="mw-headline">Footnotes</span></h2>
-<p><span id="FOOT1"></span> <a href="Enblend_reference_manual.html#DOCF1" title="">(1)</a> Peter J. Burt and Edward H. Adelson, “A Multiresolution Spline With Application to Image Mosaics”, ACM Transactions on Graphics, Vol. 2, No. 4, October 1983, pages 217–236.
-</p>
-<hr />
-<p><span id="SEC_Contents"></span>
-</p>
-<a name="Table_of_Contents" id="Table_of_Contents"></a><h2> <span class="mw-headline">Table of Contents</span></h2>
-<div class="contents">
-<ul><li> <span id="TOC1"></span> <a href="Enblend_reference_manual.html#SEC1" title="">Overview</a>
-</li><li> <span id="TOC2"></span> <a href="Enblend_reference_manual.html#SEC2" title="">Invocation</a>
-<ul><li> <span id="TOC3"></span> <a href="Enblend_reference_manual.html#SEC3" title="">Common Options</a>
-</li><li> <span id="TOC4"></span> <a href="Enblend_reference_manual.html#SEC4" title="">Extended Options</a>
-</li><li> <span id="TOC5"></span> <a href="Enblend_reference_manual.html#SEC5" title="">Mask Generation Options</a>
-</li></ul>
-</li><li> <span id="TOC6"></span> <a href="Enblend_reference_manual.html#SEC6" title="">Understanding Masks</a>
-<ul><li> <span id="TOC7"></span> <a href="Enblend_reference_manual.html#SEC7" title="">Masks in Input Files</a>
-</li><li> <span id="TOC8"></span> <a href="Enblend_reference_manual.html#SEC8" title="">Weight Mask Files</a>
-</li></ul>
-</li><li> <span id="TOC9"></span> <a href="Enblend_reference_manual.html#SEC9" title="">Tuning Memory Usage</a>
-</li><li> <span id="TOC10"></span> <a href="Enblend_reference_manual.html#SEC10" title="">Helpful Additional Programs</a>
-</li><li> <span id="TOC11"></span> <a href="Enblend_reference_manual.html#SEC11" title="">A. Authors</a>
-</li><li> <span id="TOC13"></span> <a href="Enblend_reference_manual.html#SEC13" title="">Program Index</a>
-</li><li> <span id="TOC14"></span> <a href="Enblend_reference_manual.html#SEC14" title="">Option Index</a>
-</li><li> <span id="TOC15"></span> <a href="Enblend_reference_manual.html#SEC15" title="">General Index</a>
-</li></ul>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+	<h4>
+		</h4>
+	<h5><span>Variants</span><a href="Enblend_reference_manual.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
 </div>
-<hr />
 
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Views</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="Enblend_reference_manual.html" >Read</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://wiki.panotools.org/index.php?title=Enblend_reference_manual&amp;action=edit"  title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+					<li id="ca-history" class="collapsible"><span><a href="http://wiki.panotools.org/index.php?title=Enblend_reference_manual&amp;action=history"  title="Past revisions of this page [h]" accesskey="h">View history</a></span></li>
+			</ul>
+</div>
 
+<!-- /0 -->
 
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Actions</span><a href="Enblend_reference_manual.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
 
-<div class="printfooter">
-Retrieved from "<a href="Enblend_reference_manual.html">http://wiki.panotools.org/Enblend_reference_manual</a>"</div>
-			</div></div></div></div></body></html>
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Search</label></h5>
+	<form action="http://wiki.panotools.org/index.php" id="searchform">
+				<div>
+			<input type="search" name="search" title="Search PanoTools.org Wiki [f]" accesskey="f" id="searchInput" />			<input type="submit" name="go" value="Go" title="Go to a page with this exact name if exists" id="searchGoButton" class="searchButton" />			<input type="submit" name="fulltext" value="Search" title="Search the pages for this text" id="mw-searchButton" class="searchButton" />					<input type='hidden' name="title" value="Special:Search"/>
+		</div>
+	</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(/local/panotoolsng.png);" href="http://wiki.panotools.org/Main_Page"  title="Visit the main page"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Navigation</h5>
+	<div class="body">
+		<ul>
+			<li id="n-mainpage"><a href="/Main_Page" title="Visit the main page [z]" accesskey="z">Main Page</a></li>
+			<li id="n-Site-Map"><a href="/SiteMap">Site Map</a></li>
+			<li id="n-portal"><a href="http://www.panotools.org/" rel="nofollow" title="About the project, what you can do, where to find things">Community portal</a></li>
+			<li id="n-Mailinglist"><a href="http://groups.yahoo.com/group/PanoToolsNG" rel="nofollow">Mailinglist</a></li>
+		</ul>
+	</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- tools -->
+<div class="portal" id='p-tools'>
+	<h5>tools</h5>
+	<div class="body">
+		<ul>
+			<li id="n-All-Pages"><a href="/Special:AllPages">All Pages</a></li>
+			<li id="n-recentchanges"><a href="/Special:RecentChanges" title="A list of recent changes in the wiki [r]" accesskey="r">Recent changes</a></li>
+			<li id="n-randompage"><a href="/Special:Random" title="Load a random page [x]" accesskey="x">Random page</a></li>
+			<li id="n-help"><a href="/Help:Contents" title="The place to find out">Help</a></li>
+		</ul>
+	</div>
+</div>
+
+<!-- /tools -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id='p-tb'>
+	<h5>Toolbox</h5>
+	<div class="body">
+		<ul>
+			<li id="t-whatlinkshere"><a href="/Special:WhatLinksHere/Enblend_reference_manual" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li>
+			<li id="t-recentchangeslinked"><a href="/Special:RecentChangesLinked/Enblend_reference_manual" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li>
+			<li id="t-specialpages"><a href="/Special:SpecialPages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li>
+			<li><a href="/index.php?title=Enblend_reference_manual&amp;printable=yes" rel="alternate">Printable version</a></li>
+			<li id="t-permalink"><a href="/index.php?title=Enblend_reference_manual&amp;oldid=13978" title="Permanent link to this revision of the page">Permanent link</a></li>
+		</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+							<ul id="footer-info">
+											<li id="footer-info-lastmod"> This page was last modified on 17 June 2012, at 20:44.</li>
+											<li id="footer-info-panotoolsng.png);" href="/Main_Page"  title="Visit the main page"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Navigation</h5>
+	<div class="body">
+		<ul>
+			<li id="n-mainpage"><a href="http://wiki.panotools.org/Main_Page" title="Visit the main page [z]" accesskey="z">Main Page</a></li>
+			<li id="n-Site-Map"><a href="http://wiki.panotools.org/SiteMap">Site Map</a></li>
+			<li id="n-portal"><a href="http://www.panotools.org/" rel="nofollow" title="About the project, what you can do, where to find things">Community portal</a></li>
+			<li id="n-Mailinglist"><a href="http://groups.yahoo.com/group/PanoToolsNG" rel="nofollow">Mailinglist</a></li>
+		</ul>
+	</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- tools -->
+<div class="portal" id='p-tools'>
+	<h5>tools</h5>
+	<div class="body">
+		<ul>
+			<li id="n-All-Pages"><a href="http://wiki.panotools.org/Special:AllPages">All Pages</a></li>
+			<li id="n-recentchanges"><a href="http://wiki.panotools.org/Special:RecentChanges" title="A list of recent changes in the wiki [r]" accesskey="r">Recent changes</a></li>
+			<li id="n-randompage"><a href="http://wiki.panotools.org/Special:Random" title="Load a random page [x]" accesskey="x">Random page</a></li>
+			<li id="n-help"><a href="http://wiki.panotools.org/Help:Contents" title="The place to find out">Help</a></li>
+		</ul>
+	</div>
+</div>
+
+<!-- /tools -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id='p-tb'>
+	<h5>Toolbox</h5>
+	<div class="body">
+		<ul>
+			<li id="t-whatlinkshere"><a href="http://wiki.panotools.org/Special:WhatLinksHere/Enblend_reference_manual" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li>
+			<li id="t-recentchangeslinked"><a href="http://wiki.panotools.org/Special:RecentChangesLinked/Enblend_reference_manual" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li>
+			<li id="t-specialpages"><a href="http://wiki.panotools.org/Special:SpecialPages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li>
+			<li><a href="http://wiki.panotools.org/index.php?title=Enblend_reference_manual&amp;printable=yes" rel="alternate">Printable version</a></li>
+			<li id="t-permalink"><a href="http://wiki.panotools.org/index.php?title=Enblend_reference_manual&amp;oldid=13978" title="Permanent link to this revision of the page">Permanent link</a></li>
+		</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+							<ul id="footer-info">
+											<li id="footer-info-lastmod"> This page was last modified on 17 June 2012, at 20:44.</li>
+											<li id="footer-info-viewcount">This page has been accessed 8,640 times.</li>
+											<li id="footer-info-copyright">Content is available under <a class="external" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.2</a>.</li>
+									</ul>
+							<ul id="footer-places">
+											<li id="footer-places-privacy"><a href="http://wiki.panotools.org/PanoTools:Privacy_policy" title="PanoTools:Privacy policy">Privacy policy</a></li>
+											<li id="footer-places-about"><a href="http://wiki.panotools.org/PanoTools:About" title="PanoTools:About">About PanoTools.org Wiki</a></li>
+											<li id="footer-places-disclaimer"><a href="http://wiki.panotools.org/PanoTools:General_disclaimer" title="PanoTools:General disclaimer">Disclaimers</a></li>
+									</ul>
+										<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://www.gnu.org/copyleft/fdl.html"><img src="gnu-fdl.png" alt="GNU Free Documentation License 1.2" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		<script src="load.php%3Fdebug=false&amp;lang=en&amp;modules=skins.vector&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.user","mediawiki.page.ready"], null, true);
+}</script>
+<script type="text/javascript"> 
+function toggleDisplay( id, hidetext, showtext )
+{
+  link = document.getElementById( id + "l" ).childNodes[0];
+ 
+  with( document.getElementById( id ).style )
+    {
+      if( display == "none" )
+        {
+          display = "inline";
+          link.nodeValue = hidetext;
+        }
+      else
+        {
+          display = "none";
+          link.nodeValue = showtext;
+        }
+    }
+}
+</script>
+<script src="load.php%3Fdebug=false&amp;lang=en&amp;modules=site&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-412195-4");
+pageTracker._trackPageview();
+</script><!-- Served in 0.149 secs. -->
+	</body>
+</html>

@@ -1,49 +1,63 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta http-equiv="Content-Style-Type" content="text/css" />
-		<meta name="generator" content="MediaWiki 1.14.0" />
-		<meta name="keywords" content="HDR workflow with hugin,16bit workflow with hugin,Align a stack of photos,Bracketing,CCD,Camera response curve,Chromatic aberration,Cinepaint,Contrast Blending,Dynamic range,EXIF" />
-		
-		
-		
-		
-		
-		
-		<title>HDR workflow with hugin - PanoTools.org Wiki</title>
-		
-		
-		
-		<!--[if lt IE 5.5000]><![endif]-->
-		<!--[if IE 5.5000]><![endif]-->
-		<!--[if IE 6]><![endif]-->
-		<!--[if IE 7]><![endif]-->
-		
-		
-		
-		
-		<!--[if lt IE 7]>
-		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="client-nojs">
+<head>
+<title>HDR workflow with hugin - PanoTools.org Wiki</title>
+<meta charset="UTF-8" />
+<meta name="generator" content="MediaWiki 1.19.0" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="PanoTools.org Wiki (en)" />
+<link rel="EditURI" type="application/rsd+xml" href="http://wiki.panotools.org/api.php?action=rsd" />
+<link rel="copyright" href="http://www.gnu.org/copyleft/fdl.html" />
+<link rel="alternate" type="application/atom+xml" title="PanoTools.org Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom" />
+<link rel="stylesheet" href="http://wiki.panotools.org/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cskins.vector&amp;only=styles&amp;skin=vector&amp;*" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<link rel="stylesheet" href="http://wiki.panotools.org/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=styles&amp;skin=vector&amp;*" />
+<style>a:lang(ar),a:lang(ckb),a:lang(fa),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}a.new,#quickbar a.new{color:#ba0000}
 
-		
+/* cache key: pt_wikidb:resourceloader:filter:minify-css:7:c88e2bcd56513749bec09a7e29cb3ffa */
+</style>
 
-		
-		<style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
-		
-				
-	</head>
-<body class="mediawiki ltr ns-0 ns-subject page-HDR_workflow_with_hugin skin-monobook">
-	<div id="globalWrapper">
-		<div id="column-content">
-	<div id="content">
-		<a name="top" id="top"></a>
-				<h1 id="firstHeading" class="firstHeading">HDR workflow with hugin</h1>
-		<div id="bodyContent">
-			
-			
-												<!-- start content -->
-			<p>This tutorial doesn't cover reasons why you might want to stitch in <a href="HDR.html" title="HDR">HDR</a>
+<script src="load.php%3Fdebug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"HDR_workflow_with_hugin","wgTitle":"HDR workflow with hugin","wgCurRevisionId":12428,"wgArticleId":1947,"wgIsArticle":true,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Tutorial:Specialised","Software:Hugin","Enhance:out of date"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgRelevantPageName":"HDR_workflow_with_hugin","wgRestrictionEdit":[],"wgRestrictionMove":[]});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function($){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":0,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":5,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"en","language":"en","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":true,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":true,"searchNs10":false,"searchNs11":false,"searchNs12":true,"searchNs13":false,"searchNs14":false,"searchNs15":false});;},{},{});mw.loader.implement("user.tokens",function($){mw.user.tokens.set({"editToken":"+\\","watchToken":false});;},{},{});
+
+/* cache key: pt_wikidb:resourceloader:filter:minify-js:7:938e00507dd611bed23de13e424d3a6b */
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax"]);
+}</script>
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-HDR_workflow_with_hugin skin-vector action-view">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content" class="mw-body">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">
+				<span dir="auto">HDR workflow with hugin</span>
+			</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+								<!-- tagline -->
+				<div id="siteSub">From PanoTools.org Wiki</div>
+				<!-- /tagline -->
+								<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav" class="mw-jump">
+					Jump to: <a href="HDR_workflow_with_hugin.html#mw-head">navigation</a>,
+					<a href="HDR_workflow_with_hugin.html#p-search">search</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodycontent -->
+				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This tutorial doesn't cover reasons why you might want to stitch in <a href="HDR.html" title="HDR">HDR</a>
 format.  It is a simple HOWTO listing the tools available and how to use them
 with <a href="Hugin.html" title="Hugin">hugin</a>.
 </p><p>TODO this is all very out of date, <a href="Hugin.html" title="Hugin">hugin</a> now supports <a href="HDR.html" title="HDR">HDR</a> assembly internally.
@@ -58,12 +72,40 @@ probably want to look at a <a href="16bit_workflow_with_hugin.html" title="16bit
 </li></ul>
 <p>Each has advantages and disadvantages:  The first technique is simpler and has
 the advantage that the final <a href="HDR.html" title="HDR">HDR</a> step can be skipped and substituted with a
-Contrast Blending<a class="external" href="http://wiki.panotools.org/Contrast_Blending">[*]</a> approach, but has the potential for misalignments causing
-ghosting<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Ghosting&amp;action=edit&amp;redlink=1">[*]</a> problems.  The second technique is presented here since it
+<a href="http://wiki.panotools.org/Contrast_Blending" title="Contrast Blending">Contrast Blending</a> approach, but has the potential for misalignments causing
+<a href="http://wiki.panotools.org/index.php?title=Ghosting&amp;action=edit&amp;redlink=1" class="new" title="Ghosting (page does not exist)">ghosting</a> problems.  The second technique is presented here since it
 involves a greater range of tools.
 </p>
-
-<a name="Quick_and_easy_technique" id="Quick_and_easy_technique"></a><h1> <span class="mw-headline"> Quick and easy technique </span></h1>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="HDR_workflow_with_hugin.html#Quick_and_easy_technique"><span class="tocnumber">1</span> <span class="toctext">Quick and easy technique</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="HDR_workflow_with_hugin.html#Laborious_and_difficult_technique"><span class="tocnumber">2</span> <span class="toctext">Laborious and difficult technique</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="HDR_workflow_with_hugin.html#Preparing_the_HDR_images"><span class="tocnumber">2.1</span> <span class="toctext">Preparing the HDR images</span></a>
+<ul>
+<li class="toclevel-3 tocsection-4"><a href="HDR_workflow_with_hugin.html#Taking_bracketed_shots"><span class="tocnumber">2.1.1</span> <span class="toctext">Taking bracketed shots</span></a></li>
+<li class="toclevel-3 tocsection-5"><a href="HDR_workflow_with_hugin.html#Correcting_chromatic_aberration"><span class="tocnumber">2.1.2</span> <span class="toctext">Correcting chromatic aberration</span></a></li>
+<li class="toclevel-3 tocsection-6"><a href="HDR_workflow_with_hugin.html#Merging_bracketed_shots_with_PFScalibration"><span class="tocnumber">2.1.3</span> <span class="toctext">Merging bracketed shots with PFScalibration</span></a>
+<ul>
+<li class="toclevel-4 tocsection-7"><a href="HDR_workflow_with_hugin.html#Calibrating_the_camera_response_curve"><span class="tocnumber">2.1.3.1</span> <span class="toctext">Calibrating the camera response curve</span></a></li>
+<li class="toclevel-4 tocsection-8"><a href="HDR_workflow_with_hugin.html#Aligning_the_shots"><span class="tocnumber">2.1.3.2</span> <span class="toctext">Aligning the shots</span></a></li>
+<li class="toclevel-4 tocsection-9"><a href="HDR_workflow_with_hugin.html#Merging_the_bracketed_images_to_Radiance_RGBE_.hdr_format"><span class="tocnumber">2.1.3.3</span> <span class="toctext">Merging the bracketed images to Radiance RGBE <i>.hdr</i> format</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-10"><a href="HDR_workflow_with_hugin.html#Stitching_with_hugin"><span class="tocnumber">2.2</span> <span class="toctext">Stitching with hugin</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="HDR_workflow_with_hugin.html#Post_processing"><span class="tocnumber">2.3</span> <span class="toctext">Post processing</span></a>
+<ul>
+<li class="toclevel-3 tocsection-12"><a href="HDR_workflow_with_hugin.html#Adjusting_in_a_GUI_tool"><span class="tocnumber">2.3.1</span> <span class="toctext">Adjusting in a GUI tool</span></a></li>
+<li class="toclevel-3 tocsection-13"><a href="HDR_workflow_with_hugin.html#Tone_mapping"><span class="tocnumber">2.3.2</span> <span class="toctext">Tone mapping</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</td></tr></table>
+<h1> <span class="mw-headline" id="Quick_and_easy_technique"> Quick and easy technique </span></h1>
 <p>The rest of this tutorial describes generating high quality output using command-line tools.  However it is now possible to complete the workflow entirely with GUI tools, something like this:
 </p>
 <ol><li> Take <a href="Bracketing.html" title="Bracketing">bracketed</a> shots of your scene.
@@ -71,15 +113,15 @@ involves a greater range of tools.
 <ol><li> If your stacks don't align (shot hand-held, sloppy panohead, etc.), set some control points inside stacks and align them too.
 </li></ol>
 </li><li> Stitch the panorama with <a href="Hugin.html" title="Hugin">hugin</a> and <a href="Enblend.html" title="Enblend">enblend</a> to HDR file. 
-</li><li> Optionally tonemap the result with qtpfsgui<a class="external" href="http://wiki.panotools.org/Qtpfsgui">[*]</a>.
+</li><li> Optionally tonemap the result with <a href="http://wiki.panotools.org/Qtpfsgui" title="Qtpfsgui" class="mw-redirect">qtpfsgui</a>.
 </li></ol>
-<a name="Laborious_and_difficult_technique" id="Laborious_and_difficult_technique"></a><h1> <span class="mw-headline"> Laborious and difficult technique </span></h1>
-<a name="Preparing_the_HDR_images" id="Preparing_the_HDR_images"></a><h2> <span class="mw-headline"> Preparing the HDR images </span></h2>
+<h1> <span class="mw-headline" id="Laborious_and_difficult_technique"> Laborious and difficult technique </span></h1>
+<h2> <span class="mw-headline" id="Preparing_the_HDR_images"> Preparing the HDR images </span></h2>
 <p>Unless you have an expensive <a href="HDR.html" title="HDR">HDR</a> camera, you will be merging <a href="Bracketing.html" title="Bracketing">bracketed</a>
 shots to create the HDR images - Unfortunately this means that you are limited
 to static scenes and landscapes.
 </p>
-<a name="Taking_bracketed_shots" id="Taking_bracketed_shots"></a><h3> <span class="mw-headline"> Taking bracketed shots </span></h3>
+<h3> <span class="mw-headline" id="Taking_bracketed_shots"> Taking bracketed shots </span></h3>
 <p>The number of shots required depends on the <a href="Dynamic_range.html" title="Dynamic range">dynamic range</a> of the scene you
 need to capture and the capabilities of your camera.
 </p><p>Many cameras have an <i>auto-bracketing</i> mode that takes three or five shots
@@ -89,17 +131,17 @@ would require eight shots two stops apart.
 </p><p>Whatever method you choose, it should be obvious that you need a good tripod to
 keep the camera steady.
 </p>
-<a name="Correcting_chromatic_aberration" id="Correcting_chromatic_aberration"></a><h3> <span class="mw-headline"> Correcting chromatic aberration </span></h3>
+<h3> <span class="mw-headline" id="Correcting_chromatic_aberration"> Correcting chromatic aberration </span></h3>
 <p>Now is a good time to correct <a href="Chromatic_aberration.html" title="Chromatic aberration">chromatic aberration</a> and <a href="Vignetting.html" title="Vignetting">vignetting</a> with
 <a href="Fulla.html" title="Fulla">fulla</a> using pre-calibrated data for your lens, it doesn't really work later on.
 </p>
-<a name="Merging_bracketed_shots_with_PFScalibration" id="Merging_bracketed_shots_with_PFScalibration"></a><h3> <span class="mw-headline"> Merging bracketed shots with PFScalibration </span></h3>
-<p>There are other tools for merging bracketed images, but PFScalibration<a class="external" href="http://wiki.panotools.org/PFScalibration">[*]</a> is Free
+<h3> <span class="mw-headline" id="Merging_bracketed_shots_with_PFScalibration"> Merging bracketed shots with PFScalibration </span></h3>
+<p>There are other tools for merging bracketed images, but <a href="http://wiki.panotools.org/PFScalibration" title="PFScalibration">PFScalibration</a> is Free
 Software and does the job.
 </p><p>The steps outlined below for assembling <a href="HDR.html" title="HDR">HDR</a> images can also be
-performed with the qtpfsgui<a class="external" href="http://wiki.panotools.org/Qtpfsgui">[*]</a> GUI tool.
+performed with the <a href="http://wiki.panotools.org/Qtpfsgui" title="Qtpfsgui" class="mw-redirect">qtpfsgui</a> GUI tool.
 </p>
-<a name="Calibrating_the_camera_response_curve" id="Calibrating_the_camera_response_curve"></a><h4> <span class="mw-headline"> Calibrating the camera response curve </span></h4>
+<h4> <span class="mw-headline" id="Calibrating_the_camera_response_curve"> Calibrating the camera response curve </span></h4>
 <p>Generally when a digital camera creates a <a href="JPEG.html" title="JPEG">JPEG</a> or <a href="TIFF.html" title="TIFF">TIFF</a> file, it takes a
 12bit per-channel dynamic range image captured by the <a href="CCD.html" title="CCD">CCD</a> and compresses it
 using a <a href="Camera_response_curve.html" title="Camera response curve">camera response curve</a> into a 8bit output file.
@@ -118,13 +160,13 @@ seconds exposure.  First extract the exposure times from the <a href="EXIF.html"
 </p>
 <pre> pfsinhdrgen mycamera.hdrgen | pfshdrcalibrate -v -g 6 -s mycamera.response
 </pre>
-<a name="Aligning_the_shots" id="Aligning_the_shots"></a><h4> <span class="mw-headline"> Aligning the shots </span></h4>
+<h4> <span class="mw-headline" id="Aligning_the_shots"> Aligning the shots </span></h4>
 <p>If the pictures were taken hand-held you will need
 to <a href="Align_a_stack_of_photos.html" title="Align a stack of photos">align the stack of photos</a> using hugin.
-</p><p>Alternatively the hdrprep<a class="external" href="http://www.luxal.eu/resources/hdr/hdrprep/">[*]</a> tool
+</p><p>Alternatively the <a rel="nofollow" class="external text" href="http://www.luxal.eu/resources/hdr/hdrprep/">hdrprep</a> tool
 can be used to do all this automatically and save a lot of time.
 </p>
-<a name="Merging_the_bracketed_images_to_Radiance_RGBE_.hdr_format" id="Merging_the_bracketed_images_to_Radiance_RGBE_.hdr_format"></a><h4> <span class="mw-headline"> Merging the bracketed images to Radiance RGBE <i>.hdr</i> format </span></h4>
+<h4> <span class="mw-headline" id="Merging_the_bracketed_images_to_Radiance_RGBE_.hdr_format"> Merging the bracketed images to Radiance RGBE <i>.hdr</i> format </span></h4>
 <p>Create a <i>hdrgen</i> file listing each of your bracketed photos and their
 exposure times, you can base this on the <i>mycamera.hdrgen</i> file created earlier.
 </p><p>Then use this and your camera response file to create an <a href="RGBE.html" title="RGBE">RGBE</a> file:
@@ -135,7 +177,7 @@ exposure times, you can base this on the <i>mycamera.hdrgen</i> file created ear
 </p>
 <pre> pfsinrgbe mypicture.hdr | pfsview
 </pre>
-<a name="Stitching_with_hugin" id="Stitching_with_hugin"></a><h2> <span class="mw-headline"> Stitching with hugin </span></h2>
+<h2> <span class="mw-headline" id="Stitching_with_hugin"> Stitching with hugin </span></h2>
 <p>The <a href="RGBE.html" title="RGBE">RGBE</a> images can be loaded into <a href="Hugin.html" title="Hugin">hugin</a> as per usual with a couple of caveats:
 </p>
 <ul><li> Everything may appear very dark since our images represent linear sensor data.  The display of HDR images can be configured in the <a href="Hugin_Preferences.html" title="Hugin Preferences">Hugin Preferences</a>.
@@ -145,17 +187,17 @@ exposure times, you can base this on the <i>mycamera.hdrgen</i> file created ear
 <p>Stitch the images as per usual into a <a href="TIFF.html" title="TIFF">TIFF</a> file, you can use <a href="Enblend.html" title="Enblend">enblend</a> as the
 final step.
 </p>
-<a name="Post_processing" id="Post_processing"></a><h2> <span class="mw-headline"> Post processing </span></h2>
+<h2> <span class="mw-headline" id="Post_processing"> Post processing </span></h2>
 <p>This <a href="TIFF.html" title="TIFF">TIFF</a> file is in floating-point 32bit per channel IEEE format.  This is
 impossible to display on a normal monitor in its entirety at once, so you possibly want to create
 final 8bit per channel human-readable images.
 </p><p>Otherwise, typically a <a href="HDR.html" title="HDR">HDR</a> panoramic image is used as a <a href="Lightprobe.html" title="Lightprobe">lightprobe</a> for
 3d rendering, in which case you are now done.
 </p>
-<a name="Adjusting_in_a_GUI_tool" id="Adjusting_in_a_GUI_tool"></a><h3> <span class="mw-headline"> Adjusting in a GUI tool </span></h3>
-<p>There are various image editors that can open this file such as cinepaint<a class="external" href="http://wiki.panotools.org/Cinepaint">[*]</a>,
-krita<a class="external" href="http://wiki.panotools.org/Krita">[*]</a>, vips<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=Vips&amp;action=edit&amp;redlink=1">[*]</a> and HDRIE<a class="external" href="http://wiki.panotools.org/wiki/index.php?title=HDRIE&amp;action=edit&amp;redlink=1">[*]</a>.  The capabilities vary so you need to experiment.
-</p><p>Alternatively, use pfstools<a class="external" href="http://wiki.panotools.org/Pfstools">[*]</a> to manipulate the image: pfstools has the
+<h3> <span class="mw-headline" id="Adjusting_in_a_GUI_tool"> Adjusting in a GUI tool </span></h3>
+<p>There are various image editors that can open this file such as <a href="http://wiki.panotools.org/Cinepaint" title="Cinepaint">cinepaint</a>,
+<a href="http://wiki.panotools.org/Krita" title="Krita">krita</a>, <a href="http://wiki.panotools.org/index.php?title=Vips&amp;action=edit&amp;redlink=1" class="new" title="Vips (page does not exist)">vips</a> and <a href="http://wiki.panotools.org/index.php?title=HDRIE&amp;action=edit&amp;redlink=1" class="new" title="HDRIE (page does not exist)">HDRIE</a>.  The capabilities vary so you need to experiment.
+</p><p>Alternatively, use <a href="http://wiki.panotools.org/Pfstools" title="Pfstools">pfstools</a> to manipulate the image: pfstools has the
 facility to read <a href="HDR.html" title="HDR">HDR</a> <a href="TIFF.html" title="TIFF">TIFF</a> files.
 </p><p>An HDR image can be viewed using pfstools using:
 </p>
@@ -164,25 +206,25 @@ facility to read <a href="HDR.html" title="HDR">HDR</a> <a href="TIFF.html" titl
 <p>A quick way to create a good usable 8bit per channel image is to select <b>logarithmic mapping</b>,
 adjust the exposure slider until you see a good range of shadows and highlights, zoom 1:1 and save as <a href="PNG.html" title="PNG">PNG</a>.
 </p>
-<a name="Tone_mapping" id="Tone_mapping"></a><h3> <span class="mw-headline"> Tone mapping </span></h3>
-<p><a href="Tone_mapping.html" title="Tone mapping">tone mapping</a> operations use HDR compression<a class="external" href="http://wiki.panotools.org/HDR_compression">[*]</a> to compress high <a href="Dynamic_range.html" title="Dynamic range">dynamic range</a> images.
+<h3> <span class="mw-headline" id="Tone_mapping"> Tone mapping </span></h3>
+<p><a href="Tone_mapping.html" title="Tone mapping">tone mapping</a> operations use <a href="http://wiki.panotools.org/HDR_compression" title="HDR compression">HDR compression</a> to compress high <a href="Dynamic_range.html" title="Dynamic range">dynamic range</a> images.
 </p><p>Note that local tone mapping operators produce strange artefacts in the <a href="Zenith.html" title="Zenith">zenith</a> and
 <a href="Nadir.html" title="Nadir">nadir</a> of <a href="Equirectangular.html" title="Equirectangular" class="mw-redirect">equirectangular</a> images.  So either choose a global tone mapping operator or
 retouch the poles afterwards.
-</p><p>A related package to pfstools<a class="external" href="http://wiki.panotools.org/Pfstools">[*]</a> called <a href="Pfstmo.html" title="Pfstmo">pfstmo</a> can do automatic <a href="Tone_mapping.html" title="Tone mapping">tone mapping</a>
+</p><p>A related package to <a href="http://wiki.panotools.org/Pfstools" title="Pfstools">pfstools</a> called <a href="Pfstmo.html" title="Pfstmo">pfstmo</a> can do automatic <a href="Tone_mapping.html" title="Tone mapping">tone mapping</a>
 of an <a href="HDR.html" title="HDR">HDR</a> image and compress it into a low <a href="Dynamic_range.html" title="Dynamic range">dynamic range</a> output.  There are many
 options and techniques available, commands look like this:
 </p>
 <pre> pfsinrgbe stitch.hdr | pfstmo_drago03 | pfsgamma -g 2.2 | pfsout stitch.png
 </pre>
-<p>qtpfsgui<a class="external" href="http://wiki.panotools.org/Qtpfsgui">[*]</a> is an open source GUI for pfstools<a class="external" href="http://wiki.panotools.org/Pfstools">[*]</a> and can perform
+<p><a href="http://wiki.panotools.org/Qtpfsgui" title="Qtpfsgui" class="mw-redirect">qtpfsgui</a> is an open source GUI for <a href="http://wiki.panotools.org/Pfstools" title="Pfstools">pfstools</a> and can perform
 <a href="Tone_mapping.html" title="Tone mapping">tone mapping</a> interactively.
-</p><p>Photomatix<a class="external" href="http://wiki.panotools.org/Photomatix">[*]</a> also can perform tone mapping.
+</p><p><a href="http://wiki.panotools.org/Photomatix" title="Photomatix">Photomatix</a> also can perform tone mapping.
 </p>
 <div class="usermessage" id="stub">
 <table cellpadding="0" cellspacing="0" style="background-color:inherit">
 <tr>
-<td><i>This article is out of date.  You can help Panotools Wiki by expanding it<a class="external" href="http://wiki.panotools.org/wiki/index.php?stub&amp;title=HDR_workflow_with_hugin&amp;action=edit">[*]</a>.</i>
+<td><i>This article is out of date.  You can help Panotools Wiki by <a rel="nofollow" class="external text" href="http://wiki.panotools.org/wiki/index.php?stub&amp;title=HDR_workflow_with_hugin&amp;action=edit">expanding it</a>.</i>
 </td></tr></table>
 <p><span style="font-weight:normal;">
 <small>Once the article is ok feel free to remove the {{Outdated}} template</small>
@@ -190,9 +232,302 @@ options and techniques available, commands look like this:
 </p>
 </div>
 
+<!-- 
+NewPP limit report
+Preprocessor node count: 76/1000000
+Post-expand include size: 1264/2097152 bytes
+Template argument size: 37/2097152 bytes
+Expensive parser function count: 0/100
+-->
 
+<!-- Saved in parser cache with key pt_wikidb:pcache:idhash:1947-0!*!0!!en!*!* and timestamp 20121218214821 -->
+</div>				<!-- /bodycontent -->
+								<!-- printfooter -->
+				<div class="printfooter">
+				Retrieved from "<a href="http://wiki.panotools.org/index.php?title=HDR_workflow_with_hugin&amp;oldid=12428">http://wiki.panotools.org/index.php?title=HDR_workflow_with_hugin&amp;oldid=12428</a>"				</div>
+				<!-- /printfooter -->
+												<!-- catlinks -->
+				<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="http://wiki.panotools.org/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="http://wiki.panotools.org/Category:Tutorial:Specialised" title="Category:Tutorial:Specialised">Tutorial:Specialised</a></li><li><a href="http://wiki.panotools.org/Category:Software:Hugin" title="Category:Software:Hugin">Software:Hugin</a></li><li><a href="http://wiki.panotools.org/Category:Enhance:out_of_date" title="Category:Enhance:out of date">Enhance:out of date</a></li></ul></div></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+				<!-- debughtml -->
+								<!-- /debughtml -->
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Personal tools</h5>
+	<ul>
+		<li id="pt-login"><a href="http://wiki.panotools.org/index.php?title=Special:UserLogin&amp;returnto=HDR+workflow+with+hugin" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in / create account</a></li>
+	</ul>
+</div>
 
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Namespaces</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="HDR_workflow_with_hugin.html"  title="View the content page [c]" accesskey="c">Page</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="http://wiki.panotools.org/index.php?title=Talk:HDR_workflow_with_hugin&amp;action=edit&amp;redlink=1"  title="Discussion about the content page [t]" accesskey="t">Discussion</a></span></li>
+			</ul>
+</div>
 
-<div class="printfooter">
-Retrieved from "<a href="HDR_workflow_with_hugin.html">http://wiki.panotools.org/HDR_workflow_with_hugin</a>"</div>
-			</div></div></div></div></body></html>
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+	<h4>
+		</h4>
+	<h5><span>Variants</span><a href="HDR_workflow_with_hugin.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Views</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="HDR_workflow_with_hugin.html" >Read</a></span></li>
+					<li id="ca-viewsource"><span><a href="http://wiki.panotools.org/index.php?title=HDR_workflow_with_hugin&amp;action=edit"  title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+					<li id="ca-history" class="collapsible"><span><a href="http://wiki.panotools.org/index.php?title=HDR_workflow_with_hugin&amp;action=history"  title="Past revisions of this page [h]" accesskey="h">View history</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Actions</span><a href="HDR_workflow_with_hugin.html#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Search</label></h5>
+	<form action="http://wiki.panotools.org/index.php" id="searchform">
+				<div>
+			<input type="search" name="search" title="Search PanoTools.org Wiki [f]" accesskey="f" id="searchInput" />			<input type="submit" name="go" value="Go" title="Go to a page with this exact name if exists" id="searchGoButton" class="searchButton" />			<input type="submit" name="fulltext" value="Search" title="Search the pages for this text" id="mw-searchButton" class="searchButton" />					<input type='hidden' name="title" value="Special:Search"/>
+		</div>
+	</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(/local/panotoolsng.png);" href="http://wiki.panotools.org/Main_Page"  title="Visit the main page"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Navigation</h5>
+	<div class="body">
+		<ul>
+			<li id="n-mainpage"><a href="/Main_Page" title="Visit the main page [z]" accesskey="z">Main Page</a></li>
+			<li id="n-Site-Map"><a href="/SiteMap">Site Map</a></li>
+			<li id="n-portal"><a href="http://www.panotools.org/" rel="nofollow" title="About the project, what you can do, where to find things">Community portal</a></li>
+			<li id="n-Mailinglist"><a href="http://groups.yahoo.com/group/PanoToolsNG" rel="nofollow">Mailinglist</a></li>
+		</ul>
+	</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- tools -->
+<div class="portal" id='p-tools'>
+	<h5>tools</h5>
+	<div class="body">
+		<ul>
+			<li id="n-All-Pages"><a href="/Special:AllPages">All Pages</a></li>
+			<li id="n-recentchanges"><a href="/Special:RecentChanges" title="A list of recent changes in the wiki [r]" accesskey="r">Recent changes</a></li>
+			<li id="n-randompage"><a href="/Special:Random" title="Load a random page [x]" accesskey="x">Random page</a></li>
+			<li id="n-help"><a href="/Help:Contents" title="The place to find out">Help</a></li>
+		</ul>
+	</div>
+</div>
+
+<!-- /tools -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id='p-tb'>
+	<h5>Toolbox</h5>
+	<div class="body">
+		<ul>
+			<li id="t-whatlinkshere"><a href="/Special:WhatLinksHere/HDR_workflow_with_hugin" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li>
+			<li id="t-recentchangeslinked"><a href="/Special:RecentChangesLinked/HDR_workflow_with_hugin" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li>
+			<li id="t-specialpages"><a href="/Special:SpecialPages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li>
+			<li><a href="/index.php?title=HDR_workflow_with_hugin&amp;printable=yes" rel="alternate">Printable version</a></li>
+			<li id="t-permalink"><a href="/index.php?title=HDR_workflow_with_hugin&amp;oldid=12428" title="Permanent link to this revision of the page">Permanent link</a></li>
+		</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+							<ul id="footer-info">
+											<li id="footer-info-lastmod"> This page was last modified on 9 June 2010, at 19:41.</li>
+											<li id="footer-info-viewcount">This page has been accessed 77,428 times.</li>
+											<li id="footer-info-copyright">Content is available under <a class="external" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.2</a>.</li>
+									</ul>
+							<ul id="footer-places">
+											<li id="footer-places-privacy"><a href="/PanoTools:Privacy_policy" title="PanoTools:Privacy policy">Privacy policy</a></li>
+											<li id="footer-places-about"><a href="/PanoTools:About" title="PanoTools:About">About PanoTools.org Wiki</a></li>
+											<li id="footer-places-disclaimer"><a href="/PanoTools:General_disclaimer" title="PanoTools:General disclaimer">Disclaimers</a></li>
+									</ul>
+										<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://www.gnu.org/copyleft/fdl.html"><img src="/skins/common/images/gnu-fdl.png" alt="GNU Free Documentation License 1.2" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="//www.mediawiki.org/"><img src="/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footerpanotoolsng.png);" href="/Main_Page"  title="Visit the main page"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Navigation</h5>
+	<div class="body">
+		<ul>
+			<li id="n-mainpage"><a href="http://wiki.panotools.org/Main_Page" title="Visit the main page [z]" accesskey="z">Main Page</a></li>
+			<li id="n-Site-Map"><a href="http://wiki.panotools.org/SiteMap">Site Map</a></li>
+			<li id="n-portal"><a href="http://www.panotools.org/" rel="nofollow" title="About the project, what you can do, where to find things">Community portal</a></li>
+			<li id="n-Mailinglist"><a href="http://groups.yahoo.com/group/PanoToolsNG" rel="nofollow">Mailinglist</a></li>
+		</ul>
+	</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- tools -->
+<div class="portal" id='p-tools'>
+	<h5>tools</h5>
+	<div class="body">
+		<ul>
+			<li id="n-All-Pages"><a href="http://wiki.panotools.org/Special:AllPages">All Pages</a></li>
+			<li id="n-recentchanges"><a href="http://wiki.panotools.org/Special:RecentChanges" title="A list of recent changes in the wiki [r]" accesskey="r">Recent changes</a></li>
+			<li id="n-randompage"><a href="http://wiki.panotools.org/Special:Random" title="Load a random page [x]" accesskey="x">Random page</a></li>
+			<li id="n-help"><a href="http://wiki.panotools.org/Help:Contents" title="The place to find out">Help</a></li>
+		</ul>
+	</div>
+</div>
+
+<!-- /tools -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id='p-tb'>
+	<h5>Toolbox</h5>
+	<div class="body">
+		<ul>
+			<li id="t-whatlinkshere"><a href="http://wiki.panotools.org/Special:WhatLinksHere/HDR_workflow_with_hugin" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li>
+			<li id="t-recentchangeslinked"><a href="http://wiki.panotools.org/Special:RecentChangesLinked/HDR_workflow_with_hugin" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li>
+			<li id="t-specialpages"><a href="http://wiki.panotools.org/Special:SpecialPages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li>
+			<li><a href="http://wiki.panotools.org/index.php?title=HDR_workflow_with_hugin&amp;printable=yes" rel="alternate">Printable version</a></li>
+			<li id="t-permalink"><a href="http://wiki.panotools.org/index.php?title=HDR_workflow_with_hugin&amp;oldid=12428" title="Permanent link to this revision of the page">Permanent link</a></li>
+		</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+							<ul id="footer-info">
+											<li id="footer-info-lastmod"> This page was last modified on 9 June 2010, at 19:41.</li>
+											<li id="footer-info-viewcount">This page has been accessed 77,428 times.</li>
+											<li id="footer-info-copyright">Content is available under <a class="external" href="http://www.gnu.org/copyleft/fdl.html">GNU Free Documentation License 1.2</a>.</li>
+									</ul>
+							<ul id="footer-places">
+											<li id="footer-places-privacy"><a href="http://wiki.panotools.org/PanoTools:Privacy_policy" title="PanoTools:Privacy policy">Privacy policy</a></li>
+											<li id="footer-places-about"><a href="http://wiki.panotools.org/PanoTools:About" title="PanoTools:About">About PanoTools.org Wiki</a></li>
+											<li id="footer-places-disclaimer"><a href="http://wiki.panotools.org/PanoTools:General_disclaimer" title="PanoTools:General disclaimer">Disclaimers</a></li>
+									</ul>
+										<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://www.gnu.org/copyleft/fdl.html"><img src="gnu-fdl.png" alt="GNU Free Documentation License 1.2" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		<script src="load.php%3Fdebug=false&amp;lang=en&amp;modules=skins.vector&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.user","mediawiki.page.ready"], null, true);
+}</script>
+<script type="text/javascript"> 
+function toggleDisplay( id, hidetext, showtext )
+{
+  link = document.getElementById( id + "l" ).childNodes[0];
+ 
+  with( document.getElementById( id ).style )
+    {
+      if( display == "none" )
+        {
+          display = "inline";
+          link.nodeValue = hidetext;
+        }
+      else
+        {
+          display = "none";
+          link.nodeValue = showtext;
+        }
+    }
+}
+</script>
+<script src="load.php%3Fdebug=false&amp;lang=en&amp;modules=site&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-412195-4");
+pageTracker._trackPageview();
+</script><!-- Served in 0.151 secs. -->
+	</body>
+</html>
