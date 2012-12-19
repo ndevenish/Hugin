@@ -11,6 +11,6 @@ wget --input-file=pages.txt \
     --exclude-directories=wiki/skins \
     --ignore-tags=link
 
-rm robots.txt
-rm index.php*
+rm -f robots.txt
+rm -f index.php*
 
