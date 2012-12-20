@@ -87,7 +87,7 @@
                         </object>
                         <object class="sizeritem">
                           <object class="wxChoice" name="prefs_gui_language">
-                            <style>wxCB_SORT</style>
+                            <style platform="win">wxCB_SORT</style>
                           </object>
                           <flag>wxALL|wxEXPAND</flag>
                           <border>5</border>
