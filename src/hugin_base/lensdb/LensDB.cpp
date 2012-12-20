@@ -257,7 +257,22 @@ bool LensDB::FindLens(std::string camMaker, std::string camModel, std::string le
     }
     else
     {
-        m_lenses=m_db->FindLenses(NULL,NULL,lens.c_str());
+        if(!camModel.empty())
+        {
+            const lfCamera** cam=m_db->FindCameras(camMaker.c_str(),camModel.c_str());
+            if(cam)
+            {
+                m_lenses=m_db->FindLenses(cam[0], NULL, lens.c_str());
+            }
+            else
+            {
+                m_lenses=m_db->FindLenses(NULL, NULL, lens.c_str());
+            }
+        }
+        else
+        {
+            m_lenses=m_db->FindLenses(NULL,NULL,lens.c_str());
+        };
     };
     if(m_lenses)
     {
@@ -325,7 +340,22 @@ bool LensDB::FindLenses(std::string camMaker, std::string camModel, std::string 
     }
     else
     {
-        lenses=m_db->FindLenses(NULL,NULL,lensname.c_str(),searchFlag);
+        if(!camModel.empty())
+        {
+            const lfCamera** cam=m_db->FindCameras(camMaker.c_str(), camModel.c_str());
+            if(cam)
+            {
+                lenses=m_db->FindLenses(cam[0], NULL, lensname.c_str(), searchFlag);
+            }
+            else
+            {
+                lenses=m_db->FindLenses(NULL, NULL, lensname.c_str(), searchFlag);
+            }
+        }
+        else
+        {
+            lenses=m_db->FindLenses(NULL,NULL,lensname.c_str(), searchFlag);
+        };
     };
 
     //const lfLens **lenses=m_db->FindLenses(NULL,NULL,lensname.c_str(),searchFlag);
