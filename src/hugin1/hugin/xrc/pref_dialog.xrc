@@ -1269,6 +1269,7 @@ Do not set -w, -o and --compression arguments, they are set by hugin</label>
             </object>
             <label>Misc</label>
           </object>
+          <style>wxNB_MULTILINE</style>
         </object>
         <option>1</option>
         <flag>wxALL|wxEXPAND</flag>
