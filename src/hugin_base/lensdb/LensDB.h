@@ -41,17 +41,23 @@ namespace HuginBase
 namespace LensDB
 {
 
-/** struct to save a list of lenses */
-struct LensListItem
+/** class to save a list of lenses */
+class IMPEX LensDBList
 {
-    std::string displayString;
-    std::string cameraMaker;
-    std::string cameraModel;
-    std::string lensname;
+public:
+    LensDBList();
+    ~LensDBList();
+    const size_t GetLensCount() const;
+    const lfLens* GetLens(size_t index) const;
+    void SetLenses(const lfLens** lenses);
+    std::string GetLensName(size_t index) const;
+    void SetCameraModelMaker(const std::string camMaker, const std::string camModel);
+private:
+    const lfLens** m_lenses;
+    size_t m_lensCount;
+    std::string m_camMaker;
+    std::string m_camModel;
 };
-
-/** vector to store a list of found lenses */
-typedef std::vector<LensListItem> LensDBList;
 
 /** main wrapper class for lensfun database */
 class IMPEX LensDB
@@ -90,6 +96,8 @@ public:
         @param lens lens for searching
         @return true, if a lens was found */
     bool FindLens(std::string camMaker, std::string camModel, std::string lens);
+    /** sets the active lens for the following Check* call */
+    void SetActiveLens(const lfLens* activeLens);
     /** checks if the focal length matches the lens spec 
         @return true, if focal length is inside spec*/
     bool CheckLensFocal(double focal);
@@ -192,6 +200,8 @@ private:
     /** check, if mount is already in database, if not it populates the LensDB::m_updatedMounts with the mounts
         @return true, if new mount is found */
     bool IsNewMount(std::string newMount);
+    /** deletes the lens list */
+    void FreeLensList();
     /** cleans up the information stored for mounts (variable LensDB::m_updatedMounts) */
     void CleanUpdatedMounts();
     /** the main database */
@@ -200,6 +210,8 @@ private:
     struct lfDatabase *m_newDB;
     /** found lenses for LensDB::GetProjection, LensDB::GetCrop */
     const struct lfLens **m_lenses;
+    /** variable used for cleanup of lensfun points */
+    bool m_needLensCleanup;
     /** list of lenses for saving */
     struct lfLens **m_updatedLenses;
     /** list of new mounts for saving */

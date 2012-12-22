@@ -45,7 +45,8 @@ public:
     std::string GetCameraModel() const;
     void SetLensName(std::string lensname);
     std::string GetLensName() const;
-    HuginBase::LensDB::LensListItem GetLens() const;
+    /** activates the lens in database for query information */
+    bool ActivateSelectedLens();
     void SetFocalLength(double focal);
     double GetFocalLength() const;
     void SetAperture(double aperture);
@@ -70,7 +71,7 @@ private:
     double m_focal;
     double m_aperture;
     double m_distance;
-    HuginBase::LensDB::LensDBList m_lensnames;
+    HuginBase::LensDB::LensDBList m_dblenslist;
     DECLARE_EVENT_TABLE()
 };
 
@@ -167,17 +168,17 @@ std::string LoadLensDBDialog::GetLensName() const
     return std::string(XRCCTRL(*this,"load_lens_name",wxTextCtrl)->GetValue().Trim().mb_str(wxConvLocal));
 };
 
-HuginBase::LensDB::LensListItem LoadLensDBDialog::GetLens() const
+bool LoadLensDBDialog::ActivateSelectedLens()
 {
     int index=m_lenslist->GetSelection();
     if(index!=wxNOT_FOUND)
     {
-        return m_lensnames[index];
+        HuginBase::LensDB::LensDB::GetSingleton().SetActiveLens(m_dblenslist.GetLens(index));
+        return true;
     }
     else
     {
-        HuginBase::LensDB::LensListItem item;
-        return item;
+        return false;
     };
 };
 
@@ -282,14 +283,16 @@ void LoadLensDBDialog::OnSearch(wxCommandEvent & e)
     if(!GetLensName().empty() || (!GetCameraModel().empty()))
     {
         m_lenslist->Clear();
-        m_lensnames.clear();
         bool fuzzy=XRCCTRL(*this,"load_lens_fuzzy",wxCheckBox)->GetValue();
-        if(HuginBase::LensDB::LensDB::GetSingleton().FindLenses(GetCameraMaker(),GetCameraModel(),GetLensName(),m_lensnames,fuzzy))
+        if(HuginBase::LensDB::LensDB::GetSingleton().FindLenses(GetCameraMaker(),GetCameraModel(),GetLensName(),m_dblenslist,fuzzy))
         {
             wxArrayString items;
-            for(HuginBase::LensDB::LensDBList::const_iterator it=m_lensnames.begin();it!=m_lensnames.end();it++)
+            for(size_t i=0; i<m_dblenslist.GetLensCount(); i++)
             {
-                items.push_back(wxString((*it).displayString.c_str(),wxConvLocal));
+                wxString lensname=wxString(m_dblenslist.GetLensName(i).c_str(),wxConvLocal);
+                //now translate a string part
+                lensname.Replace(wxT("Focal length multiplier:"), _("Focal length multiplier:"), true);
+                items.push_back(lensname);
             };
             m_lenslist->InsertItems(items,0);
             m_lenslist->DeselectAll();
@@ -325,12 +328,11 @@ bool ApplyLensDBParameters(wxWindow * parent, PT::Panorama *pano, HuginBase::UIn
     dlg.SetSubjectDistance(img.getExifDistance());
     if(dlg.ShowModal()==wxID_OK)
     {
-        HuginBase::LensDB::LensListItem lens=dlg.GetLens();
         HuginBase::LensDB::LensDB & lensDB=HuginBase::LensDB::LensDB::GetSingleton();
-        double focal=dlg.GetFocalLength();
-        std::vector<PT::PanoCommand*> cmds;
-        if(lensDB.FindLens(lens.cameraMaker,lens.cameraModel,lens.lensname))
+        if(dlg.ActivateSelectedLens())
         {
+            double focal=dlg.GetFocalLength();
+            std::vector<PT::PanoCommand*> cmds;
             HuginBase::BaseSrcPanoImage::Projection proj;
             if(lensDB.GetProjection(proj))
             {

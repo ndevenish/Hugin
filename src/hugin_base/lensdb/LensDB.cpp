@@ -63,19 +63,33 @@ LensDB::LensDB()
     m_updatedLenses=NULL;
     m_currentLens=NULL;
     m_updatedMounts=NULL;
+    m_needLensCleanup=true;
 };
 
 LensDB::~LensDB()
 {
-    if(m_lenses!=NULL)
-    {
-        lf_free(m_lenses);
-    };
+    FreeLensList();
     if (m_db!=NULL)
     {
         m_db->Destroy();
     };
     CleanSaveInformation();
+};
+
+void LensDB::FreeLensList()
+{
+    if(m_lenses!=NULL)
+    {
+        if(!m_needLensCleanup)
+        {
+            delete [] m_lenses;
+        }
+        else
+        {
+            lf_free(m_lenses);
+        };
+    };
+    m_lenses=NULL;
 };
 
 LensDB& LensDB::GetSingleton()
@@ -229,11 +243,8 @@ bool LensDB::GetCameraMount(std::string maker, std::string model, std::string &m
 
 bool LensDB::FindLens(std::string camMaker, std::string camModel, std::string lens)
 {
-    if(m_lenses!=NULL)
-    {
-        lf_free(m_lenses);
-        m_lenses=NULL;
-    };
+    FreeLensList();
+    m_needLensCleanup=true;
     InitDB();
     if(!m_initialized)
     {
@@ -249,6 +260,7 @@ bool LensDB::FindLens(std::string camMaker, std::string camModel, std::string le
         if(cam)
         {
             m_lenses=m_db->FindLenses(cam[0],NULL,"Standard");
+            lf_free(cam);
         }
         else
         {
@@ -263,6 +275,7 @@ bool LensDB::FindLens(std::string camMaker, std::string camModel, std::string le
             if(cam)
             {
                 m_lenses=m_db->FindLenses(cam[0], NULL, lens.c_str());
+                lf_free(cam);
             }
             else
             {
@@ -271,7 +284,7 @@ bool LensDB::FindLens(std::string camMaker, std::string camModel, std::string le
         }
         else
         {
-            m_lenses=m_db->FindLenses(NULL,NULL,lens.c_str());
+            m_lenses=m_db->FindLenses(NULL, NULL,lens.c_str());
         };
     };
     if(m_lenses)
@@ -284,6 +297,14 @@ bool LensDB::FindLens(std::string camMaker, std::string camModel, std::string le
         m_lenses=NULL;
         return false;
     };
+};
+
+void LensDB::SetActiveLens(const lfLens* activeLens)
+{
+    FreeLensList();
+    m_needLensCleanup=false;
+    m_lenses=new const lfLens* [1];
+    m_lenses[0]=activeLens;
 };
 
 bool LensDB::CheckLensFocal(double focal)
@@ -319,7 +340,7 @@ bool LensDB::FindLenses(std::string camMaker, std::string camModel, std::string 
     {
         return false;
     };
-    foundLenses.clear();
+    foundLenses.SetCameraModelMaker(camMaker, camModel);
     if(camMaker.empty() && camModel.empty() && lensname.empty())
     {
         return false;
@@ -332,6 +353,7 @@ bool LensDB::FindLenses(std::string camMaker, std::string camModel, std::string 
         if(cam)
         {
             lenses=m_db->FindLenses(cam[0],NULL,"Standard",searchFlag);
+            lf_free(cam);
         }
         else
         {
@@ -346,6 +368,7 @@ bool LensDB::FindLenses(std::string camMaker, std::string camModel, std::string 
             if(cam)
             {
                 lenses=m_db->FindLenses(cam[0], NULL, lensname.c_str(), searchFlag);
+                lf_free(cam);
             }
             else
             {
@@ -354,32 +377,12 @@ bool LensDB::FindLenses(std::string camMaker, std::string camModel, std::string 
         }
         else
         {
-            lenses=m_db->FindLenses(NULL,NULL,lensname.c_str(), searchFlag);
+            lenses=m_db->FindLenses(NULL, NULL, lensname.c_str(), searchFlag);
         };
     };
 
-    //const lfLens **lenses=m_db->FindLenses(NULL,NULL,lensname.c_str(),searchFlag);
-    if(lenses)
-    {
-        for(int i=0;lenses[i];i++)
-        {
-            LensListItem item;
-            item.cameraMaker=camMaker;
-            item.cameraModel=camModel;
-            item.lensname=lenses[i]->Model;
-            if(item.lensname=="Standard")
-            {
-                item.displayString=camModel + " (" + camMaker + ")";
-            }
-            else
-            {
-                item.displayString=lenses[i]->Model;
-            };
-            foundLenses.push_back(item);
-        }
-    };
-    lf_free(lenses);
-    return foundLenses.size()>0;
+    foundLenses.SetLenses(lenses);
+    return foundLenses.GetLensCount()>0;
 };
 
 bool LensDB::GetMounts(std::vector<std::string> &foundMounts)
@@ -1227,6 +1230,76 @@ void LensDB::CleanUpdatedMounts()
         delete []m_updatedMounts;
         m_updatedMounts=NULL;
     };
+};
+
+LensDBList::LensDBList()
+{
+    m_lenses=NULL;
+};
+
+LensDBList::~LensDBList()
+{
+    if(m_lenses)
+    {
+        lf_free(m_lenses);
+    };
+};
+
+const size_t LensDBList::GetLensCount() const
+{
+    return m_lensCount;
+};
+
+const lfLens* LensDBList::GetLens(size_t index) const
+{
+    if(index<m_lensCount)
+    {
+        return m_lenses[index];
+    }
+    else
+    {
+        return NULL;
+    };
+};
+
+void LensDBList::SetLenses(const lfLens** lenses)
+{
+    if(m_lenses)
+    {
+        lf_free(m_lenses);
+    };
+    m_lenses=lenses;
+    m_lensCount=0;
+    if(m_lenses)
+    {
+        for(size_t i=0;m_lenses[i];i++)
+        {
+            m_lensCount++;
+        };
+    };
+};
+
+std::string LensDBList::GetLensName(size_t index) const
+{
+    if(index>=m_lensCount)
+    {
+        return "";
+    };
+    std::string lensname=m_lenses[index]->Model;
+    if(lensname=="Standard")
+    {
+        return m_camModel + " (" + m_camMaker + ")";
+    }
+    else
+    {
+        return lensname + " (Focal length multiplier: " + hugin_utils::doubleToString(m_lenses[index]->CropFactor,1) +")";
+    };
+};
+
+void LensDBList::SetCameraModelMaker(const std::string camMaker, const std::string camModel)
+{
+    m_camMaker=camMaker;
+    m_camModel=camModel;
 };
 
 } //namespace LensDB
