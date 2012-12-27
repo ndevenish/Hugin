@@ -37,6 +37,8 @@
 
 #include <panodata/Panorama.h>
 #include "algorithms/optimizer/ImageGraph.h"
+#include "hugin_base/panotools/PanoToolsUtils.h"
+#include "algorithms/basic/CalculateCPStatistics.h"
 
 using namespace std;
 using namespace HuginBase;
@@ -103,6 +105,25 @@ int main(int argc, char *argv[])
               << "Project contains" << endl
               << pano.getNrOfImages() << " images" << endl
               << pano.getNrOfCtrlPoints() << " control points" << endl << endl;
+    //cp statistics
+    if(pano.getNrOfCtrlPoints()>0)
+    {
+        double min;
+        double max;
+        double mean;
+        double var;
+        HuginBase::PTools::calcCtrlPointErrors(pano);
+        CalculateCPStatisticsError::calcCtrlPntsErrorStats(pano, min, max, mean, var);
+        if(max>0) 
+        {
+            std::cout << "Control points statistics" << std::endl
+                << fixed << std::setprecision(2)
+                << "\tMean error        : " << mean << std::endl
+                << "\tStandard deviation: " << sqrt(var) << std::endl
+                << "\tMinimum           : " << min << std::endl
+                << "\tMaximum           : " << max << std::endl;
+        };
+    };
     CPGraph graph;
     createCPGraph(pano, graph);
     CPComponents comps;
