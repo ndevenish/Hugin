@@ -792,15 +792,23 @@ double SrcPanoImage::calcHFOV(SrcPanoImage::Projection proj, double fl, double c
             break;
         case SrcPanoImage::CIRCULAR_FISHEYE:
         case SrcPanoImage::FULL_FRAME_FISHEYE:
-        case SrcPanoImage::FISHEYE_ORTHOGRAPHIC:
-        case SrcPanoImage::FISHEYE_STEREOGRAPHIC:
-        case SrcPanoImage::FISHEYE_EQUISOLID:
-        case SrcPanoImage::FISHEYE_THOBY:
             hfov = sensorSize.x / fl * 180/M_PI;
             break;
         case SrcPanoImage::EQUIRECTANGULAR:
         case SrcPanoImage::PANORAMIC:
             hfov = (sensorSize.x / fl) / M_PI * 180;
+            break;
+        case SrcPanoImage::FISHEYE_ORTHOGRAPHIC:
+            hfov = 2 * asin(std::min<double>(1.0, (sensorSize.x/2.0)/fl)) * 180.0/M_PI;
+            break;
+        case SrcPanoImage::FISHEYE_EQUISOLID:
+            hfov = 4 * asin(std::min<double>(1.0, (sensorSize.x/4.0)/fl)) * 180.0/M_PI;
+            break;
+        case SrcPanoImage::FISHEYE_STEREOGRAPHIC:
+            hfov = 4 * atan((sensorSize.x/4.0)/fl) * 180.0/M_PI;
+            break;
+        case SrcPanoImage::FISHEYE_THOBY:
+            hfov = 2 * asin(std::min<double>(1.0, sensorSize.x/(2.0*fl*1.47))) * 180.0/M_PI/0.713;
             break;
         default:
             hfov = 360;
@@ -829,10 +837,6 @@ double SrcPanoImage::calcFocalLength(SrcPanoImage::Projection proj, double hfov,
             break;
         case SrcPanoImage::CIRCULAR_FISHEYE:
         case SrcPanoImage::FULL_FRAME_FISHEYE:
-        case SrcPanoImage::FISHEYE_ORTHOGRAPHIC:
-        case SrcPanoImage::FISHEYE_STEREOGRAPHIC:
-        case SrcPanoImage::FISHEYE_EQUISOLID:
-        case SrcPanoImage::FISHEYE_THOBY:
             // same projection equation for both fisheye types,
             // assume equal area projection.
             return sensorSize.x / (hfov/180*M_PI);
@@ -841,6 +845,14 @@ double SrcPanoImage::calcFocalLength(SrcPanoImage::Projection proj, double hfov,
         case SrcPanoImage::PANORAMIC:
             return  (sensorSize.x / (hfov/180*M_PI));
             break;
+        case SrcPanoImage::FISHEYE_ORTHOGRAPHIC:
+            return (sensorSize.x /2.0) / sin(hfov/180.0*M_PI/2.0);
+        case SrcPanoImage::FISHEYE_STEREOGRAPHIC:
+            return (sensorSize.x/4.0) / tan(hfov/180.0*M_PI/4.0);
+        case SrcPanoImage::FISHEYE_EQUISOLID:
+            return (sensorSize.x/4.0) / sin(hfov/180.0*M_PI/4.0);
+        case SrcPanoImage::FISHEYE_THOBY:
+            return (sensorSize.x/2.0) / (1.47 * sin(hfov/180.0*M_PI * 0.713 / 2.0));
         default:
             // TODO: add formulas for other projections
             DEBUG_WARN("Focal length calculations only supported with rectilinear and fisheye images");
