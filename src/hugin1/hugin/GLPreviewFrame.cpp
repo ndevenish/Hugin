@@ -3156,7 +3156,13 @@ void GLPreviewFrame::OnFocalLengthChanged(wxCommandEvent & e)
     {
         return;
     }
-    
+    //no negative values, no zero input please
+    if (val<0.1)
+    {
+        wxBell();
+        return;
+    };    
+
     // always change first lens...
     UIntSet images0;
     images0.insert(0);
@@ -3179,6 +3185,12 @@ void GLPreviewFrame::OnCropFactorChanged(wxCommandEvent & e)
     {
         return;
     }
+    //no negative values, no zero input please
+    if (val<0.1)
+    {
+        wxBell();
+        return;
+    };    
 
     UIntSet images;
     images.insert(0);

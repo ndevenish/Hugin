@@ -528,6 +528,12 @@ void ImagesPanel::OnFocalLengthChanged(wxCommandEvent & e)
     {
         return;
     }
+    //no negative values, no zero input please
+    if (val<0.1)
+    {
+        wxBell();
+        return;
+    };
     
     UIntSet images=m_images_tree->GetSelectedImages();
     GlobalCmdHist::getInstance().addCommand(
@@ -552,6 +558,12 @@ void ImagesPanel::OnCropFactorChanged(wxCommandEvent & e)
     {
         return;
     }
+    //no negative values, no zero input please
+    if (val<0.1)
+    {
+        wxBell();
+        return;
+    };
 
     UIntSet images=m_images_tree->GetSelectedImages();
     GlobalCmdHist::getInstance().addCommand(
