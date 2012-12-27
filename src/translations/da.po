@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: da\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
 "POT-Creation-Date: 2012-12-18 21:59+0100\n"
-"PO-Revision-Date: 2012-12-17 22:08+0100\n"
+"PO-Revision-Date: 2012-12-27 14:57+0100\n"
 "Last-Translator: Thomas Pryds <thomas@pryds.eu>\n"
 "Language-Team: Danish <da@li.org>\n"
 "Language: da\n"
@@ -1450,12 +1450,10 @@ msgid "Control point detector result"
 msgstr "Resultat af kontrolpunkt-detektor"
 
 #: hugin1/hugin/ImagesPanel.cpp:576
-#, fuzzy
 msgid "The minimum overlap has to be greater than 0 and smaller than 1."
 msgstr "Den minimale overlapning skal være større end 0 og mindre end 1."
 
 #: hugin1/hugin/ImagesPanel.cpp:606
-#, fuzzy
 msgid "The maximum Ev difference has to be greater than 0."
 msgstr "Den maksimale EV-forskel skal være større end 0."
 
@@ -2133,7 +2131,6 @@ msgid "Could not load Celeste model file %s"
 msgstr "Kunne ikke indlæse Celeste-modelfil %s"
 
 #: hugin1/hugin/MainFrame.cpp:2136
-#, fuzzy
 msgid ""
 "Can't switch to simple interface. The project is using stacks and/or "
 "vignetting center shift.\n"
@@ -2141,10 +2138,9 @@ msgid ""
 msgstr ""
 "Kan ikke skifte til simpel brugerflade. Dette projekt bruger stakke og/eller "
 "vignetteringsforskydning.\n"
-"Disse funktioner understøttes ikke i begyndertilstand."
+"Disse funktioner understøttes ikke i den simple brugerflade."
 
 #: hugin1/hugin/MainFrame.cpp:2146
-#, fuzzy
 msgid ""
 "Can't switch to simple interface. The project is using translation or shear "
 "parameters.\n"
@@ -2152,10 +2148,9 @@ msgid ""
 msgstr ""
 "Kan ikke skifte til simpel brugerflade. Dette projekt bruger translaterings- "
 "eller forvridningsparametre.\n"
-"Disse parametre understøttes ikke i begyndertilstand."
+"Disse parametre understøttes ikke i den simple brugerflade."
 
 #: hugin1/hugin/MainFrame.cpp:2167
-#, fuzzy
 msgid ""
 "Can't switch to advanced interface. The project is using translation or "
 "shear parameters.\n"
@@ -2163,7 +2158,7 @@ msgid ""
 msgstr ""
 "Kan ikke skifte til avanceret brugerflade. Dette projekt bruger "
 "translaterings- eller forvridningsparametre.\n"
-"Disse parametre understøttes ikke i avanceret tilstand."
+"Disse parametre understøttes ikke i den avancerede brugerflade."
 
 #: hugin1/hugin/MainFrame.cpp:2194
 msgid ""
@@ -2264,14 +2259,12 @@ msgstr ""
 
 #: hugin1/hugin/OptimizePanel.cpp:99
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:97
-#, fuzzy
 msgid "Use command + left mouse click to toggle state of variables."
 msgstr ""
 "Brug Command + venstre musetast for at skifte mellem variables tilstande."
 
 #: hugin1/hugin/OptimizePanel.cpp:101
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:99
-#, fuzzy
 msgid "Use control + left mouse click to toggle state of variables."
 msgstr "Brug Ctrl + venstre musetast for at skifte mellem variables tilstande."
 
@@ -2624,7 +2617,6 @@ msgid "Set stack size..."
 msgstr "Sæt stakstørrelse..."
 
 #: hugin1/hugin/PanoOperation.cpp:1083
-#, fuzzy
 msgid "Enter image count per stack"
 msgstr "Indtast antal billeder pr. stak"
 
@@ -3435,7 +3427,6 @@ msgid "You have pressed the Control key."
 msgstr "Du har trykket på Ctrl-tasten."
 
 #: hugin1/ptbatcher/BatchFrame.cpp:196
-#, fuzzy
 msgid "Should the loading of the batch queue be skipped?"
 msgstr "Skal indlæsning af joblisten springes over?"
 
@@ -4014,18 +4005,16 @@ msgid "Load distortion data"
 msgstr "Indlæs forvrængningsdata"
 
 #: translations/xrc.cpp:51 xrc.cpp:51
-#, fuzzy
 msgid "Tries to load distortion data from lensfun database if checked."
-msgstr "Prøver at indlæse forvrængningsdata fra Lensfun-databasen, hvis valgt."
+msgstr "Hvis valgt, forsøges forvrængningsdata indlæst fra Lensfun-databasen."
 
 #: translations/xrc.cpp:52 xrc.cpp:52
 msgid "Load vignetting data"
 msgstr "Indlæs vignetteringsdata"
 
 #: translations/xrc.cpp:53 xrc.cpp:53
-#, fuzzy
 msgid "Tries to load vignetting data from lensfun database if checked."
-msgstr "Prøver at indlæse vignetteringsdata fra Lensfun-databasen, hvis valgt."
+msgstr "Hvis valgt, forsøges vignetteringsdata indlæst fra Lensfun-databasen."
 
 #: translations/xrc.cpp:54 translations/xrc.cpp:262 translations/xrc.cpp:480
 #: translations/xrc.cpp:597 translations/xrc.cpp:600 translations/xrc.cpp:603
@@ -4460,7 +4449,6 @@ msgid "Maximum Ev difference:"
 msgstr "Maksimal Ev-forskel:"
 
 #: translations/xrc.cpp:180 xrc.cpp:180
-#, fuzzy
 msgid "Maximum EV difference for detection of output layers"
 msgstr "Maksimum EV-forskel for detektering af output-lag"
 
