@@ -1733,6 +1733,28 @@ void ImagesTreeCtrl::OnEndEdit(wxTreeEvent &e)
                 };
                 UIntSet imgs;
                 imgs.insert(data->GetImgNr());
+                if(m_columnVector[e.GetInt()]=="v")
+                {
+                    if(m_pano->getImage(data->GetImgNr()).getProjection()==SrcPanoImage::FISHEYE_ORTHOGRAPHIC && val>190)
+                    {
+                        if(wxMessageBox(
+                            wxString::Format(_("You have given a field of view of %.2f degrees.\n But the orthographic projection is limited to a field of view of 180 degress.\nDo you want still use that high value?"), val),
+#ifdef __WXMSW__
+                            _("Hugin"),
+#else
+                            wxT(""),
+#endif
+                            wxICON_EXCLAMATION | wxYES_NO)==wxNO)
+                        {
+                            //restore old string
+                            SetItemText(e.GetItem(), e.GetInt(), m_editOldString);
+                            Refresh();
+                            e.Veto();
+                            e.Skip();
+                            return;
+                        };
+                    };
+                };
                 Variable var(m_columnVector[e.GetInt()], val);
                 GlobalCmdHist::getInstance().addCommand(
                     new PT::SetVariableCmd(*m_pano, imgs, var)

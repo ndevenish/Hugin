@@ -46,6 +46,7 @@ BEGIN_EVENT_TABLE(HFOVDialog, wxDialog)
     EVT_TEXT ( XRCID("lensdlg_hfov_text"), HFOVDialog::OnHFOVChanged )
     EVT_TEXT ( XRCID("lensdlg_focallength_text"), HFOVDialog::OnFocalLengthChanged )
     EVT_BUTTON( XRCID("lensdlg_load_lens_button"), HFOVDialog::OnLoadLensParameters )
+    EVT_BUTTON ( wxID_OK, HFOVDialog::OnOk)
 END_EVENT_TABLE()
 
 HFOVDialog::HFOVDialog(wxWindow * parent, SrcPanoImage & srcImg, double focalLength, double cropFactor)
@@ -370,3 +371,22 @@ double HFOVDialog::GetFocalLength()
 {
     return m_focalLength;
 }
+
+void HFOVDialog::OnOk(wxCommandEvent & e)
+{
+    if(m_srcImg.getProjection()==SrcPanoImage::FISHEYE_ORTHOGRAPHIC && m_HFOV>190)
+    {
+        if(wxMessageBox(
+            wxString::Format(_("You have given a field of view of %.2f degrees.\n But the orthographic projection is limited to a field of view of 180 degress.\nDo you want still use that high value?"), m_HFOV),
+#ifdef __WXMSW__
+            _("Hugin"),
+#else
+            wxT(""),
+#endif
+            wxICON_EXCLAMATION | wxYES_NO)==wxNO)
+        {
+            return;
+        };
+    };
+    EndModal(wxID_OK);
+};

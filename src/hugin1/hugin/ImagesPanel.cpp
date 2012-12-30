@@ -536,6 +536,27 @@ void ImagesPanel::OnFocalLengthChanged(wxCommandEvent & e)
     };
     
     UIntSet images=m_images_tree->GetSelectedImages();
+    const SrcPanoImage& srcImg=m_pano->getImage(*(images.begin()));
+    if(srcImg.getProjection()==SrcPanoImage::FISHEYE_ORTHOGRAPHIC)
+    {
+        double hfov=srcImg.calcHFOV(srcImg.getProjection(), val, srcImg.getExifCropFactor(), srcImg.getSize());
+        if(hfov>190)
+        {
+            if(wxMessageBox(
+                wxString::Format(_("You have given a field of view of %.2f degrees.\n But the orthographic projection is limited to a field of view of 180 degress.\nDo you want still use that high value?"), hfov),
+#ifdef __WXMSW__
+                _("Hugin"),
+#else
+                wxT(""),
+#endif
+                wxICON_EXCLAMATION | wxYES_NO)==wxNO)
+            {
+                wxTreeEvent dummy;
+                OnSelectionChanged(dummy);
+                return;
+            };
+        };
+    };
     GlobalCmdHist::getInstance().addCommand(
         new PT::UpdateFocalLengthCmd(*m_pano, images, val)
     );

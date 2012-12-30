@@ -54,6 +54,7 @@ private:
     void OnFocalLengthChanged(wxCommandEvent & e);
     void OnCropFactorChanged(wxCommandEvent & e);
     void OnLoadLensParameters(wxCommandEvent & e);
+    void OnOk(wxCommandEvent & e);
 
     wxTextCtrl * m_cropText;
     wxTextCtrl * m_focalLengthText;

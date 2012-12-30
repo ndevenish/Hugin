@@ -181,6 +181,36 @@ bool ImageVariableDialog::ApplyNewVariables()
             double val;
             if(str2double(s,val))
             {
+                if(strcmp(*varname, "v")==0)
+                {
+                    switch(m_pano->getImage(*m_images.begin()).getProjection())
+                    {
+                        case SrcPanoImage::RECTILINEAR:
+                            if(val>179)
+                            {
+                                val=179;
+                            };
+                            break;
+                        case SrcPanoImage::FISHEYE_ORTHOGRAPHIC:
+                            if(val>190)
+                            {
+                                if(wxMessageBox(
+                                    wxString::Format(_("You have given a field of view of %.2f degrees.\n But the orthographic projection is limited to a field of view of 180 degress.\nDo you want still use that high value?"), val),
+#ifdef __WXMSW__
+                                    _("Hugin"),
+#else
+                                    wxT(""),
+#endif
+                                    wxICON_EXCLAMATION | wxYES_NO)==wxNO)
+                                {
+                                    return false;
+                                };
+                            };
+                            break;
+                        default:
+                            break;
+                    };
+                };
                 varMap.insert(std::make_pair(std::string(*varname), Variable(std::string(*varname), val)));
             }
             else
