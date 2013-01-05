@@ -487,10 +487,6 @@ void ImageCache::importAndConvertAlphaImage(const vigra::ImageImportInfo & info,
                                             vigra::pair<MaskIterator, MaskAccessor> mask,
                                             const std::string & type)
 {
-    typedef typename DestAccessor::value_type DestPixelType;
-    typedef typename DestPixelType::value_type DestComponentType;
-    typedef SrcPixelType SrcComponentType;
-
     if (type == "FLOAT" || type == "DOUBLE" ) {
         // import image as it is
         vigra::importImageAlpha(info, dest, mask);
@@ -498,7 +494,6 @@ void ImageCache::importAndConvertAlphaImage(const vigra::ImageImportInfo & info,
         // integer image.. scale to 0 .. 1
         vigra::importImageAlpha(info, dest, mask);
         double scale = 1.0/vigra_ext::LUTTraits<SrcPixelType>::max();
-        DestPixelType factor(scale);
         transformImage(dest.first, dest.first+ vigra::Diff2D(info.width(), info.height()),  dest.second, 
                        dest.first, dest.second,
                        Arg1()*Param(scale));
@@ -596,6 +591,50 @@ ImageCache::EntryPtr ImageCache::loadImageSafely(const std::string & filename)
                 } else if (strcmp(pixelType, "DOUBLE") == 0 ) {
                     importAndConvertImage<double>(info, destImage(*imgFloat,
                             vigra::VectorComponentAccessor<vigra::RGBValue<float> >(0)), pixelType);
+                } else {
+                    DEBUG_ERROR("Unsupported pixel type: " << pixelType);
+                    return EntryPtr();
+                }
+                copyImage(srcImageRange(*imgFloat, vigra::VectorComponentAccessor<vigra::RGBValue<float> >(0)),
+                          destImage(*imgFloat, vigra::VectorComponentAccessor<vigra::RGBValue<float> >(1)));
+                copyImage(srcImageRange(*imgFloat, vigra::VectorComponentAccessor<vigra::RGBValue<float> >(0)),
+                          destImage(*imgFloat, vigra::VectorComponentAccessor<vigra::RGBValue<float> >(2)));
+            }
+        } else if ( bands == 2 && extraBands==1) {
+            mask->resize(info.size());
+            // load and convert image to 8 bit, if needed
+            if (strcmp(pixelType, "UINT8") == 0 ) {
+                vigra::importImageAlpha(info, destImage(*img8,
+                                                   vigra::VectorComponentAccessor<vigra::RGBValue<vigra::UInt8> >(0)),
+                                                   destImage(*mask));
+                copyImage(srcImageRange(*img8, vigra::VectorComponentAccessor<vigra::RGBValue<vigra::UInt8> >(0)),
+                          destImage(*img8, vigra::VectorComponentAccessor<vigra::RGBValue<vigra::UInt8> >(1)));
+                copyImage(srcImageRange(*img8, vigra::VectorComponentAccessor<vigra::RGBValue<vigra::UInt8> >(0)),
+                          destImage(*img8, vigra::VectorComponentAccessor<vigra::RGBValue<vigra::UInt8> >(2)));
+            } else if (strcmp(pixelType, "UINT16") == 0 ) {
+                vigra::importImageAlpha(info, destImage(*img16,
+                                                   vigra::VectorComponentAccessor<vigra::RGBValue<vigra::UInt16> >(0)),
+                                                   destImage(*mask));
+                copyImage(srcImageRange(*img16, vigra::VectorComponentAccessor<vigra::RGBValue<vigra::UInt16> >(0)),
+                          destImage(*img16, vigra::VectorComponentAccessor<vigra::RGBValue<vigra::UInt16> >(1)));
+                copyImage(srcImageRange(*img16, vigra::VectorComponentAccessor<vigra::RGBValue<vigra::UInt16> >(0)),
+                          destImage(*img16, vigra::VectorComponentAccessor<vigra::RGBValue<vigra::UInt16> >(2)));
+            } else {
+                if (strcmp(pixelType, "INT16") == 0 ) {
+                    importAndConvertAlphaImage<vigra::Int16> (info, destImage(*imgFloat,
+                            vigra::VectorComponentAccessor<vigra::RGBValue<float> >(0)), destImage(*mask), pixelType);
+                } else if (strcmp(pixelType, "UINT32") == 0 ) {
+                    importAndConvertAlphaImage<vigra::UInt32>(info, destImage(*imgFloat,
+                            vigra::VectorComponentAccessor<vigra::RGBValue<float> >(0)), destImage(*mask), pixelType);
+                } else if (strcmp(pixelType, "INT32") == 0 ) {
+                    importAndConvertAlphaImage<vigra::Int32>(info, destImage(*imgFloat,
+                            vigra::VectorComponentAccessor<vigra::RGBValue<float> >(0)), destImage(*mask), pixelType);
+                } else if (strcmp(pixelType, "FLOAT") == 0 ) {
+                    importAndConvertAlphaImage<float>(info, destImage(*imgFloat,
+                            vigra::VectorComponentAccessor<vigra::RGBValue<float> >(0)), destImage(*mask), pixelType);
+                } else if (strcmp(pixelType, "DOUBLE") == 0 ) {
+                    importAndConvertAlphaImage<double>(info, destImage(*imgFloat,
+                            vigra::VectorComponentAccessor<vigra::RGBValue<float> >(0)), destImage(*mask), pixelType);
                 } else {
                     DEBUG_ERROR("Unsupported pixel type: " << pixelType);
                     return EntryPtr();
