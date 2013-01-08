@@ -185,9 +185,20 @@ void KeyPointDetector::detectKeypoints(Image& iImage, KeyPointInsertor& iInserto
                     double aY = aYAdj;
                     double aS = aSAdj;
 
+                    if(aBorderSize[aSAdj+1]>aBorderSize[aSAdj])
+                    {
+                        if(aX<aBorderSize[aSAdj+1] || aX>aOctaveWidth-aBorderSize[aSAdj+1]-1)
+                        {
+                            continue;
+                        };
+                        if(aY<aBorderSize[aSAdj+1] || aY>aOctaveHeight-aBorderSize[aSAdj+1]-1)
+                        {
+                            continue;
+                        };
+                    };
                     // try to fine tune, restore the values if it failed
                     // if the returned value is true,  keep the point, else drop it.
-                    if (!fineTuneExtrema(aSH, aXAdj, aYAdj, aSAdj, aX, aY, aS, aScore, aOctaveWidth, aOctaveHeight, aBorderSize[aSAdj]))
+                    if (!fineTuneExtrema(aSH, aXAdj, aYAdj, aSAdj, aX, aY, aS, aScore, aOctaveWidth, aOctaveHeight, aBorderSize[aSAdj+1]))
                     {
                         continue;
                     }
