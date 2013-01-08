@@ -373,8 +373,6 @@ private:
     void					writeOutput();
     void					writeKeyfile(ImgData& imgInfo);
 
-    ZThread::FastMutex      aPanoMutex;
-
     // internals
 public:
     struct ImgData
