@@ -126,8 +126,8 @@ public:
         }
         else
         {
-            // same score, order by orientation
-            return (a->_ori < b->_ori);
+            // same score, order by scale
+            return (a->_scale < b->_scale);
         }
     }
 };
