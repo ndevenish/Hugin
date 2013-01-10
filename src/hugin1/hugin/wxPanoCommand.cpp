@@ -233,6 +233,7 @@ bool wxAddImagesCmd::processPanorama(Panorama& pano)
                         srcImg = pano.getSrcImage(i);
                         srcImg.setFilename(filename);
                         srcImg.deleteAllMasks();
+                        srcImg.readEXIF(focalLength, cropFactor, false, false);
                         // add image
                         int imgNr = pano.addImage(srcImg);
                         variable_groups.update();
@@ -293,6 +294,7 @@ bool wxAddImagesCmd::processPanorama(Panorama& pano)
                     srcImg = pano.getSrcImage(i);
                     srcImg.setFilename(filename);
                     srcImg.deleteAllMasks();
+                    srcImg.readEXIF(focalLength, cropFactor, false, false);
                     srcImg.setExposureValue(ev);
                     break;
                 }
@@ -305,6 +307,7 @@ bool wxAddImagesCmd::processPanorama(Panorama& pano)
                     srcImg = pano.getSrcImage(i);
                     srcImg.setFilename(filename);
                     srcImg.deleteAllMasks();
+                    srcImg.readEXIF(focalLength, cropFactor, false, false);
                     break;
                 }
             }
