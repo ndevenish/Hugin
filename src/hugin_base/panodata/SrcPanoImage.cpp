@@ -799,7 +799,12 @@ double SrcPanoImage::calcHFOV(SrcPanoImage::Projection proj, double fl, double c
             hfov = (sensorSize.x / fl) / M_PI * 180;
             break;
         case SrcPanoImage::FISHEYE_ORTHOGRAPHIC:
-            hfov = 2 * asin(std::min<double>(1.0, (sensorSize.x/2.0)/fl)) * 180.0/M_PI;
+            {
+                double val=(sensorSize.x/2.0)/fl;
+                double n;
+                double frac=modf(val, &n);
+                hfov = 2 * asin(frac) * 180.0/M_PI + n * 180.0;
+            }
             break;
         case SrcPanoImage::FISHEYE_EQUISOLID:
             hfov = 4 * asin(std::min<double>(1.0, (sensorSize.x/4.0)/fl)) * 180.0/M_PI;
@@ -846,7 +851,10 @@ double SrcPanoImage::calcFocalLength(SrcPanoImage::Projection proj, double hfov,
             return  (sensorSize.x / (hfov/180*M_PI));
             break;
         case SrcPanoImage::FISHEYE_ORTHOGRAPHIC:
-            return (sensorSize.x /2.0) / sin(hfov/180.0*M_PI/2.0);
+            {
+                int t=(int)ceil((hfov-180)/360);
+                return (sensorSize.x /2.0) / (2 * t + pow ( -1.0, t) * sin(hfov/180.0*M_PI/2.0));
+            };
         case SrcPanoImage::FISHEYE_STEREOGRAPHIC:
             return (sensorSize.x/4.0) / tan(hfov/180.0*M_PI/4.0);
         case SrcPanoImage::FISHEYE_EQUISOLID:
