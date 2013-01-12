@@ -454,9 +454,8 @@ void PreviewPanel::updatePreview()
 
                 DEBUG_DEBUG("LDR output, with response: " << src.getResponseType());
                 if (src.getResponseType() == SrcPanoImage::RESPONSE_LINEAR) {
-                    vigra::copyImage(srcImageRange(panoImg), destImage(panoImg8));
-//                    vigra::transformImage(srcImageRange(panoImg), destImage(panoImg8),
-//                                          vigra::functor::Arg1()*vigra::functor::Param(255));
+                    vigra::transformImage(srcImageRange(panoImg), destImage(panoImg8),
+                                          vigra::functor::Arg1()*vigra::functor::Param(255));
                 } else {
                 // create suitable lut for response
                     typedef  std::vector<double> LUT;
