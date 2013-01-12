@@ -218,7 +218,7 @@ void HDRMergeOptionsDialog::OnModeChanged(wxCommandEvent & e)
     m_panel_avg->Show(selection==0);
     m_panel_avgslow->Show(selection==1);
     m_panel_khan->Show(selection==2);
-    Fit();
+    GetSizer()->Fit(this);
 };
 
 void HDRMergeOptionsDialog::OnOk(wxCommandEvent & e)
