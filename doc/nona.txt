@@ -23,6 +23,23 @@
 #                  1 - Cylindrical (for Printing and QTVR)
 #                  2 - Equirectangular ( for Spherical panos), default
 #                  3 - full-frame fisheye
+#                  4 - Stereographic
+#                  5 - Mercator
+#                  6 - Transverse Mercator
+#                  7 - Sinusoidal
+#                  8 - Lambert Cylindrical Equal Area
+#                  9 - Lambert Equal Area Azimuthal
+#                 10 - Albers Equal Area Conic
+#                 11 - Miller Cylindrical
+#                 12 - Panini
+#                 13 - Architectural
+#                 14 - Orthographic
+#                 15 - Equisolid
+#                 16 - Equirectangular Panini
+#                 17 - Biplane
+#                 18 - Triplane
+#                 19 - Panini General
+#                 20 - Thoby Projection
 # v360         horizontal field of view of panorama (default 360)
 # nPICT        Panorama file format, one of:
 #                  PNG           png-format, 8 & 16 bit supported
@@ -77,6 +94,10 @@ p w1000 h600 f0 v360 E12.3
 #                  2 - Circular fisheye
 #                  3 - full-frame fisheye
 #                  4 - PSphere, equirectangular
+#                  8 - orthographic fisheye
+#                 10 - stereographic fisheye
+#                 21 - Equisolid fisheye
+#                 20 - Fisheye Thoby (Nikkor 10.5)
 # v82          horizontal field of view of image (required)
 # y0           yaw angle (required)
 # p43          pitch angle (required)
