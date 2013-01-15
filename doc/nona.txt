@@ -12,7 +12,7 @@
 
 # The stitcher script must contain:
 # one 'p'-line describing the output image (eg Panorama)
-# one 'o'-line for each input image
+# one 'i'-line for each input image
 # one 'm'-line for global options
 #
 # 'p'-line options
