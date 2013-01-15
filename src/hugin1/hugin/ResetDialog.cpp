@@ -89,7 +89,7 @@ void ResetDialog::LimitToGeometric()
     XRCCTRL(*this,"reset_color",wxCheckBox)->Show(false);
     XRCCTRL(*this,"reset_vignetting",wxCheckBox)->Show(false);
     XRCCTRL(*this,"reset_response",wxCheckBox)->Show(false);
-    Fit();
+    GetSizer()->Fit(this);
 };
 
 void ResetDialog::LimitToPhotometric()
@@ -97,7 +97,7 @@ void ResetDialog::LimitToPhotometric()
     XRCCTRL(*this,"reset_pos",wxCheckBox)->Show(false);
     XRCCTRL(*this,"reset_fov",wxCheckBox)->Show(false);
     XRCCTRL(*this,"reset_lens",wxCheckBox)->Show(false);
-    Fit();
+    GetSizer()->Fit(this);
 };
 
 void ResetDialog::OnOk(wxCommandEvent & e)
