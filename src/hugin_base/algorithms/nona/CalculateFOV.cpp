@@ -40,14 +40,14 @@ FDiff2D CalculateFOV::calcFOV(const PanoramaData& panorama)
         return FDiff2D(panorama.getOptions().getHFOV(), panorama.getOptions().getVFOV());
     }
 
-    vigra::Size2D panoSize(360,180);
+    vigra::Size2D panoSize(360*2,180*2);
 
     // remap into minature pano.
     PanoramaOptions opts;
     opts.setHFOV(360);
     opts.setProjection(PanoramaOptions::EQUIRECTANGULAR);
-    opts.setWidth(360);
-    opts.setHeight(180);
+    opts.setWidth(panoSize.x);
+    opts.setHeight(panoSize.y);
 
     // remap image
     // DGSW - make sure the type is correct
@@ -59,7 +59,7 @@ FDiff2D CalculateFOV::calcFOV(const PanoramaData& panorama)
         //    for (unsigned int imgNr=0; imgNr < getNrOfImages(); imgNr++) {
         // DGSW FIXME - Unreferenced
         //	        const PanoImage & img = getImage(*it);
-        remapped.setPanoImage(panorama.getSrcImage(*it), opts, vigra::Rect2D(0,0,360,180));
+        remapped.setPanoImage(panorama.getSrcImage(*it), opts, vigra::Rect2D(0,0,panoSize.x,panoSize.y));
         //remapped.setPanoImage(*this, *it, vigra::Size2D(img.getWidth(), img.getHeight()), opts);
         // calculate alpha channel
         remapped.calcAlpha();
@@ -81,8 +81,8 @@ FDiff2D CalculateFOV::calcFOV(const PanoramaData& panorama)
     ul.y = DBL_MAX;
     lr.x = -DBL_MAX;
     lr.y = -DBL_MAX;
-    for (int v=0; v< 180; v++) {
-        for (int h=0; h < 360; h++) {
+    for (int v=0; v< panoSize.y; v++) {
+        for (int h=0; h < panoSize.x; h++) {
             if (panoAlpha(h,v)) {
                 // pixel is valid
                 if ( ul.x > h ) {
@@ -108,11 +108,17 @@ FDiff2D CalculateFOV::calcFOV(const PanoramaData& panorama)
         // if nothing found, return current fov
         return FDiff2D(panorama.getOptions().getHFOV(), panorama.getOptions().getVFOV());
     }
+    ul=ul/2.0;
+    lr=lr/2.0;
     ul.x = ul.x - 180;
     ul.y = ul.y - 90;
     lr.x = lr.x - 180;
     lr.y = lr.y - 90;
     FDiff2D fov (2*std::max(fabs(ul.x), fabs(lr.x)), 2*std::max(fabs(ul.y), fabs(lr.y)));
+    if(fov.x<40)
+    {
+        fov.x+=1;
+    };
     return fov;
 }
 
