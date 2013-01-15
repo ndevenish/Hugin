@@ -1530,48 +1530,36 @@ void Panorama::updateOptimizeVector()
         };
         for(size_t i=0;i<getNrOfImages();i++)
         {
-            if(state.optSwitch & OPT_PAIR)
+            if(state.optSwitch & OPT_PAIR || state.optSwitch & OPT_POSITION || state.optSwitch & OPT_ALL)
             {
-                UpdateOptVectorSet(state.optvec[i],"y",true);
-                UpdateOptVectorSet(state.optvec[i],"p",true);
-                UpdateOptVectorSet(state.optvec[i],"r",true);
-                UpdateOptVectorSet(state.optvec[i],"TrX",false);
-                UpdateOptVectorSet(state.optvec[i],"TrY",false);
-                UpdateOptVectorSet(state.optvec[i],"TrZ",false);
-            }
-            else
-            {
-                if(state.optSwitch & OPT_POSITION || state.optSwitch & OPT_ALL)
+                if(set_contains(refImgs,i))
                 {
-                    if(set_contains(refImgs,i))
-                    {
-                        UpdateOptVectorSet(state.optvec[i],"y",linkRefImgsYaw);
-                        UpdateOptVectorSet(state.optvec[i],"p",linkRefImgsPitch);
-                        UpdateOptVectorSet(state.optvec[i],"r",linkRefImgsRoll);
-                        //don't optimize translation parameters of anchor
-                        UpdateOptVectorSet(state.optvec[i],"TrX",false);
-                        UpdateOptVectorSet(state.optvec[i],"TrY",false);
-                        UpdateOptVectorSet(state.optvec[i],"TrZ",false);
-                    }
-                    else
-                    {
-                        UpdateOptVectorSet(state.optvec[i],"y",true);
-                        UpdateOptVectorSet(state.optvec[i],"p",true);
-                        UpdateOptVectorSet(state.optvec[i],"r",true);
-                        UpdateOptVectorSet(state.optvec[i],"TrX",(state.optSwitch & OPT_TRANSLATION)>0);
-                        UpdateOptVectorSet(state.optvec[i],"TrY",(state.optSwitch & OPT_TRANSLATION)>0);
-                        UpdateOptVectorSet(state.optvec[i],"TrZ",(state.optSwitch & OPT_TRANSLATION)>0);
-                    };
+                    UpdateOptVectorSet(state.optvec[i],"y",linkRefImgsYaw);
+                    UpdateOptVectorSet(state.optvec[i],"p",linkRefImgsPitch);
+                    UpdateOptVectorSet(state.optvec[i],"r",linkRefImgsRoll);
+                    //don't optimize translation parameters of anchor
+                    UpdateOptVectorSet(state.optvec[i],"TrX",false);
+                    UpdateOptVectorSet(state.optvec[i],"TrY",false);
+                    UpdateOptVectorSet(state.optvec[i],"TrZ",false);
                 }
                 else
                 {
-                    UpdateOptVectorSet(state.optvec[i],"y",false);
-                    UpdateOptVectorSet(state.optvec[i],"p",false);
-                    UpdateOptVectorSet(state.optvec[i],"r",false);
-                    UpdateOptVectorSet(state.optvec[i],"Trx",false);
-                    UpdateOptVectorSet(state.optvec[i],"Try",false);
-                    UpdateOptVectorSet(state.optvec[i],"Trz",false);
+                    UpdateOptVectorSet(state.optvec[i],"y",true);
+                    UpdateOptVectorSet(state.optvec[i],"p",true);
+                    UpdateOptVectorSet(state.optvec[i],"r",true);
+                    UpdateOptVectorSet(state.optvec[i],"TrX",(state.optSwitch & OPT_TRANSLATION)>0);
+                    UpdateOptVectorSet(state.optvec[i],"TrY",(state.optSwitch & OPT_TRANSLATION)>0);
+                    UpdateOptVectorSet(state.optvec[i],"TrZ",(state.optSwitch & OPT_TRANSLATION)>0);
                 };
+            }
+            else
+            {
+                UpdateOptVectorSet(state.optvec[i],"y",false);
+                UpdateOptVectorSet(state.optvec[i],"p",false);
+                UpdateOptVectorSet(state.optvec[i],"r",false);
+                UpdateOptVectorSet(state.optvec[i],"Trx",false);
+                UpdateOptVectorSet(state.optvec[i],"Try",false);
+                UpdateOptVectorSet(state.optvec[i],"Trz",false);
             };
             UpdateOptVectorSet(state.optvec[i],"v",state.optSwitch & OPT_VIEW || state.optSwitch & OPT_ALL);
             UpdateOptVectorSet(state.optvec[i],"a",(state.optSwitch & OPT_ALL)>0);
