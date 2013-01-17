@@ -575,7 +575,12 @@ class IMPEX Panorama : public ManagedPanoramaData, public AppBase::DocumentData
         void transferMask(MaskPolygon mask,unsigned int imgNr, const UIntSet targetImgs);
         /** updates the optimize vector according to master switches */
         void updateOptimizeVector();
-        
+        /** returns set of reference image and images linked with reference images */
+        std::set<size_t> getRefImages();
+        /** checks if yaw/pitch/roll of reference image can be check, 
+          * it depends on number and type of control points */
+        void checkRefOptStatus(bool& linkRefImgsYaw, bool& linkRefImgsPitch, bool& linkRefImgsRoll);
+
         // -- Memento interface --
         
         /// get the internal state

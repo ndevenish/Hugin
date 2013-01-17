@@ -1464,6 +1464,70 @@ void UpdateOptVectorSet(std::set<std::string>& imgVar, const std::string var, co
     };
 };
 
+std::set<size_t> Panorama::getRefImages()
+{
+    unsigned int refImg = getOptions().optimizeReferenceImage;
+    std::set<size_t> refImgs;
+    refImgs.insert(refImg);
+    const HuginBase::SrcPanoImage & refImage = getImage(refImg);
+    for (size_t imgNr = 0; imgNr < getNrOfImages(); imgNr++)
+    {
+        if(imgNr!=refImg)
+        {
+            const HuginBase::SrcPanoImage & compImage = getImage(imgNr);
+            if (refImage.YawisLinkedWith(compImage))
+            {
+                refImgs.insert(imgNr);
+            };
+        };
+    };
+    return refImgs;
+};
+
+void Panorama::checkRefOptStatus(bool& linkRefImgsYaw, bool& linkRefImgsPitch, bool& linkRefImgsRoll)
+{
+    // count number of vertical/horizontal control points
+    int nHCP = 0;
+    int nVCP = 0;
+    const CPVector & cps = getCtrlPoints();
+    for (CPVector::const_iterator it = cps.begin(); it != cps.end(); it++)
+    {
+        // control points
+        if (it->mode == ControlPoint::X)
+        {
+            nVCP++;
+        }
+        else
+        {
+            if (it->mode == ControlPoint::Y)
+            {
+                nHCP++;
+            }
+        };
+    };
+
+    // try to select sensible position optimisation parameters,
+    // dependent on output projection
+    linkRefImgsYaw=false;
+    linkRefImgsPitch=false;
+    linkRefImgsRoll=false;
+    switch (getOptions().getProjection())
+    {
+        case PanoramaOptions::RECTILINEAR:
+            linkRefImgsRoll = nVCP + nHCP >= 1;
+            linkRefImgsYaw = nVCP + nHCP >= 3 && nVCP >= 1 && nHCP >= 1;
+            linkRefImgsPitch = nVCP + nHCP >= 2;
+            break;
+        case PanoramaOptions::CYLINDRICAL:
+        case PanoramaOptions::EQUIRECTANGULAR:
+            linkRefImgsPitch =  nHCP + nVCP > 1;
+            linkRefImgsRoll = nHCP + nVCP >= 1;
+            break;
+        default:
+            break;
+    };
+};
+
 void Panorama::updateOptimizeVector()
 {
     if(state.images.size()==0)
@@ -1472,62 +1536,12 @@ void Panorama::updateOptimizeVector()
     };
     if(state.optSwitch!=0)
     {
-        unsigned int refImg = getOptions().optimizeReferenceImage;
-        std::set<size_t> refImgs;
-        refImgs.insert(refImg);
-        const HuginBase::SrcPanoImage & refImage = getImage(refImg);
-        for (size_t imgNr = 0; imgNr < getNrOfImages(); imgNr++)
-        {
-            if(imgNr!=refImg)
-            {
-                const HuginBase::SrcPanoImage & compImage = getImage(imgNr);
-                if (refImage.YawisLinkedWith(compImage))
-                {
-                    refImgs.insert(imgNr);
-                };
-            };
-        };
-
-        // count number of vertical/horizontal control points
-        int nHCP = 0;
-        int nVCP = 0;
-        const CPVector & cps = getCtrlPoints();
-        for (CPVector::const_iterator it = cps.begin(); it != cps.end(); it++)
-        {
-            // control points
-            if (it->mode == ControlPoint::X)
-            {
-                nVCP++;
-            }
-            else
-            {
-                if (it->mode == ControlPoint::Y)
-                {
-                    nHCP++;
-                }
-            };
-        };
-
-        // try to select sensible position optimisation parameters,
-        // dependent on output projection
+        std::set<size_t> refImgs=getRefImages();
         bool linkRefImgsYaw=false;
         bool linkRefImgsPitch=false;
         bool linkRefImgsRoll=false;
-        switch (getOptions().getProjection())
-        {
-            case PanoramaOptions::RECTILINEAR:
-                linkRefImgsRoll = nVCP + nHCP >= 1;
-                linkRefImgsYaw = nVCP + nHCP >= 3 && nVCP >= 1 && nHCP >= 1;
-                linkRefImgsPitch = nVCP + nHCP >= 2;
-                break;
-            case PanoramaOptions::CYLINDRICAL:
-            case PanoramaOptions::EQUIRECTANGULAR:
-                linkRefImgsPitch =  nHCP + nVCP > 1;
-                linkRefImgsRoll = nHCP + nVCP >= 1;
-                break;
-            default:
-                break;
-        };
+        checkRefOptStatus(linkRefImgsYaw, linkRefImgsPitch, linkRefImgsRoll);
+
         for(size_t i=0;i<getNrOfImages();i++)
         {
             if(state.optSwitch & OPT_PAIR || state.optSwitch & OPT_POSITION || state.optSwitch & OPT_ALL)

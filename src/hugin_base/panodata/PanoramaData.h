@@ -383,6 +383,24 @@ public:
     
     /// mark image change for maintainance 
     virtual void imageChanged(unsigned int imgNr) =0;
+    /** set complete mask list for image with number */
+    virtual void updateMasksForImage(unsigned int imgNr, MaskPolygonVector newMasks)=0;
+    /** updates all active masks
+      *
+      * this is necessary after variables of *one* image has changed, 
+      * because positive masks have to be updated 
+      */
+    virtual void updateMasks(bool convertPosMaskToNeg=false)=0;
+    /** transfers given mask from image imgNr to all targetImgs
+        */
+    virtual void transferMask(MaskPolygon mask,unsigned int imgNr, const UIntSet targetImgs)=0;
+    /** updates the optimize vector according to master switches */
+    virtual void updateOptimizeVector()=0;
+    /** returns set of reference image and images linked with reference images */
+    virtual std::set<size_t> getRefImages()=0;
+    /** checks if yaw/pitch/roll of reference image can be check, 
+        * it depends on number and type of control points */
+    virtual void checkRefOptStatus(bool& linkRefImgsYaw, bool& linkRefImgsPitch, bool& linkRefImgsRoll)=0;
 
 };
 
