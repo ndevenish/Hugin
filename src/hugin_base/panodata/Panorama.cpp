@@ -1151,16 +1151,30 @@ void Panorama::transferMask(MaskPolygon mask,unsigned int imgNr, const UIntSet t
                 {
                     return;
                 };
+                if(clipRect.width()>10 && clipRect.height()>10)
+                {
+                    clipRect.addBorder(-2);
+                };
                 break;
             case BaseSrcPanoImage::CROP_CIRCLE:
                 {
                     vigra::Rect2D cropRect=state.images[imgNr]->getCropRect();
                     FDiff2D center=FDiff2D((cropRect.left()+cropRect.right())/2.0,(cropRect.top()+cropRect.bottom())/2.0);
                     double radius=((cropRect.width()<cropRect.height())?cropRect.width():cropRect.height())/2.0;
+                    if(radius>10)
+                    {
+                        radius-=2;
+                    };
                     if(!transformedMask.clipPolygon(center,radius))
                     {
                         return;
                     };
+                };
+                break;
+            default:
+                if(clipRect.width()>10 && clipRect.height()>10)
+                {
+                    clipRect.addBorder(-2);
                 };
                 break;
         };
