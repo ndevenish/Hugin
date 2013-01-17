@@ -60,7 +60,7 @@ static void usage(const char* name)
          << "Usage:  " << name << " [options] input.pto" << endl
          << endl
          << "  Options:" << endl
-         << "     -o, --output=file.pto  Output Hugin PTO file. Default: <filename>_line.pto" << endl
+         << "     -o, --output=file.pto  Output Hugin PTO file. Default: <filename>_lines.pto" << endl
          << "     -i, --image=IMGNR      Work only on given image numbers" << endl
          << "     -l, --lines=COUNT      Save maximal COUNT lines (default: 5)" << endl
          << "     -h, --help             Shows this help" << endl
