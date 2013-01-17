@@ -366,7 +366,7 @@ int main(int argc, char* argv[])
                 ParseVariableString(setVars, std::string(optarg), "([a-zA-Z]{1,3})(\\d+?)=([-+]?\\d+?\\.?\\d*?)");
                 break;
             case ':':
-                cerr <<"Option " << longOptions[optionIndex].name << " requires a number" << endl;
+                cerr <<"Option " << longOptions[optionIndex].name << " requires a parameter." << endl;
                 return 1;
                 break;
             case '?':
