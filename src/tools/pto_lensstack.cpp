@@ -125,7 +125,7 @@ static void usage(const char* name)
     cout << name << ": modify assigned lenses and stack in pto files" << endl
          << name << " version " << DISPLAY_VERSION << endl
          << endl
-         << "Usage:  " << name << " [options] --opt|--link|--unlink|--set varlist input.pto" << endl
+         << "Usage:  " << name << " [options] --switches imglist input.pto" << endl
          << endl
          << "     -o, --output=file.pto   Output Hugin PTO file. Default: <filename>_lens.pto" << endl
          << "     -h, --help              Shows this help" << endl
