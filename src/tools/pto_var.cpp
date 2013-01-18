@@ -49,20 +49,113 @@ struct ParseVar
     std::string varname;
     int imgNr;
     double val;
-    ParseVar(): varname(""), imgNr(-1), val(0.0) {};
+    bool removeOpt;
+    enum ParseVarOp
+    {
+        OP_SET,
+        OP_ADD,
+        OP_SUBTRACT,
+        OP_MULTIPLY,
+        OP_DIVIDE
+    };
+    ParseVarOp valOp;
+    ParseVar(): varname(""), imgNr(-1), val(0.0), removeOpt(false), valOp(OP_SET) {};
 };
 
 typedef std::vector<ParseVar> ParseVarVec;
 
 // parse a single variable and put result in struct ParseVar
-void ParseSingleVar(ParseVarVec& varVec, std::string s, std::string regExpression)
+void ParseSingleOptVar(ParseVarVec& varVec, std::string s)
 {
-    boost::regex reg(regExpression);
+    boost::regex reg("([!]?)([a-zA-Z]{1,3})(\\d*?)");
     boost::smatch matches;
     if(boost::regex_match(s, matches, reg))
     {
-        bool valid=true;
-        if(matches.size()>1)
+        if(matches.size()==4)
+        {
+            ParseVar var;
+            std::string temp(matches[1].first, matches[1].second);
+            var.removeOpt=(temp=="!");
+            //check if variable name is valid
+            temp=std::string(matches[2].first, matches[2].second);
+            bool validVarname=false;
+#define image_variable( name, type, default_value ) \
+            if (HuginBase::PTOVariableConverterFor##name::checkApplicability(temp))\
+            {\
+                validVarname=true;\
+            };
+#include "panodata/image_variables.h"
+#undef image_variable
+            if(!validVarname)
+            {
+                return;
+            };
+            var.varname=temp;
+            // now parse (optional) image number
+            temp=std::string(matches[3].first, matches[3].second);
+            if(temp.length()>0)
+            {
+                try
+                {
+                    var.imgNr=boost::lexical_cast<int>(temp);
+                }
+                catch (boost::bad_lexical_cast)
+                {
+                    var.imgNr=-1;
+                };
+            };
+            varVec.push_back(var);
+        };
+    };
+};
+
+void ParseSingleLinkVar(ParseVarVec& varVec, std::string s)
+{
+    boost::regex reg("([a-zA-Z]{1,3})(\\d+?)");
+    boost::smatch matches;
+    if(boost::regex_match(s, matches, reg))
+    {
+        if(matches.size()==3)
+        {
+            ParseVar var;
+            //check if variable name is valid
+            std::string temp(matches[1].first, matches[1].second);
+            bool validVarname=false;
+#define image_variable( name, type, default_value ) \
+            if (HuginBase::PTOVariableConverterFor##name::checkApplicability(temp))\
+            {\
+                validVarname=true;\
+            };
+#include "panodata/image_variables.h"
+#undef image_variable
+            if(!validVarname)
+            {
+                return;
+            };
+            var.varname=temp;
+            // now parse image number
+            temp=std::string(matches[2].first, matches[2].second);
+            try
+            {
+                var.imgNr=boost::lexical_cast<int>(temp);
+            }
+            catch (boost::bad_lexical_cast)
+            {
+                var.imgNr=-1;
+                return;
+            };
+            varVec.push_back(var);
+        };
+    };
+};
+
+void ParseSingleVar(ParseVarVec& varVec, std::string s)
+{
+    boost::regex reg("([a-zA-Z]{1,3})(\\d*?)([\\-\\+\\*/]?)=([-+]?\\d+?\\.?\\d*?)");
+    boost::smatch matches;
+    if(boost::regex_match(s, matches, reg))
+    {
+        if(matches.size()==5)
         {
             ParseVar var;
             std::string temp(matches[1].first, matches[1].second);
@@ -80,52 +173,81 @@ void ParseSingleVar(ParseVarVec& varVec, std::string s, std::string regExpressio
                 return;
             };
             var.varname=temp;
-            // now parse (sometimes optional) image number
-            if(matches.size()>2)
+            // now parse (optional) image number
+            temp=std::string(matches[2].first, matches[2].second);
+            if(temp.length()>0)
             {
-                temp=std::string(matches[2].first, matches[2].second);
-                if(temp.length()>0)
+                try
                 {
-                    try
-                    {
-                        var.imgNr=boost::lexical_cast<int>(temp);
-                    }
-                    catch (boost::bad_lexical_cast)
-                    {
-                        var.imgNr=-1;
-                    };
+                    var.imgNr=boost::lexical_cast<int>(temp);
+                }
+                catch (boost::bad_lexical_cast)
+                {
+                    var.imgNr=-1;
                 };
-                // read variable value
-                if(matches.size()>3)
+            };
+            // parse optional operator
+            temp=std::string(matches[3].first, matches[3].second);
+            if(temp.length()>0)
+            {
+                if(temp=="+")
                 {
-                    temp=std::string(matches[3].first, matches[3].second);
-                    try
+                    var.valOp=ParseVar::OP_ADD;
+                }
+                else
+                {
+                    if(temp=="-")
                     {
-                        var.val=boost::lexical_cast<double>(temp);
+                        var.valOp=ParseVar::OP_SUBTRACT;
                     }
-                    catch (boost::bad_lexical_cast)
+                    else
                     {
-                        valid=false;
-                        var.val=0.0;
+                        if(temp=="*")
+                        {
+                            var.valOp=ParseVar::OP_MULTIPLY;
+                        }
+                        else
+                        {
+                            if(temp=="/")
+                            {
+                                var.valOp=ParseVar::OP_DIVIDE;
+                            }
+                            else
+                            {
+                                return;
+                            };
+                        };
                     };
                 };
             };
-            if(valid)
+            // read variable value
+            temp=std::string(matches[4].first, matches[4].second);
+            try
             {
-                varVec.push_back(var);
+                var.val=boost::lexical_cast<double>(temp);
+            }
+            catch (boost::bad_lexical_cast)
+            {
+                return;
             };
+            if(var.valOp==ParseVar::OP_DIVIDE && abs(var.val)<0.01)
+            {
+                cerr << "Warning: Division through zero is not possible. Skipping variable." << endl;
+                return;
+            };
+            varVec.push_back(var);
         };
     };
 };
 
 //parse complete variables string
-void ParseVariableString(ParseVarVec& parseVec, std::string input, std::string regExpression)
+void ParseVariableString(ParseVarVec& parseVec, std::string input, void (*func)(ParseVarVec&, std::string))
 {
     std::vector<std::string> splitResult;
     boost::algorithm::split(splitResult, input, boost::algorithm::is_any_of(", "), boost::algorithm::token_compress_on);
     for(size_t i=0; i<splitResult.size();i++)
     {
-        ParseSingleVar(parseVec, splitResult[i], regExpression);
+        (*func)(parseVec, splitResult[i]);
     };
 };
 
@@ -134,7 +256,7 @@ void ParseVariableString(ParseVarVec& parseVec, std::string input, std::string r
 //   1. don't add y,p,r for anchor image
 //   2. handle vignetting and EMoR parameters as group
 void AddToOptVec(HuginBase::OptimizeVector& optVec, std::string varname, size_t imgNr, 
-    std::set<size_t> refImgs, bool linkRefImgsYaw, bool linkRefImgsPitch, bool linkRefImgsRoll)
+    std::set<size_t> refImgs, bool linkRefImgsYaw, bool linkRefImgsPitch, bool linkRefImgsRoll, std::vector<std::set<std::string> > groupedVars)
 {
     if(varname=="y")
     {
@@ -172,39 +294,39 @@ void AddToOptVec(HuginBase::OptimizeVector& optVec, std::string varname, size_t 
                 }
                 else
                 {
-                    if(varname=="Vb" || varname=="Vc" || varname=="Vd")
+                    for(size_t i=0; i<groupedVars.size(); i++)
                     {
-                        optVec[imgNr].insert("Vb");
-                        optVec[imgNr].insert("Vc");
-                        optVec[imgNr].insert("Vd");
-                    }
-                    else
-                    {
-                        if(varname=="Vx" || varname=="Vy")
+                        if(set_contains(groupedVars[i], varname))
                         {
-                            optVec[imgNr].insert("Vx");
-                            optVec[imgNr].insert("Vy");
-                        }
-                        else
-                        {
-                            if(varname=="Ra" || varname=="Rb" || varname=="Rc" || varname=="Rd" || varname=="Re")
+                            for(std::set<std::string>::const_iterator it=groupedVars[i].begin(); it!=groupedVars[i].end(); it++)
                             {
-                                optVec[imgNr].insert("Ra");
-                                optVec[imgNr].insert("Rb");
-                                optVec[imgNr].insert("Rc");
-                                optVec[imgNr].insert("Rd");
-                                optVec[imgNr].insert("Re");
-                            }
-                            else
-                            {
-                                optVec[imgNr].insert(varname);
+                                optVec[imgNr].insert(*it);
                             };
+                            return;
                         };
                     };
+                    optVec[imgNr].insert(varname);
                 };
             };
         };
     };
+};
+
+// remove given variable from optvec, handle also correct grouped variables
+void RemoveFromOptVec(HuginBase::OptimizeVector& optVec, std::string varname, size_t imgNr, std::vector<std::set<std::string> > groupedVars)
+{
+    for(size_t i=0; i<groupedVars.size(); i++)
+    {
+        if(set_contains(groupedVars[i], varname))
+        {
+            for(std::set<std::string>::const_iterator it=groupedVars[i].begin(); it!=groupedVars[i].end(); it++)
+            {
+                optVec[imgNr].erase(*it);
+            };
+            return;
+        };
+    };
+    optVec[imgNr].erase(varname);
 };
 
 // link or unlink the parsed image variables
@@ -280,6 +402,38 @@ void UnLinkVars(Panorama& pano, ParseVarVec parseVec, bool link)
     };
 };
 
+void UpdateSingleVar(Panorama &pano, ParseVar parseVar, size_t imgNr)
+{
+    double val=0.0;
+    if(parseVar.valOp==ParseVar::OP_SET)
+    {
+        val=parseVar.val;
+    }
+    else
+    {
+        val=pano.getImage(imgNr).getVar(parseVar.varname);
+        switch(parseVar.valOp)
+        {
+            case ParseVar::OP_ADD:
+                val+=parseVar.val;
+                break;
+            case ParseVar::OP_SUBTRACT:
+                val-=parseVar.val;
+                break;
+            case ParseVar::OP_MULTIPLY:
+                val*=parseVar.val;
+                break;
+            case ParseVar::OP_DIVIDE:
+                val/=parseVar.val;
+                break;
+            default:
+                break;
+        };
+    };
+    HuginBase::Variable var(parseVar.varname, val);
+    pano.updateVariable(imgNr, var);
+};
+
 static void usage(const char* name)
 {
     cout << name << ": change image variables inside pto files" << endl
@@ -291,10 +445,18 @@ static void usage(const char* name)
          << "     -h, --help             Shows this help" << endl
          << endl
          << "     --opt varlist          Change optimizer variables" << endl
+         << "     --modify-opt           Modify the existing optimizer variables" << endl
+         << "                            (without pto_var will start with an" << endl
+         << "                             empty variables set)" << endl
          << "                            Examples:" << endl
          << "           --opt y,p,r        Optimize yaw, pitch and roll of all images" << endl
+         << "                              (special treatment for anchor image applies)" << endl
          << "           --opt v0,b2        Optimize hfov of image 0 and barrel distortion" << endl    
          << "                              of image 2" << endl
+         << "           --opt v,!v0        Optimize field of view for all images except" << endl
+         << "                              for the first image" << endl
+         << "           --opt !a,!b,!c     Don't optimise distortion (works only with" << endl
+         << "                              switch --modify-opt together)" << endl
          << endl
          << "     --link varlist         Link given variables" << endl
          << "                            Example:" << endl
@@ -310,6 +472,9 @@ static void usage(const char* name)
          << "                            Examples:" << endl
          << "           --set y0=0,r0=0,p0=0  Resets position of image 0" << endl
          << "           --set Vx4=-10,Vy4=10  Sets vignetting offset for image 4" << endl
+         << "           --set v=20            Sets the field of view to 20 for all images" << endl
+         << "           --set y+=20           Increase yaw by 20 deg for all images" << endl
+         << "           --set v*=1.1          Increase fov by 10 % for all images" << endl
          << endl;
 }
 
@@ -323,7 +488,8 @@ int main(int argc, char* argv[])
         SWITCH_OPT=1000,
         SWITCH_LINK,
         SWITCH_UNLINK,
-        SWITCH_SET
+        SWITCH_SET,
+        OPT_MODIFY_OPTVEC
     };
     static struct option longOptions[] =
     {
@@ -332,6 +498,7 @@ int main(int argc, char* argv[])
         {"link", required_argument, NULL, SWITCH_LINK },
         {"unlink", required_argument, NULL, SWITCH_UNLINK },
         {"set", required_argument, NULL, SWITCH_SET },
+        {"modify-opt", no_argument, NULL, OPT_MODIFY_OPTVEC },
         {"help", no_argument, NULL, 'h' },
         0
     };
@@ -340,6 +507,7 @@ int main(int argc, char* argv[])
     ParseVarVec linkVars;
     ParseVarVec unlinkVars;
     ParseVarVec setVars;
+    bool modifyOptVec=false;
     int c;
     int optionIndex = 0;
     string output;
@@ -354,16 +522,19 @@ int main(int argc, char* argv[])
                 usage(argv[0]);
                 return 0;
             case SWITCH_OPT:
-                ParseVariableString(optVars, std::string(optarg), "([a-zA-Z]{1,3})(\\d*?)");
+                ParseVariableString(optVars, std::string(optarg), ParseSingleOptVar);
                 break;
             case SWITCH_LINK:
-                ParseVariableString(linkVars, std::string(optarg), "([a-zA-Z]{1,3})(\\d+?)");
+                ParseVariableString(linkVars, std::string(optarg), ParseSingleLinkVar);
                 break;
             case SWITCH_UNLINK:
-                ParseVariableString(unlinkVars, std::string(optarg), "([a-zA-Z]{1,3})(\\d+?)");
+                ParseVariableString(unlinkVars, std::string(optarg), ParseSingleLinkVar);
                 break;
             case SWITCH_SET:
-                ParseVariableString(setVars, std::string(optarg), "([a-zA-Z]{1,3})(\\d+?)=([-+]?\\d+?\\.?\\d*?)");
+                ParseVariableString(setVars, std::string(optarg), ParseSingleVar);
+                break;
+            case OPT_MODIFY_OPTVEC:
+                modifyOptVec=true;
                 break;
             case ':':
                 cerr <<"Option " << longOptions[optionIndex].name << " requires a parameter." << endl;
@@ -435,12 +606,50 @@ int main(int argc, char* argv[])
         for(size_t i=0; i<setVars.size(); i++)
         {
             //skip invalid image numbers
-            if(setVars[i].imgNr<0 || setVars[i].imgNr>=(int)pano.getNrOfImages())
+            if(setVars[i].imgNr>=(int)pano.getNrOfImages())
             {
                 continue;
             };
-            HuginBase::Variable var(setVars[i].varname, setVars[i].val);
-            pano.updateVariable(setVars[i].imgNr, var);
+            if(setVars[i].imgNr<0)
+            {
+                UIntSet updatedImgs;
+                for(size_t j=0; j<pano.getNrOfImages(); j++)
+                {
+                    //if we already update the variable in this image via links, skip it
+                    if(set_contains(updatedImgs, j))
+                    {
+                        continue;
+                    };
+                    UpdateSingleVar(pano, setVars[i], j);
+                    updatedImgs.insert(j);
+                    if(j==pano.getNrOfImages()-1)
+                    {
+                        break;
+                    };
+                    // now remember linked variables
+                    const HuginBase::SrcPanoImage& img1=pano.getImage(j);
+#define image_variable( name, type, default_value ) \
+                    if (HuginBase::PTOVariableConverterFor##name::checkApplicability(setVars[i].varname))\
+                    {\
+                        if(img1.name##isLinked())\
+                        {\
+                            for(size_t k=j+1; k<pano.getNrOfImages(); k++)\
+                            {\
+                                if(img1.name##isLinkedWith(pano.getImage(k)))\
+                                {\
+                                    updatedImgs.insert(k);\
+                                }\
+                            };\
+                        };\
+                    };
+#include "panodata/image_variables.h"
+#undef image_variable
+                };
+            }
+            else
+            {
+                UpdateSingleVar(pano, setVars[i], setVars[i].imgNr);
+            };
         };
     };
 
@@ -453,7 +662,34 @@ int main(int argc, char* argv[])
         bool linkRefImgsRoll=false;
         pano.checkRefOptStatus(linkRefImgsYaw, linkRefImgsPitch, linkRefImgsRoll);
 
-        HuginBase::OptimizeVector optVec(pano.getNrOfImages());
+        //simplify handling of variable groups
+        std::vector<std::set<std::string> > groupedVars;
+        std::set<std::string> varSet;
+        varSet.insert("Vb");
+        varSet.insert("Vc");
+        varSet.insert("Vd");
+        groupedVars.push_back(varSet);
+        varSet.clear();
+        varSet.insert("Vx");
+        varSet.insert("Vy");
+        groupedVars.push_back(varSet);
+        varSet.clear();
+        varSet.insert("Ra");
+        varSet.insert("Rb");
+        varSet.insert("Rc");
+        varSet.insert("Rd");
+        varSet.insert("Re");
+        groupedVars.push_back(varSet);
+
+        HuginBase::OptimizeVector optVec;
+        if(modifyOptVec)
+        {
+            optVec=pano.getOptimizeVector();
+        };
+        if(optVec.size()!=pano.getNrOfImages())
+        {
+            optVec.resize(pano.getNrOfImages());
+        };
         for(size_t i=0; i<optVars.size(); i++)
         {
             //skip invalid image numbers
@@ -465,12 +701,26 @@ int main(int argc, char* argv[])
             {
                 for(size_t imgNr=0; imgNr<pano.getNrOfImages(); imgNr++)
                 {
-                    AddToOptVec(optVec, optVars[i].varname, imgNr, refImgs, linkRefImgsYaw, linkRefImgsPitch, linkRefImgsRoll);
+                    if(optVars[i].removeOpt)
+                    {
+                        RemoveFromOptVec(optVec, optVars[i].varname, imgNr, groupedVars);
+                    }
+                    else
+                    {
+                        AddToOptVec(optVec, optVars[i].varname, imgNr, refImgs, linkRefImgsYaw, linkRefImgsPitch, linkRefImgsRoll, groupedVars);
+                    };
                 };
             }
             else
             {
-                AddToOptVec(optVec, optVars[i].varname, optVars[i].imgNr, refImgs, true, true, true);
+                if(optVars[i].removeOpt)
+                {
+                    RemoveFromOptVec(optVec, optVars[i].varname, optVars[i].imgNr, groupedVars);
+                }
+                else
+                {
+                    AddToOptVec(optVec, optVars[i].varname, optVars[i].imgNr, refImgs, true, true, true, groupedVars);
+                };
             };
         };
         pano.setOptimizerSwitch(0);
