@@ -714,9 +714,19 @@
 		<param name="Local" value="Pto_gen.html">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Pto_lensstack">
+		<param name="Name" value="Pto lensstack - PanoTools.org Wiki">
+		<param name="Local" value="Pto_lensstack.html">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Pto_merge">
 		<param name="Name" value="Pto merge">
 		<param name="Local" value="Pto_merge.html">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Pto_var">
+		<param name="Name" value="Pto var - PanoTools.org Wiki">
+		<param name="Local" value="Pto_var.html">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Pto2mk">

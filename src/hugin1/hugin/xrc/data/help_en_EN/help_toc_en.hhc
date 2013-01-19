@@ -140,6 +140,14 @@
 			<param name="Local" value="Pto_gen.html">
 			</OBJECT>
 		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Pto_var">
+			<param name="Local" value="Pto_var.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Pto_lensstack">
+			<param name="Local" value="Pto_lensstack.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
 			<param name="Name" value="Cpfind">
 			<param name="Local" value="Cpfind.html">
 			</OBJECT>

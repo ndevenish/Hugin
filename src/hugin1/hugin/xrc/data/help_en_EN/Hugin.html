@@ -54,6 +54,8 @@ is an Open Source panorama stitcher and graphical user interface (GUI) for <a hr
 </p><p>Among the Hugin workflow options, it is possible to correct exposure<a class="external" href="http://wiki.panotools.org/Exposure_correction">[*]</a>, <a href="Vignetting.html" title="Vignetting">Vignetting</a> and White balance<a class="external" href="http://wiki.panotools.org/White_balance">[*]</a> between photos; generate <a href="HDR.html" title="HDR">HDR</a>,  exposure fused<a class="external" href="http://www.wikipedia.org/wiki/Exposure_Fusion">[*]</a> or focus stacked<a class="external" href="http://www.wikipedia.org/wiki/Focus_stacking">[*]</a> output from <a href="Bracketing.html" title="Bracketing">bracketed</a> photos; or use <a href="16bit.html" title="16bit">16bit</a> and <a href="HDR.html" title="HDR">HDR</a> input data natively.
 </p><p>Photos can be digital or scanned, and taken with any kind of camera. A full range of lenses are supported, from simple cameraphones to obscure fisheye<a class="external" href="http://wiki.panotools.org/Fisheye">[*]</a> lenses.  Hugin supports various output <a href="Projections.html" title="Projections">projections</a> including a range of spherical, cartographic, and camera projections.
 </p><p>Hugin supports panoramas taken with multiple rows of photos, with or without bracketing.  Bracketed photos can be handheld, taken using a DSLR bracketing function, or as consecutive panoramas shot at different EV exposure levels.  Hugin can produce successful panoramas shot with cameras that always shoot using auto-exposure and auto-whitebalance.
+</p><p>hugin also supports the use of masks which means that you can exclude parts of images you don't want to appear in your panoramas, or include parts of image you specifically want to appear in your panoramas.
+</p><p>Hugin also uses a separate (background) panorama stitcher. This means that you can render a panorama in the PTBatcherGUI stich window, while working on the next panorama in hugin.
 </p><p>Starting with version 2011.2.0, Hugin is scriptable in Python.  The scripting functionality is still in its infancy and requires more development and testing.  For now it is available only in Linux and Windows, and currently there is no feedback from the plugin apart from it's success or failure, which is communicated in a dialog. If you're on Linux, you can start hugin from the command line and switch to the window you started it from while the plugin is running - then you'll see any console output it may produce.
 </p>
 <ul><li> <a rel="nofollow" class="external text" href="http://hugin.sourceforge.net">Hugin homepage</a> on SourceForge. Screenshots, Tutorials, Documentation and Links.
@@ -99,6 +101,8 @@ is an Open Source panorama stitcher and graphical user interface (GUI) for <a hr
 </li><li> <a href="Icpfind.html" title="Icpfind">icpfind</a> command line tool for using heuristic control point matching like inside [[hugin]Hugin GUI]
 </li><li> <a href="Cpclean.html" title="Cpclean">cpclean</a> command line tool to remove control points with improbable error distances
 </li><li> <a href="Checkpto.html" title="Checkpto">checkpto</a> command line tool to examine project file and reports back the number of image chains present
+</li><li> <a href="Pto_var.html" title="Pto var">pto_var</a> command line tool to manipulate image variables
+</li><li> <a href="Pto_lensstack.html" title="Pto lensstack">pto_lensstack</a> command line tool to manipulate lens and stacks
 </li><li> <a href="Calibrate_lens_gui.html" title="Calibrate lens gui">calibrate_lens_gui</a> automatic lens calibration using straight-line detection
 </li><li> <a href="Vig_optimize.html" title="Vig optimize">vig_optimize</a> command line tool to estimate photometric parameters.
 </li><li> hugin_hdrmerge<a class="external" href="http://wiki.panotools.org/index.php?title=Hugin_hdrmerge&amp;action=edit&amp;redlink=1">[*]</a> merges multiple exposures to <a href="HDR.html" title="HDR">HDR</a> using Khan anti-ghosting algorithm
@@ -144,7 +148,7 @@ A PTStitcher replacement called <a href="Nona.html" title="Nona">nona</a> and a 
 </div>				<!-- /bodycontent -->
 								<!-- printfooter -->
 				<div class="printfooter">
-				Retrieved from "http://wiki.panotools.org/index.php?title=Hugin&amp;oldid=13786<a class="external" href="http://wiki.panotools.org/index.php?title=Hugin&amp;oldid=13786">[*]</a>"				</div>
+				Retrieved from "http://wiki.panotools.org/index.php?title=Hugin&amp;oldid=14694<a class="external" href="http://wiki.panotools.org/index.php?title=Hugin&amp;oldid=14694">[*]</a>"				</div>
 				<!-- /printfooter -->
 												<!-- catlinks -->
 				</div></div></body></html>

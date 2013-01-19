@@ -117,7 +117,9 @@ Pfstmo
 Pincushion_distortion
 Pitch
 Pto_gen
+Pto_lensstack
 Pto_merge
+Pto_var
 PNG
 Portrait
 PPI

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="client-nojs">
+<head>
+<title>Pto var - PanoTools.org Wiki</title>
+<meta charset="UTF-8" />
+<meta name="generator" content="MediaWiki 1.19.0" />
+
+
+
+
+
+
+<style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
+
+<style>a:lang(ar),a:lang(ckb),a:lang(fa),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}a.new,#quickbar a.new{color:#ba0000}
+
+/* cache key: pt_wikidb:resourceloader:filter:minify-css:7:c88e2bcd56513749bec09a7e29cb3ffa */
+</style>
+
+
+
+
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Pto_var skin-vector action-view">
+		
+		
+		<!-- content -->
+		<div id="content" class="mw-body">
+			<a id="top"></a>
+			
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">
+				<span dir="auto">Pto var</span>
+			</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+								<!-- tagline -->
+				<div id="siteSub">From PanoTools.org Wiki</div>
+				<!-- /tagline -->
+								<!-- subtitle -->
+				
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				
+				<!-- /jumpto -->
+								<!-- bodycontent -->
+				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p><b>Pto_var</b> can manipulate image variables in <a href="Hugin.html" title="Hugin">Hugin</a> .pto project files. This is intended for use in <a href="Panorama_scripting_in_a_nutshell.html" title="Panorama scripting in a nutshell">Scripting</a>. It can set image variables to a given value, it change the link status and mark variables for <a href="Optimization.html" title="Optimization">optimisation</a>
+</p><p>The general use is
+</p>
+<pre>   pto_var [switches] --output=output.pto --opt|--link|--unlink|--set images input.pto
+</pre>
+<h2> <span class="mw-headline" id="Optimisation_variables"> Optimisation variables </span></h2>
+<p><b>Pto_var</b> can mark image variables for <a href="Optimization.html" title="Optimization">optimisation</a>. (This information is stored in the v lines in the pto file.) This information is then be used by <a href="Autooptimiser.html" title="Autooptimiser">autooptimiser</a> and <a href="Vig_optimize.html" title="Vig optimize">vig_optimize</a> to do the actual optimisation.
+</p><p>Running without other switches this will only mark the variables given on the command line for optimisation. If you want to modify the marked variables add <b>--modify-opt</b> to the command line.
+</p><p>The usage is
+</p>
+<pre>  pto_var --opt "image variables list" input.pto
+</pre>
+<p>The image variable list consist of a colon separated list of image variables: 
+</p>
+<pre>   [!]name[image number]
+</pre>
+<p>The following image variables are allowed:
+</p>
+<ul><li> position: y, p, r, TrX, TrY, TrZ
+</li><li> lens parameters: v, a, b, c, d, e, g, t
+</li><li> photometric parameters: EeV, Er, Eb, Vb, Vc, Vd, Vx, Vy, Ra, Rb, Rc, Rd, Re (Vignetting and response parameter will treated as group.)
+</li></ul>
+<p>The image numbers start with zero. If the number is missing this applies to the variables of all images. (In this case a special treatment applies to the position of the anchor image.)
+</p><p>An exclamation mark before the variable will remove the variable from the list of variables to optimised.
+</p><p>Examples:
+</p>
+<ul><li> <b>--opt y,p,r</b> will optimize position for all images.
+</li><li> <b>--opt v,!v0</b> will optimize field of view for all images except the first.
+</li><li> <b>--opt Vb1,Ra1</b> will optimize <a href="Vignetting.html" title="Vignetting">vignetting</a> and <a href="Camera_response_curve.html" title="Camera response curve">response curve</a> for the second image.
+</li><li> <b>--modify-opt --opt&#160;!v</b> will not optimize field of view.
+</li></ul>
+<h2> <span class="mw-headline" id="Link_or_unlink_image_variables"> Link or unlink image variables </span></h2>
+<p>To modify the link status of an image variable use <b>--link</b> or <b>-unlink</b>. Supply a list of colon separated image variables with corresponding image number.
+</p><p>Examples:
+</p>
+<ul><li> <b>--link v3</b> will link field of view of image 4.
+</li><li> <b>--link a1,b1,c1</b> will link lens distortion for second image.
+</li><li> <b>--unlink v0</b> will unlink field of view for the first image.
+</li><li> <b>--unlink Vb3,Ra3</b> will unlink <a href="Vignetting.html" title="Vignetting">vignetting</a> and <a href="Camera_response_curve.html" title="Camera response curve">response curve</a> for image 4.
+</li></ul>
+<h2> <span class="mw-headline" id="Set_image_variables"> Set image variables </span></h2>
+<p>With this switch you can set the image variable to the given value. This applies to all the image variable of that sort or only to a single image, when given the image number.
+</p><p>Examples:
+</p>
+<ul><li> <b>--set y=0,p=0,r=0</b> will reset all image positions.
+</li><li> <b>--set a1=0,b1=-0.05,c1=0</b> will set the lens distortion parameters for the second image.
+</li></ul>
+<p>The switch supports also incremental changes.
+</p>
+<ul><li> <b>--set y1+=10</b> will increase yaw of the second image by 10 degrees.
+</li><li> <b>--set r2-=90</b> will decrease the roll angle by 90 degrees.
+</li><li> <b>--set v*=1.1</b> will increase field of view for all images by 10&#160;%.
+</li><li> <b>--set Er/=1.1,Eb/=1.2</b> will divide the red multiplier by 1.1, and the blue multiplier by 1.2 respective.
+</li></ul>
+<h2> <span class="mw-headline" id="General_options"> General options </span></h2>
+<ul><li> <b>-o|--output output.pto</b> Output a pto file with the given filename. If not given it will append "_var" to the input filename.
+</li><li> <b>-h | --help</b> Display help.
+</li></ul>
+
+
+
+
+</div>				<!-- /bodycontent -->
+								<!-- printfooter -->
+				<div class="printfooter">
+				Retrieved from "http://wiki.panotools.org/index.php?title=Pto_var&amp;oldid=14699<a class="external" href="http://wiki.panotools.org/index.php?title=Pto_var&amp;oldid=14699">[*]</a>"				</div>
+				<!-- /printfooter -->
+												<!-- catlinks -->
+				</div></div></body></html>
