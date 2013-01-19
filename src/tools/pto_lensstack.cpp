@@ -317,6 +317,11 @@ int main(int argc, char* argv[])
                 ImageVariableGroup group(StandardImageVariableGroups::getLensVariables(), pano);
                 group.switchParts(changeLensImgs[i].imgNr, changeLensImgs[i].lensStackNr);
             };
+        }
+        else
+        {
+            cout << "Warning: Pto project contains only one lens." << endl
+                 << "         Therefor the lens can not be changed. Use --new-lens instead." << endl;
         };
     };
 
@@ -342,6 +347,11 @@ int main(int argc, char* argv[])
                 group.switchParts(changeStackImgs[i].imgNr, changeStackImgs[i].lensStackNr);
             };
         }
+        else
+        {
+            cout << "Warning: Pto project contains only one stack." << endl
+                 << "         Therefore the stack can not be changed. Use --new-stack instead." << endl;
+        };
     };
 
     //write output
@@ -350,7 +360,7 @@ int main(int argc, char* argv[])
     // Set output .pto filename if not given
     if (output=="")
     {
-        output=input.substr(0,input.length()-4).append("_var.pto");
+        output=input.substr(0,input.length()-4).append("_lens.pto");
     }
     ofstream of(output.c_str());
     pano.printPanoramaScript(of, pano.getOptimizeVector(), pano.getOptions(), imgs, false, hugin_utils::getPathPrefix(input));
