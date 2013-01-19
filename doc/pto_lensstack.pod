@@ -1,0 +1,66 @@
+=head1 NAME
+
+pto_lensstack: modify assigned lenses and stack in pto files
+
+=head1 SYNOPSIS
+
+B<pto_lensstack> [options] input.pto
+
+=head1 DESCRIPTION
+
+B<pto_lensstack> can manipulate lenses and stacks in Hugin .pto project files. This is intended for use in scripting.
+
+=head1 USAGE
+
+   pto_lensstack --output=output.pto --new-lens|--new-stack|--change-lens|--change-stack images input.pto
+
+=head1 OPTIONS
+
+=over
+
+=item B<--new-lens> 
+
+=item B<--new-stack> 
+
+For assigned a new lens or stack to an image provide a list of image numbers. The counting starts with zero. Several images can be given at same time. Separate them with a comma.
+
+=over
+
+Examples:
+  pto_lensstack --new-lens i1,i3 input.pto
+  pto_lensstack --new-stack i2,i4 input.pto
+
+=back
+
+will assign a new lens to image 1 and 3 and a new stack to images 2 and 4.
+
+
+=item B<--change-lens> 
+
+=item B<--change-stack> 
+
+For changing the lens or the stack provide a list of image numbers and the new lens/stack number. For both the counting starts with zero and you can supply several images separated by a comma at the same time.
+
+=over
+
+
+Examples: 
+  pto_lensstack --change-lens i1=4,i5=1 input.pto
+  pto_lensstack --change-stack i2=0,i4=0 input.pto
+
+=back
+
+=item B<-o|--output>
+
+Output a pto file with the given filename. If not given it will append "_lens" to the input filename. 
+
+
+=item B<-h|--help>
+
+Display help
+
+=back
+
+=head1 AUTHORS
+
+Thomas Modes
