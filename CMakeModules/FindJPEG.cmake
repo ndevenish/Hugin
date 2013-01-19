@@ -17,6 +17,7 @@
 FIND_PATH(JPEG_INCLUDE_DIR jpeglib.h
   /usr/local/include
   /usr/include
+  ${SOURCE_BASE_DIR}/jpeg-9
   ${SOURCE_BASE_DIR}/jpeg-8d
   ${SOURCE_BASE_DIR}/jpeg-8c
   ${SOURCE_BASE_DIR}/jpeg-8b
@@ -31,6 +32,7 @@ find_library_with_debug(JPEG_LIBRARIES
   WIN32_DEBUG_POSTFIX d
   NAMES jpeg libjpeg wxjpeg
   PATHS ${SYSTEM_LIB_DIRS} 
+        ${SOURCE_BASE_DIR}/jpeg-9/lib
         ${SOURCE_BASE_DIR}/jpeg-8d/lib
         ${SOURCE_BASE_DIR}/jpeg-8c/lib 
         ${SOURCE_BASE_DIR}/jpeg-8b/lib

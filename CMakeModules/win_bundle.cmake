@@ -129,6 +129,7 @@ IF(WIN32)
     FIND_FILE(JPEG_DLL
       NAMES jpeg.dll 
       PATHS 
+            ${SOURCE_BASE_DIR}/jpeg-9/lib 
             ${SOURCE_BASE_DIR}/jpeg-8d/lib 
             ${SOURCE_BASE_DIR}/jpeg-8c/lib 
             ${SOURCE_BASE_DIR}/jpeg-8b/Release 
