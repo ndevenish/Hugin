@@ -57,7 +57,7 @@
 </p>
 <pre>  pto_var --opt "image variables list" input.pto
 </pre>
-<p>The image variable list consist of a colon separated list of image variables: 
+<p>The image variable list consist of a comma separated list of image variables: 
 </p>
 <pre>   [!]name[image number]
 </pre>
@@ -77,13 +77,13 @@
 </li><li> <b>--modify-opt --opt&#160;!v</b> will not optimize field of view.
 </li></ul>
 <h2> <span class="mw-headline" id="Link_or_unlink_image_variables"> Link or unlink image variables </span></h2>
-<p>To modify the link status of an image variable use <b>--link</b> or <b>-unlink</b>. Supply a list of colon separated image variables with corresponding image number.
+<p>To modify the link status of an image variable use <b>--link</b> or <b>-unlink</b>. Supply a list of comma separated image variables with corresponding image number.
 </p><p>Examples:
 </p>
-<ul><li> <b>--link v3</b> will link field of view of image 4.
+<ul><li> <b>--link v3</b> will link field of view of image 3.
 </li><li> <b>--link a1,b1,c1</b> will link lens distortion for second image.
 </li><li> <b>--unlink v0</b> will unlink field of view for the first image.
-</li><li> <b>--unlink Vb3,Ra3</b> will unlink <a href="Vignetting.html" title="Vignetting">vignetting</a> and <a href="Camera_response_curve.html" title="Camera response curve">response curve</a> for image 4.
+</li><li> <b>--unlink Vb3,Ra3</b> will unlink <a href="Vignetting.html" title="Vignetting">vignetting</a> and <a href="Camera_response_curve.html" title="Camera response curve">response curve</a> for image 3.
 </li></ul>
 <h2> <span class="mw-headline" id="Set_image_variables"> Set image variables </span></h2>
 <p>With this switch you can set the image variable to the given value. This applies to all the image variable of that sort or only to a single image, when given the image number.
@@ -95,9 +95,9 @@
 <p>The switch supports also incremental changes.
 </p>
 <ul><li> <b>--set y1+=10</b> will increase yaw of the second image by 10 degrees.
-</li><li> <b>--set r2-=90</b> will decrease the roll angle by 90 degrees.
+</li><li> <b>--set r2-=90</b> will decrease the roll angle of third image by 90 degrees.
 </li><li> <b>--set v*=1.1</b> will increase field of view for all images by 10&#160;%.
-</li><li> <b>--set Er/=1.1,Eb/=1.2</b> will divide the red multiplier by 1.1, and the blue multiplier by 1.2 respective.
+</li><li> <b>--set Er/=1.1,Eb/=1.2</b> will divide the red multiplier by 1.1, and the blue multiplier by 1.2 respective for all images.
 </li></ul>
 <h2> <span class="mw-headline" id="General_options"> General options </span></h2>
 <ul><li> <b>-o|--output output.pto</b> Output a pto file with the given filename. If not given it will append "_var" to the input filename.
@@ -110,7 +110,7 @@
 </div>				<!-- /bodycontent -->
 								<!-- printfooter -->
 				<div class="printfooter">
-				Retrieved from "http://wiki.panotools.org/index.php?title=Pto_var&amp;oldid=14699<a class="external" href="http://wiki.panotools.org/index.php?title=Pto_var&amp;oldid=14699">[*]</a>"				</div>
+				Retrieved from "http://wiki.panotools.org/index.php?title=Pto_var&amp;oldid=14707<a class="external" href="http://wiki.panotools.org/index.php?title=Pto_var&amp;oldid=14707">[*]</a>"				</div>
 				<!-- /printfooter -->
 												<!-- catlinks -->
 				</div></div></body></html>
