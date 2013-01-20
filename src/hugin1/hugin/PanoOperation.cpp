@@ -597,7 +597,7 @@ wxString RemoveControlPointsOperation::GetLabel()
 
 bool RemoveControlPointsOperation::IsEnabled(PT::Panorama& pano,HuginBase::UIntSet images)
 {
-    return pano.getNrOfImages()>0;
+    return pano.getNrOfImages()>0 && pano.getNrOfCtrlPoints()>0;
 };
 
 PT::PanoCommand* RemoveControlPointsOperation::GetInternalCommand(wxWindow* parent, PT::Panorama& pano, HuginBase::UIntSet images)
@@ -620,6 +620,17 @@ PT::PanoCommand* RemoveControlPointsOperation::GetInternalCommand(wxWindow* pare
             cpsToDelete.insert(it - cps.begin());
         }
     }
+    if(cpsToDelete.size()==0)
+    {
+        wxMessageBox(_("Selected images have no control points."),
+#ifdef __WXMSW__
+            wxT("Hugin"),
+#else
+            wxT(""),
+#endif
+            wxICON_EXCLAMATION | wxOK);
+        return NULL;
+    };
     int r =wxMessageBox(wxString::Format(_("Really delete %lu control points?"),
                                          (unsigned long int) cpsToDelete.size()),
                         _("Delete Control Points"),
