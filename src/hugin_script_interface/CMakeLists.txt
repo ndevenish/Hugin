@@ -203,7 +203,6 @@ ELSE()
     # Linux/MacOS
     # install Python related files into folder depending on used Python version
 
-    FIND_PACKAGE(PythonInterp REQUIRED)
     EXECUTE_PROCESS( COMMAND ${PYTHON_EXECUTABLE} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib(1))"
                      OUTPUT_VARIABLE pyinstalldir
                      OUTPUT_STRIP_TRAILING_WHITESPACE)

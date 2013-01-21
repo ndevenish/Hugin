@@ -311,7 +311,13 @@ ENDIF(UNIX)
 IF(BUILD_HSI)
   # find Python first because the version of SWIG required depends on the
   # version of Python available
-  FIND_PACKAGE(PythonLibs REQUIRED)
+  if(WIN32)
+    FIND_PACKAGE(PythonLibs REQUIRED)
+  else()
+    #  Linux/MacOS
+    find_package(PythonInterp REQUIRED)
+    find_package(PythonLibs ${PYTHON_VERSION_STRING} REQUIRED)
+  endif()
   INCLUDE_DIRECTORIES(${PYTHON_INCLUDE_PATH})
   ADD_DEFINITIONS(-DHUGIN_HSI)
   # get version of Python libs
