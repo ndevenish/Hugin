@@ -343,6 +343,8 @@ private:
      *  @return true, of mode was successful changed to desired mode
      */
     bool UpdateOverviewMode(int newMode);
+    /** update display of ROI */
+    void UpdateRoiDisplay(const HuginBase::PanoramaOptions opts);
     /** The dock manager */
     GLwxAuiManager * m_mgr;
 

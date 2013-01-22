@@ -736,21 +736,21 @@ void PanoPanel::ROIChanged ( wxCommandEvent & e )
         wxLogError(_("bottom needs to be an integer bigger than 0"));
         return;
     }
+    opt.setROI(vigra::Rect2D(left, top, right, bottom));
+
     // make sure that left is really to the left of right
-    if(left>=right) {
-        wxLogError(_("left boundary must be smaller than right"));
-		// TODO: would be nice if the previous value would be restored
+    if(opt.getROI().width()<1) {
+        wxLogError(_("Left boundary must be smaller than right."));
+        UpdateDisplay(pano->getOptions(), false);
         return;
     }
     // make sure that top is really higher than bottom
-    if(top>=bottom) {
-        wxLogError(_("top boundary must be smaller than bottom"));
-		// TODO: would be nice if the previous value would be restored
+    if(opt.getROI().height()<1) {
+        wxLogError(_("Top boundary must be smaller than bottom."));
+        UpdateDisplay(pano->getOptions(), false);
         return;
     }
 
-
-    opt.setROI(vigra::Rect2D(left, top, right, bottom));
     GlobalCmdHist::getInstance().addCommand(
             new PT::SetPanoOptionsCmd( *pano, opt )
                                            );

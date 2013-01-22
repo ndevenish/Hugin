@@ -953,6 +953,14 @@ void GLPreviewFrame::updateBlendMode()
     }
 }
 
+void GLPreviewFrame::UpdateRoiDisplay(const PanoramaOptions opts)
+{
+    m_ROILeftTxt->SetValue(wxString::Format(wxT("%d"), opts.getROI().left() ));
+    m_ROIRightTxt->SetValue(wxString::Format(wxT("%d"), opts.getROI().right() ));
+    m_ROITopTxt->SetValue(wxString::Format(wxT("%d"), opts.getROI().top() ));
+    m_ROIBottomTxt->SetValue(wxString::Format(wxT("%d"), opts.getROI().bottom() ));
+};
+
 void GLPreviewFrame::panoramaChanged(Panorama &pano)
 {
     m_lensTypeChoice->Enable(pano.getNrOfImages()>0);
@@ -1158,10 +1166,7 @@ void GLPreviewFrame::panoramaChanged(Panorama &pano)
     XRCCTRL(*this,"preview_autocrop_tool",wxBitmapButton)->Enable(activeImgs);
     XRCCTRL(*this,"preview_stack_autocrop_tool",wxBitmapButton)->Enable(activeImgs);
 #endif
-    m_ROILeftTxt->SetValue(wxString::Format(wxT("%d"), opts.getROI().left() ));
-    m_ROIRightTxt->SetValue(wxString::Format(wxT("%d"), opts.getROI().right() ));
-    m_ROITopTxt->SetValue(wxString::Format(wxT("%d"), opts.getROI().top() ));
-    m_ROIBottomTxt->SetValue(wxString::Format(wxT("%d"), opts.getROI().bottom() ));
+    UpdateRoiDisplay(opts);
     
     if(m_showProjectionHints)
     {
@@ -2711,21 +2716,20 @@ void GLPreviewFrame::OnROIChanged ( wxCommandEvent & e )
         wxLogError(_("bottom needs to be an integer bigger than 0"));
         return;
     }
+    opt.setROI(vigra::Rect2D(left, top, right, bottom));
     // make sure that left is really to the left of right
-    if(left>=right) {
+    if(opt.getROI().width()<1) {
         wxLogError(_("left boundary must be smaller than right"));
-		// TODO: would be nice if the previous value would be restored
+        UpdateRoiDisplay(m_pano.getOptions());
         return;
     }
     // make sure that top is really higher than bottom
-    if(top>=bottom) {
+    if(opt.getROI().height()<1) {
         wxLogError(_("top boundary must be smaller than bottom"));
-		// TODO: would be nice if the previous value would be restored
+        UpdateRoiDisplay(m_pano.getOptions());
         return;
     }
 
-
-    opt.setROI(vigra::Rect2D(left, top, right, bottom));
     GlobalCmdHist::getInstance().addCommand(
             new PT::SetPanoOptionsCmd( m_pano, opt )
                                            );
