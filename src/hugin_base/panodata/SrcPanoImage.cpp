@@ -164,7 +164,7 @@ bool SrcPanoImage::isInside(vigra::Point2D p, bool ignoreMasks) const
 bool SrcPanoImage::isCircularCrop() const
 {
     HuginBase::BaseSrcPanoImage::Projection projection=m_Projection.getData();
-    return (projection==CIRCULAR_FISHEYE || projection==FISHEYE_THOBY);
+    return (projection==CIRCULAR_FISHEYE || projection==FISHEYE_THOBY || projection==FISHEYE_ORTHOGRAPHIC);
 };
 
 bool SrcPanoImage::getCorrectTCA() const
