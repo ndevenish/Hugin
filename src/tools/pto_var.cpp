@@ -468,13 +468,15 @@ static void usage(const char* name)
          << "           --unlink v5        Unlink hfov for image 5" << endl
          << "           --unlink a2,b2,c2  Unlink distortions parameters for image 2" << endl
          << endl
-         << "     --set varlist          Sets variable to new value" << endl
+         << "     --set varlist          Sets variables to new values" << endl
          << "                            Examples:" << endl
          << "           --set y0=0,r0=0,p0=0  Resets position of image 0" << endl
          << "           --set Vx4=-10,Vy4=10  Sets vignetting offset for image 4" << endl
          << "           --set v=20            Sets the field of view to 20 for all images" << endl
          << "           --set y+=20           Increase yaw by 20 deg for all images" << endl
          << "           --set v*=1.1          Increase fov by 10 % for all images" << endl
+         << "     --set-from-file filename  Sets variables to new values" << endl
+         << "                               It reads the varlist from a file" << endl
          << endl;
 }
 
@@ -489,6 +491,7 @@ int main(int argc, char* argv[])
         SWITCH_LINK,
         SWITCH_UNLINK,
         SWITCH_SET,
+        SWITCH_SET_FILE,
         OPT_MODIFY_OPTVEC
     };
     static struct option longOptions[] =
@@ -498,6 +501,7 @@ int main(int argc, char* argv[])
         {"link", required_argument, NULL, SWITCH_LINK },
         {"unlink", required_argument, NULL, SWITCH_UNLINK },
         {"set", required_argument, NULL, SWITCH_SET },
+        {"set-from-file", required_argument, NULL, SWITCH_SET_FILE },
         {"modify-opt", no_argument, NULL, OPT_MODIFY_OPTVEC },
         {"help", no_argument, NULL, 'h' },
         0
@@ -533,6 +537,22 @@ int main(int argc, char* argv[])
             case SWITCH_SET:
                 ParseVariableString(setVars, std::string(optarg), ParseSingleVar);
                 break;
+            case SWITCH_SET_FILE:
+                {
+                    ifstream ifs(optarg);
+                    if(ifs.is_open())
+                    {
+                        ostringstream contents;
+                        contents << ifs.rdbuf();
+                        ifs.close();
+                        ParseVariableString(setVars, contents.str(), ParseSingleVar);
+                    }
+                    else
+                    {
+                        cerr << "Could not open file " << optarg << endl;
+                    };
+                };
+                break;
             case OPT_MODIFY_OPTVEC:
                 modifyOptVec=true;
                 break;
@@ -549,7 +569,7 @@ int main(int argc, char* argv[])
 
     if (argc - optind == 0)
     {
-        cout << "Error: " << argv[0] << " needs at least one project file." << endl;
+        cerr << "Error: " << argv[0] << " needs at least one project file." << endl;
         return 1;
     };
     if (argc - optind != 1)
