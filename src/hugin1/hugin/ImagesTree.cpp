@@ -1312,29 +1312,16 @@ void ImagesTreeCtrl::OnBeginDrag(wxTreeEvent &e)
 {
     if(m_pano->getNrOfImages()>0 && !m_dragging)
     {
-        switch(m_groupMode)
+        m_draggingImages=GetSelectedImages();
+        if(m_draggingImages.size()>0)
         {
-            case GROUP_NONE:
-                m_draggingImages=GetSelectedImages();
-                if(m_draggingImages.size()==1)
-                {
-                    e.Allow();
-                    SetCursor(wxCURSOR_HAND);
-                    m_dragging=true;
-                };
-                break;
-            case GROUP_LENS:
-                m_draggingImages=GetSelectedImages();
+            if((m_groupMode==GROUP_NONE && m_draggingImages.size()==1) ||
+                m_groupMode==GROUP_LENS || m_groupMode==GROUP_STACK)
+            {
                 e.Allow();
                 SetCursor(wxCURSOR_HAND);
                 m_dragging=true;
-                break;
-            case GROUP_STACK:
-                m_draggingImages=GetSelectedImages();
-                e.Allow();
-                SetCursor(wxCURSOR_HAND);
-                m_dragging=true;
-                break;
+            };
         };
     };
 };
