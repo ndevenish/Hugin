@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="client-nojs">
+<head>
+<title>Hugin Preview tab - PanoTools.org Wiki</title>
+<meta charset="UTF-8" />
+<meta name="generator" content="MediaWiki 1.19.0" />
+
+
+
+
+
+
+<style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
+
+<style>a:lang(ar),a:lang(ckb),a:lang(fa),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}a.new,#quickbar a.new{color:#ba0000}
+
+/* cache key: pt_wikidb:resourceloader:filter:minify-css:7:c88e2bcd56513749bec09a7e29cb3ffa */
+</style>
+
+
+
+
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Hugin_Preview_tab skin-vector action-view">
+		
+		
+		<!-- content -->
+		<div id="content" class="mw-body">
+			<a id="top"></a>
+			
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">
+				<span dir="auto">Hugin Preview tab</span>
+			</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+								<!-- tagline -->
+				<div id="siteSub">From PanoTools.org Wiki</div>
+				<!-- /tagline -->
+								<!-- subtitle -->
+				
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				
+				<!-- /jumpto -->
+								<!-- bodycontent -->
+				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr">
+<h1> <span class="mw-headline" id="Preview_tab"> Preview tab </span></h1>
+<div class="thumb tleft"><div class="thumbinner" style="width:702px;"><img alt="" src="700px-Hugin2013_preview_tab.png" width="700" height="392" class="thumbimage" /><a class="external" href="http://wiki.panotools.org/File:Hugin2013_preview_tab.png">[*]</a>  <div class="thumbcaption"><div class="magnify"><img src="magnify-clip.png.1" width="15" height="11" alt="" /><a class="external" href="http://wiki.panotools.org/File:Hugin2013_preview_tab.png">[*]</a></div>Screenshot of Preview tab; click for enlarged image</div></div></div>
+<p><br style="clear:both;" />
+</p>
+<h2> <span class="mw-headline" id="Identify"> <img alt="Fast preview icon identify.svg" src="22px-Fast_preview_icon_identify.svg.png.1" width="22" height="22" /><a class="external" href="http://wiki.panotools.org/File:Fast_preview_icon_identify.svg">[*]</a> Identify </span></h2>
+<p>Using this tool you can find where your images are, and match them to their number. You can also edit control points.
+</p><p>Move the mouse over the visibility buttons for the images (the numbers at the top left of the preview) and the corresponding image lights up red in the preview. 
+When this tool is turned on, moving the mouse over the panorama highlights all the images under the mouse in different colours. The buttons for those images light up in matching colours.
+The same can be achieved when holding the Control key and moving the mouse over the panorama.
+</p><p><b>Tip</b>: We are now in the simple Interface and when everything runs smoothly you should not need this tip. However, when the mouse is on the overlap of two images, you can click inside the overlap and the <a href="Hugin_Control_Points_tab.1.html" title="Hugin Control Points tab">Control Points tab</a> of the Panorama Editor<a class="external" href="http://wiki.panotools.org/index.php?title=Panorama_Editor&amp;action=edit&amp;redlink=1">[*]</a> will opened to edit the control points between those images.
+</p>
+<h2> <span class="mw-headline" id="Photometrics"> Photometrics </span></h2>
+<p>Enables full photometric correction. When turned on, this will cause significant delay when changing photometric parameters. It also takes a while to turn on and off. However, with it enabled you get much better representation of the colours in the output. With it turned off, you get correction only for exposure and white balance. With it turned on, you also get vignetting and colour response correction.
+</p>
+<h2> <span class="mw-headline" id="Show_control_points"> Show control points </span></h2>
+<p>When this tool is turned on, all <a href="Control_points.1.html" title="Control points">Control points</a> are drawn as lines with crosses at each end. Green, yellow, orange, and red lines and their crosses indicate 'normal' control points. A red control point is misaligned (the ends of the line are father apart), and a green control point is well aligned (the ends of the line are almost in the same position). Blue indicates <a href="Horizontal_control_points.1.html" title="Horizontal control points">horizontal control points</a>, <a href="Vertical_control_points.1.html" title="Vertical control points">vertical control points</a> or <a href="Straight_line_control_points.1.html" title="Straight line control points">straight line control points</a>.
+</p>
+<h2> <span class="mw-headline" id="Blend_mode"> Blend mode </span></h2>
+<p>The <i>normal</i> blend mode will draw the images with the first photos in the project above later photos as this approximates the order that blending is performed.. The <i>difference</i> blend mode will do the same, except the image under the mouse pointer will be subtracted from the rest of the stack. Use this to determine if the alignment went well: where you can see edges in the subtracted image, these edges are misaligned. Be warned that this isn't fully accurate, the other preview has a better difference mode.
+</p>
+<h2> <span class="mw-headline" id="EV"> EV </span></h2>
+<p><b>EV</b> stands for <i>Exposure Value</i>, clicking the <b>Reset</b> button will set it to the average of all
+the input image exposures or setting it to <b>0</b> (zero)
+will result in no exposure change being applied to the panorama (note that unless all the photos also have their individual EV set to zero in the Hugin Camera and Lens tab<a class="external" href="http://wiki.panotools.org/Hugin_Camera_and_Lens_tab">[*]</a> they will likely appear incredibly bright or dark).
+</p><p><b>EV</b> is a standard photographic scale, each increase or decrease by one unit will change the exposure by
+the equivalent of one <i>f-stop</i> (ie. halving or doubling the exposure).  It is worth adjusting the exposure
+here in <a href="Hugin.1.html" title="Hugin">hugin</a> rather than later in an external image editor, since <b>hugin</b> uses the <a href="Camera_response_curve.1.html" title="Camera response curve">camera response curve</a>
+calculated in the hugin Exposure tab<a class="external" href="http://wiki.panotools.org/Hugin_Exposure_tab">[*]</a> to perform the correction in a <i>linear</i> colour space.
+</p><p>The average value isn't always wanted. If you see colour artefacts in bright sky areas, set this
+to the negative of the darkest input image - This has a side-effect of clipping brighter images.
+</p>
+<h2> <span class="mw-headline" id="Grey_Picker"> Grey Picker </span></h2>
+<p>Hugin can align the white balance (w:Color balance<a class="external" href="http://www.wikipedia.org/wiki/Color_balance">[*]</a>) of the photos in the panorama to match that of the <i>anchor</i> photo, this is done in the  <b>Align...</b> button in the <a href="Hugin_Assistant_tab.1.html" title="Hugin Assistant tab">Hugin Assistant tab</a> - Usually this <i>anchor</i> is the first photo in the project, but it can be changed using <b>anchor this image for exposure</b> in the Hugin Images tab<a class="external" href="http://wiki.panotools.org/Hugin_Images_tab">[*]</a>.
+</p><p>However, often the first photo, or even none of the photos, in the project has the desired or correct white balance.  You can use the <b>Grey Picker</b> button to adjust the white balance of the whole panorama by using any 'neutral' colour object in the scene as a sample. Just push the button and then click on the object in the preview canvas.
+</p><p>An ideal neutral colour object is white or grey, this could be a test card, an overcast sky, snow, or a white object - It is important to remember that white paint and paper comes in lots of colour shades so it really isn't very reliable, prefer a transparent material that is white due to light diffusion such as etched glass or polystyrene foam.  Avoid objects that are 'blown out', or which are in shade and illuminated only by secondary light sources in the scene.
+</p>
+
+
+
+</div>				<!-- /bodycontent -->
+								<!-- printfooter -->
+				<div class="printfooter">
+				Retrieved from "http://wiki.panotools.org/index.php?title=Hugin_Preview_tab&amp;oldid=14751<a class="external" href="http://wiki.panotools.org/index.php?title=Hugin_Preview_tab&amp;oldid=14751">[*]</a>"				</div>
+				<!-- /printfooter -->
+												<!-- catlinks -->
+				</div></div></body></html>

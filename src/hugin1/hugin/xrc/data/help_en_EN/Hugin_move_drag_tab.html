@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="client-nojs">
+<head>
+<title>Hugin move drag tab - PanoTools.org Wiki</title>
+<meta charset="UTF-8" />
+<meta name="generator" content="MediaWiki 1.19.0" />
+
+
+
+
+
+
+<style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
+
+<style>a:lang(ar),a:lang(ckb),a:lang(fa),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}a.new,#quickbar a.new{color:#ba0000}
+
+/* cache key: pt_wikidb:resourceloader:filter:minify-css:7:c88e2bcd56513749bec09a7e29cb3ffa */
+</style>
+
+
+
+
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Hugin_move_drag_tab skin-vector action-view">
+		
+		
+		<!-- content -->
+		<div id="content" class="mw-body">
+			<a id="top"></a>
+			
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">
+				<span dir="auto">Hugin move drag tab</span>
+			</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+								<!-- tagline -->
+				<div id="siteSub">From PanoTools.org Wiki</div>
+				<!-- /tagline -->
+								<!-- subtitle -->
+				
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				
+				<!-- /jumpto -->
+								<!-- bodycontent -->
+				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr">
+<h1> <span class="mw-headline" id="Move.2FDrag_tab"> Move/Drag tab </span></h1>
+<div class="thumb tleft"><div class="thumbinner" style="width:602px;"><img alt="" src="600px-Hugin2013_move_drag_tab.png" width="600" height="146" class="thumbimage" /><a class="external" href="http://wiki.panotools.org/File:Hugin2013_move_drag_tab.png">[*]</a>  <div class="thumbcaption"><div class="magnify"><img src="magnify-clip.png.1" width="15" height="11" alt="" /><a class="external" href="http://wiki.panotools.org/File:Hugin2013_move_drag_tab.png">[*]</a></div>Screenshot of Move/Drag tab; click for enlarged image</div></div></div>
+<p><br style="clear:both;" />
+</p><p>Using this tool you can recentre the panorama interactively. With it turned on, try the following:
+</p>
+<ul><li> Drag the panorama with the left mouse button to rotate the panorama's images. The centre of rotation is the point where you pushed the mouse button down.
+</li><li> Hold shift when doing the above to constrain movement to yaw or pitch. Note pitch is affected by the centre of rotation.
+</li><li> Drag the panorama with the right mouse button or hold control and drag with the left to roll the panorama (rotate around the middle)
+</li></ul>
+<p>If the panorama contains unconnected components (i.e. not connected by <a href="Control_points.1.html" title="Control points">control points</a>), they will move individually.  There is also an <b>Individual</b> Drag mode, see below.
+</p>
+<h1> <span class="mw-headline" id="Drag_mode"> Drag mode </span></h1>
+<p>This determines what parameters that are changed when the images are dragged.
+</p>
+<ul><li> <b>Normal</b> - When dragged left-right, the yaw parameter is changed and when dragged up-down the pitch parameter is changed. I.e. the camera is tilted in the yaw and pitch angles.
+</li><li> <b>Normal, individual</b> - Adds checkboxes to the <b>displayed images</b> buttons, here you can select which images to drag individually or together.  With this mode selected the control point connections between photos are ignored.
+</li></ul>
+<p>In individual mode you can select the images to drag with the checkboxes. You can also add images to the selection group by clicking on the image with pressed Control key on the image in the panorama. By clicking on an image with Control and Shift key pressed it is removed from the selection group.
+</p><p><br />
+In Expert mode it is also possible to change the <a href="Stitching_a_photo-mosaic.1.html" title="Stitching a photo-mosaic">translation parameters X and Y</a> by dragging:
+</p>
+<ul><li> <b>Mosaic</b> - When dragged left-right, X parameter is changed and when dragged up-down the Y parameter is changed. I.e. the camera is moved in the X and Y dimensions.
+</li><li> <b>Mosaic, individual</b> - Allows selected photos to be dragged in mosaic mode.
+</li></ul>
+<h1> <span class="mw-headline" id="Centre"> <img alt="Hugin center pano.png" src="Hugin_center_pano.png.1" width="22" height="22" /><a class="external" href="http://wiki.panotools.org/File:Hugin_center_pano.png">[*]</a> Centre </span></h1>
+<p>This button horizontally <i>pans</i> the output, changing the <a href="Yaw.1.html" title="Yaw">yaw</a> of the remapped images so they fit to the centre of the output frame.  This is useful if there is a lot of black space on the left or right of the output.  This also performs a <b>Fit</b>, equivalent to the next button.
+</p><p>Note that centering a <a href="Rectilinear_Projection.1.html" title="Rectilinear Projection">Rectilinear Projection</a> or <a href="Fisheye_Projection.1.html" title="Fisheye Projection">Fisheye Projection</a> panorama will change the perspective, this may be unwanted.
+</p>
+<h1> <span class="mw-headline" id="Fit"> <img alt="Hugin fit pano.png" src="Hugin_fit_pano.png.1" width="22" height="22" /><a class="external" href="http://wiki.panotools.org/File:Hugin_fit_pano.png">[*]</a> Fit </span></h1>
+<p>This doesn't change any input image parameters, it just readjusts the output <a href="Field_of_View.1.html" title="Field of View">Field of View</a> such that all the input images are visible.  If the images are all off-centre, then there will be a lot of black space.
+</p>
+<h1> <span class="mw-headline" id="Straighten"> <img alt="Hugin straighten pano.png" src="Hugin_straighten_pano.png.1" width="22" height="22" /><a class="external" href="http://wiki.panotools.org/File:Hugin_straighten_pano.png">[*]</a> Straighten </span></h1>
+<p>Straightening the panorama optimises the <a href="Roll.1.html" title="Roll">roll</a> and <a href="Pitch.1.html" title="Pitch">pitch</a> of the input images without changing their relative positions, levelling the panorama in the process.  This normally produces good results, if you need more accurate positioning, try adding <a href="Vertical_control_points.1.html" title="Vertical control points">vertical control points</a> in the <a href="Hugin_Control_Points_tab.1.html" title="Hugin Control Points tab">hugin Control Points tab</a> and reoptimise.
+</p>
+
+
+
+</div>				<!-- /bodycontent -->
+								<!-- printfooter -->
+				<div class="printfooter">
+				Retrieved from "http://wiki.panotools.org/index.php?title=Hugin_move_drag_tab&amp;oldid=14785<a class="external" href="http://wiki.panotools.org/index.php?title=Hugin_move_drag_tab&amp;oldid=14785">[*]</a>"				</div>
+				<!-- /printfooter -->
+												<!-- catlinks -->
+				</div></div></body></html>
