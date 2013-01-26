@@ -45,48 +45,87 @@
 				
 				<!-- /jumpto -->
 								<!-- bodycontent -->
-				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>The blender (default is <a href="Enblend.html" title="Enblend">Enblend</a>) uses any part of an photo overlap to place a seam which can result in part of a person or object being cut by the seam and only appearing in part in the final stitch.
+				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><table cellspacing="0" cellpadding="0" style="clear: right; margin-bottom: .5em; float: right; padding: .5em 0 .8em 1.4em; background: none; width:auto">
+<tr>
+<td> 
+</td></tr></table>
+<h1> <span class="mw-headline" id="Hugin_Masks_tab"> Hugin Masks tab </span></h1>
+<p>The <b>Hugin Masks tab</b> has two functions:
+</p>
+<ul><li> Creating <b>masks</b> for individual images that include or exclude specific parts of these individual images into your final panorama.
+</li><li> <b>Cropping</b> one or more of your individual images, like you would do for e.g. <a href="Fisheye_Projection.html" title="Fisheye Projection">fisheye Projection</a> images having a circular area in the middle with a useless black area outside, or scanned images that might have edges that need to be <i>cropped</i> away.
+</li></ul>
+<p>The top-left side of the masks window shows a list of all images in the current project. 
+</p><p>For this the <b>Masks</b> tab has in the mid-section on the left side two sub-tabs <i>Masks</i> and <i>Crop</i>, each with it's own functionality. Note that you first have to select an image in the top left before the functionality of both will be enabled.
+</p>
+<h1> <span class="mw-headline" id="Editing_masks"> Editing masks </span></h1>
+<p>The blender (default is <a href="Enblend.html" title="Enblend">Enblend</a>) uses any part of a photo overlap to place a seam which can result in part of a person or object being cut by the seam and only appearing in part in the final stitch.
 </p><p>By excluding an area using a mask (exclude mask) you are telling the blender to exclude
 that region from consideration both when placing the seam and when
-blending. The result is that you can remove a person or object from the final stitch. You should only exclude part of one photo if some other photo shows the same part of the scene without that object.
-</p><p>When you include an object with a mask (include mask) the opposite happens, this simply removes that part of the scene from all other photos, the blender then has no choice but to use the region in the photo you selected.
+blending. The result is that you can remove a person or object from the final stitch. You should only exclude a part of one photo if some other photo shows the same part of the scene without that object, otherwise you will get a black empty area in your final panorama.
+</p><p>When you include an object with a mask (include mask) the opposite happens, this simply removes that part of the scene from all other photos. The blender has no choice but to use the region in the photo you selected.
 </p><p>Masks can be saved and reloaded.
-</p><p>The left side of the mask window shows a list of all images in the current project. 
+</p><p>The top-left side of the masks window shows a list of all images in the current project. 
 The list box below shows all masks of the active image. 
 </p><p><br />
 </p>
-
-<h2> <span class="mw-headline" id="Editing_masks"> Editing masks </span></h2>
-<h3> <span class="mw-headline" id="Creating_mask_polygon"> Creating mask polygon </span></h3>
+<h2> <span class="mw-headline" id="Creating_a_mask_polygon"> Creating a mask polygon </span></h2>
 <p>After selecting <b>add new mask</b> set polygon points with left mouse click. Finish polygon with right mouse button or left double
 click.
 </p>
-<h3> <span class="mw-headline" id="Deleting_a_mask"> Deleting a mask </span></h3>
+<h2> <span class="mw-headline" id="Deleting_a_mask"> Deleting a mask </span></h2>
 <p>You can delete the active mask by the <b>delete mask</b> button. The active mask is also deleted by
 pressing the delete key when all or none points of the current mask are selected.
 </p>
-<h3> <span class="mw-headline" id="Select_mask"> Select mask </span></h3>
+<h2> <span class="mw-headline" id="Selecting_a_mask"> Selecting a mask </span></h2>
 <p>There are 3 ways to select a mask
 </p>
 <ul><li> left mouse click inside polygon
 </li><li> use rubberband around polygon, this works only when the active polygon has no selected points
 </li><li> use the listbox on the left side
 </li></ul>
-<h3> <span class="mw-headline" id="Selecting_point.28s.29"> Selecting point(s) </span></h3>
+<h2> <span class="mw-headline" id="Selecting_point.28s.29"> Selecting point(s) </span></h2>
 <p>You can select points of the active polygon by clicking on it. To select several points use a rubberband around all points. When holding down the shift key, the newly selected points are added to the existing selection.
 </p>
-<h3> <span class="mw-headline" id="Move_point.28s.29"> Move point(s) </span></h3>
+<h2> <span class="mw-headline" id="Moving_point.28s.29"> Moving point(s) </span></h2>
 <p>Simply drag a point with left mouse button. This works also when more then one point is selected.
 </p>
-<h3> <span class="mw-headline" id="Move_whole_mask"> Move whole mask </span></h3>
+<h2> <span class="mw-headline" id="Moving_the_whole_mask"> Moving the whole mask </span></h2>
 <p>If you want to move the whole mask, drag the mask with right mouse button. (You have to start dragging inside the polygon.)
 </p>
-<h3> <span class="mw-headline" id="Adding_points"> Adding points </span></h3>
+<h2> <span class="mw-headline" id="Adding_points"> Adding points </span></h2>
 <p>You can add a new point to the mask polygon by click with left mouse button while holding down the ctrl key on a line segment. Until you release the left mouse button you can also directly move the newly created point.
 </p>
-<h3> <span class="mw-headline" id="Deleting_points"> Deleting points </span></h3>
+<h2> <span class="mw-headline" id="Deleting_points"> Deleting points </span></h2>
 <p>You can delete a single point of the active polygon by a right mouse click while holding ctrl key on a point. To delete multiple points drag a rectangle/rubberband with the right mouse button and pressed ctrl key around the points, which should be deleted. When you press the delete key the selected points are deleted.
 </p><p>Attention: When the remaining polygon consists of less than tree points, the delete operation is canceled. 
+</p><p><br />
+</p>
+<h1> <span class="mw-headline" id="Cropping_images"> Cropping images </span></h1>
+<p><i>Image cropping</i> shouldn't be confused with a camera's <a href="Crop_factor.html" title="Crop factor">Crop factor</a>, which is something else entirely. Use the <b>Crop</b> tab to indicate the areas of the input images that <a href="Hugin.html" title="Hugin">hugin</a> should exclude from the stitching output. There are three situations where you might want to use crop parameters:
+</p>
+<ul><li> With a scanned input image, there are usually black edges or marks along the sides of the image.
+</li><li> With a circular <a href="Fisheye_Projection.html" title="Fisheye Projection">Fisheye Projection</a> image there are black unexposed areas outside the image circle.
+</li><li> Some lenses have a lot of flaring around the edges which you don't want to keep.
+</li></ul>
+<p>Select the image to be cropped in the list to the left, you can adjust the position of the crop area by dragging the perimeter in the image preview on the right.  Multiple images can be selected by holding down the <i>Shift</i> or <i>Ctrl</i> keys while clicking in the image list.
+</p><p>Note that unlike PTGui<a class="external" href="http://wiki.panotools.org/PTGui">[*]</a>, setting crop parameters<a class="external" href="http://wiki.panotools.org/index.php?title=Crop_parameters&amp;action=edit&amp;redlink=1">[*]</a> in hugin doesn't change the <a href="Field_of_View.html" title="Field of View">Field of View</a> or optical centre of your images, it simply indicates areas of the image to be masked out, so you can change the cropping for photos in your project at any stage of the stitching process.
+In detail, <a href="Hugin.html" title="Hugin">hugin</a> uses the <b>S</b> 'selection' parameter in the <b>i</b> and <b>o</b> script lines instead of the <b>C</b> 'crop' parameter.
+</p><p>Depending on the input image type, cropping has two different behaviours:
+</p>
+<ul><li> For circular fisheye photos the crop area is a circle.
+</li><li> For any other input image, the crop area is a rectangle.
+</li></ul>
+<p>Change the input image type in the Hugin Photos tab<a class="external" href="http://wiki.panotools.org/index.php?title=Hugin_Photos_tab&amp;action=edit&amp;redlink=1">[*]</a> or in the <a href="Hugin_Assistant_tab.html" title="Hugin Assistant tab">Hugin Assistant tab</a>.
+</p><p>The <b>Crop</b> tab features four text boxes for <b>Left</b>, <b>Top</b>, <b>Right</b> and <b>Bottom</b> where you can manually enter the positions of the four edges.  The origin is top-left and numbers indicate the distance in pixels from this origin.
+</p><p>Note that numbers can be negative and can extend beyond the width and height of the photo, this is primarily useful for partial fisheye images where the full circle is not visible, in this case the crop circle extends beyond the picture frame.
+</p><p>The default <b>Always center Crop on d,e</b> assumes that all cropping is symmetrical around the optical centre of the lens.  This is normal unless you are using the crop feature to remove lens flare, in which case the crop may need to be asymmetrical.
+</p><p>The <b>d</b> and <b>e</b> lens parameters setting the position of the optical centre are used by the <a href="Lens_correction_model.html" title="Lens correction model">Lens correction model</a> and are set in the Hugin Photos tab<a class="external" href="http://wiki.panotools.org/index.php?title=Hugin_Photos_tab&amp;action=edit&amp;redlink=1">[*]</a>.
+</p>
+<h2> <span class="mw-headline" id="Save_and_apply_crop_values"> Save and apply crop values </span></h2>
+<p>Usually crop values don't vary too much for each lens/camera combination. So instead of always creating an almost same crop for new projects these values can be saved using the 'Save lens...' button in the Hugin Photos tab<a class="external" href="http://wiki.panotools.org/index.php?title=Hugin_Photos_tab&amp;action=edit&amp;redlink=1">[*]</a> tab. 
+</p><p>To load crop values just select one image in the 'Camera and Lens' tab and load the previously saved lens description file. That also sets the crop for all images in the project that have the same lens number. 
+</p><p>The lens description file is a plain text file with a .ini extension.
 </p><p><br />
 <b>Hint:</b> On Mac OS use the command key instead of the control key for all above mentioned operations.
 </p>
@@ -96,7 +135,7 @@ pressing the delete key when all or none points of the current mask are selected
 </div>				<!-- /bodycontent -->
 								<!-- printfooter -->
 				<div class="printfooter">
-				Retrieved from "http://wiki.panotools.org/index.php?title=Hugin_Mask_tab&amp;oldid=13768<a class="external" href="http://wiki.panotools.org/index.php?title=Hugin_Mask_tab&amp;oldid=13768">[*]</a>"				</div>
+				Retrieved from "http://wiki.panotools.org/index.php?title=Hugin_Mask_tab&amp;oldid=14830<a class="external" href="http://wiki.panotools.org/index.php?title=Hugin_Mask_tab&amp;oldid=14830">[*]</a>"				</div>
 				<!-- /printfooter -->
 												<!-- catlinks -->
 				</div></div></body></html>
