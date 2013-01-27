@@ -545,7 +545,9 @@ int main(int argc, char* argv[])
                         ostringstream contents;
                         contents << ifs.rdbuf();
                         ifs.close();
-                        ParseVariableString(setVars, contents.str(), ParseSingleVar);
+                        string s(contents.str());
+                        boost::algorithm::replace_all(s, "\n", ",");
+                        ParseVariableString(setVars, s, ParseSingleVar);
                     }
                     else
                     {
