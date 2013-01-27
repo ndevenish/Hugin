@@ -46,7 +46,7 @@
 				<!-- /jumpto -->
 								<!-- bodycontent -->
 				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p><a href="Hugin.html" title="Hugin">hugin</a> uses a photo alignment scheme where it adjusts image orientation and lens settings of source photos
-until the <a href="Control_points.html" title="Control points">control points</a> line-up. This process is called <i>optimisation</i> and the <b>hugin Optimizer tab</b> is where it is controlled in detail.  You actually <i>create</i> individual <b>control points</b> in the <a href="Hugin_Control_Points_tab.html" title="Hugin Control Points tab">hugin Control Points tab</a>, and <i>manage</i> them in the <a href="Hugin_Images_tab.html" title="Hugin Images tab">hugin Images tab</a> and <a href="Hugin_Control_Points_table.html" title="Hugin Control Points table">hugin Control Points table</a>.
+until the <a href="Control_points.html" title="Control points">control points</a> line-up. This process is called <i>optimisation</i> and the <b>hugin Optimizer tab</b> is where it is controlled in detail.  You actually <i>create</i> individual <b>control points</b> in the <a href="Hugin_Control_Points_tab.html" title="Hugin Control Points tab">Control Points tab</a>, and <i>manage</i> them in the <a href="Hugin_Photos_tab.html" title="Hugin Photos tab">Photos tab</a> and <a href="Hugin_Control_Points_table.html" title="Hugin Control Points table">Control Points table</a>.
 </p><p>So to align two or more photos we need to connect them with some control points. A general rule is that optimising more parameters requires more control points.
 </p>
 <h2> <span class="mw-headline" id="Quick_Optimizer"> Quick Optimizer </span></h2>
@@ -54,14 +54,14 @@ until the <a href="Control_points.html" title="Control points">control points</a
 </p><p>One valid technique is to try each optimisation scheme in turn, starting at the top, and skipping the ones with translation if you are making a spherical panorama, until you are satisfied with the results.
 </p><p>The <b>Optimisation result</b> tells you how good the alignment is, large control point error distances indicate one of several things:
 </p>
-<ul><li> Some <b>control points</b> are in the wrong place, look at the list in the <a href="Hugin_Control_Points_table.html" title="Hugin Control Points table">hugin Control Points table</a> and identify points with large distances and check they are set properly.
-</li><li> If points are set correctly, there may be <a href="Parallax.html" title="Parallax">parallax</a> errors caused by camera movement between shots.  If so it may be necessary to decide which objects in the scene are important to have aligned and delete unrelated control points in the <a href="Hugin_Control_Points_tab.html" title="Hugin Control Points tab">hugin Control Points tab</a>.
+<ul><li> Some <b>control points</b> are in the wrong place, look at the list in the <a href="Hugin_Control_Points_table.html" title="Hugin Control Points table">Control Points table</a> and identify points with large distances and check they are set properly.
+</li><li> If points are set correctly, there may be <a href="Parallax.html" title="Parallax">parallax</a> errors caused by camera movement between shots.  If so it may be necessary to decide which objects in the scene are important to have aligned and delete unrelated control points in the <a href="Hugin_Control_Points_tab.html" title="Hugin Control Points tab">Control Points tab</a>.
 </li><li> Otherwise you may not be optimising enough parameters.  For example, the <a href="EXIF.html" title="EXIF">EXIF</a> data retrieved from a <a href="JPEG.html" title="JPEG">JPEG</a> file may not give a very accurate starting <a href="Field_of_View.html" title="Field of View">Field of View</a>, in this case you should optimise <b>view (v)</b>.
 </li></ul>
 <p><b>Use only control points between images selected in preview window.</b> allows you to work on just a few
 of the images in the current project rather than all of them.  Use the buttons along the top of the
-<a href="Hugin_Preview_window.html" title="Hugin Preview window">Hugin Preview window</a> to enable and disable source photos.  When optimising with the
-<strong class="selflink">Hugin Optimizer tab</strong>, all the hidden images will be ignored.
+Fast Preview window<a class="external" href="http://wiki.panotools.org/index.php?title=Hugin_FastPreview_window&amp;action=edit&amp;redlink=1">[*]</a> to enable and disable source photos.  When optimising with the
+<strong class="selflink">Optimizer tab</strong>, all the hidden images will be ignored.
 </p><p>The following pre-set optimisation schemes are provided:
 </p>
 <h3> <span class="mw-headline" id="Positions_.28incremental.2C_starting_from_anchor.29"> Positions (incremental, starting from anchor) </span></h3>
@@ -71,7 +71,7 @@ of the images in the current project rather than all of them.  Use the buttons a
 </li></ul>
 <p>or
 </p>
-<ul><li> Lens calibration<a class="external" href="http://wiki.panotools.org/index.php?title=Lens_calibration&amp;action=edit&amp;redlink=1">[*]</a> has already been performed, saved to a file and loaded into the current project via the <a href="Hugin_Camera_and_Lens_tab.html" title="Hugin Camera and Lens tab">hugin Camera and Lens tab</a>.
+<ul><li> Lens calibration<a class="external" href="http://wiki.panotools.org/index.php?title=Lens_calibration&amp;action=edit&amp;redlink=1">[*]</a> has already been performed, saved to a file and loaded into the current project via the <a href="Hugin_Photos_tab.html" title="Hugin Photos tab">Photos tab</a>.
 </li></ul>
 <p>Note that to align any pair of photos, there should be at least two pairs of <a href="Control_points.html" title="Control points">control points</a> connecting them.
 </p>
@@ -92,7 +92,7 @@ of the images in the current project rather than all of them.  Use the buttons a
 <h3> <span class="mw-headline" id="Everything_without_translation"> Everything without translation </span></h3>
 <p>This optimises image orientation and all geometric parameters in the full <a href="Lens_correction_model.html" title="Lens correction model">lens correction model</a>. It includes more lens distortion parameters. The x shift and y shift (d and e) parameters account for the centre of the projection not being in the centre of the image. This is quite common, and gets very bad if an image is the cropped corner of another image.
 </p><p>You will need many control points, the more the better, and preferably a full spherical panorama (360 by 180 degrees) to get the best correction. You should also use a calibrated panoramic head<a class="external" href="http://wiki.panotools.org/Heads">[*]</a>. If the control points are bad (either there are not enough or some are in the wrong place), or your images were not taken around the <a href="No-parallax_point.html" title="No-parallax point">no-parallax point</a>, this could produce bizarre results.
-</p><p>However, if you do this well, you will accurately perform lens calibration<a class="external" href="http://wiki.panotools.org/index.php?title=Lens_calibration&amp;action=edit&amp;redlink=1">[*]</a>. You can save and reuse this lens information on the <a href="Hugin_Camera_and_Lens_tab.html" title="Hugin Camera and Lens tab">Hugin Camera and Lens tab</a>.
+</p><p>However, if you do this well, you will accurately perform lens calibration<a class="external" href="http://wiki.panotools.org/index.php?title=Lens_calibration&amp;action=edit&amp;redlink=1">[*]</a>. You can save and reuse this lens information on the Hugin Camera and Lens tab<a class="external" href="http://wiki.panotools.org/Hugin_Camera_and_Lens_tab">[*]</a>.
 </p>
 <h3> <span class="mw-headline" id="Positions_and_Translations_.28y.2Cp.2Cr.2Cx.2Cy.2Cz.29"> Positions and Translations (y,p,r,x,y,z) </span></h3>
 <p>This will optimise image orientation and the translation you get when moving the camera for a linear panorama. This is great for stitching images of the same flat surface taken from different places, for example when you couldn't fit a painting or the front of a building into one picture. Again it isn't ideal if the lens information such as the field of view is wrong.
@@ -108,14 +108,14 @@ of the images in the current project rather than all of them.  Use the buttons a
 </p>
 <h3> <span class="mw-headline" id="The_Custom_parameters_below"> The Custom parameters below </span></h3>
 <p>The pre-set optimisation options are useful for most situations, but often it is necessary to switch to <b>Custom parameters</b>.
-</p><p>For example, when shooting hand-held panoramas, some of the position variation between shots can be resolved by using different <b>d</b> and <b>e</b> <b>Image Center Shift</b> parameters for each shot.  Select <b>The Custom parameters below</b> and pick the <b>d</b> and <b>e</b> parameters for optimisation.  Note that by default, lens settings are shared for all photos in the project, go to the <a href="Hugin_Camera_and_Lens_tab.html" title="Hugin Camera and Lens tab">hugin Camera and Lens tab</a> and <i>uncheck</i> the <b>link</b> box for any you want to have different values in each photo.
+</p><p>For example, when shooting hand-held panoramas, some of the position variation between shots can be resolved by using different <b>d</b> and <b>e</b> <b>Image Center Shift</b> parameters for each shot.  Select <b>The Custom parameters below</b> and pick the <b>d</b> and <b>e</b> parameters for optimisation.  Note that by default, lens settings are shared for all photos in the project, go to the hugin Camera and Lens tab<a class="external" href="http://wiki.panotools.org/Hugin_Camera_and_Lens_tab">[*]</a> and <i>uncheck</i> the <b>link</b> box for any you want to have different values in each photo.
 </p><p>Similarly, the translation parameters could be used to correct a wonky shot. However, they were meant for linear panoramas which expand to infinite distance at 180 degrees field of view, so you must make sure any images with non-zero translation (X, Y, or Z parameters) are in the middle of the panorama (y and p should all be around zero, and the field of view shouldn't be large enough to make them expand more than 180 degrees). This can be used to patch in the floor after you have removed the tripod that was obscuring it. You can take a shot of the floor where the tripod was at an angle (therefore you can avoid casting a shadow on the image in most cases). You can then optimise X,Y,Z on only this image. However, the floor must be flat for this to work, and this shot must be in the middle of the panorama. You can make down the middle by rotating the panorama on either of the previews.
 </p>
 <h4> <span class="mw-headline" id="Image_Orientation"> Image Orientation </span></h4>
 <p>The <b>Image Orientation</b> section shows the photo number and <a href="Roll.html" title="Roll">roll</a>, <a href="Pitch.html" title="Pitch">pitch</a> and <a href="Yaw.html" title="Yaw">yaw</a> rotation/orientation values for all input photos (in parenthesis), and the X, Y, and Z translation parameters. The <i>check</i> mark indicates parameters that will be optimised. The translation parameters should all be 0 on a spherical panorama.
 </p>
 <h4> <span class="mw-headline" id="Lens_Parameters"> Lens Parameters </span></h4>
-<p>The <b>Lens Parameters</b> section shows the lens number and the <a href="Lens_correction_model.html" title="Lens correction model">lens correction model</a> parameters (in parenthesis) for each of the distinct lenses in the project.  Only parameters that are <b>linked</b> in the <a href="Hugin_Camera_and_Lens_tab.html" title="Hugin Camera and Lens tab">hugin Camera and Lens tab</a> are shown in parenthesis.
+<p>The <b>Lens Parameters</b> section shows the lens number and the <a href="Lens_correction_model.html" title="Lens correction model">lens correction model</a> parameters (in parenthesis) for each of the distinct lenses in the project.  Only parameters that are <b>linked</b> in the hugin Camera and Lens tab<a class="external" href="http://wiki.panotools.org/Hugin_Camera_and_Lens_tab">[*]</a> are shown in parenthesis.
 </p><p>Note that normally all the photos in a project have the same lens, so there is usually only one row here.
 </p>
 <h4> <span class="mw-headline" id="edit_script_before_optimizing"> edit script before optimizing </span></h4>
@@ -132,7 +132,7 @@ of the images in the current project rather than all of them.  Use the buttons a
 </div>				<!-- /bodycontent -->
 								<!-- printfooter -->
 				<div class="printfooter">
-				Retrieved from "http://wiki.panotools.org/index.php?title=Hugin_Optimizer_tab&amp;oldid=13926<a class="external" href="http://wiki.panotools.org/index.php?title=Hugin_Optimizer_tab&amp;oldid=13926">[*]</a>"				</div>
+				Retrieved from "http://wiki.panotools.org/index.php?title=Hugin_Optimizer_tab&amp;oldid=14915<a class="external" href="http://wiki.panotools.org/index.php?title=Hugin_Optimizer_tab&amp;oldid=14915">[*]</a>"				</div>
 				<!-- /printfooter -->
 												<!-- catlinks -->
 				</div></div></body></html>

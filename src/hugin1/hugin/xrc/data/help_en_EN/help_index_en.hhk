@@ -308,15 +308,11 @@
 		<param name="Name" value="Enblend">
 		<param name="Name" value="Enblend">
 		<param name="Local" value="Enblend.html">
-		<param name="Name" value="Enblend reference manual">
-		<param name="Local" value="Enblend_reference_manual.html">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Enfuse">
 		<param name="Name" value="Enfuse">
 		<param name="Local" value="Enfuse.html">
-		<param name="Name" value="Enfuse reference manual">
-		<param name="Local" value="Enfuse_reference_manual.html">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Equirectangular Panini">
@@ -513,6 +509,11 @@
 		<param name="Local" value="MatchPoint.html">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Move/Drag tab">
+		<param name="Name" value="Hugin move drag tab - PanoTools.org Wiki">
+		<param name="Local" value="Hugin_move_drag_tab.html">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Nadir">
 		<param name="Name" value="Nadir">
 		<param name="Local" value="Nadir.html">
@@ -601,6 +602,11 @@
 		<param name="Local" value="Panorama.html">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Panorama Editor">
+		<param name="Name" value="Hugin Panorama Editor window - PanoTools.org Wiki">
+		<param name="Local" value="Hugin_Panorama_Editor_window.html">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Panorama formats">
 		<param name="Name" value="Panorama formats">
 		<param name="Local" value="Panorama_formats.html">
@@ -641,6 +647,11 @@
 		<param name="Local" value="Stitching_a_photo-mosaic.html">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Photos tab">
+		<param name="Name" value="Hugin Photos tab - PanoTools.org Wiki">
+		<param name="Local" value="Hugin_Photos_tab.html">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Pincushion distortion">
 		<param name="Name" value="Pincushion distortion">
 		<param name="Local" value="Pincushion_distortion.html">
@@ -664,6 +675,11 @@
 		<param name="Name" value="Preferences">
 		<param name="Name" value="Hugin Preferences">
 		<param name="Local" value="Hugin_Preferences.html">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Preview tab">
+		<param name="Name" value="Hugin Preview tab - PanoTools.org Wiki">
+		<param name="Local" value="Hugin_Preview_tab.html">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Preview window">
@@ -692,6 +708,11 @@
 		<param name="Local" value="Panini.html">
 		<param name="Name" value="Equirectangular Panini - PanoTools.org Wiki">
 		<param name="Local" value="Equirectangular_Panini.html">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Projection tab">
+		<param name="Name" value="Hugin Projection tab - PanoTools.org Wiki">
+		<param name="Local" value="Hugin_Projection_tab.html">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="PSD">

@@ -15,41 +15,61 @@
 		</OBJECT>
 	<UL>
 		<LI> <OBJECT type="text/sitemap">
-			<param name="Name" value="Assistant tab">
-			<param name="Local" value="Hugin_Assistant_tab.html">
+			<param name="Name" value="Simple user Interface">
+			<param name="Local" value="Hugin_Main_window.html">
 			</OBJECT>
+		<UL>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="Assistant tab">
+				<param name="Local" value="Hugin_Assistant_tab.html">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="Preview tab">
+				<param name="Local" value="Hugin_Preview_tab.html">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="Projection tab">
+				<param name="Local" value="Hugin_Projection_tab.html">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="Move/Drag tab">
+				<param name="Local" value="Hugin_move_drag_tab.html">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="Crop tab">
+				<param name="Local" value="Hugin_Crop_tab.html">
+				</OBJECT>
+		</UL>
 		<LI> <OBJECT type="text/sitemap">
-			<param name="Name" value="Images tab">
-			<param name="Local" value="Hugin_Images_tab.html">
+			<param name="Name" value="Advanced user interface">
+			<param name="Local" value="Hugin_Panorama_Editor_window.html">
 			</OBJECT>
-		<LI> <OBJECT type="text/sitemap">
-			<param name="Name" value="Camara and Lens tab">
-			<param name="Local" value="Hugin_Camera_and_Lens_tab.html">
-			</OBJECT>
-		<LI> <OBJECT type="text/sitemap">
-			<param name="Name" value="Crop tab">
-			<param name="Local" value="Hugin_Crop_tab.html">
-			</OBJECT>
-		<LI> <OBJECT type="text/sitemap">
-			<param name="Name" value="Mask tab">
-			<param name="Local" value="Hugin_Mask_tab.html">
-			</OBJECT>
-		<LI> <OBJECT type="text/sitemap">
-			<param name="Name" value="Control points tab">
-			<param name="Local" value="Hugin_Control_Points_tab.html">
-			</OBJECT>
-		<LI> <OBJECT type="text/sitemap">
-			<param name="Name" value="Optimizer tab">
-			<param name="Local" value="Hugin_Optimizer_tab.html">
-			</OBJECT>
-		<LI> <OBJECT type="text/sitemap">
-			<param name="Name" value="Exposure tab">
-			<param name="Local" value="Hugin_Exposure_tab.html">
-			</OBJECT>
-		<LI> <OBJECT type="text/sitemap">
-			<param name="Name" value="Stitcher tab">
-			<param name="Local" value="Hugin_Stitcher_tab.html">
-			</OBJECT>
+		<UL>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="Photos tab">
+				<param name="Local" value="Hugin_Photos_tab.html">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="Mask tab">
+				<param name="Local" value="Hugin_Mask_tab.html">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="Control points tab">
+				<param name="Local" value="Hugin_Control_Points_tab.html">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="Optimizer tab">
+				<param name="Local" value="Hugin_Optimizer_tab.html">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="Exposure tab">
+				<param name="Local" value="Hugin_Exposure_tab.html">
+				</OBJECT>
+			<LI> <OBJECT type="text/sitemap">
+				<param name="Name" value="Stitcher tab">
+				<param name="Local" value="Hugin_Stitcher_tab.html">
+				</OBJECT>
+		</UL>
 		<LI> <OBJECT type="text/sitemap">
 			<param name="Name" value="Batch processor">
 			<param name="Local" value="Hugin_Batch_Processor.html">
@@ -196,16 +216,8 @@
 					<param name="Local" value="Enblend.html">
 					</OBJECT>
 				<LI> <OBJECT type="text/sitemap">
-					<param name="Name" value="Enblend manual">
-					<param name="Local" value="Enblend_reference_manual.html">
-					</OBJECT>
-				<LI> <OBJECT type="text/sitemap">
 					<param name="Name" value="Enfuse">
 					<param name="Local" value="Enfuse.html">
-					</OBJECT>
-				<LI> <OBJECT type="text/sitemap">
-					<param name="Name" value="Enfuse manual">
-					<param name="Local" value="Enfuse_reference_manual.html">
 					</OBJECT>
 			</UL>
 			<LI> <OBJECT type="text/sitemap">
