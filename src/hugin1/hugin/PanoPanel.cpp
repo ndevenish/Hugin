@@ -1124,6 +1124,19 @@ void PanoPanel::DoSendToBatch()
     }
     if(pano->isDirty())
     {
+        bool showDlg=wxConfigBase::Get()->Read(wxT("ShowSaveMessage"), 1l)==1;
+        if(showDlg)
+        {
+            wxDialog dlg;
+            wxXmlResource::Get()->LoadDialog(&dlg, NULL, wxT("stitch_message_dlg"));
+            if(dlg.ShowModal())
+            {
+                if(XRCCTRL(dlg, "stitch_dont_ask_checkbox", wxCheckBox)->IsChecked())
+                {
+                    wxConfigBase::Get()->Write(wxT("ShowSaveMessage"), 0l);
+                };
+            };
+        };
         wxCommandEvent dummy;
         MainFrame::Get()->OnSaveProject(dummy);
         //test if save was sucessful

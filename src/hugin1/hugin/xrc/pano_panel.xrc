@@ -1028,4 +1028,63 @@
       </object>
     </object>
   </object>
+  <object class="wxDialog" name="stitch_message_dlg">
+    <object class="wxBoxSizer">
+      <orient>wxVERTICAL</orient>
+      <object class="sizeritem">
+        <object class="wxBoxSizer">
+          <object class="sizeritem">
+            <object class="wxStaticBitmap">
+              <bitmap stock_id="wxART_INFORMATION"/>
+            </object>
+            <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+            <border>12</border>
+          </object>
+          <orient>wxHORIZONTAL</orient>
+          <object class="sizeritem">
+            <object class="wxStaticText">
+              <label>The project needs to be saved before it can send to\nthe batch processor PTBatcherGUI.\nYou will first ask for the filename for the project file\nand then for the prefix for the panorama output.\n\nYou may need to start the stitching in the batch processor\n PTBatcherGUI.</label>
+              <style>wxALIGN_LEFT</style>
+            </object>
+            <option>1</option>
+            <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+          </object>
+        </object>
+        <option>1</option>
+        <flag>wxALL|wxEXPAND</flag>
+        <border>12</border>
+      </object>
+      <object class="sizeritem">
+        <object class="wxBoxSizer">
+          <object class="sizeritem">
+            <object class="wxCheckBox" name="stitch_dont_ask_checkbox">
+              <label>Don't ask again</label>
+            </object>
+            <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+            <border>6</border>
+          </object>
+          <object class="spacer">
+            <option>1</option>
+            <flag>wxEXPAND</flag>
+          </object>
+          <object class="sizeritem">
+            <object class="wxStdDialogButtonSizer">
+              <orient>wxVERTICAL</orient>
+              <object class="button">
+                <object class="wxButton" name="wxID_OK">
+                  <label>Ok</label>
+                  <default>1</default>
+                </object>
+              </object>
+            </object>
+          </object>
+          <orient>wxHORIZONTAL</orient>
+        </object>
+        <flag>wxALL|wxEXPAND</flag>
+        <border>6</border>
+      </object>
+    </object>
+    <title>Hugin</title>
+    <style>wxDEFAULT_DIALOG_STYLE|wxCAPTION|wxSTAY_ON_TOP</style>
+  </object>
 </resource>
