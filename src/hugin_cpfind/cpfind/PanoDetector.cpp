@@ -981,6 +981,7 @@ bool PanoDetector::matchMultiRow(PoolExecutor& aExecutor)
     //build match data list for image pairs
     if(images_layer.size()>1)
     {
+        std::sort(images_layer.begin(), images_layer.end());
         for(unsigned int i=0; i<images_layer.size()-1; i++)
         {
             size_t img1=images_layer[i];
@@ -1014,8 +1015,9 @@ bool PanoDetector::matchMultiRow(PoolExecutor& aExecutor)
 
     // step 2: connect all image groups
     _matchesData.clear();
+    Panorama mediumPano=_panoramaInfo->getSubset(images_layer_set);
     CPGraph graph;
-    createCPGraph(*_panoramaInfo, graph);
+    createCPGraph(mediumPano, graph);
     CPComponents comps;
     unsigned int n = findCPComponents(graph, comps);
     if(n>1)
@@ -1023,10 +1025,10 @@ bool PanoDetector::matchMultiRow(PoolExecutor& aExecutor)
         vector<unsigned int> ImagesGroups;
         for(unsigned int i=0; i<n; i++)
         {
-            ImagesGroups.push_back(*(comps[i].begin()));
+            ImagesGroups.push_back(images_layer[*(comps[i].begin())]);
             if(comps[i].size()>1)
             {
-                ImagesGroups.push_back(*(comps[i].rbegin()));
+                ImagesGroups.push_back(images_layer[*(comps[i].rbegin())]);
             }
         };
         for(unsigned int i=0; i<ImagesGroups.size()-1; i++)
@@ -1067,12 +1069,12 @@ bool PanoDetector::matchMultiRow(PoolExecutor& aExecutor)
     };
     // step 3: now connect all overlapping images
     _matchesData.clear();
-    createCPGraph(*_panoramaInfo,graph);
+    PT::Panorama optPano=_panoramaInfo->getSubset(images_layer_set);
+    createCPGraph(optPano, graph);
     if(findCPComponents(graph, comps)==1)
     {
         if(images_layer.size()>2)
         {
-            PT::Panorama optPano=_panoramaInfo->getSubset(images_layer_set);
             //reset translation parameters
             VariableMapVector varMapVec=optPano.getVariables();
             for(size_t i=0; i<varMapVec.size(); i++)
@@ -1084,7 +1086,7 @@ bool PanoDetector::matchMultiRow(PoolExecutor& aExecutor)
             optPano.updateVariables(varMapVec);
             //next steps happens only when all images are connected;
             //now optimize panorama
-            PanoramaOptions opts = _panoramaInfo->getOptions();
+            PanoramaOptions opts = optPano.getOptions();
             opts.setProjection(PanoramaOptions::EQUIRECTANGULAR);
             opts.optimizeReferenceImage=0;
             // calculate proper scaling, 1:1 resolution.
