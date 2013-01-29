@@ -61,6 +61,7 @@
 #include "hugin/GLViewer.h"
 #include "hugin/TextKillFocusHandler.h"
 #include "hugin/PanoOperation.h"
+#include "hugin/PanoOutputDialog.h"
 
 extern "C" {
 #include <pano13/queryfeature.h>
@@ -3097,27 +3098,15 @@ void GLPreviewFrame::OnAlign( wxCommandEvent & e )
 
 void GLPreviewFrame::OnCreate( wxCommandEvent & e )
 {
-    // just run the stitcher
-    // this is kind of a bad hack, since several settings are determined
-    // based on the current state of PanoPanel, and not the Panorama object itself
-
-    // calc optimal size using output projection
-    double sizeFactor = HUGIN_ASS_PANO_DOWNSIZE_FACTOR;
-    wxConfigBase::Get()->Read(wxT("/Assistant/panoDownsizeFactor"), &sizeFactor, HUGIN_ASS_PANO_DOWNSIZE_FACTOR);
-    PanoramaOptions opts = m_pano.getOptions();
-    int w = m_pano.calcOptimalWidth();
-    // check if resize was plausible!
-    if (w> 0)
+    PanoOutputDialog dlg(this, m_pano);
+    if(dlg.ShowModal()==wxID_OK)
     {
-        opts.setWidth(floori(w*sizeFactor), true);
-        // copy information into our panorama
         GlobalCmdHist::getInstance().addCommand(
-            new PT::SetPanoOptionsCmd(m_pano, opts)
+            new PT::SetPanoOptionsCmd(m_pano, dlg.GetNewPanoramaOptions())
             );
-    }
-
-    wxCommandEvent dummy;
-    MainFrame::Get()->OnDoStitch(dummy);
+        wxCommandEvent dummy;
+        MainFrame::Get()->OnDoStitch(dummy);
+    };
 }
 
 void GLPreviewFrame::OnLensTypeChanged (wxCommandEvent & e)

@@ -35,7 +35,7 @@ PreviewCropTool.cpp DragTool.cpp PreviewIdentifyTool.cpp PanosphereSphereTool.cp
 PreviewDifferenceTool.cpp PreviewPanoMaskTool.cpp PreviewControlPointTool.cpp
 GreatCircles.cpp AboutDialog.cpp LayoutRemapper.cpp PreviewLayoutLinesTool.cpp PreviewColorPickerTool.cpp PreviewGuideTool.cpp
 MaskEditorPanel.cpp MaskImageCtrl.cpp MaskLoadDialog.cpp HtmlWindow.cpp 
-PanoOperation.cpp treelistctrl.cpp ImagesTree.cpp 
+PanoOperation.cpp treelistctrl.cpp ImagesTree.cpp PanoOutputDialog.cpp
 GuiLevel.cpp ImageVariableDialog.cpp)
 
 set(hugin_HEADERS
@@ -52,7 +52,7 @@ PreviewCropTool.h DragTool.h PreviewIdentifyTool.h PanosphereSphereTool.h
 PreviewDifferenceTool.h PreviewPanoMaskTool.h PreviewControlPointTool.h
 GreatCircles.h AboutDialog.h LayoutRemapper.h PreviewLayoutLinesTool.h PreviewColorPickerTool.h PreviewGuideTool.h
 MaskEditorPanel.h MaskImageCtrl.h MaskLoadDialog.h HtmlWindow.h 
-PanoOperation.h treelistctrl.h ImagesTree.h 
+PanoOperation.h treelistctrl.h ImagesTree.h PanoOutputDialog.h
 GuiLevel.h ImageVariableDialog.h)
 
 IF(BUILD_HSI)

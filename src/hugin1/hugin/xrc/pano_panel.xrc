@@ -1087,4 +1087,278 @@
     <title>Hugin</title>
     <style>wxDEFAULT_DIALOG_STYLE|wxCAPTION|wxSTAY_ON_TOP</style>
   </object>
+  <object class="wxDialog" name="pano_output_dialog">
+    <object class="wxBoxSizer">
+      <orient>wxVERTICAL</orient>
+      <object class="sizeritem">
+        <object class="wxStaticBoxSizer">
+          <object class="sizeritem">
+            <object class="wxBoxSizer">
+              <object class="sizeritem">
+                <object class="wxStaticText">
+                  <label>Width:</label>
+                </object>
+                <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                <border>3</border>
+              </object>
+              <object class="sizeritem">
+                <object class="wxSpinCtrl" name="output_width">
+                  <size>80,-1</size>
+                  <min>1</min>
+                  <max>30000</max>
+                </object>
+                <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                <border>3</border>
+              </object>
+              <object class="spacer">
+                <size>20,-1</size>
+              </object>
+              <object class="sizeritem">
+                <object class="wxStaticText">
+                  <label>Height:</label>
+                </object>
+                <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                <border>3</border>
+              </object>
+              <object class="sizeritem">
+                <object class="wxSpinCtrl" name="output_height">
+                  <size>80,-1</size>
+                  <min>1</min>
+                  <max>30000</max>
+                </object>
+                <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                <border>3</border>
+              </object>
+              
+              
+              
+              
+              <orient>wxHORIZONTAL</orient>
+            </object>
+            <flag>wxALL|wxEXPAND</flag>
+            <border>3</border>
+          </object>
+          <label>Size and file format</label>
+          <orient>wxVERTICAL</orient>
+          <object class="sizeritem">
+            <object class="wxBoxSizer">
+              <object class="sizeritem">
+                <object class="wxStaticText" name="output_ldr_format_label">
+                  <label>LDR Format:</label>
+                </object>
+                <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                <border>3</border>
+              </object>
+              <object class="sizeritem">
+                <object class="wxChoice" name="output_ldr_format">
+                  <content>
+                    <item>TIFF</item>
+                    <item>JPEG</item>
+                    <item>PNG</item>
+                  </content>
+                  <selection>0</selection>
+                </object>
+                <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                <border>3</border>
+              </object>
+              <object class="spacer">
+                <size>10,-1</size>
+              </object>
+              <object class="sizeritem">
+                <object class="wxStaticText" name="output_ldr_compression_label">
+                  <label>Compression:</label>
+                </object>
+                <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                <border>3</border>
+              </object>
+              <object class="sizeritem">
+                <object class="wxBoxSizer">
+                  <object class="sizeritem">
+                    <object class="wxSpinCtrl" name="output_jpeg_quality">
+                      <value>100</value>
+                      <min>1</min>
+                      <max>100</max>
+                    </object>
+                    <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                    <minsize>40,-1d</minsize>
+                  </object>
+                  <object class="sizeritem">
+                    <object class="wxChoice" name="output_tiff_compression">
+                      <content>
+                        <item>None</item>
+                        <item>Packbits</item>
+                        <item>LZW</item>
+                        <item>Deflate</item>
+                      </content>
+                    </object>
+                    <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                  </object>
+                  <orient>wxHORIZONTAL</orient>
+                </object>
+                <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                <border>3</border>
+              </object>
+              <object class="spacer">
+                <size>20,-1</size>
+              </object>
+              <object class="sizeritem">
+                <object class="wxStaticText" name="output_hdr_format_label">
+                  <label>HDR Format:</label>
+                </object>
+                <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                <border>3</border>
+              </object>
+              <object class="sizeritem">
+                <object class="wxChoice" name="output_hdr_format">
+                  <content>
+                    <item>EXR</item>
+                    <item>TIFF</item>
+                  </content>
+                  <selection>0</selection>
+                </object>
+                <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                <border>3</border>
+              </object>
+              <object class="spacer">
+                <size>10,-1</size>
+              </object>
+              <object class="sizeritem">
+                <object class="wxStaticText" name="output_hdr_compression_label">
+                  <label>Compression:</label>
+                </object>
+                <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                <border>3</border>
+              </object>
+              <object class="sizeritem">
+                <object class="wxChoice" name="output_hdr_tiff_compression">
+                  <content>
+                    <item>None</item>
+                    <item>Packbits</item>
+                    <item>LZW</item>
+                    <item>Deflate</item>
+                  </content>
+                </object>
+                <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                <border>3</border>
+              </object>
+            </object>
+            <flag>wxALL|wxEXPAND</flag>
+            <border>3</border>
+          </object>
+        </object>
+        <flag>wxALL|wxEXPAND</flag>
+        <border>6</border>
+      </object>
+      <object class="sizeritem">
+        <object class="wxStaticBoxSizer">
+          <object class="sizeritem">
+            <object class="wxFlexGridSizer">
+              <object class="sizeritem">
+                <object class="wxCheckBox" name="output_normal">
+                  <label>Exposure corrected, low dynamic range</label>
+                  <enabled>0</enabled>
+                </object>
+                <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+              </object>
+              <object class="sizeritem">
+                <object class="wxStaticBitmap" name="output_normal_bitmap">
+                  <bitmap>data/output_normal.png</bitmap>
+                  <tooltip>Blend all images into a seamless panorama, using exposure set in the Exposure tab</tooltip>
+                  <enabled>0</enabled>
+                </object>
+                <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+              </object>
+              <object class="sizeritem">
+                <object class="wxCheckBox" name="output_fused_blended">
+                  <label>Exposure fused from stacks</label>
+                  <enabled>0</enabled>
+                </object>
+                <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+              </object>
+              <object class="sizeritem">
+                <object class="wxStaticBitmap" name="output_fused_blended_bitmap">
+                  <bitmap>data/output_fused_blended.png</bitmap>
+                  <tooltip>Blend all images into a seamless panorama, using exposure set in the Exposure tab</tooltip>
+                  <enabled>0</enabled>
+                </object>
+              </object>
+              <object class="sizeritem">
+                <object class="wxCheckBox" name="output_blended_fused">
+                  <label>Exposure fused from any arrangement</label>
+                  <enabled>0</enabled>
+                </object>
+                <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+              </object>
+              <object class="sizeritem">
+                <object class="wxStaticBitmap" name="output_blended_fused_bitmap">
+                  <bitmap>data/output_blended_fused.png</bitmap>
+                  <tooltip>Images will be remapped, blended into seamless layers, then layers exposure fused into a panorama</tooltip>
+                  <enabled>0</enabled>
+                </object>
+              </object>
+              <object class="sizeritem">
+                <object class="wxCheckBox" name="output_hdr">
+                  <label>High dynamic range</label>
+                  <enabled>0</enabled>
+                </object>
+                <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+              </object>
+              <object class="sizeritem">
+                <object class="wxStaticBitmap" name="output_hdr_bitmap">
+                  <bitmap>data/output_hdr.png</bitmap>
+                  <tooltip>Images will be remapped in linear color space, stacks merged, then blended into a seamless High Dynamic Range panorama</tooltip>
+                  <enabled>0</enabled>
+                </object>
+              </object>
+              <cols>2</cols>
+              <rows>4</rows>
+              <vgap>2</vgap>
+              <growablecols>1</growablecols>
+            </object>
+            <option>1</option>
+            <flag>wxALL|wxEXPAND</flag>
+            <border>3</border>
+          </object>
+          <object class="sizeritem">
+            <object class="wxStaticLine">
+              <style>wxLI_HORIZONTAL</style>
+            </object>
+            <flag>wxTOP|wxBOTTOM|wxEXPAND</flag>
+            <border>6</border>
+          </object>
+          <object class="sizeritem">
+            <object class="wxCheckBox" name="output_keep_intermediate">
+              <label>Keep intermediate images</label>
+            </object>
+            <flag>wxALL|wxEXPAND</flag>
+            <border>3</border>
+          </object>
+          <label>Output</label>
+          <orient>wxVERTICAL</orient>
+        </object>
+        <flag>wxALL|wxEXPAND</flag>
+        <border>6</border>
+      </object>
+      <object class="sizeritem">
+        <object class="wxStdDialogButtonSizer">
+          <object class="button">
+            <object class="wxButton" name="wxID_OK">
+              <label>OK</label>
+              <default>1</default>
+            </object>
+          </object>
+          <object class="button">
+            <object class="wxButton" name="wxID_CANCEL">
+              <label>Cancel</label>
+            </object>
+          </object>
+          <orient>wxHORIZONTAL</orient>
+        </object>
+        <flag>wxALL|wxEXPAND</flag>
+        <border>6</border>
+      </object>
+    </object>
+    <title>Output parameters</title>
+    <icon>data/hugin.png</icon>
+  </object>
 </resource>
