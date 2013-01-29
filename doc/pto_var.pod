@@ -44,7 +44,7 @@ Shows help
 =item B<--modify-opt>
 
    Modify the existing optimizer variables
-   (not using --modify-opt, pto_var will start with an 
+   (without pto_var will start with an 
     empty variables set)
    Examples:
    --opt y,p,r           Optimize yaw, pitch and roll of all images
@@ -77,6 +77,11 @@ Shows help
    --set v=20            Sets the field of view to 20 for all images
    --set y+=20           Increase yaw by 20 deg for all images
    --set v*=1.1          Increase fov by 10 % for all images
+
+=item B<--set-fromfile filename>
+
+			 Sets variables to new values
+			 It reads the varlist from a file
 
 
 =back
