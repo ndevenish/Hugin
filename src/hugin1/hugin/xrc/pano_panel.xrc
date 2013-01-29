@@ -1057,8 +1057,8 @@
       <object class="sizeritem">
         <object class="wxBoxSizer">
           <object class="sizeritem">
-            <object class="wxCheckBox" name="stitch_dont_ask_checkbox">
-              <label>Don't ask again</label>
+            <object class="wxCheckBox" name="stitch_dont_show_checkbox">
+              <label>Don't show again</label>
             </object>
             <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
             <border>6</border>

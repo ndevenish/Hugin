@@ -1131,7 +1131,7 @@ void PanoPanel::DoSendToBatch()
             wxXmlResource::Get()->LoadDialog(&dlg, NULL, wxT("stitch_message_dlg"));
             if(dlg.ShowModal())
             {
-                if(XRCCTRL(dlg, "stitch_dont_ask_checkbox", wxCheckBox)->IsChecked())
+                if(XRCCTRL(dlg, "stitch_dont_show_checkbox", wxCheckBox)->IsChecked())
                 {
                     wxConfigBase::Get()->Write(wxT("ShowSaveMessage"), 0l);
                 };
