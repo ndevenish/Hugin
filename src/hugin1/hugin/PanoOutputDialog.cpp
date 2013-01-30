@@ -69,19 +69,23 @@ PanoOutputDialog::PanoOutputDialog(wxWindow *parent, PT::Panorama& pano) : m_pan
     {
         this->Move(0, 44);
     };
+    // get number of stacks and exposure layers
     m_stacks=getHDRStacks(m_pano, m_pano.getActiveImages(), m_pano.getOptions());
     m_exposureLayers=getExposureLayers(m_pano, m_pano.getActiveImages(), m_pano.getOptions());
-    m_optWidth=m_pano.calcOptimalWidth();
+    // set initial width
+    long opt_width=m_pano.calcOptimalWidth();
     m_newOpt=m_pano.getOptions();
-    m_newOpt.setWidth(m_optWidth, true);
-    m_optHeight=m_newOpt.getHeight();
     double sizeFactor = HUGIN_ASS_PANO_DOWNSIZE_FACTOR;
     wxConfigBase* config = wxConfigBase::Get();
     config->Read(wxT("/Assistant/panoDownsizeFactor"), &sizeFactor, HUGIN_ASS_PANO_DOWNSIZE_FACTOR);
+    m_newOpt.setWidth(hugin_utils::floori(sizeFactor*opt_width), true);
+    m_initalWidth=m_newOpt.getWidth();
+    m_initalROIWidth=m_newOpt.getROI().width();
+    m_aspect=(double)m_newOpt.getROI().height()/m_newOpt.getROI().width();
     m_edit_width=XRCCTRL(*this, "output_width", wxSpinCtrl);
     m_edit_height=XRCCTRL(*this, "output_height", wxSpinCtrl);
-    m_edit_width->SetValue(hugin_utils::floori(sizeFactor*m_optWidth));
-    m_edit_height->SetValue(m_optHeight*m_edit_width->GetValue()/m_optWidth);
+    m_edit_width->SetValue(m_newOpt.getROI().width());
+    m_edit_height->SetValue(m_newOpt.getROI().height());
 
     //LDR output format, as in preferences set
     int i = config->Read(wxT("/output/jpeg_quality"),HUGIN_JPEG_QUALITY);
@@ -263,7 +267,19 @@ void PanoOutputDialog::OnOk(wxCommandEvent & e)
         };
     }
     // canvas size
-    m_newOpt.setWidth(m_edit_width->GetValue(), true);
+    double scale=m_edit_width->GetValue()/m_initalROIWidth;
+    m_newOpt.setWidth(hugin_utils::roundi(m_initalWidth*scale), true);
+    //some checks to prevent some rounding errors
+    if(m_newOpt.getROI().width()<m_edit_width->GetValue() || m_newOpt.getROI().height()<m_edit_height->GetValue())
+    {
+        m_newOpt.setWidth(m_newOpt.getWidth()+1, true);
+    };
+    vigra::Rect2D roi=m_newOpt.getROI();
+    if(roi.width()>m_edit_width->GetValue() || roi.height()>m_edit_height->GetValue())
+    {
+        roi.setSize(m_edit_width->GetValue(), m_edit_height->GetValue());
+        m_newOpt.setROI(roi);
+    };
     //send Ok
     EndModal(wxID_OK);
 };
@@ -341,10 +357,10 @@ void PanoOutputDialog::OnHDRFormatChanged(wxCommandEvent & e)
 
 void PanoOutputDialog::OnWidthChanged(wxSpinEvent & e)
 {
-    m_edit_height->SetValue(m_edit_width->GetValue()*m_optHeight/m_optWidth);
+    m_edit_height->SetValue(m_edit_width->GetValue()*m_aspect);
 };
 
 void PanoOutputDialog::OnHeightChanged(wxSpinEvent & e)
 {
-    m_edit_width->SetValue(m_edit_height->GetValue()*m_optWidth/m_optHeight);
+    m_edit_width->SetValue(m_edit_height->GetValue()/m_aspect);
 };
