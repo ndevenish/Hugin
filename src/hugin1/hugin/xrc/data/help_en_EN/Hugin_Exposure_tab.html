@@ -45,106 +45,58 @@
 				
 				<!-- /jumpto -->
 								<!-- bodycontent -->
-				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p><a href="Hugin.html" title="Hugin">hugin</a> has a brightness and colour correction system which is completely
-independent of the old <a href="PTStitcher.html" title="PTStitcher">PTStitcher</a> tool.  This improved system is only
-available with the default <a href="Nona.html" title="Nona">nona</a> stitching tool in the <a href="Hugin_Stitcher_tab.html" title="Hugin Stitcher tab">hugin Stitcher tab</a>.
-</p><p>The <b>hugin</b> system works by sampling a spread of points for each pair of
-overlapping images.  The optimiser then tries to model a system of <a href="Camera_response_curve.html" title="Camera response curve">camera response curve</a>,
-<b>exposure</b>, <b>white balance</b> and <a href="Vignetting.html" title="Vignetting">vignetting</a> that fits the values of these points.
-</p><p>So for this to work, the photos in the project have to be already aligned.  Align
-photos by managing control points in the <a href="Hugin_Control_Points_tab.html" title="Hugin Control Points tab">hugin Control Points tab</a> and optimising
-geometric image parameters in the <a href="Hugin_Optimizer_tab.html" title="Hugin Optimizer tab">hugin Optimizer tab</a>.
-</p><p><b>Only use images selected in preview.</b> allows you to work with just a few
-of the images in the current project rather than all of them.  Use the buttons along the top of the
-<a href="Hugin_Preview_window.html" title="Hugin Preview window">Hugin Preview window</a> to enable and disable source photos.  When optimising, all the hidden images will be ignored.
+				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>As explained on the <a href="Hugin_Photos_tab.html#Photometric_.28Simple_User_interface.29" title="Hugin Photos tab">Hugin Photos tab</a>, hugin has a brightness and colour correction system using the default nona stitching tool.
+</p><p>Hugin comes with an extended set of predefined settings for photometric optimisation. If these predefined options do not give the desired results you can define your custom parameters in this <b>Hugin Exposure tab</b>.
 </p>
-<h2> <span class="mw-headline" id="Optimize_Preset"> Optimize Preset </span></h2>
-<p>Use the <b>Optimize Preset</b> combo box to pick one of several pre-set photometric
-optimisation schemes, then click the <b>Optimize now!</b> button to calculate the
-best available brightness and colour adjustments.
-</p>
-<h3> <span class="mw-headline" id="Low_dynamic_range"> Low dynamic range </span></h3>
-<p>This will optimise <a href="Vignetting.html" title="Vignetting">vignetting</a>, the <a href="Camera_response_curve.html" title="Camera response curve">camera response curve</a> and <b>exposure</b> (EV)
-for all the photos in your project.
-</p><p>The exposures for all images (except for the anchor image determined by selecting 
-<b>Anchor this image for exposure</b> in the hugin Images tab<a class="external" href="http://wiki.panotools.org/Hugin_Images_tab">[*]</a>) are optimised.
-</p>
-<h3> <span class="mw-headline" id="Low_dynamic_range.2C_variable_white_balance"> Low dynamic range, variable white balance </span></h3>
-<p>This will optimise <a href="Vignetting.html" title="Vignetting">vignetting</a>, the <a href="Camera_response_curve.html" title="Camera response curve">camera response curve</a>, <b>exposure</b> (EV) and
-<b>white balance</b> for all the photos in your project.
-</p><p>Similarly to above, the exposures and white balance is optimised for all images except the
-<i>anchor</i>.
-</p>
-<h3> <span class="mw-headline" id="High_dynamic_range.2C_fixed_exposure"> High dynamic range, fixed exposure </span></h3>
-<p>This will optimise <a href="Vignetting.html" title="Vignetting">vignetting</a> and <a href="Camera_response_curve.html" title="Camera response curve">camera response curve</a> for all photos.
-</p>
-<h3> <span class="mw-headline" id="High_dynamic_range.2C_variable_white_balance.2C_fixed_exposure"> High dynamic range, variable white balance, fixed exposure </span></h3>
-<p>This will optimise <a href="Vignetting.html" title="Vignetting">vignetting</a>, the <a href="Camera_response_curve.html" title="Camera response curve">camera response curve</a> and <b>white balance</b>
-for all the photos in your project.
-</p>
-<h3> <span class="mw-headline" id="Custom_parameters_below"> Custom parameters below </span></h3>
-<p>The pre-set options are good for most situations, but often it is necessary to switch to
-<b>Custom parameters</b>.  For example, none of the pre-sets will optimise the
-<b>Vignetting Centre</b>, so use custom parameters if your vignetting is off-centre.
-</p>
-<h2> <span class="mw-headline" id="Image_Variables"> Image Variables </span></h2>
-<p>Image variables are quite likely to vary between photos, perhaps because of minor
-variations in shutter speed, changes in natural light or because of 'auto' settings
-in the camera itself.
-</p>
-<h3> <span class="mw-headline" id="Exposure"> Exposure </span></h3>
-<p>The <b>Exposure</b> section shows the photo number and exposure values for all input
-photos (in parenthesis), the check mark indicates parameters that will be optimised.
-</p><p>When a value is set to <i>0</i> (zero) this results in <a href="Hugin.html" title="Hugin">hugin</a> applying no exposure
-change to the photo.  <i>EV</i> is a standard photographic scale, each increase or
-decrease by one unit will change the exposure by the equivalent of one <i>f-stop</i>
-(ie. halving or doubling the exposure).
-</p>
-<h3> <span class="mw-headline" id="White_balance"> White balance </span></h3>
-<p>Also known as <i>colour balance</i> or <i>colour temperature</i>.
-</p><p>The <b>White balance</b> section shows the photo number and <i>red</i> and <i>blue</i>
-multiplier values (in parenthesis), the check mark indicates photos that
-will be optimised.  If the values are set to <i>(1,1)</i>, this will result in no
-<b>white balance</b> change (the numbers are relative to the green channel which
-stays unaltered).
+
+<h1> <span class="mw-headline" id="Photometric_Optimisation"> Photometric Optimisation </span></h1>
+<h2> <span class="mw-headline" id="Image_variables"> Image variables </span></h2>
+<p>In the <b>Image variables</b> part of the screen you can modify the exposure EV, the <i>red multiplier</i> <b>Er</b> and the <i>blue multiplier</i> <b>Eb</b>.
+</p><p>The <b>Red multiplier</b> and <b>Blue multiplier</b> settings are used to account for changes
+in <b>white balance</b> (also known as <i>colour balance</i> or <i>colour temperature</i>) between
+photos.  Setting them both to <i>1</i> will result in no <i>white balance</i> change (the numbers
+are relative to the green channel which stays unaltered).
+</p><p>As with exposure, different photos in the same project are quite likely to require different
+<i>white balance</i>.  Typically this will be caused by variations in lighting conditions between
+shots - For example a cloudy scene will contain considerably less <i>red</i> light than the same scene
+under direct sunlight.
 </p>
 <h2> <span class="mw-headline" id="Camera_and_Lens_variables"> Camera and Lens variables </span></h2>
-<p>The <b>Camera and Lens variables</b> are the <i>photometric</i> analog of the <i>geometric</i> <a href="Lens_correction_model.html" title="Lens correction model">lens correction model</a>, <a href="Hugin.html" title="Hugin">hugin</a>
-assumes that all input photos with the same <b>lens number</b> have identical values unless they are <b>unlinked</b> in the
-hugin Camera and Lens tab<a class="external" href="http://wiki.panotools.org/Hugin_Camera_and_Lens_tab">[*]</a>.
+<p>The values that you can change in the <b>Camera and Lens variables</b> table is again dependent on the <b>Simple</b>, <b>Advanced</b> or <b>Expert</b> User interface.
 </p>
-<h3> <span class="mw-headline" id="Vignettting"> Vignettting </span></h3>
-<p><a href="Vignetting.html" title="Vignetting">Vignetting</a> is dependent mainly on your lens and the <i>aperture</i>.  Usually the centre of the image is
-brighter with a falloff towards the edges, <a href="Hugin.html" title="Hugin">hugin</a> can calculate this falloff curve as part of the
-<i>photometric optimisation</i> process or you can enter it manually in the hugin Camera and Lens tab<a class="external" href="http://wiki.panotools.org/Hugin_Camera_and_Lens_tab">[*]</a>
-as the three numbers shown here.
+<h3> <span class="mw-headline" id="Vignetting"> Vignetting </span></h3>
+<p><a href="Vignetting.html" title="Vignetting">Vignetting</a> is dependent mainly on your lens and the <i>aperture</i>. Usually the
+centre of the image is brighter with a falloff towards the edges.  The three
+numbers here represent a polynomial curve used by <a href="Hugin.html" title="Hugin">hugin</a> to correct vignetting.
+</p><p>You are not expected to guess these values, they are generally loaded with a lens
+profile or calculated from two or more overlapping photos.
+</p><p>Set the values to <i>0,0,0</i> for no vignetting correction.
+</p><p>Usually all photos taken with the same <i>lens</i> will have the same vignetting, keep
+<b>Link</b> checked to ensure <b>hugin</b> applies the same vignetting correction to all
+photos with the selected lens number.
 </p>
-<h3> <span class="mw-headline" id="Vignetting_Centre"> Vignetting Centre </span></h3>
-<p>The centre of <a href="Vignetting.html" title="Vignetting">vignetting</a> is rarely the exact centre of the photo,
-<a href="Hugin.html" title="Hugin">hugin</a> can optimise this position or you can enter it manually in the
-hugin Camera and Lens tab<a class="external" href="http://wiki.panotools.org/Hugin_Camera_and_Lens_tab">[*]</a>.  The scale is in <i>pixels</i>, with <i>0,0</i>
-indicating the centre of the photo. The values are independent of the
-d &amp; e parameters, that specify the origin for projection and distortion
-values.
+<h3> <span class="mw-headline" id="Vignetting_Center_Shift"> Vignetting Center Shift </span></h3>
+<p>The centre of <a href="Vignetting.html" title="Vignetting">vignetting</a> is rarely the exact centre of the photo. The two numbers
+here indicate the position of the vignetting centre. The scale is in pixels, with
+<i>0,0</i> indicating the centre of the photo. The values are independent of the <b>d</b>
+&amp; <b>e</b> parameters which specify the origin for projection and geometric distortion.
+</p><p><br />
 </p>
 <h3> <span class="mw-headline" id="Camera_Response"> Camera Response </span></h3>
-<p><a href="Hugin.html" title="Hugin">hugin</a> can optimise the <a href="Camera_response_curve.html" title="Camera response curve">camera response curve</a> by comparing differences
-between overlapping images. To do this your photos need to either have
-significant <a href="Vignetting.html" title="Vignetting">vignetting</a> or have variable exposure.  If your photos have 
-perfectly even exposure and zero vignetting, then you would have to 
-calibrate the camera response separately and then enter it manually in the
-hugin Camera and Lens tab<a class="external" href="http://wiki.panotools.org/Hugin_Camera_and_Lens_tab">[*]</a>.
-</p><p>The <b>camera response curve</b> is used both for mapping the images to a linear
+<p>The <a href="Camera_response_curve.html" title="Camera response curve">camera response curve</a> is used both for mapping the images to a linear
 colourspace when creating <a href="HDR.html" title="HDR">HDR</a> output, and for normalising the colourspace
 for internal vignetting, brightness and colour corrections when creating
-'normal' <b>LDR</b> output.  If your pictures don't require such corrections
-then you don't really need a calibrated response curve.
-</p><p>Hugin uses the <a rel="nofollow" class="external text" href="http://www1.cs.columbia.edu/CAVE/projects/rad_cal/rad_cal.php">EMoR response model</a>
+'normal' <b>LDR</b> output.
+</p><p><a href="Hugin.html" title="Hugin">hugin</a> uses the <a rel="nofollow" class="external text" href="http://www1.cs.columbia.edu/CAVE/projects/rad_cal/rad_cal.php">EMoR response model</a>
 from the Computer Vision Lab at Columbia University which simplifies the full
-response curve to five empirical coefficient numbers.
-</p><p>If your brightness variations are caused by lens flare then you may be better not optimising
-<b>Exposure</b> or <b>white balance</b>, instead uncheck <b>Link</b> for <b>Camera Response</b>
-in the hugin Camera and Lens tab<a class="external" href="http://wiki.panotools.org/Hugin_Camera_and_Lens_tab">[*]</a> to optimise a different response curve for each photo.
+response curve to these five empirical coefficient numbers.  You are
+not expected to guess these values, they are generally loaded with a lens
+profile or calculated from two or more overlapping photos.
+</p><p>Set the five numbers to <i>0,0,0,0,0</i> to use a generic response curve or change the <b>Type</b>
+to <b>Linear</b> to indicate that your input photos have a <i>scene-referred</i> or <a href="HDR.html" title="HDR">HDR</a>
+response.
+</p><p>Keep <b>Link</b> checked to ensure <b>hugin</b> applies the same
+response curve to all photos with the selected lens number.
 </p>
 
 
@@ -152,7 +104,7 @@ in the hugin Camera and Lens tab<a class="external" href="http://wiki.panotools.
 </div>				<!-- /bodycontent -->
 								<!-- printfooter -->
 				<div class="printfooter">
-				Retrieved from "http://wiki.panotools.org/index.php?title=Hugin_Exposure_tab&amp;oldid=10229<a class="external" href="http://wiki.panotools.org/index.php?title=Hugin_Exposure_tab&amp;oldid=10229">[*]</a>"				</div>
+				Retrieved from "http://wiki.panotools.org/index.php?title=Hugin_Exposure_tab&amp;oldid=14962<a class="external" href="http://wiki.panotools.org/index.php?title=Hugin_Exposure_tab&amp;oldid=14962">[*]</a>"				</div>
 				<!-- /printfooter -->
 												<!-- catlinks -->
 				</div></div></body></html>

@@ -68,7 +68,7 @@ Hugin_Keyboard_shortcuts
 Hugin_Main_window
 Hugin_Mask_tab
 Hugin_move_drag_tab
-Hugin_Optimizer_tab
+Hugin_Optimiser_tab
 Hugin_Panorama_Editor_window
 Hugin_Parameters_for_Control_Point_Detectors_dialog
 Hugin_Photos_tab

@@ -67,7 +67,7 @@ However, the simplest use of this tab is:
 </p>
 <ol><li> Use the <img alt="Hugin filenew.png" src="Hugin_filenew.png" width="22" height="22" /><a class="external" href="http://wiki.panotools.org/File:Hugin_filenew.png">[*]</a> <b>New project button</b>, if you have already images loaded.
 </li><li> Use the <b>Add images</b> button to add images to your (new) project.
-</li><li> Click the <b>Create control points</b> button in the Feature Matching<a class="external" href="http://wiki.panotools.org/Photos_tab#Feature_Matching">[*]</a> section to start detecting the common points in overlapping images.
+</li><li> Click the <b>Create control points</b> button in the Feature Matching<a class="external" href="http://wiki.panotools.org/Photos_tab#Feature_Matching">[*]</a> section to start detecting the pairs of same points in overlapping images.
 </li><li> Click under Optimise<a class="external" href="http://wiki.panotools.org/Photos_tab#Optimise">[*]</a> the Calculate button behind <b>Geometric:</b> (incremental, starting from anchor).
 </li><li> Click under Optimise<a class="external" href="http://wiki.panotools.org/Photos_tab#Optimise">[*]</a> the Calculate button behind <b>Photometric:</b> (Low dynamic range).
 </li></ol>
@@ -289,9 +289,9 @@ These control point generators (feature matchers) need to be configured in <a hr
 </li></ul>
 <h2> <span class="mw-headline" id="Geometric_.28Simple_and_Advanced_User_interface.29"> Geometric (Simple and Advanced User interface) </span></h2>
 <p><a href="Hugin.html" title="Hugin">hugin</a> uses a photo alignment scheme where it adjusts image orientation and lens settings of source photos
-until the <a href="Control_points.html" title="Control points">control points</a> line-up. This process is called <i>optimisation</i> and the <b>hugin Optimizer tab</b> is where it is controlled in detail.  You actually <i>create</i> individual <b>control points</b> in the <a href="Hugin_Control_Points_tab.html" title="Hugin Control Points tab">hugin Control Points tab</a>, and <i>manage</i> them in the hugin Images tab<a class="external" href="http://wiki.panotools.org/Hugin_Images_tab">[*]</a> and <a href="Hugin_Control_Points_table.html" title="Hugin Control Points table">hugin Control Points table</a>.
-</p><p><br />
-The following pre-set optimisation schemes are provided in the <b>Simple</b> and <b>Advanced</b> user interface:
+until the <a href="Control_points.html" title="Control points">control points</a> line-up. This process is called <i>optimisation</i>. 
+</p><p>You can <b>manually</b> create individual <b>control points</b> in the <a href="Hugin_Control_Points_tab.html" title="Hugin Control Points tab">Control Points tab</a>, and you can <i>manage</i> them in both the <strong class="selflink">Photos tab</strong> and <a href="Hugin_Control_Points_table.html" title="Hugin Control Points table">Control Points table</a>.
+</p><p>The following pre-set optimisation schemes are provided in the <b>Simple</b> and <b>Advanced</b> user interface:
 </p>
 <h3> <span class="mw-headline" id="Positions_.28incremental.2C_starting_from_anchor.29"> Positions (incremental, starting from anchor) </span></h3>
 <p>This is the simplest setting, and is probably sufficient for a lot of purposes.  Only the relative orientation of images are optimised, lens parameters are left untouched, this works best if either of the following is true:
@@ -300,7 +300,7 @@ The following pre-set optimisation schemes are provided in the <b>Simple</b> and
 </li></ul>
 <p>or
 </p>
-<ul><li> Lens calibration<a class="external" href="http://wiki.panotools.org/index.php?title=Lens_calibration&amp;action=edit&amp;redlink=1">[*]</a> has already been performed, saved to a file and loaded into the current project via the hugin Camera and Lens tab<a class="external" href="http://wiki.panotools.org/Hugin_Camera_and_Lens_tab">[*]</a>.
+<ul><li> Lens calibration<a class="external" href="http://wiki.panotools.org/index.php?title=Lens_calibration&amp;action=edit&amp;redlink=1">[*]</a> has already been performed, saved to a file and loaded into the current project via the right-click option in the <a href="Hugin_Photos_tab.html#Context_menu" title="Hugin Photos tab">Context menu</a>.
 </li></ul>
 <p>Note that to align any pair of photos, there should be at least two pairs of <a href="Control_points.html" title="Control points">control points</a> connecting them.
 </p>
@@ -338,9 +338,10 @@ The following pre-set optimisation schemes are provided in the <b>Simple</b> and
 <p>This is useful when you are optimising a linear panorama, don't trust the field of view, and want to correct barrel distortion.
 </p>
 <h3> <span class="mw-headline" id="The_Custom_parameters"> The Custom parameters </span></h3>
-<p>The pre-set optimisation options are useful for most situations, but often it is necessary to switch to <b>Custom parameters</b>.
-</p><p>For example, when shooting hand-held panoramas, some of the position variation between shots can be resolved by using different <b>d</b> and <b>e</b> <b>Image Center Shift</b> parameters for each shot.  Select <b>The Custom parameters below</b> and pick the <b>d</b> and <b>e</b> parameters for optimisation.  Note that by default, lens settings are shared for all photos in the project, go to the hugin Camera and Lens tab<a class="external" href="http://wiki.panotools.org/Hugin_Camera_and_Lens_tab">[*]</a> and <i>uncheck</i> the <b>link</b> box for any you want to have different values in each photo.
-</p><p>Similarly, the translation parameters could be used to correct a wonky shot. However, they were meant for linear panoramas which expand to infinite distance at 180 degrees field of view, so you must make sure any images with non-zero translation (X, Y, or Z parameters) are in the middle of the panorama (y and p should all be around zero, and the field of view shouldn't be large enough to make them expand more than 180 degrees). This can be used to patch in the floor after you have removed the tripod that was obscuring it. You can take a shot of the floor where the tripod was at an angle (therefore you can avoid casting a shadow on the image in most cases). You can then optimise X,Y,Z on only this image. However, the floor must be flat for this to work, and this shot must be in the middle of the panorama. You can make down the middle by rotating the panorama on either of the previews.
+<p>The pre-set optimisation options are useful for most situations, but sometimes it is necessary to switch to <b>Custom parameters</b>.
+</p><p>For example, when shooting hand-held panoramas, some of the position variation between shots can be resolved by using different <b>d</b> and <b>e</b> <b>Image Center Shift</b> parameters for each shot.  Select <b>Custom parameters</b>, and pick the <b>d</b> and <b>e</b> parameters for optimisation on the <a href="Hugin_Optimiser_tab.html" title="Hugin Optimiser tab">hugin Optimiser tab</a>.
+</p><p>Similarly, the translation parameters (X, Y, Z) could be used to correct a wonky shot. 
+</p><p>The custom parameters are controlled in detail on the <a href="Hugin_Optimiser_tab.html" title="Hugin Optimiser tab">Hugin Optimiser tab</a>.
 </p>
 <h2> <span class="mw-headline" id="Photometric_.28Simple_User_interface.29"> Photometric (Simple User interface) </span></h2>
 <p><a href="Hugin.html" title="Hugin">hugin</a> has a brightness and colour correction system using the default <a href="Nona.html" title="Nona">nona</a> stitching tool in the <a href="Hugin_Stitcher_tab.html" title="Hugin Stitcher tab">hugin Stitcher tab</a>.
@@ -364,9 +365,9 @@ for all the photos in your project.
 <i>anchor</i>.
 </p>
 <h3> <span class="mw-headline" id="Custom_parameters"> Custom parameters </span></h3>
-<p>The pre-set options are good for most situations, but often it is necessary to switch to
-<b>Custom parameters</b>.  For example, none of the pre-sets will optimise the
-<b>Vignetting Centre</b>, so use custom parameters if your vignetting is off-centre.
+<p>The pre-set options are good for most situations, but sometimes it is necessary to switch to
+<b>Custom parameters</b>.  
+These photometric <b>Custom parameters</b> are controlled  in detail on the <a href="Hugin_Exposure_tab.html" title="Hugin Exposure tab">hugin Exposure tab</a>.
 </p>
 <h2> <span class="mw-headline" id="Photometric_.28Advanced_and_Expert_User_interface.29"> Photometric (Advanced and Expert User interface) </span></h2>
 <p>Next to the options mentioned above in Photometric (Simple User interface)<a class="external" href="http://wiki.panotools.org/Photos_tab#Photometric_.28Simple_User_interface.29">[*]</a>, 
@@ -381,10 +382,10 @@ for all the photos in your project.
 </p>
 <h1> <span class="mw-headline" id="Edit_image_variables"> Edit image variables </span></h1>
 <p>The <b>Edit image variables</b> option when double-clicking an image in the image table or via the right-click context menu will open a popup with four tabs being Positions<a class="external" href="http://wiki.panotools.org/Photos_tab#Positions">[*]</a>. Lens<a class="external" href="http://wiki.panotools.org/Photos_tab#Lens">[*]</a>, Photometrics<a class="external" href="http://wiki.panotools.org/Photos_tab#Photometrics">[*]</a> and Camera Response<a class="external" href="http://wiki.panotools.org/Photos_tab#Camera_Response">[*]</a>.
-The options in this popup are also dependent on the user interface mode.
+The options in the several tabs of this popup are also dependent on the user interface mode.
 </p>
 <h2> <span class="mw-headline" id="Positions"> Positions </span></h2>
-<p>On the Image <b>Positions</b> tab, the orientation of the selected image(s) in the final panorama can be specified by <a href="Yaw.html" title="Yaw">yaw</a>, <a href="Pitch.html" title="Pitch">pitch</a> and <a href="Roll.html" title="Roll">roll</a> angle (in degrees); and (only) in <b>Expert</b> you can also specify the X, Y, and Z translation parameters. 
+<p>On the Image <b>Positions</b> tab, the orientation of the selected image(s) in the final panorama can be specified by <a href="Yaw.html" title="Yaw">yaw</a>, <a href="Pitch.html" title="Pitch">pitch</a> and <a href="Roll.html" title="Roll">roll</a> angle (in degrees); and (only) in <b>Expert</b> mode you can also specify the X, Y, and Z translation parameters. 
 </p><p>You can set the parameters to 0 in this popup but also via the right-click <b>Reset</b> menu with it's sub-menu options.
 </p><p>By selecting an image in the images table and via right-click <b>Anchor this image for position</b> you can indicate that a particular image shouldn't move when
 optimising the positions in the panorama.  Only one image can be the <i>anchor</i>, and by default this
@@ -418,48 +419,10 @@ exposure by the equivalent of one <i>f-stop</i> (ie. halving or doubling the exp
 </p><p>Very often, different photos in the same project, even those with the same <i>lens number</i>,
 will require a different <b>Exposure</b>.  This could be because the photos were taken
 with a different shutter-speed or simply because the light changed between shots.
-</p><p>The <b>Red multiplier</b> and <b>Blue multiplier</b> settings are used to account for changes
-in <b>white balance</b> (also known as <i>colour balance</i> or <i>colour temperature</i>) between
-photos.  Setting them both to <i>1</i> will result in no <i>white balance</i> change (the numbers
-are relative to the green channel which stays unaltered).
-</p><p>As with exposure, different photos in the same project are quite likely to require different
-<i>white balance</i>.  Typically this will be caused by variations in lighting conditions between
-shots - For example a cloudy scene will contain considerably less <i>red</i> light than the same scene
-under direct sunlight.
-</p>
-<h3> <span class="mw-headline" id="Vignetting"> Vignetting </span></h3>
-<p><a href="Vignetting.html" title="Vignetting">Vignetting</a> is dependent mainly on your lens and the <i>aperture</i>. Usually the
-centre of the image is brighter with a falloff towards the edges.  The three
-numbers here represent a polynomial curve used by <a href="Hugin.html" title="Hugin">hugin</a> to correct vignetting.
-</p><p>You are not expected to guess these values, they are generally loaded with a lens
-profile or calculated from two or more overlapping photos.
-</p><p>Set the values to <i>0,0,0</i> for no vignetting correction.
-</p><p>Usually all photos taken with the same <i>lens</i> will have the same vignetting, keep
-<b>Link</b> checked to ensure <b>hugin</b> applies the same vignetting correction to all
-photos with the selected lens number.
-</p>
-<h3> <span class="mw-headline" id="Vignetting_Center_Shift"> Vignetting Center Shift </span></h3>
-<p>The centre of <a href="Vignetting.html" title="Vignetting">vignetting</a> is rarely the exact centre of the photo. The two numbers
-here indicate the position of the vignetting centre. The scale is in pixels, with
-<i>0,0</i> indicating the centre of the photo. The values are independent of the <b>d</b>
-&amp; <b>e</b> parameters which specify the origin for projection and geometric distortion.
-</p><p><br />
-</p>
-<h3> <span class="mw-headline" id="Camera_Response"> Camera Response </span></h3>
-<p>The <a href="Camera_response_curve.html" title="Camera response curve">camera response curve</a> is used both for mapping the images to a linear
-colourspace when creating <a href="HDR.html" title="HDR">HDR</a> output, and for normalising the colourspace
-for internal vignetting, brightness and colour corrections when creating
-'normal' <b>LDR</b> output.
-</p><p><a href="Hugin.html" title="Hugin">hugin</a> uses the <a rel="nofollow" class="external text" href="http://www1.cs.columbia.edu/CAVE/projects/rad_cal/rad_cal.php">EMoR response model</a>
-from the Computer Vision Lab at Columbia University which simplifies the full
-response curve to these five empirical coefficient numbers.  You are
-not expected to guess these values, they are generally loaded with a lens
-profile or calculated from two or more overlapping photos.
-</p><p>Set the five numbers to <i>0,0,0,0,0</i> to use a generic response curve or change the <b>Type</b>
-to <b>Linear</b> to indicate that your input photos have a <i>scene-referred</i> or <a href="HDR.html" title="HDR">HDR</a>
-response.
-</p><p>Keep <b>Link</b> checked to ensure <b>hugin</b> applies the same
-response curve to all photos with the selected lens number.
+</p><p>If you want to change the exposure EV, the <i>red multiplier</i> <b>Er</b> and the <i>blue multiplier</i> <b>Eb</b>, you need to select the <b>Custom Parameters</b> 
+and modify these values on the <a href="Hugin_Exposure_tab.html" title="Hugin Exposure tab">Hugin Exposure tab</a>.
+</p><p>If you want to adapt the values for <b>Vignetting</b> and <b>Camera response</b> you need to select the <b>Custom Parameters</b> and modify these values on the 
+<a href="Hugin_Exposure_tab.html" title="Hugin Exposure tab">Hugin Exposure tab</a>.
 </p>
 <h1> <span class="mw-headline" id="Exposure"> Exposure </span></h1>
 <p>By right-clicking an image in the image table and selecting the context menu option <b>Anchor this image for exposure</b> you can specify that a particular image should be used as
@@ -477,7 +440,7 @@ the image with the most typical <b>White balance</b>.
 </div>				<!-- /bodycontent -->
 								<!-- printfooter -->
 				<div class="printfooter">
-				Retrieved from "http://wiki.panotools.org/index.php?title=Hugin_Photos_tab&amp;oldid=14922<a class="external" href="http://wiki.panotools.org/index.php?title=Hugin_Photos_tab&amp;oldid=14922">[*]</a>"				</div>
+				Retrieved from "http://wiki.panotools.org/index.php?title=Hugin_Photos_tab&amp;oldid=14968<a class="external" href="http://wiki.panotools.org/index.php?title=Hugin_Photos_tab&amp;oldid=14968">[*]</a>"				</div>
 				<!-- /printfooter -->
 												<!-- catlinks -->
 				</div></div></body></html>
