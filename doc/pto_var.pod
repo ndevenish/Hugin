@@ -78,7 +78,7 @@ Shows help
    --set y+=20           Increase yaw by 20 deg for all images
    --set v*=1.1          Increase fov by 10 % for all images
 
-=item B<--set-fromfile filename>
+=item B<--set-from-file filename>
 
 			 Sets variables to new values
 			 It reads the varlist from a file
