@@ -57,8 +57,10 @@ private:
 
     HuginBase::PanoramaOptions m_newOpt;
     PT::Panorama& m_pano;
-    double m_optWidth;
-    double m_optHeight;
+    double m_initalWidth;
+    double m_initalROIWidth;
+    double m_aspect;
+
     wxSpinCtrl* m_edit_width;
     wxSpinCtrl* m_edit_height;
 
