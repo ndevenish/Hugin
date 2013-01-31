@@ -3006,6 +3006,9 @@ void GLPreviewFrame::SetGuiLevel(GuiLevel newLevel)
         m_GLOverview->SetMode(GLOverview::PANOSPHERE);
         m_OverviewModeChoice->SetSelection(0);
     };
+    wxPanel* panel=XRCCTRL(*this, "overview_command_panel", wxPanel);
+    panel->Show(newLevel==GUI_EXPERT);
+    panel->GetParent()->Layout();
     if(newLevel==GUI_SIMPLE)
     {
 #ifdef __WXMAC__
