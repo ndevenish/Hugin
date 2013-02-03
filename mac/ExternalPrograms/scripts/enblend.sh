@@ -26,7 +26,7 @@ fail()
 }
 
 # Patch the far too old vigra version inside enblend for libpng >= 1.4
-patch -Np0 < ../scripts/libpng14_for_enblendvigra.diff
+#patch -Np0 < ../scripts/libpng14_for_enblendvigra.diff
 
 
 ORGPATH=$PATH

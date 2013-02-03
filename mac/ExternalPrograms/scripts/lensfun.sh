@@ -106,13 +106,16 @@ do
    if [ -f $REPOSITORYDIR/arch/$ARCHS/$liba ] ; then
 		 echo "Moving arch/$ARCHS/$liba to $liba"
   	 mv "$REPOSITORYDIR/arch/$ARCHS/$liba" "$REPOSITORYDIR/$liba";
+  	 echo "Changing both install_names"
+  	 install_name_tool -id "$REPOSITORYDIR/$liba" "$REPOSITORYDIR/$liba"
+  	 install_name_tool -change "liblensfun.dylib" "$REPOSITORYDIR/$liba" "$REPOSITORYDIR/$liba"
 	   #Power programming: if filename ends in "a" then ...
 	   [ ${liba##*.} = a ] && ranlib "$REPOSITORYDIR/$liba";
   	 continue
-	 else
+   else
 		 echo "Program arch/$ARCHS/$liba not found. Aborting build";
 		 exit 1;
-	 fi
+   fi
  fi
 
  LIPOARGs=""
@@ -126,8 +129,14 @@ do
 		echo "File arch/$ARCH/$liba was not found. Aborting build";
 		exit 1;
 	fi
-        install_name_tool -id "$REPOSITORYDIR/lib/liblensfun.dylib" "$REPOSITORYDIR/arch/$ARCH/$liba"
  done
+
+echo "Changing both install_names"
+#        install_name_tool -id "$REPOSITORYDIR/lib/liblensfun.dylib" "$REPOSITORYDIR/arch/$ARCH/$liba"
+install_name_tool -id "$REPOSITORYDIR/lib/liblensfun.dylib" "$REPOSITORYDIR/lib/liblensfun.dylib"
+install_name_tool -change "liblensfun.dylib" "$REPOSITORYDIR/lib/liblensfun.dylib" "$REPOSITORYDIR/lib/liblensfun.dylib"
+
+
 
  lipo $LIPOARGs -create -output "$REPOSITORYDIR/$liba";
  #Power programming: if filename ends in "a" then ...

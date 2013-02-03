@@ -6,17 +6,6 @@
 
 # prepare
 
-# export REPOSITORYDIR="/PATH2HUGIN/mac/ExternalPrograms/repository" \
-# ARCHS="ppc i386" \
-#  ppcTARGET="powerpc-apple-darwin7" \
-#  i386TARGET="i386-apple-darwin8" \
-#  ppcMACSDKDIR="/Developer/SDKs/MacOSX10.3.9.sdk" \
-#  i386MACSDKDIR="/Developer/SDKs/MacOSX10.4u.sdk" \
-#  ppcONLYARG="-mcpu=G3 -mtune=G4" \
-#  i386ONLYARG="-mfpmath=sse -msse2 -mtune=pentium-m -ftree-vectorize" \
-#  ppc64ONLYARG="-mcpu=G5 -mtune=G5 -ftree-vectorize" \
-#  OTHERARGs="";
-
 # -------------------------------
 # 20091206.0 sg Script tested and used to build 2009.4.0-RC3
 # 20091209.0 sg Script enhanced to build Enblemd-Enfuse 4.0
@@ -83,28 +72,14 @@ do
    CC=$i386CC
    CXX=$i386CXX
    OPENMP_IMAGECACHE=" --enable-image-cache --disable-openmp "
- elif [ $ARCH = "ppc" -o $ARCH = "ppc750" -o $ARCH = "ppc7400" ] ; then
-   TARGET=$ppcTARGET
-   MACSDKDIR=$ppcMACSDKDIR
-   ARCHARGs="$ppcONLYARG"
-   OSVERSION="$ppcOSVERSION"
-   CC=$ppcCC
-   CXX=$ppcCXX
-   OPENMP_IMAGECACHE=" --enable-image-cache --disable-openmp "
- elif [ $ARCH = "ppc64" -o $ARCH = "ppc970" ] ; then
-   TARGET=$ppc64TARGET
-   MACSDKDIR=$ppc64MACSDKDIR
-   ARCHARGs="$ppc64ONLYARG"
-   OSVERSION="$ppc64OSVERSION"
-   CC=$ppc64CC
-   CXX=$ppc64CXX
  elif [ $ARCH = "x86_64" ] ; then
    TARGET=$x64TARGET
    MACSDKDIR=$x64MACSDKDIR
    ARCHARGs="$x64ONLYARG"
    OSVERSION="$x64OSVERSION"
-   CC=$x64CC
-   CXX=$x64CXX
+   CC=gcc-4.6
+   CXX=g++-4.6
+   ARCHFLAG="-m64" 
    OPENMP_IMAGECACHE=" --disable-image-cache --enable-openmp "
  fi
 
@@ -125,18 +100,23 @@ do
 # export PATH=/usr/local/texlive/2009/bin/universal-darwin:$PATH
 # To make the change permanent, edit ~/.profile.
 
+PATH=/usr/local/bin:$PATH
+
  env \
    CC=$CC CXX=$CXX \
-   CFLAGS="-isysroot $MACSDKDIR -I$REPOSITORYDIR/include -arch $ARCH $ARCHARGs $OTHERARGs -dead_strip" \
-   CXXFLAGS="-isysroot $MACSDKDIR -I$REPOSITORYDIR/include -arch $ARCH $ARCHARGs $OTHERARGs -dead_strip" \
-   CPPFLAGS="-I$REPOSITORYDIR/include -I$REPOSITORYDIR/include/OpenEXR -I/usr/include" \
-   LIBS="-lGLEW -framework GLUT -lobjc -framework OpenGL -framework AGL" \
-   LDFLAGS="-L$REPOSITORYDIR/lib -L/usr/lib -mmacosx-version-min=$OSVERSION -dead_strip" \
+   CFLAGS="-isysroot $MACSDKDIR -I$REPOSITORYDIR/include -L$REPOSITORYDIR/lib -arch $ARCH $ARCHFLAG $ARCHARGs $OTHERARGs -dead_strip" \
+   CXXFLAGS="-isysroot $MACSDKDIR -I$REPOSITORYDIR/include -L$REPOSITORYDIR/lib -arch $ARCH $ARCHFLAG $ARCHARGs $OTHERARGs -dead_strip" \
+   CPPFLAGS="-I$REPOSITORYDIR/include -I$REPOSITORYDIR/include/OpenEXR -L$REPOSITORYDIR/lib" \
+   LIBS="-lGLEW -framework GLUT -ltiff -lpng -lobjc -framework OpenGL -framework AGL" \
+   LDFLAGS="-L$REPOSITORYDIR/lib -mmacosx-version-min=$OSVERSION -dead_strip" \
    NEXT_ROOT="$MACSDKDIR" \
-   PKG_CONFIG_PATH="$REPOSITORYDIR/lib/pkgconfig" \
+   PKG_CONFIG_PATH="$REPOSITORYDIR/lib/pkgconfig"
+
    ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
      --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH --with-apple-opengl-framework \
-     --disable-image-cache --enable-openmp --with-glew $extraConfig || fail "configure step for $ARCH";
+     --disable-image-cache --enable-openmp --with-glew $extraConfig \
+     --program-transform-name='s/^enblend$/enblend-mp/' --program-transform-name='s/^enfuse$/enfuse-mp/' \
+     || fail "configure step for $ARCH";
 
  # hack; AC_FUNC_MALLOC sucks!!
 

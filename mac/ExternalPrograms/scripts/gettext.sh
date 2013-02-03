@@ -222,7 +222,7 @@ done
 
 for ARCH in $ARCHS
 do
- for gettextlib in $REPOSITORYDIR/lib/libgettextlib-$FULL_LIB_VER.dylib $REPOSITORYDIR/lib/libgettextpo.$GETTEXTVERPO_F.dylib $REPOSITORYDIR/lib/libgettextsrc-$FULL_LIB_VER.dylib
+ for gettextlib in $REPOSITORYDIR/lib/libgettextlib-$FULL_LIB_VER.dylib $REPOSITORYDIR/lib/libgettextpo.$GETTEXTVERPO_F.dylib $REPOSITORYDIR/lib/libgettextsrc-$FULL_LIB_VER.dylib $REPOSITORYDIR/lib/libintl.$LIBINTLVER_F.dylib
  do
    for lib in $(otool -L $gettextlib | grep $REPOSITORYDIR/arch/$ARCH/lib | sed -e 's/ (.*$//' -e 's/^.*\///')
    do

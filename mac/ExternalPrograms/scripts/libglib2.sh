@@ -77,14 +77,15 @@ do
 
  env \
   CC=$CC CXX=$CXX \
-  CFLAGS="-isysroot $MACSDKDIR $ARCHFLAG $ARCHARGs $OTHERARGs -O3 -dead_strip -fstrict-aliasing" \
-  CXXFLAGS="-isysroot $MACSDKDIR $ARCHFLAG $ARCHARGs $OTHERARGs -O3 -dead_strip -fstrict-aliasing" \
-  CPPFLAGS="-I$REPOSITORYDIR/include" \
+  CFLAGS="-isysroot $MACSDKDIR $ARCHFLAG $ARCHARGs $OTHERARGs -I$REPOSITORYDIR/include -O3 -dead_strip -fstrict-aliasing" \
+  CXXFLAGS="-isysroot $MACSDKDIR $ARCHFLAG $ARCHARGs $OTHERARGs -I$REPOSITORYDIR/include -O3 -dead_strip -fstrict-aliasing" \
+  CPPFLAGS="-I$REPOSITORYDIR -I$REPOSITORYDIR/arch/$ARCH -I$REPOSITORYDIR/arch/$ARCH/include -I$REPOSITORYDIR/include" \
   LDFLAGS="-L$REPOSITORYDIR/lib -mmacosx-version-min=$OSVERSION -L$MACSDKDIR/usr/lib -dead_strip -lresolv -bind_at_load $ARCHFLAG" \
   NEXT_ROOT="$MACSDKDIR" \
   ./configure --prefix="$REPOSITORYDIR" --disable-dependency-tracking \
   --host="$TARGET" --exec-prefix=$REPOSITORYDIR/arch/$ARCH \
   ZLIB_CFLAGS="-I$MACSDKDIR/usr/include" ZLIB_LIBS="-L$MACSDKDIR/usr/lib" \
+  GETTEXT_CFLAGS="-I$REPOSITORYDIR/include" GETTEXT_LIBS="-L$REPOSITORYDIR/lib" \
   --disable-selinux --disable-fam --disable-xattr \
   --disable-gtk-doc --disable-gtk-doc-html --disable-gtk-doc-pdf \
   --disable-man --disable-dtrace --disable-systemtap \
@@ -126,15 +127,6 @@ do
 		echo "File arch/$ARCH/$liba was not found. Aborting build";
 		exit 1;
 	fi
-        echo "First doing the install name stuff for glib libs"
-        # Do the name_change thing as the libs are linked to each other in the arc/$ARCH libs.
-        # We don't want that
-        for lib in $(otool -L $REPOSITORYDIR/arch/$ARCH/$liba | grep $REPOSITORYDIR/arch/$ARCH/lib | sed -e 's/ (.*$//' -e 's/^.*\///')
-        do
-           echo "Changing install name for: $lib inside : $liba for $ARCH"
-           install_name_tool -change "$REPOSITORYDIR/arch/$ARCH/lib/$lib" "$REPOSITORYDIR/lib/$lib" $REPOSITORYDIR/arch/$ARCH/$liba
-        done
-        install_name_tool -id "$REPOSITORYDIR/lib/$liba" $REPOSITORYDIR/arch/$ARCH/$liba
  done
 
 
@@ -142,6 +134,19 @@ do
  #Power programming: if filename ends in "a" then ...
  [ ${liba##*.} = a ] && ranlib "$REPOSITORYDIR/$liba";
 
+done
+
+echo "First doing the install name stuff for glib libs"
+# Do the name_change thing as the libs are linked to each other in the arc/$ARCH libs.
+# We don't want that
+for liba in lib/libglib-$VERSION.a lib/libglib-$FULLVERSION.dylib lib/libgmodule-$VERSION.a lib/libgmodule-$FULLVERSION.dylib lib/libgthread-$VERSION.a lib/libgthread-$FULLVERSION.dylib lib/libgobject-$VERSION.a lib/libgobject-$FULLVERSION.dylib lib/libgio-$VERSION.a lib/libgio-$FULLVERSION.dylib
+do
+   for lib in $(otool -L $REPOSITORYDIR/$liba | grep $REPOSITORYDIR/arch/$ARCH/lib | sed -e 's/ (.*$//' -e 's/^.*\///')
+     do
+        echo "Changing install name for: $lib inside : $liba for $ARCH"
+        install_name_tool -change "$REPOSITORYDIR/arch/$ARCH/lib/$lib" "$REPOSITORYDIR/lib/$lib" $REPOSITORYDIR/$liba
+     done
+   install_name_tool -id "$REPOSITORYDIR/lib/$liba" $REPOSITORYDIR/$liba
 done
 
 if [ -f $REPOSITORYDIR/lib/libglib-$FULLVERSION.dylib ] ; then

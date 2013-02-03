@@ -78,7 +78,7 @@ ARCH="x86_64"
   OBJCFLAGS="-arch $ARCH" \
   OBJCXXFLAGS="-arch $ARCH" \
   LDFLAGS="-L$REPOSITORYDIR/lib -arch $ARCH -mmacosx-version-min=$OSVERSION -dead_strip -prebind" \
-  ../configure --prefix="$REPOSITORYDIR" --exec-prefix=$REPOSITORYDIR/arch/$ARCH --disable-dependency-tracking \
+  ../configure --prefix="$REPOSITORYDIR" --exec-prefix=$REPOSITORYDIR --disable-dependency-tracking \
     --host="$TARGET" --with-macosx-sdk=$MACSDKDIR --with-macosx-version-min=$OSVERSION \
     --enable-monolithic --enable-unicode --with-opengl --disable-graphics_ctx \
     --with-libiconv-prefix=$REPOSITORYDIR --with-libjpeg --with-libtiff --with-libpng --with-zlib \
@@ -144,23 +144,9 @@ then
 fi
 
 
-# merge setup.h
-
-for dummy in "wx/setup.h"
-do
-
- #wxmacconf="lib/wx/include/mac-unicode-release-$WXVERSION/wx/setup.h"
- wxmacconf="lib/wx/include/osx_cocoa-unicode-$WXVERSION/wx/setup.h"
-
- mkdir -p $(dirname "$REPOSITORYDIR/$wxmacconf")
- echo ""  >$REPOSITORYDIR/$wxmacconf
-
- pushd $REPOSITORYDIR
- whereIsSetup=$(find ./arch/$ARCH/lib/wx -name setup.h -print)
- whereIsSetup=${whereIsSetup#./arch/*/}
- popd
- cat "$REPOSITORYDIR/arch/$ARCH/$whereIsSetup" >>"$REPOSITORYDIR/$wxmacconf";
- continue
-
-done
-
+# Make softlink to include folder
+whereIsSetup=$(find $REPOSITORYDIR/lib/wx -name setup.h -print)
+wxincludedir=`dirname $whereIsSetup`
+wxincludedir=${wxincludedir%/*}
+wxincludedironelevelup=${wxincludedir%/*}
+ln -s $wxincludedir $wxincludedironelevelup/osx_cocoa-unicode-$WX_MAJOR_VERSION

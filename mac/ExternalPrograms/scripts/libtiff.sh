@@ -12,6 +12,7 @@
 # 20100121.0 sg Script updated for 3.9.2
 # 20100624.0 hvdw More robust error checking on compilation
 # 20121010.0 hvdw Update to 4.03
+# 20130131.0 hvdw Temporarily back to 3.94 as 4.03 gives weird UINT64 errors
 # -------------------------------
 
 fail()
@@ -34,7 +35,9 @@ NATIVE_OPTIMIZE=""
 
 # init
 
-TIFF_VERSION="5" 
+#TIFF_VERSION="5" 
+# Back to tiff 3.94 as tiff 4.0.x gives weird 64bit errors
+TIFF_VERSION="3"
 
 let NUMARCH="0"
 
