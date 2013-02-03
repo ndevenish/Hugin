@@ -1043,7 +1043,7 @@
           <orient>wxHORIZONTAL</orient>
           <object class="sizeritem">
             <object class="wxStaticText">
-              <label>The project needs to be saved before it can send to\nthe batch processor PTBatcherGUI.\nYou will first ask for the filename for the project file\nand then for the prefix for the panorama output.\n\nYou may need to start the stitching in the batch processor\n PTBatcherGUI.</label>
+              <label>The project needs to be saved before it can be sent to\nthe batch processor PTBatcherGUI.\nYou will first be asked for the project file name\nand then for the prefix for the panorama output.\n\nYou may need to start the stitching in the batch processor\n PTBatcherGUI if it doesn't start automatically.</label>
               <style>wxALIGN_LEFT</style>
             </object>
             <option>1</option>
