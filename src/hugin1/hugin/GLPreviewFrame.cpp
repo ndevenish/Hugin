@@ -1055,11 +1055,11 @@ void GLPreviewFrame::panoramaChanged(Panorama &pano)
                     if (max != 0.0)
                     {
                         wxString distStr;
-                        if (mean < 1)
+                        if (mean < 3)
                             distStr = _("Very good fit.");
-                        else if (mean < 3)
+                        else if (mean < 5)
                             distStr = _("Good fit.");
-                        else if (mean < 7)
+                        else if (mean < 10)
                             distStr = _("Bad fit, some control points might be bad, or there are parallax and movement errors");
                         else
                             distStr = _("Very bad fit. Check for bad control points, lens parameters, or images with parallax or movement. The optimizer might have failed. Manual intervention required.");
