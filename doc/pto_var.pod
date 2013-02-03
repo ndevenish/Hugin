@@ -75,8 +75,10 @@ Shows help
    --set y0=0,r0=0,p0=0  Resets position of image 0
    --set Vx4=-10,Vy4=10  Sets vignetting offset for image 4
    --set v=20            Sets the field of view to 20 for all images
-   --set y+=20           Increase yaw by 20 deg for all images
-   --set v*=1.1          Increase fov by 10 % for all images
+   --set y=val+20        Increase yaw by 20 deg for all images
+   --set v=val*1.1       Increase fov by 10 % for all images
+   --set yaw=i*20        Set yaw to 0, 20, 40, ...
+
 
 =item B<--set-from-file filename>
 
