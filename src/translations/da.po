@@ -2,13 +2,13 @@
 # Copyright (C) 2004 Pablo dAngelo
 # This file is distributed under the same license as the hugin package.
 #
-# Thomas Pryds <thomas@pryds.eu>, 2011, 2012.
+# Thomas Pryds <thomas@pryds.eu>, 2011, 2012, 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: da\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
 "POT-Creation-Date: 2013-02-03 11:38+0100\n"
-"PO-Revision-Date: 2012-12-27 14:57+0100\n"
+"PO-Revision-Date: 2013-02-03 21:30+0100\n"
 "Last-Translator: Thomas Pryds <thomas@pryds.eu>\n"
 "Language-Team: Danish <da@li.org>\n"
 "Language: da\n"
@@ -1367,7 +1367,6 @@ msgstr ""
 "Hurtig-preview-vindue kan ikke åbnes."
 
 #: hugin1/hugin/GLViewer.cpp:299
-#, fuzzy
 msgid ""
 "Sorry, the fast preview window requires a system which supports OpenGL "
 "version 1.1 with the GL_ARB_multitexture extension.\n"
@@ -1378,7 +1377,10 @@ msgid ""
 msgstr ""
 "Desværre, hurtig-preview-vinduet kræver et system, der understøtter OpenGL "
 "version 1.1 med GL_ARB_multitexture udvidelsen.\n"
-"Hurtig-preview kan ikke åbnes."
+"Hurtig-preview kan ikke åbnes.\n"
+"\n"
+"Hugin er nu konfigureret til at starte uden hurtig-preview.\n"
+"Genstart venligst Hugin."
 
 #: hugin1/hugin/HDRMergeOptionDialog.cpp:157
 msgid "Invalid input\n"
@@ -1438,6 +1440,9 @@ msgid ""
 "degress.\n"
 "Do you want still use that high value?"
 msgstr ""
+"Du har angivet et synsfelt på %.2f grader.\n"
+"Men den ortografiske projektion er begrænset til et synsfelt på 180 grader.\n"
+"Vil du stadig bruge den høje værdi?"
 
 #: hugin1/hugin/ImagesList.cpp:455 hugin1/hugin/ImagesList.cpp:515
 #: hugin1/hugin/ImagesTree.cpp:141
@@ -2561,9 +2566,8 @@ msgid "Remove control points"
 msgstr "Fjern kontrolpunkter"
 
 #: hugin1/hugin/PanoOperation.cpp:625
-#, fuzzy
 msgid "Selected images have no control points."
-msgstr "Fjern kontrolpunkter"
+msgstr "Valgte billeder har ingen kontrolpunkter."
 
 #: hugin1/hugin/PanoOperation.cpp:634
 #, c-format
@@ -2738,14 +2742,12 @@ msgid "height needs to be an integer bigger than 0"
 msgstr "højde skal være et heltal større end 0"
 
 #: hugin1/hugin/PanoPanel.cpp:743
-#, fuzzy
 msgid "Left boundary must be smaller than right."
-msgstr "venstre kant skal være mindre end højre"
+msgstr "Venstre kant skal være mindre end højre."
 
 #: hugin1/hugin/PanoPanel.cpp:749
-#, fuzzy
 msgid "Top boundary must be smaller than bottom."
-msgstr "topkant skal være mindre end bundkant"
+msgstr "Topkant skal være mindre end bundkant."
 
 #: hugin1/hugin/PanoPanel.cpp:812
 msgid " PTmender options not yet implemented"
@@ -5823,39 +5825,41 @@ msgid ""
 "You may need to start the stitching in the batch processor\n"
 " PTBatcherGUI if it doesn't start automatically."
 msgstr ""
+"Dette projekt skal gemmes, før det kan sendes til\n"
+"joblisten PTBatcherGUI.\n"
+"Du bliver først spurgt om et navn til projektfilen\n"
+"og derefter om et filnavn-præfiks til panorama-output.\n"
+"\n"
+"Du behøver muligvis at starte sammenføjningen fra joblisten\n"
+"PTBatcherGUI, hvis den ikke starter automatisk."
 
 #: translations/xrc.cpp:628 xrc.cpp:628
-#, fuzzy
 msgid "Don't show again"
-msgstr "Spørg ikke igen"
+msgstr "Vis ikke igen"
 
 #: translations/xrc.cpp:629 xrc.cpp:629
 msgid "Ok"
-msgstr ""
+msgstr "Ok"
 
 #: translations/xrc.cpp:633 xrc.cpp:633
-#, fuzzy
 msgid "Size and file format"
-msgstr "Billedfilformat ikke understøttet"
+msgstr "Størrelse og filformat"
 
 #: translations/xrc.cpp:634 xrc.cpp:634
-#, fuzzy
 msgid "LDR Format:"
-msgstr "Format:"
+msgstr "LDR-format:"
 
 #: translations/xrc.cpp:637 xrc.cpp:637
-#, fuzzy
 msgid "HDR Format:"
-msgstr "Format:"
+msgstr "HDR-format:"
 
 #: translations/xrc.cpp:648 xrc.cpp:648
 msgid "Keep intermediate images"
-msgstr ""
+msgstr "Behold midlertidige filer"
 
 #: translations/xrc.cpp:652 xrc.cpp:652
-#, fuzzy
 msgid "Output parameters"
-msgstr "Brugerdefinerede parametre"
+msgstr "Output-parametre"
 
 #: translations/xrc.cpp:654 xrc.cpp:654
 msgid "Resource Usage"
