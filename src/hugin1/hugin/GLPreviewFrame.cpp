@@ -783,6 +783,7 @@ void GLPreviewFrame::LoadOpenGLLayout()
         OnShowEvent(dummy);
 #endif
     };
+    FillBlendChoice();
 };
 
 GLPreviewFrame::~GLPreviewFrame()
@@ -2923,10 +2924,20 @@ void GLPreviewFrame::OnHideProjectionHints(wxCommandEvent &e)
     e.Skip();
 };
 
-void GLPreviewFrame::UpdateIdentifyTools(std::set<unsigned int> new_image_set){
-    identify_tool->UpdateWithNewImageSet(new_image_set);
-    panosphere_overview_identify_tool->UpdateWithNewImageSet(new_image_set);
-    plane_overview_identify_tool->UpdateWithNewImageSet(new_image_set);
+void GLPreviewFrame::UpdateIdentifyTools(std::set<unsigned int> new_image_set)
+{
+    if(identify_tool)
+    {
+        identify_tool->UpdateWithNewImageSet(new_image_set);
+    };
+    if(panosphere_overview_identify_tool)
+    {
+        panosphere_overview_identify_tool->UpdateWithNewImageSet(new_image_set);
+    };
+    if(plane_overview_identify_tool)
+    {
+        plane_overview_identify_tool->UpdateWithNewImageSet(new_image_set);
+    };
 }
 
 void GLPreviewFrame::OnPreviewBackgroundColorChanged(wxColourPickerEvent & e) {
