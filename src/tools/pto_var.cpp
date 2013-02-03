@@ -39,6 +39,7 @@
 #include <boost/algorithm/string.hpp>
 #include <boost/regex.hpp>
 #include <boost/lexical_cast.hpp>
+#include "ParseExp.h"
 
 using namespace std;
 using namespace HuginBase;
@@ -48,18 +49,9 @@ struct ParseVar
 {
     std::string varname;
     int imgNr;
-    double val;
+    std::string expression;
     bool removeOpt;
-    enum ParseVarOp
-    {
-        OP_SET,
-        OP_ADD,
-        OP_SUBTRACT,
-        OP_MULTIPLY,
-        OP_DIVIDE
-    };
-    ParseVarOp valOp;
-    ParseVar(): varname(""), imgNr(-1), val(0.0), removeOpt(false), valOp(OP_SET) {};
+    ParseVar(): varname(""), imgNr(-1), expression(""), removeOpt(false){};
 };
 
 typedef std::vector<ParseVar> ParseVarVec;
@@ -151,11 +143,11 @@ void ParseSingleLinkVar(ParseVarVec& varVec, std::string s)
 
 void ParseSingleVar(ParseVarVec& varVec, std::string s)
 {
-    boost::regex reg("([a-zA-Z]{1,3})(\\d*?)([\\-\\+\\*/]?)=([-+]?\\d+?\\.?\\d*?)");
+    boost::regex reg("([a-zA-Z]{1,3})(\\d*?)=(.*)");
     boost::smatch matches;
     if(boost::regex_match(s, matches, reg))
     {
-        if(matches.size()==5)
+        if(matches.size()==4)
         {
             ParseVar var;
             std::string temp(matches[1].first, matches[1].second);
@@ -186,53 +178,10 @@ void ParseSingleVar(ParseVarVec& varVec, std::string s)
                     var.imgNr=-1;
                 };
             };
-            // parse optional operator
-            temp=std::string(matches[3].first, matches[3].second);
-            if(temp.length()>0)
+            // read expression
+            var.expression=std::string(matches[3].first, matches[3].second);
+            if(var.expression.length()==0)
             {
-                if(temp=="+")
-                {
-                    var.valOp=ParseVar::OP_ADD;
-                }
-                else
-                {
-                    if(temp=="-")
-                    {
-                        var.valOp=ParseVar::OP_SUBTRACT;
-                    }
-                    else
-                    {
-                        if(temp=="*")
-                        {
-                            var.valOp=ParseVar::OP_MULTIPLY;
-                        }
-                        else
-                        {
-                            if(temp=="/")
-                            {
-                                var.valOp=ParseVar::OP_DIVIDE;
-                            }
-                            else
-                            {
-                                return;
-                            };
-                        };
-                    };
-                };
-            };
-            // read variable value
-            temp=std::string(matches[4].first, matches[4].second);
-            try
-            {
-                var.val=boost::lexical_cast<double>(temp);
-            }
-            catch (boost::bad_lexical_cast)
-            {
-                return;
-            };
-            if(var.valOp==ParseVar::OP_DIVIDE && abs(var.val)<0.01)
-            {
-                cerr << "Warning: Division through zero is not possible. Skipping variable." << endl;
                 return;
             };
             varVec.push_back(var);
@@ -402,36 +351,26 @@ void UnLinkVars(Panorama& pano, ParseVarVec parseVec, bool link)
     };
 };
 
-void UpdateSingleVar(Panorama &pano, ParseVar parseVar, size_t imgNr)
+bool UpdateSingleVar(Panorama &pano, ParseVar parseVar, size_t imgNr)
 {
-    double val=0.0;
-    if(parseVar.valOp==ParseVar::OP_SET)
+    double val=pano.getImage(imgNr).getVar(parseVar.varname);
+    Parser::ConstantMap constMap;
+    constMap["i"]=1.0*imgNr;
+    constMap["val"]=val;
+    cout << "Updating variable " << parseVar.varname << imgNr << ": " << val;
+    if(Parser::ParseExpression(parseVar.expression, val, constMap))
     {
-        val=parseVar.val;
+        cout << " -> " << val << endl;
+        HuginBase::Variable var(parseVar.varname, val);
+        pano.updateVariable(imgNr, var);
+        return true;
     }
     else
     {
-        val=pano.getImage(imgNr).getVar(parseVar.varname);
-        switch(parseVar.valOp)
-        {
-            case ParseVar::OP_ADD:
-                val+=parseVar.val;
-                break;
-            case ParseVar::OP_SUBTRACT:
-                val-=parseVar.val;
-                break;
-            case ParseVar::OP_MULTIPLY:
-                val*=parseVar.val;
-                break;
-            case ParseVar::OP_DIVIDE:
-                val/=parseVar.val;
-                break;
-            default:
-                break;
-        };
+        cout << endl;
+        cerr << "Could not parse given expression \"" << parseVar.expression << "\" for image " << imgNr << "." << endl;
+        return false;
     };
-    HuginBase::Variable var(parseVar.varname, val);
-    pano.updateVariable(imgNr, var);
 };
 
 static void usage(const char* name)
@@ -473,8 +412,9 @@ static void usage(const char* name)
          << "           --set y0=0,r0=0,p0=0  Resets position of image 0" << endl
          << "           --set Vx4=-10,Vy4=10  Sets vignetting offset for image 4" << endl
          << "           --set v=20            Sets the field of view to 20 for all images" << endl
-         << "           --set y+=20           Increase yaw by 20 deg for all images" << endl
-         << "           --set v*=1.1          Increase fov by 10 % for all images" << endl
+         << "           --set y=val+20        Increase yaw by 20 deg for all images" << endl
+         << "           --set v=val*1.1       Increase fov by 10 % for all images" << endl
+         << "           --set yaw=i*20        Set yaw to 0, 20, 40, ..." << endl
          << "     --set-from-file filename  Sets variables to new values" << endl
          << "                               It reads the varlist from a file" << endl
          << endl;
@@ -642,7 +582,11 @@ int main(int argc, char* argv[])
                     {
                         continue;
                     };
-                    UpdateSingleVar(pano, setVars[i], j);
+                    // skip following images, if expression could not parsed
+                    if(!UpdateSingleVar(pano, setVars[i], j))
+                    {
+                        break;
+                    };
                     updatedImgs.insert(j);
                     if(j==pano.getNrOfImages()-1)
                     {

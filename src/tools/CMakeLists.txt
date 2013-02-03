@@ -44,7 +44,7 @@ target_link_libraries(pano_trafo ${common_libs} )
 add_executable(pano_modify pano_modify.cpp)
 target_link_libraries(pano_modify ${common_libs} )
 
-add_executable(pto_var pto_var.cpp)
+add_executable(pto_var pto_var.cpp ParseExp.cpp ParseExp.h)
 target_link_libraries(pto_var ${common_libs})
 
 add_executable(pto_lensstack pto_lensstack.cpp)
