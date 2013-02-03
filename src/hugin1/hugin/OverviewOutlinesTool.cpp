@@ -191,7 +191,6 @@ void OverviewOutlinesTool::draw()
     glDisable(GL_TEXTURE_2D);
 
     glEnable(GL_BLEND);
-    glBlendEquation(GL_FUNC_ADD);
     glColor4f(0,0,0,0.50);        
     glBlendFunc(GL_ZERO, GL_SRC_ALPHA);
     drawBackground();
