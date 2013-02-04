@@ -77,7 +77,7 @@ Shows help
    --set v=20            Sets the field of view to 20 for all images
    --set y=val+20        Increase yaw by 20 deg for all images
    --set v=val*1.1       Increase fov by 10 % for all images
-   --set yaw=i*20        Set yaw to 0, 20, 40, ...
+   --set y=i*20          Set yaw to 0, 20, 40, ...
 
 
 =item B<--set-from-file filename>
