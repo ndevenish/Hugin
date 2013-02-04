@@ -414,7 +414,7 @@ static void usage(const char* name)
          << "           --set v=20            Sets the field of view to 20 for all images" << endl
          << "           --set y=val+20        Increase yaw by 20 deg for all images" << endl
          << "           --set v=val*1.1       Increase fov by 10 % for all images" << endl
-         << "           --set yaw=i*20        Set yaw to 0, 20, 40, ..." << endl
+         << "           --set y=i*20          Set yaw to 0, 20, 40, ..." << endl
          << "     --set-from-file filename  Sets variables to new values" << endl
          << "                               It reads the varlist from a file" << endl
          << endl;
