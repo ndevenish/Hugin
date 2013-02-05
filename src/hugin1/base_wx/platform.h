@@ -70,5 +70,7 @@ wxString MacGetPathToUserAppSupportAutoPanoFolder();
 WXIMPEX const wxString getInvalidCharacters();
 /** returns true, if the given strings contains invalid characters */
 WXIMPEX bool containsInvalidCharacters(const wxString stringToTest);
+/** shows a dialog about filename with invalid characters, all names in filelist will be show in list */
+WXIMPEX void ShowFilenameWarning(wxWindow* parent, const wxArrayString filelist);
 
 #endif

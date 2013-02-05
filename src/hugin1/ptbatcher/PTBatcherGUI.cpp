@@ -130,6 +130,7 @@ bool PTBatcherGUI::OnInit()
         wxXmlResource::Get()->Load(m_xrcPrefix + wxT("batch_toolbar.xrc"));
         wxXmlResource::Get()->Load(m_xrcPrefix + wxT("batch_menu.xrc"));
         wxXmlResource::Get()->Load(m_xrcPrefix + wxT("lensdb_dialogs.xrc"));
+        wxXmlResource::Get()->Load(m_xrcPrefix + wxT("dlg_warning.xrc"));
     };
 
     // parse arguments

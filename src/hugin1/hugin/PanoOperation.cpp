@@ -139,15 +139,17 @@ bool AddImageDialog(wxWindow* parent, std::vector<std::string>& files)
         }
 
         //check for forbidden/non working chars
-        bool foundForbiddenChars=false;
-        for(unsigned int i=0;i<Pathnames.GetCount() && !foundForbiddenChars; i++)
+        wxArrayString invalidFiles;
+        for(unsigned int i=0;i<Pathnames.GetCount(); i++)
         {
-           foundForbiddenChars=foundForbiddenChars || containsInvalidCharacters(Pathnames[i]);
+           if(containsInvalidCharacters(Pathnames[i]))
+           {
+               invalidFiles.Add(Pathnames[i]);
+           };
         };
-        if(foundForbiddenChars)
+        if(invalidFiles.size()>0)
         {
-            wxMessageBox(wxString::Format(_("The filename(s) contains one of the following invalid characters: %s\nHugin can not work with these filenames. Please rename your file(s) and try again."),getInvalidCharacters().c_str()),
-                _("Error"),wxOK | wxICON_EXCLAMATION);
+            ShowFilenameWarning(parent, invalidFiles);
             return false;
         }
         for (unsigned int i=0; i<Pathnames.GetCount(); i++)

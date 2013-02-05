@@ -144,7 +144,7 @@ bool PanoDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& file
 
     // try to add as images
     std::vector<std::string> filesv;
-    bool foundForbiddenChars=false;
+    wxArrayString invalidFiles;
     for (unsigned int i=0; i< filenames.GetCount(); i++) {
         wxFileName file(filenames[i]);
 
@@ -162,7 +162,7 @@ bool PanoDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& file
         {
             if(containsInvalidCharacters(filenames[i]))
             {
-                foundForbiddenChars=true;
+                invalidFiles.Add(file.GetFullPath());
             }
             else
             {
@@ -189,10 +189,9 @@ bool PanoDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& file
         };
 
     }
-    if(foundForbiddenChars)
+    if(invalidFiles.size()>0)
     {
-        wxMessageBox(wxString::Format(_("The filename(s) contains one of the following invalid characters: %s\nHugin can not work with these filenames. Please rename your file(s) and try again."),getInvalidCharacters().c_str()),
-            _("Error"),wxOK | wxICON_EXCLAMATION, mf);
+        ShowFilenameWarning(mf, invalidFiles);
     }
 
     return true;
@@ -1081,13 +1080,17 @@ void MainFrame::OnAddImages( wxCommandEvent& event )
 
 void MainFrame::AddImages(wxArrayString& filenameArray)
 {
-    bool foundForbiddenChars=false;
+    wxArrayString invalidFiles;
     for(unsigned int i=0;i<filenameArray.GetCount(); i++)
-        foundForbiddenChars=foundForbiddenChars || containsInvalidCharacters(filenameArray[i]);
-    if(foundForbiddenChars)
     {
-        wxMessageBox(wxString::Format(_("The filename(s) contains one of the following invalid characters: %s\nHugin can not work with these filenames. Please rename your file(s) and try again."),getInvalidCharacters().c_str()),
-            _("Error"),wxOK | wxICON_EXCLAMATION);
+        if(containsInvalidCharacters(filenameArray[i]))
+        {
+            invalidFiles.Add(filenameArray[i]);
+        };
+    };
+    if(invalidFiles.size()>0)
+    {
+        ShowFilenameWarning(this, invalidFiles);
     }
     else
     {

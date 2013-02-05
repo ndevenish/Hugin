@@ -299,6 +299,7 @@ bool huginApp::OnInit()
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("mask_editor_panel.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("lensdb_dialogs.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("image_variable_dlg.xrc"));
+    wxXmlResource::Get()->Load(m_xrcPrefix + wxT("dlg_warning.xrc"));
 #endif
 
 #ifdef __WXMAC__

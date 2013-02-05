@@ -126,6 +126,7 @@ bool LensCalApp::OnInit()
     // load XRC files
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("lenscal_frame.xrc"));
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("lensdb_dialogs.xrc"));
+    wxXmlResource::Get()->Load(m_xrcPrefix + wxT("dlg_warning.xrc"));
 
     // create main frame
     m_frame = new LensCalFrame(NULL);

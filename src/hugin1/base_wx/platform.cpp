@@ -423,3 +423,19 @@ bool containsInvalidCharacters(const wxString stringToTest)
     };
     return false;
 };
+
+void ShowFilenameWarning(wxWindow* parent, const wxArrayString filelist)
+{
+    wxDialog dlg;
+    wxXmlResource::Get()->LoadDialog(&dlg, parent, wxT("dlg_warning_filename"));
+    wxStaticText* text=XRCCTRL(dlg, "dlg_warning_text", wxStaticText);
+    text->SetLabel(wxString::Format(_("The filename(s) contains one of the following invalid characters: %s\nHugin can not work with these filenames. Please rename your file(s) and try again."), getInvalidCharacters().c_str()));
+    wxListBox* list=XRCCTRL(dlg, "dlg_warning_list", wxListBox);
+    for(size_t i=0; i<filelist.size(); i++)
+    {
+        list->Append(filelist[i]);
+    };
+    dlg.Fit();
+    dlg.CenterOnScreen();
+    dlg.ShowModal();
+};

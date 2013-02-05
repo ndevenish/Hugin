@@ -69,7 +69,7 @@ bool FileDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& file
 
     // try to add as images
     wxArrayString files;
-    bool foundForbiddenChars=false;
+    wxArrayString invalidFiles;
     for (unsigned int i=0; i< filenames.GetCount(); i++)
     {
         wxFileName file(filenames[i]);
@@ -85,9 +85,9 @@ bool FileDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& file
             file.GetExt().CmpNoCase(wxT("hdr")) == 0 ||
             file.GetExt().CmpNoCase(wxT("viff")) == 0 )
         {
-            if(containsInvalidCharacters(filenames[i]))
+            if(containsInvalidCharacters(file.GetFullPath()))
             {
-                foundForbiddenChars=true;
+                invalidFiles.push_back(file.GetFullPath());
             }
             else
             {
@@ -95,10 +95,9 @@ bool FileDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& file
             };
         }
     }
-    if(foundForbiddenChars)
+    if(invalidFiles.size()>0)
     {
-        wxMessageBox(wxString::Format(_("The filename(s) contains one of the following invalid characters: %s\nHugin can not work with these filenames. Please rename your file(s) and try again."),getInvalidCharacters().c_str()),
-            _("Error"),wxOK | wxICON_EXCLAMATION, frame);
+        ShowFilenameWarning(frame, invalidFiles);
     }
     // we got some images to add.
     if (files.size() > 0)
@@ -462,13 +461,17 @@ void LensCalFrame::OnAddImage(wxCommandEvent &e)
         config->Write(wxT("/actualPath"), dlg.GetDirectory());
 #endif
 
-        bool foundForbiddenChars=false;
+        wxArrayString invalidFiles;
         for(unsigned int i=0;i<Pathnames.GetCount(); i++)
-           foundForbiddenChars=foundForbiddenChars || containsInvalidCharacters(Pathnames[i]);
-        if(foundForbiddenChars)
         {
-            wxMessageBox(wxString::Format(_("The filename(s) contains one of the following invalid characters: %s\nHugin can not work with these filenames. Please rename your file(s) and try again."),getInvalidCharacters().c_str()),
-                _("Error"),wxOK | wxICON_EXCLAMATION,this);
+            if(containsInvalidCharacters(Pathnames[i]))
+            {
+                invalidFiles.push_back(Pathnames[i]);
+            };
+        };
+        if(invalidFiles.size()>0)
+        {
+            ShowFilenameWarning(this, invalidFiles);
         }
         else
         {

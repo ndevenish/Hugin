@@ -495,8 +495,9 @@ void BatchFrame::OnButtonChangePrefix(wxCommandEvent& event)
             {
                 while(containsInvalidCharacters(dlg.GetPath()))
                 {
-                    wxMessageBox(wxString::Format(_("The given filename contains one of the following invalid characters: %s\nHugin can not work with this filename. Please enter a valid filename."),getInvalidCharacters().c_str()),
-                                 _("Error"),wxOK | wxICON_EXCLAMATION,this);
+                    wxArrayString list;
+                    list.Add(dlg.GetPath());
+                    ShowFilenameWarning(this, list);
                     if(dlg.ShowModal()!=wxID_OK)
                     {
                         return;

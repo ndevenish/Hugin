@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<resource>
+  <object class="wxDialog" name="dlg_warning_filename">
+    <object class="wxBoxSizer">
+      <object class="sizeritem">
+        <object class="wxStaticBoxSizer">
+          <object class="sizeritem">
+            <object class="wxStaticBitmap">
+              <bitmap stock_id="wxART_WARNING"/>
+            </object>
+            <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+            <border>12</border>
+          </object>
+          <object class="sizeritem">
+            <object class="wxBoxSizer">
+              <object class="sizeritem">
+                <object class="wxStaticText" name="dlg_warning_text"/>
+                <flag>wxALL|wxEXPAND</flag>
+                <border>6</border>
+              </object>
+              <object class="sizeritem">
+                <object class="wxListBox" name="dlg_warning_list">
+                  <size>-1,100</size>
+                  <style>wxLB_SINGLE|wxLB_HSCROLL</style>
+                </object>
+                <option>1</option>
+                <flag>wxALL|wxEXPAND</flag>
+                <border>6</border>
+              </object>
+              <orient>wxVERTICAL</orient>
+            </object>
+            <option>1</option>
+            <flag>wxEXPAND</flag>
+          </object>
+          <label>Invalid filenames</label>
+          <orient>wxHORIZONTAL</orient>
+        </object>
+        <option>1</option>
+        <flag>wxALL|wxEXPAND</flag>
+        <border>6</border>
+      </object>
+      <object class="sizeritem">
+        <object class="wxStdDialogButtonSizer">
+          <object class="button">
+            <object class="wxButton" name="wxID_OK">
+              <label>OK</label>
+              <default>1</default>
+            </object>
+          </object>
+        </object>
+        <flag>wxALL|wxEXPAND</flag>
+        <border>6</border>
+      </object>
+      <orient>wxVERTICAL</orient>
+    </object>
+    <title>Warning</title>
+    <style>wxDEFAULT_DIALOG_STYLE</style>
+  </object>
+</resource>
