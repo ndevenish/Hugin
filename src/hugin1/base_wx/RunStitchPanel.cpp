@@ -118,8 +118,14 @@ wxString getGNUMakeCmd(const wxString &args)
     wxString cmdExe;
     if(!wxGetEnv(wxT("ComSpec"),&cmdExe))
         cmdExe=wxT("cmd");
-    wxString cmd = cmdExe + wxString::Format(wxT(" /C \"chcp %d >NUL && "),GetACP())+
-        wxT("\"") + getExePath(wxTheApp->argv[0])+wxT("\\make\" ") + args + wxT("\"");
+    wxString tempDir=wxConfigBase::Get()->Read(wxT("tempDir"),wxT(""));
+    wxString cmd = cmdExe + wxString::Format(wxT(" /C \"chcp %d >NUL && "),GetACP());
+    //explicit set temp path for make, e. g. in case user name contains an ampersand
+    if(tempDir.Len()>0)
+    {
+        cmd=cmd + wxT("set TEMP=")+tempDir + wxT(" && set TMP=") + tempDir + wxT(" && ");
+    };
+    cmd = cmd +  wxT("\"") + getExePath(wxTheApp->argv[0])+wxT("\\make\" ") + args + wxT("\"");
 #else
     wxString cmd = wxT("make ") + args;  
 #endif
