@@ -876,6 +876,7 @@
 		734BBA2B1540845900AE0963 /* libpython2.7.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 734BB9E315407A1800AE0963 /* libpython2.7.dylib */; };
 		734FC460139B8433007B675D /* calibrate_lens_gui.app in Copy Apps into InstallerFolder */ = {isa = PBXBuildFile; fileRef = 73DFBD9D139B69E900558A2D /* calibrate_lens_gui.app */; };
 		73514E6316BECE6400E0081A /* ParseExp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 73514E6216BECE6400E0081A /* ParseExp.cpp */; };
+		73548B3816C6D37A009EB61A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73548B3716C6D37A009EB61A /* libz.dylib */; };
 		73573E3410F9EEA300CF0ECD /* HuginBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 576900AA0D24D29300A6AD01 /* HuginBase.framework */; };
 		73573E3510F9EEA300CF0ECD /* HuginVigraImpex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5769FE380D24CFEC00A6AD01 /* HuginVigraImpex.framework */; };
 		73573E3610F9EEA300CF0ECD /* libpano13.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 573B8F85067BAAB900B7B355 /* libpano13.dylib */; };
@@ -1614,26 +1615,26 @@
 		73CAEAF8154098CC00FCBE86 /* liblensfun.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73145578153C93EC00D62D6A /* liblensfun.dylib */; };
 		73CE4996124A667F001F0F42 /* icpfind.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7336099F1247DA6D009225D2 /* icpfind.framework */; };
 		73D0C7ED1494DB03008C2C22 /* hierarchical_clustering_index.h in Headers */ = {isa = PBXBuildFile; fileRef = 73D0C7EC1494DB03008C2C22 /* hierarchical_clustering_index.h */; };
-		73D1DE41164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.4.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73D1DE3F164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.4.dylib */; };
-		73D1DE42164FAA4E00F22508 /* libwx_osx_cocoau-2.9.4.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73D1DE40164FAA4E00F22508 /* libwx_osx_cocoau-2.9.4.dylib */; };
-		73D1DE43164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.4.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73D1DE3F164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.4.dylib */; };
-		73D1DE44164FAA4E00F22508 /* libwx_osx_cocoau-2.9.4.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73D1DE40164FAA4E00F22508 /* libwx_osx_cocoau-2.9.4.dylib */; };
-		73D1DE45164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.4.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73D1DE3F164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.4.dylib */; };
-		73D1DE46164FAA4E00F22508 /* libwx_osx_cocoau-2.9.4.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73D1DE40164FAA4E00F22508 /* libwx_osx_cocoau-2.9.4.dylib */; };
-		73D1DE47164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.4.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73D1DE3F164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.4.dylib */; };
-		73D1DE48164FAA4E00F22508 /* libwx_osx_cocoau-2.9.4.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73D1DE40164FAA4E00F22508 /* libwx_osx_cocoau-2.9.4.dylib */; };
-		73D1DE49164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.4.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73D1DE3F164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.4.dylib */; };
-		73D1DE4A164FAA4E00F22508 /* libwx_osx_cocoau-2.9.4.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73D1DE40164FAA4E00F22508 /* libwx_osx_cocoau-2.9.4.dylib */; };
-		73D1DE4B164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.4.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73D1DE3F164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.4.dylib */; };
-		73D1DE4C164FAA4E00F22508 /* libwx_osx_cocoau-2.9.4.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73D1DE40164FAA4E00F22508 /* libwx_osx_cocoau-2.9.4.dylib */; };
-		73D1DE4D164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.4.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73D1DE3F164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.4.dylib */; };
-		73D1DE4E164FAA4E00F22508 /* libwx_osx_cocoau-2.9.4.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73D1DE40164FAA4E00F22508 /* libwx_osx_cocoau-2.9.4.dylib */; };
-		73D1DE4F164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.4.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73D1DE3F164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.4.dylib */; };
-		73D1DE50164FAA4E00F22508 /* libwx_osx_cocoau-2.9.4.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73D1DE40164FAA4E00F22508 /* libwx_osx_cocoau-2.9.4.dylib */; };
-		73D1DE51164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.4.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73D1DE3F164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.4.dylib */; };
-		73D1DE52164FAA4E00F22508 /* libwx_osx_cocoau-2.9.4.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73D1DE40164FAA4E00F22508 /* libwx_osx_cocoau-2.9.4.dylib */; };
-		73D1DE53164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.4.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73D1DE3F164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.4.dylib */; };
-		73D1DE54164FAA4E00F22508 /* libwx_osx_cocoau-2.9.4.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73D1DE40164FAA4E00F22508 /* libwx_osx_cocoau-2.9.4.dylib */; };
+		73D1DE41164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73D1DE3F164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.3.dylib */; };
+		73D1DE42164FAA4E00F22508 /* libwx_osx_cocoau-2.9.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73D1DE40164FAA4E00F22508 /* libwx_osx_cocoau-2.9.3.dylib */; };
+		73D1DE43164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73D1DE3F164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.3.dylib */; };
+		73D1DE44164FAA4E00F22508 /* libwx_osx_cocoau-2.9.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73D1DE40164FAA4E00F22508 /* libwx_osx_cocoau-2.9.3.dylib */; };
+		73D1DE45164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73D1DE3F164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.3.dylib */; };
+		73D1DE46164FAA4E00F22508 /* libwx_osx_cocoau-2.9.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73D1DE40164FAA4E00F22508 /* libwx_osx_cocoau-2.9.3.dylib */; };
+		73D1DE47164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73D1DE3F164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.3.dylib */; };
+		73D1DE48164FAA4E00F22508 /* libwx_osx_cocoau-2.9.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73D1DE40164FAA4E00F22508 /* libwx_osx_cocoau-2.9.3.dylib */; };
+		73D1DE49164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73D1DE3F164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.3.dylib */; };
+		73D1DE4A164FAA4E00F22508 /* libwx_osx_cocoau-2.9.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73D1DE40164FAA4E00F22508 /* libwx_osx_cocoau-2.9.3.dylib */; };
+		73D1DE4B164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73D1DE3F164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.3.dylib */; };
+		73D1DE4C164FAA4E00F22508 /* libwx_osx_cocoau-2.9.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73D1DE40164FAA4E00F22508 /* libwx_osx_cocoau-2.9.3.dylib */; };
+		73D1DE4D164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73D1DE3F164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.3.dylib */; };
+		73D1DE4E164FAA4E00F22508 /* libwx_osx_cocoau-2.9.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73D1DE40164FAA4E00F22508 /* libwx_osx_cocoau-2.9.3.dylib */; };
+		73D1DE4F164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73D1DE3F164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.3.dylib */; };
+		73D1DE50164FAA4E00F22508 /* libwx_osx_cocoau-2.9.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73D1DE40164FAA4E00F22508 /* libwx_osx_cocoau-2.9.3.dylib */; };
+		73D1DE51164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73D1DE3F164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.3.dylib */; };
+		73D1DE52164FAA4E00F22508 /* libwx_osx_cocoau-2.9.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73D1DE40164FAA4E00F22508 /* libwx_osx_cocoau-2.9.3.dylib */; };
+		73D1DE53164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73D1DE3F164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.3.dylib */; };
+		73D1DE54164FAA4E00F22508 /* libwx_osx_cocoau-2.9.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 73D1DE40164FAA4E00F22508 /* libwx_osx_cocoau-2.9.3.dylib */; };
 		73D24B69106155D700B8A25D /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73D24B641061556700B8A25D /* AGL.framework */; };
 		73D24B6A106155D700B8A25D /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 739F846B0EC75402004771D6 /* OpenGL.framework */; };
 		73D24B861061561400B8A25D /* libboost_thread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57565A640D088DAD00344F55 /* libboost_thread.dylib */; };
@@ -4460,6 +4461,7 @@
 		734FBA830EB3A40300CD7122 /* NonaOptionsDialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NonaOptionsDialog.cpp; sourceTree = "<group>"; };
 		734FBA840EB3A40300CD7122 /* NonaOptionsDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NonaOptionsDialog.h; sourceTree = "<group>"; };
 		73514E6216BECE6400E0081A /* ParseExp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ParseExp.cpp; sourceTree = "<group>"; };
+		73548B3716C6D37A009EB61A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		7354FD9E13F40AFE005940D0 /* localfeatures-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "localfeatures-Info.plist"; sourceTree = "<group>"; };
 		7354FD9F13F40AFE005940D0 /* icpfind-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "icpfind-Info.plist"; sourceTree = "<group>"; };
 		7354FDA013F40AFE005940D0 /* flann_cpp-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "flann_cpp-Info.plist"; sourceTree = "<group>"; };
@@ -4639,8 +4641,8 @@
 		73C5F7A412E2DC490033A6E1 /* flann_cpp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = flann_cpp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		73CA0FFB1296FB9500A4BC75 /* libboost_signals.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_signals.dylib; path = ../../ExternalPrograms/repository/lib/libboost_signals.dylib; sourceTree = SOURCE_ROOT; };
 		73D0C7EC1494DB03008C2C22 /* hierarchical_clustering_index.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hierarchical_clustering_index.h; sourceTree = "<group>"; };
-		73D1DE3F164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.4.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_gl-2.9.4.dylib"; path = "../../ExternalPrograms/repository/lib/libwx_osx_cocoau_gl-2.9.4.dylib"; sourceTree = SOURCE_ROOT; };
-		73D1DE40164FAA4E00F22508 /* libwx_osx_cocoau-2.9.4.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau-2.9.4.dylib"; path = "../../ExternalPrograms/repository/lib/libwx_osx_cocoau-2.9.4.dylib"; sourceTree = SOURCE_ROOT; };
+		73D1DE3F164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_gl-2.9.3.dylib"; path = "../../ExternalPrograms/repository/lib/libwx_osx_cocoau_gl-2.9.3.dylib"; sourceTree = SOURCE_ROOT; };
+		73D1DE40164FAA4E00F22508 /* libwx_osx_cocoau-2.9.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau-2.9.3.dylib"; path = "../../ExternalPrograms/repository/lib/libwx_osx_cocoau-2.9.3.dylib"; sourceTree = SOURCE_ROOT; };
 		73D24B4E106152CD00B8A25D /* cpclean */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = cpclean; sourceTree = BUILT_PRODUCTS_DIR; };
 		73D24B641061556700B8A25D /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
 		73D24B9A1061566B00B8A25D /* cpclean.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cpclean.cpp; sourceTree = "<group>"; };
@@ -4842,8 +4844,8 @@
 				5710466E0D25F577006A3C69 /* HuginBaseWx.framework in Frameworks */,
 				5731CA820D55FAED00605D22 /* libexpat.dylib in Frameworks */,
 				73610F7115768942004AECDA /* Cocoa.framework in Frameworks */,
-				73D1DE4F164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.4.dylib in Frameworks */,
-				73D1DE50164FAA4E00F22508 /* libwx_osx_cocoau-2.9.4.dylib in Frameworks */,
+				73D1DE4F164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.3.dylib in Frameworks */,
+				73D1DE50164FAA4E00F22508 /* libwx_osx_cocoau-2.9.3.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4916,8 +4918,8 @@
 				73145599153C93ED00D62D6A /* libgio-2.dylib in Frameworks */,
 				7314559A153C93ED00D62D6A /* libffi.dylib in Frameworks */,
 				73610F6D15768935004AECDA /* Cocoa.framework in Frameworks */,
-				73D1DE41164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.4.dylib in Frameworks */,
-				73D1DE42164FAA4E00F22508 /* libwx_osx_cocoau-2.9.4.dylib in Frameworks */,
+				73D1DE41164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.3.dylib in Frameworks */,
+				73D1DE42164FAA4E00F22508 /* libwx_osx_cocoau-2.9.3.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5023,8 +5025,8 @@
 				57D50A4C0F595A6300CCDCB5 /* HuginBaseWx.framework in Frameworks */,
 				73A860A8155D98F900969CF8 /* liblensfun.dylib in Frameworks */,
 				73610F7215768944004AECDA /* Cocoa.framework in Frameworks */,
-				73D1DE51164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.4.dylib in Frameworks */,
-				73D1DE52164FAA4E00F22508 /* libwx_osx_cocoau-2.9.4.dylib in Frameworks */,
+				73D1DE51164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.3.dylib in Frameworks */,
+				73D1DE52164FAA4E00F22508 /* libwx_osx_cocoau-2.9.3.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5194,8 +5196,9 @@
 				733609C51247DEA1009225D2 /* HuginBase.framework in Frameworks */,
 				733609C61247DEA1009225D2 /* HuginBaseWx.framework in Frameworks */,
 				733609C71247DEA1009225D2 /* HuginVigraImpex.framework in Frameworks */,
-				73D1DE43164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.4.dylib in Frameworks */,
-				73D1DE44164FAA4E00F22508 /* libwx_osx_cocoau-2.9.4.dylib in Frameworks */,
+				73D1DE43164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.3.dylib in Frameworks */,
+				73D1DE44164FAA4E00F22508 /* libwx_osx_cocoau-2.9.3.dylib in Frameworks */,
+				73548B3816C6D37A009EB61A /* libz.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5270,8 +5273,8 @@
 				739F84DF0EC77EB6004771D6 /* libtiff.dylib in Frameworks */,
 				739F84D00EC77E9A004771D6 /* libz.dylib in Frameworks */,
 				E8A7D99110FB6D0500839DF3 /* libexiv2.dylib in Frameworks */,
-				73D1DE47164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.4.dylib in Frameworks */,
-				73D1DE48164FAA4E00F22508 /* libwx_osx_cocoau-2.9.4.dylib in Frameworks */,
+				73D1DE47164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.3.dylib in Frameworks */,
+				73D1DE48164FAA4E00F22508 /* libwx_osx_cocoau-2.9.3.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5382,8 +5385,8 @@
 				737E48C811D3F8C6002BA8AE /* HuginBase.framework in Frameworks */,
 				737E48C911D3F8C6002BA8AE /* HuginBaseWx.framework in Frameworks */,
 				73610F6E1576893D004AECDA /* Cocoa.framework in Frameworks */,
-				73D1DE49164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.4.dylib in Frameworks */,
-				73D1DE4A164FAA4E00F22508 /* libwx_osx_cocoau-2.9.4.dylib in Frameworks */,
+				73D1DE49164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.3.dylib in Frameworks */,
+				73D1DE4A164FAA4E00F22508 /* libwx_osx_cocoau-2.9.3.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5429,8 +5432,8 @@
 				731455A0153C93ED00D62D6A /* libgio-2.dylib in Frameworks */,
 				731455A1153C93ED00D62D6A /* libffi.dylib in Frameworks */,
 				73610F6F1576893F004AECDA /* Cocoa.framework in Frameworks */,
-				73D1DE4B164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.4.dylib in Frameworks */,
-				73D1DE4C164FAA4E00F22508 /* libwx_osx_cocoau-2.9.4.dylib in Frameworks */,
+				73D1DE4B164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.3.dylib in Frameworks */,
+				73D1DE4C164FAA4E00F22508 /* libwx_osx_cocoau-2.9.3.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5520,8 +5523,8 @@
 				731455A8153C93ED00D62D6A /* libffi.dylib in Frameworks */,
 				734BB9E515407A1800AE0963 /* libpython2.7.dylib in Frameworks */,
 				73610F7015768940004AECDA /* Cocoa.framework in Frameworks */,
-				73D1DE4D164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.4.dylib in Frameworks */,
-				73D1DE4E164FAA4E00F22508 /* libwx_osx_cocoau-2.9.4.dylib in Frameworks */,
+				73D1DE4D164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.3.dylib in Frameworks */,
+				73D1DE4E164FAA4E00F22508 /* libwx_osx_cocoau-2.9.3.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5735,8 +5738,8 @@
 				73A95EF612488A530076D3FB /* libpng.dylib in Frameworks */,
 				73A95EF712488A530076D3FB /* libtiff.dylib in Frameworks */,
 				73FE2A7E124912A00002E246 /* libz.dylib in Frameworks */,
-				73D1DE45164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.4.dylib in Frameworks */,
-				73D1DE46164FAA4E00F22508 /* libwx_osx_cocoau-2.9.4.dylib in Frameworks */,
+				73D1DE45164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.3.dylib in Frameworks */,
+				73D1DE46164FAA4E00F22508 /* libwx_osx_cocoau-2.9.3.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5807,8 +5810,8 @@
 				73DFBD93139B69E900558A2D /* libexpat.dylib in Frameworks */,
 				73A860A9155D98FA00969CF8 /* liblensfun.dylib in Frameworks */,
 				73610F7315768945004AECDA /* Cocoa.framework in Frameworks */,
-				73D1DE53164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.4.dylib in Frameworks */,
-				73D1DE54164FAA4E00F22508 /* libwx_osx_cocoau-2.9.4.dylib in Frameworks */,
+				73D1DE53164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.3.dylib in Frameworks */,
+				73D1DE54164FAA4E00F22508 /* libwx_osx_cocoau-2.9.3.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6280,8 +6283,8 @@
 				577786110BF347B80041F8FF /* libIlmThread.dylib */,
 				577786180BF348E90041F8FF /* libHalf.dylib */,
 				5731C4920D5532D400605D22 /* libexpat.dylib */,
-				73D1DE3F164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.4.dylib */,
-				73D1DE40164FAA4E00F22508 /* libwx_osx_cocoau-2.9.4.dylib */,
+				73D1DE3F164FAA4E00F22508 /* libwx_osx_cocoau_gl-2.9.3.dylib */,
+				73D1DE40164FAA4E00F22508 /* libwx_osx_cocoau-2.9.3.dylib */,
 				57452CC1094E4EC500E6B672 /* include */,
 			);
 			name = repository;
@@ -7051,6 +7054,7 @@
 				739286E814225FDB0051CAEC /* Hugin.app */,
 				7321352516BAEEB600E5749F /* pto_var */,
 				7321357116BAF0C100E5749F /* pto_lensstack */,
+				73548B3716C6D37A009EB61A /* libz.dylib */,
 			);
 			sourceTree = "<group>";
 		};
@@ -8870,8 +8874,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				73A95F1B12488C6A0076D3FB /* hugin_config.h in Headers */,
 				73A95F1A12488C540076D3FB /* config.h in Headers */,
+				73A95F1B12488C6A0076D3FB /* hugin_config.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -12232,6 +12236,7 @@
 					../src/foreign/vigra,
 					../src/foreign,
 					../src/hugin1,
+					../src/hugin1/base_wx,
 					"$(WX_INCLUDE_DIR)",
 					"$(WX_INCLUDE_DIR_LIB)",
 					"$(inherited)",
@@ -12464,6 +12469,7 @@
 					../src/foreign/vigra,
 					../src/foreign,
 					../src/hugin1,
+					../src/hugin1/base_wx,
 					"$(WX_INCLUDE_DIR)",
 					"$(WX_INCLUDE_DIR_LIB)",
 					"$(inherited)",
@@ -12954,6 +12960,7 @@
 					../src/foreign/vigra,
 					../src/foreign,
 					../src/hugin1,
+					../src/hugin1/base_wx,
 					"$(WX_INCLUDE_DIR)",
 					"$(WX_INCLUDE_DIR_LIB)",
 					"$(inherited)",
@@ -13733,8 +13740,9 @@
 					../src/hugin1/icpfind,
 					../src/foreign,
 					../src/foreign/vigra,
+					../src/foreign/vigra_impex,
 					../src/hugin_base,
-					../src/hugin_basewx,
+					../src/hugin1/base_wx,
 					"$(WX_INCLUDE_DIR)",
 					"$(WX_INCLUDE_DIR_LIB)",
 					"$(REPOSITORY_DIR)/include",
@@ -14508,6 +14516,7 @@
 					../src/foreign/vigra,
 					../src/foreign,
 					../src/hugin1,
+					../src/hugin1/base_wx,
 					../src/deghosting,
 					"$(WX_INCLUDE_DIR)",
 					"$(WX_INCLUDE_DIR_LIB)",
@@ -14684,6 +14693,7 @@
 					../src/foreign,
 					../src/foreign/vigra,
 					../src/hugin1,
+					../src/hugin1/base_wx,
 					../src/hugin1/icpfind,
 					../src/hugin_script_interface,
 					"$(WX_INCLUDE_DIR)",
@@ -15035,6 +15045,7 @@
 					../src/foreign,
 					../src/foreign/vigra,
 					../src/hugin1,
+					../src/hugin1/base_wx,
 					../src/hugin1/icpfind,
 					../src/hugin_script_interface,
 					"$(WX_INCLUDE_DIR)",
@@ -16217,6 +16228,7 @@
 					../src/foreign/vigra,
 					../src/foreign,
 					../src/hugin1,
+					../src/hugin1/base_wx,
 					"$(WX_INCLUDE_DIR)",
 					"$(WX_INCLUDE_DIR_LIB)",
 					"$(inherited)",

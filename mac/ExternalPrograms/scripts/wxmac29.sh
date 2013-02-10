@@ -16,6 +16,7 @@
 # 20120415.0 hvdw upgrade to 2.8.12
 # 20120526.0 hvdw upgrade to 2.9.3 and rename to wxmac29.sh
 # 20121010.0 hvdw upgrade to 2.9.4
+# 20130205.0 hvdw temporarily downgrade to 2.9.3 again
 # -------------------------------
 
 fail()
@@ -38,7 +39,7 @@ NATIVE_ARCH=$uname_arch
 NATIVE_OPTIMIZE=""
 
 WX_MAJOR_VERSION="2.9"
-WXVERSION="2.9.4"
+WXVERSION="2.9.3"
 WXVER_FULL="$WXVERSION.0.0" 
 
 mkdir -p "$REPOSITORYDIR/bin";
