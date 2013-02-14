@@ -33,7 +33,6 @@
 			buildPhases = (
 			);
 			dependencies = (
-				73A72EF6164F98FB0050F48E /* PBXTargetDependency */,
 				576900950D24D26200A6AD01 /* PBXTargetDependency */,
 				5769019A0D24D50800A6AD01 /* PBXTargetDependency */,
 				576901980D24D50800A6AD01 /* PBXTargetDependency */,
@@ -2766,13 +2765,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 731389111182EFC500DCF373;
 			remoteInfo = "libZThread static lib";
-		};
-		73A72EF5164F98FB0050F48E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 57FC3AC10675E43600C3E0AC /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 57C486290C3121E8002D79F1;
-			remoteInfo = configure;
 		};
 		73A8A33F13F56EFE00BB58F2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -11852,11 +11844,6 @@
 			isa = PBXTargetDependency;
 			target = 731389111182EFC500DCF373 /* libZThread static lib */;
 			targetProxy = 73A72EEB164F989C0050F48E /* PBXContainerItemProxy */;
-		};
-		73A72EF6164F98FB0050F48E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 57C486290C3121E8002D79F1 /* configure */;
-			targetProxy = 73A72EF5164F98FB0050F48E /* PBXContainerItemProxy */;
 		};
 		73A8A34013F56EFE00BB58F2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
