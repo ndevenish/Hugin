@@ -2090,8 +2090,7 @@ void MainFrame::SetGuiLevel(GuiLevel newLevel)
             OnToggleGLPreviewFrame(dummy);
         };
         wxGetApp().SetTopWindow(gl_preview_frame);
-        GetMenuBar()->Remove(0);
-        GetMenuBar()->Insert(0, m_menu_file_simple, _("&File"));
+        GetMenuBar()->Replace(0, m_menu_file_simple, _("&File"));
         if(m_filename.IsEmpty())
         {
             gl_preview_frame->SetTitle(_("Hugin - Panorama Stitcher"));
@@ -2107,8 +2106,7 @@ void MainFrame::SetGuiLevel(GuiLevel newLevel)
     else
     {
         wxGetApp().SetTopWindow(this);
-        GetMenuBar()->Remove(0);
-        GetMenuBar()->Insert(0, m_menu_file_advanced, _("&File"));
+        GetMenuBar()->Replace(0, m_menu_file_advanced, _("&File"));
         if(m_filename.IsEmpty())
         {
             SetTitle(_("Hugin - Panorama Stitcher"));
