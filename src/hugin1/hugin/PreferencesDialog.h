@@ -60,7 +60,6 @@ protected:
     void OnHelp(wxCommandEvent & e);
     void OnCancel(wxCommandEvent & e);
     void OnRotationCheckBox(wxCommandEvent & e);
-    void OnClose(wxCloseEvent& event);
     void OnEnblendExe(wxCommandEvent & e);
     void OnEnfuseExe(wxCommandEvent & e);
     void OnRestoreDefaults(wxCommandEvent & e);

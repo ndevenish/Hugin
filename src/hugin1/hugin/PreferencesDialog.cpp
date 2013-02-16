@@ -56,7 +56,6 @@
 
 
 BEGIN_EVENT_TABLE(PreferencesDialog, wxDialog)
-    EVT_CLOSE(PreferencesDialog::OnClose)
     EVT_BUTTON(wxID_OK, PreferencesDialog::OnOk)
     EVT_BUTTON(wxID_HELP, PreferencesDialog::OnHelp)
     EVT_BUTTON(wxID_CANCEL, PreferencesDialog::OnCancel)
@@ -259,24 +258,6 @@ void PreferencesDialog::OnOk(wxCommandEvent& e)
 void PreferencesDialog::OnCancel(wxCommandEvent& e)
 {
     this->EndModal(wxCANCEL);
-}
-
-void PreferencesDialog::OnClose(wxCloseEvent& event)
-{
-    DEBUG_DEBUG("OnClose");
-    // do not close, just hide if we're not forced
-    if (event.CanVeto())
-    {
-        event.Veto();
-        Hide();
-        DEBUG_DEBUG("hiding");
-    }
-    else
-    {
-        DEBUG_DEBUG("about to destroy");
-        Destroy();
-        DEBUG_DEBUG("destroyed");
-    }
 }
 
 void PreferencesDialog::OnHelp(wxCommandEvent& e)
