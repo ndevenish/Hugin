@@ -144,6 +144,9 @@
         <label>&amp;Donate</label>
         <help>If you like hugin and want to see further improvements, please consider donating to the hugin project.</help>
       </object>
+      <object platform="mac" class="wxMenuItem" name="action_show_prefs">
+        <label>&amp;Preferences</label>
+      </object>
     </object>
   </object>
   <object class="wxMenu" name="file_menu_advanced">
@@ -188,8 +191,8 @@
       <label>Apply &amp;Template</label>
       <help>Assign the settings of a previously saved project to the current images.</help>
     </object>
-    <object class="separator"/>
-    <object class="wxMenuItem" name="action_show_prefs">
+    <object platform="win|unix" class="separator"/>
+    <object platform="win|unix" class="wxMenuItem" name="action_show_prefs">
       <label>&amp;Preferences</label>
     </object>
     <object class="separator"/>
@@ -214,8 +217,8 @@
       <label>Apply &amp;Template</label>
       <help>Assign the settings of a previously saved project to the current images.</help>
     </object>
-    <object class="separator"/>
-    <object class="wxMenuItem" name="action_show_prefs">
+    <object platform="win|unix" class="separator"/>
+    <object platform="win|unix" class="wxMenuItem" name="action_show_prefs">
       <label>&amp;Preferences</label>
     </object>
     <object class="separator"/>

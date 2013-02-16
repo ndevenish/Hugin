@@ -1848,6 +1848,9 @@
         <label>&amp;Donate</label>
         <help>If you like hugin and want to see further improvements, please consider donating to the hugin project.</help>
       </object>
+      <object platform="mac" class="wxMenuItem" name="action_show_prefs">
+        <label>&amp;Preferences</label>
+      </object>
       <label>&amp;Help</label>
     </object>
     <style>wxMB_DOCKABLE</style>
@@ -1881,8 +1884,8 @@
       <label>&amp;Run Batch Processor</label>
       <help>Opens PTBatcher, the batch processor for Hugin's project files</help>
     </object>
-    <object class="separator"/>
-    <object class="wxMenuItem" name="action_show_prefs">
+    <object platform="win|unix" class="separator"/>
+    <object platform="win|unix" class="wxMenuItem" name="action_show_prefs">
       <label>&amp;Preferences</label>
     </object>
     <object class="separator"/>
