@@ -635,6 +635,9 @@ SET(CPACK_SOURCE_IGNORE_FILES
 "\\\\.la$"
 "Makefile\\\\.in$"
 "/\\\\.hg/"
+"/artwork-src/"
+"\\\\.hgignore$"
+"\\\\.hgtags$"
  )
 
 IF(NOT DISABLE_DPKG)
