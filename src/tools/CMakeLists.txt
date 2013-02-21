@@ -20,6 +20,9 @@ target_link_libraries(align_image_stack ${common_libs} ${image_libs} ${GLEW_LIBR
 add_executable(linefind linefind.cpp)
 target_link_libraries(linefind ${common_libs} ${image_libs} huginlines)
 
+add_executable(geocpset geocpset.cpp)
+target_link_libraries(geocpset ${common_libs})
+
 add_executable(tca_correct tca_correct.cpp)
 target_link_libraries(tca_correct ${common_libs} ${image_libs})
 
@@ -53,7 +56,7 @@ target_link_libraries(pto_lensstack ${common_libs})
 add_executable(hugin_hdrmerge hugin_hdrmerge.cpp ../deghosting/deghosting.cpp ../deghosting/deghosting.h ../deghosting/khan.h ../deghosting/support.h ../deghosting/algtinyvector.h)
 target_link_libraries(hugin_hdrmerge ${common_libs} ${image_libs} )
 
-install(TARGETS nona vig_optimize autooptimiser fulla align_image_stack linefind
+install(TARGETS nona vig_optimize autooptimiser fulla align_image_stack linefind geocpset
         tca_correct pto2mk cpclean checkpto hugin_hdrmerge pano_trafo pano_modify pto_merge 
         pto_gen pto_var pto_lensstack
         DESTINATION ${BINDIR})
