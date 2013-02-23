@@ -72,7 +72,8 @@ using std::vector;
 
 using vigra::Rect2D;
 
-#define CHECK_GL() checkGLErrors(__LINE__, __FILE__)
+#define ___NCFILE___ ((char *) __FILE__)
+#define CHECK_GL() checkGLErrors(__LINE__, ___NCFILE___)
 
 
 static GLenum XGLMap[] = {
@@ -85,7 +86,7 @@ static GLenum XGLMap[] = {
     GL_LUMINANCE, GL_RGB, GL_LUMINANCE_ALPHA, GL_RGBA
 };
 
-static char* XGLStringMap[] = {
+static const char* XGLStringMap[] = {
     // gltypes
     "GL_BYTE", "GL_UNSIGNED_BYTE", "GL_SHORT", "GL_UNSIGNED_SHORT", "GL_INT", "GL_UNSIGNED_INT", "GL_FLOAT",
     // Internalformats
@@ -710,7 +711,7 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
     CHECK_GL();
     glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, GL_TEXTURE_RECTANGLE_ARB, coordTexture, 0);
     CHECK_GL();
-    if (!checkFramebufferStatus(__LINE__, __FILE__)) {
+    if (!checkFramebufferStatus(__LINE__, ___NCFILE___)) {
         exit(1);
     }
 
@@ -738,7 +739,7 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
     glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, accumFB);
     glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, GL_TEXTURE_RECTANGLE_ARB, accumTextures[0], 0);
     glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT1_EXT, GL_TEXTURE_RECTANGLE_ARB, accumTextures[1], 0);
-    if (!checkFramebufferStatus(__LINE__, __FILE__)) {
+    if (!checkFramebufferStatus(__LINE__, ___NCFILE___)) {
         exit(1);
     }
 
@@ -757,7 +758,7 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
 
     glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, srcFB);
     glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, GL_TEXTURE_RECTANGLE_ARB, srcTexture, 0);
-    if (!checkFramebufferStatus(__LINE__, __FILE__)) {
+    if (!checkFramebufferStatus(__LINE__, ___NCFILE___)) {
         exit(1);
     }
 
@@ -805,7 +806,7 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
 
         glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, destFB);
         glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, GL_TEXTURE_RECTANGLE_ARB, destTexture, 0);
-        if (!checkFramebufferStatus(__LINE__, __FILE__)) {
+        if (!checkFramebufferStatus(__LINE__, ___NCFILE___)) {
             exit(1);
         }
     }
@@ -825,7 +826,7 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
 
         glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, destAlphaFB);
         glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, GL_TEXTURE_RECTANGLE_ARB, destAlphaTexture, 0);
-        if (!checkFramebufferStatus(__LINE__, __FILE__)) {
+        if (!checkFramebufferStatus(__LINE__, ___NCFILE___)) {
             exit(1);
         }
     }

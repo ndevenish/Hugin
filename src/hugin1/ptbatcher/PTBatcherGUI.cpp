@@ -466,7 +466,7 @@ void PTBatcherGUI::MacOpenFile(const wxString& fileName)
 #define RETURNEMPTYSTRING return wxEmptyString
 const void* BatchIPCConnection::OnRequest(const wxString& topic, const wxString& item, size_t* size, wxIPCFormat format)
 #else
-#define RETURNEMPTYSTRING return wxT("")
+#define RETURNEMPTYSTRING return ((wxChar*) "")
 wxChar* BatchIPCConnection::OnRequest(const wxString& topic, const wxString& item, int* size, wxIPCFormat format)
 #endif
 {

@@ -31,7 +31,7 @@
 
 namespace Parser
 {
-typedef std::map<char*, double> ConstantMap;
+typedef std::map<const char*, double> ConstantMap;
 
 bool ParseExpression(const std::string expression, double& result);
 bool ParseExpression(const std::string expression, double& result, const ConstantMap constants);
