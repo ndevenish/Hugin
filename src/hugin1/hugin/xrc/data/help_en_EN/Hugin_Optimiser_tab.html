@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="client-nojs">
+<head>
+<title>Hugin Optimiser tab - PanoTools.org Wiki</title>
+<meta charset="UTF-8" />
+<meta name="generator" content="MediaWiki 1.19.0" />
+
+
+
+
+
+
+<style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
+
+<style>a:lang(ar),a:lang(ckb),a:lang(fa),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}a.new,#quickbar a.new{color:#ba0000}
+
+/* cache key: pt_wikidb:resourceloader:filter:minify-css:7:c88e2bcd56513749bec09a7e29cb3ffa */
+</style>
+
+
+
+
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Hugin_Optimiser_tab skin-vector action-view">
+		
+		
+		<!-- content -->
+		<div id="content" class="mw-body">
+			<a id="top"></a>
+			
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">
+				<span dir="auto">Hugin Optimiser tab</span>
+			</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+								<!-- tagline -->
+				<div id="siteSub">From PanoTools.org Wiki</div>
+				<!-- /tagline -->
+								<!-- subtitle -->
+				
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				
+				<!-- /jumpto -->
+								<!-- bodycontent -->
+				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>As explained on the <a href="Hugin_Photos_tab.html#Geometric_.28Simple_and_Advanced_User_interface.29" title="Hugin Photos tab">Hugin Photos tab</a>, <a href="Hugin.html" title="Hugin">hugin</a> uses a photo alignment scheme where it adjusts image orientation and lens settings of source photos
+until the <a href="Control_points.html" title="Control points">control points</a> line-up. This process is called <i>(geometric) optimisation</i>.  Normally you will use the <a href="Hugin_Assistant_tab.html" title="Hugin Assistant tab">Hugin Assistant tab</a> where <a href="Control_points.html" title="Control points">control points</a> are automatically generated, or use the <b>Feature matching</b> option from the <a href="Hugin_Photos_tab.html" title="Hugin Photos tab">Hugin Photos tab</a> to generate <a href="Control_points.html" title="Control points">control points</a>. 
+</p><p>You can <b>manually</b> create individual <b>control points</b> in the <a href="Hugin_Control_Points_tab.html" title="Hugin Control Points tab">Control Points tab</a>, and you can <i>manage</i> them in both the <a href="Hugin_Photos_tab.html" title="Hugin Photos tab">Photos tab</a> and <a href="Hugin_Control_Points_table.html" title="Hugin Control Points table">Control Points table</a>.
+</p>
+<h1> <span class="mw-headline" id="Geometric_Optimizer"> Geometric Optimizer </span></h1>
+<p>The pre-set optimisation options are useful for most situations, but sometimes it is necessary to switch to <b>Custom parameters</b>.
+</p><p>For example, when shooting hand-held panoramas, some of the position variation between shots can be resolved by using different <b>d</b> and <b>e</b> <b>Image Center Shift</b> parameters for each shot.  Select <b>Custom parameters</b>, and pick the <b>d</b> and <b>e</b> parameters for optimisation on this <strong class="selflink">hugin Optimiser tab</strong>.
+</p><p>Similarly, the translation parameters could be used to correct a wonky shot. However, they were meant for linear panoramas which expand to infinite distance at 180 degrees field of view, so you must make sure any images with non-zero translation (X, Y, or Z parameters) are in the middle of the panorama (y and p should all be around zero, and the field of view shouldn't be large enough to make them expand more than 180 degrees). This can be used to patch in the floor after you have removed the tripod that was obscuring it. You can take a shot of the floor where the tripod was at an angle (therefore you can avoid casting a shadow on the image in most cases). You can then optimise X,Y,Z on only this image. However, the floor must be flat for this to work, and this shot must be in the middle of the panorama. You can make down the middle by rotating the panorama on either of the previews.
+</p><p>The images list behaves very similar like the image list on the <a href="Hugin_Photos_tab.html" title="Hugin Photos tab">Photos tab</a>. So can also in this tab add/remove images, change the lens or stack assignments, link or unlink image variables,... Beside the features of the list on the <a href="Hugin_Photos_tab.html" title="Hugin Photos tab">Photos tab</a> it provides also in-place editing of single image variables. (<b>Note:</b> If you want to modify a value for a lens, you need to single-click the value, not double-click it.) If you want to change image variables from several images at once, select all affected images and choice <b>Edit image variables...</b> from the context menu.
+</p>
+<h2> <span class="mw-headline" id="Image_Orientation"> Image Orientation </span></h2>
+<p>Depending on the <b>User Interface mode</b>, you can modify:
+</p>
+<ul><li> Yaw (y), Pitch (p) and Roll (r) in <b>Simple</b> and <b>Advanced</b> mode.
+</li><li> Yaw (y), Pitch (p), Roll (r), TranslationX (TrX), TranslationY (TrY) and TranslationZ (TrZ).
+</li></ul>
+<p>With Ctrl+Left click you define which parameters will be optimised. The context menu provides short cuts to select the parameters of all images, of all images of a selected lens or of all image of a single stack.
+</p>
+<h2> <span class="mw-headline" id="Lens_parameters"> Lens parameters </span></h2>
+<p>Depending on the <b>User Interface mode</b>, you can modify:
+</p>
+<ul><li> Radial distortions (a, b, c) and horizontal and vertical image center shift (d, e) in <b>Simple</b> and <b>Advanced</b> mode.
+</li><li> Radial distortions (a, b, c), horizontal and vertical image center shift (d, e) and horizontal and vertical image shearing (g, t) in <b>Expert</b> mode.
+</li></ul>
+
+
+
+
+</div>				<!-- /bodycontent -->
+								<!-- printfooter -->
+				<div class="printfooter">
+				Retrieved from "http://wiki.panotools.org/index.php?title=Hugin_Optimiser_tab&amp;oldid=14983<a class="external" href="http://wiki.panotools.org/index.php?title=Hugin_Optimiser_tab&amp;oldid=14983">[*]</a>"				</div>
+				<!-- /printfooter -->
+												<!-- catlinks -->
+				</div></div></body></html>

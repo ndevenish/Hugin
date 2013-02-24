@@ -48,7 +48,7 @@
 				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr">
 <h2> <span class="mw-headline" id="About_Control_points"> About Control points </span></h2>
 <p><a href="Control_points.html" title="Control points">Control points</a> are central to Panorama Tools<a class="external" href="http://wiki.panotools.org/Panorama_Tools">[*]</a> and <a href="Hugin.html" title="Hugin">hugin</a>, because they are used to estimate the position of image position and lens parameters described above.
-A control point specifies a corresponding point between two images. Using these corresponding points, the hugin Optimizer tab<a class="external" href="http://wiki.panotools.org/Hugin_Optimizer_tab">[*]</a> can estimate the image position and lens parameters.
+A control point specifies a corresponding point between two images. Using these corresponding points, the <a href="Hugin_Optimiser_tab.html" title="Hugin Optimiser tab">Optimiser tab</a> can estimate the image position and lens parameters.
 It is therefore important that the control points are accurate and usually at least 3 well distributed control points should be used to estimate the image position (<a href="Yaw.html" title="Yaw">yaw</a>, <a href="Roll.html" title="Roll">roll</a> and <a href="Pitch.html" title="Pitch">pitch</a>) and maybe the <a href="Field_of_View.html" title="Field of View">HFOV</a>.
 For accurate estimation of the a,b,c distortion parameters, many well distributed control points, and a large overlap (up to 50%) are required.
 </p>
@@ -68,10 +68,10 @@ Note that only the second click will trigger the auto estimate.
 </p><p>For good results, the <a href="Control_points.html" title="Control points">control points</a> should be as accurate as possible. However, it is often tedious to select a particular point exactly, and it may be helpful to use the <b>arrow keys</b> (<i>left</i>, <i>right</i>, <i>up</i>, and <i>down</i>) to nudge the selection point in various directions pixel-by-pixel (users of X11 may need to ensure that a particular image pane has the focus by placing the mouse cursor within its bounds). Once a point pair has been roughly selected, the <b>fine tune</b> function of <a href="Hugin.html" title="Hugin">hugin</a> can be used to estimate the corresponding point up to one tenth of a pixel.
 The keyboard short cut for the <b>fine tune</b> function is the <b>f</b> key.
 Fine tune only search in a small neighbourhood of the currently selected points.
-The size of this neighbourhood can be controlled by opening the <a href="Hugin_Preferences.html" title="Hugin Preferences">Hugin Preferences</a> panel and setting the <b>Local area search width</b>.
+The size of this neighbourhood can be controlled by opening the <a href="Hugin_Preferences.html" title="Hugin Preferences">Preferences dialog</a> and setting the <b>Local area search width</b>.
 </p><p>Note that the fine tune function estimates the translation of the patch around the point selected in the other image with respect to the current image.
 This works well if the rotation between the images is small and narrow angle lenses have been used.
-If wide angle or <a href="Fisheye_Projection.html" title="Fisheye Projection">Fisheye Projection</a> images are used, rotation search should be activated in the <a href="Hugin_Preferences.html" title="Hugin Preferences">Hugin Preferences</a> panel.
+If wide angle or <a href="Fisheye_Projection.html" title="Fisheye Projection">Fisheye Projection</a> images are used, rotation search should be activated in the <a href="Hugin_Preferences.html" title="Hugin Preferences">Preferences dialog</a>.
 Then <a href="Hugin.html" title="Hugin">hugin</a> also searches for rotated occurrences of the patch around the selected point.
 </p><p>The image can be scrolled by pressing the <b>middle mouse button</b> or the <b>CTRL</b> key while moving the mouse.
 If the <b>shift</b> key is pressed instead, both images will be scrolled.
@@ -85,7 +85,7 @@ This is very useful if <a href="Control_points.html" title="Control points">cont
 <p>All these flags can be combined. I typically use <b>auto fine tune</b> and <b>auto estimate</b> at the same time.
 Then <a href="Hugin.html" title="Hugin">hugin</a> usually automatically selects the second point correctly, at least for normal, <a href="Rectilinear_Projection.html" title="Rectilinear Projection">Rectilinear Projection</a> images that are not rotated too much.
 </p><p><a href="Hugin.html" title="Hugin">hugin</a> also includes an experimental <a href="Control_points.html" title="Control points">control points</a> creation algorithm.
-It can be invoked by pressing the <b>g</b> key. Corners in the currently selected image are detected, and corresponding control points are set based on the current relative positions of the two images.  The images need to be approximately aligned already for this to be useful. Note that these points then need to be aligned by eye, with the <b>Fine-tune</b> button or with the <b>Fine-tune all Points</b> function in the Edit menu of the <a href="Hugin_Main_window.html" title="Hugin Main window">Hugin Main window</a>.
+It can be invoked by pressing the <b>g</b> key. Corners in the currently selected image are detected, and corresponding control points are set based on the current relative positions of the two images.  The images need to be approximately aligned already for this to be useful. Note that these points then need to be aligned by eye, with the <b>Fine-tune</b> button or with the <b>Fine-tune all Points</b> function in the Edit menu of the <a href="Panorama_Editor_window.html" title="Panorama Editor window" class="mw-redirect">Panorama editor</a>.
 </p>
 <h2> <span class="mw-headline" id="Control_point_modes"> Control point modes </span></h2>
 <p>Use the <b>mode</b> pull down menu to change the type of an existing pair of <a href="Control_points.html" title="Control points">control points</a>.
@@ -155,7 +155,7 @@ need more than just one pair to make up a straight line.
 </div>				<!-- /bodycontent -->
 								<!-- printfooter -->
 				<div class="printfooter">
-				Retrieved from "http://wiki.panotools.org/index.php?title=Hugin_Control_Points_tab&amp;oldid=13791<a class="external" href="http://wiki.panotools.org/index.php?title=Hugin_Control_Points_tab&amp;oldid=13791">[*]</a>"				</div>
+				Retrieved from "http://wiki.panotools.org/index.php?title=Hugin_Control_Points_tab&amp;oldid=15079<a class="external" href="http://wiki.panotools.org/index.php?title=Hugin_Control_Points_tab&amp;oldid=15079">[*]</a>"				</div>
 				<!-- /printfooter -->
 												<!-- catlinks -->
 				</div></div></body></html>

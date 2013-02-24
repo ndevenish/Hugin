@@ -385,6 +385,16 @@
 		<param name="Local" value="Pto_gen.html">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Geocpset">
+		<param name="Name" value="Geocpset - PanoTools.org Wiki">
+		<param name="Local" value="Geocpset.html">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Geometric control point">
+		<param name="Name" value="Geocpset - PanoTools.org Wiki">
+		<param name="Local" value="Geocpset.html">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="GIF">
 		<param name="Name" value="GIF">
 		<param name="Local" value="GIF.html">
@@ -544,14 +554,14 @@
 		<param name="Local" value="OpenEXR.html">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Optimiser tab">
+		<param name="Name" value="Hugin Optimiser tab">
+		<param name="Local" value="Hugin_Optimiser_tab.html">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Optimization">
 		<param name="Name" value="Optimization">
 		<param name="Local" value="Optimization.html">
-		</OBJECT>
-	<LI> <OBJECT type="text/sitemap">
-		<param name="Name" value="Optimizer tab">
-		<param name="Name" value="Hugin Optimizer tab">
-		<param name="Local" value="Hugin_Optimizer_tab.html">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Panini">

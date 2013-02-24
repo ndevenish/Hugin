@@ -51,6 +51,7 @@ Focal_Length
 Freepv
 Fulla
 Gamma
+Geocpset
 GIF
 HDR
 HDR_workflow_with_hugin

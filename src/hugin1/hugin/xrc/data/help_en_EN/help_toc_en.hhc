@@ -58,8 +58,8 @@
 				<param name="Local" value="Hugin_Control_Points_tab.html">
 				</OBJECT>
 			<LI> <OBJECT type="text/sitemap">
-				<param name="Name" value="Optimizer tab">
-				<param name="Local" value="Hugin_Optimizer_tab.html">
+				<param name="Name" value="Optimiser tab">
+				<param name="Local" value="Hugin_Optimiser_tab.html">
 				</OBJECT>
 			<LI> <OBJECT type="text/sitemap">
 				<param name="Name" value="Exposure tab">
@@ -168,16 +168,20 @@
 			<param name="Local" value="Pto_lensstack.html">
 			</OBJECT>
 		<LI> <OBJECT type="text/sitemap">
-			<param name="Name" value="Cpfind">
-			<param name="Local" value="Cpfind.html">
-			</OBJECT>
-		<LI> <OBJECT type="text/sitemap">
 			<param name="Name" value="Icpfind">
 			<param name="Local" value="Icpfind.html">
 			</OBJECT>
 		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Cpfind">
+			<param name="Local" value="Cpfind.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
 			<param name="Name" value="Linefind">
 			<param name="Local" value="Linefind.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Geocpset">
+			<param name="Local" value="Geocpset.html">
 			</OBJECT>
 		<LI> <OBJECT type="text/sitemap">
 			<param name="Name" value="Vig_optimise">
@@ -291,6 +295,10 @@
 		<LI> <OBJECT type="text/sitemap">
 			<param name="Name" value="Linefind">
 			<param name="Local" value="Linefind.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Geocpset">
+			<param name="Local" value="Geocpset.html">
 			</OBJECT>
 	</UL>
 	<LI> <OBJECT type="text/sitemap">

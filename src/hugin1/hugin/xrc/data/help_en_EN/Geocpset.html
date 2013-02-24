@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="client-nojs">
+<head>
+<title>Geocpset - PanoTools.org Wiki</title>
+<meta charset="UTF-8" />
+<meta name="generator" content="MediaWiki 1.19.0" />
+
+
+
+
+
+
+<style media="screen" type="text/css" title="Screen style sheet"> @import url(manual.css); </style>
+
+<style>a:lang(ar),a:lang(ckb),a:lang(fa),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}a.new,#quickbar a.new{color:#ba0000}
+
+/* cache key: pt_wikidb:resourceloader:filter:minify-css:7:c88e2bcd56513749bec09a7e29cb3ffa */
+</style>
+
+
+
+
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Geocpset skin-vector action-view">
+		
+		
+		<!-- content -->
+		<div id="content" class="mw-body">
+			<a id="top"></a>
+			
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">
+				<span dir="auto">Geocpset</span>
+			</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+								<!-- tagline -->
+				<div id="siteSub">From PanoTools.org Wiki</div>
+				<!-- /tagline -->
+								<!-- subtitle -->
+				
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				
+				<!-- /jumpto -->
+								<!-- bodycontent -->
+				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><h2> <span class="mw-headline" id="General_and_description"> General and description </span></h2>
+<p><b>Geocpset</b> is a tool for panoramas which contains featureless images, e.g. sky images. In this images a control point detector does not find control points. Geocpset analyses the positions of the images in project files. Then it adds control points to these images which are not connected by control points. The control points are set only be the geometric positions of the images and not by the image content. So <b>geocpset</b> should only used with projects which have assigned rough image positions.
+</p>
+<h2> <span class="mw-headline" id="Usage"> Usage </span></h2>
+<p>The general usage is
+</p>
+<pre>     geocpset -o output.pto input.pto
+</pre>
+<p>If the --output/-o switch is missing then the suffix "_geo" is added to the filename.
+</p><p>The indented workflow is
+</p>
+<ul><li> First create project file
+</li></ul>
+<pre>    pto_gen -o project.pto *.jpg
+</pre>
+<ul><li> Then assign rough positions to images
+</li></ul>
+<pre>    pto_var --set y=i*20-40,p=0,r=0 -o project.pto project.pto
+</pre>
+<ul><li> Now run a "normal" control point detector, e.g. only on overlapping images
+</li></ul>
+<pre>    cpfind --prealigned -o project.pto project.pto
+</pre>
+<ul><li> And finally connect all unconnected images
+</li></ul>
+<pre>    geocpset -o project.pto project.pto
+</pre>
+<h2> <span class="mw-headline" id="Options"> Options </span></h2>
+<ul><li> <tt>-o|--output output.pto</tt> Output a pto file with the given filename. If not given it will append "_geo" to the input filename.
+</li><li> <tt>-e|--each-overlap</tt> By default <b>geocpset</b> adds only control points to unconnected images. With this switch you can force to add a geometric control point to each overlap, which is not connect by control points or linked with image positions.
+</li><li> <tt>--min-overlap=NUM</tt> By default <b>geocpset</b> takes only image pairs into account which overlap more than 10&#160;%. If you have very narrow overlaps you can decrease this value to take also such small overlaps into account, e.g. <tt>--min-overlap=1</tt> 
+</li><li> <tt>-h | --help</tt> Display help.
+</li></ul>
+
+
+
+
+</div>				<!-- /bodycontent -->
+								<!-- printfooter -->
+				<div class="printfooter">
+				Retrieved from "http://wiki.panotools.org/index.php?title=Geocpset&amp;oldid=15078<a class="external" href="http://wiki.panotools.org/index.php?title=Geocpset&amp;oldid=15078">[*]</a>"				</div>
+				<!-- /printfooter -->
+												<!-- catlinks -->
+				</div></div></body></html>

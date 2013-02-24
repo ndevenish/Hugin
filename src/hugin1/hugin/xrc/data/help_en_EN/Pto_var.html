@@ -45,15 +45,15 @@
 				
 				<!-- /jumpto -->
 								<!-- bodycontent -->
-				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p><b>Pto_var</b> can manipulate image variables in <a href="Hugin.html" title="Hugin">Hugin</a> .pto project files. This is intended for use in <a href="Panorama_scripting_in_a_nutshell.html" title="Panorama scripting in a nutshell">Scripting</a>. It can set image variables to a given value, it change the link status and mark variables for <a href="Optimization.html" title="Optimization">optimisation</a>
-</p><p>The general use is
+				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p><b>Pto_var</b> can manipulate image variables in <a href="Hugin.html" title="Hugin">Hugin</a> .pto project files. The intended use of Pto_var is in <a href="Panorama_scripting_in_a_nutshell.html" title="Panorama scripting in a nutshell">Scripting</a>. Pto_var can set image variables to a given value, it can change the link status and it can mark variables for <a href="Optimization.html" title="Optimization">optimisation</a>.
+</p><p>The general use is:
 </p>
-<pre>   pto_var [switches] --output=output.pto --opt|--link|--unlink|--set images input.pto
+<pre>   pto_var [switches] --output=output.pto --opt|--link|--unlink|--set|--set-from-file images input.pto
 </pre>
 <h2> <span class="mw-headline" id="Optimisation_variables"> Optimisation variables </span></h2>
-<p><b>Pto_var</b> can mark image variables for <a href="Optimization.html" title="Optimization">optimisation</a>. (This information is stored in the v lines in the pto file.) This information is then be used by <a href="Autooptimiser.html" title="Autooptimiser">autooptimiser</a> and <a href="Vig_optimize.html" title="Vig optimize">vig_optimize</a> to do the actual optimisation.
-</p><p>Running without other switches this will only mark the variables given on the command line for optimisation. If you want to modify the marked variables add <b>--modify-opt</b> to the command line.
-</p><p>The usage is
+<p><b>Pto_var</b> can mark image variables for <a href="Optimization.html" title="Optimization">optimisation</a>. (This information is stored in the v lines in the pto file.) This information is  used by <a href="Autooptimiser.html" title="Autooptimiser">autooptimiser</a> and <a href="Vig_optimize.html" title="Vig optimize">vig_optimize</a> to do the actual optimisation.
+</p><p>Running without other switches will only mark the variables given on the command line for optimisation. If you want to modify the marked variables add <b>--modify-opt</b> to the command line.
+</p><p>The usage is:
 </p>
 <pre>  pto_var --opt "image variables list" input.pto
 </pre>
@@ -67,7 +67,7 @@
 </li><li> lens parameters: v, a, b, c, d, e, g, t
 </li><li> photometric parameters: EeV, Er, Eb, Vb, Vc, Vd, Vx, Vy, Ra, Rb, Rc, Rd, Re (Vignetting and response parameter will treated as group.)
 </li></ul>
-<p>The image numbers start with zero. If the number is missing this applies to the variables of all images. (In this case a special treatment applies to the position of the anchor image.)
+<p>The image numbers start with zero. If no number is given, the variables will be applied to all images. (In this case a special treatment applies to the position of the anchor image.)
 </p><p>An exclamation mark before the variable will remove the variable from the list of variables to optimised.
 </p><p>Examples:
 </p>
@@ -86,19 +86,38 @@
 </li><li> <b>--unlink Vb3,Ra3</b> will unlink <a href="Vignetting.html" title="Vignetting">vignetting</a> and <a href="Camera_response_curve.html" title="Camera response curve">response curve</a> for image 3.
 </li></ul>
 <h2> <span class="mw-headline" id="Set_image_variables"> Set image variables </span></h2>
-<p>With this switch you can set the image variable to the given value. This applies to all the image variable of that sort or only to a single image, when given the image number.
+<p>With this switch you can set the image variable to the given value. This applies to all the image variables of that sort or only to a single image, when the image number is given.
 </p><p>Examples:
 </p>
 <ul><li> <b>--set y=0,p=0,r=0</b> will reset all image positions.
 </li><li> <b>--set a1=0,b1=-0.05,c1=0</b> will set the lens distortion parameters for the second image.
 </li></ul>
-<p>The switch supports also incremental changes.
+<p>You can also give a mathematical expression. Supported are:
 </p>
-<ul><li> <b>--set y1+=10</b> will increase yaw of the second image by 10 degrees.
-</li><li> <b>--set r2-=90</b> will decrease the roll angle of third image by 90 degrees.
-</li><li> <b>--set v*=1.1</b> will increase field of view for all images by 10&#160;%.
-</li><li> <b>--set Er/=1.1,Eb/=1.2</b> will divide the red multiplier by 1.1, and the blue multiplier by 1.2 respective for all images.
+<ul><li> the operators +-*/% and ^ (addition, subtraction, multiplication, division, modulo and exponentiation),
+</li><li> parentheses,
+</li><li> the functions <i>abs, sin, cos, tan, asin, acos, atan, exp, ceil, floor</i> and <i>sqrt</i> (trigonometric functions use the angle in radians),
+</li><li> the constant <i>pi</i> and the functions deg and rad to convert to degrees or radians,
+</li><li> the constant <i>i</i> holds the image number,
+</li><li> the constant <i>val</i> contains the old value,
+</li><li> a if statement: <i>x?y:z</i>. For the comparison statement you can use &lt;, &gt;, &lt;=, &gt;=, == (equal) and&#160;!= (not equal)
 </li></ul>
+<p>The expression should return one return value. It may be necessary to quote the string to correctly get the special characters read.
+</p><p>See some examples:
+</p>
+<ul><li> <b>--set y1=val+10</b> will increase yaw of the second image by 10 degrees.
+</li><li> <b>--set r2=val-90</b> will decrease the roll angle of third image by 90 degrees.
+</li><li> <b>--set v=1.1*val</b> will increase field of view for all images by 10&#160;%.
+</li><li> <b>--set Er=val/1.1,Eb=val/1.2</b> will divide the red multiplier by 1.1, and the blue multiplier by 1.2 respective for all images.
+</li><li> <b>--set y=i*90,p=-1^i*20,r=0</b> a more complicated example for a fisheye panorama, sets yaw, pitch and roll
+</li><li> <b>--set "r=i&lt;4?val+45:val"</b> rotate the first 3 images by 45 degree individual (note: quoting for Windows)
+</li></ul>
+<p>You can also read the string from a text file. Use
+</p>
+<pre>  pto_var --set-from-file filename --output=output.pto project.pto
+</pre>
+<p>In the text file the individual variables can be separated by comma or a line break.
+</p>
 <h2> <span class="mw-headline" id="General_options"> General options </span></h2>
 <ul><li> <b>-o|--output output.pto</b> Output a pto file with the given filename. If not given it will append "_var" to the input filename.
 </li><li> <b>-h | --help</b> Display help.
@@ -110,7 +129,7 @@
 </div>				<!-- /bodycontent -->
 								<!-- printfooter -->
 				<div class="printfooter">
-				Retrieved from "http://wiki.panotools.org/index.php?title=Pto_var&amp;oldid=14707<a class="external" href="http://wiki.panotools.org/index.php?title=Pto_var&amp;oldid=14707">[*]</a>"				</div>
+				Retrieved from "http://wiki.panotools.org/index.php?title=Pto_var&amp;oldid=15001<a class="external" href="http://wiki.panotools.org/index.php?title=Pto_var&amp;oldid=15001">[*]</a>"				</div>
 				<!-- /printfooter -->
 												<!-- catlinks -->
 				</div></div></body></html>

@@ -45,7 +45,17 @@
 				
 				<!-- /jumpto -->
 								<!-- bodycontent -->
-				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>There are occasions where it is necessary to align a set of otherwise identical
+				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><table style="margin: 1em auto 1em 1em;background:#FFFF99;color:#FF0000;text-align:left;border: solid #FF3300;">
+
+<tr valign="top">
+<th> <b>2013-02-10:</b>
+</th>
+<th> This page is rewritten to reflect the state of the new designed GUI of the 2013.0 version.
+<p>This 2013.0 version will be released in Quarter 1 of 2013.
+</p>
+</th></tr></table>
+<p><i>(<b>These instructions but then for the current stable release version 2012.0 can also be read in this wiki as an <a rel="nofollow" class="external text" href="http://wiki.panotools.org/index.php?title=Align_a_stack_of_photos&amp;oldid=15021">older version</a></b>)</i> 
+</p><p>There are occasions where it is necessary to align a set of otherwise identical
 pictures:
 </p>
 <ul><li> Aligning red, green and blue channels to correct <a href="Chromatic_aberration.html" title="Chromatic aberration">chromatic aberration</a>.
@@ -63,27 +73,21 @@ automates the process described below:
 </p>
 <h2> <span class="mw-headline" id="Aligning_with_hugin"> Aligning with hugin </span></h2>
 <ul><li> Start up a new <a href="Hugin.html" title="Hugin">hugin</a> project for each series and load the images.  Set the <a href="Field_of_View.html" title="Field of View">Field of View</a>, <a href="Lens_correction_model.html" title="Lens correction model">lens parameters</a> and <a href="Projections.html" title="Projections">projection</a> type, ie. if your lens is a <a href="Fisheye_Projection.html" title="Fisheye Projection">fisheye</a>, set this for both the input and output projection.
+</li><li> Create control points via the <a href="Hugin_Photos_tab.html" title="Hugin Photos tab">Photos tab</a>.  <a href="Align_image_stack.html" title="Align image stack">Align_image_stack</a> is specialized for this task. But also <a href="Panomatic.html" title="Panomatic">Panomatic</a> or <a href="Cpfind.html" title="Cpfind">Cpfind</a> work for this use case.
+</li><li> Select "Positions (y,p,r)" and "Optimise now!" in the <a href="Hugin_Photos_tab.html" title="Hugin Photos tab">Photos tab</a>.
+</li><li> If necessary, fine tune the control points in the <a href="Hugin_Control_Points_tab.html" title="Hugin Control Points tab">Control Points tab</a> and optimise again.
+</li><li> In the <a href="Hugin_Main_window.html" title="Hugin Main window">fast panorama preview</a>, the images will be on top of each other.  Select "Move/Drag" and "Fit", then select "Crop" and "HDR Autocrop".
+</li><li> In the <a href="Hugin_Stitcher_tab.html" title="Hugin Stitcher tab">Stitcher tab</a>, select "Calculate Optimal Size", then deselect the default panorama outputs and select "No exposure correction, low dynamic range" in the "Remapped images" section.  Select "Stitch!".
 </li></ul>
-<ul><li> Create a few hundred <a href="Control_points.html" title="Control points">control points</a> between each pair of consecutive photos with the <b>g</b> key in the <b>control point</b> tab.
-</li></ul>
-<ul><li> Fine tune all points (available in the Edit menu)
-</li></ul>
-<ul><li> Delete any control points with a correlation less than 90% (i.e. open the control point list (F3 or the Show Control Points icon in the toolbar), press the <b>select by distance</b> button, enter -0.9, and hit the <b>delete</b> button).
-</li></ul>
-<ul><li> Optimise positions (<b>ctrl-T</b>), select points by distance again but this time enter 0.2. Optimise again.
-</li></ul>
-<ul><li> Adjust the field-of view in the <b>stitching</b> tab to something slightly smaller than the input size so there are no transparent edges.
-</li></ul>
-<ul><li> Stitch to <b>multiple TIFF</b> format.
-</li></ul>
-
+<p>See a more detailed view of this article <a rel="nofollow" class="external text" href="http://www.lemis.com/grog/photography/aligning-with-Hugin.php">here</a>.
+</p>
 
 
 
 </div>				<!-- /bodycontent -->
 								<!-- printfooter -->
 				<div class="printfooter">
-				Retrieved from "http://wiki.panotools.org/index.php?title=Align_a_stack_of_photos&amp;oldid=10967<a class="external" href="http://wiki.panotools.org/index.php?title=Align_a_stack_of_photos&amp;oldid=10967">[*]</a>"				</div>
+				Retrieved from "http://wiki.panotools.org/index.php?title=Align_a_stack_of_photos&amp;oldid=15031<a class="external" href="http://wiki.panotools.org/index.php?title=Align_a_stack_of_photos&amp;oldid=15031">[*]</a>"				</div>
 				<!-- /printfooter -->
 												<!-- catlinks -->
 				</div></div></body></html>

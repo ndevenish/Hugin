@@ -74,7 +74,7 @@ to choose from, each with different advantages and disadvantages:
 </li><li> <a href="The_General_Panini_Projection.html" title="The General Panini Projection">Panini General</a>
 </li><li> <a href="Fisheye_Projection.html" title="Fisheye Projection">Thoby Projection</a>, is modeling the 10.5 mm Nikkor fisheye lens and was introduced with <a rel="nofollow" class="external text" href="http://hugin.sourceforge.net/releases/2011.0.0/en.shtml">hugin 2011.0.0</a>. The projection is called after Michel Thoby who was able to empirically find it.
 </li></ul>
-<h2> <span class="mw-headline" id="Field_of_View"> Field of View </span></h2>
+<h1> <span class="mw-headline" id="Field_of_View"> Field of View </span></h1>
 <p>This is the horizontal and vertical <a href="Field_of_View.html" title="Field of View">angle of view</a> of the output image,
 clicking <b>Calculate Field of View</b> will shrink or enlarge the field of view of the
 output to fit the arrangement of the input images - The <b>Fit</b> button in the
@@ -87,7 +87,7 @@ output to fit the arrangement of the input images - The <b>Fit</b> button in the
 </li><li> Mercator has to be less than 180 degrees vertically.
 </li><li> Transverse Mercator has to be less than 180 degrees horizontally.
 </li></ul>
-<h2> <span class="mw-headline" id="Canvas_Size"> Canvas Size </span></h2>
+<h1> <span class="mw-headline" id="Canvas_Size"> Canvas Size </span></h1>
 <p>Set the <b>width</b> and <b>height</b> of your output panorama in pixels.  <b>Calculate Optimal Size</b> will estimate
 a size that has about the same resolution as your input images.
 </p><p>Some examples: a <i>three megapixel</i> image has pixel dimensions of 2048 x 1536, an A4 print at 300 pixels per inch will
@@ -97,7 +97,7 @@ dimensions of 6000 x 3000 or greater and a <i>gigapixel</i> image has a pixel si
 than about half the size of the <i>Optimal Size</i> will show <a href="Aliasing.html" title="Aliasing">aliasing</a> artefacts.  If you want to create high quality
 small images, it is better to create an <i>Optimal Size</i> image in hugin and downsize it later in an image editor such as Gimp<a class="external" href="http://wiki.panotools.org/Gimp">[*]</a>.
 </p>
-<h2> <span class="mw-headline" id="Crop"> Crop </span></h2>
+<h1> <span class="mw-headline" id="Crop"> Crop </span></h1>
 <p>The crop settings allow just a portion of the panorama to be stitched, there are various reasons to do this:
 </p>
 <ul><li> When <a href="Perspective_correction.html" title="Perspective correction">correcting perspective</a> large areas of the panorama output will be empty anyway.
@@ -106,15 +106,15 @@ small images, it is better to create an <i>Optimal Size</i> image in hugin and d
 <p>The cropped-out areas are shown darkened in the <a href="Hugin_Preview_window.html" title="Hugin Preview window">Preview window</a>.
 </p><p>The <b>Fit Crop to Images</b> button will automatically determine a crop that has a maximum number of pixels and no empty space.  This is the same function as the <b>Autocrop</b> button in the <a href="Hugin_Fast_Preview_window.html" title="Hugin Fast Preview window">Fast Preview window</a>. 
 </p>
-<h2> <span class="mw-headline" id="Output"> Output </span></h2>
+<h1> <span class="mw-headline" id="Panorama_Outputs"> Panorama Outputs </span></h1>
 <p>Hugin can output 'normal' stitched images, exposure fused<a class="external" href="http://wiki.panotools.org/index.php?title=Exposure_fusion&amp;action=edit&amp;redlink=1">[*]</a> images or high dynamic range (<a href="HDR.html" title="HDR">HDR</a>) images.
 The following options determine which kind of image is created, and allow keeping the intermediate images created during the process.
 </p>
-<h3> <span class="mw-headline" id="Normal"> Normal </span></h3>
+<h2> <span class="mw-headline" id="Normal"> Normal </span></h2>
 <p>If <b>Exposure corrected, low dynamic range</b> is enabled then <a href="Enblend.html" title="Enblend">enblend</a> is used for blending. In the final stitching process <a href="Nona.html" title="Nona">nona</a> reprojects and distorts images to fit, <b>enblend</b> takes these images as individual <a href="TIFF.html" title="TIFF">TIFF</a> files and merges them using sophisticated seam positioning and blending.  Further <b>enblend</b> settings can be found in the <a href="Hugin_Preferences.html" title="Hugin Preferences">hugin Preferences</a>.
 </p><p>Enable <b>Exposure corrected, low dynamic range</b> under <b>Remapped Images</b> if you want to keep the intermediate images that <b>enblend</b> uses as input - For example modifying the <a href="Alpha_channel.html" title="Alpha channel">alpha channel</a> of these images and then blending manually is one technique for including and excluding people or objects that move between shots.
 </p>
-<h3> <span class="mw-headline" id="Exposure_fusion"> Exposure fusion </span></h3>
+<h2> <span class="mw-headline" id="Exposure_fusion"> Exposure fusion </span></h2>
 <p>If <b>Exposure fused from stacks</b> is enabled then hugin will group the input images into exposure stacks by comparing positions, any images with more than 70&#160;% overlap are grouped like this.  Each of these <a href="Bracketing.html" title="Bracketing">bracketed</a> exposure stacks will be exposure fused<a class="external" href="http://wiki.panotools.org/index.php?title=Exposure_fusion&amp;action=edit&amp;redlink=1">[*]</a> with <a href="Enfuse.html" title="Enfuse">enfuse</a> and the results seam blended together into a panorama with <a href="Enblend.html" title="Enblend">enblend</a>.
 </p><p>Note that for this to work, the scene has to be photographed multiple times using exposure <a href="Bracketing.html" title="Bracketing">bracketing</a> and the EV exposure values set either manually in the <a href="Hugin_Photos_tab.html" title="Hugin Photos tab">Photos tab</a>, automatically from <a href="EXIF.html" title="EXIF">EXIF</a> data or by optimising exposure in the <a href="Hugin_Assistant_tab.html" title="Hugin Assistant tab">hugin Assistant tab</a> or <a href="Hugin_Exposure_tab.html" title="Hugin Exposure tab">hugin Exposure tab</a>.
 </p><p>Note also that unlike <b>Normal</b> and <b>HDR merging</b> options where images are exposure corrected as part of the remapping process, enfuse requires that each exposure layer is supplied uncorrected - Hugin takes care of this automatically and will not apply exposure correction in this case.
@@ -133,17 +133,20 @@ The following options determine which kind of image is created, and allow keepin
 </li><li> <b><a href="JPEG.html" title="JPEG">JPG</a></b>, lossy compression suitable for web/email.  <b>Quality</b> can vary from <i>0</i> (extremely low quality, small file size) and <i>100</i> (high quality, large file size).  A typical quality setting for web/email would be between <i>70</i> and <i>80</i>
 </li><li> <b><a href="PNG.html" title="PNG">PNG</a></b>, lossless compression. <a href="16bit.html" title="16bit">16bit</a> and <i>8bit</i> depth supported.
 </li></ul>
-<h3> <span class="mw-headline" id="HDR_merging"> HDR merging </span></h3>
-<p>If <b>High dynamic range</b> is enabled then hugin will identify likely <a href="Bracketing.html" title="Bracketing">bracketed</a> stacks of images, then create remapped <a href="HDR.html" title="HDR">HDR</a> images which are then blended with <a href="Enblend.html" title="Enblend">enblend</a>.
-</p><p>Note that like the Exposure fusion option above, this generally only makes sense if the scene has been photographed multiple times using exposure bracketing, and the EV exposure values optimised in the <a href="Hugin_Exposure_tab.html" title="Hugin Exposure tab">hugin Exposure tab</a>.
-</p><p>Enable <b>High dynamic range merged stacks</b> from <b>Combined stacks</b> to keep copies of the remapped HDR images as supplied to enblend.
-</p><p>Enable <b>High dynamic range</b> from <b>Remapped Images</b> to keep copies of each image remapped in linear colour space before merging to HDR.
-</p><p>Click <b>Stitch now!</b> to generate output panoramas immediately.  Selecting <b>Save project and send to batch</b> adds the current project to the <a href="Hugin_Batch_Processor.html" title="Hugin Batch Processor">Hugin Batch Processor</a> stitching queue, note that the queue won't be processed unless this queue manager is running.
-</p><p>High dynamic range <b>Format</b> can be either:
+<h2> <span class="mw-headline" id="HDR_merging"> HDR merging </span></h2>
+<p><i>The option <b>High dynamic range</b> is only available in <b>Advanced</b> and <b>Expert</b> mode.</i>
+</p><p>If <b>High dynamic range</b> is enabled then hugin will identify likely <a href="Bracketing.html" title="Bracketing">bracketed</a> stacks of images, then create remapped <a href="HDR.html" title="HDR">HDR</a> images which are then blended with <a href="Enblend.html" title="Enblend">enblend</a>.
+</p><p><br />
+High dynamic range <b>Format</b> can be either:
 </p>
 <ul><li> <i>floating-point</i> <a href="TIFF.html" title="TIFF">TIFF</a>, various compression options.
 </li><li> <b><a href="OpenEXR.html" title="OpenEXR">EXR</a></b>, this is a high dynamic range format which is more compact than a high dynamic range TIFF.
 </li></ul>
+<p><br />
+</p>
+<h1> <span class="mw-headline" id="Stitch"> Stitch </span></h1>
+<p>Click <b>Stitch!</b> to generate output panoramas immediately.  Selecting <b>Save project and send to batch</b> adds the current project to the <a href="Hugin_Batch_Processor.html" title="Hugin Batch Processor">Hugin Batch Processor</a> stitching queue, note that the queue won't be processed unless this queue manager is running.
+</p>
 <h1> <span class="mw-headline" id="Processing"> Processing </span></h1>
 <p><a href="Nona.html" title="Nona">nona</a> is the default <b>Remapper</b> (stitching engine) supplied with <a href="Hugin.html" title="Hugin">hugin</a>, normally there is no need to
 change this or any of the options below.
@@ -162,7 +165,7 @@ always <b>save cropped images</b> unless you need to open them in an image edito
 </div>				<!-- /bodycontent -->
 								<!-- printfooter -->
 				<div class="printfooter">
-				Retrieved from "http://wiki.panotools.org/index.php?title=Hugin_Stitcher_tab&amp;oldid=14920<a class="external" href="http://wiki.panotools.org/index.php?title=Hugin_Stitcher_tab&amp;oldid=14920">[*]</a>"				</div>
+				Retrieved from "http://wiki.panotools.org/index.php?title=Hugin_Stitcher_tab&amp;oldid=14992<a class="external" href="http://wiki.panotools.org/index.php?title=Hugin_Stitcher_tab&amp;oldid=14992">[*]</a>"				</div>
 				<!-- /printfooter -->
 												<!-- catlinks -->
 				</div></div></body></html>

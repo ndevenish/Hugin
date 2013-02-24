@@ -228,7 +228,7 @@ These temporary files have to be deleted manually after the stitch.
 <h3> <span class="mw-headline" id="Stitch_fails_when_.27.26.27_is_part_of_the_Windows_user-name"> Stitch fails when '&amp;' is part of the Windows <i>user-name</i> </span></h3>
 <p>This is a variant of the above, but more difficult to work around.  The <i>user-name</i> is part of all paths in the user's data area, including the temporary file locations defined by TMP and TEMP.  Stitch fails almost immediately with a make path error.
 </p><p>Work-around: See the Temporary Folders section above, or Move your hugin data to a folder in the root directory such as C:\hugin.  Then go to the Windows Control Panel and change <i>System, Advanced, Environment, user TMP</i> to a folder in the root, such as 'C:\temp' (create it if necessary).
-</p><p>Notes:  This work-around probably needs Win 7 <i>Administrator</i> privileges.
+</p><p>Notes:  On Windows 7 go to Start&gt;Control Panel&gt;User Account&gt;Change my environment variables and change the variables TEMP and TMP accordingly.
 </p><p>A simpler solution should be to set hugin <i>File, Preferences, Temporary dir</i> to C:\hugin; but it doesn't fix
 the problem! Seemingly, at least one temporary file still gets created in the TMP folder.
 </p>
@@ -520,7 +520,7 @@ Your first emails will be moderated, so be patient if you don't see your message
 </div>				<!-- /bodycontent -->
 								<!-- printfooter -->
 				<div class="printfooter">
-				Retrieved from "http://wiki.panotools.org/index.php?title=Hugin_FAQ&amp;oldid=14457<a class="external" href="http://wiki.panotools.org/index.php?title=Hugin_FAQ&amp;oldid=14457">[*]</a>"				</div>
+				Retrieved from "http://wiki.panotools.org/index.php?title=Hugin_FAQ&amp;oldid=15013<a class="external" href="http://wiki.panotools.org/index.php?title=Hugin_FAQ&amp;oldid=15013">[*]</a>"				</div>
 				<!-- /printfooter -->
 												<!-- catlinks -->
 				</div></div></body></html>
