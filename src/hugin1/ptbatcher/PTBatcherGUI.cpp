@@ -465,12 +465,14 @@ void PTBatcherGUI::MacOpenFile(const wxString& fileName)
 #if wxCHECK_VERSION(2,9,0)
 #define RETURNEMPTYSTRING return wxEmptyString
 const void* BatchIPCConnection::OnRequest(const wxString& topic, const wxString& item, size_t* size, wxIPCFormat format)
+{
+    *size=wxNO_LEN;
 #else
 #define RETURNEMPTYSTRING return ((wxChar*) "")
 wxChar* BatchIPCConnection::OnRequest(const wxString& topic, const wxString& item, int* size, wxIPCFormat format)
-#endif
 {
-    *size=wxNO_LEN;
+    *size=-1;
+#endif
     BatchFrame* MyBatchFrame=wxGetApp().GetFrame();
     if(item.Left(1)==wxT("A"))
     {
