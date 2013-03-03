@@ -1,0 +1,121 @@
+Hugin-2013.0 RELEASE NOTES
+
+ABOUT
+
+Hugin is more than just a panorama stitcher. 
+
+Hugin can be found at
+* SourceForge:  http://hugin.sourceforge.net/
+* Launchpad:    https://launchpad.net/hugin
+
+
+DOWNLOAD
+
+The 2013.0 source tarball can be downloaded
+
+* from SourceForge at
+http://sourceforge.net/projects/hugin/files/hugin/hugin-2013.0/hugin-2013.0.0.tar.bz2/download
+
+* from Launchpad at
+http://launchpad.net/hugin/2013.0/2013.0.0/+download/hugin-2013.0.0.tar.bz2
+
+This is a source code release.  For executables see below.
+
+This tarball is equivalent to rev/changeset ########## in our Mercurial
+repository, where it is also tagged 2013.0.0
+
+Verify its SHA1SUM
+################################  hugin-2013.0.0.tar.bz2
+
+EXECUTABLES
+
+Users communities produce executables for their respective platforms.
+
+These executables are then added to the download section on SourceForge at
+http://sourceforge.net/projects/hugin/files/hugin/
+
+A number of users have built recent snapshots and executables are likely to be
+announced within a few days of this tarball release.
+
+Watch http://groups.google.com/group/hugin-ptx for the announcements of binary
+releases.  If you don't see a binary for your platform it has most likely not
+been produced yet.  Consider stepping up to the task.  Instructions at
+
+http://wiki.panotools.org/Development_of_Open_Source_tools#Supported_Platforms
+
+Announce your build on http://groups.google.com/group/hugin-ptx
+
+
+CHANGES SINCE 2012.0.0
+
+* The greatest change is the redesign of the (Graphical) User Interface (GUI). The user interface now consists of three modes: Simple, Advanced and Expert.
+The Simple interface is for the beginning panorama photographer and offers all tools to create your panorama. You can also use this mode if you have a simple, straightforward panorama. The Simple interface mode uses the "Fast Preview"  window as its main workflow window.
+The Advanced interface mode offers you more options to improve your panorama. It uses the Panorama Editor as it's main window.
+The Expert mode gives you access to all options and functions that Hugin has to offer. This is where you can optimize your complicated, multilayer, mosaic, multi-stack, you name it, panorama. It also uses the Panorama Editor as it's main window.
+
+* The Hugin build for Mac OS X has switched from Carbon to Cocoa and is now fully 64bit.
+
+New tools added:
+* pto_var ( change image variables inside pto files)
+* pto_lensstack (modify assigned lenses and stack in pto files)
+* geocpset  (set/add geometric contraints for multirow panorama with featureless images)
+
+
+Other Improvements
+* Many more improvements and bug fixes.
+
+UPGRADING
+
+Upgrading from previous versions of Hugin should be seamless. If you do have
+problems with old settings, these can be reset in the Preferences by clicking
+'Load defaults'.
+
+It is strongly recommeded to set the default control point detector to
+Hugin's CPFind.  It is the only control point generator endorsed by Hugin.
+Third-party generators may be compatible with the plug-in architecture.
+
+
+COMPILING
+
+Users compiling from source refer to the dependencies listed at
+http://wiki.panotools.org/Development_of_Open_Source_tools#Dependencies
+
+and the build processes listed at
+http://wiki.panotools.org/Development_of_Open_Source_tools#Build_your_Own_Test_Builds
+
+More information in the README and INSTALL_cmake files in the tarball.
+
+
+KNOWN ISSUES AND WORKAROUNDS
+
+There is a known problem building Hugin with CMake 2.8.5rc2.
+Workaround: Upgrade to a newer CMake version.
+
+Mac OS X:
+- Mac OS X Tiger (10.4) is no longer supported.
+- The PPC platform is no longer supported.
+- The OpenMP enabled enblend is now compatible on Mac OS X Lion (10.7).
+- The cmake compilation of Hugin is currently broken due to the fact that
+the boost library on OS X is currently at version 1.50 and boost versions => 1.48
+conflict with a number of Mac OS X macros (from AssertMacros.h). This can
+not be disabled as WxWindows for Mac (a.k.a. WxMac) needs these macros.
+An XCode build, where a specific boost (<=1.46) can be specified, is
+possible. The 2013.0 OSX bundle will be based on an XCode build with boost
+1.46.
+
+An updated list of issues deemed to be critical, including discussions
+and workarounds is in the issue tracker.
+https://bugs.launchpad.net/hugin/+bugs?search=Search&field.importance=Critical
+
+
+THANKS
+
+Thanks to all the contributors to this release and members of the hugin-ptx
+mailing list, too many to mention here.
+
+Hugin can be found at http://hugin.sourceforge.net/ and at https://launchpad.net/hugin
+
+
+CHANGELOG
+
+A detailed changelog can be found in the file Changelog.
