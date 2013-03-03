@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Hugin 2012.0.0\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
 "POT-Creation-Date: 2013-02-24 12:50+0100\n"
-"PO-Revision-Date: 2012-08-08 09:23+0100\n"
+"PO-Revision-Date: 2013-03-02 10:23+0100\n"
 "Last-Translator: Höss Lajos <pgc1682@freemail.hu>\n"
 "Language-Team: Balló György <ballogy@freestart.hu>\n"
 "Language: \n"
@@ -96,19 +96,16 @@ msgid "Warning"
 msgstr "Figyelmeztetés"
 
 #: hugin1/base_wx/huginConfig.cpp:288
-#, fuzzy
 msgid "first image"
-msgstr "Ez a kép"
+msgstr "első kép"
 
 #: hugin1/base_wx/huginConfig.cpp:289
-#, fuzzy
 msgid "last image"
-msgstr "Kép hozzáadása"
+msgstr "utolsó kép"
 
 #: hugin1/base_wx/huginConfig.cpp:291
-#, fuzzy
 msgid "directory"
-msgstr "Könyvtár:"
+msgstr "könyvtár"
 
 #: hugin1/base_wx/huginConfig.cpp:292 hugin1/base_wx/LensTools.cpp:41
 #: hugin1/hugin/GLPreviewFrame.cpp:1488 hugin1/hugin/ImagesTree.cpp:370
@@ -117,14 +114,12 @@ msgid "Equirectangular"
 msgstr "Négyzetes hengerv. /equirect./"
 
 #: hugin1/base_wx/huginConfig.cpp:297 hugin1/hugin/ImagesTree.cpp:149
-#, fuzzy
 msgid "Camera maker"
-msgstr "Kamera gyártó:"
+msgstr "Kamera gyártó"
 
 #: hugin1/base_wx/huginConfig.cpp:298 hugin1/hugin/ImagesTree.cpp:150
-#, fuzzy
 msgid "Camera model"
-msgstr "Kamera modell:"
+msgstr "Kamera modell"
 
 #: hugin1/base_wx/huginConfig.cpp:299 hugin1/hugin/ImagesPanel.cpp:666
 #: hugin1/hugin/ImagesTree.cpp:151 hugin1/hugin/ImagesTree.cpp:1161
@@ -134,9 +129,8 @@ msgid "Lens"
 msgstr "Objektív"
 
 #: hugin1/base_wx/huginConfig.cpp:335
-#, fuzzy
 msgid "unknown projection"
-msgstr "Ismeretlen verzió"
+msgstr "Ismeretlen vetület"
 
 #: hugin1/base_wx/LensTools.cpp:37 hugin1/hugin/ImagesTree.cpp:366
 msgid "Normal (rectilinear)"
@@ -926,13 +920,12 @@ msgid "Select Control Points"
 msgstr "Kontroll pontok kijelölése"
 
 #: hugin1/hugin/DragTool.cpp:78
-#, fuzzy
 msgid ""
 "Drag to move images (optionally use shift to constrain), or roll with right-"
 "drag or Ctrl-drag."
 msgstr ""
-"Húzza a képeket (opció használja a shift-et kényszerítéshez), vagy döntéshez "
-"(roll) jobb-húzás vagy ctrl-húzás."
+"Húzza a képeket elmozdításhoz (opcionálisan használja a shift-et "
+"kényszerítéshez), vagy döntéshez (roll) jobb-húzás vagy Ctrl-húzás."
 
 #: hugin1/hugin/DragTool.cpp:106
 msgid ""
@@ -1071,14 +1064,13 @@ msgid "param:"
 msgstr "param:"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:976
-#, fuzzy
 msgid "No images loaded."
-msgstr "nincs betöltött kép"
+msgstr "Nincs betöltött kép."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1011
 #, c-format
 msgid "%lu images loaded."
-msgstr "%lu képek betöltve."
+msgstr "%lu kép betöltve."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1027
 #, c-format
@@ -1134,7 +1126,6 @@ msgid "Mean error after optimization: %.1f pixel, max: %.1f\n"
 msgstr "Átlagos hiba az optimalizálás után: %.1f képpont, max: %.1f\n"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1077
-#, fuzzy
 msgid ""
 "Note: automatic alignment uses default settings from the preferences. If you "
 "want to use customized settings, run the CP detection, the geometrical "
@@ -1142,10 +1133,9 @@ msgid ""
 "panorama editor."
 msgstr ""
 "Megjegyzés: Az automatikus igazítás az alapértelmezett opciókat használja a "
-"beállításokból. Ha testre szabja ezeket a beállításokat ehhez a projekthez a "
-"speciális füleken, és használni szeretné ezeket az egyéni beállításokat, "
-"futtassa K.P. keresőt a Képek Fülön, a geometriai optimalizálót az "
-"Optimalizáló fülön és a fotometrikus optimalizációt az Expozíció fülön."
+"beállításokból. Ha testre akarja szabni ezeket a beállításokat, futtassa "
+"Kontroll Pont keresőt, a geometriai optimalizálót és a fotometrikus "
+"optimalizációt a Képek fülön a panoráma szerkesztőben. "
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1486 hugin1/hugin/PreviewFrame.cpp:628
 msgid "Rectilinear"
@@ -1371,7 +1361,6 @@ msgstr ""
 "Gyors előnézeti ablak nem nyitható meg."
 
 #: hugin1/hugin/GLViewer.cpp:299
-#, fuzzy
 msgid ""
 "Sorry, the fast preview window requires a system which supports OpenGL "
 "version 1.1 with the GL_ARB_multitexture extension.\n"
@@ -1382,7 +1371,10 @@ msgid ""
 msgstr ""
 "Sajnáljuk, a gyors előnézeti ablak olyan rendszert követel meg, amely "
 "támogatja az OpenGL 1.1-es verzió GL_ARB_multitexture kiterjesztését.\n"
-"A gyors előnézetet nem lehet megnyitni."
+"A gyors előnézetet nem lehet megnyitni.\n"
+"\n"
+"Hugin már be van állítva gyors előnézet nélküli indításhoz.\n"
+"Kérjük, indítsa újra Hugin-t."
 
 #: hugin1/hugin/HDRMergeOptionDialog.cpp:157
 msgid "Invalid input\n"
@@ -1442,6 +1434,9 @@ msgid ""
 "degress.\n"
 "Do you want still use that high value?"
 msgstr ""
+"Ön %.2f fokos látómezőt adott meg.\n"
+"Az ortografikus vetület látómezeje azonban 180 fokra van korlátozva.\n"
+"Folytatja ennek ellenére a megadott nagyobb értékkel?"
 
 #: hugin1/hugin/ImagesList.cpp:455 hugin1/hugin/ImagesList.cpp:515
 #: hugin1/hugin/ImagesTree.cpp:141
@@ -1459,19 +1454,16 @@ msgid "Crop"
 msgstr "Vágás"
 
 #: hugin1/hugin/ImagesPanel.cpp:312
-#, fuzzy
 msgid "Enter maximal number of control points per image pair"
-msgstr "Pontok száma képenként"
+msgstr "Adja meg a maximális kontroll pontok számát képpároként"
 
 #: hugin1/hugin/ImagesPanel.cpp:313
-#, fuzzy
 msgid "Points per Overlap"
-msgstr "Pontok átfedésenként:"
+msgstr "Pontok Átfedésenként"
 
 #: hugin1/hugin/ImagesPanel.cpp:314
-#, fuzzy
 msgid "Control point detector option"
-msgstr "Kontroll pont keresés eredménye"
+msgstr "Kontroll pont kereső opció"
 
 #: hugin1/hugin/ImagesPanel.cpp:332
 #, c-format
@@ -1485,25 +1477,23 @@ msgstr "Kontroll pont keresés eredménye"
 #: hugin1/hugin/ImagesPanel.cpp:609
 msgid "The minimum overlap has to be greater than 0 and smaller than 1."
 msgstr ""
+"A minimális átfedésnek 0-nál nagyobbnak, és 1-nél kisebbnek kell lennie."
 
 #: hugin1/hugin/ImagesPanel.cpp:639
 msgid "The maximum Ev difference has to be greater than 0."
-msgstr ""
+msgstr "A maximális Ev különbségnek 0-nál nagyobbnak kell lennie."
 
 #: hugin1/hugin/ImagesPanel.cpp:671 hugin1/hugin/ImagesTree.cpp:1173
-#, fuzzy
 msgid "Stacks"
-msgstr "Kötegek:"
+msgstr "Kötegek"
 
 #: hugin1/hugin/ImagesPanel.cpp:676
-#, fuzzy
 msgid "Output layers"
-msgstr "Kimenet"
+msgstr "Kimeneti rétegek"
 
 #: hugin1/hugin/ImagesPanel.cpp:679
-#, fuzzy
 msgid "Output stacks"
-msgstr "Kimenet"
+msgstr "Kimeneti kötegek"
 
 #: hugin1/hugin/ImagesPanel.cpp:697
 msgid "Positions (incremental, starting from anchor)"
@@ -1519,7 +1509,7 @@ msgstr "Pozíciók és Látómező (y,p,r,v)"
 
 #: hugin1/hugin/ImagesPanel.cpp:706
 msgid "Positions and Barrel Distortion (y,p,r,b)"
-msgstr "Pozíciók és Hordó torzítás (y,p,r,b)"
+msgstr "Pozíciók és Hordó Torzítás (y,p,r,b)"
 
 #: hugin1/hugin/ImagesPanel.cpp:709
 msgid "Positions, View and Barrel (y,p,r,v,b)"
@@ -1550,9 +1540,8 @@ msgid "Positions, Translation, View and Barrel (y,p,r,x,y,z,v,b)"
 msgstr "Pozíciók, Fordítás, Látómező és Hordó (y,p,r,x,y,z,v,b)"
 
 #: hugin1/hugin/ImagesPanel.cpp:737 hugin1/hugin/ImagesPanel.cpp:758
-#, fuzzy
 msgid "Custom parameters"
-msgstr "Az alábbi egyéni paraméterekkel"
+msgstr "Egyéni paraméterek"
 
 #: hugin1/hugin/ImagesPanel.cpp:743
 msgid "Low dynamic range"
@@ -1571,179 +1560,148 @@ msgid "High dynamic range, variable white balance, fixed exposure"
 msgstr "Nagy dinamika tartomány, változó fehér egyensúly, fix expozíció "
 
 #: hugin1/hugin/ImagesPanel.cpp:816
-#, fuzzy
 msgid "Simple interface"
-msgstr "Felhasználói felület"
+msgstr "Egyszerű felület"
 
 #: hugin1/hugin/ImagesPanel.cpp:819
-#, fuzzy
 msgid "Advanced interface"
-msgstr "Speciális beállítás"
+msgstr "Haladó felület"
 
 #: hugin1/hugin/ImagesPanel.cpp:822
-#, fuzzy
 msgid "Expert interface"
-msgstr "Felhasználói felület"
+msgstr "Szakértői felület"
 
 #: hugin1/hugin/ImagesTree.cpp:140
-#, fuzzy
 msgid "Image number"
-msgstr "Objektívszám"
+msgstr "Képszám"
 
 #: hugin1/hugin/ImagesTree.cpp:142
-#, fuzzy
 msgid "Width"
-msgstr "Szélesség:"
+msgstr "Szélesség"
 
 #: hugin1/hugin/ImagesTree.cpp:142
-#, fuzzy
 msgid "Image width"
-msgstr "illesztés szélessége:"
+msgstr "Kép szélessége"
 
 #: hugin1/hugin/ImagesTree.cpp:143
-#, fuzzy
 msgid "Height"
-msgstr "Magasság:"
+msgstr "Magasság"
 
 #: hugin1/hugin/ImagesTree.cpp:143
-#, fuzzy
 msgid "Image height"
-msgstr "Képnyírás"
+msgstr "Kép magassága"
 
 #: hugin1/hugin/ImagesTree.cpp:144
 msgid "Anchor"
 msgstr "Horgony"
 
 #: hugin1/hugin/ImagesTree.cpp:144
-#, fuzzy
 msgid "Anchor image for position and/or exposure"
-msgstr "Ezen kép pozíciójának rögzítése"
+msgstr "Kép pozíciójának és/vagy expozíciójának rögzítése"
 
 #: hugin1/hugin/ImagesTree.cpp:145
 msgid "# Ctrl Pnts"
 msgstr "# Kontroll pontok"
 
 #: hugin1/hugin/ImagesTree.cpp:145
-#, fuzzy
 msgid "Number of control points in this image"
-msgstr "Pontok száma képenként"
+msgstr "Pontok száma ezen a képen"
 
 #: hugin1/hugin/ImagesTree.cpp:146
 msgid "Lens no."
 msgstr "Obj. szám"
 
 #: hugin1/hugin/ImagesTree.cpp:146
-#, fuzzy
 msgid "Assigned lens number"
-msgstr "Objektívszám módosítása"
+msgstr "Hozzárendelt objektív szám"
 
 #: hugin1/hugin/ImagesTree.cpp:147
-#, fuzzy
 msgid "Stack no."
-msgstr "Kötegek:"
+msgstr "Kötegszám"
 
 #: hugin1/hugin/ImagesTree.cpp:147
-#, fuzzy
 msgid "Assigned stack number"
-msgstr "Köteg szám módosítása"
+msgstr "Hozzárendelt köteg szám"
 
 #: hugin1/hugin/ImagesTree.cpp:149
-#, fuzzy
 msgid "Maker"
-msgstr "Gyártó:"
+msgstr "Gyártó"
 
 #: hugin1/hugin/ImagesTree.cpp:150
-#, fuzzy
 msgid "Model"
-msgstr "Mód:"
+msgstr "Modell"
 
 #: hugin1/hugin/ImagesTree.cpp:151
-#, fuzzy
 msgid "Used lens"
-msgstr "Új Objektív"
+msgstr "Használt objektív"
 
 #: hugin1/hugin/ImagesTree.cpp:152
-#, fuzzy
 msgid "Capture date"
-msgstr "A felvétel dátuma:"
+msgstr "Felvétel dátuma"
 
 #: hugin1/hugin/ImagesTree.cpp:152
 msgid "Date, image was taken"
-msgstr ""
+msgstr "Dátum, amikor a kép készült"
 
 #: hugin1/hugin/ImagesTree.cpp:153
-#, fuzzy
 msgid "Focal length"
-msgstr "Fókusztávolság:"
+msgstr "Fókusztávolság"
 
 #: hugin1/hugin/ImagesTree.cpp:154
-#, fuzzy
 msgid "Aperture"
-msgstr "Rekesz:"
+msgstr "Rekesz"
 
 #: hugin1/hugin/ImagesTree.cpp:155
-#, fuzzy
 msgid "Shutter Speed"
-msgstr "Zársebesség:"
+msgstr "Zársebesség"
 
 #: hugin1/hugin/ImagesTree.cpp:155
-#, fuzzy
 msgid "Shutter speed"
-msgstr "Zársebesség:"
+msgstr "Zársebesség"
 
 #: hugin1/hugin/ImagesTree.cpp:156
-#, fuzzy
 msgid "ISO"
-msgstr "ISO:"
+msgstr "ISO"
 
 #: hugin1/hugin/ImagesTree.cpp:156
 msgid "ISO speed"
-msgstr ""
+msgstr "ISO érzékenység"
 
 #: hugin1/hugin/ImagesTree.cpp:158
-#, fuzzy
 msgid "Yaw (y)"
-msgstr "forgatás (y)"
+msgstr "Forgatás (y)"
 
 #: hugin1/hugin/ImagesTree.cpp:158
-#, fuzzy
 msgid "Yaw"
-msgstr "Forgatás (y):"
+msgstr "Forgatás"
 
 #: hugin1/hugin/ImagesTree.cpp:159
-#, fuzzy
 msgid "Pitch (p)"
-msgstr "bólintás (p)"
+msgstr "Bólintás (p)"
 
 #: hugin1/hugin/ImagesTree.cpp:159
-#, fuzzy
 msgid "Pitch"
-msgstr "Bólintás (p):"
+msgstr "Bólintás"
 
 #: hugin1/hugin/ImagesTree.cpp:160
-#, fuzzy
 msgid "Roll (r)"
-msgstr "dőlés (r)"
+msgstr "Dőlés (r)"
 
 #: hugin1/hugin/ImagesTree.cpp:160
-#, fuzzy
 msgid "Roll"
-msgstr "Dőlés (r):"
+msgstr "Dőlés"
 
 #: hugin1/hugin/ImagesTree.cpp:161
-#, fuzzy
 msgid "Camera translation X"
-msgstr "Kamera Válasz"
+msgstr "Kamera fordítás X"
 
 #: hugin1/hugin/ImagesTree.cpp:162
-#, fuzzy
 msgid "Camera translation Y"
-msgstr "Kamera Válasz"
+msgstr "Kamera fordítás Y"
 
 #: hugin1/hugin/ImagesTree.cpp:163
-#, fuzzy
 msgid "Camera translation Z"
-msgstr "Kamera Válasz"
+msgstr "Kamera fordítás Z"
 
 #: hugin1/hugin/ImagesTree.cpp:165
 msgid "Lens type (f)"
@@ -1751,97 +1709,82 @@ msgstr "Objektívtípus (f)"
 
 #: hugin1/hugin/ImagesTree.cpp:165
 msgid "Lens type (rectilinear, fisheye, equirectangular, ...)"
-msgstr ""
+msgstr "Objektív típus (egyenes vonalú, halszem, négyzetes hengerv., ...)"
 
 #: hugin1/hugin/ImagesTree.cpp:166
-#, fuzzy
 msgid "Hfov (v)"
-msgstr "hfov (v)"
+msgstr "Hfov (v)"
 
 #: hugin1/hugin/ImagesTree.cpp:166
-#, fuzzy
 msgid "Horizontal field of view (v)"
-msgstr "Vízszintes látóhatár"
+msgstr "Vízszintes látóhatár (v)"
 
 #: hugin1/hugin/ImagesTree.cpp:167
-#, fuzzy
 msgid "Radial distortion (a)"
-msgstr "Sugárirányú (Radial) torzítás"
+msgstr "Sugárirányú (Radial) torzítás (a)"
 
 #: hugin1/hugin/ImagesTree.cpp:168
-#, fuzzy
 msgid "Radial distortion (b, barrel)"
-msgstr "Sugárirányú (Radial) torzítás"
+msgstr "Sugárirányú (Radial) torzítás (b, hordó)"
 
 #: hugin1/hugin/ImagesTree.cpp:169
-#, fuzzy
 msgid "Radial distortion (c)"
-msgstr "Sugárirányú (Radial) torzítás"
+msgstr "Sugárirányú (Radial) torzítás (c)"
 
 #: hugin1/hugin/ImagesTree.cpp:170
 msgid "Horizontal image center shift (d)"
-msgstr ""
+msgstr "Vízszintes képközéppont eltolás (d)"
 
 #: hugin1/hugin/ImagesTree.cpp:171
-#, fuzzy
 msgid "Vertical image center shift (e)"
-msgstr "Képközéppont eltolás"
+msgstr "Függőleges képközéppont eltolás (e)"
 
 #: hugin1/hugin/ImagesTree.cpp:172
 msgid "Horizontal image shearing (g)"
-msgstr ""
+msgstr "Vízszintes képnyírás (g)"
 
 #: hugin1/hugin/ImagesTree.cpp:173
 msgid "Vertical image shearing (t)"
-msgstr ""
+msgstr "Függőleges képnyírás (t)"
 
 #: hugin1/hugin/ImagesTree.cpp:175
-#, fuzzy
 msgid "Exposure value (Eev)"
-msgstr "Expozíció (Eev)"
+msgstr "Expozíció érték (Eev)"
 
 #: hugin1/hugin/ImagesTree.cpp:176
-#, fuzzy
 msgid "Red multiplier (Er)"
-msgstr "Vörös szorzó (Er):"
+msgstr "Vörös szorzó (Er)"
 
 #: hugin1/hugin/ImagesTree.cpp:177
-#, fuzzy
 msgid "Blue multiplier (Eb)"
-msgstr "Kék szorzó (Eb):"
+msgstr "Kék szorzó (Eb)"
 
 #: hugin1/hugin/ImagesTree.cpp:178 hugin1/hugin/ImagesTree.cpp:179
 #: hugin1/hugin/ImagesTree.cpp:180
-#, fuzzy
 msgid "Vignetting (Vb, Vc, Vd)"
-msgstr "Vignettálás (Vb, Vc, Vd):"
+msgstr "Peremsötétedés (Vb, Vc, Vd)"
 
 #: hugin1/hugin/ImagesTree.cpp:181
-#, fuzzy
 msgid "Horizontal vignetting center shift (Vx)"
-msgstr "Vignettálás Középpont Eltolás (Vx, Vy)"
+msgstr "Vízszintes peremsötétedés közép eltolás (Vx)"
 
 #: hugin1/hugin/ImagesTree.cpp:182
-#, fuzzy
 msgid "Vertical vignetting center shift (Vy)"
-msgstr "Vignettálás Középpont Eltolás (Vx, Vy)"
+msgstr "Függőleges peremsötétedés közép eltolás (Vy)"
 
 #: hugin1/hugin/ImagesTree.cpp:183
-#, fuzzy
 msgid "Response type"
-msgstr "Objektívtípus:"
+msgstr "Válasz típus"
 
 #: hugin1/hugin/ImagesTree.cpp:183
-#, fuzzy
 msgid "Camera response type"
-msgstr "Kamera Válasz"
+msgstr "Kamera válasz típus"
 
 #: hugin1/hugin/ImagesTree.cpp:184 hugin1/hugin/ImagesTree.cpp:185
 #: hugin1/hugin/ImagesTree.cpp:186 hugin1/hugin/ImagesTree.cpp:187
 #: hugin1/hugin/ImagesTree.cpp:188
-#, fuzzy
 msgid "Camera response parameter"
-msgstr "Kamera Válasz"
+msgstr "Kamera válasz paraméter"
 
 #: hugin1/hugin/ImagesTree.cpp:385 translations/xrc.cpp:246 xrc.cpp:246
 msgid "custom (EMoR)"
@@ -1852,24 +1795,24 @@ msgid "Linear"
 msgstr "Lineáris"
 
 #: hugin1/hugin/ImagesTree.cpp:663
-#, fuzzy, c-format
+#, c-format
 msgid "Lens %d"
-msgstr "Objektív"
+msgstr "Objektív %d"
 
 #: hugin1/hugin/ImagesTree.cpp:666
-#, fuzzy, c-format
+#, c-format
 msgid "Stack %d"
-msgstr "Kötegek:"
+msgstr "Kötegek %d"
 
 #: hugin1/hugin/ImagesTree.cpp:669
 #, c-format
 msgid "Output stack %d"
-msgstr ""
+msgstr "Kimeneti köteg %d"
 
 #: hugin1/hugin/ImagesTree.cpp:672
-#, fuzzy, c-format
+#, c-format
 msgid "Output exposure layer %d"
-msgstr "Összemosott expozíciós rétegek"
+msgstr "Expozíciós réteg kimenet %d"
 
 #: hugin1/hugin/ImagesTree.cpp:1097 hugin1/hugin/ImagesTree.cpp:1112
 msgid "Link"
@@ -1877,43 +1820,39 @@ msgstr "Összeláncol"
 
 #: hugin1/hugin/ImagesTree.cpp:1101 hugin1/hugin/ImagesTree.cpp:1108
 msgid "Unlink"
-msgstr ""
+msgstr "Szétláncol"
 
 #: hugin1/hugin/ImagesTree.cpp:1123
 msgid "Select all for current lens"
-msgstr ""
+msgstr "Mindent kijelöl a jelenlegi objektívhez"
 
 #: hugin1/hugin/ImagesTree.cpp:1124
 msgid "Unselect all for current lens"
-msgstr ""
+msgstr "Minden kijelöletlen a jelenlegi objektívhez"
 
 #: hugin1/hugin/ImagesTree.cpp:1128
 msgid "Select all for current stack"
-msgstr ""
+msgstr "Mindent kijelöl jelenlegi köteghez"
 
 #: hugin1/hugin/ImagesTree.cpp:1129
 msgid "Unselect all for current stack"
-msgstr ""
+msgstr "Minden kijelöletlen a jelenlegi köteghez"
 
 #: hugin1/hugin/ImagesTree.cpp:1132 hugin1/hugin/ImagesTree.cpp:1143
 #: hugin1/hugin/ImagesTree.cpp:1228
-#, fuzzy
 msgid "Select all"
-msgstr "Mindent alaphelyzetbe"
+msgstr "Mindent kijelöl"
 
 #: hugin1/hugin/ImagesTree.cpp:1133 hugin1/hugin/ImagesTree.cpp:1144
 #: hugin1/hugin/ImagesTree.cpp:1229
-#, fuzzy
 msgid "Unselect all"
-msgstr "Kijelöletlen"
+msgstr "Összes kijelöletlen"
 
 #: hugin1/hugin/ImagesTree.cpp:1137
-#, fuzzy
 msgid "Edit image variables..."
-msgstr "Kép változók:"
+msgstr "Kép változók szerkesztése..."
 
 #: hugin1/hugin/ImagesTree.cpp:1184
-#, fuzzy
 msgid "Control points"
 msgstr "Kontroll pontok"
 
@@ -1925,18 +1864,16 @@ msgid "Reset"
 msgstr "Visszaállít"
 
 #: hugin1/hugin/ImageVariableDialog.cpp:319
-#, fuzzy
 msgid "Save graph"
-msgstr "Köteg mentése"
+msgstr "Grafikon mentése"
 
 #: hugin1/hugin/ImageVariableDialog.cpp:321
 msgid "Bitmap (*.bmp)|*.bmp|PNG-File (*.png)|*.png"
-msgstr ""
+msgstr "Bitkép (*.bmp)|*.bmp|PNG-Fájl (*.png)|*.png"
 
 #: hugin1/hugin/ImageVariableDialog.cpp:347
-#, fuzzy
 msgid "Save image"
-msgstr "Maszk mentése"
+msgstr "Kép mentése"
 
 #: hugin1/hugin/LocalizedFileTipProvider.cpp:48
 msgid "Tips not available, sorry!"
@@ -2041,9 +1978,8 @@ msgstr "Hugin - Panorama Összefűző"
 #: hugin1/hugin/MainFrame.cpp:824 hugin1/hugin/MainFrame.cpp:949
 #: hugin1/hugin/MainFrame.cpp:1051 hugin1/hugin/MainFrame.cpp:2097
 #: hugin1/hugin/MainFrame.cpp:2103
-#, fuzzy
 msgid "Panorama editor"
-msgstr "Panoráma előnézet"
+msgstr "Panoráma szerkesztő"
 
 #: hugin1/hugin/MainFrame.cpp:837
 #, c-format
@@ -2224,6 +2160,9 @@ msgid ""
 "vignetting center shift.\n"
 "These features are not supported in simple interface."
 msgstr ""
+"Nem lehet átváltani az egyszerű felhasználói felületre. A projekt kötegeket "
+"és/vagy peremsötétedés közép eltolást használ.\n"
+"Ezek a funkciók nem támogatottak az egyszerű felhasználói felületen."
 
 #: hugin1/hugin/MainFrame.cpp:2147
 msgid ""
@@ -2231,6 +2170,9 @@ msgid ""
 "parameters.\n"
 "These parameters are not supported in simple interface."
 msgstr ""
+"Nem lehet átváltani az egyszerű felhasználói felületre. A projekt fordítást "
+"és/vagy nyírás paramétereket használ.\n"
+"Ezek a paraméterek nem támogatottak az egyszerű felhasználói felületen."
 
 #: hugin1/hugin/MainFrame.cpp:2168
 msgid ""
@@ -2238,13 +2180,16 @@ msgid ""
 "shear parameters.\n"
 "These parameters are not supported in advanced interface."
 msgstr ""
+"Nem lehet átváltani a haladó felhasználói felületre. A projekt fordítást és/"
+"vagy nyírás paramétereket használ.\n"
+"Ezek a paraméterek nem támogatottak a haladó felhasználói felületen."
 
 #: hugin1/hugin/MainFrame.cpp:2195
 msgid ""
 "At least two images are required.\n"
 "Please add more images."
 msgstr ""
-"Legalább két kép szükséges. \n"
+"Legalább két kép szükséges.\n"
 "Adjon hozzá több képet."
 
 #: hugin1/hugin/MainFrame.cpp:2242
@@ -2285,7 +2230,6 @@ msgid "Can't launch PTBatcherGui"
 msgstr "Nem lehet elindítani a PTBatcherGui-t"
 
 #: hugin1/hugin/MainFrame.cpp:2340
-#, fuzzy
 msgid "Launched incorrect programme"
 msgstr "Nem megfelelő programot indított"
 
@@ -2335,21 +2279,26 @@ msgstr "Nona beállítások"
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:94
 msgid "Any variables below which are bold and underlined will be optimized."
 msgstr ""
+"Bármely változók lentebb amelyek félkövérek és aláhúzottak optimalizálva "
+"lesznek."
 
 #: hugin1/hugin/OptimizePanel.cpp:99
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:97
 msgid "Use command + left mouse click to toggle state of variables."
 msgstr ""
+"Használja a command + bal egér kattintást a változók állapot cseréjéhez."
 
 #: hugin1/hugin/OptimizePanel.cpp:101
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:99
 msgid "Use control + left mouse click to toggle state of variables."
-msgstr ""
+msgstr "Használja a CTRL + bal egér kattintást a változók állapot cseréjéhez."
 
 #: hugin1/hugin/OptimizePanel.cpp:104
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:102
 msgid "Variables which shown in normal font will act as references or anchors."
 msgstr ""
+"Változók, amelyek normál betűtípussal jelennek meg, referenciákként, illetve "
+"horgonyokként működnek."
 
 #: hugin1/hugin/OptimizePanel.cpp:169
 msgid ""
@@ -2357,6 +2306,9 @@ msgid ""
 "Please activate at least one image in the (fast) preview window.\n"
 "Optimization canceled."
 msgstr ""
+"A projekt nem tartalmaz aktív képeket\n"
+"Kérjük aktiváljon legalább egy képet a (gyors) előnézeti ablakban.\n"
+"Optimalizáció törölve."
 
 #: hugin1/hugin/OptimizePanel.cpp:328
 msgid ""
@@ -2443,6 +2395,9 @@ msgid ""
 "Please activate at least 2 images in the (fast) preview window.\n"
 "Optimization canceled."
 msgstr ""
+"A projekt nem tartalmaz néhány aktív képet sem.\n"
+"Kérjük aktiváljon legalább két képet a (gyors) előnézeti ablakban.\n"
+"Optimalizáció törölve."
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:217
 msgid ""
@@ -2451,7 +2406,7 @@ msgid ""
 "Currently each image can have different parameters.\n"
 "Link parameters?"
 msgstr ""
-"Azonos vignettáció és válasz paraméterek lesznek\n"
+"Azonos peremsötétedés és válasz paraméterek lesznek\n"
 "alkalmazva az összes képhez az objektívből.\n"
 "Jelenleg minden egyes képnek más paraméterei vannak.\n"
 "Összeláncolja a paramétereket?"
@@ -2540,7 +2495,6 @@ msgid "Anchor this image for exposure"
 msgstr "Ezen kép expozíciójának rögzítése"
 
 #: hugin1/hugin/PanoOperation.cpp:438
-#, fuzzy
 msgid "New lens"
 msgstr "Új Objektív"
 
@@ -2561,14 +2515,12 @@ msgid "Change lens number"
 msgstr "Objektívszám módosítása"
 
 #: hugin1/hugin/PanoOperation.cpp:494
-#, fuzzy
 msgid "Load lens from Lensfun database"
-msgstr "Objektív betöltése adatbázisból"
+msgstr "Objektív betöltése Lensfun adatbázisból"
 
 #: hugin1/hugin/PanoOperation.cpp:498
-#, fuzzy
 msgid "Load lens from ini file"
-msgstr "Objektív paramétereinek betöltése fájlból"
+msgstr "Objektív betöltése ini fájlból"
 
 #: hugin1/hugin/PanoOperation.cpp:507
 msgid ""
@@ -2594,28 +2546,25 @@ msgstr ""
 "Alkalmazza a beállítások mindenképpen?"
 
 #: hugin1/hugin/PanoOperation.cpp:564
-#, fuzzy
 msgid "Save lens to ini file"
-msgstr "Objektív paraméterek mentése ini fájlba"
+msgstr "Objektív mentése ini fájlba"
 
 #: hugin1/hugin/PanoOperation.cpp:570
 msgid "Save camera parameters to lensfun database"
 msgstr "Kamera paraméterek mentése lensfun adatbázisba"
 
 #: hugin1/hugin/PanoOperation.cpp:597
-#, fuzzy
 msgid "Remove control points"
-msgstr "Eltávolított %d kontroll pontot"
+msgstr "Kontroll pontok eltávolítása"
 
 #: hugin1/hugin/PanoOperation.cpp:627
-#, fuzzy
 msgid "Selected images have no control points."
-msgstr "Legalább egy képnek egyáltalán nincs kontroll pontja."
+msgstr "A kiválasztott képeknek nincsenek kontroll pontjai."
 
 #: hugin1/hugin/PanoOperation.cpp:636
-#, fuzzy, c-format
+#, c-format
 msgid "Really delete %lu control points?"
-msgstr "Tényleg Törli a(z) %lu kontroll pontokat?"
+msgstr "Tényleg törli %lu kontroll pontokat?"
 
 #: hugin1/hugin/PanoOperation.cpp:638
 msgid "Delete Control Points"
@@ -2651,28 +2600,24 @@ msgid "Cleaning"
 msgstr "Tisztítás"
 
 #: hugin1/hugin/PanoOperation.cpp:716
-#, fuzzy
 msgid "Remove control points on clouds"
-msgstr "Kontroll pontok eltávolítása a maszkról"
+msgstr "Kontroll pontok eltávolítása felhőkről"
 
 #: hugin1/hugin/PanoOperation.cpp:815
 msgid "Reset user defined..."
-msgstr ""
+msgstr "A felhasználó által meghatározott visszaállítás..."
 
 #: hugin1/hugin/PanoOperation.cpp:818
-#, fuzzy
 msgid "Reset positions"
-msgstr "Projektet alaphelyzetbe"
+msgstr "Pozíciók alaphelyzetbe"
 
 #: hugin1/hugin/PanoOperation.cpp:821
-#, fuzzy
 msgid "Reset lens parameters"
-msgstr "Visszaállítja az XYZ paramétereket?"
+msgstr "Objektív paraméterek alaphelyzetbe"
 
 #: hugin1/hugin/PanoOperation.cpp:824
-#, fuzzy
 msgid "Reset photometric parameters"
-msgstr "Visszaállítja az XYZ paramétereket?"
+msgstr "Fotometrikus paraméterek alaphelyzetbe"
 
 #: hugin1/hugin/PanoOperation.cpp:1036
 msgid "New stack"
@@ -2695,24 +2640,20 @@ msgid "Change stack number"
 msgstr "Köteg szám módosítása"
 
 #: hugin1/hugin/PanoOperation.cpp:1090
-#, fuzzy
 msgid "Set stack size..."
-msgstr "Köteg módosítása..."
+msgstr "Köteg méret beállítása..."
 
 #: hugin1/hugin/PanoOperation.cpp:1096
-#, fuzzy
 msgid "Enter image count per stack"
-msgstr "Áttranszformált egyesített kötegek"
+msgstr "Adja meg a képek darabszámát kötegenként"
 
 #: hugin1/hugin/PanoOperation.cpp:1097
-#, fuzzy
 msgid "stack size"
-msgstr "Maszk méret"
+msgstr "köteg méret"
 
 #: hugin1/hugin/PanoOperation.cpp:1098
-#, fuzzy
 msgid "Images per stack"
-msgstr "Áttranszformált egyesített kötegek"
+msgstr "Képek kötegenként"
 
 #: hugin1/hugin/PanoOutputDialog.cpp:315 hugin1/hugin/PanoPanel.cpp:520
 msgid "Quality:"
@@ -2793,14 +2734,12 @@ msgid "height needs to be an integer bigger than 0"
 msgstr "a magasságnak egy 0 nagyobb egész számnak kell lennie"
 
 #: hugin1/hugin/PanoPanel.cpp:743
-#, fuzzy
 msgid "Left boundary must be smaller than right."
-msgstr "a bal határvonalnak kisebbnek kell lennie, mint a jobbnak"
+msgstr "A bal határvonalnak kisebbnek kell lennie, mint a jobbnak."
 
 #: hugin1/hugin/PanoPanel.cpp:749
-#, fuzzy
 msgid "Top boundary must be smaller than bottom."
-msgstr "a felső határvonalnak kisebbnek kell lennie, mint az alsónak"
+msgstr "A felső határvonalnak kisebbnek kell lennie, mint az alsónak."
 
 #: hugin1/hugin/PanoPanel.cpp:812
 msgid " PTmender options not yet implemented"
@@ -2876,7 +2815,7 @@ msgstr "Rendszer alapértelmezése"
 
 #: hugin1/hugin/PreferencesDialog.cpp:116
 msgid "Basque"
-msgstr ""
+msgstr "Baszk"
 
 #: hugin1/hugin/PreferencesDialog.cpp:119
 msgid "Bulgarian"
@@ -3491,15 +3430,15 @@ msgstr "Hugin Kötegelt feldolgozó"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:191 translations/xrc.cpp:335 xrc.cpp:335
 msgid "You have pressed the Command key."
-msgstr ""
+msgstr "Megnyomta a Cmd billentyűt."
 
 #: hugin1/ptbatcher/BatchFrame.cpp:193 translations/xrc.cpp:334 xrc.cpp:334
 msgid "You have pressed the Control key."
-msgstr ""
+msgstr "Megnyomta a CTRL billentyűt."
 
 #: hugin1/ptbatcher/BatchFrame.cpp:196
 msgid "Should the loading of the batch queue be skipped?"
-msgstr ""
+msgstr "Kihagyja a kötegelt feldolgozási sor betöltését?"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:343
 msgid "Please enter the command-line application to execute:"
@@ -4006,7 +3945,7 @@ msgstr "Részletes kimenet megjelenítése különálló ablakban."
 
 #: translations/xrc.cpp:31 xrc.cpp:31
 msgid "Always save log"
-msgstr ""
+msgstr "Mindig menti a naplót"
 
 #: translations/xrc.cpp:32 xrc.cpp:32
 msgid "Directory:"
@@ -4041,31 +3980,31 @@ msgstr "Könyvtárnév.pto"
 
 #: translations/xrc.cpp:39 xrc.cpp:39
 msgid "Template from preferences"
-msgstr ""
+msgstr "Sablon a beállításokból"
 
 #: translations/xrc.cpp:41 xrc.cpp:41
 msgid "Directories"
 msgstr "Könyvtárak"
 
 #: translations/xrc.cpp:42 xrc.cpp:42
-#, fuzzy
 msgid "Minimum number of images:"
-msgstr "Maszkok száma"
+msgstr "Minimális képdarabszám:"
 
 #: translations/xrc.cpp:43 xrc.cpp:43
 msgid "Minimum number of images a panorama should contain."
-msgstr ""
+msgstr "Képek minimális darabszáma egy panorámához."
 
 #: translations/xrc.cpp:44 xrc.cpp:44
-#, fuzzy
 msgid "Maximum time difference:"
-msgstr "különbség"
+msgstr "Maximális idő különbség:"
 
 #: translations/xrc.cpp:45 xrc.cpp:45
 msgid ""
 "Maximal time difference in seconds between two consecutive images belonging "
 "to one panorama."
 msgstr ""
+"Maximális időkülönbség másodpercben két egymást követő kép között amik egy "
+"panorámához tartoznak."
 
 #: translations/xrc.cpp:46 xrc.cpp:46
 msgid "Stacks:"
@@ -4090,14 +4029,17 @@ msgstr "Torzítás adat betöltése"
 #: translations/xrc.cpp:51 xrc.cpp:51
 msgid "Tries to load distortion data from lensfun database if checked."
 msgstr ""
+"Megpróbálja betölteni a torzítás adatot lensfun adatbázisból, ha bejelölt."
 
 #: translations/xrc.cpp:52 xrc.cpp:52
 msgid "Load vignetting data"
-msgstr "Vignettálás adat betöltése"
+msgstr "Peremsötétedés adat betöltése"
 
 #: translations/xrc.cpp:53 xrc.cpp:53
 msgid "Tries to load vignetting data from lensfun database if checked."
 msgstr ""
+"Megpróbálja betölteni a permsötétedés adatot lensfun adatbázisból, ha "
+"bejelölt."
 
 #: translations/xrc.cpp:54 translations/xrc.cpp:265 translations/xrc.cpp:484
 #: translations/xrc.cpp:601 translations/xrc.cpp:604 translations/xrc.cpp:607
@@ -4391,7 +4333,7 @@ msgstr ""
 "%o  -- kimenti projekt (0.oto hozzá fog fűződni amikor az Autopano-t "
 "használja)\n"
 "%p  -- kontroll pontok száma minden egyes pár között\n"
-"%v  -- az első kép HFOV-a /vízszintes látóhatár/ \n"
+"%v  -- az első kép HFOV-a /vízszintes látóhatár/\n"
 "%f  -- az első kép vetülete (0-4, mint a panotools-ban)\n"
 "%i  -- kép fájlok\n"
 "%namefile -- fájl, ami tartalmazza a kép fájlok fájlneveit\n"
@@ -4499,7 +4441,7 @@ msgstr "Kijelölés távolság alapján"
 #: translations/xrc.cpp:172 xrc.cpp:172
 #, fuzzy
 msgid "Invalid filenames"
-msgstr "Alapértelmezett Fájl Formátum:"
+msgstr "Alapértelmezett fájlnevek"
 
 #: translations/xrc.cpp:175 xrc.cpp:175
 msgid "Edit Panorama Tools Script"
@@ -4523,29 +4465,27 @@ msgstr "Módosítások elvetése és mégse"
 
 #: translations/xrc.cpp:179 xrc.cpp:179
 msgid "Group by:"
-msgstr ""
+msgstr "Csoportosít:"
 
 #: translations/xrc.cpp:180 xrc.cpp:180
-#, fuzzy
 msgid "Minimum overlap:"
-msgstr "Minimális vonal hossz:"
+msgstr "Minimális átfedés:"
 
 #: translations/xrc.cpp:181 xrc.cpp:181
 msgid "Minimum overlap for output stack detection"
-msgstr ""
+msgstr "Minimális átfedés kimeneti köteg érzékeléshez"
 
 #: translations/xrc.cpp:182 xrc.cpp:182
-#, fuzzy
 msgid "Maximum Ev difference:"
-msgstr "különbség"
+msgstr "Maximális Ev különbség:"
 
 #: translations/xrc.cpp:183 xrc.cpp:183
 msgid "Maximum EV difference for detection of output layers"
-msgstr ""
+msgstr "Maximális EV különbség kimeneti rétegek kereséséhez"
 
 #: translations/xrc.cpp:184 xrc.cpp:184
 msgid "Display"
-msgstr ""
+msgstr "Kijelző"
 
 #: translations/xrc.cpp:185 translations/xrc.cpp:657 xrc.cpp:185 xrc.cpp:657
 msgid "General"
@@ -4553,12 +4493,11 @@ msgstr "Általános"
 
 #: translations/xrc.cpp:186 xrc.cpp:186
 msgid "EXIF data"
-msgstr ""
+msgstr "EXIF adat"
 
 #: translations/xrc.cpp:187 translations/xrc.cpp:222 xrc.cpp:187 xrc.cpp:222
-#, fuzzy
 msgid "Positions"
-msgstr "Kép pozíció"
+msgstr "Pozíciók"
 
 #: translations/xrc.cpp:188 translations/xrc.cpp:277 translations/xrc.cpp:1040
 #: xrc.cpp:188 xrc.cpp:277 xrc.cpp:1040
@@ -4566,19 +4505,16 @@ msgid "Lens parameters"
 msgstr "Objektív paraméterek"
 
 #: translations/xrc.cpp:189 xrc.cpp:189
-#, fuzzy
 msgid "Photometric parameters"
-msgstr "Fotometrikus igazítás"
+msgstr "Fotometrikus paraméterek"
 
 #: translations/xrc.cpp:190 xrc.cpp:190
-#, fuzzy
 msgid "Lens type"
-msgstr "Objektívtípus:"
+msgstr "Objektívtípus"
 
 #: translations/xrc.cpp:191 xrc.cpp:191
-#, fuzzy
 msgid "Add images..."
-msgstr "Képek hozzáadása"
+msgstr "Képek hozzáadása..."
 
 #: translations/xrc.cpp:192 translations/xrc.cpp:205 translations/xrc.cpp:257
 #: translations/xrc.cpp:824 translations/xrc.cpp:907 xrc.cpp:192 xrc.cpp:205
@@ -4611,18 +4547,16 @@ msgid "Optimize"
 msgstr "Optimalizál"
 
 #: translations/xrc.cpp:200 xrc.cpp:200
-#, fuzzy
 msgid "Geometric:"
-msgstr "Geometriai"
+msgstr "Geometriai:"
 
 #: translations/xrc.cpp:201 translations/xrc.cpp:203 xrc.cpp:201 xrc.cpp:203
 msgid "Calculate"
-msgstr ""
+msgstr "Kiszámít"
 
 #: translations/xrc.cpp:202 xrc.cpp:202
-#, fuzzy
 msgid "Photometric:"
-msgstr "Fotometrikus"
+msgstr "Fotometrikus:"
 
 #: translations/xrc.cpp:204 xrc.cpp:204
 msgid "Selected Image"
@@ -4667,9 +4601,8 @@ msgid "Roll:"
 msgstr "Dőlés (r):"
 
 #: translations/xrc.cpp:218 xrc.cpp:218
-#, fuzzy
 msgid "Translation parameter"
-msgstr "Lánc (Link) paraméterei"
+msgstr "Fordítás paraméter"
 
 #: translations/xrc.cpp:219 translations/xrc.cpp:879 translations/xrc.cpp:965
 #: xrc.cpp:219 xrc.cpp:879 xrc.cpp:965
@@ -4709,7 +4642,7 @@ msgstr "torzítás (c):"
 #: translations/xrc.cpp:229 translations/xrc.cpp:242 translations/xrc.cpp:249
 #: xrc.cpp:229 xrc.cpp:242 xrc.cpp:249
 msgid "Show graph >>"
-msgstr ""
+msgstr "Grafikon mutatása >>"
 
 #: translations/xrc.cpp:230 translations/xrc.cpp:272 xrc.cpp:230 xrc.cpp:272
 msgid "Image Center Shift"
@@ -4753,12 +4686,11 @@ msgstr "Kék szorzó (Eb):"
 
 #: translations/xrc.cpp:241 translations/xrc.cpp:1045 xrc.cpp:241 xrc.cpp:1045
 msgid "Vignetting"
-msgstr "Vignettálás"
+msgstr "Peremsötétedés"
 
 #: translations/xrc.cpp:243 xrc.cpp:243
-#, fuzzy
 msgid "Vignetting Center Shift"
-msgstr "Vignettálás Középpont Eltolás (Vx, Vy)"
+msgstr "Peremsötétedés Közép Eltolás"
 
 #: translations/xrc.cpp:244 translations/xrc.cpp:835 translations/xrc.cpp:918
 #: xrc.cpp:244 xrc.cpp:835 xrc.cpp:918
@@ -4778,9 +4710,8 @@ msgid "Help"
 msgstr "Súgó"
 
 #: translations/xrc.cpp:254 xrc.cpp:254
-#, fuzzy
 msgid "Image variables"
-msgstr "Kép változók:"
+msgstr "Kép változók"
 
 #: translations/xrc.cpp:255 translations/xrc.cpp:448 xrc.cpp:255 xrc.cpp:448
 msgid "Add"
@@ -4887,7 +4818,7 @@ msgstr "Torzítás betöltése"
 
 #: translations/xrc.cpp:299 xrc.cpp:299
 msgid "Load vignetting"
-msgstr "Vignettálás betöltése"
+msgstr "Peremsötétedés betöltése"
 
 #: translations/xrc.cpp:303 xrc.cpp:303
 msgid "Load lens from database"
@@ -4915,53 +4846,48 @@ msgstr "Torzítás mentése"
 
 #: translations/xrc.cpp:315 xrc.cpp:315
 msgid "Save vignetting"
-msgstr "Vignettálás mentése"
+msgstr "Peremsötétedés mentése"
 
 #: translations/xrc.cpp:319 xrc.cpp:319
 msgid "Save lens to database"
 msgstr "Objektív mentése adatbázisba "
 
 #: translations/xrc.cpp:323 xrc.cpp:323
-#, fuzzy
 msgid "Camera"
-msgstr "Kamera Gyártó:"
+msgstr "Kamera"
 
 #: translations/xrc.cpp:326 xrc.cpp:326
 msgid "Save camera to database"
 msgstr "Kamera mentése adatbázisba"
 
 #: translations/xrc.cpp:328 translations/xrc.cpp:367 xrc.cpp:328 xrc.cpp:367
-#, fuzzy
 msgid "Photos"
-msgstr "Fotometrikus"
+msgstr "Képek"
 
 #: translations/xrc.cpp:329 translations/xrc.cpp:369 translations/xrc.cpp:485
 #: xrc.cpp:329 xrc.cpp:369 xrc.cpp:485
-#, fuzzy
 msgid "Masks"
-msgstr "Maszkok:"
+msgstr "Maszkok"
 
 #: translations/xrc.cpp:333 translations/xrc.cpp:377 xrc.cpp:333 xrc.cpp:377
 msgid "Stitcher"
 msgstr "Összefűző"
 
 #: translations/xrc.cpp:336 xrc.cpp:336
-#, fuzzy
 msgid "Should the OpenGL powered fast preview window disabled?"
-msgstr "OpenGL Előnézeti ablak megjelenítése"
+msgstr "Legyen tiltva az OpenGL motoros gyors előnézeti ablak?"
 
 #: translations/xrc.cpp:337 xrc.cpp:337
 msgid "Don't ask again"
-msgstr ""
+msgstr "Nem kérdez újra"
 
 #: translations/xrc.cpp:338 xrc.cpp:338
 msgid "Yes"
-msgstr ""
+msgstr "Igen"
 
 #: translations/xrc.cpp:339 xrc.cpp:339
-#, fuzzy
 msgid "No"
-msgstr "Egyik sem"
+msgstr "Nem"
 
 #: translations/xrc.cpp:341 translations/xrc.cpp:990 xrc.cpp:341 xrc.cpp:990
 msgid "&Undo"
@@ -4990,14 +4916,12 @@ msgid "Add another image to the current project"
 msgstr "További kép hozzáadása a jelenlegi projekthez"
 
 #: translations/xrc.cpp:347 xrc.cpp:347
-#, fuzzy
 msgid "Run a&ssistant"
-msgstr "Futtatási segéd"
+msgstr "&Futtatási segéd"
 
 #: translations/xrc.cpp:348 xrc.cpp:348
-#, fuzzy
 msgid "Send to assistant &queue"
-msgstr "Küldés a segéd várakozási sorba"
+msgstr "Küldés a s&egéd várakozási sorba"
 
 #: translations/xrc.cpp:349 xrc.cpp:349
 msgid "&Optimize"
@@ -5012,22 +4936,20 @@ msgid "Fine-&tune all Points"
 msgstr "&Minden pont finomhangolása"
 
 #: translations/xrc.cpp:352 xrc.cpp:352
-#, fuzzy
 msgid ""
 "Runs fine-tune on all control points. Useful for projects created with other "
 "tools, like PTGui or PTAssembler"
 msgstr ""
-"Finomhangolás futtatása az összes kontroll ponton. használható más "
-"eszközökkel létrehozott projektekhez, ilyen a PTGui vagy a PTAssembler"
+"Finomhangolás futtatása az összes kontroll ponton. Hasznos más eszközökkel "
+"létrehozott projektekhez, ilyen a PTGui vagy a PTAssembler"
 
 #: translations/xrc.cpp:353 xrc.cpp:353
 msgid "Remove control points in masks"
 msgstr "Kontroll pontok eltávolítása a maszkról"
 
 #: translations/xrc.cpp:354 xrc.cpp:354
-#, fuzzy
 msgid "Removes all control points inside masked areas."
-msgstr "Kontroll pontok eltávolítása a maszkról"
+msgstr "Összes kontroll pont eltávolítása a maszkolt területekről."
 
 #: translations/xrc.cpp:355 xrc.cpp:355
 msgid "Run &Python script"
@@ -5078,14 +5000,12 @@ msgid "Show the OpenGL preview window"
 msgstr "OpenGL Előnézeti ablak megjelenítése"
 
 #: translations/xrc.cpp:368 xrc.cpp:368
-#, fuzzy
 msgid "Show the Photos panel"
-msgstr "Vágás lap megjelenítése"
+msgstr "Képek lap megjelenítése"
 
 #: translations/xrc.cpp:370 xrc.cpp:370
-#, fuzzy
 msgid "Show the Masks panel"
-msgstr "Maszk lap megjelenítése"
+msgstr "Maszkok lap megjelenítése"
 
 #: translations/xrc.cpp:372 xrc.cpp:372
 msgid "Show the Control Points panel"
@@ -5105,21 +5025,19 @@ msgstr "Összefűző lap megjelenítése"
 
 #: translations/xrc.cpp:379 translations/xrc.cpp:1003 xrc.cpp:379 xrc.cpp:1003
 msgid "Simple"
-msgstr ""
+msgstr "Egyszerű"
 
 #: translations/xrc.cpp:380 translations/xrc.cpp:1004 xrc.cpp:380 xrc.cpp:1004
-#, fuzzy
 msgid "Advanced"
-msgstr "Speciális beállítás"
+msgstr "Haladó"
 
 #: translations/xrc.cpp:381 translations/xrc.cpp:1005 xrc.cpp:381 xrc.cpp:1005
 msgid "Expert"
-msgstr ""
+msgstr "Szakértő"
 
 #: translations/xrc.cpp:382 translations/xrc.cpp:1006 xrc.cpp:382 xrc.cpp:1006
-#, fuzzy
 msgid "Interface"
-msgstr "Felhasználói felület"
+msgstr "Felület"
 
 #: translations/xrc.cpp:385 translations/xrc.cpp:1008 xrc.cpp:385 xrc.cpp:1008
 msgid "Some information on the different buttons and so on."
@@ -5258,12 +5176,11 @@ msgstr ""
 #: translations/xrc.cpp:426 xrc.cpp:426
 #, fuzzy
 msgid "&Close editor"
-msgstr "&Bezárás"
+msgstr "&Szerkesztő bezárása"
 
 #: translations/xrc.cpp:427 xrc.cpp:427
-#, fuzzy
 msgid "Closes panorama editor"
-msgstr "A Panoráma segéd (druid)"
+msgstr "Bezárja a panoráma szerkesztőt"
 
 #: translations/xrc.cpp:430 xrc.cpp:430
 msgid "New"
@@ -5488,9 +5405,8 @@ msgid "Loading mask"
 msgstr "Maszk betöltése"
 
 #: translations/xrc.cpp:508 xrc.cpp:508
-#, fuzzy
 msgid "Geometric optimizer"
-msgstr "Fotometrikus optimalizáció"
+msgstr "Geometrikus optimalizáció"
 
 #: translations/xrc.cpp:509 xrc.cpp:509
 msgid "Only use control points between image selected in preview window."
@@ -5925,40 +5841,41 @@ msgid ""
 "You may need to start the stitching in the batch processor\n"
 " PTBatcherGUI if it doesn't start automatically."
 msgstr ""
+"A projektet menteni kell, mielőtt elküldi\n"
+"a kötegelt feldolgozó PTBatcherGUI-hoz.\n"
+"Először a projekt fájlnevét kell megadni\n"
+"utána pedig a panoráma kimenet előtagját.\n"
+"\n"
+"Ha az összefűzés nem indul el automatikusan akkor\n"
+"a kötegelt feldolgozó PTBatcherGUI-ban kell elindítani. "
 
 #: translations/xrc.cpp:632 xrc.cpp:632
-#, fuzzy
 msgid "Don't show again"
-msgstr "Nem változtat"
+msgstr "Nem mutatja többet"
 
 #: translations/xrc.cpp:633 xrc.cpp:633
 msgid "Ok"
 msgstr "Ok"
 
 #: translations/xrc.cpp:637 xrc.cpp:637
-#, fuzzy
 msgid "Size and file format"
-msgstr "Nem támogatott kép fájl formátum"
+msgstr "Méret és fájl formátum"
 
 #: translations/xrc.cpp:638 xrc.cpp:638
-#, fuzzy
 msgid "LDR Format:"
-msgstr "Formátumok:"
+msgstr "LDR Formátum:"
 
 #: translations/xrc.cpp:641 xrc.cpp:641
-#, fuzzy
 msgid "HDR Format:"
-msgstr "Formátumok:"
+msgstr "HDR Formátum:"
 
 #: translations/xrc.cpp:652 xrc.cpp:652
-#, fuzzy
 msgid "Keep intermediate images"
-msgstr "Megtartja az áttranszformált és expozíció korrigált köztes képeket"
+msgstr "Megtartja a köztes képeket"
 
 #: translations/xrc.cpp:656 xrc.cpp:656
-#, fuzzy
 msgid "Output parameters"
-msgstr "Az alábbi egyéni paraméterekkel"
+msgstr "Kimeneti paraméterek"
 
 #: translations/xrc.cpp:658 xrc.cpp:658
 msgid "Resource Usage"
@@ -6007,22 +5924,20 @@ msgid "Skip over visibility toggles"
 msgstr "Összevonja egy lépéssé az előnézeti ablakban látható képek szerint"
 
 #: translations/xrc.cpp:668 xrc.cpp:668
-#, fuzzy
 msgid ""
 "May have unforeseen consequences. \n"
 "(EXPERIMENTAL)"
 msgstr ""
-"Lehet, hogy előre nem látható következményekkel jár.\n"
+"Lehet, hogy váratlan következményekkel jár.\n"
 "(KÍSÉRLETI)"
 
 #: translations/xrc.cpp:669 xrc.cpp:669
-#, fuzzy
 msgid "Log messages:"
-msgstr "Képek betöltése"
+msgstr "Napló üzenetek:"
 
 #: translations/xrc.cpp:670 xrc.cpp:670
 msgid "Copy log messages to clipboard."
-msgstr ""
+msgstr "Napló üzenetek másolása a vágólapra."
 
 #: translations/xrc.cpp:671 xrc.cpp:671
 msgid "Show hints about projections"
@@ -6045,14 +5960,12 @@ msgid "(leave empty for OS default)"
 msgstr "(üresen hagyva az OS alapértelmezése)"
 
 #: translations/xrc.cpp:676 xrc.cpp:676
-#, fuzzy
 msgid "Default project filename:"
-msgstr "Projektfájl megnyitása"
+msgstr "Alapértelmezett projekt fájlnév:"
 
 #: translations/xrc.cpp:677 xrc.cpp:677
-#, fuzzy
 msgid "Default output prefix:"
-msgstr "Kimeneti előtag megadása"
+msgstr "Alapértelmezett kimeneti előtag:"
 
 #: translations/xrc.cpp:678 xrc.cpp:678
 #, c-format
@@ -6071,16 +5984,27 @@ msgid ""
 "%lens - lens (of first image)\n"
 "%projectname - project filename (only for output prefix)"
 msgstr ""
+"A következő mezők automatikusan cserélődnek:\n"
+"%firstimage - az első kép fájlneve\n"
+"%lastimage - az utolsó kép fájlneve\n"
+"%#images - képek darabszáma\n"
+"%directory - mappa neve (az első kép fájl alapján)\n"
+"%projection - vetület neve\n"
+"%focallength - fókusztávolság\n"
+"%date - dátum (az első kép alapján)\n"
+"%time - idő (az első kép alapján)\n"
+"%maker - kamera gyártó (az első kép alapján)\n"
+"%model - kamera modell (az első kép alapján)\n"
+"%lens - objektív (az első kép alapján)\n"
+"%projectname - projekt fájlnév (csak kimeneti előtag)"
 
 #: translations/xrc.cpp:679 xrc.cpp:679
-#, fuzzy
 msgid "Default filenames"
-msgstr "Alapértelmezett Fájl Formátum:"
+msgstr "Alapértelmezett fájlnevek"
 
 #: translations/xrc.cpp:680 xrc.cpp:680
-#, fuzzy
 msgid "Filenames"
-msgstr "Fájlnév"
+msgstr "Fájlnevek"
 
 #: translations/xrc.cpp:682 xrc.cpp:682
 msgid "Image loading"
@@ -6478,19 +6402,17 @@ msgid ""
 "values in the overlapping areas.\n"
 "To speed up the computation, only a random subset of points is used."
 msgstr ""
-"A vignettáció és az expozíciós korrekció az átfedő területeken lévő szín "
+"A peremsötétedés és az expozíciós korrekció az átfedő területeken lévő szín "
 "értékek elemzésével határozódik meg.\n"
 "A számítás gyorsításához, csak véletlen részponthalmazt használ."
 
 #: translations/xrc.cpp:790 xrc.cpp:790
-#, fuzzy
 msgid "Number of points per image: "
-msgstr "Pontok száma képenként"
+msgstr "Pontok száma képenként:"
 
 #: translations/xrc.cpp:791 xrc.cpp:791
-#, fuzzy
 msgid "Photometric optimizer"
-msgstr "Fotometrikus optimalizáció"
+msgstr "Fotometrikus optimalizáló"
 
 #: translations/xrc.cpp:792 xrc.cpp:792
 msgid "Misc"
@@ -6760,23 +6682,20 @@ msgid "Mode:"
 msgstr "Mód:"
 
 #: translations/xrc.cpp:995 xrc.cpp:995
-#, fuzzy
 msgid "Panorama &editor"
-msgstr "Panoráma előnézet"
+msgstr "Panoráma sze&rkesztő"
 
 #: translations/xrc.cpp:998 xrc.cpp:998
-#, fuzzy
 msgid "&Overview"
-msgstr "Áttekintés"
+msgstr "Átte&kintés"
 
 #: translations/xrc.cpp:999 xrc.cpp:999
-#, fuzzy
 msgid "Shows the overview of the panorama sphere."
-msgstr "Az előnézeti kép és a Panoráma segéd (Druid) megjelenítése"
+msgstr "Áttekintő panoráma gömb megjelenítése."
 
 #: translations/xrc.cpp:1001 xrc.cpp:1001
 msgid "Shows a grid."
-msgstr ""
+msgstr "Rács megjelenítése."
 
 #: translations/xrc.cpp:1042 xrc.cpp:1042
 msgid "to EXIF values"
