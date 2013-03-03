@@ -10,7 +10,7 @@ HUGIN_DEVELOPMENT_VERSION = 1
 //overrides above values if checked out from SVN
 #include "../mac/HG-rev.xcconfig"
 
-HUGIN_VERSION_MAJOR = 2012
+HUGIN_VERSION_MAJOR = 2013
 HUGIN_VERSION_MINOR = 1
 HUGIN_VERSION_PATCH = 0
 
