@@ -464,6 +464,7 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     // set the AUI manager to our panel
     m_mgr = new GLwxAuiManager(this, m_GLPreview, m_GLOverview);
     m_mgr->SetManagedWindow(vis_panel);
+    vis_panel->SetMinSize(wxSize(200,150));
     
     //create the sizer for the preview
     wxFlexGridSizer * flexSizer = new wxFlexGridSizer(2,0,5,5);
