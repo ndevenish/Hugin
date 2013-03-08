@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Hugin 2012.0.0\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
 "POT-Creation-Date: 2013-02-24 12:50+0100\n"
-"PO-Revision-Date: 2013-03-02 10:23+0100\n"
+"PO-Revision-Date: 2013-03-07 08:43+0100\n"
 "Last-Translator: Höss Lajos <pgc1682@freemail.hu>\n"
 "Language-Team: Balló György <ballogy@freestart.hu>\n"
 "Language: \n"
@@ -4439,9 +4439,8 @@ msgid "Select by Distance"
 msgstr "Kijelölés távolság alapján"
 
 #: translations/xrc.cpp:172 xrc.cpp:172
-#, fuzzy
 msgid "Invalid filenames"
-msgstr "Alapértelmezett fájlnevek"
+msgstr "Érvénytelen fájlnevek"
 
 #: translations/xrc.cpp:175 xrc.cpp:175
 msgid "Edit Panorama Tools Script"
@@ -5174,9 +5173,8 @@ msgstr ""
 "Átadja a beállításokat a korábban mentett projektből az aktuális képekhez."
 
 #: translations/xrc.cpp:426 xrc.cpp:426
-#, fuzzy
 msgid "&Close editor"
-msgstr "&Szerkesztő bezárása"
+msgstr "Sze&rkesztő bezárása"
 
 #: translations/xrc.cpp:427 xrc.cpp:427
 msgid "Closes panorama editor"
