@@ -25,6 +25,12 @@ ENDIF (${HUGIN_SHARED_LIBS})
 OPTION (BUILD_KEYPOINTS "Build keypoints program" OFF)
 
 IF(BUILD_KEYPOINTS)
+FIND_PACKAGE(Tclap)
+IF(NOT TCLAP_FOUND)
+  MESSAGE(FATAL_ERROR "Tclap library not found")
+ENDIF(NOT TCLAP_FOUND)
+INCLUDE_DIRECTORIES(${TCLAP_INCLUDEDIR})
+
 add_executable(keypoints keypoints.cpp)
 
 IF(WIN32)
