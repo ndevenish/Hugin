@@ -28,13 +28,14 @@
 
 #include "panoinc_WX.h"
 #include "panoinc.h"
+#include "GuiLevel.h"
 
 /** Dialog for setting output parameters for simple user interface */
 class PanoOutputDialog : public wxDialog
 {
 public:
     /** Constructor, read from xrc ressource; restore last uses settings, size and position */
-    PanoOutputDialog(wxWindow *parent, PT::Panorama& pano);
+    PanoOutputDialog(wxWindow *parent, PT::Panorama& pano, GuiLevel guiLevel);
     /** destructor, save position */
     ~PanoOutputDialog();
     HuginBase::PanoramaOptions GetNewPanoramaOptions() {return m_newOpt; } ;
@@ -60,6 +61,7 @@ private:
     double m_initalWidth;
     double m_initalROIWidth;
     double m_aspect;
+    GuiLevel m_guiLevel;
 
     wxSpinCtrl* m_edit_width;
     wxSpinCtrl* m_edit_height;

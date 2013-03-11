@@ -44,7 +44,7 @@ BEGIN_EVENT_TABLE(PanoOutputDialog,wxDialog)
     EVT_SPINCTRL(XRCID("output_height"), PanoOutputDialog::OnHeightChanged)
 END_EVENT_TABLE()
 
-PanoOutputDialog::PanoOutputDialog(wxWindow *parent, PT::Panorama& pano) : m_pano(pano)
+PanoOutputDialog::PanoOutputDialog(wxWindow *parent, PT::Panorama& pano, GuiLevel guiLevel) : m_pano(pano)
 {
     // load our children. some children might need special
     // initialization. this will be done later.
@@ -70,6 +70,7 @@ PanoOutputDialog::PanoOutputDialog(wxWindow *parent, PT::Panorama& pano) : m_pan
         this->Move(0, 44);
     };
     // get number of stacks and exposure layers
+    m_guiLevel=guiLevel;
     m_stacks=getHDRStacks(m_pano, m_pano.getActiveImages(), m_pano.getOptions());
     m_exposureLayers=getExposureLayers(m_pano, m_pano.getActiveImages(), m_pano.getOptions());
     // set initial width
@@ -154,6 +155,18 @@ void PanoOutputDialog::EnableOutputOptions()
         XRCCTRL(*this, "output_hdr_bitmap", wxCheckBox)->Enable(true);
         return;
     }
+    //hide hdr controls for simple interface
+    if(m_guiLevel==GUI_SIMPLE)
+    {
+        XRCCTRL(*this, "output_hdr", wxCheckBox)->Hide();
+        XRCCTRL(*this, "output_hdr_bitmap", wxCheckBox)->Hide();
+        XRCCTRL(*this, "output_hdr_format_label", wxStaticText)->Hide();
+        XRCCTRL(*this, "output_hdr_format", wxChoice)->Hide();
+        XRCCTRL(*this, "output_hdr_compression_label", wxStaticText)->Hide();
+        XRCCTRL(*this, "output_hdr_tiff_compression", wxChoice)->Hide();
+        Layout();
+        GetSizer()->Fit(this);
+    };
     //single image or normal panorama, enable only normal output
     if(m_pano.getNrOfImages()==1 || m_stacks.size() >= 0.8 * m_pano.getNrOfImages())
     {
@@ -169,8 +182,11 @@ void PanoOutputDialog::EnableOutputOptions()
     XRCCTRL(*this, "output_fused_blended_bitmap", wxCheckBox)->Enable(true);
     XRCCTRL(*this, "output_blended_fused", wxCheckBox)->Enable(true);
     XRCCTRL(*this, "output_blended_fused_bitmap", wxCheckBox)->Enable(true);
-    XRCCTRL(*this, "output_hdr", wxCheckBox)->Enable(true);
-    XRCCTRL(*this, "output_hdr_bitmap", wxCheckBox)->Enable(true);
+    if(m_guiLevel!=GUI_SIMPLE)
+    {
+        XRCCTRL(*this, "output_hdr", wxCheckBox)->Enable(true);
+        XRCCTRL(*this, "output_hdr_bitmap", wxCheckBox)->Enable(true);
+    };
     if(m_pano.getNrOfImages() % m_stacks.size() == 0)
     {
         XRCCTRL(*this, "output_fused_blended", wxCheckBox)->SetValue(true);

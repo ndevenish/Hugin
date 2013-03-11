@@ -3113,7 +3113,7 @@ void GLPreviewFrame::OnAlign( wxCommandEvent & e )
 
 void GLPreviewFrame::OnCreate( wxCommandEvent & e )
 {
-    PanoOutputDialog dlg(this, m_pano);
+    PanoOutputDialog dlg(this, m_pano, m_guiLevel);
     if(dlg.ShowModal()==wxID_OK)
     {
         GlobalCmdHist::getInstance().addCommand(
