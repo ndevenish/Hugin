@@ -46,7 +46,7 @@ http://wiki.panotools.org/Development_of_Open_Source_tools#Dependencies
 Users compiling Hugin from source will need:
 
     The wxWidgets GUI toolkit version >=2.7.0. 2.9 support is experimental. 2.8.11 is recommended.
-    boost >=1.40. The following boost libraries are used:
+    boost >=1.41. The following boost libraries are used:
         filesystem
         graph
         iostreams
