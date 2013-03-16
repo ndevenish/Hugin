@@ -263,6 +263,7 @@ void OverviewOutlinesTool::DrawRect(double left, double top, double right, doubl
         case HuginBase::PanoramaOptions::SINUSOIDAL:
         case HuginBase::PanoramaOptions::LAMBERT:
         case HuginBase::PanoramaOptions::LAMBERT_AZIMUTHAL:
+        case HuginBase::PanoramaOptions::HAMMER_AITOFF:
         case HuginBase::PanoramaOptions::FULL_FRAME_FISHEYE:
         case HuginBase::PanoramaOptions::ALBERS_EQUAL_AREA_CONIC:
         case HuginBase::PanoramaOptions::ORTHOGRAPHIC:

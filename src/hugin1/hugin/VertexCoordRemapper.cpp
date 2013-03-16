@@ -268,6 +268,7 @@ void VertexCoordRemapper::DiscontinuityFlip(double vertex_c[2])
         case HuginBase::PanoramaOptions::FULL_FRAME_FISHEYE:
         case HuginBase::PanoramaOptions::STEREOGRAPHIC:
         case HuginBase::PanoramaOptions::LAMBERT_AZIMUTHAL:
+        case HuginBase::PanoramaOptions::HAMMER_AITOFF:
         case HuginBase::PanoramaOptions::ORTHOGRAPHIC:
         case HuginBase::PanoramaOptions::EQUISOLID:
         case HuginBase::PanoramaOptions::THOBY_PROJECTION:
@@ -613,6 +614,7 @@ void VertexCoordRemapper::TestSubdivide(unsigned int node_id)
             case HuginBase::PanoramaOptions::FULL_FRAME_FISHEYE:
             case HuginBase::PanoramaOptions::STEREOGRAPHIC:
             case HuginBase::PanoramaOptions::LAMBERT_AZIMUTHAL:
+            case HuginBase::PanoramaOptions::HAMMER_AITOFF:
                 // A mesh covering the extremities of a disk projection should
                 // be using a TexCoordRemapper instead, otherwise, a point
                 // mapping to the border will be stretched across the disk.

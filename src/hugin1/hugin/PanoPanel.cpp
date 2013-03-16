@@ -157,6 +157,7 @@ bool PanoPanel::Create(wxWindow *parent, wxWindowID id, const wxPoint& pos, cons
     wxLogMessage(_("Triplane"));
     wxLogMessage(_("Panini General"));
     wxLogMessage(_("Thoby Projection"));
+    wxLogMessage(_("Hammer-Aitoff Equal Area"));
 #endif
 
     /* populate with all available projection types */

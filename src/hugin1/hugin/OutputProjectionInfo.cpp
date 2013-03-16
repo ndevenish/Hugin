@@ -61,6 +61,7 @@ OutputProjectionInfo::OutputProjectionInfo(HuginBase::PanoramaOptions *output)
         case HuginBase::PanoramaOptions::TRANSVERSE_MERCATOR:
         case HuginBase::PanoramaOptions::STEREOGRAPHIC:
         case HuginBase::PanoramaOptions::LAMBERT_AZIMUTHAL:
+        case HuginBase::PanoramaOptions::HAMMER_AITOFF:
         case HuginBase::PanoramaOptions::FULL_FRAME_FISHEYE:
         case HuginBase::PanoramaOptions::ARCHITECTURAL:
         case HuginBase::PanoramaOptions::ORTHOGRAPHIC:

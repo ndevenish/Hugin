@@ -68,6 +68,7 @@ void ChoosyRemapper::UpdateAndResetIndex()
         case HuginBase::PanoramaOptions::STEREOGRAPHIC:
         case HuginBase::PanoramaOptions::FULL_FRAME_FISHEYE:
         case HuginBase::PanoramaOptions::LAMBERT_AZIMUTHAL:
+        case HuginBase::PanoramaOptions::HAMMER_AITOFF:
         case HuginBase::PanoramaOptions::ALBERS_EQUAL_AREA_CONIC:
         case HuginBase::PanoramaOptions::ORTHOGRAPHIC:
         case HuginBase::PanoramaOptions::EQUISOLID:
