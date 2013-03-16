@@ -59,59 +59,10 @@ extern "C" {
 
 //------------------------------------------------------------------------------
 
-
-
 //#define DEBUG_WRITE_OPTIM_OUTPUT
 //#define DEBUG_WRITE_OPTIM_OUTPUT_FILE "hugin_debug_optim_results.txt"
 
-
 namespace HuginBase { namespace PTools {
-
-/*
-void optimize_PT(const Panorama & pano,
-                               const PT::UIntVector &imgs,
-                               const OptimizeVector & optvec,
-                               VariableMapVector & vars,
-                               CPVector & cps,
-                               int maxIter)
-{
-//    VariableMapVector res;
-    // setup data structures
-    aPrefs    aP;
-    OptInfo   opt;
-
-    SetAdjustDefaults(&aP);
-    AlignInfoWrap aInfo;
-    // copy pano information into libpano data structures
-    if (aInfo.setInfo(pano, imgs, vars, cps, optvec)) {
-        aInfo.setGlobal();
-
-        opt.numVars 		= aInfo.gl.numParam;
-        opt.numData 		= aInfo.gl.numPts;
-        opt.SetVarsToX		= SetLMParams;
-        opt.SetXToVars		= SetAlignParams;
-        opt.fcn			= aInfo.gl.fcn;
-        *opt.message		= 0;
-
-        DEBUG_DEBUG("starting optimizer");
-        ::RunLMOptimizer( &opt );
-        std::ostringstream oss;
-        oss << "optimizing images";
-        for (UIntVector::const_iterator it = imgs.begin(); it != imgs.end(); ++it) {
-            if (it + 1 != imgs.end()) {
-                oss << *it << ",";
-            } else {
-                oss << *it;
-            }
-        }
-        oss << "\n" << opt.message;
-        DEBUG_DEBUG("optimizer finished:" << opt.message);
-
-        vars = aInfo.getVariables();
-        cps = aInfo.getCtrlPoints();
-    }
-}
-*/
 
 unsigned int optimize(PanoramaData& pano,
                       const char * userScript)
@@ -173,63 +124,5 @@ unsigned int optimize(PanoramaData& pano,
     }
     return retval;
 }
-
-
-#if 0
-void PTools::optimize(Panorama & pano,
-                      utils::MultiProgressDisplay & progDisplay,
-                      int maxIter)
-{
-//    VariableMapVector res;
-    // setup data structures
-    aPrefs    aP;
-    OptInfo   opt;
-
-    SetAdjustDefaults(&aP);
-    AlignInfoWrap aInfo;
-    // copy pano information int libpano data structures
-    if (aInfo.setInfo(pano)) {
-        aInfo.setGlobal();
-
-        opt.numVars 		= aInfo.gl.numParam;
-        opt.numData 		= aInfo.gl.numPts;
-        opt.SetVarsToX		= SetLMParams;
-        opt.SetXToVars		= SetAlignParams;
-        opt.fcn			= aInfo.gl.fcn;
-        *opt.message		= 0;
-
-        DEBUG_DEBUG("starting optimizer");
-        RunLMOptimizer( &opt );
-
-#ifdef DEBUG
-        fullPath path;
-        StringtoFullPath(&path, "c:/debug_optimizer.txt");
-
-		aInfo.gl.data		= opt.message;
-        WriteResults( "debug_test", &path, &aInfo.gl, distSquared, 0);
-#endif
-
-
-        std::ostringstream oss;
-        /*
-        oss << "optimizing images";
-        for (UIntVector::const_iterator it = imgs.begin(); it != imgs.end(); ++it) {
-            if (it + 1 != imgs.end()) {
-                oss << *it << ",";
-            } else {
-                oss << *it;
-            }
-        }
-        oss << "\n" << opt.message;
-        progDisplay.setMessage(oss.str());
-        */
-        DEBUG_DEBUG("optimizer finished:" << opt.message);
-
-        pano.updateVariables(aInfo.getVariables());
-        pano.updateCtrlPointErrors( aInfo.getCtrlPoints());
-
-    }
-}
-#endif
 
 }} //namespace

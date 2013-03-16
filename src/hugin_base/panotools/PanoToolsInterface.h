@@ -248,44 +248,6 @@ class IMPEX Transform
 };
 
 
-
-/** class around the central align info struct of the panotools
-*  library
-*/
-class IMPEX AlignInfoWrap
-{
-    public:
-        ///
-        AlignInfoWrap();
-        
-        ///
-        ~AlignInfoWrap();
-        
-        
-    public:
-        ///
-        bool setInfo(const PanoramaData& pano);
-        
-        ///
-        void setGlobal();
-        
-        /** get the variables stored in this AlignInfo */
-        VariableMapVector getVariables() const;
-        
-        ///
-        CPVector getCtrlPoints() const;
-        
-        //    std::map<int,int> m_ctrlPointMap;
-        //    CPVector m_controlPoints;
-        
-    protected:
-            AlignInfo gl;
-};
-
-
-
-
-
 /** set an output image, with properties from @p opts,
  *  that points to the bitmap data of @p imgData
  */
@@ -302,49 +264,11 @@ IMPEX void setFullImage(Image & image, vigra::Diff2D size, unsigned char * image
                   const Lens::LensProjectionFormat format,
                   bool correctDistortions);
 
-/** create an empty aPrefs structure, suitable for transforming
- *  a input picture into an output picture.
- *
- *  the input/output pictures must be specified with: setAdjustSrcImg()
- *  and setAdjustDestImg()
- */
-IMPEX void createAdjustPrefs(aPrefs  & p, TrformStr & transf);
-
-/** set a new input image for inserting into the panorama.
- */
-IMPEX void setAdjustSrcImg(TrformStr & trf, aPrefs & ap,
-                     int width, int height, unsigned char * imageData,
-                     const VariableMap & vars,
-                     const Lens::LensProjectionFormat format,
-                     bool correctDistortions);
-
-
-/** set a new output image for the panorama */
-IMPEX void setAdjustDestImg(TrformStr & trf, aPrefs & ap,
-                      int width, int height, unsigned char * imageData,
-                      const PanoramaOptions & opts);
-
-
-/** prepare a Trform struct for the adjust operation, image -> pano
- *  see use createAdjustPrefs(), setAdjustSrcImg() and setAdjustDestImg()
- *  to specify the images and transformation options
- */
-IMPEX void createAdjustTrform(TrformStr & trf);
-
-/** free the resources associated with a TrformStr.
- *   createAdjustTrform() must have been used to create @p trf
- */
-IMPEX void freeTrform(TrformStr & trf);
-
 /** free the pointer storage needed by Image
  *
  *  does NOT free the data referenced by image
  */
 IMPEX void freeImage(Image &img);
-
-
-/** set variables to optimize */
-IMPEX void setOptVars(optVars & opt, const std::set<std::string> & optvars);
 
 ///
 IMPEX VariableMapVector GetAlignInfoVariables(const AlignInfo & gl);

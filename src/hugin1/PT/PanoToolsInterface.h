@@ -32,20 +32,7 @@ namespace PTools {
 
     using HuginBase::PTools::setDestImage;
     using HuginBase::PTools::setFullImage;
-
-//    using HuginBase::PTools::initCPrefs;
-    using HuginBase::PTools::createAdjustPrefs;
-    using HuginBase::PTools::setAdjustSrcImg;
-    using HuginBase::PTools::setAdjustDestImg;
-
-    using HuginBase::PTools::freeTrform;
-    using HuginBase::PTools::createAdjustTrform;
-    using HuginBase::PTools::freeTrform;
     using HuginBase::PTools::freeImage;
-
-    using HuginBase::PTools::setOptVars;
-
-    using HuginBase::PTools::AlignInfoWrap;
 
     using HuginBase::PTools::GetAlignInfoVariables;
     using HuginBase::PTools::GetAlignInfoCtrlPoints;
