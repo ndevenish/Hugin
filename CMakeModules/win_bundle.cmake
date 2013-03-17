@@ -49,45 +49,22 @@ IF(WIN32)
 
   # install enblend/enfuse files
 
-  FIND_PATH(ENBLEND_EXE_DIR enblend_openmp.exe
-            PATHS ${SOURCE_BASE_DIR}/enblend-enfuse-4.1 ${SOURCE_BASE_DIR}/enblend-enfuse-4.0
-            DOC "Location of enblend executables"
-            NO_DEFAULT_PATH
-            )
-  IF(${ENBLEND_EXE_DIR} MATCHES "-NOTFOUND")
-  # enblend-enfuse 4.0 not found
-  # try finding enblend-enfuse 3.0, 3.2
-    FIND_PATH(ENBLEND_EXE_DIR enblend.exe 
+  FIND_PATH(ENBLEND_DIR bin/enblend.exe enblend.exe
+            PATHS 
+              ${SOURCE_BASE_DIR}/enblend-enfuse-4.1.1-win64 
+              ${SOURCE_BASE_DIR}/enblend-enfuse-4.1.1-win32 
+              ${SOURCE_BASE_DIR}/enblend-enfuse-4.1.1 
+              ${SOURCE_BASE_DIR}/enblend-enfuse-4.1 
+              ${SOURCE_BASE_DIR}/enblend-enfuse-4.0
               ${SOURCE_BASE_DIR}/enblend-3.1
               ${SOURCE_BASE_DIR}/enblend-enfuse-3.2
               ${SOURCE_BASE_DIR}/enblend.build
               ${SOURCE_BASE_DIR}/enblend
-              DOC "Location of enblend executables"
-              NO_DEFAULT_PATH
-              )
-    SET(ENBLEND_DOC_FILES ${ENBLEND_EXE_DIR}/AUTHORS
-                          ${ENBLEND_EXE_DIR}/ChangeLog  
-                          ${ENBLEND_EXE_DIR}/COPYING  
-                          ${ENBLEND_EXE_DIR}/NEWS
-                          ${ENBLEND_EXE_DIR}/README
-                          ${ENBLEND_EXE_DIR}/README_WINDOWS.txt
-                          ${ENBLEND_EXE_DIR}/TODO  
-                          ${ENBLEND_EXE_DIR}/VIGRA_LICENSE)
-  ELSE()
-    # file of enblend-enfuse 4.0
-    SET(ENBLEND_DOC_FILES ${ENBLEND_EXE_DIR}/AUTHORS.txt
-                          ${ENBLEND_EXE_DIR}/ChangeLog.txt  
-                          ${ENBLEND_EXE_DIR}/COPYING.txt  
-                          ${ENBLEND_EXE_DIR}/NEWS.txt
-                          ${ENBLEND_EXE_DIR}/README.txt
-                          ${ENBLEND_EXE_DIR}/VIGRA_LICENSE.txt
-                          ${ENBLEND_EXE_DIR}/doc/enblend.pdf
-                          ${ENBLEND_EXE_DIR}/doc/enfuse.pdf
-                          )
-
-  ENDIF()
-
-  FILE(GLOB ENBLEND_EXECUTABLES ${ENBLEND_EXE_DIR}/*.exe)
+            DOC "Location of enblend"
+            NO_DEFAULT_PATH
+            )
+  FILE(GLOB ENBLEND_EXECUTABLES ${ENBLEND_DIR}/bin/*.exe ${ENBLEND_DIR}/bin/*.dll ${ENBLEND_DIR}/*.exe)
+  FILE(GLOB ENBLEND_DOC_FILES ${ENBLEND_DIR}/*.* ${ENBLEND_DIR}/doc/*.pdf)
   INSTALL(FILES ${ENBLEND_EXECUTABLES} DESTINATION ${BINDIR})
   INSTALL(FILES ${ENBLEND_DOC_FILES} DESTINATION doc/enblend)
 
