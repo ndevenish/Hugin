@@ -859,6 +859,8 @@ PT::PanoCommand* ResetOperation::GetInternalCommand(wxWindow* parent, PT::Panora
             map_get(ImgVars,"TrX").setValue(0);
             map_get(ImgVars,"TrY").setValue(0);
             map_get(ImgVars,"TrZ").setValue(0);
+            map_get(ImgVars,"Tpy").setValue(0);
+            map_get(ImgVars,"Tpp").setValue(0);
         };
         double cropFactor = 0;
         double focalLength = 0;

@@ -113,6 +113,9 @@ void Transform::createInvTransform(const SrcPanoImage & src, const PanoramaOptio
     vars.insert(make_pair(std::string("TrY"), Variable("TrY", src.getY())));
     vars.insert(make_pair(std::string("TrZ"), Variable("TrZ", src.getZ())));
 
+    vars.insert(make_pair(std::string("Tpy"), Variable("Tpy", src.getTranslationPlaneYaw())));
+    vars.insert(make_pair(std::string("Tpp"), Variable("Tpp", src.getTranslationPlanePitch())));
+
     createInvTransform(src.getSize(),
                        vars,
                        (Lens::LensProjectionFormat) src.getProjection(),
@@ -144,6 +147,9 @@ void Transform::createTransform(const SrcPanoImage & src, const PanoramaOptions 
     vars.insert(make_pair(std::string("TrX"), Variable("TrX", src.getX())));
     vars.insert(make_pair(std::string("TrY"), Variable("TrY", src.getY())));
     vars.insert(make_pair(std::string("TrZ"), Variable("TrZ", src.getZ())));
+
+    vars.insert(make_pair(std::string("Tpy"), Variable("Tpy", src.getTranslationPlaneYaw())));
+    vars.insert(make_pair(std::string("Tpp"), Variable("Tpp", src.getTranslationPlanePitch())));
 
     createTransform(src.getSize(),
                     vars,
@@ -292,6 +298,8 @@ VariableMapVector GetAlignInfoVariables(const AlignInfo& gl)
             vars.insert(make_pair(std::string("TrX"), Variable("TrX", gl.im[i].cP.trans_x)));
             vars.insert(make_pair(std::string("TrY"), Variable("TrY", gl.im[i].cP.trans_y)));
             vars.insert(make_pair(std::string("TrZ"), Variable("TrZ", gl.im[i].cP.trans_z)));
+            vars.insert(make_pair(std::string("Tpy"), Variable("Tpy", gl.im[i].cP.trans_yaw)));
+            vars.insert(make_pair(std::string("Tpp"), Variable("Tpp", gl.im[i].cP.trans_pitch)));
 
             vars.insert(make_pair(std::string("v"), Variable("v", gl.im[i].hfov)));
             vars.insert(make_pair(std::string("y"), Variable("y", gl.im[i].yaw)));
@@ -406,11 +414,19 @@ void initCPrefs(cPrefs & p, const VariableMap &vars)
     p.trans_x = const_map_get(vars,"TrX").getValue();
     p.trans_y = const_map_get(vars,"TrY").getValue();
     p.trans_z = const_map_get(vars,"TrZ").getValue();
-    if (p.trans_x != 0 || p.trans_y != 0 || p.trans_z != 0) {
-	p.trans = TRUE;
-    } else {
-	p.trans = FALSE;
+    if (p.trans_x != 0 || p.trans_y != 0 || p.trans_z != 0)
+    {
+	    p.trans = TRUE;
+        p.trans_yaw = const_map_get(vars,"Tpy").getValue();
+        p.trans_pitch = const_map_get(vars,"Tpp").getValue();
     }
+    else
+    {
+	    p.trans = FALSE;
+        p.trans_yaw = 0;
+        p.trans_pitch = 0;
+    }
+
 
     // FIXME add shear parameters
     val = const_map_get(vars, "g").getValue();

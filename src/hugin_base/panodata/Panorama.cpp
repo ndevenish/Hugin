@@ -64,6 +64,8 @@ Panorama::Panorama()
     m_ptoptimizerVarNames.insert("TrX");
     m_ptoptimizerVarNames.insert("TrY");
     m_ptoptimizerVarNames.insert("TrZ");
+    m_ptoptimizerVarNames.insert("Tpy");
+    m_ptoptimizerVarNames.insert("Tpp");
 
 /*
     settings.setPath("dangelo","PanoAssistant");
@@ -700,7 +702,9 @@ void Panorama::printPanoramaScript(std::ostream & o,
                                 (vit->first == "c" && set_contains(optvars[imgNr], "c") )|| \
                                 (vit->first == "TrX" && set_contains(optvars[imgNr], "TrX") )|| \
                                 (vit->first == "TrY" && set_contains(optvars[imgNr], "TrY") )|| \
-                                (vit->first == "TrZ" && set_contains(optvars[imgNr], "TrZ") )\
+                                (vit->first == "TrZ" && set_contains(optvars[imgNr], "TrZ") )|| \
+                                (vit->first == "Tpy" && set_contains(optvars[imgNr], "Tpy") )|| \
+                                (vit->first == "Tpp" && set_contains(optvars[imgNr], "Tpp") )\
                                )\
                                && forPTOptimizer && vit->second.getValue() == 0.0) \
                     {\
@@ -1017,6 +1021,10 @@ void Panorama::parseOptimizerScript(std::istream & i, const UIntSet & imgs,
             readVar(map_get(var, "TrY"), link, line);
             DEBUG_ASSERT(link == -1);
             readVar(map_get(var, "TrZ"), link, line);
+            DEBUG_ASSERT(link == -1);
+            readVar(map_get(var, "Tpy"), link, line);
+            DEBUG_ASSERT(link == -1);
+            readVar(map_get(var, "Tpp"), link, line);
             DEBUG_ASSERT(link == -1);
 
             DEBUG_DEBUG("X: " << map_get(var, "TrX").getValue()
@@ -1595,9 +1603,11 @@ void Panorama::updateOptimizeVector()
             UpdateOptVectorSet(state.optvec[i],"c",(state.optSwitch & OPT_ALL)>0);
             UpdateOptVectorSet(state.optvec[i],"d",(state.optSwitch & OPT_ALL)>0);
             UpdateOptVectorSet(state.optvec[i],"e",(state.optSwitch & OPT_ALL)>0);
-            //shear not include in master switches
+            //shear and translation plane not include in master switches
             UpdateOptVectorSet(state.optvec[i],"g",false);
             UpdateOptVectorSet(state.optvec[i],"t",false);
+            UpdateOptVectorSet(state.optvec[i],"Tpy", false);
+            UpdateOptVectorSet(state.optvec[i],"Tpp", false);
         };
     };
     if(state.optPhotoSwitch!=0)
@@ -2433,8 +2443,11 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
                     std::string number = var.substr(np);
                     unsigned int nr = hugin_utils::lexical_cast<unsigned int>(number);
                     DEBUG_ASSERT(nr < optvec.size());
-                    optvec[nr].insert(name);
-                    DEBUG_DEBUG("parsing opt: >" << var << "< : var:" << name << " image:" << nr);
+                    if(nr < optvec.size())
+                    {
+                        optvec[nr].insert(name);
+                        DEBUG_DEBUG("parsing opt: >" << var << "< : var:" << name << " image:" << nr);
+                    };
                 }
             }
             break;

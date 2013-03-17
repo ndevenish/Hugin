@@ -82,6 +82,8 @@ image_variable( X, double , 0.0 )
 image_variable( Y, double , 0.0 )
 image_variable( Z, double, 0.0 )
 
+image_variable( TranslationPlaneYaw, double, 0.0)
+image_variable( TranslationPlanePitch, double, 0.0)
 // stack information
 // Currently only the link information is used, the value means nothing.
 image_variable( Stack, double, 0.0 )

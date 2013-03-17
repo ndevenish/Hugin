@@ -161,6 +161,8 @@ void ImagesTreeCtrl::CreateColumns()
     ADDCOLUMN(wxT("X (TrX)"), "TrX", 60, wxALIGN_RIGHT, true, HuginBase::ImageVariableGroup::IVE_Yaw, _("Camera translation X"))
     ADDCOLUMN(wxT("Y (TrY)"), "TrY", 60, wxALIGN_RIGHT, true, HuginBase::ImageVariableGroup::IVE_Yaw, _("Camera translation Y"))
     ADDCOLUMN(wxT("Z (TrZ)"), "TrZ", 60, wxALIGN_RIGHT, true, HuginBase::ImageVariableGroup::IVE_Yaw, _("Camera translation Z"))
+    ADDCOLUMN(_("Plane yaw"), "Tpy", 60, wxALIGN_RIGHT, true, HuginBase::ImageVariableGroup::IVE_Yaw, _("Translation remap plane yaw"))
+    ADDCOLUMN(_("Plane pitch"), "Tpp", 60, wxALIGN_RIGHT, true, HuginBase::ImageVariableGroup::IVE_Yaw, _("Translation remap plane pitch"))
 
     ADDCOLUMN(_("Lens type (f)"), "projection", 100, wxALIGN_LEFT, false, HuginBase::ImageVariableGroup::IVE_Filename, _("Lens type (rectilinear, fisheye, equirectangular, ...)"))
     ADDCOLUMN(_("Hfov (v)"), "v", 80, wxALIGN_RIGHT, true, HuginBase::ImageVariableGroup::IVE_HFOV, _("Horizontal field of view (v)"))
@@ -513,6 +515,8 @@ void ImagesTreeCtrl::UpdateImageText(wxTreeItemId item)
         SetItemText(item, m_columnMap["TrX"], wxEmptyString);
         SetItemText(item, m_columnMap["TrY"], wxEmptyString);
         SetItemText(item, m_columnMap["TrZ"], wxEmptyString);
+        SetItemText(item, m_columnMap["Tpy"], wxEmptyString);
+        SetItemText(item, m_columnMap["Tpp"], wxEmptyString);
     }
     else
     {
@@ -522,6 +526,8 @@ void ImagesTreeCtrl::UpdateImageText(wxTreeItemId item)
         SetItemText(item, m_columnMap["TrX"], doubleTowxString(img.getX(), m_degDigits));
         SetItemText(item, m_columnMap["TrY"], doubleTowxString(img.getY(), m_degDigits));
         SetItemText(item, m_columnMap["TrZ"], doubleTowxString(img.getZ(), m_degDigits));
+        SetItemText(item, m_columnMap["Tpy"], doubleTowxString(img.getTranslationPlaneYaw(), m_degDigits));
+        SetItemText(item, m_columnMap["Tpp"], doubleTowxString(img.getTranslationPlanePitch(), m_degDigits));
     };
 
     if(m_groupMode==GROUP_LENS)
@@ -688,6 +694,8 @@ void ImagesTreeCtrl::UpdateGroupText(wxTreeItemId item)
             SetItemText(item, m_columnMap["TrX"], doubleTowxString(img.getX(), m_degDigits));
             SetItemText(item, m_columnMap["TrY"], doubleTowxString(img.getY(), m_degDigits));
             SetItemText(item, m_columnMap["TrZ"], doubleTowxString(img.getZ(), m_degDigits));
+            SetItemText(item, m_columnMap["Tpy"], doubleTowxString(img.getTranslationPlaneYaw(), m_degDigits));
+            SetItemText(item, m_columnMap["Tpp"], doubleTowxString(img.getTranslationPlanePitch(), m_degDigits));
         }
         else
         {
@@ -697,6 +705,8 @@ void ImagesTreeCtrl::UpdateGroupText(wxTreeItemId item)
             SetItemText(item, m_columnMap["TrX"], wxEmptyString);
             SetItemText(item, m_columnMap["TrY"], wxEmptyString);
             SetItemText(item, m_columnMap["TrZ"], wxEmptyString);
+            SetItemText(item, m_columnMap["Tpy"], wxEmptyString);
+            SetItemText(item, m_columnMap["Tpp"], wxEmptyString);
         };
 
         if(m_groupMode==GROUP_LENS)
@@ -1046,6 +1056,8 @@ void ImagesTreeCtrl::SetDisplayMode(DisplayMode newMode)
     SetColumnShown(m_columnMap["TrX"], m_displayMode==DISPLAY_POSITION && m_guiLevel==GUI_EXPERT);
     SetColumnShown(m_columnMap["TrY"], m_displayMode==DISPLAY_POSITION && m_guiLevel==GUI_EXPERT);
     SetColumnShown(m_columnMap["TrZ"], m_displayMode==DISPLAY_POSITION && m_guiLevel==GUI_EXPERT);
+    SetColumnShown(m_columnMap["Tpy"], m_displayMode==DISPLAY_POSITION && m_guiLevel==GUI_EXPERT);
+    SetColumnShown(m_columnMap["Tpp"], m_displayMode==DISPLAY_POSITION && m_guiLevel==GUI_EXPERT);
 
     SetColumnShown(m_columnMap["projection"], m_displayMode==DISPLAY_LENS);
     SetColumnShown(m_columnMap["v"], m_displayMode==DISPLAY_LENS);
@@ -1246,6 +1258,8 @@ void ImagesTreeCtrl::UnLinkImageVariables(bool linked)
             variables.insert(HuginBase::ImageVariableGroup::IVE_X);
             variables.insert(HuginBase::ImageVariableGroup::IVE_Y);
             variables.insert(HuginBase::ImageVariableGroup::IVE_Z);
+            variables.insert(HuginBase::ImageVariableGroup::IVE_TranslationPlaneYaw);
+            variables.insert(HuginBase::ImageVariableGroup::IVE_TranslationPlanePitch);
         };
         if(m_groupMode==GROUP_LENS)
         {
@@ -1468,6 +1482,11 @@ void ImagesTreeCtrl::OnLeftDown(wxMouseEvent &e)
                         HuginBase::OptimizeVector optVec=m_pano->getOptimizeVector();
                         std::set<std::string> var;
                         var.insert(m_columnVector[col]);
+                        if(m_columnVector[col]=="Tpy" || m_columnVector[col]=="Tpp")
+                        {
+                            var.insert("Tpy");
+                            var.insert("Tpp");
+                        };
                         if(m_columnVector[col]=="Vb" || m_columnVector[col]=="Vc" || m_columnVector[col]=="Vd")
                         {
                             var.insert("Vb");
@@ -1591,7 +1610,7 @@ void ImagesTreeCtrl::SelectAllParameters(bool select, bool allImages)
         {
             if(select)
             {
-                if((*it=="y" || *it=="p" || *it=="r" || *it=="TrX" || *it=="TrY" || *it=="TrZ") && 
+                if((*it=="y" || *it=="p" || *it=="r" || *it=="TrX" || *it=="TrY" || *it=="TrZ" || *it=="Tpy" || *it=="Tpp") && 
                     *img==m_pano->getOptions().optimizeReferenceImage)
                 {
                     optVec[*img].erase(*it);

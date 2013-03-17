@@ -78,7 +78,9 @@ const ConstImageVariableGroup::ImageVariableEnum stack_variables_array[]
                ImageVariableGroup::IVE_Stack,
                ImageVariableGroup::IVE_X,
                ImageVariableGroup::IVE_Y,
-               ImageVariableGroup::IVE_Z
+               ImageVariableGroup::IVE_Z,
+               ImageVariableGroup::IVE_TranslationPlaneYaw,
+               ImageVariableGroup::IVE_TranslationPlanePitch
             };
 
 /** A set containing the stack image variables.
@@ -87,7 +89,7 @@ const ConstImageVariableGroup::ImageVariableEnum stack_variables_array[]
  */
 const std::set<ConstImageVariableGroup::ImageVariableEnum> stack_variables_set =
     std::set<ConstImageVariableGroup::ImageVariableEnum>(stack_variables_array,
-                                                         stack_variables_array + 7);
+                                                         stack_variables_array + 9);
 
 // constructor
 ConstStandardImageVariableGroups::ConstStandardImageVariableGroups(const PanoramaData &pano)

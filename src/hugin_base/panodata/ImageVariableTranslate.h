@@ -296,6 +296,8 @@ typedef PTOVariableConverterSingle<'y'> PTOVariableConverterForYaw;
 typedef PTOVariableConverterSingle<'T','r','X'> PTOVariableConverterForX;
 typedef PTOVariableConverterSingle<'T','r','Y'> PTOVariableConverterForY;
 typedef PTOVariableConverterSingle<'T','r','Z'> PTOVariableConverterForZ;
+typedef PTOVariableConverterSingle<'T','p','y'> PTOVariableConverterForTranslationPlaneYaw;
+typedef PTOVariableConverterSingle<'T','p','p'> PTOVariableConverterForTranslationPlanePitch;
 
 typedef PTOVariableConverterSingle<'j'> PTOVariableConverterForStack;
 

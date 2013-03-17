@@ -234,7 +234,7 @@ void AddToOptVec(HuginBase::OptimizeVector& optVec, std::string varname, size_t 
             }
             else
             {
-                if(varname=="TrX" || varname=="TrY" || varname=="TrZ")
+                if(varname=="TrX" || varname=="TrY" || varname=="TrZ" || varname=="Tpy" || varname=="Tpp")
                 {
                     if(!set_contains(refImgs, imgNr))
                     {
@@ -330,6 +330,8 @@ void UnLinkVars(Panorama& pano, ParseVarVec parseVec, bool link)
                         group.linkVariableImage(HuginBase::ImageVariableGroup::IVE_X, parseVec[i].imgNr);
                         group.linkVariableImage(HuginBase::ImageVariableGroup::IVE_Y, parseVec[i].imgNr);
                         group.linkVariableImage(HuginBase::ImageVariableGroup::IVE_Z, parseVec[i].imgNr);
+                        group.linkVariableImage(HuginBase::ImageVariableGroup::IVE_TranslationPlaneYaw, parseVec[i].imgNr);
+                        group.linkVariableImage(HuginBase::ImageVariableGroup::IVE_TranslationPlanePitch, parseVec[i].imgNr);
                     }
                     else
                     {
@@ -339,6 +341,8 @@ void UnLinkVars(Panorama& pano, ParseVarVec parseVec, bool link)
                         group.unlinkVariableImage(HuginBase::ImageVariableGroup::IVE_X, parseVec[i].imgNr);
                         group.unlinkVariableImage(HuginBase::ImageVariableGroup::IVE_Y, parseVec[i].imgNr);
                         group.unlinkVariableImage(HuginBase::ImageVariableGroup::IVE_Z, parseVec[i].imgNr);
+                        group.unlinkVariableImage(HuginBase::ImageVariableGroup::IVE_TranslationPlaneYaw, parseVec[i].imgNr);
+                        group.unlinkVariableImage(HuginBase::ImageVariableGroup::IVE_TranslationPlanePitch, parseVec[i].imgNr);
                         group.updatePartNumbers();
                     }
                 }
