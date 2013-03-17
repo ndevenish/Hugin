@@ -50,13 +50,6 @@
 #include "PanoToolsInterface.h"
 #include "PanoToolsOptimizerWrapper.h"
 
-
-// missing prototype in filter.h
-extern "C" {
-    int CheckParams( AlignInfo *g );
-    void setFcnPanoHuberSigma(double sigma);
-}
-
 //------------------------------------------------------------------------------
 
 //#define DEBUG_WRITE_OPTIM_OUTPUT

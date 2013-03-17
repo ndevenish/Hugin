@@ -37,14 +37,7 @@
 #include <panodata/PanoramaData.h>
 #include <panodata/StandardImageVariableGroups.h>
 
-// This function is not defined in the pano13 headers
-extern "C" {
-int                    CheckParams( AlignInfo *g );
-}
-
 namespace HuginBase { namespace PTools {
-
-    
     
 Transform::~Transform()
 {
