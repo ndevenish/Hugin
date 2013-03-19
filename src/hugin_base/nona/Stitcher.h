@@ -276,9 +276,9 @@ public:
             vigra::ImageExportInfo exinfo1(greyname.str().c_str());
             if (! opts.tiff_saveROI) {
                 alpha.resize(opts.getROI().size());
-                vigra::Rect2D newOutRect = remapped.boundingBox();
+                vigra::Rect2D newOutRect = remapped.boundingBox() & opts.getROI();
                 newOutRect.moveBy(-opts.getROI().upperLeft());
-                vigra::copyImage(vigra_ext::applyRect(remapped.boundingBox(),
+                vigra::copyImage(vigra_ext::applyRect(remapped.boundingBox() & opts.getROI(),
                                  vigra_ext::srcMaskRange(remapped)),
                                  vigra_ext::applyRect(newOutRect,
                                  destImage(alpha)));
@@ -286,7 +286,14 @@ public:
             } else {
                 exinfo1.setPosition(remapped.boundingBox().upperLeft());
                 exinfo1.setCanvasSize(vigra::Size2D(opts.getWidth(), opts.getHeight()));
-                vigra::exportImage(srcImageRange(remapped.m_mask), exinfo1);
+                vigra::Rect2D rect=remapped.boundingBox();
+                if(rect.right() > opts.getROI().right()) {
+                    rect&=opts.getROI();
+                    rect.moveBy(-rect.upperLeft());
+                    vigra::exportImage(srcImageRange(remapped.m_mask, rect), exinfo1);
+                } else {
+                    vigra::exportImage(srcImageRange(remapped.m_mask), exinfo1);
+                };
             }
 
             // calculate real alpha for saving with the image
@@ -294,20 +301,20 @@ public:
             remapped.calcAlpha();
         }
 
-
+        vigra::Rect2D subImage;
         if (! opts.tiff_saveROI) {
             // FIXME: this is stupid. Should not require space for full image...
             // but this would need a lower level interface in vigra impex
             complete.resize(opts.getROI().size());
             alpha.resize(opts.getROI().size());
-            vigra::Rect2D newOutRect = remapped.boundingBox();
+            vigra::Rect2D newOutRect = remapped.boundingBox() & opts.getROI();
             newOutRect.moveBy(-opts.getROI().upperLeft());
-            vigra::copyImage(vigra_ext::applyRect(remapped.boundingBox(),
+            vigra::copyImage(vigra_ext::applyRect(remapped.boundingBox() & opts.getROI(),
                                  vigra_ext::srcImageRange(remapped)),
                              vigra_ext::applyRect(newOutRect,
                                  destImage(complete)));
 
-            vigra::copyImage(vigra_ext::applyRect(remapped.boundingBox(),
+            vigra::copyImage(vigra_ext::applyRect(remapped.boundingBox() & opts.getROI(),
                                  vigra_ext::srcMaskRange(remapped)),
                              vigra_ext::applyRect(newOutRect,
                                  destImage(alpha)));
@@ -316,6 +323,10 @@ public:
         } else {
             final_img = &remapped.m_image;
             alpha_img = &remapped.m_mask;
+            if(remapped.boundingBox().right() > opts.getROI().right()) {
+                subImage=remapped.boundingBox() & opts.getROI();
+                subImage.moveBy(-subImage.upperLeft());
+            };
         }
 
 /*
@@ -353,8 +364,11 @@ public:
             exinfo.setCompression(opts.tiffCompression.c_str());
         }
 
-        vigra::exportImageAlpha(srcImageRange(*final_img), srcImage(*alpha_img),
-                                    exinfo);
+        if(subImage.area()>0) {
+            vigra::exportImageAlpha(srcImageRange(*final_img, subImage), srcImage(*alpha_img), exinfo);
+        } else {
+            vigra::exportImageAlpha(srcImageRange(*final_img), srcImage(*alpha_img), exinfo);
+        };
 
         if (opts.saveCoordImgs) {
             vigra::UInt16Image xImg;
