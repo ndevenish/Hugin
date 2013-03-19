@@ -2033,9 +2033,11 @@ void MainFrame::SetGuiLevel(GuiLevel newLevel)
             bool hasTrX=optVec[i].erase("TrX")>0;
             bool hasTrY=optVec[i].erase("TrY")>0;
             bool hasTrZ=optVec[i].erase("TrZ")>0;
+            bool hasTpy=optVec[i].erase("Tpy")>0;
+            bool hasTpp=optVec[i].erase("Tpp")>0;
             bool hasg=optVec[i].erase("g")>0;
             bool hast=optVec[i].erase("t")>0;
-            needsUpdateOptimizerVar=needsUpdateOptimizerVar || hasTrX || hasTrY || hasTrZ || hasg || hast;
+            needsUpdateOptimizerVar=needsUpdateOptimizerVar || hasTrX || hasTrY || hasTrZ || hasTpy || hasTpp || hasg || hast;
         };
         if(needsUpdateOptimizerVar)
         {
