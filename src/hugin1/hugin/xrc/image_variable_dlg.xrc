@@ -103,6 +103,32 @@
                       </object>
                       <cellpos>6,1</cellpos>
                     </object>
+                    <object class="sizeritem">
+                      <object class="wxStaticText" name="image_variable_text_translation_Tpy">
+                        <label>Tpy:</label>
+                      </object>
+                      <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                      <cellpos>4,2</cellpos>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxTextCtrl" name="image_variable_Tpy">
+                        <size>65, -1</size>
+                      </object>
+                      <cellpos>4,3</cellpos>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxStaticText" name="image_variable_text_translation_Tpp">
+                        <label>Tpp:</label>
+                      </object>
+                      <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                      <cellpos>5,2</cellpos>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxTextCtrl" name="image_variable_Tpp">
+                        <size>65, -1</size>
+                      </object>
+                      <cellpos>5,3</cellpos>
+                    </object>
                     <vgap>3</vgap>
                     <hgap>6</hgap>
                   </object>
