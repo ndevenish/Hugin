@@ -53,6 +53,8 @@ using vigra::NumericTraits;
 namespace vigra_ext
 {
 
+IMPEX void SetGPUDebugMessages(const bool doPrint);
+
 bool IMPEX transformImageGPUIntern(const std::string& coordXformGLSL,
                              const std::string& interpolatorGLSL,
                              const int interpolatorSize,

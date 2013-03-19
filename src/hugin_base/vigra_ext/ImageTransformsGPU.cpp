@@ -136,6 +136,8 @@ static void printInfoLog(GLhandleARB obj) {
     }
 }
 
+static bool printDebug=false;
+
 static bool checkFramebufferStatus(int line, char* file) {
     GLenum status;
     status = (GLenum) glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT);
@@ -188,7 +190,8 @@ static void compileGLSL(const char* programName,
         exit(1);
     }
 
-    printInfoLog(shaderObject);
+    if(printDebug)
+        printInfoLog(shaderObject);
 
     glAttachObjectARB(programObject, shaderObject);
     glLinkProgramARB(programObject);
@@ -200,7 +203,8 @@ static void compileGLSL(const char* programName,
         exit(1);
     }
 
-    printInfoLog(programObject);
+    if(printDebug)
+        printInfoLog(programObject);
 }
 
 static void makeChunks(const int width,
@@ -265,6 +269,11 @@ static void makeChunks(const int width,
 namespace vigra_ext
 {
 
+void SetGPUDebugMessages(const bool doPrint)
+{
+    printDebug=doPrint;
+};
+
 bool transformImageGPUIntern(const std::string& coordXformGLSL,
                              const std::string& interpolatorGLSL,
                              const int interpolatorSize,
@@ -285,50 +294,53 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
                              const bool warparound)
 {
     long t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21;
-    t1=getms();
 
     const int xstart = destUL.x;
     const int xend   = destUL.x + destSize.x;
     const int ystart = destUL.y;
     const int yend   = destUL.y + destSize.y;
 
-    cout << "destStart=[" << xstart << ", " << ystart << "]" << endl
-         << "destEnd=[" << xend << ", " << yend << "]" << endl
-         << "destSize=[" << destSize << "]" << endl
-         << "srcSize=[" << srcSize << "]" << endl;
+    if(printDebug)
+    {
+        t1=getms();
+        cout << "destStart=[" << xstart << ", " << ystart << "]" << endl
+             << "destEnd=[" << xend << ", " << yend << "]" << endl
+             << "destSize=[" << destSize << "]" << endl
+             << "srcSize=[" << srcSize << "]" << endl
+             << "srcBuffer=" << srcBuffer << endl
+             << "srcAlphaBuffer=" << srcAlphaBuffer << endl
+             << "destBuffer=" << destBuffer << endl
+             << "destAlphaBuffer=" << destAlphaBuffer << endl
+             << "destGLInternalFormat=" << XGLStringMap[destGLInternalFormat] << endl
+             << "destGLFormat=" << XGLStringMap[destGLFormat] << endl
+             << "destGLType=" << XGLStringMap[destGLType] << endl
+             << "srcGLInternalFormat=" << XGLStringMap[srcGLInternalFormat] << endl
+             << "srcGLFormat=" << XGLStringMap[srcGLFormat] << endl
+             << "srcGLType=" << XGLStringMap[srcGLType] << endl
+             << "srcAlphaGLType=" << XGLStringMap[srcAlphaGLType] << endl
+             << "destAlphaGLType=" << XGLStringMap[destAlphaGLType] << endl
+             << endl
+             << "warparound=" << warparound << endl;
+    };
 
     vigra_precondition((srcSize.x % 8) == 0, "src image width not a multiple of 8");
     vigra_precondition((destSize.x % 8) == 0, "dest image width not a multiple of 8");
-
-    cout << "srcBuffer=" << srcBuffer << endl
-         << "srcAlphaBuffer=" << srcAlphaBuffer << endl
-         << "destBuffer=" << destBuffer << endl
-         << "destAlphaBuffer=" << destAlphaBuffer << endl;
 
     vigra_precondition((reinterpret_cast<const uintptr_t>(srcBuffer) & 0x7) == 0, "src image buffer not 8-byte aligned");
     vigra_precondition((reinterpret_cast<const uintptr_t>(srcAlphaBuffer) & 0x7) == 0, "src alpha image buffer not 8-byte aligned");
     vigra_precondition((reinterpret_cast<const uintptr_t>(destBuffer) & 0x7) == 0, "dest image buffer not 8-byte aligned");
     vigra_precondition((reinterpret_cast<const uintptr_t>(destAlphaBuffer) & 0x7) == 0, "dest alpha image buffer not 8-byte aligned");
 
-    cout << "destGLInternalFormat=" << XGLStringMap[destGLInternalFormat] << endl
-         << "destGLFormat=" << XGLStringMap[destGLFormat] << endl
-         << "destGLType=" << XGLStringMap[destGLType] << endl
-         << "srcGLInternalFormat=" << XGLStringMap[srcGLInternalFormat] << endl
-         << "srcGLFormat=" << XGLStringMap[srcGLFormat] << endl
-         << "srcGLType=" << XGLStringMap[srcGLType] << endl
-         << "srcAlphaGLType=" << XGLStringMap[srcAlphaGLType] << endl
-         << "destAlphaGLType=" << XGLStringMap[destAlphaGLType] << endl;
-
-    cout << "warparound=" << warparound << endl;
-
     const char* const gpuVendor = reinterpret_cast<const char*>(glGetString(GL_VENDOR));
     const bool needsAtanWorkaround = (strncmp(gpuVendor, "ATI", 3) == 0);
 
-    cout << "needsAtanWorkaround=" << needsAtanWorkaround << endl;
+    if(printDebug)
+        cout << "needsAtanWorkaround=" << needsAtanWorkaround << endl;
 
     GLint maxTextureSize;
     glGetIntegerv(GL_MAX_TEXTURE_SIZE, &maxTextureSize);
-    cout << "maxTextureSize=" << maxTextureSize << endl;
+    if(printDebug)
+        cout << "maxTextureSize=" << maxTextureSize << endl;
 
     // Artificial limit: binding big textures to fbos seems to be very slow.
     //maxTextureSize = 2048;
@@ -362,24 +374,30 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
     vigra_assert(totalGpuMemoryUsed <= GpuMemoryInBytes,
                  "failed to subdivide source and dest images into pieces small enough to fit in gpu memory.");
 
-    cout << "Source chunks:" << endl;
-    for (vector<Rect2D>::iterator rI = sourceChunks.begin(); rI != sourceChunks.end(); ++rI) {
-        cout << "    " << *rI << endl;
-    }
-    cout << "Dest chunks:" << endl;
-    for (vector<Rect2D>::iterator rI = destChunks.begin(); rI != destChunks.end(); ++rI) {
-        cout << "    " << *rI << endl;
-    }
-    cout << "Total GPU memory used: " << totalGpuMemoryUsed << endl;
+    if(printDebug)
+    {
+        cout << "Source chunks:" << endl;
+        for (vector<Rect2D>::iterator rI = sourceChunks.begin(); rI != sourceChunks.end(); ++rI) {
+            cout << "    " << *rI << endl;
+        }
+        cout << "Dest chunks:" << endl;
+        for (vector<Rect2D>::iterator rI = destChunks.begin(); rI != destChunks.end(); ++rI) {
+            cout << "    " << *rI << endl;
+        }
+        cout << "Total GPU memory used: " << totalGpuMemoryUsed << endl;
+    };
 
 
     const int TextureFetchesPerInterpolatorPass = 16;
     vector<Rect2D> interpolatorChunks;
     makeChunks(interpolatorSize, interpolatorSize, TextureFetchesPerInterpolatorPass, TextureFetchesPerInterpolatorPass, interpolatorChunks);
-    cout << "Interpolator chunks:" << endl;
-    for (vector<Rect2D>::iterator rI = interpolatorChunks.begin(); rI != interpolatorChunks.end(); ++rI) {
-        cout << "    " << *rI << endl;
-    }
+    if(printDebug)
+    {
+        cout << "Interpolator chunks:" << endl;
+        for (vector<Rect2D>::iterator rI = interpolatorChunks.begin(); rI != interpolatorChunks.end(); ++rI) {
+            cout << "    " << *rI << endl;
+        }
+    };
     bool allInterpolatorChunksAreEqual = true;
     const Rect2D& firstInterpolatorChunk = interpolatorChunks.front();
     for (vector<Rect2D>::iterator rI = ++(interpolatorChunks.begin()); rI != interpolatorChunks.end(); ++rI) {
@@ -445,7 +463,8 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
 
     std::string coordXformKernelSourceString = oss.str();
     const char* coordXformKernelSource = coordXformKernelSourceString.c_str();
-    cout << coordXformKernelSource;
+    if(printDebug)
+        cout << coordXformKernelSource;
 
     GLhandleARB coordXformProgramObject;
     GLhandleARB coordXformShaderObject;
@@ -563,7 +582,8 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
 
     std::string interpolatorKernelSourceString = oss.str();
     const char* interpolatorKernelSource = interpolatorKernelSourceString.c_str();
-    cout << interpolatorKernelSource;
+    if(printDebug)
+        cout << interpolatorKernelSource;
 
     GLhandleARB interpolatorProgramObject;
     GLhandleARB interpolatorShaderObject;
@@ -613,7 +633,8 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
 
     std::string normalizationPhotometricKernelSourceString = oss.str();
     const char* normalizationPhotometricKernelSource = normalizationPhotometricKernelSourceString.c_str();
-    cout << normalizationPhotometricKernelSource;
+    if(printDebug)
+        cout << normalizationPhotometricKernelSource;
 
     GLhandleARB normalizationPhotometricProgramObject;
     GLhandleARB normalizationPhotometricShaderObject;
@@ -666,8 +687,11 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
     }
 
     glFinish();
-    t21=getms();
-    cout << "gpu shader program compile time = " << ((t21 - t1)/1000.0) << endl;
+    if(printDebug)
+    {
+        t21=getms();
+        cout << "gpu shader program compile time = " << ((t21 - t1)/1000.0) << endl;
+    };
 
     // General GL setup
     glPixelStorei(GL_PACK_ALIGNMENT, 8);
@@ -833,15 +857,19 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
 
 
     glFinish();
-    t2=getms();
-    cout << "gpu shader texture/framebuffer setup time = " << ((t2-t21)/1000.0) << endl;
+    if(printDebug)
+    {
+        t2=getms();
+        cout << "gpu shader texture/framebuffer setup time = " << ((t2-t21)/1000.0) << endl;
+    };
 
     // Render each dest chunk
     int destChunkNumber = 0;
     for (vector<Rect2D>::iterator dI = destChunks.begin(); dI != destChunks.end(); ++dI, ++destChunkNumber) {
 
         glFinish();
-        t3=getms();
+        if(printDebug)
+            t3=getms();
 
         // Render coord image
         glUseProgramObjectARB(coordXformProgramObject);
@@ -858,8 +886,11 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
         CHECK_GL();
 
         glFinish();
-        t4=getms();
-        cout << "gpu dest chunk=" << *dI << " coord image render time = " << ((t4-t3)/1000.0) << endl;
+        if(printDebug)
+        {
+            t4=getms();
+            cout << "gpu dest chunk=" << *dI << " coord image render time = " << ((t4-t3)/1000.0) << endl;
+        };
 
         // Multipass rendering of dest image
         int pass = 0;
@@ -867,7 +898,8 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
 
             if (destChunkNumber == 0 || sourceChunks.size() > 1) {
                 glFinish();
-                t5=getms();
+                if(printDebug)
+                    t5=getms();
 
                 glPixelStorei(GL_UNPACK_ROW_LENGTH, srcSize.x);
                 glPixelStorei(GL_UNPACK_SKIP_PIXELS, sI->left());
@@ -886,8 +918,11 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
                     CHECK_GL();
 
                     glFinish();
-                    t6=getms();
-                    cout << "gpu dest chunk=" << *dI << " source chunk=" << *sI << " src upload = " << ((t6-t5)/1000.0) << endl;
+                    if(printDebug)
+                    {
+                        t6=getms();
+                        cout << "gpu dest chunk=" << *dI << " source chunk=" << *sI << " src upload = " << ((t6-t5)/1000.0) << endl;
+                    };
 
                     if (srcAlphaBuffer != NULL) {
                         // Upload to srcAlphaTexture and composite to srcTexture.
@@ -901,8 +936,11 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
                         CHECK_GL();
 
                         glFinish();
-                        t7=getms();
-                        cout << "gpu dest chunk=" << *dI << " source chunk=" << *sI << " src alpha upload = " << ((t7-t6)/1000.0) << endl;
+                        if(printDebug)
+                        {
+                            t7=getms();
+                            cout << "gpu dest chunk=" << *dI << " source chunk=" << *sI << " src alpha upload = " << ((t7-t6)/1000.0) << endl;
+                        };
 
                         glPolygonMode(GL_FRONT, GL_FILL);
                         glBegin(GL_QUADS);
@@ -914,8 +952,11 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
                         CHECK_GL();
 
                         glFinish();
-                        t8=getms();
-                        cout << "gpu dest chunk=" << *dI << " source chunk=" << *sI << " src+alpha render = " << ((t8-t7)/1000.0) << endl;
+                        if(printDebug)
+                        {
+                            t8=getms();
+                            cout << "gpu dest chunk=" << *dI << " source chunk=" << *sI << " src+alpha render = " << ((t8-t7)/1000.0) << endl;
+                        };
                     }
                 }
                 else {
@@ -931,8 +972,11 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
                     CHECK_GL();
 
                     glFinish();
-                    t6=getms();
-                    cout << "gpu dest chunk=" << *dI << " source chunk=" << *sI << " src upload = " << ((t6-t5)/1000.0) << endl;
+                    if(printDebug)
+                    {
+                        t6=getms();
+                        cout << "gpu dest chunk=" << *dI << " source chunk=" << *sI << " src upload = " << ((t6-t5)/1000.0) << endl;
+                    };
 
                     if (srcAlphaBuffer != NULL) {
                         // Upload to srcAlphaTexture
@@ -944,8 +988,11 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
                         CHECK_GL();
 
                         glFinish();
-                        t7=getms();
-                        cout << "gpu dest chunk=" << *dI << " source chunk=" << *sI << " src alpha upload = " << ((t7- t6)/1000.0) << endl;
+                        if(printDebug)
+                        {
+                            t7=getms();
+                            cout << "gpu dest chunk=" << *dI << " source chunk=" << *sI << " src alpha upload = " << ((t7- t6)/1000.0) << endl;
+                        };
 
                         glPolygonMode(GL_FRONT, GL_FILL);
                         glBegin(GL_QUADS);
@@ -963,8 +1010,11 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
                         CHECK_GL();
 
                         glFinish();
-                        t8=getms();
-                        cout << "gpu dest chunk=" << *dI << " source chunk=" << *sI << " src+alpha render = " << ((t8-t7)/1000.0) << endl;
+                        if(printDebug)
+                        {
+                            t8=getms();
+                            cout << "gpu dest chunk=" << *dI << " source chunk=" << *sI << " src+alpha render = " << ((t8-t7)/1000.0) << endl;
+                        };
                     }
                     else {
                         glPolygonMode(GL_FRONT, GL_FILL);
@@ -985,14 +1035,18 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
                         CHECK_GL();
 
                         glFinish();
-                        t7=getms();
-                        cout << "gpu dest chunk=" << *dI << " source chunk=" << *sI << " src render = " << ((t7-t6)/1000.0) << endl;
+                        if(printDebug)
+                        {
+                            t7=getms();
+                            cout << "gpu dest chunk=" << *dI << " source chunk=" << *sI << " src render = " << ((t7-t6)/1000.0) << endl;
+                        };
                     }
                 }
             }
 
             glFinish();
-            t9=getms();
+            if(printDebug)
+                t9=getms();
 
             // Render dest image
             glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, accumFB);
@@ -1039,8 +1093,11 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
                 glDrawBuffer((pass & 1) ? GL_COLOR_ATTACHMENT1_EXT : GL_COLOR_ATTACHMENT0_EXT);
 
                 glFinish();
-                t10=getms();
-                cout << "gpu dest chunk=" << *dI << " source chunk=" << *sI << " interpolation chunk=" << *iI << " setup = " << ((t10-t9)/1000.0) << endl;
+                if(printDebug)
+                {
+                    t10=getms();
+                    cout << "gpu dest chunk=" << *dI << " source chunk=" << *sI << " interpolation chunk=" << *iI << " setup = " << ((t10-t9)/1000.0) << endl;
+                };
 
                 glPolygonMode(GL_FRONT, GL_FILL);
                 glBegin(GL_QUADS);
@@ -1052,9 +1109,12 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
                 CHECK_GL();
 
                 glFinish();
-                t11=getms();
-                t9=getms();
-                cout << "gpu dest chunk=" << *dI << " source chunk=" << *sI << " interpolation chunk=" << *iI << " render = " << ((t11-t10)/1000.0) << endl;
+                if(printDebug)
+                {
+                    t11=getms();
+                    t9=getms();
+                    cout << "gpu dest chunk=" << *dI << " source chunk=" << *sI << " interpolation chunk=" << *iI << " render = " << ((t11-t10)/1000.0) << endl;
+                };
 
             } // next interpolation chunk
 
@@ -1094,8 +1154,11 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
         glDrawBuffer((pass & 1) ? GL_COLOR_ATTACHMENT1_EXT : GL_COLOR_ATTACHMENT0_EXT);
         
         glFinish();
-        t12=getms();
-        cout << "gpu dest chunk=" << *dI << " normalization setup = " << ((t12-t11)/1000.0) << endl;
+        if(printDebug)
+        {
+            t12=getms();
+            cout << "gpu dest chunk=" << *dI << " normalization setup = " << ((t12-t11)/1000.0) << endl;
+        };
 
         glPolygonMode(GL_FRONT, GL_FILL);
         glBegin(GL_QUADS);
@@ -1107,8 +1170,11 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
         CHECK_GL();
 
         glFinish();
-        t13=getms();
-        cout << "gpu dest chunk=" << *dI << " normalization render = " << ((t13-t12)/1000.0) << endl;
+        if(printDebug)
+        {
+            t13=getms();
+            cout << "gpu dest chunk=" << *dI << " normalization render = " << ((t13-t12)/1000.0) << endl;
+        };
 
         pass++;
 
@@ -1126,8 +1192,11 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
             CHECK_GL();
 
             glFinish();
-            t14=getms();
-            cout << "gpu dest chunk=" << *dI << " rgb readback = " << ((t14-t13)/1000.0) << endl;
+            if(printDebug)
+            {
+                t14=getms();
+                cout << "gpu dest chunk=" << *dI << " rgb readback = " << ((t14-t13)/1000.0) << endl;
+            };
         }
         else {
             // Move output accumTexture to dest texture then readback.
@@ -1141,8 +1210,11 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
             CHECK_GL();
 
             glFinish();
-            t14=getms();
-            cout << "gpu dest chunk=" << *dI << " dest rgb disassembly setup = " << ((t14-t13)/1000.0) << endl;
+            if(printDebug)
+            {
+                t14=getms();
+                cout << "gpu dest chunk=" << *dI << " dest rgb disassembly setup = " << ((t14-t13)/1000.0) << endl;
+            };
 
             glPolygonMode(GL_FRONT, GL_FILL);
             glBegin(GL_QUADS);
@@ -1158,8 +1230,11 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
             CHECK_GL();
 
             glFinish();
-            t15=getms();
-            cout << "gpu dest chunk=" << *dI << " dest rgb disassembly render = " << ((t15-t14)/1000.0) << endl;
+            if(printDebug)
+            {
+                t15=getms();
+                cout << "gpu dest chunk=" << *dI << " dest rgb disassembly render = " << ((t15-t14)/1000.0) << endl;
+            };
 
             glReadBuffer(GL_COLOR_ATTACHMENT0_EXT);
             CHECK_GL();
@@ -1168,8 +1243,11 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
             CHECK_GL();
 
             glFinish();
-            t16=getms();
-            cout << "gpu dest chunk=" << *dI << " rgb readback = " << ((t16-t15)/1000.0) << endl;
+            if(printDebug)
+            {
+                t16=getms();
+                cout << "gpu dest chunk=" << *dI << " rgb readback = " << ((t16-t15)/1000.0) << endl;
+            };
         }
 
         if (destAlphaBuffer != NULL) {
@@ -1184,8 +1262,11 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
             CHECK_GL();
 
             glFinish();
-            t17=getms();
-            cout << "gpu dest chunk=" << *dI << " dest alpha disassembly setup = " << ((t17-t16)/1000.0) << endl;
+            if(printDebug)
+            {
+                t17=getms();
+                cout << "gpu dest chunk=" << *dI << " dest alpha disassembly setup = " << ((t17-t16)/1000.0) << endl;
+            };
 
             glPolygonMode(GL_FRONT, GL_FILL);
             glBegin(GL_QUADS);
@@ -1201,8 +1282,11 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
             CHECK_GL();
 
             glFinish();
-            t18=getms();
-            cout << "gpu dest chunk=" << *dI << " dest alpha disassembly render = " << ((t18-t17)/1000.0) << endl;
+            if(printDebug)
+            {
+                t18=getms();
+                cout << "gpu dest chunk=" << *dI << " dest alpha disassembly render = " << ((t18-t17)/1000.0) << endl;
+            };
 
             // Readback dest alpha chunk
             glReadBuffer(GL_COLOR_ATTACHMENT0_EXT);
@@ -1212,14 +1296,18 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
             CHECK_GL();
 
             glFinish();
-            t19=getms();
-            cout << "gpu dest chunk=" << *dI << " alpha readback = " << ((t19-t18)/1000.0) << endl;
+            if(printDebug)
+            {
+                t19=getms();
+                cout << "gpu dest chunk=" << *dI << " alpha readback = " << ((t19-t18)/1000.0) << endl;
+            };
         }
 
     } // next dest chunk
 
     glFinish();
-    t19=getms();
+    if(printDebug)
+        t19=getms();
 
     glDeleteTextures(2, accumTextures);
     glDeleteTextures(1, &coordTexture);
@@ -1250,9 +1338,12 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
     glDeleteObjectARB(normalizationPhotometricProgramObject);
 
     glFinish();
-    t20=getms();
-    cout << "gpu destruct time = " << ((t20-t19)/1000.0) << endl;
-    cout << "gpu total time = " << ((t20-t1)/1000.0) << endl;
+    if(printDebug)
+    {
+        t20=getms();
+        cout << "gpu destruct time = " << ((t20-t19)/1000.0) << endl;
+        cout << "gpu total time = " << ((t20-t1)/1000.0) << endl;
+    };
 
     return true;
 }

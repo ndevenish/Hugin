@@ -45,6 +45,7 @@
 #include <hugin_utils/platform.h>
 #include <algorithms/nona/NonaFileStitcher.h>
 #include <vigra_ext/MultiThreadOperations.h>
+#include <vigra_ext/ImageTransformsGPU.h>
 
 #include <tiffio.h>
 
@@ -86,6 +87,7 @@ static void usage(const char * name)
     << "  Options: " << std::endl
     << "      -c         create coordinate images (only TIFF_m output)" << std::endl
     << "      -v         quiet, do not output progress indicators" << std::endl
+    << "      -d         print detailed output for gpu processing" << std::endl
     << "      -t num     number of threads to be used (default: nr of available cores)" << std::endl
     << "      -g         perform image remapping on the GPU" << std::endl
     << std::endl
@@ -168,7 +170,7 @@ int main(int argc, char *argv[])
 {
     
     // parse arguments
-    const char * optstring = "z:cho:i:t:m:p:r:e:vg";
+    const char * optstring = "z:cho:i:t:m:p:r:e:vgd";
     int c;
     
     opterr = 0;
@@ -238,6 +240,9 @@ int main(int argc, char *argv[])
                 break;
             case 'g':
                 useGPU = true;
+                break;
+            case 'd':
+                vigra_ext::SetGPUDebugMessages(true);
                 break;
             default:
 		usage(argv[0]);
