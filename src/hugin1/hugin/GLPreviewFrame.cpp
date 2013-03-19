@@ -2985,6 +2985,13 @@ void GLPreviewFrame::SetGuiLevel(GuiLevel newLevel)
     {
         m_DragModeChoice->Append(_("mosaic"));
         m_DragModeChoice->Append(_("mosaic, individual"));
+        if(HasNonZeroTranslationParameters())
+        {
+            if(old_selection<2)
+            {
+                old_selection+=2;
+            };
+        };
         m_DragModeChoice->SetSelection(old_selection);
     }
     else
