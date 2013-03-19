@@ -285,7 +285,13 @@ void transformImageAlphaGPUIntern(vigra::triple<SrcImageIterator, SrcImageIterat
 
     std::ostringstream coordXformOss;
     coordXformOss << std::setprecision(20) << std::showpoint;
-    transform.emitGLSL(coordXformOss);
+    if(!transform.emitGLSL(coordXformOss))
+    {
+        std::cerr << "nona: Found unsupported transformation in stack." << std::endl
+             << "      This geometric transformation is not supported by GPU." << std::endl
+             << "      Remove -g switch and try with CPU transformation." << std::endl;
+        exit(1);
+    };
 
     std::ostringstream interpolatorOss;
     interpolatorOss << std::setprecision(20) << std::showpoint;
