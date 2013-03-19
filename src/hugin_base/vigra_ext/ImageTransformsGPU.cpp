@@ -650,7 +650,7 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
     GLuint invLutTexture;
     GLint invLutTextureParam;
     if (!invLut.empty()) {
-        invLutTextureData = new float[invLut.size() * 4];
+        invLutTextureData = new float[invLut.size() * 2];
         for (int i = 0; i < invLut.size(); ++i) {
             invLutTextureData[2*i] = invLut[i];
             invLutTextureData[2*i+1] = ((i + 1) < invLut.size()) ? invLut[i+1] : invLut[i];
@@ -662,7 +662,7 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
         glTexParameteri(GL_TEXTURE_RECTANGLE_ARB, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_RECTANGLE_ARB, GL_TEXTURE_WRAP_S, GL_CLAMP);
         glTexParameteri(GL_TEXTURE_RECTANGLE_ARB, GL_TEXTURE_WRAP_T, GL_CLAMP);
-        glTexImage2D(GL_TEXTURE_RECTANGLE_ARB, 0, GL_LUMINANCE_ALPHA32F_ARB, invLut.size(), 2, 0, GL_LUMINANCE_ALPHA, GL_FLOAT, invLutTextureData);
+        glTexImage2D(GL_TEXTURE_RECTANGLE_ARB, 0, GL_LUMINANCE_ALPHA32F_ARB, invLut.size(), 1, 0, GL_LUMINANCE_ALPHA, GL_FLOAT, invLutTextureData);
         CHECK_GL();
     }
 
@@ -670,7 +670,7 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
     GLuint destLutTexture;
     GLint destLutTextureParam;
     if (!destLut.empty()) {
-        destLutTextureData = new float[destLut.size() * 4];
+        destLutTextureData = new float[destLut.size() * 2];
         for (int i = 0; i < destLut.size(); ++i) {
             destLutTextureData[2*i] = destLut[i];
             destLutTextureData[2*i+1] = ((i + 1) < destLut.size()) ? destLut[i+1] : destLut[i];
@@ -682,7 +682,7 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
         glTexParameteri(GL_TEXTURE_RECTANGLE_ARB, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
         glTexParameteri(GL_TEXTURE_RECTANGLE_ARB, GL_TEXTURE_WRAP_S, GL_CLAMP);
         glTexParameteri(GL_TEXTURE_RECTANGLE_ARB, GL_TEXTURE_WRAP_T, GL_CLAMP);
-        glTexImage2D(GL_TEXTURE_RECTANGLE_ARB, 0, GL_LUMINANCE_ALPHA32F_ARB, destLut.size(), 2, 0, GL_LUMINANCE_ALPHA, GL_FLOAT, destLutTextureData);
+        glTexImage2D(GL_TEXTURE_RECTANGLE_ARB, 0, GL_LUMINANCE_ALPHA32F_ARB, destLut.size(), 1, 0, GL_LUMINANCE_ALPHA, GL_FLOAT, destLutTextureData);
         CHECK_GL();
     }
 
