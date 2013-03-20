@@ -279,6 +279,33 @@ static void erect_lambertazimuthal_glsl(ostringstream& oss, const void* params) 
         << endl;
 }
 
+static void erect_hammer_glsl(ostringstream& oss, const void* params) {
+    oss << "    // erect_hammer(" << distanceparam << ")" << endl
+        << "    {" << endl
+        << "        src /= " << distanceparam << ";" << endl
+        << "        float z2 = 1.0 - src.s * src.s / 16.0 - src.t * src.t / 4.0;" << endl
+        << "        if (z2 < 0 ) " << DISCARD << endl
+        << "        float z = sqrt(z2);" << endl
+        << "        src.s = 2.0 * atan2_safe( z * src.s, 2.0*(2.0*z2-1.0));" << endl
+        << "        src.t = asin (src.t * z);" << endl
+        << "        if(any(greaterThan(abs(src), vec2(" << M_PI << "," << HALF_PI << "))))" << DISCARD << endl
+        << "        src *= " << distanceparam << ";" << endl
+        << "    }" << endl
+        << endl;
+}
+
+static void erect_arch_glsl(ostringstream& oss, const void* params) {
+    oss << "    // erect_arch(" << distanceparam << ")" << endl
+        << "    {" << endl
+        << "        if(src.t < 0) {" << endl
+        << "            src.t = " << (1.25 * distanceparam) << " * atan_safe(sinh(src.t * " << (4 / (5.0 * distanceparam)) << "));" << endl
+        << "        } else {" << endl
+        << "            src.t = " << distanceparam << " * asin(src.t / " << distanceparam << ");" << endl
+        << "        }" << endl
+        << "    }" << endl
+        << endl;
+}
+
 static void erect_stereographic_glsl(ostringstream& oss, const void* params) {
     oss << "    // erect_stereographic(" << distanceparam << ")" << endl
         << "    {" << endl
@@ -293,6 +320,17 @@ static void erect_stereographic_glsl(ostringstream& oss, const void* params) {
         << "        float y = src.s * sin_c;" << endl
         << "        float x = cos_c * rh;" << endl
         << "        src.s = atan2_safe(y, x) * " << distanceparam << ";" << endl
+        << "    }" << endl
+        << endl;
+}
+
+static void stereographic_erect_glsl(ostringstream& oss, const void* params) {
+    oss << "    // stereographic_erect(" << distanceparam << ")" << endl
+        << "    {" << endl
+        << "        src /= " << distanceparam << ";" << endl
+        << "        vec2 cos_lon_lat=cos(src);" << endl
+        << "        float g=cos_lon_lat.s * cos_lon_lat.t;" << endl
+        << "        src = " << distanceparam << " * 2.0 / (1.0 + g) * vec2(cos_lon_lat.t * sin(src.s), sin(src.t));" << endl
         << "    }" << endl
         << endl;
 }
@@ -329,6 +367,94 @@ static void erect_albersequalareaconic_glsl(ostringstream& oss, const void* para
 
 }
 
+static void lambertazimuthal_erect_glsl(ostringstream& oss, const void* params) {
+    oss << "    // lambertazimuthal_erect(" << distanceparam << ")" << endl
+        << "    {" << endl
+        << "        src /= " << distanceparam << ";" << endl
+        << "        float a=cos(src.t) * cos(src.s) + 1.0;" << endl
+        << "        if (abs(a) <= 1e-10) " << DISCARD << endl
+        << "        src = " << distanceparam << " * sqrt (2.0/a) * vec2 ( cos(src.t) * sin(src.s), sin(src.t));" << endl
+        << "    }" << endl
+        << endl;
+}
+
+static void sphere_tp_equisolid_glsl(ostringstream& oss, const void* params) {
+    oss << "    // sphere_tp_equisolid(" << distanceparam << ")" << endl
+        << "    {" << endl
+        << "        float phi = atan2_safe(src.t, src.s);" << endl
+        << "        src = " << distanceparam << " * 2.0 * asin( length(src) / (2.0 * " << distanceparam << ")) * vec2 (cos(phi), sin(phi));" << endl
+        << "    }" << endl
+        << endl;
+}
+
+static void sphere_tp_orthographic_glsl(ostringstream& oss, const void* params) {
+    oss << "    // sphere_tp_orthographic(" << distanceparam << ")" << endl
+        << "    {" << endl
+        << "        float rho=length(src);" << endl
+        << "        if (rho >" << distanceparam << ") " << DISCARD << endl
+        << "        float phi = atan2_safe(src.t, src.s);" << endl
+        << "        src = " << distanceparam << " * asin( rho / " << distanceparam << ") * vec2 (cos(phi), sin(phi));" << endl
+        << "    }" << endl
+        << endl;
+}
+
+static void orthographic_sphere_tp_glsl(ostringstream& oss, const void* params) {
+    oss << "    // orthographic_sphere_tp(" << distanceparam << ")" << endl
+        << "    {" << endl
+        << "        float theta = length(src) / " << distanceparam << ";" << endl
+        << "        float phi = atan2_safe(src.t, src.s);" << endl
+        << "        if ( abs(theta) > " << HALF_PI << ") " << DISCARD << endl
+        << "        " << endl
+        << "        src = " << distanceparam << " * sin( theta ) * vec2 (cos(phi), sin(phi));" << endl
+        << "    }" << endl
+        << endl;
+}
+
+static void sphere_tp_thoby_glsl(ostringstream& oss, const void* params) {
+    oss << "    // sphere_tp_thoby(" << distanceparam << ")" << endl
+        << "    {" << endl
+        << "        float rho = length(src) / " << distanceparam << ";" << endl
+        << "        if (abs(rho) > " << THOBY_K1_PARM << ") " << DISCARD << endl
+        << "        float phi = atan2_safe(src.t, src.s);" << endl
+        << "        src = " << distanceparam << " * asin(rho/" << THOBY_K1_PARM << ") / " << THOBY_K2_PARM << " * vec2 (cos(phi), sin(phi));" << endl
+        << "    }" << endl
+        << endl;
+}
+
+static void thoby_sphere_tp_glsl(ostringstream& oss, const void* params) {
+    oss << "    // thoby_sphere_tp(" << distanceparam << ")" << endl
+        << "    {" << endl
+        << "        float theta = length(src) / " << distanceparam << ";" << endl
+        << "        float phi = atan2_safe(src.t, src.s);" << endl
+        << "        src = " << distanceparam << " * " << THOBY_K1_PARM << " * sin(theta * " << THOBY_K2_PARM << ") * vec2 (cos(phi), sin(phi));" << endl
+        << "    }" << endl
+        << endl;
+}
+
+static void plane_transfer_to_camera_glsl(ostringstream& oss, const void* params) {
+    oss << "    // plane_transfer_to_camera" << endl
+        << "    //     distance   : " << mp->distance << endl
+        << "    //     x          : " << mp->trans[0] << endl
+        << "    //     y          : " << mp->trans[1] << endl
+        << "    //     z          : " << mp->trans[2] << endl
+        << "    //     plane yaw  : " << mp->trans[3] << endl
+        << "    //     plane pitch: " << mp->trans[4] << endl
+        << "    {" << endl
+        << "        float phi = src.s / " << mp->distance << ";" << endl
+        << "        float theta = " << HALF_PI << " - src.t / " << mp->distance << ";" << endl
+        << "        vec3 p = vec3(sin(theta)*sin(phi), cos(theta), sin(theta)*-cos(phi));" << endl
+        << "        vec3 plane_coeff=vec3(" << sin(HALF_PI+mp->trans[4])*sin(mp->trans[3]) << ", " << cos(HALF_PI+mp->trans[4]) << ", " << sin(HALF_PI+mp->trans[4])*-cos(mp->trans[3]) << ");" << endl
+        << "        float den = -dot(plane_coeff, p);" << endl
+        << "        if ( abs(den) < 1E-15 ) " << DISCARD << endl
+        << "        float u = length(plane_coeff);" << endl
+        << "        u = -u * u / den;" << endl
+        << "        if ( u < 0 ) " << DISCARD << endl
+        << "        p *= u;" << endl
+        << "        p -= vec3(" << mp->trans[0] << "," << mp->trans[1] << "," << mp->trans[2] << ");" << endl
+        << "        src = " << mp->distance << " * vec2( atan2_safe(p.s, -p.p), asin(p.t/length(p)));" << endl
+        << "    }" << endl
+        << endl;
+}
 
 namespace HuginBase { namespace PTools {
 
@@ -366,6 +492,16 @@ bool Transform::emitGLSL(ostringstream& oss) const {
         else if (stack->func == erect_lambertazimuthal)     erect_lambertazimuthal_glsl(oss, stack->param);
         else if (stack->func == erect_stereographic)        erect_stereographic_glsl(oss, stack->param);
         else if (stack->func == erect_albersequalareaconic) erect_albersequalareaconic_glsl(oss, stack->param);
+        else if (stack->func == erect_hammer)               erect_hammer_glsl(oss, stack->param);
+        else if (stack->func == erect_arch)                 erect_arch_glsl(oss, stack->param);
+        else if (stack->func == stereographic_erect)        stereographic_erect_glsl(oss, stack->param);
+        else if (stack->func == lambertazimuthal_erect)     lambertazimuthal_erect_glsl(oss, stack->param);
+        else if (stack->func == sphere_tp_equisolid)        sphere_tp_equisolid_glsl(oss, stack->param);
+        else if (stack->func == sphere_tp_orthographic)     sphere_tp_orthographic_glsl(oss, stack->param);
+        else if (stack->func == orthographic_sphere_tp)     orthographic_sphere_tp_glsl(oss, stack->param);
+        else if (stack->func == sphere_tp_thoby)            sphere_tp_thoby_glsl(oss, stack->param);
+        else if (stack->func == thoby_sphere_tp)            thoby_sphere_tp_glsl(oss, stack->param);
+        else if (stack->func == plane_transfer_to_camera)   plane_transfer_to_camera_glsl(oss, stack->param);
         else {
             oss << "    // Unknown function " << (const void*)stack->func << endl << endl;
             foundUnsupportedFunction = true;

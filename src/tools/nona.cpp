@@ -355,28 +355,14 @@ int main(int argc, char *argv[])
         switch(opts.getProjection())
         {
             // the following projections are not supported by nona-gpu
-            case HuginBase::PanoramaOptions::ARCHITECTURAL:
             case HuginBase::PanoramaOptions::BIPLANE:
             case HuginBase::PanoramaOptions::TRIPLANE:
-            case HuginBase::PanoramaOptions::EQUISOLID:
-            case HuginBase::PanoramaOptions::THOBY_PROJECTION:
-            case HuginBase::PanoramaOptions::ORTHOGRAPHIC:
             case HuginBase::PanoramaOptions::PANINI:
             case HuginBase::PanoramaOptions::EQUI_PANINI:
             case HuginBase::PanoramaOptions::GENERAL_PANINI:
                 useGPU=false;
                 std::cout << "Nona-GPU does not support this projection. Switch to CPU calculation."<<std::endl;
                 break;
-        };
-        for(UIntSet::const_iterator it=outputImages.begin(); it!=outputImages.end();it++)
-        {
-            const SrcPanoImage & img = pano.getImage(*it);
-            if(img.getX()!=0 || img.getY()!=0 || img.getZ()!=0)
-            {
-                useGPU=false;
-                std::cout << "Nona-GPU does not support the translation parameters. Switch to CPU calculation." << std::endl;
-                break;
-            };
         };
     };
     
