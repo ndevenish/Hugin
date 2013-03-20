@@ -2104,6 +2104,7 @@ void MainFrame::SetGuiLevel(GuiLevel newLevel)
             gl_preview_frame->SetTitle(scriptName.GetName() + wxT(".") + scriptName.GetExt() + wxT(" - ") + _("Hugin - Panorama Stitcher"));
             SetTitle(scriptName.GetName() + wxT(".") + scriptName.GetExt() + wxT(" - ") + _("Panorama editor"));
         };
+        Hide();
     }
     else
     {
