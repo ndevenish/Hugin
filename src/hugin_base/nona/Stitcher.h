@@ -277,8 +277,9 @@ public:
             if (! opts.tiff_saveROI) {
                 alpha.resize(opts.getROI().size());
                 vigra::Rect2D newOutRect = remapped.boundingBox() & opts.getROI();
+                vigra::Rect2D newOutArea(newOutRect);
                 newOutRect.moveBy(-opts.getROI().upperLeft());
-                vigra::copyImage(vigra_ext::applyRect(remapped.boundingBox() & opts.getROI(),
+                vigra::copyImage(vigra_ext::applyRect(newOutArea,
                                  vigra_ext::srcMaskRange(remapped)),
                                  vigra_ext::applyRect(newOutRect,
                                  destImage(alpha)));
@@ -308,13 +309,14 @@ public:
             complete.resize(opts.getROI().size());
             alpha.resize(opts.getROI().size());
             vigra::Rect2D newOutRect = remapped.boundingBox() & opts.getROI();
+            vigra::Rect2D newOutArea(newOutRect);
             newOutRect.moveBy(-opts.getROI().upperLeft());
-            vigra::copyImage(vigra_ext::applyRect(remapped.boundingBox() & opts.getROI(),
+            vigra::copyImage(vigra_ext::applyRect(newOutArea,
                                  vigra_ext::srcImageRange(remapped)),
                              vigra_ext::applyRect(newOutRect,
                                  destImage(complete)));
 
-            vigra::copyImage(vigra_ext::applyRect(remapped.boundingBox() & opts.getROI(),
+            vigra::copyImage(vigra_ext::applyRect(newOutArea,
                                  vigra_ext::srcMaskRange(remapped)),
                              vigra_ext::applyRect(newOutRect,
                                  destImage(alpha)));
