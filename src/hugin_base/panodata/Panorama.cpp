@@ -2948,6 +2948,32 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
 #undef image_variable
         new_img.setProjection((SrcPanoImage::Projection) iImgInfo[i].f);
 
+        // check, if stacks are correctly linked
+#define check_stack_link(name) \
+        if(!new_img.YawisLinked() && new_img.name##isLinked())\
+        {\
+            new_img.unlink##name();\
+        };\
+        if(new_img.YawisLinked() && !new_img.name##isLinked())\
+        {\
+            for(size_t j=0; j<i; j++)\
+            {\
+                if(new_img.YawisLinkedWith(*images[j]))\
+                {\
+                    new_img.link##name(images[j]);\
+                    break;\
+                };\
+            };\
+        }
+        check_stack_link(Pitch);
+        check_stack_link(Roll);
+        check_stack_link(X);
+        check_stack_link(Y);
+        check_stack_link(Z);
+        check_stack_link(TranslationPlaneYaw);
+        check_stack_link(TranslationPlanePitch);
+#undef check_stack_link
+
 #if 0
         new_img.setFeatherWidth((unsigned int) iImgInfo[i].blend_radius);
 #endif
