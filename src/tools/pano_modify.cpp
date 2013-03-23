@@ -37,6 +37,8 @@
 #include <panodata/Panorama.h>
 #include <algorithms/nona/CenterHorizontally.h>
 #include <algorithms/basic/StraightenPanorama.h>
+#include <algorithms/basic/RotatePanorama.h>
+#include <algorithms/basic/TranslatePanorama.h>
 #include <algorithms/nona/FitPanorama.h>
 #include <algorithms/basic/CalculateOptimalScale.h>
 #include <algorithms/basic/CalculateOptimalROI.h>
@@ -69,6 +71,8 @@ static void usage(const char * name)
          << "                                   AUTO: autocrop panorama" << endl
          << "                                   AUTOHDR: autocrop HDR panorama" << endl
          << "                                   left,right,top,bottom: to given size" << endl
+         << "     --rotate=yaw,pitch,roll  Rotates the whole panorama with the given angles" << endl
+         << "     --translate=x,y,z        Translate the whole panorama with the given values" << endl
          << "     -h, --help             Shows this help" << endl
          << endl;
 }
@@ -92,14 +96,24 @@ int main(int argc, char *argv[])
     // parse arguments
     const char * optstring = "o:p:sch";
 
+    enum
+    {
+        SWITCH_FOV=1000,
+        SWITCH_CANVAS=1001,
+        SWITCH_CROP=1002,
+        SWITCH_ROTATE=1003,
+        SWITCH_TRANSLATE=1004
+    };
     static struct option longOptions[] = {
         {"output", required_argument, NULL, 'o' },
         {"projection", required_argument, NULL, 'p' },
-        {"fov", optional_argument, NULL, 'f' },
+        {"fov", optional_argument, NULL, SWITCH_FOV },
         {"straighten", no_argument, NULL, 's' },
         {"center", no_argument, NULL, 'c' },
-        {"canvas", optional_argument, NULL, 'w' },
-        {"crop", optional_argument, NULL, 'r' },
+        {"canvas", optional_argument, NULL, SWITCH_CANVAS },
+        {"crop", optional_argument, NULL, SWITCH_CROP },
+        {"rotate", required_argument, NULL, SWITCH_ROTATE },
+        {"translate", required_argument, NULL, SWITCH_TRANSLATE },
         {"help", no_argument, NULL, 'h' },
         0
     };
@@ -119,6 +133,12 @@ int main(int argc, char *argv[])
     bool autocropHDR=false;
     int c;
     int optionIndex = 0;
+    double yaw = 0;
+    double pitch = 0;
+    double roll = 0;
+    double x = 0;
+    double y = 0;
+    double z = 0;
     string output;
     string param;
     while ((c = getopt_long (argc, argv, optstring, longOptions,&optionIndex)) != -1)
@@ -145,7 +165,7 @@ int main(int argc, char *argv[])
                     return 1;
                 };
                 break;
-            case 'f':
+            case SWITCH_FOV:
                 //field of view
                 param=optarg;
                 param=strToUpper(param);
@@ -198,7 +218,7 @@ int main(int argc, char *argv[])
             case 'c':
                 doCenter=true;
                 break;
-            case 'w':
+            case SWITCH_CANVAS:
                 //canvas size
                 param=optarg;
                 param=strToUpper(param);
@@ -245,7 +265,7 @@ int main(int argc, char *argv[])
                     };
                 };
                 break;
-            case 'r':
+            case SWITCH_CROP:
                 //crop
                 param=optarg;
                 param=strToUpper(param);
@@ -277,6 +297,26 @@ int main(int argc, char *argv[])
                     else
                     {
                         cerr << "Could not parse crop values" << endl;
+                        return 1;
+                    };
+                };
+                break;
+            case SWITCH_ROTATE:
+                {
+                    int n=sscanf(optarg, "%lf,%lf,%lf", &yaw, &pitch, &roll);
+                    if(n!=3)
+                    {
+                        cerr << "Could not parse rotate angles values. Given: \"" << optarg << "\"" << endl;
+                        return 1;
+                    };
+                };
+                break;
+            case SWITCH_TRANSLATE:
+                {
+                    int n=sscanf(optarg, "%lf,%lf,%lf", &x, &y, &z);
+                    if(n!=3)
+                    {
+                        cerr << "Could not parse translation values. Given: \"" << optarg << "\"" << endl;
                         return 1;
                     };
                 };
@@ -335,6 +375,16 @@ int main(int argc, char *argv[])
         if (panoProjectionFeaturesQuery(projection, &proj)) 
             cout << "Setting projection to " << proj.name << endl;
         pano.setOptions(opt);
+    };
+    if(abs(yaw) + abs(pitch) + abs(roll) > 0.0)
+    {
+        cout << "Rotate panorama (yaw=" << yaw << ", pitch= " << pitch << ", roll=" << roll << ")" << endl;
+        RotatePanorama(pano, yaw, pitch, roll).run();
+    };
+    if(abs(x) + abs(y) + abs(z) > 0.0)
+    {
+        cout << "Translate panorama (x=" << x << ", y=" << y << ", z=" << z << ")" << endl;
+        TranslatePanorama(pano, x, y, z).run();
     };
     // straighten
     if(doStraighten)
