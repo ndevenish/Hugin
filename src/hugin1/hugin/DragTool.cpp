@@ -132,7 +132,7 @@ void DragTool::MouseMoveEvent(double x, double y, wxMouseEvent & e)
 	    {
 	        HuginBase::SrcPanoImage img = *helper->GetViewStatePtr()->
 	                                                      GetSrcImage(i->first);
-	        double new_yaw, new_pitch, new_roll, new_TrX, new_TrY;
+            double new_yaw, new_pitch, new_roll, new_TrX, new_TrY, new_TrZ, new_Tpy, new_Tpp;
 	
         	if (drag_mode == drag_mode_mosaic) {
         		//if in mosaic mode shift TrX and TrY parameters based on modified yaw and pitch
@@ -141,9 +141,12 @@ void DragTool::MouseMoveEvent(double x, double y, wxMouseEvent & e)
 				i->second.TrX = img.getX() + shift_x;
 				i->second.TrY = img.getY() + shift_y;
 			}
-	        i->second.Move(&rotation_matrix, new_yaw, new_pitch, new_roll, new_TrX, new_TrY);
+            i->second.Move(&rotation_matrix, new_yaw, new_pitch, new_roll, new_TrX, new_TrY, new_TrZ, new_Tpy, new_Tpp);
         	img.setX(new_TrX);
         	img.setY(new_TrY);
+            img.setZ(new_TrZ);
+            img.setTranslationPlaneYaw(new_Tpy);
+            img.setTranslationPlanePitch(new_Tpp);
 	    	img.setYaw(new_yaw); 
 	    	img.setPitch(new_pitch); 
         	img.setRoll(new_roll);
@@ -332,11 +335,14 @@ void DragTool::MouseButtonEvent(wxMouseEvent &e)
         unsigned int count = 0;
         for (i = image_params.begin(); i != image_params.end(); i++)
         {
-            double nyaw, npitch, nroll, nx, ny;
-            i->second.Move(&rotation_matrix, nyaw, npitch, nroll, nx, ny);
+            double nyaw, npitch, nroll, nx, ny, nz, npy, npp;
+            i->second.Move(&rotation_matrix, nyaw, npitch, nroll, nx, ny, nz, npy, npp);
             src_images[count] = helper->GetPanoramaPtr()->getSrcImage(i->first);
 			src_images[count].setX(nx);
 			src_images[count].setY(ny);
+            src_images[count].setZ(nz);
+            src_images[count].setTranslationPlaneYaw(npy);
+            src_images[count].setTranslationPlanePitch(npp);
 	        src_images[count].setYaw(nyaw);
 	        src_images[count].setPitch(npitch);
 	        src_images[count].setRoll(nroll);
@@ -363,11 +369,15 @@ void DragTool::ParamStore::Set(HuginBase::SrcPanoImage *img)
     roll = img->getRoll();
     TrX = img->getX();
     TrY = img->getY();
+    TrZ = img->getZ();
+    Tpy = img->getTranslationPlaneYaw();
+    Tpp = img->getTranslationPlanePitch();
 }
 
 void DragTool::ParamStore::Move(Matrix3 *matrix,
-                                       double &yaw_out, double &pitch_out,
-                                       double &roll_out, double &TrX_out, double &TrY_out)
+                                       double &yaw_out, double &pitch_out, double &roll_out, 
+                                       double &TrX_out, double &TrY_out, double &TrZ_out,
+                                       double &Tpy_out, double &Tpp_out)
 {
     Matrix3 start, output_matrix;
     // convert the location of this image to a matrix.
@@ -380,12 +390,29 @@ void DragTool::ParamStore::Move(Matrix3 *matrix,
     pitch_out = RAD_TO_DEG(pitch_out);
     roll_out = RAD_TO_DEG(roll_out);
     
-	//for non zero Tr parameters correspondence can be kept only for rolling, so adjust TrX and TrY parameters accordingly
-    Vector3 vec(0, TrY, TrX);
-    Vector3 res = matrix->TransformVector(vec);
-    TrX_out = res.z;
-    TrY_out = res.y;
-    
+    if(TrX != 0.0 || TrY != 0.0 || TrZ != 0.0)
+    {
+        // rotate translation vector
+        Vector3 vecRot=matrix->Inverse().TransformVector(Vector3(TrZ, TrX, TrY));
+        TrX_out=vecRot.y;
+        TrY_out=vecRot.z;
+        TrZ_out=vecRot.x;
+        // rotate translation plane
+        start.SetRotationPT(DEG_TO_RAD(Tpy), DEG_TO_RAD(Tpp), 0.0);
+        output_matrix = (*matrix) * start;
+        double dummy;
+        output_matrix.GetRotationPT(Tpy_out, Tpp_out, dummy);
+        Tpy_out=RAD_TO_DEG(Tpy_out);
+        Tpp_out=RAD_TO_DEG(Tpp_out);
+    }
+    else
+    {
+        TrX_out=0;
+        TrY_out=0;
+        TrZ_out=0;
+        Tpy_out=0;
+        Tpp_out=0;
+    };
 }
 
 void DragTool::SetRotationMatrix(double yaw_shift, double pitch_shift,

@@ -60,10 +60,11 @@ public:
     class ParamStore
     {
     public:
-        double yaw, pitch, roll, TrX, TrY;
+        double yaw, pitch, roll, TrX, TrY, TrZ, Tpy, Tpp;
         void Set(HuginBase::SrcPanoImage *img);
         void Move(Matrix3 *matrix,
-                  double &yaw_out,  double &pitch_out,  double &roll_out, double &TrX_out, double &TrY_out);
+                  double &yaw_out,  double &pitch_out,  double &roll_out, double &TrX_out, double &TrY_out, double &TrZ_out,
+                  double &Tpy_out, double &Tpp_out);
     };
 
 	//dragging mode

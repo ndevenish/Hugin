@@ -482,12 +482,12 @@ private:
     bool loadedLayout;
 #endif
 
-    /** check, if panorama has non-zero translation parameters
+    /** check, if panorama has non-zero translation plane parameters
      *  @returns true, if panorama has non-zero translation parameters
      */
-    bool HasNonZeroTranslationParameters();
-    /** resets all translation parameters to zero */
-    void ResetTranslationParameters();
+    bool HasNonZeroTranslationPlaneParameters();
+    /** resets all translation plane parameters to zero */
+    void ResetTranslationPlaneParameters();
     void CleanButtonColours();
     /** Tell the user anything suspicious about the projection choice.
      * If nothing is suspicious, any previous message is removed.

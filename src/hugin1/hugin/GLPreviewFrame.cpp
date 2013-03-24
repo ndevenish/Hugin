@@ -1210,19 +1210,25 @@ void GLPreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &change
         dirty = true;
     }
 
-    //change overview mode to mosaic plane if any tr parameter is non zero
-    if (m_GLOverview->GetMode() == GLOverview::PANOSPHERE) {
-        bool hasTrNonZero = false;
-//        for (unsigned int i = 0 ; i < m_pano.getNrOfImages() ; i++) {
-        for(UIntSet::const_iterator it = changed.begin(); it != changed.end(); ++it) {
-        unsigned int i = *it;
-            if (pano.getSrcImage(i).getX() != 0) hasTrNonZero = true;
-            if (pano.getSrcImage(i).getY() != 0) hasTrNonZero = true;
-            if (pano.getSrcImage(i).getZ() != 0) hasTrNonZero = true;
-        }
-        if (hasTrNonZero) {
-            m_GLOverview->SetMode(GLOverview::PLANE);
-            m_OverviewModeChoice->SetSelection(1);
+    //change overview mode to panosphere if the translation plane parameter are non zero
+    if (m_GLOverview->GetMode() == GLOverview::PLANE)
+    {
+        if (HasNonZeroTranslationPlaneParameters())
+        {
+            m_GLOverview->SetMode(GLOverview::PANOSPHERE);
+            m_OverviewModeChoice->SetSelection(0);
+            //check if drag mode is mosaic, if so reset to normal
+            if(drag_tool)
+            {
+                if(drag_tool->getDragMode()==DragTool::drag_mode_mosaic)
+                {
+                    m_DragModeChoice->SetSelection(m_DragModeChoice->GetSelection()-2);
+                    drag_tool->setDragMode(DragTool::drag_mode_normal);
+                    EnableGroupCheckboxes(individualDragging());
+                    // adjust the layout
+                    DragChoiceLayout(m_DragModeChoice->GetSelection());
+                };
+            };
         }
     }
 
@@ -1782,6 +1788,24 @@ void GLPreviewFrame::OnDragChoice(wxCommandEvent & e)
         }
         if(newDragMode==DragTool::drag_mode_mosaic)
         {
+            if(HasNonZeroTranslationPlaneParameters())
+            {
+                if(wxMessageBox(_("The mosaic/plane mode works only correct for a remapping plane of yaw=0 and pitch=0.\nBut your project has non-zero Tpy and Tpp parameters.\nShould the Tpy and Tpp parameters reset to zero?"),
+#ifdef __WXMSW__
+                    _("Hugin"),
+#else
+                    wxEmptyString,
+#endif
+                    wxYES_NO | wxICON_QUESTION, this) == wxYES)
+                {
+                    ResetTranslationPlaneParameters();
+                }
+                else
+                {
+                    m_DragModeChoice->SetSelection(index-2);
+                    return;
+                };
+            };
             //switch overview mode to plane
             UpdateOverviewMode(1);
             m_OverviewModeChoice->SetSelection(1);
@@ -1789,33 +1813,11 @@ void GLPreviewFrame::OnDragChoice(wxCommandEvent & e)
         else
         {
             //new mode is normal
-            if(m_GLOverview->GetMode()==GLOverview::PLANE)
-            {
-                bool updateMode=false;
-                if(HasNonZeroTranslationParameters())
-                {
-                    wxMessageDialog dialog(this, 
-                        _("Do you want to keep the current non-zero translation parameters?"),
-                        _("Keep XYZ parameters?"), wxYES_NO | wxYES_DEFAULT);
-                    if (dialog.ShowModal() == wxID_NO)
-                    {
-                        ResetTranslationParameters();
-                        updateMode=true;
-                    }
-                }
-                else
-                {
-                    updateMode=true;
-                };
-                if(updateMode)
-                {
-                    //set overview back to panosphere mode
-                    UpdateOverviewMode(0);
-                    m_OverviewModeChoice->SetSelection(0);
-                    m_GLOverview->m_visualization_state->ForceRequireRedraw();
-                    m_GLOverview->m_visualization_state->SetDirtyViewport();
-                };
-            };
+            //set overview back to panosphere mode
+            UpdateOverviewMode(0);
+            m_OverviewModeChoice->SetSelection(0);
+            m_GLOverview->m_visualization_state->ForceRequireRedraw();
+            m_GLOverview->m_visualization_state->SetDirtyViewport();
         };
         //update drag mode
         drag_tool->setDragMode(newDragMode);
@@ -1825,14 +1827,13 @@ void GLPreviewFrame::OnDragChoice(wxCommandEvent & e)
     };
 };
 
-bool GLPreviewFrame::HasNonZeroTranslationParameters()
+bool GLPreviewFrame::HasNonZeroTranslationPlaneParameters()
 {
     size_t nr = m_pano.getNrOfImages();
     for (size_t i = 0 ; i < nr; i++)
     {
-        if (m_pano.getSrcImage(i).getX() != 0 ||
-            m_pano.getSrcImage(i).getY() != 0 ||
-            m_pano.getSrcImage(i).getZ() != 0)
+        if (m_pano.getSrcImage(i).getTranslationPlaneYaw() != 0 ||
+            m_pano.getSrcImage(i).getTranslationPlanePitch() != 0)
         {
             return true;
         };
@@ -1840,7 +1841,7 @@ bool GLPreviewFrame::HasNonZeroTranslationParameters()
     return false;
 };
 
-void GLPreviewFrame::ResetTranslationParameters()
+void GLPreviewFrame::ResetTranslationPlaneParameters()
 {
     UIntSet imgs;
     Panorama newPan = m_pano.duplicate();
@@ -1848,9 +1849,8 @@ void GLPreviewFrame::ResetTranslationParameters()
     for (size_t i = 0 ; i < nr ; i++)
     {
         SrcPanoImage img = newPan.getSrcImage(i);
-        img.setX(0);
-        img.setY(0);
-        img.setZ(0);
+        img.setTranslationPlaneYaw(0);
+        img.setTranslationPlanePitch(0);
         newPan.setSrcImage(i,img);
         imgs.insert(i);
     }
@@ -1870,33 +1870,36 @@ bool GLPreviewFrame::UpdateOverviewMode(int newMode)
     {
         return true;
     };
-    if (m_GLOverview->GetMode() == GLOverview::PLANE)
+    if (m_GLOverview->GetMode() == GLOverview::PANOSPHERE)
     {
-        if (!HasNonZeroTranslationParameters())
+        if (!HasNonZeroTranslationPlaneParameters())
         {
-            m_GLOverview->SetMode(GLOverview::PANOSPHERE);
+            m_GLOverview->SetMode(GLOverview::PLANE);
             return true;
         }
         else
         {
-            wxMessageDialog dialog(this, 
-            _("Switching to panosphere overview mode requires that all images have zero XYZ parameters. Do you want to set all XYZ parameters to zero for all images?"),   
-            _("Reset XYZ parameters?"), wxYES_NO);
-            if (dialog.ShowModal() == wxID_YES)
+            if(wxMessageBox(_("The mosaic/plane mode works only correct for a remapping plane of yaw=0 and pitch=0.\nBut your project has non-zero Tpy and Tpp parameters.\nShould the Tpy and Tpp parameters reset to zero?"),
+#ifdef __WXMSW__
+                _("Hugin"),
+#else
+                wxEmptyString,
+#endif
+                wxYES_NO | wxICON_QUESTION, this) == wxYES)
             {
-                ResetTranslationParameters();
-                m_GLOverview->SetMode(GLOverview::PANOSPHERE);
+                ResetTranslationPlaneParameters();
+                m_GLOverview->SetMode(GLOverview::PLANE);
                 return true;
             }
             else
             {
                 return false;
             };
-        }
+        };
     }
     else
     {
-        m_GLOverview->SetMode(GLOverview::PLANE);
+        m_GLOverview->SetMode(GLOverview::PANOSPHERE);
         return true;
     }
 };
@@ -2985,13 +2988,6 @@ void GLPreviewFrame::SetGuiLevel(GuiLevel newLevel)
     {
         m_DragModeChoice->Append(_("mosaic"));
         m_DragModeChoice->Append(_("mosaic, individual"));
-        if(HasNonZeroTranslationParameters())
-        {
-            if(old_selection<2)
-            {
-                old_selection+=2;
-            };
-        };
         m_DragModeChoice->SetSelection(old_selection);
     }
     else

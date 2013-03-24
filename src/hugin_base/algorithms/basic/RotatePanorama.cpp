@@ -37,11 +37,25 @@ RotatePanorama::RotatePanorama(PanoramaData& panorama, double yaw, double pitch,
 }
     
 
+#define conditional_set(variable, value) \
+if (image.variable##isLinked())\
+{\
+    unsigned int j = 0;\
+    while (j < i && !image.variable##isLinkedWith(panorama.getImage(j)))\
+    {\
+        j++;\
+    }\
+    if (j == i) copy.set##variable(value);\
+} else {\
+    copy.set##variable(value);\
+}
+
 void RotatePanorama::rotatePano(PanoramaData& panorama, const Matrix3& transformMat)
 {
     for (unsigned int i = 0; i < panorama.getNrOfImages(); i++)
     {
         const SrcPanoImage & image = panorama.getImage(i);
+        SrcPanoImage copy = image;
         double y = image.getYaw();
         double p = image.getPitch();
         double r = image.getRoll();
@@ -58,23 +72,23 @@ void RotatePanorama::rotatePano(PanoramaData& panorama, const Matrix3& transform
         DEBUG_DEBUG("rotated angles of img " << i << ": " << y << " " << p << " " << r);
         
         // Don't update a variable linked to a variable we already updated.
-        SrcPanoImage copy = image;
-        #define conditional_set(variable, value) \
-        if (image.variable##isLinked())\
-        {\
-            unsigned int j = 0;\
-            while (j < i && !image.variable##isLinkedWith(panorama.getImage(j)))\
-            {\
-                j++;\
-            }\
-            if (j == i) copy.set##variable(value);\
-        } else {\
-            copy.set##variable(value);\
-        }
         conditional_set(Yaw, y);
         conditional_set(Pitch, p);
         conditional_set(Roll, r);
-        
+        if(image.getX()!=0.0 || image.getY()!=0.0 || image.getZ()!=0.0)
+        {
+            // rotate translation vector
+            Vector3 vecRot=transformMat.Inverse().TransformVector(Vector3(image.getZ(), image.getX(), image.getY()));
+            conditional_set(X, vecRot.y);
+            conditional_set(Y, vecRot.z);
+            conditional_set(Z, vecRot.x);
+            // rotate translation plane
+            mat.SetRotationPT(DEG_TO_RAD(image.getTranslationPlaneYaw()), DEG_TO_RAD(image.getTranslationPlanePitch()), 0.0);
+            rotated = transformMat * mat;
+            rotated.GetRotationPT(y,p,r);
+            conditional_set(TranslationPlaneYaw, RAD_TO_DEG(y));
+            conditional_set(TranslationPlanePitch, RAD_TO_DEG(p));
+        };
         panorama.setImage(i, copy);
         panorama.imageChanged(i);
     }
