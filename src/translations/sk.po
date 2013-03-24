@@ -3456,12 +3456,12 @@ msgstr "Projekty pridané z adresára "
 #: hugin1/ptbatcher/BatchFrame.cpp:462
 #, c-format
 msgid "Add project %s to stitching queue."
-msgstr "Pridáva projekt do zoznamu zlepovacej fronty."
+msgstr "Pridáva projekt %s do zoznamu zlepovacej fronty."
 
 #: hugin1/ptbatcher/BatchFrame.cpp:465
 #, c-format
 msgid "Add project %s to assistant queue."
-msgstr "Pridáva projekt do frontu asistenta."
+msgstr "Pridáva projekt %s do frontu asistenta."
 
 #: hugin1/ptbatcher/BatchFrame.cpp:479
 msgid "Batch stopped"
