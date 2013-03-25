@@ -157,7 +157,7 @@ msgstr "Kruhové rybie oko"
 
 #: hugin1/base_wx/LensTools.cpp:40 hugin1/hugin/ImagesTree.cpp:369
 msgid "Full frame fisheye"
-msgstr "Plnosnímkové rybie oko"
+msgstr "Plnoformátové rybie oko"
 
 #: hugin1/base_wx/LensTools.cpp:42 hugin1/hugin/ImagesTree.cpp:371
 #: hugin1/hugin/PanoPanel.cpp:153
@@ -204,7 +204,7 @@ msgstr "Uložiť súbor s parametrami šošovky"
 
 #: hugin1/base_wx/LensTools.cpp:347 hugin1/calibrate_lens/LensCalFrame.cpp:741
 msgid "Lens Project Files (*.ini)|*.ini|All files (*)|*"
-msgstr "Soubory s projektami šošovky (*.ini)|*.ini|Všetky súbory (*)|*"
+msgstr "Súbory s projektami šošovky (*.ini)|*.ini|Všetky súbory (*)|*"
 
 #: hugin1/base_wx/LensTools.cpp:363
 msgid "Please select an image and try again"
@@ -296,7 +296,7 @@ msgstr "nepodarilo sa otvoriť skript: %s"
 #: hugin1/nona_gui/nona_gui.cpp:250 hugin1/ptbatcher/ProjectArray.cpp:128
 #, c-format
 msgid "error while parsing panotools script: %s"
-msgstr "chyba počas parsovania panotools skriptu: %s"
+msgstr "chyba počas analýzy panotools skriptu: %s"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:216 hugin1/base_wx/RunStitchPanel.cpp:233
 #: hugin1/base_wx/RunStitchPanel.cpp:352
@@ -318,7 +318,7 @@ msgstr "Prepísať existujúce obrázky"
 #: hugin1/base_wx/RunStitchPanel.cpp:288
 #, c-format
 msgid "Stitching %s"
-msgstr "Zlepujem %s"
+msgstr "Lepím %s"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:292
 #, c-format
@@ -326,13 +326,13 @@ msgid ""
 "Error while stitching project\n"
 "%s"
 msgstr ""
-"Chyba pri zliepaní projektu\n"
+"Chyba pri lepení projektu\n"
 "%s"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:293 hugin1/base_wx/RunStitchPanel.cpp:299
 #: hugin1/stitch_project/hugin_stitch_project.cpp:177
 msgid "Error during stitching"
-msgstr "Chyba počas zlepovania"
+msgstr "Chyba počas lepenia"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:371
 #, c-format
@@ -416,7 +416,7 @@ msgid ""
 "Could not proceed.\n"
 "(Error code: %d)"
 msgstr ""
-"Súčasne vybraná šošovka nesúhlasí s informáciou tejo šošovky vo vybranej "
+"Súčasne vybraná šošovka nesúhlasí s informáciou tejto šošovky vo vybranej "
 "databáze.\n"
 "Nedá sa pokračovať.\n"
 "(Chybný kód: %d)"
@@ -467,12 +467,12 @@ msgid ""
 "xrc directory not found, hugin needs to be properly installed\n"
 "Tried Path:"
 msgstr ""
-"Adresár xrc directory nebol nájdený, je treba korektne nainštalovať hugin\n"
+"Adresár xrc nebol nájdený, je treba korektne nainštalovať hugin\n"
 "Testovaná cesta:"
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:170
 msgid "Hugin Lens calibration GUI"
-msgstr "Hugin - rozhranie kalibrácie objektivu"
+msgstr "Hugin - rozhranie kalibrácie šošovky"
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:373
 #, c-format
@@ -482,7 +482,7 @@ msgstr "Pridané %s"
 #: hugin1/calibrate_lens/LensCalFrame.cpp:400
 #, c-format
 msgid "The size of the images (%s) does not match the already added image(s)."
-msgstr "Veľkost obrázkov (%s) nesúhlasí s veľkosťou už pridaných obrázkov."
+msgstr "Veľkosť obrázkov (%s) nesúhlasí s veľkosťou už pridaných obrázkov."
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:413
 #, c-format
@@ -520,7 +520,7 @@ msgid ""
 "Please check your inputs."
 msgstr ""
 "V vstupných políčkach sú neplatné hodnoty.\n"
-"Skontrolujte, prosím, váše vstupy."
+"Skontrolujte, prosím, vaše vstupy."
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:611
 msgid "Detecting edges..."
@@ -542,7 +542,7 @@ msgid ""
 "parameters."
 msgstr ""
 "Nie sú nájdené žiadne priamky.\n"
-"Prosím spusťte najprv \"Nájsť priamky\".Pokiaľ sa žiadna priamka nenájde, "
+"Prosím spusťte najprv \"Nájsť priamky\". Pokiaľ sa žiadna priamka nenájde, "
 "skúste zmeniť parametre."
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:717
@@ -584,7 +584,7 @@ msgstr "Uložiť parametre šošovky do lensfun databázy"
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:783
 msgid "Saving lens data"
-msgstr "Uložiť parametry šošovky"
+msgstr "Uložiť parametre šošovky"
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:783 translations/xrc.cpp:276
 #: xrc.cpp:276
@@ -620,7 +620,7 @@ msgstr "Architektúra: %s"
 #: hugin1/hugin/AboutDialog.cpp:139
 #, c-format
 msgid "Free memory: %ld kiB"
-msgstr "Voľná pamäť: %ld kiB"
+msgstr "Voľná pamäť: %ld kB"
 
 #: hugin1/hugin/AboutDialog.cpp:142
 #, c-format
@@ -658,7 +658,7 @@ msgstr "Knihovne"
 
 #: hugin1/hugin/CPDetectorDialog.cpp:93
 msgid "Autopano from http://autopano.kolor.com is not available for OS X"
-msgstr "Autopano z http://autopano.kolor.com nie je podporovaný OSX"
+msgstr "Autopano z http://autopano.kolor.com nie je k dispozícii pre OSX"
 
 #: hugin1/hugin/CPDetectorDialog.cpp:94
 msgid "Using Autopano-Sift instead"
@@ -741,7 +741,7 @@ msgid ""
 "Point fine-tuned, angle: %.0f deg, correlation coefficient: %0.3f, "
 "curvature: %0.3f %0.3f "
 msgstr ""
-"Bod doladený, uhol: %.0f st., korelačný koeficient: %0.3f, zakrivenie: %0.3f "
+"Bod doladený, uhol: %.0f°, korelačný koeficient: %0.3f, zakrivenie: %0.3f "
 "%0.3f "
 
 #: hugin1/hugin/CPEditorPanel.cpp:702 hugin1/hugin/CPEditorPanel.cpp:832
@@ -896,7 +896,7 @@ msgstr "Nie je možné spracovať udalosť!"
 
 #: hugin1/hugin/CPListFrame.cpp:303 hugin1/hugin/CPListFrame.cpp:313
 msgid "Left Img."
-msgstr "ľavý obr."
+msgstr "Ľavý Obr."
 
 #: hugin1/hugin/CPListFrame.cpp:304 hugin1/hugin/CPListFrame.cpp:307
 msgid "x"
@@ -908,7 +908,7 @@ msgstr "y"
 
 #: hugin1/hugin/CPListFrame.cpp:306 hugin1/hugin/CPListFrame.cpp:314
 msgid "Right Img."
-msgstr "pravý obr."
+msgstr "Pravý Obr."
 
 #: hugin1/hugin/CPListFrame.cpp:312
 msgid "G CP#"
@@ -975,7 +975,7 @@ msgid ""
 msgstr ""
 "Pre posun obrázkov ich uchopte ľavým tlačidlom myši (pri stlačenom shift "
 "bude pohyb obmedzený). Pre nakláňanie ich uchopte pravým tlačidlom myši "
-"alebo použite ľavé s klávesom ctrl."
+"alebo použite ľavé s klávesom Ctrl."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:305 hugin1/hugin/GLPreviewFrame.cpp:3043
 msgid "Fast Panorama preview"
@@ -1068,7 +1068,7 @@ msgstr "Prehľad"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:685 hugin1/hugin/PreviewFrame.cpp:304
 msgid "Resets the projection's parameters to their default values."
-msgstr "Obnoví parametry projekcie na ich štandardné hodnoty."
+msgstr "Obnoví parametre projekcie na ich štandardné hodnoty."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:694 hugin1/hugin/PreviewFrame.cpp:313
 msgid "param:"
@@ -1144,7 +1144,7 @@ msgid ""
 "panorama editor."
 msgstr ""
 "Poznámka: automatické zarovnanie používa východzie nastavenia volieb. Ak "
-"chcete pužiť vlastné nastavenia, spusťte detekciu kontrolných bodov, "
+"chcete použiť vlastné nastavenia, spusťte detekciu kontrolných bodov, "
 "geometrickú optimalizáciu a fotometrickú optimalizáciu v paneli Fotografie  "
 "v editore panorámy."
 
@@ -1190,7 +1190,7 @@ msgstr "Hodnota musí byť číselná."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1797
 msgid "Do you want to keep the current non-zero translation parameters?"
-msgstr "Chcete držať súčasné nenulové parametry posunu?"
+msgstr "Chcete držať súčasné nenulové parametre posunu?"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1798
 msgid "Keep XYZ parameters?"
@@ -1283,7 +1283,7 @@ msgid ""
 "space."
 msgstr ""
 "So širokým vertikálnym zorným poľom sú panorámy s cylindrickou projekciou "
-"veľmi natiahnuté navrchu a naspodu.\n"
+"veľmi natiahnuté navrchu a naspodku.\n"
 "Skoroobdĺžniková projekcia umiestni rovnaký obsah do menšieho vertikálneho "
 "priestoru."
 
@@ -1306,7 +1306,7 @@ msgid ""
 "easier on the eye."
 msgstr ""
 "Stereografická projekcia je konformná, narozdiel od projekcie Rybie oko.\n"
-"Konformná projekcia zachováva uhly okolo bodu, čím sa stáva častokrát "
+"Konformná projekcia zachováva uhly okolo bodu, čím sa stáva často "
 "prirodzenejšia pre ľudský zrak."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:2863
@@ -1318,7 +1318,7 @@ msgid ""
 msgstr ""
 "Panorámy so stereografickou projekciou a veľmi širokým zorným poľom veľmi "
 "naťahujú obrázok okolo rohov.\n"
-"Projekcia Rybie oko ho zhutňuje, takže dokážete vmestnať široké zorné pole a "
+"Projekcia Rybie oko ho zhutňuje, takže dokážete vmestiť široké zorné pole a "
 "stále zachovať slušné pokrytie stredu."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:2870
@@ -1326,7 +1326,7 @@ msgid ""
 "Setting the panorama to rectilinear projection would keep the straight lines "
 "straight."
 msgstr ""
-"Nastavenie panorámy na obdĺžnikovu projekciu zaistí, že rovné čiary ostanu "
+"Nastavenie panorámy na obdĺžnikovu projekciu zaistí, že rovné čiary ostanú "
 "rovnými."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:2912
@@ -1466,7 +1466,7 @@ msgstr "Zadajte maximálny počet kontrolných bodov na dvojicu obrázkov"
 
 #: hugin1/hugin/ImagesPanel.cpp:313
 msgid "Points per Overlap"
-msgstr "Bodov na prekryv"
+msgstr "Bodov na prekrytie"
 
 #: hugin1/hugin/ImagesPanel.cpp:314
 msgid "Control point detector option"
@@ -1483,7 +1483,7 @@ msgstr "Výsledok detektora kontrolných bodov"
 
 #: hugin1/hugin/ImagesPanel.cpp:609
 msgid "The minimum overlap has to be greater than 0 and smaller than 1."
-msgstr "Minimálny prekryv musí byť v intervale 0 < x < 1."
+msgstr "Minimálne prekrytie musí byť v intervale 0 < x < 1."
 
 #: hugin1/hugin/ImagesPanel.cpp:639
 msgid "The maximum Ev difference has to be greater than 0."
@@ -1503,7 +1503,7 @@ msgstr "Výstupné štósy"
 
 #: hugin1/hugin/ImagesPanel.cpp:697
 msgid "Positions (incremental, starting from anchor)"
-msgstr "Pozície (inkrementálne, začnúť od kotvy)"
+msgstr "Pozície (inkrementálne, začať od kotvy)"
 
 #: hugin1/hugin/ImagesPanel.cpp:700
 msgid "Positions (y,p,r)"
@@ -1607,7 +1607,7 @@ msgstr "Ukotviť tento obrázok pre pozíciu a/či expozíciu"
 
 #: hugin1/hugin/ImagesTree.cpp:145
 msgid "# Ctrl Pnts"
-msgstr "# Kontr. body"
+msgstr "# Kontr. Bodov"
 
 #: hugin1/hugin/ImagesTree.cpp:145
 msgid "Number of control points in this image"
@@ -1647,7 +1647,7 @@ msgstr "Dátum snímku"
 
 #: hugin1/hugin/ImagesTree.cpp:152
 msgid "Date, image was taken"
-msgstr "Dátum, kedy bol snímok vyfotený"
+msgstr "Dátum, kedy bol snímok fotený"
 
 #: hugin1/hugin/ImagesTree.cpp:153
 msgid "Focal length"
@@ -1747,11 +1747,11 @@ msgstr "Vertikálny posun stredu obrázku (e)"
 
 #: hugin1/hugin/ImagesTree.cpp:172
 msgid "Horizontal image shearing (g)"
-msgstr "Horizontány šmyk obrázku (g)"
+msgstr "Horizontálny šmyk obrázku (g)"
 
 #: hugin1/hugin/ImagesTree.cpp:173
 msgid "Vertical image shearing (t)"
-msgstr "Vertikány šmyk obrázku (t)"
+msgstr "Vertikálny šmyk obrázku (t)"
 
 #: hugin1/hugin/ImagesTree.cpp:175
 msgid "Exposure value (Eev)"
@@ -1790,7 +1790,7 @@ msgstr "Typ odozvy fotoaparátu"
 #: hugin1/hugin/ImagesTree.cpp:186 hugin1/hugin/ImagesTree.cpp:187
 #: hugin1/hugin/ImagesTree.cpp:188
 msgid "Camera response parameter"
-msgstr "Parametry odozvy fotoaparátu"
+msgstr "Parametre odozvy fotoaparátu"
 
 #: hugin1/hugin/ImagesTree.cpp:385 translations/xrc.cpp:246 xrc.cpp:246
 msgid "custom (EMoR)"
@@ -1830,11 +1830,11 @@ msgstr "Odpojiť"
 
 #: hugin1/hugin/ImagesTree.cpp:1123
 msgid "Select all for current lens"
-msgstr "Vybrať všekto pre súčasnú šošovku"
+msgstr "Vybrať všetko pre súčasnú šošovku"
 
 #: hugin1/hugin/ImagesTree.cpp:1124
 msgid "Unselect all for current lens"
-msgstr "Zrušiť všekto pre súčasnú šošovku"
+msgstr "Zrušiť všetko pre súčasnú šošovku"
 
 #: hugin1/hugin/ImagesTree.cpp:1128
 msgid "Select all for current stack"
@@ -1947,7 +1947,7 @@ msgstr "Expozícia"
 
 #: hugin1/hugin/MainFrame.cpp:694
 msgid "Save changes to the panorama before closing?"
-msgstr "Uložiť zmeny panáromy pred uzatvorením?"
+msgstr "Uložiť zmeny panorámy pred uzatvorením?"
 
 #: hugin1/hugin/MainFrame.cpp:702
 msgid ""
@@ -2058,7 +2058,7 @@ msgid ""
 "This file can't be open with File, Open.\n"
 "Do you want to add this image file to the current project?"
 msgstr ""
-"Súbor %s je obrázok a nie project.\n"
+"Súbor %s je obrázok a nie projekt.\n"
 "Preto nemôže byť otvorený pomocou ponuky Súbor->Otvoriť.\n"
 "Chcete namiesto toho pridať tento obrázok do súčasného projektu?"
 
@@ -2125,7 +2125,7 @@ msgstr "Odstraňujem kontrolné body v maskách"
 
 #: hugin1/hugin/MainFrame.cpp:1690
 msgid "Select python script"
-msgstr "Vyberte pyhon skript"
+msgstr "Vyberte python skript"
 
 #: hugin1/hugin/MainFrame.cpp:1692
 msgid "Python script (*.py)|*.py|All files (*.*)|*.*"
@@ -2175,7 +2175,7 @@ msgid ""
 "parameters.\n"
 "These parameters are not supported in simple interface."
 msgstr ""
-"Nedá sa prepnúť na jednoduché rozhranie. Projekt obsahuje posunové alebo "
+"Nedá sa prepnúť na jednoduché rozhranie. Projekt obsahuje posunkové alebo "
 "šmykové parametre.\n"
 "Tieto vlastnosti nie sú podporované v jednoduchom rozhraní."
 
@@ -2185,7 +2185,7 @@ msgid ""
 "shear parameters.\n"
 "These parameters are not supported in advanced interface."
 msgstr ""
-"Nedá sa prepnúť na pokročilé rozhranie. Projekt obsahuje posunové alebo "
+"Nedá sa prepnúť na pokročilé rozhranie. Projekt obsahuje posunkové alebo "
 "šmykové parametre.\n"
 "Tieto vlastnosti nie sú podporované v pokročilom rozhraní."
 
@@ -2283,18 +2283,18 @@ msgstr "Voľby pre Nona"
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:94
 msgid "Any variables below which are bold and underlined will be optimized."
 msgstr ""
-"Každá premenná dolu, ktorá je podčiarknutá a tučno označená bude "
-"optimizovaná."
+"Každá premenná dolu, ktorá je podčiarknutá a tučne označená bude "
+"optimalizovaná."
 
 #: hugin1/hugin/OptimizePanel.cpp:99
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:97
 msgid "Use command + left mouse click to toggle state of variables."
-msgstr "Použte ľavé tlačidlom myši na prepnutie stavu premenných."
+msgstr "Použite ľavé tlačidlom myši na prepnutie stavu premenných."
 
 #: hugin1/hugin/OptimizePanel.cpp:101
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:99
 msgid "Use control + left mouse click to toggle state of variables."
-msgstr "Použte Control a ľavé tlačidlom myši na prepnutie stavu premenných."
+msgstr "Použite Control a ľavé tlačidlom myši na prepnutie stavu premenných."
 
 #: hugin1/hugin/OptimizePanel.cpp:104
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:102
@@ -2365,7 +2365,7 @@ msgstr ""
 "Prosím vráťte hodnoty parametrov a, b a c na nulu a pridajte viac "
 "kontrolných bodov\n"
 "\n"
-"Aplikovat zmeny aj tak?"
+"Aplikovať zmeny aj tak?"
 
 #: hugin1/hugin/OptimizePanel.cpp:341
 #, c-format
@@ -2464,7 +2464,7 @@ msgid ""
 "Apply results?"
 msgstr ""
 "Výsledky fotometrickej optimalizácie:\n"
-"Priemerný rozdiel (RMSE) prekrývajúcich sa pixelov: %.2f v šedých hodnotách "
+"Priemerný rozdiel (RMSE) prekrývajúcich sa pixlov: %.2f v šedých hodnotách "
 "(0..255)\n"
 "Použiť výsledky?"
 
@@ -2518,11 +2518,11 @@ msgstr "Zmeniť číslo šošovky"
 
 #: hugin1/hugin/PanoOperation.cpp:494
 msgid "Load lens from Lensfun database"
-msgstr "Načítať šošovku z lenfun databázy"
+msgstr "Načítať šošovku z Lensfun databázy"
 
 #: hugin1/hugin/PanoOperation.cpp:498
 msgid "Load lens from ini file"
-msgstr "Načítať šošovku zini súboru"
+msgstr "Načítať šošovku z ini súboru"
 
 #: hugin1/hugin/PanoOperation.cpp:507
 msgid ""
@@ -2530,7 +2530,8 @@ msgid ""
 "Should the loaded parameters be applied to all images with the same lens?"
 msgstr ""
 "Vybrali ste len jeden obrázok.\n"
-"Mali by sa vybrané parametre aplikovať na všetky obrázky so stejnou šošovkou?"
+"Mali by sa vybrané parametre aplikovať na všetky obrázky s tou istou "
+"šošovkou?"
 
 #: hugin1/hugin/PanoOperation.cpp:507 hugin1/ptbatcher/FindPanoDialog.cpp:196
 #: hugin1/ptbatcher/FindPanoDialog.cpp:231
@@ -2599,7 +2600,7 @@ msgstr "Odstránených %lu kontrolných bodov"
 
 #: hugin1/hugin/PanoOperation.cpp:708
 msgid "Cleaning"
-msgstr "Čístím"
+msgstr "Čistím"
 
 #: hugin1/hugin/PanoOperation.cpp:716
 msgid "Remove control points on clouds"
@@ -2611,7 +2612,7 @@ msgstr "Obnoviť vlastné nastavenia..."
 
 #: hugin1/hugin/PanoOperation.cpp:818
 msgid "Reset positions"
-msgstr "Resetovať pozície"
+msgstr "Obnoviť pozície"
 
 #: hugin1/hugin/PanoOperation.cpp:821
 msgid "Reset lens parameters"
@@ -2777,14 +2778,14 @@ msgid ""
 "and stitch from the Stitcher tab. Stitching a panorama this size could take "
 "a long time and a large amount of memory."
 msgstr ""
-"Panoráma, ktorú sa snažíte zošiť má %.1f gigapixelov.\n"
-"Ak je táto hodnota príliš veľká, zmenšite veľkosť plátna panorámy a oblasť "
-"orezania a zošite panorámu v paneli Zlepovača. Zošívanie panorámy takejto "
+"Panoráma, ktorú sa snažíte zošiť má %.1f gigapixlov.\n"
+"Ak je táto hodnota príliš veľká, zmenšte veľkosť plátna panorámy a oblasť "
+"orezania a zošite panorámu v paneli Lepiča. Zošívanie panorámy takejto "
 "veľkosti by mohlo zabrať dlhý čas a veľké množstvo pamäte."
 
 #: hugin1/hugin/PanoPanel.cpp:1401
 msgid "Stitch anyway"
-msgstr "Zlepiť aj tak"
+msgstr "Lepiť aj tak"
 
 #: hugin1/hugin/PanoPanel.cpp:1401
 msgid "Let me fix that"
@@ -2800,12 +2801,12 @@ msgid ""
 "and stitch from the Stitcher tab. Stitching a panorama this size could take "
 "a long time and a large amount of memory."
 msgstr ""
-"Určite chcete zošiť takú veľkú panorámu?\n"
+"Určite chcete lepiť takú veľkú panorámu?\n"
 "\n"
-"Panoráma, ktorú sa snažíte zošiť má %.1f gigapixelov.\n"
+"Panoráma, ktorú sa snažíte lepiť má %.1f gigapixlov.\n"
 "Ak je táto hodnota príliš veľká, zmenšite veľkosť plátna panorámy a oblasť "
-"orezania a zošite panorámu v paneli Zlepovača. Zošívanie panorámy takejto "
-"veľkosti by mohlo zabrať dlhý čas a veľké množstvo pamäte."
+"orezania a lepte panorámu v paneli Lepiča. Lepenie panorámy takejto veľkosti "
+"by mohlo zabrať dlhý čas a veľké množstvo pamäte."
 
 #: hugin1/hugin/PluginItems.cpp:71
 msgid "Miscellaneous"
@@ -2821,7 +2822,7 @@ msgstr "Baskičtina"
 
 #: hugin1/hugin/PreferencesDialog.cpp:119
 msgid "Bulgarian"
-msgstr "Bulharština"
+msgstr "Bulharčina"
 
 #: hugin1/hugin/PreferencesDialog.cpp:122
 msgid "Catalan"
@@ -2841,11 +2842,11 @@ msgstr "Čeština"
 
 #: hugin1/hugin/PreferencesDialog.cpp:134
 msgid "Danish"
-msgstr "Dánština"
+msgstr "Dánčina"
 
 #: hugin1/hugin/PreferencesDialog.cpp:137
 msgid "Dutch"
-msgstr "Dánčina"
+msgstr "Holandčina"
 
 #: hugin1/hugin/PreferencesDialog.cpp:140
 msgid "English"
@@ -2881,7 +2882,7 @@ msgstr "Poľština"
 
 #: hugin1/hugin/PreferencesDialog.cpp:164
 msgid "Portuguese (Brazilian)"
-msgstr "Portugalština (brazílska)"
+msgstr "Portugalčina (brazílska)"
 
 #: hugin1/hugin/PreferencesDialog.cpp:167
 msgid "Russian"
@@ -2901,7 +2902,7 @@ msgstr "Španielčina"
 
 #: hugin1/hugin/PreferencesDialog.cpp:179
 msgid "Swedish"
-msgstr "Švédština"
+msgstr "Švédčina"
 
 #: hugin1/hugin/PreferencesDialog.cpp:182
 msgid "Ukrainian"
@@ -2909,7 +2910,7 @@ msgstr "Ukrajinčina"
 
 #: hugin1/hugin/PreferencesDialog.cpp:185
 msgid "Finnish"
-msgstr "Fínština"
+msgstr "Fínčina"
 
 #: hugin1/hugin/PreferencesDialog.cpp:275
 msgid "Select Enblend"
@@ -3030,8 +3031,7 @@ msgstr ""
 #: hugin1/hugin/PreviewFrame.cpp:379 hugin1/hugin/PreviewFrame.cpp:516
 msgid "Center panorama with left mouse button, set horizon with right button"
 msgstr ""
-"Panorámu vystredíte ľavým tlačidlom myši, horizont nastavíte pravým "
-"tlačidlom."
+"Panorámu centrujete ľavým tlačidlom myši, horizont nastavíte pravým tlačidlom"
 
 #: hugin1/hugin/PreviewIdentifyTool.cpp:202
 #: hugin1/hugin/PreviewIdentifyTool.cpp:318
@@ -3049,7 +3049,7 @@ msgstr "Kliknite na spojenie pre úpravu kontrolných bodov."
 
 #: hugin1/hugin/PreviewPanel.cpp:499
 msgid "Error during Stitching"
-msgstr "Chyba počas zlepovania"
+msgstr "Chyba počas lepenia"
 
 #: hugin1/hugin/wxPanoCommand.cpp:200
 #, c-format
@@ -3094,7 +3094,7 @@ msgstr ""
 
 #: hugin1/hugin/wxPanoCommand.cpp:507
 msgid "Error Detected"
-msgstr "Detegovaná chyba"
+msgstr "Detekovaná chyba"
 
 #: hugin1/hugin/wxPanoCommand.cpp:666
 #, c-format
@@ -3248,7 +3248,7 @@ msgid ""
 "Please use %i to specify the input files and %k to specify the keypoint file "
 "for the generate keys step"
 msgstr ""
-"Použite, prosím, %i pre určenie vstupných suborov, %k pre určenie kľúčového "
+"Použite, prosím, %i pre určenie vstupných súborov, %k pre určenie kľúčového "
 "súboru na generovanie kľúčových krokov"
 
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:564
@@ -3304,7 +3304,7 @@ msgstr "Neboli vybrané žiadne súbory projektu"
 
 #: hugin1/nona_gui/nona_gui.cpp:237
 msgid "Stitching Panorama"
-msgstr "Zlepujem panorámu"
+msgstr "Lepím panorámu"
 
 #: hugin1/nona_gui/nona_gui.cpp:256
 msgid "Wrong number of images specified on command line"
@@ -3365,7 +3365,7 @@ msgstr "Chyba pri vypínaní."
 
 #: hugin1/ptbatcher/Batch.cpp:674
 msgid "Error shutting down. Do you have root privileges?"
-msgstr "Chyba pri vypínaní. Máte oprávnenia roota?"
+msgstr "Chyba pri vypínaní. Máte oprávnenia administrátora?"
 
 #: hugin1/ptbatcher/Batch.cpp:746
 msgid "No output prefix specified"
@@ -3375,7 +3375,7 @@ msgstr "Nebola zvolená žiadna predpona výstupu"
 #: hugin1/stitch_project/hugin_stitch_project.cpp:441
 #, c-format
 msgid "%s - Stitching"
-msgstr "%s - Zlepujem"
+msgstr "%s - Lepím"
 
 #: hugin1/ptbatcher/Batch.cpp:820
 #, c-format
@@ -3385,7 +3385,7 @@ msgstr "%s - Asistent"
 #: hugin1/ptbatcher/Batch.cpp:878
 #, c-format
 msgid "Error removing, project with id %d is not in list."
-msgstr "Chyba pri odstraňovaní, projekt s %id nie je v zozname."
+msgstr "Chyba pri odstraňovaní, projekt s id %d nie je v zozname."
 
 #: hugin1/ptbatcher/Batch.cpp:900
 msgid "Error: Could not delete project file "
@@ -3401,12 +3401,12 @@ msgstr "Dávková úloha už prebieha."
 
 #: hugin1/ptbatcher/Batch.cpp:954
 msgid "Running command \""
-msgstr "Spúšťam príkay \""
+msgstr "Spúšťam príkaz \""
 
 #: hugin1/ptbatcher/Batch.cpp:996 hugin1/ptbatcher/Batch.cpp:1035
 #, c-format
 msgid "Now stitching: %s"
-msgstr "Teraz zlepujem: %s"
+msgstr "Teraz lepím: %s"
 
 #: hugin1/ptbatcher/Batch.cpp:1006 hugin1/ptbatcher/Batch.cpp:1045
 #, c-format
@@ -3461,7 +3461,7 @@ msgstr "Projekty pridané z adresára "
 #: hugin1/ptbatcher/BatchFrame.cpp:462
 #, c-format
 msgid "Add project %s to stitching queue."
-msgstr "Pridáva projekt %s do zoznamu zlepovacej fronty."
+msgstr "Pridáva projekt %s do zoznamu fronty na lepenie."
 
 #: hugin1/ptbatcher/BatchFrame.cpp:465
 #, c-format
@@ -3498,7 +3498,7 @@ msgstr "Súbory dávky (*.ptb)|*.ptb|Všetky súbory (*)|*"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:662
 msgid "Cannot open app in Hugin."
-msgstr "Nemôžem spustiť app v Hugine."
+msgstr "Nemôžem otvoriť app v Hugine."
 
 #: hugin1/ptbatcher/BatchFrame.cpp:667
 msgid "No project selected. Open Hugin without project?"
@@ -3534,14 +3534,14 @@ msgstr "Odstránený projekt "
 
 #: hugin1/ptbatcher/BatchFrame.cpp:768
 msgid "Please select a project to remove"
-msgstr "Prosím vyberte projekt, ktorý bude odstránený"
+msgstr "Prosím vyberte projekt, na odstránenie"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:780
 msgid ""
 "Cannot reset project in progress.\n"
 "Do you want to cancel it?"
 msgstr ""
-"Nemôžem resetnúť projekt, ktorý prebieha.\n"
+"Nemôžem resetovať projekt, ktorý prebieha.\n"
 "Chcete ho zrušiť?"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:795
@@ -3557,7 +3557,7 @@ msgid ""
 "Cannot reset projects in progress.\n"
 "Do you want to cancel the batch?"
 msgstr ""
-"Nemôžem resetnúť projekty, ktoré prebiehajú.\n"
+"Nemôžem resetovať projekty, ktoré prebiehajú.\n"
 "Chcete zrušiť dávkovú úlohu?"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:848
@@ -3594,7 +3594,7 @@ msgstr "Zastaviť dávkovú úlohu"
 
 #: hugin1/ptbatcher/BatchTrayIcon.cpp:76 translations/xrc.cpp:64 xrc.cpp:64
 msgid "Add project to stitching queue..."
-msgstr "Pridáva projekt do zoznamu zlepovacieho frontu..."
+msgstr "Pridáva projekt do zoznamu frontu na lepenie..."
 
 #: hugin1/ptbatcher/BatchTrayIcon.cpp:77 translations/xrc.cpp:66 xrc.cpp:66
 msgid "Add project to assistant queue..."
@@ -3796,7 +3796,7 @@ msgid ""
 "\n"
 "Do you want to save the log file?"
 msgstr ""
-"Chyba počas zlepovania\n"
+"Chyba počas lepenia\n"
 "Prosím ohláste kompletný text cez hlásič chýb na https://bugs.launchpad.net/"
 "hugin.\n"
 "Želáte si uložiť súbor s logom?"
@@ -3816,7 +3816,8 @@ msgid ""
 "Hugin can not work with this filename. Please enter a valid filename."
 msgstr ""
 "Zadaný názov súboru obsahuje jeden z nasledujúcich nepovolených znakov: %s\n"
-"Hugin nemôže pracovať s takýmto názvom súboru. Please enter a valid filename."
+"Hugin nemôže pracovať s takýmto názvom súboru. Vložte, prosím, platné meno "
+"súboru."
 
 #: translations/xrc.cpp:1 translations/xrc.cpp:393 translations/xrc.cpp:462
 #: translations/xrc.cpp:1016 xrc.cpp:1 xrc.cpp:393 xrc.cpp:462 xrc.cpp:1016
@@ -3893,7 +3894,7 @@ msgstr "Paralelné spúšťanie"
 
 #: translations/xrc.cpp:20 xrc.cpp:20
 msgid "Stitch several projects parallel."
-msgstr "Zlepiť niekoľko projektov paralelne."
+msgstr "Lepiť niekoľko projektov paralelne."
 
 #: translations/xrc.cpp:21 xrc.cpp:21
 msgid "Overwrite always"
@@ -3913,11 +3914,11 @@ msgstr "Automaticky odstrániť úspešne dokončené projekty z fronty."
 
 #: translations/xrc.cpp:25 xrc.cpp:25
 msgid "Automatic stitch after assistant"
-msgstr "Automaticky zlepiť po dokončení asistenta"
+msgstr "Automaticky lepiť po dokončení asistenta"
 
 #: translations/xrc.cpp:26 xrc.cpp:26
 msgid "Automatically stitch projects after (successfully) running assistant."
-msgstr "Automaticky zlepiť po (úspešnom) behu asistenta."
+msgstr "Automaticky lepiť po (úspešnom) behu asistenta."
 
 #: translations/xrc.cpp:27 xrc.cpp:27
 msgid "Shutdown when done"
@@ -3925,7 +3926,7 @@ msgstr "Vypnúť po skončení"
 
 #: translations/xrc.cpp:28 xrc.cpp:28
 msgid "Shutdown computer if all tasks are finished"
-msgstr "Vypnúť počítač po dokončení všetkých úhol"
+msgstr "Vypnúť počítač po dokončení všetkých úloh"
 
 #: translations/xrc.cpp:29 xrc.cpp:29
 msgid "Verbose output"
@@ -3952,7 +3953,7 @@ msgstr "Vybrať..."
 
 #: translations/xrc.cpp:34 xrc.cpp:34
 msgid "include sub-directories"
-msgstr "zahrnúť podadresáre"
+msgstr "zahrnúť pod-adresáre"
 
 #: translations/xrc.cpp:35 xrc.cpp:35
 msgid "Naming:"
@@ -4069,7 +4070,7 @@ msgstr "Hlásenie o stave"
 
 #: translations/xrc.cpp:65 xrc.cpp:65
 msgid "Adds a project to the stitching queue"
-msgstr "Pridáva projekt do frontu na zlepovanie"
+msgstr "Pridáva projekt do frontu na lepenie"
 
 #: translations/xrc.cpp:67 xrc.cpp:67
 msgid "Adds a project to the assistant queue"
@@ -4081,7 +4082,7 @@ msgstr "Odstrániť projekt"
 
 #: translations/xrc.cpp:69 translations/xrc.cpp:112 xrc.cpp:69 xrc.cpp:112
 msgid "Removes selected project from the batch list"
-msgstr "Odstrániť wybraný projekt zo zoznamu dávkovej úlohy"
+msgstr "Odstrániť vybraný projekt zo zoznamu dávkovej úlohy"
 
 #: translations/xrc.cpp:70 xrc.cpp:70
 msgid "Search directory for..."
@@ -4093,7 +4094,7 @@ msgstr "Súbory s projektom"
 
 #: translations/xrc.cpp:72 translations/xrc.cpp:115 xrc.cpp:72 xrc.cpp:115
 msgid "Appends all project files from a directory and subdirectories"
-msgstr "Pridá všetky súbory projektu z adresára a podadresárov"
+msgstr "Pridá všetky súbory projektu z adresára a pod-adresárov"
 
 #: translations/xrc.cpp:73 xrc.cpp:73
 msgid "Images"
@@ -4247,7 +4248,7 @@ msgstr "Panoráma so štósmi"
 
 #: translations/xrc.cpp:122 xrc.cpp:122
 msgid "Multi-row panorama"
-msgstr "Viacradová panoráma"
+msgstr "Viacriadková panoráma"
 
 #: translations/xrc.cpp:123 xrc.cpp:123
 msgid "Multi-row panorama with stacks"
@@ -4727,7 +4728,7 @@ msgstr "Minimálna dĺžka priamky:"
 
 #: translations/xrc.cpp:266 xrc.cpp:266
 msgid "Find lines"
-msgstr "Násť priamky"
+msgstr "Nájsť priamky"
 
 #: translations/xrc.cpp:278 xrc.cpp:278
 msgid "Original"
@@ -4858,7 +4859,7 @@ msgstr "Masky"
 
 #: translations/xrc.cpp:333 translations/xrc.cpp:377 xrc.cpp:333 xrc.cpp:377
 msgid "Stitcher"
-msgstr "Zlepovač"
+msgstr "Lepič"
 
 #: translations/xrc.cpp:336 xrc.cpp:336
 msgid "Should the OpenGL powered fast preview window disabled?"
@@ -5008,7 +5009,7 @@ msgstr "Zobraziť panel Expozícia"
 
 #: translations/xrc.cpp:378 xrc.cpp:378
 msgid "Show the Stitcher panel"
-msgstr "Zobraziť panel Zlepovanie"
+msgstr "Zobraziť panel Lepenie"
 
 #: translations/xrc.cpp:379 translations/xrc.cpp:1003 xrc.cpp:379 xrc.cpp:1003
 msgid "Simple"
@@ -5209,7 +5210,7 @@ msgstr "Pridať obrázok"
 
 #: translations/xrc.cpp:450 xrc.cpp:450
 msgid "Re-optimize"
-msgstr "Znovuoptimalizovať"
+msgstr "Znovu-optimalizovať"
 
 #: translations/xrc.cpp:453 xrc.cpp:453
 msgid "Fast Preview panorama"
@@ -5609,8 +5610,8 @@ msgid ""
 "Blend all images into a seamless panorama, using exposure set in the "
 "Exposure tab"
 msgstr ""
-"Zmiešať všetky obrázky do bezošvovej panorámy s použitím expozície "
-"nastavenej v paneli Expozícia"
+"Zmiešať všetky obrázky do bezšvovej panorámy s použitím expozície nastavenej "
+"v paneli Expozícia"
 
 #: translations/xrc.cpp:572 translations/xrc.cpp:646 xrc.cpp:572 xrc.cpp:646
 msgid "Exposure fused from stacks"
@@ -5622,7 +5623,7 @@ msgid ""
 "panorama"
 msgstr ""
 "Obrázky budu premapované, viaceré expozície zlúčené a potom zmiešané do "
-"bezošvej panorámy"
+"bezšvovej panorámy"
 
 #: translations/xrc.cpp:574 translations/xrc.cpp:648 xrc.cpp:574 xrc.cpp:648
 msgid "Exposure fused from any arrangement"
@@ -5633,7 +5634,7 @@ msgid ""
 "Images will be remapped, blended into seamless layers, then layers exposure "
 "fused into a panorama"
 msgstr ""
-"Obrázky budu premapované, zmiešané do bezošvej panorámy a potom budú "
+"Obrázky budu premapované, zmiešané do bezšvovej panorámy a potom budú "
 "expozície vrstiev zlúčené do panorámy"
 
 #: translations/xrc.cpp:576 translations/xrc.cpp:581 xrc.cpp:576 xrc.cpp:581
@@ -5651,7 +5652,7 @@ msgid ""
 "into a seamless High Dynamic Range panorama"
 msgstr ""
 "Obrázky budú premapované do lineárneho farebného priestoru, zábery budú "
-"zmiešané a potom spojené do bezošvej panorámy s vysokým dynamický rozsahom"
+"zmiešané a potom spojené do bezšvovej panorámy s vysokým dynamický rozsahom"
 
 #: translations/xrc.cpp:584 xrc.cpp:584
 msgid "Remapped Images:"
@@ -5756,7 +5757,7 @@ msgstr "enblend"
 
 #: translations/xrc.cpp:611 translations/xrc.cpp:612 xrc.cpp:611 xrc.cpp:612
 msgid "Stitch!"
-msgstr "Zlepiť!"
+msgstr "Lepiť!"
 
 #: translations/xrc.cpp:613 xrc.cpp:613
 msgid "HDR Merge Options"
@@ -5785,7 +5786,7 @@ msgstr "Pokročilé nastavenia"
 
 #: translations/xrc.cpp:619 xrc.cpp:619
 msgid "Only consider pixels that are defined in all images (-c)"
-msgstr "Posúdiť len pixely, ktoré sú definované vo všetkých obrázkoch (-c)"
+msgstr "Posúdiť len pixly, ktoré sú definované vo všetkých obrázkoch (-c)"
 
 #: translations/xrc.cpp:621 xrc.cpp:621
 msgid "This merge mode has no further options."
@@ -5809,7 +5810,7 @@ msgstr "Použiť obrázky v šedej škále pre spracovanie (-a f)"
 
 #: translations/xrc.cpp:626 xrc.cpp:626
 msgid "Use gamma 2.2 instead of logarithmic (-a g)"
-msgstr "Použiť gamma 2.2 miesto logaritmickej (-a g)"
+msgstr "Použiť gama 2.2 miesto logaritmickej (-a g)"
 
 #: translations/xrc.cpp:627 xrc.cpp:627
 msgid "Do not scale images (-a m)"
@@ -5825,12 +5826,12 @@ msgid ""
 "You may need to start the stitching in the batch processor\n"
 " PTBatcherGUI if it doesn't start automatically."
 msgstr ""
-"Project musí byť uložený pred poslaním\n"
-"do dávkového zlepovača PTBatcherGUI.\n"
+"Projekt musí byť uložený pred poslaním\n"
+"do dávkového lepiča PTBatcherGUI.\n"
 "Najprv ste požadovaný o názov súboru projektu\n"
 "a nasledovne o prefix pre výstupné súbory.\n"
 "\n"
-"Možno treba spustiť dávkový zlepovač PTBatcherGUI\n"
+"Možno treba spustiť dávkový lepič PTBatcherGUI\n"
 "keď sa nespustí automaticky sám."
 
 #: translations/xrc.cpp:632 xrc.cpp:632
@@ -5867,7 +5868,7 @@ msgstr "Použitie zdrojov"
 
 #: translations/xrc.cpp:659 xrc.cpp:659
 msgid "Image cache memory:"
-msgstr "Cache pre obrázky:"
+msgstr "Zásobník pre obrázky:"
 
 #: translations/xrc.cpp:660 xrc.cpp:660
 msgid "Keep fullsize images in memory, until this limit is exceeded"
@@ -6021,7 +6022,7 @@ msgstr "Voliteľné kroky asistenta"
 
 #: translations/xrc.cpp:689 xrc.cpp:689
 msgid "Auto align"
-msgstr "Autozarovnanie"
+msgstr "Auto-zarovnanie"
 
 #: translations/xrc.cpp:690 xrc.cpp:690
 msgid ""
@@ -6061,7 +6062,7 @@ msgstr "logaritmická"
 
 #: translations/xrc.cpp:698 xrc.cpp:698
 msgid "gamma 2.2"
-msgstr "gamma 2.2"
+msgstr "gama 2.2"
 
 #: translations/xrc.cpp:699 xrc.cpp:699
 msgid "used for display in GUI"
@@ -6173,7 +6174,7 @@ msgstr "Štandardný Formát Súboru:"
 
 #: translations/xrc.cpp:731 xrc.cpp:731
 msgid "default output format for final panorama"
-msgstr "štandardný východzí formát pre cieľové panorama"
+msgstr "štandardný východzí formát pre cieľové panoráma"
 
 #: translations/xrc.cpp:732 xrc.cpp:732
 msgid "TIFF Compression:"
@@ -6201,11 +6202,11 @@ msgstr "Hugin&stitch&project"
 
 #: translations/xrc.cpp:740 xrc.cpp:740
 msgid "The engine that will run the stitch"
-msgstr "Nástroj, ktorý prevedie zlepovanie"
+msgstr "Nástroj, ktorý prevedie lepenie"
 
 #: translations/xrc.cpp:741 xrc.cpp:741
 msgid "Start stitching jobs immediately"
-msgstr "Začať zlepovanie okamžite"
+msgstr "Začať lepenie okamžite"
 
 #: translations/xrc.cpp:742 xrc.cpp:742
 msgid ""
@@ -6219,7 +6220,7 @@ msgstr ""
 
 #: translations/xrc.cpp:743 xrc.cpp:743
 msgid "Run stitching jobs in parallel"
-msgstr "Spustiť zlepovacie práce súbežne"
+msgstr "Spustiť lepiacie práce súbežne"
 
 #: translations/xrc.cpp:744 xrc.cpp:744
 msgid ""
@@ -6228,9 +6229,9 @@ msgid ""
 "may actually result in slower stitches, depending on the system's resources "
 "and bottlenecks."
 msgstr ""
-"Keď vybrané, spracovateľ spustí niekoľko zlepovaní súčasne. V opačnom "
-"prípade vyvoláva súčasne len jednu úlohu. Všimnite si, že vybranie tejto "
-"voľby môže predĺžiť spracovanie v závislosti od systémových zdrojov."
+"Keď vybrané, spracovateľ spustí niekoľko lepení súčasne. V opačnom prípade "
+"vyvoláva súčasne len jednu úlohu. Všimnite si, že vybranie tejto voľby môže "
+"predĺžiť spracovanie v závislosti od systémových zdrojov."
 
 #: translations/xrc.cpp:745 xrc.cpp:745
 msgid "Overwrite existing files"
@@ -6282,7 +6283,7 @@ msgstr "0 pre automatické vyhľadávanie"
 
 #: translations/xrc.cpp:755 xrc.cpp:755
 msgid "Stitching"
-msgstr "Zlepenie"
+msgstr "Lepenie"
 
 #: translations/xrc.cpp:756 xrc.cpp:756
 msgid "Default Interpolator (i):"
@@ -6319,7 +6320,7 @@ msgid ""
 "Do not set -w, -o and --compression arguments, they are set by hugin"
 msgstr ""
 "Toto sú štandardné argumenty pre nové projekty.\n"
-"Dajú sa zmeniť pre jednotlivé projekty v paneli Zlepovanie.\n"
+"Dajú sa zmeniť pre jednotlivé projekty v paneli Lepenie.\n"
 "Nenastavujte prepínače -w, -o a --compression, tie zapína hugin"
 
 #: translations/xrc.cpp:774 xrc.cpp:774
@@ -6625,11 +6626,11 @@ msgstr "Presunúť/Ťahať"
 
 #: translations/xrc.cpp:885 translations/xrc.cpp:972 xrc.cpp:885 xrc.cpp:972
 msgid "Set the crop region to the largest rectangle covered by images"
-msgstr "Nastaviť oblasť na orezanie na najväčší obdĺžník pokrytý obrázkami"
+msgstr "Nastaviť oblasť na orezanie na najväčší obdĺžnik pokrytý obrázkami"
 
 #: translations/xrc.cpp:886 translations/xrc.cpp:974 xrc.cpp:886 xrc.cpp:974
 msgid "Set the crop region to the largest rectangle covered by image stacks"
-msgstr "Nastaviť oblasť na orezanie na najväčší obdĺžník pokrytý štósmi"
+msgstr "Nastaviť oblasť na orezanie na najväčší obdĺžnik pokrytý štósmi"
 
 #: translations/xrc.cpp:895 translations/xrc.cpp:983 xrc.cpp:895 xrc.cpp:983
 msgid "left:"
@@ -6708,7 +6709,7 @@ msgid ""
 msgstr ""
 "Keď máte adresár s obrázkami od iných panorám, môžte z nich pomocou Súbor-"
 ">Prehľadať adresár na...->Obrázky v PTBatcherGUI automaticky vytvoriť "
-"projektový súbor, spustiť asistenta a prípadne aj zlepiť výsledné panoráma."
+"projektový súbor, spustiť asistenta a prípadne aj lepiť výsledné panoráma."
 
 #: hugin1/hugin/xrc/data/tips.txt:5
 msgid ""
@@ -6721,7 +6722,7 @@ msgstr ""
 #: hugin1/hugin/xrc/data/tips.txt:6
 msgid "To stitch a bunch of projects use the batch processor PTBatcherGUI."
 msgstr ""
-"Na zlepovanie skupiny projektov použite dávkového spracovateľa PTBatcherGUI."
+"Na lepenie skupiny projektov použite dávkového spracovateľa PTBatcherGUI."
 
 #: hugin1/hugin/xrc/data/tips.txt:7
 msgid ""
@@ -6736,7 +6737,7 @@ msgid ""
 "The Preview window can be used to center the panorama by clicking with the "
 "left mouse button. A right click will rotate the panorama"
 msgstr ""
-"Okno náhľadu môžete použiť na vystredenie panorámy kliknutím ľavým "
+"Okno náhľadu môžete použiť na centrovanie panorámy kliknutím ľavým "
 "tlačidlom. Pravým kliknutím otáčate panorámu"
 
 #: hugin1/hugin/xrc/data/tips.txt:9
@@ -6784,7 +6785,7 @@ msgid ""
 "The control key or the middle mouse button can be used to pan one image in "
 "the control points tab."
 msgstr ""
-"Kláves Control a prostredné tlačidlo myšítko môžete použiť pre zväčšenie "
+"Kláves Control a prostredné tlačidlo myši môžete použiť pre zväčšenie "
 "obrázku v paneli kontrolných bodov."
 
 #: hugin1/hugin/xrc/data/tips.txt:14
@@ -6798,7 +6799,7 @@ msgstr ""
 
 #: hugin1/hugin/xrc/data/tips.txt:15
 msgid "Tutorials on hugin are available on http://hugin.sf.net/tutorials"
-msgstr "Návody pre hugin sú k dispozicii na http://hugin.sf.net/tutorials"
+msgstr "Návody pre hugin sú k dispozícii na http://hugin.sf.net/tutorials"
 
 #: hugin1/hugin/xrc/data/tips.txt:16
 msgid ""
@@ -6946,7 +6947,7 @@ msgid ""
 "act on all selected images."
 msgstr ""
 "V paneli obrázku a šošovky môže byť vybraných viacero obrázkov naraz. "
-"Príkazy sa budú spúštať na zvolených obrázkoch."
+"Príkazy sa budú spúšťať na zvolených obrázkoch."
 
 #: hugin1/hugin/xrc/data/tips.txt:37
 msgid ""
@@ -6954,8 +6955,8 @@ msgid ""
 "the parameters using know settings and reuse them later."
 msgstr ""
 "Parametre šošovky sa môžu meniť v závislosti za zmene ostrosti. Pre najlepší "
-"výsledok kalibrujte parametre použitím známeho nastavenia a znovupoužite ich "
-"neskôr."
+"výsledok kalibrujte parametre použitím známeho nastavenia a použite ich "
+"znovu neskôr."
 
 #: hugin1/hugin/xrc/data/tips.txt:38
 msgid ""
