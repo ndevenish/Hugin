@@ -40,6 +40,7 @@
 #                 18 - Triplane
 #                 19 - Panini General
 #                 20 - Thoby Projection
+#                 21 - Hammer-Aitoff Projection
 # v360         horizontal field of view of panorama (default 360)
 # nPICT        Panorama file format, one of:
 #                  PNG           png-format, 8 & 16 bit supported
