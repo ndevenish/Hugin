@@ -1246,7 +1246,7 @@ msgstr "Nesprávna hodnota HFOV. Maximálna HFOV pre tento projekt je %lf."
 #: hugin1/hugin/GLPreviewFrame.cpp:2797 hugin1/hugin/PanoPanel.cpp:651
 #, c-format
 msgid "Invalid VFOV value. Maximum VFOV for this projection is %lf."
-msgstr "Nesprávna hodnota VFOV. Maximálna HFOV pre tento projekt je %lf."
+msgstr "Nesprávna hodnota VFOV. Maximálna VFOV pre tento projekt je %lf."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:2835
 msgid ""
