@@ -1249,7 +1249,7 @@ msgstr "Nesprávna hodnota HFOV. Maximálna HFOV pre tento projekt je %lf."
 #: hugin1/hugin/GLPreviewFrame.cpp:2797 hugin1/hugin/PanoPanel.cpp:651
 #, c-format
 msgid "Invalid VFOV value. Maximum VFOV for this projection is %lf."
-msgstr "Nesprávna hodnota VFOV. Maximálna VFOF pre tento projekt je %lf."
+msgstr "Nesprávna hodnota VFOV. Maximálna VFOV pre tento projekt je %lf."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:2835
 msgid ""
@@ -1326,7 +1326,7 @@ msgid ""
 "Setting the panorama to rectilinear projection would keep the straight lines "
 "straight."
 msgstr ""
-"Nastavenie panorámy na obdĺžnikovu projekciu zaistí, že rovné čiary ostanú "
+"Nastavenie panorámy na obdĺžnikovú projekciu zaistí, že rovné čiary ostanú "
 "rovnými."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:2912
@@ -4679,7 +4679,7 @@ msgstr "Vignetácia"
 
 #: translations/xrc.cpp:243 xrc.cpp:243
 msgid "Vignetting Center Shift"
-msgstr "Posun tredu vignetácie"
+msgstr "Posun stredu vignetácie"
 
 #: translations/xrc.cpp:244 translations/xrc.cpp:835 translations/xrc.cpp:918
 #: xrc.cpp:244 xrc.cpp:835 xrc.cpp:918
@@ -6220,7 +6220,7 @@ msgstr ""
 
 #: translations/xrc.cpp:743 xrc.cpp:743
 msgid "Run stitching jobs in parallel"
-msgstr "Spustiť lepiacie práce súbežne"
+msgstr "Spustiť lepiace práce súbežne"
 
 #: translations/xrc.cpp:744 xrc.cpp:744
 msgid ""
@@ -6716,7 +6716,7 @@ msgid ""
 "To run the assistant on a bunch of projects use the batch processor "
 "PTBatcherGUI."
 msgstr ""
-"Pomocou dávkového spracovateľa PTBatcherGUI môžte spustit asistenta na "
+"Pomocou dávkového spracovateľa PTBatcherGUI môžte spustiť asistenta na "
 "skupinu projektov."
 
 #: hugin1/hugin/xrc/data/tips.txt:6
