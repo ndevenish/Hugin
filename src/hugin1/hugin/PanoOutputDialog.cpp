@@ -285,16 +285,19 @@ void PanoOutputDialog::OnOk(wxCommandEvent & e)
     // canvas size
     double scale=m_edit_width->GetValue()/m_initalROIWidth;
     m_newOpt.setWidth(hugin_utils::roundi(m_initalWidth*scale), true);
-    //some checks to prevent some rounding errors
-    if(m_newOpt.getROI().width()<m_edit_width->GetValue() || m_newOpt.getROI().height()<m_edit_height->GetValue())
+    //some checks to prevent some rounding errors, only for cropped outputs
+    if(m_initalROIWidth < m_initalWidth)
     {
-        m_newOpt.setWidth(m_newOpt.getWidth()+1, true);
-    };
-    vigra::Rect2D roi=m_newOpt.getROI();
-    if(roi.width()>m_edit_width->GetValue() || roi.height()>m_edit_height->GetValue())
-    {
-        roi.setSize(m_edit_width->GetValue(), m_edit_height->GetValue());
-        m_newOpt.setROI(roi);
+        if(m_newOpt.getROI().width()<m_edit_width->GetValue() || m_newOpt.getROI().height()<m_edit_height->GetValue())
+        {
+            m_newOpt.setWidth(m_newOpt.getWidth()+1, true);
+        };
+        vigra::Rect2D roi=m_newOpt.getROI();
+        if(roi.width()>m_edit_width->GetValue() || roi.height()>m_edit_height->GetValue())
+        {
+            roi.setSize(m_edit_width->GetValue(), m_edit_height->GetValue());
+            m_newOpt.setROI(roi);
+        };
     };
     //send Ok
     EndModal(wxID_OK);
