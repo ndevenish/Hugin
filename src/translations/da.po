@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: da\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
 "POT-Creation-Date: 2013-02-24 12:50+0100\n"
-"PO-Revision-Date: 2013-03-03 09:03+0100\n"
+"PO-Revision-Date: 2013-03-27 22:39+0100\n"
 "Last-Translator: Thomas Pryds <thomas@pryds.eu>\n"
 "Language-Team: Danish <da@li.org>\n"
 "Language: da\n"
@@ -707,7 +707,7 @@ msgstr "højre y"
 #: hugin1/hugin/CPEditorPanel.cpp:145 hugin1/hugin/CPListFrame.cpp:309
 #: hugin1/hugin/CPListFrame.cpp:316
 msgid "Alignment"
-msgstr "Justering"
+msgstr "Positionering"
 
 #: hugin1/hugin/CPEditorPanel.cpp:146 hugin1/hugin/CPListFrame.cpp:310
 #: hugin1/hugin/CPListFrame.cpp:317
@@ -1097,7 +1097,7 @@ msgstr ""
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1045
 msgid "Images or control points have changed, new alignment is needed."
-msgstr "Billeder eller kontrolpunkter er ændret; ny justering nødvendig."
+msgstr "Billeder eller kontrolpunkter er ændret; ny positionering nødvendig."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1059
 msgid "Very good fit."
@@ -1137,7 +1137,7 @@ msgid ""
 "optimization and the photometric optimization from the Photos tab in the "
 "panorama editor."
 msgstr ""
-"Bemærk: automatisk justering bruger standardindstillingerne fra "
+"Bemærk: automatisk positionering bruger standardindstillingerne fra "
 "Indstillinger. Hvis du vil bruge tilpassede indstillinger kun for dette "
 "projekt, kør da CP-lokalisering, den geometriske optimering og den "
 "fotometriske optimering fra Fotografier-fanebladet i panorama-redigeringen."
@@ -2212,7 +2212,7 @@ msgstr ""
 "Opret venligst kontrolpunkter mellem uforbundne billeder ved hjælp af "
 "Kontrolpunkter-fanebladet.\n"
 "\n"
-"Efter at have tilføjet punkterne, klik på \"Justér\"-knappen igen"
+"Efter at have tilføjet punkterne, klik på \"Positionér\"-knappen igen"
 
 #: hugin1/hugin/MainFrame.cpp:2270
 msgid ""
@@ -2429,7 +2429,7 @@ msgstr "Eksponeringsoptimering"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:265
 msgid "Photometric alignment"
-msgstr "Fotometrisk justering"
+msgstr "Fotometrisk positionering"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:265
 msgid "Loading images"
@@ -4253,7 +4253,7 @@ msgstr "Multirække-panorama med stakke"
 
 #: translations/xrc.cpp:124 xrc.cpp:124
 msgid "Prealigned panorama"
-msgstr "Forhåndsjusteret panorama"
+msgstr "Forhåndspositioneret panorama"
 
 #: translations/xrc.cpp:125 xrc.cpp:125
 msgid "Detector"
@@ -5996,7 +5996,7 @@ msgstr "Billede indlæses"
 
 #: translations/xrc.cpp:683 xrc.cpp:683
 msgid "Automatically align images after loading"
-msgstr "Justér automatisk billeder efter indlæsning"
+msgstr "Positionér automatisk billeder efter indlæsning"
 
 #: translations/xrc.cpp:684 xrc.cpp:684
 msgid "Detect vertical lines"
@@ -6020,7 +6020,7 @@ msgstr "Valgfrie skridt i assistenten"
 
 #: translations/xrc.cpp:689 xrc.cpp:689
 msgid "Auto align"
-msgstr "Autojustering"
+msgstr "Autopositionering"
 
 #: translations/xrc.cpp:690 xrc.cpp:690
 msgid ""
@@ -6470,13 +6470,14 @@ msgstr "ingen billeder indlæst"
 
 #: translations/xrc.cpp:827 translations/xrc.cpp:910 xrc.cpp:827 xrc.cpp:910
 msgid "2. Align..."
-msgstr "2. Justér..."
+msgstr "2. Positionér..."
 
 #: translations/xrc.cpp:828 translations/xrc.cpp:911 xrc.cpp:828 xrc.cpp:911
 msgid ""
 "Align all images. Creates control points and optimizes the image positions"
 msgstr ""
-"Justér alle billeder. Opretter kontrolpunkter og optimerer billedpositioner"
+"Positionér alle billeder. Opretter kontrolpunkter og optimerer "
+"billedpositioner"
 
 #: translations/xrc.cpp:829 translations/xrc.cpp:912 xrc.cpp:829 xrc.cpp:912
 msgid "3. Create panorama..."
@@ -6545,7 +6546,7 @@ msgstr ""
 "* En grå linie indikerer, at der ikke er nogen kontrolpunkter, men "
 "billedparret overlapper.\n"
 "* Grønne, gule og røde linier indikerer gode, medium og dårlige "
-"justeringer.\n"
+"positioneringer.\n"
 "* Klik på en linie for at redigere de tilhørende billeder i Kontrolpunkter-"
 "fanebladet."
 
