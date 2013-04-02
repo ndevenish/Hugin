@@ -28,6 +28,7 @@
 #include "panoinc.h"
 #include <vector>
 #include "icpfind/CPDetectorConfig.h"
+#include "GuiLevel.h"
 
 namespace PanoOperation
 {
@@ -38,14 +39,15 @@ class PanoOperation
 {
 public:
     /** return true, if operation is enabled with the given image set */
-    virtual bool IsEnabled(PT::Panorama& pano,HuginBase::UIntSet images);
+    virtual bool IsEnabled(PT::Panorama& pano, HuginBase::UIntSet images, GuiLevel guiLevel);
     /** returns the appropriate PT::PanoCommand to be inserted into GlobalCmdHistory, checks if operation is enabled
       * @returns pointer to valid PT::PanoCommand or NULL if not enabled*/
-    virtual PT::PanoCommand* GetCommand(wxWindow* parent, PT::Panorama& pano, HuginBase::UIntSet images);
+    virtual PT::PanoCommand* GetCommand(wxWindow* parent, PT::Panorama& pano, HuginBase::UIntSet images, GuiLevel guiLevel);
     virtual wxString GetLabel();
 protected:
     /** main working function, overwrite it in derived classes */
     virtual PT::PanoCommand* GetInternalCommand(wxWindow* parent, PT::Panorama& pano, HuginBase::UIntSet images)=0;
+    GuiLevel m_guiLevel;
 };
 
 /** PanoOperation which works only with one selected image */
@@ -53,7 +55,7 @@ class PanoSingleImageOperation : public PanoOperation
 {
 public:
     /** return true, if operation is enabled with the given image set */
-    virtual bool IsEnabled(PT::Panorama& pano,HuginBase::UIntSet images);
+    virtual bool IsEnabled(PT::Panorama& pano, HuginBase::UIntSet images, GuiLevel guiLevel);
 };
 
 /** PanoOperation with works with at least one image */
@@ -61,7 +63,7 @@ class PanoMultiImageOperation : public PanoOperation
 {
 public:
     /** return true, if operation is enabled with the given image set */
-    virtual bool IsEnabled(PT::Panorama& pano,HuginBase::UIntSet images);
+    virtual bool IsEnabled(PT::Panorama& pano, HuginBase::UIntSet images, GuiLevel guiLevel);
 };
 
 /** PanoOperation to add several user selected images to the panorama */
@@ -114,7 +116,7 @@ class NewLensOperation : public PanoOperation
 {
 public:
     /** return true, if operation is enabled with the given image set */
-    virtual bool IsEnabled(PT::Panorama& pano,HuginBase::UIntSet images);
+    virtual bool IsEnabled(PT::Panorama& pano, HuginBase::UIntSet images, GuiLevel guiLevel);
     virtual wxString GetLabel();
 protected:
     virtual PT::PanoCommand* GetInternalCommand(wxWindow* parent, PT::Panorama& pano, HuginBase::UIntSet images);
@@ -125,7 +127,7 @@ class ChangeLensOperation : public PanoOperation
 {
 public:
     /** return true, if operation is enabled with the given image set */
-    virtual bool IsEnabled(PT::Panorama& pano,HuginBase::UIntSet images);
+    virtual bool IsEnabled(PT::Panorama& pano, HuginBase::UIntSet images, GuiLevel guiLevel);
     virtual wxString GetLabel();
 protected:
     virtual PT::PanoCommand* GetInternalCommand(wxWindow* parent, PT::Panorama& pano, HuginBase::UIntSet images);
@@ -160,7 +162,7 @@ class RemoveControlPointsOperation : public PanoOperation
 {
 public:
     /** return true, if operation is enabled with the given image set */
-    virtual bool IsEnabled(PT::Panorama& pano,HuginBase::UIntSet images);
+    virtual bool IsEnabled(PT::Panorama& pano, HuginBase::UIntSet images, GuiLevel guiLevel);
     virtual wxString GetLabel();
 protected:
     virtual PT::PanoCommand* GetInternalCommand(wxWindow* parent, PT::Panorama& pano, HuginBase::UIntSet images);
@@ -171,7 +173,7 @@ class CleanControlPointsOperation : public PanoOperation
 {
 public:
     /** return true, if operation is enabled with the given image set */
-    virtual bool IsEnabled(PT::Panorama& pano,HuginBase::UIntSet images);
+    virtual bool IsEnabled(PT::Panorama& pano, HuginBase::UIntSet images, GuiLevel guiLevel);
     virtual wxString GetLabel();
 protected:
     virtual PT::PanoCommand* GetInternalCommand(wxWindow* parent, PT::Panorama& pano, HuginBase::UIntSet images);
@@ -185,6 +187,7 @@ public:
     {
         RESET_DIALOG=0,
         RESET_POSITION,
+        RESET_TRANSLATION,
         RESET_LENS,
         RESET_PHOTOMETRICS,
         RESET_DIALOG_LENS,
@@ -192,7 +195,7 @@ public:
     };
     ResetOperation(ResetMode newResetMode);
     /** return true, if operation is enabled with the given image set */
-    virtual bool IsEnabled(PT::Panorama& pano,HuginBase::UIntSet images);
+    virtual bool IsEnabled(PT::Panorama& pano, HuginBase::UIntSet images, GuiLevel guiLevel);
     virtual wxString GetLabel();
 protected:
     virtual PT::PanoCommand* GetInternalCommand(wxWindow* parent, PT::Panorama& pano, HuginBase::UIntSet images);
@@ -200,6 +203,7 @@ private:
     bool ShowDialog(wxWindow* parent);
     ResetMode m_resetMode;
     bool m_resetPos;
+    bool m_resetTranslation;
     bool m_resetHFOV;
     bool m_resetLens;
     int m_resetExposure;
@@ -222,7 +226,7 @@ class NewStackOperation : public PanoOperation
 {
 public:
     /** return true, if operation is enabled with the given image set */
-    virtual bool IsEnabled(PT::Panorama& pano,HuginBase::UIntSet images);
+    virtual bool IsEnabled(PT::Panorama& pano, HuginBase::UIntSet images, GuiLevel guiLevel);
     virtual wxString GetLabel();
 protected:
     virtual PT::PanoCommand* GetInternalCommand(wxWindow* parent, PT::Panorama& pano, HuginBase::UIntSet images);
@@ -233,7 +237,7 @@ class ChangeStackOperation : public PanoOperation
 {
 public:
     /** return true, if operation is enabled with the given image set */
-    virtual bool IsEnabled(PT::Panorama& pano,HuginBase::UIntSet images);
+    virtual bool IsEnabled(PT::Panorama& pano, HuginBase::UIntSet images, GuiLevel guiLevel);
     virtual wxString GetLabel();
 protected:
     virtual PT::PanoCommand* GetInternalCommand(wxWindow* parent, PT::Panorama& pano, HuginBase::UIntSet images);
@@ -244,7 +248,7 @@ class AssignStacksOperation : public PanoOperation
 {
 public:
     /** return true, if operation is enabled with the given image set */
-    virtual bool IsEnabled(PT::Panorama& pano,HuginBase::UIntSet images);
+    virtual bool IsEnabled(PT::Panorama& pano, HuginBase::UIntSet images, GuiLevel guiLevel);
     virtual wxString GetLabel();
 protected:
     virtual PT::PanoCommand* GetInternalCommand(wxWindow* parent, PT::Panorama& pano, HuginBase::UIntSet images);

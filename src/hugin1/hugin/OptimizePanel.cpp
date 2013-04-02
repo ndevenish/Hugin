@@ -369,7 +369,7 @@ void OptimizePanel::OnClose(wxCloseEvent& event)
 void OptimizePanel::OnReset(wxCommandEvent& e)
 {
     PanoOperation::ResetOperation op(PanoOperation::ResetOperation::RESET_DIALOG_LENS);
-    PT::PanoCommand* cmd=op.GetCommand(this,*m_pano, m_images_tree_list->GetSelectedImages());
+    PT::PanoCommand* cmd=op.GetCommand(this,*m_pano, m_images_tree_list->GetSelectedImages(), MainFrame::Get()->GetGuiLevel());
     if(cmd!=NULL)
     {
         GlobalCmdHist::getInstance().addCommand(cmd);

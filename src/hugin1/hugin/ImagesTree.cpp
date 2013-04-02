@@ -1260,7 +1260,7 @@ void ImagesTreeCtrl::GenerateSubMenu(wxMenu* menu, PanoOperation::PanoOperationV
     UIntSet imgs=GetSelectedImages();
     for(size_t i=0; i<operations->size(); i++)
     {
-        if((*operations)[i]->IsEnabled(*m_pano, imgs))
+        if((*operations)[i]->IsEnabled(*m_pano, imgs, m_guiLevel))
         {
             menu->Append(id, (*operations)[i]->GetLabel());
             m_menuOperation[id]=(*operations)[i];
@@ -1843,7 +1843,7 @@ void ImagesTreeCtrl::OnEndEdit(wxTreeEvent &e)
 void ImagesTreeCtrl::OnExecuteOperation(wxCommandEvent & e)
 {
     PanoOperation::PanoOperation* op=m_menuOperation[e.GetId()];
-    PT::PanoCommand* cmd=op->GetCommand(this,*m_pano, GetSelectedImages());
+    PT::PanoCommand* cmd=op->GetCommand(this,*m_pano, GetSelectedImages(), m_guiLevel);
     if(cmd!=NULL)
     {
         GlobalCmdHist::getInstance().addCommand(cmd);

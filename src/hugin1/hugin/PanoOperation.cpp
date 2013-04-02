@@ -48,14 +48,16 @@ wxString PanoOperation::GetLabel()
     return wxEmptyString;
 };
 
-bool PanoOperation::IsEnabled(PT::Panorama& pano,HuginBase::UIntSet images)
+bool PanoOperation::IsEnabled(PT::Panorama& pano, HuginBase::UIntSet images, GuiLevel guiLevel)
 {
     return true;
 };
 
-PT::PanoCommand* PanoOperation::GetCommand(wxWindow* parent, PT::Panorama& pano, HuginBase::UIntSet images)
+PT::PanoCommand* PanoOperation::GetCommand(wxWindow* parent, PT::Panorama& pano, HuginBase::UIntSet images, GuiLevel guiLevel)
 {
-    if(IsEnabled(pano,images))
+    //remember gui level, only used by some PanoOperation's
+    m_guiLevel=guiLevel;
+    if(IsEnabled(pano, images, m_guiLevel))
     {
         return GetInternalCommand(parent,pano,images);
     }
@@ -65,12 +67,12 @@ PT::PanoCommand* PanoOperation::GetCommand(wxWindow* parent, PT::Panorama& pano,
     };
 };
 
-bool PanoSingleImageOperation::IsEnabled(PT::Panorama& pano,HuginBase::UIntSet images)
+bool PanoSingleImageOperation::IsEnabled(PT::Panorama& pano, HuginBase::UIntSet images, GuiLevel guiLevel)
 {
     return images.size()==1;
 };
 
-bool PanoMultiImageOperation::IsEnabled(PT::Panorama& pano,HuginBase::UIntSet images)
+bool PanoMultiImageOperation::IsEnabled(PT::Panorama& pano, HuginBase::UIntSet images, GuiLevel guiLevel)
 {
     return images.size()>0;
 };
@@ -420,7 +422,7 @@ PT::PanoCommand* ChangeColorAnchorImageOperation::GetInternalCommand(wxWindow* p
     return new PT::SetPanoOptionsCmd(pano, opt);
 };
 
-bool NewLensOperation::IsEnabled(PT::Panorama& pano,HuginBase::UIntSet images)
+bool NewLensOperation::IsEnabled(PT::Panorama& pano, HuginBase::UIntSet images, GuiLevel guiLevel)
 {
     if(pano.getNrOfImages()==0 || images.size()==0)
     {
@@ -443,7 +445,7 @@ PT::PanoCommand* NewLensOperation::GetInternalCommand(wxWindow* parent, PT::Pano
     return new PT::NewPartCmd(pano, images, HuginBase::StandardImageVariableGroups::getLensVariables());
 };
 
-bool ChangeLensOperation::IsEnabled(PT::Panorama& pano,HuginBase::UIntSet images)
+bool ChangeLensOperation::IsEnabled(PT::Panorama& pano, HuginBase::UIntSet images, GuiLevel guiLevel)
 {
     if(pano.getNrOfImages()==0 || images.size()==0)
     {
@@ -597,7 +599,7 @@ wxString RemoveControlPointsOperation::GetLabel()
     return _("Remove control points");
 };
 
-bool RemoveControlPointsOperation::IsEnabled(PT::Panorama& pano,HuginBase::UIntSet images)
+bool RemoveControlPointsOperation::IsEnabled(PT::Panorama& pano, HuginBase::UIntSet images, GuiLevel guiLevel)
 {
     return pano.getNrOfImages()>0 && pano.getNrOfCtrlPoints()>0;
 };
@@ -652,7 +654,7 @@ wxString CleanControlPointsOperation::GetLabel()
     return _("Clean control points");
 };
 
-bool CleanControlPointsOperation::IsEnabled(PT::Panorama& pano,HuginBase::UIntSet images)
+bool CleanControlPointsOperation::IsEnabled(PT::Panorama& pano, HuginBase::UIntSet images, GuiLevel guiLevel)
 {
     return pano.getNrOfCtrlPoints()>2;
 };
@@ -793,6 +795,7 @@ ResetOperation::ResetOperation(ResetMode newResetMode)
 {
     m_resetMode=newResetMode;
     m_resetPos=(m_resetMode==RESET_POSITION);
+    m_resetTranslation=(m_resetMode==RESET_TRANSLATION);
     m_resetHFOV=(m_resetMode==RESET_LENS);
     m_resetLens=(m_resetMode==RESET_LENS);
     m_resetExposure=0;
@@ -817,6 +820,9 @@ wxString ResetOperation::GetLabel()
         case RESET_POSITION:
             return _("Reset positions");
             break;
+        case RESET_TRANSLATION:
+            return _("Reset translation parameters");
+            break;
         case RESET_LENS:
             return _("Reset lens parameters");
             break;
@@ -826,9 +832,16 @@ wxString ResetOperation::GetLabel()
     return wxEmptyString;
 };
 
-bool ResetOperation::IsEnabled(PT::Panorama& pano,HuginBase::UIntSet images)
+bool ResetOperation::IsEnabled(PT::Panorama& pano, HuginBase::UIntSet images, GuiLevel guiLevel)
 {
-    return pano.getNrOfImages()>0;
+    switch(m_resetMode)
+    {
+        case RESET_TRANSLATION:
+            return guiLevel>=GUI_EXPERT && pano.getNrOfImages()>0;
+            break;
+        default:
+            return pano.getNrOfImages()>0;
+    };
 };
 
 PT::PanoCommand* ResetOperation::GetInternalCommand(wxWindow* parent, PT::Panorama& pano, HuginBase::UIntSet images)
@@ -856,6 +869,14 @@ PT::PanoCommand* ResetOperation::GetInternalCommand(wxWindow* parent, PT::Panora
             map_get(ImgVars,"y").setValue(0);
             map_get(ImgVars,"p").setValue(0);
             map_get(ImgVars,"r").setValue(pano.getSrcImage(imgNr).getExifOrientation());
+            map_get(ImgVars,"TrX").setValue(0);
+            map_get(ImgVars,"TrY").setValue(0);
+            map_get(ImgVars,"TrZ").setValue(0);
+            map_get(ImgVars,"Tpy").setValue(0);
+            map_get(ImgVars,"Tpp").setValue(0);
+        };
+        if(m_resetTranslation)
+        {
             map_get(ImgVars,"TrX").setValue(0);
             map_get(ImgVars,"TrY").setValue(0);
             map_get(ImgVars,"TrZ").setValue(0);
@@ -964,7 +985,7 @@ PT::PanoCommand* ResetOperation::GetInternalCommand(wxWindow* parent, PT::Panora
 
 bool ResetOperation::ShowDialog(wxWindow* parent)
 {
-    ResetDialog reset_dlg(parent);
+    ResetDialog reset_dlg(parent, m_guiLevel);
     bool checkGeometric;
     bool checkPhotometric;
     switch(m_resetMode)
@@ -988,6 +1009,7 @@ bool ResetOperation::ShowDialog(wxWindow* parent)
         if(checkGeometric)
         {
             m_resetPos=reset_dlg.GetResetPos();
+            m_resetTranslation=reset_dlg.GetResetTranslation();
             m_resetHFOV=reset_dlg.GetResetFOV();
             m_resetLens=reset_dlg.GetResetLens();
         };
@@ -1020,7 +1042,7 @@ bool ResetOperation::ShowDialog(wxWindow* parent)
     };
 };
 
-bool NewStackOperation::IsEnabled(PT::Panorama& pano,HuginBase::UIntSet images)
+bool NewStackOperation::IsEnabled(PT::Panorama& pano, HuginBase::UIntSet images, GuiLevel guiLevel)
 {
     if(pano.getNrOfImages()==0 || images.size()==0)
     {
@@ -1043,7 +1065,7 @@ PT::PanoCommand* NewStackOperation::GetInternalCommand(wxWindow* parent, PT::Pan
     return new PT::NewPartCmd(pano, images, HuginBase::StandardImageVariableGroups::getStackVariables());
 };
 
-bool ChangeStackOperation::IsEnabled(PT::Panorama& pano,HuginBase::UIntSet images)
+bool ChangeStackOperation::IsEnabled(PT::Panorama& pano, HuginBase::UIntSet images, GuiLevel guiLevel)
 {
     if(pano.getNrOfImages()==0 || images.size()==0)
     {
@@ -1082,7 +1104,7 @@ PT::PanoCommand* ChangeStackOperation::GetInternalCommand(wxWindow* parent, PT::
     };
 };
 
-bool AssignStacksOperation::IsEnabled(PT::Panorama& pano,HuginBase::UIntSet images)
+bool AssignStacksOperation::IsEnabled(PT::Panorama& pano, HuginBase::UIntSet images, GuiLevel guiLevel)
 {
     return pano.getNrOfImages()>1;
 };
@@ -1192,6 +1214,7 @@ void GeneratePanoOperationVector()
     PanoOpControlPoints.push_back(new CleanControlPointsOperation());
 
     PanoOpReset.push_back(new ResetOperation(ResetOperation::RESET_POSITION));
+    PanoOpReset.push_back(new ResetOperation(ResetOperation::RESET_TRANSLATION));
     PanoOpReset.push_back(new ResetOperation(ResetOperation::RESET_LENS));
     PanoOpReset.push_back(new ResetOperation(ResetOperation::RESET_PHOTOMETRICS));
     PanoOpReset.push_back(new ResetOperation(ResetOperation::RESET_DIALOG));

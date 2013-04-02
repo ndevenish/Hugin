@@ -3078,7 +3078,7 @@ void GLPreviewFrame::OnLoadImages( wxCommandEvent & e )
     // load the images.
     PanoOperation::AddImageOperation addImage;
     UIntSet images;
-    PanoCommand* cmd=addImage.GetCommand(wxGetActiveWindow(),m_pano,images);
+    PanoCommand* cmd=addImage.GetCommand(wxGetActiveWindow(), m_pano, images, m_guiLevel);
     if(cmd==NULL)
     {
         return;

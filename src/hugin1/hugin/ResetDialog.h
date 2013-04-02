@@ -27,6 +27,7 @@
 #define _RESETDIALOG_H
 
 #include "panoinc_WX.h"
+#include "GuiLevel.h"
 
 /** Dialog for reset panorama settings
  *
@@ -44,9 +45,11 @@ class ResetDialog : public wxDialog
 {
 public:
     /** Constructor, read from xrc ressource; restore last uses settings, size and position */
-    ResetDialog(wxWindow *parent);
+    ResetDialog(wxWindow *parent, GuiLevel guiLevel);
 	/** Return TRUE, when user selected "Reset position" */
 	bool GetResetPos();
+	/** Return TRUE, when user selected "Reset translation" */
+	bool GetResetTranslation();
 	/** Return TRUE, when user selected "Reset FOV" */
 	bool GetResetFOV();
 	/** Return TRUE, when user selected "Reset lens" */

@@ -1064,7 +1064,7 @@ void MainFrame::OnAddImages( wxCommandEvent& event )
     DEBUG_TRACE("");
     PanoOperation::AddImageOperation addImage;
     UIntSet images;
-    PanoCommand* cmd=addImage.GetCommand(wxTheApp->GetTopWindow(),pano,images);
+    PanoCommand* cmd=addImage.GetCommand(wxTheApp->GetTopWindow(), pano, images, m_guiLevel);
     if(cmd!=NULL)
     {
         GlobalCmdHist::getInstance().addCommand(cmd);
@@ -1115,7 +1115,7 @@ void MainFrame::OnAddTimeImages( wxCommandEvent& event )
 {
     PanoOperation::AddImagesSeriesOperation imageSeriesOp;
     UIntSet images;
-    PT::PanoCommand* cmd=imageSeriesOp.GetCommand(wxTheApp->GetTopWindow(),pano,images);
+    PT::PanoCommand* cmd=imageSeriesOp.GetCommand(wxTheApp->GetTopWindow(), pano, images, m_guiLevel);
     if(cmd!=NULL)
     {
         GlobalCmdHist::getInstance().addCommand(cmd);

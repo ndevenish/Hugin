@@ -35,7 +35,7 @@ BEGIN_EVENT_TABLE(ResetDialog,wxDialog)
     EVT_CHECKBOX(XRCID("reset_exposure"), ResetDialog::OnSelectExposure)
 END_EVENT_TABLE()
 
-ResetDialog::ResetDialog(wxWindow *parent)
+ResetDialog::ResetDialog(wxWindow *parent, GuiLevel guiLevel)
 {
     // load our children. some children might need special
     // initialization. this will be done later.
@@ -52,6 +52,13 @@ ResetDialog::ResetDialog(wxWindow *parent)
     bool check;
     cfg->Read(wxT("/ResetDialog/ResetPosition"),&check,true);
     XRCCTRL(*this,"reset_pos",wxCheckBox)->SetValue(check);
+    cfg->Read(wxT("/ResetDialog/ResetTranslation"), &check, true);
+    wxCheckBox* reset_translation=XRCCTRL(*this,"reset_translation",wxCheckBox);
+    reset_translation->SetValue(check);
+    if(guiLevel<GUI_EXPERT)
+    {
+        reset_translation->Hide();
+    };
     cfg->Read(wxT("/ResetDialog/ResetFOV"),&check,true);
     XRCCTRL(*this,"reset_fov",wxCheckBox)->SetValue(check);
     cfg->Read(wxT("/ResetDialog/ResetLens"),&check,true);
@@ -69,6 +76,7 @@ ResetDialog::ResetDialog(wxWindow *parent)
     XRCCTRL(*this,"reset_vignetting",wxCheckBox)->SetValue(check);
     cfg->Read(wxT("/ResetDialog/ResetResponse"),&check,true);
     XRCCTRL(*this,"reset_response",wxCheckBox)->SetValue(check);
+    GetSizer()->Fit(this);
     //position
     int x = cfg->Read(wxT("/ResetDialog/positionX"),-1l);
     int y = cfg->Read(wxT("/ResetDialog/positionY"),-1l);
@@ -95,6 +103,7 @@ void ResetDialog::LimitToGeometric()
 void ResetDialog::LimitToPhotometric()
 {
     XRCCTRL(*this,"reset_pos",wxCheckBox)->Show(false);
+    XRCCTRL(*this,"reset_translation",wxCheckBox)->Show(false);
     XRCCTRL(*this,"reset_fov",wxCheckBox)->Show(false);
     XRCCTRL(*this,"reset_lens",wxCheckBox)->Show(false);
     GetSizer()->Fit(this);
@@ -107,6 +116,7 @@ void ResetDialog::OnOk(wxCommandEvent & e)
     cfg->Write(wxT("/ResetDialog/positionX"), ps.x);
     cfg->Write(wxT("/ResetDialog/positionY"), ps.y);
     cfg->Write(wxT("/ResetDialog/ResetPosition"),GetResetPos());
+    cfg->Write(wxT("/ResetDialog/ResetTranslation"), GetResetTranslation());
     cfg->Write(wxT("/ResetDialog/ResetFOV"),GetResetFOV());
     cfg->Write(wxT("/ResetDialog/ResetLens"),GetResetLens());
     cfg->Write(wxT("/ResetDialog/ResetExposure"),GetResetExposure());
@@ -131,6 +141,11 @@ void ResetDialog::OnSelectExposure(wxCommandEvent & e)
 bool ResetDialog::GetResetPos()
 {
     return XRCCTRL(*this, "reset_pos", wxCheckBox)->GetValue();
+};
+
+bool ResetDialog::GetResetTranslation()
+{
+    return XRCCTRL(*this, "reset_translation", wxCheckBox)->GetValue();
 };
 
 bool ResetDialog::GetResetFOV()

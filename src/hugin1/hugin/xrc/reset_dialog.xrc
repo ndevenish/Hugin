@@ -16,6 +16,14 @@
             <border>5</border>
           </object>
           <object class="sizeritem">
+            <object class="wxCheckBox" name="reset_translation">
+              <label>Translation parameters</label>
+              <checked>1</checked>
+            </object>
+            <flag>wxALL|wxEXPAND</flag>
+            <border>5</border>
+          </object>
+          <object class="sizeritem">
             <object class="wxCheckBox" name="reset_fov">
               <label>Field of View</label>
               <checked>1</checked>
@@ -42,7 +50,6 @@
                 <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
                 <border>0</border>
               </object>
-              
               <object class="sizeritem">
                 <object class="wxComboBox" name="combo_exposure">
                   <content>

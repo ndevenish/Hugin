@@ -394,7 +394,7 @@ void OptimizePhotometricPanel::OnClose(wxCloseEvent& event)
 void OptimizePhotometricPanel::OnReset(wxCommandEvent& e)
 {
     PanoOperation::ResetOperation op(PanoOperation::ResetOperation::RESET_DIALOG_PHOTOMETRICS);
-    PT::PanoCommand* cmd=op.GetCommand(this,*m_pano, m_images_tree->GetSelectedImages());
+    PT::PanoCommand* cmd=op.GetCommand(this,*m_pano, m_images_tree->GetSelectedImages(), MainFrame::Get()->GetGuiLevel());
     if(cmd!=NULL)
     {
         GlobalCmdHist::getInstance().addCommand(cmd);
