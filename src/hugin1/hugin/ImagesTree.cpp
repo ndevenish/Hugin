@@ -163,6 +163,7 @@ void ImagesTreeCtrl::CreateColumns()
     ADDCOLUMN(wxT("Z (TrZ)"), "TrZ", 60, wxALIGN_RIGHT, true, HuginBase::ImageVariableGroup::IVE_Yaw, _("Camera translation Z"))
     ADDCOLUMN(_("Plane yaw"), "Tpy", 60, wxALIGN_RIGHT, true, HuginBase::ImageVariableGroup::IVE_Yaw, _("Translation remap plane yaw"))
     ADDCOLUMN(_("Plane pitch"), "Tpp", 60, wxALIGN_RIGHT, true, HuginBase::ImageVariableGroup::IVE_Yaw, _("Translation remap plane pitch"))
+    ADDCOLUMN(_("Camera translation"), "cam_trans", 60, wxALIGN_LEFT, true, HuginBase::ImageVariableGroup::IVE_Yaw, _("Camera translation"))
 
     ADDCOLUMN(_("Lens type (f)"), "projection", 100, wxALIGN_LEFT, false, HuginBase::ImageVariableGroup::IVE_Filename, _("Lens type (rectilinear, fisheye, equirectangular, ...)"))
     ADDCOLUMN(_("Hfov (v)"), "v", 80, wxALIGN_RIGHT, true, HuginBase::ImageVariableGroup::IVE_HFOV, _("Horizontal field of view (v)"))
@@ -517,6 +518,7 @@ void ImagesTreeCtrl::UpdateImageText(wxTreeItemId item)
         SetItemText(item, m_columnMap["TrZ"], wxEmptyString);
         SetItemText(item, m_columnMap["Tpy"], wxEmptyString);
         SetItemText(item, m_columnMap["Tpp"], wxEmptyString);
+        SetItemText(item, m_columnMap["cam_trans"], wxEmptyString);
     }
     else
     {
@@ -528,6 +530,13 @@ void ImagesTreeCtrl::UpdateImageText(wxTreeItemId item)
         SetItemText(item, m_columnMap["TrZ"], doubleTowxString(img.getZ(), m_degDigits));
         SetItemText(item, m_columnMap["Tpy"], doubleTowxString(img.getTranslationPlaneYaw(), m_degDigits));
         SetItemText(item, m_columnMap["Tpp"], doubleTowxString(img.getTranslationPlanePitch(), m_degDigits));
+        wxString text=_("not active");
+        if(img.getX()!=0.0 || img.getY()!=0.0 || img.getZ()!=0.0 || img.getTranslationPlaneYaw()!=0.0 || img.getTranslationPlanePitch()!=0.0)
+        {
+            text=_("active");
+        };
+        text.Prepend(wxT(" "));
+        SetItemText(item, m_columnMap["cam_trans"], text);
     };
 
     if(m_groupMode==GROUP_LENS)
@@ -696,6 +705,13 @@ void ImagesTreeCtrl::UpdateGroupText(wxTreeItemId item)
             SetItemText(item, m_columnMap["TrZ"], doubleTowxString(img.getZ(), m_degDigits));
             SetItemText(item, m_columnMap["Tpy"], doubleTowxString(img.getTranslationPlaneYaw(), m_degDigits));
             SetItemText(item, m_columnMap["Tpp"], doubleTowxString(img.getTranslationPlanePitch(), m_degDigits));
+            wxString text=_("not active");
+            if(img.getX()!=0.0 || img.getY()!=0.0 || img.getZ()!=0.0 || img.getTranslationPlaneYaw()!=0.0 || img.getTranslationPlanePitch()!=0.0)
+            {
+                text=_("active");
+            };
+            text.Prepend(wxT(" "));
+            SetItemText(item, m_columnMap["cam_trans"], text);
         }
         else
         {
@@ -707,6 +723,7 @@ void ImagesTreeCtrl::UpdateGroupText(wxTreeItemId item)
             SetItemText(item, m_columnMap["TrZ"], wxEmptyString);
             SetItemText(item, m_columnMap["Tpy"], wxEmptyString);
             SetItemText(item, m_columnMap["Tpp"], wxEmptyString);
+            SetItemText(item, m_columnMap["cam_trans"], wxEmptyString);
         };
 
         if(m_groupMode==GROUP_LENS)
@@ -935,7 +952,18 @@ void ImagesTreeCtrl::UpdateOptimizerVariables()
                     bool opt=false;
                     for(UIntSet::const_iterator it=imgNrs.begin(); it!=imgNrs.end() && !opt;it++)
                     {
-                        opt=set_contains(optVec[*it], m_columnVector[i]);
+                        if(m_columnVector[i]=="cam_trans")
+                        {
+                            opt=set_contains(optVec[*it], "TrX") &&
+                                set_contains(optVec[*it], "TrY") &&
+                                set_contains(optVec[*it], "TrZ") &&
+                                set_contains(optVec[*it], "Tpy") &&
+                                set_contains(optVec[*it], "Tpp");
+                        }
+                        else
+                        {
+                            opt=set_contains(optVec[*it], m_columnVector[i]);
+                        };
                     };
                     if(opt)
                     {
@@ -1002,7 +1030,10 @@ void ImagesTreeCtrl::SetOptimizerMode()
     m_optimizerMode=true;
     for(UIntSet::const_iterator it=m_editableColumns.begin(); it!=m_editableColumns.end(); it++)
     {
-        SetColumnEditable(*it,true);
+        if(m_columnVector[*it]!="cam_trans")
+        {
+            SetColumnEditable(*it,true);
+        };
     };
 };
 
@@ -1058,6 +1089,7 @@ void ImagesTreeCtrl::SetDisplayMode(DisplayMode newMode)
     SetColumnShown(m_columnMap["TrZ"], m_displayMode==DISPLAY_POSITION && m_guiLevel==GUI_EXPERT);
     SetColumnShown(m_columnMap["Tpy"], m_displayMode==DISPLAY_POSITION && m_guiLevel==GUI_EXPERT);
     SetColumnShown(m_columnMap["Tpp"], m_displayMode==DISPLAY_POSITION && m_guiLevel==GUI_EXPERT);
+    SetColumnShown(m_columnMap["cam_trans"], m_displayMode==DISPLAY_POSITION && m_guiLevel==GUI_EXPERT);
 
     SetColumnShown(m_columnMap["projection"], m_displayMode==DISPLAY_LENS);
     SetColumnShown(m_columnMap["v"], m_displayMode==DISPLAY_LENS);
@@ -1141,7 +1173,10 @@ void ImagesTreeCtrl::OnContextMenu(wxTreeEvent & e)
                         menu.Append(ID_UNSELECT_LENS_STACK, _("Unselect all for current stack"));
                     };
                 };
-                menu.Append(ID_SELECT_ALL, _("Select all"));
+                if(m_columnVector[m_selectedColumn]!="cam_trans")
+                {
+                    menu.Append(ID_SELECT_ALL, _("Select all"));
+                };
                 menu.Append(ID_UNSELECT_ALL, _("Unselect all"));
                 menu.AppendSeparator();
             }
@@ -1152,7 +1187,10 @@ void ImagesTreeCtrl::OnContextMenu(wxTreeEvent & e)
     {
         if(m_optimizerMode && set_contains(m_editableColumns, e.GetInt()))
         {
-            menu.Append(ID_SELECT_ALL, _("Select all"));
+            if(m_columnVector[m_selectedColumn]!="cam_trans")
+            {
+                menu.Append(ID_SELECT_ALL, _("Select all"));
+            };
             menu.Append(ID_UNSELECT_ALL, _("Unselect all"));
             allowMenuExtension=false;
         }
@@ -1481,31 +1519,42 @@ void ImagesTreeCtrl::OnLeftDown(wxMouseEvent &e)
                         };
                         HuginBase::OptimizeVector optVec=m_pano->getOptimizeVector();
                         std::set<std::string> var;
-                        var.insert(m_columnVector[col]);
-                        if(m_columnVector[col]=="Tpy" || m_columnVector[col]=="Tpp")
+                        if(m_columnVector[col]=="cam_trans")
                         {
+                            var.insert("TrX");
+                            var.insert("TrY");
+                            var.insert("TrZ");
                             var.insert("Tpy");
                             var.insert("Tpp");
-                        };
-                        if(m_columnVector[col]=="Vb" || m_columnVector[col]=="Vc" || m_columnVector[col]=="Vd")
+                        }
+                        else
                         {
-                            var.insert("Vb");
-                            var.insert("Vc");
-                            var.insert("Vd");
-                        };
-                        if(m_columnVector[col]=="Vx" || m_columnVector[col]=="Vy")
-                        {
-                            var.insert("Vx");
-                            var.insert("Vy");
-                        };
-                        if(m_columnVector[col]=="Ra" || m_columnVector[col]=="Rb" || m_columnVector[col]=="Rc" || 
-                           m_columnVector[col]=="Rd" || m_columnVector[col]=="Re")
-                        {
-                            var.insert("Ra");
-                            var.insert("Rb");
-                            var.insert("Rc");
-                            var.insert("Rd");
-                            var.insert("Re");
+                            var.insert(m_columnVector[col]);
+                            if(m_columnVector[col]=="Tpy" || m_columnVector[col]=="Tpp")
+                            {
+                                var.insert("Tpy");
+                                var.insert("Tpp");
+                            };
+                            if(m_columnVector[col]=="Vb" || m_columnVector[col]=="Vc" || m_columnVector[col]=="Vd")
+                            {
+                                var.insert("Vb");
+                                var.insert("Vc");
+                                var.insert("Vd");
+                            };
+                            if(m_columnVector[col]=="Vx" || m_columnVector[col]=="Vy")
+                            {
+                                var.insert("Vx");
+                                var.insert("Vy");
+                            };
+                            if(m_columnVector[col]=="Ra" || m_columnVector[col]=="Rb" || m_columnVector[col]=="Rc" || 
+                               m_columnVector[col]=="Rd" || m_columnVector[col]=="Re")
+                            {
+                                var.insert("Ra");
+                                var.insert("Rb");
+                                var.insert("Rc");
+                                var.insert("Rd");
+                                var.insert("Re");
+                            };
                         };
                         for(std::set<std::string>::const_iterator varIt=var.begin(); varIt!=var.end(); varIt++)
                         {
@@ -1547,27 +1596,37 @@ void ImagesTreeCtrl::SelectAllParameters(bool select, bool allImages)
 {
     std::set<std::string> imgVars;
     std::string var=m_columnVector[m_selectedColumn];
-    imgVars.insert(var);
-    OptimizeVector optVec=m_pano->getOptimizeVector();
+    if(var=="cam_trans")
+    {
+        imgVars.insert("TrX");
+        imgVars.insert("TrY");
+        imgVars.insert("TrZ");
+        imgVars.insert("Tpy");
+        imgVars.insert("Tpp");
+    }
+    else
+    {
+        imgVars.insert(var);
+        if(var=="Vb" || var=="Vc" || var=="Vd")
+        {
+            imgVars.insert("Vb");
+            imgVars.insert("Vc");
+            imgVars.insert("Vd");
+        };
+        if(var=="Vx" || var=="Vy")
+        {
+            imgVars.insert("Vx");
+            imgVars.insert("Vy");
+        };
+        if(var=="Ra" || var=="Rb" || var=="Rc" || var=="Rd" || var=="Re")
+        {
+            imgVars.insert("Ra");
+            imgVars.insert("Rb");
+            imgVars.insert("Rc");
+            imgVars.insert("Rd");
+            imgVars.insert("Re");
+        };
 
-    if(var=="Vb" || var=="Vc" || var=="Vd")
-    {
-        imgVars.insert("Vb");
-        imgVars.insert("Vc");
-        imgVars.insert("Vd");
-    };
-    if(var=="Vx" || var=="Vy")
-    {
-        imgVars.insert("Vx");
-        imgVars.insert("Vy");
-    };
-    if(var=="Ra" || var=="Rb" || var=="Rc" || var=="Rd" || var=="Re")
-    {
-        imgVars.insert("Ra");
-        imgVars.insert("Rb");
-        imgVars.insert("Rc");
-        imgVars.insert("Rd");
-        imgVars.insert("Re");
     };
 
     UIntSet imgs;
@@ -1604,6 +1663,7 @@ void ImagesTreeCtrl::SelectAllParameters(bool select, bool allImages)
         };
     };
 
+    OptimizeVector optVec=m_pano->getOptimizeVector();
     for(UIntSet::iterator img=imgs.begin(); img!=imgs.end(); img++)
     {
         for(std::set<std::string>::const_iterator it=imgVars.begin(); it!=imgVars.end(); it++)
