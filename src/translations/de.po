@@ -2633,7 +2633,7 @@ msgstr "Entferne Kontrollpunkte aus Wolkenbereichen"
 
 #: hugin1/hugin/PanoOperation.cpp:815
 msgid "Reset user defined..."
-msgstr "Anwender-Einstellungen zurücksetzen..."
+msgstr "Ausgewählte Einstellungen zurücksetzen..."
 
 #: hugin1/hugin/PanoOperation.cpp:818
 msgid "Reset positions"
@@ -3645,8 +3645,8 @@ msgid ""
 "If you close the dialog, you will lose them.\n"
 "Continue anyway?"
 msgstr ""
-"Die Liste enthält mindestens ein nicht gespeichertes mögliches Panorama.\n"
-"Wenn Sie den Dialog schließen, geht diese gefundene Starteinstellung "
+"Die Liste enthält nicht gespeicherte mögliche Panoramen.\n"
+"Wenn Sie den Dialog schließen, gehen diese gefundenen Panoramen "
 "verloren.\n"
 "Trotzdem fortfahren?"
 
@@ -5981,7 +5981,7 @@ msgstr ""
 
 #: translations/xrc.cpp:669 xrc.cpp:669
 msgid "Log messages:"
-msgstr "Protokoll-Meldungen"
+msgstr "Protokoll-Meldungen:"
 
 #: translations/xrc.cpp:670 xrc.cpp:670
 msgid "Copy log messages to clipboard."
