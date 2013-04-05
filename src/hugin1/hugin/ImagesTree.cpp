@@ -1556,23 +1556,32 @@ void ImagesTreeCtrl::OnLeftDown(wxMouseEvent &e)
                                 var.insert("Re");
                             };
                         };
+                        bool deactivate=false;
                         for(std::set<std::string>::const_iterator varIt=var.begin(); varIt!=var.end(); varIt++)
                         {
                             //search, if image variable is marked for optimise for at least one image of group
-                            bool deactivate=false;
                             for(HuginBase::UIntSet::const_iterator imgIt=imgs.begin(); imgIt!=imgs.end() && !deactivate; imgIt++)
                             {
-                                deactivate=set_contains(optVec[*imgIt], *varIt);
+                                if(set_contains(optVec[*imgIt], *varIt))
+                                {
+                                    deactivate=true;
+                                };
                             };
-                            // now deactivate or activate the image variable for optimisation
-                            if(deactivate)
+                        };
+                        // now deactivate or activate the image variable for optimisation
+                        if(deactivate)
+                        {
+                            for(std::set<std::string>::const_iterator varIt=var.begin(); varIt!=var.end(); varIt++)
                             {
                                 for(HuginBase::UIntSet::const_iterator imgIt=imgs.begin(); imgIt!=imgs.end(); imgIt++)
                                 {
                                     optVec[*imgIt].erase(*varIt);
                                 };
                             }
-                            else
+                        }
+                        else
+                        {
+                            for(std::set<std::string>::const_iterator varIt=var.begin(); varIt!=var.end(); varIt++)
                             {
                                 for(HuginBase::UIntSet::const_iterator imgIt=imgs.begin(); imgIt!=imgs.end(); imgIt++)
                                 {
