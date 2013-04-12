@@ -934,7 +934,7 @@ msgid ""
 "right-drag or Ctrl-drag."
 msgstr ""
 "Ťahať ľavým tlačidlom myši pre posun obrázkov (pri stlačenom shift bude "
-"pohyb obmedzený). alebo nakloniť pravým tlačidlom myši (či ťahaním s Ctrl)."
+"pohyb obmedzený). alebo naklopiť pravým tlačidlom myši (či ťahaním s Ctrl)."
 
 #: hugin1/hugin/DragTool.cpp:106
 msgid ""
@@ -942,25 +942,25 @@ msgid ""
 "opposite direction to constrain to yaw."
 msgstr ""
 "Momentálne obmedzené iba na úpravu sklonu. Urobte väčší pohyb v opačnom "
-"smere, aby ste úpravy obmedzili na odchýlku."
+"smere, aby ste úpravy obmedzili na otáčenie."
 
 #: hugin1/hugin/DragTool.cpp:110
 msgid ""
 "Currently constrained to moving only yaw. Make a larger movement in the "
 "opposite direction to constrain to pitch."
 msgstr ""
-"Momentálne obmedzené iba na úpravu odchýlky. Urobte väčší pohyb v opačnom "
+"Momentálne obmedzené iba na úpravu otočenia. Urobte väčší pohyb v opačnom "
 "smere, aby ste úpravy obmedzili na sklon."
 
 #: hugin1/hugin/DragTool.cpp:214
 msgid "Rotate around the centre to roll."
-msgstr "Otáčajte okolo stredu pre otáčanie obrázkov."
+msgstr "Krúžte okolo stredu pre klopenie obrázkov."
 
 #: hugin1/hugin/DragTool.cpp:235
 msgid ""
 "Constrained drag: make a movement and it will be snapped to the yaw or pitch."
 msgstr ""
-"Obmedzené uchopenie: pohnite myšou a obmedzte úpravy na sklon alebo odchýlku."
+"Obmedzené uchopenie: pohnite myšou a úprava zaskočí na otáčanie alebo sklon."
 
 #: hugin1/hugin/DragTool.cpp:237
 msgid "Drag to move."
@@ -972,8 +972,8 @@ msgid ""
 "right-drag or ctrl-drag."
 msgstr ""
 "Pre posun obrázkov ich uchopte ľavým tlačidlom myši (pri stlačenom shift "
-"bude pohyb obmedzený). Pre nakláňanie ich uchopte pravým tlačidlom myši "
-"alebo použite ľavé s klávesom Ctrl."
+"bude pohyb obmedzený). Pre klopenie ich uchopte pravým tlačidlom myši alebo "
+"použite ľavé s klávesom Ctrl."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:305 hugin1/hugin/GLPreviewFrame.cpp:3047
 msgid "Fast Panorama preview"
@@ -1156,7 +1156,7 @@ msgstr "Cylindrická"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1592 hugin1/hugin/PreviewFrame.cpp:733
 msgid "Yaw value must be numeric."
-msgstr "Hodnota odchýlky musí byť číselná."
+msgstr "Hodnota otočenia musí byť číselná."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1599 hugin1/hugin/PreviewFrame.cpp:739
 msgid "Pitch value must be numeric."
@@ -1164,7 +1164,7 @@ msgstr "Hodnota sklonu musí byť číselná."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1606 hugin1/hugin/PreviewFrame.cpp:745
 msgid "Roll value must be numeric."
-msgstr "Hodnota otočenia musí byť číselná."
+msgstr "Hodnota klopenia musí byť číselná."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1620
 msgid "X value must be numeric."
@@ -1194,7 +1194,7 @@ msgid ""
 "Should the Tpy and Tpp parameters reset to zero?"
 msgstr ""
 "Mód pre mozaiku/plochu funguje správne len pre premapovanú plochu s "
-"odchýlkou(yaw)=0 a sklonom(pitch)=0.\n"
+"otočením(yaw)=0 a sklonom(pitch)=0.\n"
 "Ale váš projekt má nenulové parametre Tpy a Tpp.\n"
 "Nulovať Tpy a Tpp parametre?"
 
@@ -1665,11 +1665,11 @@ msgstr "ISO citlivosť"
 
 #: hugin1/hugin/ImagesTree.cpp:158
 msgid "Yaw (y)"
-msgstr "Odklon (y)"
+msgstr "Otočenie (y)"
 
 #: hugin1/hugin/ImagesTree.cpp:158
 msgid "Yaw"
-msgstr "Odklon"
+msgstr "Otočenie"
 
 #: hugin1/hugin/ImagesTree.cpp:159
 msgid "Pitch (p)"
@@ -1681,11 +1681,11 @@ msgstr "Sklon"
 
 #: hugin1/hugin/ImagesTree.cpp:160
 msgid "Roll (r)"
-msgstr "Naklonenie (r)"
+msgstr "Naklopenie (r)"
 
 #: hugin1/hugin/ImagesTree.cpp:160
 msgid "Roll"
-msgstr "Naklonenie"
+msgstr "Naklopenie"
 
 #: hugin1/hugin/ImagesTree.cpp:161
 msgid "Camera translation X"
@@ -1701,11 +1701,11 @@ msgstr "Premiestnenie fotoaparátu Z"
 
 #: hugin1/hugin/ImagesTree.cpp:164
 msgid "Plane yaw"
-msgstr "Plošná odchýlka"
+msgstr "Otočenie plochy"
 
 #: hugin1/hugin/ImagesTree.cpp:164
 msgid "Translation remap plane yaw"
-msgstr "Premiestnená premapovaná odchýlka plochy"
+msgstr "Premiestnené premapované otočenie plochy"
 
 #: hugin1/hugin/ImagesTree.cpp:165
 msgid "Plane pitch"
@@ -1810,13 +1810,15 @@ msgstr "Vlastný (EMoR)"
 msgid "Linear"
 msgstr "Lineárny"
 
+# premiestnenie
 #: hugin1/hugin/ImagesTree.cpp:533 hugin1/hugin/ImagesTree.cpp:708
 msgid "not active"
-msgstr "neaktívny"
+msgstr "neaktívne"
 
+# premiestnenie
 #: hugin1/hugin/ImagesTree.cpp:536 hugin1/hugin/ImagesTree.cpp:711
 msgid "active"
-msgstr "aktívny"
+msgstr "aktívne"
 
 #: hugin1/hugin/ImagesTree.cpp:678
 #, c-format
@@ -4600,7 +4602,7 @@ msgstr "Údaje o fotoaparáte a šošovke"
 #: translations/xrc.cpp:215 translations/xrc.cpp:818 translations/xrc.cpp:878
 #: translations/xrc.cpp:964 xrc.cpp:215 xrc.cpp:818 xrc.cpp:878 xrc.cpp:964
 msgid "Yaw:"
-msgstr "Odchýlka:"
+msgstr "Otočenie:"
 
 #: translations/xrc.cpp:216 translations/xrc.cpp:819 translations/xrc.cpp:879
 #: translations/xrc.cpp:965 xrc.cpp:216 xrc.cpp:819 xrc.cpp:879 xrc.cpp:965
@@ -4610,7 +4612,7 @@ msgstr "Sklon:"
 #: translations/xrc.cpp:217 translations/xrc.cpp:820 translations/xrc.cpp:880
 #: translations/xrc.cpp:966 xrc.cpp:217 xrc.cpp:820 xrc.cpp:880 xrc.cpp:966
 msgid "Roll:"
-msgstr "Otočenie:"
+msgstr "Klopenie:"
 
 #: translations/xrc.cpp:218 xrc.cpp:218
 msgid "Translation parameter"
