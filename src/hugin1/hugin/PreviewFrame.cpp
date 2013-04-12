@@ -283,7 +283,7 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
                                         wxDefaultPosition,wxSize(50,-1), wxTE_PROCESS_ENTER);
     blendModeSizer->Add(m_exposureTextCtrl,
                           0,        // not vertically strechable
-                          wxLEFT | wxTOP | wxBOTTOM  | wxALIGN_CENTER_VERTICAL, // draw border all around
+                          wxLEFT | wxTOP | wxBOTTOM  | wxEXPAND | wxALIGN_CENTER_VERTICAL, // draw border all around
                           5);       // border width
 //    m_incExposureBut = new wxBitmapButton(this, ID_EXPOSURE_INCREASE,
 //                                          wxArtProvider::GetBitmap(wxART_GO_FORWARD));
@@ -512,6 +512,7 @@ void PreviewFrame::panoramaChanged(Panorama &pano)
     }
     if (relayout) {
         m_topsizer->Layout();
+        Refresh();
     }
     SetStatusText(_("Center panorama with left mouse button, set horizon with right button"),0);
     SetStatusText(wxString::Format(wxT("%.1f x %.1f"), opts.getHFOV(), opts.getVFOV()),2);
