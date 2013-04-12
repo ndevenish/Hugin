@@ -320,7 +320,7 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
         m_projParamTextCtrl[i]->PushEventHandler(new TextKillFocusHandler(this));
         m_projParamSizer->Add(m_projParamTextCtrl[i],
                         0,        // not vertically strechable
-                        wxALL | wxALIGN_CENTER_VERTICAL, // draw border all around
+                        wxALL | wxEXPAND | wxALIGN_CENTER_VERTICAL, // draw border all around
                         5);       // border width
 
         m_projParamSlider[i] = new wxSlider(this, PROJ_PARAM_SLIDER_ID+i, 0, -90, 90);
