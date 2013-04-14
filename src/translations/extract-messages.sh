@@ -1,4 +1,6 @@
 #!/bin/sh
+LC_ALL=C
+export LC_ALL
 BASEDIR="../" # root of translatable sources
 PROJECT="hugin" # project name
 #BUGADDR="pablo.dangelo@web.de" # MSGID-Bugs
@@ -14,6 +16,7 @@ which msgmerge &> /dev/null || { echo "Error: msgmerge utility not found"; exit 
 echo "Preparing rc files"
 
 cd ${BASEDIR}
+rm ${WDIR}/xrc.cpp
 find . -name '*.xrc' | sort | while read line; do wxrc -g $line >> ${WDIR}/xrc.cpp; done
 cd ${WDIR}
 echo "Done preparing rc files"
@@ -27,7 +30,8 @@ cd ${BASEDIR}
 # we use simple sorting to make sure the lines do not jump around too much from system to system
 find . -name '*.cpp' -o -name '*.h' -o -name '*.c' \
     | sort > ${WDIR}/infiles.list
-echo "xrc.cpp" >> ${WDIR}/infiles.list
+# xrc.cpp already there (because of find)
+# echo "xrc.cpp" >> ${WDIR}/infiles.list
 cat $WDIR/POTFILES.in >> ${WDIR}/infiles.list
 
 cd ${WDIR}
@@ -49,6 +53,5 @@ echo "Done merging translations"
        
 echo "Cleaning up"
 cd ${WDIR}
-rm infiles.list
-rm xrc.cpp
+#rm infiles.list
 echo "Done"
