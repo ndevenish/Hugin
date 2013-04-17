@@ -53,5 +53,6 @@ echo "Done merging translations"
        
 echo "Cleaning up"
 cd ${WDIR}
-#rm infiles.list
+rm infiles.list
+rm xrc.cpp
 echo "Done"
