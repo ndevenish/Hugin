@@ -131,10 +131,6 @@ private:
     unsigned int GetSelectedMask();
     /** called, when column with of mask list box was changed */
     void OnColumnWidthChange( wxListEvent & e );
-    /** load the mask from stream */
-    void LoadMaskFromStream(std::istream& stream,vigra::Size2D& imageSize,HuginBase::MaskPolygonVector &newMasks);
-    /** save the mask into stream */
-    void SaveMaskToStream(std::ostream& stream);
     /** determines, if the image should be rotated for display */
     MaskImageCtrl::ImageRotation GetRot(const unsigned int imgNr);
     /** copies the crop information from the Panorama object to GUI */

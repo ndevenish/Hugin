@@ -32,10 +32,8 @@
 
 #include <iostream>
 #include <vector>
-//#include <vigra/diff2d.hxx>
-//#include <vigra/imageinfo.hxx>
 #include <panotools/PanoToolsInterface.h>
-
+#include <panodata/PTScriptParsing.h>
 
 namespace HuginBase {
 
@@ -631,6 +629,57 @@ void MaskPolygon::printPolygonLine(std::ostream &o, const unsigned int newImgNr)
             o<<" ";
     };
     o<<"\""<<std::endl;
+};
+
+void LoadMaskFromStream(std::istream& stream,vigra::Size2D& imageSize, MaskPolygonVector &newMasks, size_t imgNr)
+{
+    while (stream.good()) 
+    {
+        std::string line;
+        std::getline(stream,line);
+        switch (line[0]) 
+        {
+            case '#':
+            {
+                unsigned int w;
+                if (PTScriptParsing::getIntParam(w, line, "w"))
+                    imageSize.setWidth(w);
+                unsigned int h;
+                if (PTScriptParsing::getIntParam(h, line, "h"))
+                    imageSize.setHeight(h);
+                break;
+            }
+            case 'k':
+            {
+                HuginBase::MaskPolygon newPolygon;
+                //Ignore image number set in mask
+                newPolygon.setImgNr(imgNr);
+                unsigned int param;
+                if (PTScriptParsing::getIntParam(param,line,"t"))
+                {
+                    newPolygon.setMaskType((HuginBase::MaskPolygon::MaskType)param);
+                }
+                std::string format;
+                if (PTScriptParsing::getPTParam(format,line,"p"))
+                {
+                    if(newPolygon.parsePolygonString(format)) {
+                        newMasks.push_back(newPolygon);
+                    } 
+                }
+                break;
+            }
+            default:
+            {
+                break;
+            }
+        }
+    }
+};
+
+void SaveMaskToStream(std::ostream& stream, vigra::Size2D imageSize, MaskPolygon &maskToWrite, size_t imgNr)
+{
+    stream << "# w" << imageSize.width() << " h" << imageSize.height() << std::endl;
+    maskToWrite.printPolygonLine(stream, imgNr);
 };
 
 } // namespace

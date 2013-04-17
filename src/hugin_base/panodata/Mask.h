@@ -148,6 +148,11 @@ private:
 
 typedef std::vector<MaskPolygon> MaskPolygonVector;
 
+/** load the mask from stream */
+IMPEX void LoadMaskFromStream(std::istream& stream, vigra::Size2D& imageSize, MaskPolygonVector &newMasks, size_t imgNr);
+/** save the mask into stream */
+IMPEX void SaveMaskToStream(std::ostream& stream, vigra::Size2D imageSize, MaskPolygon &maskToWrite, size_t imgNr);
+
 }; //namespace
 
 namespace vigra_ext 

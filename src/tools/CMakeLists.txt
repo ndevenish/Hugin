@@ -38,6 +38,9 @@ target_link_libraries(checkpto ${common_libs} )
 add_executable(pto_merge pto_merge.cpp)
 target_link_libraries(pto_merge ${common_libs} )
 
+add_executable(pto_mask pto_mask.cpp)
+target_link_libraries(pto_mask ${common_libs} )
+
 add_executable(pto_gen pto_gen.cpp)
 target_link_libraries(pto_gen ${common_libs} )
 
@@ -58,7 +61,7 @@ target_link_libraries(hugin_hdrmerge ${common_libs} ${image_libs} )
 
 install(TARGETS nona vig_optimize autooptimiser fulla align_image_stack linefind geocpset
         tca_correct pto2mk cpclean checkpto hugin_hdrmerge pano_trafo pano_modify pto_merge 
-        pto_gen pto_var pto_lensstack
+        pto_gen pto_var pto_lensstack pto_mask
         DESTINATION ${BINDIR})
 
 IF(UNIX)

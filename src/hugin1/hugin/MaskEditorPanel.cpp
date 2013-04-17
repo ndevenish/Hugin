@@ -449,62 +449,9 @@ void MaskEditorPanel::OnMaskSave(wxCommandEvent &e)
             }
             wxFileName filename = fn;
             std::ofstream maskFile(filename.GetFullPath().mb_str(HUGIN_CONV_FILENAME));
-            SaveMaskToStream(maskFile);
+            SaveMaskToStream(maskFile, m_pano->getImage(GetImgNr()).getSize(), m_currentMasks[m_MaskNr], GetImgNr());
             maskFile.close();
         };
-    }
-};
-
-void MaskEditorPanel::SaveMaskToStream(std::ostream& stream)
-{
-    vigra::Size2D imageSize = m_pano->getImage(GetImgNr()).getSize();
-    stream << "# w" << imageSize.width() << " h" << imageSize.height() << std::endl;
-    HuginBase::MaskPolygon maskToWrite = m_currentMasks[m_MaskNr];
-    maskToWrite.printPolygonLine(stream,GetImgNr());
-};
-
-void MaskEditorPanel::LoadMaskFromStream(std::istream& stream,vigra::Size2D& imageSize,HuginBase::MaskPolygonVector &newMasks)
-{
-    while (stream.good()) 
-    {
-        std::string line;
-        std::getline(stream,line);
-        switch (line[0]) 
-        {
-            case '#':
-            {
-                unsigned int w;
-                if (getIntParam(w, line, "w"))
-                    imageSize.setWidth(w);
-                unsigned int h;
-                if (getIntParam(h, line, "h"))
-                    imageSize.setHeight(h);
-                break;
-            }
-            case 'k':
-            {
-                HuginBase::MaskPolygon newPolygon;
-                //Ignore image number set in mask
-                newPolygon.setImgNr(GetImgNr());
-                unsigned int param;
-                if (getIntParam(param,line,"t"))
-                {
-                    newPolygon.setMaskType((HuginBase::MaskPolygon::MaskType)param);
-                }
-                std::string format;
-                if (getPTParam(format,line,"p"))
-                {
-                    if(newPolygon.parsePolygonString(format)) {
-                        newMasks.push_back(newPolygon);
-                    } 
-                }
-                break;
-            }
-            default:
-            {
-                break;
-            }
-        }
     }
 };
 
@@ -525,7 +472,7 @@ void MaskEditorPanel::OnMaskLoad(wxCommandEvent &e)
         std::ifstream in(filename.GetFullPath().mb_str(HUGIN_CONV_FILENAME));
         vigra::Size2D maskImageSize;
         HuginBase::MaskPolygonVector loadedMasks;
-        LoadMaskFromStream(in,maskImageSize,loadedMasks);
+        LoadMaskFromStream(in, maskImageSize, loadedMasks, GetImgNr());
         in.close();
         if(maskImageSize.area()==0 || loadedMasks.size()==0)
         {
@@ -557,7 +504,7 @@ void MaskEditorPanel::OnMaskCopy(wxCommandEvent &e)
     if(GetImgNr()<UINT_MAX && m_MaskNr<UINT_MAX && m_maskMode)
     {
         std::ostringstream stream;
-        SaveMaskToStream(stream);
+        SaveMaskToStream(stream, m_pano->getImage(GetImgNr()).getSize(), m_currentMasks[m_MaskNr], GetImgNr());
         if (wxTheClipboard->Open())
         {
             // This data objects are held by the clipboard,
@@ -581,7 +528,7 @@ void MaskEditorPanel::OnMaskPaste(wxCommandEvent &e)
                 wxTextDataObject data;
                 wxTheClipboard->GetData(data);
                 std::istringstream stream(std::string(data.GetText().mb_str()));
-                LoadMaskFromStream(stream,maskImageSize,loadedMasks);
+                LoadMaskFromStream(stream, maskImageSize, loadedMasks, GetImgNr());
             }
             wxTheClipboard->Close();
             if(maskImageSize.area()==0 || loadedMasks.size()==0)
