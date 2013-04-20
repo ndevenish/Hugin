@@ -55,25 +55,27 @@
 <pre>  pano_modify -c --crop=AUTO --output=output.pto input.pto
 </pre>
 <h2> <span class="mw-headline" id="Options"> Options </span></h2>
-<ul><li> -o, --output=file.pto: Writes the output to the given project file. If this parameter is not given the suffix _mod is added to the given input project.
-</li><li> -p, --projection=x: Sets the output projection to the projection with number x.
-</li><li> --fov=AUTO|HFOV|HFOVxVFOV: Sets output field of view. Following arguments are possible
+<ul><li> <tt>-o, --output=file.pto</tt>: Writes the output to the given project file. If this parameter is not given the suffix _mod is added to the given input project.
+</li><li> <tt>-p, --projection=x</tt>: Sets the output projection to the projection with number x.
+</li><li> <tt>--fov=AUTO|HFOV|HFOVxVFOV</tt>: Sets output field of view. Following arguments are possible
 <ul><li> AUTO: calculates optimal fov.
 </li><li> HFOV: set hfov to given hfov (If output projection has coupled hfov and vfov, vfov is automatic changed).
 </li><li> HFOVxVFOV: set to given hfov and vfov.
 </li></ul>
-</li><li>-s, --straighten: Straightens the panorama.
-</li><li>-c, --center: Centers the panorama.
-</li><li>--canvas=AUTO|num%|WIDTHxHEIGHT:  Sets the output canvas size
+</li><li><tt>-s, --straighten</tt>: Straightens the panorama.
+</li><li><tt>-c, --center</tt>: Centers the panorama.
+</li><li> <tt>--canvas=AUTO|num%|WIDTHxHEIGHT</tt>:  Sets the output canvas size
 <ul><li> AUTO: calculate optimal canvas size
-</li><li> num%: scales the optimal canvas size by the given percent value, e.g. --canvas=70% will scale the image to 70&#160;% of the optimal size.
+</li><li> num%: scales the optimal canvas size by the given percent value, e.g. <tt>--canvas=70%</tt> will scale the image to 70&#160;% of the optimal size.
 </li><li> WIDTHxHEIGHT: set to given size
 </li></ul>
-</li><li>--crop=AUTO|AUTOHDR|left,right,top,bottom:  Sets the crop rectangle for the output
+</li><li> <tt>--crop=AUTO|AUTOHDR|left,right,top,bottom</tt>:  Sets the crop rectangle for the output
 <ul><li> AUTO: performs an autocrop to the maximal possible size of the panorama
 </li><li> AUTOHDR: performs a HDR autocrop to the maximal possible size covered by all exposures
 </li><li> left,right,top,bottom: sets the crop to the given size
 </li></ul>
+</li><li> <tt>--rotate=yaw,pitch,roll</tt> rotate the panorama by the given angles
+</li><li> <tt>--translate=x,y,z</tt> translate the panorama by the given distances
 </li></ul>
 
 
@@ -82,7 +84,7 @@
 </div>				<!-- /bodycontent -->
 								<!-- printfooter -->
 				<div class="printfooter">
-				Retrieved from "http://wiki.panotools.org/index.php?title=Pano_modify&amp;oldid=13864<a class="external" href="http://wiki.panotools.org/index.php?title=Pano_modify&amp;oldid=13864">[*]</a>"				</div>
+				Retrieved from "http://wiki.panotools.org/index.php?title=Pano_modify&amp;oldid=15426<a class="external" href="http://wiki.panotools.org/index.php?title=Pano_modify&amp;oldid=15426">[*]</a>"				</div>
 				<!-- /printfooter -->
 												<!-- catlinks -->
 				</div></div></body></html>

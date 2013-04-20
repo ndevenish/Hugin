@@ -158,6 +158,33 @@
 		<param name="Local" value="Colour_profile.html">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Command line tools">
+		<param name="Name" value="Pto gen - PanoTools.org Wiki">
+		<param name="Local" value="Pto_gen.html">
+		<param name="Name" value="Pto lensstack - PanoTools.org Wiki">
+		<param name="Local" value="Pto_lensstack.html">
+		<param name="Name" value="Pto mask - PanoTools.org Wiki">
+		<param name="Local" value="Pto_mask.html">
+		<param name="Name" value="Pto merge - PanoTools.org Wiki">
+		<param name="Local" value="Pto_merge.html">
+		<param name="Name" value="Pto var - PanoTools.org Wiki">
+		<param name="Local" value="Pto_var.html">
+		<param name="Name" value="Pto2mk - PanoTools.org Wiki">
+		<param name="Local" value="Pto2mk.html">
+		<param name="Name" value="Align image stack - PanoTools.org Wiki">
+		<param name="Local" value="Align_image_stack.html">
+		<param name="Name" value="Checkpto - PanoTools.org Wiki">
+		<param name="Local" value="Checkpto.html">
+		<param name="Name" value="Cpfind - PanoTools.org Wiki">
+		<param name="Local" value="Cpfind.html">
+		<param name="Name" value="Fulla - PanoTools.org Wiki">
+		<param name="Local" value="Fulla.html">
+		<param name="Name" value="Geocpset - PanoTools.org Wiki">
+		<param name="Local" value="Geocpset.html">
+		<param name="Name" value="Linefind - PanoTools.org Wiki">
+		<param name="Local" value="Linefind.html">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Contrast">
 		<param name="Name" value="Contrast">
 		<param name="Local" value="Contrast.html">
@@ -750,9 +777,19 @@
 		<param name="Local" value="Pto_lensstack.html">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Pto_mask">
+		<param name="Name" value="Pto mask - PanoTools.org Wiki">
+		<param name="Local" value="Pto_mask.html">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Pto_merge">
 		<param name="Name" value="Pto merge">
 		<param name="Local" value="Pto_merge.html">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Pto_template">
+		<param name="Name" value="Pto template - PanoTools.org Wiki">
+		<param name="Local" value="Pto_template.html">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Pto_var">
