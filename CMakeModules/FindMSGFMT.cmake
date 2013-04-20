@@ -18,37 +18,34 @@
 
 IF(MSGFMT_EXECUTABLE)
     SET(MSGFMT_FOUND TRUE)
-ELSE(MSGFMT_EXECUTABLE)
+ELSE()
     FIND_PROGRAM(MSGFMT_EXECUTABLE
-	NAMES msgfmt gmsgfmt msgfmt.exe
-	PATHS /bin /usr/bin /usr/local/bin c:/MinGW/bin ${SOURCE_BASE_DIR}/gettext/bin)
-    IF(MSGFMT_EXECUTABLE)
-        SET(MSGFMT_FOUND TRUE)
-    ELSE(MSGFMT_EXECUTABLE)
-	IF(NOT MSGFMT_FIND_QUIETLY)
-	    IF(MSGFMT_FIND_REQUIRED)
-		MESSAGE(FATAL_ERROR "msgfmt program couldn't be found")
-	    ENDIF(MSGFMT_FIND_REQUIRED)
-	ENDIF(NOT MSGFMT_FIND_QUIETLY)
-    ENDIF(MSGFMT_EXECUTABLE)
-    MARK_AS_ADVANCED(MSGFMT_EXECUTABLE)
-ENDIF (MSGFMT_EXECUTABLE)
+        NAMES msgfmt gmsgfmt msgfmt.exe
+        PATHS /bin /usr/bin /usr/local/bin c:/MinGW/bin ${SOURCE_BASE_DIR}/gettext/bin)
+ENDIF()
 
-MACRO(ADD_TRANSLATIONS _baseName)
+include(FindPackageHandleStandardArgs)
+find_package_handle_standard_args(MSGFMT
+    DEFAULT_MSG MSGFMT_EXECUTABLE)
+
+MARK_AS_ADVANCED(MSGFMT_EXECUTABLE)
+
+MACRO(ADD_TRANSLATIONS _potfile)
     SET(_outputs)
+    get_filename_component(_baseName ${_potfile} NAME_WE)
     FOREACH(_file ${ARGN})
-		GET_FILENAME_COMPONENT(_file_we ${_file} NAME_WE)
-		SET(_out "${CMAKE_CURRENT_BINARY_DIR}/${_file_we}.gmo")
-		SET(_in  "${CMAKE_CURRENT_SOURCE_DIR}/${_file_we}.po")
-		ADD_CUSTOM_COMMAND(
-		    OUTPUT ${_out}
-		    COMMAND ${MSGFMT_EXECUTABLE} -o ${_out} ${_in}
-		    DEPENDS ${_in} )
-		INSTALL(FILES ${_out}
-		    DESTINATION ${LOCALEDIR}/${_file_we}/LC_MESSAGES/
-		    RENAME ${_baseName}.mo )
-		SET(_outputs ${_outputs} ${_out})
+                GET_FILENAME_COMPONENT(_file_we ${_file} NAME_WE)
+                SET(_out "${CMAKE_CURRENT_BINARY_DIR}/${_file_we}.gmo")
+                SET(_in  ${_file})
+                ADD_CUSTOM_COMMAND(
+                    OUTPUT ${_out}
+                    COMMAND ${MSGFMT_EXECUTABLE} -o ${_out} ${_in}
+                    DEPENDS ${_in} )
+                INSTALL(FILES ${_out}
+                    DESTINATION ${LOCALEDIR}/${_file_we}/LC_MESSAGES/
+                    RENAME ${_baseName}.mo )
+                list(APPEND _outputs ${_out})
     ENDFOREACH(_file)
-    SET(MSGFMT_TARGET translations${_baseName})
+    SET(MSGFMT_TARGET translations)
     ADD_CUSTOM_TARGET(${MSGFMT_TARGET} ALL DEPENDS ${_outputs})
 ENDMACRO(ADD_TRANSLATIONS)
