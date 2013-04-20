@@ -6,8 +6,7 @@
 # The idea inspired from LyX
 # Licence details can be found in the file COPYING.
 #
-# autors Kornel Benko <Kornel.Benko@berlin.de>
-#        Thomas Modes  <Thomas.Modes@gmx.de>
+# author Kornel Benko <Kornel.Benko@berlin.de>
 #
 # original \author Bo Peng
 #

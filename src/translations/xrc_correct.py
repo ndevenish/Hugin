@@ -1,6 +1,13 @@
 #! /usr/bin/env python
 # -*- coding: iso-8859-15 -*-
 
+# file xrc_correct.py
+# This file is part of hugin
+# Licence details can be found in the file COPYING.
+#
+# author Kornel Benko <Kornel.Benko@berlin.de>
+#
+
 import sys, re
 import codecs
 from getopt import getopt
