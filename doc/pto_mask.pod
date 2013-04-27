@@ -1,0 +1,52 @@
+=encoding utf8
+
+=head1 NAME
+
+pto_mask Apply a mask
+
+=head1 SYNOPSIS
+
+B<pto_mask> [options] input.pto
+
+=head1 DESCRIPTION
+
+B<pto_mask> applies a mask to nominated images
+
+=head1 USAGE
+
+   pto_mask --mask=maskfile
+
+=head1 OPTIONS
+
+=over
+
+=item B<-o> | --output=file.pto
+
+Output Hugin PTO file. Default: <filename>_mask.pto
+
+=item B<--mask=filename@imgNr>
+
+Read the mask from the file and assign to given image
+
+=item B<--rotate=CLOCKWISE|90|COUNTERCLOCKWISE|-90>
+
+Rotates the mask clock- or counterclockwise
+
+=item B<--process=CLIP|SCALE|PROP_SCALE>
+
+Specify how the mask should be modified if the mask is created for an image with different size
+
+   * CLIP: clipping (Default)
+   * SCALE: Scaling width and height individually
+   * PROP_SCALE: Proportional scale
+
+=item B<-h> | --help
+
+Shows this help
+
+=back
+
+=head1 AUTHORS
+
+Thomas Modes
+

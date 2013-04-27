@@ -1,0 +1,40 @@
+=encoding utf8
+
+=head1 NAME
+
+pto_template Apply a template file
+
+=head1 SYNOPSIS
+
+B<pto_gen> [options] input.pto
+
+=head1 DESCRIPTION
+
+B<pto_gen> adds a template file to PTO
+
+=head1 USAGE
+
+   pto_template --template=template.pto
+
+=head1 OPTIONS
+
+=over
+
+=item B<-o> | --output=file.pto
+
+Output Hugin PTO file. Default: <filename>_template.pto
+
+=item B<--template=template.pto>
+
+Apply the given template file.
+
+=item B<-h> | --help
+
+Shows this help
+
+=back
+
+=head1 AUTHORS
+
+Thomas Modes
+
