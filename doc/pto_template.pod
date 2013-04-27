@@ -6,11 +6,11 @@ pto_template Apply a template file
 
 =head1 SYNOPSIS
 
-B<pto_gen> [options] input.pto
+B<pto_template> [options] input.pto
 
 =head1 DESCRIPTION
 
-B<pto_gen> adds a template file to PTO
+B<pto_template> adds a template file to PTO
 
 =head1 USAGE
 
