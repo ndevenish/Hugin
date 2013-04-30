@@ -91,14 +91,6 @@ CPEvent::CPEvent(wxWindow* win, unsigned int cpNr, const FDiff2D & p)
     point = p;
 }
 
-CPEvent::CPEvent(wxWindow* win, wxRect & reg)
-{
-    SetEventType( EVT_CPEVENT );
-    SetEventObject( win );
-    mode = REGION_SELECTED;
-    region = reg;
-}
-
 CPEvent::CPEvent(wxWindow* win, const hugin_utils::FDiff2D & p1, const hugin_utils::FDiff2D & p2)
 {
     SetEventType(EVT_CPEVENT);
@@ -115,14 +107,504 @@ CPEvent::CPEvent(wxWindow* win, CPEventMode evt_mode, const FDiff2D & p)
     point = p;
 }
 
+CPEvent::CPEvent(wxWindow* win, CPEventMode evt_mode, const HuginBase::ControlPoint cp)
+{
+    SetEventType(EVT_CPEVENT);
+    SetEventObject(win);
+    mode=evt_mode;
+    m_cp=cp;
+};
+
+CPEvent::CPEvent(wxWindow* win, CPEventMode evt_mode, size_t cpNr, const HuginBase::ControlPoint cp)
+{
+    SetEventType(EVT_CPEVENT);
+    SetEventObject(win);
+    mode=evt_mode;
+    pointNr=cpNr;
+    m_cp=cp;
+};
+
 wxEvent * CPEvent::Clone() const
 {
     return new CPEvent(*this);
 }
 
+DisplayedControlPoint::DisplayedControlPoint(const HuginBase::ControlPoint& cp, CPImageCtrl* control, bool mirrored)
+{
+    m_cp=cp;
+    m_control=control;
+    m_mirrored=mirrored;
+    m_line=(m_cp.mode!=HuginBase::ControlPoint::X_Y) && (m_cp.image1Nr==m_cp.image2Nr);
+};
+
+void DisplayedControlPoint::SetColour(wxColour pointColour, wxColour textColour)
+{
+    m_pointColour=pointColour;
+    m_textColour=textColour;
+};
+
+void DisplayedControlPoint::SetLabel(wxString newLabel)
+{
+    m_label=newLabel;
+};
+
+void DisplayedControlPoint::SetControl(CPImageCtrl* control)
+{
+    m_control=control;
+};
+
+void DrawCross(wxDC& dc, wxPoint p, int l)
+{
+    dc.DrawLine(p + wxPoint(-l, 0),
+                p + wxPoint(-1, 0));
+    dc.DrawLine(p + wxPoint(2, 0),
+                p + wxPoint(l+1, 0));
+    dc.DrawLine(p + wxPoint(0, -l),
+                p + wxPoint(0, -1));
+    dc.DrawLine(p + wxPoint(0, 2),
+                p + wxPoint(0, l+1));
+};
+
+void DisplayedControlPoint::Draw(wxDC& dc, bool selected, bool newPoint)
+{
+    if(m_control==NULL)
+    {
+        return;
+    };
+    // select color
+    wxColour bgColor = m_pointColour;
+    wxColour textColor = m_textColour;
+    bool drawMag = false;
+    if (selected)
+    {
+        bgColor = wxTheColourDatabase->Find(wxT("RED"));
+        textColor = wxTheColourDatabase->Find(wxT("WHITE"));
+        drawMag = !m_control->GetMouseInWindow() || m_control->GetForceMagnifier();
+    }
+    if (newPoint)
+    {
+        bgColor = wxTheColourDatabase->Find(wxT("YELLOW"));
+        textColor = wxTheColourDatabase->Find(wxT("BLACK"));
+        drawMag = true;
+    }
+
+    dc.SetPen(wxPen(wxT("WHITE"), 1, wxSOLID));
+    dc.SetBrush(wxBrush(wxT("BLACK"),wxTRANSPARENT));
+
+    FDiff2D pointInput=m_mirrored ? hugin_utils::FDiff2D(m_cp.x2, m_cp.y2) : hugin_utils::FDiff2D(m_cp.x1, m_cp.y1);
+    FDiff2D point = m_control->applyRot(pointInput);
+    wxPoint p = m_control->roundP(m_control->scale(point));
+    FDiff2D pointInput2;
+    wxPoint p2;
+    if(m_line)
+    {
+        pointInput2=m_mirrored ? hugin_utils::FDiff2D(m_cp.x1, m_cp.y1) : hugin_utils::FDiff2D(m_cp.x2, m_cp.y2);
+        FDiff2D point2 = m_control->applyRot(pointInput2);
+        p2 = m_control->roundP(m_control->scale(point2));
+    };
+    int l = 6;
+    // draw cursor line, choose white or black
+    vigra::Rect2D box;
+    if(m_line)
+    {
+        box.setUpperLeft(vigra::Point2D(roundi(std::min(m_cp.x1, m_cp.x2))-l, roundi(std::min(m_cp.y1, m_cp.y2))-l));
+        box.setSize(roundi(abs(m_cp.x1-m_cp.x2)+2.0*l), roundi(abs(m_cp.y1-m_cp.y2)+2.0*l)); 
+    }
+    else
+    {
+        box.setUpperLeft(vigra::Point2D(roundi(pointInput.x-l), roundi(pointInput.y-l)));
+        box.setSize(2*l, 2*l);
+    };                
+    // only use part inside.
+    box &= vigra::Rect2D(m_control->GetImg()->size());
+    if(box.width()<=0 || box.height()<=0)
+    {
+        return;
+    };
+    // calculate mean "luminance value"
+    vigra::FindAverage<vigra::UInt8> average;   // init functor
+    vigra::RGBToGrayAccessor<vigra::RGBValue<vigra::UInt8> > lumac;
+    vigra::inspectImage(m_control->GetImg()->upperLeft()+ box.upperLeft(),
+                        m_control->GetImg()->upperLeft()+ box.lowerRight(),
+                        lumac, average);
+    if (average() < 150)
+    {
+        dc.SetPen(wxPen(wxT("WHITE"), 1, wxSOLID));
+    }
+    else
+    {
+        dc.SetPen(wxPen(wxT("BLACK"), 1, wxSOLID));
+    }
+
+    if(m_line)
+    {
+        DrawLine(dc);
+        DrawCross(dc, p, l);
+        DrawCross(dc, p2, l);
+    }
+    else
+    {
+        if(m_cp.mode!=ControlPoint::X_Y)
+        {
+            DrawLineSegment(dc);
+        };
+        DrawCross(dc, p, l);
+    };
+    // calculate distance to the image boundaries,
+    // decide where to put the label and magnifier
+    m_labelPos=DrawTextMag(dc, p, pointInput, drawMag, textColor, bgColor);
+    if(m_line)
+    {
+        m_labelPos2=DrawTextMag(dc, p2, pointInput2, drawMag, textColor, bgColor);
+    };
+}
+
+wxRect DisplayedControlPoint::DrawTextMag(wxDC& dc, wxPoint p, hugin_utils::FDiff2D pointInput, bool drawMag, wxColour textColour, wxColour bgColour)
+{
+    wxRect labelPos;
+    int l = 6;
+    wxSize clientSize = m_control->GetClientSize();
+    int vx0, vy0;
+    m_control->GetViewStart(&vx0, &vy0);
+    wxFont font(8, wxFONTFAMILY_MODERN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_LIGHT);
+    dc.SetFont(font);
+    wxPoint pClient(p.x - vx0, p.y - vy0);
+    // space in upper left, upper right, lower left, lower right
+    int maxDistUR = std::min(clientSize.x - pClient.x, pClient.y);
+    int maxDistLL = std::min(pClient.x, clientSize.y - pClient.y);
+    int maxDistLR = std::min(clientSize.x - pClient.x, clientSize.y - pClient.y);
+
+    // text and magnifier offset
+    int toff = l-1;
+    // default to lower right
+    wxPoint tul = p + wxPoint(toff,toff);
+
+    // calculate text position and extend
+    // width of border around text label
+    int tB = 2;
+    wxCoord tw, th;
+    dc.GetTextExtent(m_label, &tw, &th);
+
+    if (drawMag)
+    {
+        wxBitmap magBitmap = m_control->generateMagBitmap(pointInput, p);
+        // TODO: select position depending on visible part of canvas
+        wxPoint ulMag = tul;
+        // choose placement of the magnifier
+        int w = toff  + magBitmap.GetWidth()+3;
+        int db = 5;
+        if ( maxDistLR > w + db  )
+        {
+            ulMag = p + wxPoint(toff,toff);
+        }
+        else
+        {
+            if (maxDistLL > w + db)
+            {
+                ulMag = p + wxPoint(-w, toff);
+            }
+            else
+            {
+                if (maxDistUR > w + db)
+                {
+                    ulMag = p + wxPoint(toff, -w);
+                }
+                else
+                {
+                    ulMag = p + wxPoint(-w, -w);
+                }
+            }
+        };
+
+        dc.DrawBitmap(magBitmap, ulMag);
+        dc.SetPen(wxPen(wxT("BLACK"), 1, wxSOLID));
+        dc.SetBrush(wxBrush(wxT("WHITE"),wxTRANSPARENT));
+
+        // draw Bevel
+        int bw = magBitmap.GetWidth();
+        int bh = magBitmap.GetHeight();
+        dc.DrawLine(ulMag.x-1, ulMag.y+bh, 
+                    ulMag.x+bw+1, ulMag.y+bh);
+        dc.DrawLine(ulMag.x+bw, ulMag.y+bh, 
+                    ulMag.x+bw, ulMag.y-2);
+        dc.SetPen(wxPen(wxT("WHITE"), 1, wxSOLID));
+        dc.DrawLine(ulMag.x-1, ulMag.y-1, 
+                    ulMag.x+bw+1, ulMag.y-1);
+        dc.DrawLine(ulMag.x-1, ulMag.y+bh, 
+                    ulMag.x-1, ulMag.y-2);
+    }
+    // choose placement of text.
+    int db = 5;
+    int w = toff+tw+2*tB;
+    if ( maxDistLR > w + db && (!drawMag) )
+    {
+        tul = p + wxPoint(toff,toff);
+    }
+    else
+    {
+        if (maxDistLL > w + db)
+        {
+            tul = p + wxPoint(-w, toff);
+        }
+        else
+        {
+            if (maxDistUR > w + db)
+            {
+                tul = p + wxPoint(toff, -(toff) - (th+2*tB));
+            }
+            else
+            {
+                tul = p + wxPoint(-w, -(toff) - (th+2*tB));
+            };
+        };
+    };
+
+    // draw background
+    dc.SetPen(wxPen(textColour, 1, wxSOLID));
+    dc.SetBrush(wxBrush(bgColour, wxSOLID));
+    dc.DrawRectangle(tul.x, tul.y, tw+2*tB+1, th+2*tB);
+    labelPos.SetLeft(tul.x);
+    labelPos.SetTop(tul.y);
+    labelPos.SetWidth(tw+2*tB+1);
+    labelPos.SetHeight(th+2*tB);
+    // draw number
+    dc.SetTextForeground(textColour);
+    dc.DrawText(m_label, tul + wxPoint(tB,tB));
+    return labelPos;
+};
+
+void DisplayedControlPoint::DrawLine(wxDC& dc)
+{
+    if(m_control==NULL)
+    {
+        return;
+    };
+    FDiff2D p1, p2, dp;
+    // transform end points to pano space
+    if(!m_control->getFirstInvTrans()->transformImgCoord(p1, hugin_utils::FDiff2D(m_cp.x1, m_cp.y1)))
+    {
+        return;
+    };
+    if(!m_control->getFirstInvTrans()->transformImgCoord(p2, hugin_utils::FDiff2D(m_cp.x2, m_cp.y2)))
+    {
+        return;
+    };
+    dp=p2-p1;
+    int len=roundi(sqrt((m_cp.x1-m_cp.x2)*(m_cp.x1-m_cp.x2)+(m_cp.y1-m_cp.y2)*(m_cp.y1-m_cp.y2)))+1;
+    if(len<5)
+    {
+        //very short line, draw straight line
+        dc.DrawLine(m_control->roundP(m_control->scale(m_control->applyRot(hugin_utils::FDiff2D(m_cp.x1, m_cp.y1)))),
+            m_control->roundP(m_control->scale(m_control->applyRot(hugin_utils::FDiff2D(m_cp.x2, m_cp.y2)))));
+    }
+    else
+    {
+        //longer line, draw correct line, taking output projection into account
+        wxPoint* points=new wxPoint[len+1];
+        for(size_t i=0; i<len+1; i++)
+        {
+            FDiff2D p=p1+dp*((double)i/len);
+            // transform line coordinates back to image space
+            if(!m_control->getFirstTrans()->transformImgCoord(p2, p))
+            {
+                delete []points;
+                //fall through, draw direct line, not exact, but better than no line
+                dc.DrawLine(m_control->roundP(m_control->scale(m_control->applyRot(hugin_utils::FDiff2D(m_cp.x1, m_cp.y1)))),
+                    m_control->roundP(m_control->scale(m_control->applyRot(hugin_utils::FDiff2D(m_cp.x2, m_cp.y2)))));
+                return;
+            };
+            points[i]=m_control->roundP(m_control->scale(m_control->applyRot(p2)));
+        };
+        dc.DrawLines(len+1, points);
+        delete []points;
+    };
+};
+
+void DisplayedControlPoint::DrawLineSegment(wxDC& dc)
+{
+    if(m_control==NULL)
+    {
+        return;
+    };
+    // calculate line equation
+    FDiff2D p1_image=m_mirrored ? hugin_utils::FDiff2D(m_cp.x2, m_cp.y2) : hugin_utils::FDiff2D(m_cp.x1, m_cp.y1);
+    FDiff2D p2_image=m_mirrored ? hugin_utils::FDiff2D(m_cp.x1, m_cp.y1) : hugin_utils::FDiff2D(m_cp.x2, m_cp.y2);
+    FDiff2D p1, p2, dp;
+    if(!m_control->getFirstInvTrans()->transformImgCoord(p1, p1_image))
+    {
+        return;
+    };
+    if(!m_control->getSecondInvTrans()->transformImgCoord(p2, p2_image))
+    {
+        return;
+    };
+    dp=p2-p1;
+    // now find the parameter to draw an appropriate long line segment
+    double f=1.0;
+    int image_width=m_control->GetRealImageSize().GetWidth();
+    int image_height=m_control->GetRealImageSize().GetHeight();
+    int image_dimension=std::min(image_width, image_height);
+    int line_length=-1;
+    while(f>1e-4)
+    {
+        p2=p1+dp*f;
+        if(m_control->getFirstTrans()->transformImgCoord(p2_image, p2))
+        {
+            double length=sqrt(p1_image.squareDistance(p2_image));
+            if(length > 0.05f * image_dimension && length < 0.75f * image_dimension)
+            {
+                line_length=hugin_utils::roundi(length);
+                break;
+            };
+        };
+        f*=0.9;
+    };
+    // found no suitable length, don't draw line
+    if(line_length<1)
+    {
+        return;
+    };
+    // now calc line positions
+    wxPoint* points=new wxPoint[2*line_length+1];
+    for(size_t i=0; i<2*line_length+1; i++)
+    {
+        FDiff2D p=p1+dp*f*(((double)i-line_length)/(2.0f*line_length));
+        if(!m_control->getFirstTrans()->transformImgCoord(p2, p))
+        {
+            delete []points;
+            return;
+        };
+        points[i]=m_control->roundP(m_control->scale(m_control->applyRot(p2)));
+    };
+    //and finally draw line segment
+    dc.SetClippingRegion(wxPoint(0,0), m_control->GetBitmapSize());
+    dc.DrawLines(2*line_length+1, points);
+    dc.DestroyClippingRegion();
+    delete []points;
+};
+
+const bool DisplayedControlPoint::isOccupiedLabel(const wxPoint mousePos) const
+{
+    if(m_line)
+    {
+        return m_labelPos.Contains(mousePos) || m_labelPos2.Contains(mousePos);
+    }
+    else
+    {
+        return m_labelPos.Contains(mousePos);
+    };
+};
+
+const bool DisplayedControlPoint::isOccupiedPos(const hugin_utils::FDiff2D &p) const
+{
+    double d=m_control->invScale(3.0);
+    if(m_line)
+    {
+        return (p.x < m_cp.x1 + d && p.x > m_cp.x1 - d && p.y < m_cp.y1 + d && p.y > m_cp.y1 - d) ||
+               (p.x < m_cp.x2 + d && p.x > m_cp.x2 - d && p.y < m_cp.y2 + d && p.y > m_cp.y2 - d);
+    }
+    else
+    {
+        if(m_mirrored)
+        {
+            return (p.x < m_cp.x2 + d && p.x > m_cp.x2 - d && p.y < m_cp.y2 + d && p.y > m_cp.y2 - d);
+        }
+        else
+        {
+            return (p.x < m_cp.x1 + d && p.x > m_cp.x1 - d && p.y < m_cp.y1 + d && p.y > m_cp.y1 - d);
+        };
+    };
+};
+
+void DisplayedControlPoint::CheckSelection(const wxPoint mousePos, const hugin_utils::FDiff2D& p)
+{
+    if(!m_line)
+    {
+        return;
+    };
+    double d=m_control->invScale(3.0);
+    m_mirrored=m_labelPos2.Contains(mousePos) || 
+        (p.x < m_cp.x2 + d && p.x > m_cp.x2 - d && p.y < m_cp.y2 + d && p.y > m_cp.y2 - d);
+};
+
+void DisplayedControlPoint::UpdateControlPointX(double x)
+{
+    if(m_mirrored)
+    {
+        m_cp.x2=x;
+    }
+    else
+    {
+        m_cp.x1=x;
+    };
+};
+
+void DisplayedControlPoint::UpdateControlPointY(double y)
+{
+    if(m_mirrored)
+    {
+        m_cp.y2=y;
+    }
+    else
+    {
+        m_cp.y1=y;
+    };
+};
+
+void DisplayedControlPoint::UpdateControlPoint(hugin_utils::FDiff2D newPoint)
+{
+    if(m_mirrored)
+    {
+        m_cp.x2=newPoint.x;
+        m_cp.y2=newPoint.y;
+    }
+    else
+    {
+        m_cp.x1=newPoint.x;
+        m_cp.y1=newPoint.y;
+    };
+};
+
+void DisplayedControlPoint::ShiftControlPoint(hugin_utils::FDiff2D shift)
+{
+    if(m_mirrored)
+    {
+        m_cp.x2+=shift.x;
+        m_cp.y2+=shift.y;
+    }
+    else
+    {
+        m_cp.x1+=shift.x;
+        m_cp.y1+=shift.y;
+    };
+};
+
+void DisplayedControlPoint::StartLineControlPoint(hugin_utils::FDiff2D newPoint)
+{
+    //start a new line control point
+    m_line=true;
+    m_mirrored=true;
+    m_label=_("new");
+    m_cp.image1Nr=UINT_MAX;
+    m_cp.x1=newPoint.x;
+    m_cp.y1=newPoint.y;
+    m_cp.image2Nr=m_cp.image1Nr;
+    m_cp.x2=m_cp.x1;
+    m_cp.y2=m_cp.y1;
+    m_cp.mode=ControlPoint::X;
+};
+
+hugin_utils::FDiff2D DisplayedControlPoint::GetPos() const
+{
+    return m_mirrored ? FDiff2D(m_cp.x2, m_cp.y2) : FDiff2D(m_cp.x1, m_cp.y1);
+};
+
+bool DisplayedControlPoint::operator==(const DisplayedControlPoint other)
+{
+    return m_cp==other.GetControlPoint() && m_mirrored == other.IsMirrored() && m_label == other.GetLabel();
+};
 
 // our image control
-
 BEGIN_EVENT_TABLE(CPImageCtrl, wxScrolledWindow)
     EVT_SIZE(CPImageCtrl::OnSize)
     EVT_CHAR(CPImageCtrl::OnKey)
@@ -155,10 +637,9 @@ bool CPImageCtrl::Create(wxWindow * parent, wxWindowID id,
     m_searchRectWidth = 0;
     m_showTemplateArea = false;
     m_templateRectWidth = 0;
-    m_tempZoom = false;
-    m_savedScale = 1;
     m_editPanel = 0;
     m_imgRotation = ROT0;
+    m_sameImage = false;
 
     wxString filename;
 
@@ -168,8 +649,6 @@ bool CPImageCtrl::Create(wxWindow * parent, wxWindowID id,
 #else
     m_CPSelectCursor = new wxCursor(wxCURSOR_CROSS);
 #endif
-    // scroll cursor not used right now.
-//    m_ScrollCursor = new wxCursor(wxCURSOR_HAND);
     SetCursor(*m_CPSelectCursor);
 
     // TODO: define custom, light background colors.
@@ -181,16 +660,11 @@ bool CPImageCtrl::Create(wxWindow * parent, wxWindowID id,
 
     pointColors.push_back(wxTheColourDatabase->Find(wxT("CYAN")));
     textColours.push_back(wxTheColourDatabase->Find(wxT("BLACK")));
-//    pointColors.push_back(wxTheColourDatabase->Find(wxT("MAGENTA")));
     pointColors.push_back(wxTheColourDatabase->Find(wxT("GOLD")));
     textColours.push_back(wxTheColourDatabase->Find(wxT("BLACK")));
 
-//    pointColors.push_back(wxTheColourDatabase->Find(wxT("ORANGE"));
     pointColors.push_back(wxTheColourDatabase->Find(wxT("NAVY")));
     textColours.push_back(wxTheColourDatabase->Find(wxT("WHITE")));
-
-//    pointColors.push_back(wxTheColourDatabase->Find(wxT("FIREBRICK")));
-//    pointColors.push_back(wxTheColourDatabase->Find(wxT("SIENNA")));
 
     pointColors.push_back(wxTheColourDatabase->Find(wxT("DARK TURQUOISE")));
     textColours.push_back(wxTheColourDatabase->Find(wxT("BLACK")));
@@ -215,6 +689,7 @@ bool CPImageCtrl::Create(wxWindow * parent, wxWindowID id,
 void CPImageCtrl::Init(CPEditorPanel * parent)
 {
     m_editPanel = parent;
+    m_sameImage = false;
 }
 
 CPImageCtrl::~CPImageCtrl()
@@ -222,7 +697,6 @@ CPImageCtrl::~CPImageCtrl()
     DEBUG_TRACE("dtor");
     this->SetCursor(wxNullCursor);
     delete m_CPSelectCursor;
-//    delete m_ScrollCursor;
     DEBUG_TRACE("dtor end");
 }
 
@@ -255,39 +729,30 @@ void CPImageCtrl::OnDraw(wxDC & dc)
 	}
 
     // draw known points.
-    unsigned int i=0;
-    m_labelPos.resize(points.size());
-    vector<FDiff2D>::const_iterator it;
-    for (it = points.begin(); it != points.end(); ++it) {
-        if (! (editState == KNOWN_POINT_SELECTED && i==selectedPointNr)) {
-            m_labelPos[i] = drawPoint(dc, *it, i);
-        }
-        i++;
+    for(size_t i=0; i<m_points.size(); i++)
+    {
+        if (!(editState == KNOWN_POINT_SELECTED && i==selectedPointNr))
+        {
+            m_points[i].Draw(dc, false);
+        };
     }
 
     switch(editState) {
-    case SELECT_REGION:
-        dc.SetLogicalFunction(wxINVERT);
-        dc.SetPen(wxPen(wxT("WHITE"), 1, wxSOLID));
-        dc.SetBrush(wxBrush(wxT("WHITE"),wxTRANSPARENT));
-        dc.DrawRectangle(scale(region.GetLeft()),
-                    scale(region.GetTop()),
-                    scale(region.GetWidth()),
-                    scale(region.GetHeight()));
-        break;
     case NEW_POINT_SELECTED:
         // Boundary check
         if ((newPoint.x < 0) || (newPoint.y < 0)) {
             // Tried to create a point outside of the canvas.  Ignore it.
             break;
         } 
-
-        drawPoint(dc, newPoint, -1, true);
+        {
+            DisplayedControlPoint dsp(HuginBase::ControlPoint(0, newPoint.x, newPoint.y, 0, 0, 0), this, false);
+            dsp.SetLabel(_("new"));
+            dsp.Draw(dc, false, true);
+        }
         if (m_showTemplateArea) {
             dc.SetLogicalFunction(wxINVERT);
             dc.SetPen(wxPen(wxT("RED"), 1, wxSOLID));
             dc.SetBrush(wxBrush(wxT("WHITE"),wxTRANSPARENT));
-            //wxPoint upperLeft = roundP(scale(newPoint - FDiff2D(m_templateRectWidth, m_templateRectWidth)));
             wxPoint upperLeft = applyRot(roundP(newPoint));
             upperLeft = scale(upperLeft);
 
@@ -298,8 +763,11 @@ void CPImageCtrl::OnDraw(wxDC & dc)
         }
 
         break;
+    case NEW_LINE_CREATING:
+        m_selectedPoint.Draw(dc, false, true);
+        break;
     case KNOWN_POINT_SELECTED:
-        m_labelPos[selectedPointNr] = drawPoint(dc, points[selectedPointNr], selectedPointNr, true);
+        m_points[selectedPointNr].Draw(dc, true);
         break;
     case NO_SELECTION:
     case NO_IMAGE:
@@ -319,222 +787,7 @@ void CPImageCtrl::OnDraw(wxDC & dc)
         dc.DrawRectangle(roundi(upperLeft.x - width), roundi(upperLeft.y-width), 2*width, 2*width);
         dc.SetLogicalFunction(wxCOPY);
     }
-
-
 }
-
-
-wxRect CPImageCtrl::drawPoint(wxDC & dc, const FDiff2D & pointIn, int i, bool selected) const
-{
-    wxRect labelRect;
-
-    FDiff2D point = applyRot(pointIn);
-    double f = getScaleFactor();
-    if (f < 1) {
-        f = 1;
-    }
-
-    wxColour bgColor = pointColors[i%pointColors.size()];
-    wxColour textColor = textColours[i%textColours.size()];
-    wxString label = wxString::Format(wxT("%d"),i);
-    bool drawMag = false;
-    if (editState == KNOWN_POINT_SELECTED && i == (int) selectedPointNr) {
-        bgColor = wxTheColourDatabase->Find(wxT("RED"));
-        textColor = wxTheColourDatabase->Find(wxT("WHITE"));
-        drawMag = !m_mouseInWindow || m_forceMagnifier;
-    } else if (editState == NEW_POINT_SELECTED && i == -1){
-        bgColor = wxTheColourDatabase->Find(wxT("YELLOW"));
-        textColor = wxTheColourDatabase->Find(wxT("BLACK"));
-        label = _("new");
-        drawMag = true;
-    }
-
-    int style = wxConfigBase::Get()->Read(wxT("/CPEditorPanel/PointMarkersNumbered"),1l);
-    if (style) {
-        // TODO: adaptive color
-        dc.SetPen(wxPen(wxT("WHITE"), 1, wxSOLID));
-        dc.SetBrush(wxBrush(wxT("BLACK"),wxTRANSPARENT));
-        wxPoint p = roundP(scale(point));
-        int l = 6;
-
-        // draw cursor line, choose white or black
-        vigra::Rect2D box(roundi(pointIn.x-l), roundi(pointIn.y-l),
-                   roundi(pointIn.x+l), roundi(pointIn.y+l));
-        // only use part inside.
-        box &= vigra::Rect2D(m_img->image8->size());
-        if(box.width()<=0 || box.height()<=0)
-        {
-            return wxRect(0,0,0,0);
-        };
-        // calculate mean "luminance value"
-        vigra::FindAverage<vigra::UInt8> average;   // init functor
-        vigra::RGBToGrayAccessor<vigra::RGBValue<vigra::UInt8> > lumac;
-        vigra::inspectImage(m_img->image8->upperLeft()+ box.upperLeft(),
-                            m_img->image8->upperLeft()+ box.lowerRight(),
-                            lumac, average);
-        if (average() < 128) {
-            dc.SetPen(wxPen(wxT("WHITE"), 1, wxSOLID));
-        } else {
-            dc.SetPen(wxPen(wxT("BLACK"), 1, wxSOLID));
-        }
-
-        dc.DrawLine(p + wxPoint(-l, 0),
-                    p + wxPoint(-1, 0));
-        dc.DrawLine(p + wxPoint(2, 0),
-                    p + wxPoint(l+1, 0));
-        dc.DrawLine(p + wxPoint(0, -l),
-                    p + wxPoint(0, -1));
-        dc.DrawLine(p + wxPoint(0, 2),
-                    p + wxPoint(0, l+1));
-        // calculate distance to the image boundaries,
-        // decide where to put the label and magnifier
-
-        // physical size of widget
-        wxSize clientSize = this->GetClientSize();
-        int vx0, vy0;
-        this->GetViewStart(&vx0, &vy0);
-        wxPoint pClient(p.x - vx0, p.y - vy0);
-        // space in upper left, upper right, lower left, lower right
-        //int maxDistUL = std::min(pClient.x, pClient.y);
-        int maxDistUR = std::min(clientSize.x - pClient.x, pClient.y);
-        int maxDistLL = std::min(pClient.x, clientSize.y - pClient.y);
-        int maxDistLR = std::min(clientSize.x - pClient.x, clientSize.y - pClient.y);
-
-        // text and magnifier offset
-        int toff = l-1;
-        // default to lower right
-        wxPoint tul = p + wxPoint(toff,toff);
-
-        // calculate text position and extend
-        // width of border around text label
-        int tB = 2;
-        wxFont font(8, wxFONTFAMILY_MODERN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_LIGHT);
-        dc.SetFont(font);
-        wxCoord tw, th;
-        dc.GetTextExtent(label, &tw, &th);
-
-
-        if (drawMag) {
-            wxBitmap magBitmap = generateMagBitmap(pointIn, p);
-            // TODO: select position depending on visible part of canvas
-            wxPoint ulMag = tul;
-            // choose placement of the magnifier
-            int w = toff  + magBitmap.GetWidth()+3;
-            int db = 5;
-            if ( maxDistLR > w + db  ) {
-                ulMag = p + wxPoint(toff,toff);
-            } else if (maxDistLL > w + db) {
-                ulMag = p + wxPoint(-w, toff);
-            } else if (maxDistUR > w + db) {
-                ulMag = p + wxPoint(toff, -w);
-            } else {
-                ulMag = p + wxPoint(-w, -w);
-            }
-
-            dc.DrawBitmap(magBitmap, ulMag);
-            dc.SetPen(wxPen(wxT("BLACK"), 1, wxSOLID));
-            dc.SetBrush(wxBrush(wxT("WHITE"),wxTRANSPARENT));
-
-            //dc.DrawRectangle(ulMag.x-1, ulMag.y-1, magBitmap.GetWidth()+3, magBitmap.GetHeight()+3);
-            // draw Bevel
-
-            int bw = magBitmap.GetWidth();
-            int bh = magBitmap.GetHeight();
-            dc.DrawLine(ulMag.x-1, ulMag.y+bh, 
-                        ulMag.x+bw+1, ulMag.y+bh);
-            dc.DrawLine(ulMag.x+bw, ulMag.y+bh, 
-                        ulMag.x+bw, ulMag.y-2);
-            dc.SetPen(wxPen(wxT("WHITE"), 1, wxSOLID));
-            dc.DrawLine(ulMag.x-1, ulMag.y-1, 
-                        ulMag.x+bw+1, ulMag.y-1);
-            dc.DrawLine(ulMag.x-1, ulMag.y+bh, 
-                        ulMag.x-1, ulMag.y-2);
-        }
-        // choose placement of text.
-        int db = 5;
-        int w = toff+tw+2*tB;
-        if ( maxDistLR > w + db && (!drawMag) ) {
-            tul = p + wxPoint(toff,toff);
-        } else if (maxDistLL > w + db) {
-            tul = p + wxPoint(-w, toff);
-        } else if (maxDistUR > w + db) {
-            tul = p + wxPoint(toff, -(toff) - (th+2*tB));
-        } else {
-            tul = p + wxPoint(-w, -(toff) - (th+2*tB));
-        }
-
-
-        // draw background
-        dc.SetPen(wxPen(textColor, 1, wxSOLID));
-        dc.SetBrush(wxBrush(bgColor ,wxSOLID));
-        dc.DrawRectangle(tul.x, tul.y, tw+2*tB+1, th+2*tB);
-        labelRect.SetLeft(tul.x);
-        labelRect.SetTop(tul.y);
-        labelRect.SetWidth(tw+2*tB+1);
-        labelRect.SetHeight(th+2*tB);
-        // draw number
-        dc.SetTextForeground(textColor);
-        dc.DrawText(label, tul + wxPoint(tB,tB));
-
-
-    } else {
-        dc.SetBrush(wxBrush(wxT("BLACK"), wxTRANSPARENT));
-        dc.SetBrush(wxBrush(wxT("WHITE"),wxTRANSPARENT));
-        dc.SetPen(wxPen(bgColor, 2, wxSOLID));
-        dc.DrawCircle(roundP(scale(point)), roundi(6*f));
-        dc.SetPen(wxPen(wxT("BLACK"), roundi(1*f), wxSOLID));
-        dc.DrawCircle(roundP(scale(point)), roundi(7*f));
-        dc.SetPen(wxPen(wxT("WHITE"), 1, wxSOLID));
-        //    dc.DrawCircle(scale(point), 4);
-    }
-    return labelRect;
-}
-
-#if 0
-void CPImageCtrl::drawHighlightPoint(wxDC & dc, const FDiff2D & pointIn, int i) const
-{
-    DEBUG_TRACE("")
-
-    FDiff2D point = applyRot(pointIn);
-    double f = getScaleFactor();
-    if (f < 1) {
-        f = 1;
-    }
-    wxColor color;
-    if (editState == KNOWN_POINT_SELECTED) {
-        color = wxTheColourDatabase->Find(wxT("RED"));
-    } else {
-        color = wxTheColourDatabase->Find(wxT("YELLOW"));
-    }
-#if 1
-
-    // TODO: adaptive color for crosshair
-    dc.SetLogicalFunction(wxCOPY);
-    dc.SetPen(wxPen(wxT("WHITE"), 1, wxSOLID));
-    dc.SetBrush(wxBrush(wxT("WHITE"),wxTRANSPARENT));
-    wxPoint p = roundP(scale(point));
-    int l = 6;
-    dc.DrawLine(p + wxPoint(-l, 0),
-                p + wxPoint(-1, 0));
-    dc.DrawLine(p + wxPoint(2, 0),
-                p + wxPoint(l+1, 0));
-    dc.DrawLine(p + wxPoint(0, -l),
-                p + wxPoint(0, -1));
-    dc.DrawLine(p + wxPoint(0, 2),
-                p + wxPoint(0, l+1));
-
-#else
-    dc.SetBrush(wxBrush(wxT("WHITE"),wxTRANSPARENT));
-    dc.SetPen(wxPen(color, 3, wxSOLID));
-    dc.DrawCircle(roundP(scale(point)), roundi(7*f));
-    dc.SetPen(wxPen(wxT("BLACK"), roundi(1*f), wxSOLID));
-    dc.DrawCircle(roundP(scale(point)), roundi(8*f));
-    dc.SetPen(wxPen(wxT("WHITE"), 1, wxSOLID));
-//    dc.DrawCircle(scale(point), 4);
-#endif
-}
-
-#endif
 
 class ScalingTransform
 {
@@ -649,6 +902,7 @@ void CPImageCtrl::setImage(const std::string & file, ImageRotation imgRot)
 {
     DEBUG_TRACE("setting Image " << file);
     imageFilename = file;
+    m_sameImage=false;
     wxString fn(imageFilename.c_str(),HUGIN_CONV_FILENAME);
     if (wxFileName::FileExists(fn)) {
         m_imgRotation = imgRot;
@@ -671,6 +925,18 @@ void CPImageCtrl::setImage(const std::string & file, ImageRotation imgRot)
         m_img = ImageCache::EntryPtr(new ImageCache::Entry);
     }
 }
+
+void CPImageCtrl::setTransforms(PTools::Transform* firstTrans, PTools::Transform* firstInvTrans, PTools::Transform* secondInvTrans)
+{
+    m_firstTrans=firstTrans;
+    m_firstInvTrans=firstInvTrans;
+    m_secondInvTrans=secondInvTrans;
+};
+
+void CPImageCtrl::setSameImage(bool sameImage)
+{
+    m_sameImage=sameImage;
+};
 
 void CPImageCtrl::OnImageLoaded(ImageCache::EntryPtr entry, std::string filename, bool load_small)
 {
@@ -755,21 +1021,25 @@ void CPImageCtrl::rescaleImage()
     }
     SetScrollRate(1,1);
     Refresh(FALSE);
-//    SetSizeHints(-1,-1,imageSize.GetWidth(), imageSize.GetHeight(),1,1);
-//    SetScrollbars(16,16,bitmap.GetWidth()/16, bitmap.GetHeight()/16);
 }
 
-void CPImageCtrl::setCtrlPoints(const std::vector<FDiff2D> & cps)
+void CPImageCtrl::setCtrlPoint(const HuginBase::ControlPoint& cp, const bool mirrored)
 {
-    points = cps;
+    DisplayedControlPoint dcp(cp, this, mirrored);
+    dcp.SetColour(pointColors[m_points.size() % pointColors.size()], textColours[m_points.size() % textColours.size()]);
+    dcp.SetLabel(wxString::Format(wxT("%d"), m_points.size()));
+    m_points.push_back(dcp);
     if(editState == KNOWN_POINT_SELECTED)
+    {
         editState = NO_SELECTION;
+    };
     selectedPointNr = UINT_MAX;
-    // update view
-    update();
 }
 
-
+void CPImageCtrl::clearCtrlPointList()
+{
+    m_points.clear();
+};
 
 void CPImageCtrl::clearNewPoint()
 {
@@ -783,10 +1053,10 @@ void CPImageCtrl::clearNewPoint()
 void CPImageCtrl::selectPoint(unsigned int nr)
 {
     DEBUG_TRACE("nr: " << nr);
-    if (nr < points.size()) {
+    if (nr < m_points.size()) {
         selectedPointNr = nr;
         editState = KNOWN_POINT_SELECTED;
-        showPosition(points[nr]);
+        showPosition(m_points[nr].GetPos());
         update();
     } else {
         DEBUG_DEBUG("trying to select invalid point nr: " << nr << ". Nr of points: " << points.size());
@@ -794,14 +1064,14 @@ void CPImageCtrl::selectPoint(unsigned int nr)
 }
 
 void CPImageCtrl::deselect()
-    {
-        DEBUG_TRACE("deselecting points");
-        if (editState == KNOWN_POINT_SELECTED) {
-            editState = NO_SELECTION;
-        }
-        // update view
-        update();
+{
+    DEBUG_TRACE("deselecting points");
+    if (editState == KNOWN_POINT_SELECTED) {
+        editState = NO_SELECTION;
     }
+    // update view
+    update();
+}
 
 void CPImageCtrl::showPosition(FDiff2D point, bool warpPointer)
 {
@@ -814,10 +1084,7 @@ void CPImageCtrl::showPosition(FDiff2D point, bool warpPointer)
 
     wxSize sz = GetClientSize();
     int scrollx = x - sz.GetWidth()/2;
-//    if (x<0) x = 0;
     int scrolly = y - sz.GetHeight()/2;
-//    if (y<0) x = 0;
-//    Scroll(x/16, y/16);
     Scroll(scrollx, scrolly);
     if (warpPointer) {
         int sx,sy;
@@ -830,46 +1097,28 @@ void CPImageCtrl::showPosition(FDiff2D point, bool warpPointer)
 CPImageCtrl::EditorState CPImageCtrl::isOccupied(wxPoint mousePos, const FDiff2D &p, unsigned int & pointNr) const
 {
     // check if mouse is hovering over a label
-    vector<wxRect>::const_iterator itr;
-    if (m_labelPos.size() == points.size() && m_labelPos.size() > 0) {
-        for(int i=m_labelPos.size()-1; i >= 0; i--) {
-#if wxCHECK_VERSION(2,8,0)
-            if (m_labelPos[i].Contains(mousePos)) {
-#else
-            if (m_labelPos[i].Inside(mousePos)) {
-#endif
+    if(m_points.size()>0)
+    {
+        for(int i=m_points.size()-1; i>=0; i--)
+        {
+            if(m_points[i].isOccupiedLabel(mousePos))
+            {
                 pointNr = i;
                 return KNOWN_POINT_SELECTED;
             }
-        }
-    }
-
-    // check if mouse is over a known point
-    vector<FDiff2D>::const_iterator it;
-    for (it = points.begin(); it != points.end(); ++it) {
-        if (p.x < it->x + invScale(3) &&
-            p.x > it->x - invScale(3) &&
-            p.y < it->y + invScale(3) &&
-            p.y > it->y - invScale(3)
-            )
+        };
+        // check if mouse is over a known point
+        for(vector<DisplayedControlPoint>::const_iterator it=m_points.begin(); it!=m_points.end(); it++)
         {
-            pointNr = it - points.begin();
-            return KNOWN_POINT_SELECTED;
-            break;
-        }
-    }
+            if(it->isOccupiedPos(p))
+            {
+                pointNr = it - m_points.begin();
+                return KNOWN_POINT_SELECTED;
+            }
+        };
+    };
 
     return NEW_POINT_SELECTED;
-/*
-    if (p.x < newPoint.x + 4 &&
-        p.x > newPoint.x - 4 &&
-        p.y < newPoint.y + 4 &&
-        p.y > newPoint.y - 4)
-    {
-//    } else {
-//        return SELECT_REGION;
-    }
-*/
 }
 
 void CPImageCtrl::DrawSelectionRectangle(hugin_utils::FDiff2D pos1,hugin_utils::FDiff2D pos2)
@@ -887,13 +1136,13 @@ void CPImageCtrl::DrawSelectionRectangle(hugin_utils::FDiff2D pos1,hugin_utils::
 void CPImageCtrl::mouseMoveEvent(wxMouseEvent& mouse)
 {
     if (!m_img.get()) return; // ignore events if no image loaded.
-    wxPoint mpos_;
+    wxPoint unScrolledMousePos;
     CalcUnscrolledPosition(mouse.GetPosition().x, mouse.GetPosition().y,
-                           &mpos_.x, & mpos_.y);
-    FDiff2D mpos(mpos_.x, mpos_.y);
+                           &unScrolledMousePos.x, & unScrolledMousePos.y);
+    FDiff2D mpos(unScrolledMousePos.x, unScrolledMousePos.y);
     bool doUpdate = false;
     mpos = applyRotInv(invScale(mpos));
-    mpos_ = applyRotInv(invScale(mpos_));
+    wxPoint mpos_ = applyRotInv(invScale(unScrolledMousePos));
     // if mouseclick is out of image, ignore
     if ((mpos.x >= m_realSize.GetWidth() || mpos.y >= m_realSize.GetHeight()) && editState!=SELECT_DELETE_REGION)
     {
@@ -909,19 +1158,19 @@ void CPImageCtrl::mouseMoveEvent(wxMouseEvent& mouse)
             break;
         case KNOWN_POINT_SELECTED:
             if (mpos.x >= 0 && mpos.x <= m_realSize.GetWidth()){
-                points[selectedPointNr].x = mpos.x;
+                m_points[selectedPointNr].UpdateControlPointX(mpos.x);
             } else if (mpos.x < 0) {
-                points[selectedPointNr].x = 0;
+                m_points[selectedPointNr].UpdateControlPointX(0);
             } else if (mpos.x > m_realSize.GetWidth()) {
-                points[selectedPointNr].x = m_realSize.GetWidth();
+                m_points[selectedPointNr].UpdateControlPointX(m_realSize.GetWidth());
             }
 
             if (mpos.y >= 0 && mpos.y <= m_realSize.GetHeight()){
-                points[selectedPointNr].y = mpos.y;
+                m_points[selectedPointNr].UpdateControlPointY(mpos.y);
             } else if (mpos.y < 0) {
-                points[selectedPointNr].y = 0;
+                m_points[selectedPointNr].UpdateControlPointY(0);
             } else if (mpos.y > m_realSize.GetHeight()) {
-                points[selectedPointNr].y = m_realSize.GetHeight();
+                m_points[selectedPointNr].UpdateControlPointY(m_realSize.GetHeight());
             }
             // emit a notify event here.
             //
@@ -933,14 +1182,10 @@ void CPImageCtrl::mouseMoveEvent(wxMouseEvent& mouse)
         case NEW_POINT_SELECTED:
             DEBUG_DEBUG("WARNING: mouse move in new point state")
             newPoint = mpos;
-            //emit(newPointMoved(newPoint));
             doUpdate = true;
             break;
-        case SELECT_REGION:
-            DEBUG_FATAL("Select region not in use anymore");
-            region.SetWidth(mpos_.x - region.x);
-            region.SetHeight(mpos_.y - region.y);
-            // do more intelligent updating here?
+        case NEW_LINE_CREATING:
+            m_selectedPoint.UpdateControlPoint(mpos);
             doUpdate = true;
             break;
         case NO_IMAGE:
@@ -985,7 +1230,7 @@ void CPImageCtrl::mouseMoveEvent(wxMouseEvent& mouse)
     }
 
     unsigned int selPointNr;
-    if (isOccupied(mouse.GetPosition(), mpos, selPointNr) == KNOWN_POINT_SELECTED &&
+    if (isOccupied(unScrolledMousePos, mpos, selPointNr) == KNOWN_POINT_SELECTED &&
         (! (editState == KNOWN_POINT_SELECTED && selectedPointNr == selPointNr) ) ) {
         SetCursor(wxCursor(wxCURSOR_ARROW));
     } else {
@@ -1007,12 +1252,12 @@ void CPImageCtrl::mousePressLMBEvent(wxMouseEvent& mouse)
     //ignore left mouse button if selecting region with right mouse button
     if(editState==SELECT_DELETE_REGION) 
         return;
-    wxPoint mpos_;
+    wxPoint unScrolledMousePos;
     CalcUnscrolledPosition(mouse.GetPosition().x, mouse.GetPosition().y,
-                           &mpos_.x, & mpos_.y);
-    FDiff2D mpos(mpos_.x, mpos_.y);
+                           &unScrolledMousePos.x, & unScrolledMousePos.y);
+    FDiff2D mpos(unScrolledMousePos.x, unScrolledMousePos.y);
     mpos = applyRotInv(invScale(mpos));
-    mpos_ = applyRotInv(invScale(mpos_));
+    wxPoint mpos_ = applyRotInv(invScale(unScrolledMousePos));
     DEBUG_DEBUG("mousePressEvent, pos:" << mpos.x
                 << ", " << mpos.y);
     // if mouseclick is out of image, ignore
@@ -1020,8 +1265,7 @@ void CPImageCtrl::mousePressLMBEvent(wxMouseEvent& mouse)
         return;
     }
     unsigned int selPointNr = 0;
-//    EditorState oldstate = editState;
-    EditorState clickState = isOccupied(mouse.GetPosition(), mpos, selPointNr);
+    EditorState clickState = isOccupied(unScrolledMousePos, mpos, selPointNr);
     if (mouse.LeftDown() && editState != NO_IMAGE
         && mpos.x < m_realSize.x && mpos.y < m_realSize.y)
     {
@@ -1029,18 +1273,25 @@ void CPImageCtrl::mousePressLMBEvent(wxMouseEvent& mouse)
         if (clickState == KNOWN_POINT_SELECTED) {
             DEBUG_DEBUG("click on point: " << selPointNr);
             selectedPointNr = selPointNr;
-            point = points[selectedPointNr];
+            m_points[selectedPointNr].CheckSelection(unScrolledMousePos, mpos);
+            m_selectedPoint = m_points[selectedPointNr];
             editState = clickState;
             CPEvent e( this, selectedPointNr);
             m_forceMagnifier = true;
             emit(e);
         } else if (clickState == NEW_POINT_SELECTED) {
-            DEBUG_DEBUG("click on new space, select region/new point");
-//            editState = SELECT_REGION;
-            editState = NEW_POINT_SELECTED;
+            DEBUG_DEBUG("click on new space, select new point");
+            if(m_sameImage && mouse.AltDown())
+            {
+                editState = NEW_LINE_CREATING;
+                m_selectedPoint.StartLineControlPoint(mpos);
+                m_selectedPoint.SetControl(this);
+            }
+            else
+            {
+                editState = NEW_POINT_SELECTED;
+            };
             newPoint = mpos;
-            region.x = roundi(mpos.x);
-            region.y = roundi(mpos.y);
         } else {
             DEBUG_ERROR("invalid state " << clickState << " on mouse down");
         }
@@ -1087,50 +1338,25 @@ void CPImageCtrl::mouseReleaseLMBEvent(wxMouseEvent& mouse)
         case KNOWN_POINT_SELECTED:
         {
             DEBUG_DEBUG("mouse release with known point " << selectedPointNr);
-            if (! (point == points[selectedPointNr]) ) {
-                CPEvent e( this, selectedPointNr, points[selectedPointNr]);
+            if (! (m_selectedPoint == m_points[selectedPointNr]) ) {
+                CPEvent e( this, CPEvent::POINT_CHANGED, selectedPointNr, m_points[selectedPointNr].GetControlPoint());
                 emit(e);
-            //emit(pointChanged(selectedPointNr, points[selectedPointNr]));
             }
             break;
         }
         case NEW_POINT_SELECTED:
         {
-//            assert(drawNewPoint);
             DEBUG_DEBUG("new Point changed (event fire): x:" << mpos.x << " y:" << mpos.y);
             // fire the wxWin event
             CPEvent e( this, newPoint);
             emit(e);
-            //emit(newPointChanged(newPoint));
             break;
         }
-        case SELECT_REGION:
+        case NEW_LINE_CREATING:
         {
-            DEBUG_FATAL("Select region not in use anymore");
-            if (region.GetPosition() == roundP(mpos)) {
-                // create a new point.
-                editState = NEW_POINT_SELECTED;
-                newPoint = mpos;
-                DEBUG_DEBUG("new Point changed: x:" << mpos.x << " y:" << mpos.y);
-                //emit(newPointChanged(newPoint));
-                CPEvent e(this, newPoint);
-                emit(e);
-                update();
-            } else {
-                DEBUG_DEBUG("new Region selected " << region.GetLeft() << "," << region.GetTop() << " " << region.GetRight() << "," << region.GetBottom());
-                editState = NO_SELECTION;
-                // normalize region
-                if (region.GetWidth() < 0) {
-                    region.SetX(region.GetRight());
-                }
-                if (region.GetHeight() < 0) {
-                    region.SetY(region.GetBottom());
-                }
-                //emit(regionSelected(region));
-                CPEvent e(this, region);
-                emit(e);
-                update();
-            }
+            //notify parent
+            CPEvent e(this, CPEvent::NEW_LINE_ADDED, m_selectedPoint.GetControlPoint());
+            emit(e);
             break;
         }
         case NO_IMAGE:
@@ -1221,28 +1447,7 @@ void CPImageCtrl::update()
     wxClientDC dc(this);
     PrepareDC(dc);
     OnDraw(dc);
-
-//    updateZoomed();
 }
-/*
-void CPImageCtrl::updateZoomed()
-{
-    if (!m_zoomDisplay) return;
-
-    // update zoom view
-    switch(editState) {
-    case KNOWN_POINT_SELECTED:
-        // update known point
-//        m_zoomDisplay->SetPoint(points[selectedPointNr]);
-        break;
-    case NEW_POINT_SELECTED:
-//        m_zoomDisplay->SetPoint(newPoint);
-        break;
-    default:
-        break;
-    }
-}
-*/
 
 bool CPImageCtrl::emit(CPEvent & ev)
 {
@@ -1354,7 +1559,9 @@ void CPImageCtrl::OnKey(wxKeyEvent & e)
         }
         // move control point by half a pixel, if a point is selected
         if (editState == KNOWN_POINT_SELECTED ) {
-            CPEvent e( this, selectedPointNr, points[selectedPointNr] + shift);
+            DisplayedControlPoint updatedCp=m_points[selectedPointNr];
+            updatedCp.ShiftControlPoint(shift);
+            CPEvent e( this, CPEvent::POINT_CHANGED, selectedPointNr, updatedCp.GetControlPoint());
             emit(e);
             m_forceMagnifier = true;
             m_timer.Stop();
@@ -1414,25 +1621,6 @@ void CPImageCtrl::OnKeyDown(wxKeyEvent & e)
 {
     DEBUG_TRACE("key:" << e.m_keyCode);
     if (!m_img.get()) return; // ignore events if no image loaded.
-#if 0
-    if (e.m_keyCode == WXK_SHIFT) {
-        DEBUG_DEBUG("shift down");
-        double scale = getScale();
-        if ((scale != 1) && (!m_tempZoom)) {
-            wxPoint mpos;
-            CalcUnscrolledPosition(e.m_x, e.m_y,
-                                   &mpos.x, & mpos.y);
-            mpos = invScale(mpos);
-            m_tempZoom = true;
-            m_savedScale = scale;
-            DEBUG_DEBUG("zoom into");
-            setScale(1);
-            showPosition(mpos.x, mpos.y);
-        }
-    } else {
-        e.Skip();
-    }
-#endif
     if (e.m_keyCode == WXK_SHIFT || e.m_keyCode == WXK_CONTROL) {
         DEBUG_DEBUG("shift or control down, reseting scoll position");
         m_mouseScrollPos = e.GetPosition();
@@ -1443,18 +1631,9 @@ void CPImageCtrl::OnKeyDown(wxKeyEvent & e)
 void CPImageCtrl::OnMouseLeave(wxMouseEvent & e)
 {
     DEBUG_TRACE("MOUSE LEAVE");
-#if 0
-    DEBUG_TRACE("");
-    if (m_tempZoom) {
-        setScale(m_savedScale);
-        m_tempZoom = false;
-    }
-#endif
     m_mousePos = FDiff2D(-1,-1);
     m_mouseInWindow = false;
     update();
-
-//    SetCursor(wxCursor(wxCURSOR_BULLSEYE));
 }
 
 void CPImageCtrl::OnMouseEnter(wxMouseEvent & e)
@@ -1556,6 +1735,15 @@ void CPImageCtrl::ScrollDelta(const wxPoint & delta)
     if (y<0) y = 0;
     Scroll( x, y);
 }
+
+const wxSize CPImageCtrl::GetBitmapSize() const
+{
+#if wxCHECK_VERSION(2,9,0)
+    return bitmap.GetSize();
+#else
+    return wxSize(bitmap.GetWidth(), bitmap.GetHeight());
+#endif
+};
 
 IMPLEMENT_DYNAMIC_CLASS(CPImageCtrl, wxScrolledWindow)
 

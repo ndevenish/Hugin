@@ -54,7 +54,6 @@ namespace vigra_ext{
     struct CorrelationResult;
 }
 
-
 /** control point editor panel.
  *
  *  This panel is used to create/change/edit control points
@@ -219,9 +218,10 @@ private:
 
     /** calculate rotation required for upright image display from roll, pitch and yaw angles */
     CPImageCtrl::ImageRotation GetRot(double yaw, double roll, double pitch);
+    /** updated the internal transform object for drawing line in controls */
+    void UpdateTransforms();
 
     CPCreationState cpCreationState;
-
 
     // GUI controls
     CPImagesComboBox *m_leftChoice;
@@ -247,9 +247,13 @@ private:
     std::string m_rightFile;
     bool m_listenToPageChange;
     double m_detailZoomFactor;
+    // store transformation for drawing line control points
+    PTools::Transform m_leftTransform;
+    PTools::Transform m_leftInvTransform;
+    PTools::Transform m_rightTransform;
+    PTools::Transform m_rightInvTransform;
 
     unsigned int m_selectedPoint;
-    unsigned int m_cursorType;
 
     // contains the control points shown currently.
     HuginBase::CPointVector currentPoints;

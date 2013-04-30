@@ -30,6 +30,7 @@
 #include <base_wx/wxImageCache.h>
 
 class CPEditorPanel;
+class CPImageCtrl;
 
 /** Events to notify about new point / region / point change
  *
@@ -38,7 +39,7 @@ class CPEvent : public wxCommandEvent
 {
     DECLARE_DYNAMIC_CLASS(CPEvent)
 
-    enum CPEventMode { NONE, NEW_POINT_CHANGED, POINT_SELECTED, POINT_CHANGED, REGION_SELECTED, RIGHT_CLICK, SCROLLED, DELETE_REGION_SELECTED };
+    enum CPEventMode { NONE, NEW_POINT_CHANGED, NEW_LINE_ADDED, POINT_SELECTED, POINT_CHANGED, RIGHT_CLICK, SCROLLED, DELETE_REGION_SELECTED };
 
 public:
     CPEvent( );
@@ -50,12 +51,14 @@ public:
     CPEvent(wxWindow *win, unsigned int cpNr);
     /// a point has been moved
     CPEvent(wxWindow* win, unsigned int cpNr, const hugin_utils::FDiff2D & p);
-    /// region selected
-    CPEvent(wxWindow* win, wxRect & reg);
     /** delete region selected */
     CPEvent(wxWindow* win, const hugin_utils::FDiff2D & p1, const hugin_utils::FDiff2D & p2);
     /// right mouse click
     CPEvent(wxWindow* win, CPEventMode mode, const hugin_utils::FDiff2D & p);
+    /** new control point */
+    CPEvent(wxWindow* win, CPEventMode mode, const HuginBase::ControlPoint cp);
+    /** updated control point */
+    CPEvent(wxWindow* win, CPEventMode mode, size_t cpNr, const HuginBase::ControlPoint cp);
 
     virtual wxEvent* Clone() const;
 
@@ -72,10 +75,14 @@ public:
 
     unsigned int getPointNr()
         { return pointNr; }
+
+    const HuginBase::ControlPoint& getControlPoint() 
+        { return m_cp; };
 private:
     CPEventMode mode;
     wxRect region;
     hugin_utils::FDiff2D point;
+    HuginBase::ControlPoint m_cp;
     int pointNr;
 };
 
@@ -98,6 +105,76 @@ END_DECLARE_EVENT_TYPES()
                             (wxObject *) NULL ),
 
 
+/** helper class to display and manipulate cp in cp tab */
+class DisplayedControlPoint
+{
+public:
+    /** default constructor */
+    DisplayedControlPoint() { m_mirrored=false; m_control=NULL; m_line=false; };
+    /** constructor with full initialisation */
+    DisplayedControlPoint(const HuginBase::ControlPoint& cp, CPImageCtrl* control, bool mirrored);
+    /** set colours for drawing control points */
+    void SetColour(wxColour pointColour, wxColour textColour);
+    /** set label to given wxString */
+    void SetLabel(wxString newLabel);
+    /** remember the control, where the information should be drawn */
+    void SetControl(CPImageCtrl* control);
+    /** draw the control points to the given device context */
+    void Draw(wxDC& dc, bool selected, bool newPoint=false);
+    /** check if given point is over label of cp, using screen coordinates */
+    const bool isOccupiedLabel(const wxPoint mousePos) const;
+    /** check if the given point is over the drawn cp, using image coordinates */
+    const bool isOccupiedPos(const hugin_utils::FDiff2D &p) const;
+    /** used by manipulating line control points, remember if the selected point 
+        given in screen coordinates @param mousePos and image coordinates @param p
+        is over the first or second point, stores this information in m_mirrored */
+    void CheckSelection(const wxPoint mousePos, const hugin_utils::FDiff2D& p);
+    /** return true, if cp is used with mirrored coordinates by current CPImageCtrl */
+    const bool IsMirrored() const { return m_mirrored; };
+    /** return label */
+    const wxString GetLabel() const { return m_label; };
+    /** update x coordinate of selected cp coordinate */
+    void UpdateControlPointX(double x);
+    /** update y coordinate of selected cp coordinate */
+    void UpdateControlPointY(double y);
+    /** update selected cp coordinate */
+    void UpdateControlPoint(hugin_utils::FDiff2D newPoint);
+    /** shift selected cp coordinate by given @param shift */
+    void ShiftControlPoint(hugin_utils::FDiff2D shift);
+    /** starts a new line control point with given coodinates */
+    void StartLineControlPoint(hugin_utils::FDiff2D newPoint);
+    /** returns selected position */
+    hugin_utils::FDiff2D GetPos() const;
+    /** returns the control point */
+    const HuginBase::ControlPoint GetControlPoint() const { return m_cp; };
+    /** compare operator */
+    bool operator==(const DisplayedControlPoint other);
+private:
+    /** draw magnified area */
+    wxRect DrawTextMag(wxDC& dc, wxPoint p, hugin_utils::FDiff2D pointInput, bool drawMag, wxColour pointColour, wxColour textColour);
+    /** draw line control point on same image */
+    void DrawLine(wxDC& dc);
+    /** draw line control point over different images */
+    void DrawLineSegment(wxDC& dc);
+    /** representation of underlying control point */
+    HuginBase::ControlPoint m_cp;
+    /** is first or second image in cp used */
+    bool m_mirrored;
+    /** pointer to control to access some functions */
+    CPImageCtrl* m_control;
+    /** colour of the point */
+    wxColour m_pointColour;
+    /** colour of the text background */
+    wxColour m_textColour;
+    /** label of displayed control point: number or new */
+    wxString m_label;
+    /** position of the point labels (in screen coordinates) */
+    wxRect m_labelPos;
+    wxRect m_labelPos2;
+    /** true, if line control point on same image*/
+    bool m_line;
+};
+
 /** brief description.
  *
  *  What this does
@@ -105,6 +182,56 @@ END_DECLARE_EVENT_TYPES()
 class CPImageCtrl : public wxScrolledWindow
 {
 public:
+/**  state machine for selection process:
+     *
+     *   The select region is temporarily disabled.. maybe I find use
+     *   for it later on..
+     *
+     *   format of this list:
+     *    - current state name
+     *        - possible next state
+     *          - conditions for next state
+     *
+     *   states:
+     *
+     *    - NO_IMAGE
+     *        - NO_SELECTION
+     *          - an image has been inserted
+     *
+     *    - NO_SELECTION nothing selected
+     *        - KNOWN_POINT_SELECTED
+     *          - mouse down on known point
+     *          - set from outside
+     *        - SELECT_DELETE_REGION
+     *          - mouse down on image
+     *
+     *    - KNOWN_POINT_SELECTED,
+     *       a known point is selected and can be moved around.
+     *       clients are notified about the movement, points can also
+     *       be switched.
+     *
+     *        - KNOWN_POINT_SELECTED
+     *          - selection of another point
+     *        - SELECT_DELETE_REGION
+     *          - mouse down on image
+     *
+     *    - NEW_POINT_SELECTED (can move new point), mouse up reports change,
+     *           movement can be tracked
+     *        - KNOWN_POINT_SELECTED
+     *          - mouse down on known point
+     *          - programatic change
+     *        - SELECT_DELETE_REGION
+     *          - mouse down on image
+     *
+     *    - NEW_LINE_CREATING mouse up reports new line
+     *            movement can be tracked
+     *
+     *    - SELECT_DELETE_REGION user can draw rectangle inside which all cp should be removed
+     *        - NO_SELECTION
+
+     */
+    enum EditorState {NO_IMAGE=0, NO_SELECTION, KNOWN_POINT_SELECTED, NEW_POINT_SELECTED, NEW_LINE_CREATING, SELECT_DELETE_REGION};
+    
     /** ctor.
      */
     CPImageCtrl()
@@ -129,9 +256,16 @@ public:
     /// display img. every CPImageCtrl has a wxBitmap with
     /// its current image
     void setImage (const std::string & filename, ImageRotation rot);
+    void setSameImage(bool sameImage);
+    void setTransforms(PTools::Transform* firstTrans, PTools::Transform* firstInvTrans, PTools::Transform* secondInvTrans);
+    PTools::Transform* getFirstTrans() const { return m_firstTrans; };
+    PTools::Transform* getFirstInvTrans() const { return m_firstInvTrans; };
+    PTools::Transform* getSecondInvTrans() const { return m_secondInvTrans; };
 
-    /// control point inside this image
-    void setCtrlPoints(const std::vector<hugin_utils::FDiff2D> & points);
+    /** add control piont to internal cp list */
+    void setCtrlPoint(const HuginBase::ControlPoint& cp, const bool mirrored);
+    /** clear internal control point list */
+    void clearCtrlPointList();
 
     /// clear new point
     void clearNewPoint();
@@ -193,54 +327,6 @@ public:
 
     /// calculate maximum delta that is allowed when scrolling
     wxPoint MaxScrollDelta(wxPoint delta);
-
-protected:
-    wxRect drawPoint(wxDC & p, const hugin_utils::FDiff2D & point, int i, bool selected = false) const;
-    // draw the magnified view of a selected control point
-    wxBitmap generateMagBitmap(hugin_utils::FDiff2D point, wxPoint canvasPos) const;
-    // display the image when loading finishes
-    void OnImageLoaded(ImageCache::EntryPtr entry, std::string filename, bool load_small);
-    void OnDraw(wxDC& dc);
-    void OnSize(wxSizeEvent & e);
-    void OnKey(wxKeyEvent & e);
-    void OnKeyDown(wxKeyEvent & e);
-    void OnMouseLeave(wxMouseEvent & e);
-    void OnMouseEnter(wxMouseEvent & e);
-    void OnTimer(wxTimerEvent & e);
-
-    /// helper func to emit a region
-    bool emit(CPEvent & ev);
-
-    /// get scale factor (calculates factor when fit to window is active)
-    double getScaleFactor() const;
-
-    /// calculate new scale factor for this image
-    double calcAutoScaleFactor(wxSize size);
-
-    // rescale image
-    void rescaleImage();
-
-    /// update display of zoomed point
-//    void updateZoomed();
-
-
-
-private:
-
-    wxBitmap bitmap;
-    std::string imageFilename;
-    // size of displayed (probably scaled) image
-    wxSize imageSize;
-    // size of real image
-    wxSize m_realSize;
-
-    std::vector<hugin_utils::FDiff2D> points;
-
-    // position of the point labels (in screen coordinates)
-    std::vector<wxRect> m_labelPos;
-
-    wxCursor * m_CPSelectCursor;
-    wxCursor * m_ScrollCursor;
 
     int scale(int x) const
         {  return (int) (x * getScaleFactor() + 0.5); }
@@ -336,81 +422,74 @@ private:
                 break;
         }
     }
+    // some helper function for DisplayedControlPoint 
+    const bool GetMouseInWindow() const { return m_mouseInWindow; };
+    const bool GetForceMagnifier() const { return m_forceMagnifier; };
+    /** get pointer to image, for DisplayedControlPoint */
+    const HuginBase::ImageCache::ImageCacheRGB8Ptr GetImg() const { return m_img->image8; };
+    /** draw the magnified view of a selected control point */
+    wxBitmap generateMagBitmap(hugin_utils::FDiff2D point, wxPoint canvasPos) const;
+    /** return the real size of the image in the control */
+    const wxSize GetRealImageSize() const { return m_realSize; };
+    /** return the size of the drawn bitmap (possible rotate is applied) */
+    const wxSize GetBitmapSize() const;
+
+protected:
+    // display the image when loading finishes
+    void OnImageLoaded(ImageCache::EntryPtr entry, std::string filename, bool load_small);
+    void OnDraw(wxDC& dc);
+    void OnSize(wxSizeEvent & e);
+    void OnKey(wxKeyEvent & e);
+    void OnKeyDown(wxKeyEvent & e);
+    void OnMouseLeave(wxMouseEvent & e);
+    void OnMouseEnter(wxMouseEvent & e);
+    void OnTimer(wxTimerEvent & e);
+
+    /// helper func to emit a region
+    bool emit(CPEvent & ev);
+
+    /// get scale factor (calculates factor when fit to window is active)
+    double getScaleFactor() const;
+
+    /// calculate new scale factor for this image
+    double calcAutoScaleFactor(wxSize size);
+
+    // rescale image
+    void rescaleImage();
+
+private:
+    wxBitmap bitmap;
+    std::string imageFilename;
+    // size of displayed (probably scaled) image
+    wxSize imageSize;
+    // size of real image
+    wxSize m_realSize;
+
+    std::vector<DisplayedControlPoint> m_points;
+
+    wxCursor * m_CPSelectCursor;
+    wxCursor * m_ScrollCursor;
 
     // this is only valid during MOVE_POINT
     unsigned int selectedPointNr;
     // valid during MOVE_POINT and CREATE_POINT
-    hugin_utils::FDiff2D point;
+    DisplayedControlPoint m_selectedPoint;
     hugin_utils::FDiff2D newPoint;
+    /** true, if in control point tab the same image is selected 2 times
+        in this case a special treatment for creating line control points
+        is activated */
+    bool m_sameImage;
 
-    // only valid during SELECT_REGION
-    wxRect region;
     // only valid during SELECT_DELETE_REGION
     hugin_utils::FDiff2D rectStartPos;
     // draw a selection rectangle from pos1 to pos2
     void DrawSelectionRectangle(hugin_utils::FDiff2D pos1,hugin_utils::FDiff2D pos2);
-    // state of widget (selection modes etc)
-    // select region can also be used to just click...
 
-    /**  state machine for selection process:
-     *
-     *   The select region is temporarily disabled.. maybe I find use
-     *   for it later on..
-     *
-     *   format of this list:
-     *    - current state name
-     *        - possible next state
-     *          - conditions for next state
-     *
-     *   states:
-     *
-     *    - NO_IMAGE
-     *        - NO_SELECTION
-     *          - an image has been inserted
-     *
-     *    - NO_SELECTION nothing selected
-     *        - KNOWN_POINT_SELECTED
-     *          - mouse down on known point
-     *          - set from outside
-     *        - REGION
-     *          - mouse down on unidentifed field
-     *        - SELECT_DELETE_REGION
-     *          - mouse down on image
-     *
-     *    - KNOWN_POINT_SELECTED,
-     *       a known point is selected and can be moved around.
-     *       clients are notified about the movement, points can also
-     *       be switched.
-     *
-     *        - KNOWN_POINT_SELECTED
-     *          - selection of another point
-     *        - REGION
-     *          - mouse down on unidentifed field
-     *        - SELECT_DELETE_REGION
-     *          - mouse down on image
-     *
-     *    - REGION the user can draw a bounding box.
-     *        - NEW_POINT_SELECTED
-     *          - mouse up on same point as mouse down.
-     *        - NO_SELECTION
-     *          - mouse up on different point, report selection
-     *
-     *    - NEW_POINT_SELECTED (can move new point), mouse up reports change,
-     *           movement can be tracked
-     *        - KNOWN_POINT_SELECTED
-     *          - mouse down on known point
-     *          - programatic change
-     *        - REGION
-     *          - mouse down on free space
-     *        - SELECT_DELETE_REGION
-     *          - mouse down on image
-     *
-     *    - SELECT_DELETE_REGION user can draw rectangle inside which all cp should be removed
-     *        - NO_SELECTION
-
-     */
-    enum EditorState {NO_IMAGE=0, NO_SELECTION, KNOWN_POINT_SELECTED, NEW_POINT_SELECTED, SELECT_REGION, SELECT_DELETE_REGION};
     EditorState editState;
+    // store pointer to transformation object to draw line control points
+    PTools::Transform* m_firstTrans;
+    PTools::Transform* m_firstInvTrans;
+    PTools::Transform* m_secondInvTrans;
 
     // colors for the different points
     std::vector<wxColour> pointColors;
@@ -426,9 +505,6 @@ private:
 
     bool m_showTemplateArea;
     int m_templateRectWidth;
-
-    bool m_tempZoom;
-    double m_savedScale;
 
     /// check if p is over a known point, if it is, pointNr contains
     /// the point

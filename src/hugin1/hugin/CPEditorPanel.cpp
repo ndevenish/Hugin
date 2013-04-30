@@ -103,8 +103,6 @@ bool CPEditorPanel::Create(wxWindow* parent, wxWindowID id,
     if (! wxPanel::Create(parent, id, pos, size, style, name) ) {
         return false;
     }
-    // for debugging:
-    //SetBackgroundColour(wxTheColourDatabase->Find(wxT("KHAKI")));
 
     cpCreationState = NO_POINT;
     m_leftImageNr=UINT_MAX;
@@ -118,7 +116,6 @@ bool CPEditorPanel::Create(wxWindow* parent, wxWindowID id,
     DEBUG_TRACE("");
     wxXmlResource::Get()->LoadPanel(this, wxT("cp_editor_panel"));
     wxPanel * panel = XRCCTRL(*this, "cp_editor_panel", wxPanel);
-    //panel->SetBackgroundColour(wxTheColourDatabase->Find(wxT("BLUE")));
 
     wxBoxSizer *topsizer = new wxBoxSizer( wxVERTICAL );
     topsizer->Add(panel, 1, wxEXPAND, 0);
@@ -127,12 +124,14 @@ bool CPEditorPanel::Create(wxWindow* parent, wxWindowID id,
     m_leftImg = XRCCTRL(*this, "cp_editor_left_img", CPImageCtrl);
     assert(m_leftImg);
     m_leftImg->Init(this);
+    m_leftImg->setTransforms(&m_leftTransform, &m_leftInvTransform, &m_rightInvTransform);
 
     // right image
     m_rightChoice = XRCCTRL(*this, "cp_editor_right_choice", CPImagesComboBox);
     m_rightImg = XRCCTRL(*this, "cp_editor_right_img", CPImageCtrl);
     assert(m_rightImg);
     m_rightImg->Init(this);
+    m_rightImg->setTransforms(&m_rightTransform, &m_rightInvTransform, &m_leftInvTransform);
 
     // setup list view
     m_cpList = XRCCTRL(*this, "cp_editor_cp_list", wxListCtrl);
@@ -263,6 +262,7 @@ void CPEditorPanel::setLeftImage(unsigned int imgNr)
     m_selectedPoint = UINT_MAX;
     // FIXME: lets hope that nobody holds references to these images..
     ImageCache::getInstance().softFlush();
+    UpdateTransforms();
 }
 
 
@@ -299,9 +299,22 @@ void CPEditorPanel::setRightImage(unsigned int imgNr)
 
     // FIXME: lets hope that nobody holds references to these images..
     ImageCache::getInstance().softFlush();
-
+    UpdateTransforms();
 }
 
+void CPEditorPanel::UpdateTransforms()
+{
+    if(m_leftImageNr<m_pano->getNrOfImages())
+    {
+        m_leftTransform.createTransform(m_pano->getImage(m_leftImageNr), m_pano->getOptions());
+        m_leftInvTransform.createInvTransform(m_pano->getImage(m_leftImageNr), m_pano->getOptions());
+    };
+    if(m_rightImageNr<m_pano->getNrOfImages())
+    {
+        m_rightTransform.createTransform(m_pano->getImage(m_rightImageNr), m_pano->getOptions());
+        m_rightInvTransform.createInvTransform(m_pano->getImage(m_rightImageNr), m_pano->getOptions());
+    };
+};
 
 void CPEditorPanel::OnCPEvent( CPEvent&  ev)
 {
@@ -331,155 +344,116 @@ void CPEditorPanel::OnCPEvent( CPEvent&  ev)
         SelectLocalPoint(nr);
         changeState(NO_POINT);
         break;
-
-    case CPEvent::POINT_CHANGED:
-    {
-        DEBUG_DEBUG("move point("<< nr << ")");
-        if (nr >= currentPoints.size()) {
-            DEBUG_ERROR("invalid point number while moving point")
-            return;
-        }
-        ControlPoint cp = currentPoints[nr].second;
-        changeState(NO_POINT);
-
-        if (left) {
-            cp.x1 = point.x;
-            cp.y1 = point.y;
-        } else {
-            cp.x2 = point.x;
-            cp.y2 = point.y;
-        }
-        if (set_contains(mirroredPoints, nr)) {
-            cp.mirror();
-        }
-
-        DEBUG_DEBUG("changing point to: " << cp.x1 << "," << cp.y1
-                    << "  " << cp.x2 << "," << cp.y2);
-
-        GlobalCmdHist::getInstance().addCommand(
-            new PT::ChangeCtrlPointCmd(*m_pano, currentPoints[nr].first, cp)
-            );
-
-        break;
-    }
-    // currently not emitted by CPImageCtrl
-    case CPEvent::REGION_SELECTED:
-    {
-        changeState(NO_POINT);
-#if 0
-	if (false) {
-            text = "REGION_SELECTED";
-            wxRect region = ev.getRect();
-            int dx = region.GetWidth() / 2;
-            int dy = region.GetHeight() / 2;
-            vigra_ext::CorrelationResult pos;
-            ControlPoint point;
-            bool found(false);
-            DEBUG_DEBUG("left img: " << m_leftImageNr
-                        << "  right img: " << m_rightImageNr);
-            if (left) {
-                if (FindTemplate(m_leftImageNr, region, m_rightImageNr, pos)) {
-                    point.image1Nr = m_leftImageNr;
-                    point.x1 = region.GetLeft() + dx;
-                    point.y1 = region.GetTop() + dy;
-                    point.image2Nr = m_rightImageNr;
-                    point.x2 = pos.maxpos.x + dx;
-                    point.y2 = pos.maxpos.y + dy;
-                    point.mode = PT::ControlPoint::X_Y;
-                    found = true;
-                } else {
-                    DEBUG_DEBUG("No matching point found");
-                }
-            } else {
-                if (FindTemplate(m_rightImageNr, region, m_leftImageNr, pos)) {
-                    point.image1Nr = m_leftImageNr;
-                    point.x1 = pos.maxpos.x + dx;
-                    point.y1 = pos.maxpos.y + dy;
-                    point.image2Nr = m_rightImageNr;
-                    point.x2 = region.GetLeft() + dx;
-                    point.y2 = region.GetTop() + dy;
-                    point.mode = PT::ControlPoint::X_Y;
-                    found = true;
-                } else {
-                    DEBUG_DEBUG("No matching point found");
-                }
-            }
-            if (found) {
-                GlobalCmdHist::getInstance().addCommand(
-                    new PT::AddCtrlPointCmd(*m_pano, point)
-                    );
-                // select new control Point
-                unsigned int lPoint = m_pano->getNrOfCtrlPoints() -1;
-                SelectGlobalPoint(lPoint);
-                changeState(NO_POINT);
-            } else {
-                wxLogError(_("No corresponding point found"));
-            }
-	    }
-#endif
-        break;
-    }
-    case CPEvent::RIGHT_CLICK:
-    {
-        if (cpCreationState == BOTH_POINTS_SELECTED) {
-            DEBUG_DEBUG("right click -> adding point");
-            CreateNewPoint();
-        } else {
-            DEBUG_DEBUG("right click without two points..");
-            changeState(NO_POINT);
-        }
-        break;
-    }
-    case CPEvent::SCROLLED:
-    {
-        wxPoint d(roundi(point.x), roundi(point.y));
-        d = m_rightImg->MaxScrollDelta(d);
-        d = m_leftImg->MaxScrollDelta(d);
-        m_rightImg->ScrollDelta(d);
-        m_leftImg->ScrollDelta(d);
-    }
-    break;
-
-    case CPEvent::DELETE_REGION_SELECTED:
-    {
-        UIntSet cpToRemove;
-        if(currentPoints.size()>0)
+    case CPEvent::NEW_LINE_ADDED:
         {
-            wxRect rect=ev.getRect();
-            for(unsigned int i=0;i<currentPoints.size();i++)
+            float vertBias = getVerticalCPBias();
+            ControlPoint cp=ev.getControlPoint();
+            cp.image1Nr=m_leftImageNr;
+            cp.image2Nr=m_rightImageNr;
+            bool  hor = abs(cp.x1 - cp.x2) > (abs(cp.y1 - cp.y2) * vertBias);
+            switch (m_leftRot)
             {
-                ControlPoint cp=currentPoints[i].second;
-                if(cp.mode==ControlPoint::X_Y)
-                {
-                    //checking only normal control points
-                    if(left)
-                    {
-                        if(rect.Contains(roundi(cp.x1),roundi(cp.y1)))
-                        {
-                            cpToRemove.insert(localPNr2GlobalPNr(i));
-                        };
-                    }
+                case CPImageCtrl::ROT0:
+                case CPImageCtrl::ROT180:
+                    if (hor)
+                        cp.mode = PT::ControlPoint::Y;
                     else
+                        cp.mode = PT::ControlPoint::X;
+                    break;
+                default:
+                    if (hor)
+                        cp.mode = PT::ControlPoint::X;
+                    else
+                        cp.mode = PT::ControlPoint::Y;
+                    break;
+            }
+            changeState(NO_POINT);
+            // create points
+            GlobalCmdHist::getInstance().addCommand(new PT::AddCtrlPointCmd(*m_pano, cp));
+            // select new control Point
+            unsigned int lPoint = m_pano->getNrOfCtrlPoints()-1;
+            SelectGlobalPoint(lPoint);
+            changeState(NO_POINT);
+            MainFrame::Get()->SetStatusText(_("new control point added"));
+            m_leftChoice->CalcCPDistance(m_pano);
+            m_rightChoice->CalcCPDistance(m_pano);
+            break;
+        };
+    case CPEvent::POINT_CHANGED:
+        {
+            DEBUG_DEBUG("move point("<< nr << ")");
+            if (nr >= currentPoints.size()) {
+                DEBUG_ERROR("invalid point number while moving point")
+                return;
+            }
+            ControlPoint cp = ev.getControlPoint();
+            changeState(NO_POINT);
+            DEBUG_DEBUG("changing point to: " << cp.x1 << "," << cp.y1
+                        << "  " << cp.x2 << "," << cp.y2);
+
+            GlobalCmdHist::getInstance().addCommand(
+                new PT::ChangeCtrlPointCmd(*m_pano, currentPoints[nr].first, cp)
+                );
+
+            break;
+        }
+    case CPEvent::RIGHT_CLICK:
+        {
+            if (cpCreationState == BOTH_POINTS_SELECTED) {
+                DEBUG_DEBUG("right click -> adding point");
+                CreateNewPoint();
+            } else {
+                DEBUG_DEBUG("right click without two points..");
+                changeState(NO_POINT);
+            }
+            break;
+        }
+    case CPEvent::SCROLLED:
+        {
+            wxPoint d(roundi(point.x), roundi(point.y));
+            d = m_rightImg->MaxScrollDelta(d);
+            d = m_leftImg->MaxScrollDelta(d);
+            m_rightImg->ScrollDelta(d);
+            m_leftImg->ScrollDelta(d);
+        }
+        break;
+    case CPEvent::DELETE_REGION_SELECTED:
+        {
+            UIntSet cpToRemove;
+            if(currentPoints.size()>0)
+            {
+                wxRect rect=ev.getRect();
+                for(unsigned int i=0;i<currentPoints.size();i++)
+                {
+                    ControlPoint cp=currentPoints[i].second;
+                    if(cp.mode==ControlPoint::X_Y)
                     {
-                        if(rect.Contains(roundi(cp.x2),roundi(cp.y2)))
+                        //checking only normal control points
+                        if(left)
                         {
-                            cpToRemove.insert(localPNr2GlobalPNr(i));
+                            if(rect.Contains(roundi(cp.x1),roundi(cp.y1)))
+                            {
+                                cpToRemove.insert(localPNr2GlobalPNr(i));
+                            };
+                        }
+                        else
+                        {
+                            if(rect.Contains(roundi(cp.x2),roundi(cp.y2)))
+                            {
+                                cpToRemove.insert(localPNr2GlobalPNr(i));
+                            };
                         };
                     };
                 };
             };
-        };
-        changeState(NO_POINT);
-        if(cpToRemove.size()>0)
-        {
-            GlobalCmdHist::getInstance().addCommand(new PT::RemoveCtrlPointsCmd(*m_pano,cpToRemove));
-        };
-    }
-    break;
-
-//    default:
-//        text = "FATAL: unknown event mode";
-    }
+            changeState(NO_POINT);
+            if(cpToRemove.size()>0)
+            {
+                GlobalCmdHist::getInstance().addCommand(new PT::RemoveCtrlPointsCmd(*m_pano,cpToRemove));
+            };
+            break;
+        }
+    } //end switch
     m_leftImg->update();
     m_rightImg->update();
 }
@@ -488,8 +462,6 @@ void CPEditorPanel::OnCPEvent( CPEvent&  ev)
 void CPEditorPanel::CreateNewPoint()
 {
     DEBUG_TRACE("");
-//    DEBUG_ASSERT(m_leftImg->GetState == NEW_POINT_SELECTED);
-//    DEBUG_ASSERT(m_rightImg->GetState == NEW_POINT_SELECTED);
     FDiff2D p1 = m_leftImg->getNewPoint();
     FDiff2D p2 = m_rightImg->getNewPoint();
     ControlPoint point;
@@ -567,7 +539,6 @@ const float CPEditorPanel::getVerticalCPBias()
 void CPEditorPanel::ClearSelection()
 {
     if (m_selectedPoint == UINT_MAX) {
-//        DEBUG_ASSERT(m_cpList->GetSelectedItemCount() == 0);
         // no point selected, no need to select one.
         return;
     }
@@ -651,7 +622,6 @@ void CPEditorPanel::estimateAndAddOtherPoint(const FDiff2D & p,
                                              CPCreationState OTHER_POINT,
                                              CPCreationState OTHER_POINT_RETRY)
 {
-//    DEBUG_DEBUG("automatically estimating point in other window");
     FDiff2D op;
     op = EstimatePoint(FDiff2D(p.x, p.y), left);
     // check if point is in image.
@@ -901,9 +871,7 @@ bool CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
     const SrcPanoImage & img = m_pano->getImage(subjImgNr);
 
     // fixme: just cutout suitable gray 
-//    wxImage wxSubjImg;
     ImageCache::EntryPtr subjImg = ImageCache::getInstance().getImage(img.getFilename());
-//    wxImage wxTmplImg;
     ImageCache::EntryPtr tmplImg = ImageCache::getInstance().getImage( m_pano->getImage(tmplImgNr).getFilename());
 
     wxConfigBase *cfg = wxConfigBase::Get();
@@ -1024,6 +992,7 @@ void CPEditorPanel::panoramaChanged(PT::Panorama &pano)
         m_cpModeChoice->Append(_("Add new Line"));
         m_cpModeChoice->Thaw();
     }
+    UpdateTransforms();
     DEBUG_TRACE("");
 }
 
@@ -1205,33 +1174,36 @@ void CPEditorPanel::UpdateDisplay(bool newPair)
         m_cpModeChoice->SetSelection(0);
     }
 
+    m_leftImg->setSameImage(m_leftImageNr==m_rightImageNr);
+    m_rightImg->setSameImage(m_leftImageNr==m_rightImageNr);
+
     // update control points
     const PT::CPVector & controlPoints = m_pano->getCtrlPoints();
     currentPoints.clear();
     mirroredPoints.clear();
-    std::vector<FDiff2D> left;
-    std::vector<FDiff2D> right;
 
     // create a list of all control points
     unsigned int i = 0;
+    m_leftImg->clearCtrlPointList();
+    m_rightImg->clearCtrlPointList();
     for (PT::CPVector::const_iterator it = controlPoints.begin(); it != controlPoints.end(); ++it) {
         PT::ControlPoint point = *it;
         if ((point.image1Nr == m_leftImageNr) && (point.image2Nr == m_rightImageNr)){
-            left.push_back(FDiff2D(point.x1,point.y1));
-            right.push_back(FDiff2D(point.x2, point.y2));
+            m_leftImg->setCtrlPoint(point, false);
+            m_rightImg->setCtrlPoint(point, true);
             currentPoints.push_back(make_pair(it - controlPoints.begin(), *it));
             i++;
         } else if ((point.image2Nr == m_leftImageNr) && (point.image1Nr == m_rightImageNr)){
             point.mirror();
             mirroredPoints.insert(i);
-            left.push_back(FDiff2D(point.x1, point.y1));
-            right.push_back(FDiff2D(point.x2, point.y2));
+            m_leftImg->setCtrlPoint(point, true);
+            m_rightImg->setCtrlPoint(point, false);
             currentPoints.push_back(std::make_pair(it - controlPoints.begin(), point));
             i++;
         }
     }
-    m_leftImg->setCtrlPoints(left);
-    m_rightImg->setCtrlPoints(right);
+    m_leftImg->update();
+    m_rightImg->update();
 
     // put these control points into our listview.
     unsigned int selectedCP = UINT_MAX;
@@ -1246,7 +1218,6 @@ void CPEditorPanel::UpdateDisplay(bool newPair)
     for (unsigned int i=0; i < currentPoints.size(); ++i) {
         const ControlPoint & p = currentPoints[i].second;
         DEBUG_DEBUG("inserting LVItem " << i);
-//        m_cpList->InsertItem(i,wxString::Format(wxT("%d"),currentPoints[i].first));
         m_cpList->InsertItem(i,wxString::Format(wxT("%d"),i));
         m_cpList->SetItem(i,1,wxString::Format(wxT("%.2f"),p.x1));
         m_cpList->SetItem(i,2,wxString::Format(wxT("%.2f"),p.y1));
@@ -1292,9 +1263,6 @@ void CPEditorPanel::UpdateDisplay(bool newPair)
         m_selectedPoint = UINT_MAX;
         EnablePointEdit(false);
     }
-
-// DGSW FIXME - Unreferenced
-//	    int debug_sel_items = m_cpList->GetSelectedItemCount();
 
     for ( int j=0; j < m_cpList->GetColumnCount() ; j++ )
     {
@@ -1507,57 +1475,6 @@ void CPEditorPanel::OnKey(wxKeyEvent & e)
         dummy.SetInt(2);
         OnZoom(dummy);
         XRCCTRL(*this,"cp_editor_choice_zoom",wxChoice)->SetSelection(2);
-
-#if 0
-    } else if (e.m_keyCode == 'p') {
-        // only estimate when there are control points.
-        if (currentPoints.size() > 0) {
-            if (cpCreationState == LEFT_POINT) {
-                // jump to right point
-                FDiff2D lp = m_leftImg->getNewPoint();
-                FDiff2D t = EstimatePoint(FDiff2D(lp.x, lp.y), true);
-                m_rightImg->showPosition(roundi(t.x),
-                                         roundi(t.y), true);
-            } else if (cpCreationState == RIGHT_POINT) {
-                // jump to left point
-                FDiff2D rp = m_rightImg->getNewPoint();
-                FDiff2D t = EstimatePoint(FDiff2D(rp.x, rp.y), false);
-                m_leftImg->showPosition(roundi(t.x),
-                                        roundi(t.y), true);
-            } else {
-                if (e.GetEventObject() == m_leftImg) {
-                    DEBUG_DEBUG("p pressed in left img");
-                    // wrap pointer to other image
-                    if (cpCreationState == LEFT_POINT ||
-                        cpCreationState == RIGHT_POINT_RETRY ||
-                        cpCreationState == LEFT_POINT_RETRY ||
-                        cpCreationState == BOTH_POINTS_SELECTED)
-                    {
-                        FDiff2D p = m_leftImg->getNewPoint();
-                        FDiff2D t = EstimatePoint(FDiff2D(p.x, p.y), true);
-                        m_rightImg->showPosition(roundi(t.x),
-                                                 roundi(t.y), true);
-                    }
-                } else if (e.GetEventObject() == m_rightImg) {
-                    DEBUG_DEBUG("p pressed in right img");
-                    // wrap pointer to other image
-                    if (cpCreationState == RIGHT_POINT ||
-                        cpCreationState == RIGHT_POINT_RETRY ||
-                        cpCreationState == LEFT_POINT_RETRY ||
-                        cpCreationState == BOTH_POINTS_SELECTED)
-                    {
-                        FDiff2D p = m_rightImg->getNewPoint();
-                        FDiff2D t = EstimatePoint(FDiff2D(p.x, p.y), true);
-                        m_leftImg->showPosition(roundi(t.x),
-                                                roundi(t.y), true);
-                    }
-                }
-            }
-        } else {
-	    wxLogError(_("Cannot estimate image position without control points"));
-	}
-#endif
-
     } else if (e.CmdDown() && e.GetKeyCode() == WXK_LEFT) {
         // move to previous
         wxCommandEvent dummy;
@@ -1719,7 +1636,6 @@ void CPEditorPanel::changeState(CPCreationState newState)
         m_rightImg->showSearchArea(false);
         m_addButton->Enable(true);
         m_delButton->Enable(false);
-//        MainFrame::Get()->SetStatusText(_("change points, or press right mouse button to add the pair"));
     }
     // apply the change
     cpCreationState = newState;
@@ -1939,7 +1855,6 @@ void CPEditorPanel::FineTuneNewPoint(bool left)
         m_leftImg->update();
     }
 }
-
 
 FDiff2D CPEditorPanel::EstimatePoint(const FDiff2D & p, bool left)
 {
