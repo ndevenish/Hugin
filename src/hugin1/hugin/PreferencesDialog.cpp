@@ -392,6 +392,10 @@ void PreferencesDialog::UpdateDisplayData(int panel)
         t = cfg->Read(wxT("CopyLogToClipboard"), 0l) == 1;
         MY_BOOL_VAL("prefs_copy_log", t);
 
+        // save makefile 
+        t = cfg->Read(wxT("SaveMakefile"), 0l) == 1;
+        MY_BOOL_VAL("prefs_makefile", t);
+
         t = cfg->Read(wxT("/GLPreviewFrame/ShowProjectionHints"), HUGIN_SHOW_PROJECTION_HINTS) == 1;
         MY_BOOL_VAL("pref_show_projection_hints", t)
     };
@@ -598,6 +602,7 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent& e)
             // smart undo
             cfg->Write(wxT("smartUndo"), HUGIN_SMART_UNDO);
             cfg->Write(wxT("CopyLogToClipboard"), 0l);
+            cfg->Write(wxT("SaveMakefile"), 0l);
             // projection hints
             cfg->Write(wxT("/GLPreviewFrame/ShowProjectionHints"), HUGIN_SHOW_PROJECTION_HINTS);
         }
@@ -750,6 +755,7 @@ void PreferencesDialog::UpdateConfigData()
     // smart undo
     cfg->Write(wxT("smartUndo"), MY_G_BOOL_VAL("prefs_smart_undo"));
     cfg->Write(wxT("CopyLogToClipboard"), MY_G_BOOL_VAL("prefs_copy_log"));
+    cfg->Write(wxT("SaveMakefile"), MY_G_BOOL_VAL("prefs_makefile"));
     // show projections hints
     cfg->Write(wxT("/GLPreviewFrame/ShowProjectionHints"), MY_G_BOOL_VAL("pref_show_projection_hints"));
     // tempdir

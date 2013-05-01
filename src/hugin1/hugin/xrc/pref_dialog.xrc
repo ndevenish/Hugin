@@ -141,6 +141,24 @@
                           <flag>wxALL|wxEXPAND|wxALIGN_TOP</flag>
                           <border>5</border>
                         </object>
+                        <object class="sizeritem">
+                          <object class="wxStaticText">
+                            <label>File save:</label>
+                          </object>
+                          <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                          <border>5</border>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxCheckBox" name="prefs_makefile">
+                            <label>Create makefile automatically during save</label>
+                          </object>
+                          <flag>wxALL|wxEXPAND|wxALIGN_TOP</flag>
+                          <border>5</border>
+                        </object>
+                        <object class="spacer">
+                          <flag>wxALL|wxEXPAND|wxALIGN_TOP</flag>
+                          <border>5</border>
+                        </object>
                         <growablecols>2</growablecols>
                         <object class="spacer">
                           <size>0,0</size>

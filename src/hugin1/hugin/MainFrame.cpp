@@ -783,10 +783,8 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
         script.close();
         savedProjectFile=true;
 
-        int createMakefile = 1;
-#if defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
-        createMakefile = 0;
-#endif
+        int createMakefile = 0;
+        wxConfig::Get()->Read(wxT("SaveMakefile"), &createMakefile, 0l);
         if (createMakefile && pano.getNrOfImages() > 0) {
             wxString makefn = scriptName.GetFullPath() + wxT(".mk");
             std::ofstream makefile(makefn.mb_str(HUGIN_CONV_FILENAME));
