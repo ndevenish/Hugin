@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hugin\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
-"POT-Creation-Date: 2013-04-12 13:50+0200\n"
+"POT-Creation-Date: 2013-05-01 12:17+0200\n"
 "PO-Revision-Date: 2013-03-24 18:40+0100\n"
 "Last-Translator: Kornel Benko <kornel@lyx.org>\n"
 "Language-Team: Slovak <sk@li.org>\n"
@@ -715,10 +715,6 @@ msgstr "Zarovnanie"
 msgid "Distance"
 msgstr "Vzdialenosť"
 
-#: hugin1/hugin/CPEditorPanel.cpp:416
-msgid "No corresponding point found"
-msgstr "Nenájdený zodpovedajúci bod"
-
 #: hugin1/hugin/CPEditorPanel.cpp:543
 msgid "new control point added"
 msgstr "pridaný nový kontrolný bod"
@@ -812,10 +808,6 @@ msgstr "vert. čiara"
 #: hugin1/hugin/CPEditorPanel.cpp:1264 hugin1/hugin/CPListFrame.cpp:433
 msgid "horiz. Line"
 msgstr "horiz. čiara"
-
-#: hugin1/hugin/CPEditorPanel.cpp:1557
-msgid "Cannot estimate image position without control points"
-msgstr "Nie je možné odhadnúť pozíciu obrázku bez kontrolných bodov"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1578
 msgid ""
@@ -3876,6 +3868,10 @@ msgstr "Licencia"
 msgid "System"
 msgstr "Systém"
 
+#: hugin1/hugin/xrc/about.xrc:188
+msgid "Dedication"
+msgstr "Pridať aplikáciu"
+
 #: translations/xrc.cpp:9 translations/xrc.cpp:146 translations/xrc.cpp:173
 #: translations/xrc.cpp:212 translations/xrc.cpp:253 translations/xrc.cpp:303
 #: translations/xrc.cpp:319 translations/xrc.cpp:326 translations/xrc.cpp:507
@@ -5958,6 +5954,14 @@ msgstr "Protokolové hlásenia:"
 msgid "Copy log messages to clipboard."
 msgstr "Kopírovať protokolové hlásenia do schránky."
 
+#: hugin1/hugin/xrc/pref_dialog.xrc:146
+msgid "File save:"
+msgstr "Uloženie súbora:"
+
+#: hugin1/hugin/xrc/pref_dialog.xrc:153
+msgid "Create makefile automatically during save"
+msgstr "Počas ukladania vytvoriť makefile automaticky"
+
 #: translations/xrc.cpp:673 xrc.cpp:673
 msgid "Show hints about projections"
 msgstr "Zobrazovať rady o projekcii"
@@ -7004,6 +7008,12 @@ msgstr ""
 "ak sa obrázky veľmi prekrývajú a použili ste tiež mnoho dobre rozprestrených "
 "kontrolných bodov."
 
+#~ msgid "No corresponding point found"
+#~ msgstr "Nenájdený zodpovedajúci bod"
+
+#~ msgid "Cannot estimate image position without control points"
+#~ msgstr "Nie je možné odhadnúť pozíciu obrázku bez kontrolných bodov"
+
 #~ msgid "Do you want to keep the current non-zero translation parameters?"
 #~ msgstr "Chcete držať súčasné nenulové parametre posunu?"
 
@@ -7453,9 +7463,6 @@ msgstr ""
 
 #~ msgid "Added project "
 #~ msgstr "Pridaný projekt "
-
-#~ msgid "Dedication"
-#~ msgstr "Pridať aplikáciu"
 
 #~ msgid "Send to &batch"
 #~ msgstr "Odoslať do &dávkovej úlohy"
