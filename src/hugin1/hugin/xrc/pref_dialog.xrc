@@ -143,14 +143,15 @@
                         </object>
                         <object class="sizeritem">
                           <object class="wxStaticText">
-                            <label>File save:</label>
+                            <label>Project save:</label>
                           </object>
                           <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
                           <border>5</border>
                         </object>
                         <object class="sizeritem">
                           <object class="wxCheckBox" name="prefs_makefile">
-                            <label>Create makefile automatically during save</label>
+                            <label>Create makefile automatically during project save</label>
+                            <tooltip>Saves a makefile (.mk) beside the project file (.pto) for command line stitching</tooltip>
                           </object>
                           <flag>wxALL|wxEXPAND|wxALIGN_TOP</flag>
                           <border>5</border>
