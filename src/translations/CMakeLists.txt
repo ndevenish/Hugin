@@ -93,6 +93,7 @@ if(REBUILD_TRANSLATIONS)
 
   # create in_xrc_files.list, containing the list of searched xrc source files
   file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/in_xrc_files.tmp")
+  set(inxrcdepend)
   foreach(_f ${xrc_files})
     set(_fabs "${CMAKE_SOURCE_DIR}/src/${_f}")
     list(APPEND inxrcdepend ${_fabs})
@@ -119,7 +120,7 @@ if(REBUILD_TRANSLATIONS)
     DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/infiles.list"
       "${CMAKE_CURRENT_BINARY_DIR}/in_xrc_files.list"
       "${CMAKE_CURRENT_SOURCE_DIR}/xrc_pot.py"
-      ${infiles_depend})
+      ${infiles_depend} ${inxrcdepend})
 
   # Last step in creating hugin.pot
   # concatenate duplicated entries and correct some non-ascii not handled by msguniq
