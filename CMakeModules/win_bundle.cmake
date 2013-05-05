@@ -115,7 +115,7 @@ IF(WIN32)
       NO_SYSTEM_ENVIRONMENT_PATH
     )
     FIND_FILE(PNG_DLL
-      NAMES libpng14.dll libpng15.dll
+      NAMES libpng16.dll libpng15.dll libpng14.dll 
       PATHS ${SOURCE_BASE_DIR}/libpng/bin ${SOURCE_BASE_DIR}/lpng142/lib ${SOURCE_BASE_DIR}/lpng141/lib ${SOURCE_BASE_DIR}/lpng140/lib
       NO_SYSTEM_ENVIRONMENT_PATH
     )
