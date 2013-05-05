@@ -391,7 +391,7 @@ bool parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
     ioPanoDetector.setInputFile(argv[optind]);
     if(doLinearMatch + doMultirow + doPrealign>1)
     {
-        cout << "Error: The arguments --linearmatch, --multirow and --prealigned" << endl
+        cout << "Error: The arguments --linearmatch, --multirow and --prealigned are" << endl
              << "       mutually exclusive. Use only one of them." << endl;
         return false;
     };
