@@ -44,7 +44,7 @@ BEGIN_EVENT_TABLE(PanoOutputDialog,wxDialog)
     EVT_SPINCTRL(XRCID("output_height"), PanoOutputDialog::OnHeightChanged)
 END_EVENT_TABLE()
 
-PanoOutputDialog::PanoOutputDialog(wxWindow *parent, PT::Panorama& pano, GuiLevel guiLevel) : m_pano(pano)
+PanoOutputDialog::PanoOutputDialog(wxWindow *parent, PT::Panorama& pano, GuiLevel guiLevel) : m_pano(pano), m_aspect(0)
 {
     // load our children. some children might need special
     // initialization. this will be done later.
@@ -376,10 +376,16 @@ void PanoOutputDialog::OnHDRFormatChanged(wxCommandEvent & e)
 
 void PanoOutputDialog::OnWidthChanged(wxSpinEvent & e)
 {
-    m_edit_height->SetValue(m_edit_width->GetValue()*m_aspect);
+    if(m_aspect>0)
+    {
+        m_edit_height->SetValue(m_edit_width->GetValue()*m_aspect);
+    };
 };
 
 void PanoOutputDialog::OnHeightChanged(wxSpinEvent & e)
 {
-    m_edit_width->SetValue(m_edit_height->GetValue()/m_aspect);
+    if(m_aspect>0)
+    {
+        m_edit_width->SetValue(m_edit_height->GetValue()/m_aspect);
+    };
 };
