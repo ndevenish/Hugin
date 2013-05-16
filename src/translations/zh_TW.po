@@ -4,15 +4,14 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
 "POT-Creation-Date: 2013-02-24 12:50+0100\n"
 "PO-Revision-Date: \n"
-"Last-Translator: Ewing Kang <f039281310@yahoo.com.tw>\n"
+"Last-Translator: Rick Langford <ruei_ke@yahoo.com>\n"
 "Language-Team: Chinese Traditional <NA>\n"
-"Language: \n"
+"Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Language: Chinese\n"
-"X-Poedit-Country: TAIWAN\n"
 "X-Poedit-Bookmarks: -1,277,-1,-1,-1,-1,-1,-1,-1,-1\n"
+"X-Generator: Poedit 1.5.5\n"
 
 #: hugin1/base_wx/huginConfig.cpp:47 hugin1/base_wx/huginConfig.cpp:82
 #, c-format
@@ -92,19 +91,16 @@ msgid "Warning"
 msgstr "注意"
 
 #: hugin1/base_wx/huginConfig.cpp:288
-#, fuzzy
 msgid "first image"
-msgstr "儲存裁剪後的圖片"
+msgstr "第一張照片"
 
 #: hugin1/base_wx/huginConfig.cpp:289
-#, fuzzy
 msgid "last image"
-msgstr "增加圖片"
+msgstr "最後一張照片"
 
 #: hugin1/base_wx/huginConfig.cpp:291
-#, fuzzy
 msgid "directory"
-msgstr "偵測器"
+msgstr "目錄"
 
 #: hugin1/base_wx/huginConfig.cpp:292 hugin1/base_wx/LensTools.cpp:41
 #: hugin1/hugin/GLPreviewFrame.cpp:1488 hugin1/hugin/ImagesTree.cpp:370
@@ -113,14 +109,12 @@ msgid "Equirectangular"
 msgstr "等距長方圓柱"
 
 #: hugin1/base_wx/huginConfig.cpp:297 hugin1/hugin/ImagesTree.cpp:149
-#, fuzzy
 msgid "Camera maker"
-msgstr "照相機製造商:"
+msgstr "照相機製造商"
 
 #: hugin1/base_wx/huginConfig.cpp:298 hugin1/hugin/ImagesTree.cpp:150
-#, fuzzy
 msgid "Camera model"
-msgstr "照相機型號:"
+msgstr "照相機型號"
 
 #: hugin1/base_wx/huginConfig.cpp:299 hugin1/hugin/ImagesPanel.cpp:666
 #: hugin1/hugin/ImagesTree.cpp:151 hugin1/hugin/ImagesTree.cpp:1161
@@ -130,9 +124,8 @@ msgid "Lens"
 msgstr "鏡頭"
 
 #: hugin1/base_wx/huginConfig.cpp:335
-#, fuzzy
 msgid "unknown projection"
-msgstr "投影"
+msgstr ""
 
 #: hugin1/base_wx/LensTools.cpp:37 hugin1/hugin/ImagesTree.cpp:366
 msgid "Normal (rectilinear)"
@@ -325,11 +318,11 @@ msgid "Error during stitching"
 msgstr "接合時發生錯誤"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:371
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Error while running assistant\n"
 "%s"
-msgstr "分析 panotools 程式碼時發生錯誤: %s"
+msgstr ""
 
 #: hugin1/base_wx/RunStitchPanel.cpp:372 hugin1/base_wx/RunStitchPanel.cpp:380
 #, fuzzy
@@ -520,9 +513,8 @@ msgstr "修改鏡頭..."
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:617
 #: hugin1/calibrate_lens/LensCalFrame.cpp:733
-#, fuzzy
 msgid "Finished"
-msgstr "芬蘭文"
+msgstr ""
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:633
 msgid ""
@@ -581,7 +573,7 @@ msgstr "載入鏡頭數據..."
 #: xrc.cpp:276
 #, fuzzy
 msgid "Save lens"
-msgstr "儲存鏡頭..."
+msgstr "儲存鏡頭"
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:806 hugin1/hugin/MainFrame.cpp:860
 msgid "Save project file"
@@ -620,9 +612,9 @@ msgid "Active Codepage: %u"
 msgstr "使用中的字碼頁： %u"
 
 #: hugin1/hugin/AboutDialog.cpp:174
-#, fuzzy, c-format
+#, c-format
 msgid "Version: %s"
-msgstr "版本 %s"
+msgstr "版本: %s"
 
 #: hugin1/hugin/AboutDialog.cpp:175
 #, c-format
@@ -1561,24 +1553,20 @@ msgid "Image number"
 msgstr "鏡頭編號"
 
 #: hugin1/hugin/ImagesTree.cpp:142
-#, fuzzy
 msgid "Width"
-msgstr "寬度:"
+msgstr "寬度"
 
 #: hugin1/hugin/ImagesTree.cpp:142
-#, fuzzy
 msgid "Image width"
-msgstr "圖片尺寸:"
+msgstr "圖片寬度"
 
 #: hugin1/hugin/ImagesTree.cpp:143
-#, fuzzy
 msgid "Height"
-msgstr "高度:"
+msgstr "高度"
 
 #: hugin1/hugin/ImagesTree.cpp:143
-#, fuzzy
 msgid "Image height"
-msgstr "圖片修剪"
+msgstr "圖片高度"
 
 #: hugin1/hugin/ImagesTree.cpp:144
 msgid "Anchor"
@@ -1620,12 +1608,11 @@ msgstr "修改堆棧圖編號"
 #: hugin1/hugin/ImagesTree.cpp:149
 #, fuzzy
 msgid "Maker"
-msgstr "照相機製造商:"
+msgstr "製造商:"
 
 #: hugin1/hugin/ImagesTree.cpp:150
-#, fuzzy
 msgid "Model"
-msgstr "型號:"
+msgstr "型號"
 
 #: hugin1/hugin/ImagesTree.cpp:151
 #, fuzzy
@@ -1642,63 +1629,52 @@ msgid "Date, image was taken"
 msgstr ""
 
 #: hugin1/hugin/ImagesTree.cpp:153
-#, fuzzy
 msgid "Focal length"
-msgstr "焦距:"
+msgstr "焦距"
 
 #: hugin1/hugin/ImagesTree.cpp:154
-#, fuzzy
 msgid "Aperture"
-msgstr "光圈:"
+msgstr "光圈"
 
 #: hugin1/hugin/ImagesTree.cpp:155
-#, fuzzy
 msgid "Shutter Speed"
-msgstr "快門速度:"
+msgstr "快門速度"
 
 #: hugin1/hugin/ImagesTree.cpp:155
-#, fuzzy
 msgid "Shutter speed"
-msgstr "快門速度:"
+msgstr "快門速度"
 
 #: hugin1/hugin/ImagesTree.cpp:156
-#, fuzzy
 msgid "ISO"
-msgstr "ISO感光度："
+msgstr "ISO"
 
 #: hugin1/hugin/ImagesTree.cpp:156
 msgid "ISO speed"
 msgstr ""
 
 #: hugin1/hugin/ImagesTree.cpp:158
-#, fuzzy
 msgid "Yaw (y)"
 msgstr "橫向角度 (y)"
 
 #: hugin1/hugin/ImagesTree.cpp:158
-#, fuzzy
 msgid "Yaw"
-msgstr "橫向角度:"
+msgstr "橫向角度"
 
 #: hugin1/hugin/ImagesTree.cpp:159
-#, fuzzy
 msgid "Pitch (p)"
 msgstr "縱向角度 (p)"
 
 #: hugin1/hugin/ImagesTree.cpp:159
-#, fuzzy
 msgid "Pitch"
-msgstr "縱向角度:"
+msgstr "縱向角度"
 
 #: hugin1/hugin/ImagesTree.cpp:160
-#, fuzzy
 msgid "Roll (r)"
 msgstr "旋轉角度 (r)"
 
 #: hugin1/hugin/ImagesTree.cpp:160
-#, fuzzy
 msgid "Roll"
-msgstr "旋轉角度:"
+msgstr "旋轉角度"
 
 #: hugin1/hugin/ImagesTree.cpp:161
 #, fuzzy
@@ -1822,14 +1798,14 @@ msgid "Linear"
 msgstr "線性的"
 
 #: hugin1/hugin/ImagesTree.cpp:663
-#, fuzzy, c-format
+#, c-format
 msgid "Lens %d"
-msgstr "鏡頭"
+msgstr "鏡頭 %d"
 
 #: hugin1/hugin/ImagesTree.cpp:666
 #, fuzzy, c-format
 msgid "Stack %d"
-msgstr "堆棧："
+msgstr "堆棧圖 %d"
 
 #: hugin1/hugin/ImagesTree.cpp:669
 #, c-format
@@ -2495,7 +2471,6 @@ msgid "Anchor this image for exposure"
 msgstr "錨定這張圖片以便調整光圈"
 
 #: hugin1/hugin/PanoOperation.cpp:438
-#, fuzzy
 msgid "New lens"
 msgstr "新鏡頭"
 
@@ -2855,9 +2830,8 @@ msgid "Czech"
 msgstr "捷克文"
 
 #: hugin1/hugin/PreferencesDialog.cpp:134
-#, fuzzy
 msgid "Danish"
-msgstr "西班牙文"
+msgstr "丹麥文"
 
 #: hugin1/hugin/PreferencesDialog.cpp:137
 msgid "Dutch"
@@ -3611,9 +3585,8 @@ msgid "Add project to assistant queue..."
 msgstr "新增專案 %s 到助手列表中"
 
 #: hugin1/ptbatcher/BatchTrayIcon.cpp:81
-#, fuzzy
 msgid "E&xit"
-msgstr "退出 (&x)\tAlt-X"
+msgstr "退出 (&x)"
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:195
 msgid ""
@@ -3640,7 +3613,6 @@ msgstr ""
 "你仍然要繼續嗎？"
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:240
-#, fuzzy
 msgid "Stop"
 msgstr "停止"
 
@@ -3676,9 +3648,8 @@ msgid "Reading file %s"
 msgstr "載入圖片 %s"
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:409 translations/xrc.cpp:40 xrc.cpp:40
-#, fuzzy
 msgid "Start"
-msgstr "開始了"
+msgstr "開始"
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:415
 #, fuzzy, c-format
@@ -3961,9 +3932,8 @@ msgid "Always save log"
 msgstr ""
 
 #: translations/xrc.cpp:32 xrc.cpp:32
-#, fuzzy
 msgid "Directory:"
-msgstr "偵測器"
+msgstr "目錄:"
 
 #: translations/xrc.cpp:33 translations/xrc.cpp:128 translations/xrc.cpp:133
 #: translations/xrc.cpp:136 translations/xrc.cpp:141 translations/xrc.cpp:771
@@ -4506,8 +4476,9 @@ msgid "Maximum EV difference for detection of output layers"
 msgstr ""
 
 #: translations/xrc.cpp:184 xrc.cpp:184
+#, fuzzy
 msgid "Display"
-msgstr ""
+msgstr "展示"
 
 #: translations/xrc.cpp:185 translations/xrc.cpp:657 xrc.cpp:185 xrc.cpp:657
 msgid "General"
@@ -4515,7 +4486,7 @@ msgstr "一般"
 
 #: translations/xrc.cpp:186 xrc.cpp:186
 msgid "EXIF data"
-msgstr ""
+msgstr "EXIF 數據"
 
 #: translations/xrc.cpp:187 translations/xrc.cpp:222 xrc.cpp:187 xrc.cpp:222
 #, fuzzy
@@ -4579,8 +4550,9 @@ msgid "Geometric:"
 msgstr "幾何的"
 
 #: translations/xrc.cpp:201 translations/xrc.cpp:203 xrc.cpp:201 xrc.cpp:203
+#, fuzzy
 msgid "Calculate"
-msgstr ""
+msgstr "計算"
 
 #: translations/xrc.cpp:202 xrc.cpp:202
 #, fuzzy
@@ -4701,9 +4673,8 @@ msgid "Exposure and Color"
 msgstr "光圈和顏色"
 
 #: translations/xrc.cpp:238 xrc.cpp:238
-#, fuzzy
 msgid "Exposure (Eev):"
-msgstr "光圈 (EV)"
+msgstr "光圈 (Eev):"
 
 #: translations/xrc.cpp:239 xrc.cpp:239
 #, fuzzy
@@ -4810,13 +4781,11 @@ msgstr "為了在hugin中利進一步的調整，以pto檔案儲存影像和指�
 
 #: translations/xrc.cpp:288 translations/xrc.cpp:304 translations/xrc.cpp:320
 #: xrc.cpp:288 xrc.cpp:304 xrc.cpp:320
-#, fuzzy
 msgid "Camera maker:"
 msgstr "照相機製造商:"
 
 #: translations/xrc.cpp:289 translations/xrc.cpp:305 translations/xrc.cpp:321
 #: xrc.cpp:289 xrc.cpp:305 xrc.cpp:321
-#, fuzzy
 msgid "Camera model:"
 msgstr "照相機型號:"
 
@@ -4835,8 +4804,9 @@ msgid "fuzzy search"
 msgstr ""
 
 #: translations/xrc.cpp:293 xrc.cpp:293
+#, fuzzy
 msgid "Search"
-msgstr ""
+msgstr "尋找"
 
 #: translations/xrc.cpp:295 translations/xrc.cpp:311 xrc.cpp:295 xrc.cpp:311
 msgid "Aperture:"
@@ -4899,18 +4869,16 @@ msgid "Save lens to database"
 msgstr "儲存鏡頭參數資訊檔案"
 
 #: translations/xrc.cpp:323 xrc.cpp:323
-#, fuzzy
 msgid "Camera"
-msgstr "照相機製造商:"
+msgstr "照相機"
 
 #: translations/xrc.cpp:326 xrc.cpp:326
 msgid "Save camera to database"
 msgstr ""
 
 #: translations/xrc.cpp:328 translations/xrc.cpp:367 xrc.cpp:328 xrc.cpp:367
-#, fuzzy
 msgid "Photos"
-msgstr "光學性質"
+msgstr "照片"
 
 #: translations/xrc.cpp:329 translations/xrc.cpp:369 translations/xrc.cpp:485
 #: xrc.cpp:329 xrc.cpp:369 xrc.cpp:485
@@ -4933,12 +4901,11 @@ msgstr ""
 
 #: translations/xrc.cpp:338 xrc.cpp:338
 msgid "Yes"
-msgstr ""
+msgstr "是"
 
 #: translations/xrc.cpp:339 xrc.cpp:339
-#, fuzzy
 msgid "No"
-msgstr "無"
+msgstr "否"
 
 #: translations/xrc.cpp:341 translations/xrc.cpp:990 xrc.cpp:341 xrc.cpp:990
 msgid "&Undo"
@@ -5401,7 +5368,6 @@ msgid "Unselected"
 msgstr "未被選取的"
 
 #: translations/xrc.cpp:482 xrc.cpp:482
-#, fuzzy
 msgid "Colour"
 msgstr "顏色"
 
@@ -5638,12 +5604,10 @@ msgid "Canvas Size:"
 msgstr "全景圖片尺寸"
 
 #: translations/xrc.cpp:556 translations/xrc.cpp:635 xrc.cpp:556 xrc.cpp:635
-#, fuzzy
 msgid "Width:"
 msgstr "寬度:"
 
 #: translations/xrc.cpp:557 translations/xrc.cpp:636 xrc.cpp:557 xrc.cpp:636
-#, fuzzy
 msgid "Height:"
 msgstr "高度:"
 
@@ -5981,16 +5945,15 @@ msgstr "使用者介面"
 #: translations/xrc.cpp:664 xrc.cpp:664
 #, fuzzy
 msgid "Language:"
-msgstr "語言"
+msgstr "語言:"
 
 #: translations/xrc.cpp:665 xrc.cpp:665
 msgid "(requires restarting hugin)"
 msgstr "(需要重啟動 Hugin)"
 
 #: translations/xrc.cpp:666 xrc.cpp:666
-#, fuzzy
 msgid "Undo:"
-msgstr "復原"
+msgstr "復原:"
 
 #: translations/xrc.cpp:667 xrc.cpp:667
 msgid "Skip over visibility toggles"
@@ -6486,8 +6449,9 @@ msgid "Photometric optimizer"
 msgstr "光學性質最佳化"
 
 #: translations/xrc.cpp:792 xrc.cpp:792
+#, fuzzy
 msgid "Misc"
-msgstr ""
+msgstr "雜項"
 
 #: translations/xrc.cpp:797 xrc.cpp:797
 msgid "Preferences - hugin"
