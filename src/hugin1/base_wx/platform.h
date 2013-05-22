@@ -57,6 +57,7 @@ wxString MacGetPathToMainExecutableFileOfRegisteredBundle(CFStringRef BundleIden
 #if defined MAC_SELF_CONTAINED_BUNDLE
 
 wxString MacGetPathToBundledResourceFile(CFStringRef filename);
+wxString MacGetPathToBundledFrameworksDirectory();
 wxString MacGetPathToBundledExecutableFile(CFStringRef filename);
 wxString MacGetPathToBundledAppMainExecutableFile(CFStringRef appname);
 wxString MacGetPathToUserDomainTempDir();

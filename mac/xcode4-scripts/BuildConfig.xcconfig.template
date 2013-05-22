@@ -1,0 +1,113 @@
+#include "../Version.xcconfig"
+
+// where external libraries are installed
+// Note: the repository directory can either be located within the source
+// code tree, or external to the source code tree. If the directory is located
+// within the tree,  the path to it can be stated relative to the location of
+// the "mac" directory as shown below.
+//
+// If the repository directory is external, give the fully qualified path to
+// the repository for the value of REPOSITORY_DIR
+REPOSITORY_ABSOLUTE_PATH = /PATH/TO/HUGIN/SOURCES/mac/ExternalPrograms/repository
+REPOSITORY_DIR = ../mac/ExternalPrograms/repository
+
+// +------------------------------------------------------------------------+ /
+// |                                                                        | /
+// |                        XCode Variables                                 | /
+// |                                                                        | /
+// +------------------------------------------------------------------------+ /
+
+//ARCHS = $(ARCHS_STANDARD_32_64_BIT)
+ARCHS = $(ARCHS_STANDARD_64_BIT)
+VALID_ARCHS = $(ARCHS)
+ONLY_ACTIVE_ARCH_Release = NO
+ONLY_ACTIVE_ARCH_Debug = YES
+ONLY_ACTIVE_ARCH = $(ONLY_ACTIVE_ARCH_$(CONFIGURATION))
+GCC_VERSION = com.apple.compilers.llvmgcc42
+MACOSX_DEPLOYMENT_TARGET = 10.6
+SDKROOT = macosx10.8
+BUILD_HSI = ON
+
+//
+// After that, there's no need to change anything in the xcode
+// variables, you can skip to the Hugin variables
+//
+
+DYLIB_COMPATIBILITY_VERSION = $(HUGIN_VERSION_MAJOR).$(HUGIN_VERSION_MINOR).0
+DYLIB_CURRENT_VERSION = $(HUGIN_VERSION_MAJOR).$(HUGIN_VERSION_MINOR).0
+
+// special optimization
+PER_ARCH_CFLAGS[arch=i386]   = -march=prescott -mtune=pentium-m -ftree-vectorize
+PER_ARCH_CFLAGS[arch=x86_64] = -march=core2 -mtune=core2 -ftree-vectorize
+
+HEADER_SEARCH_PATHS = ${SRCROOT}/../src ${SRCROOT}/../src/foreign ${SRCROOT}/../src/foreign/vigra ${SRCROOT}/../src/hugin_base ${REPOSITORY_DIR}/include ${REPOSITORY_DIR}/include/OpenEXR ${SRCROOT}/../src/hugin1 ${REPOSITORY_DIR}/include/wx-${WX_MAJOR_VERSION} ${REPOSITORY_DIR}/lib/wx/include/osx_cocoa-unicode-${WX_MAJOR_VERSION} ${SRCROOT}/../src/hugin_cpfind ${SRCROOT}/../src/celeste ${REPOSITORY_DIR}/include/python2.7 ${SRCROOT}/../src/hugin_script_interface
+
+FRAMEWORK_SEARCH_PATHS = ${REPOSITORY_DIR}/Frameworks
+
+LIBRARY_SEARCH_PATHS = ${REPOSITORY_DIR}/lib
+
+GCC_PREPROCESSOR_DEFINITIONS = WX_PRECOMP _FILE_OFFSET_BITS=64 wxDEBUG_LEVEL=0 WXUSINGDLL __WXMAC__ __WXOSX__ __WXOSX_COCOA__ NO_GCC_PRAGMA _LARGE_FILES HUGIN_HSI=1 BUILD_HSI=1 MAC_SELF_CONTAINED_BUNDLE=1
+
+GCC_OPTIMIZATION_LEVEL = 2
+
+OTHER_CFLAGS_Release = $(WX_CFLAGS) -DNDEBUG -DHUGIN_PRECOMP=1
+OTHER_CFLAGS_Debug = $(WX_CFLAGS) -DDEBUG=1
+OTHER_CFLAGS = $(OTHER_CFLAGS_$(CONFIGURATION))
+
+COPY_PHASE_STRIP_Release = YES
+COPY_PHASE_STRIP_Debug   = NO
+COPY_PHASE_STRIP = $(COPY_PHASE_STRIP_$(CONFIGURATION))
+
+DEAD_CODE_STRIPPING = YES
+
+DEBUG_INFORMATION_FORMAT_Debug = dwarf
+DEBUG_INFORMATION_FORMAT_Release = dwarf-with-dsym
+DEBUG_INFORMATION_FORMAT = $(DEBUG_INFORMATION_FORMAT_$(CONFIGURATION))
+
+// there is too much warning...
+GCC_WARN_64_TO_32_BIT_CONVERSION = NO
+
+// it seems xcode 4.6 takes the wrongs c++ library
+CLANG_CXX_LIBRARY = libstdc++
+
+// ************************************************************************** /
+// *                                                                        * /
+// *                       Hugin Variables                                  * /
+// *                                                                        * /
+// ************************************************************************** /
+
+// wxWidgets
+WX_MAJOR_VERSION = 2.9
+WX_VERSION = 2.9.3
+// See comments above for REPOSITORY_DIR. This may need to be a fully qualified path.
+WX_LOCALE_DIR = ../mac/ExternalPrograms/wxWidgets-${WX_VERSION}/locale
+
+// the vigra_impex version (the one that is used by enblend)
+// it is not to be confused with the one that comes with the hugin codebase
+// for example $REPOSITORY_DIR/lib/libvigrapimpex.4.190.dylib => 4.190
+VIGRA_IMPEX_VER = 4.190
+
+// The path where gcc >= 4.6 is located
+// This path is used when changing the dylib references for binaries that are 
+// compiled using this gcc version, i.e. enblend, enfuse, ...
+GCC_MP_LOCATION = /PATH/TO/GCC/PREFIX/lib
+
+// gettext
+GETTEXT_VERSION = 0.18
+
+/// ExifTool
+// See comments above for REPOSITORY_DIR. This may need to be a fully qualified path.
+EXIFTOOL_DIR = ../mac/ExternalPrograms/Image-ExifTool-9.24
+
+// Boost Thread
+BOOST_VER = 1_46
+BOOST_THREAD_LIB = libboost_thread
+BOOST_DATE_TIME_LIB = libboost_date_time
+BOOST_FILESYSTEM_LIB = libboost_filesystem
+BOOST_IOSTREAMS_LIB = libboost_iostreams
+BOOST_REGEX_LIB = libboost_regex
+BOOST_SYSTEM_LIB = libboost_system
+BOOST_SIGNALS_LIB = libboost_signals
+
+// Hugin builder
+HUGIN_BUILDER = YOUR NAME

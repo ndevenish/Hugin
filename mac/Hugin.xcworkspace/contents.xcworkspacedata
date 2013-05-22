@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "container:Libraries.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:Tools.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:Applications.xcodeproj">
+   </FileRef>
+</Workspace>

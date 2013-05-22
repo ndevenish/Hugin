@@ -132,7 +132,7 @@ wxString MacGetPathToMainExecutableFileOfRegisteredBundle(CFStringRef BundleIden
 	}
     if(bundleURL == NULL)
     {
-        DEBUG_INFO("Mac: CFURL from string (" << bundlePath << ") failed." );
+        DEBUG_INFO("Mac: CFURL from string (" << bundleURL << ") failed." );
         return theResult;
     }
     
@@ -141,7 +141,7 @@ wxString MacGetPathToMainExecutableFileOfRegisteredBundle(CFStringRef BundleIden
     
     if(bundle == NULL)
     {
-        DEBUG_INFO("Mac: CFBundleCreate (" << bundlePath << " ) failed" );
+        DEBUG_INFO("Mac: CFBundleCreate (" << bundleURL << " ) failed" );
     }
     else
     {
@@ -291,6 +291,45 @@ wxString MacGetPathToBundledResourceFile(CFStringRef filename)
         }
     }
     return theResult;
+}
+
+wxString MacGetPathToBundledFrameworksDirectory()
+{
+    wxString theResult = wxT("");
+    
+    CFBundleRef mainbundle = CFBundleGetMainBundle();
+    if(mainbundle == NULL)
+    {
+        DEBUG_INFO("Mac: Not bundled");
+    }
+    else
+    {
+        CFURLRef XRCurl = CFBundleCopyBundleURL(mainbundle);
+        if(XRCurl == NULL)
+        {
+            DEBUG_INFO("Mac: Cannot locate the file in bundle.");
+        }
+        else
+        {
+            CFStringRef pathInCFString = CFURLCopyFileSystemPath(XRCurl, kCFURLPOSIXPathStyle);
+            CFRelease( XRCurl );
+            if(pathInCFString == NULL)
+            {
+                DEBUG_INFO("Mac: Failed to get URL in CFString");
+            }
+            else
+            {
+                CFRetain( pathInCFString );
+#if wxCHECK_VERSION(2,9,0)
+                theResult = wxCFStringRef(pathInCFString).AsString(wxLocale::GetSystemEncoding());
+#else
+                theResult = wxMacCFStringHolder(pathInCFString).AsString(wxLocale::GetSystemEncoding());
+#endif
+                DEBUG_INFO("Mac: the Frameworks file's path in the application bundle: " << theResult.mb_str(wxConvLocal));
+            }
+        }
+    }
+    return theResult + wxT("/Contents/Frameworks");
 }
 
 wxString MacGetPathToBundledExecutableFile(CFStringRef filename)
