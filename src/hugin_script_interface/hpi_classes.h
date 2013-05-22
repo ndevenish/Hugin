@@ -30,7 +30,11 @@
  *
  */
 
-#include <Python.h>            // always first
+#ifdef MAC_SELF_CONTAINED_BUNDLE
+  #include <Python27/Python.h>
+#else
+  #include <Python.h>            // always first
+#endif // MAC_SELF_CONTAINED_BUNDLE
 #include "swigpyrun.h"         // contains SWIG access
 #include <panodata/Panorama.h>
 

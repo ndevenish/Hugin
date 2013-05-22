@@ -30,6 +30,7 @@
 
 #ifdef __WXMAC__
 #include <wx/sysopt.h>
+#include <wx/dir.h>
 #endif
 
 #include "panoinc.h"
@@ -196,6 +197,22 @@ bool huginApp::OnInit()
         m_DataDir = thePath + wxT("/");
     }
 
+#ifdef HUGIN_HSI
+    // Set PYTHONHOME for the hsi module
+    {
+        wxString pythonHome = MacGetPathToBundledFrameworksDirectory() + wxT("/Python27.framework/Versions/Current");
+        if(! wxDir::Exists(pythonHome)){
+            wxMessageBox(wxString::Format(_("Directory '%s' does not exists"), pythonHome.c_str()));
+        } else {
+            wxUnsetEnv(wxT("PYTHONPATH"));
+            if(! wxSetEnv(wxT("PYTHONHOME"), pythonHome)){
+                wxMessageBox(_("Could not set environment variable PYTHONHOME"));
+            } else {
+                DEBUG_TRACE("PYTHONHOME set to " << pythonHome);
+            }
+        }
+    }
+#endif
     {
         wxString thePath = MacGetPathToBundledResourceFile(CFSTR("locale"));
         if(thePath != wxT(""))

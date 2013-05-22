@@ -3,8 +3,7 @@
 # $Id: localised.sh 2004 2007-05-11 00:17:50Z ippei $
 
 # First export a path. On some systems the environment is not correctly set/used/
-export PATH=/opt/local/bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/sw/bin
-
+export PATH=/opt/local/bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/sw/bin:$REPOSITORY_DIR/bin
 
 wxWidgetsLocaleDir="$WX_LOCALE_DIR"
 resdir="$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/Resources"
@@ -52,7 +51,7 @@ do
  echo "$lang/wxstd.mo from $wxWidgetsLocaleDir/$lang.po"
  if [ -f "$wxWidgetsLocaleDir/$lang.po" ]
  then
-  /opt/local/bin/msgfmt -v -o "$localedir/wxstd.mo" "$wxWidgetsLocaleDir/$lang.po"
+  msgfmt -v -o "$localedir/wxstd.mo" "$wxWidgetsLocaleDir/$lang.po"
   # hack to get link to help file
  else
   echo "$lang.po not found;"
