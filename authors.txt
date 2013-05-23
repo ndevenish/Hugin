@@ -64,6 +64,7 @@ Thomas Modes	statistic CP cleaner, multi-row CP detection, masking tool, GSoC 20
 Tiziano Müller	code
 Vladimir Nadvornik	Stereo images alignment
 John Navas	MSI installer
+Victor Nezhelskiy	Russian translation
 José Alejandro Carrillo Neira	Spanish translation
 Tim Nugent	GSoC 2008 Celeste, GSoC 2009 Lens Calibration, GSoC 2010 mentor
 Simon Oosthoek	Dutch translation
