@@ -48,13 +48,6 @@
 #include "PanoToolsInterface.h"
 #include "PanoToolsUtils.h"
 
-
-// missing prototype in filter.h
-extern "C" {
-    int CheckParams( AlignInfo *g );
-}
-
-
 namespace HuginBase { namespace PTools {
 
 void calcCtrlPointErrors (PanoramaData& pano) 
