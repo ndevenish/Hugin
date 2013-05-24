@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Hugin 2011.0.0\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
 "POT-Creation-Date: 2013-02-24 12:50+0100\n"
-"PO-Revision-Date: 2013-05-17 10:05+0400\n"
+"PO-Revision-Date: 2013-05-24 13:59+0400\n"
 "Last-Translator: Нежельский Виктор Андреевич <nezhelskiy@yandex.ru>\n"
 "Language-Team: Russian <gnome-cyr@lists.gnome.org>\n"
 "Language: ru\n"
@@ -2481,15 +2481,11 @@ msgstr "Фотометрическая оптимизация завершена
 
 #: hugin1/hugin/PanoOperation.cpp:166
 msgid "Add individual images..."
-msgstr ""
-"Добавить отдельные\n"
-"снимки..."
+msgstr "Добавить отдельные снимки..."
 
 #: hugin1/hugin/PanoOperation.cpp:255
 msgid "Add time-series of images..."
-msgstr ""
-"Добавить одновременно \n"
-"сделанные снимки..."
+msgstr "Добавить одновременно сделанные снимки..."
 
 #: hugin1/hugin/PanoOperation.cpp:368
 msgid "No matching images found."
@@ -2680,9 +2676,8 @@ msgid "Compression:"
 msgstr "Сжатие:"
 
 #: hugin1/hugin/PanoPanel.cpp:142
-#, fuzzy
 msgid "Fisheye"
-msgstr "РыбийГлаз Thoby"
+msgstr "РыбийГлаз"
 
 #: hugin1/hugin/PanoPanel.cpp:144
 msgid "Mercator"
@@ -4771,7 +4766,7 @@ msgstr "Определение границ"
 
 #: translations/xrc.cpp:280 xrc.cpp:280
 msgid "Corrected"
-msgstr "Испреленный"
+msgstr "Исправленный"
 
 #: translations/xrc.cpp:281 xrc.cpp:281
 msgid "Show lines"
@@ -5107,7 +5102,7 @@ msgstr ""
 #: translations/xrc.cpp:1019 translations/xrc.cpp:1033 xrc.cpp:396 xrc.cpp:415
 #: xrc.cpp:425 xrc.cpp:1019 xrc.cpp:1033
 msgid "&Preferences"
-msgstr "Н&астроки"
+msgstr "Н&астройки"
 
 #: translations/xrc.cpp:397 translations/xrc.cpp:1021 xrc.cpp:397 xrc.cpp:1021
 msgid "&New"
@@ -6439,7 +6434,7 @@ msgstr "Разное"
 
 #: translations/xrc.cpp:797 xrc.cpp:797
 msgid "Preferences - hugin"
-msgstr "Предпочтения - Hugin"
+msgstr "Настройки - Hugin"
 
 #: translations/xrc.cpp:798 translations/xrc.cpp:864 translations/xrc.cpp:948
 #: xrc.cpp:798 xrc.cpp:864 xrc.cpp:948
