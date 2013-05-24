@@ -76,7 +76,8 @@ unsigned long long utils::getTotalMemory()
     SInt32 ramSize;
     if(Gestalt(gestaltPhysicalRAMSizeInMegabytes, &ramSize)==noErr)
     {
-        return ramSize * 1024 * 1024;
+        unsigned long long _ramSize = ramSize;
+        return _ramSize * 1024 * 1024;
     }
     else
     {
