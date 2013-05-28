@@ -617,6 +617,7 @@ SET(CPACK_SOURCE_IGNORE_FILES
 "/nona_gui/nona_gui$"
 "/stitch_project/hugin_stitch_project$"
 "/deghosting/deghosting_mask$" 
+"/outdated/"
 "/build/"
 "/CVS/"
 "/cmake_install.cmake$"
