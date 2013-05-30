@@ -59,10 +59,9 @@ public:
     bool autostitch;
     bool autoremove;
     bool saveLog;
-    bool gui;
 
     /** Main constructor */
-    Batch(wxFrame* parent, wxString path, bool bgui);
+    Batch(wxFrame* parent, wxString path);
 
     /** Adds an application entry in the batch list */
     void  AddAppToBatch(wxString app);
@@ -78,8 +77,6 @@ public:
     void  CancelProject(int index);
     /** Changes output prefix for project at index */
     void  ChangePrefix(int index, wxString newPrefix);
-    /**Called internally in console mode. Waits for running projects to complete and then runs next in batch */
-    bool  CheckProjectExistence();
     /** Clears batch list and returns 0 if succesful */
     int   ClearBatch();
     /** Compares two project at indexes in both lists and returns true if they have identical project ids */

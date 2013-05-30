@@ -41,7 +41,7 @@ DEFINE_EVENT_TYPE(EVT_INFORMATION)
 DEFINE_EVENT_TYPE(EVT_UPDATE_PARENT)
 #endif
 
-Batch::Batch(wxFrame* parent, wxString path, bool bgui) : wxFrame(parent,wxID_ANY,_T("Batch"))
+Batch::Batch(wxFrame* parent, wxString path) : wxFrame(parent,wxID_ANY,_T("Batch"))
 {
     //default flag settings
     parallel = false;
@@ -52,7 +52,6 @@ Batch::Batch(wxFrame* parent, wxString path, bool bgui) : wxFrame(parent,wxID_AN
     autoremove = false;
     autostitch = false;
     saveLog = false;
-    gui = bgui;
     m_cancelled = false;
     m_paused = false;
     m_running = false;
@@ -198,104 +197,27 @@ void Batch::ChangePrefix(int index, wxString newPrefix)
     m_projList.Item(index).prefix = newPrefix;
 }
 
-bool Batch::CheckProjectExistence() //used only in console version
-{
-#ifdef __WXMSW__  //on windows we run a loop every second to check if running processes are still active
-    bool exist = true;
-    HANDLE process;
-    DWORD exitState;
-    while(exist)
-    {
-        exist = false;
-
-        for(unsigned int i=0; i<m_stitchFrames.GetCount(); i++)
-        {
-            try
-            {
-                process = OpenProcess(PROCESS_QUERY_INFORMATION,true,m_stitchFrames.Item(i)->GetProcessId());
-                GetExitCodeProcess(process,&exitState);
-            }
-            catch(::exception e)
-            {
-                exitState=1;
-            }
-            if(exitState==STILL_ACTIVE)
-            {
-                exist=true;
-            }
-            else if(exitState!=0)
-            {
-                SetStatus(GetIndex(m_stitchFrames.Item(i)->GetProjectId()),Project::FAILED);
-            }
-            CloseHandle(process);
-        }
-        wxSleep(1);
-    }
-#else //not __WXMSW__, on Linux we wait for each of the processes to complete
-    int status;
-    int pid;
-    for(unsigned int i=0; i<m_stitchFrames.GetCount(); i++)
-    {
-        pid = m_stitchFrames.Item(i)->GetProcessId();
-        if(waitpid(pid,&status,0)==-1)
-        {
-            SetStatus(GetIndex(m_stitchFrames.Item(i)->GetProjectId()),Project::FAILED);    //we set to failed if waitpid terminated with an error
-        }
-        if(!WIFEXITED(status) || WEXITSTATUS(status)!=0)
-        {
-            SetStatus(GetIndex(m_stitchFrames.Item(i)->GetProjectId()),Project::FAILED);    //we set to failed if child terminated abnormally or with a bad exit code
-        }
-    }
-#endif
-
-    wxProcessEvent event;
-    for(int i=m_stitchFrames.GetCount()-1; i>=0; i--)
-    {
-        event.SetId(m_stitchFrames.Item(i)->GetProjectId());
-        if(GetStatus(GetIndex(m_stitchFrames.Item(i)->GetProjectId()))==Project::FAILED)
-        {
-            event.SetTimestamp(-1);    //a failed exit code cannot be set to a wxWidgets event, so we fake it inside event's timestamp
-        }
-        OnProcessTerminate(event);
-    }
-    return true;
-}
-
 int Batch::ClearBatch()
 {
     if(m_stitchFrames.GetCount()!=0)
     {
-        if(gui)
-        {
-            wxMessageDialog message(this, _("Cannot clear batch in progress.\nDo you want to cancel it?"),
+        wxMessageDialog message(this, _("Cannot clear batch in progress.\nDo you want to cancel it?"),
 #ifdef _WINDOWS
-                                    _("PTBatcherGUI"),
+                                _("PTBatcherGUI"),
 #else
-                                    wxT(""),
+                                wxT(""),
 #endif
-                                    wxYES | wxCANCEL | wxICON_INFORMATION);
-            if(message.ShowModal()==wxID_YES)
-            {
-                CancelBatch();
-
-                //we set a flag so we don't process terminating events
-                m_clearedInProgress = true;
-                Project::idGenerator=1;
-                m_projList.Clear();
-                if(gui)
-                {
-                    ((wxFrame*)GetParent())->SetStatusText(_("Cleared batch."));
-                }
-                else if(verbose)
-                {
-                    cout << "Cleared batch." << endl;
-                }
-                return 2;
-            }
-        }
-        else if(verbose)
+                                wxYES | wxCANCEL | wxICON_INFORMATION);
+        if(message.ShowModal()==wxID_YES)
         {
-            cout << "Error: Cannot clear batch in progress." << endl;
+            CancelBatch();
+
+            //we set a flag so we don't process terminating events
+            m_clearedInProgress = true;
+            Project::idGenerator=1;
+            m_projList.Clear();
+            ((wxFrame*)GetParent())->SetStatusText(_("Cleared batch."));
+            return 2;
         }
         return 1;
         //TO-DO: return
@@ -304,14 +226,7 @@ int Batch::ClearBatch()
     {
         Project::idGenerator=1;
         m_projList.Clear();
-        if(gui)
-        {
-            ((wxFrame*)GetParent())->SetStatusText(_("Cleared batch."));
-        }
-        else if(verbose)
-        {
-            cout << "Cleared batch." << endl;
-        }
+        ((wxFrame*)GetParent())->SetStatusText(_("Cleared batch."));
         return 0;
     }
 }
@@ -392,13 +307,9 @@ Project::Status Batch::GetStatus(int index)
     {
         return m_projList.Item(index).status;
     }
-    else if(gui)
+    else
     {
         wxMessageBox(wxString::Format(_("Error: Could not get status, project with index %d is not in list."),index),_("Error!"),wxOK | wxICON_INFORMATION );
-    }
-    else if(verbose)
-    {
-        cout << "Error: Could not get status, project with index " << index << " is not in list." << endl;
     }
     return Project::MISSING;
 }
@@ -445,14 +356,10 @@ int Batch::LoadBatchFile(wxString file)
         AppendBatchFile(file);
         return 2;
     }
-    else if(gui)
+    else
     {
         wxMessageBox(_("Error: Could not load batch file."));
-    }
-    else if(verbose)
-    {
-        cout << "Error: Could not load batch file." << endl;
-    }
+    };
     return 1;
 }
 
@@ -491,10 +398,6 @@ int Batch::LoadTemp()
     }
     //we load the data from the temp file
     AppendBatchFile(workingDir->GetName()+wxFileName::GetPathSeparator()+temp);
-    if(verbose && !gui)
-    {
-        cout << "Loaded temp file." << endl;
-    }
     return 0;
 }
 
@@ -573,7 +476,7 @@ void Batch::OnProcessTerminate(wxProcessEvent& event)
         {
             m_projList.Item(i).status=Project::FINISHED;
             // don't sent event for command app
-            if(gui && m_projList.Item(i).id>=0)
+            if(m_projList.Item(i).id>=0)
             {
                 bool notifyParent=false;
                 if(autostitch && m_projList.Item(i).target==Project::DETECTING)
@@ -603,84 +506,44 @@ void Batch::OnProcessTerminate(wxProcessEvent& event)
                 m_running = false;
                 if(NoErrors())
                 {
-                    if(gui)
-                    {
-                        wxCommandEvent e(EVT_INFORMATION,wxID_ANY);
-                        e.SetString(_("Batch successfully completed."));
-                        GetParent()->GetEventHandler()->AddPendingEvent(e);
-                    }
-                    else
-                        //cout << "Project \"" << m_projList.Item(i).path.char_str() << "\" finished. Batch successfully completed." << endl;
-                    {
-                        cout << "Batch successfully completed." << endl;
-                    }
+                    wxCommandEvent e(EVT_INFORMATION,wxID_ANY);
+                    e.SetString(_("Batch successfully completed."));
+                    GetParent()->GetEventHandler()->AddPendingEvent(e);
                 }
                 else
                 {
-                    if(gui)
+                    SetStatusText(_("Batch completed with errors."));
+                    if(!shutdown)
                     {
-                        SetStatusText(_("Batch completed with errors."));
-                        if(!shutdown)
-                        {
-                            if(gui)
-                            {
-                                //notify parent, that at least one project failed
-                                wxCommandEvent e(EVT_BATCH_FAILED,wxID_ANY);
-                                GetParent()->GetEventHandler()->AddPendingEvent(e);
-                            };
-                        };
-                    }
-                    else
-                        //cout << "Project \"" << m_projList.Item(i).path.char_str() << "\" finished. Batch completed with errors." << endl;
-                    {
-                        cout << "Batch completed with errors." << endl;
-                    }
+                        //notify parent, that at least one project failed
+                        wxCommandEvent e(EVT_BATCH_FAILED,wxID_ANY);
+                        GetParent()->GetEventHandler()->AddPendingEvent(e);
+                    };
                 }
                 if(shutdown)	//after we are finished we turn off the computer if checked
                 {
-                    if(gui)
+                    wxProgressDialog progress(_("Initializing shutdown..."), _("Shutting down..."),49,this,
+                                                wxPD_AUTO_HIDE | wxPD_SMOOTH | wxPD_APP_MODAL | wxPD_CAN_ABORT | wxPD_CAN_SKIP);
+                    progress.Fit();
+                    int i = 0;
+                    bool skip = false;
+                    while(progress.Update(i, _("Shutting down..."),&skip))
                     {
-                        wxProgressDialog progress(_("Initializing shutdown..."), _("Shutting down..."),49,this,
-                                                  wxPD_AUTO_HIDE | wxPD_SMOOTH | wxPD_APP_MODAL | wxPD_CAN_ABORT | wxPD_CAN_SKIP);
-                        progress.Fit();
-                        int i = 0;
-                        bool skip = false;
-                        while(progress.Update(i, _("Shutting down..."),&skip))
+                        if(skip || i==50)
                         {
-                            if(skip || i==50)
-                            {
-                                /*wxMessageDialog message(this,_T("Krneksa"));
-                                message.ShowModal();
-                                break;*/
-                                wxShutdown(wxSHUTDOWN_POWEROFF);
-                            }
-                            i++;
+                            /*wxMessageDialog message(this,_T("Krneksa"));
+                            message.ShowModal();
+                            break;*/
+                            wxShutdown(wxSHUTDOWN_POWEROFF);
+                        }
+                        i++;
 #if defined __WXMSW__
-                            Sleep(200);
+                        Sleep(200);
 #else
-                            sleep(200);
+                        sleep(200);
 #endif
-                        }
-                        progress.Close();
                     }
-                    else
-                    {
-                        if(!wxShutdown(wxSHUTDOWN_POWEROFF))
-                        {
-                            if(gui)
-#ifdef __WXMSW__
-                                wxMessageBox(_("Error shutting down."));
-#else
-                                wxMessageBox(_("Error shutting down. Do you have root privileges?"));
-#endif
-                            else
-#ifdef __WXMSW__
-                                cout << "Error shutting down." << endl;
-#else
-                                cout << "Error shutting down. Do you have root privileges?" << endl;
-#endif
-                        }
-                    }
+                    progress.Close();
                 }
             }
             else
@@ -755,11 +618,6 @@ bool Batch::OnStitch(wxString scriptFile, wxString outname, int id)
         }
     }
 
-    if(!gui)
-    {
-        cout << "Stitching with input file " << (const char*)scriptFile.mb_str(wxConvLocal) << "..." << endl;
-    }
-
     // check output filename
     wxFileName outfn(outname);
     wxString ext = outfn.GetExt();
@@ -775,7 +633,7 @@ bool Batch::OnStitch(wxString scriptFile, wxString outname, int id)
 
     RunStitchFrame* stitchFrame = new RunStitchFrame(this, wxT("Hugin Stitcher"), wxDefaultPosition, wxSize(640,600));
     stitchFrame->SetProjectId(id);
-    if(verbose && gui)
+    if(verbose)
     {
         stitchFrame->Show( true );
         wxTheApp->SetTopWindow( stitchFrame );
@@ -803,14 +661,9 @@ bool Batch::OnStitch(wxString scriptFile, wxString outname, int id)
 
 bool Batch::OnDetect(wxString scriptFile, int id)
 {
-    if(!gui)
-    {
-        cout << "Running assistant with input file " << (const char*)scriptFile.mb_str(wxConvLocal) << "..." << endl;
-    }
-
     RunStitchFrame* stitchFrame = new RunStitchFrame(this, wxT("Hugin Assistant"), wxDefaultPosition, wxSize(640,600));
     stitchFrame->SetProjectId(id);
-    if(verbose && gui)
+    if(verbose)
     {
         stitchFrame->Show( true );
         wxTheApp->SetTopWindow( stitchFrame );
@@ -873,13 +726,9 @@ void Batch::RemoveProject(int id)
     {
         RemoveProjectAtIndex(GetIndex(id));
     }
-    else if(gui)
+    else
     {
         wxMessageBox(wxString::Format(_("Error removing, project with id %d is not in list."),id),_("Error!"),wxOK | wxICON_INFORMATION );
-    }
-    else if(verbose)
-    {
-        cout << "Error: Project with id " << id << " is not in list." << endl;
     }
 }
 
@@ -895,14 +744,7 @@ void Batch::RemoveProjectAtIndex(int selIndex)
         {
             if(!wxRemoveFile(file.GetFullPath()))
             {
-                if(gui)
-                {
-                    wxMessageBox( _("Error: Could not delete project file ")+file.GetFullPath(),_("Error!"),wxOK | wxICON_INFORMATION );
-                }
-                else if(verbose)
-                {
-                    cout << "Error: Could not delete project file " << (const char*)file.GetFullPath().char_str() << endl;
-                }
+                wxMessageBox( _("Error: Could not delete project file ")+file.GetFullPath(),_("Error!"),wxOK | wxICON_INFORMATION );
             }
         }
     }
@@ -915,25 +757,14 @@ void Batch::RemoveProjectAtIndex(int selIndex)
 
 void Batch::RunBatch()
 {
-    if(!gui && m_projList.GetCount() == 0)
-    {
-        cout << "Batch is empty." << endl;
-    }
-    else if(!m_running)
+    if(!m_running)
     {
         m_failedProjects.clear();
-        if(gui)
-        {
-            ((wxFrame*)GetParent())->SetStatusText(_("Running batch..."));
-        }
-        else
-        {
-            cout << "Running batch..." << endl;
-        }
+        ((wxFrame*)GetParent())->SetStatusText(_("Running batch..."));
         m_running = true;
         RunNextInBatch();
     }
-    else if(gui)
+    else
     {
         ((wxFrame*)GetParent())->SetStatusText(_("Batch already in progress."));
     }
@@ -949,36 +780,16 @@ void Batch::RunNextInBatch()
         //execute command line instructions
         if(m_projList.Item(i).id<0)
         {
-            if(gui)
-            {
-                SetStatusText(_("Running command \"")+m_projList.Item(i).path+_T("\""));
-            }
-            else
-            {
-                cout << "Running command \"" << (const char*)m_projList.Item(i).path.char_str() << "\"" << endl;
-            }
+            SetStatusText(_("Running command \"")+m_projList.Item(i).path+_T("\""));
             m_projList.Item(i).status=Project::RUNNING;
             //we create a fake stitchFrame, so program waits for app to complete
-            if(!gui)
+            if(wxExecute(m_projList.Item(i).path, wxEXEC_SYNC)==0)
             {
-                RunStitchFrame* stitchFrame = new RunStitchFrame(this, wxT("Hugin Stitcher"), wxDefaultPosition, wxSize(640,600));
-                stitchFrame->SetProjectId(m_projList.Item(i).id);
-
-                repeat = false;
-                int pid = wxExecute(m_projList.Item(i).path, wxEXEC_ASYNC);
-                stitchFrame->SetProcessId(pid);
-                m_stitchFrames.Add(stitchFrame);
+                m_projList.Item(i).status=Project::FINISHED;
             }
             else
             {
-                if(wxExecute(m_projList.Item(i).path, wxEXEC_SYNC)==0)
-                {
-                    m_projList.Item(i).status=Project::FINISHED;
-                }
-                else
-                {
-                    m_projList.Item(i).status=Project::FAILED;
-                }
+                m_projList.Item(i).status=Project::FAILED;
             }
         }
         else
@@ -990,22 +801,16 @@ void Batch::RunNextInBatch()
                 m_running = true;
                 if(m_projList.Item(i).target==Project::STITCHING)
                 {
-                    if(gui)
-                    {
-                        wxCommandEvent e(EVT_INFORMATION,wxID_ANY);
-                        e.SetString(wxString::Format(_("Now stitching: %s"),m_projList.Item(i).path.c_str()));
-                        GetParent()->GetEventHandler()->AddPendingEvent(e);
-                    };
+                    wxCommandEvent e(EVT_INFORMATION,wxID_ANY);
+                    e.SetString(wxString::Format(_("Now stitching: %s"),m_projList.Item(i).path.c_str()));
+                    GetParent()->GetEventHandler()->AddPendingEvent(e);
                     value = OnStitch(m_projList.Item(i).path, m_projList.Item(i).prefix, m_projList.Item(i).id);
                 }
                 else
                 {
-                    if(gui)
-                    {
-                        wxCommandEvent e(EVT_INFORMATION,wxID_ANY);
-                        e.SetString(wxString::Format(_("Now detecting: %s"),m_projList.Item(i).path.c_str()));
-                        GetParent()->GetEventHandler()->AddPendingEvent(e);
-                    };
+                    wxCommandEvent e(EVT_INFORMATION,wxID_ANY);
+                    e.SetString(wxString::Format(_("Now detecting: %s"),m_projList.Item(i).path.c_str()));
+                    GetParent()->GetEventHandler()->AddPendingEvent(e);
                     value = OnDetect(m_projList.Item(i).path,m_projList.Item(i).id);
                 };
                 if(!value)
@@ -1029,22 +834,16 @@ void Batch::RunNextInBatch()
                     m_running = true;
                     if(m_projList.Item(i).target==Project::STITCHING)
                     {
-                        if(gui)
-                        {
-                            wxCommandEvent e(EVT_INFORMATION,wxID_ANY);
-                            e.SetString(wxString::Format(_("Now stitching: %s"),m_projList.Item(i).path.c_str()));
-                            GetParent()->GetEventHandler()->AddPendingEvent(e);
-                        };
+                        wxCommandEvent e(EVT_INFORMATION,wxID_ANY);
+                        e.SetString(wxString::Format(_("Now stitching: %s"),m_projList.Item(i).path.c_str()));
+                        GetParent()->GetEventHandler()->AddPendingEvent(e);
                         value = OnStitch(m_projList.Item(i).path, m_projList.Item(i).prefix, m_projList.Item(i).id);
                     }
                     else
                     {
-                        if(gui)
-                        {
-                            wxCommandEvent e(EVT_INFORMATION,wxID_ANY);
-                            e.SetString(wxString::Format(_("Now detecting: %s"),m_projList.Item(i).path.c_str()));
-                            GetParent()->GetEventHandler()->AddPendingEvent(e);
-                        };
+                        wxCommandEvent e(EVT_INFORMATION,wxID_ANY);
+                        e.SetString(wxString::Format(_("Now detecting: %s"),m_projList.Item(i).path.c_str()));
+                        GetParent()->GetEventHandler()->AddPendingEvent(e);
                         value = OnDetect(m_projList.Item(i).path,m_projList.Item(i).id);
                     };
                     if(!value)
@@ -1062,10 +861,6 @@ void Batch::RunNextInBatch()
     if(AllDone())
     {
         m_running = false;
-    }
-    else if(!gui)
-    {
-        CheckProjectExistence();
     }
 }
 
@@ -1132,10 +927,6 @@ void Batch::SaveTemp()
         suffix = _T("0");
     }
     SaveBatchFile(wxStandardPaths::Get().GetUserConfigDir()+wxFileName::GetPathSeparator()+_T(".ptbt")+suffix);
-    if(verbose && !gui)
-    {
-        cout << "Saved temp file." << endl;
-    }
     //we remove the previous temp file
     if(oldFile.FileExists())
     {
@@ -1149,13 +940,9 @@ void Batch::SetStatus(int index,Project::Status status)
     {
         m_projList.Item(index).status = status;
     }
-    else if(gui)
+    else
     {
         wxMessageBox(wxString::Format(_("Error: Could not set status, project with index %d is not in list."),index),_("Error!"),wxOK | wxICON_INFORMATION );
-    }
-    else if(verbose)
-    {
-        cout << "Error: Could not set status, project with index " << index << " is not in list." << endl;
     }
 }
 
