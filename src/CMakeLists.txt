@@ -30,7 +30,6 @@ add_subdirectory(celeste)
 add_subdirectory(foreign)
 add_subdirectory(hugin_base)
 add_subdirectory(tools)
-add_subdirectory(matchpoint)
 add_subdirectory(deghosting)
 
 # build vips stuff, only if vips was found
