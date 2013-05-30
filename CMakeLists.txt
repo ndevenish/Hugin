@@ -563,7 +563,6 @@ configure_file(src/hugin_version.h.in.cmake ${CMAKE_BINARY_DIR}/src/hugin_versio
 
 add_subdirectory(src)
 add_subdirectory(doc)
-add_subdirectory(utils)
 # install enfuse droplets and windows installer and everything else in platforms
 ADD_SUBDIRECTORY(platforms)
 
