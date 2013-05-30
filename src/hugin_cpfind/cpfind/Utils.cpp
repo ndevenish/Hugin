@@ -30,32 +30,6 @@
 #include <unistd.h>
 #endif
 
-int utils::getCPUCount()
-{
-#ifdef WIN32
-    SYSTEM_INFO si;
-    GetSystemInfo(&si);
-    return si.dwNumberOfProcessors;
-#elif defined(HW_NCPU) || defined(__APPLE__)
-    // BSD and OSX like system
-    int mib[2];
-    int numCPUs = 1;
-    size_t len = sizeof(numCPUs);
-
-    mib[0] = CTL_HW;
-    mib[1] = HW_NCPU;
-    sysctl(mib, 2, &numCPUs, &len, 0, 0);
-    return numCPUs;
-
-#elif defined(_SC_NPROCESSORS_ONLN)
-    // Linux and Solaris
-    long nProcessorsOnline = sysconf(_SC_NPROCESSORS_ONLN);
-    return nProcessorsOnline;
-#else
-    return 1;
-#endif
-}
-
 #ifdef _WINDOWS
 unsigned long long utils::getTotalMemory()
 {

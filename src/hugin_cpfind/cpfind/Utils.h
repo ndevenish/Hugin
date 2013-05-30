@@ -42,9 +42,6 @@
 namespace utils
 {
 
-int getCPUCount();
-
-
 //extern "C" {
 
 #ifdef WIN32
