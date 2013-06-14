@@ -28,8 +28,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cs_CZ\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
-"POT-Creation-Date: 2013-05-04 10:56+0200\n"
-"PO-Revision-Date: 2013-05-04 11:16+0100\n"
+"POT-Creation-Date: 2013-06-14 20:49+0200\n"
+"PO-Revision-Date: 2013-06-14 20:51+0100\n"
 "Last-Translator: Václav Černý <vatoz@seznam.cz>\n"
 "Language-Team: Čeština\n"
 "Language: \n"
@@ -236,7 +236,6 @@ msgstr "Nelze otevřít projektový soubor:"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:151
 #: hugin1/base_wx/RunStitchPanel.cpp:318
-#: hugin1/nona_gui/nona_gui.cpp:243
 #: hugin1/ptbatcher/ProjectArray.cpp:91
 #, c-format
 msgid "could not open script : %s"
@@ -244,7 +243,6 @@ msgstr "nelze otevřít skript: %s"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:172
 #: hugin1/base_wx/RunStitchPanel.cpp:326
-#: hugin1/nona_gui/nona_gui.cpp:250
 #: hugin1/ptbatcher/ProjectArray.cpp:128
 #, c-format
 msgid "error while parsing panotools script: %s"
@@ -359,7 +357,7 @@ msgstr "Externí program %s nenalezen (tak jak byl uložen v nastavení) , vrac�
 #: hugin1/hugin/MainFrame.cpp:1717
 #: hugin1/hugin/MainFrame.cpp:2272
 #: hugin1/hugin/MaskEditorPanel.cpp:479
-#: hugin1/hugin/PreferencesDialog.cpp:863
+#: hugin1/hugin/PreferencesDialog.cpp:871
 #: hugin1/ptbatcher/FindPanoDialog.cpp:250
 #: hugin1/ptbatcher/FindPanoDialog.cpp:271
 #: translations/xrc.cpp:174
@@ -403,7 +401,7 @@ msgstr "Objektiv"
 msgid "unknown projection"
 msgstr "neznámá projekce"
 
-#: hugin1/base_wx/platform.cpp:431
+#: hugin1/base_wx/platform.cpp:470
 #, c-format
 msgid ""
 "The filename(s) contains one of the following invalid characters: %s\n"
@@ -500,7 +498,7 @@ msgid "Save camera into database file"
 msgstr "Uložit fotoaparát do databáze"
 
 #: hugin1/calibrate_lens/LensCalApp.cpp:66
-#: hugin1/hugin/huginApp.cpp:192
+#: hugin1/hugin/huginApp.cpp:193
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:80
 msgid "xrc directory not found in bundle"
 msgstr "Adresář xrc nebyl v balíčku nalezen."
@@ -510,10 +508,10 @@ msgstr "Adresář xrc nebyl v balíčku nalezen."
 #: hugin1/calibrate_lens/LensCalApp.cpp:80
 #: hugin1/calibrate_lens/LensCalApp.cpp:92
 #: hugin1/hugin/MainFrame.cpp:2001
-#: hugin1/hugin/huginApp.cpp:192
-#: hugin1/hugin/huginApp.cpp:204
-#: hugin1/hugin/huginApp.cpp:213
-#: hugin1/hugin/huginApp.cpp:227
+#: hugin1/hugin/huginApp.cpp:193
+#: hugin1/hugin/huginApp.cpp:221
+#: hugin1/hugin/huginApp.cpp:230
+#: hugin1/hugin/huginApp.cpp:244
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:80
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:91
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:97
@@ -523,20 +521,20 @@ msgid "Fatal Error"
 msgstr "Kritická chyba"
 
 #: hugin1/calibrate_lens/LensCalApp.cpp:74
-#: hugin1/hugin/huginApp.cpp:204
+#: hugin1/hugin/huginApp.cpp:221
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:91
 #: hugin1/stitch_project/hugin_stitch_project.cpp:306
 msgid "Translations not found in bundle"
 msgstr "Překlad nebyl nalezen."
 
 #: hugin1/calibrate_lens/LensCalApp.cpp:79
-#: hugin1/hugin/huginApp.cpp:212
+#: hugin1/hugin/huginApp.cpp:229
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:96
 msgid "lensfun directory not found in bundle"
 msgstr "Adresář lensfun nebyl v balíčku nalezen."
 
 #: hugin1/calibrate_lens/LensCalApp.cpp:92
-#: hugin1/hugin/huginApp.cpp:227
+#: hugin1/hugin/huginApp.cpp:244
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:119
 msgid ""
 "xrc directory not found, hugin needs to be properly installed\n"
@@ -1278,7 +1276,7 @@ msgstr "Hodnota Z musí být číselná."
 #: hugin1/hugin/PanoPanel.cpp:646
 #: hugin1/hugin/PreviewFrame.cpp:769
 #: hugin1/hugin/PreviewFrame.cpp:784
-#: hugin1/hugin/huginApp.cpp:82
+#: hugin1/hugin/huginApp.cpp:83
 msgid "Value must be numeric."
 msgstr "Hodnota musí být číselná."
 
@@ -2162,9 +2160,9 @@ msgstr "Otevřít projekt"
 #: hugin1/hugin/MainFrame.cpp:997
 #: hugin1/hugin/MainFrame.cpp:1437
 #: hugin1/hugin/MainFrame.cpp:1482
-#: hugin1/ptbatcher/Batch.cpp:728
-#: hugin1/ptbatcher/BatchFrame.cpp:382
-#: hugin1/ptbatcher/BatchFrame.cpp:410
+#: hugin1/ptbatcher/Batch.cpp:591
+#: hugin1/ptbatcher/BatchFrame.cpp:381
+#: hugin1/ptbatcher/BatchFrame.cpp:409
 #: hugin1/stitch_project/hugin_stitch_project.cpp:378
 msgid "Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files (*)|*"
 msgstr "Soubory projektu (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files (*)|*"
@@ -2254,10 +2252,10 @@ msgstr ""
 "Možná byl přejmenován, přesunut či smazán."
 
 #: hugin1/hugin/MainFrame.cpp:1975
-#: hugin1/ptbatcher/Batch.cpp:397
-#: hugin1/ptbatcher/Batch.cpp:878
-#: hugin1/ptbatcher/Batch.cpp:900
-#: hugin1/ptbatcher/Batch.cpp:1154
+#: hugin1/ptbatcher/Batch.cpp:312
+#: hugin1/ptbatcher/Batch.cpp:731
+#: hugin1/ptbatcher/Batch.cpp:747
+#: hugin1/ptbatcher/Batch.cpp:945
 msgid "Error!"
 msgstr "Chyba!"
 
@@ -2867,7 +2865,7 @@ msgstr "Nelze vytvořit dočasný projektový soubor"
 
 #: hugin1/hugin/PanoPanel.cpp:1061
 #: hugin1/hugin/PanoPanel.cpp:1158
-#: hugin1/ptbatcher/Batch.cpp:735
+#: hugin1/ptbatcher/Batch.cpp:598
 #: hugin1/stitch_project/hugin_stitch_project.cpp:402
 msgid "Specify output prefix"
 msgstr "Nastavte výstupní prefix"
@@ -2918,129 +2916,109 @@ msgstr "Systémové nastavení"
 msgid "Basque"
 msgstr "Baskyčtina"
 
-#: hugin1/hugin/PreferencesDialog.cpp:119
-msgid "Bulgarian"
-msgstr "Bulharština"
-
-#: hugin1/hugin/PreferencesDialog.cpp:122
-msgid "Catalan"
-msgstr "Katalánština"
-
-#: hugin1/hugin/PreferencesDialog.cpp:125
+#: hugin1/hugin/PreferencesDialog.cpp:127
 msgid "Chinese (Simplified)"
 msgstr "Čínština(zjednodušená)"
 
-#: hugin1/hugin/PreferencesDialog.cpp:128
+#: hugin1/hugin/PreferencesDialog.cpp:130
 msgid "Chinese (Traditional)"
 msgstr "Čínština(tradiční)"
 
-#: hugin1/hugin/PreferencesDialog.cpp:131
+#: hugin1/hugin/PreferencesDialog.cpp:133
 msgid "Czech"
 msgstr "Čeština"
 
-#: hugin1/hugin/PreferencesDialog.cpp:134
+#: hugin1/hugin/PreferencesDialog.cpp:136
 msgid "Danish"
 msgstr "Dánština"
 
-#: hugin1/hugin/PreferencesDialog.cpp:137
+#: hugin1/hugin/PreferencesDialog.cpp:139
 msgid "Dutch"
 msgstr "Dánština"
 
-#: hugin1/hugin/PreferencesDialog.cpp:140
+#: hugin1/hugin/PreferencesDialog.cpp:142
 msgid "English"
 msgstr "Angličtina"
 
-#: hugin1/hugin/PreferencesDialog.cpp:143
+#: hugin1/hugin/PreferencesDialog.cpp:145
 msgid "French"
 msgstr "Francouzština"
 
-#: hugin1/hugin/PreferencesDialog.cpp:146
+#: hugin1/hugin/PreferencesDialog.cpp:148
 msgid "German"
 msgstr "Němčina"
 
-#: hugin1/hugin/PreferencesDialog.cpp:149
+#: hugin1/hugin/PreferencesDialog.cpp:151
 msgid "Hungarian"
 msgstr "Maďarština"
 
-#: hugin1/hugin/PreferencesDialog.cpp:152
+#: hugin1/hugin/PreferencesDialog.cpp:154
 msgid "Italian"
 msgstr "Italština"
 
-#: hugin1/hugin/PreferencesDialog.cpp:155
+#: hugin1/hugin/PreferencesDialog.cpp:157
 msgid "Japanese"
 msgstr "Japonština"
 
-#: hugin1/hugin/PreferencesDialog.cpp:158
-msgid "Korean"
-msgstr "Korejština"
-
-#: hugin1/hugin/PreferencesDialog.cpp:161
+#: hugin1/hugin/PreferencesDialog.cpp:165
 msgid "Polish"
 msgstr "Polština"
 
-#: hugin1/hugin/PreferencesDialog.cpp:164
+#: hugin1/hugin/PreferencesDialog.cpp:168
 msgid "Portuguese (Brazilian)"
 msgstr "Portugalština (brazilská)"
 
-#: hugin1/hugin/PreferencesDialog.cpp:167
+#: hugin1/hugin/PreferencesDialog.cpp:171
 msgid "Russian"
 msgstr "Ruština"
 
-#: hugin1/hugin/PreferencesDialog.cpp:170
+#: hugin1/hugin/PreferencesDialog.cpp:174
 msgid "Slovak"
 msgstr "Slovenština"
 
-#: hugin1/hugin/PreferencesDialog.cpp:173
-msgid "Slovenian"
-msgstr "Slovinština"
-
-#: hugin1/hugin/PreferencesDialog.cpp:176
+#: hugin1/hugin/PreferencesDialog.cpp:182
 msgid "Spanish"
 msgstr "Španělština"
 
-#: hugin1/hugin/PreferencesDialog.cpp:179
+#: hugin1/hugin/PreferencesDialog.cpp:185
 msgid "Swedish"
 msgstr "Švédština"
 
-#: hugin1/hugin/PreferencesDialog.cpp:182
-msgid "Ukrainian"
-msgstr "Ukrajinština"
-
-#: hugin1/hugin/PreferencesDialog.cpp:185
+#: hugin1/hugin/PreferencesDialog.cpp:193
 msgid "Finnish"
 msgstr "Finština"
 
-#: hugin1/hugin/PreferencesDialog.cpp:275
+#: hugin1/hugin/PreferencesDialog.cpp:283
 msgid "Select Enblend"
 msgstr "Vybrat Enblend"
 
-#: hugin1/hugin/PreferencesDialog.cpp:278
-#: hugin1/hugin/PreferencesDialog.cpp:295
+#: hugin1/hugin/PreferencesDialog.cpp:286
+#: hugin1/hugin/PreferencesDialog.cpp:303
 msgid "Executables (*.exe)|*.exe"
 msgstr "Spustitelné (*.exe)|*.exe"
 
-#: hugin1/hugin/PreferencesDialog.cpp:292
+#: hugin1/hugin/PreferencesDialog.cpp:300
 msgid "Select Enfuse"
 msgstr "Vybrat Enfuse"
 
-#: hugin1/hugin/PreferencesDialog.cpp:576
+#: hugin1/hugin/PreferencesDialog.cpp:584
 msgid "Really reset displayed preferences to default values?"
 msgstr "Opravdu nastavit zobrazené nastavení na výchozí hodnoty?"
 
-#: hugin1/hugin/PreferencesDialog.cpp:576
+#: hugin1/hugin/PreferencesDialog.cpp:584
 #: translations/xrc.cpp:798
 msgid "Load Defaults"
 msgstr "Nahrát výchozí"
 
-#: hugin1/hugin/PreferencesDialog.cpp:843
+#: hugin1/hugin/PreferencesDialog.cpp:851
 msgid "Please select an entry first"
 msgstr "Vyberte, prosím, nejprve jednu z možností"
 
-#: hugin1/hugin/PreferencesDialog.cpp:843
+#: hugin1/hugin/PreferencesDialog.cpp:851
 msgid "Select Entry"
 msgstr "Vyberte záznam"
 
-#: hugin1/hugin/PreferencesDialog.cpp:863
+#: hugin1/hugin/PreferencesDialog.cpp:871
 msgid ""
 "You can't delete the last setting.\n"
 "At least one setting is required."
@@ -3048,25 +3026,25 @@ msgstr ""
 "Nemůžete smazat poslední nastavení.\n"
 "Alespoň jedno je nutné."
 
-#: hugin1/hugin/PreferencesDialog.cpp:867
+#: hugin1/hugin/PreferencesDialog.cpp:875
 #, c-format
 msgid "Do you really want to remove control point detector setting \"%s\"?"
 msgstr "Opravdu chcete smazat  nastavení detektoru kontrolních bodů  \"%s\"?"
 
-#: hugin1/hugin/PreferencesDialog.cpp:868
+#: hugin1/hugin/PreferencesDialog.cpp:876
 msgid "Delete control point detector setting"
 msgstr "Smaže nastavení detektoru kontrolních bodů"
 
-#: hugin1/hugin/PreferencesDialog.cpp:925
+#: hugin1/hugin/PreferencesDialog.cpp:933
 msgid "Load control point detector settings"
 msgstr "Nahraje nastavení detektoru kontrolních bodů"
 
-#: hugin1/hugin/PreferencesDialog.cpp:927
-#: hugin1/hugin/PreferencesDialog.cpp:942
+#: hugin1/hugin/PreferencesDialog.cpp:935
+#: hugin1/hugin/PreferencesDialog.cpp:950
 msgid "Control point detector settings (*.setting)|*.setting"
 msgstr "Nastavení detektoru kontrolních bodů (*.setting)|*.setting"
 
-#: hugin1/hugin/PreferencesDialog.cpp:940
+#: hugin1/hugin/PreferencesDialog.cpp:948
 msgid "Save control point detector settings"
 msgstr "Uloží nastavení detektoru kontrolních bodů"
 
@@ -3144,6 +3122,15 @@ msgstr "Klikněte  na propojení pro  úpravu kontrolních bodů."
 #: hugin1/hugin/PreviewPanel.cpp:499
 msgid "Error during Stitching"
 msgstr "Chyba během slepování"
+
+#: hugin1/hugin/huginApp.cpp:205
+#, c-format
+msgid "Directory '%s' does not exists"
+msgstr "Adresář \"%s\" neexistuje."
+
+#: hugin1/hugin/huginApp.cpp:209
+msgid "Could not set environment variable PYTHONHOME"
+msgstr "Nepodařilo se nastavit proměnou prostředí PYTHONHOME"
 
 #: hugin1/hugin/wxPanoCommand.cpp:200
 #, c-format
@@ -3358,44 +3345,7 @@ msgstr ""
 msgid "Default"
 msgstr "Výchozí"
 
-#: hugin1/nona_gui/nona_gui.cpp:165
-#: hugin1/ptbatcher/PTBatcherGUI.cpp:185
-#: hugin1/stitch_project/hugin_stitch_project.cpp:350
-msgid "Syntax error in parameters detected, aborting."
-msgstr "Objevena syntaktická chyba v parametrech, končím."
-
-#: hugin1/nona_gui/nona_gui.cpp:180
-#: hugin1/ptbatcher/Batch.cpp:726
-#: hugin1/stitch_project/hugin_stitch_project.cpp:376
-msgid "Specify project source project file"
-msgstr "Určete zdrojový projektový soubor"
-
-#: hugin1/nona_gui/nona_gui.cpp:203
-msgid "Could not find project file:"
-msgstr "Nelze nalézt projektový soubor:"
-
-#: hugin1/nona_gui/nona_gui.cpp:212
-msgid "Specify output image filename"
-msgstr "Zvolte výstupní soubor obrázku"
-
-#: hugin1/nona_gui/nona_gui.cpp:221
-#: hugin1/ptbatcher/Batch.cpp:754
-msgid "No project files specified"
-msgstr "Nevybrány žádné soubory projektu"
-
-#: hugin1/nona_gui/nona_gui.cpp:237
-msgid "Stitching Panorama"
-msgstr "Slepuji panorama"
-
-#: hugin1/nona_gui/nona_gui.cpp:256
-msgid "Wrong number of images specified on command line"
-msgstr "Chybný počet obrázků z příkazové řádky"
-
-#: hugin1/nona_gui/nona_gui.cpp:271
-msgid "output image size: "
-msgstr "výstupní velikost obrázku: "
-
-#: hugin1/ptbatcher/Batch.cpp:270
+#: hugin1/ptbatcher/Batch.cpp:204
 msgid ""
 "Cannot clear batch in progress.\n"
 "Do you want to cancel it?"
@@ -3403,106 +3353,107 @@ msgstr ""
 "Nelze vyčistit běžící dávku.\n"
 "Chcete jí zrušit?"
 
-#: hugin1/ptbatcher/Batch.cpp:272
-#: hugin1/ptbatcher/BatchFrame.cpp:669
-#: hugin1/ptbatcher/BatchFrame.cpp:715
-#: hugin1/ptbatcher/BatchFrame.cpp:747
-#: hugin1/ptbatcher/BatchFrame.cpp:782
-#: hugin1/ptbatcher/BatchFrame.cpp:811
-#: hugin1/ptbatcher/BatchFrame.cpp:1196
-#: hugin1/ptbatcher/BatchFrame.cpp:1203
+#: hugin1/ptbatcher/Batch.cpp:206
+#: hugin1/ptbatcher/BatchFrame.cpp:668
+#: hugin1/ptbatcher/BatchFrame.cpp:714
+#: hugin1/ptbatcher/BatchFrame.cpp:746
+#: hugin1/ptbatcher/BatchFrame.cpp:781
+#: hugin1/ptbatcher/BatchFrame.cpp:810
+#: hugin1/ptbatcher/BatchFrame.cpp:1195
+#: hugin1/ptbatcher/BatchFrame.cpp:1202
 #: translations/xrc.cpp:743
 msgid "PTBatcherGUI"
 msgstr "PTBatcherGUI"
 
-#: hugin1/ptbatcher/Batch.cpp:287
-#: hugin1/ptbatcher/Batch.cpp:309
+#: hugin1/ptbatcher/Batch.cpp:219
+#: hugin1/ptbatcher/Batch.cpp:229
 msgid "Cleared batch."
 msgstr "Vyčištěná dávka."
 
-#: hugin1/ptbatcher/Batch.cpp:397
+#: hugin1/ptbatcher/Batch.cpp:312
 #, c-format
 msgid "Error: Could not get status, project with index %d is not in list."
 msgstr "Chyba: Nelze získat stav, projekt č. %d není na seznamu."
 
-#: hugin1/ptbatcher/Batch.cpp:450
+#: hugin1/ptbatcher/Batch.cpp:361
 msgid "Error: Could not load batch file."
 msgstr "Chyba: Nelze nahrát soubor s dávkou."
 
-#: hugin1/ptbatcher/Batch.cpp:609
+#: hugin1/ptbatcher/Batch.cpp:510
 msgid "Batch successfully completed."
 msgstr "Dávka úspěšně skončila."
 
-#: hugin1/ptbatcher/Batch.cpp:622
+#: hugin1/ptbatcher/Batch.cpp:515
 msgid "Batch completed with errors."
 msgstr "Dávka skončil s chybami."
 
-#: hugin1/ptbatcher/Batch.cpp:643
+#: hugin1/ptbatcher/Batch.cpp:525
 msgid "Initializing shutdown..."
 msgstr "Započínám s vypnutím..."
 
-#: hugin1/ptbatcher/Batch.cpp:643
-#: hugin1/ptbatcher/Batch.cpp:648
+#: hugin1/ptbatcher/Batch.cpp:525
+#: hugin1/ptbatcher/Batch.cpp:530
 msgid "Shutting down..."
 msgstr "Vypínám..."
 
-#: hugin1/ptbatcher/Batch.cpp:672
-msgid "Error shutting down."
-msgstr "Chyba při vypínání se."
+#: hugin1/ptbatcher/Batch.cpp:589
+#: hugin1/stitch_project/hugin_stitch_project.cpp:376
+msgid "Specify project source project file"
+msgstr "Určete zdrojový projektový soubor"
 
-#: hugin1/ptbatcher/Batch.cpp:674
-msgid "Error shutting down. Do you have root privileges?"
-msgstr "Chyba při vypínání se. Máte práva správce?"
-
-#: hugin1/ptbatcher/Batch.cpp:746
+#: hugin1/ptbatcher/Batch.cpp:609
 msgid "No output prefix specified"
 msgstr "Není nastaven výstupní prefix"
 
-#: hugin1/ptbatcher/Batch.cpp:785
+#: hugin1/ptbatcher/Batch.cpp:617
+msgid "No project files specified"
+msgstr "Nevybrány žádné soubory projektu"
+
+#: hugin1/ptbatcher/Batch.cpp:643
 #: hugin1/stitch_project/hugin_stitch_project.cpp:441
 #, c-format
 msgid "%s - Stitching"
 msgstr "%s - Slepuji"
 
-#: hugin1/ptbatcher/Batch.cpp:820
+#: hugin1/ptbatcher/Batch.cpp:673
 #, c-format
 msgid "%s - Assistant"
 msgstr "%s - Pomocník"
 
-#: hugin1/ptbatcher/Batch.cpp:878
+#: hugin1/ptbatcher/Batch.cpp:731
 #, c-format
 msgid "Error removing, project with id %d is not in list."
 msgstr "Chyba při odebírání, projekt s č. %d chybí na seznamu."
 
-#: hugin1/ptbatcher/Batch.cpp:900
+#: hugin1/ptbatcher/Batch.cpp:747
 msgid "Error: Could not delete project file "
 msgstr "Chyba:Nelze smazat projektový soubor:"
 
-#: hugin1/ptbatcher/Batch.cpp:927
+#: hugin1/ptbatcher/Batch.cpp:763
 msgid "Running batch..."
 msgstr "Spouštím dávku..."
 
-#: hugin1/ptbatcher/Batch.cpp:938
+#: hugin1/ptbatcher/Batch.cpp:769
 msgid "Batch already in progress."
 msgstr "Dávka již probíhá."
 
-#: hugin1/ptbatcher/Batch.cpp:954
+#: hugin1/ptbatcher/Batch.cpp:783
 msgid "Running command \""
 msgstr "Spouštím příkaz \""
 
-#: hugin1/ptbatcher/Batch.cpp:996
-#: hugin1/ptbatcher/Batch.cpp:1035
+#: hugin1/ptbatcher/Batch.cpp:805
+#: hugin1/ptbatcher/Batch.cpp:838
 #, c-format
 msgid "Now stitching: %s"
 msgstr "Nyní slepuji: %s"
 
-#: hugin1/ptbatcher/Batch.cpp:1006
-#: hugin1/ptbatcher/Batch.cpp:1045
+#: hugin1/ptbatcher/Batch.cpp:812
+#: hugin1/ptbatcher/Batch.cpp:845
 #, c-format
 msgid "Now detecting: %s"
 msgstr "Nyní hledám:  %s"
 
-#: hugin1/ptbatcher/Batch.cpp:1154
+#: hugin1/ptbatcher/Batch.cpp:945
 #, c-format
 msgid "Error: Could not set status, project with index %d is not in list."
 msgstr "Chyba: Nelze nastavit stav, projekt č. %d chybí na seznamu."
@@ -3516,98 +3467,98 @@ msgstr "Zatím nic nedělám..."
 msgid "Hugin's Batch processor"
 msgstr "Hugin - dávkový zpracovatel"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:191
+#: hugin1/ptbatcher/BatchFrame.cpp:190
 #: translations/xrc.cpp:337
 msgid "You have pressed the Command key."
 msgstr "Stiskli jste příkazovou klávesu."
 
-#: hugin1/ptbatcher/BatchFrame.cpp:193
+#: hugin1/ptbatcher/BatchFrame.cpp:192
 #: translations/xrc.cpp:336
 msgid "You have pressed the Control key."
 msgstr "Stiskli jste kontrolní klávesu."
 
-#: hugin1/ptbatcher/BatchFrame.cpp:196
+#: hugin1/ptbatcher/BatchFrame.cpp:195
 msgid "Should the loading of the batch queue be skipped?"
 msgstr "Má být přeskočeno načítání dávky?"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:343
+#: hugin1/ptbatcher/BatchFrame.cpp:342
 msgid "Please enter the command-line application to execute:"
 msgstr "Zadejte prosím aplikaci ke spuštění:"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:343
+#: hugin1/ptbatcher/BatchFrame.cpp:342
 msgid "Enter application"
 msgstr "Zadejte aplikaci"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:360
+#: hugin1/ptbatcher/BatchFrame.cpp:359
 #: hugin1/ptbatcher/FindPanoDialog.cpp:206
 msgid "Specify a directory to search for projects in"
 msgstr "Určete adresář ve kterém budu hledat projekty"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:380
-#: hugin1/ptbatcher/BatchFrame.cpp:408
+#: hugin1/ptbatcher/BatchFrame.cpp:379
+#: hugin1/ptbatcher/BatchFrame.cpp:407
 msgid "Specify project source file(s)"
 msgstr "Určete zdrojový projektový soubor(y)"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:451
+#: hugin1/ptbatcher/BatchFrame.cpp:450
 msgid "Added projects from dir "
 msgstr "Přidány projekty z adresáře"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:462
+#: hugin1/ptbatcher/BatchFrame.cpp:461
 #, c-format
 msgid "Add project %s to stitching queue."
 msgstr "Přidá projekt  %s do seznamu ve frontě slepování."
 
-#: hugin1/ptbatcher/BatchFrame.cpp:465
+#: hugin1/ptbatcher/BatchFrame.cpp:464
 #, c-format
 msgid "Add project %s to assistant queue."
 msgstr "Poslat projekt  %s do fronty asistenta."
 
-#: hugin1/ptbatcher/BatchFrame.cpp:479
+#: hugin1/ptbatcher/BatchFrame.cpp:478
 msgid "Batch stopped"
 msgstr "Dávka zastavena"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:490
+#: hugin1/ptbatcher/BatchFrame.cpp:489
 msgid "Specify output prefix for project "
 msgstr "Nastavte výstupní prefix pro projekt"
 
 # Pochopit a přeložit znovu.
-#: hugin1/ptbatcher/BatchFrame.cpp:514
+#: hugin1/ptbatcher/BatchFrame.cpp:513
 msgid "The prefix of an assistant target cannot be changed."
 msgstr "Prefix cíle asistenta nemůže být změněn."
 
-#: hugin1/ptbatcher/BatchFrame.cpp:520
+#: hugin1/ptbatcher/BatchFrame.cpp:519
 msgid "Please select a project"
 msgstr "Prosím vyberte projekt"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:601
+#: hugin1/ptbatcher/BatchFrame.cpp:600
 msgid "help file: "
 msgstr "soubor nápovědy:"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:626
+#: hugin1/ptbatcher/BatchFrame.cpp:625
 msgid "Specify batch file to open"
 msgstr "Zadejte dávku pro otevření"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:628
+#: hugin1/ptbatcher/BatchFrame.cpp:627
 msgid "Batch files (*.ptb)|*.ptb;|All files (*)|*"
 msgstr "Dávky (*.ptb)|*.ptb;|Všechny soubory (*)|*"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:662
+#: hugin1/ptbatcher/BatchFrame.cpp:661
 msgid "Cannot open app in Hugin."
 msgstr "Nelze otevřít app pomocí programu Hugin"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:667
+#: hugin1/ptbatcher/BatchFrame.cpp:666
 msgid "No project selected. Open Hugin without project?"
 msgstr "Není vybrán projekt. Mám spustit  Hugin bez projektu?"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:693
+#: hugin1/ptbatcher/BatchFrame.cpp:692
 msgid "Batch paused"
 msgstr "Dávka pozastavena"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:699
+#: hugin1/ptbatcher/BatchFrame.cpp:698
 msgid "Continuing batch..."
 msgstr "Běžící dávka..."
 
-#: hugin1/ptbatcher/BatchFrame.cpp:713
+#: hugin1/ptbatcher/BatchFrame.cpp:712
 msgid ""
 "There are failed projects in the list.\n"
 "Remove them too?"
@@ -3615,7 +3566,7 @@ msgstr ""
 "V seznamu jsou projekty, jejichž běh selhal.\n"
 "Mám je odebrat?"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:745
+#: hugin1/ptbatcher/BatchFrame.cpp:744
 msgid ""
 "Cannot remove project in progress.\n"
 "Do you want to cancel it?"
@@ -3623,15 +3574,15 @@ msgstr ""
 "Nelze odebrat běžící projekty.\n"
 "Chcete je zrušit?"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:759
+#: hugin1/ptbatcher/BatchFrame.cpp:758
 msgid "Removed project "
 msgstr "Odebrané projekty"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:768
+#: hugin1/ptbatcher/BatchFrame.cpp:767
 msgid "Please select a project to remove"
 msgstr "Prosím vyberte projekt k odebrání"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:780
+#: hugin1/ptbatcher/BatchFrame.cpp:779
 msgid ""
 "Cannot reset project in progress.\n"
 "Do you want to cancel it?"
@@ -3639,15 +3590,15 @@ msgstr ""
 "Nelze obnovit nastavení běžících projektů.\n"
 "Chcete je zrušit?"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:795
+#: hugin1/ptbatcher/BatchFrame.cpp:794
 msgid "Reset project "
 msgstr "Obnovit projekt"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:800
+#: hugin1/ptbatcher/BatchFrame.cpp:799
 msgid "Please select a project to reset"
 msgstr "Vyberte projekt k znovunastavení"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:809
+#: hugin1/ptbatcher/BatchFrame.cpp:808
 msgid ""
 "Cannot reset projects in progress.\n"
 "Do you want to cancel the batch?"
@@ -3655,15 +3606,15 @@ msgstr ""
 "Nelze obnovit nastavení probíhajícího projektu.\n"
 " Chcete zrušit běh dávky?"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:848
+#: hugin1/ptbatcher/BatchFrame.cpp:847
 msgid "Specify batch file to save"
 msgstr "Vyberte dávku pro uložení"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:850
+#: hugin1/ptbatcher/BatchFrame.cpp:849
 msgid "Batch file (*.ptb)|*.ptb;|All files (*)|*"
 msgstr "Dávka (*.ptb)|*.ptb;|Všechny soubory (*)|*"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:1114
+#: hugin1/ptbatcher/BatchFrame.cpp:1113
 msgid "Starting batch"
 msgstr "Spouštím dávku"
 
@@ -3784,6 +3735,11 @@ msgstr "%d obrázků: %s"
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:169
 msgid "stitch_project.pto [output prefix]|assistant_project.pto"
 msgstr "slepovaný_projekt.pto [výstupní prefix]|projekt_pomocníka.pto"
+
+#: hugin1/ptbatcher/PTBatcherGUI.cpp:185
+#: hugin1/stitch_project/hugin_stitch_project.cpp:350
+msgid "Syntax error in parameters detected, aborting."
+msgstr "Objevena syntaktická chyba v parametrech, končím."
 
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:213
 msgid "PTBatcherGUI started"
@@ -7064,6 +7020,42 @@ msgstr "Parametry objektivu  se mohou měnit v závislosti na změně ostrosti. 
 #: hugin1/hugin/xrc/data/tips.txt:38
 msgid "Optimization of all distortion parameters \"everything\" makes only sense with heavily overlapping images and many well distributed control points."
 msgstr "Optimalizace všech parametrů zkreslení \"všechno\" má smysl jen tehdy, pokud jste dobře rozmístili velké množství kontrolních bodů."
+
+#~ msgid "Bulgarian"
+#~ msgstr "Bulharština"
+
+#~ msgid "Catalan"
+#~ msgstr "Katalánština"
+
+#~ msgid "Korean"
+#~ msgstr "Korejština"
+
+#~ msgid "Slovenian"
+#~ msgstr "Slovinština"
+
+#~ msgid "Ukrainian"
+#~ msgstr "Ukrajinština"
+
+#~ msgid "Could not find project file:"
+#~ msgstr "Nelze nalézt projektový soubor:"
+
+#~ msgid "Specify output image filename"
+#~ msgstr "Zvolte výstupní soubor obrázku"
+
+#~ msgid "Stitching Panorama"
+#~ msgstr "Slepuji panorama"
+
+#~ msgid "Wrong number of images specified on command line"
+#~ msgstr "Chybný počet obrázků z příkazové řádky"
+
+#~ msgid "output image size: "
+#~ msgstr "výstupní velikost obrázku: "
+
+#~ msgid "Error shutting down."
+#~ msgstr "Chyba při vypínání se."
+
+#~ msgid "Error shutting down. Do you have root privileges?"
+#~ msgstr "Chyba při vypínání se. Máte práva správce?"
 
 #, fuzzy
 #~ msgid "File save:"
