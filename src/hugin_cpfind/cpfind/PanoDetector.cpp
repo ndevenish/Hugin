@@ -845,8 +845,7 @@ bool PanoDetector::loadProject()
         // Specify if the image has an associated keypoint file
 
         aImgData._keyfilename = getKeyfilenameFor(_keypath,aImgData._name);
-        ifstream keyfile(aImgData._keyfilename.c_str());
-        aImgData._hasakeyfile = keyfile.good();
+        aImgData._hasakeyfile = hugin_utils::FileExists(aImgData._keyfilename);
         if(aImgData._hasakeyfile)
         {
             imgWithKeyfile++;
