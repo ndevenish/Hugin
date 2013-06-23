@@ -161,9 +161,10 @@ BEGIN_EVENT_TABLE(GLPreviewFrame, wxFrame)
 	EVT_COMMAND_SCROLL_CHANGED(XRCID("layout_scale_slider"), GLPreviewFrame::OnLayoutScaleChange)
 #else
  #if wxCHECK_VERSION(2,9,0)
-	EVT_COMMAND_SCROLL(XRCID("layout_scale_slider"), GLPreviewFrame::OnLayoutScaleChange)
-	EVT_SCROLL_CHANGED(GLPreviewFrame::OnChangeFOV)
-	EVT_COMMAND_SCROLL_CHANGED(XRCID("layout_scale_slider"), GLPreviewFrame::OnLayoutScaleChange)
+    EVT_SCROLL_THUMBRELEASE(GLPreviewFrame::OnChangeFOV)
+    EVT_COMMAND_SCROLL(XRCID("layout_scale_slider"), GLPreviewFrame::OnLayoutScaleChange)
+    EVT_SCROLL_CHANGED(GLPreviewFrame::OnChangeFOV)
+    EVT_COMMAND_SCROLL_THUMBTRACK(XRCID("layout_scale_slider"), GLPreviewFrame::OnLayoutScaleChange)
  #else
 	EVT_SCROLL_THUMBRELEASE(GLPreviewFrame::OnChangeFOV)
 	EVT_SCROLL_ENDSCROLL(GLPreviewFrame::OnChangeFOV)
