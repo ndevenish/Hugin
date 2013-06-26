@@ -1,3 +1,302 @@
+2013-06-23 11:44 +0200  ___matthieu___ <matthieu.desile@gmail.com>  (3fc573ff0396)  
+
+	[MacOSX] Correct the scroll handling on the GLPreviewFrame
+
+	> src/hugin1/hugin/GLPreviewFrame.cpp
+
+2013-06-10 20:16 +0200  tmodes  (53742512166c)  
+
+	Updated Chinese translation (Ewing Kang)
+
+	> src/translations/zh_TW.po
+
+2013-05-24 17:16 +0200  tmodes  (710f505b947f)  
+
+	Fixes memory overflow (Patch by Matthieu)
+
+	> src/hugin_cpfind/cpfind/Utils.cpp
+
+2013-05-24 16:55 +0200  tmodes  (f45c792caf3e)  
+
+	More fixes for Russian translation (Victor Nezhelskiy)
+
+	> src/translations/ru.po
+
+2013-05-23 18:08 +0200  tmodes  (ee6cc0c77f19)  
+
+	Added Victor Nezhelskiy to authors.txt
+
+	> authors.txt
+
+2013-05-23 18:00 +0200  tmodes  (92100d8e5da5)  
+
+	Updated Russian translation (Victor Nezhelskiy)
+
+	> src/translations/ru.po
+
+2013-05-22 23:38 +0200  ___matthieu___ <matthieu.desile@gmail.com>  (636261f9cecf)  
+
+	[MacOSX] Added Xcode4 projects and an Xcode workspace for building
+	with Xcode4
+
+	+ mac/Applications.xcodeproj/project.pbxproj
+	+ mac/Applications.xcodeproj/project.xcworkspace/contents.xcworkspacedata
+	+ mac/Applications.xcodeproj/xcshareddata/xcschemes/Applications.xcscheme
+	+ mac/Applications.xcodeproj/xcshareddata/xcschemes/DMG.xcscheme
+	+ mac/Hugin.xcworkspace/contents.xcworkspacedata
+	+ mac/Hugin.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings
+	+ mac/Libraries.xcodeproj/project.pbxproj
+	+ mac/Libraries.xcodeproj/project.xcworkspace/contents.xcworkspacedata
+	+ mac/Libraries.xcodeproj/xcshareddata/xcschemes/Libraries.xcscheme
+	+ mac/README.xcode.txt
+	+ mac/Tools.xcodeproj/project.pbxproj
+	+ mac/Tools.xcodeproj/project.xcworkspace/contents.xcworkspacedata
+	+ mac/Tools.xcodeproj/xcshareddata/xcschemes/Tools.xcscheme
+	+ mac/xcode4-scripts/BuildConfig.xcconfig.template
+	+ mac/xcode4-scripts/CalibrateLensGUI-Info.plist
+	+ mac/xcode4-scripts/bundle-python.sh
+	+ mac/xcode4-scripts/complete-bundle.sh
+	> mac/Version.xcconfig
+	> mac/localised.sh
+	> src/hugin1/base_wx/platform.cpp
+	> src/hugin1/base_wx/platform.h
+	> src/hugin1/hugin/huginApp.cpp
+	> src/hugin_script_interface/hpi_classes.h
+
+2013-05-16 22:09 +0200  tmodes  (a9991501efd8)  
+
+	Updated Chinese Traditional translation (Rick Langford)
+
+	> src/translations/zh_TW.po
+
+2013-05-07 21:56 +0200  tmodes  (f6fff45d5eac)  
+
+	Fixes crash with uninitialized variables
+
+	> src/hugin1/hugin/PanoOutputDialog.cpp
+
+2013-04-09 20:58 +0200  tmodes  (9928ad3bd989)  
+
+	Improved search for Python patchlevel.h for newer Ubuntu version
+
+	Patch by Robie Basak
+
+	> CMakeLists.txt
+
+2013-04-02 20:51 +0200  tmodes  (bcb37ee03256)  
+
+	Fixes typos in German translation
+
+	> src/translations/de.po
+
+2013-04-01 17:08 +0200  tmodes  (aff2f8d21e9d)  
+
+	Small fix for uncropped outputs in pano output dialog
+
+	> src/hugin1/hugin/PanoOutputDialog.cpp
+
+2013-04-01 16:55 +0200  tmodes  (5ef19047655c)  
+
+	Updated Danish translation (Thomas Pryds)
+
+	> src/translations/da.po
+
+2013-03-26 18:34 +0100  tmodes  (84a5e46f89aa)  
+
+	More fixes for Slovak translation (Kornel Benko)
+
+	> src/translations/sk.po
+
+2013-03-25 19:03 +0100  tmodes  (20f681858629)  
+
+	More fixes for Slovak translation (Kornel Benko)
+
+	> src/translations/sk.po
+
+2013-03-24 19:33 +0100  tmodes  (c1527f4519b0)  
+
+	Updated Slovak translation (Kornel Benko)
+
+	> src/translations/sk.po
+
+2013-03-20 18:44 +0100  tmodes  (1ffbaf8a9cd5)  
+
+	Hide panorama editor when switching to simple interface
+
+	> src/hugin1/hugin/MainFrame.cpp
+
+2013-03-19 19:59 +0100  tmodes  (a421942f3ae4)  
+
+	Improved interface switching if project has non-zero translation
+	parameters
+
+	> src/hugin1/hugin/GLPreviewFrame.cpp
+
+2013-03-17 15:56 +0100  tmodes  (45f880c75d90)  
+
+	Fixes typo in help source
+
+	> src/hugin1/hugin/xrc/data/help_en_EN/hugin_help_en_EN.hhp
+
+2013-03-14 17:05 +0100  tmodes  (b891558e7e0d)  
+
+	Merge
+
+	> README
+	> doc/releases/hugin-2013.0.0.txt
+
+2013-03-14 17:02 +0100  tmodes  (2577057a1bb0)  
+
+	Updated dependencies
+
+	> CMakeLists.txt
+	> README
+
+2013-03-14 13:31 +0100  harryvanderwolf <hvdwolf@gmail.com>  (2ddf7fb2ae3a)  
+
+	Update requirements for boost (Stefan Peter)
+
+	> README
+
+2013-03-14 13:31 +0100  harryvanderwolf <hvdwolf@gmail.com>  (a982f92bc3ed)  
+
+	Two smalle textual corrections
+
+	> doc/releases/hugin-2013.0.0.txt
+
+2013-03-11 17:32 +0100  tmodes  (4f4f24b815f2)  
+
+	PanoOutputDialog: Hide HDR output option in simple user interface
+
+	To be consistent with stitcher tab
+
+	> src/hugin1/hugin/GLPreviewFrame.cpp
+	> src/hugin1/hugin/PanoOutputDialog.cpp
+	> src/hugin1/hugin/PanoOutputDialog.h
+
+2013-03-10 08:27 +0100  tmodes  (be3914012ac3)  
+
+	Added POD file for geocpset (Andreas Metzler)
+
+	+ doc/geocpset.pod
+
+2013-03-09 11:45 +0100  tmodes  (9db625d3da2c)  
+
+	Search for Tclap when building keypoints
+
+	> src/hugin_cpfind/localfeatures/CMakeLists.txt
+
+2013-03-08 17:29 +0100  tmodes  (6ffbc7f84bb1)  
+
+	Minor update for Hungarian translation (Lajos Höss) [1152329]
+
+	> src/translations/hu.po
+
+2013-03-06 20:16 +0100  tmodes  (f3010d0f5a7e)  
+
+	Updated French translation (RizThorn)
+
+	> src/translations/fr.po
+
+2013-03-06 20:15 +0100  tmodes  (ffc0916090a8)  
+
+	Updated German translation (Carl von Einem) [1148894]
+
+	> src/translations/de.po
+
+2013-03-05 19:17 +0100  tmodes  (1f6626dbf12d)  
+
+	Set a minimal size for preview canvas
+
+	> src/hugin1/hugin/GLPreviewFrame.cpp
+
+2013-03-03 15:36 +0100  harryvanderwolf <hvdwolf@gmail.com>  (70b10450ff94)  
+
+	Added tag 2013.0beta1 for changeset b7f603b17a69
+
+	> .hgtags
+
+2013-03-03 15:33 +0100  harryvanderwolf <hvdwolf@gmail.com>  (b7f603b17a69)  2013.0beta1
+
+	Create 2013.0 branch and set version numbers
+
+	> CMakeLists.txt
+	> mac/Version.xcconfig
+
+2013-03-03 15:28 +0100  harryvanderwolf <hvdwolf@gmail.com>  (f2c4ea43c8e5)  
+
+	bumping version number
+
+	> CMakeLists.txt
+	> mac/Version.xcconfig
+	> src/hugin_script_interface/plugins/crop_cp.py
+	> src/hugin_script_interface/plugins/shooting_pattern.py
+	> src/hugin_script_interface/plugins/top_five.py
+	> src/hugin_script_interface/plugins/woa.py
+
+2013-03-03 11:05 +0100  mcri  (41e0d3d9a9dc)  
+
+	Merged before pushing
+
+	+ doc/releases/hugin-2013.0.0.txt
+	> ChangeLog
+	> src/hugin1/hugin/xrc/data/intro.htm
+	> src/translations/da.po
+	> src/translations/hu.po
+	> src/translations/pt_BR.po
+
+2013-03-03 10:56 +0100  mcri  (43b722ff0e2e)  
+
+	Updated Italian translation
+
+	> src/translations/it.po
+
+2013-03-03 10:07 +0100  harryvanderwolf <hvdwolf@gmail.com>  (615dda6673c1)  
+
+	merge
+
+	> src/hugin1/hugin/xrc/data/intro.htm
+
+2013-03-03 10:06 +0100  harryvanderwolf <hvdwolf@gmail.com>  (717c3937d801)  
+
+	merge
+
+	> src/translations/da.po
+	> src/translations/hu.po
+	> src/translations/pt_BR.po
+
+2013-03-03 09:32 +0100  harryvanderwolf <hvdwolf@gmail.com>  (145119d1a1f9)  
+
+	Update ChangeLog and first draft of release notes
+
+	+ doc/releases/hugin-2013.0.0.txt
+	> ChangeLog
+
+2013-03-03 09:58 +0100  tmodes  (3f6b871b7625)  
+
+	Bump year
+
+	> src/hugin1/hugin/xrc/data/intro.htm
+
+2013-03-03 09:05 +0100  Thomas Pryds <thomas@pryds.eu>  (e9c5e8a87fe0)  
+
+	Danish translation @ 100%
+
+	> src/translations/da.po
+
+2013-03-03 08:43 +0100  tmodes  (2cb7c8720da1)  
+
+	Updated Portuguese translation (Luís Henrique Camargo Quiroz)
+	[1140413]
+
+	> src/translations/pt_BR.po
+
+2013-03-03 08:42 +0100  tmodes  (2b733674886a)  
+
+	Updated Hungarian translation (Lajos Höss) [1139850]
+
+	> src/translations/hu.po
+
 2013-02-26 22:25 +0100  harryvanderwolf <hvdwolf@gmail.com>  (7bda6e3efe4b)  
 
 	[OSX] Add geocpset to XCode project and bundle
