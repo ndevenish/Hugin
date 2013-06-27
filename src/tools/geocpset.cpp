@@ -303,7 +303,7 @@ static void usage(const char* name)
          << "     -e, --each-overlap     By default, geocpset will only work on the overlap" << endl
          << "                            of unconnected images. With this switch it will" << endl
          << "                            work on all overlaps without control points." << endl
-         << "     --minimum-overlap=NUM  Take only these images into accout where the" << endl
+         << "     --minimum-overlap=NUM  Take only these images into account where the" << endl
          << "                            overlap is bigger than NUM percent (default 10)." << endl
          << "     -h, --help             Shows this help" << endl
          << endl;
