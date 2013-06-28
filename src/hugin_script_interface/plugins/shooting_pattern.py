@@ -55,11 +55,11 @@ def position ( pano , number , yaw , pitch , roll ) :
         print ( "no image %d" % number )
     else :
         # fine, let's do it.
-        img=pano.getImage(number)
+        img=pano.getSrcImage(number)
         img.setYaw(yaw)
         img.setPitch(pitch)
         img.setRoll(roll)
-        pano.setImage(number,img)
+        pano.setSrcImage(number,img)
 
 # the entry routine is what is called from hugin.
 # notice that it takes an arbitrary number of arguments after the
