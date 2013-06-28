@@ -13,7 +13,11 @@
 #include "CPDetectorConfig.h"
 #include <set>
 
+#ifdef __WXMAC__
+class iCPApp : public wxApp
+#else
 class iCPApp : public wxAppConsole
+#endif
 {
     /** the main procedure of iCPApp */
     virtual int OnRun();
