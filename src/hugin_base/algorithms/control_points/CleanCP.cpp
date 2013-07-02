@@ -30,6 +30,7 @@
 #include "CleanCP.h"
 #include <algorithms/optimizer/PTOptimizer.h>
 #include "algorithms/basic/CalculateCPStatistics.h"
+#include "hugin_base/panotools/PanoToolsUtils.h"
 
 namespace HuginBase {
 using namespace std;
@@ -117,8 +118,14 @@ UIntSet getCPoutsideLimit_pair(Panorama pano, double n)
 UIntSet getCPoutsideLimit(Panorama pano, double n,bool skipOptimisation)
 {
     UIntSet CPtoRemove;
-    if(!skipOptimisation)
+    if(skipOptimisation)
     {
+        //calculate current cp errors
+        HuginBase::PTools::calcCtrlPointErrors(pano);
+    }
+    else
+    {
+        //optimize pano, after optimization pano contains the cp errors of the optimized project
         SmartOptimise::smartOptimize(pano);
     };
     CPVector allCP=pano.getCtrlPoints();
