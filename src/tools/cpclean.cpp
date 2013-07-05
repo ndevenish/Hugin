@@ -65,6 +65,8 @@ static void usage(const char * name)
          << "     -p       do only pairwise optimisation (skip step 2)" << endl
          << "     -w       do optimise whole panorama (skip step 1)" << endl
          << "     -s       skip optimisation step when optimisation the whole panorama" << endl
+         << "     -l       also include line control points for calculation and" << endl
+         << "              filtering in step 2" << endl
          << "     -h       shows help" << endl
          << endl;
 }
@@ -72,13 +74,14 @@ static void usage(const char * name)
 int main(int argc, char *argv[])
 {
     // parse arguments
-    const char * optstring = "o:hn:pws";
+    const char * optstring = "o:hn:pwsl";
 
     int c;
     string output;
     bool onlyPair = false;
     bool wholePano = false;
     bool skipOptimisation = false;
+    bool includeLineCp = false;
     double n = 2.0;
     while ((c = getopt (argc, argv, optstring)) != -1)
     {
@@ -110,6 +113,9 @@ int main(int argc, char *argv[])
             break;
         case 's':
             skipOptimisation = true;
+            break;
+        case 'l':
+            includeLineCp = true;
             break;
         case ':':
             cerr <<"Option -n requires a number" << endl;
@@ -194,7 +200,7 @@ int main(int argc, char *argv[])
             {
                 std::cout << endl << "Skipping optimisation, current image positions will be used." << endl;
             };
-            CPtoRemove=getCPoutsideLimit(pano,n,skipOptimisation);
+            CPtoRemove=getCPoutsideLimit(pano, n, skipOptimisation, includeLineCp);
             if (CPtoRemove.size()>0)
                 for(UIntSet::reverse_iterator it = CPtoRemove.rbegin(); it != CPtoRemove.rend(); ++it)
                     pano.removeCtrlPoint(*it);

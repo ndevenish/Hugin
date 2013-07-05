@@ -115,7 +115,7 @@ UIntSet getCPoutsideLimit_pair(Panorama pano, double n)
     return CPtoRemove;
 };
 
-UIntSet getCPoutsideLimit(Panorama pano, double n,bool skipOptimisation)
+UIntSet getCPoutsideLimit(Panorama pano, double n, bool skipOptimisation, bool includeLineCp)
 {
     UIntSet CPtoRemove;
     if(skipOptimisation)
@@ -129,26 +129,47 @@ UIntSet getCPoutsideLimit(Panorama pano, double n,bool skipOptimisation)
         SmartOptimise::smartOptimize(pano);
     };
     CPVector allCP=pano.getCtrlPoints();
-    //remove all horizontal and vertical CP for calculation of mean and sigma
-    CPVector CPxy;
-    for (CPVector::const_iterator it = allCP.begin(); it != allCP.end(); it++)
+    if(!includeLineCp)
     {
-        if(it->mode == ControlPoint::X_Y)
-            CPxy.push_back(*it);
+        //remove all horizontal and vertical CP for calculation of mean and sigma
+        CPVector CPxy;
+        for (CPVector::const_iterator it = allCP.begin(); it != allCP.end(); it++)
+        {
+            if(it->mode == ControlPoint::X_Y)
+                CPxy.push_back(*it);
+        };
+        pano.setCtrlPoints(CPxy);
     };
-    pano.setCtrlPoints(CPxy);
     //calculate mean and sigma
     double min,max,mean,var;
     CalculateCPStatisticsError::calcCtrlPntsErrorStats(pano,min,max,mean,var);
-    pano.setCtrlPoints(allCP);
+    if(!includeLineCp)
+    {
+        pano.setCtrlPoints(allCP);
+    };
     double limit=mean+n*sqrt(var);
 
     //now determine all control points with error > limit 
     unsigned int index=0;
     for (CPVector::const_iterator it = allCP.begin(); it != allCP.end(); it++)
     {
-        if((it->mode == ControlPoint::X_Y) && (it->error > limit))
-            CPtoRemove.insert(index);
+        if(it->error > limit)
+        {
+            if(includeLineCp)
+            {
+                // all cp are treated the same
+                // no need for further checks
+                CPtoRemove.insert(index);
+            }
+            else
+            {
+                //check only normal cp
+                if(it->mode == ControlPoint::X_Y)
+                {
+                    CPtoRemove.insert(index);
+                };
+            };
+        };
         index++;
     };
 
