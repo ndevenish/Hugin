@@ -2244,7 +2244,7 @@ void MainFrame::RunAssistant(wxWindow* mainWin)
 
     //read back panofile
     GlobalCmdHist::getInstance().addCommand(new wxLoadPTProjectCmd(pano,
-        (const char *)scriptName.mb_str(HUGIN_CONV_FILENAME),"",ret==0));
+        (const char *)scriptName.mb_str(HUGIN_CONV_FILENAME), "", ret==0, false));
 
     //delete temporary files
     wxRemoveFile(scriptName);
