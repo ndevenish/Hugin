@@ -146,6 +146,7 @@
       </object>
       <object platform="mac" class="wxMenuItem" name="action_show_prefs">
         <label>&amp;Preferences</label>
+        <accel>Ctrl-,</accel>
       </object>
     </object>
   </object>
