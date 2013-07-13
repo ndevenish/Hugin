@@ -169,9 +169,12 @@ void ImagesPanel::Init(Panorama * panorama)
 
 void DeleteClientData(wxChoice* cb)
 {
-    for(size_t i = 0; i < cb->GetCount(); i++)
+    if(cb->HasClientData())
     {
-        delete static_cast<int*>(cb->GetClientData(i));
+        for(size_t i = 0; i < cb->GetCount(); i++)
+        {
+            delete static_cast<int*>(cb->GetClientData(i));
+        };
     };
 };
 
