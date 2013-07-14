@@ -169,7 +169,7 @@ void ImagesPanel::Init(Panorama * panorama)
 
 void DeleteClientData(wxChoice* cb)
 {
-    if(cb->HasClientData())
+    if(cb->HasClientUntypedData())
     {
         for(size_t i = 0; i < cb->GetCount(); i++)
         {
