@@ -1362,12 +1362,17 @@ void ImagesTreeCtrl::OnEditImageVariables(wxCommandEvent &e)
 
 void ImagesTreeCtrl::OnBeginDrag(wxTreeEvent &e)
 {
+#if wxCHECK_VERSION(2,9,4)
+    bool ctrlPressed=wxGetKeyState(WXK_COMMAND);
+#else
+    bool ctrlPressed=wxGetKeyState(WXK_CONTROL);
+#endif
     if(m_pano->getNrOfImages()>0 && !m_dragging)
     {
         m_draggingImages=GetSelectedImages();
         if(m_draggingImages.size()>0)
         {
-            if((m_groupMode==GROUP_NONE && m_draggingImages.size()==1) ||
+            if((m_groupMode==GROUP_NONE && m_draggingImages.size()==1 && !ctrlPressed) ||
                 m_groupMode==GROUP_LENS || m_groupMode==GROUP_STACK)
             {
                 e.Allow();
