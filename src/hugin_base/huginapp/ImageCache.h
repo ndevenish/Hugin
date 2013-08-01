@@ -26,8 +26,13 @@
 
 #include <hugin_shared.h>
 #include <map>
+#include <boost/version.hpp>
 #include <boost/shared_ptr.hpp>
+#if BOOST_VERSION>=105400
+#include <boost/signals2.hpp>
+#else
 #include <boost/signal.hpp>
+#endif
 #include <vigra/stdimage.hxx>
 #include <vigra/imageinfo.hxx>
 #include <hugin_utils/utils.h>
@@ -120,7 +125,11 @@ class IMPEX ImageCache
                  *  The image could be freed after the signal fires, but keeping
                  *  the EntryPtr prevents this.
                  */
+#if BOOST_VERSION>=105400
+                boost::signals2::signal<void(EntryPtr, std::string, bool)> ready;
+#else
                 boost::signal<void(EntryPtr, std::string, bool)> ready;
+#endif
                 bool getIsSmall() const
                     {return m_isSmall;};
                 const std::string & getFilename() const

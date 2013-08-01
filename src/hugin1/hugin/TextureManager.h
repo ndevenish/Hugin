@@ -40,7 +40,14 @@
 
 #include <string>
 #include <map>
+#include <boost/version.hpp>
+#if BOOST_VERSION>=105400
+#include <boost/signals2/trackable.hpp>
+namespace boostSignal=boost::signals2;
+#else
 #include <boost/signals/trackable.hpp>
+namespace boostSignal=boost::signals;
+#endif
 #include <huginapp/ImageCache.h>
 #include "PT/Panorama.h"
 
@@ -81,7 +88,7 @@ protected:
         // If the TextureInfo is deleted while the image is loading, we want to
         // avoid a segfault when the image loaded event happens. So we let the
         // signal react to destruction of a TextureInfo.
-        : public boost::signals::trackable
+        : public boostSignal::trackable
     {
     public:
         TextureInfo(ViewState *new_view_state);
