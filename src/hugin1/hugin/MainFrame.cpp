@@ -1840,6 +1840,7 @@ void MainFrame::enableTools(bool option)
     wxMenuBar* theMenuBar = GetMenuBar();
     theMenuBar->Enable(XRCID("action_optimize"), option);
     theMenuBar->Enable(XRCID("action_finetune_all_cp"), option);
+    theMenuBar->Enable(XRCID("action_remove_cp_in_masks"), option);
     theMenuBar->Enable(XRCID("ID_SHOW_PREVIEW_FRAME"), option);
     //theMenuBar->Enable(XRCID("ID_SHOW_GL_PREVIEW_FRAME"), option);
 }
