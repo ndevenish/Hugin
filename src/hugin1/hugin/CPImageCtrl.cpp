@@ -731,7 +731,10 @@ void CPImageCtrl::OnDraw(wxDC & dc)
     // draw known points.
     for(size_t i=0; i<m_points.size(); i++)
     {
-        m_points[i].Draw(dc, editState==KNOWN_POINT_SELECTED && i==selectedPointNr);
+        if (!(editState == KNOWN_POINT_SELECTED && i==selectedPointNr))
+        {
+            m_points[i].Draw(dc, false);
+        };
     }
 
     switch(editState) {
@@ -762,6 +765,9 @@ void CPImageCtrl::OnDraw(wxDC & dc)
         break;
     case NEW_LINE_CREATING:
         m_selectedPoint.Draw(dc, false, true);
+        break;
+    case KNOWN_POINT_SELECTED:
+        m_points[selectedPointNr].Draw(dc, true);
         break;
     case NO_SELECTION:
     case NO_IMAGE:
@@ -1023,16 +1029,16 @@ void CPImageCtrl::setCtrlPoint(const HuginBase::ControlPoint& cp, const bool mir
     dcp.SetColour(pointColors[m_points.size() % pointColors.size()], textColours[m_points.size() % textColours.size()]);
     dcp.SetLabel(wxString::Format(wxT("%d"), m_points.size()));
     m_points.push_back(dcp);
-    if(editState == KNOWN_POINT_SELECTED)
-    {
-        editState = NO_SELECTION;
-    };
-    selectedPointNr = UINT_MAX;
 }
 
 void CPImageCtrl::clearCtrlPointList()
 {
     m_points.clear();
+    if(editState == KNOWN_POINT_SELECTED)
+    {
+        editState = NO_SELECTION;
+    };
+    selectedPointNr = UINT_MAX;
 };
 
 void CPImageCtrl::clearNewPoint()
