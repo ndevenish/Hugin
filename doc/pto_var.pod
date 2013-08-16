@@ -12,13 +12,9 @@ B<pto_var> is a command line tool, suitable for inclusion in shell scripts, and 
 Optimisation variables can be set, altered, linked and unlinked,  
 The following image variables are allowed:
 
-=over
-
-position: y, p, r, TrX, TrY, TrZ
-lens parameters: v, a, b, c, d, e, g, t
-photometric parameters: EeV, Er, Eb, Vb, Vc, Vd, Vx, Vy, Ra, Rb, Rc, Rd, Re (Vignetting and response parameter will treated as group.)
-
-=back
+  position: y, p, r, TrX, TrY, TrZ
+  lens parameters: v, a, b, c, d, e, g, t
+  photometric parameters: EeV, Er, Eb, Vb, Vc, Vd, Vx, Vy, Ra, Rb, Rc, Rd, Re (Vignetting and response parameter will treated as group.)
 
 The image numbers start with zero.
 If the number is missing this applies to the variables of all images (In this case a special treatment applies to the position of the anchor image).
