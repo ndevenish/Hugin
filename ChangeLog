@@ -1,3 +1,66 @@
+2013-08-16 19:54 +0100  Bruno Postle <bruno@postle.net>  (17204eeeb1e7)  
+
+	fix some warnings from podchecker
+
+	> doc/pto_lensstack.pod
+	> doc/pto_var.pod
+
+2013-08-16 19:50 +0100  Bruno Postle <bruno@postle.net>  (666186145426)  
+
+	try to fix pod2man error
+
+	> doc/deghosting_mask.pod
+
+2013-07-18 19:09 +0200  tmodes  (8776f102843c)  
+
+	Ignore dragging when ctrl key pressed for some special cases
+	[12018349 for people with nervous fingers
+
+	> src/hugin1/hugin/ImagesTree.cpp
+
+2013-07-14 09:30 +0200  tmodes  (a8f0da93fe57)  
+
+	Modified additional check in changeset 82894fb25789 for wxWidgets
+	2.8
+
+	> src/hugin1/hugin/ImagesPanel.cpp
+
+2013-07-13 15:41 +0200  tmodes  (d5db719e36a5)  
+
+	Added additional check for DeleteClientData
+
+	> src/hugin1/hugin/ImagesPanel.cpp
+
+2013-07-05 17:51 +0200  tmodes  (4345960e1939)  
+
+	Keep pano dirty after running assistant (This will ask the user if
+	changes should be saved when closing the project)
+
+	> src/hugin1/hugin/MainFrame.cpp
+	> src/hugin1/hugin/wxPanoCommand.h
+
+2013-06-28 18:34 +0200  tmodes  (18090ff3f3c8)  
+
+	[MacOS]: Use wxApp as base class for icpfind instead of wxAppConsole
+
+	An application based on wxAppConsole can not access the settings of
+	the GUI programs, but an application based on wxApp access the right
+	preferences.
+
+	> src/hugin1/icpfind/icpfind.h
+
+2013-06-26 18:03 +0200  harryvanderwolf <hvdwolf@gmail.com>  (76c3df493921)  
+
+	Added tag 2013.0.0_rc1 for changeset be937a86da37
+
+	> .hgtags
+
+2013-06-26 18:02 +0200  harryvanderwolf <hvdwolf@gmail.com>  (be937a86da37)  2013.0.0_rc1
+
+	Updated ChangeLog
+
+	> ChangeLog
+
 2013-06-23 11:44 +0200  ___matthieu___ <matthieu.desile@gmail.com>  (3fc573ff0396)  
 
 	[MacOSX] Correct the scroll handling on the GLPreviewFrame
