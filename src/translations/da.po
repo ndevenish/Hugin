@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: da\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
-"POT-Creation-Date: 2013-09-01 09:16+0200\n"
-"PO-Revision-Date: 2013-09-01 09:30+0200\n"
+"POT-Creation-Date: 2013-09-09 19:46+0200\n"
+"PO-Revision-Date: 2013-09-09 19:47+0200\n"
 "Last-Translator: Thomas Pryds <thomas@pryds.eu>\n"
 "Language-Team: Danish <da@li.org>\n"
 "Language: da\n"
@@ -35,7 +35,7 @@ msgid "Full frame fisheye"
 msgstr "Full-frame fiskeøje"
 
 #: hugin1/base_wx/LensTools.cpp:41 hugin1/base_wx/huginConfig.cpp:292
-#: hugin1/hugin/GLPreviewFrame.cpp:1495 hugin1/hugin/ImagesTree.cpp:373
+#: hugin1/hugin/GLPreviewFrame.cpp:1496 hugin1/hugin/ImagesTree.cpp:373
 #: hugin1/hugin/PreviewFrame.cpp:631
 msgid "Equirectangular"
 msgstr "Ækvirektangulært"
@@ -136,7 +136,7 @@ msgstr "Panorama Tools"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:111 hugin1/base_wx/huginConfig.cpp:57
 #: hugin1/base_wx/huginConfig.cpp:69 hugin1/base_wx/platform.cpp:131
-#: hugin1/hugin/MainFrame.cpp:1516 hugin1/hugin/MainFrame.cpp:2306
+#: hugin1/hugin/MainFrame.cpp:1516 hugin1/hugin/MainFrame.cpp:2307
 #: hugin1/hugin/PanoPanel.cpp:1187
 #, c-format
 msgid "External program %s not found in the bundle, reverting to system path"
@@ -154,10 +154,10 @@ msgstr ""
 #: hugin1/hugin/CPEditorPanel.cpp:1699 hugin1/hugin/GLViewer.cpp:287
 #: hugin1/hugin/GLViewer.cpp:299 hugin1/hugin/MainFrame.cpp:839
 #: hugin1/hugin/MainFrame.cpp:1468 hugin1/hugin/MainFrame.cpp:1516
-#: hugin1/hugin/MainFrame.cpp:2006 hugin1/hugin/MainFrame.cpp:2196
-#: hugin1/hugin/MainFrame.cpp:2268 hugin1/hugin/MainFrame.cpp:2306
-#: hugin1/hugin/MainFrame.cpp:2318 hugin1/hugin/MainFrame.cpp:2333
-#: hugin1/hugin/MainFrame.cpp:2341
+#: hugin1/hugin/MainFrame.cpp:2007 hugin1/hugin/MainFrame.cpp:2197
+#: hugin1/hugin/MainFrame.cpp:2269 hugin1/hugin/MainFrame.cpp:2307
+#: hugin1/hugin/MainFrame.cpp:2319 hugin1/hugin/MainFrame.cpp:2334
+#: hugin1/hugin/MainFrame.cpp:2342
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:277
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:306
 #: hugin1/hugin/PanoOperation.cpp:531 hugin1/hugin/PanoPanel.cpp:1016
@@ -173,13 +173,13 @@ msgid "Could not open project file:"
 msgstr "Kunne ikke åbne projektfil:"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:151 hugin1/base_wx/RunStitchPanel.cpp:318
-#: hugin1/nona_gui/nona_gui.cpp:243 hugin1/ptbatcher/ProjectArray.cpp:91
+#: hugin1/ptbatcher/ProjectArray.cpp:91
 #, c-format
 msgid "could not open script : %s"
 msgstr "kunne ikke åbne script: %s"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:172 hugin1/base_wx/RunStitchPanel.cpp:326
-#: hugin1/nona_gui/nona_gui.cpp:250 hugin1/ptbatcher/ProjectArray.cpp:128
+#: hugin1/ptbatcher/ProjectArray.cpp:128
 #, c-format
 msgid "error while parsing panotools script: %s"
 msgstr "fejl under tolkning af panotools script: %s"
@@ -270,12 +270,12 @@ msgstr ""
 #: hugin1/calibrate_lens/LensCalFrame.cpp:776
 #: hugin1/calibrate_lens/LensCalFrame.cpp:802
 #: hugin1/calibrate_lens/LensCalFrame.cpp:874
-#: hugin1/hugin/CPDetectorDialog.cpp:121 hugin1/hugin/GLPreviewFrame.cpp:1592
-#: hugin1/hugin/GLPreviewFrame.cpp:1599 hugin1/hugin/GLPreviewFrame.cpp:1606
-#: hugin1/hugin/GLPreviewFrame.cpp:1620 hugin1/hugin/GLPreviewFrame.cpp:1627
-#: hugin1/hugin/GLPreviewFrame.cpp:1634 hugin1/hugin/MainFrame.cpp:835
-#: hugin1/hugin/MainFrame.cpp:1717 hugin1/hugin/MainFrame.cpp:2272
-#: hugin1/hugin/MaskEditorPanel.cpp:479 hugin1/hugin/PreferencesDialog.cpp:863
+#: hugin1/hugin/CPDetectorDialog.cpp:121 hugin1/hugin/GLPreviewFrame.cpp:1593
+#: hugin1/hugin/GLPreviewFrame.cpp:1600 hugin1/hugin/GLPreviewFrame.cpp:1607
+#: hugin1/hugin/GLPreviewFrame.cpp:1621 hugin1/hugin/GLPreviewFrame.cpp:1628
+#: hugin1/hugin/GLPreviewFrame.cpp:1635 hugin1/hugin/MainFrame.cpp:835
+#: hugin1/hugin/MainFrame.cpp:1717 hugin1/hugin/MainFrame.cpp:2273
+#: hugin1/hugin/MaskEditorPanel.cpp:479 hugin1/hugin/PreferencesDialog.cpp:871
 #: hugin1/ptbatcher/FindPanoDialog.cpp:250
 #: hugin1/ptbatcher/FindPanoDialog.cpp:271 translations/xrc.cpp:174
 msgid "Warning"
@@ -301,7 +301,7 @@ msgstr "Kameraproducent"
 msgid "Camera model"
 msgstr "Kameramodel"
 
-#: hugin1/base_wx/huginConfig.cpp:299 hugin1/hugin/ImagesPanel.cpp:666
+#: hugin1/base_wx/huginConfig.cpp:299 hugin1/hugin/ImagesPanel.cpp:669
 #: hugin1/hugin/ImagesTree.cpp:151 hugin1/hugin/ImagesTree.cpp:1211
 #: translations/xrc.cpp:189 translations/xrc.cpp:202 translations/xrc.cpp:302
 #: translations/xrc.cpp:318
@@ -312,7 +312,7 @@ msgstr "Objektiv"
 msgid "unknown projection"
 msgstr "ukendt projektion"
 
-#: hugin1/base_wx/platform.cpp:431
+#: hugin1/base_wx/platform.cpp:470
 #, c-format
 msgid ""
 "The filename(s) contains one of the following invalid characters: %s\n"
@@ -421,7 +421,7 @@ msgstr "Model-feltet indeholder kun en tom streng."
 msgid "Save camera into database file"
 msgstr "Gem kamera i databasefil"
 
-#: hugin1/calibrate_lens/LensCalApp.cpp:66 hugin1/hugin/huginApp.cpp:192
+#: hugin1/calibrate_lens/LensCalApp.cpp:66 hugin1/hugin/huginApp.cpp:193
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:80
 msgid "xrc directory not found in bundle"
 msgstr "xrc-mappe blev ikke fundet i programpakke"
@@ -429,27 +429,27 @@ msgstr "xrc-mappe blev ikke fundet i programpakke"
 #: hugin1/calibrate_lens/LensCalApp.cpp:66
 #: hugin1/calibrate_lens/LensCalApp.cpp:74
 #: hugin1/calibrate_lens/LensCalApp.cpp:80
-#: hugin1/calibrate_lens/LensCalApp.cpp:92 hugin1/hugin/MainFrame.cpp:2001
-#: hugin1/hugin/huginApp.cpp:192 hugin1/hugin/huginApp.cpp:204
-#: hugin1/hugin/huginApp.cpp:213 hugin1/hugin/huginApp.cpp:227
+#: hugin1/calibrate_lens/LensCalApp.cpp:92 hugin1/hugin/MainFrame.cpp:2002
+#: hugin1/hugin/huginApp.cpp:193 hugin1/hugin/huginApp.cpp:221
+#: hugin1/hugin/huginApp.cpp:230 hugin1/hugin/huginApp.cpp:244
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:80 hugin1/ptbatcher/PTBatcherGUI.cpp:91
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:97 hugin1/ptbatcher/PTBatcherGUI.cpp:119
 #: hugin1/stitch_project/hugin_stitch_project.cpp:306
 msgid "Fatal Error"
 msgstr "Fatal fejl"
 
-#: hugin1/calibrate_lens/LensCalApp.cpp:74 hugin1/hugin/huginApp.cpp:204
+#: hugin1/calibrate_lens/LensCalApp.cpp:74 hugin1/hugin/huginApp.cpp:221
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:91
 #: hugin1/stitch_project/hugin_stitch_project.cpp:306
 msgid "Translations not found in bundle"
 msgstr "Oversættelser blev ikke fundet i programpakke"
 
-#: hugin1/calibrate_lens/LensCalApp.cpp:79 hugin1/hugin/huginApp.cpp:212
+#: hugin1/calibrate_lens/LensCalApp.cpp:79 hugin1/hugin/huginApp.cpp:229
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:96
 msgid "lensfun directory not found in bundle"
 msgstr "lensfun-mappe blev ikke fundet i programpakke"
 
-#: hugin1/calibrate_lens/LensCalApp.cpp:92 hugin1/hugin/huginApp.cpp:227
+#: hugin1/calibrate_lens/LensCalApp.cpp:92 hugin1/hugin/huginApp.cpp:244
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:119
 msgid ""
 "xrc directory not found, hugin needs to be properly installed\n"
@@ -743,11 +743,11 @@ msgid "No similar point found."
 msgstr "Intet lignende punkt fundet."
 
 #: hugin1/hugin/CPEditorPanel.cpp:942 hugin1/hugin/CPEditorPanel.cpp:955
-#: hugin1/hugin/GLPreviewFrame.cpp:1795 hugin1/hugin/GLPreviewFrame.cpp:1884
-#: hugin1/hugin/GLPreviewFrame.cpp:2918 hugin1/hugin/HFOVDialog.cpp:382
-#: hugin1/hugin/ImageVariableDialog.cpp:204 hugin1/hugin/ImagesPanel.cpp:548
-#: hugin1/hugin/ImagesPanel.cpp:611 hugin1/hugin/ImagesPanel.cpp:641
-#: hugin1/hugin/ImagesTree.cpp:1818 hugin1/hugin/MainFrame.cpp:696
+#: hugin1/hugin/GLPreviewFrame.cpp:1796 hugin1/hugin/GLPreviewFrame.cpp:1885
+#: hugin1/hugin/GLPreviewFrame.cpp:2919 hugin1/hugin/HFOVDialog.cpp:382
+#: hugin1/hugin/ImageVariableDialog.cpp:204 hugin1/hugin/ImagesPanel.cpp:551
+#: hugin1/hugin/ImagesPanel.cpp:614 hugin1/hugin/ImagesPanel.cpp:644
+#: hugin1/hugin/ImagesTree.cpp:1823 hugin1/hugin/MainFrame.cpp:696
 #: hugin1/hugin/MainFrame.cpp:1007 hugin1/hugin/OptimizePanel.cpp:171
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:153
 #: hugin1/hugin/PanoOperation.cpp:372 hugin1/hugin/PanoPanel.cpp:1394
@@ -789,7 +789,7 @@ msgid "Line %d"
 msgstr "Linie %d"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1229 hugin1/hugin/CPListFrame.cpp:427
-#: hugin1/hugin/GLPreviewFrame.cpp:633 hugin1/hugin/GLPreviewFrame.cpp:2985
+#: hugin1/hugin/GLPreviewFrame.cpp:634 hugin1/hugin/GLPreviewFrame.cpp:2986
 #: hugin1/hugin/PreviewFrame.cpp:234 translations/xrc.cpp:120
 msgid "normal"
 msgstr "normal"
@@ -958,54 +958,54 @@ msgstr ""
 "Træk billederne for at flytte dem (eller brug Shift for at fastlåse), eller "
 "rul ved at højre-trække eller Ctrl-trække."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:305 hugin1/hugin/GLPreviewFrame.cpp:3047
+#: hugin1/hugin/GLPreviewFrame.cpp:306 hugin1/hugin/GLPreviewFrame.cpp:3048
 msgid "Fast Panorama preview"
 msgstr "Hurtig Panorama preview"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:357 translations/xrc.cpp:804
+#: hugin1/hugin/GLPreviewFrame.cpp:358 translations/xrc.cpp:804
 #: translations/xrc.cpp:952
 msgid "Center"
 msgstr "Centrér"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:358 hugin1/hugin/GLPreviewFrame.cpp:360
+#: hugin1/hugin/GLPreviewFrame.cpp:359 hugin1/hugin/GLPreviewFrame.cpp:361
 #: translations/xrc.cpp:807 translations/xrc.cpp:940 translations/xrc.cpp:954
 msgid "Fit"
 msgstr "Tilpas"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:359 translations/xrc.cpp:809
+#: hugin1/hugin/GLPreviewFrame.cpp:360 translations/xrc.cpp:809
 #: translations/xrc.cpp:956
 msgid "Straighten"
 msgstr "Stræk"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:361 hugin1/hugin/GLPreviewFrame.cpp:2523
-#: hugin1/hugin/GLPreviewFrame.cpp:2555 hugin1/hugin/PanoPanel.cpp:976
+#: hugin1/hugin/GLPreviewFrame.cpp:362 hugin1/hugin/GLPreviewFrame.cpp:2524
+#: hugin1/hugin/GLPreviewFrame.cpp:2556 hugin1/hugin/PanoPanel.cpp:976
 #: translations/xrc.cpp:976
 msgid "Autocrop"
 msgstr "Autobeskæring"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:362 translations/xrc.cpp:978
+#: hugin1/hugin/GLPreviewFrame.cpp:363 translations/xrc.cpp:978
 msgid "HDR Autocrop"
 msgstr "HDR-autobeskæring"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:375 hugin1/hugin/GLPreviewFrame.cpp:3034
-#: hugin1/hugin/MainFrame.cpp:364 hugin1/hugin/MainFrame.cpp:2093
-#: hugin1/hugin/MainFrame.cpp:2110 translations/xrc.cpp:63
+#: hugin1/hugin/GLPreviewFrame.cpp:376 hugin1/hugin/GLPreviewFrame.cpp:3035
+#: hugin1/hugin/MainFrame.cpp:364 hugin1/hugin/MainFrame.cpp:2094
+#: hugin1/hugin/MainFrame.cpp:2111 translations/xrc.cpp:63
 #: translations/xrc.cpp:289 translations/xrc.cpp:420 translations/xrc.cpp:430
 #: translations/xrc.cpp:1041
 msgid "&File"
 msgstr "&Fil"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:394 hugin1/hugin/PreviewFrame.cpp:135
+#: hugin1/hugin/GLPreviewFrame.cpp:395 hugin1/hugin/PreviewFrame.cpp:135
 msgid "displayed images"
 msgstr "Viste billeder"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:411 hugin1/hugin/GLPreviewFrame.cpp:424
+#: hugin1/hugin/GLPreviewFrame.cpp:412 hugin1/hugin/GLPreviewFrame.cpp:425
 #: translations/xrc.cpp:817
 msgid "All"
 msgstr "Alle"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:419 hugin1/hugin/GLPreviewFrame.cpp:425
-#: hugin1/hugin/ImagesPanel.cpp:663 translations/xrc.cpp:580
+#: hugin1/hugin/GLPreviewFrame.cpp:420 hugin1/hugin/GLPreviewFrame.cpp:426
+#: hugin1/hugin/ImagesPanel.cpp:666 translations/xrc.cpp:580
 #: translations/xrc.cpp:585 translations/xrc.cpp:642 translations/xrc.cpp:645
 #: translations/xrc.cpp:738 translations/xrc.cpp:819 translations/xrc.cpp:862
 #: translations/xrc.cpp:874 translations/xrc.cpp:893 translations/xrc.cpp:945
@@ -1013,63 +1013,63 @@ msgstr "Alle"
 msgid "None"
 msgstr "Ingen"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:440
+#: hugin1/hugin/GLPreviewFrame.cpp:441
 msgid "Hide"
 msgstr "Gem"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:489 hugin1/hugin/PreviewFrame.cpp:172
+#: hugin1/hugin/GLPreviewFrame.cpp:490 hugin1/hugin/PreviewFrame.cpp:172
 msgid "VFOV"
 msgstr "VFOV"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:493 hugin1/hugin/PreviewFrame.cpp:176
+#: hugin1/hugin/GLPreviewFrame.cpp:494 hugin1/hugin/PreviewFrame.cpp:176
 msgid "drag to change the vertical field of view"
 msgstr "træk for at ændre lodret synsfelt (VFOV)"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:502 hugin1/hugin/PreviewFrame.cpp:185
+#: hugin1/hugin/GLPreviewFrame.cpp:503 hugin1/hugin/PreviewFrame.cpp:185
 msgid "HFOV"
 msgstr "HFOV"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:507 hugin1/hugin/PreviewFrame.cpp:190
+#: hugin1/hugin/GLPreviewFrame.cpp:508 hugin1/hugin/PreviewFrame.cpp:190
 msgid "drag to change the horizontal field of view"
 msgstr "træk for at ændre vandret synsfelt (HFOV)"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:562 translations/xrc.cpp:285
+#: hugin1/hugin/GLPreviewFrame.cpp:563 translations/xrc.cpp:285
 #: translations/xrc.cpp:459 translations/xrc.cpp:853 translations/xrc.cpp:935
 msgid "Preview"
 msgstr "Preview"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:575
+#: hugin1/hugin/GLPreviewFrame.cpp:576
 msgid "Overview"
 msgstr "Overblik"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:686 hugin1/hugin/PreviewFrame.cpp:304
+#: hugin1/hugin/GLPreviewFrame.cpp:687 hugin1/hugin/PreviewFrame.cpp:304
 msgid "Resets the projection's parameters to their default values."
 msgstr "Nulstiller projektionens parametre til deres udgangspunkt."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:695 hugin1/hugin/PreviewFrame.cpp:313
+#: hugin1/hugin/GLPreviewFrame.cpp:696 hugin1/hugin/PreviewFrame.cpp:313
 msgid "param:"
 msgstr "param:"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:977
+#: hugin1/hugin/GLPreviewFrame.cpp:978
 msgid "No images loaded."
 msgstr "Ingen billeder indlæst."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:1012
+#: hugin1/hugin/GLPreviewFrame.cpp:1013
 #, c-format
 msgid "%lu images loaded."
 msgstr "%lu billeder indlæst."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:1028
+#: hugin1/hugin/GLPreviewFrame.cpp:1029
 #, c-format
 msgid "Images are connected by %lu control points.\n"
 msgstr "Billederne er forbundet ved %lu kontrolpunkter.\n"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:1039
+#: hugin1/hugin/GLPreviewFrame.cpp:1040
 #, c-format
 msgid "%d unconnected image groups found: "
 msgstr "%d uforbundne billedgrupper fundet:"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:1040
+#: hugin1/hugin/GLPreviewFrame.cpp:1041
 msgid ""
 "Please use the Control Points tab to connect all images with control "
 "points.\n"
@@ -1077,19 +1077,19 @@ msgstr ""
 "Brug venligst Kontrolpunkter-fanebladet for at forbinde alle billeder med "
 "kontrolpunkter.\n"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:1046
+#: hugin1/hugin/GLPreviewFrame.cpp:1047
 msgid "Images or control points have changed, new alignment is needed."
 msgstr "Billeder eller kontrolpunkter er ændret; ny positionering nødvendig."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:1060
+#: hugin1/hugin/GLPreviewFrame.cpp:1061
 msgid "Very good fit."
 msgstr "Meget god pasning."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:1062
+#: hugin1/hugin/GLPreviewFrame.cpp:1063
 msgid "Good fit."
 msgstr "God pasning."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:1064
+#: hugin1/hugin/GLPreviewFrame.cpp:1065
 msgid ""
 "Bad fit, some control points might be bad, or there are parallax and "
 "movement errors"
@@ -1097,7 +1097,7 @@ msgstr ""
 "Dårlig pasning. Nogle kontrolpunkter kan være dårlige, eller der kan være "
 "parallax- eller forskubningsfejl"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:1066
+#: hugin1/hugin/GLPreviewFrame.cpp:1067
 msgid ""
 "Very bad fit. Check for bad control points, lens parameters, or images with "
 "parallax or movement. The optimizer might have failed. Manual intervention "
@@ -1107,12 +1107,12 @@ msgstr ""
 "eller billeder med parallax eller forskubning. Optimeringen kan have fejlet. "
 "Manuel indgriben er nødvendig."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:1068
+#: hugin1/hugin/GLPreviewFrame.cpp:1069
 #, c-format
 msgid "Mean error after optimization: %.1f pixel, max: %.1f\n"
 msgstr "Middelværdi for fejl efter optimering: %.1f pixel, max: %.1f\n"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:1078
+#: hugin1/hugin/GLPreviewFrame.cpp:1079
 msgid ""
 "Note: automatic alignment uses default settings from the preferences. If you "
 "want to use customized settings, run the CP detection, the geometrical "
@@ -1124,47 +1124,47 @@ msgstr ""
 "projekt, kør da CP-lokalisering, den geometriske optimering og den "
 "fotometriske optimering fra Fotografier-fanebladet i panorama-redigeringen."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:1493 hugin1/hugin/PreviewFrame.cpp:629
+#: hugin1/hugin/GLPreviewFrame.cpp:1494 hugin1/hugin/PreviewFrame.cpp:629
 msgid "Rectilinear"
 msgstr "Retliniet"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:1494 hugin1/hugin/PreviewFrame.cpp:630
+#: hugin1/hugin/GLPreviewFrame.cpp:1495 hugin1/hugin/PreviewFrame.cpp:630
 msgid "Cylindrical"
 msgstr "Cylindrisk"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:1592 hugin1/hugin/PreviewFrame.cpp:734
+#: hugin1/hugin/GLPreviewFrame.cpp:1593 hugin1/hugin/PreviewFrame.cpp:734
 msgid "Yaw value must be numeric."
 msgstr "Yaw-værdi skal være numerisk."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:1599 hugin1/hugin/PreviewFrame.cpp:740
+#: hugin1/hugin/GLPreviewFrame.cpp:1600 hugin1/hugin/PreviewFrame.cpp:740
 msgid "Pitch value must be numeric."
 msgstr "Pitch-værdi skal være numerisk."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:1606 hugin1/hugin/PreviewFrame.cpp:746
+#: hugin1/hugin/GLPreviewFrame.cpp:1607 hugin1/hugin/PreviewFrame.cpp:746
 msgid "Roll value must be numeric."
 msgstr "Roll-værdi skal være numerisk."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:1620
+#: hugin1/hugin/GLPreviewFrame.cpp:1621
 msgid "X value must be numeric."
 msgstr "X-værdi skal være numerisk."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:1627
+#: hugin1/hugin/GLPreviewFrame.cpp:1628
 msgid "Y value must be numeric."
 msgstr "Y-værdi skal være numerisk."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:1634
+#: hugin1/hugin/GLPreviewFrame.cpp:1635
 msgid "Z value must be numeric."
 msgstr "Z-værdi skal være numerisk."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:1653 hugin1/hugin/GLPreviewFrame.cpp:1675
-#: hugin1/hugin/GLPreviewFrame.cpp:2764 hugin1/hugin/GLPreviewFrame.cpp:2795
+#: hugin1/hugin/GLPreviewFrame.cpp:1654 hugin1/hugin/GLPreviewFrame.cpp:1676
+#: hugin1/hugin/GLPreviewFrame.cpp:2765 hugin1/hugin/GLPreviewFrame.cpp:2796
 #: hugin1/hugin/ImageVariableDialog.cpp:222 hugin1/hugin/PanoPanel.cpp:615
 #: hugin1/hugin/PanoPanel.cpp:646 hugin1/hugin/PreviewFrame.cpp:769
-#: hugin1/hugin/PreviewFrame.cpp:784 hugin1/hugin/huginApp.cpp:82
+#: hugin1/hugin/PreviewFrame.cpp:784 hugin1/hugin/huginApp.cpp:83
 msgid "Value must be numeric."
 msgstr "Værdi skal være numerisk."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:1793 hugin1/hugin/GLPreviewFrame.cpp:1882
+#: hugin1/hugin/GLPreviewFrame.cpp:1794 hugin1/hugin/GLPreviewFrame.cpp:1883
 msgid ""
 "The mosaic/plane mode works only correct for a remapping plane of yaw=0 and "
 "pitch=0.\n"
@@ -1176,50 +1176,50 @@ msgstr ""
 "Men dit projekt hat Tpy- og Tpp-parametre, der ikke er nul.\n"
 "Skal Tpy- og Tpp-parametrene sættes til nul?"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:2497 hugin1/hugin/PreviewFrame.cpp:235
+#: hugin1/hugin/GLPreviewFrame.cpp:2498 hugin1/hugin/PreviewFrame.cpp:235
 msgid "difference"
 msgstr "forskel"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:2523 hugin1/hugin/GLPreviewFrame.cpp:2555
+#: hugin1/hugin/GLPreviewFrame.cpp:2524 hugin1/hugin/GLPreviewFrame.cpp:2556
 #: hugin1/hugin/PanoPanel.cpp:976
 msgid "Calculating optimal crop"
 msgstr "Beregner optimal beskæring"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:2710 hugin1/hugin/PanoPanel.cpp:725
+#: hugin1/hugin/GLPreviewFrame.cpp:2711 hugin1/hugin/PanoPanel.cpp:725
 msgid "Top needs to be an integer bigger than 0"
 msgstr "top skal være et heltal større end 0"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:2714 hugin1/hugin/PanoPanel.cpp:729
+#: hugin1/hugin/GLPreviewFrame.cpp:2715 hugin1/hugin/PanoPanel.cpp:729
 msgid "left needs to be an integer bigger than 0"
 msgstr "venstre skal være et heltal større end 0"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:2718 hugin1/hugin/PanoPanel.cpp:733
+#: hugin1/hugin/GLPreviewFrame.cpp:2719 hugin1/hugin/PanoPanel.cpp:733
 msgid "right needs to be an integer bigger than 0"
 msgstr "højre skal være et heltal større end 0"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:2722 hugin1/hugin/PanoPanel.cpp:737
+#: hugin1/hugin/GLPreviewFrame.cpp:2723 hugin1/hugin/PanoPanel.cpp:737
 msgid "bottom needs to be an integer bigger than 0"
 msgstr "bund skal være et heltal større end 0"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:2728
+#: hugin1/hugin/GLPreviewFrame.cpp:2729
 msgid "left boundary must be smaller than right"
 msgstr "venstre kant skal være mindre end højre"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:2734
+#: hugin1/hugin/GLPreviewFrame.cpp:2735
 msgid "top boundary must be smaller than bottom"
 msgstr "topkant skal være mindre end bundkant"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:2770 hugin1/hugin/PanoPanel.cpp:621
+#: hugin1/hugin/GLPreviewFrame.cpp:2771 hugin1/hugin/PanoPanel.cpp:621
 #, c-format
 msgid "Invalid HFOV value. Maximum HFOV for this projection is %lf."
 msgstr "Ugyldig HFOV-værdi. Maksimal HFOV for denne projektion er %lf."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:2801 hugin1/hugin/PanoPanel.cpp:652
+#: hugin1/hugin/GLPreviewFrame.cpp:2802 hugin1/hugin/PanoPanel.cpp:652
 #, c-format
 msgid "Invalid VFOV value. Maximum VFOV for this projection is %lf."
 msgstr "Ugyldig VFOV-værdi. Maksimal VFOV for denne projektion er %lf."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:2839
+#: hugin1/hugin/GLPreviewFrame.cpp:2840
 msgid ""
 "With a wide field of view, panoramas with rectilinear projection get very "
 "stretched towards the edges.\n"
@@ -1227,7 +1227,7 @@ msgstr ""
 "Med et bredt synsfelt bliver panoramaer med retliniet projektion meget "
 "strukket hen imod kanterne.\n"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:2841
+#: hugin1/hugin/GLPreviewFrame.cpp:2842
 msgid ""
 "Since the field of view is only very wide in the horizontal direction, try a "
 "cylindrical projection instead."
@@ -1235,15 +1235,15 @@ msgstr ""
 "Da synsfeltet kun er meget bredt i den vandrette retning, prøv i stedet "
 "cylindrisk projektion."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:2843
+#: hugin1/hugin/GLPreviewFrame.cpp:2844
 msgid "For a very wide panorama, try equirectangular projection instead."
 msgstr "For et meget bredt panorama, prøv ekvirektangulær projektion i stedet."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:2845
+#: hugin1/hugin/GLPreviewFrame.cpp:2846
 msgid " You could also try Panini projection."
 msgstr "Du kan også prøve Panini-projektion."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:2850
+#: hugin1/hugin/GLPreviewFrame.cpp:2851
 msgid ""
 "With a wide vertical field of view, panoramas with cylindrical projection "
 "get very stretched at the top and bottom.\n"
@@ -1255,7 +1255,7 @@ msgstr ""
 "En ekvirektangulær projektion vil have det samme indhold på mindre lodret "
 "plads."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:2856
+#: hugin1/hugin/GLPreviewFrame.cpp:2857
 msgid ""
 "Since the vertical field of view is not too wide, you could try setting the "
 "panorama projection to cylindrical.\n"
@@ -1266,7 +1266,7 @@ msgstr ""
 "Cylindrisk projektion bevarer lodrette linier, modsat ekvirektangulær "
 "projektion."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:2862
+#: hugin1/hugin/GLPreviewFrame.cpp:2863
 msgid ""
 "Stereographic projection is conformal, unlike this Fisheye panorama "
 "projection.\n"
@@ -1277,7 +1277,7 @@ msgstr ""
 "En konform projektion bevarer vinkler omkring et punkt, hvilket ofte gør det "
 "pænere at kigge på."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:2867
+#: hugin1/hugin/GLPreviewFrame.cpp:2868
 msgid ""
 "Panoramas with stereographic projection and a very wide field of view "
 "stretch the image around the edges a lot.\n"
@@ -1289,7 +1289,7 @@ msgstr ""
 "Fiskeøje-panorama-projektion trykker det mere sammen, så du kan få et bredt "
 "synsfelt men stadig have en fornuftig dækning af midten."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:2874
+#: hugin1/hugin/GLPreviewFrame.cpp:2875
 msgid ""
 "Setting the panorama to rectilinear projection would keep the straight lines "
 "straight."
@@ -1297,7 +1297,7 @@ msgstr ""
 "Ved at sætte panorama til retliniet projektion bevares rette linier som "
 "rette."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:2916
+#: hugin1/hugin/GLPreviewFrame.cpp:2917
 msgid ""
 "You have hidden the infobar, which shows hints about selection of "
 "projection.\n"
@@ -1306,23 +1306,23 @@ msgstr ""
 "Du har skjult infobaren, som viser hints om valg og projektion.\n"
 "Hvis du vil se baren igen, aktivér den da igen i indstillingerne."
 
-#: hugin1/hugin/GLPreviewFrame.cpp:2986
+#: hugin1/hugin/GLPreviewFrame.cpp:2987
 msgid "normal, individual"
 msgstr "normal, individuel"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:2989
+#: hugin1/hugin/GLPreviewFrame.cpp:2990
 msgid "mosaic"
 msgstr "mosaik"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:2990
+#: hugin1/hugin/GLPreviewFrame.cpp:2991
 msgid "mosaic, individual"
 msgstr "mosaik, individuel"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:3010
+#: hugin1/hugin/GLPreviewFrame.cpp:3011
 msgid "Panosphere"
 msgstr "Panosfære"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:3013
+#: hugin1/hugin/GLPreviewFrame.cpp:3014
 msgid "Mosaic plane"
 msgstr "Mosaikplan"
 
@@ -1400,7 +1400,7 @@ msgid "The crop factor must be positive."
 msgstr "Beskæringsfaktoren skal være positiv."
 
 #: hugin1/hugin/HFOVDialog.cpp:380 hugin1/hugin/ImageVariableDialog.cpp:202
-#: hugin1/hugin/ImagesPanel.cpp:546 hugin1/hugin/ImagesTree.cpp:1816
+#: hugin1/hugin/ImagesPanel.cpp:549 hugin1/hugin/ImagesTree.cpp:1821
 #, c-format
 msgid ""
 "You have given a field of view of %.2f degrees.\n"
@@ -1438,122 +1438,122 @@ msgstr "Antal masker"
 msgid "Crop"
 msgstr "Beskæring"
 
-#: hugin1/hugin/ImagesPanel.cpp:312
+#: hugin1/hugin/ImagesPanel.cpp:315
 msgid "Enter maximal number of control points per image pair"
 msgstr "Indtast maksimalt antal kontrolpunkter pr. billedpar"
 
-#: hugin1/hugin/ImagesPanel.cpp:313
+#: hugin1/hugin/ImagesPanel.cpp:316
 msgid "Points per Overlap"
 msgstr "Punkter per overlapning"
 
-#: hugin1/hugin/ImagesPanel.cpp:314
+#: hugin1/hugin/ImagesPanel.cpp:317
 msgid "Control point detector option"
 msgstr "Indstillinger for kontrolpunkt-detektor"
 
-#: hugin1/hugin/ImagesPanel.cpp:332
+#: hugin1/hugin/ImagesPanel.cpp:335
 #, c-format
 msgid "Added %lu control points"
 msgstr "Tilføjede %lu kontrolpunkter"
 
-#: hugin1/hugin/ImagesPanel.cpp:332
+#: hugin1/hugin/ImagesPanel.cpp:335
 msgid "Control point detector result"
 msgstr "Resultat af kontrolpunkt-detektor"
 
-#: hugin1/hugin/ImagesPanel.cpp:609
+#: hugin1/hugin/ImagesPanel.cpp:612
 msgid "The minimum overlap has to be greater than 0 and smaller than 1."
 msgstr "Den minimale overlapning skal være større end 0 og mindre end 1."
 
-#: hugin1/hugin/ImagesPanel.cpp:639
+#: hugin1/hugin/ImagesPanel.cpp:642
 msgid "The maximum Ev difference has to be greater than 0."
 msgstr "Den maksimale EV-forskel skal være større end 0."
 
-#: hugin1/hugin/ImagesPanel.cpp:671 hugin1/hugin/ImagesTree.cpp:1223
+#: hugin1/hugin/ImagesPanel.cpp:674 hugin1/hugin/ImagesTree.cpp:1223
 msgid "Stacks"
 msgstr "Stakke"
 
-#: hugin1/hugin/ImagesPanel.cpp:676
+#: hugin1/hugin/ImagesPanel.cpp:679
 msgid "Output layers"
 msgstr "Output-lag"
 
-#: hugin1/hugin/ImagesPanel.cpp:679
+#: hugin1/hugin/ImagesPanel.cpp:682
 msgid "Output stacks"
 msgstr "Output-stakke"
 
-#: hugin1/hugin/ImagesPanel.cpp:697
+#: hugin1/hugin/ImagesPanel.cpp:700
 msgid "Positions (incremental, starting from anchor)"
 msgstr "Positioner (fortløbende, startende fra anker)"
 
-#: hugin1/hugin/ImagesPanel.cpp:700
+#: hugin1/hugin/ImagesPanel.cpp:703
 msgid "Positions (y,p,r)"
 msgstr "Positioner (y,p,r)"
 
-#: hugin1/hugin/ImagesPanel.cpp:703
+#: hugin1/hugin/ImagesPanel.cpp:706
 msgid "Positions and View (y,p,r,v)"
 msgstr "Positioner og synsfeltvinkel (y,p,r,v)"
 
-#: hugin1/hugin/ImagesPanel.cpp:706
+#: hugin1/hugin/ImagesPanel.cpp:709
 msgid "Positions and Barrel Distortion (y,p,r,b)"
 msgstr "Positioner og tøndeforvrængning (y,p,r,b)"
 
-#: hugin1/hugin/ImagesPanel.cpp:709
+#: hugin1/hugin/ImagesPanel.cpp:712
 msgid "Positions, View and Barrel (y,p,r,v,b)"
 msgstr "Positioner, synsfeltvinkel og tøndeforvrængning (y,p,r,v,b)"
 
-#: hugin1/hugin/ImagesPanel.cpp:714
+#: hugin1/hugin/ImagesPanel.cpp:717
 msgid "Everything without translation"
 msgstr "Alt undtagen translatering"
 
-#: hugin1/hugin/ImagesPanel.cpp:718
+#: hugin1/hugin/ImagesPanel.cpp:721
 msgid "Everything"
 msgstr "Alt"
 
-#: hugin1/hugin/ImagesPanel.cpp:724
+#: hugin1/hugin/ImagesPanel.cpp:727
 msgid "Positions and Translation (y,p,r,x,y,z)"
 msgstr "Positioner og translatering (y,p,r,x,y,z)"
 
-#: hugin1/hugin/ImagesPanel.cpp:727
+#: hugin1/hugin/ImagesPanel.cpp:730
 msgid "Positions, Translation and View (y,p,r,x,y,z,v)"
 msgstr "Positioner, translatering og synsfeltvinkel (y,p,r,x,y,z,v)"
 
-#: hugin1/hugin/ImagesPanel.cpp:730
+#: hugin1/hugin/ImagesPanel.cpp:733
 msgid "Positions, Translation and Barrel (y,p,r,x,y,z,b)"
 msgstr "Positioner, translatering og tøndeforvrængning (y,p,r,x,y,z,b)"
 
-#: hugin1/hugin/ImagesPanel.cpp:733
+#: hugin1/hugin/ImagesPanel.cpp:736
 msgid "Positions, Translation, View and Barrel (y,p,r,x,y,z,v,b)"
 msgstr ""
 "Positioner, translatering, synsfeltvinkel og tøndeforvrængning (y,p,r,x,y,z,"
 "v,b)"
 
-#: hugin1/hugin/ImagesPanel.cpp:737 hugin1/hugin/ImagesPanel.cpp:758
+#: hugin1/hugin/ImagesPanel.cpp:740 hugin1/hugin/ImagesPanel.cpp:761
 msgid "Custom parameters"
 msgstr "Brugerdefinerede parametre"
 
-#: hugin1/hugin/ImagesPanel.cpp:743
+#: hugin1/hugin/ImagesPanel.cpp:746
 msgid "Low dynamic range"
 msgstr "Low dynamic range"
 
-#: hugin1/hugin/ImagesPanel.cpp:746
+#: hugin1/hugin/ImagesPanel.cpp:749
 msgid "Low dynamic range, variable white balance"
 msgstr "Low dynamic range, variabel hvidbalance"
 
-#: hugin1/hugin/ImagesPanel.cpp:751
+#: hugin1/hugin/ImagesPanel.cpp:754
 msgid "High dynamic range, fixed exposure"
 msgstr "High Dynamic Range, eksponeringskorrektion"
 
-#: hugin1/hugin/ImagesPanel.cpp:754
+#: hugin1/hugin/ImagesPanel.cpp:757
 msgid "High dynamic range, variable white balance, fixed exposure"
 msgstr "High Dynamic Range, variabel hvidbalance, eksponeringskorrektion"
 
-#: hugin1/hugin/ImagesPanel.cpp:816
+#: hugin1/hugin/ImagesPanel.cpp:819
 msgid "Simple interface"
 msgstr "Simpel brugerflade"
 
-#: hugin1/hugin/ImagesPanel.cpp:819
+#: hugin1/hugin/ImagesPanel.cpp:822
 msgid "Advanced interface"
 msgstr "Avanceret brugerflade"
 
-#: hugin1/hugin/ImagesPanel.cpp:822
+#: hugin1/hugin/ImagesPanel.cpp:825
 msgid "Expert interface"
 msgstr "Ekspertbrugerflade"
 
@@ -1968,15 +1968,15 @@ msgstr "gemte projekt %s"
 #: hugin1/hugin/MainFrame.cpp:820 hugin1/hugin/MainFrame.cpp:826
 #: hugin1/hugin/MainFrame.cpp:945 hugin1/hugin/MainFrame.cpp:951
 #: hugin1/hugin/MainFrame.cpp:1047 hugin1/hugin/MainFrame.cpp:1053
-#: hugin1/hugin/MainFrame.cpp:2096 hugin1/hugin/MainFrame.cpp:2102
-#: hugin1/hugin/MainFrame.cpp:2113 hugin1/hugin/MainFrame.cpp:2118
+#: hugin1/hugin/MainFrame.cpp:2097 hugin1/hugin/MainFrame.cpp:2103
+#: hugin1/hugin/MainFrame.cpp:2114 hugin1/hugin/MainFrame.cpp:2119
 #: translations/xrc.cpp:329
 msgid "Hugin - Panorama Stitcher"
 msgstr "Hugin - Panorama-sammenføjning"
 
 #: hugin1/hugin/MainFrame.cpp:822 hugin1/hugin/MainFrame.cpp:947
-#: hugin1/hugin/MainFrame.cpp:1049 hugin1/hugin/MainFrame.cpp:2097
-#: hugin1/hugin/MainFrame.cpp:2103
+#: hugin1/hugin/MainFrame.cpp:1049 hugin1/hugin/MainFrame.cpp:2098
+#: hugin1/hugin/MainFrame.cpp:2104
 msgid "Panorama editor"
 msgstr "Panorama-editor"
 
@@ -2033,8 +2033,8 @@ msgid "Open project file"
 msgstr "Åbn projektfil"
 
 #: hugin1/hugin/MainFrame.cpp:997 hugin1/hugin/MainFrame.cpp:1437
-#: hugin1/hugin/MainFrame.cpp:1482 hugin1/ptbatcher/Batch.cpp:728
-#: hugin1/ptbatcher/BatchFrame.cpp:382 hugin1/ptbatcher/BatchFrame.cpp:410
+#: hugin1/hugin/MainFrame.cpp:1482 hugin1/ptbatcher/Batch.cpp:591
+#: hugin1/ptbatcher/BatchFrame.cpp:381 hugin1/ptbatcher/BatchFrame.cpp:409
 #: hugin1/stitch_project/hugin_stitch_project.cpp:378
 msgid ""
 "Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files "
@@ -2124,7 +2124,7 @@ msgstr "Vælg Python-script"
 msgid "Python script (*.py)|*.py|All files (*.*)|*.*"
 msgstr "Python-script (*.py)|*.py|Alle filer (*.*)|*.*"
 
-#: hugin1/hugin/MainFrame.cpp:1974
+#: hugin1/hugin/MainFrame.cpp:1975
 #, c-format
 msgid ""
 "File \"%s\" not found.\n"
@@ -2133,13 +2133,13 @@ msgstr ""
 "Fil \"%s\" ikke fundet.\n"
 "Måske er den blevet omdøbt, flyttet eller slettet."
 
-#: hugin1/hugin/MainFrame.cpp:1975 hugin1/ptbatcher/Batch.cpp:397
-#: hugin1/ptbatcher/Batch.cpp:878 hugin1/ptbatcher/Batch.cpp:900
-#: hugin1/ptbatcher/Batch.cpp:1154
+#: hugin1/hugin/MainFrame.cpp:1976 hugin1/ptbatcher/Batch.cpp:312
+#: hugin1/ptbatcher/Batch.cpp:731 hugin1/ptbatcher/Batch.cpp:747
+#: hugin1/ptbatcher/Batch.cpp:945
 msgid "Error!"
 msgstr "Fejl!"
 
-#: hugin1/hugin/MainFrame.cpp:2001
+#: hugin1/hugin/MainFrame.cpp:2002
 #, c-format
 msgid ""
 "Celeste model expected in %s not found, Hugin needs to be properly installed."
@@ -2147,12 +2147,12 @@ msgstr ""
 "Celeste-model forventet i %s blev ikke fundet. Hugin skal installeres "
 "korrekt."
 
-#: hugin1/hugin/MainFrame.cpp:2006
+#: hugin1/hugin/MainFrame.cpp:2007
 #, c-format
 msgid "Could not load Celeste model file %s"
 msgstr "Kunne ikke indlæse Celeste-modelfil %s"
 
-#: hugin1/hugin/MainFrame.cpp:2138
+#: hugin1/hugin/MainFrame.cpp:2139
 msgid ""
 "Can't switch to simple interface. The project is using stacks and/or "
 "vignetting center shift.\n"
@@ -2162,7 +2162,7 @@ msgstr ""
 "vignetteringsforskydning.\n"
 "Disse funktioner understøttes ikke i den simple brugerflade."
 
-#: hugin1/hugin/MainFrame.cpp:2148
+#: hugin1/hugin/MainFrame.cpp:2149
 msgid ""
 "Can't switch to simple interface. The project is using translation or shear "
 "parameters.\n"
@@ -2172,7 +2172,7 @@ msgstr ""
 "eller forvridningsparametre.\n"
 "Disse parametre understøttes ikke i den simple brugerflade."
 
-#: hugin1/hugin/MainFrame.cpp:2169
+#: hugin1/hugin/MainFrame.cpp:2170
 msgid ""
 "Can't switch to advanced interface. The project is using translation or "
 "shear parameters.\n"
@@ -2182,7 +2182,7 @@ msgstr ""
 "translaterings- eller forvridningsparametre.\n"
 "Disse parametre understøttes ikke i den avancerede brugerflade."
 
-#: hugin1/hugin/MainFrame.cpp:2196
+#: hugin1/hugin/MainFrame.cpp:2197
 msgid ""
 "At least two images are required.\n"
 "Please add more images."
@@ -2190,16 +2190,16 @@ msgstr ""
 "Mindst to billeder er påkrævet.\n"
 "Tilføj venligst flere billeder."
 
-#: hugin1/hugin/MainFrame.cpp:2243
+#: hugin1/hugin/MainFrame.cpp:2244
 msgid "Running assistant"
 msgstr "Kører assistent"
 
-#: hugin1/hugin/MainFrame.cpp:2267
+#: hugin1/hugin/MainFrame.cpp:2268
 #, c-format
 msgid "Warning %d unconnected image groups found:"
 msgstr "Advarsel: %d uforbundne billedgrupper er fundet:"
 
-#: hugin1/hugin/MainFrame.cpp:2268
+#: hugin1/hugin/MainFrame.cpp:2269
 msgid ""
 "Please create control points between unconnected images using the Control "
 "Points tab.\n"
@@ -2211,7 +2211,7 @@ msgstr ""
 "\n"
 "Efter at have tilføjet punkterne, klik på \"Positionér\"-knappen igen"
 
-#: hugin1/hugin/MainFrame.cpp:2271
+#: hugin1/hugin/MainFrame.cpp:2272
 msgid ""
 "The assistant did not complete successfully. Please check the resulting "
 "project file."
@@ -2219,15 +2219,15 @@ msgstr ""
 "Assistenten afsluttede ikke med succes. Check venligst den resulterende "
 "projektfil."
 
-#: hugin1/hugin/MainFrame.cpp:2318
+#: hugin1/hugin/MainFrame.cpp:2319
 msgid "Project file not found"
 msgstr "Projektfil ikke fundet"
 
-#: hugin1/hugin/MainFrame.cpp:2333
+#: hugin1/hugin/MainFrame.cpp:2334
 msgid "Can't launch PTBatcherGui"
 msgstr "Kan ikke køre PTBatcherGui"
 
-#: hugin1/hugin/MainFrame.cpp:2341
+#: hugin1/hugin/MainFrame.cpp:2342
 msgid "Launched incorrect programme"
 msgstr "Kørte ukorrekt program"
 
@@ -2765,7 +2765,7 @@ msgid "Could not create temporary project file"
 msgstr "Kunne ikke oprette midlertidig projektfil"
 
 #: hugin1/hugin/PanoPanel.cpp:1061 hugin1/hugin/PanoPanel.cpp:1158
-#: hugin1/ptbatcher/Batch.cpp:735
+#: hugin1/ptbatcher/Batch.cpp:598
 #: hugin1/stitch_project/hugin_stitch_project.cpp:402
 msgid "Specify output prefix"
 msgstr "Angiv outputpræfiks"
@@ -2824,128 +2824,108 @@ msgstr "Systemstandard"
 msgid "Basque"
 msgstr "baskisk"
 
-#: hugin1/hugin/PreferencesDialog.cpp:119
-msgid "Bulgarian"
-msgstr "Bulgarsk"
-
-#: hugin1/hugin/PreferencesDialog.cpp:122
-msgid "Catalan"
-msgstr "Catalan"
-
-#: hugin1/hugin/PreferencesDialog.cpp:125
+#: hugin1/hugin/PreferencesDialog.cpp:127
 msgid "Chinese (Simplified)"
 msgstr "Kinesisk (simplificeret)"
 
-#: hugin1/hugin/PreferencesDialog.cpp:128
+#: hugin1/hugin/PreferencesDialog.cpp:130
 msgid "Chinese (Traditional)"
 msgstr "Kinesisk (traditionelt)"
 
-#: hugin1/hugin/PreferencesDialog.cpp:131
+#: hugin1/hugin/PreferencesDialog.cpp:133
 msgid "Czech"
 msgstr "Tjekkisk"
 
-#: hugin1/hugin/PreferencesDialog.cpp:134
+#: hugin1/hugin/PreferencesDialog.cpp:136
 msgid "Danish"
 msgstr "Dansk"
 
-#: hugin1/hugin/PreferencesDialog.cpp:137
+#: hugin1/hugin/PreferencesDialog.cpp:139
 msgid "Dutch"
 msgstr "Hollandsk"
 
-#: hugin1/hugin/PreferencesDialog.cpp:140
+#: hugin1/hugin/PreferencesDialog.cpp:142
 msgid "English"
 msgstr "Engelsk"
 
-#: hugin1/hugin/PreferencesDialog.cpp:143
+#: hugin1/hugin/PreferencesDialog.cpp:145
 msgid "French"
 msgstr "Fransk"
 
-#: hugin1/hugin/PreferencesDialog.cpp:146
+#: hugin1/hugin/PreferencesDialog.cpp:148
 msgid "German"
 msgstr "Tysk"
 
-#: hugin1/hugin/PreferencesDialog.cpp:149
+#: hugin1/hugin/PreferencesDialog.cpp:151
 msgid "Hungarian"
 msgstr "Ungarsk"
 
-#: hugin1/hugin/PreferencesDialog.cpp:152
+#: hugin1/hugin/PreferencesDialog.cpp:154
 msgid "Italian"
 msgstr "Italiensk"
 
-#: hugin1/hugin/PreferencesDialog.cpp:155
+#: hugin1/hugin/PreferencesDialog.cpp:157
 msgid "Japanese"
 msgstr "Japansk"
 
-#: hugin1/hugin/PreferencesDialog.cpp:158
-msgid "Korean"
-msgstr "Koreansk"
-
-#: hugin1/hugin/PreferencesDialog.cpp:161
+#: hugin1/hugin/PreferencesDialog.cpp:165
 msgid "Polish"
 msgstr "Polsk"
 
-#: hugin1/hugin/PreferencesDialog.cpp:164
+#: hugin1/hugin/PreferencesDialog.cpp:168
 msgid "Portuguese (Brazilian)"
 msgstr "Portugisisk (Braziliansk)"
 
-#: hugin1/hugin/PreferencesDialog.cpp:167
+#: hugin1/hugin/PreferencesDialog.cpp:171
 msgid "Russian"
 msgstr "Russisk"
 
-#: hugin1/hugin/PreferencesDialog.cpp:170
+#: hugin1/hugin/PreferencesDialog.cpp:174
 msgid "Slovak"
 msgstr "Slovakisk"
 
-#: hugin1/hugin/PreferencesDialog.cpp:173
-msgid "Slovenian"
-msgstr "Slovensk"
-
-#: hugin1/hugin/PreferencesDialog.cpp:176
+#: hugin1/hugin/PreferencesDialog.cpp:182
 msgid "Spanish"
 msgstr "Spansk"
 
-#: hugin1/hugin/PreferencesDialog.cpp:179
+#: hugin1/hugin/PreferencesDialog.cpp:185
 msgid "Swedish"
 msgstr "Svensk"
 
-#: hugin1/hugin/PreferencesDialog.cpp:182
-msgid "Ukrainian"
-msgstr "Ukrainsk"
-
-#: hugin1/hugin/PreferencesDialog.cpp:185
+#: hugin1/hugin/PreferencesDialog.cpp:193
 msgid "Finnish"
 msgstr "Finsk"
 
-#: hugin1/hugin/PreferencesDialog.cpp:275
+#: hugin1/hugin/PreferencesDialog.cpp:283
 msgid "Select Enblend"
 msgstr "Vælg Enblend"
 
-#: hugin1/hugin/PreferencesDialog.cpp:278
-#: hugin1/hugin/PreferencesDialog.cpp:295
+#: hugin1/hugin/PreferencesDialog.cpp:286
+#: hugin1/hugin/PreferencesDialog.cpp:303
 msgid "Executables (*.exe)|*.exe"
 msgstr "Eksekvérbare filer (*.exe)|*.exe"
 
-#: hugin1/hugin/PreferencesDialog.cpp:292
+#: hugin1/hugin/PreferencesDialog.cpp:300
 msgid "Select Enfuse"
 msgstr "Vælg Enfuse"
 
-#: hugin1/hugin/PreferencesDialog.cpp:576
+#: hugin1/hugin/PreferencesDialog.cpp:584
 msgid "Really reset displayed preferences to default values?"
 msgstr "Nulstil virkelig de viste indstillinger til standardværdierne?"
 
-#: hugin1/hugin/PreferencesDialog.cpp:576 translations/xrc.cpp:798
+#: hugin1/hugin/PreferencesDialog.cpp:584 translations/xrc.cpp:798
 msgid "Load Defaults"
 msgstr "Indlæs standardværdier"
 
-#: hugin1/hugin/PreferencesDialog.cpp:843
+#: hugin1/hugin/PreferencesDialog.cpp:851
 msgid "Please select an entry first"
 msgstr "Vælg venligst et element først"
 
-#: hugin1/hugin/PreferencesDialog.cpp:843
+#: hugin1/hugin/PreferencesDialog.cpp:851
 msgid "Select Entry"
 msgstr "Vælg element"
 
-#: hugin1/hugin/PreferencesDialog.cpp:863
+#: hugin1/hugin/PreferencesDialog.cpp:871
 msgid ""
 "You can't delete the last setting.\n"
 "At least one setting is required."
@@ -2953,25 +2933,25 @@ msgstr ""
 "Du kan ikke fjerne den sidste indstilling.\n"
 "Mindst én indstilling er nødvendig."
 
-#: hugin1/hugin/PreferencesDialog.cpp:867
+#: hugin1/hugin/PreferencesDialog.cpp:875
 #, c-format
 msgid "Do you really want to remove control point detector setting \"%s\"?"
 msgstr "Vil du virkelig fjerne kontrolpunkt-detektor-indstilling \"%s\"?"
 
-#: hugin1/hugin/PreferencesDialog.cpp:868
+#: hugin1/hugin/PreferencesDialog.cpp:876
 msgid "Delete control point detector setting"
 msgstr "Fjern kontrolpunkt-detektor-indstilling"
 
-#: hugin1/hugin/PreferencesDialog.cpp:925
+#: hugin1/hugin/PreferencesDialog.cpp:933
 msgid "Load control point detector settings"
 msgstr "Indlæs kontrolpunkt-detektor-indstillinger"
 
-#: hugin1/hugin/PreferencesDialog.cpp:927
-#: hugin1/hugin/PreferencesDialog.cpp:942
+#: hugin1/hugin/PreferencesDialog.cpp:935
+#: hugin1/hugin/PreferencesDialog.cpp:950
 msgid "Control point detector settings (*.setting)|*.setting"
 msgstr "Kontrolpunkt-detektor-indstilling"
 
-#: hugin1/hugin/PreferencesDialog.cpp:940
+#: hugin1/hugin/PreferencesDialog.cpp:948
 msgid "Save control point detector settings"
 msgstr "Gem kontrolpunkt-detektor-indstillinger"
 
@@ -3051,6 +3031,15 @@ msgstr "Klik på en forbindelse for at ændre kontrolpunkter."
 #: hugin1/hugin/PreviewPanel.cpp:499
 msgid "Error during Stitching"
 msgstr "Fejl under sammenføjning"
+
+#: hugin1/hugin/huginApp.cpp:205
+#, c-format
+msgid "Directory '%s' does not exists"
+msgstr "Mappen %s eksisterer ikke."
+
+#: hugin1/hugin/huginApp.cpp:209
+msgid "Could not set environment variable PYTHONHOME"
+msgstr "Kunne ikke angive miljøvariabel PYTHONHOME"
 
 #: hugin1/hugin/wxPanoCommand.cpp:200
 #, c-format
@@ -3281,41 +3270,7 @@ msgstr ""
 msgid "Default"
 msgstr "Standard"
 
-#: hugin1/nona_gui/nona_gui.cpp:165 hugin1/ptbatcher/PTBatcherGUI.cpp:185
-#: hugin1/stitch_project/hugin_stitch_project.cpp:350
-msgid "Syntax error in parameters detected, aborting."
-msgstr "Syntaksfejl fundet i parametre, afbryder."
-
-#: hugin1/nona_gui/nona_gui.cpp:180 hugin1/ptbatcher/Batch.cpp:726
-#: hugin1/stitch_project/hugin_stitch_project.cpp:376
-msgid "Specify project source project file"
-msgstr "Specificér projektkildefil"
-
-#: hugin1/nona_gui/nona_gui.cpp:203
-msgid "Could not find project file:"
-msgstr "Kunne ikke finde projektfil:"
-
-#: hugin1/nona_gui/nona_gui.cpp:212
-msgid "Specify output image filename"
-msgstr "Specificér output-billedfilnavn"
-
-#: hugin1/nona_gui/nona_gui.cpp:221 hugin1/ptbatcher/Batch.cpp:754
-msgid "No project files specified"
-msgstr "Ingen projektfil specificeret"
-
-#: hugin1/nona_gui/nona_gui.cpp:237
-msgid "Stitching Panorama"
-msgstr "Sammenføjer panorama"
-
-#: hugin1/nona_gui/nona_gui.cpp:256
-msgid "Wrong number of images specified on command line"
-msgstr "Forkert antal billeder specificeret på kommandolinien"
-
-#: hugin1/nona_gui/nona_gui.cpp:271
-msgid "output image size: "
-msgstr "output-billedstørrelse:"
-
-#: hugin1/ptbatcher/Batch.cpp:270
+#: hugin1/ptbatcher/Batch.cpp:204
 msgid ""
 "Cannot clear batch in progress.\n"
 "Do you want to cancel it?"
@@ -3323,98 +3278,99 @@ msgstr ""
 "Kan ikke tømme jobliste, der kører.\n"
 "Vil du annullere den?"
 
-#: hugin1/ptbatcher/Batch.cpp:272 hugin1/ptbatcher/BatchFrame.cpp:669
-#: hugin1/ptbatcher/BatchFrame.cpp:715 hugin1/ptbatcher/BatchFrame.cpp:747
-#: hugin1/ptbatcher/BatchFrame.cpp:782 hugin1/ptbatcher/BatchFrame.cpp:811
-#: hugin1/ptbatcher/BatchFrame.cpp:1196 hugin1/ptbatcher/BatchFrame.cpp:1203
+#: hugin1/ptbatcher/Batch.cpp:206 hugin1/ptbatcher/BatchFrame.cpp:668
+#: hugin1/ptbatcher/BatchFrame.cpp:714 hugin1/ptbatcher/BatchFrame.cpp:746
+#: hugin1/ptbatcher/BatchFrame.cpp:781 hugin1/ptbatcher/BatchFrame.cpp:810
+#: hugin1/ptbatcher/BatchFrame.cpp:1195 hugin1/ptbatcher/BatchFrame.cpp:1202
 #: translations/xrc.cpp:743
 msgid "PTBatcherGUI"
 msgstr "PTBatcherGUI"
 
-#: hugin1/ptbatcher/Batch.cpp:287 hugin1/ptbatcher/Batch.cpp:309
+#: hugin1/ptbatcher/Batch.cpp:219 hugin1/ptbatcher/Batch.cpp:229
 msgid "Cleared batch."
 msgstr "Jobliste tømt."
 
-#: hugin1/ptbatcher/Batch.cpp:397
+#: hugin1/ptbatcher/Batch.cpp:312
 #, c-format
 msgid "Error: Could not get status, project with index %d is not in list."
 msgstr "Fejl: Kunne ikke finde status; projekt med indeks %d er ikke i listen."
 
-#: hugin1/ptbatcher/Batch.cpp:450
+#: hugin1/ptbatcher/Batch.cpp:361
 msgid "Error: Could not load batch file."
 msgstr "Fejl: Kunne ikke indlæse joblistefil."
 
-#: hugin1/ptbatcher/Batch.cpp:609
+#: hugin1/ptbatcher/Batch.cpp:510
 msgid "Batch successfully completed."
 msgstr "Jobliste gennemført med succes."
 
-#: hugin1/ptbatcher/Batch.cpp:622
+#: hugin1/ptbatcher/Batch.cpp:515
 msgid "Batch completed with errors."
 msgstr "Jobliste gennemført med fejl."
 
-#: hugin1/ptbatcher/Batch.cpp:643
+#: hugin1/ptbatcher/Batch.cpp:525
 msgid "Initializing shutdown..."
 msgstr "Begynder nedlukning..."
 
-#: hugin1/ptbatcher/Batch.cpp:643 hugin1/ptbatcher/Batch.cpp:648
+#: hugin1/ptbatcher/Batch.cpp:525 hugin1/ptbatcher/Batch.cpp:530
 msgid "Shutting down..."
 msgstr "Lukker ned..."
 
-#: hugin1/ptbatcher/Batch.cpp:672
-msgid "Error shutting down."
-msgstr "Fejl under nedlukning."
+#: hugin1/ptbatcher/Batch.cpp:589
+#: hugin1/stitch_project/hugin_stitch_project.cpp:376
+msgid "Specify project source project file"
+msgstr "Specificér projektkildefil"
 
-#: hugin1/ptbatcher/Batch.cpp:674
-msgid "Error shutting down. Do you have root privileges?"
-msgstr "Fejl under nedlukning. Har du rettigheder som root?"
-
-#: hugin1/ptbatcher/Batch.cpp:746
+#: hugin1/ptbatcher/Batch.cpp:609
 msgid "No output prefix specified"
 msgstr "Intet outputpræfiks angivet"
 
-#: hugin1/ptbatcher/Batch.cpp:785
+#: hugin1/ptbatcher/Batch.cpp:617
+msgid "No project files specified"
+msgstr "Ingen projektfil specificeret"
+
+#: hugin1/ptbatcher/Batch.cpp:643
 #: hugin1/stitch_project/hugin_stitch_project.cpp:441
 #, c-format
 msgid "%s - Stitching"
 msgstr "%s - Sammenføjer"
 
-#: hugin1/ptbatcher/Batch.cpp:820
+#: hugin1/ptbatcher/Batch.cpp:673
 #, c-format
 msgid "%s - Assistant"
 msgstr "%s - Assistent"
 
-#: hugin1/ptbatcher/Batch.cpp:878
+#: hugin1/ptbatcher/Batch.cpp:731
 #, c-format
 msgid "Error removing, project with id %d is not in list."
 msgstr "Fejl under fjernelse; projekt med id %d er ikke i listen."
 
-#: hugin1/ptbatcher/Batch.cpp:900
+#: hugin1/ptbatcher/Batch.cpp:747
 msgid "Error: Could not delete project file "
 msgstr "Fejl: Kunne ikke slette projektfil"
 
-#: hugin1/ptbatcher/Batch.cpp:927
+#: hugin1/ptbatcher/Batch.cpp:763
 msgid "Running batch..."
 msgstr "Kører jobliste..."
 
-#: hugin1/ptbatcher/Batch.cpp:938
+#: hugin1/ptbatcher/Batch.cpp:769
 msgid "Batch already in progress."
 msgstr "Jobliste kører allerede."
 
-#: hugin1/ptbatcher/Batch.cpp:954
+#: hugin1/ptbatcher/Batch.cpp:783
 msgid "Running command \""
 msgstr "Kører kommando \""
 
-#: hugin1/ptbatcher/Batch.cpp:996 hugin1/ptbatcher/Batch.cpp:1035
+#: hugin1/ptbatcher/Batch.cpp:805 hugin1/ptbatcher/Batch.cpp:838
 #, c-format
 msgid "Now stitching: %s"
 msgstr "Sammenføjer nu: %s"
 
-#: hugin1/ptbatcher/Batch.cpp:1006 hugin1/ptbatcher/Batch.cpp:1045
+#: hugin1/ptbatcher/Batch.cpp:812 hugin1/ptbatcher/Batch.cpp:845
 #, c-format
 msgid "Now detecting: %s"
 msgstr "Lokaliserer nu: %s"
 
-#: hugin1/ptbatcher/Batch.cpp:1154
+#: hugin1/ptbatcher/Batch.cpp:945
 #, c-format
 msgid "Error: Could not set status, project with index %d is not in list."
 msgstr "Fejl: Kunne ikke sætte status; projekt med indeks %d er ikke i listen."
@@ -3427,93 +3383,93 @@ msgstr "I øjeblikket inaktiv..."
 msgid "Hugin's Batch processor"
 msgstr "Hugins jobliste-processor"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:191 translations/xrc.cpp:337
+#: hugin1/ptbatcher/BatchFrame.cpp:190 translations/xrc.cpp:337
 msgid "You have pressed the Command key."
 msgstr "Du har trykket på Command-tasten."
 
-#: hugin1/ptbatcher/BatchFrame.cpp:193 translations/xrc.cpp:336
+#: hugin1/ptbatcher/BatchFrame.cpp:192 translations/xrc.cpp:336
 msgid "You have pressed the Control key."
 msgstr "Du har trykket på Ctrl-tasten."
 
-#: hugin1/ptbatcher/BatchFrame.cpp:196
+#: hugin1/ptbatcher/BatchFrame.cpp:195
 msgid "Should the loading of the batch queue be skipped?"
 msgstr "Skal indlæsning af joblisten springes over?"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:343
+#: hugin1/ptbatcher/BatchFrame.cpp:342
 msgid "Please enter the command-line application to execute:"
 msgstr "Indtast venligst kommandolinie-applikationen, som skal køres:"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:343
+#: hugin1/ptbatcher/BatchFrame.cpp:342
 msgid "Enter application"
 msgstr "Indtast applikation"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:360 hugin1/ptbatcher/FindPanoDialog.cpp:206
+#: hugin1/ptbatcher/BatchFrame.cpp:359 hugin1/ptbatcher/FindPanoDialog.cpp:206
 msgid "Specify a directory to search for projects in"
 msgstr "Specificér en mappe for søgning efter projekter"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:380 hugin1/ptbatcher/BatchFrame.cpp:408
+#: hugin1/ptbatcher/BatchFrame.cpp:379 hugin1/ptbatcher/BatchFrame.cpp:407
 msgid "Specify project source file(s)"
 msgstr "Specificér projektkildefil(er)"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:451
+#: hugin1/ptbatcher/BatchFrame.cpp:450
 msgid "Added projects from dir "
 msgstr "Tilføjede projekter fra mappe"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:462
+#: hugin1/ptbatcher/BatchFrame.cpp:461
 #, c-format
 msgid "Add project %s to stitching queue."
 msgstr "Tilføj projekt %s til sammenføjningskø."
 
-#: hugin1/ptbatcher/BatchFrame.cpp:465
+#: hugin1/ptbatcher/BatchFrame.cpp:464
 #, c-format
 msgid "Add project %s to assistant queue."
 msgstr "Tilføj projekt %s til assistentkø."
 
-#: hugin1/ptbatcher/BatchFrame.cpp:479
+#: hugin1/ptbatcher/BatchFrame.cpp:478
 msgid "Batch stopped"
 msgstr "Jobliste stoppet"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:490
+#: hugin1/ptbatcher/BatchFrame.cpp:489
 msgid "Specify output prefix for project "
 msgstr "Angiv outputpræfiks for projekt"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:514
+#: hugin1/ptbatcher/BatchFrame.cpp:513
 msgid "The prefix of an assistant target cannot be changed."
 msgstr "Præfikset for et assistentmål kan ikke ændres."
 
-#: hugin1/ptbatcher/BatchFrame.cpp:520
+#: hugin1/ptbatcher/BatchFrame.cpp:519
 msgid "Please select a project"
 msgstr "Vælg venligst et projekt"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:601
+#: hugin1/ptbatcher/BatchFrame.cpp:600
 msgid "help file: "
 msgstr "hjælpefil:"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:626
+#: hugin1/ptbatcher/BatchFrame.cpp:625
 msgid "Specify batch file to open"
 msgstr "Specificér joblistefil til indlæsning"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:628
+#: hugin1/ptbatcher/BatchFrame.cpp:627
 msgid "Batch files (*.ptb)|*.ptb;|All files (*)|*"
 msgstr "Joblistefiler (*.ptb)|*.ptb;|Alle filer (*)|*"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:662
+#: hugin1/ptbatcher/BatchFrame.cpp:661
 msgid "Cannot open app in Hugin."
 msgstr "Kan ikke åbne app i Hugin."
 
-#: hugin1/ptbatcher/BatchFrame.cpp:667
+#: hugin1/ptbatcher/BatchFrame.cpp:666
 msgid "No project selected. Open Hugin without project?"
 msgstr "Intet projekt valgt. Åbn Hugin uden et projekt?"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:693
+#: hugin1/ptbatcher/BatchFrame.cpp:692
 msgid "Batch paused"
 msgstr "Jobliste på pause"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:699
+#: hugin1/ptbatcher/BatchFrame.cpp:698
 msgid "Continuing batch..."
 msgstr "Fortsætter jobliste..."
 
-#: hugin1/ptbatcher/BatchFrame.cpp:713
+#: hugin1/ptbatcher/BatchFrame.cpp:712
 msgid ""
 "There are failed projects in the list.\n"
 "Remove them too?"
@@ -3521,7 +3477,7 @@ msgstr ""
 "Der er fejlslagne projekter i listen.\n"
 "Fjern også dem?"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:745
+#: hugin1/ptbatcher/BatchFrame.cpp:744
 msgid ""
 "Cannot remove project in progress.\n"
 "Do you want to cancel it?"
@@ -3529,15 +3485,15 @@ msgstr ""
 "Kan ikke fjerne projekt, der kører.\n"
 "Vil du annullere det?"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:759
+#: hugin1/ptbatcher/BatchFrame.cpp:758
 msgid "Removed project "
 msgstr "Fjernede projekt"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:768
+#: hugin1/ptbatcher/BatchFrame.cpp:767
 msgid "Please select a project to remove"
 msgstr "Vælg venligst et projekt, der skal fjernes"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:780
+#: hugin1/ptbatcher/BatchFrame.cpp:779
 msgid ""
 "Cannot reset project in progress.\n"
 "Do you want to cancel it?"
@@ -3545,15 +3501,15 @@ msgstr ""
 "Kan ikke nulstille projekt, der kører.\n"
 "Vil du annullere det?"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:795
+#: hugin1/ptbatcher/BatchFrame.cpp:794
 msgid "Reset project "
 msgstr "Nulstil projekt"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:800
+#: hugin1/ptbatcher/BatchFrame.cpp:799
 msgid "Please select a project to reset"
 msgstr "Vælg venligst et projekt, der skal nulstilles"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:809
+#: hugin1/ptbatcher/BatchFrame.cpp:808
 msgid ""
 "Cannot reset projects in progress.\n"
 "Do you want to cancel the batch?"
@@ -3561,15 +3517,15 @@ msgstr ""
 "Kan ikke nulstille projekter, der kører.\n"
 "Vil du annullere joblisten?"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:848
+#: hugin1/ptbatcher/BatchFrame.cpp:847
 msgid "Specify batch file to save"
 msgstr "Specificér joblistefil, der skal gemmes"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:850
+#: hugin1/ptbatcher/BatchFrame.cpp:849
 msgid "Batch file (*.ptb)|*.ptb;|All files (*)|*"
 msgstr "Joblistefil (*.ptb)|*.ptb;|Alle filer (*)|*"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:1114
+#: hugin1/ptbatcher/BatchFrame.cpp:1113
 msgid "Starting batch"
 msgstr "Starter jobliste"
 
@@ -3686,6 +3642,11 @@ msgstr "%d billeder: %s"
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:153 hugin1/ptbatcher/PTBatcherGUI.cpp:169
 msgid "stitch_project.pto [output prefix]|assistant_project.pto"
 msgstr "stitch_project.pto [outputpræfiks]|assistant_project.pto"
+
+#: hugin1/ptbatcher/PTBatcherGUI.cpp:185
+#: hugin1/stitch_project/hugin_stitch_project.cpp:350
+msgid "Syntax error in parameters detected, aborting."
+msgstr "Syntaksfejl fundet i parametre, afbryder."
 
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:213
 msgid "PTBatcherGUI started"
@@ -6962,6 +6923,42 @@ msgid ""
 msgstr ""
 "Optimering af alle forvrængningsparametre \"alt\" giver kun mening ved "
 "kraftigt overlappende billeder og mange jævnt spredte kontrolpunkter."
+
+#~ msgid "Bulgarian"
+#~ msgstr "Bulgarsk"
+
+#~ msgid "Catalan"
+#~ msgstr "Catalan"
+
+#~ msgid "Korean"
+#~ msgstr "Koreansk"
+
+#~ msgid "Slovenian"
+#~ msgstr "Slovensk"
+
+#~ msgid "Ukrainian"
+#~ msgstr "Ukrainsk"
+
+#~ msgid "Could not find project file:"
+#~ msgstr "Kunne ikke finde projektfil:"
+
+#~ msgid "Specify output image filename"
+#~ msgstr "Specificér output-billedfilnavn"
+
+#~ msgid "Stitching Panorama"
+#~ msgstr "Sammenføjer panorama"
+
+#~ msgid "Wrong number of images specified on command line"
+#~ msgstr "Forkert antal billeder specificeret på kommandolinien"
+
+#~ msgid "output image size: "
+#~ msgstr "output-billedstørrelse:"
+
+#~ msgid "Error shutting down."
+#~ msgstr "Fejl under nedlukning."
+
+#~ msgid "Error shutting down. Do you have root privileges?"
+#~ msgstr "Fejl under nedlukning. Har du rettigheder som root?"
 
 #~ msgid "No corresponding point found"
 #~ msgstr "Intet modsvarende punkt fundet"
