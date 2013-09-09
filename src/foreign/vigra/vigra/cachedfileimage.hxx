@@ -554,7 +554,7 @@ class NotifyingDirectionSelector;
 template <class T, class Notify>
 class NotifyingDirectionSelector<UnstridedArrayTag, T, Notify>
 {
-#ifdef __GNUC__
+#if defined __GNUC__ && !defined __clang__
 friend class Notify::self_type;
 #else
 friend typename Notify::self_type;
