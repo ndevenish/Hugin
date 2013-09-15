@@ -1,6 +1,6 @@
 =head1 NAME
 
-pto_lensstack: modify assigned lenses and stack in pto files
+pto_lensstack - modify assigned lenses and stack in pto files
 
 =head1 SYNOPSIS
 
