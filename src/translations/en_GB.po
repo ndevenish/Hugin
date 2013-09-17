@@ -1,6 +1,6 @@
 # British English translations for the Hugin package.
 # Copyright © 2004-2011 Pablo dAngelo
-# Copyright © 2011-2012 Gareth Jones <gareth.k.jones@gmail.com>
+# Copyright © 2011-2013 Gareth Jones <gareth.k.jones@gmail.com>
 # This file is distributed under the same license as the Hugin package.
 #
 msgid ""
@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: en_GB\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
 "POT-Creation-Date: 2013-02-24 12:50+0100\n"
-"PO-Revision-Date: 2012-08-07 19:39+0100\n"
+"PO-Revision-Date: 2013-09-16 20:52+0100\n"
 "Last-Translator: Gareth Jones <gareth.k.jones@gmail.com>\n"
 "Language-Team: British English <en_GB@li.org>\n"
 "Language: British English\n"
@@ -883,7 +883,7 @@ msgstr ""
 
 #: hugin1/hugin/DragTool.cpp:211
 msgid "Rotate around the centre to roll."
-msgstr ""
+msgstr "Rotate around the centre to roll."
 
 #: hugin1/hugin/DragTool.cpp:232
 msgid ""
@@ -1056,7 +1056,6 @@ msgid "Mean error after optimization: %.1f pixel, max: %.1f\n"
 msgstr "Mean error after optimisation: %.1f pixel, max: %.1f\n"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1077
-#, fuzzy
 msgid ""
 "Note: automatic alignment uses default settings from the preferences. If you "
 "want to use customized settings, run the CP detection, the geometrical "
@@ -1064,10 +1063,9 @@ msgid ""
 "panorama editor."
 msgstr ""
 "Note: automatic alignment uses default settings from the preferences. If you "
-"customise settings for this project in the advanced tabs and want to use "
-"these customised settings, run the CP detection from the Images Tab, the "
-"geometrical optimisation from the Optimiser tab and the photometric "
-"optimisation from the Exposure tab."
+"want to use customised settings, run the CP detection, the geometrical "
+"optimisation and the photometric optimisation from the Photos tab in the "
+"panorama editor."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1486 hugin1/hugin/PreviewFrame.cpp:628
 msgid "Rectilinear"
@@ -1459,9 +1457,8 @@ msgid "Expert interface"
 msgstr ""
 
 #: hugin1/hugin/ImagesTree.cpp:140
-#, fuzzy
 msgid "Image number"
-msgstr "Image Centre Shift"
+msgstr ""
 
 #: hugin1/hugin/ImagesTree.cpp:142
 msgid "Width"
@@ -1476,9 +1473,8 @@ msgid "Height"
 msgstr ""
 
 #: hugin1/hugin/ImagesTree.cpp:143
-#, fuzzy
 msgid "Image height"
-msgstr "Image Centre Shift"
+msgstr ""
 
 #: hugin1/hugin/ImagesTree.cpp:144
 msgid "Anchor"
@@ -1622,12 +1618,11 @@ msgstr ""
 
 #: hugin1/hugin/ImagesTree.cpp:170
 msgid "Horizontal image center shift (d)"
-msgstr ""
+msgstr "Horizontal image centre shift (d)"
 
 #: hugin1/hugin/ImagesTree.cpp:171
-#, fuzzy
 msgid "Vertical image center shift (e)"
-msgstr "Image Centre Shift"
+msgstr "Vertical image centre shift (e)"
 
 #: hugin1/hugin/ImagesTree.cpp:172
 msgid "Horizontal image shearing (g)"
@@ -1651,19 +1646,16 @@ msgstr ""
 
 #: hugin1/hugin/ImagesTree.cpp:178 hugin1/hugin/ImagesTree.cpp:179
 #: hugin1/hugin/ImagesTree.cpp:180
-#, fuzzy
 msgid "Vignetting (Vb, Vc, Vd)"
-msgstr "Vignetting Centre (Vx, Vy):"
+msgstr ""
 
 #: hugin1/hugin/ImagesTree.cpp:181
-#, fuzzy
 msgid "Horizontal vignetting center shift (Vx)"
-msgstr "Vignetting Centre Shift (Vx, Vy)"
+msgstr "Horizontal vignetting centre shift (Vx)"
 
 #: hugin1/hugin/ImagesTree.cpp:182
-#, fuzzy
 msgid "Vertical vignetting center shift (Vy)"
-msgstr "Vignetting Centre Shift (Vx, Vy)"
+msgstr "Vertical vignetting centre shift (Vy)"
 
 #: hugin1/hugin/ImagesTree.cpp:183
 msgid "Response type"
@@ -2029,6 +2021,9 @@ msgid ""
 "vignetting center shift.\n"
 "These features are not supported in simple interface."
 msgstr ""
+"Can't switch to simple interface. The project is using stacks and/or "
+"vignetting centre shift.\n"
+"These features are not supported in simple interface."
 
 #: hugin1/hugin/MainFrame.cpp:2147
 msgid ""
@@ -2128,7 +2123,7 @@ msgstr ""
 #: hugin1/hugin/OptimizePanel.cpp:96
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:94
 msgid "Any variables below which are bold and underlined will be optimized."
-msgstr ""
+msgstr "Any variables below which are bold and underlined will be optimised."
 
 #: hugin1/hugin/OptimizePanel.cpp:99
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:97
@@ -2151,6 +2146,9 @@ msgid ""
 "Please activate at least one image in the (fast) preview window.\n"
 "Optimization canceled."
 msgstr ""
+"The project does not contain any active images.\n"
+"Please activate at least one image in the (fast) preview window.\n"
+"Optimisation cancelled."
 
 #: hugin1/hugin/OptimizePanel.cpp:328
 msgid ""
@@ -2236,6 +2234,9 @@ msgid ""
 "Please activate at least 2 images in the (fast) preview window.\n"
 "Optimization canceled."
 msgstr ""
+"The project does not contain any active images.\n"
+"Please activate at least 2 images in the (fast) preview window.\n"
+"Optimisation cancelled."
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:217
 msgid ""
@@ -3408,6 +3409,9 @@ msgid ""
 "Maybe you have no write permission for these directories or your disc is "
 "full."
 msgstr ""
+"Not all project files could be written successfully.\n"
+"Maybe you have no write permission for these directories or your disk is "
+"full."
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:327
 #, c-format
@@ -4217,9 +4221,8 @@ msgid "Lens parameters"
 msgstr ""
 
 #: translations/xrc.cpp:189 xrc.cpp:189
-#, fuzzy
 msgid "Photometric parameters"
-msgstr "Photometric optimisation"
+msgstr ""
 
 #: translations/xrc.cpp:190 xrc.cpp:190
 msgid "Lens type"
@@ -4268,9 +4271,8 @@ msgid "Calculate"
 msgstr ""
 
 #: translations/xrc.cpp:202 xrc.cpp:202
-#, fuzzy
 msgid "Photometric:"
-msgstr "Photometric optimisation"
+msgstr ""
 
 #: translations/xrc.cpp:204 xrc.cpp:204
 msgid "Selected Image"
@@ -4401,9 +4403,8 @@ msgid "Vignetting"
 msgstr ""
 
 #: translations/xrc.cpp:243 xrc.cpp:243
-#, fuzzy
 msgid "Vignetting Center Shift"
-msgstr "Vignetting Centre Shift (Vx, Vy)"
+msgstr "Vignetting Centre Shift"
 
 #: translations/xrc.cpp:244 translations/xrc.cpp:835 translations/xrc.cpp:918
 #: xrc.cpp:244 xrc.cpp:835 xrc.cpp:918
@@ -4706,14 +4707,12 @@ msgid "Show the OpenGL preview window"
 msgstr ""
 
 #: translations/xrc.cpp:368 xrc.cpp:368
-#, fuzzy
 msgid "Show the Photos panel"
-msgstr "Show the Optimiser panel"
+msgstr ""
 
 #: translations/xrc.cpp:370 xrc.cpp:370
-#, fuzzy
 msgid "Show the Masks panel"
-msgstr "Show the Optimiser panel"
+msgstr ""
 
 #: translations/xrc.cpp:372 xrc.cpp:372
 msgid "Show the Control Points panel"
@@ -5035,7 +5034,6 @@ msgid "Unselected"
 msgstr ""
 
 #: translations/xrc.cpp:482 xrc.cpp:482
-#, fuzzy
 msgid "Colour"
 msgstr "Colour"
 
@@ -5108,9 +5106,8 @@ msgid "Loading mask"
 msgstr ""
 
 #: translations/xrc.cpp:508 xrc.cpp:508
-#, fuzzy
 msgid "Geometric optimizer"
-msgstr "Photometric optimisation"
+msgstr "Geometric optimiser"
 
 #: translations/xrc.cpp:509 xrc.cpp:509
 msgid "Only use control points between image selected in preview window."
@@ -5545,9 +5542,8 @@ msgid "Keep intermediate images"
 msgstr ""
 
 #: translations/xrc.cpp:656 xrc.cpp:656
-#, fuzzy
 msgid "Output parameters"
-msgstr "Photometric optimisation"
+msgstr ""
 
 #: translations/xrc.cpp:658 xrc.cpp:658
 msgid "Resource Usage"
@@ -6037,9 +6033,8 @@ msgid "Number of points per image: "
 msgstr ""
 
 #: translations/xrc.cpp:791 xrc.cpp:791
-#, fuzzy
 msgid "Photometric optimizer"
-msgstr "Photometric optimisation"
+msgstr "Photometric optimiser"
 
 #: translations/xrc.cpp:792 xrc.cpp:792
 msgid "Misc"
@@ -6541,46 +6536,48 @@ msgstr ""
 "Optimisation of all distortion parameters \"everything\" makes only sense "
 "with heavily overlapping images and many well distributed control points."
 
-#~ msgid ""
-#~ "Use currently selected image as anchor image. That is, do not optimize "
-#~ "the (complete) position of this image"
-#~ msgstr ""
-#~ "Use currently selected image as anchor image. That is, do not optimise "
-#~ "the (complete) position of this image"
+msgid ""
+"Use currently selected image as anchor image. That is, do not optimize the "
+"(complete) position of this image"
+msgstr ""
+"Use currently selected image as anchor image. That is, do not optimise the "
+"(complete) position of this image"
 
-#~ msgid "Use the currently selected images as color correction anchor image"
-#~ msgstr "Use the currently selected images as colour correction anchor image"
+msgid "Use the currently selected images as color correction anchor image"
+msgstr "Use the currently selected images as colour correction anchor image"
 
+msgid ""
+"Any variables below which are marked [x] will be optimized.\n"
+"Variables which are cleared [ ] will act as references or anchors."
+msgstr ""
+"Any variables below which are marked [x] will be optimised.\n"
+"Variables which are cleared [ ] will act as references or anchors."
+
+msgid "Creating grayscale %s"
+msgstr "Creating greyscale %s"
+
+msgid ""
+"Warning: PTmender (from panotools 2.9 or later) only supports TIFF_m "
+"output.\n"
+"For color and brightness correction, the resulting tiff files must be "
+"processed with PTblender.\n"
+"\n"
+"Continue anyway?"
+msgstr ""
+"Warning: PTmender (from panotools 2.9 or later) only supports TIFF_m "
+"output.\n"
+"For colour and brightness correction, the resulting tiff files must be "
+"processed with PTblender.\n"
+"\n"
+"Continue anyway?"
+
+#, fuzzy
 #~ msgid "Quick Optimizer"
-#~ msgstr "Quick Optimiser"
+#~ msgstr "Optimiser"
 
-#~ msgid ""
-#~ "Any variables below which are marked [x] will be optimized.\n"
-#~ "Variables which are cleared [ ] will act as references or anchors."
-#~ msgstr ""
-#~ "Any variables below which are marked [x] will be optimised.\n"
-#~ "Variables which are cleared [ ] will act as references or anchors."
-
+#, fuzzy
 #~ msgid "Optimize preset"
-#~ msgstr "Optimise pre-set"
-
-#~ msgid "Creating grayscale %s"
-#~ msgstr "Creating greyscale %s"
-
-#~ msgid ""
-#~ "Warning: PTmender (from panotools 2.9 or later) only supports TIFF_m "
-#~ "output.\n"
-#~ "For color and brightness correction, the resulting tiff files must be "
-#~ "processed with PTblender.\n"
-#~ "\n"
-#~ "Continue anyway?"
-#~ msgstr ""
-#~ "Warning: PTmender (from panotools 2.9 or later) only supports TIFF_m "
-#~ "output.\n"
-#~ "For colour and brightness correction, the resulting tiff files must be "
-#~ "processed with PTblender.\n"
-#~ "\n"
-#~ "Continue anyway?"
+#~ msgstr "Optimiser"
 
 #, fuzzy
 #~ msgid "Colors:"
