@@ -1194,10 +1194,10 @@ void CPEditorPanel::UpdateDisplay(bool newPair)
             currentPoints.push_back(make_pair(it - controlPoints.begin(), *it));
             i++;
         } else if ((point.image2Nr == m_leftImageNr) && (point.image1Nr == m_rightImageNr)){
-            point.mirror();
-            mirroredPoints.insert(i);
             m_leftImg->setCtrlPoint(point, true);
             m_rightImg->setCtrlPoint(point, false);
+            point.mirror();
+            mirroredPoints.insert(i);
             currentPoints.push_back(std::make_pair(it - controlPoints.begin(), point));
             i++;
         }
