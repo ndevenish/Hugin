@@ -2108,7 +2108,8 @@ void MainFrame::SetGuiLevel(GuiLevel newLevel)
     else
     {
         wxGetApp().SetTopWindow(this);
-        GetMenuBar()->Replace(0, m_menu_file_advanced, _("&File"));
+        GetMenuBar()->Remove(0);
+        GetMenuBar()->Insert(0, m_menu_file_advanced, _("&File"));
         if(m_filename.IsEmpty())
         {
             SetTitle(_("Hugin - Panorama Stitcher"));
