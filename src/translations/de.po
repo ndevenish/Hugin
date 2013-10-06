@@ -1507,11 +1507,11 @@ msgstr "Stapel"
 
 #: hugin1/hugin/ImagesPanel.cpp:676
 msgid "Output layers"
-msgstr "Ebenen ausgeben"
+msgstr "Belichtungsebenen"
 
 #: hugin1/hugin/ImagesPanel.cpp:679
 msgid "Output stacks"
-msgstr "Stapel ausgeben"
+msgstr "Ausgabestapel"
 
 #: hugin1/hugin/ImagesPanel.cpp:697
 msgid "Positions (incremental, starting from anchor)"
@@ -1830,12 +1830,12 @@ msgstr "Stapel %d"
 #: hugin1/hugin/ImagesTree.cpp:669
 #, c-format
 msgid "Output stack %d"
-msgstr "Stapel %d ausgeben"
+msgstr "Ausgabestapel %d"
 
 #: hugin1/hugin/ImagesTree.cpp:672
 #, c-format
 msgid "Output exposure layer %d"
-msgstr "Ausgabe der Belichtungsebene %d"
+msgstr "Belichtungsebene %d"
 
 #: hugin1/hugin/ImagesTree.cpp:1097 hugin1/hugin/ImagesTree.cpp:1112
 msgid "Link"
