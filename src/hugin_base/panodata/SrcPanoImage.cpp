@@ -397,7 +397,25 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, double & 
         {
             //we are using prettyPrint function to get string of lens name
             //it2->toString returns for many cameras only an ID number
-            setExifLens(itr2->print(&exifData));
+            lensName=itr2->print(&exifData);
+            //check returned lens name
+            if(lensName.length()>0)
+            {
+                //for Canon it can contain (65535) or (0) for unknown lenses
+                //for Pentax it can contain Unknown (0xHEX)
+                if(lensName.compare(0, 1, "(")!=0 && lensName.compare(0, 7, "Unknown")!=0)
+                {
+                    setExifLens(lensName);
+                }
+                else
+                {
+                    setExifLens("");
+                };
+            }
+            else
+            {
+                setExifLens("");
+            };
         }
         else
         {
