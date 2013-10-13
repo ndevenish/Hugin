@@ -2224,8 +2224,8 @@ void MainFrame::RunAssistant(wxWindow* mainWin)
             tempDir.Append(wxFileName::GetPathSeparator());
         }
     };
-    wxString scriptName=wxFileName::CreateTempFileName(tempDir+wxT("ha"));
-    std::ofstream script(scriptName.mb_str(HUGIN_CONV_FILENAME));
+    wxFileName scriptFileName(wxFileName::CreateTempFileName(tempDir+wxT("ha")));
+    std::ofstream script(scriptFileName.GetFullPath().mb_str(HUGIN_CONV_FILENAME));
     script.exceptions ( std::ofstream::eofbit | std::ofstream::failbit | std::ofstream::badbit );
     PT::UIntSet all;
     fill_set(all, 0, pano.getNrOfImages()-1);
@@ -2235,7 +2235,7 @@ void MainFrame::RunAssistant(wxWindow* mainWin)
     wxString makefileName=wxFileName::CreateTempFileName(tempDir+wxT("ham"));
     std::ofstream makefile(makefileName.mb_str(HUGIN_CONV_FILENAME));
     makefile.exceptions( std::ofstream::eofbit | std::ofstream::failbit | std::ofstream::badbit );
-    std::string scriptString(scriptName.mb_str(HUGIN_CONV_FILENAME));
+    std::string scriptString(scriptFileName.GetFullPath().mb_str(HUGIN_CONV_FILENAME));
     HuginBase::AssistantMakefilelibExport::createMakefile(pano,progs,runLinefind,runCeleste,celesteThreshold,celesteSmall,
         runCPClean,scale,makefile,scriptString);
     makefile.close();
@@ -2246,10 +2246,12 @@ void MainFrame::RunAssistant(wxWindow* mainWin)
 
     //read back panofile
     GlobalCmdHist::getInstance().addCommand(new wxLoadPTProjectCmd(pano,
-        (const char *)scriptName.mb_str(HUGIN_CONV_FILENAME), "", ret==0, false));
+        (const char *)scriptFileName.GetFullPath().mb_str(HUGIN_CONV_FILENAME), 
+        (const char *)scriptFileName.GetPath(wxPATH_NATIVE | wxPATH_GET_SEPARATOR).mb_str(HUGIN_CONV_FILENAME), 
+        ret==0, false));
 
     //delete temporary files
-    wxRemoveFile(scriptName);
+    wxRemoveFile(scriptFileName.GetFullPath());
     wxRemoveFile(makefileName);
     //if return value is non-zero, an error occured in assistant makefile
     if(ret!=0)
