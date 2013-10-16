@@ -208,7 +208,7 @@ private:
     bool m_resetLens;
     int m_resetExposure;
     bool m_resetVignetting;
-    bool m_resetColor;
+    int m_resetColor;
     bool m_resetCameraResponse;
 };
 

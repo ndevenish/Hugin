@@ -188,9 +188,27 @@ bool wxAddImagesCmd::processPanorama(Panorama& pano)
 
         // try to read settings automatically.
         srcImg.setFilename(filename);
-        srcImg.setWhiteBalanceRed(1);
-        srcImg.setWhiteBalanceBlue(1);
         bool ok = srcImg.readEXIF(focalLength, cropFactor, true, true);
+        if(pano.getNrOfImages()>=1)
+        {
+            double redBalanceAnchor=pano.getImage(pano.getOptions().colorReferenceImage).getExifRedBalance();
+            double blueBalanceAnchor=pano.getImage(pano.getOptions().colorReferenceImage).getExifBlueBalance();
+            if(fabs(redBalanceAnchor)<1e-2)
+            {
+                redBalanceAnchor=1;
+            };
+            if(fabs(blueBalanceAnchor)<1e-2)
+            {
+                blueBalanceAnchor=1;
+            };
+            srcImg.setWhiteBalanceRed(srcImg.getExifRedBalance()/redBalanceAnchor);
+            srcImg.setWhiteBalanceBlue(srcImg.getExifBlueBalance()/blueBalanceAnchor);
+        }
+        else
+        {
+            srcImg.setWhiteBalanceRed(1);
+            srcImg.setWhiteBalanceBlue(1);
+        };
         if(cropFactor<=0)
         {
             srcImg.readCropfactorFromDB();
@@ -242,8 +260,26 @@ bool wxAddImagesCmd::processPanorama(Panorama& pano)
                         srcImg.setExposureValue(ev);
                         lenses.unlinkVariableImage(HuginBase::ImageVariableGroup::IVE_WhiteBalanceRed, i);
                         lenses.unlinkVariableImage(HuginBase::ImageVariableGroup::IVE_WhiteBalanceBlue, i);
-                        srcImg.setWhiteBalanceRed(1);
-                        srcImg.setWhiteBalanceBlue(1);
+                        if(pano.getNrOfImages()>=1)
+                        {
+                            double redBalanceAnchor=pano.getImage(pano.getOptions().colorReferenceImage).getExifRedBalance();
+                            double blueBalanceAnchor=pano.getImage(pano.getOptions().colorReferenceImage).getExifBlueBalance();
+                            if(fabs(redBalanceAnchor)<1e-2)
+                            {
+                                redBalanceAnchor=1;
+                            };
+                            if(fabs(blueBalanceAnchor)<1e-2)
+                            {
+                                blueBalanceAnchor=1;
+                            };
+                            srcImg.setWhiteBalanceRed(srcImg.getExifRedBalance()/redBalanceAnchor);
+                            srcImg.setWhiteBalanceBlue(srcImg.getExifBlueBalance()/blueBalanceAnchor);
+                        }
+                        else
+                        {
+                            srcImg.setWhiteBalanceRed(1);
+                            srcImg.setWhiteBalanceBlue(1);
+                        };
                         pano.setSrcImage(imgNr, srcImg);
                         added=true;
                         break;
@@ -273,7 +309,7 @@ bool wxAddImagesCmd::processPanorama(Panorama& pano)
         // FIXME: check if the exif information
         // indicates this image matches a already used lens
         variable_groups.update();
-        double ev = 0;
+        double ev = 0, redBal = 0, blueBal = 0;
         bool set_exposure = false;
         for (unsigned int i=0; i < pano.getNrOfImages(); i++) {
             SrcPanoImage other = pano.getSrcImage(i);
@@ -290,12 +326,16 @@ bool wxAddImagesCmd::processPanorama(Panorama& pano)
                     // copy data from other image, just keep
                     // the file name and reload the exif data (for exposure)
                     ev = srcImg.getExposureValue();
+                    redBal = srcImg.getWhiteBalanceRed();
+                    blueBal = srcImg.getWhiteBalanceBlue();
                     set_exposure = true;
                     srcImg = pano.getSrcImage(i);
                     srcImg.setFilename(filename);
                     srcImg.deleteAllMasks();
                     srcImg.readEXIF(focalLength, cropFactor, false, false);
                     srcImg.setExposureValue(ev);
+                    srcImg.setWhiteBalanceRed(redBal);
+                    srcImg.setWhiteBalanceBlue(blueBal);
                     break;
                 }
             } else if (assumeSimilar) {
@@ -333,6 +373,8 @@ bool wxAddImagesCmd::processPanorama(Panorama& pano)
                 /// @todo avoid copying the SrcPanoImage.
                 SrcPanoImage t = pano.getSrcImage(imgNr);
                 t.setExposureValue(ev);
+                t.setWhiteBalanceRed(redBal);
+                t.setWhiteBalanceBlue(blueBal);
                 pano.setSrcImage(imgNr, t);
             }
         }
@@ -348,6 +390,8 @@ bool wxAddImagesCmd::processPanorama(Panorama& pano)
                 /// @todo avoid copying the SrcPanoImage.
                 SrcPanoImage t = pano.getSrcImage(imgNr);
                 t.setExposureValue(ev);
+                t.setWhiteBalanceRed(redBal);
+                t.setWhiteBalanceBlue(blueBal);
                 pano.setSrcImage(imgNr, t);
             }
         }

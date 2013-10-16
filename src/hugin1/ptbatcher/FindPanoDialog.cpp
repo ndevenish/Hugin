@@ -698,6 +698,16 @@ wxString PossiblePano::GeneratePanorama(NamingConvention nc,bool createLinks)
     HuginBase::ImageVariableGroup& lenses = variable_groups.getLenses();
     if(pano.getNrOfImages()>1)
     {
+        double redBalanceAnchor=pano.getImage(pano.getOptions().colorReferenceImage).getExifRedBalance();
+        double blueBalanceAnchor=pano.getImage(pano.getOptions().colorReferenceImage).getExifBlueBalance();
+        if(fabs(redBalanceAnchor)<1e-2)
+        {
+            redBalanceAnchor=1;
+        };
+        if(fabs(blueBalanceAnchor)<1e-2)
+        {
+            blueBalanceAnchor=1;
+        };
         for(unsigned int i=1; i<pano.getNrOfImages(); i++)
         {
             SrcPanoImage img=pano.getSrcImage(i);
@@ -707,8 +717,8 @@ wxString PossiblePano::GeneratePanorama(NamingConvention nc,bool createLinks)
             img.setExposureValue(ev);
             lenses.unlinkVariableImage(HuginBase::ImageVariableGroup::IVE_WhiteBalanceRed, i);
             lenses.unlinkVariableImage(HuginBase::ImageVariableGroup::IVE_WhiteBalanceBlue, i);
-            img.setWhiteBalanceRed(1);
-            img.setWhiteBalanceBlue(1);
+            img.setWhiteBalanceRed(img.getExifRedBalance()/redBalanceAnchor);
+            img.setWhiteBalanceBlue(img.getExifBlueBalance()/blueBalanceAnchor);
             pano.setSrcImage(i, img);
         };
     };

@@ -135,6 +135,8 @@ image_variable( ExifFocalLength35, double, 0)
 image_variable( ExifExposureTime, double, 0)
 image_variable( ExifDate, std::string, "")
 image_variable( ExifExposureMode, int, 0)
+image_variable( ExifRedBalance, double, 1)
+image_variable( ExifBlueBalance, double, 1)
 
 #if 0
 //

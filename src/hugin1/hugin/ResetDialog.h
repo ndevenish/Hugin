@@ -37,7 +37,7 @@
  * - reset fov (when images files have the right EXIF values, otherwise fov remains unchanged)
  * - reset lens parameter (a, b, c, d, e, g, t)
  * - reset exposure: to EXIF value (exposure correction) or zero (no exposure correction)
- * - reset color
+ * - reset color: to EXIF value or one
  * - reset vignetting
  * - reset camera response
  */
@@ -62,6 +62,10 @@ public:
 	bool GetResetExposureToExif();
 	/** Return TRUE, when user selected "Reset color" */
 	bool GetResetColor();
+	/** Return TRUE, when user selected "Reset color to EXIF",
+	 * Return FALSE, when user selected "Reset color to ONE"
+	 */
+	bool GetResetColorToExif();
 	/** Return TRUE, when user selected "Reset vignetting" */
 	bool GetResetVignetting();
 	/** Return TRUE, when user selected "Reset Camera Response" */
@@ -76,6 +80,10 @@ protected:
 	 * depending on state of "Reset exposure" checkbox
 	 */
 	void OnSelectExposure(wxCommandEvent & e);
+	/** Method for enabling/disable combobox to select reset color to EXIF or ONE
+	 * depending on state of "Reset color" checkbox
+	 */
+	void OnSelectColor(wxCommandEvent & e);
 	/** Saves current state of all checkboxes when closing dialog with Ok */
 	void OnOk(wxCommandEvent & e);
 

@@ -332,6 +332,8 @@ typedef PTOVariableConverterNoOp PTOVariableConverterForExifFocalLength35;
 typedef PTOVariableConverterNoOp PTOVariableConverterForExifExposureTime;
 typedef PTOVariableConverterNoOp PTOVariableConverterForExifDate;
 typedef PTOVariableConverterNoOp PTOVariableConverterForExifExposureMode;
+typedef PTOVariableConverterNoOp PTOVariableConverterForExifRedBalance;
+typedef PTOVariableConverterNoOp PTOVariableConverterForExifBlueBalance;
 
 #if 0
 //panotools variables, currently not used

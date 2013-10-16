@@ -33,6 +33,7 @@
 BEGIN_EVENT_TABLE(ResetDialog,wxDialog)
     EVT_BUTTON(wxID_OK, ResetDialog::OnOk)
     EVT_CHECKBOX(XRCID("reset_exposure"), ResetDialog::OnSelectExposure)
+    EVT_CHECKBOX(XRCID("reset_color"), ResetDialog::OnSelectColor)
 END_EVENT_TABLE()
 
 ResetDialog::ResetDialog(wxWindow *parent, GuiLevel guiLevel)
@@ -72,6 +73,9 @@ ResetDialog::ResetDialog(wxWindow *parent, GuiLevel guiLevel)
     OnSelectExposure(dummy);
     cfg->Read(wxT("/ResetDialog/ResetColor"),&check,true);
     XRCCTRL(*this,"reset_color",wxCheckBox)->SetValue(check);
+    cfg->Read(wxT("/ResetDialog/ResetColorParam"),&exp_param,0);
+    OnSelectColor(dummy);
+    XRCCTRL(*this,"combo_color",wxComboBox)->Select(exp_param);
     cfg->Read(wxT("/ResetDialog/ResetVignetting"),&check,true);
     XRCCTRL(*this,"reset_vignetting",wxCheckBox)->SetValue(check);
     cfg->Read(wxT("/ResetDialog/ResetResponse"),&check,true);
@@ -95,6 +99,7 @@ void ResetDialog::LimitToGeometric()
     XRCCTRL(*this,"reset_exposure",wxCheckBox)->Show(false);
     XRCCTRL(*this,"combo_exposure",wxComboBox)->Show(false);
     XRCCTRL(*this,"reset_color",wxCheckBox)->Show(false);
+    XRCCTRL(*this,"combo_color",wxComboBox)->Show(false);
     XRCCTRL(*this,"reset_vignetting",wxCheckBox)->Show(false);
     XRCCTRL(*this,"reset_response",wxCheckBox)->Show(false);
     GetSizer()->Fit(this);
@@ -124,6 +129,8 @@ void ResetDialog::OnOk(wxCommandEvent & e)
     exp_param=XRCCTRL(*this,"combo_exposure",wxComboBox)->GetSelection();
     cfg->Write(wxT("/ResetDialog/ResetExposureParam"),exp_param);
     cfg->Write(wxT("/ResetDialog/ResetColor"),GetResetColor());
+    exp_param=XRCCTRL(*this,"combo_color",wxComboBox)->GetSelection();
+    cfg->Write(wxT("/ResetDialog/ResetColorParam"), exp_param);
     cfg->Write(wxT("/ResetDialog/ResetVignetting"),GetResetVignetting());
     cfg->Write(wxT("/ResetDialog/ResetResponse"),GetResetResponse());
     cfg->Flush();
@@ -132,10 +139,12 @@ void ResetDialog::OnOk(wxCommandEvent & e)
 
 void ResetDialog::OnSelectExposure(wxCommandEvent & e)
 {
-    if(XRCCTRL(*this, "reset_exposure", wxCheckBox)->GetValue())
-        XRCCTRL(*this,"combo_exposure",wxComboBox)->Enable();
-    else
-        XRCCTRL(*this,"combo_exposure",wxComboBox)->Disable();
+    XRCCTRL(*this,"combo_exposure",wxComboBox)->Enable(XRCCTRL(*this, "reset_exposure", wxCheckBox)->GetValue());
+};
+
+void ResetDialog::OnSelectColor(wxCommandEvent & e)
+{
+    XRCCTRL(*this,"combo_color",wxComboBox)->Enable(XRCCTRL(*this, "reset_color", wxCheckBox)->GetValue());
 };
 
 bool ResetDialog::GetResetPos()
@@ -173,6 +182,13 @@ bool ResetDialog::GetResetExposureToExif()
 bool ResetDialog::GetResetColor()
 {
     return XRCCTRL(*this, "reset_color", wxCheckBox)->GetValue();
+};
+
+bool ResetDialog::GetResetColorToExif()
+{
+    if(!GetResetColor())
+        return false;
+    return XRCCTRL(*this, "combo_color", wxComboBox)->GetSelection()==0;
 };
 
 bool ResetDialog::GetResetVignetting()

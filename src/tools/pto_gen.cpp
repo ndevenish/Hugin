@@ -393,6 +393,16 @@ int main(int argc, char* argv[])
     //link lenses
     if(pano.getNrOfImages()>1)
     {
+        double redBalanceAnchor=pano.getImage(pano.getOptions().colorReferenceImage).getExifRedBalance();
+        double blueBalanceAnchor=pano.getImage(pano.getOptions().colorReferenceImage).getExifBlueBalance();
+        if(fabs(redBalanceAnchor)<1e-2)
+        {
+            redBalanceAnchor=1;
+        };
+        if(fabs(blueBalanceAnchor)<1e-2)
+        {
+            blueBalanceAnchor=1;
+        };
         StandardImageVariableGroups variable_groups(pano);
         ImageVariableGroup& lenses = variable_groups.getLenses();
 
@@ -422,8 +432,8 @@ int main(int argc, char* argv[])
                 img.setExposureValue(ev);
                 lenses.unlinkVariableImage(HuginBase::ImageVariableGroup::IVE_WhiteBalanceRed, i);
                 lenses.unlinkVariableImage(HuginBase::ImageVariableGroup::IVE_WhiteBalanceBlue, i);
-                img.setWhiteBalanceRed(1);
-                img.setWhiteBalanceBlue(1);
+                img.setWhiteBalanceRed(img.getExifRedBalance()/redBalanceAnchor);
+                img.setWhiteBalanceBlue(img.getExifBlueBalance()/blueBalanceAnchor);
                 pano.setSrcImage(i, img);
             };
         };

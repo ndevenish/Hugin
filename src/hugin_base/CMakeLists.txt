@@ -52,6 +52,7 @@ panodata/PTScriptParsing.cpp
 panodata/SrcPanoImage.cpp
 panodata/ImageVariableGroup.cpp
 panodata/StandardImageVariableGroups.cpp
+panodata/Exiv2Helper.cpp
 panotools/PanoToolsInterface.cpp
 panotools/PanoToolsOptimizerWrapper.cpp
 panotools/PanoToolsUtils.cpp
@@ -119,6 +120,7 @@ panodata/ImageVariable.h
 panodata/ImageVariableGroup.h
 panodata/ImageVariableTranslate.h
 panodata/StandardImageVariableGroups.h
+panodata/Exiv2Helper.h
 panotools/PanoToolsInterface.h
 panotools/PanoToolsOptimizerWrapper.h
 panotools/PanoToolsUtils.h

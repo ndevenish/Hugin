@@ -43,6 +43,7 @@
 #include <exiv2/image.hpp>
 #include <exiv2/easyaccess.hpp>
 #include <lensdb/LensDB.h>
+#include "Exiv2Helper.h"
 
 #ifdef __FreeBSD__
 #define log2(x)        (log(x) / M_LN2)
@@ -323,17 +324,17 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, double & 
         return false;
     }
 
-    getExiv2Value(exifData,"Exif.Photo.ExposureTime",exposureTime);
+    Exiv2Helper::getExiv2Value(exifData,"Exif.Photo.ExposureTime",exposureTime);
     // TODO: reconstruct real exposure value from "rounded" ones saved by the cameras?
 
-    getExiv2Value(exifData,"Exif.Photo.FNumber",photoFNumber);
+    Exiv2Helper::getExiv2Value(exifData,"Exif.Photo.FNumber",photoFNumber);
     
     //remember aperture for later
     setExifAperture(photoFNumber);
     
     //read exposure mode
     long exposureMode=0;
-    getExiv2Value(exifData,"Exif.Photo.ExposureMode",exposureMode);
+    Exiv2Helper::getExiv2Value(exifData,"Exif.Photo.ExposureMode",exposureMode);
     setExifExposureMode((int)exposureMode);
 
     //if no F-number was found in EXIF data assume a f stop of 3.5 to get
@@ -344,7 +345,7 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, double & 
     };
     if (exposureTime > 0 && photoFNumber > 0) {
         double gain = 1;
-        if (getExiv2Value(exifData,"Exif.Photo.ISOSpeedRatings",isoSpeed)) {
+        if (Exiv2Helper::getExiv2Value(exifData,"Exif.Photo.ISOSpeedRatings",isoSpeed)) {
             if (isoSpeed > 0) {
                 gain = isoSpeed / 100.0;
             }
@@ -353,18 +354,15 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, double & 
         DEBUG_DEBUG ("Ev: " << eV);
     }
 
-    Exiv2::ExifKey key("Exif.Image.Make");
-    Exiv2::ExifData::iterator itr = exifData.findKey(key);
-    if (itr != exifData.end()) {
-        setExifMake(itr->toString());
+    std::string s;
+    if(Exiv2Helper::getExiv2Value(exifData, "Exif.Image.Make", s)) {
+        setExifMake(s);
     } else {
         setExifMake("");
     }
 
-    Exiv2::ExifKey key2("Exif.Image.Model");
-    itr = exifData.findKey(key2);
-    if (itr != exifData.end()) {
-        setExifModel(itr->toString());
+    if(Exiv2Helper::getExiv2Value(exifData, "Exif.Image.Model", s)) {
+        setExifModel(s);
     } else {
         setExifModel("");
     }
@@ -375,9 +373,9 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, double & 
     std::string lensName;
 #if EXIV2_TEST_VERSION(0,22,0)
     //the string "Exif.Photo.LensModel" is only defined in exiv2 0.22.0 and above
-    if(getExiv2Value(exifData,"Exif.Photo.LensModel",lensName))
+    if(Exiv2Helper::getExiv2Value(exifData,"Exif.Photo.LensModel",lensName))
 #else
-    if(getExiv2Value(exifData,0xa434,"Photo",lensName))
+    if(Exiv2Helper::getExiv2Value(exifData,0xa434,"Photo",lensName))
 #endif
     {
         if(lensName.length()>0)
@@ -424,7 +422,7 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, double & 
     };
 
     long orientation = 0;
-    if (getExiv2Value(exifData,"Exif.Image.Orientation",orientation) && trustExivOrientation()) {
+    if (Exiv2Helper::getExiv2Value(exifData,"Exif.Image.Orientation",orientation) && trustExivOrientation()) {
         switch (orientation) {
             case 3:  // rotate 180
                 roll = 180;
@@ -441,10 +439,10 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, double & 
     }
 
     long pixXdim = 0;
-    getExiv2Value(exifData,"Exif.Photo.PixelXDimension",pixXdim);
+    Exiv2Helper::getExiv2Value(exifData,"Exif.Photo.PixelXDimension",pixXdim);
 
     long pixYdim = 0;
-    getExiv2Value(exifData,"Exif.Photo.PixelYDimension",pixYdim);
+    Exiv2Helper::getExiv2Value(exifData,"Exif.Photo.PixelYDimension",pixYdim);
 
     if (pixXdim !=0 && pixYdim !=0 ) {
         double ratioExif = pixXdim/(double)pixYdim;
@@ -463,10 +461,10 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, double & 
     // notably some Olympus
     
     long eWidth = 0;
-    getExiv2Value(exifData,"Exif.Image.ImageWidth",eWidth);
+    Exiv2Helper::getExiv2Value(exifData,"Exif.Image.ImageWidth",eWidth);
 
     long eLength = 0;
-    getExiv2Value(exifData,"Exif.Image.ImageLength",eLength);
+    Exiv2Helper::getExiv2Value(exifData,"Exif.Image.ImageLength",eLength);
 
     double sensorPixelWidth = 0;
     double sensorPixelHeight = 0;
@@ -493,7 +491,7 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, double & 
     // notably some Olympus
 
     long exifResolutionUnits = 0;
-    getExiv2Value(exifData,"Exif.Photo.FocalPlaneResolutionUnit",exifResolutionUnits);
+    Exiv2Helper::getExiv2Value(exifData,"Exif.Photo.FocalPlaneResolutionUnit",exifResolutionUnits);
 
     float resolutionUnits= 0;
     switch (exifResolutionUnits) {
@@ -509,10 +507,10 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, double & 
     // Exif.Photo.FocalPlaneYResolution, notably some Olympus
 
     float fplaneXresolution = 0;
-    getExiv2Value(exifData,"Exif.Photo.FocalPlaneXResolution",fplaneXresolution);
+    Exiv2Helper::getExiv2Value(exifData,"Exif.Photo.FocalPlaneXResolution",fplaneXresolution);
 
     float fplaneYresolution = 0;
-    getExiv2Value(exifData,"Exif.Photo.FocalPlaneYResolution",fplaneYresolution);
+    Exiv2Helper::getExiv2Value(exifData,"Exif.Photo.FocalPlaneYResolution",fplaneYresolution);
 
     float CCDWidth = 0;
     if (fplaneXresolution != 0) { 
@@ -573,7 +571,7 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, double & 
         // fprintf (stdout,"Starting Alternative crop determination\n");
         
         float olyFPD = 0;
-        getExiv2Value(exifData,"Exif.Olympus.FocalPlaneDiagonal",olyFPD);
+        Exiv2Helper::getExiv2Value(exifData,"Exif.Olympus.FocalPlaneDiagonal",olyFPD);
 
         if (olyFPD > 0.0) {        
             // Windows debug stuff
@@ -584,7 +582,7 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, double & 
         else {
             // for newer Olympus cameras the FocalPlaneDiagonal tag was moved into
             // equipment (sub?)-directory, so check also there
-            getExiv2Value(exifData,"Exif.OlympusEq.FocalPlaneDiagonal",olyFPD);
+            Exiv2Helper::getExiv2Value(exifData,"Exif.OlympusEq.FocalPlaneDiagonal",olyFPD);
             if (olyFPD > 0.0) {
                 cropFactor = sqrt(36.0*36.0+24.0*24.0) / olyFPD;
             };
@@ -594,10 +592,10 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, double & 
     DEBUG_DEBUG("cropFactor: " << cropFactor);
 
     float eFocalLength = 0;
-    getExiv2Value(exifData,"Exif.Photo.FocalLength",eFocalLength);
+    Exiv2Helper::getExiv2Value(exifData,"Exif.Photo.FocalLength",eFocalLength);
 
     float eFocalLength35 = 0;
-    getExiv2Value(exifData,"Exif.Photo.FocalLengthIn35mmFilm",eFocalLength35);
+    Exiv2Helper::getExiv2Value(exifData,"Exif.Photo.FocalLengthIn35mmFilm",eFocalLength35);
 
     //The various methods to detmine crop factor
     if (eFocalLength > 0 && cropFactor > 0) {
@@ -616,11 +614,13 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, double & 
         focalLength = eFocalLength;
         cropFactor = 0;
     }
-    getExiv2Value(exifData,"Exif.Photo.SubjectDistance", subjectDistance);
+    Exiv2Helper::getExiv2Value(exifData,"Exif.Photo.SubjectDistance", subjectDistance);
 
     std::string captureDate;
-    getExiv2Value(exifData,"Exif.Photo.DateTimeOriginal",captureDate);
+    Exiv2Helper::getExiv2Value(exifData,"Exif.Photo.DateTimeOriginal",captureDate);
 
+    double redBalance, blueBalance;
+    Exiv2Helper::readRedBlueBalance(exifData, redBalance, blueBalance);
 
     // store some important EXIF tags for later usage.
     setExifFocalLength(focalLength);
@@ -630,6 +630,8 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, double & 
     setExifDistance(subjectDistance);
     setExifDate(captureDate);
     setExifExposureTime(exposureTime);
+    setExifRedBalance(redBalance);
+    setExifBlueBalance(blueBalance);
 
     DEBUG_DEBUG("Results for:" << filename);
     DEBUG_DEBUG("Focal Length: " << getExifFocalLength());
@@ -937,63 +939,6 @@ void SrcPanoImage::updateCropFactor(double focalLength, double newCropFactor)
     };
     setExifCropFactor(newCropFactor);
 };
-
-// Convenience functions to work with Exiv2
-bool SrcPanoImage::getExiv2Value(Exiv2::ExifData& exifData, std::string keyName, long & value)
-{
-    Exiv2::ExifKey key(keyName);
-    Exiv2::ExifData::iterator itr = exifData.findKey(key);
-    if (itr != exifData.end() && itr->count()) {
-        value = itr->toLong();
-        DEBUG_DEBUG("" << keyName << ": " << value);
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
-bool SrcPanoImage::getExiv2Value(Exiv2::ExifData& exifData, std::string keyName, float & value)
-{
-    Exiv2::ExifKey key(keyName);
-    Exiv2::ExifData::iterator itr = exifData.findKey(key);
-    if (itr != exifData.end() && itr->count()) {
-        value = itr->toFloat();
-        DEBUG_DEBUG("" << keyName << ": " << value);
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
-bool SrcPanoImage::getExiv2Value(Exiv2::ExifData& exifData, std::string keyName, std::string & value)
-{
-    Exiv2::ExifKey key(keyName);
-    Exiv2::ExifData::iterator itr = exifData.findKey(key);
-    if (itr != exifData.end() && itr->count()) {
-        value = itr->toString();
-        DEBUG_DEBUG("" << keyName << ": " << value);
-        return true;
-    } else {
-        return false;
-    }
-}
-
-bool SrcPanoImage::getExiv2Value(Exiv2::ExifData& exifData, uint16_t tagID, std::string groupName, std::string & value)
-{
-    Exiv2::ExifKey key(tagID,groupName);
-    Exiv2::ExifData::iterator itr = exifData.findKey(key);
-    if (itr != exifData.end() && itr->count())
-    {
-        value = itr->toString();
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-}
 
 // mask handling stuff
 void SrcPanoImage::addMask(MaskPolygon newMask)

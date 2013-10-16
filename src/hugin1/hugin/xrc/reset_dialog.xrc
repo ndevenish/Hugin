@@ -40,15 +40,14 @@
             <border>5</border>
           </object>
           <object class="sizeritem">
-            <object class="wxBoxSizer">
-              <orient>wxHORIZONTAL</orient>
+            <object class="wxFlexGridSizer">
               <object class="sizeritem">
                 <object class="wxCheckBox" name="reset_exposure">
                   <label>Exposure</label>
                   <checked>1</checked>
                 </object>
-                <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
-                <border>0</border>
+                <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_HORIZONTAL</flag>
+                <border>5</border>
               </object>
               <object class="sizeritem">
                 <object class="wxComboBox" name="combo_exposure">
@@ -59,21 +58,38 @@
                   <selection>0</selection>
                   <style>wxCB_READONLY</style>
                 </object>
-                <flag>wxLEFT|wxEXPAND|wxALIGN_CENTRE_HORIZONTAL</flag>
-                <border>10</border>
+                <option>1</option>
+                <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_HORIZONTAL</flag>
+                <border>5</border>
               </object>
+              <object class="sizeritem">
+                <object class="wxCheckBox" name="reset_color">
+                  <label>Color</label>
+                  <checked>1</checked>
+                </object>
+                <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_HORIZONTAL</flag>
+                <border>5</border>
+              </object>
+              <object class="sizeritem">
+                <object class="wxComboBox" name="combo_color">
+                  <content>
+                    <item>to EXIF values</item>
+                    <item>to one (no color correction)</item>
+                  </content>
+                  <selection>0</selection>
+                  <style>wxCB_READONLY</style>
+                </object>
+                <option>1</option>
+                <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_HORIZONTAL</flag>
+                <border>5</border>
+              </object>
+              <cols>2</cols>
+              <rows>2</rows>
+              <growablecols>1</growablecols>
             </object>
-            <flag>wxALL|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
-            <border>5</border>
+            <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
           </object>
-          <object class="sizeritem">
-            <object class="wxCheckBox" name="reset_color">
-              <label>Color</label>
-              <checked>1</checked>
-            </object>
-            <flag>wxALL|wxEXPAND</flag>
-            <border>5</border>
-          </object>
+          
           <object class="sizeritem">
             <object class="wxCheckBox" name="reset_vignetting">
               <label>Vignetting</label>

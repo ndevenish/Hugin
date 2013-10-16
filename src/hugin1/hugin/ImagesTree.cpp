@@ -612,7 +612,7 @@ void ImagesTreeCtrl::UpdateImageText(wxTreeItemId item)
     }
     else
     {
-        SetItemText(item, m_columnMap["Er"], doubleTowxString(img.getWhiteBalanceRed(), m_pixelDigits));
+        SetItemText(item, m_columnMap["Er"], doubleTowxString(img.getWhiteBalanceRed(), m_pixelDigits+1));
     };
 
     if(m_groupMode==GROUP_LENS && img.WhiteBalanceBlueisLinked())
@@ -621,7 +621,7 @@ void ImagesTreeCtrl::UpdateImageText(wxTreeItemId item)
     }
     else
     {
-        SetItemText(item, m_columnMap["Eb"], doubleTowxString(img.getWhiteBalanceBlue(), m_pixelDigits));
+        SetItemText(item, m_columnMap["Eb"], doubleTowxString(img.getWhiteBalanceBlue(), m_pixelDigits+1));
     };
 
     if(m_groupMode==GROUP_LENS && img.RadialVigCorrCoeffisLinked())
@@ -795,7 +795,7 @@ void ImagesTreeCtrl::UpdateGroupText(wxTreeItemId item)
 
         if(m_groupMode==GROUP_LENS && img.WhiteBalanceRedisLinked())
         {
-            SetItemText(item, m_columnMap["Er"], doubleTowxString(img.getWhiteBalanceRed(), m_pixelDigits));
+            SetItemText(item, m_columnMap["Er"], doubleTowxString(img.getWhiteBalanceRed(), m_pixelDigits+1));
         }
         else
         {
@@ -804,7 +804,7 @@ void ImagesTreeCtrl::UpdateGroupText(wxTreeItemId item)
 
         if(m_groupMode==GROUP_LENS && img.WhiteBalanceBlueisLinked())
         {
-            SetItemText(item, m_columnMap["Eb"], doubleTowxString(img.getWhiteBalanceBlue(), m_pixelDigits));
+            SetItemText(item, m_columnMap["Eb"], doubleTowxString(img.getWhiteBalanceBlue(), m_pixelDigits+1));
         }
         else
         {
