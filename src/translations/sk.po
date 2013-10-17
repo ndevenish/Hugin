@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hugin\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
-"POT-Creation-Date: 2013-05-23 10:23+0200\n"
+"POT-Creation-Date: 2013-10-17 14:04+0200\n"
 "PO-Revision-Date: 2013-03-24 18:40+0100\n"
 "Last-Translator: Kornel Benko <kornel@lyx.org>\n"
 "Language-Team: Slovak <sk@li.org>\n"
@@ -2840,14 +2840,6 @@ msgstr "Systémové nastavenie"
 msgid "Basque"
 msgstr "Baskičtina"
 
-#: hugin1/hugin/PreferencesDialog.cpp:119
-msgid "Bulgarian"
-msgstr "Bulharčina"
-
-#: hugin1/hugin/PreferencesDialog.cpp:122
-msgid "Catalan"
-msgstr "Katalánčina"
-
 #: hugin1/hugin/PreferencesDialog.cpp:125
 msgid "Chinese (Simplified)"
 msgstr "Čínština (zjednodušená)"
@@ -2892,10 +2884,6 @@ msgstr "Taliančina"
 msgid "Japanese"
 msgstr "Japončina"
 
-#: hugin1/hugin/PreferencesDialog.cpp:158
-msgid "Korean"
-msgstr "Kórejčina"
-
 #: hugin1/hugin/PreferencesDialog.cpp:161
 msgid "Polish"
 msgstr "Poľština"
@@ -2912,10 +2900,6 @@ msgstr "Ruština"
 msgid "Slovak"
 msgstr "Slovenčina"
 
-#: hugin1/hugin/PreferencesDialog.cpp:173
-msgid "Slovenian"
-msgstr "Slovinčina"
-
 #: hugin1/hugin/PreferencesDialog.cpp:176
 msgid "Spanish"
 msgstr "Španielčina"
@@ -2923,10 +2907,6 @@ msgstr "Španielčina"
 #: hugin1/hugin/PreferencesDialog.cpp:179
 msgid "Swedish"
 msgstr "Švédčina"
-
-#: hugin1/hugin/PreferencesDialog.cpp:182
-msgid "Ukrainian"
-msgstr "Ukrajinčina"
 
 #: hugin1/hugin/PreferencesDialog.cpp:185
 msgid "Finnish"
@@ -3318,29 +3298,9 @@ msgstr "Objavená syntaktická chyba v parametroch, končím."
 msgid "Specify project source project file"
 msgstr "Určite zdrojový súbor projektu"
 
-#: hugin1/nona_gui/nona_gui.cpp:203
-msgid "Could not find project file:"
-msgstr "Nepodarilo sa nájsť súbor s projektom:"
-
-#: hugin1/nona_gui/nona_gui.cpp:212
-msgid "Specify output image filename"
-msgstr "Vyberte výstupný súbor obrázku"
-
 #: hugin1/nona_gui/nona_gui.cpp:221 hugin1/ptbatcher/Batch.cpp:754
 msgid "No project files specified"
 msgstr "Neboli vybrané žiadne súbory projektu"
-
-#: hugin1/nona_gui/nona_gui.cpp:237
-msgid "Stitching Panorama"
-msgstr "Lepím panorámu"
-
-#: hugin1/nona_gui/nona_gui.cpp:256
-msgid "Wrong number of images specified on command line"
-msgstr "V príkazovom riadku bol špecifikovaný chybný počet obrázkov"
-
-#: hugin1/nona_gui/nona_gui.cpp:271
-msgid "output image size: "
-msgstr "výstupná veľkosť obrázku:"
 
 #: hugin1/ptbatcher/Batch.cpp:270
 msgid ""
@@ -3386,14 +3346,6 @@ msgstr "Spúšťam vypínanie..."
 #: hugin1/ptbatcher/Batch.cpp:643 hugin1/ptbatcher/Batch.cpp:648
 msgid "Shutting down..."
 msgstr "Vypínam..."
-
-#: hugin1/ptbatcher/Batch.cpp:672
-msgid "Error shutting down."
-msgstr "Chyba pri vypínaní."
-
-#: hugin1/ptbatcher/Batch.cpp:674
-msgid "Error shutting down. Do you have root privileges?"
-msgstr "Chyba pri vypínaní. Máte oprávnenia administrátora?"
 
 #: hugin1/ptbatcher/Batch.cpp:746
 msgid "No output prefix specified"
@@ -6747,6 +6699,10 @@ msgstr "na nulu (bez korekcie expozície)"
 msgid "Color"
 msgstr "Farba"
 
+#: hugin1/hugin/xrc/reset_dialog.xrc:77
+msgid "to one (no color correction)"
+msgstr "na jednotku (bez korekcie expozície)"
+
 #: translations/xrc.cpp:1052 xrc.cpp:1052
 msgid "Reset values"
 msgstr "Resetovať hodnoty"
@@ -7025,6 +6981,42 @@ msgstr ""
 "Optimalizácia všetkých parametrov skreslenia \"všetko\" má zmysel iba vtedy, "
 "ak sa obrázky veľmi prekrývajú a použili ste tiež mnoho dobre rozprestrených "
 "kontrolných bodov."
+
+#~ msgid "Bulgarian"
+#~ msgstr "Bulharčina"
+
+#~ msgid "Catalan"
+#~ msgstr "Katalánčina"
+
+#~ msgid "Korean"
+#~ msgstr "Kórejčina"
+
+#~ msgid "Slovenian"
+#~ msgstr "Slovinčina"
+
+#~ msgid "Ukrainian"
+#~ msgstr "Ukrajinčina"
+
+#~ msgid "Could not find project file:"
+#~ msgstr "Nepodarilo sa nájsť súbor s projektom:"
+
+#~ msgid "Specify output image filename"
+#~ msgstr "Vyberte výstupný súbor obrázku"
+
+#~ msgid "Stitching Panorama"
+#~ msgstr "Lepím panorámu"
+
+#~ msgid "Wrong number of images specified on command line"
+#~ msgstr "V príkazovom riadku bol špecifikovaný chybný počet obrázkov"
+
+#~ msgid "output image size: "
+#~ msgstr "výstupná veľkosť obrázku:"
+
+#~ msgid "Error shutting down."
+#~ msgstr "Chyba pri vypínaní."
+
+#~ msgid "Error shutting down. Do you have root privileges?"
+#~ msgstr "Chyba pri vypínaní. Máte oprávnenia administrátora?"
 
 #~ msgid "File save:"
 #~ msgstr "Uloženie súbora:"
