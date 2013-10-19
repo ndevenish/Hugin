@@ -172,6 +172,7 @@ namespace HuginBase
                     return false;
                 };
             };
+#if EXIV2_TEST_VERSION(0,23,0)
             if (getExiv2Value(exifData, "Exif.PentaxDng.RedBalance", val1) &&
                 getExiv2Value(exifData, "Exif.PentaxDng.BlueBalance", val2))
             {
@@ -186,6 +187,7 @@ namespace HuginBase
                     return false;
                 };
             };
+#endif
             //Olympus makernotes
             if (getExiv2Value(exifData, "Exif.Olympus.RedBalance", val1) &&
                 getExiv2Value(exifData, "Exif.Olympus.BlueBalance", val2))
