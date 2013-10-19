@@ -324,10 +324,19 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, double & 
         return false;
     }
 
-    Exiv2Helper::getExiv2Value(exifData,"Exif.Photo.ExposureTime",exposureTime);
+    Exiv2::ExifData::const_iterator it=Exiv2::exposureTime(exifData);
+    if(it!=exifData.end() && it->count())
+    {
+        exposureTime=it->toFloat();
+    };
+
     // TODO: reconstruct real exposure value from "rounded" ones saved by the cameras?
 
-    Exiv2Helper::getExiv2Value(exifData,"Exif.Photo.FNumber",photoFNumber);
+    it=Exiv2::fNumber(exifData);
+    if(it!=exifData.end() && it->count())
+    {
+        photoFNumber=it->toFloat();
+    };
     
     //remember aperture for later
     setExifAperture(photoFNumber);
@@ -343,12 +352,17 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, double & 
     {
         photoFNumber=3.5;
     };
+    // read ISO from EXIF or makernotes
+    it=Exiv2::isoSpeed(exifData);
+    if(it!=exifData.end() && it->count())
+    {
+        isoSpeed=it->toFloat();
+    };
+
     if (exposureTime > 0 && photoFNumber > 0) {
         double gain = 1;
-        if (Exiv2Helper::getExiv2Value(exifData,"Exif.Photo.ISOSpeedRatings",isoSpeed)) {
-            if (isoSpeed > 0) {
-                gain = isoSpeed / 100.0;
-            }
+        if (isoSpeed > 0) {
+            gain = isoSpeed / 100.0;
         }
         eV = log2(photoFNumber * photoFNumber / (gain * exposureTime));
         DEBUG_DEBUG ("Ev: " << eV);
@@ -592,7 +606,11 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, double & 
     DEBUG_DEBUG("cropFactor: " << cropFactor);
 
     float eFocalLength = 0;
-    Exiv2Helper::getExiv2Value(exifData,"Exif.Photo.FocalLength",eFocalLength);
+    it=Exiv2::focalLength(exifData);
+    if(it!=exifData.end() && it->count())
+    {
+        eFocalLength = it->toFloat();
+    };
 
     float eFocalLength35 = 0;
     Exiv2Helper::getExiv2Value(exifData,"Exif.Photo.FocalLengthIn35mmFilm",eFocalLength35);
@@ -614,7 +632,11 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, double & 
         focalLength = eFocalLength;
         cropFactor = 0;
     }
-    Exiv2Helper::getExiv2Value(exifData,"Exif.Photo.SubjectDistance", subjectDistance);
+    it=Exiv2::subjectDistance(exifData);
+    if(it!=exifData.end() && it->count())
+    {
+        subjectDistance=it->toFloat();
+    };
 
     std::string captureDate;
     Exiv2Helper::getExiv2Value(exifData,"Exif.Photo.DateTimeOriginal",captureDate);
