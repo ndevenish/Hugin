@@ -1059,7 +1059,7 @@ void CPImageCtrl::selectPoint(unsigned int nr)
         showPosition(m_points[nr].GetPos());
         update();
     } else {
-        DEBUG_DEBUG("trying to select invalid point nr: " << nr << ". Nr of points: " << points.size());
+        DEBUG_DEBUG("trying to select invalid point nr: " << nr << ". Nr of points: " << m_points.size());
     }
 }
 
