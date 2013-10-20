@@ -930,14 +930,14 @@ PT::PanoCommand* ResetOperation::GetInternalCommand(wxWindow* parent, PT::Panora
         };
         if(m_resetExposure>0)
         {
-            if (pano.getImage(imgNr).ExposureValueisLinked())
-            {
-                /* Unlink exposure value variable so the EXIF values can be
-                 * independant. */
-                needs_unlink_exposure = true;
-            }
             if(m_resetExposure==1)
             {
+                if (pano.getImage(imgNr).ExposureValueisLinked())
+                {
+                    /* Unlink exposure value variable so the EXIF values can be
+                     * independant. */
+                    needs_unlink_exposure = true;
+                }
                 //reset to exif value
                 if(eV!=0)
                 {
@@ -952,22 +952,41 @@ PT::PanoCommand* ResetOperation::GetInternalCommand(wxWindow* parent, PT::Panora
         };
         if(m_resetColor>0)
         {
-            if (pano.getImage(imgNr).WhiteBalanceRedisLinked())
-            {
-                /* Unlink red balance variable so the EXIF values can be
-                 * independant. */
-                needs_unlink_redbal = true;
-            }
-            if (pano.getImage(imgNr).WhiteBalanceBlueisLinked())
-            {
-                /* Unlink red balance variable so the EXIF values can be
-                 * independant. */
-                needs_unlink_bluebal = true;
-            }
             if(m_resetColor==1)
             {
-                map_get(ImgVars,"Er").setValue(pano.getImage(imgNr).getExifRedBalance()/redBalanceAnchor);
-                map_get(ImgVars,"Eb").setValue(pano.getImage(imgNr).getExifBlueBalance()/blueBalanceAnchor);
+                if (pano.getImage(imgNr).WhiteBalanceRedisLinked())
+                {
+                    /* Unlink red balance variable so the EXIF values can be
+                     * independant. */
+                    needs_unlink_redbal = true;
+                }
+                if (pano.getImage(imgNr).WhiteBalanceBlueisLinked())
+                {
+                    /* Unlink red balance variable so the EXIF values can be
+                     * independant. */
+                    needs_unlink_bluebal = true;
+                }
+                double redBal=1;
+                double blueBal=1;
+                const SrcPanoImage& img=pano.getImage(imgNr);
+                const SrcPanoImage& anchor=pano.getImage(pano.getOptions().colorReferenceImage);
+                // use EXIF Red/BlueBalance data only if image and anchor image are from the same camera
+                if(img.getExifMake() == anchor.getExifMake() &&
+                    img.getExifModel() == anchor.getExifModel())
+                {
+                    redBal=fabs(img.getExifRedBalance()/redBalanceAnchor);
+                    if(redBal<1e-2)
+                    {
+                        redBal=1;
+                    };
+                    blueBal=fabs(img.getExifBlueBalance()/blueBalanceAnchor);
+                    if(blueBal<1e-2)
+                    {
+                        blueBal=1;
+                    };
+                };
+                map_get(ImgVars,"Er").setValue(redBal);
+                map_get(ImgVars,"Eb").setValue(blueBal);
             }
             else
             {
