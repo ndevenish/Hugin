@@ -79,10 +79,15 @@ static void usage(const char * name)
          << " Modifiers" << std::endl
          << "  -v        Verbose, print progress messages.  Repeat for higher verbosity" << std::endl
          << "  -e        Assume input images are full frame fish eye (default: rectilinear)" << std::endl
-         << "  -t num    Remove all control points with an error higher than num pixels (default: 3)" << std::endl
-         << "  -f HFOV   approximate horizontal field of view of input images, use if EXIF info not complete" << std::endl
+         << "  -t num    Remove all control points with an error higher than num pixels" << std::endl
+         << "             (default: 3)" << std::endl
+         << "  --corr=num  Correlation threshold for identifing control points" << std::endl
+         << "               (default: 0.9)" << std::endl
+         << "  -f HFOV   approximate horizontal field of view of input images," << std::endl
+         << "             use if EXIF info not complete" << std::endl
          << "  -m        Optimize field of view for all images, except for first." << std::endl
-         << "             Useful for aligning focus stacks with slightly different magnification." << std::endl
+         << "             Useful for aligning focus stacks with slightly" << std::endl
+         << "             different magnification." << std::endl
          << "  -d        Optimize radial distortion for all images, except for first." << std::endl
          << "  -i        Optimize image center shift for all images, except for first." << std::endl
          << "  -x        Optimize X coordinate of the camera position." << std::endl
@@ -93,11 +98,13 @@ static void usage(const char * name)
          << "  -A        Align stereo window - assumes -S." << std::endl
          << "  -P        Align stereo window with pop-out effect - assumes -S." << std::endl
          << "  -C        Auto crop the image to the area covered by all images." << std::endl
-         << "  -c num    number of control points (per grid) to create between adjacent images (default: 8)" << std::endl
+         << "  -c num    number of control points (per grid) to create" << std::endl
+         << "             between adjacent images (default: 8)" << std::endl
          << "  -l        Assume linear input files" << std::endl
-	 << "  -s scale  Scale down image by 2^scale (default: 1 [2x downsampling])" << std::endl
-	 << "  -g gsize  Break image into a rectangular grid (gsize x gsize) and attempt to find " << std::endl 
-	 << "             num control points in each section (default: 5 [5x5 grid] )" << std::endl
+         << "  -s scale  Scale down image by 2^scale (default: 1 [2x downsampling])" << std::endl
+         << "  -g gsize  Break image into a rectangular grid (gsize x gsize) and attempt" << std::endl
+         << "             to find num control points in each section" << std::endl 
+         << "             (default: 5 [5x5 grid] )" << std::endl
          << "  -h        Display help (this text)" << std::endl
          << std::endl;
 }
@@ -157,7 +164,7 @@ public:
 #endif
 
 template <class ImageType>
-void createCtrlPoints(Panorama & pano, int img1, const ImageType & leftImg, const ImageType & leftImgOrig, int img2, const ImageType & rightImg, const ImageType & rightImgOrig, int pyrLevel, double scale, unsigned nPoints, unsigned grid, bool stereo = false)
+void createCtrlPoints(Panorama & pano, int img1, const ImageType & leftImg, const ImageType & leftImgOrig, int img2, const ImageType & rightImg, const ImageType & rightImgOrig, int pyrLevel, double scale, unsigned nPoints, unsigned grid, double corrThresh=0.9, bool stereo = false)
 {
     typedef typename ImageType::value_type VT;
     //////////////////////////////////////////////////
@@ -222,8 +229,6 @@ void createCtrlPoints(Panorama & pano, int img1, const ImageType & leftImg, cons
             long templWidth = 20;
             long sWidth = 100;
             long sWidth2 = scaleFactor;
-            double corrThresh = 0.9;
-            //double curvThresh = 0.0;
 
             vigra_ext::CorrelationResult res;
 
@@ -390,6 +395,7 @@ struct Parameters
     Parameters()
     {
         cpErrorThreshold = 3;
+        corrThresh = 0.9;
         nPoints = 8;
         grid = 5;
         hfov = 0;
@@ -409,6 +415,7 @@ struct Parameters
     }
 
     double cpErrorThreshold;
+    double corrThresh;
     int nPoints;
     int grid;		// Partition images into grid x grid subregions, each with npoints
     double hfov;
@@ -582,7 +589,7 @@ int main2(std::vector<std::string> files, Parameters param)
             // add control points.
             // work on smaller images
             // TODO: or use a fast interest point operator.
-            createCtrlPoints(pano, i-1, *leftImg, *leftImgOrig, i, *rightImg, *rightImgOrig, param.pyrLevel, 2, param.nPoints, param.grid, param.stereo);
+            createCtrlPoints(pano, i-1, *leftImg, *leftImgOrig, i, *rightImg, *rightImgOrig, param.pyrLevel, 2, param.nPoints, param.grid, param.corrThresh, param.stereo);
 
             // swap images;
             delete leftImg;
@@ -732,40 +739,50 @@ int main(int argc, char *argv[])
     g_verbose = 0;
 
     Parameters param;
-//    // use to override exposure value on the command line?
-//    std::map<std::string, double> exposureValueMap;
-    while ((c = getopt (argc, argv, optstring)) != -1)
+    enum
+    {
+        CORRTHRESH=1000
+    };
+
+    static struct option longOptions[] =
+    {
+        {"corr", required_argument, NULL, CORRTHRESH },
+        {"help", no_argument, NULL, 'h' },
+        0
+    };
+    int optionIndex = 0;
+    while ((c = getopt_long (argc, argv, optstring, longOptions,&optionIndex)) != -1)
         switch (c) {
         case 'a':
             param.alignedPrefix = optarg;
             break;
         case 'c':
             param.nPoints = atoi(optarg);
-	    if (param.nPoints<1) {
-		cerr << "Invalid parameter: Number of points/grid (-c) must be at least 1" << std::endl;
-		return 1;
-	    }
+            if (param.nPoints<1) {
+                cerr << "Invalid parameter: Number of points/grid (-c) must be at least 1" << std::endl;
+                return 1;
+            }
             break;
         case 'e':
             param.fisheye = true;
             break;
         case 'f':
             param.hfov = atof(optarg);
-	    if (param.hfov<=0) {
-		cerr << "Invalid parameter: HFOV (-f) must be greater than 0" << std::endl;
-		return 1;
-	    }
+            if (param.hfov<=0) {
+                cerr << "Invalid parameter: HFOV (-f) must be greater than 0" << std::endl;
+                return 1;
+            }
             break;
-	case 'g':
-	    param.grid = atoi(optarg);
-	    if (param.grid <1 || param.grid>50) {
-		cerr << "Invalid parameter: number of grid cells (-g) should be between 1 and 50" << std::endl;
-		return 1;
-	    }
-	    break;
-	case 'l':
-	    param.linear = true;
-	    break;
+        case 'g':
+            param.grid = atoi(optarg);
+            if (param.grid <1 || param.grid>50) {
+                cerr << "Invalid parameter: number of grid cells (-g) should be between 1 and 50" << std::endl;
+                return 1;
+            }
+            break;
+        case 'l':
+            param.linear = true;
+            break;
         case 'm':
             param.optHFOV = true;
             break;
@@ -801,10 +818,10 @@ int main(int argc, char *argv[])
             break;
         case 't':
             param.cpErrorThreshold = atof(optarg);
-	    if (param.cpErrorThreshold <= 0) {
-		cerr << "Invalid parameter: control point error threshold (-t) must be greater than 0" << std::endl;
-		return 1;
-	    }
+            if (param.cpErrorThreshold <= 0) {
+                cerr << "Invalid parameter: control point error threshold (-t) must be greater than 0" << std::endl;
+                return 1;
+            }
             break;
         case 'p':
             param.ptoFile = optarg;
@@ -818,13 +835,21 @@ int main(int argc, char *argv[])
         case 'h':
             usage(argv[0]);
             return 0;
-	case 's':
-	    param.pyrLevel = atoi(optarg);
-	    if (param.pyrLevel<0 || param.pyrLevel >8) {
-		cerr << "Invalid parameter: scaling (-s) should be between 0 and 8" << std::endl;
-		return 1;
-	    }
-	    break;
+        case 's':
+            param.pyrLevel = atoi(optarg);
+            if (param.pyrLevel<0 || param.pyrLevel >8) {
+            cerr << "Invalid parameter: scaling (-s) should be between 0 and 8" << std::endl;
+            return 1;
+            }
+            break;
+        case CORRTHRESH:
+            param.corrThresh = atoi(optarg);
+            if(param.corrThresh<=0 || param.corrThresh>1.0)
+            {
+                cerr << "Invalid correlation value. Should be between 0 and 1" << endl;
+                return 1;
+            };
+            break;
         default:
             cerr << "Invalid parameter: " << optarg << std::endl;
             usage(argv[0]);
