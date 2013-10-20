@@ -46,9 +46,8 @@
 #include <nona/Stitcher.h>
 #include <algorithms/basic/CalculateOptimalROI.h>
 
-#ifdef WIN32
- #include <getopt.h>
-#else
+#include <getopt.h>
+#ifndef WIN32
  #include <unistd.h>
 #endif
 
