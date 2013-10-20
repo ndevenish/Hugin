@@ -116,10 +116,6 @@
 			<param name="Local" value="Fulla.html">
 			</OBJECT>
 		<LI> <OBJECT type="text/sitemap">
-			<param name="Name" value="Nona GUI">
-			<param name="Local" value="Nona_gui.html">
-			</OBJECT>
-		<LI> <OBJECT type="text/sitemap">
 			<param name="Name" value="Calibrate_lens_gui">
 			<param name="Local" value="Calibrate_lens_gui.html">
 			</OBJECT>
@@ -134,10 +130,6 @@
 		<LI> <OBJECT type="text/sitemap">
 			<param name="Name" value="Tca_correct">
 			<param name="Local" value="Tca_correct.html">
-			</OBJECT>
-		<LI> <OBJECT type="text/sitemap">
-			<param name="Name" value="Matchpoint">
-			<param name="Local" value="MatchPoint.html">
 			</OBJECT>
 		<LI> <OBJECT type="text/sitemap">
 			<param name="Name" value="Pto2mk">
@@ -198,10 +190,6 @@
 		<LI> <OBJECT type="text/sitemap">
 			<param name="Name" value="Celeste_standalone">
 			<param name="Local" value="Celeste_standalone.html">
-			</OBJECT>
-		<LI> <OBJECT type="text/sitemap">
-			<param name="Name" value="PTBatcher">
-			<param name="Local" value="Hugin_Batch_Processor.html">
 			</OBJECT>
 		<LI> <OBJECT type="text/sitemap">
 			<param name="Name" value="PTBatcherGUI">
@@ -313,6 +301,10 @@
 		<param name="Name" value="Tips and Tricks">
 		</OBJECT>
 	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Panorama work flow">
+			<param name="Local" value="Hugin_Panorama_Workflow.html">
+			</OBJECT>
 		<LI> <OBJECT type="text/sitemap">
 			<param name="Name" value="Align a stack of photos">
 			<param name="Local" value="Align_a_stack_of_photos.html">

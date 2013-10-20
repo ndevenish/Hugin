@@ -80,6 +80,7 @@ Hugin_Main_window.html
 Hugin_Mask_tab.html
 Hugin_move_drag_tab.html
 Hugin_Optimiser_tab.html
+Hugin_Panorama_Workflow.html
 Hugin_Parameters_for_Control_Point_Detectors_dialog.html
 Hugin_Panorama_Editor_window.html
 Hugin_Photos_tab.html
@@ -103,11 +104,9 @@ Lens_distortion.html
 license.html
 Linefind.html
 Lightprobe.html
-MatchPoint.html
 Nadir.html
 Nodal_Point.html
 Nona.html
-Nona_gui.html
 No-parallax_point.html
 OpenEXR.html
 Optimization.html

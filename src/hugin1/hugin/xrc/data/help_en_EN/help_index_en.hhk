@@ -541,11 +541,6 @@
 		<param name="Local" value="Hugin_Mask_tab.html">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
-		<param name="Name" value="Matchpoint">
-		<param name="Name" value="MatchPoint">
-		<param name="Local" value="MatchPoint.html">
-		</OBJECT>
-	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Move/Drag tab">
 		<param name="Name" value="Hugin move drag tab - PanoTools.org Wiki">
 		<param name="Local" value="Hugin_move_drag_tab.html">
@@ -559,11 +554,6 @@
 		<param name="Name" value="Nona">
 		<param name="Name" value="Nona">
 		<param name="Local" value="Nona.html">
-		</OBJECT>
-	<LI> <OBJECT type="text/sitemap">
-		<param name="Name" value="Nona GUI">
-		<param name="Name" value="Nona gui">
-		<param name="Local" value="Nona_gui.html">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="No-parallax point">
@@ -757,6 +747,11 @@
 		<param name="Local" value="PSD.html">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="PTBatcherGUI">
+		<param name="Name" value="Hugin Batch Processor - PanoTools.org Wiki">
+		<param name="Local" value="Hugin_Batch_Processor.html">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="PTBlender">
 		<param name="Name" value="PTblender">
 		<param name="Local" value="PTblender.html">
@@ -942,6 +937,11 @@
 		<param name="Name" value="Wavy distortion">
 		<param name="Name" value="Wavy distortion">
 		<param name="Local" value="Wavy_distortion.html">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Work flow">
+		<param name="Name" value="Hugin Panorama Workflow - PanoTools.org Wiki">
+		<param name="Local" value="Hugin_Panorama_Workflow.html">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Yaw">

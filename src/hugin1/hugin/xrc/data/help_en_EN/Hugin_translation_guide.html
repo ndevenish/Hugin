@@ -53,7 +53,7 @@
 <ul><li>1. Get your language file
 </li></ul>
 <dl><dd>Each language version of hugin uses a different *.po file (just like "fr.po" for French or "ja.po" for Japanese) containing all the translated strings. The country codes use the <a rel="nofollow" class="external text" href="http://www.loc.gov/standards/iso639-2/php/code_list.php">ISO 639-1</a> naming convention. 
-</dd><dd>In general, you need the latest *.po file, usually the one for the language you want to modify. You can download it from the <a rel="nofollow" class="external text" href="http://hugin.hg.sourceforge.net/hgweb/hugin/hugin/file/default/src/translations">Mercurial repository</a>: in this list of files navigate to your *.po file, click on the file name and then use the link "raw" in the navigation bar to save the file (right click or ctrl-click: Save Link as...) to your local hard disk.
+</dd><dd>In general, you need the latest *.po file, usually the one for the language you want to modify. You can download it from the <a rel="nofollow" class="external text" href="http://sourceforge.net/p/hugin/hugin/ci/default/tree/src/translations/">Mercurial repository</a>: in this list of files navigate to your *.po file, click on the file name and then use the link "raw" in the navigation bar to save the file (right click or ctrl-click: Save Link as...) to your local hard disk.
 </dd><dd>If there is yet no translation file for your language you can use the file hugin.pot and rename that using the above naming convention or just ask the <a rel="nofollow" class="external text" href="http://groups.google.com/group/hugin-ptx">developers list</a> for assistance.
 </dd></dl>
 <ul><li>2. Edit your *.po file
@@ -157,8 +157,8 @@
 </p><p><br />
 </p>
 <ul><li>1. Get and install <a rel="nofollow" class="external text" href="http://tortoisehg.bitbucket.org/">TortoiseHg</a>.
-</li><li>2. In the explorer create a new folder, e.g. hugin-hg. Then do a right click on the created folder and select "Clone" in the "TortoiseHG" submenu. Select the repository <a rel="nofollow" class="external free" href="http://hugin.hg.sourceforge.net:8000/hgroot/hugin/hugin">http://hugin.hg.sourceforge.net:8000/hgroot/hugin/hugin</a> as source path and select "Clone". 
-</li><li>3. Now select "Repository Settings" in the "TortoiseHG" context menu of the folder.  In the section "Synchronize" add a new setting with an alias/name e.g. "writeRepo" and the URL ssh://YOUR-SOURCEFORGE-USERNAME@hugin.hg.sourceforge.net/hgroot/hugin/hugin , close the settings dialog. (This needs to be done only once.)
+</li><li>2. In the explorer create a new folder, e.g. hugin-hg. Then do a right click on the created folder and select "Clone" in the "TortoiseHG" submenu. Select the repository <a rel="nofollow" class="external free" href="http://hg.code.sf.net/p/hugin/hugin">http://hg.code.sf.net/p/hugin/hugin</a> as source path and select "Clone". 
+</li><li>3. Now select "Repository Settings" in the "TortoiseHG" context menu of the folder.  In the section "Synchronize" add a new setting with an alias/name e.g. "writeRepo" and the URL ssh://YOUR-SOURCEFORGE-USERNAME@hg.code.sf.net/p/hugin/hugin , close the settings dialog. (This needs to be done only once.)
 </li><li>4. You can commit your (partial) results anytime: right-click on the folder and select in the context menu "Hg Commit..." - enter a short text describing what you did (e.g.: "updated French translation"), check that only your modified .po file is selected and click OK. Note that you can select only the "translation" folder instead of "hugin-trunk" if you modified only files within "translation".
 </li><li>5. Open the folder context menu, open "TortoiseHG/Synchronize". Select your in step 2 created setting in the combobox and select "Push". (Or you can also push from the "Repository Explorer".)
 </li></ul>
@@ -168,7 +168,7 @@
 </li><li>2. Get the full Hugin source code.
 </li></ul>
 <pre>
-hg clone http://hugin.hg.sourceforge.net:8000/hgroot/hugin/hugin  hugin
+hg clone ssh://YOUR-SOURCEFORGE-USERNAME@hg.code.sf.net/p/hugin/hugin  hugin
 </pre>
 <ul><li>3. Do your translation work inside the folder src/translations
 </li><li>4. You can commit your (partial) results anytime by running the commands
@@ -176,7 +176,7 @@ hg clone http://hugin.hg.sourceforge.net:8000/hgroot/hugin/hugin  hugin
 <pre>
 hg pull
 hg commit TRANSLATEDFILE.po -m &quot;updated LANGUAGE translation&quot;
-hg push ssh://YOUR-SOURCEFORGE-USERNAME@hugin.hg.sourceforge.net/hgroot/hugin/hugin 
+hg push  
 </pre>
 <p><b>Important:</b> committed changes are only on your local disk.  You must push them to SourceForge to make them available to the project.
 </p>
@@ -367,7 +367,7 @@ hg up
 cd src/translations
 ./extract-messages.sh
 hg ci
-hg push ssh://YOUR-SOURCEFORGE-USERNAME@hugin.hg.sourceforge.net/hgroot/hugin/hugin 
+hg push 
 </pre>
 <h3> <span class="mw-headline" id="Applying_a_contributed_.po_file"> Applying a contributed .po file </span></h3>
 <p>You could just overwrite the original and commit, but this assumes the file is correctly formatted and hasn't lost any strings. Better to use <b>msgmerge</b> to merge the contributed .po file with the existing.  Hugin has a script to test what will happen.  Use <b>msgfmt</b> for a quick sanity check too:
@@ -378,7 +378,7 @@ hg push ssh://YOUR-SOURCEFORGE-USERNAME@hugin.hg.sourceforge.net/hgroot/hugin/hu
  msgfmt -c --statistics src/translations/zh_CN.po
  mv zh_CN.merged.po src/translations/zh_CN.po
  hg ci zh_CN.po -m 'Edited chinese translation'
- hg push ssh://YOUR-SOURCEFORGE-USERNAME@hugin.hg.sourceforge.net/hgroot/hugin/hugin
+ hg push
 </pre>
 <h3> <span class="mw-headline" id="Statistics"> Statistics </span></h3>
 <p>msgfmt --statistics eo_XX.po
@@ -388,9 +388,9 @@ hg push ssh://YOUR-SOURCEFORGE-USERNAME@hugin.hg.sourceforge.net/hgroot/hugin/hu
 </li><li> The .po files headers are inconsistent. Ideally they would all feature the same license and copyright notice; and they would list all contributors.
 </li></ul>
 <h2> <span class="mw-headline" id="Website_.2F_Release_Notes"> Website / Release Notes </span></h2>
-<p>Some translators contribute also translated release notes.  These are published on the web at <a rel="nofollow" class="external free" href="http://hugin.sourceforge.net/releases/">http://hugin.sourceforge.net/releases/</a> . Usually the release manager will draft the release notes in English early on in the release process.  Even if they are not linked, you can find them in the repository at <a rel="nofollow" class="external free" href="http://hugin.hg.sourceforge.net/hgweb/hugin/hugin-web/file/tip/releases">http://hugin.hg.sourceforge.net/hgweb/hugin/hugin-web/file/tip/releases</a>
-</p><p><b>Important</b>: make sure you translate the file from the <a rel="nofollow" class="external text" href="http://hugin.hg.sourceforge.net/hgweb/hugin/hugin-web/file/tip/releases">repository</a> and not the resulting file displayed on the web, e.g. for 2012.0.0 translate the <i>raw</i> version of
-<a rel="nofollow" class="external free" href="http://hugin.hg.sourceforge.net/hgweb/hugin/hugin-web/file/4894a12dc2ea/releases/2012.0.0/en.shtml">http://hugin.hg.sourceforge.net/hgweb/hugin/hugin-web/file/4894a12dc2ea/releases/2012.0.0/en.shtml</a> and not the current one from <a rel="nofollow" class="external free" href="http://hugin.sourceforge.net/releases/">http://hugin.sourceforge.net/releases/</a> - the former is the source for the page while the latter is the resulting page after server side includes and other server side transformations.
+<p>Some translators contribute also translated release notes.  These are published on the web at <a rel="nofollow" class="external free" href="http://hugin.sourceforge.net/releases/">http://hugin.sourceforge.net/releases/</a> . Usually the release manager will draft the release notes in English early on in the release process.  Even if they are not linked, you can find them in the repository at <a rel="nofollow" class="external free" href="http://sourceforge.net/p/hugin/hugin-web/ci/default/tree/releases/">http://sourceforge.net/p/hugin/hugin-web/ci/default/tree/releases/</a>
+</p><p><b>Important</b>: make sure you translate the file from the <a rel="nofollow" class="external text" href="http://sourceforge.net/p/hugin/hugin-web/ci/default/tree/releases/">repository</a> and not the resulting file displayed on the web, e.g. for 2012.0.0 translate the <i>raw</i> version of
+<a rel="nofollow" class="external free" href="http://sourceforge.net/p/hugin/hugin-web/ci/default/tree/releases/2012.0.0/en.shtml">http://sourceforge.net/p/hugin/hugin-web/ci/default/tree/releases/2012.0.0/en.shtml</a> and not the current one from <a rel="nofollow" class="external free" href="http://hugin.sourceforge.net/releases/">http://hugin.sourceforge.net/releases/</a> - the former is the source for the page while the latter is the resulting page after server side includes and other server side transformations.
 </p><p>Thanks for your contributions!
 </p>
 
@@ -399,7 +399,7 @@ hg push ssh://YOUR-SOURCEFORGE-USERNAME@hugin.hg.sourceforge.net/hgroot/hugin/hu
 </div>				<!-- /bodycontent -->
 								<!-- printfooter -->
 				<div class="printfooter">
-				Retrieved from "http://wiki.panotools.org/index.php?title=Hugin_translation_guide&amp;oldid=14387<a class="external" href="http://wiki.panotools.org/index.php?title=Hugin_translation_guide&amp;oldid=14387">[*]</a>"				</div>
+				Retrieved from "http://wiki.panotools.org/index.php?title=Hugin_translation_guide&amp;oldid=15542<a class="external" href="http://wiki.panotools.org/index.php?title=Hugin_translation_guide&amp;oldid=15542">[*]</a>"				</div>
 				<!-- /printfooter -->
 												<!-- catlinks -->
 				</div></div></body></html>
