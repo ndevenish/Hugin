@@ -40,6 +40,7 @@
 
 #include <cmath>
 #include <cstdlib>
+#include <algorithm>
 #include "config.hxx"
 #include "error.hxx"
 #include "tuple.hxx"
