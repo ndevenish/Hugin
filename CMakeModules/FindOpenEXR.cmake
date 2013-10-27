@@ -29,6 +29,7 @@ ENDIF (NOT WIN32 OR MINGW)
      /usr/include
      /usr/local/include
      ${SOURCE_BASE_DIR}/Deploy/include
+     ${SOURCE_BASE_DIR}/Deploy/include/OpenEXR
   )
   
   FIND_LIBRARY(OPENEXR_HALF_LIBRARY NAMES Half
