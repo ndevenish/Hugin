@@ -3,15 +3,14 @@ msgstr ""
 "Project-Id-Version: for Hugin\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
 "POT-Creation-Date: 2013-02-24 12:50+0100\n"
-"PO-Revision-Date: 2012-06-03 10:28+0800\n"
-"Last-Translator: Lu Fang\n"
+"PO-Revision-Date: 2013-10-26 22:03+0800\n"
+"Last-Translator: Yili Zhao <panovr@gmail.com>\n"
 "Language-Team: Simplified Chinese <N/A>\n"
-"Language: \n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Country: CHINA\n"
-"X-Poedit-Language: Chinese\n"
+"X-Generator: Poedit 1.5.4\n"
 
 #: hugin1/base_wx/huginConfig.cpp:47 hugin1/base_wx/huginConfig.cpp:82
 #, c-format
@@ -3022,7 +3021,7 @@ msgstr "使用鼠标左键使全景图像居中, 使用右键设置水平"
 #: hugin1/hugin/PreviewIdentifyTool.cpp:202
 #: hugin1/hugin/PreviewIdentifyTool.cpp:318
 msgid "Move the mouse over the images or image buttons to identify them."
-msgstr "移动图像上的鼠标或者图像上的按钮来实别它们."
+msgstr "移动图像上的鼠标或者图像上的按钮来识别它们."
 
 #: hugin1/hugin/PreviewIdentifyTool.cpp:316
 msgid "Click to create or edit control points here."
