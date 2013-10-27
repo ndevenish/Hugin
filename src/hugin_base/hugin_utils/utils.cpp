@@ -33,7 +33,7 @@
 #include <fstream>
 #include <stdio.h>
 #include <cstdio>
-
+#include <algorithm>
 
 namespace hugin_utils {
     

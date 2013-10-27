@@ -72,6 +72,7 @@ IF(WIN32)
 
   # find path to gnu make 
   FIND_PATH(GNUMake_DIR make.exe
+            ${SOURCE_BASE_DIR}/Make-4.0/Release
             ${SOURCE_BASE_DIR}/Make-3.82/Release
             ${SOURCE_BASE_DIR}/Make-3.81/Release
             DOC "Location of gnu make"
