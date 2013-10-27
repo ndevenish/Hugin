@@ -1,3 +1,15 @@
+2013-09-09 20:13 +0200  harryvanderwolf <hvdwolf@gmail.com>  (0d404a7088e6)  
+
+	Added tag 2013.0.0_rc2 for changeset bbf25923d4c1
+
+	> .hgtags
+
+2013-09-09 20:13 +0200  harryvanderwolf <hvdwolf@gmail.com>  (bbf25923d4c1)  2013.0.0_rc2
+
+	Update changelog for 2013.0RC2
+
+	> ChangeLog
+
 2013-08-16 19:54 +0100  Bruno Postle <bruno@postle.net>  (17204eeeb1e7)  
 
 	fix some warnings from podchecker
