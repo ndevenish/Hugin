@@ -1952,7 +1952,7 @@ bool getLensDataFromUser(wxWindow * parent, SrcPanoImage & srcImg,
         // assume a cancel dialog.
         srcImg = dlg.GetSrcImage();
         if (dlg.GetCropFactor() <= 0) {
-            srcImg.setExifCropFactor(1);
+            srcImg.setCropFactor(1);
         }
         return true;
     } else {

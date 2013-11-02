@@ -362,7 +362,7 @@ void LensCalFrame::AddImages(wxArrayString files)
                 if(image0->getExifMake()!=image1->getExifMake() ||
                     image0->getExifModel()!=image1->getExifModel() ||
                     image0->getExifFocalLength()!=image1->getExifFocalLength() ||
-                    image0->getExifCropFactor()!=image1->getExifCropFactor())
+                    image0->getCropFactor()!=image1->getCropFactor())
                 {
                     //only show a warning, but continue processing
                     wrongExif.push_back(files[i]);
@@ -377,7 +377,7 @@ void LensCalFrame::AddImages(wxArrayString files)
                 hugin_utils::doubleTowxString(image->GetPanoImage()->getExifFocalLength(),2)
                 );
             XRCCTRL(*this,"lenscal_cropfactor",wxTextCtrl)->SetValue(
-                hugin_utils::doubleTowxString(image->GetPanoImage()->getExifCropFactor(),2)
+                hugin_utils::doubleTowxString(image->GetPanoImage()->getCropFactor(),2)
                 );
             SelectProjection(m_choice_projection,image->GetPanoImage()->getProjection());
         };
@@ -646,13 +646,13 @@ Panorama LensCalFrame::GetPanorama()
         SrcPanoImage image(*(m_images[i]->GetPanoImage()));
         image.setProjection(m_projection);
         image.setExifFocalLength(m_focallength);
-        image.setExifCropFactor(m_cropfactor);
+        image.setCropFactor(m_cropfactor);
         image.setVar("a",m_a);
         image.setVar("b",m_b);
         image.setVar("c",m_c);
         image.setVar("d",m_d);
         image.setVar("e",m_e);
-        double hfov=SrcPanoImage::calcHFOV(image.getProjection(),image.getExifFocalLength(),image.getExifCropFactor(),image.getSize());
+        double hfov=SrcPanoImage::calcHFOV(image.getProjection(),image.getExifFocalLength(),image.getCropFactor(),image.getSize());
         image.setHFOV(hfov);
         pano.addImage(image);
         std::set<std::string> imgopt;

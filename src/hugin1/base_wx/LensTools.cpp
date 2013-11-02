@@ -116,7 +116,7 @@ void SaveLensParameters(const wxString filename, HuginBase::Panorama* pano, unsi
         cfg.Write(wxT("EXIF/FocalLength"), image.getExifFocalLength());
         cfg.Write(wxT("EXIF/Aperture"), image.getExifAperture());
         cfg.Write(wxT("EXIF/ISO"), image.getExifISO());
-        cfg.Write(wxT("EXIF/CropFactor"), image.getExifCropFactor()); 
+        cfg.Write(wxT("EXIF/CropFactor"), image.getCropFactor()); 
         cfg.Write(wxT("EXIF/Distance"), image.getExifDistance()); 
     }
     cfg.Flush();
@@ -191,7 +191,7 @@ bool ApplyLensParameters(wxWindow * parent, PT::Panorama *pano, HuginBase::UIntS
         // Set the lens projection type.
         cmds.push_back(new PT::ChangeImageProjectionCmd(*pano, images, (HuginBase::SrcPanoImage::Projection) lens.getProjection()));
         // update crop factor
-        cmds.push_back(new PT::ChangeImageExifCropFactorCmd(*pano,images,lens.getCropFactor()));
+        cmds.push_back(new PT::ChangeImageCropFactorCmd(*pano,images,lens.getCropFactor()));
         // update the crop rect
         cmds.push_back(new PT::ChangeImageAutoCenterCropCmd(*pano,images,autoCenterCrop));
         if(cropped)

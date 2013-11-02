@@ -812,7 +812,7 @@ int processImg(const char *filename)
         srcRedImg.setSize(imgInfo.size());
         srcRedImg.setProjection(SrcPanoImage::RECTILINEAR);
         srcRedImg.setHFOV(10);
-        srcRedImg.setExifCropFactor(1);
+        srcRedImg.setCropFactor(1);
         srcRedImg.setFilename(red_name);
         int imgRedNr = pano.addImage(srcRedImg);
         lenses.updatePartNumbers();
@@ -829,7 +829,7 @@ int processImg(const char *filename)
         srcGreenImg.setSize(imgInfo.size());
         srcGreenImg.setProjection(SrcPanoImage::RECTILINEAR);
         srcGreenImg.setHFOV(10);
-        srcGreenImg.setExifCropFactor(1);
+        srcGreenImg.setCropFactor(1);
         srcGreenImg.setFilename(green_name);
         int imgGreenNr = pano.addImage(srcGreenImg);
         lenses.updatePartNumbers();
@@ -846,7 +846,7 @@ int processImg(const char *filename)
         srcBlueImg.setSize(imgInfo.size());
         srcBlueImg.setProjection(SrcPanoImage::RECTILINEAR);
         srcBlueImg.setHFOV(10);
-        srcBlueImg.setExifCropFactor(1);
+        srcBlueImg.setCropFactor(1);
         srcBlueImg.setFilename(blue_name);
         int imgBlueNr = pano.addImage(srcBlueImg);
         lenses.updatePartNumbers();

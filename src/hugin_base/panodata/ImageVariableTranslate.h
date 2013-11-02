@@ -322,7 +322,7 @@ typedef PTOVariableConverterFDiff2D<'V','V', 'x','y'> PTOVariableConverterForRad
 typedef PTOVariableConverterNoOp PTOVariableConverterForExifModel;
 typedef PTOVariableConverterNoOp PTOVariableConverterForExifMake;
 typedef PTOVariableConverterNoOp PTOVariableConverterForExifLens;
-typedef PTOVariableConverterNoOp PTOVariableConverterForExifCropFactor;
+typedef PTOVariableConverterNoOp PTOVariableConverterForCropFactor;
 typedef PTOVariableConverterNoOp PTOVariableConverterForExifFocalLength;
 typedef PTOVariableConverterNoOp PTOVariableConverterForExifOrientation;
 typedef PTOVariableConverterNoOp PTOVariableConverterForExifAperture;

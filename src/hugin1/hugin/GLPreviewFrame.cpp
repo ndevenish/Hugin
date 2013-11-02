@@ -1016,9 +1016,9 @@ void GLPreviewFrame::panoramaChanged(Panorama &pano)
         // update data in lens display
         const SrcPanoImage& img=pano.getImage(0);
         SelectProjection(m_lensTypeChoice, img.getProjection());
-        double focal_length = SrcPanoImage::calcFocalLength(img.getProjection(), img.getHFOV(), img.getExifCropFactor(), img.getSize());
+        double focal_length = SrcPanoImage::calcFocalLength(img.getProjection(), img.getHFOV(), img.getCropFactor(), img.getSize());
         m_focalLengthText->SetValue(doubleTowxString(focal_length,m_degDigits));
-        m_cropFactorText->SetValue(doubleTowxString(img.getExifCropFactor(),m_degDigits));
+        m_cropFactorText->SetValue(doubleTowxString(img.getCropFactor(),m_degDigits));
     }
 
     if (pano.getNrOfImages() > 1)
@@ -3135,7 +3135,7 @@ void GLPreviewFrame::OnLensTypeChanged (wxCommandEvent & e)
     const SrcPanoImage& img=m_pano.getImage(0);
     if (img.getProjection() != (Lens::LensProjectionFormat) var)
     {
-        double fl = SrcPanoImage::calcFocalLength(img.getProjection(), img.getHFOV(), img.getExifCropFactor(), img.getSize());
+        double fl = SrcPanoImage::calcFocalLength(img.getProjection(), img.getHFOV(), img.getCropFactor(), img.getSize());
         UIntSet imgs;
         imgs.insert(0);
         std::vector<PanoCommand*> commands;

@@ -351,7 +351,7 @@ void Panorama::UpdateCropFactor(UIntSet imgs, double newCropFactor)
     for(unsigned i=0;i<getNrOfImages();i++)
     {
         focalLengthVector[i]=state.images[i]->calcFocalLength(state.images[i]->getProjection(),
-            state.images[i]->getHFOV(),state.images[i]->getExifCropFactor(),state.images[i]->getSize());
+            state.images[i]->getHFOV(),state.images[i]->getCropFactor(),state.images[i]->getSize());
     };
     for(UIntSet::const_iterator it=imgs.begin();it!=imgs.end();it++)
     {
@@ -645,7 +645,7 @@ void Panorama::printPanoramaScript(std::ostream & o,
             if (img.getAutoCenterCrop())
                 o << " autoCenterCrop=1";
         }
-        o << " cropFactor=" << img.getExifCropFactor() ;
+        o << " cropFactor=" << img.getCropFactor() ;
         if (! img.getActive()) {
             o << " disabled";
         }
@@ -2979,7 +2979,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
 #endif
         
         // is this right?
-        new_img.setExifCropFactor(iImgInfo[i].cropFactor);
+        new_img.setCropFactor(iImgInfo[i].cropFactor);
         new_img.setVigCorrMode(iImgInfo[i].vigcorrMode);
         new_img.setFlatfieldFilename(iImgInfo[i].flatfieldname);
         new_img.setResponseType((SrcPanoImage::ResponseType)iImgInfo[i].responseType);

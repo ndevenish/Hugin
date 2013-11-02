@@ -746,7 +746,7 @@ bool SaveLensParameters(wxWindow * parent, const HuginBase::SrcPanoImage& img, b
                     {
                         //unknown camera, build mount name and save into database
                         mount=BuildMountName(lensDlg.GetCameraMaker(), lensDlg.GetCameraModel());
-                        if(!lensDB.SaveCameraCrop(filename, lensDlg.GetCameraMaker(), lensDlg.GetCameraModel(), mount, img.getExifCropFactor()))
+                        if(!lensDB.SaveCameraCrop(filename, lensDlg.GetCameraMaker(), lensDlg.GetCameraModel(), mount, img.getCropFactor()))
                         {
                             wxMessageBox(_("Could not save information into database file."),_("Error"),wxOK|wxICON_ERROR,parent);
                             return false;
@@ -759,7 +759,7 @@ bool SaveLensParameters(wxWindow * parent, const HuginBase::SrcPanoImage& img, b
                     std::string s;
                     if(!lensDB.GetCameraMount(lensDlg.GetCameraMaker(), lensDlg.GetCameraModel(), s))
                     {
-                        if(!lensDB.SaveCameraCrop(filename, lensDlg.GetCameraMaker(), lensDlg.GetCameraModel(), mount, img.getExifCropFactor()))
+                        if(!lensDB.SaveCameraCrop(filename, lensDlg.GetCameraMaker(), lensDlg.GetCameraModel(), mount, img.getCropFactor()))
                         {
                             wxMessageBox(_("Could not save information into database file."),_("Error"),wxOK|wxICON_ERROR,parent);
                             return false;
@@ -768,7 +768,7 @@ bool SaveLensParameters(wxWindow * parent, const HuginBase::SrcPanoImage& img, b
                 };
             };
 
-            int e=lensDB.BeginSaveLens(filename, lensDlg.GetLensMaker(), lensname, mount, img.getProjection(), img.getExifCropFactor());
+            int e=lensDB.BeginSaveLens(filename, lensDlg.GetLensMaker(), lensname, mount, img.getProjection(), img.getCropFactor());
             if(e==0)
             {
                 double focal=lensDlg.GetFocalLength();
@@ -960,7 +960,7 @@ bool SaveCameraCropFactor(wxWindow * parent, const HuginBase::SrcPanoImage& img)
         if(camDlg.ShowModal()==wxID_OK)
         {
             if(lensDB.SaveCameraCrop(std::string(dlg.GetPath().mb_str(HUGIN_CONV_FILENAME)),
-                camDlg.GetCameraMaker(),camDlg.GetCameraModel(),camDlg.GetCameraMount(),img.getExifCropFactor()))
+                camDlg.GetCameraMaker(),camDlg.GetCameraModel(),camDlg.GetCameraMount(),img.getCropFactor()))
             {
                 return true;
             }

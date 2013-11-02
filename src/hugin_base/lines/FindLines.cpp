@@ -316,9 +316,9 @@ HuginBase::CPVector _getVerticalLines(const HuginBase::Panorama& pano,const unsi
     if(focalLength==0)
     {
         focalLength=HuginBase::SrcPanoImage::calcFocalLength(
-            srcImage.getProjection(),srcImage.getHFOV(),srcImage.getExifCropFactor(),srcImage.getSize());
+            srcImage.getProjection(),srcImage.getHFOV(),srcImage.getCropFactor(),srcImage.getSize());
     };
-    Lines foundLines=findLines(*edge,0.05,focalLength,srcImage.getExifCropFactor());
+    Lines foundLines=findLines(*edge,0.05,focalLength,srcImage.getCropFactor());
     //filter results
     VerticalLineVector filteredLines=FilterLines(foundLines,roll);
     //create control points

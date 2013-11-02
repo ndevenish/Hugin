@@ -363,14 +363,14 @@ void LensCalImageCtrl::GenerateRemappedImage(const unsigned int newWidth,const u
     m_panoimage=*(m_imageLines->GetPanoImage());
     m_panoimage.setProjection(m_projection);
     m_panoimage.setExifFocalLength(m_focallength);
-    m_panoimage.setExifCropFactor(m_cropfactor);
+    m_panoimage.setCropFactor(m_cropfactor);
     m_panoimage.setExposureValue(0);
     m_panoimage.setVar("a",m_a);
     m_panoimage.setVar("b",m_b);
     m_panoimage.setVar("c",m_c);
     m_panoimage.setVar("d",m_d);
     m_panoimage.setVar("e",m_e);
-    double hfov=HuginBase::SrcPanoImage::calcHFOV(m_panoimage.getProjection(),m_panoimage.getExifFocalLength(),m_panoimage.getExifCropFactor(),m_panoimage.getSize());
+    double hfov=HuginBase::SrcPanoImage::calcHFOV(m_panoimage.getProjection(),m_panoimage.getExifFocalLength(),m_panoimage.getCropFactor(),m_panoimage.getSize());
     m_panoimage.setHFOV(hfov);
 
     std::string filename(m_imageLines->GetFilename().mb_str(HUGIN_CONV_FILENAME));

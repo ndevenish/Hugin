@@ -225,7 +225,7 @@ bool wxAddImagesCmd::processPanorama(Panorama& pano)
         if(cropFactor<=0)
         {
             srcImg.readCropfactorFromDB();
-            ok=(srcImg.getExifFocalLength()>0 && srcImg.getExifCropFactor()>0);
+            ok=(srcImg.getExifFocalLength()>0 && srcImg.getCropFactor()>0);
         };
         if (srcImg.getSize().x == 0 || srcImg.getSize().y == 0) {
             wxMessageBox(wxString::Format(_("Could not decode image:\n%s\nAbort"), fname.c_str()), _("Unsupported image file format"));
@@ -320,7 +320,7 @@ bool wxAddImagesCmd::processPanorama(Panorama& pano)
             if (!getLensDataFromUser(MainFrame::Get(), srcImg, focalLength, cropFactor)) {
                 // assume a standart lens
                 srcImg.setHFOV(50);
-                srcImg.setExifCropFactor(1);
+                srcImg.setCropFactor(1);
             }
         }
 

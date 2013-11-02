@@ -136,7 +136,7 @@ Lens ConstStandardImageVariableGroups::getLensForImage(std::size_t image_number)
     result.setProjection((Lens::LensProjectionFormat) image.getProjection());
     result.setImageSize(image.getSize());
     // set the sensor size by using the crop factor
-    result.setCropFactor(image.getExifCropFactor());
+    result.setCropFactor(image.getCropFactor());
     /* Convert the lens image variables into a map of lens variables.
      * We make a tempory VariableMap for rach lens image variable. The Panorama
      * tools script codes map to the values in this. We then use the name and

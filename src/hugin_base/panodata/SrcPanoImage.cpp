@@ -657,7 +657,7 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, double & 
 
     DEBUG_DEBUG("Results for:" << filename);
     DEBUG_DEBUG("Focal Length: " << getExifFocalLength());
-    DEBUG_DEBUG("Crop Factor:  " << getExifCropFactor());
+    DEBUG_DEBUG("Crop Factor:  " << getCropFactor());
     DEBUG_DEBUG("Roll:         " << getExifOrientation());
 
     // Update image with computed values from EXIF
@@ -667,7 +667,7 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, double & 
             setExposureValue(eV);
         if(cropFactor>0)
         {
-            setExifCropFactor(cropFactor);
+            setCropFactor(cropFactor);
         };
         if (focalLength > 0 && cropFactor > 0) {
             setHFOV(calcHFOV(getProjection(), focalLength, cropFactor, getSize()));
@@ -683,14 +683,14 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, double & 
 bool SrcPanoImage::readCropfactorFromDB()
 {
     // finally search in lensfun database
-    if(getExifCropFactor()<=0 && !getExifMake().empty() && !getExifModel().empty())
+    if(getCropFactor()<=0 && !getExifMake().empty() && !getExifModel().empty())
     {
         double dbCrop=0;
         if(LensDB::LensDB::GetSingleton().GetCropFactor(getExifMake(),getExifModel(),dbCrop))
         {
             if(dbCrop>0)
             {
-                setExifCropFactor(dbCrop);
+                setCropFactor(dbCrop);
                 return true;
             };
         };
@@ -945,7 +945,7 @@ double SrcPanoImage::calcCropFactor(SrcPanoImage::Projection proj, double hfov, 
 
 void SrcPanoImage::updateFocalLength(double newFocalLength)
 {
-    double newHFOV=calcHFOV(getProjection(),newFocalLength,getExifCropFactor(),getSize());
+    double newHFOV=calcHFOV(getProjection(),newFocalLength,getCropFactor(),getSize());
     if(newHFOV!=0)
     {
         setHFOV(newHFOV);
@@ -959,7 +959,7 @@ void SrcPanoImage::updateCropFactor(double focalLength, double newCropFactor)
     {
         setHFOV(newHFOV);
     };
-    setExifCropFactor(newCropFactor);
+    setCropFactor(newCropFactor);
 };
 
 // mask handling stuff

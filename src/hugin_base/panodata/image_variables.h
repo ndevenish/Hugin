@@ -64,6 +64,7 @@ image_variable( Size, vigra::Size2D , vigra::Size2D(0,0) )
 // projection variables
 image_variable( Projection, HuginBase::BaseSrcPanoImage::Projection, RECTILINEAR )
 image_variable( HFOV, double, 50.0 )
+image_variable( CropFactor, double, 0 )
 
 // colour response variables
 image_variable( ResponseType, HuginBase::BaseSrcPanoImage::ResponseType, RESPONSE_EMOR )
@@ -125,7 +126,6 @@ image_variable( kb, std::vector<double>, ,  )
 image_variable( ExifModel, std::string, "" )
 image_variable( ExifMake, std::string, "" )
 image_variable( ExifLens, std::string, "" )
-image_variable( ExifCropFactor, double, 0 )
 image_variable( ExifFocalLength, double, 0 )
 image_variable( ExifOrientation, double, 0 )
 image_variable( ExifAperture, double, 0 )

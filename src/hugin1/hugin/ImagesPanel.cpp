@@ -356,8 +356,8 @@ void ImagesPanel::OnSelectionChanged(wxTreeEvent & e)
         bool identical_projection=true;
         SrcPanoImage::Projection proj=img.getProjection();
         double focallength=SrcPanoImage::calcFocalLength(img.getProjection(),img.getHFOV(),
-                img.getExifCropFactor(),img.getSize());;
-        double cropFactor=img.getExifCropFactor();
+                img.getCropFactor(),img.getSize());;
+        double cropFactor=img.getCropFactor();
         for(UIntSet::const_iterator it=sel.begin(); it!=sel.end(); it++)
         {
             const SrcPanoImage& img2=m_pano->getImage(*it);
@@ -366,12 +366,12 @@ void ImagesPanel::OnSelectionChanged(wxTreeEvent & e)
                 identical_projection=false;
             };
             double focallength2 = SrcPanoImage::calcFocalLength(img2.getProjection(),img2.getHFOV(),
-                img2.getExifCropFactor(),img2.getSize());
+                img2.getCropFactor(),img2.getSize());
             if(focallength>0 && fabs(focallength-focallength2)>0.05)
             {
                 focallength=-1;
             };
-            if(fabs(cropFactor-img2.getExifCropFactor())>0.1)
+            if(fabs(cropFactor-img2.getCropFactor())>0.1)
             {
                 cropFactor=-1;
             };
@@ -504,7 +504,7 @@ void ImagesPanel::OnLensTypeChanged (wxCommandEvent & e)
     if(images.size()>0)
     {
         const SrcPanoImage & img=m_pano->getImage(*(images.begin()));
-        double focal_length = SrcPanoImage::calcFocalLength(img.getProjection(),img.getHFOV(),img.getExifCropFactor(),img.getSize());
+        double focal_length = SrcPanoImage::calcFocalLength(img.getProjection(),img.getHFOV(),img.getCropFactor(),img.getSize());
         std::vector<PanoCommand*> commands;
         commands.push_back(new PT::ChangeImageProjectionCmd(*m_pano, images,(HuginBase::SrcPanoImage::Projection) var));
         commands.push_back(new PT::UpdateFocalLengthCmd(*m_pano, images, focal_length));
@@ -542,7 +542,7 @@ void ImagesPanel::OnFocalLengthChanged(wxCommandEvent & e)
     const SrcPanoImage& srcImg=m_pano->getImage(*(images.begin()));
     if(srcImg.getProjection()==SrcPanoImage::FISHEYE_ORTHOGRAPHIC)
     {
-        double hfov=srcImg.calcHFOV(srcImg.getProjection(), val, srcImg.getExifCropFactor(), srcImg.getSize());
+        double hfov=srcImg.calcHFOV(srcImg.getProjection(), val, srcImg.getCropFactor(), srcImg.getSize());
         if(hfov>190)
         {
             if(wxMessageBox(

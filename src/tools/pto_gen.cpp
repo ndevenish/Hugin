@@ -312,7 +312,7 @@ int main(int argc, char* argv[])
             srcImage.setHFOV(fov);
             if(!srcImage.hasEXIFread())
             {
-                srcImage.setExifCropFactor(1.0);
+                srcImage.setCropFactor(1.0);
             };
         }
         else
@@ -323,7 +323,7 @@ int main(int argc, char* argv[])
                 cout << "\tNo value for field of view found in EXIF data. " << endl
                      << "\tAssuming a HFOV of 50 degrees. " << endl;
                 srcImage.setHFOV(50);
-                srcImage.setExifCropFactor(1.0);
+                srcImage.setCropFactor(1.0);
             };
         };
         if(cropRect.width()>0 && cropRect.height()>0)

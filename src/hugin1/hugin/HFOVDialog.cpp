@@ -277,7 +277,7 @@ void HFOVDialog::OnLoadLensParameters(wxCommandEvent & e)
         m_HFOV = lens.getHFOV();
         m_cropFactor = lens.getCropFactor();
 
-        m_srcImg.setExifCropFactor(lens.getCropFactor());
+        m_srcImg.setCropFactor(lens.getCropFactor());
         m_srcImg.setExifFocalLength(lens.getFocalLength());
         m_srcImg.setHFOV(const_map_get(lens.variables,"v").getValue());
         m_srcImg.setProjection((SrcPanoImage::Projection) lens.getProjection());
@@ -357,7 +357,7 @@ void HFOVDialog::OnLoadLensParameters(wxCommandEvent & e)
 SrcPanoImage HFOVDialog::GetSrcImage()
 {
     m_srcImg.setExifFocalLength(m_focalLength);
-    m_srcImg.setExifCropFactor(m_cropFactor);
+    m_srcImg.setCropFactor(m_cropFactor);
     m_srcImg.setHFOV(m_HFOV);
     return m_srcImg;
 }
