@@ -368,7 +368,7 @@ bool transformImageGPUIntern(const std::string& coordXformGLSL,
     const long long int maxDestPixels = gpuMemoryRemaining / bytesPerDestPixel;
 
     vector<Rect2D> destChunks;
-    makeChunks(destSize.x, destSize.y, 2048, maxDestPixels, destChunks);
+    makeChunks(destSize.x, destSize.y, maxTextureSize, maxDestPixels, destChunks);
 
     const long long int totalGpuMemoryUsed = (sourceChunks[0].area() * bytesPerSourcePixel) + (destChunks[0].area() * bytesPerDestPixel);
     vigra_assert(totalGpuMemoryUsed <= GpuMemoryInBytes,
