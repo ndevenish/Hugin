@@ -80,7 +80,7 @@ HFOVDialog::HFOVDialog(wxWindow * parent, SrcPanoImage & srcImg, double focalLen
 
     if (m_cropFactor > 0 && m_focalLength > 0) {
         // everything is well known.. compute HFOV
-        m_HFOV = calcHFOV(m_srcImg.getProjection(), m_focalLength,
+        m_HFOV = HuginBase::SrcPanoImage::calcHFOV(m_srcImg.getProjection(), m_focalLength,
                           m_cropFactor, m_srcImg.getSize());
 
         m_HFOVStr = doubleTowxString(m_HFOV,2);
@@ -117,7 +117,7 @@ void HFOVDialog::OnTypeChanged(wxCommandEvent & e)
     DEBUG_DEBUG("new type: " << new_proj);
     m_srcImg.setProjection(new_proj);
     if (m_cropFactor > 0 && m_focalLength > 0) {
-        m_HFOV = calcHFOV(m_srcImg.getProjection(), m_focalLength,
+        m_HFOV = HuginBase::SrcPanoImage::calcHFOV(m_srcImg.getProjection(), m_focalLength,
                           m_cropFactor, m_srcImg.getSize());
         m_HFOVStr = doubleTowxString(m_HFOV,2);
         m_hfovText->SetValue(m_HFOVStr);
@@ -172,7 +172,7 @@ void HFOVDialog::OnHFOVChanged(wxCommandEvent & e)
 
     if (m_cropFactor > 0) {
         // set focal length only if crop factor is known
-        m_focalLength = calcFocalLength(m_srcImg.getProjection(), m_HFOV, m_cropFactor, m_srcImg.getSize());
+        m_focalLength = HuginBase::SrcPanoImage::calcFocalLength(m_srcImg.getProjection(), m_HFOV, m_cropFactor, m_srcImg.getSize());
         m_focalLengthStr = doubleTowxString(m_focalLength,2);
         m_focalLengthText->SetValue(m_focalLengthStr);
     }
@@ -213,7 +213,7 @@ void HFOVDialog::OnFocalLengthChanged(wxCommandEvent & e)
 
     if (m_cropFactor > 0) {
         // calculate HFOV.
-        m_HFOV = calcHFOV(m_srcImg.getProjection(), m_focalLength,
+        m_HFOV = HuginBase::SrcPanoImage::calcHFOV(m_srcImg.getProjection(), m_focalLength,
                           m_cropFactor, m_srcImg.getSize());
         m_HFOVStr = doubleTowxString(m_HFOV,2);
         m_hfovText->SetValue(m_HFOVStr);
@@ -256,7 +256,7 @@ void HFOVDialog::OnCropFactorChanged(wxCommandEvent & e)
     }
 
     if (m_focalLength > 0) {
-        m_HFOV = calcHFOV(m_srcImg.getProjection(), m_focalLength,
+        m_HFOV = HuginBase::SrcPanoImage::calcHFOV(m_srcImg.getProjection(), m_focalLength,
                           m_cropFactor, m_srcImg.getSize());
         m_HFOVStr = doubleTowxString(m_HFOV,2);
         m_hfovText->SetValue(m_HFOVStr);
@@ -282,7 +282,7 @@ void HFOVDialog::OnLoadLensParameters(wxCommandEvent & e)
         m_srcImg.setHFOV(const_map_get(lens.variables,"v").getValue());
         m_srcImg.setProjection((SrcPanoImage::Projection) lens.getProjection());
 
-        m_focalLength = calcFocalLength(m_srcImg.getProjection(), m_HFOV, m_cropFactor, m_srcImg.getSize());
+        m_focalLength = HuginBase::SrcPanoImage::calcFocalLength(m_srcImg.getProjection(), m_HFOV, m_cropFactor, m_srcImg.getSize());
 
         // geometrical distortion correction
         std::vector<double> radialDist(4);

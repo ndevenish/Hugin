@@ -70,9 +70,6 @@ extern "C" {
 
     }
 
-//
-//#include "PT/PanoImage.h"
-
 #include <hugin_shared.h>
 #include <vigra_ext/Interpolators.h>
 

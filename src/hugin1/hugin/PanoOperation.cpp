@@ -911,7 +911,7 @@ PT::PanoCommand* ResetOperation::GetInternalCommand(wxWindow* parent, PT::Panora
         {
             if(focalLength!=0&&cropFactor!=0)
             {
-                double newHFOV=calcHFOV(srcImg.getProjection(),focalLength,cropFactor,srcImg.getSize());
+                double newHFOV=HuginBase::SrcPanoImage::calcHFOV(srcImg.getProjection(),focalLength,cropFactor,srcImg.getSize());
                 if(newHFOV!=0)
                 {
                     map_get(ImgVars,"v").setValue(newHFOV);

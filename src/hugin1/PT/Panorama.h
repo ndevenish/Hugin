@@ -39,7 +39,6 @@
 #include <algorithms/basic/LayerStacks.h>
 
 #include <typeinfo>
-#include "PT/PanoImage.h"
 #include "PT/PanoramaMemento.h"
 
 
@@ -47,7 +46,7 @@ namespace PT {
 
 using HuginBase::UIntSet;
 using HuginBase::UIntVector;
-
+using HuginBase::SrcPanoImage;
 
 class Panorama : public HuginBase::Panorama
 {

@@ -28,7 +28,6 @@
 #include <hugin_shared.h>
 #include "CPDetectorConfig.h"
 #include "PT/Panorama.h"
-#include "PT/PanoImage.h"
 #include "PT/PanoramaMemento.h"
 #include "panodata/ControlPoint.h"
 #include "panoinc_WX.h"

@@ -519,18 +519,22 @@ bool wxLoadPTProjectCmd::processPanorama(Panorama& pano)
             {
                 autopanoSiftFile = true;
                 // something is wrong here, try to read from exif data (all images)
-                bool ok = initImageFromFile(srcImg, focalLength, cropFactor, false);
+                bool ok = srcImg.readEXIF(focalLength, cropFactor, true, false);
                 if (! ok) {
                     getLensDataFromUser(MainFrame::Get(), srcImg, focalLength, cropFactor);
                 }
                 autopanoSiftRefImg = srcImg;
-            } else if (autopanoSiftFile) {
-                // need to copy the lens parameters from the first lens.
-                srcImg.setHFOV(autopanoSiftRefImg.getHFOV());
-            } else {
+            }
+            else 
+            {
                 // load exif data, but do not apply it
                 srcImg.readEXIF(focalLength, cropFactor, false, false);
-            }
+                if (autopanoSiftFile)
+                {
+                // need to copy the lens parameters from the first lens.
+                    srcImg.setHFOV(autopanoSiftRefImg.getHFOV());
+                };
+            };
             pano.setSrcImage(i, srcImg);
         }
         // Link image projection across each lens, since it is not saved.

@@ -30,9 +30,6 @@
 #include <panodata/PanoramaOptions.h>
 #include <panodata/Panorama.h>
 
-#include "PT/PanoImage.h"
-
-
 namespace PT {
 
 
