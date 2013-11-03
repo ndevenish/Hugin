@@ -466,17 +466,14 @@ int main2(std::vector<std::string> files, Parameters param)
         Lens l;
 
         // add the first image.to the panorama object
-        // default settings
-        double focalLength = 50;
-        double cropFactor = 0;
-        
         SrcPanoImage srcImg;
         srcImg.setFilename(files[0]);
         
         if (param.fisheye) {
             srcImg.setProjection(SrcPanoImage::FULL_FRAME_FISHEYE);
         }
-        srcImg.readEXIF(focalLength, cropFactor, true, true);
+        srcImg.readEXIF();
+        srcImg.applyEXIFValues();
         // disable autorotate
         srcImg.setRoll(0);
         if (srcImg.getSize().x == 0 || srcImg.getSize().y == 0) {
@@ -487,7 +484,7 @@ int main2(std::vector<std::string> files, Parameters param)
         // use hfov specified by user.
         if (param.hfov > 0) {
             srcImg.setHFOV(param.hfov);
-        } else if (cropFactor == 0) {
+        } else if (srcImg.getCropFactor() == 0) {
             // could not read HFOV, assuming default: 50
             srcImg.setHFOV(50);
         }
@@ -540,14 +537,15 @@ int main2(std::vector<std::string> files, Parameters param)
             }
             // add next image.
             srcImg.setFilename(files[i]);
-            srcImg.readEXIF(focalLength, cropFactor, true, true);
+            srcImg.readEXIF();
+            srcImg.applyEXIFValues();
             if (srcImg.getSize().x == 0 || srcImg.getSize().y == 0) {
                 cerr << "Could not decode image: " << files[i] << "Unsupported image file format";
                 return 1;
             }
             if (param.hfov > 0) {
                 srcImg.setHFOV(param.hfov);
-            } else if (cropFactor == 0) {
+            } else if (srcImg.getCropFactor() == 0) {
                 // could not read HFOV, assuming default: 50
                 srcImg.setHFOV(50);
             }

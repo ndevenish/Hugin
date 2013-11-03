@@ -808,7 +808,7 @@ int processImg(const char *filename)
         else
           red_name=std::string("red_")+filename;
 
-        SrcPanoImage srcRedImg(filename);
+        SrcPanoImage srcRedImg;
         srcRedImg.setSize(imgInfo.size());
         srcRedImg.setProjection(SrcPanoImage::RECTILINEAR);
         srcRedImg.setHFOV(10);
@@ -825,7 +825,7 @@ int processImg(const char *filename)
         else
           green_name=std::string("green_")+filename;
 
-        SrcPanoImage srcGreenImg( filename);
+        SrcPanoImage srcGreenImg;
         srcGreenImg.setSize(imgInfo.size());
         srcGreenImg.setProjection(SrcPanoImage::RECTILINEAR);
         srcGreenImg.setHFOV(10);
@@ -842,7 +842,7 @@ int processImg(const char *filename)
         else
           blue_name=std::string("blue_")+filename;
 
-        SrcPanoImage srcBlueImg( filename);
+        SrcPanoImage srcBlueImg;
         srcBlueImg.setSize(imgInfo.size());
         srcBlueImg.setProjection(SrcPanoImage::RECTILINEAR);
         srcBlueImg.setHFOV(10);

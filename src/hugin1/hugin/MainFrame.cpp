@@ -1941,11 +1941,10 @@ wxString MainFrame::getProjectName()
     return m_filename;
 }
 
-bool getLensDataFromUser(wxWindow * parent, SrcPanoImage & srcImg,
-                         double & focalLength, double & cropFactor)
+bool getLensDataFromUser(wxWindow * parent, SrcPanoImage & srcImg)
 {
     // display lens dialog
-    HFOVDialog dlg(parent, srcImg, focalLength, cropFactor);
+    HFOVDialog dlg(parent, srcImg);
     dlg.CenterOnParent();
     int ret = dlg.ShowModal();
     if (ret == wxID_OK) {

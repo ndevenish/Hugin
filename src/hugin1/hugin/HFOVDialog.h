@@ -38,7 +38,7 @@ class HFOVDialog : public wxDialog
 public:
     /** ctor.
      */
-    HFOVDialog(wxWindow * parent, PT::SrcPanoImage & srcImg, double focalLength, double cropFactor);
+    HFOVDialog(wxWindow * parent, PT::SrcPanoImage & srcImg);
     /** dtor.
      */
     virtual ~HFOVDialog() {};

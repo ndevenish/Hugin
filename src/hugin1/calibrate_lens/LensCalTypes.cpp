@@ -70,7 +70,10 @@ void ImageLineList::SetFilename(wxString newFilename)
 {
     m_filename=newFilename;
     std::string filenamestring(newFilename.mb_str(HUGIN_CONV_FILENAME));
-    m_panoImage=new HuginBase::SrcPanoImage(filenamestring);
+    m_panoImage=new HuginBase::SrcPanoImage;
+    m_panoImage->setFilename(filenamestring);
+    m_panoImage->readEXIF();
+    m_panoImage->applyEXIFValues();
     if(m_panoImage->getCropFactor()<=0)
     {
         m_panoImage->readCropfactorFromDB();

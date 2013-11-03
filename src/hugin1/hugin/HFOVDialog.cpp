@@ -49,10 +49,12 @@ BEGIN_EVENT_TABLE(HFOVDialog, wxDialog)
     EVT_BUTTON ( wxID_OK, HFOVDialog::OnOk)
 END_EVENT_TABLE()
 
-HFOVDialog::HFOVDialog(wxWindow * parent, SrcPanoImage & srcImg, double focalLength, double cropFactor)
-    : m_srcImg(srcImg), m_focalLength(focalLength), m_cropFactor(cropFactor)
+HFOVDialog::HFOVDialog(wxWindow * parent, SrcPanoImage & srcImg)
+    : m_srcImg(srcImg)
 {
     m_HFOV = srcImg.getHFOV();
+    m_focalLength = srcImg.getExifFocalLength();
+    m_cropFactor = srcImg.getCropFactor();
     wxXmlResource::Get()->LoadDialog(this, parent, wxT("dlg_focallength"));
 
     m_cropText = XRCCTRL(*this, "lensdlg_cropfactor_text", wxTextCtrl);

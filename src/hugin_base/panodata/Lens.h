@@ -51,22 +51,6 @@ class IMPEX Lens {
          */
         Lens();
         
-        
-    public:
-        ///
-    //  QDomElement toXML(QDomDocument & doc);
-        
-        ///
-    //  void setFromXML(const QDomNode & node);
-
-        /** try to fill Lens data (HFOV) from EXIF header
-         *
-         *  @return true if focal length was found, lens will contain
-         *          the correct data.
-         */
-    //  bool readEXIF(const std::string & filename);
-
-        
     public:
         /** get projection type */
         LensProjectionFormat getProjection() const

@@ -2887,10 +2887,8 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
         // and make a reference to it so we dont keep using images.back(),
         SrcPanoImage & new_img = *new_img_p;
         new_img.setFilename(file);
-        double focal=0;
-        double crop=0;
-        new_img.readEXIF(focal,crop,false,false);
         new_img.setSize(vigra::Size2D(iImgInfo[i].width, iImgInfo[i].height));
+        new_img.checkImageSizeKnown();
         
         // Panotools Script variables for the current SrcPanoImage variable.
         // We just need the names.

@@ -269,34 +269,32 @@ VariableMap SrcPanoImage::getVariableMap() const
     return vars;
 }
 
-bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, bool applyEXIFValues, bool applyExposureValue)
+bool SrcPanoImage::checkImageSizeKnown()
 {
-    double eV=0;
-    return readEXIF(focalLength,cropFactor,eV,applyEXIFValues, applyExposureValue);
+    if(getWidth()==0 || getHeight()==0)
+    {
+        try
+        {
+            vigra::ImageImportInfo info(getFilename().c_str());
+            setSize(info.size());
+        }
+        catch(std::exception & )
+        {
+            return false;
+        }
+    };
+    return true;
+
 };
 
-bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, double & eV, bool applyEXIFValues, bool applyExposureValue)
+bool SrcPanoImage::readEXIF()
 {
     std::string filename = getFilename();
-
     double roll = 0;
-
-    int width;
-    int height;
-    try {
-        vigra::ImageImportInfo info(filename.c_str());
-        width = info.width();
-        height = info.height();
-    } catch(std::exception & ) {
+    if(!checkImageSizeKnown())
+    {
         return false;
-    }
-
-    // Setup image with default values
-    setSize(vigra::Size2D(width, height));
-    if (applyEXIFValues && focalLength > 0 && cropFactor > 0) {
-        setHFOV(calcHFOV(getProjection(),
-        focalLength, cropFactor, getSize()));
-    }
+    };
 
     Exiv2::Image::AutoPtr image;
     try {
@@ -325,9 +323,6 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, double & 
 
     // read ISO from EXIF or makernotes
     setExifISO(Exiv2Helper::getExiv2ValueDouble(exifData, Exiv2::isoSpeed(exifData)));
-
-    // now calc exposure value, f-number, exposure time and iso have to set before
-    eV = calcExifExposureValue();
 
     setExifMake(Exiv2Helper::getExiv2ValueString(exifData, Exiv2::make(exifData)));
     setExifModel(Exiv2Helper::getExiv2ValueString(exifData, Exiv2::model(exifData)));
@@ -359,7 +354,7 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, double & 
     if (pixXdim !=0 && pixYdim !=0 )
     {
         double ratioExif = pixXdim/(double)pixYdim;
-        double ratioImage = width/(double)height;
+        double ratioImage = getWidth()/(double)getHeight();
         if (fabs( ratioExif - ratioImage) > 0.1)
         {
             // Image has been modified without adjusting exif tags.
@@ -370,31 +365,48 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, double & 
     // save for later
     setExifOrientation(roll);
     
-    cropFactor=Exiv2Helper::getCropFactor(exifData, width, height);
+    double cropFactor=Exiv2Helper::getCropFactor(exifData, getWidth(), getHeight());
     DEBUG_DEBUG("cropFactor: " << cropFactor);
 
     float eFocalLength = Exiv2Helper::getExiv2ValueDouble(exifData, Exiv2::focalLength(exifData));
     float eFocalLength35 = Exiv2Helper::getExiv2ValueLong(exifData,"Exif.Photo.FocalLengthIn35mmFilm");
-
+    float focalLength=0;
     //The various methods to detmine crop factor
-    if (eFocalLength > 0 && cropFactor > 0) {
+    if (eFocalLength > 0 && cropFactor > 0)
+    {
         // user provided crop factor
         focalLength = eFocalLength;
-    } else if (eFocalLength35 > 0 && eFocalLength > 0) {
-        cropFactor = eFocalLength35 / eFocalLength;
-        focalLength = eFocalLength;
-    } else if (eFocalLength35 > 0) {
-        // 35 mm equiv focal length available, crop factor unknown.
-        // do not ask for crop factor, assume 1.  Probably a full frame sensor
-        cropFactor = 1;
-        focalLength = eFocalLength35;
-    } else if (eFocalLength > 0 && cropFactor <= 0) {
-        // need to redo, this time with crop
-        focalLength = eFocalLength;
-        cropFactor = 0;
     }
+    else
+    {
+        if (eFocalLength35 > 0 && eFocalLength > 0)
+        {
+            cropFactor = eFocalLength35 / eFocalLength;
+            focalLength = eFocalLength;
+        }
+        else
+        {
+            if (eFocalLength35 > 0)
+            {
+                // 35 mm equiv focal length available, crop factor unknown.
+                // do not ask for crop factor, assume 1.  Probably a full frame sensor
+                cropFactor = 1;
+                focalLength = eFocalLength35;
+            }
+            else
+            {
+                if (eFocalLength > 0 && cropFactor <= 0)
+                {
+                    // need to redo, this time with crop
+                    focalLength = eFocalLength;
+                    cropFactor = 0;
+                }
+            };
+        };
+    };
     setExifFocalLength(focalLength);
     setExifFocalLength35(eFocalLength35);
+    setExifCropFactor(cropFactor);
 
     setExifDistance(Exiv2Helper::getExiv2ValueDouble(exifData, Exiv2::subjectDistance(exifData)));
     setExifDate(Exiv2Helper::getExiv2ValueString(exifData, "Exif.Photo.DateTimeOriginal"));
@@ -409,24 +421,32 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, double & 
     DEBUG_DEBUG("Crop Factor:  " << getCropFactor());
     DEBUG_DEBUG("Roll:         " << getExifOrientation());
 
-    // Update image with computed values from EXIF
-    if (applyEXIFValues) {
-        setRoll(roll);
-        if (applyExposureValue)
-            setExposureValue(eV);
-        if(cropFactor>0)
-        {
-            setCropFactor(cropFactor);
-        };
-        if (focalLength > 0 && cropFactor > 0) {
-            setHFOV(calcHFOV(getProjection(), focalLength, cropFactor, getSize()));
-            DEBUG_DEBUG("HFOV:         " << getHFOV());
-            return true;
-        } else {
-            return false;
-        }
-    }
     return true;
+}
+
+bool SrcPanoImage::applyEXIFValues(bool applyEVValue)
+{
+    setRoll(getExifOrientation());
+    if(applyEVValue)
+    {
+        setExposureValue(calcExifExposureValue());
+    };
+    double cropFactor=getExifCropFactor();
+    double focalLength=getExifFocalLength();
+    if(cropFactor>0)
+    {
+        setCropFactor(cropFactor);
+    };
+    if (focalLength > 0 && cropFactor > 0)
+    {
+        setHFOV(calcHFOV(getProjection(), focalLength, cropFactor, getSize()));
+        DEBUG_DEBUG("HFOV:         " << getHFOV());
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 bool SrcPanoImage::readCropfactorFromDB()
@@ -440,6 +460,7 @@ bool SrcPanoImage::readCropfactorFromDB()
             if(dbCrop>0)
             {
                 setCropFactor(dbCrop);
+                setExifCropFactor(dbCrop);
                 return true;
             };
         };

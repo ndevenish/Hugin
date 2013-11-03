@@ -297,8 +297,39 @@ int main(int argc, char* argv[])
     Panorama pano;
     for(size_t i=0; i<filelist.size();i++)
     {
-        SrcPanoImage srcImage(filelist[i]);
+        SrcPanoImage srcImage;
         cout << "Reading " << filelist[i] << "..." << endl;
+        srcImage.setFilename(filelist[i]);
+        try
+        {
+            vigra::ImageImportInfo info(filelist[i].c_str());
+            if(info.width()==0 || info.height()==0)
+            {
+                cerr << "ERROR: Could not decode image " << filelist[i] << endl
+                     << "Skipping this image." << endl << endl;
+                continue;
+            }
+            srcImage.setSize(info.size());
+            std::string pixelType=info.getPixelType();
+            if((pixelType=="UINT8") || (pixelType=="UINT16") || (pixelType=="INT16"))
+            {
+                srcImage.setResponseType(HuginBase::SrcPanoImage::RESPONSE_EMOR);
+            }
+            else
+            {
+                srcImage.setResponseType(HuginBase::SrcPanoImage::RESPONSE_LINEAR);
+            };
+        }
+        catch(std::exception & e)
+        {
+            cerr << "ERROR: caught exception: " << e.what() << endl;
+            cerr << "Could not read image informations for file " << filelist[i] << endl;
+            cerr << "Skipping this image." << endl << endl;
+            continue;
+        };
+
+        srcImage.readEXIF();
+        srcImage.applyEXIFValues();
         if(projection>=0)
         {
             srcImage.setProjection((HuginBase::BaseSrcPanoImage::Projection)projection);
@@ -310,7 +341,7 @@ int main(int argc, char* argv[])
         if(fov>0)
         {
             srcImage.setHFOV(fov);
-            if(!srcImage.hasEXIFread())
+            if(srcImage.getCropFactor()==0)
             {
                 srcImage.setCropFactor(1.0);
             };
@@ -318,7 +349,7 @@ int main(int argc, char* argv[])
         else
         {
             //set plausible default value if they could not read from exif
-            if(!srcImage.hasEXIFread())
+            if(srcImage.getExifFocalLength()==0 || srcImage.getCropFactor()==0)
             {
                 cout << "\tNo value for field of view found in EXIF data. " << endl
                      << "\tAssuming a HFOV of 50 degrees. " << endl;
@@ -338,24 +369,6 @@ int main(int argc, char* argv[])
             };
             srcImage.setAutoCenterCrop(false);
             srcImage.setCropRect(cropRect);
-        };
-        try
-        {
-            vigra::ImageImportInfo info(filelist[i].c_str());
-            std::string pixelType=info.getPixelType();
-            if((pixelType=="UINT8") || (pixelType=="UINT16") || (pixelType=="INT16"))
-            {
-                srcImage.setResponseType(HuginBase::SrcPanoImage::RESPONSE_EMOR);
-            }
-            else
-            {
-                srcImage.setResponseType(HuginBase::SrcPanoImage::RESPONSE_LINEAR);
-            };
-        }
-        catch(std::exception & e)
-        {
-            cerr << "ERROR: caught exception: " << e.what() << std::endl;
-            cerr << "Could not get pixel type for file " << filelist[i] << std::endl;
         };
         if(loadDistortion)
         {

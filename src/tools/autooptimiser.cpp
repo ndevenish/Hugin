@@ -182,10 +182,9 @@ int main(int argc, char *argv[])
             && img.getHFOV() >= 180)
         {
             // something is wrong here, try to read from exif data
-            double focalLength = 0;
-            double cropFactor = 0;
             cerr << "HFOV of image " << img.getFilename() << " invalid, trying to read EXIF tags" << endl;
-            bool ok = img.readEXIF(focalLength, cropFactor, true, false);
+            img.readEXIF();
+            bool ok = img.applyEXIFValues(false);
             if (! ok) {
                 if (hfov) {
                     img.setHFOV(hfov);

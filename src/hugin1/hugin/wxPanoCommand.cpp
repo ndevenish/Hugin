@@ -143,6 +143,61 @@ bool wxAddCtrlPointGridCmd::processPanorama(Panorama& pano)
     return true;
 }
 
+void applyColorBalanceValue(SrcPanoImage& srcImg, Panorama& pano)
+{
+    double redBal=1;
+    double blueBal=1;
+    if(pano.getNrOfImages()>=1)
+    {
+        const SrcPanoImage &anchor=pano.getImage(pano.getOptions().colorReferenceImage);
+        // use EXIF Red/BlueBalance data only if image and anchor image are from the same camera
+        if(srcImg.getExifMake() == anchor.getExifMake() &&
+            srcImg.getExifModel() == anchor.getExifModel())
+        {
+            double redBalanceAnchor=pano.getImage(pano.getOptions().colorReferenceImage).getExifRedBalance();
+            double blueBalanceAnchor=pano.getImage(pano.getOptions().colorReferenceImage).getExifBlueBalance();
+            if(fabs(redBalanceAnchor)<1e-2)
+            {
+                redBalanceAnchor=1;
+            };
+            if(fabs(blueBalanceAnchor)<1e-2)
+            {
+                blueBalanceAnchor=1;
+            };
+            redBal=fabs(srcImg.getExifRedBalance()/redBalanceAnchor);
+            blueBal=fabs(srcImg.getExifBlueBalance()/blueBalanceAnchor);
+            if(redBal<1e-2)
+            {
+                redBal=1;
+            };
+            if(blueBal<1e-2)
+            {
+                blueBal=1;
+            };
+        };
+    }
+    srcImg.setWhiteBalanceRed(redBal);
+    srcImg.setWhiteBalanceBlue(blueBal);
+};
+
+void copySrcImageExif(SrcPanoImage& destImg, SrcPanoImage srcImg)
+{
+    destImg.setExifExposureTime(srcImg.getExifExposureTime());
+    destImg.setExifAperture(srcImg.getExifAperture());
+    destImg.setExifExposureMode(srcImg.getExifExposureMode());
+    destImg.setExifISO(srcImg.getExifISO());
+    destImg.setExifMake(srcImg.getExifMake());
+    destImg.setExifModel(srcImg.getExifModel());
+    destImg.setExifLens(srcImg.getExifLens());
+    destImg.setExifOrientation(srcImg.getExifOrientation());
+    destImg.setExifFocalLength(srcImg.getExifFocalLength());
+    destImg.setExifFocalLength35(srcImg.getExifFocalLength35());
+    destImg.setExifCropFactor(srcImg.getExifCropFactor());
+    destImg.setExifDistance(srcImg.getExifDistance());
+    destImg.setExifDate(srcImg.getExifDate());
+    destImg.setExifRedBalance(srcImg.getExifRedBalance());
+    destImg.setExifBlueBalance(srcImg.getExifBlueBalance());
+};
 
 bool wxAddImagesCmd::processPanorama(Panorama& pano)
 {
@@ -164,13 +219,9 @@ bool wxAddImagesCmd::processPanorama(Panorama& pano)
     }
 
     std::vector<std::string>::const_iterator it;
-
-
-    double cropFactor = 0;
-    double focalLength = 0;
-
     Lens lens;
     SrcPanoImage srcImg;
+    SrcPanoImage srcImgExif;
     HuginBase::StandardImageVariableGroups variable_groups(pano);
     HuginBase::ImageVariableGroup & lenses = variable_groups.getLenses();
 
@@ -180,60 +231,17 @@ bool wxAddImagesCmd::processPanorama(Panorama& pano)
         const std::string &filename = *it;
         wxString fname(filename.c_str(), HUGIN_CONV_FILENAME);
 
-        int assumeSimilar = wxConfigBase::Get()->Read(wxT("/LensDefaults/AssumeSimilar"), HUGIN_LENS_ASSUME_SIMILAR);
-        if (!assumeSimilar) {
-            focalLength = 0;
-            cropFactor = 0;
-        }
-
         // try to read settings automatically.
         srcImg.setFilename(filename);
-        bool ok = srcImg.readEXIF(focalLength, cropFactor, true, true);
-        double redBal=1;
-        double blueBal=1;
-        if(pano.getNrOfImages()>=1)
-        {
-            const SrcPanoImage &anchor=pano.getImage(pano.getOptions().colorReferenceImage);
-            // use EXIF Red/BlueBalance data only if image and anchor image are from the same camera
-            if(srcImg.getExifMake() == anchor.getExifMake() &&
-                srcImg.getExifModel() == anchor.getExifModel())
-            {
-                double redBalanceAnchor=pano.getImage(pano.getOptions().colorReferenceImage).getExifRedBalance();
-                double blueBalanceAnchor=pano.getImage(pano.getOptions().colorReferenceImage).getExifBlueBalance();
-                if(fabs(redBalanceAnchor)<1e-2)
-                {
-                    redBalanceAnchor=1;
-                };
-                if(fabs(blueBalanceAnchor)<1e-2)
-                {
-                    blueBalanceAnchor=1;
-                };
-                redBal=fabs(srcImg.getExifRedBalance()/redBalanceAnchor);
-                blueBal=fabs(srcImg.getExifBlueBalance()/blueBalanceAnchor);
-                if(redBal<1e-2)
-                {
-                    redBal=1;
-                };
-                if(blueBal<1e-2)
-                {
-                    blueBal=1;
-                };
-            };
-        }
-        srcImg.setWhiteBalanceRed(redBal);
-        srcImg.setWhiteBalanceBlue(blueBal);
-        if(cropFactor<=0)
-        {
-            srcImg.readCropfactorFromDB();
-            ok=(srcImg.getExifFocalLength()>0 && srcImg.getCropFactor()>0);
-        };
-        if (srcImg.getSize().x == 0 || srcImg.getSize().y == 0) {
-            wxMessageBox(wxString::Format(_("Could not decode image:\n%s\nAbort"), fname.c_str()), _("Unsupported image file format"));
-            return false;
-        }
         try
         {
             vigra::ImageImportInfo info(filename.c_str());
+            if(info.width()==0 || info.height()==0)
+            {
+                wxMessageBox(wxString::Format(_("Could not decode image:\n%s\nAbort"), fname.c_str()), _("Unsupported image file format"));
+                return false;
+            };
+            srcImg.setSize(info.size());
             std::string pixelType=info.getPixelType();
             if((pixelType=="UINT8") || (pixelType=="UINT16") || (pixelType=="INT16"))
                 srcImg.setResponseType(HuginBase::SrcPanoImage::RESPONSE_EMOR);
@@ -244,17 +252,30 @@ bool wxAddImagesCmd::processPanorama(Panorama& pano)
         {
             std::cerr << "ERROR: caught exception: " << e.what() << std::endl;
             std::cerr << "Could not get pixel type for file " << filename << std::endl;
+             wxMessageBox(wxString::Format(_("Could not decode image:\n%s\nAbort"), fname.c_str()), _("Unsupported image file format"));
+             return false;
         };
-        if (! ok && assumeSimilar) {
+        bool ok = srcImg.readEXIF();
+        if(ok)
+        {
+            ok = srcImg.applyEXIFValues();
+        };
+        // save EXIF data for later to prevent double loading of EXIF data
+        srcImgExif=srcImg;
+        applyColorBalanceValue(srcImg, pano);
+        double redBal=srcImg.getWhiteBalanceRed();
+        double blueBal=srcImg.getWhiteBalanceBlue();
+        if(srcImg.getCropFactor()<=0)
+        {
+            srcImg.readCropfactorFromDB();
+            ok=(srcImg.getExifFocalLength()>0 && srcImg.getCropFactor()>0);
+        };
+        if (! ok ) {
                  // search for image with matching size and exif data
                  // and re-use it.
                 for (unsigned int i=0; i < pano.getNrOfImages(); i++) {
                     SrcPanoImage other = pano.getSrcImage(i);
-                    double dummyfl=0;
-                    double dummycrop = 0;
-                    other.readEXIF(dummyfl, dummycrop, false, false);
-                    if ( other.getSize() == srcImg.getSize()
-                         &&
+                    if ( other.getSize() == srcImg.getSize() &&
                          other.getExifModel() == srcImg.getExifModel() &&
                          other.getExifMake()  == srcImg.getExifMake() &&
                          other.getExifFocalLength() == srcImg.getExifFocalLength()
@@ -264,7 +285,7 @@ bool wxAddImagesCmd::processPanorama(Panorama& pano)
                         srcImg = pano.getSrcImage(i);
                         srcImg.setFilename(filename);
                         srcImg.deleteAllMasks();
-                        srcImg.readEXIF(focalLength, cropFactor, false, false);
+                        copySrcImageExif(srcImg, srcImgExif);
                         // add image
                         int imgNr = pano.addImage(srcImg);
                         variable_groups.update();
@@ -273,39 +294,7 @@ bool wxAddImagesCmd::processPanorama(Panorama& pano)
                         srcImg.setExposureValue(ev);
                         lenses.unlinkVariableImage(HuginBase::ImageVariableGroup::IVE_WhiteBalanceRed, i);
                         lenses.unlinkVariableImage(HuginBase::ImageVariableGroup::IVE_WhiteBalanceBlue, i);
-                        double redBal=1;
-                        double blueBal=1;
-                        if(pano.getNrOfImages()>=1)
-                        {
-                            const SrcPanoImage &anchor=pano.getImage(pano.getOptions().colorReferenceImage);
-                            // use EXIF Red/BlueBalance data only if image and anchor image are from the same camera
-                            if(srcImg.getExifMake() == anchor.getExifMake() &&
-                                srcImg.getExifModel() == anchor.getExifModel())
-                            {
-                                double redBalanceAnchor=pano.getImage(pano.getOptions().colorReferenceImage).getExifRedBalance();
-                                double blueBalanceAnchor=pano.getImage(pano.getOptions().colorReferenceImage).getExifBlueBalance();
-                                if(fabs(redBalanceAnchor)<1e-2)
-                                {
-                                    redBalanceAnchor=1;
-                                };
-                                if(fabs(blueBalanceAnchor)<1e-2)
-                                {
-                                    blueBalanceAnchor=1;
-                                };
-                                redBal=fabs(srcImg.getExifRedBalance()/redBalanceAnchor);
-                                blueBal=fabs(srcImg.getExifBlueBalance()/blueBalanceAnchor);
-                                if(redBal<1e-2)
-                                {
-                                    redBal=1;
-                                };
-                                if(blueBal<1e-2)
-                                {
-                                    blueBal=1;
-                                };
-                            };
-                        }
-                        srcImg.setWhiteBalanceRed(redBal);
-                        srcImg.setWhiteBalanceBlue(blueBal);
+                        applyColorBalanceValue(srcImg, pano);
                         pano.setSrcImage(imgNr, srcImg);
                         added=true;
                         break;
@@ -317,7 +306,7 @@ bool wxAddImagesCmd::processPanorama(Panorama& pano)
         // if no similar image found, ask user
         if (! ok) {
             srcImg.readProjectionFromDB();
-            if (!getLensDataFromUser(MainFrame::Get(), srcImg, focalLength, cropFactor)) {
+            if (!getLensDataFromUser(MainFrame::Get(), srcImg)) {
                 // assume a standart lens
                 srcImg.setHFOV(50);
                 srcImg.setCropFactor(1);
@@ -339,9 +328,7 @@ bool wxAddImagesCmd::processPanorama(Panorama& pano)
         bool set_exposure = false;
         for (unsigned int i=0; i < pano.getNrOfImages(); i++) {
             SrcPanoImage other = pano.getSrcImage(i);
-            // force reading of exif data, as it is currently not stored in the
-            // Panorama data class
-            if (other.readEXIF(focalLength, cropFactor, false, false)) {
+            if (other.getExifFocalLength()>0) {
                 if (other.getSize() == srcImg.getSize()
                     && other.getExifModel() == srcImg.getExifModel()
                     && other.getExifMake()  == srcImg.getExifMake()
@@ -358,22 +345,25 @@ bool wxAddImagesCmd::processPanorama(Panorama& pano)
                     srcImg = pano.getSrcImage(i);
                     srcImg.setFilename(filename);
                     srcImg.deleteAllMasks();
-                    srcImg.readEXIF(focalLength, cropFactor, false, false);
+                    copySrcImageExif(srcImg, srcImgExif);
                     srcImg.setExposureValue(ev);
                     srcImg.setWhiteBalanceRed(redBal);
                     srcImg.setWhiteBalanceBlue(blueBal);
                     break;
                 }
-            } else if (assumeSimilar) {
+            }
+            else
+            {
                 // no exiv information, just check image size.
-                if (other.getSize() == srcImg.getSize() ) {
+                if (other.getSize() == srcImg.getSize() )
+                {
                     matchingLensNr = lenses.getPartNumber(i);
                     // copy data from other image, just keep
                     // the file name
                     srcImg = pano.getSrcImage(i);
                     srcImg.setFilename(filename);
                     srcImg.deleteAllMasks();
-                    srcImg.readEXIF(focalLength, cropFactor, false, false);
+                    copySrcImageExif(srcImg, srcImgExif);
                     break;
                 }
             }
@@ -454,8 +444,6 @@ bool wxLoadPTProjectCmd::processPanorama(Panorama& pano)
 
         unsigned int nImg = pano.getNrOfImages();
         wxString basedir;
-        double focalLength=0;
-        double cropFactor=0;
         bool autopanoSiftFile=false;
         SrcPanoImage autopanoSiftRefImg;
         for (unsigned int i = 0; i < nImg; i++) {
@@ -519,16 +507,19 @@ bool wxLoadPTProjectCmd::processPanorama(Panorama& pano)
             {
                 autopanoSiftFile = true;
                 // something is wrong here, try to read from exif data (all images)
-                bool ok = srcImg.readEXIF(focalLength, cropFactor, true, false);
+                bool ok = srcImg.readEXIF();
+                if(ok) {
+                    ok = srcImg.applyEXIFValues();
+                };
                 if (! ok) {
-                    getLensDataFromUser(MainFrame::Get(), srcImg, focalLength, cropFactor);
+                    getLensDataFromUser(MainFrame::Get(), srcImg);
                 }
                 autopanoSiftRefImg = srcImg;
             }
             else 
             {
-                // load exif data, but do not apply it
-                srcImg.readEXIF(focalLength, cropFactor, false, false);
+                // load exif data
+                srcImg.readEXIF();
                 if (autopanoSiftFile)
                 {
                 // need to copy the lens parameters from the first lens.
@@ -717,8 +708,11 @@ bool wxApplyTemplateCmd::processPanorama(Panorama& pano)
             for (unsigned int i=0; i< Pathnames.GetCount(); i++) {
                 std::string filename = (const char *)Pathnames[i].mb_str(HUGIN_CONV_FILENAME);
                 vigra::ImageImportInfo inf(filename.c_str());
-                SrcPanoImage img(filename);
+                SrcPanoImage img;
+                img.setFilename(filename);
                 img.setSize(inf.size());
+                img.readEXIF();
+                img.applyEXIFValues();
                 int imgNr = pano.addImage(img);
                 lenses.updatePartNumbers();
                 if (i > 0) lenses.switchParts(imgNr, 0);

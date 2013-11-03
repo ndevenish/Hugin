@@ -203,27 +203,9 @@ public:
     SrcPanoImage()
     {
         setDefaults();
-        successfullEXIFread=false;
     }
     
     virtual ~SrcPanoImage() {};
-public:
-    /** initialize a SrcPanoImage from a file. Will read image
-     *  size and EXIF data to initialize as many fields as possible
-     *  (most importatly HFOV and exposure value)
-     */
-    SrcPanoImage(const std::string &filename)
-    {
-        setDefaults();
-        m_Filename = filename;
-        double crop = 0;
-        double fl = 0;
-        successfullEXIFread=readEXIF(fl, crop, true, true);
-    };
-    /** return true, if EXIF infomation was read sucessful */
-    const bool hasEXIFread() const {return successfullEXIFread;};
-    
-    
 public:
     /** "resize" image,
      *  adjusts all distortion coefficients for usage with a source image
@@ -361,13 +343,13 @@ public:
     void linkStack (SrcPanoImage * target)
     { m_Stack.linkWith(&(target->m_Stack)); }
     
+    /** check if the image size is known, if try to load the information from the file */
+    bool checkImageSizeKnown();
     /** try to fill out information about the image, by examining the exif data
-    *  focalLength and cropFactor will be updated with the ones read from the exif data
-    *  If no or not enought exif data was found and valid given focalLength and cropFactor
-    *  settings where provided, they will be used for computation of the HFOV.
     */
-    bool readEXIF(double & focalLength, double & cropFactor, bool applyEXIF, bool applyExposureValue);
-    bool readEXIF(double & focalLength, double & cropFactor, double & eV, bool applyEXIF, bool applyExposureValue);
+    bool readEXIF();
+    /** apply values found in EXIF data to SrcPanoImage class, call readEXIF() before to initialize some values*/
+    bool applyEXIFValues(bool applyEVValue=true);
     
     /** calculate hfov of an image given focal length, image size and crop factor */
     static double calcHFOV(SrcPanoImage::Projection proj, double fl, double crop, vigra::Size2D imageSize);
@@ -430,7 +412,6 @@ private:
 
     /** Check if Exiv orientation tag can be trusted */
     bool trustExivOrientation();
-    bool successfullEXIFread;
 };
 
 typedef std::vector<SrcPanoImage> ImageVector;

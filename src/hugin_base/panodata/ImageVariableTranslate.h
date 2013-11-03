@@ -281,6 +281,7 @@ typedef PTOVariableConverterNoOp PTOVariableConverterForSize;
 //typedef PTOVariableConverterSingle<'f','\0', '\0', SrcPanoImage::Projection> PTOVariableConverterForProjection;
 typedef PTOVariableConverterNoOp PTOVariableConverterForProjection;
 typedef PTOVariableConverterSingle<'v'> PTOVariableConverterForHFOV;
+typedef PTOVariableConverterNoOp PTOVariableConverterForCropFactor;
 
 typedef PTOVariableConverterNoOp PTOVariableConverterForResponseType;
 typedef PTOVariableConverterVectorChar<'R', float, 5> PTOVariableConverterForEMoRParams;
@@ -322,7 +323,7 @@ typedef PTOVariableConverterFDiff2D<'V','V', 'x','y'> PTOVariableConverterForRad
 typedef PTOVariableConverterNoOp PTOVariableConverterForExifModel;
 typedef PTOVariableConverterNoOp PTOVariableConverterForExifMake;
 typedef PTOVariableConverterNoOp PTOVariableConverterForExifLens;
-typedef PTOVariableConverterNoOp PTOVariableConverterForCropFactor;
+typedef PTOVariableConverterNoOp PTOVariableConverterForExifCropFactor;
 typedef PTOVariableConverterNoOp PTOVariableConverterForExifFocalLength;
 typedef PTOVariableConverterNoOp PTOVariableConverterForExifOrientation;
 typedef PTOVariableConverterNoOp PTOVariableConverterForExifAperture;

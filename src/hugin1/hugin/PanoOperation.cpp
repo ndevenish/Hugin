@@ -899,19 +899,14 @@ PT::PanoCommand* ResetOperation::GetInternalCommand(wxWindow* parent, PT::Panora
             map_get(ImgVars,"Tpy").setValue(0);
             map_get(ImgVars,"Tpp").setValue(0);
         };
-        double cropFactor = 0;
-        double focalLength = 0;
-        double eV = 0;
         SrcPanoImage srcImg = pano.getSrcImage(imgNr);
-        if(m_resetHFOV || m_resetExposure>0)
-        {
-            srcImg.readEXIF(focalLength,cropFactor,eV,false,false);
-        };
         if(m_resetHFOV)
         {
-            if(focalLength!=0&&cropFactor!=0)
+            double focalLength=srcImg.getExifFocalLength();
+            double cropFactor=srcImg.getExifCropFactor();
+            if(focalLength!=0 && cropFactor!=0)
             {
-                double newHFOV=HuginBase::SrcPanoImage::calcHFOV(srcImg.getProjection(),focalLength,cropFactor,srcImg.getSize());
+                double newHFOV=HuginBase::SrcPanoImage::calcHFOV(srcImg.getProjection(), focalLength, cropFactor, srcImg.getSize());
                 if(newHFOV!=0)
                 {
                     map_get(ImgVars,"v").setValue(newHFOV);
@@ -939,6 +934,7 @@ PT::PanoCommand* ResetOperation::GetInternalCommand(wxWindow* parent, PT::Panora
                     needs_unlink_exposure = true;
                 }
                 //reset to exif value
+                double eV=srcImg.calcExifExposureValue();
                 if(eV!=0)
                 {
                     map_get(ImgVars,"Eev").setValue(eV);

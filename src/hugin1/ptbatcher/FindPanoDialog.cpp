@@ -332,8 +332,12 @@ void FindPanoDialog::SearchInDir(wxString dirstring, const bool includeSubdir, c
                 ext.CmpNoCase(wxT("tif"))==0 || ext.CmpNoCase(wxT("tiff"))==0)
         {
             std::string filenamestr(file.GetFullPath().mb_str(HUGIN_CONV_FILENAME));
-            SrcPanoImage* img=new SrcPanoImage(filenamestr);
-            if(img->hasEXIFread())
+            SrcPanoImage* img=new SrcPanoImage;
+            img->setFilename(filenamestr);
+            img->readEXIF();
+            img->applyEXIFValues();
+            if(!img->getExifMake().empty() && !img->getExifModel().empty() && 
+                img->getExifFocalLength()!=0 && img->getCropFactor()!=0)
             {
                 img->readProjectionFromDB();
                 if(loadDistortion)

@@ -357,7 +357,11 @@ void LensCalFrame::AddImages(wxArrayString files)
                 delete image;
                 continue;
             };
-            if(image0->hasEXIFread() && image1->hasEXIFread())
+            if(!image0->getExifMake().empty() && !image1->getExifMake().empty() &&
+               !image0->getExifModel().empty() && !image1->getExifModel().empty() &&
+               image0->getExifFocalLength()>0 && image1->getExifFocalLength()>0 &&
+               image0->getCropFactor()>0 && image1->getCropFactor()>0                 
+              )
             {
                 if(image0->getExifMake()!=image1->getExifMake() ||
                     image0->getExifModel()!=image1->getExifModel() ||
@@ -371,7 +375,7 @@ void LensCalFrame::AddImages(wxArrayString files)
         };
         m_images.push_back(image);
         SetStatusText(wxString::Format(_("Added %s"),image->GetFilename().c_str()));
-        if(image->GetPanoImage()->hasEXIFread())
+        if(image->GetPanoImage()->getExifFocalLength()>0 && image->GetPanoImage()->getExifCropFactor()>0)
         {
             XRCCTRL(*this,"lenscal_focallength",wxTextCtrl)->SetValue( 
                 hugin_utils::doubleTowxString(image->GetPanoImage()->getExifFocalLength(),2)

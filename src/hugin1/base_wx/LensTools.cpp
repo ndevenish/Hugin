@@ -108,7 +108,7 @@ void SaveLensParameters(const wxString filename, HuginBase::Panorama* pano, unsi
     cfg.Write(wxT("Lens/crop/right"), cropRect.right());
     cfg.Write(wxT("Lens/crop/bottom"), cropRect.bottom());
 
-    if (image.hasEXIFread())
+    if (!image.getExifMake().empty() && !image.getExifModel().empty() && image.getExifFocalLength()>0)
     {
         // write exif data to ini file
         cfg.Write(wxT("EXIF/CameraMake"),  wxString(image.getExifMake().c_str(), wxConvLocal));
