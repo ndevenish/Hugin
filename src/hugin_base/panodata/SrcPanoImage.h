@@ -378,6 +378,9 @@ public:
     /** calculate crop factor, given focal length and hfov */
     static double calcCropFactor(SrcPanoImage::Projection proj, double hfov, double focalLength, vigra::Size2D imageSize);
 
+    /** calculate exposure value */
+    double calcExifExposureValue();
+
     /** updates the focal length, changes the hfov to reflect thew newFocalLength */
     void updateFocalLength(double newFocalLength);
     /** updates the crop factor, the hfov is calculates so that focal length remains the same */

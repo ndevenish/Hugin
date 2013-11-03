@@ -39,17 +39,20 @@ namespace HuginBase
 {
     namespace Exiv2Helper
     {
-        // read a single value/single array from exifData
-        bool getExiv2Value(Exiv2::ExifData& exifData, std::string keyName, long & value);
-        bool getExiv2Value(Exiv2::ExifData& exifData, std::string keyName, float & value);
-        bool getExiv2Value(Exiv2::ExifData& exifData, std::string keyName, std::string & value);
-        bool getExiv2Value(Exiv2::ExifData& exifData, std::string keyName, std::vector<float> & values);
-
-        bool getExiv2Value(Exiv2::ExifData& exifData, uint16_t tagID, std::string groupName, std::string & value);
-        bool getExiv2Value(Exiv2::ExifData& exifData, uint16_t tagID, std::string groupName, double & value);
-
+        // helper function to return a single value
+        const double getExiv2ValueDouble(Exiv2::ExifData& exifData, Exiv2::ExifData::const_iterator it);
+        const double getExiv2ValueDouble(Exiv2::ExifData& exifData, std::string keyName);
+        const std::string getExiv2ValueString(Exiv2::ExifData& exifData, Exiv2::ExifData::const_iterator it);
+        const std::string getExiv2ValueString(Exiv2::ExifData& exifData, std::string keyName);
+        const long getExiv2ValueLong(Exiv2::ExifData& exifData, Exiv2::ExifData::const_iterator it);
+        const long getExiv2ValueLong(Exiv2::ExifData& exifData, std::string keyName);
+        
         // read the RedBalance and BlueBalance data from makernotes of different manufactures
         bool readRedBlueBalance(Exiv2::ExifData &exifData, double & redBalance, double & blueBalance);
+        // read the crop factor from the EXIF data, code for handling with different variants for saving crop factor
+        const double getCropFactor(Exiv2::ExifData &exifData, long width, long height);
+        // read the lens name for EXIF or makernotes data
+        const std::string getLensName(Exiv2::ExifData &exifData);
     };
 };
 #endif

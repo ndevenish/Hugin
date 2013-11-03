@@ -278,15 +278,8 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, bool appl
 bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, double & eV, bool applyEXIFValues, bool applyExposureValue)
 {
     std::string filename = getFilename();
-    std::string ext = hugin_utils::getExtension(filename);
-    std::transform(ext.begin(), ext.end(), ext.begin(), (int(*)(int)) toupper);
 
     double roll = 0;
-    //double eV = 0;
-    float isoSpeed = 0;
-    float photoFNumber = 0;
-    float exposureTime = 0;
-    float subjectDistance = 0;
 
     int width;
     int height;
@@ -324,119 +317,27 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, double & 
         return false;
     }
 
-    Exiv2::ExifData::const_iterator it=Exiv2::exposureTime(exifData);
-    if(it!=exifData.end() && it->count())
-    {
-        exposureTime=it->toFloat();
-    };
-
-    // TODO: reconstruct real exposure value from "rounded" ones saved by the cameras?
-
-    it=Exiv2::fNumber(exifData);
-    if(it!=exifData.end() && it->count())
-    {
-        photoFNumber=it->toFloat();
-    };
-    
-    //remember aperture for later
-    setExifAperture(photoFNumber);
+    setExifExposureTime(Exiv2Helper::getExiv2ValueDouble(exifData, Exiv2::exposureTime(exifData)));
+    setExifAperture(Exiv2Helper::getExiv2ValueDouble(exifData, Exiv2::fNumber(exifData)));
     
     //read exposure mode
-    long exposureMode=0;
-    Exiv2Helper::getExiv2Value(exifData,"Exif.Photo.ExposureMode",exposureMode);
-    setExifExposureMode((int)exposureMode);
+    setExifExposureMode(Exiv2Helper::getExiv2ValueLong(exifData, "Exif.Photo.ExposureMode"));
 
-    //if no F-number was found in EXIF data assume a f stop of 3.5 to get
-    //a reasonable ev value if shutter time, e. g. for manual lenses is found
-    if(photoFNumber==0)
-    {
-        photoFNumber=3.5;
-    };
     // read ISO from EXIF or makernotes
-    it=Exiv2::isoSpeed(exifData);
-    if(it!=exifData.end() && it->count())
-    {
-        isoSpeed=it->toFloat();
-    };
+    setExifISO(Exiv2Helper::getExiv2ValueDouble(exifData, Exiv2::isoSpeed(exifData)));
 
-    if (exposureTime > 0 && photoFNumber > 0) {
-        double gain = 1;
-        if (isoSpeed > 0) {
-            gain = isoSpeed / 100.0;
-        }
-        eV = log2(photoFNumber * photoFNumber / (gain * exposureTime));
-        DEBUG_DEBUG ("Ev: " << eV);
-    }
+    // now calc exposure value, f-number, exposure time and iso have to set before
+    eV = calcExifExposureValue();
 
-    std::string s;
-    if(Exiv2Helper::getExiv2Value(exifData, "Exif.Image.Make", s)) {
-        setExifMake(s);
-    } else {
-        setExifMake("");
-    }
-
-    if(Exiv2Helper::getExiv2Value(exifData, "Exif.Image.Model", s)) {
-        setExifModel(s);
-    } else {
-        setExifModel("");
-    }
+    setExifMake(Exiv2Helper::getExiv2ValueString(exifData, Exiv2::make(exifData)));
+    setExifModel(Exiv2Helper::getExiv2ValueString(exifData, Exiv2::model(exifData)));
 
     //reading lens
-    // first we are reading LensModel in Exif section, this is only available
-    // with EXIF >= 2.3
-    std::string lensName;
-#if EXIV2_TEST_VERSION(0,22,0)
-    //the string "Exif.Photo.LensModel" is only defined in exiv2 0.22.0 and above
-    if(Exiv2Helper::getExiv2Value(exifData,"Exif.Photo.LensModel",lensName))
-#else
-    if(Exiv2Helper::getExiv2Value(exifData,0xa434,"Photo",lensName))
-#endif
-    {
-        if(lensName.length()>0)
-        {
-            setExifLens(lensName);
-        }
-        else
-        {
-            setExifLens("");
-        }
-    }
-    else
-    {
-        //no lens in Exif found, now look in makernotes
-        Exiv2::ExifData::const_iterator itr2 = Exiv2::lensName(exifData);
-        if (itr2!=exifData.end() && itr2->count())
-        {
-            //we are using prettyPrint function to get string of lens name
-            //it2->toString returns for many cameras only an ID number
-            lensName=itr2->print(&exifData);
-            //check returned lens name
-            if(lensName.length()>0)
-            {
-                //for Canon it can contain (65535) or (0) for unknown lenses
-                //for Pentax it can contain Unknown (0xHEX)
-                if(lensName.compare(0, 1, "(")!=0 && lensName.compare(0, 7, "Unknown")!=0)
-                {
-                    setExifLens(lensName);
-                }
-                else
-                {
-                    setExifLens("");
-                };
-            }
-            else
-            {
-                setExifLens("");
-            };
-        }
-        else
-        {
-            setExifLens("");
-        };
-    };
+    setExifLens(Exiv2Helper::getLensName(exifData));
 
-    long orientation = 0;
-    if (Exiv2Helper::getExiv2Value(exifData,"Exif.Image.Orientation",orientation) && trustExivOrientation()) {
+    long orientation = Exiv2Helper::getExiv2ValueLong(exifData, "Exif.Image.Orientation");
+    if (orientation>0 && trustExivOrientation())
+    {
         switch (orientation) {
             case 3:  // rotate 180
                 roll = 180;
@@ -452,168 +353,28 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, double & 
         }
     }
 
-    long pixXdim = 0;
-    Exiv2Helper::getExiv2Value(exifData,"Exif.Photo.PixelXDimension",pixXdim);
+    long pixXdim = Exiv2Helper::getExiv2ValueLong(exifData,"Exif.Photo.PixelXDimension");
+    long pixYdim = Exiv2Helper::getExiv2ValueLong(exifData,"Exif.Photo.PixelYDimension");
 
-    long pixYdim = 0;
-    Exiv2Helper::getExiv2Value(exifData,"Exif.Photo.PixelYDimension",pixYdim);
-
-    if (pixXdim !=0 && pixYdim !=0 ) {
+    if (pixXdim !=0 && pixYdim !=0 )
+    {
         double ratioExif = pixXdim/(double)pixYdim;
         double ratioImage = width/(double)height;
-        if (fabs( ratioExif - ratioImage) > 0.1) {
+        if (fabs( ratioExif - ratioImage) > 0.1)
+        {
             // Image has been modified without adjusting exif tags.
             // Assume user has rotated to upright pose
             roll = 0;
         }
     }
+    // save for later
+    setExifOrientation(roll);
     
-    //GWP - CCD info was previously computed by the jhead library.  Migration
-    //      to exiv2 means we do it here
-    
-    // some cameras do not provide Exif.Image.ImageWidth / Length
-    // notably some Olympus
-    
-    long eWidth = 0;
-    Exiv2Helper::getExiv2Value(exifData,"Exif.Image.ImageWidth",eWidth);
-
-    long eLength = 0;
-    Exiv2Helper::getExiv2Value(exifData,"Exif.Image.ImageLength",eLength);
-
-    double sensorPixelWidth = 0;
-    double sensorPixelHeight = 0;
-    if (eWidth > 0 && eLength > 0) {
-        sensorPixelHeight = (double)eLength;
-        sensorPixelWidth = (double)eWidth;
-    } else {
-        // No EXIF information, use number of pixels in image
-        sensorPixelWidth = width;
-        sensorPixelHeight = height;
-    }
-
-    // force landscape sensor orientation
-    if (sensorPixelWidth < sensorPixelHeight ) {
-        double t = sensorPixelWidth;
-        sensorPixelWidth = sensorPixelHeight;
-        sensorPixelHeight = t;
-    }
-
-    DEBUG_DEBUG("sensorPixelWidth: " << sensorPixelWidth);
-    DEBUG_DEBUG("sensorPixelHeight: " << sensorPixelHeight);
-
-    // some cameras do not provide Exif.Photo.FocalPlaneResolutionUnit
-    // notably some Olympus
-
-    long exifResolutionUnits = 0;
-    Exiv2Helper::getExiv2Value(exifData,"Exif.Photo.FocalPlaneResolutionUnit",exifResolutionUnits);
-
-    float resolutionUnits= 0;
-    switch (exifResolutionUnits) {
-        case 3: resolutionUnits = 10.0; break;  //centimeter
-        case 4: resolutionUnits = 1.0; break;   //millimeter
-        case 5: resolutionUnits = .001; break;  //micrometer
-        default: resolutionUnits = 25.4; break; //inches
-    }
-
-    DEBUG_DEBUG("Resolution Units: " << resolutionUnits);
-
-    // some cameras do not provide Exif.Photo.FocalPlaneXResolution and
-    // Exif.Photo.FocalPlaneYResolution, notably some Olympus
-
-    float fplaneXresolution = 0;
-    Exiv2Helper::getExiv2Value(exifData,"Exif.Photo.FocalPlaneXResolution",fplaneXresolution);
-
-    float fplaneYresolution = 0;
-    Exiv2Helper::getExiv2Value(exifData,"Exif.Photo.FocalPlaneYResolution",fplaneYresolution);
-
-    float CCDWidth = 0;
-    if (fplaneXresolution != 0) { 
-//        CCDWidth = (float)(sensorPixelWidth * resolutionUnits / 
-//                fplaneXresolution);
-        CCDWidth = (float)(sensorPixelWidth / ( fplaneXresolution / resolutionUnits));
-    }
-
-    float CCDHeight = 0;
-    if (fplaneYresolution != 0) {
-        CCDHeight = (float)(sensorPixelHeight / ( fplaneYresolution / resolutionUnits));
-    }
-
-    DEBUG_DEBUG("CCDHeight:" << CCDHeight);
-    DEBUG_DEBUG("CCDWidth: " << CCDWidth);
-
-    // calc sensor dimensions if not set and 35mm focal length is available
-    FDiff2D sensorSize;
-
-    if (CCDHeight > 0 && CCDWidth > 0) {
-        // read sensor size directly.
-        sensorSize.x = CCDWidth;
-        sensorSize.y = CCDHeight;
-        if (getExifModel() == "Canon EOS 20D") {
-            // special case for buggy 20D camera
-            sensorSize.x = 22.5;
-            sensorSize.y = 15;
-        }
-        //
-        // check if sensor size ratio and image size fit together
-        double rsensor = (double)sensorSize.x / sensorSize.y;
-        double rimg = (double) width / height;
-        if ( (rsensor > 1 && rimg < 1) || (rsensor < 1 && rimg > 1) ) {
-            // image and sensor ratio do not match
-            // swap sensor sizes
-            float t;
-            t = sensorSize.y;
-            sensorSize.y = sensorSize.x;
-            sensorSize.x = t;
-        }
-
-        DEBUG_DEBUG("sensorSize.y: " << sensorSize.y);
-        DEBUG_DEBUG("sensorSize.x: " << sensorSize.x);
-
-        cropFactor = sqrt(36.0*36.0+24.0*24.0) /
-            sqrt(sensorSize.x*sensorSize.x + sensorSize.y*sensorSize.y);
-        // FIXME: HACK guard against invalid image focal plane definition in EXIF metadata with arbitrarly chosen limits for the crop factor ( 1/100 < crop < 100)
-        if (cropFactor < 0.01 || cropFactor > 100) {
-            cropFactor = 0;
-        }
-    } else {
-        // alternative way to calculate the crop factor for Olympus cameras
-
-        // Windows debug stuff
-        // left in as example on how to get "console output"
-        // written to a log file    
-        // freopen ("oly.log","a",stdout);
-        // fprintf (stdout,"Starting Alternative crop determination\n");
-        
-        float olyFPD = 0;
-        Exiv2Helper::getExiv2Value(exifData,"Exif.Olympus.FocalPlaneDiagonal",olyFPD);
-
-        if (olyFPD > 0.0) {        
-            // Windows debug stuff
-            // fprintf(stdout,"Oly_FPD:");
-            // fprintf(stdout,"%f",olyFPD);
-            cropFactor = sqrt(36.0*36.0+24.0*24.0) / olyFPD;
-        }
-        else {
-            // for newer Olympus cameras the FocalPlaneDiagonal tag was moved into
-            // equipment (sub?)-directory, so check also there
-            Exiv2Helper::getExiv2Value(exifData,"Exif.OlympusEq.FocalPlaneDiagonal",olyFPD);
-            if (olyFPD > 0.0) {
-                cropFactor = sqrt(36.0*36.0+24.0*24.0) / olyFPD;
-            };
-        };
-   
-    }
+    cropFactor=Exiv2Helper::getCropFactor(exifData, width, height);
     DEBUG_DEBUG("cropFactor: " << cropFactor);
 
-    float eFocalLength = 0;
-    it=Exiv2::focalLength(exifData);
-    if(it!=exifData.end() && it->count())
-    {
-        eFocalLength = it->toFloat();
-    };
-
-    float eFocalLength35 = 0;
-    Exiv2Helper::getExiv2Value(exifData,"Exif.Photo.FocalLengthIn35mmFilm",eFocalLength35);
+    float eFocalLength = Exiv2Helper::getExiv2ValueDouble(exifData, Exiv2::focalLength(exifData));
+    float eFocalLength35 = Exiv2Helper::getExiv2ValueLong(exifData,"Exif.Photo.FocalLengthIn35mmFilm");
 
     //The various methods to detmine crop factor
     if (eFocalLength > 0 && cropFactor > 0) {
@@ -632,26 +393,14 @@ bool SrcPanoImage::readEXIF(double & focalLength, double & cropFactor, double & 
         focalLength = eFocalLength;
         cropFactor = 0;
     }
-    it=Exiv2::subjectDistance(exifData);
-    if(it!=exifData.end() && it->count())
-    {
-        subjectDistance=it->toFloat();
-    };
+    setExifFocalLength(focalLength);
+    setExifFocalLength35(eFocalLength35);
 
-    std::string captureDate;
-    Exiv2Helper::getExiv2Value(exifData,"Exif.Photo.DateTimeOriginal",captureDate);
+    setExifDistance(Exiv2Helper::getExiv2ValueDouble(exifData, Exiv2::subjectDistance(exifData)));
+    setExifDate(Exiv2Helper::getExiv2ValueString(exifData, "Exif.Photo.DateTimeOriginal"));
 
     double redBalance, blueBalance;
     Exiv2Helper::readRedBlueBalance(exifData, redBalance, blueBalance);
-
-    // store some important EXIF tags for later usage.
-    setExifFocalLength(focalLength);
-    setExifFocalLength35(eFocalLength35);
-    setExifOrientation(roll);
-    setExifISO(isoSpeed);
-    setExifDistance(subjectDistance);
-    setExifDate(captureDate);
-    setExifExposureTime(exposureTime);
     setExifRedBalance(redBalance);
     setExifBlueBalance(blueBalance);
 
@@ -942,6 +691,28 @@ double SrcPanoImage::calcCropFactor(SrcPanoImage::Projection proj, double hfov, 
     double diag = x * sqrt(1+ 1/(r*r));
     return sqrt(36.0*36.0 + 24.0*24.0) / diag;
 }
+
+double SrcPanoImage::calcExifExposureValue()
+{
+    double ev=0;
+    double photoFNumber=getExifAperture();
+    if(photoFNumber==0)
+    {
+        //if no F-number was found in EXIF data assume a f stop of 3.5 to get
+        //a reasonable ev value if shutter time, e. g. for manual lenses is found
+        photoFNumber=3.5;
+    };
+    if (getExifExposureTime() > 0)
+    {
+        double gain = 1;
+        if (getExifISO()> 0)
+        {
+            gain = getExifISO() / 100.0;
+        }
+        ev = log2(photoFNumber * photoFNumber / (gain * getExifExposureTime()));
+    };
+    return ev;
+};
 
 void SrcPanoImage::updateFocalLength(double newFocalLength)
 {
