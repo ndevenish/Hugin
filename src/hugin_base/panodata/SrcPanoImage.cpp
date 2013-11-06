@@ -484,6 +484,11 @@ bool SrcPanoImage::readProjectionFromDB()
             };
             if(getExifFocalLength()>0)
             {
+                double fov;
+                if(lensDB.GetFov(getExifFocalLength(), fov))
+                {
+                    setHFOV(fov);
+                };
                 CropMode dbCropMode;
                 FDiff2D cropLeftTop;
                 FDiff2D cropRightBottom;
