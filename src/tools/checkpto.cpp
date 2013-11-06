@@ -51,7 +51,7 @@ static void usage(const char * name)
          << endl
          << "Usage:  " << name << " input.pto" << endl
          << endl
-         << name << " examins the connections between images in a project and" << endl
+         << name << " examines the connections between images in a project and" << endl
          << "reports back the number of parts or image groups in that project" << endl
          << endl
          << name << " is used by the assistant makefile" << endl

@@ -86,10 +86,10 @@ static void usage(const char * name)
          << "Usage: " << name  << " [options] inputfile(s) " << std::endl
          << "   option are: " << std::endl
          << "      -g a:b:c:d       Radial distortion coefficient for all channels, (a, b, c, d)" << std::endl
-         << "      -b a:b:c:d       Radial distortion coefficents for blue channel, (a, b, c, d)" << std::endl
+         << "      -b a:b:c:d       Radial distortion coefficients for blue channel, (a, b, c, d)" << std::endl
          << "                        this is applied on top of the -g distortion coefficients," << endl
          << "                        use for TCA corr" << std::endl
-         << "      -r a:b:c:d       Radial distortion coefficents for red channel, (a, b, c, d)" << std::endl
+         << "      -r a:b:c:d       Radial distortion coefficients for red channel, (a, b, c, d)" << std::endl
          << "                        this is applied on top of the -g distortion coefficients," << endl
          << "                        use for TCA corr" << std::endl
          << "      -p               Try to read radial distortion coefficients for green" << endl

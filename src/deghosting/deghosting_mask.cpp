@@ -124,7 +124,7 @@ static void usage()
          << "                               function (SIGMA > 0); default: " << sigma << endl
          //<< "     -r, --response=E:M:o:R    use camera response specified in EMoR format" << endl
          << "     -t, --threshold=THRESH    threshold; default: " << thresholdLim << endl
-         << "     -c, --contrast=CONTR      change constrast before applying threshold;" << endl
+         << "     -c, --contrast=CONTR      change contrast before applying threshold;" << endl
          << "                               default: " << contrast << endl
          << "     -a, --advanced=SET        advanced settings. Possible options are:" << endl
          << "                               f   use gray images for computation. It's about two times faster" << endl
@@ -135,8 +135,8 @@ static void usage()
          << "                               t   use simple threshold, may result in holes in images" << endl
          << "                               w   compute \"complete\" weights, not only probabilities" << endl
          << "     -w, --save=SET            advanced save settings" << endl
-         << "                               i   save initial weigths" << endl
-         << "                               w   save generated weigths" << endl
+         << "                               i   save initial weights" << endl
+         << "                               w   save generated weights" << endl
          << "     -b BLOCKSIZE              image cache BLOCKSIZE in kilobytes; default: " <<
             (CachedFileImageDirector::v().getBlockSize() / 1024LL) << "KB" << endl
          << "     -m CACHESIZE              set image CACHESIZE in megabytes; default: " << 
@@ -167,7 +167,7 @@ int main(int argc, char *argv[]) {
         sigmaID,
         responseID,
         thresholdID,
-        constrastID,
+        contrastID,
         advancedID,
         saveID,
         helpID,
@@ -258,7 +258,7 @@ int main(int argc, char *argv[]) {
                     case thresholdID:
                         thresholdLim = atof(optarg);
                         break;
-                    case constrastID:
+                    case contrastID:
                         contrast = atof(optarg);
                         break;
                 }

@@ -64,7 +64,7 @@ static void usage(const char * name)
          << "   To read a project from stdio, specify - as input file." << endl
          << endl
          << "  Options:" << endl
-         << "     -o file.pto  output file. If obmitted, stdout is used." << endl
+         << "     -o file.pto  output file. If omitted, stdout is used." << endl
          << endl
          << "    Optimisation options (if not specified, no optimisation takes place)" << std::endl
          << "     -a       auto align mode, includes various optimisation stages, depending" << endl
