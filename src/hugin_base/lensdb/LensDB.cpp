@@ -928,8 +928,18 @@ int LensDB::BeginSaveLens(std::string filename, std::string maker, std::string l
         lf_lens_copy(m_updatedLenses[i],allLenses[i]);
         if(updateLens)
         {
-            if(strcmp(m_updatedLenses[i]->Model,oldLenses[0]->Model)==0 && 
-               strcmp(m_updatedLenses[i]->Maker,oldLenses[0]->Maker)==0)
+            bool sameMaker=true;
+            // maker string can be empty, so compare strings with special case for empty strings
+            if(m_updatedLenses[i]->Maker && oldLenses[0]->Maker)
+            {
+                sameMaker=strcmp(m_updatedLenses[i]->Maker,oldLenses[0]->Maker)==0;
+            }
+            else
+            {
+                sameMaker=(m_updatedLenses[i]->Maker==NULL && oldLenses[0]->Maker==NULL);
+            };
+            // for model we can make it easier because Model is always given/forced
+            if(strcmp(m_updatedLenses[i]->Model,oldLenses[0]->Model)==0 && sameMaker)
             {
                 bool compareMounts=false;
                 if(oldLenses[0]->Mounts)
