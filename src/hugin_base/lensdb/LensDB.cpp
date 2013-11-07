@@ -639,6 +639,20 @@ bool LensDB::GetDistortion(double focal, std::vector<double> &distortion)
     };
 };
 
+// returns a valid subject disance
+// lensfun expects the following
+// undef (0) distance treated as 1000
+// infinity distance also treated as 1000
+double enforceValidSubjectDistance(double inputDistance)
+{
+    double validDistance=fabs(inputDistance);
+    if(validDistance<0.01)
+    {
+        return 1000;
+    };
+    return std::min(validDistance, 1000.0);
+};
+
 bool LensDB::GetVignetting(double focal, double aperture, double distance, std::vector<double> &vignetting)
 {
     vignetting.clear();
@@ -652,7 +666,7 @@ bool LensDB::GetVignetting(double focal, double aperture, double distance, std::
         checkedAperture=aperture;
     };
     lfLensCalibVignetting calibVig;
-    if(m_lenses[0]->InterpolateVignetting(focal,checkedAperture,distance,calibVig))
+    if(m_lenses[0]->InterpolateVignetting(focal, checkedAperture, enforceValidSubjectDistance(distance), calibVig))
     {
         switch(calibVig.Model)
         {
@@ -1096,13 +1110,14 @@ void LensDB::SaveVignetting(double focal, double aperture, double distance, std:
             return;
         };
         int index=-1;
+        double validDistance=enforceValidSubjectDistance(distance);
         if(m_currentLens->CalibVignetting)
         {
             for(int i=0;m_currentLens->CalibVignetting[i];i++)
             {
                 if(abs(m_currentLens->CalibVignetting[i]->Focal-focal)<0.05 &&
                    abs(m_currentLens->CalibVignetting[i]->Aperture-aperture)<0.05 &&
-                   abs(m_currentLens->CalibVignetting[i]->Distance-distance)<0.05)
+                   abs(m_currentLens->CalibVignetting[i]->Distance-validDistance)<0.05)
                 {
                     index=i;
                     break;
@@ -1116,7 +1131,7 @@ void LensDB::SaveVignetting(double focal, double aperture, double distance, std:
         lfLensCalibVignetting lcv;
         lcv.Focal=focal;
         lcv.Aperture=aperture;
-        lcv.Distance=distance;
+        lcv.Distance=validDistance;
         lcv.Model=LF_VIGNETTING_MODEL_PA;
         lcv.Terms[0]=vignetting[1];
         lcv.Terms[1]=vignetting[2];
