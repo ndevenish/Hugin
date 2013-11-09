@@ -54,9 +54,9 @@ void findInterestPointsOnGrid(vigra::triple<ImageIter, ImageIter, ImageAcc> img,
         for (unsigned partx=0;partx<grid;partx++) {
             std::multimap<double, vigra::Diff2D> points;
             DEBUG_TRACE("selecting points for grid partition (" << partx << ", " << party << ")");
-	    // select the nPoints with the highest response
-	    // some distribution criteria might be useful, too
-	    // to avoid clustering all points on a single object.
+            // select the nPoints with the highest response
+            // some distribution criteria might be useful, too
+            // to avoid clustering all points on a single object.
 
             // run corner detector only in current sub-region (saves a lot of memory for big images)
             vigra::Rect2D rect(partx*size.x/grid, party*size.y/grid,
