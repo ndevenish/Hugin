@@ -59,12 +59,19 @@ target_link_libraries(pto_var ${common_libs})
 add_executable(pto_lensstack pto_lensstack.cpp)
 target_link_libraries(pto_lensstack ${common_libs})
 
+add_executable(pto_move pto_move.cpp)
+target_link_libraries(pto_move ${common_libs})
+# for expanding wildcard with MSVC
+if(MSVC)
+  set_target_properties(pto_move PROPERTIES LINK_FLAGS "setargv.obj")
+endif(MSVC)
+
 add_executable(hugin_hdrmerge hugin_hdrmerge.cpp ../deghosting/deghosting.cpp ../deghosting/deghosting.h ../deghosting/khan.h ../deghosting/support.h ../deghosting/algtinyvector.h)
 target_link_libraries(hugin_hdrmerge ${common_libs} ${image_libs} )
 
 install(TARGETS nona vig_optimize autooptimiser fulla align_image_stack linefind geocpset
         tca_correct pto2mk cpclean checkpto hugin_hdrmerge pano_trafo pano_modify pto_merge 
-        pto_gen pto_var pto_lensstack pto_template pto_mask
+        pto_gen pto_var pto_lensstack pto_template pto_mask pto_move
         DESTINATION ${BINDIR})
 
 IF(UNIX)
