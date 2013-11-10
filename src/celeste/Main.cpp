@@ -46,25 +46,6 @@ using namespace std;
 using namespace HuginBase;
 using namespace AppBase;
 
-bool fileexists(string strFilename) {
-
-	struct stat stFileInfo;
-	bool blnReturn;
-	int intStat;
-
-	// Attempt to get the file attributes
-	intStat = stat(strFilename.c_str(),&stFileInfo);
-	if(intStat == 0) {
-
-		blnReturn = true;
-  	}else{
-
-    		blnReturn = false;
-  	}
-  
-  	return(blnReturn);
-}
-
 static void usage(){
 
 	// Print usage and exit
@@ -290,7 +271,8 @@ int main(int argc, char* argv[])
 
     
 	// Check model file
-	if (!fileexists(model_file)){
+    if (!hugin_utils::FileExists(model_file))
+    {
 	
 #if _WINDOWS
         char buffer[MAX_PATH];//always use MAX_PATH for filepaths
@@ -327,7 +309,7 @@ int main(int argc, char* argv[])
 
 		install_path_model.append(model_file);
 		
-		if (!fileexists(install_path_model)){
+		if (!hugin_utils::FileExists(install_path_model)){
 		
     			cout << endl << "Couldn't open SVM model file " << model_file << endl;
 			cout << "Also tried " << install_path_model << endl << endl; 
