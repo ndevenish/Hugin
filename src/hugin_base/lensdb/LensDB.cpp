@@ -22,6 +22,7 @@
  */
 
 #include "LensDB.h"
+#define BOOST_FILESYSTEM_VERSION 3
 #include <boost/filesystem.hpp>
 #include <iostream>
 #include <hugin_utils/stl_utils.h>
@@ -35,14 +36,6 @@ namespace HuginBase
 
 namespace LensDB
 {
-
-#if BOOST_FILESYSTEM_VERSION < 3
-typedef boost::filesystem::basic_path<std::string, boost::filesystem::path_traits> basic_path;
-#define GETPATHSTRING(x) x
-#else
-typedef boost::filesystem::path basic_path;
-#define GETPATHSTRING(x) (x).string()
-#endif
 
 LensDB* LensDB::m_instance=NULL;
 
@@ -163,20 +156,20 @@ bool LensDB::LoadFilesInDir(std::string path)
     if(m_db==NULL)
         return false;
     lfError e=LF_NO_ERROR;
-    basic_path p(path);
+    boost::filesystem::path p(path);
     try
     {
         if(exists(p))
         {
             if (is_directory(p))
             {
-                typedef std::vector<basic_path> fl_vec;
+                typedef std::vector<boost::filesystem::path> fl_vec;
                 fl_vec filelist;
                 std::copy(boost::filesystem::directory_iterator(p), boost::filesystem::directory_iterator(), std::back_inserter(filelist));
                 for(fl_vec::const_iterator it=filelist.begin();it!=filelist.end();it++)
                 {
-                    basic_path file=*it;
-                    if(GETPATHSTRING(file.extension())==std::string(".xml"))
+                    boost::filesystem::path file=*it;
+                    if(file.extension().string()==std::string(".xml"))
                     {
                         lfError e2=m_db->Load(file.string().c_str());
                         if(e==LF_NO_ERROR && e2!=LF_NO_ERROR)
@@ -709,7 +702,7 @@ bool LensDB::SaveCameraCrop(std::string filename, std::string maker, std::string
         return false;
     };
     // load if file exists already
-    basic_path p(filename);
+    boost::filesystem::path p(filename);
     if(boost::filesystem::exists(p))
     {
         if(boost::filesystem::is_regular_file(p))
@@ -830,7 +823,7 @@ int LensDB::BeginSaveLens(std::string filename, std::string maker, std::string l
         return 1;
     };
     // load if file exists already
-    basic_path p(filename);
+    boost::filesystem::path p(filename);
     m_lensFilename=p.string();
     if(boost::filesystem::exists(p))
     {
