@@ -598,7 +598,7 @@ public:
         stitch(opts, imgSet, vigra::destImageRange(pano), vigra::destImage(panoMask), remapper);
 	
 	    std::string ext = opts.getOutputExtension();
-        std::string cext = hugin_utils::getExtension(basename);
+        std::string cext = hugin_utils::tolower(hugin_utils::getExtension(basename));
         std::transform(cext.begin(),cext.end(), cext.begin(), (int(*)(int))std::tolower);
         // remove extension only if it specifies the same file type, otherwise
         // its probably part of the filename.
@@ -735,8 +735,7 @@ public:
                remapper, reduce);
 
     	std::string ext = opts.getOutputExtension();
-        std::string cext = hugin_utils::getExtension(basename);
-        std::transform(cext.begin(),cext.end(), cext.begin(), (int(*)(int))std::tolower);
+        std::string cext = hugin_utils::tolower(hugin_utils::getExtension(basename));
         // remove extension only if it specifies the same file type, otherwise
         // its probably part of the filename.
         if (cext == ext) {
@@ -934,8 +933,7 @@ public:
         stitch(opts, imgSet, vigra::destImageRange(pano), vigra::destImage(panoMask), remapper, blend);
 	
 	    std::string ext = opts.getOutputExtension();
-        std::string cext = hugin_utils::getExtension(basename);
-        std::transform(cext.begin(),cext.end(), cext.begin(), (int(*)(int))std::tolower);
+        std::string cext = hugin_utils::tolower(hugin_utils::getExtension(basename));
         // remove extension only if it specifies the same file type, otherwise
         // its probably part of the filename.
         if (cext == ext) {

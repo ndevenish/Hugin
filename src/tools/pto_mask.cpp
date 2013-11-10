@@ -44,20 +44,6 @@ struct MaskFiles
     string maskFile;
 };
 
-// toupper is overloaded in <locale>, but we want to use it as a unary function.
-inline char toupper_2(char c)
-{
-    return toupper(c);
-}
-
-/** convert string to uppercase letters. */
-std::string strToUpper(const std::string& aString)
-{
-    std::string result(aString);
-    std::transform(aString.begin(), aString.end(), result.begin(), toupper_2);
-    return result;
-};
-
 static void usage(const char* name)
 {
     cout << name << ": add mask to pto project" << endl
@@ -146,7 +132,7 @@ int main(int argc, char* argv[])
             case ROTATE_SWITCH:
                 {
                     string s=optarg;
-                    s=strToUpper(s);
+                    s=hugin_utils::toupper(s);
                     if(s=="CLOCKWISE" || s=="90")
                     {
                         rotate=1;
@@ -168,7 +154,7 @@ int main(int argc, char* argv[])
             case PROC_SWITCH:
                 {
                     string s=optarg;
-                    s=strToUpper(s);
+                    s=hugin_utils::toupper(s);
                     if(s=="CLIP")
                     {
                         process=0;

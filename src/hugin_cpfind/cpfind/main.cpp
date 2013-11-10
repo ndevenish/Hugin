@@ -25,6 +25,7 @@
 #include <boost/foreach.hpp>
 #include "Utils.h"
 #include <getopt.h>
+#include "hugin_utils/stl_utils.h"
 
 using namespace std;
 
@@ -238,7 +239,7 @@ bool parseOptions(int argc, char** argv, PanoDetector& ioPanoDetector)
             case RANSACMODE:
                 ransacMode=optarg;
                 cout << "Ransac: " << ransacMode << endl;
-                transform(ransacMode.begin(), ransacMode.end(), ransacMode.begin(),(int(*)(int)) tolower);
+                ransacMode=hugin_utils::tolower(ransacMode);
                 cout << "Ransac: " << ransacMode << endl;
                 if(ransacMode=="auto")
                 {

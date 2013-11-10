@@ -46,6 +46,7 @@
 #include <algorithms/nona/NonaFileStitcher.h>
 #include <vigra_ext/MultiThreadOperations.h>
 #include <vigra_ext/ImageTransformsGPU.h>
+#include "hugin_utils/stl_utils.h"
 
 #include <tiffio.h>
 
@@ -236,7 +237,7 @@ int main(int argc, char *argv[])
                 break;
             case 'z':
                 compression = optarg;
-                std::transform(compression.begin(), compression.end(), compression.begin(), (int(*)(int)) toupper);
+                compression=hugin_utils::toupper(compression);
                 break;
             case 'g':
                 useGPU = true;

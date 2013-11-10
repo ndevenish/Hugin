@@ -77,20 +77,6 @@ static void usage(const char * name)
          << endl;
 }
 
-// toupper is overloaded in <locale>, but we want to use it as a unary function.
-inline char toupper_2(char c)
-{
-    return toupper(c);
-}
-
-/** convert string to uppercase letters. */
-std::string strToUpper(const std::string& aString)
-{
-    std::string result(aString);
-    std::transform(aString.begin(), aString.end(), result.begin(), toupper_2);
-    return result;
-};
-
 int main(int argc, char *argv[])
 {
     // parse arguments
@@ -168,7 +154,7 @@ int main(int argc, char *argv[])
             case SWITCH_FOV:
                 //field of view
                 param=optarg;
-                param=strToUpper(param);
+                param=hugin_utils::toupper(param);
                 if(param=="AUTO")
                 {
                     doFit=true;
@@ -221,7 +207,7 @@ int main(int argc, char *argv[])
             case SWITCH_CANVAS:
                 //canvas size
                 param=optarg;
-                param=strToUpper(param);
+                param=hugin_utils::toupper(param);
                 if(param=="AUTO")
                 {
                     doOptimalSize=true;
@@ -268,7 +254,7 @@ int main(int argc, char *argv[])
             case SWITCH_CROP:
                 //crop
                 param=optarg;
-                param=strToUpper(param);
+                param=hugin_utils::toupper(param);
                 if(param=="AUTO" || param=="AUTOHDR")
                 {
                     doAutocrop=true;

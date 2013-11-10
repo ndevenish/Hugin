@@ -328,7 +328,7 @@ int main(int argc, char* argv[])
 	}
 
 	// Convert mask format to upper case
-	transform(mask_format.begin(), mask_format.end(), mask_format.begin(),(int(*)(int)) toupper);
+    mask_format=hugin_utils::toupper(mask_format);
 	if (mask_format == ("JPG")){
 		mask_format = ("JPEG");
 	}
@@ -369,7 +369,7 @@ int main(int argc, char* argv[])
 	} 
 	
 	// Convert mask format to lower case
-	transform(mask_format.begin(), mask_format.end(), mask_format.begin(),(int(*)(int)) tolower);
+    mask_format=hugin_utils::tolower(mask_format);
 
 	// Vectors to store SVM responses and PTO file info etc
 	vector<string> images,pto_file_top,pto_file_cps,pto_file_end;

@@ -56,6 +56,15 @@ namespace hugin_utils {
         return result;
     }
     
+    inline std::string toupper(const std::string& s)
+    {
+        std::string result = s;
+        std::transform<std::string::iterator,
+            std::string::iterator,
+            int (*)(int)>(result.begin(), result.end(),
+                          result.begin(), ::toupper);
+        return result;
+    }
 }
 
 
