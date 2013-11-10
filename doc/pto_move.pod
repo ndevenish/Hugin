@@ -1,0 +1,51 @@
+=head1 NAME
+
+pto_move - Move a project file with all images in it.
+
+=head1 SYNOPSIS
+
+B<pto_move> [options] path1/source.pto path2/dest.pto
+
+=head1 DESCRIPTION
+
+B<pto_move> Moves a project file and all images to a new destination.
+Optionally copies; can be recursive, and can overwrite
+
+=head1 USAGE
+
+B<pto_move> [options] path1/source.pto path2/dest.pto
+
+Rename project file path1/source.pto to path2/dest.pto.
+All images contained in the project will
+be moved accordingly.
+
+B<pto_move> [options] sourceFolder destFolder
+
+Moves all project files in the source folder to 
+the destination folder including all images.
+
+=head1 OPTIONS
+
+=over
+
+=item B<--copy>
+
+Copy project files and images instead of moving
+
+=item B<--recursive>
+
+Only effective in use case 2. Go recursive in the
+the source folder and move all project files with images
+to destination folder by maintaining the folder structure
+relative to source folder.
+
+=item B<--overwrite>
+
+Overwrite all existing files. Otherwise you will be asked
+for each existing file.
+
+=back
+
+=head1 AUTHORS
+
+Thomas Modes
