@@ -55,7 +55,7 @@ Users compiling Hugin from source will need:
         system
         thread
     libtiff the TIFF library with LZW support.
-    libpano13 version >=2.9.18
+    libpano13 version >=2.9.19
     libjpg the JPEG library
     libpng the PNG library
     libopenexr the OpenEXR library
