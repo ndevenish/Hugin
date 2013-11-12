@@ -341,7 +341,7 @@ static void usage(const char * name)
               << "Options: " << std::endl
               << "  --copy       Copy project files and images instead of moving" << std::endl
               << "  --recursive  Only effective in use case 2. Go recursive in the" << std::endl
-              << "               the source filder and move all project files with images" << std::endl
+              << "               the source folder and move all project files with images" << std::endl
               << "               to destination folder by maintaining the folder structure" << std::endl
               << "               relative to source folder." << std::endl
               << "  --overwrite  Overwrite all existing files. Otherwise you will be asked" << std::endl
