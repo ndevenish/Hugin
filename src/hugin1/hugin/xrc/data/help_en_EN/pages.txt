@@ -122,6 +122,7 @@ Pto_gen
 Pto_lensstack
 Pto_mask
 Pto_merge
+Pto_move
 Pto_template
 Pto_var
 PNG

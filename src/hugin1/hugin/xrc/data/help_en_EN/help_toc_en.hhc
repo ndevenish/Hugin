@@ -168,6 +168,18 @@
 			<param name="Local" value="Pto_lensstack.html">
 			</OBJECT>
 		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Pto_move">
+			<param name="Local" value="Pto_move.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Pto_merge">
+			<param name="Local" value="Pto_merge.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Pano_modify">
+			<param name="Local" value="Pano_modify.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
 			<param name="Name" value="Icpfind">
 			<param name="Local" value="Icpfind.html">
 			</OBJECT>
@@ -194,14 +206,6 @@
 		<LI> <OBJECT type="text/sitemap">
 			<param name="Name" value="PTBatcherGUI">
 			<param name="Local" value="Hugin_Batch_Processor.html">
-			</OBJECT>
-		<LI> <OBJECT type="text/sitemap">
-			<param name="Name" value="Pano_modify">
-			<param name="Local" value="Pano_modify.html">
-			</OBJECT>
-		<LI> <OBJECT type="text/sitemap">
-			<param name="Name" value="Pto_merge">
-			<param name="Local" value="Pto_merge.html">
 			</OBJECT>
 		<LI> <OBJECT type="text/sitemap">
 			<param name="Name" value="External programs">

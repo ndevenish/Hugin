@@ -414,10 +414,32 @@ When stitching photos from different lenses, or when you don't have a good sprea
 <h3> <span class="mw-headline" id="Bug_Reporting"> Bug Reporting </span></h3>
 <p>When reporting success or failure using the GPU for stitching, always report also the driver version, video card GPU and RAM. Tell us what you were doing, the size and number of input images (note that if you stitch from within Hugin or PTBatcher, it is only one input image at a time).
 </p>
-<h2> <span class="mw-headline" id="Postprocessing"> Postprocessing </span></h2>
-<h3> <span class="mw-headline" id="Why_is_the_ICC_profile_of_my_input_images_not_preserved.3F"> Why is the ICC profile of my input images not preserved? </span></h3>
-<p>Since hugin 0.5 and enblend 2.4 <a href="Colour_profile.html" title="Colour profile">ICC profiles</a> in the input files are transfered to the output panorama. Please update to a current version.
+<h2> <span class="mw-headline" id="Batch_processing"> Batch processing </span></h2>
+<h3> <span class="mw-headline" id="Why_do_I_need_to_give_2_file_names"> Why do I need to give 2 file names </span></h3>
+<p>The batch processor needs a project file with the settings how it should be stitch a panorama.
 </p>
+<ul><li> So you will be first asked for a project file name (extension pto). 
+</li><li> Afterwards you can specify the file name for the final panorama image file.
+</li></ul>
+<h3> <span class="mw-headline" id="Why_does_PTBatcherGUI_disappear_after_10_s"> Why does PTBatcherGUI disappear after 10 s </span></h3>
+<p>PTBatcherGUI does not disappear. Only the icon in the tray bar is automatically hidden by Windows.
+Click on the chevron beside the tray bar and configure it display PTBatcherGUI always (the exact settings depends on the Windows version.)
+</p>
+<h3> <span class="mw-headline" id="PTBatcherGUI_does_not_stitch"> PTBatcherGUI does not stitch </span></h3>
+<p>In this case you need to check the batch processor settings:
+</p>
+<ul><li> First check the preferences: on the tab stitching the processor PTBatcherGUI should be selected and the option immediately start shout
+</li></ul>
+<p>be checked. (or press "Load defaults"). 
+</p>
+<ul><li> Then start PTBatcherGUI (File-&gt;Run batch processor"). If you don't see a window, check the tray area (beside the clock) and open PTBatcherGUI from the context menu on the icon. Probably the batch queue is mixed up. Delete the queue (File-&gt;Clear batch). 
+</li><li> Now go back to Hugin and press stitch. After specify the output prefix, the project should appear in PTBatcherGUI and the stitching starting. 
+</li></ul>
+<h3> <span class="mw-headline" id="How_do_I_clean_up_the_batch_queue"> How do I clean up the batch queue </span></h3>
+<ul><li> If PTBatcherGUI is running, select File-&gt;Clear batch.
+</li><li> If PTBatcherGUI is not running, start PTBatcherGUI from the "File-&gt;Run batch processor" or from the start menu. During the starting hold down the control key. You there will be ask to skip the loading of the batch queue. Confirm yes to clean up the batch queue.
+</li></ul>
+<h2> <span class="mw-headline" id="Postprocessing"> Postprocessing </span></h2>
 <h3> <span class="mw-headline" id="How_can_I_postprocess_the_image_using_multiple_layers_in_The_Gimp.3F"> How can I postprocess the image using multiple layers in The Gimp? </span></h3>
 <ul><li> Use the <a href="Nona.html" title="Nona">nona</a> stitcher on the command-line, to output to a multilayer <a href="TIFF.html" title="TIFF">TIFF</a> format:
 </li></ul>
@@ -520,7 +542,7 @@ Your first emails will be moderated, so be patient if you don't see your message
 </div>				<!-- /bodycontent -->
 								<!-- printfooter -->
 				<div class="printfooter">
-				Retrieved from "http://wiki.panotools.org/index.php?title=Hugin_FAQ&amp;oldid=15470<a class="external" href="http://wiki.panotools.org/index.php?title=Hugin_FAQ&amp;oldid=15470">[*]</a>"				</div>
+				Retrieved from "http://wiki.panotools.org/index.php?title=Hugin_FAQ&amp;oldid=15572<a class="external" href="http://wiki.panotools.org/index.php?title=Hugin_FAQ&amp;oldid=15572">[*]</a>"				</div>
 				<!-- /printfooter -->
 												<!-- catlinks -->
 				</div></div></body></html>

@@ -782,6 +782,11 @@
 		<param name="Local" value="Pto_merge.html">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Pto_move">
+		<param name="Name" value="Pto move - PanoTools.org Wiki">
+		<param name="Local" value="Pto_move.html">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Pto_template">
 		<param name="Name" value="Pto template - PanoTools.org Wiki">
 		<param name="Local" value="Pto_template.html">
