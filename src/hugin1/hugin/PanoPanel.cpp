@@ -1004,6 +1004,11 @@ void PanoPanel::DoStitch()
         // oversized pano and the user no longer wants to stitch.
         return;
     }
+    if (!CheckHasImages())
+    {
+        // output ROI contains no images
+        return;
+    };
 
     // save project
     // copy pto file to temporary file
@@ -1107,6 +1112,12 @@ void PanoPanel::DoSendToBatch()
         // oversized pano and the user no longer wants to stitch.
         return;
     }
+    if( !CheckHasImages())
+    {
+        // output ROI contains no images
+        return;
+    };
+
     wxString switches(wxT(" "));
     if (wxConfigBase::Get()->Read(wxT("/Processor/start"), HUGIN_PROCESSOR_START) != 0)
     {
@@ -1441,6 +1452,22 @@ bool PanoPanel::CheckGoodSize()
     // I see nothing wrong with this...
     return true;
 }
+
+bool PanoPanel::CheckHasImages()
+{
+    UIntSet images=getImagesinROI(*pano, pano->getActiveImages());
+    if(images.size()==0)
+    {
+        wxMessageBox(_("There are no active images in the output region.\nPlease check your settings, so that at least one images is in the output region."),
+#ifdef _WINDOWS
+            _("Hugin"),
+#else
+            wxT(""),
+#endif
+            wxOK | wxICON_INFORMATION);
+    };
+    return images.size()>0;
+};
 
 void PanoPanel::SetGuiLevel(GuiLevel newGuiLevel)
 {

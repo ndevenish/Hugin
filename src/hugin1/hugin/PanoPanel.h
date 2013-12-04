@@ -164,6 +164,8 @@ public:
      * "continue anyway" on the warning, false if the stitch should be aborted 
      */
     bool CheckGoodSize();
+    /** check if the output contains images at all */
+    bool CheckHasImages();
 
     // the model
     Panorama * pano;
