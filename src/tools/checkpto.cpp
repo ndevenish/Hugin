@@ -29,16 +29,13 @@
 
 #include <fstream>
 #include <sstream>
-#ifdef WIN32
- #include <getopt.h>
-#else
- #include <unistd.h>
-#endif
+#include <getopt.h>
 
 #include <panodata/Panorama.h>
 #include "algorithms/optimizer/ImageGraph.h"
 #include "hugin_base/panotools/PanoToolsUtils.h"
 #include "algorithms/basic/CalculateCPStatistics.h"
+#include "algorithms/basic/LayerStacks.h"
 
 using namespace std;
 using namespace HuginBase;
@@ -54,23 +51,60 @@ static void usage(const char * name)
          << name << " examines the connections between images in a project and" << endl
          << "reports back the number of parts or image groups in that project" << endl
          << endl
+         << "With  switch --print-output-info some infomation about the output" << endl
+         << "stacks and exposure layers are printed." << endl
+         << endl
          << name << " is used by the assistant makefile" << endl
          << endl;
 }
+
+void printImageGroup(const std::vector<HuginBase::UIntSet> &imageGroup)
+{
+    for (size_t i=0; i < imageGroup.size(); i++)
+    {
+        std::cout << "[";
+        size_t c=0;
+        for (HuginBase::UIntSet::const_iterator it = imageGroup[i].begin(); it != imageGroup[i].end(); ++it)
+        {
+            std::cout << (*it);
+            if (c+1 != imageGroup[i].size())
+            {
+                std::cout << ", ";
+            }
+            c++;
+        }
+        std::cout << "]";
+        if (i+1 != imageGroup.size())
+        {
+            std::cout << ", " << endl;
+        }
+    }
+};
 
 int main(int argc, char *argv[])
 {
     // parse arguments
     const char * optstring = "h";
 
+    static struct option longOptions[] =
+    {
+        {"print-output-info", no_argument, NULL, 1000 },
+        {"help", no_argument, NULL, 'h' },
+        0
+    };
+
     int c;
-    string output;
-    while ((c = getopt (argc, argv, optstring)) != -1)
+    bool printOutputInfo=false;
+    int optionIndex = 0;
+    while ((c = getopt_long (argc, argv, optstring, longOptions,&optionIndex)) != -1)
     {
         switch (c) {
         case 'h':
             usage(argv[0]);
             return 0;
+        case 1000:
+            printOutputInfo=true;
+            break;
         case '?':
             break;
         default:
@@ -128,11 +162,12 @@ int main(int argc, char *argv[])
     createCPGraph(pano, graph);
     CPComponents comps;
     int n = findCPComponents(graph, comps);
+    int returnValue=0;
     if(n==1)
     {
         std::cout << "All images are connected." << endl;
         // return value must be 0, otherwise the assistant does not continue
-        return 0;
+        returnValue=0;
     }
     else
     {
@@ -160,6 +195,18 @@ int main(int argc, char *argv[])
                 std::cout << ", " << endl;
             }
         }
-        return n;
+        returnValue=n;
     };
+    if(printOutputInfo)
+    {
+        HuginBase::UIntSet outputImages=HuginBase::getImagesinROI(pano, pano.getActiveImages());
+        std::vector<HuginBase::UIntSet> stacks=HuginBase::getHDRStacks(pano, outputImages, pano.getOptions());
+        cout << endl << "Output contains" << endl
+             << stacks.size() << " images stacks:" << endl;
+        printImageGroup(stacks);
+        std::vector<HuginBase::UIntSet> layers=HuginBase::getExposureLayers(pano, outputImages, pano.getOptions());
+        cout << endl << endl << "and " << layers.size() << " exposure layers:" << std::endl;
+        printImageGroup(layers);
+    };
+    return returnValue;
 }
