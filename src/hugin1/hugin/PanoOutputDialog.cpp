@@ -71,8 +71,9 @@ PanoOutputDialog::PanoOutputDialog(wxWindow *parent, PT::Panorama& pano, GuiLeve
     };
     // get number of stacks and exposure layers
     m_guiLevel=guiLevel;
-    m_stacks=getHDRStacks(m_pano, m_pano.getActiveImages(), m_pano.getOptions());
-    m_exposureLayers=getExposureLayers(m_pano, m_pano.getActiveImages(), m_pano.getOptions());
+    HuginBase::UIntSet images=getImagesinROI(m_pano, m_pano.getActiveImages());
+    m_stacks=getHDRStacks(m_pano, images, m_pano.getOptions());
+    m_exposureLayers=getExposureLayers(m_pano, images, m_pano.getOptions());
     // set initial width
     long opt_width=m_pano.calcOptimalWidth();
     m_newOpt=m_pano.getOptions();
