@@ -215,26 +215,21 @@ GreatCircleArc::GreatCircleArc(double startLat, double startLong,
 void GreatCircleArc::draw(bool withCross, double width) const
 {
     // Just draw all the previously worked out line segments
-    /** @todo It is probably more apropriate to use thin rectangles than lines.
-     * There are hardware defined limits on what width a line can be, and the
-     * worst case is the hardware only alows lines 1 pixel thick.
-     */
-        LineSegment * pre;
-        LineSegment * pro;
-        for (unsigned int i = 0 ; i < m_lines.size() ; i++) {
-            if (i != 0) {
-                pre = (LineSegment*) &(m_lines[i-1]);
-            } else {
-                pre = NULL;
-            }
-            if (i != m_lines.size() - 1) {
-                pro = (LineSegment*)&(m_lines[i+1]);
-            } else {
-                pro = NULL;
-            }
-            m_lines[i].doGL(width, m_visualizationState,pre,pro);
+    LineSegment * pre;
+    LineSegment * pro;
+    for (unsigned int i = 0 ; i < m_lines.size() ; i++) {
+        if (i != 0) {
+            pre = (LineSegment*) &(m_lines[i-1]);
+        } else {
+            pre = NULL;
         }
-    glEnd();
+        if (i != m_lines.size() - 1) {
+            pro = (LineSegment*)&(m_lines[i+1]);
+        } else {
+            pro = NULL;
+        }
+        m_lines[i].doGL(width, m_visualizationState,pre,pro);
+    }
     // The arc might contain no line segments in some circumstances,
     // so check for this before drawing crosses at the ends.
     if(withCross && !m_lines.empty())
