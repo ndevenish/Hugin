@@ -341,7 +341,7 @@ int main(int argc, char *argv[])
         }
 
         HuginBase::SmartPhotometricOptimizer::PhotometricOptimizeMode optmode = 
-            HuginBase::SmartPhotometricOptimizer::OPT_PHOTOMETRIC_LDR;
+            HuginBase::SmartPhotometricOptimizer::OPT_PHOTOMETRIC_LDR_WB;
         if (opts.outputMode == PanoramaOptions::OUTPUT_HDR)
         {
             optmode = HuginBase::SmartPhotometricOptimizer::OPT_PHOTOMETRIC_HDR;

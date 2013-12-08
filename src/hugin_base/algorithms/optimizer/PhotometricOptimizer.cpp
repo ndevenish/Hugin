@@ -26,6 +26,7 @@
 #include <fstream>
 #include <foreign/levmar/lm.h>
 #include <photometric/ResponseTransform.h>
+#include <algorithms/basic/LayerStacks.h>
 
 #ifdef DEBUG
 #define DEBUG_LOG_VIG 1
@@ -364,6 +365,32 @@ void PhotometricOptimizer::optimizePhotometric(PanoramaData & pano, const Optimi
     }
 }
 
+bool IsHighVignetting(std::vector<double> vigCorr)
+{
+    SrcPanoImage srcImage;
+    srcImage.setRadialVigCorrCoeff(vigCorr);
+    srcImage.setSize(vigra::Size2D(500, 500));
+    Photometric::ResponseTransform<double> transform(srcImage);
+    transform.enforceMonotonicity();
+    return transform(1.0, hugin_utils::FDiff2D(0,0))<0.7;
+};
+
+bool CheckStrangeWB(PanoramaData & pano)
+{
+    for(size_t i=0; i<pano.getNrOfImages(); i++)
+    {
+        if(pano.getImage(i).getWhiteBalanceBlue()>3)
+        {
+            return true;
+        };
+        if(pano.getImage(i).getWhiteBalanceRed()>3)
+        {
+            return true;
+        };
+    };
+    return false;
+};
+
 void SmartPhotometricOptimizer::smartOptimizePhotometric(PanoramaData & pano, PhotometricOptimizeMode mode,
                                                           const std::vector<vigra_ext::PointPairRGB> & correspondences,
                                                           AppBase::ProgressReporter & progress,
@@ -371,49 +398,69 @@ void SmartPhotometricOptimizer::smartOptimizePhotometric(PanoramaData & pano, Ph
 {
     std::vector<SrcPanoImage> ret;
     PanoramaOptions opts = pano.getOptions();
-    if (mode == OPT_PHOTOMETRIC_LDR || mode == OPT_PHOTOMETRIC_LDR_WB) {
+    UIntSet images;
+    fill_set(images, 0, pano.getNrOfImages()-1);
+    std::vector<UIntSet> stacks = getHDRStacks(pano, images, pano.getOptions());
+    bool singleStack = (stacks.size() == 1);
+
+    int vars = 0;
+    if (mode == OPT_PHOTOMETRIC_LDR || mode == OPT_PHOTOMETRIC_LDR_WB)
+    {
         // optimize exposure
-        int vars = OPT_EXP;
+        vars = OPT_EXP;
         optimizePhotometric(pano, 
                             createOptVars(pano, vars, opts.colorReferenceImage),
                             correspondences, progress, error);
+    };
 
-        // optimize vignetting & exposure
-        vars = OPT_EXP | OPT_VIG;
+    if(!singleStack)
+    {
+        //optimize vignetting only if there are more than 1 image stack
+        // for a single stack vignetting can't be calculated by this optimization
+        vars |= OPT_VIG;
+        const VariableMapVector & oldVars = pano.getVariables();
         optimizePhotometric(pano, 
                             createOptVars(pano, vars, opts.colorReferenceImage),
                             correspondences, progress, error);
+        // check if vignetting is plausible
+        if(IsHighVignetting(pano.getImage(0).getRadialVigCorrCoeff()))
+        {
+            vars &= ~OPT_VIG;
+            pano.updateVariables(oldVars);
+        };
+    };
 
-        if (mode == OPT_PHOTOMETRIC_LDR_WB) {
-            // optimize vignetting & exposure & wb & response
-            vars = OPT_EXP | OPT_VIG | OPT_RESP | OPT_WB;
-        } else {
-            vars = OPT_EXP | OPT_VIG | OPT_RESP;
-        }
-        // optimize vignetting & exposure & wb & response
+    // now take response curve into account
+    vars |= OPT_RESP;
+    // also WB if desired
+    if (mode == OPT_PHOTOMETRIC_LDR_WB || mode == OPT_PHOTOMETRIC_HDR_WB)
+    {
+        vars |= OPT_WB;
+    };
+    const VariableMapVector & oldVars = pano.getVariables();
+    optimizePhotometric(pano, 
+                        createOptVars(pano, vars, opts.colorReferenceImage),
+                        correspondences, progress, error);
+    // now check the results
+    bool hasHighVignetting = IsHighVignetting(pano.getImage(0).getRadialVigCorrCoeff());
+    // @TODO check also response curve, what parameters are considered invalid?
+    bool hasHighWB = CheckStrangeWB(pano);
+    if(hasHighVignetting)
+    {
+        vars &= ~OPT_VIG;
+    };
+    if(hasHighWB)
+    {
+        vars &= ~OPT_WB;
+    };
+    if(hasHighVignetting || hasHighWB)
+    {
+        // we got strange results, optimize again with less parameters
+        pano.updateVariables(oldVars);
         optimizePhotometric(pano, 
                             createOptVars(pano, vars, opts.colorReferenceImage),
                             correspondences, progress, error);
-    } else if (mode == OPT_PHOTOMETRIC_HDR || mode == OPT_PHOTOMETRIC_HDR_WB) {
-        // optimize vignetting
-        int vars = OPT_VIG;
-        optimizePhotometric(pano, 
-                            createOptVars(pano, vars, opts.colorReferenceImage),
-                            correspondences, progress, error);
-
-        // optimize vignetting, wb and response
-        if (mode == OPT_PHOTOMETRIC_HDR_WB) {
-            vars = OPT_VIG | OPT_RESP | OPT_WB;
-        } else {
-            vars =  OPT_VIG | OPT_RESP;
-        }
-        optimizePhotometric(pano, 
-                            createOptVars(pano, vars, opts.colorReferenceImage),
-                            correspondences, progress, error);
-    } else {
-        assert(0 && "Unknown photometric optimisation mode");
-    }
-    // adjust 
+    };
 }
 
 
