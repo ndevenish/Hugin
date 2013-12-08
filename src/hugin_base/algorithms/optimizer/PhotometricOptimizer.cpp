@@ -457,9 +457,12 @@ void SmartPhotometricOptimizer::smartOptimizePhotometric(PanoramaData & pano, Ph
     {
         // we got strange results, optimize again with less parameters
         pano.updateVariables(oldVars);
-        optimizePhotometric(pano, 
-                            createOptVars(pano, vars, opts.colorReferenceImage),
-                            correspondences, progress, error);
+        if(vars>0)
+        {
+            optimizePhotometric(pano, 
+                                createOptVars(pano, vars, opts.colorReferenceImage),
+                                correspondences, progress, error);
+        };
     };
 }
 
