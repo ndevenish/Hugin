@@ -35,6 +35,7 @@
 #include <algorithms/basic/CalculateCPStatistics.h>
 #include <algorithms/nona/CenterHorizontally.h>
 #include <algorithms/nona/CalculateFOV.h>
+#include <algorithms/basic/LayerStacks.h>
 #include <vigra_ext/ransac.h>
 
 #if DEBUG
@@ -424,9 +425,17 @@ void SmartOptimise::smartOptimize(PanoramaData& optPano)
     		break;
     	}
     }
+    bool singleStack=false;
+    if(!alreadyCalibrated) {
+        UIntSet images;
+        fill_set(images, 0, optPano.getNrOfImages()-1);
+        std::vector<UIntSet> stacks = getHDRStacks(optPano, images, optPano.getOptions());
+        singleStack = (stacks.size() == 1);
+    };
     // check if lens parameter values were loaded from ini file
     // and should not be changed
-    if (!alreadyCalibrated) {
+    // also don't optimize lens parameters for single stack projects
+    if (!alreadyCalibrated && !singleStack) {
         //---------------------------------------------------------------
         // Now with lens distortion
         
@@ -467,8 +476,8 @@ void SmartOptimise::smartOptimize(PanoramaData& optPano)
         //FDiff2D fov = CalculateFOV(optPano).run<CalculateFOV>().getResultFOV();
             FDiff2D fov = CalculateFOV::calcFOV(optPano);
         
-        if (fov.x >= 359) {
-            // optimize HFOV for 360 deg panos
+        if (fov.x >= 150) {
+            // optimize HFOV for 150 deg panos
             optmode |= OPT_HFOV;
         }
         
@@ -494,11 +503,11 @@ void SmartOptimise::smartOptimize(PanoramaData& optPano)
         for (VariableMapVector::const_iterator it = vars.begin() ; it != vars.end(); it++)
         {
             if (const_map_get(*it,"v").getValue() < 1.0) smallHFOV = true;
-            if (fabs(const_map_get(*it,"a").getValue()) > 0.8) highDist = true;
-            if (fabs(const_map_get(*it,"b").getValue()) > 0.8) highDist = true;
-            if (fabs(const_map_get(*it,"c").getValue()) > 0.8) highDist = true;
-            if (fabs(const_map_get(*it,"d").getValue()) > 2000) highShift = true;
-            if (fabs(const_map_get(*it,"e").getValue()) > 2000) highShift = true;
+            if (fabs(const_map_get(*it,"a").getValue()) > 0.2) highDist = true;
+            if (fabs(const_map_get(*it,"b").getValue()) > 0.2) highDist = true;
+            if (fabs(const_map_get(*it,"c").getValue()) > 0.2) highDist = true;
+            if (fabs(const_map_get(*it,"d").getValue()) > 1000) highShift = true;
+            if (fabs(const_map_get(*it,"e").getValue()) > 1000) highShift = true;
         }
 
         if (smallHFOV || highDist || highShift) {
@@ -532,7 +541,7 @@ void SmartOptimise::smartOptimize(PanoramaData& optPano)
             DEBUG_DEBUG("after opt 2: oldVars[0].b: " << const_map_get(oldVars[0],"b").getValue());
             for (VariableMapVector::const_iterator it = vars.begin() ; it != vars.end(); it++)
             {
-                if (fabs(const_map_get(*it,"b").getValue()) > 0.8) highDist = true;
+                if (fabs(const_map_get(*it,"b").getValue()) > 0.2) highDist = true;
             }
             if (highDist) {
                 optmode &= ~OPT_B;
