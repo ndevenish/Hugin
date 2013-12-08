@@ -28,6 +28,7 @@
 
 #include <hugin_shared.h>
 #include <string>
+#include <vector>
 #ifndef Hugin_shared
 #define CONF_LENSFUN_STATIC
 #endif
@@ -52,11 +53,13 @@ public:
     void SetLenses(const lfLens** lenses);
     std::string GetLensName(size_t index) const;
     void SetCameraModelMaker(const std::string camMaker, const std::string camModel);
+    void SetCameraCropFactor(const double cropFactor);
 private:
-    const lfLens** m_lenses;
-    size_t m_lensCount;
+    std::vector<const lfLens*> m_lenses;
     std::string m_camMaker;
     std::string m_camModel;
+    double m_camCropFactor;
+    void FreeLensList();
 };
 
 /** main wrapper class for lensfun database */
@@ -204,14 +207,14 @@ private:
     void FreeLensList();
     /** cleans up the information stored for mounts (variable LensDB::m_updatedMounts) */
     void CleanUpdatedMounts();
+    /** Add lenses found with lfDatabase::FindLenses to internal variable with additional checks */
+    void AddLenses(const lfLens** m_lenses, double camCropFactor);
     /** the main database */
     struct lfDatabase *m_db;
     /** database for saving */ 
     struct lfDatabase *m_newDB;
     /** found lenses for LensDB::GetProjection, LensDB::GetCrop */
-    const struct lfLens **m_lenses;
-    /** variable used for cleanup of lensfun points */
-    bool m_needLensCleanup;
+    std::vector<const struct lfLens*> m_lenses;
     /** list of lenses for saving */
     struct lfLens **m_updatedLenses;
     /** list of new mounts for saving */
