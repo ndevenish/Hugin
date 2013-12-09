@@ -408,37 +408,24 @@
                 <object class="sizeritem">
                   <object class="wxBoxSizer">
                     <object class="sizeritem">
-                      <object class="wxBoxSizer">
-                        <orient>wxHORIZONTAL</orient>
-                        <object class="sizeritem">
-                          <object class="wxStaticText">
-                            <label>Background:</label>
-                          </object>
-                          <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-                          <border>5</border>
-                        </object>
-                        <object class="sizeritem">
-                          <flag>wxGROW|wxALL|wxALIGN_CENTRE_VERTICAL</flag>
-                          <option>1</option>
-                          <border>5</border>
-                          <object class="wxColourPickerCtrl" name="preview_background">
-                            <value>#000000</value>
-                            <style>wxCLRP_DEFAULT_STYLE</style>
-                          </object>
-                        </object>
+                      <object class="wxStaticText">
+                        <label>Background:</label>
                       </object>
-                      <flag>wxALIGN_CENTRE_VERTICAL</flag>
-                    </object>
-                    <orient>wxVERTICAL</orient>
-                    <object class="sizeritem">
-                      <object class="wxCheckBox" name="preview_show_grid">
-                        <label>Grid</label>
-                      </object>
-                      <flag>wxLEFT|wxRIGHT|wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                      <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
                       <border>5</border>
                     </object>
+                    <object class="sizeritem">
+                      <flag>wxGROW|wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                      <option>1</option>
+                      <border>5</border>
+                      <object class="wxColourPickerCtrl" name="preview_background">
+                        <value>#000000</value>
+                        <style>wxCLRP_DEFAULT_STYLE</style>
+                      </object>
+                    </object>
+                    <orient>wxHORIZONTAL</orient>
                   </object>
-                  <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                  <flag>wxLEFT|wxALIGN_CENTRE_VERTICAL</flag>
                   <border>4</border>
                 </object>
               </object>
@@ -1234,30 +1221,24 @@
                 <object class="sizeritem">
                   <object class="wxBoxSizer">
                     <object class="sizeritem">
-                      <object class="wxBoxSizer">
-                        <orient>wxHORIZONTAL</orient>
-                        <object class="sizeritem">
-                          <object class="wxStaticText">
-                            <label>Background:</label>
-                          </object>
-                          <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-                          <border>5</border>
-                        </object>
-                        <object class="sizeritem">
-                          <flag>wxGROW|wxALL|wxALIGN_CENTRE_VERTICAL</flag>
-                          <option>1</option>
-                          <border>5</border>
-                          <object class="wxColourPickerCtrl" name="preview_background">
-                            <value>#000000</value>
-                            <style>wxCLRP_DEFAULT_STYLE</style>
-                          </object>
-                        </object>
+                      <object class="wxStaticText">
+                        <label>Background:</label>
                       </object>
-                      <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                      <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                      <border>5</border>
                     </object>
-                    <orient>wxVERTICAL</orient>
+                    <object class="sizeritem">
+                      <flag>wxGROW|wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                      <option>1</option>
+                      <border>5</border>
+                      <object class="wxColourPickerCtrl" name="preview_background">
+                        <value>#000000</value>
+                        <style>wxCLRP_DEFAULT_STYLE</style>
+                      </object>
+                    </object>
+                    <orient>wxHORIZONTAL</orient>
                   </object>
-                  <flag>wxLEFT|wxRIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                  <flag>wxLEFT|wxALIGN_CENTRE_VERTICAL</flag>
                   <border>4</border>
                 </object>
               </object>
