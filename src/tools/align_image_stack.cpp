@@ -437,31 +437,23 @@ struct Parameters
     string basename;
 };
 
+struct SortImageVectorEV
+{
+public:
+    SortImageVectorEV(const Panorama* pano) : m_pano(pano) {};
+    bool operator()(const unsigned int i, const unsigned int j)
+    {
+        return m_pano->getImage(i).getExposureValue() > m_pano->getImage(j).getExposureValue();
+    };
+private:
+    const Panorama* m_pano;
+};
+
 template <class PixelType>
 int main2(std::vector<std::string> files, Parameters param)
 {
     typedef vigra::BasicImage<PixelType> ImageType;
     try {
-        // load first image
-        vigra::ImageImportInfo firstImgInfo(files[0].c_str());
-
-        // original size
-        ImageType * leftImgOrig = new ImageType(firstImgInfo.size());
-        // rescale image
-        ImageType * leftImg = new ImageType();
-        {
-            if(firstImgInfo.numExtraBands() == 1) {
-                vigra::BImage alpha(firstImgInfo.size());
-                vigra::importImageAlpha(firstImgInfo, destImage(*leftImgOrig), destImage(alpha));
-            } else if (firstImgInfo.numExtraBands() == 0) {
-                vigra::importImage(firstImgInfo, destImage(*leftImgOrig));
-            } else {
-                vigra_fail("Images with multiple extra (alpha) channels not supported");
-            }
-            reduceNTimes(*leftImgOrig, *leftImg, param.pyrLevel);
-        }
-
-
         Panorama pano;
         Lens l;
 
@@ -507,15 +499,9 @@ int main2(std::vector<std::string> files, Parameters param)
             opts.setProjection(PanoramaOptions::RECTILINEAR);
         }
         opts.setHFOV(srcImg.getHFOV(), false);
-
-        if (srcImg.getRoll() == 0.0 || srcImg.getRoll() == 180.0) {
-            opts.setWidth(srcImg.getSize().x, false);
-            opts.setHeight(srcImg.getSize().y);
-        } else {
-            opts.setWidth(srcImg.getSize().y, false);
-            opts.setHeight(srcImg.getSize().x);
-        }
-            // output to tiff format
+        opts.setWidth(srcImg.getSize().x, false);
+        opts.setHeight(srcImg.getSize().y);
+        // output to tiff format
         opts.outputFormat = PanoramaOptions::TIFF_m;
         opts.tiff_saveROI = false;
         // m estimator, to be more robust against points on moving objects
@@ -525,16 +511,13 @@ int main2(std::vector<std::string> files, Parameters param)
         // variables that should be optimized
         // optimize nothing in the first image
         OptimizeVector optvars(1);
+        std::vector<unsigned int> images;
+        images.push_back(0);
 
-        ImageType * rightImg = new ImageType(leftImg->size());
-        ImageType * rightImgOrig = new ImageType(leftImgOrig->size());
         StandardImageVariableGroups variable_groups(pano);
 
-        // loop to add images and control points between them.
+        // loop to add images.
         for (int i = 1; i < (int) files.size(); i++) {
-            if (g_verbose > 0) {
-                cout << "Creating control points between " << files[i-1] << " and " << files[i] << std::endl;
-            }
             // add next image.
             srcImg.setFilename(files[i]);
             srcImg.readEXIF();
@@ -564,38 +547,13 @@ int main2(std::vector<std::string> files, Parameters param)
             if (param.optCenter) {
                 pano.unlinkImageVariableRadialDistortionCenterShift(0);
             }
-            
             // All images are in the same stack: Link the stack variable.
             pano.linkImageVariableStack(imgNr, 0);
-            
-            // load the actual image data of the next image
-            vigra::ImageImportInfo nextImgInfo(files[i].c_str());
-            assert(nextImgInfo.size() == firstImgInfo.size());
-            {
-                if (nextImgInfo.numExtraBands() == 1) {
-                    vigra::BImage alpha(nextImgInfo.size());
-                    vigra::importImageAlpha(nextImgInfo, destImage(*rightImgOrig), destImage(alpha));
-                } else if (nextImgInfo.numExtraBands() == 0) {
-                    vigra::importImage(nextImgInfo, destImage(*rightImgOrig));
-                } else {
-                    vigra_fail("Images with multiple extra (alpha) channels not supported");
-                }
-                reduceNTimes(*rightImgOrig, *rightImg, param.pyrLevel);
-            }
-
-            // add control points.
-            // work on smaller images
-            // TODO: or use a fast interest point operator.
-            createCtrlPoints(pano, i-1, *leftImg, *leftImgOrig, i, *rightImg, *rightImgOrig, param.pyrLevel, 2, param.nPoints, param.grid, param.corrThresh, param.stereo);
-
-            // swap images;
-            delete leftImg;
-            delete leftImgOrig;
-            leftImg = rightImg;
-            leftImgOrig = rightImgOrig;
-            rightImg = new ImageType(leftImg->size());
-            rightImgOrig = new ImageType(leftImgOrig->size());
-
+            // exposure value is linked, reset to value found in EXIF
+            pano.unlinkImageVariableExposureValue(0);
+            srcImg.setExposureValue(srcImg.calcExifExposureValue());
+            pano.setSrcImage(i, srcImg);
+            images.push_back(i);
             // optimize yaw, roll, pitch
             std::set<std::string> vars;
             vars.insert("y");
@@ -623,6 +581,68 @@ int main2(std::vector<std::string> files, Parameters param)
                 vars.insert("TrZ");
             }
             optvars.push_back(vars);
+
+        };
+            
+        // sort now all images by exposure value
+        std::sort(images.begin(), images.end(), SortImageVectorEV(&pano));
+
+        // load first image
+        vigra::ImageImportInfo firstImgInfo(pano.getSrcImage(images[0]).getFilename().c_str());
+
+        // original size
+        ImageType * leftImgOrig = new ImageType(firstImgInfo.size());
+        // rescale image
+        ImageType * leftImg = new ImageType();
+        {
+            if(firstImgInfo.numExtraBands() == 1) {
+                vigra::BImage alpha(firstImgInfo.size());
+                vigra::importImageAlpha(firstImgInfo, destImage(*leftImgOrig), destImage(alpha));
+            } else if (firstImgInfo.numExtraBands() == 0) {
+                vigra::importImage(firstImgInfo, destImage(*leftImgOrig));
+            } else {
+                vigra_fail("Images with multiple extra (alpha) channels not supported");
+            }
+            reduceNTimes(*leftImgOrig, *leftImg, param.pyrLevel);
+        }
+
+
+        ImageType * rightImg = new ImageType(leftImg->size());
+        ImageType * rightImgOrig = new ImageType(leftImgOrig->size());
+        // loop to add control points between them.
+        for (int i = 1; i < (int) images.size(); i++) {
+            if (g_verbose > 0) {
+                cout << "Creating control points between " << pano.getSrcImage(images[i-1]).getFilename().c_str() << " and " << 
+                    pano.getSrcImage(images[i]).getFilename().c_str() << std::endl;
+            }
+
+            // load the actual image data of the next image
+            vigra::ImageImportInfo nextImgInfo(pano.getSrcImage(images[i]).getFilename().c_str());
+            assert(nextImgInfo.size() == firstImgInfo.size());
+            {
+                if (nextImgInfo.numExtraBands() == 1) {
+                    vigra::BImage alpha(nextImgInfo.size());
+                    vigra::importImageAlpha(nextImgInfo, destImage(*rightImgOrig), destImage(alpha));
+                } else if (nextImgInfo.numExtraBands() == 0) {
+                    vigra::importImage(nextImgInfo, destImage(*rightImgOrig));
+                } else {
+                    vigra_fail("Images with multiple extra (alpha) channels not supported");
+                }
+                reduceNTimes(*rightImgOrig, *rightImg, param.pyrLevel);
+            }
+
+            // add control points.
+            // work on smaller images
+            // TODO: or use a fast interest point operator.
+            createCtrlPoints(pano, images[i-1], *leftImg, *leftImgOrig, images[i], *rightImg, *rightImgOrig, param.pyrLevel, 2, param.nPoints, param.grid, param.corrThresh, param.stereo);
+
+            // swap images;
+            delete leftImg;
+            delete leftImgOrig;
+            leftImg = rightImg;
+            leftImgOrig = rightImgOrig;
+            rightImg = new ImageType(leftImg->size());
+            rightImgOrig = new ImageType(leftImgOrig->size());
         }
         delete leftImg;
         delete rightImg;
@@ -657,8 +677,6 @@ int main2(std::vector<std::string> files, Parameters param)
         if (param.crop) autoCrop(pano);
 
         UIntSet imgs = pano.getActiveImages();
-
-
         if (optimizeError)
         {
             if (param.ptoFile.size() > 0) {
@@ -872,8 +890,6 @@ int main(int argc, char *argv[])
     std::vector<std::string> files;
     for (size_t i=0; i < nFiles; i++)
         files.push_back(argv[optind+i]);
-
-    // TODO: sort images in pano by exposure
 
     std::string pixelType;
 
