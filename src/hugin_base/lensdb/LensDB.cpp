@@ -1202,7 +1202,6 @@ bool LensDB::IsNewMount(std::string newMount)
         return false;
     };
     //check, if mount is already in new file
-    mount=NULL;
     mount=m_newDB->FindMount(newMount.c_str());
     if(mount)
     {
