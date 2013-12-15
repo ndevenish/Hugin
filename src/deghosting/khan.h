@@ -347,7 +347,7 @@ namespace deghosting
             // save init weights
             if (debugFlags & SAVE_INITWEIGHTS) {
                 char tmpfn[100];
-                snprintf(tmpfn, 99, "init_weights_%d.tiff", i);
+                snprintf(tmpfn, 99, "init_weights_%u.tiff", i);
                 ImageExportInfo exWeights(tmpfn);
                 exportImage(srcImageRange(*weight), exWeights.setPixelType("UINT8"));
             }

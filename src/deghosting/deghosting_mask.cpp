@@ -364,7 +364,7 @@ int main(int argc, char *argv[]) {
         if (otherFlags & SAVE_GENWEIGHTS) {
             for (unsigned int i=0; i<weights.size(); ++i) {
                 char tmpfn[100];
-                snprintf(tmpfn, 99, "%s_%d.tif", outputPrefix.c_str(), i);
+                snprintf(tmpfn, 99, "%s_%u.tif", outputPrefix.c_str(), i);
                 ImageExportInfo exWeights(tmpfn);
                 exportImage(srcImageRange(*weights[i]), exWeights.setPixelType("UINT8"));
             }

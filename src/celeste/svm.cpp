@@ -2771,7 +2771,7 @@ svm_model *svm_load_model(const char *model_file_name)
 	char cmd[100];
 	while(1)
 	{
-		fscanf(fp,"%100s",cmd);
+		fscanf(fp,"%99s",cmd);
 
 		if(strcmp(cmd,"svm_type")==0)
 		{
@@ -2864,7 +2864,7 @@ svm_model *svm_load_model(const char *model_file_name)
 		}
 		else if(strcmp(cmd,"license")==0)
 		{
-			fscanf(fp,"%100s",cmd);
+			fscanf(fp,"%99s",cmd);
 			//std::cout << "License: " << cmd << std::endl;
 		
 		}
