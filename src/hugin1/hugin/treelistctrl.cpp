@@ -2976,6 +2976,8 @@ bool wxTreeListMainWindow::TagAllChildrenUntilLast (wxTreeListItem *crt_item,
     crt_item->SetHilight (true);
     RefreshLine(crt_item);
 
+    if (crt_item==last_item) return true;
+
     if (crt_item->HasChildren() && crt_item->IsExpanded()) {
         wxArrayTreeListItems& children = crt_item->GetChildren();
         size_t count = children.Count();
@@ -2983,8 +2985,6 @@ bool wxTreeListMainWindow::TagAllChildrenUntilLast (wxTreeListItem *crt_item,
             if (TagAllChildrenUntilLast (children[n], last_item)) return true;
         }
     }
-
-    if (crt_item==last_item) return true;
 
     return false;
 }
@@ -3231,7 +3231,7 @@ wxTreeItemId wxTreeListMainWindow::FindItem (const wxTreeItemId& item, int colum
     // start checking the next items
     wxString itemText;
     int col, col_start, col_end;
-    if (column >= 0) { col_start = col_end = col; }
+    if (column >= 0) { col_start = col_end = column; }
     else { col_start = 0; col_end = GetColumnCount() - 1; }
     while (next.IsOk() && (next != item)) {
         // check for a match
