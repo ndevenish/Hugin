@@ -306,7 +306,7 @@ bool wxAddImagesCmd::processPanorama(Panorama& pano)
         // if no similar image found, ask user
         if (! ok) {
             srcImg.readProjectionFromDB();
-            if (!getLensDataFromUser(MainFrame::Get(), srcImg)) {
+            if (!getLensDataFromUser(wxTheApp->GetTopWindow(), srcImg)) {
                 // assume a standart lens
                 srcImg.setHFOV(50);
                 srcImg.setCropFactor(1);
@@ -512,7 +512,7 @@ bool wxLoadPTProjectCmd::processPanorama(Panorama& pano)
                     ok = srcImg.applyEXIFValues();
                 };
                 if (! ok) {
-                    getLensDataFromUser(MainFrame::Get(), srcImg);
+                    getLensDataFromUser(wxTheApp->GetTopWindow(), srcImg);
                 }
                 autopanoSiftRefImg = srcImg;
             }
