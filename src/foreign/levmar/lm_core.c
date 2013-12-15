@@ -484,6 +484,7 @@ const int nm=n*m;
     worksz=LM_DIF_WORKSZ(m, n); //3*n+4*m + n*m + m*m;
     work=(LM_REAL *)malloc(worksz*sizeof(LM_REAL)); /* allocate a big chunk in one step */
     if(!work){
+      if(wrk2) free(wrk2);
       fprintf(stderr, LCAT(LEVMAR_DIF, "(): memory allocation request failed\n"));
       return -1;
     }

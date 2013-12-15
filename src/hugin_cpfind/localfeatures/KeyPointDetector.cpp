@@ -242,6 +242,7 @@ void KeyPointDetector::detectKeypoints(Image& iImage, KeyPointInsertor& iInserto
     {
         Image::DeallocateImage(aSH[s], iImage.getHeight());
     }
+    delete []aBorderSize;
 }
 
 bool KeyPointDetector::fineTuneExtrema(double** * iSH, unsigned int iX, unsigned int iY, unsigned int iS,
