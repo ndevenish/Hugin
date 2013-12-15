@@ -227,7 +227,7 @@ VerticalLineVector FilterLines(Lines lines,double roll)
     VerticalLineVector vertLines;
     if(lines.size()>0)
     {
-        for(Lines::const_iterator it=lines.begin(); it!=lines.end(); it++)
+        for(Lines::const_iterator it=lines.begin(); it!=lines.end(); ++it)
         {
             if((*it).status==valid_line && (*it).line.size()>2)
             {
