@@ -958,12 +958,12 @@ TextureManager::TextureKey::TextureKey(HuginBase::SrcPanoImage *source,
 }
 
 // This is only used by clean textures
-const bool TextureManager::TextureKey::operator==(const TextureKey comp) const
+const bool TextureManager::TextureKey::operator==(const TextureKey& comp) const
 {
     return !(*this < comp || comp < *this);
 }
 
-const bool TextureManager::TextureKey::operator<(const TextureKey comp) const
+const bool TextureManager::TextureKey::operator<(const TextureKey& comp) const
 {
     // compare two keys for ordering.
     // first try the filename.

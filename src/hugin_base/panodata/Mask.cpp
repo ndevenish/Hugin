@@ -102,7 +102,7 @@ bool MaskPolygon::isPositive() const
            (m_maskType==Mask_Stack_positive);
 };
 
-void MaskPolygon::setMaskPolygon(const VectorPolygon newMask)
+void MaskPolygon::setMaskPolygon(const VectorPolygon& newMask)
 {
     m_polygon=newMask;
     calcBoundingBox();
@@ -292,7 +292,7 @@ FDiff2D clip_getIntersection(const FDiff2D p, const FDiff2D q, const vigra::Rect
     return FDiff2D(xnew,ynew);
 };
 
-VectorPolygon clip_onPlane(const VectorPolygon polygon, const vigra::Rect2D r, const clipSide side)
+VectorPolygon clip_onPlane(const VectorPolygon& polygon, const vigra::Rect2D r, const clipSide side)
 {
     if(polygon.size()<3)
     {
@@ -378,7 +378,7 @@ std::vector<FDiff2D> clip_getIntersectionCircle(const FDiff2D p, const FDiff2D s
             t.insert(t2);
         };
     };
-    if(t.size()>0)
+    if(!t.empty())
     {
         for(std::set<double>::const_iterator it=t.begin();it!=t.end();++it)
         {
@@ -600,7 +600,7 @@ const bool MaskPolygon::operator==(const MaskPolygon &otherPoly) const
     return ((m_maskType == otherPoly.getMaskType()) && (m_polygon == otherPoly.getMaskPolygon()));
 };
 
-bool MaskPolygon::parsePolygonString(const std::string polygonStr)
+bool MaskPolygon::parsePolygonString(const std::string& polygonStr)
 {
     m_polygon.clear();
     if(polygonStr.length()==0)

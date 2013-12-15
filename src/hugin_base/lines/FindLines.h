@@ -68,7 +68,7 @@ namespace HuginLines
      *  @param numberOfCtrlPoints number of control points to create 
      *  @return HuginBase::CPVector with all control points 
      */
-    LINESIMPEX HuginBase::CPVector GetControlPoints(const SingleLine line,const unsigned int imgNr, const unsigned int lineNr,const unsigned int numberOfCtrlPoints);
+    LINESIMPEX HuginBase::CPVector GetControlPoints(const SingleLine& line,const unsigned int imgNr, const unsigned int lineNr,const unsigned int numberOfCtrlPoints);
     /** searches for vertical control points in given image
      *  @param pano panorama object in which is searched
      *  @param imgNr number of image in which should be searched

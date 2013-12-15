@@ -223,13 +223,13 @@ std::string doubleToString(double d, int digits)
         b = 0.0;
     }
 
-bool FileExists(const std::string filename)
+bool FileExists(const std::string& filename)
 {
     std::ifstream ifile(filename.c_str());
     return !ifile.fail();
 }
 
-std::string GetAbsoluteFilename(const std::string filename)
+std::string GetAbsoluteFilename(const std::string& filename)
 {
 #ifdef _WINDOWS
     char fullpath[_MAX_PATH];

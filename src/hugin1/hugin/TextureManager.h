@@ -162,9 +162,9 @@ protected:
         // we need to specify our own comparison function as the photometric
         // correction parameters do not need to be compared when we are not
         // using photometric correction.
-        const bool operator==(const TextureKey comp) const;
+        const bool operator==(const TextureKey& comp) const;
         // we need to be able to order the keys
-        const bool operator<(const TextureKey comp) const;
+        const bool operator<(const TextureKey& comp) const;
     private:
         void SetOptions(HuginBase::SrcPanoImage *source);
     };

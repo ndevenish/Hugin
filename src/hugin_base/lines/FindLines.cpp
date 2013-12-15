@@ -147,7 +147,7 @@ void ScaleLines(Lines& lines,const double scale)
     };
 };
 
-HuginBase::CPVector GetControlPoints(const SingleLine line,const unsigned int imgNr, const unsigned int lineNr,const unsigned int numberOfCtrlPoints)
+HuginBase::CPVector GetControlPoints(const SingleLine& line,const unsigned int imgNr, const unsigned int lineNr,const unsigned int numberOfCtrlPoints)
 {
     HuginBase::CPVector cpv;
     double interval = (line.line.size()-1)/(1.0*numberOfCtrlPoints);

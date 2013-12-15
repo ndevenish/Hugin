@@ -71,7 +71,7 @@ private:
 class wxLoadPTProjectCmd : public PanoCommand
 {
 public:
-    wxLoadPTProjectCmd(Panorama & p, const std::string filename, const std::string prefix = "", const bool markAsOptimized=false, const bool clearDirty=true)
+    wxLoadPTProjectCmd(Panorama & p, const std::string& filename, const std::string& prefix = "", const bool markAsOptimized=false, const bool clearDirty=true)
         : PanoCommand(p),
           filename(filename),
           prefix(prefix),

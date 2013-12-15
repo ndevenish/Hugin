@@ -48,7 +48,7 @@ public:
      * @param name The code used to identify the variable in the PTO file
      * format. For example "Eev".
      */
-    inline static bool checkApplicability(const std::string name)
+    inline static bool checkApplicability(const std::string& name)
     {
         return false;
     }
@@ -68,7 +68,7 @@ public:
      */
     template <class T>
     inline static double getValueFromVariable(
-                                        const std::string name,
+                                        const std::string& name,
                                         const ImageVariable<T> & var
                                       )
     {
@@ -87,7 +87,7 @@ public:
      */
     template <class T>
     inline static void setValueFromVariable(
-                                        const std::string name,
+                                        const std::string& name,
                                         ImageVariable<T> & var,
                                         const double value
                                     )
@@ -122,18 +122,18 @@ template <char code1, char code2 = '\0', char code3 = '\0', class T = double>
 class IMPEX PTOVariableConverterSingle
 {
 public:
-    inline static bool checkApplicability(const std::string name)
+    inline static bool checkApplicability(const std::string& name)
     {
         static const char code[] = {code1, code2, code3, '\0'};
         return ((std::string)code) == name;
     }
     
-    inline static double getValueFromVariable(const std::string name, const ImageVariable<T> & var)
+    inline static double getValueFromVariable(const std::string& name, const ImageVariable<T> & var)
     {
         return var.getData();
     }
     
-    inline static void setValueFromVariable(const std::string name, ImageVariable<T> & var, const double value)
+    inline static void setValueFromVariable(const std::string& name, ImageVariable<T> & var, const double value)
     {
         var.setData((T)value);
     }
@@ -162,17 +162,17 @@ template <char base_code, class T = double, size_t size = 4>
 class IMPEX PTOVariableConverterVectorChar
 {
 public:
-    inline static bool checkApplicability(const std::string name)
+    inline static bool checkApplicability(const std::string& name)
     {
         return name.size() == 2 && name[0] == base_code && name[1] >= 'a' && name[1] < 'a' + char(size);
     }
     
-    inline static double getValueFromVariable(const std::string name, const ImageVariable<std::vector<T> > & var)
+    inline static double getValueFromVariable(const std::string& name, const ImageVariable<std::vector<T> > & var)
     {
         return var.getData()[name[1]-'a'];
     }
     
-    inline static void setValueFromVariable(const std::string name, ImageVariable<std::vector<T> > & var, const double value)
+    inline static void setValueFromVariable(const std::string& name, ImageVariable<std::vector<T> > & var, const double value)
     {
         std::vector<T> temp = var.getData();
         temp[name[1]-'a'] = value;
@@ -203,17 +203,17 @@ template <class T = double, size_t size = 3>
 class IMPEX PTOVariableConverterVector
 {
 public:
-    inline static bool checkApplicability(const std::string name)
+    inline static bool checkApplicability(const std::string& name)
     {
         return name[0] >= 'a' && name[0] < 'a' + char(size);
     }
     
-    inline static double getValueFromVariable(const std::string name, const ImageVariable<std::vector<T> > & var)
+    inline static double getValueFromVariable(const std::string& name, const ImageVariable<std::vector<T> > & var)
     {
         return var.getData()[name[0]-'a'];
     }
     
-    inline static void setValueFromVariable(const std::string name, ImageVariable<std::vector<T> > & var, const double value)
+    inline static void setValueFromVariable(const std::string& name, ImageVariable<std::vector<T> > & var, const double value)
     {
         std::vector<T> temp = var.getData();
         temp[name[0]-'a'] = value;
@@ -241,20 +241,20 @@ template <char code_x1, char code_y1, char code_x2 = '\0', char code_y2 = '\0'>
 class IMPEX PTOVariableConverterFDiff2D
 {
 public:
-    inline static bool checkApplicability(const std::string name)
+    inline static bool checkApplicability(const std::string& name)
     {
         static const char code_x[] = {code_x1, code_x2, '\0'};
         static const char code_y[] = {code_y1, code_y2, '\0'};
         return name == (std::string) code_x || name == (std::string) code_y;
     }
     
-    inline static double getValueFromVariable(const std::string name, const ImageVariable<hugin_utils::FDiff2D> & var)
+    inline static double getValueFromVariable(const std::string& name, const ImageVariable<hugin_utils::FDiff2D> & var)
     {
         static const char code_x[] = {code_x1, code_x2, '\0'};
         return name == (std::string) code_x ? var.getData().x : var.getData().y;
     }
     
-    inline static void setValueFromVariable(const std::string name, ImageVariable<hugin_utils::FDiff2D> & var, const double value)
+    inline static void setValueFromVariable(const std::string& name, ImageVariable<hugin_utils::FDiff2D> & var, const double value)
     {
         hugin_utils::FDiff2D temp = var.getData();
         static const char code_x[] = {code_x1, code_x2, '\0'};

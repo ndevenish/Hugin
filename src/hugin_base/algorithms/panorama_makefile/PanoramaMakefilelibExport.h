@@ -61,21 +61,20 @@ public:
         std::string exiftool;
         std::string exiftool_opts;
 
-        PTPrograms()
-        {
+        PTPrograms() :
                 // default programs
-                nona = "nona";
-                PTStitcher = "PTStitcher";
-                PTmender = "PTmender";
-                PTblender = "PTblender";
-                PTmasker = "PTmasker";
-                PTroller = "PTroller";
-                enblend = "enblend";
-                enfuse = "enfuse";
-                smartblend = "smartblend.exe";
-                hdrmerge = "hugin_hdrmerge";
-                exiftool = "exiftool";
-        }
+                nona("nona"),
+                PTStitcher("PTStitcher"),
+                PTmender("PTmender"),
+                PTblender("PTblender"),
+                PTmasker("PTmasker"),
+                PTroller("PTroller"),
+                enblend("enblend"),
+                enfuse("enfuse"),
+                smartblend("smartblend.exe"),
+                hdrmerge("hugin_hdrmerge"),
+                exiftool("exiftool")
+        {};
     };
 private:
 	PanoramaData & pano;
@@ -95,9 +94,9 @@ private:
 
 	bool createItems();
 
-	void createstacks(const std::vector<UIntSet> stackdata,
-			const std::string stkname,
-			const std::string filenamecenter, const std::string inputfilenamecenter, const std::string filenameext,
+	void createstacks(const std::vector<UIntSet>& stackdata,
+			const std::string& stkname,
+			const std::string& filenamecenter, const std::string& inputfilenamecenter, const std::string& filenameext,
 			std::vector<makefile::Variable*>& stacks,
 			std::vector<makefile::Variable*>& stacks_shell,
 			std::vector<makefile::Variable*>& stacks_input,
@@ -105,9 +104,9 @@ private:
 			makefile::Variable*& vstacks,
 			makefile::Variable*& vstacksshell,
 			std::vector<std::string>& allfiles);
-	void createexposure(const std::vector<UIntSet> stackdata,
-			const std::string stkname,
-			const std::string filenamecenter, const std::string inputfilenamecenter, const std::string filenameext,
+	void createexposure(const std::vector<UIntSet>& stackdata,
+			const std::string& stkname,
+			const std::string& filenamecenter, const std::string& inputfilenamecenter, const std::string& filenameext,
 			std::vector<makefile::Variable*>& stacks,
 			std::vector<makefile::Variable*>& stacks_shell,
 			std::vector<makefile::Variable*>& stacks_input,

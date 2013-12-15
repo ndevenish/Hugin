@@ -51,7 +51,7 @@ public:
     const lfLens* GetLens(size_t index) const;
     void SetLenses(const lfLens** lenses);
     std::string GetLensName(size_t index) const;
-    void SetCameraModelMaker(const std::string camMaker, const std::string camModel);
+    void SetCameraModelMaker(const std::string& camMaker, const std::string& camModel);
 private:
     const lfLens** m_lenses;
     size_t m_lensCount;

@@ -288,10 +288,10 @@ namespace hugin_utils
         double &r,double &g, double &b);
 
     /** checks if file exists */
-    IMPEX bool FileExists(const std::string filename);
+    IMPEX bool FileExists(const std::string& filename);
 
     /** returns the full absolute filename */
-    IMPEX std::string GetAbsoluteFilename(const std::string filename);
+    IMPEX std::string GetAbsoluteFilename(const std::string& filename);
 } // namespace
 
 

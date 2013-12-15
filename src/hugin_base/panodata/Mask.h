@@ -82,7 +82,7 @@ public:
     /** returns vector with coordinates of the polygon */
     VectorPolygon getMaskPolygon() const { return m_polygon; };
     /** set complete vector with all corrdinates of the polygon */
-    void setMaskPolygon(const VectorPolygon newMask);
+    void setMaskPolygon(const VectorPolygon& newMask);
     /** returns the associated image number, only used when loading a project, otherwise discarded */
     unsigned int getImgNr() const { return m_imgNr; };
     /** sets the associated image number, only used when loading a project, otherwise discarded */
@@ -129,7 +129,7 @@ public:
 
     //input/output functions
     /** parses the x and y positions from the given string */
-    bool parsePolygonString(const std::string polygonStr);
+    bool parsePolygonString(const std::string& polygonStr);
     /** writes the complete k line which describes the mask to the stream, using the given
      *  newImgNr for the i parameter
      */

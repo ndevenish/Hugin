@@ -53,17 +53,16 @@ public:
         std::string checkpto;
         std::string linefind;
 
-        AssistantPrograms()
-        {
+        AssistantPrograms() : 
             // default programs
-            icpfind="icpfind";
-            celeste="celeste_standalone";
-            cpclean="cpclean";
-            autooptimiser="autooptimiser";
-            pano_modify="pano_modify";
-            checkpto="checkpto";
-            linefind="linefind";
-        };
+            icpfind("icpfind"),
+            celeste("celeste_standalone"),
+            cpclean("cpclean"),
+            autooptimiser("autooptimiser"),
+            pano_modify("pano_modify"),
+            checkpto("checkpto"),
+            linefind("linefind")
+        {};
     };
 
 private:

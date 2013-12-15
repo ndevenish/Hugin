@@ -245,14 +245,14 @@ bool parse(std::string::const_iterator &iter,
 
 // the function which exposes the interface to external
 // version without pre-defined constants 
-bool ParseExpression(const std::string expression, double& result)
+bool ParseExpression(const std::string& expression, double& result)
 {
     ConstantMap constants;
     return ParseExpression(expression, result, constants);
 };
     
 // version with pre-defined constants
-bool ParseExpression(const std::string expression, double& result, const ConstantMap constants)
+bool ParseExpression(const std::string& expression, double& result, const ConstantMap& constants)
 {
     grammar g(constants);
     std::string::const_iterator it=expression.begin();

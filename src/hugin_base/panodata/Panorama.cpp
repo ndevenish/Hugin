@@ -1474,7 +1474,7 @@ void Panorama::centerCrop(unsigned int imgNr)
     };
 };
 
-void UpdateOptVectorSet(std::set<std::string>& imgVar, const std::string var, const bool opt)
+void UpdateOptVectorSet(std::set<std::string>& imgVar, const std::string& var, const bool opt)
 {
     if(opt)
     {

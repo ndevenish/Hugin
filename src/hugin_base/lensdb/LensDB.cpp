@@ -1314,7 +1314,7 @@ std::string LensDBList::GetLensName(size_t index) const
     };
 };
 
-void LensDBList::SetCameraModelMaker(const std::string camMaker, const std::string camModel)
+void LensDBList::SetCameraModelMaker(const std::string& camMaker, const std::string& camModel)
 {
     m_camMaker=camMaker;
     m_camModel=camModel;

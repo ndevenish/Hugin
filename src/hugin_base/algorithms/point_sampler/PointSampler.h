@@ -208,7 +208,7 @@ namespace HuginBase
             
         public:
             template <class Img, class VoteImg, class PP>
-            static void sampleRandomPanoPoints(const std::vector<Img> imgs,
+            static void sampleRandomPanoPoints(const std::vector<Img>& imgs,
                                                const std::vector<VoteImg *> &voteImgs,
                                                const std::vector<SrcPanoImage> & src,
                                                const PanoramaOptions & dest,
@@ -403,9 +403,9 @@ void AllPointSampler::sampleAllPanoPoints(const std::vector<Img> &imgs,
                             std::multimap<double, PP> * map1 = &radiusHist[bin1];
                             std::multimap<double, PP> * map2 = &radiusHist[bin2];
                             std::multimap<double, PP> * destMap;
-                            if (map1->size() == 0) {
+                            if (map1->empty()) {
                                 destMap = map1;
-                            } else if (map2->size() == 0) {
+                            } else if (map2->empty()) {
                                 destMap = map2;
                             } else if (map1->size() < map2->size()) {
                                 destMap = map1;
@@ -444,7 +444,7 @@ void AllPointSampler::sampleAllPanoPoints(const std::vector<Img> &imgs,
 
 
 template <class Img, class VoteImg, class PP>
-void RandomPointSampler::sampleRandomPanoPoints(const std::vector<Img> imgs,
+void RandomPointSampler::sampleRandomPanoPoints(const std::vector<Img>& imgs,
                                                 const std::vector<VoteImg *> &voteImgs,
                                                 const std::vector<SrcPanoImage> & src,
                                                 const PanoramaOptions & dest,
@@ -571,9 +571,9 @@ void RandomPointSampler::sampleRandomPanoPoints(const std::vector<Img> imgs,
                             std::multimap<double, PP> * map1 = &radiusHist[bin1];
                             std::multimap<double, PP> * map2 = &radiusHist[bin2];
                             std::multimap<double, PP> * destMap;
-                            if (map1->size() == 0) {
+                            if (map1->empty()) {
                                 destMap = map1;
-                            } else if (map2->size() == 0) {
+                            } else if (map2->empty()) {
                                 destMap = map2;
                             } else if (map1->size() < map2->size()) {
                                 destMap = map1;

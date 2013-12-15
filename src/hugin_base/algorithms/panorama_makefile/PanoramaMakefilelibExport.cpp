@@ -987,9 +987,9 @@ bool PanoramaMakefilelibExport::createItems()
 }
 
 
-void PanoramaMakefilelibExport::createstacks(const std::vector<UIntSet> stackdata,
-        const std::string stkname,
-        const std::string filenamecenter, const std::string inputfilenamecenter, const std::string filenameext,
+void PanoramaMakefilelibExport::createstacks(const std::vector<UIntSet>& stackdata,
+        const std::string& stkname,
+        const std::string& filenamecenter, const std::string& inputfilenamecenter, const std::string& filenameext,
         std::vector<mf::Variable*>& stacks,
         std::vector<mf::Variable*>& stacks_shell,
         std::vector<mf::Variable*>& stacks_input,
@@ -1049,9 +1049,9 @@ void PanoramaMakefilelibExport::createstacks(const std::vector<UIntSet> stackdat
     vstacksshell->getDef().add();
 
 }
-void PanoramaMakefilelibExport::createexposure(const std::vector<UIntSet> stackdata,
-        const std::string stkname,
-        const std::string filenamecenter, const std::string inputfilenamecenter, const std::string filenameext,
+void PanoramaMakefilelibExport::createexposure(const std::vector<UIntSet>& stackdata,
+        const std::string& stkname,
+        const std::string& filenamecenter, const std::string& inputfilenamecenter, const std::string& filenameext,
         std::vector<mf::Variable*>& stacks,
         std::vector<mf::Variable*>& stacks_shell,
         std::vector<mf::Variable*>& stacks_input,
