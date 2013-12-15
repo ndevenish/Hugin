@@ -35,14 +35,10 @@ class AlgTinyVector
             }
         }
         
-        AlgTinyVector(T t) {
+        AlgTinyVector(T t=NumericTraits<T>::zero()) {
             for (unsigned int i = 0; i < SIZE; ++i) {
                 content[i] = t;
             }
-        }
-        
-        AlgTinyVector() {
-            AlgTinyVector(0);
         }
         
         const T operator[](int i) const {
