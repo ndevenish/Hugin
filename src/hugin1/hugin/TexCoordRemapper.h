@@ -60,7 +60,6 @@ private:
     unsigned int face_index, number_of_faces;
     double vertex_coords[2][2][2];
     double texture_coords[2][2][2];
-    std::vector<MeshRemapper::ArrayCoords> face_list;
 };
 
 #endif

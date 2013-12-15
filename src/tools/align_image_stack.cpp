@@ -651,8 +651,7 @@ int main2(std::vector<std::string> files, Parameters param)
 
         // optimize everything.
         pano.setOptimizeVector(optvars);
-        bool optimizeError = false;
-        optimizeError = (PTools::optimize(pano) > 0);
+        bool optimizeError = (PTools::optimize(pano) > 0);
 
         // need to do some basic outlier pruning.
         // remove all points with error higher than a specified threshold

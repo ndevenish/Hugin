@@ -323,8 +323,8 @@ int main(int argc, char *argv[])
 
             // if ptlens support required, load database
             if (doPTLens) {
-                if (getPTLensCoef(inIt->c_str(), cameraMaker.c_str(), cameraName.c_str(),
-                    lensName.c_str(), focalLength, vec4)) 
+                if (getPTLensCoef(inIt->c_str(), cameraMaker, cameraName,
+                    lensName, focalLength, vec4)) 
                 {
                     c.setRadialDistortion(vec4);
                 } else {

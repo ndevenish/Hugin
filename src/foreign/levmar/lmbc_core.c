@@ -340,7 +340,7 @@ const LM_REAL tini=CNST(1.0); /* initial step length for LS and PG steps */
 int nLMsteps=0, nLSsteps=0, nPGsteps=0, gprevtaken=0;
 int numactive;
 
-  mu=jacTe_inf=t=0.0;  tmin=tmin; /* -Wall */
+  mu=jacTe_inf=t=0.0;  /* -Wall */
 
   if(n<m){
     fprintf(stderr, LCAT(LEVMAR_BC_DER, "(): cannot solve a problem with fewer measurements [%d] than unknowns [%d]\n"), n, m);
