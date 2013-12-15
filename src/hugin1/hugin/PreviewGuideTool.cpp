@@ -31,7 +31,7 @@
 #include <GL/gl.h>
 #endif
 
-PreviewGuideTool::PreviewGuideTool(PreviewToolHelper *helper) : PreviewTool(helper)
+PreviewGuideTool::PreviewGuideTool(PreviewToolHelper *helper) : PreviewTool(helper), m_guide(NONE)
 {
 }
 
