@@ -158,7 +158,7 @@ CPVector AutoCtrlPointCreator::readUpdatedControlPoints(const std::string & file
     // create mapping between the panorama images.
     vector<size_t> imgMapping(imgs.size());
     size_t i=0;
-    for(UIntSet::const_iterator it=imgs.begin();it!=imgs.end();it++)
+    for(UIntSet::const_iterator it=imgs.begin();it!=imgs.end();++it)
     {
         imgMapping[i++]=*it;
     };
@@ -434,7 +434,7 @@ CPVector AutoPanoSift::automatch(CPDetectorSetting &setting, Panorama & pano, co
         DEBUG_DEBUG("before replace %namefile: " << autopanoArgs.mb_str(wxConvLocal));
         autopanoArgs.Replace(wxT("%namefile"), namefile_name);
         DEBUG_DEBUG("after replace %namefile: " << autopanoArgs.mb_str(wxConvLocal));
-        for(UIntSet::const_iterator it = imgs.begin(); it != imgs.end(); it++)
+        for(UIntSet::const_iterator it = imgs.begin(); it != imgs.end(); ++it)
         {
             namefile.Write(wxString(pano.getImage(*it).getFilename().c_str(), HUGIN_CONV_FILENAME));
             namefile.Write(wxT("\r\n"));
@@ -445,7 +445,7 @@ CPVector AutoPanoSift::automatch(CPDetectorSetting &setting, Panorama & pano, co
         }
     } else {
         string imgFiles;
-        for(UIntSet::const_iterator it = imgs.begin(); it != imgs.end(); it++)
+        for(UIntSet::const_iterator it = imgs.begin(); it != imgs.end(); ++it)
         {
             imgFiles.append(" ").append(quoteFilename(pano.getImage(*it).getFilename()));
         }
@@ -567,7 +567,7 @@ CPVector AutoPanoSift::automatch(CPDetectorSetting &setting, PT::Panorama & pano
     };
 
     ret_value=0;
-    for(UIntSet::const_iterator img=imgs.begin();img!=imgs.end();img++)
+    for(UIntSet::const_iterator img=imgs.begin();img!=imgs.end();++img)
     {
         if(keyFiles[*img].IsEmpty())
         {
@@ -624,7 +624,7 @@ CPVector AutoPanoSift::automatch(CPDetectorSetting &setting, PT::Panorama & pano
     matcherArgs.Replace(wxT("%f"), tmp);
 
     wxString imgFiles;
-    for(UIntSet::const_iterator it = imgs.begin(); it != imgs.end(); it++)
+    for(UIntSet::const_iterator it = imgs.begin(); it != imgs.end(); ++it)
     {
         imgFiles.append(wxT(" ")).append(wxQuoteFilename(keyFiles[*it]));
      };
@@ -694,7 +694,7 @@ CPVector AutoPanoKolor::automatch(CPDetectorSetting &setting, Panorama & pano, c
     wxString autopanoArgs = setting.GetArgs();
 
     string imgFiles;
-    for(UIntSet::const_iterator it = imgs.begin(); it != imgs.end(); it++)
+    for(UIntSet::const_iterator it = imgs.begin(); it != imgs.end(); ++it)
     {
         imgFiles.append(" ").append(quoteFilename(pano.getImage(*it).getFilename()));
     }
@@ -811,7 +811,7 @@ CPVector AutoPanoSiftStack::automatch(CPDetectorSetting &setting, Panorama & pan
     };
     std::vector<stack_img> stack_images;
     HuginBase::StandardImageVariableGroups* variable_groups = new HuginBase::StandardImageVariableGroups(pano);
-    for(UIntSet::const_iterator it = imgs.begin(); it != imgs.end(); it++)
+    for(UIntSet::const_iterator it = imgs.begin(); it != imgs.end(); ++it)
     {
         unsigned int stack_nr=variable_groups->getStacks().getPartNumber(*it);
         //check, if this stack is already in list
@@ -906,7 +906,7 @@ CPVector AutoPanoSiftMultiRow::automatch(CPDetectorSetting &setting, Panorama & 
         UIntSet ImagePair;
         ImagePair.clear();
         ImagePair.insert(*it);
-        it++;
+        ++it;
         ImagePair.insert(*it);
         AutoPanoSift matcher;
         CPVector new_cps;
@@ -1004,7 +1004,7 @@ CPVector AutoPanoSiftMultiRow::automatch(CPDetectorSetting &setting, Panorama & 
         // remove vertical and horizontal control points
         CPVector backupOldCPS = optPano.getCtrlPoints();
         CPVector backupNewCPS;
-        for (CPVector::const_iterator it = backupOldCPS.begin(); it != backupOldCPS.end(); it++) {
+        for (CPVector::const_iterator it = backupOldCPS.begin(); it != backupOldCPS.end(); ++it) {
             if (it->mode == ControlPoint::X_Y)
             {
                 backupNewCPS.push_back(*it);
@@ -1048,7 +1048,7 @@ CPVector AutoPanoSiftMultiRowStack::automatch(CPDetectorSetting &setting, Panora
     };
     std::vector<stack_img> stack_images;
     HuginBase::StandardImageVariableGroups* variable_groups = new HuginBase::StandardImageVariableGroups(pano);
-    for(UIntSet::const_iterator it = imgs.begin(); it != imgs.end(); it++)
+    for(UIntSet::const_iterator it = imgs.begin(); it != imgs.end(); ++it)
     {
         unsigned int stack_nr=variable_groups->getStacks().getPartNumber(*it);
         //check, if this stack is already in list
@@ -1167,13 +1167,13 @@ CPVector AutoPanoSiftPreAlign::automatch(CPDetectorSetting &setting, Panorama & 
     };
     HuginBase::CalculateImageOverlap overlap(&pano);
     overlap.calculate(10);
-    for(UIntSet::const_iterator it=imgs.begin();it!=imgs.end();it++)
+    for(UIntSet::const_iterator it=imgs.begin();it!=imgs.end();++it)
     {
         UIntSet images;
         images.clear();
         images.insert(*it);
         UIntSet::const_iterator it2=it;
-        for(++it2;it2!=imgs.end();it2++)
+        for(++it2;it2!=imgs.end();++it2)
         {
             //check if this image pair was yet used
             if(set_contains(usedImages[*it2],*it))
@@ -1187,8 +1187,8 @@ CPVector AutoPanoSiftPreAlign::automatch(CPDetectorSetting &setting, Panorama & 
         if(images.size()<2)
             continue;
         //remember image pairs for later
-        for(UIntSet::const_iterator img_it=images.begin();img_it!=images.end();img_it++)
-            for(UIntSet::const_iterator img_it2=images.begin();img_it2!=images.end();img_it2++)
+        for(UIntSet::const_iterator img_it=images.begin();img_it!=images.end();++img_it)
+            for(UIntSet::const_iterator img_it2=images.begin();img_it2!=images.end();++img_it2)
                 usedImages[*img_it].insert(*img_it2);
         AutoPanoSift matcher;
         CPVector new_cps;

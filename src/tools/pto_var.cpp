@@ -247,7 +247,7 @@ void AddToOptVec(HuginBase::OptimizeVector& optVec, std::string varname, size_t 
                     {
                         if(set_contains(groupedVars[i], varname))
                         {
-                            for(std::set<std::string>::const_iterator it=groupedVars[i].begin(); it!=groupedVars[i].end(); it++)
+                            for(std::set<std::string>::const_iterator it=groupedVars[i].begin(); it!=groupedVars[i].end(); ++it)
                             {
                                 optVec[imgNr].insert(*it);
                             };
@@ -268,7 +268,7 @@ void RemoveFromOptVec(HuginBase::OptimizeVector& optVec, std::string varname, si
     {
         if(set_contains(groupedVars[i], varname))
         {
-            for(std::set<std::string>::const_iterator it=groupedVars[i].begin(); it!=groupedVars[i].end(); it++)
+            for(std::set<std::string>::const_iterator it=groupedVars[i].begin(); it!=groupedVars[i].end(); ++it)
             {
                 optVec[imgNr].erase(*it);
             };
@@ -299,7 +299,7 @@ void UnLinkVars(Panorama& pano, ParseVarVec parseVec, bool link)
 #include "panodata/image_variables.h"
 #undef image_variable
         
-        if(variables.size()>0)
+        if(!variables.empty())
         {
             //lens variable
             if(set_contains(HuginBase::StandardImageVariableGroups::getLensVariables(), *variables.begin()))

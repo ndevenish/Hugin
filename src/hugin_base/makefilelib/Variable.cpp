@@ -106,7 +106,7 @@ Variable::~Variable()
 const string Variable::getValue()
 {
 	string v;
-	for(std::vector<string>::iterator it = values.begin(); it != values.end(); it++)
+	for(std::vector<string>::iterator it = values.begin(); it != values.end(); ++it)
 	{
 		if(it != values.begin()) v += separator;
 		v += *it;
@@ -116,7 +116,7 @@ const string Variable::getValue()
 const string Variable::getquotedValue()
 {
 	string v;
-	for(std::vector<string>::iterator it = values.begin(); it != values.end(); it++)
+	for(std::vector<string>::iterator it = values.begin(); it != values.end(); ++it)
 	{
 		if(it != values.begin()) v += separator;
 		v += Makefile::quote(*it, quotemode);

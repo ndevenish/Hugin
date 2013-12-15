@@ -1666,7 +1666,7 @@ void SpaceTransform::createTransform(const vigra::Diff2D & srcSize,
     SrcPanoImage src_image;
     src_image.setSize(vigra::Size2D(srcSize.x, srcSize.y));
     src_image.setProjection((SrcPanoImage::Projection)srcProj);
-    for (VariableMap::const_iterator i = srcVars.begin(); i != srcVars.end(); i++)
+    for (VariableMap::const_iterator i = srcVars.begin(); i != srcVars.end(); ++i)
     {
         src_image.setVar((*i).first, (*i).second.getValue());
     }
@@ -1686,7 +1686,7 @@ void SpaceTransform::createInvTransform(const vigra::Diff2D & srcSize,
     SrcPanoImage src_image;
     src_image.setSize(vigra::Size2D(srcSize.x, srcSize.y));
     src_image.setProjection((SrcPanoImage::Projection)srcProj);
-    for (VariableMap::const_iterator i = srcVars.begin(); i != srcVars.end(); i++)
+    for (VariableMap::const_iterator i = srcVars.begin(); i != srcVars.end(); ++i)
     {
         src_image.setVar((*i).first, (*i).second.getValue());
     }
@@ -1702,7 +1702,7 @@ bool SpaceTransform::transform(FDiff2D& dest, const FDiff2D & src) const
 	
     dest.x = xd;
     dest.y = yd;
-    for (tI = m_Stack.begin(); tI != m_Stack.end(); tI++)
+    for (tI = m_Stack.begin(); tI != m_Stack.end(); ++tI)
     {
         (tI->func)( xd, yd, &dest.x, &dest.y, tI->param );
         xd = dest.x;	

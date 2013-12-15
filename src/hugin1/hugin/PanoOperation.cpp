@@ -310,7 +310,7 @@ PT::PanoCommand* AddImagesSeriesOperation::GetInternalCommand(wxWindow* parent, 
     // For each globbed or loaded file,
     StringToPointerHash::iterator found;
     std::map<std::string, time_t> timeMap;
-    for (found = filenames.begin(); found != filenames.end(); found++)
+    for (found = filenames.begin(); found != filenames.end(); ++found)
     {
         wxString file = found->first;
         // Check the time if it's got a camera EXIF timestamp.
@@ -325,7 +325,7 @@ PT::PanoCommand* AddImagesSeriesOperation::GetInternalCommand(wxWindow* parent, 
     //TODO: sorting the filenames keys by timestamp would be useful
     int maxtimediff = wxConfigBase::Get()->Read(wxT("CaptureTimeSpan"), HUGIN_CAPTURE_TIMESPAN);
     // For each timestamped file,
-    for (found = filenames.begin(); found != filenames.end(); found++)
+    for (found = filenames.begin(); found != filenames.end(); ++found)
     {
         wxString recruit = found->first;
         if (preloaded[recruit] == 1)
@@ -522,7 +522,7 @@ PT::PanoCommand* LoadLensOperation::GetInternalCommand(wxWindow* parent, PT::Pan
     vigra::Size2D sizeImg0=pano.getImage(*(images.begin())).getSize();
     //check if all images have the same size
     bool differentImageSize=false;
-    for(UIntSet::const_iterator it=images.begin();it!=images.end() && !differentImageSize;it++)
+    for(UIntSet::const_iterator it=images.begin();it!=images.end() && !differentImageSize;++it)
     {
         differentImageSize=(pano.getImage(*it).getSize()!=sizeImg0);
     };
@@ -697,7 +697,7 @@ PT::PanoCommand* CleanControlPointsOperation::GetInternalCommand(wxWindow* paren
         UIntSet removedCP2=getCPoutsideLimit(newPano,2.0);
         if(removedCP2.size()>0)
         {
-            for(UIntSet::const_iterator it=removedCP2.begin();it!=removedCP2.end();it++)
+            for(UIntSet::const_iterator it=removedCP2.begin();it!=removedCP2.end();++it)
             {
                 removedCPs.insert(cpMap[*it]);
             };

@@ -2196,7 +2196,7 @@ void GLPreviewFrame::OnControlPoint(wxCommandEvent & e)
 void GLPreviewFrame::TurnOffTools(std::set<Tool*> tools)
 {
     std::set<Tool*>::iterator i;
-    for (i = tools.begin(); i != tools.end(); i++)
+    for (i = tools.begin(); i != tools.end(); ++i)
     {
         if (*i == crop_tool)
         {
@@ -2334,7 +2334,7 @@ void ImageToogleButtonEventHandler::OnEnter(wxMouseEvent & e)
         m_pano->getActiveImages().count(image_number))
     {
         std::vector<PreviewIdentifyTool**>::iterator it;
-        for(it = identify_tools.begin() ; it != identify_tools.end() ; it++) {
+        for(it = identify_tools.begin() ; it != identify_tools.end() ; ++it) {
             (*(*it))->ShowImageNumber(image_number);
         }
     }
@@ -2350,7 +2350,7 @@ void ImageToogleButtonEventHandler::OnLeave(wxMouseEvent & e)
         m_pano->getActiveImages().count(image_number))
     {
         std::vector<PreviewIdentifyTool**>::iterator it;
-        for(it = identify_tools.begin() ; it != identify_tools.end() ; it++) {
+        for(it = identify_tools.begin() ; it != identify_tools.end() ; ++it) {
             (*(*it))->StopShowingImages();
         }
     }
@@ -2398,7 +2398,7 @@ void ImageGroupButtonEventHandler::OnEnter(wxMouseEvent & e)
     if (m_pano->getActiveImages().count(image_number))
     {
         std::vector<PreviewIdentifyTool**>::iterator it;
-        for(it = identify_tools.begin() ; it != identify_tools.end() ; it++) {
+        for(it = identify_tools.begin() ; it != identify_tools.end() ; ++it) {
             (*(*it))->ShowImageNumber(image_number);
         }
     }
@@ -2411,7 +2411,7 @@ void ImageGroupButtonEventHandler::OnLeave(wxMouseEvent & e)
     if (m_pano->getActiveImages().count(image_number))
     {
         std::vector<PreviewIdentifyTool**>::iterator it;
-        for(it = identify_tools.begin() ; it != identify_tools.end() ; it++) {
+        for(it = identify_tools.begin() ; it != identify_tools.end() ; ++it) {
             (*(*it))->StopShowingImages();
         }
     }
@@ -2463,7 +2463,7 @@ void GLPreviewFrame::SetDragGroupImages(UIntSet imageDragGroup_in, bool update_c
     imageDragGroup.swap(imageDragGroup_in);
     std::vector<wxCheckBox*>::iterator it;
     unsigned int nr = 0;
-    for(it = m_GroupToggleButtons.begin() ; it != m_GroupToggleButtons.end() ; it++) {
+    for(it = m_GroupToggleButtons.begin() ; it != m_GroupToggleButtons.end() ; ++it) {
         (*it)->SetValue(imageDragGroup.count(nr++)>0);
     }
 }
@@ -2473,7 +2473,7 @@ UIntSet GLPreviewFrame::GetDragGroupImages() {
 void GLPreviewFrame::ClearDragGroupImages(bool update_check_box) {
     imageDragGroup.clear();
     std::vector<wxCheckBox*>::iterator it;
-    for(it = m_GroupToggleButtons.begin() ; it != m_GroupToggleButtons.end() ; it++) {
+    for(it = m_GroupToggleButtons.begin() ; it != m_GroupToggleButtons.end() ; ++it) {
         (*it)->SetValue(false);
     }
 }
@@ -2481,7 +2481,7 @@ void GLPreviewFrame::ClearDragGroupImages(bool update_check_box) {
 void GLPreviewFrame::EnableGroupCheckboxes(bool isShown)
 {
     std::vector<wxCheckBox*>::iterator it;
-    for(it = m_GroupToggleButtons.begin() ; it != m_GroupToggleButtons.end() ; it++)
+    for(it = m_GroupToggleButtons.begin() ; it != m_GroupToggleButtons.end() ; ++it)
     {
         (*it)->Show(isShown);
     }
@@ -2628,7 +2628,7 @@ void GLPreviewFrame::SetMode(int newMode)
             panosphere_overview_helper->DeactivateTool(overview_drag_tool);
             if (individualDragging()) {
                 std::vector<wxCheckBox*>::iterator it;
-                for(it = m_GroupToggleButtons.begin() ; it != m_GroupToggleButtons.end() ; it++) {
+                for(it = m_GroupToggleButtons.begin() ; it != m_GroupToggleButtons.end() ; ++it) {
                     (*it)->Show(false);
                 }
             }
@@ -2672,7 +2672,7 @@ void GLPreviewFrame::SetMode(int newMode)
             TurnOffTools(panosphere_overview_helper->ActivateTool(overview_drag_tool));
             if (individualDragging()) {
                 std::vector<wxCheckBox*>::iterator it;
-                for(it = m_GroupToggleButtons.begin() ; it != m_GroupToggleButtons.end() ; it++) {
+                for(it = m_GroupToggleButtons.begin() ; it != m_GroupToggleButtons.end() ; ++it) {
                     (*it)->Show(true);
                 }
             }

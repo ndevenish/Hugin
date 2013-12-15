@@ -53,7 +53,7 @@ vector<UIntSet> getHDRStacks(const PanoramaData & pano, UIntSet allImgs, Panoram
         // find all images that have a suitable overlap.
         for (UIntSet::iterator it = allImgs.begin(); it !=  allImgs.end(); ) {
             unsigned srcImg2 = *it;
-            it++;
+            ++it;
             if(overlap.getOverlap(srcImg,srcImg2)>opts.outputStacksMinOverlap)
             {
                 stack.insert(srcImg2);
@@ -89,7 +89,7 @@ vector<UIntSet> getExposureLayers(const PanoramaData & pano, UIntSet allImgs, Pa
         double maxEVDiff = opts.outputLayersExposureDiff;
         for (UIntSet::iterator it = allImgs.begin(); it !=  allImgs.end(); ) {
             unsigned srcImg2 = *it;
-            it++;
+            ++it;
             SrcPanoImage simg2 = pano.getSrcImage(srcImg2);
             if ( fabs(simg.getExposureValue() - simg2.getExposureValue()) < maxEVDiff )
             {

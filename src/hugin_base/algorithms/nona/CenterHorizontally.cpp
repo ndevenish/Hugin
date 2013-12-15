@@ -59,13 +59,13 @@ void CenterHorizontally::centerHorizontically(PanoramaData& panorama)
     
     //only check unlinked images
     UIntSet activeImgs;
-    for (UIntSet::const_iterator it = allActiveImgs.begin(); it!= allActiveImgs.end(); it++)
+    for (UIntSet::const_iterator it = allActiveImgs.begin(); it!= allActiveImgs.end(); ++it)
     {
         const SrcPanoImage & img=panorama.getImage(*it);
         bool consider=true;
         if(img.YawisLinked())
         {
-            for(UIntSet::const_iterator it2=activeImgs.begin(); it2!=activeImgs.end(); it2++)
+            for(UIntSet::const_iterator it2=activeImgs.begin(); it2!=activeImgs.end(); ++it2)
             {
                 if(img.YawisLinkedWith(panorama.getSrcImage(*it2)))
                 {

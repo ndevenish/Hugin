@@ -513,7 +513,7 @@ void TextureManager::CleanTextures()
     while (retry)
     {
       retry = false;
-      for (tex = textures.begin(); tex != textures.end(); tex++)
+      for (tex = textures.begin(); tex != textures.end(); ++tex)
       {
           bool found = false;
           

@@ -142,7 +142,7 @@ string Makefile::quoteEnvironment(const string& in)
 
 int Makefile::writeMakefile(ostream& out)
 {
-	for(std::vector<MakefileItem*>::iterator i = items.begin(); i != items.end(); i++)
+	for(std::vector<MakefileItem*>::iterator i = items.begin(); i != items.end(); ++i)
 	{
 		out << **i;
 	}

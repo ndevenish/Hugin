@@ -385,7 +385,7 @@ bool PanoramaMakefilelibExport::createItems()
     std::vector<std::string> remappedHDRImages;
     std::vector<std::string> remappedHDRgrayImages;
 
-    for (UIntSet::const_iterator it = images.begin(); it != images.end(); it++)
+    for (UIntSet::const_iterator it = images.begin(); it != images.end(); ++it)
     {
         std::ostringstream fn1, fn2, fn3;
         fn1 << outputPrefix << std::setfill('0') << std::setw(4) << *it << ldrRemappedExt;
@@ -578,7 +578,7 @@ bool PanoramaMakefilelibExport::createItems()
     Rule* all = mgr.own(new Rule());
     all->addTarget("all");
     all->addPrereq(start);
-    for(std::vector<mf::Variable*>::const_iterator it = allprereqs.begin(); it != allprereqs.end(); it++)
+    for(std::vector<mf::Variable*>::const_iterator it = allprereqs.begin(); it != allprereqs.end(); ++it)
     {
         all->addPrereq((*it));
     }
@@ -592,7 +592,7 @@ bool PanoramaMakefilelibExport::createItems()
     echoInfo(*clean,"Remove temporary files");
     echoInfo(*clean,"===========================================================================");
     std::string vdefs;
-    for(std::vector<mf::Variable*>::const_iterator it = cleanprereqs.begin(); it != cleanprereqs.end(); it++)
+    for(std::vector<mf::Variable*>::const_iterator it = cleanprereqs.begin(); it != cleanprereqs.end(); ++it)
     {
         vdefs += (*it)->getRef() + " ";
     }
@@ -741,7 +741,7 @@ bool PanoramaMakefilelibExport::createItems()
     infostream.str("");
     infostream << images.size();
     echoInfo(*info,"Number of active images: "+infostream.str());
-    for(UIntSet::const_iterator it=images.begin();it!=images.end();it++)
+    for(UIntSet::const_iterator it=images.begin();it!=images.end();++it)
     {
         infostream.str("");
         const HuginBase::SrcPanoImage &img=pano.getImage(*it);
@@ -760,7 +760,7 @@ bool PanoramaMakefilelibExport::createItems()
         mgr.own_add(new Comment("Rules for ordinary TIFF_m and hdr output"));
         UIntSet::const_iterator it = images.begin();
         size_t i=0;
-        for(; it != images.end(); it++, i++)
+        for(; it != images.end(); ++it, ++i)
         {
             std::string source = Makefile::quote(pano.getImage(*it).getFilename(), Makefile::MAKE);
             std::ostringstream imgnr;
@@ -791,7 +791,7 @@ bool PanoramaMakefilelibExport::createItems()
         size_t j=0;
         for(i=0; i < exposures.size(); i++)
         {
-            for(UIntSet::const_iterator it = exposures[i].begin(); it != exposures[i].end(); it++, j++)
+            for(UIntSet::const_iterator it = exposures[i].begin(); it != exposures[i].end(); ++it, ++j)
             {
                 std::ostringstream expvalue, imgnr;
                 imgnr << *it;
@@ -1008,7 +1008,7 @@ void PanoramaMakefilelibExport::createstacks(const std::vector<UIntSet> stackdat
         allfiles.push_back(filename.str());
 
         std::vector<std::string> inputs;
-        for (UIntSet::const_iterator it = stackdata[i].begin(); it != stackdata[i].end(); it++)
+        for (UIntSet::const_iterator it = stackdata[i].begin(); it != stackdata[i].end(); ++it)
         {
             std::ostringstream fns;
             fns << outputPrefix << inputfilenamecenter << std::setfill('0') << std::setw(4) << *it << filenameext;
@@ -1038,7 +1038,7 @@ void PanoramaMakefilelibExport::createstacks(const std::vector<UIntSet> stackdat
     std::vector<mf::Variable*>::const_iterator it, it2;
     it = stacks.begin();
     it2 = stacks_shell.begin();
-    for(; it != stacks.end() && it2 != stacks_shell.end(); it++, it2++)
+    for(; it != stacks.end() && it2 != stacks_shell.end(); ++it, ++it2)
     {
         stackrefs += (*it)->getRef() + " ";
         stackrefsshell += (*it2)->getRef() + " ";
@@ -1076,7 +1076,7 @@ void PanoramaMakefilelibExport::createexposure(const std::vector<UIntSet> stackd
 
         std::vector<std::string> inputs, inputspt;
         double exposure = 0;
-        for (UIntSet::const_iterator it = stackdata[i].begin(); it != stackdata[i].end(); it++)
+        for (UIntSet::const_iterator it = stackdata[i].begin(); it != stackdata[i].end(); ++it)
         {
             std::ostringstream fns, fnpt;
             fns << outputPrefix << inputfilenamecenter << std::setfill('0') << std::setw(4) << *it << filenameext;
@@ -1122,7 +1122,7 @@ void PanoramaMakefilelibExport::createexposure(const std::vector<UIntSet> stackd
     std::vector<mf::Variable*>::const_iterator it, it2;
     it = stacks.begin();
     it2 = stacks_shell.begin();
-    for(; it != stacks.end() && it2 != stacks_shell.end(); it++, it2++)
+    for(; it != stacks.end() && it2 != stacks_shell.end(); ++it, ++it2)
     {
         stackrefs += (*it)->getRef() + " ";
         stackrefsshell += (*it2)->getRef() + " ";
@@ -1295,9 +1295,9 @@ void PanoramaMakefilelibExport::printSystemInfo(Rule& inforule)
 void printstacks(const std::vector<UIntSet>& stackdata)
 {
     std::cout << "printstacks: \n";
-    for(std::vector<UIntSet>::const_iterator itv = stackdata.begin(); itv != stackdata.end(); itv++)
+    for(std::vector<UIntSet>::const_iterator itv = stackdata.begin(); itv != stackdata.end(); ++itv)
     {
-        for(UIntSet::const_iterator itu = itv->begin(); itu != itv->end(); itu++)
+        for(UIntSet::const_iterator itu = itv->begin(); itu != itv->end(); ++itu)
         {
             std::cout << *itu << " ";
         }

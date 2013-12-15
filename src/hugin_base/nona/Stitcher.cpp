@@ -121,7 +121,7 @@ void estimateBlendingOrder(const PanoramaData & pano, UIntSet images, vector<uns
         alphaROI = alphaROI & completeAlphaROI;
     }
 	// All images have been erased so just iterate through the map
-    for (rimgIter = rimg.begin(); rimgIter != rimg.end(); rimgIter++) {
+    for (rimgIter = rimg.begin(); rimgIter != rimg.end(); ++rimgIter) {
         delete rimgIter->second;
     }
 }

@@ -363,7 +363,7 @@ wxString getDefaultProjectName(const HuginBase::Panorama & pano,const wxString f
         FillDefaultPlaceholders(placeholder);
     };
     // now replace all placeholder
-    for(Placeholdersmap::const_iterator it=placeholder.begin(); it!=placeholder.end(); it++)
+    for(Placeholdersmap::const_iterator it=placeholder.begin(); it!=placeholder.end(); ++it)
     {
         filename.Replace(it->first, it->second, true);
     };
@@ -417,7 +417,7 @@ wxString getDefaultOutputName(const wxString projectname, const HuginBase::Panor
     };
     placeholder.insert(std::make_pair(wxT("%projectname"), project.GetName()));
     // now replace all placeholder
-    for(Placeholdersmap::const_iterator it=placeholder.begin(); it!=placeholder.end(); it++)
+    for(Placeholdersmap::const_iterator it=placeholder.begin(); it!=placeholder.end(); ++it)
     {
         filename.Replace(it->first, it->second, true);
     };

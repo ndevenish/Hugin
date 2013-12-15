@@ -128,7 +128,7 @@ void DragTool::MouseMoveEvent(double x, double y, wxMouseEvent & e)
 		}     
 
 	    std::map<unsigned int, ParamStore>::iterator i;
-	    for (i = image_params.begin(); i != image_params.end(); i++ )
+	    for (i = image_params.begin(); i != image_params.end(); ++i )
 	    {
 	        HuginBase::SrcPanoImage img = *helper->GetViewStatePtr()->
 	                                                      GetSrcImage(i->first);
@@ -172,7 +172,7 @@ void DragTool::MouseButtonEvent(wxMouseEvent &e)
                 
                 std::set<unsigned int> images_under_mouse = helper->GetImageNumbersUnderMouse();
                 std::set<unsigned int>::iterator it;
-                for(it = images_under_mouse.begin() ; it != images_under_mouse.end() ; it++) {
+                for(it = images_under_mouse.begin() ; it != images_under_mouse.end() ; ++it) {
                     if (shift) {
                         helper->GetPreviewFrame()->RemoveImageFromDragGroup(*it);
                     } else {
@@ -260,7 +260,7 @@ void DragTool::MouseButtonEvent(wxMouseEvent &e)
                     draging_images = helper->GetPreviewFrame()->GetDragGroupImages();
                     std::set<unsigned int>::iterator i, end;
                     end = draging_images.end();
-                    for (i = draging_images.begin(); i != end; i++)
+                    for (i = draging_images.begin(); i != end; ++i)
                     {
                         image_params[*i].Set(
                                 helper->GetViewStatePtr()->GetSrcImage(*i));
@@ -307,7 +307,7 @@ void DragTool::MouseButtonEvent(wxMouseEvent &e)
                                 draging_images = components[component_index];
                                 std::set<unsigned int>::iterator i, end;
                                 end = draging_images.end();
-                                for (i = draging_images.begin(); i != end; i++)
+                                for (i = draging_images.begin(); i != end; ++i)
                                 {
                                     image_params[*i].Set(
                                             helper->GetViewStatePtr()->GetSrcImage(*i));
@@ -333,7 +333,7 @@ void DragTool::MouseButtonEvent(wxMouseEvent &e)
         std::vector<HuginBase::SrcPanoImage> src_images(draging_images.size() + 1);
         std::map<unsigned int, ParamStore>::iterator i;
         unsigned int count = 0;
-        for (i = image_params.begin(); i != image_params.end(); i++)
+        for (i = image_params.begin(); i != image_params.end(); ++i)
         {
             double nyaw, npitch, nroll, nx, ny, nz, npy, npp;
             i->second.Move(&rotation_matrix, nyaw, npitch, nroll, nx, ny, nz, npy, npp);

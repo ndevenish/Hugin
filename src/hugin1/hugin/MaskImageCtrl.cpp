@@ -390,13 +390,13 @@ void MaskImageCtrl::OnMouseMove(wxMouseEvent& mouse)
             m_editingMask=m_imageMask[m_activeMask];
             {
                 FDiff2D delta=currentPos-applyRotInv(invtransform(m_dragStartPos));
-                for(HuginBase::UIntSet::const_iterator it=m_selectedPoints.begin();it!=m_selectedPoints.end();it++)
+                for(HuginBase::UIntSet::const_iterator it=m_selectedPoints.begin();it!=m_selectedPoints.end();++it)
                     m_editingMask.movePointBy(*it,delta);
             };
             break;
         case POINTS_ADDING:
             doUpdate=true;
-            for(HuginBase::UIntSet::const_iterator it=m_selectedPoints.begin();it!=m_selectedPoints.end();it++)
+            for(HuginBase::UIntSet::const_iterator it=m_selectedPoints.begin();it!=m_selectedPoints.end();++it)
                 m_editingMask.movePointTo(*it,currentPos);
             break;
         case CROP_SHOWING:
@@ -510,7 +510,7 @@ void MaskImageCtrl::OnLeftMouseDown(wxMouseEvent& mouse)
                 HuginBase::UIntSet points;
                 if(SelectPointsInsideMouseRect(points,false))
                 {
-                    for(HuginBase::UIntSet::const_iterator it=points.begin();it!=points.end();it++)
+                    for(HuginBase::UIntSet::const_iterator it=points.begin();it!=points.end();++it)
                         m_selectedPoints.insert(*it);
                     m_maskEditState=POINTS_MOVING;
                 }
@@ -550,7 +550,7 @@ void MaskImageCtrl::OnLeftMouseDown(wxMouseEvent& mouse)
                         //clicked near other point
                         if(!mouse.ShiftDown())
                             m_selectedPoints.clear();
-                        for(HuginBase::UIntSet::const_iterator it=points.begin();it!=points.end();it++)
+                        for(HuginBase::UIntSet::const_iterator it=points.begin();it!=points.end();++it)
                             m_selectedPoints.insert(*it);
                         m_maskEditState=POINTS_MOVING;
                     }
@@ -638,7 +638,7 @@ void MaskImageCtrl::OnLeftMouseUp(wxMouseEvent& mouse)
                 FDiff2D delta=currentPos-applyRotInv(invtransform(m_dragStartPos));
                 if(sqr(delta.x)+sqr(delta.y)>sqr(maxSelectionDistance))
                 {
-                    for(HuginBase::UIntSet::const_iterator it=m_selectedPoints.begin();it!=m_selectedPoints.end();it++)
+                    for(HuginBase::UIntSet::const_iterator it=m_selectedPoints.begin();it!=m_selectedPoints.end();++it)
                         m_imageMask[m_activeMask].movePointBy(*it,delta);
                     m_maskEditState=POINTS_SELECTED;
                     m_editPanel->UpdateMask();
@@ -706,7 +706,7 @@ void MaskImageCtrl::OnLeftMouseUp(wxMouseEvent& mouse)
         case POINTS_ADDING:
             if(HasCapture())
                 ReleaseMouse();
-            for(HuginBase::UIntSet::const_iterator it=m_selectedPoints.begin();it!=m_selectedPoints.end();it++)
+            for(HuginBase::UIntSet::const_iterator it=m_selectedPoints.begin();it!=m_selectedPoints.end();++it)
                 m_editingMask.movePointTo(*it,currentPos);
             m_imageMask[m_activeMask]=m_editingMask;
             m_editPanel->UpdateMask();
@@ -872,7 +872,7 @@ void MaskImageCtrl::OnRightMouseUp(wxMouseEvent& mouse)
                     if(m_editingMask.getMaskPolygon().size()-points.size()>2)
                     {
                         // clear all selected points
-                        for(HuginBase::UIntSet::const_reverse_iterator it=points.rbegin();it!=points.rend();it++)
+                        for(HuginBase::UIntSet::const_reverse_iterator it=points.rbegin();it!=points.rend();++it)
                             m_editingMask.removePoint(*it);
                         // now update set of selected points
                         if(m_selectedPoints.size()>0)
@@ -882,13 +882,13 @@ void MaskImageCtrl::OnRightMouseUp(wxMouseEvent& mouse)
                                 mappedSelectedPoints[i]=i;
                             HuginBase::UIntSet temp=m_selectedPoints;
                             m_selectedPoints.clear();
-                            for(HuginBase::UIntSet::const_iterator it=points.begin();it!=points.end();it++)
+                            for(HuginBase::UIntSet::const_iterator it=points.begin();it!=points.end();++it)
                             {
                                 if((*it)<mappedSelectedPoints.size()-1)
                                     for(unsigned int i=(*it)+1;i<mappedSelectedPoints.size();i++)
                                         mappedSelectedPoints[i]--;
                             };
-                            for(HuginBase::UIntSet::const_iterator it=temp.begin();it!=temp.end();it++)
+                            for(HuginBase::UIntSet::const_iterator it=temp.begin();it!=temp.end();++it)
                                 if(!set_contains(points,*it))
                                     m_selectedPoints.insert(mappedSelectedPoints[*it]);
                         };
@@ -910,7 +910,7 @@ void MaskImageCtrl::OnRightMouseUp(wxMouseEvent& mouse)
                 FDiff2D delta=currentPos-applyRotInv(invtransform(m_dragStartPos));
                 if(sqr(delta.x)+sqr(delta.y)>sqr(maxSelectionDistance))
                 {
-                    for(HuginBase::UIntSet::const_iterator it=m_selectedPoints.begin();it!=m_selectedPoints.end();it++)
+                    for(HuginBase::UIntSet::const_iterator it=m_selectedPoints.begin();it!=m_selectedPoints.end();++it)
                         m_imageMask[m_activeMask].movePointBy(*it,delta);
                     m_maskEditState=POINTS_SELECTED;
                     m_editPanel->UpdateMask();
@@ -938,7 +938,7 @@ void MaskImageCtrl::OnKeyUp(wxKeyEvent &e)
                 case POINTS_SELECTED:
                     if((m_selectedPoints.size()>0) && (m_editingMask.getMaskPolygon().size()-m_selectedPoints.size()>2))
                     {
-                        for(HuginBase::UIntSet::const_reverse_iterator it=m_selectedPoints.rbegin();it!=m_selectedPoints.rend();it++)
+                        for(HuginBase::UIntSet::const_reverse_iterator it=m_selectedPoints.rbegin();it!=m_selectedPoints.rend();++it)
                             m_editingMask.removePoint(*it);
                         m_imageMask[m_activeMask]=m_editingMask;
                         processed=true;

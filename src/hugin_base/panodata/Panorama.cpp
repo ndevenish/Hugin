@@ -319,13 +319,13 @@ void Panorama::updateVariable(unsigned int imgNr, const Variable &var)
 
 void Panorama::UpdateFocalLength(UIntSet imgs, double newFocalLength)
 {
-    for(UIntSet::const_iterator it=imgs.begin();it!=imgs.end();it++)
+    for(UIntSet::const_iterator it=imgs.begin();it!=imgs.end();++it)
     {
         state.images[*it]->updateFocalLength(newFocalLength);
         imageChanged(*it);
     };
     //search for images with linked HFOV and mark these also as changed
-    for(UIntSet::const_iterator it=imgs.begin();it!=imgs.end();it++)
+    for(UIntSet::const_iterator it=imgs.begin();it!=imgs.end();++it)
     {
         SrcPanoImage *img=state.images[*it];
         if(state.images[*it]->HFOVisLinked())
@@ -353,7 +353,7 @@ void Panorama::UpdateCropFactor(UIntSet imgs, double newCropFactor)
         focalLengthVector[i]=state.images[i]->calcFocalLength(state.images[i]->getProjection(),
             state.images[i]->getHFOV(),state.images[i]->getCropFactor(),state.images[i]->getSize());
     };
-    for(UIntSet::const_iterator it=imgs.begin();it!=imgs.end();it++)
+    for(UIntSet::const_iterator it=imgs.begin();it!=imgs.end();++it)
     {
         state.images[*it]->updateCropFactor(focalLengthVector[*it],newCropFactor);
         imageChanged(*it);
@@ -512,7 +512,7 @@ void Panorama::removeDuplicateCtrlPoints()
     //now remove duplicate control points, mark affected images as changed
     if(duplicateCPs.size()>0)
     {
-        for(std::set<unsigned int>::reverse_iterator it=duplicateCPs.rbegin();it!=duplicateCPs.rend();it++)
+        for(std::set<unsigned int>::reverse_iterator it=duplicateCPs.rbegin();it!=duplicateCPs.rend();++it)
         {
             ControlPoint cp=state.ctrlPoints[*it];
             imageChanged(cp.image1Nr);
@@ -542,7 +542,7 @@ void Panorama::changeControlPoint(unsigned int pNr, const ControlPoint & point)
 void Panorama::setCtrlPoints(const CPVector & points)
 {
     for (CPVector::const_iterator it = state.ctrlPoints.begin();
-         it != state.ctrlPoints.end(); it++)
+         it != state.ctrlPoints.end(); ++it)
     {
         imageChanged(it->image1Nr);
         imageChanged(it->image2Nr);
@@ -551,7 +551,7 @@ void Panorama::setCtrlPoints(const CPVector & points)
     state.ctrlPoints = points;
 
     for (CPVector::const_iterator it = state.ctrlPoints.begin();
-         it != state.ctrlPoints.end(); it++)
+         it != state.ctrlPoints.end(); ++it)
     {
         imageChanged(it->image1Nr);
         imageChanged(it->image2Nr);
@@ -566,7 +566,7 @@ void Panorama::updateLineCtrlPoints()
     // sort all line control points
     std::map<int, int> lines;
     for (CPVector::const_iterator it = state.ctrlPoints.begin();
-         it != state.ctrlPoints.end(); it++)
+         it != state.ctrlPoints.end(); ++it)
     {
         if (it->mode > 2)
             lines[it->mode] = 0;
@@ -579,7 +579,7 @@ void Panorama::updateLineCtrlPoints()
     }
 
     for (CPVector::iterator it = state.ctrlPoints.begin();
-         it != state.ctrlPoints.end(); it++)
+         it != state.ctrlPoints.end(); ++it)
     {
         if (it->mode > 2) {
             int newmode = lines[it->mode];
@@ -1099,7 +1099,7 @@ void Panorama::changeFinished(bool keepDirty)
     //force update of crops
     if(changedImages.size()>0)
     {
-        for(UIntSet::iterator it=changedImages.begin();it!=changedImages.end();it++)
+        for(UIntSet::iterator it=changedImages.begin();it!=changedImages.end();++it)
         {
             //if the projection was changed, we need to update the crop mode
             updateCropMode(*it);
@@ -1197,7 +1197,7 @@ void Panorama::transferMask(MaskPolygon mask,unsigned int imgNr, const UIntSet t
         HuginBase::PTools::Transform trans;
         trans.createInvTransform(getImage(imgNr),getOptions());
         transformedMask.transformPolygon(trans);
-        for(UIntSet::const_iterator it=targetImgs.begin();it!=targetImgs.end();it++)
+        for(UIntSet::const_iterator it=targetImgs.begin();it!=targetImgs.end();++it)
         {
             if(imgNr==(*it))
             {
@@ -1512,7 +1512,7 @@ void Panorama::checkRefOptStatus(bool& linkRefImgsYaw, bool& linkRefImgsPitch, b
     int nHCP = 0;
     int nVCP = 0;
     const CPVector & cps = getCtrlPoints();
-    for (CPVector::const_iterator it = cps.begin(); it != cps.end(); it++)
+    for (CPVector::const_iterator it = cps.begin(); it != cps.end(); ++it)
     {
         // control points
         if (it->mode == ControlPoint::X)
@@ -1719,7 +1719,7 @@ void Panorama::moveImage(size_t img1, size_t img2)
     state.optvec=newOptVec;
 
     // update control points
-    for (CPVector::iterator it=state.ctrlPoints.begin(); it != state.ctrlPoints.end(); it++)
+    for (CPVector::iterator it=state.ctrlPoints.begin(); it != state.ctrlPoints.end(); ++it)
     {
         (*it).image1Nr = imgMap[(*it).image1Nr];
         (*it).image2Nr = imgMap[(*it).image2Nr];
@@ -2143,7 +2143,7 @@ PanoramaMemento & PanoramaMemento::operator=(const PanoramaMemento & data)
     deleteAllImages();
     // copy image variables
     for (std::vector<SrcPanoImage *>::const_iterator it = data.images.begin();
-         it != data.images.end(); it++)
+         it != data.images.end(); ++it)
     {
         images.push_back(new SrcPanoImage(*(*it)));
     }
@@ -2194,7 +2194,7 @@ void PanoramaMemento::deleteAllImages()
 {
     // delete all the images pointed to by the images vector.
     for (std::vector<SrcPanoImage *>::iterator it = images.begin();
-         it != images.end(); it++)
+         it != images.end(); ++it)
     {
         delete *it;
     }

@@ -67,7 +67,7 @@ UIntSet getCPoutsideLimit_pair(Panorama pano, double n)
                 // remove all horizontal and vertical control points
                 CPVector cpl = clean.getCtrlPoints();
                 CPVector newCP;
-                for (CPVector::const_iterator it = cpl.begin(); it != cpl.end(); it++) 
+                for (CPVector::const_iterator it = cpl.begin(); it != cpl.end(); ++it) 
                     if (it->mode == ControlPoint::X_Y)
                         newCP.push_back(*it);
                 clean.setCtrlPoints(newCP);
@@ -95,7 +95,7 @@ UIntSet getCPoutsideLimit_pair(Panorama pano, double n)
                     //identify cp with big error
                     unsigned int index=0;
                     unsigned int cpcounter=0;
-                    for (CPVector::const_iterator it = allCP.begin(); it != allCP.end(); it++)
+                    for (CPVector::const_iterator it = allCP.begin(); it != allCP.end(); ++it)
                     {
                         if(it->mode == ControlPoint::X_Y)
                             if((it->image1Nr==image1 && it->image2Nr==image2) ||
@@ -133,7 +133,7 @@ UIntSet getCPoutsideLimit(Panorama pano, double n, bool skipOptimisation, bool i
     {
         //remove all horizontal and vertical CP for calculation of mean and sigma
         CPVector CPxy;
-        for (CPVector::const_iterator it = allCP.begin(); it != allCP.end(); it++)
+        for (CPVector::const_iterator it = allCP.begin(); it != allCP.end(); ++it)
         {
             if(it->mode == ControlPoint::X_Y)
                 CPxy.push_back(*it);
@@ -151,7 +151,7 @@ UIntSet getCPoutsideLimit(Panorama pano, double n, bool skipOptimisation, bool i
 
     //now determine all control points with error > limit 
     unsigned int index=0;
-    for (CPVector::const_iterator it = allCP.begin(); it != allCP.end(); it++)
+    for (CPVector::const_iterator it = allCP.begin(); it != allCP.end(); ++it)
     {
         if(it->error > limit)
         {

@@ -422,7 +422,7 @@ int main(int argc, char *argv[])
                     return 0;
                 };
                 std::cout << "Found " << projectFiles.size() << " project files." << std::endl << std::endl;
-                for(pathVec::const_iterator it=projectFiles.begin(); it!=projectFiles.end(); it++)
+                for(pathVec::const_iterator it=projectFiles.begin(); it!=projectFiles.end(); ++it)
                 {
                     fs::path newPath;
                     if(RebaseFilename(*it, newPath, p.string(), pathTo.string()))

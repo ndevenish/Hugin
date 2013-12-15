@@ -218,7 +218,7 @@ void OptimizePhotometricPanel::runOptimizer(const UIntSet & imgs)
         if (ok == wxYES)
         {
             // perform all the commands we stocked up earilier.
-            for (std::vector<PT::PanoCommand *>::iterator it = commands.begin(); it != commands.end(); it++)
+            for (std::vector<PT::PanoCommand *>::iterator it = commands.begin(); it != commands.end(); ++it)
             {
                 GlobalCmdHist::getInstance().addCommand(*it);
             }
@@ -226,7 +226,7 @@ void OptimizePhotometricPanel::runOptimizer(const UIntSet & imgs)
         else
         {
             // free all the commands, the user doesn't want them used.
-            for (std::vector<PT::PanoCommand *>::iterator it = commands.begin(); it != commands.end(); it++)
+            for (std::vector<PT::PanoCommand *>::iterator it = commands.begin(); it != commands.end(); ++it)
             {
                 delete *it;
             }

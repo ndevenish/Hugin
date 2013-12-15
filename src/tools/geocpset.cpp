@@ -120,7 +120,7 @@ void SetGeometricControlPointsUnconnected(Panorama& pano, const int minOverlap)
     for(size_t i=0; i<pano.getNrOfImages(); i++)
     {
         bool hasControlPoints=false;
-        for(CPVector::const_iterator it=cp.begin(); it!=cp.end(); it++)
+        for(CPVector::const_iterator it=cp.begin(); it!=cp.end(); ++it)
         {
             if((it->image1Nr==i || it->image2Nr==i) && (it->mode==ControlPoint::X_Y))
             {
@@ -139,13 +139,13 @@ void SetGeometricControlPointsUnconnected(Panorama& pano, const int minOverlap)
     };
     // now test if images without control points have a linked position with an image with control point
     UIntSet imgsToTest;
-    for(UIntSet::const_iterator img=imgsWithoutCp.begin(); img!=imgsWithoutCp.end(); img++)
+    for(UIntSet::const_iterator img=imgsWithoutCp.begin(); img!=imgsWithoutCp.end(); ++img)
     {
         const SrcPanoImage& img1=pano.getImage(*img);
         bool connected=false;
         if(img1.YawisLinked())
         {
-            for(UIntSet::const_iterator img2=imgsWithCp.begin(); img2!=imgsWithCp.end(); img2++)
+            for(UIntSet::const_iterator img2=imgsWithCp.begin(); img2!=imgsWithCp.end(); ++img2)
             {
                 if(img1.YawisLinkedWith(pano.getImage(*img2)))
                 {
@@ -175,7 +175,7 @@ void SetGeometricControlPointsUnconnected(Panorama& pano, const int minOverlap)
     overlap.limitToImages(imgsToTest);
     overlap.calculate(10);
     vector<UIntSet> checkedImgPairs(pano.getNrOfImages());
-    for(UIntSet::const_iterator img=imgsToTest.begin(); img!=imgsToTest.end(); img++)
+    for(UIntSet::const_iterator img=imgsToTest.begin(); img!=imgsToTest.end(); ++img)
     {
         UIntSet overlappingImgs;
         const SrcPanoImage& img1=pano.getImage(*img);
@@ -193,7 +193,7 @@ void SetGeometricControlPointsUnconnected(Panorama& pano, const int minOverlap)
                 const SrcPanoImage& img2=pano.getImage(i);
                 if(img2.YawisLinked())
                 {
-                    for(UIntSet::const_iterator it=overlappingImgs.begin(); it!=overlappingImgs.end(); it++)
+                    for(UIntSet::const_iterator it=overlappingImgs.begin(); it!=overlappingImgs.end(); ++it)
                     {
                         if(img2.YawisLinkedWith(pano.getImage(*it)))
                         {
@@ -215,7 +215,7 @@ void SetGeometricControlPointsUnconnected(Panorama& pano, const int minOverlap)
             };
         };
         // now add control points
-        for(UIntSet::const_iterator overlapImg=overlappingImgs.begin(); overlapImg!=overlappingImgs.end(); overlapImg++)
+        for(UIntSet::const_iterator overlapImg=overlappingImgs.begin(); overlapImg!=overlappingImgs.end(); ++overlapImg)
         {
             AddGeometricControlPoint(pano, *img, *overlapImg);
         };
@@ -249,7 +249,7 @@ void SetGeometricControlPointsOverlap(Panorama& pano, const int minOverlap)
             {
                 // we have an overlap, now check if there are control points
                 bool hasControlPoints=false;
-                for(CPVector::const_iterator it=cp.begin(); it!=cp.end(); it++)
+                for(CPVector::const_iterator it=cp.begin(); it!=cp.end(); ++it)
                 {
                     if(((it->image1Nr==i && it->image2Nr==j) ||
                         (it->image1Nr==j && it->image2Nr==i) ) &&
@@ -266,7 +266,7 @@ void SetGeometricControlPointsOverlap(Panorama& pano, const int minOverlap)
                     const SrcPanoImage& img2=pano.getImage(j);
                     if(img2.YawisLinked())
                     {
-                        for(UIntSet::const_iterator it=overlappingImgs.begin(); it!=overlappingImgs.end(); it++)
+                        for(UIntSet::const_iterator it=overlappingImgs.begin(); it!=overlappingImgs.end(); ++it)
                         {
                             if(img2.YawisLinkedWith(pano.getImage(*it)))
                             {
@@ -283,7 +283,7 @@ void SetGeometricControlPointsOverlap(Panorama& pano, const int minOverlap)
             };
         };
         // now add control points
-        for(UIntSet::const_iterator overlapImg=overlappingImgs.begin(); overlapImg!=overlappingImgs.end(); overlapImg++)
+        for(UIntSet::const_iterator overlapImg=overlappingImgs.begin(); overlapImg!=overlappingImgs.end(); ++overlapImg)
         {
             AddGeometricControlPoint(pano, i, *overlapImg);
         };

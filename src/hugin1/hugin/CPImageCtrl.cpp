@@ -1108,7 +1108,7 @@ CPImageCtrl::EditorState CPImageCtrl::isOccupied(wxPoint mousePos, const FDiff2D
             }
         };
         // check if mouse is over a known point
-        for(vector<DisplayedControlPoint>::const_iterator it=m_points.begin(); it!=m_points.end(); it++)
+        for(vector<DisplayedControlPoint>::const_iterator it=m_points.begin(); it!=m_points.end(); ++it)
         {
             if(it->isOccupiedPos(p))
             {

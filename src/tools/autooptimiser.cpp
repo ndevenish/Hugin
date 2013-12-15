@@ -333,7 +333,7 @@ int main(int argc, char *argv[])
             if (!links_needed.empty())
             {
                 std::set<HuginBase::ImageVariableGroup::ImageVariableEnum>::iterator it;
-                for (it = links_needed.begin(); it != links_needed.end(); it++)
+                for (it = links_needed.begin(); it != links_needed.end(); ++it)
                 {
                     lenses.linkVariablePart(*it, i);
                 }

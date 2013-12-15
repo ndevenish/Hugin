@@ -430,7 +430,7 @@ PossiblePano::~PossiblePano()
 {
     if(m_images.size()>0)
     {
-        for(ImageSet::reverse_iterator it=m_images.rbegin(); it!=m_images.rend(); it++)
+        for(ImageSet::reverse_iterator it=m_images.rbegin(); it!=m_images.rend(); ++it)
         {
             delete (*it);
         }
@@ -474,7 +474,7 @@ double PossiblePano::GetMaxExposureDifference()
     }
     double minEv=1000;
     double maxEv=-1000;
-    for(ImageSet::const_iterator it=m_images.begin(); it!=m_images.end(); it++)
+    for(ImageSet::const_iterator it=m_images.begin(); it!=m_images.end(); ++it)
     {
         double ev=(*it)->getExposureValue();
         minEv=std::min(minEv,ev);
@@ -502,7 +502,7 @@ bool PossiblePano::IsStacked()
     }
     //now collect all unique exposure values
     std::set<int> evValues;
-    for(ImageSet::const_iterator it=m_images.begin(); it!=m_images.end(); it++)
+    for(ImageSet::const_iterator it=m_images.begin(); it!=m_images.end(); ++it)
     {
         //we multiply with 10 to don't get fooled by rounded double values
         evValues.insert(int((*it)->getExposureValue()*10));
@@ -527,7 +527,7 @@ bool PossiblePano::IsStacked()
     ImageSet::const_iterator it=m_images.begin();
     for(unsigned int i=0; i<evValues.size(); i++)
     {
-        it++;
+        ++it;
     };
     if(abs((*m_images.begin())->getExposureValue()-(*it)->getExposureValue())<0.1)
     {
@@ -693,7 +693,7 @@ wxString PossiblePano::GeneratePanorama(NamingConvention nc,bool createLinks)
     };
     //generate panorama
     HuginBase::Panorama pano;
-    for(ImageSet::iterator it=m_images.begin(); it!=m_images.end(); it++)
+    for(ImageSet::iterator it=m_images.begin(); it!=m_images.end(); ++it)
     {
         pano.addImage(*(*it));
     };

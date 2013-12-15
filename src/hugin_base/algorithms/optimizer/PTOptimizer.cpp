@@ -391,7 +391,7 @@ void SmartOptimise::smartOptimize(PanoramaData& optPano)
     // remove vertical and horizontal control points
     CPVector cps = optPano.getCtrlPoints();
     CPVector newCP;
-    for (CPVector::const_iterator it = cps.begin(); it != cps.end(); it++) {
+    for (CPVector::const_iterator it = cps.begin(); it != cps.end(); ++it) {
         if (it->mode == ControlPoint::X_Y)
         {
             newCP.push_back(*it);
@@ -500,7 +500,7 @@ void SmartOptimise::smartOptimize(PanoramaData& optPano)
         const VariableMapVector & vars = optPano.getVariables();
         DEBUG_DEBUG("after opt 1: newVars[0].b: " << const_map_get(vars[0],"b").getValue());
         DEBUG_DEBUG("after opt 1: oldVars[0].b: " << const_map_get(oldVars[0],"b").getValue());
-        for (VariableMapVector::const_iterator it = vars.begin() ; it != vars.end(); it++)
+        for (VariableMapVector::const_iterator it = vars.begin() ; it != vars.end(); ++it)
         {
             if (const_map_get(*it,"v").getValue() < 1.0) smallHFOV = true;
             if (fabs(const_map_get(*it,"a").getValue()) > 0.2) highDist = true;
@@ -539,7 +539,7 @@ void SmartOptimise::smartOptimize(PanoramaData& optPano)
             const VariableMapVector & vars = optPano.getVariables();
             DEBUG_DEBUG("after opt 2: newVars[0].b: " << const_map_get(vars[0],"b").getValue());
             DEBUG_DEBUG("after opt 2: oldVars[0].b: " << const_map_get(oldVars[0],"b").getValue());
-            for (VariableMapVector::const_iterator it = vars.begin() ; it != vars.end(); it++)
+            for (VariableMapVector::const_iterator it = vars.begin() ; it != vars.end(); ++it)
             {
                 if (fabs(const_map_get(*it,"b").getValue()) > 0.2) highDist = true;
             }

@@ -911,7 +911,7 @@ void ImagesTreeCtrl::UpdateGroup(wxTreeItemId parent, const UIntSet imgs, UIntSe
             changed.erase(*it);
         };
         item=GetNextChild(parent, cookie);
-        it++;
+        ++it;
     };
 };
 
@@ -950,7 +950,7 @@ void ImagesTreeCtrl::UpdateOptimizerVariables()
                 if(set_contains(m_editableColumns,i))
                 {
                     bool opt=false;
-                    for(UIntSet::const_iterator it=imgNrs.begin(); it!=imgNrs.end() && !opt;it++)
+                    for(UIntSet::const_iterator it=imgNrs.begin(); it!=imgNrs.end() && !opt;++it)
                     {
                         if(m_columnVector[i]=="cam_trans")
                         {
@@ -1028,7 +1028,7 @@ void ImagesTreeCtrl::SetGuiLevel(GuiLevel newSetting)
 void ImagesTreeCtrl::SetOptimizerMode()
 {
     m_optimizerMode=true;
-    for(UIntSet::const_iterator it=m_editableColumns.begin(); it!=m_editableColumns.end(); it++)
+    for(UIntSet::const_iterator it=m_editableColumns.begin(); it!=m_editableColumns.end(); ++it)
     {
         if(m_columnVector[*it]!="cam_trans")
         {
@@ -1562,10 +1562,10 @@ void ImagesTreeCtrl::OnLeftDown(wxMouseEvent &e)
                             };
                         };
                         bool deactivate=false;
-                        for(std::set<std::string>::const_iterator varIt=var.begin(); varIt!=var.end(); varIt++)
+                        for(std::set<std::string>::const_iterator varIt=var.begin(); varIt!=var.end(); ++varIt)
                         {
                             //search, if image variable is marked for optimise for at least one image of group
-                            for(HuginBase::UIntSet::const_iterator imgIt=imgs.begin(); imgIt!=imgs.end() && !deactivate; imgIt++)
+                            for(HuginBase::UIntSet::const_iterator imgIt=imgs.begin(); imgIt!=imgs.end() && !deactivate; ++imgIt)
                             {
                                 if(set_contains(optVec[*imgIt], *varIt))
                                 {
@@ -1576,9 +1576,9 @@ void ImagesTreeCtrl::OnLeftDown(wxMouseEvent &e)
                         // now deactivate or activate the image variable for optimisation
                         if(deactivate)
                         {
-                            for(std::set<std::string>::const_iterator varIt=var.begin(); varIt!=var.end(); varIt++)
+                            for(std::set<std::string>::const_iterator varIt=var.begin(); varIt!=var.end(); ++varIt)
                             {
-                                for(HuginBase::UIntSet::const_iterator imgIt=imgs.begin(); imgIt!=imgs.end(); imgIt++)
+                                for(HuginBase::UIntSet::const_iterator imgIt=imgs.begin(); imgIt!=imgs.end(); ++imgIt)
                                 {
                                     optVec[*imgIt].erase(*varIt);
                                 };
@@ -1586,9 +1586,9 @@ void ImagesTreeCtrl::OnLeftDown(wxMouseEvent &e)
                         }
                         else
                         {
-                            for(std::set<std::string>::const_iterator varIt=var.begin(); varIt!=var.end(); varIt++)
+                            for(std::set<std::string>::const_iterator varIt=var.begin(); varIt!=var.end(); ++varIt)
                             {
-                                for(HuginBase::UIntSet::const_iterator imgIt=imgs.begin(); imgIt!=imgs.end(); imgIt++)
+                                for(HuginBase::UIntSet::const_iterator imgIt=imgs.begin(); imgIt!=imgs.end(); ++imgIt)
                                 {
                                     optVec[*imgIt].insert(*varIt);
                                 };
@@ -1678,9 +1678,9 @@ void ImagesTreeCtrl::SelectAllParameters(bool select, bool allImages)
     };
 
     OptimizeVector optVec=m_pano->getOptimizeVector();
-    for(UIntSet::iterator img=imgs.begin(); img!=imgs.end(); img++)
+    for(UIntSet::iterator img=imgs.begin(); img!=imgs.end(); ++img)
     {
-        for(std::set<std::string>::const_iterator it=imgVars.begin(); it!=imgVars.end(); it++)
+        for(std::set<std::string>::const_iterator it=imgVars.begin(); it!=imgVars.end(); ++it)
         {
             if(select)
             {

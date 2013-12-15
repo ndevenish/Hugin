@@ -358,7 +358,7 @@ void ImagesPanel::OnSelectionChanged(wxTreeEvent & e)
         double focallength=SrcPanoImage::calcFocalLength(img.getProjection(),img.getHFOV(),
                 img.getCropFactor(),img.getSize());;
         double cropFactor=img.getCropFactor();
-        for(UIntSet::const_iterator it=sel.begin(); it!=sel.end(); it++)
+        for(UIntSet::const_iterator it=sel.begin(); it!=sel.end(); ++it)
         {
             const SrcPanoImage& img2=m_pano->getImage(*it);
             if(proj!=img2.getProjection())

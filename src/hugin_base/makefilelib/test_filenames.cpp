@@ -170,7 +170,7 @@ int cleandir(path dir)
 
 void printmiss(std::vector<path>::iterator start, std::vector<path>::iterator end)
 {
-	for(std::vector<path>::iterator i = start; i != end; i++)
+	for(std::vector<path>::iterator i = start; i != end; ++i)
 	{
 		string s = i->string();
 		unsigned long first = 0;

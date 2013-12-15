@@ -69,7 +69,7 @@ void CalculateImageOverlap::calculate(unsigned int steps)
     {
         return;
     };
-    for(UIntSet::const_iterator it=testImages.begin(); it!=testImages.end();it++)
+    for(UIntSet::const_iterator it=testImages.begin(); it!=testImages.end();++it)
     {
         const SrcPanoImage& img=m_pano->getImage(*it);
         vigra::Rect2D c=vigra::Rect2D(img.getSize());

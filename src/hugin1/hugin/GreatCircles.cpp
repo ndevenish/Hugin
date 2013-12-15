@@ -242,7 +242,7 @@ void GreatCircleArc::draw(bool withCross, double width) const
             it->doGLcross(0,scale, m_visualizationState);
 
             it = m_lines.end();
-            it--;	//.end points beyond last point.
+            --it;	//.end points beyond last point.
             it->doGLcross(1,scale, m_visualizationState);
         }
     };
@@ -462,7 +462,7 @@ float GreatCircleArc::squareDistance(hugin_utils::FDiff2D point) const
     float distance = std::numeric_limits<float>::max();
     for (std::vector<GreatCircleArc::LineSegment>::const_iterator it = m_lines.begin();
          it != m_lines.end();
-         it++)
+         ++it)
     {
         float this_distance = it->squareDistance(point);
         if (this_distance < distance)

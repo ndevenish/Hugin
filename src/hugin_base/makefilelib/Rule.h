@@ -95,7 +95,7 @@ public:
     /** Adds an other rule as a prerequisite for this rule */
     void addPrereq(Rule& r)
     {
-        for(std::vector<string>::iterator i = r.targets.begin(); i != r.targets.end(); i++)
+        for(std::vector<string>::iterator i = r.targets.begin(); i != r.targets.end(); ++i)
         {
             addPrereq(*i);
         }

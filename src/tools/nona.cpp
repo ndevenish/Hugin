@@ -336,7 +336,7 @@ int main(int argc, char *argv[])
     else
     {
         UIntSet activeImages=pano.getActiveImages();
-        for(UIntSet::const_iterator it=outputImages.begin(); it!=outputImages.end();it++)
+        for(UIntSet::const_iterator it=outputImages.begin(); it!=outputImages.end(); ++it)
         {
             if(!set_contains(activeImages,*it))
             {

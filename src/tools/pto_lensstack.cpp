@@ -106,7 +106,7 @@ void ParseImageLensStackString(ParseImgVec& parseVec, std::string input, std::st
 // assign a new lens/stack
 void NewPart(Panorama& pano, std::set<HuginBase::ImageVariableGroup::ImageVariableEnum> vars, unsigned int imgNr)
 {
-    for (std::set<HuginBase::ImageVariableGroup::ImageVariableEnum>::iterator it = vars.begin();  it != vars.end(); it++)
+    for (std::set<HuginBase::ImageVariableGroup::ImageVariableEnum>::iterator it = vars.begin();  it != vars.end(); ++it)
     {
         switch (*it)
         {

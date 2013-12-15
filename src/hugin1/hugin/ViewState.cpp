@@ -101,7 +101,7 @@ void ViewState::panoramaChanged(HuginBase::PanoramaData &pano)
 
     if (require_draw) {
         //refresh function is called in the respective VisualizationState callback
-        for (std::map<VisualizationState*,bool>::iterator it = vis_states.begin() ; it != vis_states.end() ; it++) {
+        for (std::map<VisualizationState*,bool>::iterator it = vis_states.begin() ; it != vis_states.end() ; ++it) {
             DEBUG_DEBUG("PanoChanged - iterator before");
             if (it->second) {
                 DEBUG_DEBUG("PanoChanged - iterator after");
@@ -123,7 +123,7 @@ void ViewState::SetOptions(const HuginBase::PanoramaOptions *new_opts)
 
     bool dirty_projection = false;
 
-    for (std::map<VisualizationState*,bool>::iterator it = vis_states.begin() ; it != vis_states.end() ; it++) {
+    for (std::map<VisualizationState*,bool>::iterator it = vis_states.begin() ; it != vis_states.end() ; ++it) {
 
         if (!(it->second)) continue;
         
@@ -249,7 +249,7 @@ void ViewState::SetSrcImage(unsigned int image_nr, HuginBase::SrcPanoImage *new_
     img_states[image_nr] = *new_img;
 
 
-    for (std::map<VisualizationState*,bool>::iterator it = vis_states.begin() ; it != vis_states.end() ; it++) {
+    for (std::map<VisualizationState*,bool>::iterator it = vis_states.begin() ; it != vis_states.end() ; ++it) {
         if (!(it->second)) continue;
         if (dirty_draw) it->first->ForceRequireRedraw();
         if (dirty_mesh) it->first->SetDirtyMesh(image_nr);
@@ -263,7 +263,7 @@ void ViewState::ForceRequireRedraw()
     // this is generally called by preview tools. We let them manage themselves.
     // often they give some user interface thing that doesn't reflect a change
     // in the panorama at all, so we let them force a redraw.
-    for (std::map<VisualizationState*,bool>::iterator it = vis_states.begin() ; it != vis_states.end() ; it++) {
+    for (std::map<VisualizationState*,bool>::iterator it = vis_states.begin() ; it != vis_states.end() ; ++it) {
         if (!(it->second)) continue;
         it->first->ForceRequireRedraw();
     }
@@ -345,7 +345,7 @@ void ViewState::DoUpdates()
 void ViewState::Redraw()
 {
 
-    for (std::map<VisualizationState*,bool>::iterator it = vis_states.begin() ; it != vis_states.end() ; it++) {
+    for (std::map<VisualizationState*,bool>::iterator it = vis_states.begin() ; it != vis_states.end() ; ++it) {
         
         if (!(it->second)) continue;
         

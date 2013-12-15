@@ -380,7 +380,7 @@ std::vector<FDiff2D> clip_getIntersectionCircle(const FDiff2D p, const FDiff2D s
     };
     if(t.size()>0)
     {
-        for(std::set<double>::const_iterator it=t.begin();it!=t.end();it++)
+        for(std::set<double>::const_iterator it=t.begin();it!=t.end();++it)
         {
             intersections.push_back(p+slope*(*it));
         };

@@ -77,7 +77,7 @@ void ToolHelper::MouseMoved(int x, int y, wxMouseEvent & e)
     // now tell tools that want notification.
     std::set<Tool *>::iterator iterator;
     for (iterator = mouse_move_notified_tools.begin();
-         iterator != mouse_move_notified_tools.end(); iterator++)
+         iterator != mouse_move_notified_tools.end(); ++iterator)
     {
         (*iterator)->MouseMoveEvent(mouse_screen_x, mouse_screen_y, e);
     }
@@ -101,7 +101,7 @@ void ToolHelper::InvalidateImagesUnderMouse()
             std::set<Tool *>::iterator iterator;
             for (iterator = images_under_mouse_notified_tools.begin();
                  iterator != images_under_mouse_notified_tools.end();
-                 iterator++)
+                 ++iterator)
             {
                 (*iterator)->ImagesUnderMouseChangedEvent();
             }
@@ -118,7 +118,7 @@ void ToolHelper::MouseButtonEvent(wxMouseEvent &e)
 //    }
     std::set<Tool *>::iterator iterator;
     for (iterator = mouse_button_notified_tools.begin();
-         iterator != mouse_button_notified_tools.end(); iterator++)
+         iterator != mouse_button_notified_tools.end(); ++iterator)
     {
         (*iterator)->MouseButtonEvent(e);
     }
@@ -129,7 +129,7 @@ void ToolHelper::MouseWheelEvent(wxMouseEvent &e)
 {
     std::set<Tool *>::iterator iterator;
     for (iterator = mouse_wheel_notified_tools.begin();
-         iterator != mouse_wheel_notified_tools.end(); iterator++)
+         iterator != mouse_wheel_notified_tools.end(); ++iterator)
     {
         (*iterator)->MouseWheelEvent(e);
     }
@@ -145,7 +145,7 @@ void ToolHelper::KeypressEvent(int keycode, int modifiers, bool pressed)
 //    }
     std::set<Tool *>::iterator iterator;
     for (iterator = keypress_notified_tools.begin();
-         iterator != keypress_notified_tools.end(); iterator++)
+         iterator != keypress_notified_tools.end(); ++iterator)
     {
         (*iterator)->KeypressEvent(keycode, modifiers, pressed);
     }
@@ -157,7 +157,7 @@ void ToolHelper::BeforeDrawImages()
     // let all tools that want to draw under the images do so.
     std::set<Tool *>::iterator iterator;
     for (iterator = draw_under_notified_tools.begin();
-         iterator != draw_under_notified_tools.end(); iterator++)
+         iterator != draw_under_notified_tools.end(); ++iterator)
     {
         (*iterator)->BeforeDrawImagesEvent();
     }
@@ -176,7 +176,7 @@ void ToolHelper::AfterDrawImages()
     // let all tools that want to draw on top of the images do so.
     std::set<Tool *>::iterator iterator;
     for (iterator = draw_over_notified_tools.begin();
-         iterator != draw_over_notified_tools.end(); iterator++)
+         iterator != draw_over_notified_tools.end(); ++iterator)
     {
 //        std::cerr << "tool after draw" << std::endl;
         (*iterator)->AfterDrawImagesEvent();
@@ -184,7 +184,7 @@ void ToolHelper::AfterDrawImages()
 //    std::cerr << "after draw images" << std::endl;
     // The overlays are done separetly to avoid errors with blending order.
     for (iterator = really_draw_over_notified_tools.begin();
-         iterator != really_draw_over_notified_tools.end(); iterator++)
+         iterator != really_draw_over_notified_tools.end(); ++iterator)
     {
         (*iterator)->ReallyAfterDrawImagesEvent();
     }
@@ -199,7 +199,7 @@ bool ToolHelper::BeforeDrawImageNumber(unsigned int image)
         {
             bool result = true;
             std::set<Tool *>::iterator it;
-            for(it = image_draw_begin_tools[image].begin() ; it != image_draw_begin_tools[image].end() ; it++) {
+            for(it = image_draw_begin_tools[image].begin() ; it != image_draw_begin_tools[image].end() ; ++it) {
                 result &= (*it)->BeforeDrawImageEvent(image);
             }
             return result;
@@ -216,7 +216,7 @@ void ToolHelper::AfterDrawImageNumber(unsigned int image)
         if (image_draw_end_tools[image].size() > 0)
         {
             std::set<Tool *>::iterator it;
-            for(it = image_draw_end_tools[image].begin() ; it != image_draw_end_tools[image].end() ; it++) {
+            for(it = image_draw_end_tools[image].begin() ; it != image_draw_end_tools[image].end() ; ++it) {
                 (*it)->BeforeDrawImageEvent(image);
             }
 //            image_draw_end_tools[image]->AfterDrawImageEvent(image);
@@ -237,7 +237,7 @@ void ToolHelper::MouseLeave()
         std::set<Tool *>::iterator iterator;
         for (iterator = images_under_mouse_notified_tools.begin();
              iterator != images_under_mouse_notified_tools.end();
-             iterator++)
+             ++iterator)
         {
             (*iterator)->ImagesUnderMouseChangedEvent();
         }        
@@ -467,7 +467,7 @@ void PreviewToolHelper::MouseMoved(int x, int y, wxMouseEvent &e)
     // now tell tools that want notification.
     std::set<Tool *>::iterator iterator;
     for (iterator = mouse_move_notified_tools.begin();
-         iterator != mouse_move_notified_tools.end(); iterator++)
+         iterator != mouse_move_notified_tools.end(); ++iterator)
     {
         (*iterator)->MouseMoveEvent(mouse_pano_x, mouse_pano_y, e);
     }
@@ -681,7 +681,7 @@ void PanosphereOverviewToolHelper::BeforeDrawImagesBack()
 {
     std::set<Tool *>::iterator iterator;
     for (iterator = draw_under_notified_tools_back.begin();
-         iterator != draw_under_notified_tools_back.end(); iterator++)
+         iterator != draw_under_notified_tools_back.end(); ++iterator)
     {
         ((PanosphereOverviewTool*)(*iterator))->BeforeDrawImagesBackEvent();
     }
@@ -691,7 +691,7 @@ void PanosphereOverviewToolHelper::BeforeDrawImagesFront()
 {
     std::set<Tool *>::iterator iterator;
     for (iterator = draw_under_notified_tools_front.begin();
-         iterator != draw_under_notified_tools_front.end(); iterator++)
+         iterator != draw_under_notified_tools_front.end(); ++iterator)
     {
         ((PanosphereOverviewTool*)(*iterator))->BeforeDrawImagesFrontEvent();
     }
@@ -701,7 +701,7 @@ void PanosphereOverviewToolHelper::AfterDrawImagesBack()
 {
     std::set<Tool *>::iterator iterator;
     for (iterator = draw_over_notified_tools_back.begin();
-         iterator != draw_over_notified_tools_back.end(); iterator++)
+         iterator != draw_over_notified_tools_back.end(); ++iterator)
     {
         ((PanosphereOverviewTool*)(*iterator))->AfterDrawImagesBackEvent();
     }
@@ -711,7 +711,7 @@ void PanosphereOverviewToolHelper::AfterDrawImagesFront()
 {
     std::set<Tool *>::iterator iterator;
     for (iterator = draw_over_notified_tools_front.begin();
-         iterator != draw_over_notified_tools_front.end(); iterator++)
+         iterator != draw_over_notified_tools_front.end(); ++iterator)
     {
         ((PanosphereOverviewTool*)(*iterator))->AfterDrawImagesFrontEvent();
     }

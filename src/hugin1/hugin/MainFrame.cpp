@@ -387,7 +387,7 @@ MainFrame::MainFrame(wxWindow* parent, Panorama & pano)
     items.sort(comparePluginItem);
 
     int pluginID=wxID_HIGHEST+2000;
-    for(PluginItems::const_iterator it=items.begin();it!=items.end();it++)
+    for(PluginItems::const_iterator it=items.begin();it!=items.end();++it)
     {
         PluginItem item=*it;
         int categoryID=pluginMenu->FindItem(item.GetCategory());
@@ -1647,10 +1647,10 @@ void MainFrame::OnFineTuneAll(wxCommandEvent & e)
                     }
                 }
                 unsigned int rm = *it;
-                it++;
+                ++it;
                 unoptimized.erase(rm);
             } else {
-                it++;
+                ++it;
             }
         }
     }

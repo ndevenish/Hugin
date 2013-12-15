@@ -166,7 +166,7 @@ bool LensDB::LoadFilesInDir(std::string path)
                 typedef std::vector<boost::filesystem::path> fl_vec;
                 fl_vec filelist;
                 std::copy(boost::filesystem::directory_iterator(p), boost::filesystem::directory_iterator(), std::back_inserter(filelist));
-                for(fl_vec::const_iterator it=filelist.begin();it!=filelist.end();it++)
+                for(fl_vec::const_iterator it=filelist.begin();it!=filelist.end();++it)
                 {
                     boost::filesystem::path file=*it;
                     if(file.extension().string()==std::string(".xml"))

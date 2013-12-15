@@ -57,7 +57,7 @@ bool CalculateOptimalROI::calcOptimalROI(PanoramaData& panorama)
         return false;
     };
 
-    for (UIntSet::const_iterator it=activeImages.begin(); it!=activeImages.end(); it++)
+    for (UIntSet::const_iterator it=activeImages.begin(); it!=activeImages.end(); ++it)
     {
         const SrcPanoImage &img=panorama.getImage(*it);
         PTools::Transform *transf=new PTools::Transform();
@@ -83,7 +83,7 @@ bool CalculateOptimalROI::calcOptimalROI(PanoramaData& panorama)
 #endif
 
     //clean up on demand
-    for(std::map<unsigned int,PTools::Transform*>::iterator it=transfMap.begin();it!=transfMap.end();it++)
+    for(std::map<unsigned int,PTools::Transform*>::iterator it=transfMap.begin();it!=transfMap.end();++it)
     {
         delete (*it).second;
     };
@@ -96,7 +96,7 @@ bool CalculateOptimalROI::stackPixel(int i, int j, UIntSet &stack)
 {
     bool inside = intersection; // start with true for intersection mode and with false for union mode
     //check that pixel at each place
-    for(UIntSet::const_iterator it=stack.begin();it!=stack.end();it++)
+    for(UIntSet::const_iterator it=stack.begin();it!=stack.end();++it)
     {
         double xd,yd;
         if(transfMap[*it]->transformImgCoord(xd,yd,(double)i,(double)j))

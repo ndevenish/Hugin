@@ -381,7 +381,7 @@ int main(int argc, char* argv[])
     else
     {
         //check, if given image numbers are valid
-        for(UIntSet::const_iterator it=cmdlineImages.begin();it!=cmdlineImages.end();it++)
+        for(UIntSet::const_iterator it=cmdlineImages.begin();it!=cmdlineImages.end();++it)
         {
             if((*it)>=0 && (*it)<pano.getNrOfImages())
             {
@@ -442,7 +442,7 @@ int main(int argc, char* argv[])
 #endif
         if(foundLines.size()>0)
         {
-            for(CPVector::const_iterator cpIt=foundLines.begin(); cpIt!=foundLines.end(); cpIt++)
+            for(CPVector::const_iterator cpIt=foundLines.begin(); cpIt!=foundLines.end(); ++cpIt)
             {
                 pano.addCtrlPoint(*cpIt);
             };

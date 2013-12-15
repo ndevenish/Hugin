@@ -116,7 +116,7 @@ void MultiProgressDisplay::propagateProgress(double progress)
     std::vector<ProgressTask>::reverse_iterator it = tasks.rbegin();
     double diff = progress - it->progress;
     it->progress = progress;
-    it++;
+    ++it;
     while (it != tasks.rend()) {
         // scale previous change
         diff *= it->subStepProgress;

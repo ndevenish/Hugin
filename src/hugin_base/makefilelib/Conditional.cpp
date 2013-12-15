@@ -31,7 +31,7 @@ string Conditional::toString()
 {
 	string str = printif();
 	std::vector<MakefileItem*>::iterator i;
-	for(i = ifblock.begin(); i != ifblock.end(); i++)
+	for(i = ifblock.begin(); i != ifblock.end(); ++i)
 		str.append((*i)->toString());
 	str.append(cstr("\n"));
 
@@ -39,7 +39,7 @@ string Conditional::toString()
 	if(!elseblock.empty())
 	{
 		str.append(cstr("else\n"));
-		for(i = elseblock.begin(); i != elseblock.end(); i++)
+		for(i = elseblock.begin(); i != elseblock.end(); ++i)
 			str.append((*i)->toString());
 		str.append(cstr("\n"));
 	}

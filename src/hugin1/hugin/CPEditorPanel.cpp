@@ -593,7 +593,7 @@ bool CPEditorPanel::globalPNr2LocalPNr(unsigned int & localNr, unsigned int glob
     HuginBase::CPointVector::const_iterator it = currentPoints.begin();
 
     while(it != currentPoints.end() && (*it).first != globalNr) {
-        it++;
+        ++it;
     }
 
     if (it != currentPoints.end()) {

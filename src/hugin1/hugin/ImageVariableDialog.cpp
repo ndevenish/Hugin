@@ -108,7 +108,7 @@ void ImageVariableDialog::InitValues()
     BaseSrcPanoImage::ResponseType responseType= m_pano->getImage(*m_images.begin()).getResponseType();
     bool identical=true;
 
-    for(UIntSet::const_iterator it=m_images.begin();it!=m_images.end() && identical;it++)
+    for(UIntSet::const_iterator it=m_images.begin();it!=m_images.end() && identical;++it)
     {
         identical=(responseType==m_pano->getImage(*it).getResponseType());
     };
@@ -140,7 +140,7 @@ void ImageVariableDialog::InitValues()
         }
         double val=const_map_get(imgVarVector[*m_images.begin()],*varname).getValue();
         bool identical=true;
-        for(UIntSet::const_iterator it=m_images.begin();it!=m_images.end() && identical;it++)
+        for(UIntSet::const_iterator it=m_images.begin();it!=m_images.end() && identical;++it)
         {
             identical=(val==const_map_get(imgVarVector[*it],*varname).getValue());
         };
@@ -228,7 +228,7 @@ bool ImageVariableDialog::ApplyNewVariables()
     if(sel!=wxNOT_FOUND)
     {
         std::vector<SrcPanoImage> SrcImgs;
-        for (UIntSet::const_iterator it=m_images.begin(); it!=m_images.end(); it++)
+        for (UIntSet::const_iterator it=m_images.begin(); it!=m_images.end(); ++it)
         {
             HuginBase::SrcPanoImage img=m_pano->getSrcImage(*it);
             img.setResponseType((SrcPanoImage::ResponseType)sel);
@@ -238,7 +238,7 @@ bool ImageVariableDialog::ApplyNewVariables()
     }
     if(varMap.size()>0)
     {
-        for(UIntSet::const_iterator it=m_images.begin();it!=m_images.end();it++)
+        for(UIntSet::const_iterator it=m_images.begin();it!=m_images.end();++it)
         {
             commands.push_back(
                 new PT::UpdateImageVariablesCmd(*m_pano,*it,varMap)

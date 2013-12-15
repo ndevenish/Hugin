@@ -621,7 +621,7 @@ void CPListFrame::OnSelectButton(wxCommandEvent & e)
     double squared_error = 0;
     double max_error = 0;
     CPVector::const_iterator it;
-    for (it = cps.begin() ; it != cps.end(); it++) {
+    for (it = cps.begin() ; it != cps.end(); ++it) {
         mean_error += (*it).error;
         squared_error += (*it).error * (*it).error;
         if ((*it).error > max_error) {

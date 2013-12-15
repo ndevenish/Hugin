@@ -138,10 +138,10 @@ bool ApplyLensParameters(wxWindow * parent, PT::Panorama *pano, HuginBase::UIntS
         // Merge the lens parameters with the image variable map.
         HuginBase::VariableMapVector vars(images.size());
         size_t i=0;
-        for(HuginBase::UIntSet::const_iterator it=images.begin();it!=images.end();it++,i++)
+        for(HuginBase::UIntSet::const_iterator it=images.begin();it!=images.end();++it,++i)
         {
             vars[i]=pano->getImageVariables(*it);
-            for (HuginBase::LensVarMap::iterator it2 = lens.variables.begin(); it2 != lens.variables.end(); it2++)
+            for (HuginBase::LensVarMap::iterator it2 = lens.variables.begin(); it2 != lens.variables.end(); ++it2)
             {
                 if(it2->second.getName()=="EeV")
                 {
@@ -158,7 +158,7 @@ bool ApplyLensParameters(wxWindow * parent, PT::Panorama *pano, HuginBase::UIntS
         // update links
         std::set<HuginBase::ImageVariableGroup::ImageVariableEnum> linkedVariables;
         std::set<HuginBase::ImageVariableGroup::ImageVariableEnum> unlinkedVariables;
-        for (HuginBase::LensVarMap::iterator it = lens.variables.begin(); it != lens.variables.end(); it++)
+        for (HuginBase::LensVarMap::iterator it = lens.variables.begin(); it != lens.variables.end(); ++it)
         {
             if(it->second.getName()=="EeV")
             {

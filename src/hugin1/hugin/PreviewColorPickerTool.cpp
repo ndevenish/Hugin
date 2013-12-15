@@ -70,7 +70,7 @@ void PreviewColorPickerTool::CalcCorrection(hugin_utils::FDiff2D pos)
     UIntSet activeImages=pano->getActiveImages();
     if(activeImages.size()>0)
     {
-        for(UIntSet::iterator it=activeImages.begin();it!=activeImages.end();it++)
+        for(UIntSet::iterator it=activeImages.begin();it!=activeImages.end();++it)
         {
             //check if point is inside the image, check also all 4 corners of rectangle
             HuginBase::PTools::Transform trans;

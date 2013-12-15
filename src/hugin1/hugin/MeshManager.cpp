@@ -60,7 +60,7 @@ MeshManager::MeshManager(PT::Panorama *pano, VisualizationState *visualization_s
 
 MeshManager::~MeshManager()
 {
-    for (std::vector<MeshInfo*>::iterator it = meshes.begin() ; it != meshes.end() ; it++) {
+    for (std::vector<MeshInfo*>::iterator it = meshes.begin() ; it != meshes.end() ; ++it) {
         delete (*it);
     }
     meshes.clear();
@@ -111,7 +111,7 @@ void MeshManager::SetLayoutMode(bool state)
     /* All meshes must be recalculated, since the layout mode uses meshes that
      * do not resemble properly remapped images.
      */
-    for (std::vector<MeshInfo*>::iterator it = meshes.begin() ; it != meshes.end() ; it++) {
+    for (std::vector<MeshInfo*>::iterator it = meshes.begin() ; it != meshes.end() ; ++it) {
         delete (*it);
     }
     meshes.clear();

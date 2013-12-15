@@ -178,7 +178,7 @@ void ImageCache::softFlush()
     long imgMem = 0;
 
     std::map<std::string, EntryPtr>::iterator imgIt;
-    for(imgIt=images.begin(); imgIt != images.end(); imgIt++) {
+    for(imgIt=images.begin(); imgIt != images.end(); ++imgIt) {
 #ifdef DEBUG
         cout << "Image: " << imgIt->first << std::endl;
         cout << "CacheEntry: " << imgIt->second.use_count() << "last access: " << imgIt->second->lastAccess;
@@ -211,7 +211,7 @@ void ImageCache::softFlush()
 
     long pyrMem = 0;
     std::map<std::string, vigra::BImage*>::iterator pyrIt;
-    for(pyrIt=pyrImages.begin(); pyrIt != pyrImages.end(); pyrIt++) {
+    for(pyrIt=pyrImages.begin(); pyrIt != pyrImages.end(); ++pyrIt) {
         pyrMem += pyrIt->second->width() * pyrIt->second->height();
     }
 
@@ -880,7 +880,7 @@ void ImageCache::postEvent(RequestPtr request, EntryPtr entry)
          it != m_smallRequests.end();)
     {
         std::map<std::string, RequestPtr>::iterator next_it = it;
-        next_it++;
+        ++next_it;
         if (it->second.unique()) {
             // Last copy of the request is in the list.
             // Anything requesting it must have given up waiting.
@@ -898,7 +898,7 @@ void ImageCache::postEvent(RequestPtr request, EntryPtr entry)
          it != m_requests.end();)
     {
         std::map<std::string, RequestPtr>::iterator next_it = it;
-        next_it++;
+        ++next_it;
         if (it->second.unique()) {
             // The last copy of the request is in the list of requests.
             // Anything that requested it must have given up waiting.
