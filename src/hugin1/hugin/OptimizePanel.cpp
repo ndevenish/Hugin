@@ -268,6 +268,8 @@ void OptimizePanel::runOptimizer(const UIntSet & imgs)
             }
             else
             {
+                setlocale(LC_ALL,oldlocale);
+                free(oldlocale);
                 return;
             }
             PTools::optimize(optPano, script);
