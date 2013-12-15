@@ -44,7 +44,7 @@ public:
      */
     void setScale(double scale);
 private:
-    double scale;
+    double m_layoutScale;
     bool done;
     ArrayCoords face;
 };

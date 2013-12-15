@@ -35,7 +35,7 @@ LayoutRemapper::LayoutRemapper(HuginBase::Panorama *m_pano,
                                HuginBase::SrcPanoImage* image,
                                VisualizationState *visualization_state)
         :MeshRemapper(m_pano, image, visualization_state),
-         scale(0)
+         m_layoutScale(0)
         
 {
     // We'll never use any different texture coordinates, so record them now:
@@ -76,11 +76,11 @@ void LayoutRemapper::UpdateAndResetIndex()
     double preview_width, preview_height;
     if (landscape)
     {
-        preview_width = scale;
-        preview_height = scale / image_width * image_height;
+        preview_width = m_layoutScale;
+        preview_height = m_layoutScale / image_width * image_height;
     } else {
-        preview_height = scale;
-        preview_width = scale / image_height * image_width;
+        preview_height = m_layoutScale;
+        preview_width = m_layoutScale / image_height * image_width;
     }
     
     // find bounds for image drawing
@@ -127,5 +127,5 @@ bool LayoutRemapper::GetNextFaceCoordinates(Coords *result)
 
 void LayoutRemapper::setScale(double scale_in)
 {
-    scale = scale_in;
+    m_layoutScale = scale_in;
 }
