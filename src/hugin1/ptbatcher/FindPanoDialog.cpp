@@ -555,7 +555,7 @@ const wxDateTime PossiblePano::GetDateTime(const SrcPanoImage* img)
 
 void PossiblePano::AddSrcPanoImage(HuginBase::SrcPanoImage* img)
 {
-    if(m_images.size()==0)
+    if(m_images.empty())
     {
         //fill all values from first image
         m_make=img->getExifMake();
@@ -679,7 +679,7 @@ bool PossiblePano::GetNewProjectFilename(NamingConvention nc,const wxString base
 
 wxString PossiblePano::GeneratePanorama(NamingConvention nc,bool createLinks)
 {
-    if(m_images.size()==0)
+    if(m_images.empty())
     {
         return wxEmptyString;
     };

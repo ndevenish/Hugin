@@ -90,7 +90,7 @@ namespace hugin_utils
         std::queue<int> nextNodes;
         nextNodes.push(startNode);
         // as long as we can traverse further
-        while(nextNodes.size() != 0) {
+        while(!nextNodes.empty()) {
             // current node
             int cNode = nextNodes.front();
             nextNodes.pop();
@@ -129,7 +129,7 @@ namespace hugin_utils
         std::queue<int> nextNodes;
         nextNodes.push(start);
         // as long as we can traverse further
-        while(nextNodes.size() != 0) {
+        while(!nextNodes.empty()) {
             // current node
             int cNode = nextNodes.front();
             nextNodes.pop();

@@ -251,7 +251,7 @@ void ImageCache::softFlush()
                 delete imgPtr;
                 pyrImages.erase(pyrImages.begin());
                 deleted = true;
-            } else if (accessMap.size() > 0) {
+            } else if (!accessMap.empty()) {
                 std::map<int,std::string>::iterator accIt = accessMap.begin();
                 map<string, EntryPtr>::iterator it = images.find(accIt->second);
                 // check for uniqueness.

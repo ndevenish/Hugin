@@ -45,7 +45,7 @@ void hugin_utils::findSubGraphs(AdjListGraph & graph,
     // fill with all images
     for (int i=0; i<nImages; i++) unseen.insert(i);
 
-    while(unseen.size() != 0 ) {
+    while(!unseen.empty()) {
         // first remaining node determines the next graph
         int root = (int) *(unseen.begin());
         subgraphStart.push_back(root);

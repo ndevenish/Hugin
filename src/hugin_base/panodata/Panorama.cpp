@@ -510,7 +510,7 @@ void Panorama::removeDuplicateCtrlPoints()
         };
     }
     //now remove duplicate control points, mark affected images as changed
-    if(duplicateCPs.size()>0)
+    if(!duplicateCPs.empty())
     {
         for(std::set<unsigned int>::reverse_iterator it=duplicateCPs.rbegin();it!=duplicateCPs.rend();++it)
         {
