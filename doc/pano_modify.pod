@@ -54,6 +54,14 @@ AUTO: autocrop panorama
 
 left,right,top,bottom: to given size
 
+=item B<--rotate=yaw,pitch,roll>
+
+Rotates the whole panorama with the given angles
+
+=item B<--translate=x,y,z>
+
+Translates the whole panorama with the given values
+
 =item B<-h>, B<--help>
 
 Shows help
