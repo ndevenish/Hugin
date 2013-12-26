@@ -150,7 +150,7 @@ bool PTBatcherGUI::OnInit()
         { wxCMD_LINE_SWITCH, "v", "verbose",  "show verbose output when processing projects" },
         { wxCMD_LINE_SWITCH, "a", "assistant", "run the assistant on the given projects" },
         {
-            wxCMD_LINE_PARAM,  NULL, NULL, _("stitch_project.pto [output prefix]|assistant_project.pto"),
+            wxCMD_LINE_PARAM,  NULL, NULL, "stitch_project.pto [output prefix]|assistant_project.pto",
             wxCMD_LINE_VAL_STRING, wxCMD_LINE_PARAM_OPTIONAL + wxCMD_LINE_PARAM_MULTIPLE
         },
         { wxCMD_LINE_NONE }
