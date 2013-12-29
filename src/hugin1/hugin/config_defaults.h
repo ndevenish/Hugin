@@ -31,7 +31,6 @@
 #define HUGIN_ASS_MAX_NORMAL_FOV            100.0
 #define HUGIN_ASS_PANO_DOWNSIZE_FACTOR        0.7
 #define HUGIN_ASS_AUTO_ALIGN                  0l
-#define HUGIN_ASS_OPT_PHOTOMETRIC             1l
 #define HUGIN_ASS_AUTO_CPCLEAN                1l
 #define HUGIN_ASS_LINEFIND                    1l
 
@@ -58,13 +57,8 @@
 #define HUGIN_IMGCACHE_UPPERBOUND             268435456
 #define HUGIN_IMGCACHE_MAPPING_INTEGER        0l
 #define HUGIN_IMGCACHE_MAPPING_FLOAT          1l
-#define HUGIN_CP_CURSOR                       1
 
 #define HUGIN_CAPTURE_TIMESPAN                60l
-
-#define HUGIN_PREVIEW_SHOW_DRUID              1l
-#define HUGIN_USE_SELECTED_IMAGES             0l
-#define HUGIN_CROP_SETS_CENTER                0l
 
 // GUI defaults
 #define HUGIN_LANGUAGE                        wxLANGUAGE_DEFAULT
@@ -86,8 +80,6 @@
 // Exiftool
 #define HUGIN_EXIFTOOL_COPY_ARGS                   "-ImageDescription -Make -Model -Artist -WhitePoint -Copyright -GPS:all -AllDates -UserComment -ColorSpace -OwnerName -SerialNumber"
 
-#define HUGIN_EXECDIALOG_ENABLED              1l
-
 // Program defaults
 #if defined WIN32
 
@@ -102,8 +94,6 @@
 
 #define HUGIN_ENBLEND_EXE                     "enblend.exe"
 #define HUGIN_ENFUSE_EXE                      "enfuse.exe"
-
-#define HUGIN_STITCHER_TERMINAL               ""
 
 #define HUGIN_ENBLEND_EXE_CUSTOM              false
 #define HUGIN_ENFUSE_EXE_CUSTOM               false
@@ -120,12 +110,6 @@
 #define HUGIN_SMARTBLEND_EXE                  "smartblend.exe"
 #define HUGIN_ENBLEND_EXE                     "enblend"
 #define HUGIN_ENFUSE_EXE                      "enfuse"
-
-#define HUGIN_STITCHER_RUN_EDITOR             0l
-#define HUGIN_STITCHER_EDITOR                 ""
-#define HUGIN_STITCHER_EDITOR_ARGS            "%f"
-
-#define HUGIN_STITCHER_TERMINAL               ""
 
 #ifdef MAC_SELF_CONTAINED_BUNDLE
 
@@ -152,14 +136,6 @@
 
 #define HUGIN_ENBLEND_EXE                     "enblend"
 #define HUGIN_ENFUSE_EXE                      "enfuse"
-
-#define HUGIN_STITCHER_RUN_EDITOR             0l
-#define HUGIN_STITCHER_EDITOR                 "gimp-remote"
-#define HUGIN_STITCHER_EDITOR_ARGS            "%f"
-
-#define HUGIN_STITCHER_TERMINAL               "xterm -e "
-
-#define HUGIN_EXECDIALOG_ENABLED2              0l
 
 #define HUGIN_ENBLEND_EXE_CUSTOM              true
 #define HUGIN_ENFUSE_EXE_CUSTOM               true
