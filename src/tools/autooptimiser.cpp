@@ -204,10 +204,6 @@ int main(int argc, char *argv[])
     };
     if (doPairwise && ! doAutoOpt) {
         // do pairwise optimisation
-        set<string> optvars;
-        optvars.insert("r");
-        optvars.insert("p");
-        optvars.insert("y");
         AutoOptimise::autoOptimise(pano);
 
         // do global optimisation
