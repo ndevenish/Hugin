@@ -213,18 +213,6 @@ void OptimizePanel::runOptimizer(const UIntSet & imgs)
 
     if (mode & HuginBase::OPT_PAIR )
     {
-        // remove vertical and horizontal control points
-        CPVector cps = optPano.getCtrlPoints();
-        CPVector newCP;
-        for (CPVector::const_iterator it = cps.begin(); it != cps.end(); ++it)
-        {
-            if (it->mode == ControlPoint::X_Y)
-            {
-                newCP.push_back(*it);
-            }
-        }
-        optPano.setCtrlPoints(newCP);
-
         // temporarily disable PT progress dialog..
         deregisterPTWXDlgFcn();
         {
@@ -240,7 +228,6 @@ void OptimizePanel::runOptimizer(const UIntSet & imgs)
 
         registerPTWXDlgFcn(MainFrame::Get());
         // do global optimisation
-        optPano.setCtrlPoints(cps);
         PTools::optimize(optPano);
 #ifdef DEBUG
         // print optimized script to cout

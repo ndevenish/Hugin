@@ -321,13 +321,89 @@ bool RANSACOptimizer::runAlgorithm()
 }
     
 
+int FindStackNumberForImage(const std::vector<UIntSet>& imageGroups, const unsigned int imgNr)
+{
+    for (size_t i = 0; i < imageGroups.size(); ++i)
+    {
+        if (set_contains(imageGroups[i], imgNr))
+        {
+            return i;
+        };
+    };
+    return -1;
+};
+
 void AutoOptimise::autoOptimise(PanoramaData& pano, bool optRoll)
 {
+    CPVector cps = pano.getCtrlPoints();
+    CPVector newCP;
+
+    // remove all connected images, keep only a single image for each connected stack
+    std::vector<UIntSet> imageGroups;
+    UIntSet visitedImages;
+    PanoramaData* optPano;
+    for (size_t i = 0; i < pano.getNrOfImages(); ++i)
+    {
+        if (set_contains(visitedImages, i))
+        {
+            continue;
+        };
+        const SrcPanoImage& img1 = pano.getImage(i);
+        UIntSet imgs;
+        imgs.insert(i);
+        visitedImages.insert(i);
+        if (img1.YawisLinked() && i + 1 < pano.getNrOfImages())
+        {
+            for (size_t j = i + 1; j < pano.getNrOfImages(); ++j)
+            {
+                if (img1.YawisLinkedWith(pano.getImage(j)))
+                {
+                    imgs.insert(j);
+                    visitedImages.insert(j);
+                }
+            }
+        };
+        imageGroups.push_back(imgs);
+    };
+    UIntSet singleStackImgs;
+    for (size_t i = 0; i < imageGroups.size(); ++i)
+    {
+        singleStackImgs.insert(*imageGroups[i].begin());
+    };
+    // new generate subpano
+    optPano = pano.getNewSubset(singleStackImgs);
+    // translate now reference image
+    int newRefImage = FindStackNumberForImage(imageGroups, pano.getOptions().optimizeReferenceImage);
+    if (newRefImage != -1)
+    {
+        PanoramaOptions opts = optPano->getOptions();
+        opts.optimizeReferenceImage = newRefImage;
+        optPano->setOptions(opts);
+    };
+    // remove all vertical and horizontal cp, also remap all cps to new subpano
+    // all cps from removed images will be mapped to first image of corresponding stack
+    for (CPVector::const_iterator it = cps.begin(); it != cps.end(); ++it)
+    {
+        if (it->mode == ControlPoint::X_Y)
+        {
+            ControlPoint cp (*it);
+            int newImg1 = FindStackNumberForImage(imageGroups, cp.image1Nr);
+            int newImg2 = FindStackNumberForImage(imageGroups, cp.image2Nr);
+            if (newImg1 != -1 && newImg2 != -1 && newImg1 != newImg2)
+            {
+                cp.image1Nr = newImg1;
+                cp.image2Nr = newImg2;
+                newCP.push_back(cp);
+            };
+        };
+    };
+    optPano->setCtrlPoints(newCP);
+
     // DGSW FIXME - Unreferenced
     //	unsigned nImg = unsigned(pano.getNrOfImages());
     // build a graph over all overlapping images
     CPGraph graph;
-    createCPGraph(pano,graph);
+    createCPGraph(*optPano,graph);
     
 #if DEBUG
     {
@@ -344,17 +420,24 @@ void AutoOptimise::autoOptimise(PanoramaData& pano, bool optRoll)
     optvars.insert("p");
     optvars.insert("y");
     
-    unsigned int startImg = pano.getOptions().optimizeReferenceImage;
+    unsigned int startImg = optPano->getOptions().optimizeReferenceImage;
     
     // start a breadth first traversal of the graph, and optimize
     // the links found (every vertex just once.)
     
-    OptimiseVisitor optVisitor(pano, optvars);
+    OptimiseVisitor optVisitor(*optPano, optvars);
     
     boost::queue<boost::graph_traits<CPGraph>::vertex_descriptor> qu;
     boost::breadth_first_search(graph, startImg,
                                 color_map(get(boost::vertex_color, graph)).
                                 visitor(optVisitor));
+
+    // now translate to found positions to initial pano
+    for (size_t i = 0; i < optPano->getNrOfImages(); ++i)
+    {
+        pano.updateVariables(*imageGroups[i].begin(), optPano->getImageVariables(i));
+    };
+    delete optPano;
     /*
 #ifdef DEBUG
      // print optimized script to cout
