@@ -707,7 +707,9 @@ PT::PanoCommand* CleanControlPointsOperation::GetInternalCommand(wxWindow* paren
     registerPTWXDlgFcn(MainFrame::Get());
     if(removedCPs.size()>0)
     {
-        wxMessageBox(wxString::Format(_("Removed %lu control points"), removedCPs.size()), _("Cleaning"),wxOK|wxICON_INFORMATION,parent);
+        wxString s;
+        s << removedCPs.size();
+        wxMessageBox(s, _("Cleaning"),wxOK|wxICON_INFORMATION,parent);
         return new PT::RemoveCtrlPointsCmd(pano,removedCPs);
     };
     return NULL;

@@ -402,7 +402,9 @@ void ImagesTreeCtrl::UpdateImageText(wxTreeItemId item)
     const SrcPanoImage & img = m_pano->getImage(imgNr);
     wxFileName fn(wxString (img.getFilename().c_str(), HUGIN_CONV_FILENAME));
 
-    SetItemText(item, m_columnMap["imgNr"], wxString::Format(wxT("%d"), imgNr));
+    s << imgNr;
+    SetItemText(item, m_columnMap["imgNr"], s);
+    s.Clear();
     SetItemText(item, m_columnMap["filename"], fn.GetFullName() );
     SetItemText(item, m_columnMap["width"], wxString::Format(wxT("%d"), img.getSize().width()));
     SetItemText(item, m_columnMap["height"], wxString::Format(wxT("%d"), img.getSize().height()));
@@ -418,11 +420,13 @@ void ImagesTreeCtrl::UpdateImageText(wxTreeItemId item)
     }
     SetItemText(item, m_columnMap["anchor"], wxString(flags, wxConvLocal));
     std::vector<unsigned int> cps = m_pano->getCtrlPointsForImage(imgNr);
-    SetItemText(item, m_columnMap["cps"], wxString::Format(wxT("%d"), cps.size()));
+    s << cps.size();
+    SetItemText(item, m_columnMap["cps"], s);
+    s.Clear();
     unsigned int stackNumber = m_variable_groups->getStacks().getPartNumber(imgNr);
-    SetItemText(item, m_columnMap["stackNr"], wxString::Format(wxT("%d"), stackNumber));
+    SetItemText(item, m_columnMap["stackNr"], wxString::Format(wxT("%u"), stackNumber));
     unsigned int lensNr=m_variable_groups->getLenses().getPartNumber(imgNr);
-    SetItemText(item, m_columnMap["lensNr"], wxString::Format(wxT("%d"), lensNr));
+    SetItemText(item, m_columnMap["lensNr"], wxString::Format(wxT("%u"), lensNr));
 
     SetItemText(item, m_columnMap["maker"], wxString(img.getExifMake().c_str(), wxConvLocal));
     SetItemText(item, m_columnMap["model"], wxString(img.getExifModel().c_str(), wxConvLocal));
@@ -675,16 +679,16 @@ void ImagesTreeCtrl::UpdateGroupText(wxTreeItemId item)
     switch(m_groupMode)
     {
         case GROUP_LENS:
-            SetItemText(item, 1, wxString::Format(_("Lens %d"),itemData->GetGroupNr()));
+            SetItemText(item, 1, wxString::Format(_("Lens %ld"),itemData->GetGroupNr()));
             break;
         case GROUP_STACK:
-            SetItemText(item, 1, wxString::Format(_("Stack %d"),itemData->GetGroupNr()));
+            SetItemText(item, 1, wxString::Format(_("Stack %ld"),itemData->GetGroupNr()));
             break;
         case GROUP_OUTPUTSTACK:
-            SetItemText(item, 1, wxString::Format(_("Output stack %d"),itemData->GetGroupNr()));
+            SetItemText(item, 1, wxString::Format(_("Output stack %ld"),itemData->GetGroupNr()));
             break;
         case GROUP_OUTPUTLAYERS:
-            SetItemText(item, 1, wxString::Format(_("Output exposure layer %d"),itemData->GetGroupNr()));
+            SetItemText(item, 1, wxString::Format(_("Output exposure layer %ld"),itemData->GetGroupNr()));
             break;
     };
     SetItemBold(item,1,true);
