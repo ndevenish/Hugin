@@ -904,18 +904,25 @@ void BatchFrame::SetCheckboxes()
     int i;
     i=config->Read(wxT("/BatchFrame/ParallelCheck"), 0l);
     XRCCTRL(*this,"cb_parallel",wxCheckBox)->SetValue(i!=0);
+    m_batch->parallel=(i!=0);
     i=config->Read(wxT("/BatchFrame/ShutdownCheck"), 0l);
     XRCCTRL(*this,"cb_shutdown",wxCheckBox)->SetValue(i!=0);
+    m_batch->shutdown=(i!=0);
     i=config->Read(wxT("/BatchFrame/OverwriteCheck"), 0l);
     XRCCTRL(*this,"cb_overwrite",wxCheckBox)->SetValue(i!=0);
+    m_batch->overwrite=(i!=0);
     i=config->Read(wxT("/BatchFrame/VerboseCheck"), 0l);
     XRCCTRL(*this,"cb_verbose",wxCheckBox)->SetValue(i!=0);
+    m_batch->verbose=(i!=0);
     i=config->Read(wxT("/BatchFrame/AutoRemoveCheck"), 0l);
     XRCCTRL(*this,"cb_autoremove",wxCheckBox)->SetValue(i!=0);
+    m_batch->autoremove=(i!=0);
     i=config->Read(wxT("/BatchFrame/AutoStitchCheck"), 0l);
     XRCCTRL(*this,"cb_autostitch",wxCheckBox)->SetValue(i!=0);
+    m_batch->autostitch=(i!=0);
     i=config->Read(wxT("/BatchFrame/SaveLog"), 0l);
     XRCCTRL(*this, "cb_savelog",wxCheckBox)->SetValue(i!=0);
+    m_batch->saveLog=(i!=0);
 };
 
 bool BatchFrame::GetCheckParallel()
