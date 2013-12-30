@@ -149,6 +149,8 @@ TARGET_LINK_LIBRARIES(huginbase huginlevmar huginvigraimpex makefilelib
         ${TIFF_LIBRARIES} ${LAPACK_LIBRARIES} ${GLEW_LIBRARIES}
         ${OPENGL_LIBRARIES} ${GLUT_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT}
         ${LENSFUN_LIBRARIES} ${LENSFUN_REGEX_LIBRARIES} ${GLIB2_LIBRARIES})
+
+INSTALL(FILES algorithms/panorama_makefile/hugin_exiftool_copy.arg DESTINATION ${INSTALL_DATA_DIR})
         
 add_subdirectory(makefilelib)
 add_subdirectory(lines)

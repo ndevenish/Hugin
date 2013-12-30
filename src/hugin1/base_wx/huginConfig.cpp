@@ -177,12 +177,18 @@ PTPrograms getPTProgramsConfig(wxString bundledBinDir, wxConfigBase * config)
     }
 
     try {
+        progs.checkpto = getProgram(config,bindir, wxT("checkpto"), wxT("checkpto"));
+    } catch (wxString s) {
+        wxMessageBox(s, _("Warning"));
+    }
+
+    try {
         progs.exiftool = getProgram(config,bindir, wxT("exiftool"), wxT("Exiftool"));
     } catch (wxString s) {
         wxMessageBox(s, _("Warning"));
     }
     try {
-        progs.exiftool_opts = config->Read(wxT("/Exiftool/CopyArgs"), wxT(HUGIN_EXIFTOOL_COPY_ARGS)).mb_str(wxConvLocal);
+        progs.exiftool_argfile = config->Read(wxT("/output/CopyArgfile"), wxEmptyString).mb_str(wxConvLocal);
     } catch (wxString s) {
         wxMessageBox(s, _("Warning"));
     }
@@ -199,6 +205,7 @@ PTPrograms getPTProgramsConfig(wxString bundledBinDir, wxConfigBase * config)
         wxMessageBox(s, _("Warning"));
     }
 
+    CheckExifToolArgfile(progs);
     return progs;
 }
 

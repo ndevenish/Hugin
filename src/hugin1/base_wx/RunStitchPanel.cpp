@@ -240,7 +240,8 @@ bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname,
         std::string tmpPTOfnC = (const char *) m_currentPTOfn.mb_str(HUGIN_CONV_FILENAME);
         wxConfigBase* config=wxConfigBase::Get();
         std::string tmpDir((config->Read(wxT("tempDir"),wxT(""))).mb_str(HUGIN_CONV_FILENAME));
-        bool copyMetadata=config->Read(wxT("/output/useExiftool"),1l)==1l;
+        bool copyMetadata=config->Read(wxT("/output/useExiftool"), HUGIN_USE_EXIFTOOL)==1l;
+        bool generateGPanoTags=config->Read(wxT("/output/writeGPano"), HUGIN_EXIFTOOL_CREATE_GPANO)==1l;
         int nrThreads=config->Read(wxT("/output/NumberOfThreads"),0l);
 
         std::vector<std::string> outputFiles;
@@ -254,6 +255,7 @@ bool RunStitchPanel::StitchProject(wxString scriptFile, wxString outname,
                            makeFileStream,
                            tmpDir,
                            copyMetadata,
+                           generateGPanoTags,
                            nrThreads);
         makeFileStream.close();
 

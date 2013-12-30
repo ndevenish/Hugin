@@ -797,8 +797,10 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
             wxString resultFnwx = scriptName.GetFullPath();
             resultFn = resultFnwx.mb_str(HUGIN_CONV_FILENAME);
             resultFn = stripPath(stripExtension(resultFn));
-            std::string tmpDir((wxConfigBase::Get()->Read(wxT("tempDir"),wxT(""))).mb_str(HUGIN_CONV_FILENAME));
-
+            wxConfigBase* config=wxConfigBase::Get();
+            std::string tmpDir((config->Read(wxT("tempDir"),wxT(""))).mb_str(HUGIN_CONV_FILENAME));
+            bool copyMetadata=config->Read(wxT("/output/useExiftool"), HUGIN_USE_EXIFTOOL)==1l;
+            bool generateGPanoTags=config->Read(wxT("/output/writeGPano"), HUGIN_EXIFTOOL_CREATE_GPANO)==1l;
             std::vector<std::string> outputFiles;
             HuginBase::PanoramaMakefilelibExport::createMakefile(pano,
                                                               pano.getActiveImages(),
@@ -809,7 +811,8 @@ void MainFrame::OnSaveProject(wxCommandEvent & e)
                                                               outputFiles,
                                                               makefile,
                                                               tmpDir,
-                                                              true,
+                                                              copyMetadata,
+                                                              generateGPanoTags,
                                                               0);
         }
         SetStatusText(wxString::Format(_("saved project %s"), m_filename.c_str()),0);

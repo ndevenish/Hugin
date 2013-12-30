@@ -78,7 +78,8 @@
 #define HUGIN_SHOW_PROJECTION_HINTS           1l
 
 // Exiftool
-#define HUGIN_EXIFTOOL_COPY_ARGS                   "-ImageDescription -Make -Model -Artist -WhitePoint -Copyright -GPS:all -AllDates -UserComment -ColorSpace -OwnerName -SerialNumber"
+#define HUGIN_USE_EXIFTOOL                    1l
+#define HUGIN_EXIFTOOL_CREATE_GPANO           1l
 
 // Program defaults
 #if defined WIN32

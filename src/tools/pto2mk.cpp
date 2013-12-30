@@ -65,18 +65,20 @@ static void usage(const char * name)
             << "  Options: " << std::endl
             << "      -o file           output makefile" << std::endl
             << "      -p output_prefix  prefix of output panorama" << std::endl
+            << "      -a argfile        specifiy copy argfile for exiftool" << std::endl
             << std::endl;
 }
 
 int main(int argc, char *argv[])
 {
 
-    const char * optstring = "ho:p:";
+    const char * optstring = "ho:p:a:";
     int c;
 
     opterr = 0;
     std::string mkfile;
     std::string prefix;
+    std::string argfile;
     while ((c = getopt (argc, argv, optstring)) != -1)
     {
         switch (c) {
@@ -89,6 +91,9 @@ int main(int argc, char *argv[])
             case 'h':
                 usage(argv[0]);
                 return 0;
+            case 'a':
+                argfile = optarg;
+                break;
             default:
                 usage(argv[0]);
                 abort ();
@@ -125,8 +130,12 @@ int main(int argc, char *argv[])
 
     // todo: populate from user preferences?
     HuginBase::PanoramaMakefilelibExport::PTPrograms progs;
+    if(!argfile.empty())
+    {
+        progs.exiftool_argfile=hugin_utils::GetAbsoluteFilename(argfile);
+    };
+    CheckExifToolArgfile(progs);
 
-    progs.exiftool_opts = HUGIN_EXIFTOOL_COPY_ARGS;
     // stitch only active images
     UIntSet activeImgs = pano.getActiveImages();
 
@@ -148,6 +157,7 @@ int main(int argc, char *argv[])
             outputFiles,
             makeFileStream,
             "",
+            true,
             true,
             0);
 

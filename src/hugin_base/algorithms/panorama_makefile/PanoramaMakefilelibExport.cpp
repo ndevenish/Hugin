@@ -69,6 +69,7 @@ static const makefile::string hdrRemappedExt(".exr");
 static const makefile::string ldrRemappedExt(".tif");
 static const makefile::string ldrRemappedMode("TIFF_m");
 static const makefile::string hdrRemappedMode("EXR_m");
+static const makefile::string requiredExiftoolsTags(" -WhitePoint -ColorSpace");
 
 PanoramaMakefilelibExport::PanoramaMakefilelibExport(PanoramaData & pano_,
             const UIntSet & images_,
@@ -80,11 +81,13 @@ PanoramaMakefilelibExport::PanoramaMakefilelibExport(PanoramaData & pano_,
             std::ostream & makefile_,
             const std::string& tmpDir_,
             const bool copyMetadata_,
+            const bool generateGPanoTags_,
             const int nrThreads_)
     : PanoramaAlgorithm(pano),
       pano(pano_), ptofile(ptofile_), outputPrefix(outputPrefix_),
       progs(progs_), includePath(includePath_), outputFiles(outputFiles_),
-      makefile(makefile_), tmpDir(tmpDir_), copyMetadata(copyMetadata_), nrThreads(nrThreads_)
+      makefile(makefile_), tmpDir(tmpDir_), copyMetadata(copyMetadata_), 
+      generateGPanoTags(generateGPanoTags_), nrThreads(nrThreads_)
 {
     images=getImagesinROI(pano_,images_);
     valuestream.imbue(makefile::GetMakefileLocale());
@@ -140,9 +143,8 @@ bool PanoramaMakefilelibExport::createItems()
 #else
     newVarDef(vrm, "RM", "rm");
 #endif
-
-    mf::Variable* vexiftool = mgr.own(new mf::Variable("EXIFTOOL", progs.exiftool));
-    vexiftool->getDef().add();
+    newVarDef(vexiftool, "EXIFTOOL", progs.exiftool);
+    newVarDef(vcheckpto, "CHECKPTO", progs.checkpto);
 
     if(nrThreads>0)
     {
@@ -300,8 +302,15 @@ bool PanoramaMakefilelibExport::createItems()
             (opts.getHFOV() == 360.0 ? " -w" : ""), Makefile::NONE);
 
     //----------
-    newVarDef(vexiftoolcopyargs,
-            "EXIFTOOL_COPY_ARGS", progs.exiftool_opts, Makefile::NONE);
+    newVarDef(vexiftoolcopyargfile,
+        "EXIFTOOL_COPY_ARGFILE", progs.exiftool_argfile, Makefile::SHELL);
+    // we are creating the argfile in the current directory, beside the images, here we have write access,
+    // the project file could be in a read only directory
+    std::string exiftoolinfoargfile=hugin_utils::stripPath(ptofile) + "_" + hugin_utils::stripPath(outputPrefix) + ".arg";
+    newVarDef(vexiftoolinfoargfile,
+        "EXIFTOOL_INFO_ARGFILE", exiftoolinfoargfile, Makefile::MAKE);
+    newVarDef(vexiftoolinfoargfileshell,
+        "EXIFTOOL_INFO_ARGFILE_SHELL", exiftoolinfoargfile, Makefile::SHELL);
 
     pano_projection_features proj;
     bool readProjectionName=panoProjectionFeaturesQuery(opts.getProjection(), &proj)!=0;
@@ -310,23 +319,6 @@ bool PanoramaMakefilelibExport::createItems()
     infostream.imbue(makefile::GetMakefileLocale());
     infostream << fixed;
     infostream.str("");
-#ifdef _WIN32
-    std::string linebreak("&\\#xd;&\\#xa;");
-    std::string quotechar("\"");
-#else
-    std::string linebreak("&\\#xa;");
-    std::string quotechar("'");
-#endif
-    infostream << quotechar << "-Software=Hugin " << DISPLAY_VERSION << quotechar << " ";
-    infostream << quotechar << "-UserComment<$${UserComment}" << linebreak;
-    if(readProjectionName)
-    {
-        infostream << "Projection: " << proj.name << " (" << opts.getProjection() << ")" << linebreak;
-    };
-    infostream << "FOV: " << setprecision(0) << opts.getHFOV() << " x " << setprecision(0) << opts.getVFOV() << linebreak;
-    infostream << "Ev: " << setprecision(2) << opts.outputExposureValue << quotechar << " -f";
-    newVarDef(vexiftoolinfoargs, "EXIFTOOL_INFO_ARGS", infostream.str(), Makefile::NONE);
-
     //----------
     // Panorama output
     mgr.own_add(new Comment("the output panorama"));
@@ -446,6 +438,12 @@ bool PanoramaMakefilelibExport::createItems()
     // Collect prerequisites
 
     std::vector<mf::Variable*> allprereqs, cleanprereqs;
+
+    // info argfile
+    if(copyMetadata)
+    {
+        cleanprereqs.push_back(vexiftoolinfoargfileshell);
+    };
 
     if(opts.outputLDRBlended)
     {
@@ -836,7 +834,7 @@ bool PanoramaMakefilelibExport::createItems()
         if(copyMetadata)
         {
             ruleldr->addCommand("-" + vexiftool->getRef() + " -overwrite_original_in_place -TagsFromFile " +
-                    vinimage1shell->getRef() +" "+ vexiftoolcopyargs->getRef() +" "+ ldr_stacks_shell[i]->getRef());
+                    vinimage1shell->getRef() +requiredExiftoolsTags+" -@ "+ vexiftoolcopyargfile->getRef() +" "+ ldr_stacks_shell[i]->getRef());
         };
 
         Rule* rulehdr = mgr.own(new Rule()); rulehdr->add();
@@ -845,15 +843,33 @@ bool PanoramaMakefilelibExport::createItems()
         rulehdr->addCommand(vhdrmerge->getRef() +" "+ vhdrmergeopts->getRef() + " -o " +
                 hdr_stacks_shell[i]->getRef() +" -- "+ hdr_stacks_input_shell[i]->getRef());
     }
+    //-------------------- 
+    // info argfile
+    if(copyMetadata)
+    {
+        mgr.own(new Comment("Generate argfile for exiftool with all necessary information"));
+        Rule* ruleinfoargfile = mgr.own(new Rule()); 
+        ruleinfoargfile->add();
+        ruleinfoargfile->addTarget(vexiftoolinfoargfile);
+        ruleinfoargfile->addPrereq(vprojectfile);
+        std::string switches;
+        if(!generateGPanoTags)
+        {
+            switches = " --no-gpano";
+        };
+        switches += " --generate-argfile=";
+        ruleinfoargfile->addCommand(vcheckpto->getRef() + switches + vexiftoolinfoargfileshell->getRef() + " " + vprojectfileshell->getRef());
+    };
+
     //----------
     // Blend modes
     // these commands are often occuring
     const std::string enblendcmd = venblend->getRef() +" "+ venblendldrcomp->getRef() +" "+
             venblendopts->getRef() + " -o ";
     const std::string exifcmd = "-" + vexiftool->getRef() + " -overwrite_original_in_place -TagsFromFile " +
-            vinimage1shell->getRef() +" "+ vexiftoolcopyargs->getRef() +' ';
-    const std::string exifcmd2 = "-" + vexiftool->getRef() + " -E -overwrite_original_in_place -TagsFromFile " +
-            vinimage1shell->getRef() +" "+ vexiftoolcopyargs->getRef() + " " + vexiftoolinfoargs->getRef() + " ";
+            vinimage1shell->getRef() +requiredExiftoolsTags+" -@ "+ vexiftoolcopyargfile->getRef() +' ';
+    const std::string exifcmd2 = "-" + vexiftool->getRef() + " -overwrite_original_in_place -TagsFromFile " +
+            vinimage1shell->getRef() +requiredExiftoolsTags+" -@ "+ vexiftoolcopyargfile->getRef() + " -@ " + vexiftoolinfoargfileshell->getRef() + " ";
     const std::string ptrollercmd = vPTroller->getRef() + " -o ";
 
     if(opts.blendMode == PanoramaOptions::ENBLEND_BLEND)
@@ -866,6 +882,7 @@ bool PanoramaMakefilelibExport::createItems()
         rule->addCommand(enblendcmd + vldrblendedshell->getRef() +" -- "+ vldrlayersshell->getRef());
         if(copyMetadata)
         {
+            rule->addPrereq(vexiftoolinfoargfile);
             rule->addCommand(exifcmd2 + vldrblendedshell->getRef());
         };
 
@@ -891,6 +908,7 @@ bool PanoramaMakefilelibExport::createItems()
         rule->addCommand(enblendcmd + vldrstackedblendedshell->getRef() +" -- "+ vldrstacksshell->getRef());
         if(copyMetadata)
         {
+            rule->addPrereq(vexiftoolinfoargfile);
             rule->addCommand(exifcmd2 + vldrstackedblendedshell->getRef());
         };
 
@@ -902,6 +920,7 @@ bool PanoramaMakefilelibExport::createItems()
                 vldrexposurelayersfusedshell->getRef() +" -- "+ vldrexposurelayersshell->getRef());
         if(copyMetadata)
         {
+            rule->addPrereq(vexiftoolinfoargfile);
             rule->addCommand(exifcmd2 + vldrexposurelayersfusedshell->getRef());
         };
 
@@ -949,6 +968,7 @@ bool PanoramaMakefilelibExport::createItems()
         rule->addCommand(ptrollercmd + vldrblendedshell->getRef() +" "+ vldrlayersshell->getRef());
         if(copyMetadata)
         {
+            rule->addPrereq(vexiftoolinfoargfile);
             rule->addCommand(exifcmd2 + vldrblendedshell->getRef());
         };
 
@@ -973,6 +993,7 @@ bool PanoramaMakefilelibExport::createItems()
         rule->addCommand(ptrollercmd + vldrstackedblendedshell->getRef() +" "+ vldrstacksshell->getRef());
         if(copyMetadata)
         {
+            rule->addPrereq(vexiftoolinfoargfile);
             rule->addCommand(exifcmd2 + vldrstackedblendedshell->getRef());
         };
 
@@ -1290,6 +1311,29 @@ void PanoramaMakefilelibExport::printSystemInfo(Rule& inforule)
     inforule.addCommand("free -m", false, true);
 #endif
 #endif
+};
+
+/** returns the default argfile for exiftool */
+std::string GetDefaultArgfile()
+{
+    std::string default_argfile=hugin_utils::GetDataDir();
+    default_argfile.append("hugin_exiftool_copy.arg");
+    return default_argfile;
+};
+
+void CheckExifToolArgfile(HuginBase::PanoramaMakefilelibExport::PTPrograms& progs)
+{
+    if(!progs.exiftool_argfile.empty())
+    {
+        if(!FileExists(progs.exiftool_argfile))
+        {
+            progs.exiftool_argfile=GetDefaultArgfile();
+        };
+    }
+    else
+    {
+        progs.exiftool_argfile=GetDefaultArgfile();
+    };
 };
 
 void printstacks(const std::vector<UIntSet>& stackdata)

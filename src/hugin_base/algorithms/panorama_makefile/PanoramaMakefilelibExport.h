@@ -59,7 +59,8 @@ public:
         std::string smartblend;
         std::string smartblend_opts;
         std::string exiftool;
-        std::string exiftool_opts;
+        std::string exiftool_argfile;
+        std::string checkpto;
 
         PTPrograms() :
                 // default programs
@@ -73,7 +74,8 @@ public:
                 enfuse("enfuse"),
                 smartblend("smartblend.exe"),
                 hdrmerge("hugin_hdrmerge"),
-                exiftool("exiftool")
+                exiftool("exiftool"),
+                checkpto("checkpto")
         {};
     };
 private:
@@ -87,6 +89,7 @@ private:
 	std::ostream & makefile;
 	const std::string& tmpDir;
     const bool copyMetadata;
+    const bool generateGPanoTags;
     const int nrThreads;
 
 	makefile::Manager mgr;
@@ -137,6 +140,7 @@ public:
             std::ostream & makefile_,
             const std::string& tmpDir_,
             const bool copyMetadata_,
+            const bool generateGPanoTags_,
             const int nrThreads_);
 
 	static void createMakefile(PanoramaData & pano_,
@@ -149,11 +153,12 @@ public:
             std::ostream & makefile_,
             const std::string& tmpDir_,
             const bool copyMetadata_,
+            const bool generateGPanoTags_,
             const int nrThreads_)
 	{
 		PanoramaMakefilelibExport* instance = new PanoramaMakefilelibExport(
 				pano_, images_, ptofile_, outputPrefix_, progs_, includePath_,
-                outputFiles_, makefile_, tmpDir_, copyMetadata_, nrThreads_);
+                outputFiles_, makefile_, tmpDir_, copyMetadata_, generateGPanoTags_, nrThreads_);
 		instance->createItems();
 		instance->writeMakefile();
 		delete instance;
@@ -195,6 +200,10 @@ void append(std::vector<T>& vec, const T& element);
  */
 template<typename T>
 void append(std::vector<T>& dst, const std::vector<T>& src);
+
+/** check if the argfile exists, if not revert to default one */
+void IMPEX CheckExifToolArgfile(HuginBase::PanoramaMakefilelibExport::PTPrograms& progs);
+
 }
 
 #endif /* PANORAMAMAKEFILELIBEXPORT_H_ */

@@ -51,10 +51,12 @@ static void usage(const char * name)
          << name << " examines the connections between images in a project and" << endl
          << "reports back the number of parts or image groups in that project" << endl
          << endl
-         << "With  switch --print-output-info some infomation about the output" << endl
-         << "stacks and exposure layers are printed." << endl
+         << "Further switches:" << endl
+         << "  --print-output-info     Print more information about the output" << endl
+         << "  --generate-argfile=file Generate Exiftool argfile" << endl
+         << "  --no-gpano              Don't include GPano tags in argfile" << endl
          << endl
-         << name << " is used by the assistant makefile" << endl
+         << name << " is used by the assistant and by the stitching makefiles" << endl
          << endl;
 }
 
@@ -71,7 +73,7 @@ void printImageGroup(const std::vector<HuginBase::UIntSet> &imageGroup)
             {
                 std::cout << ", ";
             }
-            c++;
+            ++c;
         }
         std::cout << "]";
         if (i+1 != imageGroup.size())
@@ -81,20 +83,91 @@ void printImageGroup(const std::vector<HuginBase::UIntSet> &imageGroup)
     }
 };
 
+void GenerateArgfile(const std::string & filename, const Panorama &pano, bool noGPano)
+{
+    pano_projection_features proj;
+    PanoramaOptions opts=pano.getOptions();
+    bool readProjectionName=panoProjectionFeaturesQuery(opts.getProjection(), &proj)!=0;    
+    
+    std::ofstream infostream(filename.c_str(), std::ofstream::out);
+    infostream.imbue(std::locale("C"));
+    infostream << fixed;
+#ifdef _WIN32
+    std::string linebreak("&\\#xd;&\\#xa;");
+#else
+    std::string linebreak("&\\#xa;");
+#endif
+    infostream << "-Software=Hugin " << DISPLAY_VERSION << std::endl;
+    infostream << "-E" << std::endl;
+    infostream << "-UserComment<$${UserComment}" << linebreak;
+    if(readProjectionName)
+    {
+        infostream << "Projection: " << proj.name << " (" << opts.getProjection() << ")" << linebreak;
+    };
+    infostream << "FOV: " << setprecision(0) << opts.getHFOV() << " x " << setprecision(0) << opts.getVFOV() << linebreak;
+    infostream << "Ev: " << setprecision(2) << opts.outputExposureValue << std::endl;
+    infostream << "-f" << std::endl;
+    if(!noGPano)
+    {
+        //GPano tags are only indented for equirectangular images
+        if(opts.getProjection()==PanoramaOptions::EQUIRECTANGULAR)
+        {
+            vigra::Rect2D roi=opts.getROI();
+            int left=roi.left();
+            int top=roi.top();
+            int width=roi.width();
+            int height=roi.height();
+
+            int fullWidth=opts.getWidth();
+            if(opts.getHFOV()<360)
+            {
+                fullWidth=static_cast<int>(opts.getWidth() * 360.0 / opts.getHFOV());
+                left += (fullWidth - opts.getWidth())/2;
+            };
+            int fullHeight=opts.getHeight();
+            if(opts.getVFOV()<180)
+            {
+                fullHeight=static_cast<int>(opts.getHeight() * 180.0 / opts.getVFOV());
+                top += (fullHeight - opts.getHeight())/2;
+            };
+            infostream << "-UsePanoramaViewer=True" << std::endl;
+            infostream << "-StitchingSoftware=Hugin" << std::endl;
+            infostream << "-ProjectionType=equirectangular"  << std::endl;
+            infostream << "-CroppedAreaLeftPixels=" << left << std::endl;
+            infostream << "-CroppedAreaTopPixels=" << top  << std::endl;
+            infostream << "-CroppedAreaImageWidthPixels="  << std::endl;
+            infostream << "-CroppedAreaImageHeightPixels=" << height << std::endl;
+            infostream << "-FullPanoWidthPixels=" << fullWidth << std::endl;
+            infostream << "-FullPanoHeightPixels=" << fullHeight << std::endl;;
+            infostream << "-SourcePhotosCount=" << pano.getNrOfImages()  << std::endl;
+        };
+    };
+    infostream.close();
+};
+
 int main(int argc, char *argv[])
 {
     // parse arguments
     const char * optstring = "h";
-
+    enum
+    {
+        PRINT_OUTPUT_INFO=1000,
+        GENERATE_ARGFILE=1001,
+        GENERATE_ARGFILE_WITHOUT_GPANO=1002
+    };
     static struct option longOptions[] =
     {
-        {"print-output-info", no_argument, NULL, 1000 },
+        {"print-output-info", no_argument, NULL, PRINT_OUTPUT_INFO },
+        {"generate-argfile", required_argument, NULL, GENERATE_ARGFILE},
+        {"no-gpano", no_argument, NULL, GENERATE_ARGFILE_WITHOUT_GPANO},
         {"help", no_argument, NULL, 'h' },
         0
     };
 
     int c;
     bool printOutputInfo=false;
+    bool withoutGPano=false;
+    std::string argfile;
     int optionIndex = 0;
     while ((c = getopt_long (argc, argv, optstring, longOptions,&optionIndex)) != -1)
     {
@@ -102,8 +175,14 @@ int main(int argc, char *argv[])
         case 'h':
             usage(argv[0]);
             return 0;
-        case 1000:
+        case PRINT_OUTPUT_INFO:
             printOutputInfo=true;
+            break;
+        case GENERATE_ARGFILE:
+            argfile=optarg;
+            break;
+        case GENERATE_ARGFILE_WITHOUT_GPANO:
+            withoutGPano=true;
             break;
         case '?':
             break;
@@ -133,6 +212,12 @@ int main(int argc, char *argv[])
         cerr << "DocumentData::ReadWriteError code: " << err << endl;
         return -1;
     }
+
+    if(!argfile.empty())
+    {
+        GenerateArgfile(argfile, pano, withoutGPano);
+        return 0;
+    };
 
     std::cout << endl 
               << "Opened project " << input << endl << endl
