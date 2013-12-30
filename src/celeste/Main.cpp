@@ -27,19 +27,12 @@
 #include <hugin_version.h>
 #include <vigra_ext/impexalpha.hxx>
 #include <panodata/Panorama.h>
+#include <hugin_utils/utils.h>
 
 #ifdef _WINDOWS
-#include <windows.h>
 #include <getopt.h>
 #else
  #include <unistd.h>
-#endif
-
-#ifdef __APPLE__
-#include <hugin_config.h>
-#include <mach-o/dyld.h>	/* _NSGetExecutablePath */
-#include <limits.h>		/* PATH_MAX */
-#include <libgen.h>		/* dirname */
 #endif
 
 using namespace std;
@@ -273,40 +266,7 @@ int main(int argc, char* argv[])
 	// Check model file
     if (!hugin_utils::FileExists(model_file))
     {
-	
-#if _WINDOWS
-        char buffer[MAX_PATH];//always use MAX_PATH for filepaths
-        GetModuleFileName(NULL,buffer,sizeof(buffer));
-        string working_path=(buffer);
-        string install_path_model="";
-        //remove filename
-        std::string::size_type pos=working_path.rfind("\\");
-        if(pos!=std::string::npos)
-        {
-            working_path.erase(pos);
-            //remove last dir: should be bin
-            pos=working_path.rfind("\\");
-            if(pos!=std::string::npos)
-            {
-                working_path.erase(pos);
-                //append path delimiter and path
-                working_path.append("\\share\\hugin\\data\\");
-                install_path_model=working_path;
-            }
-        }
-#elif defined MAC_SELF_CONTAINED_BUNDLE
-		char path[PATH_MAX + 1];
-		uint32_t size = sizeof(path);
-		string install_path_model("");
-		if (_NSGetExecutablePath(path, &size) == 0)
-		{
-			install_path_model=dirname(path);
-			install_path_model.append("/../Resources/xrc/");
-		}
-#else
-        string install_path_model = (INSTALL_DATA_DIR);
-#endif
-
+        string install_path_model=hugin_utils::GetDataDir();
 		install_path_model.append(model_file);
 		
 		if (!hugin_utils::FileExists(install_path_model)){

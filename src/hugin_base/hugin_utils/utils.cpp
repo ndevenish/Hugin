@@ -33,7 +33,19 @@
 #include <fstream>
 #include <stdio.h>
 #include <cstdio>
+#ifdef _WINDOWS
+#define NOMINMAX
+#include <windows.h>
+#else
+#include <hugin_config.h>
+#endif
 #include <algorithm>
+
+#ifdef __APPLE__
+#include <mach-o/dyld.h>  /* _NSGetExecutablePath */
+#include <limits.h>       /* PATH_MAX */
+#include <libgen.h>       /* dirname */
+#endif
 
 namespace hugin_utils {
     
@@ -264,6 +276,43 @@ std::string GetAbsoluteFilename(const std::string& filename)
     };
     return absPath;
 #endif
+};
+
+std::string GetDataDir()
+{
+#if _WINDOWS
+    char buffer[MAX_PATH];//always use MAX_PATH for filepaths
+    GetModuleFileName(NULL,buffer,sizeof(buffer));
+    std::string working_path=(buffer);
+    std::string data_path="";
+    //remove filename
+    std::string::size_type pos=working_path.rfind("\\");
+    if(pos!=std::string::npos)
+    {
+        working_path.erase(pos);
+        //remove last dir: should be bin
+        pos=working_path.rfind("\\");
+        if(pos!=std::string::npos)
+        {
+            working_path.erase(pos);
+            //append path delimiter and path
+            working_path.append("\\share\\hugin\\data\\");
+            data_path=working_path;
+        }
+    }
+#elif defined MAC_SELF_CONTAINED_BUNDLE
+    char path[PATH_MAX + 1];
+    uint32_t size = sizeof(path);
+    std::string data_path("");
+    if (_NSGetExecutablePath(path, &size) == 0)
+    {
+        data_path=dirname(path);
+        data_path.append("/../Resources/xrc/");
+    }
+#else
+    std::string data_path = (INSTALL_DATA_DIR);
+#endif
+    return data_path;
 };
 
 } //namespace

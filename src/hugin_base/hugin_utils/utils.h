@@ -272,6 +272,9 @@ namespace hugin_utils
 
     /** returns the full absolute filename */
     IMPEX std::string GetAbsoluteFilename(const std::string& filename);
+
+    /** returns the full path to the data directory */
+    IMPEX std::string GetDataDir();
 } // namespace
 
 
