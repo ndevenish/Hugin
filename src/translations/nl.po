@@ -9,16 +9,14 @@ msgstr ""
 "Project-Id-Version: nl\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
 "POT-Creation-Date: 2013-12-31 10:09+0100\n"
-"PO-Revision-Date: 2013-02-03 14:44+0100\n"
+"PO-Revision-Date: 2013-12-31 20:04+0100\n"
 "Last-Translator: Harry van der Wolf <hvdwolf@gmail.com>\n"
 "Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
-"Language: \n"
+"Language: nl_NL\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Language: Dutch\n"
-"X-Poedit-Country: NETHERLANDS\n"
-"X-Generator: Lokalize 0.3\n"
+"X-Generator: Poedit 1.5.4\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: hugin1/base_wx/LensTools.cpp:37 hugin1/hugin/ImagesTree.cpp:369
@@ -1207,6 +1205,10 @@ msgid ""
 "But your project has non-zero Tpy and Tpp parameters.\n"
 "Should the Tpy and Tpp parameters reset to zero?"
 msgstr ""
+"De mozaiek vlak modus  werkt alleen correct bij een positionerings vlak met "
+"yaw=0 en pitch=0.\n"
+"Maar je project heeft Tpy en Tpp parameters groter dan nul.\n"
+"De Tpy en Tpp parameters opnieuw instellen op nul?"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:2498 hugin1/hugin/PreviewFrame.cpp:235
 msgid "difference"
@@ -1728,27 +1730,23 @@ msgstr "Camera translatie Z"
 
 #: hugin1/hugin/ImagesTree.cpp:164
 msgid "Plane yaw"
-msgstr ""
+msgstr "Vlak yaw"
 
 #: hugin1/hugin/ImagesTree.cpp:164
-#, fuzzy
 msgid "Translation remap plane yaw"
-msgstr "Translatie parameter"
+msgstr "Translatie positioneer vlak parameter"
 
 #: hugin1/hugin/ImagesTree.cpp:165
-#, fuzzy
 msgid "Plane pitch"
-msgstr "Pitch"
+msgstr "Vlak Pitch"
 
 #: hugin1/hugin/ImagesTree.cpp:165
-#, fuzzy
 msgid "Translation remap plane pitch"
-msgstr "Translatie parameter"
+msgstr "Translatie positioneer vlak pitch"
 
 #: hugin1/hugin/ImagesTree.cpp:166
-#, fuzzy
 msgid "Camera translation"
-msgstr "Camera translatie X"
+msgstr "Camera translatie"
 
 #: hugin1/hugin/ImagesTree.cpp:168
 msgid "Lens type (f)"
@@ -1843,31 +1841,31 @@ msgstr "Lineair"
 
 #: hugin1/hugin/ImagesTree.cpp:537 hugin1/hugin/ImagesTree.cpp:712
 msgid "not active"
-msgstr ""
+msgstr "inactief"
 
 #: hugin1/hugin/ImagesTree.cpp:540 hugin1/hugin/ImagesTree.cpp:715
 msgid "active"
-msgstr ""
+msgstr "actief"
 
 #: hugin1/hugin/ImagesTree.cpp:682
-#, fuzzy, c-format
+#, c-format
 msgid "Lens %ld"
-msgstr "Lens %d"
+msgstr "Lens %ld"
 
 #: hugin1/hugin/ImagesTree.cpp:685
-#, fuzzy, c-format
+#, c-format
 msgid "Stack %ld"
-msgstr "Set %d"
+msgstr "Set %ld"
 
 #: hugin1/hugin/ImagesTree.cpp:688
-#, fuzzy, c-format
+#, c-format
 msgid "Output stack %ld"
-msgstr "Uitvoer set %d"
+msgstr "Uitvoer set %ld"
 
 #: hugin1/hugin/ImagesTree.cpp:691
-#, fuzzy, c-format
+#, c-format
 msgid "Output exposure layer %ld"
-msgstr "Uitvoer belichtings laag %d"
+msgstr "Uitvoer belichtings laag %ld"
 
 #: hugin1/hugin/ImagesTree.cpp:1145 hugin1/hugin/ImagesTree.cpp:1160
 msgid "Link"
@@ -2660,9 +2658,8 @@ msgid "Reset positions"
 msgstr "Reset posities"
 
 #: hugin1/hugin/PanoOperation.cpp:827
-#, fuzzy
 msgid "Reset translation parameters"
-msgstr "Translatie parameter"
+msgstr "Reset Translatie parameters"
 
 #: hugin1/hugin/PanoOperation.cpp:830
 msgid "Reset lens parameters"
@@ -2779,9 +2776,8 @@ msgid "Thoby Projection"
 msgstr "Thoby Projectie"
 
 #: hugin1/hugin/PanoPanel.cpp:160
-#, fuzzy
 msgid "Hammer-Aitoff Equal Area"
-msgstr "Lambert Equal Area Azimuthal"
+msgstr "Hammer-Aitoff Equal Area"
 
 #: hugin1/hugin/PanoPanel.cpp:698
 msgid "width needs to be an integer bigger than 0"
@@ -2869,6 +2865,9 @@ msgid ""
 "Please check your settings, so that at least one images is in the output "
 "region."
 msgstr ""
+"Er zijn geen actieve afbeeldingen in het uitvoer bereik.\n"
+"Controleer svp uw instellingen zodat in ieder geval één afbeelding in het "
+"uitvoer bereik staat."
 
 #: hugin1/hugin/PluginItems.cpp:71
 msgid "Miscellaneous"
@@ -2969,13 +2968,12 @@ msgstr "Selecteer Enfuse"
 
 #: hugin1/hugin/PreferencesDialog.cpp:333
 msgid "Select Exiftool argfile"
-msgstr ""
+msgstr "Selecteer het ExifTool arg bestand"
 
 #: hugin1/hugin/PreferencesDialog.cpp:335
 #: hugin1/hugin/PreferencesDialog.cpp:383
-#, fuzzy
 msgid "Exiftool Argfiles (*.arg)|*.arg|All Files(*)|*"
-msgstr "Log bestanden (*.log)|*.log|Alle bestanden (*)|*"
+msgstr "ExifTool arg bestanden (*.arg)|*.arg|Alle bestanden (*)|*"
 
 #: hugin1/hugin/PreferencesDialog.cpp:366
 #, c-format
@@ -2983,27 +2981,30 @@ msgid ""
 "File %s does not exists.\n"
 "Should the argfile created with default tags?"
 msgstr ""
+"Bestand %s bestaat niet.\n"
+"Moet het arg bestand met standaard tags gemaakt worden?"
 
 #: hugin1/hugin/PreferencesDialog.cpp:367
 #: hugin1/hugin/PreferencesDialog.cpp:377
 msgid "Exiftool argfile"
-msgstr ""
+msgstr "ExifTool arg bestand"
 
 #: hugin1/hugin/PreferencesDialog.cpp:376
 msgid ""
 "No file selected.\n"
 "Should an argfile created with default tags?"
 msgstr ""
+"Geen bestand geselecteerd.\n"
+"Moet een arg bestand met standaard tags gemaakt worden?"
 
 #: hugin1/hugin/PreferencesDialog.cpp:381
-#, fuzzy
 msgid "Select new Exiftool argfile"
-msgstr "Selecteer punt in linker afbeelding"
+msgstr "Selecteer nieuw ExifTool arg bestand"
 
 #: hugin1/hugin/PreferencesDialog.cpp:401
-#, fuzzy, c-format
+#, c-format
 msgid "Could not save file \"%s\"."
-msgstr "Kan projectbestand %s niet openen:"
+msgstr "Kan bestand \"%s\" niet opslaan:"
 
 #: hugin1/hugin/PreferencesDialog.cpp:680
 msgid "Really reset displayed preferences to default values?"
@@ -3137,15 +3138,13 @@ msgid "Error during Stitching"
 msgstr "Fout tijdens samenvoegen"
 
 #: hugin1/hugin/huginApp.cpp:205
-#, fuzzy, c-format
+#, c-format
 msgid "Directory '%s' does not exists"
-msgstr ""
-"Folder %s bestaat niet.\n"
-"Geef aub een bestaande folder op."
+msgstr "Folder '%s' bestaat niet."
 
 #: hugin1/hugin/huginApp.cpp:209
 msgid "Could not set environment variable PYTHONHOME"
-msgstr ""
+msgstr "Kan omgevings variabele PYTHONHOME niet instellen"
 
 #: hugin1/hugin/wxPanoCommand.cpp:241 hugin1/hugin/wxPanoCommand.cpp:255
 #, c-format
@@ -4522,9 +4521,8 @@ msgid "Parameters for Control Point Detectors"
 msgstr "Parameters voor ijkpunt detectoren"
 
 #: hugin1/hugin/xrc/dlg_warning.xrc:35
-#, fuzzy
 msgid "Invalid filenames"
-msgstr "Standaard bestandsnaam"
+msgstr "incorrecte bestandsnamen"
 
 #: hugin1/hugin/xrc/edit_script_dialog.xrc:4
 msgid "Edit Panorama Tools Script"
@@ -4591,11 +4589,11 @@ msgstr "Z:"
 
 #: hugin1/hugin/xrc/image_variable_dlg.xrc:108
 msgid "Tpy:"
-msgstr ""
+msgstr "Tpy:"
 
 #: hugin1/hugin/xrc/image_variable_dlg.xrc:121
 msgid "Tpp:"
-msgstr ""
+msgstr "Tpp:"
 
 #: hugin1/hugin/xrc/image_variable_dlg.xrc:142
 #: hugin1/hugin/xrc/images_panel.xrc:92
@@ -6076,19 +6074,20 @@ msgid "Copy log messages to clipboard."
 msgstr "Kopieer log meldingen naar het plakbord."
 
 #: hugin1/hugin/xrc/pref_dialog.xrc:146
-#, fuzzy
 msgid "Project save:"
-msgstr "Project Naam:"
+msgstr "Project opslaan:"
 
 #: hugin1/hugin/xrc/pref_dialog.xrc:153
 msgid "Create makefile automatically during project save"
-msgstr ""
+msgstr "Maak het make bestand automatische tijdens opslaan van project"
 
 #: hugin1/hugin/xrc/pref_dialog.xrc:154
 msgid ""
 "Saves a makefile (.mk) beside the project file (.pto) for command line "
 "stitching"
 msgstr ""
+"Bewaart een make bestand (.mk) met het project bestand (.pto) voor commando "
+"regel stitching"
 
 #: hugin1/hugin/xrc/pref_dialog.xrc:169
 msgid "Show hints about projections"
@@ -6432,29 +6431,28 @@ msgstr "Kopieer metadata in uiteindelijke afbeelding m.b.v. ExifTool"
 
 #: hugin1/hugin/xrc/pref_dialog.xrc:932
 msgid "Exiftool argfile:"
-msgstr ""
+msgstr "ExifTool arg bestand:"
 
 #: hugin1/hugin/xrc/pref_dialog.xrc:938
-#, fuzzy
 msgid "Leave empty for default"
-msgstr "Laat leeg om standaardwaarde besturingssysteem te gebruiken"
+msgstr "Laat leeg om standaardwaarde te gebruiken"
 
 #: hugin1/hugin/xrc/pref_dialog.xrc:947
 msgid "Select exiftool argfile"
-msgstr ""
+msgstr "Selecteer ExifTool arg bestand"
 
 #: hugin1/hugin/xrc/pref_dialog.xrc:963
-#, fuzzy
 msgid "Exiftool options"
-msgstr "Enfuse parameters"
+msgstr "ExifTool opties"
 
 #: hugin1/hugin/xrc/pref_dialog.xrc:973
 msgid "Create Photo Sphere XMP data"
-msgstr ""
+msgstr "Maak Photo Sphere XMP data"
 
 #: hugin1/hugin/xrc/pref_dialog.xrc:974
 msgid "This will only be done for equirectangular output images."
 msgstr ""
+"Dit zal alleen gedaan worden voor equirectangulaire uitvoer afbeeldingen."
 
 #: hugin1/hugin/xrc/pref_dialog.xrc:991
 msgid "Number of threads:"
@@ -6604,7 +6602,7 @@ msgstr "Instellingen - Hugin"
 
 #: hugin1/hugin/xrc/pref_dialog.xrc:1433
 msgid "Edit Exiftool argfile"
-msgstr ""
+msgstr "Bewerk ExifTool arg bestand"
 
 #: hugin1/hugin/xrc/preview_frame.xrc:7 hugin1/hugin/xrc/preview_frame.xrc:591
 #: hugin1/hugin/xrc/preview_frame.xrc:1412
@@ -6943,9 +6941,8 @@ msgid "Shows a grid."
 msgstr "Toont een raster"
 
 #: hugin1/hugin/xrc/reset_dialog.xrc:20
-#, fuzzy
 msgid "Translation parameters"
-msgstr "Translatie parameter"
+msgstr "Translatie parameters"
 
 #: hugin1/hugin/xrc/reset_dialog.xrc:55 hugin1/hugin/xrc/reset_dialog.xrc:76
 msgid "to EXIF values"
@@ -6960,9 +6957,8 @@ msgid "Color"
 msgstr "Kleur"
 
 #: hugin1/hugin/xrc/reset_dialog.xrc:77
-#, fuzzy
 msgid "to one (no color correction)"
-msgstr "naar nul (geen belichtingscorrectie)"
+msgstr "naar één (geen kleurcorrectie)"
 
 #: hugin1/hugin/xrc/reset_dialog.xrc:131
 msgid "Reset values"
