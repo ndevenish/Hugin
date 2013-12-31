@@ -1,4 +1,24 @@
-2013-12-31 10:12 +0100  harryvanderwolf <hvdwolf@gmail.com>  (599617fd237d)  tip
+2013-12-31 16:48 +0100  harryvanderwolf <hvdwolf@gmail.com>  (85d3b7b01fa0)  tip
+
+	raise version number in 2014.0 branch
+
+	> CMakeLists.txt
+	> mac/Version.xcconfig
+
+2013-12-31 16:44 +0100  harryvanderwolf <hvdwolf@gmail.com>  (6210b26042fa)  
+
+	Raise version number in branch and default
+
+	> CMakeLists.txt
+	> mac/Version.xcconfig
+
+2013-12-31 10:15 +0100  harryvanderwolf <hvdwolf@gmail.com>  (767396e984e2)  
+
+	Updated Changelog for 2014.0 branch/release
+
+	> ChangeLog
+
+2013-12-31 10:12 +0100  harryvanderwolf <hvdwolf@gmail.com>  (599617fd237d)  
 
 	Add new and update existing strings for translation
 
