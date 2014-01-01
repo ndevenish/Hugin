@@ -391,6 +391,19 @@ ENDIF(ENABLE_LAPACK)
 #INCLUDE_DIRECTORIES( ${VIPSCC_INCLUDE_DIRS} )
 #LINK_DIRECTORIES( ${VIPSCC_LIBRARY_DIRS} )
 
+#Check exiftool version
+IF(NOT WIN32)
+  EXECUTE_PROCESS(COMMAND exiftool -ver RESULT_VARIABLE _exiftool_result OUTPUT_VARIABLE _exiftool_version OUTPUT_STRIP_TRAILING_WHITESPACE)
+  IF(_exiftool_result EQUAL 0) 
+    MESSAGE(STATUS "Found Exiftool version ${_exiftool_version}")
+    IF(${_exiftool_version} VERSION_LESS 9.09)
+      MESSAGE(FATAL_ERROR "At least Exiftool version 9.09 is required")
+    ENDIF()
+  ELSE()
+    MESSAGE(WARNING "Could not execute exiftool. Check is exiftool is installed correctly.")
+  ENDIF()
+ENDIF()
+
 #
 # Check build type and set options accordingly
 # 

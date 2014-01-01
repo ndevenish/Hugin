@@ -86,6 +86,11 @@ IF(WIN32)
 	    ${SOURCE_BASE_DIR}/exiftool
 	    DOC "Location of exiftool.exe"
 	    NO_DEFAULT_PATH)
+  EXECUTE_PROCESS(COMMAND ${EXIFTOOL_EXE_DIR}/exiftool.exe -ver OUTPUT_VARIABLE _exiftool_version OUTPUT_STRIP_TRAILING_WHITESPACE)
+  MESSAGE(STATUS "Found Exiftool version ${_exiftool_version}")
+  IF(${_exiftool_version} VERSION_LESS 9.09)
+    MESSAGE(FATAL_ERROR "At least Exiftool version 9.09 is required")
+  ENDIF()
   INSTALL(FILES ${EXIFTOOL_EXE_DIR}/exiftool.exe DESTINATION ${BINDIR})
 
   # install lensfun db
