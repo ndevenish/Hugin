@@ -944,7 +944,7 @@ per overlap</label>
                             <object class="sizeritem">
                               <object class="wxButton" name="pref_exiftool_argfile_choose">
                                 <label>Choose...</label>
-                                <tooltip>Select exiftool argfile</tooltip>
+                                <tooltip>Select Exiftool argfile</tooltip>
                               </object>
                               <flag>wxALIGN_CENTRE_VERTICAL</flag>
                             </object>
