@@ -2,7 +2,7 @@
 
 =head1 NAME
 
-pto_mask Apply a mask
+pto_mask - Apply a mask
 
 =head1 SYNOPSIS
 

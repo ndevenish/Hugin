@@ -2,7 +2,7 @@
 
 =head1 NAME
 
-pto_template Apply a template file
+pto_template - Apply a template file
 
 =head1 SYNOPSIS
 

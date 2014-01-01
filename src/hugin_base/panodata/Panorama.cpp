@@ -2218,7 +2218,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
     // vector with the different information lines about images
     vector<ImgInfo> oImgInfo;
     vector<ImgInfo> iImgInfo;
-    // strange comment informations.
+    // strange comment information.
     vector<ImgInfo> cImgInfo;
     // hugin additional information
     vector<ImgInfo> huginImgInfo;
