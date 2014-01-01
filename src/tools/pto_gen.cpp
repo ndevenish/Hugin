@@ -323,7 +323,7 @@ int main(int argc, char* argv[])
         catch(std::exception & e)
         {
             cerr << "ERROR: caught exception: " << e.what() << endl;
-            cerr << "Could not read image informations for file " << filelist[i] << endl;
+            cerr << "Could not read image information for file " << filelist[i] << endl;
             cerr << "Skipping this image." << endl << endl;
             continue;
         };

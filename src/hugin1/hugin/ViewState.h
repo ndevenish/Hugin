@@ -46,7 +46,7 @@
  * we want to initiate an update the preview ourself, so all the main GUI
  * interactions work.
  *
- * The informations are divided into two classes:
+ * The information is divided into two classes:
  *      -   The first class is the ViewState class which holds information that is 
  *          relevant for all Visualizations like the preview, panosphere or plane.
  *          This is mainly dominated by the manipulation of the Textures related stuff

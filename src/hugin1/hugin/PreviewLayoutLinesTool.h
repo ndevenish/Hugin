@@ -39,7 +39,7 @@ class GLPreviewFrame;
  *    point tab.
  * .
  * 
- * @todo Update line information when control point informations changes, and
+ * @todo Update line information when control point information changes, and
  * only when it changes. The main preview system doesn't redraw when control
  * points change. This should save on the draw time, since we don't always
  * need to examine the control points to draw the preview.

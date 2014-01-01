@@ -39,7 +39,7 @@ namespace celeste
 {
 
 /** loads the SVM model from file
- *  @param model struct, which stores the SVM informations, if you don't need it, call destroySVMmodel
+ *  @param model struct, which stores the SVM information, if you don't need it, call destroySVMmodel
  *  @param model_file filename of model file to load
  *  @return true, if loading of SVM file was sucessfull
  */

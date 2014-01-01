@@ -32,7 +32,7 @@
 #include "panoinc.h"
 
 /** @brief loads the lens parameters from lensfun database and create approbiate PT::PanoCommand to apply this parameter.
-    it shows a dialog to select which informations should be loaded
+    it shows a dialog to select which information should be loaded
     @param parent parent window for display window
     @param pano panorama object from which information should be inside lensfun database
     @param images images into which parameters should be loaded from database

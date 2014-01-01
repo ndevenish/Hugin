@@ -53,7 +53,7 @@ private:
 
     DECLARE_EVENT_TABLE()
 
-    /** retrieves the system informations */
+    /** retrieves the system information */
     void GetSystemInformation(wxFont *font);
     /** event handler for changing tab */
     void OnChangedTab(wxNotebookEvent &e);
