@@ -330,9 +330,9 @@ void PreferencesDialog::OnCustomEnfuse(wxCommandEvent& e)
 
 void PreferencesDialog::OnExifArgfile(wxCommandEvent & e)
 {
-    wxFileDialog dlg(this,_("Select Exiftool argfile"),
+    wxFileDialog dlg(this,_("Select ExifTool argfile"),
                      wxT(""), XRCCTRL(*this, "pref_exiftool_argfile", wxTextCtrl)->GetValue(), 
-                     _("Exiftool Argfiles (*.arg)|*.arg|All Files(*)|*"),
+                     _("ExifTool Argfiles (*.arg)|*.arg|All Files(*)|*"),
                      wxFD_OPEN, wxDefaultPosition);
     if (dlg.ShowModal() == wxID_OK)
     {
@@ -363,7 +363,7 @@ void PreferencesDialog::OnExifArgfileEdit(wxCommandEvent & e)
     {
         if(!wxFileName::FileExists(filename))
         {
-            if( wxMessageBox(wxString::Format(_("File %s does not exists.\nShould the argfile created with default tags?"),filename.c_str()),
+            if( wxMessageBox(wxString::Format(_("File %s does not exist.\nShould the argfile be created with default tags?"),filename.c_str()),
                   _("Exiftool argfile"), wxYES_NO  | wxICON_EXCLAMATION,this)!=wxYES)
             {
                 return;
@@ -373,14 +373,14 @@ void PreferencesDialog::OnExifArgfileEdit(wxCommandEvent & e)
     }
     else
     {
-        if( wxMessageBox(_("No file selected.\nShould an argfile created with default tags?"),
+        if( wxMessageBox(_("No file selected.\nShould an argfile be created with default tags?"),
                 _("Exiftool argfile"), wxYES_NO  | wxICON_EXCLAMATION,this)!=wxYES)
         {
             return;
         };
-        wxFileDialog dlg(this,_("Select new Exiftool argfile"),
+        wxFileDialog dlg(this,_("Select new ExifTool argfile"),
             wxStandardPaths::Get().GetUserConfigDir(), wxT(""),
-                         _("Exiftool Argfiles (*.arg)|*.arg|All Files(*)|*"),
+                         _("ExifTool Argfiles (*.arg)|*.arg|All Files(*)|*"),
                          wxFD_SAVE, wxDefaultPosition);
         if (dlg.ShowModal() != wxID_OK)
         {
