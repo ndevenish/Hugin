@@ -1458,7 +1458,7 @@ bool PanoPanel::CheckHasImages()
     UIntSet images=getImagesinROI(*pano, pano->getActiveImages());
     if(images.size()==0)
     {
-        wxMessageBox(_("There are no active images in the output region.\nPlease check your settings, so that at least one images is in the output region."),
+        wxMessageBox(_("There are no active images in the output region.\nPlease check your settings, so that at least one image is in the output region."),
 #ifdef _WINDOWS
             _("Hugin"),
 #else
