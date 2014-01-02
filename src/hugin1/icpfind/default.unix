@@ -28,7 +28,7 @@ Option=1
 [AutoPano/AutoPano_3]
 Type=1
 Description=Autopano-SIFT-C
-Program=autopano-noop.sh
+Program=autopano-sift-c
 Arguments=--maxmatches %p --projection %f,%v %o %i
 
 [AutoPano/AutoPano_4]
