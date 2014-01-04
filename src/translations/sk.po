@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hugin\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
-"POT-Creation-Date: 2014-01-01 20:43+0100\n"
+"POT-Creation-Date: 2014-01-04 16:54+0100\n"
 "PO-Revision-Date: 2013-03-24 18:40+0100\n"
 "Last-Translator: Kornel Benko <kornel@lyx.org>\n"
 "Language-Team: Slovak <sk@li.org>\n"
@@ -1839,25 +1839,25 @@ msgstr "neaktívne"
 msgid "active"
 msgstr "aktívne"
 
-#: hugin1/hugin/ImagesTree.cpp:678
+#: hugin1/hugin/ImagesTree.cpp:682
 #, c-format
-msgid "Lens %d"
-msgstr "Šošovka %d"
+msgid "Lens %ld"
+msgstr "Šošovka %ld"
 
-#: hugin1/hugin/ImagesTree.cpp:681
+#: hugin1/hugin/ImagesTree.cpp:685
 #, c-format
-msgid "Stack %d"
-msgstr "Štós %d"
+msgid "Stack %ld"
+msgstr "Štós %ld"
 
-#: hugin1/hugin/ImagesTree.cpp:684
+#: hugin1/hugin/ImagesTree.cpp:688
 #, c-format
-msgid "Output stack %d"
-msgstr "Výstupný štós %d"
+msgid "Output stack %ld"
+msgstr "Výstupný štós %ld"
 
-#: hugin1/hugin/ImagesTree.cpp:687
+#: hugin1/hugin/ImagesTree.cpp:691
 #, c-format
-msgid "Output exposure layer %d"
-msgstr "Výstupná vrstva expozície %d"
+msgid "Output exposure layer %ld"
+msgstr "Výstupná vrstva expozície %ld"
 
 #: hugin1/hugin/ImagesTree.cpp:1145 hugin1/hugin/ImagesTree.cpp:1160
 msgid "Link"
@@ -2844,6 +2844,16 @@ msgstr ""
 "orezania a lepte panorámu v paneli Lepiča. Lepenie panorámy takejto veľkosti "
 "by mohlo zabrať dlhý čas a veľké množstvo pamäte."
 
+#: hugin1/hugin/PanoPanel.cpp:1461
+msgid ""
+"There are no active images in the output region.\n"
+"Please check your settings, so that at least one image is in the output "
+"region."
+msgstr ""
+"Vo výstupnej oblasti nie sú žiadne aktívne obrázky.\n"
+"Skontrolujte vaše nastavenia, tak aby aspoň jeden obrázok bol vo výstupnej "
+"oblasti."
+
 #: hugin1/hugin/PluginItems.cpp:71
 msgid "Miscellaneous"
 msgstr "Rôzne"
@@ -2940,6 +2950,46 @@ msgstr "Spustiteľné (*.exe)|*.exe"
 #: hugin1/hugin/PreferencesDialog.cpp:304
 msgid "Select Enfuse"
 msgstr "Vyberte Enfuse"
+
+#: hugin1/hugin/PreferencesDialog.cpp:338 hugin1/hugin/xrc/pref_dialog.xrc:949
+msgid "Select ExifTool argfile"
+msgstr "Vybrať Exiftool súbor argumentov"
+
+#: hugin1/hugin/PreferencesDialog.cpp:340
+#: hugin1/hugin/PreferencesDialog.cpp:388
+msgid "ExifTool Argfiles (*.arg)|*.arg|All Files(*)|*"
+msgstr "Exiftool súbory argumentov (*.arg)|Všetky súbory (*)|*"
+
+#: hugin1/hugin/PreferencesDialog.cpp:371
+#, c-format
+msgid ""
+"File %s does not exist.\n"
+"Should the argfile be created with default tags?"
+msgstr ""
+"Súbor %s neexistuje.\n"
+"Vytvoriť súbor argumentov so štandardnými značkami?"
+
+#: hugin1/hugin/PreferencesDialog.cpp:372
+#: hugin1/hugin/PreferencesDialog.cpp:382
+msgid "Exiftool argfile"
+msgstr "Exiftool súbor argumentov"
+
+#: hugin1/hugin/PreferencesDialog.cpp:381
+msgid ""
+"No file selected.\n"
+"Should an argfile be created with default tags?"
+msgstr ""
+"Žiadny súbor nie je vybraný.\n"
+"Vytvoriť súbor argumentov so štandardnými značkami?"
+
+#: hugin1/hugin/PreferencesDialog.cpp:386
+msgid "Select new ExifTool argfile"
+msgstr "Vybrať nový Exiftool súbor argumentov"
+
+#: hugin1/hugin/PreferencesDialog.cpp:406
+#, c-format
+msgid "Could not save file \"%s\"."
+msgstr "Súbor \"%s\" sa nedal uložiť."
 
 #: hugin1/hugin/PreferencesDialog.cpp:680
 msgid "Really reset displayed preferences to default values?"
@@ -6341,9 +6391,33 @@ msgstr ""
 msgid "Advanced options"
 msgstr "Pokročilé voľby"
 
+#: hugin1/hugin/xrc/pref_dialog.xrc:918
+msgid "ExifTool options"
+msgstr "Voľby Exiftool"
+
 #: hugin1/hugin/xrc/pref_dialog.xrc:920
 msgid "Copy metadata into final files using ExifTool"
 msgstr "Kopírovať metadata do výsledných súborov nástrojom ExifTool"
+
+#: hugin1/hugin/xrc/pref_dialog.xrc:934
+msgid "ExifTool argfile:"
+msgstr "Exiftool súbor argumentov:"
+
+#: hugin1/hugin/xrc/pref_dialog.xrc:940
+msgid "Leave empty for default"
+msgstr "Nechajte prázdne pre štandard"
+
+#: hugin1/hugin/xrc/pref_dialog.xrc:957
+msgid "Edit selected ExifTool argfile"
+msgstr "Vybrať Exiftool súbor argumentov"
+
+#: hugin1/hugin/xrc/pref_dialog.xrc:974
+msgid "Create Photo Sphere XMP data"
+msgstr "Vytvoriť Photo Sphere XMP dáty"
+
+#: hugin1/hugin/xrc/pref_dialog.xrc:975
+msgid "This will only be done for equirectangular output images."
+msgstr "Toto sa bude robiť len pre skoroobdĺžnokové východzie obrázky."
 
 #: hugin1/hugin/xrc/pref_dialog.xrc:991
 msgid "Number of threads:"
@@ -6488,6 +6562,10 @@ msgstr "Ostatné"
 #: hugin1/hugin/xrc/pref_dialog.xrc:1401
 msgid "Preferences - hugin"
 msgstr "Nastavenia - hugin"
+
+#: hugin1/hugin/xrc/pref_dialog.xrc:1434
+msgid "Edit Exiftool argfile"
+msgstr "Upraviť Exiftool súbor argumentov"
 
 #: hugin1/hugin/xrc/preview_frame.xrc:7 hugin1/hugin/xrc/preview_frame.xrc:591
 #: hugin1/hugin/xrc/preview_frame.xrc:1412
@@ -6835,6 +6913,10 @@ msgstr "na nulu (bez korekcie expozície)"
 msgid "Color"
 msgstr "Farba"
 
+#: hugin1/hugin/xrc/reset_dialog.xrc:77
+msgid "to one (no color correction)"
+msgstr "na jednotku (bez korekcie expozície)"
+
 #: hugin1/hugin/xrc/reset_dialog.xrc:131
 msgid "Reset values"
 msgstr "Resetovať hodnoty"
@@ -7114,17 +7196,17 @@ msgstr ""
 "ak sa obrázky veľmi prekrývajú a použili ste tiež mnoho dobre rozprestrených "
 "kontrolných bodov."
 
-#~ msgid "Lens %ld"
-#~ msgstr "Šošovka %ld"
+#~ msgid "Lens %d"
+#~ msgstr "Šošovka %d"
 
-#~ msgid "Stack %ld"
-#~ msgstr "Štós %ld"
+#~ msgid "Stack %d"
+#~ msgstr "Štós %d"
 
-#~ msgid "Output stack %ld"
-#~ msgstr "Výstupný štós %ld"
+#~ msgid "Output stack %d"
+#~ msgstr "Výstupný štós %d"
 
-#~ msgid "Output exposure layer %ld"
-#~ msgstr "Výstupná vrstva expozície %ld"
+#~ msgid "Output exposure layer %d"
+#~ msgstr "Výstupná vrstva expozície %d"
 
 #~ msgid ""
 #~ "There are no active images in the output region.\n"
@@ -7148,9 +7230,6 @@ msgstr ""
 #~ "Súbor %s neexistuje.\n"
 #~ "Vytvoriť súbor argumentov so štandardnými značkami?"
 
-#~ msgid "Exiftool argfile"
-#~ msgstr "Exiftool súbor argumentov"
-
 #~ msgid ""
 #~ "No file selected.\n"
 #~ "Should an argfile created with default tags?"
@@ -7161,29 +7240,11 @@ msgstr ""
 #~ msgid "Select new Exiftool argfile"
 #~ msgstr "Vybrať nový Exiftool súbor argumentov"
 
-#~ msgid "Could not save file \"%s\"."
-#~ msgstr "Súbor \"%s\" sa nedal uložiť."
-
 #~ msgid "Exiftool argfile:"
 #~ msgstr "Exiftool súbor argumentov:"
 
-#~ msgid "Leave empty for default"
-#~ msgstr "Nechajte prázdne pre štandard"
-
 #~ msgid "Exiftool options"
 #~ msgstr "Voľby Exiftool"
-
-#~ msgid "Create Photo Sphere XMP data"
-#~ msgstr "Vytvoriť Photo Sphere XMP dáty"
-
-#~ msgid "This will only be done for equirectangular output images."
-#~ msgstr "Toto sa bude robiť len pre skoroobdĺžnokové východzie obrázky."
-
-#~ msgid "Edit Exiftool argfile"
-#~ msgstr "Upraviť Exiftool súbor argumentov"
-
-#~ msgid "to one (no color correction)"
-#~ msgstr "na jednotku (bez korekcie expozície)"
 
 #~ msgid "Select exiftool argfile"
 #~ msgstr "Vybrať flatfield obrázok"
