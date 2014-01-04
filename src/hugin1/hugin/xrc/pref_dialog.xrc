@@ -1431,7 +1431,7 @@ Do not set -w, -o and --compression arguments, they are set by hugin</label>
         <flag>wxEXPAND</flag>
       </object>
     </object>
-    <title>Edit Exiftool argfile</title>
+    <title>Edit ExifTool argfile</title>
     <style>wxDEFAULT_DIALOG_STYLE|wxCAPTION|wxRESIZE_BORDER|wxTAB_TRAVERSAL</style>
   </object>
 </resource>
