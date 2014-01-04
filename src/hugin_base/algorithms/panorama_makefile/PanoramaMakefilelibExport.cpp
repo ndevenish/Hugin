@@ -853,10 +853,12 @@ bool PanoramaMakefilelibExport::createItems()
         ruleinfoargfile->addTarget(vexiftoolinfoargfile);
         ruleinfoargfile->addPrereq(vprojectfile);
         std::string switches;
+#ifdef EXIFTOOL_GPANO_SUPPORT
         if(!generateGPanoTags)
         {
             switches = " --no-gpano";
         };
+#endif
         switches += " --generate-argfile=";
         ruleinfoargfile->addCommand(vcheckpto->getRef() + switches + vexiftoolinfoargfileshell->getRef() + " " + vprojectfileshell->getRef());
     };

@@ -24,6 +24,8 @@
 #ifndef _CONFIG_DEFAULTS_H
 #define _CONFIG_DEFAULTS_H
 
+#include <hugin_config.h>
+
 // contains various configuration defaults
 
 // assistant panel
@@ -79,7 +81,11 @@
 
 // Exiftool
 #define HUGIN_USE_EXIFTOOL                    1l
+#ifdef EXIFTOOL_GPANO_SUPPORT
 #define HUGIN_EXIFTOOL_CREATE_GPANO           1l
+#else
+#define HUGIN_EXIFTOOL_CREATE_GPANO           0l
+#endif
 
 // Program defaults
 #if defined WIN32
