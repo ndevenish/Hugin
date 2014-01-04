@@ -26,6 +26,7 @@
  */
 
 #include <hugin_version.h>
+#include <hugin_config.h>
 
 #include <fstream>
 #include <sstream>
@@ -54,7 +55,9 @@ static void usage(const char * name)
          << "Further switches:" << endl
          << "  --print-output-info     Print more information about the output" << endl
          << "  --generate-argfile=file Generate Exiftool argfile" << endl
+#ifdef EXIFTOOL_GPANO_SUPPORT
          << "  --no-gpano              Don't include GPano tags in argfile" << endl
+#endif
          << endl
          << name << " is used by the assistant and by the stitching makefiles" << endl
          << endl;
@@ -153,20 +156,28 @@ int main(int argc, char *argv[])
     {
         PRINT_OUTPUT_INFO=1000,
         GENERATE_ARGFILE=1001,
-        GENERATE_ARGFILE_WITHOUT_GPANO=1002
+#if EXIFTOOL_GPANO_SUPPORT
+        GENERATE_ARGFILE_WITHOUT_GPANO=1002,
+#endif
     };
     static struct option longOptions[] =
     {
         {"print-output-info", no_argument, NULL, PRINT_OUTPUT_INFO },
         {"generate-argfile", required_argument, NULL, GENERATE_ARGFILE},
+#ifdef EXIFTOOL_GPANO_SUPPORT
         {"no-gpano", no_argument, NULL, GENERATE_ARGFILE_WITHOUT_GPANO},
+#endif
         {"help", no_argument, NULL, 'h' },
         0
     };
 
     int c;
     bool printOutputInfo=false;
+#ifdef EXIFTOOL_GPANO_SUPPORT
     bool withoutGPano=false;
+#else
+    bool withoutGPano=true;
+#endif
     std::string argfile;
     int optionIndex = 0;
     while ((c = getopt_long (argc, argv, optstring, longOptions,&optionIndex)) != -1)
@@ -181,9 +192,11 @@ int main(int argc, char *argv[])
         case GENERATE_ARGFILE:
             argfile=optarg;
             break;
+#ifdef EXIFTOOL_GPANO_SUPPORT
         case GENERATE_ARGFILE_WITHOUT_GPANO:
             withoutGPano=true;
             break;
+#endif
         case '?':
             break;
         default:
