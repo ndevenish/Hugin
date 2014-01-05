@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: for hugin 2013.0 beta1\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
-"POT-Creation-Date: 2013-12-31 10:09+0100\n"
+"POT-Creation-Date: 2014-01-05 11:39+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ewing Kang <f039281310@yahoo.com.tw>\n"
 "Language-Team: Chinese Traditional <NA>\n"
@@ -105,20 +105,12 @@ msgstr "%ld 執行應用程式錯誤, 代碼 2"
 
 #: hugin1/base_wx/MyExternalCmdExecDialog.cpp:612
 #: hugin1/ptbatcher/RunStitchFrame.cpp:43
-#: hugin1/stitch_project/hugin_stitch_project.cpp:126
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:334
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:640
-#: hugin1/hugin/xrc/images_panel.xrc:553
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:223
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:439
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:521
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:497
-#: hugin1/hugin/xrc/pano_panel.xrc:55 hugin1/hugin/xrc/pano_panel.xrc:97
-#: hugin1/hugin/xrc/pano_panel.xrc:139 hugin1/hugin/xrc/pano_panel.xrc:1022
-#: hugin1/hugin/xrc/pano_panel.xrc:1352 hugin1/hugin/xrc/pref_dialog.xrc:1385
-#: hugin1/hugin/xrc/pref_dialog.xrc:1426
-#: hugin1/hugin/xrc/preview_frame.xrc:115
-#: hugin1/hugin/xrc/reset_dialog.xrc:123
+#: hugin1/stitch_project/hugin_stitch_project.cpp:126 translations/xrc.cpp:170
+#: translations/xrc.cpp:218 translations/xrc.cpp:255 translations/xrc.cpp:304
+#: translations/xrc.cpp:320 translations/xrc.cpp:327 translations/xrc.cpp:508
+#: translations/xrc.cpp:541 translations/xrc.cpp:545 translations/xrc.cpp:549
+#: translations/xrc.cpp:632 translations/xrc.cpp:657 translations/xrc.cpp:809
+#: translations/xrc.cpp:813 translations/xrc.cpp:837 translations/xrc.cpp:1067
 msgid "Cancel"
 msgstr "取消"
 
@@ -164,7 +156,7 @@ msgstr "預設軟體集中未發現您所指定的外部應用程式 %s, 回到�
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:277
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:306
 #: hugin1/hugin/PanoOperation.cpp:531 hugin1/hugin/PanoPanel.cpp:1021
-#: hugin1/hugin/PanoPanel.cpp:1198 hugin1/hugin/PreferencesDialog.cpp:402
+#: hugin1/hugin/PanoPanel.cpp:1198 hugin1/hugin/PreferencesDialog.cpp:407
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:246
 #: hugin1/ptbatcher/FindPanoDialog.cpp:293
 #: hugin1/ptbatcher/ProjectListBox.cpp:184
@@ -273,9 +265,9 @@ msgstr "偏好設定目中未發現您所指定的外部應用程式 %s, 回到�
 #: hugin1/hugin/GLPreviewFrame.cpp:1621 hugin1/hugin/GLPreviewFrame.cpp:1628
 #: hugin1/hugin/GLPreviewFrame.cpp:1635 hugin1/hugin/MainFrame.cpp:838
 #: hugin1/hugin/MainFrame.cpp:1720 hugin1/hugin/MainFrame.cpp:2278
-#: hugin1/hugin/MaskEditorPanel.cpp:479 hugin1/hugin/PreferencesDialog.cpp:971
+#: hugin1/hugin/MaskEditorPanel.cpp:479 hugin1/hugin/PreferencesDialog.cpp:976
 #: hugin1/ptbatcher/FindPanoDialog.cpp:250
-#: hugin1/ptbatcher/FindPanoDialog.cpp:271 hugin1/hugin/xrc/dlg_warning.xrc:56
+#: hugin1/ptbatcher/FindPanoDialog.cpp:271 translations/xrc.cpp:174
 msgid "Warning"
 msgstr "注意"
 
@@ -301,10 +293,8 @@ msgstr "相機型號:"
 
 #: hugin1/base_wx/huginConfig.cpp:306 hugin1/hugin/ImagesPanel.cpp:669
 #: hugin1/hugin/ImagesTree.cpp:151 hugin1/hugin/ImagesTree.cpp:1215
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:152
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:347
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:206
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:422
+#: translations/xrc.cpp:189 translations/xrc.cpp:202 translations/xrc.cpp:302
+#: translations/xrc.cpp:318
 msgid "Lens"
 msgstr "鏡頭"
 
@@ -341,11 +331,9 @@ msgstr ""
 msgid "The input \"%s\" is not a valid number."
 msgstr "[%s] 是無效的輸入數字"
 
-#: hugin1/base_wx/wxLensDB.cpp:294 hugin1/hugin/xrc/images_panel.xrc:187
-#: hugin1/hugin/xrc/images_panel.xrc:517
-#: hugin1/hugin/xrc/lenscal_frame.xrc:105
-#: hugin1/hugin/xrc/preview_frame.xrc:191
-#: hugin1/hugin/xrc/preview_frame.xrc:1004
+#: hugin1/base_wx/wxLensDB.cpp:294 translations/xrc.cpp:236
+#: translations/xrc.cpp:253 translations/xrc.cpp:261 translations/xrc.cpp:843
+#: translations/xrc.cpp:925
 msgid "Focal length multiplier:"
 msgstr "焦距比:"
 
@@ -542,7 +530,7 @@ msgstr "檔案 %s 已存在. 是否覆蓋?"
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:757
 #: hugin1/calibrate_lens/LensCalFrame.cpp:822 hugin1/hugin/MainFrame.cpp:874
-#: hugin1/hugin/xrc/main_tool.xrc:19
+#: translations/xrc.cpp:437
 msgid "Save project"
 msgstr "儲存專案"
 
@@ -569,8 +557,7 @@ msgstr "儲存鏡頭參數到 lensfun 資料庫"
 msgid "Saving lens data"
 msgstr "儲存鏡頭參數..."
 
-#: hugin1/calibrate_lens/LensCalFrame.cpp:787
-#: hugin1/hugin/xrc/lenscal_frame.xrc:373
+#: hugin1/calibrate_lens/LensCalFrame.cpp:787 translations/xrc.cpp:278
 msgid "Save lens"
 msgstr "儲存鏡頭..."
 
@@ -743,7 +730,7 @@ msgstr "沒有發現相似點"
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:153
 #: hugin1/hugin/PanoOperation.cpp:372 hugin1/hugin/PanoPanel.cpp:1405
 #: hugin1/hugin/PanoPanel.cpp:1433 hugin1/hugin/PanoPanel.cpp:1463
-#: hugin1/hugin/xrc/main_frame.xrc:125 hugin1/hugin/xrc/pano_panel.xrc:1087
+#: translations/xrc.cpp:342 translations/xrc.cpp:636
 msgid "Hugin"
 msgstr "Hugin"
 
@@ -779,7 +766,7 @@ msgstr "線 %d"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1229 hugin1/hugin/CPListFrame.cpp:427
 #: hugin1/hugin/GLPreviewFrame.cpp:634 hugin1/hugin/GLPreviewFrame.cpp:2986
-#: hugin1/hugin/PreviewFrame.cpp:234 hugin1/hugin/xrc/cp_editor_panel.xrc:185
+#: hugin1/hugin/PreviewFrame.cpp:234 translations/xrc.cpp:120
 msgid "normal"
 msgstr "標準的"
 
@@ -806,7 +793,7 @@ msgid "Corner Detection threshold"
 msgstr "隅角偵測閥值"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1495 hugin1/hugin/CPEditorPanel.cpp:1499
-#: hugin1/hugin/xrc/images_panel.xrc:251
+#: translations/xrc.cpp:239
 msgid "Create control points"
 msgstr "建立新的控制點"
 
@@ -945,38 +932,36 @@ msgstr ""
 msgid "Fast Panorama preview"
 msgstr "快速全景圖片預覽"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:358 hugin1/hugin/xrc/preview_frame.xrc:8
-#: hugin1/hugin/xrc/preview_frame.xrc:1407
+#: hugin1/hugin/GLPreviewFrame.cpp:358 translations/xrc.cpp:816
+#: translations/xrc.cpp:963
 msgid "Center"
 msgstr "中心"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:359 hugin1/hugin/GLPreviewFrame.cpp:361
-#: hugin1/hugin/xrc/preview_frame.xrc:14
-#: hugin1/hugin/xrc/preview_frame.xrc:1302
-#: hugin1/hugin/xrc/preview_frame.xrc:1419
+#: translations/xrc.cpp:819 translations/xrc.cpp:951 translations/xrc.cpp:965
 msgid "Fit"
 msgstr "調整"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:360 hugin1/hugin/xrc/preview_frame.xrc:19
-#: hugin1/hugin/xrc/preview_frame.xrc:1431
+#: hugin1/hugin/GLPreviewFrame.cpp:360 translations/xrc.cpp:821
+#: translations/xrc.cpp:967
 msgid "Straighten"
 msgstr "拉直"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:362 hugin1/hugin/GLPreviewFrame.cpp:2524
 #: hugin1/hugin/GLPreviewFrame.cpp:2556 hugin1/hugin/PanoPanel.cpp:976
-#: hugin1/hugin/xrc/preview_frame.xrc:1606
+#: translations/xrc.cpp:987
 msgid "Autocrop"
 msgstr "自動裁剪"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:363 hugin1/hugin/xrc/preview_frame.xrc:1618
+#: hugin1/hugin/GLPreviewFrame.cpp:363 translations/xrc.cpp:989
 msgid "HDR Autocrop"
 msgstr "高動態範圍自動裁剪"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:376 hugin1/hugin/GLPreviewFrame.cpp:3035
 #: hugin1/hugin/MainFrame.cpp:364 hugin1/hugin/MainFrame.cpp:2096
-#: hugin1/hugin/MainFrame.cpp:2114 hugin1/hugin/xrc/batch_menu.xrc:5
-#: hugin1/hugin/xrc/lenscal_frame.xrc:459 hugin1/hugin/xrc/main_menu.xrc:205
-#: hugin1/hugin/xrc/main_menu.xrc:230 hugin1/hugin/xrc/preview_frame.xrc:1878
+#: hugin1/hugin/MainFrame.cpp:2114 translations/xrc.cpp:63
+#: translations/xrc.cpp:289 translations/xrc.cpp:420 translations/xrc.cpp:430
+#: translations/xrc.cpp:1052
 msgid "&File"
 msgstr "檔案 (&F)"
 
@@ -985,21 +970,16 @@ msgid "displayed images"
 msgstr "顯示圖片"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:412 hugin1/hugin/GLPreviewFrame.cpp:425
-#: hugin1/hugin/xrc/preview_frame.xrc:42
+#: translations/xrc.cpp:829
 msgid "All"
 msgstr "所有"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:420 hugin1/hugin/GLPreviewFrame.cpp:426
-#: hugin1/hugin/ImagesPanel.cpp:666 hugin1/hugin/xrc/pano_panel.xrc:535
-#: hugin1/hugin/xrc/pano_panel.xrc:592 hugin1/hugin/xrc/pano_panel.xrc:1188
-#: hugin1/hugin/xrc/pano_panel.xrc:1235 hugin1/hugin/xrc/pref_dialog.xrc:809
-#: hugin1/hugin/xrc/preview_frame.xrc:47
-#: hugin1/hugin/xrc/preview_frame.xrc:563
-#: hugin1/hugin/xrc/preview_frame.xrc:641
-#: hugin1/hugin/xrc/preview_frame.xrc:809
-#: hugin1/hugin/xrc/preview_frame.xrc:1380
-#: hugin1/hugin/xrc/preview_frame.xrc:1470
-#: hugin1/hugin/xrc/preview_frame.xrc:1646
+#: hugin1/hugin/ImagesPanel.cpp:666 translations/xrc.cpp:580
+#: translations/xrc.cpp:585 translations/xrc.cpp:642 translations/xrc.cpp:645
+#: translations/xrc.cpp:738 translations/xrc.cpp:831 translations/xrc.cpp:873
+#: translations/xrc.cpp:885 translations/xrc.cpp:904 translations/xrc.cpp:956
+#: translations/xrc.cpp:971 translations/xrc.cpp:992
 msgid "None"
 msgstr "無"
 
@@ -1023,9 +1003,8 @@ msgstr "水平視角"
 msgid "drag to change the horizontal field of view"
 msgstr "拖曳以修改水平視角"
 
-#: hugin1/hugin/GLPreviewFrame.cpp:563 hugin1/hugin/xrc/lenscal_frame.xrc:434
-#: hugin1/hugin/xrc/main_tool.xrc:67 hugin1/hugin/xrc/preview_frame.xrc:434
-#: hugin1/hugin/xrc/preview_frame.xrc:1247
+#: hugin1/hugin/GLPreviewFrame.cpp:563 translations/xrc.cpp:285
+#: translations/xrc.cpp:459 translations/xrc.cpp:864 translations/xrc.cpp:946
 msgid "Preview"
 msgstr "預覽"
 
@@ -1400,9 +1379,7 @@ msgid "Number of masks"
 msgstr "遮罩的數量"
 
 #: hugin1/hugin/ImagesList.cpp:457 hugin1/hugin/ImagesList.cpp:517
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:332
-#: hugin1/hugin/xrc/preview_frame.xrc:907
-#: hugin1/hugin/xrc/preview_frame.xrc:1744
+#: translations/xrc.cpp:494 translations/xrc.cpp:917 translations/xrc.cpp:1005
 msgid "Crop"
 msgstr "裁剪"
 
@@ -1762,11 +1739,11 @@ msgstr "相機響應形式"
 msgid "Camera response parameter"
 msgstr "相機響應參數"
 
-#: hugin1/hugin/ImagesTree.cpp:388 hugin1/hugin/xrc/image_variable_dlg.xrc:559
+#: hugin1/hugin/ImagesTree.cpp:388 translations/xrc.cpp:212
 msgid "custom (EMoR)"
 msgstr "自定 (EMoR)"
 
-#: hugin1/hugin/ImagesTree.cpp:391 hugin1/hugin/xrc/image_variable_dlg.xrc:560
+#: hugin1/hugin/ImagesTree.cpp:391 translations/xrc.cpp:213
 msgid "Linear"
 msgstr "線性的"
 
@@ -1840,11 +1817,9 @@ msgstr "編輯影像變數..."
 msgid "Control points"
 msgstr "控制點"
 
-#: hugin1/hugin/ImagesTree.cpp:1248 hugin1/hugin/xrc/lenscal_frame.xrc:213
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:325
-#: hugin1/hugin/xrc/optimize_panel.xrc:60
-#: hugin1/hugin/xrc/optimize_photo_panel.xrc:60
-#: hugin1/hugin/xrc/reset_dialog.xrc:8
+#: hugin1/hugin/ImagesTree.cpp:1248 translations/xrc.cpp:269
+#: translations/xrc.cpp:493 translations/xrc.cpp:515 translations/xrc.cpp:525
+#: translations/xrc.cpp:1053
 msgid "Reset"
 msgstr "重新設定"
 
@@ -1864,8 +1839,7 @@ msgstr "在開啟軟體時顯示提示 (&S)"
 msgid "Tip of the Day"
 msgstr "今日提示"
 
-#: hugin1/hugin/LocalizedFileTipProvider.cpp:109
-#: hugin1/hugin/xrc/batch_frame.xrc:455
+#: hugin1/hugin/LocalizedFileTipProvider.cpp:109 translations/xrc.cpp:61
 msgid "&Close"
 msgstr "關閉 (&C)"
 
@@ -1887,9 +1861,8 @@ msgstr ""
 "檔案 data/splash.png 不存在於:"
 
 #: hugin1/hugin/MainFrame.cpp:359 hugin1/ptbatcher/BatchFrame.cpp:137
-#: hugin1/hugin/xrc/batch_menu.xrc:50 hugin1/hugin/xrc/main_menu.xrc:120
-#: hugin1/hugin/xrc/main_menu.xrc:122 hugin1/hugin/xrc/preview_frame.xrc:1807
-#: hugin1/hugin/xrc/preview_frame.xrc:1835
+#: translations/xrc.cpp:84 translations/xrc.cpp:385 translations/xrc.cpp:386
+#: translations/xrc.cpp:1023 translations/xrc.cpp:1036
 msgid "&Help"
 msgstr "說明 (&H)"
 
@@ -1901,14 +1874,13 @@ msgstr "選項 (&A)"
 msgid "Started"
 msgstr "開始了"
 
-#: hugin1/hugin/MainFrame.cpp:635 hugin1/hugin/xrc/main_frame.xrc:34
-#: hugin1/hugin/xrc/main_menu.xrc:88
+#: hugin1/hugin/MainFrame.cpp:635 translations/xrc.cpp:333
+#: translations/xrc.cpp:375
 msgid "Optimizer"
 msgstr "最佳化工具"
 
 #: hugin1/hugin/MainFrame.cpp:647 hugin1/hugin/MainFrame.cpp:651
-#: hugin1/hugin/xrc/main_frame.xrc:38 hugin1/hugin/xrc/main_menu.xrc:93
-#: hugin1/hugin/xrc/reset_dialog.xrc:46
+#: translations/xrc.cpp:334 translations/xrc.cpp:377 translations/xrc.cpp:1058
 msgid "Exposure"
 msgstr "光圈"
 
@@ -1943,7 +1915,7 @@ msgstr "已儲存專案 %s"
 #: hugin1/hugin/MainFrame.cpp:1050 hugin1/hugin/MainFrame.cpp:1056
 #: hugin1/hugin/MainFrame.cpp:2099 hugin1/hugin/MainFrame.cpp:2105
 #: hugin1/hugin/MainFrame.cpp:2117 hugin1/hugin/MainFrame.cpp:2122
-#: hugin1/hugin/xrc/main_frame.xrc:4
+#: translations/xrc.cpp:329
 msgid "Hugin - Panorama Stitcher"
 msgstr "Hugin - 全景圖接合工具"
 
@@ -2612,8 +2584,8 @@ msgid "Quality:"
 msgstr "質量:"
 
 #: hugin1/hugin/PanoOutputDialog.cpp:349 hugin1/hugin/PanoPanel.cpp:506
-#: hugin1/hugin/xrc/pano_panel.xrc:514 hugin1/hugin/xrc/pano_panel.xrc:583
-#: hugin1/hugin/xrc/pano_panel.xrc:1169 hugin1/hugin/xrc/pano_panel.xrc:1227
+#: translations/xrc.cpp:579 translations/xrc.cpp:584 translations/xrc.cpp:641
+#: translations/xrc.cpp:644
 msgid "Compression:"
 msgstr "壓縮:"
 
@@ -2763,7 +2735,7 @@ msgstr ""
 #: hugin1/hugin/PanoPanel.cpp:1461
 msgid ""
 "There are no active images in the output region.\n"
-"Please check your settings, so that at least one images is in the output "
+"Please check your settings, so that at least one image is in the output "
 "region."
 msgstr ""
 
@@ -2851,75 +2823,75 @@ msgstr "瑞典文"
 msgid "Finnish"
 msgstr "芬蘭文"
 
-#: hugin1/hugin/PreferencesDialog.cpp:287
+#: hugin1/hugin/PreferencesDialog.cpp:292
 msgid "Select Enblend"
 msgstr "選取 Enblend"
 
-#: hugin1/hugin/PreferencesDialog.cpp:290
-#: hugin1/hugin/PreferencesDialog.cpp:307
+#: hugin1/hugin/PreferencesDialog.cpp:295
+#: hugin1/hugin/PreferencesDialog.cpp:312
 msgid "Executables (*.exe)|*.exe"
 msgstr "可執行檔案 (*.exe)|*.exe"
 
-#: hugin1/hugin/PreferencesDialog.cpp:304
+#: hugin1/hugin/PreferencesDialog.cpp:309
 msgid "Select Enfuse"
 msgstr "選取 Enfuse"
 
-#: hugin1/hugin/PreferencesDialog.cpp:333
-msgid "Select Exiftool argfile"
-msgstr ""
-
-#: hugin1/hugin/PreferencesDialog.cpp:335
-#: hugin1/hugin/PreferencesDialog.cpp:383
+#: hugin1/hugin/PreferencesDialog.cpp:338 translations/xrc.cpp:761
 #, fuzzy
-msgid "Exiftool Argfiles (*.arg)|*.arg|All Files(*)|*"
+msgid "Select ExifTool argfile"
+msgstr "在左圖選取點"
+
+#: hugin1/hugin/PreferencesDialog.cpp:340
+#: hugin1/hugin/PreferencesDialog.cpp:388
+#, fuzzy
+msgid "ExifTool Argfiles (*.arg)|*.arg|All Files(*)|*"
 msgstr "紀錄檔案 (*.pto)|*.pto|全部檔案 (*)|*"
 
-#: hugin1/hugin/PreferencesDialog.cpp:366
+#: hugin1/hugin/PreferencesDialog.cpp:371
 #, c-format
 msgid ""
-"File %s does not exists.\n"
-"Should the argfile created with default tags?"
+"File %s does not exist.\n"
+"Should the argfile be created with default tags?"
 msgstr ""
 
-#: hugin1/hugin/PreferencesDialog.cpp:367
-#: hugin1/hugin/PreferencesDialog.cpp:377
+#: hugin1/hugin/PreferencesDialog.cpp:372
+#: hugin1/hugin/PreferencesDialog.cpp:382
 msgid "Exiftool argfile"
 msgstr ""
 
-#: hugin1/hugin/PreferencesDialog.cpp:376
+#: hugin1/hugin/PreferencesDialog.cpp:381
 msgid ""
 "No file selected.\n"
-"Should an argfile created with default tags?"
+"Should an argfile be created with default tags?"
 msgstr ""
 
-#: hugin1/hugin/PreferencesDialog.cpp:381
+#: hugin1/hugin/PreferencesDialog.cpp:386
 #, fuzzy
-msgid "Select new Exiftool argfile"
+msgid "Select new ExifTool argfile"
 msgstr "在左圖選取點"
 
-#: hugin1/hugin/PreferencesDialog.cpp:401
+#: hugin1/hugin/PreferencesDialog.cpp:406
 #, fuzzy, c-format
 msgid "Could not save file \"%s\"."
 msgstr "無法開啟專案檔：%s"
 
-#: hugin1/hugin/PreferencesDialog.cpp:680
+#: hugin1/hugin/PreferencesDialog.cpp:685
 msgid "Really reset displayed preferences to default values?"
 msgstr "真的要將顯示的偏好設定重新設定成預設值嗎?"
 
-#: hugin1/hugin/PreferencesDialog.cpp:680
-#: hugin1/hugin/xrc/pref_dialog.xrc:1366
+#: hugin1/hugin/PreferencesDialog.cpp:685 translations/xrc.cpp:807
 msgid "Load Defaults"
 msgstr "載入預設值"
 
-#: hugin1/hugin/PreferencesDialog.cpp:951
+#: hugin1/hugin/PreferencesDialog.cpp:956
 msgid "Please select an entry first"
 msgstr "請選取一個欄位再試一次"
 
-#: hugin1/hugin/PreferencesDialog.cpp:951
+#: hugin1/hugin/PreferencesDialog.cpp:956
 msgid "Select Entry"
 msgstr "請選取一個欄位"
 
-#: hugin1/hugin/PreferencesDialog.cpp:971
+#: hugin1/hugin/PreferencesDialog.cpp:976
 msgid ""
 "You can't delete the last setting.\n"
 "At least one setting is required."
@@ -2927,25 +2899,25 @@ msgstr ""
 "您無法刪除最後一個設定.\n"
 "至少需要一個設定."
 
-#: hugin1/hugin/PreferencesDialog.cpp:975
+#: hugin1/hugin/PreferencesDialog.cpp:980
 #, c-format
 msgid "Do you really want to remove control point detector setting \"%s\"?"
 msgstr "確定移除刪除控制點偵測器設定 [%s]?"
 
-#: hugin1/hugin/PreferencesDialog.cpp:976
+#: hugin1/hugin/PreferencesDialog.cpp:981
 msgid "Delete control point detector setting"
 msgstr "刪除控制點偵測器設定"
 
-#: hugin1/hugin/PreferencesDialog.cpp:1033
+#: hugin1/hugin/PreferencesDialog.cpp:1038
 msgid "Load control point detector settings"
 msgstr "載入控制點偵測器設定"
 
-#: hugin1/hugin/PreferencesDialog.cpp:1035
-#: hugin1/hugin/PreferencesDialog.cpp:1050
+#: hugin1/hugin/PreferencesDialog.cpp:1040
+#: hugin1/hugin/PreferencesDialog.cpp:1055
 msgid "Control point detector settings (*.setting)|*.setting"
 msgstr "控制點偵測器設定 (*.setting)|*.setting"
 
-#: hugin1/hugin/PreferencesDialog.cpp:1048
+#: hugin1/hugin/PreferencesDialog.cpp:1053
 msgid "Save control point detector settings"
 msgstr "儲存控制點偵測器設定"
 
@@ -2970,8 +2942,8 @@ msgstr "預覽選項"
 msgid "projection (f):"
 msgstr "投影 (f):"
 
-#: hugin1/hugin/PreviewFrame.cpp:229 hugin1/hugin/xrc/preview_frame.xrc:323
-#: hugin1/hugin/xrc/preview_frame.xrc:1136
+#: hugin1/hugin/PreviewFrame.cpp:229 translations/xrc.cpp:856
+#: translations/xrc.cpp:938
 msgid "Blend mode:"
 msgstr "混合模式:"
 
@@ -2987,8 +2959,8 @@ msgstr "LDR"
 msgid "HDR"
 msgstr "HDR"
 
-#: hugin1/hugin/PreviewFrame.cpp:269 hugin1/hugin/xrc/preview_frame.xrc:341
-#: hugin1/hugin/xrc/preview_frame.xrc:1154
+#: hugin1/hugin/PreviewFrame.cpp:269 translations/xrc.cpp:857
+#: translations/xrc.cpp:939
 msgid "EV:"
 msgstr "EV:"
 
@@ -3265,7 +3237,7 @@ msgstr ""
 #: hugin1/ptbatcher/BatchFrame.cpp:714 hugin1/ptbatcher/BatchFrame.cpp:746
 #: hugin1/ptbatcher/BatchFrame.cpp:781 hugin1/ptbatcher/BatchFrame.cpp:810
 #: hugin1/ptbatcher/BatchFrame.cpp:1202 hugin1/ptbatcher/BatchFrame.cpp:1209
-#: hugin1/hugin/xrc/pref_dialog.xrc:854
+#: translations/xrc.cpp:743
 msgid "PTBatcherGUI"
 msgstr "批次處裡"
 
@@ -3366,11 +3338,11 @@ msgstr "不再做..."
 msgid "Hugin's Batch processor"
 msgstr "Hugin的批次處理"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:190 hugin1/hugin/xrc/main_frame.xrc:67
+#: hugin1/ptbatcher/BatchFrame.cpp:190 translations/xrc.cpp:337
 msgid "You have pressed the Command key."
 msgstr "\"Command\"按鍵被按下"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:192 hugin1/hugin/xrc/main_frame.xrc:66
+#: hugin1/ptbatcher/BatchFrame.cpp:192 translations/xrc.cpp:336
 msgid "You have pressed the Control key."
 msgstr "\"Control (Ctrl)\" 按鍵被按下"
 
@@ -3516,7 +3488,7 @@ msgstr "開始批次處理"
 msgid "&Show window"
 msgstr "&顯示視窗"
 
-#: hugin1/ptbatcher/BatchTrayIcon.cpp:62 hugin1/hugin/xrc/batch_toolbar.xrc:28
+#: hugin1/ptbatcher/BatchTrayIcon.cpp:62 translations/xrc.cpp:96
 msgid "Start batch"
 msgstr "開始批次處理"
 
@@ -3524,7 +3496,7 @@ msgstr "開始批次處理"
 msgid "Continue batch"
 msgstr "繼續批次處理"
 
-#: hugin1/ptbatcher/BatchTrayIcon.cpp:70 hugin1/hugin/xrc/batch_toolbar.xrc:41
+#: hugin1/ptbatcher/BatchTrayIcon.cpp:70 translations/xrc.cpp:102
 msgid "Pause batch"
 msgstr "暫停批次處理"
 
@@ -3532,11 +3504,11 @@ msgstr "暫停批次處理"
 msgid "Stop batch"
 msgstr "停止批次處理"
 
-#: hugin1/ptbatcher/BatchTrayIcon.cpp:76 hugin1/hugin/xrc/batch_menu.xrc:7
+#: hugin1/ptbatcher/BatchTrayIcon.cpp:76 translations/xrc.cpp:64
 msgid "Add project to stitching queue..."
 msgstr "增加專案到批次處理序列中..."
 
-#: hugin1/ptbatcher/BatchTrayIcon.cpp:77 hugin1/hugin/xrc/batch_menu.xrc:11
+#: hugin1/ptbatcher/BatchTrayIcon.cpp:77 translations/xrc.cpp:66
 msgid "Add project to assistant queue..."
 msgstr "新增專案到接圖分析序列中..."
 
@@ -3603,8 +3575,7 @@ msgstr ""
 msgid "Reading file %s"
 msgstr "讀取檔案 %s"
 
-#: hugin1/ptbatcher/FindPanoDialog.cpp:413
-#: hugin1/hugin/xrc/batch_frame.xrc:210
+#: hugin1/ptbatcher/FindPanoDialog.cpp:413 translations/xrc.cpp:40
 msgid "Start"
 msgstr "開始"
 
@@ -3685,9 +3656,8 @@ msgstr "最後修改"
 msgid "Output format"
 msgstr "輸出格式"
 
-#: hugin1/ptbatcher/ProjectListBox.cpp:70
-#: hugin1/hugin/xrc/preview_frame.xrc:483
-#: hugin1/hugin/xrc/preview_frame.xrc:1296
+#: hugin1/ptbatcher/ProjectListBox.cpp:70 translations/xrc.cpp:868
+#: translations/xrc.cpp:950
 msgid "Projection"
 msgstr "投影"
 
@@ -3704,26 +3674,24 @@ msgstr "%d"
 msgid "Error, cannot convert id"
 msgstr "錯誤, 無法位移編號"
 
-#: hugin1/ptbatcher/ProjectListBox.cpp:303
-#: hugin1/hugin/xrc/pref_dialog.xrc:305 hugin1/hugin/xrc/preview_frame.xrc:244
-#: hugin1/hugin/xrc/preview_frame.xrc:1057
+#: hugin1/ptbatcher/ProjectListBox.cpp:303 translations/xrc.cpp:686
+#: translations/xrc.cpp:848 translations/xrc.cpp:930
 msgid "Assistant"
 msgstr "接圖分析"
 
-#: hugin1/ptbatcher/ProjectListBox.cpp:404 hugin1/hugin/xrc/batch_frame.xrc:38
+#: hugin1/ptbatcher/ProjectListBox.cpp:404 translations/xrc.cpp:13
 msgid "Change prefix"
 msgstr "修改檔名"
 
-#: hugin1/ptbatcher/ProjectListBox.cpp:405 hugin1/hugin/xrc/batch_frame.xrc:44
+#: hugin1/ptbatcher/ProjectListBox.cpp:405 translations/xrc.cpp:14
 msgid "Reset project"
 msgstr "重新設定專案"
 
-#: hugin1/ptbatcher/ProjectListBox.cpp:406 hugin1/hugin/xrc/batch_frame.xrc:56
+#: hugin1/ptbatcher/ProjectListBox.cpp:406 translations/xrc.cpp:16
 msgid "Edit with Hugin"
 msgstr "使用 Hugin 編輯"
 
-#: hugin1/ptbatcher/ProjectListBox.cpp:407
-#: hugin1/hugin/xrc/lenscal_frame.xrc:38
+#: hugin1/ptbatcher/ProjectListBox.cpp:407 translations/xrc.cpp:258
 msgid "Remove"
 msgstr "移除"
 
@@ -3766,597 +3734,575 @@ msgstr ""
 "指定的檔名包含以下無法使用的字符： %s\n"
 "Hugin 不能使用這些檔名，請重新輸入可接受的檔名"
 
-#: hugin1/hugin/xrc/about.xrc:4 hugin1/hugin/xrc/main_menu.xrc:141
-#: hugin1/hugin/xrc/main_tool.xrc:79 hugin1/hugin/xrc/preview_frame.xrc:1826
+#: translations/xrc.cpp:1 translations/xrc.cpp:395 translations/xrc.cpp:464
+#: translations/xrc.cpp:1032
 msgid "About Hugin"
 msgstr "關於 Hugin"
 
-#: hugin1/hugin/xrc/about.xrc:23
+#: translations/xrc.cpp:2
 msgid "version"
 msgstr "版本"
 
-#: hugin1/hugin/xrc/about.xrc:58 hugin1/hugin/xrc/main_tool.xrc:80
+#: translations/xrc.cpp:3 translations/xrc.cpp:465
 msgid "About"
 msgstr "關於"
 
-#: hugin1/hugin/xrc/about.xrc:79
+#: translations/xrc.cpp:4
 msgid "Authors"
 msgstr "作者"
 
-#: hugin1/hugin/xrc/about.xrc:100
+#: translations/xrc.cpp:5
 msgid "Sponsors"
 msgstr "贊助者"
 
-#: hugin1/hugin/xrc/about.xrc:122
+#: translations/xrc.cpp:6
 msgid "Upstream"
 msgstr "回溯"
 
-#: hugin1/hugin/xrc/about.xrc:144
+#: translations/xrc.cpp:7
 msgid "License"
 msgstr "授權"
 
-#: hugin1/hugin/xrc/about.xrc:147
+#: translations/xrc.cpp:8
 msgid "System"
 msgstr "系統預設"
 
-#: hugin1/hugin/xrc/about.xrc:198 hugin1/hugin/xrc/cpdetector_dialog.xrc:328
-#: hugin1/hugin/xrc/dlg_warning.xrc:46
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:634
-#: hugin1/hugin/xrc/images_panel.xrc:547
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:217
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:433
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:515
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:491
-#: hugin1/hugin/xrc/pano_panel.xrc:49 hugin1/hugin/xrc/pano_panel.xrc:91
-#: hugin1/hugin/xrc/pano_panel.xrc:133 hugin1/hugin/xrc/pano_panel.xrc:1016
-#: hugin1/hugin/xrc/pano_panel.xrc:1346 hugin1/hugin/xrc/pref_dialog.xrc:1379
-#: hugin1/hugin/xrc/preview_frame.xrc:110
-#: hugin1/hugin/xrc/reset_dialog.xrc:117
+#: translations/xrc.cpp:9 translations/xrc.cpp:169 translations/xrc.cpp:173
+#: translations/xrc.cpp:217 translations/xrc.cpp:254 translations/xrc.cpp:303
+#: translations/xrc.cpp:319 translations/xrc.cpp:326 translations/xrc.cpp:507
+#: translations/xrc.cpp:540 translations/xrc.cpp:544 translations/xrc.cpp:548
+#: translations/xrc.cpp:631 translations/xrc.cpp:656 translations/xrc.cpp:808
+#: translations/xrc.cpp:836 translations/xrc.cpp:1066
 msgid "OK"
 msgstr "確定"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:4
+#: translations/xrc.cpp:10
 msgid "Batch Processor"
 msgstr "批次處理"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:26
+#: translations/xrc.cpp:11
 msgid "Add application"
 msgstr "增加應用程式"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:32
+#: translations/xrc.cpp:12
 msgid "Remove complete"
 msgstr "移除完成"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:50
+#: translations/xrc.cpp:15
 msgid "Reset all"
 msgstr "全部重新設定"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:62
+#: translations/xrc.cpp:17
 msgid "Move project up"
 msgstr "向上移動專案"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:68
+#: translations/xrc.cpp:18
 msgid "Move project down"
 msgstr "向下移動專案"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:77
+#: translations/xrc.cpp:19
 msgid "Parallel execution"
 msgstr "同時執行"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:78
+#: translations/xrc.cpp:20
 msgid "Stitch several projects parallel."
 msgstr "平行運算接合多個專案"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:84
+#: translations/xrc.cpp:21
 msgid "Overwrite always"
 msgstr "覆寫同名檔案"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:85
+#: translations/xrc.cpp:22
 msgid "Overwrite existing image files without further notice."
 msgstr "直接覆寫已經存在的圖片"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:91
+#: translations/xrc.cpp:23
 msgid "Remove finished project"
 msgstr "移除完成的專案"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:92
+#: translations/xrc.cpp:24
 msgid "Automatically remove successfully finished projects from queue."
 msgstr "從序列中自動移除已完成的專案"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:98
+#: translations/xrc.cpp:25
 msgid "Automatic stitch after assistant"
 msgstr "在接圖分析完成後自動開始接圖"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:99
+#: translations/xrc.cpp:26
 msgid "Automatically stitch projects after (successfully) running assistant."
 msgstr "在接圖分析 (成功) 完成後自動開始接圖"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:105
+#: translations/xrc.cpp:27
 msgid "Shutdown when done"
 msgstr "完成後關機"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:106
+#: translations/xrc.cpp:28
 msgid "Shutdown computer if all tasks are finished"
 msgstr "完成後自動關機"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:112
+#: translations/xrc.cpp:29
 msgid "Verbose output"
 msgstr "詳盡的輸出"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:113
+#: translations/xrc.cpp:30
 msgid "Show detailed output in separate window."
 msgstr "在獨立視窗中顯示高品質的輸出"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:119
+#: translations/xrc.cpp:31
 msgid "Always save log"
 msgstr "總是儲存log紀錄檔"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:153
+#: translations/xrc.cpp:32
 msgid "Directory:"
 msgstr "目錄："
 
-#: hugin1/hugin/xrc/batch_frame.xrc:165
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:84
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:143
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:182
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:243
-#: hugin1/hugin/xrc/pref_dialog.xrc:946 hugin1/hugin/xrc/pref_dialog.xrc:1126
-#: hugin1/hugin/xrc/pref_dialog.xrc:1205
+#: translations/xrc.cpp:33 translations/xrc.cpp:151 translations/xrc.cpp:156
+#: translations/xrc.cpp:159 translations/xrc.cpp:164 translations/xrc.cpp:760
+#: translations/xrc.cpp:785 translations/xrc.cpp:791
 msgid "Choose..."
 msgstr "選擇..."
 
-#: hugin1/hugin/xrc/batch_frame.xrc:172
+#: translations/xrc.cpp:34
 msgid "include sub-directories"
 msgstr "包含子目錄"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:179
+#: translations/xrc.cpp:35
 msgid "Naming:"
 msgstr "重新命名："
 
-#: hugin1/hugin/xrc/batch_frame.xrc:187
+#: translations/xrc.cpp:36
 msgid "PanoramaXX.pto"
 msgstr "環境XX.pto"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:188
+#: translations/xrc.cpp:37
 msgid "First file - last file.pto"
 msgstr ""
 
-#: hugin1/hugin/xrc/batch_frame.xrc:189
+#: translations/xrc.cpp:38
 msgid "Foldername.pto"
 msgstr "資料夾名稱名稱.pto"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:190
+#: translations/xrc.cpp:39
 msgid "Template from preferences"
 msgstr "偏好設定的模板"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:227
+#: translations/xrc.cpp:41
 msgid "Directories"
 msgstr "目錄"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:237
+#: translations/xrc.cpp:42
 msgid "Minimum number of images:"
 msgstr "最少的影像數量："
 
-#: hugin1/hugin/xrc/batch_frame.xrc:248
+#: translations/xrc.cpp:43
 msgid "Minimum number of images a panorama should contain."
 msgstr "一張環景圖中最少的影像數量"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:254
+#: translations/xrc.cpp:44
 msgid "Maximum time difference:"
 msgstr "最大的時間差："
 
-#: hugin1/hugin/xrc/batch_frame.xrc:267
+#: translations/xrc.cpp:45
 msgid ""
 "Maximal time difference in seconds between two consecutive images belonging "
 "to one panorama."
 msgstr "同一張環景圖中兩張連續照片的最大間隔秒數"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:283
+#: translations/xrc.cpp:46
 msgid "Stacks:"
 msgstr "堆棧："
 
-#: hugin1/hugin/xrc/batch_frame.xrc:290
+#: translations/xrc.cpp:47
 msgid "Create links"
 msgstr "建立連結"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:291
+#: translations/xrc.cpp:48
 msgid "Check if the stacks were shot on a tripod."
 msgstr "檢查同一堆棧是否有用腳架拍攝"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:298
+#: translations/xrc.cpp:49
 msgid "Lens database:"
 msgstr "鏡頭資料庫"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:305
+#: translations/xrc.cpp:50
 msgid "Load distortion data"
 msgstr "載入鏡頭失真資料"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:306
+#: translations/xrc.cpp:51
 msgid "Tries to load distortion data from lensfun database if checked."
 msgstr "選項勾選的話會試著從 lensfun 資料庫載入鏡頭變形資料"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:313
+#: translations/xrc.cpp:52
 msgid "Load vignetting data"
 msgstr "載入鏡頭暗角校正數據..."
 
-#: hugin1/hugin/xrc/batch_frame.xrc:314
+#: translations/xrc.cpp:53
 msgid "Tries to load vignetting data from lensfun database if checked."
 msgstr "如果勾選選項的話，會嘗試從 lensfun 資料庫載入暗角校正資料"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:327 hugin1/hugin/xrc/lenscal_frame.xrc:200
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:204
-#: hugin1/hugin/xrc/pano_panel.xrc:749 hugin1/hugin/xrc/pano_panel.xrc:777
-#: hugin1/hugin/xrc/pano_panel.xrc:805 hugin1/hugin/xrc/pano_panel.xrc:833
-#: hugin1/hugin/xrc/pref_dialog.xrc:897
+#: translations/xrc.cpp:54 translations/xrc.cpp:267 translations/xrc.cpp:486
+#: translations/xrc.cpp:603 translations/xrc.cpp:606 translations/xrc.cpp:609
+#: translations/xrc.cpp:612 translations/xrc.cpp:754
 msgid "Options"
 msgstr "選項"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:335
+#: translations/xrc.cpp:55
 msgid "Found panoramas"
 msgstr "找到環景"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:358
+#: translations/xrc.cpp:56
 msgid "Send selected panoramas to queue"
 msgstr "把選擇的環景送到列表"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:385
+#: translations/xrc.cpp:57
 msgid "Close"
 msgstr "關閉"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:400
+#: translations/xrc.cpp:58
 msgid "Searching panoramas"
 msgstr "搜尋環景"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:413
+#: translations/xrc.cpp:59
 msgid "Failed projects"
 msgstr "失敗的專案"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:428 hugin1/hugin/xrc/pano_panel.xrc:1336
+#: translations/xrc.cpp:60 translations/xrc.cpp:655
 msgid "Output"
 msgstr "輸出"
 
-#: hugin1/hugin/xrc/batch_frame.xrc:464
+#: translations/xrc.cpp:62
 msgid "Status report"
 msgstr "狀態報告"
 
-#: hugin1/hugin/xrc/batch_menu.xrc:8
+#: translations/xrc.cpp:65
 msgid "Adds a project to the stitching queue"
 msgstr "把專案新增到批次處理序列"
 
-#: hugin1/hugin/xrc/batch_menu.xrc:12
+#: translations/xrc.cpp:67
 msgid "Adds a project to the assistant queue"
 msgstr "新增專案 %s 到接圖分析序列中"
 
-#: hugin1/hugin/xrc/batch_menu.xrc:15 hugin1/hugin/xrc/batch_toolbar.xrc:60
+#: translations/xrc.cpp:68 translations/xrc.cpp:111
 msgid "Remove project"
 msgstr "移除專案"
 
-#: hugin1/hugin/xrc/batch_menu.xrc:16 hugin1/hugin/xrc/batch_toolbar.xrc:61
+#: translations/xrc.cpp:69 translations/xrc.cpp:112
 msgid "Removes selected project from the batch list"
 msgstr "從批次處理列表中移除已選專案"
 
-#: hugin1/hugin/xrc/batch_menu.xrc:19
+#: translations/xrc.cpp:70
 msgid "Search directory for..."
 msgstr "搜尋目錄"
 
-#: hugin1/hugin/xrc/batch_menu.xrc:21
+#: translations/xrc.cpp:71
 msgid "Project files"
 msgstr "專案檔"
 
-#: hugin1/hugin/xrc/batch_menu.xrc:22 hugin1/hugin/xrc/batch_toolbar.xrc:67
+#: translations/xrc.cpp:72 translations/xrc.cpp:115
 msgid "Appends all project files from a directory and subdirectories"
 msgstr "附加一個目錄和其子目錄下的所有專案檔案"
 
-#: hugin1/hugin/xrc/batch_menu.xrc:25
+#: translations/xrc.cpp:73
 msgid "Images"
 msgstr "圖片"
 
-#: hugin1/hugin/xrc/batch_menu.xrc:26
+#: translations/xrc.cpp:74
 msgid "Searches in directories for image files suitable for panoramas"
 msgstr "在目錄中尋找適合全景的影像檔"
 
-#: hugin1/hugin/xrc/batch_menu.xrc:28
+#: translations/xrc.cpp:75
 msgid "Searches in directories for existing projects or for images"
 msgstr "在目錄中尋找專案檔或影像"
 
-#: hugin1/hugin/xrc/batch_menu.xrc:32 hugin1/hugin/xrc/batch_toolbar.xrc:15
+#: translations/xrc.cpp:76 translations/xrc.cpp:90
 msgid "Open batch"
 msgstr "開啟批次處理"
 
-#: hugin1/hugin/xrc/batch_menu.xrc:33 hugin1/hugin/xrc/batch_toolbar.xrc:16
+#: translations/xrc.cpp:77 translations/xrc.cpp:91
 msgid "Opens a batch file with a list of projects"
 msgstr "開啟帶有一系列專案的一個批次處理檔案"
 
-#: hugin1/hugin/xrc/batch_menu.xrc:36 hugin1/hugin/xrc/batch_toolbar.xrc:21
+#: translations/xrc.cpp:78 translations/xrc.cpp:93
 msgid "Save batch"
 msgstr "儲存批次處理"
 
-#: hugin1/hugin/xrc/batch_menu.xrc:37 hugin1/hugin/xrc/batch_toolbar.xrc:22
+#: translations/xrc.cpp:79 translations/xrc.cpp:94
 msgid "Saves a batch file with a list of projects"
 msgstr "將一系列專案儲存成一個批次處理檔案"
 
-#: hugin1/hugin/xrc/batch_menu.xrc:40 hugin1/hugin/xrc/batch_toolbar.xrc:9
+#: translations/xrc.cpp:80 translations/xrc.cpp:87
 msgid "Clear batch"
 msgstr "清除批次處理"
 
-#: hugin1/hugin/xrc/batch_menu.xrc:41 hugin1/hugin/xrc/batch_toolbar.xrc:10
+#: translations/xrc.cpp:81 translations/xrc.cpp:88
 msgid "Clears the batch list"
 msgstr "清除批次處理列表"
 
-#: hugin1/hugin/xrc/batch_menu.xrc:45 hugin1/hugin/xrc/lenscal_frame.xrc:456
-#: hugin1/hugin/xrc/main_menu.xrc:201 hugin1/hugin/xrc/preview_frame.xrc:1874
+#: translations/xrc.cpp:82 translations/xrc.cpp:288 translations/xrc.cpp:418
+#: translations/xrc.cpp:1050
 msgid "&Quit"
 msgstr "退出 (&Q)"
 
-#: hugin1/hugin/xrc/batch_menu.xrc:46 hugin1/hugin/xrc/main_menu.xrc:203
-#: hugin1/hugin/xrc/preview_frame.xrc:1876
+#: translations/xrc.cpp:83 translations/xrc.cpp:419 translations/xrc.cpp:1051
 msgid "Exit program"
 msgstr "退出應用程式"
 
-#: hugin1/hugin/xrc/batch_menu.xrc:52
+#: translations/xrc.cpp:85
 msgid "Batch Stitcher help"
 msgstr "批次接合工具幫助"
 
-#: hugin1/hugin/xrc/batch_menu.xrc:53
+#: translations/xrc.cpp:86
 msgid "Open Batch Stitcher help."
 msgstr "開啟批次接合工具幫助"
 
-#: hugin1/hugin/xrc/batch_toolbar.xrc:11
+#: translations/xrc.cpp:89
 msgid "clear"
 msgstr "清除"
 
-#: hugin1/hugin/xrc/batch_toolbar.xrc:17
+#: translations/xrc.cpp:92
 msgid "open"
 msgstr "開啟"
 
-#: hugin1/hugin/xrc/batch_toolbar.xrc:23
+#: translations/xrc.cpp:95
 msgid "save"
 msgstr "儲存"
 
-#: hugin1/hugin/xrc/batch_toolbar.xrc:29
+#: translations/xrc.cpp:97
 msgid "Starts batch execution"
 msgstr "開始執行批次處理"
 
-#: hugin1/hugin/xrc/batch_toolbar.xrc:30
+#: translations/xrc.cpp:98
 msgid "start"
 msgstr "開始"
 
-#: hugin1/hugin/xrc/batch_toolbar.xrc:34
+#: translations/xrc.cpp:99
 msgid "Skip project(s)"
 msgstr "跳過專案"
 
-#: hugin1/hugin/xrc/batch_toolbar.xrc:35
+#: translations/xrc.cpp:100
 msgid "Skips execution of currently running project(s)"
 msgstr "跳過執行正在執行的專案"
 
-#: hugin1/hugin/xrc/batch_toolbar.xrc:36
+#: translations/xrc.cpp:101
 msgid "skip"
 msgstr "跳過"
 
-#: hugin1/hugin/xrc/batch_toolbar.xrc:42
+#: translations/xrc.cpp:103
 msgid "Pauses batch execution"
 msgstr "暫停執行批次處理"
 
-#: hugin1/hugin/xrc/batch_toolbar.xrc:43
+#: translations/xrc.cpp:104
 msgid "pause"
 msgstr "暫停"
 
-#: hugin1/hugin/xrc/batch_toolbar.xrc:47
+#: translations/xrc.cpp:105
 msgid "Cancel batch"
 msgstr "取消批次處理"
 
-#: hugin1/hugin/xrc/batch_toolbar.xrc:48
+#: translations/xrc.cpp:106
 msgid "Cancels batch execution"
 msgstr "取消執行批次處理"
 
-#: hugin1/hugin/xrc/batch_toolbar.xrc:49
+#: translations/xrc.cpp:107
 msgid "cancel"
 msgstr "取消"
 
-#: hugin1/hugin/xrc/batch_toolbar.xrc:54
+#: translations/xrc.cpp:108
 msgid "Add project(s)"
 msgstr "增加專案"
 
-#: hugin1/hugin/xrc/batch_toolbar.xrc:55
+#: translations/xrc.cpp:109
 msgid "Appends project file(s) to the batch list"
 msgstr "附加專案檔案到批次處理列表"
 
-#: hugin1/hugin/xrc/batch_toolbar.xrc:56
+#: translations/xrc.cpp:110
 msgid "add"
 msgstr "增加"
 
-#: hugin1/hugin/xrc/batch_toolbar.xrc:62
+#: translations/xrc.cpp:113
 msgid "remove"
 msgstr "移除"
 
-#: hugin1/hugin/xrc/batch_toolbar.xrc:66
+#: translations/xrc.cpp:114
 msgid "Search directory"
 msgstr "搜尋目錄"
 
-#: hugin1/hugin/xrc/batch_toolbar.xrc:68
+#: translations/xrc.cpp:116
 msgid "adddir"
 msgstr "增加目錄"
 
-#: hugin1/hugin/xrc/cp_editor_panel.xrc:32
+#: translations/xrc.cpp:117
 msgid "previous image pair"
 msgstr "上一對圖片"
 
-#: hugin1/hugin/xrc/cp_editor_panel.xrc:64
+#: translations/xrc.cpp:118
 msgid "next image pair"
 msgstr "下一對圖片"
 
-#: hugin1/hugin/xrc/cp_editor_panel.xrc:177
+#: translations/xrc.cpp:119
 msgid "mode:"
 msgstr "模式:"
 
-#: hugin1/hugin/xrc/cp_editor_panel.xrc:186
+#: translations/xrc.cpp:121
 msgid "vertical line"
 msgstr "垂直線"
 
-#: hugin1/hugin/xrc/cp_editor_panel.xrc:187
+#: translations/xrc.cpp:122
 msgid "horizontal line"
 msgstr "水平線"
 
-#: hugin1/hugin/xrc/cp_editor_panel.xrc:210
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:359
+#: translations/xrc.cpp:123 translations/xrc.cpp:495
 msgid "Zoom:"
 msgstr "縮放:"
 
-#: hugin1/hugin/xrc/cp_editor_panel.xrc:220
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:368
+#: translations/xrc.cpp:124 translations/xrc.cpp:496
 msgid "fit to window"
 msgstr "自動調整"
 
-#: hugin1/hugin/xrc/cp_editor_panel.xrc:240
-#: hugin1/hugin/xrc/pref_dialog.xrc:464
+#: translations/xrc.cpp:125 translations/xrc.cpp:705
 msgid "Fine-tune"
 msgstr "最佳調整"
 
-#: hugin1/hugin/xrc/cp_editor_panel.xrc:241
+#: translations/xrc.cpp:126
 msgid "Tries to optimize the currently active point"
 msgstr "嘗試最佳化目前選取的點."
 
-#: hugin1/hugin/xrc/cp_editor_panel.xrc:248
+#: translations/xrc.cpp:127
 msgid "Celeste"
 msgstr "Celeste"
 
-#: hugin1/hugin/xrc/cp_editor_panel.xrc:249
+#: translations/xrc.cpp:128
 msgid "Tries to remove control points from clouds"
 msgstr "嘗試從雲朵上移除控制點"
 
-#: hugin1/hugin/xrc/cp_editor_panel.xrc:263
+#: translations/xrc.cpp:129
 msgid "auto fine-&tune"
 msgstr "自動調整 (&t)"
 
-#: hugin1/hugin/xrc/cp_editor_panel.xrc:269
+#: translations/xrc.cpp:130
 msgid "auto add"
 msgstr "自動增加"
 
-#: hugin1/hugin/xrc/cp_editor_panel.xrc:270
+#: translations/xrc.cpp:131
 msgid "immediately add control point when selecting a second point"
 msgstr "選取第二點後立即增加控制點"
 
-#: hugin1/hugin/xrc/cp_editor_panel.xrc:276
+#: translations/xrc.cpp:132
 msgid "auto-estimate"
 msgstr "自動測量"
 
-#: hugin1/hugin/xrc/cp_editor_panel.xrc:277
+#: translations/xrc.cpp:133
 msgid ""
 "tries to estimate the shift between the images and use it while placing "
 "control points"
 msgstr "嘗試變換圖片進行測量, 並且在放置控制點時使用"
 
-#: hugin1/hugin/xrc/cp_editor_panel.xrc:290
+#: translations/xrc.cpp:134
 msgid "&Delete"
 msgstr "刪除 (&D)"
 
-#: hugin1/hugin/xrc/cp_editor_panel.xrc:297
+#: translations/xrc.cpp:135
 msgid "&Add"
 msgstr "增加 (&A)"
 
-#: hugin1/hugin/xrc/cp_editor_panel.xrc:298
+#: translations/xrc.cpp:136
 msgid "add a new Point"
 msgstr "增加一個新點"
 
-#: hugin1/hugin/xrc/cp_list_frame.xrc:4 hugin1/hugin/xrc/main_frame.xrc:30
-#: hugin1/hugin/xrc/main_menu.xrc:83
+#: translations/xrc.cpp:137 translations/xrc.cpp:332 translations/xrc.cpp:373
 msgid "Control Points"
 msgstr "控制點"
 
-#: hugin1/hugin/xrc/cp_list_frame.xrc:17 hugin1/hugin/xrc/pref_dialog.xrc:700
+#: translations/xrc.cpp:138 translations/xrc.cpp:727
 msgid "Delete"
 msgstr "刪除"
 
-#: hugin1/hugin/xrc/cp_list_frame.xrc:24
+#: translations/xrc.cpp:139
 msgid "Select by Distance"
 msgstr "通過距離進行選取"
 
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:17
+#: translations/xrc.cpp:140
 msgid "Description:"
 msgstr "說明:"
 
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:29
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:547
+#: translations/xrc.cpp:141 translations/xrc.cpp:211
 msgid "Type:"
 msgstr "類型:"
 
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:37
+#: translations/xrc.cpp:142
 msgid "Autopano (by A. Jenny)"
 msgstr "Autopano (作者 A. Jenny)"
 
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:38
+#: translations/xrc.cpp:143
 msgid "All images at once"
 msgstr "全部圖片同時"
 
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:39
+#: translations/xrc.cpp:144
 msgid "Panorama with stacks"
 msgstr "有堆棧圖的全景圖"
 
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:40
+#: translations/xrc.cpp:145
 msgid "Multi-row panorama"
 msgstr "多列全景圖片"
 
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:41
+#: translations/xrc.cpp:146
 msgid "Multi-row panorama with stacks"
 msgstr "有堆棧圖的多列全景圖"
 
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:42
+#: translations/xrc.cpp:147
 msgid "Prealigned panorama"
 msgstr "預先對準全景圖片"
 
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:55
+#: translations/xrc.cpp:148
 msgid "Detector"
 msgstr "偵測器"
 
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:62
+#: translations/xrc.cpp:149
 msgid "One step detector"
 msgstr "一段式探測器"
 
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:68
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:227
+#: translations/xrc.cpp:150 translations/xrc.cpp:163
 msgid "Program:"
 msgstr "應用程式:"
 
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:94
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:153
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:192
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:253
+#: translations/xrc.cpp:152 translations/xrc.cpp:157 translations/xrc.cpp:160
+#: translations/xrc.cpp:165
 msgid "Arguments:"
 msgstr "引數:"
 
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:107
+#: translations/xrc.cpp:153
 msgid "Cleanup arguments:"
 msgstr "清除引數"
 
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:121
+#: translations/xrc.cpp:154
 msgid "Two step detector"
 msgstr "兩段式偵測器"
 
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:127
+#: translations/xrc.cpp:155
 msgid "Feature descriptor:"
 msgstr "特徵描述："
 
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:166
+#: translations/xrc.cpp:158
 msgid "Feature matcher:"
 msgstr "特徵相容器:"
 
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:213
+#: translations/xrc.cpp:161
 msgid "Detector for stacks"
 msgstr "堆棧式圖片偵測器"
 
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:218
+#: translations/xrc.cpp:162
 msgid "Leave empty when no control point detector should run on stacks."
 msgstr "當堆棧圖片沒有需要使用的控制點偵測器時,保持空白."
 
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:273
+#: translations/xrc.cpp:166
 msgid "Advanced option"
 msgstr "進階選項"
 
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:287
+#: translations/xrc.cpp:167
 msgid "This setting has no advanced options."
 msgstr "這個設定沒有進階選項"
 
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:302
+#: translations/xrc.cpp:168
 msgid ""
 "The following patterns will be substituted before running:\n"
 "%o  -- output project (0.oto will be appended when using Autopano)\n"
@@ -4378,540 +4324,493 @@ msgstr ""
 "%s -- 輸入 panotools 程式碼\n"
 "%k -- 中途 key 檔案"
 
-#: hugin1/hugin/xrc/cpdetector_dialog.xrc:342
+#: translations/xrc.cpp:171
 msgid "Parameters for Control Point Detectors"
 msgstr "控制點偵測器參數"
 
-#: hugin1/hugin/xrc/dlg_warning.xrc:35
+#: translations/xrc.cpp:172
 msgid "Invalid filenames"
 msgstr "無效的檔名"
 
-#: hugin1/hugin/xrc/edit_script_dialog.xrc:4
+#: translations/xrc.cpp:175
 msgid "Edit Panorama Tools Script"
 msgstr "編輯全景圖片工具的程式碼"
 
-#: hugin1/hugin/xrc/edit_script_dialog.xrc:9
+#: translations/xrc.cpp:176
 msgid ""
 "This is the script which will be sent to the Panorama Tools engine.  Editing "
 "these lines is an advanced technique."
 msgstr "這是將要被傳遞給全景圖片工具引擎的程式碼. 編輯這些指令是一項進階的技巧"
 
-#: hugin1/hugin/xrc/edit_script_dialog.xrc:27
+#: translations/xrc.cpp:177
 msgid "Continue with these changes"
 msgstr "繼續這些修改"
 
-#: hugin1/hugin/xrc/edit_script_dialog.xrc:32
+#: translations/xrc.cpp:178
 msgid "Discard changes and cancel"
 msgstr "放棄修改並且取消"
 
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:15
-#: hugin1/hugin/xrc/preview_frame.xrc:62
-#: hugin1/hugin/xrc/preview_frame.xrc:672
-#: hugin1/hugin/xrc/preview_frame.xrc:1501
+#: translations/xrc.cpp:179 translations/xrc.cpp:833 translations/xrc.cpp:892
+#: translations/xrc.cpp:978
 msgid "Yaw:"
 msgstr "轉向角度:"
 
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:28
-#: hugin1/hugin/xrc/preview_frame.xrc:76
-#: hugin1/hugin/xrc/preview_frame.xrc:686
-#: hugin1/hugin/xrc/preview_frame.xrc:1515
+#: translations/xrc.cpp:180 translations/xrc.cpp:834 translations/xrc.cpp:893
+#: translations/xrc.cpp:979
 msgid "Pitch:"
 msgstr "俯仰角度:"
 
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:41
-#: hugin1/hugin/xrc/preview_frame.xrc:90
-#: hugin1/hugin/xrc/preview_frame.xrc:700
-#: hugin1/hugin/xrc/preview_frame.xrc:1529
+#: translations/xrc.cpp:181 translations/xrc.cpp:835 translations/xrc.cpp:894
+#: translations/xrc.cpp:980
 msgid "Roll:"
 msgstr "滾轉角度:"
 
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:54
+#: translations/xrc.cpp:182
 msgid "Translation parameter"
 msgstr "平移參數"
 
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:69
-#: hugin1/hugin/xrc/preview_frame.xrc:714
-#: hugin1/hugin/xrc/preview_frame.xrc:1543
+#: translations/xrc.cpp:183 translations/xrc.cpp:895 translations/xrc.cpp:981
 msgid "X:"
 msgstr "X:"
 
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:82
-#: hugin1/hugin/xrc/preview_frame.xrc:728
-#: hugin1/hugin/xrc/preview_frame.xrc:1557
+#: translations/xrc.cpp:184 translations/xrc.cpp:896 translations/xrc.cpp:982
 msgid "Y:"
 msgstr "Y:"
 
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:95
-#: hugin1/hugin/xrc/preview_frame.xrc:742
-#: hugin1/hugin/xrc/preview_frame.xrc:1571
+#: translations/xrc.cpp:185 translations/xrc.cpp:897 translations/xrc.cpp:983
 msgid "Z:"
 msgstr "Z:"
 
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:108
+#: translations/xrc.cpp:186
 msgid "Tpy:"
 msgstr ""
 
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:121
+#: translations/xrc.cpp:187
 msgid "Tpp:"
 msgstr ""
 
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:142
-#: hugin1/hugin/xrc/images_panel.xrc:92
+#: translations/xrc.cpp:188 translations/xrc.cpp:229
 msgid "Positions"
 msgstr "位置"
 
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:165
+#: translations/xrc.cpp:190
 msgid "degrees of view (v):"
 msgstr "視圖角度 (v):"
 
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:179
-#: hugin1/hugin/xrc/lenscal_frame.xrc:235
+#: translations/xrc.cpp:191 translations/xrc.cpp:270
 msgid "Radial Distortion"
 msgstr "鏡頭變形"
 
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:194
-#: hugin1/hugin/xrc/lenscal_frame.xrc:244
+#: translations/xrc.cpp:192 translations/xrc.cpp:271
 msgid "distortion (a):"
 msgstr "鏡頭變形 (a):"
 
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:208
-#: hugin1/hugin/xrc/lenscal_frame.xrc:264
+#: translations/xrc.cpp:193 translations/xrc.cpp:272
 msgid "barrel (b):"
 msgstr "桶狀 (b):"
 
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:222
-#: hugin1/hugin/xrc/lenscal_frame.xrc:284
+#: translations/xrc.cpp:194 translations/xrc.cpp:273
 msgid "distortion (c):"
 msgstr "鏡頭變形 (c):"
 
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:237
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:436
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:613
+#: translations/xrc.cpp:195 translations/xrc.cpp:208 translations/xrc.cpp:215
 msgid "Show graph >>"
 msgstr "顯示圖形 >>"
 
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:258
-#: hugin1/hugin/xrc/lenscal_frame.xrc:313
+#: translations/xrc.cpp:196 translations/xrc.cpp:274
 msgid "Image Center Shift"
 msgstr "圖片中心變換"
 
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:271
-#: hugin1/hugin/xrc/lenscal_frame.xrc:325
+#: translations/xrc.cpp:197 translations/xrc.cpp:275
 msgid "horizontal (d):"
 msgstr "水平 (d):"
 
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:285
-#: hugin1/hugin/xrc/lenscal_frame.xrc:340
+#: translations/xrc.cpp:198 translations/xrc.cpp:276
 msgid "vertical (e):"
 msgstr "垂直 (e):"
 
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:299
+#: translations/xrc.cpp:199
 msgid "Image Shearing"
 msgstr "圖片修剪"
 
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:314
+#: translations/xrc.cpp:200
 msgid "horizontal (g):"
 msgstr "水平 (g):"
 
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:328
+#: translations/xrc.cpp:201
 msgid "vertical (t):"
 msgstr "垂直 (t):"
 
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:357
+#: translations/xrc.cpp:203
 msgid "Exposure and Color"
 msgstr "光圈和顏色"
 
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:370
+#: translations/xrc.cpp:204
 msgid "Exposure (Eev):"
 msgstr "曝光 (Eev)"
 
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:382
+#: translations/xrc.cpp:205
 #, fuzzy
 msgid "Red multiplier (Er):"
 msgstr "紅色乘數(Er):"
 
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:394
+#: translations/xrc.cpp:206
 #, fuzzy
 msgid "Blue multiplier (Eb):"
 msgstr "藍色乘數(Eb):"
 
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:420
-#: hugin1/hugin/xrc/reset_dialog.xrc:95
+#: translations/xrc.cpp:207 translations/xrc.cpp:1064
 msgid "Vignetting"
 msgstr "暗角校正"
 
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:489
+#: translations/xrc.cpp:209
 msgid "Vignetting Center Shift"
 msgstr "暗角中心偏移"
 
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:535
-#: hugin1/hugin/xrc/preview_frame.xrc:289
-#: hugin1/hugin/xrc/preview_frame.xrc:1102
+#: translations/xrc.cpp:210 translations/xrc.cpp:852 translations/xrc.cpp:934
 msgid "Photometrics"
 msgstr "光學性質"
 
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:571
+#: translations/xrc.cpp:214
 msgid "Parameters:"
 msgstr "參數:"
 
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:624
-#: hugin1/hugin/xrc/reset_dialog.xrc:103
+#: translations/xrc.cpp:216 translations/xrc.cpp:1065
 msgid "Camera Response"
 msgstr "照相機回應"
 
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:645
-#: hugin1/hugin/xrc/pref_dialog.xrc:1390
+#: translations/xrc.cpp:219 translations/xrc.cpp:810
 msgid "Help"
 msgstr "幫助"
 
-#: hugin1/hugin/xrc/image_variable_dlg.xrc:653
+#: translations/xrc.cpp:220
 msgid "Image variables"
 msgstr "圖片變數"
 
-#: hugin1/hugin/xrc/images_panel.xrc:30
+#: translations/xrc.cpp:221
 msgid "Group by:"
 msgstr "分類模式："
 
-#: hugin1/hugin/xrc/images_panel.xrc:42
+#: translations/xrc.cpp:222
 msgid "Minimum overlap:"
 msgstr "最小的重疊："
 
-#: hugin1/hugin/xrc/images_panel.xrc:50
+#: translations/xrc.cpp:223
 msgid "Minimum overlap for output stack detection"
 msgstr "堆棧偵測輸出的最小重疊"
 
-#: hugin1/hugin/xrc/images_panel.xrc:66
+#: translations/xrc.cpp:224
 msgid "Maximum Ev difference:"
 msgstr "最大的曝光值(Ev)差異"
 
-#: hugin1/hugin/xrc/images_panel.xrc:74
+#: translations/xrc.cpp:225
 msgid "Maximum EV difference for detection of output layers"
 msgstr "輸出圖層偵測的最大的曝光(Ev)差異"
 
-#: hugin1/hugin/xrc/images_panel.xrc:88
+#: translations/xrc.cpp:226
 msgid "Display"
 msgstr "顯示資料"
 
-#: hugin1/hugin/xrc/images_panel.xrc:90 hugin1/hugin/xrc/pref_dialog.xrc:9
+#: translations/xrc.cpp:227 translations/xrc.cpp:659
 msgid "General"
 msgstr "一般"
 
-#: hugin1/hugin/xrc/images_panel.xrc:91
+#: translations/xrc.cpp:228
 msgid "EXIF data"
 msgstr "EXIF 資訊"
 
-#: hugin1/hugin/xrc/images_panel.xrc:93 hugin1/hugin/xrc/lenscal_frame.xrc:383
-#: hugin1/hugin/xrc/reset_dialog.xrc:36
+#: translations/xrc.cpp:230 translations/xrc.cpp:279 translations/xrc.cpp:1057
 msgid "Lens parameters"
 msgstr "鏡頭參數"
 
-#: hugin1/hugin/xrc/images_panel.xrc:94
+#: translations/xrc.cpp:231
 msgid "Photometric parameters"
 msgstr "光學參數"
 
-#: hugin1/hugin/xrc/images_panel.xrc:128
+#: translations/xrc.cpp:232
 msgid "Lens type"
 msgstr "鏡頭類型:"
 
-#: hugin1/hugin/xrc/images_panel.xrc:143
+#: translations/xrc.cpp:233
 msgid "Add images..."
 msgstr "新增影像..."
 
-#: hugin1/hugin/xrc/images_panel.xrc:152 hugin1/hugin/xrc/images_panel.xrc:425
-#: hugin1/hugin/xrc/lenscal_frame.xrc:61
-#: hugin1/hugin/xrc/preview_frame.xrc:158
-#: hugin1/hugin/xrc/preview_frame.xrc:971
+#: translations/xrc.cpp:234 translations/xrc.cpp:247 translations/xrc.cpp:259
+#: translations/xrc.cpp:841 translations/xrc.cpp:923
 msgid "Lens type:"
 msgstr "鏡頭類型:"
 
-#: hugin1/hugin/xrc/images_panel.xrc:165 hugin1/hugin/xrc/images_panel.xrc:497
-#: hugin1/hugin/xrc/lenscal_frame.xrc:86
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:111
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:328
-#: hugin1/hugin/xrc/preview_frame.xrc:171
-#: hugin1/hugin/xrc/preview_frame.xrc:984
+#: translations/xrc.cpp:235 translations/xrc.cpp:252 translations/xrc.cpp:260
+#: translations/xrc.cpp:296 translations/xrc.cpp:312 translations/xrc.cpp:842
+#: translations/xrc.cpp:924
 msgid "Focal length:"
 msgstr "焦距:"
 
-#: hugin1/hugin/xrc/images_panel.xrc:225
+#: translations/xrc.cpp:237
 msgid "Feature Matching"
 msgstr "特徵點偵測"
 
-#: hugin1/hugin/xrc/images_panel.xrc:240
+#: translations/xrc.cpp:238
 msgid "Settings:"
 msgstr "設定:"
 
-#: hugin1/hugin/xrc/images_panel.xrc:252
+#: translations/xrc.cpp:240
 msgid "Run external autopano program on the selected images"
 msgstr "執行外部 Autopano 應用程式到選取的圖片上"
 
-#: hugin1/hugin/xrc/images_panel.xrc:276
-#: hugin1/hugin/xrc/lenscal_frame.xrc:366 hugin1/hugin/xrc/main_tool.xrc:52
+#: translations/xrc.cpp:241 translations/xrc.cpp:277 translations/xrc.cpp:453
 msgid "Optimize"
 msgstr "最佳化"
 
-#: hugin1/hugin/xrc/images_panel.xrc:291
+#: translations/xrc.cpp:242
 msgid "Geometric:"
 msgstr "幾何的："
 
-#: hugin1/hugin/xrc/images_panel.xrc:307 hugin1/hugin/xrc/images_panel.xrc:328
+#: translations/xrc.cpp:243 translations/xrc.cpp:245
 msgid "Calculate"
 msgstr "計算"
 
-#: hugin1/hugin/xrc/images_panel.xrc:312
+#: translations/xrc.cpp:244
 msgid "Photometric:"
 msgstr "光學性質的："
 
-#: hugin1/hugin/xrc/images_panel.xrc:358
+#: translations/xrc.cpp:246
 msgid "Selected Image"
 msgstr "選取圖片"
 
-#: hugin1/hugin/xrc/images_panel.xrc:444
+#: translations/xrc.cpp:248
 msgid "Load lens data..."
 msgstr "載入鏡頭數據..."
 
-#: hugin1/hugin/xrc/images_panel.xrc:460
+#: translations/xrc.cpp:249
 msgid "Enter horizontal field of view (HFOV) or focal length and crop factor:"
 msgstr "輸入水平視角 (HFOV) 或者焦距和鏡頭焦距位移率:"
 
-#: hugin1/hugin/xrc/images_panel.xrc:471
+#: translations/xrc.cpp:250
 msgid "HFOV (v):"
 msgstr "水平視角 (v):"
 
-#: hugin1/hugin/xrc/images_panel.xrc:482 hugin1/hugin/xrc/pref_dialog.xrc:611
-#: hugin1/hugin/xrc/pref_dialog.xrc:630
+#: translations/xrc.cpp:251 translations/xrc.cpp:719 translations/xrc.cpp:721
 msgid "degrees"
 msgstr "角度"
 
-#: hugin1/hugin/xrc/images_panel.xrc:561
+#: translations/xrc.cpp:256
 msgid "Camera and Lens data"
 msgstr "照相機和鏡頭數據"
 
-#: hugin1/hugin/xrc/lenscal_frame.xrc:31 hugin1/hugin/xrc/main_tool.xrc:46
+#: translations/xrc.cpp:257 translations/xrc.cpp:450
 msgid "Add"
 msgstr "增加"
 
-#: hugin1/hugin/xrc/lenscal_frame.xrc:127
+#: translations/xrc.cpp:262
 msgid "Images (with straight lines)"
 msgstr "影像 (包含直線)"
 
-#: hugin1/hugin/xrc/lenscal_frame.xrc:140
+#: translations/xrc.cpp:263
 msgid "Edge detection scale:"
 msgstr "邊緣偵測比例"
 
-#: hugin1/hugin/xrc/lenscal_frame.xrc:154
+#: translations/xrc.cpp:264
 msgid "Edge detection threshold:"
 msgstr "隅角偵測閥值"
 
-#: hugin1/hugin/xrc/lenscal_frame.xrc:168
+#: translations/xrc.cpp:265
 msgid "Maximal image size:"
 msgstr "最大影像尺寸"
 
-#: hugin1/hugin/xrc/lenscal_frame.xrc:182
+#: translations/xrc.cpp:266
 msgid "Minimum line length:"
 msgstr "最小直線長度"
 
-#: hugin1/hugin/xrc/lenscal_frame.xrc:206
+#: translations/xrc.cpp:268
 msgid "Find lines"
 msgstr "尋找直線"
 
-#: hugin1/hugin/xrc/lenscal_frame.xrc:398
+#: translations/xrc.cpp:280
 msgid "Original"
 msgstr "原始"
 
-#: hugin1/hugin/xrc/lenscal_frame.xrc:399
+#: translations/xrc.cpp:281
 msgid "Edge detection"
 msgstr "邊緣偵測"
 
-#: hugin1/hugin/xrc/lenscal_frame.xrc:400
+#: translations/xrc.cpp:282
 msgid "Corrected"
 msgstr "校正完成"
 
-#: hugin1/hugin/xrc/lenscal_frame.xrc:409
+#: translations/xrc.cpp:283
 msgid "Show lines"
 msgstr "顯示直線"
 
-#: hugin1/hugin/xrc/lenscal_frame.xrc:417
+#: translations/xrc.cpp:284
 msgid "Refresh"
 msgstr "重新整理"
 
-#: hugin1/hugin/xrc/lenscal_frame.xrc:451
+#: translations/xrc.cpp:286
 msgid "&Save as project file..."
 msgstr "儲存成專案檔案..."
 
-#: hugin1/hugin/xrc/lenscal_frame.xrc:452
+#: translations/xrc.cpp:287
 msgid "Saves the images and lines as pto file for further tuning inside hugin."
 msgstr "為了在hugin中利進一步的調整，以pto檔案儲存影像和指令"
 
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:14
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:247
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:460
+#: translations/xrc.cpp:290 translations/xrc.cpp:306 translations/xrc.cpp:322
 msgid "Camera maker:"
 msgstr "相機製造商："
 
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:29
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:260
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:474
+#: translations/xrc.cpp:291 translations/xrc.cpp:307 translations/xrc.cpp:323
 msgid "Camera model:"
 msgstr "相機型號："
 
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:44
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:286
+#: translations/xrc.cpp:292 translations/xrc.cpp:309
 msgid "Lens name:"
 msgstr "鏡頭名稱："
 
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:52
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:293
+#: translations/xrc.cpp:293 translations/xrc.cpp:310
 msgid "Leave empty for compact cameras."
 msgstr "空白時設定為普通相機"
 
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:61
+#: translations/xrc.cpp:294
 msgid "fuzzy search"
 msgstr "模糊搜尋"
 
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:69
+#: translations/xrc.cpp:295
 msgid "Search"
 msgstr "搜尋"
 
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:132
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:349
+#: translations/xrc.cpp:297 translations/xrc.cpp:313
 msgid "Aperture:"
 msgstr "光圈:"
 
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:147
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:364
+#: translations/xrc.cpp:298 translations/xrc.cpp:314
 msgid "Subject distance:"
 msgstr "物件距離："
 
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:180
+#: translations/xrc.cpp:299
 msgid ""
 "Select which parameters should be loaded\n"
 "from database"
 msgstr "選擇要從資料庫載入的環景"
 
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:187
+#: translations/xrc.cpp:300
 msgid "Load distortion"
 msgstr "載入鏡頭變形"
 
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:195
+#: translations/xrc.cpp:301
 msgid "Load vignetting"
 msgstr "載入暗角校正資料"
 
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:232
+#: translations/xrc.cpp:305
 msgid "Load lens from database"
 msgstr "從資料庫載入鏡頭數據..."
 
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:273
+#: translations/xrc.cpp:308
 msgid "Lens maker:"
 msgstr "鏡頭製造商："
 
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:300
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:488
+#: translations/xrc.cpp:311 translations/xrc.cpp:324
 msgid "Mount:"
 msgstr "掛載："
 
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:401
+#: translations/xrc.cpp:315
 msgid ""
 "Select which parameters should be saved\n"
 "into database"
 msgstr "選擇要被存入資料庫中的環景"
 
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:408
+#: translations/xrc.cpp:316
 msgid "Save distortion"
 msgstr "儲存鏡頭變形"
 
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:416
+#: translations/xrc.cpp:317
 msgid "Save vignetting"
 msgstr "儲存暗角校正資料"
 
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:448
+#: translations/xrc.cpp:321
 msgid "Save lens to database"
 msgstr "儲存鏡頭參數到資料庫"
 
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:505
+#: translations/xrc.cpp:325
 msgid "Camera"
 msgstr "照相機"
 
-#: hugin1/hugin/xrc/lensdb_dialogs.xrc:530
+#: translations/xrc.cpp:328
 msgid "Save camera to database"
 msgstr "把相機資料存進資料庫"
 
-#: hugin1/hugin/xrc/main_frame.xrc:22 hugin1/hugin/xrc/main_menu.xrc:73
+#: translations/xrc.cpp:330 translations/xrc.cpp:369
 msgid "Photos"
 msgstr "照片"
 
-#: hugin1/hugin/xrc/main_frame.xrc:27 hugin1/hugin/xrc/main_menu.xrc:78
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:213
+#: translations/xrc.cpp:331 translations/xrc.cpp:371 translations/xrc.cpp:487
 msgid "Masks"
 msgstr "遮罩："
 
-#: hugin1/hugin/xrc/main_frame.xrc:42 hugin1/hugin/xrc/main_menu.xrc:98
+#: translations/xrc.cpp:335 translations/xrc.cpp:379
 msgid "Stitcher"
 msgstr "接合工具"
 
-#: hugin1/hugin/xrc/main_frame.xrc:73
+#: translations/xrc.cpp:338
 msgid "Should the OpenGL powered fast preview window disabled?"
 msgstr "要關閉以 OpenGL 顯示的快速預覽視窗嗎？"
 
-#: hugin1/hugin/xrc/main_frame.xrc:92
+#: translations/xrc.cpp:339
 msgid "Don't ask again"
 msgstr "不要再詢問我"
 
-#: hugin1/hugin/xrc/main_frame.xrc:106
+#: translations/xrc.cpp:340
 msgid "Yes"
 msgstr "是"
 
-#: hugin1/hugin/xrc/main_frame.xrc:112
+#: translations/xrc.cpp:341
 msgid "No"
 msgstr "否"
 
-#: hugin1/hugin/xrc/main_menu.xrc:8 hugin1/hugin/xrc/preview_frame.xrc:1756
+#: translations/xrc.cpp:343 translations/xrc.cpp:1006
 msgid "&Undo"
 msgstr "復原 (&U)"
 
-#: hugin1/hugin/xrc/main_menu.xrc:10 hugin1/hugin/xrc/main_tool.xrc:34
-#: hugin1/hugin/xrc/preview_frame.xrc:1758
+#: translations/xrc.cpp:344 translations/xrc.cpp:445 translations/xrc.cpp:1007
 msgid "Undo the last action"
 msgstr "復原最後一個動作"
 
-#: hugin1/hugin/xrc/main_menu.xrc:13 hugin1/hugin/xrc/preview_frame.xrc:1761
+#: translations/xrc.cpp:345 translations/xrc.cpp:1008
 msgid "&Redo"
 msgstr "取消復原 (&R)"
 
-#: hugin1/hugin/xrc/main_menu.xrc:15 hugin1/hugin/xrc/main_tool.xrc:40
-#: hugin1/hugin/xrc/preview_frame.xrc:1763
+#: translations/xrc.cpp:346 translations/xrc.cpp:448 translations/xrc.cpp:1009
 msgid "Redo the last action"
 msgstr "取消復原最後動作"
 
-#: hugin1/hugin/xrc/main_menu.xrc:19
+#: translations/xrc.cpp:347
 msgid "&Add Image"
 msgstr "增加圖片 (&A)"
 
-#: hugin1/hugin/xrc/main_menu.xrc:20 hugin1/hugin/xrc/main_tool.xrc:47
+#: translations/xrc.cpp:348 translations/xrc.cpp:451
 msgid "Add another image to the current project"
 msgstr "增加另外的圖片到目前專案中"
 
-#: hugin1/hugin/xrc/main_menu.xrc:23
+#: translations/xrc.cpp:349
 msgid "Run a&ssistant"
 msgstr "執行接圖分析"
 
-#: hugin1/hugin/xrc/main_menu.xrc:26
+#: translations/xrc.cpp:350
 msgid "Send to assistant &queue"
 msgstr "新增到接圖分析 &序列"
 
-#: hugin1/hugin/xrc/main_menu.xrc:29
+#: translations/xrc.cpp:351
 msgid "&Optimize"
 msgstr "最佳化 (&O)"
 
-#: hugin1/hugin/xrc/main_menu.xrc:31 hugin1/hugin/xrc/main_tool.xrc:53
+#: translations/xrc.cpp:352 translations/xrc.cpp:454
 msgid "Re-run the optimizer with current settings"
 msgstr "依照目前設定重新執行最佳化器"
 
-#: hugin1/hugin/xrc/main_menu.xrc:35
+#: translations/xrc.cpp:353
 msgid "Fine-&tune all Points"
 msgstr "調整所有點 (&t)"
 
-#: hugin1/hugin/xrc/main_menu.xrc:36
+#: translations/xrc.cpp:354
 msgid ""
 "Runs fine-tune on all control points. Useful for projects created with other "
 "tools, like PTGui or PTAssembler"
@@ -4919,476 +4818,461 @@ msgstr ""
 "對所有控制點進行最佳調整，對於利用其他工具例如 PTGui 或者 PTAssembler建立的專"
 "案很有用"
 
-#: hugin1/hugin/xrc/main_menu.xrc:39
+#: translations/xrc.cpp:355
 msgid "Remove control points in masks"
 msgstr "移除遮罩中的控制點"
 
-#: hugin1/hugin/xrc/main_menu.xrc:40
+#: translations/xrc.cpp:356
 msgid "Removes all control points inside masked areas."
 msgstr "移除遮罩區域中的所有控制點"
 
-#: hugin1/hugin/xrc/main_menu.xrc:43
+#: translations/xrc.cpp:357
 msgid "Run &Python script"
 msgstr "執行 &Python script"
 
-#: hugin1/hugin/xrc/main_menu.xrc:44
+#: translations/xrc.cpp:358
 msgid "Run a python script"
 msgstr "執行Python語法"
 
-#: hugin1/hugin/xrc/main_menu.xrc:46 hugin1/hugin/xrc/preview_frame.xrc:1765
+#: translations/xrc.cpp:359 translations/xrc.cpp:1010
 msgid "&Edit"
 msgstr "編輯 (&E)"
 
-#: hugin1/hugin/xrc/main_menu.xrc:49 hugin1/hugin/xrc/preview_frame.xrc:1787
+#: translations/xrc.cpp:360 translations/xrc.cpp:1018
 msgid "&View"
 msgstr "檢視 (&V)"
 
-#: hugin1/hugin/xrc/main_menu.xrc:51 hugin1/hugin/xrc/preview_frame.xrc:1772
+#: translations/xrc.cpp:361 translations/xrc.cpp:1012
 msgid "Full Screen"
 msgstr "全螢幕"
 
-#: hugin1/hugin/xrc/main_menu.xrc:54 hugin1/hugin/xrc/preview_frame.xrc:1775
+#: translations/xrc.cpp:362 translations/xrc.cpp:1013
 msgid "Shows Hugin's main window on full-screen"
 msgstr "全螢幕顯示hugins主視窗"
 
-#: hugin1/hugin/xrc/main_menu.xrc:57
+#: translations/xrc.cpp:363
 msgid "&Control point table"
 msgstr "控制點清單 (&C)"
 
-#: hugin1/hugin/xrc/main_menu.xrc:59
+#: translations/xrc.cpp:364
 msgid "Shows all control point distances"
 msgstr "顯示所有的控制點距離"
 
-#: hugin1/hugin/xrc/main_menu.xrc:62
+#: translations/xrc.cpp:365
 msgid "&Preview window"
 msgstr "預覽視窗 (&P)"
 
-#: hugin1/hugin/xrc/main_menu.xrc:64
+#: translations/xrc.cpp:366
 msgid "Show the preview window"
 msgstr "顯示預覽視窗"
 
-#: hugin1/hugin/xrc/main_menu.xrc:67
+#: translations/xrc.cpp:367
 msgid "&Fast Preview window"
 msgstr "快速預覽視窗 (&F)"
 
-#: hugin1/hugin/xrc/main_menu.xrc:69
+#: translations/xrc.cpp:368
 msgid "Show the OpenGL preview window"
 msgstr "顯示 OpenGL 預覽視窗"
 
-#: hugin1/hugin/xrc/main_menu.xrc:75
+#: translations/xrc.cpp:370
 msgid "Show the Photos panel"
 msgstr "顯示照片面板"
 
-#: hugin1/hugin/xrc/main_menu.xrc:80
+#: translations/xrc.cpp:372
 msgid "Show the Masks panel"
 msgstr "顯示遮罩面板"
 
-#: hugin1/hugin/xrc/main_menu.xrc:85
+#: translations/xrc.cpp:374
 msgid "Show the Control Points panel"
 msgstr "顯示控制點列表"
 
-#: hugin1/hugin/xrc/main_menu.xrc:90
+#: translations/xrc.cpp:376
 msgid "Show the Optimizer panel"
 msgstr "顯示最佳化工具面板"
 
-#: hugin1/hugin/xrc/main_menu.xrc:95
+#: translations/xrc.cpp:378
 msgid "Show the Exposure panel"
 msgstr "顯示曝光面板"
 
-#: hugin1/hugin/xrc/main_menu.xrc:100
+#: translations/xrc.cpp:380
 msgid "Show the Stitcher panel"
 msgstr "顯示接合工具面板"
 
-#: hugin1/hugin/xrc/main_menu.xrc:105 hugin1/hugin/xrc/preview_frame.xrc:1791
+#: translations/xrc.cpp:381 translations/xrc.cpp:1019
 msgid "Simple"
 msgstr "簡易"
 
-#: hugin1/hugin/xrc/main_menu.xrc:110 hugin1/hugin/xrc/preview_frame.xrc:1796
+#: translations/xrc.cpp:382 translations/xrc.cpp:1020
 msgid "Advanced"
 msgstr "進階"
 
-#: hugin1/hugin/xrc/main_menu.xrc:114 hugin1/hugin/xrc/preview_frame.xrc:1800
+#: translations/xrc.cpp:383 translations/xrc.cpp:1021
 msgid "Expert"
 msgstr "專家級"
 
-#: hugin1/hugin/xrc/main_menu.xrc:117 hugin1/hugin/xrc/preview_frame.xrc:1803
+#: translations/xrc.cpp:384 translations/xrc.cpp:1022
 msgid "Interface"
 msgstr "操作介面"
 
-#: hugin1/hugin/xrc/main_menu.xrc:124 hugin1/hugin/xrc/preview_frame.xrc:1809
+#: translations/xrc.cpp:387 translations/xrc.cpp:1024
 msgid "Some information on the different buttons and so on."
 msgstr "不同按鈕之類的資訊."
 
-#: hugin1/hugin/xrc/main_menu.xrc:127 hugin1/hugin/xrc/preview_frame.xrc:1812
+#: translations/xrc.cpp:388 translations/xrc.cpp:1025
 msgid "&Tip of the day"
 msgstr "今日提示 (&T)"
 
-#: hugin1/hugin/xrc/main_menu.xrc:128 hugin1/hugin/xrc/preview_frame.xrc:1813
+#: translations/xrc.cpp:389 translations/xrc.cpp:1026
 msgid "Show one of the tips of the day."
 msgstr "顯示一條今天的提示."
 
-#: hugin1/hugin/xrc/main_menu.xrc:131 hugin1/hugin/xrc/preview_frame.xrc:1816
+#: translations/xrc.cpp:390 translations/xrc.cpp:1027
 msgid "&Keyboard Shortcuts"
 msgstr "鍵盤快捷鍵 (&K)"
 
-#: hugin1/hugin/xrc/main_menu.xrc:132 hugin1/hugin/xrc/preview_frame.xrc:1817
+#: translations/xrc.cpp:391 translations/xrc.cpp:1028
 msgid "keyboard shortcuts"
 msgstr "鍵盤快捷鍵"
 
-#: hugin1/hugin/xrc/main_menu.xrc:135 hugin1/hugin/xrc/preview_frame.xrc:1820
+#: translations/xrc.cpp:392 translations/xrc.cpp:1029
 msgid "&FAQ"
 msgstr "常見問題解答 (&F)"
 
-#: hugin1/hugin/xrc/main_menu.xrc:136 hugin1/hugin/xrc/preview_frame.xrc:1821
+#: translations/xrc.cpp:393 translations/xrc.cpp:1030
 msgid "Frequently Asked Questions"
 msgstr "經常的詢問的問題"
 
-#: hugin1/hugin/xrc/main_menu.xrc:140 hugin1/hugin/xrc/preview_frame.xrc:1825
+#: translations/xrc.cpp:394 translations/xrc.cpp:1031
 msgid "&About"
 msgstr "關於 (&A)"
 
-#: hugin1/hugin/xrc/main_menu.xrc:144 hugin1/hugin/xrc/preview_frame.xrc:1829
+#: translations/xrc.cpp:396 translations/xrc.cpp:1033
 msgid "&Donate"
 msgstr "捐贈 (&D)"
 
-#: hugin1/hugin/xrc/main_menu.xrc:145 hugin1/hugin/xrc/preview_frame.xrc:1830
+#: translations/xrc.cpp:397 translations/xrc.cpp:1034
 msgid ""
 "If you like hugin and want to see further improvements, please consider "
 "donating to the hugin project."
 msgstr "假如你喜歡 hugin 並且希望我們繼續進步, 請考慮捐贈 hugin 專案."
 
-#: hugin1/hugin/xrc/main_menu.xrc:148 hugin1/hugin/xrc/main_menu.xrc:197
-#: hugin1/hugin/xrc/main_menu.xrc:223 hugin1/hugin/xrc/preview_frame.xrc:1833
-#: hugin1/hugin/xrc/preview_frame.xrc:1870
+#: translations/xrc.cpp:398 translations/xrc.cpp:417 translations/xrc.cpp:427
+#: translations/xrc.cpp:1035 translations/xrc.cpp:1049
 msgid "&Preferences"
 msgstr "偏好設定 (&P)"
 
-#: hugin1/hugin/xrc/main_menu.xrc:155 hugin1/hugin/xrc/preview_frame.xrc:1841
+#: translations/xrc.cpp:399 translations/xrc.cpp:1037
 msgid "&New"
 msgstr "新增 (&N)"
 
-#: hugin1/hugin/xrc/main_menu.xrc:157 hugin1/hugin/xrc/main_tool.xrc:7
-#: hugin1/hugin/xrc/preview_frame.xrc:1843
+#: translations/xrc.cpp:400 translations/xrc.cpp:431 translations/xrc.cpp:1038
 msgid "New project"
 msgstr "新專案"
 
-#: hugin1/hugin/xrc/main_menu.xrc:160 hugin1/hugin/xrc/preview_frame.xrc:1846
+#: translations/xrc.cpp:401 translations/xrc.cpp:1039
 msgid "&Open"
 msgstr "開啟 (&O)"
 
-#: hugin1/hugin/xrc/main_menu.xrc:162 hugin1/hugin/xrc/main_tool.xrc:13
-#: hugin1/hugin/xrc/preview_frame.xrc:1848
+#: translations/xrc.cpp:402 translations/xrc.cpp:434 translations/xrc.cpp:1040
 msgid "Open project"
 msgstr "開啟專案"
 
-#: hugin1/hugin/xrc/main_menu.xrc:165 hugin1/hugin/xrc/preview_frame.xrc:1851
+#: translations/xrc.cpp:403 translations/xrc.cpp:1041
 msgid "&Save"
 msgstr "儲存 (&S)"
 
-#: hugin1/hugin/xrc/main_menu.xrc:167 hugin1/hugin/xrc/main_tool.xrc:21
-#: hugin1/hugin/xrc/preview_frame.xrc:1853
+#: translations/xrc.cpp:404 translations/xrc.cpp:439 translations/xrc.cpp:1042
 msgid "Save current project file"
 msgstr "儲存目前專案檔案"
 
-#: hugin1/hugin/xrc/main_menu.xrc:170 hugin1/hugin/xrc/preview_frame.xrc:1856
+#: translations/xrc.cpp:405 translations/xrc.cpp:1043
 msgid "S&ave as"
 msgstr "另存為 (&a)"
 
-#: hugin1/hugin/xrc/main_menu.xrc:171 hugin1/hugin/xrc/main_tool.xrc:27
-#: hugin1/hugin/xrc/preview_frame.xrc:1857
+#: translations/xrc.cpp:406 translations/xrc.cpp:442 translations/xrc.cpp:1044
 msgid "Save current project to a new file"
 msgstr "將目前專案儲存成為一個新檔案"
 
-#: hugin1/hugin/xrc/main_menu.xrc:174
+#: translations/xrc.cpp:407
 msgid "&Write PTStitcher script"
 msgstr "編寫 PTStitcher 程式碼(&W)"
 
-#: hugin1/hugin/xrc/main_menu.xrc:175
+#: translations/xrc.cpp:408
 msgid ""
 "Write current project to a PTStitcher-compatible script file, useful for "
 "batch processing"
 msgstr "編寫目前專案成為一個與 PTStitcher 相容的程式碼檔案, 用於批次處理"
 
-#: hugin1/hugin/xrc/main_menu.xrc:178 hugin1/hugin/xrc/preview_frame.xrc:1860
+#: translations/xrc.cpp:409 translations/xrc.cpp:1045
 msgid "Most recently used projects"
 msgstr "最近使用的專案"
 
-#: hugin1/hugin/xrc/main_menu.xrc:179 hugin1/hugin/xrc/preview_frame.xrc:1861
+#: translations/xrc.cpp:410 translations/xrc.cpp:1046
 msgid "List of most recently used project files"
 msgstr "最近使用的專案檔的清單"
 
-#: hugin1/hugin/xrc/main_menu.xrc:183 hugin1/hugin/xrc/main_menu.xrc:209
-#: hugin1/hugin/xrc/preview_frame.xrc:1865
+#: translations/xrc.cpp:411 translations/xrc.cpp:421 translations/xrc.cpp:1047
 msgid "&Run Batch Processor"
 msgstr "執行批次處理 (&R)"
 
-#: hugin1/hugin/xrc/main_menu.xrc:184 hugin1/hugin/xrc/main_menu.xrc:210
-#: hugin1/hugin/xrc/preview_frame.xrc:1866
+#: translations/xrc.cpp:412 translations/xrc.cpp:422 translations/xrc.cpp:1048
 msgid "Opens PTBatcher, the batch processor for Hugin's project files"
 msgstr "開啟 PTBatcher, Hugin 專案檔案的批次處理器"
 
-#: hugin1/hugin/xrc/main_menu.xrc:188 hugin1/hugin/xrc/main_menu.xrc:214
+#: translations/xrc.cpp:413 translations/xrc.cpp:423
 msgid "&Merge project..."
 msgstr "合併專案..."
 
-#: hugin1/hugin/xrc/main_menu.xrc:189 hugin1/hugin/xrc/main_menu.xrc:215
+#: translations/xrc.cpp:414 translations/xrc.cpp:424
 msgid "Merges an existing project file with the current project."
 msgstr "將已存在的專案合併到現在的專案中"
 
-#: hugin1/hugin/xrc/main_menu.xrc:192 hugin1/hugin/xrc/main_menu.xrc:218
+#: translations/xrc.cpp:415 translations/xrc.cpp:425
 msgid "Apply &Template"
 msgstr "執行版面 (&T)"
 
-#: hugin1/hugin/xrc/main_menu.xrc:193 hugin1/hugin/xrc/main_menu.xrc:219
+#: translations/xrc.cpp:416 translations/xrc.cpp:426
 msgid ""
 "Assign the settings of a previously saved project to the current images."
 msgstr "套用先前已儲存的成套專案到目前圖片."
 
-#: hugin1/hugin/xrc/main_menu.xrc:227
+#: translations/xrc.cpp:428
 msgid "&Close editor"
 msgstr "&關閉編輯工具"
 
-#: hugin1/hugin/xrc/main_menu.xrc:228
+#: translations/xrc.cpp:429
 msgid "Closes panorama editor"
 msgstr "關閉環景編輯工具"
 
-#: hugin1/hugin/xrc/main_tool.xrc:8
+#: translations/xrc.cpp:432
 msgid "New"
 msgstr "新增"
 
-#: hugin1/hugin/xrc/main_tool.xrc:9
+#: translations/xrc.cpp:433
 msgid "Start a new project"
 msgstr "開始一個新專案"
 
-#: hugin1/hugin/xrc/main_tool.xrc:14
+#: translations/xrc.cpp:435
 msgid "Open"
 msgstr "開啟"
 
-#: hugin1/hugin/xrc/main_tool.xrc:15
+#: translations/xrc.cpp:436
 msgid "Open a project file"
 msgstr "開啟一個專案檔案"
 
-#: hugin1/hugin/xrc/main_tool.xrc:20 hugin1/hugin/xrc/pref_dialog.xrc:1420
+#: translations/xrc.cpp:438 translations/xrc.cpp:812
 msgid "Save"
 msgstr "儲存"
 
-#: hugin1/hugin/xrc/main_tool.xrc:25
+#: translations/xrc.cpp:440
 msgid "Save project as"
 msgstr "另存專案為"
 
-#: hugin1/hugin/xrc/main_tool.xrc:26
+#: translations/xrc.cpp:441
 msgid "Save As"
 msgstr "另存為"
 
-#: hugin1/hugin/xrc/main_tool.xrc:32 hugin1/hugin/xrc/main_tool.xrc:33
+#: translations/xrc.cpp:443 translations/xrc.cpp:444
 msgid "Undo"
 msgstr "復原"
 
-#: hugin1/hugin/xrc/main_tool.xrc:38 hugin1/hugin/xrc/main_tool.xrc:39
+#: translations/xrc.cpp:446 translations/xrc.cpp:447
 msgid "Redo"
 msgstr "取消復原"
 
-#: hugin1/hugin/xrc/main_tool.xrc:45
+#: translations/xrc.cpp:449
 msgid "Add image"
 msgstr "增加圖片"
 
-#: hugin1/hugin/xrc/main_tool.xrc:51
+#: translations/xrc.cpp:452
 msgid "Re-optimize"
 msgstr "重新最佳化"
 
-#: hugin1/hugin/xrc/main_tool.xrc:60
+#: translations/xrc.cpp:455
 msgid "Fast Preview panorama"
 msgstr "快速預覽全景圖片"
 
-#: hugin1/hugin/xrc/main_tool.xrc:61
+#: translations/xrc.cpp:456
 msgid "Fast Preview"
 msgstr "快速預覽"
 
-#: hugin1/hugin/xrc/main_tool.xrc:62
+#: translations/xrc.cpp:457
 msgid "Show the OpenGL preview image"
 msgstr "顯示 OpenGL 預覽圖片"
 
-#: hugin1/hugin/xrc/main_tool.xrc:66 hugin1/hugin/xrc/preview_frame.xrc:432
-#: hugin1/hugin/xrc/preview_frame.xrc:1245
+#: translations/xrc.cpp:458 translations/xrc.cpp:863 translations/xrc.cpp:945
 msgid "Preview panorama"
 msgstr "預覽全景圖片"
 
-#: hugin1/hugin/xrc/main_tool.xrc:68
+#: translations/xrc.cpp:460
 msgid "Show the preview image"
 msgstr "顯示預覽圖片"
 
-#: hugin1/hugin/xrc/main_tool.xrc:72 hugin1/hugin/xrc/preview_frame.xrc:298
-#: hugin1/hugin/xrc/preview_frame.xrc:1111
+#: translations/xrc.cpp:461 translations/xrc.cpp:854 translations/xrc.cpp:936
 msgid "Show control points"
 msgstr "顯示控制點"
 
-#: hugin1/hugin/xrc/main_tool.xrc:73
+#: translations/xrc.cpp:462
 msgid "Points"
 msgstr "點"
 
-#: hugin1/hugin/xrc/main_tool.xrc:74
+#: translations/xrc.cpp:463
 msgid "Show all control points in a single table"
 msgstr "在一個單獨標籤欄中顯示所有控制點"
 
-#: hugin1/hugin/xrc/main_tool.xrc:81
+#: translations/xrc.cpp:466
 msgid "Display credits for the creators of Hugin"
 msgstr "展示 Hugin 創作者的榮譽"
 
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:23
+#: translations/xrc.cpp:467
 msgid "Add new mask"
 msgstr "增加新的遮罩"
 
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:31
+#: translations/xrc.cpp:468
 msgid "Delete mask"
 msgstr "刪除遮罩"
 
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:54
+#: translations/xrc.cpp:469
 msgid "Mask type:"
 msgstr "遮罩類型："
 
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:62
+#: translations/xrc.cpp:470
 msgid "Exclude region"
 msgstr "排除的區域"
 
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:63
+#: translations/xrc.cpp:471
 msgid "Include region"
 msgstr "包括的區域"
 
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:64
+#: translations/xrc.cpp:472
 msgid "Exclude region from stack"
 msgstr "從堆棧中排除的區域"
 
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:65
+#: translations/xrc.cpp:473
 msgid "Include region from stack"
 msgstr "在堆棧中包含的區域"
 
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:66
+#: translations/xrc.cpp:474
 msgid "Exclude region from all images of this lens"
 msgstr "從同樣鏡頭的影像中排除的區域"
 
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:88
-#: hugin1/hugin/xrc/pref_dialog.xrc:739
+#: translations/xrc.cpp:475 translations/xrc.cpp:732
 msgid "Export"
 msgstr "匯出"
 
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:95
-#: hugin1/hugin/xrc/pref_dialog.xrc:732
+#: translations/xrc.cpp:476 translations/xrc.cpp:731
 msgid "Import"
 msgstr "輸入"
 
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:103
+#: translations/xrc.cpp:477
 msgid "Copy"
 msgstr "複製"
 
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:110
+#: translations/xrc.cpp:478
 msgid "Paste"
 msgstr "貼上"
 
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:123
+#: translations/xrc.cpp:479
 msgid "Import/Export"
 msgstr "匯入/匯出"
 
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:132
+#: translations/xrc.cpp:480
 msgid "Excluded"
 msgstr "被排除的"
 
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:144
+#: translations/xrc.cpp:481
 msgid "Included"
 msgstr "被包括的"
 
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:156
+#: translations/xrc.cpp:482
 msgid "Selected"
 msgstr "被選取的"
 
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:168
+#: translations/xrc.cpp:483
 msgid "Unselected"
 msgstr "未被選取的"
 
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:188
+#: translations/xrc.cpp:484
 msgid "Colour"
 msgstr "顏色對應"
 
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:197
+#: translations/xrc.cpp:485
 msgid "Show extent of active masks and crop"
 msgstr "顯示目前裁切和遮罩範圍的延伸"
 
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:226
-#: hugin1/hugin/xrc/pano_panel.xrc:364
+#: translations/xrc.cpp:488 translations/xrc.cpp:565
 msgid "Top:"
 msgstr "上:"
 
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:249
-#: hugin1/hugin/xrc/pano_panel.xrc:346
+#: translations/xrc.cpp:489 translations/xrc.cpp:564
 msgid "Left:"
 msgstr "左:"
 
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:273
-#: hugin1/hugin/xrc/pano_panel.xrc:382
+#: translations/xrc.cpp:490 translations/xrc.cpp:566
 msgid "Right:"
 msgstr "右:"
 
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:294
-#: hugin1/hugin/xrc/pano_panel.xrc:399
+#: translations/xrc.cpp:491 translations/xrc.cpp:567
 msgid "Bottom:"
 msgstr "下:"
 
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:318
+#: translations/xrc.cpp:492
 msgid "Always center Crop on d,e"
 msgstr "中心不變，對d,e方向進行裁剪"
 
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:403
+#: translations/xrc.cpp:497
 msgid "Image size:"
 msgstr "圖片尺寸:"
 
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:418
+#: translations/xrc.cpp:498
 msgid "Mask size:"
 msgstr "遮罩尺寸："
 
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:435
+#: translations/xrc.cpp:499
 msgid "Mask size"
 msgstr "遮罩尺寸"
 
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:437
+#: translations/xrc.cpp:500
 msgid "Don't change"
 msgstr "不改變"
 
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:438
+#: translations/xrc.cpp:501
 msgid "Scale to fit"
 msgstr "調整符合大小"
 
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:439
+#: translations/xrc.cpp:502
 msgid "Scale proportional"
 msgstr "調整比例"
 
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:449
+#: translations/xrc.cpp:503
 msgid "Rotation"
 msgstr "旋轉"
 
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:451
+#: translations/xrc.cpp:504
 msgid "Don't rotate"
 msgstr "不旋轉"
 
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:452
+#: translations/xrc.cpp:505
 msgid "90° clockwise"
 msgstr "90° 順時鐘旋轉"
 
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:453
+#: translations/xrc.cpp:506
 msgid "90° counter-clockwise"
 msgstr "90° 逆時鐘旋轉"
 
-#: hugin1/hugin/xrc/mask_editor_panel.xrc:505
+#: translations/xrc.cpp:509
 msgid "Loading mask"
 msgstr "載入遮罩"
 
-#: hugin1/hugin/xrc/optimize_panel.xrc:14
+#: translations/xrc.cpp:510
 msgid "Geometric optimizer"
 msgstr "幾何性質最佳工具"
 
-#: hugin1/hugin/xrc/optimize_panel.xrc:39
+#: translations/xrc.cpp:511
 msgid "Only use control points between image selected in preview window."
 msgstr "只使用預覽視窗中選取的圖片的控制點."
 
-#: hugin1/hugin/xrc/optimize_panel.xrc:40
+#: translations/xrc.cpp:512
 msgid ""
 "Only use control points between images selected in preview window. Useful to "
 "avoid errors due to badly fitting images, such as the nadir image in most "
@@ -5397,41 +5281,39 @@ msgstr ""
 "只使用預覽視窗中選取的圖片的控制點. 對於避免由於不良的接合圖片而產生的錯誤很"
 "有用, 比如多數魚眼全景圖片的底部圖片."
 
-#: hugin1/hugin/xrc/optimize_panel.xrc:52
-#: hugin1/hugin/xrc/optimize_photo_panel.xrc:52
+#: translations/xrc.cpp:513 translations/xrc.cpp:523
 msgid "Optimize now!"
 msgstr "現在最佳化!"
 
-#: hugin1/hugin/xrc/optimize_panel.xrc:53
-#: hugin1/hugin/xrc/optimize_photo_panel.xrc:53
+#: translations/xrc.cpp:514 translations/xrc.cpp:524
 msgid "execute the PTOptimizer engine"
 msgstr "執行 PTOptimizer 引擎"
 
-#: hugin1/hugin/xrc/optimize_panel.xrc:88 hugin1/hugin/xrc/reset_dialog.xrc:12
+#: translations/xrc.cpp:516 translations/xrc.cpp:1054
 msgid "Image Orientation"
 msgstr "圖片方位"
 
-#: hugin1/hugin/xrc/optimize_panel.xrc:112
+#: translations/xrc.cpp:517
 msgid "Lens Parameters"
 msgstr "鏡頭參數"
 
-#: hugin1/hugin/xrc/optimize_panel.xrc:139
+#: translations/xrc.cpp:518
 msgid "edit script before optimizing"
 msgstr "在最佳化前編輯程式碼"
 
-#: hugin1/hugin/xrc/optimize_panel.xrc:140
+#: translations/xrc.cpp:519
 msgid "for advanced users"
 msgstr "針對進階使用者"
 
-#: hugin1/hugin/xrc/optimize_photo_panel.xrc:13
+#: translations/xrc.cpp:520
 msgid "Photometric Optimization"
 msgstr "光學性質最佳化"
 
-#: hugin1/hugin/xrc/optimize_photo_panel.xrc:38
+#: translations/xrc.cpp:521
 msgid "Only use images selected in preview."
 msgstr "只使用在預覽視窗中選取的圖片."
 
-#: hugin1/hugin/xrc/optimize_photo_panel.xrc:39
+#: translations/xrc.cpp:522
 msgid ""
 "Only consider images selected in preview window. Useful to avoid errors due "
 "to badly fitting images, such as the nadir image in most fisheye panoramas"
@@ -5439,192 +5321,189 @@ msgstr ""
 "只考慮預覽視窗中選取的圖片. 對於避免由於壞的融合圖片而產生的錯誤很管用, 比如"
 "多數魚眼全景圖片的底部圖片"
 
-#: hugin1/hugin/xrc/optimize_photo_panel.xrc:89
+#: translations/xrc.cpp:526
 msgid "Image variables:"
 msgstr "圖片變數:"
 
-#: hugin1/hugin/xrc/optimize_photo_panel.xrc:112
+#: translations/xrc.cpp:527
 msgid "Camera and Lens variables:"
 msgstr "照相機和鏡頭變數:"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:10
+#: translations/xrc.cpp:528
 msgid "Interpolator (i):"
 msgstr "插補器 (i):"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:17 hugin1/hugin/xrc/pref_dialog.xrc:1047
+#: translations/xrc.cpp:529 translations/xrc.cpp:771
 msgid "Poly3 (Bicubic)"
 msgstr "Poly3 (Bicubic)"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:18 hugin1/hugin/xrc/pref_dialog.xrc:1048
+#: translations/xrc.cpp:530 translations/xrc.cpp:772
 msgid "Spline 16"
 msgstr "Spline 16"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:19 hugin1/hugin/xrc/pref_dialog.xrc:1049
+#: translations/xrc.cpp:531 translations/xrc.cpp:773
 msgid "Spline 36"
 msgstr "Spline 36"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:20 hugin1/hugin/xrc/pref_dialog.xrc:1050
+#: translations/xrc.cpp:532 translations/xrc.cpp:774
 msgid "Sinc 256"
 msgstr "Sinc 256"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:21 hugin1/hugin/xrc/pref_dialog.xrc:1051
+#: translations/xrc.cpp:533 translations/xrc.cpp:775
 msgid "Spline 64"
 msgstr "Spline 64"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:22 hugin1/hugin/xrc/pref_dialog.xrc:1052
+#: translations/xrc.cpp:534 translations/xrc.cpp:776
 msgid "Bilinear"
 msgstr "雙線性(Bilnear)"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:23 hugin1/hugin/xrc/pref_dialog.xrc:1053
+#: translations/xrc.cpp:535 translations/xrc.cpp:777
 msgid "Nearest neighbor"
 msgstr "最近相鄰"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:24 hugin1/hugin/xrc/pref_dialog.xrc:1054
+#: translations/xrc.cpp:536 translations/xrc.cpp:778
 msgid "Sinc 1024"
 msgstr "Sinc 1024"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:27 hugin1/hugin/xrc/pref_dialog.xrc:1057
+#: translations/xrc.cpp:537 translations/xrc.cpp:779
 msgid "approximation of values between source pixels"
 msgstr "源像素之間的逼近值"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:38
+#: translations/xrc.cpp:538
 msgid "Save cropped images"
 msgstr "儲存裁剪後的圖片"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:39
+#: translations/xrc.cpp:539
 msgid "Save cropped tiff output. Useful for enblend 2.4 and higher"
 msgstr "儲存裁剪的 tiff 輸出. 對 enblend 2.4 版或者更高版本有效."
 
-#: hugin1/hugin/xrc/pano_panel.xrc:63
+#: translations/xrc.cpp:542
 msgid "Nona Options"
 msgstr "Nona 選項"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:72 hugin1/hugin/xrc/pano_panel.xrc:114
+#: translations/xrc.cpp:543 translations/xrc.cpp:547
 msgid "Command line options"
 msgstr "指令串參數"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:105
+#: translations/xrc.cpp:546
 msgid "Blender Options"
 msgstr "融合軟體選項"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:147
+#: translations/xrc.cpp:550
 msgid "Enfuse options"
 msgstr "Enfuse 選項"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:166
+#: translations/xrc.cpp:551
 msgid "Projection:"
 msgstr "投影法："
 
-#: hugin1/hugin/xrc/pano_panel.xrc:188
+#: translations/xrc.cpp:552
 msgid "Field of View:"
 msgstr "視角"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:203
+#: translations/xrc.cpp:553
 msgid "Horizontal:"
 msgstr "水平："
 
-#: hugin1/hugin/xrc/pano_panel.xrc:217
+#: translations/xrc.cpp:554
 msgid "Vertical:"
 msgstr "垂直："
 
-#: hugin1/hugin/xrc/pano_panel.xrc:241
+#: translations/xrc.cpp:555
 msgid "Calculate field of view"
 msgstr "自動計算視角"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:242
+#: translations/xrc.cpp:556
 msgid "Calculate Field of View"
 msgstr "計算視角"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:260
+#: translations/xrc.cpp:557
 msgid "Canvas Size:"
 msgstr "底圖尺寸"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:273 hugin1/hugin/xrc/pano_panel.xrc:1099
+#: translations/xrc.cpp:558 translations/xrc.cpp:637
 msgid "Width:"
 msgstr "寬度："
 
-#: hugin1/hugin/xrc/pano_panel.xrc:288 hugin1/hugin/xrc/pano_panel.xrc:1118
+#: translations/xrc.cpp:559 translations/xrc.cpp:638
 msgid "Height:"
 msgstr "高度："
 
-#: hugin1/hugin/xrc/pano_panel.xrc:313
+#: translations/xrc.cpp:560
 msgid "Calculate Optimal Size"
 msgstr "計算最佳化尺寸"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:314
+#: translations/xrc.cpp:561
 msgid "Calculate optimal size"
 msgstr "自動計算最佳尺寸"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:315
+#: translations/xrc.cpp:562
 msgid ""
 "Calculate optimal image size, such that the resolution in the image center "
 "stays similar"
 msgstr "在保持圖片中心的解析度接近的前提下，計算最佳圖片尺寸"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:332
+#: translations/xrc.cpp:563
 msgid "Crop:"
 msgstr "裁切"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:424
+#: translations/xrc.cpp:568
 msgid "Fit Crop to Images"
 msgstr "依照影像調整裁切邊界"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:425
+#: translations/xrc.cpp:569
 msgid "Fit crop to images"
 msgstr "裁切自動符合影像"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:426
+#: translations/xrc.cpp:570
 msgid ""
 "Calculate crop borders such that the final image has the largest area "
 "without excess"
 msgstr "在不超出影像的情況下計算最大裁切邊界"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:447
+#: translations/xrc.cpp:571
 msgid "Panorama Outputs:"
 msgstr "環景輸出："
 
-#: hugin1/hugin/xrc/pano_panel.xrc:462 hugin1/hugin/xrc/pano_panel.xrc:624
-#: hugin1/hugin/xrc/pano_panel.xrc:1258
+#: translations/xrc.cpp:572 translations/xrc.cpp:587 translations/xrc.cpp:646
 msgid "Exposure corrected, low dynamic range"
 msgstr "曝光修正，低動態範圍"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:463 hugin1/hugin/xrc/pano_panel.xrc:1266
-#: hugin1/hugin/xrc/pano_panel.xrc:1281
+#: translations/xrc.cpp:573 translations/xrc.cpp:647 translations/xrc.cpp:649
 msgid ""
 "Blend all images into a seamless panorama, using exposure set in the "
 "Exposure tab"
 msgstr "使用曝光標籤中的曝光直，把全部圖片融合到一張沒有接縫的環景圖片"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:474 hugin1/hugin/xrc/pano_panel.xrc:1273
+#: translations/xrc.cpp:574 translations/xrc.cpp:648
 msgid "Exposure fused from stacks"
 msgstr "堆棧曝光融合"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:475
+#: translations/xrc.cpp:575
 msgid ""
 "Images will be remapped, stacks exposure fused, then blended into a seamless "
 "panorama"
 msgstr "圖片將被重新定位，依照堆棧融合曝光，並且融合至一張沒有接縫的的環景圖"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:483 hugin1/hugin/xrc/pano_panel.xrc:1287
+#: translations/xrc.cpp:576 translations/xrc.cpp:650
 msgid "Exposure fused from any arrangement"
 msgstr "使用所有策略進行曝光融合"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:484 hugin1/hugin/xrc/pano_panel.xrc:1295
+#: translations/xrc.cpp:577 translations/xrc.cpp:651
 msgid ""
 "Images will be remapped, blended into seamless layers, then layers exposure "
 "fused into a panorama"
 msgstr "圖片將被重新定位，融合成圖層，再依照曝光融合成沒有接縫的環景圖"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:493 hugin1/hugin/xrc/pano_panel.xrc:563
+#: translations/xrc.cpp:578 translations/xrc.cpp:583
 msgid "Format:"
 msgstr "格式："
 
-#: hugin1/hugin/xrc/pano_panel.xrc:551 hugin1/hugin/xrc/pano_panel.xrc:644
-#: hugin1/hugin/xrc/pano_panel.xrc:1301
+#: translations/xrc.cpp:581 translations/xrc.cpp:591 translations/xrc.cpp:652
 msgid "High dynamic range"
 msgstr "高動態範圍"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:552 hugin1/hugin/xrc/pano_panel.xrc:1309
+#: translations/xrc.cpp:582 translations/xrc.cpp:653
 msgid ""
 "Images will be remapped in linear color space, stacks merged, then blended "
 "into a seamless High Dynamic Range panorama"
@@ -5632,160 +5511,159 @@ msgstr ""
 "在線性色彩域中重定位圖片，合併堆棧，再融合到一張沒有接縫的高動態範圍(HDR)環景"
 "圖"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:609
+#: translations/xrc.cpp:586
 msgid "Remapped Images:"
 msgstr "圖片重新定位："
 
-#: hugin1/hugin/xrc/pano_panel.xrc:625
+#: translations/xrc.cpp:588
 msgid ""
 "Output remapped, exposure corrected images. Useful for manual blending of an "
 "exposure corrected panorama."
 msgstr "輸出重定位、曝光校正的影像。 對於手動融合經曝光校正的環景很有用"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:635
+#: translations/xrc.cpp:589
 msgid "No exposure correction, low dynamic range"
 msgstr "不做曝光校正，低動態範圍"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:636
+#: translations/xrc.cpp:590
 msgid ""
 "Output remapped images with unmodified exposure. Useful for manual exposure "
 "fusing."
 msgstr "輸出重定位、無曝光修正的影像。可用於手動曝光融合"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:645
+#: translations/xrc.cpp:592
 msgid "Produce remapped, but not merged, linear color space images"
 msgstr "輸出經過重訂為但並未合併的線性色彩域圖片"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:654
+#: translations/xrc.cpp:593
 msgid "Combined stacks:"
 msgstr "合併堆棧圖"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:669
+#: translations/xrc.cpp:594
 msgid "Exposure fused stacks"
 msgstr "堆棧曝光融合"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:670
+#: translations/xrc.cpp:595
 msgid "Output exposure fused stacks from highly overlapping images"
 msgstr "從幾乎完全重疊的影像中輸出曝光融合的堆棧"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:680
+#: translations/xrc.cpp:596
 msgid "High dynamic range merged stacks"
 msgstr "保留在高動態範圍的融合堆棧"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:681
+#: translations/xrc.cpp:597
 msgid ""
 "Output remapped, high dynamic range merged stacks from highly overlapping "
 "images"
 msgstr "從幾乎完全重疊的影像中輸出經過重定位、高動態範圍(HDR)融合的堆棧"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:689
+#: translations/xrc.cpp:598
 msgid "Layers:"
 msgstr "圖層："
 
-#: hugin1/hugin/xrc/pano_panel.xrc:704
+#: translations/xrc.cpp:599
 msgid "Blended layers of similar exposure, without exposure correction"
 msgstr "融合曝光接近的圖層，不進行曝光校正"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:705
+#: translations/xrc.cpp:600
 msgid ""
 "Output a complete blended panorama for each exposure step. Useful for manual "
 "contrast blending in an image editor."
 msgstr "輸出每一個曝光值下的完整全景圖。可在圖片編輯軟體中手動融合對比"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:716
+#: translations/xrc.cpp:601
 msgid "Processing:"
 msgstr "處理工具："
 
-#: hugin1/hugin/xrc/pano_panel.xrc:730
+#: translations/xrc.cpp:602
 msgid "Remapper:"
 msgstr "重定位軟體:"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:758
+#: translations/xrc.cpp:604
 msgid "Image fusion:"
 msgstr "演算融合光圈軟體:"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:767
+#: translations/xrc.cpp:605
 msgid "enfuse"
 msgstr "enfuse"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:786
+#: translations/xrc.cpp:607
 msgid "HDR merger:"
 msgstr "HDR 合併器:"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:795
+#: translations/xrc.cpp:608
 msgid "builtin"
 msgstr "內建"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:814
+#: translations/xrc.cpp:610
 msgid "Blender:"
 msgstr "融合軟體:"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:823
+#: translations/xrc.cpp:611
 msgid "enblend"
 msgstr "enblend"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:862 hugin1/hugin/xrc/pano_panel.xrc:863
+#: translations/xrc.cpp:613 translations/xrc.cpp:614
 msgid "Stitch!"
 msgstr "接合！"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:875
+#: translations/xrc.cpp:615
 msgid "HDR Merge Options"
 msgstr "HDR 合併選項"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:883
+#: translations/xrc.cpp:616
 msgid "Merge Mode:"
 msgstr "合併模式:"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:891
+#: translations/xrc.cpp:617
 msgid "Average"
 msgstr "平均"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:892
+#: translations/xrc.cpp:618
 msgid "Average slow"
 msgstr "平均(慢)"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:893
+#: translations/xrc.cpp:619
 msgid "Deghosting (Khan)"
 msgstr "Deghosting (Khan)"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:905 hugin1/hugin/xrc/pano_panel.xrc:922
-#: hugin1/hugin/xrc/pano_panel.xrc:1002
+#: translations/xrc.cpp:620 translations/xrc.cpp:622 translations/xrc.cpp:630
 msgid "Advanced Options"
 msgstr "進階選項"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:909
+#: translations/xrc.cpp:621
 msgid "Only consider pixels that are defined in all images (-c)"
 msgstr "只考慮被定義在所有圖片中的像素 (-c)"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:926
+#: translations/xrc.cpp:623
 msgid "This merge mode has no further options."
 msgstr "合併模式無其他選項."
 
-#: hugin1/hugin/xrc/pano_panel.xrc:939
+#: translations/xrc.cpp:624
 msgid "Options for deghosting"
 msgstr "deghosting 選項"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:945
+#: translations/xrc.cpp:625
 msgid "Iterations:"
 msgstr "疊代："
 
-#: hugin1/hugin/xrc/pano_panel.xrc:960
+#: translations/xrc.cpp:626
 msgid "Sigma:"
 msgstr "Sigma:"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:983
+#: translations/xrc.cpp:627
 msgid "Use gray images for processing (-a f)"
 msgstr "以灰階圖處理 (-a f)"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:990
+#: translations/xrc.cpp:628
 msgid "Use gamma 2.2 instead of logarithmic (-a g)"
 msgstr "以伽瑪 2.2取代對數 (-a g)"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:997
+#: translations/xrc.cpp:629
 msgid "Do not scale images (-a m)"
 msgstr "不要縮小圖片 (-a m)"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:1046
+#: translations/xrc.cpp:633
 msgid ""
 "The project needs to be saved before it can be sent to\n"
 "the batch processor PTBatcherGUI.\n"
@@ -5800,51 +5678,51 @@ msgstr ""
 "\n"
 "如果批次處理沒有自動啟動的話，你可能需要手動開始接合"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:1061
+#: translations/xrc.cpp:634
 msgid "Don't show again"
 msgstr "不要再次顯示"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:1075
+#: translations/xrc.cpp:635
 msgid "Ok"
 msgstr "確定"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:1141
+#: translations/xrc.cpp:639
 msgid "Size and file format"
 msgstr "尺寸和檔案格式"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:1147
+#: translations/xrc.cpp:640
 msgid "LDR Format:"
 msgstr "低動態範圍格式："
 
-#: hugin1/hugin/xrc/pano_panel.xrc:1206
+#: translations/xrc.cpp:643
 msgid "HDR Format:"
 msgstr "高動態範圍格式："
 
-#: hugin1/hugin/xrc/pano_panel.xrc:1331
+#: translations/xrc.cpp:654
 msgid "Keep intermediate images"
 msgstr "保留校正過程的中途圖片"
 
-#: hugin1/hugin/xrc/pano_panel.xrc:1361
+#: translations/xrc.cpp:658
 msgid "Output parameters"
 msgstr "輸出參數"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:15
+#: translations/xrc.cpp:660
 msgid "Resource Usage"
 msgstr "資源使用率"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:21
+#: translations/xrc.cpp:661
 msgid "Image cache memory:"
 msgstr "圖片快取記憶體:"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:30
+#: translations/xrc.cpp:662
 msgid "Keep fullsize images in memory, until this limit is exceeded"
 msgstr "在超過限制前，在記憶體中保留實際大小的圖片"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:46
+#: translations/xrc.cpp:663
 msgid "Number of CPUs:"
 msgstr "CPU 編號:"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:55
+#: translations/xrc.cpp:664
 msgid ""
 "Hugin's preview window can use multiple threads for processing.\n"
 "Set this to the number of processors or processor cores available in your "
@@ -5853,27 +5731,27 @@ msgstr ""
 "Hugin 的預覽視窗支援多執行緒處理\n"
 "把這裡設定為你系統中可用的處理器或處理器核心數量"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:76
+#: translations/xrc.cpp:665
 msgid "User Interface"
 msgstr "操作介面"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:83
+#: translations/xrc.cpp:666
 msgid "Language:"
 msgstr "語言"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:97
+#: translations/xrc.cpp:667
 msgid "(requires restarting hugin)"
 msgstr "(需要重啟動 Hugin)"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:105
+#: translations/xrc.cpp:668
 msgid "Undo:"
 msgstr "復原："
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:112
+#: translations/xrc.cpp:669
 msgid "Skip over visibility toggles"
 msgstr "跳過可見的切換"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:121
+#: translations/xrc.cpp:670
 msgid ""
 "May have unforeseen consequences. \n"
 "(EXPERIMENTAL)"
@@ -5881,58 +5759,58 @@ msgstr ""
 "可能有不可測的結果 \n"
 "(實驗性的)"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:128
+#: translations/xrc.cpp:671
 msgid "Log messages:"
 msgstr "log記錄訊息："
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:135
+#: translations/xrc.cpp:672
 msgid "Copy log messages to clipboard."
 msgstr "把log記錄檔複製到剪貼簿"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:146
+#: translations/xrc.cpp:673
 #, fuzzy
 msgid "Project save:"
 msgstr "專案"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:153
+#: translations/xrc.cpp:674
 msgid "Create makefile automatically during project save"
 msgstr ""
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:154
+#: translations/xrc.cpp:675
 msgid ""
 "Saves a makefile (.mk) beside the project file (.pto) for command line "
 "stitching"
 msgstr ""
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:169
+#: translations/xrc.cpp:676
 msgid "Show hints about projections"
 msgstr "顯示投影的相關提示"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:172
+#: translations/xrc.cpp:677
 msgid "The hints are shown only in the fast preview window"
 msgstr "提示只在快速預覽視窗中顯示"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:197
+#: translations/xrc.cpp:678
 msgid "File Options"
 msgstr "檔案選項"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:204
+#: translations/xrc.cpp:679
 msgid "Temporary dir:"
 msgstr "暫存目錄:"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:217
+#: translations/xrc.cpp:680
 msgid "(leave empty for OS default)"
 msgstr "(空白時設定為作業系統預設)"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:235
+#: translations/xrc.cpp:681
 msgid "Default project filename:"
 msgstr "預設專案檔名："
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:253
+#: translations/xrc.cpp:682
 msgid "Default output prefix:"
 msgstr "指定引數"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:272
+#: translations/xrc.cpp:683
 #, c-format
 msgid ""
 "The following placeholder are replaced automatically:\n"
@@ -5963,47 +5841,47 @@ msgstr ""
 "%lens - 鏡頭 (第一個影像)\n"
 "%projectname - 專案檔名 (只針對輸出檔名)"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:294
+#: translations/xrc.cpp:684
 msgid "Default filenames"
 msgstr "預設檔名："
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:302
+#: translations/xrc.cpp:685
 msgid "Filenames"
 msgstr "檔案名稱"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:311
+#: translations/xrc.cpp:687
 msgid "Image loading"
 msgstr "圖片載入中"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:315
+#: translations/xrc.cpp:688
 msgid "Automatically align images after loading"
 msgstr "載入後自動對準圖片"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:328
+#: translations/xrc.cpp:689
 msgid "Detect vertical lines"
 msgstr "偵測垂直線"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:329
+#: translations/xrc.cpp:690
 msgid "Detects vertical lines in the images to level the pano"
 msgstr "偵測影像中的垂直線來校正環景水平"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:336
+#: translations/xrc.cpp:691
 msgid "Remove cloud-like control points (Celeste)"
 msgstr "移除了 %d 個像雲的控制點"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:343
+#: translations/xrc.cpp:692
 msgid "Remove outlying control points by statistical method"
 msgstr "以統計方法移除符合離群值的控制點"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:348
+#: translations/xrc.cpp:693
 msgid "Optional assistant steps"
 msgstr "可選擇的接圖分析步驟"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:356
+#: translations/xrc.cpp:694
 msgid "Auto align"
 msgstr "自動對準"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:363
+#: translations/xrc.cpp:695
 msgid ""
 "Number of Control Points\n"
 "per overlap"
@@ -6011,67 +5889,67 @@ msgstr ""
 "控制點號碼\n"
 "每重疊區域"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:385
+#: translations/xrc.cpp:696
 msgid "Downscale final pano"
 msgstr "縮減最終全景圖片"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:399
+#: translations/xrc.cpp:697
 msgid "percent of max. width"
 msgstr "百分之最大寬度"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:417
+#: translations/xrc.cpp:698
 msgid "Control Points Editor"
 msgstr "控制點編輯器"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:423
+#: translations/xrc.cpp:699
 msgid "HDR and 16 Bit display"
 msgstr "HDR 和 16 位顯示模式"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:432
+#: translations/xrc.cpp:700
 msgid "Curve"
 msgstr "曲線"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:440
+#: translations/xrc.cpp:701
 msgid "linear"
 msgstr "直線的"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:441
+#: translations/xrc.cpp:702
 msgid "logarithmic"
 msgstr "對數的"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:442
+#: translations/xrc.cpp:703
 msgid "gamma 2.2"
 msgstr "伽瑪 2.2"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:450
+#: translations/xrc.cpp:704
 msgid "used for display in GUI"
 msgstr "用於圖形化使用者介面輸出"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:471
+#: translations/xrc.cpp:706
 msgid "Patch width:"
 msgstr "局部圖片寬度:"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:485 hugin1/hugin/xrc/pref_dialog.xrc:527
+#: translations/xrc.cpp:707 translations/xrc.cpp:711
 msgid "pixels"
 msgstr "像素"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:492
+#: translations/xrc.cpp:708
 msgid "Search area width:"
 msgstr "尋找區域寬度:"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:506
+#: translations/xrc.cpp:709
 msgid "percent of image width"
 msgstr "百分之圖片寬度"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:513
+#: translations/xrc.cpp:710
 msgid "Local search area width:"
 msgstr "局部尋找區域寬度:"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:535
+#: translations/xrc.cpp:712
 msgid "Correlation Threshold:"
 msgstr "相關閥值:"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:547
+#: translations/xrc.cpp:713
 msgid ""
 "0: no similarity\n"
 "1: maximum similarity"
@@ -6079,11 +5957,11 @@ msgstr ""
 "0: 不相似\n"
 "1: 最大相似"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:555
+#: translations/xrc.cpp:714
 msgid "Peak Curvature Threshold:"
 msgstr "峰值曲率閥值:"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:567
+#: translations/xrc.cpp:715
 msgid ""
 "0: no peak\n"
 "0.2: distinctive peak"
@@ -6091,103 +5969,103 @@ msgstr ""
 "0: 無峰值\n"
 " 0.2: 定義佳的峰值"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:584
+#: translations/xrc.cpp:716
 msgid "Rotation search"
 msgstr "旋轉尋找"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:588
+#: translations/xrc.cpp:717
 msgid "Enable rotation search (slower, but more accurate)"
 msgstr "啟用旋轉尋找 (較慢, 但更加準確)"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:597
+#: translations/xrc.cpp:718
 msgid "Start angle:"
 msgstr "起始角:"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:618
+#: translations/xrc.cpp:720
 msgid "Stop angle:"
 msgstr "終止角:"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:637
+#: translations/xrc.cpp:722
 msgid "Steps:"
 msgstr "步驟:"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:664
+#: translations/xrc.cpp:723
 msgid "Control Point Detectors"
 msgstr "控制點偵測器"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:670
+#: translations/xrc.cpp:724
 msgid "Control Point Detector Programs"
 msgstr "控制點偵測器程式"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:686
+#: translations/xrc.cpp:725
 msgid "New..."
 msgstr "新增..."
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:693 hugin1/hugin/xrc/pref_dialog.xrc:954
+#: translations/xrc.cpp:726 translations/xrc.cpp:762
 msgid "Edit..."
 msgstr "編輯..."
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:707
+#: translations/xrc.cpp:728
 msgid "Move up"
 msgstr "向上移動"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:714
+#: translations/xrc.cpp:729
 msgid "Move down"
 msgstr "向下移動"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:721
+#: translations/xrc.cpp:730
 msgid "Set default"
 msgstr "系統預設"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:752
+#: translations/xrc.cpp:733
 msgid "The assistant is using the default setting."
 msgstr "接圖分析正在使用預設設定."
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:774
+#: translations/xrc.cpp:734
 msgid "Output Format"
 msgstr "輸出格式"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:781
+#: translations/xrc.cpp:735
 msgid "Default File Format:"
 msgstr "預設檔案格式："
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:794
+#: translations/xrc.cpp:736
 msgid "default output format for final panorama"
 msgstr "預設的全景結果輸出格式"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:801
+#: translations/xrc.cpp:737
 msgid "TIFF Compression:"
 msgstr "TIFF 壓縮:"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:815
+#: translations/xrc.cpp:739
 msgid "default TIFF compression"
 msgstr "預設的TIFF壓縮器"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:821
+#: translations/xrc.cpp:740
 msgid "JPEG Quality:"
 msgstr "JPEG 品質:"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:832
+#: translations/xrc.cpp:741
 msgid "default JPEG compression setting"
 msgstr "預設的JPEG壓縮設定"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:847
+#: translations/xrc.cpp:742
 msgid "Processor"
 msgstr "處理器"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:855
+#: translations/xrc.cpp:744
 msgid "Hugin&stitch&project"
 msgstr ""
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:858
+#: translations/xrc.cpp:745
 msgid "The engine that will run the stitch"
 msgstr "核心程式會執行接圖"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:867
+#: translations/xrc.cpp:746
 msgid "Start stitching jobs immediately"
 msgstr "立刻開始接合工作"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:868
+#: translations/xrc.cpp:747
 msgid ""
 "If selected, the processor will immediately resume processing the jobs "
 "queue.  Otherwise the processor is started in suspended state and the user "
@@ -6196,11 +6074,11 @@ msgstr ""
 "選取這個選項，批次處理會自動恢復序列的處理，不然批次處理會在暫停的狀態下開"
 "始，需要手動開始"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:875
+#: translations/xrc.cpp:748
 msgid "Run stitching jobs in parallel"
 msgstr "同時執行接合工作"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:876
+#: translations/xrc.cpp:749
 msgid ""
 "If selected, the processor will run multiple jobs contemporaneously.  "
 "Otherwise it will run one job at a time.  Note that selecting this option "
@@ -6210,63 +6088,65 @@ msgstr ""
 "選取這個選項，批次處理會同步執行多項工作，不然一次只會執行一項工作。視系統資"
 "源，這個選項可能會導致較慢的接合速度"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:883
+#: translations/xrc.cpp:750
 msgid "Overwrite existing files"
 msgstr "覆蓋已經存在的檔案"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:884
+#: translations/xrc.cpp:751
 msgid "WARNING: existing files will be silently overwritten."
 msgstr "警告： 已經存在的檔案可能會在沒有通知的情況下被覆蓋"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:891
+#: translations/xrc.cpp:752
 msgid "Verbose Output"
 msgstr "完整的輸出"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:892
+#: translations/xrc.cpp:753
 msgid ""
 "Enable to get the details, useful when reporting a bug or just to watch the "
 "project's progress."
 msgstr "啟用來記錄細節。在回報問題或單純監看專案運作時很有用"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:914
+#: translations/xrc.cpp:755
 msgid "Advanced options"
 msgstr "進階選項"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:920
+#: translations/xrc.cpp:756
+#, fuzzy
+msgid "ExifTool options"
+msgstr "Enfuse 選項"
+
+#: translations/xrc.cpp:757
 msgid "Copy metadata into final files using ExifTool"
 msgstr "將詮釋資料(metadata)用ExifTool複製到輸出的最後檔案"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:932
-msgid "Exiftool argfile:"
-msgstr ""
+#: translations/xrc.cpp:758
+#, fuzzy
+msgid "ExifTool argfile:"
+msgstr "在左圖選取點"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:938
+#: translations/xrc.cpp:759
 #, fuzzy
 msgid "Leave empty for default"
 msgstr "(空白時設定為作業系統預設)"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:947
-msgid "Select exiftool argfile"
-msgstr ""
-
-#: hugin1/hugin/xrc/pref_dialog.xrc:963
+#: translations/xrc.cpp:763
 #, fuzzy
-msgid "Exiftool options"
-msgstr "Enfuse 選項"
+msgid "Edit selected ExifTool argfile"
+msgstr "在左圖選取點"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:973
+#: translations/xrc.cpp:764
 msgid "Create Photo Sphere XMP data"
 msgstr ""
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:974
+#: translations/xrc.cpp:765
 msgid "This will only be done for equirectangular output images."
 msgstr ""
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:991
+#: translations/xrc.cpp:766
 msgid "Number of threads:"
 msgstr "執行緒的數量："
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1000
+#: translations/xrc.cpp:767
 msgid ""
 "Nona and the OpenMP enabled enblend/enfuse can use multiple threads for "
 "processing.\n"
@@ -6276,43 +6156,43 @@ msgstr ""
 "Nona 和 OpenMP 融合/曝光融合 支援多執行緒處理\n"
 "將這個數量最大設為您的系統中可用的處理器或者處理器核心"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1007
+#: translations/xrc.cpp:768
 msgid "0 for automatic detection"
 msgstr "自動偵測請設定為0"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1023
+#: translations/xrc.cpp:769
 msgid "Stitching"
 msgstr "正在接合中"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1039
+#: translations/xrc.cpp:770
 msgid "Default Interpolator (i):"
 msgstr "預設內插器(i):"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1069
+#: translations/xrc.cpp:780
 msgid "Create cropped images by default"
 msgstr "依預設產生裁剪後的圖片"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1076
+#: translations/xrc.cpp:781
 msgid "Use GPU for remapping (EXPERIMENTAL)"
 msgstr "以圖形處理器執行重定位(實驗性的)"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1077
+#: translations/xrc.cpp:782
 msgid "Use video card GPU to speed up remapping"
 msgstr "以顯示卡圖形處理器速重定位"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1100
+#: translations/xrc.cpp:783
 msgid "Use alternative Enblend program"
 msgstr "使用可選 Enblend 應用程式"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1110
+#: translations/xrc.cpp:784
 msgid "Enblend executable:"
 msgstr "Enblend 可執行:"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1135 hugin1/hugin/xrc/pref_dialog.xrc:1214
+#: translations/xrc.cpp:786 translations/xrc.cpp:792
 msgid "Default Arguments:"
 msgstr "預設引數:"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1155 hugin1/hugin/xrc/pref_dialog.xrc:1234
+#: translations/xrc.cpp:787 translations/xrc.cpp:793
 msgid ""
 "These are the default arguments for new projects.\n"
 "They can be changed for individual projects in the Stitcher tab.\n"
@@ -6321,36 +6201,36 @@ msgstr ""
 "這些是新專案的預設引數，在[接合工具]標籤可以為個別專案調整\n"
 "請勿設定由 hugin 指定的 -w, -o 和 --compression 引數"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1165
+#: translations/xrc.cpp:788
 msgid "Enblend"
 msgstr "Enblend"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1179
+#: translations/xrc.cpp:789
 msgid "Use alternative Enfuse program"
 msgstr "使用可供選擇的 Enfuse 應用程式"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1189
+#: translations/xrc.cpp:790
 msgid "Enfuse executable:"
 msgstr "Enfuse 可執行:"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1244
+#: translations/xrc.cpp:794
 msgid "Enfuse"
 msgstr "Enfuse"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1252
+#: translations/xrc.cpp:795
 #, fuzzy
 msgid "Programs"
 msgstr "應用程式:"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1260
+#: translations/xrc.cpp:796
 msgid "Celeste parameters"
 msgstr "Celeste 參數"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1267
+#: translations/xrc.cpp:797
 msgid "SVM threshold:"
 msgstr "SVM 閥值:"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1279
+#: translations/xrc.cpp:798
 msgid ""
 "greater than 0.5: less sensitive\n"
 "less than 0.5: more sensitive"
@@ -6358,19 +6238,19 @@ msgstr ""
 "大於 0.5: 較小靈敏度\n"
 "小於 0.5: 較大靈敏度"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1286
+#: translations/xrc.cpp:799
 msgid "Gabor filter size"
 msgstr "Gabor 過濾尺寸"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1294
+#: translations/xrc.cpp:800
 msgid "small"
 msgstr "小"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1295
+#: translations/xrc.cpp:801
 msgid "large"
 msgstr "大"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1303
+#: translations/xrc.cpp:802
 msgid ""
 "large is more accurate\n"
 "small can examine control points close to image border"
@@ -6378,7 +6258,7 @@ msgstr ""
 "大的更精確\n"
 "小的能夠檢查靠近圖片邊界的控制點"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1321
+#: translations/xrc.cpp:803
 msgid ""
 "The vignetting and exposure correction is determined by analysing color "
 "values in the overlapping areas.\n"
@@ -6387,169 +6267,147 @@ msgstr ""
 "暗角校正和光圈校正是透過分析重疊區域的顏色值.\n"
 "為了提高運算速度，只使用了一個隨機點"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1330
+#: translations/xrc.cpp:804
 msgid "Number of points per image: "
 msgstr "每張圖片的控制點數量："
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1345
+#: translations/xrc.cpp:805
 msgid "Photometric optimizer"
 msgstr "光學性質最佳工具"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1353
+#: translations/xrc.cpp:806
 msgid "Misc"
 msgstr "雜項"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1401
+#: translations/xrc.cpp:811
 msgid "Preferences - hugin"
 msgstr "偏好設定 - hugin"
 
-#: hugin1/hugin/xrc/pref_dialog.xrc:1433
-msgid "Edit Exiftool argfile"
-msgstr ""
+#: translations/xrc.cpp:814
+#, fuzzy
+msgid "Edit ExifTool argfile"
+msgstr "在左圖選取點"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:7 hugin1/hugin/xrc/preview_frame.xrc:591
-#: hugin1/hugin/xrc/preview_frame.xrc:1412
+#: translations/xrc.cpp:815 translations/xrc.cpp:880 translations/xrc.cpp:964
 msgid "Center the preview horizontally"
 msgstr "預覽圖片水平居中"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:12
+#: translations/xrc.cpp:817
 msgid "Show the whole panorama"
 msgstr "顯示整幅全景圖"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:13
-#: hugin1/hugin/xrc/preview_frame.xrc:490
-#: hugin1/hugin/xrc/preview_frame.xrc:599
-#: hugin1/hugin/xrc/preview_frame.xrc:1307
-#: hugin1/hugin/xrc/preview_frame.xrc:1424
+#: translations/xrc.cpp:818 translations/xrc.cpp:869 translations/xrc.cpp:881
+#: translations/xrc.cpp:952 translations/xrc.cpp:966
 msgid "Estimate field of view"
 msgstr "測量視角"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:18
+#: translations/xrc.cpp:820
 msgid "Automatically straighten a wavy horizon"
 msgstr "自動拉直波狀水平線"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:23 hugin1/hugin/xrc/preview_frame.xrc:54
+#: translations/xrc.cpp:822 translations/xrc.cpp:832
 msgid "Numerical Transform"
 msgstr "數字變換"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:24
+#: translations/xrc.cpp:823
 msgid "Num. Transf."
 msgstr "數字變換"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:29
+#: translations/xrc.cpp:824
 msgid "Auto update"
 msgstr "自動更新"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:30
+#: translations/xrc.cpp:825
 msgid "Auto"
 msgstr "自動"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:35
+#: translations/xrc.cpp:826
 msgid "Update preview"
 msgstr "更新預覽"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:36
+#: translations/xrc.cpp:827
 msgid "Update"
 msgstr "更新"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:41
+#: translations/xrc.cpp:828
 msgid "Show all images"
 msgstr "顯示所有圖片"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:46
+#: translations/xrc.cpp:830
 msgid "Show none of the images"
 msgstr "不顯示圖片"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:137
-#: hugin1/hugin/xrc/preview_frame.xrc:950
+#: translations/xrc.cpp:838 translations/xrc.cpp:920
 msgid "1. Load images..."
 msgstr "1. 載入圖片..."
 
-#: hugin1/hugin/xrc/preview_frame.xrc:138
-#: hugin1/hugin/xrc/preview_frame.xrc:951
+#: translations/xrc.cpp:839 translations/xrc.cpp:921
 msgid "Load a series of images"
 msgstr "載入一系列照片"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:145
-#: hugin1/hugin/xrc/preview_frame.xrc:958
+#: translations/xrc.cpp:840 translations/xrc.cpp:922
 msgid "no images loaded"
 msgstr "沒有載入圖片"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:222
-#: hugin1/hugin/xrc/preview_frame.xrc:1035
+#: translations/xrc.cpp:844 translations/xrc.cpp:926
 msgid "2. Align..."
 msgstr "2. 對準..."
 
-#: hugin1/hugin/xrc/preview_frame.xrc:223
-#: hugin1/hugin/xrc/preview_frame.xrc:1036
+#: translations/xrc.cpp:845 translations/xrc.cpp:927
 msgid ""
 "Align all images. Creates control points and optimizes the image positions"
 msgstr "對準所有圖片. 創建控制點並且最佳化圖片位置"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:236
-#: hugin1/hugin/xrc/preview_frame.xrc:1049
+#: translations/xrc.cpp:846 translations/xrc.cpp:928
 msgid "3. Create panorama..."
 msgstr "3. 創建全景圖片..."
 
-#: hugin1/hugin/xrc/preview_frame.xrc:237
-#: hugin1/hugin/xrc/preview_frame.xrc:1050
+#: translations/xrc.cpp:847 translations/xrc.cpp:929
 msgid "Create a high resolution panorama"
 msgstr "創建一張高解析度全景圖片"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:260
-#: hugin1/hugin/xrc/preview_frame.xrc:1073
+#: translations/xrc.cpp:849 translations/xrc.cpp:931
 msgid "Match images to their numbers"
 msgstr "顯示數字與對應的圖片"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:261
-#: hugin1/hugin/xrc/preview_frame.xrc:270
-#: hugin1/hugin/xrc/preview_frame.xrc:1074
-#: hugin1/hugin/xrc/preview_frame.xrc:1083
+#: translations/xrc.cpp:850 translations/xrc.cpp:851 translations/xrc.cpp:932
+#: translations/xrc.cpp:933
 msgid "Identify"
 msgstr "識別"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:291
-#: hugin1/hugin/xrc/preview_frame.xrc:1104
+#: translations/xrc.cpp:853 translations/xrc.cpp:935
 msgid "Use full photometric correction (slow)"
 msgstr "使用全部光學性質校正 (慢)"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:299
-#: hugin1/hugin/xrc/preview_frame.xrc:1112
+#: translations/xrc.cpp:855 translations/xrc.cpp:937
 msgid ""
 "Show lines between the ends of each control point. The longer the line, the "
 "bigger the error."
 msgstr "顯示兩個控制端點之間的連線，越長的線代表誤差越多"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:349
-#: hugin1/hugin/xrc/preview_frame.xrc:1162
+#: translations/xrc.cpp:858 translations/xrc.cpp:940
 msgid ""
 "Sets the exposure value of the panorama to the mean exposure of all images."
 msgstr "將全景圖中的曝光值設定為全部圖片的曝光數平均值."
 
-#: hugin1/hugin/xrc/preview_frame.xrc:377
-#: hugin1/hugin/xrc/preview_frame.xrc:1190
+#: translations/xrc.cpp:859 translations/xrc.cpp:941
 msgid "Correct global white balance by selecting a neutral gray area."
 msgstr "藉由設定中性灰階區域來矯正全區白平衡"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:378
-#: hugin1/hugin/xrc/preview_frame.xrc:387
-#: hugin1/hugin/xrc/preview_frame.xrc:1191
-#: hugin1/hugin/xrc/preview_frame.xrc:1200
+#: translations/xrc.cpp:860 translations/xrc.cpp:861 translations/xrc.cpp:942
+#: translations/xrc.cpp:943
 msgid "Gray picker"
 msgstr "選擇灰階"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:412
-#: hugin1/hugin/xrc/preview_frame.xrc:1225
+#: translations/xrc.cpp:862 translations/xrc.cpp:944
 msgid "Background:"
 msgstr "背景："
 
-#: hugin1/hugin/xrc/preview_frame.xrc:443
-#: hugin1/hugin/xrc/preview_frame.xrc:1256
+#: translations/xrc.cpp:865 translations/xrc.cpp:947
 msgid "Scale:"
 msgstr "縮放:"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:470
-#: hugin1/hugin/xrc/preview_frame.xrc:1283
+#: translations/xrc.cpp:866 translations/xrc.cpp:948
 msgid ""
 "* A gray line indicates there are no control points, but the image pair "
 "overlaps.\n"
@@ -6560,198 +6418,152 @@ msgstr ""
 "* 綠、黃、宏分別代表好、中、差的對齊\n"
 "* 點下連線會在[控制點]標籤中開啟對應的影像"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:479
-#: hugin1/hugin/xrc/preview_frame.xrc:1292
+#: translations/xrc.cpp:867 translations/xrc.cpp:949
 msgid "Layout"
 msgstr "版面"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:500
-#: hugin1/hugin/xrc/preview_frame.xrc:1317
-#: hugin1/hugin/xrc/reset_dialog.xrc:28
+#: translations/xrc.cpp:870 translations/xrc.cpp:953 translations/xrc.cpp:1056
 msgid "Field of View"
 msgstr "視角"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:516
-#: hugin1/hugin/xrc/preview_frame.xrc:1333
+#: translations/xrc.cpp:871 translations/xrc.cpp:954
 msgid "×"
 msgstr "×"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:555
-#: hugin1/hugin/xrc/preview_frame.xrc:634
-#: hugin1/hugin/xrc/preview_frame.xrc:801
-#: hugin1/hugin/xrc/preview_frame.xrc:1372
-#: hugin1/hugin/xrc/preview_frame.xrc:1463
-#: hugin1/hugin/xrc/preview_frame.xrc:1638
+#: translations/xrc.cpp:872 translations/xrc.cpp:884 translations/xrc.cpp:903
+#: translations/xrc.cpp:955 translations/xrc.cpp:970 translations/xrc.cpp:991
 msgid "Guides:"
 msgstr "畫面導引線："
 
-#: hugin1/hugin/xrc/preview_frame.xrc:564
-#: hugin1/hugin/xrc/preview_frame.xrc:642
-#: hugin1/hugin/xrc/preview_frame.xrc:810
-#: hugin1/hugin/xrc/preview_frame.xrc:1381
-#: hugin1/hugin/xrc/preview_frame.xrc:1471
-#: hugin1/hugin/xrc/preview_frame.xrc:1647
+#: translations/xrc.cpp:874 translations/xrc.cpp:886 translations/xrc.cpp:905
+#: translations/xrc.cpp:957 translations/xrc.cpp:972 translations/xrc.cpp:993
 msgid "Rule of thirds"
 msgstr "三分線"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:565
-#: hugin1/hugin/xrc/preview_frame.xrc:643
-#: hugin1/hugin/xrc/preview_frame.xrc:811
-#: hugin1/hugin/xrc/preview_frame.xrc:1382
-#: hugin1/hugin/xrc/preview_frame.xrc:1472
-#: hugin1/hugin/xrc/preview_frame.xrc:1648
+#: translations/xrc.cpp:875 translations/xrc.cpp:887 translations/xrc.cpp:906
+#: translations/xrc.cpp:958 translations/xrc.cpp:973 translations/xrc.cpp:994
 msgid "Golden ratio"
 msgstr "黃金比例"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:566
-#: hugin1/hugin/xrc/preview_frame.xrc:644
-#: hugin1/hugin/xrc/preview_frame.xrc:812
-#: hugin1/hugin/xrc/preview_frame.xrc:1383
-#: hugin1/hugin/xrc/preview_frame.xrc:1473
-#: hugin1/hugin/xrc/preview_frame.xrc:1649
+#: translations/xrc.cpp:876 translations/xrc.cpp:888 translations/xrc.cpp:907
+#: translations/xrc.cpp:959 translations/xrc.cpp:974 translations/xrc.cpp:995
 msgid "Diagonal"
 msgstr "對角線"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:567
-#: hugin1/hugin/xrc/preview_frame.xrc:645
-#: hugin1/hugin/xrc/preview_frame.xrc:813
-#: hugin1/hugin/xrc/preview_frame.xrc:1384
-#: hugin1/hugin/xrc/preview_frame.xrc:1474
-#: hugin1/hugin/xrc/preview_frame.xrc:1650
+#: translations/xrc.cpp:877 translations/xrc.cpp:889 translations/xrc.cpp:908
+#: translations/xrc.cpp:960 translations/xrc.cpp:975 translations/xrc.cpp:996
 msgid "Diagonal method"
 msgstr "雙對角線"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:568
-#: hugin1/hugin/xrc/preview_frame.xrc:646
-#: hugin1/hugin/xrc/preview_frame.xrc:814
-#: hugin1/hugin/xrc/preview_frame.xrc:1385
-#: hugin1/hugin/xrc/preview_frame.xrc:1475
-#: hugin1/hugin/xrc/preview_frame.xrc:1651
+#: translations/xrc.cpp:878 translations/xrc.cpp:890 translations/xrc.cpp:909
+#: translations/xrc.cpp:961 translations/xrc.cpp:976 translations/xrc.cpp:997
 msgid "Golden triangle (down)"
 msgstr "黃金三角形 (朝下)"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:569
-#: hugin1/hugin/xrc/preview_frame.xrc:647
-#: hugin1/hugin/xrc/preview_frame.xrc:815
-#: hugin1/hugin/xrc/preview_frame.xrc:1386
-#: hugin1/hugin/xrc/preview_frame.xrc:1476
-#: hugin1/hugin/xrc/preview_frame.xrc:1652
+#: translations/xrc.cpp:879 translations/xrc.cpp:891 translations/xrc.cpp:910
+#: translations/xrc.cpp:962 translations/xrc.cpp:977 translations/xrc.cpp:998
 msgid "Golden triangle (up)"
 msgstr "黃金三角形 (朝上)"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:607
-#: hugin1/hugin/xrc/preview_frame.xrc:1436
+#: translations/xrc.cpp:882 translations/xrc.cpp:968
 msgid "Automatically straighten a wavy horizon."
 msgstr "自動拉直波狀水平線."
 
-#: hugin1/hugin/xrc/preview_frame.xrc:622
-#: hugin1/hugin/xrc/preview_frame.xrc:1451
+#: translations/xrc.cpp:883 translations/xrc.cpp:969
 msgid "Drag mode:"
 msgstr "拖曳模式："
 
-#: hugin1/hugin/xrc/preview_frame.xrc:756
-#: hugin1/hugin/xrc/preview_frame.xrc:1585
+#: translations/xrc.cpp:898 translations/xrc.cpp:984
 msgid "Apply"
 msgstr "執行"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:766
-#: hugin1/hugin/xrc/preview_frame.xrc:1595
+#: translations/xrc.cpp:899 translations/xrc.cpp:985
 msgid "Move the panorama or drag images into position"
 msgstr "移動全景圖或是拖曳圖片到位置"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:768
-#: hugin1/hugin/xrc/preview_frame.xrc:1597
+#: translations/xrc.cpp:900 translations/xrc.cpp:986
 msgid "Move/Drag"
 msgstr "移動/拖曳"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:778
-#: hugin1/hugin/xrc/preview_frame.xrc:1611
+#: translations/xrc.cpp:901 translations/xrc.cpp:988
 msgid "Set the crop region to the largest rectangle covered by images"
 msgstr "對圖片覆蓋的最大矩形設定裁剪區域"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:786
-#: hugin1/hugin/xrc/preview_frame.xrc:1623
+#: translations/xrc.cpp:902 translations/xrc.cpp:990
 msgid "Set the crop region to the largest rectangle covered by image stacks"
 msgstr "把裁切區域設定成影像堆棧能包含的的最大長方形"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:837
-#: hugin1/hugin/xrc/preview_frame.xrc:1674
+#: translations/xrc.cpp:911 translations/xrc.cpp:999
 msgid "left:"
 msgstr "左:"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:851
-#: hugin1/hugin/xrc/preview_frame.xrc:1688
+#: translations/xrc.cpp:912 translations/xrc.cpp:1000
 msgid "top:"
 msgstr "上:"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:865
-#: hugin1/hugin/xrc/preview_frame.xrc:1702
+#: translations/xrc.cpp:913 translations/xrc.cpp:1001
 msgid "right:"
 msgstr "右:"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:879
-#: hugin1/hugin/xrc/preview_frame.xrc:1716
+#: translations/xrc.cpp:914 translations/xrc.cpp:1002
 msgid "bottom:"
 msgstr "下:"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:895
-#: hugin1/hugin/xrc/preview_frame.xrc:1732
+#: translations/xrc.cpp:915 translations/xrc.cpp:1003
 msgid "Reset crop to maximal possible area"
 msgstr "重設裁切邊藉以符合最大區域"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:905
-#: hugin1/hugin/xrc/preview_frame.xrc:1742
+#: translations/xrc.cpp:916 translations/xrc.cpp:1004
 msgid "Change the panorama's cropping region"
 msgstr "改變全景圖片裁剪區域"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:921
-#: hugin1/hugin/xrc/preview_frame.xrc:928
+#: translations/xrc.cpp:918 translations/xrc.cpp:919
 msgid "Mode:"
 msgstr "模式："
 
-#: hugin1/hugin/xrc/preview_frame.xrc:1769
+#: translations/xrc.cpp:1011
 msgid "Panorama &editor"
 msgstr "環景 %編輯器"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:1778
+#: translations/xrc.cpp:1014
 msgid "&Overview"
 msgstr "&預覽"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:1779
+#: translations/xrc.cpp:1015
 msgid "Shows the overview of the panorama sphere."
 msgstr "顯示完整環景球總覽"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:1783
+#: translations/xrc.cpp:1016
 msgid "Grid"
 msgstr "網格"
 
-#: hugin1/hugin/xrc/preview_frame.xrc:1784
+#: translations/xrc.cpp:1017
 msgid "Shows a grid."
 msgstr "顯示格線"
 
-#: hugin1/hugin/xrc/reset_dialog.xrc:20
+#: translations/xrc.cpp:1055
 #, fuzzy
 msgid "Translation parameters"
 msgstr "平移參數"
 
-#: hugin1/hugin/xrc/reset_dialog.xrc:55 hugin1/hugin/xrc/reset_dialog.xrc:76
+#: translations/xrc.cpp:1059 translations/xrc.cpp:1062
 msgid "to EXIF values"
 msgstr "EXIF 值"
 
-#: hugin1/hugin/xrc/reset_dialog.xrc:56
+#: translations/xrc.cpp:1060
 msgid "to zero (no exposure correction)"
 msgstr "調整至0(無光圈校正)"
 
-#: hugin1/hugin/xrc/reset_dialog.xrc:67
+#: translations/xrc.cpp:1061
 msgid "Color"
 msgstr "顏色"
 
-#: hugin1/hugin/xrc/reset_dialog.xrc:77
+#: translations/xrc.cpp:1063
 #, fuzzy
 msgid "to one (no color correction)"
 msgstr "調整至0(無光圈校正)"
 
-#: hugin1/hugin/xrc/reset_dialog.xrc:131
+#: translations/xrc.cpp:1068
 msgid "Reset values"
 msgstr "重新設定值"
 
