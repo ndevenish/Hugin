@@ -108,60 +108,6 @@ static void usage(const char * name)
          << std::endl;
 }
 
-
-#if 0
-template <class VALUETYPE>
-class InterestPointSelector
-{
-public:
-
-        /** the functor's argument type
-        */
-    typedef VALUETYPE argument_type;
-
-        /** the functor's result type
-        */
-    typedef VALUETYPE result_type;
-
-        /** \deprecated use argument_type
-        */
-    typedef VALUETYPE value_type;
-
-
-    InterestPointSelector(int nrPoints)
-    {
-        minResponse = 0;
-        nPoints = nrPoints;
-    }
-
-    void operator()(argument_type const & resp)
-    {
-        //double resp = leftCornerResponse(x,y);
-	if (resp > minResponse) {
-	    // add to point map
-	    points.insert(make_pair(resp,Diff2D(x,y)));
-	    // if we have reached the maximum
-	    // number of points, increase the threshold, to avoid
-	    // growing the points map too much.
-	    // extract more than nPoints, because some might be bad
-	    // and cannot be matched with the other image.
-	    if (points.size() > 5*nPoints) {
-		// remove the point with the lowest corner response.
-		leftCorners(points.begin()->second.x,points.begin()->second.y)=0;
-		points.erase(points.begin());
-		// use new threshold for next selection.
-		minResponse = points.begin()->first;
-	    }
-	}
-    }
-
-    argument_type minResponse;
-    std::multimap<argument_type, vigra::Diff2D> points;
-    int nPoints;
-}
-
-#endif
-
 template <class ImageType>
 void createCtrlPoints(Panorama & pano, int img1, const ImageType & leftImg, const ImageType & leftImgOrig, int img2, const ImageType & rightImg, const ImageType & rightImgOrig, int pyrLevel, double scale, unsigned nPoints, unsigned grid, double corrThresh=0.9, bool stereo = false)
 {
