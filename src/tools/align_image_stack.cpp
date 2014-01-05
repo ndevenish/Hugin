@@ -104,6 +104,8 @@ static void usage(const char * name)
          << "  -g gsize  Break image into a rectangular grid (gsize x gsize) and attempt" << std::endl
          << "             to find num control points in each section" << std::endl 
          << "             (default: 5 [5x5 grid] )" << std::endl
+         << "  --threads=NUM  Use NUM threads" << std::endl
+         << "  --gpu     Use GPU for remapping" << std::endl
          << "  -h        Display help (this text)" << std::endl
          << std::endl;
 }
@@ -357,6 +359,7 @@ struct Parameters
         pop_out = false;
         crop = false;
         fisheye = false;
+        gpu = false;
     }
 
     double cpErrorThreshold;
@@ -376,6 +379,7 @@ struct Parameters
     bool stereo_window;
     bool pop_out;
     bool crop;
+    bool gpu;
     int pyrLevel;
     std::string alignedPrefix;
     std::string ptoFile;
@@ -649,9 +653,18 @@ int main2(std::vector<std::string> files, Parameters param)
             pano.setOptions(opts);
 
             // remap all images
-            StreamMultiProgressDisplay progress(cout);
+            MultiProgressDisplay* progress;
+            if(g_verbose > 0)
+            {
+                progress = new StreamMultiProgressDisplay(cout);
+            }
+            else
+            {
+                progress = new DummyMultiProgressDisplay();
+            };
             stitchPanorama(pano, pano.getOptions(),
-                           progress, opts.outfile, imgs);
+                           *progress, opts.outfile, imgs);
+            delete progress;
         }
         if (param.alignedPrefix.size()) {
             // disable all exposure compensation stuff.
@@ -661,6 +674,7 @@ int main2(std::vector<std::string> files, Parameters param)
             opts.outputFormat = PanoramaOptions::TIFF_m;
             opts.outputPixelType = "";
             opts.outfile = param.alignedPrefix;
+            opts.remapUsingGPU = param.gpu;
             pano.setOptions(opts);
             for (unsigned i=0; i < pano.getNrOfImages(); i++) {
                 SrcPanoImage img = pano.getSrcImage(i);
@@ -668,9 +682,18 @@ int main2(std::vector<std::string> files, Parameters param)
                 pano.setSrcImage(i, img);
             }
             // remap all images
-            StreamMultiProgressDisplay progress(cout);
+            MultiProgressDisplay* progress;
+            if(g_verbose > 0)
+            {
+                progress = new StreamMultiProgressDisplay(cout);
+            }
+            else
+            {
+                progress = new DummyMultiProgressDisplay();
+            };
             stitchPanorama(pano, pano.getOptions(),
-                           progress, opts.outfile, imgs);
+                           *progress, opts.outfile, imgs);
+            delete progress;
 
         }
 
@@ -701,16 +724,22 @@ int main(int argc, char *argv[])
     Parameters param;
     enum
     {
-        CORRTHRESH=1000
+        CORRTHRESH=1000,
+        THREADS,
+        GPU,
     };
 
     static struct option longOptions[] =
     {
         {"corr", required_argument, NULL, CORRTHRESH },
+        {"threads", required_argument, NULL, THREADS },
+        {"gpu", no_argument, NULL, GPU },
         {"help", no_argument, NULL, 'h' },
         0
     };
     int optionIndex = 0;
+    int nThread = getCPUCount();
+    if (nThread < 0) nThread = 1;
     while ((c = getopt_long (argc, argv, optstring, longOptions,&optionIndex)) != -1)
         switch (c) {
         case 'a':
@@ -810,6 +839,12 @@ int main(int argc, char *argv[])
                 return 1;
             };
             break;
+        case THREADS:
+            nThread = atoi(optarg);
+            break;
+        case GPU:
+            param.gpu = true;
+            break;
         default:
             cerr << "Invalid parameter: " << optarg << std::endl;
             usage(argv[0]);
@@ -836,6 +871,9 @@ int main(int argc, char *argv[])
     for (size_t i=0; i < nFiles; i++)
         files.push_back(argv[optind+i]);
 
+    if (nThread == 0) nThread = 1;
+    vigra_ext::ThreadManager::get().setNThreads(nThread);
+
     std::string pixelType;
 
     try {
@@ -846,6 +884,10 @@ int main(int argc, char *argv[])
         return 1;
     }
 
+    if(param.gpu)
+    {
+        param.gpu=hugin_utils::initGPU(&argc, argv);
+    };
     if (pixelType == "UINT8") {
         return main2<RGBValue<UInt8> >(files, param);
     } else if (pixelType == "INT16") {
@@ -856,8 +898,16 @@ int main(int argc, char *argv[])
         return main2<RGBValue<float> >(files, param);
     } else {
         cerr << " ERROR: unsupported pixel type: " << pixelType << std::endl;
+        if(param.gpu)
+        {
+            hugin_utils::wrapupGPU();
+        };
         return 1;
     }
 
+    if(param.gpu)
+    {
+        hugin_utils::wrapupGPU();
+    };
     return 0;
 }
