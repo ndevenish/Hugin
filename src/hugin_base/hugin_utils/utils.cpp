@@ -47,6 +47,16 @@
 #include <libgen.h>       /* dirname */
 #endif
 
+#if !defined Hugin_shared || !defined _WINDOWS
+#define GLEW_STATIC
+#endif
+#include <GL/glew.h>
+#ifdef __APPLE__
+  #include <GLUT/glut.h>
+#else
+  #include <GL/glut.h>
+#endif
+
 namespace hugin_utils {
     
 #ifdef UNIX_LIKE
@@ -314,5 +324,58 @@ std::string GetDataDir()
 #endif
     return data_path;
 };
+
+// initialization and wrapup of GPU for GPU remapping
+static GLuint GlutWindowHandle;
+
+bool initGPU(int *argcp, char **argv)
+{
+    glutInit(argcp,argv);
+    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGBA | GLUT_ALPHA);
+    GlutWindowHandle = glutCreateWindow("Hugin");
+
+    int err = glewInit();
+    if (err != GLEW_OK)
+    {
+        std::cerr << argv[0] << ": an error occured while setting up the GPU:" << std::endl;
+        std::cerr << glewGetErrorString(err) << std::endl;
+        std::cerr << argv[0] << ": Switching to CPU calculation." << std::endl;
+        glutDestroyWindow(GlutWindowHandle);
+        return false;
+    }
+
+    std::cout << argv[0] << ": using graphics card: " << glGetString(GL_VENDOR) << " " << glGetString(GL_RENDERER) << std::endl;
+
+    GLboolean has_arb_fragment_shader = glewGetExtension("GL_ARB_fragment_shader");
+    GLboolean has_arb_vertex_shader = glewGetExtension("GL_ARB_vertex_shader");
+    GLboolean has_arb_shader_objects = glewGetExtension("GL_ARB_shader_objects");
+    GLboolean has_arb_shading_language = glewGetExtension("GL_ARB_shading_language_100");
+    GLboolean has_arb_texture_rectangle = glewGetExtension("GL_ARB_texture_rectangle");
+    GLboolean has_arb_texture_border_clamp = glewGetExtension("GL_ARB_texture_border_clamp");
+    GLboolean has_arb_texture_float = glewGetExtension("GL_ARB_texture_float");
+
+    if (!(has_arb_fragment_shader && has_arb_vertex_shader && has_arb_shader_objects && has_arb_shading_language && has_arb_texture_rectangle && has_arb_texture_border_clamp && has_arb_texture_float)) {
+        const char * msg[] = {"false", "true"};
+        std::cerr << argv[0] << ": extension GL_ARB_fragment_shader = " << msg[has_arb_fragment_shader] << std::endl;
+        std::cerr << argv[0] << ": extension GL_ARB_vertex_shader = " << msg[has_arb_vertex_shader] << std::endl;
+        std::cerr << argv[0] << ": extension GL_ARB_shader_objects = " << msg[has_arb_shader_objects] << std::endl;
+        std::cerr << argv[0] << ": extension GL_ARB_shading_language_100 = " << msg[has_arb_shading_language] << std::endl;
+        std::cerr << argv[0] << ": extension GL_ARB_texture_rectangle = " << msg[has_arb_texture_rectangle] << std::endl;
+        std::cerr << argv[0] << ": extension GL_ARB_texture_border_clamp = " << msg[has_arb_texture_border_clamp] << std::endl;
+        std::cerr << argv[0] << ": extension GL_ARB_texture_float = " << msg[has_arb_texture_float] << std::endl;
+        std::cerr << argv[0] << ": This graphics system lacks the necessary extensions for -g." << std::endl;
+        std::cerr << argv[0] << ": Switching to CPU calculation." << std::endl;
+        glutDestroyWindow(GlutWindowHandle);
+        return false;
+    }
+
+    return true;
+}
+
+bool wrapupGPU()
+{
+    glutDestroyWindow(GlutWindowHandle);
+    return true;
+}
 
 } //namespace
