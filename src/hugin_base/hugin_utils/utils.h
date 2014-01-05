@@ -275,6 +275,15 @@ namespace hugin_utils
 
     /** returns the full path to the data directory */
     IMPEX std::string GetDataDir();
+
+    /** Try to initalise GLUT and GLEW, and create an OpenGL context for GPU stitching.
+    * OpenGL extensions required by the GPU stitcher (-g option) are checked here.
+    * @return true if everything went OK, false if we can't use GPU mode.
+    */
+    IMPEX bool initGPU(int *argcp, char **argv);
+    /** cleanup GPU settings */
+    IMPEX bool wrapupGPU();
+
 } // namespace
 
 

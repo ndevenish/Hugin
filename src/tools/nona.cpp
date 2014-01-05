@@ -50,22 +50,10 @@
 
 #include <tiffio.h>
 
-#if !defined Hugin_shared || !defined _WINDOWS
-#define GLEW_STATIC
-#endif
-#include <GL/glew.h>
-#ifdef __APPLE__
-  #include <GLUT/glut.h>
-#else
-  #include <GL/glut.h>
-#endif
-
 using namespace vigra;
 using namespace HuginBase;
 using namespace hugin_utils;
 using namespace std;
-
-GLuint GlutWindowHandle;
 
 static void usage(const char * name)
 {
@@ -114,57 +102,6 @@ static void usage(const char * name)
     << "                   LZW       lzw compression" << std::endl
     << "                   DEFLATE   deflate compression" << std::endl
     << std::endl;
-}
-
-/** Try to initalise GLUT and GLEW, and create an OpenGL context for GPU stitching.
- * OpenGL extensions required by the GPU stitcher (-g option) are checked here.
- * @return true if everything went OK, false if we can't use GPGPU mode.
- */
-static bool initGPU(int *argcp,char **argv) {
-    glutInit(argcp,argv);
-    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGBA | GLUT_ALPHA);
-    GlutWindowHandle = glutCreateWindow("nona");
-
-    int err = glewInit();
-    if (err != GLEW_OK) {
-        cerr << "nona: an error occured while setting up the GPU:" << endl;
-        cerr << glewGetErrorString(err) << endl;
-        cerr << "nona: Switching to CPU calculation." << endl;
-        glutDestroyWindow(GlutWindowHandle);
-        return false;
-    }
-
-    cout << "nona: using graphics card: " << glGetString(GL_VENDOR) << " " << glGetString(GL_RENDERER) << endl;
-
-    GLboolean has_arb_fragment_shader = glewGetExtension("GL_ARB_fragment_shader");
-    GLboolean has_arb_vertex_shader = glewGetExtension("GL_ARB_vertex_shader");
-    GLboolean has_arb_shader_objects = glewGetExtension("GL_ARB_shader_objects");
-    GLboolean has_arb_shading_language = glewGetExtension("GL_ARB_shading_language_100");
-    GLboolean has_arb_texture_rectangle = glewGetExtension("GL_ARB_texture_rectangle");
-    GLboolean has_arb_texture_border_clamp = glewGetExtension("GL_ARB_texture_border_clamp");
-    GLboolean has_arb_texture_float = glewGetExtension("GL_ARB_texture_float");
-
-    if (!(has_arb_fragment_shader && has_arb_vertex_shader && has_arb_shader_objects && has_arb_shading_language && has_arb_texture_rectangle && has_arb_texture_border_clamp && has_arb_texture_float)) {
-        const char * msg[] = {"false", "true"};
-        cerr << "nona: extension GL_ARB_fragment_shader = " << msg[has_arb_fragment_shader] << endl;
-        cerr << "nona: extension GL_ARB_vertex_shader = " << msg[has_arb_vertex_shader] << endl;
-        cerr << "nona: extension GL_ARB_shader_objects = " << msg[has_arb_shader_objects] << endl;
-        cerr << "nona: extension GL_ARB_shading_language_100 = " << msg[has_arb_shading_language] << endl;
-        cerr << "nona: extension GL_ARB_texture_rectangle = " << msg[has_arb_texture_rectangle] << endl;
-        cerr << "nona: extension GL_ARB_texture_border_clamp = " << msg[has_arb_texture_border_clamp] << endl;
-        cerr << "nona: extension GL_ARB_texture_float = " << msg[has_arb_texture_float] << endl;
-        cerr << "nona: This graphics system lacks the necessary extensions for -g." << endl;
-        cerr << "nona: Switching to CPU calculation." << endl;
-        glutDestroyWindow(GlutWindowHandle);
-        return false;
-    }
-
-    return true;
-}
-
-static bool wrapupGPU() {
-    glutDestroyWindow(GlutWindowHandle);
-    return true;
 }
 
 int main(int argc, char *argv[])
