@@ -6437,7 +6437,6 @@ msgid "Preferences - hugin"
 msgstr "Nastavenia - hugin"
 
 #: translations/xrc.cpp:814
-#, fuzzy
 msgid "Edit ExifTool argfile"
 msgstr "Upraviť Exiftool súbor argumentov"
 
@@ -7005,7 +7004,7 @@ msgstr ""
 #~ msgstr "Vybrať flatfield obrázok"
 
 #~ msgid "Dedication"
-#~ msgstr "Pridať aplikáciu"
+#~ msgstr "Venovanie"
 
 #~ msgid "Bulgarian"
 #~ msgstr "Bulharčina"
