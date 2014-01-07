@@ -8,16 +8,29 @@ B<checkpto> I<input.pto>
 
 =head1 DESCRIPTION
 
-B<checkpto> checks a single Hugin .pto project, it returns failure if the .pto
-file can't be parsed, or if control point connections between photos do not
-form a connected graph.
+B<checkpto> examines the connections between images in a project and
+reports back the number of parts or image groups in that project
 
-This tool is not intended for stand-alone use, it is used by the Assistant
-Makefile when creating a new project.
 
-=head1 OPTIONS
+B<checkpto> is used by the Assistant Makefile when creating a new project.
 
-None
+=head1 FURTHER SWITCHES
+
+=over
+
+=item B<--print-output-info>
+
+Print more information about the output
+
+=item B<-generate-argfile=file>
+
+Generate Exiftool argfile
+
+=item B<-no-gpano>
+
+Don't include GPano tags in argfile
+
+=back
 
 =head1 AUTHORS
 
