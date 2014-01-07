@@ -48,6 +48,10 @@ the amount and distribution of the control points
 Pairwise optimisation of yaw, pitch and roll, starting from first
 image
 
+=item B<-m>
+
+Optimise photometric parameters
+
 =item B<-n>
 
 Optimize parameters specified in script file (like PToptimizer).
@@ -88,7 +92,7 @@ with invalid HFOV)
 
 
 
-When B<-a>, B<-l>, and B<-s> options are used together, an operation similar
+When B<-a>, B<-l>, B<-m> and B<-s> options are used together, an operation similar
 to the one of the "Align" button in hugin is performed.
 
 
