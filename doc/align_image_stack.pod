@@ -61,6 +61,11 @@ Assume input images are full frame fish eye (default: rectilinear)
 Remove all control points with an error higher than num pixels
 (default: 3)
 
+
+=item B<--corr=num>
+
+Correlation threshold for identifying control points (default: 0.9)
+
 =item B<-f> I<HFOV>
 
 Approximate horizontal field of view of input images, use if EXIF info
@@ -78,6 +83,18 @@ Optimize radial distortion for all images, except for first.
 =item B<-i>
 
 Optimize image center shift for all images, except for first.
+
+=item B<-x>
+
+Optimize X coordinate of camera position
+
+=item B<-y>
+
+Optimize Y coordinate of camera position
+
+=item B<-z>
+
+Optimize Z coordinate of camera position
 
 =item B<-S>
 
@@ -112,6 +129,14 @@ Scale down image by 2^scale (default: 1 [2x down-sampling])
 
 Break image into a rectangular grid (gsize x gsize) and attempt to
 find num control points in each section (default: 5 [5x5 grid])
+
+=item B<--threads=NUM>
+
+Use NUM threads
+
+=item B<--gpu> 
+
+Use GPU for remapping
 
 =item B<-h>
 
