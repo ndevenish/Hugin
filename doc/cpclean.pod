@@ -38,6 +38,14 @@ do only pairwise optimisation (skip step 2)
 
 do optimise whole panorama (skip step 1)
 
+=item B<-s>
+
+skip optimisation step when optimising the whole panorama
+
+=item B<-l>
+
+also include line control points for calculation and filtering in step 2
+
 =item B<-h>
 
 shows help
