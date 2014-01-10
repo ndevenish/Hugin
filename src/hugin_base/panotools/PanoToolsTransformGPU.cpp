@@ -284,7 +284,7 @@ static void erect_hammer_glsl(ostringstream& oss, const void* params) {
         << "    {" << endl
         << "        src /= " << distanceparam << ";" << endl
         << "        float z2 = 1.0 - src.s * src.s / 16.0 - src.t * src.t / 4.0;" << endl
-        << "        if (z2 < 0 ) " << DISCARD << endl
+        << "        if (z2 < 0.0 ) " << DISCARD << endl
         << "        float z = sqrt(z2);" << endl
         << "        src.s = 2.0 * atan2_safe( z * src.s, 2.0*(2.0*z2-1.0));" << endl
         << "        src.t = asin (src.t * z);" << endl
@@ -297,7 +297,7 @@ static void erect_hammer_glsl(ostringstream& oss, const void* params) {
 static void erect_arch_glsl(ostringstream& oss, const void* params) {
     oss << "    // erect_arch(" << distanceparam << ")" << endl
         << "    {" << endl
-        << "        if(src.t < 0) {" << endl
+        << "        if(src.t < 0.0) {" << endl
         << "            src.t = " << (1.25 * distanceparam) << " * atan_safe(sinh(src.t * " << (4 / (5.0 * distanceparam)) << "));" << endl
         << "        } else {" << endl
         << "            src.t = " << distanceparam << " * asin(src.t / " << distanceparam << ");" << endl
@@ -448,7 +448,7 @@ static void plane_transfer_to_camera_glsl(ostringstream& oss, const void* params
         << "        if ( abs(den) < 1E-15 ) " << DISCARD << endl
         << "        float u = length(plane_coeff);" << endl
         << "        u = -u * u / den;" << endl
-        << "        if ( u < 0 ) " << DISCARD << endl
+        << "        if ( u < 0.0 ) " << DISCARD << endl
         << "        p *= u;" << endl
         << "        p -= vec3(" << mp->trans[0] << "," << mp->trans[1] << "," << mp->trans[2] << ");" << endl
         << "        src = " << mp->distance << " * vec2( atan2_safe(p.s, -p.p), asin(p.t/length(p)));" << endl
