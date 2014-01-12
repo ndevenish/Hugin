@@ -121,7 +121,7 @@ bool PanoramaMakefilelibExport::createItems()
 
 #ifdef _WINDOWS
     mgr.own_add(new Comment("Force using cmd.exe"));
-    mf::Variable* winshell = mgr.own(new mf::Variable("SHELL", getenv("ComSpec"), Makefile::NONE));
+    mf::Variable* winshell = mgr.own(new mf::Variable("SHELL", std::string(getenv("SystemRoot"))+"\\system32\\cmd.exe", Makefile::NONE));
     winshell->getDef().add();
 #endif
 
