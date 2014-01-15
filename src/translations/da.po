@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: da\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
-"POT-Creation-Date: 2014-01-05 11:40+0100\n"
+"POT-Creation-Date: 2014-01-05 11:39+0100\n"
 "PO-Revision-Date: 2014-01-01 20:03+0100\n"
 "Last-Translator: Thomas Pryds <thomas@pryds.eu>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
@@ -7016,6 +7016,9 @@ msgstr ""
 "Optimering af alle forvrængningsparametre \"alt\" giver kun mening ved "
 "kraftigt overlappende billeder og mange jævnt spredte kontrolpunkter."
 
+#~ msgid "Select exiftool argfile"
+#~ msgstr "Vælg exiftool argfil"
+
 #~ msgid "Bulgarian"
 #~ msgstr "Bulgarsk"
 
@@ -7498,6 +7501,3 @@ msgstr ""
 
 #~ msgid "Automatic control point checking after detecting control points"
 #~ msgstr "Automatisk kontrolpunktcheck efter lokalisering af kontrolpunkter"
-
-#~ msgid "Select exiftool argfile"
-#~ msgstr "Vælg exiftool argfil"
