@@ -387,6 +387,16 @@ struct Parameters
     string basename;
 };
 
+// dummy panotools progress functions
+static int ptProgress(int command, char* argument)
+{
+    return 1;
+}
+static int ptinfoDlg(int command, char* argument)
+{
+    return 1;
+}
+
 struct SortImageVectorEV
 {
 public:
@@ -601,6 +611,12 @@ int main2(std::vector<std::string> files, Parameters param)
 
         // optimize everything.
         pano.setOptimizeVector(optvars);
+        // disable optimizer progress messages if -v not given
+        if (g_verbose == 0)
+        {
+            PT_setProgressFcn(ptProgress);
+            PT_setInfoDlgFcn(ptinfoDlg);
+        };
         bool optimizeError = (PTools::optimize(pano) > 0);
 
         // need to do some basic outlier pruning.
@@ -664,6 +680,7 @@ int main2(std::vector<std::string> files, Parameters param)
             };
             stitchPanorama(pano, pano.getOptions(),
                            *progress, opts.outfile, imgs);
+            std::cout << "Written HDR output to " << opts.outfile << std::endl;
             delete progress;
         }
         if (param.alignedPrefix.size()) {
@@ -694,13 +711,14 @@ int main2(std::vector<std::string> files, Parameters param)
             stitchPanorama(pano, pano.getOptions(),
                            *progress, opts.outfile, imgs);
             delete progress;
-
+            std::cout << "Written aligned images to files with prefix \"" << opts.outfile << "\"" << std::endl;
         }
 
         // At this point we have panorama options set according to the output
         if (param.ptoFile.size() > 0) {
             std::ofstream script(param.ptoFile.c_str());
             pano.printPanoramaScript(script, optvars, pano.getOptions(), imgs, false, "");
+            std::cout << "Written project file " << param.ptoFile << std::endl;
         }
 
 
