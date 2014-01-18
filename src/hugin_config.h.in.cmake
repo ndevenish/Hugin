@@ -66,4 +66,7 @@
 /* if ExifTool version is recent enough */
 #cmakedefine EXIFTOOL_GPANO_SUPPORT 1
 
+/* if compiler supports OpenMP */
+#cmakedefine HAVE_OPENMP 1
+
 #endif
