@@ -292,6 +292,15 @@ IF(NOT FLANN_FOUND)
   INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/src/foreign)
 ENDIF(NOT FLANN_FOUND)
 
+FIND_PACKAGE(FFTW)
+IF(FFTW_FOUND)
+  MESSAGE(STATUS "Found FFTW library. Activated support for FFT fast cross correlation used by fine-tune feature.")
+  INCLUDE_DIRECTORIES(${FFTW_INCLUDE_DIR})
+  SET(HAVE_FFTW TRUE)
+ELSE()
+  MESSAGE(STATUS "Not found FFTW library. Deactivating support for FFT fast cross correlation used by fine-tune feature.")
+ENDIF()
+
 # Check for OpenMP
 FIND_PACKAGE(OpenMP)
 IF(OPENMP_FOUND)

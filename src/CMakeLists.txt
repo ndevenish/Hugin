@@ -1,27 +1,18 @@
 
 # define common sets of libraries, used by different subdirectories
 IF (MSVC)
-  IF(LAPACK_FOUND)
-    # boost_thread is linked automatically
-    # additionally link to our getopt
-    set(common_libs huginbase hugingetopt
-        ${PANO_LIBRARIES} ${LAPACK_LIBRARIES} huginlevmar ${CMAKE_THREAD_LIBS_INIT})
-  ELSE(LAPACK_FOUND)
-    set(common_libs huginbase hugingetopt
-        ${PANO_LIBRARIES} huginlevmar)
-  ENDIF(LAPACK_FOUND)
+  SET(common_libs huginbase hugingetopt ${PANO_LIBRARIES} huginlevmar)
   include_directories( ${CMAKE_SOURCE_DIR}/src/foreign/getopt/include )
 ELSE (MSVC)
-  IF(LAPACK_FOUND)
-    # need to specify boost thread library
-    set(common_libs huginbase
-        ${Boost_LIBRARIES} ${PANO_LIBRARIES} ${LAPACK_LIBRARIES} ${GLEW_LIBRARIES} huginlevmar)
-  ELSE(LAPACK_FOUND)
-    # need to specify boost thread library
-    set(common_libs huginbase 
-        ${Boost_LIBRARIES} ${PANO_LIBRARIES} ${GLEW_LIBRARIES} huginlevmar)
-  ENDIF(LAPACK_FOUND)
+  # need to specify boost thread library
+  SET(common_libs huginbase ${Boost_LIBRARIES} ${PANO_LIBRARIES} ${GLEW_LIBRARIES} huginlevmar)
 ENDIF (MSVC)
+IF(LAPACK_FOUND)
+  SET(common_libs ${common_libs} ${LAPACK_LIBRARIES})
+ENDIF()
+IF(FFTW_FOUND)
+  SET(common_libs ${common_libs} ${FFTW_LIBRARIES})
+ENDIF()
 
 set(image_libs huginvigraimpex ${OPENEXR_LIBRARIES} ${JPEG_LIBRARIES} ${TIFF_LIBRARIES}
     ${PNG_LIBRARIES} ${ZLIB_LIBRARIES} ${EXIV2_LIBRARIES})

@@ -41,8 +41,15 @@
 
 // hmm.. not really great.. should be part of vigra_ext
 #include "vigra_ext/ImageTransforms.h"
-
+#include "hugin_config.h"
+#ifdef HAVE_FFTW
+#include <vigra/fftw3.hxx>
+#include <vigra/functorexpression.hxx>
+#include <hugin_utils/openmp_lock.h>
+#include <vector>
+#else
 #define VIGRA_EXT_USE_FAST_CORR
+#endif
 
 //#define DEBUG_WRITE_FILES
 
@@ -62,18 +69,182 @@ struct CorrelationResult
     double maxAngle;
 };
 
+#ifdef HAVE_FFTW
+
+/** lock for correlateImageFastFFT */
+static hugin_omp::Lock fftLock;
+
+// multiplication with conjugate number in Fourier space
+template <class Value>
+Value multiplyConjugate(Value const& v1, Value const& v2)
+{
+    return v1 * vigra::conj(v2);
+};
+
 /** correlate a template with an image.
- *
- *  This tries to be faster than the other version, because
- *  it uses the image data directly.
- *
- *  most code is taken from vigra::convoluteImage.
- *  See its documentation for further information.
- *
- *  Correlation result already contains the maximum position
- *  and its correlation value.
- *  it should be possible to set a threshold here.
- */
+*
+*  It uses FFT and sum tables for a faster calculation than the original version
+*  see J. P. Lewis, Fast Normalized Cross-Correlation, Vision interface 10, 1995, p. 120
+*
+*  Correlation result already contains the maximum position
+*  and its correlation value.
+*/
+template <class SrcImage, class DestImage, class KernelImage>
+CorrelationResult correlateImageFastFFT(SrcImage & src, DestImage & dest, KernelImage & kernel, vigra::Diff2D kul, vigra::Diff2D klr)
+{
+    vigra_precondition(kul.x <= 0 && kul.y <= 0,
+        "correlateImageFastFFT(): coordinates of kernel's upper left must be <= 0.");
+    vigra_precondition(klr.x >= 0 && klr.y >= 0,
+        "correlateImageFastFFT(): coordinates of kernel's lower right must be >= 0.");
+
+    // calculate width and height of the image
+    const int kw = kernel.width();
+    const int kh = kernel.height();
+    const int sw = src.width();
+    const int sh = src.height();
+    vigra_precondition(sw >= kw && sh >= kh, "correlateImageFFT(): kernel larger than image.");
+
+    CorrelationResult res;
+
+    // calculate mean and variance of kernel/template
+    vigra::FindAverageAndVariance<typename KernelImage::PixelType> kMean;
+    vigra::inspectImage(srcImageRange(kernel), kMean);
+    // uniform patch, skip calculation
+    if (kMean.variance(false) == 0)
+    {
+        return res;
+    };
+    // subtract mean from kernel/template
+    vigra::transformImage(srcImageRange(kernel), destImage(kernel), vigra::functor::Arg1() - vigra::functor::Param(kMean.average()));
+    // FFT: we are reusing the fftw_plan 
+    vigra::FFTWComplexImage spatial(sw, sh);
+    vigra::FFTWComplexImage fourier(sw, sh);
+    vigra::FFTWComplexImage FKernel(sw, sh);
+    // copy kernel to complex data structure
+    vigra::copyImage(srcImageRange(kernel), destImage(spatial, vigra::FFTWWriteRealAccessor()));
+    // now do FFT of kernel
+    fftw_plan fftwplan;
+    {
+        // creation of plan is not thread safe, so use lock
+        hugin_omp::ScopedLock sl(fftLock);
+        fftwplan = fftw_plan_dft_2d(sh, sw, (fftw_complex *)spatial.begin(), (fftw_complex *)fourier.begin(), FFTW_FORWARD, FFTW_ESTIMATE);
+    };
+    fftw_execute(fftwplan);
+    vigra::copyImage(srcImageRange(fourier), destImage(FKernel));
+    // now do FFT of search image, reuse fftw_plan
+    vigra::copyImage(srcImageRange(src), destImage(spatial, vigra::FFTWWriteRealAccessor()));
+    fftw_execute(fftwplan);
+    // give now not anymore needed memory free
+    spatial.resize(0, 0);
+
+    // multiply SrcImage with conjugated kernel in frequency domain
+    vigra::combineTwoImages(srcImageRange(fourier), srcImage(FKernel), destImage(fourier), &multiplyConjugate<vigra::FFTWComplex>);
+    // FFT back into spatial domain (inplace)
+    fftw_plan backwardPlan;
+    {
+        // creation of plan is not thread safe, so use lock
+        hugin_omp::ScopedLock sl(fftLock);
+        backwardPlan = fftw_plan_dft_2d(sh, sw, (fftw_complex *)fourier.begin(), (fftw_complex *)fourier.begin(), FFTW_BACKWARD, FFTW_ESTIMATE);
+    };
+    fftw_execute(backwardPlan);
+    {
+        // delayed destroy to use only one lock
+        hugin_omp::ScopedLock sl(fftLock);
+        fftw_destroy_plan(fftwplan);
+        fftw_destroy_plan(backwardPlan);
+    };
+
+    // calculate look up sum tables
+    // use double instead of float!, otherwise there can be truncation errors
+    vigra::DImage s(sw, sh);
+    vigra::DImage s2(sw, sh);
+    double val = src(0, 0);
+    s(0, 0) = val;
+    s2(0, 0) = val * val;
+    // special treatment for first line
+    for (int x = 1; x < sw; ++x)
+    {
+        val = src(x, 0);
+        s(x, 0) = val + s(x - 1, 0);
+        s2(x, 0) = val * val + s2(x - 1, 0);
+    }
+    // special treatment for first column
+    for (int y = 1; y < sh; ++y)
+    {
+        val = src(0, y);
+        s(0, y) = val + s(0, y - 1);
+        s2(0, y) = val * val + s2(0, y - 1);
+    }
+    // final summation
+    for (int y = 1; y < sh; ++y)
+    {
+        for (int x = 1; x < sw; ++x)
+        {
+            val = src(x, y);
+            s(x, y) = val + s(x - 1, y) + s(x, y - 1) - s(x - 1, y - 1);
+            s2(x, y) = val * val + s2(x - 1, y) + s2(x, y - 1) - s2(x - 1, y - 1);
+        };
+    };
+    const int yend = sh - klr.y + kul.y;
+    const int xend = sw - klr.x + kul.x;
+    // calculate constant part
+    const double normFactor = 1.0 / (sw * sh * sqrt(kMean.variance(false)));
+    for (int yr = 0; yr < yend; ++yr)
+    {
+        for (int xr = 0; xr < xend; ++xr)
+        {
+            double value = fourier(xr, yr).re() * normFactor;
+            // do final summation using the lookup tables
+            double sumF = s(xr + kw - 1, yr + kh - 1);
+            double sumF2 = s2(xr + kw - 1, yr + kh - 1);
+            if (xr > 0)
+            {
+                sumF -= s(xr - 1, yr + kh - 1);
+                sumF2 -= s2(xr - 1, yr + kh - 1);
+            };
+            if (yr > 0)
+            {
+                sumF -= s(xr + kw - 1, yr - 1);
+                sumF2 -= s2(xr + kw - 1, yr - 1);
+            };
+            if (xr > 0 && yr > 0)
+            {
+                sumF += s(xr - 1, yr - 1);
+                sumF2 += s2(xr - 1, yr - 1);
+            };
+
+            double den = sqrt((kw * kh * sumF2 - sumF * sumF));
+            // prevent division through zero
+            if (den != 0)
+            {
+                value /= den;
+                if (value > res.maxi)
+                {
+                    res.maxi = value;
+                    res.maxpos.x = xr - kul.x;
+                    res.maxpos.y = yr - kul.y;
+                }
+                dest(xr - kul.x, yr - kul.y) = vigra::NumericTraits<typename DestImage::value_type>::fromRealPromote(value);
+            };
+        };
+    };
+    return res;
+};
+
+#endif
+
+/** correlate a template with an image.
+*
+*  This tries to be faster than the other version, because
+*  it uses the image data directly.
+*
+*  most code is taken from vigra::convoluteImage.
+*  See its documentation for further information.
+*
+*  Correlation result already contains the maximum position
+*  and its correlation value.
+*  it should be possible to set a threshold here.
+*/
 template <class SrcImage, class DestImage, class KernelImage>
 CorrelationResult correlateImageFast(SrcImage & src,
                                      DestImage & dest,
@@ -415,13 +586,17 @@ CorrelationResult PointFineTune(const IMAGET & templImg,
     // we could use the multiresolution version as well.
     // but usually the region is quite small.
     CorrelationResult res;
-#ifdef VIGRA_EXT_USE_FAST_CORR
+#ifdef HAVE_FFTW
+    DEBUG_DEBUG("+++++ starting fast correlation");
+    res = correlateImageFastFFT(srcImage, dest, templateImage,
+        tmplUL - templPos, tmplLR - templPos - vigra::Diff2D(1, 1));
+#elif defined VIGRA_EXT_USE_FAST_CORR
     DEBUG_DEBUG("+++++ starting fast correlation");
     res = correlateImageFast(srcImage,
-                             dest,
-                             templateImage,
-                             tmplUL-templPos, tmplLR-templPos - vigra::Diff2D(1,1),
-                             -1);
+        dest,
+        templateImage,
+        tmplUL - templPos, tmplLR - templPos - vigra::Diff2D(1, 1),
+        -1);
 #else
     DEBUG_DEBUG("+++++ starting normal correlation");
     res = correlateImage(srcImage.upperLeft(),
@@ -589,7 +764,10 @@ CorrelationResult PointFineTuneRotSearch(const IMAGET & templImg,
         CorrelationResult res;
         // we could use the multiresolution version as well.
         // but usually the region is quite small.
-#ifdef VIGRA_EXT_USE_FAST_CORR
+#ifdef HAVE_FFTW
+        res = correlateImageFastFFT(srcImage, dest, rotTemplate,
+            vigra::Diff2D(-templWidth, -templWidth), vigra::Diff2D(templWidth, templWidth));
+#elif defined VIGRA_EXT_USE_FAST_CORR
         res = correlateImageFast(srcImage,
                                  dest,
                                  rotTemplate,
