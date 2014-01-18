@@ -8,17 +8,20 @@ FIND_PATH(LENSFUN_INCLUDE_DIR lensfun.h
   ${SOURCE_BASE_DIR}/lensfun/include/lensfun
 )
 
-FIND_LIBRARY(LENSFUN_LIBRARIES
+INCLUDE(FindLibraryWithDebug)
+FIND_LIBRARY_WITH_DEBUG(LENSFUN_LIBRARIES
+  WIN32_DEBUG_POSTFIX d
   NAMES lensfun
   PATHS ${SYSTEM_LIB_DIRS} 
         ${SOURCE_BASE_DIR}/lensfun/lib
-  )
+)
 
 IF(NOT ${HUGIN_SHARED})
-  FIND_LIBRARY(LENSFUN_REGEX_LIBRARIES
-    NAMES tre_regex
-    PATHS ${SYSTEM_LIB_DIRS} 
-      ${SOURCE_BASE_DIR}/lensfun/lib
+    FIND_LIBRARY_WITH_DEBUG(LENSFUN_REGEX_LIBRARIES
+      NAMES tre_regex
+      WIN32_DEBUG_POSTFIX d
+      PATHS ${SYSTEM_LIB_DIRS} 
+            ${SOURCE_BASE_DIR}/lensfun/lib
   )
   # base path for searching for glib on windows
   IF(WIN32)
