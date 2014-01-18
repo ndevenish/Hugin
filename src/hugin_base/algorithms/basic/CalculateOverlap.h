@@ -62,7 +62,7 @@ private:
     std::vector<PTools::Transform*> m_invTransform;
     unsigned int m_nrImg;
     const PanoramaData* m_pano;
-    UIntSet testImages;
+    std::vector<unsigned int> m_testImages;
 };
 
 } //namespace
