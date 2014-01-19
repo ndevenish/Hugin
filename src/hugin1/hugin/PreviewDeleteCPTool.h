@@ -28,7 +28,6 @@
 #define _PREVIEWDELETECPTOOL_H
 
 #include "Tool.h"
-#include "GreatCircles.h"
 #include "hugin_utils/utils.h"
 
 #include <panotools/PanoToolsInterface.h>

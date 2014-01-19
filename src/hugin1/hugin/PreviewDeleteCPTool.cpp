@@ -29,6 +29,7 @@
 #include "panoinc_WX.h"
 #include "panoinc.h"
 #include "hugin/CommandHistory.h"
+#include <map>
 
 #include <wx/platform.h>
 #ifdef __WXMAC__
@@ -118,10 +119,13 @@ void PreviewDeleteCPTool::DeleteCP(const hugin_utils::FDiff2D& pos1, const hugin
     if (!activeImages.empty())
     {
         // create transformation objects
-        std::vector<HuginBase::PTools::Transform> transformations(pano->getNrOfImages());
+        typedef std::map<size_t, HuginBase::PTools::Transform*> TransformMap;
+        TransformMap transformations;
         for (HuginBase::UIntSet::iterator it = activeImages.begin(); it != activeImages.end(); ++it)
         {
-            transformations[*it].createInvTransform(pano->getImage(*it), pano->getOptions());
+            HuginBase::PTools::Transform* trans = new HuginBase::PTools::Transform();
+            trans->createInvTransform(pano->getImage(*it), pano->getOptions());
+            transformations.insert(std::make_pair(*it, trans));
         };
         HuginBase::CPVector cps = pano->getCtrlPoints();
         for (HuginBase::CPVector::const_iterator cpIt = cps.begin(); cpIt != cps.end(); ++cpIt)
@@ -132,8 +136,8 @@ void PreviewDeleteCPTool::DeleteCP(const hugin_utils::FDiff2D& pos1, const hugin
                 hugin_utils::FDiff2D pos1;
                 hugin_utils::FDiff2D pos2;
                 // remove all control points, where both points are inside the given rectangle
-                if (transformations[cpIt->image1Nr].transformImgCoord(pos1, hugin_utils::FDiff2D(cpIt->x1, cpIt->y1)) &&
-                    transformations[cpIt->image2Nr].transformImgCoord(pos2, hugin_utils::FDiff2D(cpIt->x2, cpIt->y2)))
+                if (transformations[cpIt->image1Nr]->transformImgCoord(pos1, hugin_utils::FDiff2D(cpIt->x1, cpIt->y1)) &&
+                    transformations[cpIt->image2Nr]->transformImgCoord(pos2, hugin_utils::FDiff2D(cpIt->x2, cpIt->y2)))
                 {
                     if (panoPos1.x <= pos1.x && pos1.x <= panoPos2.x && panoPos1.y <= pos1.y && pos1.y <= panoPos2.y &&
                         panoPos1.x <= pos2.x && pos2.x <= panoPos2.x && panoPos1.y <= pos2.y && pos2.y <= panoPos2.y)
@@ -142,6 +146,10 @@ void PreviewDeleteCPTool::DeleteCP(const hugin_utils::FDiff2D& pos1, const hugin
                     };
                 };
             };
+        };
+        for (TransformMap::iterator it = transformations.begin(); it != transformations.end(); ++it)
+        {
+            delete it->second;
         };
     };
     if (cpsToDelete.empty())
@@ -162,7 +170,7 @@ void PreviewDeleteCPTool::DeleteCP(const hugin_utils::FDiff2D& pos1, const hugin
 #else
             wxT(""),
 #endif
-            wxICON_QUESTION | wxYES_NO, (wxWindow*)helper->GetPreviewFrame());
+            wxICON_INFORMATION | wxYES_NO, (wxWindow*)helper->GetPreviewFrame());
         if (r == wxYES)
         {
             GlobalCmdHist::getInstance().addCommand(new PT::RemoveCtrlPointsCmd(*pano, cpsToDelete));
