@@ -78,6 +78,7 @@ extern "C" {
 #include "PreviewLayoutLinesTool.h"
 #include "PreviewColorPickerTool.h"
 #include "PreviewGuideTool.h"
+#include "PreviewDeleteCPTool.h"
 
 #include "ProjectionGridTool.h"
 #include "PanosphereSphereTool.h"
@@ -137,6 +138,7 @@ BEGIN_EVENT_TABLE(GLPreviewFrame, wxFrame)
     EVT_CHECKBOX(XRCID("preview_photometric_tool"), GLPreviewFrame::OnPhotometric)
     EVT_TOOL(XRCID("preview_identify_tool"), GLPreviewFrame::OnIdentify)
     EVT_TOOL(XRCID("preview_color_picker_tool"), GLPreviewFrame::OnColorPicker)
+    EVT_TOOL(XRCID("preview_cp_delete_tool"), GLPreviewFrame::OnDeleteCPTool)
     EVT_CHECKBOX(XRCID("preview_control_point_tool"), GLPreviewFrame::OnControlPoint)
     EVT_BUTTON(XRCID("preview_autocrop_tool"), GLPreviewFrame::OnAutocrop)
     EVT_BUTTON(XRCID("preview_stack_autocrop_tool"), GLPreviewFrame::OnStackAutocrop)
@@ -321,6 +323,7 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     crop_tool = NULL;
     drag_tool = NULL;
     color_picker_tool = NULL;
+    delete_cp_tool = NULL;
     overview_drag_tool = NULL;
     identify_tool = NULL ;
     panosphere_overview_identify_tool = NULL;
@@ -364,6 +367,8 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
 #endif
     m_tool_notebook = XRCCTRL(*this,"mode_toolbar_notebook",wxNotebook);
     m_ToolBar_Identify = XRCCTRL(*this,"preview_mode_toolbar",wxToolBar);
+    m_ToolBar_ColorPicker = XRCCTRL(*this, "preview_color_picker_toolbar", wxToolBar);
+    m_ToolBar_DeleteCP = XRCCTRL(*this, "preview_cp_delete_toolbar", wxToolBar);
 
     //build menu bar
 #ifdef __WXMAC__
@@ -815,6 +820,11 @@ GLPreviewFrame::~GLPreviewFrame()
     {
         preview_helper->DeactivateTool(color_picker_tool);
         delete color_picker_tool;
+    };
+    if (delete_cp_tool)
+    {
+        preview_helper->DeactivateTool(delete_cp_tool);
+        delete delete_cp_tool;
     };
     if (crop_tool)
     {
@@ -2076,6 +2086,7 @@ void GLPreviewFrame::MakePreviewTools(PreviewToolHelper *preview_helper_in)
     crop_tool = new PreviewCropTool(preview_helper);
     drag_tool = new PreviewDragTool(preview_helper);
     color_picker_tool = new PreviewColorPickerTool(preview_helper);
+    delete_cp_tool = new PreviewDeleteCPTool(preview_helper);
     identify_tool = new PreviewIdentifyTool(preview_helper, this);
     preview_helper->ActivateTool(identify_tool);
     difference_tool = new PreviewDifferenceTool(preview_helper);
@@ -2292,12 +2303,16 @@ void GLPreviewFrame::OnColorPicker(wxCommandEvent &e)
     SetStatusText(wxT(""), 0); 
     if (e.IsChecked())
     {
+        // deactivate delete cp tool if active
+        preview_helper->DeactivateTool(delete_cp_tool);
+        m_ToolBar_DeleteCP->ToggleTool(XRCID("preview_cp_delete_tool"), false);
         preview_helper->ActivateTool(color_picker_tool);
     }
     else
     {
         preview_helper->DeactivateTool(color_picker_tool);
     };
+    m_GLPreview->Refresh();
 };
 
 void GLPreviewFrame::UpdateGlobalWhiteBalance(double redFactor, double blueFactor)
@@ -2306,12 +2321,36 @@ void GLPreviewFrame::UpdateGlobalWhiteBalance(double redFactor, double blueFacto
         new PT::UpdateWhiteBalance(m_pano, redFactor, blueFactor)
         );
     //now toggle button and deactivate tool
-    XRCCTRL(*this,"preview_color_picker_toolbar",wxToolBar)->ToggleTool(XRCID("preview_color_picker_tool"),false);
+    m_ToolBar_ColorPicker->ToggleTool(XRCID("preview_color_picker_tool"),false);
     //direct deactivation of tool does not work because this function is called by the tool itself
     //so we are send an event to deactivate the tool
     wxCommandEvent e(wxEVT_COMMAND_TOOL_CLICKED, XRCID("preview_color_picker_tool"));
     e.SetInt(0);
     GetEventHandler()->AddPendingEvent(e);
+};
+
+void GLPreviewFrame::OnDeleteCPTool(wxCommandEvent &e)
+{
+    // blank status text as it refers to an old tool.
+    SetStatusText(wxT(""), 0);
+    if (e.IsChecked())
+    {
+        // deactivate color picker tool
+        preview_helper->DeactivateTool(color_picker_tool);
+        m_ToolBar_ColorPicker->ToggleTool(XRCID("preview_color_picker_tool"), false);
+        // show automatically all cp
+        preview_helper->ActivateTool(preview_control_point_tool);
+        preview_helper->ActivateTool(delete_cp_tool);
+    }
+    else
+    {
+        if (!XRCCTRL(*this, "preview_control_point_tool", wxCheckBox)->GetValue())
+        {
+            preview_helper->DeactivateTool(preview_control_point_tool);
+        };
+        preview_helper->DeactivateTool(delete_cp_tool);
+    };
+    m_GLPreview->Refresh();
 };
 
 ImageToogleButtonEventHandler::ImageToogleButtonEventHandler(
@@ -2594,11 +2633,13 @@ void GLPreviewFrame::SetMode(int newMode)
             panosphere_overview_identify_tool->setConstantOn(false);
             plane_overview_identify_tool->setConstantOn(false);
             preview_helper->DeactivateTool(color_picker_tool);
-            XRCCTRL(*this,"preview_color_picker_toolbar",wxToolBar)->ToggleTool(XRCID("preview_color_picker_tool"),false);
+            m_ToolBar_ColorPicker->ToggleTool(XRCID("preview_color_picker_tool"),false);
 //            preview_helper->DeactivateTool(identify_tool);
 //            panosphere_overview_helper->DeactivateTool(panosphere_overview_identify_tool);
 //            plane_overview_helper->DeactivateTool(plane_overview_identify_tool);
-            
+            preview_helper->DeactivateTool(delete_cp_tool);
+            m_ToolBar_DeleteCP->ToggleTool(XRCID("preview_cp_delete_tool"), false);
+
             CleanButtonColours();
             m_ToolBar_Identify->ToggleTool(XRCID("preview_identify_tool"),false);
             preview_helper->DeactivateTool(preview_control_point_tool);
