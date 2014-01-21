@@ -144,9 +144,9 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
     m_ButtonPanel->SetAutoLayout(true);
 	m_ButtonPanel->SetSizer(m_ButtonSizer);
 						
-	m_ToggleButtonSizer->Add(m_ButtonPanel, 1, wxEXPAND | wxADJUST_MINSIZE, 0);
+	m_ToggleButtonSizer->Add(m_ButtonPanel, 1, wxEXPAND, 0);
 
-    m_topsizer->Add(m_ToggleButtonSizer, 0, wxEXPAND | wxADJUST_MINSIZE | wxALL, 5);
+    m_topsizer->Add(m_ToggleButtonSizer, 0, wxEXPAND | wxALL, 5);
 
     wxFlexGridSizer * flexSizer = new wxFlexGridSizer(2,0,5,5);
     flexSizer->AddGrowableCol(0);
@@ -172,7 +172,11 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
                                 _("VFOV"));
     m_VFOVSlider->SetLineSize(2);
     m_VFOVSlider->SetPageSize(10);
+#if wxCHECK_VERSION(3,0,1)
+    m_VFOVSlider->SetTickFreq(5);
+#else
     m_VFOVSlider->SetTickFreq(5,0);
+#endif
     m_VFOVSlider->SetToolTip(_("drag to change the vertical field of view"));
 
     flexSizer->Add(m_VFOVSlider, 0, wxEXPAND);
@@ -185,7 +189,11 @@ PreviewFrame::PreviewFrame(wxFrame * frame, PT::Panorama &pano)
                                 _("HFOV"));
     m_HFOVSlider->SetPageSize(10);
     m_HFOVSlider->SetLineSize(2);
+#if wxCHECK_VERSION(3,0,1)
+    m_HFOVSlider->SetTickFreq(5);
+#else
     m_HFOVSlider->SetTickFreq(5,0);
+#endif
 
     m_HFOVSlider->SetToolTip(_("drag to change the horizontal field of view"));
 
@@ -570,7 +578,7 @@ void PreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
                 but->SetValue(true);
                 m_ButtonSizer->Add(but,
                                    0,
-                                   wxLEFT | wxTOP | wxADJUST_MINSIZE,
+                                   wxLEFT | wxTOP,
                                    5);
                 m_ToggleButtons.push_back(but);
                 dirty = true;
@@ -587,7 +595,11 @@ void PreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &changed)
     }
 
     if (dirty) {
+#if wxCHECK_VERSION(3,0,0)
+        m_ButtonSizer->FitInside(m_ButtonPanel);
+#else
 		m_ButtonSizer->SetVirtualSizeHints(m_ButtonPanel);
+#endif
 		// Layout();
 		DEBUG_INFO("New m_ButtonPanel width: " << (m_ButtonPanel->GetSize()).GetWidth());
 		DEBUG_INFO("New m_ButtonPanel Height: " << (m_ButtonPanel->GetSize()).GetHeight());

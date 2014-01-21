@@ -206,8 +206,8 @@ GLViewer::GLViewer(
             wxGLContext * shared_context
             ) :
 #if defined __WXGTK__ || wxCHECK_VERSION(2,9,0)
-          wxGLCanvas(parent, wxID_ANY, wxDefaultPosition, wxDefaultSize,
-                     0, wxT("GLPreviewCanvas"), args, wxNullPalette)
+          wxGLCanvas(parent, wxID_ANY, args, wxDefaultPosition, wxDefaultSize,
+                     0, wxT("GLPreviewCanvas"), wxNullPalette)
 #else
           wxGLCanvas(parent,shared_context,wxID_ANY,wxDefaultPosition,
                      wxDefaultSize,0,wxT("GLPreviewCanvas"),args,wxNullPalette)
@@ -447,7 +447,9 @@ void GLViewer::Resized(wxSizeEvent& e)
    
     if (frame->CanResize()) {
         DEBUG_DEBUG("RESIZED_IN");
+#if !wxCHECK_VERSION(3,0,1)
         wxGLCanvas::OnSize(e);
+#endif
         if(!IsShown()) return;
         // if we have a render at this point, tell it the new size.
         DEBUG_DEBUG("RESIZED_IN_SHOWN");

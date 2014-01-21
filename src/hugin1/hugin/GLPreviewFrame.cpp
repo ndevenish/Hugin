@@ -431,10 +431,10 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     sizer->Add(select_none,0,wxALIGN_CENTER_VERTICAL | wxRIGHT | wxTOP | wxBOTTOM,5);
     panel->SetSizer(sizer);
     m_ToggleButtonSizer->Add(panel, 0, wxALIGN_CENTER_VERTICAL);
-    m_ToggleButtonSizer->Add(m_ButtonPanel, 1, wxEXPAND | wxADJUST_MINSIZE | wxALIGN_CENTER_VERTICAL, 0);
+    m_ToggleButtonSizer->Add(m_ButtonPanel, 1, wxEXPAND | wxALIGN_CENTER_VERTICAL, 0);
 
     m_topsizer->Add(tool_panel, 0, wxEXPAND | wxALL, 2);
-    m_topsizer->Add(toggle_panel, 0, wxEXPAND | wxADJUST_MINSIZE | wxBOTTOM, 5);
+    m_topsizer->Add(toggle_panel, 0, wxEXPAND | wxBOTTOM, 5);
 
 #if wxCHECK_VERSION(2, 9, 1)
     m_infoBar = new wxInfoBar(this);
@@ -490,7 +490,11 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
                                 _("VFOV"));
     m_VFOVSlider->SetLineSize(2);
     m_VFOVSlider->SetPageSize(10);
+#if wxCHECK_VERSION(3,0,1)
+    m_VFOVSlider->SetTickFreq(5);
+#else
     m_VFOVSlider->SetTickFreq(5,0);
+#endif
     m_VFOVSlider->SetToolTip(_("drag to change the vertical field of view"));
 
     flexSizer->Add(m_VFOVSlider, 0, wxEXPAND);
@@ -503,7 +507,11 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
                                 _("HFOV"));
     m_HFOVSlider->SetPageSize(10);
     m_HFOVSlider->SetLineSize(2);
+#if wxCHECK_VERSION(3,0,1)
+    m_HFOVSlider->SetTickFreq(5);
+#else
     m_HFOVSlider->SetTickFreq(5,0);
+#endif
 
     m_HFOVSlider->SetToolTip(_("drag to change the horizontal field of view"));
 
@@ -1296,7 +1304,7 @@ void GLPreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &change
                 but->SetValue(true);
                 m_ButtonSizer->Add(pan,
                                    0,
-                                   wxLEFT | wxTOP | wxADJUST_MINSIZE,
+                                   wxLEFT | wxTOP,
                                    0);
                 m_ToggleButtons.push_back(but);
                 m_GroupToggleButtons.push_back(butcheck);
@@ -1315,7 +1323,11 @@ void GLPreviewFrame::panoramaImagesChanged(Panorama &pano, const UIntSet &change
     }
 
     if (dirty) {
+#if wxCHECK_VERSION(3,0,0)
+        m_ButtonSizer->FitInside(m_ButtonPanel);
+#else
 		m_ButtonSizer->SetVirtualSizeHints(m_ButtonPanel);
+#endif
 		// Layout();
 		DEBUG_INFO("New m_ButtonPanel width: " << (m_ButtonPanel->GetSize()).GetWidth());
 		DEBUG_INFO("New m_ButtonPanel Height: " << (m_ButtonPanel->GetSize()).GetHeight());
