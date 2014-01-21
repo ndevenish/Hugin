@@ -154,7 +154,7 @@ void RestoreFramePosition(wxTopLevelWindow * frame, const wxString & basename)
     int dx,dy;
     wxDisplaySize(&dx,&dy);
 
-#if ( __WXGTK__ ) &&  wxCHECK_VERSION(2,6,0)
+#if ( __WXGTK__ )
 // restoring the splitter positions properly when maximising doesn't work.
 // Disabling maximise on wxWidgets >= 2.6.0 and gtk
         //size
@@ -205,7 +205,7 @@ void StoreFramePosition(wxTopLevelWindow * frame, const wxString & basename)
 
     wxConfigBase * config = wxConfigBase::Get();
 
-#if ( __WXGTK__ ) &&  wxCHECK_VERSION(2,6,0)
+#if ( __WXGTK__ )
 // restoring the splitter positions properly when maximising doesn't work.
 // Disabling maximise on wxWidgets >= 2.6.0 and gtk
     

@@ -130,11 +130,7 @@ static int PTInfoDlgWX ( int command, char* argument )	// Display info: same arg
                 if (dlg == 0) {
                     return FALSE;
                 }
-#if wxCHECK_VERSION(2,8,0)
                 dlg->Pulse(wxString(argument, wxConvLocal));
-#else
-                dlg->Update(0, wxString(argument, wxConvLocal));
-#endif
             }
             return TRUE;
         case _setProgress:
@@ -152,11 +148,7 @@ static int PTInfoDlgWX ( int command, char* argument )	// Display info: same arg
                     {
                         sprintf( text,"%s%s", mainMessage, &(argument[1]) );
                     }
-#if wxCHECK_VERSION(2,8,0)
                     cont = dlg->Pulse(wxString(argument, wxConvLocal));
-#else
-                    cont = dlg->Update(1, wxString(argument, wxConvLocal));
-#endif
                     if (! cont) {
                         return FALSE;
                     }
