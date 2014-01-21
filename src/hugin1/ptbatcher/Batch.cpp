@@ -512,7 +512,7 @@ void Batch::OnProcessTerminate(wxProcessEvent& event)
                 }
                 else
                 {
-                    SetStatusText(_("Batch completed with errors."));
+                    ((wxFrame*)GetParent())->SetStatusText(_("Batch completed with errors."));
                     if(!shutdown)
                     {
                         //notify parent, that at least one project failed
