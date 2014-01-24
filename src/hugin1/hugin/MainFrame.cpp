@@ -1565,6 +1565,9 @@ void MainFrame::OnFineTuneAll(wxCommandEvent & e)
     double curvThresh = HUGIN_FT_CURV_THRESHOLD;
     wxConfigBase::Get()->Read(wxT("/Finetune/CurvThreshold"),&curvThresh,
                               HUGIN_FT_CURV_THRESHOLD);
+    // load parameters
+    const long templWidth = wxConfigBase::Get()->Read(wxT("/Finetune/TemplateSize"), HUGIN_FT_TEMPLATE_SIZE);
+    const long sWidth = templWidth + wxConfigBase::Get()->Read(wxT("/Finetune/LocalSearchWidth"), HUGIN_FT_LOCAL_SEARCH_WIDTH);
 
     {
     ProgressReporterDialog progress(unoptimized.size(),_("Fine-tuning all points"),_("Fine-tuning"),wxTheApp->GetTopWindow());
@@ -1592,12 +1595,6 @@ void MainFrame::OnFineTuneAll(wxCommandEvent & e)
                     ImageCache::EntryPtr templImg = imgCache.getImage(
                          pano.getImage(cps[*it].image1Nr).getFilename());
 
-
-                    // load parameters
-                    long templWidth = wxConfigBase::Get()->Read(
-                        wxT("/Finetune/TemplateSize"),HUGIN_FT_TEMPLATE_SIZE);
-                    long sWidth = templWidth + wxConfigBase::Get()->Read(
-                        wxT("/Finetune/LocalSearchWidth"),HUGIN_FT_LOCAL_SEARCH_WIDTH);
                     vigra_ext::CorrelationResult res;
                     vigra::Diff2D roundP1(roundi(cps[*it].x1), roundi(cps[*it].y1));
                     vigra::Diff2D roundP2(roundi(cps[*it].x2), roundi(cps[*it].y2));
