@@ -887,36 +887,12 @@ bool CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
         int nSteps = cfg->Read(wxT("/Finetune/RotationSteps"), HUGIN_FT_ROTATION_STEPS);
         {
             wxBusyCursor busy;
-            if (subjImg->image8 && tmplImg->image8) {
-                res = vigra_ext::PointFineTuneRotSearch(*(tmplImg->image8),
-                                                        tmplPoint, templSize,
-                                                        *(subjImg->image8),
-                                                        o_subjPoint.toDiff2D(),
-                                                        sWidth,
-                                                        startAngle, stopAngle, nSteps);
-            } else if (subjImg->imageFloat && tmplImg->imageFloat) {
-                res = vigra_ext::PointFineTuneRotSearch(*(tmplImg->imageFloat),
-                                                        tmplPoint, templSize,
-                                                        *(subjImg->imageFloat),
-                                                        o_subjPoint.toDiff2D(),
-                                                        sWidth,
-                                                        startAngle, stopAngle, nSteps);
-            } else if (subjImg->image8 && tmplImg->imageFloat) {
-                res = vigra_ext::PointFineTuneRotSearch(*(tmplImg->imageFloat),
-                                                        tmplPoint, templSize,
-                                                        *(subjImg->image8),
-                                                        o_subjPoint.toDiff2D(),
-                                                        sWidth,
-                                                        startAngle, stopAngle, nSteps);
-            } else {
-                res = vigra_ext::PointFineTuneRotSearch(*(tmplImg->image8),
-                                                        tmplPoint, templSize,
-                                                        *(subjImg->imageFloat),
-                                                        o_subjPoint.toDiff2D(),
-                                                        sWidth,
-                                                        startAngle, stopAngle, nSteps);
-
-            }
+            res = vigra_ext::PointFineTuneRotSearch(*(tmplImg->image8),
+                                                    tmplPoint, templSize,
+                                                    *(subjImg->image8),
+                                                    o_subjPoint.toDiff2D(),
+                                                    sWidth,
+                                                    startAngle, stopAngle, nSteps);
         }
     } else {
         wxBusyCursor busy;
