@@ -1,22 +1,21 @@
 # Danish translation for hugin package.
 # Copyright (C) 2004 Pablo dAngelo
 # This file is distributed under the same license as the hugin package.
-#
 # Thomas Pryds <thomas@pryds.eu>, 2011, 2012, 2013, 2014.
 msgid ""
 msgstr ""
 "Project-Id-Version: da\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
 "POT-Creation-Date: 2014-01-05 11:39+0100\n"
-"PO-Revision-Date: 2014-01-01 20:03+0100\n"
+"PO-Revision-Date: 2014-01-26 08:13+0100\n"
 "Last-Translator: Thomas Pryds <thomas@pryds.eu>\n"
-"Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
+"Language-Team: Danish <dansk@dansk-listen.dk>\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: \n"
-"X-Generator: Lokalize 1.5\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Vé 0.1.2\n"
 
 #: hugin1/base_wx/LensTools.cpp:37 hugin1/hugin/ImagesTree.cpp:369
 msgid "Normal (rectilinear)"
@@ -157,8 +156,7 @@ msgstr ""
 #: hugin1/hugin/MainFrame.cpp:2009 hugin1/hugin/MainFrame.cpp:2200
 #: hugin1/hugin/MainFrame.cpp:2274 hugin1/hugin/MainFrame.cpp:2312
 #: hugin1/hugin/MainFrame.cpp:2324 hugin1/hugin/MainFrame.cpp:2339
-#: hugin1/hugin/MainFrame.cpp:2347
-#: hugin1/hugin/OptimizePhotometricPanel.cpp:277
+#: hugin1/hugin/MainFrame.cpp:2347 hugin1/hugin/OptimizePhotometricPanel.cpp:277
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:306
 #: hugin1/hugin/PanoOperation.cpp:531 hugin1/hugin/PanoPanel.cpp:1021
 #: hugin1/hugin/PanoPanel.cpp:1198 hugin1/hugin/PreferencesDialog.cpp:407
@@ -191,11 +189,9 @@ msgid "Could not create temporary file"
 msgstr "Kunne ikke oprette midlertidig fil"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:275
-msgid ""
-"Overwrite existing images?\n"
+msgid "Overwrite existing images?\n"
 "\n"
-msgstr ""
-"Overskriv eksisterende billedfiler?\n"
+msgstr "Overskriv eksisterende billedfiler?\n"
 "\n"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:275
@@ -209,11 +205,9 @@ msgstr "Sammenføjer %s"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:294
 #, c-format
-msgid ""
-"Error while stitching project\n"
+msgid "Error while stitching project\n"
 "%s"
-msgstr ""
-"Fejl under sammenføjning af projekt\n"
+msgstr "Fejl under sammenføjning af projekt\n"
 "%s"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:295 hugin1/base_wx/RunStitchPanel.cpp:301
@@ -223,11 +217,9 @@ msgstr "Fejl under sammenføjning"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:373
 #, c-format
-msgid ""
-"Error while running assistant\n"
+msgid "Error while running assistant\n"
 "%s"
-msgstr ""
-"Fejl under kørsel af assistent\n"
+msgstr "Fejl under kørsel af assistent\n"
 "%s"
 
 #: hugin1/base_wx/RunStitchPanel.cpp:374 hugin1/base_wx/RunStitchPanel.cpp:382
@@ -455,8 +447,7 @@ msgstr "lensfun-mappe blev ikke fundet i programpakke"
 msgid ""
 "xrc directory not found, hugin needs to be properly installed\n"
 "Tried Path:"
-msgstr ""
-"xrc-mappe blev ikke fundet; hugin skal installeres korrekt\n"
+msgstr "xrc-mappe blev ikke fundet; hugin skal installeres korrekt\n"
 "Prøvede sti:"
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:170
@@ -486,9 +477,8 @@ msgstr ""
 "(t) allerede tilføjede billede(r).\n"
 "Check billedet igen, hvis du har valgt de korrekte filer."
 
-#: hugin1/calibrate_lens/LensCalFrame.cpp:426
-#: hugin1/hugin/PanoOperation.cpp:90 hugin1/hugin/wxPanoCommand.cpp:478
-#: hugin1/hugin/wxPanoCommand.cpp:654
+#: hugin1/calibrate_lens/LensCalFrame.cpp:426 hugin1/hugin/PanoOperation.cpp:90
+#: hugin1/hugin/wxPanoCommand.cpp:478 hugin1/hugin/wxPanoCommand.cpp:654
 msgid "Add images"
 msgstr "Tilføj billeder"
 
@@ -507,11 +497,9 @@ msgstr "%s (%d linier)"
 #: hugin1/calibrate_lens/LensCalFrame.cpp:772
 #: hugin1/calibrate_lens/LensCalFrame.cpp:806
 #: hugin1/calibrate_lens/LensCalFrame.cpp:878
-msgid ""
-"There are invalid values in the input boxes.\n"
+msgid "There are invalid values in the input boxes.\n"
 "Please check your inputs."
-msgstr ""
-"Der er ugyldige værdier i inputfelterne.\n"
+msgstr "Der er ugyldige værdier i inputfelterne.\n"
 "Check venligst dine input."
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:615
@@ -569,8 +557,7 @@ msgstr ""
 msgid "Save lens parameters to ini file"
 msgstr "Gem objektivparametre til ini-fil"
 
-#: hugin1/calibrate_lens/LensCalFrame.cpp:786
-#: hugin1/hugin/PanoOperation.cpp:569
+#: hugin1/calibrate_lens/LensCalFrame.cpp:786 hugin1/hugin/PanoOperation.cpp:569
 msgid "Save lens parameters to lensfun database"
 msgstr "Gem objektivparametre til lensfun-database"
 
@@ -656,11 +643,9 @@ msgid "Using Autopano-Sift instead"
 msgstr "Bruger Autopano-Sift i stedet"
 
 #: hugin1/hugin/CPDetectorDialog.cpp:120
-msgid ""
-"At least one input field is empty.\n"
+msgid "At least one input field is empty.\n"
 "Please check your inputs."
-msgstr ""
-"Mindst et inputfelt er tomt.\n"
+msgstr "Mindst et inputfelt er tomt.\n"
 "Check venligst dine input."
 
 #: hugin1/hugin/CPDetectorDialog.cpp:215
@@ -804,8 +789,7 @@ msgid "horiz. Line"
 msgstr "vandret linie"
 
 #: hugin1/hugin/CPEditorPanel.cpp:1495
-msgid ""
-"Create control points.\n"
+msgid "Create control points.\n"
 "To create less points,\n"
 "enter a higher number."
 msgstr ""
@@ -1328,8 +1312,7 @@ msgid "Mosaic plane"
 msgstr "Mosaikplan"
 
 #: hugin1/hugin/GLViewer.cpp:287
-msgid ""
-"Error initializing GLEW\n"
+msgid "Error initializing GLEW\n"
 "Fast preview window can not be opened."
 msgstr ""
 "Fejl under initialiseringen af GLEW\n"
@@ -1907,11 +1890,9 @@ msgid "Version %s"
 msgstr "Version %s"
 
 #: hugin1/hugin/MainFrame.cpp:339
-msgid ""
-"Fatal installation error\n"
+msgid "Fatal installation error\n"
 "The file data/splash.png was not found at:"
-msgstr ""
-"Fatal installationsfejl\n"
+msgstr "Fatal installationsfejl\n"
 "Filen data/splash.png blev ikke fundet på:"
 
 #: hugin1/hugin/MainFrame.cpp:359 hugin1/ptbatcher/BatchFrame.cpp:137
@@ -2127,8 +2108,7 @@ msgstr "Python-script (*.py)|*.py|Alle filer (*.*)|*.*"
 
 #: hugin1/hugin/MainFrame.cpp:1977
 #, c-format
-msgid ""
-"File \"%s\" not found.\n"
+msgid "File \"%s\" not found.\n"
 "Maybe file was renamed, moved or deleted."
 msgstr ""
 "Fil \"%s\" ikke fundet.\n"
@@ -2184,11 +2164,9 @@ msgstr ""
 "Disse parametre understøttes ikke i den avancerede brugerflade."
 
 #: hugin1/hugin/MainFrame.cpp:2200
-msgid ""
-"At least two images are required.\n"
+msgid "At least two images are required.\n"
 "Please add more images."
-msgstr ""
-"Mindst to billeder er påkrævet.\n"
+msgstr "Mindst to billeder er påkrævet.\n"
 "Tilføj venligst flere billeder."
 
 #: hugin1/hugin/MainFrame.cpp:2247
@@ -2283,8 +2261,7 @@ msgstr ""
 #: hugin1/hugin/OptimizePanel.cpp:99
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:97
 msgid "Use command + left mouse click to toggle state of variables."
-msgstr ""
-"Brug Command + venstre musetast for at skifte mellem variables tilstande."
+msgstr "Brug Command + venstre musetast for at skifte mellem variables tilstande."
 
 #: hugin1/hugin/OptimizePanel.cpp:101
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:99
@@ -2439,8 +2416,7 @@ msgstr "Fejl: kunne ikke indlæse alle billeder"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:306
 msgid "Error: no overlapping points found, Photometric optimization aborted"
-msgstr ""
-"Fejl: ingen overlappende punkter fundet. Fotometrisk optimering afbrudt"
+msgstr "Fejl: ingen overlappende punkter fundet. Fotometrisk optimering afbrudt"
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:351
 msgid "Internal error during photometric optimization:\n"
@@ -2814,7 +2790,6 @@ msgstr ""
 "panorama af denne størrelse kan tage lang tid og bruge meget hukommelse."
 
 #: hugin1/hugin/PanoPanel.cpp:1461
-#, fuzzy
 msgid ""
 "There are no active images in the output region.\n"
 "Please check your settings, so that at least one image is in the output "
@@ -2912,8 +2887,7 @@ msgstr "Finsk"
 msgid "Select Enblend"
 msgstr "Vælg Enblend"
 
-#: hugin1/hugin/PreferencesDialog.cpp:295
-#: hugin1/hugin/PreferencesDialog.cpp:312
+#: hugin1/hugin/PreferencesDialog.cpp:295 hugin1/hugin/PreferencesDialog.cpp:312
 msgid "Executables (*.exe)|*.exe"
 msgstr "Eksekvérbare filer (*.exe)|*.exe"
 
@@ -2922,43 +2896,33 @@ msgid "Select Enfuse"
 msgstr "Vælg Enfuse"
 
 #: hugin1/hugin/PreferencesDialog.cpp:338 translations/xrc.cpp:761
-#, fuzzy
 msgid "Select ExifTool argfile"
-msgstr "Vælg Exiftool argfil"
+msgstr "Vælg ExifTool-argfil"
 
-#: hugin1/hugin/PreferencesDialog.cpp:340
-#: hugin1/hugin/PreferencesDialog.cpp:388
-#, fuzzy
+#: hugin1/hugin/PreferencesDialog.cpp:340 hugin1/hugin/PreferencesDialog.cpp:388
 msgid "ExifTool Argfiles (*.arg)|*.arg|All Files(*)|*"
-msgstr "Exiftool argfiler (*.arg)|*.arg|Alle filer (*)|*"
+msgstr "ExifTool-argfiler (*.arg)|*.arg|Alle filer (*)|*"
 
 #: hugin1/hugin/PreferencesDialog.cpp:371
-#, fuzzy, c-format
-msgid ""
-"File %s does not exist.\n"
+#, c-format
+msgid "File %s does not exist.\n"
 "Should the argfile be created with default tags?"
-msgstr ""
-"Fil %s eksisterer ikke.\n"
+msgstr "Fil %s eksisterer ikke.\n"
 "Skal argfilen oprettes med standardmærker?"
 
-#: hugin1/hugin/PreferencesDialog.cpp:372
-#: hugin1/hugin/PreferencesDialog.cpp:382
+#: hugin1/hugin/PreferencesDialog.cpp:372 hugin1/hugin/PreferencesDialog.cpp:382
 msgid "Exiftool argfile"
 msgstr "Exiftool argfil"
 
 #: hugin1/hugin/PreferencesDialog.cpp:381
-#, fuzzy
-msgid ""
-"No file selected.\n"
+msgid "No file selected.\n"
 "Should an argfile be created with default tags?"
-msgstr ""
-"Ingen fil valgt.\n"
+msgstr "Ingen fil valgt.\n"
 "Skal en argfil oprettes med standardmærker?"
 
 #: hugin1/hugin/PreferencesDialog.cpp:386
-#, fuzzy
 msgid "Select new ExifTool argfile"
-msgstr "Vælg ny Exiftool argfil"
+msgstr "Vælg ny ExifTool-argfil"
 
 #: hugin1/hugin/PreferencesDialog.cpp:406
 #, c-format
@@ -2982,8 +2946,7 @@ msgid "Select Entry"
 msgstr "Vælg element"
 
 #: hugin1/hugin/PreferencesDialog.cpp:976
-msgid ""
-"You can't delete the last setting.\n"
+msgid "You can't delete the last setting.\n"
 "At least one setting is required."
 msgstr ""
 "Du kan ikke fjerne den sidste indstilling.\n"
@@ -3099,12 +3062,10 @@ msgstr "Kunne ikke angive miljøvariabel PYTHONHOME"
 
 #: hugin1/hugin/wxPanoCommand.cpp:241 hugin1/hugin/wxPanoCommand.cpp:255
 #, c-format
-msgid ""
-"Could not decode image:\n"
+msgid "Could not decode image:\n"
 "%s\n"
 "Abort"
-msgstr ""
-"Kunne ikke afkode billede:\n"
+msgstr "Kunne ikke afkode billede:\n"
 "%s\n"
 "Afbrudt"
 
@@ -3114,12 +3075,10 @@ msgstr "Billedfilformat ikke understøttet"
 
 #: hugin1/hugin/wxPanoCommand.cpp:471
 #, c-format
-msgid ""
-"Image file not found:\n"
+msgid "Image file not found:\n"
 "%s\n"
 "Please select correct image"
-msgstr ""
-"Billedfil ikke fundet:\n"
+msgstr "Billedfil ikke fundet:\n"
 "%s\n"
 "Vælg venligst korrekt billede"
 
@@ -3129,12 +3088,10 @@ msgstr "Billedfil ikke fundet"
 
 #: hugin1/hugin/wxPanoCommand.cpp:571
 #, c-format
-msgid ""
-"%d invalid control point(s) found.\n"
+msgid "%d invalid control point(s) found.\n"
 "\n"
 "Press OK to remove."
-msgstr ""
-"%d ugyldig(e) kontrolpunkt(er) fundet.\n"
+msgstr "%d ugyldig(e) kontrolpunkt(er) fundet.\n"
 "\n"
 "Klik OK for at fjerne."
 
@@ -3144,8 +3101,7 @@ msgstr "Fejl opfanget"
 
 #: hugin1/hugin/wxPanoCommand.cpp:734
 #, c-format
-msgid ""
-"Error, template expects %d images,\n"
+msgid "Error, template expects %d images,\n"
 "current project contains %d images\n"
 msgstr ""
 "Fejl, skabelon forventer %d billeder,\n"
@@ -3259,11 +3215,9 @@ msgstr "Kunne ikke udføre kommando: %s"
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:665
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:749
 #, c-format
-msgid ""
-"Command: %s\n"
+msgid "Command: %s\n"
 "failed with error code: %d"
-msgstr ""
-"Kommando: %s\n"
+msgstr "Kommando: %s\n"
 "fejlede med fejlkode: %d"
 
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:505
@@ -3327,11 +3281,9 @@ msgid "Default"
 msgstr "Standard"
 
 #: hugin1/ptbatcher/Batch.cpp:204
-msgid ""
-"Cannot clear batch in progress.\n"
+msgid "Cannot clear batch in progress.\n"
 "Do you want to cancel it?"
-msgstr ""
-"Kan ikke tømme jobliste, der kører.\n"
+msgstr "Kan ikke tømme jobliste, der kører.\n"
 "Vil du annullere den?"
 
 #: hugin1/ptbatcher/Batch.cpp:206 hugin1/ptbatcher/BatchFrame.cpp:668
@@ -3526,19 +3478,15 @@ msgid "Continuing batch..."
 msgstr "Fortsætter jobliste..."
 
 #: hugin1/ptbatcher/BatchFrame.cpp:712
-msgid ""
-"There are failed projects in the list.\n"
+msgid "There are failed projects in the list.\n"
 "Remove them too?"
-msgstr ""
-"Der er fejlslagne projekter i listen.\n"
+msgstr "Der er fejlslagne projekter i listen.\n"
 "Fjern også dem?"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:744
-msgid ""
-"Cannot remove project in progress.\n"
+msgid "Cannot remove project in progress.\n"
 "Do you want to cancel it?"
-msgstr ""
-"Kan ikke fjerne projekt, der kører.\n"
+msgstr "Kan ikke fjerne projekt, der kører.\n"
 "Vil du annullere det?"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:758
@@ -3550,11 +3498,9 @@ msgid "Please select a project to remove"
 msgstr "Vælg venligst et projekt, der skal fjernes"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:779
-msgid ""
-"Cannot reset project in progress.\n"
+msgid "Cannot reset project in progress.\n"
 "Do you want to cancel it?"
-msgstr ""
-"Kan ikke nulstille projekt, der kører.\n"
+msgstr "Kan ikke nulstille projekt, der kører.\n"
 "Vil du annullere det?"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:794
@@ -3566,11 +3512,9 @@ msgid "Please select a project to reset"
 msgstr "Vælg venligst et projekt, der skal nulstilles"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:808
-msgid ""
-"Cannot reset projects in progress.\n"
+msgid "Cannot reset projects in progress.\n"
 "Do you want to cancel the batch?"
-msgstr ""
-"Kan ikke nulstille projekter, der kører.\n"
+msgstr "Kan ikke nulstille projekter, der kører.\n"
 "Vil du annullere joblisten?"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:847
@@ -3647,11 +3591,9 @@ msgstr "Stop"
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:249
 #, c-format
-msgid ""
-"Directory %s does not exist.\n"
+msgid "Directory %s does not exist.\n"
 "Please give an existing directory."
-msgstr ""
-"Mappen %s eksisterer ikke.\n"
+msgstr "Mappen %s eksisterer ikke.\n"
 "Angiv venligst en eksisterende mappe."
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:271
@@ -3724,8 +3666,7 @@ msgstr "Færdig"
 msgid "Failed"
 msgstr "Fejlede"
 
-#: hugin1/ptbatcher/ProjectArray.cpp:78
-#: hugin1/ptbatcher/ProjectListBox.cpp:242
+#: hugin1/ptbatcher/ProjectArray.cpp:78 hugin1/ptbatcher/ProjectListBox.cpp:242
 msgid "File missing"
 msgstr "Fil mangler"
 
@@ -3933,8 +3874,7 @@ msgstr "Sammenføj automatisk efter assistent"
 
 #: translations/xrc.cpp:26
 msgid "Automatically stitch projects after (successfully) running assistant."
-msgstr ""
-"Sammenføj automatisk projekter efter (succesfuld) kørsel af assistenten."
+msgstr "Sammenføj automatisk projekter efter (succesfuld) kørsel af assistenten."
 
 #: translations/xrc.cpp:27
 msgid "Shutdown when done"
@@ -4796,11 +4736,9 @@ msgid "Subject distance:"
 msgstr "Subjektafstand:"
 
 #: translations/xrc.cpp:299
-msgid ""
-"Select which parameters should be loaded\n"
+msgid "Select which parameters should be loaded\n"
 "from database"
-msgstr ""
-"Vælg hvilke parametre, der skal indlæses\n"
+msgstr "Vælg hvilke parametre, der skal indlæses\n"
 "fra databasen"
 
 #: translations/xrc.cpp:300
@@ -4824,11 +4762,9 @@ msgid "Mount:"
 msgstr "Fatning:"
 
 #: translations/xrc.cpp:315
-msgid ""
-"Select which parameters should be saved\n"
+msgid "Select which parameters should be saved\n"
 "into database"
-msgstr ""
-"Vælg hvilke parametre, der skal gemmes\n"
+msgstr "Vælg hvilke parametre, der skal gemmes\n"
 "i databasen"
 
 #: translations/xrc.cpp:316
@@ -5149,8 +5085,7 @@ msgid "Apply &Template"
 msgstr "Brug &skabelon"
 
 #: translations/xrc.cpp:416 translations/xrc.cpp:426
-msgid ""
-"Assign the settings of a previously saved project to the current images."
+msgid "Assign the settings of a previously saved project to the current images."
 msgstr ""
 "Tildel indstillingerne fra et tidligere gemt projekt til de aktuelle "
 "billeder."
@@ -5389,8 +5324,7 @@ msgstr "Geometrisk optimering"
 
 #: translations/xrc.cpp:511
 msgid "Only use control points between image selected in preview window."
-msgstr ""
-"Brug kun kontrolpunkter mellem billeder, der er valgt i preview-vinduet."
+msgstr "Brug kun kontrolpunkter mellem billeder, der er valgt i preview-vinduet."
 
 #: translations/xrc.cpp:512
 msgid ""
@@ -5901,11 +5835,9 @@ msgid "Skip over visibility toggles"
 msgstr "Spring over synlighedsvalgmuligheder"
 
 #: translations/xrc.cpp:670
-msgid ""
-"May have unforeseen consequences. \n"
+msgid "May have unforeseen consequences. \n"
 "(EXPERIMENTAL)"
-msgstr ""
-"Kan have uforudsete konsekvenser.\n"
+msgstr "Kan have uforudsete konsekvenser.\n"
 "(EKSPERIMENTELT)"
 
 #: translations/xrc.cpp:671
@@ -6032,11 +5964,9 @@ msgid "Auto align"
 msgstr "Autopositionering"
 
 #: translations/xrc.cpp:695
-msgid ""
-"Number of Control Points\n"
+msgid "Number of Control Points\n"
 "per overlap"
-msgstr ""
-"Antal kontrolpunkter\n"
+msgstr "Antal kontrolpunkter\n"
 "pr. overlapning"
 
 #: translations/xrc.cpp:696
@@ -6100,11 +6030,9 @@ msgid "Correlation Threshold:"
 msgstr "Samhørighedsgrænseværdi:"
 
 #: translations/xrc.cpp:713
-msgid ""
-"0: no similarity\n"
+msgid "0: no similarity\n"
 "1: maximum similarity"
-msgstr ""
-"0: ingen ligheder\n"
+msgstr "0: ingen ligheder\n"
 "1: maksimal lighed"
 
 #: translations/xrc.cpp:714
@@ -6112,11 +6040,9 @@ msgid "Peak Curvature Threshold:"
 msgstr "Grænseværdi for krumningsspidsværdi:"
 
 #: translations/xrc.cpp:715
-msgid ""
-"0: no peak\n"
+msgid "0: no peak\n"
 "0.2: distinctive peak"
-msgstr ""
-"0: ingen spidsværdi\n"
+msgstr "0: ingen spidsværdi\n"
 "0,2: karakteristisk spidsværdi"
 
 #: translations/xrc.cpp:716
@@ -6266,27 +6192,24 @@ msgid "Advanced options"
 msgstr "Avancerede valgmuligheder"
 
 #: translations/xrc.cpp:756
-#, fuzzy
 msgid "ExifTool options"
-msgstr "Exiftool-valgmuligheder"
+msgstr "ExifTool-valgmuligheder"
 
 #: translations/xrc.cpp:757
 msgid "Copy metadata into final files using ExifTool"
 msgstr "Kopiér metadata til de endelige filer ved hjælp af ExifTool"
 
 #: translations/xrc.cpp:758
-#, fuzzy
 msgid "ExifTool argfile:"
-msgstr "Exiftool argfil:"
+msgstr "ExifTool-argfil:"
 
 #: translations/xrc.cpp:759
 msgid "Leave empty for default"
 msgstr "Efterlad tomt for standard"
 
 #: translations/xrc.cpp:763
-#, fuzzy
 msgid "Edit selected ExifTool argfile"
-msgstr "Vælg Exiftool argfil"
+msgstr "Redigér valgt ExifTool-argfil"
 
 #: translations/xrc.cpp:764
 msgid "Create Photo Sphere XMP data"
@@ -6387,11 +6310,9 @@ msgid "SVM threshold:"
 msgstr "SVM-grænseværdi:"
 
 #: translations/xrc.cpp:798
-msgid ""
-"greater than 0.5: less sensitive\n"
+msgid "greater than 0.5: less sensitive\n"
 "less than 0.5: more sensitive"
-msgstr ""
-"større end 0,5: mindre sensitiv\n"
+msgstr "større end 0,5: mindre sensitiv\n"
 "større end 0,5: mere sensitiv"
 
 #: translations/xrc.cpp:799
@@ -6442,9 +6363,8 @@ msgid "Preferences - hugin"
 msgstr "Indstillinger - Hugin"
 
 #: translations/xrc.cpp:814
-#, fuzzy
 msgid "Edit ExifTool argfile"
-msgstr "Redigér Exiftool argfil"
+msgstr "Redigér ExifTool-argfil"
 
 #: translations/xrc.cpp:815 translations/xrc.cpp:880 translations/xrc.cpp:964
 msgid "Center the preview horizontally"
@@ -6512,8 +6432,7 @@ msgid "2. Align..."
 msgstr "2. Positionér..."
 
 #: translations/xrc.cpp:845 translations/xrc.cpp:927
-msgid ""
-"Align all images. Creates control points and optimizes the image positions"
+msgid "Align all images. Creates control points and optimizes the image positions"
 msgstr ""
 "Positionér alle billeder. Opretter kontrolpunkter og optimerer "
 "billedpositioner"
@@ -6949,13 +6868,11 @@ msgstr ""
 
 #: hugin1/hugin/xrc/data/tips.txt:30
 msgid "Press \"0\" in the control points tab to zoom out to full view."
-msgstr ""
-"Tryk \"0\" i Kontrolpunkter-fanebladet for at zoome ud til fuld visning."
+msgstr "Tryk \"0\" i Kontrolpunkter-fanebladet for at zoome ud til fuld visning."
 
 #: hugin1/hugin/xrc/data/tips.txt:31
 msgid "Press \"1\" in the control points tab to zoom out to 100% view."
-msgstr ""
-"Tryk \"1\" i Kontrolpunkter-fanebladet for at zoome ud til 100%-visning."
+msgstr "Tryk \"1\" i Kontrolpunkter-fanebladet for at zoome ud til 100%-visning."
 
 #: hugin1/hugin/xrc/data/tips.txt:32
 msgid ""
