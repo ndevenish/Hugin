@@ -238,20 +238,6 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "43BA36901705720E00D165A4"
-               BuildableName = "matchpoint"
-               BlueprintName = "matchpoint"
-               ReferencedContainer = "container:Tools.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "43BA3676170571FA00D165A4"
                BuildableName = "tca_correct"
                BlueprintName = "tca_correct"
@@ -322,9 +308,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "43BA369D1705721800D165A4"
-               BuildableName = "PTBatcher"
-               BlueprintName = "PTBatcher"
+               BlueprintIdentifier = "43BA360E170571B000D165A4"
+               BuildableName = "icpfind"
+               BlueprintName = "icpfind"
                ReferencedContainer = "container:Tools.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -336,9 +322,37 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "43BA360E170571B000D165A4"
-               BuildableName = "icpfind"
-               BlueprintName = "icpfind"
+               BlueprintIdentifier = "43821156187B5B0100DB9A4D"
+               BuildableName = "pto_mask"
+               BlueprintName = "pto_mask"
+               ReferencedContainer = "container:Tools.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "43821172187B5B8300DB9A4D"
+               BuildableName = "pto_move"
+               BlueprintName = "pto_move"
+               ReferencedContainer = "container:Tools.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "43821181187B5BDD00DB9A4D"
+               BuildableName = "pto_template"
+               BlueprintName = "pto_template"
                ReferencedContainer = "container:Tools.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -354,9 +368,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "43BA355D170506D100D165A4"
-            BuildableName = "align_image_stack"
-            BlueprintName = "align_image_stack"
+            BlueprintIdentifier = "43BA35E71705719100D165A4"
+            BuildableName = "cpfind"
+            BlueprintName = "cpfind"
             ReferencedContainer = "container:Tools.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -366,7 +380,7 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
-      buildConfiguration = "Debug"
+      buildConfiguration = "Release"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">

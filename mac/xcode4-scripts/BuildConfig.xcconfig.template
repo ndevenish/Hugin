@@ -40,7 +40,7 @@ DYLIB_CURRENT_VERSION = $(HUGIN_VERSION_MAJOR).$(HUGIN_VERSION_MINOR).0
 PER_ARCH_CFLAGS[arch=i386]   = -march=prescott -mtune=pentium-m -ftree-vectorize
 PER_ARCH_CFLAGS[arch=x86_64] = -march=core2 -mtune=core2 -ftree-vectorize
 
-HEADER_SEARCH_PATHS = ${SRCROOT}/../src ${SRCROOT}/../src/foreign ${SRCROOT}/../src/foreign/vigra ${SRCROOT}/../src/hugin_base ${REPOSITORY_DIR}/include ${REPOSITORY_DIR}/include/OpenEXR ${SRCROOT}/../src/hugin1 ${REPOSITORY_DIR}/include/wx-${WX_MAJOR_VERSION} ${REPOSITORY_DIR}/lib/wx/include/osx_cocoa-unicode-${WX_MAJOR_VERSION} ${SRCROOT}/../src/hugin_cpfind ${SRCROOT}/../src/celeste ${REPOSITORY_DIR}/include/python2.7 ${SRCROOT}/../src/hugin_script_interface
+HEADER_SEARCH_PATHS = ${SRCROOT}/../src ${SRCROOT}/../src/foreign ${SRCROOT}/../src/foreign/vigra ${SRCROOT}/../src/hugin_base ${REPOSITORY_DIR}/include ${REPOSITORY_DIR}/include/OpenEXR ${REPOSITORY_DIR}/include/lensfun ${SRCROOT}/../src/hugin1 ${REPOSITORY_DIR}/include/wx-${WX_MAJOR_VERSION} ${REPOSITORY_DIR}/lib/wx/include/osx_cocoa-unicode-${WX_MAJOR_VERSION} ${SRCROOT}/../src/hugin_cpfind ${SRCROOT}/../src/celeste ${REPOSITORY_DIR}/include/python2.7 ${SRCROOT}/../src/hugin_script_interface
 
 FRAMEWORK_SEARCH_PATHS = ${REPOSITORY_DIR}/Frameworks
 

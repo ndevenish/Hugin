@@ -56,15 +56,36 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		43352EB81713515800889E02 /* libwx_osx_cocoau_gl-2.9.3.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43352EB61713515800889E02 /* libwx_osx_cocoau_gl-2.9.3.0.0.dylib */; };
-		43352EB91713515800889E02 /* libwx_osx_cocoau-2.9.3.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43352EB71713515800889E02 /* libwx_osx_cocoau-2.9.3.0.0.dylib */; };
-		43352EBA1713517F00889E02 /* libwx_osx_cocoau_gl-2.9.3.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43352EB61713515800889E02 /* libwx_osx_cocoau_gl-2.9.3.0.0.dylib */; };
-		43352EBB1713518500889E02 /* libwx_osx_cocoau-2.9.3.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43352EB71713515800889E02 /* libwx_osx_cocoau-2.9.3.0.0.dylib */; };
+		431B1217182858F500CFEE08 /* libtiff.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 431B1216182858F500CFEE08 /* libtiff.5.dylib */; };
+		431B121E18285BC900CFEE08 /* libjpeg.8.1.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 431B121C18285BC800CFEE08 /* libjpeg.8.1.2.dylib */; };
+		431B121F18285BC900CFEE08 /* libpng16.16.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 431B121D18285BC900CFEE08 /* libpng16.16.dylib */; };
+		431B122218285C4300CFEE08 /* libboost_regex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 431B122018285C4300CFEE08 /* libboost_regex.dylib */; };
+		431B122318285C4300CFEE08 /* libboost_system.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 431B122118285C4300CFEE08 /* libboost_system.dylib */; };
+		431B12241829716500CFEE08 /* libboost_regex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 431B122018285C4300CFEE08 /* libboost_regex.dylib */; };
+		431B12261829716600CFEE08 /* libboost_filesystem.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 431B12251829716600CFEE08 /* libboost_filesystem.dylib */; };
+		431B12271829717A00CFEE08 /* libboost_system.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 431B122118285C4300CFEE08 /* libboost_system.dylib */; };
+		431B122A1829717A00CFEE08 /* libboost_signals.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 431B12281829717A00CFEE08 /* libboost_signals.dylib */; };
+		431B122B1829717A00CFEE08 /* libboost_thread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 431B12291829717A00CFEE08 /* libboost_thread.dylib */; };
+		431B122D1829719200CFEE08 /* libexiv2.12.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 431B122C1829719200CFEE08 /* libexiv2.12.dylib */; };
+		431B1230182971B400CFEE08 /* libGLEW.1.10.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 431B122E182971B400CFEE08 /* libGLEW.1.10.0.dylib */; };
+		431B1231182971B400CFEE08 /* liblensfun.0.2.8.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 431B122F182971B400CFEE08 /* liblensfun.0.2.8.dylib */; };
+		431B1232182971C900CFEE08 /* libtiff.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 431B1216182858F500CFEE08 /* libtiff.5.dylib */; };
+		431B12361829722400CFEE08 /* liblevmar.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 431B12351829722400CFEE08 /* liblevmar.dylib */; };
+		431B1239182972BE00CFEE08 /* Exiv2Helper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 431B1237182972BE00CFEE08 /* Exiv2Helper.cpp */; };
+		431B123A182972BE00CFEE08 /* Exiv2Helper.h in Headers */ = {isa = PBXBuildFile; fileRef = 431B1238182972BE00CFEE08 /* Exiv2Helper.h */; };
+		431B123B1829732C00CFEE08 /* libboost_system.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 431B122118285C4300CFEE08 /* libboost_system.dylib */; };
+		431B123C1829732C00CFEE08 /* libboost_thread.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 431B12291829717A00CFEE08 /* libboost_thread.dylib */; };
+		431B123E1829737A00CFEE08 /* libboost_system.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 431B122118285C4300CFEE08 /* libboost_system.dylib */; };
+		431B12421829739C00CFEE08 /* libwx_osx_cocoau_gl-3.0.0.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 431B12401829739C00CFEE08 /* libwx_osx_cocoau_gl-3.0.0.0.0.dylib */; };
+		431B12431829739C00CFEE08 /* libwx_osx_cocoau-3.0.0.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 431B12411829739C00CFEE08 /* libwx_osx_cocoau-3.0.0.0.0.dylib */; };
+		431B1244182973B400CFEE08 /* libboost_system.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 431B122118285C4300CFEE08 /* libboost_system.dylib */; };
+		431B1246182973CD00CFEE08 /* libwx_osx_cocoau_gl-3.0.0.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 431B12401829739C00CFEE08 /* libwx_osx_cocoau_gl-3.0.0.0.0.dylib */; };
+		431B1247182973CD00CFEE08 /* libwx_osx_cocoau-3.0.0.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 431B12411829739C00CFEE08 /* libwx_osx_cocoau-3.0.0.0.0.dylib */; };
+		431B1248182973F700CFEE08 /* libboost_system.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 431B122118285C4300CFEE08 /* libboost_system.dylib */; };
+		431B124B1829758700CFEE08 /* Python27.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 431B124A1829758700CFEE08 /* Python27.framework */; };
 		43352EEC17136C0B00889E02 /* hsiPYTHON_wrap.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 43352EEB17136C0B00889E02 /* hsiPYTHON_wrap.cxx */; };
-		43352EEF1713717000889E02 /* libhugin_base-2013.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43BA32711703AE6200D165A4 /* libhugin_base-2013.0.dylib */; };
-		43352EF01713849600889E02 /* libmakefile-2013.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43BA327A1703AED500D165A4 /* libmakefile-2013.0.dylib */; };
-		43352EF1171384A300889E02 /* libpano13.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43760EE91707006B00ED2679 /* libpano13.2.dylib */; };
-		43352EF2171384AF00889E02 /* libboost_system-1_46.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4376107317076BDD00ED2679 /* libboost_system-1_46.dylib */; };
+		43352EEF1713717000889E02 /* libhugin_base-2014.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43BA32711703AE6200D165A4 /* libhugin_base-2014.0.dylib */; };
+		43352EF01713849600889E02 /* libmakefile-2014.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43BA327A1703AED500D165A4 /* libmakefile-2014.0.dylib */; };
 		43353474171388A000889E02 /* hpi_classes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 43353472171388A000889E02 /* hpi_classes.cpp */; };
 		43353475171388A000889E02 /* hpi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 43353473171388A000889E02 /* hpi.cpp */; };
 		433534AE1713935700889E02 /* SpaceTransform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 43BA33271703B09600D165A4 /* SpaceTransform.cpp */; };
@@ -73,38 +94,19 @@
 		433534B11713936200889E02 /* Stitcher2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 43BA332C1703B09600D165A4 /* Stitcher2.cpp */; };
 		433534B21713936700889E02 /* Stitcher3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 43BA332D1703B09600D165A4 /* Stitcher3.cpp */; };
 		433534B31713936B00889E02 /* Stitcher4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 43BA332E1703B09600D165A4 /* Stitcher4.cpp */; };
-		43760E9A1706535E00ED2679 /* libpng14.14.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43760E981706535E00ED2679 /* libpng14.14.dylib */; };
-		43760E9E1706537800ED2679 /* libHalf.7.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43760E9C1706537800ED2679 /* libHalf.7.dylib */; };
-		43760E9F1706537800ED2679 /* libIlmImf.7.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43760E9D1706537800ED2679 /* libIlmImf.7.dylib */; };
-		43760EA917065A3B00ED2679 /* libexiv2.12.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43760EA817065A3B00ED2679 /* libexiv2.12.dylib */; };
-		43760EAB17065A5700ED2679 /* libGLEW.1.9.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43760EAA17065A5700ED2679 /* libGLEW.1.9.0.dylib */; };
-		43760EE71706FFC800ED2679 /* libjpeg.8.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43760EE61706FFC800ED2679 /* libjpeg.8.dylib */; };
-		43760EEA1707006B00ED2679 /* liblensfun.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43760EE81707006B00ED2679 /* liblensfun.dylib */; };
-		43760EEB1707006B00ED2679 /* libpano13.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43760EE91707006B00ED2679 /* libpano13.2.dylib */; };
-		43760EEC1707018700ED2679 /* libpano13.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43760EE91707006B00ED2679 /* libpano13.2.dylib */; };
-		43760EED170701B800ED2679 /* liblensfun.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43760EE81707006B00ED2679 /* liblensfun.dylib */; };
-		43760EEE1707020400ED2679 /* libpano13.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43760EE91707006B00ED2679 /* libpano13.2.dylib */; };
 		43760EFA17070DD800ED2679 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43760EF917070DD800ED2679 /* CoreFoundation.framework */; };
-		43760EFB17070DF300ED2679 /* libpano13.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43760EE91707006B00ED2679 /* libpano13.2.dylib */; };
-		43760F0217070E6500ED2679 /* libmakefile-2013.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43BA327A1703AED500D165A4 /* libmakefile-2013.0.dylib */; };
+		43760F0217070E6500ED2679 /* libmakefile-2014.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43BA327A1703AED500D165A4 /* libmakefile-2014.0.dylib */; };
 		43760F0517070EBC00ED2679 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43760F0417070EBC00ED2679 /* ApplicationServices.framework */; };
 		43760F0717070EDC00ED2679 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43760F0617070EDC00ED2679 /* Carbon.framework */; };
-		43760F0A17070FE000ED2679 /* libhugin_base-2013.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43BA32711703AE6200D165A4 /* libhugin_base-2013.0.dylib */; };
-		43760F0D17070FF900ED2679 /* libpano13.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43760EE91707006B00ED2679 /* libpano13.2.dylib */; };
-		43760F0E1707103800ED2679 /* libbase_wx-2013.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43BA35281704F90600D165A4 /* libbase_wx-2013.0.dylib */; };
-		43760F281707444100ED2679 /* libtiff.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43760F271707444100ED2679 /* libtiff.3.dylib */; };
-		43760F291707445000ED2679 /* libtiff.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43760F271707444100ED2679 /* libtiff.3.dylib */; };
-		4376107517076BDE00ED2679 /* libboost_filesystem-1_46.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4376107017076BDC00ED2679 /* libboost_filesystem-1_46.dylib */; };
-		4376107617076BDE00ED2679 /* libboost_regex-1_46.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4376107117076BDD00ED2679 /* libboost_regex-1_46.dylib */; };
-		4376107717076BDE00ED2679 /* libboost_signals-1_46.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4376107217076BDD00ED2679 /* libboost_signals-1_46.dylib */; };
-		4376107817076BDE00ED2679 /* libboost_system-1_46.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4376107317076BDD00ED2679 /* libboost_system-1_46.dylib */; };
-		4376107917076BDE00ED2679 /* libboost_thread-1_46.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4376107417076BDE00ED2679 /* libboost_thread-1_46.dylib */; };
-		4376107A17076C4600ED2679 /* libboost_regex-1_46.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4376107117076BDD00ED2679 /* libboost_regex-1_46.dylib */; };
-		4376107B17076C6700ED2679 /* libboost_system-1_46.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4376107317076BDD00ED2679 /* libboost_system-1_46.dylib */; };
-		4376107C17076C8900ED2679 /* libboost_system-1_46.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4376107317076BDD00ED2679 /* libboost_system-1_46.dylib */; };
-		4376107D17076C8F00ED2679 /* libboost_thread-1_46.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4376107417076BDE00ED2679 /* libboost_thread-1_46.dylib */; };
-		4376107E17076CC300ED2679 /* libboost_system-1_46.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4376107317076BDD00ED2679 /* libboost_system-1_46.dylib */; };
-		4376107F17076CFB00ED2679 /* libboost_system-1_46.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4376107317076BDD00ED2679 /* libboost_system-1_46.dylib */; };
+		43760F0A17070FE000ED2679 /* libhugin_base-2014.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43BA32711703AE6200D165A4 /* libhugin_base-2014.0.dylib */; };
+		43760F0E1707103800ED2679 /* libbase_wx-2014.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43BA35281704F90600D165A4 /* libbase_wx-2014.0.dylib */; };
+		43821139187B4C2D00DB9A4D /* libpano13.3.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43821138187B4C2D00DB9A4D /* libpano13.3.0.0.dylib */; };
+		4382113A187B4CB300DB9A4D /* libpano13.3.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43821138187B4C2D00DB9A4D /* libpano13.3.0.0.dylib */; };
+		4382113B187B4CD000DB9A4D /* libpano13.3.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43821138187B4C2D00DB9A4D /* libpano13.3.0.0.dylib */; };
+		4382113C187B4CEA00DB9A4D /* libpano13.3.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43821138187B4C2D00DB9A4D /* libpano13.3.0.0.dylib */; };
+		4382113D187B4CFF00DB9A4D /* libpano13.3.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43821138187B4C2D00DB9A4D /* libpano13.3.0.0.dylib */; };
+		4382113F187B55F800DB9A4D /* libIlmImf-Imf_2_1.21.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4382113E187B55F800DB9A4D /* libIlmImf-Imf_2_1.21.dylib */; };
+		43821141187B56BB00DB9A4D /* libHalf.11.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43821140187B56BB00DB9A4D /* libHalf.11.dylib */; };
 		43A22BEE170E242500D5A7CC /* AtomicCount.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 43A22BD8170E242500D5A7CC /* AtomicCount.cxx */; };
 		43A22BEF170E242500D5A7CC /* ConcurrentExecutor.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 43A22BD9170E242500D5A7CC /* ConcurrentExecutor.cxx */; };
 		43A22BF0170E242500D5A7CC /* Condition.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 43A22BDA170E242500D5A7CC /* Condition.cxx */; };
@@ -162,13 +164,6 @@
 		43BA32141703A25E00D165A4 /* viff.hxx in Headers */ = {isa = PBXBuildFile; fileRef = 43BA31F31703A25E00D165A4 /* viff.hxx */; };
 		43BA32151703A25E00D165A4 /* void_vector.cxx in Sources */ = {isa = PBXBuildFile; fileRef = 43BA31F41703A25E00D165A4 /* void_vector.cxx */; };
 		43BA32161703A25E00D165A4 /* void_vector.hxx in Headers */ = {isa = PBXBuildFile; fileRef = 43BA31F51703A25E00D165A4 /* void_vector.hxx */; };
-		43BA32431703A54800D165A4 /* Axb.c in Sources */ = {isa = PBXBuildFile; fileRef = 43BA32361703A54800D165A4 /* Axb.c */; };
-		43BA32451703A54800D165A4 /* lm.c in Sources */ = {isa = PBXBuildFile; fileRef = 43BA32381703A54800D165A4 /* lm.c */; };
-		43BA32461703A54800D165A4 /* lm.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BA32391703A54800D165A4 /* lm.h */; };
-		43BA32481703A54800D165A4 /* lmbc.c in Sources */ = {isa = PBXBuildFile; fileRef = 43BA323B1703A54800D165A4 /* lmbc.c */; };
-		43BA324B1703A54800D165A4 /* lmlec.c in Sources */ = {isa = PBXBuildFile; fileRef = 43BA323E1703A54800D165A4 /* lmlec.c */; };
-		43BA324D1703A54800D165A4 /* misc.c in Sources */ = {isa = PBXBuildFile; fileRef = 43BA32401703A54800D165A4 /* misc.c */; };
-		43BA324E1703A54800D165A4 /* misc.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BA32411703A54800D165A4 /* misc.h */; };
 		43BA32631703A5EC00D165A4 /* PTLensDB.c in Sources */ = {isa = PBXBuildFile; fileRef = 43BA32611703A5EC00D165A4 /* PTLensDB.c */; };
 		43BA32641703A5EC00D165A4 /* PTLensDB.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BA32621703A5EC00D165A4 /* PTLensDB.h */; };
 		43BA32A11703AF1700D165A4 /* Anything.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 43BA327F1703AF1700D165A4 /* Anything.cpp */; };
@@ -340,16 +335,15 @@
 		43BA34031703B09600D165A4 /* utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BA336E1703B09600D165A4 /* utils.h */; };
 		43BA34041703B09600D165A4 /* VignettingCorrection.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BA336F1703B09600D165A4 /* VignettingCorrection.h */; };
 		43BA34051703B09600D165A4 /* VigQuotientEstimator.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BA33701703B09600D165A4 /* VigQuotientEstimator.h */; };
-		43BA3415170428C700D165A4 /* liblevmar-2013.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43BA32301703A4F200D165A4 /* liblevmar-2013.0.dylib */; };
-		43BA3416170428C700D165A4 /* libhugin_vigra_impex-2013.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43BA31B71702E7D500D165A4 /* libhugin_vigra_impex-2013.0.dylib */; };
-		43BA3417170428F900D165A4 /* libmakefile-2013.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43BA327A1703AED500D165A4 /* libmakefile-2013.0.dylib */; };
+		43BA3416170428C700D165A4 /* libhugin_vigra_impex-2014.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43BA31B71702E7D500D165A4 /* libhugin_vigra_impex-2014.0.dylib */; };
+		43BA3417170428F900D165A4 /* libmakefile-2014.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43BA327A1703AED500D165A4 /* libmakefile-2014.0.dylib */; };
 		43BA341F1704294D00D165A4 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43BA341E1704294D00D165A4 /* OpenGL.framework */; };
 		43BA34331704356200D165A4 /* FindLines.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 43BA342E1704356200D165A4 /* FindLines.cpp */; };
 		43BA34341704356200D165A4 /* FindLines.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BA342F1704356200D165A4 /* FindLines.h */; };
 		43BA34351704356200D165A4 /* FindN8Lines.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 43BA34301704356200D165A4 /* FindN8Lines.cpp */; };
 		43BA34361704356200D165A4 /* FindN8Lines.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BA34311704356200D165A4 /* FindN8Lines.h */; };
 		43BA34371704356200D165A4 /* LinesTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BA34321704356200D165A4 /* LinesTypes.h */; };
-		43BA34451704EBEF00D165A4 /* libhugin_base-2013.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43BA32711703AE6200D165A4 /* libhugin_base-2013.0.dylib */; };
+		43BA34451704EBEF00D165A4 /* libhugin_base-2014.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43BA32711703AE6200D165A4 /* libhugin_base-2014.0.dylib */; };
 		43BA34691704ED8700D165A4 /* Celeste.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 43BA34521704ED8700D165A4 /* Celeste.cpp */; };
 		43BA346A1704ED8700D165A4 /* Celeste.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BA34531704ED8700D165A4 /* Celeste.h */; };
 		43BA346B1704ED8700D165A4 /* CelesteGlobals.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 43BA34541704ED8700D165A4 /* CelesteGlobals.cpp */; };
@@ -373,8 +367,7 @@
 		43BA347D1704ED8700D165A4 /* svm.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BA34661704ED8700D165A4 /* svm.h */; };
 		43BA347E1704ED8700D165A4 /* Utilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 43BA34671704ED8700D165A4 /* Utilities.cpp */; };
 		43BA347F1704ED8700D165A4 /* Utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BA34681704ED8700D165A4 /* Utilities.h */; };
-		43BA34841704EDD400D165A4 /* libhugin_base-2013.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43BA32711703AE6200D165A4 /* libhugin_base-2013.0.dylib */; };
-		43BA34851704EDD400D165A4 /* liblevmar-2013.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43BA32301703A4F200D165A4 /* liblevmar-2013.0.dylib */; };
+		43BA34841704EDD400D165A4 /* libhugin_base-2014.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43BA32711703AE6200D165A4 /* libhugin_base-2014.0.dylib */; };
 		43BA34B81704F5E000D165A4 /* BoundedSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BA34A21704F5E000D165A4 /* BoundedSet.h */; };
 		43BA34B91704F5E000D165A4 /* BoxFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BA34A31704F5E000D165A4 /* BoxFilter.h */; };
 		43BA34BA1704F5E000D165A4 /* CircularKeyPointDescriptor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 43BA34A41704F5E000D165A4 /* CircularKeyPointDescriptor.cpp */; };
@@ -397,35 +390,7 @@
 		43BA34CB1704F5E000D165A4 /* RansacFiltering.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BA34B51704F5E000D165A4 /* RansacFiltering.h */; };
 		43BA34CC1704F5E000D165A4 /* Sieve.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BA34B61704F5E000D165A4 /* Sieve.h */; };
 		43BA34CD1704F5E000D165A4 /* WaveFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BA34B71704F5E000D165A4 /* WaveFilter.h */; };
-		43BA34CE1704F62000D165A4 /* libhugin_vigra_impex-2013.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43BA31B71702E7D500D165A4 /* libhugin_vigra_impex-2013.0.dylib */; };
-		43BA34DB1704F68900D165A4 /* flann_cpp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 43BA34DA1704F68900D165A4 /* flann_cpp.cpp */; };
-		43BA35021704F71600D165A4 /* all_indices.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BA34DD1704F71600D165A4 /* all_indices.h */; };
-		43BA35031704F71600D165A4 /* autotuned_index.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BA34DE1704F71600D165A4 /* autotuned_index.h */; };
-		43BA35041704F71600D165A4 /* composite_index.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BA34DF1704F71600D165A4 /* composite_index.h */; };
-		43BA35051704F71600D165A4 /* dist.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BA34E01704F71600D165A4 /* dist.h */; };
-		43BA35061704F71600D165A4 /* hierarchical_clustering_index.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BA34E11704F71600D165A4 /* hierarchical_clustering_index.h */; };
-		43BA35071704F71600D165A4 /* kdtree_index.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BA34E21704F71600D165A4 /* kdtree_index.h */; };
-		43BA35081704F71600D165A4 /* kdtree_single_index.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BA34E31704F71600D165A4 /* kdtree_single_index.h */; };
-		43BA35091704F71600D165A4 /* kmeans_index.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BA34E41704F71600D165A4 /* kmeans_index.h */; };
-		43BA350A1704F71600D165A4 /* linear_index.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BA34E51704F71600D165A4 /* linear_index.h */; };
-		43BA350B1704F71600D165A4 /* nn_index.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BA34E61704F71600D165A4 /* nn_index.h */; };
-		43BA350E1704F71600D165A4 /* flann.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BA34E91704F71600D165A4 /* flann.h */; };
-		43BA350F1704F71600D165A4 /* flann.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 43BA34EA1704F71600D165A4 /* flann.hpp */; };
-		43BA35101704F71600D165A4 /* general.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BA34EB1704F71600D165A4 /* general.h */; };
-		43BA35111704F71600D165A4 /* hdf5.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BA34ED1704F71600D165A4 /* hdf5.h */; };
-		43BA35121704F71600D165A4 /* ground_truth.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BA34EF1704F71600D165A4 /* ground_truth.h */; };
-		43BA35141704F71600D165A4 /* index_testing.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BA34F11704F71600D165A4 /* index_testing.h */; };
-		43BA35151704F71600D165A4 /* simplex_downhill.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BA34F21704F71600D165A4 /* simplex_downhill.h */; };
-		43BA35161704F71600D165A4 /* allocator.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BA34F41704F71600D165A4 /* allocator.h */; };
-		43BA35171704F71600D165A4 /* heap.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BA34F51704F71600D165A4 /* heap.h */; };
-		43BA35191704F71600D165A4 /* logger.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BA34F71704F71600D165A4 /* logger.h */; };
-		43BA351A1704F71600D165A4 /* matrix.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BA34F81704F71600D165A4 /* matrix.h */; };
-		43BA351B1704F71600D165A4 /* object_factory.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BA34F91704F71600D165A4 /* object_factory.h */; };
-		43BA351E1704F71600D165A4 /* random.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BA34FC1704F71600D165A4 /* random.h */; };
-		43BA351F1704F71600D165A4 /* result_set.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BA34FD1704F71600D165A4 /* result_set.h */; };
-		43BA35201704F71600D165A4 /* sampling.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BA34FE1704F71600D165A4 /* sampling.h */; };
-		43BA35221704F71600D165A4 /* saving.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BA35001704F71600D165A4 /* saving.h */; };
-		43BA35231704F71600D165A4 /* timer.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BA35011704F71600D165A4 /* timer.h */; };
+		43BA34CE1704F62000D165A4 /* libhugin_vigra_impex-2014.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43BA31B71702E7D500D165A4 /* libhugin_vigra_impex-2014.0.dylib */; };
 		43BA35401704F95700D165A4 /* huginConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 43BA352D1704F95600D165A4 /* huginConfig.cpp */; };
 		43BA35411704F95700D165A4 /* huginConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BA352E1704F95600D165A4 /* huginConfig.h */; };
 		43BA35421704F95700D165A4 /* LensTools.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 43BA352F1704F95600D165A4 /* LensTools.cpp */; };
@@ -445,15 +410,14 @@
 		43BA35501704F95700D165A4 /* wxLensDB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 43BA353D1704F95600D165A4 /* wxLensDB.cpp */; };
 		43BA35511704F95700D165A4 /* wxLensDB.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BA353E1704F95600D165A4 /* wxLensDB.h */; };
 		43BA35521704F95700D165A4 /* wxPlatform.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BA353F1704F95600D165A4 /* wxPlatform.h */; };
-		43BA35531704F96B00D165A4 /* libhugin_base-2013.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43BA32711703AE6200D165A4 /* libhugin_base-2013.0.dylib */; };
-		43BA35581704F98000D165A4 /* libhugin_vigra_impex-2013.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43BA31B71702E7D500D165A4 /* libhugin_vigra_impex-2013.0.dylib */; };
+		43BA35531704F96B00D165A4 /* libhugin_base-2014.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43BA32711703AE6200D165A4 /* libhugin_base-2014.0.dylib */; };
+		43BA35581704F98000D165A4 /* libhugin_vigra_impex-2014.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 43BA31B71702E7D500D165A4 /* libhugin_vigra_impex-2014.0.dylib */; };
 		43BA36F21705752F00D165A4 /* AutoCtrlPointCreator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 43BA36ED1705752F00D165A4 /* AutoCtrlPointCreator.cpp */; };
 		43BA36F31705752F00D165A4 /* AutoCtrlPointCreator.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BA36EE1705752F00D165A4 /* AutoCtrlPointCreator.h */; };
 		43BA36F41705752F00D165A4 /* CPDetectorConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 43BA36EF1705752F00D165A4 /* CPDetectorConfig.cpp */; };
 		43BA36F51705752F00D165A4 /* CPDetectorConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BA36F01705752F00D165A4 /* CPDetectorConfig.h */; };
 		43BA36F61705753000D165A4 /* icpfind.h in Headers */ = {isa = PBXBuildFile; fileRef = 43BA36F11705752F00D165A4 /* icpfind.h */; };
 		43E38DF717370D5C00436356 /* Python27.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43E38DF617370D5C00436356 /* Python27.framework */; };
-		43E38DF817370D7100436356 /* Python27.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43E38DF617370D5C00436356 /* Python27.framework */; };
 		43E38DFD173788BC00436356 /* hpi_classes.h in Headers */ = {isa = PBXBuildFile; fileRef = 43E38DFB173788BC00436356 /* hpi_classes.h */; };
 		43E38DFE173788BC00436356 /* hpi.h in Headers */ = {isa = PBXBuildFile; fileRef = 43E38DFC173788BC00436356 /* hpi.h */; };
 /* End PBXBuildFile section */
@@ -543,13 +507,6 @@
 			remoteGlobalIDString = 43BA31B61702E7D500D165A4;
 			remoteInfo = vigra_impex;
 		};
-		43BA340A1703B20A00D165A4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 43BA31A51702E69200D165A4 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 43BA322F1703A4F200D165A4;
-			remoteInfo = levmar;
-		};
 		43BA3418170428FF00D165A4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 43BA31A51702E69200D165A4 /* Project object */;
@@ -570,13 +527,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 43BA32701703AE6200D165A4;
 			remoteInfo = hugin_base;
-		};
-		43BA34821704EDCA00D165A4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 43BA31A51702E69200D165A4 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 43BA322F1703A4F200D165A4;
-			remoteInfo = levmar;
 		};
 		43BA34CF1704F62600D165A4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -611,32 +561,38 @@
 /* Begin PBXFileReference section */
 		430A82DE1715E80A00AA0BD9 /* hpi.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; name = hpi.py; path = ../src/hugin_script_interface/hpi.py; sourceTree = "<group>"; };
 		430A82DF1715E82600AA0BD9 /* hsi.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; name = hsi.py; path = ../src/hugin_script_interface/hsi.py; sourceTree = "<group>"; };
-		43352EB61713515800889E02 /* libwx_osx_cocoau_gl-2.9.3.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_gl-2.9.3.0.0.dylib"; path = "../../External/repository/lib/libwx_osx_cocoau_gl-2.9.3.0.0.dylib"; sourceTree = "<group>"; };
-		43352EB71713515800889E02 /* libwx_osx_cocoau-2.9.3.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau-2.9.3.0.0.dylib"; path = "../../External/repository/lib/libwx_osx_cocoau-2.9.3.0.0.dylib"; sourceTree = "<group>"; };
+		431B1216182858F500CFEE08 /* libtiff.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libtiff.5.dylib; path = ../mac/ExternalPrograms/repository/lib/libtiff.5.dylib; sourceTree = "<group>"; };
+		431B121818285B9200CFEE08 /* libHalf.10.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libHalf.10.dylib; path = ../mac/ExternalPrograms/repository/lib/libHalf.10.dylib; sourceTree = "<group>"; };
+		431B121A18285BAB00CFEE08 /* libIlmImf-Imf_2_0.20.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libIlmImf-Imf_2_0.20.dylib"; path = "../mac/ExternalPrograms/repository/lib/libIlmImf-Imf_2_0.20.dylib"; sourceTree = "<group>"; };
+		431B121C18285BC800CFEE08 /* libjpeg.8.1.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libjpeg.8.1.2.dylib; path = ../mac/ExternalPrograms/repository/lib/libjpeg.8.1.2.dylib; sourceTree = "<group>"; };
+		431B121D18285BC900CFEE08 /* libpng16.16.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpng16.16.dylib; path = ../mac/ExternalPrograms/repository/lib/libpng16.16.dylib; sourceTree = "<group>"; };
+		431B122018285C4300CFEE08 /* libboost_regex.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_regex.dylib; path = ../mac/ExternalPrograms/repository/lib/libboost_regex.dylib; sourceTree = "<group>"; };
+		431B122118285C4300CFEE08 /* libboost_system.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_system.dylib; path = ../mac/ExternalPrograms/repository/lib/libboost_system.dylib; sourceTree = "<group>"; };
+		431B12251829716600CFEE08 /* libboost_filesystem.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_filesystem.dylib; path = ../mac/ExternalPrograms/repository/lib/libboost_filesystem.dylib; sourceTree = "<group>"; };
+		431B12281829717A00CFEE08 /* libboost_signals.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_signals.dylib; path = ../mac/ExternalPrograms/repository/lib/libboost_signals.dylib; sourceTree = "<group>"; };
+		431B12291829717A00CFEE08 /* libboost_thread.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_thread.dylib; path = ../mac/ExternalPrograms/repository/lib/libboost_thread.dylib; sourceTree = "<group>"; };
+		431B122C1829719200CFEE08 /* libexiv2.12.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libexiv2.12.dylib; path = ../mac/ExternalPrograms/repository/lib/libexiv2.12.dylib; sourceTree = "<group>"; };
+		431B122E182971B400CFEE08 /* libGLEW.1.10.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.1.10.0.dylib; path = ../mac/ExternalPrograms/repository/lib/libGLEW.1.10.0.dylib; sourceTree = "<group>"; };
+		431B122F182971B400CFEE08 /* liblensfun.0.2.8.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = liblensfun.0.2.8.dylib; path = ../mac/ExternalPrograms/repository/lib/liblensfun.0.2.8.dylib; sourceTree = "<group>"; };
+		431B1233182971C900CFEE08 /* libpano13.2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpano13.2.0.0.dylib; path = ../mac/ExternalPrograms/repository/lib/libpano13.2.0.0.dylib; sourceTree = "<group>"; };
+		431B12351829722400CFEE08 /* liblevmar.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = liblevmar.dylib; path = ../mac/ExternalPrograms/repository/lib/liblevmar.dylib; sourceTree = "<group>"; };
+		431B1237182972BE00CFEE08 /* Exiv2Helper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Exiv2Helper.cpp; sourceTree = "<group>"; };
+		431B1238182972BE00CFEE08 /* Exiv2Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Exiv2Helper.h; sourceTree = "<group>"; };
+		431B12401829739C00CFEE08 /* libwx_osx_cocoau_gl-3.0.0.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_gl-3.0.0.0.0.dylib"; path = "../mac/ExternalPrograms/repository/lib/libwx_osx_cocoau_gl-3.0.0.0.0.dylib"; sourceTree = "<group>"; };
+		431B12411829739C00CFEE08 /* libwx_osx_cocoau-3.0.0.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau-3.0.0.0.0.dylib"; path = "../mac/ExternalPrograms/repository/lib/libwx_osx_cocoau-3.0.0.0.0.dylib"; sourceTree = "<group>"; };
+		431B124A1829758700CFEE08 /* Python27.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Python27.framework; path = ../mac/ExternalPrograms/repository/Frameworks/Python27.framework; sourceTree = "<group>"; };
 		43352EEB17136C0B00889E02 /* hsiPYTHON_wrap.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hsiPYTHON_wrap.cxx; path = ../src/hugin_script_interface/hsiPYTHON_wrap.cxx; sourceTree = "<group>"; };
-		43352EED17136EDB00889E02 /* libpython2.7.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpython2.7.dylib; path = ../../External/repository/lib/libpython2.7.dylib; sourceTree = "<group>"; };
-		433534601713868B00889E02 /* libhpi-2013.0.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "libhpi-2013.0.dylib"; sourceTree = BUILT_PRODUCTS_DIR; };
+		433534601713868B00889E02 /* libhpi-2014.0.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "libhpi-2014.0.dylib"; sourceTree = BUILT_PRODUCTS_DIR; };
 		43353472171388A000889E02 /* hpi_classes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hpi_classes.cpp; path = ../src/hugin_script_interface/hpi_classes.cpp; sourceTree = "<group>"; };
 		43353473171388A000889E02 /* hpi.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hpi.cpp; path = ../src/hugin_script_interface/hpi.cpp; sourceTree = "<group>"; };
 		436838701743648400F72D33 /* BuildConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = BuildConfig.xcconfig; path = "xcode4-scripts/BuildConfig.xcconfig"; sourceTree = "<group>"; };
 		437494031714D12400037A4B /* hugin_version.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = hugin_version.h; path = ../src/hugin_version.h; sourceTree = "<group>"; };
-		43760E981706535E00ED2679 /* libpng14.14.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpng14.14.dylib; path = "../../External/repository-ng/lib/libpng14.14.dylib"; sourceTree = "<group>"; };
-		43760E9C1706537800ED2679 /* libHalf.7.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libHalf.7.dylib; path = "../../External/repository-ng/lib/libHalf.7.dylib"; sourceTree = "<group>"; };
-		43760E9D1706537800ED2679 /* libIlmImf.7.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libIlmImf.7.dylib; path = "../../External/repository-ng/lib/libIlmImf.7.dylib"; sourceTree = "<group>"; };
-		43760EA817065A3B00ED2679 /* libexiv2.12.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libexiv2.12.dylib; path = "../../External/repository-ng/lib/libexiv2.12.dylib"; sourceTree = "<group>"; };
-		43760EAA17065A5700ED2679 /* libGLEW.1.9.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEW.1.9.0.dylib; path = "../../External/repository-ng/lib/libGLEW.1.9.0.dylib"; sourceTree = "<group>"; };
-		43760EE61706FFC800ED2679 /* libjpeg.8.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libjpeg.8.dylib; path = "../../External/repository-ng/lib/libjpeg.8.dylib"; sourceTree = "<group>"; };
-		43760EE81707006B00ED2679 /* liblensfun.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = liblensfun.dylib; path = "../../External/repository-ng/lib/liblensfun.dylib"; sourceTree = "<group>"; };
-		43760EE91707006B00ED2679 /* libpano13.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpano13.2.dylib; path = "../../External/repository-ng/lib/libpano13.2.dylib"; sourceTree = "<group>"; };
 		43760EF917070DD800ED2679 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		43760F0417070EBC00ED2679 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
 		43760F0617070EDC00ED2679 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
-		43760F271707444100ED2679 /* libtiff.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libtiff.3.dylib; path = "../../External/repository-ng/lib/libtiff.3.dylib"; sourceTree = "<group>"; };
-		4376107017076BDC00ED2679 /* libboost_filesystem-1_46.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libboost_filesystem-1_46.dylib"; path = "../../External/repository-ng/lib/libboost_filesystem-1_46.dylib"; sourceTree = "<group>"; };
-		4376107117076BDD00ED2679 /* libboost_regex-1_46.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libboost_regex-1_46.dylib"; path = "../../External/repository-ng/lib/libboost_regex-1_46.dylib"; sourceTree = "<group>"; };
-		4376107217076BDD00ED2679 /* libboost_signals-1_46.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libboost_signals-1_46.dylib"; path = "../../External/repository-ng/lib/libboost_signals-1_46.dylib"; sourceTree = "<group>"; };
-		4376107317076BDD00ED2679 /* libboost_system-1_46.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libboost_system-1_46.dylib"; path = "../../External/repository-ng/lib/libboost_system-1_46.dylib"; sourceTree = "<group>"; };
-		4376107417076BDE00ED2679 /* libboost_thread-1_46.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libboost_thread-1_46.dylib"; path = "../../External/repository-ng/lib/libboost_thread-1_46.dylib"; sourceTree = "<group>"; };
+		43821138187B4C2D00DB9A4D /* libpano13.3.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpano13.3.0.0.dylib; path = ../mac/ExternalPrograms/repository/lib/libpano13.3.0.0.dylib; sourceTree = "<group>"; };
+		4382113E187B55F800DB9A4D /* libIlmImf-Imf_2_1.21.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libIlmImf-Imf_2_1.21.dylib"; path = "../mac/ExternalPrograms/repository/lib/libIlmImf-Imf_2_1.21.dylib"; sourceTree = "<group>"; };
+		43821140187B56BB00DB9A4D /* libHalf.11.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libHalf.11.dylib; path = ../mac/ExternalPrograms/repository/lib/libHalf.11.dylib; sourceTree = "<group>"; };
 		43A22BD2170E21B700D5A7CC /* libzthread.a */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libzthread.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		43A22BD8170E242500D5A7CC /* AtomicCount.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AtomicCount.cxx; path = ../src/foreign/zthread/src/AtomicCount.cxx; sourceTree = "<group>"; };
 		43A22BD9170E242500D5A7CC /* ConcurrentExecutor.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ConcurrentExecutor.cxx; path = ../src/foreign/zthread/src/ConcurrentExecutor.cxx; sourceTree = "<group>"; };
@@ -662,7 +618,7 @@
 		43A22BED170E242500D5A7CC /* Time.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Time.cxx; path = ../src/foreign/zthread/src/Time.cxx; sourceTree = "<group>"; };
 		43A22C04170E249500D5A7CC /* Semaphore.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Semaphore.cxx; path = ../src/foreign/zthread/src/Semaphore.cxx; sourceTree = "<group>"; };
 		43A22C05170E249500D5A7CC /* SynchronousExecutor.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SynchronousExecutor.cxx; path = ../src/foreign/zthread/src/SynchronousExecutor.cxx; sourceTree = "<group>"; };
-		43BA31B71702E7D500D165A4 /* libhugin_vigra_impex-2013.0.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "libhugin_vigra_impex-2013.0.dylib"; sourceTree = BUILT_PRODUCTS_DIR; };
+		43BA31B71702E7D500D165A4 /* libhugin_vigra_impex-2014.0.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "libhugin_vigra_impex-2014.0.dylib"; sourceTree = BUILT_PRODUCTS_DIR; };
 		43BA31C91702EBA300D165A4 /* Version.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Version.xcconfig; sourceTree = "<group>"; };
 		43BA31D21703A20900D165A4 /* HG-rev.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "HG-rev.xcconfig"; sourceTree = "<group>"; };
 		43BA31D51703A25E00D165A4 /* auto_file.hxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = auto_file.hxx; path = ../src/foreign/vigra/vigra_impex/auto_file.hxx; sourceTree = "<group>"; };
@@ -698,7 +654,6 @@
 		43BA31F31703A25E00D165A4 /* viff.hxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = viff.hxx; path = ../src/foreign/vigra/vigra_impex/viff.hxx; sourceTree = "<group>"; };
 		43BA31F41703A25E00D165A4 /* void_vector.cxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = void_vector.cxx; path = ../src/foreign/vigra/vigra_impex/void_vector.cxx; sourceTree = "<group>"; };
 		43BA31F51703A25E00D165A4 /* void_vector.hxx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = void_vector.hxx; path = ../src/foreign/vigra/vigra_impex/void_vector.hxx; sourceTree = "<group>"; };
-		43BA32301703A4F200D165A4 /* liblevmar-2013.0.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "liblevmar-2013.0.dylib"; sourceTree = BUILT_PRODUCTS_DIR; };
 		43BA32351703A54800D165A4 /* Axb_core.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Axb_core.c; path = ../src/foreign/levmar/Axb_core.c; sourceTree = "<group>"; };
 		43BA32361703A54800D165A4 /* Axb.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Axb.c; path = ../src/foreign/levmar/Axb.c; sourceTree = "<group>"; };
 		43BA32371703A54800D165A4 /* lm_core.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = lm_core.c; path = ../src/foreign/levmar/lm_core.c; sourceTree = "<group>"; };
@@ -711,11 +666,11 @@
 		43BA323F1703A54800D165A4 /* misc_core.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = misc_core.c; path = ../src/foreign/levmar/misc_core.c; sourceTree = "<group>"; };
 		43BA32401703A54800D165A4 /* misc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = misc.c; path = ../src/foreign/levmar/misc.c; sourceTree = "<group>"; };
 		43BA32411703A54800D165A4 /* misc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = misc.h; path = ../src/foreign/levmar/misc.h; sourceTree = "<group>"; };
-		43BA325C1703A5BE00D165A4 /* liblensdb-2013.0.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "liblensdb-2013.0.dylib"; sourceTree = BUILT_PRODUCTS_DIR; };
+		43BA325C1703A5BE00D165A4 /* liblensdb-2014.0.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "liblensdb-2014.0.dylib"; sourceTree = BUILT_PRODUCTS_DIR; };
 		43BA32611703A5EC00D165A4 /* PTLensDB.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = PTLensDB.c; path = ../src/foreign/lensdb/PTLensDB.c; sourceTree = "<group>"; };
 		43BA32621703A5EC00D165A4 /* PTLensDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PTLensDB.h; path = ../src/foreign/lensdb/PTLensDB.h; sourceTree = "<group>"; };
-		43BA32711703AE6200D165A4 /* libhugin_base-2013.0.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "libhugin_base-2013.0.dylib"; sourceTree = BUILT_PRODUCTS_DIR; };
-		43BA327A1703AED500D165A4 /* libmakefile-2013.0.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "libmakefile-2013.0.dylib"; sourceTree = BUILT_PRODUCTS_DIR; };
+		43BA32711703AE6200D165A4 /* libhugin_base-2014.0.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "libhugin_base-2014.0.dylib"; sourceTree = BUILT_PRODUCTS_DIR; };
+		43BA327A1703AED500D165A4 /* libmakefile-2014.0.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "libmakefile-2014.0.dylib"; sourceTree = BUILT_PRODUCTS_DIR; };
 		43BA327F1703AF1700D165A4 /* Anything.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Anything.cpp; path = ../src/hugin_base/makefilelib/Anything.cpp; sourceTree = "<group>"; };
 		43BA32801703AF1700D165A4 /* Anything.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Anything.h; path = ../src/hugin_base/makefilelib/Anything.h; sourceTree = "<group>"; };
 		43BA32811703AF1700D165A4 /* AutoVariable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AutoVariable.cpp; path = ../src/hugin_base/makefilelib/AutoVariable.cpp; sourceTree = "<group>"; };
@@ -893,7 +848,7 @@
 		43BA336F1703B09600D165A4 /* VignettingCorrection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VignettingCorrection.h; sourceTree = "<group>"; };
 		43BA33701703B09600D165A4 /* VigQuotientEstimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VigQuotientEstimator.h; sourceTree = "<group>"; };
 		43BA341E1704294D00D165A4 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
-		43BA34291704354300D165A4 /* liblines-2013.0.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "liblines-2013.0.dylib"; sourceTree = BUILT_PRODUCTS_DIR; };
+		43BA34291704354300D165A4 /* liblines-2014.0.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "liblines-2014.0.dylib"; sourceTree = BUILT_PRODUCTS_DIR; };
 		43BA342E1704356200D165A4 /* FindLines.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FindLines.cpp; path = ../src/hugin_base/lines/FindLines.cpp; sourceTree = "<group>"; };
 		43BA342F1704356200D165A4 /* FindLines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FindLines.h; path = ../src/hugin_base/lines/FindLines.h; sourceTree = "<group>"; };
 		43BA34301704356200D165A4 /* FindN8Lines.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FindN8Lines.cpp; path = ../src/hugin_base/lines/FindN8Lines.cpp; sourceTree = "<group>"; };
@@ -910,7 +865,7 @@
 		43BA34411704388800D165A4 /* icpfind-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "icpfind-Info.plist"; sourceTree = "<group>"; };
 		43BA34421704388800D165A4 /* localfeatures-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "localfeatures-Info.plist"; sourceTree = "<group>"; };
 		43BA34431704388800D165A4 /* vigra_impex-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "vigra_impex-Info.plist"; sourceTree = "<group>"; };
-		43BA344D1704ED3000D165A4 /* libceleste-2013.0.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "libceleste-2013.0.dylib"; sourceTree = BUILT_PRODUCTS_DIR; };
+		43BA344D1704ED3000D165A4 /* libceleste-2014.0.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "libceleste-2014.0.dylib"; sourceTree = BUILT_PRODUCTS_DIR; };
 		43BA34521704ED8700D165A4 /* Celeste.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Celeste.cpp; path = ../src/celeste/Celeste.cpp; sourceTree = "<group>"; };
 		43BA34531704ED8700D165A4 /* Celeste.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Celeste.h; path = ../src/celeste/Celeste.h; sourceTree = "<group>"; };
 		43BA34541704ED8700D165A4 /* CelesteGlobals.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CelesteGlobals.cpp; path = ../src/celeste/CelesteGlobals.cpp; sourceTree = "<group>"; };
@@ -934,7 +889,7 @@
 		43BA34661704ED8700D165A4 /* svm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = svm.h; path = ../src/celeste/svm.h; sourceTree = "<group>"; };
 		43BA34671704ED8700D165A4 /* Utilities.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Utilities.cpp; path = ../src/celeste/Utilities.cpp; sourceTree = "<group>"; };
 		43BA34681704ED8700D165A4 /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Utilities.h; path = ../src/celeste/Utilities.h; sourceTree = "<group>"; };
-		43BA349D1704F59500D165A4 /* liblocalfeatures-2013.0.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "liblocalfeatures-2013.0.dylib"; sourceTree = BUILT_PRODUCTS_DIR; };
+		43BA349D1704F59500D165A4 /* liblocalfeatures-2014.0.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "liblocalfeatures-2014.0.dylib"; sourceTree = BUILT_PRODUCTS_DIR; };
 		43BA34A21704F5E000D165A4 /* BoundedSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BoundedSet.h; path = ../src/hugin_cpfind/localfeatures/BoundedSet.h; sourceTree = "<group>"; };
 		43BA34A31704F5E000D165A4 /* BoxFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BoxFilter.h; path = ../src/hugin_cpfind/localfeatures/BoxFilter.h; sourceTree = "<group>"; };
 		43BA34A41704F5E000D165A4 /* CircularKeyPointDescriptor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CircularKeyPointDescriptor.cpp; path = ../src/hugin_cpfind/localfeatures/CircularKeyPointDescriptor.cpp; sourceTree = "<group>"; };
@@ -957,7 +912,6 @@
 		43BA34B51704F5E000D165A4 /* RansacFiltering.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RansacFiltering.h; path = ../src/hugin_cpfind/localfeatures/RansacFiltering.h; sourceTree = "<group>"; };
 		43BA34B61704F5E000D165A4 /* Sieve.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Sieve.h; path = ../src/hugin_cpfind/localfeatures/Sieve.h; sourceTree = "<group>"; };
 		43BA34B71704F5E000D165A4 /* WaveFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WaveFilter.h; path = ../src/hugin_cpfind/localfeatures/WaveFilter.h; sourceTree = "<group>"; };
-		43BA34D51704F65E00D165A4 /* libflann-2013.0.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "libflann-2013.0.dylib"; sourceTree = BUILT_PRODUCTS_DIR; };
 		43BA34DA1704F68900D165A4 /* flann_cpp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = flann_cpp.cpp; path = ../src/foreign/flann/flann_cpp.cpp; sourceTree = "<group>"; };
 		43BA34DD1704F71600D165A4 /* all_indices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = all_indices.h; sourceTree = "<group>"; };
 		43BA34DE1704F71600D165A4 /* autotuned_index.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = autotuned_index.h; sourceTree = "<group>"; };
@@ -987,7 +941,7 @@
 		43BA34FE1704F71600D165A4 /* sampling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sampling.h; sourceTree = "<group>"; };
 		43BA35001704F71600D165A4 /* saving.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = saving.h; sourceTree = "<group>"; };
 		43BA35011704F71600D165A4 /* timer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = timer.h; sourceTree = "<group>"; };
-		43BA35281704F90600D165A4 /* libbase_wx-2013.0.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "libbase_wx-2013.0.dylib"; sourceTree = BUILT_PRODUCTS_DIR; };
+		43BA35281704F90600D165A4 /* libbase_wx-2014.0.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "libbase_wx-2014.0.dylib"; sourceTree = BUILT_PRODUCTS_DIR; };
 		43BA352D1704F95600D165A4 /* huginConfig.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = huginConfig.cpp; path = ../src/hugin1/base_wx/huginConfig.cpp; sourceTree = "<group>"; };
 		43BA352E1704F95600D165A4 /* huginConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = huginConfig.h; path = ../src/hugin1/base_wx/huginConfig.h; sourceTree = "<group>"; };
 		43BA352F1704F95600D165A4 /* LensTools.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LensTools.cpp; path = ../src/hugin1/base_wx/LensTools.cpp; sourceTree = "<group>"; };
@@ -1007,7 +961,7 @@
 		43BA353D1704F95600D165A4 /* wxLensDB.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wxLensDB.cpp; path = ../src/hugin1/base_wx/wxLensDB.cpp; sourceTree = "<group>"; };
 		43BA353E1704F95600D165A4 /* wxLensDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wxLensDB.h; path = ../src/hugin1/base_wx/wxLensDB.h; sourceTree = "<group>"; };
 		43BA353F1704F95600D165A4 /* wxPlatform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wxPlatform.h; path = ../src/hugin1/base_wx/wxPlatform.h; sourceTree = "<group>"; };
-		43BA36E81705750400D165A4 /* libicpfind-2013.0.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "libicpfind-2013.0.dylib"; sourceTree = BUILT_PRODUCTS_DIR; };
+		43BA36E81705750400D165A4 /* libicpfind-2014.0.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "libicpfind-2014.0.dylib"; sourceTree = BUILT_PRODUCTS_DIR; };
 		43BA36ED1705752F00D165A4 /* AutoCtrlPointCreator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AutoCtrlPointCreator.cpp; path = ../src/hugin1/icpfind/AutoCtrlPointCreator.cpp; sourceTree = "<group>"; };
 		43BA36EE1705752F00D165A4 /* AutoCtrlPointCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AutoCtrlPointCreator.h; path = ../src/hugin1/icpfind/AutoCtrlPointCreator.h; sourceTree = "<group>"; };
 		43BA36EF1705752F00D165A4 /* CPDetectorConfig.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CPDetectorConfig.cpp; path = ../src/hugin1/icpfind/CPDetectorConfig.cpp; sourceTree = "<group>"; };
@@ -1042,20 +996,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				43760F281707444100ED2679 /* libtiff.3.dylib in Frameworks */,
-				43760EEA1707006B00ED2679 /* liblensfun.dylib in Frameworks */,
-				43760EEB1707006B00ED2679 /* libpano13.2.dylib in Frameworks */,
-				43760EE71706FFC800ED2679 /* libjpeg.8.dylib in Frameworks */,
-				43760E9E1706537800ED2679 /* libHalf.7.dylib in Frameworks */,
-				43760E9F1706537800ED2679 /* libIlmImf.7.dylib in Frameworks */,
-				43760E9A1706535E00ED2679 /* libpng14.14.dylib in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		43BA322D1703A4F200D165A4 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				43821141187B56BB00DB9A4D /* libHalf.11.dylib in Frameworks */,
+				4382113F187B55F800DB9A4D /* libIlmImf-Imf_2_1.21.dylib in Frameworks */,
+				431B121E18285BC900CFEE08 /* libjpeg.8.1.2.dylib in Frameworks */,
+				431B121F18285BC900CFEE08 /* libpng16.16.dylib in Frameworks */,
+				431B1217182858F500CFEE08 /* libtiff.5.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1070,20 +1015,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4382113C187B4CEA00DB9A4D /* libpano13.3.0.0.dylib in Frameworks */,
+				431B12361829722400CFEE08 /* liblevmar.dylib in Frameworks */,
+				431B1232182971C900CFEE08 /* libtiff.5.dylib in Frameworks */,
+				431B1230182971B400CFEE08 /* libGLEW.1.10.0.dylib in Frameworks */,
+				431B1231182971B400CFEE08 /* liblensfun.0.2.8.dylib in Frameworks */,
+				431B122D1829719200CFEE08 /* libexiv2.12.dylib in Frameworks */,
+				431B122A1829717A00CFEE08 /* libboost_signals.dylib in Frameworks */,
+				431B122B1829717A00CFEE08 /* libboost_thread.dylib in Frameworks */,
+				431B12271829717A00CFEE08 /* libboost_system.dylib in Frameworks */,
+				431B12261829716600CFEE08 /* libboost_filesystem.dylib in Frameworks */,
+				431B12241829716500CFEE08 /* libboost_regex.dylib in Frameworks */,
 				43BA341F1704294D00D165A4 /* OpenGL.framework in Frameworks */,
-				43BA3416170428C700D165A4 /* libhugin_vigra_impex-2013.0.dylib in Frameworks */,
-				43BA3415170428C700D165A4 /* liblevmar-2013.0.dylib in Frameworks */,
-				43BA3417170428F900D165A4 /* libmakefile-2013.0.dylib in Frameworks */,
-				4376107517076BDE00ED2679 /* libboost_filesystem-1_46.dylib in Frameworks */,
-				4376107617076BDE00ED2679 /* libboost_regex-1_46.dylib in Frameworks */,
-				4376107717076BDE00ED2679 /* libboost_signals-1_46.dylib in Frameworks */,
-				4376107817076BDE00ED2679 /* libboost_system-1_46.dylib in Frameworks */,
-				4376107917076BDE00ED2679 /* libboost_thread-1_46.dylib in Frameworks */,
-				43760EA917065A3B00ED2679 /* libexiv2.12.dylib in Frameworks */,
-				43760EAB17065A5700ED2679 /* libGLEW.1.9.0.dylib in Frameworks */,
-				43760EED170701B800ED2679 /* liblensfun.dylib in Frameworks */,
-				43760EEC1707018700ED2679 /* libpano13.2.dylib in Frameworks */,
-				43760F291707445000ED2679 /* libtiff.3.dylib in Frameworks */,
+				43BA3416170428C700D165A4 /* libhugin_vigra_impex-2014.0.dylib in Frameworks */,
+				43BA3417170428F900D165A4 /* libmakefile-2014.0.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1091,8 +1036,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4376107A17076C4600ED2679 /* libboost_regex-1_46.dylib in Frameworks */,
-				4376107B17076C6700ED2679 /* libboost_system-1_46.dylib in Frameworks */,
+				431B122218285C4300CFEE08 /* libboost_regex.dylib in Frameworks */,
+				431B122318285C4300CFEE08 /* libboost_system.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1100,10 +1045,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				43BA34451704EBEF00D165A4 /* libhugin_base-2013.0.dylib in Frameworks */,
-				43760EEE1707020400ED2679 /* libpano13.2.dylib in Frameworks */,
-				4376107C17076C8900ED2679 /* libboost_system-1_46.dylib in Frameworks */,
-				4376107D17076C8F00ED2679 /* libboost_thread-1_46.dylib in Frameworks */,
+				43821139187B4C2D00DB9A4D /* libpano13.3.0.0.dylib in Frameworks */,
+				431B123B1829732C00CFEE08 /* libboost_system.dylib in Frameworks */,
+				431B123C1829732C00CFEE08 /* libboost_thread.dylib in Frameworks */,
+				43BA34451704EBEF00D165A4 /* libhugin_base-2014.0.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1111,8 +1056,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				43BA34841704EDD400D165A4 /* libhugin_base-2013.0.dylib in Frameworks */,
-				43BA34851704EDD400D165A4 /* liblevmar-2013.0.dylib in Frameworks */,
+				43BA34841704EDD400D165A4 /* libhugin_base-2014.0.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1120,14 +1064,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				43BA34CE1704F62000D165A4 /* libhugin_vigra_impex-2013.0.dylib in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		43BA34D21704F65E00D165A4 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				43BA34CE1704F62000D165A4 /* libhugin_vigra_impex-2014.0.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1135,16 +1072,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4382113B187B4CD000DB9A4D /* libpano13.3.0.0.dylib in Frameworks */,
+				431B12421829739C00CFEE08 /* libwx_osx_cocoau_gl-3.0.0.0.0.dylib in Frameworks */,
+				431B12431829739C00CFEE08 /* libwx_osx_cocoau-3.0.0.0.0.dylib in Frameworks */,
+				431B123E1829737A00CFEE08 /* libboost_system.dylib in Frameworks */,
 				43760F0517070EBC00ED2679 /* ApplicationServices.framework in Frameworks */,
 				43760F0717070EDC00ED2679 /* Carbon.framework in Frameworks */,
 				43760EFA17070DD800ED2679 /* CoreFoundation.framework in Frameworks */,
-				43BA35531704F96B00D165A4 /* libhugin_base-2013.0.dylib in Frameworks */,
-				43BA35581704F98000D165A4 /* libhugin_vigra_impex-2013.0.dylib in Frameworks */,
-				43760F0217070E6500ED2679 /* libmakefile-2013.0.dylib in Frameworks */,
-				4376107E17076CC300ED2679 /* libboost_system-1_46.dylib in Frameworks */,
-				43760EFB17070DF300ED2679 /* libpano13.2.dylib in Frameworks */,
-				43352EB81713515800889E02 /* libwx_osx_cocoau_gl-2.9.3.0.0.dylib in Frameworks */,
-				43352EB91713515800889E02 /* libwx_osx_cocoau-2.9.3.0.0.dylib in Frameworks */,
+				43BA35531704F96B00D165A4 /* libhugin_base-2014.0.dylib in Frameworks */,
+				43BA35581704F98000D165A4 /* libhugin_vigra_impex-2014.0.dylib in Frameworks */,
+				43760F0217070E6500ED2679 /* libmakefile-2014.0.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1152,12 +1089,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				43760F0E1707103800ED2679 /* libbase_wx-2013.0.dylib in Frameworks */,
-				43760F0A17070FE000ED2679 /* libhugin_base-2013.0.dylib in Frameworks */,
-				4376107F17076CFB00ED2679 /* libboost_system-1_46.dylib in Frameworks */,
-				43760F0D17070FF900ED2679 /* libpano13.2.dylib in Frameworks */,
-				43352EBA1713517F00889E02 /* libwx_osx_cocoau_gl-2.9.3.0.0.dylib in Frameworks */,
-				43352EBB1713518500889E02 /* libwx_osx_cocoau-2.9.3.0.0.dylib in Frameworks */,
+				4382113D187B4CFF00DB9A4D /* libpano13.3.0.0.dylib in Frameworks */,
+				431B1246182973CD00CFEE08 /* libwx_osx_cocoau_gl-3.0.0.0.0.dylib in Frameworks */,
+				431B1247182973CD00CFEE08 /* libwx_osx_cocoau-3.0.0.0.0.dylib in Frameworks */,
+				431B1244182973B400CFEE08 /* libboost_system.dylib in Frameworks */,
+				43760F0E1707103800ED2679 /* libbase_wx-2014.0.dylib in Frameworks */,
+				43760F0A17070FE000ED2679 /* libhugin_base-2014.0.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1165,11 +1102,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				43E38DF817370D7100436356 /* Python27.framework in Frameworks */,
-				43352EEF1713717000889E02 /* libhugin_base-2013.0.dylib in Frameworks */,
-				43352EF01713849600889E02 /* libmakefile-2013.0.dylib in Frameworks */,
-				43352EF2171384AF00889E02 /* libboost_system-1_46.dylib in Frameworks */,
-				43352EF1171384A300889E02 /* libpano13.2.dylib in Frameworks */,
+				4382113A187B4CB300DB9A4D /* libpano13.3.0.0.dylib in Frameworks */,
+				431B124B1829758700CFEE08 /* Python27.framework in Frameworks */,
+				431B1248182973F700CFEE08 /* libboost_system.dylib in Frameworks */,
+				43352EEF1713717000889E02 /* libhugin_base-2014.0.dylib in Frameworks */,
+				43352EF01713849600889E02 /* libmakefile-2014.0.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1234,20 +1171,18 @@
 		43BA31B81702E7D500D165A4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				43BA31B71702E7D500D165A4 /* libhugin_vigra_impex-2013.0.dylib */,
-				43BA32301703A4F200D165A4 /* liblevmar-2013.0.dylib */,
-				43BA325C1703A5BE00D165A4 /* liblensdb-2013.0.dylib */,
-				43BA32711703AE6200D165A4 /* libhugin_base-2013.0.dylib */,
-				43BA327A1703AED500D165A4 /* libmakefile-2013.0.dylib */,
-				43BA34291704354300D165A4 /* liblines-2013.0.dylib */,
-				43BA344D1704ED3000D165A4 /* libceleste-2013.0.dylib */,
-				43BA349D1704F59500D165A4 /* liblocalfeatures-2013.0.dylib */,
-				43BA34D51704F65E00D165A4 /* libflann-2013.0.dylib */,
-				43BA35281704F90600D165A4 /* libbase_wx-2013.0.dylib */,
-				43BA36E81705750400D165A4 /* libicpfind-2013.0.dylib */,
+				43BA31B71702E7D500D165A4 /* libhugin_vigra_impex-2014.0.dylib */,
+				43BA325C1703A5BE00D165A4 /* liblensdb-2014.0.dylib */,
+				43BA32711703AE6200D165A4 /* libhugin_base-2014.0.dylib */,
+				43BA327A1703AED500D165A4 /* libmakefile-2014.0.dylib */,
+				43BA34291704354300D165A4 /* liblines-2014.0.dylib */,
+				43BA344D1704ED3000D165A4 /* libceleste-2014.0.dylib */,
+				43BA349D1704F59500D165A4 /* liblocalfeatures-2014.0.dylib */,
+				43BA35281704F90600D165A4 /* libbase_wx-2014.0.dylib */,
+				43BA36E81705750400D165A4 /* libicpfind-2014.0.dylib */,
 				43D3717917079DD100B3B844 /* _hsi.so */,
 				43A22BD2170E21B700D5A7CC /* libzthread.a */,
-				433534601713868B00889E02 /* libhpi-2013.0.dylib */,
+				433534601713868B00889E02 /* libhpi-2014.0.dylib */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1310,23 +1245,6 @@
 			isa = PBXGroup;
 			children = (
 				43E38DF617370D5C00436356 /* Python27.framework */,
-				4376107017076BDC00ED2679 /* libboost_filesystem-1_46.dylib */,
-				4376107117076BDD00ED2679 /* libboost_regex-1_46.dylib */,
-				4376107217076BDD00ED2679 /* libboost_signals-1_46.dylib */,
-				4376107317076BDD00ED2679 /* libboost_system-1_46.dylib */,
-				4376107417076BDE00ED2679 /* libboost_thread-1_46.dylib */,
-				43760EA817065A3B00ED2679 /* libexiv2.12.dylib */,
-				43760EAA17065A5700ED2679 /* libGLEW.1.9.0.dylib */,
-				43760E9C1706537800ED2679 /* libHalf.7.dylib */,
-				43760E9D1706537800ED2679 /* libIlmImf.7.dylib */,
-				43760EE61706FFC800ED2679 /* libjpeg.8.dylib */,
-				43760EE81707006B00ED2679 /* liblensfun.dylib */,
-				43760EE91707006B00ED2679 /* libpano13.2.dylib */,
-				43760E981706535E00ED2679 /* libpng14.14.dylib */,
-				43352EED17136EDB00889E02 /* libpython2.7.dylib */,
-				43760F271707444100ED2679 /* libtiff.3.dylib */,
-				43352EB61713515800889E02 /* libwx_osx_cocoau_gl-2.9.3.0.0.dylib */,
-				43352EB71713515800889E02 /* libwx_osx_cocoau-2.9.3.0.0.dylib */,
 			);
 			name = "External Libraries";
 			sourceTree = "<group>";
@@ -1619,6 +1537,8 @@
 			children = (
 				43BA33311703B09600D165A4 /* ControlPoint.cpp */,
 				43BA33321703B09600D165A4 /* ControlPoint.h */,
+				431B1237182972BE00CFEE08 /* Exiv2Helper.cpp */,
+				431B1238182972BE00CFEE08 /* Exiv2Helper.h */,
 				43BA33331703B09600D165A4 /* image_variables.h */,
 				43BA33341703B09600D165A4 /* ImageVariable.h */,
 				43BA33351703B09600D165A4 /* ImageVariableGroup.cpp */,
@@ -1702,6 +1622,27 @@
 		43BA342317042A0F00D165A4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				43821140187B56BB00DB9A4D /* libHalf.11.dylib */,
+				4382113E187B55F800DB9A4D /* libIlmImf-Imf_2_1.21.dylib */,
+				43821138187B4C2D00DB9A4D /* libpano13.3.0.0.dylib */,
+				431B124A1829758700CFEE08 /* Python27.framework */,
+				431B12401829739C00CFEE08 /* libwx_osx_cocoau_gl-3.0.0.0.0.dylib */,
+				431B12411829739C00CFEE08 /* libwx_osx_cocoau-3.0.0.0.0.dylib */,
+				431B12351829722400CFEE08 /* liblevmar.dylib */,
+				431B1233182971C900CFEE08 /* libpano13.2.0.0.dylib */,
+				431B122E182971B400CFEE08 /* libGLEW.1.10.0.dylib */,
+				431B122F182971B400CFEE08 /* liblensfun.0.2.8.dylib */,
+				431B122C1829719200CFEE08 /* libexiv2.12.dylib */,
+				431B12281829717A00CFEE08 /* libboost_signals.dylib */,
+				431B12291829717A00CFEE08 /* libboost_thread.dylib */,
+				431B12251829716600CFEE08 /* libboost_filesystem.dylib */,
+				431B122018285C4300CFEE08 /* libboost_regex.dylib */,
+				431B122118285C4300CFEE08 /* libboost_system.dylib */,
+				431B121C18285BC800CFEE08 /* libjpeg.8.1.2.dylib */,
+				431B121D18285BC900CFEE08 /* libpng16.16.dylib */,
+				431B121A18285BAB00CFEE08 /* libIlmImf-Imf_2_0.20.dylib */,
+				431B121818285B9200CFEE08 /* libHalf.10.dylib */,
+				431B1216182858F500CFEE08 /* libtiff.5.dylib */,
 				43760F0617070EDC00ED2679 /* Carbon.framework */,
 				43760F0417070EBC00ED2679 /* ApplicationServices.framework */,
 				43760EF917070DD800ED2679 /* CoreFoundation.framework */,
@@ -1978,15 +1919,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		43BA322E1703A4F200D165A4 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				43BA32461703A54800D165A4 /* lm.h in Headers */,
-				43BA324E1703A54800D165A4 /* misc.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		43BA325A1703A5BE00D165A4 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -2016,6 +1948,7 @@
 				43BA338E1703B09600D165A4 /* FitPanorama.h in Headers */,
 				43BA33901703B09600D165A4 /* NonaFileStitcher.h in Headers */,
 				43BA33921703B09600D165A4 /* ImageGraph.h in Headers */,
+				431B123A182972BE00CFEE08 /* Exiv2Helper.h in Headers */,
 				43BA33941703B09600D165A4 /* PhotometricOptimizer.h in Headers */,
 				43BA33961703B09600D165A4 /* PTOptimizer.h in Headers */,
 				43BA33981703B09600D165A4 /* PanoramaMakefilelibExport.h in Headers */,
@@ -2165,40 +2098,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		43BA34D31704F65E00D165A4 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				43BA35021704F71600D165A4 /* all_indices.h in Headers */,
-				43BA35031704F71600D165A4 /* autotuned_index.h in Headers */,
-				43BA35041704F71600D165A4 /* composite_index.h in Headers */,
-				43BA35051704F71600D165A4 /* dist.h in Headers */,
-				43BA35061704F71600D165A4 /* hierarchical_clustering_index.h in Headers */,
-				43BA35071704F71600D165A4 /* kdtree_index.h in Headers */,
-				43BA35081704F71600D165A4 /* kdtree_single_index.h in Headers */,
-				43BA35091704F71600D165A4 /* kmeans_index.h in Headers */,
-				43BA350A1704F71600D165A4 /* linear_index.h in Headers */,
-				43BA350B1704F71600D165A4 /* nn_index.h in Headers */,
-				43BA350E1704F71600D165A4 /* flann.h in Headers */,
-				43BA350F1704F71600D165A4 /* flann.hpp in Headers */,
-				43BA35101704F71600D165A4 /* general.h in Headers */,
-				43BA35111704F71600D165A4 /* hdf5.h in Headers */,
-				43BA35121704F71600D165A4 /* ground_truth.h in Headers */,
-				43BA35141704F71600D165A4 /* index_testing.h in Headers */,
-				43BA35151704F71600D165A4 /* simplex_downhill.h in Headers */,
-				43BA35161704F71600D165A4 /* allocator.h in Headers */,
-				43BA35171704F71600D165A4 /* heap.h in Headers */,
-				43BA35191704F71600D165A4 /* logger.h in Headers */,
-				43BA351A1704F71600D165A4 /* matrix.h in Headers */,
-				43BA351B1704F71600D165A4 /* object_factory.h in Headers */,
-				43BA351E1704F71600D165A4 /* random.h in Headers */,
-				43BA351F1704F71600D165A4 /* result_set.h in Headers */,
-				43BA35201704F71600D165A4 /* sampling.h in Headers */,
-				43BA35221704F71600D165A4 /* saving.h in Headers */,
-				43BA35231704F71600D165A4 /* timer.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		43BA35261704F90600D165A4 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -2244,7 +2143,7 @@
 			);
 			name = hpi;
 			productName = hpi;
-			productReference = 433534601713868B00889E02 /* libhpi-2013.0.dylib */;
+			productReference = 433534601713868B00889E02 /* libhpi-2014.0.dylib */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
 		43A22BD1170E21B700D5A7CC /* zthread */ = {
@@ -2278,24 +2177,7 @@
 			);
 			name = hugin_vigra_impex;
 			productName = vigra_impex;
-			productReference = 43BA31B71702E7D500D165A4 /* libhugin_vigra_impex-2013.0.dylib */;
-			productType = "com.apple.product-type.library.dynamic";
-		};
-		43BA322F1703A4F200D165A4 /* levmar */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 43BA32311703A4F200D165A4 /* Build configuration list for PBXNativeTarget "levmar" */;
-			buildPhases = (
-				43BA322C1703A4F200D165A4 /* Sources */,
-				43BA322D1703A4F200D165A4 /* Frameworks */,
-				43BA322E1703A4F200D165A4 /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = levmar;
-			productName = levmar;
-			productReference = 43BA32301703A4F200D165A4 /* liblevmar-2013.0.dylib */;
+			productReference = 43BA31B71702E7D500D165A4 /* libhugin_vigra_impex-2014.0.dylib */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
 		43BA325B1703A5BE00D165A4 /* lensdb */ = {
@@ -2312,7 +2194,7 @@
 			);
 			name = lensdb;
 			productName = lensdb;
-			productReference = 43BA325C1703A5BE00D165A4 /* liblensdb-2013.0.dylib */;
+			productReference = 43BA325C1703A5BE00D165A4 /* liblensdb-2014.0.dylib */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
 		43BA32701703AE6200D165A4 /* hugin_base */ = {
@@ -2328,12 +2210,11 @@
 			dependencies = (
 				43BA3419170428FF00D165A4 /* PBXTargetDependency */,
 				43BA34091703B20A00D165A4 /* PBXTargetDependency */,
-				43BA340B1703B20A00D165A4 /* PBXTargetDependency */,
 				43BA34071703B1C500D165A4 /* PBXTargetDependency */,
 			);
 			name = hugin_base;
 			productName = hugin_base;
-			productReference = 43BA32711703AE6200D165A4 /* libhugin_base-2013.0.dylib */;
+			productReference = 43BA32711703AE6200D165A4 /* libhugin_base-2014.0.dylib */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
 		43BA32791703AED500D165A4 /* makefile */ = {
@@ -2350,7 +2231,7 @@
 			);
 			name = makefile;
 			productName = makefile;
-			productReference = 43BA327A1703AED500D165A4 /* libmakefile-2013.0.dylib */;
+			productReference = 43BA327A1703AED500D165A4 /* libmakefile-2014.0.dylib */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
 		43BA34281704354300D165A4 /* lines */ = {
@@ -2368,7 +2249,7 @@
 			);
 			name = lines;
 			productName = lines;
-			productReference = 43BA34291704354300D165A4 /* liblines-2013.0.dylib */;
+			productReference = 43BA34291704354300D165A4 /* liblines-2014.0.dylib */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
 		43BA344C1704ED3000D165A4 /* celeste */ = {
@@ -2383,12 +2264,11 @@
 			buildRules = (
 			);
 			dependencies = (
-				43BA34831704EDCA00D165A4 /* PBXTargetDependency */,
 				43BA34811704EDA600D165A4 /* PBXTargetDependency */,
 			);
 			name = celeste;
 			productName = celeste;
-			productReference = 43BA344D1704ED3000D165A4 /* libceleste-2013.0.dylib */;
+			productReference = 43BA344D1704ED3000D165A4 /* libceleste-2014.0.dylib */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
 		43BA349C1704F59500D165A4 /* localfeatures */ = {
@@ -2406,24 +2286,7 @@
 			);
 			name = localfeatures;
 			productName = localfeatures;
-			productReference = 43BA349D1704F59500D165A4 /* liblocalfeatures-2013.0.dylib */;
-			productType = "com.apple.product-type.library.dynamic";
-		};
-		43BA34D41704F65E00D165A4 /* flann */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 43BA34D61704F65E00D165A4 /* Build configuration list for PBXNativeTarget "flann" */;
-			buildPhases = (
-				43BA34D11704F65E00D165A4 /* Sources */,
-				43BA34D21704F65E00D165A4 /* Frameworks */,
-				43BA34D31704F65E00D165A4 /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = flann;
-			productName = flann;
-			productReference = 43BA34D51704F65E00D165A4 /* libflann-2013.0.dylib */;
+			productReference = 43BA349D1704F59500D165A4 /* liblocalfeatures-2014.0.dylib */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
 		43BA35271704F90600D165A4 /* base_wx */ = {
@@ -2443,7 +2306,7 @@
 			);
 			name = base_wx;
 			productName = base_wx;
-			productReference = 43BA35281704F90600D165A4 /* libbase_wx-2013.0.dylib */;
+			productReference = 43BA35281704F90600D165A4 /* libbase_wx-2014.0.dylib */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
 		43BA36E71705750400D165A4 /* icpfind */ = {
@@ -2462,7 +2325,7 @@
 			);
 			name = icpfind;
 			productName = icpfind;
-			productReference = 43BA36E81705750400D165A4 /* libicpfind-2013.0.dylib */;
+			productReference = 43BA36E81705750400D165A4 /* libicpfind-2014.0.dylib */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
 		43D3717817079DD100B3B844 /* hsi */ = {
@@ -2513,14 +2376,12 @@
 				433534681713880100889E02 /* swigpyrun.h */,
 				43BA35271704F90600D165A4 /* base_wx */,
 				43BA344C1704ED3000D165A4 /* celeste */,
-				43BA34D41704F65E00D165A4 /* flann */,
 				4335345F1713868B00889E02 /* hpi */,
 				43D3717817079DD100B3B844 /* hsi */,
 				43BA32701703AE6200D165A4 /* hugin_base */,
 				43BA31B61702E7D500D165A4 /* hugin_vigra_impex */,
 				43BA36E71705750400D165A4 /* icpfind */,
 				43BA325B1703A5BE00D165A4 /* lensdb */,
-				43BA322F1703A4F200D165A4 /* levmar */,
 				43BA34281704354300D165A4 /* lines */,
 				43BA349C1704F59500D165A4 /* localfeatures */,
 				43BA32791703AED500D165A4 /* makefile */,
@@ -2550,6 +2411,7 @@
 			files = (
 			);
 			inputPaths = (
+				"$(SRCROOT)/../src/hugin_script_interface/hsi.i",
 			);
 			name = "Run Script - Preprocess swig headers and Create hsi_wrap.cxx";
 			outputPaths = (
@@ -2557,7 +2419,8 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -x\n# Comands\nPATH=\"$PATH:$REPOSITORY_DIR/bin\"\nSWIG=\"swig\"\n\nfunction _preprocess()\n{\n    local in=\"$1\"\n    local out=\"$2\"\n    if [ ! -f $out ]; then\n        g++ -E -D_HSI_IGNORE_SECTION -DHUGIN_HSI=1 \"${in}\" > \"${out}\"\n    else\n        g++ -E -D_HSI_IGNORE_SECTION -DHUGIN_HSI=1 \"${in}\" > \"${out}-temp\"\n        if [ \"x$(diff -u ${out} ${out}-temp | wc -l | sed 's/ //g')\" = \"x0\" ]; then\n            rm ${out}-temp\n        else\n            mv ${out}-temp ${out}\n        fi\n    fi\n}\n\n# $Id: preprocess_swig_headers $\nHUGIN_BASE_DIR=\"../src\"\nPanoheader_dir=\"../src/hugin_base/panodata\"\nHSI_dir=\"../src/hugin_script_interface\"\n\n# First C-preprocess the sections from accessor-generating\n# headers that SWIG needs to see, ignoring the parts\n# where _HSI_IGNORE_SECTION is define.\n_preprocess \"$Panoheader_dir/ImageVariableGroup.h\"  \"$HSI_dir/hsi_ImageVariableGroup.h\"\n_preprocess \"$Panoheader_dir/Panorama.h\"            \"$HSI_dir/hsi_Panorama.h\"\n_preprocess \"$Panoheader_dir/PanoramaData.h\"        \"$HSI_dir/hsi_PanoramaData.h\"\n_preprocess \"$Panoheader_dir/SrcPanoImage.h\"        \"$HSI_dir/hsi_SrcPanoImage.h\"\n\n# Now create the hsiPYTHON_wrap.cxx\ninclude_folders=\"-I../src/hugin_script_interface -I../src -I../src/hugin_base -I../src/foreign/vigra -I../src/celeste -I../src -I/usr/include -I$REPOSITORY_DIR/include/python2.7\"\n\n# xcode does not like swig warnings\noutput=hsiPYTHON_wrap.cxx\nif [ ! -f \"$HSI_dir/$output\" ]; then\n    $SWIG -python -outdir $HSI_dir -c++ $include_folders -o $HSI_dir/${output}  $HSI_dir/hsi.i 2>&1 | grep -v Warning\nelse\n    $SWIG -python -outdir $HSI_dir -c++ $include_folders -o $HSI_dir/temp-${output}  $HSI_dir/hsi.i 2>&1 | grep -v Warning\n    if [ \"x$(diff -u $HSI_dir/$output $HSI_dir/temp-$output | wc -l | sed 's/ //g')\" = \"x0\" ]; then\n        rm $HSI_dir/temp-$output\n    else\n        mv $HSI_dir/temp-$output $HSI_dir/$output\n    fi\nfi\n\n# we're using the framework, so the way the Python header is included changes\nperl -p -i -e 's,#include <Python.h>,#include <Python27/Python.h>,' $HSI_dir/hsiPYTHON_wrap.cxx\n\n[ -f $HSI_dir/hsiPYTHON_wrap.cxx ] && exit 0 || exit $?";
+			shellScript = "set -x\n# Comands\nPATH=\"$PATH:$REPOSITORY_DIR/bin\"\nSWIG=\"swig\"\n\nfunction _preprocess()\n{\n    local in=\"$1\"\n    local out=\"$2\"\n    if [ ! -f $out ]; then\n        g++ -E -D_HSI_IGNORE_SECTION -DHUGIN_HSI=1 \"${in}\" > \"${out}\"\n    else\n        g++ -E -D_HSI_IGNORE_SECTION -DHUGIN_HSI=1 \"${in}\" > \"${out}-temp\"\n        if [ \"x$(diff -u ${out} ${out}-temp | wc -l | sed 's/ //g')\" = \"x0\" ]; then\n            rm ${out}-temp\n        else\n            mv ${out}-temp ${out}\n        fi\n    fi\n}\n\n# $Id: preprocess_swig_headers $\nHUGIN_BASE_DIR=\"../src\"\nPanoheader_dir=\"../src/hugin_base/panodata\"\nHSI_dir=\"../src/hugin_script_interface\"\n\n# First C-preprocess the sections from accessor-generating\n# headers that SWIG needs to see, ignoring the parts\n# where _HSI_IGNORE_SECTION is define.\n_preprocess \"$Panoheader_dir/ImageVariableGroup.h\"  \"$HSI_dir/hsi_ImageVariableGroup.h\"\n_preprocess \"$Panoheader_dir/Panorama.h\"            \"$HSI_dir/hsi_Panorama.h\"\n_preprocess \"$Panoheader_dir/PanoramaData.h\"        \"$HSI_dir/hsi_PanoramaData.h\"\n_preprocess \"$Panoheader_dir/SrcPanoImage.h\"        \"$HSI_dir/hsi_SrcPanoImage.h\"\n\n# Now create the hsiPYTHON_wrap.cxx\ninclude_folders=\"-I../src/hugin_script_interface -I../src -I../src/hugin_base -I../src/foreign/vigra -I../src/celeste -I../src -I/usr/include -I$REPOSITORY_DIR/include/python2.7\"\n\n# xcode does not like swig warnings\noutput=hsiPYTHON_wrap.cxx\nif [ ! -f \"$HSI_dir/$output\" ]; then\n    $SWIG -python -outdir $HSI_dir -c++ $include_folders -o $HSI_dir/${output}  $HSI_dir/hsi.i 2>&1 | grep -v Warning\nelse\n    $SWIG -python -outdir $HSI_dir -c++ $include_folders -o $HSI_dir/temp-${output}  $HSI_dir/hsi.i 2>&1 | grep -v Warning\n    if [ \"x$(diff -u $HSI_dir/$output $HSI_dir/temp-$output | wc -l | sed 's/ //g')\" = \"x0\" ]; then\n        rm $HSI_dir/temp-$output\n    else\n        mv $HSI_dir/temp-$output $HSI_dir/$output\n    fi\nfi\n\n# we're using the framework, so the way the Python header is included changes\nperl -p -i -e 's,#\\s*include <Python.h>,#include <Python27/Python.h>,' $HSI_dir/hsiPYTHON_wrap.cxx\n\n[ -f $HSI_dir/hsiPYTHON_wrap.cxx ] && exit 0 || exit $?";
+			showEnvVarsInLog = 0;
 		};
 		43BA31CE1702EBF100D165A4 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2681,18 +2544,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		43BA322C1703A4F200D165A4 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				43BA32431703A54800D165A4 /* Axb.c in Sources */,
-				43BA32451703A54800D165A4 /* lm.c in Sources */,
-				43BA32481703A54800D165A4 /* lmbc.c in Sources */,
-				43BA324B1703A54800D165A4 /* lmlec.c in Sources */,
-				43BA324D1703A54800D165A4 /* misc.c in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		43BA32581703A5BE00D165A4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2745,6 +2596,7 @@
 				43BA33B81703B09600D165A4 /* CachedImageRemapper.cpp in Sources */,
 				43BA33BA1703B09600D165A4 /* ImageCache.cpp in Sources */,
 				43BA33BD1703B09600D165A4 /* LensDB.cpp in Sources */,
+				431B1239182972BE00CFEE08 /* Exiv2Helper.cpp in Sources */,
 				43BA33C91703B09600D165A4 /* ControlPoint.cpp in Sources */,
 				43BA33CD1703B09600D165A4 /* ImageVariableGroup.cpp in Sources */,
 				43BA33D01703B09600D165A4 /* Lens.cpp in Sources */,
@@ -2823,14 +2675,6 @@
 				43BA34C61704F5E000D165A4 /* keypoints.cpp in Sources */,
 				43BA34C71704F5E000D165A4 /* MathStuff.cpp in Sources */,
 				43BA34CA1704F5E000D165A4 /* RansacFiltering.cpp in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		43BA34D11704F65E00D165A4 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				43BA34DB1704F68900D165A4 /* flann_cpp.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2930,11 +2774,6 @@
 			target = 43BA31B61702E7D500D165A4 /* hugin_vigra_impex */;
 			targetProxy = 43BA34081703B20A00D165A4 /* PBXContainerItemProxy */;
 		};
-		43BA340B1703B20A00D165A4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 43BA322F1703A4F200D165A4 /* levmar */;
-			targetProxy = 43BA340A1703B20A00D165A4 /* PBXContainerItemProxy */;
-		};
 		43BA3419170428FF00D165A4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 43BA32791703AED500D165A4 /* makefile */;
@@ -2949,11 +2788,6 @@
 			isa = PBXTargetDependency;
 			target = 43BA32701703AE6200D165A4 /* hugin_base */;
 			targetProxy = 43BA34801704EDA600D165A4 /* PBXContainerItemProxy */;
-		};
-		43BA34831704EDCA00D165A4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 43BA322F1703A4F200D165A4 /* levmar */;
-			targetProxy = 43BA34821704EDCA00D165A4 /* PBXContainerItemProxy */;
 		};
 		43BA34D01704F62600D165A4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -3089,6 +2923,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 436838701743648400F72D33 /* BuildConfig.xcconfig */;
 			buildSettings = {
+				GCC_VERSION = "";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 			};
 			name = Debug;
@@ -3097,6 +2932,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 436838701743648400F72D33 /* BuildConfig.xcconfig */;
 			buildSettings = {
+				GCC_VERSION = "";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 			};
 			name = Release;
@@ -3169,37 +3005,6 @@
 			};
 			name = Release;
 		};
-		43BA32321703A4F200D165A4 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				EXECUTABLE_PREFIX = lib;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)-${HUGIN_VERSION_MAJOR}.${HUGIN_VERSION_MINOR}";
-			};
-			name = Debug;
-		};
-		43BA32331703A4F200D165A4 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				EXECUTABLE_PREFIX = lib;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)-${HUGIN_VERSION_MAJOR}.${HUGIN_VERSION_MINOR}";
-			};
-			name = Release;
-		};
 		43BA325E1703A5BE00D165A4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -3243,6 +3048,11 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(REPOSITORY_DIR)/lib",
+					"$(REPOSITORY_DIR)/lib",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)-${HUGIN_VERSION_MAJOR}.${HUGIN_VERSION_MINOR}";
 			};
 			name = Debug;
@@ -3257,6 +3067,11 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(REPOSITORY_DIR)/lib",
+					"$(REPOSITORY_DIR)/lib",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)-${HUGIN_VERSION_MAJOR}.${HUGIN_VERSION_MINOR}";
 			};
 			name = Release;
@@ -3272,6 +3087,10 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(REPOSITORY_DIR)/lib",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)-${HUGIN_VERSION_MAJOR}.${HUGIN_VERSION_MINOR}";
 			};
 			name = Debug;
@@ -3285,6 +3104,10 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(REPOSITORY_DIR)/lib",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)-${HUGIN_VERSION_MAJOR}.${HUGIN_VERSION_MINOR}";
 			};
 			name = Release;
@@ -3301,6 +3124,11 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(REPOSITORY_DIR)/lib",
+					"$(REPOSITORY_DIR)/lib",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)-${HUGIN_VERSION_MAJOR}.${HUGIN_VERSION_MINOR}";
 			};
 			name = Debug;
@@ -3316,6 +3144,11 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(REPOSITORY_DIR)/lib",
+					"$(REPOSITORY_DIR)/lib",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)-${HUGIN_VERSION_MAJOR}.${HUGIN_VERSION_MINOR}";
 			};
 			name = Release;
@@ -3380,37 +3213,6 @@
 			};
 			name = Release;
 		};
-		43BA34D71704F65E00D165A4 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				EXECUTABLE_PREFIX = lib;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				OTHER_CFLAGS = "-D_FLANN_VERSION=1.7.1";
-				PRODUCT_NAME = "$(TARGET_NAME)-${HUGIN_VERSION_MAJOR}.${HUGIN_VERSION_MINOR}";
-			};
-			name = Debug;
-		};
-		43BA34D81704F65E00D165A4 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				EXECUTABLE_PREFIX = lib;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				OTHER_CFLAGS = "-D_FLANN_VERSION=1.7.1";
-				PRODUCT_NAME = "$(TARGET_NAME)-${HUGIN_VERSION_MAJOR}.${HUGIN_VERSION_MINOR}";
-			};
-			name = Release;
-		};
 		43BA352A1704F90600D165A4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -3424,6 +3226,11 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(REPOSITORY_DIR)/lib",
+					"$(REPOSITORY_DIR)/lib",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)-${HUGIN_VERSION_MAJOR}.${HUGIN_VERSION_MINOR}";
 			};
 			name = Debug;
@@ -3439,6 +3246,11 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(REPOSITORY_DIR)/lib",
+					"$(REPOSITORY_DIR)/lib",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)-${HUGIN_VERSION_MAJOR}.${HUGIN_VERSION_MINOR}";
 			};
 			name = Release;
@@ -3455,6 +3267,11 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(REPOSITORY_DIR)/lib",
+					"$(REPOSITORY_DIR)/lib",
+				);
 				OTHER_CFLAGS = "${WX_CFLAGS}";
 				PRODUCT_NAME = "$(TARGET_NAME)-${HUGIN_VERSION_MAJOR}.${HUGIN_VERSION_MINOR}";
 			};
@@ -3470,6 +3287,11 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(REPOSITORY_DIR)/lib",
+					"$(REPOSITORY_DIR)/lib",
+				);
 				OTHER_CFLAGS = "${WX_CFLAGS}";
 				PRODUCT_NAME = "$(TARGET_NAME)-${HUGIN_VERSION_MAJOR}.${HUGIN_VERSION_MINOR}";
 			};
@@ -3480,6 +3302,15 @@
 			buildSettings = {
 				EXECUTABLE_EXTENSION = so;
 				EXECUTABLE_PREFIX = _;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(REPOSITORY_DIR)/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(REPOSITORY_DIR)/lib",
+					"$(REPOSITORY_DIR)/lib",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -3489,6 +3320,15 @@
 			buildSettings = {
 				EXECUTABLE_EXTENSION = so;
 				EXECUTABLE_PREFIX = _;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(REPOSITORY_DIR)/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(REPOSITORY_DIR)/lib",
+					"$(REPOSITORY_DIR)/lib",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -3568,15 +3408,6 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		43BA32311703A4F200D165A4 /* Build configuration list for PBXNativeTarget "levmar" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				43BA32321703A4F200D165A4 /* Debug */,
-				43BA32331703A4F200D165A4 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		43BA325D1703A5BE00D165A4 /* Build configuration list for PBXNativeTarget "lensdb" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -3627,15 +3458,6 @@
 			buildConfigurations = (
 				43BA349F1704F59500D165A4 /* Debug */,
 				43BA34A01704F59500D165A4 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		43BA34D61704F65E00D165A4 /* Build configuration list for PBXNativeTarget "flann" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				43BA34D71704F65E00D165A4 /* Debug */,
-				43BA34D81704F65E00D165A4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

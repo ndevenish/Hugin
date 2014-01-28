@@ -9,6 +9,7 @@ huginsrcdir="../src/hugin1/hugin"
 xrcsrcdir="$huginsrcdir/xrc"
 celeste_data="../src/celeste/data"
 icpfind_default="../src/hugin1/icpfind/default.mac"
+hugin_exiftool_arg="../src/hugin_base/algorithms/panorama_makefile/hugin_exiftool_copy.arg"
 
 rm -fR $resdir/xrc
 echo "copying xrc folder to $resdir/xrc"
@@ -44,9 +45,11 @@ sed -e "s+\${AUTHORS_LIST}+`echo $(cat ../authors.htm)`</td></tr>+g" \
 	
 rm $resdir/xrc/data/about.htm.in
 
-
 echo "copying celeste data"
 cp -f $celeste_data/* $resdir/xrc/
 
 echo "copying default cpdetector settings"
 cp -f $icpfind_default $resdir/xrc/default.setting
+
+echo "copying exiftool settings"
+cp -f $hugin_exiftool_arg $resdir/xrc
