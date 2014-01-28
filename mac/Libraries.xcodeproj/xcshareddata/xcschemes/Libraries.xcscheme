@@ -57,7 +57,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "43BA31B61702E7D500D165A4"
-               BuildableName = "libhugin_vigra_impex-2013.0.dylib"
+               BuildableName = "libhugin_vigra_impex-2014.0.dylib"
                BlueprintName = "hugin_vigra_impex"
                ReferencedContainer = "container:Libraries.xcodeproj">
             </BuildableReference>
@@ -71,7 +71,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "43BA322F1703A4F200D165A4"
-               BuildableName = "liblevmar-2013.0.dylib"
+               BuildableName = "liblevmar-2013.1.dylib"
                BlueprintName = "levmar"
                ReferencedContainer = "container:Libraries.xcodeproj">
             </BuildableReference>
@@ -85,7 +85,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "43BA325B1703A5BE00D165A4"
-               BuildableName = "liblensdb-2013.0.dylib"
+               BuildableName = "liblensdb-2014.0.dylib"
                BlueprintName = "lensdb"
                ReferencedContainer = "container:Libraries.xcodeproj">
             </BuildableReference>
@@ -99,7 +99,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "43BA32791703AED500D165A4"
-               BuildableName = "libmakefile-2013.0.dylib"
+               BuildableName = "libmakefile-2014.0.dylib"
                BlueprintName = "makefile"
                ReferencedContainer = "container:Libraries.xcodeproj">
             </BuildableReference>
@@ -113,7 +113,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "43BA32701703AE6200D165A4"
-               BuildableName = "libhugin_base-2013.0.dylib"
+               BuildableName = "libhugin_base-2014.0.dylib"
                BlueprintName = "hugin_base"
                ReferencedContainer = "container:Libraries.xcodeproj">
             </BuildableReference>
@@ -127,7 +127,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "43BA34281704354300D165A4"
-               BuildableName = "liblines-2013.0.dylib"
+               BuildableName = "liblines-2014.0.dylib"
                BlueprintName = "lines"
                ReferencedContainer = "container:Libraries.xcodeproj">
             </BuildableReference>
@@ -141,7 +141,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "43BA344C1704ED3000D165A4"
-               BuildableName = "libceleste-2013.0.dylib"
+               BuildableName = "libceleste-2014.0.dylib"
                BlueprintName = "celeste"
                ReferencedContainer = "container:Libraries.xcodeproj">
             </BuildableReference>
@@ -155,7 +155,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "43BA349C1704F59500D165A4"
-               BuildableName = "liblocalfeatures-2013.0.dylib"
+               BuildableName = "liblocalfeatures-2014.0.dylib"
                BlueprintName = "localfeatures"
                ReferencedContainer = "container:Libraries.xcodeproj">
             </BuildableReference>
@@ -169,7 +169,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "43BA34D41704F65E00D165A4"
-               BuildableName = "libflann-2013.0.dylib"
+               BuildableName = "libflann-2013.1.dylib"
                BlueprintName = "flann"
                ReferencedContainer = "container:Libraries.xcodeproj">
             </BuildableReference>
@@ -183,7 +183,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "43BA35271704F90600D165A4"
-               BuildableName = "libbase_wx-2013.0.dylib"
+               BuildableName = "libbase_wx-2014.0.dylib"
                BlueprintName = "base_wx"
                ReferencedContainer = "container:Libraries.xcodeproj">
             </BuildableReference>
@@ -197,7 +197,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "43BA36E71705750400D165A4"
-               BuildableName = "libicpfind-2013.0.dylib"
+               BuildableName = "libicpfind-2014.0.dylib"
                BlueprintName = "icpfind"
                ReferencedContainer = "container:Libraries.xcodeproj">
             </BuildableReference>
@@ -239,7 +239,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4335345F1713868B00889E02"
-               BuildableName = "libhpi-2013.0.dylib"
+               BuildableName = "libhpi-2014.0.dylib"
                BlueprintName = "hpi"
                ReferencedContainer = "container:Libraries.xcodeproj">
             </BuildableReference>
@@ -259,7 +259,7 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
-      buildConfiguration = "Debug"
+      buildConfiguration = "Release"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">

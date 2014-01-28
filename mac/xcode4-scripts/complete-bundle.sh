@@ -19,15 +19,15 @@ libraries="$App/Contents/$dylib_install_loc/*.dylib"
 # Copy External Libraries in .app/Contents/Libraries
 mkdir -p "$App/Contents/$dylib_install_loc"
 libs="libwx_osx_cocoau-$WX_VERSION libwx_osx_cocoau_gl-$WX_VERSION libpano13 \
-  $BOOST_THREAD_LIB-$BOOST_VER $BOOST_DATE_TIME_LIB-$BOOST_VER  \
-  $BOOST_FILESYSTEM_LIB-$BOOST_VER $BOOST_IOSTREAMS_LIB-$BOOST_VER  \
-  $BOOST_REGEX_LIB-$BOOST_VER $BOOST_SYSTEM_LIB-$BOOST_VER  \
-  $BOOST_SIGNALS_LIB-$BOOST_VER libpng libtiff libtiffxx libjpeg libIex  \
+  $BOOST_THREAD_LIB $BOOST_DATE_TIME_LIB  \
+  $BOOST_FILESYSTEM_LIB $BOOST_IOSTREAMS_LIB  \
+  $BOOST_REGEX_LIB $BOOST_SYSTEM_LIB $BOOST_SIGNALS_LIB \
+  libpng libtiff libtiffxx libjpeg libIex  \
   libIexMath libImath libIlmImf libIlmThread libHalf libexpat liblcms  \
   libintl libgettextsrc-$GETTEXT_VERSION libgettextpo \
   libgettextlib-$GETTEXT_VERSION libasprintf libexiv2 libgsl libgslcblas \
   libGLEW libiconv libffi libglib-2 libgio-2 libgobject-2 libgmodule-2 \
-  libgthread-2 liblensfun libvigraimpex"
+  libgthread-2 liblensfun libvigraimpex liblevmar libflann"
 for dylib in $libs; do
     cp -Rf $dylib_dir/$dylib*.*ylib "$App/Contents/$dylib_install_loc/"
 done
@@ -98,12 +98,3 @@ for lib in $lion_required_openmp_libs; do
         $new_install_name_dirname/$lib.dylib \
         $App/Contents/$dylib_install_loc/libvigraimpex.${VIGRA_IMPEX_VER}.dylib
 done
-
-# fix issue with libboost libraries where the symlink is not copied
-cd $TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/$dylib_install_loc
-ln -sf libboost_date_time-$BOOST_VER.dylib libboost_date_time.dylib
-ln -sf libboost_filesystem-$BOOST_VER.dylib libboost_filesystem.dylib
-ln -sf libboost_iostreams-$BOOST_VER.dylib libboost_iostreams.dylib
-ln -sf libboost_regex-$BOOST_VER.dylib libboost_regex.dylib
-ln -sf libboost_thread-$BOOST_VER.dylib libboost_thread.dylib
-ln -sf libboost_system-$BOOST_VER.dylib libboost_system.dylib

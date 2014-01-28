@@ -13,12 +13,12 @@ install_name_tool -change $old_install_name_dirname/libintl.8.dylib \
     $PythonLib/lib-dynload/_locale.so
 
 # Change install_name paths in _hsi
-install_name_tool -change $old_install_name_dirname/libboost_system-1_46.dylib \
+install_name_tool -change $old_install_name_dirname/libboost_system.dylib \
     @loader_path/../../../../../../libboost_system.dylib \
     $PythonLib/site-packages/_hsi.so
 
-install_name_tool -change $old_install_name_dirname/libpano13.2.dylib \
-    @loader_path/../../../../../../libpano13.2.dylib \
+install_name_tool -change $old_install_name_dirname/libpano13.3.dylib \
+    @loader_path/../../../../../../libpano13.3.dylib \
     $PythonLib/site-packages/_hsi.so
 
 install_name_tool -change $REPOSITORY_ABSOLUTE_PATH/Frameworks/Python27.framework/Versions/2.7/Python27 \
@@ -62,7 +62,7 @@ for w in $wx_python_libs; do
     for l in $wx_libs; do
 	install_name_tool -change $old_install_name_dirname/"$l"-"$WX_VERSION".dylib \
 	    @loader_path/../../../../../../../../"$l"-"$WX_VERSION".dylib \
-	    $PythonLib/site-packages/wx-$WX_VERSION-osx_cocoa/wx/$w
+	    	$PythonLib/site-packages/wx-$WX_VERSION-osx_cocoa/wx/$w
     done
 done
 
