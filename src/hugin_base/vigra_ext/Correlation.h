@@ -63,7 +63,10 @@ struct CorrelationResult
         { }
     // value at correlation peak.
     double maxi;
+    // position of maximum
     hugin_utils::FDiff2D maxpos;
+    // position of correlated point, used only when using projection aware routine
+    hugin_utils::FDiff2D corrPos;
     // curvature of the correlation peak
     hugin_utils::FDiff2D curv;
     double maxAngle;

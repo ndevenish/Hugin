@@ -174,6 +174,7 @@ private:
     // local fine tune
     hugin_utils::FDiff2D LocalFineTunePoint(unsigned int srcNr,
                                const vigra::Diff2D & srcPnt,
+                               hugin_utils::FDiff2D & movedSrcPnt,
                                unsigned int moveNr,
                                const hugin_utils::FDiff2D & movePnt);
 
@@ -270,6 +271,12 @@ private:
     DECLARE_DYNAMIC_CLASS(CPEditorPanel)
 
 };
+
+/** function for fine-tune with remapping to stereographic projection */
+vigra_ext::CorrelationResult PointFineTuneProjectionAware(const SrcPanoImage& templ, const vigra::UInt8RGBImage& templImg,
+    vigra::Diff2D templPos, int templSize,
+    const SrcPanoImage& search, const vigra::UInt8RGBImage& searchImg,
+    vigra::Diff2D searchPos, int sWidth);
 
 /** xrc handler */
 class CPEditorPanelXmlHandler : public wxXmlResourceHandler
