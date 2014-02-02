@@ -44,7 +44,9 @@
 #include "hugin/CPEditorPanel.h"
 #include "hugin/wxPanoCommand.h"
 #include "base_wx/MyProgressDialog.h"
+#include "algorithms/optimizer/PTOptimizer.h"
 #include "algorithms/basic/CalculateOptimalScale.h"
+#include "base_wx/PTWXDlg.h"
 
 // more standard includes if needed
 #include <algorithm>
@@ -421,7 +423,7 @@ void CPEditorPanel::OnCPEvent( CPEvent&  ev)
     case CPEvent::DELETE_REGION_SELECTED:
         {
             UIntSet cpToRemove;
-            if(currentPoints.size()>0)
+            if(!currentPoints.empty())
             {
                 wxRect rect=ev.getRect();
                 for(unsigned int i=0;i<currentPoints.size();i++)
@@ -627,8 +629,8 @@ void CPEditorPanel::estimateAndAddOtherPoint(const FDiff2D & p,
     op = EstimatePoint(FDiff2D(p.x, p.y), left);
     // check if point is in image.
     const SrcPanoImage & pImg = m_pano->getImage(otherImgNr);
-    if (p.x < (int) pImg.getSize().width() && p.x >= 0
-        && p.y < (int) pImg.getSize().height() && p.y >= 0)
+    if (op.x < (int) pImg.getSize().width() && op.x >= 0
+        && op.y < (int) pImg.getSize().height() && op.y >= 0)
     {
         otherImg->setNewPoint(op);
         // if fine-tune is checked, run a fine-tune session as well.
@@ -738,7 +740,12 @@ void CPEditorPanel::NewPointChange(FDiff2D p, bool left)
             thisImg->showPosition(p);
         } else {
             // run auto-estimate procedure?
-            if (estimate && (thisImgNr != otherImgNr) && currentPoints.size() > 0) {
+            bool hasNormalCP = false;
+            for (HuginBase::CPointVector::const_iterator it = currentPoints.begin(); it != currentPoints.end() && !hasNormalCP; ++it)
+            {
+                hasNormalCP = (it->second.mode == HuginBase::ControlPoint::X_Y);
+            };
+            if (estimate && (thisImgNr != otherImgNr) && hasNormalCP) {
                 estimateAndAddOtherPoint(p, left,
                                          thisImg, thisImgNr, THIS_POINT, THIS_POINT_RETRY,
                                          otherImg, otherImgNr, OTHER_POINT, OTHER_POINT_RETRY);
@@ -750,7 +757,12 @@ void CPEditorPanel::NewPointChange(FDiff2D p, bool left)
     } else if (cpCreationState == THIS_POINT) {
         thisImg->showPosition(p);
 
-        if (estimate && (thisImgNr != otherImgNr) && currentPoints.size() > 0) {
+        bool hasNormalCP = false;
+        for (HuginBase::CPointVector::const_iterator it = currentPoints.begin(); it != currentPoints.end() && !hasNormalCP; ++it)
+        {
+            hasNormalCP = (it->second.mode == HuginBase::ControlPoint::X_Y);
+        };
+        if (estimate && (thisImgNr != otherImgNr) && hasNormalCP) {
             estimateAndAddOtherPoint(p, left,
                                      thisImg, thisImgNr, THIS_POINT, THIS_POINT_RETRY,
                                      otherImg, otherImgNr, OTHER_POINT, OTHER_POINT_RETRY);
@@ -1870,7 +1882,7 @@ void CPEditorPanel::OnFineTuneButton(wxCommandEvent & e)
 
 void CPEditorPanel::OnCelesteButton(wxCommandEvent & e)
 {
-    if (currentPoints.size() == 0)
+    if (currentPoints.empty())
     {
         wxMessageBox(_("Cannot run celeste without at least one control point connecting the two images"),_("Error"));
         cout << "Cannot run celeste without at least one control point connecting the two images" << endl;
@@ -2053,37 +2065,89 @@ void CPEditorPanel::FineTuneNewPoint(bool left)
 
 FDiff2D CPEditorPanel::EstimatePoint(const FDiff2D & p, bool left)
 {
-    int imgNr = left? m_rightImageNr : m_leftImageNr;
-    const SrcPanoImage & img = m_pano->getImage(imgNr);
-    FDiff2D t;
-    if (currentPoints.size() == 0) {
+    size_t nrNormalCp = 0;
+    for (HuginBase::CPointVector::const_iterator it = currentPoints.begin(); it != currentPoints.end(); ++it)
+    {
+        if (it->second.mode == HuginBase::ControlPoint::X_Y)
+        {
+            ++nrNormalCp;
+        };
+    };
+    if (nrNormalCp==0)
+    {
         DEBUG_WARN("Cannot estimate position without at least one point");
         return FDiff2D(0,0);
     }
 
-    for (HuginBase::CPointVector::const_iterator it = currentPoints.begin(); it != currentPoints.end(); ++it) {
-        t.x += it->second.x2 - it->second.x1;
-        t.y += it->second.y2 - it->second.y1;
-    }
-    t.x /= currentPoints.size();
-    t.y /= currentPoints.size();
-    DEBUG_DEBUG("estimated translation: x: " << t.x << " y: " << t.y);
+    // get copy of SrcPanoImage and reset position
+    SrcPanoImage leftImg = m_pano->getSrcImage(left ? m_leftImageNr : m_rightImageNr);
+    leftImg.setYaw(0);
+    leftImg.setPitch(0);
+    leftImg.setRoll(0);
+    leftImg.setX(0);
+    leftImg.setY(0);
+    leftImg.setZ(0);
+    SrcPanoImage rightImg = m_pano->getSrcImage(left ? m_rightImageNr : m_leftImageNr);
+    rightImg.setYaw(0);
+    rightImg.setPitch(0);
+    rightImg.setRoll(0);
+    rightImg.setX(0);
+    rightImg.setY(0);
+    rightImg.setZ(0);
+    // generate a temporary pano
+    Panorama optPano;
+    optPano.addImage(leftImg);
+    optPano.addImage(rightImg);
+    // construct OptimizeVector
+    OptimizeVector optVec;
+    std::set<std::string> opt;
+    optVec.push_back(opt);
+    opt.insert("y");
+    opt.insert("p");
+    if (nrNormalCp > 1)
+    {
+        opt.insert("r");
+    };
+    optVec.push_back(opt);
+    optPano.setOptimizeVector(optVec);
+    // now add control points, need to check image numbers
+    HuginBase::CPVector cps;
+    for (HuginBase::CPointVector::const_iterator it = currentPoints.begin(); it != currentPoints.end(); ++it)
+    {
+        HuginBase::ControlPoint cp(it->second);
+        if (cp.mode == HuginBase::ControlPoint::X_Y)
+        {
+            cp.image1Nr = left ? 0 : 1;
+            cp.image2Nr = left ? 1 : 0;
+            cps.push_back(cp);
+        };
+    };
+    optPano.setCtrlPoints(cps);
+    deregisterPTWXDlgFcn();
+    HuginBase::PTools::optimize(optPano);
+    registerPTWXDlgFcn(wxTheApp->GetTopWindow());
 
-    if (left) {
-        t.x += p.x;
-        t.y += p.y;
-    } else {
-        t.x = p.x - t.x;
-        t.y = p.y - t.y;
-    }
-
-    // clip to fit to
-    if (t.x < 0) t.x=0;
-    if (t.y < 0) t.y=0;
-    if (t.x > img.getWidth()) t.x = img.getWidth();
-    if (t.y > img.getHeight()) t.y = img.getHeight();
-    DEBUG_DEBUG("estimated point " << t.x << "," << t.y);
-    return t;
+    // now transform the wanted point p to other image
+    HuginBase::PTools::Transform transformBackward;
+    transformBackward.createInvTransform(optPano.getImage(0), optPano.getOptions());
+    HuginBase::PTools::Transform transformForward;
+    transformForward.createTransform(optPano.getImage(1), optPano.getOptions());
+    FDiff2D t;
+    if (transformBackward.transformImgCoord(t, p))
+    {
+        if (transformForward.transformImgCoord(t, t))
+        {
+            // clip to fit to
+            if (t.x < 0) t.x = 0;
+            if (t.y < 0) t.y = 0;
+            if (t.x > optPano.getImage(1).getWidth()) t.x = optPano.getImage(1).getWidth();
+            if (t.y > optPano.getImage(1).getHeight()) t.y = optPano.getImage(1).getHeight();
+            DEBUG_DEBUG("estimated point " << t.x << "," << t.y);
+            return t;
+        };
+    };
+    wxBell();
+    return FDiff2D(0, 0);
 }
 
 void CPEditorPanel::OnColumnWidthChange( wxListEvent & e )

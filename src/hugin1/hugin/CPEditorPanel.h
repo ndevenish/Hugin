@@ -180,12 +180,6 @@ private:
 
     /** Estimate position of point in the other image
      *
-     *  simply average all point distances together
-     *  approximatly true for rectilinear images with roll and pitch
-     *   close to 0...
-     *  @todo use Pano Tools optimizer, to create better estimates,
-     *        that are correct in most cases..
-     *
      *  @param p point to warp to other image
      *  @param left true if p is located in left image.
      */
