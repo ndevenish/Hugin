@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
 "POT-Creation-Date: 2014-01-05 11:39+0100\n"
-"PO-Revision-Date: 2013-03-06 01:04+0100\n"
+"PO-Revision-Date: 2014-02-03 22:46+0100\n"
 "Last-Translator: Carl von Einem <carl@einem.net>\n"
 "Language-Team: deutsch <de@li.org>\n"
 "Language: de_DE\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.5.5\n"
+"X-Generator: Poedit 1.6.3\n"
 "X-Poedit-Basepath: d:\\usr\\src\\hugin\\hugin\\src\n"
 
 #: hugin1/base_wx/LensTools.cpp:37 hugin1/hugin/ImagesTree.cpp:369
@@ -1185,6 +1185,10 @@ msgid ""
 "But your project has non-zero Tpy and Tpp parameters.\n"
 "Should the Tpy and Tpp parameters reset to zero?"
 msgstr ""
+"Der Mosaik-/Ebenen-Modus funktioniert nur bei einer Umrechnungs-Ebene mit "
+"yaw=0 und pitch=0.\n"
+"Dieses Projekt hat aber Typ und Tpp Parameter ungleich Null.\n"
+"Sollen Tpy and Tpp auf Null zurück gesetzt werden?"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:2498 hugin1/hugin/PreviewFrame.cpp:235
 msgid "difference"
@@ -1252,11 +1256,12 @@ msgstr ""
 #: hugin1/hugin/GLPreviewFrame.cpp:2844
 msgid "For a very wide panorama, try equirectangular projection instead."
 msgstr ""
-"Versuchen Sie für ein sehr breites Panorama die equirektanguläre Projektion."
+"Versuchen Sie für ein sehr breites Panorama die sphärische (Equirectangular) "
+"Projektion."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:2846
 msgid " You could also try Panini projection."
-msgstr "Sie können auch die Panini-Projektion versuchen."
+msgstr "Sie können auch die Panini-Projektion ausprobieren."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:2851
 msgid ""
@@ -1706,27 +1711,23 @@ msgstr "Kamera-Translation Z"
 
 #: hugin1/hugin/ImagesTree.cpp:164
 msgid "Plane yaw"
-msgstr ""
+msgstr "Ebenen-Gierwinkel (yaw)"
 
 #: hugin1/hugin/ImagesTree.cpp:164
-#, fuzzy
 msgid "Translation remap plane yaw"
-msgstr "Parameter f. Translation"
+msgstr "Gierwinkel (yaw) der Ebene für die Translations-Berechnung"
 
 #: hugin1/hugin/ImagesTree.cpp:165
-#, fuzzy
 msgid "Plane pitch"
-msgstr "Nickwinkel (Pitch)"
+msgstr "Ebenen-Nickwinkel (pitch)"
 
 #: hugin1/hugin/ImagesTree.cpp:165
-#, fuzzy
 msgid "Translation remap plane pitch"
-msgstr "Parameter f. Translation"
+msgstr "Nickwinkel (pitch) der Ebene für die Translations-Berechnung"
 
 #: hugin1/hugin/ImagesTree.cpp:166
-#, fuzzy
 msgid "Camera translation"
-msgstr "Kamera-Translation X"
+msgstr "Kamera-Translation"
 
 #: hugin1/hugin/ImagesTree.cpp:168
 msgid "Lens type (f)"
@@ -1823,31 +1824,31 @@ msgstr "Linear"
 
 #: hugin1/hugin/ImagesTree.cpp:537 hugin1/hugin/ImagesTree.cpp:712
 msgid "not active"
-msgstr ""
+msgstr "Nicht aktiv"
 
 #: hugin1/hugin/ImagesTree.cpp:540 hugin1/hugin/ImagesTree.cpp:715
 msgid "active"
-msgstr ""
+msgstr "Aktiv"
 
 #: hugin1/hugin/ImagesTree.cpp:682
-#, fuzzy, c-format
+#, c-format
 msgid "Lens %ld"
-msgstr "Objektiv %d"
+msgstr "Objektiv %ld"
 
 #: hugin1/hugin/ImagesTree.cpp:685
-#, fuzzy, c-format
+#, c-format
 msgid "Stack %ld"
-msgstr "Stapel %d"
+msgstr "Stapel %ld"
 
 #: hugin1/hugin/ImagesTree.cpp:688
-#, fuzzy, c-format
+#, c-format
 msgid "Output stack %ld"
-msgstr "Ausgabestapel %d"
+msgstr "Ausgabestapel %ld"
 
 #: hugin1/hugin/ImagesTree.cpp:691
-#, fuzzy, c-format
+#, c-format
 msgid "Output exposure layer %ld"
-msgstr "Belichtungsebene %d"
+msgstr "Belichtungsebene %ld"
 
 #: hugin1/hugin/ImagesTree.cpp:1145 hugin1/hugin/ImagesTree.cpp:1160
 msgid "Link"
@@ -2027,7 +2028,7 @@ msgstr ""
 "Kann Datei \"%s\" nicht speichern.\n"
 "Möglicherweise ist die Datei oder der Ordner schreibgeschützt.\n"
 "\n"
-"(Error-Code %s)"
+"(Fehler-Code: %s)"
 
 #: hugin1/hugin/MainFrame.cpp:895
 msgid "Save PTmender script file"
@@ -2636,9 +2637,8 @@ msgid "Reset positions"
 msgstr "Positionen zurücksetzen"
 
 #: hugin1/hugin/PanoOperation.cpp:827
-#, fuzzy
 msgid "Reset translation parameters"
-msgstr "Parameter f. Translation"
+msgstr "Translations-Parameter zurücksetzen"
 
 #: hugin1/hugin/PanoOperation.cpp:830
 msgid "Reset lens parameters"
@@ -2755,9 +2755,8 @@ msgid "Thoby Projection"
 msgstr "Thoby-Projektion"
 
 #: hugin1/hugin/PanoPanel.cpp:160
-#, fuzzy
 msgid "Hammer-Aitoff Equal Area"
-msgstr "Lambert flächengleiche Azimutalprojektion"
+msgstr "Hammer-Aitoff, flächentreu"
 
 #: hugin1/hugin/PanoPanel.cpp:698
 msgid "width needs to be an integer bigger than 0"
@@ -2847,6 +2846,9 @@ msgid ""
 "Please check your settings, so that at least one image is in the output "
 "region."
 msgstr ""
+"Im für die Ausgabe definierten Bereich befinden sich keine aktiven Bilder.\n"
+"Bitte Einstellungen überprüfen, damit wenigstens ein Bild in diesem Bereich "
+"ist."
 
 #: hugin1/hugin/PluginItems.cpp:71
 msgid "Miscellaneous"
@@ -2946,15 +2948,13 @@ msgid "Select Enfuse"
 msgstr "Enfuse auswählen"
 
 #: hugin1/hugin/PreferencesDialog.cpp:338 translations/xrc.cpp:761
-#, fuzzy
 msgid "Select ExifTool argfile"
-msgstr "Punkt im linken Bild wählen"
+msgstr "ExifTool Argfile auswählen"
 
 #: hugin1/hugin/PreferencesDialog.cpp:340
 #: hugin1/hugin/PreferencesDialog.cpp:388
-#, fuzzy
 msgid "ExifTool Argfiles (*.arg)|*.arg|All Files(*)|*"
-msgstr "Log-Dateien (*.log)|*.log|Alle Dateien (*)|*"
+msgstr "ExifTool Argfiles (*.arg)|*.arg|Alle Dateien(*)|*"
 
 #: hugin1/hugin/PreferencesDialog.cpp:371
 #, c-format
@@ -2962,27 +2962,30 @@ msgid ""
 "File %s does not exist.\n"
 "Should the argfile be created with default tags?"
 msgstr ""
+"Datei %s existiert nicht.\n"
+"Soll das Argfile mit Standard-Tags erstellt werden?"
 
 #: hugin1/hugin/PreferencesDialog.cpp:372
 #: hugin1/hugin/PreferencesDialog.cpp:382
 msgid "Exiftool argfile"
-msgstr ""
+msgstr "Exiftool Argfile"
 
 #: hugin1/hugin/PreferencesDialog.cpp:381
 msgid ""
 "No file selected.\n"
 "Should an argfile be created with default tags?"
 msgstr ""
+"Keine Datei ausgewählt.\n"
+"Soll ein Argfile mit Standard-Tags erstellt werden?"
 
 #: hugin1/hugin/PreferencesDialog.cpp:386
-#, fuzzy
 msgid "Select new ExifTool argfile"
-msgstr "Punkt im linken Bild wählen"
+msgstr "Neues ExifTool Argfile auswählen"
 
 #: hugin1/hugin/PreferencesDialog.cpp:406
-#, fuzzy, c-format
+#, c-format
 msgid "Could not save file \"%s\"."
-msgstr "Konnte Projektdatei %s nicht öffnen."
+msgstr "Konnte Datei \"%s\" nicht speichern."
 
 #: hugin1/hugin/PreferencesDialog.cpp:685
 msgid "Really reset displayed preferences to default values?"
@@ -3113,15 +3116,13 @@ msgid "Error during Stitching"
 msgstr "Es ist ein Fehler während des Zusammenfügens aufgetreten."
 
 #: hugin1/hugin/huginApp.cpp:205
-#, fuzzy, c-format
+#, c-format
 msgid "Directory '%s' does not exists"
-msgstr ""
-"Verzeichnis %s existiert nicht.\n"
-"Bitte geben Sie ein existierendes Verzeichnis an."
+msgstr "Verzeichnis '%s' existiert nicht"
 
 #: hugin1/hugin/huginApp.cpp:209
 msgid "Could not set environment variable PYTHONHOME"
-msgstr ""
+msgstr "Konnte Umgebungsvariable PYTHONHOME nicht setzen"
 
 #: hugin1/hugin/wxPanoCommand.cpp:241 hugin1/hugin/wxPanoCommand.cpp:255
 #, c-format
@@ -4523,7 +4524,7 @@ msgstr "Rollwinkel (Roll):"
 
 #: translations/xrc.cpp:182
 msgid "Translation parameter"
-msgstr "Parameter f. Translation"
+msgstr "Translations-Parameter"
 
 #: translations/xrc.cpp:183 translations/xrc.cpp:895 translations/xrc.cpp:981
 msgid "X:"
@@ -4539,11 +4540,11 @@ msgstr "Z:"
 
 #: translations/xrc.cpp:186
 msgid "Tpy:"
-msgstr ""
+msgstr "Tpy:"
 
 #: translations/xrc.cpp:187
 msgid "Tpp:"
-msgstr ""
+msgstr "Tpp:"
 
 #: translations/xrc.cpp:188 translations/xrc.cpp:229
 msgid "Positions"
@@ -5257,7 +5258,7 @@ msgstr "Bild hinzufügen"
 
 #: translations/xrc.cpp:452
 msgid "Re-optimize"
-msgstr "Optimieren"
+msgstr "Erneut Optimieren"
 
 #: translations/xrc.cpp:455
 msgid "Fast Preview panorama"
@@ -5293,7 +5294,7 @@ msgstr "Zeige alle Kontrollpunkte in einer Tabelle"
 
 #: translations/xrc.cpp:466
 msgid "Display credits for the creators of Hugin"
-msgstr "Über Hugin"
+msgstr "Die Nennung der Beitragenden an Hugin anzeigen"
 
 #: translations/xrc.cpp:467
 msgid "Add new mask"
@@ -5593,7 +5594,7 @@ msgstr "Bildwinkel berechnen"
 
 #: translations/xrc.cpp:557
 msgid "Canvas Size:"
-msgstr "Panoramabildgröße:"
+msgstr "Panorama-Abmessungen:"
 
 #: translations/xrc.cpp:558 translations/xrc.cpp:637
 msgid "Width:"
@@ -5973,19 +5974,20 @@ msgid "Copy log messages to clipboard."
 msgstr "Kopiere Protokoll-Mitteilungen in die Zwischenablage."
 
 #: translations/xrc.cpp:673
-#, fuzzy
 msgid "Project save:"
-msgstr "Projektname:"
+msgstr "Projekt speichern:"
 
 #: translations/xrc.cpp:674
 msgid "Create makefile automatically during project save"
-msgstr ""
+msgstr "Makefile automatisch beim sichern des Projekts erstellen"
 
 #: translations/xrc.cpp:675
 msgid ""
 "Saves a makefile (.mk) beside the project file (.pto) for command line "
 "stitching"
 msgstr ""
+"Speichert ein Makefile (.mk) parallel zur Projekt-Datei (.pto) zur "
+"Verarbeitung über die Kommandozeile"
 
 #: translations/xrc.cpp:676
 msgid "Show hints about projections"
@@ -6326,36 +6328,34 @@ msgid "Advanced options"
 msgstr "Fortgeschrittene Optionen"
 
 #: translations/xrc.cpp:756
-#, fuzzy
 msgid "ExifTool options"
-msgstr "Optionen für Fusion"
+msgstr "Optionen für ExifTool"
 
 #: translations/xrc.cpp:757
 msgid "Copy metadata into final files using ExifTool"
 msgstr "Metadaten mit Hilfe von ExifTool in die fertigen Dateien kopieren"
 
 #: translations/xrc.cpp:758
-#, fuzzy
 msgid "ExifTool argfile:"
-msgstr "Punkt im linken Bild wählen"
+msgstr "ExifTool Argfile:"
 
 #: translations/xrc.cpp:759
-#, fuzzy
 msgid "Leave empty for default"
-msgstr "(für System-Voreinstellung leer lassen)"
+msgstr "Für Standard-Einstellung leer lassen"
 
 #: translations/xrc.cpp:763
-#, fuzzy
 msgid "Edit selected ExifTool argfile"
-msgstr "Punkt im linken Bild wählen"
+msgstr "Ausgewähltes ExifTool Argfile bearbeiten"
 
 #: translations/xrc.cpp:764
 msgid "Create Photo Sphere XMP data"
-msgstr ""
+msgstr "Erstelle Photo Sphere XMP Daten"
 
 #: translations/xrc.cpp:765
 msgid "This will only be done for equirectangular output images."
 msgstr ""
+"Dies wird nur bei der Ausgabe von sphärischen (Equirectangular) Bildern "
+"angewendet."
 
 #: translations/xrc.cpp:766
 msgid "Number of threads:"
@@ -6505,9 +6505,8 @@ msgid "Preferences - hugin"
 msgstr "Hugin - Voreinstellungen"
 
 #: translations/xrc.cpp:814
-#, fuzzy
 msgid "Edit ExifTool argfile"
-msgstr "Punkt im linken Bild wählen"
+msgstr "ExifTool Argfile bearbeiten"
 
 #: translations/xrc.cpp:815 translations/xrc.cpp:880 translations/xrc.cpp:964
 msgid "Center the preview horizontally"
@@ -6775,7 +6774,6 @@ msgid "Shows a grid."
 msgstr "Blendet ein Raster ein."
 
 #: translations/xrc.cpp:1055
-#, fuzzy
 msgid "Translation parameters"
 msgstr "Parameter f. Translation"
 
@@ -6792,9 +6790,8 @@ msgid "Color"
 msgstr "Farbe"
 
 #: translations/xrc.cpp:1063
-#, fuzzy
 msgid "to one (no color correction)"
-msgstr "auf Null (keine Belichtungskorrektur)"
+msgstr "auf Eins (keine Farbkorrektur)"
 
 #: translations/xrc.cpp:1068
 msgid "Reset values"
