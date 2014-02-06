@@ -34,17 +34,17 @@ IF(WIN32)
   ENDIF(${HUGIN_SHARED})
 
   # TODO: install documentation for panotools?
-  FIND_PATH(PANO13_SRC_DIR filter.h 
-            ${PANO13_INCLUDE_DIR}/pano13
-            DOC "Location of pano13 source"
+  FIND_PATH(PANO13_DOC_DIR Optimize.txt 
+            ${PANO13_INCLUDE_DIR}/../share/pano13/doc
+            DOC "Location of pano13 documentation"
             NO_DEFAULT_PATH)
-  INSTALL(FILES ${PANO13_SRC_DIR}/AUTHORS
-          ${PANO13_SRC_DIR}/COPYING
-          ${PANO13_SRC_DIR}/README
-          ${PANO13_SRC_DIR}/doc/Optimize.txt
-          ${PANO13_SRC_DIR}/doc/PTblender.readme
-          ${PANO13_SRC_DIR}/doc/PTmender.readme
-          ${PANO13_SRC_DIR}/doc/stitch.txt
+  INSTALL(FILES ${PANO13_DOC_DIR}/AUTHORS
+          ${PANO13_DOC_DIR}/COPYING
+          ${PANO13_DOC_DIR}/README
+          ${PANO13_DOC_DIR}/Optimize.txt
+          ${PANO13_DOC_DIR}/PTblender.readme
+          ${PANO13_DOC_DIR}/PTmender.readme
+          ${PANO13_DOC_DIR}/stitch.txt
           DESTINATION doc/panotools)
 
   # install enblend/enfuse files
