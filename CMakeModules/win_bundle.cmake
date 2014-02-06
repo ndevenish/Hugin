@@ -72,6 +72,7 @@ IF(WIN32)
 
   # find path to gnu make 
   FIND_PATH(GNUMake_DIR make.exe
+            ${SOURCE_BASE_DIR}/Make-4.0/x64/Release
             ${SOURCE_BASE_DIR}/Make-4.0/Release
             ${SOURCE_BASE_DIR}/Make-3.82/Release
             ${SOURCE_BASE_DIR}/Make-3.81/Release
@@ -104,6 +105,8 @@ IF(WIN32)
     FIND_FILE(JPEG_DLL
       NAMES jpeg.dll 
       PATHS 
+            ${SOURCE_BASE_DIR}/jpeg-9a/lib 
+            ${SOURCE_BASE_DIR}/jpeg-9a/x64/Release
             ${SOURCE_BASE_DIR}/jpeg-9/lib 
             ${SOURCE_BASE_DIR}/jpeg-8d/lib 
             ${SOURCE_BASE_DIR}/jpeg-8c/lib 
@@ -145,12 +148,12 @@ IF(WIN32)
     ENDIF()
     FIND_FILE(EXIV2_DLL 
       NAMES exiv2.dll 
-      PATHS ${SOURCE_BASE_DIR}/exiv2-0.23/msvc64/bin/x64/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.23/msvc64/bin/Win32/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.22/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.21.1/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.20/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.19/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.18.2/msvc/bin/ReleaseDLL
+      PATHS ${SOURCE_BASE_DIR}/exiv2/msvc2012/exiv2lib/x64/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.23/msvc64/bin/x64/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.23/msvc64/bin/Win32/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.22/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.21.1/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.20/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.19/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.18.2/msvc/bin/ReleaseDLL
       NO_SYSTEM_ENVIRONMENT_PATH
     )
     FIND_FILE(LIBEXPAT_DLL 
       NAMES libexpat.dll 
-      PATHS ${SOURCE_BASE_DIR}/exiv2-0.23/msvc64/bin/x64/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.23/msvc64/bin/Win32/ReleaseDLL ${SOURCE_BASE_DIR}/expat-2.0.1/win32/bin/Release ${SOURCE_BASE_DIR}/exiv2-0.22/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.21.1/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.20/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.19/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.18.2/msvc/bin/ReleaseDLL
+      PATHS ${SOURCE_BASE_DIR}/exiv2/msvc2012/exiv2lib/x64/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.23/msvc64/bin/x64/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.23/msvc64/bin/Win32/ReleaseDLL ${SOURCE_BASE_DIR}/expat-2.0.1/win32/bin/Release ${SOURCE_BASE_DIR}/exiv2-0.22/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.21.1/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.20/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.19/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.18.2/msvc/bin/ReleaseDLL
       NO_SYSTEM_ENVIRONMENT_PATH
     )
     FIND_FILE(GLEW_DLL
@@ -160,7 +163,7 @@ IF(WIN32)
     )
     FIND_FILE(GLUT_DLL
       NAMES glut.dll freeglut.dll glut32.dll
-      PATHS ${SOURCE_BASE_DIR}/freeglut-2.6.0/VisualStudio2008/Release ${SOURCE_BASE_DIR}/glut/Release
+      PATHS ${SOURCE_BASE_DIR}/freeglut-2.6.0/VisualStudio2008/Release ${SOURCE_BASE_DIR}/glut/Release ${SOURCE_BASE_DIR}/glut/lib
       NO_SYSTEM_ENVIRONMENT_PATH
     )
     # hand tuned dll, so that only necesarry dll are install and not all wxWidgets DLL to save space
@@ -198,14 +201,14 @@ IF(WIN32)
     )
     
     FIND_FILE(LENSFUN_DLL NAMES lensfun.dll PATHS ${SOURCE_BASE_DIR}/lensfun/bin NO_SYSTEM_ENVIRONMENT_PATH)
-    FIND_FILE(LENSFUN_GLIB2_DLL NAMES glib-2.dll PATHS ${SOURCE_BASE_DIR}/lensfun/bin NO_SYSTEM_ENVIRONMENT_PATH)
+    FIND_FILE(LENSFUN_GLIB2_DLL NAMES glib-2.dll glib-2-vs12.dll glib-2-vs11.dll glib-2-vs10.dll glib-2-vs9.dll PATHS ${SOURCE_BASE_DIR}/lensfun/bin NO_SYSTEM_ENVIRONMENT_PATH)
     INSTALL(FILES ${LENSFUN_DLL} ${LENSFUN_GLIB2_DLL} DESTINATION ${BINDIR})
 
     IF(HAVE_FFTW)
       FIND_FILE(FFTW3_DLL 
-        NAMES libfftw-3.3.dll 
-        PATHS ${SOURCE_BASE_DIR}/${SOURCE_BASE_DIR}/fftw-3.3.3/fftw-3.3-libs/x64 
-              ${SOURCE_BASE_DIR}/${SOURCE_BASE_DIR}/fftw-3.3.3/fftw-3.3-libs/
+        NAMES libfftw-3.3.dll
+        PATHS ${SOURCE_BASE_DIR}/fftw-3.3.3/fftw-3.3-libs/x64 
+              ${SOURCE_BASE_DIR}/fftw-3.3.3/fftw-3.3-libs/
           NO_SYSTEM_ENVIRONMENT_PATH)
       INSTALL(FILES ${FFTW3_DLL} DESTINATION ${BINDIR})
     ENDIF()
