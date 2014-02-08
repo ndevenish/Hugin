@@ -1,9 +1,275 @@
-2013-12-31 16:48 +0100  harryvanderwolf <hvdwolf@gmail.com>  (85d3b7b01fa0)  tip
+2014-01-21 20:22 +0100  tmodes  (dd7a6b037e16)  tip
 
-	raise version number in 2014.0 branch
+	Some fixes for next wxWidgets version
+
+	> src/hugin1/hugin/GLPreviewFrame.cpp
+	> src/hugin1/hugin/GLViewer.cpp
+	> src/hugin1/hugin/PreviewFrame.cpp
+	> src/hugin1/hugin/treelistctrl.cpp
+
+2014-01-21 20:21 +0100  tmodes  (8d6de6401f1f)  
+
+	Removed now unnecessary version checks (wxWidgets version >=2.8 is
+	required)
+
+	> src/hugin1/base_wx/PTWXDlg.cpp
+	> src/hugin1/calibrate_lens/LensCalApp.cpp
+	> src/hugin1/hugin/huginApp.cpp
+
+2014-01-21 19:55 +0100  tmodes  (5509c03a72f6)  
+
+	Use correct statusbar for display status when batch failed
+
+	> src/hugin1/ptbatcher/Batch.cpp
+
+2014-01-18 10:37 +0100  tmodes  (86513c03f146)  
+
+	[Windows] Find also lensfun debug libraries
+
+	> CMakeModules/FindLensfun.cmake
+
+2014-01-18 09:58 +0100  tmodes  (4169a902903c)  
+
+	[align_image_stack] Improved quiet output
+
+	> src/tools/align_image_stack.cpp
+
+2014-01-15 14:23 +0100  harryvanderwolf <hvdwolf@gmail.com>  (c884a810deb2)  
+
+	Update copyright stamp to 2014
+
+	> src/hugin1/hugin/xrc/data/intro.htm
+
+2014-01-12 10:34 +0100  tmodes  (f289d0f6b3a4)  
+
+	[Windows] Enforce using cmd.exe as shell in makefile even if
+	%ComSpec% points to other shell [1268219]
+
+	> src/hugin_base/algorithms/assistant_makefile/AssistantMakefilelibExport.cpp
+	> src/hugin_base/algorithms/panorama_makefile/PanoramaMakefilelibExport.cpp
+
+2014-01-10 17:35 +0100  tmodes  (8e36608098ae)  
+
+	Fix condition for if clause in GLSL shading code
+
+	> src/hugin_base/panotools/PanoToolsTransformGPU.cpp
+
+2014-01-10 09:54 +1100  tduell@iinet.net.au  (4a4b4bd7b6b6)  
+
+	Update cpclean.pod
+
+	> doc/cpclean.pod
+
+2014-01-09 21:05 +0100  mcri  (5a7ef7a3435a)  
+
+	Update Italian translation.
+
+	> src/translations/it.po
+
+2014-01-08 18:35 +0100  tmodes  (b5c2ca3f457f)  
+
+	Updated Hungarian translation (Lajos ) [1266848]
+
+	> src/translations/hu.po
+
+2014-01-08 08:46 +1100  tduell@iinet.net.au  (2beebfe33567)  
+
+	Update checkpto.pod
+
+	> doc/checkpto.pod
+
+2014-01-08 08:31 +1100  tduell@iinet.net.au  (5d661ae6cd33)  
+
+	Update autooptimiser.pod
+
+	> doc/autooptimiser.pod
+
+2014-01-07 17:08 +1100  tduell@iinet.net.au  (f60e782219f4)  
+
+	Update align_image_stack pod file.
+
+	> doc/align_image_stack.pod
+
+2014-01-06 20:36 +0100  tmodes  (a120e0469a39)  
+
+	Updated Portuguese translations (Luís Henrique Camargo Quiroz)
+	[1266527]
+
+	> src/translations/pt_BR.po
+
+2014-01-06 20:35 +0100  tmodes  (b5db77904742)  
+
+	Updated Czech translation (Vaclav Cerny)
+
+	> src/translations/cs_CZ.po
+
+2014-01-05 19:29 +0100  Kornel Benko <kornelbenko@users.sourceforge.net>  (43953495f975)  
+
+	Update slovak translation
+
+	> src/translations/sk.po
+
+2014-01-05 11:50 +0100  tmodes  (ef8e7bd0a7e7)  
+
+	Updated help
+
+	> src/hugin1/hugin/xrc/data/help_en_EN/Enblend.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Hugin.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Hugin_Panorama_Workflow.html
+	> src/hugin1/hugin/xrc/data/help_en_EN/Pto_move.html
+
+2014-01-05 11:45 +0100  tmodes  (b945055f8749)  
+
+	Updated translations
+
+	> src/translations/cs_CZ.po
+	> src/translations/da.po
+	> src/translations/de.po
+	> src/translations/en_GB.po
+	> src/translations/es.po
+	> src/translations/eu.po
+	> src/translations/fi.po
+	> src/translations/fr.po
+	> src/translations/hu.po
+	> src/translations/hugin.pot
+	> src/translations/it.po
+	> src/translations/ja.po
+	> src/translations/nl.po
+	> src/translations/outdated/bg.po
+	> src/translations/outdated/ca_ES.po
+	> src/translations/outdated/ko.po
+	> src/translations/outdated/sl.po
+	> src/translations/outdated/uk.po
+	> src/translations/pl.po
+	> src/translations/pt_BR.po
+	> src/translations/ro.po
+	> src/translations/ru.po
+	> src/translations/sk.po
+	> src/translations/sv.po
+	> src/translations/zh_CN.po
+	> src/translations/zh_TW.po
+
+2014-01-05 11:35 +0100  tmodes  (c14e554dec09)  
+
+	align_image_stack: Use all cores or gpu for remapping
+
+	New switches added:
+	--threads=NUM: use given number of threads, default is number of
+	cores
+	--gpu use GPU for remapping (progress messages does not correctly
+	display in this case)
+
+	> src/tools/align_image_stack.cpp
+
+2014-01-05 11:33 +0100  tmodes  (17f5f0e93f39)  
+
+	Removed unused code
+
+	> src/tools/align_image_stack.cpp
+
+2014-01-05 11:32 +0100  tmodes  (2aa04e0781c8)  
+
+	Move GPU initialization to hugin_utils
+
+	> src/hugin_base/hugin_utils/utils.cpp
+	> src/hugin_base/hugin_utils/utils.h
+	> src/tools/nona.cpp
+
+2014-01-04 17:17 +0100  tmodes  (023f40d648a2)  
+
+	Some more typo
+
+	> src/hugin1/hugin/xrc/pref_dialog.xrc
+
+2014-01-04 17:01 +0100  Kornel Benko <kornelbenko@users.sourceforge.net>  (418c081a190f)  
+
+	Update slovak translation sk.po
+
+	Somehow my previous update were lost
+
+	> src/translations/sk.po
+
+2014-01-04 16:32 +0100  tmodes  (1f3f50a09f9f)  
+
+	Make support GPano tags depending on found exiftool version
 
 	> CMakeLists.txt
-	> mac/Version.xcconfig
+	> CMakeModules/win_bundle.cmake
+	> src/hugin1/hugin/PreferencesDialog.cpp
+	> src/hugin1/hugin/config_defaults.h
+	> src/hugin_base/algorithms/panorama_makefile/PanoramaMakefilelibExport.cpp
+	> src/hugin_config.h.in.cmake
+	> src/tools/checkpto.cpp
+
+2014-01-02 10:01 +0100  tmodes  (1fb032a114da)  
+
+	Fix some more typo
+
+	> src/hugin1/hugin/PanoPanel.cpp
+
+2014-01-02 09:57 +0100  tmodes  (6970abfdbe0b)  
+
+	Replaced autopano-noop.sh from settings
+
+	> src/hugin1/icpfind/default.unix
+
+2014-01-02 09:56 +0100  tmodes  (cee2c9743998)  
+
+	Unified writing of ExifTool, fixed some typos
+
+	> src/hugin1/hugin/PreferencesDialog.cpp
+	> src/hugin1/hugin/xrc/pref_dialog.xrc
+
+2014-01-02 09:26 +0100  Kornel Benko <kornelbenko@users.sourceforge.net>  (4fa5d587d869)  
+
+	Update slovak translations sk.po
+
+	> src/translations/sk.po
+
+2014-01-01 20:07 +0100  Thomas Pryds <thomas@pryds.eu>  (25c7934ed3b2)  
+
+	Updated Danish translation
+
+	> src/translations/da.po
+
+2014-01-01 18:48 +0100  harryvanderwolf <hvdwolf@gmail.com>  (1d98b013003f)  
+
+	fix broken formatting 2 manpages; fix some typos (patch by Andreas)
+
+	> doc/pto_mask.pod
+	> doc/pto_template.pod
+	> src/celeste/Celeste.h
+	> src/hugin1/base_wx/wxLensDB.h
+	> src/hugin1/hugin/AboutDialog.h
+	> src/hugin1/hugin/PreviewLayoutLinesTool.h
+	> src/hugin1/hugin/ViewState.h
+	> src/hugin_base/panodata/Panorama.cpp
+	> src/tools/pto_gen.cpp
+
+2014-01-01 15:47 +0100  tmodes  (043c377b5f56)  
+
+	Fixed a typo in string
+
+	> src/hugin1/hugin/xrc/pref_dialog.xrc
+
+2014-01-01 10:57 +0100  tmodes  (63496982c544)  
+
+	Added version check for exiftool
+
+	> CMakeLists.txt
+	> CMakeModules/win_bundle.cmake
+
+2014-01-01 10:22 +0100  tmodes  (10a27b24bf4c)  
+
+	Updated README
+
+	> README
+
+2013-12-31 20:05 +0100  harryvanderwolf <hvdwolf@gmail.com>  (8cf3968430f7)  
+
+	Update Dutch translation (one string uncertain)
+
+	> src/translations/nl.po
 
 2013-12-31 16:44 +0100  harryvanderwolf <hvdwolf@gmail.com>  (6210b26042fa)  
 
@@ -1235,8 +1501,8 @@
 
 	* Show line control point
 	* Better manipulation of line control points
-	* If the same image is shown in both controls, a new line can be
-	added by dragging with pressed alt key.
+	* If the same image is shown in both controls, a new line can be added
+	by dragging with pressed alt key.
 
 	> src/hugin1/hugin/CPEditorPanel.cpp
 	> src/hugin1/hugin/CPEditorPanel.h
@@ -3360,8 +3626,8 @@
 
 2012-11-17 13:19 +0100  harryvanderwolf <hvdwolf@gmail.com>  (afccbfa1fca9)  
 
-	[OSX] step 4 to move to a fully 64-bit Hugin; update and cleaning
-	of XCode project; some scripts; First step to compile 64bit Hugin
+	[OSX] step 4 to move to a fully 64-bit Hugin; update and cleaning of
+	XCode project; some scripts; First step to compile 64bit Hugin
 	bundle via cmake
 
 	+ mac/ExternalPrograms/scripts-legacy/tclap.sh
@@ -5518,8 +5784,8 @@
 	* Make images tab the main tab
 	* Removed lens panel. Moved functions to images tab
 	* Optimizer/photometric optimizer reworked: main switches moved to
-	images tab, extended the optimizer tab to directly manipulate
-	image variables
+	images tab, extended the optimizer tab to directly manipulate image
+	variables
 	* Added 3 level to GUI: beginner, advanced and expert to reduce
 	complexity for beginner
 
@@ -8456,9 +8722,9 @@
 	which a plugin works. If absent, it is assumed to work on all
 	platforms. Currently discerning only win / mac / nix platforms
 	* Implement plugin meta tags @api-min and @api-max to identify against
-	which version of Hugin the plugin has been tested to work. If
-	absent it is assumed to work on all versions of Hugin that are built
-	with HSI.
+	which version of Hugin the plugin has been tested to work. If absent
+	it is assumed to work on all versions of Hugin that are built with
+	HSI.
 	* Implement preference for location of user's custom script
 	* Existing file open dialog to run Python script repurposed to run
 	user's custom script (system-wide scripts are integrated in the
@@ -12308,8 +12574,8 @@
 2011-01-23 09:57 -0500  Yuval Levy <yuv@users.sourceforge.net>  (f545903e3b3a)  
 
 	* added splash screen artwork with clipping mask and instruction
-	* added xmas version of splash screen, went unused for 2010. maybe
-	for 2011?
+	* added xmas version of splash screen, went unused for 2010. maybe for
+	2011?
 
 	+ artwork-src/2010/splash/hugin-santa-splash.svg
 	+ artwork-src/2010/splash/splash_with_artwork.svg
@@ -15479,8 +15745,7 @@
 
 2010-10-31 12:49 -0400  Yuval Levy <yuv@users.sourceforge.net>  (a195d763c5d0)  
 
-	* makefilelib: pass compression parameter to enblend/enfuse
-	properly
+	* makefilelib: pass compression parameter to enblend/enfuse properly
 	* Hugin: default to LZW compression instead of PACKBITS
 
 	> src/hugin_base/algorithms/panorama_makefile/PanoramaMakefilelibExport.cpp
@@ -15825,8 +16090,8 @@
 	Change the stitcher tab layout: Move panorama targets to one list,
 	move partial result targets inside a wxCollapsiblePane (similar to
 	GTK's expander), hidden by default. Give targets more discriptive
-	and goal oriented labels. There were discussion about this on
-	Hugin-ptx ages ago, but nothing was implemented.
+	and goal oriented labels. There were discussion about this on Hugin-
+	ptx ages ago, but nothing was implemented.
 
 	> src/hugin1/hugin/PanoPanel.cpp
 	> src/hugin1/hugin/PanoPanel.h
@@ -16513,9 +16778,9 @@
 	+ Fixed Autopano-103 settings (wrong zip extraction) + Fixed
 	Match-n-shift settings (doubled .exe extension)
 
-	0.2.8 (2010-09-15) + Using Match-n-shift version 2008-02-19 (from
-	my Dropbox folder) + Added Stacked/Multirow settings (tests needed)
-	+ Added Italian translation to ControlPointDisclaimer + Added
+	0.2.8 (2010-09-15) + Using Match-n-shift version 2008-02-19 (from my
+	Dropbox folder) + Added Stacked/Multirow settings (tests needed) +
+	Added Italian translation to ControlPointDisclaimer + Added
 	HuginSetup.nsi with CMake settings directives (needs works) +
 	Updated 32/64bit installers for 2010.2.0-beta2 build (thanks to Aron
 	Helser - www.aronhelser.com )
@@ -23284,19 +23549,18 @@
 	images_cp_clean button placed just after section modified for the
 	stack buttons. resolved
 
-	Conflict discovered in 'src/hugin1/hugin/GLPreviewFrame.h'.
-	control point tool and layout lines tool added to the same place.
-	Kept both. resolved
+	Conflict discovered in 'src/hugin1/hugin/GLPreviewFrame.h'. control
+	point tool and layout lines tool added to the same place. Kept both.
+	resolved
 
 	Conflict discovered in 'src/hugin1/hugin/ImagesPanel.cpp'. void
 	ImagesPanel::OnCleanCP(wxCommandEvent & e) added in trunk just
 	before void ImagesPanel::OnVarTextChanged ( wxCommandEvent & e )
-	from gsoc2009_layout. ShowExifInfo from trunk added just before
-	X, Y, and Z parameters in void
-	ImagesPanel::ShowImgParameters(unsigned int imgNr). Kept both.
-	ShowExifInfo was moved down to keep similar code together. void
-	ImagesPanel::ReloadCPDetectorSettings() added from trunk near
-	ImagesPanel::OnNewStack(wxCommandEvent & e) and
+	from gsoc2009_layout. ShowExifInfo from trunk added just before X,
+	Y, and Z parameters in void ImagesPanel::ShowImgParameters(unsigned
+	int imgNr). Kept both. ShowExifInfo was moved down to keep similar
+	code together. void ImagesPanel::ReloadCPDetectorSettings() added
+	from trunk near ImagesPanel::OnNewStack(wxCommandEvent & e) and
 	ImagesPanel::OnChangeStack(wxCommandEvent & e) added in
 	gsoc2009_layout. Keep both. resolved
 
@@ -23310,8 +23574,8 @@
 	control_point_tool and m_layoutLinesTool added to the same place.
 	Keep both. resolved
 
-	Conflict discovered in 'src/hugin1/hugin/OptimizePanel.h'.
-	#includes added to the same place. Keep all. resolved
+	Conflict discovered in 'src/hugin1/hugin/OptimizePanel.h'. #includes
+	added to the same place. Keep all. resolved
 
 	+ src/hugin1/hugin/PreviewLayoutLinesTool.cpp
 	+ src/hugin1/hugin/PreviewLayoutLinesTool.h
@@ -23365,18 +23629,15 @@
 
 	command: svn merge -r 3873:4152 ../../gsoc/gsoc2009_layout/ .
 
-	Conflict discovered in 'src/hugin1/hugin/MeshManager.h'.
-	resolved
+	Conflict discovered in 'src/hugin1/hugin/MeshManager.h'. resolved
 
-	Conflict discovered in 'src/hugin1/hugin/CMakeLists.txt'.
-	resolved
+	Conflict discovered in 'src/hugin1/hugin/CMakeLists.txt'. resolved
 
-	Conflict discovered in 'src/hugin1/hugin/OptimizePanel.h'.
-	resolved
+	Conflict discovered in 'src/hugin1/hugin/OptimizePanel.h'. resolved
 
-	Conflict discovered in 'src/hugin_base/panodata/Panorama.cpp'.
-	There are changes in trunk to free old_locale in heavily modified
-	code, line around line 2052 and onwards. A large section of code was
+	Conflict discovered in 'src/hugin_base/panodata/Panorama.cpp'. There
+	are changes in trunk to free old_locale in heavily modified code,
+	line around line 2052 and onwards. A large section of code was
 	turned into a macro in gsoc2009_layout, the old_locale changes I
 	integrated into this section. This was the only change I made to the
 	large amount of conflicting code from trunk. I couldn't see anything
@@ -23388,12 +23649,12 @@
 
 	Conflict discovered in 'src/hugin_base/panodata/SrcPanoImage.h'
 	Required the addition of image variables to image_variables.h and
-	ImageVariableTranslate.h: double ExifFocalLength35; default
-	0, no PTO code. double ExifExposureTime; no default set in
-	trunk but I used 0, no PTO code. std::string ExifDate; no
-	default set explicitly in trunk but I used "", no PTO code.
-	Removed {get/set}{ExifFocalLength35/ExifExposureTime/ExifDate}.
-	These functions are generated by the image variable metaprogramming.
+	ImageVariableTranslate.h: double ExifFocalLength35; default 0, no
+	PTO code. double ExifExposureTime; no default set in trunk but I
+	used 0, no PTO code. std::string ExifDate; no default set explicitly
+	in trunk but I used "", no PTO code. Removed
+	{get/set}{ExifFocalLength35/ExifExposureTime/ExifDate}. These
+	functions are generated by the image variable metaprogramming.
 	Changed m_exifDate to m_ExifDate in const int getExifDateTime(struct
 	tm* datetime) const (line 310). Variables begin with a capital so
 	get and set functions have the capital.
@@ -23673,9 +23934,9 @@
 
 	Warning message was:
 
-	warning: Empty msgid. It is reserved by GNU gettext:
-	gettext("") returns the header entry with
-	meta information, not the empty string.
+	warning: Empty msgid. It is reserved by GNU gettext: gettext("")
+	returns the header entry with meta information, not the empty
+	string.
 
 	> src/hugin1/hugin/GLPreviewFrame.cpp
 	> src/hugin1/hugin/PanoPanel.cpp
@@ -24295,9 +24556,9 @@
 
 2009-10-30 06:25 +0000  gpatters1 <gpatters1@users.sourceforge.net>  (4d26ca29918e)  
 
-	[2888839] Crop tab retains obsolete images and crashes. Partial
-	fix. No longer crashes, but old image will still be displayed until
-	a new one is selected.
+	[2888839] Crop tab retains obsolete images and crashes. Partial fix.
+	No longer crashes, but old image will still be displayed until a new
+	one is selected.
 
 	> src/hugin1/hugin/CropPanel.cpp
 
@@ -48026,8 +48287,8 @@
 
 	fulla:
 	* improved merging of green and (red,blue) correction coefficients.
-	The previous scheme was an approximation and could lead to errors
-	of 0.2 pixels in a 6 megapixel image.
+	The previous scheme was an approximation and could lead to errors of
+	0.2 pixels in a 6 megapixel image.
 	* added option to output unscaled output with black borders.
 
 	> src/Panorama/SpaceTransform.cpp
@@ -53474,10 +53735,9 @@
 2005-01-17 01:29 +0000  dangelo <dangelo@users.sourceforge.net>  (8d91b185e859)  
 
 	Better EXIF reading: 1. handle cases where focal length and equiv.
-	focal length are given but not the sensor size. 2. Ask if for
-	crop factor if it is needed, but not in exif data. 3. redone hfov
-	<-> focal length calculations, support rectilinear and fisheye
-	lenses.
+	focal length are given but not the sensor size. 2. Ask if for crop
+	factor if it is needed, but not in exif data. 3. redone hfov <->
+	focal length calculations, support rectilinear and fisheye lenses.
 
 	> src/Panorama/PanoToolsInterface.cpp
 	> src/Panorama/Panorama.cpp
@@ -56147,8 +56407,8 @@
 	set in the image
 
 	some consistency changes:
-	- consistent coloring when setting points (red: modify existing
-	point, yellow, edit new point)
+	- consistent coloring when setting points (red: modify existing point,
+	yellow, edit new point)
 	- made active point slightly bigger
 	- circles scale up when using zoom > 100%
 
@@ -57962,8 +58222,8 @@
 2004-01-18 02:10 +0000  dangelo <dangelo@users.sourceforge.net>  (52a507525f73)  
 
 	- interface class to lowe's keypoint program
-	- simple matching routines, for matching multiple images, and
-	creating the overlap graph
+	- simple matching routines, for matching multiple images, and creating
+	the overlap graph
 
 	+ src/include/vigra_ext/LoweSIFT.h
 	+ src/include/vigra_ext/PointMatching.h
@@ -58284,8 +58544,8 @@
 2003-12-13 10:35 +0000  dangelo <dangelo@users.sourceforge.net>  (8f1ad57947cb)  
 
 	- auto estimate with first click, if 100% view is used
-	- fixed a bad bug: auto-estimate auto-add auto-finetune didn't use
-	the finetuned point, just the estimated point.
+	- fixed a bad bug: auto-estimate auto-add auto-finetune didn't use the
+	finetuned point, just the estimated point.
 	- added vertical/horizontal control point creation heuristic
 
 	> src/hugin/CPEditorPanel.cpp
@@ -58373,9 +58633,8 @@
 
 2003-12-01 07:36 +0000  dangelo <dangelo@users.sourceforge.net>  (0e4cc507ce14)  
 
-	- trying to save a multi image tiff. but doesn't work correctly,
-	at least the output looks strange in gimp-1.3.22 with new tiff
-	plugin
+	- trying to save a multi image tiff. but doesn't work correctly, at
+	least the output looks strange in gimp-1.3.22 with new tiff plugin
 
 	> src/include/PT/PanoramaMemento.h
 	> src/include/PT/SimpleStitcher.h
@@ -58710,8 +58969,8 @@
 
 2003-11-20 22:15 +0000  dangelo <dangelo@users.sourceforge.net>  (aa85fbafd21f)  
 
-	- while adding images, check if lenses match, and create new
-	lenses if ratio or hfov doesn't fit existing ones.
+	- while adding images, check if lenses match, and create new lenses
+	if ratio or hfov doesn't fit existing ones.
 
 	> src/include/hugin/wxPanoCommand.h
 
@@ -58974,9 +59233,9 @@
 
 	- added druid logic for NO_PLUMB_GUIDES, FEW_GUIDES, UNGUIDED_IMAGE
 	- tried a better determination for HUGE_FINAL: if the final image is
-	more than 400 megapixels, or if the final image has more pixels
-	than all source images combined; would still like to determine
-	available memory somehow
+	more than 400 megapixels, or if the final image has more pixels than
+	all source images combined; would still like to determine available
+	memory somehow
 
 	> src/hugin/PanoDruid.cpp
 
@@ -59042,8 +59301,8 @@
 2003-11-10 01:42 +0000  speare <speare@users.sourceforge.net>  (7a828590bda7)  
 
 	- launches stitcher process at higher niceness on unixen; should
-	have no effect if user is drinking coffee, but will be nicer if
-	the user is multitasking elsewhere.
+	have no effect if user is drinking coffee, but will be nicer if the
+	user is multitasking elsewhere.
 
 	> src/hugin/RunStitcherFrame.cpp
 
@@ -59109,8 +59368,8 @@
 
 2003-11-08 23:01 +0000  dangelo <dangelo@users.sourceforge.net>  (9419d0dc48f0)  
 
-	- quick hack test cases, for the transform and remap stuff not
-	very nice
+	- quick hack test cases, for the transform and remap stuff not very
+	nice
 
 	> src/tests/Makefile
 	> src/tests/panotools.cpp
@@ -59119,10 +59378,10 @@
 2003-11-08 22:59 +0000  dangelo <dangelo@users.sourceforge.net>  (7125cf0ce28f)  
 
 	- keys 1 and 0 set 100% or fit to window zoom mode
-	- hopefully better handling of the input fields. now enter will
-	apply the settings, as does tab or a mouseclick somewhere else.
-	There are still some uneeded updates, but it should be more
-	reliable than before
+	- hopefully better handling of the input fields. now enter will apply
+	the settings, as does tab or a mouseclick somewhere else. There are
+	still some uneeded updates, but it should be more reliable than
+	before
 	- change default image cache limit to 100 MB
 
 	> src/hugin/CPEditorPanel.cpp
@@ -59168,8 +59427,8 @@
 
 2003-11-05 02:51 +0000  speare <speare@users.sourceforge.net>  (f9ec64bd3eb9)  
 
-	- fixed minimum size for the anchor_orientation doodad, may still
-	be too small; needs some explanation too
+	- fixed minimum size for the anchor_orientation doodad, may still be
+	too small; needs some explanation too
 
 	> src/hugin/xrc/anchor_orientation.xrc
 
@@ -59190,11 +59449,10 @@
 	- added interface to Pano Tools transforms (PT/PanoToolsInterface)
 	- preview with lens distortions
 
-	- anchor selection window, with strange rotation behavior.. have
-	to dissect the transforms and calculate pitch & yaw for new
-	rotation values. Panotools apply rotation before yaw & pitch ->
-	images are rotatated around their center, not the yaw,pitch
-	position.
+	- anchor selection window, with strange rotation behavior.. have to
+	dissect the transforms and calculate pitch & yaw for new rotation
+	values. Panotools apply rotation before yaw & pitch -> images are
+	rotatated around their center, not the yaw,pitch position.
 
 	- always use 35 mm equiv focal length in focal length field
 
@@ -59284,8 +59542,8 @@
 
 2003-10-28 18:35 +0000  dangelo <dangelo@users.sourceforge.net>  (ec312bb63140)  
 
-	- fine tune key "f" changes the point in the current image (not
-	only the right img)
+	- fine tune key "f" changes the point in the current image (not only
+	the right img)
 
 	- points can be moved in zoomed out views properly (bugfix)
 
@@ -59797,10 +60055,10 @@
 
 	bugfixes:
 	  - show PTOptimizer window on windows
-	  - selecting CP in zoomed out views works better now, before the
-	point had to be clicked (almost) exactly.
-	  - added interface to report progress -> ImageCache does not depend
-	on hugin GUI anymore
+	  - selecting CP in zoomed out views works better now, before the point
+	had to be clicked (almost) exactly.
+	  - added interface to report progress -> ImageCache does not depend on
+	hugin GUI anymore
 
 	> src/hugin/CPEditorPanel.cpp
 	> src/hugin/CPImageCtrl.cpp
@@ -59896,8 +60154,8 @@
 
 	- Added some more debug statements to track the crash at exit
 	- Added more configuration options.
-	- fixed most assertation that appeared when I started using the
-	debug version of wxwindows
+	- fixed most assertation that appeared when I started using the debug
+	version of wxwindows
 
 	+ src/hugin/CPListFrame.cpp
 	+ src/include/hugin/CPListFrame.h
@@ -60027,9 +60285,8 @@
 	need to be installed, use bruno's rpm.
 
 	bugs of preview frame:
-	   - resizing the preview doesn't work nicely.. I don't know how to
-	get wxwindows sizers to honor a size change of a panel
-	correctly.
+	   - resizing the preview doesn't work nicely.. I don't know how to get
+	wxwindows sizers to honor a size change of a panel correctly.
 
 	 - no toolbar button
 
@@ -60317,8 +60574,8 @@
 2003-08-23 07:43 +0000  dangelo <dangelo@users.sourceforge.net>  (83644da31ddc)  
 
 	- moved some enums into PanoramaOptions
-	- Delete button in CPEditorPanel removes the selected point, not
-	some other (bugfix)
+	- Delete button in CPEditorPanel removes the selected point, not some
+	other (bugfix)
 
 	> src/hugin/CPEditorPanel.cpp
 	> src/hugin/PanoPanel.cpp
@@ -60527,8 +60784,8 @@
 2003-08-06 09:19 +0000  beku <beku@users.sourceforge.net>  (65785b6b4083)  
 
 	Panorama:
-	- changed Observer information to only after one image had been
-	loaded ( assuming this is after initialization ) (speed up) gui:
+	- changed Observer information to only after one image had been loaded
+	( assuming this is after initialization ) (speed up) gui:
 	- on initialize the values are set from gui (feature)
 	- needed size of preview sources is calculated more accurate (bugfix)
 	- applying changed values first and do preview as last part (bugfix)
@@ -60816,8 +61073,7 @@
 
 	CPEditor changes:
 	 - points can be edited with input fields
-	 - added subpixel coorelation search, but its buggy, so it is
-	disabled.
+	 - added subpixel coorelation search, but its buggy, so it is disabled.
 
 	> BUGS
 	> src/hugin/CPEditorPanel.cpp
@@ -60924,8 +61180,8 @@
 
 2003-07-23 11:39 +0000  beku <beku@users.sourceforge.net>  (032008b7928b)  
 
-	- locale,html and xrc should be found globaly on unix after a
-	make install
+	- locale,html and xrc should be found globaly on unix after a make
+	install
 
 	> src/hugin/huginApp.cpp
 
@@ -61337,9 +61593,9 @@
 
 	added semi automatic control point finder
 	 * a selected rectangle is searched in the other window
-	 * fine tune control points, if enabled searches for a good match
-	with the selection of the second point. search window size is
-	widht/10, height/10
+	 * fine tune control points, if enabled searches for a good match with
+	the selection of the second point. search window size is widht/10,
+	height/10
 	 * image cache can create pyramid images now
 	 * wrapper to make wxImage look like a vigra::RGBImage
 
@@ -61351,9 +61607,9 @@
 
 	added semi automatic control point finder
 	 * a selected rectangle is searched in the other window
-	 * fine tune control points, if enabled searches for a good match
-	with the selection of the second point. search window size is
-	widht/10, height/10
+	 * fine tune control points, if enabled searches for a good match with
+	the selection of the second point. search window size is widht/10,
+	height/10
 
 	+ src/hugin/ImageProcessing.cpp
 	> src/hugin/CPEditorPanel.cpp
@@ -61782,8 +62038,8 @@
 
 	- small changes to the Panorama class.
 	- first version of correlation is added.
-	- adding of images via drag and drop (MainFrame.cpp) shows how to
-	use commands to add an image.
+	- adding of images via drag and drop (MainFrame.cpp) shows how to use
+	commands to add an image.
 
 	- CPEditorPanel doesn't update properly.
 
@@ -61989,15 +62245,14 @@
 
 2003-05-30 10:42 +0000  dangelo <dangelo@users.sourceforge.net>  (6c9d6625c3e0)  
 
-	changes to the build system: o moved hugin application specific
-	data (po files, images etc) into the hugin subdir. I like this
-	more than linking it (doesn't work on windows). o locale_path is
-	not reset to "../po" to the config file all the time. o hugin looks
-	for xrc (and their data) and po files under the current
-	directory. if they can't be found it checks locale_path and xrc_path
-	from the config file / registry o added hand written configure
-	script. maybe its a good idea to create one with autoconf with
-	more checks.
+	changes to the build system: o moved hugin application specific data
+	(po files, images etc) into the hugin subdir. I like this more than
+	linking it (doesn't work on windows). o locale_path is not reset to
+	"../po" to the config file all the time. o hugin looks for xrc (and
+	their data) and po files under the current directory. if they can't
+	be found it checks locale_path and xrc_path from the config file /
+	registry o added hand written configure script. maybe its a good
+	idea to create one with autoconf with more checks.
 
 	+ Makefile
 	+ configure
@@ -62475,8 +62730,8 @@
 	lots of changes:
 	 - model changed, only numbers are used outside the Panorama class.
 	 - template correlation is used to find correlating points in the
-	second image this only works when selecting regions from the
-	first image.
+	second image this only works when selecting regions from the first
+	image.
 
 	+ src/CommandHistory.cpp
 	+ src/CommandHistory.h

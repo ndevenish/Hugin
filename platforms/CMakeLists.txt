@@ -1,3 +1,9 @@
 
-ADD_SUBDIRECTORY(windows)
+IF(WIN32)
+  ADD_SUBDIRECTORY(windows)
+ENDIF()
+
+IF(UNIX)
+  ADD_SUBDIRECTORY(linux)
+ENDIF()
 
