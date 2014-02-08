@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2014 Terry Duell -->
+<application>
+ <id type="desktop">PTBatcherGUI.desktop</id>
+ <licence>GFDL</licence>
+ <name>Hugin batch processor</name>
+ <summary>A GUI queue manager for stitching multiple hugin projects</summary>
+ <description>
+  <p>
+   Hugin Batch Processor is a component of hugin that provides functionality to stitch multiple projects in a batch queue. Its goal is to make stitching of multiple projects faster. 
+   </p>
+   <p>
+   The process of stitching multiple projects is simplified using a queue of projects. The user can add/edit/delete projects in the queue.
+   </p>
+   <p>
+   The Batch Processor can queue the creation of the final project.
+   Hugin Batch Processor consists of a list of projects. Projects in the list are in sequential order. 
+   By default, the list is reinstated every time you open the application. 
+   What is more, entire queue of projects can be saved and reopened later using buttons Clear Batch, Open Batch, Save Batch. 
+  </p>
+  <p>
+   PTBatcherGUI is installed when you install hugin.
+  </p>
+ </description>
+ <screenshots>
+  <screenshot type="default" width="800" height="600">http://hugin.sourceforge.net/screenshots/appdata/ptbatcher.png</screenshot>
+ </screenshots>
+ <url type="homepage">http://hugin.sourceforge.net/</url>
+ <updatecontact>tduell_at_iinet.net.au</updatecontact>
+</application>
