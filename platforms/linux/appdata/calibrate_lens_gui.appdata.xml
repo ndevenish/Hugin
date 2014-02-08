@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2014 Terry Duell -->
+<application>
+ <id type="desktop">calibrate_lens_gui.desktop</id>
+ <licence>GFDL</licence>
+ <name>Hugin calibrate lens</name>
+ <summary>Automatic lens calibration</summary>
+ <description>
+  <p>
+   Hugin Calibrate Lens is a tool for lens calibration using the straight line method.
+  </p>
+  <p>Simple workflow:</p>
+  <ul>
+   <li>Load images ("add" opens a file browser)</li>
+   <li>Check focal length and crop factor (calibrate lens tries to read them from the EXIF data)</li>
+   <li>Select "Find lines" to detect the straight lines</li>
+   <li>Choose the lens parameters to optimise, then select "Optimize"</li>
+   <li>"Save lens" to save optimised lens parameters into file for use in hugin</li>
+  </ul>
+  <p>
+   Calibrate_lens_gui is installed when you install hugin.
+  </p>
+ </description>
+ <screenshots>
+  <screenshot type="default" width="800" height="600">http://hugin.sourceforge.net/screenshots/appdata/calib-lens.png</screenshot>
+ </screenshots>
+ <url type="homepage">http://hugin.sourceforge.net/</url>
+ <updatecontact>tduell_at_iinet.net.au</updatecontact>
+</application>

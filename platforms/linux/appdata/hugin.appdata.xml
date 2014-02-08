@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2014 Terry Duell -->
+<application>
+ <id type="desktop">hugin.desktop</id>
+ <licence>GFDL</licence>
+ <name>hugin</name>
+ <summary>A panoramic photo stitcher and more</summary>
+ <description>
+  <p>
+   hugin can be used to stitch multiple images together. The resulting image can
+   span 360 degrees. Another common use is the creation of very high resolution
+   pictures by combining multiple images. It uses the Panorama Tools as back-end
+   to create high quality images
+   Command-line tools are available to generate panoramic images and to batch-process
+   hugin projects.
+  </p>
+  <p>Examples of what you can do with hugin:</p>
+  <ul>
+   <li>Stitch and blend multiple rows of overlapping images shot from the one location</li>
+   <li>Stitch and blend multiple overlapping images of a plane surface shot from multiple locations</li>
+   <li>Stitch and blend flat scanned images</li>
+   <li>Correct perspective, vignetting, exposure and white balance</li>   
+  </ul>
+ </description>
+ <screenshots>
+  <screenshot type="default" width="800" height="600">http://hugin.sourceforge.net/screenshots/appdata/hugin-1.png</screenshot>
+  <screenshot width="800" height="600">http://hugin.sourceforge.net/screenshots/appdata/hugin-2.png</screenshot>
+  <screenshot width="800" height="600">http://hugin.sourceforge.net/screenshots/appdata/hugin-3.png</screenshot>
+  <screenshot width="800" height="600">http://hugin.sourceforge.net/screenshots/appdata/hugin-4.png</screenshot>
+  <screenshot width="800" height="600">http://hugin.sourceforge.net/screenshots/appdata/hugin-5.png</screenshot>
+ </screenshots>
+ <url type="homepage">http://hugin.sourceforge.net/</url>
+ <updatecontact>tduell_at_iinet.net.au</updatecontact>
+</application>
