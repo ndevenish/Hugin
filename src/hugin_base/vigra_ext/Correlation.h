@@ -652,6 +652,7 @@ CorrelationResult PointFineTune(const IMAGET & templImg,
  *
  *  @return correlation value
  */
+#ifndef HAVE_FFTW
 template <class IMAGET, class IMAGES>
 CorrelationResult PointFineTuneRotSearch(const IMAGET & templImg,
                                          vigra::Diff2D templPos,
@@ -844,6 +845,253 @@ CorrelationResult PointFineTuneRotSearch(const IMAGET & templImg,
     bestRes.maxAngle = bestAngle/M_PI*180;
     return bestRes;
 }
+#else
+// specialed version for FFT based correlation,
+// optimized correlation calculation to save reuseable results
+template <class SrcImage, class DestImage, class KernelImage>
+CorrelationResult correlateImageFastRotationFFT(SrcImage & src, DestImage & dest, KernelImage & unrotatedKernel,
+    vigra::Diff2D templPos, int templWidth, vigra::Diff2D tmplSize,
+    double startAngle, double stopAngle, int angleSteps)
+{
+    const int sw = src.width();
+    const int sh = src.height();
+    std::vector<CorrelationResult> results(angleSteps);
+    std::vector<DestImage> resultsImg(angleSteps, DestImage(sw, sh));
+
+    vigra::FFTWComplexImage spatialSearch(sw, sh);
+    vigra::FFTWComplexImage fourierSearch(sw, sh);
+    //forward FFTW plan
+    fftw_plan forwardPlan = fftw_plan_dft_2d(sh, sw, (fftw_complex *)spatialSearch.begin(), (fftw_complex *)fourierSearch.begin(), FFTW_FORWARD, FFTW_ESTIMATE);
+    //FFT of search image, we need it for all angles
+    vigra::copyImage(srcImageRange(src), destImage(spatialSearch, vigra::FFTWWriteRealAccessor()));
+    fftw_execute(forwardPlan);
+    // generate backwardPlan for inplace use
+    fftw_plan backwardPlan = fftw_plan_dft_2d(sh, sw, (fftw_complex *)fourierSearch.begin(), (fftw_complex *)fourierSearch.begin(), FFTW_BACKWARD, FFTW_ESTIMATE);
+
+    // calculate look up sum tables
+    // are used by all angles
+    // use double instead of float!, otherwise there can be truncation errors
+    vigra::DImage s(sw, sh);
+    vigra::DImage s2(sw, sh);
+    double val = src(0, 0);
+    s(0, 0) = val;
+    s2(0, 0) = val * val;
+    // special treatment for first line
+    for (int x = 1; x < sw; ++x)
+    {
+        val = src(x, 0);
+        s(x, 0) = val + s(x - 1, 0);
+        s2(x, 0) = val * val + s2(x - 1, 0);
+    }
+    // special treatment for first column
+    for (int y = 1; y < sh; ++y)
+    {
+        val = src(0, y);
+        s(0, y) = val + s(0, y - 1);
+        s2(0, y) = val * val + s2(0, y - 1);
+    }
+    // final summation
+    for (int y = 1; y < sh; ++y)
+    {
+        for (int x = 1; x < sw; ++x)
+        {
+            val = src(x, y);
+            s(x, y) = val + s(x - 1, y) + s(x, y - 1) - s(x - 1, y - 1);
+            s2(x, y) = val * val + s2(x - 1, y) + s2(x, y - 1) - s2(x - 1, y - 1);
+        };
+    };
+
+    const double step = (stopAngle - startAngle) / (angleSteps - 1);
+    const int kw = tmplSize.x;
+    const int kh = tmplSize.y;
+    const int yend = sh - 2 * templWidth;
+    const int xend = sw - 2 * templWidth;
+#pragma omp parallel for
+    for (int i = 0; i < angleSteps; ++i)
+    {
+        vigra::FImage kernel(tmplSize);
+        vigra::FImage alpha(kernel.size());
+        vigra_ext::PassThroughFunctor<float> nf;
+        AppBase::DummyMultiProgressDisplay dummy;
+
+        RotateTransform t(startAngle + i * step, hugin_utils::FDiff2D(templWidth, templWidth), templPos);
+        vigra_ext::transformImage(srcImageRange(unrotatedKernel, vigra::RGBToGrayAccessor<typename KernelImage::value_type>()), destImageRange(kernel),
+            destImage(alpha), vigra::Diff2D(0, 0), t, nf, false, vigra_ext::INTERP_CUBIC, dummy);
+
+        // calculate mean and variance of kernel/template
+        vigra::FindAverageAndVariance<vigra::FImage::PixelType> kMean;
+        vigra::inspectImage(srcImageRange(kernel), kMean);
+        // uniform patch, skip calculation
+        if (kMean.variance(false) == 0)
+        {
+            continue;
+        };
+        // subtract mean from kernel/template
+        vigra::transformImage(srcImageRange(kernel), destImage(kernel), vigra::functor::Arg1() - vigra::functor::Param(kMean.average()));
+
+        vigra::FFTWComplexImage complexKernel(sw, sh);
+        vigra::FFTWComplexImage fourierKernel(sw, sh);
+        // copy kernel to complex data structure
+        vigra::copyImage(srcImageRange(kernel), destImage(complexKernel, vigra::FFTWWriteRealAccessor()));
+        fftw_execute_dft(forwardPlan, (fftw_complex*)complexKernel.begin(), (fftw_complex*)fourierKernel.begin());
+
+        // multiply SrcImage with conjugated kernel in frequency domain
+        vigra::combineTwoImages(srcImageRange(fourierSearch), srcImage(fourierKernel), destImage(fourierKernel), &multiplyConjugate<vigra::FFTWComplex>);
+        // FFT back into spatial domain (inplace)
+        fftw_execute_dft(backwardPlan, (fftw_complex*)fourierKernel.begin(), (fftw_complex*)fourierKernel.begin());
+
+        // calculate constant part
+        const double normFactor = 1.0 / (sw * sh * sqrt(kMean.variance(false)));
+        for (int yr = 0; yr < yend; ++yr)
+        {
+            for (int xr = 0; xr < xend; ++xr)
+            {
+                double value = fourierKernel(xr, yr).re() * normFactor;
+                // do final summation using the lookup tables
+                double sumF = s(xr + kw - 1, yr + kh - 1);
+                double sumF2 = s2(xr + kw - 1, yr + kh - 1);
+                if (xr > 0)
+                {
+                    sumF -= s(xr - 1, yr + kh - 1);
+                    sumF2 -= s2(xr - 1, yr + kh - 1);
+                };
+                if (yr > 0)
+                {
+                    sumF -= s(xr + kw - 1, yr - 1);
+                    sumF2 -= s2(xr + kw - 1, yr - 1);
+                };
+                if (xr > 0 && yr > 0)
+                {
+                    sumF += s(xr - 1, yr - 1);
+                    sumF2 += s2(xr - 1, yr - 1);
+                };
+
+                double den = sqrt((kw * kh * sumF2 - sumF * sumF));
+                // prevent division through zero
+                if (den != 0)
+                {
+                    value /= den;
+                    if (value > results[i].maxi)
+                    {
+                        results[i].maxi = value;
+                        results[i].maxpos.x = xr + templWidth;
+                        results[i].maxpos.y = yr + templWidth;
+                    }
+                    resultsImg[i](xr + templWidth, yr + templWidth) = vigra::NumericTraits<typename DestImage::value_type>::fromRealPromote(value);
+                };
+            };
+        };
+    };
+    fftw_destroy_plan(forwardPlan);
+    fftw_destroy_plan(backwardPlan);
+    int maxIndex = 0;
+    double maxValue = 0;
+    for (size_t i = 0; i < results.size(); ++i)
+    {
+        if (results[i].maxi > maxValue)
+        {
+            maxIndex = i;
+            maxValue = results[i].maxi;
+        };
+    };
+    CorrelationResult res(results[maxIndex]);
+    res.maxAngle = startAngle + maxIndex * step;
+    dest = resultsImg[maxIndex];
+    return res;
+};
+
+template <class IMAGET, class IMAGES>
+CorrelationResult PointFineTuneRotSearch(const IMAGET & templImg,
+    vigra::Diff2D templPos,
+    int templSize,
+    const IMAGES & searchImg,
+    vigra::Diff2D searchPos,
+    int sWidth,
+    double startAngle,
+    double stopAngle,
+    int angleSteps)
+{
+    DEBUG_TRACE("templPos: " << templPos << " searchPos: " << searchPos);
+
+    // extract patch from template
+    int templWidth = templSize / 2;
+    vigra::Diff2D tmplUL(-templWidth, -templWidth);
+    vigra::Diff2D tmplLR(templWidth, templWidth);
+    // clip template
+    if (tmplUL.x + templPos.x < 0) tmplUL.x = -templPos.x;
+    if (tmplUL.y + templPos.y < 0) tmplUL.y = -templPos.y;
+    if (tmplLR.x + templPos.x> templImg.width())
+        tmplLR.x = templImg.width() - templPos.x;
+    if (tmplLR.y + templPos.y > templImg.height())
+        tmplLR.y = templImg.height() - templPos.y;
+    vigra::Diff2D tmplSize = tmplLR - tmplUL + vigra::Diff2D(1, 1);
+
+    // extract patch from search region
+    // make search region bigger, so that interpolation can always be done
+    int swidth = sWidth / 2 + (2 + templWidth);
+    DEBUG_DEBUG("search window half width/height: " << swidth << "x" << swidth);
+    // clip search window
+    if (searchPos.x < 0) searchPos.x = 0;
+    if (searchPos.x >(int) searchImg.width()) searchPos.x = searchImg.width() - 1;
+    if (searchPos.y < 0) searchPos.y = 0;
+    if (searchPos.y >(int) searchImg.height()) searchPos.x = searchImg.height() - 1;
+
+    vigra::Diff2D searchUL(searchPos.x - swidth, searchPos.y - swidth);
+    vigra::Diff2D searchLR(searchPos.x + swidth, searchPos.y + swidth);
+    // clip search window
+    if (searchUL.x < 0) searchUL.x = 0;
+    if (searchUL.x > searchImg.width()) searchUL.x = searchImg.width();
+    if (searchUL.y < 0) searchUL.y = 0;
+    if (searchUL.y > searchImg.height()) searchUL.y = searchImg.height();
+    if (searchLR.x > searchImg.width()) searchLR.x = searchImg.width();
+    if (searchLR.x < 0) searchLR.x = 0;
+    if (searchLR.y > searchImg.height()) searchLR.y = searchImg.height();
+    if (searchLR.y < 0) searchLR.y = 0;
+    DEBUG_DEBUG("search borders: " << searchUL << "," << searchLR << " size: " << searchLR - searchUL);
+
+    // correlation output
+    vigra::Diff2D searchSize = searchLR - searchUL;
+    vigra::FImage dest(searchSize);
+    dest.init(-1);
+
+    // source input
+    vigra::FImage srcImage(searchLR - searchUL);
+    vigra::copyImage(vigra::make_triple(searchImg.upperLeft() + searchUL,
+        searchImg.upperLeft() + searchLR,
+        vigra::RGBToGrayAccessor<typename IMAGES::value_type>()),
+        destImage(srcImage));
+
+    CorrelationResult resCorrelate=correlateImageFastRotationFFT(srcImage, dest, templImg, templPos, templWidth, tmplSize,
+        startAngle, stopAngle, angleSteps);
+    CorrelationResult res;
+
+    DEBUG_DEBUG("rotation search finished, max:" << resCorrelate.maxi
+        << " at " << resCorrelate.maxpos << " angle:" << RAD_TO_DEG(resCorrelate.maxAngle) << "");
+
+    // do a subpixel maxima estimation
+    // check if the max is inside the pixel boundaries,
+    // and there are enought correlation values for the subpixel
+    // estimation, (2 + templWidth)
+    if (resCorrelate.maxpos.x > 1 + templWidth && resCorrelate.maxpos.x < 2 * swidth + 1 - 1 - templWidth
+        && resCorrelate.maxpos.y > 1 + templWidth && resCorrelate.maxpos.y < 2 * swidth + 1 - 1 - templWidth)
+    {
+        // subpixel estimation
+        res = subpixelMaxima(vigra::srcImageRange(dest), resCorrelate.maxpos.toDiff2D());
+
+        DEBUG_DEBUG("subpixel position: max:" << res.maxi
+            << " at " << res.maxpos);
+    }
+    else {
+        // not enough values for subpixel estimation.
+        res = resCorrelate;
+        DEBUG_ERROR("subpixel estimation not done, maxima to close to border");
+    }
+
+    res.maxpos = res.maxpos + searchUL;
+    res.maxAngle = RAD_TO_DEG(resCorrelate.maxAngle);
+    return res;
+}
+#endif
 
 /** correlate a template with an image.
  *
