@@ -1969,7 +1969,6 @@ void Panorama::mergePanorama(const Panorama &newPano)
     if(newPano.getNrOfImages()>0)
     {
         std::vector<unsigned int> new_image_nr(newPano.getNrOfImages());
-        unsigned int oldNrOfImage=getNrOfImages();
         HuginBase::OptimizeVector optVec=getOptimizeVector();
         HuginBase::OptimizeVector optVecNew=newPano.getOptimizeVector();
         //add only new images

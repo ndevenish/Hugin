@@ -41,7 +41,6 @@ UIntSet getCPoutsideLimit_pair(Panorama pano, double n)
     unsigned int nrImg=pano.getNrOfImages();
     PanoramaOptions opts=pano.getOptions();
     //set projection to equrectangular for optimisation
-    PanoramaOptions::ProjectionFormat oldproj=opts.getProjection();
     opts.setProjection(PanoramaOptions::EQUIRECTANGULAR);
     pano.setOptions(opts);
     UIntSet CPtoRemove;

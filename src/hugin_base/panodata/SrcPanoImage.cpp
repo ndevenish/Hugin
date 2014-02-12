@@ -529,7 +529,7 @@ bool SrcPanoImage::readProjectionFromDB()
                                 {
                                     setCropRect(vigra::Rect2D((1.0-cropRightBottom.y)*width,cropLeftTop.x*height,(1.0-cropLeftTop.y*width),cropRightBottom.x*height));
                                 };
-                                fprintf(stdout,"crop rect set: %f,%f-%f,%f \n",getCropRect().left(),getCropRect().top(),getCropRect().right(),getCropRect().bottom());
+                                fprintf(stdout,"crop rect set: %d,%d-%d,%d \n",getCropRect().left(),getCropRect().top(),getCropRect().right(),getCropRect().bottom());
 
                             };
                             break;

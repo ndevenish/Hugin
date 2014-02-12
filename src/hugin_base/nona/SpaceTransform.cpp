@@ -1206,7 +1206,7 @@ void SpaceTransform::Init(
     PanoramaOptions::ProjectionFormat destProj,
     double destHFOV )
 {
-    int 	i;
+    //int 	i;
     double	a, b;
     Matrix3 mpmt;
     double  mpdistance, mpscale[2], mpshear[2], mprot[2], mprad[6];
@@ -1300,7 +1300,7 @@ void SpaceTransform::Init(
 	//mp->horizontal 	= im->cP.horizontal_params[color];
 	//mp->vertical 	= im->cP.vertical_params[color];
 	
-    i = 0;
+    //i = 0;
 
     switch (destProj)
     {

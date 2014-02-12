@@ -1560,12 +1560,12 @@ namespace PT {
 
         virtual bool processPanorama(Panorama& pano)
             {
-                int nrImages=pano.getNrOfImages();
+                unsigned int nrImages=pano.getNrOfImages();
                 if(nrImages>0)
                 {
                     const SrcPanoImage& img=pano.getImage(0);
                     double hfov=img.getHFOV();
-                    int imgsPerRow;
+                    unsigned int imgsPerRow;
                     //distribute all images
                     //for rectilinear images calculate number of rows
                     if(img.getProjection()==HuginBase::SrcPanoImage::RECTILINEAR)

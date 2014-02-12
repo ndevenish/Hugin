@@ -337,7 +337,9 @@ void PhotometricOptimizer::optimizePhotometric(PanoramaData & pano, const Optimi
     // difference mode
     optimOpts[4] = LM_DIFF_DELTA;
     
+#ifdef DEBUG
     ret=dlevmar_dif(&photometricError, &photometricVis, &(p[0]), &(x[0]), m, n, nMaxIter, optimOpts, info, NULL, &(cov(0,0)), &data);  // no jacobian
+#endif
     // copy to source images (data.m_imgs)
     data.FromX(p.begin());
     // calculate error at solution
