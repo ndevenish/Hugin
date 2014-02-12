@@ -24,6 +24,7 @@
 #endif
 #ifdef _WINDOWS
 #include <Windows.h>
+#include <algorithm>
 #elif defined __APPLE__
 #include <CoreServices/CoreServices.h>  //for gestalt
 #else
