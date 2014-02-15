@@ -35,11 +35,6 @@
 // So that the translation is captured
 #define ELAPSED_TIME _("Elapsed time : ")
 
-ProgressReporterDialog::~ProgressReporterDialog()
-{
-    
-}
-
 bool ProgressReporterDialog::increaseProgress(double i)
 {
     if (m_abort) return false;

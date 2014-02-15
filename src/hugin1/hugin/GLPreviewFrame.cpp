@@ -2566,10 +2566,6 @@ void GLPreviewFrame::OnAutocrop(wxCommandEvent &e)
         vigra::Size2D newSize;
         m_pano.calcOptimalROI(newROI, newSize);
     };
-#ifdef __WXMSW__
-    //try to workaround an issue that the main window lost it focus after wxProgressDialog is destroyed
-    Raise();
-#endif
 
     PanoramaOptions opt = m_pano.getOptions();
     //set the ROI - fail if the right/bottom is zero, meaning all zero
@@ -2598,10 +2594,6 @@ void GLPreviewFrame::OnStackAutocrop(wxCommandEvent &e)
         vigra::Size2D newSize;
         m_pano.calcOptimalStackROI(newROI, newSize);
     };
-#ifdef __WXMSW__
-    //try to workaround an issue that the main window lost it focus after wxProgressDialog is destroyed
-    Raise();
-#endif
 
     PanoramaOptions opt = m_pano.getOptions();
     //set the ROI - fail if the right/bottom is zero, meaning all zero
