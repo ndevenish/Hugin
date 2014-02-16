@@ -2125,7 +2125,7 @@ FDiff2D CPEditorPanel::EstimatePoint(const FDiff2D & p, bool left)
     optPano.setCtrlPoints(cps);
     deregisterPTWXDlgFcn();
     HuginBase::PTools::optimize(optPano);
-    registerPTWXDlgFcn(wxTheApp->GetTopWindow());
+    registerPTWXDlgFcn();
 
     // now transform the wanted point p to other image
     HuginBase::PTools::Transform transformBackward;

@@ -704,7 +704,7 @@ PT::PanoCommand* CleanControlPointsOperation::GetInternalCommand(wxWindow* paren
         };
     }
     progress.increaseProgress(1, std::wstring(wxString(_("Finished cleaning")).wc_str(wxConvLocal)));
-    registerPTWXDlgFcn(MainFrame::Get());
+    registerPTWXDlgFcn();
     if(removedCPs.size()>0)
     {
         wxMessageBox(wxString::Format(_("Removed %lu control points"), removedCPs.size()), _("Cleaning"),wxOK|wxICON_INFORMATION,parent);

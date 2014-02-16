@@ -932,7 +932,7 @@ void MainFrame::LoadProjectFile(const wxString & filename)
            new wxLoadPTProjectCmd(pano,(const char *)filename.mb_str(HUGIN_CONV_FILENAME), (const char *)path.mb_str(HUGIN_CONV_FILENAME), true)
            );
         GlobalCmdHist::getInstance().clear();
-        registerPTWXDlgFcn(wxGetApp().GetTopWindow());
+        registerPTWXDlgFcn();
         DEBUG_DEBUG("project contains " << pano.getNrOfImages() << " after load");
         GuiLevel reqGuiLevel=GetMinimumGuiLevel(pano);
         if(reqGuiLevel>m_guiLevel)
