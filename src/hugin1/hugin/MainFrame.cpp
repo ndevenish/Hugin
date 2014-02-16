@@ -2327,4 +2327,9 @@ void MainFrame::OnSendToAssistantQueue(wxCommandEvent &e)
     }
 };
 
+wxString MainFrame::GetCurrentOptimizerString()
+{
+    return images_panel->GetCurrentOptimizerString();
+};
+
 MainFrame * MainFrame::m_this = 0;

@@ -763,6 +763,11 @@ void ImagesPanel::FillOptimizerChoice()
     Refresh();
 };
 
+wxString ImagesPanel::GetCurrentOptimizerString()
+{
+    return m_optChoice->GetString(m_optChoice->GetSelection());
+};
+
 void ImagesPanel::OnGroupModeChanged(wxCommandEvent & e)
 {
     wxChoice* group=XRCCTRL(*this,"images_group_mode", wxChoice);

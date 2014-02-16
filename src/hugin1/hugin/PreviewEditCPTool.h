@@ -1,6 +1,6 @@
 // -*- c-basic-offset: 4 -*-
 
-/** @file PreviewDeleteCPTool.h
+/** @file PreviewEditCPTool.h
  *
  *  @author T. Modes
  *
@@ -24,20 +24,26 @@
  *
  */
 
-#ifndef _PREVIEWDELETECPTOOL_H
-#define _PREVIEWDELETECPTOOL_H
+#ifndef _PREVIEWEDITCPTOOL_H
+#define _PREVIEWEDITCPTOOL_H
 
 #include "Tool.h"
 #include "hugin_utils/utils.h"
 
 #include <panotools/PanoToolsInterface.h>
 
+/** id for context menu */
+enum{
+    ID_CREATE_CP=wxID_HIGHEST + 301,
+    ID_REMOVE_CP
+};
+
 /** Tool to delete all cp in a selected rectangle
  */
-class PreviewDeleteCPTool : public Tool
+class PreviewEditCPTool : public Tool
 {
 public:
-    PreviewDeleteCPTool(ToolHelper *helper) : Tool(helper), m_mouse_down(false) {};
+    PreviewEditCPTool(ToolHelper *helper) : Tool(helper), m_mouseDown(false), m_menuPopup(false) {};
     /** activate the tool */
     void Activate();
     /** draw selection rectangle */
@@ -46,11 +52,25 @@ public:
     void MouseMoveEvent(double x, double y, wxMouseEvent & e);
     /** mouse button handling */
     void MouseButtonEvent(wxMouseEvent &e);
+    /** return set of found control points */
+    HuginBase::UIntSet GetFoundCPs() { return m_CPinROI; };
+    /** returns selected ROI */
+    vigra::Rect2D GetSelectedROI();
+    /** reset popup menu status */
+    void SetMenuProcessed();
 private:
-    void DeleteCP(const hugin_utils::FDiff2D& pos1, const hugin_utils::FDiff2D& pos2);
-    bool m_mouse_down;
-    hugin_utils::FDiff2D m_start_pos;
-    hugin_utils::FDiff2D m_current_pos;
+    /** search for control points in selected rectangle */
+    void FindCPInRect(const hugin_utils::FDiff2D& pos1, const hugin_utils::FDiff2D& pos2);
+    /** mouse down status */
+    bool m_mouseDown;
+    /** true, when popup menu is shown, this is to ignore a mouse event when the popup menu is closed */
+    bool m_menuPopup;
+    /** position where the marking starts */
+    hugin_utils::FDiff2D m_startPos;
+    /** current position of selection */
+    hugin_utils::FDiff2D m_currentPos;
+    /** contains the found cp */
+    HuginBase::UIntSet m_CPinROI;
 };
 
 #endif

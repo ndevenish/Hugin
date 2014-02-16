@@ -77,6 +77,8 @@ public:
 
     /** sets the GuiLevel for all controls on this panel */
     void SetGuiLevel(GuiLevel newGuiLevel);
+    /** return the currently selected optimizer setting as string from the drop down list box */
+    wxString GetCurrentOptimizerString();
 protected:
     /** event handler for geometric optimizer */
     void OnOptimizeButton(wxCommandEvent &e);

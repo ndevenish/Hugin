@@ -396,13 +396,13 @@
                         <object class="sizeritem">
                           <object class="wxBoxSizer">
                             <object class="sizeritem">
-                              <object class="wxToolBar" name="preview_cp_delete_toolbar">
-                                <object class="tool" name="preview_cp_delete_tool">
+                              <object class="wxToolBar" name="preview_cp_edit_toolbar">
+                                <object class="tool" name="preview_edit_cp_tool">
                                   <toggle>1</toggle>
                                   <bitmap platform="unix|win">data/preview_control_point_tool.png</bitmap>
                                   <bitmap platform="mac">data/preview_control_point_tool_small.png</bitmap>
                                   <tooltip>Delete all control points in selected rectangle.</tooltip>
-                                  <label>Delete CP</label>
+                                  <label>Edit CP</label>
                                 </object>
                                 <bitmapsize>22,22</bitmapsize>
                                 <style>wxTB_TEXT|wxTB_NODIVIDER</style>
@@ -411,7 +411,7 @@
                             </object>
                             <object class="sizeritem" platform="mac">
                               <object class="wxStaticText">
-                                <label>Delete CP</label>
+                                <label>Edit CP</label>
                               </object>
                               <flag>wxALIGN_CENTRE_HORIZONTAL</flag>
                             </object>
@@ -1236,13 +1236,13 @@
                         <object class="sizeritem">
                           <object class="wxBoxSizer">
                             <object class="sizeritem">
-                              <object class="wxToolBar" name="preview_cp_delete_toolbar">
-                                <object class="tool" name="preview_cp_delete_tool">
+                              <object class="wxToolBar" name="preview_cp_edit_toolbar">
+                                <object class="tool" name="preview_edit_cp_tool">
                                   <toggle>1</toggle>
                                   <bitmap platform="unix|win">data/preview_control_point_tool.png</bitmap>
                                   <bitmap platform="mac">data/preview_control_point_tool_small.png</bitmap>
                                   <tooltip>Delete all control points in selected rectangle.</tooltip>
-                                  <label>Delete CP</label>
+                                  <label>Edit CP</label>
                                 </object>
                                 <bitmapsize>22,22</bitmapsize>
                                 <style>wxTB_TEXT|wxTB_NODIVIDER</style>
@@ -1251,7 +1251,7 @@
                             </object>
                             <object class="sizeritem" platform="mac">
                               <object class="wxStaticText">
-                                <label>Delete CP</label>
+                                <label>Edit CP</label>
                               </object>
                               <flag>wxALIGN_CENTRE_HORIZONTAL</flag>
                             </object>
