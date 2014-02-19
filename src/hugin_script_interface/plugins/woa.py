@@ -25,7 +25,7 @@ gpl = r"""
 # @category Control Points
 # @name     Warped Overlap Analysis
 # @api-min  2011.1
-# @api-max  2013.1
+# @api-max  2014.1
 
 # note that if you want to read the script, it's written bottom-up, so the
 # higher-level routines are towards the end.
@@ -1268,6 +1268,14 @@ def calculate_overlap_center ( img ) :
 # the 'optimal size' that hugin would calculate for the panorama that
 # generates the warped images.
 
+def img_from_file ( filename ) :
+
+    i = hsi.SrcPanoImage()
+    i.setFilename ( filename )
+    if i.readEXIF():
+        return i
+    return None
+
 def cps_from_overlap ( pano , a , b ) :
 
     # hugin doesn't like wrongly-ordered numbers...
@@ -1532,8 +1540,8 @@ def cps_from_overlap ( pano , a , b ) :
         
         ofs = hsi.ofstream ( cpfind_input )
         warp = hsi.Panorama()
-        wi0 = hsi.SrcPanoImage ( nona_output[0] )
-        wi1 = hsi.SrcPanoImage ( nona_output[1] )
+        wi0 = img_from_file ( nona_output[0] )
+        wi1 = img_from_file ( nona_output[1] )
         warp.addImage ( wi0 )
         warp.addImage ( wi1 )
         warp.writeData ( ofs )
