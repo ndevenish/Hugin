@@ -64,7 +64,7 @@
 #include "hugin/PanoOutputDialog.h"
 #include "base_wx/PTWXDlg.h"
 #include "vigra_ext/InterestPoints.h"
-#include "vigra_ext/correlation.h"
+#include "vigra_ext/Correlation.h"
 #include "algorithms/control_points/CleanCP.h"
 #include "hugin_utils/openmp_lock.h"
 
