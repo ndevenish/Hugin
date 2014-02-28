@@ -1304,7 +1304,7 @@ void MaskImageCtrl::rescaleImage()
 
     //create disabled m_bitmap for drawing active masks
 #if wxCHECK_VERSION(2,9,0)
-    img.ConvertToDisabled(192);
+    img = img.ConvertToDisabled(192);
 #else
     {
         int width = img.GetWidth();
