@@ -102,7 +102,7 @@ void GenerateArgfile(const std::string & filename, const Panorama &pano, bool no
 #endif
     infostream << "-Software=Hugin " << DISPLAY_VERSION << std::endl;
     infostream << "-E" << std::endl;
-    infostream << "-UserComment<$${UserComment}" << linebreak;
+    infostream << "-UserComment<${UserComment}" << linebreak;
     if(readProjectionName)
     {
         infostream << "Projection: " << proj.name << " (" << opts.getProjection() << ")" << linebreak;
@@ -138,7 +138,7 @@ void GenerateArgfile(const std::string & filename, const Panorama &pano, bool no
             infostream << "-ProjectionType=equirectangular"  << std::endl;
             infostream << "-CroppedAreaLeftPixels=" << left << std::endl;
             infostream << "-CroppedAreaTopPixels=" << top  << std::endl;
-            infostream << "-CroppedAreaImageWidthPixels="  << std::endl;
+            infostream << "-CroppedAreaImageWidthPixels="  << width << std::endl;
             infostream << "-CroppedAreaImageHeightPixels=" << height << std::endl;
             infostream << "-FullPanoWidthPixels=" << fullWidth << std::endl;
             infostream << "-FullPanoHeightPixels=" << fullHeight << std::endl;;
