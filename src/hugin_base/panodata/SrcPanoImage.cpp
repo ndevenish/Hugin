@@ -30,6 +30,7 @@
 // for debugging
 #include <iostream>
 #include <stdio.h>
+#include <stdexcept>
 //#include <wx/wxprec.h>
 
 #include "SrcPanoImage.h"
@@ -447,7 +448,7 @@ bool SrcPanoImage::readEXIF()
                     else
                     {
                         // tag is required
-                        throw;
+                        throw std::logic_error("Required tag CroppedAreaImageWidthPixels missing");
                     };
                     pos = xmpData.findKey(Exiv2::XmpKey("Xmp.GPano.CroppedAreaImageHeightPixels"));
                     if (pos != xmpData.end())
@@ -457,7 +458,7 @@ bool SrcPanoImage::readEXIF()
                     else
                     {
                         // tag is required
-                        throw;
+                        throw std::logic_error("Required tag CroppedAreaImageHeightPixels missing");
                     };
                     // check if sizes matches, if not ignore all tags
                     if (getWidth() == croppedWidth && getHeight() == croppedHeight)
@@ -471,7 +472,7 @@ bool SrcPanoImage::readEXIF()
                         else
                         {
                             // tag is required
-                            throw;
+                            throw std::logic_error("Required tag FullPanoWidthPixels missing");
                         };
                         long fullHeight = 0;
                         pos = xmpData.findKey(Exiv2::XmpKey("Xmp.GPano.FullPanoHeightPixels"));
@@ -482,7 +483,7 @@ bool SrcPanoImage::readEXIF()
                         else
                         {
                             // tag is required
-                            throw;
+                            throw std::logic_error("Required tag FullPanoHeightPixels missing");
                         };
                         long cropTop = 0;
                         pos = xmpData.findKey(Exiv2::XmpKey("Xmp.GPano.CroppedAreaTopPixels"));
@@ -493,7 +494,7 @@ bool SrcPanoImage::readEXIF()
                         else
                         {
                             // tag is required
-                            throw;
+                            throw std::logic_error("Required tag CroppedAreaTopPixels missing");
                         };
 
                         // all found, remember for later
@@ -505,10 +506,10 @@ bool SrcPanoImage::readEXIF()
                 };
             };
         }
-        catch (...)
+        catch (std::exception e)
         {
             // just to catch error when image contains no GPano tags
-            DEBUG_DEBUG("Error when reading GPano tags");
+            std::cerr << "Error reading GPano tags from " << filename << "(" << e.what() << ")" << std::endl;
         };
     }
 
