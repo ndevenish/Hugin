@@ -46,12 +46,16 @@
 #include "PanoramaVariable.h"
 #include "ImageVariable.h"
 #include "Mask.h"
+#include <map>
 
 #endif // _HSI_IGNORE_SECTION
 
 namespace HuginBase {
 
 class Panorama;
+
+/** typedef for general map for storing metadata in files */
+typedef std::map<std::string, std::string> FileMetaData;
 
 /** Base class containing all the variables, but missing some of the other
  * important functions and with some daft accessors.

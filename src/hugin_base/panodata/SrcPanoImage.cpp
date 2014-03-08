@@ -416,6 +416,102 @@ bool SrcPanoImage::readEXIF()
     setExifRedBalance(redBalance);
     setExifBlueBalance(blueBalance);
 
+    // if width==2*height assume equirectangular image
+    if (getWidth() == 2 * getHeight())
+    {
+        FileMetaData metaData = getFileMetadata();
+        metaData["projection"] = "equirectangular";
+        metaData["HFOV"] = "360";
+        setFileMetadata(metaData);
+    };
+    // look into XMP metadata
+    Exiv2::XmpData& xmpData = image->xmpData();
+    if (!xmpData.empty())
+    {
+        // we need to catch exceptions in case file does not contain any GPano tags
+        try
+        {
+            Exiv2::XmpData::iterator pos = xmpData.findKey(Exiv2::XmpKey("Xmp.GPano.ProjectionType"));
+            FileMetaData metaData = getFileMetadata();
+            if (pos != xmpData.end())
+            {
+                if (hugin_utils::tolower(pos->toString()) == "equirectangular")
+                {
+                    long croppedWidth = 0;
+                    long croppedHeight = 0;
+                    pos = xmpData.findKey(Exiv2::XmpKey("Xmp.GPano.CroppedAreaImageWidthPixels"));
+                    if (pos != xmpData.end())
+                    {
+                        croppedWidth = pos->toLong();
+                    }
+                    else
+                    {
+                        // tag is required
+                        throw;
+                    };
+                    pos = xmpData.findKey(Exiv2::XmpKey("Xmp.GPano.CroppedAreaImageHeightPixels"));
+                    if (pos != xmpData.end())
+                    {
+                        croppedHeight = pos->toLong();
+                    }
+                    else
+                    {
+                        // tag is required
+                        throw;
+                    };
+                    // check if sizes matches, if not ignore all tags
+                    if (getWidth() == croppedWidth && getHeight() == croppedHeight)
+                    {
+                        pos = xmpData.findKey(Exiv2::XmpKey("Xmp.GPano.FullPanoWidthPixels"));
+                        double hfov = 0;
+                        if (pos != xmpData.end())
+                        {
+                            hfov = 360 * croppedWidth / (double)pos->toLong();
+                        }
+                        else
+                        {
+                            // tag is required
+                            throw;
+                        };
+                        long fullHeight = 0;
+                        pos = xmpData.findKey(Exiv2::XmpKey("Xmp.GPano.FullPanoHeightPixels"));
+                        if (pos != xmpData.end())
+                        {
+                            fullHeight = pos->toLong();
+                        }
+                        else
+                        {
+                            // tag is required
+                            throw;
+                        };
+                        long cropTop = 0;
+                        pos = xmpData.findKey(Exiv2::XmpKey("Xmp.GPano.CroppedAreaTopPixels"));
+                        if (pos != xmpData.end())
+                        {
+                            cropTop = pos->toLong();
+                        }
+                        else
+                        {
+                            // tag is required
+                            throw;
+                        };
+
+                        // all found, remember for later
+                        metaData["projection"] = "equirectangular";
+                        metaData["HFOV"] = hugin_utils::doubleToString(hfov, 3);
+                        metaData["e"] = hugin_utils::doubleToString(-cropTop - ((getHeight() - fullHeight) / 2.0), 4);
+                        setFileMetadata(metaData);
+                    };
+                };
+            };
+        }
+        catch (...)
+        {
+            // just to catch error when image contains no GPano tags
+            DEBUG_DEBUG("Error when reading GPano tags");
+        };
+    }
+
     DEBUG_DEBUG("Results for:" << filename);
     DEBUG_DEBUG("Focal Length: " << getExifFocalLength());
     DEBUG_DEBUG("Crop Factor:  " << getCropFactor());
@@ -430,6 +526,40 @@ bool SrcPanoImage::applyEXIFValues(bool applyEVValue)
     if(applyEVValue)
     {
         setExposureValue(calcExifExposureValue());
+    };
+    // special handling for GPano tags
+    FileMetaData metaData = getFileMetadata();
+    if (!metaData.empty())
+    {
+        FileMetaData::const_iterator pos = metaData.find("projection");
+        if (pos != metaData.end())
+        {
+            if (pos->second == "equirectangular")
+            {
+                pos = metaData.find("HFOV");
+                if (pos != metaData.end())
+                {
+                    double hfov = 0;
+                    hugin_utils::stringToDouble(pos->second, hfov);
+                    double e = 0;
+                    pos = metaData.find("e");
+                    if (pos != metaData.end())
+                    {
+                        hugin_utils::stringToDouble(pos->second, e);
+                    };
+                    if (hfov != 0)
+                    {
+                        setProjection(EQUIRECTANGULAR);
+                        setHFOV(hfov);
+                        setCropFactor(1.0);
+                        hugin_utils::FDiff2D p = getRadialDistortionCenterShift();
+                        p.y = e;
+                        setRadialDistortionCenterShift(p);
+                        return true;
+                    };
+                };
+            };
+        };
     };
     double cropFactor=getExifCropFactor();
     double focalLength=getExifFocalLength();
