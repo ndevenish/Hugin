@@ -34,7 +34,7 @@
 #include <wx/version.h>
 #include "pano13/version.h"
 #include "boost/version.hpp"
-#include "exiv2/version.hpp"
+#include "exiv2/exiv2.hpp"
 #include "lensdb/LensDB.h"
 
 BEGIN_EVENT_TABLE(AboutDialog, wxDialog)

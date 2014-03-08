@@ -47,10 +47,6 @@
 #include "ImageVariable.h"
 #include "Mask.h"
 
-#ifdef HUGIN_USE_EXIV2
-#include <exiv2/exif.hpp>
-#endif
-
 #endif // _HSI_IGNORE_SECTION
 
 namespace HuginBase {

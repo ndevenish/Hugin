@@ -89,6 +89,3 @@
 // Self-contained build
 #define MAC_SELF_CONTAINED_BUNDLE 1
 
-// Exiv2
-#define HUGIN_USE_EXIV2 1
-
