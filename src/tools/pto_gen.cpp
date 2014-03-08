@@ -329,7 +329,7 @@ int main(int argc, char* argv[])
         };
 
         srcImage.readEXIF();
-        srcImage.applyEXIFValues();
+        bool fovOk=srcImage.applyEXIFValues();
         if(projection>=0)
         {
             srcImage.setProjection((HuginBase::BaseSrcPanoImage::Projection)projection);
@@ -349,7 +349,7 @@ int main(int argc, char* argv[])
         else
         {
             //set plausible default value if they could not read from exif
-            if(srcImage.getExifFocalLength()==0 || srcImage.getCropFactor()==0)
+            if(!fovOk)
             {
                 cout << "\tNo value for field of view found in EXIF data. " << endl
                      << "\tAssuming a HFOV of 50 degrees. " << endl;

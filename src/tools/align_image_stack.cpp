@@ -51,7 +51,7 @@
  #include <unistd.h>
 #endif
 
-
+#include <hugin_utils/openmp_lock.h>
 #include <tiff.h>
 
 using namespace vigra;
@@ -110,26 +110,137 @@ static void usage(const char * name)
          << std::endl;
 }
 
+typedef std::multimap<double, vigra::Diff2D> MapPoints;
+static hugin_omp::Lock lock;
+
 template <class ImageType>
-void createCtrlPoints(Panorama & pano, int img1, const ImageType & leftImg, const ImageType & leftImgOrig, int img2, const ImageType & rightImg, const ImageType & rightImgOrig, int pyrLevel, double scale, unsigned nPoints, unsigned grid, double corrThresh=0.9, bool stereo = false)
+void FineTuneInterestPoints(Panorama & pano, 
+    int img1, const ImageType & leftImg, const ImageType & leftImgOrig, 
+    int img2, const ImageType & rightImg, const ImageType & rightImgOrig,
+    const MapPoints & points, unsigned nPoints, int pyrLevel, int templWidth, int sWidth, double scaleFactor, double corrThresh, bool stereo)
+{
+    unsigned nGood = 0;
+    // loop over all points, starting with the highest corner score
+    for (MapPoints::const_reverse_iterator it = points.rbegin(); it != points.rend(); ++it)
+    {
+        if (nGood >= nPoints)
+        {
+            // we have enough points, stop
+            break;
+        }
+
+        vigra_ext::CorrelationResult res = vigra_ext::PointFineTune(leftImg,
+            (*it).second,
+            templWidth,
+            rightImg,
+            (*it).second,
+            sWidth
+            );
+        if (g_verbose > 2)
+        {
+            std::ostringstream buf;
+            buf << "I :" << (*it).second.x * scaleFactor << "," << (*it).second.y * scaleFactor << " -> "
+                << res.maxpos.x * scaleFactor << "," << res.maxpos.y * scaleFactor << ":  corr coeff: " << res.maxi
+                << " curv:" << res.curv.x << " " << res.curv.y << std::endl;
+            cout << buf.str();
+        }
+        if (res.maxi < corrThresh)
+        {
+            DEBUG_DEBUG("low correlation: " << res.maxi << " curv: " << res.curv);
+            continue;
+        }
+
+        if (pyrLevel > 0)
+        {
+            res = vigra_ext::PointFineTune(leftImgOrig,
+                Diff2D((*it).second.x * scaleFactor, (*it).second.y * scaleFactor),
+                templWidth,
+                rightImgOrig,
+                Diff2D(res.maxpos.x * scaleFactor, res.maxpos.y * scaleFactor),
+                scaleFactor
+                );
+
+            if (g_verbose > 2)
+            {
+                std::ostringstream buf;
+                buf << "II>" << (*it).second.x * scaleFactor << "," << (*it).second.y * scaleFactor << " -> "
+                    << res.maxpos.x << "," << res.maxpos.y << ":  corr coeff: " << res.maxi
+                    << " curv:" << res.curv.x << " " << res.curv.y << std::endl;
+                cout << buf.str();
+            }
+            if (res.maxi < corrThresh)
+            {
+                DEBUG_DEBUG("low correlation in pass 2: " << res.maxi << " curv: " << res.curv);
+                continue;
+            }
+        }
+
+        nGood++;
+        // add control point
+        ControlPoint p(img1, (*it).second.x * scaleFactor,
+            (*it).second.y * scaleFactor,
+            img2, res.maxpos.x,
+            res.maxpos.y,
+            stereo ? ControlPoint::Y : ControlPoint::X_Y);
+        {
+            hugin_omp::ScopedLock sl(lock);
+            pano.addCtrlPoint(p);
+        };
+    }
+    if (g_verbose > 0)
+    {
+        std::ostringstream buf;
+        buf << "Number of good matches: " << nGood << ", bad matches: " << points.size() - nGood << std::endl;
+        cout << buf.str();
+    }
+};
+
+template <class ImageType>
+void createCtrlPoints(Panorama & pano, int img1, const ImageType & leftImg, const ImageType & leftImgOrig, int img2, const ImageType & rightImg, const ImageType & rightImgOrig, int pyrLevel, double scale, unsigned nPoints, unsigned grid, double corrThresh = 0.9, bool stereo = false)
 {
     typedef typename ImageType::value_type VT;
     //////////////////////////////////////////////////
     // find interesting corners using harris corner detector
-    typedef std::vector<std::multimap<double, vigra::Diff2D> > MapVector;
-
     if (stereo)
     {
         // add one vertical control point to keep the images aligned vertically
         ControlPoint p(img1, 0, 0, img2, 0, 0, ControlPoint::X);
         pano.addCtrlPoint(p);
     }
-    std::vector<std::multimap<double, vigra::Diff2D> >points;
+
     if (g_verbose > 0) {
-        std::cout << "Trying to find " << nPoints << " corners... ";
+        std::cout << "Trying to find " << nPoints << " corners... " << std::endl;
     }
 
-    vigra_ext::findInterestPointsOnGrid(srcImageRange(leftImg, GreenAccessor<VT>()), scale, 5*nPoints, grid, points);
+    vigra::Size2D size(leftImg.width(), leftImg.height());
+    std::vector<vigra::Rect2D> rects;
+    for (unsigned party = 0; party < grid; party++)
+    {
+        for (unsigned partx = 0; partx < grid; partx++)
+        {
+            // run corner detector only in current sub-region (saves a lot of memory for big images)
+            vigra::Rect2D rect(partx*size.x / grid, party*size.y / grid,
+                (partx + 1)*size.x / grid, (party + 1)*size.y / grid);
+            rect &= vigra::Rect2D(size);
+            if (rect.width()>0 && rect.height()>0)
+            {
+                rects.push_back(rect);
+            };
+        };
+    };
+
+    const double scaleFactor = 1 << pyrLevel;
+    const long templWidth = 20;
+    const long sWidth = 100;
+
+#pragma omp parallel for schedule(dynamic)
+    for (int i = 0; i < rects.size(); ++i)
+    {
+        MapPoints points;
+        vigra::Rect2D rect(rects[i]);
+        findInterestPointsPartial(srcImageRange(leftImg, RGBToGrayAccessor<VT>()), rect, scale, 5 * nPoints, points);
+        FineTuneInterestPoints(pano, img1, leftImg, leftImgOrig, img2, rightImg, rightImgOrig, points, nPoints, pyrLevel, templWidth, sWidth, scaleFactor, corrThresh, stereo);
+    };
 
     if (stereo)
     {
@@ -137,102 +248,39 @@ void createCtrlPoints(Panorama & pano, int img1, const ImageType & leftImg, cons
         // this is useful for better results - images are more distorted around edges
         // and also for stereoscopic window adjustment - it must be alligned according to
         // the nearest object which crosses the edge and these control points helps to find it.
-        std::multimap<double, vigra::Diff2D> up;
-        std::multimap<double, vigra::Diff2D> down;
-        std::multimap<double, vigra::Diff2D> left;
-        std::multimap<double, vigra::Diff2D> right;
+        MapPoints up;
+        MapPoints down;
+        MapPoints left;
+        MapPoints right;
         int xstep = leftImg.size().x / (nPoints + 1);
         int ystep = leftImg.size().y / (nPoints + 1);
-        for (int k = 6; k >= 0; --k) 
-            for (int j = 0; j < 2; ++j) 
-            	for (int i = 0; i < nPoints; ++i) { 
-                    up.insert(   std::make_pair(0, vigra::Diff2D(j * xstep / 2 + i * xstep ,    1 + k * 10)));
-                    down.insert( std::make_pair(0, vigra::Diff2D(j * xstep / 2 + i * xstep ,    leftImg.size().y - 2 - k * 10)));
-                    left.insert( std::make_pair(0, vigra::Diff2D(1 + k * 10,                    j * ystep / 2 + i * ystep)));
-                    right.insert(std::make_pair(0, vigra::Diff2D(leftImg.size().x - 2 - k * 10, j * ystep / 2 + i * ystep)));
+        for (int k = 6; k >= 0; --k)
+        for (int j = 0; j < 2; ++j)
+        for (int i = 0; i < nPoints; ++i) {
+            up.insert(std::make_pair(0, vigra::Diff2D(j * xstep / 2 + i * xstep, 1 + k * 10)));
+            down.insert(std::make_pair(0, vigra::Diff2D(j * xstep / 2 + i * xstep, leftImg.size().y - 2 - k * 10)));
+            left.insert(std::make_pair(0, vigra::Diff2D(1 + k * 10, j * ystep / 2 + i * ystep)));
+            right.insert(std::make_pair(0, vigra::Diff2D(leftImg.size().x - 2 - k * 10, j * ystep / 2 + i * ystep)));
         }
-        points.push_back(up);
-        points.push_back(down);
-        points.push_back(left);
-        points.push_back(right);
-    }  
-
-    double scaleFactor = 1<<pyrLevel;
-
-    for (MapVector::iterator mit = points.begin(); mit != points.end(); ++mit) {
-
-        unsigned nGood = 0;
-        unsigned nBad = 0;
-        // loop over all points, starting with the highest corner score
-        for (multimap<double, vigra::Diff2D>::reverse_iterator it = (*mit).rbegin();
-             it != (*mit).rend();
-             ++it)
+        // execute parallel
+#pragma omp parallel sections
         {
-            if (nGood >= nPoints) {
-                // we have enough points, stop
-                break;
-            }
-
-            long templWidth = 20;
-            long sWidth = 100;
-            long sWidth2 = scaleFactor;
-
-            vigra_ext::CorrelationResult res;
-
-            res = vigra_ext::PointFineTune(leftImg,
-                                            (*it).second,
-                                            templWidth,
-                                            rightImg,
-                                            (*it).second,
-                                            sWidth
-                                            );
-            if (g_verbose > 2) {
-                cout << "I :" << (*it).second.x * scaleFactor << "," << (*it).second.y * scaleFactor << " -> "
-                        << res.maxpos.x * scaleFactor << "," << res.maxpos.y * scaleFactor << ":  corr coeff: " <<  res.maxi
-                        << " curv:" <<  res.curv.x << " " << res.curv.y << std::endl;
-            }
-            if (res.maxi < corrThresh )
+#pragma omp section
             {
-                nBad++;
-                DEBUG_DEBUG("low correlation: " << res.maxi << " curv: " << res.curv);
-                continue;
+                FineTuneInterestPoints(pano, img1, leftImg, leftImgOrig, img2, rightImg, rightImgOrig, up, nPoints, pyrLevel, templWidth, sWidth, corrThresh, scaleFactor, stereo);
             }
-            
-            if (pyrLevel > 0)
+#pragma omp section
             {
-                res = vigra_ext::PointFineTune(leftImgOrig,
-                                            Diff2D((*it).second.x * scaleFactor, (*it).second.y * scaleFactor),
-                                            templWidth,
-                                            rightImgOrig,
-                                            Diff2D(res.maxpos.x * scaleFactor, res.maxpos.y * scaleFactor),
-                                            sWidth2
-                                            );
-
-                if (g_verbose > 2) {
-                    cout << "II>" << (*it).second.x * scaleFactor << "," << (*it).second.y * scaleFactor << " -> "
-                            << res.maxpos.x << "," << res.maxpos.y << ":  corr coeff: " <<  res.maxi
-                            << " curv:" <<  res.curv.x << " " << res.curv.y << std::endl;
-                }
-                if (res.maxi < corrThresh )
-                {
-                    nBad++;
-                    DEBUG_DEBUG("low correlation in pass 2: " << res.maxi << " curv: " << res.curv);
-                    continue;
-                }
+                FineTuneInterestPoints(pano, img1, leftImg, leftImgOrig, img2, rightImg, rightImgOrig, down, nPoints, pyrLevel, templWidth, sWidth, corrThresh, scaleFactor, stereo);
             }
-            
-            nGood++;
-            // add control point
-            ControlPoint p(img1, (*it).second.x * scaleFactor,
-                            (*it).second.y * scaleFactor,
-                            img2, res.maxpos.x,
-                            res.maxpos.y,
-                            stereo ? ControlPoint::Y : ControlPoint::X_Y);
-            pano.addCtrlPoint(p);
-            
-        }
-        if (g_verbose > 0) {
-            cout << "Number of good matches: " << nGood << ", bad matches: " << nBad << std::endl;
+#pragma omp section
+            {
+                FineTuneInterestPoints(pano, img1, leftImg, leftImgOrig, img2, rightImg, rightImgOrig, left, nPoints, pyrLevel, templWidth, sWidth, corrThresh, scaleFactor, stereo);
+            }
+#pragma omp section
+            {
+                FineTuneInterestPoints(pano, img1, leftImg, leftImgOrig, img2, rightImg, rightImgOrig, right, nPoints, pyrLevel, templWidth, sWidth, corrThresh, scaleFactor, stereo);
+            }
         }
     }
 };

@@ -41,8 +41,6 @@ public:
       m_progress(0),m_maxProgress(maxProgress), m_abort(false)
       {  };
 
-    virtual ~ProgressReporterDialog();
-
     virtual bool increaseProgress(double delta);
     virtual bool increaseProgress(double delta, const std::string & msg);
     

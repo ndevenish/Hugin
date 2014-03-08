@@ -44,6 +44,9 @@
 #include "hugin/CPEditorPanel.h"
 #include "hugin/wxPanoCommand.h"
 #include "base_wx/MyProgressDialog.h"
+#include "algorithms/optimizer/PTOptimizer.h"
+#include "algorithms/basic/CalculateOptimalScale.h"
+#include "base_wx/PTWXDlg.h"
 
 // more standard includes if needed
 #include <algorithm>
@@ -420,7 +423,7 @@ void CPEditorPanel::OnCPEvent( CPEvent&  ev)
     case CPEvent::DELETE_REGION_SELECTED:
         {
             UIntSet cpToRemove;
-            if(currentPoints.size()>0)
+            if(!currentPoints.empty())
             {
                 wxRect rect=ev.getRect();
                 for(unsigned int i=0;i<currentPoints.size();i++)
@@ -626,8 +629,8 @@ void CPEditorPanel::estimateAndAddOtherPoint(const FDiff2D & p,
     op = EstimatePoint(FDiff2D(p.x, p.y), left);
     // check if point is in image.
     const SrcPanoImage & pImg = m_pano->getImage(otherImgNr);
-    if (p.x < (int) pImg.getSize().width() && p.x >= 0
-        && p.y < (int) pImg.getSize().height() && p.y >= 0)
+    if (op.x < (int) pImg.getSize().width() && op.x >= 0
+        && op.y < (int) pImg.getSize().height() && op.y >= 0)
     {
         otherImg->setNewPoint(op);
         // if fine-tune is checked, run a fine-tune session as well.
@@ -639,7 +642,7 @@ void CPEditorPanel::estimateAndAddOtherPoint(const FDiff2D & p,
             long templWidth = wxConfigBase::Get()->Read(wxT("/Finetune/TemplateSize"), HUGIN_FT_TEMPLATE_SIZE);
             const SrcPanoImage & img = m_pano->getImage(thisImgNr);
             double sAreaPercent = wxConfigBase::Get()->Read(wxT("/Finetune/SearchAreaPercent"),HUGIN_FT_SEARCH_AREA_PERCENT);
-            int sWidth = (int) (img.getWidth() * sAreaPercent / 100.0);
+            int sWidth = std::min((int)(img.getWidth() * sAreaPercent / 100.0), 500);
             CorrelationResult corrPoint;
             double corrOk=false;
             Diff2D roundp(p.toDiff2D());
@@ -656,14 +659,19 @@ void CPEditorPanel::estimateAndAddOtherPoint(const FDiff2D & p,
             }
             if (! corrOk) {
                 // just set point, PointFineTune already complained
-                otherImg->setScale(m_detailZoomFactor);
-                otherImg->setNewPoint(corrPoint.maxpos);
-                changeState(BOTH_POINTS_SELECTED);
+                if (corrPoint.corrPos.x >= 0 && corrPoint.corrPos.y >= 0 && corrPoint.maxpos.x > 0 && corrPoint.maxpos.y > 0)
+                {
+                    otherImg->setScale(m_detailZoomFactor);
+                    otherImg->setNewPoint(corrPoint.maxpos);
+                    thisImg->setNewPoint(corrPoint.corrPos);
+                    changeState(BOTH_POINTS_SELECTED);
+                };
             } else {
                 // show point & zoom in if auto add is not set
                 if (!m_autoAddCB->IsChecked()) {
                     otherImg->setScale(m_detailZoomFactor);
                     otherImg->setNewPoint(corrPoint.maxpos);
+                    thisImg->setNewPoint(corrPoint.corrPos);
                     changeState(BOTH_POINTS_SELECTED);
                     wxString s1;
                     s1.Printf(_("Point fine-tuned, angle: %.0f deg, correlation coefficient: %0.3f, curvature: %0.3f %0.3f "),
@@ -674,6 +682,7 @@ void CPEditorPanel::estimateAndAddOtherPoint(const FDiff2D & p,
                 } else {
                     // add point
                     otherImg->setNewPoint(corrPoint.maxpos);
+                    thisImg->setNewPoint(corrPoint.corrPos);
                     changeState(BOTH_POINTS_SELECTED);
                     CreateNewPoint();
                 }
@@ -731,7 +740,12 @@ void CPEditorPanel::NewPointChange(FDiff2D p, bool left)
             thisImg->showPosition(p);
         } else {
             // run auto-estimate procedure?
-            if (estimate && (thisImgNr != otherImgNr) && currentPoints.size() > 0) {
+            bool hasNormalCP = false;
+            for (HuginBase::CPointVector::const_iterator it = currentPoints.begin(); it != currentPoints.end() && !hasNormalCP; ++it)
+            {
+                hasNormalCP = (it->second.mode == HuginBase::ControlPoint::X_Y);
+            };
+            if (estimate && (thisImgNr != otherImgNr) && hasNormalCP) {
                 estimateAndAddOtherPoint(p, left,
                                          thisImg, thisImgNr, THIS_POINT, THIS_POINT_RETRY,
                                          otherImg, otherImgNr, OTHER_POINT, OTHER_POINT_RETRY);
@@ -743,7 +757,12 @@ void CPEditorPanel::NewPointChange(FDiff2D p, bool left)
     } else if (cpCreationState == THIS_POINT) {
         thisImg->showPosition(p);
 
-        if (estimate && (thisImgNr != otherImgNr) && currentPoints.size() > 0) {
+        bool hasNormalCP = false;
+        for (HuginBase::CPointVector::const_iterator it = currentPoints.begin(); it != currentPoints.end() && !hasNormalCP; ++it)
+        {
+            hasNormalCP = (it->second.mode == HuginBase::ControlPoint::X_Y);
+        };
+        if (estimate && (thisImgNr != otherImgNr) && hasNormalCP) {
             estimateAndAddOtherPoint(p, left,
                                      thisImg, thisImgNr, THIS_POINT, THIS_POINT_RETRY,
                                      otherImg, otherImgNr, OTHER_POINT, OTHER_POINT_RETRY);
@@ -763,7 +782,7 @@ void CPEditorPanel::NewPointChange(FDiff2D p, bool left)
                 const SrcPanoImage & img = m_pano->getImage(thisImgNr);
                 double sAreaPercent = wxConfigBase::Get()->Read(wxT("/Finetune/SearchAreaPercent"),
                                                                 HUGIN_FT_SEARCH_AREA_PERCENT);
-                int sWidth = (int) (img.getWidth() * sAreaPercent / 100.0);
+                int sWidth = std::min((int) (img.getWidth() * sAreaPercent / 100.0), 500);
                 bool corrOk = false;
                 // corr point
                 Diff2D newPoint_round = newPoint.toDiff2D();
@@ -783,11 +802,14 @@ void CPEditorPanel::NewPointChange(FDiff2D p, bool left)
                     // low xcorr
                     // zoom to 100 percent. & set second stage
                     // to abandon finetune this time.
-                    thisImg->setScale(m_detailZoomFactor);
-                    thisImg->setNewPoint(corrRes.maxpos);
-                    thisImg->update();
-                    otherImg->setNewPoint(FDiff2D(newPoint_round.x, newPoint_round.y));
-                    changeState(BOTH_POINTS_SELECTED);
+                    if (corrRes.corrPos.x >= 0 && corrRes.corrPos.y >= 0 && corrRes.maxpos.x >= 0 && corrRes.maxpos.y >= 0)
+                    {
+                        thisImg->setScale(m_detailZoomFactor);
+                        thisImg->setNewPoint(corrRes.maxpos);
+                        thisImg->update();
+                        otherImg->setNewPoint(corrRes.corrPos);
+                        changeState(BOTH_POINTS_SELECTED);
+                    };
                 } else {
                     // show point & zoom in if auto add is not set
                     changeState(BOTH_POINTS_SELECTED);
@@ -795,6 +817,7 @@ void CPEditorPanel::NewPointChange(FDiff2D p, bool left)
                         thisImg->setScale(m_detailZoomFactor);
                     }
                     thisImg->setNewPoint(corrRes.maxpos);
+                    otherImg->setNewPoint(corrRes.corrPos);
                     wxString s1;
                     s1.Printf(_("Point fine-tuned, angle: %.0f deg, correlation coefficient: %0.3f, curvature: %0.3f %0.3f "),
                               corrRes.maxAngle, corrRes.maxi, corrRes.curv.x, corrRes.curv.y );
@@ -847,6 +870,195 @@ void CPEditorPanel::NewPointChange(FDiff2D p, bool left)
     }
 }
 
+// return a SrcPanoImage so that the given point is in the center
+SrcPanoImage GetImageRotatedTo(const SrcPanoImage& img, const vigra::Diff2D& point, int testWidth, double& neededHFOV)
+{
+    // copy only necessary information into temporary SrcPanoImage
+    SrcPanoImage imgMod;
+    imgMod.setSize(img.getSize());
+    imgMod.setProjection(img.getProjection());
+    imgMod.setHFOV(img.getHFOV());
+    // calculate, where the interest point lies
+    PanoramaOptions opt;
+    opt.setProjection(HuginBase::PanoramaOptions::EQUIRECTANGULAR);
+    opt.setHFOV(360);
+    opt.setWidth(360);
+    opt.setHeight(180);
+
+    PTools::Transform transform;
+    transform.createInvTransform(imgMod, opt);
+    double x1, y1;
+    if (!transform.transformImgCoord(x1, y1, point.x, point.y))
+    {
+        neededHFOV = -1;
+        return imgMod;
+    }
+    // equirect image coordinates -> equirectangular coordinates
+    // transformImgCoord places the origin at the upper left corner and negate
+    Matrix3 rotY;
+    rotY.SetRotationPT(DEG_TO_RAD(180 - (x1 + 0.5)), 0, 0);
+    Matrix3 rotP;
+    rotP.SetRotationPT(0, DEG_TO_RAD((y1 + 0.5) - 90), 0);
+    double y, p, r;
+    // calculate the necessary rotation angles and remember
+    Matrix3 rot = rotP * rotY;
+    rot.GetRotationPT(y, p, r);
+    imgMod.setYaw(RAD_TO_DEG(y));
+    imgMod.setPitch(RAD_TO_DEG(p));
+    imgMod.setRoll(RAD_TO_DEG(r));
+
+    // new we calculate the needed HFOV for template/search area width
+    double x2, y2;
+    // check a point left from our interest point
+    if (transform.transformImgCoord(x2, y2, point.x - testWidth / 2.0, point.y))
+    {
+        if (x2 < x1)
+        {
+            neededHFOV = 2.0 * (x1 - x2);
+        }
+        else
+        {
+            // we crossed the 360 deg border
+            neededHFOV = 2.0 * (360 - x2 + x1);
+        };
+        // limit maximum HFOV for remapping to stereographic projection done as next step
+        if (neededHFOV > 90)
+        {
+            neededHFOV = 90;
+        };
+        return imgMod;
+    };
+    // this goes wrong, maybe the tested point is outside the image area of a fisheye image
+    // now test the right point
+    if (transform.transformImgCoord(x2, y2, point.x + testWidth / 2.0, point.y))
+    {
+        if (x1 < x2)
+        {
+            neededHFOV = 2.0 * (x2 - x1);
+        }
+        else
+        {
+            // we crossed the 360 deg border
+            neededHFOV = 2.0 * (360 + x2 - x1);
+        };
+        // limit maximum HFOV for remapping to stereographic projection done as next step
+        if (neededHFOV > 90)
+        {
+            neededHFOV = 90;
+        };
+        return imgMod;
+    };
+    // we can't calculate the needed HFOV, return -1
+    neededHFOV = -1;
+    return imgMod;
+};
+
+CorrelationResult PointFineTuneProjectionAware(const SrcPanoImage& templ, const vigra::UInt8RGBImage& templImg,
+    vigra::Diff2D templPos, int templSize,
+    const SrcPanoImage& search, const vigra::UInt8RGBImage& searchImg,
+    vigra::Diff2D searchPos, int sWidth)
+{
+    wxBusyCursor busy;
+    // read settings
+    wxConfigBase *cfg = wxConfigBase::Get();
+    bool rotatingFinetune = cfg->Read(wxT("/Finetune/RotationSearch"), HUGIN_FT_ROTATION_SEARCH) == 1;
+    double startAngle = HUGIN_FT_ROTATION_START_ANGLE;
+    cfg->Read(wxT("/Finetune/RotationStartAngle"), &startAngle, HUGIN_FT_ROTATION_START_ANGLE);
+    startAngle = DEG_TO_RAD(startAngle);
+    double stopAngle = HUGIN_FT_ROTATION_STOP_ANGLE;
+    cfg->Read(wxT("/Finetune/RotationStopAngle"), &stopAngle, HUGIN_FT_ROTATION_STOP_ANGLE);
+    stopAngle = DEG_TO_RAD(stopAngle);
+    int nSteps = cfg->Read(wxT("/Finetune/RotationSteps"), HUGIN_FT_ROTATION_STEPS);
+    // if both images have the same projection and the angle does not differ to much use normal point fine-tune
+    if (templ.getProjection() == search.getProjection()
+        && templ.getHFOV() < 65 && search.getHFOV() < 65
+        && fabs(templ.getHFOV() - search.getHFOV()) < 5)
+    {
+        CorrelationResult res;
+        if (rotatingFinetune)
+        {
+            res = vigra_ext::PointFineTuneRotSearch(templImg, templPos, templSize,
+                searchImg, searchPos, sWidth, startAngle, stopAngle, nSteps);
+        }
+        else
+        {
+            res = vigra_ext::PointFineTune(templImg, templPos, templSize,
+                searchImg, searchPos, sWidth);
+        };
+        res.corrPos = templPos;
+        return res;
+    };
+    // images have different projections or the HFOV is different
+    // so we reproject the image to stereographic projection and fine tune point there
+    // rotate image so that interest point is in the center
+    double templHFOV = 0;
+    double searchHFOV = 0;
+    SrcPanoImage templMod = GetImageRotatedTo(templ, templPos, templSize, templHFOV);
+    SrcPanoImage searchMod = GetImageRotatedTo(search, searchPos, sWidth + templSize + 5, searchHFOV);
+    CorrelationResult res;
+    res.maxpos = FDiff2D(-1, -1);
+    res.corrPos = FDiff2D(-1, -1);
+    if (templHFOV < 0 || searchHFOV < 0)
+    {
+        //something went wrong, e.g. image outside of projection circle for fisheye lenses
+        return res;
+    }
+    // populate PanoramaOptions
+    PanoramaOptions opts;
+    opts.setProjection(PanoramaOptions::STEREOGRAPHIC);
+    opts.setHFOV(std::max(templHFOV, searchHFOV));
+    // calculate a sensible scale factor
+    double scaleTempl = HuginBase::CalculateOptimalScale::calcOptimalPanoScale(templMod, opts);
+    double scaleSearch = HuginBase::CalculateOptimalScale::calcOptimalPanoScale(searchMod, opts);
+    opts.setWidth(std::max<unsigned int>(opts.getWidth()*std::min(scaleTempl, scaleSearch), 3 * templSize));
+    opts.setHeight(opts.getWidth());
+    // transform coordinates to transform system
+    PTools::Transform transform;
+    transform.createInvTransform(templMod, opts);
+    double templX, templY, searchX, searchY;
+    transform.transformImgCoord(templX, templY, templPos.x, templPos.y);
+    transform.createInvTransform(searchMod, opts);
+    transform.transformImgCoord(searchX, searchY, searchPos.x, searchPos.y);
+    // now transform the images
+    vigra_ext::PassThroughFunctor<vigra::UInt8> ptf;
+    AppBase::DummyMultiProgressDisplay dummy;
+    transform.createTransform(searchMod, opts);
+    vigra::UInt8RGBImage searchImgMod(opts.getSize());
+    vigra::BImage alpha(opts.getSize());
+    vigra_ext::transformImage(srcImageRange(searchImg), destImageRange(searchImgMod), destImage(alpha),
+        vigra::Diff2D(0, 0), transform, ptf, false, vigra_ext::INTERP_CUBIC, dummy);
+    // now remap template, we need to remap a little bigger area to have enough information when the template
+    // is rotated in PointFineTuneRotSearch
+    Diff2D templPointInt(hugin_utils::roundi(templX), hugin_utils::roundi(templY));
+    vigra::Rect2D rect(templPointInt.x - templSize - 2, templPointInt.y - templSize - 2,
+        templPointInt.x + templSize + 2, templPointInt.y + templSize + 2);
+    rect &= vigra::Rect2D(opts.getSize());
+    transform.createTransform(templMod, opts);
+    vigra::UInt8RGBImage templImgMod(opts.getSize());
+    vigra_ext::transformImage(srcImageRange(templImg), destImageRange(templImgMod, rect), destImage(alpha),
+        vigra::Diff2D(rect.left(), rect.top()), transform, ptf, false, vigra_ext::INTERP_CUBIC, dummy);
+#if defined DEBUG_EXPORT_FINE_TUNE_REMAPPING
+    {
+        vigra::ImageExportInfo templExport("template_remapped.tif");
+        vigra::exportImage(srcImageRange(templImgMod), templExport.setPixelType("UINT8"));
+        vigra::ImageExportInfo searchExport("search_remapped.tif");
+        vigra::exportImage(srcImageRange(searchImgMod), searchExport.setPixelType("UINT8"));
+    }
+#endif
+    // now we can finetune the point in stereographic projection
+    // we are always using the rotate fine-tune algorithm, because for this case
+    // often a rotation is involved
+    res = vigra_ext::PointFineTuneRotSearch(templImgMod, templPointInt, templSize,
+        searchImgMod, Diff2D(hugin_utils::roundi(searchX), hugin_utils::roundi(searchY)), sWidth, startAngle, stopAngle, nSteps);
+    // we transfer also the new found template position back to the original image
+    transform.createTransform(templMod, opts);
+    transform.transformImgCoord(res.corrPos.x, res.corrPos.y, templPointInt.x + 0.00001, templPointInt.y + 0.00001);
+    // we need to move the finetune point back to position in original image
+    transform.createTransform(searchMod, opts);
+    transform.transformImgCoord(res.maxpos.x, res.maxpos.y, res.maxpos.x, res.maxpos.y);
+    return res;
+};
+
 bool CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
                                   const Diff2D & tmplPoint,
                                   int templSize,
@@ -868,62 +1080,13 @@ bool CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
     wxConfigBase::Get()->Read(wxT("/Finetune/CurvThreshold"),&curvThresh,
                               HUGIN_FT_CURV_THRESHOLD);
 
-    const SrcPanoImage & img = m_pano->getImage(subjImgNr);
-
     // fixme: just cutout suitable gray 
-    ImageCache::EntryPtr subjImg = ImageCache::getInstance().getImage(img.getFilename());
-    ImageCache::EntryPtr tmplImg = ImageCache::getInstance().getImage( m_pano->getImage(tmplImgNr).getFilename());
+    ImageCache::ImageCacheRGB8Ptr subjImg = ImageCache::getInstance().getImage(m_pano->getImage(subjImgNr).getFilename())->get8BitImage();
+    ImageCache::ImageCacheRGB8Ptr tmplImg = ImageCache::getInstance().getImage(m_pano->getImage(tmplImgNr).getFilename())->get8BitImage();
 
-    wxConfigBase *cfg = wxConfigBase::Get();
-    bool rotatingFinetune = cfg->Read(wxT("/Finetune/RotationSearch"), HUGIN_FT_ROTATION_SEARCH) == 1;
+    res = PointFineTuneProjectionAware(m_pano->getImage(tmplImgNr), *(tmplImg), tmplPoint, templSize,
+        m_pano->getImage(subjImgNr), *(subjImg), o_subjPoint.toDiff2D(), sWidth);
 
-    if (rotatingFinetune) {
-        double startAngle=HUGIN_FT_ROTATION_START_ANGLE;
-        cfg->Read(wxT("/Finetune/RotationStartAngle"),&startAngle,HUGIN_FT_ROTATION_START_ANGLE);
-        startAngle=DEG_TO_RAD(startAngle);
-        double stopAngle=HUGIN_FT_ROTATION_STOP_ANGLE;
-        cfg->Read(wxT("/Finetune/RotationStopAngle"),&stopAngle,HUGIN_FT_ROTATION_STOP_ANGLE);
-        stopAngle=DEG_TO_RAD(stopAngle);
-        int nSteps = cfg->Read(wxT("/Finetune/RotationSteps"), HUGIN_FT_ROTATION_STEPS);
-        {
-            wxBusyCursor busy;
-            if (subjImg->image8 && tmplImg->image8) {
-                res = vigra_ext::PointFineTuneRotSearch(*(tmplImg->image8),
-                                                        tmplPoint, templSize,
-                                                        *(subjImg->image8),
-                                                        o_subjPoint.toDiff2D(),
-                                                        sWidth,
-                                                        startAngle, stopAngle, nSteps);
-            } else if (subjImg->imageFloat && tmplImg->imageFloat) {
-                res = vigra_ext::PointFineTuneRotSearch(*(tmplImg->imageFloat),
-                                                        tmplPoint, templSize,
-                                                        *(subjImg->imageFloat),
-                                                        o_subjPoint.toDiff2D(),
-                                                        sWidth,
-                                                        startAngle, stopAngle, nSteps);
-            } else if (subjImg->image8 && tmplImg->imageFloat) {
-                res = vigra_ext::PointFineTuneRotSearch(*(tmplImg->imageFloat),
-                                                        tmplPoint, templSize,
-                                                        *(subjImg->image8),
-                                                        o_subjPoint.toDiff2D(),
-                                                        sWidth,
-                                                        startAngle, stopAngle, nSteps);
-            } else {
-                res = vigra_ext::PointFineTuneRotSearch(*(tmplImg->image8),
-                                                        tmplPoint, templSize,
-                                                        *(subjImg->imageFloat),
-                                                        o_subjPoint.toDiff2D(),
-                                                        sWidth,
-                                                        startAngle, stopAngle, nSteps);
-
-            }
-        }
-    } else {
-        wxBusyCursor busy;
-        res = vigra_ext::PointFineTune(*(tmplImg->image8), tmplPoint, templSize,
-                                       *(subjImg->image8), o_subjPoint.toDiff2D(),
-                                       sWidth);
-    }
     // invert curvature. we always assume its a maxima, the curvature there is negative
     // however, we allow the user to specify a positive threshold, so we need to
     // invert it
@@ -932,7 +1095,32 @@ bool CPEditorPanel::PointFineTune(unsigned int tmplImgNr,
 
     MainFrame::Get()->SetStatusText(wxString::Format(_("Point fine-tuned, angle: %.0f deg, correlation coefficient: %0.3f, curvature: %0.3f %0.3f "),
                                     res.maxAngle, res.maxi, res.curv.x, res.curv.y ),0);
-    if (res.maxi < corrThresh ||res.curv.x < curvThresh || res.curv.y < curvThresh  )
+    if (res.corrPos.x < 0 || res.corrPos.y < 0 || res.maxpos.x < 0 || res.maxpos.y < 0)
+    {
+        // invalid transformation in fine tune
+#if wxCHECK_VERSION(2, 9, 0)
+        wxMessageDialog dlg(this,
+            _("No similar point found."),
+#ifdef _WINDOWS
+            _("Hugin"),
+#else
+            wxT(""),
+#endif
+            wxICON_ERROR | wxOK);
+        dlg.SetExtendedMessage(_("An internal transformation went wrong.\nCheck that the point is inside the image."));
+        dlg.ShowModal();
+#else
+        wxMessageBox(_("An internal transformation went wrong.\nCheck that the point is inside the image."),
+#ifdef _WINDOWS
+            _("Hugin"),
+#else
+            wxT(""),
+#endif
+            wxICON_ERROR | wxOK, this);
+#endif
+        return false;
+    }
+    if (res.maxi < corrThresh || res.curv.x < curvThresh || res.curv.y < curvThresh )
     {
         // Bad correlation result.
 #if wxCHECK_VERSION(2, 9, 0)
@@ -1694,7 +1882,7 @@ void CPEditorPanel::OnFineTuneButton(wxCommandEvent & e)
 
 void CPEditorPanel::OnCelesteButton(wxCommandEvent & e)
 {
-    if (currentPoints.size() == 0)
+    if (currentPoints.empty())
     {
         wxMessageBox(_("Cannot run celeste without at least one control point connecting the two images"),_("Error"));
         cout << "Cannot run celeste without at least one control point connecting the two images" << endl;
@@ -1758,6 +1946,7 @@ void CPEditorPanel::OnCelesteButton(wxCommandEvent & e)
 
 FDiff2D CPEditorPanel::LocalFineTunePoint(unsigned int srcNr,
                                           const Diff2D & srcPnt,
+                                          hugin_utils::FDiff2D & movedSrcPnt,
                                           unsigned int moveNr,
                                           const FDiff2D & movePnt)
 {
@@ -1771,6 +1960,11 @@ FDiff2D CPEditorPanel::LocalFineTunePoint(unsigned int srcNr,
                   movePnt,
                   sWidth,
                   result);
+    movedSrcPnt = result.corrPos;
+    if (result.corrPos.x < 0 || result.corrPos.y < 0 || result.maxpos.x < 0 || result.maxpos.y < 0)
+    {
+        return FDiff2D(-1, -1);
+    }
     return result.maxpos;
 }
 
@@ -1793,18 +1987,25 @@ void CPEditorPanel::FineTuneSelectedPoint(bool left)
         movePnt = Diff2D(roundi(cp.x1), roundi(cp.y1));
     }
 
-    FDiff2D result = LocalFineTunePoint(srcNr, srcPnt, moveNr, movePnt);
+    FDiff2D movedSrcPnt;
+    FDiff2D result = LocalFineTunePoint(srcNr, srcPnt, movedSrcPnt, moveNr, movePnt);
 
+    if (result.x < 0 || result.y < 0)
+    {
+        wxBell();
+        return;
+    };
+    
     if (left) {
        cp.x1 = result.x;
        cp.y1 = result.y;
-       cp.x2 = srcPnt.x;
-       cp.y2 = srcPnt.y;
+       cp.x2 = movedSrcPnt.x;
+       cp.y2 = movedSrcPnt.y;
     } else {
        cp.x2 = result.x;
        cp.y2 = result.y;
-       cp.x1 = srcPnt.x;
-       cp.y1 = srcPnt.y;
+       cp.x1 = movedSrcPnt.x;
+       cp.y1 = movedSrcPnt.y;
     }
 
     // if point was mirrored, reverse before setting it.
@@ -1840,55 +2041,113 @@ void CPEditorPanel::FineTuneNewPoint(bool left)
         movePnt = leftP.toDiff2D();
     }
 
-    FDiff2D result = LocalFineTunePoint(srcNr, srcPnt, moveNr, movePnt);
+    FDiff2D movedSrcPnt;
+    FDiff2D result = LocalFineTunePoint(srcNr, srcPnt, movedSrcPnt, moveNr, movePnt);
 
+    if (result.x < 0 || result.y < 0)
+    {
+        wxBell();
+        return;
+    };
     if (left) {
         m_leftImg->setNewPoint(result);
         m_leftImg->update();
-        m_rightImg->setNewPoint(srcPnt);
+        m_rightImg->setNewPoint(movedSrcPnt);
         m_rightImg->update();
 
     } else {
         m_rightImg->setNewPoint(result);
         m_rightImg->update();
-        m_leftImg->setNewPoint(srcPnt);
+        m_leftImg->setNewPoint(movedSrcPnt);
         m_leftImg->update();
     }
 }
 
 FDiff2D CPEditorPanel::EstimatePoint(const FDiff2D & p, bool left)
 {
-    int imgNr = left? m_rightImageNr : m_leftImageNr;
-    const SrcPanoImage & img = m_pano->getImage(imgNr);
-    FDiff2D t;
-    if (currentPoints.size() == 0) {
+    size_t nrNormalCp = 0;
+    for (HuginBase::CPointVector::const_iterator it = currentPoints.begin(); it != currentPoints.end(); ++it)
+    {
+        if (it->second.mode == HuginBase::ControlPoint::X_Y)
+        {
+            ++nrNormalCp;
+        };
+    };
+    if (nrNormalCp==0)
+    {
         DEBUG_WARN("Cannot estimate position without at least one point");
         return FDiff2D(0,0);
     }
 
-    for (HuginBase::CPointVector::const_iterator it = currentPoints.begin(); it != currentPoints.end(); ++it) {
-        t.x += it->second.x2 - it->second.x1;
-        t.y += it->second.y2 - it->second.y1;
-    }
-    t.x /= currentPoints.size();
-    t.y /= currentPoints.size();
-    DEBUG_DEBUG("estimated translation: x: " << t.x << " y: " << t.y);
+    // get copy of SrcPanoImage and reset position
+    SrcPanoImage leftImg = m_pano->getSrcImage(left ? m_leftImageNr : m_rightImageNr);
+    leftImg.setYaw(0);
+    leftImg.setPitch(0);
+    leftImg.setRoll(0);
+    leftImg.setX(0);
+    leftImg.setY(0);
+    leftImg.setZ(0);
+    SrcPanoImage rightImg = m_pano->getSrcImage(left ? m_rightImageNr : m_leftImageNr);
+    rightImg.setYaw(0);
+    rightImg.setPitch(0);
+    rightImg.setRoll(0);
+    rightImg.setX(0);
+    rightImg.setY(0);
+    rightImg.setZ(0);
+    // generate a temporary pano
+    Panorama optPano;
+    optPano.addImage(leftImg);
+    optPano.addImage(rightImg);
+    // construct OptimizeVector
+    OptimizeVector optVec;
+    std::set<std::string> opt;
+    optVec.push_back(opt);
+    opt.insert("y");
+    opt.insert("p");
+    if (nrNormalCp > 1)
+    {
+        opt.insert("r");
+    };
+    optVec.push_back(opt);
+    optPano.setOptimizeVector(optVec);
+    // now add control points, need to check image numbers
+    HuginBase::CPVector cps;
+    for (HuginBase::CPointVector::const_iterator it = currentPoints.begin(); it != currentPoints.end(); ++it)
+    {
+        HuginBase::ControlPoint cp(it->second);
+        if (cp.mode == HuginBase::ControlPoint::X_Y)
+        {
+            cp.image1Nr = left ? 0 : 1;
+            cp.image2Nr = left ? 1 : 0;
+            cps.push_back(cp);
+        };
+    };
+    optPano.setCtrlPoints(cps);
+    deregisterPTWXDlgFcn();
+    HuginBase::PTools::optimize(optPano);
+    registerPTWXDlgFcn();
 
-    if (left) {
-        t.x += p.x;
-        t.y += p.y;
-    } else {
-        t.x = p.x - t.x;
-        t.y = p.y - t.y;
-    }
-
-    // clip to fit to
-    if (t.x < 0) t.x=0;
-    if (t.y < 0) t.y=0;
-    if (t.x > img.getWidth()) t.x = img.getWidth();
-    if (t.y > img.getHeight()) t.y = img.getHeight();
-    DEBUG_DEBUG("estimated point " << t.x << "," << t.y);
-    return t;
+    // now transform the wanted point p to other image
+    HuginBase::PTools::Transform transformBackward;
+    transformBackward.createInvTransform(optPano.getImage(0), optPano.getOptions());
+    HuginBase::PTools::Transform transformForward;
+    transformForward.createTransform(optPano.getImage(1), optPano.getOptions());
+    FDiff2D t;
+    if (transformBackward.transformImgCoord(t, p))
+    {
+        if (transformForward.transformImgCoord(t, t))
+        {
+            // clip to fit to
+            if (t.x < 0) t.x = 0;
+            if (t.y < 0) t.y = 0;
+            if (t.x > optPano.getImage(1).getWidth()) t.x = optPano.getImage(1).getWidth();
+            if (t.y > optPano.getImage(1).getHeight()) t.y = optPano.getImage(1).getHeight();
+            DEBUG_DEBUG("estimated point " << t.x << "," << t.y);
+            return t;
+        };
+    };
+    wxBell();
+    return FDiff2D(0, 0);
 }
 
 void CPEditorPanel::OnColumnWidthChange( wxListEvent & e )

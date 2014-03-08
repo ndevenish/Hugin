@@ -932,7 +932,7 @@ void MainFrame::LoadProjectFile(const wxString & filename)
            new wxLoadPTProjectCmd(pano,(const char *)filename.mb_str(HUGIN_CONV_FILENAME), (const char *)path.mb_str(HUGIN_CONV_FILENAME), true)
            );
         GlobalCmdHist::getInstance().clear();
-        registerPTWXDlgFcn(wxGetApp().GetTopWindow());
+        registerPTWXDlgFcn();
         DEBUG_DEBUG("project contains " << pano.getNrOfImages() << " after load");
         GuiLevel reqGuiLevel=GetMinimumGuiLevel(pano);
         if(reqGuiLevel>m_guiLevel)
@@ -1551,20 +1551,13 @@ void MainFrame::OnFineTuneAll(wxCommandEvent & e)
     unsigned int nBad=0;
 
     wxConfigBase *cfg = wxConfigBase::Get();
-    bool rotatingFinetune = cfg->Read(wxT("/Finetune/RotationSearch"), HUGIN_FT_ROTATION_SEARCH) == 1;
-    double startAngle=HUGIN_FT_ROTATION_START_ANGLE;
-    cfg->Read(wxT("/Finetune/RotationStartAngle"),&startAngle,HUGIN_FT_ROTATION_START_ANGLE);
-    startAngle=DEG_TO_RAD(startAngle);
-    double stopAngle=HUGIN_FT_ROTATION_STOP_ANGLE;
-    cfg->Read(wxT("/Finetune/RotationStopAngle"),&stopAngle,HUGIN_FT_ROTATION_STOP_ANGLE);
-    stopAngle=DEG_TO_RAD(stopAngle);
-    int nSteps = cfg->Read(wxT("/Finetune/RotationSteps"), HUGIN_FT_ROTATION_STEPS);
-
     double corrThresh=HUGIN_FT_CORR_THRESHOLD;
     cfg->Read(wxT("/Finetune/CorrThreshold"), &corrThresh, HUGIN_FT_CORR_THRESHOLD);
     double curvThresh = HUGIN_FT_CURV_THRESHOLD;
-    wxConfigBase::Get()->Read(wxT("/Finetune/CurvThreshold"),&curvThresh,
-                              HUGIN_FT_CURV_THRESHOLD);
+    cfg->Read(wxT("/Finetune/CurvThreshold"),&curvThresh, HUGIN_FT_CURV_THRESHOLD);
+    // load parameters
+    const long templWidth = cfg->Read(wxT("/Finetune/TemplateSize"), HUGIN_FT_TEMPLATE_SIZE);
+    const long sWidth = templWidth + cfg->Read(wxT("/Finetune/LocalSearchWidth"), HUGIN_FT_LOCAL_SEARCH_WIDTH);
 
     {
     ProgressReporterDialog progress(unoptimized.size(),_("Fine-tuning all points"),_("Fine-tuning"),wxTheApp->GetTopWindow());
@@ -1586,51 +1579,27 @@ void MainFrame::OnFineTuneAll(wxCommandEvent & e)
                     // finetune only normal points
                     DEBUG_DEBUG("fine tuning point: " << *it);
                     wxImage wxSearchImg;
-                    ImageCache::EntryPtr searchImg = imgCache.getImage(
-                         pano.getImage(cps[*it].image2Nr).getFilename());
+                    ImageCache::ImageCacheRGB8Ptr searchImg = imgCache.getImage(
+                        pano.getImage(cps[*it].image2Nr).getFilename())->get8BitImage();
 
-                    ImageCache::EntryPtr templImg = imgCache.getImage(
-                         pano.getImage(cps[*it].image1Nr).getFilename());
+                    ImageCache::ImageCacheRGB8Ptr templImg = imgCache.getImage(
+                        pano.getImage(cps[*it].image1Nr).getFilename())->get8BitImage();
 
-
-                    // load parameters
-                    long templWidth = wxConfigBase::Get()->Read(
-                        wxT("/Finetune/TemplateSize"),HUGIN_FT_TEMPLATE_SIZE);
-                    long sWidth = templWidth + wxConfigBase::Get()->Read(
-                        wxT("/Finetune/LocalSearchWidth"),HUGIN_FT_LOCAL_SEARCH_WIDTH);
                     vigra_ext::CorrelationResult res;
                     vigra::Diff2D roundP1(roundi(cps[*it].x1), roundi(cps[*it].y1));
                     vigra::Diff2D roundP2(roundi(cps[*it].x2), roundi(cps[*it].y2));
 
-                    if (rotatingFinetune) {
-                        res = vigra_ext::PointFineTuneRotSearch(
-                            *(templImg->get8BitImage()),
-                            roundP1,
-                            templWidth,
-                            *(searchImg->get8BitImage()),
-                            roundP2,
-                            sWidth,
-                            startAngle, stopAngle, nSteps
-                            );
+                    res = PointFineTuneProjectionAware(pano.getImage(cps[*it].image1Nr), *templImg, roundP1, templWidth,
+                        pano.getImage(cps[*it].image2Nr), *searchImg, roundP2, sWidth);
 
-                    } else {
-                        res = vigra_ext::PointFineTune(
-                            *(templImg->get8BitImage()),
-                            roundP1,
-                            templWidth,
-                            *(searchImg->get8BitImage()),
-                            roundP2,
-                            sWidth
-                            );
-
-                    }
                     // invert curvature. we always assume its a maxima, the curvature there is negative
                     // however, we allow the user to specify a positive threshold, so we need to
                     // invert it
                     res.curv.x = - res.curv.x;
                     res.curv.y = - res.curv.y;
 
-                    if (res.maxi < corrThresh ||res.curv.x < curvThresh || res.curv.y < curvThresh  )
+                    if (res.maxi < corrThresh || res.curv.x < curvThresh || res.curv.y < curvThresh ||
+                        res.maxpos.x < 0 || res.maxpos.y < 0 || res.corrPos.x < 0 || res.corrPos.y < 0)
                     {
                         // Bad correlation result.
                         nBad++;
@@ -1642,8 +1611,8 @@ void MainFrame::OnFineTuneAll(wxCommandEvent & e)
                     } else {
                         nGood++;
                         // only update if a good correlation was found
-                        cps[*it].x1 = roundP1.x;
-                        cps[*it].y1 = roundP1.y;
+                        cps[*it].x1 = res.corrPos.x;
+                        cps[*it].y1 = res.corrPos.y;
                         cps[*it].x2 = res.maxpos.x;
                         cps[*it].y2 = res.maxpos.y;
                         cps[*it].error = res.maxi;
@@ -2356,6 +2325,11 @@ void MainFrame::OnSendToAssistantQueue(wxCommandEvent &e)
         wxExecute(huginPath+wxT("PTBatcherGUI -a ")+wxQuoteFilename(projectFile));
 #endif
     }
+};
+
+wxString MainFrame::GetCurrentOptimizerString()
+{
+    return images_panel->GetCurrentOptimizerString();
 };
 
 MainFrame * MainFrame::m_this = 0;

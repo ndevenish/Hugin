@@ -38,33 +38,29 @@
 #include <vigra_ext/impexalpha.hxx>
 #include <vigra/functorexpression.hxx>
 #include <vigra_ext/utils.h>
+#include <hugin_utils/openmp_lock.h>
 
 extern "C"
 {
 #include <pano13/filter.h>
 }
-#if defined _MSC_VER && _MSC_VER>=1600
-#include <ppl.h>
-#define HAS_PPL
-#endif
 
-using namespace std;
 using namespace HuginBase;
 using namespace AppBase;
 
 static void usage(const char* name)
 {
-    cout << name << ": find vertical lines in images" << endl
-         << name << " version " << DISPLAY_VERSION << endl
-         << endl
-         << "Usage:  " << name << " [options] input.pto" << endl
-         << endl
-         << "  Options:" << endl
-         << "     -o, --output=file.pto  Output Hugin PTO file. Default: <filename>_lines.pto" << endl
-         << "     -i, --image=IMGNR      Work only on given image numbers" << endl
-         << "     -l, --lines=COUNT      Save maximal COUNT lines (default: 5)" << endl
-         << "     -h, --help             Shows this help" << endl
-         << endl;
+    std::cout << name << ": find vertical lines in images" << std::endl
+         << name << " version " << DISPLAY_VERSION << std::endl
+         << std::endl
+         << "Usage:  " << name << " [options] input.pto" << std::endl
+         << std::endl
+         << "  Options:" << std::endl
+         << "     -o, --output=file.pto  Output Hugin PTO file. Default: <filename>_lines.pto" << std::endl
+         << "     -i, --image=IMGNR      Work only on given image numbers" << std::endl
+         << "     -l, --lines=COUNT      Save maximal COUNT lines (default: 5)" << std::endl
+         << "     -h, --help             Shows this help" << std::endl
+         << std::endl;
 }
 
 // dummy panotools progress functions
@@ -274,9 +270,11 @@ HuginBase::CPVector LoadImageAndFindLines(vigra::ImageImportInfo info, Panorama 
     if(image.width()>0 && image.height()>0)
     {
         lineCp=HuginLines::GetVerticalLines(pano, imgNr, image, nrLines);
-    };
+    }
     return lineCp;
 };
+
+static hugin_omp::Lock lock;
 
 int main(int argc, char* argv[])
 {
@@ -296,7 +294,7 @@ int main(int argc, char* argv[])
     int c;
     int optionIndex = 0;
     int nrLines = 5;
-    string output;
+    std::string output;
     while ((c = getopt_long (argc, argv, optstring, longOptions,&optionIndex)) != -1)
     {
         switch (c)
@@ -312,7 +310,7 @@ int main(int argc, char* argv[])
                     int imgNr=atoi(optarg);
                     if((imgNr==0) && (strcmp(optarg,"0")!=0))
                     {
-                        cerr << "Could not parse image number.";
+                        std::cerr << "Could not parse image number.";
                         return 1;
                     };
                     cmdlineImages.insert(imgNr);
@@ -322,12 +320,12 @@ int main(int argc, char* argv[])
                 nrLines=atoi(optarg);
                 if(nrLines<1)
                 {
-                    cerr << "Could not parse number of lines.";
+                    std::cerr << "Could not parse number of lines.";
                     return 1;
                 };
                 break;
             case ':':
-                cerr <<"Option " << longOptions[optionIndex].name << " requires a number" << endl;
+                std::cerr <<"Option " << longOptions[optionIndex].name << " requires a number" << std::endl;
                 return 1;
                 break;
             case '?':
@@ -339,33 +337,33 @@ int main(int argc, char* argv[])
 
     if (argc - optind != 1)
     {
-        cout << "Warning: " << argv[0] << " can only work on one project file at one time" << endl << endl;
+        std::cout << "Warning: " << argv[0] << " can only work on one project file at one time" << std::endl << std::endl;
         usage(argv[0]);
         return 1;
     };
 
-    string input=argv[optind];
+    std::string input=argv[optind];
     // read panorama
     Panorama pano;
-    ifstream prjfile(input.c_str());
+    std::ifstream prjfile(input.c_str());
     if (!prjfile.good())
     {
-        cerr << "could not open script : " << input << endl;
+        std::cerr << "could not open script : " << input << std::endl;
         return 1;
     }
     pano.setFilePrefix(hugin_utils::getPathPrefix(input));
     DocumentData::ReadWriteError err = pano.readData(prjfile);
     if (err != DocumentData::SUCCESSFUL)
     {
-        cerr << "error while parsing panos tool script: " << input << endl;
-        cerr << "DocumentData::ReadWriteError code: " << err << endl;
+        std::cerr << "error while parsing panos tool script: " << input << std::endl;
+        std::cerr << "DocumentData::ReadWriteError code: " << err << std::endl;
         return 1;
     }
 
     if(pano.getNrOfImages()==0)
     {
-        cerr << "error: project file does not contains any image" << endl;
-        cerr << "aborting processing" << endl;
+        std::cerr << "error: project file does not contains any image" << std::endl;
+        std::cerr << "aborting processing" << std::endl;
         return 1;
     };
 
@@ -392,29 +390,29 @@ int main(int argc, char* argv[])
 
     if(imagesToProcess.size()==0)
     {
-        cerr << "No image to process found" << endl << "Stopping processing" << endl;
+        std::cerr << "No image to process found" << std::endl << "Stopping processing" << std::endl;
         return 1;
     };
 
     PT_setProgressFcn(ptProgress);
     PT_setInfoDlgFcn(ptinfoDlg);
 
-    cout << argv[0] << " is searching for vertical lines" << endl;
+    std::cout << argv[0] << " is searching for vertical lines" << std::endl;
 #if _WINDOWS
     //multi threading of image loading results sometime in a race condition
     //try to prevent this by initialisation of codecManager before
     //running multi threading part
     std::string s=vigra::impexListExtensions();
 #endif
-#ifdef HAS_PPL
+
     size_t nrCPS=pano.getNrOfCtrlPoints();
-    Concurrency::parallel_for<size_t>(0,imagesToProcess.size(),[&pano,imagesToProcess,nrLines](size_t i)
-#else
-    for(size_t i=0;i<imagesToProcess.size();i++)
-#endif
+#pragma omp parallel for schedule(dynamic)
+    for(int i=0; i < imagesToProcess.size(); ++i)
     {
         unsigned int imgNr=imagesToProcess[i];
-        cout << "Working on image " << pano.getImage(imgNr).getFilename() << endl;
+        std::ostringstream buf;
+        buf << "Working on image " << pano.getImage(imgNr).getFilename() << std::endl;
+        std::cout << buf.str();
         // now load and process all images
         vigra::ImageImportInfo info(pano.getImage(imgNr).getFilename().c_str());
         HuginBase::CPVector foundLines;
@@ -437,21 +435,16 @@ int main(int argc, char* argv[])
                     << "Skipping image." << std::endl;
             };
         };
-#ifndef HAS_PPL
-        cout << "Found " << foundLines.size() << " vertical lines" << endl;
-#endif
         if(foundLines.size()>0)
         {
             for(CPVector::const_iterator cpIt=foundLines.begin(); cpIt!=foundLines.end(); ++cpIt)
             {
+                hugin_omp::ScopedLock sl(lock);
                 pano.addCtrlPoint(*cpIt);
             };
         };
     }
-#ifdef HAS_PPL
-    );
-    cout << endl << "Found " << pano.getNrOfCtrlPoints() - nrCPS << " vertical lines" << endl << endl;
-#endif
+    std::cout << std::endl << "Found " << pano.getNrOfCtrlPoints() - nrCPS << " vertical lines" << std::endl << std::endl;
 
     //write output
     UIntSet imgs;
@@ -461,9 +454,9 @@ int main(int argc, char* argv[])
     {
         output=input.substr(0,input.length()-4).append("_lines.pto");
     }
-    ofstream of(output.c_str());
+    std::ofstream of(output.c_str());
     pano.printPanoramaScript(of, pano.getOptimizeVector(), pano.getOptions(), imgs, false, hugin_utils::getPathPrefix(input));
 
-    cout << endl << "Written output to " << output << endl;
+    std::cout << std::endl << "Written output to " << output << std::endl;
     return 0;
 }

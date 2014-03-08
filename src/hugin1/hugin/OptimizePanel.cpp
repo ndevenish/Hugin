@@ -189,6 +189,8 @@ void OptimizePanel::runOptimizer(const UIntSet & imgs)
     // open window that shows a status dialog, and allows to
     // apply the results
     int mode=m_pano->getOptimizerSwitch();
+    // remember active window for dialogs
+    wxWindow* activeWindow = wxGetActiveWindow();
 
     Panorama optPano = m_pano->getSubset(imgs);
     PanoramaOptions opts = optPano.getOptions();
@@ -226,7 +228,7 @@ void OptimizePanel::runOptimizer(const UIntSet & imgs)
         optPano.printPanoramaScript(std::cerr, optPano.getOptimizeVector(), optPano.getOptions(), allImg, false);
 #endif
 
-        registerPTWXDlgFcn(MainFrame::Get());
+        registerPTWXDlgFcn();
         // do global optimisation
         PTools::optimize(optPano);
 #ifdef DEBUG
@@ -282,7 +284,7 @@ void OptimizePanel::runOptimizer(const UIntSet & imgs)
     wxTheApp->ProcessIdle();
 #endif
     // calculate control point errors and display text.
-    if (AskApplyResult(optPano))
+    if (AskApplyResult(activeWindow, optPano))
     {
         GlobalCmdHist::getInstance().addCommand(
             new PT::UpdateVariablesCPSetCmd(*m_pano, imgs, optPano.getVariables(), optPano.getCtrlPoints())
@@ -290,7 +292,7 @@ void OptimizePanel::runOptimizer(const UIntSet & imgs)
     }
 }
 
-bool OptimizePanel::AskApplyResult(const Panorama & pano)
+bool OptimizePanel::AskApplyResult(wxWindow* activeWindow, const Panorama & pano)
 {
     double min;
     double max;
@@ -333,7 +335,7 @@ bool OptimizePanel::AskApplyResult(const Panorama & pano)
         }
     };
 
-    int id = wxMessageBox(msg,_("Optimization result"),style,this);
+    int id = wxMessageBox(msg, _("Optimization result"), style, activeWindow);
 
     return id == wxYES;
 }

@@ -173,6 +173,9 @@ public:
 
     wxFileHistory* GetFileHistory() { return &m_mruFiles; };
 
+    /** returns the string which describes the current selected optimizer setting */
+    wxString GetCurrentOptimizerString();
+
 protected:
     // called when a progress message should be displayed
     /** receive notification about progress. Should not be called directly.

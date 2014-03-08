@@ -393,6 +393,33 @@
                           <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
                           <border>5</border>
                         </object>
+                        <object class="sizeritem">
+                          <object class="wxBoxSizer">
+                            <object class="sizeritem">
+                              <object class="wxToolBar" name="preview_cp_edit_toolbar">
+                                <object class="tool" name="preview_edit_cp_tool">
+                                  <toggle>1</toggle>
+                                  <bitmap platform="unix|win">data/preview_control_point_tool.png</bitmap>
+                                  <bitmap platform="mac">data/preview_control_point_tool_small.png</bitmap>
+                                  <tooltip>Delete all control points in selected rectangle.</tooltip>
+                                  <label>Edit CP</label>
+                                </object>
+                                <bitmapsize>22,22</bitmapsize>
+                                <style>wxTB_TEXT|wxTB_NODIVIDER</style>
+                              </object>
+                              <flag>wxALIGN_CENTRE_VERTICAL|wxALIGN_CENTRE_HORIZONTAL|wxADJUST_MINSIZE</flag>
+                            </object>
+                            <object class="sizeritem" platform="mac">
+                              <object class="wxStaticText">
+                                <label>Edit CP</label>
+                              </object>
+                              <flag>wxALIGN_CENTRE_HORIZONTAL</flag>
+                            </object>
+                            <orient>wxVERTICAL</orient>
+                          </object>
+                          <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                          <border>5</border>
+                        </object>
                       </object>
                       <flag>wxALIGN_CENTRE_VERTICAL</flag>
                     </object>
@@ -1198,6 +1225,33 @@
                             <object class="sizeritem" platform="mac">
                               <object class="wxStaticText">
                                 <label>Gray picker</label>
+                              </object>
+                              <flag>wxALIGN_CENTRE_HORIZONTAL</flag>
+                            </object>
+                            <orient>wxVERTICAL</orient>
+                          </object>
+                          <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+                          <border>5</border>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxBoxSizer">
+                            <object class="sizeritem">
+                              <object class="wxToolBar" name="preview_cp_edit_toolbar">
+                                <object class="tool" name="preview_edit_cp_tool">
+                                  <toggle>1</toggle>
+                                  <bitmap platform="unix|win">data/preview_control_point_tool.png</bitmap>
+                                  <bitmap platform="mac">data/preview_control_point_tool_small.png</bitmap>
+                                  <tooltip>Delete all control points in selected rectangle.</tooltip>
+                                  <label>Edit CP</label>
+                                </object>
+                                <bitmapsize>22,22</bitmapsize>
+                                <style>wxTB_TEXT|wxTB_NODIVIDER</style>
+                              </object>
+                              <flag>wxALIGN_CENTRE_VERTICAL|wxALIGN_CENTRE_HORIZONTAL|wxADJUST_MINSIZE</flag>
+                            </object>
+                            <object class="sizeritem" platform="mac">
+                              <object class="wxStaticText">
+                                <label>Edit CP</label>
                               </object>
                               <flag>wxALIGN_CENTRE_HORIZONTAL</flag>
                             </object>

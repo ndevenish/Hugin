@@ -197,6 +197,7 @@ void copySrcImageExif(SrcPanoImage& destImg, SrcPanoImage srcImg)
     destImg.setExifDate(srcImg.getExifDate());
     destImg.setExifRedBalance(srcImg.getExifRedBalance());
     destImg.setExifBlueBalance(srcImg.getExifBlueBalance());
+    destImg.setFileMetadata(srcImg.getFileMetadata());
 };
 
 bool wxAddImagesCmd::processPanorama(Panorama& pano)

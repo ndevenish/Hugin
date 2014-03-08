@@ -1027,7 +1027,7 @@ void CPImageCtrl::setCtrlPoint(const HuginBase::ControlPoint& cp, const bool mir
 {
     DisplayedControlPoint dcp(cp, this, mirrored);
     dcp.SetColour(pointColors[m_points.size() % pointColors.size()], textColours[m_points.size() % textColours.size()]);
-    dcp.SetLabel(wxString::Format(wxT("%d"), m_points.size()));
+    dcp.SetLabel(wxString::Format(wxT("%lu"), (unsigned long int)m_points.size()));
     m_points.push_back(dcp);
 }
 

@@ -65,7 +65,7 @@ protected:
 
     void runOptimizer(const PT::UIntSet & img);
 
-    bool AskApplyResult(const PT::Panorama & pano);
+    bool AskApplyResult(wxWindow* activeWindow, const PT::Panorama & pano);
 
     ImagesTreeCtrl* m_images_tree_list;
     ImagesTreeCtrl* m_lens_tree_list;

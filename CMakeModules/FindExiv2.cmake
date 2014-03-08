@@ -90,13 +90,27 @@ else (EXIV2_INCLUDE_DIR AND EXIV2_LIBRARIES)
        find_library_with_debug(EXIV2_LIBRARIES
           WIN32_DEBUG_POSTFIX d
           NAMES exiv2 libexiv2
-          PATHS ${SOURCE_BASE_DIR}/exiv2-0.23/msvc64/exiv2lib/x64/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.23/msvc64/exiv2lib/Win32/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.22/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.21.1/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.20/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.19/msvc/bin/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.18.2/msvc/bin/ReleaseDLL
+          PATHS 
+            ${SOURCE_BASE_DIR}/exiv2/msvc2012/exiv2lib/x64/ReleaseDLL
+            ${SOURCE_BASE_DIR}/exiv2/msvc2012/exiv2lib/x64/DebugDLL
+            ${SOURCE_BASE_DIR}/exiv2-0.23/msvc64/exiv2lib/x64/ReleaseDLL 
+            ${SOURCE_BASE_DIR}/exiv2-0.23/msvc64/exiv2lib/Win32/ReleaseDLL 
+            ${SOURCE_BASE_DIR}/exiv2-0.22/msvc/bin/ReleaseDLL 
+            ${SOURCE_BASE_DIR}/exiv2-0.21.1/msvc/bin/ReleaseDLL 
+            ${SOURCE_BASE_DIR}/exiv2-0.20/msvc/bin/ReleaseDLL 
+            ${SOURCE_BASE_DIR}/exiv2-0.19/msvc/bin/ReleaseDLL 
+            ${SOURCE_BASE_DIR}/exiv2-0.18.2/msvc/bin/ReleaseDLL
        )
 
        find_library_with_debug(EXIV2EXPAT_LIBRARIES
           WIN32_DEBUG_POSTFIX d
           NAMES libexpat
-          PATHS ${SOURCE_BASE_DIR}/exiv2-0.23/msvc64/exiv2lib/x64/ReleaseDLL ${SOURCE_BASE_DIR}/exiv2-0.23/msvc64/exiv2lib/Win32/ReleaseDLL ${SOURCE_BASE_DIR}/expat-2.0.1/win32/bin/Release
+          PATHS 
+            ${SOURCE_BASE_DIR}/exiv2/msvc2012/exiv2lib/x64/ReleaseDLL
+            ${SOURCE_BASE_DIR}/exiv2/msvc2012/exiv2lib/x64/DebugDLL
+            ${SOURCE_BASE_DIR}/exiv2-0.23/msvc64/exiv2lib/x64/ReleaseDLL 
+            ${SOURCE_BASE_DIR}/exiv2-0.23/msvc64/exiv2lib/Win32/ReleaseDLL 
+            ${SOURCE_BASE_DIR}/expat-2.0.1/win32/bin/Release
        )
      ELSE(${HUGIN_SHARED})
        find_library_with_debug(EXIV2_LIBRARIES

@@ -26,7 +26,7 @@
 
 #include <hugin_shared.h>
 
-WXIMPEX void registerPTWXDlgFcn(wxWindow *parent=NULL);
+WXIMPEX void registerPTWXDlgFcn();
 WXIMPEX void deregisterPTWXDlgFcn();
 
 

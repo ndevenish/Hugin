@@ -174,16 +174,11 @@ private:
     // local fine tune
     hugin_utils::FDiff2D LocalFineTunePoint(unsigned int srcNr,
                                const vigra::Diff2D & srcPnt,
+                               hugin_utils::FDiff2D & movedSrcPnt,
                                unsigned int moveNr,
                                const hugin_utils::FDiff2D & movePnt);
 
     /** Estimate position of point in the other image
-     *
-     *  simply average all point distances together
-     *  approximatly true for rectilinear images with roll and pitch
-     *   close to 0...
-     *  @todo use Pano Tools optimizer, to create better estimates,
-     *        that are correct in most cases..
      *
      *  @param p point to warp to other image
      *  @param left true if p is located in left image.
@@ -270,6 +265,12 @@ private:
     DECLARE_DYNAMIC_CLASS(CPEditorPanel)
 
 };
+
+/** function for fine-tune with remapping to stereographic projection */
+vigra_ext::CorrelationResult PointFineTuneProjectionAware(const SrcPanoImage& templ, const vigra::UInt8RGBImage& templImg,
+    vigra::Diff2D templPos, int templSize,
+    const SrcPanoImage& search, const vigra::UInt8RGBImage& searchImg,
+    vigra::Diff2D searchPos, int sWidth);
 
 /** xrc handler */
 class CPEditorPanelXmlHandler : public wxXmlResourceHandler

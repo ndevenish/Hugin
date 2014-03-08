@@ -50,11 +50,8 @@
 /* Location for XRC files and other data, as defined during configuration*/
 #define INSTALL_XRC_DIR "${INSTALL_XRC_DIR}/"
 
-/* Use exiv2, if found */
-#cmakedefine EXIV2_FOUND 1
-#ifdef EXIV2_FOUND
-#define HUGIN_USE_EXIV2 1
-#endif
+/* if FFTW library is available */
+#cmakedefine HAVE_FFTW 1
 
 /* Build a fully self contained OSX bundle (with embedded ressources) */
 #cmakedefine MAC_SELF_CONTAINED_BUNDLE
@@ -65,5 +62,8 @@
 
 /* if ExifTool version is recent enough */
 #cmakedefine EXIFTOOL_GPANO_SUPPORT 1
+
+/* if compiler supports OpenMP */
+#cmakedefine HAVE_OPENMP 1
 
 #endif

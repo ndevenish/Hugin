@@ -68,6 +68,7 @@ class PreviewPanoMaskTool;
 class PreviewControlPointTool;
 class PreviewLayoutLinesTool;
 class PreviewColorPickerTool;
+class PreviewEditCPTool;
 
 class PanosphereOverviewProjectionGridTool;
 class PreviewProjectionGridTool;
@@ -319,6 +320,8 @@ protected:
     void OnLayoutScaleChange(wxScrollEvent &e);
     /** event handler when starting color picker */
     void OnColorPicker(wxCommandEvent &e);
+    /** event handler when starting edit cp tool */
+    void OnEditCPTool(wxCommandEvent &e);
     /** event handler when user changes background color */
     void OnPreviewBackgroundColorChanged(wxColourPickerEvent & e);
     /** event handler when user selects different guide */
@@ -332,6 +335,13 @@ protected:
     void OnLensTypeChanged (wxCommandEvent & e);
     void OnFocalLengthChanged(wxCommandEvent & e);
     void OnCropFactorChanged(wxCommandEvent & e);
+
+    /** handler for creating cp in pano space */
+    void OnCreateCP(wxCommandEvent & e);
+    /** handler to remove cp */
+    void OnRemoveCP(wxCommandEvent & e);
+    /** handle menu close event */
+    void OnMenuClose(wxMenuEvent & e);
 
 private:
     /** changes the visibility of the group check boxes
@@ -361,6 +371,8 @@ private:
     int m_mode;
     int non_layout_blend_mode;
     wxToolBar* m_ToolBar_Identify;
+    wxToolBar* m_ToolBar_ColorPicker;
+    wxToolBar* m_ToolBar_editCP;
     wxNotebook* m_tool_notebook;
     wxPanel* m_projection_panel;
     wxSlider * m_HFOVSlider;
@@ -438,6 +450,7 @@ private:
     PT::UIntSet imageDragGroup;
     PreviewDragTool *drag_tool;
     PreviewColorPickerTool *color_picker_tool;
+    PreviewEditCPTool* edit_cp_tool;
 
     PreviewIdentifyTool *identify_tool;
     PreviewIdentifyTool *panosphere_overview_identify_tool;

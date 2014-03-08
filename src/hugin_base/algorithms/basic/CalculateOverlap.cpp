@@ -50,7 +50,10 @@ CalculateImageOverlap::CalculateImageOverlap(const HuginBase::PanoramaData *pano
             m_invTransform[i]->createInvTransform(*pano,i,opts);
         };
         // per default we are testing all images
-        fill_set(testImages,0,m_nrImg-1);
+        for (unsigned int i = 0; i < m_nrImg; i++)
+        {
+            m_testImages.push_back(i);
+        }
     };
 };
 
@@ -65,13 +68,15 @@ CalculateImageOverlap::~CalculateImageOverlap()
 
 void CalculateImageOverlap::calculate(unsigned int steps)
 {
-    if(testImages.size()==0)
+    if(m_testImages.empty())
     {
         return;
     };
-    for(UIntSet::const_iterator it=testImages.begin(); it!=testImages.end();++it)
+#pragma omp parallel for schedule(dynamic)
+    for (int i = 0; i < m_testImages.size(); ++i)
     {
-        const SrcPanoImage& img=m_pano->getImage(*it);
+        unsigned int imgNr = m_testImages[i];
+        const SrcPanoImage& img = m_pano->getImage(imgNr);
         vigra::Rect2D c=vigra::Rect2D(img.getSize());
         if(img.getCropMode()!=SrcPanoImage::NO_CROP)
         {
@@ -98,12 +103,12 @@ void CalculateImageOverlap::calculate(unsigned int steps)
                     pointCounter++;
                     //transform to panorama coordinates
                     double xi,yi;
-                    if(m_invTransform[*it]->transformImgCoord(xi,yi,xc,yc))
+                    if (m_invTransform[imgNr]->transformImgCoord(xi, yi, xc, yc))
                     {
                         //now, check if point is inside an other image
                         for(unsigned int j=0;j<m_nrImg;j++)
                         {
-                            if((*it)==j)
+                            if (imgNr == j)
                                 continue;
                             double xj,yj;
                             //transform to image coordinates
@@ -122,16 +127,16 @@ void CalculateImageOverlap::calculate(unsigned int steps)
             };
         };
         //now calculate overlap and save
-        m_overlap[*it][*it]=1.0;
+        m_overlap[imgNr][imgNr] = 1.0;
         if(pointCounter>0)
         {
             for(unsigned int k=0;k<m_nrImg;k++)
             {
-                if((*it)==k)
+                if (imgNr == k)
                 {
                     continue;
                 };
-                m_overlap[*it][k]=(double)overlapCounter[k]/(double)pointCounter;
+                m_overlap[imgNr][k] = (double)overlapCounter[k] / (double)pointCounter;
             };
         };
     };
@@ -167,7 +172,11 @@ UIntSet CalculateImageOverlap::getOverlapForImage(unsigned int i)
 
 void CalculateImageOverlap::limitToImages(UIntSet img)
 {
-    testImages=img;
+    m_testImages.clear();
+    for (UIntSet::const_iterator it = img.begin(); it != img.end(); it++)
+    {
+        m_testImages.push_back(*it);
+    };
 };
 
 } // namespace

@@ -62,6 +62,11 @@
 #include "hugin/TextKillFocusHandler.h"
 #include "hugin/PanoOperation.h"
 #include "hugin/PanoOutputDialog.h"
+#include "base_wx/PTWXDlg.h"
+#include "vigra_ext/InterestPoints.h"
+#include "vigra_ext/Correlation.h"
+#include "algorithms/control_points/CleanCP.h"
+#include "hugin_utils/openmp_lock.h"
 
 extern "C" {
 #include <pano13/queryfeature.h>
@@ -78,6 +83,7 @@ extern "C" {
 #include "PreviewLayoutLinesTool.h"
 #include "PreviewColorPickerTool.h"
 #include "PreviewGuideTool.h"
+#include "PreviewEditCPTool.h"
 
 #include "ProjectionGridTool.h"
 #include "PanosphereSphereTool.h"
@@ -137,6 +143,7 @@ BEGIN_EVENT_TABLE(GLPreviewFrame, wxFrame)
     EVT_CHECKBOX(XRCID("preview_photometric_tool"), GLPreviewFrame::OnPhotometric)
     EVT_TOOL(XRCID("preview_identify_tool"), GLPreviewFrame::OnIdentify)
     EVT_TOOL(XRCID("preview_color_picker_tool"), GLPreviewFrame::OnColorPicker)
+    EVT_TOOL(XRCID("preview_edit_cp_tool"), GLPreviewFrame::OnEditCPTool)
     EVT_CHECKBOX(XRCID("preview_control_point_tool"), GLPreviewFrame::OnControlPoint)
     EVT_BUTTON(XRCID("preview_autocrop_tool"), GLPreviewFrame::OnAutocrop)
     EVT_BUTTON(XRCID("preview_stack_autocrop_tool"), GLPreviewFrame::OnStackAutocrop)
@@ -155,6 +162,9 @@ BEGIN_EVENT_TABLE(GLPreviewFrame, wxFrame)
     EVT_CHOICE(XRCID("preview_guide_choice_proj"), GLPreviewFrame::OnGuideChanged)
     EVT_MENU(XRCID("action_show_overview"), GLPreviewFrame::OnOverviewToggle)
     EVT_MENU(XRCID("action_show_grid"), GLPreviewFrame::OnSwitchPreviewGrid)
+    EVT_MENU(ID_CREATE_CP, GLPreviewFrame::OnCreateCP)
+    EVT_MENU(ID_REMOVE_CP, GLPreviewFrame::OnRemoveCP)
+    EVT_MENU_CLOSE(GLPreviewFrame::OnMenuClose)
 #ifndef __WXMAC__
 	EVT_COMMAND_SCROLL(XRCID("layout_scale_slider"), GLPreviewFrame::OnLayoutScaleChange)
 	EVT_SCROLL_CHANGED(GLPreviewFrame::OnChangeFOV)
@@ -321,6 +331,7 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
     crop_tool = NULL;
     drag_tool = NULL;
     color_picker_tool = NULL;
+    edit_cp_tool = NULL;
     overview_drag_tool = NULL;
     identify_tool = NULL ;
     panosphere_overview_identify_tool = NULL;
@@ -364,6 +375,8 @@ GLPreviewFrame::GLPreviewFrame(wxFrame * frame, PT::Panorama &pano)
 #endif
     m_tool_notebook = XRCCTRL(*this,"mode_toolbar_notebook",wxNotebook);
     m_ToolBar_Identify = XRCCTRL(*this,"preview_mode_toolbar",wxToolBar);
+    m_ToolBar_ColorPicker = XRCCTRL(*this, "preview_color_picker_toolbar", wxToolBar);
+    m_ToolBar_editCP = XRCCTRL(*this, "preview_cp_edit_toolbar", wxToolBar);
 
     //build menu bar
 #ifdef __WXMAC__
@@ -823,6 +836,11 @@ GLPreviewFrame::~GLPreviewFrame()
     {
         preview_helper->DeactivateTool(color_picker_tool);
         delete color_picker_tool;
+    };
+    if (edit_cp_tool)
+    {
+        preview_helper->DeactivateTool(edit_cp_tool);
+        delete edit_cp_tool;
     };
     if (crop_tool)
     {
@@ -2088,6 +2106,7 @@ void GLPreviewFrame::MakePreviewTools(PreviewToolHelper *preview_helper_in)
     crop_tool = new PreviewCropTool(preview_helper);
     drag_tool = new PreviewDragTool(preview_helper);
     color_picker_tool = new PreviewColorPickerTool(preview_helper);
+    edit_cp_tool = new PreviewEditCPTool(preview_helper);
     identify_tool = new PreviewIdentifyTool(preview_helper, this);
     preview_helper->ActivateTool(identify_tool);
     difference_tool = new PreviewDifferenceTool(preview_helper);
@@ -2190,19 +2209,24 @@ void GLPreviewFrame::OnIdentify(wxCommandEvent & e)
 
 void GLPreviewFrame::OnControlPoint(wxCommandEvent & e)
 {
-    SetStatusText(wxT(""), 0); // blank status text as it refers to an old tool.
-    if (e.IsChecked())
+    if (!m_ToolBar_editCP->GetToolState(XRCID("preview_edit_cp_tool")))
     {
-        TurnOffTools(preview_helper->ActivateTool(preview_control_point_tool));
-        TurnOffTools(panosphere_overview_helper->ActivateTool(panosphere_control_point_tool));
-        TurnOffTools(plane_overview_helper->ActivateTool(plane_control_point_tool));
-    } else {
-        preview_helper->DeactivateTool(preview_control_point_tool);
-        panosphere_overview_helper->DeactivateTool(panosphere_control_point_tool);
-        plane_overview_helper->DeactivateTool(plane_control_point_tool);
-    }
-    m_GLPreview->Refresh();
-    m_GLOverview->Refresh();
+        //process event only if edit cp tool is disabled
+        SetStatusText(wxT(""), 0); // blank status text as it refers to an old tool.
+        if (e.IsChecked())
+        {
+            TurnOffTools(preview_helper->ActivateTool(preview_control_point_tool));
+            TurnOffTools(panosphere_overview_helper->ActivateTool(panosphere_control_point_tool));
+            TurnOffTools(plane_overview_helper->ActivateTool(plane_control_point_tool));
+        }
+        else {
+            preview_helper->DeactivateTool(preview_control_point_tool);
+            panosphere_overview_helper->DeactivateTool(panosphere_control_point_tool);
+            plane_overview_helper->DeactivateTool(plane_control_point_tool);
+        }
+        m_GLPreview->Refresh();
+        m_GLOverview->Refresh();
+    };
 }
 
 void GLPreviewFrame::TurnOffTools(std::set<Tool*> tools)
@@ -2304,12 +2328,16 @@ void GLPreviewFrame::OnColorPicker(wxCommandEvent &e)
     SetStatusText(wxT(""), 0); 
     if (e.IsChecked())
     {
+        // deactivate delete cp tool if active
+        preview_helper->DeactivateTool(edit_cp_tool);
+        m_ToolBar_editCP->ToggleTool(XRCID("preview_edit_cp_tool"), false);
         preview_helper->ActivateTool(color_picker_tool);
     }
     else
     {
         preview_helper->DeactivateTool(color_picker_tool);
     };
+    m_GLPreview->Refresh();
 };
 
 void GLPreviewFrame::UpdateGlobalWhiteBalance(double redFactor, double blueFactor)
@@ -2318,12 +2346,36 @@ void GLPreviewFrame::UpdateGlobalWhiteBalance(double redFactor, double blueFacto
         new PT::UpdateWhiteBalance(m_pano, redFactor, blueFactor)
         );
     //now toggle button and deactivate tool
-    XRCCTRL(*this,"preview_color_picker_toolbar",wxToolBar)->ToggleTool(XRCID("preview_color_picker_tool"),false);
+    m_ToolBar_ColorPicker->ToggleTool(XRCID("preview_color_picker_tool"),false);
     //direct deactivation of tool does not work because this function is called by the tool itself
     //so we are send an event to deactivate the tool
     wxCommandEvent e(wxEVT_COMMAND_TOOL_CLICKED, XRCID("preview_color_picker_tool"));
     e.SetInt(0);
     GetEventHandler()->AddPendingEvent(e);
+};
+
+void GLPreviewFrame::OnEditCPTool(wxCommandEvent &e)
+{
+    // blank status text as it refers to an old tool.
+    SetStatusText(wxT(""), 0);
+    if (e.IsChecked())
+    {
+        // deactivate color picker tool
+        preview_helper->DeactivateTool(color_picker_tool);
+        m_ToolBar_ColorPicker->ToggleTool(XRCID("preview_color_picker_tool"), false);
+        // show automatically all cp
+        preview_helper->ActivateTool(preview_control_point_tool);
+        preview_helper->ActivateTool(edit_cp_tool);
+    }
+    else
+    {
+        if (!XRCCTRL(*this, "preview_control_point_tool", wxCheckBox)->GetValue())
+        {
+            preview_helper->DeactivateTool(preview_control_point_tool);
+        };
+        preview_helper->DeactivateTool(edit_cp_tool);
+    };
+    m_GLPreview->Refresh();
 };
 
 ImageToogleButtonEventHandler::ImageToogleButtonEventHandler(
@@ -2539,10 +2591,6 @@ void GLPreviewFrame::OnAutocrop(wxCommandEvent &e)
         vigra::Size2D newSize;
         m_pano.calcOptimalROI(newROI, newSize);
     };
-#ifdef __WXMSW__
-    //try to workaround an issue that the main window lost it focus after wxProgressDialog is destroyed
-    Raise();
-#endif
 
     PanoramaOptions opt = m_pano.getOptions();
     //set the ROI - fail if the right/bottom is zero, meaning all zero
@@ -2571,10 +2619,6 @@ void GLPreviewFrame::OnStackAutocrop(wxCommandEvent &e)
         vigra::Size2D newSize;
         m_pano.calcOptimalStackROI(newROI, newSize);
     };
-#ifdef __WXMSW__
-    //try to workaround an issue that the main window lost it focus after wxProgressDialog is destroyed
-    Raise();
-#endif
 
     PanoramaOptions opt = m_pano.getOptions();
     //set the ROI - fail if the right/bottom is zero, meaning all zero
@@ -2606,11 +2650,13 @@ void GLPreviewFrame::SetMode(int newMode)
             panosphere_overview_identify_tool->setConstantOn(false);
             plane_overview_identify_tool->setConstantOn(false);
             preview_helper->DeactivateTool(color_picker_tool);
-            XRCCTRL(*this,"preview_color_picker_toolbar",wxToolBar)->ToggleTool(XRCID("preview_color_picker_tool"),false);
+            m_ToolBar_ColorPicker->ToggleTool(XRCID("preview_color_picker_tool"),false);
 //            preview_helper->DeactivateTool(identify_tool);
 //            panosphere_overview_helper->DeactivateTool(panosphere_overview_identify_tool);
 //            plane_overview_helper->DeactivateTool(plane_overview_identify_tool);
-            
+            preview_helper->DeactivateTool(edit_cp_tool);
+            m_ToolBar_editCP->ToggleTool(XRCID("preview_edit_cp_tool"), false);
+
             CleanButtonColours();
             m_ToolBar_Identify->ToggleTool(XRCID("preview_identify_tool"),false);
             preview_helper->DeactivateTool(preview_control_point_tool);
@@ -3223,3 +3269,312 @@ void GLPreviewFrame::OnCropFactorChanged(wxCommandEvent & e)
     );
 }
 
+// remove cp, relatively easy, we get the selected cp from the edit cp tool
+void GLPreviewFrame::OnRemoveCP(wxCommandEvent & e)
+{
+    edit_cp_tool->SetMenuProcessed();
+    GlobalCmdHist::getInstance().addCommand(new PT::RemoveCtrlPointsCmd(m_pano, edit_cp_tool->GetFoundCPs()));
+};
+
+// some helper for cp generation
+// maximal width for remapping for cp generating
+#define MAX_DIMENSION 1600
+struct FindStruct
+{
+    size_t imgNr;
+    vigra::BRGBImage image;
+    vigra::BImage mask;
+};
+
+typedef std::vector<FindStruct> FindVector;
+typedef std::multimap<double, vigra::Diff2D> MapPoints;
+
+static hugin_omp::Lock cpLock;
+
+void GLPreviewFrame::OnCreateCP(wxCommandEvent & e)
+{
+    edit_cp_tool->SetMenuProcessed();
+    vigra::Rect2D roi = edit_cp_tool->GetSelectedROI();
+    HuginBase::UIntSet imgs = HuginBase::getImagesinROI(m_pano, m_pano.getActiveImages(), roi);
+    // some checking of conditions
+    if (imgs.empty())
+    {
+        wxMessageBox(_("The selected region contains no active image.\nPlease select a region which is covered by at least 2 images."),
+#ifdef __WXMSW__
+            _("Hugin"),
+#else
+            wxT(""),
+#endif
+            wxOK | wxICON_INFORMATION, this);
+        return;
+    };
+    if (imgs.size() < 2)
+    {
+        wxMessageBox(_("The selected region is only covered by a single image.\nCan't create control points for a single image."),
+#ifdef __WXMSW__
+            _("Hugin"),
+#else
+            wxT(""),
+#endif
+            wxOK | wxICON_INFORMATION, this);
+        return;
+    };
+    if (roi.width() > 0.25 * m_pano.getOptions().getWidth())
+    {
+        if(wxMessageBox(_("The selected rectangle is very big.\nThis function is only intended for smaller areas. Otherwise unwanted side effect can appear.\n\nProceed anyway?"),
+#ifdef __WXMSW__
+            _("Hugin"),
+#else
+            wxT(""),
+#endif
+            wxYES_NO | wxICON_INFORMATION, this) == wxNO)
+        {
+            return;
+        };
+    }
+    PanoramaOptions opts = m_pano.getOptions();
+    opts.setROI(roi);
+    // don't correct exposure
+    opts.outputExposureValue = 0;
+    // don't use GPU for remapping, this interfere with the fast preview window
+    opts.remapUsingGPU = false;
+    // rescale if size is too big
+    if (roi.width() > MAX_DIMENSION)
+    {
+        opts.setWidth(opts.getWidth() * MAX_DIMENSION / roi.width(), true);
+        roi = opts.getROI();
+    };
+    HuginBase::CPVector cps;
+    {
+#if wxCHECK_VERSION(2,9,0)
+#define INCREASEPROGRESS progress.GetValue()+1
+        wxProgressDialog progress(_("Searching control points"), _("Processing"), 2 * imgs.size() + 1, this, wxPD_AUTO_HIDE | wxPD_APP_MODAL | wxPD_ELAPSED_TIME | wxPD_CAN_ABORT);
+#else
+#define INCREASEPROGRESS ++progValue
+        size_t progValue = 0;
+        size_t progMaxValue = 2 * imgs.size() + 1;
+        wxProgressDialog progress(_("Searching control points"), _("Processing"), progMaxValue, this, wxPD_AUTO_HIDE | wxPD_APP_MODAL | wxPD_ELAPSED_TIME);
+#endif
+        // remap all images to panorama projection
+        FindVector cpInfos;
+        HuginBase::CPVector tempCps;
+        for (HuginBase::UIntSet::const_iterator it = imgs.begin(); it != imgs.end(); ++it)
+        {
+            const size_t imgNr = *it;
+            progress.Update(INCREASEPROGRESS, _("Remap image to panorama projection..."));
+            FindStruct findStruct;
+            findStruct.imgNr = imgNr;
+            // remap image to panorama projection
+            ImageCache::ImageCacheRGB8Ptr CachedImg = ImageCache::getInstance().getImage(m_pano.getImage(imgNr).getFilename())->get8BitImage();
+
+            RemappedPanoImage<vigra::BRGBImage, vigra::BImage>* remapped = new RemappedPanoImage<vigra::BRGBImage, vigra::BImage>;
+            AppBase::MultiProgressDisplay* dummyProgress = new AppBase::DummyMultiProgressDisplay();
+            HuginBase::SrcPanoImage srcImg = m_pano.getSrcImage(imgNr);
+            // don't correct exposure
+            srcImg.setExposureValue(0);
+            remapped->setPanoImage(srcImg, opts, roi);
+            remapped->remapImage(vigra::srcImageRange(*CachedImg), vigra_ext::INTERP_CUBIC, *dummyProgress);
+#if wxCHECK_VERSION(2,9,0)
+            // can cancel only supported with newer wxWidgets versions
+            if (progress.WasCancelled())
+            {
+                return;
+            };
+#endif
+            findStruct.image = remapped->m_image;
+            findStruct.mask = remapped->m_mask;
+            delete remapped;
+            delete dummyProgress;
+            cpInfos.push_back(findStruct);
+        };
+        if (cpInfos.size() > 1)
+        {
+            // match keypoints in all image pairs
+            // select a sensible grid size depending on ratio of selected region, maximal should it be 25 regions
+            unsigned gridx = hugin_utils::roundi(sqrt((double)roi.width() / (double)roi.height() * 25));
+            if (gridx < 1)
+            {
+                gridx = 1;
+            }
+            unsigned gridy = hugin_utils::roundi(25 / gridx);
+            if (gridy < 1)
+            {
+                gridy = 1;
+            }
+            // template width
+            const long templWidth = 20;
+            // search width
+            const long sWidth = 100;
+            // match all images with all
+            for (size_t img1 = 0; img1 < cpInfos.size() - 1; ++img1)
+            {
+                progress.Update(INCREASEPROGRESS, _("Matching interest points..."));
+                vigra::Size2D size(cpInfos[img1].image.width(), cpInfos[img1].image.height());
+                // create a number of sub-regions
+                std::vector<vigra::Rect2D> rects;
+                for (unsigned party = 0; party < gridy; party++)
+                {
+                    for (unsigned partx = 0; partx < gridx; partx++)
+                    {
+                        vigra::Rect2D rect(partx*size.x / gridx, party*size.y / gridy,
+                            (partx + 1)*size.x / gridx, (party + 1)*size.y / gridy);
+                        rect &= vigra::Rect2D(size);
+                        if (rect.width()>0 && rect.height()>0)
+                        {
+                            rects.push_back(rect);
+                        };
+                    };
+                };
+
+#if wxCHECK_VERSION(2,9,0)
+                // can cancel only supported with newer wxWidgets versions
+                if (progress.WasCancelled())
+                {
+                    return;
+                };
+#endif
+
+#pragma omp parallel for schedule(dynamic)
+                for (int i = 0; i < rects.size(); ++i)
+                {
+                    MapPoints points;
+                    vigra::Rect2D rect(rects[i]);
+                    // run interest point detection in sub-region
+                    vigra_ext::findInterestPointsPartial(srcImageRange(cpInfos[img1].image, vigra::RGBToGrayAccessor<vigra::RGBValue<vigra::UInt8> >()), rect, 2, 5 * 8, points);
+                    //check if all points are inside the given image
+                    MapPoints validPoints;
+                    for (MapPoints::const_iterator it = points.begin(); it != points.end(); ++it)
+                    {
+                        if (cpInfos[img1].mask(it->second.x, it->second.y)>0)
+                        {
+                            validPoints.insert(*it);
+                        };
+                    };
+
+                    if (!validPoints.empty())
+                    {
+                        // now fine-tune the interest points with all other images
+                        for (size_t img2 = img1 + 1; img2 < cpInfos.size(); ++img2)
+                        {
+                            unsigned nGood = 0;
+                            // loop over all points, starting with the highest corner score
+                            for (MapPoints::const_reverse_iterator it = validPoints.rbegin(); it != validPoints.rend(); ++it)
+                            {
+                                if (nGood >= 2)
+                                {
+                                    // we have enough points, stop
+                                    break;
+                                }
+                                //check if point is covered by second image
+                                if (cpInfos[img2].mask(it->second.x, it->second.y) == 0)
+                                {
+                                    continue;
+                                };
+                                // finally fine-tune point
+                                vigra_ext::CorrelationResult res = vigra_ext::PointFineTune(cpInfos[img1].image, it->second, templWidth,
+                                    cpInfos[img2].image, it->second, sWidth);
+                                if (res.maxi < 0.9)
+                                {
+                                    continue;
+                                }
+                                nGood++;
+                                // add control point
+                                {
+                                    hugin_omp::ScopedLock sl(cpLock);
+                                    tempCps.push_back(ControlPoint(cpInfos[img1].imgNr, it->second.x, it->second.y,
+                                        cpInfos[img2].imgNr, res.maxpos.x, res.maxpos.y, ControlPoint::X_Y));
+                                };
+                            };
+                        };
+                    };
+                };
+                // free memory
+                cpInfos[img1].image.resize(0, 0);
+                cpInfos[img1].mask.resize(0, 0);
+            };
+
+            // transform coordinates back to image space
+            for (size_t i = 0; i < tempCps.size(); ++i)
+            {
+                HuginBase::ControlPoint cp = tempCps[i];
+                HuginBase::FDiff2D p1(cp.x1 + roi.left(), cp.y1 + roi.top());
+                HuginBase::FDiff2D p1Img;
+                HuginBase::PTools::Transform transform;
+                transform.createTransform(m_pano.getImage(cp.image1Nr), opts);
+                if (transform.transformImgCoord(p1Img, p1))
+                {
+                    HuginBase::FDiff2D p2(cp.x2 + roi.left(), cp.y2 + roi.top());
+                    HuginBase::FDiff2D p2Img;
+                    transform.createTransform(m_pano.getImage(cp.image2Nr), opts);
+                    if (transform.transformImgCoord(p2Img, p2))
+                    {
+                        cp.x1 = p1Img.x;
+                        cp.y1 = p1Img.y;
+                        cp.x2 = p2Img.x;
+                        cp.y2 = p2Img.y;
+                        cps.push_back(cp);
+                    };
+                };
+            };
+
+            if (!cps.empty())
+            {
+                // check newly found control points
+                // create copy
+                Panorama copyPano=m_pano.duplicate();
+                // remove all cps and set only the new found cp
+                copyPano.setCtrlPoints(cps);
+                // now create a subpano with only the selected images
+                Panorama subPano = copyPano.getSubset(imgs);
+                // clean control points
+                progress.Update(INCREASEPROGRESS, _("Checking results..."));
+                deregisterPTWXDlgFcn();
+                HuginBase::UIntSet invalidCP = HuginBase::getCPoutsideLimit(subPano);
+                registerPTWXDlgFcn();
+                if (!invalidCP.empty())
+                {
+                    for (HuginBase::UIntSet::const_reverse_iterator it = invalidCP.rbegin(); it != invalidCP.rend(); ++it)
+                    {
+                        cps.erase(cps.begin() + *it);
+                    };
+                }
+                // force closing progress dialog
+#if wxCHECK_VERSION(2,9,0)
+                progress.Update(progress.GetRange());
+#else
+                progress.Update(progMaxValue);
+#endif
+                GlobalCmdHist::getInstance().addCommand(new PT::AddCtrlPointsCmd(m_pano, cps));
+                // ask user, if pano should be optimized
+                wxMessageDialog message(this,
+                    wxString::Format(_("%lu control points were added to the panorama.\n\nShould the panorama now re-optimized to take the new control points into account?"), static_cast<unsigned long int>(cps.size())),
+#ifdef __WXMSW__
+                    _("Hugin"),
+#else
+                    wxT(""),
+#endif
+                    wxYES_NO);
+#if wxCHECK_VERSION(2,9,0)
+                message.SetExtendedMessage(wxString::Format(_("Current selected optimizer strategy is \"%s\"."), MainFrame::Get()->GetCurrentOptimizerString().c_str()));
+                message.SetYesNoLabels(_("Re-optimize"), _("Don't optimize now"));
+#endif
+                if(message.ShowModal() == wxID_YES)
+                {
+                    // invoke optimization routine
+                    wxCommandEvent ev(wxEVT_COMMAND_BUTTON_CLICKED, XRCID("action_optimize"));
+                    MainFrame::Get()->GetEventHandler()->AddPendingEvent(ev);
+                };
+            };
+        };
+    };
+    // finally redraw
+    m_GLPreview->Update();
+    m_GLPreview->Refresh();
+};
+
+// handle menu close event to redraw preview, so that selection rectangle is hidden
+void GLPreviewFrame::OnMenuClose(wxMenuEvent & e)
+{
+    m_GLPreview->Refresh();
+    e.Skip();
+};

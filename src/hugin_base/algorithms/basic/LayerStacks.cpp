@@ -106,12 +106,19 @@ vector<UIntSet> getExposureLayers(const PanoramaData & pano, UIntSet allImgs, Pa
 
 UIntSet getImagesinROI (const PanoramaData& pano, const UIntSet activeImages)
 {
+    return getImagesinROI(pano, activeImages, pano.getOptions().getROI());
+}
+
+UIntSet getImagesinROI(const PanoramaData& pano, const UIntSet activeImages, vigra::Rect2D panoROI)
+{
     UIntSet images;
     PanoramaOptions opts = pano.getOptions();
+    opts.setROI(panoROI);
     for (UIntSet::const_iterator it = activeImages.begin(); it != activeImages.end(); ++it)
     {
         vigra::Rect2D roi = estimateOutputROI(pano, opts, *it);
-        if (! (roi.isEmpty())) {
+        if (!(roi.isEmpty()))
+        {
             images.insert(*it);
         }
     }
