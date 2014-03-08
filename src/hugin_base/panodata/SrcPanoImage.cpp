@@ -297,6 +297,15 @@ bool SrcPanoImage::readEXIF()
         return false;
     };
 
+    // if width==2*height assume equirectangular image
+    if (getWidth() == 2 * getHeight())
+    {
+        FileMetaData metaData = getFileMetadata();
+        metaData["projection"] = "equirectangular";
+        metaData["HFOV"] = "360";
+        setFileMetadata(metaData);
+    };
+
     Exiv2::Image::AutoPtr image;
     try {
         image = Exiv2::ImageFactory::open(filename.c_str());
@@ -310,10 +319,99 @@ bool SrcPanoImage::readEXIF()
     }
 
     image->readMetadata();
+
+    // look into XMP metadata
+    Exiv2::XmpData& xmpData = image->xmpData();
+    if (!xmpData.empty())
+    {
+        // we need to catch exceptions in case file does not contain any GPano tags
+        try
+        {
+            Exiv2::XmpData::iterator pos = xmpData.findKey(Exiv2::XmpKey("Xmp.GPano.ProjectionType"));
+            FileMetaData metaData = getFileMetadata();
+            if (pos != xmpData.end())
+            {
+                if (hugin_utils::tolower(pos->toString()) == "equirectangular")
+                {
+                    long croppedWidth = 0;
+                    long croppedHeight = 0;
+                    pos = xmpData.findKey(Exiv2::XmpKey("Xmp.GPano.CroppedAreaImageWidthPixels"));
+                    if (pos != xmpData.end())
+                    {
+                        croppedWidth = pos->toLong();
+                    }
+                    else
+                    {
+                        // tag is required
+                        throw std::logic_error("Required tag CroppedAreaImageWidthPixels missing");
+                    };
+                    pos = xmpData.findKey(Exiv2::XmpKey("Xmp.GPano.CroppedAreaImageHeightPixels"));
+                    if (pos != xmpData.end())
+                    {
+                        croppedHeight = pos->toLong();
+                    }
+                    else
+                    {
+                        // tag is required
+                        throw std::logic_error("Required tag CroppedAreaImageHeightPixels missing");
+                    };
+                    // check if sizes matches, if not ignore all tags
+                    if (getWidth() == croppedWidth && getHeight() == croppedHeight)
+                    {
+                        pos = xmpData.findKey(Exiv2::XmpKey("Xmp.GPano.FullPanoWidthPixels"));
+                        double hfov = 0;
+                        if (pos != xmpData.end())
+                        {
+                            hfov = 360 * croppedWidth / (double)pos->toLong();
+                        }
+                        else
+                        {
+                            // tag is required
+                            throw std::logic_error("Required tag FullPanoWidthPixels missing");
+                        };
+                        long fullHeight = 0;
+                        pos = xmpData.findKey(Exiv2::XmpKey("Xmp.GPano.FullPanoHeightPixels"));
+                        if (pos != xmpData.end())
+                        {
+                            fullHeight = pos->toLong();
+                        }
+                        else
+                        {
+                            // tag is required
+                            throw std::logic_error("Required tag FullPanoHeightPixels missing");
+                        };
+                        long cropTop = 0;
+                        pos = xmpData.findKey(Exiv2::XmpKey("Xmp.GPano.CroppedAreaTopPixels"));
+                        if (pos != xmpData.end())
+                        {
+                            cropTop = pos->toLong();
+                        }
+                        else
+                        {
+                            // tag is required
+                            throw std::logic_error("Required tag CroppedAreaTopPixels missing");
+                        };
+
+                        // all found, remember for later
+                        metaData["projection"] = "equirectangular";
+                        metaData["HFOV"] = hugin_utils::doubleToString(hfov, 3);
+                        metaData["e"] = hugin_utils::doubleToString(-cropTop - ((getHeight() - fullHeight) / 2.0), 4);
+                        setFileMetadata(metaData);
+                    };
+                };
+            };
+        }
+        catch (std::exception e)
+        {
+            // just to catch error when image contains no GPano tags
+            std::cerr << "Error reading GPano tags from " << filename << "(" << e.what() << ")" << std::endl;
+        };
+    };
+
     Exiv2::ExifData &exifData = image->exifData();
     if (exifData.empty()) {
         std::cerr << "Unable to read EXIF data from opened file:" << filename << std::endl;
-        return false;
+        return !getFileMetadata().empty();
     }
 
     setExifExposureTime(Exiv2Helper::getExiv2ValueDouble(exifData, Exiv2::exposureTime(exifData)));
@@ -416,102 +514,6 @@ bool SrcPanoImage::readEXIF()
     Exiv2Helper::readRedBlueBalance(exifData, redBalance, blueBalance);
     setExifRedBalance(redBalance);
     setExifBlueBalance(blueBalance);
-
-    // if width==2*height assume equirectangular image
-    if (getWidth() == 2 * getHeight())
-    {
-        FileMetaData metaData = getFileMetadata();
-        metaData["projection"] = "equirectangular";
-        metaData["HFOV"] = "360";
-        setFileMetadata(metaData);
-    };
-    // look into XMP metadata
-    Exiv2::XmpData& xmpData = image->xmpData();
-    if (!xmpData.empty())
-    {
-        // we need to catch exceptions in case file does not contain any GPano tags
-        try
-        {
-            Exiv2::XmpData::iterator pos = xmpData.findKey(Exiv2::XmpKey("Xmp.GPano.ProjectionType"));
-            FileMetaData metaData = getFileMetadata();
-            if (pos != xmpData.end())
-            {
-                if (hugin_utils::tolower(pos->toString()) == "equirectangular")
-                {
-                    long croppedWidth = 0;
-                    long croppedHeight = 0;
-                    pos = xmpData.findKey(Exiv2::XmpKey("Xmp.GPano.CroppedAreaImageWidthPixels"));
-                    if (pos != xmpData.end())
-                    {
-                        croppedWidth = pos->toLong();
-                    }
-                    else
-                    {
-                        // tag is required
-                        throw std::logic_error("Required tag CroppedAreaImageWidthPixels missing");
-                    };
-                    pos = xmpData.findKey(Exiv2::XmpKey("Xmp.GPano.CroppedAreaImageHeightPixels"));
-                    if (pos != xmpData.end())
-                    {
-                        croppedHeight = pos->toLong();
-                    }
-                    else
-                    {
-                        // tag is required
-                        throw std::logic_error("Required tag CroppedAreaImageHeightPixels missing");
-                    };
-                    // check if sizes matches, if not ignore all tags
-                    if (getWidth() == croppedWidth && getHeight() == croppedHeight)
-                    {
-                        pos = xmpData.findKey(Exiv2::XmpKey("Xmp.GPano.FullPanoWidthPixels"));
-                        double hfov = 0;
-                        if (pos != xmpData.end())
-                        {
-                            hfov = 360 * croppedWidth / (double)pos->toLong();
-                        }
-                        else
-                        {
-                            // tag is required
-                            throw std::logic_error("Required tag FullPanoWidthPixels missing");
-                        };
-                        long fullHeight = 0;
-                        pos = xmpData.findKey(Exiv2::XmpKey("Xmp.GPano.FullPanoHeightPixels"));
-                        if (pos != xmpData.end())
-                        {
-                            fullHeight = pos->toLong();
-                        }
-                        else
-                        {
-                            // tag is required
-                            throw std::logic_error("Required tag FullPanoHeightPixels missing");
-                        };
-                        long cropTop = 0;
-                        pos = xmpData.findKey(Exiv2::XmpKey("Xmp.GPano.CroppedAreaTopPixels"));
-                        if (pos != xmpData.end())
-                        {
-                            cropTop = pos->toLong();
-                        }
-                        else
-                        {
-                            // tag is required
-                            throw std::logic_error("Required tag CroppedAreaTopPixels missing");
-                        };
-
-                        // all found, remember for later
-                        metaData["projection"] = "equirectangular";
-                        metaData["HFOV"] = hugin_utils::doubleToString(hfov, 3);
-                        metaData["e"] = hugin_utils::doubleToString(-cropTop - ((getHeight() - fullHeight) / 2.0), 4);
-                        setFileMetadata(metaData);
-                    };
-                };
-            };
-        }
-        catch (std::exception e)
-        {
-            // just to catch error when image contains no GPano tags
-            std::cerr << "Error reading GPano tags from " << filename << "(" << e.what() << ")" << std::endl;
-        };
-    }
 
     DEBUG_DEBUG("Results for:" << filename);
     DEBUG_DEBUG("Focal Length: " << getExifFocalLength());
