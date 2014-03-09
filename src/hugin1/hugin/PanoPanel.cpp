@@ -1392,9 +1392,22 @@ void PanoPanel::OnOutputFilesChanged(wxCommandEvent & e)
 bool PanoPanel::CheckGoodSize()
 {
     vigra::Rect2D cropped_region = pano->getOptions().getROI();
+    wxString message;
     unsigned long long int area = ((unsigned long int) cropped_region.width()) * ((unsigned long int) cropped_region.height());
     // Argh, more than half a gigapixel!
     if (area > 500000000)
+    {
+        message = wxString::Format(_("The panorama you are trying to stitch is %.1f gigapixels.\nIf this is too big, reduce the panorama Canvas Size and the cropped region and stitch from the Stitcher tab. Stitching a panorama this size could take a long time and a large amount of memory."),
+            area / 1000000000.0);
+    }
+    else
+    {
+        if (cropped_region.width() > 32700 || cropped_region.height() > 32700)
+        {
+            message = _("The width or the height of the final panorama exceeds 32700 pixel.\nSome programs have problems to open or display such big images.\n\nIf this is too big, reduce the panorama Canvas Size or the cropped region.");
+        };
+    };
+    if (!message.empty())
     {
         // Tell the user the stitch will be really big, and give them a
         // chance to reduce the size.
@@ -1407,9 +1420,7 @@ bool PanoPanel::CheckGoodSize()
                 wxT(""),
 #endif
                 wxICON_EXCLAMATION | wxYES_NO);
-        dialog.SetExtendedMessage(
-                wxString::Format(_("The panorama you are trying to stitch is %.1f gigapixels.\nIf this is too big, reduce the panorama Canvas Size and the cropped region and stitch from the Stitcher tab. Stitching a panorama this size could take a long time and a large amount of memory."),
-                        area / 1000000000.0));
+        dialog.SetExtendedMessage(message);
         dialog.SetYesNoLabels(_("Stitch anyway"), _("Let me fix that"));
 #else // replacement for old wxWidgets versions.
         // wxMessageDialog derives from wxDialog, but I don't understand
@@ -1426,9 +1437,9 @@ bool PanoPanel::CheckGoodSize()
         /** @todo (Possibly) make a dialog manually with properly labelled
          * buttons.
          */
-        wxMessageDialog dialog(this,
-                wxString::Format(_("Are you sure you want to stitch such a large panorama?\n\nThe panorama you are trying to stitch is %.1f gigapixels.\nIf this is too big, reduce the panorama Canvas Size and the cropped region and stitch from the Stitcher tab. Stitching a panorama this size could take a long time and a large amount of memory."),
-                        area / 1000000000.0),
+        message.Prepend(wxT("\n\n"));
+        message=_("Are you sure you want to stitch such a large panorama?")+message;
+        wxMessageDialog dialog(this, message,
 #ifdef _WINDOWS
                 _("Hugin"),
 #else
