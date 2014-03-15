@@ -203,7 +203,7 @@ void PreviewIdentifyTool::Activate()
 }
 
 void PreviewIdentifyTool::StopUpdating() {
-    if (image_set.size() > 0) {
+    if (!image_set.empty()) {
         std::set<unsigned int>::iterator iterator;
         for (iterator = image_set.begin(); iterator != image_set.end(); iterator++)
         {
@@ -551,12 +551,13 @@ void PreviewIdentifyTool::UpdateWithNewImageSet(std::set<unsigned int> new_image
     // If we are currently showing indicators for some of the images, we want
     // to work out which ones are not in the new set, so we can set their
     // buttons back to the system colour.
+    if (!image_set.empty())
     {
         UIntSet difference;
         std::set_difference (image_set.begin(), image_set.end(),
                              new_image_set.begin(), new_image_set.end(),
                              std::inserter(difference,difference.end()));
-        if (difference.size()>0)
+        if (!difference.empty())
         {
             for (UIntSet::iterator iterator = difference.begin(); iterator != difference.end(); iterator++)
             {
@@ -570,19 +571,22 @@ void PreviewIdentifyTool::UpdateWithNewImageSet(std::set<unsigned int> new_image
     }
 
     // now request to be notified when drawing the new ones.
-    UIntSet difference;
-    std::set_difference (new_image_set.begin(), new_image_set.end(),
-                         image_set.begin(), image_set.end(),
-                         std::inserter(difference,difference.end()));
-    if (difference.size()>0)
+    if (!new_image_set.empty())
     {
-        for (UIntSet::iterator iterator = difference.begin(); iterator != difference.end(); iterator++)
+        UIntSet difference;
+        std::set_difference(new_image_set.begin(), new_image_set.end(),
+            image_set.begin(), image_set.end(),
+            std::inserter(difference, difference.end()));
+        if (!difference.empty())
         {
-            DEBUG_ASSERT(*iterator < helper->GetPanoramaPtr()->getNrOfImages());
-            // get notification of when this is about to be drawn.
-            helper->NotifyMeBeforeDrawing(*iterator, this);
+            for (UIntSet::iterator iterator = difference.begin(); iterator != difference.end(); iterator++)
+            {
+                DEBUG_ASSERT(*iterator < helper->GetPanoramaPtr()->getNrOfImages());
+                // get notification of when this is about to be drawn.
+                helper->NotifyMeBeforeDrawing(*iterator, this);
+            }
         }
-    }
+    };
     // remember the new set.
     image_set.swap(new_image_set);
 
