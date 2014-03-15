@@ -124,7 +124,9 @@ Users compiling Hugin from source will need:
     freeglut or glut, the OpenGL utility toolkit
     gettext
     lensfun, the database to load and store lens correction data
+    Exiftool, only with >=9.09 all features are compiled
     optionally, lapack
+    optionally, libfftw3
     on Unix you need also
         libGLU the OpenGL utility library
         libxi
@@ -141,7 +143,6 @@ Users compiling Hugin from source will need:
 3.2. At runtime
 
     enblend >= 3.2 is required.
-    Exiftool >=9.09 is required.
     Starting with Hugin 2010.3 and newer, Hugin ships with its own control points generator cpfind. Prior to 2010.3 another optional but recommended runtime dependency was a control points generator.
     Optionally Python argparse command-line parsing library for the Python scripts. 
 
