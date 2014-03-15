@@ -249,7 +249,7 @@
                             <object class="sizeritem">
                               <object class="wxButton" name="images_feature_matching">
                                 <label>Create control points</label>
-                                <tooltip>Run external autopano program on the selected images</tooltip>
+                                <tooltip>Run selected control point detector on the selected images</tooltip>
                               </object>
                               <flag>wxALIGN_CENTRE_VERTICAL</flag>
                             </object>
