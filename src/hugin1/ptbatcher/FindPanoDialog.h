@@ -66,6 +66,8 @@ protected:
     void OnButtonSend(wxCommandEvent& e);
     /** prevents closing window when running detection */
     void OnClose(wxCloseEvent& e);
+    /** event to populate information on the right */
+    void OnSelectPossiblePano(wxCommandEvent &e);
 
 private:
     BatchFrame* m_batchframe;
@@ -83,6 +85,7 @@ private:
     wxCheckBox* m_cb_loadVignetting;
     wxSpinCtrl* m_sc_minNumberImages;
     wxSpinCtrl* m_sc_maxTimeDiff;
+    wxImageList* m_thumbs;
 
     std::vector<PossiblePano*> m_panos;
     wxString m_start_dir;
@@ -133,6 +136,18 @@ public:
     /** generates the panorama file from this set of images
       * @return the generated project file, or wxEmptyString if generation failed */
     wxString GeneratePanorama(NamingConvention nc, bool createLinks);
+    /** returns the camera name */
+    wxString GetCameraName();
+    /** returns the lens name */
+    wxString GetLensName();
+    /** returns the focal length as string */
+    wxString GetFocalLength();
+    /** return the start date/time as string */
+    wxString GetStartString();
+    /** returns the duration as string */
+    wxString GetDuration();
+    /** add all images to wxListCtrl */
+    void PopulateListCtrl(wxListCtrl* list, wxImageList* thumbs);
 
 private:
     /** does some reformating date/time format */

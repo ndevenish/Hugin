@@ -338,13 +338,69 @@
                   <object class="wxBoxSizer">
                     <orient>wxVERTICAL</orient>
                     <object class="sizeritem">
-                      <object class="wxCheckListBox" name="find_pano_list">
-                        <content/>
-                        <style>wxLB_SINGLE|wxLB_HSCROLL|wxLB_NEEDED_SB</style>
+                      <object class="wxSplitterWindow" name="find_pano_splitter">
+                        <object class="wxCheckListBox" name="find_pano_list">
+                          <size>200,-1</size>
+                          <style>wxLB_SINGLE|wxLB_HSCROLL|wxLB_NEEDED_SB</style>
+                        </object>
+                        <object class="wxPanel">
+                          <object class="wxBoxSizer">
+                            <orient>wxVERTICAL</orient>
+                            <object class="sizeritem">
+                              <object class="wxGridSizer">
+                                <object class="sizeritem">
+                                  <object class="wxStaticText">
+                                    <label>Camera:</label>
+                                  </object>
+                                </object>
+                                <object class="sizeritem">
+                                  <object class="wxStaticText" name="find_pano_selected_cam"/>
+                                </object>
+                                <object class="sizeritem">
+                                  <object class="wxStaticText">
+                                    <label>Lens:</label>
+                                  </object>
+                                </object>
+                                <object class="sizeritem">
+                                  <object class="wxStaticText" name="find_pano_selected_lens"/>
+                                </object>
+                                <object class="sizeritem">
+                                  <object class="wxStaticText">
+                                    <label>Focal length:</label>
+                                  </object>
+                                </object>
+                                <object class="sizeritem">
+                                  <object class="wxStaticText" name="find_pano_selected_focallength"/>
+                                </object>
+                                <object class="sizeritem">
+                                  <object class="wxStaticText">
+                                    <label>Start date (duration):</label>
+                                  </object>
+                                </object>
+                                <object class="sizeritem">
+                                  <object class="wxStaticText" name="find_pano_selected_date_time"/>
+                                </object>
+                                <cols>2</cols>
+                                <rows>4</rows>
+                                <hgap>5</hgap>
+                              </object>
+                              <flag>wxALL</flag>
+                              <border>5</border>
+                            </object>
+                            <object class="sizeritem">
+                              <object class="wxListCtrl" name="find_pano_selected_thumbslist">
+                                <style>wxLC_ICON|wxLC_AUTOARRANGE|wxLC_SINGLE_SEL</style>
+                              </object>
+                              <option>1</option>
+                              <flag>wxALL|wxEXPAND</flag>
+                            </object>
+                          </object>
+                        </object>
+                        <orientation>vertical</orientation>
+                        <style>wxSP_NOBORDER</style>
                       </object>
                       <option>1</option>
                       <flag>wxALL|wxEXPAND</flag>
-                      <border>3</border>
                     </object>
                     <object class="sizeritem">
                       <object class="wxBoxSizer">

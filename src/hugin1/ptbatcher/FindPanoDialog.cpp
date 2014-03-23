@@ -31,12 +31,19 @@
 #include "PTBatcherGUI.h"
 #include "hugin_utils/alphanum.h"
 #include "hugin/config_defaults.h"
+#include "wx/mstream.h"
+#include "exiv2/exiv2.hpp"
+#include "exiv2/preview.hpp"
+#ifdef _WIN32
+#include <CommCtrl.h>
+#endif
 
 BEGIN_EVENT_TABLE(FindPanoDialog,wxDialog)
     EVT_BUTTON(XRCID("find_pano_close"), FindPanoDialog::OnButtonClose)
     EVT_BUTTON(XRCID("find_pano_select_dir"), FindPanoDialog::OnButtonChoose)
     EVT_BUTTON(XRCID("find_pano_start_stop"), FindPanoDialog::OnButtonStart)
     EVT_BUTTON(XRCID("find_pano_add_queue"), FindPanoDialog::OnButtonSend)
+    EVT_LISTBOX(XRCID("find_pano_list"), FindPanoDialog::OnSelectPossiblePano)
     EVT_CLOSE(FindPanoDialog::OnClose)
 END_EVENT_TABLE()
 
@@ -44,6 +51,9 @@ bool SortFilename::operator()(const SrcPanoImage* img1, const SrcPanoImage* img2
 {
     return doj::alphanum_comp(img1->getFilename(),img2->getFilename())<0;
 };
+
+// thumbnail size currently set to 80x80
+#define THUMBSIZE 80
 
 FindPanoDialog::FindPanoDialog(BatchFrame* batchframe, wxString xrcPrefix)
 {
@@ -111,6 +121,11 @@ FindPanoDialog::FindPanoDialog(BatchFrame* batchframe, wxString xrcPrefix)
             this->Move(0, 44);
         }
     }
+    long splitterPos = config->Read(wxT("/FindPanoDialog/splitterPos"), -1l);
+    if (splitterPos != -1)
+    {
+        XRCCTRL(*this, "find_pano_splitter", wxSplitterWindow)->SetSashPosition(splitterPos);
+    };
     wxString path=config->Read(wxT("/FindPanoDialog/actualPath"),wxEmptyString);
     if(!path.IsEmpty())
     {
@@ -132,6 +147,14 @@ FindPanoDialog::FindPanoDialog(BatchFrame* batchframe, wxString xrcPrefix)
     i=config->Read(wxT("/FindPanoDialog/MaxTimeDiff"), 30l);
     m_sc_maxTimeDiff->SetValue(i);
     m_button_send->Disable();
+    m_thumbs = new wxImageList(THUMBSIZE, THUMBSIZE, true, 0);
+    wxListCtrl* thumbs_list = XRCCTRL(*this, "find_pano_selected_thumbslist", wxListCtrl);
+    thumbs_list->SetImageList(m_thumbs, wxIMAGE_LIST_NORMAL);
+#ifdef _WIN32
+    // default image spacing is too big, wxWidgets does not provide direct 
+    // access to the spacing, so using the direct API function
+    ListView_SetIconSpacing(thumbs_list->GetHandle(), THUMBSIZE + 20, THUMBSIZE + 20);
+#endif
 };
 
 FindPanoDialog::~FindPanoDialog()
@@ -151,6 +174,7 @@ FindPanoDialog::~FindPanoDialog()
     {
         config->Write(wxT("/FindPanoDialog/maximized"), 1l);
     };
+    config->Write(wxT("/FindPanoDialog/splitterPos"), XRCCTRL(*this, "find_pano_splitter", wxSplitterWindow)->GetSashPosition());
     config->Write(wxT("/FindPanoDialog/actualPath"),m_textctrl_dir->GetValue());
     config->Write(wxT("/FindPanoDialog/includeSubDirs"),m_cb_subdir->GetValue());
     config->Write(wxT("/FindPanoDialog/Naming"),m_ch_naming->GetSelection());
@@ -160,6 +184,7 @@ FindPanoDialog::~FindPanoDialog()
     config->Write(wxT("/FindPanoDialog/MinNumberImages"), m_sc_minNumberImages->GetValue());
     config->Write(wxT("/FindPanoDialog/MaxTimeDiff"), m_sc_maxTimeDiff->GetValue());
     CleanUpPanolist();
+    delete m_thumbs;
 };
 
 void FindPanoDialog::CleanUpPanolist()
@@ -240,6 +265,8 @@ void FindPanoDialog::OnButtonStart(wxCommandEvent& e)
             m_button_start->SetLabel(_("Stop"));
             CleanUpPanolist();
             m_list_pano->Clear();
+            wxCommandEvent dummy;
+            OnSelectPossiblePano(dummy);
             EnableButtons(false);
             SearchInDir(m_start_dir,m_cb_subdir->GetValue(), m_cb_loadDistortion->GetValue(), m_cb_loadVignetting->GetValue(), 
                 m_sc_minNumberImages->GetValue(), m_sc_maxTimeDiff->GetValue());
@@ -304,6 +331,28 @@ void FindPanoDialog::EnableButtons(const bool state)
     m_cb_createLinks->Enable(state);
     m_button_close->Enable(state);
     m_button_send->Enable(state);
+};
+
+void FindPanoDialog::OnSelectPossiblePano(wxCommandEvent &e)
+{
+    int selected = m_list_pano->GetSelection();
+    if (selected != wxNOT_FOUND)
+    {
+        XRCCTRL(*this, "find_pano_selected_cam", wxStaticText)->SetLabel(m_panos[selected]->GetCameraName());
+        XRCCTRL(*this, "find_pano_selected_lens", wxStaticText)->SetLabel(m_panos[selected]->GetLensName());
+        XRCCTRL(*this, "find_pano_selected_focallength", wxStaticText)->SetLabel(m_panos[selected]->GetFocalLength());
+        XRCCTRL(*this, "find_pano_selected_date_time", wxStaticText)->SetLabel(m_panos[selected]->GetStartString() + wxT(" (")+ m_panos[selected]->GetDuration() + wxT(")"));
+        m_panos[selected]->PopulateListCtrl(XRCCTRL(*this, "find_pano_selected_thumbslist", wxListCtrl), m_thumbs);
+    }
+    else
+    {
+        XRCCTRL(*this, "find_pano_selected_cam", wxStaticText)->SetLabel(wxEmptyString);
+        XRCCTRL(*this, "find_pano_selected_lens", wxStaticText)->SetLabel(wxEmptyString);
+        XRCCTRL(*this, "find_pano_selected_focallength", wxStaticText)->SetLabel(wxEmptyString);
+        XRCCTRL(*this, "find_pano_selected_date_time", wxStaticText)->SetLabel(wxEmptyString);
+        XRCCTRL(*this, "find_pano_selected_thumbslist", wxListCtrl)->DeleteAllItems();
+        m_thumbs->RemoveAll();
+    };
 };
 
 int SortWxFilenames(const wxString& s1,const wxString& s2)
@@ -826,3 +875,112 @@ wxString PossiblePano::GeneratePanorama(NamingConvention nc,bool createLinks)
     return projectFile.GetFullPath();
 };
 
+wxString PossiblePano::GetCameraName()
+{
+    return wxString(m_camera.c_str(), wxConvLocal);
+}
+
+wxString PossiblePano::GetLensName()
+{
+    return wxString(m_lens.c_str(), wxConvLocal);
+};
+
+wxString PossiblePano::GetFocalLength()
+{
+    return wxString::Format(wxT("%0.1f mm"), m_focallength);
+};
+
+wxString PossiblePano::GetStartString()
+{
+    return m_dt_start.Format();
+};
+
+wxString PossiblePano::GetDuration()
+{
+    wxTimeSpan diff = m_dt_end.Subtract(m_dt_start);
+    if (diff.GetSeconds() > 60)
+    {
+        return diff.Format(_("%M:%S min"));
+    }
+    else
+    {
+        return diff.Format(_("%S s"));
+    };
+};
+
+void PossiblePano::PopulateListCtrl(wxListCtrl* list, wxImageList* thumbs)
+{
+    list->DeleteAllItems();
+    thumbs->RemoveAll();
+    wxBusyCursor cursor;
+    for (ImageSet::iterator it = m_images.begin(); it != m_images.end(); ++it)
+    {
+        Exiv2::Image::AutoPtr image;
+        bool opened = false;
+        try
+        {
+            image = Exiv2::ImageFactory::open((*it)->getFilename().c_str());
+            opened = true;
+        }
+        catch (...)
+        {
+            std::cerr << __FILE__ << " " << __LINE__ << " Error opening file" << std::endl;
+        }
+        int index = -1;
+        if (opened)
+        {
+            image->readMetadata();
+            // read all thumbnails
+            Exiv2::PreviewManager previews(*image);
+            Exiv2::PreviewPropertiesList lists = previews.getPreviewProperties();
+            if (!lists.empty())
+            {
+                // select a preview with matching size
+                int previewIndex = 0;
+                while (previewIndex < lists.size() - 1 && lists[previewIndex].width_ < THUMBSIZE && lists[previewIndex].height_ < THUMBSIZE)
+                {
+                    ++previewIndex;
+                };
+                // load preview image to wxImage
+                wxImage rawImage;
+                Exiv2::PreviewImage previewImage = previews.getPreviewImage(lists[previewIndex]);
+                wxMemoryInputStream stream(previewImage.pData(), previewImage.size());
+                rawImage.LoadFile(stream, wxString(previewImage.mimeType().c_str(), wxConvLocal), -1);
+                int x = 0;
+                int y = 0;
+                if (previewImage.width() > previewImage.height())
+                {
+                    //landscape format
+                    int newHeight = THUMBSIZE*previewImage.height() / previewImage.width();
+                    rawImage.Rescale(THUMBSIZE, newHeight);
+                    x = 0;
+                    y = (THUMBSIZE - newHeight) / 2;
+                }
+                else
+                {
+                    //portrait format
+                    int newWidth = THUMBSIZE*previewImage.width() / previewImage.height();
+                    rawImage.Rescale(newWidth, THUMBSIZE);
+                    x = (THUMBSIZE - newWidth) / 2;
+                    y = 0;
+                }
+                // create final bitmap with centered thumbnail
+                wxBitmap bitmap(THUMBSIZE, THUMBSIZE);
+                wxMemoryDC dc(bitmap);
+                dc.SetBackground(list->GetBackgroundColour());
+                dc.Clear();
+                dc.DrawBitmap(rawImage, x, y);
+                dc.SelectObject(wxNullBitmap);
+                // create mask bitmap
+                wxImage mask(THUMBSIZE, THUMBSIZE);
+                mask.SetRGB(wxRect(0, 0, THUMBSIZE, THUMBSIZE), 0, 0, 0);
+                mask.SetRGB(wxRect(x, y, THUMBSIZE - 2 * x, THUMBSIZE - 2 * y), 255, 255, 255);
+                // add to wxImageList
+                index = thumbs->Add(bitmap, mask);
+            };
+        };
+        // create item in thumb list
+        wxFileName fn(wxString((*it)->getFilename().c_str(), HUGIN_CONV_FILENAME));
+        list->InsertItem(list->GetItemCount(), fn.GetFullName(), index);
+    };
+};

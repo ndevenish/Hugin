@@ -207,6 +207,22 @@ FIND_PACKAGE(PNG REQUIRED)
 INCLUDE_DIRECTORIES(${ZLIB_INCLUDE_DIR})
 INCLUDE_DIRECTORIES(${PNG_INCLUDE_DIR})
 
+IF(WIN32 AND NOT HUGIN_SHARED)
+IF(NOT ${WX_jpeg} MATCHES ${JPEG_LIBRARIES_RELEASE})
+MESSAGE(FATAL_ERROR "Using different libjpeg and wxjpeg. This does not work with static libs. Use wxjpeg for libjpeg")
+ENDIF()
+IF(NOT ${WX_zlib} MATCHES ${ZLIB_LIBRARIES_RELEASE})
+MESSAGE(FATAL_ERROR "Using different libzlib and wxzlib. This does not work with static libs. Use wxjpeg for libzlib")
+ENDIF()
+IF(NOT ${WX_png} MATCHES ${PNG_LIBRARIES_RELEASE})
+MESSAGE(FATAL_ERROR "Using different libpng and wxpng. This does not work with static libs. Use wxjpeg for libpng")
+ENDIF()
+IF(NOT ${WX_tiff} MATCHES ${TIFF_LIBRARIES_RELEASE})
+MESSAGE(FATAL_ERROR "Using different libtiff and wxtiff. This does not work with static libs. Use wxtiff for libtiff")
+ENDIF()
+
+ENDIF()
+
 FIND_PACKAGE(OpenEXR REQUIRED)
 include_directories(${OPENEXR_INCLUDE_DIR})
 
