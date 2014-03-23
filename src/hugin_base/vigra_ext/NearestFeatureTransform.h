@@ -127,21 +127,6 @@ static inline void saveDist(dist_t *ptr, uint32 w, uint32 h, const char * filena
     TIFFClose(outputTIFF);
 }
 
-static void saveDistRaw(void * ptr, uint32 w, uint32 h, const char * file)
-{
-    FILE * f = fopen(file,"wb+");
-    if (f == NULL) {
-        std::cerr << "enblend: error creating temporary file." << std::endl;
-        exit(1);
-    }
-    size_t size = w*h;
-    size_t itemsWritten = fwrite(ptr, sizeof(dist_t), size, f);
-    if (itemsWritten < size) {
-        std::cerr << "enblend: error writing to temporary file." << std::endl;
-        perror("reason");
-        exit(1);
-    }
-}
 #endif
 
 /** Perform a nearest feature transform on the input image within the union
