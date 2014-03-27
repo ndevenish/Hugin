@@ -45,6 +45,7 @@
 #include <algorithms/optimizer/PTOptimizer.h>
 #include <nona/Stitcher.h>
 #include <algorithms/basic/CalculateOptimalROI.h>
+#include <lensdb/LensDB.h>
 
 #include <getopt.h>
 #ifndef WIN32
@@ -53,6 +54,13 @@
 
 #include <hugin_utils/openmp_lock.h>
 #include <tiff.h>
+
+#ifdef __APPLE__
+#include <hugin_config.h>
+#include <mach-o/dyld.h>    /* _NSGetExecutablePath */
+#include <limits.h>         /* PATH_MAX */
+#include <libgen.h>         /* dirname */
+#endif
 
 using namespace vigra;
 using namespace HuginBase;
@@ -104,6 +112,7 @@ static void usage(const char * name)
          << "  -g gsize  Break image into a rectangular grid (gsize x gsize) and attempt" << std::endl
          << "             to find num control points in each section" << std::endl 
          << "             (default: 5 [5x5 grid] )" << std::endl
+         << "  --distortion Try to load distortion information from lensfun database" << std::endl
          << "  --threads=NUM  Use NUM threads" << std::endl
          << "  --gpu     Use GPU for remapping" << std::endl
          << "  -h        Display help (this text)" << std::endl
@@ -408,6 +417,7 @@ struct Parameters
         crop = false;
         fisheye = false;
         gpu = false;
+        loadDistortion=false;
     }
 
     double cpErrorThreshold;
@@ -428,6 +438,7 @@ struct Parameters
     bool pop_out;
     bool crop;
     bool gpu;
+    bool loadDistortion;
     int pyrLevel;
     std::string alignedPrefix;
     std::string ptoFile;
@@ -457,6 +468,41 @@ private:
     const Panorama* m_pano;
 };
 
+void InitLensDB()
+{
+#ifdef _WINDOWS
+    char buffer[MAX_PATH];//always use MAX_PATH for filepaths
+    GetModuleFileName(NULL,buffer,sizeof(buffer));
+    string working_path=string(buffer);
+    //remove filename
+    std::string::size_type pos=working_path.rfind("\\");
+    if(pos!=std::string::npos)
+    {
+        working_path.erase(pos);
+        //remove last dir: should be bin
+        pos=working_path.rfind("\\");
+        if(pos!=std::string::npos)
+        {
+            working_path.erase(pos);
+            //append path delimiter and path
+            working_path.append("\\share\\lensfun\\");
+            HuginBase::LensDB::LensDB::GetSingleton().SetMainDBPath(working_path);
+        }
+    }
+#elif defined MAC_SELF_CONTAINED_BUNDLE
+    char path[PATH_MAX + 1];
+    uint32_t size = sizeof(path);
+    string install_path_lensfun("");
+    if (_NSGetExecutablePath(path, &size) == 0)
+    {
+        install_path_lensfun=dirname(path);
+        install_path_lensfun.append("/../Resources/lensfun/");
+        HuginBase::LensDB::LensDB::GetSingleton().SetMainDBPath(install_path_lensfun);
+    }
+#endif
+};
+
+
 template <class PixelType>
 int main2(std::vector<std::string> files, Parameters param)
 {
@@ -479,6 +525,19 @@ int main2(std::vector<std::string> files, Parameters param)
         if (srcImg.getSize().x == 0 || srcImg.getSize().y == 0) {
             cerr << "Could not decode image: " << files[0] << "Unsupported image file format";
             return 1;
+        }
+
+        if(param.loadDistortion)
+        {
+            InitLensDB();
+            if(srcImg.readDistortionFromDB())
+            {
+                cout << "\tRead distortion data from lensfun database." << endl;
+            }
+            else
+            {
+                cout << "\tNo valid distortion data found in lensfun database." << endl;
+            }
         }
 
         // use hfov specified by user.
@@ -534,6 +593,19 @@ int main2(std::vector<std::string> files, Parameters param)
                 cerr << "Could not decode image: " << files[i] << "Unsupported image file format";
                 return 1;
             }
+
+            if(param.loadDistortion)
+            {
+                if(srcImg.readDistortionFromDB())
+                {
+                    cout << "\tRead distortion data from lensfun database." << endl;
+                }
+                else
+                {
+                    cout << "\tNo valid distortion data found in lensfun database." << endl;
+                }
+            }
+
             if (param.hfov > 0) {
                 srcImg.setHFOV(param.hfov);
             } else if (srcImg.getCropFactor() == 0) {
@@ -793,6 +865,7 @@ int main(int argc, char *argv[])
         CORRTHRESH=1000,
         THREADS,
         GPU,
+        LENSFUN,
     };
 
     static struct option longOptions[] =
@@ -800,6 +873,7 @@ int main(int argc, char *argv[])
         {"corr", required_argument, NULL, CORRTHRESH },
         {"threads", required_argument, NULL, THREADS },
         {"gpu", no_argument, NULL, GPU },
+        {"distortion", no_argument, NULL, LENSFUN },
         {"help", no_argument, NULL, 'h' },
         0
     };
@@ -898,7 +972,7 @@ int main(int argc, char *argv[])
             }
             break;
         case CORRTHRESH:
-            param.corrThresh = atoi(optarg);
+            param.corrThresh = atof(optarg);
             if(param.corrThresh<=0 || param.corrThresh>1.0)
             {
                 cerr << "Invalid correlation value. Should be between 0 and 1" << endl;
@@ -910,6 +984,9 @@ int main(int argc, char *argv[])
             break;
         case GPU:
             param.gpu = true;
+            break;
+        case LENSFUN:
+            param.loadDistortion = true;
             break;
         default:
             cerr << "Invalid parameter: " << optarg << std::endl;
