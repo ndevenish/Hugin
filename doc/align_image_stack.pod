@@ -130,6 +130,10 @@ Scale down image by 2^scale (default: 1 [2x down-sampling])
 Break image into a rectangular grid (gsize x gsize) and attempt to
 find num control points in each section (default: 5 [5x5 grid])
 
+=item B<--distortion>
+
+Try to load distortion information from lensfun database
+
 =item B<--threads=NUM>
 
 Use NUM threads
