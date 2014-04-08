@@ -113,6 +113,8 @@ static void usage(const char * name)
          << "             to find num control points in each section" << std::endl 
          << "             (default: 5 [5x5 grid] )" << std::endl
          << "  --distortion Try to load distortion information from lensfun database" << std::endl
+         << "  --use-given-order  Use the image order as given from command line" << std::endl
+         << "                     (By default images will be sorted by exposure values.)" << std::endl
          << "  --threads=NUM  Use NUM threads" << std::endl
          << "  --gpu     Use GPU for remapping" << std::endl
          << "  -h        Display help (this text)" << std::endl
@@ -417,7 +419,8 @@ struct Parameters
         crop = false;
         fisheye = false;
         gpu = false;
-        loadDistortion=false;
+        loadDistortion = false;
+        sortImagesByEv = true;
     }
 
     double cpErrorThreshold;
@@ -439,6 +442,7 @@ struct Parameters
     bool crop;
     bool gpu;
     bool loadDistortion;
+    bool sortImagesByEv;
     int pyrLevel;
     std::string alignedPrefix;
     std::string ptoFile;
@@ -520,6 +524,14 @@ int main2(std::vector<std::string> files, Parameters param)
         }
         srcImg.readEXIF();
         srcImg.applyEXIFValues();
+        if (param.sortImagesByEv)
+        {
+            if (fabs(srcImg.getExposureValue()) < 1E-6)
+            {
+                // no exposure values found in file, don't sort images
+                param.sortImagesByEv = false;
+            }
+        };
         // disable autorotate
         srcImg.setRoll(0);
         if (srcImg.getSize().x == 0 || srcImg.getSize().y == 0) {
@@ -665,7 +677,10 @@ int main2(std::vector<std::string> files, Parameters param)
         };
             
         // sort now all images by exposure value
-        std::sort(images.begin(), images.end(), SortImageVectorEV(&pano));
+        if (param.sortImagesByEv)
+        {
+            std::sort(images.begin(), images.end(), SortImageVectorEV(&pano));
+        };
 
         // load first image
         vigra::ImageImportInfo firstImgInfo(pano.getSrcImage(images[0]).getFilename().c_str());
@@ -866,6 +881,7 @@ int main(int argc, char *argv[])
         THREADS,
         GPU,
         LENSFUN,
+        USEGIVENORDER,
     };
 
     static struct option longOptions[] =
@@ -874,6 +890,7 @@ int main(int argc, char *argv[])
         {"threads", required_argument, NULL, THREADS },
         {"gpu", no_argument, NULL, GPU },
         {"distortion", no_argument, NULL, LENSFUN },
+        {"use-given-order", no_argument, NULL, USEGIVENORDER },
         {"help", no_argument, NULL, 'h' },
         0
     };
@@ -988,12 +1005,20 @@ int main(int argc, char *argv[])
         case LENSFUN:
             param.loadDistortion = true;
             break;
+        case USEGIVENORDER:
+            param.sortImagesByEv = false;
+            break;
         default:
             cerr << "Invalid parameter: " << optarg << std::endl;
             usage(argv[0]);
             return 1;
         }
 
+    // use always given image order for stereo options
+    if (param.stereo)
+    {
+        param.sortImagesByEv = false;
+    };
     unsigned nFiles = argc - optind;
     if (nFiles < 2) {
         std::cerr << std::endl << "Error: at least two files need to be specified" << std::endl <<std::endl;
