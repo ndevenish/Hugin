@@ -51,6 +51,8 @@ IF(WIN32)
 
   FIND_PATH(ENBLEND_DIR bin/enblend.exe enblend.exe
             PATHS 
+              ${SOURCE_BASE_DIR}/enblend-enfuse-4.1.3-win64 
+              ${SOURCE_BASE_DIR}/enblend-enfuse-4.1.3-win32 
               ${SOURCE_BASE_DIR}/enblend-enfuse-4.1.2-win64 
               ${SOURCE_BASE_DIR}/enblend-enfuse-4.1.2-win32 
               ${SOURCE_BASE_DIR}/enblend-enfuse-4.1.1-win64 
