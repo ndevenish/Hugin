@@ -1070,6 +1070,7 @@ int main(int argc, char *argv[])
         {
             hugin_utils::wrapupGPU();
         };
+        HuginBase::LensDB::LensDB::Clean();
         return 1;
     }
 
@@ -1077,5 +1078,6 @@ int main(int argc, char *argv[])
     {
         hugin_utils::wrapupGPU();
     };
+    HuginBase::LensDB::LensDB::Clean();
     return 0;
 }
