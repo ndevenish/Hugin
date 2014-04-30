@@ -384,6 +384,9 @@ public:
         you need to call SrcPanoImage::readEXIF before to fill some values 
         @return true, if information could be read from database */
     bool readVignettingFromDB();
+    /** constructs the lens name for the database
+        it is the lensname if known, for compact cameras it is constructed from camera maker and camera model */
+    std::string getDBLensName() const;
 
     /** returns true, if image has masks associated */
     bool hasMasks() const;

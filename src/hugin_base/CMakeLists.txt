@@ -148,7 +148,7 @@ TARGET_LINK_LIBRARIES(huginbase huginlevmar huginvigraimpex makefilelib
         ${Boost_LIBRARIES} ${EXIV2_LIBRARIES} ${PANO_LIBRARIES}
         ${TIFF_LIBRARIES} ${LAPACK_LIBRARIES} ${GLEW_LIBRARIES}
         ${OPENGL_LIBRARIES} ${GLUT_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT}
-        ${LENSFUN_LIBRARIES} ${LENSFUN_REGEX_LIBRARIES} ${GLIB2_LIBRARIES})
+        ${SQLITE3_LIBRARIES} )
 
 INSTALL(FILES algorithms/panorama_makefile/hugin_exiftool_copy.arg DESTINATION ${INSTALL_DATA_DIR})
         

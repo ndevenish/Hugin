@@ -2,7 +2,7 @@
 
 /** @file LensDB.h
  *
- *  @brief Wrapper around function for access to lensfun database
+ *  @brief class to access Hugins camera and lens database
  *
  *  @author T. Modes
  */
@@ -27,39 +27,20 @@
 #define _LENS_DB_H
 
 #include <hugin_shared.h>
-#include <string>
-#ifndef Hugin_shared
-#define CONF_LENSFUN_STATIC
-#endif
-#include <lensfun.h>
 #include <panodata/SrcPanoImage.h>
-#include <hugin_math/hugin_math.h>
+#include <panodata/Panorama.h>
+#include <string>
+#include <vector>
 
 namespace HuginBase
 {
 
 namespace LensDB
 {
+/** vector storing a list of lens names */
+typedef std::vector<std::string> LensList;
 
-/** class to save a list of lenses */
-class IMPEX LensDBList
-{
-public:
-    LensDBList();
-    ~LensDBList();
-    const size_t GetLensCount() const;
-    const lfLens* GetLens(size_t index) const;
-    void SetLenses(const lfLens** lenses);
-    std::string GetLensName(size_t index) const;
-    void SetCameraModelMaker(const std::string& camMaker, const std::string& camModel);
-private:
-    const lfLens** m_lenses;
-    size_t m_lensCount;
-    std::string m_camMaker;
-    std::string m_camModel;
-};
-
-/** main wrapper class for lensfun database */
+/** main database class */
 class IMPEX LensDB
 {
 public:
@@ -68,165 +49,140 @@ public:
     /** destructor */
     virtual ~LensDB();
 
-    /** sets the main path of the database files, if not set the default location is used */
-    void SetMainDBPath(std::string mainPath);
-    /** return the path where the database is read */
-    std::string GetMainDBPath();
-    /** returns the path to the user specific part of the database */
-    std::string GetUserDBPath();
-    /** reloads the user part of the lensfun db */
-    void ReloadUserPart();
-
     // routines to read from database
     /** returns the crop factor for the given camera (maker/model) 
         @param maker maker of the desired camera 
         @param model camera model
         @param cropFactor contains the crop factor
         @return true, if the crop factor could be obtained from the database, otherwise false */
-    bool GetCropFactor(std::string maker, std::string model, double &cropFactor);
-    /** returns the mount of the given camera (maker/model) 
-        @param maker maker of the desired camera 
-        @param model camera model
-        @param mount contains the mount
-        @return true, if the mount could be obtained from the database, otherwise false */
-    bool GetCameraMount(std::string maker, std::string model, std::string &mount);
-    /** searches for the given lens and store it parameters inside 
-        @param camMaker maker of the camera, for fixed lens cameras
-        @param camModel model of the camera, for fixed lens cameras
-        @param lens lens for searching
-        @return true, if a lens was found */
-    bool FindLens(std::string camMaker, std::string camModel, std::string lens);
-    /** sets the active lens for the following Check* call */
-    void SetActiveLens(const lfLens* activeLens);
-    /** checks if the focal length matches the lens spec 
-        @return true, if focal length is inside spec*/
-    bool CheckLensFocal(double focal);
-    /** checks if the aperture matches the lens spec 
-        @return true, if aperture is inside spec*/
-    bool CheckLensAperture(double aperture);
-    /** searches for the given lens and gives back a list of matching lenses 
-        @param camMaker maker of the camera, for fixed lens cameras
-        @param camModel model of the camera, for fixed lens cameras
-        @param lensname lensname to search
-        @param foundLenses contains found lenses names
-        @param fuzzy set to true, if search should use fuzzy algorithm
-        @return true, if lenses were found */
-    bool FindLenses(std::string camMaker, std::string camModel, std::string lensname, LensDBList &foundLenses, bool fuzzy=false);
-    /** searches for all mounts in the database
-        @return true, if mounts were found */
-    bool GetMounts(std::vector<std::string> &foundMounts);
-    /** returns the projection of the last found lens (you need to call LensDB::FindLens before calling this procedure)
+    bool GetCropFactor(const std::string& maker, const std::string& model, double& cropFactor) const;
+    /** returns the projection of the lens
+        @param lens name of the lens, or for compact camera Maker|Model
         @param projection contains the projection of the lens 
         @return true, if the database has stored information about the lens projection */
-    bool GetProjection(BaseSrcPanoImage::Projection & projection);
-    /** returns the crop of the last found lens (you need to call LensDB::FindLens before calling this procedure)
+    bool GetProjection(const std::string& lens, BaseSrcPanoImage::Projection& projection) const;
+    /** returns the crop of the lens
+        the information for landscape and portrait images are stored separately
+        @param lens name of the lens, or for compact camera Maker|Model
         @param focal focal length, for which the crop should be returned
-        @param cropMode contains the crop mode of the lens
-        @param cropLeftTop contains the left top border edge of the crop
-        @param cropRightBottom contains the right bottom edge of the crop
+        @param imageSize size of the image for which the crop information is wanted
+        @param cropRect contains the crop information
         @return true, if the database has stored information about the lens crop */
-    bool GetCrop(double focal, BaseSrcPanoImage::CropMode &cropMode, hugin_utils::FDiff2D &cropLeftTop, hugin_utils::FDiff2D &cropRightBottom);
-    /** returns the field of view of the last found lens (you need to call LensDB::FindLens before calling this procedure)
+    bool GetCrop(const std::string& lens, const double focal, const vigra::Size2D& imageSize, vigra::Rect2D& cropRect) const;
+    /** returns the field of view of the lens 
+        the fov is always returned for a landscape image with aspect ratio 3:2
+        @param lens name of the lens, or for compact camera Maker|Model
         @param focal focal length, for which the fov should be returned
         @param fov stored the returned field of view
         @return true, if the database has stored information about the field of view */
-    bool GetFov(double focal,double &fov);
-    /** returns the distortion parameters of the last found lens (you need to call LensDB::FindLens before calling this procedure)
+    bool GetFov(const std::string& lens, const double focal, double& fov) const;
+    /** returns the distortion parameters of the lens
+        @param lens name of the lens, or for compact camera Maker|Model
         @param focal focal length, for which the distortion parameters should be returned
         @param distortion stored the returned distortion parameters
         @return true, if the database has stored information about the distortion */
-    bool GetDistortion(double focal, std::vector<double> &distortion);
-    /** returns the vignetting parameters of the last found lens (you need to call LensDB::FindLens before calling this procedure)
+    bool GetDistortion(const std::string& lens, const double focal, std::vector<double>& distortion) const;
+    /** returns the vignetting parameters of the lens
+        @param lens name of the lens, or for compact camera Maker|Model
         @param focal focal length, for which the vignetting parameters should be returned
         @param aperture aperture, for which the vignetting parameters should be returned
-        @param distance distance, for which the vignetting parameters should be returned
+        @param distance distance, for which the vignetting parameters should be returned (currently ignored)
         @param vignetting stored the returned vignetting
         @return true, if the database has stored information about the vignetting */
-    bool GetVignetting(double focal, double aperture, double distance, std::vector<double> &vignetting);
+    bool GetVignetting(const std::string& lens, const double focal, const double aperture, const double distance, std::vector<double>& vignetting) const;
+    /** returns the tca distortion parameters of the lens
+        @param lens name of the lens, or for compact camera Maker|Model
+        @param focal focal length, for which the distortion parameters should be returned
+        @param tca_red stored the returned tca distortion parameters for red channel
+        @param tca_blue stored the returned tca distortion parameters for blue channel
+        @return true, if the database has stored information about the distortion */
+    bool GetTCA(const std::string& lens, const double focal, std::vector<double>& tca_red, std::vector<double>& tca_blue) const;
+    /** return a vector of lenses with selected database entries
+        @param distortion vector contains lenses with distortion data
+        @param vignetting vector contains lenses with vignetting data
+        @param tca vector contains lenses with tca data 
+        @param lensList vector containing the lens names
+        @return true, if lenses were found */
+    bool GetLensNames(const bool distortion, const bool vignetting, const bool tca, LensList& lensList) const;
+    /** compress database by remove all entries and insert instead the average values
+        @return true, if cleanup was successfull */
+    bool CleanUpDatabase();
 
     //routines to save to database
-    /** save the camera with the given cropfactor into the given file 
-        @param filename in which file the db should be saved, existing entries will be 
+    /** save the camera with the given cropfactor into the database
         @param maker camera maker to save
         @param model camera model to save
-        @param mount mount of the used camera model
         @param cropfactor crop factor for given camera
         @return true, if saving was successful */
-    bool SaveCameraCrop(std::string filename, std::string maker, std::string model, std::string mount, double cropfactor);
-
-    /** starts saving a lens to database, call LensDB::SaveHFOV, LensDB::SaveCrop, LensDB::SaveDistortion and/or LensDB::SaveVignetting
-        to add information to database, finally save information to file with LensDB::EndSaveLens
-        @param filename filename to which the information should be saved
-        @param maker maker of the lens
-        @param lensname lens name
-        @param mount mount of the lens (if empty string "Generic" is written to database )
+    bool SaveCameraCrop(const std::string& maker, const std::string& model, const double cropfactor);
+    /** save the camera with the given EMoR parameters into the database
+        @param maker camera maker to save
+        @param model camera model to save
+        @param ISO ISO settings for which the EMoR parameters applies
+        @param emor EMoR parameters to save
+        @param weight weight factor for given values (0-100, default is 10)
+        @return true, if saving was successful */
+    bool SaveEMoR(const std::string& maker, const std::string& model, const int iso, const std::vector<float>& emor, const int weight = 10);
+    /** saves the projection for the lens in the database
+        @param lens name of the lens, or for compact camera Maker|Model
         @param projection projection of the lens
-        @param cropfactor crop factor of the lens
-        @return 0 - if all okay, 1 - if database could not created, 2 - if projection does not match type saved in database, 3 - if crop factor does not match crop factor in database */
-    int BeginSaveLens(std::string filename, std::string maker, std::string lensname, std::string mount, BaseSrcPanoImage::Projection projection, double cropfactor);
-    /** updated the hfov for the given focal length
-        @param focal focal length
-        @param hfov horizontal field of view to save */
-    void SaveHFOV(double focal, double hfov);
-    /** updated the crop for the given focal length
-        @param focal focal length
-        @param hfov horizontal field of view to save */
-    void SaveCrop(double focal, BaseSrcPanoImage::CropMode cropMode, hugin_utils::FDiff2D cropLeftTop, hugin_utils::FDiff2D cropRightBottom);
-    /** updated the distortion for the given focal length
-        @param focal focal length
-        @param distortion distortion to save, vector must have 3 elements */
-    void SaveDistortion(double focal, std::vector<double> distortion);
-    /** updated the vignetting for the given focal length
-        @param focal focal length, for which vignetting was determined
-        @param aperture aperture, for which vignetting was determined
-        @param distance distance for which vignetting was determined
-        @param vignetting vignetting to save, vector must have 3 elements */
-    void SaveVignetting(double focal, double aperture, double distance, std::vector<double> vignetting);
-    /** finally saves the new information to file, see also LensDB::BeginSaveLens */
-    bool EndSaveLens();
-
+        @return true, if saving was successful */
+    bool SaveLensProjection(const std::string& lens, const BaseSrcPanoImage::Projection projection);
+    /** saves the crop information of the lens in the database
+        the information for landscape and portrait images are stored separately
+        @param lens name of the lens, or for compact camera Maker|Model
+        @param focal focal length, for which the crop should be saved
+        @param imageSize size of the image for which the crop information is saved
+        @param cropRect contains the crop information which should be saved
+        @return true, if saving was successful */
+    bool SaveLensCrop(const std::string& lens, const double focal, const vigra::Size2D& imageSize, const vigra::Rect2D& cropRect);
+    /** saves the field of view of the lens
+        the fov should always calculated for a landscape image with aspect ratio 3:2
+        @param lens name of the lens, or for compact camera Maker|Model
+        @param focal focal length, for which the fov should be saved
+        @param fov field of view for storing
+        @param weight weight factor for given values (0-100, default is 10)
+        @return true, if saving was successful */
+    bool SaveLensFov(const std::string& lens, const double focal, const double fov, const int weight = 10);
+    /** saves the distortion parameters of the lens in the database
+        @param lens name of the lens, or for compact camera Maker|Model
+        @param focal focal length, for which the distortion parameters should be saved
+        @param distortion distortion parameters which should be stored in database
+        @param weight weight factor for given values (0-100, default is 10)
+        @return true, if saving was successful */
+    bool SaveDistortion(const std::string& lens, const double focal, const std::vector<double>& distortion, const int weight = 10);
+    /** saves the vignetting parameters of the lens
+        @param lens name of the lens, or for compact camera Maker|Model
+        @param focal focal length, for which the vignetting parameters should be saved
+        @param aperture aperture, for which the vignetting parameters should be saved
+        @param distance distance, for which the vignetting parameters should be saved
+        @param vignetting vignetting parameters which should be stored
+        @param weight weight factor for given values (0-100, default is 10)
+        @return true, if saving was successful */
+    bool SaveVignetting(const std::string& lens, const double focal, const double aperture, const double distance, const std::vector<double>& vignetting, const int weight = 10);
+    /** saves the tca distortion parameters of the lens
+        @param lens name of the lens, or for compact camera Maker|Model
+        @param focal focal length, for which the distortion parameters should be saved
+        @param tca_red tca distortion parameters for red channel
+        @param tca_blue tca distortion parameters for blue channel
+        @param weight weight factor for given values (0-100, default is 10)
+        @return true, if saving was successful */
+    bool SaveTCA(const std::string& lens, const double focal, const std::vector<double>& tca_red, const std::vector<double>& tca_blue, const int weight=10);
+    /** returns the filename of the lens database */
+    std::string GetDBFilename() const;
     // access to single database class
     /** returns the static LensDB instance */
     static LensDB& GetSingleton();
     /** cleanup the static LensDB instance, must be called at the end of the program */
     static void Clean();
 private:
-    /** initialize db */
-    bool InitDB();
-    /** load all xml files in given path into database */
-    bool LoadFilesInDir(std::string path);
-    /** free all ressources used for saving lens */
-    void CleanSaveInformation();
-    /** check, if mount is already in database, if not it populates the LensDB::m_updatedMounts with the mounts
-        @return true, if new mount is found */
-    bool IsNewMount(std::string newMount);
-    /** deletes the lens list */
-    void FreeLensList();
-    /** cleans up the information stored for mounts (variable LensDB::m_updatedMounts) */
-    void CleanUpdatedMounts();
-    /** the main database */
-    struct lfDatabase *m_db;
-    /** database for saving */ 
-    struct lfDatabase *m_newDB;
-    /** found lenses for LensDB::GetProjection, LensDB::GetCrop */
-    const struct lfLens **m_lenses;
-    /** variable used for cleanup of lensfun points */
-    bool m_needLensCleanup;
-    /** list of lenses for saving */
-    struct lfLens **m_updatedLenses;
-    /** list of new mounts for saving */
-    struct lfMount **m_updatedMounts;
-    /** struct of lens currently is saved */
-    struct lfLens *m_currentLens;
-    /** current filename for saving lens */
-    std::string m_lensFilename;
-    /** true, if database was successful initialized */
-    bool m_initialized;
-    // stores the pathes
-    std::string m_main_db_path;
-    std::string m_user_db_path;
+    class Database;
+    Database *m_db;
     static LensDB* m_instance;
 };
+
+/** routine for automatically saving information from pano into database */
+IMPEX bool SaveLensDataFromPano(const HuginBase::Panorama& pano);
 
 }; //namespace LensDB
 }; //namespace HuginBase

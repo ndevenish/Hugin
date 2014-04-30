@@ -25,9 +25,15 @@
 #include "utils.h"
 
 #ifdef WIN32
+    #define NOMINMAX
     #include <sys/utime.h>
+    #include <ShlObj.h>
 #else
     #include <sys/time.h>
+    #include <cstdlib>
+    #include <unistd.h>
+    #include <sys/types.h>
+    #include <pwd.h>
 #endif
 #include <time.h>
 #include <fstream>
@@ -40,6 +46,8 @@
 #include <hugin_config.h>
 #endif
 #include <algorithm>
+#define BOOST_FILESYSTEM_VERSION 3
+#include <boost/filesystem.hpp>
 
 #ifdef __APPLE__
 #include <mach-o/dyld.h>  /* _NSGetExecutablePath */
@@ -323,6 +331,49 @@ std::string GetDataDir()
     std::string data_path = (INSTALL_DATA_DIR);
 #endif
     return data_path;
+};
+
+std::string GetUserAppDataDir()
+{
+    boost::filesystem::path path;
+#ifdef _WIN32
+    char fullpath[_MAX_PATH];
+    if(SHGetFolderPath(NULL, CSIDL_APPDATA | CSIDL_FLAG_CREATE, NULL, 0, fullpath)!=S_OK)
+    {
+        return std::string();
+    };
+    path = boost::filesystem::path(fullpath);
+    path /= "hugin";
+#else
+    char *homedir = getenv("HOME");
+    struct passwd *pw;
+    if (homedir == NULL)
+    {
+        pw = getpwuid(getuid());
+        if(pw != NULL)
+        {
+            homedir = pw->pw_dir;
+        };
+    };
+    if(homedir == NULL)
+    {
+        return std::string();
+    };
+    path = boost::filesystem::path(homedir);
+    // we have already a file with name ".hugin" for our wxWidgets settings
+    // therefore we use directory ".hugindata" in homedir
+    path /= ".hugindata";
+#endif
+    if (!boost::filesystem::exists(path))
+    {
+        if (!boost::filesystem::create_directories(path))
+        {
+            std::cerr << "ERROR: Could not create destination directory: " << path.string() << std::endl
+                << "Maybe you have not sufficent rights to create this directory." << std::endl;
+            return std::string();
+        };
+    };
+    return path.string();
 };
 
 // initialization and wrapup of GPU for GPU remapping

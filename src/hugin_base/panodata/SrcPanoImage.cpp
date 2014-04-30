@@ -584,7 +584,7 @@ bool SrcPanoImage::applyEXIFValues(bool applyEVValue)
 
 bool SrcPanoImage::readCropfactorFromDB()
 {
-    // finally search in lensfun database
+    // finally search in lens database
     if(getCropFactor()<=0 && !getExifMake().empty() && !getExifModel().empty())
     {
         double dbCrop=0;
@@ -601,73 +601,55 @@ bool SrcPanoImage::readCropfactorFromDB()
     return false;
 };
 
+std::string SrcPanoImage::getDBLensName() const
+{
+    std::string lens(getExifLens());
+    if (!lens.empty())
+    {
+        return lens;
+    }
+    lens = getExifMake();
+    if (!lens.empty())
+    {
+        if (!getExifModel().empty())
+        {
+            lens.append("|");
+            lens.append(getExifModel());
+            return lens;
+        };
+    };
+    return std::string();
+};
+
 bool SrcPanoImage::readProjectionFromDB()
 {
     bool success=false;
-    if(!getExifLens().empty())
+    const std::string lensname = getDBLensName();
+    const double focal = getExifFocalLength();
+    if (!lensname.empty())
     {
-        LensDB::LensDB& lensDB=LensDB::LensDB::GetSingleton();
-        if(lensDB.FindLens(getExifMake(), getExifModel(), getExifLens()))
+        const LensDB::LensDB& lensDB=LensDB::LensDB::GetSingleton();
+        Projection dbProjection;
+        if(lensDB.GetProjection(lensname, dbProjection))
         {
-            Projection dbProjection;
-            if(lensDB.GetProjection(dbProjection))
+            setProjection(dbProjection);
+            success=true;
+        };
+        if (focal>0)
+        {
+            double fov;
+            if (lensDB.GetFov(lensname, focal, fov))
             {
-                setProjection(dbProjection);
-                success=true;
+                // calculate FOV for given image, take different aspect ratios into account
+                const double newFocal = calcFocalLength(getProjection(), fov, getCropFactor(), vigra::Size2D(3000,2000));
+                const double newFov = calcHFOV(getProjection(), newFocal, getCropFactor(), getSize());
+                setHFOV(newFov);
             };
-            if(getExifFocalLength()>0)
+            vigra::Rect2D dbCropRect;
+            if (lensDB.GetCrop(lensname, focal, getSize(), dbCropRect))
             {
-                double fov;
-                if(lensDB.GetFov(getExifFocalLength(), fov))
-                {
-                    setHFOV(fov);
-                };
-                CropMode dbCropMode;
-                FDiff2D cropLeftTop;
-                FDiff2D cropRightBottom;
-                if(lensDB.GetCrop(getExifFocalLength(),dbCropMode,cropLeftTop,cropRightBottom))
-                {
-                    switch(dbCropMode)
-                    {
-                        case NO_CROP:
-                            setCropMode(NO_CROP);
-                            break;
-                        case CROP_CIRCLE:
-                            if(isCircularCrop())
-                            {
-                                setCropMode(CROP_CIRCLE);
-                                int width=getSize().width();
-                                int height=getSize().height();
-                                if(width>height)
-                                {
-                                    setCropRect(vigra::Rect2D(cropLeftTop.x*width,cropLeftTop.y*height,cropRightBottom.x*width,cropRightBottom.y*height));
-                                }
-                                else
-                                {
-                                    setCropRect(vigra::Rect2D((1.0-cropRightBottom.y)*width,cropLeftTop.x*height,(1.0-cropLeftTop.y)*width,cropRightBottom.x*height));
-                                };
-                            };
-                            break;
-                        case CROP_RECTANGLE:
-                            if(!isCircularCrop())
-                            {
-                                int width=getSize().width();
-                                int height=getSize().height();
-                                setCropMode(CROP_RECTANGLE);
-                                if(width>height)
-                                {
-                                    setCropRect(vigra::Rect2D(cropLeftTop.x*width,cropLeftTop.y*height,cropRightBottom.x*width,cropRightBottom.y*height));
-                                }
-                                else
-                                {
-                                    setCropRect(vigra::Rect2D((1.0-cropRightBottom.y)*width,cropLeftTop.x*height,(1.0-cropLeftTop.y*width),cropRightBottom.x*height));
-                                };
-                                fprintf(stdout,"crop rect set: %d,%d-%d,%d \n",getCropRect().left(),getCropRect().top(),getCropRect().right(),getCropRect().bottom());
-
-                            };
-                            break;
-                    };
-                };
+                setCropMode(isCircularCrop() ? CROP_CIRCLE : CROP_RECTANGLE);
+                setCropRect(dbCropRect);
             };
         };
     };
@@ -676,50 +658,43 @@ bool SrcPanoImage::readProjectionFromDB()
 
 bool SrcPanoImage::readDistortionFromDB()
 {
-    bool success=false;
-    if(!getExifLens().empty() || (!getExifMake().empty() && !getExifModel().empty()))
+    const std::string lensname = getDBLensName();
+    const double focal = getExifFocalLength();
+    if (!lensname.empty() && focal > 0)
     {
-        LensDB::LensDB& lensDB=LensDB::LensDB::GetSingleton();
-        if(lensDB.FindLens(getExifMake(), getExifModel(), getExifLens()))
+        const LensDB::LensDB& lensDB=LensDB::LensDB::GetSingleton();
+        std::vector<double> dist;
+        if(lensDB.GetDistortion(lensname, focal, dist))
         {
-            if(getExifFocalLength()>0)
+            if(dist.size()==3)
             {
-                std::vector<double> dist;
-                if(lensDB.GetDistortion(getExifFocalLength(),dist))
-                {
-                    if(dist.size()==3)
-                    {
-                        dist.push_back(1.0-dist[0]-dist[1]-dist[2]);
-                        setRadialDistortion(dist);
-                        success=true;
-                    };
-                };
+                dist.push_back(1.0-dist[0]-dist[1]-dist[2]);
+                setRadialDistortion(dist);
+                return true;
             };
         };
     };
-    return success;
+    return false;
 };
 
 bool SrcPanoImage::readVignettingFromDB()
 {
-    bool success=false;
-    if(!getExifLens().empty() || (!getExifMake().empty() && !getExifModel().empty()))
+    const std::string lensname = getDBLensName();
+    const double focal = getExifFocalLength();
+    if (!lensname.empty() && focal > 0)
     {
-        LensDB::LensDB& lensDB=LensDB::LensDB::GetSingleton();
-        if(lensDB.FindLens(getExifMake(), getExifModel(), getExifLens()))
+        const LensDB::LensDB& lensDB=LensDB::LensDB::GetSingleton();
+        std::vector<double> vig;
+        if(lensDB.GetVignetting(lensname, focal, getExifAperture(), getExifDistance(), vig))
         {
-            if(getExifFocalLength()>0)
+            if (vig.size() == 4)
             {
-                std::vector<double> vig;
-                if(lensDB.GetVignetting(getExifFocalLength(),getExifAperture(),getExifDistance(),vig))
-                {
-                    setRadialVigCorrCoeff(vig);
-                    success=true;
-                };
+                setRadialVigCorrCoeff(vig);
+                return true;
             };
         };
     };
-    return success;
+    return false;
 };
 
 double SrcPanoImage::calcHFOV(SrcPanoImage::Projection proj, double fl, double crop, vigra::Size2D imageSize)

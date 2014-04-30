@@ -61,9 +61,6 @@ bool PTBatcherGUI::OnInit()
     wxString huginRoot;
     wxFileName::SplitPath(huginExeDir, &huginRoot, NULL, NULL);
     m_xrcPrefix = wxString(huginRoot + wxT("/share/hugin/xrc/"));
-    // lensfun database init
-    wxString lensfunDBPath=huginRoot + wxT("/share/lensfun");
-    HuginBase::LensDB::LensDB::GetSingleton().SetMainDBPath(std::string(lensfunDBPath.mb_str(HUGIN_CONV_FILENAME)));
 
     // locale setup
     m_locale.AddCatalogLookupPathPrefix(huginRoot + wxT("/share/locale"));
@@ -91,13 +88,6 @@ bool PTBatcherGUI::OnInit()
             wxMessageBox(_("Translations not found in bundle"), _("Fatal Error"));
             return false;
         }
-        thePath = MacGetPathToBundledResourceFile(CFSTR("lensfun"));
-        if (thePath == wxT("")) {
-            wxMessageBox(_("lensfun directory not found in bundle"),
-                            _("Fatal Error"));
-            return false;
-        }
-        HuginBase::LensDB::LensDB::GetSingleton().SetMainDBPath(std::string(thePath.mb_str(HUGIN_CONV_FILENAME)));
     }
 #else
     // add the locale directory specified during configure

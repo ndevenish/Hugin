@@ -137,24 +137,25 @@ protected:
 class LoadLensOperation : public PanoMultiImageOperation
 {
 public:
-    LoadLensOperation(bool fromLensfunDB);
+    LoadLensOperation(bool fromDatabase);
     virtual wxString GetLabel();
 protected:
     virtual PT::PanoCommand* GetInternalCommand(wxWindow* parent, PT::Panorama& pano, HuginBase::UIntSet images);
 private:
-    bool m_fromLensfunDB;
+    bool m_fromDatabase;
 };
 
-/** PanoOperation to save lens to ini file or lensfun database */
+/** PanoOperation to save lens to ini file or database */
 class SaveLensOperation : public PanoSingleImageOperation
 {
 public:
-    SaveLensOperation(int lensInfo);
+    SaveLensOperation(bool toDatabase);
     virtual wxString GetLabel();
 protected:
     virtual PT::PanoCommand* GetInternalCommand(wxWindow* parent, PT::Panorama& pano, HuginBase::UIntSet images);
 private:
-    int m_lensInfo;
+    // if true: save to database, false: save to ini
+    bool m_database;
 };
 
 /** PanoOperation to remove control points */

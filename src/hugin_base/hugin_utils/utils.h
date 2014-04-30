@@ -276,6 +276,11 @@ namespace hugin_utils
     /** returns the full path to the data directory */
     IMPEX std::string GetDataDir();
 
+    /** returns the directory for user specific Hugin settings, e.g. lens database
+        the directory is automatically created if it does not exists 
+        @return path, empty if path could not retrieved or not created */
+    IMPEX std::string GetUserAppDataDir();
+
     /** Try to initalise GLUT and GLEW, and create an OpenGL context for GPU stitching.
     * OpenGL extensions required by the GPU stitcher (-g option) are checked here.
     * @return true if everything went OK, false if we can't use GPU mode.

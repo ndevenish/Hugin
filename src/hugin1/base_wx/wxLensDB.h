@@ -46,10 +46,5 @@ WXIMPEX bool ApplyLensDBParameters(wxWindow * parent, PT::Panorama *pano, HuginB
     @param includeVignetting if the vignetting correction can be selected
     @return true, if information could be stored into the database */
 WXIMPEX bool SaveLensParameters(wxWindow * parent, const HuginBase::SrcPanoImage& img, bool includeVignetting=true);
-/** saves the crop factor (camera) of the given HuginBase::SrcPanoImage into the lensfun database
-    @param parent parent window for display dialog
-    @param img HuginBase::SrcPanoImage, which contains the information which should be stored inside lensfun database
-    @return true, if information could be stored into the database */
-WXIMPEX bool SaveCameraCropFactor(wxWindow * parent, const HuginBase::SrcPanoImage& img);
 
 #endif // WXLENSDB_H

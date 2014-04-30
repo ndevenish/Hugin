@@ -73,40 +73,6 @@ static void usage(const char* name)
          << endl;
 }
 
-void InitLensDB()
-{
-#ifdef _WINDOWS
-    char buffer[MAX_PATH];//always use MAX_PATH for filepaths
-    GetModuleFileName(NULL,buffer,sizeof(buffer));
-    string working_path=string(buffer);
-    //remove filename
-    std::string::size_type pos=working_path.rfind("\\");
-    if(pos!=std::string::npos)
-    {
-        working_path.erase(pos);
-        //remove last dir: should be bin
-        pos=working_path.rfind("\\");
-        if(pos!=std::string::npos)
-        {
-            working_path.erase(pos);
-            //append path delimiter and path
-            working_path.append("\\share\\lensfun\\");
-            HuginBase::LensDB::LensDB::GetSingleton().SetMainDBPath(working_path);
-        }
-    }
-#elif defined MAC_SELF_CONTAINED_BUNDLE
-    char path[PATH_MAX + 1];
-    uint32_t size = sizeof(path);
-    string install_path_lensfun("");
-    if (_NSGetExecutablePath(path, &size) == 0)
-    {
-        install_path_lensfun=dirname(path);
-        install_path_lensfun.append("/../Resources/lensfun/");
-        HuginBase::LensDB::LensDB::GetSingleton().SetMainDBPath(install_path_lensfun);
-    }
-#endif
-};
-
 int main(int argc, char* argv[])
 {
     // parse arguments
@@ -288,11 +254,6 @@ int main(int argc, char* argv[])
 
     //sort filenames
     sort(filelist.begin(),filelist.end(),doj::alphanum_less());
-
-    if(projection<0)
-    {
-        InitLensDB();
-    };
 
     Panorama pano;
     for(size_t i=0; i<filelist.size();i++)

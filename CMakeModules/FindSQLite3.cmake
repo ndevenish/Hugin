@@ -1,0 +1,20 @@
+# - Find sqlite3 headers and library
+
+FIND_PATH(SQLITE3_INCLUDE_DIR sqlite3.h
+  /usr/local/include
+  /usr/include
+  /usr/include/lensfun
+  ${SOURCE_BASE_DIR}/sqlite3
+)
+
+INCLUDE(FindLibraryWithDebug)
+FIND_LIBRARY_WITH_DEBUG(SQLITE3_LIBRARIES
+  WIN32_DEBUG_POSTFIX d
+  NAMES sqlite3
+  PATHS ${SYSTEM_LIB_DIRS} 
+        ${SOURCE_BASE_DIR}/sqlite3
+)
+
+INCLUDE(FindPackageHandleStandardArgs)
+FIND_PACKAGE_HANDLE_STANDARD_ARGS(SQLite3 DEFAULT_MSG SQLITE3_INCLUDE_DIR SQLITE3_LIBRARIES)
+MARK_AS_ADVANCED(SQLITE3_INCLUDE_DIR SQLITE3_LIBRARIES)

@@ -484,16 +484,16 @@ PT::PanoCommand* ChangeLensOperation::GetInternalCommand(wxWindow* parent, PT::P
     };
 };
 
-LoadLensOperation::LoadLensOperation(bool fromLensfunDB)
+LoadLensOperation::LoadLensOperation(bool fromDatabase)
 {
-    m_fromLensfunDB=fromLensfunDB;
+    m_fromDatabase = fromDatabase;
 };
 
 wxString LoadLensOperation::GetLabel()
 {
-    if(m_fromLensfunDB)
+    if (m_fromDatabase)
     {
-        return _("Load lens from Lensfun database");
+        return _("Load lens from lens database");
     }
     else
     {
@@ -535,7 +535,7 @@ PT::PanoCommand* LoadLensOperation::GetInternalCommand(wxWindow* parent, PT::Pan
     };
     PT::PanoCommand* cmd=NULL;
     bool isLoaded=false;
-    if(m_fromLensfunDB)
+    if (m_fromDatabase)
     {
         isLoaded=ApplyLensDBParameters(parent,&pano,images,cmd);
     }
@@ -553,43 +553,33 @@ PT::PanoCommand* LoadLensOperation::GetInternalCommand(wxWindow* parent, PT::Pan
     }
 };
 
-SaveLensOperation::SaveLensOperation(int lensInfo)
+SaveLensOperation::SaveLensOperation(bool toDatabase)
 {
-    m_lensInfo=lensInfo;
+    m_database = toDatabase;
 };
 
 wxString SaveLensOperation::GetLabel()
 {
-    switch(m_lensInfo)
+    if (m_database)
     {
-        case 0:
-            return _("Save lens to ini file");
-            break;
-        case 1:
-            return _("Save lens parameters to lensfun database");
-            break;
-        case 2:
-            return _("Save camera parameters to lensfun database");
-            break;
+        return _("Save lens parameters to lens database");
     }
-    return wxEmptyString;
+    else
+    {
+        return _("Save lens to ini file");
+    };
 };
 
 PT::PanoCommand* SaveLensOperation::GetInternalCommand(wxWindow* parent, PT::Panorama& pano, HuginBase::UIntSet images)
 {
     unsigned int imgNr = *(images.begin());
-    switch(m_lensInfo)
+    if (m_database)
     {
-        case 1:
-            SaveLensParameters(parent,pano.getImage(imgNr));
-            break;
-        case 2:
-            SaveCameraCropFactor(parent,pano.getImage(imgNr));
-            break;
-        case 0:
-        default:
-            SaveLensParametersToIni(parent, &pano, images);
-            break;
+        SaveLensParameters(parent, pano.getImage(imgNr));
+    }
+    else
+    {
+        SaveLensParametersToIni(parent, &pano, images);
     };
     return NULL;
 };
@@ -1295,9 +1285,8 @@ void GeneratePanoOperationVector()
     PanoOpLens.push_back(new ChangeLensOperation());
     PanoOpLens.push_back(new LoadLensOperation(false));
     PanoOpLens.push_back(new LoadLensOperation(true));
-    PanoOpLens.push_back(new SaveLensOperation(0));
-    PanoOpLens.push_back(new SaveLensOperation(1));
-    PanoOpLens.push_back(new SaveLensOperation(2));
+    PanoOpLens.push_back(new SaveLensOperation(false));
+    PanoOpLens.push_back(new SaveLensOperation(true));
 
     PanoOpStacks.push_back(new NewStackOperation());
     PanoOpStacks.push_back(new ChangeStackOperation());

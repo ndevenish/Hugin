@@ -55,6 +55,7 @@ extern "C" {
 #include "base_wx/platform.h"
 #include "base_wx/huginConfig.h"
 #include "algorithms/basic/LayerStacks.h"
+#include "lensdb/LensDB.h"
 
 #define WX_BROKEN_SIZER_UNKNOWN
 
@@ -1097,7 +1098,7 @@ void PanoPanel::DoStitch()
 #else
     wxExecute(command);
 #endif
-
+    HuginBase::LensDB::SaveLensDataFromPano(*pano);
 }
 
 void PanoPanel::DoSendToBatch()
@@ -1208,6 +1209,7 @@ void PanoPanel::DoSendToBatch()
 #endif
         wxExecute(huginPath+wxT("PTBatcherGUI")+switches+wxQuoteFilename(projectFile)+wxT(" ")+wxQuoteFilename(dlg.GetPath()));
 #endif
+        HuginBase::LensDB::SaveLensDataFromPano(*pano);
     }
 };
 
