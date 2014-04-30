@@ -1,0 +1,32 @@
+=head1 NAME
+
+lensdb - Tool for lens database maintenance
+
+=head1 SYNOPSIS
+
+B<lensdb> [--recursive] --populate BASEPATH
+
+B<lensdb> --compress
+
+=head1 DESCRIPTION
+
+B<lensdb> will populate database with information from all pto files in given BASEPATH
+ 
+with the --recursive switch all subfolders/directories will also be searched
+
+The --compress switch compresses the database by replacing single values with averaged values
+
+=head1 OPTIONS
+
+=over
+
+=item B<-h>
+
+Shows help
+
+=back
+
+=head1 AUTHORS
+
+Thomas Modes
+
