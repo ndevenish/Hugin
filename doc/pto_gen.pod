@@ -37,6 +37,10 @@ Projection type (default: 0)
 
 Horizontal field of view of images (default: 50)
 
+=item B<-c|--crop=left,right,top,bottom>
+
+Sets the crop of input images (especially for fisheye lenses)
+
 =item B<-s|--stacklength> I<num>
 
 Number of images in stack (default: 1, no stacks)
@@ -44,6 +48,14 @@ Number of images in stack (default: 1, no stacks)
 =item B<-l|--linkstacks>
 
 Link image positions in stacks
+
+=item B<--distortion>
+
+Try to load distortion information from lens database
+
+=item B<--vignetting>
+
+Try to load vignetting information from lens database
 
 =item B<-h|--help>
 
