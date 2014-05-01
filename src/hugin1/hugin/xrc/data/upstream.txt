@@ -6,8 +6,6 @@ possible without them. Many thanks.
 VIGRA: http://kogs-www.informatik.uni-hamburg.de/~koethe/vigra/
 levmar by Manolis Lourakis http://www.ics.forth.gr/~lourakis/levmar
 FLANN by Marius Muja and David G. Lowe, http://www.cs.ubc.ca/~mariusm/index.php/FLANN/FLANN (used unmodified)
-ANN: by David M. Mount and Sunil Arya http://www.cs.umd.edu/~mount/ANN/
-lensfun by Andrew Zabolotny http://lensfun.berlios.de/
 
 The camera response estimation uses the EMoR response model developed 
 at the Computer Vision Laboratory of the Columbia University. 

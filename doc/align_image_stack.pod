@@ -132,7 +132,7 @@ find num control points in each section (default: 5 [5x5 grid])
 
 =item B<--distortion>
 
-Try to load distortion information from lensfun database
+Try to load distortion information from lens database
 
 =item B<--threads=NUM>
 

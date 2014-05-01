@@ -36,6 +36,7 @@
 #include "boost/version.hpp"
 #include "exiv2/exiv2.hpp"
 #include "lensdb/LensDB.h"
+#include "sqlite3.h"
 
 BEGIN_EVENT_TABLE(AboutDialog, wxDialog)
     EVT_NOTEBOOK_PAGE_CHANGED(XRCID("about_notebook"), AboutDialog::OnChangedTab)
@@ -186,8 +187,8 @@ void AboutDialog::GetSystemInformation(wxFont *font)
     text=text+wxT("\nlibpano13: ")+wxT(VERSION);
     text=text+wxT("\n")+wxString::Format(wxT("Boost: %i.%i.%i"),BOOST_VERSION / 100000, BOOST_VERSION / 100 % 1000, BOOST_VERSION % 100);
     text=text+wxT("\n")+wxString::Format(wxT("Exiv2: %i.%i.%i"),EXIV2_MAJOR_VERSION,EXIV2_MINOR_VERSION,EXIV2_PATCH_VERSION);
-#ifdef LF_VERSION_MAJOR
-    text=text+wxT("\n")+wxString::Format(wxT("Lensfun: %i.%i.%i.%i"), LF_VERSION_MAJOR, LF_VERSION_MINOR, LF_VERSION_MICRO, LF_VERSION_BUGFIX);
+#ifdef SQLITE_VERSION
+    text = text + wxT("\n") + wxString::Format(wxT("SQLite3: %s"), wxString(SQLITE_VERSION, wxConvLocal).c_str());
 #endif
     infoText->SetValue(text);
 }

@@ -783,7 +783,7 @@ void LensCalFrame::OnSaveLens(wxCommandEvent &e)
 
     wxArrayString choices;
     choices.push_back(_("Save lens parameters to ini file"));
-    choices.push_back(_("Save lens parameters to lensfun database"));
+    choices.push_back(_("Save lens parameters to lens database"));
     wxSingleChoiceDialog save_dlg(this,_("Saving lens data"),_("Save lens"),choices);
     if(save_dlg.ShowModal()==wxID_OK)
     {

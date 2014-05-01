@@ -133,7 +133,7 @@ protected:
     virtual PT::PanoCommand* GetInternalCommand(wxWindow* parent, PT::Panorama& pano, HuginBase::UIntSet images);
 };
 
-/** PanoOperation to load lens from ini file or lensfun database*/
+/** PanoOperation to load lens from ini file or lens database*/
 class LoadLensOperation : public PanoMultiImageOperation
 {
 public:

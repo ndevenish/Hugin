@@ -368,19 +368,19 @@ public:
     /** updates the crop factor, the hfov is calculates so that focal length remains the same */
     void updateCropFactor(double focalLength, double newCropFactor);
 
-    /** tries to read cropfactor from lensfun database
+    /** tries to read cropfactor from lens database
         you need to call SrcPanoImage::readEXIF before to fill some values 
         @return true, if information could be read from database */
     bool readCropfactorFromDB();
-    /** tries to read projection and crop area from lensfun database
+    /** tries to read projection and crop area from lens database
         you need to call SrcPanoImage::readEXIF before to fill some values 
         @return true, if information could be read from database */
     bool readProjectionFromDB();
-    /** tries to read distortion data from lensfun database
+    /** tries to read distortion data from lens database
         you need to call SrcPanoImage::readEXIF before to fill some values 
         @return true, if information could be read from database */
     bool readDistortionFromDB();
-    /** tries to read vignetting data from lensfun database
+    /** tries to read vignetting data from lens database
         you need to call SrcPanoImage::readEXIF before to fill some values 
         @return true, if information could be read from database */
     bool readVignettingFromDB();

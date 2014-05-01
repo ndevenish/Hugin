@@ -1,7 +1,7 @@
 // -*- c-basic-offset: 4 -*-
 /** @file wxLensDB.cpp
  *
- *  @brief dialogs for loading and saving information from/to lensfun database
+ *  @brief dialogs for loading and saving information from/to lens database
  *
  *  @author T. Modes
  *
@@ -33,7 +33,7 @@
 
 using namespace std;
 
-/** dialog for loading lens parameter from lensfun database */
+/** dialog for loading lens parameter from lens database */
 class LoadLensDBDialog : public wxDialog
 {
 public:
@@ -346,7 +346,7 @@ bool ApplyLensDBParameters(wxWindow * parent, PT::Panorama *pano, HuginBase::UIn
     return false;
 };
 
-/** dialog for saving lens parameter into lensfun database */
+/** dialog for saving lens parameter into lens database */
 class SaveLensDBDialog : public wxDialog
 {
 public:

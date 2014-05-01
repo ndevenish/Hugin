@@ -66,9 +66,9 @@ static void usage(const char* name)
          << "                            (default: 1, no stacks)" << endl
          << "     -l, --linkstacks       Link image positions in stacks" << endl
          << "     --distortion           Try to load distortion information from" << endl
-         << "                            lensfun database" << endl
+         << "                            lens database" << endl
          << "     --vignetting           Try to load vignetting information from" << endl
-         << "                            lensfun database" << endl
+         << "                            lens database" << endl
          << "     -h, --help             Shows this help" << endl
          << endl;
 }
@@ -335,22 +335,22 @@ int main(int argc, char* argv[])
         {
             if(srcImage.readDistortionFromDB())
             {
-                cout << "\tRead distortion data from lensfun database." << endl;
+                cout << "\tRead distortion data from lens database." << endl;
             }
             else
             {
-                cout << "\tNo valid distortion data found in lensfun database." << endl;
+                cout << "\tNo valid distortion data found in lens database." << endl;
             };
         };
         if(loadVignetting)
         {
             if(srcImage.readVignettingFromDB())
             {
-                cout << "\tRead vignetting data from lensfun database." << endl;
+                cout << "\tRead vignetting data from lens database." << endl;
             }
             else
             {
-                cout << "\tNo valid vignetting data found in lensfun database." << endl;
+                cout << "\tNo valid vignetting data found in lens database." << endl;
             };
         };
 

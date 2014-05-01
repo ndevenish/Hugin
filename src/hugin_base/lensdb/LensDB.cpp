@@ -1,6 +1,6 @@
 /** @file LensDB.cpp
  *
- *  @brief Implementation of wrapper around function for access to lensfun database
+ *  @brief Implementation of wrapper around function for access to lens database
  *
  *  @author T. Modes
  */

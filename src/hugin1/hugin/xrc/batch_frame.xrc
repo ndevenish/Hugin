@@ -303,7 +303,7 @@
                           <object class="sizeritem">
                             <object class="wxCheckBox" name="find_pano_load_distortion">
                               <label>Load distortion data</label>
-                              <tooltip>Tries to load distortion data from lensfun database if checked.</tooltip>
+                              <tooltip>Tries to load distortion data from lens database if checked.</tooltip>
                             </object>
                             <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
                             <cellpos>3,1</cellpos>
@@ -311,7 +311,7 @@
                           <object class="sizeritem">
                             <object class="wxCheckBox" name="find_pano_load_vignetting">
                               <label>Load vignetting data</label>
-                              <tooltip>Tries to load vignetting data from lensfun database if checked.</tooltip>
+                              <tooltip>Tries to load vignetting data from lens database if checked.</tooltip>
                             </object>
                             <cellpos>4,1</cellpos>
                           </object>

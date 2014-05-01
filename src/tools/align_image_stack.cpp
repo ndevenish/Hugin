@@ -112,7 +112,7 @@ static void usage(const char * name)
          << "  -g gsize  Break image into a rectangular grid (gsize x gsize) and attempt" << std::endl
          << "             to find num control points in each section" << std::endl 
          << "             (default: 5 [5x5 grid] )" << std::endl
-         << "  --distortion Try to load distortion information from lensfun database" << std::endl
+         << "  --distortion Try to load distortion information from lens database" << std::endl
          << "  --use-given-order  Use the image order as given from command line" << std::endl
          << "                     (By default images will be sorted by exposure values.)" << std::endl
          << "  --threads=NUM  Use NUM threads" << std::endl
@@ -508,11 +508,11 @@ int main2(std::vector<std::string> files, Parameters param)
         {
             if(srcImg.readDistortionFromDB())
             {
-                cout << "\tRead distortion data from lensfun database." << endl;
+                cout << "\tRead distortion data from lens database." << endl;
             }
             else
             {
-                cout << "\tNo valid distortion data found in lensfun database." << endl;
+                cout << "\tNo valid distortion data found in lens database." << endl;
             }
         }
 
@@ -574,11 +574,11 @@ int main2(std::vector<std::string> files, Parameters param)
             {
                 if(srcImg.readDistortionFromDB())
                 {
-                    cout << "\tRead distortion data from lensfun database." << endl;
+                    cout << "\tRead distortion data from lens database." << endl;
                 }
                 else
                 {
-                    cout << "\tNo valid distortion data found in lensfun database." << endl;
+                    cout << "\tNo valid distortion data found in lens database." << endl;
                 }
             }
 
@@ -844,7 +844,7 @@ int main(int argc, char *argv[])
         CORRTHRESH=1000,
         THREADS,
         GPU,
-        LENSFUN,
+        LENSDB,
         USEGIVENORDER,
     };
 
@@ -853,7 +853,7 @@ int main(int argc, char *argv[])
         {"corr", required_argument, NULL, CORRTHRESH },
         {"threads", required_argument, NULL, THREADS },
         {"gpu", no_argument, NULL, GPU },
-        {"distortion", no_argument, NULL, LENSFUN },
+        {"distortion", no_argument, NULL, LENSDB },
         {"use-given-order", no_argument, NULL, USEGIVENORDER },
         {"help", no_argument, NULL, 'h' },
         0
@@ -966,7 +966,7 @@ int main(int argc, char *argv[])
         case GPU:
             param.gpu = true;
             break;
-        case LENSFUN:
+        case LENSDB:
             param.loadDistortion = true;
             break;
         case USEGIVENORDER:
