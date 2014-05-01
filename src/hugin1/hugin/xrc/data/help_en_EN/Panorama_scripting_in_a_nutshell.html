@@ -3,7 +3,7 @@
 <head>
 <title>Panorama scripting in a nutshell - PanoTools.org Wiki</title>
 <meta charset="UTF-8" />
-<meta name="generator" content="MediaWiki 1.19.0" />
+<meta name="generator" content="MediaWiki 1.19.15" />
 
 
 
@@ -113,6 +113,11 @@
 </p>
 <pre> autooptimiser -a -l -s -m -o project.pto project.pto
 </pre>
+<p>If you need finer control above the optimisation, set the parameter which should be optimized with <a href="Pto_var.html" title="Pto var">pto_var</a> and then run <a href="Autooptimiser.html" title="Autooptimiser">autooptimiser</a> with switch -n:
+</p>
+<pre> pto_var --opt y,p,r -o project.pto project.pto
+ autooptimiser -n -o project.pto project.pto
+</pre>
 <p>(PToptimizer<a class="external" href="http://wiki.panotools.org/index.php?title=PToptimizer&amp;action=edit&amp;redlink=1">[*]</a> is an alternative geometrical optimiser)
 </p>
 <h2> <span class="mw-headline" id="Optimising_photometric_parameters"> Optimising photometric parameters </span></h2>
@@ -121,9 +126,12 @@
 </p>
 <pre> autooptimiser -m -o project.pto project.pto
 </pre>
-<p>For full manual control for photometric parameters use <a href="Vig_optimize.html" title="Vig optimize">vig_optimize</a>. This program does the equivalent job for photometric parameters as <a href="Autooptimiser.html" title="Autooptimiser">autooptimiser</a> does for geometric parameters. You need to indicate in the .pto project which parameters are 'variables'. For this task you can edit the .pto file or use a tool such as ptovariable<a class="external" href="http://wiki.panotools.org/index.php?title=Ptovariable&amp;action=edit&amp;redlink=1">[*]</a>:
+<p>For full manual control for photometric parameters use <a href="Vig_optimize.html" title="Vig optimize">vig_optimize</a>. This program does the equivalent job for photometric parameters as <a href="Autooptimiser.html" title="Autooptimiser">autooptimiser</a> does for geometric parameters. You need to indicate in the .pto project which parameters are 'variables'. For this task you can edit the .pto file or use a tool such as <a href="Pto_var.html" title="Pto var">pto_var</a> or ptovariable<a class="external" href="http://wiki.panotools.org/index.php?title=Ptovariable&amp;action=edit&amp;redlink=1">[*]</a>:
 </p>
 <pre> ptovariable --vignetting --response --exposure project.pto
+ vig_optimize -o project.pto project.pto
+</pre>
+<pre> pto_var --opt Vb,Vx,Ra,EeV -o project.pto project.pto
  vig_optimize -o project.pto project.pto
 </pre>
 <h2> <span class="mw-headline" id="Setting_output_options"> Setting output options </span></h2>
@@ -511,7 +519,7 @@
 </div>				<!-- /bodycontent -->
 								<!-- printfooter -->
 				<div class="printfooter">
-				Retrieved from "http://wiki.panotools.org/index.php?title=Panorama_scripting_in_a_nutshell&amp;oldid=15561<a class="external" href="http://wiki.panotools.org/index.php?title=Panorama_scripting_in_a_nutshell&amp;oldid=15561">[*]</a>"				</div>
+				Retrieved from "http://wiki.panotools.org/index.php?title=Panorama_scripting_in_a_nutshell&amp;oldid=15602<a class="external" href="http://wiki.panotools.org/index.php?title=Panorama_scripting_in_a_nutshell&amp;oldid=15602">[*]</a>"				</div>
 				<!-- /printfooter -->
 												<!-- catlinks -->
 				</div></div></body></html>

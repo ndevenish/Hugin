@@ -3,7 +3,7 @@
 <head>
 <title>Align image stack - PanoTools.org Wiki</title>
 <meta charset="UTF-8" />
-<meta name="generator" content="MediaWiki 1.19.0" />
+<meta name="generator" content="MediaWiki 1.19.15" />
 
 
 
@@ -76,6 +76,10 @@
 </pre>
 <p>Remove all control points with an error higher than num pixels (default: 3)
 </p>
+<pre>--corr=num
+</pre>
+<p>Correlation threshold for identifying control points (default: 0.9) 
+</p>
 <pre>-f HFOV   
 </pre>
 <p>Approximate horizontal field of view<a class="external" href="http://wiki.panotools.org/Field_of_view">[*]</a> of input images, use if <a href="EXIF.html" title="EXIF">EXIF</a> info not complete
@@ -136,6 +140,22 @@
 </pre>
 <p>Break image into a rectangular grid (gsize x gsize) and attempt to find num control points in each section (default: 5 [5x5 grid] )
 </p>
+<pre>--distortion
+</pre>
+<p>Try to load distortion information from lens database
+</p>
+<pre>--use-given-order  
+</pre>
+<p>Use the image order as given from command line (By default images will be sorted by exposure values as found in EXIF data.)
+</p>
+<pre>--threads=NUM 
+</pre>
+<p>Use NUM threads (by default it uses as much threads as cores)
+</p>
+<pre>--gpu     
+</pre>
+<p>Use GPU for remapping
+</p>
 <pre>-h        
 </pre>
 <p>Display help.
@@ -157,7 +177,7 @@
 </div>				<!-- /bodycontent -->
 								<!-- printfooter -->
 				<div class="printfooter">
-				Retrieved from "http://wiki.panotools.org/index.php?title=Align_image_stack&amp;oldid=15423<a class="external" href="http://wiki.panotools.org/index.php?title=Align_image_stack&amp;oldid=15423">[*]</a>"				</div>
+				Retrieved from "http://wiki.panotools.org/index.php?title=Align_image_stack&amp;oldid=15613<a class="external" href="http://wiki.panotools.org/index.php?title=Align_image_stack&amp;oldid=15613">[*]</a>"				</div>
 				<!-- /printfooter -->
 												<!-- catlinks -->
 				</div></div></body></html>

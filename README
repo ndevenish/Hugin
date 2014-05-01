@@ -83,7 +83,9 @@ This package contains the following programs:
  
  - pto_merge Merges two or more Hugin project files
  
- - pto_move Moves Hugin project files with associated images 
+ - pto_move Moves Hugin project files with associated images
+ 
+ - lensdb Maintenance tool for Hugins camera and lens database 
 
  
 These programs are built on top of the pano13 library,
@@ -123,7 +125,7 @@ Users compiling Hugin from source will need:
     GLEW the OpenGL Extension Wrangler Library
     freeglut or glut, the OpenGL utility toolkit
     gettext
-    lensfun, the database to load and store lens correction data
+    sqlite3, the SQL database backend for the lens database
     Exiftool, only with >=9.09 all features are compiled
     optionally, lapack
     optionally, libfftw3

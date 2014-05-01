@@ -289,6 +289,11 @@
 		<param name="Local" value="Cylindrical_Projection.html">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Database">
+		<param name="Name" value="Lensdb - PanoTools.org Wiki">
+		<param name="Local" value="Lensdb.html">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Depth of field">
 		<param name="Name" value="Depth of Field">
 		<param name="Local" value="Depth_of_Field.html">
@@ -510,6 +515,11 @@
 		<param name="Local" value="Lens_correction_model.html">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Lens database">
+		<param name="Name" value="Lensdb - PanoTools.org Wiki">
+		<param name="Local" value="Lensdb.html">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Lens distortion">
 		<param name="Name" value="Lens distortion">
 		<param name="Local" value="Lens_distortion.html">
@@ -519,6 +529,11 @@
 		<param name="Local" value="Pincushion_distortion.html">
 		<param name="Name" value="Wavy distortion">
 		<param name="Local" value="Wavy_distortion.html">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Lensdb">
+		<param name="Name" value="Lensdb - PanoTools.org Wiki">
+		<param name="Local" value="Lensdb.html">
 		</OBJECT>
 	<LI> <OBJECT type="text/sitemap">
 		<param name="Name" value="Lightprobe">

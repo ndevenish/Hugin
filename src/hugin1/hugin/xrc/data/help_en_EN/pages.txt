@@ -89,6 +89,7 @@ Interpolation
 Icpfind
 JPEG
 Landscape
+Lensdb
 Lens_correction_model
 Lens_distortion
 Lightprobe
