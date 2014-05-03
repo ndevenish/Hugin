@@ -252,9 +252,6 @@ static void usage(const char * name)
 
 template <class ImageType>
 void createCtrlPoints(Panorama & pano, const ImageType & img, int imgRedNr, int imgGreenNr, int imgBlueNr, double scale, int nPoints, int grid)
-
-//template <class ImageType>
-//void createCtrlPoints(Panorama & pano, const ImageType & img, double scale, unsigned nPoints, unsigned grid)
 {
     vigra::BasicImage<RGBValue<UInt8> > img8(img.size());
 
@@ -349,108 +346,6 @@ void createCtrlPoints(Panorama & pano, const ImageType & img, int imgRedNr, int 
         }
     }
 };
-
-
-
-template <class ImageType>
-void createCtrlPointsOld(Panorama & pano, const ImageType & img, int imgRedNr, int imgGreenNr, int imgBlueNr, double scale, double cornerThreshold)
-{
-    vigra::BasicImage<RGBValue<UInt8> > img8(img.size());
-
-    double ratio = 255.0/vigra_ext::LUTTraits<typename ImageType::value_type>::max();
-    transformImage(srcImageRange(img), destImage(img8),
-                   Arg1()*Param(ratio));
-
-    BImage greenCorners(img.size(), vigra::UInt8(0));
-    FImage greenCornerResponse(img.size());
-
-    //DEBUG_DEBUG("running corner detector. scale: " << scale << "cornerThreshold" << cornerTreshold);
-
-    // find corner response at scale scale
-    vigra::cornerResponseFunction(srcImageRange(img8, GreenAccessor<RGBValue<UInt8> >()),
-                                  destImage(greenCornerResponse),
-                                  scale);
-
-    //saveScaledImage(leftCornerResponse,"corner_response.png");
-    DEBUG_DEBUG("finding local maxima");
-    // find local maxima of corner response, mark with 1
-    vigra::localMaxima(srcImageRange(greenCornerResponse), destImage(greenCorners), 255);
-
-    if (g_verbose > 1)
-        exportImage(srcImageRange(greenCorners), vigra::ImageExportInfo("corner_response_maxima.png"));
-
-    DEBUG_DEBUG("thresholding corner response");
-    // threshold corner response to keep only strong corners (above 400.0)
-    transformImage(srcImageRange(greenCornerResponse), destImage(greenCornerResponse),
-    		   vigra::Threshold<double, double>(
-	           cornerThreshold, DBL_MAX, 0.0, 1.0));
-
-    vigra::combineTwoImages(srcImageRange(greenCorners), srcImage(greenCornerResponse),
-                            destImage(greenCorners), std::multiplies<float>());
-
-    AppBase::StreamMultiProgressDisplay progress(std::cerr);
-    progress.pushTask(AppBase::ProgressTask("finding and tuning points", ""));
-    progress.pushTask(AppBase::ProgressTask("progress", "", 1.0/img.size().x, 0.001));
-    
-    long templWidth = 29;
-    long sWidth = 29 + 11;
-    DEBUG_DEBUG("selecting points");
-    for (int x=0; x < img.size().x; x++ )
-    {
-        progress.setProgress((double)x/img.size().x);
-        for (int y=0; y < img.size().y; y++ )
-        {
-            if (greenCorners(x,y) == 0) {
-                continue;
-            }
-
-	    // Green <-> Red
-            ControlPoint p1(imgGreenNr, x, y, imgRedNr, x, y);
-
-            vigra_ext::CorrelationResult res;
-            vigra::Diff2D roundP1(hugin_utils::roundi(p1.x1), hugin_utils::roundi(p1.y1));
-            vigra::Diff2D roundP2(hugin_utils::roundi(p1.x2), hugin_utils::roundi(p1.y2));
-
-	    res = PointFineTune2(
-                img8, GreenAccessor<RGBValue<UInt8> >(),
-                roundP1, templWidth,
-                img8, RedAccessor<RGBValue<UInt8> >(),
-                roundP2, sWidth);
-
-	    if (res.maxi > 0.98)
-	    {
-        	p1.x1 = roundP1.x;
-    		p1.y1 = roundP1.y;
-    		p1.x2 = res.maxpos.x;
-    		p1.y2 = res.maxpos.y;
-                p1.error = res.maxi;
-    		pano.addCtrlPoint(p1);
-	    }
-
-	    // Green <-> Blue
-            ControlPoint p2(imgGreenNr, x, y, imgBlueNr, x, y);
-
-            roundP1 = vigra::Diff2D(hugin_utils::roundi(p2.x1), hugin_utils::roundi(p2.y1));
-            roundP2 = vigra::Diff2D(hugin_utils::roundi(p2.x2), hugin_utils::roundi(p2.y2));
-
-	    res = PointFineTune2(
-                img8, GreenAccessor<RGBValue<UInt8> >(), roundP1, templWidth,
-                img8, BlueAccessor<RGBValue<UInt8> >(), roundP2, sWidth);
-
-	    if (res.maxi > 0.98)
-	    {
-        	p2.x1 = roundP1.x;
-    		p2.y1 = roundP1.y;
-    		p2.x2 = res.maxpos.x;
-    		p2.y2 = res.maxpos.y;
-                p2.error = res.maxi;
-    		pano.addCtrlPoint(p2);
-	    }
-        }
-    }
-    progress.popTask();
-    progress.popTask();
-}
 
 void get_optvars(OptimizeVector &_retval)
 {
