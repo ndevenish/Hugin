@@ -60,7 +60,6 @@
 #include <unistd.h>
 #endif
 
-
 #include <tiff.h>
 
 using namespace vigra;
@@ -74,8 +73,6 @@ using namespace vigra::functor;
 
 #define DEFAULT_OPTIMISATION_PARAMETER "abcvde"
 
-int g_verbose = 0;
-
 struct Parameters
 {
     Parameters()
@@ -87,6 +84,7 @@ struct Parameters
         scale=2;
         nPoints=10;
         grid = 10;
+        verbose = 0;
     }
 
     double cpErrorThreshold;
@@ -107,10 +105,12 @@ struct Parameters
     double scale;
     int nPoints;
     int grid;
+    int verbose;
 };
 
 Parameters g_param;
 
+// Optimiser code
 struct OptimData
 {
     PanoramaData& m_pano;
@@ -126,7 +126,38 @@ struct OptimData
     int m_maxIter;
 
     OptimData(PanoramaData& pano, const OptimizeVector& optvars,
-              double mEstimatorSigma, int maxIter);
+        double mEstimatorSigma, int maxIter)
+        : m_pano(pano), huberSigma(mEstimatorSigma), m_optvars(optvars), m_maxIter(maxIter)
+    {
+        assert(m_pano.getNrOfImages() == m_optvars.size());
+        assert(m_pano.getNrOfImages() == 3);
+        LoadFromImgs();
+
+        for (unsigned int i = 0; i<3; i++)
+        {
+            const std::set<std::string> vars = m_optvars[i];
+            for (std::set<std::string>::const_iterator it = vars.begin(); it != vars.end(); ++it)
+            {
+                const char var = (*it)[0];
+                if ((var >= 'a') && (var <= 'c'))
+                {
+                    m_mapping.push_back(&(m_dist[i][var - 'a']));
+                }
+                else if ((var == 'd') || (var == 'e'))
+                {
+                    m_mapping.push_back(&(m_shift[var - 'd']));
+                }
+                else if (var == 'v')
+                {
+                    m_mapping.push_back(&(m_hfov[i]));
+                }
+                else
+                {
+                    cerr << "Unknown parameter detected, ignoring!" << std::endl;
+                }
+            }
+        }
+    }
 
     /// copy internal optimization variables into x
     void ToX(double* x)
@@ -146,82 +177,253 @@ struct OptimData
         }
     }
 
-    void LoadFromImgs();
-    void SaveToImgs();
+    void LoadFromImgs()
+    {
+        for (unsigned int i = 0; i < 3; i++)
+        {
+            SrcPanoImage img = m_pano.getSrcImage(i);
+            m_hfov[i] = img.getHFOV();
+            m_dist[i][0] = img.getRadialDistortion()[0];
+            m_dist[i][1] = img.getRadialDistortion()[1];
+            m_dist[i][2] = img.getRadialDistortion()[2];
+            if (i == 0)
+            {
+                m_shift[0] = img.getRadialDistortionCenterShift().x;
+                m_shift[1] = img.getRadialDistortionCenterShift().y;
+                m_center[0] = img.getSize().width() / 2.0;
+                m_center[1] = img.getSize().height() / 2.0;
+            }
+        }
+    };
+    void SaveToImgs()
+    {
+        for (unsigned int i = 0; i < 3; i++)
+        {
+            SrcPanoImage img = m_pano.getSrcImage(i);
+            img.setHFOV(m_hfov[i]);
+            std::vector<double> radialDist(4);
+            radialDist[0] = m_dist[i][0];
+            radialDist[1] = m_dist[i][1];
+            radialDist[2] = m_dist[i][2];
+            radialDist[3] = 1 - radialDist[0] - radialDist[1] - radialDist[2];
+            img.setRadialDistortion(radialDist);
+            img.setRadialDistortionCenterShift(hugin_utils::FDiff2D(m_shift[0], m_shift[1]));
+            m_pano.setSrcImage(i, img);
+        }
+    };
 };
 
-OptimData::OptimData(PanoramaData& pano, const OptimizeVector& optvars,
-                     double mEstimatorSigma, int maxIter)
-    : m_pano(pano), huberSigma(mEstimatorSigma), m_optvars(optvars), m_maxIter(maxIter)
+void get_optvars(OptimizeVector& _retval)
 {
-    assert(m_pano.getNrOfImages() == m_optvars.size());
-    assert(m_pano.getNrOfImages() == 3);
-    LoadFromImgs();
-
-    for (unsigned int i=0 ; i<3 ; i++)
-    {
-        const std::set<std::string> vars = m_optvars[i];
-        for (std::set<std::string>::const_iterator it = vars.begin(); it != vars.end(); ++it)
-        {
-            const char var = (*it)[0];
-            if ((var >= 'a') && (var <= 'c'))
-            {
-                m_mapping.push_back(&(m_dist[i][var - 'a']));
-            }
-            else if ((var == 'd') || (var == 'e'))
-            {
-                m_mapping.push_back(&(m_shift[var - 'd']));
-            }
-            else if (var == 'v')
-            {
-                m_mapping.push_back(&(m_hfov[i]));
-            }
-            else
-            {
-                cerr << "Unknown parameter detected, ignoring!" << std::endl;
-            }
-        }
-    }
+    OptimizeVector optvars;
+    std::set<std::string> vars = g_param.optvars;
+    optvars.push_back(vars);
+    optvars.push_back(std::set<std::string>());
+    /* NOTE: delete "d" and "e" if they should be optimized,
+    they are linked and always will be */
+    vars.erase("d");
+    vars.erase("e");
+    optvars.push_back(vars);
+    _retval = optvars;
 }
 
-void OptimData::LoadFromImgs()
+// dummy panotools progress functions
+static int ptProgress(int command, char* argument)
 {
-    for (unsigned int i=0; i < 3; i++)
-    {
-        SrcPanoImage img = m_pano.getSrcImage(i);
-        m_hfov[i] = img.getHFOV();
-        m_dist[i][0] = img.getRadialDistortion()[0];
-        m_dist[i][1] = img.getRadialDistortion()[1];
-        m_dist[i][2] = img.getRadialDistortion()[2];
-        if (i == 0)
-        {
-            m_shift[0] = img.getRadialDistortionCenterShift().x;
-            m_shift[1] = img.getRadialDistortionCenterShift().y;
-
-            m_center[0] = img.getSize().width()/2.0;
-            m_center[1] = img.getSize().height()/2.0;
-        }
-    }
+    return 1;
+}
+static int ptinfoDlg(int command, char* argument)
+{
+    return 1;
 }
 
-void OptimData::SaveToImgs()
+// Method 0: using PTOptimizer
+//   PTOptimizer minimizes the tangential and sagittal distance between the points
+int optimize_old(Panorama& pano)
 {
-    for (unsigned int i=0; i < 3; i++)
+    if (g_param.verbose == 0)
     {
-        SrcPanoImage img = m_pano.getSrcImage(i);
+        // deactive PTOptimizer status information if -v is not given
+        PT_setProgressFcn(ptProgress);
+        PT_setInfoDlgFcn(ptinfoDlg);
+    };
 
-        img.setHFOV(m_hfov[i]);
+    OptimizeVector optvars;
+    get_optvars(optvars);
+    pano.setOptimizeVector(optvars);
+    PTools::optimize(pano);
+    return 0;
+}
 
-        std::vector<double> radialDist(4);
-        radialDist[0] = m_dist[i][0];
-        radialDist[1] = m_dist[i][1];
-        radialDist[2] = m_dist[i][2];
-        radialDist[3] = 1 - radialDist[0] - radialDist[1] - radialDist[2];
-        img.setRadialDistortion(radialDist);
+inline double weightHuber(double x, double sigma)
+{
+    if (fabs(x) > sigma)
+    {
+        x = sqrt(sigma*(2.0*fabs(x) - sigma));
+    }
+    return x;
+}
 
-        img.setRadialDistortionCenterShift(hugin_utils::FDiff2D(m_shift[0], m_shift[1]));
+void optGetError(double* p, double* x, int m, int n, void* data)
+{
+    int xi = 0;
 
-        m_pano.setSrcImage(i, img);
+    OptimData* dat = (OptimData*)data;
+    dat->FromX(p);
+
+    /* compute new a,b,c,d from a,b,c,v */
+    double dist[3][4];
+    for (unsigned int i = 0; i<3; i++)
+    {
+        double scale = dat->m_hfov[1] / dat->m_hfov[i];
+        for (unsigned int j = 0; j<3; j++)
+        {
+            dist[i][j] = dat->m_dist[i][j] * pow(scale, (int)(4 - j));
+        }
+        dist[i][3] = scale*(1 - dat->m_dist[i][0] - dat->m_dist[i][1] - dat->m_dist[i][2]);
+    }
+
+    double center[2];
+    center[0] = dat->m_center[0] + dat->m_shift[0];
+    center[1] = dat->m_center[1] + dat->m_shift[1];
+
+    double base_size = std::min(dat->m_center[0], dat->m_center[1]);
+
+    double sqerror = 0;
+
+    CPVector newCPs;
+
+    unsigned int noPts = dat->m_pano.getNrOfCtrlPoints();
+    // loop over all points to calculate the error
+    for (unsigned int ptIdx = 0; ptIdx < noPts; ptIdx++)
+    {
+        const ControlPoint& cp = dat->m_pano.getCtrlPoint(ptIdx);
+
+        double dist_p1 = vigra::hypot(cp.x1 - center[0], cp.y1 - center[1]);
+        double dist_p2 = vigra::hypot(cp.x2 - center[0], cp.y2 - center[1]);
+
+        if (cp.image1Nr == 1)
+        {
+            double base_dist = dist_p1 / base_size;
+            double corr_dist_p1 = dist[cp.image2Nr][0] * pow(base_dist, 4) +
+                dist[cp.image2Nr][1] * pow(base_dist, 3) +
+                dist[cp.image2Nr][2] * pow(base_dist, 2) +
+                dist[cp.image2Nr][3] * base_dist;
+            corr_dist_p1 *= base_size;
+            x[ptIdx] = corr_dist_p1 - dist_p2;
+        }
+        else
+        {
+            double base_dist = dist_p2 / base_size;
+            double corr_dist_p2 = dist[cp.image1Nr][0] * pow(base_dist, 4) +
+                dist[cp.image1Nr][1] * pow(base_dist, 3) +
+                dist[cp.image1Nr][2] * pow(base_dist, 2) +
+                dist[cp.image1Nr][3] * base_dist;
+            corr_dist_p2 *= base_size;
+            x[ptIdx] = corr_dist_p2 - dist_p1;
+        }
+
+        ControlPoint newcp = cp;
+        newcp.error = fabs(x[ptIdx]);
+        newCPs.push_back(newcp);
+
+        dat->m_pano.getCtrlPoint(ptIdx);
+        sqerror += x[ptIdx] * x[ptIdx];
+        // use huber robust estimator
+        if (dat->huberSigma > 0)
+        {
+            x[ptIdx] = weightHuber(x[ptIdx], dat->huberSigma);
+        }
+    }
+
+    dat->m_pano.updateCtrlPointErrors(newCPs);
+}
+
+int optVis(double* p, double* x, int m, int n, int iter, double sqerror, void* data)
+{
+    return 1;
+    /*    OptimData * dat = (OptimData *) data;
+    char tmp[200];
+    tmp[199] = 0;
+    double error = sqrt(sqerror/n)*255;
+    snprintf(tmp,199, "Iteration: %d, error: %f", iter, error);
+    return dat->m_progress.increaseProgress(0.0, tmp) ? 1 : 0 ; */
+}
+
+// Method 1: minimize only the center distance difference (sagittal distance) of the points
+//   the tangential distance is not of interest for TCA correction, 
+//   and is caused by the limited accuracy of the fine tune function, especially close the the edge of the fisheye image
+void optimize_new(PanoramaData& pano)
+{
+    OptimizeVector optvars;
+    get_optvars(optvars);
+
+    int nMaxIter = 1000;
+    OptimData data(pano, optvars, 0.5, nMaxIter);
+
+    int ret;
+    double info[LM_INFO_SZ];
+
+    // parameters
+    int m = data.m_mapping.size();
+    vigra::ArrayVector<double> p(m, 0.0);
+
+    // vector for errors
+    int n = pano.getNrOfCtrlPoints();
+    vigra::ArrayVector<double> x(n, 0.0);
+
+    data.ToX(p.begin());
+    if (g_param.verbose > 0)
+    {
+        fprintf(stderr, "Parameters before optimization: ");
+        for (int i = 0; i<m; ++i)
+        {
+            fprintf(stderr, "%.7g ", p[i]);
+        }
+        fprintf(stderr, "\n");
+    }
+
+    // covariance matrix at solution
+    vigra::DImage cov(m, m);
+    // TODO: setup optimization options with some good defaults.
+    double optimOpts[5];
+
+    optimOpts[0] = 1e-5;   // init mu
+    // stop thresholds
+    optimOpts[1] = 1e-7;   // ||J^T e||_inf
+    optimOpts[2] = 1e-10;   // ||Dp||_2
+    optimOpts[3] = 1e-3;   // ||e||_2
+    // difference mode
+    optimOpts[4] = LM_DIFF_DELTA;
+
+    //    data.huberSigma = 0;
+
+    ret = dlevmar_dif(&optGetError, &optVis, &(p[0]), &(x[0]), m, n, nMaxIter, NULL, info, NULL, &(cov(0, 0)), &data);  // no jacobian
+    // copy to source images (data.m_imgs)
+    data.SaveToImgs();
+    // calculate error at solution
+    data.huberSigma = 0;
+    optGetError(&(p[0]), &(x[0]), m, n, &data);
+    double error = 0;
+    for (int i = 0; i<n; i++)
+    {
+        error += x[i] * x[i];
+    }
+    error = sqrt(error / n);
+
+    if (g_param.verbose > 0)
+    {
+        fprintf(stderr, "Levenberg-Marquardt returned %d in %g iter, reason %g\nSolution: ", ret, info[5], info[6]);
+        for (int i = 0; i<m; ++i)
+        {
+            fprintf(stderr, "%.7g ", p[i]);
+        }
+        fprintf(stderr, "\n\nMinimization info:\n");
+        for (int i = 0; i<LM_INFO_SZ; ++i)
+        {
+            fprintf(stderr, "%g ", info[i]);
+        }
+        fprintf(stderr, "\n");
     }
 }
 
@@ -275,7 +477,7 @@ void createCtrlPoints(Panorama& pano, const ImageType& img, int imgRedNr, int im
     typedef std::vector<std::multimap<double, vigra::Diff2D> > MapVector;
 
     std::vector<std::multimap<double, vigra::Diff2D> >points;
-    if (g_verbose > 0)
+    if (g_param.verbose > 0)
     {
         std::cout << "Finding interest points for matching... ";
     }
@@ -283,7 +485,7 @@ void createCtrlPoints(Panorama& pano, const ImageType& img, int imgRedNr, int im
     vigra_ext::findInterestPointsOnGrid(srcImageRange(img8, GreenAccessor<RGBValue<UInt8> >()),
                                         scale, 5*nPoints, grid, points);
 
-    if (g_verbose > 0)
+    if (g_param.verbose > 0)
     {
         std::cout << "Matching interest points..." << std::endl;
     }
@@ -359,205 +561,12 @@ void createCtrlPoints(Panorama& pano, const ImageType& img, int imgRedNr, int im
                 nBad++;
             }
         }
-        if (g_verbose > 0)
+        if (g_param.verbose > 0)
         {
             cout << "Number of good matches: " << nGood << ", bad matches: " << nBad << std::endl;
         }
     }
 };
-
-void get_optvars(OptimizeVector& _retval)
-{
-    OptimizeVector optvars;
-    std::set<std::string> vars = g_param.optvars;
-    optvars.push_back(vars);
-    optvars.push_back(std::set<std::string>());
-    /* NOTE: delete "d" and "e" if they should be optimized,
-             they are linked and always will be */
-    vars.erase("d");
-    vars.erase("e");
-    optvars.push_back(vars);
-    _retval = optvars;
-}
-
-int optimize_old(Panorama& pano)
-{
-    OptimizeVector optvars;
-    get_optvars(optvars);
-    pano.setOptimizeVector(optvars);
-    PTools::optimize(pano);
-    return 0;
-}
-
-inline double weightHuber(double x, double sigma)
-{
-    if (fabs(x) > sigma)
-    {
-        x = sqrt(sigma*(2.0*fabs(x) - sigma));
-    }
-    return x;
-}
-
-void optGetError(double* p, double* x, int m, int n, void* data)
-{
-    int xi = 0 ;
-
-    OptimData* dat = (OptimData*) data;
-    dat->FromX(p);
-
-    /* compute new a,b,c,d from a,b,c,v */
-    double dist[3][4];
-    for (unsigned int i=0 ; i<3 ; i++)
-    {
-        double scale = dat->m_hfov[1] / dat->m_hfov[i];
-        for (unsigned int j=0 ; j<3 ; j++)
-        {
-            dist[i][j] = dat->m_dist[i][j]*pow(scale, (int)(4-j));
-        }
-        dist[i][3] = scale*(1 - dat->m_dist[i][0] - dat->m_dist[i][1] - dat->m_dist[i][2]);
-    }
-
-    double center[2];
-    center[0] = dat->m_center[0] + dat->m_shift[0];
-    center[1] = dat->m_center[1] + dat->m_shift[1];
-
-    double base_size = std::min(dat->m_center[0], dat->m_center[1]);
-
-    double sqerror=0;
-
-    CPVector newCPs;
-
-    unsigned int noPts = dat->m_pano.getNrOfCtrlPoints();
-    // loop over all points to calculate the error
-    for (unsigned int ptIdx = 0 ; ptIdx < noPts ; ptIdx++)
-    {
-        const ControlPoint& cp = dat->m_pano.getCtrlPoint(ptIdx);
-
-        double dist_p1 = vigra::hypot(cp.x1 - center[0], cp.y1 - center[1]);
-        double dist_p2 = vigra::hypot(cp.x2 - center[0], cp.y2 - center[1]);
-
-        if (cp.image1Nr == 1)
-        {
-            double base_dist = dist_p1 / base_size;
-            double corr_dist_p1 = dist[cp.image2Nr][0]*pow(base_dist, 4) +
-                                  dist[cp.image2Nr][1]*pow(base_dist, 3) +
-                                  dist[cp.image2Nr][2]*pow(base_dist, 2) +
-                                  dist[cp.image2Nr][3]*base_dist;
-            corr_dist_p1 *= base_size;
-            x[ptIdx] = corr_dist_p1 - dist_p2;
-        }
-        else
-        {
-            double base_dist = dist_p2 / base_size;
-            double corr_dist_p2 = dist[cp.image1Nr][0]*pow(base_dist, 4) +
-                                  dist[cp.image1Nr][1]*pow(base_dist, 3) +
-                                  dist[cp.image1Nr][2]*pow(base_dist, 2) +
-                                  dist[cp.image1Nr][3]*base_dist;
-            corr_dist_p2 *= base_size;
-            x[ptIdx] = corr_dist_p2 - dist_p1;
-        }
-
-        ControlPoint newcp = cp;
-        newcp.error = fabs(x[ptIdx]);
-        newCPs.push_back(newcp);
-
-        dat->m_pano.getCtrlPoint(ptIdx);
-        sqerror += x[ptIdx]*x[ptIdx];
-        // use huber robust estimator
-        if (dat->huberSigma > 0)
-        {
-            x[ptIdx] = weightHuber(x[ptIdx], dat->huberSigma);
-        }
-    }
-
-    dat->m_pano.updateCtrlPointErrors(newCPs);
-}
-
-int optVis(double* p, double* x, int m, int n, int iter, double sqerror, void* data)
-{
-    return 1;
-    /*    OptimData * dat = (OptimData *) data;
-        char tmp[200];
-        tmp[199] = 0;
-        double error = sqrt(sqerror/n)*255;
-        snprintf(tmp,199, "Iteration: %d, error: %f", iter, error);
-        return dat->m_progress.increaseProgress(0.0, tmp) ? 1 : 0 ; */
-}
-
-void optimize_new(PanoramaData& pano)
-{
-    OptimizeVector optvars;
-    get_optvars(optvars);
-
-    int nMaxIter = 1000;
-    OptimData data(pano, optvars, 0.5, nMaxIter);
-
-    int ret;
-    //double opts[LM_OPTS_SZ];
-    double info[LM_INFO_SZ];
-
-    // parameters
-    int m=data.m_mapping.size();
-    vigra::ArrayVector<double> p(m, 0.0);
-
-    // vector for errors
-    int n=pano.getNrOfCtrlPoints();
-    vigra::ArrayVector<double> x(n, 0.0);
-
-    data.ToX(p.begin());
-    if (g_verbose > 0)
-    {
-        fprintf(stderr, "Parameters before optimization: ");
-        for(int i=0; i<m; ++i)
-        {
-            fprintf(stderr, "%.7g ", p[i]);
-        }
-        fprintf(stderr, "\n");
-    }
-
-    // covariance matrix at solution
-    vigra::DImage cov(m,m);
-    // TODO: setup optimization options with some good defaults.
-    double optimOpts[5];
-
-    optimOpts[0] = 1e-5;   // init mu
-    // stop thresholds
-    optimOpts[1] = 1e-7;   // ||J^T e||_inf
-    optimOpts[2] = 1e-10;   // ||Dp||_2
-    optimOpts[3] = 1e-3;   // ||e||_2
-    // difference mode
-    optimOpts[4] = LM_DIFF_DELTA;
-
-    //    data.huberSigma = 0;
-
-    ret=dlevmar_dif(&optGetError, &optVis, &(p[0]), &(x[0]), m, n, nMaxIter, /*optimOpts*/ NULL, info, NULL, &(cov(0,0)), &data);  // no jacobian
-    // copy to source images (data.m_imgs)
-    data.SaveToImgs();
-    // calculate error at solution
-    data.huberSigma = 0;
-    optGetError(&(p[0]), &(x[0]), m, n, &data);
-    double error = 0;
-    for (int i=0; i<n; i++)
-    {
-        error += x[i]*x[i];
-    }
-    error = sqrt(error/n);
-
-    if (g_verbose > 0)
-    {
-        fprintf(stderr, "Levenberg-Marquardt returned %d in %g iter, reason %g\nSolution: ", ret, info[5], info[6]);
-        for(int i=0; i<m; ++i)
-        {
-            fprintf(stderr, "%.7g ", p[i]);
-        }
-        fprintf(stderr, "\n\nMinimization info:\n");
-        for(int i=0; i<LM_INFO_SZ; ++i)
-        {
-            fprintf(stderr, "%g ", info[i]);
-        }
-        fprintf(stderr, "\n");
-    }
-}
 
 int main2(Panorama& pano);
 
@@ -581,18 +590,11 @@ int processImg(const char* filename)
             exit(-1);
         }
 
-        //        ImageType * leftImg = new ImageType();
-        {
-            vigra::importImageAlpha(imgInfo, destImage(imgOrig), destImage(alpha));
-            //            reduceNTimes(leftImgOrig, *leftImg, g_param.pyrLevel);
-        }
-
+        vigra::importImageAlpha(imgInfo, destImage(imgOrig), destImage(alpha));
         Panorama pano;
-        // add the first image.to the panorama object
-
+        // add the first image to the panorama object
         StandardImageVariableGroups variable_groups(pano);
         ImageVariableGroup& lenses = variable_groups.getLenses();
-
 
         string red_name;
         if( g_param.red_name.size())
@@ -614,7 +616,6 @@ int processImg(const char* filename)
         lenses.updatePartNumbers();
         lenses.switchParts(imgRedNr, 0);
 
-
         string green_name;
         if( g_param.green_name.size())
         {
@@ -634,7 +635,6 @@ int processImg(const char* filename)
         int imgGreenNr = pano.addImage(srcGreenImg);
         lenses.updatePartNumbers();
         lenses.switchParts(imgGreenNr, 0);
-
 
         string blue_name;
         if( g_param.blue_name.size())
@@ -783,45 +783,45 @@ int main2(Panorama& pano)
         resetValues(pano);
     }
 
-    for (int i=0 ; i < 10 ; i++)
+    for (int i = 0; i < 10; i++)
     {
         if (g_param.optMethod == 0)
         {
             optimize_old(pano);
         }
-        else if(g_param.optMethod == 1)
+        else if (g_param.optMethod == 1)
         {
             optimize_new(pano);
         }
 
         CPVector cps = pano.getCtrlPoints();
         CPVector newCPs;
-        for (int i=0; i < (int)cps.size(); i++)
+        for (int i = 0; i < (int)cps.size(); i++)
         {
             if (cps[i].error < g_param.cpErrorThreshold)
             {
                 newCPs.push_back(cps[i]);
             }
         }
-        if (g_verbose > 0)
+        if (g_param.verbose > 0)
         {
             cerr << "Ctrl points before pruning: " << cps.size() << ", after: " << newCPs.size() << std::endl;
         }
         pano.setCtrlPoints(newCPs);
 
         if (cps.size() == newCPs.size())
-            // no points were removed, do not re-optimize
         {
+            // no points were removed, do not re-optimize
             break;
         }
     }
 
-    if (! g_param.ptoOutputFile.empty())
+    if (!g_param.ptoOutputFile.empty())
     {
         OptimizeVector optvars;
         get_optvars(optvars);
         UIntSet allImgs;
-        fill_set(allImgs, 0, pano.getNrOfImages()-1);
+        fill_set(allImgs, 0, pano.getNrOfImages() - 1);
         std::ofstream script(g_param.ptoOutputFile.c_str());
         pano.printPanoramaScript(script, optvars, pano.getOptions(), allImgs, true, "");
     }
@@ -838,8 +838,6 @@ int main(int argc, char* argv[])
     bool parameter_request_seen=false;
 
     opterr = 0;
-
-    g_verbose = 0;
 
     while ((c = getopt (argc, argv, optstring)) != -1)
         switch (c)
@@ -881,7 +879,7 @@ int main(int argc, char* argv[])
                 }
                 break;
             case 'v':
-                g_verbose++;
+                g_param.verbose++;
                 break;
             case 'w':
                 g_param.ptoOutputFile = optarg;
