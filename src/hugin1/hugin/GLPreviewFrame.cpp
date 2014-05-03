@@ -3471,8 +3471,8 @@ void GLPreviewFrame::OnCreateCP(wxCommandEvent & e)
                                     continue;
                                 };
                                 // finally fine-tune point
-                                vigra_ext::CorrelationResult res = vigra_ext::PointFineTune(cpInfos[img1].image, it->second, templWidth,
-                                    cpInfos[img2].image, it->second, sWidth);
+                                vigra_ext::CorrelationResult res = vigra_ext::PointFineTune(cpInfos[img1].image, vigra::RGBToGrayAccessor<vigra::RGBValue<vigra::UInt8>>(), it->second, templWidth,
+                                    cpInfos[img2].image, vigra::RGBToGrayAccessor<vigra::RGBValue<vigra::UInt8>>(), it->second, sWidth);
                                 if (res.maxi < 0.9)
                                 {
                                     continue;

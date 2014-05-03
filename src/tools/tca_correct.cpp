@@ -250,142 +250,6 @@ static void usage(const char * name)
          << "    commandline arguments for fulla" << endl;
 }
 
-/** fine tune a point with normalized cross correlation
- *
- *  takes a patch of \p templSize by \p templSize from \p templImg
- *  images at \p tmplPos and searches it on the \p searchImg, at
- *  \p searchPos, in a neighbourhood of \p sWidth by \p sWidth.
- *
- *  The result in returned in @p tunedPos
- *
- *  @return correlation value
- */
-template <class IMAGET, class ACCESSORT, class IMAGES, class ACCESSORS>
-CorrelationResult PointFineTune2(const IMAGET & templImg,
-				ACCESSORT access_t,
-                                vigra::Diff2D templPos,
-                                int templSize,
-                                const IMAGES & searchImg,
-				ACCESSORS access_s,
-                                vigra::Diff2D searchPos,
-                                int sWidth)
-{
-//    DEBUG_TRACE("templPos: " vigra::<< templPos << " searchPos: " vigra::<< searchPos);
-
-    // extract patch from template
-
-    int templWidth = templSize/2;
-    vigra::Diff2D tmplUL(templPos.x - templWidth, templPos.y-templWidth);
-    // lower right iterators "are past the end"
-    vigra::Diff2D tmplLR(templPos.x + templWidth + 1, templPos.y + templWidth + 1);
-    // clip corners to ensure the template is inside the image.
-    vigra::Diff2D tmplImgSize(templImg.size());
-    tmplUL = hugin_utils::simpleClipPoint(tmplUL, vigra::Diff2D(0,0), tmplImgSize);
-    tmplLR = hugin_utils::simpleClipPoint(tmplLR, vigra::Diff2D(0,0), tmplImgSize);
-    vigra::Diff2D tmplSize = tmplLR - tmplUL;
-    DEBUG_DEBUG("template position: " << templPos << "  tmplUL: " << tmplUL
-		    << "  templLR:" << tmplLR << "  size:" << tmplSize);
-
-    // extract patch from search region
-    // make search region bigger, so that interpolation can always be done
-    int swidth = sWidth/2 +(2+templWidth);
-//    DEBUG_DEBUG("search window half width/height: " << swidth << "x" << swidth);
-//    Diff2D subjPoint(searchPos);
-    // clip search window
-    if (searchPos.x < 0) searchPos.x = 0;
-    if (searchPos.x > (int) searchImg.width()) searchPos.x = searchImg.width()-1;
-    if (searchPos.y < 0) searchPos.y = 0;
-    if (searchPos.y > (int) searchImg.height()) searchPos.x = searchImg.height()-1;
-
-    vigra::Diff2D searchUL(searchPos.x - swidth, searchPos.y - swidth);
-    // point past the end
-    vigra::Diff2D searchLR(searchPos.x + swidth+1, searchPos.y + swidth+1);
-    // clip search window
-    vigra::Diff2D srcImgSize(searchImg.size());
-    searchUL = hugin_utils::simpleClipPoint(searchUL, vigra::Diff2D(0,0), srcImgSize);
-    searchLR = hugin_utils::simpleClipPoint(searchLR, vigra::Diff2D(0,0), srcImgSize);
-//    DEBUG_DEBUG("search borders: " << searchLR.x << "," << searchLR.y);
-
-    vigra::Diff2D searchSize = searchLR - searchUL;
-    // create output image
-
-//#ifdef VIGRA_EXT_USE_FAST_CORR
-    // source input
-    vigra::FImage srcImage(searchLR-searchUL);
-    vigra::copyImage(vigra::make_triple(searchImg.upperLeft() + searchUL,
-                                        searchImg.upperLeft() + searchLR,
-                                         access_s),
-                     destImage(srcImage) );
-
-    vigra::FImage templateImage(tmplSize);
-    vigra::copyImage(vigra::make_triple(templImg.upperLeft() + tmplUL,
-                                        templImg.upperLeft() + tmplLR,
-                                        access_t),
-                     destImage(templateImage));
-#ifdef DEBUG_WRITE_FILES
-    vigra::ImageExportInfo tmpli("hugin_templ.tif");
-    vigra::exportImage(vigra::srcImageRange(templateImage), tmpli);
-
-    vigra::ImageExportInfo srci("hugin_searchregion.tif");
-    vigra::exportImage(vigra::srcImageRange(srcImage), srci);
-#endif
-
-//#endif
-
-    vigra::FImage dest(searchSize);
-    dest.init(-1);
-    // we could use the multiresolution version as well.
-    // but usually the region is quite small.
-    CorrelationResult res;
-#ifdef VIGRA_EXT_USE_FAST_CORR
-    DEBUG_DEBUG("+++++ starting fast correlation");
-    res = correlateImageFast(srcImage,
-                             dest,
-                             templateImage,
-                             tmplUL-templPos, tmplLR-templPos - vigra::Diff2D(1,1),
-                             -1);
-#else
-    DEBUG_DEBUG("+++++ starting normal correlation");
-    res = correlateImage(srcImage.upperLeft(),
-                         srcImage.lowerRight(),
-                         srcImage.accessor(),
-                         dest.upperLeft(),
-                         dest.accessor(),
-                         templateImage.upperLeft() + templPos,
-                         templateImage.accessor(),
-                         tmplUL, tmplLR, -1);
-
-//     res = correlateImage(searchImg.upperLeft() + searchUL,
-//                          searchImg.upperLeft() + searchLR,
-//                          searchImg.accessor(),
-//                          dest.upperLeft(),
-//                          dest.accessor(),
-//                          templImg.upperLeft() + templPos,
-//                          templImg.accessor(),
-//                          tmplUL, tmplLR, -1);
-#endif
-    DEBUG_DEBUG("normal search finished, max:" << res.maxi
-                << " at " << res.maxpos);
-    // do a subpixel maxima estimation
-    // check if the max is inside the pixel boundaries,
-    // and there are enought correlation values for the subpixel
-    // estimation, (2 + templWidth)
-    if (res.maxpos.x > 2 + templWidth && res.maxpos.x < 2*swidth+1-2-templWidth
-        && res.maxpos.y > 2+templWidth && res.maxpos.y < 2*swidth+1-2-templWidth)
-    {
-        // subpixel estimation
-        res = subpixelMaxima(vigra::srcImageRange(dest), res.maxpos.toDiff2D());
-        DEBUG_DEBUG("subpixel position: max:" << res.maxi
-                    << " at " << res.maxpos);
-    } else {
-        // not enough values for subpixel estimation.
-        DEBUG_DEBUG("subpixel estimation not done, maxima too close to border");
-    }
-
-    res.maxpos = res.maxpos + searchUL;
-    return res;
-}
-
 template <class ImageType>
 void createCtrlPoints(Panorama & pano, const ImageType & img, int imgRedNr, int imgGreenNr, int imgBlueNr, double scale, int nPoints, int grid)
 
@@ -438,7 +302,7 @@ void createCtrlPoints(Panorama & pano, const ImageType & img, int imgRedNr, int 
             vigra::Diff2D roundP1(hugin_utils::roundi(p1.x1), hugin_utils::roundi(p1.y1));
             vigra::Diff2D roundP2(hugin_utils::roundi(p1.x2), hugin_utils::roundi(p1.y2));
 
-	    res = PointFineTune2(
+	    res = PointFineTune(
                 img8, GreenAccessor<RGBValue<UInt8> >(),
                 roundP1, templWidth,
                 img8, RedAccessor<RGBValue<UInt8> >(),
@@ -463,7 +327,7 @@ void createCtrlPoints(Panorama & pano, const ImageType & img, int imgRedNr, int 
             roundP1 = vigra::Diff2D(hugin_utils::roundi(p2.x1), hugin_utils::roundi(p2.y1));
             roundP2 = vigra::Diff2D(hugin_utils::roundi(p2.x2), hugin_utils::roundi(p2.y2));
 
-	    res = PointFineTune2(
+	    res = PointFineTune(
                 img8, GreenAccessor<RGBValue<UInt8> >(), roundP1, templWidth,
                 img8, BlueAccessor<RGBValue<UInt8> >(), roundP2, sWidth);
 

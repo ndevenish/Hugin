@@ -140,10 +140,10 @@ void FineTuneInterestPoints(Panorama & pano,
             break;
         }
 
-        vigra_ext::CorrelationResult res = vigra_ext::PointFineTune(leftImg,
+        vigra_ext::CorrelationResult res = vigra_ext::PointFineTune(leftImg, vigra::RGBToGrayAccessor<typename ImageType::value_type>(),
             (*it).second,
             templWidth,
-            rightImg,
+            rightImg, vigra::RGBToGrayAccessor<typename ImageType::value_type>(),
             (*it).second,
             sWidth
             );
@@ -163,10 +163,10 @@ void FineTuneInterestPoints(Panorama & pano,
 
         if (pyrLevel > 0)
         {
-            res = vigra_ext::PointFineTune(leftImgOrig,
+            res = vigra_ext::PointFineTune(leftImgOrig, vigra::RGBToGrayAccessor<typename ImageType::value_type>(),
                 Diff2D((*it).second.x * scaleFactor, (*it).second.y * scaleFactor),
                 templWidth,
-                rightImgOrig,
+                rightImgOrig, vigra::RGBToGrayAccessor<typename ImageType::value_type>(),
                 Diff2D(res.maxpos.x * scaleFactor, res.maxpos.y * scaleFactor),
                 scaleFactor
                 );

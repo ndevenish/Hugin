@@ -514,11 +514,11 @@ public:
  *
  *  @return correlation value
  */
-template <class IMAGET, class IMAGES>
-CorrelationResult PointFineTune(const IMAGET & templImg,
+template <class IMAGET, class ACCESSORT, class IMAGES, class ACCESSORS>
+CorrelationResult PointFineTune(const IMAGET & templImg, ACCESSORT access_t,
                                 vigra::Diff2D templPos,
                                 int templSize,
-                                const IMAGES & searchImg,
+                                const IMAGES & searchImg, ACCESSORS access_s,
                                 vigra::Diff2D searchPos,
                                 int sWidth)
 {
@@ -566,13 +566,13 @@ CorrelationResult PointFineTune(const IMAGET & templImg,
     vigra::FImage srcImage(searchLR-searchUL);
     vigra::copyImage(vigra::make_triple(searchImg.upperLeft() + searchUL,
                                         searchImg.upperLeft() + searchLR,
-                                        vigra::RGBToGrayAccessor<typename IMAGES::value_type>() ),
+                                        access_s),
                      destImage(srcImage) );
 
     vigra::FImage templateImage(tmplSize);
     vigra::copyImage(vigra::make_triple(templImg.upperLeft() + tmplUL,
                                         templImg.upperLeft() + tmplLR,
-                                        vigra::RGBToGrayAccessor<typename IMAGET::value_type>()),
+                                        access_t),
                      destImage(templateImage));
 #ifdef DEBUG_WRITE_FILES
     vigra::ImageExportInfo tmpli("hugin_templ.tif");
