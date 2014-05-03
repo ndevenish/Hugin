@@ -114,8 +114,8 @@ void CenterHorizontally::centerHorizontically(PanoramaData& panorama)
                 curColOccupied = true;
             }
         }
-        if (colOccupied && (! curColOccupied) ||
-            (!colOccupied) && curColOccupied )
+        if ((colOccupied && !curColOccupied) ||
+            (!colOccupied && curColOccupied))
         {
             // change in position, save point.
             borders.push_back(h-180);

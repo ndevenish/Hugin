@@ -334,7 +334,7 @@ int main(int argc, char *argv[])
             }
             c.setSize(info.size());
             // stitch the pano with a suitable image type
-            if (bands == 3 || bands == 4 && extraBands == 1) {
+            if (bands == 3 || (bands == 4 && extraBands == 1)) {
                 // TODO: add more cases
                 if (strcmp(pixelType, "UINT8") == 0) {
                     correctRGB<RGBValue<UInt8> >(c, info, outIt->c_str(), doCropBorders, compression, pdisp);

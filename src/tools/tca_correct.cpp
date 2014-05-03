@@ -783,7 +783,7 @@ int processImg(const char *filename)
         int bands = imgInfo.numBands();
         int extraBands = imgInfo.numExtraBands();
 
-	if (!(bands == 3 || bands == 4 && extraBands == 1))
+	if (!(bands == 3 || (bands == 4 && extraBands == 1)))
 	{
 	    cerr << "Unsupported number of bands!";
 	    exit(-1);
