@@ -51,16 +51,16 @@ using namespace AppBase;
 static void usage(const char* name)
 {
     std::cout << name << ": find vertical lines in images" << std::endl
-         << name << " version " << DISPLAY_VERSION << std::endl
-         << std::endl
-         << "Usage:  " << name << " [options] input.pto" << std::endl
-         << std::endl
-         << "  Options:" << std::endl
-         << "     -o, --output=file.pto  Output Hugin PTO file. Default: <filename>_lines.pto" << std::endl
-         << "     -i, --image=IMGNR      Work only on given image numbers" << std::endl
-         << "     -l, --lines=COUNT      Save maximal COUNT lines (default: 5)" << std::endl
-         << "     -h, --help             Shows this help" << std::endl
-         << std::endl;
+              << name << " version " << DISPLAY_VERSION << std::endl
+              << std::endl
+              << "Usage:  " << name << " [options] input.pto" << std::endl
+              << std::endl
+              << "  Options:" << std::endl
+              << "     -o, --output=file.pto  Output Hugin PTO file. Default: <filename>_lines.pto" << std::endl
+              << "     -i, --image=IMGNR      Work only on given image numbers" << std::endl
+              << "     -l, --lines=COUNT      Save maximal COUNT lines (default: 5)" << std::endl
+              << "     -h, --help             Shows this help" << std::endl
+              << std::endl;
 }
 
 // dummy panotools progress functions
@@ -81,7 +81,7 @@ static int ptinfoDlg( int command, char* argument )
  */
 // 2 versions: one for color images, the other for gray images
 template <class SrcIMG>
-void convertToUInt8(SrcIMG & src, const std::string & origType, vigra::UInt8RGBImage & dest)
+void convertToUInt8(SrcIMG& src, const std::string& origType, vigra::UInt8RGBImage& dest)
 {
     dest.resize(src.size());
     long newMax=vigra_ext::getMaxValForPixelType("UINT8");
@@ -102,12 +102,12 @@ void convertToUInt8(SrcIMG & src, const std::string & origType, vigra::UInt8RGBI
     else
     {
         vigra::transformImage(srcImageRange(src), destImage(dest),
-            vigra::functor::Arg1()*vigra::functor::Param( newMax/ vigra_ext::getMaxValForPixelType(origType)));
+                              vigra::functor::Arg1()*vigra::functor::Param( newMax/ vigra_ext::getMaxValForPixelType(origType)));
     };
 }
 
 template <class SrcIMG>
-void convertGrayToUInt8(SrcIMG & src, const std::string & origType, vigra::BImage & dest)
+void convertGrayToUInt8(SrcIMG& src, const std::string& origType, vigra::BImage& dest)
 {
     dest.resize(src.size());
     long newMax=vigra_ext::getMaxValForPixelType("UINT8");
@@ -126,12 +126,12 @@ void convertGrayToUInt8(SrcIMG & src, const std::string & origType, vigra::BImag
     else
     {
         vigra::transformImage(srcImageRange(src), destImage(dest),
-            vigra::functor::Arg1()*vigra::functor::Param( newMax/ vigra_ext::getMaxValForPixelType(origType)));
+                              vigra::functor::Arg1()*vigra::functor::Param( newMax/ vigra_ext::getMaxValForPixelType(origType)));
     };
 }
 
 template <class SrcIMG>
-vigra::BImage LoadGrayImageAndConvert(vigra::ImageImportInfo & info)
+vigra::BImage LoadGrayImageAndConvert(vigra::ImageImportInfo& info)
 {
     vigra::BImage image;
     SrcIMG imageIn(info.width(),info.height());
@@ -151,7 +151,7 @@ vigra::BImage LoadGrayImageAndConvert(vigra::ImageImportInfo & info)
 };
 
 template <class SrcIMG>
-vigra::UInt8RGBImage LoadImageAndConvert(vigra::ImageImportInfo & info)
+vigra::UInt8RGBImage LoadImageAndConvert(vigra::ImageImportInfo& info)
 {
     vigra::UInt8RGBImage image;
     SrcIMG imageIn(info.width(),info.height());
@@ -171,7 +171,7 @@ vigra::UInt8RGBImage LoadImageAndConvert(vigra::ImageImportInfo & info)
 };
 
 // loads the gray images and finds vertical lines, returns a CPVector with found vertical lines
-HuginBase::CPVector LoadGrayImageAndFindLines(vigra::ImageImportInfo info, Panorama & pano, size_t imgNr, int nrLines)
+HuginBase::CPVector LoadGrayImageAndFindLines(vigra::ImageImportInfo info, Panorama& pano, size_t imgNr, int nrLines)
 {
     vigra::BImage image;
     HuginBase::CPVector lineCp;
@@ -223,7 +223,7 @@ HuginBase::CPVector LoadGrayImageAndFindLines(vigra::ImageImportInfo info, Panor
 };
 
 // loads the color images and finds vertical lines, returns a CPVector with found vertical lines
-HuginBase::CPVector LoadImageAndFindLines(vigra::ImageImportInfo info, Panorama & pano, size_t imgNr, int nrLines)
+HuginBase::CPVector LoadImageAndFindLines(vigra::ImageImportInfo info, Panorama& pano, size_t imgNr, int nrLines)
 {
     vigra::UInt8RGBImage image;
     HuginBase::CPVector lineCp;
@@ -371,7 +371,7 @@ int main(int argc, char* argv[])
     if(cmdlineImages.size()==0)
     {
         //no image given, process all
-        for(size_t i=0;i<pano.getNrOfImages();i++)
+        for(size_t i=0; i<pano.getNrOfImages(); i++)
         {
             imagesToProcess.push_back(i);
         };
@@ -379,7 +379,7 @@ int main(int argc, char* argv[])
     else
     {
         //check, if given image numbers are valid
-        for(UIntSet::const_iterator it=cmdlineImages.begin();it!=cmdlineImages.end();++it)
+        for(UIntSet::const_iterator it=cmdlineImages.begin(); it!=cmdlineImages.end(); ++it)
         {
             if((*it)>=0 && (*it)<pano.getNrOfImages())
             {
@@ -406,7 +406,7 @@ int main(int argc, char* argv[])
 #endif
 
     size_t nrCPS=pano.getNrOfCtrlPoints();
-#pragma omp parallel for schedule(dynamic)
+    #pragma omp parallel for schedule(dynamic)
     for(int i=0; i < imagesToProcess.size(); ++i)
     {
         unsigned int imgNr=imagesToProcess[i];
@@ -429,10 +429,10 @@ int main(int argc, char* argv[])
             }
             else
             {
-                std::cerr << "Image " << pano.getImage(imgNr).getFilename().c_str() << " has " 
-                    << info.numBands() << " channels." << std::endl
-                    << "Linefind works only with grayscale or color images." << std::endl
-                    << "Skipping image." << std::endl;
+                std::cerr << "Image " << pano.getImage(imgNr).getFilename().c_str() << " has "
+                          << info.numBands() << " channels." << std::endl
+                          << "Linefind works only with grayscale or color images." << std::endl
+                          << "Skipping image." << std::endl;
             };
         };
         if(foundLines.size()>0)

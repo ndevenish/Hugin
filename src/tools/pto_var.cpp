@@ -51,7 +51,7 @@ struct ParseVar
     int imgNr;
     std::string expression;
     bool removeOpt;
-    ParseVar(): varname(""), imgNr(-1), expression(""), removeOpt(false){};
+    ParseVar(): varname(""), imgNr(-1), expression(""), removeOpt(false) {};
 };
 
 typedef std::vector<ParseVar> ParseVarVec;
@@ -72,10 +72,10 @@ void ParseSingleOptVar(ParseVarVec& varVec, std::string s)
             temp=std::string(matches[2].first, matches[2].second);
             bool validVarname=false;
 #define image_variable( name, type, default_value ) \
-            if (HuginBase::PTOVariableConverterFor##name::checkApplicability(temp))\
-            {\
-                validVarname=true;\
-            };
+    if (HuginBase::PTOVariableConverterFor##name::checkApplicability(temp))\
+    {\
+        validVarname=true;\
+    };
 #include "panodata/image_variables.h"
 #undef image_variable
             if(!validVarname)
@@ -114,10 +114,10 @@ void ParseSingleLinkVar(ParseVarVec& varVec, std::string s)
             std::string temp(matches[1].first, matches[1].second);
             bool validVarname=false;
 #define image_variable( name, type, default_value ) \
-            if (HuginBase::PTOVariableConverterFor##name::checkApplicability(temp))\
-            {\
-                validVarname=true;\
-            };
+    if (HuginBase::PTOVariableConverterFor##name::checkApplicability(temp))\
+    {\
+        validVarname=true;\
+    };
 #include "panodata/image_variables.h"
 #undef image_variable
             if(!validVarname)
@@ -154,10 +154,10 @@ void ParseSingleVar(ParseVarVec& varVec, std::string s)
             //check if variable name is valid
             bool validVarname=false;
 #define image_variable( name, type, default_value ) \
-            if (HuginBase::PTOVariableConverterFor##name::checkApplicability(temp))\
-            {\
-                validVarname=true;\
-            };
+    if (HuginBase::PTOVariableConverterFor##name::checkApplicability(temp))\
+    {\
+        validVarname=true;\
+    };
 #include "panodata/image_variables.h"
 #undef image_variable
             if(!validVarname)
@@ -194,7 +194,7 @@ void ParseVariableString(ParseVarVec& parseVec, std::string input, void (*func)(
 {
     std::vector<std::string> splitResult;
     boost::algorithm::split(splitResult, input, boost::algorithm::is_any_of(", "), boost::algorithm::token_compress_on);
-    for(size_t i=0; i<splitResult.size();i++)
+    for(size_t i=0; i<splitResult.size(); i++)
     {
         (*func)(parseVec, splitResult[i]);
     };
@@ -204,8 +204,8 @@ void ParseVariableString(ParseVarVec& parseVec, std::string input, void (*func)(
 // does some additional checking:
 //   1. don't add y,p,r for anchor image
 //   2. handle vignetting and EMoR parameters as group
-void AddToOptVec(HuginBase::OptimizeVector& optVec, std::string varname, size_t imgNr, 
-    std::set<size_t> refImgs, bool linkRefImgsYaw, bool linkRefImgsPitch, bool linkRefImgsRoll, std::vector<std::set<std::string> > groupedVars)
+void AddToOptVec(HuginBase::OptimizeVector& optVec, std::string varname, size_t imgNr,
+                 std::set<size_t> refImgs, bool linkRefImgsYaw, bool linkRefImgsPitch, bool linkRefImgsRoll, std::vector<std::set<std::string> > groupedVars)
 {
     if(varname=="y")
     {
@@ -288,17 +288,17 @@ void UnLinkVars(Panorama& pano, ParseVarVec parseVec, bool link)
         {
             continue;
         };
-        
+
         //convert to ImageVariableGroup::IVE_name format
         std::set<HuginBase::ImageVariableGroup::ImageVariableEnum> variables;
 #define image_variable( name, type, default_value ) \
-        if (HuginBase::PTOVariableConverterFor##name::checkApplicability(parseVec[i].varname))\
-        {\
-            variables.insert(HuginBase::ImageVariableGroup::IVE_##name);\
-        };
+    if (HuginBase::PTOVariableConverterFor##name::checkApplicability(parseVec[i].varname))\
+    {\
+        variables.insert(HuginBase::ImageVariableGroup::IVE_##name);\
+    };
 #include "panodata/image_variables.h"
 #undef image_variable
-        
+
         if(!variables.empty())
         {
             //lens variable
@@ -355,7 +355,7 @@ void UnLinkVars(Panorama& pano, ParseVarVec parseVec, bool link)
     };
 };
 
-bool UpdateSingleVar(Panorama &pano, ParseVar parseVar, size_t imgNr)
+bool UpdateSingleVar(Panorama& pano, ParseVar parseVar, size_t imgNr)
 {
     double val=pano.getImage(imgNr).getVar(parseVar.varname);
     Parser::ConstantMap constMap;
@@ -394,7 +394,7 @@ static void usage(const char* name)
          << "                            Examples:" << endl
          << "           --opt y,p,r        Optimize yaw, pitch and roll of all images" << endl
          << "                              (special treatment for anchor image applies)" << endl
-         << "           --opt v0,b2        Optimize hfov of image 0 and barrel distortion" << endl    
+         << "           --opt v0,b2        Optimize hfov of image 0 and barrel distortion" << endl
          << "                              of image 2" << endl
          << "           --opt v,!v0        Optimize field of view for all images except" << endl
          << "                              for the first image" << endl
@@ -599,19 +599,19 @@ int main(int argc, char* argv[])
                     // now remember linked variables
                     const HuginBase::SrcPanoImage& img1=pano.getImage(j);
 #define image_variable( name, type, default_value ) \
-                    if (HuginBase::PTOVariableConverterFor##name::checkApplicability(setVars[i].varname))\
-                    {\
-                        if(img1.name##isLinked())\
-                        {\
-                            for(size_t k=j+1; k<pano.getNrOfImages(); k++)\
-                            {\
-                                if(img1.name##isLinkedWith(pano.getImage(k)))\
-                                {\
-                                    updatedImgs.insert(k);\
-                                }\
-                            };\
-                        };\
-                    };
+    if (HuginBase::PTOVariableConverterFor##name::checkApplicability(setVars[i].varname))\
+    {\
+        if(img1.name##isLinked())\
+        {\
+            for(size_t k=j+1; k<pano.getNrOfImages(); k++)\
+            {\
+                if(img1.name##isLinkedWith(pano.getImage(k)))\
+                {\
+                    updatedImgs.insert(k);\
+                }\
+            };\
+        };\
+    };
 #include "panodata/image_variables.h"
 #undef image_variable
                 };

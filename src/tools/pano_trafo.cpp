@@ -30,7 +30,7 @@
  *  I've also added a new mode where no image number is passed on
  *  the command line and instead the image number is passed with
  *  each coordinate pair.
- * 
+ *
  */
 
 #include <hugin_version.h>
@@ -38,9 +38,9 @@
 #include <fstream>
 #include <sstream>
 #ifdef WIN32
- #include <getopt.h>
+#include <getopt.h>
 #else
- #include <unistd.h>
+#include <unistd.h>
 #endif
 
 #include <panodata/Panorama.h>
@@ -50,7 +50,7 @@ using namespace std;
 using namespace HuginBase;
 using namespace AppBase;
 
-static void usage(const char * name)
+static void usage(const char* name)
 {
     cout << name << ": transform pixel coordinates" << endl
          << "pano_trafo version " << DISPLAY_VERSION << endl
@@ -80,16 +80,16 @@ void work_on_triplets ( Panorama pano , bool reverse )
     int image = 0 ;
 
     // instead of just one transform, create one for each image
-    
-    HuginBase::PTools::Transform * trafo_set =
+
+    HuginBase::PTools::Transform* trafo_set =
         new HuginBase::PTools::Transform [ images ] ;
 
     if ( ! trafo_set )
-      {
+    {
         cerr << "not enough memory" ; // very unlikely...
         exit ( -1 ) ;
-      }
-    
+    }
+
     for ( image = 0 ; image < images ; image++ )
     {
         if (reverse)
@@ -103,7 +103,7 @@ void work_on_triplets ( Panorama pano , bool reverse )
     }
 
     // now we can process data triplets from cin
-    
+
     double xin , yin , xout , yout ;
 
     while ( cin >> image >> xin >> yin )
@@ -118,10 +118,10 @@ void work_on_triplets ( Panorama pano , bool reverse )
     }
 }
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
     // parse arguments
-    const char * optstring = "hr";
+    const char* optstring = "hr";
 
     int c;
     bool reverse = false;
@@ -129,23 +129,23 @@ int main(int argc, char *argv[])
     {
         switch (c)
         {
-        case 'h':
-            usage(argv[0]);
-            return 0;
-        case 'r':
-            reverse = true;
-            break;
-        case '?':
-            break;
-        default:
-            abort ();
+            case 'h':
+                usage(argv[0]);
+                return 0;
+            case 'r':
+                reverse = true;
+                break;
+            case '?':
+                break;
+            default:
+                abort ();
         }
     }
 
-    if (argc - optind < 1 || argc - optind > 2) 
+    if (argc - optind < 1 || argc - optind > 2)
     {
-         usage(argv[0]);
-         return 1;
+        usage(argv[0]);
+        return 1;
     }
 
     string input=argv[optind];
@@ -180,7 +180,7 @@ int main(int argc, char *argv[])
 
     // an image number was passed, so proceed
     // as in the original version
-    
+
     int imageNumber = atoi(argv[optind+1]);
     if (imageNumber >= pano.getNrOfImages())
     {
@@ -193,7 +193,7 @@ int main(int argc, char *argv[])
     if (reverse)
     {
         trafo.createTransform(pano.getSrcImage(imageNumber), pano.getOptions());
-    } 
+    }
     else
     {
         trafo.createInvTransform(pano.getSrcImage(imageNumber), pano.getOptions());

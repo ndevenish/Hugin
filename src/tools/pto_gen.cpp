@@ -256,7 +256,7 @@ int main(int argc, char* argv[])
     sort(filelist.begin(),filelist.end(),doj::alphanum_less());
 
     Panorama pano;
-    for(size_t i=0; i<filelist.size();i++)
+    for(size_t i=0; i<filelist.size(); i++)
     {
         SrcPanoImage srcImage;
         cout << "Reading " << filelist[i] << "..." << endl;
@@ -281,7 +281,7 @@ int main(int argc, char* argv[])
                 srcImage.setResponseType(HuginBase::SrcPanoImage::RESPONSE_LINEAR);
             };
         }
-        catch(std::exception & e)
+        catch(std::exception& e)
         {
             cerr << "ERROR: caught exception: " << e.what() << endl;
             cerr << "Could not read image information for file " << filelist[i] << endl;
@@ -380,18 +380,18 @@ int main(int argc, char* argv[])
         StandardImageVariableGroups variable_groups(pano);
         ImageVariableGroup& lenses = variable_groups.getLenses();
 
-        for(size_t i=1;i<pano.getNrOfImages();i++)
+        for(size_t i=1; i<pano.getNrOfImages(); i++)
         {
             int image=-1;
-            const SrcPanoImage & srcImg=pano.getImage(i);
-            for(size_t j=0;j<i;j++)
+            const SrcPanoImage& srcImg=pano.getImage(i);
+            for(size_t j=0; j<i; j++)
             {
-                const SrcPanoImage & compareImg=pano.getImage(j);
+                const SrcPanoImage& compareImg=pano.getImage(j);
                 if(srcImg.getHFOV()==compareImg.getHFOV() &&
-                    srcImg.getProjection()==compareImg.getProjection() &&
-                    srcImg.getExifModel()==compareImg.getExifModel() &&
-                    srcImg.getExifMake()==compareImg.getExifMake() &&
-                    srcImg.getSize()==compareImg.getSize())
+                        srcImg.getProjection()==compareImg.getProjection() &&
+                        srcImg.getExifModel()==compareImg.getExifModel() &&
+                        srcImg.getExifMake()==compareImg.getExifMake() &&
+                        srcImg.getSize()==compareImg.getSize())
                 {
                     image=j;
                     break;
@@ -432,10 +432,10 @@ int main(int argc, char* argv[])
         };
         if(stackCount<pano.getNrOfImages())
         {
-            for(size_t stackNr=0;stackNr<stackCount;stackNr++)
+            for(size_t stackNr=0; stackNr<stackCount; stackNr++)
             {
                 size_t firstImgStack=stackNr*stackLength;
-                for(size_t i=0;i<stackLength;i++)
+                for(size_t i=0; i<stackLength; i++)
                 {
                     if(firstImgStack+i<pano.getNrOfImages())
                     {

@@ -3,7 +3,7 @@
 /** @file lensdb.cpp
  *
  *  @brief helper program for working with lens database
- *  
+ *
  *
  *  @author T. Modes
  *
@@ -45,26 +45,26 @@ typedef std::vector<boost::filesystem::path> pathVec;
 template <class iteratorType>
 bool iterateFileSystem(std::string src, pathVec& projectFiles)
 {
-    try 
-    { 
-        for(iteratorType it(src); it != iteratorType(); it++) 
-        { 
+    try
+    {
+        for(iteratorType it(src); it != iteratorType(); it++)
+        {
             std::string ext=hugin_utils::toupper(it->path().extension().string());
             if(ext==".PTO")
             {
                 projectFiles.push_back(*it);
             };
-        } 
-    } 
-    catch(boost::filesystem::filesystem_error e) 
-    { 
+        }
+    }
+    catch(boost::filesystem::filesystem_error e)
+    {
         std::cout << e.what() << std::endl;
         return false;
-    } 
+    }
     return true;
 };
 
-void FindPTOFiles(pathVec &projectFiles, std::string src, bool recursive)
+void FindPTOFiles(pathVec& projectFiles, std::string src, bool recursive)
 {
     if(recursive)
     {
@@ -93,7 +93,7 @@ bool CheckProjectFile(boost::filesystem::path filename)
     if (err != AppBase::DocumentData::SUCCESSFUL)
     {
         std::cerr << "ERROR: error while parsing panos tool script: " << input << std::endl
-            << "DocumentData::ReadWriteError code: " << err << std::endl;
+                  << "DocumentData::ReadWriteError code: " << err << std::endl;
         return false;
     };
     prjfile.close();
@@ -105,7 +105,7 @@ bool CheckProjectFile(boost::filesystem::path filename)
     HuginBase::StandardImageVariableGroups lenses(pano);
     if (lenses.getLenses().getNumberOfParts()==1)
     {
-        // read the EXIF data 
+        // read the EXIF data
         for (size_t i = 0; i < pano.getNrOfImages(); ++i)
         {
             HuginBase::SrcPanoImage img = pano.getSrcImage(i);
@@ -134,7 +134,7 @@ bool CheckProjectFile(boost::filesystem::path filename)
     return false;
 };
 
-static void usage(const char * name)
+static void usage(const char* name)
 {
     std::cout << name << ": tool for lens database maintenance" << std::endl
               << name << " version " << DISPLAY_VERSION << std::endl
@@ -147,10 +147,10 @@ static void usage(const char * name)
               << "        lensdb --compress" << std::endl
               << "             Compresses the database by replacing single values" << std::endl
               << "             with averaged values." << std::endl
-              << std::endl; 
+              << std::endl;
 };
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
     // parse arguments
     const char* optstring = "crph";
@@ -247,7 +247,7 @@ int main(int argc, char *argv[])
     {
         std::cout << "Compressing database..." << std::endl;
         if(HuginBase::LensDB::LensDB::GetSingleton().CleanUpDatabase())
-        { 
+        {
             std::cout << "Successful." << std::endl;
         }
         else

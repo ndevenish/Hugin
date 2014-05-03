@@ -3,7 +3,7 @@
 /** @file pto_move.cpp
  *
  *  @brief helper program for moving project with all images at once
- *  
+ *
  *
  *  @author T. Modes
  *
@@ -70,7 +70,7 @@ bool RebaseFilename(fs::path srcFile, fs::path& destFile, std::string srcPath, s
     return true;
 };
 
-bool checkDestinationDirectory(std::string dir, fs::path & pathTo)
+bool checkDestinationDirectory(std::string dir, fs::path& pathTo)
 {
     pathTo=fs::path(dir);
     try
@@ -79,8 +79,8 @@ bool checkDestinationDirectory(std::string dir, fs::path & pathTo)
         if(pathTo.extension().string().length()>0)
         {
             std::cerr << "ERROR: Your destination is a file. Copy/Move several files to " << std::endl
-                << "a single file is not allowed." << std::endl
-                << "Canceled operation." << std::endl;
+                      << "a single file is not allowed." << std::endl
+                      << "Canceled operation." << std::endl;
             return false;
         };
         // create destination directory if not exists
@@ -89,7 +89,7 @@ bool checkDestinationDirectory(std::string dir, fs::path & pathTo)
             if(!fs::create_directories(pathTo))
             {
                 std::cerr << "ERROR: Could not create destination directory: " << pathTo.string() << std::endl
-                    << "Maybe you have not sufficent rights to create this directory." << std::endl;
+                          << "Maybe you have not sufficent rights to create this directory." << std::endl;
                 return false;
             };
         };
@@ -108,7 +108,7 @@ typedef std::vector<fs::path> pathVec;
 bool PTOCopyMove(bool movingFile, fs::path src, fs::path dest, bool overwriteAllFiles)
 {
     fs::path destFile(hugin_utils::GetAbsoluteFilename(dest.string()));
-    std::cout << (movingFile ? "Moving project file  " : "Copying project file ") << src.filename() << std::endl 
+    std::cout << (movingFile ? "Moving project file  " : "Copying project file ") << src.filename() << std::endl
               << "  from " << src.parent_path() << std::endl
               << "  to " << destFile.parent_path() << std::endl;
     // open project file
@@ -145,7 +145,7 @@ bool PTOCopyMove(bool movingFile, fs::path src, fs::path dest, bool overwriteAll
         if(!fs::exists(p) || !fs::is_regular_file(p))
         {
             std::cerr << "ERROR: image " << p.string() << " not found on disc." << std::endl
-                << "Skipping project " << input << std::endl;
+                      << "Skipping project " << input << std::endl;
             return false;
         };
         p=fs::absolute(p);
@@ -155,7 +155,7 @@ bool PTOCopyMove(bool movingFile, fs::path src, fs::path dest, bool overwriteAll
         {
             pano.setImageFilename(i, newFilename.string());
             imagesTo.push_back(newFilename);
-        };        
+        };
     };
     if(imagesFrom.size()>0)
     {
@@ -170,7 +170,7 @@ bool PTOCopyMove(bool movingFile, fs::path src, fs::path dest, bool overwriteAll
             if(fs::exists(destFile) && !overwriteAllFiles)
             {
                 std::cout << "Project file " << destFile << " does already exists." << std::endl
-                        << "  Overwrite this file? [Y|N] ";
+                          << "  Overwrite this file? [Y|N] ";
                 std::string userAnswer;
                 while(userAnswer.length()==0)
                 {
@@ -197,7 +197,7 @@ bool PTOCopyMove(bool movingFile, fs::path src, fs::path dest, bool overwriteAll
                 if(fs::exists(imagesTo[i]) && !overwriteAllFiles)
                 {
                     std::cout << "Images file " << imagesTo[i] << " does already exists." << std::endl
-                         << "  Overwrite this file? [Y|N] ";
+                              << "  Overwrite this file? [Y|N] ";
                     std::string userAnswer;
                     while(userAnswer.length()==0)
                     {
@@ -260,7 +260,7 @@ bool PTOCopyMove(bool movingFile, fs::path src, fs::path dest, bool overwriteAll
         {
             // the images in the project file are not all relative to the same base path
             std::cout << "WARNING: Images location in project file are not consistent. " << std::endl
-                << "So don't move/copy project file " << src.string() << std::endl;
+                      << "So don't move/copy project file " << src.string() << std::endl;
             return false;
         };
     }
@@ -294,26 +294,26 @@ bool PTOCopyMove(bool movingFile, fs::path src, fs::path dest, bool overwriteAll
 template <class iteratorType>
 bool iterateFileSystem(std::string src, pathVec& projectFiles)
 {
-    try 
-    { 
-        for(iteratorType it(src); it != iteratorType(); it++) 
-        { 
+    try
+    {
+        for(iteratorType it(src); it != iteratorType(); it++)
+        {
             std::string ext=hugin_utils::toupper(it->path().extension().string());
             if(ext==".PTO")
             {
                 projectFiles.push_back(*it);
             };
-        } 
-    } 
-    catch(fs::filesystem_error e) 
-    { 
+        }
+    }
+    catch(fs::filesystem_error e)
+    {
         std::cout << e.what() << std::endl;
         return false;
-    } 
+    }
     return true;
 };
 
-void SearchPTOFilesInDirectory(pathVec &projectFiles, std::string src, bool recursive)
+void SearchPTOFilesInDirectory(pathVec& projectFiles, std::string src, bool recursive)
 {
     if(recursive)
     {
@@ -325,7 +325,7 @@ void SearchPTOFilesInDirectory(pathVec &projectFiles, std::string src, bool recu
     };
 };
 
-static void usage(const char * name)
+static void usage(const char* name)
 {
     std::cout << name << ": move a project file with all images in it" << std::endl
               << name << " version " << DISPLAY_VERSION << std::endl
@@ -347,10 +347,10 @@ static void usage(const char * name)
               << "  --overwrite  Overwrite all existing files. Otherwise you will be asked" << std::endl
               << "               for each existing file." << std::endl
               << std::endl
-              << std::endl; 
+              << std::endl;
 };
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
     // parse arguments
     const char* optstring = "croh";
@@ -458,7 +458,7 @@ int main(int argc, char *argv[])
                             else
                             {
                                 std::cout << "WARNING: File " << p << " does not exists" << std::endl
-                                    << "Skipping this file." << std::endl;
+                                          << "Skipping this file." << std::endl;
                             };
                         };
                         optind++;
@@ -486,14 +486,14 @@ int main(int argc, char *argv[])
                         if(p==pathTo)
                         {
                             std::cerr << "ERROR: Target and destination file are the same." << std::endl
-                                << "Skipping file processing." << std::endl;
+                                      << "Skipping file processing." << std::endl;
                             return 1;
                         };
                         PTOCopyMove(movingFiles, p, pathTo, forceOverwrite);
                     };
                 };
             };
-         };
+        };
     }
     catch (const fs::filesystem_error& ex)
     {

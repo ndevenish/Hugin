@@ -3,7 +3,7 @@
 /** @file pto_merge.cpp
  *
  *  @brief program to merge several project files
- *  
+ *
  *  @author Thomas Modes
  *
  *  $Id$
@@ -32,7 +32,7 @@
 #include <sstream>
 #include <getopt.h>
 #ifndef WIN32
- #include <unistd.h>
+#include <unistd.h>
 #endif
 #include <panodata/Panorama.h>
 
@@ -40,7 +40,7 @@ using namespace std;
 using namespace HuginBase;
 using namespace AppBase;
 
-static void usage(const char * name)
+static void usage(const char* name)
 {
     cout << name << ": merges several project files" << endl
          << "pto_merge version " << DISPLAY_VERSION << endl
@@ -54,12 +54,13 @@ static void usage(const char * name)
          << endl;
 }
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
     // parse arguments
-    const char * optstring = "o:h";
+    const char* optstring = "o:h";
 
-    static struct option longOptions[] = {
+    static struct option longOptions[] =
+    {
         {"output", required_argument, NULL, 'o' },
         {"help", no_argument, NULL, 'h' },
         0
@@ -70,7 +71,7 @@ int main(int argc, char *argv[])
     string output;
     while ((c = getopt_long (argc, argv, optstring, longOptions,&optionIndex)) != -1)
     {
-        switch (c) 
+        switch (c)
         {
             case 'o':
                 output = optarg;
@@ -85,24 +86,26 @@ int main(int argc, char *argv[])
         }
     }
 
-    if (argc - optind < 2) 
+    if (argc - optind < 2)
     {
         cout << "Warning: pto_merge requires at least 2 project files" << endl << endl;
         usage(argv[0]);
         return 1;
     };
-    
+
     string input=argv[optind];
     // read panorama
     Panorama pano;
     ifstream prjfile(input.c_str());
-    if (!prjfile.good()) {
+    if (!prjfile.good())
+    {
         cerr << "could not open script : " << input << endl;
         return 1;
     }
     pano.setFilePrefix(hugin_utils::getPathPrefix(input));
     DocumentData::ReadWriteError err = pano.readData(prjfile);
-    if (err != DocumentData::SUCCESSFUL) {
+    if (err != DocumentData::SUCCESSFUL)
+    {
         cerr << "error while parsing panos tool script: " << input << endl;
         cerr << "DocumentData::ReadWriteError code: " << err << endl;
         return 1;
@@ -114,14 +117,14 @@ int main(int argc, char *argv[])
         Panorama pano2;
         string input2=argv[optind];
         ifstream prjfile2(input2.c_str());
-        if (!prjfile2.good()) 
+        if (!prjfile2.good())
         {
             cerr << "could not open script : " << input << endl;
             return 1;
         }
         pano2.setFilePrefix(hugin_utils::getPathPrefix(input2));
         DocumentData::ReadWriteError err = pano2.readData(prjfile2);
-        if (err != DocumentData::SUCCESSFUL) 
+        if (err != DocumentData::SUCCESSFUL)
         {
             cerr << "error while parsing panos tool script: " << input << endl;
             cerr << "DocumentData::ReadWriteError code: " << err << endl;
@@ -142,7 +145,7 @@ int main(int argc, char *argv[])
     }
     ofstream of(output.c_str());
     pano.printPanoramaScript(of, optvec, pano.getOptions(), imgs, false, hugin_utils::getPathPrefix(input));
-    
+
     cout << endl << "Written output to " << output << endl;
     return 0;
 }

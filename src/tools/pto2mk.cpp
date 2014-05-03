@@ -55,24 +55,24 @@ using namespace HuginBase;
 using namespace hugin_utils;
 using namespace std;
 
-static void usage(const char * name)
+static void usage(const char* name)
 {
     cerr << name << ": create a makefile for stitching" << std::endl
-            << std::endl
-            << "pto2mk version " << DISPLAY_VERSION << std::endl
-            << std::endl
-            << "Usage: " << name  << " -o <output_makefile> -p <output_prefix> project_file" << std::endl
-            << "  Options: " << std::endl
-            << "      -o file           output makefile" << std::endl
-            << "      -p output_prefix  prefix of output panorama" << std::endl
-            << "      -a argfile        specifiy copy argfile for exiftool" << std::endl
-            << std::endl;
+         << std::endl
+         << "pto2mk version " << DISPLAY_VERSION << std::endl
+         << std::endl
+         << "Usage: " << name  << " -o <output_makefile> -p <output_prefix> project_file" << std::endl
+         << "  Options: " << std::endl
+         << "      -o file           output makefile" << std::endl
+         << "      -p output_prefix  prefix of output panorama" << std::endl
+         << "      -a argfile        specifiy copy argfile for exiftool" << std::endl
+         << std::endl;
 }
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
 
-    const char * optstring = "ho:p:a:";
+    const char* optstring = "ho:p:a:";
     int c;
 
     opterr = 0;
@@ -81,7 +81,8 @@ int main(int argc, char *argv[])
     std::string argfile;
     while ((c = getopt (argc, argv, optstring)) != -1)
     {
-        switch (c) {
+        switch (c)
+        {
             case 'o':
                 mkfile = optarg;
                 break;
@@ -100,7 +101,8 @@ int main(int argc, char *argv[])
         }
     }
 
-    if (prefix == "" || mkfile == "") {
+    if (prefix == "" || mkfile == "")
+    {
         std::cerr << "Please specify output makefile and prefix" << std::endl;
         usage(argv[0]);
         return 1;
@@ -108,22 +110,25 @@ int main(int argc, char *argv[])
 
     unsigned nCmdLineImgs = argc - optind;
     cout << "number of cmdline args: " << nCmdLineImgs << endl;
-    if ( nCmdLineImgs != 1) {
+    if ( nCmdLineImgs != 1)
+    {
         std::cerr << "No project file given" << std::endl;
         usage(argv[0]);
         return 1;
     }
 
-    const char * ptoFile = argv[optind];
+    const char* ptoFile = argv[optind];
     Panorama pano;
     ifstream prjfile(ptoFile);
-    if (prjfile.bad()) {
+    if (prjfile.bad())
+    {
         cerr << "could not open script : " << ptoFile << std::endl;
         exit(1);
     }
     pano.setFilePrefix(hugin_utils::getPathPrefix(ptoFile));
     AppBase::DocumentData::ReadWriteError err = pano.readData(prjfile);
-    if (err != AppBase::DocumentData::SUCCESSFUL) {
+    if (err != AppBase::DocumentData::SUCCESSFUL)
+    {
         cerr << "error while parsing panos tool script: " << ptoFile << std::endl;
         exit(1);
     }
@@ -142,7 +147,8 @@ int main(int argc, char *argv[])
     PanoramaOptions  opts = pano.getOptions();
 
     std::ofstream makeFileStream(mkfile.c_str());
-    if (!makeFileStream.good()) {
+    if (!makeFileStream.good())
+    {
         std::cerr << "Could not open output makefile" << std::endl;
         return 1;
     }

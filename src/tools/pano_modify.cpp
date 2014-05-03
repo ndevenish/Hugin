@@ -3,7 +3,7 @@
 /** @file pano_modify.cpp
  *
  *  @brief program to modify some aspects of a project file on the command line
- *  
+ *
  *  @author Thomas Modes
  *
  *  $Id$
@@ -32,7 +32,7 @@
 #include <sstream>
 #include <getopt.h>
 #ifndef WIN32
- #include <unistd.h>
+#include <unistd.h>
 #endif
 #include <panodata/Panorama.h>
 #include <algorithms/nona/CenterHorizontally.h>
@@ -48,7 +48,7 @@ using namespace std;
 using namespace HuginBase;
 using namespace AppBase;
 
-static void usage(const char * name)
+static void usage(const char* name)
 {
     cout << name << ": change output parameters of project file" << endl
          << "pano_modify version " << DISPLAY_VERSION << endl
@@ -77,10 +77,10 @@ static void usage(const char * name)
          << endl;
 }
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
     // parse arguments
-    const char * optstring = "o:p:sch";
+    const char* optstring = "o:p:sch";
 
     enum
     {
@@ -90,7 +90,8 @@ int main(int argc, char *argv[])
         SWITCH_ROTATE=1003,
         SWITCH_TRANSLATE=1004
     };
-    static struct option longOptions[] = {
+    static struct option longOptions[] =
+    {
         {"output", required_argument, NULL, 'o' },
         {"projection", required_argument, NULL, 'p' },
         {"fov", optional_argument, NULL, SWITCH_FOV },
@@ -129,7 +130,7 @@ int main(int argc, char *argv[])
     string param;
     while ((c = getopt_long (argc, argv, optstring, longOptions,&optionIndex)) != -1)
     {
-        switch (c) 
+        switch (c)
         {
             case 'o':
                 output = optarg;
@@ -318,13 +319,13 @@ int main(int argc, char *argv[])
         }
     }
 
-    if (argc - optind != 1) 
+    if (argc - optind != 1)
     {
         cout << "Warning: pano_modify can only work on one project file at one time" << endl << endl;
         usage(argv[0]);
         return 1;
     };
-    
+
     // set some options which depends on each other
     if(doStraighten)
     {
@@ -340,13 +341,15 @@ int main(int argc, char *argv[])
     // read panorama
     Panorama pano;
     ifstream prjfile(input.c_str());
-    if (!prjfile.good()) {
+    if (!prjfile.good())
+    {
         cerr << "could not open script : " << input << endl;
         return 1;
     }
     pano.setFilePrefix(hugin_utils::getPathPrefix(input));
     DocumentData::ReadWriteError err = pano.readData(prjfile);
-    if (err != DocumentData::SUCCESSFUL) {
+    if (err != DocumentData::SUCCESSFUL)
+    {
         cerr << "error while parsing panos tool script: " << input << endl;
         cerr << "DocumentData::ReadWriteError code: " << err << endl;
         return 1;
@@ -358,8 +361,10 @@ int main(int argc, char *argv[])
         PanoramaOptions opt=pano.getOptions();
         opt.setProjection((PanoramaOptions::ProjectionFormat)projection);
         pano_projection_features proj;
-        if (panoProjectionFeaturesQuery(projection, &proj)) 
+        if (panoProjectionFeaturesQuery(projection, &proj))
+        {
             cout << "Setting projection to " << proj.name << endl;
+        }
         pano.setOptions(opt);
     };
     if(abs(yaw) + abs(pitch) + abs(roll) > 0.0)
@@ -403,7 +408,9 @@ int main(int argc, char *argv[])
         PanoramaOptions opt=pano.getOptions();
         opt.setHFOV(newHFOV);
         if(opt.fovCalcSupported(opt.getProjection()) && newVFOV>0)
+        {
             opt.setVFOV(newVFOV);
+        }
         cout << "Setting field of view to " << opt.getHFOV() << " x " << opt.getVFOV() << endl;
         pano.setOptions(opt);
     };
@@ -436,7 +443,7 @@ int main(int argc, char *argv[])
             cropPano.setStacks(getHDRStacks(pano,pano.getActiveImages(), pano.getOptions()));
         }
         cropPano.run();
-        
+
         vigra::Rect2D roi=cropPano.getResultOptimalROI();
         PanoramaOptions opt = pano.getOptions();
         //set the ROI - fail if the right/bottom is zero, meaning all zero
@@ -447,7 +454,9 @@ int main(int argc, char *argv[])
             pano.setOptions(opt);
         }
         else
+        {
             cout << "Could not find best crop rectangle" << endl;
+        }
     };
     //setting crop rectangle manually
     if(newROI.right() != 0 && newROI.bottom() != 0)
@@ -469,7 +478,7 @@ int main(int argc, char *argv[])
     }
     ofstream of(output.c_str());
     pano.printPanoramaScript(of, optvec, pano.getOptions(), imgs, false, hugin_utils::getPathPrefix(input));
-    
+
     cout << endl << "Written output to " << output << endl;
     return 0;
 }

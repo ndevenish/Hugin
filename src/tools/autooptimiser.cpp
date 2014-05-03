@@ -31,9 +31,9 @@
 #include <fstream>
 #include <sstream>
 #ifdef WIN32
- #include <getopt.h>
+#include <getopt.h>
 #else
- #include <unistd.h>
+#include <unistd.h>
 #endif
 
 #include <hugin_basic.h>
@@ -55,7 +55,7 @@ using namespace hugin_utils;
 using namespace HuginBase;
 using namespace AppBase;
 
-static void usage(const char * name)
+static void usage(const char* name)
 {
     cerr << name << ": optimize image positions" << endl
          << "autooptimiser version " << DISPLAY_VERSION << endl
@@ -88,10 +88,10 @@ static void usage(const char * name)
          << endl;
 }
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
     // parse arguments
-    const char * optstring = "alho:npqsv:m";
+    const char* optstring = "alho:npqsv:m";
     int c;
     string output;
     bool doPairwise = false;
@@ -104,91 +104,105 @@ int main(int argc, char *argv[])
     double hfov = 0.0;
     while ((c = getopt (argc, argv, optstring)) != -1)
     {
-        switch (c) {
-        case 'o':
-            output = optarg;
-            break;
-        case 'h':
-            usage(argv[0]);
-            return 0;
-        case 'p':
-            doPairwise = true;
-            break;
-        case 'a':
-            doAutoOpt = true;
-            break;
-        case 'n':
-            doNormalOpt = true;
-            break;
-        case 'l':
-            doLevel = true;
-            break;
-        case 's':
-            chooseProj = true;
-            break;
-        case 'q':
-            quiet = true;
-            break;
-        case 'v':
-            hfov = atof(optarg);
-            break;
-        case 'm':
-            doPhotometric = true;
-            break;
-        default:
-            abort ();
+        switch (c)
+        {
+            case 'o':
+                output = optarg;
+                break;
+            case 'h':
+                usage(argv[0]);
+                return 0;
+            case 'p':
+                doPairwise = true;
+                break;
+            case 'a':
+                doAutoOpt = true;
+                break;
+            case 'n':
+                doNormalOpt = true;
+                break;
+            case 'l':
+                doLevel = true;
+                break;
+            case 's':
+                chooseProj = true;
+                break;
+            case 'q':
+                quiet = true;
+                break;
+            case 'v':
+                hfov = atof(optarg);
+                break;
+            case 'm':
+                doPhotometric = true;
+                break;
+            default:
+                abort ();
         }
     }
 
-    if (argc - optind != 1) {
+    if (argc - optind != 1)
+    {
         usage(argv[0]);
         return 1;
     }
 
-    const char * scriptFile = argv[optind];
+    const char* scriptFile = argv[optind];
 
     Panorama pano;
-    if (scriptFile[0] == '-') {
+    if (scriptFile[0] == '-')
+    {
         DocumentData::ReadWriteError err = pano.readData(std::cin);
-        if (err != DocumentData::SUCCESSFUL) {
+        if (err != DocumentData::SUCCESSFUL)
+        {
             cerr << "error while reading script file from stdin." << endl;
             cerr << "DocumentData::ReadWriteError code: " << err << endl;
             return 1;
         }
-    } else {
+    }
+    else
+    {
         ifstream prjfile(scriptFile);
-        if (!prjfile.good()) {
+        if (!prjfile.good())
+        {
             cerr << "could not open script : " << scriptFile << endl;
             return 1;
         }
         pano.setFilePrefix(hugin_utils::getPathPrefix(scriptFile));
         DocumentData::ReadWriteError err = pano.readData(prjfile);
-        if (err != DocumentData::SUCCESSFUL) {
+        if (err != DocumentData::SUCCESSFUL)
+        {
             cerr << "error while parsing panos tool script: " << scriptFile << endl;
             cerr << "DocumentData::ReadWriteError code: " << err << endl;
             return 1;
         }
     }
 
-    if (pano.getNrOfImages() == 0) {
+    if (pano.getNrOfImages() == 0)
+    {
         cerr << "Panorama should consist of at least one image" << endl;
         return 1;
     }
 
     // for bad HFOV (from autopano-SIFT)
-    for (unsigned i=0; i < pano.getNrOfImages(); i++) {
+    for (unsigned i=0; i < pano.getNrOfImages(); i++)
+    {
         SrcPanoImage img = pano.getSrcImage(i);
         if (img.getProjection() == SrcPanoImage::RECTILINEAR
-            && img.getHFOV() >= 180)
+                && img.getHFOV() >= 180)
         {
             // something is wrong here, try to read from exif data
             cerr << "HFOV of image " << img.getFilename() << " invalid, trying to read EXIF tags" << endl;
             img.readEXIF();
             bool ok = img.applyEXIFValues(false);
-            if (! ok) {
-                if (hfov) {
+            if (! ok)
+            {
+                if (hfov)
+                {
                     img.setHFOV(hfov);
-                } else {
+                }
+                else
+                {
                     cerr << "EXIF reading failed, please specify HFOV with -v" << endl;
                     return 1;
                 }
@@ -202,21 +216,40 @@ int main(int argc, char *argv[])
         cerr << "Panorama have to have control points to optimise positions" << endl;
         return 1;
     };
-    if (doPairwise && ! doAutoOpt) {
+    if (doPairwise && ! doAutoOpt)
+    {
         // do pairwise optimisation
         AutoOptimise::autoOptimise(pano);
 
         // do global optimisation
-        if (!quiet) std::cerr << "*** Pairwise position optimisation" << endl;
+        if (!quiet)
+        {
+            std::cerr << "*** Pairwise position optimisation" << endl;
+        }
         PTools::optimize(pano);
-    } else if (doAutoOpt) {
-        if (!quiet) std::cerr << "*** Adaptive geometric optimisation" << endl;
+    }
+    else if (doAutoOpt)
+    {
+        if (!quiet)
+        {
+            std::cerr << "*** Adaptive geometric optimisation" << endl;
+        }
         SmartOptimise::smartOptimize(pano);
-    } else if (doNormalOpt) {
-        if (!quiet) std::cerr << "*** Optimising parameters specified in PTO file" << endl;
+    }
+    else if (doNormalOpt)
+    {
+        if (!quiet)
+        {
+            std::cerr << "*** Optimising parameters specified in PTO file" << endl;
+        }
         PTools::optimize(pano);
-    } else {
-        if (!quiet) std::cerr << "*** Geometric parameters not optimized" << endl;
+    }
+    else
+    {
+        if (!quiet)
+        {
+            std::cerr << "*** Geometric parameters not optimized" << endl;
+        }
     }
 
     if (doLevel)
@@ -225,7 +258,7 @@ int main(int argc, char *argv[])
         CPVector allCP=pano.getCtrlPoints();
         if(allCP.size()>0 && (doPairwise || doAutoOpt || doNormalOpt))
         {
-            for(size_t i=0;i<allCP.size() && !hasVerticalLines;i++)
+            for(size_t i=0; i<allCP.size() && !hasVerticalLines; i++)
             {
                 hasVerticalLines=(allCP[i].mode==ControlPoint::X);
             };
@@ -242,7 +275,8 @@ int main(int argc, char *argv[])
         };
     }
 
-    if (chooseProj) {
+    if (chooseProj)
+    {
         PanoramaOptions opts = pano.getOptions();
         double hfov, vfov;
         CalculateFitPanorama fitPano = CalculateFitPanorama(pano);
@@ -253,11 +287,15 @@ int main(int argc, char *argv[])
         hfov = opts.getHFOV();
         // avoid perspective projection if field of view > 100 deg
         double mf = 100;
-        if (vfov < mf) {
+        if (vfov < mf)
+        {
             // cylindrical or rectilinear
-            if (hfov < mf) {
+            if (hfov < mf)
+            {
                 opts.setProjection(PanoramaOptions::RECTILINEAR);
-            } else {
+            }
+            else
+            {
                 opts.setProjection(PanoramaOptions::CYLINDRICAL);
             }
         }
@@ -279,24 +317,30 @@ int main(int argc, char *argv[])
         int pyrLevel=3;
         bool randomPoints = true;
         nPoints = nPoints * pano.getNrOfImages();
- 
+
         std::vector<vigra_ext::PointPairRGB> points;
-        ProgressDisplay *progressDisplay;
+        ProgressDisplay* progressDisplay;
         if(!quiet)
+        {
             progressDisplay=new StreamProgressDisplay(std::cout);
+        }
         else
+        {
             progressDisplay=new DummyProgressDisplay();
-        try 
+        }
+        try
         {
             loadImgsAndExtractPoints(pano, nPoints, pyrLevel, randomPoints, *progressDisplay, points, !quiet);
-        } 
-        catch (std::exception & e)
+        }
+        catch (std::exception& e)
         {
             cerr << "caught exception: " << e.what() << endl;
             return 1;
         };
         if(!quiet)
+        {
             cout << "\rSelected " << points.size() << " points" << endl;
+        }
 
         if (points.size() == 0)
         {
@@ -306,15 +350,16 @@ int main(int argc, char *argv[])
 
         progressDisplay->startSubtask("Photometric Optimization", 0.0);
         // first, ensure that vignetting and response coefficients are linked
-        const HuginBase::ImageVariableGroup::ImageVariableEnum vars[] = {
-                HuginBase::ImageVariableGroup::IVE_EMoRParams,
-                HuginBase::ImageVariableGroup::IVE_ResponseType,
-                HuginBase::ImageVariableGroup::IVE_VigCorrMode,
-                HuginBase::ImageVariableGroup::IVE_RadialVigCorrCoeff,
-                HuginBase::ImageVariableGroup::IVE_RadialVigCorrCenterShift
+        const HuginBase::ImageVariableGroup::ImageVariableEnum vars[] =
+        {
+            HuginBase::ImageVariableGroup::IVE_EMoRParams,
+            HuginBase::ImageVariableGroup::IVE_ResponseType,
+            HuginBase::ImageVariableGroup::IVE_VigCorrMode,
+            HuginBase::ImageVariableGroup::IVE_RadialVigCorrCoeff,
+            HuginBase::ImageVariableGroup::IVE_RadialVigCorrCenterShift
         };
         HuginBase::StandardImageVariableGroups variable_groups(pano);
-        HuginBase::ImageVariableGroup & lenses = variable_groups.getLenses();
+        HuginBase::ImageVariableGroup& lenses = variable_groups.getLenses();
         for (size_t i = 0; i < lenses.getNumberOfParts(); i++)
         {
             std::set<HuginBase::ImageVariableGroup::ImageVariableEnum> links_needed;
@@ -336,7 +381,7 @@ int main(int argc, char *argv[])
             }
         }
 
-        HuginBase::SmartPhotometricOptimizer::PhotometricOptimizeMode optmode = 
+        HuginBase::SmartPhotometricOptimizer::PhotometricOptimizeMode optmode =
             HuginBase::SmartPhotometricOptimizer::OPT_PHOTOMETRIC_LDR_WB;
         if (opts.outputMode == PanoramaOptions::OUTPUT_HDR)
         {
@@ -356,10 +401,13 @@ int main(int argc, char *argv[])
     OptimizeVector optvec = pano.getOptimizeVector();
     UIntSet imgs;
     fill_set(imgs,0, pano.getNrOfImages()-1);
-    if (output != "") {
+    if (output != "")
+    {
         ofstream of(output.c_str());
         pano.printPanoramaScript(of, optvec, pano.getOptions(), imgs, false, hugin_utils::getPathPrefix(scriptFile));
-    } else {
+    }
+    else
+    {
         pano.printPanoramaScript(cout, optvec, pano.getOptions(), imgs, false, hugin_utils::getPathPrefix(scriptFile));
     }
     return 0;

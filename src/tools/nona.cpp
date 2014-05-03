@@ -36,9 +36,9 @@
 #include <vigra/impex.hxx>
 
 #ifdef WIN32
- #include <getopt.h>
+#include <getopt.h>
 #else
- #include <unistd.h>
+#include <unistd.h>
 #endif
 
 #include <hugin_basic.h>
@@ -55,66 +55,69 @@ using namespace HuginBase;
 using namespace hugin_utils;
 using namespace std;
 
-static void usage(const char * name)
+static void usage(const char* name)
 {
     cerr << name << ": stitch a panorama image" << std::endl
-    << std::endl
-    << "nona version " << DISPLAY_VERSION << std::endl
-    << std::endl
-    << " It uses the transform function from PanoTools, the stitching itself" << std::endl
-    << " is quite simple, no seam feathering is done." << std::endl
-    << " only the non-antialiasing interpolators of panotools are supported" << std::endl
-    << std::endl
-    << " The following output formats (n option of panotools p script line)" << std::endl
-    << " are supported:"<< std::endl
-    << std::endl
-    << "  JPG, TIFF, PNG  : Single image formats without feathered blending:"<< std::endl
-    << "  TIFF_m          : multiple tiff files"<< std::endl
-    << "  TIFF_multilayer : Multilayer tiff files, readable by The Gimp 2.0" << std::endl
-    << std::endl
-    << "Usage: " << name  << " [options] -o output project_file (image files)" << std::endl
-    << "  Options: " << std::endl
-    << "      -c         create coordinate images (only TIFF_m output)" << std::endl
-    << "      -v         quiet, do not output progress indicators" << std::endl
-    << "      -d         print detailed output for gpu processing" << std::endl
-    << "      -t num     number of threads to be used (default: nr of available cores)" << std::endl
-    << "      -g         perform image remapping on the GPU" << std::endl
-    << std::endl
-    << "  The following options can be used to override settings in the project file:" << std::endl
-    << "      -i num     remap only image with number num" << std::endl
-    << "                   (can be specified multiple times)" << std::endl
-    << "      -m str     set output file format (TIFF, TIFF_m, TIFF_multilayer, EXR, EXR_m)" << std::endl
-    << "      -r ldr/hdr set output mode." << std::endl
-    << "                   ldr  keep original bit depth and response" << std::endl
-    << "                   hdr  merge to hdr" << std::endl
-    << "      -e exposure set exposure for ldr mode" << std::endl
-    << "      -p TYPE    pixel type of the output. Can be one of:" << std::endl
-    << "                  UINT8   8 bit unsigned integer" << std::endl
-    << "                  UINT16  16 bit unsigned integer" << std::endl
-    << "                  INT16   16 bit signed integer" << std::endl
-    << "                  UINT32  32 bit unsigned integer" << std::endl
-    << "                  INT32   32 bit signed integer" << std::endl
-    << "                  FLOAT   32 bit floating point" << std::endl
-    << "      -z         set compression type." << std::endl
-    << "                  Possible options for tiff output:" << std::endl
-    << "                   NONE      no compression" << std::endl
-    << "                   PACKBITS  packbits compression" << std::endl
-    << "                   LZW       lzw compression" << std::endl
-    << "                   DEFLATE   deflate compression" << std::endl
-    << std::endl;
+         << std::endl
+         << "nona version " << DISPLAY_VERSION << std::endl
+         << std::endl
+         << " It uses the transform function from PanoTools, the stitching itself" << std::endl
+         << " is quite simple, no seam feathering is done." << std::endl
+         << " only the non-antialiasing interpolators of panotools are supported" << std::endl
+         << std::endl
+         << " The following output formats (n option of panotools p script line)" << std::endl
+         << " are supported:"<< std::endl
+         << std::endl
+         << "  JPG, TIFF, PNG  : Single image formats without feathered blending:"<< std::endl
+         << "  TIFF_m          : multiple tiff files"<< std::endl
+         << "  TIFF_multilayer : Multilayer tiff files, readable by The Gimp 2.0" << std::endl
+         << std::endl
+         << "Usage: " << name  << " [options] -o output project_file (image files)" << std::endl
+         << "  Options: " << std::endl
+         << "      -c         create coordinate images (only TIFF_m output)" << std::endl
+         << "      -v         quiet, do not output progress indicators" << std::endl
+         << "      -d         print detailed output for gpu processing" << std::endl
+         << "      -t num     number of threads to be used (default: nr of available cores)" << std::endl
+         << "      -g         perform image remapping on the GPU" << std::endl
+         << std::endl
+         << "  The following options can be used to override settings in the project file:" << std::endl
+         << "      -i num     remap only image with number num" << std::endl
+         << "                   (can be specified multiple times)" << std::endl
+         << "      -m str     set output file format (TIFF, TIFF_m, TIFF_multilayer, EXR, EXR_m)" << std::endl
+         << "      -r ldr/hdr set output mode." << std::endl
+         << "                   ldr  keep original bit depth and response" << std::endl
+         << "                   hdr  merge to hdr" << std::endl
+         << "      -e exposure set exposure for ldr mode" << std::endl
+         << "      -p TYPE    pixel type of the output. Can be one of:" << std::endl
+         << "                  UINT8   8 bit unsigned integer" << std::endl
+         << "                  UINT16  16 bit unsigned integer" << std::endl
+         << "                  INT16   16 bit signed integer" << std::endl
+         << "                  UINT32  32 bit unsigned integer" << std::endl
+         << "                  INT32   32 bit signed integer" << std::endl
+         << "                  FLOAT   32 bit floating point" << std::endl
+         << "      -z         set compression type." << std::endl
+         << "                  Possible options for tiff output:" << std::endl
+         << "                   NONE      no compression" << std::endl
+         << "                   PACKBITS  packbits compression" << std::endl
+         << "                   LZW       lzw compression" << std::endl
+         << "                   DEFLATE   deflate compression" << std::endl
+         << std::endl;
 }
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
-    
+
     // parse arguments
-    const char * optstring = "z:cho:i:t:m:p:r:e:vgd";
+    const char* optstring = "z:cho:i:t:m:p:r:e:vgd";
     int c;
-    
+
     opterr = 0;
-    
+
     int nThread = getCPUCount();
-    if (nThread < 0) nThread = 1;
+    if (nThread < 0)
+    {
+        nThread = 1;
+    }
     bool doCoord = false;
     UIntSet outputImages;
     string basename;
@@ -127,10 +130,11 @@ int main(int argc, char *argv[])
     int verbose = 0;
     bool useGPU = false;
     string outputPixelType;
-    
+
     while ((c = getopt (argc, argv, optstring)) != -1)
     {
-        switch (c) {
+        switch (c)
+        {
             case 'o':
                 basename = optarg;
                 break;
@@ -147,13 +151,18 @@ int main(int argc, char *argv[])
                 outputPixelType = optarg;
                 break;
             case 'r':
-                if (string(optarg) == "ldr") {
+                if (string(optarg) == "ldr")
+                {
                     overrideOutputMode = true;
                     outputMode = PanoramaOptions::OUTPUT_LDR;
-                } else if (string(optarg) == "hdr") {
+                }
+                else if (string(optarg) == "hdr")
+                {
                     overrideOutputMode = true;
                     outputMode = PanoramaOptions::OUTPUT_HDR;
-                } else {
+                }
+                else
+                {
                     usage(argv[0]);
                     return 1;
                 }
@@ -183,90 +192,118 @@ int main(int argc, char *argv[])
                 vigra_ext::SetGPUDebugMessages(true);
                 break;
             default:
-		usage(argv[0]);
+                usage(argv[0]);
                 abort ();
         }
     }
 
-    if (basename == "" || argc - optind <1) {
+    if (basename == "" || argc - optind <1)
+    {
         usage(argv[0]);
         return 1;
     }
     unsigned nCmdLineImgs = argc -optind -1;
 
-    if (nThread == 0) nThread = 1;
+    if (nThread == 0)
+    {
+        nThread = 1;
+    }
     vigra_ext::ThreadManager::get().setNThreads(nThread);
 
-    const char * scriptFile = argv[optind];
+    const char* scriptFile = argv[optind];
 
     // suppress tiff warnings
     TIFFSetWarningHandler(0);
 
     AppBase::ProgressDisplay* pdisp = NULL;
     if(verbose > 0)
+    {
         pdisp = new AppBase::StreamProgressDisplay(cout);
+    }
     else
+    {
         pdisp = new AppBase::DummyProgressDisplay;
+    }
 
     Panorama pano;
     ifstream prjfile(scriptFile);
-    if (prjfile.bad()) {
+    if (prjfile.bad())
+    {
         cerr << "could not open script : " << scriptFile << std::endl;
         exit(1);
     }
     pano.setFilePrefix(hugin_utils::getPathPrefix(scriptFile));
     AppBase::DocumentData::ReadWriteError err = pano.readData(prjfile);
-    if (err != AppBase::DocumentData::SUCCESSFUL) {
+    if (err != AppBase::DocumentData::SUCCESSFUL)
+    {
         cerr << "error while parsing panos tool script: " << scriptFile << std::endl;
         exit(1);
     }
 
-    if ( nCmdLineImgs > 0) {
-        if (nCmdLineImgs != pano.getNrOfImages()) {
+    if ( nCmdLineImgs > 0)
+    {
+        if (nCmdLineImgs != pano.getNrOfImages())
+        {
             cerr << "Incorrect number of images specified on command line\nProject required " << pano.getNrOfImages() << " but " << nCmdLineImgs << " where given" << std::endl;
             exit(1);
         }
-        for (unsigned i=0; i < pano.getNrOfImages(); i++) {
+        for (unsigned i=0; i < pano.getNrOfImages(); i++)
+        {
             pano.setImageFilename(i, argv[optind+i+1]);
         }
 
     }
     PanoramaOptions  opts = pano.getOptions();
 
-    if (compression.size() > 0) {
+    if (compression.size() > 0)
+    {
         opts.tiffCompression=compression;
     }
 
     // save coordinate images, if requested
     opts.saveCoordImgs = doCoord;
-    if (outputFormat == "TIFF_m") {
+    if (outputFormat == "TIFF_m")
+    {
         opts.outputFormat = PanoramaOptions::TIFF_m;
-    } else if (outputFormat == "TIFF") {
+    }
+    else if (outputFormat == "TIFF")
+    {
         opts.outputFormat = PanoramaOptions::TIFF;
-    } else if (outputFormat == "TIFF_multilayer") {
+    }
+    else if (outputFormat == "TIFF_multilayer")
+    {
         opts.outputFormat = PanoramaOptions::TIFF_multilayer;
-    } else if (outputFormat == "EXR_m") {
+    }
+    else if (outputFormat == "EXR_m")
+    {
         opts.outputFormat = PanoramaOptions::EXR_m;
-    } else if (outputFormat == "EXR") {
+    }
+    else if (outputFormat == "EXR")
+    {
         opts.outputFormat = PanoramaOptions::EXR;
-    } else if (outputFormat != "") {
+    }
+    else if (outputFormat != "")
+    {
         cerr << "Error: unknown output format: " << outputFormat << endl;
         return 1;
     }
 
-    if (outputPixelType.size() > 0) {
+    if (outputPixelType.size() > 0)
+    {
         opts.outputPixelType = outputPixelType;
     }
-    
-    if (overrideOutputMode) {
+
+    if (overrideOutputMode)
+    {
         opts.outputMode = outputMode;
     }
-    
-    if (overrideExposure) {
+
+    if (overrideExposure)
+    {
         opts.outputExposureValue = exposure;
     }
 
-    if(outputImages.size()==0) 
+    if(outputImages.size()==0)
     {
         outputImages = pano.getActiveImages();
     }
@@ -285,7 +322,7 @@ int main(int argc, char *argv[])
     if(outputImages.size()==0)
     {
         std::cout << "Project does not contain active images." << std::endl
-            << "Nothing to do for nona." << std::endl;
+                  << "Nothing to do for nona." << std::endl;
         return 0;
     };
     if(useGPU)
@@ -303,11 +340,13 @@ int main(int argc, char *argv[])
                 break;
         };
     };
-    
+
     DEBUG_DEBUG("output basename: " << basename);
-    
-    try {
-        if (useGPU) {
+
+    try
+    {
+        if (useGPU)
+        {
             useGPU = initGPU(&argc, argv);
         }
         opts.remapUsingGPU = useGPU;
@@ -316,21 +355,27 @@ int main(int argc, char *argv[])
         // stitch panorama
         NonaFileOutputStitcher(pano, pdisp, opts, outputImages, basename).run();
         // add a final newline, after the last progress message
-        if (verbose > 0) {
+        if (verbose > 0)
+        {
             cout << std::endl;
         }
 
-        if (useGPU) {
+        if (useGPU)
+        {
             wrapupGPU();
         }
 
-    } catch (std::exception & e) {
+    }
+    catch (std::exception& e)
+    {
         cerr << "caught exception: " << e.what() << std::endl;
         return 1;
     }
-    
+
     if(pdisp != NULL)
+    {
         delete pdisp;
+    }
 
     return 0;
 }

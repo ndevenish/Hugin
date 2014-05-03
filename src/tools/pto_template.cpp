@@ -172,7 +172,7 @@ int main(int argc, char* argv[])
     for (unsigned int i = 0; i < newPano.getNrOfImages(); i++)
     {
         // check if image size is correct
-        const SrcPanoImage & oldSrcImg = pano.getImage(i);
+        const SrcPanoImage& oldSrcImg = pano.getImage(i);
         SrcPanoImage newSrcImg = newPano.getSrcImage(i);
 
         // just keep the file name

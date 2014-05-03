@@ -3,7 +3,7 @@
 /** @file checkpto.cpp
  *
  *  @brief helper program for assistant makefile
- *  
+ *
  *
  *  @author Thomas Modes
  *
@@ -42,7 +42,7 @@ using namespace std;
 using namespace HuginBase;
 using namespace AppBase;
 
-static void usage(const char * name)
+static void usage(const char* name)
 {
     cout << name << ": report the number of image groups in a project" << endl
          << name << " version " << DISPLAY_VERSION << endl
@@ -63,7 +63,7 @@ static void usage(const char * name)
          << endl;
 }
 
-void printImageGroup(const std::vector<HuginBase::UIntSet> &imageGroup)
+void printImageGroup(const std::vector<HuginBase::UIntSet>& imageGroup)
 {
     for (size_t i=0; i < imageGroup.size(); i++)
     {
@@ -86,12 +86,12 @@ void printImageGroup(const std::vector<HuginBase::UIntSet> &imageGroup)
     }
 };
 
-void GenerateArgfile(const std::string & filename, const Panorama &pano, bool noGPano)
+void GenerateArgfile(const std::string& filename, const Panorama& pano, bool noGPano)
 {
     pano_projection_features proj;
     PanoramaOptions opts=pano.getOptions();
-    bool readProjectionName=panoProjectionFeaturesQuery(opts.getProjection(), &proj)!=0;    
-    
+    bool readProjectionName=panoProjectionFeaturesQuery(opts.getProjection(), &proj)!=0;
+
     std::ofstream infostream(filename.c_str(), std::ofstream::out);
     infostream.imbue(std::locale("C"));
     infostream << fixed;
@@ -148,10 +148,10 @@ void GenerateArgfile(const std::string & filename, const Panorama &pano, bool no
     infostream.close();
 };
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
     // parse arguments
-    const char * optstring = "h";
+    const char* optstring = "h";
     enum
     {
         PRINT_OUTPUT_INFO=1000,
@@ -182,45 +182,48 @@ int main(int argc, char *argv[])
     int optionIndex = 0;
     while ((c = getopt_long (argc, argv, optstring, longOptions,&optionIndex)) != -1)
     {
-        switch (c) {
-        case 'h':
-            usage(argv[0]);
-            return 0;
-        case PRINT_OUTPUT_INFO:
-            printOutputInfo=true;
-            break;
-        case GENERATE_ARGFILE:
-            argfile=optarg;
-            break;
+        switch (c)
+        {
+            case 'h':
+                usage(argv[0]);
+                return 0;
+            case PRINT_OUTPUT_INFO:
+                printOutputInfo=true;
+                break;
+            case GENERATE_ARGFILE:
+                argfile=optarg;
+                break;
 #ifdef EXIFTOOL_GPANO_SUPPORT
-        case GENERATE_ARGFILE_WITHOUT_GPANO:
-            withoutGPano=true;
-            break;
+            case GENERATE_ARGFILE_WITHOUT_GPANO:
+                withoutGPano=true;
+                break;
 #endif
-        case '?':
-            break;
-        default:
-            abort ();
+            case '?':
+                break;
+            default:
+                abort ();
         }
     }
 
-    if (argc - optind != 1) 
+    if (argc - optind != 1)
     {
         usage(argv[0]);
         return -1;
     };
-    
+
     string input=argv[optind];
 
     Panorama pano;
     ifstream prjfile(input.c_str());
-    if (!prjfile.good()) {
+    if (!prjfile.good())
+    {
         cerr << "could not open script : " << input << endl;
         return -1;
     }
     pano.setFilePrefix(hugin_utils::getPathPrefix(input));
     DocumentData::ReadWriteError err = pano.readData(prjfile);
-    if (err != DocumentData::SUCCESSFUL) {
+    if (err != DocumentData::SUCCESSFUL)
+    {
         cerr << "error while parsing panos tool script: " << input << endl;
         cerr << "DocumentData::ReadWriteError code: " << err << endl;
         return -1;
@@ -232,7 +235,7 @@ int main(int argc, char *argv[])
         return 0;
     };
 
-    std::cout << endl 
+    std::cout << endl
               << "Opened project " << input << endl << endl
               << "Project contains" << endl
               << pano.getNrOfImages() << " images" << endl
@@ -246,14 +249,14 @@ int main(int argc, char *argv[])
         double var;
         HuginBase::PTools::calcCtrlPointErrors(pano);
         CalculateCPStatisticsError::calcCtrlPntsErrorStats(pano, min, max, mean, var);
-        if(max>0) 
+        if(max>0)
         {
             std::cout << "Control points statistics" << std::endl
-                << fixed << std::setprecision(2)
-                << "\tMean error        : " << mean << std::endl
-                << "\tStandard deviation: " << sqrt(var) << std::endl
-                << "\tMinimum           : " << min << std::endl
-                << "\tMaximum           : " << max << std::endl;
+                      << fixed << std::setprecision(2)
+                      << "\tMean error        : " << mean << std::endl
+                      << "\tStandard deviation: " << sqrt(var) << std::endl
+                      << "\tMinimum           : " << min << std::endl
+                      << "\tMaximum           : " << max << std::endl;
         };
     };
     CPGraph graph;
@@ -269,7 +272,7 @@ int main(int argc, char *argv[])
     }
     else
     {
-        std::cout << "Found unconnected images!" << endl 
+        std::cout << "Found unconnected images!" << endl
                   << "There are " << n << " image groups." << endl;
 
         std::cout << "Image groups: " << endl;

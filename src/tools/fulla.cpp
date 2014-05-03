@@ -34,9 +34,9 @@
 #include <exiv2/image.hpp>
 #include <exiv2/exif.hpp>
 #ifdef WIN32
- #include <getopt.h>
+#include <getopt.h>
 #else
- #include <unistd.h>
+#include <unistd.h>
 #endif
 
 #include <appbase/ProgressDisplayOld.h>
@@ -60,25 +60,25 @@ using namespace HuginBase;
 
 
 template <class SrcImgType, class FlatImgType, class DestImgType>
-void correctImage(SrcImgType & srcImg,
-                  const FlatImgType & srcFlat,
+void correctImage(SrcImgType& srcImg,
+                  const FlatImgType& srcFlat,
                   SrcPanoImage src,
                   vigra_ext::Interpolator interpolator,
-                  DestImgType & destImg,
+                  DestImgType& destImg,
                   bool doCrop,
-                  AppBase::MultiProgressDisplay & progress);
+                  AppBase::MultiProgressDisplay& progress);
 
 template <class PIXELTYPE>
-void correctRGB(SrcPanoImage & src, ImageImportInfo & info, const char * outfile,
-                bool crop, const std::string & compression, AppBase::MultiProgressDisplay & progress);
+void correctRGB(SrcPanoImage& src, ImageImportInfo& info, const char* outfile,
+                bool crop, const std::string& compression, AppBase::MultiProgressDisplay& progress);
 
-bool getPTLensCoef(const char * fn, string cameraMaker, string cameraName,
-                   string lensName, float focalLength, vector<double> & coeff);
-
-
+bool getPTLensCoef(const char* fn, string cameraMaker, string cameraName,
+                   string lensName, float focalLength, vector<double>& coeff);
 
 
-static void usage(const char * name)
+
+
+static void usage(const char* name)
 {
     cerr << name << ": correct lens distortion, vignetting and chromatic abberation" << std::endl
          << "fulla version " << DISPLAY_VERSION << endl
@@ -119,10 +119,10 @@ static void usage(const char * name)
 }
 
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
     // parse arguments
-    const char * optstring = "e:g:b:r:pm:n:l:d:sf:c:i:t:ho:x:v";
+    const char* optstring = "e:g:b:r:pm:n:l:d:sf:c:i:t:ho:x:v";
     int o;
     //bool verbose_flag = true;
 
@@ -149,107 +149,109 @@ int main(int argc, char *argv[])
 
     SrcPanoImage c;
     while ((o = getopt (argc, argv, optstring)) != -1)
-        switch (o) {
-        case 'e':
-             compression = optarg;
-             break;
-        case 'r':
-            if (sscanf(optarg, "%lf:%lf:%lf:%lf", &vec4[0], &vec4[1], &vec4[2], &vec4[3]) != 4)
-            {
-                std::cerr << std::endl << "Error: invalid -r argument" << std::endl <<std::endl;
+        switch (o)
+        {
+            case 'e':
+                compression = optarg;
+                break;
+            case 'r':
+                if (sscanf(optarg, "%lf:%lf:%lf:%lf", &vec4[0], &vec4[1], &vec4[2], &vec4[3]) != 4)
+                {
+                    std::cerr << std::endl << "Error: invalid -r argument" << std::endl <<std::endl;
+                    usage(argv[0]);
+                    return 1;
+                }
+                c.setRadialDistortionRed(vec4);
+                //            c.radDistRed[3] = 1 - c.radDistRed[0] - c.radDistRed[1] - c.radDistRed[2];
+                break;
+            case 'g':
+                if (sscanf(optarg, "%lf:%lf:%lf:%lf", &vec4[0], &vec4[1], &vec4[2], &vec4[3]) != 4)
+                {
+                    std::cerr << std::endl << "Error: invalid -g argument" << std::endl <<std::endl;
+                    usage(argv[0]);
+                    return 1;
+                }
+                c.setRadialDistortion(vec4);
+                //            c.radDistBlue[3] = 1 - c.radDistBlue[0] - c.radDistBlue[1] - c.radDistBlue[2];
+                break;
+            case 'b':
+                if (sscanf(optarg, "%lf:%lf:%lf:%lf", &vec4[0], &vec4[1], &vec4[2], &vec4[3]) != 4)
+                {
+                    std::cerr << std::endl << "Error: invalid -b argument" << std::endl <<std::endl;
+                    usage(argv[0]);
+                    return 1;
+                }
+                c.setRadialDistortionBlue(vec4);
+                //            c.radDistBlue[3] = 1 - c.radDistBlue[0] - c.radDistBlue[1] - c.radDistBlue[2];
+                break;
+            case 's':
+                doCropBorders = false;
+                break;
+            case 'f':
+                c.setFlatfieldFilename(optarg);
+                doFlatfield = true;
+                break;
+            case 'i':
+                gamma = atof(optarg);
+                c.setGamma(gamma);
+                break;
+            case 'p':
+                doPTLens = true;
+                break;
+            case 'm':
+                cameraMaker = optarg;
+                doPTLens = true;
+                break;
+            case 'n':
+                cameraName = optarg;
+                doPTLens = true;
+                break;
+            case 'l':
+                lensName = optarg;
+                doPTLens = true;
+                break;
+            case 'd':
+                focalLength = atof(optarg);
+                doPTLens = true;
+                break;
+            case 'c':
+                if (sscanf(optarg, "%lf:%lf:%lf:%lf", &vec4[0], &vec4[1], &vec4[2], &vec4[3]) !=4)
+                {
+                    std::cerr << std::endl << "Error: invalid -c argument" << std::endl <<std::endl;
+                    usage(argv[0]);
+                    return 1;
+                }
+                c.setRadialVigCorrCoeff(vec4);
+                doVigRadial=true;
+                break;
+            case '?':
+            case 'h':
                 usage(argv[0]);
-                return 1;
-            }
-            c.setRadialDistortionRed(vec4);
-//            c.radDistRed[3] = 1 - c.radDistRed[0] - c.radDistRed[1] - c.radDistRed[2];
-            break;
-        case 'g':
-            if (sscanf(optarg, "%lf:%lf:%lf:%lf", &vec4[0], &vec4[1], &vec4[2], &vec4[3]) != 4)
-            {
-                std::cerr << std::endl << "Error: invalid -g argument" << std::endl <<std::endl;
-                usage(argv[0]);
-                return 1;
-            }
-            c.setRadialDistortion(vec4);
-            //            c.radDistBlue[3] = 1 - c.radDistBlue[0] - c.radDistBlue[1] - c.radDistBlue[2];
-            break;
-        case 'b':
-            if (sscanf(optarg, "%lf:%lf:%lf:%lf", &vec4[0], &vec4[1], &vec4[2], &vec4[3]) != 4)
-            {
-                std::cerr << std::endl << "Error: invalid -b argument" << std::endl <<std::endl;
-                usage(argv[0]);
-                return 1;
-            }
-            c.setRadialDistortionBlue(vec4);
-            //            c.radDistBlue[3] = 1 - c.radDistBlue[0] - c.radDistBlue[1] - c.radDistBlue[2];
-            break;
-        case 's':
-            doCropBorders = false;
-            break;
-        case 'f':
-            c.setFlatfieldFilename(optarg);
-            doFlatfield = true;
-            break;
-        case 'i':
-            gamma = atof(optarg);
-            c.setGamma(gamma);
-            break;
-        case 'p':
-            doPTLens = true;
-            break;
-        case 'm':
-            cameraMaker = optarg;
-            doPTLens = true;
-            break;
-        case 'n':
-            cameraName = optarg;
-            doPTLens = true;
-            break;
-        case 'l':
-            lensName = optarg;
-            doPTLens = true;
-            break;
-        case 'd':
-            focalLength = atof(optarg);
-            doPTLens = true;
-            break;
-        case 'c':
-            if (sscanf(optarg, "%lf:%lf:%lf:%lf", &vec4[0], &vec4[1], &vec4[2], &vec4[3]) !=4)
-            {
-                std::cerr << std::endl << "Error: invalid -c argument" << std::endl <<std::endl;
-                usage(argv[0]);
-                return 1;
-            }
-            c.setRadialVigCorrCoeff(vec4);
-            doVigRadial=true;
-            break;
-        case '?':
-        case 'h':
-            usage(argv[0]);
-            return 0;
-        case 't':
-            nThreads = atoi(optarg);
-            break;
-        case 'o':
-            outputFile = optarg;
-            break;
-        case 'x':
-            if (sscanf(optarg, "%lf:%lf", &shiftX, &shiftY) != 2)
-            {
-                std::cerr << std::endl << "Error: invalid -x argument" << std::endl <<std::endl;
-                usage(argv[0]);
-                return 1;
-            }
-	    c.setRadialDistortionCenterShift(FDiff2D(shiftX, shiftY));
-            break;
-        case 'v':
-            verbose++;
-            break;
-        default:
-            abort ();
+                return 0;
+            case 't':
+                nThreads = atoi(optarg);
+                break;
+            case 'o':
+                outputFile = optarg;
+                break;
+            case 'x':
+                if (sscanf(optarg, "%lf:%lf", &shiftX, &shiftY) != 2)
+                {
+                    std::cerr << std::endl << "Error: invalid -x argument" << std::endl <<std::endl;
+                    usage(argv[0]);
+                    return 1;
+                }
+                c.setRadialDistortionCenterShift(FDiff2D(shiftX, shiftY));
+                break;
+            case 'v':
+                verbose++;
+                break;
+            default:
+                abort ();
         }
 
-    if (doVigRadial && doFlatfield) {
+    if (doVigRadial && doFlatfield)
+    {
         std::cerr << std::endl << "Error: cannot use -f and -c at the same time" << std::endl <<std::endl;
         usage(argv[0]);
         return 1;
@@ -257,16 +259,21 @@ int main(int argc, char *argv[])
 
     SrcPanoImage::VignettingCorrMode vm=SrcPanoImage::VIGCORR_NONE;
 
-    if (doVigRadial) 
+    if (doVigRadial)
+    {
         vm = SrcPanoImage::VIGCORR_RADIAL;
+    }
     if (doFlatfield)
+    {
         vm = SrcPanoImage::VIGCORR_FLATFIELD;
+    }
 
     vm = (SrcPanoImage::VignettingCorrMode) (vm | SrcPanoImage::VIGCORR_DIV);
     c.setVigCorrMode(vm);
 
     unsigned nFiles = argc - optind;
-    if (nFiles == 0) {
+    if (nFiles == 0)
+    {
         std::cerr << std::endl << "Error: No input file(s) specified" << std::endl <<std::endl;
         usage(argv[0]);
         return 1;
@@ -275,22 +282,30 @@ int main(int argc, char *argv[])
     // get input images.
     vector<string> inFiles;
     vector<string> outFiles;
-    if (nFiles == 1) {
-        if (outputFile.length() !=0) {
+    if (nFiles == 1)
+    {
+        if (outputFile.length() !=0)
+        {
             inFiles.push_back(string(argv[optind]));
             outFiles.push_back(outputFile);
-        } else {
+        }
+        else
+        {
             string name = string(argv[optind]);
             inFiles.push_back(name);
             string basen = stripExtension(name);
             outFiles.push_back(basen.append(batchPostfix.append(".").append(getExtension(name))));
         }
-    } else {
+    }
+    else
+    {
         // multiple files
-        if (outputFile.length() != 0) {
+        if (outputFile.length() != 0)
+        {
             batchPostfix = outputFile;
         }
-        for (int i = optind; i < argc; i++) {
+        for (int i = optind; i < argc; i++)
+        {
             string name = string(argv[i]);
             inFiles.push_back(name);
             outFiles.push_back(stripExtension(name) + batchPostfix + "." + getExtension(name));
@@ -303,60 +318,83 @@ int main(int argc, char *argv[])
 
     AppBase::StreamMultiProgressDisplay pdisp(cout);
 
-    if (nThreads == 0) nThreads = 1;
+    if (nThreads == 0)
+    {
+        nThreads = 1;
+    }
     vigra_ext::ThreadManager::get().setNThreads(nThreads);
 
-    try {
+    try
+    {
         vector<string>::iterator outIt = outFiles.begin();
         for (vector<string>::iterator inIt = inFiles.begin(); inIt != inFiles.end() ; ++inIt, ++outIt)
         {
-            if (verbose > 0) {
+            if (verbose > 0)
+            {
                 cerr << "Correcting " << *inIt << " -> " << *outIt << endl;
             }
             c.setFilename(*inIt);
 
             // load the input image
             vigra::ImageImportInfo info(inIt->c_str());
-            const char * pixelType = info.getPixelType();
+            const char* pixelType = info.getPixelType();
             int bands = info.numBands();
             int extraBands = info.numExtraBands();
 
             // if ptlens support required, load database
-            if (doPTLens) {
+            if (doPTLens)
+            {
                 if (getPTLensCoef(inIt->c_str(), cameraMaker, cameraName,
-                    lensName, focalLength, vec4)) 
+                                  lensName, focalLength, vec4))
                 {
                     c.setRadialDistortion(vec4);
-                } else {
+                }
+                else
+                {
                     cerr << "Error: could not extract correction parameters from PTLens database" << endl;
                     return 1;
                 }
             }
             c.setSize(info.size());
             // stitch the pano with a suitable image type
-            if (bands == 3 || (bands == 4 && extraBands == 1)) {
+            if (bands == 3 || (bands == 4 && extraBands == 1))
+            {
                 // TODO: add more cases
-                if (strcmp(pixelType, "UINT8") == 0) {
+                if (strcmp(pixelType, "UINT8") == 0)
+                {
                     correctRGB<RGBValue<UInt8> >(c, info, outIt->c_str(), doCropBorders, compression, pdisp);
                 }
-                else if (strcmp(pixelType, "UINT16") == 0) {
+                else if (strcmp(pixelType, "UINT16") == 0)
+                {
                     correctRGB<RGBValue<UInt16> >(c, info, outIt->c_str(), doCropBorders, compression, pdisp);
-                } else if (strcmp(pixelType, "INT16") == 0) {
+                }
+                else if (strcmp(pixelType, "INT16") == 0)
+                {
                     correctRGB<RGBValue<Int16> >(c, info, outIt->c_str(), doCropBorders, compression, pdisp);
-                } else if (strcmp(pixelType, "UINT32") == 0) {
+                }
+                else if (strcmp(pixelType, "UINT32") == 0)
+                {
                     correctRGB<RGBValue<UInt32> >(c, info, outIt->c_str(), doCropBorders, compression, pdisp);
-                } else if (strcmp(pixelType, "FLOAT") == 0) {
+                }
+                else if (strcmp(pixelType, "FLOAT") == 0)
+                {
                     correctRGB<RGBValue<float> >(c, info, outIt->c_str(), doCropBorders, compression, pdisp);
-                } else if (strcmp(pixelType, "DOUBLE") == 0) {
+                }
+                else if (strcmp(pixelType, "DOUBLE") == 0)
+                {
                     correctRGB<RGBValue<double> >(c, info, outIt->c_str(), doCropBorders, compression, pdisp);
                 }
-            } else {
+            }
+            else
+            {
                 DEBUG_ERROR("unsupported depth, only 3 channel images are supported");
                 throw std::runtime_error("unsupported depth, only 3 channels images are supported");
                 return 1;
             }
         }
-    } catch (std::exception & e) {
+    }
+    catch (std::exception& e)
+    {
         cerr << "caught exception: " << e.what() << std::endl;
         return 1;
     }
@@ -372,13 +410,13 @@ int main(int argc, char *argv[])
  *
  */
 template <class SrcImgType, class FlatImgType, class DestImgType>
-void correctImage(SrcImgType & srcImg,
-                  const FlatImgType & srcFlat,
+void correctImage(SrcImgType& srcImg,
+                  const FlatImgType& srcFlat,
                   SrcPanoImage src,
                   vigra_ext::Interpolator interpolator,
-                  DestImgType & destImg,
+                  DestImgType& destImg,
                   bool doCrop,
-                  AppBase::MultiProgressDisplay & progress)
+                  AppBase::MultiProgressDisplay& progress)
 {
     typedef typename SrcImgType::value_type SrcPixelType;
     typedef typename DestImgType::value_type DestPixelType;
@@ -389,15 +427,16 @@ void correctImage(SrcImgType & srcImg,
     progress.pushTask(AppBase::ProgressTask("correcting image", ""));
 
     vigra::Diff2D shiftXY(- roundi(src.getRadialDistortionCenterShift().x),
-			  - roundi(src.getRadialDistortionCenterShift().y));
+                          - roundi(src.getRadialDistortionCenterShift().y));
 
     if( (src.getVigCorrMode() & SrcPanoImage::VIGCORR_FLATFIELD)
-        || (src.getVigCorrMode() & SrcPanoImage::VIGCORR_RADIAL) )
+            || (src.getVigCorrMode() & SrcPanoImage::VIGCORR_RADIAL) )
     {
         src.setResponseType(HuginBase::SrcPanoImage::RESPONSE_LINEAR);
         Photometric::InvResponseTransform<SrcPixelType,SrcPixelType> invResp(src);
-	    invResp.enforceMonotonicity();
-        if (src.getVigCorrMode() & SrcPanoImage::VIGCORR_FLATFIELD) {
+        invResp.enforceMonotonicity();
+        if (src.getVigCorrMode() & SrcPanoImage::VIGCORR_FLATFIELD)
+        {
             invResp.setFlatfield(&srcFlat);
         }
         vigra_ext::transformImageSpatial(srcImageRange(srcImg), destImage(srcImg), invResp, vigra::Diff2D(0,0));
@@ -405,12 +444,14 @@ void correctImage(SrcImgType & srcImg,
 
     double scaleFactor=1.0;
     // radial distortion correction
-    if (doCrop) {
+    if (doCrop)
+    {
         scaleFactor=Nona::estScaleFactorForFullFrame(src);
         DEBUG_DEBUG("Black border correction scale factor: " << scaleFactor);
         double sf=scaleFactor;
         vector<double> radGreen = src.getRadialDistortion();
-        for (int i=0; i < 4; i++) {
+        for (int i=0; i < 4; i++)
+        {
             radGreen[3-i] *=sf;
             sf *=scaleFactor;
         }
@@ -433,27 +474,33 @@ void correctImage(SrcImgType & srcImg,
         // remap individual channels
         Nona::SpaceTransform transfr;
         transfr.InitRadialCorrect(src, 0);
-        if (transfr.isIdentity()) {
+        if (transfr.isIdentity())
+        {
             vigra::copyImage(srcIterRange(srcImg.upperLeft(), srcImg.lowerRight(), RedAccessor<SrcPixelType>()),
                              destIter(destImg.upperLeft(), RedAccessor<DestPixelType>()));
-        } else {
+        }
+        else
+        {
             vigra_ext::transformImage(srcIterRange(srcImg.upperLeft(), srcImg.lowerRight(), RedAccessor<SrcPixelType>()),
-                           destIterRange(destImg.upperLeft(), destImg.lowerRight(), RedAccessor<DestPixelType>()),
-                           destImage(alpha),
-                           shiftXY,
-                           transfr,
-                           ptf,
-                           false,
-                           vigra_ext::INTERP_SPLINE_16,
-                           progress);
+                                      destIterRange(destImg.upperLeft(), destImg.lowerRight(), RedAccessor<DestPixelType>()),
+                                      destImage(alpha),
+                                      shiftXY,
+                                      transfr,
+                                      ptf,
+                                      false,
+                                      vigra_ext::INTERP_SPLINE_16,
+                                      progress);
         }
 
         Nona::SpaceTransform transfg;
         transfg.InitRadialCorrect(src, 1);
-        if (transfg.isIdentity()) {
+        if (transfg.isIdentity())
+        {
             vigra::copyImage(srcIterRange(srcImg.upperLeft(), srcImg.lowerRight(), GreenAccessor<SrcPixelType>()),
                              destIter(destImg.upperLeft(), GreenAccessor<DestPixelType>()));
-        } else {
+        }
+        else
+        {
             transformImage(srcIterRange(srcImg.upperLeft(), srcImg.lowerRight(), GreenAccessor<SrcPixelType>()),
                            destIterRange(destImg.upperLeft(), destImg.lowerRight(), GreenAccessor<DestPixelType>()),
                            destImage(alpha),
@@ -467,10 +514,13 @@ void correctImage(SrcImgType & srcImg,
 
         Nona::SpaceTransform transfb;
         transfb.InitRadialCorrect(src, 2);
-        if (transfb.isIdentity()) {
+        if (transfb.isIdentity())
+        {
             vigra::copyImage(srcIterRange(srcImg.upperLeft(), srcImg.lowerRight(), BlueAccessor<SrcPixelType>()),
                              destIter(destImg.upperLeft(), BlueAccessor<DestPixelType>()));
-        } else {
+        }
+        else
+        {
             transformImage(srcIterRange(srcImg.upperLeft(), srcImg.lowerRight(), BlueAccessor<SrcPixelType>()),
                            destIterRange(destImg.upperLeft(), destImg.lowerRight(), BlueAccessor<DestPixelType>()),
                            destImage(alpha),
@@ -481,17 +531,21 @@ void correctImage(SrcImgType & srcImg,
                            vigra_ext::INTERP_SPLINE_16,
                            progress);
         }
-    } else {
+    }
+    else
+    {
         // remap with the same coefficient.
         Nona::SpaceTransform transf;
         transf.InitRadialCorrect(src, 1);
         vector <double> radCoeff = src.getRadialDistortion();
-        if (transf.isIdentity() || 
-            (radCoeff[0] == 0.0 && radCoeff[1] == 0.0 && radCoeff[2] == 0.0 && radCoeff[3] == 1.0))
+        if (transf.isIdentity() ||
+                (radCoeff[0] == 0.0 && radCoeff[1] == 0.0 && radCoeff[2] == 0.0 && radCoeff[3] == 1.0))
         {
             vigra::copyImage(srcImageRange(srcImg),
                              destImage(destImg));
-        } else {
+        }
+        else
+        {
             vigra_ext::PassThroughFunctor<SrcPixelType> ptfRGB;
             transformImage(srcImageRange(srcImg),
                            destImageRange(destImg),
@@ -509,14 +563,15 @@ void correctImage(SrcImgType & srcImg,
 
 //void correctRGB(SrcImageInfo & src, ImageImportInfo & info, const char * outfile)
 template <class PIXELTYPE>
-void correctRGB(SrcPanoImage & src, ImageImportInfo & info, const char * outfile,
-                bool crop, const std::string & compression, AppBase::MultiProgressDisplay & progress)
+void correctRGB(SrcPanoImage& src, ImageImportInfo& info, const char* outfile,
+                bool crop, const std::string& compression, AppBase::MultiProgressDisplay& progress)
 {
     vigra::BasicImage<RGBValue<float> > srcImg(info.size());
     vigra::BasicImage<PIXELTYPE> output(info.size());
     importImage(info, destImage(srcImg));
     FImage flatfield;
-    if (src.getVigCorrMode() & SrcPanoImage::VIGCORR_FLATFIELD) {
+    if (src.getVigCorrMode() & SrcPanoImage::VIGCORR_FLATFIELD)
+    {
         ImageImportInfo finfo(src.getFlatfieldFilename().c_str());
         flatfield.resize(finfo.size());
         importImage(finfo, destImage(flatfield));
@@ -525,29 +580,31 @@ void correctRGB(SrcPanoImage & src, ImageImportInfo & info, const char * outfile
     ImageExportInfo outInfo(outfile);
     outInfo.setICCProfile(info.getICCProfile());
     outInfo.setPixelType(info.getPixelType());
-    if (compression.size() > 0) {
+    if (compression.size() > 0)
+    {
         outInfo.setCompression(compression.c_str());
     }
     exportImage(srcImageRange(output), outInfo);
 }
 
 
-bool getPTLensCoef(const char * fn, string cameraMaker, string cameraName,
-                   string lensName, float focalLength, vector<double> & coeff)
+bool getPTLensCoef(const char* fn, string cameraMaker, string cameraName,
+                   string lensName, float focalLength, vector<double>& coeff)
 {
     int verbose_flag = 1;
-    const char * profilePath = getenv("PTLENS_PROFILE");
+    const char* profilePath = getenv("PTLENS_PROFILE");
     if (profilePath == NULL)
     {
         cerr << "ERROR: " << endl
-                << " You need to specify the location of \"profile.txt\"." << endl
-                << " Please set the PTLENS_PROFILE environment variable, for example:" << endl
-                << " PTLENS_PROFILE=$HOME/.ptlens/profile.txt" << endl;
+             << " You need to specify the location of \"profile.txt\"." << endl
+             << " Please set the PTLENS_PROFILE environment variable, for example:" << endl
+             << " PTLENS_PROFILE=$HOME/.ptlens/profile.txt" << endl;
         return false;
     }
-            // load database from file
-    PTLDB_DB * db = PTLDB_readDB(profilePath);
-    if (! db) {
+    // load database from file
+    PTLDB_DB* db = PTLDB_readDB(profilePath);
+    if (! db)
+    {
         fprintf(stderr,"Failed to read PTLens profile: %s\n", profilePath);
         return false;
     }
@@ -558,34 +615,41 @@ bool getPTLensCoef(const char * fn, string cameraMaker, string cameraName,
     assert (image.get() != 0);
     image->readMetadata();
 
-    Exiv2::ExifData &exifData = image->exifData();
-    if (exifData.empty()) {
+    Exiv2::ExifData& exifData = image->exifData();
+    if (exifData.empty())
+    {
         std::cout << fn << ": no EXIF data found in file" << std::endl;
-    } else {
-        if (cameraMaker.size() == 0) {
+    }
+    else
+    {
+        if (cameraMaker.size() == 0)
+        {
             cameraMaker = exifData["Exif.Image.Make"].toString();
         }
-        if (cameraName.size() == 0) {
+        if (cameraName.size() == 0)
+        {
             cameraName = exifData["Exif.Image.Model"].toString();
         }
-        if (focalLength == 0.0f) {
+        if (focalLength == 0.0f)
+        {
             focalLength = exifData["Exif.Photo.FocalLength"].toFloat();
         }
     }
 
 
     // TODO: Replace this with lensfun
-    PTLDB_CamNode * thisCamera = PTLDB_findCamera(db, cameraMaker.c_str(), cameraName.c_str());
-    if (!thisCamera) {
+    PTLDB_CamNode* thisCamera = PTLDB_findCamera(db, cameraMaker.c_str(), cameraName.c_str());
+    if (!thisCamera)
+    {
         fprintf(stderr, "could not find camera: %s, %s\n", cameraMaker.c_str(), cameraName.c_str());
         return false;
     }
-    PTLDB_LnsNode * thisLens = PTLDB_findLens(db, lensName.c_str(), thisCamera);
+    PTLDB_LnsNode* thisLens = PTLDB_findLens(db, lensName.c_str(), thisCamera);
     if (thisLens == NULL)
     {
         fprintf(stderr, "Lens \"%s\" not found in database.\n", lensName.c_str());
         fprintf(stderr,"Available lenses for camera: %s\n", thisCamera->menuModel);
-        PTLDB_LnsNode * lenses = PTLDB_findLenses(db, thisCamera);
+        PTLDB_LnsNode* lenses = PTLDB_findLenses(db, thisCamera);
         while (lenses != NULL)
         {
             fprintf(stderr,"%s\n", lenses->menuLens);

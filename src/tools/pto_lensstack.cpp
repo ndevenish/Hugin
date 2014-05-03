@@ -71,7 +71,7 @@ void ParseSingleImage(ParseImgVec& varVec, std::string s, std::string regExpress
             {
                 var.imgNr=-1;
             };
-                // read lens/stack number
+            // read lens/stack number
             if(matches.size()>2)
             {
                 temp=std::string(matches[2].first, matches[2].second);
@@ -97,7 +97,7 @@ void ParseImageLensStackString(ParseImgVec& parseVec, std::string input, std::st
 {
     std::vector<std::string> splitResult;
     boost::algorithm::split(splitResult, input, boost::algorithm::is_any_of(", "), boost::algorithm::token_compress_on);
-    for(size_t i=0; i<splitResult.size();i++)
+    for(size_t i=0; i<splitResult.size(); i++)
     {
         ParseSingleImage(parseVec, splitResult[i], regExpression);
     };
@@ -111,9 +111,9 @@ void NewPart(Panorama& pano, std::set<HuginBase::ImageVariableGroup::ImageVariab
         switch (*it)
         {
 #define image_variable( name, type, default_value )\
-            case HuginBase::ImageVariableGroup::IVE_##name:\
-                pano.unlinkImageVariable##name(imgNr);\
-                break;
+case HuginBase::ImageVariableGroup::IVE_##name:\
+    pano.unlinkImageVariable##name(imgNr);\
+    break;
 #include <panodata/image_variables.h>
 #undef image_variable
         }
@@ -134,14 +134,14 @@ static void usage(const char* name)
          << "     --new-stack imglist     Assign to given images a new stack number" << endl
          << "                               Examples:" << endl
          << "           --new-lens i2          Image 2 gets a new lens" << endl
-         << "           --new-stack i4,i5      Images 4 and 5 get a new stack" << endl    
+         << "           --new-stack i4,i5      Images 4 and 5 get a new stack" << endl
          << endl
          << "     --change-lens imglist   Assign to given images a new lens number" << endl
          << "     --change-stack imglist  Assign to given images a new stack number" << endl
          << "                               Examples:" << endl
          << "           --change-lens i2=0      Image 2 is assigned lens number 0" << endl
          << "           --change-stack i4=0,i5=1   Image 4 is assigned to stack 0," << endl
-         << "                                      image 5 to stack number 1" << endl    
+         << "                                      image 5 to stack number 1" << endl
          << endl;
 }
 

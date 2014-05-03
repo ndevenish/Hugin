@@ -262,36 +262,42 @@ int main(int argc, char* argv[])
                 maskWidth=maskImageSize.height();
                 maskHeight=maskImageSize.width();
                 bool clockwise=(rotate==1);
-                for(unsigned int i=0;i<loadedMasks.size();i++)
+                for(unsigned int i=0; i<loadedMasks.size(); i++)
+                {
                     loadedMasks[i].rotate90(clockwise, maskImageSize.width(), maskImageSize.height());
+                }
             };
             // compare image size from file with that of current image alert user
             // if different.
             vigra::Size2D imageSize=pano.getImage(maskFiles[i].imageNr).getSize();
-            if (maskImageSize != imageSize) 
+            if (maskImageSize != imageSize)
             {
                 switch(process)
                 {
                     case 0:
                         // clip mask
                         cout << "Clipping mask" << endl;
-                        for(unsigned int i=0;i<loadedMasks.size();i++)
+                        for(unsigned int i=0; i<loadedMasks.size(); i++)
                             loadedMasks[i].clipPolygon(vigra::Rect2D(-0.5*HuginBase::maskOffset, -0.5*HuginBase::maskOffset,
-                                imageSize.width()+0.5*HuginBase::maskOffset, imageSize.height()+0.5*HuginBase::maskOffset));
+                                                       imageSize.width()+0.5*HuginBase::maskOffset, imageSize.height()+0.5*HuginBase::maskOffset));
                         break;
                     case 1:
                         // scale mask
                         cout << "Scaling mask" << endl;
-                        for(unsigned int i=0;i<loadedMasks.size();i++)
+                        for(unsigned int i=0; i<loadedMasks.size(); i++)
+                        {
                             loadedMasks[i].scale((double)imageSize.width()/maskWidth,(double)imageSize.height()/maskHeight);
+                        }
                         break;
                     case 2:
                         // proportional scale mask
                         cout << "Propotional scale mask" << endl;
                         {
                             double factor=std::min((double)imageSize.width()/maskWidth, (double)imageSize.height()/maskHeight);
-                            for(unsigned int i=0;i<loadedMasks.size();i++)
+                            for(unsigned int i=0; i<loadedMasks.size(); i++)
+                            {
                                 loadedMasks[i].scale(factor);
+                            }
                         };
                         break;
                 };

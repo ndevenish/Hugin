@@ -40,7 +40,7 @@ using namespace std;
 using namespace HuginBase;
 using namespace AppBase;
 
-// check if given point x,y is inside both images img1 and img2, 
+// check if given point x,y is inside both images img1 and img2,
 // using PTools::Tranform object to prevent creating of this transform for each point
 bool CheckAndAddPoint(Panorama& pano, size_t img1, size_t img2, PTools::Transform& transform1, PTools::Transform& transform2, double x, double y)
 {
@@ -252,8 +252,8 @@ void SetGeometricControlPointsOverlap(Panorama& pano, const int minOverlap)
                 for(CPVector::const_iterator it=cp.begin(); it!=cp.end(); ++it)
                 {
                     if(((it->image1Nr==i && it->image2Nr==j) ||
-                        (it->image1Nr==j && it->image2Nr==i) ) &&
-                       (it->mode==ControlPoint::X_Y))
+                            (it->image1Nr==j && it->image2Nr==i) ) &&
+                            (it->mode==ControlPoint::X_Y))
                     {
                         hasControlPoints=true;
                         break;

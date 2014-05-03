@@ -51,7 +51,10 @@ namespace Parser
 struct lazy_pow_
 {
     template <typename X, typename Y>
-    struct result { typedef X type; };
+    struct result
+    {
+        typedef X type;
+    };
 
     template <typename X, typename Y>
     X operator()(X x, Y y) const
@@ -64,7 +67,10 @@ struct lazy_pow_
 struct lazy_mod_
 {
     template <typename X, typename Y>
-    struct result { typedef X type; };
+    struct result
+    {
+        typedef X type;
+    };
 
     template <typename X, typename Y>
     X operator()(X x, Y y) const
@@ -77,7 +83,10 @@ struct lazy_mod_
 struct lazy_if_
 {
     template <typename X, typename Y, typename Z>
-    struct result { typedef Y type; };
+    struct result
+    {
+        typedef Y type;
+    };
 
     template <typename X, typename Y, typename Z>
     X operator()(X x, Y y, Z z) const
@@ -90,7 +99,10 @@ struct lazy_if_
 struct lazy_ufunc_
 {
     template <typename F, typename A1>
-    struct result { typedef A1 type; };
+    struct result
+    {
+        typedef A1 type;
+    };
 
     template <typename F, typename A1>
     A1 operator()(F f, A1 a1) const
@@ -119,120 +131,120 @@ struct grammar:boost::spirit::qi::grammar<std::string::const_iterator, double(),
     struct constant_ : boost::spirit::qi::symbols<char, double>
     {
         constant_(const ConstantMap constMap)
+{
+    this->add("pi", boost::math::constants::pi<double>());
+    if(constMap.size()>0)
+    {
+        for(ConstantMap::const_iterator it=constMap.begin(); it!=constMap.end(); it++)
         {
-            this->add("pi", boost::math::constants::pi<double>());
-            if(constMap.size()>0)
-            {
-                for(ConstantMap::const_iterator it=constMap.begin(); it!=constMap.end(); it++)
-                {
-                    this->add(it->first, it->second); 
-                };
-            };
+            this->add(it->first, it->second);
         };
     };
-
-    // symbol table for unary functions like "abs"
-    struct ufunc_  : boost::spirit::qi::symbols<char, double(*)(double) >
-    {
-        ufunc_()
-        {
-            this->add
-                ("abs"   , (double (*)(double)) std::abs  )
-                ("acos"  , (double (*)(double)) std::acos )
-                ("asin"  , (double (*)(double)) std::asin )
-                ("atan"  , (double (*)(double)) std::atan )
-                ("ceil"  , (double (*)(double)) std::ceil )
-                ("sin"   , (double (*)(double)) std::sin  )
-                ("cos"   , (double (*)(double)) std::cos  )
-                ("tan"   , (double (*)(double)) std::tan  )
-                ("exp"   , (double (*)(double)) std::exp  )
-                ("floor" , (double (*)(double)) std::floor)
-                ("sqrt"  , (double (*)(double)) std::sqrt )
-                ("deg"   , (double (*)(double)) deg  )
-                ("rad"   , (double (*)(double)) rad  )
-            ;
-        }
-    } ufunc;
-
-    boost::spirit::qi::rule<std::string::const_iterator, double(), boost::spirit::ascii::space_type> expression, term, factor, primary, compExpression, compTerm, numExpression;
-
-    grammar(const ConstantMap constMap) : grammar::base_type(expression)
-    {
-        using boost::spirit::qi::real_parser;
-        using boost::spirit::qi::real_policies;
-        real_parser<double,real_policies<double> > real;
-
-        using boost::spirit::qi::_1;
-        using boost::spirit::qi::_2;
-        using boost::spirit::qi::_3;
-        using boost::spirit::qi::no_case;
-        using boost::spirit::qi::_val;
-        struct constant_ constant(constMap);
-
-        boost::phoenix::function<lazy_pow_>   lazy_pow;
-        boost::phoenix::function<lazy_mod_>   lazy_mod;
-        boost::phoenix::function<lazy_if_>    lazy_if;
-        boost::phoenix::function<lazy_ufunc_> lazy_ufunc;
-
-        expression = 
-            (compExpression >> '\?' >> compExpression >> ':' >> compExpression) [_val = lazy_if(_1, _2, _3)]
-            | compExpression [_val=_1]
-            ;
-        
-        compExpression=
-            compTerm  [_val=_1]
-            >> * ( ("&&" >> compTerm [_val = _val && _1] )
-                  |("||" >> compTerm [_val = _val || _1] )
-                 )
-            ;
-
-        compTerm =
-            numExpression                [_val = _1        ]
-            >>*( ( '<'  >> numExpression [_val = _val <  _1])
-                |( '>'  >> numExpression [_val = _val >  _1])
-                |( "<=" >> numExpression [_val = _val <= _1])
-                |( ">=" >> numExpression [_val = _val >= _1])
-                |( "==" >> numExpression [_val = _val == _1])
-                |( "!=" >> numExpression [_val = _val != _1])
-               )
-            ;
-
-        numExpression =
-            term                   [_val =  _1]
-            >> *(  ('+' >> term    [_val += _1])
-                |  ('-' >> term    [_val -= _1])
-                )
-            ;
-
-        term =
-            factor                 [_val =  _1]
-            >> *(  ('*' >> factor  [_val *= _1])
-                |  ('/' >> factor  [_val /= _1])
-                |  ('%' >> factor  [_val = lazy_mod(_val, _1)])
-                )
-            ;
-
-        factor =
-            primary                [_val =  _1]
-            >> *(  ('^' >> factor [_val = lazy_pow(_val, _1)]) )
-            ;
-
-        primary =
-            real                   [_val =  _1]
-            |  '(' >> expression   [_val =  _1] >> ')'
-            |  ('-' >> primary     [_val = -_1])
-            |  ('+' >> primary     [_val =  _1])
-            |  no_case[constant]   [_val =  _1]
-            |  (no_case[ufunc] >> '(' >> expression >> ')') [_val = lazy_ufunc(_1, _2) ]
-            ;
-
+};
     };
+
+// symbol table for unary functions like "abs"
+struct ufunc_  : boost::spirit::qi::symbols<char, double(*)(double) >
+{
+    ufunc_()
+{
+    this->add
+    ("abs"   , (double (*)(double)) std::abs  )
+    ("acos"  , (double (*)(double)) std::acos )
+    ("asin"  , (double (*)(double)) std::asin )
+    ("atan"  , (double (*)(double)) std::atan )
+    ("ceil"  , (double (*)(double)) std::ceil )
+    ("sin"   , (double (*)(double)) std::sin  )
+    ("cos"   , (double (*)(double)) std::cos  )
+    ("tan"   , (double (*)(double)) std::tan  )
+    ("exp"   , (double (*)(double)) std::exp  )
+    ("floor" , (double (*)(double)) std::floor)
+    ("sqrt"  , (double (*)(double)) std::sqrt )
+    ("deg"   , (double (*)(double)) deg  )
+    ("rad"   , (double (*)(double)) rad  )
+    ;
+}
+} ufunc;
+
+boost::spirit::qi::rule<std::string::const_iterator, double(), boost::spirit::ascii::space_type> expression, term, factor, primary, compExpression, compTerm, numExpression;
+
+grammar(const ConstantMap constMap) : grammar::base_type(expression)
+{
+    using boost::spirit::qi::real_parser;
+    using boost::spirit::qi::real_policies;
+    real_parser<double,real_policies<double> > real;
+
+    using boost::spirit::qi::_1;
+    using boost::spirit::qi::_2;
+    using boost::spirit::qi::_3;
+    using boost::spirit::qi::no_case;
+    using boost::spirit::qi::_val;
+    struct constant_ constant(constMap);
+
+    boost::phoenix::function<lazy_pow_>   lazy_pow;
+    boost::phoenix::function<lazy_mod_>   lazy_mod;
+    boost::phoenix::function<lazy_if_>    lazy_if;
+    boost::phoenix::function<lazy_ufunc_> lazy_ufunc;
+
+    expression =
+        (compExpression >> '\?' >> compExpression >> ':' >> compExpression) [_val = lazy_if(_1, _2, _3)]
+        | compExpression [_val=_1]
+        ;
+
+    compExpression=
+        compTerm  [_val=_1]
+        >> * ( ("&&" >> compTerm [_val = _val && _1] )
+               |("||" >> compTerm [_val = _val || _1] )
+             )
+        ;
+
+    compTerm =
+        numExpression                [_val = _1        ]
+        >>*( ( '<'  >> numExpression [_val = _val <  _1])
+             |( '>'  >> numExpression [_val = _val >  _1])
+             |( "<=" >> numExpression [_val = _val <= _1])
+             |( ">=" >> numExpression [_val = _val >= _1])
+             |( "==" >> numExpression [_val = _val == _1])
+             |( "!=" >> numExpression [_val = _val != _1])
+           )
+        ;
+
+    numExpression =
+        term                   [_val =  _1]
+        >> *(  ('+' >> term    [_val += _1])
+               |  ('-' >> term    [_val -= _1])
+            )
+        ;
+
+    term =
+        factor                 [_val =  _1]
+        >> *(  ('*' >> factor  [_val *= _1])
+               |  ('/' >> factor  [_val /= _1])
+               |  ('%' >> factor  [_val = lazy_mod(_val, _1)])
+            )
+        ;
+
+    factor =
+        primary                [_val =  _1]
+        >> *(  ('^' >> factor [_val = lazy_pow(_val, _1)]) )
+        ;
+
+    primary =
+        real                   [_val =  _1]
+        |  '(' >> expression   [_val =  _1] >> ')'
+        |  ('-' >> primary     [_val = -_1])
+        |  ('+' >> primary     [_val =  _1])
+        |  no_case[constant]   [_val =  _1]
+        |  (no_case[ufunc] >> '(' >> expression >> ')') [_val = lazy_ufunc(_1, _2) ]
+        ;
+
+};
 };
 
 //template <typename ParserType, typename Iterator>
-bool parse(std::string::const_iterator &iter,
+bool parse(std::string::const_iterator& iter,
            std::string::const_iterator end,
-           const grammar &g,
+           const grammar& g,
            double& result)
 {
     if(!boost::spirit::qi::phrase_parse(iter, end, g, boost::spirit::ascii::space, result))
@@ -244,13 +256,13 @@ bool parse(std::string::const_iterator &iter,
 }
 
 // the function which exposes the interface to external
-// version without pre-defined constants 
+// version without pre-defined constants
 bool ParseExpression(const std::string& expression, double& result)
 {
     ConstantMap constants;
     return ParseExpression(expression, result, constants);
 };
-    
+
 // version with pre-defined constants
 bool ParseExpression(const std::string& expression, double& result, const ConstantMap& constants)
 {

@@ -55,9 +55,9 @@
 #include <hugin_version.h>
 
 #ifdef WIN32
- #include <getopt.h>
+#include <getopt.h>
 #else
- #include <unistd.h>
+#include <unistd.h>
 #endif
 
 
@@ -81,9 +81,9 @@ struct Parameters
     Parameters()
     {
         cpErrorThreshold = 1.5;
-	optMethod = 0;
-	load = false;
-	reset = false;
+        optMethod = 0;
+        load = false;
+        reset = false;
         scale=2;
         nPoints=10;
         grid = 10;
@@ -94,7 +94,7 @@ struct Parameters
     bool load;
     bool reset;
     std::set<std::string> optvars;
-    
+
     std::string alignedPrefix;
     std::string ptoFile;
     std::string ptoOutputFile;
@@ -121,7 +121,7 @@ struct OptimData
     double m_shift[2];   // x,y shift
     double m_hfov[3];
     double m_center[2];  // center of image (without shift)
-    std::vector<double *> m_mapping;
+    std::vector<double*> m_mapping;
 
     int m_maxIter;
 
@@ -129,26 +129,30 @@ struct OptimData
               double mEstimatorSigma, int maxIter);
 
     /// copy internal optimization variables into x
-    void ToX(double * x)
+    void ToX(double* x)
     {
-	for (size_t i=0; i < m_mapping.size(); i++)
-    	    x[i] = *(m_mapping[i]);
+        for (size_t i=0; i < m_mapping.size(); i++)
+        {
+            x[i] = *(m_mapping[i]);
+        }
     }
 
     /// copy new values from x to internal optimization variables
-    void FromX(double * x)
+    void FromX(double* x)
     {
-	for (size_t i=0; i < m_mapping.size(); i++)
-    	    *(m_mapping[i]) = x[i];
+        for (size_t i=0; i < m_mapping.size(); i++)
+        {
+            *(m_mapping[i]) = x[i];
+        }
     }
-    
+
     void LoadFromImgs();
     void SaveToImgs();
 };
 
-OptimData::OptimData(PanoramaData & pano, const OptimizeVector & optvars,
+OptimData::OptimData(PanoramaData& pano, const OptimizeVector& optvars,
                      double mEstimatorSigma, int maxIter)
-  : m_pano(pano), huberSigma(mEstimatorSigma), m_optvars(optvars), m_maxIter(maxIter)
+    : m_pano(pano), huberSigma(mEstimatorSigma), m_optvars(optvars), m_maxIter(maxIter)
 {
     assert(m_pano.getNrOfImages() == m_optvars.size());
     assert(m_pano.getNrOfImages() == 3);
@@ -158,19 +162,25 @@ OptimData::OptimData(PanoramaData & pano, const OptimizeVector & optvars,
     {
         const std::set<std::string> vars = m_optvars[i];
         for (std::set<std::string>::const_iterator it = vars.begin(); it != vars.end(); ++it)
-	{
-	    const char var = (*it)[0];
-	    if ((var >= 'a') && (var <= 'c'))
-		m_mapping.push_back(&(m_dist[i][var - 'a']));
-	    else if ((var == 'd') || (var == 'e'))
-		m_mapping.push_back(&(m_shift[var - 'd']));
-	    else if (var == 'v')
-		m_mapping.push_back(&(m_hfov[i]));
-	    else
-	    {
-		cerr << "Unknown parameter detected, ignoring!" << std::endl;
-	    }
-	}
+        {
+            const char var = (*it)[0];
+            if ((var >= 'a') && (var <= 'c'))
+            {
+                m_mapping.push_back(&(m_dist[i][var - 'a']));
+            }
+            else if ((var == 'd') || (var == 'e'))
+            {
+                m_mapping.push_back(&(m_shift[var - 'd']));
+            }
+            else if (var == 'v')
+            {
+                m_mapping.push_back(&(m_hfov[i]));
+            }
+            else
+            {
+                cerr << "Unknown parameter detected, ignoring!" << std::endl;
+            }
+        }
     }
 }
 
@@ -179,18 +189,18 @@ void OptimData::LoadFromImgs()
     for (unsigned int i=0; i < 3; i++)
     {
         SrcPanoImage img = m_pano.getSrcImage(i);
-	m_hfov[i] = img.getHFOV();
-	m_dist[i][0] = img.getRadialDistortion()[0];
-	m_dist[i][1] = img.getRadialDistortion()[1];
-	m_dist[i][2] = img.getRadialDistortion()[2];
-	if (i == 0)
-	{
-	    m_shift[0] = img.getRadialDistortionCenterShift().x;
-	    m_shift[1] = img.getRadialDistortionCenterShift().y;
+        m_hfov[i] = img.getHFOV();
+        m_dist[i][0] = img.getRadialDistortion()[0];
+        m_dist[i][1] = img.getRadialDistortion()[1];
+        m_dist[i][2] = img.getRadialDistortion()[2];
+        if (i == 0)
+        {
+            m_shift[0] = img.getRadialDistortionCenterShift().x;
+            m_shift[1] = img.getRadialDistortionCenterShift().y;
 
-	    m_center[0] = img.getSize().width()/2.0;
-	    m_center[1] = img.getSize().height()/2.0;
-	}
+            m_center[0] = img.getSize().width()/2.0;
+            m_center[1] = img.getSize().height()/2.0;
+        }
     }
 }
 
@@ -198,24 +208,24 @@ void OptimData::SaveToImgs()
 {
     for (unsigned int i=0; i < 3; i++)
     {
-	SrcPanoImage img = m_pano.getSrcImage(i);
+        SrcPanoImage img = m_pano.getSrcImage(i);
 
-	img.setHFOV(m_hfov[i]);
+        img.setHFOV(m_hfov[i]);
 
-	std::vector<double> radialDist(4);
+        std::vector<double> radialDist(4);
         radialDist[0] = m_dist[i][0];
         radialDist[1] = m_dist[i][1];
         radialDist[2] = m_dist[i][2];
         radialDist[3] = 1 - radialDist[0] - radialDist[1] - radialDist[2];
         img.setRadialDistortion(radialDist);
-                        
+
         img.setRadialDistortionCenterShift(hugin_utils::FDiff2D(m_shift[0], m_shift[1]));
 
-	m_pano.setSrcImage(i, img);
+        m_pano.setSrcImage(i, img);
     }
 }
 
-static void usage(const char * name)
+static void usage(const char* name)
 {
     cerr << name << ": Parameter estimation of transverse chromatic abberations" << std::endl
          << name << " version " << DISPLAY_VERSION << endl
@@ -233,17 +243,17 @@ static void usage(const char * name)
          << "    -g <number>   divide image in <number>x<number> grid cells (default: 10)" << endl
          << "    -t num        Remove all control points with an error higher than num pixels (default: 1.5)" << std::endl
          << "    -v            Verbose" << std::endl
-         << "    -w filename   write PTO file" << std::endl 
+         << "    -w filename   write PTO file" << std::endl
          << "    -R <r>        Use this file as red channel" << endl
          << "    -G <g>        Use this file as green channel" << endl
          << "    -B <b>        Use this file as blue channel" << endl
          << endl
          << "  <inputfile> is the base name of 4 image files:" << endl
-         << "    <inputfile>        Colour file to compute TCA parameters" << endl 
+         << "    <inputfile>        Colour file to compute TCA parameters" << endl
          << "    red_<inputfile>    Red channel of <inputfile>" << endl
          << "    green_<inputfile>  Green channel of <inputfile>" << endl
          << "    blue_<inputfile>   Blue channel of <inputfile>" << endl
-         << "    The channel images must be colour images with 3 identical channels." << endl 
+         << "    The channel images must be colour images with 3 identical channels." << endl
          << "    If any of -R, -G, or -B is given, this file name is used instead of the derived name." << endl
          << endl
          << "  Output:" << endl
@@ -251,7 +261,7 @@ static void usage(const char * name)
 }
 
 template <class ImageType>
-void createCtrlPoints(Panorama & pano, const ImageType & img, int imgRedNr, int imgGreenNr, int imgBlueNr, double scale, int nPoints, int grid)
+void createCtrlPoints(Panorama& pano, const ImageType& img, int imgRedNr, int imgGreenNr, int imgBlueNr, double scale, int nPoints, int grid)
 {
     vigra::BasicImage<RGBValue<UInt8> > img8(img.size());
 
@@ -265,33 +275,37 @@ void createCtrlPoints(Panorama & pano, const ImageType & img, int imgRedNr, int 
     typedef std::vector<std::multimap<double, vigra::Diff2D> > MapVector;
 
     std::vector<std::multimap<double, vigra::Diff2D> >points;
-    if (g_verbose > 0) {
+    if (g_verbose > 0)
+    {
         std::cout << "Finding interest points for matching... ";
     }
 
     vigra_ext::findInterestPointsOnGrid(srcImageRange(img8, GreenAccessor<RGBValue<UInt8> >()),
                                         scale, 5*nPoints, grid, points);
 
-    if (g_verbose > 0) {
+    if (g_verbose > 0)
+    {
         std::cout << "Matching interest points..." << std::endl;
     }
     long templWidth = 29;
     long sWidth = 29 + 11;
-    for (MapVector::iterator mit = points.begin(); mit != points.end(); ++mit) {
+    for (MapVector::iterator mit = points.begin(); mit != points.end(); ++mit)
+    {
 
         int nGood = 0;
         int nBad = 0;
         // loop over all points, starting with the highest corner score
         for (multimap<double, vigra::Diff2D>::reverse_iterator it = (*mit).rbegin();
-             it != (*mit).rend();
-             ++it)
+                it != (*mit).rend();
+                ++it)
         {
-            if (nGood >= nPoints) {
+            if (nGood >= nPoints)
+            {
                 // we have enough points, stop
                 break;
             }
 
-	    // Green <-> Red
+            // Green <-> Red
 
             ControlPoint p1(imgGreenNr, it->second.x, it->second.y, imgRedNr, it->second.x, it->second.y);
 
@@ -299,55 +313,60 @@ void createCtrlPoints(Panorama & pano, const ImageType & img, int imgRedNr, int 
             vigra::Diff2D roundP1(hugin_utils::roundi(p1.x1), hugin_utils::roundi(p1.y1));
             vigra::Diff2D roundP2(hugin_utils::roundi(p1.x2), hugin_utils::roundi(p1.y2));
 
-	    res = PointFineTune(
-                img8, GreenAccessor<RGBValue<UInt8> >(),
-                roundP1, templWidth,
-                img8, RedAccessor<RGBValue<UInt8> >(),
-                roundP2, sWidth);
+            res = PointFineTune(
+                      img8, GreenAccessor<RGBValue<UInt8> >(),
+                      roundP1, templWidth,
+                      img8, RedAccessor<RGBValue<UInt8> >(),
+                      roundP2, sWidth);
 
-	    if (res.maxi > 0.98)
-	    {
-        	p1.x1 = roundP1.x;
-    		p1.y1 = roundP1.y;
-    		p1.x2 = res.maxpos.x;
-    		p1.y2 = res.maxpos.y;
+            if (res.maxi > 0.98)
+            {
+                p1.x1 = roundP1.x;
+                p1.y1 = roundP1.y;
+                p1.x2 = res.maxpos.x;
+                p1.y2 = res.maxpos.y;
                 p1.error = res.maxi;
-    		pano.addCtrlPoint(p1);
+                pano.addCtrlPoint(p1);
                 nGood++;
-	    } else {
+            }
+            else
+            {
                 nBad++;
             }
 
-	    // Green <-> Blue
+            // Green <-> Blue
             ControlPoint p2(imgGreenNr, it->second.x, it->second.y, imgBlueNr, it->second.x, it->second.y);
 
             roundP1 = vigra::Diff2D(hugin_utils::roundi(p2.x1), hugin_utils::roundi(p2.y1));
             roundP2 = vigra::Diff2D(hugin_utils::roundi(p2.x2), hugin_utils::roundi(p2.y2));
 
-	    res = PointFineTune(
-                img8, GreenAccessor<RGBValue<UInt8> >(), roundP1, templWidth,
-                img8, BlueAccessor<RGBValue<UInt8> >(), roundP2, sWidth);
+            res = PointFineTune(
+                      img8, GreenAccessor<RGBValue<UInt8> >(), roundP1, templWidth,
+                      img8, BlueAccessor<RGBValue<UInt8> >(), roundP2, sWidth);
 
-	    if (res.maxi > 0.98)
-	    {
-        	p2.x1 = roundP1.x;
-    		p2.y1 = roundP1.y;
-    		p2.x2 = res.maxpos.x;
-    		p2.y2 = res.maxpos.y;
+            if (res.maxi > 0.98)
+            {
+                p2.x1 = roundP1.x;
+                p2.y1 = roundP1.y;
+                p2.x2 = res.maxpos.x;
+                p2.y2 = res.maxpos.y;
                 p2.error = res.maxi;
-    		pano.addCtrlPoint(p2);
+                pano.addCtrlPoint(p2);
                 nGood++;
-	    } else {
+            }
+            else
+            {
                 nBad++;
             }
         }
-        if (g_verbose > 0) {
+        if (g_verbose > 0)
+        {
             cout << "Number of good matches: " << nGood << ", bad matches: " << nBad << std::endl;
         }
     }
 };
 
-void get_optvars(OptimizeVector &_retval)
+void get_optvars(OptimizeVector& _retval)
 {
     OptimizeVector optvars;
     std::set<std::string> vars = g_param.optvars;
@@ -361,7 +380,7 @@ void get_optvars(OptimizeVector &_retval)
     _retval = optvars;
 }
 
-int optimize_old(Panorama & pano)
+int optimize_old(Panorama& pano)
 {
     OptimizeVector optvars;
     get_optvars(optvars);
@@ -372,27 +391,30 @@ int optimize_old(Panorama & pano)
 
 inline double weightHuber(double x, double sigma)
 {
-    if (fabs(x) > sigma) {
+    if (fabs(x) > sigma)
+    {
         x = sqrt(sigma*(2.0*fabs(x) - sigma));
     }
     return x;
 }
-                    
-void optGetError(double *p, double *x, int m, int n, void * data)
+
+void optGetError(double* p, double* x, int m, int n, void* data)
 {
     int xi = 0 ;
 
-    OptimData * dat = (OptimData *) data;
+    OptimData* dat = (OptimData*) data;
     dat->FromX(p);
 
     /* compute new a,b,c,d from a,b,c,v */
     double dist[3][4];
     for (unsigned int i=0 ; i<3 ; i++)
     {
-	double scale = dat->m_hfov[1] / dat->m_hfov[i];
-	for (unsigned int j=0 ; j<3 ; j++)
-	    dist[i][j] = dat->m_dist[i][j]*pow(scale, (int)(4-j));
-	dist[i][3] = scale*(1 - dat->m_dist[i][0] - dat->m_dist[i][1] - dat->m_dist[i][2]);
+        double scale = dat->m_hfov[1] / dat->m_hfov[i];
+        for (unsigned int j=0 ; j<3 ; j++)
+        {
+            dist[i][j] = dat->m_dist[i][j]*pow(scale, (int)(4-j));
+        }
+        dist[i][3] = scale*(1 - dat->m_dist[i][0] - dat->m_dist[i][1] - dat->m_dist[i][2]);
     }
 
     double center[2];
@@ -409,58 +431,60 @@ void optGetError(double *p, double *x, int m, int n, void * data)
     // loop over all points to calculate the error
     for (unsigned int ptIdx = 0 ; ptIdx < noPts ; ptIdx++)
     {
-        const ControlPoint & cp = dat->m_pano.getCtrlPoint(ptIdx);
+        const ControlPoint& cp = dat->m_pano.getCtrlPoint(ptIdx);
 
-	double dist_p1 = vigra::hypot(cp.x1 - center[0], cp.y1 - center[1]);
-	double dist_p2 = vigra::hypot(cp.x2 - center[0], cp.y2 - center[1]);
+        double dist_p1 = vigra::hypot(cp.x1 - center[0], cp.y1 - center[1]);
+        double dist_p2 = vigra::hypot(cp.x2 - center[0], cp.y2 - center[1]);
 
-	if (cp.image1Nr == 1)
-	{
-	    double base_dist = dist_p1 / base_size;
-	    double corr_dist_p1 = dist[cp.image2Nr][0]*pow(base_dist, 4) +
-				  dist[cp.image2Nr][1]*pow(base_dist, 3) +
-				  dist[cp.image2Nr][2]*pow(base_dist, 2) +
-				  dist[cp.image2Nr][3]*base_dist;
-	    corr_dist_p1 *= base_size;
-	    x[ptIdx] = corr_dist_p1 - dist_p2;
-	}
-	else
-	{
-	    double base_dist = dist_p2 / base_size;
-	    double corr_dist_p2 = dist[cp.image1Nr][0]*pow(base_dist, 4) +
-				  dist[cp.image1Nr][1]*pow(base_dist, 3) +
-				  dist[cp.image1Nr][2]*pow(base_dist, 2) +
-				  dist[cp.image1Nr][3]*base_dist;
-	    corr_dist_p2 *= base_size;
-	    x[ptIdx] = corr_dist_p2 - dist_p1;
-	}
+        if (cp.image1Nr == 1)
+        {
+            double base_dist = dist_p1 / base_size;
+            double corr_dist_p1 = dist[cp.image2Nr][0]*pow(base_dist, 4) +
+                                  dist[cp.image2Nr][1]*pow(base_dist, 3) +
+                                  dist[cp.image2Nr][2]*pow(base_dist, 2) +
+                                  dist[cp.image2Nr][3]*base_dist;
+            corr_dist_p1 *= base_size;
+            x[ptIdx] = corr_dist_p1 - dist_p2;
+        }
+        else
+        {
+            double base_dist = dist_p2 / base_size;
+            double corr_dist_p2 = dist[cp.image1Nr][0]*pow(base_dist, 4) +
+                                  dist[cp.image1Nr][1]*pow(base_dist, 3) +
+                                  dist[cp.image1Nr][2]*pow(base_dist, 2) +
+                                  dist[cp.image1Nr][3]*base_dist;
+            corr_dist_p2 *= base_size;
+            x[ptIdx] = corr_dist_p2 - dist_p1;
+        }
 
         ControlPoint newcp = cp;
-	newcp.error = fabs(x[ptIdx]);
+        newcp.error = fabs(x[ptIdx]);
         newCPs.push_back(newcp);
-	
-	dat->m_pano.getCtrlPoint(ptIdx);
-	sqerror += x[ptIdx]*x[ptIdx];
+
+        dat->m_pano.getCtrlPoint(ptIdx);
+        sqerror += x[ptIdx]*x[ptIdx];
         // use huber robust estimator
         if (dat->huberSigma > 0)
-    	    x[ptIdx] = weightHuber(x[ptIdx], dat->huberSigma);
+        {
+            x[ptIdx] = weightHuber(x[ptIdx], dat->huberSigma);
+        }
     }
 
     dat->m_pano.updateCtrlPointErrors(newCPs);
 }
 
-int optVis(double *p, double *x, int m, int n, int iter, double sqerror, void * data)
+int optVis(double* p, double* x, int m, int n, int iter, double sqerror, void* data)
 {
     return 1;
-/*    OptimData * dat = (OptimData *) data;
-    char tmp[200];
-    tmp[199] = 0;
-    double error = sqrt(sqerror/n)*255;
-    snprintf(tmp,199, "Iteration: %d, error: %f", iter, error);
-    return dat->m_progress.increaseProgress(0.0, tmp) ? 1 : 0 ; */
+    /*    OptimData * dat = (OptimData *) data;
+        char tmp[200];
+        tmp[199] = 0;
+        double error = sqrt(sqerror/n)*255;
+        snprintf(tmp,199, "Iteration: %d, error: %f", iter, error);
+        return dat->m_progress.increaseProgress(0.0, tmp) ? 1 : 0 ; */
 }
 
-void optimize_new(PanoramaData & pano)
+void optimize_new(PanoramaData& pano)
 {
     OptimizeVector optvars;
     get_optvars(optvars);
@@ -481,10 +505,13 @@ void optimize_new(PanoramaData & pano)
     vigra::ArrayVector<double> x(n, 0.0);
 
     data.ToX(p.begin());
-    if (g_verbose > 0) {
+    if (g_verbose > 0)
+    {
         fprintf(stderr, "Parameters before optimization: ");
         for(int i=0; i<m; ++i)
+        {
             fprintf(stderr, "%.7g ", p[i]);
+        }
         fprintf(stderr, "\n");
     }
 
@@ -492,7 +519,7 @@ void optimize_new(PanoramaData & pano)
     vigra::DImage cov(m,m);
     // TODO: setup optimization options with some good defaults.
     double optimOpts[5];
-    
+
     optimOpts[0] = 1e-5;   // init mu
     // stop thresholds
     optimOpts[1] = 1e-7;   // ||J^T e||_inf
@@ -501,8 +528,8 @@ void optimize_new(PanoramaData & pano)
     // difference mode
     optimOpts[4] = LM_DIFF_DELTA;
 
-//    data.huberSigma = 0;
-    
+    //    data.huberSigma = 0;
+
     ret=dlevmar_dif(&optGetError, &optVis, &(p[0]), &(x[0]), m, n, nMaxIter, /*optimOpts*/ NULL, info, NULL, &(cov(0,0)), &data);  // no jacobian
     // copy to source images (data.m_imgs)
     data.SaveToImgs();
@@ -510,26 +537,32 @@ void optimize_new(PanoramaData & pano)
     data.huberSigma = 0;
     optGetError(&(p[0]), &(x[0]), m, n, &data);
     double error = 0;
-    for (int i=0; i<n; i++) {
+    for (int i=0; i<n; i++)
+    {
         error += x[i]*x[i];
     }
     error = sqrt(error/n);
 
-    if (g_verbose > 0) {
+    if (g_verbose > 0)
+    {
         fprintf(stderr, "Levenberg-Marquardt returned %d in %g iter, reason %g\nSolution: ", ret, info[5], info[6]);
         for(int i=0; i<m; ++i)
+        {
             fprintf(stderr, "%.7g ", p[i]);
+        }
         fprintf(stderr, "\n\nMinimization info:\n");
         for(int i=0; i<LM_INFO_SZ; ++i)
+        {
             fprintf(stderr, "%g ", info[i]);
+        }
         fprintf(stderr, "\n");
     }
 }
 
-int main2(Panorama &pano);
+int main2(Panorama& pano);
 
 template <class PixelType>
-int processImg(const char *filename)
+int processImg(const char* filename)
 {
     typedef vigra::BasicImage<PixelType> ImageType;
     try
@@ -542,30 +575,34 @@ int processImg(const char *filename)
         int bands = imgInfo.numBands();
         int extraBands = imgInfo.numExtraBands();
 
-	if (!(bands == 3 || (bands == 4 && extraBands == 1)))
-	{
-	    cerr << "Unsupported number of bands!";
-	    exit(-1);
-	}
-
-//        ImageType * leftImg = new ImageType();
+        if (!(bands == 3 || (bands == 4 && extraBands == 1)))
         {
-            vigra::importImageAlpha(imgInfo, destImage(imgOrig), destImage(alpha));
-//            reduceNTimes(leftImgOrig, *leftImg, g_param.pyrLevel);
+            cerr << "Unsupported number of bands!";
+            exit(-1);
         }
 
-	Panorama pano;
+        //        ImageType * leftImg = new ImageType();
+        {
+            vigra::importImageAlpha(imgInfo, destImage(imgOrig), destImage(alpha));
+            //            reduceNTimes(leftImgOrig, *leftImg, g_param.pyrLevel);
+        }
+
+        Panorama pano;
         // add the first image.to the panorama object
-        
+
         StandardImageVariableGroups variable_groups(pano);
-        ImageVariableGroup & lenses = variable_groups.getLenses();
-        
-        
+        ImageVariableGroup& lenses = variable_groups.getLenses();
+
+
         string red_name;
         if( g_param.red_name.size())
-          red_name=g_param.red_name;
+        {
+            red_name=g_param.red_name;
+        }
         else
-          red_name=std::string("red_")+filename;
+        {
+            red_name=std::string("red_")+filename;
+        }
 
         SrcPanoImage srcRedImg;
         srcRedImg.setSize(imgInfo.size());
@@ -576,13 +613,17 @@ int processImg(const char *filename)
         int imgRedNr = pano.addImage(srcRedImg);
         lenses.updatePartNumbers();
         lenses.switchParts(imgRedNr, 0);
-        
-        
+
+
         string green_name;
         if( g_param.green_name.size())
-          green_name=g_param.green_name;
+        {
+            green_name=g_param.green_name;
+        }
         else
-          green_name=std::string("green_")+filename;
+        {
+            green_name=std::string("green_")+filename;
+        }
 
         SrcPanoImage srcGreenImg;
         srcGreenImg.setSize(imgInfo.size());
@@ -593,13 +634,17 @@ int processImg(const char *filename)
         int imgGreenNr = pano.addImage(srcGreenImg);
         lenses.updatePartNumbers();
         lenses.switchParts(imgGreenNr, 0);
-        
-        
+
+
         string blue_name;
         if( g_param.blue_name.size())
-          blue_name=g_param.blue_name;
+        {
+            blue_name=g_param.blue_name;
+        }
         else
-          blue_name=std::string("blue_")+filename;
+        {
+            blue_name=std::string("blue_")+filename;
+        }
 
         SrcPanoImage srcBlueImg;
         srcBlueImg.setSize(imgInfo.size());
@@ -610,12 +655,12 @@ int processImg(const char *filename)
         int imgBlueNr = pano.addImage(srcBlueImg);
         lenses.updatePartNumbers();
         lenses.switchParts(imgBlueNr, 0);
-        
+
         // lens variables are linked by default. Unlink the field of view and
         // the radial distortion.
         lenses.unlinkVariablePart(ImageVariableGroup::IVE_HFOV, 0);
         lenses.unlinkVariablePart(ImageVariableGroup::IVE_RadialDistortion, 0);
- 
+
         // setup output to be exactly similar to input image
         PanoramaOptions opts;
         opts.setProjection(PanoramaOptions::RECTILINEAR);
@@ -630,28 +675,32 @@ int processImg(const char *filename)
         opts.huberSigma = 0.5;
         pano.setOptions(opts);
 
-	createCtrlPoints(pano, imgOrig, imgRedNr, imgGreenNr, imgBlueNr, g_param.scale, g_param.nPoints, g_param.grid);
+        createCtrlPoints(pano, imgOrig, imgRedNr, imgGreenNr, imgBlueNr, g_param.scale, g_param.nPoints, g_param.grid);
 
-	main2(pano);
-    } catch (std::exception & e) {
+        main2(pano);
+    }
+    catch (std::exception& e)
+    {
         cerr << "ERROR: caught exception: " << e.what() << std::endl;
         return 1;
     }
     return 0;
 }
 
-int processPTO(const char *filename)
+int processPTO(const char* filename)
 {
     Panorama pano;
 
     ifstream ptofile(filename);
-    if (ptofile.bad()) {
+    if (ptofile.bad())
+    {
         cerr << "could not open script : " << filename << std::endl;
         return 1;
     }
     pano.setFilePrefix(hugin_utils::getPathPrefix(filename));
     AppBase::DocumentData::ReadWriteError err = pano.readData(ptofile);
-    if (err != AppBase::DocumentData::SUCCESSFUL) {
+    if (err != AppBase::DocumentData::SUCCESSFUL)
+    {
         cerr << "error while parsing script: " << filename << std::endl;
         return 1;
     }
@@ -659,115 +708,132 @@ int processPTO(const char *filename)
     return main2(pano);
 }
 
-void resetValues(Panorama &pano)
+void resetValues(Panorama& pano)
 {
     for (unsigned int i=0; i < 3; i++)
     {
-	SrcPanoImage img = pano.getSrcImage(i);
+        SrcPanoImage img = pano.getSrcImage(i);
 
-	img.setHFOV(10);
+        img.setHFOV(10);
 
-	std::vector<double> radialDist(4);
+        std::vector<double> radialDist(4);
         radialDist[0] = 0;
         radialDist[1] = 0;
         radialDist[2] = 0;
         radialDist[3] = 1;
         img.setRadialDistortion(radialDist);
-                        
+
         img.setRadialDistortionCenterShift(hugin_utils::FDiff2D(0, 0));
 
-	pano.setSrcImage(i, img);
+        pano.setSrcImage(i, img);
     }
 }
 
-void print_result(Panorama &pano)
+void print_result(Panorama& pano)
 {
     double dist[3][3]; // a,b,c for all imgs
     double shift[2];   // x,y shift
     double hfov[3];
 
-    for (unsigned int i=0; i < 3; i++) {
+    for (unsigned int i=0; i < 3; i++)
+    {
         SrcPanoImage img = pano.getSrcImage(i);
-	hfov[i] = img.getHFOV();
-	dist[i][0] = img.getRadialDistortion()[0];
-	dist[i][1] = img.getRadialDistortion()[1];
-	dist[i][2] = img.getRadialDistortion()[2];
-	if (i == 0)
-	{
-	    shift[0] = img.getRadialDistortionCenterShift().x;
-	    shift[1] = img.getRadialDistortionCenterShift().y;
-	}
+        hfov[i] = img.getHFOV();
+        dist[i][0] = img.getRadialDistortion()[0];
+        dist[i][1] = img.getRadialDistortion()[1];
+        dist[i][2] = img.getRadialDistortion()[2];
+        if (i == 0)
+        {
+            shift[0] = img.getRadialDistortionCenterShift().x;
+            shift[1] = img.getRadialDistortionCenterShift().y;
+        }
     }
 
     /* compute new a,b,c,d from a,b,c,v */
     double distnew[3][4];
-    for (unsigned int i=0 ; i<3 ; i++) {
-	double scale = hfov[1] / hfov[i];
-	for (unsigned int j=0 ; j<3 ; j++)
-	    distnew[i][j] = dist[i][j]*pow(scale, (int)(4-j));
-	distnew[i][3] = scale*(1 - dist[i][0] - dist[i][1] - dist[i][2]);
+    for (unsigned int i=0 ; i<3 ; i++)
+    {
+        double scale = hfov[1] / hfov[i];
+        for (unsigned int j=0 ; j<3 ; j++)
+        {
+            distnew[i][j] = dist[i][j]*pow(scale, (int)(4-j));
+        }
+        distnew[i][3] = scale*(1 - dist[i][0] - dist[i][1] - dist[i][2]);
     }
 
     if ((hugin_utils::roundi(shift[0]) == 0) &&
-         hugin_utils::roundi(shift[1]) == 0)
+            hugin_utils::roundi(shift[1]) == 0)
         fprintf(stdout, "-r %.7f:%.7f:%.7f:%.7f "
-                        "-b %.7f:%.7f:%.7f:%.7f ",
+                "-b %.7f:%.7f:%.7f:%.7f ",
                 distnew[0][0], distnew[0][1], distnew[0][2], distnew[0][3],
                 distnew[2][0], distnew[2][1], distnew[2][2], distnew[2][3]);
     else
         fprintf(stdout, "-r %.7f:%.7f:%.7f:%.7f "
-                        "-b %.7f:%.7f:%.7f:%.7f "
-                        "-x %d:%d\n",
+                "-b %.7f:%.7f:%.7f:%.7f "
+                "-x %d:%d\n",
                 distnew[0][0], distnew[0][1], distnew[0][2], distnew[0][3],
                 distnew[2][0], distnew[2][1], distnew[2][2], distnew[2][3],
                 hugin_utils::roundi(shift[0]), hugin_utils::roundi(shift[1]));
 }
 
-int main2(Panorama &pano)
+int main2(Panorama& pano)
 {
     if (g_param.reset)
+    {
         resetValues(pano);
+    }
 
-    for (int i=0 ; i < 10 ; i++) {
+    for (int i=0 ; i < 10 ; i++)
+    {
         if (g_param.optMethod == 0)
+        {
             optimize_old(pano);
+        }
         else if(g_param.optMethod == 1)
+        {
             optimize_new(pano);
+        }
 
         CPVector cps = pano.getCtrlPoints();
         CPVector newCPs;
-        for (int i=0; i < (int)cps.size(); i++) {
-            if (cps[i].error < g_param.cpErrorThreshold) {
+        for (int i=0; i < (int)cps.size(); i++)
+        {
+            if (cps[i].error < g_param.cpErrorThreshold)
+            {
                 newCPs.push_back(cps[i]);
             }
         }
-        if (g_verbose > 0) {
+        if (g_verbose > 0)
+        {
             cerr << "Ctrl points before pruning: " << cps.size() << ", after: " << newCPs.size() << std::endl;
         }
         pano.setCtrlPoints(newCPs);
 
-	if (cps.size() == newCPs.size())
-	  // no points were removed, do not re-optimize
-	  break;
+        if (cps.size() == newCPs.size())
+            // no points were removed, do not re-optimize
+        {
+            break;
+        }
     }
 
-    if (! g_param.ptoOutputFile.empty()) {
-	OptimizeVector optvars;
-	get_optvars(optvars);
-	UIntSet allImgs;
-	fill_set(allImgs, 0, pano.getNrOfImages()-1);
-	std::ofstream script(g_param.ptoOutputFile.c_str());
-	pano.printPanoramaScript(script, optvars, pano.getOptions(), allImgs, true, "");
+    if (! g_param.ptoOutputFile.empty())
+    {
+        OptimizeVector optvars;
+        get_optvars(optvars);
+        UIntSet allImgs;
+        fill_set(allImgs, 0, pano.getNrOfImages()-1);
+        std::ofstream script(g_param.ptoOutputFile.c_str());
+        pano.printPanoramaScript(script, optvars, pano.getOptions(), allImgs, true, "");
     }
 
     print_result(pano);
     return 0;
 }
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
     // parse arguments
-    const char * optstring = "hlm:o:rt:vw:R:G:B:s:g:n:";
+    const char* optstring = "hlm:o:rt:vw:R:G:B:s:g:n:";
     int c;
     bool parameter_request_seen=false;
 
@@ -776,71 +842,76 @@ int main(int argc, char *argv[])
     g_verbose = 0;
 
     while ((c = getopt (argc, argv, optstring)) != -1)
-        switch (c) {
-        case 'h':
-            usage(argv[0]);
-            return 0;
-        case 'l':
-            g_param.load = true;
-            break;
-        case 'm':
-            g_param.optMethod = atoi(optarg);
-            break;
-        case 'o':
-	    {
-        	char *optptr = optarg;
-    		while (*optptr != 0)
-        	{
-            	    if ((*optptr == 'a') || (*optptr == 'b') ||
-            	        (*optptr == 'c') || (*optptr == 'v') || 
-            	        (*optptr == 'd') || (*optptr == 'e'))
-                  	g_param.optvars.insert(std::string(optptr, 1));
-            	    optptr++;
-        	}
-                parameter_request_seen=true;
-    	    }
-    	    break;
-        case 'r':
-            g_param.reset = true;
-            break;
-        case 't':
-            g_param.cpErrorThreshold = atof(optarg);
-	    if (g_param.cpErrorThreshold <= 0) {
-		cerr << "Invalid parameter: control point error threshold (-t) must be greater than 0" << std::endl;
-		return 1;
-	    }
-            break;
-        case 'v':
-            g_verbose++;
-            break;
-        case 'w':
-            g_param.ptoOutputFile = optarg;
-            break;
-        case 'R':
-            g_param.red_name = optarg;
-            break;
-        case 'G':
-            g_param.green_name = optarg;
-            break;
-        case 'B':
-            g_param.blue_name = optarg;
-            break;
-        case 's':
-            g_param.scale=atof( optarg);
-            break;
-        case 'n':
-            g_param.nPoints=atoi( optarg);
-            break;
-        case 'g':
-            g_param.grid=atoi(optarg);
-            break;
-        default:
-            cerr << "Invalid parameter: '" << argv[optind-1] << " " << optarg << "'" << std::endl;
-            usage(argv[0]);
-            return 1;
+        switch (c)
+        {
+            case 'h':
+                usage(argv[0]);
+                return 0;
+            case 'l':
+                g_param.load = true;
+                break;
+            case 'm':
+                g_param.optMethod = atoi(optarg);
+                break;
+            case 'o':
+                {
+                    char* optptr = optarg;
+                    while (*optptr != 0)
+                    {
+                        if ((*optptr == 'a') || (*optptr == 'b') ||
+                                (*optptr == 'c') || (*optptr == 'v') ||
+                                (*optptr == 'd') || (*optptr == 'e'))
+                        {
+                            g_param.optvars.insert(std::string(optptr, 1));
+                        }
+                        optptr++;
+                    }
+                    parameter_request_seen=true;
+                }
+                break;
+            case 'r':
+                g_param.reset = true;
+                break;
+            case 't':
+                g_param.cpErrorThreshold = atof(optarg);
+                if (g_param.cpErrorThreshold <= 0)
+                {
+                    cerr << "Invalid parameter: control point error threshold (-t) must be greater than 0" << std::endl;
+                    return 1;
+                }
+                break;
+            case 'v':
+                g_verbose++;
+                break;
+            case 'w':
+                g_param.ptoOutputFile = optarg;
+                break;
+            case 'R':
+                g_param.red_name = optarg;
+                break;
+            case 'G':
+                g_param.green_name = optarg;
+                break;
+            case 'B':
+                g_param.blue_name = optarg;
+                break;
+            case 's':
+                g_param.scale=atof( optarg);
+                break;
+            case 'n':
+                g_param.nPoints=atoi( optarg);
+                break;
+            case 'g':
+                g_param.grid=atoi(optarg);
+                break;
+            default:
+                cerr << "Invalid parameter: '" << argv[optind-1] << " " << optarg << "'" << std::endl;
+                usage(argv[0]);
+                return 1;
         }
 
-    if ((argc - optind) != 1) {
+    if ((argc - optind) != 1)
+    {
         usage(argv[0]);
         return 1;
     }
@@ -849,14 +920,16 @@ int main(int argc, char *argv[])
     // default parameters.
     if ( !parameter_request_seen)
     {
-        for ( const char * dop=DEFAULT_OPTIMISATION_PARAMETER; 
-                *dop != 0; ++dop) {
+        for ( const char* dop=DEFAULT_OPTIMISATION_PARAMETER;
+                *dop != 0; ++dop)
+        {
             g_param.optvars.insert( std::string( dop, 1));
         }
     }
 
     // Program will crash if nothing is to be optimised.
-    if ( g_param.optvars.empty()) {
+    if ( g_param.optvars.empty())
+    {
         cerr << "No parameters to optimize." << endl;
         usage(argv[0]);
         return 1;
@@ -864,22 +937,29 @@ int main(int argc, char *argv[])
 
     if (!g_param.load)
     {
-	vigra::ImageImportInfo firstImgInfo(argv[optind]);
+        vigra::ImageImportInfo firstImgInfo(argv[optind]);
         std::string pixelType = firstImgInfo.getPixelType();
-	if (pixelType == "UINT8") {
-    	    return processImg<RGBValue<UInt8> >(argv[optind]);
-	} else if (pixelType == "INT16") {
-    	    return processImg<RGBValue<Int16> >(argv[optind]);
-	} else if (pixelType == "UINT16") {
-    	    return processImg<RGBValue<UInt16> >(argv[optind]);
-	} else {
-    	    cerr << " ERROR: unsupported pixel type: " << pixelType << std::endl;
-    	    return 1;
-	}
+        if (pixelType == "UINT8")
+        {
+            return processImg<RGBValue<UInt8> >(argv[optind]);
+        }
+        else if (pixelType == "INT16")
+        {
+            return processImg<RGBValue<Int16> >(argv[optind]);
+        }
+        else if (pixelType == "UINT16")
+        {
+            return processImg<RGBValue<UInt16> >(argv[optind]);
+        }
+        else
+        {
+            cerr << " ERROR: unsupported pixel type: " << pixelType << std::endl;
+            return 1;
+        }
     }
     else
     {
-	return processPTO(argv[optind]);
+        return processPTO(argv[optind]);
     }
 
     return 0;
