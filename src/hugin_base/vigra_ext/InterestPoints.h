@@ -95,35 +95,6 @@ void findInterestPointsPartial(vigra::triple<ImageIter, ImageIter, ImageAcc> img
     }
 }
 
-template <class ImageIter, class ImageAcc>
-void findInterestPointsOnGrid(vigra::triple<ImageIter, ImageIter, ImageAcc> img, double scale,
- unsigned nPoints, unsigned grid, std::vector<std::multimap<double, vigra::Diff2D> > &allPoints
-)
-{
-    //////////////////////////////////////////////////
-    // find interesting corners using harris corner detector
-
-    vigra::Diff2D size2 = img.second - img.first;
-    vigra::Size2D size(size2.x, size2.y);
-
-    for (unsigned party = 0; party < grid; ++party)
-    {
-        for (unsigned partx = 0; partx < grid; ++partx)
-        {
-            // run corner detector only in current sub-region (saves a lot of memory for big images)
-            vigra::Rect2D rect(partx*size.x / grid, party*size.y / grid,
-                (partx + 1)*size.x / grid, (party + 1)*size.y / grid);
-            rect &= vigra::Rect2D(size);
-            if (rect.area() > 0)
-            {
-                std::multimap<double, vigra::Diff2D> points;
-                findInterestPointsPartial(img, rect, scale, nPoints, points);
-                allPoints.push_back(points);
-            };
-        };
-    };
-}
-
 } // namespace
 
 #endif

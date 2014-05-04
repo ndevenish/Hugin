@@ -51,6 +51,7 @@
 #include <algorithms/optimizer/PTOptimizer.h>
 #include <nona/Stitcher.h>
 #include <foreign/levmar/lm.h>
+#include <hugin_utils/openmp_lock.h>
 
 #include <hugin_version.h>
 
@@ -462,6 +463,9 @@ static void usage(const char* name)
          << "    commandline arguments for fulla" << endl;
 }
 
+static hugin_omp::Lock lock;
+typedef std::multimap<double, vigra::Diff2D> MapPoints;
+
 template <class ImageType>
 void createCtrlPoints(Panorama& pano, const ImageType& img, int imgRedNr, int imgGreenNr, int imgBlueNr, double scale, int nPoints, int grid)
 {
@@ -470,8 +474,10 @@ void createCtrlPoints(Panorama& pano, const ImageType& img, int imgRedNr, int im
     double ratio = 255.0/vigra_ext::LUTTraits<typename ImageType::value_type>::max();
     transformImage(srcImageRange(img), destImage(img8),
                    Arg1()*Param(ratio));
-
-    std::cout << "image8 size:" << img8.size() << std::endl;
+    if (g_param.verbose > 0)
+    {
+        std::cout << "image8 size:" << img8.size() << std::endl;
+    };
     //////////////////////////////////////////////////
     // find interesting corners using harris corner detector
     typedef std::vector<std::multimap<double, vigra::Diff2D> > MapVector;
@@ -479,47 +485,57 @@ void createCtrlPoints(Panorama& pano, const ImageType& img, int imgRedNr, int im
     std::vector<std::multimap<double, vigra::Diff2D> >points;
     if (g_param.verbose > 0)
     {
-        std::cout << "Finding interest points for matching... ";
+        std::cout << "Finding control points... " << std::endl;
     }
+    const long templWidth = 29;
+    const long sWidth = 29 + 11;
 
-    vigra_ext::findInterestPointsOnGrid(srcImageRange(img8, GreenAccessor<RGBValue<UInt8> >()),
-                                        scale, 5*nPoints, grid, points);
 
-    if (g_param.verbose > 0)
+    vigra::Size2D size(img8.width(), img8.height());
+    std::vector<vigra::Rect2D> rects;
+    for (unsigned party = 0; party < grid; party++)
     {
-        std::cout << "Matching interest points..." << std::endl;
-    }
-    long templWidth = 29;
-    long sWidth = 29 + 11;
-    for (MapVector::iterator mit = points.begin(); mit != points.end(); ++mit)
-    {
-
-        int nGood = 0;
-        int nBad = 0;
-        // loop over all points, starting with the highest corner score
-        for (multimap<double, vigra::Diff2D>::reverse_iterator it = (*mit).rbegin();
-                it != (*mit).rend();
-                ++it)
+        for (unsigned partx = 0; partx < grid; partx++)
         {
-            if (nGood >= nPoints)
+            // run corner detector only in current sub-region (saves a lot of memory for big images)
+            vigra::Rect2D rect(partx*size.x / grid, party*size.y / grid,
+                (partx + 1)*size.x / grid, (party + 1)*size.y / grid);
+            rect &= vigra::Rect2D(size);
+            if (rect.width()>0 && rect.height()>0)
+            {
+                rects.push_back(rect);
+            };
+        };
+    };
+
+    #pragma omp parallel for schedule(dynamic)
+    for (int i = 0; i < rects.size(); ++i)
+    {
+        MapPoints points;
+        vigra::Rect2D rect(rects[i]);
+        vigra_ext::findInterestPointsPartial(srcImageRange(img8, GreenAccessor<RGBValue<UInt8> >()), rect, scale, 5 * nPoints, points);
+
+        // loop over all points, starting with the highest corner score
+        CPVector cps;
+        size_t nBad = 0;
+        for (MapPoints::const_reverse_iterator it = points.rbegin(); it != points.rend(); ++it)
+        {
+            if (cps.size() >= nPoints)
             {
                 // we have enough points, stop
                 break;
-            }
+            };
 
             // Green <-> Red
-
             ControlPoint p1(imgGreenNr, it->second.x, it->second.y, imgRedNr, it->second.x, it->second.y);
-
-            vigra_ext::CorrelationResult res;
             vigra::Diff2D roundP1(hugin_utils::roundi(p1.x1), hugin_utils::roundi(p1.y1));
             vigra::Diff2D roundP2(hugin_utils::roundi(p1.x2), hugin_utils::roundi(p1.y2));
 
-            res = PointFineTune(
-                      img8, GreenAccessor<RGBValue<UInt8> >(),
-                      roundP1, templWidth,
-                      img8, RedAccessor<RGBValue<UInt8> >(),
-                      roundP2, sWidth);
+            vigra_ext::CorrelationResult res = PointFineTune(
+                img8, GreenAccessor<RGBValue<UInt8> >(),
+                roundP1, templWidth,
+                img8, RedAccessor<RGBValue<UInt8> >(),
+                roundP2, sWidth);
 
             if (res.maxi > 0.98)
             {
@@ -528,23 +544,21 @@ void createCtrlPoints(Panorama& pano, const ImageType& img, int imgRedNr, int im
                 p1.x2 = res.maxpos.x;
                 p1.y2 = res.maxpos.y;
                 p1.error = res.maxi;
-                pano.addCtrlPoint(p1);
-                nGood++;
+                cps.push_back(p1);
             }
             else
             {
-                nBad++;
-            }
+                ++nBad;
+            };
 
             // Green <-> Blue
             ControlPoint p2(imgGreenNr, it->second.x, it->second.y, imgBlueNr, it->second.x, it->second.y);
-
             roundP1 = vigra::Diff2D(hugin_utils::roundi(p2.x1), hugin_utils::roundi(p2.y1));
             roundP2 = vigra::Diff2D(hugin_utils::roundi(p2.x2), hugin_utils::roundi(p2.y2));
 
             res = PointFineTune(
-                      img8, GreenAccessor<RGBValue<UInt8> >(), roundP1, templWidth,
-                      img8, BlueAccessor<RGBValue<UInt8> >(), roundP2, sWidth);
+                img8, GreenAccessor<RGBValue<UInt8> >(), roundP1, templWidth,
+                img8, BlueAccessor<RGBValue<UInt8> >(), roundP2, sWidth);
 
             if (res.maxi > 0.98)
             {
@@ -553,19 +567,28 @@ void createCtrlPoints(Panorama& pano, const ImageType& img, int imgRedNr, int im
                 p2.x2 = res.maxpos.x;
                 p2.y2 = res.maxpos.y;
                 p2.error = res.maxi;
-                pano.addCtrlPoint(p2);
-                nGood++;
+                cps.push_back(p2);
             }
             else
             {
-                nBad++;
-            }
+                ++nBad;
+            };
         }
         if (g_param.verbose > 0)
         {
-            cout << "Number of good matches: " << nGood << ", bad matches: " << nBad << std::endl;
+            std::ostringstream buf;
+            buf << "Number of good matches: " << cps.size() << ", bad matches: " << nBad << std::endl;
+            cout << buf.str();
         }
-    }
+        if (!cps.empty())
+        {
+            hugin_omp::ScopedLock sl(lock);
+            for (CPVector::const_iterator it = cps.begin(); it != cps.end(); ++it)
+            {
+                pano.addCtrlPoint(*it);
+            };
+        };
+    };
 };
 
 int main2(Panorama& pano);
@@ -793,14 +816,21 @@ int main2(Panorama& pano)
         {
             optimize_new(pano);
         }
+        else
+        {
+            cerr << "Unknown optimizer strategy." << endl
+                << "Using newfit method." << endl;
+            g_param.optMethod = 1;
+            optimize_new(pano);
+        };
 
         CPVector cps = pano.getCtrlPoints();
         CPVector newCPs;
-        for (int i = 0; i < (int)cps.size(); i++)
+        for (CPVector::const_iterator it = cps.begin(); it != cps.end(); ++it)
         {
-            if (cps[i].error < g_param.cpErrorThreshold)
+            if (it->error < g_param.cpErrorThreshold)
             {
-                newCPs.push_back(cps[i]);
+                newCPs.push_back(*it);
             }
         }
         if (g_param.verbose > 0)
