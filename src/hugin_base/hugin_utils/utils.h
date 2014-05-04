@@ -204,6 +204,8 @@ namespace hugin_utils
     /** remove extension of a filename */
     IMPEX std::string stripExtension(const std::string & basename);
 
+    /** remove trailing and leading white spaces and tabs */
+    IMPEX std::string StrTrim(const std::string& str);
     template <typename Target, typename Source>
     Target lexical_cast(Source arg) {
 

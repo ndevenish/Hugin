@@ -52,6 +52,7 @@
 #include <nona/Stitcher.h>
 #include <foreign/levmar/lm.h>
 #include <hugin_utils/openmp_lock.h>
+#include <lensdb/LensDB.h>
 
 #include <hugin_version.h>
 
@@ -82,6 +83,7 @@ struct Parameters
         optMethod = 0;
         load = false;
         reset = false;
+        saveDB = false;
         scale=2;
         nPoints=10;
         grid = 10;
@@ -92,6 +94,7 @@ struct Parameters
     int optMethod;
     bool load;
     bool reset;
+    bool saveDB;
     std::set<std::string> optvars;
 
     std::string alignedPrefix;
@@ -446,6 +449,7 @@ static void usage(const char* name)
          << "    -g <number>   divide image in <number>x<number> grid cells (default: 10)" << endl
          << "    -t num        Remove all control points with an error higher than num pixels (default: 1.5)" << std::endl
          << "    -v            Verbose" << std::endl
+         << "    --save-into-database  Saves the tca data into Hugin lens database" << std::endl
          << "    -w filename   write PTO file" << std::endl
          << "    -R <r>        Use this file as red channel" << endl
          << "    -G <g>        Use this file as green channel" << endl
@@ -784,19 +788,89 @@ void print_result(Panorama& pano)
         distnew[i][3] = scale*(1 - dist[i][0] - dist[i][1] - dist[i][2]);
     }
 
-    if ((hugin_utils::roundi(shift[0]) == 0) &&
-            hugin_utils::roundi(shift[1]) == 0)
+    if (hugin_utils::roundi(shift[0]) == 0 && hugin_utils::roundi(shift[1]) == 0)
+    {
         fprintf(stdout, "-r %.7f:%.7f:%.7f:%.7f "
-                "-b %.7f:%.7f:%.7f:%.7f ",
-                distnew[0][0], distnew[0][1], distnew[0][2], distnew[0][3],
-                distnew[2][0], distnew[2][1], distnew[2][2], distnew[2][3]);
+            "-b %.7f:%.7f:%.7f:%.7f ",
+            distnew[0][0], distnew[0][1], distnew[0][2], distnew[0][3],
+            distnew[2][0], distnew[2][1], distnew[2][2], distnew[2][3]);
+    }
     else
+    {
         fprintf(stdout, "-r %.7f:%.7f:%.7f:%.7f "
-                "-b %.7f:%.7f:%.7f:%.7f "
-                "-x %d:%d\n",
-                distnew[0][0], distnew[0][1], distnew[0][2], distnew[0][3],
-                distnew[2][0], distnew[2][1], distnew[2][2], distnew[2][3],
-                hugin_utils::roundi(shift[0]), hugin_utils::roundi(shift[1]));
+            "-b %.7f:%.7f:%.7f:%.7f "
+            "-x %d:%d\n",
+            distnew[0][0], distnew[0][1], distnew[0][2], distnew[0][3],
+            distnew[2][0], distnew[2][1], distnew[2][2], distnew[2][3],
+            hugin_utils::roundi(shift[0]), hugin_utils::roundi(shift[1]));
+    };
+    if (g_param.saveDB)
+    {
+        // save information into database
+        // read EXIF data, using routines of HuginBase::SrcPanoImage
+        SrcPanoImage img;
+        img.setFilename(g_param.basename);
+        img.readEXIF();
+        std::string lensname = img.getDBLensName();
+        if (lensname.empty())
+        {
+            // no suitable lensname found in exif data, ask user
+            std::cout << std::endl << "For saving information tca data into database no suitable information" << std::endl
+                << "found in EXIF data." << std::endl
+                << "For fixed lens cameras leave lensname empty." << std::endl << std::endl << "Lensname: ";
+            char input[256];
+            std::cin.getline(input, 255);
+            lensname = hugin_utils::StrTrim(std::string(input));
+            if (lensname.empty())
+            {
+                std::string camMaker;
+                std::string camModel;
+                std::cout << "Camera maker: ";
+                while (camMaker.empty())
+                {
+                    std::cin.getline(input, 255);
+                    camMaker = hugin_utils::StrTrim(std::string(input));
+                };
+                std::cout << "Camera model: ";
+                while (camModel.empty())
+                {
+                    std::cin.getline(input, 255);
+                    camModel = hugin_utils::StrTrim(std::string(input));
+                };
+                lensname = camMaker.append("|").append(camModel);
+            };
+        };
+        double focal = img.getExifFocalLength();
+        if (fabs(focal) < 0.1f)
+        {
+            std::cout << "Real focal length (in mm): ";
+            while (fabs(focal) < 0.1f)
+            {
+                std::cin >> focal;
+                focal = fabs(focal);
+            };
+        };
+        HuginBase::LensDB::LensDB& lensDB = HuginBase::LensDB::LensDB::GetSingleton();
+        std::vector<double> redDistData(4, 0.0f);
+        std::vector<double> blueDistData(4, 0.0f);
+        redDistData[0] = distnew[0][0];
+        redDistData[1] = distnew[0][1];
+        redDistData[2] = distnew[0][2];
+        redDistData[3] = distnew[0][3];
+        blueDistData[0] = distnew[2][0];
+        blueDistData[1] = distnew[2][1];
+        blueDistData[2] = distnew[2][2];
+        blueDistData[3] = distnew[2][3];
+        if (lensDB.SaveTCA(lensname, focal, redDistData, blueDistData))
+        {
+            std::cout << std::endl << std::endl << "TCA data for " << lensname << " @ " << focal << " mm successful saved into database." << std::endl;
+        }
+        else
+        {
+            std::cout << std::endl << std::endl << "Could not save data into database." << std::endl;
+        };
+        HuginBase::LensDB::LensDB::Clean();
+    }
 }
 
 int main2(Panorama& pano)
@@ -864,12 +938,23 @@ int main(int argc, char* argv[])
 {
     // parse arguments
     const char* optstring = "hlm:o:rt:vw:R:G:B:s:g:n:";
+    enum
+    {
+        SAVEDATABASE=1000
+    };
+    static struct option longOptions[] =
+    {
+        { "save-into-database", no_argument, NULL, SAVEDATABASE },
+        { "help", no_argument, NULL, 'h' },
+        0
+    };
     int c;
     bool parameter_request_seen=false;
-
+    int optionIndex = 0;
     opterr = 0;
 
-    while ((c = getopt (argc, argv, optstring)) != -1)
+    while ((c = getopt_long(argc, argv, optstring, longOptions, &optionIndex)) != -1)
+    {
         switch (c)
         {
             case 'h':
@@ -932,11 +1017,15 @@ int main(int argc, char* argv[])
             case 'g':
                 g_param.grid=atoi(optarg);
                 break;
+            case SAVEDATABASE:
+                g_param.saveDB = true;
+                break;
             default:
                 cerr << "Invalid parameter: '" << argv[optind-1] << " " << optarg << "'" << std::endl;
                 usage(argv[0]);
                 return 1;
         }
+    };
 
     if ((argc - optind) != 1)
     {
@@ -965,6 +1054,7 @@ int main(int argc, char* argv[])
 
     if (!g_param.load)
     {
+        g_param.basename = argv[optind];
         vigra::ImageImportInfo firstImgInfo(argv[optind]);
         std::string pixelType = firstImgInfo.getPixelType();
         if (pixelType == "UINT8")

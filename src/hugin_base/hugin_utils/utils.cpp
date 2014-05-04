@@ -197,6 +197,26 @@ std::string getPathPrefix(const std::string & filename)
     }
 }
 
+std::string StrTrim(const std::string& str)
+{
+    std::string s(str);
+    std::string::size_type pos = s.find_last_not_of(" \t");
+    if (pos != std::string::npos)
+    {
+        s.erase(pos + 1);
+        pos = s.find_first_not_of(" \t");
+        if (pos != std::string::npos)
+        {
+            s.erase(0, pos);
+        };
+    }
+    else
+    {
+        s.erase(s.begin(), s.end());
+    };
+    return s;
+}
+
 std::string doubleToString(double d, int digits)
 {
     char fmt[10];
