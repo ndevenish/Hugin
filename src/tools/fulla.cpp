@@ -132,7 +132,7 @@ int main(int argc, char* argv[])
     bool doFlatfield = false;
     bool doVigRadial = false;
     bool doCropBorders = true;
-    unsigned nThreads=1;
+    unsigned nThreads = hugin_utils::getCPUCount();
     unsigned verbose = 0;
 
     std::string batchPostfix("_corr");
@@ -318,7 +318,7 @@ int main(int argc, char* argv[])
 
     AppBase::StreamMultiProgressDisplay pdisp(cout);
 
-    if (nThreads == 0)
+    if (nThreads < 1)
     {
         nThreads = 1;
     }
