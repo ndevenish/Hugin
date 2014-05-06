@@ -1560,12 +1560,12 @@ namespace PT {
 
         virtual bool processPanorama(Panorama& pano)
             {
-                int nrImages=pano.getNrOfImages();
+                const size_t nrImages=pano.getNrOfImages();
                 if(nrImages>0)
                 {
                     const SrcPanoImage& img=pano.getImage(0);
-                    double hfov=img.getHFOV();
-                    int imgsPerRow;
+                    const double hfov=img.getHFOV();
+                    size_t imgsPerRow;
                     //distribute all images
                     //for rectilinear images calculate number of rows
                     if(img.getProjection()==HuginBase::SrcPanoImage::RECTILINEAR)
@@ -1579,15 +1579,15 @@ namespace PT {
                         imgsPerRow=nrImages;
                     };
                     double offset=0.75*hfov;
-                    if((imgsPerRow-1)*offset>360)
+                    if((imgsPerRow-1.0)*offset>360)
                     {
-                        offset=360/(imgsPerRow-1);
+                        offset=360/(imgsPerRow-1.0);
                     };
-                    double yaw=-(imgsPerRow-1)/2.0*offset;
+                    double yaw=-(imgsPerRow-1.0)/2.0*offset;
                     double pitch=0;
                     if(imgsPerRow<nrImages)
                     {
-                        pitch=(-(std::ceil(double(nrImages)/double(imgsPerRow))-1)/2.0*offset);
+                        pitch=(-(std::ceil(double(nrImages)/double(imgsPerRow))-1.0)/2.0*offset);
                     };
                     HuginBase::VariableMapVector varsVec=pano.getVariables();
                     size_t counter=0;
@@ -1609,7 +1609,7 @@ namespace PT {
                         {
                             counter=0;
                             pitch+=offset;
-                            yaw=-(imgsPerRow-1)/2.0*offset;
+                            yaw=-(imgsPerRow-1.0)/2.0*offset;
                         };
                     };
                     pano.updateVariables(varsVec);
