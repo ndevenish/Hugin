@@ -56,9 +56,8 @@
 
 #include <hugin_version.h>
 
-#ifdef WIN32
 #include <getopt.h>
-#else
+#ifndef WIN32
 #include <unistd.h>
 #endif
 
