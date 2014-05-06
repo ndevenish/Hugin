@@ -982,8 +982,8 @@ CorrelationResult PointFineTuneProjectionAware(const SrcPanoImage& templ, const 
         }
         else
         {
-            res = vigra_ext::PointFineTune(templImg, vigra::RGBToGrayAccessor<RGBValue<UInt8>>(), templPos, templSize,
-                searchImg, vigra::RGBToGrayAccessor<RGBValue<UInt8>>(), searchPos, sWidth);
+            res = vigra_ext::PointFineTune(templImg, vigra::RGBToGrayAccessor<RGBValue<UInt8> >(), templPos, templSize,
+                searchImg, vigra::RGBToGrayAccessor<RGBValue<UInt8> >(), searchPos, sWidth);
         };
         res.corrPos = templPos;
         return res;
