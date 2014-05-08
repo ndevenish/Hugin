@@ -85,6 +85,10 @@ Remove all control points with an error higher than num pixels (default: 1.5)
 
 Verbose
 
+=item B<--save-into-database>
+
+Saves the tca data into Hugin lens database
+
 =item B<-w> I<filename>
 
 write PTO file
