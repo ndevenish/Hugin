@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hugin\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
-"POT-Creation-Date: 2014-03-28 15:26+0100\n"
+"POT-Creation-Date: 2014-05-10 12:52+0200\n"
 "PO-Revision-Date: 2013-03-24 18:40+0100\n"
 "Last-Translator: Kornel Benko <kornel@lyx.org>\n"
 "Language-Team: Slovak <sk@li.org>\n"
@@ -301,11 +301,11 @@ msgstr "adresár"
 
 #: hugin1/base_wx/huginConfig.cpp:304 hugin1/hugin/ImagesTree.cpp:149
 msgid "Camera maker"
-msgstr "Výrobca fotoaparátu"
+msgstr "Výrobca kamery"
 
 #: hugin1/base_wx/huginConfig.cpp:305 hugin1/hugin/ImagesTree.cpp:150
 msgid "Camera model"
-msgstr "Model fotoaparátu"
+msgstr "Model kamery"
 
 #: hugin1/base_wx/huginConfig.cpp:306 hugin1/hugin/ImagesPanel.cpp:669
 #: hugin1/hugin/ImagesTree.cpp:151 hugin1/hugin/ImagesTree.cpp:1215
@@ -344,6 +344,11 @@ msgstr ""
 "Súbory HDR (*.hdr)|*.hdr;*.HDR|Súbory EXR (*.exr)|*.exr;*.EXR|Všetky súbory "
 "(*)|*"
 
+#: hugin1/base_wx/wxLensDB.cpp:131
+#, c-format
+msgid "Camera %s (%s)"
+msgstr "Kamera %s (%s)"
+
 #: hugin1/base_wx/wxLensDB.cpp:233
 #, c-format
 msgid "The input \"%s\" is not a valid number."
@@ -355,15 +360,6 @@ msgstr "Vstup \"%s\" nie je platné číslo."
 msgid "Focal length multiplier:"
 msgstr "Násobič ohniskovej vzdialenosti:"
 
-#: hugin1/base_wx/wxLensDB.cpp:299
-#, c-format
-msgid "%d lenses found."
-msgstr "%d šošovky nájdené."
-
-#: hugin1/base_wx/wxLensDB.cpp:303
-msgid "No lens found."
-msgstr "Neboli nájdené žiadne šošovky."
-
 #: hugin1/base_wx/wxLensDB.cpp:609
 msgid ""
 "There is too little information for saving data into database. Please check "
@@ -372,62 +368,10 @@ msgstr ""
 "Je tu príliš málo informácií pre uloženie do databázy. Skontrolujte, prosím, "
 "váš vstup!"
 
-#: hugin1/base_wx/wxLensDB.cpp:660
-#, c-format
-msgid ""
-"You selected the folder \"%s\" to save your database file.\n"
-"This is not the default folder. You won't be able to automatically load this "
-"information back into Hugin.\n"
-"The default folder for the database files is \"%s\".\n"
-"Do you want to proceed anyway?"
-msgstr ""
-"Vybrali ste adresár \"%s\"  na uloženie databázy.\n"
-"Nie je to štandardný adresár. Nebudete byť schopným ho automaticky načítať "
-"naspäť do Hugina.\n"
-"Štandardný adresár pre databázy je \"%s\".\n"
-"Napriek tomu chcete pokračovať?"
-
-#: hugin1/base_wx/wxLensDB.cpp:708
-msgid "Save lens into database file"
-msgstr "Uložiť šošovku do databázy"
-
-#: hugin1/base_wx/wxLensDB.cpp:710 hugin1/base_wx/wxLensDB.cpp:948
-msgid "Lensfun database files (*.xml)|*.xml"
-msgstr "Lensfun databáza (*.xml)|*.xml"
-
-#: hugin1/base_wx/wxLensDB.cpp:751 hugin1/base_wx/wxLensDB.cpp:764
-#: hugin1/base_wx/wxLensDB.cpp:810 hugin1/base_wx/wxLensDB.cpp:969
-msgid "Could not save information into database file."
+#: hugin1/base_wx/wxLensDB.cpp:625 hugin1/base_wx/wxLensDB.cpp:630
+#: hugin1/base_wx/wxLensDB.cpp:638
+msgid "Could not save information into database."
 msgstr "Nepodarilo sa uložiť informáciu do databázy."
-
-#: hugin1/base_wx/wxLensDB.cpp:817
-msgid "Could not initialize database."
-msgstr "Nepodarilo sa inicializovať databázu."
-
-#: hugin1/base_wx/wxLensDB.cpp:821
-#, c-format
-msgid ""
-"The current selected lens does not match with the information about this "
-"lens in the selected database file.\n"
-"Could not proceed.\n"
-"(Error code: %d)"
-msgstr ""
-"Súčasne vybraná šošovka nesúhlasí s informáciou tejto šošovky vo vybranej "
-"databáze.\n"
-"Nedá sa pokračovať.\n"
-"(Chybný kód: %d)"
-
-#: hugin1/base_wx/wxLensDB.cpp:920
-msgid "The maker field contains only an empty string."
-msgstr "Pole výrobca je prázdne."
-
-#: hugin1/base_wx/wxLensDB.cpp:925
-msgid "The model field contains only an empty string."
-msgstr "Pole modelu je prázdne."
-
-#: hugin1/base_wx/wxLensDB.cpp:946
-msgid "Save camera into database file"
-msgstr "Uložiť fotoaparát do databázy"
 
 #: hugin1/calibrate_lens/LensCalApp.cpp:66 hugin1/hugin/huginApp.cpp:193
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:80
@@ -451,11 +395,6 @@ msgstr "Fatálna chyba"
 #: hugin1/stitch_project/hugin_stitch_project.cpp:306
 msgid "Translations not found in bundle"
 msgstr "Preklady neboli nájdené v balíku"
-
-#: hugin1/calibrate_lens/LensCalApp.cpp:79 hugin1/hugin/huginApp.cpp:229
-#: hugin1/ptbatcher/PTBatcherGUI.cpp:96
-msgid "lensfun directory not found in bundle"
-msgstr "adresár lensfun nebol nájdený v balíku"
 
 #: hugin1/calibrate_lens/LensCalApp.cpp:92 hugin1/hugin/huginApp.cpp:244
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:119
@@ -574,9 +513,9 @@ msgid "Save lens parameters to ini file"
 msgstr "Uložiť parametre šošovky do ini súboru"
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:786
-#: hugin1/hugin/PanoOperation.cpp:569
-msgid "Save lens parameters to lensfun database"
-msgstr "Uložiť parametre šošovky do lensfun databázy"
+#: hugin1/hugin/PanoOperation.cpp:565
+msgid "Save lens parameters to lens database"
+msgstr "Uložiť parametre šošovky databázy pre šošovku"
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:787
 msgid "Saving lens data"
@@ -637,15 +576,10 @@ msgstr "Cesta ku zdrojom: %s"
 msgid "Path to data: %s"
 msgstr "Cesta k dátam: %s"
 
-#: hugin1/hugin/AboutDialog.cpp:180
+#: hugin1/hugin/AboutDialog.cpp:179
 #, c-format
-msgid "Path to public lensfun database: %s"
-msgstr "Cesta ku verejnej databáze lensfun: %s"
-
-#: hugin1/hugin/AboutDialog.cpp:182
-#, c-format
-msgid "Path to user lensfun database: %s"
-msgstr "Cesta k užívateľskej databáze lensfun: %s"
+msgid "Hugins camera and lens database: %s"
+msgstr "Huginova databáza pre kamery a šošovky: %s"
 
 #: hugin1/hugin/AboutDialog.cpp:183
 msgid "Libraries"
@@ -1760,15 +1694,15 @@ msgstr "Naklopenie"
 
 #: hugin1/hugin/ImagesTree.cpp:161
 msgid "Camera translation X"
-msgstr "Premiestnenie fotoaparátu X"
+msgstr "Premiestnenie kamery X"
 
 #: hugin1/hugin/ImagesTree.cpp:162
 msgid "Camera translation Y"
-msgstr "Premiestnenie fotoaparátu Y"
+msgstr "Premiestnenie kamery Y"
 
 #: hugin1/hugin/ImagesTree.cpp:163
 msgid "Camera translation Z"
-msgstr "Premiestnenie fotoaparátu Z"
+msgstr "Premiestnenie kamery Z"
 
 #: hugin1/hugin/ImagesTree.cpp:164
 msgid "Plane yaw"
@@ -1788,7 +1722,7 @@ msgstr "Premiestnený premapovaný sklon plochy"
 
 #: hugin1/hugin/ImagesTree.cpp:166
 msgid "Camera translation"
-msgstr "Premiestnenie fotoaparátu"
+msgstr "Premiestnenie kamery"
 
 #: hugin1/hugin/ImagesTree.cpp:168
 msgid "Lens type (f)"
@@ -1865,13 +1799,13 @@ msgstr "Typ odozvy"
 
 #: hugin1/hugin/ImagesTree.cpp:186
 msgid "Camera response type"
-msgstr "Typ odozvy fotoaparátu"
+msgstr "Typ odozvy kamery"
 
 #: hugin1/hugin/ImagesTree.cpp:187 hugin1/hugin/ImagesTree.cpp:188
 #: hugin1/hugin/ImagesTree.cpp:189 hugin1/hugin/ImagesTree.cpp:190
 #: hugin1/hugin/ImagesTree.cpp:191
 msgid "Camera response parameter"
-msgstr "Parametre odozvy fotoaparátu"
+msgstr "Parametre odozvy kamery"
 
 #: hugin1/hugin/ImagesTree.cpp:388 translations/xrc.cpp:212
 msgid "custom (EMoR)"
@@ -2592,8 +2526,8 @@ msgid "Change lens number"
 msgstr "Zmeniť číslo šošovky"
 
 #: hugin1/hugin/PanoOperation.cpp:496
-msgid "Load lens from Lensfun database"
-msgstr "Načítať šošovku z Lensfun databázy"
+msgid "Load lens from lens database"
+msgstr "Načítať šošovku z databázy pre šošovky"
 
 #: hugin1/hugin/PanoOperation.cpp:500
 msgid "Load lens from ini file"
@@ -2626,10 +2560,6 @@ msgstr ""
 #: hugin1/hugin/PanoOperation.cpp:566
 msgid "Save lens to ini file"
 msgstr "Uložiť parametre šošovky do ini súboru"
-
-#: hugin1/hugin/PanoOperation.cpp:572
-msgid "Save camera parameters to lensfun database"
-msgstr "Uložiť parametre šošovky do lensfun databázy"
 
 #: hugin1/hugin/PanoOperation.cpp:599
 msgid "Remove control points"
@@ -4133,19 +4063,21 @@ msgstr "Databáza šošovky:"
 msgid "Load distortion data"
 msgstr "Nahrať parametre skreslenia"
 
-#: translations/xrc.cpp:51
-msgid "Tries to load distortion data from lensfun database if checked."
+#: hugin1/hugin/xrc/batch_frame.xrc:306
+msgid "Tries to load distortion data from lens database if checked."
 msgstr ""
-"Pokiaľ zaškrtnuté, pokúsi na načítať skreslenie šošovky z lensfun databázy."
+"Pokiaľ zaškrtnuté, pokúsi na načítať skreslenie šošovky z databázy pre "
+"šošovky."
 
 #: translations/xrc.cpp:52
 msgid "Load vignetting data"
 msgstr "Načítať parametre vignetácie"
 
-#: translations/xrc.cpp:53
-msgid "Tries to load vignetting data from lensfun database if checked."
+#: hugin1/hugin/xrc/batch_frame.xrc:314
+msgid "Tries to load vignetting data from lens database if checked."
 msgstr ""
-"Pokiaľ zaškrtnuté, pokúsi sa načítať vignetáciu šošovky z lensfun databázy."
+"Pokiaľ zaškrtnuté, pokúsi sa načítať vignetáciu šošovky z databázy pre "
+"šošovky."
 
 #: translations/xrc.cpp:54 translations/xrc.cpp:267 translations/xrc.cpp:486
 #: translations/xrc.cpp:603 translations/xrc.cpp:606 translations/xrc.cpp:609
@@ -4159,7 +4091,7 @@ msgstr "Nájdené panorámy"
 
 #: hugin1/hugin/xrc/batch_frame.xrc:353
 msgid "Camera:"
-msgstr "Fotoaparát:"
+msgstr "Kamera:"
 
 #: hugin1/hugin/xrc/batch_frame.xrc:361
 msgid "Lens:"
@@ -4694,9 +4626,10 @@ msgstr "Fotometrika"
 msgid "Parameters:"
 msgstr "Parametre:"
 
-#: translations/xrc.cpp:216 translations/xrc.cpp:1065
+#: hugin1/hugin/xrc/image_variable_dlg.xrc:624
+#: hugin1/hugin/xrc/reset_dialog.xrc:103
 msgid "Camera Response"
-msgstr "Reakcia fotoaparátu"
+msgstr "Reakcia kamery"
 
 #: translations/xrc.cpp:219 translations/xrc.cpp:810
 msgid "Help"
@@ -4819,9 +4752,9 @@ msgstr "HFOV (v):"
 msgid "degrees"
 msgstr "stupňov"
 
-#: translations/xrc.cpp:256
+#: hugin1/hugin/xrc/images_panel.xrc:561
 msgid "Camera and Lens data"
-msgstr "Údaje o fotoaparáte a šošovke"
+msgstr "Údaje o kamere a šošovke"
 
 #: translations/xrc.cpp:257 translations/xrc.cpp:450
 msgid "Add"
@@ -4879,13 +4812,13 @@ msgstr "Uložiť ako súbor s projektom..."
 msgid "Saves the images and lines as pto file for further tuning inside hugin."
 msgstr "Uloží obrázky a priamky ako pto súbor na ďalšie doladenie v Hugine."
 
-#: translations/xrc.cpp:290 translations/xrc.cpp:306 translations/xrc.cpp:322
+#: hugin1/hugin/xrc/lensdb_dialogs.xrc:170
 msgid "Camera maker:"
-msgstr "Výrobca fotoaparátu:"
+msgstr "Výrobca kamery:"
 
-#: translations/xrc.cpp:291 translations/xrc.cpp:307 translations/xrc.cpp:323
+#: hugin1/hugin/xrc/lensdb_dialogs.xrc:185
 msgid "Camera model:"
-msgstr "Model fotoaparátu:"
+msgstr "Model kamery:"
 
 #: translations/xrc.cpp:292 translations/xrc.cpp:309
 msgid "Lens name:"
@@ -4894,14 +4827,6 @@ msgstr "Meno šošovky:"
 #: translations/xrc.cpp:293 translations/xrc.cpp:310
 msgid "Leave empty for compact cameras."
 msgstr "Nechajte prázdne pre kompaktné kamery."
-
-#: translations/xrc.cpp:294
-msgid "fuzzy search"
-msgstr "fuzzy vyhľadávanie"
-
-#: translations/xrc.cpp:295
-msgid "Search"
-msgstr "Hľadať"
 
 #: translations/xrc.cpp:297 translations/xrc.cpp:313
 msgid "Aperture:"
@@ -4931,14 +4856,6 @@ msgstr "Načítať vignetáciu"
 msgid "Load lens from database"
 msgstr "Načítať šošovku z databázy"
 
-#: translations/xrc.cpp:308
-msgid "Lens maker:"
-msgstr "Výrobca šošovky:"
-
-#: translations/xrc.cpp:311 translations/xrc.cpp:324
-msgid "Mount:"
-msgstr "Montované:"
-
 #: translations/xrc.cpp:315
 msgid ""
 "Select which parameters should be saved\n"
@@ -4958,14 +4875,6 @@ msgstr "Uložiť vignetáciu"
 #: translations/xrc.cpp:321
 msgid "Save lens to database"
 msgstr "Uložiť šošovku do databázy"
-
-#: translations/xrc.cpp:325
-msgid "Camera"
-msgstr "Fotoaparátu"
-
-#: translations/xrc.cpp:328
-msgid "Save camera to database"
-msgstr "Uložiť fotoaparát do databázy"
 
 #: translations/xrc.cpp:330 translations/xrc.cpp:369
 msgid "Photos"
@@ -5553,22 +5462,22 @@ msgstr "Fotometrická optimalizácia"
 msgid "Only use images selected in preview."
 msgstr "Použiť iba obrázky vybrané v okne s náhľadom."
 
-#: translations/xrc.cpp:522
+#: hugin1/hugin/xrc/optimize_photo_panel.xrc:39
 msgid ""
 "Only consider images selected in preview window. Useful to avoid errors due "
 "to badly fitting images, such as the nadir image in most fisheye panoramas"
 msgstr ""
 "Používať iba obrázky vybrané v v okne s náhľadom. Užitočné, ak sa chcete "
 "vyhnúť chybám spôsobenými zlým lícovaním obrázkov, ako je napríklad obrázok "
-"dna vo väčšine panorám fotených rybím okom."
+"dna vo väčšine panorám fotených rybím okom"
 
 #: translations/xrc.cpp:526
 msgid "Image variables:"
 msgstr "Premenné obrázku:"
 
-#: translations/xrc.cpp:527
+#: hugin1/hugin/xrc/optimize_photo_panel.xrc:112
 msgid "Camera and Lens variables:"
-msgstr "Premenné fotoaparátu a šošoviek:"
+msgstr "Premenné kamier a šošoviek:"
 
 #: translations/xrc.cpp:528
 msgid "Interpolator (i):"
@@ -6076,8 +5985,7 @@ msgstr "Štandardné meno súboru projektu:"
 msgid "Default output prefix:"
 msgstr "Štandardný prefix pre výstup:"
 
-#: translations/xrc.cpp:683
-#, c-format
+#: hugin1/hugin/xrc/pref_dialog.xrc:273
 msgid ""
 "The following placeholder are replaced automatically:\n"
 "%firstimage - filename of first image file\n"
@@ -6102,8 +6010,8 @@ msgstr ""
 "%focallength - ohnisková vzdialenosť\n"
 "%date - dátum (prvého obrázku)\n"
 "%time - čas (prvého obrázku)\n"
-"%maker - výrobca fotoaparátu (prvého obrázku)\n"
-"%model - model fotoaparátu (prvého obrázku)\n"
+"%maker - výrobca kamery (prvého obrázku)\n"
+"%model - model kamery (prvého obrázku)\n"
 "%lens - šošovka (prvého obrázku)\n"
 "%projectname - názov súboru projektu (len pre výstupný prefix)"
 
@@ -7012,8 +6920,8 @@ msgid ""
 "Place control points on objects as far away from the camera as possible.  "
 "They are less prone to parallax error."
 msgstr ""
-"Umiestnite kontrolné body na objekty tak ďaleko od fotoaparátu, ako je to "
-"len možné.  Sú tak potom menej náchylné na chyby paralaxy."
+"Umiestnite kontrolné body na objekty tak ďaleko od kamery, ako je to len "
+"možné.  Sú tak potom menej náchylné na chyby paralaxy."
 
 #: hugin1/hugin/xrc/data/tips.txt:23
 msgid ""
@@ -7127,6 +7035,84 @@ msgstr ""
 "Optimalizácia všetkých parametrov skreslenia \"všetko\" má zmysel iba vtedy, "
 "ak sa obrázky veľmi prekrývajú a použili ste tiež mnoho dobre rozprestrených "
 "kontrolných bodov."
+
+#~ msgid "%d lenses found."
+#~ msgstr "%d šošovky nájdené."
+
+#~ msgid "No lens found."
+#~ msgstr "Neboli nájdené žiadne šošovky."
+
+#~ msgid ""
+#~ "You selected the folder \"%s\" to save your database file.\n"
+#~ "This is not the default folder. You won't be able to automatically load "
+#~ "this information back into Hugin.\n"
+#~ "The default folder for the database files is \"%s\".\n"
+#~ "Do you want to proceed anyway?"
+#~ msgstr ""
+#~ "Vybrali ste adresár \"%s\"  na uloženie databázy.\n"
+#~ "Nie je to štandardný adresár. Nebudete byť schopným ho automaticky "
+#~ "načítať naspäť do Hugina.\n"
+#~ "Štandardný adresár pre databázy je \"%s\".\n"
+#~ "Napriek tomu chcete pokračovať?"
+
+#~ msgid "Save lens into database file"
+#~ msgstr "Uložiť šošovku do databázy"
+
+#~ msgid "Lensfun database files (*.xml)|*.xml"
+#~ msgstr "Lensfun databáza (*.xml)|*.xml"
+
+#~ msgid "Could not initialize database."
+#~ msgstr "Nepodarilo sa inicializovať databázu."
+
+#~ msgid ""
+#~ "The current selected lens does not match with the information about this "
+#~ "lens in the selected database file.\n"
+#~ "Could not proceed.\n"
+#~ "(Error code: %d)"
+#~ msgstr ""
+#~ "Súčasne vybraná šošovka nesúhlasí s informáciou tejto šošovky vo vybranej "
+#~ "databáze.\n"
+#~ "Nedá sa pokračovať.\n"
+#~ "(Chybný kód: %d)"
+
+#~ msgid "The maker field contains only an empty string."
+#~ msgstr "Pole výrobca je prázdne."
+
+#~ msgid "The model field contains only an empty string."
+#~ msgstr "Pole modelu je prázdne."
+
+#~ msgid "Save camera into database file"
+#~ msgstr "Uložiť fotoaparát do databázy"
+
+#~ msgid "lensfun directory not found in bundle"
+#~ msgstr "adresár lensfun nebol nájdený v balíku"
+
+#~ msgid "Path to public lensfun database: %s"
+#~ msgstr "Cesta ku verejnej databáze lensfun: %s"
+
+#~ msgid "Path to user lensfun database: %s"
+#~ msgstr "Cesta k užívateľskej databáze lensfun: %s"
+
+#~ msgid "Save camera parameters to lensfun database"
+#~ msgstr "Uložiť parametre šošovky do lensfun databázy"
+
+#~ msgid "fuzzy search"
+#~ msgstr "fuzzy vyhľadávanie"
+
+#~ msgid "Search"
+#~ msgstr "Hľadať"
+
+#~ msgid "Lens maker:"
+#~ msgstr "Výrobca šošovky:"
+
+#~ msgid "Mount:"
+#~ msgstr "Montované:"
+
+#~ msgid "Camera"
+#~ msgstr "Fotoaparátu"
+
+#~ msgid "Save camera to database"
+#~ msgstr "Uložiť fotoaparát do databázy"
 
 #~ msgid ""
 #~ "Are you sure you want to stitch such a large panorama?\n"
@@ -8981,3 +8967,20 @@ msgstr ""
 
 #~ msgid "Create makefile automatically during save"
 #~ msgstr "Počas ukladania vytvoriť makefile automaticky"
+
+#~ msgid "Could not save information into database file."
+#~ msgstr "Nepodarilo sa uložiť informáciu do databázy."
+
+#~ msgid "Save lens parameters to lensfun database"
+#~ msgstr "Uložiť parametre šošovky do lensfun databázy"
+
+#~ msgid "Load lens from Lensfun database"
+#~ msgstr "Načítať šošovku z Lensfun databázy"
+
+#~ msgid "Tries to load distortion data from lensfun database if checked."
+#~ msgstr ""
+#~ "Pokiaľ zaškrtnuté, pokúsi na načítať skreslenie šošovky z lensfun databázy."
+
+#~ msgid "Tries to load vignetting data from lensfun database if checked."
+#~ msgstr ""
+#~ "Pokiaľ zaškrtnuté, pokúsi sa načítať vignetáciu šošovky z lensfun databázy."
