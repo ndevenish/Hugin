@@ -1,6 +1,6 @@
 
 add_executable(fulla fulla.cpp)
-target_link_libraries(fulla ${common_libs} huginlensdb ${image_libs})
+target_link_libraries(fulla ${common_libs} ${image_libs})
 # for expanding wildcard with MSVC
 if(MSVC)
   set_target_properties(fulla PROPERTIES LINK_FLAGS "setargv.obj")
