@@ -33,9 +33,8 @@
 #include <vigra/impex.hxx>
 #include <exiv2/image.hpp>
 #include <exiv2/exif.hpp>
-#ifdef WIN32
 #include <getopt.h>
-#else
+#ifndef WIN32
 #include <unistd.h>
 #endif
 
@@ -64,13 +63,14 @@ void correctImage(SrcImgType& srcImg,
                   const FlatImgType& srcFlat,
                   SrcPanoImage src,
                   vigra_ext::Interpolator interpolator,
+                  double maxValue,
                   DestImgType& destImg,
                   bool doCrop,
-                  AppBase::MultiProgressDisplay& progress);
+                  AppBase::MultiProgressDisplay* progress);
 
 template <class PIXELTYPE>
 void correctRGB(SrcPanoImage& src, ImageImportInfo& info, const char* outfile,
-                bool crop, const std::string& compression, AppBase::MultiProgressDisplay& progress);
+                bool crop, const std::string& compression, AppBase::MultiProgressDisplay* progress);
 
 bool getPTLensCoef(const char* fn, string cameraMaker, string cameraName,
                    string lensName, float focalLength, vector<double>& coeff);
@@ -105,6 +105,7 @@ static void usage(const char* name)
          << "                        I = I / c,    c = flatfield / mean(flatfield)" << std::endl
          << "      -c a:b:c:d       radial vignetting correction by division:" << std::endl
          << "                        I = I / c,    c = a + b*r^2 + c*r^4 + d*r^6" << std::endl
+         << "      --linear         Do vignetting correction in linear color space" << std::endl
          << "      -i value         gamma of input data. used for gamma correction" << std::endl
          << "                        before and after flatfield correction" << std::endl
          << "      -t n             Number of threads that should be used during processing" << std::endl
@@ -125,7 +126,17 @@ int main(int argc, char* argv[])
     const char* optstring = "e:g:b:r:pm:n:l:d:sf:c:i:t:ho:x:v";
     int o;
     //bool verbose_flag = true;
-
+    enum
+    {
+        LINEAR_RESPONSE = 1000
+    };
+    static struct option longOptions[] =
+    {
+        { "linear", no_argument, NULL, LINEAR_RESPONSE },
+        { "help", no_argument, NULL, 'h' },
+        0
+    };
+    int optionIndex = 0;
     opterr = 0;
 
     vector<double> vec4(4);
@@ -148,7 +159,7 @@ int main(int argc, char* argv[])
     double shiftY = 0;
 
     SrcPanoImage c;
-    while ((o = getopt (argc, argv, optstring)) != -1)
+    while ((o = getopt_long(argc, argv, optstring, longOptions, &optionIndex)) != -1)
         switch (o)
         {
             case 'e':
@@ -246,6 +257,9 @@ int main(int argc, char* argv[])
             case 'v':
                 verbose++;
                 break;
+            case LINEAR_RESPONSE:
+                c.setResponseType(BaseSrcPanoImage::RESPONSE_LINEAR);
+                break;
             default:
                 abort ();
         }
@@ -316,7 +330,15 @@ int main(int argc, char* argv[])
     // suppress tiff warnings
     TIFFSetWarningHandler(0);
 
-    AppBase::StreamMultiProgressDisplay pdisp(cout);
+    AppBase::MultiProgressDisplay* pdisp;
+    if (verbose > 0)
+    {
+        pdisp = new AppBase::StreamMultiProgressDisplay(cout);
+    }
+    else
+    {
+        pdisp = new AppBase::DummyMultiProgressDisplay();
+    };
 
     if (nThreads < 1)
     {
@@ -352,6 +374,7 @@ int main(int argc, char* argv[])
                 else
                 {
                     cerr << "Error: could not extract correction parameters from PTLens database" << endl;
+                    delete pdisp;
                     return 1;
                 }
             }
@@ -388,6 +411,7 @@ int main(int argc, char* argv[])
             else
             {
                 DEBUG_ERROR("unsupported depth, only 3 channel images are supported");
+                delete pdisp;
                 throw std::runtime_error("unsupported depth, only 3 channels images are supported");
                 return 1;
             }
@@ -396,12 +420,23 @@ int main(int argc, char* argv[])
     catch (std::exception& e)
     {
         cerr << "caught exception: " << e.what() << std::endl;
+        delete pdisp;
         return 1;
     }
+    delete pdisp;
     return 0;
 }
 
-
+class NullTransform
+{
+public:
+    bool transformImgCoord(double & x_dest, double & y_dest, double x_src, double y_src) const
+    {
+        x_dest = x_src;
+        y_dest = y_src;
+        return true;
+    };
+};
 
 
 /** remap a single image
@@ -414,32 +449,46 @@ void correctImage(SrcImgType& srcImg,
                   const FlatImgType& srcFlat,
                   SrcPanoImage src,
                   vigra_ext::Interpolator interpolator,
+                  double maxValue,
                   DestImgType& destImg,
                   bool doCrop,
-                  AppBase::MultiProgressDisplay& progress)
+                  AppBase::MultiProgressDisplay* progress)
 {
     typedef typename SrcImgType::value_type SrcPixelType;
     typedef typename DestImgType::value_type DestPixelType;
 
-    typedef typename vigra::NumericTraits<SrcPixelType>::RealPromote RSrcPixelType;
-
     // prepare some information required by multiple types of vignetting correction
-    progress.pushTask(AppBase::ProgressTask("correcting image", ""));
+    progress->pushTask(AppBase::ProgressTask("correcting image", ""));
 
     vigra::Diff2D shiftXY(- roundi(src.getRadialDistortionCenterShift().x),
                           - roundi(src.getRadialDistortionCenterShift().y));
 
+    // dummy alpha channel
+    BImage alpha(destImg.size());
     if( (src.getVigCorrMode() & SrcPanoImage::VIGCORR_FLATFIELD)
             || (src.getVigCorrMode() & SrcPanoImage::VIGCORR_RADIAL) )
     {
-        src.setResponseType(HuginBase::SrcPanoImage::RESPONSE_LINEAR);
         Photometric::InvResponseTransform<SrcPixelType,SrcPixelType> invResp(src);
+        if (src.getResponseType() == BaseSrcPanoImage::RESPONSE_EMOR)
+        {
+            std::vector<double> outLut;
+            vigra_ext::EMoR::createEMoRLUT(src.getEMoRParams(), outLut);
+            vigra_ext::enforceMonotonicity(outLut);
+            invResp.setOutput(1.0 / pow(2.0, src.getExposureValue()), outLut, maxValue);
+            if (maxValue != 1.0)
+            {
+                // transform to range 0..1 for vignetting correction
+                vigra::transformImage(srcImageRange(srcImg), destImage(srcImg), vigra::functor::Arg1()/vigra::functor::Param(maxValue));
+            };
+        };
+
         invResp.enforceMonotonicity();
         if (src.getVigCorrMode() & SrcPanoImage::VIGCORR_FLATFIELD)
         {
             invResp.setFlatfield(&srcFlat);
         }
-        vigra_ext::transformImageSpatial(srcImageRange(srcImg), destImage(srcImg), invResp, vigra::Diff2D(0,0));
+        NullTransform transform;
+        vigra_ext::transformImage(srcImageRange(srcImg), destImageRange(srcImg), destImage(alpha), vigra::Diff2D(0, 0), transform, invResp, false, vigra_ext::INTERP_SPLINE_16, *progress);
     }
 
     double scaleFactor=1.0;
@@ -457,9 +506,6 @@ void correctImage(SrcImgType& srcImg,
         }
         src.setRadialDistortion(radGreen);
     }
-
-    // hmm, dummy alpha image...
-    BImage alpha(destImg.size());
 
     vigra_ext::PassThroughFunctor<typename SrcPixelType::value_type> ptf;
 
@@ -489,7 +535,7 @@ void correctImage(SrcImgType& srcImg,
                                       ptf,
                                       false,
                                       vigra_ext::INTERP_SPLINE_16,
-                                      progress);
+                                      *progress);
         }
 
         Nona::SpaceTransform transfg;
@@ -509,7 +555,7 @@ void correctImage(SrcImgType& srcImg,
                            ptf,
                            false,
                            vigra_ext::INTERP_SPLINE_16,
-                           progress);
+                           *progress);
         }
 
         Nona::SpaceTransform transfb;
@@ -529,7 +575,7 @@ void correctImage(SrcImgType& srcImg,
                            ptf,
                            false,
                            vigra_ext::INTERP_SPLINE_16,
-                           progress);
+                           *progress);
         }
     }
     else
@@ -555,7 +601,7 @@ void correctImage(SrcImgType& srcImg,
                            ptfRGB,
                            false,
                            vigra_ext::INTERP_SPLINE_16,
-                           progress);
+                           *progress);
         }
     }
 }
@@ -564,9 +610,9 @@ void correctImage(SrcImgType& srcImg,
 //void correctRGB(SrcImageInfo & src, ImageImportInfo & info, const char * outfile)
 template <class PIXELTYPE>
 void correctRGB(SrcPanoImage& src, ImageImportInfo& info, const char* outfile,
-                bool crop, const std::string& compression, AppBase::MultiProgressDisplay& progress)
+                bool crop, const std::string& compression, AppBase::MultiProgressDisplay* progress)
 {
-    vigra::BasicImage<RGBValue<float> > srcImg(info.size());
+    vigra::BasicImage<RGBValue<double> > srcImg(info.size());
     vigra::BasicImage<PIXELTYPE> output(info.size());
     importImage(info, destImage(srcImg));
     FImage flatfield;
@@ -576,7 +622,8 @@ void correctRGB(SrcPanoImage& src, ImageImportInfo& info, const char* outfile,
         flatfield.resize(finfo.size());
         importImage(finfo, destImage(flatfield));
     }
-    correctImage(srcImg, flatfield, src, vigra_ext::INTERP_SPLINE_16, output, crop, progress);
+    correctImage(srcImg, flatfield, src, vigra_ext::INTERP_SPLINE_16, vigra_ext::getMaxValForPixelType(info.getPixelType()),
+        output, crop, progress);
     ImageExportInfo outInfo(outfile);
     outInfo.setICCProfile(info.getICCProfile());
     outInfo.setPixelType(info.getPixelType());
