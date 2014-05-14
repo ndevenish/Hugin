@@ -32,8 +32,6 @@
 #include <vigra/error.hxx>
 #include <vigra/impex.hxx>
 #include <vigra_impex/codecmanager.hxx>
-#include <exiv2/image.hpp>
-#include <exiv2/exif.hpp>
 #include <getopt.h>
 #ifndef WIN32
 #include <unistd.h>
@@ -44,8 +42,7 @@
 #include <photometric/ResponseTransform.h>
 
 #include <hugin_basic.h>
-
-#include <foreign/lensdb/PTLensDB.h>
+#include <lensdb/LensDB.h>
 
 #include <tiffio.h>
 #include <vigra_ext/MultiThreadOperations.h>
@@ -74,12 +71,6 @@ template <class PIXELTYPE>
 void correctRGB(SrcPanoImage& src, ImageImportInfo& info, const char* outfile,
                 bool crop, const std::string& compression, AppBase::MultiProgressDisplay* progress);
 
-bool getPTLensCoef(const char* fn, string cameraMaker, string cameraName,
-                   string lensName, float focalLength, vector<double>& coeff);
-
-
-
-
 static void usage(const char* name)
 {
     cerr << name << ": correct lens distortion, vignetting and chromatic abberation" << std::endl
@@ -87,47 +78,56 @@ static void usage(const char* name)
          << std::endl
          << "Usage: " << name  << " [options] inputfile(s) " << std::endl
          << "   option are: " << std::endl
-         << "      -g a:b:c:d       Radial distortion coefficient for all channels, (a, b, c, d)" << std::endl
-         << "      -b a:b:c:d       Radial distortion coefficients for blue channel, (a, b, c, d)" << std::endl
-         << "                        this is applied on top of the -g distortion coefficients," << endl
-         << "                        use for TCA corr" << std::endl
-         << "      -r a:b:c:d       Radial distortion coefficients for red channel, (a, b, c, d)" << std::endl
-         << "                        this is applied on top of the -g distortion coefficients," << endl
-         << "                        use for TCA corr" << std::endl
-         << "      -p               Try to read radial distortion coefficients for green" << endl
-         << "                         channel from PTLens database" << std::endl
-         << "      -m Canon         Camera manufacturer, for PTLens database query" << std::endl
-         << "      -n Camera        Camera name, for PTLens database query" << std::endl
-         << "      -l Lens          Lens name, for PTLens database query" << std::endl
-         << "                        if not specified, a list of possible lenses is displayed" << std::endl
-         << "      -d 50            specify focal length in mm, for PTLens database query" << std::endl
-         << "      -s               do not rescale the image to avoid black borders." << std::endl
-         << endl
-         << "      -f filename      Vignetting correction by flatfield division" << std::endl
-         << "                        I = I / c,    c = flatfield / mean(flatfield)" << std::endl
-         << "      -c a:b:c:d       radial vignetting correction by division:" << std::endl
-         << "                        I = I / c,    c = a + b*r^2 + c*r^4 + d*r^6" << std::endl
-         << "      --linear         Do vignetting correction in linear color space" << std::endl
-         << "      -i value         gamma of input data. used for gamma correction" << std::endl
-         << "                        before and after flatfield correction" << std::endl
-         << "      -t n             Number of threads that should be used during processing" << std::endl
-         << "      -h               Display help (this text)" << std::endl
-         << "      -o name          set output filename. If more than one image is given," << std::endl
-         << "                        the name will be uses as suffix (default suffix: _corr)" << std::endl
-         << "      -e value         Compression of the output files" << std::endl
-         << "                        For jpeg output: 0-100" << std::endl
-         << "                        For tiff output: PACKBITS, DEFLATE, LZW" << std::endl
-         << "      -x X:Y           Horizontal and vertical shift" << std::endl
-         << "      -v               Verbose" << std::endl;
+         << "      --green=db|a:b:c:d  Correct radial distortion for all channels" << std::endl
+         << "                            Specifiy 'db' for database lookup or" << std::endl
+         << "                            the 4 coefficients a:b:c:d" << std::endl
+         << "      --blue=db|a:b:c:d   Correct radial distortion for blue channel," << std::endl
+         << "                            this is applied on top of the --green" << std::endl
+         << "                            distortion coefficients, use for TCA corr" << std::endl
+         << "                            Specifiy 'db' for database lookup or" << std::endl
+         << "                            the 4 coefficients a:b:c:d" << std::endl
+         << "      --red=db|a:b:c:d    Correct radial distortion for red channel," << std::endl
+         << "                            this is applied on top of the --green" << std::endl
+         << "                            distortion coefficients, use for TCA corr" << std::endl
+         << "                            Specifiy 'db' for database lookup or" << std::endl
+         << "                            the 4 coefficients a:b:c:d" << std::endl
+         << "      --camera-maker=Maker Camera manufacturer, for database query" << std::endl
+         << "      --camera-model=Cam Camera name, for database query" << std::endl
+         << "      --lensname=Lens    Lens name, for database query" << std::endl
+         << "                            Specify --camera-maker and --camera-model" << std::endl
+         << "                            for fixed lens cameras or --lensname" << std::endl
+         << "                            for interchangeable lenses." << std::endl
+         << "      --focallength=50   Specify focal length in mm, for database query" << std::endl
+         << "      --aperture=3.5     Specify aperture for vignetting data database query" << std::endl
+         << "      --dont-rescale     Do not rescale the image to avoid black borders." << std::endl
+         << std::endl
+         << "      --flatfield=filename  Vignetting correction by flatfield division" << std::endl
+         << "                              I = I / c, c = flatfield / mean(flatfield)" << std::endl
+         << "      --vignetting=db|a:b:c:d  Correct vignetting (by division)" << std::endl
+         << "                            Specify db for database look up or the " << std::endl
+         << "                            the 4 coefficients a:b:c:d" << std::endl
+         << "                              I = I / ( a + b*r^2 + c*r^4 + d*r^6)" << std::endl
+         << "      --linear           Do vignetting correction in linear color space" << std::endl
+         << "      --gamma=value      Gamma of input data. used for gamma correction" << std::endl
+         << "                           before and after flatfield correction" << std::endl
+         << "      --threads=n        Number of threads that should be used" << std::endl
+         << "      --help             Display help (this text)" << std::endl
+         << "      --output=name      Set output filename. If more than one image is given," << std::endl
+         << "                            the name will be uses as suffix" << std::endl
+         << "                            (default suffix: _corr)" << std::endl
+         << "      --compression=value Compression of the output files" << std::endl
+         << "                            For jpeg output: 0-100" << std::endl
+         << "                            For tiff output: PACKBITS, DEFLATE, LZW" << std::endl
+         << "      --offset=X:Y       Horizontal and vertical shift" << std::endl
+         << "      --verbose          Verbose" << std::endl;
 }
 
 
 int main(int argc, char* argv[])
 {
     // parse arguments
-    const char* optstring = "e:g:b:r:pm:n:l:d:sf:c:i:t:ho:x:v";
+    const char* optstring = "e:g:b:r:m:n:l:d:sf:c:i:t:ho:x:va:";
     int o;
-    //bool verbose_flag = true;
     enum
     {
         LINEAR_RESPONSE = 1000
@@ -135,6 +135,23 @@ int main(int argc, char* argv[])
     static struct option longOptions[] =
     {
         { "linear", no_argument, NULL, LINEAR_RESPONSE },
+        { "green", required_argument, NULL, 'g' },
+        { "blue", required_argument, NULL, 'b' },
+        { "red", required_argument, NULL, 'r' },
+        { "lensname", required_argument, NULL, 'l' },
+        { "camera-maker", required_argument, NULL, 'm' },
+        { "camera-model", required_argument, NULL, 'n' },
+        { "aperture", required_argument, NULL, 'a' },
+        { "focallength", required_argument, NULL, 'd' },
+        { "flatfield", required_argument, NULL, 'f' },
+        { "dont-rescale", no_argument, NULL, 's' },
+        { "vignetting", required_argument, NULL, 'c' },
+        { "gamma", required_argument, NULL, 'i' },
+        { "threads", required_argument, NULL, 't' },
+        { "output", required_argument, NULL, 'o' },
+        { "compression", required_argument, NULL, 'e' },
+        { "offset", required_argument, NULL, 'x' },
+        { "verbose", no_argument, NULL, 'v' },
         { "help", no_argument, NULL, 'h' },
         0
     };
@@ -151,16 +168,20 @@ int main(int argc, char* argv[])
     std::string batchPostfix("_corr");
     std::string outputFile;
     std::string compression;
-    bool doPTLens = false;
+    bool doLookupDistortion = false;
+    bool doLookupTCA = false;
+    bool doLookupVignetting = false;
     std::string cameraMaker;
     std::string cameraName;
     std::string lensName;
     float focalLength=0;
+    float aperture = 0;
     double gamma = 1.0;
     double shiftX = 0;
     double shiftY = 0;
+    std::string argument;
 
-    SrcPanoImage c;
+    SrcPanoImage srcImg;
     while ((o = getopt_long(argc, argv, optstring, longOptions, &optionIndex)) != -1)
         switch (o)
         {
@@ -168,74 +189,103 @@ int main(int argc, char* argv[])
                 compression = optarg;
                 break;
             case 'r':
-                if (sscanf(optarg, "%lf:%lf:%lf:%lf", &vec4[0], &vec4[1], &vec4[2], &vec4[3]) != 4)
+                argument = optarg;
+                argument = hugin_utils::tolower(argument);
+                if (argument == "db")
                 {
-                    std::cerr << std::endl << "Error: invalid -r argument" << std::endl <<std::endl;
-                    usage(argv[0]);
-                    return 1;
+                    doLookupTCA = true;
                 }
-                c.setRadialDistortionRed(vec4);
-                //            c.radDistRed[3] = 1 - c.radDistRed[0] - c.radDistRed[1] - c.radDistRed[2];
+                else
+                {
+                    if (sscanf(optarg, "%lf:%lf:%lf:%lf", &vec4[0], &vec4[1], &vec4[2], &vec4[3]) != 4)
+                    {
+                        std::cerr << std::endl << "Error: invalid -r argument" << std::endl << std::endl;
+                        usage(argv[0]);
+                        return 1;
+                    }
+                    srcImg.setRadialDistortionRed(vec4);
+                };
                 break;
             case 'g':
-                if (sscanf(optarg, "%lf:%lf:%lf:%lf", &vec4[0], &vec4[1], &vec4[2], &vec4[3]) != 4)
+                argument = optarg;
+                argument = hugin_utils::tolower(argument);
+                if (argument == "db")
                 {
-                    std::cerr << std::endl << "Error: invalid -g argument" << std::endl <<std::endl;
-                    usage(argv[0]);
-                    return 1;
+                    doLookupDistortion = true;
                 }
-                c.setRadialDistortion(vec4);
-                //            c.radDistBlue[3] = 1 - c.radDistBlue[0] - c.radDistBlue[1] - c.radDistBlue[2];
+                else
+                {
+                    if (sscanf(optarg, "%lf:%lf:%lf:%lf", &vec4[0], &vec4[1], &vec4[2], &vec4[3]) != 4)
+                    {
+                        std::cerr << std::endl << "Error: invalid -g argument" << std::endl << std::endl;
+                        usage(argv[0]);
+                        return 1;
+                    }
+                    srcImg.setRadialDistortion(vec4);
+                };
                 break;
             case 'b':
-                if (sscanf(optarg, "%lf:%lf:%lf:%lf", &vec4[0], &vec4[1], &vec4[2], &vec4[3]) != 4)
+                argument = optarg;
+                argument = hugin_utils::tolower(argument);
+                if (argument == "db")
                 {
-                    std::cerr << std::endl << "Error: invalid -b argument" << std::endl <<std::endl;
-                    usage(argv[0]);
-                    return 1;
+                    doLookupTCA = true;
                 }
-                c.setRadialDistortionBlue(vec4);
-                //            c.radDistBlue[3] = 1 - c.radDistBlue[0] - c.radDistBlue[1] - c.radDistBlue[2];
+                else
+                {
+                    if (sscanf(optarg, "%lf:%lf:%lf:%lf", &vec4[0], &vec4[1], &vec4[2], &vec4[3]) != 4)
+                    {
+                        std::cerr << std::endl << "Error: invalid -b argument" << std::endl << std::endl;
+                        usage(argv[0]);
+                        return 1;
+                    }
+                    srcImg.setRadialDistortionBlue(vec4);
+                };
                 break;
             case 's':
                 doCropBorders = false;
                 break;
             case 'f':
-                c.setFlatfieldFilename(optarg);
+                srcImg.setFlatfieldFilename(optarg);
                 doFlatfield = true;
                 break;
             case 'i':
                 gamma = atof(optarg);
-                c.setGamma(gamma);
-                break;
-            case 'p':
-                doPTLens = true;
+                srcImg.setGamma(gamma);
                 break;
             case 'm':
                 cameraMaker = optarg;
-                doPTLens = true;
                 break;
             case 'n':
                 cameraName = optarg;
-                doPTLens = true;
                 break;
             case 'l':
                 lensName = optarg;
-                doPTLens = true;
                 break;
             case 'd':
                 focalLength = atof(optarg);
-                doPTLens = true;
+                break;
+            case 'a':
+                aperture = atof(optarg);
                 break;
             case 'c':
-                if (sscanf(optarg, "%lf:%lf:%lf:%lf", &vec4[0], &vec4[1], &vec4[2], &vec4[3]) !=4)
+                argument = optarg;
+                argument = hugin_utils::tolower(argument);
+                if (argument == "db")
                 {
-                    std::cerr << std::endl << "Error: invalid -c argument" << std::endl <<std::endl;
-                    usage(argv[0]);
-                    return 1;
+                    doLookupVignetting = true;
                 }
-                c.setRadialVigCorrCoeff(vec4);
-                doVigRadial=true;
+                else
+                {
+                    if (sscanf(optarg, "%lf:%lf:%lf:%lf", &vec4[0], &vec4[1], &vec4[2], &vec4[3]) != 4)
+                    {
+                        std::cerr << std::endl << "Error: invalid -c argument" << std::endl << std::endl;
+                        usage(argv[0]);
+                        return 1;
+                    }
+                    srcImg.setRadialVigCorrCoeff(vec4);
+                };
+                doVigRadial = true;
                 break;
             case '?':
             case 'h':
@@ -254,13 +304,13 @@ int main(int argc, char* argv[])
                     usage(argv[0]);
                     return 1;
                 }
-                c.setRadialDistortionCenterShift(FDiff2D(shiftX, shiftY));
+                srcImg.setRadialDistortionCenterShift(FDiff2D(shiftX, shiftY));
                 break;
             case 'v':
                 verbose++;
                 break;
             case LINEAR_RESPONSE:
-                c.setResponseType(BaseSrcPanoImage::RESPONSE_LINEAR);
+                srcImg.setResponseType(BaseSrcPanoImage::RESPONSE_LINEAR);
                 break;
             default:
                 abort ();
@@ -285,7 +335,7 @@ int main(int argc, char* argv[])
     }
 
     vm = (SrcPanoImage::VignettingCorrMode) (vm | SrcPanoImage::VIGCORR_DIV);
-    c.setVigCorrMode(vm);
+    srcImg.setVigCorrMode(vm);
 
     unsigned nFiles = argc - optind;
     if (nFiles == 0)
@@ -337,6 +387,18 @@ int main(int argc, char* argv[])
         }
     }
 
+    if (doLookupDistortion || doLookupVignetting || doLookupTCA)
+    {
+        if (lensName.empty())
+        {
+            if (!cameraMaker.empty() && !cameraName.empty())
+            {
+                lensName = cameraMaker;
+                lensName.append("|");
+                lensName.append(cameraName);
+            };
+        };
+    };
 
     // suppress tiff warnings
     TIFFSetWarningHandler(0);
@@ -357,6 +419,7 @@ int main(int argc, char* argv[])
     }
     vigra_ext::ThreadManager::get().setNThreads(nThreads);
 
+    HuginBase::LensDB::LensDB& lensDB = HuginBase::LensDB::LensDB::GetSingleton();
     try
     {
         vector<string>::iterator outIt = outFiles.begin();
@@ -366,7 +429,8 @@ int main(int argc, char* argv[])
             {
                 cerr << "Correcting " << *inIt << " -> " << *outIt << endl;
             }
-            c.setFilename(*inIt);
+            SrcPanoImage currentImg(srcImg);
+            currentImg.setFilename(*inIt);
 
             // load the input image
             vigra::ImageImportInfo info(inIt->c_str());
@@ -374,55 +438,139 @@ int main(int argc, char* argv[])
             int bands = info.numBands();
             int extraBands = info.numExtraBands();
 
-            // if ptlens support required, load database
-            if (doPTLens)
+            // do database lookup
+            if (doLookupDistortion || doLookupVignetting || doLookupTCA)
             {
-                if (getPTLensCoef(inIt->c_str(), cameraMaker, cameraName,
-                                  lensName, focalLength, vec4))
+                currentImg.readEXIF();
+                if (lensName.empty())
                 {
-                    c.setRadialDistortion(vec4);
+                    if (currentImg.getDBLensName().empty())
+                    {
+                        std::cerr << "Not enough data for database lookup" << std::endl
+                            << "Specify lensname (--lensname) or camera maker and model " << std::endl
+                            << "(--camera-maker and --camera-model) as parameter." << std::endl;
+                        continue;
+                    };
                 }
                 else
                 {
-                    cerr << "Error: could not extract correction parameters from PTLens database" << endl;
-                    delete pdisp;
-                    return 1;
+                    currentImg.setExifLens(lensName);
                 }
-            }
-            c.setSize(info.size());
+                if (fabs(focalLength) < 0.1)
+                {
+                    if (fabs(currentImg.getExifFocalLength()) < 0.1)
+                    {
+                        std::cerr << "Could not determine focal length." << std::endl
+                            << "Specifiy focal length (--focallength) as parameter." << std::endl;
+                        continue;
+                    };
+                }
+                else
+                {
+                    currentImg.setExifFocalLength(focalLength);
+                };
+                if (verbose > 1)
+                {
+                    std::cout << "Lookup in database for " << currentImg.getDBLensName() << " @ " << currentImg.getExifFocalLength() << " mm" << std::endl;
+                };
+                if (doLookupDistortion)
+                {
+                    if (!currentImg.readDistortionFromDB())
+                    {
+                        std::cerr << "No suitable distortion data found in database." << std::endl
+                            << "Skipping image." << std::endl;
+                        continue;
+                    };
+                    if (verbose > 1)
+                    {
+                        std::vector<double> dist = currentImg.getRadialDistortion();
+                        std::cout << "Read distortion data: " << dist[0] << ", " << dist[1] << ", " << dist[2] << ", " << dist[3] << std::endl;
+                    };
+                };
+                if (doLookupVignetting)
+                {
+                    if (fabs(aperture) < 0.1)
+                    {
+                        if (fabs(currentImg.getExifAperture()) < 0.1)
+                        {
+                            std::cerr << "Could not determine aperture." << std::endl
+                                << "Specifiy aperture (--aperture) as parameter." << std::endl;
+                            continue;
+                        };
+                    }
+                    else
+                    {
+                        currentImg.setExifAperture(aperture);
+                    };
+                    if (!currentImg.readVignettingFromDB())
+                    {
+                        std::cerr << "No suitable vignetting data found in database." << std::endl
+                            << "Skipping image." << std::endl;
+                        continue;
+                    };
+                    if (verbose > 1)
+                    {
+                        std::vector<double> vig = currentImg.getRadialVigCorrCoeff();
+                        std::cout << "Read vigneting data: " << vig[1] << ", " << vig[2] << ", " << vig[3] << std::endl;
+                    };
+                };
+
+                if (doLookupTCA)
+                {
+                    std::vector<double> tcaRed, tcaBlue;
+                    if (lensDB.GetTCA(currentImg.getDBLensName(), currentImg.getExifFocalLength(), tcaRed, tcaBlue))
+                    {
+                        currentImg.setRadialDistortionRed(tcaRed);
+                        currentImg.setRadialDistortionBlue(tcaBlue);
+                    }
+                    else
+                    {
+                        std::cerr << "No suitable tca data found in database." << std::endl
+                            << "Skipping image." << std::endl;
+                        continue;
+                    };
+                    if (verbose>1)
+                    {
+                        std::cout << "Read tca data red:  " << tcaRed[0] << ", " << tcaRed[1] << ", " << tcaRed[2] << ", " << tcaRed[3] << std::endl;
+                        std::cout << "Read tca data blue: " << tcaBlue[0] << ", " << tcaBlue[1] << ", " << tcaBlue[2] << ", " << tcaBlue[3] << std::endl;
+                    };
+                };
+            };
+            currentImg.setSize(info.size());
             // stitch the pano with a suitable image type
             if (bands == 3 || (bands == 4 && extraBands == 1))
             {
                 // TODO: add more cases
                 if (strcmp(pixelType, "UINT8") == 0)
                 {
-                    correctRGB<RGBValue<UInt8> >(c, info, outIt->c_str(), doCropBorders, compression, pdisp);
+                    correctRGB<RGBValue<UInt8> >(currentImg, info, outIt->c_str(), doCropBorders, compression, pdisp);
                 }
                 else if (strcmp(pixelType, "UINT16") == 0)
                 {
-                    correctRGB<RGBValue<UInt16> >(c, info, outIt->c_str(), doCropBorders, compression, pdisp);
+                    correctRGB<RGBValue<UInt16> >(currentImg, info, outIt->c_str(), doCropBorders, compression, pdisp);
                 }
                 else if (strcmp(pixelType, "INT16") == 0)
                 {
-                    correctRGB<RGBValue<Int16> >(c, info, outIt->c_str(), doCropBorders, compression, pdisp);
+                    correctRGB<RGBValue<Int16> >(currentImg, info, outIt->c_str(), doCropBorders, compression, pdisp);
                 }
                 else if (strcmp(pixelType, "UINT32") == 0)
                 {
-                    correctRGB<RGBValue<UInt32> >(c, info, outIt->c_str(), doCropBorders, compression, pdisp);
+                    correctRGB<RGBValue<UInt32> >(currentImg, info, outIt->c_str(), doCropBorders, compression, pdisp);
                 }
                 else if (strcmp(pixelType, "FLOAT") == 0)
                 {
-                    correctRGB<RGBValue<float> >(c, info, outIt->c_str(), doCropBorders, compression, pdisp);
+                    correctRGB<RGBValue<float> >(currentImg, info, outIt->c_str(), doCropBorders, compression, pdisp);
                 }
                 else if (strcmp(pixelType, "DOUBLE") == 0)
                 {
-                    correctRGB<RGBValue<double> >(c, info, outIt->c_str(), doCropBorders, compression, pdisp);
+                    correctRGB<RGBValue<double> >(currentImg, info, outIt->c_str(), doCropBorders, compression, pdisp);
                 }
             }
             else
             {
                 DEBUG_ERROR("unsupported depth, only 3 channel images are supported");
                 delete pdisp;
+                HuginBase::LensDB::LensDB::Clean();
                 throw std::runtime_error("unsupported depth, only 3 channels images are supported");
                 return 1;
             }
@@ -432,9 +580,11 @@ int main(int argc, char* argv[])
     {
         cerr << "caught exception: " << e.what() << std::endl;
         delete pdisp;
+        HuginBase::LensDB::LensDB::Clean();
         return 1;
     }
     delete pdisp;
+    HuginBase::LensDB::LensDB::Clean();
     return 0;
 }
 
@@ -684,100 +834,3 @@ void correctRGB(SrcPanoImage& src, ImageImportInfo& info, const char* outfile,
         exportImage(srcImageRange(output), outInfo);
     };
 }
-
-
-bool getPTLensCoef(const char* fn, string cameraMaker, string cameraName,
-                   string lensName, float focalLength, vector<double>& coeff)
-{
-    int verbose_flag = 1;
-    const char* profilePath = getenv("PTLENS_PROFILE");
-    if (profilePath == NULL)
-    {
-        cerr << "ERROR: " << endl
-             << " You need to specify the location of \"profile.txt\"." << endl
-             << " Please set the PTLENS_PROFILE environment variable, for example:" << endl
-             << " PTLENS_PROFILE=$HOME/.ptlens/profile.txt" << endl;
-        return false;
-    }
-    // load database from file
-    PTLDB_DB* db = PTLDB_readDB(profilePath);
-    if (! db)
-    {
-        fprintf(stderr,"Failed to read PTLens profile: %s\n", profilePath);
-        return false;
-    }
-
-    // TODO: Extract lens name from camera makernotes
-
-    Exiv2::Image::AutoPtr image = Exiv2::ImageFactory::open(fn);
-    assert (image.get() != 0);
-    image->readMetadata();
-
-    Exiv2::ExifData& exifData = image->exifData();
-    if (exifData.empty())
-    {
-        std::cout << fn << ": no EXIF data found in file" << std::endl;
-    }
-    else
-    {
-        if (cameraMaker.size() == 0)
-        {
-            cameraMaker = exifData["Exif.Image.Make"].toString();
-        }
-        if (cameraName.size() == 0)
-        {
-            cameraName = exifData["Exif.Image.Model"].toString();
-        }
-        if (focalLength == 0.0f)
-        {
-            focalLength = exifData["Exif.Photo.FocalLength"].toFloat();
-        }
-    }
-
-
-    // TODO: Replace this with lensfun
-    PTLDB_CamNode* thisCamera = PTLDB_findCamera(db, cameraMaker.c_str(), cameraName.c_str());
-    if (!thisCamera)
-    {
-        fprintf(stderr, "could not find camera: %s, %s\n", cameraMaker.c_str(), cameraName.c_str());
-        return false;
-    }
-    PTLDB_LnsNode* thisLens = PTLDB_findLens(db, lensName.c_str(), thisCamera);
-    if (thisLens == NULL)
-    {
-        fprintf(stderr, "Lens \"%s\" not found in database.\n", lensName.c_str());
-        fprintf(stderr,"Available lenses for camera: %s\n", thisCamera->menuModel);
-        PTLDB_LnsNode* lenses = PTLDB_findLenses(db, thisCamera);
-        while (lenses != NULL)
-        {
-            fprintf(stderr,"%s\n", lenses->menuLens);
-            lenses = lenses->nextLns;
-        }
-        return false;
-    }
-
-    ImageImportInfo info(fn);
-    // retrieve distortion coefficients
-    PTLDB_ImageInfo img;
-    img.camera = thisCamera;
-    img.lens = thisLens;
-    img.width = info.size().x;
-    img.height = info.size().y;
-    img.focalLength = focalLength;
-    img.converterDetected = 0;
-    img.resize=0;
-
-    PTLDB_RadCoef coef;
-    PTLDB_getRadCoefs(db, &img, &coef);
-    if (verbose_flag)
-    {
-        fprintf(stderr,"%s %s,  Lens %s @ %f mm\n", thisCamera->menuMake, thisCamera->menuModel, lensName.c_str(), focalLength);
-        fprintf(stderr, "PTLens coeff:  a=%8.6lf  b=%8.6lf  c=%8.6lf  d=%8.6lf\n", coef.a, coef.b, coef.c, coef.d);
-    }
-    coeff[0] = coef.a;
-    coeff[1] = coef.b;
-    coeff[2] = coef.c;
-    coeff[3] = coef.d;
-    return true;
-}
-
