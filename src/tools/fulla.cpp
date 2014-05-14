@@ -31,6 +31,7 @@
 
 #include <vigra/error.hxx>
 #include <vigra/impex.hxx>
+#include <vigra_impex/codecmanager.hxx>
 #include <exiv2/image.hpp>
 #include <exiv2/exif.hpp>
 #include <getopt.h>
@@ -57,14 +58,15 @@ using namespace vigra;
 using namespace hugin_utils;
 using namespace HuginBase;
 
-
-template <class SrcImgType, class FlatImgType, class DestImgType>
+template <class SrcImgType, class AlphaImgType, class FlatImgType, class DestImgType>
 void correctImage(SrcImgType& srcImg,
+                  const AlphaImgType& srcAlpha,
                   const FlatImgType& srcFlat,
                   SrcPanoImage src,
                   vigra_ext::Interpolator interpolator,
                   double maxValue,
                   DestImgType& destImg,
+                  AlphaImgType& destAlpha,
                   bool doCrop,
                   AppBase::MultiProgressDisplay* progress);
 
@@ -314,15 +316,24 @@ int main(int argc, char* argv[])
     else
     {
         // multiple files
+        bool withExtension = false;
         if (outputFile.length() != 0)
         {
             batchPostfix = outputFile;
+            withExtension = (batchPostfix.find('.') != std::string::npos);
         }
         for (int i = optind; i < argc; i++)
         {
             string name = string(argv[i]);
             inFiles.push_back(name);
-            outFiles.push_back(stripExtension(name) + batchPostfix + "." + getExtension(name));
+            if (withExtension)
+            {
+                outFiles.push_back(stripExtension(name) + batchPostfix);
+            }
+            else
+            {
+                outFiles.push_back(stripExtension(name) + batchPostfix + "." + getExtension(name));
+            };
         }
     }
 
@@ -444,13 +455,15 @@ public:
  *  Be careful, might modify srcImg (vignetting and brightness correction)
  *
  */
-template <class SrcImgType, class FlatImgType, class DestImgType>
+template <class SrcImgType, class AlphaImgType, class FlatImgType, class DestImgType>
 void correctImage(SrcImgType& srcImg,
+                  const AlphaImgType& srcAlpha,
                   const FlatImgType& srcFlat,
                   SrcPanoImage src,
                   vigra_ext::Interpolator interpolator,
                   double maxValue,
                   DestImgType& destImg,
+                  AlphaImgType& destAlpha,
                   bool doCrop,
                   AppBase::MultiProgressDisplay* progress)
 {
@@ -463,8 +476,6 @@ void correctImage(SrcImgType& srcImg,
     vigra::Diff2D shiftXY(- roundi(src.getRadialDistortionCenterShift().x),
                           - roundi(src.getRadialDistortionCenterShift().y));
 
-    // dummy alpha channel
-    BImage alpha(destImg.size());
     if( (src.getVigCorrMode() & SrcPanoImage::VIGCORR_FLATFIELD)
             || (src.getVigCorrMode() & SrcPanoImage::VIGCORR_RADIAL) )
     {
@@ -488,6 +499,8 @@ void correctImage(SrcImgType& srcImg,
             invResp.setFlatfield(&srcFlat);
         }
         NullTransform transform;
+        // dummy alpha channel
+        BImage alpha(destImg.size());
         vigra_ext::transformImage(srcImageRange(srcImg), destImageRange(srcImg), destImage(alpha), vigra::Diff2D(0, 0), transform, invResp, false, vigra_ext::INTERP_SPLINE_16, *progress);
     }
 
@@ -520,16 +533,19 @@ void correctImage(SrcImgType& srcImg,
         // remap individual channels
         Nona::SpaceTransform transfr;
         transfr.InitRadialCorrect(src, 0);
+        AlphaImgType redAlpha(destAlpha.size());
         if (transfr.isIdentity())
         {
             vigra::copyImage(srcIterRange(srcImg.upperLeft(), srcImg.lowerRight(), RedAccessor<SrcPixelType>()),
                              destIter(destImg.upperLeft(), RedAccessor<DestPixelType>()));
+            vigra::copyImage(srcImageRange(srcAlpha), destImage(redAlpha));
         }
         else
         {
-            vigra_ext::transformImage(srcIterRange(srcImg.upperLeft(), srcImg.lowerRight(), RedAccessor<SrcPixelType>()),
+            vigra_ext::transformImageAlpha(srcIterRange(srcImg.upperLeft(), srcImg.lowerRight(), RedAccessor<SrcPixelType>()),
+                                      srcImage(srcAlpha),
                                       destIterRange(destImg.upperLeft(), destImg.lowerRight(), RedAccessor<DestPixelType>()),
-                                      destImage(alpha),
+                                      destImage(redAlpha),
                                       shiftXY,
                                       transfr,
                                       ptf,
@@ -540,16 +556,19 @@ void correctImage(SrcImgType& srcImg,
 
         Nona::SpaceTransform transfg;
         transfg.InitRadialCorrect(src, 1);
+        AlphaImgType greenAlpha(destAlpha.size());
         if (transfg.isIdentity())
         {
             vigra::copyImage(srcIterRange(srcImg.upperLeft(), srcImg.lowerRight(), GreenAccessor<SrcPixelType>()),
                              destIter(destImg.upperLeft(), GreenAccessor<DestPixelType>()));
+            vigra::copyImage(srcImageRange(srcAlpha), destImage(greenAlpha));
         }
         else
         {
-            transformImage(srcIterRange(srcImg.upperLeft(), srcImg.lowerRight(), GreenAccessor<SrcPixelType>()),
+            transformImageAlpha(srcIterRange(srcImg.upperLeft(), srcImg.lowerRight(), GreenAccessor<SrcPixelType>()),
+                           srcImage(srcAlpha),
                            destIterRange(destImg.upperLeft(), destImg.lowerRight(), GreenAccessor<DestPixelType>()),
-                           destImage(alpha),
+                           destImage(greenAlpha),
                            shiftXY,
                            transfg,
                            ptf,
@@ -560,16 +579,20 @@ void correctImage(SrcImgType& srcImg,
 
         Nona::SpaceTransform transfb;
         transfb.InitRadialCorrect(src, 2);
+        AlphaImgType blueAlpha(destAlpha.size());
         if (transfb.isIdentity())
         {
             vigra::copyImage(srcIterRange(srcImg.upperLeft(), srcImg.lowerRight(), BlueAccessor<SrcPixelType>()),
                              destIter(destImg.upperLeft(), BlueAccessor<DestPixelType>()));
+            vigra::copyImage(srcImageRange(srcAlpha), destImage(blueAlpha));
+
         }
         else
         {
-            transformImage(srcIterRange(srcImg.upperLeft(), srcImg.lowerRight(), BlueAccessor<SrcPixelType>()),
+            transformImageAlpha(srcIterRange(srcImg.upperLeft(), srcImg.lowerRight(), BlueAccessor<SrcPixelType>()),
+                           srcImage(srcAlpha),
                            destIterRange(destImg.upperLeft(), destImg.lowerRight(), BlueAccessor<DestPixelType>()),
-                           destImage(alpha),
+                           destImage(blueAlpha),
                            shiftXY,
                            transfb,
                            ptf,
@@ -577,6 +600,8 @@ void correctImage(SrcImgType& srcImg,
                            vigra_ext::INTERP_SPLINE_16,
                            *progress);
         }
+        vigra::combineThreeImages(srcImageRange(redAlpha), srcImage(greenAlpha), srcImage(blueAlpha), destImage(destAlpha),
+            vigra::functor::Arg1() & vigra::functor::Arg2() & vigra::functor::Arg3());
     }
     else
     {
@@ -587,15 +612,16 @@ void correctImage(SrcImgType& srcImg,
         if (transf.isIdentity() ||
                 (radCoeff[0] == 0.0 && radCoeff[1] == 0.0 && radCoeff[2] == 0.0 && radCoeff[3] == 1.0))
         {
-            vigra::copyImage(srcImageRange(srcImg),
-                             destImage(destImg));
+            vigra::copyImage(srcImageRange(srcImg), destImage(destImg));
+            vigra::copyImage(srcImageRange(srcAlpha), destImage(destAlpha));
         }
         else
         {
             vigra_ext::PassThroughFunctor<SrcPixelType> ptfRGB;
-            transformImage(srcImageRange(srcImg),
+            transformImageAlpha(srcImageRange(srcImg),
+                           srcImage(srcAlpha),
                            destImageRange(destImg),
-                           destImage(alpha),
+                           destImage(destAlpha),
                            shiftXY,
                            transf,
                            ptfRGB,
@@ -614,7 +640,16 @@ void correctRGB(SrcPanoImage& src, ImageImportInfo& info, const char* outfile,
 {
     vigra::BasicImage<RGBValue<double> > srcImg(info.size());
     vigra::BasicImage<PIXELTYPE> output(info.size());
-    importImage(info, destImage(srcImg));
+    vigra::BImage alpha(info.size(), 255);
+    vigra::BImage outputAlpha(output.size());
+    if (info.numBands() == 3)
+    {
+        importImage(info, destImage(srcImg));
+    }
+    else
+    {
+        importImageAlpha(info, destImage(srcImg), destImage(alpha));
+    };
     FImage flatfield;
     if (src.getVigCorrMode() & SrcPanoImage::VIGCORR_FLATFIELD)
     {
@@ -622,8 +657,8 @@ void correctRGB(SrcPanoImage& src, ImageImportInfo& info, const char* outfile,
         flatfield.resize(finfo.size());
         importImage(finfo, destImage(flatfield));
     }
-    correctImage(srcImg, flatfield, src, vigra_ext::INTERP_SPLINE_16, vigra_ext::getMaxValForPixelType(info.getPixelType()),
-        output, crop, progress);
+    correctImage(srcImg, alpha, flatfield, src, vigra_ext::INTERP_SPLINE_16, vigra_ext::getMaxValForPixelType(info.getPixelType()),
+        output, outputAlpha, crop, progress);
     ImageExportInfo outInfo(outfile);
     outInfo.setICCProfile(info.getICCProfile());
     outInfo.setPixelType(info.getPixelType());
@@ -631,7 +666,23 @@ void correctRGB(SrcPanoImage& src, ImageImportInfo& info, const char* outfile,
     {
         outInfo.setCompression(compression.c_str());
     }
-    exportImage(srcImageRange(output), outInfo);
+    vigra::CodecManager& codecM = vigra::codecManager();
+    const std::string filetype(codecM.getEncoder(outInfo.getFileName())->getFileType());
+    std::vector<int> bands=codecM.queryCodecBandNumbers(filetype);
+    if (std::find(bands.begin(), bands.end(), 4) != bands.end())
+    {
+        // image format supports alpha channel
+        std::cout << "Saving " << outInfo.getFileName() << std::endl;
+        exportImageAlpha(srcImageRange(output), srcImage(outputAlpha), outInfo);
+    }
+    else
+    {
+        // image format does not support an alpha channel, disregard alpha channel
+        std::cout << "Saving " << outInfo.getFileName() << " without alpha channel" << std::endl
+            << "because the fileformat " << filetype << " does not support" << std::endl
+            << "an alpha channel." << std::endl;
+        exportImage(srcImageRange(output), outInfo);
+    };
 }
 
 
