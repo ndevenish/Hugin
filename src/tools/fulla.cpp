@@ -31,7 +31,7 @@
 
 #include <vigra/error.hxx>
 #include <vigra/impex.hxx>
-#include <vigra_impex/codecmanager.hxx>
+#include <vigra/codec.hxx>
 #include <getopt.h>
 #ifndef WIN32
 #include <unistd.h>
@@ -816,10 +816,8 @@ void correctRGB(SrcPanoImage& src, ImageImportInfo& info, const char* outfile,
     {
         outInfo.setCompression(compression.c_str());
     }
-    vigra::CodecManager& codecM = vigra::codecManager();
-    const std::string filetype(codecM.getEncoder(outInfo.getFileName())->getFileType());
-    std::vector<int> bands=codecM.queryCodecBandNumbers(filetype);
-    if (std::find(bands.begin(), bands.end(), 4) != bands.end())
+    const std::string filetype(vigra::getEncoder(outInfo.getFileName())->getFileType());
+    if (vigra::isBandNumberSupported(filetype, 4))
     {
         // image format supports alpha channel
         std::cout << "Saving " << outInfo.getFileName() << std::endl;
