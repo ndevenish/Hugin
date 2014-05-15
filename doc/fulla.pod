@@ -1,7 +1,3 @@
-=for
-Copyright 2008 Cyril Brulebois <cyril.brulebois@enst-bretagne.fr>
-Licensed under the same terms as the hugin package itself.
-=end
 
 
 =head1 NAME
@@ -18,9 +14,9 @@ B<fulla> [options] I<inputfile(s)>
 Apply radial or flat-field vignetting correction as well as geometrical radial
 distortion and transversal chromatic aberration correction.
 
-fulla can be used to batch correct a large number of files. Radial distortion coefficients can be read from a PTLens database (only database version 4.2 is supported).
+fulla can be used to batch correct a large number of files. Radial distortion coefficients can be read from a lens database.
 
-Vignetting correction is done the same way as described in the nona script file documentation.
+Vignetting correction is done the same way as described in the nona script file documentation, or from lens database.
 Vignetting correction can be done based on a flat-field or a radial scaling.
 
 Vignetting correction by flat-field division:
@@ -46,99 +42,98 @@ See http://hugin.sf.net/tutorials/tca for a method to determine these parameters
 
 =over
 
-=item B<-g> I<a:b:c:d>
+=item B<--green=db|a:b:c:d>
 
-Radial distortion coefficient for all channels, (a, b, c, d)
+Correct radial distortion coefficient for all channels, (a, b, c, d)
+Specify 'db' for database lookup or the 4 coefficients a:b:c:d
 
-=item B<-b> I<a:b:c:d>
+=item B<--blue=db|a:b:c:d>
 
-Radial distortion coefficients for blue channel, (a, b, c, d). This is
-applied on top of the B<-g> distortion coefficients, use for TCA corr
+Correct radial distortion coefficients for blue channel, (a, b, c, d). This is
+applied on top of the B<--green> distortion coefficients, use for TCA corr
+Specify 'db' for database lookup or the 4 coefficients a:b:c:d
 
-=item B<-r> I<a:b:c:d>
+=item B<--red=db|a:b:c:d>
 
-Radial distortion coefficients for red channel, (a, b, c, d). This is
-applied on top of the B<-g> distortion coefficients, use for TCA corr
-
-=item B<-p>
-
-Try to read radial distortion coefficients (usually supplied
-using -g) from the PTLens database. The environment variable PTLENS_PROFILE
-should point to the profile.txt file. Since newer version of the PTLens database
-are incompatible with fulla, download the PTLens database from the hugin sourceforge
-website instead: http://www.sf.net/projects/hugin
-
-=item B<-m> I<Canon>
-
-Camera manufacturer, for PTLens database query. EXIF data inside JPEG files is read, if this
-option is not given
-
-=item B<-n> I<Camera>
-
-Camera name, for PTLens database query. EXIF data inside JPEG files is read, if this
-option is not given.
-
-=item B<-l> I<Lens>
-
-Lens name, for PTLens database query if not specified, a list of
-possible lenses is displayed
-
-=item B<-d> I<50>
-
-Specify focal length in mm, for PTLens database query. EXIF data inside JPEG files is read, if this
-option is not given.
-
-=item B<-s>
-
-Do not rescale the image to avoid black borders.
-
-=item B<-f> I<filename>
-
-Vignetting correction by flat-field division
-
-    I = I / c,    c = flat-field / mean(flat-field)
+Correct radial distortion coefficients for red channel, (a, b, c, d). This is
+applied on top of the B<--green> distortion coefficients, use for TCA corr
+Specify 'db' for database lookup or the 4 coefficients a:b:c:d
 
 
-=item B<-c> I<a:b:c:d>
+=item B<--camera-maker=Maker>
 
-Radial vignetting correction by division:
+Camera manufacturer, for database query
 
-    I = I / c,    c = a + b*r^2 + c*r^4 + d*r^6
+=item B<--camera-model=Cam>
 
-=item B<-i> I<value>
+Camera name, for database query
 
-Gamma of input data. used for gamma correction before and after
-flat-field correction
+=item B<--lensname=Lens>
 
-=item B<-t> I<n>
-
-Number of threads that should be used during processing
-
-=item B<-h>
-
-Display help summary.
-
-=item B<-o> I<name>
-
-Set output filename. If more than one image is given, the name will be
-uses as suffix (default suffix: _corr)
-
-=item B<-e> I<value>
-
-Compression of the output files
+Lens name, for database query
 
 =over
 
-=item For JPEG output: 0-100
-
-=item For tiff output: DEFLATE, LZW
+Specify --camera-maker and --camera-model for fixed lens cameras or --lensname for interchangeable lenses.
 
 =back
 
-=for TODO: A blank line seems to be missing here.
-=end
+=item B<--focallength=50>
 
-=item B<-v>
+Specify focal length in mm, for database query
+
+=item B<--aperature=3.5>
+
+Specify aperture for vignetting data database query
+
+=item B<--dont-rescale>
+
+Do not rescale the image to avoid black borders.
+
+=item B<--flatfield=filename>
+
+Vignetting correction by flatfield division
+I = I / c, c = flatfield / mean(flatfield)
+
+=item B<--vignetting=db|a:b:c:d>
+
+Correct vignetting (by division)
+Specify db for database look up or the the 4 coefficients a:b:c:d
+I = I / ( a + b*r^2 + c*r^4 + d*r^6)
+
+=item B<--linear>
+
+Do vignetting correction in linear color space
+
+=item B<--gamma=value>
+
+Gamma of input data. 
+Used for gamma correction before and after flatfield correction
+
+=item B<threads=n>
+
+Number of threads that should be used
+
+=item B<-h|--help>
+
+Display help
+
+=item B<--output=name>
+
+Set output filename. If more than one image is given, the name will be used as suffix.
+(default suffix: _corr)
+
+=item B<--compression=value>
+
+Compression of the output files.
+For jpeg output: 0-100
+For tiff output: PACKBITS, DEFLATE, LZW
+
+=item B<--offset=X:Y>
+
+Horizontal and vertical shift
+
+=item B<--verbose>
 
 Verbose
 
@@ -147,9 +142,5 @@ Verbose
 
 =head1 AUTHORS
 
-Written by Pablo d'Angelo. Also contains contributions from Douglas Wilkins, Ippei Ukai, Ed Halley, Bruno Postle, Gerry Patterson and Brent Townshend.
+Written by Pablo d'Angelo. Also contains contributions from Douglas Wilkins, Ippei Ukai, Ed Halley, Bruno Postle, Gerry Patterson, Brent Townshend and Thomas Modes.
 
-
-This man page was written by Cyril Brulebois
-<cyril.brulebois@enst-bretagne.fr> and is licensed under the same
-terms as the hugin package itself.
