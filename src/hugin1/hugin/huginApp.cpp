@@ -281,7 +281,11 @@ bool huginApp::OnInit()
     wxXmlResource::Get()->AddHandler(new PanoPanelXmlHandler());
     wxXmlResource::Get()->AddHandler(new PreviewPanelXmlHandler());
     wxXmlResource::Get()->AddHandler(new HtmlWindowXmlHandler());
+#if wxCHECK_VERSION(2,9,0)
+    wxXmlResource::Get()->AddHandler(new wxcode::wxTreeListCtrlXmlHandler());
+#else
     wxXmlResource::Get()->AddHandler(new wxTreeListCtrlXmlHandler());
+#endif
     wxXmlResource::Get()->AddHandler(new ImagesTreeCtrlXmlHandler());
 
     // load XRC files

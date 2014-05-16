@@ -4,7 +4,7 @@
 // Created:     01/02/97
 // Author:      Robert Roebling
 // Maintainer:  Ronan Chartois (pgriddev)
-// Version:     $Id: treelistctrl.cpp 3022 2012-05-28 14:14:48Z pgriddev $
+// Version:     $Id: treelistctrl.cpp 3062 2012-09-23 13:48:23Z pgriddev $
 // Copyright:   (c) 2004-2011 Robert Roebling, Julian Smart, Alberto Griggio,
 //              Vadim Zeitlin, Otto Wyss, Ronan Chartois
 // Licence:     wxWindows
@@ -41,19 +41,17 @@
 #include <wx/scrolwin.h>
 #include <wx/dcmemory.h>
 #if wxCHECK_VERSION(2, 7, 0)
-#include <wx/renderer.h>
+   #include <wx/renderer.h>
 #endif
 #include <wx/apptrait.h>
 #include <wx/dcbuffer.h>
 #include <wx/tooltip.h>
 #include <wx/hashmap.h>
+#include <wx/dynarray.h>
+#include <wx/arrimpl.cpp>
 
 #ifdef __WXMAC__
-#if wxCHECK_VERSION(2,9,0)
-  #include "wx/osx/private.h"
-#else
-  #include "wx/mac/private.h"
-#endif
+#include "wx/mac/private.h"
 #endif
 
 #include "treelistctrl.h"
@@ -61,6 +59,11 @@
 #include <wx/log.h>  // only required for debugging purpose
 #include <wx/msgdlg.h>  // only required for debugging purpose
 #include <algorithm>
+
+
+#if wxCHECK_VERSION(2,9,0)
+namespace wxcode {
+#endif
 
 // ---------------------------------------------------------------------------
 // array types
@@ -75,9 +78,7 @@ WX_DEFINE_ARRAY(wxTreeListItem *, wxArrayTreeListItems);
 WX_DEFINE_ARRAY_PTR(wxTreeListItem *, wxArrayTreeListItems);
 #endif
 
-#include <wx/dynarray.h>
 WX_DECLARE_OBJARRAY(wxTreeListColumnInfo, wxArrayTreeListColumnInfo);
-#include <wx/arrimpl.cpp>
 WX_DEFINE_OBJARRAY(wxArrayTreeListColumnInfo);
 
 
@@ -591,6 +592,7 @@ public:
     void SortChildren(const wxTreeItemId& item, int column, bool reverseOrder);
 
     // searching
+    bool MatchItemText (const wxString &itemText, const wxString &pattern, int mode);
     wxTreeItemId FindItem (const wxTreeItemId& item, int column, const wxString& str, int mode = 0);
 
     // implementation only from now on
@@ -1550,7 +1552,7 @@ void wxTreeListHeaderWindow::OnMouse (wxMouseEvent &event) {
     m_owner->CalcUnscrolledPosition(event.GetX(), 0, &x, NULL);
 
 #if wxCHECK_VERSION_FULL(2, 7, 0, 1)
-    int col = XToCol(x);
+    const int col = XToCol(x);
     if(col>=0 && col<GetColumnCount())
     {
         SetToolTip(m_columns[col].GetTooltip());
@@ -3230,71 +3232,66 @@ void wxTreeListMainWindow::SortChildren (const wxTreeItemId& itemId, int column,
     }
 }
 
+bool wxTreeListMainWindow::MatchItemText(const wxString &itemText, const wxString &pattern, int mode) {
+wxString searchText;
+
+   if (mode & wxTL_MODE_FIND_PARTIAL) {
+       searchText = itemText.Mid (0, pattern.Length());
+   }else{
+       searchText = itemText;
+   }
+   if (mode & wxTL_MODE_FIND_NOCASE) {
+       if (searchText.CmpNoCase (pattern) == 0) return true;
+   }else{
+       if (searchText.Cmp (pattern) == 0) return true;
+   }
+
+   return false;
+}
+
+
 wxTreeItemId wxTreeListMainWindow::FindItem (const wxTreeItemId& item, int column, const wxString& str, int mode) {
-
-    // determine start item
-    wxTreeItemId next = item;
-    if (next.IsOk()) {
-        if (mode & wxTL_MODE_NAV_LEVEL) {
-            next = GetNextSibling (next);
-        }else if (mode & wxTL_MODE_NAV_VISIBLE) { //
-            next = GetNextVisible (next, false, true);
-        }else if (mode & wxTL_MODE_NAV_EXPANDED) {
-            next = GetNextExpanded (next);
-        }else{ // (mode & wxTL_MODE_NAV_FULLTREE) default
-            next = GetNext (next, true);
-        }
-    }
-
 #if !wxCHECK_VERSION(2, 5, 0)
     long cookie = 0;
 #else
     wxTreeItemIdValue cookie = 0;
 #endif
-    if (!next.IsOk()) {
-        next = GetRootItem();
-        if (next.IsOk() && HasFlag(wxTR_HIDE_ROOT)) {
-            next = GetFirstChild (GetRootItem(), cookie);
-        }
-    }
-    if (!next.IsOk()) return (wxTreeItemId*)NULL;
+    wxTreeItemId next = item;
 
     // start checking the next items
     wxString itemText;
     int col, col_start, col_end;
     if (column >= 0) { col_start = col_end = column; }
     else { col_start = 0; col_end = GetColumnCount() - 1; }
-    while (next.IsOk() && (next != item)) {
+
+    // navigate tree
+    while (true) {
+        // go to next item
+        if (next.IsOk()) {
+            if (mode & wxTL_MODE_NAV_LEVEL) {
+                next = GetNextSibling (next);
+            }else if (mode & wxTL_MODE_NAV_VISIBLE) {
+                next = GetNextVisible (next, false, true);
+            }else if (mode & wxTL_MODE_NAV_EXPANDED) {
+                next = GetNextExpanded (next);
+            }else{ // (mode & wxTL_MODE_NAV_FULLTREE) default
+                next = GetNext (next, true);
+            }
+        // not a valid item, start at the top of the tree
+        } else {
+            next = GetRootItem();
+            if (next.IsOk() && HasFlag(wxTR_HIDE_ROOT)) {
+                next = GetFirstChild (GetRootItem(), cookie);
+            }
+        }
+        // end of tree (or back to beginning) ?
+        if (! next.IsOk() || next == item) return (wxTreeItemId*)NULL;
         // check for a match
         for (col=col_start; col<=col_end; col++) {
-            if (mode & wxTL_MODE_FIND_PARTIAL) {
-                itemText = GetItemText (next, col).Mid (0, str.Length());
-            }else{
-                itemText = GetItemText (next, col);
-            }
-            if (mode & wxTL_MODE_FIND_NOCASE) {
-                if (itemText.CmpNoCase (str) == 0) return next;
-            }else{
-                if (itemText.Cmp (str) == 0) return next;
-            }
-        }
-        // no match, go to next item
-        if (mode & wxTL_MODE_NAV_LEVEL) {
-            next = GetNextSibling (next);
-        }else if (mode & wxTL_MODE_NAV_VISIBLE) { //
-            next = GetNextVisible (next, false, true);
-        }else if (mode & wxTL_MODE_NAV_EXPANDED) {
-            next = GetNextExpanded (next);
-        }else{ // (mode & wxTL_MODE_NAV_FULLTREE) default
-            next = GetNext (next, true);
-        }
-        if (!next.IsOk() && item.IsOk()) {
-            next = (wxTreeListItem*)GetRootItem().m_pItem;
-            if (HasFlag(wxTR_HIDE_ROOT)) {
-                next = (wxTreeListItem*)GetNextChild (GetRootItem().m_pItem, cookie).m_pItem;
-            }
+            if (MatchItemText(GetItemText (next, col),str, mode)) return next;
         }
     }
+    // should never get here
     return (wxTreeItemId*)NULL;
 }
 
@@ -4053,16 +4050,35 @@ void wxTreeListMainWindow::OnChar (wxKeyEvent &event) {
 
         // any char: go to the next matching string
         default:
-            if (event.GetKeyCode() >= (int)' ') {
+            int key = event.GetUnicodeKey() != WXK_NONE ? event.GetUnicodeKey() : event.GetKeyCode();
+            if (key  >= (int)' ') {
+                // prepare search parameters
+                int mode = wxTL_MODE_NAV_EXPANDED | wxTL_MODE_FIND_PARTIAL | wxTL_MODE_FIND_NOCASE;
                 if (!m_findTimer->IsRunning()) m_findStr.Clear();
-                m_findStr.Append ((char)event.GetKeyCode());
+                m_findStr.Append ((wxUniChar)key);
                 m_findTimer->Start (FIND_TIMER_TICKS, wxTIMER_ONE_SHOT);
-                wxTreeItemId prev = m_curItem? (wxTreeItemId*)m_curItem: (wxTreeItemId*)NULL;
-                while (true) {
-                    newItem = FindItem (prev, -1, m_findStr, wxTL_MODE_NAV_EXPANDED | wxTL_MODE_FIND_PARTIAL | wxTL_MODE_FIND_NOCASE);
-                    if (newItem || (m_findStr.Length() <= 1)) break;
-                    m_findStr.RemoveLast();
-                };
+                wxTreeItemId prev = (wxTreeItemId*)NULL;
+                // try if current item or one of its followers matches
+                if (m_curItem) {
+                    prev = (wxTreeItemId*)m_curItem;
+                    for (int col=0; col<=GetColumnCount() - 1; col++) {
+                        if (MatchItemText(GetItemText(prev, col), m_findStr, mode)) {
+                            newItem = prev;
+                            break;
+                        }
+                    }
+                    if (! newItem) {
+                        newItem = FindItem (prev, -1, m_findStr, mode);
+                    };
+                }
+                // current item or does not match: try to find next
+                // still not match: search from beginning (but only if there was a current item i.e.we did not start from root already)
+                if (! newItem) {
+                    prev = (wxTreeItemId*)NULL;
+                    newItem = FindItem (prev, -1, m_findStr, mode);
+                }
+                // no match at all: remove just typed char to allow try with another extension
+                if (! newItem) m_findStr.RemoveLast();
             }
             event.Skip();
 
@@ -5496,3 +5512,6 @@ bool wxTreeListCtrlXmlHandler::CanHandle(wxXmlNode * node) {
 
 #endif  // wxUSE_XRC
 
+#if wxCHECK_VERSION(2,9,0)
+} // namespace wxcode
+#endif

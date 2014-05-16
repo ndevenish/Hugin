@@ -4,7 +4,7 @@
 // Created:     01/02/97
 // Author:      Robert Roebling
 // Maintainer:  Ronan Chartois (pgriddev)
-// Version:     $Id: treelistctrl.h 3022 2012-05-28 14:14:48Z pgriddev $
+// Version:     $Id: treelistctrl.h 3043 2012-07-31 19:28:14Z pgriddev $
 // Copyright:   (c) 2004-2011 Robert Roebling, Julian Smart, Alberto Griggio,
 //              Vadim Zeitlin, Otto Wyss, Ronan Chartois
 // Licence:     wxWindows
@@ -22,6 +22,14 @@
 #include <wx/control.h>
 #include <wx/pen.h>
 #include <wx/listctrl.h> // for wxListEvent
+#if wxUSE_XRC
+   #include "wx/xrc/xmlres.h"
+#endif
+
+
+#if wxCHECK_VERSION(2,9,0)
+namespace wxcode {
+#endif
 
 class wxTreeListItem;
 class wxTreeListHeaderWindow;
@@ -35,7 +43,7 @@ class wxTreeListMainWindow;
 #if !wxCHECK_VERSION(2, 5, 0)
 typedef long wxTreeItemIdValue;
 #else
-typedef void *wxTreeItemIdValue;
+// typedef void *wxTreeItemIdValue;
 #endif
 #endif
 
@@ -576,8 +584,6 @@ private:
 
 #if wxUSE_XRC
 
-#include "wx/xrc/xmlres.h"
-
 class wxTreeListCtrlXmlHandler : public wxXmlResourceHandler {
 	DECLARE_DYNAMIC_CLASS(wxTreeListCtrlXmlHandler)
 public:
@@ -588,6 +594,9 @@ public:
 
 #endif /* wxUSE_XRC */
 
+#if wxCHECK_VERSION(2,9,0)
+} // namespace wxcode
+#endif
 
 
 /////////////////////////////////////////////////////////////////////////////
