@@ -310,11 +310,9 @@ void ImagesTreeCtrl::panoramaImagesChanged(Panorama &pano, const UIntSet &change
                 break;
             case GROUP_OUTPUTSTACK:
                 imageGroups=getHDRStacks(*m_pano,m_pano->getActiveImages(), m_pano->getOptions());
-                m_needsUpdate=false;
                 break;
             case GROUP_OUTPUTLAYERS:
                 imageGroups=getExposureLayers(*m_pano,m_pano->getActiveImages(), m_pano->getOptions());
-                m_needsUpdate=false;
                 break;
         };
 
@@ -351,6 +349,7 @@ void ImagesTreeCtrl::panoramaImagesChanged(Panorama &pano, const UIntSet &change
     };
 
     Thaw();
+    m_needsUpdate = false;
 
     // HACK! need to notify clients anyway... send dummy event..
     // lets hope our clients query for the selected images with GetSelected()
@@ -398,7 +397,7 @@ void ImagesTreeCtrl::UpdateImageText(wxTreeItemId item)
 {
     ImagesTreeData* itemData=(ImagesTreeData*)GetItemData(item);
     wxString s;
-    size_t imgNr=itemData->GetImgNr();
+    const size_t imgNr=itemData->GetImgNr();
     const SrcPanoImage & img = m_pano->getImage(imgNr);
     wxFileName fn(wxString (img.getFilename().c_str(), HUGIN_CONV_FILENAME));
 
@@ -423,9 +422,9 @@ void ImagesTreeCtrl::UpdateImageText(wxTreeItemId item)
     s << cps.size();
     SetItemText(item, m_columnMap["cps"], s);
     s.Clear();
-    unsigned int stackNumber = m_variable_groups->getStacks().getPartNumber(imgNr);
+    const unsigned int stackNumber = m_variable_groups->getStacks().getPartNumber(imgNr);
     SetItemText(item, m_columnMap["stackNr"], wxString::Format(wxT("%u"), stackNumber));
-    unsigned int lensNr=m_variable_groups->getLenses().getPartNumber(imgNr);
+    const unsigned int lensNr=m_variable_groups->getLenses().getPartNumber(imgNr);
     SetItemText(item, m_columnMap["lensNr"], wxString::Format(wxT("%u"), lensNr));
 
     SetItemText(item, m_columnMap["maker"], wxString(img.getExifMake().c_str(), wxConvLocal));
