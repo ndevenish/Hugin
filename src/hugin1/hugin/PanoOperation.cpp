@@ -1204,7 +1204,7 @@ PT::PanoCommand* AssignStacksOperation::GetInternalCommand(wxWindow* parent, PT:
     wxDialog dlg;
     wxXmlResource::Get()->LoadDialog(&dlg, parent, wxT("stack_size_dialog"));
     wxSpinCtrl* stackSpin = XRCCTRL(dlg, "stack_size_spinctrl", wxSpinCtrl);
-    stackSpin->SetMax(pano.getNrOfImages());
+    stackSpin->SetRange(1, pano.getNrOfImages());
     size_t oldStackSize = cfg->Read(wxT("/StackDialog/StackSize"), 3);
     oldStackSize = std::min(oldStackSize, pano.getNrOfImages());
     stackSpin->SetValue(oldStackSize);
