@@ -653,4 +653,70 @@
     <title>Image variables</title>
     <style>wxDEFAULT_DIALOG_STYLE</style>
   </object>
+  <object class="wxDialog" name="stack_size_dialog">
+    <object class="wxBoxSizer">
+      <orient>wxVERTICAL</orient>
+      <object class="sizeritem">
+        <object class="wxStaticBoxSizer">
+          <object class="sizeritem">
+            <object class="wxBoxSizer">
+              <object class="sizeritem">
+                <object class="wxStaticText">
+                  <label>Images per stack:</label>
+                </object>
+                <flag>wxRIGHT|wxALIGN_CENTRE</flag>
+                <border>3</border>
+              </object>
+              <object class="sizeritem">
+                <object class="wxSpinCtrl" name="stack_size_spinctrl">
+                  <size>75,-1</size>
+                  <value>3</value>
+                  <min>1</min>
+                  <max>10</max>
+                </object>
+                <flag>wxALIGN_CENTRE_VERTICAL</flag>
+              </object>
+              <orient>wxHORIZONTAL</orient>
+            </object>
+            <option>1</option>
+            <flag>wxALL|wxEXPAND</flag>
+            <border>6</border>
+          </object>
+          <object class="sizeritem">
+            <object class="wxCheckBox" name="stack_size_link_checkbox">
+              <label>Link position of images in each stack</label>
+              <checked>1</checked>
+              <tooltip>Check this option if the images were shot on a tripod.\nUncheck this option if the images in each stack needs an alignment to each other.</tooltip>
+            </object>
+            <flag>wxALL</flag>
+            <border>6</border>
+          </object>
+          <label>Image stack</label>
+          <orient>wxVERTICAL</orient>
+        </object>
+        <option>1</option>
+        <flag>wxALL|wxEXPAND</flag>
+        <border>6</border>
+      </object>
+      <object class="sizeritem">
+        <object class="wxStdDialogButtonSizer">
+          <object class="button">
+            <object class="wxButton" name="wxID_OK">
+              <label>OK</label>
+              <default>1</default>
+            </object>
+          </object>
+          <object class="button">
+            <object class="wxButton" name="wxID_CANCEL">
+              <label>Cancel</label>
+            </object>
+          </object>
+        </object>
+        <flag>wxALL|wxEXPAND</flag>
+        <border>6</border>
+      </object>
+    </object>
+    <title>Enter image count per stack</title>
+    <style>wxDEFAULT_DIALOG_STYLE|wxTAB_TRAVERSAL</style>
+  </object>
 </resource>

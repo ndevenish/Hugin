@@ -1200,12 +1200,25 @@ wxString AssignStacksOperation::GetLabel()
 
 PT::PanoCommand* AssignStacksOperation::GetInternalCommand(wxWindow* parent, PT::Panorama& pano, HuginBase::UIntSet images)
 {
-    long stackSize = wxGetNumberFromUser(
-                            _("Enter image count per stack"),
-                            _("stack size"),
-                            _("Images per stack"), 3, 1,
-                            pano.getNrOfImages()
-                                 );
+    wxConfigBase* cfg = wxConfigBase::Get();
+    wxDialog dlg;
+    wxXmlResource::Get()->LoadDialog(&dlg, parent, wxT("stack_size_dialog"));
+    wxSpinCtrl* stackSpin = XRCCTRL(dlg, "stack_size_spinctrl", wxSpinCtrl);
+    stackSpin->SetMax(pano.getNrOfImages());
+    size_t oldStackSize = cfg->Read(wxT("/StackDialog/StackSize"), 3);
+    oldStackSize = std::min(oldStackSize, pano.getNrOfImages());
+    stackSpin->SetValue(oldStackSize);
+    wxCheckBox* linkCheckBox = XRCCTRL(dlg, "stack_size_link_checkbox", wxCheckBox);
+    linkCheckBox->SetValue(cfg->Read(wxT("/StackDialog/LinkPosition"), true));
+    if (dlg.ShowModal() != wxID_OK)
+    {
+        // user has canceled dialog
+        return NULL;
+    };
+    long stackSize = stackSpin->GetValue();
+    bool linkPosition = linkCheckBox->IsChecked();
+    cfg->Write(wxT("/StackDialog/StackSize"), stackSize);
+    cfg->Write(wxT("/StackDialog/LinkPosition"), linkPosition);
     if(stackSize<0)
     {
         return NULL;
@@ -1238,6 +1251,23 @@ PT::PanoCommand* AssignStacksOperation::GetInternalCommand(wxWindow* parent, PT:
             commands.push_back(new PT::ChangePartNumberCmd(pano, imgs, stackNr, HuginBase::StandardImageVariableGroups::getStackVariables()));
             stackNr++;
         };
+    };
+
+    if (!linkPosition && stackSize > 1)
+    {
+        // unlink image position
+        UIntSet imgs;
+        fill_set(imgs, 0, pano.getNrOfImages() - 1);
+        std::set<HuginBase::ImageVariableGroup::ImageVariableEnum> variables;
+        variables.insert(HuginBase::ImageVariableGroup::IVE_Yaw);
+        variables.insert(HuginBase::ImageVariableGroup::IVE_Pitch);
+        variables.insert(HuginBase::ImageVariableGroup::IVE_Roll);
+        variables.insert(HuginBase::ImageVariableGroup::IVE_X);
+        variables.insert(HuginBase::ImageVariableGroup::IVE_Y);
+        variables.insert(HuginBase::ImageVariableGroup::IVE_Z);
+        variables.insert(HuginBase::ImageVariableGroup::IVE_TranslationPlaneYaw);
+        variables.insert(HuginBase::ImageVariableGroup::IVE_TranslationPlanePitch);
+        commands.push_back(new PT::ChangePartImagesLinkingCmd(pano, imgs, variables, false, HuginBase::StandardImageVariableGroups::getStackVariables()));
     };
     return new PT::CombinedPanoCommand(pano, commands);
 };
