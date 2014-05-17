@@ -4050,12 +4050,17 @@ void wxTreeListMainWindow::OnChar (wxKeyEvent &event) {
 
         // any char: go to the next matching string
         default:
-            int key = event.GetUnicodeKey() != WXK_NONE ? event.GetUnicodeKey() : event.GetKeyCode();
-            if (key  >= (int)' ') {
+            wxChar key = event.GetUnicodeKey();
+#if wxCHECK_VERSION(3,0,0)
+            if (key == WXK_NONE) key = (wxChar)event.GetKeyCode();
+#else
+            if (key == 0) key = (wxChar)event.GetKeyCode();
+#endif
+            if (key  >= 32) {
                 // prepare search parameters
                 int mode = wxTL_MODE_NAV_EXPANDED | wxTL_MODE_FIND_PARTIAL | wxTL_MODE_FIND_NOCASE;
                 if (!m_findTimer->IsRunning()) m_findStr.Clear();
-                m_findStr.Append ((wxUniChar)key);
+                m_findStr.Append (key);
                 m_findTimer->Start (FIND_TIMER_TICKS, wxTIMER_ONE_SHOT);
                 wxTreeItemId prev = (wxTreeItemId*)NULL;
                 // try if current item or one of its followers matches
