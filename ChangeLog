@@ -1,3 +1,40 @@
+2014-05-17 08:42 +0200  tmodes  (981423a49ee3)  
+
+	Fix for wxCode::wxTreeListCtrl to compile with wx 2.8 again
+
+	> src/hugin1/hugin/treelistctrl.cpp
+
+2014-05-16 18:22 +0200  tmodes  (76d56d499260)  
+
+	Updated wxCode::wxTreeListCtrl
+
+	This moves wxTreeListCtrl into namespace wxcode to prevent conflicts
+	with wxWidgets::wxTreeListCtrl (which is a different control)
+	introduced in wx 3.0.
+
+	> src/hugin1/hugin/ImagesTree.h
+	> src/hugin1/hugin/huginApp.cpp
+	> src/hugin1/hugin/treelistctrl.cpp
+	> src/hugin1/hugin/treelistctrl.h
+
+2014-05-06 21:28 +0200  tmodes  (a8b621546a85)  
+
+	Fixes crash when loading multiple images in assistant [1316702]
+
+	> src/hugin1/PT/PanoCommand.h
+
+2014-04-27 08:34 +0200  harryvanderwolf <hvdwolf@gmail.com>  (2d0d38a93c35)  
+
+	Added tag 2014.0.0_rc2 for changeset f872c6f9fe70
+
+	> .hgtags
+
+2014-04-27 08:33 +0200  harryvanderwolf <hvdwolf@gmail.com>  (f872c6f9fe70)  2014.0.0_rc2
+
+	Updated Changelog for Hugin 2014RC2
+
+	> ChangeLog
+
 2014-03-08 13:46 +0100  tmodes  (238eef8c9e60)  
 
 	Fixes for Exiftool argfiles
