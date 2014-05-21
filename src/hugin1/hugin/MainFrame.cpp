@@ -997,7 +997,7 @@ void MainFrame::OnLoadProject(wxCommandEvent & e)
         wxFileDialog dlg(wxTheApp->GetTopWindow(),
                          _("Open project file"),
                          defaultdir, wxT(""),
-                         _("Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files (*)|*"),
+                         _("Hugin project files (*.pto)|*.pto|All files (*)|*"),
                          wxFD_OPEN, wxDefaultPosition);
         dlg.SetDirectory(defaultdir);
         if (dlg.ShowModal() == wxID_OK)
