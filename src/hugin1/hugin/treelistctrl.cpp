@@ -4731,11 +4731,20 @@ bool wxTreeListMainWindow::SetForegroundColour (const wxColour& colour) {
 void wxTreeListMainWindow::SetItemText (const wxTreeItemId& itemId, int column, const wxString& text) {
     wxCHECK_RET (itemId.IsOk(), _T("invalid tree item"));
 
-    wxClientDC dc (this);
-    wxTreeListItem *item = (wxTreeListItem*) itemId.m_pItem;
-    item->SetText (column, text);
-    CalculateSize (item, dc);
-    RefreshLine (item);
+    if (this->IsFrozen())
+    {
+        wxTreeListItem *item = (wxTreeListItem*)itemId.m_pItem;
+        item->SetText(column, text);
+        m_dirty = true;
+    }
+    else
+    {
+        wxClientDC dc(this);
+        wxTreeListItem *item = (wxTreeListItem*)itemId.m_pItem;
+        item->SetText(column, text);
+        CalculateSize(item, dc);
+        RefreshLine(item);
+    };
 }
 
 wxString wxTreeListMainWindow::GetItemText (const wxTreeItemId& itemId, int column) const {
