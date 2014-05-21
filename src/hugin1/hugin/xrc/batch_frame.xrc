@@ -101,9 +101,27 @@
                   <flag>wxEXPAND</flag>
                 </object>
                 <object class="sizeritem">
-                  <object class="wxCheckBox" name="cb_shutdown">
-                    <label>Shutdown when done</label>
-                    <tooltip>Shutdown computer if all tasks are finished</tooltip>
+                  <object class="wxBoxSizer">
+                    <object class="sizeritem">
+                      <object class="wxStaticText">
+                        <label>When done</label>
+                      </object>
+                      <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxChoice" name="choice_end">
+                        <content>
+                          <item>Do nothing</item>
+                          <item>Close PTBatcherGUI</item>
+                          <item>Shutdown computer</item>
+                          <item platform="win">Suspend computer</item>
+                          <item platform="win">Hibernate computer</item>
+                        </content>
+                        <selection>0</selection>
+                      </object>
+                      <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
+                    </object>
+                    <orient>wxHORIZONTAL</orient>
                   </object>
                   <flag>wxEXPAND</flag>
                 </object>
@@ -118,6 +136,7 @@
                   <object class="wxCheckBox" name="cb_savelog">
                     <label>Always save log</label>
                   </object>
+                  <flag>wxEXPAND</flag>
                 </object>
               </object>
               <flag>wxALL|wxEXPAND</flag>

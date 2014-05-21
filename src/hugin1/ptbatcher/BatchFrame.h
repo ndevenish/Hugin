@@ -85,7 +85,7 @@ public:
 
     void OnCheckOverwrite(wxCommandEvent& event);
     void OnCheckParallel(wxCommandEvent& event);
-    void OnCheckShutdown(wxCommandEvent& event);
+    void OnChoiceEnd(wxCommandEvent& event);
     void OnCheckVerbose(wxCommandEvent& event);
     /** event handler called when auto remove checkbox was changed */
     void OnCheckAutoRemove(wxCommandEvent& event);
@@ -112,8 +112,8 @@ public:
     //PanoramaOptions readOptions(wxString projectFile);
     /** return if parallel checkbox is checked */
     bool GetCheckParallel();
-    /** return if shutdown checkbox is checked */
-    bool GetCheckShutdown();
+    /** return which task should be executed at end*/
+    Batch::EndTask GetEndTask();
     /** return if overwrite checkbox is checked */
     bool GetCheckOverwrite();
     /** return if verbose checkbox is checked */

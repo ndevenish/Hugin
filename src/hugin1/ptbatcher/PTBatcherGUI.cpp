@@ -342,7 +342,8 @@ bool PTBatcherGUI::OnInit()
         }
         if (parser.Found(wxT("s")))
         {
-            config->Write(wxT("/BatchFrame/ShutdownCheck"), 1l);
+            config->DeleteEntry(wxT("/BatchFrame/ShutdownCheck"));
+            config->Write(wxT("/BatchFrame/AtEnd"), static_cast<long>(Batch::SHUTDOWN));
         }
         if (parser.Found(wxT("o")))
         {
@@ -488,9 +489,11 @@ wxChar* BatchIPCConnection::OnRequest(const wxString& topic, const wxString& ite
             MyBatchFrame->SetCheckboxes();
         };
     if(item==wxT("SetShutdownCheck"))
-        if(!MyBatchFrame->GetCheckShutdown())
+        if (MyBatchFrame->GetEndTask()!=Batch::SHUTDOWN)
         {
-            MyBatchFrame->OnCheckShutdown(event);
+            wxCommandEvent choiceEvent;
+            choiceEvent.SetInt(Batch::SHUTDOWN);
+            MyBatchFrame->OnChoiceEnd(choiceEvent);
             MyBatchFrame->SetCheckboxes();
         };
     if(item==wxT("SetOverwriteCheck"))

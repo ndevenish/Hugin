@@ -29,6 +29,10 @@
 #include "PTBatcherGUI.h"
 #include "FindPanoDialog.h"
 #include "FailedProjectsDialog.h"
+#ifdef __WXMSW__
+#include <powrprof.h>
+#pragma comment(lib, "PowrProf.lib")
+#endif
 
 /* file drag and drop handler method */
 bool BatchDropTarget::OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& filenames)
@@ -105,7 +109,7 @@ BEGIN_EVENT_TABLE(BatchFrame, wxFrame)
     EVT_BUTTON(XRCID("button_move_down"),BatchFrame::OnButtonMoveDown)
     EVT_CHECKBOX(XRCID("cb_parallel"), BatchFrame::OnCheckParallel)
     EVT_CHECKBOX(XRCID("cb_overwrite"), BatchFrame::OnCheckOverwrite)
-    EVT_CHECKBOX(XRCID("cb_shutdown"), BatchFrame::OnCheckShutdown)
+    EVT_CHOICE(XRCID("choice_end"), BatchFrame::OnChoiceEnd)
     EVT_CHECKBOX(XRCID("cb_verbose"), BatchFrame::OnCheckVerbose)
     EVT_CHECKBOX(XRCID("cb_autoremove"), BatchFrame::OnCheckAutoRemove)
     EVT_CHECKBOX(XRCID("cb_autostitch"), BatchFrame::OnCheckAutoStitch)
@@ -905,9 +909,18 @@ void BatchFrame::SetCheckboxes()
     i=config->Read(wxT("/BatchFrame/ParallelCheck"), 0l);
     XRCCTRL(*this,"cb_parallel",wxCheckBox)->SetValue(i!=0);
     m_batch->parallel=(i!=0);
+    // read older version
     i=config->Read(wxT("/BatchFrame/ShutdownCheck"), 0l);
-    XRCCTRL(*this,"cb_shutdown",wxCheckBox)->SetValue(i!=0);
-    m_batch->shutdown=(i!=0);
+    if (i != 0)
+    {
+        XRCCTRL(*this, "choice_end", wxChoice)->SetSelection(Batch::SHUTDOWN);
+        m_batch->atEnd = Batch::SHUTDOWN;
+    };
+    config->DeleteEntry(wxT("/BatchFrame/ShutdownCheck"));
+    // now read current version
+    i = config->Read(wxT("/BatchFrame/AtEnd"), 0l);
+    XRCCTRL(*this, "choice_end", wxChoice)->SetSelection(i);
+    m_batch->atEnd = static_cast<Batch::EndTask>(i);
     i=config->Read(wxT("/BatchFrame/OverwriteCheck"), 0l);
     XRCCTRL(*this,"cb_overwrite",wxCheckBox)->SetValue(i!=0);
     m_batch->overwrite=(i!=0);
@@ -930,9 +943,9 @@ bool BatchFrame::GetCheckParallel()
     return XRCCTRL(*this,"cb_parallel",wxCheckBox)->IsChecked();
 };
 
-bool BatchFrame::GetCheckShutdown()
+Batch::EndTask BatchFrame::GetEndTask()
 {
-    return XRCCTRL(*this,"cb_shutdown",wxCheckBox)->IsChecked();
+    return static_cast<Batch::EndTask>(XRCCTRL(*this, "choice_end", wxChoice)->GetSelection());
 };
 
 bool BatchFrame::GetCheckOverwrite()
@@ -988,18 +1001,40 @@ void BatchFrame::OnCheckParallel(wxCommandEvent& event)
     }
 }
 
-void BatchFrame::OnCheckShutdown(wxCommandEvent& event)
+void BatchFrame::OnChoiceEnd(wxCommandEvent& event)
 {
-    if(event.IsChecked())
+    int sel = event.GetSelection();
+#ifdef __WXMSW__
+    if (sel == Batch::SUSPEND || sel == Batch::HIBERNATE)
     {
-        m_batch->shutdown = true;
-        wxConfigBase::Get()->Write(wxT("/BatchFrame/ShutdownCheck"), 1l);
-    }
-    else
-    {
-        m_batch->shutdown = false;
-        wxConfigBase::Get()->Write(wxT("/BatchFrame/ShutdownCheck"), 0l);
-    }
+        SYSTEM_POWER_CAPABILITIES pwrCap;
+        if (GetPwrCapabilities(&pwrCap))
+        {
+            if (sel == Batch::HIBERNATE)
+            {
+                if (!(pwrCap.SystemS4 && pwrCap.HiberFilePresent))
+                {
+                    wxMessageBox(_("Sorry. But this system does not support the hibernate mode."),
+                        wxT("PTBatcherGUI"), wxOK | wxICON_EXCLAMATION, this);
+                    XRCCTRL(*this, "choice_end", wxChoice)->SetSelection(0);
+                    sel = 0;
+                };
+            };
+            if (sel == Batch::SUSPEND)
+            {
+                if (!(pwrCap.SystemS3))
+                {
+                    wxMessageBox(_("Sorry. But this system does not support the suspend mode."),
+                        wxT("PTBatcherGUI"), wxOK | wxICON_EXCLAMATION, this);
+                    XRCCTRL(*this, "choice_end", wxChoice)->SetSelection(0);
+                    sel = 0;
+                };
+            };
+        };
+    };
+#endif
+    m_batch->atEnd = static_cast<Batch::EndTask>(sel);
+    wxConfigBase::Get()->Write(wxT("/BatchFrame/AtEnd"), sel);
 }
 
 void BatchFrame::OnCheckVerbose(wxCommandEvent& event)
@@ -1106,7 +1141,7 @@ void BatchFrame::OnClose(wxCloseEvent& event)
 void BatchFrame::PropagateDefaults()
 {
     m_batch->parallel=GetCheckParallel();
-    m_batch->shutdown=GetCheckShutdown();
+    m_batch->atEnd = GetEndTask();
     m_batch->overwrite=GetCheckOverwrite();
     m_batch->verbose=GetCheckVerbose();
     m_batch->autoremove=GetCheckAutoRemove();
