@@ -5,8 +5,8 @@
     <object class="wxBoxSizer">
       <orient>wxVERTICAL</orient>
       <object class="sizeritem">
-        <object class="wxListCtrl" name="cp_list_frame_list">
-          <style>wxLC_REPORT|wxLC_SORT_ASCENDING</style>
+        <object class="CPListCtrl" name="cp_list_frame_list">
+          <style>wxLC_REPORT|wxLC_VIRTUAL</style>
         </object>
         <option>1</option>
         <flag>wxALL|wxEXPAND</flag>

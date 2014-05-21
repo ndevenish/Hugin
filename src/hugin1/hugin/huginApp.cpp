@@ -44,6 +44,7 @@
 #include "hugin/OptimizePhotometricPanel.h"
 #include "hugin/PanoPanel.h"
 #include "hugin/ImagesList.h"
+#include "hugin/CPListFrame.h"
 #include "hugin/PreviewPanel.h"
 #include "hugin/GLPreviewFrame.h"
 #include "base_wx/PTWXDlg.h"
@@ -287,6 +288,7 @@ bool huginApp::OnInit()
     wxXmlResource::Get()->AddHandler(new wxTreeListCtrlXmlHandler());
 #endif
     wxXmlResource::Get()->AddHandler(new ImagesTreeCtrlXmlHandler());
+    wxXmlResource::Get()->AddHandler(new CPListCtrlXmlHandler());
 
     // load XRC files
     wxXmlResource::Get()->Load(m_xrcPrefix + wxT("cp_list_frame.xrc"));

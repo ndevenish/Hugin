@@ -24,66 +24,101 @@
 #ifndef _CPLISTFRAME_H
 #define _CPLISTFRAME_H
 
+#include <wx/xrc/xh_listc.h>
+#include <vector>
+
 class MainFrame;
+
+/** helper class for virtual listview control */
+struct CPListItem
+{
+    size_t globalIndex;
+    size_t localNumber;
+};
 
 /** List all control points of this project
  *
  *  useful to jump to a specific point, or see which point are bad
  */
-class CPListFrame : public wxFrame, public PT::PanoramaObserver
+class CPListCtrl : public wxListView, public PT::PanoramaObserver
+{
+public:
+    CPListCtrl();
+    ~CPListCtrl();
+    bool Create(wxWindow *parent,
+        wxWindowID id = wxID_ANY,
+        const wxPoint& pos = wxDefaultPosition,
+        const wxSize& size = wxDefaultSize,
+        long style = wxLC_REPORT | wxLC_VIRTUAL,
+        const wxValidator& validator = wxDefaultValidator,
+        const wxString& name = wxListCtrlNameStr);
+
+    void Init(PT::Panorama* pano);
+    void panoramaChanged(PT::Panorama &pano);
+    /** Delete the selected points */
+    void DeleteSelected();
+    /** select all cp with the given error bigger than the threshold */
+    void SelectDistanceThreshold(double threshold);
+    /** select all items */
+    void SelectAll();
+protected:
+    /** create labels for virtual list control */
+    virtual wxString OnGetItemText(long item, long column) const;
+    /** selection event handler */
+    void OnCPListSelectionChanged(wxListEvent & e);
+    /** sort criterium changed */
+    void OnCPListHeaderClick(wxListEvent & e);
+    /** column width changed */
+    void OnColumnWidthChange(wxListEvent & e);
+    /** handle keystrokes */
+    void OnChar(wxKeyEvent& e);
+private:
+    void UpdateInternalCPList();
+    void SortInternalList(bool isAscending);
+
+    PT::Panorama* m_pano;
+    // current sorting column
+    int m_sortCol;
+    bool m_sortAscend;
+    std::vector<CPListItem> m_internalCPList;
+    std::map<std::string, int> m_localIds;
+
+    DECLARE_EVENT_TABLE()
+    DECLARE_DYNAMIC_CLASS(CPListCtrl)
+};
+
+/** xrc handler for CPImagesComboBox */
+class CPListCtrlXmlHandler : public wxListCtrlXmlHandler
+{
+    DECLARE_DYNAMIC_CLASS(CPListCtrlXmlHandler)
+
+public:
+    /** Constructor */
+    CPListCtrlXmlHandler();
+    /** Create CPImagesComboBox from resource */
+    virtual wxObject *DoCreateResource();
+    /** Internal use to identify right xml handler */
+    virtual bool CanHandle(wxXmlNode *node);
+};
+
+class CPListFrame : public wxFrame
 {
 public:
     /** ctor.
      */
-    CPListFrame(MainFrame * parent, PT::Panorama & pano);
+    CPListFrame(wxFrame* parent, PT::Panorama & pano);
 	
     /** dtor.
      */
     virtual ~CPListFrame();
-    void panoramaImagesChanged(PT::Panorama &pano, const PT::UIntSet & imgNr);
 
-    /** Delete the selected points */
-    void DeleteSelected();
-    /** Select all points */
-    void SelectAll();
-
-private:
-
-    void SortList();
-
-    void SetCPItem(int i, const PT::ControlPoint & p);
-
-    void OnCPListSelectionChanged(wxListEvent & e);
-    void OnCPListHeaderClick(wxListEvent & e);
+protected:
     void OnDeleteButton(wxCommandEvent & e);
-    void OnFineTuneButton(wxCommandEvent & e);
     void OnSelectButton(wxCommandEvent & e);
-
-    void updateList();
-
-    void OnColumnWidthChange( wxListEvent & e );
-    
     void OnClose(wxCloseEvent& event);
-
-    std::string makePairId(unsigned int id1, unsigned int id2);
-
-    MainFrame * m_mainFrame;
-    PT::Panorama & m_pano;
-    wxListCtrl * m_list;
-
-    // show point coordinates?
-    bool m_verbose;
-
-    // current sorting column
-    int m_sortCol;
-
-    bool m_sortAscend;
-
-    // disable list updates..
-    bool m_freeze;
-
-    std::map<std::string, int> m_localIds;
-
+private:
+    CPListCtrl* m_list;
+    PT::Panorama& m_pano;
     // needed for receiving events.
     DECLARE_EVENT_TABLE();
 };
