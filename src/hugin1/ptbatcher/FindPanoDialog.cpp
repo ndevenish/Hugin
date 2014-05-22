@@ -795,6 +795,11 @@ wxString PossiblePano::GeneratePanorama(NamingConvention nc,bool createLinks)
                     pano.linkImageVariableYaw(imgNr,i);
                     pano.linkImageVariablePitch(imgNr,i);
                     pano.linkImageVariableRoll(imgNr,i);
+                    pano.linkImageVariableX(imgNr, i);
+                    pano.linkImageVariableY(imgNr, i);
+                    pano.linkImageVariableZ(imgNr, i);
+                    pano.linkImageVariableTranslationPlaneYaw(imgNr, i);
+                    pano.linkImageVariableTranslationPlanePitch(imgNr, i);
                 };
             };
         };
