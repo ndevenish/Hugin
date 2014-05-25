@@ -1809,7 +1809,7 @@ void Panorama::clearObservers()
     observers.clear();
 }
 
-void Panorama::hasPendingChanges() const
+const bool Panorama::hasPendingChanges() const
 {
     return !changedImages.empty();
 }
