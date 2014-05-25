@@ -41,13 +41,7 @@ namespace HuginBase {
 
 using namespace hugin_utils;
 
-Panorama::Panorama()
-    : //currentProcess(NO_PROCESS),
-      //optimizerExe("PTOptimizer"),
-      //stitcherExe("PTStitcher"),
-      //PTScriptFile("PT_script.txt"),
-      dirty(false),
-      m_forceImagesUpdate(false)
+Panorama::Panorama() : dirty(false), m_forceImagesUpdate(false)
 {
     // init map with ptoptimizer variables.
     m_ptoptimizerVarNames.insert("a");
@@ -66,18 +60,7 @@ Panorama::Panorama()
     m_ptoptimizerVarNames.insert("TrZ");
     m_ptoptimizerVarNames.insert("Tpy");
     m_ptoptimizerVarNames.insert("Tpp");
-
-/*
-    settings.setPath("dangelo","PanoAssistant");
-    readSettings();
-    process.setCommunication(QProcess::Stdin|
-                             QProcess::Stdout|
-                             QProcess::Stderr|
-                             QProcess::DupStderr);
-    connect(&process, SIGNAL(processExited()), this, SLOT(processExited()));
-*/
 }
-
 
 Panorama::~Panorama()
 {
@@ -86,11 +69,8 @@ Panorama::~Panorama()
     DEBUG_TRACE("dtor about to finish");
 }
 
-
 void Panorama::reset()
 {
-    //
-    // imageChanged(0);
     // delete all images and control points.
     state.ctrlPoints.clear();
     state.deleteAllImages();
@@ -102,76 +82,6 @@ void Panorama::reset()
     AppBase::DocumentData::setDirty(false);
     dirty=false;
 }
-
-
-#if 0
-QDomElement Panorama::toXML(QDomDocument & doc)
-{
-    QDomElement root = doc.createElement("panorama");
-    // serialize global options:
-    root.appendChild(options.toXML(doc));
-
-    // serialize image
-    QDomElement images_ = doc.createElement("images");
-    for (ImageVector::iterator it = images.begin(); it != images.end(); ++it) {
-        images_.appendChild(it->toXML(doc));
-    }
-    root.appendChild(images_);
-
-    // control points
-    QDomElement cps = doc.createElement("control_points");
-    for (CPVector::iterator it = state.ctrlPoints.begin(); it != state.ctrlPoints.end(); ++it) {
-        cps.appendChild(it->toXML(doc));
-    }
-    root.appendChild(cps);
-
-    // lenses
-    QDomElement lenses_ = doc.createElement("lenses");
-    for (std::vector<Lens>::iterator it = lenses.begin(); it != lenses.end(); ++it) {
-        lenses_.appendChild(it->toXML(doc));
-    }
-    root.appendChild(lenses_);
-
-    return root;
-}
-
-void Panorama::setFromXML(const QDomNode & elem)
-{
-    DEBUG_DEBUG("Panorama::setFromXML");
-    clear();
-
-    Q_ASSERT(elem.nodeName() == "panorama");
-    // read global options
-    QDomNode n = elem.namedItem("output");
-    Q_ASSERT(!n.isNull);
-    options.setFromXML(n);
-    n = elem.namedItem("images");
-    Q_ASSERT(!n.isNull);
-    n = n.firstChild();
-    while( !n.isNull() ) {
-        QDomElement e = n.toElement(); // try to convert the node to an element.
-        Q_ASSERT((!e.isNull()) && e.tagName() == "image" );
-        images.push_back(PanoImage(*this, e));
-        reportAddedImage(images.size() -1);
-        n = n.nextSibling();
-    }
-
-
-    n = elem.namedItem("control_points");
-    Q_ASSERT(!n.isNull());
-    n = n.firstChild();
-    while( !n.isNull() ) {
-        QDomElement e = n.toElement();// try to convert the node to an element.
-        Q_ASSERT((!e.isNull()) && e.tagName() == "control_point" );
-        controlPoints.push_back(ControlPoint(*this, e));
-        reportAddedCtrlPoint(controlPoints.size() -1);
-        n = n.nextSibling();
-    }
-}
-
-
-#endif
-
 
 std::vector<unsigned int> Panorama::getCtrlPointsForImage(unsigned int imgNr) const
 {

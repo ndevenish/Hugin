@@ -38,10 +38,7 @@
 #endif // _HSI_IGNORE_SECTION
 
 namespace HuginBase {
-    
-    
-    
-    
+
 /** Memento class for a Panorama object
 *
 *  Holds the internal state of a Panorama.
@@ -69,16 +66,12 @@ class IMPEX PanoramaMemento : public PanoramaDataMemento
         
         
     protected:
-        /** enum for supported PTScript syntax bastards */
-        //  enum PTFileFormat { PTFILE_HUGIN, PTFILE_PTGUI, PTFILE_PTA };
-        
         /** load a PTScript file
         *
         *  initializes the PanoramaMemento from a PTScript file
         */
         bool loadPTScript(std::istream & i, int & ptoVersion, const std::string & prefix = "");
-    
-        
+
     private:
         enum PTParseState {
             P_NONE,
@@ -676,31 +669,7 @@ class IMPEX Panorama : public ManagedPanoramaData, public AppBase::DocumentData
         /// adjust the links of the linked variables, must be called
         /// when a lens has been changed.
         void adjustVarLinks();
-
-
-        /// image addition notification
-    //    void notifyImageAdded(unsigned int imgNr);
-
-        /// image removal notification
-    //    void notifyImageRemoved(unsigned int imgNr);
-
-        /// image change notification
-    //    void notifyImageChanged(unsigned int imgNr);
-
-        
-
     private:
-
-        // data
-//        enum ProcessType { NO_PROCESS, OPTIMIZER, STITCHER };
-
-        // to run stitcher & optimizer
-//        ProcessType currentProcess;
-//        std::string optimizerExe;
-//        std::string stitcherExe;
-//        std::string PTScriptFile;
-        
-        //
         /** center the crop for given image and all linked images */
         void centerCrop(unsigned int imgNr);
         /** return the centered crop for given image */
@@ -723,12 +692,5 @@ class IMPEX Panorama : public ManagedPanoramaData, public AppBase::DocumentData
         std::set<std::string> m_ptoptimizerVarNames;
 };
 
-
-
-
 } // namespace
-
-
-
-
 #endif // _PANORAMA_H
