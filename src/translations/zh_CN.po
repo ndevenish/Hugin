@@ -3,14 +3,14 @@ msgstr ""
 "Project-Id-Version: for Hugin\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
 "POT-Creation-Date: 2014-01-05 11:39+0100\n"
-"PO-Revision-Date: 2013-10-26 22:03+0800\n"
-"Last-Translator: Yili Zhao <panovr@gmail.com>\n"
+"PO-Revision-Date: 2014-05-25 12:55+0800\n"
+"Last-Translator: Lu Fang <supercosmosgod@hotmail.com>\n"
 "Language-Team: Simplified Chinese <N/A>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.6.5\n"
 
 #: hugin1/base_wx/LensTools.cpp:37 hugin1/hugin/ImagesTree.cpp:369
 msgid "Normal (rectilinear)"
@@ -32,12 +32,12 @@ msgstr "全帧鱼眼"
 #: hugin1/hugin/GLPreviewFrame.cpp:1496 hugin1/hugin/ImagesTree.cpp:373
 #: hugin1/hugin/PreviewFrame.cpp:631
 msgid "Equirectangular"
-msgstr "矩形的"
+msgstr "等矩形的"
 
 #: hugin1/base_wx/LensTools.cpp:42 hugin1/hugin/ImagesTree.cpp:374
 #: hugin1/hugin/PanoPanel.cpp:153
 msgid "Orthographic"
-msgstr "拼写正确的"
+msgstr "正投影"
 
 #: hugin1/base_wx/LensTools.cpp:43 hugin1/hugin/ImagesTree.cpp:375
 #: hugin1/hugin/PanoPanel.cpp:143
@@ -271,29 +271,24 @@ msgid "Warning"
 msgstr "警告"
 
 #: hugin1/base_wx/huginConfig.cpp:295
-#, fuzzy
 msgid "first image"
-msgstr "这张图像"
+msgstr "第一张图像"
 
 #: hugin1/base_wx/huginConfig.cpp:296
-#, fuzzy
 msgid "last image"
-msgstr "增加图像"
+msgstr "最后一张图像"
 
 #: hugin1/base_wx/huginConfig.cpp:298
-#, fuzzy
 msgid "directory"
-msgstr "目录:"
+msgstr "目录"
 
 #: hugin1/base_wx/huginConfig.cpp:304 hugin1/hugin/ImagesTree.cpp:149
-#, fuzzy
 msgid "Camera maker"
-msgstr "照相机制造商:"
+msgstr "照相机制造商"
 
 #: hugin1/base_wx/huginConfig.cpp:305 hugin1/hugin/ImagesTree.cpp:150
-#, fuzzy
 msgid "Camera model"
-msgstr "照相机型号:"
+msgstr "照相机型号"
 
 #: hugin1/base_wx/huginConfig.cpp:306 hugin1/hugin/ImagesPanel.cpp:669
 #: hugin1/hugin/ImagesTree.cpp:151 hugin1/hugin/ImagesTree.cpp:1215
@@ -303,9 +298,8 @@ msgid "Lens"
 msgstr "镜头"
 
 #: hugin1/base_wx/huginConfig.cpp:342
-#, fuzzy
 msgid "unknown projection"
-msgstr "未知版本"
+msgstr "未知项目"
 
 #: hugin1/base_wx/platform.cpp:470
 #, c-format
@@ -332,9 +326,9 @@ msgstr ""
 "HDR|EXR 文件 (*.exr)|*.exr;*.EXR|所有文件 (*)|*"
 
 #: hugin1/base_wx/wxLensDB.cpp:233
-#, fuzzy, c-format
+#, c-format
 msgid "The input \"%s\" is not a valid number."
-msgstr "输入的 \"%s\" (%s 中的) 是一个无效数字\n"
+msgstr "输入的 \"%s\" 不是一个有效数字."
 
 #: hugin1/base_wx/wxLensDB.cpp:294 translations/xrc.cpp:236
 #: translations/xrc.cpp:253 translations/xrc.cpp:261 translations/xrc.cpp:843
@@ -343,23 +337,19 @@ msgid "Focal length multiplier:"
 msgstr "焦距乘法器:"
 
 #: hugin1/base_wx/wxLensDB.cpp:299
-#, fuzzy, c-format
+#, c-format
 msgid "%d lenses found."
-msgstr "不能发现文件"
+msgstr "发现 %d 镜头."
 
 #: hugin1/base_wx/wxLensDB.cpp:303
-#, fuzzy
 msgid "No lens found."
-msgstr "没有发现有可能是全景图像的图像."
+msgstr "没有发现镜头."
 
 #: hugin1/base_wx/wxLensDB.cpp:609
-#, fuzzy
 msgid ""
 "There is too little information for saving data into database. Please check "
 "your input!"
-msgstr ""
-"输入栏中有无效值.\n"
-"请检查您的输入."
+msgstr "用于保存数据到数据库的信息量太少. 请检查您的输入!"
 
 #: hugin1/base_wx/wxLensDB.cpp:660
 #, c-format
@@ -370,25 +360,27 @@ msgid ""
 "The default folder for the database files is \"%s\".\n"
 "Do you want to proceed anyway?"
 msgstr ""
+"您已经选择目录 \"%s\" 来保存您的数据库文件.\n"
+"这个目录不是默认目录. 您将不能自动加载信息到 Hugin 中.\n"
+"数据库文件的默认目录是 \"%s\".\n"
+"您希望继续处理吗?"
 
 #: hugin1/base_wx/wxLensDB.cpp:708
-#, fuzzy
 msgid "Save lens into database file"
-msgstr "保存镜头参数文件"
+msgstr "保存镜头到数据库文件"
 
 #: hugin1/base_wx/wxLensDB.cpp:710 hugin1/base_wx/wxLensDB.cpp:948
-#, fuzzy
 msgid "Lensfun database files (*.xml)|*.xml"
-msgstr "PTmender 文件 (*.txt)|*.txt"
+msgstr "镜头数据库文件 (*.xml)|*.xml"
 
 #: hugin1/base_wx/wxLensDB.cpp:751 hugin1/base_wx/wxLensDB.cpp:764
 #: hugin1/base_wx/wxLensDB.cpp:810 hugin1/base_wx/wxLensDB.cpp:969
 msgid "Could not save information into database file."
-msgstr ""
+msgstr "不能保存信息到数据库文件."
 
 #: hugin1/base_wx/wxLensDB.cpp:817
 msgid "Could not initialize database."
-msgstr ""
+msgstr "不能初始化数据库."
 
 #: hugin1/base_wx/wxLensDB.cpp:821
 #, c-format
@@ -398,19 +390,21 @@ msgid ""
 "Could not proceed.\n"
 "(Error code: %d)"
 msgstr ""
+"当前选择的镜头不匹配数据库文件中的镜头信息.\n"
+"不能处理.\n"
+"(错误代码: %d)"
 
 #: hugin1/base_wx/wxLensDB.cpp:920
 msgid "The maker field contains only an empty string."
-msgstr ""
+msgstr "标记区域只关联一个空字符串."
 
 #: hugin1/base_wx/wxLensDB.cpp:925
 msgid "The model field contains only an empty string."
-msgstr ""
+msgstr "模型区域只关联一个空字符串."
 
 #: hugin1/base_wx/wxLensDB.cpp:946
-#, fuzzy
 msgid "Save camera into database file"
-msgstr "保存镜头参数到一个文件"
+msgstr "保存镜头到数据库文件"
 
 #: hugin1/calibrate_lens/LensCalApp.cpp:66 hugin1/hugin/huginApp.cpp:193
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:80
@@ -437,9 +431,8 @@ msgstr "翻译文件不存在于程序包中"
 
 #: hugin1/calibrate_lens/LensCalApp.cpp:79 hugin1/hugin/huginApp.cpp:229
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:96
-#, fuzzy
 msgid "lensfun directory not found in bundle"
-msgstr "xrc 目录不存在于程序包中"
+msgstr "在系列中没有发现镜头目录"
 
 #: hugin1/calibrate_lens/LensCalApp.cpp:92 hugin1/hugin/huginApp.cpp:244
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:119
@@ -526,7 +519,7 @@ msgstr ""
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:721
 msgid "Optimizing lens distortion parameters..."
-msgstr "优化镜头失真参数..."
+msgstr "优化镜头畸变参数..."
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:756
 #: hugin1/calibrate_lens/LensCalFrame.cpp:821
@@ -553,20 +546,17 @@ msgstr ""
 "数."
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:785
-#, fuzzy
 msgid "Save lens parameters to ini file"
-msgstr "保存镜头参数到一个文件"
+msgstr "保存镜头参数到 ini 文件"
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:786
 #: hugin1/hugin/PanoOperation.cpp:569
-#, fuzzy
 msgid "Save lens parameters to lensfun database"
-msgstr "保存镜头参数到一个文件"
+msgstr "保存镜头参数到镜头数据库"
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:787
-#, fuzzy
 msgid "Saving lens data"
-msgstr "加载镜头数据..."
+msgstr "保存镜头数据"
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:787 translations/xrc.cpp:278
 msgid "Save lens"
@@ -624,14 +614,14 @@ msgid "Path to data: %s"
 msgstr "数据路径: %s"
 
 #: hugin1/hugin/AboutDialog.cpp:180
-#, fuzzy, c-format
+#, c-format
 msgid "Path to public lensfun database: %s"
-msgstr "数据路径: %s"
+msgstr "公共镜头数据库路径: %s"
 
 #: hugin1/hugin/AboutDialog.cpp:182
-#, fuzzy, c-format
+#, c-format
 msgid "Path to user lensfun database: %s"
-msgstr "数据路径: %s"
+msgstr "用户镜头数据库路径: %s"
 
 #: hugin1/hugin/AboutDialog.cpp:183
 msgid "Libraries"
@@ -899,12 +889,11 @@ msgid "Select Control Points"
 msgstr "选择控制点"
 
 #: hugin1/hugin/DragTool.cpp:78
-#, fuzzy
 msgid ""
 "Drag to move images (optionally use shift to constrain), or roll with right-"
 "drag or Ctrl-drag."
 msgstr ""
-"拖动图像 (任意使用 shift 键来约束), 可以使用右键-拖动或者 ctrl 键-拖动来旋转."
+"拖动图像 (可以使用 shift 键来约束), 使用右键拖动或者 Ctrl 键拖动来旋转."
 
 #: hugin1/hugin/DragTool.cpp:106
 msgid ""
@@ -964,9 +953,8 @@ msgid "Autocrop"
 msgstr "自动裁切"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:363 translations/xrc.cpp:989
-#, fuzzy
 msgid "HDR Autocrop"
-msgstr "自动裁切"
+msgstr "HDR 自动裁切"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:376 hugin1/hugin/GLPreviewFrame.cpp:3035
 #: hugin1/hugin/MainFrame.cpp:364 hugin1/hugin/MainFrame.cpp:2096
@@ -1000,7 +988,7 @@ msgstr "隐藏"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:490 hugin1/hugin/PreviewFrame.cpp:172
 msgid "VFOV"
-msgstr "可见视角"
+msgstr "垂直视野"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:494 hugin1/hugin/PreviewFrame.cpp:176
 msgid "drag to change the vertical field of view"
@@ -1032,9 +1020,8 @@ msgid "param:"
 msgstr "param:"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:978
-#, fuzzy
 msgid "No images loaded."
-msgstr "没有加载图像"
+msgstr "没有加载图像."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1013
 #, c-format
@@ -1090,16 +1077,14 @@ msgid "Mean error after optimization: %.1f pixel, max: %.1f\n"
 msgstr "优化后的平均错误: %.1f 像素, 最大: %.1f\n"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1079
-#, fuzzy
 msgid ""
 "Note: automatic alignment uses default settings from the preferences. If you "
 "want to use customized settings, run the CP detection, the geometrical "
 "optimization and the photometric optimization from the Photos tab in the "
 "panorama editor."
 msgstr ""
-"注意: 自动对齐使用首选项的默认设置. 假如您在项目的高级面板中自定义了设置并且"
-"想要使用这些自定义的设置, 运行图像面板中的控制点检测, 优化面板中的几何优化以"
-"及曝光面板中的测光优化."
+"注意: 自动对齐使用首选项的默认设置. 假如您希望使用自定义设置, 运行全景图像编"
+"辑器的图像面板中的控制点检测, 几何优化以及测光优化."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1494 hugin1/hugin/PreviewFrame.cpp:629
 msgid "Rectilinear"
@@ -1148,6 +1133,9 @@ msgid ""
 "But your project has non-zero Tpy and Tpp parameters.\n"
 "Should the Tpy and Tpp parameters reset to zero?"
 msgstr ""
+"马赛克/平面模式只能用于校正一个 yaw=0 并且 pitch=0 的重映射平面.\n"
+"但是您的项目具有非零 Tpy 和 Tpp 参数.\n"
+"应该将 Tpy 和 Tpp 参数重置到零?"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:2498 hugin1/hugin/PreviewFrame.cpp:235
 msgid "difference"
@@ -1190,7 +1178,7 @@ msgstr "无效的水平视角值. 这个项目的最大水平视角值是 %lf."
 #: hugin1/hugin/GLPreviewFrame.cpp:2802 hugin1/hugin/PanoPanel.cpp:652
 #, c-format
 msgid "Invalid VFOV value. Maximum VFOV for this projection is %lf."
-msgstr "无效的可见视野值. 这个项目的最大可见视野值是 %lf."
+msgstr "无效的垂直视野值. 这个项目的最大垂直视野值是 %lf."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:2840
 msgid ""
@@ -1206,7 +1194,7 @@ msgstr "由于视野只有水平方向非常宽, 尝试使用一个圆柱投影�
 
 #: hugin1/hugin/GLPreviewFrame.cpp:2844
 msgid "For a very wide panorama, try equirectangular projection instead."
-msgstr "对于一个非常宽的全景图像, 尝试使用正方形投影来代替."
+msgstr "对于一个非常宽的全景图像, 尝试使用等矩形投影来代替."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:2846
 msgid " You could also try Panini projection."
@@ -1220,7 +1208,7 @@ msgid ""
 "space."
 msgstr ""
 "带有一个宽垂直视野, 使用圆柱投影的全景图像在顶部和底部会被拉伸得非常平整.\n"
-"一个正方形投影可以在较少垂直空间内得到相同内容."
+"一个等矩形投影可以在较少垂直空间内得到相同内容."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:2857
 msgid ""
@@ -1229,7 +1217,7 @@ msgid ""
 "Cylindrical projection preserves vertical lines, unlike equirectangular."
 msgstr ""
 "由于垂直视野不太宽, 您可以尝试设置全景投影为圆柱投影.\n"
-"圆柱投影保持垂直线, 不像正方形投影."
+"圆柱投影保持垂直线, 不像等矩形投影."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:2863
 msgid ""
@@ -1295,7 +1283,6 @@ msgstr ""
 "不能开启快速预览窗口."
 
 #: hugin1/hugin/GLViewer.cpp:299
-#, fuzzy
 msgid ""
 "Sorry, the fast preview window requires a system which supports OpenGL "
 "version 1.1 with the GL_ARB_multitexture extension.\n"
@@ -1306,7 +1293,10 @@ msgid ""
 msgstr ""
 "对不起, 快速预览窗口需要支持带有 GL_ARB_multitexture 扩展的 1.1 版本 OpenGL "
 "的系统.\n"
-"不能开启快速预览."
+"不能开启快速预览.\n"
+"\n"
+"Hugin 已经设置成开启时不使用快速预览.\n"
+"请重启 Hugin."
 
 #: hugin1/hugin/HDRMergeOptionDialog.cpp:157
 msgid "Invalid input\n"
@@ -1365,20 +1355,21 @@ msgid ""
 "degress.\n"
 "Do you want still use that high value?"
 msgstr ""
+"您已经给定了一个 %.2f 度的视野.\n"
+" 但是正投影被限制于 180 度的视野.\n"
+"您仍然希望使用那个高值?"
 
 #: hugin1/hugin/ImageVariableDialog.cpp:323
-#, fuzzy
 msgid "Save graph"
-msgstr "保存批处理"
+msgstr "保存图表"
 
 #: hugin1/hugin/ImageVariableDialog.cpp:325
 msgid "Bitmap (*.bmp)|*.bmp|PNG-File (*.png)|*.png"
-msgstr ""
+msgstr "Bitmap (*.bmp)|*.bmp|PNG 文件 (*.png)|*.png"
 
 #: hugin1/hugin/ImageVariableDialog.cpp:351
-#, fuzzy
 msgid "Save image"
-msgstr "保存蒙板"
+msgstr "保存图像"
 
 #: hugin1/hugin/ImagesList.cpp:455 hugin1/hugin/ImagesList.cpp:515
 #: hugin1/hugin/ImagesTree.cpp:141
@@ -1395,19 +1386,16 @@ msgid "Crop"
 msgstr "裁切"
 
 #: hugin1/hugin/ImagesPanel.cpp:315
-#, fuzzy
 msgid "Enter maximal number of control points per image pair"
-msgstr "每张图像的点的编号"
+msgstr "输入每对图像的最大控制点数量"
 
 #: hugin1/hugin/ImagesPanel.cpp:316
-#, fuzzy
 msgid "Points per Overlap"
-msgstr "每对重叠点:"
+msgstr "每对重叠点"
 
 #: hugin1/hugin/ImagesPanel.cpp:317
-#, fuzzy
 msgid "Control point detector option"
-msgstr "控制点检测器结果"
+msgstr "控制点检测器选项"
 
 #: hugin1/hugin/ImagesPanel.cpp:335
 #, c-format
@@ -1420,26 +1408,23 @@ msgstr "控制点检测器结果"
 
 #: hugin1/hugin/ImagesPanel.cpp:612
 msgid "The minimum overlap has to be greater than 0 and smaller than 1."
-msgstr ""
+msgstr "最小重叠区域必须大于 0 并且小于 1."
 
 #: hugin1/hugin/ImagesPanel.cpp:642
 msgid "The maximum Ev difference has to be greater than 0."
-msgstr ""
+msgstr "最大 Ev 差值必须大于 0."
 
 #: hugin1/hugin/ImagesPanel.cpp:674 hugin1/hugin/ImagesTree.cpp:1227
-#, fuzzy
 msgid "Stacks"
-msgstr "堆栈:"
+msgstr "堆栈"
 
 #: hugin1/hugin/ImagesPanel.cpp:679
-#, fuzzy
 msgid "Output layers"
-msgstr "输出"
+msgstr "输出层"
 
 #: hugin1/hugin/ImagesPanel.cpp:682
-#, fuzzy
 msgid "Output stacks"
-msgstr "输出"
+msgstr "输出栈"
 
 #: hugin1/hugin/ImagesPanel.cpp:700
 msgid "Positions (incremental, starting from anchor)"
@@ -1455,11 +1440,11 @@ msgstr "位置和视角 (y,p,r,v)"
 
 #: hugin1/hugin/ImagesPanel.cpp:709
 msgid "Positions and Barrel Distortion (y,p,r,b)"
-msgstr "位置和桶状失真 (y,p,r,b)"
+msgstr "位置和桶状畸变 (y,p,r,b)"
 
 #: hugin1/hugin/ImagesPanel.cpp:712
 msgid "Positions, View and Barrel (y,p,r,v,b)"
-msgstr "位置, 视野和桶状失真 (y,p,r,v,b)"
+msgstr "位置, 视野和桶状 (y,p,r,v,b)"
 
 #: hugin1/hugin/ImagesPanel.cpp:717
 msgid "Everything without translation"
@@ -1479,16 +1464,15 @@ msgstr "位置, 坐标变换和视角 (y,p,r,x,y,z,v)"
 
 #: hugin1/hugin/ImagesPanel.cpp:733
 msgid "Positions, Translation and Barrel (y,p,r,x,y,z,b)"
-msgstr "位置, 坐标变换和桶状失真 (y,p,r,x,y,z,b)"
+msgstr "位置, 坐标变换和桶状 (y,p,r,x,y,z,b)"
 
 #: hugin1/hugin/ImagesPanel.cpp:736
 msgid "Positions, Translation, View and Barrel (y,p,r,x,y,z,v,b)"
-msgstr "位置, 坐标变换, 视野和桶状失真 (y,p,r,x,y,z,v,b)"
+msgstr "位置, 坐标变换, 视野和桶状 (y,p,r,x,y,z,v,b)"
 
 #: hugin1/hugin/ImagesPanel.cpp:740 hugin1/hugin/ImagesPanel.cpp:761
-#, fuzzy
 msgid "Custom parameters"
-msgstr "下列自定义参数"
+msgstr "自定义参数"
 
 #: hugin1/hugin/ImagesPanel.cpp:746
 msgid "Low dynamic range"
@@ -1507,203 +1491,168 @@ msgid "High dynamic range, variable white balance, fixed exposure"
 msgstr "高动态范围, 白平衡变量, 曝光校正"
 
 #: hugin1/hugin/ImagesPanel.cpp:819
-#, fuzzy
 msgid "Simple interface"
-msgstr "用户界面"
+msgstr "简单界面"
 
 #: hugin1/hugin/ImagesPanel.cpp:822
-#, fuzzy
 msgid "Advanced interface"
-msgstr "高级选项"
+msgstr "高级界面"
 
 #: hugin1/hugin/ImagesPanel.cpp:825
-#, fuzzy
 msgid "Expert interface"
-msgstr "用户界面"
+msgstr "专家界面"
 
 #: hugin1/hugin/ImagesTree.cpp:140
-#, fuzzy
 msgid "Image number"
-msgstr "镜头编号"
+msgstr "图像编号"
 
 #: hugin1/hugin/ImagesTree.cpp:142
-#, fuzzy
 msgid "Width"
-msgstr "宽度:"
+msgstr "宽度"
 
 #: hugin1/hugin/ImagesTree.cpp:142
-#, fuzzy
 msgid "Image width"
-msgstr "羽化宽度:"
+msgstr "图像宽度"
 
 #: hugin1/hugin/ImagesTree.cpp:143
-#, fuzzy
 msgid "Height"
-msgstr "高度:"
+msgstr "高度"
 
 #: hugin1/hugin/ImagesTree.cpp:143
-#, fuzzy
 msgid "Image height"
-msgstr "图像修剪"
+msgstr "图像高度"
 
 #: hugin1/hugin/ImagesTree.cpp:144
 msgid "Anchor"
 msgstr "锚定"
 
 #: hugin1/hugin/ImagesTree.cpp:144
-#, fuzzy
 msgid "Anchor image for position and/or exposure"
-msgstr "锚定这张图像以便定位"
+msgstr "锚定这张图像以便定位和/或曝光"
 
 #: hugin1/hugin/ImagesTree.cpp:145
 msgid "# Ctrl Pnts"
 msgstr "# 控制点"
 
 #: hugin1/hugin/ImagesTree.cpp:145
-#, fuzzy
 msgid "Number of control points in this image"
-msgstr "每张图像的点的编号"
+msgstr "这张图像的控制点编号"
 
 #: hugin1/hugin/ImagesTree.cpp:146
 msgid "Lens no."
 msgstr "镜头编号"
 
 #: hugin1/hugin/ImagesTree.cpp:146
-#, fuzzy
 msgid "Assigned lens number"
-msgstr "修改镜头编号"
+msgstr "分配镜头编号"
 
 #: hugin1/hugin/ImagesTree.cpp:147
-#, fuzzy
 msgid "Stack no."
-msgstr "堆栈:"
+msgstr "堆栈编号"
 
 #: hugin1/hugin/ImagesTree.cpp:147
-#, fuzzy
 msgid "Assigned stack number"
-msgstr "修改堆栈编号"
+msgstr "分配堆栈编号"
 
 #: hugin1/hugin/ImagesTree.cpp:149
-#, fuzzy
 msgid "Maker"
-msgstr "照相机制造商:"
+msgstr "制造商"
 
 #: hugin1/hugin/ImagesTree.cpp:150
-#, fuzzy
 msgid "Model"
-msgstr "模式:"
+msgstr "型号"
 
 #: hugin1/hugin/ImagesTree.cpp:151
-#, fuzzy
 msgid "Used lens"
-msgstr "新镜头"
+msgstr "使用的镜头"
 
 #: hugin1/hugin/ImagesTree.cpp:152
-#, fuzzy
 msgid "Capture date"
-msgstr "捕获日期:"
+msgstr "照相日期"
 
 #: hugin1/hugin/ImagesTree.cpp:152
 msgid "Date, image was taken"
-msgstr ""
+msgstr "日期, 图像已经给定"
 
 #: hugin1/hugin/ImagesTree.cpp:153
-#, fuzzy
 msgid "Focal length"
-msgstr "焦距:"
+msgstr "焦距"
 
 #: hugin1/hugin/ImagesTree.cpp:154
-#, fuzzy
 msgid "Aperture"
-msgstr "光圈:"
+msgstr "光圈"
 
 #: hugin1/hugin/ImagesTree.cpp:155
-#, fuzzy
 msgid "Shutter Speed"
-msgstr "快门速度:"
+msgstr "快门速度"
 
 #: hugin1/hugin/ImagesTree.cpp:155
-#, fuzzy
 msgid "Shutter speed"
-msgstr "快门速度:"
+msgstr "快门速度"
 
 #: hugin1/hugin/ImagesTree.cpp:156
-#, fuzzy
 msgid "ISO"
-msgstr "ISO:"
+msgstr "ISO"
 
 #: hugin1/hugin/ImagesTree.cpp:156
 msgid "ISO speed"
-msgstr ""
+msgstr "ISO 速度"
 
 #: hugin1/hugin/ImagesTree.cpp:158
-#, fuzzy
 msgid "Yaw (y)"
 msgstr "偏航 (y)"
 
 #: hugin1/hugin/ImagesTree.cpp:158
-#, fuzzy
 msgid "Yaw"
-msgstr "偏航:"
+msgstr "偏航"
 
 #: hugin1/hugin/ImagesTree.cpp:159
-#, fuzzy
 msgid "Pitch (p)"
 msgstr "俯仰 (p)"
 
 #: hugin1/hugin/ImagesTree.cpp:159
-#, fuzzy
 msgid "Pitch"
-msgstr "俯仰:"
+msgstr "俯仰"
 
 #: hugin1/hugin/ImagesTree.cpp:160
-#, fuzzy
 msgid "Roll (r)"
 msgstr "滚转 (r)"
 
 #: hugin1/hugin/ImagesTree.cpp:160
-#, fuzzy
 msgid "Roll"
-msgstr "滚转:"
+msgstr "滚转"
 
 #: hugin1/hugin/ImagesTree.cpp:161
-#, fuzzy
 msgid "Camera translation X"
-msgstr "照相机响应"
+msgstr "照相机位移 X"
 
 #: hugin1/hugin/ImagesTree.cpp:162
-#, fuzzy
 msgid "Camera translation Y"
-msgstr "照相机响应"
+msgstr "照相机位移 Y"
 
 #: hugin1/hugin/ImagesTree.cpp:163
-#, fuzzy
 msgid "Camera translation Z"
-msgstr "照相机响应"
+msgstr "照相机位移 Z"
 
 #: hugin1/hugin/ImagesTree.cpp:164
 msgid "Plane yaw"
-msgstr ""
+msgstr "平面偏航"
 
 #: hugin1/hugin/ImagesTree.cpp:164
-#, fuzzy
 msgid "Translation remap plane yaw"
-msgstr "链接参数"
+msgstr "位移重映射平面偏航"
 
 #: hugin1/hugin/ImagesTree.cpp:165
-#, fuzzy
 msgid "Plane pitch"
-msgstr "俯仰:"
+msgstr "平面俯仰"
 
 #: hugin1/hugin/ImagesTree.cpp:165
-#, fuzzy
 msgid "Translation remap plane pitch"
-msgstr "链接参数"
+msgstr "位移重映射平面俯仰"
 
 #: hugin1/hugin/ImagesTree.cpp:166
-#, fuzzy
 msgid "Camera translation"
-msgstr "照相机响应"
+msgstr "照相机位移"
 
 #: hugin1/hugin/ImagesTree.cpp:168
 msgid "Lens type (f)"
@@ -1711,97 +1660,82 @@ msgstr "镜头类型 (f)"
 
 #: hugin1/hugin/ImagesTree.cpp:168
 msgid "Lens type (rectilinear, fisheye, equirectangular, ...)"
-msgstr ""
+msgstr "镜头类型 (矩形, 鱼眼, 等矩形, ...)"
 
 #: hugin1/hugin/ImagesTree.cpp:169
-#, fuzzy
 msgid "Hfov (v)"
-msgstr "水平视角 (v)"
+msgstr "水平视野 (v)"
 
 #: hugin1/hugin/ImagesTree.cpp:169
-#, fuzzy
 msgid "Horizontal field of view (v)"
-msgstr "水平视野"
+msgstr "水平视野 (v)"
 
 #: hugin1/hugin/ImagesTree.cpp:170
-#, fuzzy
 msgid "Radial distortion (a)"
-msgstr "光线失真"
+msgstr "径向畸变 (a)"
 
 #: hugin1/hugin/ImagesTree.cpp:171
-#, fuzzy
 msgid "Radial distortion (b, barrel)"
-msgstr "光线失真"
+msgstr "径向畸变 (b, 桶状)"
 
 #: hugin1/hugin/ImagesTree.cpp:172
-#, fuzzy
 msgid "Radial distortion (c)"
-msgstr "光线失真"
+msgstr "径向畸变 (c)"
 
 #: hugin1/hugin/ImagesTree.cpp:173
 msgid "Horizontal image center shift (d)"
-msgstr ""
+msgstr "水平图像偏心 (d)"
 
 #: hugin1/hugin/ImagesTree.cpp:174
-#, fuzzy
 msgid "Vertical image center shift (e)"
-msgstr "图像中心变换"
+msgstr "垂直图像偏心 (e)"
 
 #: hugin1/hugin/ImagesTree.cpp:175
 msgid "Horizontal image shearing (g)"
-msgstr ""
+msgstr "水平图像剪切 (g)"
 
 #: hugin1/hugin/ImagesTree.cpp:176
 msgid "Vertical image shearing (t)"
-msgstr ""
+msgstr "垂直图像剪切 (t)"
 
 #: hugin1/hugin/ImagesTree.cpp:178
-#, fuzzy
 msgid "Exposure value (Eev)"
-msgstr "曝光 (Eev)"
+msgstr "曝光值 (Eev)"
 
 #: hugin1/hugin/ImagesTree.cpp:179
-#, fuzzy
 msgid "Red multiplier (Er)"
-msgstr "红色乘法器 (Er):"
+msgstr "红色乘法器 (Er)"
 
 #: hugin1/hugin/ImagesTree.cpp:180
-#, fuzzy
 msgid "Blue multiplier (Eb)"
-msgstr "蓝色乘法器 (Eb):"
+msgstr "蓝色乘法器 (Eb)"
 
 #: hugin1/hugin/ImagesTree.cpp:181 hugin1/hugin/ImagesTree.cpp:182
 #: hugin1/hugin/ImagesTree.cpp:183
-#, fuzzy
 msgid "Vignetting (Vb, Vc, Vd)"
-msgstr "渐晕 (Vb, Vc, Vd):"
+msgstr "虚光 (Vb, Vc, Vd)"
 
 #: hugin1/hugin/ImagesTree.cpp:184
-#, fuzzy
 msgid "Horizontal vignetting center shift (Vx)"
-msgstr "渐晕中心变换 (Vx, Vy)"
+msgstr "水平渐晕偏心 (Vx)"
 
 #: hugin1/hugin/ImagesTree.cpp:185
-#, fuzzy
 msgid "Vertical vignetting center shift (Vy)"
-msgstr "渐晕中心变换 (Vx, Vy)"
+msgstr "垂直渐晕偏心 (Vy)"
 
 #: hugin1/hugin/ImagesTree.cpp:186
-#, fuzzy
 msgid "Response type"
-msgstr "镜头类型:"
+msgstr "响应类型"
 
 #: hugin1/hugin/ImagesTree.cpp:186
-#, fuzzy
 msgid "Camera response type"
-msgstr "照相机响应"
+msgstr "照相机响应类型"
 
 #: hugin1/hugin/ImagesTree.cpp:187 hugin1/hugin/ImagesTree.cpp:188
 #: hugin1/hugin/ImagesTree.cpp:189 hugin1/hugin/ImagesTree.cpp:190
 #: hugin1/hugin/ImagesTree.cpp:191
-#, fuzzy
 msgid "Camera response parameter"
-msgstr "照相机响应"
+msgstr "照相机响应参数"
 
 #: hugin1/hugin/ImagesTree.cpp:388 translations/xrc.cpp:212
 msgid "custom (EMoR)"
@@ -1813,31 +1747,31 @@ msgstr "线性的"
 
 #: hugin1/hugin/ImagesTree.cpp:537 hugin1/hugin/ImagesTree.cpp:712
 msgid "not active"
-msgstr ""
+msgstr "未激活"
 
 #: hugin1/hugin/ImagesTree.cpp:540 hugin1/hugin/ImagesTree.cpp:715
 msgid "active"
-msgstr ""
+msgstr "激活"
 
 #: hugin1/hugin/ImagesTree.cpp:682
-#, fuzzy, c-format
+#, c-format
 msgid "Lens %ld"
-msgstr "镜头"
+msgstr "镜头 %ld"
 
 #: hugin1/hugin/ImagesTree.cpp:685
-#, fuzzy, c-format
+#, c-format
 msgid "Stack %ld"
-msgstr "堆栈:"
+msgstr "堆栈 %ld"
 
 #: hugin1/hugin/ImagesTree.cpp:688
-#, fuzzy, c-format
+#, c-format
 msgid "Output stack %ld"
-msgstr "输出"
+msgstr "输出栈 %ld"
 
 #: hugin1/hugin/ImagesTree.cpp:691
-#, fuzzy, c-format
+#, c-format
 msgid "Output exposure layer %ld"
-msgstr "融合后的曝光层"
+msgstr "输出曝光层 %ld"
 
 #: hugin1/hugin/ImagesTree.cpp:1145 hugin1/hugin/ImagesTree.cpp:1160
 msgid "Link"
@@ -1845,43 +1779,39 @@ msgstr "链接"
 
 #: hugin1/hugin/ImagesTree.cpp:1149 hugin1/hugin/ImagesTree.cpp:1156
 msgid "Unlink"
-msgstr ""
+msgstr "未连接"
 
 #: hugin1/hugin/ImagesTree.cpp:1171
 msgid "Select all for current lens"
-msgstr ""
+msgstr "为当前镜头选择全部"
 
 #: hugin1/hugin/ImagesTree.cpp:1172
 msgid "Unselect all for current lens"
-msgstr ""
+msgstr "为当前镜头都不选择"
 
 #: hugin1/hugin/ImagesTree.cpp:1176
 msgid "Select all for current stack"
-msgstr ""
+msgstr "为当前堆栈选择全部"
 
 #: hugin1/hugin/ImagesTree.cpp:1177
 msgid "Unselect all for current stack"
-msgstr ""
+msgstr "为当前堆栈都不选择"
 
 #: hugin1/hugin/ImagesTree.cpp:1182 hugin1/hugin/ImagesTree.cpp:1196
 #: hugin1/hugin/ImagesTree.cpp:1282
-#, fuzzy
 msgid "Select all"
-msgstr "重置所有"
+msgstr "选择全部"
 
 #: hugin1/hugin/ImagesTree.cpp:1184 hugin1/hugin/ImagesTree.cpp:1198
 #: hugin1/hugin/ImagesTree.cpp:1283
-#, fuzzy
 msgid "Unselect all"
-msgstr "未选择的"
+msgstr "都不选择"
 
 #: hugin1/hugin/ImagesTree.cpp:1188
-#, fuzzy
 msgid "Edit image variables..."
-msgstr "图像变量:"
+msgstr "编辑图像变量..."
 
 #: hugin1/hugin/ImagesTree.cpp:1238
-#, fuzzy
 msgid "Control points"
 msgstr "控制点"
 
@@ -1990,9 +1920,8 @@ msgstr "Hugin - 全景图像缝合器"
 #: hugin1/hugin/MainFrame.cpp:825 hugin1/hugin/MainFrame.cpp:950
 #: hugin1/hugin/MainFrame.cpp:1052 hugin1/hugin/MainFrame.cpp:2100
 #: hugin1/hugin/MainFrame.cpp:2106
-#, fuzzy
 msgid "Panorama editor"
-msgstr "全景图像预览"
+msgstr "全景图像编辑"
 
 #: hugin1/hugin/MainFrame.cpp:838
 #, c-format
@@ -2165,6 +2094,8 @@ msgid ""
 "vignetting center shift.\n"
 "These features are not supported in simple interface."
 msgstr ""
+"不能切换到简单界面. 这个项目正在使用堆栈和/或虚光偏心.\n"
+"这些功能不支持简单界面."
 
 #: hugin1/hugin/MainFrame.cpp:2152
 msgid ""
@@ -2172,6 +2103,8 @@ msgid ""
 "parameters.\n"
 "These parameters are not supported in simple interface."
 msgstr ""
+"不能切换到简单界面. 这个项目正在使用位移或剪切参数.\n"
+"这些参数不支持简单界面."
 
 #: hugin1/hugin/MainFrame.cpp:2173
 msgid ""
@@ -2179,6 +2112,8 @@ msgid ""
 "shear parameters.\n"
 "These parameters are not supported in advanced interface."
 msgstr ""
+"不能切换到高级界面. 这个项目正在使用位移或者剪切参数.\n"
+"这些参数不支持高级界面."
 
 #: hugin1/hugin/MainFrame.cpp:2200
 msgid ""
@@ -2223,9 +2158,8 @@ msgid "Can't launch PTBatcherGui"
 msgstr "不能载入 PTBatcherGui"
 
 #: hugin1/hugin/MainFrame.cpp:2347
-#, fuzzy
 msgid "Launched incorrect programme"
-msgstr "载入了错误程序"
+msgstr "加载错误程序"
 
 #: hugin1/hugin/MaskEditorPanel.cpp:113
 msgid "Mask type"
@@ -2270,22 +2204,22 @@ msgstr "Nona 选项"
 #: hugin1/hugin/OptimizePanel.cpp:96
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:94
 msgid "Any variables below which are bold and underlined will be optimized."
-msgstr ""
+msgstr "下列粗体和下划线变量将被优化."
 
 #: hugin1/hugin/OptimizePanel.cpp:99
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:97
 msgid "Use command + left mouse click to toggle state of variables."
-msgstr ""
+msgstr "使用 command 键 + 鼠标左键点击来切换变量状态."
 
 #: hugin1/hugin/OptimizePanel.cpp:101
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:99
 msgid "Use control + left mouse click to toggle state of variables."
-msgstr ""
+msgstr "使用 control 键 + 鼠标左键点击来切换变量状态."
 
 #: hugin1/hugin/OptimizePanel.cpp:104
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:102
 msgid "Variables which shown in normal font will act as references or anchors."
-msgstr ""
+msgstr "采用正常字体显示的变量将用于参数或者定位."
 
 #: hugin1/hugin/OptimizePanel.cpp:169
 msgid ""
@@ -2293,6 +2227,9 @@ msgid ""
 "Please activate at least one image in the (fast) preview window.\n"
 "Optimization canceled."
 msgstr ""
+"这个项目没有关联任何激活图像.\n"
+"请在 (快速) 预览窗口中激活至少一张图像.\n"
+"中止优化."
 
 #: hugin1/hugin/OptimizePanel.cpp:317
 msgid ""
@@ -2340,9 +2277,9 @@ msgstr ""
 " 标准偏差: %f\n"
 " 最大值: %f\n"
 "\n"
-"*警告*: 估算到非常高的失真系数 (a,b,c).\n"
+"*警告*: 估算到非常高的畸变系数 (a,b,c).\n"
 "此结果可能无效.\n"
-"只有当使用了很多, 分布良好的控制点时, 才可以优化所有失真参数.\n"
+"只有当使用了很多, 分布良好的控制点时, 才可以优化所有畸变参数.\n"
 "请重置 a,b 和 c 成为 0 然后增加更多控制点\n"
 "仍然要应用这些修改吗?"
 
@@ -2375,6 +2312,9 @@ msgid ""
 "Please activate at least 2 images in the (fast) preview window.\n"
 "Optimization canceled."
 msgstr ""
+"这个项目没有关联任何激活图像.\n"
+"请在 (快速) 预览窗口中激活至少 2 张图像.\n"
+"中止优化."
 
 #: hugin1/hugin/OptimizePhotometricPanel.cpp:217
 msgid ""
@@ -2455,9 +2395,8 @@ msgid "Add time-series of images..."
 msgstr "增加时间序列图像..."
 
 #: hugin1/hugin/PanoOperation.cpp:370
-#, fuzzy
 msgid "No matching images found."
-msgstr "加载图像"
+msgstr "没有发现匹配图像."
 
 #: hugin1/hugin/PanoOperation.cpp:383
 msgid "Remove selected image(s)"
@@ -2472,7 +2411,6 @@ msgid "Anchor this image for exposure"
 msgstr "锚定这张图像以便曝光"
 
 #: hugin1/hugin/PanoOperation.cpp:440
-#, fuzzy
 msgid "New lens"
 msgstr "新镜头"
 
@@ -2493,14 +2431,12 @@ msgid "Change lens number"
 msgstr "修改镜头编号"
 
 #: hugin1/hugin/PanoOperation.cpp:496
-#, fuzzy
 msgid "Load lens from Lensfun database"
-msgstr "加载镜头数据..."
+msgstr "从镜头数据库加载镜头"
 
 #: hugin1/hugin/PanoOperation.cpp:500
-#, fuzzy
 msgid "Load lens from ini file"
-msgstr "从一个文件中加载镜头参数"
+msgstr "从 ini 文件加载镜头"
 
 #: hugin1/hugin/PanoOperation.cpp:509
 msgid ""
@@ -2508,7 +2444,7 @@ msgid ""
 "Should the loaded parameters be applied to all images with the same lens?"
 msgstr ""
 "您只选择了一张图像.\n"
-"应当将载入的参数应用于所有具有相同镜头的图像吗?"
+"应该将载入的参数应用于所有具有相同镜头的图像吗?"
 
 #: hugin1/hugin/PanoOperation.cpp:509 hugin1/ptbatcher/FindPanoDialog.cpp:196
 #: hugin1/ptbatcher/FindPanoDialog.cpp:231
@@ -2526,27 +2462,23 @@ msgstr ""
 "仍然要应用设置吗?"
 
 #: hugin1/hugin/PanoOperation.cpp:566
-#, fuzzy
 msgid "Save lens to ini file"
-msgstr "保存镜头参数到一个文件"
+msgstr "保存镜头到 ini 文件"
 
 #: hugin1/hugin/PanoOperation.cpp:572
-#, fuzzy
 msgid "Save camera parameters to lensfun database"
-msgstr "保存镜头参数到一个文件"
+msgstr "保存镜头参数到镜头数据库"
 
 #: hugin1/hugin/PanoOperation.cpp:599
-#, fuzzy
 msgid "Remove control points"
-msgstr "移除了 %d 个控制点"
+msgstr "移除控制点"
 
 #: hugin1/hugin/PanoOperation.cpp:629
-#, fuzzy
 msgid "Selected images have no control points."
-msgstr "至少一张图像完全没有控制点."
+msgstr "选择的图像没有控制点."
 
 #: hugin1/hugin/PanoOperation.cpp:638
-#, fuzzy, c-format
+#, c-format
 msgid "Really delete %lu control points?"
 msgstr "真的要删除 %lu 个控制点吗?"
 
@@ -2584,33 +2516,28 @@ msgid "Cleaning"
 msgstr "正在清理"
 
 #: hugin1/hugin/PanoOperation.cpp:718
-#, fuzzy
 msgid "Remove control points on clouds"
-msgstr "移除蒙板内的控制点"
+msgstr "移除动云上控制点"
 
 #: hugin1/hugin/PanoOperation.cpp:821
 msgid "Reset user defined..."
-msgstr ""
+msgstr "重置用户定义..."
 
 #: hugin1/hugin/PanoOperation.cpp:824
-#, fuzzy
 msgid "Reset positions"
-msgstr "重置项目"
+msgstr "重置位置"
 
 #: hugin1/hugin/PanoOperation.cpp:827
-#, fuzzy
 msgid "Reset translation parameters"
-msgstr "链接参数"
+msgstr "重置位移参数"
 
 #: hugin1/hugin/PanoOperation.cpp:830
-#, fuzzy
 msgid "Reset lens parameters"
-msgstr "重置 XYZ 参数?"
+msgstr "重置镜头参数"
 
 #: hugin1/hugin/PanoOperation.cpp:833
-#, fuzzy
 msgid "Reset photometric parameters"
-msgstr "重置 XYZ 参数?"
+msgstr "重置全景图像参数"
 
 #: hugin1/hugin/PanoOperation.cpp:1154
 msgid "New stack"
@@ -2633,24 +2560,20 @@ msgid "Change stack number"
 msgstr "修改堆栈编号"
 
 #: hugin1/hugin/PanoOperation.cpp:1208
-#, fuzzy
 msgid "Set stack size..."
-msgstr "修改堆栈..."
+msgstr "设置堆栈尺寸..."
 
 #: hugin1/hugin/PanoOperation.cpp:1214
-#, fuzzy
 msgid "Enter image count per stack"
-msgstr "重定位后的合并堆栈"
+msgstr "输入每个堆栈的图像数量"
 
 #: hugin1/hugin/PanoOperation.cpp:1215
-#, fuzzy
 msgid "stack size"
-msgstr "蒙板尺寸"
+msgstr "堆栈尺寸"
 
 #: hugin1/hugin/PanoOperation.cpp:1216
-#, fuzzy
 msgid "Images per stack"
-msgstr "重定位后的合并堆栈"
+msgstr "每个堆栈图像"
 
 #: hugin1/hugin/PanoOutputDialog.cpp:335 hugin1/hugin/PanoPanel.cpp:521
 msgid "Quality:"
@@ -2704,7 +2627,7 @@ msgstr "建筑的"
 
 #: hugin1/hugin/PanoPanel.cpp:155
 msgid "Equirectangular Panini"
-msgstr "正方形 Panini"
+msgstr "等矩形的 Panini"
 
 #: hugin1/hugin/PanoPanel.cpp:156
 msgid "Biplane"
@@ -2723,9 +2646,8 @@ msgid "Thoby Projection"
 msgstr "Thoby 投影"
 
 #: hugin1/hugin/PanoPanel.cpp:160
-#, fuzzy
 msgid "Hammer-Aitoff Equal Area"
-msgstr "Lambert 等面积方位角"
+msgstr "Hammer-Aitoff 等面积"
 
 #: hugin1/hugin/PanoPanel.cpp:698
 msgid "width needs to be an integer bigger than 0"
@@ -2736,14 +2658,12 @@ msgid "height needs to be an integer bigger than 0"
 msgstr "高度值需要是一个大于 0 的整数"
 
 #: hugin1/hugin/PanoPanel.cpp:744
-#, fuzzy
 msgid "Left boundary must be smaller than right."
-msgstr "左侧边界必须小于右侧边界"
+msgstr "左侧边界必须小于右侧边界."
 
 #: hugin1/hugin/PanoPanel.cpp:750
-#, fuzzy
 msgid "Top boundary must be smaller than bottom."
-msgstr "顶部边界必须小于底部边界"
+msgstr "顶部边界必须小于底部边界."
 
 #: hugin1/hugin/PanoPanel.cpp:813
 msgid " PTmender options not yet implemented"
@@ -2813,6 +2733,8 @@ msgid ""
 "Please check your settings, so that at least one image is in the output "
 "region."
 msgstr ""
+"在输入区域中不存在任何激活图像.\n"
+"请检查您的设置, 以便输入区域中存在至少一张图像."
 
 #: hugin1/hugin/PluginItems.cpp:71
 msgid "Miscellaneous"
@@ -2824,7 +2746,7 @@ msgstr "系统默认"
 
 #: hugin1/hugin/PreferencesDialog.cpp:120
 msgid "Basque"
-msgstr ""
+msgstr "巴克斯"
 
 #: hugin1/hugin/PreferencesDialog.cpp:131
 msgid "Chinese (Simplified)"
@@ -2912,15 +2834,13 @@ msgid "Select Enfuse"
 msgstr "选择 Enfuse"
 
 #: hugin1/hugin/PreferencesDialog.cpp:338 translations/xrc.cpp:761
-#, fuzzy
 msgid "Select ExifTool argfile"
-msgstr "选择平面图像"
+msgstr "选择 ExifTool 参数文件"
 
 #: hugin1/hugin/PreferencesDialog.cpp:340
 #: hugin1/hugin/PreferencesDialog.cpp:388
-#, fuzzy
 msgid "ExifTool Argfiles (*.arg)|*.arg|All Files(*)|*"
-msgstr "记录文件 (*.log)|*.log|所有文件 (*)|*"
+msgstr "ExifTool 参数文件 (*.arg)|*.arg|所有文件(*)|*"
 
 #: hugin1/hugin/PreferencesDialog.cpp:371
 #, c-format
@@ -2928,27 +2848,30 @@ msgid ""
 "File %s does not exist.\n"
 "Should the argfile be created with default tags?"
 msgstr ""
+"文件 %s 不存在.\n"
+"应该使用默认标签来创建这个参数文件?"
 
 #: hugin1/hugin/PreferencesDialog.cpp:372
 #: hugin1/hugin/PreferencesDialog.cpp:382
 msgid "Exiftool argfile"
-msgstr ""
+msgstr "Exiftool 参数文件"
 
 #: hugin1/hugin/PreferencesDialog.cpp:381
 msgid ""
 "No file selected.\n"
 "Should an argfile be created with default tags?"
 msgstr ""
+"没有选择文件.\n"
+"应该使用默认标签来创建一个参数文件?"
 
 #: hugin1/hugin/PreferencesDialog.cpp:386
-#, fuzzy
 msgid "Select new ExifTool argfile"
-msgstr "从左边图像中选择点"
+msgstr "选择新的 ExifTool 参数文件"
 
 #: hugin1/hugin/PreferencesDialog.cpp:406
-#, fuzzy, c-format
+#, c-format
 msgid "Could not save file \"%s\"."
-msgstr "不能读取项目文件 %s."
+msgstr "不能保存文件 \"%s\"."
 
 #: hugin1/hugin/PreferencesDialog.cpp:685
 msgid "Really reset displayed preferences to default values?"
@@ -3070,15 +2993,13 @@ msgid "Error during Stitching"
 msgstr "缝合时出错"
 
 #: hugin1/hugin/huginApp.cpp:205
-#, fuzzy, c-format
+#, c-format
 msgid "Directory '%s' does not exists"
-msgstr ""
-"目录 %s 不存在.\n"
-"请给出一个存在的目录."
+msgstr "目录 '%s' 不存在"
 
 #: hugin1/hugin/huginApp.cpp:209
 msgid "Could not set environment variable PYTHONHOME"
-msgstr ""
+msgstr "不能设置 PYTHONHOME 的环境变量"
 
 #: hugin1/hugin/wxPanoCommand.cpp:241 hugin1/hugin/wxPanoCommand.cpp:255
 #, c-format
@@ -3415,15 +3336,15 @@ msgstr "Hugins 的批处理器"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:190 translations/xrc.cpp:337
 msgid "You have pressed the Command key."
-msgstr ""
+msgstr "您已经按下了 Command 键."
 
 #: hugin1/ptbatcher/BatchFrame.cpp:192 translations/xrc.cpp:336
 msgid "You have pressed the Control key."
-msgstr ""
+msgstr "您已经按下了 Control 键."
 
 #: hugin1/ptbatcher/BatchFrame.cpp:195
 msgid "Should the loading of the batch queue be skipped?"
-msgstr ""
+msgstr "应该跳过匹量队列的加载?"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:342
 msgid "Please enter the command-line application to execute:"
@@ -3678,9 +3599,8 @@ msgid "Syntax error in parameters detected, aborting."
 msgstr "检测到参数语法错误, 中断."
 
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:213
-#, fuzzy
 msgid "PTBatcherGUI started"
-msgstr "PTBatcherGUI"
+msgstr "PTBatcherGUI 已经开启"
 
 #: hugin1/ptbatcher/ProjectArray.cpp:70
 msgid "Waiting"
@@ -3926,7 +3846,7 @@ msgstr "在分离窗口中显示细节."
 
 #: translations/xrc.cpp:31
 msgid "Always save log"
-msgstr ""
+msgstr "始终保存日志"
 
 #: translations/xrc.cpp:32
 msgid "Directory:"
@@ -3960,31 +3880,29 @@ msgstr "Foldername.pto"
 
 #: translations/xrc.cpp:39
 msgid "Template from preferences"
-msgstr ""
+msgstr "来自设置的模板"
 
 #: translations/xrc.cpp:41
 msgid "Directories"
 msgstr "目录"
 
 #: translations/xrc.cpp:42
-#, fuzzy
 msgid "Minimum number of images:"
-msgstr "蒙板编号"
+msgstr "图像最小数量:"
 
 #: translations/xrc.cpp:43
 msgid "Minimum number of images a panorama should contain."
-msgstr ""
+msgstr "一张全景图像应该关联的最少图像数量."
 
 #: translations/xrc.cpp:44
-#, fuzzy
 msgid "Maximum time difference:"
-msgstr "差异"
+msgstr "最大时差:"
 
 #: translations/xrc.cpp:45
 msgid ""
 "Maximal time difference in seconds between two consecutive images belonging "
 "to one panorama."
-msgstr ""
+msgstr "一张全景图像中的两张连续图像的最大秒数时差."
 
 #: translations/xrc.cpp:46
 msgid "Stacks:"
@@ -3999,27 +3917,24 @@ msgid "Check if the stacks were shot on a tripod."
 msgstr "检查是否使用了三角架来拍摄图像堆栈."
 
 #: translations/xrc.cpp:49
-#, fuzzy
 msgid "Lens database:"
-msgstr "镜头类型:"
+msgstr "镜头数据库:"
 
 #: translations/xrc.cpp:50
-#, fuzzy
 msgid "Load distortion data"
-msgstr "失真 (a):"
+msgstr "加载畸变数据"
 
 #: translations/xrc.cpp:51
 msgid "Tries to load distortion data from lensfun database if checked."
-msgstr ""
+msgstr "选择后尝试从镜头数据库中加载畸变数据."
 
 #: translations/xrc.cpp:52
-#, fuzzy
 msgid "Load vignetting data"
-msgstr "加载镜头数据..."
+msgstr "加载虚光数据"
 
 #: translations/xrc.cpp:53
 msgid "Tries to load vignetting data from lensfun database if checked."
-msgstr ""
+msgstr "选择后尝试从镜头数据库中加载虚光数据."
 
 #: translations/xrc.cpp:54 translations/xrc.cpp:267 translations/xrc.cpp:486
 #: translations/xrc.cpp:603 translations/xrc.cpp:606 translations/xrc.cpp:609
@@ -4373,7 +4288,7 @@ msgstr "堆栈检测器"
 
 #: translations/xrc.cpp:162
 msgid "Leave empty when no control point detector should run on stacks."
-msgstr "当堆栈中不应当运行控制点检测器时, 保留空白."
+msgstr "当堆栈中不应该运行控制点检测器时, 保留空白."
 
 #: translations/xrc.cpp:166
 msgid "Advanced option"
@@ -4409,9 +4324,8 @@ msgid "Parameters for Control Point Detectors"
 msgstr "控制点检测器参数"
 
 #: translations/xrc.cpp:172
-#, fuzzy
 msgid "Invalid filenames"
-msgstr "默认文件格式:"
+msgstr "无效文件名"
 
 #: translations/xrc.cpp:175
 msgid "Edit Panorama Tools Script"
@@ -4447,9 +4361,8 @@ msgid "Roll:"
 msgstr "滚转:"
 
 #: translations/xrc.cpp:182
-#, fuzzy
 msgid "Translation parameter"
-msgstr "链接参数"
+msgstr "位移参数"
 
 #: translations/xrc.cpp:183 translations/xrc.cpp:895 translations/xrc.cpp:981
 msgid "X:"
@@ -4465,16 +4378,15 @@ msgstr "Z:"
 
 #: translations/xrc.cpp:186
 msgid "Tpy:"
-msgstr ""
+msgstr "Tpy:"
 
 #: translations/xrc.cpp:187
 msgid "Tpp:"
-msgstr ""
+msgstr "Tpp:"
 
 #: translations/xrc.cpp:188 translations/xrc.cpp:229
-#, fuzzy
 msgid "Positions"
-msgstr "图像位置"
+msgstr "位置"
 
 #: translations/xrc.cpp:190
 msgid "degrees of view (v):"
@@ -4482,11 +4394,11 @@ msgstr "视图角度 (v):"
 
 #: translations/xrc.cpp:191 translations/xrc.cpp:270
 msgid "Radial Distortion"
-msgstr "光线失真"
+msgstr "径向畸变"
 
 #: translations/xrc.cpp:192 translations/xrc.cpp:271
 msgid "distortion (a):"
-msgstr "失真 (a):"
+msgstr "畸变 (a):"
 
 #: translations/xrc.cpp:193 translations/xrc.cpp:272
 msgid "barrel (b):"
@@ -4494,15 +4406,15 @@ msgstr "桶状 (b):"
 
 #: translations/xrc.cpp:194 translations/xrc.cpp:273
 msgid "distortion (c):"
-msgstr "失真 (c):"
+msgstr "畸变 (c):"
 
 #: translations/xrc.cpp:195 translations/xrc.cpp:208 translations/xrc.cpp:215
 msgid "Show graph >>"
-msgstr ""
+msgstr "显示图表 >>"
 
 #: translations/xrc.cpp:196 translations/xrc.cpp:274
 msgid "Image Center Shift"
-msgstr "图像中心变换"
+msgstr "图像偏心"
 
 #: translations/xrc.cpp:197 translations/xrc.cpp:275
 msgid "horizontal (d):"
@@ -4545,9 +4457,8 @@ msgid "Vignetting"
 msgstr "渐晕"
 
 #: translations/xrc.cpp:209
-#, fuzzy
 msgid "Vignetting Center Shift"
-msgstr "渐晕中心变换 (Vx, Vy)"
+msgstr "渐晕偏心"
 
 #: translations/xrc.cpp:210 translations/xrc.cpp:852 translations/xrc.cpp:934
 msgid "Photometrics"
@@ -4566,35 +4477,32 @@ msgid "Help"
 msgstr "帮助"
 
 #: translations/xrc.cpp:220
-#, fuzzy
 msgid "Image variables"
-msgstr "图像变量:"
+msgstr "图像变量"
 
 #: translations/xrc.cpp:221
 msgid "Group by:"
-msgstr ""
+msgstr "分组于:"
 
 #: translations/xrc.cpp:222
-#, fuzzy
 msgid "Minimum overlap:"
-msgstr "最短行长度:"
+msgstr "最小重叠:"
 
 #: translations/xrc.cpp:223
 msgid "Minimum overlap for output stack detection"
-msgstr ""
+msgstr "输出堆栈检测的最小重叠"
 
 #: translations/xrc.cpp:224
-#, fuzzy
 msgid "Maximum Ev difference:"
-msgstr "差异"
+msgstr "最大 Ev 差:"
 
 #: translations/xrc.cpp:225
 msgid "Maximum EV difference for detection of output layers"
-msgstr ""
+msgstr "输出堆栈检测的最大 EV 差值"
 
 #: translations/xrc.cpp:226
 msgid "Display"
-msgstr ""
+msgstr "输出"
 
 #: translations/xrc.cpp:227 translations/xrc.cpp:659
 msgid "General"
@@ -4602,26 +4510,23 @@ msgstr "一般"
 
 #: translations/xrc.cpp:228
 msgid "EXIF data"
-msgstr ""
+msgstr "EXIF 数据"
 
 #: translations/xrc.cpp:230 translations/xrc.cpp:279 translations/xrc.cpp:1057
 msgid "Lens parameters"
 msgstr "镜头参数"
 
 #: translations/xrc.cpp:231
-#, fuzzy
 msgid "Photometric parameters"
-msgstr "测光对齐"
+msgstr "测光参数"
 
 #: translations/xrc.cpp:232
-#, fuzzy
 msgid "Lens type"
-msgstr "镜头类型:"
+msgstr "镜头类型"
 
 #: translations/xrc.cpp:233
-#, fuzzy
 msgid "Add images..."
-msgstr "增加图像"
+msgstr "增加图像..."
 
 #: translations/xrc.cpp:234 translations/xrc.cpp:247 translations/xrc.cpp:259
 #: translations/xrc.cpp:841 translations/xrc.cpp:923
@@ -4651,18 +4556,16 @@ msgid "Optimize"
 msgstr "优化"
 
 #: translations/xrc.cpp:242
-#, fuzzy
 msgid "Geometric:"
-msgstr "几何的"
+msgstr "几何的:"
 
 #: translations/xrc.cpp:243 translations/xrc.cpp:245
 msgid "Calculate"
-msgstr ""
+msgstr "计算"
 
 #: translations/xrc.cpp:244
-#, fuzzy
 msgid "Photometric:"
-msgstr "测光"
+msgstr "测光:"
 
 #: translations/xrc.cpp:246
 msgid "Selected Image"
@@ -4745,133 +4648,120 @@ msgid "Saves the images and lines as pto file for further tuning inside hugin."
 msgstr "保存图像和行到 pto 文件便于将来在 hugin 中调整."
 
 #: translations/xrc.cpp:290 translations/xrc.cpp:306 translations/xrc.cpp:322
-#, fuzzy
 msgid "Camera maker:"
 msgstr "照相机制造商:"
 
 #: translations/xrc.cpp:291 translations/xrc.cpp:307 translations/xrc.cpp:323
-#, fuzzy
 msgid "Camera model:"
 msgstr "照相机型号:"
 
 #: translations/xrc.cpp:292 translations/xrc.cpp:309
-#, fuzzy
 msgid "Lens name:"
-msgstr "镜头编号"
+msgstr "镜头名称:"
 
 #: translations/xrc.cpp:293 translations/xrc.cpp:310
-#, fuzzy
 msgid "Leave empty for compact cameras."
-msgstr "(操作系统默认为空)"
+msgstr "便携相机留空"
 
 #: translations/xrc.cpp:294
 msgid "fuzzy search"
-msgstr ""
+msgstr "模糊搜索"
 
 #: translations/xrc.cpp:295
 msgid "Search"
-msgstr ""
+msgstr "搜索"
 
 #: translations/xrc.cpp:297 translations/xrc.cpp:313
 msgid "Aperture:"
 msgstr "光圈:"
 
 #: translations/xrc.cpp:298 translations/xrc.cpp:314
-#, fuzzy
 msgid "Subject distance:"
-msgstr "通过距离进行选择"
+msgstr "主题距离:"
 
 #: translations/xrc.cpp:299
 msgid ""
 "Select which parameters should be loaded\n"
 "from database"
 msgstr ""
+"选择应该加载的参数\n"
+"从数据库中"
 
 #: translations/xrc.cpp:300
-#, fuzzy
 msgid "Load distortion"
-msgstr "光线失真"
+msgstr "加载畸变"
 
 #: translations/xrc.cpp:301
-#, fuzzy
 msgid "Load vignetting"
-msgstr "渐晕"
+msgstr "加载虚光"
 
 #: translations/xrc.cpp:305
-#, fuzzy
 msgid "Load lens from database"
-msgstr "加载镜头数据..."
+msgstr "从数据库加载镜头"
 
 #: translations/xrc.cpp:308
-#, fuzzy
 msgid "Lens maker:"
-msgstr "镜头编号"
+msgstr "镜头制造商:"
 
 #: translations/xrc.cpp:311 translations/xrc.cpp:324
 msgid "Mount:"
-msgstr ""
+msgstr "计数:"
 
 #: translations/xrc.cpp:315
 msgid ""
 "Select which parameters should be saved\n"
 "into database"
 msgstr ""
+"选择应该保存的参数\n"
+"到数据库中"
 
 #: translations/xrc.cpp:316
-#, fuzzy
 msgid "Save distortion"
-msgstr "光线失真"
+msgstr "保存畸变"
 
 #: translations/xrc.cpp:317
-#, fuzzy
 msgid "Save vignetting"
-msgstr "渐晕"
+msgstr "保存虚光"
 
 #: translations/xrc.cpp:321
-#, fuzzy
 msgid "Save lens to database"
-msgstr "保存镜头参数文件"
+msgstr "保存镜头到数据库"
 
 #: translations/xrc.cpp:325
-#, fuzzy
 msgid "Camera"
-msgstr "照相机制造商:"
+msgstr "照相机"
 
 #: translations/xrc.cpp:328
 msgid "Save camera to database"
-msgstr ""
+msgstr "保存照相机到数据库"
 
 #: translations/xrc.cpp:330 translations/xrc.cpp:369
-#, fuzzy
 msgid "Photos"
-msgstr "测光"
+msgstr "照片"
 
 #: translations/xrc.cpp:331 translations/xrc.cpp:371 translations/xrc.cpp:487
-#, fuzzy
 msgid "Masks"
-msgstr "蒙板:"
+msgstr "蒙板"
 
 #: translations/xrc.cpp:335 translations/xrc.cpp:379
 msgid "Stitcher"
 msgstr "缝合器"
 
 #: translations/xrc.cpp:338
-#, fuzzy
 msgid "Should the OpenGL powered fast preview window disabled?"
-msgstr "显示 OpenGL 预览窗口"
+msgstr "应该关闭 OpenGL 增强快速预览窗口?"
 
 #: translations/xrc.cpp:339
 msgid "Don't ask again"
-msgstr ""
+msgstr "不要再次询问"
 
 #: translations/xrc.cpp:340
 msgid "Yes"
-msgstr ""
+msgstr "是"
 
 #: translations/xrc.cpp:341
-#, fuzzy
 msgid "No"
-msgstr "无"
+msgstr "不"
 
 #: translations/xrc.cpp:343 translations/xrc.cpp:1006
 msgid "&Undo"
@@ -4898,14 +4788,12 @@ msgid "Add another image to the current project"
 msgstr "增加另外的图像到当前项目中"
 
 #: translations/xrc.cpp:349
-#, fuzzy
 msgid "Run a&ssistant"
-msgstr "正在运行助理"
+msgstr "运行助理 (&s)"
 
 #: translations/xrc.cpp:350
-#, fuzzy
 msgid "Send to assistant &queue"
-msgstr "发送到助理队列"
+msgstr "发送到助理队列 (&q)"
 
 #: translations/xrc.cpp:351
 msgid "&Optimize"
@@ -4920,22 +4808,19 @@ msgid "Fine-&tune all Points"
 msgstr "调整所有点 (&t)"
 
 #: translations/xrc.cpp:354
-#, fuzzy
 msgid ""
 "Runs fine-tune on all control points. Useful for projects created with other "
 "tools, like PTGui or PTAssembler"
 msgstr ""
-"在所有控制点上进行调整, 有利于利用其他工具创建的项目, 例如 PTGui 或者 "
-"PTAssembler"
+"对所有控制点进行精调, 用于使用其他工具创建的项目, 例如 PTGui 或者 PTAssembler"
 
 #: translations/xrc.cpp:355
 msgid "Remove control points in masks"
 msgstr "移除蒙板内的控制点"
 
 #: translations/xrc.cpp:356
-#, fuzzy
 msgid "Removes all control points inside masked areas."
-msgstr "移除蒙板内的控制点"
+msgstr "移除蒙板区域内的所有控制点."
 
 #: translations/xrc.cpp:357
 msgid "Run &Python script"
@@ -4986,12 +4871,10 @@ msgid "Show the OpenGL preview window"
 msgstr "显示 OpenGL 预览窗口"
 
 #: translations/xrc.cpp:370
-#, fuzzy
 msgid "Show the Photos panel"
-msgstr "显示裁剪面板"
+msgstr "显示照片面板"
 
 #: translations/xrc.cpp:372
-#, fuzzy
 msgid "Show the Masks panel"
 msgstr "显示蒙板面板"
 
@@ -5013,21 +4896,19 @@ msgstr "显示缝合器面板"
 
 #: translations/xrc.cpp:381 translations/xrc.cpp:1019
 msgid "Simple"
-msgstr ""
+msgstr "简单"
 
 #: translations/xrc.cpp:382 translations/xrc.cpp:1020
-#, fuzzy
 msgid "Advanced"
-msgstr "高级选项"
+msgstr "高级"
 
 #: translations/xrc.cpp:383 translations/xrc.cpp:1021
 msgid "Expert"
-msgstr ""
+msgstr "专家"
 
 #: translations/xrc.cpp:384 translations/xrc.cpp:1022
-#, fuzzy
 msgid "Interface"
-msgstr "用户界面"
+msgstr "界面"
 
 #: translations/xrc.cpp:387 translations/xrc.cpp:1024
 msgid "Some information on the different buttons and so on."
@@ -5152,14 +5033,12 @@ msgid ""
 msgstr "排列先前已保存的成套项目到当前图像."
 
 #: translations/xrc.cpp:428
-#, fuzzy
 msgid "&Close editor"
-msgstr "关闭 (&C)"
+msgstr "关闭编辑器 (&C)"
 
 #: translations/xrc.cpp:429
-#, fuzzy
 msgid "Closes panorama editor"
-msgstr "创建全景图像"
+msgstr "关闭全景图像编辑器"
 
 #: translations/xrc.cpp:432
 msgid "New"
@@ -5382,9 +5261,8 @@ msgid "Loading mask"
 msgstr "正在加载蒙板"
 
 #: translations/xrc.cpp:510
-#, fuzzy
 msgid "Geometric optimizer"
-msgstr "测光优化"
+msgstr "几何优化器"
 
 #: translations/xrc.cpp:511
 msgid "Only use control points between image selected in preview window."
@@ -5626,7 +5504,7 @@ msgid ""
 "Images will be remapped in linear color space, stacks merged, then blended "
 "into a seamless High Dynamic Range panorama"
 msgstr ""
-"图像将在线性色彩空间中重定位, 合并堆栈, 然后融合成一张无缝高动态范围全景图像"
+"图像将在线性颜色空间中重定位, 合并堆栈, 然后融合成一张无缝高动态范围全景图像"
 
 #: translations/xrc.cpp:586
 msgid "Remapped Images:"
@@ -5657,14 +5535,12 @@ msgid "Combined stacks:"
 msgstr "组合堆栈:"
 
 #: translations/xrc.cpp:594
-#, fuzzy
 msgid "Exposure fused stacks"
-msgstr "从堆栈中融合曝光"
+msgstr "堆栈融合曝光"
 
 #: translations/xrc.cpp:595
-#, fuzzy
 msgid "Output exposure fused stacks from highly overlapping images"
-msgstr "从高重叠图像中输出重定位的, 高动态范围的合并堆栈"
+msgstr "从高重叠图像中输出堆栈融合曝光"
 
 #: translations/xrc.cpp:596
 msgid "High dynamic range merged stacks"
@@ -5794,40 +5670,41 @@ msgid ""
 "You may need to start the stitching in the batch processor\n"
 " PTBatcherGUI if it doesn't start automatically."
 msgstr ""
+"这个项目需要在发送到批处理器\n"
+"PTBatcherGUI 之前进行保存\n"
+"您将会被询问项目名称\n"
+"以及输出全景图像的前缀.\n"
+"\n"
+"您也需要启动批处理器 PTBatcherGUI 的缝合功能,\n"
+"假如它没有自动开启."
 
 #: translations/xrc.cpp:634
-#, fuzzy
 msgid "Don't show again"
-msgstr "不要修改"
+msgstr "不要再次显示"
 
 #: translations/xrc.cpp:635
 msgid "Ok"
 msgstr "确定"
 
 #: translations/xrc.cpp:639
-#, fuzzy
 msgid "Size and file format"
-msgstr "不支持的图像文件格式"
+msgstr "尺寸和文件格式"
 
 #: translations/xrc.cpp:640
-#, fuzzy
 msgid "LDR Format:"
-msgstr "格式:"
+msgstr "LDR 格式:"
 
 #: translations/xrc.cpp:643
-#, fuzzy
 msgid "HDR Format:"
-msgstr "格式:"
+msgstr "HDR 格式:"
 
 #: translations/xrc.cpp:654
-#, fuzzy
 msgid "Keep intermediate images"
-msgstr "保留重定位和曝光校正后的中间图像"
+msgstr "保留中间图像"
 
 #: translations/xrc.cpp:658
-#, fuzzy
 msgid "Output parameters"
-msgstr "下列自定义参数"
+msgstr "输出参数"
 
 #: translations/xrc.cpp:660
 msgid "Resource Usage"
@@ -5875,37 +5752,34 @@ msgid "Skip over visibility toggles"
 msgstr "忽略可见开关"
 
 #: translations/xrc.cpp:670
-#, fuzzy
 msgid ""
 "May have unforeseen consequences. \n"
 "(EXPERIMENTAL)"
 msgstr ""
-"可能产生反常结果. \n"
+"可能产生无法预料的结果. \n"
 "(试验性的)"
 
 #: translations/xrc.cpp:671
-#, fuzzy
 msgid "Log messages:"
-msgstr "加载图像"
+msgstr "日志信息:"
 
 #: translations/xrc.cpp:672
 msgid "Copy log messages to clipboard."
-msgstr ""
+msgstr "复制日志信息到剪贴板."
 
 #: translations/xrc.cpp:673
-#, fuzzy
 msgid "Project save:"
-msgstr "项目名称:"
+msgstr "保存项目:"
 
 #: translations/xrc.cpp:674
 msgid "Create makefile automatically during project save"
-msgstr ""
+msgstr "在保存项目过程中自动创建 make 文件"
 
 #: translations/xrc.cpp:675
 msgid ""
 "Saves a makefile (.mk) beside the project file (.pto) for command line "
 "stitching"
-msgstr ""
+msgstr "为了命令行缝合保存一个 make 文件(.mk) 到这个项目文件 (.pto) 的附近"
 
 #: translations/xrc.cpp:676
 msgid "Show hints about projections"
@@ -5928,14 +5802,12 @@ msgid "(leave empty for OS default)"
 msgstr "(操作系统默认为空)"
 
 #: translations/xrc.cpp:681
-#, fuzzy
 msgid "Default project filename:"
-msgstr "打开一个项目文件"
+msgstr "默认项目文件名:"
 
 #: translations/xrc.cpp:682
-#, fuzzy
 msgid "Default output prefix:"
-msgstr "指定输出前缀"
+msgstr "默认输出前缀:"
 
 #: translations/xrc.cpp:683
 #, c-format
@@ -5954,14 +5826,25 @@ msgid ""
 "%lens - lens (of first image)\n"
 "%projectname - project filename (only for output prefix)"
 msgstr ""
+"下列占位符会被自动替换:\n"
+"%firstimage - 第一张图像文件的名称\n"
+"%lastimage - 最后一张图像文件的名称\n"
+"%#images - 图像数量\n"
+"%directory  - 文件夹名称 (基于第一张图像文件)\n"
+"%projection - 项目名称\n"
+"%focallength - 焦距\n"
+"%date - 日期 (第一张图像的)\n"
+"%time - 日期 (第一张图像的)\n"
+"%maker - 照像机制造商 (第一张图像的)\n"
+"%model - 照像机型号 (第一张图像的)\n"
+"%lens - 镜头 (第一张图像的)\n"
+"%projectname - 项目名称 (只用于输出前缀)"
 
 #: translations/xrc.cpp:684
-#, fuzzy
 msgid "Default filenames"
-msgstr "默认文件格式:"
+msgstr "默认文件名:"
 
 #: translations/xrc.cpp:685
-#, fuzzy
 msgid "Filenames"
 msgstr "文件名"
 
@@ -6227,36 +6110,32 @@ msgid "Advanced options"
 msgstr "高级选项"
 
 #: translations/xrc.cpp:756
-#, fuzzy
 msgid "ExifTool options"
-msgstr "Enfuse 选项"
+msgstr "ExifTool 选项"
 
 #: translations/xrc.cpp:757
 msgid "Copy metadata into final files using ExifTool"
 msgstr "使用 ExifTool 复制元数据到最终图像"
 
 #: translations/xrc.cpp:758
-#, fuzzy
 msgid "ExifTool argfile:"
-msgstr "选择平面图像"
+msgstr "ExifTool 参数文件:"
 
 #: translations/xrc.cpp:759
-#, fuzzy
 msgid "Leave empty for default"
-msgstr "(操作系统默认为空)"
+msgstr "默认留空"
 
 #: translations/xrc.cpp:763
-#, fuzzy
 msgid "Edit selected ExifTool argfile"
-msgstr "选择平面图像"
+msgstr "编辑选择的 ExifTool 参数文件"
 
 #: translations/xrc.cpp:764
 msgid "Create Photo Sphere XMP data"
-msgstr ""
+msgstr "创建照片球形 XMP 数据"
 
 #: translations/xrc.cpp:765
 msgid "This will only be done for equirectangular output images."
-msgstr ""
+msgstr "只用于等矩形输出图像."
 
 #: translations/xrc.cpp:766
 msgid "Number of threads:"
@@ -6384,14 +6263,12 @@ msgstr ""
 "为了提高运算速度, 只使用了一个随机点集."
 
 #: translations/xrc.cpp:804
-#, fuzzy
 msgid "Number of points per image: "
-msgstr "每张图像的点的编号"
+msgstr "每张图像的点的编号:"
 
 #: translations/xrc.cpp:805
-#, fuzzy
 msgid "Photometric optimizer"
-msgstr "测光优化"
+msgstr "测光优化器"
 
 #: translations/xrc.cpp:806
 msgid "Misc"
@@ -6402,9 +6279,8 @@ msgid "Preferences - hugin"
 msgstr "首选项 - hugin"
 
 #: translations/xrc.cpp:814
-#, fuzzy
 msgid "Edit ExifTool argfile"
-msgstr "选择平面图像"
+msgstr "编辑 ExifTool 参数文件"
 
 #: translations/xrc.cpp:815 translations/xrc.cpp:880 translations/xrc.cpp:964
 msgid "Center the preview horizontally"
@@ -6608,9 +6484,8 @@ msgid "Set the crop region to the largest rectangle covered by images"
 msgstr "设置由图像覆盖的最大矩形区域"
 
 #: translations/xrc.cpp:902 translations/xrc.cpp:990
-#, fuzzy
 msgid "Set the crop region to the largest rectangle covered by image stacks"
-msgstr "设置由图像覆盖的最大矩形区域"
+msgstr "设置裁剪区域到图像堆栈覆盖的最大矩形"
 
 #: translations/xrc.cpp:911 translations/xrc.cpp:999
 msgid "left:"
@@ -6641,19 +6516,16 @@ msgid "Mode:"
 msgstr "模式:"
 
 #: translations/xrc.cpp:1011
-#, fuzzy
 msgid "Panorama &editor"
-msgstr "全景图像预览"
+msgstr "全景图像编辑器 (&e)"
 
 #: translations/xrc.cpp:1014
-#, fuzzy
 msgid "&Overview"
-msgstr "预览"
+msgstr "概述 (&O)"
 
 #: translations/xrc.cpp:1015
-#, fuzzy
 msgid "Shows the overview of the panorama sphere."
-msgstr "显示预览图像和全景图像 Druid"
+msgstr "显示全景球的概述."
 
 #: translations/xrc.cpp:1016
 msgid "Grid"
@@ -6661,12 +6533,11 @@ msgstr "网格"
 
 #: translations/xrc.cpp:1017
 msgid "Shows a grid."
-msgstr ""
+msgstr "显示一个网格."
 
 #: translations/xrc.cpp:1055
-#, fuzzy
 msgid "Translation parameters"
-msgstr "链接参数"
+msgstr "位移参数"
 
 #: translations/xrc.cpp:1059 translations/xrc.cpp:1062
 msgid "to EXIF values"
@@ -6681,9 +6552,8 @@ msgid "Color"
 msgstr "颜色"
 
 #: translations/xrc.cpp:1063
-#, fuzzy
 msgid "to one (no color correction)"
-msgstr "到零 (没有曝光校正)"
+msgstr "到一 (没有经过颜色校正)"
 
 #: translations/xrc.cpp:1068
 msgid "Reset values"
@@ -6703,16 +6573,19 @@ msgid ""
 "create the appropriate project file, run the assistant and optionally stitch "
 "the final panorama."
 msgstr ""
+"假如您有一个来自不同全景图像的图像文件夹, 您可以在 PTBatcherGUI 中使用菜单: "
+"文件>搜索目录为了...>图像, 以便自动创建合适的项目文件, 运行助理并且有选择地缝"
+"合最终全景图像."
 
 #: hugin1/hugin/xrc/data/tips.txt:5
 msgid ""
 "To run the assistant on a bunch of projects use the batch processor "
 "PTBatcherGUI."
-msgstr ""
+msgstr "使用批处理器 PTBatcherGUI 来运行一系列项目的助理."
 
 #: hugin1/hugin/xrc/data/tips.txt:6
 msgid "To stitch a bunch of projects use the batch processor PTBatcherGUI."
-msgstr ""
+msgstr "使用批处理器 PTBatcherGUI 来缝合一系列项目."
 
 #: hugin1/hugin/xrc/data/tips.txt:7
 msgid ""
@@ -6922,7 +6795,7 @@ msgid ""
 "Optimization of all distortion parameters \"everything\" makes only sense "
 "with heavily overlapping images and many well distributed control points."
 msgstr ""
-"只有当图像重叠程度很高并且有很多分布良好的控制点时, 对所有失真参数进行优化的"
+"只有当图像重叠程度很高并且有很多分布良好的控制点时, 对所有畸变参数进行优化的"
 "选项 \"everything\" 才会有效果."
 
 #, fuzzy
