@@ -260,6 +260,7 @@ bool wxAddImagesCmd::processPanorama(Panorama& pano)
         if(ok)
         {
             ok = srcImg.applyEXIFValues();
+            srcImg.readProjectionFromDB();
         };
         // save EXIF data for later to prevent double loading of EXIF data
         srcImgExif=srcImg;
@@ -306,7 +307,6 @@ bool wxAddImagesCmd::processPanorama(Panorama& pano)
         int matchingLensNr=-1;
         // if no similar image found, ask user
         if (! ok) {
-            srcImg.readProjectionFromDB();
             if (!getLensDataFromUser(wxTheApp->GetTopWindow(), srcImg)) {
                 // assume a standart lens
                 srcImg.setHFOV(50);
@@ -373,7 +373,6 @@ bool wxAddImagesCmd::processPanorama(Panorama& pano)
         // If matchingLensNr == -1 still, we haven't found a good lens to use.
         // We shouldn't attach the image to a lens in this case, it will have
         // its own new lens.
-        srcImg.readProjectionFromDB();
         int imgNr = pano.addImage(srcImg);
         variable_groups.update();
         if (matchingLensNr != -1)
