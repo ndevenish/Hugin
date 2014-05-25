@@ -534,6 +534,13 @@ class IMPEX Panorama : public ManagedPanoramaData, public AppBase::DocumentData
             */
         void clearObservers();
         
+        /** return if the panorama class has pending changes
+            normally all controls listen to panoramaChanges notification and react only there,
+            but the fast preview window also reacts to changes in the Redraw procedure to handle
+            the tools like drag or crop, use this as workaround (it does not include all changes)
+        */
+        const bool hasPendingChanges() const;
+
         /** notify observers about changes in this class
             *
             *  This needs to be called explicitly by somebody after

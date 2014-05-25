@@ -1809,6 +1809,11 @@ void Panorama::clearObservers()
     observers.clear();
 }
 
+void Panorama::hasPendingChanges() const
+{
+    return !changedImages.empty();
+}
+
 void Panorama::imageChanged(unsigned int imgNr)
 {
 //    DEBUG_TRACE("adding image " << imgNr);

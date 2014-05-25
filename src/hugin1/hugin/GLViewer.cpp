@@ -469,6 +469,8 @@ void GLViewer::Redraw()
 {
     // get the renderer to redraw the OpenGL stuff
     if(!m_renderer) return;
+    // don't redraw if we are in middle of a pending change of the panorama object
+    if(m_pano->hasPendingChanges()) return;
     DEBUG_INFO("Rendering.");
     
     // we should use the window background colour outside the panorama
