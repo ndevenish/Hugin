@@ -272,7 +272,7 @@ VariableMap SrcPanoImage::getVariableMap() const
 
 bool SrcPanoImage::checkImageSizeKnown()
 {
-    if(getWidth()==0 || getHeight()==0)
+    if(getWidth()<=0 || getHeight()<=0)
     {
         try
         {
