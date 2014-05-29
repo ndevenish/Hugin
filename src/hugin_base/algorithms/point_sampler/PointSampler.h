@@ -32,7 +32,6 @@
 #include <boost/random.hpp>
 #include <vigra/impex.hxx>
 #include <vigra_ext/utils.h>
-#include <vigra_ext/Pyramid.h>
 #include <appbase/ProgressReporterOld.h>
 #include <panodata/PanoramaData.h>
 

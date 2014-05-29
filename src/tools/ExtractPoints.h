@@ -32,10 +32,7 @@
 #include <vigra/error.hxx>
 #include <vigra/impex.hxx>
 
-#include <vigra_ext/ransac.h>
-#include <vigra_ext/VigQuotientEstimator.h>
 #include <vigra_ext/Pyramid.h>
-#include <vigra_ext/Interpolators.h>
 #include <vigra_ext/impexalpha.hxx>
 #include <algorithms/point_sampler/PointSampler.h>
 

@@ -28,6 +28,7 @@
 
 #include <vigra/functorexpression.hxx>
 #include <vigra_ext/impexalpha.hxx>
+#include <vigra_ext/Pyramid.h>
 #include "PT/Panorama.h"
 
 namespace PT

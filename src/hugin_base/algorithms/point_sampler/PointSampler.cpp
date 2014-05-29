@@ -26,6 +26,7 @@
 #include <algorithms/basic/CalculateOptimalScale.h>
 #include <algorithms/nona/FitPanorama.h>
 #include <algorithms/nona/CenterHorizontally.h>
+#include <vigra/convolution.hxx>
 
 namespace HuginBase
 {

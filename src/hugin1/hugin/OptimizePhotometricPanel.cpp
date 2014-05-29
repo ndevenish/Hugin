@@ -33,6 +33,7 @@
 #include <PT/PhotometricOptimizer.h>
 #include <PT/PTOptimise.h>
 
+#include <vigra_ext/Pyramid.h>
 #include "hugin/OptimizePhotometricPanel.h"
 #include "hugin/CommandHistory.h"
 #include "hugin/MainFrame.h"

@@ -30,7 +30,6 @@
 #include <nona/RemappedPanoImage.h>
 #include <nona/ImageRemapper.h>
 
-#include <vigra_ext/ResponseTransform.h>
 #include "PT/PanoToolsInterface.h"
 
 namespace PT

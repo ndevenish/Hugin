@@ -35,7 +35,6 @@
 
 #include "hugin_utils/utils.h"
 #include "hugin_math/hugin_math.h"
-#include "vigra_ext/Pyramid.h"
 #include "vigra_ext/FitPolynom.h"
 #include "vigra_ext/utils.h"
 
@@ -282,7 +281,6 @@ CorrelationResult correlateImageFast(SrcImage & src,
     vigra_precondition(w >= wk && h >= hk,
                  "convolveImage(): kernel larger than image.");
 
-//    int x,y;
     int ystart = -kul.y;
     int yend   = h-klr.y;
     int xstart = -kul.x;
@@ -299,44 +297,21 @@ CorrelationResult correlateImageFast(SrcImage & src,
 
     CorrelationResult res;
 
-    // create y iterators, they iterate over the rows.
-//    DestIterator yd = dul + vigra::Diff2D(xstart, ystart);
-//    SrcIterator ys = sul + vigra::Diff2D(xstart, ystart);
-
-
 //    DEBUG_DEBUG("size: " << w << "," <<  h << " ystart: " << ystart <<", yend: " << yend);
     int unifwarned=0;
     for(int yr=ystart; yr < yend; ++yr)
     {
-        // create x iterators, they iterate the coorelation over
-        // the columns
-//        DestIterator xd(yd);
-//        SrcIterator xs(ys);
-
         for(int xr=xstart; xr < xend; ++xr)
         {
             if (dest(xr,yr) < threshold) {
                 continue;
             }
-//            int x0, y0, x1, y1;
-
-//            y0 = kul.y;
-//            y1 = klr.y;
-//            x0 = kul.x;
-//            x1 = klr.x;;
-
             // init the sum
             SumType numerator = 0;
             SumType div1 = 0;
             SumType div2 = 0;
             SumType spixel = 0;
             KSumType kpixel = 0;
-
-            // create inner y iterators
-            // access to the source image
-//            SrcIterator yys = xs + kul;
-            // access to the kernel image
-//            KernelIterator yk  = ki + kul;
 
             // mean of image patch
             KSumType mean=0;
@@ -561,7 +536,6 @@ CorrelationResult PointFineTune(const IMAGET & templImg, ACCESSORT access_t,
     vigra::Diff2D searchSize = searchLR - searchUL;
     // create output image
 
-//#ifdef VIGRA_EXT_USE_FAST_CORR
     // source input
     vigra::FImage srcImage(searchLR-searchUL);
     vigra::copyImage(vigra::make_triple(searchImg.upperLeft() + searchUL,
@@ -581,8 +555,6 @@ CorrelationResult PointFineTune(const IMAGET & templImg, ACCESSORT access_t,
     vigra::ImageExportInfo srci("hugin_searchregion.tif");
     vigra::exportImage(vigra::srcImageRange(srcImage), srci);
 #endif
-
-//#endif
 
     vigra::FImage dest(searchSize);
     dest.init(-1);
@@ -610,15 +582,6 @@ CorrelationResult PointFineTune(const IMAGET & templImg, ACCESSORT access_t,
                          templateImage.upperLeft() + templPos,
                          templateImage.accessor(),
                          tmplUL, tmplLR, -1);
-
-//     res = correlateImage(searchImg.upperLeft() + searchUL,
-//                          searchImg.upperLeft() + searchLR,
-//                          searchImg.accessor(),
-//                          dest.upperLeft(),
-//                          dest.accessor(),
-//                          templImg.upperLeft() + templPos,
-//                          templImg.accessor(),
-//                          tmplUL, tmplLR, -1);
 #endif
     DEBUG_DEBUG("normal search finished, max:" << res.maxi
                 << " at " << res.maxpos);
@@ -729,14 +692,12 @@ CorrelationResult PointFineTuneRotSearch(const IMAGET & templImg,
     dest.init(1);
     vigra::FImage bestCorrelation(searchSize);
 
-//#ifdef VIGRA_EXT_USE_FAST_CORR
     // source input
     vigra::FImage srcImage(searchLR-searchUL);
     vigra::copyImage(vigra::make_triple(searchImg.upperLeft() + searchUL,
                                         searchImg.upperLeft() + searchLR,
                                         vigra::RGBToGrayAccessor<typename IMAGES::value_type>() ),
                      destImage(srcImage) );
-//#endif
 
     CorrelationResult bestRes;
     bestRes.maxi = -1;
@@ -1171,12 +1132,6 @@ CorrelationResult correlateImage(SrcIterator sul, SrcIterator slr, SrcAccessor a
             if (as(xd) < threshold) {
                 continue;
             }
-//            int x0, y0, x1, y1;
-
-//            y0 = kul.y;
-//            y1 = klr.y;
-//            x0 = kul.x;
-//            x1 = klr.x;;
 
             // init the sum
             SumType numerator = 0;
@@ -1224,97 +1179,6 @@ CorrelationResult correlateImage(SrcIterator sul, SrcIterator slr, SrcAccessor a
     }
     return res;
 }
-
-
-
-#if 0
-/** multi resolution template matching using cross correlatation.
- *
- */
-template <class Image>
-bool findTemplate(const Image & templ, const std::string & filename,
-                  CorrelationResult & res)
-{
-//    DEBUG_TRACE("");
-    // calculate pyramid level based on template size
-    // the template should have be at least 1 pixel wide or high
-    // (in the lowest resolution).
-    int tw = templ.width();
-    int th = templ.height();
-    int ts = th<tw ? th : tw;
-
-    // calculate the lowest level that will make sense
-    int maxLevel = (int)floor(sqrt((double)ts/4.0));
-    int levels = maxLevel+1;
-    DEBUG_DEBUG("starting search on pyramid level " << maxLevel);
-
-	vigra::BImage *templs = new vigra::BImage[levels];
-    templs[0].resize(templ.width(), templ.height());
-    vigra::copyImage(srcImageRange(templ), destImage(templs[0]));
-
-    // create other levels
-    for(int i=1; i<levels; i++) {
-        vigra_ext::reduceToNextLevel(templs[i-1], templs[i]);
-    }
-
-    // this image will store the correlation coefficients
-    // it will also be used by correlateImage as a mask image.
-    // only the correlation for pixels with resImage(x,y) > theshold
-    // will be calcuated. this avoids searching in completely uninteresting
-    // image parts. (saves a lot of time)
-
-    vigra::FImage * prevMask = new vigra::FImage(2,2,0.9);
-    vigra::FImage * currentMask = new vigra::FImage();
-    // start matching with highest level (lowest resolution images)
-    float threshold=0;
-    for (int i=maxLevel; i>=0; i--) {
-//    for (int i=0; i>=0; i--) {
-        DEBUG_DEBUG("correlation level " << i);
-        std::stringstream t;
-        t << filename << "_" << i << "_";
-        std::string basename = t.str();
-//        const vigra::BImage & s = ImageCache::getInstance().getPyramidImage(filename, i);
-        DEBUG_DEBUG("subject size: " << s.width() << "," << s.height()
-                    << "template size: " << templs[i].width() << "," << templs[i].height());
-//        saveImage(templs[i], basename + "template.pnm");
-//        saveImage(s, basename + "subject.pnm");
-        currentMask->resize(s.width(),s.height());
-        // scale up dest/mask Image
-        // probably this should also use a threshold and extend the
-        // resulting mask to the neighborhood pixels, just to catch unfortunate
-        // correlations.
-        vigra::resizeImageNoInterpolation(vigra::srcImageRange(*prevMask),vigra::destImageRange(*currentMask));
-
-//        saveScaledImage(*currentMask, -1, 1, basename + "mask.pnm");
-
-        res = correlateImage(s.upperLeft(),
-                             s.lowerRight(),
-                             vigra::StandardValueAccessor<unsigned char>(),
-                             currentMask->upperLeft(),
-                             vigra::StandardValueAccessor<float>(),
-                             templs[i].upperLeft(),
-                             vigra::StandardValueAccessor<unsigned char>(),
-                             vigra::Diff2D(0,0),
-                             templs[i].size() - vigra::Diff2D(1,1),
-                             threshold
-            );
-//        saveScaledImage(*currentMask, -1, 1, basename + "result.pnm");
-        DEBUG_DEBUG("Correlation result at level " << i << ":  max:" << res.maxi << " at: " << res.maxpos);
-        // simple adaptive threshold.
-        // FIXME, make this configurable? or select it according to some
-        // statistical value
-        threshold = res.maxi - 0.07;
-
-        vigra::FImage *tmp = prevMask;
-        prevMask = currentMask;
-        currentMask = tmp;
-    }
-    delete prevMask;
-    delete currentMask;
-    return true;
-}
-#endif
-
 
 } // namespace
 
