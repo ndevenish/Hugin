@@ -366,6 +366,14 @@ private:
     Panorama*			_panoramaInfo;
     Panorama				_panoramaInfoCopy;
 
+    /** search for image layer and image stacks for the multirow matching step */
+    void buildMultiRowImageSets();
+
+    /** image set contains only the images with the median exposure of each stack */
+    HuginBase::UIntSet _image_layer;
+    /** vector with image numbers of all stacks, contains only the unlinked stacks */
+    std::vector<HuginBase::UIntVector> _image_stacks;
+
     bool					loadProject();
     bool	      		checkLoadSuccess();
     void CleanupKeyfiles();

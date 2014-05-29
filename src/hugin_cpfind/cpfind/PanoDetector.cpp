@@ -499,18 +499,43 @@ void PanoDetector::run()
         }
         else
         {
-            TRACE_INFO(endl<< "--- Analyze Images ---" << endl);
-            for (ImgDataIt_t aB = _filesData.begin(); aB != _filesData.end(); ++aB)
+            TRACE_INFO(endl << "--- Analyze Images ---" << endl);
+            if (getMatchingStrategy() == MULTIROW)
             {
-                if (aB->second._hasakeyfile)
+                // when using multirow, don't analyse stacks with linked positions
+                buildMultiRowImageSets();
+                HuginBase::UIntSet imagesToAnalyse;
+                imagesToAnalyse.insert(_image_layer.begin(), _image_layer.end());
+                for (size_t i = 0; i < _image_stacks.size(); i++)
                 {
-                    aExecutor.execute(new LoadKeypointsDataRunnable(aB->second, *this));
+                    imagesToAnalyse.insert(_image_stacks[i].begin(), _image_stacks[i].end());
                 }
-                else
+                for (HuginBase::UIntSet::const_iterator it = imagesToAnalyse.begin(); it != imagesToAnalyse.end(); ++it)
                 {
-                    aExecutor.execute(new ImgDataRunnable(aB->second, *this));
-                }
+                    if (_filesData[*it]._hasakeyfile)
+                    {
+                        aExecutor.execute(new LoadKeypointsDataRunnable(_filesData[*it], *this));
+                    }
+                    else
+                    {
+                        aExecutor.execute(new ImgDataRunnable(_filesData[*it], *this));
+                    };
+                };
             }
+            else
+            {
+                for (ImgDataIt_t aB = _filesData.begin(); aB != _filesData.end(); ++aB)
+                {
+                    if (aB->second._hasakeyfile)
+                    {
+                        aExecutor.execute(new LoadKeypointsDataRunnable(aB->second, *this));
+                    }
+                    else
+                    {
+                        aExecutor.execute(new ImgDataRunnable(aB->second, *this));
+                    }
+                }
+            };
         }
         aExecutor.wait();
     }
@@ -859,99 +884,96 @@ void PanoDetector::CleanupKeyfiles()
     };
 };
 
-struct img_ev
+struct SortVectorByExposure
 {
-    unsigned int img_nr;
-    double ev;
+    SortVectorByExposure(const HuginBase::Panorama* pano) : m_pano(pano) {};
+    bool operator()(const size_t& img1, const size_t& img2)
+    {
+        return m_pano->getImage(img1).getExposureValue() < m_pano->getImage(img2).getExposureValue();
+    }
+private:
+    const HuginBase::Panorama* m_pano;
 };
-struct stack_img
+
+void PanoDetector::buildMultiRowImageSets()
 {
-    unsigned int layer_nr;
-    std::vector<img_ev> images;
-};
-bool sort_img_ev (img_ev i1, img_ev i2)
-{
-    return (i1.ev<i2.ev);
+    HuginBase::ConstStandardImageVariableGroups variable_groups(*_panoramaInfo);
+    HuginBase::UIntSetVector imageGroups = variable_groups.getStacks().getPartsSet();
+    //get image with median exposure for search with cp generator
+    for (size_t imgGroup = 0; imgGroup < imageGroups.size(); ++imgGroup)
+    {
+        HuginBase::UIntVector stackImages(imageGroups[imgGroup].begin(), imageGroups[imgGroup].end());
+        std::sort(stackImages.begin(), stackImages.end(), SortVectorByExposure(_panoramaInfo));
+        size_t index = 0;
+        if (_panoramaInfo->getImage(*(stackImages.begin())).getExposureValue() != _panoramaInfo->getImage(*(stackImages.rbegin())).getExposureValue())
+        {
+            index = stackImages.size() / 2;
+        };
+        _image_layer.insert(stackImages[index]);
+        if (stackImages.size()>1)
+        {
+            //build list for stacks, consider only unlinked stacks
+            if (!_panoramaInfo->getImage(*(stackImages.begin())).YawisLinked())
+            {
+                _image_stacks.push_back(stackImages);
+            };
+        };
+    };
 };
 
 bool PanoDetector::matchMultiRow(PoolExecutor& aExecutor)
 {
     //step 1
     std::vector<HuginBase::UIntSet> checkedImagePairs(_panoramaInfo->getNrOfImages());
-    std::vector<stack_img> stack_images;
-    HuginBase::StandardImageVariableGroups* variable_groups = new HuginBase::StandardImageVariableGroups(*_panoramaInfo);
-    for(unsigned int i=0; i<_panoramaInfo->getNrOfImages(); i++)
+    for (size_t i = 0; i < _image_stacks.size();i++)
     {
-        unsigned int stack_nr=variable_groups->getStacks().getPartNumber(i);
-        //check, if this stack is already in list
-        bool found=false;
-        unsigned int index=0;
-        for(index=0; index<stack_images.size(); index++)
+        //build match list for stacks
+        for(unsigned int j=0; j<_image_stacks[i].size()-1; j++)
         {
-            found=(stack_images[index].layer_nr==stack_nr);
-            if(found)
+            const size_t img1 = _image_stacks[i][j];
+            const size_t img2 = _image_stacks[i][j + 1];
+            _matchesData.push_back(MatchData());
+            MatchData& aM=_matchesData.back();
+            if (img1 < img2)
             {
-                break;
-            };
-        };
-        if(!found)
-        {
-            //new stack
-            stack_images.resize(stack_images.size()+1);
-            index=stack_images.size()-1;
-            //add new stack
-            stack_images[index].layer_nr=stack_nr;
-        };
-        //add new image
-        unsigned int new_image_index=stack_images[index].images.size();
-        stack_images[index].images.resize(new_image_index+1);
-        stack_images[index].images[new_image_index].img_nr=i;
-        stack_images[index].images[new_image_index].ev=_panoramaInfo->getImage(i).getExposure();
-    };
-    delete variable_groups;
-    //get image with median exposure for search with cp generator
-    vector<size_t> images_layer;
-    UIntSet images_layer_set;
-    for(unsigned int i=0; i<stack_images.size(); i++)
-    {
-        std::sort(stack_images[i].images.begin(),stack_images[i].images.end(),sort_img_ev);
-        unsigned int index=0;
-        if(stack_images[i].images[0].ev!=stack_images[i].images[stack_images[i].images.size()-1].ev)
-        {
-            index=stack_images[i].images.size() / 2;
-        };
-        images_layer.push_back(stack_images[i].images[index].img_nr);
-        images_layer_set.insert(stack_images[i].images[index].img_nr);
-        if(stack_images[i].images.size()>1)
-        {
-            //build match list for stacks
-            for(unsigned int j=0; j<stack_images[i].images.size()-1; j++)
+                aM._i1 = &(_filesData[img1]);
+                aM._i2 = &(_filesData[img2]);
+            }
+            else
             {
-                size_t img1=stack_images[i].images[j].img_nr;
-                size_t img2=stack_images[i].images[j+1].img_nr;
-                _matchesData.push_back(MatchData());
-                MatchData& aM=_matchesData.back();
-                aM._i1=&(_filesData[img1]);
-                aM._i2=&(_filesData[img2]);
-                checkedImagePairs[img1].insert(img2);
-                checkedImagePairs[img2].insert(img1);
+                aM._i1 = &(_filesData[img2]);
+                aM._i2 = &(_filesData[img1]);
             };
+            checkedImagePairs[img1].insert(img2);
+            checkedImagePairs[img2].insert(img1);
         };
     };
     //build match data list for image pairs
-    if(images_layer.size()>1)
+    if(_image_layer.size()>1)
     {
-        std::sort(images_layer.begin(), images_layer.end());
-        for(unsigned int i=0; i<images_layer.size()-1; i++)
+        for (HuginBase::UIntSet::const_iterator it = _image_layer.begin(); it != _image_layer.end(); ++it)
         {
-            size_t img1=images_layer[i];
-            size_t img2=images_layer[i+1];
-            _matchesData.push_back(MatchData());
-            MatchData& aM = _matchesData.back();
-            aM._i1 = &(_filesData[img1]);
-            aM._i2 = &(_filesData[img2]);
-            checkedImagePairs[img1].insert(img2);
-            checkedImagePairs[img2].insert(img1);
+            const size_t img1 = *it;
+            HuginBase::UIntSet::const_iterator it2 = it;
+            it2++;
+            if (it2 != _image_layer.end())
+            {
+                const size_t img2 = *it2;
+                _matchesData.push_back(MatchData());
+                MatchData& aM = _matchesData.back();
+                if (img1 < img2)
+                {
+                    aM._i1 = &(_filesData[img1]);
+                    aM._i2 = &(_filesData[img2]);
+                }
+                else
+                {
+                    aM._i1 = &(_filesData[img2]);
+                    aM._i2 = &(_filesData[img1]);
+                };
+                checkedImagePairs[img1].insert(img2);
+                checkedImagePairs[img2].insert(img1);
+            };
         };
     };
     TRACE_INFO(endl<< "--- Find matches ---" << endl);
@@ -975,7 +997,7 @@ bool PanoDetector::matchMultiRow(PoolExecutor& aExecutor)
 
     // step 2: connect all image groups
     _matchesData.clear();
-    Panorama mediumPano=_panoramaInfo->getSubset(images_layer_set);
+    Panorama mediumPano=_panoramaInfo->getSubset(_image_layer);
     CPGraph graph;
     createCPGraph(mediumPano, graph);
     CPComponents comps;
@@ -985,10 +1007,14 @@ bool PanoDetector::matchMultiRow(PoolExecutor& aExecutor)
         vector<unsigned int> ImagesGroups;
         for(unsigned int i=0; i<n; i++)
         {
-            ImagesGroups.push_back(images_layer[*(comps[i].begin())]);
+            HuginBase::UIntSet::iterator imgIt = _image_layer.begin();
+            std::advance(imgIt, *(comps[i].begin()));
+            ImagesGroups.push_back(*imgIt);
             if(comps[i].size()>1)
             {
-                ImagesGroups.push_back(images_layer[*(comps[i].rbegin())]);
+                imgIt = _image_layer.begin();
+                std::advance(imgIt, *(comps[i].rbegin()));
+                ImagesGroups.push_back(*imgIt);
             }
         };
         for(unsigned int i=0; i<ImagesGroups.size()-1; i++)
@@ -1004,8 +1030,16 @@ bool PanoDetector::matchMultiRow(PoolExecutor& aExecutor)
                 };
                 _matchesData.push_back(MatchData());
                 MatchData& aM = _matchesData.back();
-                aM._i1 = &(_filesData[img1]);
-                aM._i2 = &(_filesData[img2]);
+                if (img1 < img2)
+                {
+                    aM._i1 = &(_filesData[img1]);
+                    aM._i2 = &(_filesData[img2]);
+                }
+                else
+                {
+                    aM._i1 = &(_filesData[img2]);
+                    aM._i2 = &(_filesData[img1]);
+                };
                 checkedImagePairs[img1].insert(img2);
                 checkedImagePairs[img2].insert(img1);
             };
@@ -1029,11 +1063,11 @@ bool PanoDetector::matchMultiRow(PoolExecutor& aExecutor)
     };
     // step 3: now connect all overlapping images
     _matchesData.clear();
-    PT::Panorama optPano=_panoramaInfo->getSubset(images_layer_set);
+    PT::Panorama optPano=_panoramaInfo->getSubset(_image_layer);
     createCPGraph(optPano, graph);
     if(findCPComponents(graph, comps)==1)
     {
-        if(images_layer.size()>2)
+        if(_image_layer.size()>2)
         {
             //reset translation parameters
             VariableMapVector varMapVec=optPano.getVariables();
@@ -1108,7 +1142,8 @@ bool PanoDetector::matchMultiRow(PoolExecutor& aExecutor)
             };
 
             //now match overlapping images
-            if(!matchPrealigned(aExecutor, &optPano, checkedImagePairs, images_layer, false))
+            std::vector<size_t> imgMap(_image_layer.begin(), _image_layer.end());
+            if(!matchPrealigned(aExecutor, &optPano, checkedImagePairs, imgMap, false))
             {
                 return false;
             };
