@@ -33,6 +33,7 @@
 #include <unistd.h>
 #endif
 #include <panodata/Panorama.h>
+#include <panodata/StandardImageVariableGroups.h>
 #include <lines/FindLines.h>
 #include <vigra/impex.hxx>
 #include <vigra_ext/impexalpha.hxx>
@@ -274,6 +275,17 @@ HuginBase::CPVector LoadImageAndFindLines(vigra::ImageImportInfo info, Panorama&
     return lineCp;
 };
 
+struct SortVectorByExposure
+{
+    SortVectorByExposure(const HuginBase::Panorama& pano) : m_pano(pano) {};
+    bool operator()(const size_t& img1, const size_t& img2)
+    {
+        return m_pano.getImage(img1).getExposureValue() < m_pano.getImage(img2).getExposureValue();
+    }
+private:
+    const HuginBase::Panorama& m_pano;
+};
+
 static hugin_omp::Lock lock;
 
 int main(int argc, char* argv[])
@@ -370,10 +382,29 @@ int main(int argc, char* argv[])
     std::vector<size_t> imagesToProcess;
     if(cmdlineImages.size()==0)
     {
-        //no image given, process all
-        for(size_t i=0; i<pano.getNrOfImages(); i++)
+        //no image given, process one image of each stack
+        HuginBase::ConstStandardImageVariableGroups variable_groups(pano);
+        HuginBase::UIntSetVector imageGroups = variable_groups.getStacks().getPartsSet();
+        //get image with median exposure for search for lines
+        for (size_t imgGroup = 0; imgGroup < imageGroups.size(); ++imgGroup)
         {
-            imagesToProcess.push_back(i);
+            HuginBase::UIntVector stackImages(imageGroups[imgGroup].begin(), imageGroups[imgGroup].end());
+            if (pano.getImage(stackImages[0]).YawisLinked())
+            {
+                // position is linked, take only image with median exposure for search
+                std::sort(stackImages.begin(), stackImages.end(), SortVectorByExposure(pano));
+                size_t index = 0;
+                if (pano.getImage(*(stackImages.begin())).getExposureValue() != pano.getImage(*(stackImages.rbegin())).getExposureValue())
+                {
+                    index = stackImages.size() / 2;
+                };
+                imagesToProcess.push_back(stackImages[index]);
+            }
+            else
+            {
+                // stacks are unlinked, search all images
+                std::copy(stackImages.begin(), stackImages.end(), std::back_inserter(imagesToProcess));
+            };
         };
     }
     else
