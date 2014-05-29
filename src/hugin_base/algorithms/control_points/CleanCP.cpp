@@ -89,7 +89,9 @@ UIntSet getCPoutsideLimit_pair(Panorama pano, double n)
                     //calculate statistic and determine limit
                     double min,max,mean,var;
                     CalculateCPStatisticsError::calcCtrlPntsErrorStats(clean,min,max,mean,var);
-                    double limit=mean+n*sqrt(var);
+                    // if the standard deviation is bigger than the value, assume we have a lot of
+                    // false cp, in this case take the mean value directly as limit
+                    double limit = (sqrt(var) > mean) ? mean : (mean + n*sqrt(var));
 
                     //identify cp with big error
                     unsigned int index=0;
@@ -146,7 +148,9 @@ UIntSet getCPoutsideLimit(Panorama pano, double n, bool skipOptimisation, bool i
     {
         pano.setCtrlPoints(allCP);
     };
-    double limit=mean+n*sqrt(var);
+    // if the standard deviation is bigger than the value, assume we have a lot of
+    // false cp, in this case take the mean value directly as limit
+    double limit = (sqrt(var) > mean) ? mean : (mean + n*sqrt(var));
 
     //now determine all control points with error > limit 
     unsigned int index=0;
