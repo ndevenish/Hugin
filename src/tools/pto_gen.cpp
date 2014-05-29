@@ -63,7 +63,7 @@ static void usage(const char* name)
          << "     -c, --crop=left,right,top,bottom        Sets the crop of input" << endl
          << "                            images (especially for fisheye lenses)" << endl
          << "     -s, --stacklength=INT  Number of images in stack" << endl
-         << "                            (default: 1, no stacks)" << endl
+         << "                            (default: automatic detection)" << endl
          << "     -l, --linkstacks       Link image positions in stacks" << endl
          << "     --distortion           Try to load distortion information from" << endl
          << "                            lens database" << endl
@@ -98,7 +98,7 @@ int main(int argc, char* argv[])
     string output;
     int projection=-1;
     float fov=-1;
-    int stackLength=1;
+    int stackLength=0;
     bool linkStacks=false;
     vigra::Rect2D cropRect(0,0,0,0);
     bool loadDistortion=false;
@@ -162,9 +162,9 @@ int main(int argc, char* argv[])
                 break;
             case 's':
                 stackLength=atoi(optarg);
-                if(stackLength<1)
+                if ((stackLength == 0) && (strcmp(optarg, "0") != 0))
                 {
-                    cerr << "Could not parse stack length." << endl;
+                    cerr << "Could not parse stack length.";
                     return 1;
                 };
                 break;
@@ -412,44 +412,61 @@ int main(int argc, char* argv[])
             };
         };
         cout << endl << "Assigned " << lenses.getNumberOfParts() << " lenses." << endl;
-        if(lenses.getNumberOfParts()>1 && stackLength>1)
+        if(lenses.getNumberOfParts()>1 && stackLength!=1)
         {
             cout << "Project contains more than one lens, but you requested to assign" << endl
                  << "stacks. This is not supported. Therefore stacks will not be" << endl
                  << "assigned." << endl << endl;
             stackLength=1;
         };
-    };
 
-    //link stacks
-    if(pano.getNrOfImages()>1 && stackLength>1)
-    {
-        stackLength=std::min<int>(stackLength,pano.getNrOfImages());
-        int stackCount=pano.getNrOfImages() / stackLength;
-        if(pano.getNrOfImages() % stackLength > 0)
+        if (stackLength == 0)
         {
-            stackCount++;
-        };
-        if(stackCount<pano.getNrOfImages())
-        {
-            for(size_t stackNr=0; stackNr<stackCount; stackNr++)
+            // automatic detection
+            if (pano.hasPossibleStacks())
             {
-                size_t firstImgStack=stackNr*stackLength;
-                for(size_t i=0; i<stackLength; i++)
+                pano.linkPossibleStacks(linkStacks);
+            };
+        }
+        else
+        {
+            if (stackLength > 1)
+            {
+                stackLength = std::min<int>(stackLength, pano.getNrOfImages());
+                int stackCount = pano.getNrOfImages() / stackLength;
+                if (pano.getNrOfImages() % stackLength > 0)
                 {
-                    if(firstImgStack+i<pano.getNrOfImages())
+                    stackCount++;
+                };
+                if (stackCount < pano.getNrOfImages())
+                {
+                    for (size_t stackNr = 0; stackNr < stackCount; stackNr++)
                     {
-                        pano.linkImageVariableStack(firstImgStack,firstImgStack+i);
-                        if(linkStacks)
+                        size_t firstImgStack = stackNr*stackLength;
+                        for (size_t i = 0; i < stackLength; i++)
                         {
-                            pano.linkImageVariableYaw(firstImgStack,firstImgStack+i);
-                            pano.linkImageVariablePitch(firstImgStack,firstImgStack+i);
-                            pano.linkImageVariableRoll(firstImgStack,firstImgStack+i);
+                            if (firstImgStack + i < pano.getNrOfImages())
+                            {
+                                pano.linkImageVariableStack(firstImgStack, firstImgStack + i);
+                                if (linkStacks)
+                                {
+                                    pano.linkImageVariableYaw(firstImgStack, firstImgStack + i);
+                                    pano.linkImageVariablePitch(firstImgStack, firstImgStack + i);
+                                    pano.linkImageVariableRoll(firstImgStack, firstImgStack + i);
+                                };
+                            };
                         };
                     };
                 };
             };
-            cout << "Assigned " << stackCount << " stacks." << endl;
+        };
+
+        variable_groups.update();
+        const size_t stackCount = variable_groups.getStacks().getNumberOfParts();
+        if (stackCount != pano.getNrOfImages())
+        {
+            std::cout << "Assigned " << stackCount << " stacks: " << std::endl
+                << "\t" << (linkStacks ? "Linking position of images in stacks" : "Use individual positions of images in stacks") << std::endl;
         };
     };
 

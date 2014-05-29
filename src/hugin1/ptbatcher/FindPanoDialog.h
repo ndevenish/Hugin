@@ -154,10 +154,6 @@ private:
     const wxDateTime GetDateTime(const SrcPanoImage* img);
     /** returns a given filename, which does not already exists */
     bool GetNewProjectFilename(NamingConvention nc,const wxString basePath, wxFileName& projectFile);
-    /** checks if the panorama contains stacks */
-    bool IsStacked();
-    /** calculates the ev difference between darkest and brightest image */
-    double GetMaxExposureDifference();
 
     std::string m_make;
     std::string m_camera;

@@ -2036,6 +2036,131 @@ void Panorama::updateWhiteBalance(double redFactor, double blueFactor)
     };
 };
 
+const double Panorama::getMaxExposureDifference() const
+{
+    if (state.images.empty())
+    {
+        return 0;
+    }
+    double minEv = 1000;
+    double maxEv = -1000;
+    for (size_t i = 0; i < state.images.size(); i++)
+    {
+        const double ev = state.images[i]->getExposureValue();
+        minEv = std::min(minEv, ev);
+        maxEv = std::max(maxEv, ev);
+    };
+    return maxEv - minEv;
+};
+
+const bool Panorama::hasPossibleStacks() const
+{
+    if (state.images.empty())
+    {
+        return false;
+    }
+    // this algorithm is based on panostart by Bruno Postle
+    // bracketed pano has at least a dynamic range of 1.2 ev values (corresponds to bracket with +-2/3)
+    if (getMaxExposureDifference()<1.2)
+    {
+        return false;
+    }
+    //if image is shooted in auto exposure mode then it is not a bracket pano
+    if (state.images[0]->getExifExposureMode() == 0)
+    {
+        return false;
+    }
+    //now collect all unique exposure values
+    std::set<int> evValues;
+    for (size_t i = 0; i < state.images.size(); i++)
+    {
+        //we multiply with 10 to don't get fooled by rounded double values
+        evValues.insert(int(state.images[i]->getExposureValue() * 10));
+    };
+    //if there is only one unique exposure value then there are no stacks
+    if (evValues.size()<2)
+    {
+        return false;
+    }
+    //if number of unique exposure values is equal the number of images then there are no stacks
+    if (evValues.size() == state.images.size())
+    {
+        return false;
+    }
+    //if number of images is not a multiple of number of unique exposure values
+    //then the stacks are incomplete, skipping
+    if (state.images.size() % evValues.size() != 0)
+    {
+        return false;
+    }
+    //check if exposure value is repeated with step size of bracket size
+    if (abs(state.images[0]->getExposureValue() - state.images[evValues.size()]->getExposureValue())<0.1)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    };
+
+};
+
+/** create automatically stacks as indicated by metadata */
+void Panorama::linkPossibleStacks(bool linkPosition)
+{
+    // we need at least 2 images
+    if (state.images.size()<=1)
+    {
+        return;
+    };
+    // unlink all existing stacks
+    for (size_t imgNr = 0; imgNr < state.images.size(); imgNr++)
+    {
+        if (state.images[imgNr]->YawisLinked())
+        {
+            unlinkImageVariableYaw(imgNr);
+            unlinkImageVariablePitch(imgNr);
+            unlinkImageVariableRoll(imgNr);
+            unlinkImageVariableX(imgNr);
+            unlinkImageVariableY(imgNr);
+            unlinkImageVariableZ(imgNr);
+            unlinkImageVariableTranslationPlaneYaw(imgNr);
+            unlinkImageVariableTranslationPlanePitch(imgNr);
+        };
+        if (state.images[imgNr]->StackisLinked())
+        {
+            unlinkImageVariableStack(imgNr);
+        };
+    };
+    // now link all possible stacks
+    unsigned int imgNr = 0;
+    double ev = state.images[imgNr]->getExposureValue();
+    for (size_t i = 1; i<state.images.size(); i++)
+    {
+        if (abs(state.images[i]->getExposureValue() - ev)<0.1)
+        {
+            imgNr = i;
+            ev = state.images[imgNr]->getExposureValue();
+        }
+        else
+        {
+            linkImageVariableStack(imgNr, i);
+            if (linkPosition)
+            {
+                linkImageVariableYaw(imgNr, i);
+                linkImageVariablePitch(imgNr, i);
+                linkImageVariableRoll(imgNr, i);
+                linkImageVariableX(imgNr, i);
+                linkImageVariableY(imgNr, i);
+                linkImageVariableZ(imgNr, i);
+                linkImageVariableTranslationPlaneYaw(imgNr, i);
+                linkImageVariableTranslationPlanePitch(imgNr, i);
+            };
+        };
+    };
+
+};
+
 PanoramaMemento::PanoramaMemento(const PanoramaMemento & data)
 {
     // Use the assignment operator to get the work done: see the next function.

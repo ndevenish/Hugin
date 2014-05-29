@@ -515,79 +515,6 @@ bool PossiblePano::BelongsTo(SrcPanoImage* img, const wxTimeSpan max_time_diff)
     return true;
 };
 
-double PossiblePano::GetMaxExposureDifference()
-{
-    if(m_images.empty())
-    {
-        return 0;
-    }
-    double minEv=1000;
-    double maxEv=-1000;
-    for(ImageSet::const_iterator it=m_images.begin(); it!=m_images.end(); ++it)
-    {
-        double ev=(*it)->getExposureValue();
-        minEv=std::min(minEv,ev);
-        maxEv=std::max(maxEv,ev);
-    };
-    return maxEv-minEv;
-};
-
-bool PossiblePano::IsStacked()
-{
-    if(m_images.empty())
-    {
-        return false;
-    }
-    // this algorithm is based on panostart by Bruno Postle
-    // bracketed pano has at least a dynamic range of 1.2 ev values (corresponds to bracket with +-2/3)
-    if(GetMaxExposureDifference()<1.2)
-    {
-        return false;
-    }
-    //if image is shooted in auto exposure mode then it is not a bracket pano
-    if((*m_images.begin())->getExifExposureMode()==0)
-    {
-        return false;
-    }
-    //now collect all unique exposure values
-    std::set<int> evValues;
-    for(ImageSet::const_iterator it=m_images.begin(); it!=m_images.end(); ++it)
-    {
-        //we multiply with 10 to don't get fooled by rounded double values
-        evValues.insert(int((*it)->getExposureValue()*10));
-    };
-    //if there is only one unique exposure value then there are no stacks
-    if(evValues.size()<2)
-    {
-        return false;
-    }
-    //if number of unique exposure values is equal the number of images then there are no stacks
-    if(evValues.size()==m_images.size())
-    {
-        return false;
-    }
-    //if number of images is not a multiple of number of unique exposure values
-    //then the stacks are incomplete, skipping
-    if(m_images.size() % evValues.size()!=0)
-    {
-        return false;
-    }
-    //check if exposure value is repeated with step size of bracket size
-    ImageSet::const_iterator it=m_images.begin();
-    for(unsigned int i=0; i<evValues.size(); i++)
-    {
-        ++it;
-    };
-    if(abs((*m_images.begin())->getExposureValue()-(*it)->getExposureValue())<0.1)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    };
-};
-
 const wxDateTime PossiblePano::GetDateTime(const SrcPanoImage* img)
 {
     struct tm exifdatetime;
@@ -775,34 +702,9 @@ wxString PossiblePano::GeneratePanorama(NamingConvention nc,bool createLinks)
             pano.setSrcImage(i, img);
         };
     };
-    if(IsStacked())
+    if (pano.hasPossibleStacks())
     {
-        //if it is a stacked pano, create the stacks and link position if desired
-        unsigned int imgNr=0;
-        double ev=pano.getImage(imgNr).getExposureValue();
-        for(unsigned int i=1; i<pano.getNrOfImages(); i++)
-        {
-            if(abs(pano.getImage(i).getExposureValue()-ev)<0.1)
-            {
-                imgNr=i;
-                ev=pano.getImage(imgNr).getExposureValue();
-            }
-            else
-            {
-                pano.linkImageVariableStack(imgNr,i);
-                if(createLinks)
-                {
-                    pano.linkImageVariableYaw(imgNr,i);
-                    pano.linkImageVariablePitch(imgNr,i);
-                    pano.linkImageVariableRoll(imgNr,i);
-                    pano.linkImageVariableX(imgNr, i);
-                    pano.linkImageVariableY(imgNr, i);
-                    pano.linkImageVariableZ(imgNr, i);
-                    pano.linkImageVariableTranslationPlaneYaw(imgNr, i);
-                    pano.linkImageVariableTranslationPlanePitch(imgNr, i);
-                };
-            };
-        };
+        pano.linkPossibleStacks(createLinks);
     };
     // Setup pano with options from preferences
     PanoramaOptions opts = pano.getOptions();

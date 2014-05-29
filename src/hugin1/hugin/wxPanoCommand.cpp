@@ -225,6 +225,7 @@ bool wxAddImagesCmd::processPanorama(Panorama& pano)
     SrcPanoImage srcImgExif;
     HuginBase::StandardImageVariableGroups variable_groups(pano);
     HuginBase::ImageVariableGroup & lenses = variable_groups.getLenses();
+    const size_t oldImgCount = pano.getNrOfImages();
 
     // load additional images...
     for (it = files.begin(); it != files.end(); ++it) {
@@ -412,6 +413,76 @@ bool wxAddImagesCmd::processPanorama(Panorama& pano)
             }
         }
     }
+    if (pano.hasPossibleStacks())
+    {
+        wxString message;
+        if (oldImgCount == 0)
+        {
+            // all images added
+            message = _("Hugin has image stacks detected in the added images and will assign corresponding stack numbers to the images.\nShould the position of images in each stack be linked?");
+#if !wxCHECK_VERSION(3,0,0)
+            message.append(wxT("\n"));
+            message.append(_("Select \"Cancel\" if no stacks should be assigned."));
+#endif
+        }
+        else
+        {
+            message = _("Hugin has image stacks detected in the whole project. Stack numbers will be re-assigned on base of this detection. Existing stack assignments will be overwritten.\nShould the position of the images in each stack be linked?");
+#if !wxCHECK_VERSION(3,0,0)
+            message.append(wxT("\n"));
+            message.append(_("Select \"Cancel\" if the existing stacks should be kept."));
+#endif
+        };
+        wxMessageDialog dialog(wxGetActiveWindow(), message,
+#ifdef _WINDOWS
+            _("Hugin"),
+#else
+            wxT(""),
+#endif
+            wxICON_EXCLAMATION | wxYES_NO | wxCANCEL);
+#if wxCHECK_VERSION(3,0,0)
+        dialog.SetExtendedMessage(_("When shooting bracketed image stacks from a sturdy tripod the position of the images in each stack can be linked to help Hugin to process the panorama. But if the images in each stack require a fine tune of the position (e. g. when shooting hand held), then don’t link the position."));
+        if (oldImgCount == 0)
+        {
+            dialog.SetYesNoCancelLabels(_("Link position"), _("Don't link position"), _("Don’t assign stacks"));
+        }
+        else
+        {
+            dialog.SetYesNoCancelLabels(_("Link position"), _("Don't link position"), _("Keep existing stacks"));
+        };
+#endif
+        switch (dialog.ShowModal())
+        {
+            case wxID_YES:
+                pano.linkPossibleStacks(true);
+                break;
+            case wxID_NO:
+                pano.linkPossibleStacks(false);
+                break;
+        };
+    }
+    else
+    {
+        bool hasStacks = false;
+        for (size_t i = 0; i<pano.getNrOfImages(); i++)
+        {
+            if (pano.getImage(i).StackisLinked())
+            {
+                hasStacks = true;
+                break;
+            };
+        };
+        if (!hasStacks && pano.getMaxExposureDifference() > 1.2)
+        {
+            wxMessageBox(_("The project covers a big brightness range, but Hugin could not automatically detect any stacks.\nConsider assigning stacks manually in the panorama editor to help Hugin to process the panorama."),
+#ifdef _WINDOWS
+                _("Hugin"),
+#else
+                wxT(""),
+#endif
+                wxICON_INFORMATION | wxOK);
+        };
+    };
     return true;
 }
 

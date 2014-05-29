@@ -425,6 +425,13 @@ class IMPEX Panorama : public ManagedPanoramaData, public AppBase::DocumentData
         */
         virtual void updateWhiteBalance(double redFactor, double blueFactor);
 
+        /** returns the maximum exposure value difference of all images in the project */
+        const double getMaxExposureDifference() const;
+        /** return true, if the metadata indicates that the projects is a bracketet project */
+        const bool hasPossibleStacks() const;
+        /** create automatically stacks as indicated by metadata */
+        void linkPossibleStacks(bool linkPosition);
+
     // = Optimise Vector =    
         /** return the optimize settings stored inside panorama */
         const OptimizeVector & getOptimizeVector() const
