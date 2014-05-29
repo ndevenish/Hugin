@@ -48,6 +48,16 @@ unsigned int ConstImageVariableGroup::getPartNumber(unsigned int imageNr) const
     return m_image_part_numbers[imageNr];
 }
 
+UIntSetVector ConstImageVariableGroup::getPartsSet() const
+{
+    UIntSetVector result(getNumberOfParts(), HuginBase::UIntSet());
+    for (unsigned int imgNr = 0; imgNr<m_image_part_numbers.size(); ++imgNr)
+    {
+        result[m_image_part_numbers[imgNr]].insert(imgNr);
+    };
+    return result;
+}
+
 bool ConstImageVariableGroup::getVarLinkedInPart(ImageVariableEnum variable,
                                                  std::size_t part) const
 {
@@ -248,7 +258,7 @@ void ImageVariableGroup::switchParts (unsigned int imageNr, unsigned int partNr)
     setPartNumbers();
 }
 
-std::size_t ConstImageVariableGroup::getNumberOfParts()
+std::size_t ConstImageVariableGroup::getNumberOfParts() const
 {
     return m_num_parts;
 }

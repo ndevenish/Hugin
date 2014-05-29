@@ -285,28 +285,14 @@ void ImagesTreeCtrl::panoramaImagesChanged(Panorama &pano, const UIntSet &change
     }
     else
     {
-        std::vector<UIntSet> imageGroups;
+        HuginBase::UIntSetVector imageGroups;
         switch (m_groupMode)
         {
             case GROUP_LENS:
-                {
-                    HuginBase::ImageVariableGroup& lenses=m_variable_groups->getLenses();
-                    imageGroups.resize(lenses.getNumberOfParts());
-                    for(size_t i=0;i<m_pano->getNrOfImages();i++)
-                    {
-                        imageGroups[lenses.getPartNumber(i)].insert(i);
-                    };
-                };
+                imageGroups = m_variable_groups->getLenses().getPartsSet();
                 break;
             case GROUP_STACK:
-                {
-                    HuginBase::ImageVariableGroup& stacks=m_variable_groups->getStacks();
-                    imageGroups.resize(stacks.getNumberOfParts());
-                    for(size_t i=0;i<m_pano->getNrOfImages();i++)
-                    {
-                        imageGroups[stacks.getPartNumber(i)].insert(i);
-                    };
-                };
+                imageGroups = m_variable_groups->getStacks().getPartsSet();
                 break;
             case GROUP_OUTPUTSTACK:
                 imageGroups=getHDRStacks(*m_pano,m_pano->getActiveImages(), m_pano->getOptions());

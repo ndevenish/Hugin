@@ -53,6 +53,7 @@ typedef std::set<unsigned int> UIntSet;
 ///
 typedef std::vector<unsigned int> UIntVector;
 
+typedef std::vector<UIntSet> UIntSetVector;
 
 /** Model for a panorama.
  *
