@@ -43,6 +43,8 @@
 #include <algorithms/basic/CalculateOptimalScale.h>
 #include <algorithms/basic/CalculateOptimalROI.h>
 #include <algorithms/basic/LayerStacks.h>
+#include <algorithms/basic/CalculateMeanExposure.h>
+#include <boost/algorithm/string.hpp>
 
 using namespace std;
 using namespace HuginBase;
@@ -56,24 +58,49 @@ static void usage(const char* name)
          << "Usage:  " << name << " [options] input.pto" << endl
          << endl
          << "  Options:" << endl
-         << "     -o, --output=file.pto  Output Hugin PTO file. Default: <filename>_mod.pto" << endl
-         << "     -p, --projection=x     Sets the output projection to number x" << endl
-         << "     --fov=AUTO|HFOV|HFOVxVFOV   Sets field of view" << endl
-         << "                                   AUTO: calculates optimal fov" << endl
-         << "                                   HFOV|HFOVxVFOV: set to given fov" << endl
-         << "     -s, --straighten       Straightens the panorama" << endl
-         << "     -c, --center           Centers the panorama" << endl
-         << "     --canvas=AUTO|num%|WIDTHxHEIGHT  Sets the output canvas size" << endl
-         << "                                   AUTO: calculate optimal canvas size" << endl
-         << "                                   num%: scales the optimal size by given percent" << endl
-         << "                                   WIDTHxHEIGHT: set to given size" << endl
-         << "     --crop=AUTO|AUTOHDR|left,right,top,bottom  Sets the crop rectangle" << endl
-         << "                                   AUTO: autocrop panorama" << endl
-         << "                                   AUTOHDR: autocrop HDR panorama" << endl
-         << "                                   left,right,top,bottom: to given size" << endl
-         << "     --rotate=yaw,pitch,roll  Rotates the whole panorama with the given angles" << endl
-         << "     --translate=x,y,z        Translate the whole panorama with the given values" << endl
-         << "     -h, --help             Shows this help" << endl
+         << "    -o, --output=file.pto  Output Hugin PTO file. Default: <filename>_mod.pto" << endl
+         << "    -p, --projection=x     Sets the output projection to number x" << endl
+         << "    --fov=AUTO|HFOV|HFOVxVFOV   Sets field of view" << endl
+         << "                                AUTO: calculates optimal fov" << endl
+         << "                                HFOV|HFOVxVFOV: set to given fov" << endl
+         << "    -s, --straighten       Straightens the panorama" << endl
+         << "    -c, --center           Centers the panorama" << endl
+         << "    --canvas=AUTO|num%|WIDTHxHEIGHT  Sets the output canvas size" << endl
+         << "                                AUTO: calculate optimal canvas size" << endl
+         << "                                num%: scales the optimal size by given percent" << endl
+         << "                                WIDTHxHEIGHT: set to given size" << endl
+         << "    --crop=AUTO|AUTOHDR|left,right,top,bottom  Sets the crop rectangle" << endl
+         << "                                AUTO: autocrop panorama" << endl
+         << "                                AUTOHDR: autocrop HDR panorama" << endl
+         << "                                left,right,top,bottom: to given size" << endl
+         << "    --output-exposure=AUTO|num  Sets the output exposure value to mean" << endl
+         << "                                exposure (AUTO) or to given value" << endl
+         << "    --output-type=str       Sets the type of output" << endl
+         << "                              Valid items are" << endl
+         << "                                NORMAL|N: normal panorama" << endl
+         << "                                STACKSFUSEDBLENDED|BF: LDR panorama with" << endl
+         << "                                    blended stacks" << endl
+         << "                                EXPOSURELAYERSFUSED|FB: LDR panorama with" << endl
+         << "                                    fused exposure layers (any arrangement)" << endl
+         << "                                HDR: HDR panorama" << endl
+         << "                                REMAP: remapped images with corrected exposure" << endl
+         << "                                REMAPORIG: remapped images with" << endl
+         << "                                    uncorrected exposure" << endl
+         << "                                HDRREMAP: remapped images in linear color space" << endl
+         << "                                FUSEDSTACKS: exposure fused stacks" << endl
+         << "                                HDRSTACKS: HDR stacks" << endl
+         << "                                EXPOSURELAYERS: blended exposure layers" << endl
+         << "                              and separated by a comma." << endl
+         << "    --ldr-file=JPG|TIF|PNG  Sets the filetype for LDR panorama output" << endl
+         << "    --ldr-compression=str   Sets the compression for LDR panorama output" << endl
+         << "                              For TIF: NONE|PACKBITS|LZW|DEFLATE" << endl
+         << "                              For JPEG: quality as number" << endl
+         << "    --hdr-file=EXR|TIF      Sets the filetype for HDR panorama output" << endl
+         << "    --hdr-compression=str   Sets the compression for HDR panorama output" << endl
+         << "                              For TIF: NONE|PACKBITS|LZW|DEFLATE" << endl
+         << "    --rotate=yaw,pitch,roll Rotates the whole panorama with the given angles" << endl
+         << "    --translate=x,y,z       Translate the whole panorama with the given values" << endl
+         << "    -h, --help             Shows this help" << endl
          << endl;
 }
 
@@ -85,10 +112,16 @@ int main(int argc, char* argv[])
     enum
     {
         SWITCH_FOV=1000,
-        SWITCH_CANVAS=1001,
-        SWITCH_CROP=1002,
-        SWITCH_ROTATE=1003,
-        SWITCH_TRANSLATE=1004
+        SWITCH_CANVAS,
+        SWITCH_CROP,
+        SWITCH_ROTATE,
+        SWITCH_TRANSLATE,
+        SWITCH_EXPOSURE,
+        SWITCH_OUTPUT_TYPE,
+        SWITCH_LDRFILETYPE,
+        SWITCH_LDRCOMPRESSION,
+        SWITCH_HDRFILETYPE,
+        SWITCH_HDRCOMPRESSION
     };
     static struct option longOptions[] =
     {
@@ -99,6 +132,12 @@ int main(int argc, char* argv[])
         {"center", no_argument, NULL, 'c' },
         {"canvas", required_argument, NULL, SWITCH_CANVAS },
         {"crop", required_argument, NULL, SWITCH_CROP },
+        {"output-exposure", required_argument, NULL, SWITCH_EXPOSURE },
+        {"output-type", required_argument, NULL, SWITCH_OUTPUT_TYPE },
+        {"ldr-file", required_argument,NULL, SWITCH_LDRFILETYPE },
+        {"ldr-compression", required_argument, NULL, SWITCH_LDRCOMPRESSION },
+        {"hdr-file", required_argument, NULL, SWITCH_HDRFILETYPE },
+        {"hdr-compression", required_argument, NULL, SWITCH_HDRCOMPRESSION },
         {"rotate", required_argument, NULL, SWITCH_ROTATE },
         {"translate", required_argument, NULL, SWITCH_TRANSLATE },
         {"help", no_argument, NULL, 'h' },
@@ -126,6 +165,13 @@ int main(int argc, char* argv[])
     double x = 0;
     double y = 0;
     double z = 0;
+    double outputExposure = -1000;
+    bool calcMeanExposure = false;
+    std::string outputType;
+    std::string ldrfiletype;
+    std::string ldrcompression;
+    std::string hdrfiletype;
+    std::string hdrcompression;
     string output;
     string param;
     while ((c = getopt_long (argc, argv, optstring, longOptions,&optionIndex)) != -1)
@@ -288,6 +334,42 @@ int main(int argc, char* argv[])
                     };
                 };
                 break;
+            case SWITCH_EXPOSURE:
+                param = optarg;
+                param = hugin_utils::toupper(param);
+                if (param == "AUTO")
+                {
+                    calcMeanExposure = true;
+                }
+                else
+                {
+                    int n = sscanf(optarg, "%lf", &outputExposure);
+                    if (n != 1)
+                    {
+                        cerr << "Could not parse output exposure value.";
+                        return 1;
+                    };
+                };
+                break;
+            case SWITCH_OUTPUT_TYPE:
+                if (!outputType.empty())
+                {
+                    outputType.append(",");
+                };
+                outputType.append(optarg);
+                break;
+            case SWITCH_LDRFILETYPE:
+                ldrfiletype = hugin_utils::tolower(hugin_utils::StrTrim(optarg));
+                break;
+            case SWITCH_LDRCOMPRESSION:
+                ldrcompression = hugin_utils::toupper(hugin_utils::StrTrim(optarg));
+                break;
+            case SWITCH_HDRFILETYPE:
+                hdrfiletype = hugin_utils::tolower(hugin_utils::StrTrim(optarg));
+                break;
+            case SWITCH_HDRCOMPRESSION:
+                hdrcompression = hugin_utils::toupper(hugin_utils::StrTrim(optarg));
+                break;
             case SWITCH_ROTATE:
                 {
                     int n=sscanf(optarg, "%lf,%lf,%lf", &yaw, &pitch, &roll);
@@ -367,11 +449,260 @@ int main(int argc, char* argv[])
         }
         pano.setOptions(opt);
     };
-    if(abs(yaw) + abs(pitch) + abs(roll) > 0.0)
+    // output exposure value
+    if (outputExposure > -1000 || calcMeanExposure)
+    {
+        PanoramaOptions opt = pano.getOptions();
+        if (calcMeanExposure)
+        {
+            opt.outputExposureValue = HuginBase::CalculateMeanExposure::calcMeanExposure(pano);
+        }
+        else
+        {
+            opt.outputExposureValue = outputExposure;
+        };
+        std::cout << "Setting output exposure value to " << opt.outputExposureValue << std::endl;
+        pano.setOptions(opt);
+    };
+    // output type: normal, fused, hdr pano..
+    if (!outputType.empty())
+    {
+        PanoramaOptions opt = pano.getOptions();
+        // reset all output
+        // final pano
+        opt.outputLDRBlended = false;
+        opt.outputLDRExposureBlended = false;
+        opt.outputLDRExposureLayersFused = false;
+        opt.outputHDRBlended = false;
+        // remapped images
+        opt.outputLDRLayers = false;
+        opt.outputLDRExposureRemapped = false;
+        opt.outputHDRLayers = false;
+        // stacks
+        opt.outputLDRStacks = false;
+        opt.outputHDRStacks = false;
+        // exposure layers
+        opt.outputLDRExposureLayers = false;
+        // now parse string and set corresponding options
+        std::vector<std::string> tokens;
+        boost::algorithm::split(tokens, outputType, boost::is_any_of(","), boost::algorithm::token_compress_on);
+        size_t counter = 0;
+        for (size_t i = 0; i < tokens.size(); i++)
+        {
+            std::string s = hugin_utils::toupper(hugin_utils::StrTrim(tokens[i]));
+            if (s == "NORMAL" || s=="N")
+            {
+                opt.outputLDRBlended = true;
+                std::cout << "Activate output of normal panorma." << std::endl;
+                counter++;
+                continue;
+            };
+            if (s == "STACKSFUSEDBLENDED" || s == "FB")
+            {
+                opt.outputLDRExposureBlended = true;
+                std::cout << "Activate output of ldr panorma: Exposure fused from stacks." << std::endl;
+                counter++;
+                continue;
+            };
+            if (s == "EXPOSURELAYERSFUSED" || s == "BF")
+            {
+                opt.outputLDRExposureLayersFused = true;
+                std::cout << "Activate output of ldr panorma: Exposure fused from any arrangement." << std::endl;
+                counter++;
+                continue;
+            };
+            if (s == "HDR")
+            {
+                opt.outputHDRBlended = true;
+                std::cout << "Activate output of hdr panorma." << std::endl;
+                counter++;
+                continue;
+            };
+            // single remapped images
+            if (s == "REMAP")
+            {
+                opt.outputLDRLayers = true;
+                std::cout << "Activate output of remapped, exposure corrected images." << std::endl;
+                counter++;
+                continue;
+            };
+            if (s == "REMAPORIG")
+            {
+                opt.outputLDRExposureRemapped = true;
+                std::cout << "Activate output of remapped images with unmodified exposure." << std::endl;
+                counter++;
+                continue;
+            };
+            if (s == "HDRREMAP")
+            {
+                opt.outputHDRLayers = true;
+                std::cout << "Activate output of remapped hdr images." << std::endl;
+                counter++;
+                continue;
+            };
+            //stacks
+            if (s == "FUSEDSTACKS")
+            {
+                opt.outputLDRStacks = true;
+                std::cout << "Activate output of exposure fused stacks." << std::endl;
+                counter++;
+                continue;
+            };
+            if (s == "HDRSTACKS")
+            {
+                opt.outputHDRStacks = true;
+                std::cout << "Activate output of hdr stacks." << std::endl;
+                counter++;
+                continue;
+            };
+            //exposure layers
+            if (s == "EXPOSURELAYERS")
+            {
+                opt.outputLDRExposureLayers = true;
+                std::cout << "Activate output of exposure layers." << std::endl;
+                counter++;
+                continue;
+            };
+            std::cout << "Unknown parameter \"" << s << "\" found in --output-type." << std::endl
+                << "Ignoring this parameter." << std::endl;
+        }
+        if (counter > 0)
+        {
+            pano.setOptions(opt);
+        }
+        else
+        {
+            std::cout << "No matching output type given. The whole output-type is ignored." << std::endl;
+        };
+    };
+    // ldr output file type
+    if (!ldrfiletype.empty())
+    {
+        PanoramaOptions opt = pano.getOptions();
+        if (ldrfiletype == "jpg" || ldrfiletype == "png" || ldrfiletype == "tif")
+        {
+            opt.outputImageType = ldrfiletype;
+            std::cout << "Setting ldr output to filetype \"" << ldrfiletype << "\"." << std::endl;
+            pano.setOptions(opt);
+        }
+        else
+        {
+            std::cout << "LDR file format \"" << ldrfiletype << "\" is not a valid LDR output filetype." << std::endl
+                << "Ignoring parameter." << std::endl;
+        };
+    };
+    // ldr compression
+    if (!ldrcompression.empty())
+    {
+        PanoramaOptions opt = pano.getOptions();
+        if (opt.outputImageType == "tif")
+        {
+            if (ldrcompression == "NONE" || ldrcompression == "PACKBITS" || ldrcompression == "LZW" || ldrcompression == "DEFLATE")
+            {
+                opt.outputImageTypeCompression = ldrcompression;
+                std::cout << "Setting TIF compression to \"" << ldrcompression << "\"." << std::endl;
+                opt.tiffCompression = ldrcompression;
+            }
+            else
+            {
+                std::cout << "LDR compression \"" << ldrcompression << "\" is not a valid compression value for TIF files." << std::endl
+                    << "Ignoring compression." << std::endl;
+            }
+        }
+        else
+        {
+            if (opt.outputImageType == "jpg")
+            {
+                int quality = 0;
+                quality = atoi(ldrcompression.c_str());
+                if (quality != 0)
+                {
+                    if (quality>0 && quality <=100)
+                    { 
+                        opt.quality = quality;
+                        std::cout << "Setting JPEG quality to " << quality << "." << std::endl;
+                    }
+                    else
+                    {
+                        std::cout << "Given value for JPEG quality is outside the valid range 1..100." << std::endl
+                            << "Ignoring value." << std::endl;
+                    };
+                }
+                else
+                {
+                    std::cout << "Could not parse \"" << ldrcompression << "\" as a valid JPEG quality number." << std::endl
+                        << "Ignoring value." << std::endl;
+                };
+            }
+            else
+            {
+                if (opt.outputImageType == "png")
+                {
+                    std::cout << "Setting compression for PNG images is not supported." << std::endl;
+                }
+                else
+                {
+                    // this should never happen
+                    std::cout << "Unknown image format" << std::endl;
+                };
+            };
+        };
+        pano.setOptions(opt);
+    };
+    // hdr output file type
+    if (!hdrfiletype.empty())
+    {
+        PanoramaOptions opt = pano.getOptions();
+        if (hdrfiletype == "exr" || hdrfiletype == "tif")
+        {
+            opt.outputImageTypeHDR = hdrfiletype;
+            std::cout << "Setting hdr output to filetype \"" << ldrfiletype << "\"." << std::endl;
+            pano.setOptions(opt);
+        }
+        else
+        {
+            std::cout << "HDR file format \"" << ldrfiletype << "\" is not a valid HDR output filetype." << std::endl
+                << "Ignoring parameter." << std::endl;
+        };
+    };
+    // hdr compression
+    if (!hdrcompression.empty())
+    {
+        PanoramaOptions opt = pano.getOptions();
+        if (opt.outputImageTypeHDR == "tif")
+        {
+            if (hdrcompression == "NONE" || hdrcompression == "PACKBITS" || hdrcompression == "LZW" || hdrcompression == "DEFLATE")
+            {
+                opt.outputImageTypeHDRCompression = hdrcompression;
+                std::cout << "Setting HDR-TIF compression to \"" << hdrcompression << "\"." << std::endl;
+            }
+            else
+            {
+                std::cout << "HDR compression \"" << ldrcompression << "\" is not a valid compression value for TIF files." << std::endl
+                    << "Ignoring compression." << std::endl;
+            }
+        }
+        else
+        {
+            if (opt.outputImageTypeHDR == "exr")
+            {
+                std::cout << "Setting compression for EXR images is not supported." << std::endl;
+            }
+            else
+            {
+                // this should never happen
+                std::cout << "Unknown HDR image format" << std::endl;
+            };
+        };
+        pano.setOptions(opt);
+    };
+    // rotate complete pano
+    if (abs(yaw) + abs(pitch) + abs(roll) > 0.0)
     {
         cout << "Rotate panorama (yaw=" << yaw << ", pitch= " << pitch << ", roll=" << roll << ")" << endl;
         RotatePanorama(pano, yaw, pitch, roll).run();
     };
+    // translate complete pano
     if(abs(x) + abs(y) + abs(z) > 0.0)
     {
         cout << "Translate panorama (x=" << x << ", y=" << y << ", z=" << z << ")" << endl;
