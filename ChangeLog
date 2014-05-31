@@ -1,3 +1,31 @@
+2014-05-25 09:46 +0200  tmodes  (fa075b9df402)  
+
+	Fixed typo in last commit (grafted from
+	b2c6b668f05243df2aff0ae1994db9b93efacb33)
+
+	> src/hugin_base/panodata/Panorama.cpp
+
+2014-05-25 09:41 +0200  tmodes  (c7f67ad8e28a)  
+
+	More fixes for crash when loading multiple images in assistant
+	[1316702] (grafted from 10aa8ea89d9eef64ecd7281194507177dc6a82f7)
+
+	> src/hugin1/hugin/GLViewer.cpp
+	> src/hugin_base/panodata/Panorama.cpp
+	> src/hugin_base/panodata/Panorama.h
+
+2014-05-18 10:51 +0200  harryvanderwolf <hvdwolf@gmail.com>  (45cf4a3e9573)  
+
+	Added tag 2014.0.0_rc3 for changeset 9d9667390c11
+
+	> .hgtags
+
+2014-05-18 10:50 +0200  harryvanderwolf <hvdwolf@gmail.com>  (9d9667390c11)  2014.0.0_rc3
+
+	Updated ChangeLog for 2014.0-rc3
+
+	> ChangeLog
+
 2014-05-17 08:42 +0200  tmodes  (981423a49ee3)  
 
 	Fix for wxCode::wxTreeListCtrl to compile with wx 2.8 again
