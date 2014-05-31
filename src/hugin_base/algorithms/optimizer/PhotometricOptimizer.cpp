@@ -401,7 +401,7 @@ void SmartPhotometricOptimizer::smartOptimizePhotometric(PanoramaData & pano, Ph
     UIntSet images;
     fill_set(images, 0, pano.getNrOfImages()-1);
     std::vector<UIntSet> stacks = getHDRStacks(pano, images, pano.getOptions());
-    bool singleStack = (stacks.size() == 1);
+    const bool singleStack = (stacks.size() == 1);
 
     int vars = 0;
     if (mode == OPT_PHOTOMETRIC_LDR || mode == OPT_PHOTOMETRIC_LDR_WB)
@@ -418,7 +418,7 @@ void SmartPhotometricOptimizer::smartOptimizePhotometric(PanoramaData & pano, Ph
         //optimize vignetting only if there are more than 1 image stack
         // for a single stack vignetting can't be calculated by this optimization
         vars |= OPT_VIG;
-        const VariableMapVector & oldVars = pano.getVariables();
+        VariableMapVector oldVars = pano.getVariables();
         optimizePhotometric(pano, 
                             createOptVars(pano, vars, opts.colorReferenceImage),
                             correspondences, progress, error);
@@ -437,14 +437,14 @@ void SmartPhotometricOptimizer::smartOptimizePhotometric(PanoramaData & pano, Ph
     {
         vars |= OPT_WB;
     };
-    const VariableMapVector & oldVars = pano.getVariables();
+    VariableMapVector oldVars = pano.getVariables();
     optimizePhotometric(pano, 
                         createOptVars(pano, vars, opts.colorReferenceImage),
                         correspondences, progress, error);
     // now check the results
-    bool hasHighVignetting = IsHighVignetting(pano.getImage(0).getRadialVigCorrCoeff());
+    const bool hasHighVignetting = IsHighVignetting(pano.getImage(0).getRadialVigCorrCoeff());
     // @TODO check also response curve, what parameters are considered invalid?
-    bool hasHighWB = CheckStrangeWB(pano);
+    const bool hasHighWB = CheckStrangeWB(pano);
     if(hasHighVignetting)
     {
         vars &= ~OPT_VIG;
