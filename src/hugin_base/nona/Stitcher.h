@@ -215,6 +215,8 @@ public:
         Base::stitch(opts, images, basename, remapper);
         DEBUG_ASSERT(opts.outputFormat == PanoramaOptions::TIFF_multilayer
                      || opts.outputFormat == PanoramaOptions::TIFF_m
+                     || opts.outputFormat == PanoramaOptions::JPEG_m
+                     || opts.outputFormat == PanoramaOptions::PNG_m
                      || opts.outputFormat == PanoramaOptions::HDR_m
                      || opts.outputFormat == PanoramaOptions::EXR_m);
 
@@ -362,14 +364,30 @@ public:
         if (opts.outputPixelType.size() > 0) {
             exinfo.setPixelType(opts.outputPixelType.c_str());
         }
+        bool supportsAlpha = true;
         if (ext == "tif") {
             exinfo.setCompression(opts.tiffCompression.c_str());
+        } else {
+            if (ext == "jpg") {
+                char jpgCompr[4];
+                snprintf(jpgCompr, 4, "%d", opts.quality);
+                exinfo.setCompression(jpgCompr);
+                supportsAlpha = false;
+            };
         }
 
         if(subImage.area()>0) {
-            vigra::exportImageAlpha(srcImageRange(*final_img, subImage), srcImage(*alpha_img), exinfo);
+            if (supportsAlpha) {
+                vigra::exportImageAlpha(srcImageRange(*final_img, subImage), srcImage(*alpha_img), exinfo);
+            } else {
+                vigra::exportImage(srcImageRange(*final_img, subImage), exinfo);
+            };
         } else {
-            vigra::exportImageAlpha(srcImageRange(*final_img), srcImage(*alpha_img), exinfo);
+            if (supportsAlpha) {
+                vigra::exportImageAlpha(srcImageRange(*final_img), srcImage(*alpha_img), exinfo);
+            } else {
+                vigra::exportImage(srcImageRange(*final_img), exinfo);
+            };
         };
 
         if (opts.saveCoordImgs) {
@@ -1175,6 +1193,8 @@ static void stitchPanoIntern(const PanoramaData & pano,
             }
             break;
         }
+        case PanoramaOptions::JPEG_m:
+        case PanoramaOptions::PNG_m:
         case PanoramaOptions::TIFF_m:
         case PanoramaOptions::HDR_m:
         case PanoramaOptions::EXR_m:

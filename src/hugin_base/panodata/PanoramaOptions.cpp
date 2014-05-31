@@ -133,7 +133,7 @@ void PanoramaOptions::printScriptLine(std::ostream & o, bool forPTOptimizer) con
         o << "\"";
     }
     o << " n\"" << getFormatName(outputFormat);
-    if ( outputFormat == JPEG ) {
+    if ( outputFormat == JPEG || outputFormat == JPEG_m) {
         o << " q" << quality;
     } else if ( outputFormat == TIFF ||
                 outputFormat == TIFF_m ||
@@ -435,7 +435,9 @@ double PanoramaOptions::getVFOV() const
 const std::string PanoramaOptions::fileformatNames[] =
 {
     "JPEG",
+    "JPEG_m",
     "PNG",
+    "PNG_m",
     "TIFF",
     "TIFF_m",
     "TIFF_mask",
@@ -460,6 +462,8 @@ const std::string PanoramaOptions::fileformatNames[] =
 const std::string PanoramaOptions::fileformatExt[] =
 {
     "jpg",
+    "jpg",
+    "png",
     "png",
     "tif",
     "tif",

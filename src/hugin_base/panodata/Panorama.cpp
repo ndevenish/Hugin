@@ -2366,6 +2366,7 @@ bool PanoramaMemento::loadPTScript(std::istream &i, int & ptoVersion, const std:
                 switch (options.outputFormat)
                 {
                     case PanoramaOptions::JPEG:
+                    case PanoramaOptions::JPEG_m:
                     {
                         // "parse" jpg quality
                         int q;

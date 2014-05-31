@@ -44,6 +44,8 @@
 # v360         horizontal field of view of panorama (default 360)
 # nPICT        Panorama file format, one of:
 #                  PNG           png-format, 8 & 16 bit supported
+#                  PNG_m         png-format, multi-file, one image per file
+#                                  alpha layer with non-feathered clip mask at image border
 #                  TIFF          tiff-format, all tiff types supported (8,16,32 bit int, float, double)
 #                  TIFF_m        tiff-format, multi-file, one image per file
 #                                  alpha layer with non-feathered clip mask at image border
@@ -51,6 +53,8 @@
 #                                  alpha layer with non-feathered clip mask at image border
 #                                  This filetype is supported by The GIMP
 #                  JPEG          Panoramic image in jpeg-format.
+#                  JPEG_m        jpeg-format, multi-file, one image per file 
+#                                  without alpha layer, not suitable for further blending or fusing
 #               some more supported file formats (mostly only 8 bit support)
 #                  PNM, PGM, BMP, SUN, VIFF
 #                  

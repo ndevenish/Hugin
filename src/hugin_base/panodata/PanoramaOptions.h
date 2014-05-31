@@ -121,7 +121,9 @@ class IMPEX PanoramaOptions
          */
         enum FileFormat {
             JPEG = 0,
+            JPEG_m,
             PNG,
+            PNG_m,
             TIFF,
             TIFF_m,
             TIFF_mask,

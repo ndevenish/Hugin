@@ -69,7 +69,7 @@ static void usage(const char* name)
          << " are supported:"<< std::endl
          << std::endl
          << "  JPG, TIFF, PNG  : Single image formats without feathered blending:"<< std::endl
-         << "  TIFF_m          : multiple tiff files"<< std::endl
+         << "  JPG_m, TIFF_m, PNG_m : multiple image files"<< std::endl
          << "  TIFF_multilayer : Multilayer tiff files, readable by The Gimp 2.0" << std::endl
          << std::endl
          << "Usage: " << name  << " [options] -o output project_file (image files)" << std::endl
@@ -83,7 +83,8 @@ static void usage(const char* name)
          << "  The following options can be used to override settings in the project file:" << std::endl
          << "      -i num     remap only image with number num" << std::endl
          << "                   (can be specified multiple times)" << std::endl
-         << "      -m str     set output file format (TIFF, TIFF_m, TIFF_multilayer, EXR, EXR_m)" << std::endl
+         << "      -m str     set output file format (TIFF, TIFF_m, TIFF_multilayer," << std::endl
+         << "                    EXR, EXR_m, JPEG_m, PNG_m)" << std::endl
          << "      -r ldr/hdr set output mode." << std::endl
          << "                   ldr  keep original bit depth and response" << std::endl
          << "                   hdr  merge to hdr" << std::endl
@@ -265,6 +266,16 @@ int main(int argc, char* argv[])
     if (outputFormat == "TIFF_m")
     {
         opts.outputFormat = PanoramaOptions::TIFF_m;
+    }
+    else if (outputFormat == "JPEG_m")
+    {
+        opts.outputFormat = PanoramaOptions::JPEG_m;
+        opts.tiff_saveROI = false;
+    }
+    else if (outputFormat == "PNG_m")
+    {
+        opts.outputFormat = PanoramaOptions::PNG_m;
+        opts.tiff_saveROI = false;
     }
     else if (outputFormat == "TIFF")
     {

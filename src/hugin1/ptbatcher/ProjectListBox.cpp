@@ -434,7 +434,9 @@ void ProjectListBox::OnRemoveProject(wxCommandEvent& e)
 };
 
 const wxString ProjectListBox::fileFormat[] = {_T("JPEG"),
+        _T("JPEG_m"),
         _T("PNG"),
+        _T("PNG_m"),
         _T("TIFF"),
         _T("TIFF_m"),
         _T("TIFF_mask"),
