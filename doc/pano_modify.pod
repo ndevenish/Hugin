@@ -38,21 +38,77 @@ Straightens the panorama
 
 Centers the panorama
 
-=item B<--canvas=AUTO|WIDTHxHEIGHT>
+=item B<--canvas=AUTO|num%|WIDTHxHEIGHT>
 
 Sets the output canvas size
 
 AUTO: calculate optimal canvas size
 
+num%: scales the optimal size by given percent
+
 WIDTHxHEIGHT: set to given size
 
-=item B<--crop=AUTO|left,right,top,bottom>
+=item B<--crop=AUTO|AUTOHDR|left,right,top,bottom>
 
 Sets the crop rectangle
 
 AUTO: autocrop panorama
 
+AUTOHDR: autocrop HDR panorama
+
 left,right,top,bottom: to given size
+
+=item B<--output-exposure=AUTO|num>
+
+Sets the output exposure value to the mean exposure (AUTO) or to given value
+
+=item B<--output-type=str>
+
+Sets the type of output
+
+Valid items are (multiple items to be separated by a comma)
+
+NORMAL|N: normal panorama
+
+STACKSFUSEDBLENDED|BF: LDR panorama with blended stacks
+
+EXPOSURELAYERSFUSED|FB: LDR panorama with fused exposure layers (any arrangement)
+
+HDR: HDR panorama
+
+REMAP: remapped images with corrected exposure
+
+REMAPORIG: remapped images with uncorrected exposure
+
+HDRREMAP: remapped images in linear color space
+
+FUSEDSTACKS: exposure fused stacks
+
+HDRSTACKS: HDR stacks
+
+EXPOSURELAYERS: blended exposure layers
+
+=item B<--ldr-file=JPG|TIF|PNG>
+
+Sets the filetype for LDR panorama output
+
+=item B<--ldr-compression=str>
+
+Sets the compression for LDR panorama output
+
+For TIF: NONE|PACKBITS|LZW|DEFLATE
+
+For JPG: quality as number
+
+=item B<--hdr-file=EXR|TIF>
+
+Sets the filetype for HDR panorama output
+
+=item B<--hdr-compression=str>
+
+Sets the compression for HDR panorama output
+
+For TIF: NONE|PACKBITS|LZW|DEFLATE
 
 =item B<--rotate=yaw,pitch,roll>
 
