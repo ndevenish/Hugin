@@ -43,7 +43,7 @@ Sets the crop of input images (especially for fisheye lenses)
 
 =item B<-s|--stacklength> I<num>
 
-Number of images in stack (default: 1, no stacks)
+Number of images in stack (default: automatic detection)
 
 =item B<-l|--linkstacks>
 
