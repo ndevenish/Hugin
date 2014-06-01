@@ -30,6 +30,7 @@
 #include "StandardImageVariableGroups.h"
 #include <panotools/PanoToolsInterface.h>
 #include <algorithms/basic/CalculateOverlap.h>
+#include <algorithms/basic/LayerStacks.h>
 #include <panodata/OptimizerSwitches.h>
 
 #include <fstream>
@@ -2065,18 +2066,10 @@ const bool Panorama::hasPossibleStacks() const
     {
         return false;
     }
-    //if image is shooted in auto exposure mode then it is not a bracket pano
-    if (state.images[0]->getExifExposureMode() == 0)
-    {
-        return false;
-    }
-    //now collect all unique exposure values
-    std::set<int> evValues;
-    for (size_t i = 0; i < state.images.size(); i++)
-    {
-        //we multiply with 10 to don't get fooled by rounded double values
-        evValues.insert(int(state.images[i]->getExposureValue() * 10));
-    };
+    //now get all exposure layers
+    UIntSet allImg;
+    fill_set(allImg, 0, state.images.size() - 1);
+    UIntSetVector evValues = getExposureLayers(*this, allImg, 0.3);
     //if there is only one unique exposure value then there are no stacks
     if (evValues.size()<2)
     {
@@ -2094,7 +2087,7 @@ const bool Panorama::hasPossibleStacks() const
         return false;
     }
     //check if exposure value is repeated with step size of bracket size
-    if (abs(state.images[0]->getExposureValue() - state.images[evValues.size()]->getExposureValue())<0.1)
+    if (set_contains(evValues[0], evValues.size()))
     {
         return true;
     }
@@ -2102,7 +2095,6 @@ const bool Panorama::hasPossibleStacks() const
     {
         return false;
     };
-
 };
 
 /** create automatically stacks as indicated by metadata */
@@ -2133,14 +2125,19 @@ void Panorama::linkPossibleStacks(bool linkPosition)
         };
     };
     // now link all possible stacks
+    UIntSet allImg;
+    fill_set(allImg, 0, state.images.size() - 1);
+    UIntSetVector evValues = getExposureLayers(*this, allImg, 0.3);
+    if (evValues.empty())
+    {
+        return;
+    };
     unsigned int imgNr = 0;
-    double ev = state.images[imgNr]->getExposureValue();
     for (size_t i = 1; i<state.images.size(); i++)
     {
-        if (abs(state.images[i]->getExposureValue() - ev)<0.1)
+        if (set_contains(evValues[0], i))
         {
             imgNr = i;
-            ev = state.images[imgNr]->getExposureValue();
         }
         else
         {
@@ -2158,7 +2155,6 @@ void Panorama::linkPossibleStacks(bool linkPosition)
             };
         };
     };
-
 };
 
 PanoramaMemento::PanoramaMemento(const PanoramaMemento & data)

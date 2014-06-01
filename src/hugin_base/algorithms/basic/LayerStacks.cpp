@@ -45,15 +45,16 @@ vector<UIntSet> getHDRStacks(const PanoramaData & pano, UIntSet allImgs, Panoram
 
     CalculateImageOverlap overlap(&pano);
     overlap.calculate(10);  // we are testing 10*10=100 points
-    do {
+    do
+	{
         unsigned srcImg = *(allImgs.begin());
         stack.insert(srcImg);
         allImgs.erase(srcImg);
 
         // find all images that have a suitable overlap.
-        for (UIntSet::iterator it = allImgs.begin(); it !=  allImgs.end(); ) {
-            unsigned srcImg2 = *it;
-            ++it;
+        for (UIntSet::iterator it = allImgs.begin(); it !=  allImgs.end(); ++it)
+        {
+            const unsigned srcImg2 = *it;
             if(overlap.getOverlap(srcImg,srcImg2)>opts.outputStacksMinOverlap)
             {
                 stack.insert(srcImg2);
@@ -69,6 +70,11 @@ vector<UIntSet> getHDRStacks(const PanoramaData & pano, UIntSet allImgs, Panoram
 
 vector<UIntSet> getExposureLayers(const PanoramaData & pano, UIntSet allImgs, PanoramaOptions opts)
 {
+    return getExposureLayers(pano, allImgs, opts.outputLayersExposureDiff);
+};
+
+std::vector<UIntSet> getExposureLayers(const PanoramaData & pano, UIntSet allImgs, const double maxEVDiff)
+{
     vector<UIntSet> result;
 
     // if no images are available, return empty result vector
@@ -79,17 +85,17 @@ vector<UIntSet> getExposureLayers(const PanoramaData & pano, UIntSet allImgs, Pa
 
     UIntSet stack;
 
-    do {
+    do
+    {
         unsigned srcImg = *(allImgs.begin());
         stack.insert(srcImg);
         allImgs.erase(srcImg);
 
-        // find all images that have a suitable overlap.
+        // find all images that have a similar exposure values.
         SrcPanoImage simg = pano.getSrcImage(srcImg);
-        double maxEVDiff = opts.outputLayersExposureDiff;
-        for (UIntSet::iterator it = allImgs.begin(); it !=  allImgs.end(); ) {
-            unsigned srcImg2 = *it;
-            ++it;
+        for (UIntSet::iterator it = allImgs.begin(); it !=  allImgs.end(); ++it)
+        {
+            const unsigned srcImg2 = *it;
             SrcPanoImage simg2 = pano.getSrcImage(srcImg2);
             if ( fabs(simg.getExposureValue() - simg2.getExposureValue()) < maxEVDiff )
             {
