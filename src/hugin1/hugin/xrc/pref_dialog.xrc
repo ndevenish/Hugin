@@ -1349,6 +1349,28 @@ Do not set -w, -o and --compression arguments, they are set by hugin</label>
                   <flag>wxALL|wxEXPAND</flag>
                   <border>5</border>
                 </object>
+                <object class="sizeritem">
+                  <object class="wxStaticBoxSizer">
+                    <label>Warnings</label>
+                    <orient>wxVERTICAL</orient>
+                    <object class="sizeritem">
+                      <object class="wxCheckBox" name="prefs_warning_save">
+                        <label>Show message about saving project file and output prefix</label>
+                      </object>
+                      <flag>wxALL</flag>
+                      <border>5</border>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxCheckBox" name="prefs_warning_exposure">
+                        <label>Show warning about big exposure difference when adding images</label>
+                      </object>
+                      <flag>wxALL</flag>
+                      <border>5</border>
+                    </object>
+                  </object>
+                  <flag>wxALL|wxEXPAND</flag>
+                  <border>5</border>
+                </object>
               </object>
             </object>
             <label>Misc</label>
