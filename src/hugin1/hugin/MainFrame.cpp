@@ -1437,7 +1437,7 @@ void MainFrame::OnMergeProject(wxCommandEvent & e)
     wxFileDialog dlg(wxTheApp->GetTopWindow(),
                      _("Open project file"),
                      defaultdir, wxT(""),
-                     _("Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files (*)|*"),
+                     _("Project files (*.pto)|*.pto|All files (*)|*"),
                      wxFD_OPEN, wxDefaultPosition);
     dlg.SetDirectory(defaultdir);
     if (dlg.ShowModal() == wxID_OK)
@@ -1482,7 +1482,7 @@ void MainFrame::OnApplyTemplate(wxCommandEvent & e)
     wxFileDialog dlg(wxTheApp->GetTopWindow(),
                      _("Choose template project"),
                      config->Read(wxT("/templatePath"),wxT("")), wxT(""),
-                     _("Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files (*)|*"),
+                     _("Project files (*.pto)|*.pto|All files (*)|*"),
                      wxFD_OPEN, wxDefaultPosition);
     dlg.SetDirectory(wxConfigBase::Get()->Read(wxT("/templatePath"),wxT("")));
     if (dlg.ShowModal() == wxID_OK) {

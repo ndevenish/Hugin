@@ -630,7 +630,7 @@ bool Batch::OnStitch(wxString scriptFile, wxString outname, int id)
         wxFileDialog dlg(0,
                          _("Specify project source project file"),
                          defaultdir, wxT(""),
-                         _("Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files (*)|*"),
+                         _("Project files (*.pto)|*.pto|All files (*)|*"),
                          wxFD_OPEN, wxDefaultPosition);
 
         dlg.SetDirectory(wxConfigBase::Get()->Read(wxT("/actualPath"),wxT("")));

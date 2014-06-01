@@ -382,7 +382,7 @@ void BatchFrame::OnButtonAddToStitchingQueue(wxCommandEvent& event)
     wxFileDialog dlg(0,
                      _("Specify project source file(s)"),
                      defaultdir, wxT(""),
-                     _("Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files (*)|*"),
+                     _("Project files (*.pto)|*.pto|All files (*)|*"),
                      wxFD_OPEN | wxFD_MULTIPLE, wxDefaultPosition);
     dlg.SetDirectory(defaultdir);
 
@@ -410,7 +410,7 @@ void BatchFrame::OnButtonAddToAssistantQueue(wxCommandEvent& event)
     wxFileDialog dlg(0,
                      _("Specify project source file(s)"),
                      defaultdir, wxT(""),
-                     _("Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files (*)|*"),
+                     _("Project files (*.pto)|*.pto|All files (*)|*"),
                      wxFD_OPEN | wxFD_MULTIPLE, wxDefaultPosition);
     dlg.SetDirectory(defaultdir);
 
