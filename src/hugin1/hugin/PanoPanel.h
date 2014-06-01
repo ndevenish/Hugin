@@ -166,6 +166,8 @@ public:
     bool CheckGoodSize();
     /** check if the output contains images at all */
     bool CheckHasImages();
+    /** check if there is enough free disk space */
+    bool CheckFreeSpace(const wxString& folder);
 
     // the model
     Panorama * pano;

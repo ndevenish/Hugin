@@ -1095,6 +1095,11 @@ void PanoPanel::DoStitch()
         };
         prefix = dlg.GetPath();
     };
+    // check free space
+    if (!CheckFreeSpace(prefix.GetPath()))
+    {
+        return;
+    };
 
     wxString switches(wxT(" --delete -o "));
     if(wxConfigBase::Get()->Read(wxT("/Processor/overwrite"), HUGIN_PROCESSOR_OVERWRITE) == 1)
@@ -1213,6 +1218,11 @@ void PanoPanel::DoSendToBatch()
                 return;
             };
             prefix = dlg.GetPath();
+        };
+        // check free space
+        if (!CheckFreeSpace(prefix.GetPath()))
+        {
+            return;
         };
 
 #if defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE
@@ -1490,7 +1500,12 @@ bool PanoPanel::CheckGoodSize()
                 break;
             default:
                 // bring the user towards the approptiate controls.
-                MainFrame::Get()->ShowStitcherTab();
+                MainFrame* mainframe = MainFrame::Get();
+                if (!mainframe->IsShown())
+                {
+                    mainframe->Show();
+                }
+                mainframe->ShowStitcherTab();
                 return false;
         }
     }
@@ -1512,6 +1527,50 @@ bool PanoPanel::CheckHasImages()
             wxOK | wxICON_INFORMATION);
     };
     return images.size()>0;
+};
+
+bool PanoPanel::CheckFreeSpace(const wxString& folder)
+{
+    wxLongLong freeSpace;
+    if (wxGetDiskSpace(folder, NULL, &freeSpace))
+    {
+        // 4 channels, 16 bit per channel, assuming the we need the 10 fold space for all temporary space
+        if (pano->getOptions().getROI().area() * 80 > freeSpace)
+        {
+#if wxCHECK_VERSION(2,9,0)
+            wxMessageDialog dialog(this,
+                wxString::Format(_("The folder \"%s\" has only %.1f MiB free. This is not enough for stitching the current panorama. Decrease the output size or select another output folder.\nAre you sure that you still want to stitch it?"), folder.c_str(), freeSpace / 1048576.0f),
+#ifdef _WINDOWS
+                _("Hugin"),
+#else
+                wxT(""),
+#endif
+                wxICON_EXCLAMATION | wxYES_NO);
+            dialog.SetYesNoLabels(_("Stitch anyway"), _("Let me fix that"));
+#else // replacement for old wxWidgets versions.
+            wxMessageDialog dialog(this,
+                wxString::Format(_("The folder \"%s\" has only %.1f MiB free. This is not enough for stitching the current panorama. Decrease the output size or select another output folder.\nAre you sure that you still want to stitch it?"), folder.c_str(), freeSpace / 1048576.0f),
+#ifdef _WINDOWS
+                _("Hugin"),
+#else
+                wxT(""),
+#endif
+                wxICON_EXCLAMATION | wxYES_NO);
+#endif
+            if (dialog.ShowModal() == wxID_NO)
+            {
+                // bring the user towards the approptiate controls.
+                MainFrame* mainframe = MainFrame::Get();
+                if (!mainframe->IsShown())
+                {
+                    mainframe->Show();
+                }
+                mainframe->ShowStitcherTab();
+                return false;
+            };
+        };
+    };
+    return true;
 };
 
 void PanoPanel::SetGuiLevel(GuiLevel newGuiLevel)
