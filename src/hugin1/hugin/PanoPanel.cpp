@@ -1079,6 +1079,22 @@ void PanoPanel::DoStitch()
         if(dlg.ShowModal()!=wxID_OK)
             return;
     };
+    wxFileName prefix(dlg.GetPath());
+    while (!prefix.IsDirWritable())
+    {
+        wxMessageBox(wxString::Format(_("You have no permissions to write in folder \"%s\".\nPlease select another folder for the final output."), prefix.GetPath().c_str()),
+#ifdef __WXMSW__
+            wxT("Hugin"),
+#else
+            wxT(""),
+#endif
+            wxOK | wxICON_INFORMATION);
+        if (dlg.ShowModal() != wxID_OK)
+        {
+            return;
+        };
+        prefix = dlg.GetPath();
+    };
 
     wxString switches(wxT(" --delete -o "));
     if(wxConfigBase::Get()->Read(wxT("/Processor/overwrite"), HUGIN_PROCESSOR_OVERWRITE) == 1)
@@ -1181,6 +1197,22 @@ void PanoPanel::DoSendToBatch()
             ShowFilenameWarning(this, list);
             if(dlg.ShowModal()!=wxID_OK)
                 return;
+        };
+        wxFileName prefix(dlg.GetPath());
+        while (!prefix.IsDirWritable())
+        {
+            wxMessageBox(wxString::Format(_("You have no permissions to write in folder \"%s\".\nPlease select another folder for the final output."), prefix.GetPath().c_str()),
+#ifdef __WXMSW__
+                wxT("Hugin"),
+#else
+                wxT(""),
+#endif
+                wxOK | wxICON_INFORMATION);
+            if (dlg.ShowModal() != wxID_OK)
+            {
+                return;
+            };
+            prefix = dlg.GetPath();
         };
 
 #if defined __WXMAC__ && defined MAC_SELF_CONTAINED_BUNDLE

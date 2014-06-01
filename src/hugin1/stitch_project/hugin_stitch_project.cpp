@@ -412,6 +412,23 @@ bool stitchApp::OnInit()
                 if(dlg.ShowModal()!=wxID_OK)
                     return false;
             };
+            wxFileName prefix(dlg.GetPath());
+            while (!prefix.IsDirWritable())
+            {
+                wxMessageBox(wxString::Format(_("You have no permissions to write in folder \"%s\".\nPlease select another folder for the final output."), prefix.GetPath().c_str()),
+#ifdef __WXMSW__
+                    wxT("Hugin_stitch_project"),
+#else
+                    wxT(""),
+#endif
+                    wxOK | wxICON_INFORMATION);
+                if (dlg.ShowModal() != wxID_OK)
+                {
+                    return false;
+                };
+                prefix = dlg.GetPath();
+            };
+
             wxConfig::Get()->Write(wxT("/actualPath"), dlg.GetDirectory());  // remember for later
             outname = dlg.GetPath();
         } else { // bail

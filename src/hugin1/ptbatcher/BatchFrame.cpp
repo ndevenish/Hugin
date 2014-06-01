@@ -506,6 +506,23 @@ void BatchFrame::OnButtonChangePrefix(wxCommandEvent& event)
                         return;
                     }
                 };
+                wxFileName prefix(dlg.GetPath());
+                while (!prefix.IsDirWritable())
+                {
+                    wxMessageBox(wxString::Format(_("You have no permissions to write in folder \"%s\".\nPlease select another folder for the final output."), prefix.GetPath().c_str()),
+#ifdef __WXMSW__
+                        wxT("PTBatcherGUI"),
+#else
+                        wxT(""),
+#endif
+                        wxOK | wxICON_INFORMATION);
+                    if (dlg.ShowModal() != wxID_OK)
+                    {
+                        return;
+                    };
+                    prefix = dlg.GetPath();
+                };
+
                 wxString outname(dlg.GetPath());
                 ChangePrefix(selIndex,outname);
                 //SetStatusText(_T("Changed prefix for "+projListBox->GetSelectedProject()));
