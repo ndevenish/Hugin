@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hugin\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
-"POT-Creation-Date: 2014-05-18 12:43+0200\n"
+"POT-Creation-Date: 2014-06-01 18:30+0200\n"
 "PO-Revision-Date: 2013-03-24 18:40+0100\n"
 "Last-Translator: Kornel Benko <kornel@lyx.org>\n"
 "Language-Team: Slovak <sk@li.org>\n"
@@ -827,14 +827,6 @@ msgstr "Nie je možné spracovať udalosť!"
 #: hugin1/hugin/CPListFrame.cpp:303 hugin1/hugin/CPListFrame.cpp:313
 msgid "Left Img."
 msgstr "Ľavý Obr."
-
-#: hugin1/hugin/CPListFrame.cpp:304 hugin1/hugin/CPListFrame.cpp:307
-msgid "x"
-msgstr "x"
-
-#: hugin1/hugin/CPListFrame.cpp:305 hugin1/hugin/CPListFrame.cpp:308
-msgid "y"
-msgstr "y"
 
 #: hugin1/hugin/CPListFrame.cpp:306 hugin1/hugin/CPListFrame.cpp:314
 msgid "Right Img."
@@ -2049,17 +2041,6 @@ msgstr "Chyba pri otváraní projektu:   "
 msgid "Open project file"
 msgstr "Otvoriť súbor s projektom"
 
-#: hugin1/hugin/MainFrame.cpp:1000 hugin1/hugin/MainFrame.cpp:1440
-#: hugin1/hugin/MainFrame.cpp:1485 hugin1/ptbatcher/Batch.cpp:591
-#: hugin1/ptbatcher/BatchFrame.cpp:381 hugin1/ptbatcher/BatchFrame.cpp:409
-#: hugin1/stitch_project/hugin_stitch_project.cpp:378
-msgid ""
-"Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All files "
-"(*)|*"
-msgstr ""
-"Súbory projektu (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|Všetky "
-"súbory (*)|*"
-
 #: hugin1/hugin/MainFrame.cpp:1008
 #, c-format
 msgid ""
@@ -2771,6 +2752,17 @@ msgstr "Nemožno vytvoriť dočasný projektový súbor"
 msgid "Specify output prefix"
 msgstr "Vyberte predponu pre výstup"
 
+#: hugin1/hugin/PanoPanel.cpp:1085 hugin1/hugin/PanoPanel.cpp:1209
+#: hugin1/ptbatcher/BatchFrame.cpp:512
+#: hugin1/stitch_project/hugin_stitch_project.cpp:418
+#, c-format
+msgid ""
+"You have no permissions to write in folder \"%s\".\n"
+"Please select another folder for the final output."
+msgstr ""
+"Nemáte povolenie písať do adresára \"%s\".\n"
+"Vyberte prosím iný adresár na finálny výstup."
+
 #: hugin1/hugin/PanoPanel.cpp:1403
 msgid "Are you sure you want to stitch such a large panorama?"
 msgstr "Určite chcete zošiť takú veľkú panorámu?"
@@ -2817,6 +2809,18 @@ msgstr ""
 "Vo výstupnej oblasti nie sú žiadne aktívne obrázky.\n"
 "Skontrolujte vaše nastavenia, tak aby aspoň jeden obrázok bol vo výstupnej "
 "oblasti."
+
+#: hugin1/hugin/PanoPanel.cpp:1542 hugin1/hugin/PanoPanel.cpp:1552
+#, c-format
+msgid ""
+"The folder \"%s\" has only %.1f MiB free. This is not enough for stitching "
+"the current panorama. Decrease the output size or select another output "
+"folder.\n"
+"Are you sure that you still want to stitch it?"
+msgstr ""
+"Adresár \"%s\" má voľných len %.1f MB. To nie je dosť na lepenie súčasnej "
+"panorámy. Znížte veľkost výstupu alebo zvoľte iný adresár na výstup.\n"
+"Iste to chcete ešte stále lepiť?"
 
 #: hugin1/hugin/PluginItems.cpp:71
 msgid "Miscellaneous"
@@ -3123,6 +3127,57 @@ msgstr ""
 msgid "Unsupported image file format"
 msgstr "Nepodporovaný súborový formát obrázku"
 
+#: hugin1/hugin/wxPanoCommand.cpp:434
+msgid ""
+"Hugin has image stacks detected in the added images and will assign "
+"corresponding stack numbers to the images."
+msgstr ""
+"Hugin má štósy obrázkov objavené v pridaných obrázkoch a priradí im "
+"príslušné číslo štósu."
+
+#: hugin1/hugin/wxPanoCommand.cpp:438
+msgid ""
+"Hugin has image stacks detected in the whole project. Stack numbers will be "
+"re-assigned on base of this detection. Existing stack assignments will be "
+"overwritten."
+msgstr ""
+"Hugin má štósy obrázkov objavené v celkovom projekte. Čísla štósov budú "
+"priradené na základe tejto detekcie. Existujúce číslovanie štósov sa zmení."
+
+#: hugin1/hugin/wxPanoCommand.cpp:442 hugin1/hugin/wxPanoCommand.cpp:463
+msgid "Should the position of images in each stack be linked?"
+msgstr "Mali by sa spojiť pozície v každom štóse obrázkov?"
+
+#: hugin1/hugin/wxPanoCommand.cpp:450 hugin1/hugin/xrc/main_frame.xrc:215
+msgid ""
+"When shooting bracketed image stacks from a sturdy tripod the position of "
+"the images in each stack can be linked to help Hugin to process the "
+"panorama. But if the images in each stack require a fine tune of the "
+"position (e. g. when shooting hand held), then don't link the position."
+msgstr ""
+"Pri fotografovaní skupinovaných štósov z pevného stojana sa pozície v každom "
+"štóse môžu spojiť. To pomáha Huginovi spracovať panorámu. Nespájajte keď "
+"štósy potrebujú jemné ladenie pozície (napr. keď sa fotografuje z ruky)."
+
+#: hugin1/hugin/wxPanoCommand.cpp:453 hugin1/hugin/wxPanoCommand.cpp:457
+#: hugin1/hugin/xrc/main_frame.xrc:236
+msgid "Link position"
+msgstr "Spojiť pozíciu"
+
+#: hugin1/hugin/wxPanoCommand.cpp:453 hugin1/hugin/wxPanoCommand.cpp:457
+#: hugin1/hugin/xrc/main_frame.xrc:242
+msgid "Don't link position"
+msgstr "Nespájať pozíciu"
+
+#: hugin1/hugin/wxPanoCommand.cpp:453 hugin1/hugin/wxPanoCommand.cpp:470
+#: hugin1/hugin/xrc/main_frame.xrc:247
+msgid "Don't assign stacks"
+msgstr "Nepriraďovať štósy"
+
+#: hugin1/hugin/wxPanoCommand.cpp:457 hugin1/hugin/wxPanoCommand.cpp:474
+msgid "Keep existing stacks"
+msgstr "Držať existujúce štósy"
+
 #: hugin1/hugin/wxPanoCommand.cpp:471
 #, c-format
 msgid ""
@@ -3382,6 +3437,22 @@ msgstr "Spúšťam vypínanie..."
 msgid "Shutting down..."
 msgstr "Vypínam..."
 
+#: hugin1/ptbatcher/Batch.cpp:562
+msgid "Prepare to hibernate..."
+msgstr "Príprava na prezimovanie..."
+
+#: hugin1/ptbatcher/Batch.cpp:563
+msgid "Initializing hibernating..."
+msgstr "Inicializácia prezimovania..."
+
+#: hugin1/ptbatcher/Batch.cpp:566
+msgid "Prepare to suspend..."
+msgstr "Príprava na prerušenie..."
+
+#: hugin1/ptbatcher/Batch.cpp:567
+msgid "Initializing suspend mode..."
+msgstr "Inicializácia stavu prerušenia..."
+
 #: hugin1/ptbatcher/Batch.cpp:589
 #: hugin1/stitch_project/hugin_stitch_project.cpp:376
 msgid "Specify project source project file"
@@ -3591,6 +3662,14 @@ msgstr "Zadajte súbor, do ktorého chcete uložiť dávkovú úlohu"
 #: hugin1/ptbatcher/BatchFrame.cpp:849
 msgid "Batch file (*.ptb)|*.ptb;|All files (*)|*"
 msgstr "Súbor dávky (*.ptb)|*.ptb|Všetky súbory (*)|*"
+
+#: hugin1/ptbatcher/BatchFrame.cpp:1034
+msgid "Sorry. But this system does not support the hibernate mode."
+msgstr "Ľutujem. Ale tento systém nepodporuje stav prezimovania."
+
+#: hugin1/ptbatcher/BatchFrame.cpp:1044
+msgid "Sorry. But this system does not support the suspend mode."
+msgstr "Ľutujem. Ale tento systém nepodporuje stav prerušenia."
 
 #: hugin1/ptbatcher/BatchFrame.cpp:1120
 msgid "Starting batch"
@@ -3957,13 +4036,29 @@ msgstr "Automaticky lepiť po dokončení asistenta"
 msgid "Automatically stitch projects after (successfully) running assistant."
 msgstr "Automaticky lepiť po (úspešnom) behu asistenta."
 
-#: translations/xrc.cpp:27
-msgid "Shutdown when done"
-msgstr "Vypnúť po skončení"
+#: hugin1/hugin/xrc/batch_frame.xrc:107
+msgid "When done"
+msgstr "Keď bude hotové"
 
-#: translations/xrc.cpp:28
-msgid "Shutdown computer if all tasks are finished"
-msgstr "Vypnúť počítač po dokončení všetkých úloh"
+#: hugin1/hugin/xrc/batch_frame.xrc:114
+msgid "Do nothing"
+msgstr "Nič nerobiť"
+
+#: hugin1/hugin/xrc/batch_frame.xrc:115
+msgid "Close PTBatcherGUI"
+msgstr "Zavrieť PTBatcherGUI"
+
+#: hugin1/hugin/xrc/batch_frame.xrc:116
+msgid "Shutdown computer"
+msgstr "Vypnúť počítač"
+
+#: hugin1/hugin/xrc/batch_frame.xrc:117
+msgid "Suspend computer"
+msgstr "Prerušiť počítač"
+
+#: hugin1/hugin/xrc/batch_frame.xrc:118
+msgid "Hibernate computer"
+msgstr "Prezimovať počítač"
 
 #: translations/xrc.cpp:29
 msgid "Verbose output"
@@ -4916,6 +5011,18 @@ msgstr "Áno"
 #: translations/xrc.cpp:341
 msgid "No"
 msgstr "Nie"
+
+#: hugin1/hugin/xrc/main_frame.xrc:141
+msgid ""
+"The project covers a big brightness range, but Hugin could not automatically "
+"detect any stacks.\n"
+"Consider assigning stacks manually in the panorama editor to help Hugin to "
+"process the panorama."
+msgstr ""
+"Projekt pokrýva veľký rozsah jasu, ale Hugin nedokázal nájsť ani jeden "
+"štós.\n"
+"Uvážte ustanoviť štósy manuálne v editore panorámy na pomoc Huginovho "
+"spracovania panorámy."
 
 #: translations/xrc.cpp:343 translations/xrc.cpp:1006
 msgid "&Undo"
@@ -5871,6 +5978,15 @@ msgstr "Nepýtať sa znova"
 msgid "Ok"
 msgstr "Ok"
 
+#: hugin1/hugin/xrc/main_frame.xrc:203
+msgid ""
+"Hugin has image stacks detected in the added images and will assign "
+"corresponding stack numbers to the images. Should the position of images in "
+"each stack be linked?"
+msgstr ""
+"Hugin má štósy obrázkov objavené v pridaných obrázkoch a priradí im "
+"príslušné číslo štósu. Mali by byť pozície obrázkov v štóse spojené?"
+
 #: translations/xrc.cpp:639
 msgid "Size and file format"
 msgstr "Veľkosť a formát súboru"
@@ -6465,6 +6581,18 @@ msgstr "Počet bodov na obrázok: "
 msgid "Photometric optimizer"
 msgstr "Fotometrický optimalizátor"
 
+#: hugin1/hugin/xrc/pref_dialog.xrc:1354
+msgid "Warnings"
+msgstr "Varovania"
+
+#: hugin1/hugin/xrc/pref_dialog.xrc:1358
+msgid "Show message about saving project file and output prefix"
+msgstr "Ukázať správu o uložení projektového súboru a prefixu výstupu"
+
+#: hugin1/hugin/xrc/pref_dialog.xrc:1365
+msgid "Show warning about big exposure difference when adding images"
+msgstr "Ukázať varovanie o veľkom rozdieli expozície pri pridávaní obrázkov"
+
 #: translations/xrc.cpp:806
 msgid "Misc"
 msgstr "Ostatné"
@@ -7048,6 +7176,22 @@ msgstr ""
 "Optimalizácia všetkých parametrov skreslenia \"všetko\" má zmysel iba vtedy, "
 "ak sa obrázky veľmi prekrývajú a použili ste tiež mnoho dobre rozprestrených "
 "kontrolných bodov."
+
+#~ msgid "x"
+#~ msgstr "x"
+
+#~ msgid "y"
+#~ msgstr "y"
+
+#~ msgid ""
+#~ "Project files (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|All "
+#~ "files (*)|*"
+#~ msgstr ""
+#~ "Súbory projektu (*.pto,*.ptp,*.pts,*.oto)|*.pto;*.ptp;*.pts;*.oto;|Všetky "
+#~ "súbory (*)|*"
+
+#~ msgid "Shutdown computer if all tasks are finished"
+#~ msgstr "Vypnúť počítač po dokončení všetkých úloh"
 
 #~ msgid "stack size"
 #~ msgstr "Veľkosť štósu"
@@ -9003,3 +9147,6 @@ msgstr ""
 
 #~ msgid "Images per stack"
 #~ msgstr "Počet obrázkov na štós"
+
+#~ msgid "Shutdown when done"
+#~ msgstr "Vypnúť po skončení"
