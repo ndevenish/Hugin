@@ -114,9 +114,139 @@
               </object>
             </object>
           </object>
-          
-          
           <orient>wxHORIZONTAL</orient>
+        </object>
+        <flag>wxALL|wxEXPAND</flag>
+        <border>6</border>
+      </object>
+    </object>
+    <title>Hugin</title>
+    <style>wxDEFAULT_DIALOG_STYLE|wxCAPTION|wxSTAY_ON_TOP</style>
+  </object>
+  <object class="wxDialog" name="warning_exposure_dlg">
+    <object class="wxBoxSizer">
+      <orient>wxVERTICAL</orient>
+      <object class="sizeritem">
+        <object class="wxBoxSizer">
+          <object class="sizeritem">
+            <object class="wxStaticBitmap">
+              <bitmap stock_id="wxART_WARNING"/>
+            </object>
+            <flag>wxALL</flag>
+            <border>12</border>
+          </object>
+          <orient>wxHORIZONTAL</orient>
+          <object class="sizeritem">
+            <object class="wxStaticText">
+              <label>The project covers a big brightness range, but Hugin could not automatically detect any stacks.\nConsider assigning stacks manually in the panorama editor to help Hugin to process the panorama.</label>
+              <wrap>350</wrap>
+              <style>wxALIGN_LEFT</style>
+            </object>
+            <flag>wxALIGN_CENTRE_VERTICAL</flag>
+            <border>12</border>
+          </object>
+        </object>
+        <option>1</option>
+        <flag>wxALL|wxEXPAND</flag>
+        <border>12</border>
+      </object>
+      <object class="sizeritem">
+        <object class="wxBoxSizer">
+          <object class="sizeritem">
+            <object class="wxCheckBox" name="dont_show_again_checkbox">
+              <label>Don't show again</label>
+            </object>
+            <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+            <border>6</border>
+          </object>
+          <object class="spacer">
+            <option>1</option>
+            <flag>wxEXPAND</flag>
+          </object>
+          <object class="sizeritem">
+            <object class="wxStdDialogButtonSizer">
+              <orient>wxVERTICAL</orient>
+              <object class="button">
+                <object class="wxButton" name="wxID_OK">
+                  <label>Ok</label>
+                  <default>1</default>
+                </object>
+              </object>
+            </object>
+          </object>
+          <orient>wxHORIZONTAL</orient>
+        </object>
+        <flag>wxALL|wxEXPAND</flag>
+        <border>6</border>
+      </object>
+    </object>
+    <title>Hugin</title>
+    <style>wxDEFAULT_DIALOG_STYLE|wxCAPTION|wxSTAY_ON_TOP</style>
+  </object>
+  <object class="wxDialog" name="stack_detected_dlg">
+    <object class="wxBoxSizer">
+      <orient>wxVERTICAL</orient>
+      <object class="sizeritem">
+        <object class="wxBoxSizer">
+          <object class="sizeritem">
+            <object class="wxStaticBitmap">
+              <bitmap stock_id="wxART_WARNING"/>
+            </object>
+            <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
+            <border>12</border>
+          </object>
+          <object class="sizeritem">
+            <object class="wxBoxSizer">
+              <object class="sizeritem">
+                <object class="wxStaticText" name="stack_text1">
+                  <size>350,-1</size>
+                  <label>Hugin has image stacks detected in the added images and will assign corresponding stack numbers to the images. Should the position of images in each stack be linked?</label>
+                  <wrap>350</wrap>
+                  <font>
+                    <weight>bold</weight>
+                  </font>
+                  <style>wxALIGN_LEFT</style>
+                </object>
+                <flag>wxEXPAND</flag>
+              </object>
+              <object class="sizeritem">
+                <object class="wxStaticText" name="stack_text2">
+                  <size>350,-1</size>
+                  <label>When shooting bracketed image stacks from a sturdy tripod the position of the images in each stack can be linked to help Hugin to process the panorama. But if the images in each stack require a fine tune of the position (e. g. when shooting hand held), then don't link the position.</label>
+                  <wrap>350</wrap>
+                  <style>wxALIGN_LEFT</style>
+                </object>
+                <flag>wxTOP|wxEXPAND</flag>
+                <border>12</border>
+              </object>
+              <orient>wxVERTICAL</orient>
+            </object>
+            <flag>wxALIGN_CENTRE_VERTICAL</flag>
+          </object>
+          <orient>wxHORIZONTAL</orient>
+        </object>
+        <option>1</option>
+        <flag>wxALL|wxEXPAND</flag>
+        <border>12</border>
+      </object>
+      <object class="sizeritem">
+        <object class="wxStdDialogButtonSizer">
+          <object class="button">
+            <object class="wxButton" name="wxID_OK">
+              <label>Link position</label>
+              <default>1</default>
+            </object>
+          </object>
+          <object class="button">
+            <object class="wxButton" name="wxID_NO">
+              <label>Don't link position</label>
+            </object>
+          </object>
+          <object class="button">
+            <object class="wxButton" name="wxID_CANCEL">
+              <label>Don't assign stacks</label>
+            </object>
+          </object>
         </object>
         <flag>wxALL|wxEXPAND</flag>
         <border>6</border>
