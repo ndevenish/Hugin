@@ -33,7 +33,7 @@ ADD_CUSTOM_COMMAND(
   COMMENT "Building help file"
 )
 SET_SOURCE_FILES_PROPERTIES("${HELP_DIR}/hugin_help_en_EN.chm" GENERATED)
-ADD_CUSTOM_TARGET(help ALL DEPENDS ${HELPFILE2} ${HELP_DIR}/hugin_help_en_EN.chm )
+ADD_CUSTOM_TARGET(chmhelp ALL DEPENDS ${HELPFILE2} ${HELP_DIR}/hugin_help_en_EN.chm )
 
 INSTALL(FILES ${CMAKE_BINARY_DIR}/help/hugin_help_en_EN.chm DESTINATION ${HUGINDATADIR}/xrc/data/)
 
