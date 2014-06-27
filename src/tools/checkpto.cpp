@@ -37,6 +37,7 @@
 #include "hugin_base/panotools/PanoToolsUtils.h"
 #include "algorithms/basic/CalculateCPStatistics.h"
 #include "algorithms/basic/LayerStacks.h"
+#include <boost/algorithm/string.hpp>
 
 using namespace std;
 using namespace HuginBase;
@@ -58,6 +59,8 @@ static void usage(const char* name)
 #ifdef EXIFTOOL_GPANO_SUPPORT
          << "  --no-gpano              Don't include GPano tags in argfile" << endl
 #endif
+         << "  --append-argfile=file   Append the argfile to the generated argfile" << endl
+         << "                          spaceholders will be replaced with real values" << endl
          << endl
          << name << " is used by the assistant and by the stitching makefiles" << endl
          << endl;
@@ -86,15 +89,25 @@ void printImageGroup(const std::vector<HuginBase::UIntSet>& imageGroup)
     }
 };
 
-void GenerateArgfile(const std::string& filename, const Panorama& pano, bool noGPano)
+std::string GetStringFromValue(const double value, const int precision)
+{
+    std::stringstream valueStream;
+    valueStream.imbue(std::locale("C"));
+    valueStream << fixed;
+    valueStream << setprecision(precision) << value;
+    return valueStream.str();
+};
+
+void GenerateArgfile(const std::string& filename, const Panorama& pano, bool noGPano, const std::string& appendedArgfile)
 {
     pano_projection_features proj;
-    PanoramaOptions opts=pano.getOptions();
+    const PanoramaOptions &opts=pano.getOptions();
     bool readProjectionName=panoProjectionFeaturesQuery(opts.getProjection(), &proj)!=0;
 
     std::ofstream infostream(filename.c_str(), std::ofstream::out);
     infostream.imbue(std::locale("C"));
     infostream << fixed;
+    std::map<std::string, std::string> placeholders;
 #ifdef _WIN32
     std::string linebreak("&\\#xd;&\\#xa;");
 #else
@@ -105,10 +118,22 @@ void GenerateArgfile(const std::string& filename, const Panorama& pano, bool noG
     infostream << "-UserComment<${UserComment}" << linebreak;
     if(readProjectionName)
     {
+        placeholders.insert(std::make_pair("%projection", std::string(proj.name)));
+        placeholders.insert(std::make_pair("%projectionNumber", GetStringFromValue(opts.getProjection(), 0)));
         infostream << "Projection: " << proj.name << " (" << opts.getProjection() << ")" << linebreak;
     };
-    infostream << "FOV: " << setprecision(0) << opts.getHFOV() << " x " << setprecision(0) << opts.getVFOV() << linebreak;
-    infostream << "Ev: " << setprecision(2) << opts.outputExposureValue << std::endl;
+    // fill in some placeholders
+    placeholders.insert(std::make_pair("%hfov", GetStringFromValue(opts.getHFOV(), 0)));
+    placeholders.insert(std::make_pair("%vfov", GetStringFromValue(opts.getVFOV(), 0)));
+    placeholders.insert(std::make_pair("%ev", GetStringFromValue(opts.outputExposureValue, 2)));
+    placeholders.insert(std::make_pair("%nrImages", GetStringFromValue(pano.getActiveImages().size(), 0)));
+    placeholders.insert(std::make_pair("%nrAllImages", GetStringFromValue(pano.getNrOfImages(), 0)));
+    placeholders.insert(std::make_pair("%fullwidth", GetStringFromValue(opts.getWidth(), 0)));
+    placeholders.insert(std::make_pair("%fullheight", GetStringFromValue(opts.getHeight(), 0)));
+    placeholders.insert(std::make_pair("%width", GetStringFromValue(opts.getROI().width(), 0)));
+    placeholders.insert(std::make_pair("%height", GetStringFromValue(opts.getROI().height(), 0)));
+    infostream << "FOV: " << placeholders["%hfov"] << " x " << placeholders["%vfov"] << linebreak;
+    infostream << "Ev: " << placeholders["%ev"] << std::endl;
     infostream << "-f" << std::endl;
     if(!noGPano)
     {
@@ -145,6 +170,29 @@ void GenerateArgfile(const std::string& filename, const Panorama& pano, bool noG
             infostream << "-SourcePhotosCount=" << pano.getNrOfImages()  << std::endl;
         };
     };
+    if (!appendedArgfile.empty())
+    {
+        std::ifstream inputArgfile(appendedArgfile.c_str());
+        if (inputArgfile.is_open())
+        {
+            std::ostringstream contents;
+            contents << inputArgfile.rdbuf();
+            inputArgfile.close();
+            std::string s(contents.str());
+            // replace all placeholders
+            for (std::map<std::string, std::string>::const_iterator it = placeholders.begin(); it != placeholders.end(); ++it)
+            {
+                boost::algorithm::replace_all(s, it->first, it->second);
+            }
+            // now append to existing argfile
+            infostream << s << std::endl;
+        }
+        else
+        {
+            cerr << "ERROR: Could not open file \"" << appendedArgfile << "\"." << endl
+                << "       Ignoring content of file." << endl;
+        };
+    };
     infostream.close();
 };
 
@@ -159,6 +207,7 @@ int main(int argc, char* argv[])
 #if EXIFTOOL_GPANO_SUPPORT
         GENERATE_ARGFILE_WITHOUT_GPANO=1002,
 #endif
+        APPEND_ARGFILE=1003,
     };
     static struct option longOptions[] =
     {
@@ -167,6 +216,7 @@ int main(int argc, char* argv[])
 #ifdef EXIFTOOL_GPANO_SUPPORT
         {"no-gpano", no_argument, NULL, GENERATE_ARGFILE_WITHOUT_GPANO},
 #endif
+        {"append-argfile", required_argument, NULL, APPEND_ARGFILE},
         {"help", no_argument, NULL, 'h' },
         0
     };
@@ -179,6 +229,7 @@ int main(int argc, char* argv[])
     bool withoutGPano=true;
 #endif
     std::string argfile;
+    std::string appendedArgfile;
     int optionIndex = 0;
     while ((c = getopt_long (argc, argv, optstring, longOptions,&optionIndex)) != -1)
     {
@@ -198,6 +249,15 @@ int main(int argc, char* argv[])
                 withoutGPano=true;
                 break;
 #endif
+            case APPEND_ARGFILE:
+                appendedArgfile = optarg;
+                if (!hugin_utils::FileExists(appendedArgfile))
+                {
+                    std::cerr << "WARNING: File \"" << appendedArgfile << "\" not found." << endl
+                        << "         Ignoring parameter." << endl;
+                    appendedArgfile = "";
+                };
+                break;
             case '?':
                 break;
             default:
@@ -231,7 +291,7 @@ int main(int argc, char* argv[])
 
     if(!argfile.empty())
     {
-        GenerateArgfile(argfile, pano, withoutGPano);
+        GenerateArgfile(argfile, pano, withoutGPano, appendedArgfile);
         return 0;
     };
 

@@ -60,6 +60,7 @@ public:
         std::string smartblend_opts;
         std::string exiftool;
         std::string exiftool_argfile;
+        std::string exiftool_argfile_final;
         std::string checkpto;
 
         PTPrograms() :

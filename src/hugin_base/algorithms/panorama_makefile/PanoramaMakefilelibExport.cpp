@@ -304,6 +304,10 @@ bool PanoramaMakefilelibExport::createItems()
     //----------
     newVarDef(vexiftoolcopyargfile,
         "EXIFTOOL_COPY_ARGFILE", progs.exiftool_argfile, Makefile::SHELL);
+    newVarDef(vexiftoolfinalargfile,
+        "EXIFTOOL_FINAL_ARGFILE", progs.exiftool_argfile_final, Makefile::MAKE);
+    newVarDef(vexiftoolfinalargfileshell,
+        "EXIFTOOL_FINAL_ARGFILE_SHELL", progs.exiftool_argfile_final, Makefile::SHELL);
     // we are creating the argfile in the current directory, beside the images, here we have write access,
     // the project file could be in a read only directory
     std::string exiftoolinfoargfile=hugin_utils::stripPath(ptofile) + "_" + hugin_utils::stripPath(outputPrefix) + ".arg";
@@ -852,6 +856,10 @@ bool PanoramaMakefilelibExport::createItems()
         ruleinfoargfile->add();
         ruleinfoargfile->addTarget(vexiftoolinfoargfile);
         ruleinfoargfile->addPrereq(vprojectfile);
+        if (!progs.exiftool_argfile_final.empty())
+        {
+            ruleinfoargfile->addPrereq(vexiftoolfinalargfile);
+        };
         std::string switches;
 #ifdef EXIFTOOL_GPANO_SUPPORT
         if(!generateGPanoTags)
@@ -859,6 +867,10 @@ bool PanoramaMakefilelibExport::createItems()
             switches = " --no-gpano";
         };
 #endif
+        if (!progs.exiftool_argfile_final.empty())
+        {
+            switches += " --append-argfile=" + vexiftoolfinalargfileshell->getRef();
+        };
         switches += " --generate-argfile=";
         ruleinfoargfile->addCommand(vcheckpto->getRef() + switches + vexiftoolinfoargfileshell->getRef() + " " + vprojectfileshell->getRef());
     };

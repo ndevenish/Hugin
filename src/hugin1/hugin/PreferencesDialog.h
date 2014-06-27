@@ -65,6 +65,8 @@ protected:
     void OnExifTool(wxCommandEvent & e);
     void OnExifArgfile(wxCommandEvent & e);
     void OnExifArgfileEdit(wxCommandEvent & e);
+    void OnExifArgfile2(wxCommandEvent & e);
+    void OnExifArgfileEdit2(wxCommandEvent & e);
     void OnRestoreDefaults(wxCommandEvent & e);
     void OnCustomEnblend(wxCommandEvent & e);
     void OnCustomEnfuse(wxCommandEvent & e);

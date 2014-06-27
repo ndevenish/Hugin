@@ -192,6 +192,12 @@ PTPrograms getPTProgramsConfig(wxString bundledBinDir, wxConfigBase * config)
     } catch (wxString s) {
         wxMessageBox(s, _("Warning"));
     }
+    try {
+        progs.exiftool_argfile_final = config->Read(wxT("/output/FinalArgfile"), wxEmptyString).mb_str(wxConvLocal);
+    }
+    catch (wxString s) {
+        wxMessageBox(s, _("Warning"));
+    }
 
     // smartblend (never bundled)
     try {

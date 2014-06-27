@@ -65,6 +65,8 @@ BEGIN_EVENT_TABLE(PreferencesDialog, wxDialog)
     EVT_BUTTON(XRCID("prefs_enblend_enfuse_select"), PreferencesDialog::OnEnfuseExe)
     EVT_BUTTON(XRCID("pref_exiftool_argfile_choose"), PreferencesDialog::OnExifArgfile)
     EVT_BUTTON(XRCID("pref_exiftool_argfile_edit"), PreferencesDialog::OnExifArgfileEdit)
+    EVT_BUTTON(XRCID("pref_exiftool_argfile2_choose"), PreferencesDialog::OnExifArgfile2)
+    EVT_BUTTON(XRCID("pref_exiftool_argfile2_edit"), PreferencesDialog::OnExifArgfileEdit2)
     EVT_CHECKBOX(XRCID("pref_exiftool_metadata"), PreferencesDialog::OnExifTool)
     EVT_CHECKBOX(XRCID("prefs_ft_RotationSearch"), PreferencesDialog::OnRotationCheckBox)
     EVT_CHECKBOX(XRCID("prefs_enblend_Custom"), PreferencesDialog::OnCustomEnblend)
@@ -410,13 +412,87 @@ void PreferencesDialog::OnExifArgfileEdit(wxCommandEvent & e)
     };
 };
 
+void PreferencesDialog::OnExifArgfile2(wxCommandEvent & e)
+{
+    wxFileDialog dlg(this, _("Select ExifTool argfile"),
+        wxT(""), XRCCTRL(*this, "pref_exiftool_argfile2", wxTextCtrl)->GetValue(),
+        _("ExifTool Argfiles (*.arg)|*.arg|All Files(*)|*"),
+        wxFD_OPEN, wxDefaultPosition);
+    if (dlg.ShowModal() == wxID_OK)
+    {
+        XRCCTRL(*this, "pref_exiftool_argfile2", wxTextCtrl)->SetValue(
+            dlg.GetPath());
+    }
+}
+
+void PreferencesDialog::OnExifArgfileEdit2(wxCommandEvent & e)
+{
+    wxString filename = XRCCTRL(*this, "pref_exiftool_argfile2", wxTextCtrl)->GetValue();
+    if (!filename.empty())
+    {
+        if (!wxFileName::FileExists(filename))
+        {
+            if (wxMessageBox(wxString::Format(_("File %s does not exist.\nShould an empty argfile be created?"), filename.c_str()),
+                _("Exiftool argfile"), wxYES_NO | wxICON_EXCLAMATION, this) != wxYES)
+            {
+                return;
+            };
+            wxTextFile newFile(filename);
+            newFile.Create();
+            newFile.Write();
+            newFile.Close();
+        };
+    }
+    else
+    {
+        if (wxMessageBox(_("No file selected.\nShould an empty argfile be created?"),
+            _("Exiftool argfile"), wxYES_NO | wxICON_EXCLAMATION, this) != wxYES)
+        {
+            return;
+        };
+        wxFileDialog dlg(this, _("Select new ExifTool argfile"),
+            wxStandardPaths::Get().GetUserConfigDir(), wxT(""),
+            _("ExifTool Argfiles (*.arg)|*.arg|All Files(*)|*"),
+            wxFD_SAVE, wxDefaultPosition);
+        if (dlg.ShowModal() != wxID_OK)
+        {
+            return;
+        };
+        filename = dlg.GetPath();
+        wxTextFile newFile(filename);
+        newFile.Create();
+        newFile.Write();
+        newFile.Close();
+    };
+    XRCCTRL(*this, "pref_exiftool_argfile2", wxTextCtrl)->SetValue(filename);
+    wxDialog * edit_dlg = wxXmlResource::Get()->LoadDialog(this, wxT("pref_edit_argfile_placeholders"));
+    RestoreFramePosition(edit_dlg, wxT("EditArgfilePlaceholders"));
+    wxTextCtrl* argfileControl = XRCCTRL(*edit_dlg, "pref_edit_textcontrol", wxTextCtrl);
+    argfileControl->LoadFile(filename);
+    if (edit_dlg->ShowModal() == wxID_OK)
+    {
+        if (!argfileControl->SaveFile(filename))
+        {
+            wxMessageBox(wxString::Format(_("Could not save file \"%s\"."), filename.c_str()),
+                _("Error"), wxOK | wxICON_ERROR);
+        };
+        StoreFramePosition(edit_dlg, wxT("EditArgfilePlaceholders"));
+    };
+};
+
 void PreferencesDialog::OnExifTool(wxCommandEvent & e)
 {
     bool copyMetadata=XRCCTRL(*this, "pref_exiftool_metadata", wxCheckBox)->GetValue();
+    XRCCTRL(*this, "pref_exiftool_argfile_intermediate_label", wxStaticText)->Enable(copyMetadata);
     XRCCTRL(*this, "pref_exiftool_argfile_label", wxStaticText)->Enable(copyMetadata);
     XRCCTRL(*this, "pref_exiftool_argfile", wxTextCtrl)->Enable(copyMetadata);
     XRCCTRL(*this, "pref_exiftool_argfile_choose", wxButton)->Enable(copyMetadata);
     XRCCTRL(*this, "pref_exiftool_argfile_edit", wxButton)->Enable(copyMetadata);
+    XRCCTRL(*this, "pref_exiftool_argfile_final_label", wxStaticText)->Enable(copyMetadata);
+    XRCCTRL(*this, "pref_exiftool_argfile2_label", wxStaticText)->Enable(copyMetadata);
+    XRCCTRL(*this, "pref_exiftool_argfile2", wxTextCtrl)->Enable(copyMetadata);
+    XRCCTRL(*this, "pref_exiftool_argfile2_choose", wxButton)->Enable(copyMetadata);
+    XRCCTRL(*this, "pref_exiftool_argfile2_edit", wxButton)->Enable(copyMetadata);
     XRCCTRL(*this, "pref_exiftool_gpano", wxCheckBox)->Enable(copyMetadata);
 };
 
@@ -590,7 +666,7 @@ void PreferencesDialog::UpdateDisplayData(int panel)
         cpdetector_config_edit.FillControl(m_CPDetectorList,true,true);
     }
 
-    if (panel==0 || panel == 6)
+    if (panel == 0 || panel == 6)
     {
         /////
         /// DEFAULT OUTPUT FORMAT
@@ -613,10 +689,15 @@ void PreferencesDialog::UpdateDisplayData(int panel)
         t = cfg->Read(wxT("/Processor/verbose"), HUGIN_PROCESSOR_VERBOSE) == 1;
         MY_BOOL_VAL("pref_processor_verbose", t);
         UpdateProcessorControls();
+    }
 
+    if (panel == 0 || panel == 7)
+    {
+        // stitching (2) panel
         t = cfg->Read(wxT("/output/useExiftool"), HUGIN_USE_EXIFTOOL) == 1;
         MY_BOOL_VAL("pref_exiftool_metadata", t);
         MY_STR_VAL("pref_exiftool_argfile", cfg->Read(wxT("/output/CopyArgfile"), wxT("")));
+        MY_STR_VAL("pref_exiftool_argfile2", cfg->Read(wxT("/output/FinalArgfile"), wxT("")));
         t = cfg->Read(wxT("/output/writeGPano"), HUGIN_EXIFTOOL_CREATE_GPANO) == 1;
         MY_BOOL_VAL("pref_exiftool_gpano", t);
         wxCommandEvent dummy;
@@ -627,7 +708,7 @@ void PreferencesDialog::UpdateDisplayData(int panel)
 
     }
 
-    if (panel==0 || panel == 7)
+    if (panel==0 || panel == 8)
     {
 
         /////
@@ -662,7 +743,7 @@ void PreferencesDialog::UpdateDisplayData(int panel)
                    wxT(HUGIN_ENFUSE_ARGS)));
     }
 
-    if (panel==0 || panel == 8)
+    if (panel==0 || panel == 9)
     {
         // Celeste settings
         d=HUGIN_CELESTE_THRESHOLD;
@@ -773,13 +854,17 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent& e)
             cfg->Write(wxT("/Processor/parallel"), HUGIN_PROCESSOR_PARALLEL);
             cfg->Write(wxT("/Processor/overwrite"), HUGIN_PROCESSOR_OVERWRITE);
             cfg->Write(wxT("/Processor/verbose"), HUGIN_PROCESSOR_VERBOSE);
+        }
+        if (noteb->GetSelection() == 6)
+        {
             cfg->Write(wxT("/output/useExiftool"), HUGIN_USE_EXIFTOOL);
             cfg->Write(wxT("/output/CopyArgfile"), wxT(""));
+            cfg->Write(wxT("/output/FinalArgfile"), wxT(""));
             cfg->Write(wxT("/output/writeGPano"), HUGIN_EXIFTOOL_CREATE_GPANO);
             cfg->Write(wxT("/output/NumberOfThreads"), 0l);
 
         }
-        if (noteb->GetSelection() == 6)
+        if (noteb->GetSelection() == 7)
         {
             /// ENBLEND
             cfg->Write(wxT("/Enblend/Exe"), wxT(HUGIN_ENBLEND_EXE));
@@ -791,7 +876,7 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent& e)
             cfg->Write(wxT("/Enfuse/Args"), wxT(HUGIN_ENFUSE_ARGS));
         }
 
-        if (noteb->GetSelection() == 7)
+        if (noteb->GetSelection() == 8)
         {
             /// Celeste
             cfg->Write(wxT("/Celeste/Threshold"), HUGIN_CELESTE_THRESHOLD);
@@ -910,6 +995,7 @@ void PreferencesDialog::UpdateConfigData()
 
     cfg->Write(wxT("/output/useExiftool"), MY_G_BOOL_VAL("pref_exiftool_metadata"));
     cfg->Write(wxT("/output/CopyArgfile"), MY_G_STR_VAL("pref_exiftool_argfile"));
+    cfg->Write(wxT("/output/FinalArgfile"), MY_G_STR_VAL("pref_exiftool_argfile2"));
     cfg->Write(wxT("/output/writeGPano"), MY_G_BOOL_VAL("pref_exiftool_gpano"));
     cfg->Write(wxT("/output/NumberOfThreads"), MY_G_SPIN_VAL("prefs_output_NumberOfThreads"));
     /////

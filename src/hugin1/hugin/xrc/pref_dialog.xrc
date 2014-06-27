@@ -909,82 +909,166 @@ per overlap</label>
                   <flag>wxALL|wxEXPAND</flag>
                   <border>5</border>
                 </object>
+              </object>
+            </object>
+            <label>Stitching</label>
+          </object>
+          <object class="notebookpage">
+            <object class="wxPanel">
+              <object class="wxBoxSizer">
+                <orient>wxVERTICAL</orient>
                 <object class="sizeritem">
                   <object class="wxStaticBoxSizer">
-                    <label>Advanced options</label>
+                    <object class="sizeritem">
+                      <object class="wxCheckBox" name="pref_exiftool_metadata">
+                        <label>Copy metadata into final files using ExifTool</label>
+                      </object>
+                      <flag>wxALL|wxEXPAND</flag>
+                      <border>5</border>
+                    </object>
+                    <label>ExifTool options</label>
                     <orient>wxVERTICAL</orient>
                     <object class="sizeritem">
-                      <object class="wxStaticBoxSizer">
-                        <label>ExifTool options</label>
-                        <orient>wxVERTICAL</orient>
+                      <object class="wxBoxSizer">
+                        <orient>wxHORIZONTAL</orient>
+                        <object class="spacer">
+                          <size>25,-1</size>
+                        </object>
                         <object class="sizeritem">
-                          <object class="wxCheckBox" name="pref_exiftool_metadata">
-                            <label>Copy metadata into final files using ExifTool</label>
+                          <object class="wxStaticText" name="pref_exiftool_argfile_intermediate_label">
+                            <label>The following argfile will be used to copy tags from the first image to all intermediate images.\nPlaceholders will not be replaced.</label>
                           </object>
-                          <flag>wxALL|wxEXPAND</flag>
+                          <option>1</option>
+                          <flag>wxEXPAND</flag>
+                        </object>
+                      </object>
+                      <flag>wxALL|wxEXPAND</flag>
+                      <border>5</border>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxBoxSizer">
+                        <object class="spacer">
+                          <size>25,-1</size>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxStaticText" name="pref_exiftool_argfile_label">
+                            <label>Intermediate ExifTool argfile:</label>
+                          </object>
+                          <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxTextCtrl" name="pref_exiftool_argfile">
+                            <tooltip>Leave empty for default</tooltip>
+                          </object>
+                          <option>1</option>
+                          <flag>wxLEFT|wxRIGHT|wxEXPAND</flag>
                           <border>5</border>
                         </object>
                         <object class="sizeritem">
-                          <object class="wxBoxSizer">
-                            <object class="spacer">
-                              <size>25,-1</size>
-                            </object>
-                            <object class="sizeritem">
-                              <object class="wxStaticText" name="pref_exiftool_argfile_label">
-                                <label>ExifTool argfile:</label>
-                              </object>
-                              <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-                            </object>
-                            <object class="sizeritem">
-                              <object class="wxTextCtrl" name="pref_exiftool_argfile">
-                                <tooltip>Leave empty for default</tooltip>
-                              </object>
-                              <option>1</option>
-                              <flag>wxLEFT|wxRIGHT|wxEXPAND</flag>
-                              <border>5</border>
-                            </object>
-                            <object class="sizeritem">
-                              <object class="wxButton" name="pref_exiftool_argfile_choose">
-                                <label>Choose...</label>
-                                <tooltip>Select ExifTool argfile</tooltip>
-                              </object>
-                              <flag>wxALIGN_CENTRE_VERTICAL</flag>
-                            </object>
-                            <orient>wxHORIZONTAL</orient>
-                            <object class="sizeritem">
-                              <object class="wxButton" name="pref_exiftool_argfile_edit">
-                                <label>Edit...</label>
-                                <tooltip>Edit selected ExifTool argfile</tooltip>
-                              </object>
-                              <flag>wxLEFT</flag>
-                              <border>5</border>
-                            </object>
+                          <object class="wxButton" name="pref_exiftool_argfile_choose">
+                            <label>Choose...</label>
+                            <tooltip>Select ExifTool argfile</tooltip>
                           </object>
-                          <flag>wxALL|wxEXPAND</flag>
-                          <border>5</border>
+                          <flag>wxALIGN_CENTRE_VERTICAL</flag>
                         </object>
+                        <orient>wxHORIZONTAL</orient>
                         <object class="sizeritem">
-                          <object class="wxBoxSizer">
-                            <object class="spacer">
-                              <size>25,-1</size>
-                            </object>
-                            <orient>wxHORIZONTAL</orient>
-                            <object class="sizeritem">
-                              <object class="wxCheckBox" name="pref_exiftool_gpano">
-                                <label>Create Photo Sphere XMP data</label>
-                                <tooltip>This will only be done for equirectangular output images.</tooltip>
-                              </object>
-                              <flag>wxTOP|wxBOTTOM|wxEXPAND</flag>
-                              <border>5</border>
-                            </object>
+                          <object class="wxButton" name="pref_exiftool_argfile_edit">
+                            <label>Edit...</label>
+                            <tooltip>Edit selected ExifTool argfile</tooltip>
                           </object>
-                          <flag>wxALL|wxEXPAND</flag>
+                          <flag>wxLEFT</flag>
                           <border>5</border>
                         </object>
                       </object>
                       <flag>wxALL|wxEXPAND</flag>
                       <border>5</border>
                     </object>
+                    <object class="spacer">
+                      <size>-1,10</size>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxBoxSizer">
+                        <object class="spacer">
+                          <size>25,-1</size>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxStaticText" name="pref_exiftool_argfile_final_label">
+                            <label>The following argfile will be used to copy tags from the first image to the final panorma.\nIt is applied additional to the above argfile for the intermediate images.\nPlaceholders in this argfile will replaced before running exiftool.</label>
+                          </object>
+                          <option>1</option>
+                          <flag>wxEXPAND</flag>
+                        </object>
+                        <orient>wxHORIZONTAL</orient>
+                      </object>
+                      <flag>wxALL|wxEXPAND</flag>
+                      <border>5</border>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxBoxSizer">
+                        <object class="spacer">
+                          <size>25,-1</size>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxStaticText" name="pref_exiftool_argfile2_label">
+                            <label>Final ExifTool argfile:</label>
+                          </object>
+                          <flag>wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxTextCtrl" name="pref_exiftool_argfile2">
+                            <tooltip>Leave empty for default</tooltip>
+                          </object>
+                          <option>1</option>
+                          <flag>wxLEFT|wxRIGHT|wxEXPAND</flag>
+                          <border>5</border>
+                        </object>
+                        <object class="sizeritem">
+                          <object class="wxButton" name="pref_exiftool_argfile2_choose">
+                            <label>Choose...</label>
+                            <tooltip>Select ExifTool argfile</tooltip>
+                          </object>
+                          <flag>wxALIGN_CENTRE_VERTICAL</flag>
+                        </object>
+                        <orient>wxHORIZONTAL</orient>
+                        <object class="sizeritem">
+                          <object class="wxButton" name="pref_exiftool_argfile2_edit">
+                            <label>Edit...</label>
+                            <tooltip>Edit selected ExifTool argfile</tooltip>
+                          </object>
+                          <flag>wxLEFT</flag>
+                          <border>5</border>
+                        </object>
+                      </object>
+                      <flag>wxALL|wxEXPAND</flag>
+                      <border>5</border>
+                    </object>
+                    <object class="sizeritem">
+                      <object class="wxBoxSizer">
+                        <object class="spacer">
+                          <size>25,-1</size>
+                        </object>
+                        <orient>wxHORIZONTAL</orient>
+                        <object class="sizeritem">
+                          <object class="wxCheckBox" name="pref_exiftool_gpano">
+                            <label>Create Photo Sphere XMP data</label>
+                            <tooltip>This will only be done for equirectangular output images.</tooltip>
+                          </object>
+                          <flag>wxTOP|wxBOTTOM|wxEXPAND</flag>
+                          <border>5</border>
+                        </object>
+                      </object>
+                      <flag>wxALL|wxEXPAND</flag>
+                      <border>5</border>
+                    </object>
+                  </object>
+                  <flag>wxALL|wxEXPAND</flag>
+                  <border>5</border>
+                </object>
+                <object class="sizeritem">
+                  <object class="wxStaticBoxSizer">
+                    <label>Advanced options</label>
+                    <orient>wxVERTICAL</orient>
                     <object class="sizeritem">
                       <object class="wxBoxSizer">
                         <object class="sizeritem">
@@ -1021,7 +1105,7 @@ per overlap</label>
                 </object>
               </object>
             </object>
-            <label>Stitching</label>
+            <label>Stitching (2)</label>
           </object>
           <object class="notebookpage">
             <object class="wxPanel">
@@ -1435,6 +1519,63 @@ Do not set -w, -o and --compression arguments, they are set by hugin</label>
         <flag>wxALL|wxEXPAND</flag>
         <border>5</border>
         <minsize>300,150</minsize>
+      </object>
+      <object class="sizeritem">
+        <object class="wxStdDialogButtonSizer">
+          <object class="button">
+            <object class="wxButton" name="wxID_OK">
+              <label>Save</label>
+              <default>1</default>
+            </object>
+          </object>
+          <object class="button">
+            <object class="wxButton" name="wxID_CANCEL">
+              <label>Cancel</label>
+            </object>
+          </object>
+        </object>
+        <flag>wxEXPAND</flag>
+      </object>
+    </object>
+    <title>Edit ExifTool argfile</title>
+    <style>wxDEFAULT_DIALOG_STYLE|wxCAPTION|wxRESIZE_BORDER|wxTAB_TRAVERSAL</style>
+  </object>
+  <object class="wxDialog" name="pref_edit_argfile_placeholders">
+    <object class="wxBoxSizer">
+      <orient>wxVERTICAL</orient>
+      <object class="sizeritem">
+        <object class="wxBoxSizer">
+          <object class="sizeritem">
+            <object class="wxTextCtrl" name="pref_edit_textcontrol">
+              <style>wxTE_AUTO_SCROLL|wxTE_MULTILINE|wxTE_DONTWRAP</style>
+            </object>
+            <option>1</option>
+            <flag>wxALL|wxEXPAND</flag>
+          </object>
+          <object class="sizeritem">
+            <object class="wxStaticText">
+              <label>The following placeholders will replaced before invoking ExifTool:
+%projection - projection name (in English)
+%projectionNumber - number of projection
+%hfov - horizontal field of view of panorama
+%vfov - vertical field of view of panorama
+%ev - exposure value of panorama
+%nrImages - number of active images
+%nrAllImages - number of all images in project file (include inactive images)
+%fullwidth - width of output canvas
+%fullheight - height of output
+%width - width of output region
+%height - height of output region
+
+The placeholders are case sensitive.</label>
+            </object>
+            <flag>wxALL|wxEXPAND</flag>
+            <border>6</border>
+          </object>
+          <orient>wxVERTICAL</orient>
+        </object>
+        <option>1</option>
+        <flag>wxEXPAND</flag>
       </object>
       <object class="sizeritem">
         <object class="wxStdDialogButtonSizer">

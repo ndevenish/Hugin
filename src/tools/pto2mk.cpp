@@ -66,19 +66,21 @@ static void usage(const char* name)
          << "      -o file           output makefile" << std::endl
          << "      -p output_prefix  prefix of output panorama" << std::endl
          << "      -a argfile        specifiy copy argfile for exiftool" << std::endl
+         << "      -f argfile        specifiy argfile with placeholder for final pano" << std::endl
          << std::endl;
 }
 
 int main(int argc, char* argv[])
 {
 
-    const char* optstring = "ho:p:a:";
+    const char* optstring = "ho:p:a:f:";
     int c;
 
     opterr = 0;
     std::string mkfile;
     std::string prefix;
     std::string argfile;
+    std::string argfile_final;
     while ((c = getopt (argc, argv, optstring)) != -1)
     {
         switch (c)
@@ -94,6 +96,9 @@ int main(int argc, char* argv[])
                 return 0;
             case 'a':
                 argfile = optarg;
+                break;
+            case 'f':
+                argfile_final = optarg;
                 break;
             default:
                 usage(argv[0]);
@@ -140,6 +145,17 @@ int main(int argc, char* argv[])
         progs.exiftool_argfile=hugin_utils::GetAbsoluteFilename(argfile);
     };
     CheckExifToolArgfile(progs);
+    if (!argfile_final.empty())
+    {
+        if (hugin_utils::FileExists(argfile_final))
+        {
+            progs.exiftool_argfile_final = hugin_utils::GetAbsoluteFilename(argfile_final);
+        }
+        else
+        {
+            std::cout << "WARNING: Argfile \"" << argfile_final << "\" not found. Ignoring this argfile." << std::endl;
+        };
+    }
 
     // stitch only active images
     UIntSet activeImgs = pano.getActiveImages();
