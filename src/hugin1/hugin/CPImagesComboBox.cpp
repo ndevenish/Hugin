@@ -198,8 +198,13 @@ void CPImagesComboBox::OnDrawItem(wxDC& dc,
         const wxPen * oldPen = & dc.GetPen();
         const wxBrush * oldBrush= & dc.GetBrush();
         //inner rectangle with color proportional to max cp error (max. 10)
+#if wxCHECK_VERSION(3,0,0)
+        wxPen MyPen(wxColour(255, 0, 0), 1, wxPENSTYLE_SOLID);
+        wxBrush MyBrush(wxColour(255,0,0), wxBRUSHSTYLE_SOLID);
+#else
         wxPen MyPen(wxColour(255,0,0),1,wxSOLID);
         wxBrush MyBrush(wxColour(255,0,0),wxSOLID);
+#endif
         double red, green, blue;
 
         hugin_utils::ControlPointErrorColour(CPConnection[item],red,green,blue);

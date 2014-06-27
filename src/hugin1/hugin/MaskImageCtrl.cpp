@@ -45,6 +45,13 @@ const int polygonPointSize=3;
 /** maximal distance for selection of one point */
 const int maxSelectionDistance=20;
 
+#if !wxCHECK_VERSION(3,0,0)
+#define wxPENSTYLE_SOLID wxSOLID
+#define wxPENSTYLE_DOT wxDOT
+#define wxBRUSHSTYLE_TRANSPARENT wxTRANSPARENT
+#define wxBRUSHSTYLE_SOLID wxSOLID
+#endif
+
 // our image control
 
 BEGIN_EVENT_TABLE(MaskImageCtrl, wxScrolledWindow)
@@ -1027,15 +1034,15 @@ void MaskImageCtrl::DrawPolygon(wxDC &dc, HuginBase::MaskPolygon poly, bool isSe
         polygonPoints[j]=transform(applyRot(poly.getMaskPolygon()[j]));
     };
     if(isSelected)
-        dc.SetPen(wxPen(m_colour_point_unselected,1,wxSOLID));
+        dc.SetPen(wxPen(m_colour_point_unselected, 1, wxPENSTYLE_SOLID));
     else
         switch(poly.getMaskType())
         {
             case HuginBase::MaskPolygon::Mask_negative:
-                dc.SetPen(wxPen(m_colour_polygon_negative,1,wxSOLID));
+                dc.SetPen(wxPen(m_colour_polygon_negative, 1, wxPENSTYLE_SOLID));
                 break;
             case HuginBase::MaskPolygon::Mask_positive:
-                dc.SetPen(wxPen(m_colour_polygon_positive,1,wxSOLID));
+                dc.SetPen(wxPen(m_colour_polygon_positive, 1, wxPENSTYLE_SOLID));
                  break;
         };
     dc.SetBrush(*wxTRANSPARENT_BRUSH);
@@ -1111,8 +1118,8 @@ void MaskImageCtrl::OnDraw(wxDC & dc)
         int offset=scale(HuginBase::maskOffset);
         //draw border around image to allow drawing mask over boudaries of image
         //don't draw as one complete rectangle to prevent flickering
-        dc.SetPen(wxPen(GetBackgroundColour(), 1, wxSOLID));
-        dc.SetBrush(wxBrush(GetBackgroundColour(),wxSOLID));
+        dc.SetPen(wxPen(GetBackgroundColour(), 1, wxPENSTYLE_SOLID));
+        dc.SetBrush(wxBrush(GetBackgroundColour(), wxBRUSHSTYLE_SOLID));
         dc.DrawRectangle(0,0,offset,m_bitmap.GetHeight()+2*offset);
         dc.DrawRectangle(0,0,m_bitmap.GetWidth()+2*offset,offset);
         dc.DrawRectangle(m_bitmap.GetWidth()+offset,0,m_bitmap.GetWidth()+2*offset,m_bitmap.GetHeight()+2*offset);
@@ -1221,8 +1228,8 @@ void MaskImageCtrl::OnDraw(wxDC & dc)
     else
     {
         // clear the rectangle and exit
-        dc.SetPen(wxPen(GetBackgroundColour(), 1, wxSOLID));
-        dc.SetBrush(wxBrush(GetBackgroundColour(),wxSOLID));
+        dc.SetPen(wxPen(GetBackgroundColour(), 1, wxPENSTYLE_SOLID));
+        dc.SetBrush(wxBrush(GetBackgroundColour(), wxBRUSHSTYLE_SOLID));
         dc.Clear();
         return;
     };
@@ -1343,10 +1350,10 @@ void MaskImageCtrl::DrawSelectionRectangle()
     PrepareDC(dc);
 #if defined SUPPORTS_WXINVERT
     dc.SetLogicalFunction(wxINVERT);
-    dc.SetPen(wxPen(*wxWHITE,1,wxDOT));
+    dc.SetPen(wxPen(*wxWHITE, 1, wxPENSTYLE_DOT));
 #else
     OnDraw(dc);
-    dc.SetPen(wxPen(m_color_selection, scale(1), wxDOT));
+    dc.SetPen(wxPen(m_color_selection, scale(1), wxPENSTYLE_DOT));
 #endif
     dc.SetBrush(*wxTRANSPARENT_BRUSH);
     dc.DrawRectangle(m_dragStartPos.x,m_dragStartPos.y,

@@ -71,9 +71,11 @@ wxString LocalizedFileTipProvider::GetTip()
         // Read the tip, and increment the current tip counter.
         tip = m_textfile.GetLine(m_currentTip++);
 
+#if !wxCHECK_VERSION(3,0,0)
         // Allow a derived class's overrided virtual to modify the tip
         // now if so desired.
         tip = PreprocessTip(tip);
+#endif
 
         // Break if tip isn't a comment, and isn't an empty string
         // (or only stray space characters).

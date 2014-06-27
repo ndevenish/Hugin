@@ -39,6 +39,10 @@ BEGIN_EVENT_TABLE(LensCalImageCtrl, wxPanel)
     EVT_MOUSE_EVENTS(LensCalImageCtrl::OnMouseEvent)
 END_EVENT_TABLE()
 
+#if !wxCHECK_VERSION(3,0,0)
+#define wxPENSTYLE_SOLID wxSOLID
+#endif
+
 // init some values
 LensCalImageCtrl::LensCalImageCtrl() : wxPanel()
 {
@@ -174,13 +178,13 @@ void LensCalImageCtrl::DrawView()
             switch(lines[i].status)
             {
                 case HuginLines::valid_line:
-                    memDC.SetPen(wxPen(wxColour(0,255,0), 1, wxSOLID));
+                    memDC.SetPen(wxPen(wxColour(0,255,0), 1, wxPENSTYLE_SOLID));
                     break;
                 case HuginLines::valid_line_disabled:
-                    memDC.SetPen(wxPen(wxColour(255,0,0), 1, wxSOLID));
+                    memDC.SetPen(wxPen(wxColour(255, 0, 0), 1, wxPENSTYLE_SOLID));
                     break;
                 default:
-                    memDC.SetPen(wxPen(wxColour(128,128,128), 1, wxSOLID));
+                    memDC.SetPen(wxPen(wxColour(128, 128, 128), 1, wxPENSTYLE_SOLID));
                     break;
             };
             for(unsigned int j=0;j<lines[i].line.size()-1;j++)

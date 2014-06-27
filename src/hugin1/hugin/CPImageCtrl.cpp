@@ -47,8 +47,12 @@
 using namespace std;
 using namespace hugin_utils;
 
-// event stuff
-
+#if !wxCHECK_VERSION(3,0,0)
+#define wxPENSTYLE_SOLID wxSOLID
+#define wxPENSTYLE_DOT wxDOT
+#define wxBRUSHSTYLE_TRANSPARENT wxTRANSPARENT
+#define wxBRUSHSTYLE_SOLID wxSOLID
+#endif
 
 // definition of the control point event
 
@@ -188,8 +192,8 @@ void DisplayedControlPoint::Draw(wxDC& dc, bool selected, bool newPoint)
         drawMag = true;
     }
 
-    dc.SetPen(wxPen(wxT("WHITE"), 1, wxSOLID));
-    dc.SetBrush(wxBrush(wxT("BLACK"),wxTRANSPARENT));
+    dc.SetPen(wxPen(wxT("WHITE"), 1, wxPENSTYLE_SOLID));
+    dc.SetBrush(wxBrush(wxT("BLACK"),wxBRUSHSTYLE_TRANSPARENT));
 
     FDiff2D pointInput=m_mirrored ? hugin_utils::FDiff2D(m_cp.x2, m_cp.y2) : hugin_utils::FDiff2D(m_cp.x1, m_cp.y1);
     FDiff2D point = m_control->applyRot(pointInput);
@@ -229,11 +233,11 @@ void DisplayedControlPoint::Draw(wxDC& dc, bool selected, bool newPoint)
                         lumac, average);
     if (average() < 150)
     {
-        dc.SetPen(wxPen(wxT("WHITE"), 1, wxSOLID));
+        dc.SetPen(wxPen(wxT("WHITE"), 1, wxPENSTYLE_SOLID));
     }
     else
     {
-        dc.SetPen(wxPen(wxT("BLACK"), 1, wxSOLID));
+        dc.SetPen(wxPen(wxT("BLACK"), 1, wxPENSTYLE_SOLID));
     }
 
     if(m_line)
@@ -317,8 +321,8 @@ wxRect DisplayedControlPoint::DrawTextMag(wxDC& dc, wxPoint p, hugin_utils::FDif
         };
 
         dc.DrawBitmap(magBitmap, ulMag);
-        dc.SetPen(wxPen(wxT("BLACK"), 1, wxSOLID));
-        dc.SetBrush(wxBrush(wxT("WHITE"),wxTRANSPARENT));
+        dc.SetPen(wxPen(wxT("BLACK"), 1, wxPENSTYLE_SOLID));
+        dc.SetBrush(wxBrush(wxT("WHITE"),wxBRUSHSTYLE_TRANSPARENT));
 
         // draw Bevel
         int bw = magBitmap.GetWidth();
@@ -327,7 +331,7 @@ wxRect DisplayedControlPoint::DrawTextMag(wxDC& dc, wxPoint p, hugin_utils::FDif
                     ulMag.x+bw+1, ulMag.y+bh);
         dc.DrawLine(ulMag.x+bw, ulMag.y+bh, 
                     ulMag.x+bw, ulMag.y-2);
-        dc.SetPen(wxPen(wxT("WHITE"), 1, wxSOLID));
+        dc.SetPen(wxPen(wxT("WHITE"), 1, wxPENSTYLE_SOLID));
         dc.DrawLine(ulMag.x-1, ulMag.y-1, 
                     ulMag.x+bw+1, ulMag.y-1);
         dc.DrawLine(ulMag.x-1, ulMag.y+bh, 
@@ -360,8 +364,8 @@ wxRect DisplayedControlPoint::DrawTextMag(wxDC& dc, wxPoint p, hugin_utils::FDif
     };
 
     // draw background
-    dc.SetPen(wxPen(textColour, 1, wxSOLID));
-    dc.SetBrush(wxBrush(bgColour, wxSOLID));
+    dc.SetPen(wxPen(textColour, 1, wxPENSTYLE_SOLID));
+    dc.SetBrush(wxBrush(bgColour, wxBRUSHSTYLE_SOLID));
     dc.DrawRectangle(tul.x, tul.y, tw+2*tB+1, th+2*tB);
     labelPos.SetLeft(tul.x);
     labelPos.SetTop(tul.y);
@@ -707,23 +711,23 @@ void CPImageCtrl::OnDraw(wxDC & dc)
     if (editState != NO_IMAGE && m_img.get()) {
 		//clear the blank rectangle to the left of the image
         if (bitmap.GetWidth() < vSize.GetWidth()) {
-            dc.SetPen(wxPen(GetBackgroundColour(), 1, wxSOLID));
-            dc.SetBrush(wxBrush(GetBackgroundColour(),wxSOLID));
+            dc.SetPen(wxPen(GetBackgroundColour(), 1, wxPENSTYLE_SOLID));
+            dc.SetBrush(wxBrush(GetBackgroundColour(), wxBRUSHSTYLE_SOLID));
             dc.DrawRectangle(bitmap.GetWidth(), 0,
                              vSize.GetWidth() - bitmap.GetWidth(),vSize.GetHeight());
         }
 		//clear the blank rectangle below the image
         if (bitmap.GetHeight() < vSize.GetHeight()) {
-            dc.SetPen(wxPen(GetBackgroundColour(), 1, wxSOLID));
-            dc.SetBrush(wxBrush(GetBackgroundColour(),wxSOLID));
+            dc.SetPen(wxPen(GetBackgroundColour(), 1, wxPENSTYLE_SOLID));
+            dc.SetBrush(wxBrush(GetBackgroundColour(), wxBRUSHSTYLE_SOLID));
 			dc.DrawRectangle(0, bitmap.GetHeight(),
                              vSize.GetWidth(), vSize.GetHeight() - bitmap.GetHeight());
         }
         dc.DrawBitmap(bitmap,0,0);
 	} else {
 		// clear the rectangle and exit
-        dc.SetPen(wxPen(GetBackgroundColour(), 1, wxSOLID));
-        dc.SetBrush(wxBrush(GetBackgroundColour(),wxSOLID));
+        dc.SetPen(wxPen(GetBackgroundColour(), 1, wxPENSTYLE_SOLID));
+        dc.SetBrush(wxBrush(GetBackgroundColour(), wxBRUSHSTYLE_SOLID));
         dc.Clear();
 		return;
 	}
@@ -751,8 +755,8 @@ void CPImageCtrl::OnDraw(wxDC & dc)
         }
         if (m_showTemplateArea) {
             dc.SetLogicalFunction(wxINVERT);
-            dc.SetPen(wxPen(wxT("RED"), 1, wxSOLID));
-            dc.SetBrush(wxBrush(wxT("WHITE"),wxTRANSPARENT));
+            dc.SetPen(wxPen(wxT("RED"), 1, wxPENSTYLE_SOLID));
+            dc.SetBrush(wxBrush(wxT("WHITE"), wxBRUSHSTYLE_TRANSPARENT));
             wxPoint upperLeft = applyRot(roundP(newPoint));
             upperLeft = scale(upperLeft);
 
@@ -776,8 +780,8 @@ void CPImageCtrl::OnDraw(wxDC & dc)
 
     if (m_showSearchArea && m_mousePos.x != -1){
         dc.SetLogicalFunction(wxINVERT);
-        dc.SetPen(wxPen(wxT("WHITE"), 1, wxSOLID));
-        dc.SetBrush(wxBrush(wxT("WHITE"),wxTRANSPARENT));
+        dc.SetPen(wxPen(wxT("WHITE"), 1, wxPENSTYLE_SOLID));
+        dc.SetBrush(wxBrush(wxT("WHITE"), wxBRUSHSTYLE_TRANSPARENT));
 
         FDiff2D upperLeft = applyRot(m_mousePos);
         upperLeft = scale(upperLeft);
@@ -1126,7 +1130,7 @@ void CPImageCtrl::DrawSelectionRectangle(hugin_utils::FDiff2D pos1,hugin_utils::
     wxClientDC dc(this);
     PrepareDC(dc);
     dc.SetLogicalFunction(wxINVERT);
-    dc.SetPen(wxPen(*wxWHITE,1,wxDOT));
+    dc.SetPen(wxPen(*wxWHITE,1, wxPENSTYLE_DOT));
     dc.SetBrush(*wxTRANSPARENT_BRUSH);
     wxPoint p1=roundP(scale(applyRot(pos1)));
     wxPoint p2=roundP(scale(applyRot(pos2)));
