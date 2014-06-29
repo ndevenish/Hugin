@@ -50,7 +50,9 @@
 #include <wx/dynarray.h>
 #include <wx/arrimpl.cpp>
 
-#ifdef __WXMAC__
+#if defined(__WXMAC__) && defined(__WXOSX__)
+#include "wx/osx/private.h"
+#elif defined(__WXMAC__)
 #include "wx/mac/private.h"
 #endif
 

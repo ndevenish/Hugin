@@ -41,11 +41,13 @@ done
 echo "Processing in $App/Contents/MacOS"
 for exec_file in $binaries
 do
-    echo "Processing: $(basename $exec_file)"
-    for lib in $(otool -L $exec_file | grep $old_install_name_dirname | sed -e 's/ (.*$//' -e 's/^.*\///'); do
-        echo "    Changing install name for: $lib"
-        install_name_tool -change "$old_install_name_dirname/$lib" "$new_install_name_dirname/$lib" $exec_file
-    done
+    if [ ! -d "$exec_file" ]; then
+        echo "Processing: $(basename $exec_file)"
+        for lib in $(otool -L $exec_file | grep $old_install_name_dirname | sed -e 's/ (.*$//' -e 's/^.*\///'); do
+            echo "    Changing install name for: $lib"
+            install_name_tool -change "$old_install_name_dirname/$lib" "$new_install_name_dirname/$lib" $exec_file
+        done
+    fi
 done
 
 echo "Processing in $App/Contents/$dylib_install_loc"
