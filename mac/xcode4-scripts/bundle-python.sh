@@ -62,7 +62,7 @@ for w in $wx_python_libs; do
     for l in $wx_libs; do
 	install_name_tool -change $old_install_name_dirname/"$l"-"$WX_VERSION".dylib \
 	    @loader_path/../../../../../../../../"$l"-"$WX_VERSION".dylib \
-	    	$PythonLib/site-packages/wx-$WX_VERSION-osx_cocoa/wx/$w
+	    	$PythonLib/site-packages/wx-$WX_MAJOR_VERSION-osx_cocoa/wx/$w
     done
 done
 
