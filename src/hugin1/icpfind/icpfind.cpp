@@ -74,24 +74,18 @@ void iCPApp::OnInitCmdLine(wxCmdLineParser &parser)
 
 bool iCPApp::OnCmdLineParsed(wxCmdLineParser &parser)
 {
-    if(wxAppConsole::OnCmdLineParsed(parser))
+    // we don't call the parents method of OnCmdLineParse, this will pull in other options we don't want
+    if(!parser.Found(wxT("s"),&m_setting))
     {
-        if(!parser.Found(wxT("s"),&m_setting))
-        {
-            m_setting=-1;
-        };
-        if(!parser.Found(wxT("m"),&m_matches))
-        {
-            m_matches=-1;
-        };
-        parser.Found(wxT("o"),&m_output);
-        m_input=parser.GetParam();
-        return true;
-    }
-    else
-    {
-        return false;
+        m_setting=-1;
     };
+    if(!parser.Found(wxT("m"),&m_matches))
+    {
+        m_matches=-1;
+    };
+    parser.Found(wxT("o"),&m_output);
+    m_input=parser.GetParam();
+    return true;
 };
 
 // dummy panotools progress functions
