@@ -1534,7 +1534,8 @@ Do not set -w, -o and --compression arguments, they are set by hugin</label>
             </object>
           </object>
         </object>
-        <flag>wxEXPAND</flag>
+        <flag>wxALL|wxEXPAND</flag>
+        <border>5</border>
       </object>
     </object>
     <title>Edit ExifTool argfile</title>
@@ -1591,7 +1592,8 @@ The placeholders are case sensitive.</label>
             </object>
           </object>
         </object>
-        <flag>wxEXPAND</flag>
+        <flag>wxALL|wxEXPAND</flag>
+        <border>5</border>
       </object>
     </object>
     <title>Edit ExifTool argfile</title>
