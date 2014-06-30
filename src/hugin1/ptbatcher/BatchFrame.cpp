@@ -183,7 +183,7 @@ BatchFrame::BatchFrame(wxLocale* locale, wxString xrc)
 #else
     m_tray=NULL;
 #endif
-    m_batch = new Batch(this,wxTheApp->argv[0]);
+    m_batch = new Batch(this);
 #if wxCHECK_VERSION(2,9,4)
     if(wxGetKeyState(WXK_COMMAND))
 #else

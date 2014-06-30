@@ -70,8 +70,10 @@ public:
     bool saveLog;
 
     /** Main constructor */
-    Batch(wxFrame* parent, wxString path);
+    Batch(wxFrame* parent);
 
+    /** load settings, especially which programs should be used */
+    void LoadSettings(wxConfigBase* config);
     /** Adds an application entry in the batch list */
     void  AddAppToBatch(wxString app);
     /** Adds a project entry in the batch list */
