@@ -3,20 +3,20 @@
 # This file is distributed under the same license as the hugin package.
 #
 # Jozef Riha <jose1711@gmail.com>, 2006, 2007, 2008, 2009, 2010, 2011.
-# Kornel Benko <kornel@lyx.org>, 2013.
+# Kornel Benko <kornel@lyx.org>, 2013, 2014.
 msgid ""
 msgstr ""
 "Project-Id-Version: hugin\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
-"POT-Creation-Date: 2014-06-01 18:30+0200\n"
-"PO-Revision-Date: 2013-03-24 18:40+0100\n"
+"POT-Creation-Date: 2014-07-12 12:27+0200\n"
+"PO-Revision-Date: 2014-07-12 13:32+0200\n"
 "Last-Translator: Kornel Benko <kornel@lyx.org>\n"
 "Language-Team: Slovak <sk@li.org>\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.4\n"
+"X-Generator: Lokalize 1.5\n"
 "Plural-Forms: nplurals=3; plural=((n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2);\n"
 "X-Poedit-Language: Slovak\n"
 "X-Poedit-Country: SLOVAKIA\n"
@@ -866,7 +866,7 @@ msgid ""
 "opposite direction to constrain to yaw."
 msgstr ""
 "Momentálne obmedzené iba na úpravu sklonu. Urobte väčší pohyb v opačnom "
-"smere, aby ste úpravy obmedzili na otáčenie."
+"smere, aby ste úpravy obmedzili na otočenie."
 
 #: hugin1/hugin/DragTool.cpp:110
 msgid ""
@@ -1333,7 +1333,7 @@ msgstr ""
 #: hugin1/hugin/GLPreviewFrame.cpp:3558
 #, c-format
 msgid "Current selected optimizer strategy is \"%s\"."
-msgstr "Aktuálna vybraná stratégia otimalizácie je \"%s\"."
+msgstr "Aktuálna vybraná stratégia optimalizácie je \"%s\"."
 
 #: hugin1/hugin/GLViewer.cpp:287
 msgid ""
@@ -2819,7 +2819,7 @@ msgid ""
 "Are you sure that you still want to stitch it?"
 msgstr ""
 "Adresár \"%s\" má voľných len %.1f MB. To nie je dosť na lepenie súčasnej "
-"panorámy. Znížte veľkost výstupu alebo zvoľte iný adresár na výstup.\n"
+"panorámy. Znížte veľkosť výstupu alebo zvoľte iný adresár na výstup.\n"
 "Iste to chcete ešte stále lepiť?"
 
 #: hugin1/hugin/PluginItems.cpp:71
@@ -2958,6 +2958,23 @@ msgstr "Vybrať nový Exiftool súbor argumentov"
 #, c-format
 msgid "Could not save file \"%s\"."
 msgstr "Súbor \"%s\" sa nedal uložiť."
+
+#: hugin1/hugin/PreferencesDialog.cpp:435
+#, c-format
+msgid ""
+"File %s does not exist.\n"
+"Should an empty argfile be created?"
+msgstr ""
+"Súbor %s neexistuje.\n"
+"Vytvoriť prázdny súbor argumentov so štandardnými značkami?"
+
+#: hugin1/hugin/PreferencesDialog.cpp:448
+msgid ""
+"No file selected.\n"
+"Should an empty argfile be created?"
+msgstr ""
+"Žiadny súbor nie je vybraný.\n"
+"Vytvoriť prázdny súbor argumentov?"
 
 #: hugin1/hugin/PreferencesDialog.cpp:685
 msgid "Really reset displayed preferences to default values?"
@@ -5204,9 +5221,9 @@ msgstr "Často kladené otázky (FAQ)"
 msgid "&About"
 msgstr "&O programe"
 
-#: translations/xrc.cpp:396 translations/xrc.cpp:1033
+#: hugin1/hugin/xrc/main_menu.xrc:144 hugin1/hugin/xrc/preview_frame.xrc:1883
 msgid "&Donate"
-msgstr "&Sponzoring"
+msgstr "&Darcovstvo"
 
 #: translations/xrc.cpp:397 translations/xrc.cpp:1034
 msgid ""
@@ -6421,13 +6438,23 @@ msgstr "Pokročilé voľby"
 msgid "ExifTool options"
 msgstr "Voľby Exiftool"
 
+#: hugin1/hugin/xrc/pref_dialog.xrc:939
+msgid ""
+"The following argfile will be used to copy tags from the first image to all "
+"intermediate images.\n"
+"Placeholders will not be replaced."
+msgstr ""
+"Nasledovný súbor argumentov bude použitý pre kopírovanie značiek prvého "
+"obrázku do všetkých pomocných obrázkov.\n"
+"Zástupné značky ostanú nezmenené."
+
+#: hugin1/hugin/xrc/pref_dialog.xrc:955
+msgid "Intermediate ExifTool argfile:"
+msgstr "Predbežný Exiftool súbor argumentov:"
+
 #: translations/xrc.cpp:757
 msgid "Copy metadata into final files using ExifTool"
 msgstr "Kopírovať metadata do výsledných súborov nástrojom ExifTool"
-
-#: translations/xrc.cpp:758
-msgid "ExifTool argfile:"
-msgstr "Exiftool súbor argumentov:"
 
 #: translations/xrc.cpp:759
 msgid "Leave empty for default"
@@ -6436,6 +6463,22 @@ msgstr "Nechajte prázdne pre štandard"
 #: translations/xrc.cpp:763
 msgid "Edit selected ExifTool argfile"
 msgstr "Vybrať Exiftool súbor argumentov"
+
+#: hugin1/hugin/xrc/pref_dialog.xrc:997
+msgid ""
+"The following argfile will be used to copy tags from the first image to the "
+"final panorma.\n"
+"It is applied additional to the above argfile for the intermediate images.\n"
+"Placeholders in this argfile will replaced before running exiftool."
+msgstr ""
+"Nasledovný súbor argumentov bude použitý pre kopírovanie značiek prvého "
+"obrázku do cieľovej panorámy.\n"
+"Aplikované je to dodatočne k súboru použitým pre pomocné obrázky.\n"
+"Zástupné značky v tomto súbore budú nahradené.pred spustením exiftool."
+
+#: hugin1/hugin/xrc/pref_dialog.xrc:1014
+msgid "Final ExifTool argfile:"
+msgstr "Finálny exiftool súbor argumentov:"
 
 #: translations/xrc.cpp:764
 msgid "Create Photo Sphere XMP data"
@@ -6464,6 +6507,10 @@ msgstr ""
 #: translations/xrc.cpp:768
 msgid "0 for automatic detection"
 msgstr "0 pre automatické vyhľadávanie"
+
+#: hugin1/hugin/xrc/pref_dialog.xrc:1108
+msgid "Stitching (2)"
+msgstr "Lepenie (2)"
 
 #: translations/xrc.cpp:769
 msgid "Stitching"
@@ -6604,6 +6651,39 @@ msgstr "Nastavenia - hugin"
 #: hugin1/hugin/xrc/pref_dialog.xrc:1434
 msgid "Edit ExifTool argfile"
 msgstr "Upraviť Exiftool súbor argumentov"
+
+#: hugin1/hugin/xrc/pref_dialog.xrc:1559
+msgid ""
+"The following placeholders will replaced before invoking ExifTool:\n"
+"%projection - projection name (in English)\n"
+"%projectionNumber - number of projection\n"
+"%hfov - horizontal field of view of panorama\n"
+"%vfov - vertical field of view of panorama\n"
+"%ev - exposure value of panorama\n"
+"%nrImages - number of active images\n"
+"%nrAllImages - number of all images in project file (include inactive "
+"images)\n"
+"%fullwidth - width of output canvas\n"
+"%fullheight - height of output\n"
+"%width - width of output region\n"
+"%height - height of output region\n"
+"\n"
+"The placeholders are case sensitive."
+msgstr ""
+"Tieto zástupné značky budu nahradené pred vyvolaním ExifTool:\n"
+"%projection - meno projekcie (po anglicky)\n"
+"%projectionNumber - číslo projekcie\n"
+"%hfov - horizontálne zorné pole panorámy\n"
+"%vfov - vertikálne zorné pole panorámy\n"
+"%ev - hodnota expozície panorámy\n"
+"%nrImages - počet aktívnych obrázkov\n"
+"%nrAllImages - počet všetkých obrázkov (včetne neaktívnych)\n"
+"%fullwidth - šírka výstupného plátna\n"
+"%fullheight - výška výstupu\n"
+"%width - šírka výstupnej oblasti\n"
+"%height - výška výstupnej oblasti\n"
+"\n"
+"Veľkosť písmen je v zástupných značkách významná."
 
 #: translations/xrc.cpp:815 translations/xrc.cpp:880 translations/xrc.cpp:964
 msgid "Center the preview horizontally"
@@ -9150,3 +9230,6 @@ msgstr ""
 
 #~ msgid "Shutdown when done"
 #~ msgstr "Vypnúť po skončení"
+
+#~ msgid "ExifTool argfile:"
+#~ msgstr "Exiftool súbor argumentov:"
