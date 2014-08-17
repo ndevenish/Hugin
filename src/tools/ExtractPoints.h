@@ -46,14 +46,22 @@ template<class ImageType>
 std::vector<ImageType *> loadImagesPyr(std::vector<std::string> files, int pyrLevel, int verbose)
 {
     typedef typename ImageType::value_type PixelType;
-    std::vector<ImageType *> srcImgs;
-    for (size_t i=0; i < files.size(); i++) {
+    std::vector<ImageType *> srcImgs(files.size());
+#ifdef _WINDOWS
+    // init vigra codec manager before threaded section
+    // otherwise there could be sometimes race conditions
+    // which results in exceptions
+    std::string s = vigra::impexListExtensions();
+#endif
+#pragma omp parallel for schedule(dynamic)
+    for (int i=0; i < files.size(); i++) {
         ImageType * tImg = new ImageType();
         ImageType * tImg2 = new ImageType();
+        std::ostringstream buf;
         vigra::ImageImportInfo info(files[i].c_str());
         tImg->resize(info.size());
         if (verbose)
-            std::cout << "loading: " << files[i] << std::endl;
+            buf << "loading: " << files[i] << std::endl;
         
         if (info.numExtraBands() == 1) {
             // dummy mask
@@ -73,11 +81,11 @@ std::vector<ImageType *> loadImagesPyr(std::vector<std::string> files, int pyrLe
             ImageType * swap;
             // create downscaled image
             if (verbose > 0) {
-                std::cout << "downscaling: ";
+                buf << "downscaling: ";
             }
             for (int l=pyrLevel; l > 0; l--) {
                 if (verbose > 0) {
-                    std::cout << tImg->size().x << "x" << tImg->size().y << "  " << std::flush;
+                    buf << tImg->size().x << "x" << tImg->size().y << "  " << std::flush;
                 }
                 reduceToNextLevel(*tImg, *tImg2);
                 swap = tImg;
@@ -85,15 +93,19 @@ std::vector<ImageType *> loadImagesPyr(std::vector<std::string> files, int pyrLe
                 tImg2 = swap;
             }
             if (verbose > 0)
-                std::cout << std::endl;
+                buf << std::endl;
         }
         if (div > 1) {
             div = 1/div;
             transformImage(vigra::srcImageRange(*tImg), vigra::destImage(*tImg),
                            vigra::functor::Arg1()*vigra::functor::Param(div));
         }
-        srcImgs.push_back(tImg);
+        srcImgs[i]=tImg;
         delete tImg2;
+        if (verbose > 0)
+        {
+            std::cout << buf.str();
+        };
     }
     return srcImgs;
 }
