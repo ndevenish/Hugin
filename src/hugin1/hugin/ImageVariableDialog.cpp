@@ -452,13 +452,13 @@ public:
     const wxBitmap GetGraph() const { return *m_bitmap; };
 private:
     //helper function to transform coordinates from real world to bitmap
-    int TransformX(float x)
+    int TransformX(double x)
     {
-        return (x-m_xmin)/(m_xmax-m_xmin)*(m_right-m_left)+m_left;
+        return hugin_utils::round((x-m_xmin)/(m_xmax-m_xmin)*(m_right-m_left)+m_left);
     };
-    int TransformY(float y)
+    int TransformY(double y)
     {
-        return m_bottom-(y-m_ymin)/(m_ymax-m_ymin)*(m_bottom-m_top);
+        return hugin_utils::round(m_bottom - (y - m_ymin) / (m_ymax - m_ymin)*(m_bottom - m_top));
     };
     // area to be drawn
     double m_xmin, m_xmax, m_ymin, m_ymax;
@@ -492,30 +492,50 @@ void ImageVariableDialog::OnShowDistortionGraph(wxCommandEvent & e)
     //create transformation
     SrcPanoImage srcImage;
 #define NRPOINTS 100
-    srcImage.setSize(vigra::Size2D(2*NRPOINTS, 2*NRPOINTS));
+    srcImage.setSize(m_pano->getImage(*(m_images.begin())).getSize());
+    // set projection to rectilinear, just in case, it should be the default value
+    srcImage.setProjection(SrcPanoImage::RECTILINEAR);
     srcImage.setRadialDistortion(radialDist);
     PanoramaOptions opts;
     opts.setHFOV(srcImage.getHFOV());
     opts.setProjection(PanoramaOptions::RECTILINEAR);
-    opts.setWidth(2*NRPOINTS);
-    opts.setHeight(2*NRPOINTS);
+    opts.setWidth(srcImage.getWidth());
+    opts.setHeight(srcImage.getHeight());
     HuginBase::PTools::Transform transform;
     transform.createTransform(srcImage, opts);
 
+    const double minLength = std::min<double>(srcImage.getWidth(), srcImage.getHeight()) / 2.0;
+    const double maxR = sqrt(srcImage.getWidth()*srcImage.getWidth() + srcImage.getHeight()*srcImage.getHeight()) / (2.0*minLength);
     //draw graph
     delete m_popup;
     Graph graph(300, 200, wxSystemSettings::GetColour(wxSYS_COLOUR_WINDOW));
     graph.SetChartArea(10, 10, 290, 190);
-    graph.SetChartDisplay(0, -0.1, 1, 0.1);
+    graph.SetChartDisplay(0, -0.1, maxR, 0.1);
     graph.DrawGrid(6, 7);
     std::vector<hugin_utils::FDiff2D> points;
+    // draw helper lines
+    // help line at r=1
+    points.push_back(hugin_utils::FDiff2D(1, -0.1));
+    points.push_back(hugin_utils::FDiff2D(1, 0.1));
+    graph.DrawLine(points, wxSystemSettings::GetColour(wxSYS_COLOUR_GRAYTEXT), 1);
+    points.clear();
+    // helper line at r=width/height (for landscape images), maximal radius in horizontal (or vertical) direction
+    // chart goes to r for diagonal
+    const double rMaxHorzVert = std::max<double>(srcImage.getWidth(), srcImage.getHeight()) / (2.0*minLength);
+    points.push_back(hugin_utils::FDiff2D(rMaxHorzVert, -0.1));
+    points.push_back(hugin_utils::FDiff2D(rMaxHorzVert, 0.1));
+    graph.DrawLine(points, wxSystemSettings::GetColour(wxSYS_COLOUR_GRAYTEXT), 1);
+    points.clear();
+    // now draw distortion graph
+    double r = 0;
     for(size_t i=0; i<NRPOINTS; i++)
     {
         double x,y;
-        if(transform.transformImgCoord(x, y, NRPOINTS, NRPOINTS-i))
+        if (transform.transform(x, y, r*minLength, 0))
         {
-            points.push_back(hugin_utils::FDiff2D(double(i)/NRPOINTS,(NRPOINTS-i-y)/(NRPOINTS)));
+            points.push_back(hugin_utils::FDiff2D(r, x/minLength - r));
         };
+        r += maxR / (NRPOINTS-1);
     };
     graph.DrawLine(points, wxSystemSettings::GetColour(wxSYS_COLOUR_WINDOWTEXT), 2);
 
