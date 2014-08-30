@@ -90,52 +90,7 @@ int CPExecute(wxString prog, wxString args, wxString caption, wxWindow *parent)
 };
 
 CPVector AutoCtrlPointCreator::readUpdatedControlPoints(const std::string & file,
-                                                    PT::Panorama & pano)
-{
-    ifstream stream(file.c_str());
-    if (! stream.is_open()) {
-        DEBUG_ERROR("Could not open autopano output: " << file);
-        return CPVector();
-    }
-
-    Panorama tmpp;
-    PanoramaMemento newPano;
-    int ptoVersion = 0;
-    newPano.loadPTScript(stream, ptoVersion, "");
-    tmpp.setMemento(newPano);
-
-    // create mapping between the panorama images.
-    map<unsigned int, unsigned int> imgMapping;
-    for (unsigned int ni = 0; ni < tmpp.getNrOfImages(); ni++) {
-        std::string nname = stripPath(tmpp.getImage(ni).getFilename());
-        for (unsigned int oi=0; oi < pano.getNrOfImages(); oi++) {
-            std::string oname = stripPath(pano.getImage(oi).getFilename());
-            if (nname == oname) {
-                // insert image
-                imgMapping[ni] = oi;
-                break;
-            }
-        }
-        if (! set_contains(imgMapping, ni)) {
-            DEBUG_ERROR("Could not find image " << ni << ", name: " << tmpp.getImage(ni).getFilename() << " in autopano output");
-            return CPVector();
-        }
-    }
-
-
-    // get control points
-    CPVector ctrlPoints = tmpp.getCtrlPoints();
-    // make sure they are in correct order
-    for (CPVector::iterator it= ctrlPoints.begin(); it != ctrlPoints.end(); ++it) {
-        (*it).image1Nr = imgMapping[(*it).image1Nr];
-        (*it).image2Nr = imgMapping[(*it).image2Nr];
-    }
-
-    return ctrlPoints;
-}
-
-CPVector AutoCtrlPointCreator::readUpdatedControlPoints(const std::string & file,
-                                                    PT::Panorama & pano, const PT::UIntSet & imgs)
+                                                    PT::Panorama & pano, const PT::UIntSet & imgs, bool reordered)
 {
     ifstream stream(file.c_str());
     if (! stream.is_open()) {
@@ -156,13 +111,33 @@ CPVector AutoCtrlPointCreator::readUpdatedControlPoints(const std::string & file
     };
 
     // create mapping between the panorama images.
-    vector<size_t> imgMapping(imgs.size());
-    size_t i=0;
-    for(UIntSet::const_iterator it=imgs.begin();it!=imgs.end();++it)
-    {
-        imgMapping[i++]=*it;
-    };
+    map<unsigned int, unsigned int> imgMapping;
 
+    // create mapping between the panorama images.
+    if (reordered) {
+        for (unsigned int ni = 0; ni < tmpp.getNrOfImages(); ni++) {
+            std::string nname = stripPath(tmpp.getImage(ni).getFilename());
+            for(UIntSet::const_iterator it=imgs.begin();it!=imgs.end();++it) {
+                std::string oname = stripPath(pano.getImage(*it).getFilename());
+                if (nname == oname) {
+                    // insert image
+                    imgMapping[ni] = *it;
+                    break;
+                }
+            }
+            if (! set_contains(imgMapping, ni)) {
+                DEBUG_ERROR("Could not find image " << ni << ", name: " << tmpp.getImage(ni).getFilename() << " in autopano output");
+                return CPVector();
+            }
+        }
+    } else {
+        size_t i=0;
+        for(UIntSet::const_iterator it=imgs.begin();it!=imgs.end();++it)
+        {
+            imgMapping[i++]=*it;
+        };
+    }
+    
     // get control points
     CPVector ctrlPoints = tmpp.getCtrlPoints();
     // make sure they are in correct order
@@ -508,14 +483,7 @@ CPVector AutoPanoSift::automatch(CPDetectorSetting &setting, Panorama & pano, co
     }
 
     // read and update control points
-    if(use_inputscript)
-    {
-        cps = readUpdatedControlPoints((const char*)ptofile.mb_str(HUGIN_CONV_FILENAME), pano, imgs);
-    }
-    else
-    {
-        cps = readUpdatedControlPoints((const char *)ptofile.mb_str(HUGIN_CONV_FILENAME), pano);
-    };
+    cps = readUpdatedControlPoints((const char*)ptofile.mb_str(HUGIN_CONV_FILENAME), pano, imgs, !use_inputscript);
 
     if (namefile_name != wxString(wxT(""))) {
         namefile.Close();
@@ -675,7 +643,7 @@ CPVector AutoPanoSift::automatch(CPDetectorSetting &setting, PT::Panorama & pano
     }
 
     // read and update control points
-    cps = readUpdatedControlPoints((const char *)ptofile.mb_str(HUGIN_CONV_FILENAME), pano);
+    cps = readUpdatedControlPoints((const char *)ptofile.mb_str(HUGIN_CONV_FILENAME), pano, imgs, true);
 
     if (!wxRemoveFile(ptofile)) {
         DEBUG_DEBUG("could not remove temporary file: " << ptofile.c_str());
@@ -759,7 +727,7 @@ CPVector AutoPanoKolor::automatch(CPDetectorSetting &setting, Panorama & pano, c
         return cps;
     }
     // read and update control points
-    cps = readUpdatedControlPoints((const char *)ptofile.mb_str(HUGIN_CONV_FILENAME), pano);
+    cps = readUpdatedControlPoints((const char *)ptofile.mb_str(HUGIN_CONV_FILENAME), pano, imgs, true);
 
     if (!wxRemoveFile(ptofile)) {
         DEBUG_DEBUG("could not remove temporary file: " << ptofile.c_str());

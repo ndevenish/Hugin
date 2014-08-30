@@ -59,9 +59,7 @@ public:
 
 protected:
     HuginBase::CPVector readUpdatedControlPoints(const std::string & file,
-                                  PT::Panorama & pano);
-    HuginBase::CPVector readUpdatedControlPoints(const std::string & file,
-                                  PT::Panorama & pano, const PT::UIntSet & imgs);
+                                  PT::Panorama & pano, const PT::UIntSet & imgs, bool reordered);
 };
 
 /** A matcher that uses Sebastians Nowozin's excellent sift matcher */
