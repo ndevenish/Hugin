@@ -7,15 +7,15 @@ msgstr ""
 "Project-Id-Version: da\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
 "POT-Creation-Date: 2014-08-30 09:41+0200\n"
-"PO-Revision-Date: 2014-01-26 08:13+0100\n"
+"PO-Revision-Date: 2014-08-30 17:00+0200\n"
 "Last-Translator: Thomas Pryds <thomas@pryds.eu>\n"
-"Language-Team: Danish <dansk@dansk-listen.dk>\n"
+"Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Vé 0.1.2\n"
+"X-Generator: Lokalize 1.5\n"
 
 #: hugin1/base_wx/LensTools.cpp:37 hugin1/hugin/ImagesTree.cpp:354
 msgid "Normal (rectilinear)"
@@ -350,9 +350,9 @@ msgstr ""
 "hdr)|*.hdr;*.HDR|EXR-filer (*.exr)|*.exr;*.EXR|Alle filer (*)|*"
 
 #: hugin1/base_wx/wxLensDB.cpp:131
-#, fuzzy, c-format
+#, c-format
 msgid "Camera %s (%s)"
-msgstr "Kamerarespons"
+msgstr "Kamera %s (%s)"
 
 #: hugin1/base_wx/wxLensDB.cpp:206
 #, c-format
@@ -369,9 +369,8 @@ msgstr ""
 
 #: hugin1/base_wx/wxLensDB.cpp:625 hugin1/base_wx/wxLensDB.cpp:630
 #: hugin1/base_wx/wxLensDB.cpp:638
-#, fuzzy
 msgid "Could not save information into database."
-msgstr "Kunne ikke gemme information i databasefilen."
+msgstr "Kunne ikke gemme information i databasen."
 
 #: hugin1/calibrate_lens/LensCalApp.cpp:62 hugin1/hugin/huginApp.cpp:191
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:77
@@ -515,9 +514,8 @@ msgstr "Gem objektivparametre til ini-fil"
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:786
 #: hugin1/hugin/PanoOperation.cpp:565
-#, fuzzy
 msgid "Save lens parameters to lens database"
-msgstr "Gem objektivparametre til lensfun-database"
+msgstr "Gem objektivparametre til objektivdatabase"
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:787
 msgid "Saving lens data"
@@ -584,9 +582,9 @@ msgid "Path to data: %s"
 msgstr "Sti til data: %s"
 
 #: hugin1/hugin/AboutDialog.cpp:179
-#, fuzzy, c-format
+#, c-format
 msgid "Hugins camera and lens database: %s"
-msgstr "Kamera- og objektivdata"
+msgstr "Hugins kamera- og objektivdatabase: %s"
 
 #: hugin1/hugin/AboutDialog.cpp:180
 msgid "Libraries"
@@ -715,6 +713,8 @@ msgid ""
 "An internal transformation went wrong.\n"
 "Check that the point is inside the image."
 msgstr ""
+"En intern transformation mislykkedes.\n"
+"Check at punktet er indenfor billedet."
 
 #: hugin1/hugin/CPEditorPanel.cpp:1135
 #, c-format
@@ -1365,6 +1365,8 @@ msgid ""
 "The selected region contains no active image.\n"
 "Please select a region which is covered by at least 2 images."
 msgstr ""
+"Det valgte område indeholder intet aktivt billede.\n"
+"Vælg venligst et område, der dækkes af mindst 2 billeder."
 
 #: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:3346 Kopie.cpp:3300
 #: hugin1/hugin/GLPreviewFrame.cpp:3313
@@ -1372,6 +1374,8 @@ msgid ""
 "The selected region is only covered by a single image.\n"
 "Can't create control points for a single image."
 msgstr ""
+"Det valgte område dækkes kun af et enkelt billede.\n"
+"Kan ikke oprette kontrolpunkter for et enkelt billede."
 
 #: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:3357 Kopie.cpp:3311
 #: hugin1/hugin/GLPreviewFrame.cpp:3324
@@ -1382,34 +1386,36 @@ msgid ""
 "\n"
 "Proceed anyway?"
 msgstr ""
+"Det valgte område er meget stort.\n"
+"Denne funktion er kun tiltænkt mindre områder. Ellers kan uønskede "
+"bivirkninger fremstå.\n"
+"\n"
+"Fortsæt alligevel?"
 
 #: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:3382 Kopie.cpp:3336
 #: hugin1/hugin/GLPreviewFrame.cpp:3351 hugin1/hugin/GLPreviewFrame.cpp:3356
-#, fuzzy
 msgid "Searching control points"
-msgstr "Fjern kontrolpunkter"
+msgstr "Søger efter kontrolpunkter"
 
 #: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:3382 Kopie.cpp:3336
 #: hugin1/hugin/GLPreviewFrame.cpp:3351 hugin1/hugin/GLPreviewFrame.cpp:3356
-#, fuzzy
 msgid "Processing"
-msgstr "Processorer:"
+msgstr "Processerer:"
 
 #: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:3390
 #, c-format
 msgid "Remap \"%s\" to panorama projection..."
-msgstr ""
+msgstr "Remap \"%s\" til panoramaprojektion …"
 
 #: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:3420
 #, c-format
 msgid "Matching interest points for image \"%s\"..."
-msgstr ""
+msgstr "Matcher interessepunkter for billede \"%s\" …"
 
 #: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:3518 Kopie.cpp:3440
 #: hugin1/hugin/GLPreviewFrame.cpp:3530
-#, fuzzy
 msgid "Checking results..."
-msgstr "Checker parvist"
+msgstr "Checker resultater …"
 
 #: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:3533 Kopie.cpp:3455
 #: hugin1/hugin/GLPreviewFrame.cpp:3550
@@ -1420,12 +1426,16 @@ msgid ""
 "Should the panorama now re-optimized to take the new control points into "
 "account?"
 msgstr ""
+"%lu kontrolpunkter blev føjet til panoramaet.\n"
+"\n"
+"Skal panoramaet nu genoptimeres for at tage de nye kontrolpunkter i "
+"betragtning?"
 
 #: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:3541 Kopie.cpp:3463
 #: hugin1/hugin/GLPreviewFrame.cpp:3558
 #, c-format
 msgid "Current selected optimizer strategy is \"%s\"."
-msgstr ""
+msgstr "Aktuelt valgt optimeringsstrategi er \"%s\"."
 
 #: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:3542 Kopie.cpp:3464
 #: hugin1/hugin/GLPreviewFrame.cpp:3559 hugin1/hugin/xrc/main_tool.xrc:51
@@ -1434,28 +1444,25 @@ msgstr "Gen-optimér"
 
 #: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:3542 Kopie.cpp:3464
 #: hugin1/hugin/GLPreviewFrame.cpp:3559
-#, fuzzy
 msgid "Don't optimize now"
-msgstr "Optimér nu!"
+msgstr "Optimér ikke nu"
 
 #: hugin1/hugin/GLPreviewFrame - Kopie.cpp:3341
 msgid "Remap to panorama projection..."
-msgstr ""
+msgstr "Remap til panoramaprojektion …"
 
 #: hugin1/hugin/GLPreviewFrame - Kopie.cpp:3370
-#, fuzzy
 msgid "Finding interest points..."
-msgstr "Finder linier..."
+msgstr "Finder interessepunkter …"
 
 #: hugin1/hugin/GLPreviewFrame - Kopie.cpp:3394
 #: hugin1/hugin/GLPreviewFrame.cpp:3411
-#, fuzzy
 msgid "Matching interest points..."
-msgstr "søger efter lignende punkter..."
+msgstr "Matcher interessepunkter …"
 
 #: hugin1/hugin/GLPreviewFrame.cpp:3364
 msgid "Remap image to panorama projection..."
-msgstr ""
+msgstr "Remap billede til panoramaprojektion …"
 
 #: hugin1/hugin/GLViewer.cpp:287
 msgid ""
@@ -2110,7 +2117,7 @@ msgstr "gemte projekt %s"
 #: hugin1/hugin/MainFrame.cpp:2086 hugin1/hugin/MainFrame.cpp:2091
 #: hugin1/hugin/xrc/main_frame.xrc:4
 msgid "Hugin - Panorama Stitcher"
-msgstr "Hugin - Panorama-sammenføjning"
+msgstr "Hugin – Panorama-sammenføjning"
 
 #: hugin1/hugin/MainFrame.cpp:825 hugin1/hugin/MainFrame.cpp:950
 #: hugin1/hugin/MainFrame.cpp:1052 hugin1/hugin/MainFrame.cpp:2069
@@ -2640,9 +2647,8 @@ msgid "Change lens number"
 msgstr "Ændr objektivnummer"
 
 #: hugin1/hugin/PanoOperation.cpp:496
-#, fuzzy
 msgid "Load lens from lens database"
-msgstr "Indlæs objektiv fra Lensfun-database"
+msgstr "Indlæs objektiv fra objektivdatabase"
 
 #: hugin1/hugin/PanoOperation.cpp:500
 msgid "Load lens from ini file"
@@ -2890,6 +2896,8 @@ msgid ""
 "You have no permissions to write in folder \"%s\".\n"
 "Please select another folder for the final output."
 msgstr ""
+"Du har ikke rettigheder til at skrive til mappen \"%s\".\n"
+"Vælg venligst en anden mappe til det endelige output."
 
 #: hugin1/hugin/PanoPanel.cpp:1444
 #, c-format
@@ -2911,6 +2919,12 @@ msgid ""
 "\n"
 "If this is too big, reduce the panorama Canvas Size or the cropped region."
 msgstr ""
+"Bredden eller højden på det endelige panorama overstiger 32700 pixels.\n"
+"Nogle programmer kan have problemer med at åbne eller vise så store "
+"billeder.\n"
+"\n"
+"Hvis dette er for stort, reducér da panoramaets lærresstørrelse eller det "
+"beskårede område."
 
 #: hugin1/hugin/PanoPanel.cpp:1460 hugin1/hugin/PanoPanel.cpp:1485
 msgid "Are you sure you want to stitch such a large panorama?"
@@ -2942,6 +2956,10 @@ msgid ""
 "folder.\n"
 "Are you sure that you still want to stitch it?"
 msgstr ""
+"Mappen \"%s\" har kun %.1f MiB fri. Dette er ikke nok til at sammenføje det "
+"aktuelle panorama. Formindsk output-størrelsen eller vælg en anden "
+"output-mappe.\n"
+"Er du sikker på, at du vil sammenføje det?"
 
 #: hugin1/hugin/PluginItems.cpp:71
 msgid "Miscellaneous"
@@ -3089,22 +3107,21 @@ msgid "Could not save file \"%s\"."
 msgstr "Kunne ikke gemme fil \"%s\"."
 
 #: hugin1/hugin/PreferencesDialog.cpp:435
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "File %s does not exist.\n"
 "Should an empty argfile be created?"
 msgstr ""
 "Fil %s eksisterer ikke.\n"
-"Skal argfilen oprettes med standardmærker?"
+"Skal en tom argfil oprettes?"
 
 #: hugin1/hugin/PreferencesDialog.cpp:448
-#, fuzzy
 msgid ""
 "No file selected.\n"
 "Should an empty argfile be created?"
 msgstr ""
 "Ingen fil valgt.\n"
-"Skal en argfil oprettes med standardmærker?"
+"Skal en tom argfil oprettes?"
 
 #: hugin1/hugin/PreferencesDialog.cpp:770
 msgid "Really reset displayed preferences to default values?"
@@ -3168,16 +3185,17 @@ msgid ""
 "Drag a rectangle and select the desired action for the control points in the "
 "selected rectangle."
 msgstr ""
+"Træk et rektangel og vælg den ønskede handling for kontrolpunkterne i det "
+"valgte område."
 
 #: hugin1/hugin/PreviewEditCPTool.cpp:129
-#, fuzzy
 msgid "Create control points here"
-msgstr "Opret kontrolpunkter"
+msgstr "Opret kontrolpunkter her"
 
 #: hugin1/hugin/PreviewEditCPTool.cpp:132
-#, fuzzy, c-format
+#, c-format
 msgid "Remove %lu control points"
-msgstr "Fjernede %lu kontrolpunkter"
+msgstr "Fjern %lu kontrolpunkter"
 
 #: hugin1/hugin/PreviewFrame.cpp:120
 msgid "Panorama preview"
@@ -3275,6 +3293,8 @@ msgid ""
 "Hugin has image stacks detected in the added images and will assign "
 "corresponding stack numbers to the images."
 msgstr ""
+"Hugin har detekteret billedstakke i de tilføjede billeder og vil tildele "
+"tilsvarende staknumre til billederne."
 
 #: hugin1/hugin/wxPanoCommand.cpp:438
 msgid ""
@@ -3282,11 +3302,13 @@ msgid ""
 "re-assigned on base of this detection. Existing stack assignments will be "
 "overwritten."
 msgstr ""
+"Hugin har detekteret billedstakke i hele projektet. Staknumre vil blive "
+"gentildelt baseret på denne detektion. Eksisterende staktildelinger vil "
+"overskrives."
 
 #: hugin1/hugin/wxPanoCommand.cpp:442 hugin1/hugin/wxPanoCommand.cpp:463
-#, fuzzy
 msgid "Should the position of images in each stack be linked?"
-msgstr "Skal indlæsning af joblisten springes over?"
+msgstr "Skal positionen af billederne i hver stak sammenkædes?"
 
 #: hugin1/hugin/wxPanoCommand.cpp:450 hugin1/hugin/xrc/main_frame.xrc:215
 msgid ""
@@ -3295,28 +3317,30 @@ msgid ""
 "panorama. But if the images in each stack require a fine tune of the "
 "position (e. g. when shooting hand held), then don't link the position."
 msgstr ""
+"Ved fotografering af bracketed billedstakke fra et stabilt stativ, kan "
+"billedernes position i hver stak sammenkædes for at hjælpe Hugin med at "
+"bearbejde panoramaet. Men hvis billederne i hver stak kræver en finjustering "
+"af positionen (fx under håndholdt fotografering), skal du ikke sammenkæde "
+"positionerne."
 
 #: hugin1/hugin/wxPanoCommand.cpp:453 hugin1/hugin/wxPanoCommand.cpp:457
 #: hugin1/hugin/xrc/main_frame.xrc:236
-#, fuzzy
 msgid "Link position"
-msgstr "Nulstil positioner"
+msgstr "Sammenkæd position"
 
 #: hugin1/hugin/wxPanoCommand.cpp:453 hugin1/hugin/wxPanoCommand.cpp:457
 #: hugin1/hugin/xrc/main_frame.xrc:242
-#, fuzzy
 msgid "Don't link position"
-msgstr "Kommandolinievalgmuligheder"
+msgstr "Sammenkæd ikke position"
 
 #: hugin1/hugin/wxPanoCommand.cpp:453 hugin1/hugin/wxPanoCommand.cpp:470
 #: hugin1/hugin/xrc/main_frame.xrc:247
 msgid "Don't assign stacks"
-msgstr ""
+msgstr "Tildel ikke stakke"
 
 #: hugin1/hugin/wxPanoCommand.cpp:457 hugin1/hugin/wxPanoCommand.cpp:474
-#, fuzzy
 msgid "Keep existing stacks"
-msgstr "Overskriv eksisterende billedfiler?"
+msgstr "Behold eksisterende stakke"
 
 #: hugin1/hugin/wxPanoCommand.cpp:576
 #, c-format
@@ -3571,7 +3595,7 @@ msgstr "Jobliste gennemført med fejl."
 
 #: hugin1/ptbatcher/Batch.cpp:541
 msgid "Initializing shutdown..."
-msgstr "Begynder nedlukning..."
+msgstr "Initialiserer nedlukning …"
 
 #: hugin1/ptbatcher/Batch.cpp:541 hugin1/ptbatcher/Batch.cpp:546
 msgid "Shutting down..."
@@ -3579,21 +3603,19 @@ msgstr "Lukker ned..."
 
 #: hugin1/ptbatcher/Batch.cpp:566
 msgid "Prepare to hibernate..."
-msgstr ""
+msgstr "Gør klar til dvale …"
 
 #: hugin1/ptbatcher/Batch.cpp:567
-#, fuzzy
 msgid "Initializing hibernating..."
-msgstr "Begynder nedlukning..."
+msgstr "Initialiserer dvale …"
 
 #: hugin1/ptbatcher/Batch.cpp:570
 msgid "Prepare to suspend..."
-msgstr ""
+msgstr "Gør klar til suspendering …"
 
 #: hugin1/ptbatcher/Batch.cpp:571
-#, fuzzy
 msgid "Initializing suspend mode..."
-msgstr "Begynder nedlukning..."
+msgstr "Initialiserer suspenderingstilstand …"
 
 #: hugin1/ptbatcher/Batch.cpp:639
 #: hugin1/stitch_project/hugin_stitch_project.cpp:376
@@ -3612,12 +3634,12 @@ msgstr "Ingen projektfil specificeret"
 #: hugin1/stitch_project/hugin_stitch_project.cpp:458
 #, c-format
 msgid "%s - Stitching"
-msgstr "%s - Sammenføjer"
+msgstr "%s – Sammenføjer"
 
 #: hugin1/ptbatcher/Batch.cpp:727
 #, c-format
 msgid "%s - Assistant"
-msgstr "%s - Assistent"
+msgstr "%s – Assistent"
 
 #: hugin1/ptbatcher/Batch.cpp:785
 #, c-format
@@ -3807,11 +3829,11 @@ msgstr "Joblistefil (*.ptb)|*.ptb;|Alle filer (*)|*"
 
 #: hugin1/ptbatcher/BatchFrame.cpp:1034
 msgid "Sorry. But this system does not support the hibernate mode."
-msgstr ""
+msgstr "Beklager. Men dette system understøtter ikke dvaletilstand."
 
 #: hugin1/ptbatcher/BatchFrame.cpp:1044
 msgid "Sorry. But this system does not support the suspend mode."
-msgstr ""
+msgstr "Beklager. Men dette system understøtter ikke suspenderingstilstand."
 
 #: hugin1/ptbatcher/BatchFrame.cpp:1172
 msgid "Starting batch"
@@ -3930,12 +3952,12 @@ msgstr "%d billeder: %s"
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:810
 msgid "%M:%S min"
-msgstr ""
+msgstr "%M:%S min"
 
 #: hugin1/ptbatcher/FindPanoDialog.cpp:814
 #, c-format
 msgid "%S s"
-msgstr ""
+msgstr "%S s"
 
 #: hugin1/ptbatcher/PTBatcherGUI.cpp:159
 msgid "stitch_project.pto [output prefix]|assistant_project.pto"
@@ -4190,30 +4212,27 @@ msgstr ""
 
 #: hugin1/hugin/xrc/batch_frame.xrc:107
 msgid "When done"
-msgstr ""
+msgstr "Efter afslutning"
 
 #: hugin1/hugin/xrc/batch_frame.xrc:114
-#, fuzzy
 msgid "Do nothing"
-msgstr "Ingenting"
+msgstr "Gør ingenting"
 
 #: hugin1/hugin/xrc/batch_frame.xrc:115
-#, fuzzy
 msgid "Close PTBatcherGUI"
-msgstr "PTBatcherGUI"
+msgstr "Luk PTBatcherGUI"
 
 #: hugin1/hugin/xrc/batch_frame.xrc:116
-#, fuzzy
 msgid "Shutdown computer"
-msgstr "Luk ned efter kørsel"
+msgstr "Luk computer ned"
 
 #: hugin1/hugin/xrc/batch_frame.xrc:117
 msgid "Suspend computer"
-msgstr ""
+msgstr "Suspendér computer"
 
 #: hugin1/hugin/xrc/batch_frame.xrc:118
 msgid "Hibernate computer"
-msgstr ""
+msgstr "Sæt computer i dvale"
 
 #: hugin1/hugin/xrc/batch_frame.xrc:130
 msgid "Verbose output"
@@ -4255,7 +4274,7 @@ msgstr "PanoramaXX.pto"
 
 #: hugin1/hugin/xrc/batch_frame.xrc:207
 msgid "First file - last file.pto"
-msgstr "Første fil - sidste fil.pto"
+msgstr "Første fil – sidste fil.pto"
 
 #: hugin1/hugin/xrc/batch_frame.xrc:208
 msgid "Foldername.pto"
@@ -4310,18 +4329,16 @@ msgid "Load distortion data"
 msgstr "Indlæs forvrængningsdata"
 
 #: hugin1/hugin/xrc/batch_frame.xrc:325
-#, fuzzy
 msgid "Tries to load distortion data from lens database if checked."
-msgstr "Hvis valgt, forsøges forvrængningsdata indlæst fra Lensfun-databasen."
+msgstr "Hvis valgt, forsøges forvrængningsdata indlæst fra objektivdatabasen."
 
 #: hugin1/hugin/xrc/batch_frame.xrc:332
 msgid "Load vignetting data"
 msgstr "Indlæs vignetteringsdata"
 
 #: hugin1/hugin/xrc/batch_frame.xrc:333
-#, fuzzy
 msgid "Tries to load vignetting data from lens database if checked."
-msgstr "Hvis valgt, forsøges vignetteringsdata indlæst fra Lensfun-databasen."
+msgstr "Hvis valgt, forsøges vignetteringsdata indlæst fra objektivdatabasen."
 
 #: hugin1/hugin/xrc/batch_frame.xrc:346 hugin1/hugin/xrc/lenscal_frame.xrc:200
 #: hugin1/hugin/xrc/mask_editor_panel.xrc:204
@@ -4336,9 +4353,8 @@ msgid "Found panoramas"
 msgstr "Fandt panoramaer"
 
 #: hugin1/hugin/xrc/batch_frame.xrc:372
-#, fuzzy
 msgid "Camera:"
-msgstr "Kamera"
+msgstr "Kamera:"
 
 #: hugin1/hugin/xrc/batch_frame.xrc:380 hugin1/hugin/xrc/lensdb_dialogs.xrc:14
 msgid "Lens:"
@@ -4354,9 +4370,8 @@ msgid "Focal length:"
 msgstr "Brændvidde:"
 
 #: hugin1/hugin/xrc/batch_frame.xrc:396
-#, fuzzy
 msgid "Start date (duration):"
-msgstr "Starter joblisteudførsel"
+msgstr "Startdato (varighed):"
 
 #: hugin1/hugin/xrc/batch_frame.xrc:433
 msgid "Send selected panoramas to queue"
@@ -4934,14 +4949,12 @@ msgid "Image variables"
 msgstr "Billedvariable"
 
 #: hugin1/hugin/xrc/image_variable_dlg.xrc:665
-#, fuzzy
 msgid "Images per stack:"
-msgstr "Billeder pr. stak"
+msgstr "Billeder pr. stak:"
 
 #: hugin1/hugin/xrc/image_variable_dlg.xrc:687
-#, fuzzy
 msgid "Link position of images in each stack"
-msgstr "Sammenkæd positioner på tværs af denne stak."
+msgstr "Sammenkæd positionen af billederne i hver stak"
 
 #: hugin1/hugin/xrc/image_variable_dlg.xrc:689
 msgid ""
@@ -4949,11 +4962,13 @@ msgid ""
 "Uncheck this option if the images in each stack needs an alignment to each "
 "other."
 msgstr ""
+"Vælg dette punkt hvis billederne blev taget på et stativ.\n"
+"Vælg ikke dette punkt hvis billederne i hver stak behøver justering i forhold "
+"til hinanden."
 
 #: hugin1/hugin/xrc/image_variable_dlg.xrc:694
-#, fuzzy
 msgid "Image stack"
-msgstr "Billeder pr. stak"
+msgstr "Billedstak"
 
 #: hugin1/hugin/xrc/image_variable_dlg.xrc:719
 msgid "Enter image count per stack"
@@ -5031,9 +5046,8 @@ msgid "Settings:"
 msgstr "Indstillinger:"
 
 #: hugin1/hugin/xrc/images_panel.xrc:252
-#, fuzzy
 msgid "Run selected control point detector on the selected images"
-msgstr "Fjern de punkter, der forbinder de valgte billeder"
+msgstr "Kør den valgte kontrolpunkt-detektor på de valgte billeder"
 
 #: hugin1/hugin/xrc/images_panel.xrc:276
 #: hugin1/hugin/xrc/lenscal_frame.xrc:366 hugin1/hugin/xrc/main_tool.xrc:52
@@ -5236,6 +5250,10 @@ msgid ""
 "Consider assigning stacks manually in the panorama editor to help Hugin to "
 "process the panorama."
 msgstr ""
+"Projektet dækker over et stort lysstyrkeområde, men Hugin kunne ikke "
+"automatisk detektere stakke.\n"
+"Overvej at tildele stakke manuelt i panorama-editoren for at hjælpe Hugin med "
+"at bearbejde panoramaet."
 
 #: hugin1/hugin/xrc/main_frame.xrc:157 hugin1/hugin/xrc/pano_panel.xrc:1061
 msgid "Don't show again"
@@ -5251,6 +5269,9 @@ msgid ""
 "corresponding stack numbers to the images. Should the position of images in "
 "each stack be linked?"
 msgstr ""
+"Hugin har detekteret billedstakke i de tilføjede billeder og vil tildele "
+"tilsvarende staknumre til billederne. Skal positionerne af billederne i hver "
+"stak sammenkædes?"
 
 #: hugin1/hugin/xrc/main_menu.xrc:8 hugin1/hugin/xrc/preview_frame.xrc:1810
 msgid "&Undo"
@@ -5424,7 +5445,7 @@ msgstr "tastaturgenveje"
 
 #: hugin1/hugin/xrc/main_menu.xrc:135 hugin1/hugin/xrc/preview_frame.xrc:1874
 msgid "&FAQ"
-msgstr "&FAQ - Ofte stillede spørgsmål"
+msgstr "&FAQ – Ofte stillede spørgsmål"
 
 #: hugin1/hugin/xrc/main_menu.xrc:136 hugin1/hugin/xrc/preview_frame.xrc:1875
 msgid "Frequently Asked Questions"
@@ -6108,7 +6129,7 @@ msgstr ""
 
 #: hugin1/hugin/xrc/pano_panel.xrc:716
 msgid "Processing:"
-msgstr "Processorer:"
+msgstr "Processerer:"
 
 #: hugin1/hugin/xrc/pano_panel.xrc:730
 msgid "Remapper:"
@@ -6363,18 +6384,18 @@ msgid ""
 "%projectname - project filename (only for output prefix)"
 msgstr ""
 "De følgende pladsholdere bliver automatisk erstattet:\n"
-"%firstimage - første billedfils filnavn\n"
-"%lastimage - sidste billedfils filnavn\n"
-"%#images - antal billeder\n"
-"%directory  - mappenavn (baseret på første billedfil)\n"
-"%projection - projektionsnavn\n"
-"%focallength - brændvidde\n"
-"%date - dato (for første billede)\n"
-"%time - tid (for første billede)\n"
-"%maker - kameraproducent (for første billede)\n"
-"%model - kameramodel (for første billede)\n"
-"%lens - objektiv (for første billede)\n"
-"%projectname - projektfilnavn (kun for output-prefix)"
+"%firstimage – første billedfils filnavn\n"
+"%lastimage – sidste billedfils filnavn\n"
+"%#images – antal billeder\n"
+"%directory  – mappenavn (baseret på første billedfil)\n"
+"%projection – projektionsnavn\n"
+"%focallength – brændvidde\n"
+"%date – dato (for første billede)\n"
+"%time – tid (for første billede)\n"
+"%maker – kameraproducent (for første billede)\n"
+"%model – kameramodel (for første billede)\n"
+"%lens – objektiv (for første billede)\n"
+"%projectname – projektfilnavn (kun for output-prefix)"
 
 #: hugin1/hugin/xrc/pref_dialog.xrc:294
 msgid "Default filenames"
@@ -6665,11 +6686,13 @@ msgid ""
 "intermediate images.\n"
 "Placeholders will not be replaced."
 msgstr ""
+"Den følgende argfil vil blive brugt til at kopiere mærker fra det første "
+"billede til alle mellemliggende billeder.\n"
+"Pladsholdere vil ikke blive erstattet."
 
 #: hugin1/hugin/xrc/pref_dialog.xrc:955
-#, fuzzy
 msgid "Intermediate ExifTool argfile:"
-msgstr "Redigér ExifTool-argfil"
+msgstr "Midlertidig ExifTool-argfil:"
 
 #: hugin1/hugin/xrc/pref_dialog.xrc:961 hugin1/hugin/xrc/pref_dialog.xrc:1020
 msgid "Leave empty for default"
@@ -6686,11 +6709,14 @@ msgid ""
 "It is applied additional to the above argfile for the intermediate images.\n"
 "Placeholders in this argfile will replaced before running exiftool."
 msgstr ""
+"Den følgende argfil vil blive brugt til at kopiere mærker fra det første "
+"billede til det endelige panorama.\n"
+"Den anvendes i tillæg til ovennævnte argfil på de mellemliggende billeder.\n"
+"Pladsholdere i denne argfil vil blive erstattet før exiftool køres."
 
 #: hugin1/hugin/xrc/pref_dialog.xrc:1014
-#, fuzzy
 msgid "Final ExifTool argfile:"
-msgstr "ExifTool-argfil:"
+msgstr "Endelig ExifTool-argfil:"
 
 #: hugin1/hugin/xrc/pref_dialog.xrc:1054
 msgid "Create Photo Sphere XMP data"
@@ -6725,9 +6751,8 @@ msgid "0 for automatic detection"
 msgstr "0 for automatisk lokalisering"
 
 #: hugin1/hugin/xrc/pref_dialog.xrc:1108
-#, fuzzy
 msgid "Stitching (2)"
-msgstr "Sammenføjning"
+msgstr "Sammenføjning (2)"
 
 #: hugin1/hugin/xrc/pref_dialog.xrc:1124
 msgid "Default Interpolator (i):"
@@ -6843,17 +6868,16 @@ msgid "Photometric optimizer"
 msgstr "Fotometrisk optimering"
 
 #: hugin1/hugin/xrc/pref_dialog.xrc:1438
-#, fuzzy
 msgid "Warnings"
-msgstr "Advarsel"
+msgstr "Advarsler"
 
 #: hugin1/hugin/xrc/pref_dialog.xrc:1442
 msgid "Show message about saving project file and output prefix"
-msgstr ""
+msgstr "Vis besked om gemning af projektfil og outputpræfiks"
 
 #: hugin1/hugin/xrc/pref_dialog.xrc:1449
 msgid "Show warning about big exposure difference when adding images"
-msgstr ""
+msgstr "Vis advarsel om stor eksponeringsforskel under tilføjelse af billeder"
 
 #: hugin1/hugin/xrc/pref_dialog.xrc:1460
 msgid "Misc"
@@ -6861,7 +6885,7 @@ msgstr "Diverse"
 
 #: hugin1/hugin/xrc/pref_dialog.xrc:1508
 msgid "Preferences - hugin"
-msgstr "Indstillinger - Hugin"
+msgstr "Indstillinger – Hugin"
 
 #: hugin1/hugin/xrc/pref_dialog.xrc:1541 hugin1/hugin/xrc/pref_dialog.xrc:1599
 msgid "Edit ExifTool argfile"
@@ -6885,6 +6909,20 @@ msgid ""
 "\n"
 "The placeholders are case sensitive."
 msgstr ""
+"De følgende pladsholdere bliver erstattet før kørsel af ExifTool:\n"
+"%projection – projektionsnavn (på engelsk)\n"
+"%projectionNumber – projektionens nummer\n"
+"%hfov – panoramaets vandrette synsfelt\n"
+"%vfov – panoramaets lodrette synsfelt\n"
+"%ev – panoramaets ekponeringsværdi\n"
+"%nrImages – antallet af aktive billeder\n"
+"%nrAllImages – samlet antal billeder i projektfil (inkl. inaktive billeder)\n"
+"%fullwidth – bredde på output-lærred\n"
+"%fullheight – højre på output\n"
+"%width – bredde på output-område\n"
+"%height – højde på output-område\n"
+"\n"
+"Pladsholderne er versalfølsomme."
 
 #: hugin1/hugin/xrc/preview_frame.xrc:7 hugin1/hugin/xrc/preview_frame.xrc:618
 #: hugin1/hugin/xrc/preview_frame.xrc:1466
@@ -7025,17 +7063,15 @@ msgstr "Grå-vælger"
 
 #: hugin1/hugin/xrc/preview_frame.xrc:404
 #: hugin1/hugin/xrc/preview_frame.xrc:1244
-#, fuzzy
 msgid "Delete all control points in selected rectangle."
-msgstr "Fjern kontrolpunkt-detektor-indstilling"
+msgstr "Fjern alle kontrolpunkter i valgt rektangel."
 
 #: hugin1/hugin/xrc/preview_frame.xrc:405
 #: hugin1/hugin/xrc/preview_frame.xrc:414
 #: hugin1/hugin/xrc/preview_frame.xrc:1245
 #: hugin1/hugin/xrc/preview_frame.xrc:1254
-#, fuzzy
 msgid "Edit CP"
-msgstr "&Redigér"
+msgstr "Redigér KP"
 
 #: hugin1/hugin/xrc/preview_frame.xrc:439
 #: hugin1/hugin/xrc/preview_frame.xrc:1279
