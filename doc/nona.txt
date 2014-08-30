@@ -163,6 +163,9 @@ p w1000 h600 f0 v360 E12.3
 #
 # TrX,TrY,TrZ  mosaic mode translation offsets.
 #
+# Tpy, Tpp     orientation of remapping plane for translation offsets. 
+#                (have no effect if TrX, TrY and TrZ are zero)
+#
 # S100,600,100,800   Selection(l,r,t,b), Only pixels inside the rectangle will be used for conversion.
 #                       Original image size is used for all image parameters
 #                       (e.g. field-of-view) refer to the original image.
