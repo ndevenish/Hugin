@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: da\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
 "POT-Creation-Date: 2014-01-05 11:39+0100\n"
-"PO-Revision-Date: 2014-01-01 20:03+0100\n"
+"PO-Revision-Date: 2014-08-30 18:51+0200\n"
 "Last-Translator: Thomas Pryds <thomas@pryds.eu>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
@@ -73,7 +73,7 @@ msgid ""
 "Apply settings anyway?"
 msgstr ""
 "Inkompatibel objektivparameterfil, billedstørrelser matcher ikke\n"
-"Benyt indstillinger alligevel?"
+"Benyt opsætning alligevel?"
 
 #: hugin1/base_wx/LensTools.cpp:242
 msgid "Error loading lens parameters"
@@ -482,8 +482,8 @@ msgid ""
 "already added image(s).\n"
 "Please check the image again, if you selected the correct images."
 msgstr ""
-"EXIF-informationen for de tilføjede billeder (%s) svarer ikke overens med de"
-"(t) allerede tilføjede billede(r).\n"
+"EXIF-informationen for de tilføjede billeder (%s) svarer ikke overens med "
+"de(t) allerede tilføjede billede(r).\n"
 "Check billedet igen, hvis du har valgt de korrekte filer."
 
 #: hugin1/calibrate_lens/LensCalFrame.cpp:426
@@ -1121,9 +1121,9 @@ msgid ""
 "panorama editor."
 msgstr ""
 "Bemærk: automatisk positionering bruger standardindstillingerne fra "
-"Indstillinger. Hvis du vil bruge tilpassede indstillinger kun for dette "
-"projekt, kør da CP-lokalisering, den geometriske optimering og den "
-"fotometriske optimering fra Fotografier-fanebladet i panorama-redigeringen."
+"Indstillinger. Hvis du vil bruge tilpasset opsætning kun for dette projekt, "
+"kør da CP-lokalisering, den geometriske optimering og den fotometriske "
+"optimering fra Fotografier-fanebladet i panorama-redigeringen."
 
 #: hugin1/hugin/GLPreviewFrame.cpp:1494 hugin1/hugin/PreviewFrame.cpp:629
 msgid "Rectilinear"
@@ -2542,8 +2542,8 @@ msgid ""
 "Apply settings anyway?"
 msgstr ""
 "Du valgte billeder med forskellige størrelser.\n"
-"Gennemførsel af objektivparametre kan resultere i uønskede resultater.\n"
-"Gennemfør indstillinger alligevel?"
+"Anvendelse af objektivparametre kan resultere i uønskede resultater.\n"
+"Anvend opsætning alligevel?"
 
 #: hugin1/hugin/PanoOperation.cpp:566
 msgid "Save lens to ini file"
@@ -2814,15 +2814,13 @@ msgstr ""
 "panorama af denne størrelse kan tage lang tid og bruge meget hukommelse."
 
 #: hugin1/hugin/PanoPanel.cpp:1461
-#, fuzzy
 msgid ""
 "There are no active images in the output region.\n"
 "Please check your settings, so that at least one image is in the output "
 "region."
 msgstr ""
-"Der er ingen aktive billeder i outputregionen.\n"
-"Tjek venligst dine indstillinger sådan at mindst ét af dine billeder er i "
-"outputregionen."
+"Der er ingen aktive billeder i output-området.\n"
+"Tjek venligst din opsætning sådan at mindst ét billede er i output-området."
 
 #: hugin1/hugin/PluginItems.cpp:71
 msgid "Miscellaneous"
@@ -2922,18 +2920,16 @@ msgid "Select Enfuse"
 msgstr "Vælg Enfuse"
 
 #: hugin1/hugin/PreferencesDialog.cpp:338 translations/xrc.cpp:761
-#, fuzzy
 msgid "Select ExifTool argfile"
-msgstr "Vælg Exiftool argfil"
+msgstr "Vælg ExifTool-argfil"
 
 #: hugin1/hugin/PreferencesDialog.cpp:340
 #: hugin1/hugin/PreferencesDialog.cpp:388
-#, fuzzy
 msgid "ExifTool Argfiles (*.arg)|*.arg|All Files(*)|*"
-msgstr "Exiftool argfiler (*.arg)|*.arg|Alle filer (*)|*"
+msgstr "ExifTool-argfiler (*.arg)|*.arg|Alle filer (*)|*"
 
 #: hugin1/hugin/PreferencesDialog.cpp:371
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "File %s does not exist.\n"
 "Should the argfile be created with default tags?"
@@ -2947,7 +2943,6 @@ msgid "Exiftool argfile"
 msgstr "Exiftool argfil"
 
 #: hugin1/hugin/PreferencesDialog.cpp:381
-#, fuzzy
 msgid ""
 "No file selected.\n"
 "Should an argfile be created with default tags?"
@@ -2956,9 +2951,8 @@ msgstr ""
 "Skal en argfil oprettes med standardmærker?"
 
 #: hugin1/hugin/PreferencesDialog.cpp:386
-#, fuzzy
 msgid "Select new ExifTool argfile"
-msgstr "Vælg ny Exiftool argfil"
+msgstr "Vælg ny ExifTool-argfil"
 
 #: hugin1/hugin/PreferencesDialog.cpp:406
 #, c-format
@@ -3000,16 +2994,16 @@ msgstr "Fjern kontrolpunkt-detektor-indstilling"
 
 #: hugin1/hugin/PreferencesDialog.cpp:1038
 msgid "Load control point detector settings"
-msgstr "Indlæs kontrolpunkt-detektor-indstillinger"
+msgstr "Indlæs kontrolpunkt-detektor-opsætning"
 
 #: hugin1/hugin/PreferencesDialog.cpp:1040
 #: hugin1/hugin/PreferencesDialog.cpp:1055
 msgid "Control point detector settings (*.setting)|*.setting"
-msgstr "Kontrolpunkt-detektor-indstilling"
+msgstr "Kontrolpunkt-detektor-opsætning"
 
 #: hugin1/hugin/PreferencesDialog.cpp:1053
 msgid "Save control point detector settings"
-msgstr "Gem kontrolpunkt-detektor-indstillinger"
+msgstr "Gem kontrolpunkt-detektor-opsætning"
 
 #: hugin1/hugin/PreviewColorPickerTool.cpp:44
 msgid ""
@@ -3172,7 +3166,7 @@ msgid ""
 msgstr ""
 "Kunne ikke finde \"%s\" i stien.\n"
 "Måske har du ikke installeret det korrekt, eller givet en forkert sti i "
-"indstillingerne."
+"opsætningen."
 
 #: hugin1/icpfind/AutoCtrlPointCreator.cpp:369
 msgid "cleaning up temporary keypoint files"
@@ -4660,7 +4654,7 @@ msgstr "Kendetegnssammenligning"
 
 #: translations/xrc.cpp:238
 msgid "Settings:"
-msgstr "Indstillinger:"
+msgstr "Opsætning:"
 
 #: translations/xrc.cpp:240
 msgid "Run external autopano program on the selected images"
@@ -4917,7 +4911,7 @@ msgstr "&Optimering"
 
 #: translations/xrc.cpp:352 translations/xrc.cpp:454
 msgid "Re-run the optimizer with current settings"
-msgstr "Kør optimeringen igen med de aktuelle indstillinger"
+msgstr "Kør optimeringen igen med den aktuelle opsætning"
 
 #: translations/xrc.cpp:353
 msgid "Fine-&tune all Points"
@@ -5152,8 +5146,7 @@ msgstr "Brug &skabelon"
 msgid ""
 "Assign the settings of a previously saved project to the current images."
 msgstr ""
-"Tildel indstillingerne fra et tidligere gemt projekt til de aktuelle "
-"billeder."
+"Tildel opsætningen fra et tidligere gemt projekt til de aktuelle billeder."
 
 #: translations/xrc.cpp:428
 msgid "&Close editor"
@@ -6266,27 +6259,24 @@ msgid "Advanced options"
 msgstr "Avancerede valgmuligheder"
 
 #: translations/xrc.cpp:756
-#, fuzzy
 msgid "ExifTool options"
-msgstr "Exiftool-valgmuligheder"
+msgstr "ExifTool-valgmuligheder"
 
 #: translations/xrc.cpp:757
 msgid "Copy metadata into final files using ExifTool"
 msgstr "Kopiér metadata til de endelige filer ved hjælp af ExifTool"
 
 #: translations/xrc.cpp:758
-#, fuzzy
 msgid "ExifTool argfile:"
-msgstr "Exiftool argfil:"
+msgstr "ExifTool-argfil:"
 
 #: translations/xrc.cpp:759
 msgid "Leave empty for default"
 msgstr "Efterlad tomt for standard"
 
 #: translations/xrc.cpp:763
-#, fuzzy
 msgid "Edit selected ExifTool argfile"
-msgstr "Vælg Exiftool argfil"
+msgstr "Vælg ExifTool-argfil"
 
 #: translations/xrc.cpp:764
 msgid "Create Photo Sphere XMP data"
@@ -6442,9 +6432,8 @@ msgid "Preferences - hugin"
 msgstr "Indstillinger - Hugin"
 
 #: translations/xrc.cpp:814
-#, fuzzy
 msgid "Edit ExifTool argfile"
-msgstr "Redigér Exiftool argfil"
+msgstr "Redigér ExifTool-argfil"
 
 #: translations/xrc.cpp:815 translations/xrc.cpp:880 translations/xrc.cpp:964
 msgid "Center the preview horizontally"
@@ -6793,10 +6782,9 @@ msgid ""
 "separately if you haven't already done so."
 msgstr ""
 "Hvis du foretrækker at bruge en alternativ kontrolpunkt-detektor frem for "
-"Hugins indbyggede CPFind, kan du finde valgmuligheder for dette i "
-"Indstillinger -> Kontrolpunkt-detektorer. Det er dog stadig nødvendigt at "
-"installere en sådan kontrolpunkt-detektor separat, hvis du ikke allerede har "
-"gjort det."
+"Hugins indbyggede CPFind, kan du finde opsætningen for dette i Indstillinger "
+"-> Kontrolpunkt-detektorer. Det er dog stadig nødvendigt at installere en "
+"sådan kontrolpunkt-detektor separat, hvis du ikke allerede har gjort det."
 
 #: hugin1/hugin/xrc/data/tips.txt:10
 msgid ""
@@ -7005,8 +6993,8 @@ msgid ""
 "the parameters using know settings and reuse them later."
 msgstr ""
 "Objektivparametre kan variere ved ændret fokusafstand. For de bedste "
-"resultater kan du kalibrere parametrene med kendte indstillinger og genbruge "
-"dem senere."
+"resultater kan du kalibrere parametrene med kendt opsætning og genbruge dem "
+"senere."
 
 #: hugin1/hugin/xrc/data/tips.txt:38
 msgid ""
