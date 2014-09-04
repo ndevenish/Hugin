@@ -345,7 +345,7 @@ void SaveLensParametersToIni(wxWindow * parent, PT::Panorama *pano, const HuginB
                          _("Save lens parameters file"),
                          wxConfigBase::Get()->Read(wxT("/lensPath"),wxT("")), wxT(""),
                          _("Lens Project Files (*.ini)|*.ini|All files (*)|*"),
-                         wxFD_SAVE, wxDefaultPosition);
+                         wxFD_SAVE | wxFD_OVERWRITE_PROMPT, wxDefaultPosition);
         dlg.SetDirectory(wxConfigBase::Get()->Read(wxT("/lensPath"),wxT("")));
         if (dlg.ShowModal() == wxID_OK)
         {
@@ -353,6 +353,13 @@ void SaveLensParametersToIni(wxWindow * parent, PT::Panorama *pano, const HuginB
             if(!filename.HasExt())
             {
                 filename.SetExt(wxT("ini"));
+                if (filename.Exists()) {
+                    int d = wxMessageBox(wxString::Format(_("File %s exists. Overwrite?"), filename.GetFullPath().c_str()),
+                        _("Save project"), wxYES_NO | wxICON_QUESTION);
+                    if (d != wxYES) {
+                        return;
+                    }
+                }
             }
             wxConfig::Get()->Write(wxT("/lensPath"), dlg.GetDirectory());  // remember for later
             SaveLensParameters(filename.GetFullPath(),pano,imgNr);

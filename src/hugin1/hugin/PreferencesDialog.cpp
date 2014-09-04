@@ -388,7 +388,7 @@ void PreferencesDialog::OnExifArgfileEdit(wxCommandEvent & e)
         wxFileDialog dlg(this,_("Select new ExifTool argfile"),
             wxStandardPaths::Get().GetUserConfigDir(), wxT(""),
                          _("ExifTool Argfiles (*.arg)|*.arg|All Files(*)|*"),
-                         wxFD_SAVE, wxDefaultPosition);
+                         wxFD_SAVE | wxFD_OVERWRITE_PROMPT, wxDefaultPosition);
         if (dlg.ShowModal() != wxID_OK)
         {
             return;
@@ -453,7 +453,7 @@ void PreferencesDialog::OnExifArgfileEdit2(wxCommandEvent & e)
         wxFileDialog dlg(this, _("Select new ExifTool argfile"),
             wxStandardPaths::Get().GetUserConfigDir(), wxT(""),
             _("ExifTool Argfiles (*.arg)|*.arg|All Files(*)|*"),
-            wxFD_SAVE, wxDefaultPosition);
+            wxFD_SAVE | wxFD_OVERWRITE_PROMPT, wxDefaultPosition);
         if (dlg.ShowModal() != wxID_OK)
         {
             return;

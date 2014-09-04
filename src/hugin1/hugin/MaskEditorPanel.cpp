@@ -430,23 +430,23 @@ void MaskEditorPanel::OnMaskSave(wxCommandEvent &e)
         wxFileDialog dlg(this, _("Save mask"),
                 wxConfigBase::Get()->Read(wxT("/actualPath"), wxT("")),
                 wxT(""), _("Mask files (*.msk)|*.msk|All files (*)|*"), 
-                wxFD_SAVE, wxDefaultPosition);
+                wxFD_SAVE | wxFD_OVERWRITE_PROMPT, wxDefaultPosition);
         if (dlg.ShowModal() == wxID_OK) 
         {
             wxString fn = dlg.GetPath();
-            if (fn.Right(4) != wxT(".msk")) 
+            if (fn.Right(4) != wxT(".msk"))
             {
                 fn.Append(wxT(".msk"));
-            }
-            if (wxFile::Exists(fn)) 
-            {
-                int d = wxMessageBox(wxString::Format(_("File %s exists. Overwrite?"), 
-                        fn.c_str()),_("Save mask"), 
+                if (wxFile::Exists(fn))
+                {
+                    int d = wxMessageBox(wxString::Format(_("File %s exists. Overwrite?"),
+                        fn.c_str()), _("Save mask"),
                         wxYES_NO | wxICON_QUESTION);
-                if (d != wxYES) {
-                    return;
+                    if (d != wxYES) {
+                        return;
+                    }
                 }
-            }
+            };
             wxFileName filename = fn;
             std::ofstream maskFile(filename.GetFullPath().mb_str(HUGIN_CONV_FILENAME));
             SaveMaskToStream(maskFile, m_pano->getImage(GetImgNr()).getSize(), m_currentMasks[m_MaskNr], GetImgNr());

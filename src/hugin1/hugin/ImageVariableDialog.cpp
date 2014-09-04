@@ -323,7 +323,7 @@ void GraphPopupWindow::OnRightDown(wxMouseEvent &e)
                         _("Save graph"),
                         config->Read(wxT("/actualPath"),wxT("")), wxT(""),
                         _("Bitmap (*.bmp)|*.bmp|PNG-File (*.png)|*.png"),
-                        wxFD_SAVE, wxDefaultPosition);
+                        wxFD_SAVE | wxFD_OVERWRITE_PROMPT, wxDefaultPosition);
     dlg.SetDirectory(config->Read(wxT("/actualPath"),wxT("")));
     dlg.SetFilterIndex(config->Read(wxT("/lastImageTypeIndex"), 0l));
     if (dlg.ShowModal() == wxID_OK)

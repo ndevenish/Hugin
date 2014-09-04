@@ -868,7 +868,7 @@ void BatchFrame::OnButtonSaveBatch(wxCommandEvent& event)
                      _("Specify batch file to save"),
                      defaultdir, wxT(""),
                      _("Batch file (*.ptb)|*.ptb;|All files (*)|*"),
-                     wxFD_SAVE, wxDefaultPosition);
+                     wxFD_SAVE | wxFD_OVERWRITE_PROMPT, wxDefaultPosition);
     if (dlg.ShowModal() == wxID_OK)
     {
         wxConfig::Get()->Write(wxT("/BatchFrame/batchPath"), dlg.GetDirectory());  // remember for later

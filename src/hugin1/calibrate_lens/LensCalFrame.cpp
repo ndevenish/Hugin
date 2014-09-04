@@ -743,7 +743,7 @@ void LensCalFrame::SaveLensToIni()
                         _("Save lens parameters file"),
                         wxConfigBase::Get()->Read(wxT("/lensPath"),wxT("")), wxT(""),
                         _("Lens Project Files (*.ini)|*.ini|All files (*)|*"),
-                        wxFD_SAVE, wxDefaultPosition);
+                        wxFD_SAVE | wxFD_OVERWRITE_PROMPT, wxDefaultPosition);
     dlg.SetDirectory(wxConfigBase::Get()->Read(wxT("/lensPath"),wxT("")));
     if (dlg.ShowModal() == wxID_OK)
     {
@@ -808,7 +808,7 @@ void LensCalFrame::OnSaveProject(wxCommandEvent &e)
     }
 
     wxFileDialog dlg(this,_("Save project file"),wxEmptyString,wxEmptyString,
-                     _("Project files (*.pto)|*.pto|All files (*)|*"), wxFD_SAVE, wxDefaultPosition);
+                     _("Project files (*.pto)|*.pto|All files (*)|*"), wxFD_SAVE | wxFD_OVERWRITE_PROMPT, wxDefaultPosition);
     dlg.SetDirectory(wxConfigBase::Get()->Read(wxT("/actualPath"),wxT("")));
     if (dlg.ShowModal() == wxID_OK)
     {
