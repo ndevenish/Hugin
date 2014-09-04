@@ -217,6 +217,29 @@ BatchFrame::BatchFrame(wxLocale* locale, wxString xrc)
         m_batch->SaveTemp();
     }
     projListBox = XRCCTRL(*this,"project_listbox",ProjectListBox);
+    // fill at end list box, check which options are available
+    m_endChoice = XRCCTRL(*this, "choice_end", wxChoice);
+    m_endChoice->Clear();
+    m_endChoice->Append(_("Do nothing"), (void*)Batch::DO_NOTHING);
+    m_endChoice->Append(_("Close PTBatcherGUI"), (void*)Batch::CLOSE_PTBATCHERGUI);
+#if !defined __WXMAC__ && !defined __WXOSX_COCOA__
+    // there is no wxShutdown for wxMac
+    m_endChoice->Append(_("Shutdown computer"), (void*)Batch::SHUTDOWN);
+#endif
+#ifdef __WXMSW__
+    SYSTEM_POWER_CAPABILITIES pwrCap;
+    if (GetPwrCapabilities(&pwrCap))
+    {
+        if (pwrCap.SystemS3)
+        {
+            m_endChoice->Append(_("Suspend computer"), (void*)Batch::SUSPEND);
+        };
+        if (pwrCap.SystemS4 && pwrCap.HiberFilePresent)
+        {
+            m_endChoice->Append(_("Hibernate computer"), (void*)Batch::HIBERNATE);
+        };
+    };
+#endif
 
     //wxThreadHelper::Create is deprecated in wxWidgets 2.9+, but its
     // replacement, CreateThread, does not exist in 2.8. Pick one
@@ -919,6 +942,19 @@ void BatchFrame::OnButtonSkip(wxCommandEvent& event)
     }
 }
 
+void SelectEndTask(wxControlWithItems* list, const Batch::EndTask endTask)
+{
+    for (unsigned int i = 0; i<list->GetCount(); i++)
+    {
+        if (static_cast<Batch::EndTask>((size_t)list->GetClientData(i)) == endTask)
+        {
+            list->SetSelection(i);
+            return;
+        };
+    };
+    list->SetSelection(0);
+};
+
 void BatchFrame::SetCheckboxes()
 {
     wxConfigBase* config=wxConfigBase::Get();
@@ -927,17 +963,28 @@ void BatchFrame::SetCheckboxes()
     XRCCTRL(*this,"cb_parallel",wxCheckBox)->SetValue(i!=0);
     m_batch->parallel=(i!=0);
     // read older version
+#if defined __WXMAC__ || defined __WXOSX_COCOA__
+    i = 0;
+#else
     i=config->Read(wxT("/BatchFrame/ShutdownCheck"), 0l);
+#endif
     if (i != 0)
     {
-        XRCCTRL(*this, "choice_end", wxChoice)->SetSelection(Batch::SHUTDOWN);
+        SelectEndTask(m_endChoice, Batch::SHUTDOWN);
         m_batch->atEnd = Batch::SHUTDOWN;
     };
     config->DeleteEntry(wxT("/BatchFrame/ShutdownCheck"));
     // now read current version
     i = config->Read(wxT("/BatchFrame/AtEnd"), 0l);
-    XRCCTRL(*this, "choice_end", wxChoice)->SetSelection(i);
+#if defined __WXMAC__ || defined __WXOSX_COCOA__
+    // wxWidgets for MacOS does not support wxShutdown
+    if (i == Batch::SHUTDOWN)
+    {
+        i = 0;
+    };
+#endif
     m_batch->atEnd = static_cast<Batch::EndTask>(i);
+    SelectEndTask(m_endChoice, m_batch->atEnd);
     i=config->Read(wxT("/BatchFrame/OverwriteCheck"), 0l);
     XRCCTRL(*this,"cb_overwrite",wxCheckBox)->SetValue(i!=0);
     m_batch->overwrite=(i!=0);
@@ -962,7 +1009,7 @@ bool BatchFrame::GetCheckParallel()
 
 Batch::EndTask BatchFrame::GetEndTask()
 {
-    return static_cast<Batch::EndTask>(XRCCTRL(*this, "choice_end", wxChoice)->GetSelection());
+    return static_cast<Batch::EndTask>((size_t)m_endChoice->GetClientData(m_endChoice->GetSelection()));
 };
 
 bool BatchFrame::GetCheckOverwrite()
@@ -1020,38 +1067,8 @@ void BatchFrame::OnCheckParallel(wxCommandEvent& event)
 
 void BatchFrame::OnChoiceEnd(wxCommandEvent& event)
 {
-    int sel = event.GetSelection();
-#ifdef __WXMSW__
-    if (sel == Batch::SUSPEND || sel == Batch::HIBERNATE)
-    {
-        SYSTEM_POWER_CAPABILITIES pwrCap;
-        if (GetPwrCapabilities(&pwrCap))
-        {
-            if (sel == Batch::HIBERNATE)
-            {
-                if (!(pwrCap.SystemS4 && pwrCap.HiberFilePresent))
-                {
-                    wxMessageBox(_("Sorry. But this system does not support the hibernate mode."),
-                        wxT("PTBatcherGUI"), wxOK | wxICON_EXCLAMATION, this);
-                    XRCCTRL(*this, "choice_end", wxChoice)->SetSelection(0);
-                    sel = 0;
-                };
-            };
-            if (sel == Batch::SUSPEND)
-            {
-                if (!(pwrCap.SystemS3))
-                {
-                    wxMessageBox(_("Sorry. But this system does not support the suspend mode."),
-                        wxT("PTBatcherGUI"), wxOK | wxICON_EXCLAMATION, this);
-                    XRCCTRL(*this, "choice_end", wxChoice)->SetSelection(0);
-                    sel = 0;
-                };
-            };
-        };
-    };
-#endif
-    m_batch->atEnd = static_cast<Batch::EndTask>(sel);
-    wxConfigBase::Get()->Write(wxT("/BatchFrame/AtEnd"), sel);
+    m_batch->atEnd = static_cast<Batch::EndTask>((size_t)m_endChoice->GetClientData(event.GetSelection()));
+    wxConfigBase::Get()->Write(wxT("/BatchFrame/AtEnd"), static_cast<long>(m_batch->atEnd));
 }
 
 void BatchFrame::OnCheckVerbose(wxCommandEvent& event)

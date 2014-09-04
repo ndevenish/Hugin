@@ -51,12 +51,11 @@ struct FailedProject
 class Batch : public wxFrame
 {
 public:
-    // this needs to be syncronized with the ressource file
     enum EndTask
     {
         DO_NOTHING = 0,
         CLOSE_PTBATCHERGUI = 1,
-        SHUTDOWN = 2,
+        SHUTDOWN = 2,  // only implemented for GTK and Window in wxWidgets
         SUSPEND = 3,   // only implemented for Windows
         HIBERNATE = 4  // only implemented for Windows
     };

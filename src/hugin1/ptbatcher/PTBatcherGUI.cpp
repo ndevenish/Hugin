@@ -343,7 +343,10 @@ bool PTBatcherGUI::OnInit()
         if (parser.Found(wxT("s")))
         {
             config->DeleteEntry(wxT("/BatchFrame/ShutdownCheck"));
+#if !defined __WXMAC__ && !defined __WXOSX_COCOA__
+            // wxMac has not wxShutdown
             config->Write(wxT("/BatchFrame/AtEnd"), static_cast<long>(Batch::SHUTDOWN));
+#endif
         }
         if (parser.Found(wxT("o")))
         {
@@ -363,7 +366,10 @@ bool PTBatcherGUI::OnInit()
         }
         if (parser.Found(wxT("s")))
         {
+#if !defined __WXMAC__ && !defined __WXOSX_COCOA__
+            // wxMac has not wxShutdown
             conn->Request(wxT("SetShutdownCheck"));
+#endif
         }
         if (parser.Found(wxT("o")))
         {
@@ -488,6 +494,8 @@ wxChar* BatchIPCConnection::OnRequest(const wxString& topic, const wxString& ite
             MyBatchFrame->OnCheckParallel(event);
             MyBatchFrame->SetCheckboxes();
         };
+#if !defined __WXMAC__ && !defined __WXOSX_COCOA__
+    // wxMac has not wxShutdown
     if(item==wxT("SetShutdownCheck"))
         if (MyBatchFrame->GetEndTask()!=Batch::SHUTDOWN)
         {
@@ -496,6 +504,7 @@ wxChar* BatchIPCConnection::OnRequest(const wxString& topic, const wxString& ite
             MyBatchFrame->OnChoiceEnd(choiceEvent);
             MyBatchFrame->SetCheckboxes();
         };
+#endif
     if(item==wxT("SetOverwriteCheck"))
         if(!MyBatchFrame->GetCheckOverwrite())
         {

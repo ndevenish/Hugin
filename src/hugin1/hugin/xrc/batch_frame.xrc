@@ -109,16 +109,7 @@
                       <flag>wxALIGN_CENTRE_VERTICAL</flag>
                     </object>
                     <object class="sizeritem">
-                      <object class="wxChoice" name="choice_end">
-                        <content>
-                          <item>Do nothing</item>
-                          <item>Close PTBatcherGUI</item>
-                          <item>Shutdown computer</item>
-                          <item platform="win">Suspend computer</item>
-                          <item platform="win">Hibernate computer</item>
-                        </content>
-                        <selection>0</selection>
-                      </object>
+                      <object class="wxChoice" name="choice_end"/>
                       <flag>wxEXPAND|wxALIGN_CENTRE_VERTICAL</flag>
                     </object>
                     <orient>wxHORIZONTAL</orient>

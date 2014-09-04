@@ -164,6 +164,7 @@ private:
     bool m_cancelled;
     bool m_paused;
     bool m_closeThread; //included to signal the thread to finish execution
+    wxChoice* m_endChoice;
     //TO-DO: include a batch or project progress gauge? Test initialization commented out in constructor
     //wxGauge* m_gauge;
 #ifdef __WXMSW__
