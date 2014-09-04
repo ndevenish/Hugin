@@ -99,6 +99,8 @@ public:
     void OnCaptureLost(wxMouseCaptureLostEvent &e);
     /** event handler, when editor lost focus, mainly cancels creating new polygon */
     void OnKillFocus(wxFocusEvent &e);
+    /** event handler for remember scroll position */
+    void OnScroll(wxScrollWinEvent &e);
 
     /** starts creating a new polygon */
     void startNewPolygon();
@@ -325,6 +327,7 @@ protected:
 #ifndef SUPPORTS_WXINVERT
     wxColour m_color_selection;
 #endif
+    int m_oldScrollPosX, m_oldScrollPosY;
 
     DECLARE_EVENT_TABLE();
     DECLARE_DYNAMIC_CLASS(MaskImageCtrl)

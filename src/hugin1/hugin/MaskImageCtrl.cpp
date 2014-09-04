@@ -65,6 +65,7 @@ BEGIN_EVENT_TABLE(MaskImageCtrl, wxScrolledWindow)
     EVT_KEY_UP(MaskImageCtrl::OnKeyUp)
     EVT_MOUSE_CAPTURE_LOST(MaskImageCtrl::OnCaptureLost)
     EVT_KILL_FOCUS(MaskImageCtrl::OnKillFocus)
+    EVT_SCROLLWIN(MaskImageCtrl::OnScroll)
 END_EVENT_TABLE()
 
 bool MaskImageCtrl::Create(wxWindow * parent, wxWindowID id,
@@ -82,6 +83,8 @@ bool MaskImageCtrl::Create(wxWindow * parent, wxWindowID id,
     m_activeMask = UINT_MAX;
     m_showActiveMasks = false;
     m_maskMode = true;
+    m_oldScrollPosX = -1;
+    m_oldScrollPosY = -1;
 
     return true;
 }
@@ -133,6 +136,7 @@ void MaskImageCtrl::setImage(const std::string & file, HuginBase::MaskPolygonVec
         m_imgRotation=rot;
         setActiveMask(UINT_MAX,false);
         rescaleImage();
+        Scroll(m_oldScrollPosX, m_oldScrollPosY);
     }
     else
     {
@@ -1245,6 +1249,13 @@ void MaskImageCtrl::OnSize(wxSizeEvent &e)
         }
     }
 };
+
+void MaskImageCtrl::OnScroll(wxScrollWinEvent &e)
+{
+    m_oldScrollPosX = GetScrollPos(wxHORIZONTAL);
+    m_oldScrollPosY = GetScrollPos(wxVERTICAL);
+    e.Skip();
+}
 
 void MaskImageCtrl::rescaleImage()
 {
