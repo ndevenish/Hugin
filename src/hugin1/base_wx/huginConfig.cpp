@@ -384,6 +384,12 @@ wxString getDefaultProjectName(const HuginBase::Panorama & pano,const wxString f
     {
         filename=wxT("pano");
     };
+    // check if template is an absolute path, if so ignore path from first image
+    wxFileName fileName(filename);
+    if (fileName.IsAbsolute())
+    {
+        return filename;
+    };
     return pathPrefix+filename;
 };
 
@@ -437,6 +443,12 @@ wxString getDefaultOutputName(const wxString projectname, const HuginBase::Panor
     if(filename.empty())
     {
         filename=wxT("pano");
+    };
+    // check if template is an absolute path, if so ignore path from first image
+    wxFileName fileName(filename);
+    if (fileName.IsAbsolute())
+    {
+        return filename;
     };
     return pathPrefix+filename;
 };
