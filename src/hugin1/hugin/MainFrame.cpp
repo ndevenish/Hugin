@@ -862,7 +862,6 @@ void MainFrame::OnSaveProjectAs(wxCommandEvent & e)
                      scriptName.GetPath(), scriptName.GetFullName(),
                      _("Project files (*.pto)|*.pto|All files (*)|*"),
                      wxFD_SAVE | wxFD_OVERWRITE_PROMPT, wxDefaultPosition);
-    dlg.SetDirectory(wxConfigBase::Get()->Read(wxT("/actualPath"),wxT("")));
     if (dlg.ShowModal() == wxID_OK) {
         wxConfig::Get()->Write(wxT("/actualPath"), dlg.GetDirectory());  // remember for later
         wxString fn = dlg.GetPath();
@@ -897,7 +896,6 @@ void MainFrame::OnSavePTStitcherAs(wxCommandEvent & e)
                      wxConfigBase::Get()->Read(wxT("/actualPath"),wxT("")), fn,
                      _("PTmender files (*.txt)|*.txt"),
                      wxFD_SAVE | wxFD_OVERWRITE_PROMPT, wxDefaultPosition);
-    dlg.SetDirectory(wxConfigBase::Get()->Read(wxT("/actualPath"),wxT("")));
     if (dlg.ShowModal() == wxID_OK) {
         wxString fname = dlg.GetPath();
         // the project file is just a PTStitcher script...
