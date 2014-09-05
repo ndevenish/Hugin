@@ -353,7 +353,12 @@ void SaveLensParametersToIni(wxWindow * parent, PT::Panorama *pano, const HuginB
             if(!filename.HasExt())
             {
                 filename.SetExt(wxT("ini"));
-                if (filename.Exists()) {
+#if wxCHECK_VERSION(3,0,0)
+                if (filename.Exists())
+#else
+                if (wxFile::Exists(filename.GetFullPath()))
+#endif
+                {
                     int d = wxMessageBox(wxString::Format(_("File %s exists. Overwrite?"), filename.GetFullPath().c_str()),
                         _("Save project"), wxYES_NO | wxICON_QUESTION);
                     if (d != wxYES) {
