@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hugin\n"
 "Report-Msgid-Bugs-To: https://bugs.launchpad.net/hugin/\n"
-"POT-Creation-Date: 2014-08-30 09:41+0200\n"
+"POT-Creation-Date: 2014-09-11 09:48+0200\n"
 "PO-Revision-Date: 2014-07-12 13:32+0200\n"
 "Last-Translator: Kornel Benko <kornel@lyx.org>\n"
 "Language-Team: Slovak <sk@li.org>\n"
@@ -59,7 +59,7 @@ msgstr "Stereografická"
 #: hugin1/base_wx/LensTools.cpp:44 hugin1/hugin/ImagesTree.cpp:361
 #: hugin1/hugin/PanoPanel.cpp:155
 msgid "Equisolid"
-msgstr "Equisolid"
+msgstr "Rovnoplošná"
 
 #: hugin1/base_wx/LensTools.cpp:45 hugin1/hugin/ImagesTree.cpp:362
 msgid "Fisheye Thoby"
@@ -1410,16 +1410,6 @@ msgstr "Hľadať kontrolné body"
 msgid "Processing"
 msgstr "Spracovanie"
 
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:3390
-#, fuzzy, c-format
-msgid "Remap \"%s\" to panorama projection..."
-msgstr "Premapovať obrázok do projekcie panorámy..."
-
-#: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:3420
-#, fuzzy, c-format
-msgid "Matching interest points for image \"%s\"..."
-msgstr "Zodpovedajúce zaujímavé body..."
-
 #: hugin1/hugin/GLPreviewFrame - Kopie (2).cpp:3518 Kopie.cpp:3440
 #: hugin1/hugin/GLPreviewFrame.cpp:3530
 msgid "Checking results..."
@@ -1453,16 +1443,6 @@ msgstr "Znovu-optimalizovať"
 #: hugin1/hugin/GLPreviewFrame.cpp:3559
 msgid "Don't optimize now"
 msgstr "Teraz neoptimalizovať"
-
-#: hugin1/hugin/GLPreviewFrame - Kopie.cpp:3341
-#, fuzzy
-msgid "Remap to panorama projection..."
-msgstr "Premapovať obrázok do projekcie panorámy..."
-
-#: hugin1/hugin/GLPreviewFrame - Kopie.cpp:3370
-#, fuzzy
-msgid "Finding interest points..."
-msgstr "Zodpovedajúce zaujímavé body..."
 
 #: hugin1/hugin/GLPreviewFrame - Kopie.cpp:3394
 #: hugin1/hugin/GLPreviewFrame.cpp:3411
@@ -3830,14 +3810,6 @@ msgstr "Zadajte súbor, do ktorého chcete uložiť dávkovú úlohu"
 msgid "Batch file (*.ptb)|*.ptb;|All files (*)|*"
 msgstr "Súbor dávky (*.ptb)|*.ptb|Všetky súbory (*)|*"
 
-#: hugin1/ptbatcher/BatchFrame.cpp:1034
-msgid "Sorry. But this system does not support the hibernate mode."
-msgstr "Ľutujem. Ale tento systém nepodporuje stav prezimovania."
-
-#: hugin1/ptbatcher/BatchFrame.cpp:1044
-msgid "Sorry. But this system does not support the suspend mode."
-msgstr "Ľutujem. Ale tento systém nepodporuje stav prerušenia."
-
 #: hugin1/ptbatcher/BatchFrame.cpp:1172
 msgid "Starting batch"
 msgstr "Spustiť dávkovú úlohu"
@@ -4137,6 +4109,10 @@ msgstr "Licencia"
 #: hugin1/hugin/xrc/about.xrc:147
 msgid "System"
 msgstr "Systém"
+
+#: hugin1/hugin/xrc/about.xrc:188
+msgid "Dedication"
+msgstr "Venovanie"
 
 #: hugin1/hugin/xrc/about.xrc:198 hugin1/hugin/xrc/cpdetector_dialog.xrc:328
 #: hugin1/hugin/xrc/dlg_warning.xrc:46
@@ -7564,8 +7540,23 @@ msgstr ""
 "ak sa obrázky veľmi prekrývajú a použili ste tiež mnoho dobre rozprestrených "
 "kontrolných bodov."
 
-#~ msgid "Dedication"
-#~ msgstr "Venovanie"
+#~ msgid "Remap \"%s\" to panorama projection..."
+#~ msgstr "Premapovať obrázok do projekcie panorámy..."
+
+#~ msgid "Matching interest points for image \"%s\"..."
+#~ msgstr "Zodpovedajúce zaujímavé body..."
+
+#~ msgid "Remap to panorama projection..."
+#~ msgstr "Premapovať obrázok do projekcie panorámy..."
+
+#~ msgid "Finding interest points..."
+#~ msgstr "Zodpovedajúce zaujímavé body..."
+
+#~ msgid "Sorry. But this system does not support the hibernate mode."
+#~ msgstr "Ľutujem. Ale tento systém nepodporuje stav prezimovania."
+
+#~ msgid "Sorry. But this system does not support the suspend mode."
+#~ msgstr "Ľutujem. Ale tento systém nepodporuje stav prerušenia."
 
 #~ msgid "x"
 #~ msgstr "x"
