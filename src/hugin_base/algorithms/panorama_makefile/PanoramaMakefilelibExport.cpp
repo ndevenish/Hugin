@@ -49,6 +49,7 @@ along with hugin.  If not, see <http://www.gnu.org/licenses/>.
 #include <algorithms/basic/LayerStacks.h>
 #ifdef _WINDOWS
 #include "windows.h"
+#include <versionhelpers.h>
 #endif
 
 /// Automates an very often occuring sequence
@@ -1203,11 +1204,6 @@ void PanoramaMakefilelibExport::printSystemInfo(Rule& inforule)
     std::ostringstream infostream("");
     infostream.imbue(makefile::GetMakefileLocale());
 #ifdef _WINDOWS
-    OSVERSIONINFOEX osvi;
-    ZeroMemory(&osvi, sizeof(OSVERSIONINFOEX));
-    osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX);
-    if(!GetVersionEx((OSVERSIONINFO *) &osvi))
-        return;
     SYSTEM_INFO siSysInfo;
     GetSystemInfo(&siSysInfo);
     MEMORYSTATUSEX statex;
@@ -1215,35 +1211,80 @@ void PanoramaMakefilelibExport::printSystemInfo(Rule& inforule)
     GlobalMemoryStatusEx(&statex);
 
     infostream << "Windows ";
-
-    if(osvi.dwPlatformId==VER_PLATFORM_WIN32_NT && osvi.dwMajorVersion > 4)
+    if (IsWindows8Point1OrGreater())
     {
-        if(osvi.dwMajorVersion==5 && osvi.dwMinorVersion==0)
-            infostream << "2000 ";
-        if(osvi.dwMajorVersion==5 && osvi.dwMinorVersion==1)
-            infostream << "XP ";
-        if(osvi.dwMajorVersion==5 && osvi.dwMinorVersion==2 && osvi.wProductType==VER_NT_WORKSTATION && siSysInfo.wProcessorArchitecture==PROCESSOR_ARCHITECTURE_AMD64)
-            infostream << "XP Professional x64 Edition ";
-        if(osvi.dwMajorVersion==6)
-        {
-            if(osvi.dwMinorVersion==0)
-            {
-                if(osvi.wProductType==VER_NT_WORKSTATION)
-                    infostream << "Vista ";
-                else
-                    infostream << "Server 2008 ";
-            }
-            if(osvi.dwMinorVersion==1)
-            {
-                if(osvi.wProductType==VER_NT_WORKSTATION)
-                    infostream << "7 ";
-                else
-                    infostream << "Server 2008 R2 ";
-            }
-        };
+        infostream << "8.1";
     }
-
-    infostream << "(" << osvi.dwMajorVersion << "." << osvi.dwMinorVersion << " " << osvi.szCSDVersion << ")";
+    else
+    {
+        if (IsWindows8OrGreater())
+        {
+            infostream << "8";
+        }
+        else
+        {
+            if (IsWindows7SP1OrGreater())
+            {
+                infostream << "7 SP1";
+            }
+            else
+            {
+                if (IsWindows7OrGreater())
+                {
+                    infostream << "7";
+                }
+                else
+                {
+                    if (IsWindowsVistaSP2OrGreater())
+                    {
+                        infostream << "Vista SP2";
+                    }
+                    else
+                    {
+                        if (IsWindowsVistaSP1OrGreater())
+                        {
+                            infostream << "Vista SP1";
+                        }
+                        else
+                        {
+                            if (IsWindowsVistaOrGreater())
+                            {
+                                infostream << "Vista";
+                            }
+                            else
+                            {
+                                if (IsWindowsXPSP3OrGreater())
+                                {
+                                    infostream << "XP SP3";
+                                }
+                                else
+                                {
+                                    if (IsWindowsXPSP2OrGreater())
+                                    {
+                                        infostream << "XP SP2";
+                                    }
+                                    else
+                                    {
+                                        if (IsWindowsXPSP1OrGreater())
+                                        {
+                                            infostream << "XP SP1";
+                                        }
+                                        else
+                                        {
+                                            if (IsWindowsXPOrGreater())
+                                            {
+                                                infostream << "XP";
+                                            };
+                                        };
+                                    };
+                                };
+                            };
+                        };
+                    };
+                };
+            };
+        };
+    };
     echoInfo(inforule,"Operating System: "+infostream.str());
     switch(siSysInfo.wProcessorArchitecture)
     {
