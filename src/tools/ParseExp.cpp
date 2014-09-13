@@ -34,6 +34,7 @@
 #include <limits>
 #include <iterator>
 
+#define BOOST_SPIRIT_USE_PHOENIX_V3 1
 #include <boost/spirit/version.hpp>
 #if !defined(SPIRIT_VERSION) || SPIRIT_VERSION < 0x2010
 #error "At least Spirit version 2.1 required"
@@ -50,14 +51,9 @@ namespace Parser
 //power function
 struct lazy_pow_
 {
-    template <typename X, typename Y>
-    struct result
-    {
-        typedef X type;
-    };
+    typedef double result_type;
 
-    template <typename X, typename Y>
-    X operator()(X x, Y y) const
+    double operator()(double x, double y) const
     {
         return std::pow(x, y);
     }
@@ -66,14 +62,9 @@ struct lazy_pow_
 // modulus for double values
 struct lazy_mod_
 {
-    template <typename X, typename Y>
-    struct result
-    {
-        typedef X type;
-    };
+    typedef double result_type;
 
-    template <typename X, typename Y>
-    X operator()(X x, Y y) const
+    double operator()(double x, double y) const
     {
         return std::fmod(x,y);
     }
@@ -82,43 +73,33 @@ struct lazy_mod_
 // if statement
 struct lazy_if_
 {
-    template <typename X, typename Y, typename Z>
-    struct result
-    {
-        typedef Y type;
-    };
+    typedef double result_type;
 
-    template <typename X, typename Y, typename Z>
-    X operator()(X x, Y y, Z z) const
+    double operator()(double x, double y, double z) const
     {
-        return x ? y : z;
+        return (std::fabs(x)>1e-5) ? y : z;
     }
 };
 
 // wrapper for unary function
 struct lazy_ufunc_
 {
-    template <typename F, typename A1>
-    struct result
-    {
-        typedef A1 type;
-    };
+    typedef double result_type;
 
-    template <typename F, typename A1>
-    A1 operator()(F f, A1 a1) const
+    double operator()(double (*f)(double), double a1) const
     {
         return f(a1);
     }
 };
 
 // convert rad into deg
-double deg(const double d)
+const double deg(const double d)
 {
     return d*180.0/boost::math::constants::pi<double>();
 };
 
 // convert deg into rad
-double rad(const double d)
+const double rad(const double d)
 {
     return d*boost::math::constants::pi<double>()/180;
 };
