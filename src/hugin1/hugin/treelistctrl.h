@@ -363,9 +363,8 @@ public:
     virtual bool SetFont ( const wxFont &font );
 
     // set the styles.
-    void SetWindowStyle (const long styles);
-    long GetWindowStyle() const;
-    long GetWindowStyleFlag () const { return GetWindowStyle(); }
+    virtual void SetWindowStyleFlag (long styles);
+    virtual long GetWindowStyleFlag() const;
 
     // number of children
     // ------------------

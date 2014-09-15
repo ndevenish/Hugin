@@ -769,7 +769,7 @@ public:
                     const wxString &value = wxEmptyString,
                     const wxPoint &pos = wxDefaultPosition,
                     const wxSize &size = wxDefaultSize,
-                    int style = 0,
+                    long style = 0,
                     const wxValidator& validator = wxDefaultValidator,
                     const wxString &name = wxTextCtrlNameStr );
     ~wxEditTextCtrl();
@@ -1129,7 +1129,7 @@ wxEditTextCtrl::wxEditTextCtrl (wxWindow *parent,
                                 const wxString &value,
                                 const wxPoint &pos,
                                 const wxSize &size,
-                                int style,
+                                long style,
                                 const wxValidator& validator,
                                 const wxString &name)
     : wxTextCtrl (parent, id, value, pos, size, style | wxSIMPLE_BORDER | wxTE_PROCESS_ENTER, validator, name)
@@ -4874,9 +4874,9 @@ bool wxTreeListCtrl::Create(wxWindow *parent, wxWindowID id,
                             long style, const wxValidator &validator,
                             const wxString& name)
 {
-    long main_style = style & ~(wxSIMPLE_BORDER|wxSUNKEN_BORDER|wxDOUBLE_BORDER|
-                                wxRAISED_BORDER|wxSTATIC_BORDER);
-         main_style |= wxWANTS_CHARS ;
+    long main_style = style & ~(wxBORDER_SIMPLE | wxBORDER_SUNKEN | wxBORDER_DOUBLE |
+                                wxBORDER_RAISED | wxBORDER_STATIC);
+    main_style |= wxWANTS_CHARS ;
     long ctrl_style = style & ~(wxVSCROLL|wxHSCROLL);
 
     if (!wxControl::Create(parent, id, pos, size, ctrl_style, validator, name)) {
@@ -5065,15 +5065,19 @@ bool wxTreeListCtrl::SetFont(const wxFont& font)
     }
 }
 
-void wxTreeListCtrl::SetWindowStyle(const long style)
+void wxTreeListCtrl::SetWindowStyleFlag(long style)
 {
-    if(m_main_win)
-        m_main_win->SetWindowStyle(style);
-    m_windowStyle = style;
+    if (m_main_win)
+    {
+        long main_style = style & ~(wxBORDER_SIMPLE | wxBORDER_SUNKEN | wxBORDER_DOUBLE | wxBORDER_RAISED | wxBORDER_STATIC);
+        main_style |= wxWANTS_CHARS;
+        m_main_win->SetWindowStyle(main_style);
+    };
+    m_windowStyle = style & ~(wxVSCROLL | wxHSCROLL);
     // TODO: provide something like wxTL_NO_HEADERS to hide m_header_win
 }
 
-long wxTreeListCtrl::GetWindowStyle() const
+long wxTreeListCtrl::GetWindowStyleFlag() const
 {
     long style = m_windowStyle;
     if(m_main_win)
