@@ -153,14 +153,14 @@ void PanoOutputDialog::EnableOutputOptions()
     {
         XRCCTRL(*this, "output_hdr", wxCheckBox)->SetValue(true);
         XRCCTRL(*this, "output_hdr", wxCheckBox)->Enable(true);
-        XRCCTRL(*this, "output_hdr_bitmap", wxCheckBox)->Enable(true);
+        XRCCTRL(*this, "output_hdr_bitmap", wxStaticBitmap)->Enable(true);
         return;
     }
     //hide hdr controls for simple interface
     if(m_guiLevel==GUI_SIMPLE)
     {
         XRCCTRL(*this, "output_hdr", wxCheckBox)->Hide();
-        XRCCTRL(*this, "output_hdr_bitmap", wxCheckBox)->Hide();
+        XRCCTRL(*this, "output_hdr_bitmap", wxStaticBitmap)->Hide();
         XRCCTRL(*this, "output_hdr_format_label", wxStaticText)->Hide();
         XRCCTRL(*this, "output_hdr_format", wxChoice)->Hide();
         XRCCTRL(*this, "output_hdr_compression_label", wxStaticText)->Hide();
@@ -173,20 +173,20 @@ void PanoOutputDialog::EnableOutputOptions()
     {
         XRCCTRL(*this, "output_normal", wxCheckBox)->SetValue(true);
         XRCCTRL(*this, "output_normal", wxCheckBox)->Enable(true);
-        XRCCTRL(*this, "output_normal_bitmap", wxCheckBox)->Enable(true);
+        XRCCTRL(*this, "output_normal_bitmap", wxStaticBitmap)->Enable(true);
         if(m_pano.getNrOfImages()==1 || m_stacks.size()==m_pano.getNrOfImages())
         {
             return;
         };
     };
     XRCCTRL(*this, "output_fused_blended", wxCheckBox)->Enable(true);
-    XRCCTRL(*this, "output_fused_blended_bitmap", wxCheckBox)->Enable(true);
+    XRCCTRL(*this, "output_fused_blended_bitmap", wxStaticBitmap)->Enable(true);
     XRCCTRL(*this, "output_blended_fused", wxCheckBox)->Enable(true);
-    XRCCTRL(*this, "output_blended_fused_bitmap", wxCheckBox)->Enable(true);
+    XRCCTRL(*this, "output_blended_fused_bitmap", wxStaticBitmap)->Enable(true);
     if(m_guiLevel!=GUI_SIMPLE)
     {
         XRCCTRL(*this, "output_hdr", wxCheckBox)->Enable(true);
-        XRCCTRL(*this, "output_hdr_bitmap", wxCheckBox)->Enable(true);
+        XRCCTRL(*this, "output_hdr_bitmap", wxStaticBitmap)->Enable(true);
     };
     if(m_pano.getNrOfImages() % m_stacks.size() == 0)
     {
