@@ -161,17 +161,17 @@ namespace vigra_ext
 template <class SrcImageIterator, class SrcAccessor>
 void applyMask(vigra::triple<SrcImageIterator, SrcImageIterator, SrcAccessor> img, HuginBase::MaskPolygonVector masks)
 {
-    vigra::Diff2D imgSize = img.second - img.first;
+    const vigra::Diff2D imgSize = img.second - img.first;
 
-    if(masks.size()<1)
+    if(masks.empty())
         return;
-    // create dest y iterator
-    SrcImageIterator yd(img.first);
     // loop over the image and transform
-    for(int y=0; y < imgSize.y; ++y, ++yd.y)
+#pragma omp parallel for schedule(dynamic)
+    for(int y=0; y < imgSize.y; ++y)
     {
         // create x iterators
-        SrcImageIterator xd(yd);
+        SrcImageIterator xd(img.first);
+        xd.y += y;
         for(int x=0; x < imgSize.x; ++x, ++xd.x)
         {
             HuginBase::FDiff2D newPoint(x,y);
