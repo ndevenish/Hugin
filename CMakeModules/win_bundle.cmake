@@ -120,8 +120,9 @@ IF(WIN32)
       PATHS ${SOURCE_BASE_DIR}/zlib ${SOURCE_BASE_DIR}/zlib/bin
       NO_SYSTEM_ENVIRONMENT_PATH
     )
-    FIND_PATH(OPENEXR_BIN_DIR Half.dll 
-            ${SOURCE_BASE_DIR}/Deploy/bin/Release
+    FIND_PATH(OPENEXR_BIN_DIR 
+            NAMES Half.dll 
+            PATHS ${SOURCE_BASE_DIR}/Deploy/lib/Release ${SOURCE_BASE_DIR}/Deploy/bin/Release
             DOC "Location of OpenEXR libraries"
             NO_SYSTEM_ENVIRONMENT_PATH
             NO_DEFAULT_PATH
