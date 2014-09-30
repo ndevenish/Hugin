@@ -495,7 +495,7 @@ struct ApplyLogFunctor
     {
         // protect against zeros in image data
         if (min_ == 0.0f) {
-            min_ = 1e-5;
+            min_ = 1e-5f;
         }
         minv = std::log10(min_);
         maxv = std::log10(max_);
@@ -545,7 +545,7 @@ struct ApplyGammaFunctor
     {
         typedef vigra::NumericTraits< vigra::RGBValue<TOut> >  DestTraits;
         typedef vigra::NumericTraits< vigra::RGBValue<TIn> >  SrcTraits;
-        return DestTraits::fromRealPromote(pow((SrcTraits::toRealPromote(v)+(-minv))/scale, gamma)*255);
+        return DestTraits::fromRealPromote(vigra_ext::pow((SrcTraits::toRealPromote(v)+(-minv))/scale, gamma)*255);
     }
 };
 

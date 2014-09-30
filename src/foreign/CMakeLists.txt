@@ -1,5 +1,4 @@
 
-add_subdirectory(vigra)
 add_subdirectory(levmar)
 
 IF(NOT ZTHREAD_FOUND)

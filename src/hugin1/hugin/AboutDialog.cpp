@@ -37,6 +37,7 @@
 #include "exiv2/exiv2.hpp"
 #include "lensdb/LensDB.h"
 #include "sqlite3.h"
+#include "vigra/configVersion.hxx"
 
 BEGIN_EVENT_TABLE(AboutDialog, wxDialog)
     EVT_NOTEBOOK_PAGE_CHANGED(XRCID("about_notebook"), AboutDialog::OnChangedTab)
@@ -190,6 +191,7 @@ void AboutDialog::GetSystemInformation(wxFont *font)
 #ifdef SQLITE_VERSION
     text = text + wxT("\n") + wxString::Format(wxT("SQLite3: %s"), wxString(SQLITE_VERSION, wxConvLocal).c_str());
 #endif
+    text = text + wxT("\n") + wxString::Format(wxT("Vigra: %s"), wxString(VIGRA_VERSION, wxConvLocal).c_str());
     infoText->SetValue(text);
 }
 

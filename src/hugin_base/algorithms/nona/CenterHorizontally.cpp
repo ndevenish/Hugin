@@ -26,6 +26,7 @@
 #include "CenterHorizontally.h"
 
 #include <vigra/impex.hxx>
+#include <vigra/copyimage.hxx>
 #include <panodata/PanoramaData.h>
 #include <nona/RemappedPanoImage.h>
 

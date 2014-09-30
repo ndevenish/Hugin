@@ -36,9 +36,6 @@
 #include <vigra/stdimage.hxx>
 #include <vigra/imageinfo.hxx>
 
-// define if you want to use image cache
-#define DEGHOSTING_CACHE_IMAGES
-
 namespace deghosting {
     
     /** exception called when image dimensions differ

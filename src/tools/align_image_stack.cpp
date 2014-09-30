@@ -28,6 +28,7 @@
 #include <hugin_version.h>
 #include <fstream>
 #include <sstream>
+#include <iostream>
 
 #include <vigra/error.hxx>
 #include <vigra/impex.hxx>

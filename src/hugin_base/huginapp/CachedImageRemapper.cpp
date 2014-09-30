@@ -27,6 +27,7 @@
 #include "CachedImageRemapper.h"
 
 #include <vigra/basicimageview.hxx>
+#include <vigra/copyimage.hxx>
 #include <algorithms/nona/ComputeImageROI.h>
 
 

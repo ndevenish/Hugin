@@ -51,11 +51,6 @@
 // leave undefined for gaussian normal distribution function
 //#define ATAN_KH
 
-#ifdef DEGHOSTING_CACHE_IMAGES
-    #include <cstring>
-    #include <vigra/cachedfileimage.hxx>
-#endif
-
 using namespace vigra;
 
 namespace deghosting
@@ -65,11 +60,7 @@ namespace deghosting
         public:
             typedef vigra::FImage ImageType;
             typedef boost::shared_ptr<ImageType> ImagePtr;
-            #ifdef DEGHOSTING_CACHE_IMAGES
-                typedef CachedFileImage<float> ProcessImageType;
-            #else
-                typedef BasicImage<float> ProcessImageType;
-            #endif
+            typedef BasicImage<float> ProcessImageType;
             typedef boost::shared_ptr<ProcessImageType> ProcessImageTypePtr;
     };
 
@@ -78,11 +69,7 @@ namespace deghosting
         public:
             typedef vigra::FRGBImage ImageType;
             typedef boost::shared_ptr<ImageType> ImagePtr;
-            #ifdef DEGHOSTING_CACHE_IMAGES
-                typedef CachedFileImage<AlgTinyVector<float, 3> > ProcessImageType;
-            #else
-                typedef BasicImage<AlgTinyVector<float, 3> > ProcessImageType;
-            #endif
+            typedef BasicImage<AlgTinyVector<float, 3> > ProcessImageType;
             typedef boost::shared_ptr<ProcessImageType> ProcessImageTypePtr;
     };
 
@@ -368,15 +355,15 @@ namespace deghosting
         }
         
         if (verbosity > 0)
-            cout << "Running khan algorithm" << endl;
+            std::cout << "Running khan algorithm" << std::endl;
         // and we can run khan algorithm
         // khan iteration
         for (int it = 0; it < iterations; it++) {
             if (verbosity > 0)
-                cout << "iteration " << it+1 << endl;
+                std::cout << "iteration " << it+1 << std::endl;
             // copy weights from previous iteration
             if (verbosity > 1)
-                cout << "copying weights from previous iteration" << endl;
+                std::cout << "copying weights from previous iteration" << std::endl;
             
             std::vector<FImagePtr> prevWeights;
             for (unsigned int i = 0; i < weights.size(); i++) {
@@ -430,7 +417,7 @@ namespace deghosting
             // loop through all images
             for (unsigned int i = 0; i < processImages.size(); i++) {
                 if (verbosity > 1)
-                    cout << "processing image " << i+1 << endl;
+                    std::cout << "processing image " << i+1 << std::endl;
                 
                 // vector storing pixel data
                 ProcessImagePixelType X;
@@ -456,14 +443,14 @@ namespace deghosting
                     // loop over the pixels
                     for (int x=0; sx.x != send.x; ++sx.x, ++wx.x, ++x) {
                         if (verbosity > 2)
-                            cout << "processing pixel (" << x+1 << "," << y+1 << ")" << endl;
+                            std::cout << "processing pixel (" << x+1 << "," << y+1 << ")" << std::endl;
                         // set pixel vector
                         X = *sx;
                         
                         // loop through all layers
                         for (unsigned int j = 0; j < processImages.size(); j++) {
                             if (verbosity > 2)
-                                cout << "processing layer " << j << endl;
+                                std::cout << "processing layer " << j << std::endl;
                             
                             // iterator to the neighbour
                             ProcessImageTraverser neighby = processImages[j]->upperLeft();
@@ -501,7 +488,7 @@ namespace deghosting
                                 int maxDistx = (width - x) > NEIGHB_DIST ? NEIGHB_DIST : (width - x-1);
                                 for (; ndx <= maxDistx; ++neighbx.x, ++weightx.x, ++ndx) {
                                     if (verbosity > 3)
-                                        cout << "(" << ndx << "," << ndy << ")";
+                                        std::cout << "(" << ndx << "," << ndy << ")";
                                     // now we can construct pixel vector
                                     // should omit the middle pixel, ie use only neighbours
                                     if (ndx != 0 || ndy != 0) {
@@ -512,16 +499,16 @@ namespace deghosting
                                     maxDistx = (width - x) > NEIGHB_DIST ? NEIGHB_DIST : (width - x-1);
                                 }
                                 if (verbosity > 3)
-                                    cout << endl;
+                                    std::cout << std::endl;
                                 
                                 maxDisty = (height - y) > NEIGHB_DIST ? NEIGHB_DIST : (height - y-1);
                             }
                         }
                         
                         if (verbosity > 2)
-                            cout << "computing new weight" << endl;
+                            std::cout << "computing new weight" << std::endl;
                         // compute probability and set weight
-                        //cout << "P=" << (float) wpqsKhsum/wpqssum << endl;
+                        //std::cout << "P=" << (float) wpqsKhsum/wpqssum << std::endl;
                         if (flags & ADV_ONLYP)
                             *wx = (float) wpqsKhsum/wpqssum;
                         else
@@ -536,7 +523,7 @@ namespace deghosting
         }
         
         if (verbosity > 1)
-                cout << "normalizing weights" << endl;
+                std::cout << "normalizing weights" << std::endl;
         double factor = 255.0f/maxWeight;
         for (unsigned int i=0; i<weights.size(); ++i) {
             transformImage(srcImageRange(*(weights[i])), destImage(*(weights[i])), NormalizeFunctor<float>(factor));

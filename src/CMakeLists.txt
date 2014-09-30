@@ -14,8 +14,10 @@ IF(FFTW_FOUND)
   SET(common_libs ${common_libs} ${FFTW_LIBRARIES})
 ENDIF()
 
-set(image_libs huginvigraimpex ${OPENEXR_LIBRARIES} ${JPEG_LIBRARIES} ${TIFF_LIBRARIES}
+set(image_libs ${VIGRA_LIBRARIES} ${OPENEXR_LIBRARIES} ${JPEG_LIBRARIES} ${TIFF_LIBRARIES}
     ${PNG_LIBRARIES} ${ZLIB_LIBRARIES} ${EXIV2_LIBRARIES})
+
+SET(common_libs ${common_libs} ${image_libs})
 
 add_subdirectory(celeste)
 add_subdirectory(foreign)

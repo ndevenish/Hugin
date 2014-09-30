@@ -36,7 +36,6 @@
 
 #include <vigra/error.hxx>
 #include <vigra/functorexpression.hxx>
-#include <vigra_impex/codecmanager.hxx>
 
 #include <hugin_utils/utils.h>
 

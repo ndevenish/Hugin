@@ -37,6 +37,7 @@
 
 #include "vigra/stdimage.hxx"
 #include "vigra/resizeimage.hxx"
+#include <boost/bind.hpp>
 #include "base_wx/wxImageCache.h"
 #include "photometric/ResponseTransform.h"
 #include "panodata/Mask.h"

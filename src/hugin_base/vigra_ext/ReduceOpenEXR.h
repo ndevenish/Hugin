@@ -23,7 +23,7 @@
 
 #include <vigra/sized_int.hxx>
 #include <vigra_ext/HDRUtils.h>
-#include <vigra_impex/auto_file.hxx>
+#include <vigra_ext/FileRAII.h>
 
 #include <ImfRgbaFile.h>
 #include <ImfArray.h>
@@ -56,7 +56,7 @@ void reduceFilesToHDR(std::vector<std::string> input, std::string output,
     typedef float MaskType;
     typedef vigra::RGBValue<float> PixelType;
     typedef boost::shared_ptr<Imf::RgbaInputFile> InFilePtr;
-    typedef boost::shared_ptr<vigra::auto_file> AutoFilePtr;
+    typedef boost::shared_ptr<vigra_ext::FileRAII> AutoFilePtr;
 
     // open all input files.
     std::vector<AutoFilePtr> inputGrayFiles;
@@ -74,7 +74,7 @@ void reduceFilesToHDR(std::vector<std::string> input, std::string output,
         dw = in->displayWindow();
         vigra::Rect2D imgSize(dw.min.x, dw.min.y, dw.max.x+1, dw.max.y+1);
 
-        AutoFilePtr inGray(new vigra::auto_file(grayFile.c_str(), "rb"));
+        AutoFilePtr inGray(new vigra_ext::FileRAII(grayFile.c_str(), "rb"));
         int w, h, maxval;
         readPGMHeader(inGray->get(), w, h, maxval);
         vigra_precondition(w == roi.width() && h == roi.height(), ".exr and _gray.pgm images not of the same size");

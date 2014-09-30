@@ -123,7 +123,7 @@ CorrelationResult correlateImageFastFFT(SrcImage & src, DestImage & dest, Kernel
     vigra::FFTWComplexImage fourier(sw, sh);
     vigra::FFTWComplexImage FKernel(sw, sh);
     // copy kernel to complex data structure
-    vigra::copyImage(srcImageRange(kernel), destImage(spatial, vigra::FFTWWriteRealAccessor()));
+    vigra::copyImage(srcImageRange(kernel), destImage(spatial, vigra::FFTWWriteRealAccessor<typename KernelImage::PixelType>()));
     // now do FFT of kernel
     fftw_plan fftwplan;
     {
@@ -134,13 +134,13 @@ CorrelationResult correlateImageFastFFT(SrcImage & src, DestImage & dest, Kernel
     fftw_execute(fftwplan);
     vigra::copyImage(srcImageRange(fourier), destImage(FKernel));
     // now do FFT of search image, reuse fftw_plan
-    vigra::copyImage(srcImageRange(src), destImage(spatial, vigra::FFTWWriteRealAccessor()));
+    vigra::copyImage(srcImageRange(src), destImage(spatial, vigra::FFTWWriteRealAccessor<typename KernelImage::PixelType>()));
     fftw_execute(fftwplan);
     // give now not anymore needed memory free
     spatial.resize(0, 0);
 
     // multiply SrcImage with conjugated kernel in frequency domain
-    vigra::combineTwoImages(srcImageRange(fourier), srcImage(FKernel), destImage(fourier), &multiplyConjugate<vigra::FFTWComplex>);
+    vigra::combineTwoImages(srcImageRange(fourier), srcImage(FKernel), destImage(fourier), &multiplyConjugate<vigra::FFTWComplex<typename KernelImage::PixelType> >);
     // FFT back into spatial domain (inplace)
     fftw_plan backwardPlan;
     {
@@ -824,7 +824,7 @@ CorrelationResult correlateImageFastRotationFFT(SrcImage & src, DestImage & dest
     //forward FFTW plan
     fftw_plan forwardPlan = fftw_plan_dft_2d(sh, sw, (fftw_complex *)spatialSearch.begin(), (fftw_complex *)fourierSearch.begin(), FFTW_FORWARD, FFTW_ESTIMATE);
     //FFT of search image, we need it for all angles
-    vigra::copyImage(srcImageRange(src), destImage(spatialSearch, vigra::FFTWWriteRealAccessor()));
+    vigra::copyImage(srcImageRange(src), destImage(spatialSearch, vigra::FFTWWriteRealAccessor<vigra::FImage::value_type>()));
     fftw_execute(forwardPlan);
     // generate backwardPlan for inplace use
     fftw_plan backwardPlan = fftw_plan_dft_2d(sh, sw, (fftw_complex *)fourierSearch.begin(), (fftw_complex *)fourierSearch.begin(), FFTW_BACKWARD, FFTW_ESTIMATE);
@@ -893,11 +893,11 @@ CorrelationResult correlateImageFastRotationFFT(SrcImage & src, DestImage & dest
         vigra::FFTWComplexImage complexKernel(sw, sh);
         vigra::FFTWComplexImage fourierKernel(sw, sh);
         // copy kernel to complex data structure
-        vigra::copyImage(srcImageRange(kernel), destImage(complexKernel, vigra::FFTWWriteRealAccessor()));
+        vigra::copyImage(srcImageRange(kernel), destImage(complexKernel, vigra::FFTWWriteRealAccessor<vigra::FImage::value_type>()));
         fftw_execute_dft(forwardPlan, (fftw_complex*)complexKernel.begin(), (fftw_complex*)fourierKernel.begin());
 
         // multiply SrcImage with conjugated kernel in frequency domain
-        vigra::combineTwoImages(srcImageRange(fourierSearch), srcImage(fourierKernel), destImage(fourierKernel), &multiplyConjugate<vigra::FFTWComplex>);
+        vigra::combineTwoImages(srcImageRange(fourierSearch), srcImage(fourierKernel), destImage(fourierKernel), &multiplyConjugate<vigra::FFTWComplex<vigra::FImage::value_type> >);
         // FFT back into spatial domain (inplace)
         fftw_execute_dft(backwardPlan, (fftw_complex*)fourierKernel.begin(), (fftw_complex*)fourierKernel.begin());
 

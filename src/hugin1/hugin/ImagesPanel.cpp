@@ -34,6 +34,7 @@
 #include "base_wx/wxPlatform.h"
 #include <vector>
 #include <map>
+#include <boost/bind.hpp>
 
 #include "hugin/ImagesPanel.h"
 #include "hugin/CommandHistory.h"

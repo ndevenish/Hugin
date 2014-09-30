@@ -28,6 +28,8 @@
 #define _NONA_REMAPPEDPANOIMAGE_H
 
 #include <vigra/impex.hxx>
+#include <vigra/initimage.hxx>
+#include <vigra/copyimage.hxx>
 #include <vigra/flatmorphology.hxx>
 #include <vigra_ext/ROIImage.h>
 

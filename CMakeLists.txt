@@ -107,7 +107,6 @@ set(HUGIN_LIB_VERSION 0.0)
 
 include_directories( ${CMAKE_BINARY_DIR}/src )
 include_directories( ${CMAKE_SOURCE_DIR}/src/hugin_base )
-include_directories( ${CMAKE_SOURCE_DIR}/src/foreign/vigra )
 include_directories( ${CMAKE_SOURCE_DIR}/src/celeste )
 include_directories( ${CMAKE_BINARY_DIR}/src/celeste )
 include_directories( ${CMAKE_SOURCE_DIR}/src )
@@ -225,6 +224,9 @@ ENDIF()
 
 FIND_PACKAGE(OpenEXR REQUIRED)
 include_directories(${OPENEXR_INCLUDE_DIR})
+
+FIND_PACKAGE(VIGRA 1.9.0 REQUIRED)
+include_directories(${VIGRA_INCLUDE_DIR})
 
 FIND_PACKAGE(Exiv2 REQUIRED)
 INCLUDE_DIRECTORIES(${EXIV2_INCLUDE_DIR})

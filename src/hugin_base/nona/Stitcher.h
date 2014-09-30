@@ -42,6 +42,7 @@
 
 #include <vigra/impex.hxx>
 #include <vigra_ext/impexalpha.hxx>
+#include <vigra/copyimage.hxx>
 
 #include <vigra_ext/blend.h>
 #include <vigra_ext/NearestFeatureTransform.h>

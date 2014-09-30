@@ -34,6 +34,8 @@
 
 #include <vigra/inspectimage.hxx>
 #include <vigra/transformimage.hxx>
+#include <vigra/basicimageview.hxx>
+#include <boost/bind.hpp>
 
 #include "hugin/config_defaults.h"
 #include "hugin/CPImageCtrl.h"
@@ -856,7 +858,7 @@ wxBitmap CPImageCtrl::generateMagBitmap(FDiff2D point, wxPoint canvasPos) const
     vigra::transformImage(vigra::srcImageRange(magImg), vigra::destImage(magImg),
                           vigra::linearRangeMapping(
                             VT(minmax.min), VT(minmax.max),               // src range
-                            VT(0), VT(255)) // dest range
+                            VT(0, 0, 0), VT(255, 255, 255)) // dest range
                           );
 //    vigra::transformImage(srcImageRange(magImg), destImage(magImg),
 //       vigra::BrightnessContrastFunctor<float>(brightness, contrast, minmax.min, minmax.max));

@@ -27,6 +27,7 @@
 
 #include <algorithm>
 #include <vigra/impex.hxx>
+#include <vigra/copyimage.hxx>
 #include <nona/RemappedPanoImage.h>
 
 namespace HuginBase {

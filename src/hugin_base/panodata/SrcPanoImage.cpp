@@ -60,7 +60,7 @@ void SrcPanoImage::resize(const vigra::Size2D & sz)
 {
         // TODO: check if images have the same orientation.
         // calculate scaling ratio
-        double scale = (double) sz.x / m_Size.getData().x;
+        const double scale = (double) sz.x / m_Size.getData().x;
         
         // center shift
         m_RadialDistortionCenterShift.setData(m_RadialDistortionCenterShift.getData() * scale);
@@ -74,11 +74,19 @@ void SrcPanoImage::resize(const vigra::Size2D & sz)
                 m_CropRect.setData(vigra::Rect2D(sz));
                 break;
             case CROP_RECTANGLE:
-                m_CropRect.setData(m_CropRect.getData() * scale);
-                m_CropRect.setData(m_CropRect.getData() & vigra::Rect2D(sz));
+                {
+                    vigra::Rect2D rect(m_CropRect.getData());
+                    rect *= scale;
+                    rect &= vigra::Rect2D(sz);
+                    m_CropRect.setData(rect);
+                }
                 break;
             case CROP_CIRCLE:
-                m_CropRect.setData(m_CropRect.getData() * scale);
+                {
+                    vigra::Rect2D rect(m_CropRect.getData());
+                    rect *= scale;
+                    m_CropRect.setData(rect);
+                }
                 break;
         }
         

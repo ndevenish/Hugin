@@ -821,7 +821,7 @@ bool PanoDetector::loadProject()
             aImgData._projOpts.setHeight(canvasSize.height());
 
             // set roi to cover the remapped input image
-            roi = roi * scalefactor;
+            roi *= scalefactor;
             _filesData[imgNr]._detectWidth = roi.width();
             _filesData[imgNr]._detectHeight = roi.height();
             aImgData._projOpts.setROI(roi);

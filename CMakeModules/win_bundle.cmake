@@ -8,7 +8,7 @@ IF(WIN32)
 #  CONFIGURE_FILE(platforms/windows/msi/big_banner.bmp ${CMAKE_CURRENT_BINARY_DIR}/INSTALL/big_banner.bmp COPYONLY)
 
   # install hugin readme, license etc.
-  INSTALL(FILES AUTHORS COPYING LICENCE_VIGRA
+  INSTALL(FILES AUTHORS COPYING 
           DESTINATION doc/hugin)
 
   # find the path to enblend and panotools build directories
@@ -128,6 +128,11 @@ IF(WIN32)
             NO_DEFAULT_PATH
     )
     FILE(GLOB OPENEXR_DLL ${OPENEXR_BIN_DIR}/*.dll)
+    FIND_FILE(VIGRA_DLL
+       NAMES vigraimpex.dll
+       PATHS ${SOURCE_BASE_DIR}/vigra/bin
+       NO_SYSTEM_ENVIRONMENT_PATH
+    )
     FILE(GLOB BOOST_THREAD_DLL ${Boost_LIBRARY_DIRS}/boost_thread*.dll)
     FILE(GLOB BOOST_DATE_TIME_DLL ${Boost_LIBRARY_DIRS}/boost_date_time*.dll)
     FILE(GLOB BOOST_SYSTEM_DLL ${Boost_LIBRARY_DIRS}/boost_system*.dll)
@@ -188,7 +193,7 @@ IF(WIN32)
               NAMES wxmsw310u_aui_vc_custom.dll wxmsw30u_aui_vc_custom.dll wxmsw295u_aui_vc_custom.dll wxmsw294u_aui_vc_custom.dll wxmsw293u_aui_vc_custom.dll wxmsw292u_aui_vc_custom.dll wxmsw291u_aui_vc_custom.dll wxmsw28u_aui_vc_custom.dll
               PATHS ${wxWidgets_LIB_DIR} NO_SYSTEM_ENVIRONMENT_PATH)
 
-    INSTALL(FILES ${TIFF_DLL} ${JPEG_DLL} ${PNG_DLL} ${ZLIB_DLL} ${OPENEXR_DLL} 
+    INSTALL(FILES ${TIFF_DLL} ${JPEG_DLL} ${PNG_DLL} ${ZLIB_DLL} ${OPENEXR_DLL} ${VIGRA_DLL}
         ${BOOST_DLLs} ${EXIV2_DLL} ${LIBEXPAT_DLL} ${GLEW_DLL} ${GLUT_DLL}
         ${WXWIDGETS_DLL1} ${WXWIDGETS_DLL2} ${WXWIDGETS_DLL2} ${WXWIDGETS_DLL3}
         ${WXWIDGETS_DLL3} ${WXWIDGETS_DLL4} ${WXWIDGETS_DLL5} ${WXWIDGETS_DLL6}
