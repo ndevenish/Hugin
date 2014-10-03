@@ -37,7 +37,7 @@
 #include "exiv2/exiv2.hpp"
 #include "lensdb/LensDB.h"
 #include "sqlite3.h"
-#include "vigra/configVersion.hxx"
+#include "vigra/config.hxx"
 
 BEGIN_EVENT_TABLE(AboutDialog, wxDialog)
     EVT_NOTEBOOK_PAGE_CHANGED(XRCID("about_notebook"), AboutDialog::OnChangedTab)

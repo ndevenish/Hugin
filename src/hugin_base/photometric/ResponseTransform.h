@@ -344,8 +344,8 @@ double ResponseTransform<VTIn>::calcVigFactor(hugin_utils::FDiff2D d) const
     } else if (m_VigCorrMode & HuginBase::SrcPanoImage::VIGCORR_FLATFIELD) {
         // TODO: implement flatfield
         if (m_flatfield) {
-            int x = std::min(std::max(hugin_utils::roundi(d.x),0), m_flatfield->width()-1);;
-            int y = std::min(std::max(hugin_utils::roundi(d.y),0), m_flatfield->height()-1);;
+            int x = std::min(std::max(hugin_utils::roundi(d.x),0), static_cast<int>(m_flatfield->width()-1));
+            int y = std::min(std::max(hugin_utils::roundi(d.y),0), static_cast<int>(m_flatfield->height()-1));
             return (*m_flatfield)(x,y);
         } else {
             return 1;
