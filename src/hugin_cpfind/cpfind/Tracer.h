@@ -22,20 +22,16 @@
 #define __Tracer_h
 
 #include <iostream>
-#include "zthread/FastMutex.h"
-#include "zthread/Guard.h"
 
-static ZThread::FastMutex aIOMutex;
-
-#define TRACE_INFO(x) { ZThread::Guard<ZThread::FastMutex> g(aIOMutex); std::cout << x; }
+#define TRACE_INFO(x) { std::ostringstream buf; buf << x; std::cout << buf.str(); std::cout.flush();}
 
 #ifdef _DEBUG
-#define TRACE_DEBUG(x) { ZThread::Guard<ZThread::FastMutex> g(aIOMutex); std::cout << x; }
+#define TRACE_DEBUG(x) { std::ostringstream buf; buf << x; std::cout << buf.str(); std::cout.flush();}
 #else
 #define TRACE_DEBUG(x)
 #endif
 
-#define TRACE_ERROR(x) { ZThread::Guard<ZThread::FastMutex> g(aIOMutex); std::cerr << x; }
+#define TRACE_ERROR(x) { std::ostringstream buf; buf << x; std::cerr << buf.str(); std::cerr.flush(); }
 
 
 

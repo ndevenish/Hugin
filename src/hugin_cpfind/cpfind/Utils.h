@@ -29,14 +29,8 @@
 #include <sys/time.h>
 #endif
 
-#include <zthread/Condition.h>
-#include <zthread/FastMutex.h>
-#include <zthread/Guard.h>
-
-
-
-#define TIMETRACE(TEXT, CODE) { utils::os_TIME t1,t2; utils::os_GetTime(&t1); CODE; \
-        utils::os_GetTime(&t2); std::cout << TEXT << " took " << utils::os_TimeDiff(&t2,&t1)/1000.0 << " seconds." << std::endl; }
+#define TIMETRACE(TEXT, CODE) { std::ostringstream buf; utils::os_TIME t1,t2; utils::os_GetTime(&t1); CODE; \
+        utils::os_GetTime(&t2); buf << TEXT << " took " << utils::os_TimeDiff(&t2,&t1)/1000.0 << " seconds." << std::endl; std::cout << buf.str(); }
 
 
 namespace utils

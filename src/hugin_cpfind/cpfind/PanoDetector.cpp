@@ -27,8 +27,6 @@
 
 #include <time.h>
 
-#include "zthread/Runnable.h"
-#include "zthread/PoolExecutor.h"
 #include "Utils.h"
 #include "Tracer.h"
 #include "hugin_base/hugin_utils/platform.h"
@@ -50,15 +48,18 @@
 #include <direct.h>
 #else
 #include <unistd.h>
-#include <hugin_config.h>
 #endif
+#include <hugin_config.h>
 
 #ifndef srandom
 #define srandom srand
 #endif
 
+#ifdef HAVE_OPENMP
+#include <omp.h>
+#endif
+
 using namespace std;
-using namespace ZThread;
 using namespace HuginBase;
 using namespace AppBase;
 using namespace HuginBase::Nona;
@@ -107,7 +108,7 @@ PanoDetector::PanoDetector() :
     _writeAllKeyPoints(false), _verbose(1),
     _sieve1Width(10), _sieve1Height(10), _sieve1Size(100),
     _kdTreeSearchSteps(200), _kdTreeSecondDistance(0.25), _ransacIters(1000), _ransacDistanceThres(50),
-    _sieve2Width(5), _sieve2Height(5),_sieve2Size(1), _test(false), _cores(hugin_utils::getCPUCount()),
+    _sieve2Width(5), _sieve2Height(5),_sieve2Size(1), _test(false), _cores(0),
     _minimumMatches(6), _linearMatchLen(1), _downscale(true), _cache(false), _cleanup(false),
     _keypath(""), _outputFile("default.pto"), _outputGiven(false), _celeste(false), _celesteThreshold(0.5), _celesteRadius(20), 
     _matchingStrategy(ALLPAIRS)
@@ -172,7 +173,9 @@ void PanoDetector::printDetails()
     {
         cout << "Automatically cache keypoints files to disc." << endl;
     };
-    cout << "Number of CPU        : " << _cores << endl << endl;
+#ifdef HAVE_OPENMP
+    cout << "Number of threads  : " << (_cores>0 ? _cores : omp_get_max_threads()) << endl << endl;
+#endif
     cout << "Input image options" << endl;
     cout << "  Downscale to half-size : " << (_downscale?"yes":"no") << endl;
     if(_celeste)
@@ -276,14 +279,21 @@ void PanoDetector::printFilenames()
     };
 };
 
+class Runnable
+{
+public:
+    Runnable() {};
+    virtual void run() = 0;
+};
+
 // definition of a runnable class for image data
 class ImgDataRunnable : public Runnable
 {
 public:
-    ImgDataRunnable(PanoDetector::ImgData& iImageData, const PanoDetector& iPanoDetector) :
+    ImgDataRunnable(PanoDetector::ImgData& iImageData, const PanoDetector& iPanoDetector) : Runnable(),
         _imgData(iImageData), _panoDetector(iPanoDetector) {};
 
-    void run()
+    virtual void run()
     {
         TRACE_IMG("Analyzing image...");
         if (!PanoDetector::AnalyzeImage(_imgData, _panoDetector))
@@ -309,7 +319,7 @@ public:
     WriteKeyPointsRunnable(PanoDetector::ImgData& iImageData, const PanoDetector& iPanoDetector) :
         _imgData(iImageData), _panoDetector(iPanoDetector) {};
 
-    void run()
+    virtual void run()
     {
         TRACE_IMG("Analyzing image...");
         if (!PanoDetector::AnalyzeImage(_imgData, _panoDetector))
@@ -334,7 +344,7 @@ public:
     LoadKeypointsDataRunnable(PanoDetector::ImgData& iImageData, const PanoDetector& iPanoDetector) :
         _imgData(iImageData), _panoDetector(iPanoDetector) {};
 
-    void run()
+    virtual void run()
     {
         TRACE_IMG("Loading keypoints...");
         PanoDetector::LoadKeypoints(_imgData, _panoDetector);
@@ -353,7 +363,7 @@ public:
     MatchDataRunnable(PanoDetector::MatchData& iMatchData, const PanoDetector& iPanoDetector) :
         _matchData(iMatchData), _panoDetector(iPanoDetector) {};
 
-    void run()
+    virtual void run()
     {
         //TRACE_PAIR("Matching...");
         if(_matchData._i1->_kp.size()>0 && _matchData._i2->_kp.size()>0)
@@ -394,6 +404,23 @@ bool PanoDetector::LoadSVMModel()
     return true;
 };
 
+typedef std::vector<Runnable*> RunnableVector;
+
+void RunQueue(std::vector<Runnable*>& queue)
+{
+#pragma omp parallel for schedule(dynamic)
+    for (int i = 0; i < queue.size(); ++i)
+    {
+        queue[i]->run();
+    };
+    // now clear queue
+    while (!queue.empty())
+    {
+        delete queue.back();
+        queue.pop_back();
+    };
+};
+
 void PanoDetector::run()
 {
     // init the random time generator
@@ -432,7 +459,8 @@ void PanoDetector::run()
             };
         };
     };
-    if(maxImageSize!=0)
+#ifdef HAVE_OPENMP
+    if (maxImageSize != 0)
     {
         unsigned long long maxCores;
         //determinded factors by testing of some projects
@@ -450,6 +478,10 @@ void PanoDetector::run()
         {
             maxCores=1;
         }
+        if (_cores == 0)
+        {
+            setCores(omp_get_max_threads());
+        }
         if(maxCores<_cores)
         {
             if(getVerbose()>0)
@@ -460,8 +492,10 @@ void PanoDetector::run()
             setCores(maxCores);
         };
     };
-    PoolExecutor aExecutor(_cores);
-    svmModel=NULL;
+    omp_set_num_threads(_cores);
+#endif
+    RunnableVector queue;
+    svmModel = NULL;
     if(_celeste)
     {
         TRACE_INFO("\nLoading Celeste model file...\n");
@@ -484,70 +518,58 @@ void PanoDetector::run()
     //running multi threading part
     std::string s=vigra::impexListExtensions();
 #endif
-    try
+    if (_keyPointsIdx.size() != 0)
     {
-        if (_keyPointsIdx.size() != 0)
+        if (_verbose > 0)
         {
-            if (_verbose > 0)
+            TRACE_INFO(endl << "--- Analyze Images ---" << endl);
+        }
+        for (unsigned int i = 0; i < _keyPointsIdx.size(); ++i)
+        {
+            queue.push_back(new WriteKeyPointsRunnable(_filesData[_keyPointsIdx[i]], *this));
+        };
+    }
+    else
+    {
+        TRACE_INFO(endl << "--- Analyze Images ---" << endl);
+        if (getMatchingStrategy() == MULTIROW)
+        {
+            // when using multirow, don't analyse stacks with linked positions
+            buildMultiRowImageSets();
+            HuginBase::UIntSet imagesToAnalyse;
+            imagesToAnalyse.insert(_image_layer.begin(), _image_layer.end());
+            for (size_t i = 0; i < _image_stacks.size(); i++)
             {
-                TRACE_INFO(endl<< "--- Analyze Images ---" << endl);
+                imagesToAnalyse.insert(_image_stacks[i].begin(), _image_stacks[i].end());
             }
-            for (unsigned int i = 0; i < _keyPointsIdx.size(); ++i)
+            for (HuginBase::UIntSet::const_iterator it = imagesToAnalyse.begin(); it != imagesToAnalyse.end(); ++it)
             {
-                aExecutor.execute(new WriteKeyPointsRunnable(_filesData[_keyPointsIdx[i]], *this));
+                if (_filesData[*it]._hasakeyfile)
+                {
+                    queue.push_back(new LoadKeypointsDataRunnable(_filesData[*it], *this));
+                }
+                else
+                {
+                    queue.push_back(new ImgDataRunnable(_filesData[*it], *this));
+                };
             };
         }
         else
         {
-            TRACE_INFO(endl << "--- Analyze Images ---" << endl);
-            if (getMatchingStrategy() == MULTIROW)
+            for (ImgDataIt_t aB = _filesData.begin(); aB != _filesData.end(); ++aB)
             {
-                // when using multirow, don't analyse stacks with linked positions
-                buildMultiRowImageSets();
-                HuginBase::UIntSet imagesToAnalyse;
-                imagesToAnalyse.insert(_image_layer.begin(), _image_layer.end());
-                for (size_t i = 0; i < _image_stacks.size(); i++)
+                if (aB->second._hasakeyfile)
                 {
-                    imagesToAnalyse.insert(_image_stacks[i].begin(), _image_stacks[i].end());
+                    queue.push_back(new LoadKeypointsDataRunnable(aB->second, *this));
                 }
-                for (HuginBase::UIntSet::const_iterator it = imagesToAnalyse.begin(); it != imagesToAnalyse.end(); ++it)
+                else
                 {
-                    if (_filesData[*it]._hasakeyfile)
-                    {
-                        aExecutor.execute(new LoadKeypointsDataRunnable(_filesData[*it], *this));
-                    }
-                    else
-                    {
-                        aExecutor.execute(new ImgDataRunnable(_filesData[*it], *this));
-                    };
-                };
+                    queue.push_back(new ImgDataRunnable(aB->second, *this));
+                }
             }
-            else
-            {
-                for (ImgDataIt_t aB = _filesData.begin(); aB != _filesData.end(); ++aB)
-                {
-                    if (aB->second._hasakeyfile)
-                    {
-                        aExecutor.execute(new LoadKeypointsDataRunnable(aB->second, *this));
-                    }
-                    else
-                    {
-                        aExecutor.execute(new ImgDataRunnable(aB->second, *this));
-                    }
-                }
-            };
-        }
-        aExecutor.wait();
-    }
-    catch(Synchronization_Exception& e)
-    {
-        TRACE_ERROR(e.what() << endl);
-        if(svmModel!=NULL)
-        {
-            celeste::destroySVMmodel(svmModel);
         };
-        return;
     }
+    RunQueue(queue);
 
     if(svmModel!=NULL)
     {
@@ -583,14 +605,14 @@ void PanoDetector::run()
             case LINEAR:
                 {
                     std::vector<HuginBase::UIntSet> imgPairs(_panoramaInfo->getNrOfImages());
-                    if(!match(aExecutor, imgPairs))
+                    if(!match(imgPairs))
                     {
                         return;
                     };
                 };
                 break;
             case MULTIROW:
-                if(!matchMultiRow(aExecutor))
+                if(!matchMultiRow())
                 {
                     return;
                 };
@@ -615,7 +637,7 @@ void PanoDetector::run()
                         imgMap[i]=i;
                     };
                     //and the final matching step
-                    if(!matchPrealigned(aExecutor,_panoramaInfo, connectedImages, imgMap))
+                    if(!matchPrealigned(_panoramaInfo, connectedImages, imgMap))
                     {
                         return;
                     };
@@ -650,10 +672,11 @@ void PanoDetector::run()
     };
 }
 
-bool PanoDetector::match(PoolExecutor& aExecutor, std::vector<HuginBase::UIntSet> &checkedPairs)
+bool PanoDetector::match(std::vector<HuginBase::UIntSet> &checkedPairs)
 {
     // 3. prepare matches
-    _matchesData.clear();
+    RunnableVector queue;
+    MatchData_t matchesData;
     unsigned int aLen = _filesData.size();
     if (getMatchingStrategy()==LINEAR)
     {
@@ -680,9 +703,9 @@ bool PanoDetector::match(PoolExecutor& aExecutor, std::vector<HuginBase::UIntSet
                 continue;
             };
             // create a new entry in the matches map
-            _matchesData.push_back(MatchData());
+            matchesData.push_back(MatchData());
 
-            MatchData& aM = _matchesData.back();
+            MatchData& aM = matchesData.back();
             aM._i1 = &(_filesData[i1]);
             aM._i2 = &(_filesData[i2]);
 
@@ -692,20 +715,12 @@ bool PanoDetector::match(PoolExecutor& aExecutor, std::vector<HuginBase::UIntSet
     }
     // 4. find matches
     TRACE_INFO(endl<< "--- Find pair-wise matches ---" << endl);
-    try
-    {
-        BOOST_FOREACH(MatchData& aMD, _matchesData)
-        aExecutor.execute(new MatchDataRunnable(aMD, *this));
-        aExecutor.wait();
-    }
-    catch(Synchronization_Exception& e)
-    {
-        TRACE_ERROR(e.what() << endl);
-        return false;
-    }
+    BOOST_FOREACH(MatchData& aMD, matchesData)
+        queue.push_back(new MatchDataRunnable(aMD, *this));
+    RunQueue(queue);
 
     // Add detected matches to _panoramaInfo
-    BOOST_FOREACH(MatchData& aM, _matchesData)
+    BOOST_FOREACH(MatchData& aM, matchesData)
     BOOST_FOREACH(lfeat::PointMatchPtr& aPM, aM._matches)
     _panoramaInfo->addCtrlPoint(ControlPoint(aM._i1->_number, aPM->_img1_x, aPM->_img1_y,
                                 aM._i2->_number, aPM->_img2_x, aPM->_img2_y));
@@ -921,8 +936,10 @@ void PanoDetector::buildMultiRowImageSets()
     };
 };
 
-bool PanoDetector::matchMultiRow(PoolExecutor& aExecutor)
+bool PanoDetector::matchMultiRow()
 {
+    RunnableVector queue;
+    MatchData_t matchesData;
     //step 1
     std::vector<HuginBase::UIntSet> checkedImagePairs(_panoramaInfo->getNrOfImages());
     for (size_t i = 0; i < _image_stacks.size();i++)
@@ -932,8 +949,8 @@ bool PanoDetector::matchMultiRow(PoolExecutor& aExecutor)
         {
             const size_t img1 = _image_stacks[i][j];
             const size_t img2 = _image_stacks[i][j + 1];
-            _matchesData.push_back(MatchData());
-            MatchData& aM=_matchesData.back();
+            matchesData.push_back(MatchData());
+            MatchData& aM=matchesData.back();
             if (img1 < img2)
             {
                 aM._i1 = &(_filesData[img1]);
@@ -959,8 +976,8 @@ bool PanoDetector::matchMultiRow(PoolExecutor& aExecutor)
             if (it2 != _image_layer.end())
             {
                 const size_t img2 = *it2;
-                _matchesData.push_back(MatchData());
-                MatchData& aM = _matchesData.back();
+                matchesData.push_back(MatchData());
+                MatchData& aM = matchesData.back();
                 if (img1 < img2)
                 {
                     aM._i1 = &(_filesData[img1]);
@@ -977,26 +994,19 @@ bool PanoDetector::matchMultiRow(PoolExecutor& aExecutor)
         };
     };
     TRACE_INFO(endl<< "--- Find matches ---" << endl);
-    try
-    {
-        BOOST_FOREACH(MatchData& aMD, _matchesData)
-        aExecutor.execute(new MatchDataRunnable(aMD, *this));
-        aExecutor.wait();
-    }
-    catch(Synchronization_Exception& e)
-    {
-        TRACE_ERROR(e.what() << endl);
-        return false;
-    }
+    BOOST_FOREACH(MatchData& aMD, matchesData)
+        queue.push_back(new MatchDataRunnable(aMD, *this));
+    RunQueue(queue);
 
     // Add detected matches to _panoramaInfo
-    BOOST_FOREACH(MatchData& aM, _matchesData)
+    BOOST_FOREACH(MatchData& aM, matchesData)
     BOOST_FOREACH(lfeat::PointMatchPtr& aPM, aM._matches)
     _panoramaInfo->addCtrlPoint(ControlPoint(aM._i1->_number, aPM->_img1_x, aPM->_img1_y,
                                 aM._i2->_number, aPM->_img2_x, aPM->_img2_y));
 
     // step 2: connect all image groups
-    _matchesData.clear();
+    queue.clear();
+    matchesData.clear();
     Panorama mediumPano=_panoramaInfo->getSubset(_image_layer);
     CPGraph graph;
     createCPGraph(mediumPano, graph);
@@ -1028,8 +1038,8 @@ bool PanoDetector::matchMultiRow(PoolExecutor& aExecutor)
                 {
                     continue;
                 };
-                _matchesData.push_back(MatchData());
-                MatchData& aM = _matchesData.back();
+                matchesData.push_back(MatchData());
+                MatchData& aM = matchesData.back();
                 if (img1 < img2)
                 {
                     aM._i1 = &(_filesData[img1]);
@@ -1045,24 +1055,18 @@ bool PanoDetector::matchMultiRow(PoolExecutor& aExecutor)
             };
         };
         TRACE_INFO(endl<< "--- Find matches in images groups ---" << endl);
-        try
-        {
-            BOOST_FOREACH(MatchData& aMD, _matchesData)
-            aExecutor.execute(new MatchDataRunnable(aMD, *this));
-            aExecutor.wait();
-        }
-        catch(Synchronization_Exception& e)
-        {
-            TRACE_ERROR(e.what() << endl);
-            return false;
-        }
-        BOOST_FOREACH(MatchData& aM, _matchesData)
+        BOOST_FOREACH(MatchData& aMD, matchesData)
+            queue.push_back(new MatchDataRunnable(aMD, *this));
+        RunQueue(queue);
+
+        BOOST_FOREACH(MatchData& aM, matchesData)
         BOOST_FOREACH(lfeat::PointMatchPtr& aPM, aM._matches)
         _panoramaInfo->addCtrlPoint(ControlPoint(aM._i1->_number, aPM->_img1_x, aPM->_img1_y,
                                     aM._i2->_number, aPM->_img2_x, aPM->_img2_y));
     };
     // step 3: now connect all overlapping images
-    _matchesData.clear();
+    queue.clear();
+    matchesData.clear();
     PT::Panorama optPano=_panoramaInfo->getSubset(_image_layer);
     createCPGraph(optPano, graph);
     if(findCPComponents(graph, comps)==1)
@@ -1143,7 +1147,7 @@ bool PanoDetector::matchMultiRow(PoolExecutor& aExecutor)
 
             //now match overlapping images
             std::vector<size_t> imgMap(_image_layer.begin(), _image_layer.end());
-            if(!matchPrealigned(aExecutor, &optPano, checkedImagePairs, imgMap, false))
+            if(!matchPrealigned(&optPano, checkedImagePairs, imgMap, false))
             {
                 return false;
             };
@@ -1151,7 +1155,7 @@ bool PanoDetector::matchMultiRow(PoolExecutor& aExecutor)
     }
     else
     {
-        if(!match(aExecutor, checkedImagePairs))
+        if(!match(checkedImagePairs))
         {
             return false;
         };
@@ -1159,8 +1163,10 @@ bool PanoDetector::matchMultiRow(PoolExecutor& aExecutor)
     return true;
 };
 
-bool PanoDetector::matchPrealigned(PoolExecutor& aExecutor, Panorama* pano, std::vector<HuginBase::UIntSet> &connectedImages, std::vector<size_t> imgMap, bool exactOverlap)
+bool PanoDetector::matchPrealigned(Panorama* pano, std::vector<HuginBase::UIntSet> &connectedImages, std::vector<size_t> imgMap, bool exactOverlap)
 {
+    RunnableVector queue;
+    MatchData_t matchesData;
     Panorama tempPano=pano->duplicate();
     if(!exactOverlap)
     {
@@ -1185,8 +1191,8 @@ bool PanoDetector::matchPrealigned(PoolExecutor& aExecutor, Panorama* pano, std:
             };
             if(overlap.getOverlap(i,j)>0)
             {
-                _matchesData.push_back(MatchData());
-                MatchData& aM = _matchesData.back();
+                matchesData.push_back(MatchData());
+                MatchData& aM = matchesData.back();
                 aM._i1 = &(_filesData[imgMap[i]]);
                 aM._i2 = &(_filesData[imgMap[j]]);
                 connectedImages[imgMap[i]].insert(imgMap[j]);
@@ -1196,20 +1202,12 @@ bool PanoDetector::matchPrealigned(PoolExecutor& aExecutor, Panorama* pano, std:
     };
 
     TRACE_INFO(endl<< "--- Find matches for overlapping images ---" << endl);
-    try
-    {
-        BOOST_FOREACH(MatchData& aMD, _matchesData)
-        aExecutor.execute(new MatchDataRunnable(aMD, *this));
-        aExecutor.wait();
-    }
-    catch(Synchronization_Exception& e)
-    {
-        TRACE_ERROR(e.what() << endl);
-        return false;
-    }
+    BOOST_FOREACH(MatchData& aMD, matchesData)
+        queue.push_back(new MatchDataRunnable(aMD, *this));
+    RunQueue(queue);
 
     // Add detected matches to _panoramaInfo
-    BOOST_FOREACH(MatchData& aM, _matchesData)
+    BOOST_FOREACH(MatchData& aM, matchesData)
     BOOST_FOREACH(lfeat::PointMatchPtr& aPM, aM._matches)
     _panoramaInfo->addCtrlPoint(ControlPoint(imgMap[aM._i1->_number], aPM->_img1_x, aPM->_img1_y,
                                 imgMap[aM._i2->_number], aPM->_img2_x, aPM->_img2_y));

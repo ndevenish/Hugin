@@ -302,8 +302,6 @@ ENDIF (NOT Boost_FOUND)
 INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIRS})
 LINK_DIRECTORIES(${Boost_LIBRARY_DIRS})
 
-FIND_PACKAGE(Threads)
-FIND_PACKAGE(ZThread)
 FIND_PACKAGE(flann)
 
 IF(NOT FLANN_FOUND)
@@ -330,6 +328,8 @@ IF(OPENMP_FOUND)
     SET(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} ${OpenMP_CXX_FLAGS}")
     SET(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} ${OpenMP_CXX_FLAGS}")
   ENDIF()
+ELSE()
+  MESSAGE(WARNING "Compiler does not support OpenMP. OpenMP is required for multi-threaded processes. So only single threaded execution is compiled now.") 
 ENDIF()
 
 IF(WIN32)

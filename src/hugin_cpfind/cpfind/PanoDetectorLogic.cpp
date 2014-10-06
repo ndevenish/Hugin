@@ -60,8 +60,6 @@ using namespace HuginBase::Nona;
 using namespace hugin_utils;
 
 
-static ZThread::FastMutex aPanoToolsMutex;
-
 // define a Keypoint insertor
 class KeyPointVectInsertor : public lfeat::KeyPointInsertor
 {
@@ -242,11 +240,11 @@ bool PanoDetector::AnalyzeImage(ImgData& ioImgInfo, const PanoDetector& iPanoDet
                                    ioImgInfo._projOpts, ioImgInfo._projOpts.getROI());
             if(mask.width()>0)
             {
-                remapped->remapImage(vigra::srcImageRange(RGBimg),vigra::srcImage(mask),vigra_ext::INTERP_CUBIC,*progress);
+                remapped->remapImage(vigra::srcImageRange(RGBimg), vigra::srcImage(mask), vigra_ext::INTERP_CUBIC, *progress, true);
             }
             else
             {
-                remapped->remapImage(vigra::srcImageRange(RGBimg),vigra_ext::INTERP_CUBIC,*progress);
+                remapped->remapImage(vigra::srcImageRange(RGBimg), vigra_ext::INTERP_CUBIC, *progress, true);
             };
             RGBimg.resize(0,0);
             mask.resize(0,0);
@@ -719,9 +717,8 @@ bool PanoDetector::RansacMatchesInPairCam(MatchData& ioMatchData, const PanoDete
     // perform ransac matching.
     // ARGH the panotools optimizer uses global variables is not reentrant
     std::vector<int> inliers;
+#pragma omp critical
     {
-        ZThread::Guard<ZThread::FastMutex> g(aPanoToolsMutex);
-
         PanoramaData* panoSubset = iPanoDetector._panoramaInfo->getNewSubset(imgs);
 
         // create control point vector
@@ -749,15 +746,15 @@ bool PanoDetector::RansacMatchesInPairCam(MatchData& ioMatchData, const PanoDete
         PT_setProgressFcn(NULL);
         PT_setInfoDlgFcn(NULL);
         delete panoSubset;
+    }
 
-        TRACE_PAIR("Removed " << controlPoints.size() - inliers.size() << " matches. " << inliers.size() << " remaining.");
-        if (inliers.size() < 0.5 * controlPoints.size())
-        {
-            // more than 50% of matches were removed, ignore complete pair...
-            TRACE_PAIR("RANSAC found more than 50% outliers, removing all matches");
-            ioMatchData._matches.clear();
-            return true;
-        }
+    TRACE_PAIR("Removed " << ioMatchData._matches.size() - inliers.size() << " matches. " << inliers.size() << " remaining.");
+    if (inliers.size() < 0.5 * ioMatchData._matches.size())
+    {
+        // more than 50% of matches were removed, ignore complete pair...
+        TRACE_PAIR("RANSAC found more than 50% outliers, removing all matches");
+        ioMatchData._matches.clear();
+        return true;
     }
 
 
