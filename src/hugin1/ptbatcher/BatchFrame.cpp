@@ -265,8 +265,7 @@ void* BatchFrame::Entry()
         wxFileName aFile(m_batch->GetLastFile());
         if(!aFile.FileExists())
         {
-            wxCommandEvent evt(wxEVT_COMMAND_MENU_SELECTED, wxEVT_COMMAND_RELOAD_BATCH);
-            wxPostEvent(this,evt);
+            wxQueueEvent(this, new wxCommandEvent(wxEVT_COMMAND_MENU_SELECTED, wxEVT_COMMAND_RELOAD_BATCH));
         }
         else
         {
@@ -274,13 +273,11 @@ void* BatchFrame::Entry()
             aFile.GetTimes(NULL,NULL,&create);
             if(create.IsLaterThan(m_batch->GetLastFileDate()))
             {
-                wxCommandEvent evt(wxEVT_COMMAND_MENU_SELECTED, wxEVT_COMMAND_RELOAD_BATCH);
-                wxPostEvent(this,evt);
+                wxQueueEvent(this, new wxCommandEvent(wxEVT_COMMAND_MENU_SELECTED, wxEVT_COMMAND_RELOAD_BATCH));
             };
         };
         //update project list box
-        wxCommandEvent evt(wxEVT_COMMAND_MENU_SELECTED, wxEVT_COMMAND_UPDATE_LISTBOX);
-        wxPostEvent(this,evt);
+        wxQueueEvent(this, new wxCommandEvent(wxEVT_COMMAND_MENU_SELECTED, wxEVT_COMMAND_UPDATE_LISTBOX));
         GetThread()->Sleep(1000);
     }
     return 0;
@@ -1161,13 +1158,17 @@ void BatchFrame::OnClose(wxCloseEvent& event)
     }
     config->Flush();
     m_closeThread = true;
-    this->GetThread()->Wait();
+    if (this->GetThread() && this->GetThread()->IsRunning())
+    {
+        this->GetThread()->Wait();
+    };
 #ifndef __WXMSW__
     delete m_help;
 #endif
     if(m_tray!=NULL)
     {
         delete m_tray;
+        m_tray = NULL;
     }
     this->Destroy();
 }

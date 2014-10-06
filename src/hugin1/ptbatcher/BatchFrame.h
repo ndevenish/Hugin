@@ -50,7 +50,7 @@ public:
     bool OnDropFiles(wxCoord x, wxCoord y, const wxArrayString& filenames);
 };
 
-class BatchFrame : public wxFrame, wxThreadHelper
+class BatchFrame : public wxFrame, public wxThreadHelper
 {
 public:
     //Main constructor
