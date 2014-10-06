@@ -45,7 +45,6 @@
 #include <lensdb/LensDB.h>
 
 #include <tiffio.h>
-#include <vigra_ext/MultiThreadOperations.h>
 #include <vigra_ext/ImageTransforms.h>
 
 
@@ -110,7 +109,6 @@ static void usage(const char* name)
          << "      --linear           Do vignetting correction in linear color space" << std::endl
          << "      --gamma=value      Gamma of input data. used for gamma correction" << std::endl
          << "                           before and after flatfield correction" << std::endl
-         << "      --threads=n        Number of threads that should be used" << std::endl
          << "      --help             Display help (this text)" << std::endl
          << "      --output=name      Set output filename. If more than one image is given," << std::endl
          << "                            the name will be uses as suffix" << std::endl
@@ -162,7 +160,6 @@ int main(int argc, char* argv[])
     bool doFlatfield = false;
     bool doVigRadial = false;
     bool doCropBorders = true;
-    unsigned nThreads = hugin_utils::getCPUCount();
     unsigned verbose = 0;
 
     std::string batchPostfix("_corr");
@@ -292,7 +289,7 @@ int main(int argc, char* argv[])
                 usage(argv[0]);
                 return 0;
             case 't':
-                nThreads = atoi(optarg);
+                std::cout << "WARNING: Switch --threads is deprecated. Set environment variable OMP_NUM_THREADS instead" << std::endl;
                 break;
             case 'o':
                 outputFile = optarg;
@@ -412,12 +409,6 @@ int main(int argc, char* argv[])
     {
         pdisp = new AppBase::DummyMultiProgressDisplay();
     };
-
-    if (nThreads < 1)
-    {
-        nThreads = 1;
-    }
-    vigra_ext::ThreadManager::get().setNThreads(nThreads);
 
     HuginBase::LensDB::LensDB& lensDB = HuginBase::LensDB::LensDB::GetSingleton();
     try

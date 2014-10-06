@@ -44,7 +44,6 @@
 #include <hugin_basic.h>
 #include <hugin_utils/platform.h>
 #include <algorithms/nona/NonaFileStitcher.h>
-#include <vigra_ext/MultiThreadOperations.h>
 #include <vigra_ext/ImageTransformsGPU.h>
 #include "hugin_utils/stl_utils.h"
 
@@ -77,7 +76,6 @@ static void usage(const char* name)
          << "      -c         create coordinate images (only TIFF_m output)" << std::endl
          << "      -v         quiet, do not output progress indicators" << std::endl
          << "      -d         print detailed output for gpu processing" << std::endl
-         << "      -t num     number of threads to be used (default: nr of available cores)" << std::endl
          << "      -g         perform image remapping on the GPU" << std::endl
          << std::endl
          << "  The following options can be used to override settings in the project file:" << std::endl
@@ -114,11 +112,6 @@ int main(int argc, char* argv[])
 
     opterr = 0;
 
-    int nThread = getCPUCount();
-    if (nThread < 0)
-    {
-        nThread = 1;
-    }
     bool doCoord = false;
     UIntSet outputImages;
     string basename;
@@ -177,7 +170,7 @@ int main(int argc, char* argv[])
                 usage(argv[0]);
                 return 0;
             case 't':
-                nThread = atoi(optarg);
+                std::cout << "WARNING: Switch -t is deprecated. Set environment variable OMP_NUM_THREADS instead" << std::endl;
                 break;
             case 'v':
                 ++verbose;
@@ -204,12 +197,6 @@ int main(int argc, char* argv[])
         return 1;
     }
     unsigned nCmdLineImgs = argc -optind -1;
-
-    if (nThread == 0)
-    {
-        nThread = 1;
-    }
-    vigra_ext::ThreadManager::get().setNThreads(nThread);
 
     const char* scriptFile = argv[optind];
 

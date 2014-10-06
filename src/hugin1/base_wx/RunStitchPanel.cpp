@@ -32,7 +32,6 @@
 #include <fstream>
 #include <sstream>
 #include <vigra/error.hxx>
-#include <vigra_ext/MultiThreadOperations.h>
 #include "PT/Panorama.h"
 #include "PT/utils.h"
 #include "base_wx/huginConfig.h"

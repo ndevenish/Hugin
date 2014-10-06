@@ -149,7 +149,7 @@ class RemappedPanoImage : public vigra_ext::ROIImage<RemapImage, AlphaImage>
         template <class ImgIter, class ImgAccessor>
         void remapImage(vigra::triple<ImgIter, ImgIter, ImgAccessor> srcImg,
                         vigra_ext::Interpolator interpol,
-                        AppBase::MultiProgressDisplay & progress);
+                        AppBase::MultiProgressDisplay & progress, bool singleThreaded=false);
 
 
         /** remap a image, with alpha channel */
@@ -158,7 +158,7 @@ class RemappedPanoImage : public vigra_ext::ROIImage<RemapImage, AlphaImage>
         void remapImage(vigra::triple<ImgIter, ImgIter, ImgAccessor> srcImg,
                         std::pair<AlphaIter, AlphaAccessor> alphaImg,
                         vigra_ext::Interpolator interp,
-                        AppBase::MultiProgressDisplay & progress);
+                        AppBase::MultiProgressDisplay & progress, bool singleThreaded=false);
         
         
     public:
@@ -427,7 +427,7 @@ template<class RemapImage, class AlphaImage>
 template<class ImgIter, class ImgAccessor>
 void RemappedPanoImage<RemapImage,AlphaImage>::remapImage(vigra::triple<ImgIter, ImgIter, ImgAccessor> srcImg,
                                                           vigra_ext::Interpolator interpol,
-                                                          AppBase::MultiProgressDisplay & progress)
+                                                          AppBase::MultiProgressDisplay & progress, bool singleThreaded)
 {
 
     //        std::ostringstream msg;
@@ -552,7 +552,8 @@ void RemappedPanoImage<RemapImage,AlphaImage>::remapImage(vigra::triple<ImgIter,
                                 invResponse,
                                 m_srcImg.horizontalWarpNeeded(),
                                 interpol,
-                                progress);
+                                progress,
+                                singleThreaded);
         }
     } else {
         if (useGPU) {
@@ -595,7 +596,8 @@ void RemappedPanoImage<RemapImage,AlphaImage>::remapImage(vigra::triple<ImgIter,
                            invResponse,
                            m_srcImg.horizontalWarpNeeded(),
                            interpol,
-                           progress);
+                           progress,
+                           singleThreaded);
         }
     }
 }
@@ -609,7 +611,7 @@ template<class ImgIter, class ImgAccessor,
 void RemappedPanoImage<RemapImage,AlphaImage>::remapImage(vigra::triple<ImgIter, ImgIter, ImgAccessor> srcImg,
                                                           std::pair<AlphaIter, AlphaAccessor> alphaImg,
                                                           vigra_ext::Interpolator interp,
-                                                          AppBase::MultiProgressDisplay & progress)
+                                                          AppBase::MultiProgressDisplay & progress, bool singleThreaded)
 {
     const bool useGPU = m_destImg.remapUsingGPU;
 
@@ -717,7 +719,8 @@ void RemappedPanoImage<RemapImage,AlphaImage>::remapImage(vigra::triple<ImgIter,
                                            invResponse,
                                            m_srcImg.horizontalWarpNeeded(),
                                            interp,
-                                           progress);
+                                           progress,
+                                           singleThreaded);
         }
     } else {
         if (useGPU) {
@@ -742,7 +745,8 @@ void RemappedPanoImage<RemapImage,AlphaImage>::remapImage(vigra::triple<ImgIter,
                                            invResponse,
                                            m_srcImg.horizontalWarpNeeded(),
                                            interp,
-                                           progress);
+                                           progress,
+                                           singleThreaded);
         }
     }
 }

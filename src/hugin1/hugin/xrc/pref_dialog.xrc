@@ -40,30 +40,7 @@
                           <border>5</border>
                         </object>
                         <cols>3</cols>
-                        <rows>2</rows>
-                        <object class="sizeritem">
-                          <object class="wxStaticText">
-                            <label>Number of CPUs:</label>
-                          </object>
-                          <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-                          <border>5</border>
-                        </object>
-                        <object class="sizeritem">
-                          <object class="wxSpinCtrl" name="prefs_nona_NumberOfThreads">
-                            <value>1</value>
-                            <min>1</min>
-                            <tooltip>Hugin's preview window can use multiple threads for processing.\nSet this to the number of processors or processor cores available in your system.</tooltip>
-                          </object>
-                          <flag>wxALL|wxALIGN_CENTRE_VERTICAL</flag>
-                          <border>5</border>
-                        </object>
-                        <object class="sizeritem">
-                          <object class="wxStaticText">
-                            <label/>
-                          </object>
-                          <flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTRE_VERTICAL</flag>
-                          <border>5</border>
-                        </object>
+                        <rows>1</rows>
                       </object>
                       <flag>wxEXPAND</flag>
                     </object>

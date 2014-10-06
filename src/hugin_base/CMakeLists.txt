@@ -58,7 +58,6 @@ panotools/PanoToolsOptimizerWrapper.cpp
 panotools/PanoToolsUtils.cpp
 panotools/PanoToolsTransformGPU.cpp
 vigra_ext/emor.cpp
-vigra_ext/MultiThreadOperations.cpp
 vigra_ext/ImageTransformsGPU.cpp
 )
 
@@ -128,7 +127,7 @@ vigra_ext/Correlation.h
 vigra_ext/emor.h
 vigra_ext/FileRAII.h
 vigra_ext/HDRUtils.h
-vigra_ext/MultiThreadOperations.h
+vigra_ext/ImageTransforms.h
 vigra_ext/ImageTransformsGPU.h
 vigra_ext/ReduceOpenEXR.h
 )

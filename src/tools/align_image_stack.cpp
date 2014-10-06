@@ -116,7 +116,6 @@ static void usage(const char* name)
          << "  --distortion Try to load distortion information from lens database" << std::endl
          << "  --use-given-order  Use the image order as given from command line" << std::endl
          << "                     (By default images will be sorted by exposure values.)" << std::endl
-         << "  --threads=NUM  Use NUM threads" << std::endl
          << "  --gpu     Use GPU for remapping" << std::endl
          << "  -h        Display help (this text)" << std::endl
          << std::endl;
@@ -942,11 +941,6 @@ int main(int argc, char* argv[])
         0
     };
     int optionIndex = 0;
-    int nThread = getCPUCount();
-    if (nThread < 0)
-    {
-        nThread = 1;
-    }
     while ((c = getopt_long (argc, argv, optstring, longOptions,&optionIndex)) != -1)
         switch (c)
         {
@@ -1053,7 +1047,7 @@ int main(int argc, char* argv[])
                 };
                 break;
             case THREADS:
-                nThread = atoi(optarg);
+                std::cout << "WARNING: Switch --threads is deprecated. Set environment variable OMP_NUM_THREADS instead" << std::endl;
                 break;
             case GPU:
                 param.gpu = true;
@@ -1098,12 +1092,6 @@ int main(int argc, char* argv[])
     {
         files.push_back(argv[optind+i]);
     }
-
-    if (nThread == 0)
-    {
-        nThread = 1;
-    }
-    vigra_ext::ThreadManager::get().setNThreads(nThread);
 
     std::string pixelType;
 

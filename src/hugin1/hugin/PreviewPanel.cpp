@@ -117,7 +117,6 @@ PreviewPanel::~PreviewPanel()
     if (m_pano2erect) {
         delete m_pano2erect;
     }
-	delete & vigra_ext::ThreadManager::get();
     DEBUG_TRACE("dtor end");
 }
 
@@ -259,11 +258,6 @@ void PreviewPanel::updatePreview()
     DEBUG_DEBUG("m_state_rendering = true");
     m_state_rendering = true;
     m_rerender = false;
-
-    long nthreads = wxConfigBase::Get()->Read(wxT("/Nona/NumberOfThreads"), wxThread::GetCPUCount());
-    if (nthreads < 1) nthreads = 1;
-    vigra_ext::ThreadManager::get().setNThreads(nthreads);
-
 
 	{
 	  // Even though the frame is hidden, the panel is not

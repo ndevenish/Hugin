@@ -528,15 +528,6 @@ void PreferencesDialog::UpdateDisplayData(int panel)
 #endif
         MY_SPIN_VAL("prefs_cache_UpperBound", mem >> 20);
 
-        // number of threads
-        int nThreads = wxThread::GetCPUCount();
-        if (nThreads < 1)
-        {
-            nThreads = 1;
-        }
-        nThreads = cfg->Read(wxT("/Nona/NumberOfThreads"), nThreads);
-        MY_SPIN_VAL("prefs_nona_NumberOfThreads", nThreads);
-
         // language
         // check if current language is in list and activate it then.
         wxChoice* lang_choice = XRCCTRL(*this, "prefs_gui_language", wxChoice);
@@ -703,9 +694,6 @@ void PreferencesDialog::UpdateDisplayData(int panel)
         wxCommandEvent dummy;
         OnExifTool(dummy);
 
-        int nThreads = cfg->Read(wxT("/output/NumberOfThreads"), 0l);
-        MY_SPIN_VAL("prefs_output_NumberOfThreads", nThreads);
-
     }
 
     if (panel==0 || panel == 8)
@@ -784,13 +772,6 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent& e)
             #endif
             */
             cfg->Write(wxT("/ImageCache/UpperBound"), HUGIN_IMGCACHE_UPPERBOUND);
-            // number of threads
-            int cpucount = wxThread::GetCPUCount();
-            if (cpucount < 1)
-            {
-                cpucount = 1;
-            }
-            cfg->Write(wxT("/Nona/NumberOfThreads"), cpucount);
             // locale
             cfg->Write(wxT("language"), int(HUGIN_LANGUAGE));
             // smart undo
@@ -861,8 +842,6 @@ void PreferencesDialog::OnRestoreDefaults(wxCommandEvent& e)
             cfg->Write(wxT("/output/CopyArgfile"), wxT(""));
             cfg->Write(wxT("/output/FinalArgfile"), wxT(""));
             cfg->Write(wxT("/output/writeGPano"), HUGIN_EXIFTOOL_CREATE_GPANO);
-            cfg->Write(wxT("/output/NumberOfThreads"), 0l);
-
         }
         if (noteb->GetSelection() == 7)
         {
@@ -940,9 +919,6 @@ void PreferencesDialog::UpdateConfigData()
     cfg->Write(wxT("/ImageCache/UpperBoundHigh"), (long) MY_G_SPIN_VAL("prefs_cache_UpperBound") >> 12);
 #endif
     cfg->Write(wxT("/ImageCache/UpperBound"), (long) MY_G_SPIN_VAL("prefs_cache_UpperBound") << 20);
-    // number of threads
-    cfg->Write(wxT("/Nona/NumberOfThreads"), MY_G_SPIN_VAL("prefs_nona_NumberOfThreads"));
-
     // locale
     // language
     wxChoice* lang = XRCCTRL(*this, "prefs_gui_language", wxChoice);
@@ -997,7 +973,6 @@ void PreferencesDialog::UpdateConfigData()
     cfg->Write(wxT("/output/CopyArgfile"), MY_G_STR_VAL("pref_exiftool_argfile"));
     cfg->Write(wxT("/output/FinalArgfile"), MY_G_STR_VAL("pref_exiftool_argfile2"));
     cfg->Write(wxT("/output/writeGPano"), MY_G_BOOL_VAL("pref_exiftool_gpano"));
-    cfg->Write(wxT("/output/NumberOfThreads"), MY_G_SPIN_VAL("prefs_output_NumberOfThreads"));
     /////
     /// STITCHING
     cfg->Write(wxT("/Nona/Interpolator"), MY_G_CHOICE_VAL("prefs_nona_interpolator"));

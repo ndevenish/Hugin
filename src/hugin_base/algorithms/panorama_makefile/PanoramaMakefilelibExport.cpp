@@ -191,10 +191,6 @@ bool PanoramaMakefilelibExport::createItems()
         {
             valuestream << "-g ";
         };
-        if(nrThreads>0)
-        {
-            valuestream << "-t " << nrThreads;
-        };
         vnonaopts = mgr.own(new mf::Variable("NONA_OPTS",valuestream.str(), Makefile::NONE));
         vnonaopts->getDef().add();
     }

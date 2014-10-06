@@ -44,10 +44,6 @@
 #include <hugin_utils/utils.h>
 #include <appbase/ProgressDisplayOld.h>
 
-#include "MultiThreadOperations.h"
-#include <boost/thread/thread.hpp>
-#include <boost/bind.hpp>
-
 using vigra::NumericTraits;
 
 namespace vigra_ext
