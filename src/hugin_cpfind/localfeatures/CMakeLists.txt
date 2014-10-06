@@ -22,22 +22,3 @@ ELSE (${HUGIN_SHARED_LIBS})
     add_library(localfeatures STATIC ${LF_SRC} ${LF_HEADER})
 ENDIF (${HUGIN_SHARED_LIBS})
 
-OPTION (BUILD_KEYPOINTS "Build keypoints program" OFF)
-
-IF(BUILD_KEYPOINTS)
-FIND_PACKAGE(Tclap)
-IF(NOT TCLAP_FOUND)
-  MESSAGE(FATAL_ERROR "Tclap library not found")
-ENDIF(NOT TCLAP_FOUND)
-INCLUDE_DIRECTORIES(${TCLAP_INCLUDEDIR})
-
-add_executable(keypoints keypoints.cpp)
-
-IF(WIN32)
-	target_link_libraries(keypoints localfeatures ${ZTHREAD_LIBRARIES} ${image_libs} ${common_libs})
-ELSE(WIN32)
-	target_link_libraries(keypoints localfeatures ${ZTHREAD_LIBRARIES} pthread ${image_libs} ${common_libs})
-ENDIF(WIN32)
-
-install(TARGETS keypoints DESTINATION ${BINDIR})
-ENDIF()
